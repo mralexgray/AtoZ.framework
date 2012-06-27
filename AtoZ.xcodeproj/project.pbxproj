@@ -15,6 +15,10 @@
 		7B31196F159B6D9E002134C4 /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B311951159B6D9E002134C4 /* AtoZ.framework */; };
 		7B311975159B6D9E002134C4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7B311973159B6D9E002134C4 /* InfoPlist.strings */; };
 		7B311978159B6D9E002134C4 /* AtoZTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B311977159B6D9E002134C4 /* AtoZTests.m */; };
+		7B311999159B8024002134C4 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B311957159B6D9E002134C4 /* AppKit.framework */; };
+		7B31199A159B8024002134C4 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B311995159B7FD0002134C4 /* QuartzCore.framework */; };
+		7B31199B159B8027002134C4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B311959159B6D9E002134C4 /* Foundation.framework */; };
+		7B58302C159B82B70039CEED /* AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B311961159B6D9E002134C4 /* AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,19 +35,20 @@
 		7B311951159B6D9E002134C4 /* AtoZ.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AtoZ.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B311954159B6D9E002134C4 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		7B311957159B6D9E002134C4 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
-		7B311958159B6D9E002134C4 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		7B311959159B6D9E002134C4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		7B31195C159B6D9E002134C4 /* AtoZ-Info.plist */ = {isa = PBXFileReference; path = "AtoZ-Info.plist"; sourceTree = "<group>"; };
+		7B31195C159B6D9E002134C4 /* AtoZ-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AtoZ-Info.plist"; sourceTree = "<group>"; };
 		7B31195E159B6D9E002134C4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		7B311960159B6D9E002134C4 /* AtoZ-Prefix.pch */ = {isa = PBXFileReference; path = "AtoZ-Prefix.pch"; sourceTree = "<group>"; };
-		7B311961159B6D9E002134C4 /* AtoZ.h */ = {isa = PBXFileReference; path = AtoZ.h; sourceTree = "<group>"; };
+		7B311960159B6D9E002134C4 /* AtoZ-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AtoZ-Prefix.pch"; sourceTree = "<group>"; };
+		7B311961159B6D9E002134C4 /* AtoZ.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AtoZ.h; sourceTree = "<group>"; };
 		7B311962159B6D9E002134C4 /* AtoZ.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AtoZ.m; sourceTree = "<group>"; };
 		7B311969159B6D9E002134C4 /* AtoZTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AtoZTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B31196A159B6D9E002134C4 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		7B311972159B6D9E002134C4 /* AtoZTests-Info.plist */ = {isa = PBXFileReference; path = "AtoZTests-Info.plist"; sourceTree = "<group>"; };
+		7B311972159B6D9E002134C4 /* AtoZTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AtoZTests-Info.plist"; sourceTree = "<group>"; };
 		7B311974159B6D9E002134C4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		7B311976159B6D9E002134C4 /* AtoZTests.h */ = {isa = PBXFileReference; path = AtoZTests.h; sourceTree = "<group>"; };
+		7B311976159B6D9E002134C4 /* AtoZTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AtoZTests.h; sourceTree = "<group>"; };
 		7B311977159B6D9E002134C4 /* AtoZTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AtoZTests.m; sourceTree = "<group>"; };
+		7B311995159B7FD0002134C4 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		7B583058159BB90D0039CEED /* git */ = {isa = PBXFileReference; lastKnownFileType = folder; path = git; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +57,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				7B311955159B6D9E002134C4 /* Cocoa.framework in Frameworks */,
+				7B31199B159B8027002134C4 /* Foundation.framework in Frameworks */,
+				7B311999159B8024002134C4 /* AppKit.framework in Frameworks */,
+				7B31199A159B8024002134C4 /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,6 +79,7 @@
 		7B311945159B6D9E002134C4 = {
 			isa = PBXGroup;
 			children = (
+				7B583058159BB90D0039CEED /* git */,
 				7B31195A159B6D9E002134C4 /* AtoZ */,
 				7B311970159B6D9E002134C4 /* AtoZTests */,
 				7B311953159B6D9E002134C4 /* Frameworks */,
@@ -90,21 +99,13 @@
 		7B311953159B6D9E002134C4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7B311957159B6D9E002134C4 /* AppKit.framework */,
+				7B311959159B6D9E002134C4 /* Foundation.framework */,
+				7B311995159B7FD0002134C4 /* QuartzCore.framework */,
 				7B311954159B6D9E002134C4 /* Cocoa.framework */,
 				7B31196A159B6D9E002134C4 /* SenTestingKit.framework */,
-				7B311956159B6D9E002134C4 /* Other Frameworks */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		7B311956159B6D9E002134C4 /* Other Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				7B311957159B6D9E002134C4 /* AppKit.framework */,
-				7B311958159B6D9E002134C4 /* CoreData.framework */,
-				7B311959159B6D9E002134C4 /* Foundation.framework */,
-			);
-			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
 		7B31195A159B6D9E002134C4 /* AtoZ */ = {
@@ -112,19 +113,19 @@
 			children = (
 				7B311961159B6D9E002134C4 /* AtoZ.h */,
 				7B311962159B6D9E002134C4 /* AtoZ.m */,
-				7B31195B159B6D9E002134C4 /* Supporting Files */,
+				7B31195B159B6D9E002134C4 /* Resources */,
 			);
 			path = AtoZ;
-			sourceTree = "<group>";
+			sourceTree = SOURCE_ROOT;
 		};
-		7B31195B159B6D9E002134C4 /* Supporting Files */ = {
+		7B31195B159B6D9E002134C4 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
 				7B31195C159B6D9E002134C4 /* AtoZ-Info.plist */,
 				7B31195D159B6D9E002134C4 /* InfoPlist.strings */,
 				7B311960159B6D9E002134C4 /* AtoZ-Prefix.pch */,
 			);
-			name = "Supporting Files";
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		7B311970159B6D9E002134C4 /* AtoZTests */ = {
@@ -153,6 +154,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B58302C159B82B70039CEED /* AtoZ.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -167,6 +169,7 @@
 				7B31194D159B6D9E002134C4 /* Frameworks */,
 				7B31194E159B6D9E002134C4 /* Headers */,
 				7B31194F159B6D9E002134C4 /* Resources */,
+				7B311982159B7CC5002134C4 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -256,6 +259,19 @@
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
 		};
+		7B311982159B7CC5002134C4 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "PRODUCT=\"AtoZ.framework\"\nPRODUCT_PATH=\"$BUILT_PRODUCTS_DIR/$PRODUCT\"\nMAC_INSTALL_TARGET=\"/Library/Frameworks/$PRODUCT\"\nSDK_INSTALL_TARGET=\"/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk/System/Library/Frameworks/$PRODUCT\"\n\nsudo ln -sF $PRODUCT_PATH $SDK_INSTALL_TARGET\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -312,7 +328,7 @@
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -340,7 +356,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -359,8 +375,8 @@
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "AtoZ/AtoZ-Prefix.pch";
-				INFOPLIST_FILE = "AtoZ/AtoZ-Info.plist";
+				GCC_PREFIX_HEADER = "AtoZ/Resources/AtoZ-Prefix.pch";
+				INFOPLIST_FILE = "AtoZ/Resources/AtoZ-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = framework;
 			};
@@ -373,8 +389,8 @@
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "AtoZ/AtoZ-Prefix.pch";
-				INFOPLIST_FILE = "AtoZ/AtoZ-Info.plist";
+				GCC_PREFIX_HEADER = "AtoZ/Resources/AtoZ-Prefix.pch";
+				INFOPLIST_FILE = "AtoZ/Resources/AtoZ-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = framework;
 			};
@@ -423,6 +439,7 @@
 				7B31197D159B6D9E002134C4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7B31197E159B6D9E002134C4 /* Build configuration list for PBXNativeTarget "AtoZTests" */ = {
 			isa = XCConfigurationList;
@@ -431,6 +448,7 @@
 				7B311980159B6D9E002134C4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
