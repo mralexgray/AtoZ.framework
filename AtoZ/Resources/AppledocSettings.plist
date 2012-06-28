@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>--ignore</key>
+	<array>
+		<string>ThirdParty</string>
+		<string>Libraries</string>
+		<string>Frameworks</string>
+		<string>Testing</string>
+		<string>Resources</string>
+	</array>
+	<key>--project-company</key>
+	<string>mrgray.com</string>
+	<key>--company-id</key>
+	<string>com.github.mralexgray</string>
+	<key>--create-docset</key>
+	<true/>
+	<key>--install-docset</key>
+	<true/>
+	<key>--create-html</key>
+	<true/>
+	<key>--output</key>
+	<string>Documentation</string>
+	<key>--verbose</key>
+	<integer>4</integer>
+	<key>--logformat</key>
+	<integer>1</integer>
+	<key>--project-name</key>
+	<string>${EXECUTABLE_NAME}</string>
+	<key>--input</key>
+	<array>
+		<string>../</string>
+	</array>
+</dict>
+</plist>
