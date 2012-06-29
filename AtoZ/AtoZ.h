@@ -42,14 +42,20 @@
 
 //  ARC Helper ends
 
+#import "AZSugar.h"
 
-#import <Foundation/Foundation.h>
 //Classes
 
 #import "AZQueue.h"
+#import "FSItem.h"
+#import "AZAXAuthorization.h"
+
+// Controllers
+#import "AZMenuBarAppController.h"
 
 // Views
 #import "AZBlockView.h"
+#import "AZProgressIndicator.h"
 
 // Categories
 #import "NSApplication+AtoZ.h"

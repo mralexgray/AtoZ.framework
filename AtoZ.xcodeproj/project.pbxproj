@@ -23,11 +23,21 @@
 		7B31199B159B8027002134C4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B311959159B6D9E002134C4 /* Foundation.framework */; };
 		7B58302C159B82B70039CEED /* AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B311961159B6D9E002134C4 /* AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B583069159BDAF40039CEED /* atoz.icns in Resources */ = {isa = PBXBuildFile; fileRef = 7B583065159BDAF40039CEED /* atoz.icns */; };
-		7B58306A159BDAF40039CEED /* AtoZ-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 7B583066159BDAF40039CEED /* AtoZ-Prefix.pch */; };
 		7B58306C159BDAF40039CEED /* AppledocSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7B583068159BDAF40039CEED /* AppledocSettings.plist */; };
 		7B6901B8159E09D800D0DA47 /* NSApplication+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B6901B6159E09D800D0DA47 /* NSApplication+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B6901B9159E09D800D0DA47 /* NSApplication+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B6901B7159E09D800D0DA47 /* NSApplication+AtoZ.m */; };
 		7B6901BD159E0BF700D0DA47 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B6901BC159E0BF700D0DA47 /* Carbon.framework */; };
+		7B6901C9159E322300D0DA47 /* AZAXAuthorization.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B6901C7159E322300D0DA47 /* AZAXAuthorization.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B6901CA159E322300D0DA47 /* AZAXAuthorization.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B6901C8159E322300D0DA47 /* AZAXAuthorization.m */; };
+		7B6901CD159E329B00D0DA47 /* AZMenuBarAppController.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B6901CB159E329B00D0DA47 /* AZMenuBarAppController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B6901CE159E329B00D0DA47 /* AZMenuBarAppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B6901CC159E329B00D0DA47 /* AZMenuBarAppController.m */; };
+		7B6901D1159E388400D0DA47 /* AZProgressIndicator.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B6901CF159E388400D0DA47 /* AZProgressIndicator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B6901D2159E388400D0DA47 /* AZProgressIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B6901D0159E388400D0DA47 /* AZProgressIndicator.m */; };
+		7B6901D5159E39A400D0DA47 /* NSColor+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B6901D3159E39A400D0DA47 /* NSColor+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B6901D6159E39A400D0DA47 /* NSColor+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B6901D4159E39A400D0DA47 /* NSColor+AtoZ.m */; };
+		7B6901D8159E3AC700D0DA47 /* AZSugar.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B6901D7159E3AC600D0DA47 /* AZSugar.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B6901DA159E3F1800D0DA47 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B6901D9159E3F1800D0DA47 /* ApplicationServices.framework */; };
+		7B6901DC159E3F2700D0DA47 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B6901DB159E3F2700D0DA47 /* Security.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +77,17 @@
 		7B6901B6159E09D800D0DA47 /* NSApplication+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSApplication+AtoZ.h"; sourceTree = "<group>"; };
 		7B6901B7159E09D800D0DA47 /* NSApplication+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSApplication+AtoZ.m"; sourceTree = "<group>"; };
 		7B6901BC159E0BF700D0DA47 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
+		7B6901C7159E322300D0DA47 /* AZAXAuthorization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZAXAuthorization.h; sourceTree = "<group>"; };
+		7B6901C8159E322300D0DA47 /* AZAXAuthorization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZAXAuthorization.m; sourceTree = "<group>"; };
+		7B6901CB159E329B00D0DA47 /* AZMenuBarAppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZMenuBarAppController.h; sourceTree = "<group>"; };
+		7B6901CC159E329B00D0DA47 /* AZMenuBarAppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZMenuBarAppController.m; sourceTree = "<group>"; };
+		7B6901CF159E388400D0DA47 /* AZProgressIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZProgressIndicator.h; sourceTree = "<group>"; };
+		7B6901D0159E388400D0DA47 /* AZProgressIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZProgressIndicator.m; sourceTree = "<group>"; };
+		7B6901D3159E39A400D0DA47 /* NSColor+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSColor+AtoZ.h"; sourceTree = "<group>"; };
+		7B6901D4159E39A400D0DA47 /* NSColor+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSColor+AtoZ.m"; sourceTree = "<group>"; };
+		7B6901D7159E3AC600D0DA47 /* AZSugar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZSugar.h; sourceTree = "<group>"; };
+		7B6901D9159E3F1800D0DA47 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
+		7B6901DB159E3F2700D0DA47 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +95,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B6901DC159E3F2700D0DA47 /* Security.framework in Frameworks */,
+				7B6901DA159E3F1800D0DA47 /* ApplicationServices.framework in Frameworks */,
 				7B311955159B6D9E002134C4 /* Cocoa.framework in Frameworks */,
 				7B31199B159B8027002134C4 /* Foundation.framework in Frameworks */,
 				7B6901BD159E0BF700D0DA47 /* Carbon.framework in Frameworks */,
@@ -100,6 +123,10 @@
 			children = (
 				7B05BB0A159C40A600409B83 /* AZQueue.h */,
 				7B05BB0B159C40A600409B83 /* AZQueue.m */,
+				7B6901C7159E322300D0DA47 /* AZAXAuthorization.h */,
+				7B6901C8159E322300D0DA47 /* AZAXAuthorization.m */,
+				7B6901CB159E329B00D0DA47 /* AZMenuBarAppController.h */,
+				7B6901CC159E329B00D0DA47 /* AZMenuBarAppController.m */,
 			);
 			name = Classes;
 			path = AtoZ/Classes;
@@ -128,6 +155,8 @@
 		7B311953159B6D9E002134C4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7B6901DB159E3F2700D0DA47 /* Security.framework */,
+				7B6901D9159E3F1800D0DA47 /* ApplicationServices.framework */,
 				7B6901BC159E0BF700D0DA47 /* Carbon.framework */,
 				7B05BB10159C528300409B83 /* AtoZ.framework */,
 				7B311957159B6D9E002134C4 /* AppKit.framework */,
@@ -142,6 +171,7 @@
 		7B31195A159B6D9E002134C4 /* AtoZ */ = {
 			isa = PBXGroup;
 			children = (
+				7B6901D7159E3AC600D0DA47 /* AZSugar.h */,
 				7B311961159B6D9E002134C4 /* AtoZ.h */,
 				7B311962159B6D9E002134C4 /* AtoZ.m */,
 				7B583063159BDA900039CEED /* Categories */,
@@ -176,6 +206,8 @@
 			children = (
 				7B6901B6159E09D800D0DA47 /* NSApplication+AtoZ.h */,
 				7B6901B7159E09D800D0DA47 /* NSApplication+AtoZ.m */,
+				7B6901D3159E39A400D0DA47 /* NSColor+AtoZ.h */,
+				7B6901D4159E39A400D0DA47 /* NSColor+AtoZ.m */,
 			);
 			name = Categories;
 			path = AtoZ/Categories;
@@ -198,6 +230,8 @@
 			children = (
 				7B05BB12159C5C6100409B83 /* AZBlockView.h */,
 				7B05BB13159C5C6100409B83 /* AZBlockView.m */,
+				7B6901CF159E388400D0DA47 /* AZProgressIndicator.h */,
+				7B6901D0159E388400D0DA47 /* AZProgressIndicator.m */,
 			);
 			name = Views;
 			path = AtoZ/Views;
@@ -210,11 +244,15 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B6901C9159E322300D0DA47 /* AZAXAuthorization.h in Headers */,
+				7B6901CD159E329B00D0DA47 /* AZMenuBarAppController.h in Headers */,
+				7B6901D1159E388400D0DA47 /* AZProgressIndicator.h in Headers */,
 				7B58302C159B82B70039CEED /* AtoZ.h in Headers */,
 				7B05BB14159C5C6100409B83 /* AZBlockView.h in Headers */,
+				7B6901D5159E39A400D0DA47 /* NSColor+AtoZ.h in Headers */,
 				7B05BB0C159C40A600409B83 /* AZQueue.h in Headers */,
-				7B58306A159BDAF40039CEED /* AtoZ-Prefix.pch in Headers */,
 				7B6901B8159E09D800D0DA47 /* NSApplication+AtoZ.h in Headers */,
+				7B6901D8159E3AC700D0DA47 /* AZSugar.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -344,6 +382,10 @@
 				7B05BB0F159C4C7400409B83 /* AZQueue.m in Sources */,
 				7B05BB15159C5C6100409B83 /* AZBlockView.m in Sources */,
 				7B6901B9159E09D800D0DA47 /* NSApplication+AtoZ.m in Sources */,
+				7B6901CA159E322300D0DA47 /* AZAXAuthorization.m in Sources */,
+				7B6901CE159E329B00D0DA47 /* AZMenuBarAppController.m in Sources */,
+				7B6901D2159E388400D0DA47 /* AZProgressIndicator.m in Sources */,
+				7B6901D6159E39A400D0DA47 /* NSColor+AtoZ.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
