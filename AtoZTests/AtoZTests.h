@@ -7,7 +7,17 @@
 //
 
 #import <SenTestingKit/SenTestingKit.h>
+#import <Cocoa/Cocoa.h>
+#import <AtoZ/AtoZ.h>
+
+
+@interface NSAlpha : AtoZ
+@end
+@interface NSBravo : AtoZ
+@end
+@interface NSCharlie : NSBravo
+@end
 
 @interface AtoZTests : SenTestCase
-
 @end
+
