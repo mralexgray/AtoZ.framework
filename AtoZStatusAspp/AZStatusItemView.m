@@ -26,10 +26,20 @@
 
 - (void) toggleSpin {
 
-	if (indicator == nil) {gi:self];
-	} else {
-		[(NSView*)indicator fadeOut];
+	if (indicator == nil) {
+		indicator = [[NSProgressIndicator alloc]initWithFrame:NSInsetRect([self frame], 3, 3)];
+		[indicator setStyle:NSProgressIndicatorSpinningStyle];
+//		[indicator setHidden:YES];
+		[self addSubview:indicator];
 	}
+	///if (indicator.isHidden) {
+	//	[indicator setHidden:NO];
+//	}///
+//		/[indicator animator] setAlphaValue:1];
+		[indicator startAnimation:self];
+//	} el/se {
+//		[(NSView*)indicator fadeOut];
+//	}
 }
 
 
@@ -43,8 +53,13 @@
 - (void)drawRect:(NSRect)rect {
     // Draw background if appropriate.
     if (_clicked) {
-        [[NSColor selectedMenuItemColor] set];
-        NSRectFill(rect);
+		NSColor *rando = RANDOMCOLOR;
+		NSBezierPath *frame = [NSBezierPath bezierPathWithRect:[self frame]];
+		[frame fillGradientFrom:rando.brighter to:rando.darker angle:270];
+
+
+//        [[NSColor selectedMenuItemColor] set];
+//        NSRectFill(rect);
     }
 
 	if (NO) {

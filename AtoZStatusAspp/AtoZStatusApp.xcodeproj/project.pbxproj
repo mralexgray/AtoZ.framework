@@ -9,7 +9,8 @@
 /* Begin PBXBuildFile section */
 		7B24E96D15A11C6200A9D87A /* AZStatusAppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B24E96C15A11C6200A9D87A /* AZStatusAppController.m */; };
 		7B24E97215A11F4600A9D87A /* AZStatusItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B24E97115A11F4600A9D87A /* AZStatusItemView.m */; };
-		7B24E9B415A1486D00A9D87A /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B24E9B315A1486D00A9D87A /* AtoZ.framework */; };
+		7B24E9F115A1784400A9D87A /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B24E9AD15A1483000A9D87A /* AtoZ.framework */; };
+		7B24E9F315A1785A00A9D87A /* AtoZ.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7B24E9AD15A1483000A9D87A /* AtoZ.framework */; };
 		7BE606CE15A117D100355236 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BE606CD15A117D100355236 /* Cocoa.framework */; };
 		7BE606D815A117D200355236 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7BE606D615A117D200355236 /* InfoPlist.strings */; };
 		7BE606DA15A117D200355236 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BE606D915A117D200355236 /* main.m */; };
@@ -32,7 +33,7 @@
 			remoteGlobalIDString = 7B311969159B6D9E002134C4;
 			remoteInfo = AtoZTests;
 		};
-		7B24E9B015A1483D00A9D87A /* PBXContainerItemProxy */ = {
+		7B24E9EF15A1783A00A9D87A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7B24E9A715A1483000A9D87A /* AtoZ.xcodeproj */;
 			proxyType = 1;
@@ -40,6 +41,19 @@
 			remoteInfo = AtoZ;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		7B24E9F215A1784D00A9D87A /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				7B24E9F315A1785A00A9D87A /* AtoZ.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		7B24E96B15A11C6200A9D87A /* AZStatusAppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZStatusAppController.h; sourceTree = "<group>"; };
@@ -66,8 +80,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B24E9F115A1784400A9D87A /* AtoZ.framework in Frameworks */,
 				7BE606CE15A117D100355236 /* Cocoa.framework in Frameworks */,
-				7B24E9B415A1486D00A9D87A /* AtoZ.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,6 +104,8 @@
 				7B24E97115A11F4600A9D87A /* AZStatusItemView.m */,
 				7B24E96B15A11C6200A9D87A /* AZStatusAppController.h */,
 				7B24E96C15A11C6200A9D87A /* AZStatusAppController.m */,
+				7BE606E215A117D200355236 /* MainMenu.xib */,
+				7B24E9A715A1483000A9D87A /* AtoZ.xcodeproj */,
 				7BE606D415A117D200355236 /* Supporting Files */,
 				7BE606CC15A117D100355236 /* Frameworks */,
 				7BE606CA15A117D100355236 /* Products */,
@@ -107,7 +123,6 @@
 		7BE606CC15A117D100355236 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				7B24E9A715A1483000A9D87A /* AtoZ.xcodeproj */,
 				7B24E9B315A1486D00A9D87A /* AtoZ.framework */,
 				7BE606CD15A117D100355236 /* Cocoa.framework */,
 				7BE606CF15A117D100355236 /* Other Frameworks */,
@@ -128,7 +143,6 @@
 		7BE606D415A117D200355236 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				7BE606E215A117D200355236 /* MainMenu.xib */,
 				7BE606D515A117D200355236 /* AtoZStatusApp-Info.plist */,
 				7BE606D615A117D200355236 /* InfoPlist.strings */,
 				7BE606D915A117D200355236 /* main.m */,
@@ -149,11 +163,12 @@
 				7BE606C515A117D100355236 /* Sources */,
 				7BE606C615A117D100355236 /* Frameworks */,
 				7BE606C715A117D100355236 /* Resources */,
+				7B24E9F215A1784D00A9D87A /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				7B24E9B115A1483D00A9D87A /* PBXTargetDependency */,
+				7B24E9F015A1783A00A9D87A /* PBXTargetDependency */,
 			);
 			name = AtoZStatusApp;
 			productName = AtoZStatusAspp;
@@ -237,10 +252,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		7B24E9B115A1483D00A9D87A /* PBXTargetDependency */ = {
+		7B24E9F015A1783A00A9D87A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = AtoZ;
-			targetProxy = 7B24E9B015A1483D00A9D87A /* PBXContainerItemProxy */;
+			targetProxy = 7B24E9EF15A1783A00A9D87A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -267,6 +282,7 @@
 				7BE606E315A117D200355236 /* en */,
 			);
 			name = MainMenu.xib;
+			path = AtoZStatusApp;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

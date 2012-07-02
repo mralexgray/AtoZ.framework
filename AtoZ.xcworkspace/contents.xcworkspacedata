@@ -4,7 +4,4 @@
    <FileRef
       location = "container:AtoZStatusAspp/AtoZStatusApp.xcodeproj">
    </FileRef>
-   <FileRef
-      location = "container:AtoZ/AtoZ.xcodeproj">
-   </FileRef>
 </Workspace>

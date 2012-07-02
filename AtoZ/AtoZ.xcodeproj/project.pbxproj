@@ -34,6 +34,8 @@
 		7B24E9A215A139A400A9D87A /* AZProgressIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B6901D0159E388400D0DA47 /* AZProgressIndicator.m */; };
 		7B24E9A515A13A4100A9D87A /* NSBezierPath+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B24E9A315A13A4000A9D87A /* NSBezierPath+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B24E9A615A13A4100A9D87A /* NSBezierPath+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B24E9A415A13A4000A9D87A /* NSBezierPath+AtoZ.m */; };
+		7B24E9ED15A176AC00A9D87A /* NSWindow+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B24E9EB15A176AB00A9D87A /* NSWindow+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B24E9EE15A176AC00A9D87A /* NSWindow+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B24E9EC15A176AB00A9D87A /* NSWindow+AtoZ.m */; };
 		7B311955159B6D9E002134C4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B311954159B6D9E002134C4 /* Cocoa.framework */; };
 		7B311963159B6D9E002134C4 /* AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B311962159B6D9E002134C4 /* AtoZ.m */; };
 		7B31196B159B6D9E002134C4 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B31196A159B6D9E002134C4 /* SenTestingKit.framework */; };
@@ -106,6 +108,8 @@
 		7B24E99F15A1309300A9D87A /* NSObject+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+AtoZ.m"; sourceTree = "<group>"; };
 		7B24E9A315A13A4000A9D87A /* NSBezierPath+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBezierPath+AtoZ.h"; sourceTree = "<group>"; };
 		7B24E9A415A13A4000A9D87A /* NSBezierPath+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBezierPath+AtoZ.m"; sourceTree = "<group>"; };
+		7B24E9EB15A176AB00A9D87A /* NSWindow+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSWindow+AtoZ.h"; sourceTree = "<group>"; };
+		7B24E9EC15A176AB00A9D87A /* NSWindow+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSWindow+AtoZ.m"; sourceTree = "<group>"; };
 		7B311951159B6D9E002134C4 /* AtoZ.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AtoZ.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B311954159B6D9E002134C4 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		7B311957159B6D9E002134C4 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -213,8 +217,8 @@
 		7B311945159B6D9E002134C4 = {
 			isa = PBXGroup;
 			children = (
-				7B583058159BB90D0039CEED /* .git */,
 				7B31195A159B6D9E002134C4 /* AtoZ */,
+				7B583058159BB90D0039CEED /* .git */,
 				7B311970159B6D9E002134C4 /* AtoZTests */,
 				7B311953159B6D9E002134C4 /* Frameworks */,
 				7B311952159B6D9E002134C4 /* Products */,
@@ -300,6 +304,8 @@
 				7B24E99F15A1309300A9D87A /* NSObject+AtoZ.m */,
 				7B24E9A315A13A4000A9D87A /* NSBezierPath+AtoZ.h */,
 				7B24E9A415A13A4000A9D87A /* NSBezierPath+AtoZ.m */,
+				7B24E9EB15A176AB00A9D87A /* NSWindow+AtoZ.h */,
+				7B24E9EC15A176AB00A9D87A /* NSWindow+AtoZ.m */,
 			);
 			path = Categories;
 			sourceTree = SOURCE_ROOT;
@@ -348,6 +354,7 @@
 			files = (
 				7BE6069515A0E2DD00355236 /* NSString+AtoZ.h in Headers */,
 				7BE606F115A118B400355236 /* AZAttachedWindow.h in Headers */,
+				7B24E9ED15A176AC00A9D87A /* NSWindow+AtoZ.h in Headers */,
 				7B6901C9159E322300D0DA47 /* AZAXAuthorization.h in Headers */,
 				7B6901D1159E388400D0DA47 /* AZProgressIndicator.h in Headers */,
 				7B58302C159B82B70039CEED /* AtoZ.h in Headers */,
@@ -487,7 +494,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "PRODUCT=${WRAPPER_NAME}\nPRODUCT_PATH=\"$BUILT_PRODUCTS_DIR/$PRODUCT\"\nMAC_INSTALL_TARGET=\"/Library/Frameworks/$PRODUCT\"\nSDK_INSTALL_TARGET=\"/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk/System/Library/Frameworks/$PRODUCT\"\n\nsudo ln -sF $PRODUCT_PATH $MAC_INSTALL_TARGET\nsudo ln -sF $MAC_INSTALL_TARGET $SDK_INSTALL_TARGET\n\n#/usr/local/bin/appledoc \"${SRCROOT}/AtoZ/Resources\"";
+			shellScript = "PRODUCT=${WRAPPER_NAME}\nPRODUCT_PATH=\"$BUILT_PRODUCTS_DIR/$PRODUCT\"\nMAC_INSTALL_TARGET=\"/Library/Frameworks/$PRODUCT\"\nSDK_INSTALL_TARGET=\"/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk/System/Library/Frameworks/$PRODUCT\"\n\nsudo ln -sF $PRODUCT_PATH $MAC_INSTALL_TARGET\nsudo ln -sF $MAC_INSTALL_TARGET $SDK_INSTALL_TARGET\n\n#/usr/local/bin/appledoc \"${SRCROOT}/Resources\"\n\n# Add custom icon (adding CFBundleIconFile to plist and .icns file in /Resources doesn't work, so we have to duplicate what happens when you paste an icon into the Finder Get Info window)\n\n# copy custom icon into top level of bundle and rename to \"Icon\" with a *trailing CR*.  path_to_icon is the path to the source icon file, already in the correct format ('icns' resource ID -16455 in resource fork), but with different filename.\n\ncp \"${SRCROOT}/Resources/atoz.icns\" \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.${WRAPPER_EXTENSION}/\"$(echo -ne \"Icon\\r\")\n\n# make custom icon file invisible\n/Developer/Tools/SetFile -a V \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.${WRAPPER_EXTENSION}/\"$(echo -ne \"Icon\\r\")\n\n# mark the bundle folder as having a custom icon\n/Developer/Tools/SetFile -a C \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.${WRAPPER_EXTENSION}\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -517,6 +524,7 @@
 				7B24E9A115A1309400A9D87A /* NSObject+AtoZ.m in Sources */,
 				7B24E9A215A139A400A9D87A /* AZProgressIndicator.m in Sources */,
 				7B24E9A615A13A4100A9D87A /* NSBezierPath+AtoZ.m in Sources */,
+				7B24E9EE15A176AC00A9D87A /* NSWindow+AtoZ.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

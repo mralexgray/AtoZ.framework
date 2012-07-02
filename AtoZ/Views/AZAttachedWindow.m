@@ -6,9 +6,10 @@
 //
 
 #import "AZAttachedWindow.h"
+#import "AtoZ.h"
 
-#define AZATTACHEDWINDOW_DEFAULT_BACKGROUND_COLOR [NSColor colorWithCalibratedWhite:0.1 alpha:0.75]
-#define AZATTACHEDWINDOW_DEFAULT_BORDER_COLOR [NSColor whiteColor]
+#define AZATTACHEDWINDOW_DEFAULT_BACKGROUND_COLOR [NSColor colorWithCalibratedWhite:0 alpha:0.85]
+#define AZATTACHEDWINDOW_DEFAULT_BORDER_COLOR [NSColor blackColor]
 #define AZATTACHEDWINDOW_SCALE_FACTOR [[NSScreen mainScreen] userSpaceScaleFactor]
 
 @interface AZAttachedWindow (AZPrivateMethods)
@@ -70,7 +71,7 @@
         // Set up some sensible defaults for display.
         _AZBackgroundColor = [AZATTACHEDWINDOW_DEFAULT_BACKGROUND_COLOR copy];
         borderColor = [AZATTACHEDWINDOW_DEFAULT_BORDER_COLOR copy];
-        borderWidth = 2.0;
+        borderWidth = 0.0;
         viewMargin = 2.0;
         arrowBaseWidth = 20.0;
         arrowHeight = 16.0;

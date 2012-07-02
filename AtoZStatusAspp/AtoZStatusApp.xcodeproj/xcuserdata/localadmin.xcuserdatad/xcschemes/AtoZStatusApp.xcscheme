@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0430"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,10 +13,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7B311950159B6D9E002134C4"
-               BuildableName = "AtoZ.framework"
-               BlueprintName = "AtoZ"
-               ReferencedContainer = "container:AtoZ.xcodeproj">
+               BlueprintIdentifier = "7BE606C815A117D100355236"
+               BuildableName = "AtoZStatusApp.app"
+               BlueprintName = "AtoZStatusApp"
+               ReferencedContainer = "container:AtoZStatusApp.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -28,17 +27,16 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7B311968159B6D9E002134C4"
-               BuildableName = "AtoZTests.octest"
-               BlueprintName = "AtoZTests"
-               ReferencedContainer = "container:AtoZ.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "7BE606C815A117D100355236"
+            BuildableName = "AtoZStatusApp.app"
+            BlueprintName = "AtoZStatusApp"
+            ReferencedContainer = "container:AtoZStatusApp.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </TestAction>
    <LaunchAction
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
@@ -49,15 +47,15 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
-      <PathRunnable
-         FilePath = "/usr/bin/say">
-      </PathRunnable>
-      <CommandLineArguments>
-         <CommandLineArgument
-            argument = "&quot;Done&quot;"
-            isEnabled = "YES">
-         </CommandLineArgument>
-      </CommandLineArguments>
+      <BuildableProductRunnable>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "7BE606C815A117D100355236"
+            BuildableName = "AtoZStatusApp.app"
+            BlueprintName = "AtoZStatusApp"
+            ReferencedContainer = "container:AtoZStatusApp.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -67,6 +65,15 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
+      <BuildableProductRunnable>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "7BE606C815A117D100355236"
+            BuildableName = "AtoZStatusApp.app"
+            BlueprintName = "AtoZStatusApp"
+            ReferencedContainer = "container:AtoZStatusApp.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

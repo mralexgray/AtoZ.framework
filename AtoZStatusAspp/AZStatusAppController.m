@@ -10,12 +10,8 @@
 #import "AZStatusItemView.h"
 #import <AtoZ/AZAttachedWindow.h>
 
-
 @implementation AZStatusAppController
-
-
-- (void)awakeFromNib
-{
+- (void)awakeFromNib {
     // Create an NSStatusItem.
     float width = 30.0;
     float height = [[NSStatusBar systemStatusBar] thickness];
@@ -25,16 +21,11 @@
 }
 
 
-- (void)dealloc
-{
-    [[NSStatusBar systemStatusBar] removeStatusItem:statusItem];
-}
 
 
 - (void)toggleAttachedWindowAtPoint:(NSPoint)pt
 {
 	[NSApp activateIgnoringOtherApps:YES];
-    // Attach/detach window.
     if (!attachedWindow) {
         attachedWindow = [[AZAttachedWindow alloc] initWithView:view 
                                                 attachedToPoint:pt 
@@ -43,19 +34,27 @@
                                                      atDistance:5.0];
         [textField setTextColor:[attachedWindow borderColor]];
         [textField setStringValue:@"Your text goes here..."];
-        [attachedWindow makeKeyAndOrderFront:self];
-    } else {
-        [attachedWindow orderOut:self];
-        attachedWindow = nil;
-    }    
+		menuWindowIsShowing = NO;
+		//	[attachedWindow makeKeyAndOrderFront:self];
+    }
+	if (![attachedWindow isAnimating]) {
+	(menuWindowIsShowing ? [attachedWindow slideUp] : [attachedWindow slideDown]);
+	menuWindowIsShowing =! menuWindowIsShowing;}
+//        [attachedWindow orderOut:self];
+//        attachedWindow = nil;
+
 }
 
-- (void) applicationDidResignActive:(NSNotification *)notification 
-
-{
-
-	[attachedWindow orderOut:self];
+- (void) applicationDidResignActive:(NSNotification *)notification {
+	[attachedWindow slideUp];// orderOut:self];
+}
+- (void) applicationDidBecomeActive:(NSNotification *)notification{
+	if (!menuWindowIsShowing) [attachedWindow slideDown];
+	
 }
 
+- (void)dealloc {
+    [[NSStatusBar systemStatusBar] removeStatusItem:statusItem];
+}
 
 @end

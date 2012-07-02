@@ -12,7 +12,7 @@
 @class AZStatusAppController;
 @interface AZStatusItemView : NSView {
 	AZStatusAppController *controller;
-	AZProgressIndicator *indicator;
+	NSProgressIndicator *indicator;
 }
 
 @property (assign)  BOOL clicked;

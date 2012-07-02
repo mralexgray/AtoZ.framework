@@ -66,6 +66,8 @@
 #import "NSView+AtoZ.h"
 #import "NSBezierPath+AtoZ.h"
 
+#import "NSWindow+AtoZ.h"
+
 
 #import "NSObject+AtoZ.h"
 

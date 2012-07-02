@@ -12,7 +12,7 @@
 @interface AZStatusAppController : NSObject <NSApplicationDelegate> {
     NSStatusItem *statusItem;
     AZAttachedWindow *attachedWindow;
-    
+    BOOL menuWindowIsShowing;
     IBOutlet NSView *view;
     IBOutlet NSTextField *textField;
 }
