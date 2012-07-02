@@ -12,9 +12,9 @@ extern NSString *const kShowDockIconUserDefaultsKey;
 
 @interface NSApplication (AtoZ)
 
-+ (id)infoValueForKey:(NSString *)key;
-- (BOOL)showsDockIcon;
-- (void)setShowsDockIcon:(BOOL)flag;
++ (id)		infoValueForKey:(NSString *)key;
+- (BOOL)	showsDockIcon;
+- (void)	setShowsDockIcon:(BOOL)flag;
 
 
 @end

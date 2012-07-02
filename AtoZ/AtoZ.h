@@ -47,19 +47,29 @@
 //Classes
 
 #import "AZQueue.h"
-#import "FSItem.h"
+//#import "FSItem.h"
 #import "AZAXAuthorization.h"
 
 // Controllers
-#import "AZMenuBarAppController.h"
+//#import "AZMenuBarAppController.h"
 
 // Views
 #import "AZBlockView.h"
 #import "AZProgressIndicator.h"
+#import "AZPopupWindow.h"
 
 // Categories
 #import "NSApplication+AtoZ.h"
+#import "NSColor+AtoZ.h"
+#import "NSArray+AtoZ.h"
+#import "NSString+AtoZ.h"
+#import "NSView+AtoZ.h"
+#import "NSBezierPath+AtoZ.h"
 
+
+#import "NSObject+AtoZ.h"
+
+#import "AZGeometry.h"
 
 extern NSString *const AtoZSharedInstanceUpdated;
 
@@ -142,3 +152,60 @@ extern NSString *const AtoZSharedInstanceUpdated;
 
 
 
+@interface NSNumber (Incrementer)
+- (NSNumber *)increment;
+@end
+
+@interface Box : NSView 
+@property (assign) BOOL selected;
+@property (copy, readwrite) CAShapeLayer *shapeLayer;
+@property (copy, readwrite) NSColor *save;
+@property (copy, readwrite) NSColor *color;
+@end
+
+
+@interface CALayer (AGFlip)
+- (void) flipOver;
+@end
+
+@interface CAAnimation (NSViewFlipper)
++(CAAnimation *)flipAnimationWithDuration:(NSTimeInterval)duration forLayerBeginningOnTop:(BOOL)beginsOnTop scaleFactor:(CGFloat)scaleFactor;
+@end
+
+@interface NSView (NSViewFlipper)
+-(CALayer *)layerFromContents;
+@end
+
+@interface NSViewFlipperController : NSObject {
+	NSView *hostView, *frontView, *backView;
+    NSView *topView, *bottomView;
+    CALayer *topLayer, *bottomLayer;
+    BOOL isFlipped;
+    NSTimeInterval duration;
+}
+@property (readonly) BOOL isFlipped;
+@property NSTimeInterval duration;
+@property (weak, readonly) NSView *visibleView;
+-(id)initWithHostView:(NSView *)newHost frontView:(NSView *)newFrontView backView:(NSView *)newBackView;
+//-(IBAction)flip:(id)sender;
+-(void)flip;
+@end
+
+
+//@interface AGFoundation : BaseModel <NSSpeechSynthesizerDelegate>
+//@property  NSSpeechSynthesizer *speaker;
+//
+//
+//+ (AGFoundation*) sharedInstance;
+//- (void) say:(NSString *)thing;
+//
+////- (DBXApp *) appWithName: (NSString *)name;
+////@property (nonatomic) NSMutableArray *appArray;
+//@end
+
+
+
+
+@interface  NSWindow (Borderless)
++ (NSWindow*) borderlessWindowWithContentRect: (NSRect)aRect;
+@end
