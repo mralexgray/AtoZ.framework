@@ -734,26 +734,26 @@ static NSWindow* flippingWindow = nil;
 
 - (void)slideDown {
 	//	if ([[self contentView] isHidden]) [[self main] setHidden:YES];
-	[self makeKeyAndOrderFront:self];
     NSRect firstViewFrame = [self frame];
 	NSRect screen =  [[NSScreen mainScreen]visibleFrame];
 	firstViewFrame.origin.y = screen.size.height;// + 22;
 	NSRect destinationRect = firstViewFrame;
 	destinationRect.origin.y -= self.frame.size.height - 4;// + 22;
 	NSViewAnimation *theAnim = [[NSViewAnimation alloc] initWithViewAnimations: $array($map(
-				self, NSViewAnimationTargetKey,
-				[NSValue valueWithRect:firstViewFrame], NSViewAnimationStartFrameKey,
-				[NSValue valueWithRect:destinationRect], NSViewAnimationEndFrameKey,
-				NSAnimationEaseInOut, @"animationCurve",
-				$float(4), @"duration"))];
+		self, NSViewAnimationTargetKey,
+		[NSValue valueWithRect:firstViewFrame], NSViewAnimationStartFrameKey,
+		[NSValue valueWithRect:destinationRect], NSViewAnimationEndFrameKey))];
+	[theAnim setAnimationCurve:NSAnimationEaseInOut];
+	[theAnim setDuration:.4];
+    [theAnim startAnimation];
+	[self makeKeyAndOrderFront:self];
 	//	NSRect newViewFrame = firstViewFrame;
 	//    newViewFrame.origin.y -= self.frame.size.height;
 	//    newViewFrame.origin.y -= 22;
 	//						  forKey:NSViewAnimationEndFrameKey];
 //    [theAnim setAnimationCurve:NSAnimationEaseInOut];
 //	[theAnim setDuration:.4];
-	[theAnim setDelegate:self]; 
-    [theAnim startAnimation];
+//	[theAnim setDelegate:self]; 
 	
 	//    [NSAnimationContext beginGrouping];
 	//    [[NSAnimationContext currentContext] setDuration:.6];

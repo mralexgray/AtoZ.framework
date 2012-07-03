@@ -12,10 +12,10 @@
 @class AZStatusAppController;
 @interface AZStatusItemView : NSView {
 	AZStatusAppController *controller;
-	NSProgressIndicator *indicator;
 }
 
 @property (assign)  BOOL clicked;
+//@property (nonatomic, retain) NSProgressIndicator *indicator;
 
 - (id)initWithFrame:(NSRect)frame controller:(AZStatusAppController *)ctrlr;
 

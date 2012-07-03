@@ -9,11 +9,11 @@
 #import <Cocoa/Cocoa.h>
 
 @class AZAttachedWindow;
-@interface AZStatusAppController : NSObject <NSApplicationDelegate> {
+@interface AZStatusAppController : NSObject <NSApplicationDelegate, NSWindowDelegate> {
     NSStatusItem *statusItem;
     AZAttachedWindow *attachedWindow;
     BOOL menuWindowIsShowing;
-    IBOutlet NSView *view;
+    IBOutlet NSView *rootView;
     IBOutlet NSTextField *textField;
 }
 

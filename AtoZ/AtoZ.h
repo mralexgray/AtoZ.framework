@@ -57,6 +57,7 @@
 #import "AZBlockView.h"
 #import "AZProgressIndicator.h"
 #import "AZPopupWindow.h"
+#import "AZIndeterminateIndicator.h"
 
 // Categories
 #import "NSApplication+AtoZ.h"
@@ -65,13 +66,17 @@
 #import "NSString+AtoZ.h"
 #import "NSView+AtoZ.h"
 #import "NSBezierPath+AtoZ.h"
-
+#import "NSImage+AtoZ.h"
 #import "NSWindow+AtoZ.h"
 
 
 #import "NSObject+AtoZ.h"
 
 #import "AZGeometry.h"
+
+
+#import "AZBox.h"
+//#import "AZBoxes.h"
 
 extern NSString *const AtoZSharedInstanceUpdated;
 
@@ -211,3 +216,16 @@ extern NSString *const AtoZSharedInstanceUpdated;
 @interface  NSWindow (Borderless)
 + (NSWindow*) borderlessWindowWithContentRect: (NSRect)aRect;
 @end
+
+@interface NSBag : NSObject {
+	NSMutableDictionary *dict;
+}
++ (NSBag *) bag;
++ (NSBag *) bagWithObjects: (id) anObject,...;
+- (void) add: (id) anObject;
+- (void) addObjects:(id)item,...;
+- (void) remove: (id) anObject;
+- (NSInteger) occurrencesOf: (id) anObject;
+- (NSArray *) objects;
+@end
+

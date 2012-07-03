@@ -12,6 +12,18 @@
 		7B05BB11159C528300409B83 /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B05BB10159C528300409B83 /* AtoZ.framework */; };
 		7B05BB14159C5C6100409B83 /* AZBlockView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B05BB12159C5C6100409B83 /* AZBlockView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B05BB15159C5C6100409B83 /* AZBlockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B05BB13159C5C6100409B83 /* AZBlockView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7B0B7A4515A22C0D006B5062 /* NSImage+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B0B7A4315A22C0D006B5062 /* NSImage+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B0B7A4615A22C0D006B5062 /* NSImage+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0B7A4415A22C0D006B5062 /* NSImage+AtoZ.m */; };
+		7B0B7A7C15A3553F006B5062 /* AZIndeterminateIndicator.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B0B7A7A15A3553F006B5062 /* AZIndeterminateIndicator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B0B7A7D15A3553F006B5062 /* AZIndeterminateIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0B7A7B15A3553F006B5062 /* AZIndeterminateIndicator.m */; };
+		7B0B7A8515A36330006B5062 /* AZDock.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B0B7A8315A36330006B5062 /* AZDock.h */; };
+		7B0B7A8615A36330006B5062 /* AZDock.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0B7A8415A36330006B5062 /* AZDock.m */; };
+		7B0B7A8D15A370BB006B5062 /* AZBoxGrid.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B0B7A8B15A370BB006B5062 /* AZBoxGrid.h */; };
+		7B0B7A8E15A370BB006B5062 /* AZBoxGrid.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0B7A8C15A370BB006B5062 /* AZBoxGrid.m */; };
+		7B137CF615A201C00088A630 /* linen.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B137CF415A201C00088A630 /* linen.png */; };
+		7B137CF715A201C00088A630 /* darklinen.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B137CF515A201C00088A630 /* darklinen.png */; };
+		7B137CFC15A202510088A630 /* AZBox.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B137CFA15A202510088A630 /* AZBox.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B137CFD15A202510088A630 /* AZBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B137CFB15A202510088A630 /* AZBox.m */; };
 		7B24E97915A1299700A9D87A /* NSView+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B24E97715A1299700A9D87A /* NSView+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B24E97A15A1299700A9D87A /* NSView+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B24E97815A1299700A9D87A /* NSView+AtoZ.m */; };
 		7B24E98B15A12D2100A9D87A /* AZGeometricFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B24E97C15A12D2100A9D87A /* AZGeometricFunctions.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -87,6 +99,18 @@
 		7B05BB10159C528300409B83 /* AtoZ.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AtoZ.framework; path = System/Library/Frameworks/AtoZ.framework; sourceTree = SDKROOT; };
 		7B05BB12159C5C6100409B83 /* AZBlockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZBlockView.h; sourceTree = "<group>"; };
 		7B05BB13159C5C6100409B83 /* AZBlockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZBlockView.m; sourceTree = "<group>"; };
+		7B0B7A4315A22C0D006B5062 /* NSImage+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSImage+AtoZ.h"; sourceTree = "<group>"; };
+		7B0B7A4415A22C0D006B5062 /* NSImage+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSImage+AtoZ.m"; sourceTree = "<group>"; };
+		7B0B7A7A15A3553F006B5062 /* AZIndeterminateIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZIndeterminateIndicator.h; sourceTree = "<group>"; };
+		7B0B7A7B15A3553F006B5062 /* AZIndeterminateIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZIndeterminateIndicator.m; sourceTree = "<group>"; };
+		7B0B7A8315A36330006B5062 /* AZDock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZDock.h; sourceTree = "<group>"; };
+		7B0B7A8415A36330006B5062 /* AZDock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZDock.m; sourceTree = "<group>"; };
+		7B0B7A8B15A370BB006B5062 /* AZBoxGrid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZBoxGrid.h; path = AZBoxView/AZBoxGrid.h; sourceTree = SOURCE_ROOT; };
+		7B0B7A8C15A370BB006B5062 /* AZBoxGrid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AZBoxGrid.m; path = AZBoxView/AZBoxGrid.m; sourceTree = SOURCE_ROOT; };
+		7B137CF415A201C00088A630 /* linen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = linen.png; sourceTree = "<group>"; };
+		7B137CF515A201C00088A630 /* darklinen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = darklinen.png; sourceTree = "<group>"; };
+		7B137CFA15A202510088A630 /* AZBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZBox.h; path = AZBoxView/AZBox.h; sourceTree = SOURCE_ROOT; };
+		7B137CFB15A202510088A630 /* AZBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AZBox.m; path = AZBoxView/AZBox.m; sourceTree = SOURCE_ROOT; };
 		7B24E97715A1299700A9D87A /* NSView+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSView+AtoZ.h"; sourceTree = "<group>"; };
 		7B24E97815A1299700A9D87A /* NSView+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSView+AtoZ.m"; sourceTree = "<group>"; };
 		7B24E97C15A12D2100A9D87A /* AZGeometricFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZGeometricFunctions.h; sourceTree = "<group>"; };
@@ -192,6 +216,17 @@
 			path = Classes;
 			sourceTree = SOURCE_ROOT;
 		};
+		7B137CF915A2021E0088A630 /* AZBoxView */ = {
+			isa = PBXGroup;
+			children = (
+				7B137CFA15A202510088A630 /* AZBox.h */,
+				7B137CFB15A202510088A630 /* AZBox.m */,
+				7B0B7A8B15A370BB006B5062 /* AZBoxGrid.h */,
+				7B0B7A8C15A370BB006B5062 /* AZBoxGrid.m */,
+			);
+			name = AZBoxView;
+			sourceTree = "<group>";
+		};
 		7B24E97B15A12CED00A9D87A /* AZGeometry */ = {
 			isa = PBXGroup;
 			children = (
@@ -254,6 +289,7 @@
 		7B31195A159B6D9E002134C4 /* AtoZ */ = {
 			isa = PBXGroup;
 			children = (
+				7B137CF915A2021E0088A630 /* AZBoxView */,
 				7B24E97B15A12CED00A9D87A /* AZGeometry */,
 				7B311961159B6D9E002134C4 /* AtoZ.h */,
 				7B311962159B6D9E002134C4 /* AtoZ.m */,
@@ -306,6 +342,8 @@
 				7B24E9A415A13A4000A9D87A /* NSBezierPath+AtoZ.m */,
 				7B24E9EB15A176AB00A9D87A /* NSWindow+AtoZ.h */,
 				7B24E9EC15A176AB00A9D87A /* NSWindow+AtoZ.m */,
+				7B0B7A4315A22C0D006B5062 /* NSImage+AtoZ.h */,
+				7B0B7A4415A22C0D006B5062 /* NSImage+AtoZ.m */,
 			);
 			path = Categories;
 			sourceTree = SOURCE_ROOT;
@@ -313,6 +351,8 @@
 		7B583064159BDAA50039CEED /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7B137CF415A201C00088A630 /* linen.png */,
+				7B137CF515A201C00088A630 /* darklinen.png */,
 				7B583065159BDAF40039CEED /* atoz.icns */,
 				7B583066159BDAF40039CEED /* AtoZ-Prefix.pch */,
 				7B583068159BDAF40039CEED /* AppledocSettings.plist */,
@@ -324,6 +364,8 @@
 		7B6901BB159E0ADB00D0DA47 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				7B0B7A7A15A3553F006B5062 /* AZIndeterminateIndicator.h */,
+				7B0B7A7B15A3553F006B5062 /* AZIndeterminateIndicator.m */,
 				7BE606ED15A118B400355236 /* AZAttachedWindow.h */,
 				7BE606EE15A118B400355236 /* AZAttachedWindow.m */,
 				7B05BB12159C5C6100409B83 /* AZBlockView.h */,
@@ -341,6 +383,8 @@
 				7B05BB0B159C40A600409B83 /* AZQueue.m */,
 				7B6901C7159E322300D0DA47 /* AZAXAuthorization.h */,
 				7B6901C8159E322300D0DA47 /* AZAXAuthorization.m */,
+				7B0B7A8315A36330006B5062 /* AZDock.h */,
+				7B0B7A8415A36330006B5062 /* AZDock.m */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -376,7 +420,12 @@
 				7B24E99815A12D2100A9D87A /* AZSize.h in Headers */,
 				7B24E9A015A1309400A9D87A /* NSObject+AtoZ.h in Headers */,
 				7B24E9A515A13A4100A9D87A /* NSBezierPath+AtoZ.h in Headers */,
+				7B0B7A4515A22C0D006B5062 /* NSImage+AtoZ.h in Headers */,
 				7BE6067D159F9ADB00355236 /* AtoZObject.h in Headers */,
+				7B137CFC15A202510088A630 /* AZBox.h in Headers */,
+				7B0B7A7C15A3553F006B5062 /* AZIndeterminateIndicator.h in Headers */,
+				7B0B7A8515A36330006B5062 /* AZDock.h in Headers */,
+				7B0B7A8D15A370BB006B5062 /* AZBoxGrid.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -456,6 +505,8 @@
 			files = (
 				7B583069159BDAF40039CEED /* atoz.icns in Resources */,
 				7B58306C159BDAF40039CEED /* AppledocSettings.plist in Resources */,
+				7B137CF615A201C00088A630 /* linen.png in Resources */,
+				7B137CF715A201C00088A630 /* darklinen.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -525,6 +576,11 @@
 				7B24E9A215A139A400A9D87A /* AZProgressIndicator.m in Sources */,
 				7B24E9A615A13A4100A9D87A /* NSBezierPath+AtoZ.m in Sources */,
 				7B24E9EE15A176AC00A9D87A /* NSWindow+AtoZ.m in Sources */,
+				7B137CFD15A202510088A630 /* AZBox.m in Sources */,
+				7B0B7A4615A22C0D006B5062 /* NSImage+AtoZ.m in Sources */,
+				7B0B7A7D15A3553F006B5062 /* AZIndeterminateIndicator.m in Sources */,
+				7B0B7A8615A36330006B5062 /* AZDock.m in Sources */,
+				7B0B7A8E15A370BB006B5062 /* AZBoxGrid.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
