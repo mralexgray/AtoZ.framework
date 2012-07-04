@@ -25,3 +25,50 @@
 - (NSMutableDictionary*) getDictionary;
 
 @end
+
+@interface NSObject (SubclassEnumeration)
++(NSArray *)subclasses;
+@end
+
+@interface NSObject (AG)
+
+//- (BOOL) respondsToSelector: (SEL) aSelector;
+
+- (NSDictionary *)propertiesPlease;
+
++ (NSDictionary *)classPropsFor:(Class)klass;
+//- (NSArray*) methodDumpForClass:(NSString *)Class;
+
+- (NSString *)stringFromClass;
+
+-(void)setIntValue:(NSInteger)i forKey:(NSString *)key;
+-(void)setIntValue:(NSInteger)i forKeyPath:(NSString *)keyPath;
+
+-(void)setFloatValue:(CGFloat)f forKey:(NSString *)key;
+-(void)setFloatValue:(CGFloat)f forKeyPath:(NSString *)keyPath;
+
+-(BOOL)isEqualToAnyOf:(id<NSFastEnumeration>)enumerable;
+
+-(void)fire:(NSString *)notificationName;
+-(void)fire:(NSString *)notificationName userInfo:(NSDictionary *)userInfo;
+
+-(id)observeName:(NSString *)notificationName 
+      usingBlock:(void (^)(NSNotification *))block;
+
+-(void)observeObject:(NSObject *)object
+             forName:(NSString *)notificationName
+             calling:(SEL)selector;
+
+-(void)stopObserving:(NSObject *)object forName:(NSString *)notificationName;
+
+-(void)performSelector:(SEL)aSelector afterDelay:(NSTimeInterval)seconds;
+-(void)addObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath;
+-(void)addObserver:(NSObject *)observer 
+       forKeyPaths:(id<NSFastEnumeration>)keyPaths;
+-(void)removeObserver:(NSObject *)observer 
+          forKeyPaths:(id<NSFastEnumeration>)keyPaths;
+
+-(void)willChangeValueForKeys:(id<NSFastEnumeration>)keys;
+-(void)didChangeValueForKeys:(id<NSFastEnumeration>)keys;
+
+@end

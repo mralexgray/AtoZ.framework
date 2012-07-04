@@ -18,8 +18,6 @@
 		7B0B7A7D15A3553F006B5062 /* AZIndeterminateIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0B7A7B15A3553F006B5062 /* AZIndeterminateIndicator.m */; };
 		7B0B7A8515A36330006B5062 /* AZDock.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B0B7A8315A36330006B5062 /* AZDock.h */; };
 		7B0B7A8615A36330006B5062 /* AZDock.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0B7A8415A36330006B5062 /* AZDock.m */; };
-		7B0B7A8D15A370BB006B5062 /* AZBoxGrid.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B0B7A8B15A370BB006B5062 /* AZBoxGrid.h */; };
-		7B0B7A8E15A370BB006B5062 /* AZBoxGrid.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0B7A8C15A370BB006B5062 /* AZBoxGrid.m */; };
 		7B137CF615A201C00088A630 /* linen.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B137CF415A201C00088A630 /* linen.png */; };
 		7B137CF715A201C00088A630 /* darklinen.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B137CF515A201C00088A630 /* darklinen.png */; };
 		7B137CFC15A202510088A630 /* AZBox.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B137CFA15A202510088A630 /* AZBox.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -71,6 +69,8 @@
 		7B6901D8159E3AC700D0DA47 /* AZSugar.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B6901D7159E3AC600D0DA47 /* AZSugar.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B6901DA159E3F1800D0DA47 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B6901D9159E3F1800D0DA47 /* ApplicationServices.framework */; };
 		7B6901DC159E3F2700D0DA47 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B6901DB159E3F2700D0DA47 /* Security.framework */; };
+		7BDDD5E415A3792600A5C222 /* AZStopwatch.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BDDD5E215A3792600A5C222 /* AZStopwatch.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BDDD5E515A3792600A5C222 /* AZStopwatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BDDD5E315A3792600A5C222 /* AZStopwatch.m */; };
 		7BE6067D159F9ADB00355236 /* AtoZObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BE6067B159F9ADB00355236 /* AtoZObject.h */; };
 		7BE6069515A0E2DD00355236 /* NSString+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BE6069315A0E2DC00355236 /* NSString+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BE6069615A0E2DD00355236 /* NSString+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BE6069415A0E2DD00355236 /* NSString+AtoZ.m */; };
@@ -164,6 +164,8 @@
 		7B6901D7159E3AC600D0DA47 /* AZSugar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZSugar.h; sourceTree = SOURCE_ROOT; };
 		7B6901D9159E3F1800D0DA47 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
 		7B6901DB159E3F2700D0DA47 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		7BDDD5E215A3792600A5C222 /* AZStopwatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZStopwatch.h; sourceTree = "<group>"; };
+		7BDDD5E315A3792600A5C222 /* AZStopwatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZStopwatch.m; sourceTree = "<group>"; };
 		7BE6067B159F9ADB00355236 /* AtoZObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AtoZObject.h; sourceTree = "<group>"; };
 		7BE6067C159F9ADB00355236 /* AtoZObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AtoZObject.m; sourceTree = "<group>"; };
 		7BE6069315A0E2DC00355236 /* NSString+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+AtoZ.h"; sourceTree = "<group>"; };
@@ -385,6 +387,8 @@
 				7B6901C8159E322300D0DA47 /* AZAXAuthorization.m */,
 				7B0B7A8315A36330006B5062 /* AZDock.h */,
 				7B0B7A8415A36330006B5062 /* AZDock.m */,
+				7BDDD5E215A3792600A5C222 /* AZStopwatch.h */,
+				7BDDD5E315A3792600A5C222 /* AZStopwatch.m */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -425,7 +429,7 @@
 				7B137CFC15A202510088A630 /* AZBox.h in Headers */,
 				7B0B7A7C15A3553F006B5062 /* AZIndeterminateIndicator.h in Headers */,
 				7B0B7A8515A36330006B5062 /* AZDock.h in Headers */,
-				7B0B7A8D15A370BB006B5062 /* AZBoxGrid.h in Headers */,
+				7BDDD5E415A3792600A5C222 /* AZStopwatch.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -580,7 +584,7 @@
 				7B0B7A4615A22C0D006B5062 /* NSImage+AtoZ.m in Sources */,
 				7B0B7A7D15A3553F006B5062 /* AZIndeterminateIndicator.m in Sources */,
 				7B0B7A8615A36330006B5062 /* AZDock.m in Sources */,
-				7B0B7A8E15A370BB006B5062 /* AZBoxGrid.m in Sources */,
+				7BDDD5E515A3792600A5C222 /* AZStopwatch.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

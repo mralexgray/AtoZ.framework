@@ -20,12 +20,12 @@
     if (self = [super initWithFrame:frame]) {
         controller = ctrlr; // deliberately weak reference.
 		_clicked = NO;
-		_indicator = [[NSControl alloc]initWithFrame:NSInsetRect([self frame], 3, 3)];
-		AZIndeterminateIndicator *cell = [[AZIndeterminateIndicator alloc]init];
-		[_indicator setCell:cell];
-//		[_indicator setStyle:NSProgressIndicatorSpinningStyle];
-		[self addSubview:_indicator];
-		[cell setSpinning:YES];
+//		_indicator = [[NSControl alloc]initWithFrame:NSInsetRect([self frame], 3, 3)];
+//		AZIndeterminateIndicator *cell = [[AZIndeterminateIndicator alloc]init];
+//		[_indicator setCell:cell];
+////		[_indicator setStyle:NSProgressIndicatorSpinningStyle];
+//		[self addSubview:_indicator];
+//		[cell setSpinning:YES];
 
     }
     return self;

@@ -10,8 +10,43 @@
 #import <Cocoa/Cocoa.h>
 #import "AtoZ.h"
 #import "AZBox.h"
-//#import "AZBoxGridDelegate.h"
-@class AZBoxGridDataSource, AZBoxGridDelegate;
+
+
+@class AZBox, AZBoxGrid;
+/*** The data source protocol, used to gather the needed data for the collection view. **/
+@protocol AZBoxGridDataSource <NSObject>
+@required
+/** * This method is invoked to ask the data source for the number of cells inside the collection view.**/
+- (NSUInteger)numberOfBoxesInGrid:(AZBoxGrid *)grid;
+/** * This method is involed to ask the data source for a cell to display at the given index. You should first try to dequeue an old cell before creating a new one! **/
+- (AZBox*)grid:(AZBoxGrid *)grid boxForIndex:(NSUInteger)index;
+
+@end
+
+/**
+ * The collections views delegate protocol.
+ **/
+@protocol AZBoxGridDelegate <NSObject>
+@optional
+/**
+ * Invoked when the cell at the given index was selected.
+ **/
+- (void)grid:(AZBoxGrid*)grid didSelectBoxAtIndex:(NSUInteger)index;
+/**
+ * Invoked when the user double clicked on the given cell.
+ **/
+- (void)grid:(AZBoxGrid *)grid didDoubleClickedBoxAtIndex:(NSUInteger)index;
+/**
+ * Invoked when the cell at the given index was deselected.
+ **/
+- (void)grid:(AZBoxGrid *)grid didDeselectBoxAtIndex:(NSUInteger)index;
+/**
+ * Invoked when there was an unhandled key event. The method will be invoked for every selected cell.
+ * @remark Currently handled are the cursor keys.
+ **/
+- (void)grid:(AZBoxGrid*)grid keyEvent:(NSEvent *)event forBoxAtIndex:(NSUInteger)index;
+
+@end
 @interface AZBoxGrid : NSView
 
 /**
@@ -175,4 +210,7 @@
 - (void)commitChanges;
 
 @end
+
+
+
 

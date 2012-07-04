@@ -58,6 +58,7 @@
 #import "AZProgressIndicator.h"
 #import "AZPopupWindow.h"
 #import "AZIndeterminateIndicator.h"
+#import "AZAttachedWindow.h"
 
 // Categories
 #import "NSApplication+AtoZ.h"
@@ -74,9 +75,9 @@
 
 #import "AZGeometry.h"
 
-
+#import "AZStopwatch.h"
 #import "AZBox.h"
-//#import "AZBoxes.h"
+//#import "AZBoxGrid.h"
 
 extern NSString *const AtoZSharedInstanceUpdated;
 

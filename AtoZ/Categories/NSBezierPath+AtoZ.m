@@ -473,17 +473,17 @@ static void CGPathCallback(void *info, const CGPathElement *element)
 
 - (void)strokeInsideWithinRect:(NSRect)clipRect
 {
-    NSGraphicsContext *thisContext = [NSGraphicsContext currentContext];
+//    NSGraphicsContext *thisContext = [NSGraphicsContext currentContext];
     float lineWidth = [self lineWidth];
     
     /* Save the current graphics context. */
-    [thisContext saveGraphicsState];
+    [NSGraphicsContext saveGraphicsState];
     
     /* Double the stroke width, since -stroke centers strokes on paths. */
     [self setLineWidth:(lineWidth * 2.0)];
     
     /* Clip drawing to this path; draw nothing outwith the path. */
-    [self setClip];
+    [self addClip];
     
     /* Further clip drawing to clipRect, usually the view's frame. */
     if (clipRect.size.width > 0.0 && clipRect.size.height > 0.0) {
@@ -494,7 +494,7 @@ static void CGPathCallback(void *info, const CGPathElement *element)
     [self stroke];
     
     /* Restore the previous graphics context. */
-    [thisContext restoreGraphicsState];
+    [NSGraphicsContext restoreGraphicsState];
     [self setLineWidth:lineWidth];
 }
 

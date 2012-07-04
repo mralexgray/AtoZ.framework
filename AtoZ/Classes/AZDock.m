@@ -14,9 +14,4 @@
 	[self insertObject:object atIndex:index];
 }
 
-- (void)removeObjectAtIndex:(NSUInteger)index;
-- (void)addObject:(id) object;
-- (void)removeLastObject;
-- (void)replaceObjectAtIndex:(NSUInteger)index withObject:(id)object;
-
 @end
