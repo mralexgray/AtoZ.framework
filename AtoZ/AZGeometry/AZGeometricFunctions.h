@@ -283,4 +283,4 @@ int oppositeQuadrant(int quadrant);
 NSRect blendRects(NSRect start, NSRect end,float b);
 void logRect(NSRect rect);
 
-
+CGPoint randomPointInRect(CGRect rect);

@@ -727,3 +727,17 @@ NSRect blendRects(NSRect start, NSRect end,float b){
 void logRect(NSRect rect){
 //QSLog(@"(%f,%f) (%fx%f)",rect.origin.x,rect.origin.y,rect.size.width,rect.size.height);
 }
+
+
+CGPoint randomPointInRect(CGRect rect) {
+
+CGPoint point = CGPointZero;
+NSInteger max = rect.size.width;
+NSInteger min = 0;
+point.x = (random() % (max-min+1)) + min;
+
+max = rect.size.height;
+point.y = (random() % (max-min+1)) + min;
+
+return point;
+}

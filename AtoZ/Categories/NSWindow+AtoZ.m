@@ -746,7 +746,7 @@ static NSWindow* flippingWindow = nil;
 	[theAnim setAnimationCurve:NSAnimationEaseInOut];
 	[theAnim setDuration:.4];
     [theAnim startAnimation];
-	[self makeKeyAndOrderFront:self];
+//	[self makeKeyAndOrderFront:self];
 	//	NSRect newViewFrame = firstViewFrame;
 	//    newViewFrame.origin.y -= self.frame.size.height;
 	//    newViewFrame.origin.y -= 22;
@@ -763,7 +763,7 @@ static NSWindow* flippingWindow = nil;
 }
 
 - (void)slideUp {
-	[self makeKeyAndOrderFront:self];
+//	[self makeKeyAndOrderFront:self];
     NSRect firstViewFrame = [self frame];
 	NSRect newViewFrame = firstViewFrame;
     newViewFrame.origin.y = [[NSScreen mainScreen]visibleFrame].size.height+ 22;//= self.frame.size.height;

@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'AtoZCLI' target in the 'AtoZCLI' project
+//
+
+#ifdef __OBJC__
+	#import <Foundation/Foundation.h>
+#endif

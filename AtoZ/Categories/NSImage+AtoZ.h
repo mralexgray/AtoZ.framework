@@ -70,6 +70,7 @@ typedef enum {
 - (void)drawEtchedInRect:(NSRect)rect;
 
 
+- (NSImage *) maskedWithColor:(NSColor *)color;
 
 /*!
  @method     

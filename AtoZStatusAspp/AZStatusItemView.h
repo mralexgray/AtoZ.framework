@@ -9,14 +9,25 @@
 #import <Cocoa/Cocoa.h>
 #import <AtoZ/AtoZ.h>
 
-@class AZStatusAppController;
+@class  AZStatusItemView;
+@protocol AZStatusItemDelegate <NSObject>
+@optional
+/*** Invoked when the cell at the given index was selected.  **/
+- (void)statusView:(AZStatusItemView *)statusItem isActive:(BOOL)active;
+@end
+
+//@class AZStatusAppController;
 @interface AZStatusItemView : NSView {
-	AZStatusAppController *controller;
+//	AZStatusAppController *controller;
+  id <AZStatusItemDelegate> __unsafe_unretained delegate;
 }
 
 @property (assign)  BOOL clicked;
+/*** The delegate of the collection view.  **/
+@property (nonatomic, unsafe_unretained) IBOutlet id <AZStatusItemDelegate> delegate;
+
 //@property (nonatomic, retain) NSProgressIndicator *indicator;
 
-- (id)initWithFrame:(NSRect)frame controller:(AZStatusAppController *)ctrlr;
+//- (id)initWithFrame:(NSRect)frame controller:(AZStatusAppController *)ctrlr;
 
 @end

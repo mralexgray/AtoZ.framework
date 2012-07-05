@@ -296,3 +296,117 @@ static const char * getPropertyType(objc_property_t property) {
 }
 
 @end
+
+
+@implementation NSObject (AutoCoding)
+
++ (id)objectWithContentsOfFile:(NSString *)filePath
+{   
+    //load the file
+    NSData *data = [NSData dataWithContentsOfFile:filePath];
+    
+    //attempt to deserialise data as a plist
+    id object = nil;
+    if (data)
+    {
+        NSPropertyListFormat format;
+        if ([NSPropertyListSerialization respondsToSelector:@selector(propertyListWithData:options:format:error:)])
+        {
+            object = [NSPropertyListSerialization propertyListWithData:data options:NSPropertyListImmutable format:&format error:NULL];
+        }
+        else
+        {
+            object = [NSPropertyListSerialization propertyListFromData:data mutabilityOption:NSPropertyListImmutable format:&format errorDescription:NULL];
+        }
+		
+		//success?
+		if (object)
+		{
+			//check if object is an NSCoded unarchive
+			if ([object respondsToSelector:@selector(objectForKey:)] && [object objectForKey:@"$archiver"])
+			{
+				object = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+			}
+		}
+		else
+		{
+			//return raw data
+			object = data;
+		}
+    }
+    
+	//return object
+	return object;
+}
+
+- (void)writeToFile:(NSString *)filePath atomically:(BOOL)useAuxiliaryFile
+{
+    //note: NSData, NSDictionary and NSArray already implement this method
+    //and do not save using NSCoding, however the objectWithContentsOfFile
+    //method will correctly recover these objects anyway
+    
+    //archive object
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self];
+    [data writeToFile:filePath atomically:YES];
+}
+
+- (NSArray *)codableKeys
+{
+    NSMutableArray *array = [NSMutableArray array];
+    Class class = [self class];
+    while (class != [NSObject class])
+    {
+        unsigned int count;
+        objc_property_t *properties = class_copyPropertyList(class, &count);
+        for (int i = 0; i < count; i++)
+        {
+            objc_property_t property = properties[i];
+            const char *name = property_getName(property);
+            NSString *key = [NSString stringWithCString:name encoding:NSUTF8StringEncoding];
+            [array addObject:key];
+        }
+        free(properties);
+        class = [class superclass];
+    }
+    [array removeObjectsInArray:[self uncodableKeys]];
+    return array;
+}
+
+- (NSArray *)uncodableKeys
+{
+    return nil;
+}
+
+- (void)setNilValueForKey:(NSString *)key
+{
+    //don't throw exception
+}
+
+- (void)setWithCoder:(NSCoder *)aDecoder
+{
+    for (NSString *key in [self codableKeys])
+    {
+        id object = [aDecoder decodeObjectForKey:key];
+        [self setValue:object forKey:key];
+    }
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    if ((self = [self init]))
+    {
+        [self setWithCoder:aDecoder];
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder
+{
+    for (NSString *key in [self codableKeys])
+    {
+        id object = [self valueForKey:key];
+        [aCoder encodeObject:object forKey:key];
+    }
+}
+
+@end

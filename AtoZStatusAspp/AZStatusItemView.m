@@ -14,31 +14,40 @@
 {
 	NSControl *_indicator;
 }
-@synthesize clicked = _clicked;//, indicator = _indicator;
+@synthesize clicked = _clicked, delegate;//, indicator = _indicator;
 
-- (id)initWithFrame:(NSRect)frame controller:(AZStatusAppController *)ctrlr {
-    if (self = [super initWithFrame:frame]) {
-        controller = ctrlr; // deliberately weak reference.
+- (id)initWithFrame:(NSRect)frame {
+	if (self = [super initWithFrame:frame]) {
 		_clicked = NO;
-//		_indicator = [[NSControl alloc]initWithFrame:NSInsetRect([self frame], 3, 3)];
-//		AZIndeterminateIndicator *cell = [[AZIndeterminateIndicator alloc]init];
-//		[_indicator setCell:cell];
-////		[_indicator setStyle:NSProgressIndicatorSpinningStyle];
-//		[self addSubview:_indicator];
-//		[cell setSpinning:YES];
-
-    }
-    return self;
+	}
+	return self;
 }
+//- (id)initWithFrame:(NSRect)frame controller:(AZStatusAppController *)ctrlr {
+//    if (self = [super initWithFrame:frame]) {
+//        controller = ctrlr; // deliberately weak reference.
+//		_clicked = NO;
+////		_indicator = [[NSControl alloc]initWithFrame:NSInsetRect([self frame], 3, 3)];
+////		AZIndeterminateIndicator *cell = [[AZIndeterminateIndicator alloc]init];
+////		[_indicator setCell:cell];
+//////		[_indicator setStyle:NSProgressIndicatorSpinningStyle];
+////		[self addSubview:_indicator];
+////		[cell setSpinning:YES];
+//
+//    }
+//    return self;
+//}
 
 
-- (void)dealloc
-{
-    controller = nil;
-}
+//- (void)dealloc
+//{
+//    controller = nil;
+//}
 
 
 - (void)drawRect:(NSRect)rect {
+
+	[RED set];
+	[[NSBezierPath  bezierPathWithOvalInRect: AGMakeSquare([self center], NSMaxY([self bounds])*.8)] fill];
     // Draw background if appropriate.
     if (_clicked) {
 		NSColor *rando = [[RANDOMCOLOR colorWithAlphaComponent:.5]darker];
@@ -82,14 +91,16 @@
 
 - (void)mouseDown:(NSEvent *)event
 {
+//	NSRect frame = [[self window] frame];
+//    NSPoint pt = NSMakePoint(NSMidX(frame), NSMinY(frame));
 
-	NSRect frame = [[self window] frame];
-    NSPoint pt = NSMakePoint(NSMidX(frame), NSMinY(frame));
     if (!_clicked) {
-		[controller toggleAttachedWindowAtPoint:pt];
+		[delegate statusView:self isActive:YES];
+//		[controller toggleAttachedWindowAtPoint:pt];
 		_clicked = YES;
 	}
-	else {    _clicked = NO; [controller toggleAttachedWindowAtPoint:pt]; }
+	else {    _clicked = NO; 		[delegate statusView:self isActive:YES]; }
+//	[controller toggleAttachedWindowAtPoint:pt]; }
     [self setNeedsDisplay:YES];
 }
 

@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7B0D7C2615A3E80000037D30 /* ControlBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0D7C2515A3E7FF00037D30 /* ControlBar.m */; };
+		7B0D7C4615A3F6C800037D30 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B0D7C4515A3F6C800037D30 /* QuartzCore.framework */; };
+		7B0D7C4815A3F88C00037D30 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B0D7C4715A3F88C00037D30 /* Quartz.framework */; };
+		7B0D7C5C15A4175900037D30 /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0D7C5B15A4175900037D30 /* iCarousel.m */; };
 		7B24E96D15A11C6200A9D87A /* AZStatusAppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B24E96C15A11C6200A9D87A /* AZStatusAppController.m */; };
 		7B24E97215A11F4600A9D87A /* AZStatusItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B24E97115A11F4600A9D87A /* AZStatusItemView.m */; };
 		7B24E9F115A1784400A9D87A /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B24E9AD15A1483000A9D87A /* AtoZ.framework */; };
@@ -56,6 +60,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		7B0D7C2415A3E7FF00037D30 /* ControlBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControlBar.h; sourceTree = "<group>"; };
+		7B0D7C2515A3E7FF00037D30 /* ControlBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControlBar.m; sourceTree = "<group>"; };
+		7B0D7C4515A3F6C800037D30 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		7B0D7C4715A3F88C00037D30 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
+		7B0D7C5A15A4175900037D30 /* iCarousel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iCarousel.h; sourceTree = "<group>"; };
+		7B0D7C5B15A4175900037D30 /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iCarousel.m; sourceTree = "<group>"; };
 		7B24E96B15A11C6200A9D87A /* AZStatusAppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZStatusAppController.h; sourceTree = "<group>"; };
 		7B24E96C15A11C6200A9D87A /* AZStatusAppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZStatusAppController.m; sourceTree = "<group>"; };
 		7B24E97015A11F4600A9D87A /* AZStatusItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZStatusItemView.h; sourceTree = "<group>"; };
@@ -80,6 +90,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B0D7C4815A3F88C00037D30 /* Quartz.framework in Frameworks */,
+				7B0D7C4615A3F6C800037D30 /* QuartzCore.framework in Frameworks */,
 				7B24E9F115A1784400A9D87A /* AtoZ.framework in Frameworks */,
 				7BE606CE15A117D100355236 /* Cocoa.framework in Frameworks */,
 			);
@@ -100,11 +112,15 @@
 		7BE606BE15A117D100355236 = {
 			isa = PBXGroup;
 			children = (
+				7B0D7C5A15A4175900037D30 /* iCarousel.h */,
+				7B0D7C5B15A4175900037D30 /* iCarousel.m */,
 				7B24E97015A11F4600A9D87A /* AZStatusItemView.h */,
 				7B24E97115A11F4600A9D87A /* AZStatusItemView.m */,
 				7B24E96B15A11C6200A9D87A /* AZStatusAppController.h */,
 				7B24E96C15A11C6200A9D87A /* AZStatusAppController.m */,
 				7BE606E215A117D200355236 /* MainMenu.xib */,
+				7B0D7C2415A3E7FF00037D30 /* ControlBar.h */,
+				7B0D7C2515A3E7FF00037D30 /* ControlBar.m */,
 				7B24E9A715A1483000A9D87A /* AtoZ.xcodeproj */,
 				7BE606D415A117D200355236 /* Supporting Files */,
 				7BE606CC15A117D100355236 /* Frameworks */,
@@ -123,6 +139,8 @@
 		7BE606CC15A117D100355236 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7B0D7C4715A3F88C00037D30 /* Quartz.framework */,
+				7B0D7C4515A3F6C800037D30 /* QuartzCore.framework */,
 				7B24E9B315A1486D00A9D87A /* AtoZ.framework */,
 				7BE606CD15A117D100355236 /* Cocoa.framework */,
 				7BE606CF15A117D100355236 /* Other Frameworks */,
@@ -246,6 +264,8 @@
 				7BE606DA15A117D200355236 /* main.m in Sources */,
 				7B24E96D15A11C6200A9D87A /* AZStatusAppController.m in Sources */,
 				7B24E97215A11F4600A9D87A /* AZStatusItemView.m in Sources */,
+				7B0D7C2615A3E80000037D30 /* ControlBar.m in Sources */,
+				7B0D7C5C15A4175900037D30 /* iCarousel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

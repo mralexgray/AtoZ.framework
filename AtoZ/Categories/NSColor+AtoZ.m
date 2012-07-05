@@ -205,7 +205,7 @@ static ColorNameRec sColorTable[] = {
 @implementation NSColor (AtoZ)
 
 
-+ (NSColor*)chessboardColorWithFirstColor: (NSColor*)firstColor secondColor: (NSColor*)secondColor squareWidth: (CGFloat)width
++ (NSColor*)checkerboardWithFirstColor: (NSColor*)firstColor secondColor: (NSColor*)secondColor squareWidth: (CGFloat)width
 {
 	NSSize patternSize = NSMakeSize(width * 2.0, width * 2.0);
 	NSRect rect = NSZeroRect;
@@ -337,7 +337,7 @@ static NSColor *ColorWithCSSString(NSString *str) {
 
 
 + (NSArray*) boringColors{
-	return  [NSArray arrayWithObjects: @"White", @"Whitesmoke", @"Whitesmoke",@"Gainsboro", "LightGrey", @"Silver", @"DarkGray", @"Gray", @"DimGray", @"Black", @"Translucent", @"MistyRose", @"Snow", @"SeaShell", @"Linen", @"Cornsilk", @"OldLace", @"FloralWhite", @"Ivory", @"HoneyDew", @"MintCream", @"Azure", @"AliceBlue", @"GhostWhite", @"LavenderBlush", @"mercury", @"Slver", @"Magnesium", @"Tin", @"Aluminum",nil];
+	return  $array( @"White", @"Whitesmoke", @"Whitesmoke",@"Gainsboro", @"LightGrey", @"Silver", @"DarkGray", @"Gray", @"DimGray", @"Black", @"Translucent", @"MistyRose", @"Snow", @"SeaShell", @"Linen", @"Cornsilk", @"OldLace", @"FloralWhite", @"Ivory", @"HoneyDew", @"MintCream", @"Azure", @"AliceBlue", @"GhostWhite", @"LavenderBlush", @"mercury", @"Slver", @"Magnesium", @"Tin", @"Aluminum");
 }
 
 - (BOOL) isBoring {
@@ -381,7 +381,7 @@ static NSColor *ColorWithCSSString(NSString *str) {
 	CGColorRef output = CGColorCreate(colorSpace, components);
 	CGColorSpaceRelease (colorSpace);
 //	return (CGColorRef)[(id)output autorelease];
-	return (CGColorRef)output;
+	return (__bridge CGColorRef)(__bridge_transfer id)output;
 }
 
 
@@ -673,7 +673,7 @@ static NSColor *ColorWithCSSString(NSString *str) {
 	NSColorList *colors = [NSColorList colorListNamed:@"Web Safe Colors"];
 	NSColorList *crayons = [NSColorList colorListNamed:@"Crayons"];
 
-	NSArray *avail = (colors, crayons);
+	NSArray *avail = $array(colors, crayons);
 //	NSColorList *bestList = nil;
 	NSColor *bestColor = nil;
 	NSString *bestKey = nil;
@@ -1919,3 +1919,5 @@ static CGFloat hexCharsToFloat(char firstChar, char secondChar)
 }
 
 @end
+
+

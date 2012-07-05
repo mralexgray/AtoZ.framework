@@ -13,6 +13,7 @@
 {
 @protected
     NSImage *image;
+	NSColor *_color;
     NSColor *selectionColor;
     BOOL selected;
 	BOOL hovering;

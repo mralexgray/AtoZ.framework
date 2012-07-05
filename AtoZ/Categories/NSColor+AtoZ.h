@@ -17,6 +17,8 @@
 
 @interface NSColor (AtoZ)
 
++ (NSColor*)checkerboardWithFirstColor: (NSColor*)firstColor secondColor: (NSColor*)secondColor squareWidth: (CGFloat)width;
+
 + (NSArray *)	colorNames;
 + (NSColor *)	colorNamed:(NSString *)string;
 

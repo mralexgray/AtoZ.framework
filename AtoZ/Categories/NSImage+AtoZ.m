@@ -1014,6 +1014,64 @@ rightDone:
     CGContextRestoreGState(c);
 }
 
+
+
+
+CGContextRef MyCreateBitmapContext (int pixelsWide, int pixelsHigh)
+{
+	CGContextRef myContext = NULL;
+	CGColorSpaceRef myColorSpace;
+	void *bitmapData;
+	int bitmapByteCount;
+	int bitmapBytesPerRow;
+	
+	bitmapBytesPerRow = (pixelsWide * 4);
+	bitmapByteCount = (bitmapBytesPerRow * pixelsHigh);
+	
+	myColorSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericGray);
+	
+	bitmapData = malloc(bitmapByteCount);
+	
+	if (bitmapData == NULL) {
+		fprintf(stderr, "Memory not Allocated");
+		return NULL;
+	}
+	
+	myContext = CGBitmapContextCreate(bitmapData,
+									  pixelsWide,
+									  pixelsHigh,
+									  8,
+									  bitmapBytesPerRow,
+									  myColorSpace,
+									  kCGImageAlphaNone);
+	if (myContext == NULL) {
+		free(bitmapData);
+		fprintf(stderr, "myContext not created");
+		return NULL;
+	}
+	
+	CGColorSpaceRelease(myColorSpace);
+	
+	return myContext;
+}
+
+- (NSImage *)maskedWithColor:(NSColor *)color
+{
+	NSImage *image = self;
+	CGRect rect = CGRectMake(0, 0, image.size.width, image.size.height);
+    CGContextRef c = MyCreateBitmapContext(image.size.width, image.size.height);
+ 	[image drawInRect:rect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+ 	CGContextSetFillColorWithColor(c, [color CGColor]);
+	CGContextSetBlendMode(c, kCGBlendModeSourceAtop);
+	CGContextFillRect(c, rect);
+    CGImageRef ciImage =  CGBitmapContextCreateImage(c);
+    CGContextDrawImage(c, rect, ciImage);
+	NSImage *newImage= [[NSImage alloc] initWithCGImage:ciImage size:image.size];
+	CGContextRelease(c);
+    CGImageRelease(ciImage);
+    return newImage;
+}
+
 #pragma mark CGImage to NSImage and vice versa
 
 + (NSImage*)imageFromCGImageRef:(CGImageRef)image {

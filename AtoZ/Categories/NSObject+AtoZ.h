@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+
 @interface NSObject (AtoZ)
 
 /*	Now every instance (of every class) has a dictionary, where you can store your custom attributes. With Key-Value Coding you can set a value like this:
@@ -70,5 +71,19 @@
 
 -(void)willChangeValueForKeys:(id<NSFastEnumeration>)keys;
 -(void)didChangeValueForKeys:(id<NSFastEnumeration>)keys;
+
+@end
+
+@interface NSObject (AutoCoding) <NSCoding>
+
+//coding
+
+- (NSArray *)codableKeys;
+- (NSArray *)uncodableKeys;
+
+//loading / saving
+
++ (id)objectWithContentsOfFile:(NSString *)path;
+- (void)writeToFile:(NSString *)filePath atomically:(BOOL)useAuxiliaryFile;
 
 @end

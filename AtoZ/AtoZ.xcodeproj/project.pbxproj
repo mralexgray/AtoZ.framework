@@ -16,8 +16,16 @@
 		7B0B7A4615A22C0D006B5062 /* NSImage+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0B7A4415A22C0D006B5062 /* NSImage+AtoZ.m */; };
 		7B0B7A7C15A3553F006B5062 /* AZIndeterminateIndicator.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B0B7A7A15A3553F006B5062 /* AZIndeterminateIndicator.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B0B7A7D15A3553F006B5062 /* AZIndeterminateIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0B7A7B15A3553F006B5062 /* AZIndeterminateIndicator.m */; };
-		7B0B7A8515A36330006B5062 /* AZDock.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B0B7A8315A36330006B5062 /* AZDock.h */; };
-		7B0B7A8615A36330006B5062 /* AZDock.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0B7A8415A36330006B5062 /* AZDock.m */; };
+		7B0D7C2115A3D2C400037D30 /* AZBoxGrid.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B0B7A8B15A370BB006B5062 /* AZBoxGrid.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B0D7C2315A3D2CB00037D30 /* AZBoxGrid.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0B7A8C15A370BB006B5062 /* AZBoxGrid.m */; };
+		7B0D7C3F15A3F0BA00037D30 /* MondoSwitch.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B0D7C3915A3F0BA00037D30 /* MondoSwitch.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B0D7C4015A3F0BA00037D30 /* MondoSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0D7C3A15A3F0BA00037D30 /* MondoSwitch.m */; };
+		7B0D7C4215A3F0BA00037D30 /* MondoSwitchButtonCALayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B0D7C3C15A3F0BA00037D30 /* MondoSwitchButtonCALayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B0D7C4315A3F0BA00037D30 /* MondoSwitchButtonCALayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0D7C3D15A3F0BA00037D30 /* MondoSwitchButtonCALayer.m */; };
+		7B0D7C4F15A3FDD900037D30 /* AZToggleView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B0D7C4D15A3FDD900037D30 /* AZToggleView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B0D7C5015A3FDD900037D30 /* AZToggleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0D7C4E15A3FDD900037D30 /* AZToggleView.m */; };
+		7B0D7C5315A401A100037D30 /* AZToggle.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B0D7C5115A401A100037D30 /* AZToggle.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B0D7C5515A409FC00037D30 /* AZToggle.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0D7C5215A401A100037D30 /* AZToggle.m */; };
 		7B137CF615A201C00088A630 /* linen.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B137CF415A201C00088A630 /* linen.png */; };
 		7B137CF715A201C00088A630 /* darklinen.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B137CF515A201C00088A630 /* darklinen.png */; };
 		7B137CFC15A202510088A630 /* AZBox.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B137CFA15A202510088A630 /* AZBox.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -55,6 +63,14 @@
 		7B311999159B8024002134C4 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B311957159B6D9E002134C4 /* AppKit.framework */; };
 		7B31199A159B8024002134C4 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B311995159B7FD0002134C4 /* QuartzCore.framework */; };
 		7B31199B159B8027002134C4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B311959159B6D9E002134C4 /* Foundation.framework */; };
+		7B3422A315A52A61006AC46C /* BaseModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B3422A115A52A61006AC46C /* BaseModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B3422A415A52A61006AC46C /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B3422A215A52A61006AC46C /* BaseModel.m */; };
+		7B3422BC15A5EC03006AC46C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B311959159B6D9E002134C4 /* Foundation.framework */; };
+		7B3422BF15A5EC03006AC46C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B3422BE15A5EC03006AC46C /* main.m */; };
+		7B3422C315A5EC03006AC46C /* AtoZCLI.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7B3422C215A5EC03006AC46C /* AtoZCLI.1 */; };
+		7B3422C715A5EC5F006AC46C /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B05BB10159C528300409B83 /* AtoZ.framework */; };
+		7B3422CA15A5EF03006AC46C /* AZDockQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B3422C815A5EF03006AC46C /* AZDockQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B3422CB15A5EF03006AC46C /* AZDockQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B3422C915A5EF03006AC46C /* AZDockQuery.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7B58302C159B82B70039CEED /* AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B311961159B6D9E002134C4 /* AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B583069159BDAF40039CEED /* atoz.icns in Resources */ = {isa = PBXBuildFile; fileRef = 7B583065159BDAF40039CEED /* atoz.icns */; };
 		7B58306C159BDAF40039CEED /* AppledocSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7B583068159BDAF40039CEED /* AppledocSettings.plist */; };
@@ -71,7 +87,6 @@
 		7B6901DC159E3F2700D0DA47 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B6901DB159E3F2700D0DA47 /* Security.framework */; };
 		7BDDD5E415A3792600A5C222 /* AZStopwatch.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BDDD5E215A3792600A5C222 /* AZStopwatch.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BDDD5E515A3792600A5C222 /* AZStopwatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BDDD5E315A3792600A5C222 /* AZStopwatch.m */; };
-		7BE6067D159F9ADB00355236 /* AtoZObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BE6067B159F9ADB00355236 /* AtoZObject.h */; };
 		7BE6069515A0E2DD00355236 /* NSString+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BE6069315A0E2DC00355236 /* NSString+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BE6069615A0E2DD00355236 /* NSString+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BE6069415A0E2DD00355236 /* NSString+AtoZ.m */; };
 		7BE606F115A118B400355236 /* AZAttachedWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BE606ED15A118B400355236 /* AZAttachedWindow.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -93,6 +108,19 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		7B3422B815A5EC03006AC46C /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+				7B3422C315A5EC03006AC46C /* AtoZCLI.1 in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		7B05BB0A159C40A600409B83 /* AZQueue.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; path = AZQueue.h; sourceTree = "<group>"; };
 		7B05BB0B159C40A600409B83 /* AZQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZQueue.m; sourceTree = "<group>"; };
@@ -103,10 +131,16 @@
 		7B0B7A4415A22C0D006B5062 /* NSImage+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSImage+AtoZ.m"; sourceTree = "<group>"; };
 		7B0B7A7A15A3553F006B5062 /* AZIndeterminateIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZIndeterminateIndicator.h; sourceTree = "<group>"; };
 		7B0B7A7B15A3553F006B5062 /* AZIndeterminateIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZIndeterminateIndicator.m; sourceTree = "<group>"; };
-		7B0B7A8315A36330006B5062 /* AZDock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZDock.h; sourceTree = "<group>"; };
-		7B0B7A8415A36330006B5062 /* AZDock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZDock.m; sourceTree = "<group>"; };
 		7B0B7A8B15A370BB006B5062 /* AZBoxGrid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZBoxGrid.h; path = AZBoxView/AZBoxGrid.h; sourceTree = SOURCE_ROOT; };
 		7B0B7A8C15A370BB006B5062 /* AZBoxGrid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AZBoxGrid.m; path = AZBoxView/AZBoxGrid.m; sourceTree = SOURCE_ROOT; };
+		7B0D7C3915A3F0BA00037D30 /* MondoSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MondoSwitch.h; sourceTree = "<group>"; };
+		7B0D7C3A15A3F0BA00037D30 /* MondoSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MondoSwitch.m; sourceTree = "<group>"; };
+		7B0D7C3C15A3F0BA00037D30 /* MondoSwitchButtonCALayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MondoSwitchButtonCALayer.h; sourceTree = "<group>"; };
+		7B0D7C3D15A3F0BA00037D30 /* MondoSwitchButtonCALayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MondoSwitchButtonCALayer.m; sourceTree = "<group>"; };
+		7B0D7C4D15A3FDD900037D30 /* AZToggleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZToggleView.h; sourceTree = "<group>"; };
+		7B0D7C4E15A3FDD900037D30 /* AZToggleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZToggleView.m; sourceTree = "<group>"; };
+		7B0D7C5115A401A100037D30 /* AZToggle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZToggle.h; sourceTree = "<group>"; };
+		7B0D7C5215A401A100037D30 /* AZToggle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZToggle.m; sourceTree = "<group>"; };
 		7B137CF415A201C00088A630 /* linen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = linen.png; sourceTree = "<group>"; };
 		7B137CF515A201C00088A630 /* darklinen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = darklinen.png; sourceTree = "<group>"; };
 		7B137CFA15A202510088A630 /* AZBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZBox.h; path = AZBoxView/AZBox.h; sourceTree = SOURCE_ROOT; };
@@ -147,6 +181,14 @@
 		7B311976159B6D9E002134C4 /* AtoZTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AtoZTests.h; sourceTree = "<group>"; };
 		7B311977159B6D9E002134C4 /* AtoZTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AtoZTests.m; sourceTree = "<group>"; };
 		7B311995159B7FD0002134C4 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		7B3422A115A52A61006AC46C /* BaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseModel.h; sourceTree = "<group>"; };
+		7B3422A215A52A61006AC46C /* BaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseModel.m; sourceTree = "<group>"; };
+		7B3422BA15A5EC03006AC46C /* AtoZCLI */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = AtoZCLI; sourceTree = BUILT_PRODUCTS_DIR; };
+		7B3422BE15A5EC03006AC46C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		7B3422C115A5EC03006AC46C /* AtoZCLI-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AtoZCLI-Prefix.pch"; sourceTree = "<group>"; };
+		7B3422C215A5EC03006AC46C /* AtoZCLI.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = AtoZCLI.1; sourceTree = "<group>"; };
+		7B3422C815A5EF03006AC46C /* AZDockQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZDockQuery.h; sourceTree = "<group>"; };
+		7B3422C915A5EF03006AC46C /* AZDockQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZDockQuery.m; sourceTree = "<group>"; };
 		7B583058159BB90D0039CEED /* .git */ = {isa = PBXFileReference; lastKnownFileType = folder; name = .git; path = ../.git; sourceTree = SOURCE_ROOT; };
 		7B583065159BDAF40039CEED /* atoz.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = atoz.icns; path = Resources/atoz.icns; sourceTree = SOURCE_ROOT; };
 		7B583066159BDAF40039CEED /* AtoZ-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "AtoZ-Prefix.pch"; path = "Resources/AtoZ-Prefix.pch"; sourceTree = SOURCE_ROOT; };
@@ -166,8 +208,6 @@
 		7B6901DB159E3F2700D0DA47 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		7BDDD5E215A3792600A5C222 /* AZStopwatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZStopwatch.h; sourceTree = "<group>"; };
 		7BDDD5E315A3792600A5C222 /* AZStopwatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZStopwatch.m; sourceTree = "<group>"; };
-		7BE6067B159F9ADB00355236 /* AtoZObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AtoZObject.h; sourceTree = "<group>"; };
-		7BE6067C159F9ADB00355236 /* AtoZObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AtoZObject.m; sourceTree = "<group>"; };
 		7BE6069315A0E2DC00355236 /* NSString+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+AtoZ.h"; sourceTree = "<group>"; };
 		7BE6069415A0E2DD00355236 /* NSString+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+AtoZ.m"; sourceTree = "<group>"; };
 		7BE606ED15A118B400355236 /* AZAttachedWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZAttachedWindow.h; path = Views/AZAttachedWindow.h; sourceTree = SOURCE_ROOT; };
@@ -205,18 +245,41 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7B3422B715A5EC03006AC46C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7B3422C715A5EC5F006AC46C /* AtoZ.framework in Frameworks */,
+				7B3422BC15A5EC03006AC46C /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		7B05BB09159C406200409B83 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				7B0D7C3815A3F0BA00037D30 /* mondoSwitch */,
 				7BF9E7D5159F0A0500B5482D /* AZPopupWindow.h */,
 				7BF9E7D6159F0A0500B5482D /* AZPopupWindow.m */,
 				7BE6068915A00B8800355236 /* Utility */,
+				7B0D7C4D15A3FDD900037D30 /* AZToggleView.h */,
+				7B0D7C4E15A3FDD900037D30 /* AZToggleView.m */,
 			);
 			path = Classes;
 			sourceTree = SOURCE_ROOT;
+		};
+		7B0D7C3815A3F0BA00037D30 /* mondoSwitch */ = {
+			isa = PBXGroup;
+			children = (
+				7B0D7C3915A3F0BA00037D30 /* MondoSwitch.h */,
+				7B0D7C3A15A3F0BA00037D30 /* MondoSwitch.m */,
+				7B0D7C3C15A3F0BA00037D30 /* MondoSwitchButtonCALayer.h */,
+				7B0D7C3D15A3F0BA00037D30 /* MondoSwitchButtonCALayer.m */,
+			);
+			path = mondoSwitch;
+			sourceTree = "<group>";
 		};
 		7B137CF915A2021E0088A630 /* AZBoxView */ = {
 			isa = PBXGroup;
@@ -257,6 +320,7 @@
 				7B31195A159B6D9E002134C4 /* AtoZ */,
 				7B583058159BB90D0039CEED /* .git */,
 				7B311970159B6D9E002134C4 /* AtoZTests */,
+				7B3422BD15A5EC03006AC46C /* AtoZCLI */,
 				7B311953159B6D9E002134C4 /* Frameworks */,
 				7B311952159B6D9E002134C4 /* Products */,
 			);
@@ -267,6 +331,7 @@
 			children = (
 				7B311951159B6D9E002134C4 /* AtoZ.framework */,
 				7B311969159B6D9E002134C4 /* AtoZTests.octest */,
+				7B3422BA15A5EC03006AC46C /* AtoZCLI */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -295,8 +360,6 @@
 				7B24E97B15A12CED00A9D87A /* AZGeometry */,
 				7B311961159B6D9E002134C4 /* AtoZ.h */,
 				7B311962159B6D9E002134C4 /* AtoZ.m */,
-				7BE6067B159F9ADB00355236 /* AtoZObject.h */,
-				7BE6067C159F9ADB00355236 /* AtoZObject.m */,
 				7B6901D7159E3AC600D0DA47 /* AZSugar.h */,
 				7B583063159BDA900039CEED /* Categories */,
 				7B05BB09159C406200409B83 /* Classes */,
@@ -321,6 +384,24 @@
 			children = (
 				7B311972159B6D9E002134C4 /* AtoZTests-Info.plist */,
 				7B311973159B6D9E002134C4 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		7B3422BD15A5EC03006AC46C /* AtoZCLI */ = {
+			isa = PBXGroup;
+			children = (
+				7B3422BE15A5EC03006AC46C /* main.m */,
+				7B3422C215A5EC03006AC46C /* AtoZCLI.1 */,
+				7B3422C015A5EC03006AC46C /* Supporting Files */,
+			);
+			path = AtoZCLI;
+			sourceTree = "<group>";
+		};
+		7B3422C015A5EC03006AC46C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				7B3422C115A5EC03006AC46C /* AtoZCLI-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -374,6 +455,8 @@
 				7B05BB13159C5C6100409B83 /* AZBlockView.m */,
 				7B6901CF159E388400D0DA47 /* AZProgressIndicator.h */,
 				7B6901D0159E388400D0DA47 /* AZProgressIndicator.m */,
+				7B0D7C5115A401A100037D30 /* AZToggle.h */,
+				7B0D7C5215A401A100037D30 /* AZToggle.m */,
 			);
 			path = Views;
 			sourceTree = SOURCE_ROOT;
@@ -381,12 +464,14 @@
 		7BE6068915A00B8800355236 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				7B3422A115A52A61006AC46C /* BaseModel.h */,
+				7B3422A215A52A61006AC46C /* BaseModel.m */,
 				7B05BB0A159C40A600409B83 /* AZQueue.h */,
 				7B05BB0B159C40A600409B83 /* AZQueue.m */,
 				7B6901C7159E322300D0DA47 /* AZAXAuthorization.h */,
 				7B6901C8159E322300D0DA47 /* AZAXAuthorization.m */,
-				7B0B7A8315A36330006B5062 /* AZDock.h */,
-				7B0B7A8415A36330006B5062 /* AZDock.m */,
+				7B3422C815A5EF03006AC46C /* AZDockQuery.h */,
+				7B3422C915A5EF03006AC46C /* AZDockQuery.m */,
 				7BDDD5E215A3792600A5C222 /* AZStopwatch.h */,
 				7BDDD5E315A3792600A5C222 /* AZStopwatch.m */,
 			);
@@ -425,11 +510,16 @@
 				7B24E9A015A1309400A9D87A /* NSObject+AtoZ.h in Headers */,
 				7B24E9A515A13A4100A9D87A /* NSBezierPath+AtoZ.h in Headers */,
 				7B0B7A4515A22C0D006B5062 /* NSImage+AtoZ.h in Headers */,
-				7BE6067D159F9ADB00355236 /* AtoZObject.h in Headers */,
 				7B137CFC15A202510088A630 /* AZBox.h in Headers */,
 				7B0B7A7C15A3553F006B5062 /* AZIndeterminateIndicator.h in Headers */,
-				7B0B7A8515A36330006B5062 /* AZDock.h in Headers */,
+				7B0D7C3F15A3F0BA00037D30 /* MondoSwitch.h in Headers */,
 				7BDDD5E415A3792600A5C222 /* AZStopwatch.h in Headers */,
+				7B0D7C2115A3D2C400037D30 /* AZBoxGrid.h in Headers */,
+				7B0D7C4F15A3FDD900037D30 /* AZToggleView.h in Headers */,
+				7B0D7C4215A3F0BA00037D30 /* MondoSwitchButtonCALayer.h in Headers */,
+				7B0D7C5315A401A100037D30 /* AZToggle.h in Headers */,
+				7B3422A315A52A61006AC46C /* BaseModel.h in Headers */,
+				7B3422CA15A5EF03006AC46C /* AZDockQuery.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -474,6 +564,23 @@
 			productReference = 7B311969159B6D9E002134C4 /* AtoZTests.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
+		7B3422B915A5EC03006AC46C /* AtoZCLI */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7B3422C415A5EC03006AC46C /* Build configuration list for PBXNativeTarget "AtoZCLI" */;
+			buildPhases = (
+				7B3422B615A5EC03006AC46C /* Sources */,
+				7B3422B715A5EC03006AC46C /* Frameworks */,
+				7B3422B815A5EC03006AC46C /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AtoZCLI;
+			productName = AtoZCLI;
+			productReference = 7B3422BA15A5EC03006AC46C /* AtoZCLI */;
+			productType = "com.apple.product-type.tool";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -498,6 +605,7 @@
 			targets = (
 				7B311950159B6D9E002134C4 /* AtoZ */,
 				7B311968159B6D9E002134C4 /* AtoZTests */,
+				7B3422B915A5EC03006AC46C /* AtoZCLI */,
 			);
 		};
 /* End PBXProject section */
@@ -583,8 +691,14 @@
 				7B137CFD15A202510088A630 /* AZBox.m in Sources */,
 				7B0B7A4615A22C0D006B5062 /* NSImage+AtoZ.m in Sources */,
 				7B0B7A7D15A3553F006B5062 /* AZIndeterminateIndicator.m in Sources */,
-				7B0B7A8615A36330006B5062 /* AZDock.m in Sources */,
 				7BDDD5E515A3792600A5C222 /* AZStopwatch.m in Sources */,
+				7B0D7C2315A3D2CB00037D30 /* AZBoxGrid.m in Sources */,
+				7B0D7C4015A3F0BA00037D30 /* MondoSwitch.m in Sources */,
+				7B0D7C4315A3F0BA00037D30 /* MondoSwitchButtonCALayer.m in Sources */,
+				7B0D7C5015A3FDD900037D30 /* AZToggleView.m in Sources */,
+				7B0D7C5515A409FC00037D30 /* AZToggle.m in Sources */,
+				7B3422A415A52A61006AC46C /* BaseModel.m in Sources */,
+				7B3422CB15A5EF03006AC46C /* AZDockQuery.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -593,6 +707,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				7B311978159B6D9E002134C4 /* AtoZTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7B3422B615A5EC03006AC46C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7B3422BF15A5EC03006AC46C /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -719,6 +841,28 @@
 			};
 			name = Release;
 		};
+		7B3422C515A5EC03006AC46C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "AtoZCLI/AtoZCLI-Prefix.pch";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		7B3422C615A5EC03006AC46C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "AtoZCLI/AtoZCLI-Prefix.pch";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -748,6 +892,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		7B3422C415A5EC03006AC46C /* Build configuration list for PBXNativeTarget "AtoZCLI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7B3422C515A5EC03006AC46C /* Debug */,
+				7B3422C615A5EC03006AC46C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};

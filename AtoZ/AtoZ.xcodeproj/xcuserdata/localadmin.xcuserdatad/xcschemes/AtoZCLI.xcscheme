@@ -13,23 +13,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7B311950159B6D9E002134C4"
-               BuildableName = "AtoZ.framework"
-               BlueprintName = "AtoZ"
-               ReferencedContainer = "container:AtoZ.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "NO"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7B311968159B6D9E002134C4"
-               BuildableName = "AtoZTests.octest"
-               BlueprintName = "AtoZTests"
+               BlueprintIdentifier = "7B3422B915A5EC03006AC46C"
+               BuildableName = "AtoZCLI"
+               BlueprintName = "AtoZCLI"
                ReferencedContainer = "container:AtoZ.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -41,23 +27,13 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7B311968159B6D9E002134C4"
-               BuildableName = "AtoZTests.octest"
-               BlueprintName = "AtoZTests"
-               ReferencedContainer = "container:AtoZ.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7B311950159B6D9E002134C4"
-            BuildableName = "AtoZ.framework"
-            BlueprintName = "AtoZ"
+            BlueprintIdentifier = "7B3422B915A5EC03006AC46C"
+            BuildableName = "AtoZCLI"
+            BlueprintName = "AtoZCLI"
             ReferencedContainer = "container:AtoZ.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -71,16 +47,26 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7B311950159B6D9E002134C4"
-            BuildableName = "AtoZ.framework"
-            BlueprintName = "AtoZ"
+            BlueprintIdentifier = "7B3422B915A5EC03006AC46C"
+            BuildableName = "AtoZCLI"
+            BlueprintName = "AtoZCLI"
             ReferencedContainer = "container:AtoZ.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
       <AdditionalOptions>
+         <AdditionalOption
+            key = "USERBREAK"
+            value = "1"
+            isEnabled = "YES">
+         </AdditionalOption>
+         <AdditionalOption
+            key = "NSZombieEnabled"
+            value = "YES"
+            isEnabled = "YES">
+         </AdditionalOption>
       </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
@@ -89,6 +75,15 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
+      <BuildableProductRunnable>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "7B3422B915A5EC03006AC46C"
+            BuildableName = "AtoZCLI"
+            BlueprintName = "AtoZCLI"
+            ReferencedContainer = "container:AtoZ.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

@@ -8,24 +8,28 @@
 
 #import <Cocoa/Cocoa.h>
 #import <AtoZ/AtoZ.h>
-
+#import "AZStatusItemView.h"
+#import "ControlBar.h"
 
 @interface AZStatusAppController : NSObject 
-<NSApplicationDelegate, NSWindowDelegate, AZBoxGridDataSource>
+<	NSApplicationDelegate,	NSWindowDelegate, 
+	AZBoxGridDataSource, 	AZStatusItemDelegate	> 	
 {
 	AZBoxGrid *grid;
     NSStatusItem *statusItem;
-    AZAttachedWindow *attachedWindow;
-    BOOL menuWindowIsShowing;
+	AZStatusItemView *statusView;
+	IBOutlet NSScrollView *scroller;
     IBOutlet NSView *rootView;
-    IBOutlet NSTextField *textField;
-	NSArray *datasource;
+	
+	IBOutlet AZToggleView *bar;
+//    IBOutlet NSTextField *textField;
+
 }
+@property (nonatomic, retain)  IBOutlet AZBoxGrid *grid;
+@property (nonatomic, retain)  IBOutlet NSWindow *attachedWindow;
+@property (nonatomic, retain)  IBOutlet NSScrollView *scroller;
 
-- (void)toggleAttachedWindowAtPoint:(NSPoint)pt;
-- (NSUInteger)numberOfBoxesInGrid:(AZBoxGrid *)grid;
-/** * This method is involed to ask the data source for a cell to display at the given index. You should first try to dequeue an old cell before creating a new one! **/
-- (AZBox*)grid:(AZBoxGrid *)grid boxForIndex:(NSUInteger)index;
-
+- (void)statusView:(AZStatusItemView *)statusItem isActive:(BOOL)active;
+//- (void)toggleAttachedWindowAtPoint:(NSPoint)pt;
 
 @end
