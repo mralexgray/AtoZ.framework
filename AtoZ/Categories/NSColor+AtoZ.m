@@ -49,6 +49,14 @@ char intToHex(NSInteger digit)
 	return '\0'; //NUL
 }
 
+
+CGFloat LuminanceFromRGBComponents(const CGFloat *rgb)
+{
+    // 0.3086 + 0.6094 + 0.0820 = 1.0
+    return 0.3086f*rgb[0] + 0.6094f*rgb[1] + 0.0820f*rgb[2];
+}
+
+
 static ColorNameRec sColorTable[] = {
 	{ 0xf0f8ff, "aliceblue" },
 	{ 0xfaebd7, "antiquewhite" },
@@ -204,6 +212,12 @@ static ColorNameRec sColorTable[] = {
 
 @implementation NSColor (AtoZ)
 
++ (NSColor*) linen {
+	return [NSColor colorWithPatternImage: [NSImage imageInFrameworkWithFileName:@"linen.png"]];
+}
++ (NSColor*) linenTintedWithColor:(NSColor*)color {
+	return [NSColor colorWithPatternImage:[[NSImage imageInFrameworkWithFileName:@"linen.png"]tintedWithColor:color]];
+}
 
 + (NSColor*)checkerboardWithFirstColor: (NSColor*)firstColor secondColor: (NSColor*)secondColor squareWidth: (CGFloat)width
 {
@@ -380,8 +394,8 @@ static NSColor *ColorWithCSSString(NSString *str) {
 	[deviceColor getRed: &components[0] green: &components[1] blue:&components[2] alpha: &components[3]];
 	CGColorRef output = CGColorCreate(colorSpace, components);
 	CGColorSpaceRelease (colorSpace);
-//	return (CGColorRef)[(id)output autorelease];
-	return (__bridge CGColorRef)(__bridge_transfer id)output;
+	return (CGColorRef)output; //[(id)output autorelease];
+//	return (__bridge CGColorRef)(__bridge_transfer id)output;
 }
 
 
@@ -705,7 +719,21 @@ static NSColor *ColorWithCSSString(NSString *str) {
 
 
 
++ (NSArray *)colorLists {
 
+	return  [NSColorList availableColorLists];
+}
+
+
++ (NSArray *) fengshui {
+	 __block NSColorList *l = [[NSColorList alloc] initWithName:@"FengShui" fromFile:@"/System/Library/Colors/FengShui.clr"];
+	 NSArray *keys = [l allKeys];
+	return [keys arrayUsingBlock:^id(id obj) {
+		NSString *i = obj;
+		return [l colorWithKey:i];
+	}];	 
+}
+ 
 
 
 
@@ -1008,9 +1036,52 @@ static NSColor *ColorWithCSSString(NSString *str) {
 	return color;
 }
 
+- (NSString*)nameOfColor{
+	
+//	NSColor *color = [self closestColorListColor];
+	NSColor *thisColor = [self colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
+	CGFloat bestDistance = FLT_MAX;
+//	NSColorList *colors = [NSColorList colorListNamed:@"Web Safe Colors"];
+	NSColorList *crayons = [NSColorList colorListNamed:@"Crayons"];
+	
+	NSArray *avail = $array(crayons);
+	//	NSColorList *bestList = nil;
+	NSColor *bestColor = nil;
+	NSString *bestKey = nil;
+	for (NSColorList *list  in avail) {
+		NSEnumerator *enumerator = [[list allKeys] objectEnumerator];
+		NSString *key = nil;
+		while ((key = [enumerator nextObject])) {
+			NSColor *thatColor = [list colorWithKey:key];
+			thatColor = [thatColor colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
+			CGFloat colorDistance = 
+			fabs([thisColor redComponent] 	- [thatColor redComponent]);
+			colorDistance += fabs([thisColor blueComponent] 	- [thatColor blueComponent]);
+			colorDistance += fabs([thisColor greenComponent]	- [thatColor greenComponent]);
+			colorDistance = sqrt(colorDistance);
+			if (colorDistance < bestDistance) {	
+				//				bestList = list; 
+				bestDistance = colorDistance; 
+				bestColor = thatColor; 
+				bestKey = key; }
+		}
+	}
+	//	bestColorKey = [[NSBundle bundleWithPath:@"/System/Library/Colors/Web Safe Colors.clr"]
+	//					localizedStringForKey:bestColorKey	value:bestColorKey 	table:@"Crayons"]; 
+	
+	return bestKey;//, @"color", bestKey, @"key", bestList, @"list");
+
+}
 //
 // Convenienct Methods to mess a little with the color values
 //
+
+- (CGFloat)luminance {
+	CGFloat r, g, b, a;
+	[[self calibratedRGBColor] getRed:&r green:&g blue:&b alpha:&a];
+		// 0.3086 + 0.6094 + 0.0820 = 1.0
+	return (0.3086f*r) + (0.6094f*g) + (0.0820f*b);
+}
 
 - (CGFloat)relativeBrightness {
 	CGFloat r, g, b, a;
@@ -1921,3 +1992,140 @@ static CGFloat hexCharsToFloat(char firstChar, char secondChar)
 @end
 
 
+
+//
+//  UIColor+Utilities.m
+//  ColorAlgorithm
+//
+//  Created by Quenton Jones on 6/11/11.
+
+@implementation NSColor (Utilities)
+
++ (NSArray *)calveticaPalette {
+    return [NSArray arrayWithObjects:CV_PALETTE_1, CV_PALETTE_2, CV_PALETTE_3, CV_PALETTE_4, CV_PALETTE_5, CV_PALETTE_6, CV_PALETTE_7, CV_PALETTE_8, CV_PALETTE_9, CV_PALETTE_10, CV_PALETTE_11, CV_PALETTE_12, CV_PALETTE_13, CV_PALETTE_14, CV_PALETTE_15, CV_PALETTE_16, CV_PALETTE_17, CV_PALETTE_18, CV_PALETTE_19, CV_PALETTE_20, CV_PALETTE_21, nil];
+}
+
+- (NSColor *)closestColorInCalveticaPalette {
+    return [self closestColorInPalette:[NSColor calveticaPalette]];
+}
+
+- (NSColor *)closestColorInPalette:(NSArray *)palette {
+    float bestDifference = MAXFLOAT;
+    NSColor *bestColor = nil;
+    
+    float *lab1 = [self colorToLab];
+    float C1 = sqrtf(lab1[1] * lab1[1] + lab1[2] * lab1[2]);
+    
+    for (NSColor *color in palette) {
+        float *lab2 = [color colorToLab];
+        float C2 = sqrtf(lab2[1] * lab2[1] + lab2[2] * lab2[2]);
+        
+        float deltaL = lab1[0] - lab2[0];
+        float deltaC = C1 - C2;
+        float deltaA = lab1[1] - lab2[1];
+        float deltaB = lab1[2] - lab2[2];
+        float deltaH = sqrtf(deltaA * deltaA + deltaB * deltaB - deltaC * deltaC);
+        
+        float deltaE = sqrtf(powf(deltaL / K_L, 2) + powf(deltaC / (1 + K_1 * C1), 2) + powf(deltaH / (1 + K_2 * C1), 2));
+        if (deltaE < bestDifference) {
+            bestColor = color;
+            bestDifference = deltaE;
+        }
+        
+        free(lab2);
+    }
+    
+    NSLog(@"Color Difference: %f", bestDifference);
+    NSLog(@"Color: %@", bestColor);
+    
+    free(lab1);
+    return bestColor;
+}
+
+- (float *)colorToLab {
+    // Don't allow grayscale colors.
+    if (CGColorGetNumberOfComponents(self.CGColor) != 4) {
+        return nil;
+    }
+    
+    float *rgb = (float *)malloc(3 * sizeof(float));
+    const CGFloat *components = CGColorGetComponents(self.CGColor);
+    
+    rgb[0] = components[0];
+    rgb[1] = components[1];
+    rgb[2] = components[2];
+    
+    //NSLog(@"Color (RGB) %@: r: %i g: %i b: %i", self, (int)(rgb[0] * 255), (int)(rgb[1] * 255), (int)(rgb[2] * 255));
+    
+    float *lab = [NSColor rgbToLab:rgb];
+    free(rgb);
+    
+    //NSLog(@"Color (Lab) %@: L: %f a: %f b: %f", self, lab[0], lab[1], lab[2]);
+    
+    return lab;
+}
+
++ (float *)rgbToLab:(float *)rgb {
+    float *xyz = [NSColor rgbToXYZ:rgb];
+    float *lab = [NSColor xyzToLab:xyz];
+    
+    free(xyz);
+    return lab;
+}
+
++ (float *)rgbToXYZ:(float *)rgb {
+    float *newRGB = (float *)malloc(3 * sizeof(float));
+    
+    for (int i = 0; i < 3; i++) {
+        float component = rgb[i];
+        
+        if (component > 0.04045f) {
+            component = powf((component + 0.055f) / 1.055f, 2.4f);
+        } else {
+            component = component / 12.92f;
+        }
+        
+        newRGB[i] = component;
+    }
+    
+    newRGB[0] = newRGB[0] * 100.0f;
+    newRGB[1] = newRGB[1] * 100.0f;
+    newRGB[2] = newRGB[2] * 100.0f;
+    
+    float *xyz = (float *)malloc(3 * sizeof(float));
+    xyz[0] = (newRGB[0] * 0.4124f) + (newRGB[1] * 0.3576f) + (newRGB[2] * 0.1805f);
+    xyz[1] = (newRGB[0] * 0.2126f) + (newRGB[1] * 0.7152f) + (newRGB[2] * 0.0722f);
+    xyz[2] = (newRGB[0] * 0.0193f) + (newRGB[1] * 0.1192f) + (newRGB[2] * 0.9505f);
+    
+    free(newRGB);
+    return xyz;
+}
+
++ (float *)xyzToLab:(float *)xyz {
+    float *newXYZ = (float *)malloc(3 * sizeof(float));
+    newXYZ[0] = xyz[0] / X_REF;
+    newXYZ[1] = xyz[1] / Y_REF;
+    newXYZ[2] = xyz[2] / Z_REF;
+    
+    for (int i = 0; i < 3; i++) {
+        float component = newXYZ[i];
+        
+        if (component > 0.008856) {
+            component = powf(component, 0.333f);
+        } else {
+            component = (7.787 * component) + (16 / 116);
+        }
+        
+        newXYZ[i] = component;
+    }
+    
+    float *lab = (float *)malloc(3 * sizeof(float));
+    lab[0] = (116 * newXYZ[1]) - 16;
+    lab[1] = 500 * (newXYZ[0] - newXYZ[1]);
+    lab[2] = 200 * (newXYZ[1] - newXYZ[2]);
+    
+    free(newXYZ);
+    return lab;
+}
+
+@end

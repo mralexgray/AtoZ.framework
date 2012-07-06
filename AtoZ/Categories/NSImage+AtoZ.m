@@ -40,6 +40,27 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 
 @implementation NSImage (AtoZ)
 
+- (NSImage*)  coloredWithColor:(NSColor*)inColor {
+	static CGFloat kGradientShadowLevel = 0.25;
+	static CGFloat kGradientAngle = 270.0;
+	if ( inColor ) {
+		BOOL avoidGradient = NO;// ( [self state] == NSOnState );
+		NSRect targetRect = NSMakeRect(0,0,self.size.width, self.size.height);		
+		NSImage *target = [[NSImage alloc] initWithSize:self.size];
+		NSGradient *gradient = ( avoidGradient ? nil : [[NSGradient alloc] initWithStartingColor:inColor.brighter endingColor:[inColor.darker shadowWithLevel:kGradientShadowLevel]] );
+		[target lockFocus];
+		if ( avoidGradient ) { [inColor set]; NSRectFill(targetRect); }
+		else [gradient drawInRect:targetRect angle:kGradientAngle];
+		[self drawInRect:targetRect fromRect:NSZeroRect operation:NSCompositeDestinationIn fraction:1.0];
+		[target unlockFocus];
+		return target;
+	}
+	else {
+		return self;
+	}
+}
+
+
 + (id) imageWithFileName:(NSString *)fileName inBundle:(NSBundle *)aBundle {
 	NSImage *img = nil;
 	if (aBundle != nil) {

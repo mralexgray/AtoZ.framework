@@ -8,6 +8,83 @@
 
 #import <Foundation/Foundation.h>
 
+//  HRCoder.h
+//  Version 1.0
+//  Created by Nick Lockwood on 24/04/2012.
+//  Copyright (c) 2011 Charcoal Design
+//
+//  Distributed under the permissive zlib License
+//  Get the latest version from here:
+//  https://github.com/nicklockwood/HRCoder
+//
+//  ARC Helper
+//  Version 1.3
+//  Created by Nick Lockwood on 05/01/2012.
+//  Copyright 2012 Charcoal Design
+//  Distributed under the permissive zlib license
+//  Get the latest version from here:
+//  https://gist.github.com/1563325
+
+#ifndef AH_RETAIN
+#if __has_feature(objc_arc)
+#define AH_RETAIN(x) (x)
+#define AH_RELEASE(x) (void)(x)
+#define AH_AUTORELEASE(x) (x)
+#define AH_SUPER_DEALLOC (void)(0)
+#define __AH_BRIDGE __bridge
+#else
+#define __AH_WEAK
+#define AH_WEAK assign
+#define AH_RETAIN(x) [(x) retain]
+#define AH_RELEASE(x) [(x) release]
+#define AH_AUTORELEASE(x) [(x) autorelease]
+#define AH_SUPER_DEALLOC [super dealloc]
+#define __AH_BRIDGE
+#endif
+#endif
+//  ARC Helper ends
+
+static NSString *const HRCoderClassNameKey = @"$class";
+static NSString *const HRCoderRootObjectKey = @"$root";
+static NSString *const HRCoderObjectAliasKey = @"$alias";
+
+
+@interface HRCoderAliasPlaceholder : NSObject
+
++ (HRCoderAliasPlaceholder *)placeholder;
+
+@end
+
+
+@interface HRCoder : NSCoder
+
++ (id)unarchiveObjectWithPlist:(id)plist;
++ (id)unarchiveObjectWithFile:(NSString *)path;
++ (id)archivedPlistWithRootObject:(id)object;
++ (BOOL)archiveRootObject:(id)rootObject toFile:(NSString *)path;
+
+- (id)unarchiveObjectWithPlist:(id)plist;
+- (id)unarchiveObjectWithFile:(NSString *)path;
+- (id)archivedPlistWithRootObject:(id)object;
+- (BOOL)archiveRootObject:(id)rootObject toFile:(NSString *)path;
+
+@end
+
+
+@interface NSObject (AutoCoding) <NSCoding>
+
+//coding
+
+- (NSArray *)codableKeys;
+- (NSArray *)uncodableKeys;
+
+//loading / saving
+
++ (id)objectWithContentsOfFile:(NSString *)path;
+- (void)writeToFile:(NSString *)filePath atomically:(BOOL)useAuxiliaryFile;
+
+@end
+
 
 @interface NSObject (AtoZ)
 
@@ -74,16 +151,3 @@
 
 @end
 
-@interface NSObject (AutoCoding) <NSCoding>
-
-//coding
-
-- (NSArray *)codableKeys;
-- (NSArray *)uncodableKeys;
-
-//loading / saving
-
-+ (id)objectWithContentsOfFile:(NSString *)path;
-- (void)writeToFile:(NSString *)filePath atomically:(BOOL)useAuxiliaryFile;
-
-@end

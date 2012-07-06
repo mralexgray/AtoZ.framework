@@ -7,9 +7,9 @@
 //
 
 #import "AtoZ.h"
+#import "BaseModel.h"
 
-
-@interface AZDockQuery : Ba
+@interface AZDockQuery : BaseModel
 @property (nonatomic, strong) NSArray *dock;
 
 + (NSArray*) dock;

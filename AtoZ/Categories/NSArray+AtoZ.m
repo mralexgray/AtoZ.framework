@@ -788,4 +788,52 @@ return self.lastObject;
 	return self;
 }
 
+- (void) moveObjectAtIndex:(NSUInteger)fromIndex toIndex:(NSUInteger)toIndex{
+    if (fromIndex == toIndex) return;
+    if (fromIndex >= self.count) return; //there is no object to move, return
+    if (toIndex >= self.count) toIndex = self.count - 1; //toIndex too large, assume a move to end
+    id movingObject = [self objectAtIndex:fromIndex];
+	
+    if (fromIndex < toIndex){
+        for (int i = fromIndex; i <= toIndex; i++){
+            [self replaceObjectAtIndex:i withObject:(i == toIndex) ? movingObject : [self objectAtIndex:i + 1]];
+        }
+    } else {
+        id cObject;
+        id prevObject;
+        for (int i = toIndex; i <= fromIndex; i++){
+            cObject = [self objectAtIndex:i];
+            [self replaceObjectAtIndex:i withObject:(i == toIndex) ? movingObject : prevObject];
+            prevObject = cObject;
+        }
+    }
+}
+//Also, a small bonus to further increase functionality, if you're performing operations on the items moved (like updating a db or something), the following code has been very useful to me:
+
+- (void) moveObjectAtIndex:(NSUInteger)fromIndex toIndex:(NSUInteger)toIndex withBlock:(void (^)(id, NSUInteger))block{
+    if (fromIndex == toIndex) return;
+    if (fromIndex >= self.count) return; //there is no object to move, return
+    if (toIndex >= self.count) toIndex = self.count - 1; //toIndex too large, assume a move to end
+    id movingObject = [self objectAtIndex:fromIndex];
+    id replacementObject;
+	
+    if (fromIndex < toIndex){
+        for (int i = fromIndex; i <= toIndex; i++){
+            replacementObject = (i == toIndex) ? movingObject : [self objectAtIndex:i + 1];
+            [self replaceObjectAtIndex:i withObject:replacementObject];
+            if (block) block(replacementObject, i);
+        }
+    } else {
+        id cObject;
+        id prevObject;
+        for (int i = toIndex; i <= fromIndex; i++){
+            cObject = [self objectAtIndex:i];
+            replacementObject = (i == toIndex) ? movingObject : prevObject;
+            [self replaceObjectAtIndex:i withObject:replacementObject];
+            prevObject = cObject;
+            if (block) block(replacementObject, i);
+        }
+    }
+}
+
 @end

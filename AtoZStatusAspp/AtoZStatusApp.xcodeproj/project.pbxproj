@@ -44,6 +44,13 @@
 			remoteGlobalIDString = 7B311950159B6D9E002134C4;
 			remoteInfo = AtoZ;
 		};
+		7BA8458C15A5FAFA002402FE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B24E9A715A1483000A9D87A /* AtoZ.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7B3422BA15A5EC03006AC46C;
+			remoteInfo = AtoZCLI;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -105,6 +112,7 @@
 			children = (
 				7B24E9AD15A1483000A9D87A /* AtoZ.framework */,
 				7B24E9AF15A1483000A9D87A /* AtoZTests.octest */,
+				7BA8458D15A5FAFA002402FE /* AtoZCLI */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -239,6 +247,13 @@
 			fileType = wrapper.cfbundle;
 			path = AtoZTests.octest;
 			remoteRef = 7B24E9AE15A1483000A9D87A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7BA8458D15A5FAFA002402FE /* AtoZCLI */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = AtoZCLI;
+			remoteRef = 7BA8458C15A5FAFA002402FE /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */

@@ -16,6 +16,8 @@
 
 
 @interface NSColor (AtoZ)
++ (NSColor*) linen;
++ (NSColor*) linenTintedWithColor:(NSColor*)color;
 
 + (NSColor*)checkerboardWithFirstColor: (NSColor*)firstColor secondColor: (NSColor*)secondColor squareWidth: (CGFloat)width;
 
@@ -32,6 +34,9 @@
 - (NSColor*) 	closestNamedColor;
 - (NSString*)	nameOfColor;
 - (NSDictionary*) closestColor;  //name, list, and color
+
++ (NSArray *)  colorLists; 
++ (NSArray *) fengshui;
 
 
 + (NSColor*)	randomColor;
@@ -51,6 +56,7 @@
 @property (readonly) NSColor *deviceRGBColor;
 @property (readonly) NSColor *calibratedRGBColor;
 
+@property (readonly) CGFloat luminance;
 @property (readonly) CGFloat relativeBrightness;
 
 @property (readonly) BOOL isBright;
@@ -119,6 +125,93 @@
 #define cap(x) { if (x < 0) {x = 0;} else if (x > 1) {x = 1;} }
 
 - (NSColor *)adjustHue:(CGFloat)dHue saturation:(CGFloat)dSat brightness:(CGFloat)dBrit;
+
+@end
+#define CV_PALETTE_1 [NSColor colorWithDeviceRed:.9372 green:.6313 blue:.5019 alpha:1]
+#define CV_PALETTE_2 [NSColor colorWithDeviceRed:.8980 green:.4588 blue:.3098 alpha:1]
+#define CV_PALETTE_3 [NSColor colorWithDeviceRed:.8353 green:.1215 blue:0 alpha:1]
+#define CV_PALETTE_4 [NSColor colorWithDeviceRed:.6470 green:.8157 blue:.8627 alpha:1]
+#define CV_PALETTE_5 [NSColor colorWithDeviceRed:.4784 green:.7098 blue:.7804 alpha:1]
+#define CV_PALETTE_6 [NSColor colorWithDeviceRed:.1529 green:.5294 blue:.6431 alpha:1]
+#define CV_PALETTE_7 [NSColor colorWithDeviceRed:.7019 green:.7176 blue:.8117 alpha:1]
+#define CV_PALETTE_8 [NSColor colorWithDeviceRed:.5490 green:.5686 blue:.7019 alpha:1]
+#define CV_PALETTE_9 [NSColor colorWithDeviceRed:.2666 green:.2980 blue:.5176 alpha:1]
+#define CV_PALETTE_10 [NSColor colorWithDeviceRed:.6392 green:.8274 blue:.7412 alpha:1]
+#define CV_PALETTE_11 [NSColor colorWithDeviceRed:.4666 green:.7255 blue:.6 alpha:1]
+#define CV_PALETTE_12 [NSColor colorWithDeviceRed:.1333 green:.5529 blue:.3490 alpha:1]
+#define CV_PALETTE_13 [NSColor colorWithDeviceRed:.7647 green:.8235 blue:.5255 alpha:1]
+#define CV_PALETTE_14 [NSColor colorWithDeviceRed:.6314 green:.7176 blue:.3333 alpha:1]
+#define CV_PALETTE_15 [NSColor colorWithDeviceRed:.4 green:.5412 blue:0 alpha:1]
+#define CV_PALETTE_16 [NSColor colorWithDeviceRed:.7921 green:.6706 blue:.8274 alpha:1]
+#define CV_PALETTE_17 [NSColor colorWithDeviceRed:.6745 green:.5059 blue:.7255 alpha:1]
+#define CV_PALETTE_18 [NSColor colorWithDeviceRed:.4706 green:.1961 blue:.5529 alpha:1]
+#define CV_PALETTE_19 [NSColor colorWithDeviceRed:.9255 green:.7921 blue:.5098 alpha:1]
+#define CV_PALETTE_20 [NSColor colorWithDeviceRed:.8784 green:.6706 blue:.3176 alpha:1]
+#define CV_PALETTE_21 [NSColor colorWithDeviceRed:.8039 green:.4666 blue:0 alpha:1]
+
+/*
+ efa180 = .9372, .6313, .5019
+ e5754f = .8980, .4588, .3098
+ d51f00 = .8353, .1215, 0
+ 
+ a5d0dc = .6470, .8157, .8627
+ 7ab5c7 = .4784, .7098, .7804
+ 2787a4 = .1529, .5294, .6431
+ 
+ b3b7cf = .7019, .7176, .8117
+ 8c91b3 = .5490, .5686, .7019
+ 444c84 = .2666, .2980, .5176
+ 
+ a3d3bd = .6392, .8274, .7412
+ 77b999 = .4666, .7255, .6
+ 228d59 = .1333, .5529, .3490
+ 
+ c3d286 = .7647, .8235, .5255
+ a1b755 = .6314, .7176, .3333
+ 668a00 = .4, .5412, 0
+ 
+ caabd3 = .7921, .6706, .8274
+ ac81b9 = .6745, .5059, .7255
+ 78328d = .4706, .1961, .5529
+ 
+ ecca82 = .9255, .7921, .5098
+ e0ab51 = .8784, .6706, .3176
+ cd7700 = .8039, .4666, 0
+ */
+ 
+ 
+
+#define K_L 1
+#define K_1 0.045f
+#define K_2 0.015f
+#define X_REF 95.047f
+#define Y_REF 100.0f
+#define Z_REF 108.883f
+
+@interface NSColor (Utilities)
+
+
+
+// The Calvetica specific colors.
++ (NSArray *)calveticaPalette;
+
+// Determines which color in the Calvetica palette most closely matches the recipient color.
+- (NSColor *)closestColorInCalveticaPalette;
+
+// Determines which color in the array of colors most closely matches recipient color.
+- (NSColor *)closestColorInPalette:(NSArray *)palette;
+
+// Converts the recipient UIColor to the L*a*b* color space.
+- (float *)colorToLab;
+
+// Converts a color from the RGB color space to the L*a*b* color space.
++ (float *)rgbToLab:(float *)rgb;
+
+// Converts a color from the RGB color space to the XYZ color space.
++ (float *)rgbToXYZ:(float *)rgb;
+
+// Coverts a color from the XYZ color space to the L*a*b* color space.
++ (float *)xyzToLab:(float *)xyz;
 
 @end
 //

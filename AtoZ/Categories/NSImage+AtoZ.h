@@ -24,6 +24,9 @@ typedef enum {
 
 @interface NSImage (AtoZ)
 
+- (NSImage*)  coloredWithColor:(NSColor*)inColor;
+
+
 + (id) imageWithFileName:(NSString *)fileName inBundle:(NSBundle *)aBundle;
 + (id) imageWithFileName:(NSString *) fileName inBundleForClass:(Class) aClass;
 + (id) imageInFrameworkWithFileName:(NSString *) fileName;

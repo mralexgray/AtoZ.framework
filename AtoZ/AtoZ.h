@@ -82,7 +82,6 @@
 #import "AZStopwatch.h"
 #import "AZBox.h"
 #import "AZBoxGrid.h"
-#import "BaseModel.h"
 
 #define AZRelease(value) \
 if ( value ) { \
@@ -98,13 +97,23 @@ oldValue = newValue;
 
 #define AZConstraint(attr, rel) \
 [CAConstraint constraintWithAttribute:attr relativeTo:rel attribute:attr]
+@interface CALayerNoHit : CALayer
+@end
+@interface CAShapeLayerNoHit : CAShapeLayer
+@end
+@interface CATextLayerNoHit : CATextLayer
+@end
+
 
 
 extern NSString *const AtoZSharedInstanceUpdated;
 
 @interface AtoZ : BaseModel
-@property (nonatomic, strong) NSMutableArray *dock;
 + (AtoZ*) sharedInstance;
++ (NSMutableArray*) dock;
++ (NSMutableArray*) dockSorted;
++ (NSArray*) fengshui;
++ (NSArray*) runningApps;
 @end
 @interface AZColor : BaseModel
 @property (nonatomic, readonly) CGFloat 	brightness;
@@ -120,8 +129,8 @@ extern NSString *const AtoZSharedInstanceUpdated;
 @interface AZFile : BaseModel
 @property (strong, nonatomic)	NSString * 	path;
 @property (strong, nonatomic)	NSString *	name;
-@property (strong, readonly) 	NSColor	 * 	color;
-@property (strong, readonly) 	NSColor	 * 	customColor;
+@property (strong, nonatomic) 	NSColor	 * 	color;
+@property (strong, nonatomic) 	NSColor	 * 	customColor;
 @property (strong, nonatomic)	NSColor	 *	labelColor;
 @property (strong, nonatomic)	NSNumber *	labelNumber;
 @property (strong, readonly)  	NSArray	 * 	colors;
@@ -135,7 +144,7 @@ extern NSString *const AtoZSharedInstanceUpdated;
 @property (nonatomic, readonly)		BOOL		isRunning;
 @property (nonatomic, readonly)		BOOL		hasLabel;
 @property (nonatomic, assign)		BOOL		needsToMove;
-
++ (AZFile*) dummy;
 + (id)instanceWithPath:(NSString *)path;
 @end
 

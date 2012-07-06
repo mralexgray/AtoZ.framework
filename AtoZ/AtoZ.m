@@ -9,22 +9,50 @@
 #import <objc/message.h>
 
 
+
+@implementation CALayerNoHit
+- (BOOL)containsPoint:(CGPoint)p {	return FALSE; }
+@end
+@implementation CAShapeLayerNoHit
+- (BOOL)containsPoint:(CGPoint)p {	return FALSE; }
+@end
+@implementation CATextLayerNoHit
+- (BOOL)containsPoint:(CGPoint)p {	return FALSE; }
+@end
+
+
 NSString *const AtoZSharedInstanceUpdated = @"AtoZSharedInstanceUpdated";
 
-
+@interface AtoZ ()
+@property (nonatomic, strong) NSMutableArray *dock;
+@property (nonatomic, strong) NSMutableArray *dockSorted;
+@end
 @implementation AtoZ
-@synthesize dock;
-+ (AtoZ*) sharedInstance {	
-	return [super sharedInstance];
+@synthesize dock, dockSorted;
+- (void) setUp {
+	self.dock = [AZDockQuery dock].mutableCopy;
 }
-- (NSArray*) dock {
++ (AtoZ*) sharedInstance { return [super sharedInstance]; }
++ (NSMutableArray*) dock { return [super sharedInstance].dock; }
++ (NSMutableArray*) dockSorted {
+	return  [[[[super sharedInstance].dock sortedWithKey:@"hue" ascending:YES] reversed] arrayUsingIndexedBlock:^id(id obj, NSUInteger idx) {
+		AZFile* app = obj;
+		app.spotNew = idx;
+		app.dockPointNew = [[[[super sharedInstance].dock objectAtIndex:app.spotNew] valueForKey:@"dockPoint"]pointValue];
+		return app;
+	}].mutableCopy;
+}
++ (NSArray*) fengshui {
+	return [[NSColor fengshui].reversed arrayUsingBlock:^id(id obj) {
+		 AZFile *t = [AZFile dummy];		t.color = (NSColor*)obj; t.spot = 22;	return t;	}];
+}
++ (NSArray*) runningApps {
 
-	return [AZDockQuery dock];   
-//	[[[[NSWorkspace sharedWorkspace] runningApplications] valueForKeyPath:@"bundleURL"] arrayUsingBlock:^id(id obj) {
-//		if ([obj isKindOfClass:[NSURL class]])
-//		return [AZFile instanceWithPath:[obj path]];
-//		else return nil;
-//	}];
+	return [[[[NSWorkspace sharedWorkspace] runningApplications] valueForKeyPath:@"bundleURL"] arrayUsingBlock:^id(id obj) {
+		if ([obj isKindOfClass:[NSURL class]])
+		return [AZFile instanceWithPath:[obj path]];
+		else return nil;
+	}];
 }
 @end
 @implementation AZColor
@@ -50,7 +78,9 @@ NSString *const AtoZSharedInstanceUpdated = @"AtoZSharedInstanceUpdated";
 @synthesize dockPoint, dockPointNew, spot, spotNew;
 @synthesize hue, isRunning, hasLabel, needsToMove, labelNumber;
 
-
++ (AZFile*) dummy {
+	return [AZFile instanceWithPath:@"/System/Library/CoreServices/Dock.app/Contents/Resources/notloaded.icns"];
+}
 + (id)instanceWithPath:(NSString *)_path {
 	return [self instanceWithObject:_path];
 }
@@ -58,6 +88,8 @@ NSString *const AtoZSharedInstanceUpdated = @"AtoZSharedInstanceUpdated";
 - (void)setWithString:(NSString *)string
 {
 	self.path = string;
+	self.name 	= [[string lastPathComponent] stringByDeletingPathExtension];
+
 }
 
 - (NSArray*) colors {	
@@ -105,7 +137,9 @@ NSString *const AtoZSharedInstanceUpdated = @"AtoZSharedInstanceUpdated";
 	return  [colorsUnsorted sortedWithKey:@"count" ascending:NO];
 	//	return [[NSArray alloc] initWithArray:colorsUnsorted];
 }
-- (NSColor*) color { return  [[self.colors objectAtNormalizedIndex:0] valueForKey:@"color"]; }
+- (NSColor*) color { 
+	return (color ? color : [[self.colors objectAtNormalizedIndex:0] valueForKey:@"color"]); 
+}
 
 - (CGFloat) hue {	return self.color.hueComponent; }
 

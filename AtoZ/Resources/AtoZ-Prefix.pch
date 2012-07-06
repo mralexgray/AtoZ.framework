@@ -6,4 +6,6 @@
 	#import <Foundation/Foundation.h>
 	#import <Cocoa/Cocoa.h>
 	#import <QuartzCore/QuartzCore.h>
+	#import "BaseModel.h"
+
 #endif

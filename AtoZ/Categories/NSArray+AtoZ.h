@@ -214,5 +214,8 @@
 // randomizes the order of the array
 -(NSMutableArray *)shuffle;
 
+- (void) moveObjectAtIndex:(NSUInteger)fromIndex toIndex:(NSUInteger)toIndex;
+
+- (void) moveObjectAtIndex:(NSUInteger)fromIndex toIndex:(NSUInteger)toIndex withBlock:(void (^)(id, NSUInteger))block;
 
 @end

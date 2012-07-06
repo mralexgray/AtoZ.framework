@@ -9,15 +9,39 @@
 #import <Foundation/Foundation.h>
 #import <AtoZ/AtoZ.h>
 
+
+@interface AtoZCLI : NSObject
+
+@end
+
+@implementation AtoZCLI
+
+
+- (void) testMethods {
+
+	NSLog(@"%@", [NSColor fengshui]);
+	
+	NSArray *h = [AtoZ dock];
+//	[AZStopwatch stop:@"b"];
+//	NSLog(@"They are the same %i", ([[AtoZ dock] isEqual: [AtoZ sharedInstance].dock]));
+}
+@end
+
+
 int main(int argc, const char * argv[])
 {
 
 	@autoreleasepool {
 	    
-		NSLog(@"%@", [[AtoZ sharedInstance].dock.randomElement propertiesPlease]);
-		//	AZFile *f = [AZFile instanceWithPath:@"/Applications/Safari.app"];
-		//	NSLog(@"%@", f);
-	    
+		[[[AtoZ dockSorted] valueForKeyPath:@"color"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+			NSColor *c = obj;
+			NSLog(@"Color:%@     \t \t Hue: %f\t  Sat: %f\t Lum: %f\t  Brt: %f", 
+				c.nameOfColor,
+				c.hueComponent, 
+				c.saturationComponent, 
+				c.luminance, 
+				c.brightnessComponent);
+		}];
 	}
     return 0;
 }
