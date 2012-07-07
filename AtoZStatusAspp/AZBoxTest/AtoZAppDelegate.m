@@ -9,18 +9,23 @@
 #import "AtoZAppDelegate.h"
 
 @implementation AtoZAppDelegate
+{
+NSMutableArray *items;
 
-@synthesize window = _window, boxGrid;
+}
+
+@synthesize window = _window, boxGrid, boxGrid2;
 
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
 	[boxGrid setCellSize:NSMakeSize(64.0, 64.0)];
 	[boxGrid setAllowsMultipleSelection:YES];
+	[boxGrid2 setDataSource:self];
 }
 
 - (NSUInteger)numberOfCellsInCollectionView:(AZBoxGrid *)view {
-    return [NSColor fengshui].count;
+    return [NSColor allColors].count;
 }
 
 - (AZBox *)collectionView:(AZBoxGrid *)view cellForIndex:(NSUInteger)index
@@ -28,7 +33,7 @@
     AZBox *cell = [view dequeueReusableCellWithIdentifier:$(@"cell.%ld", index)];
 	if(!cell)
         cell = [[AZBox alloc] initWithReuseIdentifier:$(@"cell.%ld", index)];
-		cell.color = [[NSColor fengshui] objectAtIndex:index];
+		cell.color = [[NSColor allColors] objectAtIndex:index];
 //		[cell setImage:[[[AtoZ dockSorted]objectAtIndex:index] valueForKey:@"image"]];
     return cell;
 }
@@ -40,5 +45,14 @@
 
 - (IBAction)reload:(id)sender {
 	[boxGrid reloadData];
+	[boxGrid2 reloadData];
+}
+
+- (IBAction)log:(id)sender {
+	NSLog(@"%@", boxGrid2.propertiesPlease);
+}
+
+- (IBAction)add:(id)sender {
+//	[boxGrid2 in
 }
 @end

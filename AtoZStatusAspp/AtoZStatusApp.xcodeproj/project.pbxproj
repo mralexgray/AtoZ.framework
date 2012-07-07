@@ -13,7 +13,9 @@
 		7B091A2115A8301600821FFD /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 7B091A1F15A8301600821FFD /* Credits.rtf */; };
 		7B091A2415A8301600821FFD /* AtoZAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B091A2315A8301600821FFD /* AtoZAppDelegate.m */; };
 		7B091A2715A8301600821FFD /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B091A2515A8301600821FFD /* MainMenu.xib */; };
-		7B091A2D15A83FD400821FFD /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B24E9B315A1486D00A9D87A /* AtoZ.framework */; };
+		7B091A4015A8866F00821FFD /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B24E9AD15A1483000A9D87A /* AtoZ.framework */; };
+		7B091A4815A888C500821FFD /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B091A4715A888C400821FFD /* ApplicationServices.framework */; };
+		7B091A4915A8891400821FFD /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BE606D015A117D100355236 /* AppKit.framework */; };
 		7B0D7C2615A3E80000037D30 /* ControlBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0D7C2515A3E7FF00037D30 /* ControlBar.m */; };
 		7B0D7C4615A3F6C800037D30 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B0D7C4515A3F6C800037D30 /* QuartzCore.framework */; };
 		7B0D7C4815A3F88C00037D30 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B0D7C4715A3F88C00037D30 /* Quartz.framework */; };
@@ -30,6 +32,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		7B091A4115A8867B00821FFD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B24E9A715A1483000A9D87A /* AtoZ.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 7B311950159B6D9E002134C4;
+			remoteInfo = AtoZ;
+		};
 		7B24E9AC15A1483000A9D87A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7B24E9A715A1483000A9D87A /* AtoZ.xcodeproj */;
@@ -83,6 +92,7 @@
 		7B091A2215A8301600821FFD /* AtoZAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AtoZAppDelegate.h; sourceTree = "<group>"; };
 		7B091A2315A8301600821FFD /* AtoZAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AtoZAppDelegate.m; sourceTree = "<group>"; };
 		7B091A2615A8301600821FFD /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		7B091A4715A888C400821FFD /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
 		7B0D7C2415A3E7FF00037D30 /* ControlBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControlBar.h; sourceTree = "<group>"; };
 		7B0D7C2515A3E7FF00037D30 /* ControlBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControlBar.m; sourceTree = "<group>"; };
 		7B0D7C4515A3F6C800037D30 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -113,7 +123,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7B091A2D15A83FD400821FFD /* AtoZ.framework in Frameworks */,
+				7B091A4915A8891400821FFD /* AppKit.framework in Frameworks */,
+				7B091A4815A888C500821FFD /* ApplicationServices.framework in Frameworks */,
+				7B091A4015A8866F00821FFD /* AtoZ.framework in Frameworks */,
 				7B091A1515A8301600821FFD /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -168,6 +180,7 @@
 		7BE606BE15A117D100355236 = {
 			isa = PBXGroup;
 			children = (
+				7B091A4715A888C400821FFD /* ApplicationServices.framework */,
 				7B0D7C5A15A4175900037D30 /* iCarousel.h */,
 				7B0D7C5B15A4175900037D30 /* iCarousel.m */,
 				7B24E97015A11F4600A9D87A /* AZStatusItemView.h */,
@@ -243,6 +256,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				7B091A4215A8867B00821FFD /* PBXTargetDependency */,
 			);
 			name = AZBoxTest;
 			productName = AZBoxTest;
@@ -374,6 +388,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		7B091A4215A8867B00821FFD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AtoZ;
+			targetProxy = 7B091A4115A8867B00821FFD /* PBXContainerItemProxy */;
+		};
 		7B24E9F015A1783A00A9D87A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = AtoZ;
@@ -537,6 +556,7 @@
 				7B091A2A15A8301600821FFD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7BE606C315A117D100355236 /* Build configuration list for PBXProject "AtoZStatusApp" */ = {
 			isa = XCConfigurationList;

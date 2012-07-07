@@ -733,6 +733,14 @@ static NSColor *ColorWithCSSString(NSString *str) {
 		return [l colorWithKey:i];
 	}];	 
 }
++ (NSArray *) allColors {
+		
+	__block NSMutableArray *colorbag = [NSMutableArray array];
+	for ( NSColorList *l in [NSColor colorLists] )
+		for (NSString *k in [l allKeys])
+			[colorbag addObject: [l colorWithKey:k]];
+	return  colorbag;
+}
  
 
 

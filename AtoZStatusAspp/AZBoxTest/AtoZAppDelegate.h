@@ -14,6 +14,9 @@
 
 @property IBOutlet NSWindow *window;
 @property IBOutlet AZBoxGrid *boxGrid;
+@property IBOutlet AZBoxGrid *boxGrid2;
 - (IBAction)reload:(id)sender;
+- (IBAction)log:(id)sender;
+- (IBAction)add:(id)sender;
 
 @end

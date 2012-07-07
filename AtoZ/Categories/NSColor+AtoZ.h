@@ -37,7 +37,7 @@
 
 + (NSArray *)  colorLists; 
 + (NSArray *) fengshui;
-
++ (NSArray *) allColors;
 
 + (NSColor*)	randomColor;
 + (NSColor*)	randomOpaqueColor;

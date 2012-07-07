@@ -3,6 +3,8 @@
 //  AZBoxGrid
 //
 #import "AZBoxGrid.h"
+#import "AZBox.h"
+
 @interface AZBox ()
 @property (nonatomic, assign) NSInteger index;
 @end
@@ -15,12 +17,43 @@
 @synthesize cellSize, desiredNumberOfColumns, desiredNumberOfRows;
 @synthesize dataSource, delegate;
 @synthesize unselectOnMouseUp, allowsSelection, allowsMultipleSelection;
-
+@synthesize maximizeIdeally;
 #pragma mark - Selection
 
 - (NSIndexSet *)selection {
 	return [selection copy];
 }
+
+
+-(void) viewWillDraw {
+}
+
+
+- (void) setMaximizeIdeally:(BOOL)domaximizeIdeally
+{
+	maximizeIdeally = domaximizeIdeally;
+	if (maximizeIdeally){
+		int totes =  [[self dataSource] numberOfCellsInCollectionView:self];
+		int rows = ceil(sqrt(totes));
+		int cols = ceil(totes/ceil(sqrt(totes)));
+		//		float sizer =  ();// self.desiredNumberOfRows);
+		NSSize s = NSMakeSize(self.frame.size.width/cols, [self frame].size.height/rows );
+		self.cellSize =  s;
+		self.desiredNumberOfRows = rows;
+		self.desiredNumberOfColumns = cols;
+		AZTalker *n = [AZTalker new];
+		[n say:$(@"Caculated ideally to be: %i rows, %i columns.. %i pixels wide, by %i pixels high", rows, cols, (int)s.width, (int)s.height)];
+		NSLog(@"%@, rows:%i", NSStringFromSize(s), rows);
+		[self setNeedsDisplay:YES];
+	}
+	[self setNeedsDisplay:YES];
+}
+
+- (void) viewDidEndLiveResize {
+	if (maximizeIdeally) self.maximizeIdeally = YES;
+
+}
+
 - (void)selectCellAtIndex:(NSUInteger)index 		  {
 	if(!allowsSelection || index == NSNotFound)
         return;

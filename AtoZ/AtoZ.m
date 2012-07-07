@@ -29,13 +29,6 @@ NSString *const AtoZSharedInstanceUpdated = @"AtoZSharedInstanceUpdated";
 @end
 @implementation AtoZ
 @synthesize dock, dockSorted;
-
-+(void) say:(NSString *)thing {
-	AtoZ *a = [AtoZ sharedInstance];
-	NSSpeechSynthesizer *talker = [[NSSpeechSynthesizer alloc]init];    
-	[talker setDelegate:a];	
-	[talker startSpeakingString:thing];
-}
 - (void) setUp {
 	self.dock = [AZDockQuery dock].mutableCopy;
 }
@@ -49,6 +42,7 @@ NSString *const AtoZSharedInstanceUpdated = @"AtoZSharedInstanceUpdated";
 		return app;
 	}].mutableCopy;
 }
+
 + (NSArray*) fengshui {
 	return [[NSColor fengshui].reversed arrayUsingBlock:^id(id obj) {
 		 AZFile *t = [AZFile dummy];		t.color = (NSColor*)obj; t.spot = 22;	return t;	}];

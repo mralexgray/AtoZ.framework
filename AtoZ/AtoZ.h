@@ -74,6 +74,8 @@
 #import "NSImage+AtoZ.h"
 #import "NSWindow+AtoZ.h"
 #import "NSShadow+AtoZ.h"
+#import "NSNumber+AtoZ.h"
+
 
 #import "NSObject+AtoZ.h"
 
@@ -82,6 +84,7 @@
 #import "AZStopwatch.h"
 #import "AZBox.h"
 #import "AZBoxGrid.h"
+#import "AZTalker.h"
 
 #define AZRelease(value) \
 if ( value ) { \
@@ -119,10 +122,7 @@ oldValue = newValue;
 
 extern NSString *const AtoZSharedInstanceUpdated;
 
-@interface AtoZ : BaseModel <NSSpeechSynthesizerDelegate>
-
-+(void) say:(NSString *)thing;
-
+@interface AtoZ : BaseModel
 + (AtoZ*) sharedInstance;
 + (NSMutableArray*) dock;
 + (NSMutableArray*) dockSorted;

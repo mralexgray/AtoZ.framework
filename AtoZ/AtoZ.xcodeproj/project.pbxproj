@@ -18,6 +18,8 @@
 		7B091A3A15A845A700821FFD /* NSShadow+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B091A3815A845A700821FFD /* NSShadow+AtoZ.m */; };
 		7B091A3E15A850E500821FFD /* AZButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B091A3C15A850E500821FFD /* AZButton.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B091A3F15A850E500821FFD /* AZButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B091A3D15A850E500821FFD /* AZButton.m */; };
+		7B091A4515A887B500821FFD /* AZTalker.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B091A4315A887B500821FFD /* AZTalker.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B091A4615A887B500821FFD /* AZTalker.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B091A4415A887B500821FFD /* AZTalker.m */; };
 		7B0B7A4515A22C0D006B5062 /* NSImage+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B0B7A4315A22C0D006B5062 /* NSImage+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B0B7A4615A22C0D006B5062 /* NSImage+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0B7A4415A22C0D006B5062 /* NSImage+AtoZ.m */; };
 		7B0B7A7C15A3553F006B5062 /* AZIndeterminateIndicator.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B0B7A7A15A3553F006B5062 /* AZIndeterminateIndicator.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -92,6 +94,9 @@
 		7B6901DA159E3F1800D0DA47 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B6901D9159E3F1800D0DA47 /* ApplicationServices.framework */; };
 		7B6901DC159E3F2700D0DA47 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B6901DB159E3F2700D0DA47 /* Security.framework */; };
 		7BA845A115A6089A002402FE /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B311954159B6D9E002134C4 /* Cocoa.framework */; };
+		7BC859C515A8C0F400582632 /* AZSizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BC859C315A8C0F400582632 /* AZSizer.h */; };
+		7BC859CA15A8C56700582632 /* NSNumber+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BC859C815A8C56700582632 /* NSNumber+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BC859CB15A8C56700582632 /* NSNumber+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC859C915A8C56700582632 /* NSNumber+AtoZ.m */; };
 		7BDDD5E415A3792600A5C222 /* AZStopwatch.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BDDD5E215A3792600A5C222 /* AZStopwatch.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BDDD5E515A3792600A5C222 /* AZStopwatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BDDD5E315A3792600A5C222 /* AZStopwatch.m */; };
 		7BE6069515A0E2DD00355236 /* NSString+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BE6069315A0E2DC00355236 /* NSString+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -140,6 +145,8 @@
 		7B091A3815A845A700821FFD /* NSShadow+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSShadow+AtoZ.m"; sourceTree = "<group>"; };
 		7B091A3C15A850E500821FFD /* AZButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZButton.h; sourceTree = "<group>"; };
 		7B091A3D15A850E500821FFD /* AZButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZButton.m; sourceTree = "<group>"; };
+		7B091A4315A887B500821FFD /* AZTalker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZTalker.h; sourceTree = "<group>"; };
+		7B091A4415A887B500821FFD /* AZTalker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZTalker.m; sourceTree = "<group>"; };
 		7B0B7A4315A22C0D006B5062 /* NSImage+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSImage+AtoZ.h"; sourceTree = "<group>"; };
 		7B0B7A4415A22C0D006B5062 /* NSImage+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSImage+AtoZ.m"; sourceTree = "<group>"; };
 		7B0B7A7A15A3553F006B5062 /* AZIndeterminateIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZIndeterminateIndicator.h; sourceTree = "<group>"; };
@@ -219,6 +226,10 @@
 		7B6901D7159E3AC600D0DA47 /* AZSugar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZSugar.h; sourceTree = SOURCE_ROOT; };
 		7B6901D9159E3F1800D0DA47 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
 		7B6901DB159E3F2700D0DA47 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		7BC859C315A8C0F400582632 /* AZSizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZSizer.h; sourceTree = "<group>"; };
+		7BC859C415A8C0F400582632 /* AZSizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZSizer.m; sourceTree = "<group>"; };
+		7BC859C815A8C56700582632 /* NSNumber+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+AtoZ.h"; sourceTree = "<group>"; };
+		7BC859C915A8C56700582632 /* NSNumber+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+AtoZ.m"; sourceTree = "<group>"; };
 		7BDDD5E215A3792600A5C222 /* AZStopwatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZStopwatch.h; sourceTree = "<group>"; };
 		7BDDD5E315A3792600A5C222 /* AZStopwatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZStopwatch.m; sourceTree = "<group>"; };
 		7BE6069315A0E2DC00355236 /* NSString+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+AtoZ.h"; sourceTree = "<group>"; };
@@ -447,6 +458,8 @@
 				7B0B7A4415A22C0D006B5062 /* NSImage+AtoZ.m */,
 				7B091A3715A845A700821FFD /* NSShadow+AtoZ.h */,
 				7B091A3815A845A700821FFD /* NSShadow+AtoZ.m */,
+				7BC859C815A8C56700582632 /* NSNumber+AtoZ.h */,
+				7BC859C915A8C56700582632 /* NSNumber+AtoZ.m */,
 			);
 			path = Categories;
 			sourceTree = SOURCE_ROOT;
@@ -494,6 +507,10 @@
 				7B3422C915A5EF03006AC46C /* AZDockQuery.m */,
 				7BDDD5E215A3792600A5C222 /* AZStopwatch.h */,
 				7BDDD5E315A3792600A5C222 /* AZStopwatch.m */,
+				7B091A4315A887B500821FFD /* AZTalker.h */,
+				7B091A4415A887B500821FFD /* AZTalker.m */,
+				7BC859C315A8C0F400582632 /* AZSizer.h */,
+				7BC859C415A8C0F400582632 /* AZSizer.m */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -543,6 +560,9 @@
 				7B091A3015A8448E00821FFD /* AZHoverButton.h in Headers */,
 				7B091A3915A845A700821FFD /* NSShadow+AtoZ.h in Headers */,
 				7B091A3E15A850E500821FFD /* AZButton.h in Headers */,
+				7B091A4515A887B500821FFD /* AZTalker.h in Headers */,
+				7BC859C515A8C0F400582632 /* AZSizer.h in Headers */,
+				7BC859CA15A8C56700582632 /* NSNumber+AtoZ.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -725,6 +745,8 @@
 				7B091A3115A8448E00821FFD /* AZHoverButton.m in Sources */,
 				7B091A3A15A845A700821FFD /* NSShadow+AtoZ.m in Sources */,
 				7B091A3F15A850E500821FFD /* AZButton.m in Sources */,
+				7B091A4615A887B500821FFD /* AZTalker.m in Sources */,
+				7BC859CB15A8C56700582632 /* NSNumber+AtoZ.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

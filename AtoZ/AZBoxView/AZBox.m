@@ -218,7 +218,7 @@
 //    }
 	if ([keyPath isEqual:@"multiplier"]) {
 		NSRect bounding = [self frame];
-		[AtoZ say: NSStringFromRect(bounding)];		
+//		[[AtoZ sharedInstance] say: NSStringFromRect(bounding)];		
 	}
 	if ([keyPath isEqual:@"desiredNumberOfColumns"]) {
 		NSLog(@"desired cols updated!");
