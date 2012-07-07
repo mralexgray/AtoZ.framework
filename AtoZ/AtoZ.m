@@ -29,6 +29,13 @@ NSString *const AtoZSharedInstanceUpdated = @"AtoZSharedInstanceUpdated";
 @end
 @implementation AtoZ
 @synthesize dock, dockSorted;
+
++(void) say:(NSString *)thing {
+	AtoZ *a = [AtoZ sharedInstance];
+	NSSpeechSynthesizer *talker = [[NSSpeechSynthesizer alloc]init];    
+	[talker setDelegate:a];	
+	[talker startSpeakingString:thing];
+}
 - (void) setUp {
 	self.dock = [AZDockQuery dock].mutableCopy;
 }
@@ -186,12 +193,15 @@ NSString *const AtoZSharedInstanceUpdated = @"AtoZSharedInstanceUpdated";
 
 @end
 
-//void NSLog (NSString *format, ...) {	va_list argList;	va_start (argList, format);
-//	NSString *message = [[NSString alloc] initWithFormat:format arguments:argList];
-//	fprintf (stderr, "%s \n", [message UTF8String]); 	va_end  (argList);
-//	NSString *message = [[NSString alloc] initWithFormat:format argum
-//	fprintf (stderr, "%s \n", [message UTF8String]); 	va_end  (argList);
-//} // QuietLog 
+void NSLog (NSString *format, ...) {	va_list argList;	va_start (argList, format);
+	NSString *message = [[NSString alloc] initWithFormat:format arguments:argList];
+	fprintf (stderr, "%s \n", [message UTF8String]); 	va_end  (argList);
+} // QuietLog 
+
+int max(int x, int y)
+{
+    return x > y ? x : y;
+}
 
 
 @implementation  NSNumber (Incrementer)
@@ -200,6 +210,14 @@ return [NSNumber numberWithInt:[self intValue]+1];
 }
 @end
 
+
+@implementation CAConstraint (brevity)
++(CAConstraint*)maxX {
+	
+	return AZConstraint(kCAConstraintMaxX,@"superlayer");	
+}
+
+@end
 
 @implementation CALayer (AGFlip)
 - (void) flipOver {

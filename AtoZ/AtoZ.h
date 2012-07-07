@@ -73,7 +73,7 @@
 #import "NSBezierPath+AtoZ.h"
 #import "NSImage+AtoZ.h"
 #import "NSWindow+AtoZ.h"
-
+#import "NSShadow+AtoZ.h"
 
 #import "NSObject+AtoZ.h"
 
@@ -97,6 +97,17 @@ oldValue = newValue;
 
 #define AZConstraint(attr, rel) \
 [CAConstraint constraintWithAttribute:attr relativeTo:rel attribute:attr]
+
+@interface CAConstraint (brevity)
+
+//+(CAConstraint*)maxX;
+
+//#define maxY = AZConstraint(kCAConstraintMaxY,@"superlayer");
+//#define superWide = AZConstraint(kCAConstraintWidth,@"superlayer");
+//#define superHigh = AZConstraint(kCAConstraintHeight,@"superlayer");
+
+@end
+
 @interface CALayerNoHit : CALayer
 @end
 @interface CAShapeLayerNoHit : CAShapeLayer
@@ -108,7 +119,10 @@ oldValue = newValue;
 
 extern NSString *const AtoZSharedInstanceUpdated;
 
-@interface AtoZ : BaseModel
+@interface AtoZ : BaseModel <NSSpeechSynthesizerDelegate>
+
++(void) say:(NSString *)thing;
+
 + (AtoZ*) sharedInstance;
 + (NSMutableArray*) dock;
 + (NSMutableArray*) dockSorted;
@@ -190,17 +204,6 @@ extern NSString *const AtoZSharedInstanceUpdated;
 -(void)flip;
 @end
 
-
-//@interface AGFoundation : BaseModel <NSSpeechSynthesizerDelegate>
-//@property  NSSpeechSynthesizer *speaker;
-//
-//
-//+ (AGFoundation*) sharedInstance;
-//- (void) say:(NSString *)thing;
-//
-////- (DBXApp *) appWithName: (NSString *)name;
-////@property (nonatomic) NSMutableArray *appArray;
-//@end
 
 
 

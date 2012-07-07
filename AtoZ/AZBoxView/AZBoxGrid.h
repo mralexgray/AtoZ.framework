@@ -71,7 +71,7 @@ USAGE
 @private
     id <AZBoxGridDataSource> __unsafe_unretained dataSource;
     id <AZBoxGridDelegate> __unsafe_unretained delegate;
-    NSUInteger desiredNumberOfColumns, desiredNumberOfRows;
+//    NSUInteger desiredNumberOfColumns, desiredNumberOfRows;
     NSUInteger numberOfColumns, numberOfRows;
     NSUInteger numberOfCells;
     NSSize cellSize;

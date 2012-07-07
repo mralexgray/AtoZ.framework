@@ -12,6 +12,12 @@
 		7B05BB11159C528300409B83 /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B05BB10159C528300409B83 /* AtoZ.framework */; };
 		7B05BB14159C5C6100409B83 /* AZBlockView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B05BB12159C5C6100409B83 /* AZBlockView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B05BB15159C5C6100409B83 /* AZBlockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B05BB13159C5C6100409B83 /* AZBlockView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7B091A3015A8448E00821FFD /* AZHoverButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B091A2E15A8448E00821FFD /* AZHoverButton.h */; };
+		7B091A3115A8448E00821FFD /* AZHoverButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B091A2F15A8448E00821FFD /* AZHoverButton.m */; };
+		7B091A3915A845A700821FFD /* NSShadow+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B091A3715A845A700821FFD /* NSShadow+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B091A3A15A845A700821FFD /* NSShadow+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B091A3815A845A700821FFD /* NSShadow+AtoZ.m */; };
+		7B091A3E15A850E500821FFD /* AZButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B091A3C15A850E500821FFD /* AZButton.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B091A3F15A850E500821FFD /* AZButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B091A3D15A850E500821FFD /* AZButton.m */; };
 		7B0B7A4515A22C0D006B5062 /* NSImage+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B0B7A4315A22C0D006B5062 /* NSImage+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B0B7A4615A22C0D006B5062 /* NSImage+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0B7A4415A22C0D006B5062 /* NSImage+AtoZ.m */; };
 		7B0B7A7C15A3553F006B5062 /* AZIndeterminateIndicator.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B0B7A7A15A3553F006B5062 /* AZIndeterminateIndicator.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -128,6 +134,12 @@
 		7B05BB10159C528300409B83 /* AtoZ.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AtoZ.framework; path = System/Library/Frameworks/AtoZ.framework; sourceTree = SDKROOT; };
 		7B05BB12159C5C6100409B83 /* AZBlockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZBlockView.h; sourceTree = "<group>"; };
 		7B05BB13159C5C6100409B83 /* AZBlockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZBlockView.m; sourceTree = "<group>"; };
+		7B091A2E15A8448E00821FFD /* AZHoverButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZHoverButton.h; sourceTree = "<group>"; };
+		7B091A2F15A8448E00821FFD /* AZHoverButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZHoverButton.m; sourceTree = "<group>"; };
+		7B091A3715A845A700821FFD /* NSShadow+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSShadow+AtoZ.h"; sourceTree = "<group>"; };
+		7B091A3815A845A700821FFD /* NSShadow+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSShadow+AtoZ.m"; sourceTree = "<group>"; };
+		7B091A3C15A850E500821FFD /* AZButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZButton.h; sourceTree = "<group>"; };
+		7B091A3D15A850E500821FFD /* AZButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZButton.m; sourceTree = "<group>"; };
 		7B0B7A4315A22C0D006B5062 /* NSImage+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSImage+AtoZ.h"; sourceTree = "<group>"; };
 		7B0B7A4415A22C0D006B5062 /* NSImage+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSImage+AtoZ.m"; sourceTree = "<group>"; };
 		7B0B7A7A15A3553F006B5062 /* AZIndeterminateIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZIndeterminateIndicator.h; sourceTree = "<group>"; };
@@ -268,6 +280,10 @@
 				7BE6068915A00B8800355236 /* Utility */,
 				7B0D7C4D15A3FDD900037D30 /* AZToggleView.h */,
 				7B0D7C4E15A3FDD900037D30 /* AZToggleView.m */,
+				7B091A2E15A8448E00821FFD /* AZHoverButton.h */,
+				7B091A2F15A8448E00821FFD /* AZHoverButton.m */,
+				7B091A3C15A850E500821FFD /* AZButton.h */,
+				7B091A3D15A850E500821FFD /* AZButton.m */,
 			);
 			path = Classes;
 			sourceTree = SOURCE_ROOT;
@@ -429,6 +445,8 @@
 				7B24E9EC15A176AB00A9D87A /* NSWindow+AtoZ.m */,
 				7B0B7A4315A22C0D006B5062 /* NSImage+AtoZ.h */,
 				7B0B7A4415A22C0D006B5062 /* NSImage+AtoZ.m */,
+				7B091A3715A845A700821FFD /* NSShadow+AtoZ.h */,
+				7B091A3815A845A700821FFD /* NSShadow+AtoZ.m */,
 			);
 			path = Categories;
 			sourceTree = SOURCE_ROOT;
@@ -522,6 +540,9 @@
 				7B0D7C5315A401A100037D30 /* AZToggle.h in Headers */,
 				7B3422A315A52A61006AC46C /* BaseModel.h in Headers */,
 				7B3422CA15A5EF03006AC46C /* AZDockQuery.h in Headers */,
+				7B091A3015A8448E00821FFD /* AZHoverButton.h in Headers */,
+				7B091A3915A845A700821FFD /* NSShadow+AtoZ.h in Headers */,
+				7B091A3E15A850E500821FFD /* AZButton.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -701,6 +722,9 @@
 				7B0D7C5515A409FC00037D30 /* AZToggle.m in Sources */,
 				7B3422A415A52A61006AC46C /* BaseModel.m in Sources */,
 				7B3422CB15A5EF03006AC46C /* AZDockQuery.m in Sources */,
+				7B091A3115A8448E00821FFD /* AZHoverButton.m in Sources */,
+				7B091A3A15A845A700821FFD /* NSShadow+AtoZ.m in Sources */,
+				7B091A3F15A850E500821FFD /* AZButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

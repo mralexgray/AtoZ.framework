@@ -4,37 +4,51 @@
 #import "AZBox.h"
 
 @interface AZBox ()
+@property (readonly) float dynamicStroke;
 @property (nonatomic, assign) NSInteger index;
+@property (assign) CGFloat mPhase;
+@property (nonatomic, retain) NSTimer *timer;
 @end
 
 @implementation AZBox {
-	CGFloat _mPhase;
-	NSTimer *_timer;
 	float _all;
 }
-@synthesize index, cellIdentifier, image;
-@synthesize selectionColor, selected, drawSelection;
-@synthesize hovering;
-@synthesize color = _color, representedObject, radius = _radius, composite;
-@synthesize gradient = _gradient, path = _path;
+@synthesize index, 		cellIdentifier, 	image;
+@synthesize selected, 	drawSelection, 		selectionColor;
+@synthesize hovering, 	dynamicStroke;
+@synthesize color, 		representedObject;
+@synthesize radius, 	composite;
+@synthesize gradient, 	path;
+@synthesize timer,		mPhase,				multiplier;
 
 - (void)handleAntAnimationTimer:(NSTimer*)timer {
-	_mPhase = (_mPhase < _all ? _mPhase + ((_all/8)/4) : 0);
+	self.mPhase = (mPhase < _all ? mPhase + ((_all/8)/4) : 0);
 	[self setNeedsDisplay:YES];
 }
 
+- (float) dynamicStroke {
+//	NSRect r = [self bounds];
+//	int t = max(r.size.width, r.size.height);
+//	return (.05 * t);
+	return 14;
+}
 
-- (NSBezierPath*) apath {
+
+- (NSBezierPath*) path {
 	NSBezierPath *aP = [NSBezierPath bezierPathWithRoundedRect:[self bounds] cornerRadius:0];
-	[aP setLineWidth: 5];
+	[aP setLineWidth: self.dynamicStroke];
 	return  aP;
 }
 
-- (void) setColor:(NSColor *)color {
-	
-	_color = color;
-	_gradient = [self gradient];
-	[self setNeedsDisplay:YES];
+- (void) setColor:(NSColor *)aColor {
+		color = aColor;
+		gradient = self.gradient;
+		[self setNeedsDisplay:YES]; 
+}
+
+- (NSGradient*) gradient {
+
+	return [[NSGradient alloc] initWithStartingColor:color.brighter.brighter endingColor:color.darker.darker];
 }
 
 - (void)drawRect:(NSRect)dirtyRect
@@ -47,7 +61,7 @@
     BOOL background = YES;
     BOOL stroke = YES;
     BOOL innerStroke = YES;
-    NSRect frame = self.bounds;
+    NSRect frame = [self bounds];
 //    if(outer) {
 //        NSBezierPath *outerClip = [NSBezierPath bezierPathWithRoundedRect:frame xRadius:_radius yRadius:_radius];
 //        [outerClip setClip];
@@ -60,20 +74,20 @@
 //        [outerGradient drawInRect:[outerClip bounds] angle:90.0f];
 //    }
     if(background) {
-        NSBezierPath *backgroundPath = [NSBezierPath bezierPathWithRoundedRect:NSInsetRect(frame, 2.0f, 2.0f) xRadius:_radius yRadius:_radius];
+        NSBezierPath *backgroundPath = [NSBezierPath bezierPathWithRoundedRect:NSInsetRect(frame, 2.0f, 2.0f) xRadius:radius yRadius:radius];
         [backgroundPath setClip];
-        [_gradient drawInRect:[backgroundPath bounds] angle:270];
+        [gradient drawInRect:[backgroundPath bounds] angle:270];
     }
     if(stroke) {
         [[NSColor colorWithDeviceWhite:0.12f alpha:1.0f] setStroke];
-        [[NSBezierPath bezierPathWithRoundedRect:NSInsetRect(frame, 1.5f, 1.5f) xRadius:_radius yRadius:_radius] stroke];
+        [[NSBezierPath bezierPathWithRoundedRect:NSInsetRect(frame, 1.5f, 1.5f) xRadius:radius yRadius:radius] stroke];
     }
     if(innerStroke) {
         [[NSColor colorWithDeviceWhite:1.0f alpha:0.1f] setStroke];
-        [[NSBezierPath bezierPathWithRoundedRect:NSInsetRect(frame, 2.5f, 2.5f) xRadius:_radius yRadius:_radius] stroke];
+        [[NSBezierPath bezierPathWithRoundedRect:NSInsetRect(frame, 2.5f, 2.5f) xRadius:radius yRadius:radius] stroke];
     }
 	if(hovering) {
-        [[NSBezierPath bezierPathWithRoundedRect:NSInsetRect(frame, 2.0f, 2.0f) xRadius:_radius yRadius:_radius] setClip];
+        [[NSBezierPath bezierPathWithRoundedRect:NSInsetRect(frame, 2.0f, 2.0f) xRadius:radius yRadius:radius] setClip];
         [[NSColor colorWithCalibratedWhite:0.0f alpha:0.35] setFill];
         NSRectFillUsingOperation(frame, NSCompositeSourceOver);
     }
@@ -111,14 +125,14 @@
 			[selectionColor set];
 			NSRect insidef = [self bounds];//[self bounds];
 										   //        NSBezierPath *path = [NSBezierPath bezierPathWithRect:insidef];
-			_all = ( NSMaxY(insidef) + NSMaxX(insidef)  - (2* _radius) + (.5* (pi *(2*_radius))) );
-			NSBezierPath *inside = [NSBezierPath bezierPathWithRoundedRect:insidef xRadius:_radius yRadius:_radius];
-			[inside setLineWidth:4];
+			_all = ( NSMaxY(insidef) + NSMaxX(insidef)  - (2* radius) + (.5* (pi *(2*radius))) );
+			NSBezierPath *inside = [NSBezierPath bezierPathWithRoundedRect:insidef xRadius:radius yRadius:radius];
+			[inside setLineWidth:self.dynamicStroke];
 			[inside setLineCapStyle:NSRoundLineCapStyle];
-			[(_color.isDark ? _color.brighter : _color.darker) set];
+			[(color.isDark ? color.brighter : color.darker) set];
 	
 			CGFloat dashArray[4] = { (_all/4), (_all/4), (_all/4), (_all/4) };
-			[inside setLineDash:dashArray count:4 phase:_mPhase];
+			[inside setLineDash:dashArray count:4 phase:mPhase];
 			[BLACK set];
 			[inside strokeInsideWithinRect:insidef];
 			
@@ -131,10 +145,8 @@
 }
 
 
-- (void)setImage:(NSImage *)newImage
-{
-    image = newImage;
-    
+- (void)setImage:(NSImage *)animage {
+    image = animage;
     [self setNeedsDisplay:YES];
 }
 
@@ -151,8 +163,8 @@
 	//			[self setNeedsDisplay:YES];
 	//		}
 	//		else {
-	if (!state) [_timer invalidate]; 
-	else { _all = 0; _timer = [NSTimer scheduledTimerWithTimeInterval:.05
+	if (!state) [timer invalidate]; 
+	else { _all = 0; self.timer = [NSTimer scheduledTimerWithTimeInterval:.05
 															   target:self 
 															 selector:@selector(handleAntAnimationTimer:) 
 															 userInfo:nil 
@@ -169,44 +181,88 @@
 
 - (void)setHovering:(BOOL)state
 {
+	self.multiplier = (state ? 2 : .5 );
 	hovering = state;
 	[self setNeedsDisplay:YES];
 }
 
 - (void)prepareForReuse
 {
-    selected = NO;
-    drawSelection = YES;
-	hovering = NO;
+    self.selected = NO;
+    self.drawSelection = YES;
+	self.hovering = NO;
     self.image = nil;
 }
 
+- (id)initWithFrame:(NSRect)frame {
+    if (self = [super initWithFrame:frame]) {
+        self.multiplier = 1; //AZCenterOfRect([self frame]);
+//        self.radius = 
+//        self.color = [NSColor redColor];
+//        [self addObserver:self forKeyPath:@"color" options:NSKeyValueObservingOptionOld context:DotViewUndoAndRedisplay];
+//        [self addObserver:self forKeyPath:@"radius" options:NSKeyValueObservingOptionOld context:DotViewUndoAndRedisplay];
+//        [self addObserver:self forKeyPath:@"center" options:NSKeyValueObservingOptionOld context:DotViewUndoAndRedisplay];
+		[[self superview] addObserver:self forKeyPath:@"desiredNumberOfColumns" options:NSKeyValueObservingOptionOld context:nil];
+        [self addObserver:self forKeyPath:@"multiplier" options:NSKeyValueObservingOptionOld context:nil];
+    }
+    return self;
+}
 
-- (id)initWithReuseIdentifier:(NSString *)identifier
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+//	if (context == DotViewUndoAndRedisplay) {
+//        NSUndoManager *undoManager = [[self window] undoManager];
+//        if ([keyPath isEqual:@"center"]) [[undoManager prepareWithInvocationTarget:self] setCenter:[[change objectForKey:NSKeyValueChangeOldKey] pointValue]];
+//        else if ([keyPath isEqual:@"radius"]) [[undoManager prepareWithInvocationTarget:self] setRadius:[[change objectForKey:NSKeyValueChangeOldKey] doubleValue]];
+//        else if ([keyPath isEqual:@"color"]) [undoManager registerUndoWithTarget:self selector:@selector(setColor:) object:[change objectForKey:NSKeyValueChangeOldKey]];
+//		[self setNeedsDisplay:YES];
+//    }
+	if ([keyPath isEqual:@"multiplier"]) {
+		NSRect bounding = [self frame];
+		[AtoZ say: NSStringFromRect(bounding)];		
+	}
+	if ([keyPath isEqual:@"desiredNumberOfColumns"]) {
+		NSLog(@"desired cols updated!");
+	}
+//	[[undoManager prepareWithInvocationTarget:self] setCenter:[[change objectForKey:NSKeyValueChangeOldKey] pointValue]];
+
+
+}
+
+- (id)initWithReuseIdentifier:(NSString *)anIdentifier
 {
     if((self = [super initWithFrame:NSZeroRect]))
     {
-        cellIdentifier  = identifier;
-        selectionColor  = [NSColor blackColor];
+        cellIdentifier = anIdentifier;
+        selectionColor  = [NSColor whiteColor];
         drawSelection   = YES;
-		_mPhase = 0;
-		_radius = 20;
+		mPhase = 0;
+		radius = 5;
 		composite = NSCompositeSourceOver;
 		
 		if ( [representedObject respondsToSelector:@selector(color)] ){
-			_color = [representedObject valueForKey:@"color"];
+			color = [representedObject valueForKey:@"color"];
 		} else { NSColor *r = RANDOMCOLOR;
-			while ( (![r isRedish]) || (![r isBoring]) ) r = RANDOMCOLOR;
-			_color = r;
+			while ( (![r isRedish]) || ([r isBoring]) ) r = RANDOMCOLOR;
+			color = r;
 		}
 		if ([representedObject isKindOfClass:[NSImage class]]) image = representedObject;
 		if ([representedObject valueForKeyPath:@"dictionary.color"] )
-			_color = [representedObject valueForKeyPath:@"dictionary.color"];
-		_gradient = [[NSGradient alloc] initWithStartingColor:_color.brighter.brighter endingColor:_color.darker.darker];
+			color = [representedObject valueForKeyPath:@"dictionary.color"];
+		
 
     }
     
     return self;
+}
+
+
+
+-(void) setMultiplier:(float)amultiplier
+{
+ 	multiplier = amultiplier;
+	NSRect r = AZScaleRect([self frame], multiplier);
+	[self setFrame:r];
+	[self setNeedsDisplay:YES];
 }
 
 

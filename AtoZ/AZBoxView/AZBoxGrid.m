@@ -16,17 +16,17 @@
 @synthesize dataSource, delegate;
 @synthesize unselectOnMouseUp, allowsSelection, allowsMultipleSelection;
 
-#pragma mark -
-#pragma mark Selection
+#pragma mark - Selection
+
 - (NSIndexSet *)selection {
 	return [selection copy];
 }
-- (void)selectCellAtIndex:(NSUInteger)index {
+- (void)selectCellAtIndex:(NSUInteger)index 		  {
 	if(!allowsSelection || index == NSNotFound)
         return;
     [self selectCellsAtIndexes:[NSIndexSet indexSetWithIndex:index]];
 }
-- (void)selectCellsAtIndexes:(NSIndexSet *)indexSet {
+- (void)selectCellsAtIndexes:(NSIndexSet *)indexSet 	  {
 	if(!allowsSelection)
         return;
     NSIndexSet *oldSelection = [selection copy];
@@ -58,7 +58,7 @@
         }
     }];
 }
-- (void)deselectCellAtIndex:(NSUInteger)index {
+- (void)deselectCellAtIndex:(NSUInteger)index 		  {
 	if(index == NSNotFound)
         return;
     [self deselectCellsAtIndexes:[NSIndexSet indexSetWithIndex:index]];
@@ -79,7 +79,7 @@
     [self deselectCellsAtIndexes:selectionCopy];
 }
 
-- (void)hoverOverCellAtIndex:(NSUInteger)index {
+- (void)hoverOverCellAtIndex:(NSUInteger)index 		{
 	if (lastHoverCellIndex != index) {
 		// un-hover the previous cell
 		[self hoverOutOfCellAtIndex:lastHoverCellIndex];
@@ -89,7 +89,7 @@
 		lastHoverCellIndex = index;
 	}
 }
-- (void)hoverOutOfCellAtIndex:(NSUInteger)index {
+- (void)hoverOutOfCellAtIndex:(NSUInteger)index 	{
 	AZBox *cell = [visibleCells objectForKey:[NSNumber numberWithUnsignedInteger:index]];
 	[cell setHovering:NO];
 }
@@ -97,7 +97,7 @@
 	AZBox *cell = [visibleCells objectForKey:[NSNumber numberWithUnsignedInteger:lastHoverCellIndex]];
     [cell setHovering:NO];
 }
-- (NSUInteger)indexOfCellAtPoint:(NSPoint)point {
+- (NSUInteger)indexOfCellAtPoint:(NSPoint)point 	{
 	NSSize boundsSize = [self bounds].size;
     if(point.x < 0.0 || point.y < 0.0 || point.x >= boundsSize.width || point.y >= boundsSize.height)
         return NSNotFound;
@@ -105,7 +105,7 @@
     NSUInteger index = (point.y * numberOfColumns) + point.x;
     return index;
 }
-- (NSUInteger)indexOfCellAtPosition:(NSPoint)point {
+- (NSUInteger)indexOfCellAtPosition:(NSPoint)point 	{
 	if(point.x < 0.0 || point.y < 0.0 || point.x >= numberOfColumns || point.y >= numberOfRows)
         return NSNotFound;
     point = NSMakePoint(floor(point.x), floor(point.y));
@@ -114,7 +114,7 @@
         return NSNotFound;
     return index;
 }
-- (NSPoint)positionOfCellAtIndex:(NSUInteger)index {
+- (NSPoint)positionOfCellAtIndex:(NSUInteger)index 	{
 	if(index >= numberOfCells || index == NSNotFound)
         return NSZeroPoint;
     NSUInteger x = index % numberOfColumns;
@@ -122,14 +122,14 @@
     NSUInteger y = (index - x) / numberOfColumns;
     return NSMakePoint(x, y);
 }
-- (NSRect)rectForCellAtIndex:(NSInteger)index {
+- (NSRect)rectForCellAtIndex:(NSInteger)index		{
 	if(index >= numberOfCells || index == NSNotFound)
         return NSZeroRect;
     NSUInteger x = index % numberOfColumns;
     NSUInteger y = (index - x) / numberOfColumns;
     return NSMakeRect(x * cellSize.width, y * cellSize.height, cellSize.width, cellSize.height);
 }
-- (NSIndexSet *)indexesOfCellsInRect:(NSRect)rect {
+- (NSIndexSet *)indexesOfCellsInRect:(NSRect)rect 	{
 	NSMutableIndexSet *indexSet = [NSMutableIndexSet indexSet];
     for(AZBox *cell in [visibleCells allValues]) {
 		
@@ -138,8 +138,9 @@
     }
     return indexSet;
 }
-#pragma mark -
-#pragma mark Cells
+
+#pragma mark - Cells
+
 - (AZBox *)dequeueReusableCellWithIdentifier:(NSString *)identifier {
 	NSMutableArray *queue = [reusableCellQueues objectForKey:identifier];
     if([queue count] > 0) {
@@ -197,7 +198,7 @@
         }
     }
 }
-- (void)addMissingCells {
+- (void)addMissingCells 	 {
 	NSRange range = [self visibleRange];
     NSMutableIndexSet *missingIndicies = [NSMutableIndexSet indexSetWithIndexesInRange:range];
     for(AZBox *cell in [visibleCells allValues]) {
@@ -215,11 +216,14 @@
             [cell setSelected:YES];
         [cell setIndex:index];
         [cell setFrame:[self rectForCellAtIndex:index]];
+		[cell setHidden:YES];
         [self addSubview:cell];
+		[cell fadeIn];
+//		[self per performSelector:@selector(fadeIn) afterDelay:index*.01];
         [visibleCells setObject:cell forKey:[NSNumber numberWithUnsignedInteger:index]];
     }];
 }
-- (void)reloadData {
+- (void)reloadData 			 {
 	if(updatingData) {
 		
         calledReloadData = YES;
@@ -234,8 +238,9 @@
     [self updateLayout];
     [self addMissingCells];
 }
-#pragma mark -
-#pragma mark Row and Column handling
+
+#pragma mark - Row and Column handling
+
 - (void)scrollViewDidScroll:(NSNotification *)notification {
 	[self removeInvisibleCells];
     [self addMissingCells];
@@ -255,7 +260,7 @@
     endIndex = MIN(numberOfCells, endIndex);
     return NSMakeRange(startIndex, endIndex-startIndex);
 }
-- (void)updateLayout {
+- (void)updateLayout 	{
 	if(updatingData)
         return;
     NSRect frame = [self frame];
@@ -294,7 +299,7 @@
     [self removeInvisibleCells];
     [self addMissingCells];
 }
-- (void)setFrame:(NSRect)frameRect {
+- (void)setFrame:(NSRect)frameRect		{
 	[super setFrame:frameRect];
     [self updateLayout];
 }
@@ -303,19 +308,21 @@
     [self updateLayout];
 }
 - (void)setDesiredNumberOfColumns:(NSUInteger)newDesiredNumberOfColumns {
+	if (desiredNumberOfRows) desiredNumberOfRows = NSUIntegerMax;
 	desiredNumberOfColumns = newDesiredNumberOfColumns;
     [self updateLayout];
 }
-- (void)setDesiredNumberOfRows:(NSUInteger)newDesiredNumberOfRows {
+- (void)setDesiredNumberOfRows:(NSUInteger)newDesiredNumberOfRows 		{
+	if (desiredNumberOfColumns) desiredNumberOfColumns = NSUIntegerMax;
 	desiredNumberOfRows = newDesiredNumberOfRows;
     [self updateLayout];
 }
-- (void)beginChanges {
+- (void)beginChanges 		{
 	if(updatingData)
         return;
     updatingData = YES;
 }
-- (void)commitChanges {
+- (void)commitChanges		{
 	updatingData = NO;
     if(calledReloadData) {
 		
@@ -327,8 +334,9 @@
     }
     calledReloadData = NO;
 }
-#pragma mark -
-#pragma mark Constructor / Destructor
+
+#pragma mark - Constructor / Destructor
+
 - (void)setupCollectionView {
 	desiredNumberOfColumns  = NSUIntegerMax;
     desiredNumberOfRows     = NSUIntegerMax;
@@ -353,33 +361,30 @@
     [self updateLayout];
     [self reloadData];
 }
-
-- (BOOL)isFlipped {
+- (BOOL)isFlipped 			{
 	return YES;
 }
-
-- (id)initWithFrame:(NSRect)frame {
+- (id)initWithFrame:(NSRect)frame 		{
 	if((self = [super initWithFrame:frame])) {
 		
         [self setupCollectionView];
     }
     return self;
 }
-- (id)initWithCoder:(NSCoder *)decoder {
+- (id)initWithCoder:(NSCoder *)decoder 	{
 	if((self = [super initWithCoder:decoder])) {
 		
         [self setupCollectionView];
     }
     return self;
 }
-- (void)dealloc
-{
+- (void)dealloc		{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+#pragma mark - Event Handling
 
-- (void)mouseDown:(NSEvent *)event
-{
+- (void)mouseDown:(NSEvent *)event 		{
     [[self window] makeFirstResponder:self];
     
     NSUInteger index;
@@ -387,10 +392,29 @@
     index = [self indexOfCellAtPoint:mousePoint];
     
     [self selectCellAtIndex:index];
+	AZBox *i = [self cellAtIndex:index];
+	NSSize zDragOffset = NSMakeSize(0.0, 0.0);
+    NSPasteboard *zPasteBoard = [NSPasteboard pasteboardWithName:NSDragPboard];
+    [zPasteBoard declareTypes:[NSArray arrayWithObject:NSTIFFPboardType]
+                        owner:self];
+	NSImage *snap = [(NSView*)i snapshot];
+    [zPasteBoard setData:[snap TIFFRepresentation] 
+                 forType:NSTIFFPboardType];
+	
+	NSPoint originFlip  = i.frame.origin;
+	originFlip.y += i.frame.size.height;
+    [self dragImage:snap
+                 at:originFlip
+             offset:zDragOffset
+              event:event
+         pasteboard:zPasteBoard 
+             source:self 
+          slideBack:YES];
+	
+    return;
+	
 }
-
-- (void)mouseDragged:(NSEvent *)event
-{
+- (void)mouseDragged:(NSEvent *)event 	{
     NSUInteger index;
     NSPoint mousePoint = [self convertPoint:[event locationInWindow] fromView:nil];
     index = [self indexOfCellAtPoint:mousePoint];
@@ -398,9 +422,7 @@
     [self selectCellAtIndex:index];
     [self autoscroll:event];
 }
-
-- (void)mouseMoved:(NSEvent *)event
-{
+- (void)mouseMoved:(NSEvent *)event 	{
 	NSUInteger index;
     NSPoint mousePoint = [self convertPoint:[event locationInWindow] fromView:nil];
     index = [self indexOfCellAtPoint:mousePoint];
@@ -410,14 +432,10 @@
 	float x  = NSMidX([self bounds]) - mousePoint.x;
 	NSLog(@"x pos: %f", x);
 }
-
-- (void)mouseExited:(NSEvent *)theEvent
-{
+- (void)mouseExited:(NSEvent *)theEvent {
 	[self hoverOutOfLastCell];
 }
-
-- (void)mouseUp:(NSEvent *)event
-{
+- (void)mouseUp:(NSEvent *)event		{
     NSUInteger index;
     NSPoint mousePoint = [self convertPoint:[event locationInWindow] fromView:nil];
     index = [self indexOfCellAtPoint:mousePoint];
@@ -429,9 +447,7 @@
     
     lastSelection = [NSDate timeIntervalSinceReferenceDate];
 }
-
-- (void)keyDown:(NSEvent *)event
-{
+- (void)keyDown:(NSEvent *)event 		{
     if([[self selection] count] == 0)
         return;
     

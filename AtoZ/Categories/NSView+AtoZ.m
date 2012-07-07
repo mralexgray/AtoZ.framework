@@ -12,9 +12,9 @@
 #import "AtoZ.h"
 #import <QuartzCore/QuartzCore.h>
 
-@interface NSView ()
-+ (void)runEndBlock:(void (^)(void))completionBlock;
-@end
+//@interface NSView ()
+//+ (void)runEndBlock:(void (^)(void))completionBlock;
+//@end
 
 
 
@@ -25,20 +25,57 @@ NSAnimationCurve AZDefaultAnimationCurve = NSAnimationEaseInOut;
 
 #import <objc/runtime.h>
 
+//static char const * const ObjectTagKey = "ObjectTag";
+static char const * const ObjectRepKey = "ObjectRep";
+
+@implementation NSView (ObjectRep)
+@dynamic objectRep;
+
+- (id)objectRep {
+    return objc_getAssociatedObject(self, ObjectRepKey);
+}
+
+- (void)setObjectRep:(id)newObjectRep {
+    objc_setAssociatedObject(self, ObjectRepKey, newObjectRep, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (NSView *)viewWithObjectRep:(id)object {
+    // Raise an exception if object is nil
+    if (object == nil) {
+        [NSException raise:NSInternalInconsistencyException format:@"Argument to -viewWithObjectTag: must not be nil"];
+    }
+	
+    // Recursively search the view hierarchy for the specified objectTag
+    if ([self.objectRep isEqual:object]) {
+        return self;
+    }
+    for (NSView *subview in self.subviews) {
+        NSView *resultView = [subview viewWithObjectRep:object];
+        if (resultView != nil) {
+            return resultView;
+        }
+    }
+    return nil;
+}
+
+@end
+
+static NSString *ANIMATION_IDENTIFER = @"animation";
+static char const * const ISANIMATED_KEY = "ObjectRep";
 
 @implementation NSView (AtoZ)
 //@dynamic center;
 
-//-(void)setAnimationIdentifer:(NSString *)newAnimationIdentifer{
-//    objc_setAssociatedObject(self, &ANIMATION_IDENTIFER, newAnimationIdentifer, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-//}
-//
-//-(NSString*)animationIdentifer{
-// return objc_getAssociatedObject(self, &ANIMATION_IDENTIFER);
-//}
+-(void)setAnimationIdentifer:(NSString *)newAnimationIdentifer{
+    objc_setAssociatedObject(self, &ANIMATION_IDENTIFER, newAnimationIdentifer, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
 
--(NSPoint) center {
-	return AZCenterOfRect (self.frame);
+-(NSString*)animationIdentifer{
+ return objc_getAssociatedObject(self, &ANIMATION_IDENTIFER);
+}
+
+-(NSPoint) centerOfFrame {
+	return AZCenterOfRect ([self frame]);
 }
 
 //-(void)setCenter:(NSPoint)center {
@@ -46,7 +83,7 @@ NSAnimationCurve AZDefaultAnimationCurve = NSAnimationEaseInOut;
 //}
 //
 //-(NSPoint)center {
-//    return [objc_getAssociatedObject(self, &ISANIMATED_KEY) boolValue];
+//   return [objc_getAssociatedObject(self, &ISANIMATED_KEY) boolValue];
 //}
 
 
@@ -85,6 +122,7 @@ NSAnimationCurve AZDefaultAnimationCurve = NSAnimationEaseInOut;
 	[self addSubview:view];
 }
 
+//Remove all the subviews from a view
 - (void)removeAllSubviews;
 {
     NSEnumerator* enumerator = [[self subviews] reverseObjectEnumerator];
@@ -93,6 +131,12 @@ NSAnimationCurve AZDefaultAnimationCurve = NSAnimationEaseInOut;
     while (view = [enumerator nextObject])
         [view removeFromSuperviewWithoutNeedingDisplay];
 }
+
+//NSArray 	*subviews;  int		loop;
+//subviews = [[self subviews] copy];
+//for (loop = 0;loop < [subviews count]; loop++) {
+//	[[subviews objectAtIndex:loop] removeFromSuperview];
+//}
 
 
 -(NSTrackingArea *)trackFullView {
@@ -181,19 +225,7 @@ NSAnimationCurve AZDefaultAnimationCurve = NSAnimationEaseInOut;
 										)];
 }
 
-//Remove all the subviews from a view
-/**
-- (void)removeAllSubviews {
-    NSArray 	*subviews;
-    int		loop;
-	
-    subviews = [[self subviews] copy];
-    for (loop = 0;loop < [subviews count]; loop++) {
-        [[subviews objectAtIndex:loop] removeFromSuperview];
-    }
-}
 
-*/
 
 
 - (NSArray *)animationArrayForParameters:(NSDictionary *)params
@@ -295,10 +327,14 @@ NSAnimationCurve AZDefaultAnimationCurve = NSAnimationEaseInOut;
   }
 }
 
-+ (void)runEndBlock:(void (^)(void))completionBlock
-{
-  completionBlock();
-}
-
-
 @end
+
+//@implementation NSView
+//
+//+ (void)runEndBlock:(void (^)(void))completionBlock
+//{
+//  completionBlock();
+//}
+//
+//
+//@end

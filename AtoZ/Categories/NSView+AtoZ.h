@@ -7,6 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import <objc/objc.h>
 
 typedef enum
 {
@@ -16,9 +17,19 @@ typedef enum
 }
 AZViewAnimationType;
 
+
+
+@interface NSView (ObjectRep)
+
+@property (nonatomic, retain) id objectRep;
+
+- (NSView *)viewWithObject:(id)object;
+
+@end
+
+
+
 @interface NSView (AtoZ)
-
-
 
 - (void)setupHostView;
 
@@ -26,7 +37,6 @@ AZViewAnimationType;
 -(NSView *)lastSubview;
 -(void)setLastSubview:(NSView *)view;
 
-- (void)removeAllSubviews;
 
 - (NSImage *) snapshot;
 - (NSImage *) snapshotFromRect:(NSRect) sourceRect;
@@ -39,14 +49,15 @@ AZViewAnimationType;
 
 - (BOOL)		requestFocus;
 
-//@property (assign) NSPoint center;
+@property (assign) NSPoint center;
 - (NSPoint) center;
+- (NSPoint) centerOfFrame;
 
 - (void)	animate:(AZViewAnimationType)type;
 - (void)	stopAnimating;
 
 - (void)resizeFrameBy:(int)value;
-//- (void)removeAllSubviews;
+- (void)removeAllSubviews;
 
 
 - (void)fadeOut;

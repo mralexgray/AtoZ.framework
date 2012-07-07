@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7B091A1515A8301600821FFD /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BE606CD15A117D100355236 /* Cocoa.framework */; };
+		7B091A1B15A8301600821FFD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7B091A1915A8301600821FFD /* InfoPlist.strings */; };
+		7B091A1D15A8301600821FFD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B091A1C15A8301600821FFD /* main.m */; };
+		7B091A2115A8301600821FFD /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 7B091A1F15A8301600821FFD /* Credits.rtf */; };
+		7B091A2415A8301600821FFD /* AtoZAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B091A2315A8301600821FFD /* AtoZAppDelegate.m */; };
+		7B091A2715A8301600821FFD /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B091A2515A8301600821FFD /* MainMenu.xib */; };
+		7B091A2D15A83FD400821FFD /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B24E9B315A1486D00A9D87A /* AtoZ.framework */; };
 		7B0D7C2615A3E80000037D30 /* ControlBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0D7C2515A3E7FF00037D30 /* ControlBar.m */; };
 		7B0D7C4615A3F6C800037D30 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B0D7C4515A3F6C800037D30 /* QuartzCore.framework */; };
 		7B0D7C4815A3F88C00037D30 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B0D7C4715A3F88C00037D30 /* Quartz.framework */; };
@@ -67,6 +74,15 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		7B091A1315A8301600821FFD /* AZBoxTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AZBoxTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7B091A1815A8301600821FFD /* AZBoxTest-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AZBoxTest-Info.plist"; sourceTree = "<group>"; };
+		7B091A1A15A8301600821FFD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		7B091A1C15A8301600821FFD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		7B091A1E15A8301600821FFD /* AZBoxTest-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AZBoxTest-Prefix.pch"; sourceTree = "<group>"; };
+		7B091A2015A8301600821FFD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		7B091A2215A8301600821FFD /* AtoZAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AtoZAppDelegate.h; sourceTree = "<group>"; };
+		7B091A2315A8301600821FFD /* AtoZAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AtoZAppDelegate.m; sourceTree = "<group>"; };
+		7B091A2615A8301600821FFD /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		7B0D7C2415A3E7FF00037D30 /* ControlBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControlBar.h; sourceTree = "<group>"; };
 		7B0D7C2515A3E7FF00037D30 /* ControlBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControlBar.m; sourceTree = "<group>"; };
 		7B0D7C4515A3F6C800037D30 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -93,6 +109,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		7B091A1015A8301600821FFD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7B091A2D15A83FD400821FFD /* AtoZ.framework in Frameworks */,
+				7B091A1515A8301600821FFD /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7BE606C615A117D100355236 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -107,6 +132,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7B091A1615A8301600821FFD /* AZBoxTest */ = {
+			isa = PBXGroup;
+			children = (
+				7B091A2215A8301600821FFD /* AtoZAppDelegate.h */,
+				7B091A2315A8301600821FFD /* AtoZAppDelegate.m */,
+				7B091A2515A8301600821FFD /* MainMenu.xib */,
+				7B091A1715A8301600821FFD /* Supporting Files */,
+			);
+			path = AZBoxTest;
+			sourceTree = "<group>";
+		};
+		7B091A1715A8301600821FFD /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				7B091A1815A8301600821FFD /* AZBoxTest-Info.plist */,
+				7B091A1915A8301600821FFD /* InfoPlist.strings */,
+				7B091A1C15A8301600821FFD /* main.m */,
+				7B091A1E15A8301600821FFD /* AZBoxTest-Prefix.pch */,
+				7B091A1F15A8301600821FFD /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		7B24E9A815A1483000A9D87A /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -129,6 +177,7 @@
 				7BE606E215A117D200355236 /* MainMenu.xib */,
 				7B0D7C2415A3E7FF00037D30 /* ControlBar.h */,
 				7B0D7C2515A3E7FF00037D30 /* ControlBar.m */,
+				7B091A1615A8301600821FFD /* AZBoxTest */,
 				7B24E9A715A1483000A9D87A /* AtoZ.xcodeproj */,
 				7BE606D415A117D200355236 /* Supporting Files */,
 				7BE606CC15A117D100355236 /* Frameworks */,
@@ -140,6 +189,7 @@
 			isa = PBXGroup;
 			children = (
 				7BE606C915A117D100355236 /* AtoZStatusApp.app */,
+				7B091A1315A8301600821FFD /* AZBoxTest.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -182,6 +232,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		7B091A1215A8301600821FFD /* AZBoxTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7B091A2815A8301600821FFD /* Build configuration list for PBXNativeTarget "AZBoxTest" */;
+			buildPhases = (
+				7B091A0F15A8301600821FFD /* Sources */,
+				7B091A1015A8301600821FFD /* Frameworks */,
+				7B091A1115A8301600821FFD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AZBoxTest;
+			productName = AZBoxTest;
+			productReference = 7B091A1315A8301600821FFD /* AZBoxTest.app */;
+			productType = "com.apple.product-type.application";
+		};
 		7BE606C815A117D100355236 /* AtoZStatusApp */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7BE606E715A117D200355236 /* Build configuration list for PBXNativeTarget "AtoZStatusApp" */;
@@ -230,6 +297,7 @@
 			projectRoot = "";
 			targets = (
 				7BE606C815A117D100355236 /* AtoZStatusApp */,
+				7B091A1215A8301600821FFD /* AZBoxTest */,
 			);
 		};
 /* End PBXProject section */
@@ -259,6 +327,16 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
+		7B091A1115A8301600821FFD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7B091A1B15A8301600821FFD /* InfoPlist.strings in Resources */,
+				7B091A2115A8301600821FFD /* Credits.rtf in Resources */,
+				7B091A2715A8301600821FFD /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7BE606C715A117D100355236 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -272,6 +350,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		7B091A0F15A8301600821FFD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7B091A1D15A8301600821FFD /* main.m in Sources */,
+				7B091A2415A8301600821FFD /* AtoZAppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7BE606C515A117D100355236 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -295,6 +382,30 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		7B091A1915A8301600821FFD /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7B091A1A15A8301600821FFD /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		7B091A1F15A8301600821FFD /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7B091A2015A8301600821FFD /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		7B091A2515A8301600821FFD /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7B091A2615A8301600821FFD /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
 		7BE606D615A117D200355236 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -323,6 +434,30 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		7B091A2915A8301600821FFD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "AZBoxTest/AZBoxTest-Prefix.pch";
+				INFOPLIST_FILE = "AZBoxTest/AZBoxTest-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		7B091A2A15A8301600821FFD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "AZBoxTest/AZBoxTest-Prefix.pch";
+				INFOPLIST_FILE = "AZBoxTest/AZBoxTest-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
 		7BE606E515A117D200355236 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -395,6 +530,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		7B091A2815A8301600821FFD /* Build configuration list for PBXNativeTarget "AZBoxTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7B091A2915A8301600821FFD /* Debug */,
+				7B091A2A15A8301600821FFD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		7BE606C315A117D100355236 /* Build configuration list for PBXProject "AtoZStatusApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -53,26 +53,30 @@ static SC * SC##_sharedInstance = nil; \
 #define rand() (arc4random() % ((unsigned)RAND_MAX + 1)) 
 
 
-#define RED				[NSColor redColor]
-#define ORANGE			[NSColor orangeColor]
-#define YELLOw			[NSColor yellowColor]
-#define GREEN			[NSColor greenColor]
+#define RED				[NSColor colorWithCalibratedRed:0.797 green:0.000 blue:0.043 alpha:1.000]
+#define ORANGE			[NSColor colorWithCalibratedRed:0.888 green:0.492 blue:0.000 alpha:1.000]
+#define YELLOw			[NSColor colorWithCalibratedRed:0.830 green:0.801 blue:0.277 alpha:1.000]
+#define GREEN			[NSColor colorWithCalibratedRed:0.367 green:0.583 blue:0.179 alpha:1.000]
 #define BLUE			[NSColor blueColor]
 #define BLACK			[NSColor blackColor]
 #define GREY			[NSColor grayColor]
 #define WHITE			[NSColor whiteColor]
 #define RANDOMCOLOR		[NSColor randomColor]
 #define CLEAR			[NSColor clearColor]
+#define PURPLE 			[NSColor colorWithCalibratedRed:0.317 green:0.125 blue:0.328 alpha:1.000];
+#define LGRAY			[NSColor colorWithCalibratedWhite:.33 alpha:1];
 
-#define cgRED			[[NSColor redColor]		CGColor]
-#define cgORANGE		[[NSColor orangeColor]	CGColor]
-#define cgYELLOw		[[NSColor yellowColor]	CGColor]
-#define cgGREEN			[[NSColor greenColor]	CGColor]
+#define cgRED			[RED 		CGColor]
+#define cgORANGE		[ORANGE 	CGColor]
+#define cgYELLOW		[YELLOW		CGColor]
+#define cgGREEN			[GREEN		CGColor]
+#define cgPURPLE		[PURPLE		CGColor]
+
 #define cgBLUE			[[NSColor blueColor]	CGColor]
 #define cgBLACK			[[NSColor blackColor]	CGColor]
 #define cgGREY			[[NSColor grayColor]	CGColor]
 #define cgWHITE			[[NSColor whiteColor]	CGColor]
-#define cgRANDOMCOLOR	[[NSColor randomColor]	CGColor]
+#define cgRANDOMCOLOR	[RANDOMCOLOR	CGColor]
 #define cgCLEARCOLOR	[[NSColor clearColor]	CGColor]
 
 
@@ -120,6 +124,8 @@ static inline float RandomComponent() {  return (float)random() / (float)LONG_MA
 //?: is the ternary conditional operator of the form:
 //condition ? result_if_true : result_if_false
 #define StringFromBOOL(b) ((b) ? @"YES" : @"NO")
+
+#define LogProps(a) NSLog(@"%@", a.propertiesPlease)
 
 
 // degree to radians
