@@ -127,14 +127,16 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 }
 
 - (NSArray*) quantize {
-	NSImage *quantized = self.copy;
-	[quantized setSize:NSMakeSize(32, 32)];
+		[NSGraphicsContext saveGraphicsState];
+//	NSImage *quantized = self.copy;
+	[self setSize:NSMakeSize(32, 32)];
 	//	[anImage setSize:NSMakeSize(32, 32)];
-    NSSize size = [quantized size];
-    NSRect iconRect = NSMakeRect(0, 0, size.width, size.height);
-    [quantized lockFocus];
-    NSBitmapImageRep *imageRep = [[NSBitmapImageRep alloc] initWithFocusedViewRect:iconRect];
-    [quantized unlockFocus];
+//    NSSize size = [self size];
+//    NSRect iconRect = NSMakeRect(0, 0, size.width, size.height);
+//    [self lockFocus];
+	NSBitmapImageRep *imageRep = [self bitmap];
+//    NSBitmapImageRep *imageRep = [[NSBitmapImageRep alloc] initWithFocusedViewRect:iconRect];
+//    [self unlockFocus];
 	//	[nSImage imageNamed:NSImageNameHomeTemplate
 	//	NSImage *image = [[NSImage alloc] initWithData:[rep representationUsingType:NSPNGFileType properties:nil]];
 	//	NSBitmapImageRep *imageRep = (NSBitmapImageRep*)[[image representations] objectAtIndex:0];

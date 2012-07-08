@@ -22,10 +22,11 @@ NSMutableArray *items;
 	[boxGrid setCellSize:NSMakeSize(64.0, 64.0)];
 	[boxGrid setAllowsMultipleSelection:YES];
 	[boxGrid2 setDataSource:self];
+	items = [AtoZ dockSorted];
 }
 
 - (NSUInteger)numberOfCellsInCollectionView:(AZBoxGrid *)view {
-    return [NSColor allColors].count;
+    return items.count;
 }
 
 - (AZBox *)collectionView:(AZBoxGrid *)view cellForIndex:(NSUInteger)index
@@ -33,7 +34,7 @@ NSMutableArray *items;
     AZBox *cell = [view dequeueReusableCellWithIdentifier:$(@"cell.%ld", index)];
 	if(!cell)
         cell = [[AZBox alloc] initWithReuseIdentifier:$(@"cell.%ld", index)];
-		cell.color = [[NSColor allColors] objectAtIndex:index];
+		cell.color = [[items objectAtIndex:index]valueForKey:@"color"];
 //		[cell setImage:[[[AtoZ dockSorted]objectAtIndex:index] valueForKey:@"image"]];
     return cell;
 }

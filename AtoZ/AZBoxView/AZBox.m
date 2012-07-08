@@ -2,6 +2,8 @@
 //  AZBox.m
 //  AtoZ
 #import "AZBox.h"
+#import <AppKit/AppKit.h>
+
 
 @interface AZBox ()
 @property (readonly) float dynamicStroke;
@@ -27,10 +29,10 @@
 }
 
 - (float) dynamicStroke {
-//	NSRect r = [self bounds];
-//	int t = max(r.size.width, r.size.height);
-//	return (.05 * t);
-	return 14;
+	NSRect r = [self bounds];
+	int t = MAX((int)r.size.width, (int)r.size.height);
+	return (.1 * t);
+//	return 14;
 }
 
 
@@ -57,10 +59,10 @@
 //		[image drawCenteredinRect:[self bounds] operation:NSCompositeDestinationOut fraction:1];
 //	}
 //    [NSGraphicsContext restoreGraphicsState];
-    BOOL outer = NO;
+//    BOOL outer = NO;
     BOOL background = YES;
-    BOOL stroke = YES;
-    BOOL innerStroke = YES;
+    BOOL stroke = NO;
+    BOOL innerStroke = NO;
     NSRect frame = [self bounds];
 //    if(outer) {
 //        NSBezierPath *outerClip = [NSBezierPath bezierPathWithRoundedRect:frame xRadius:_radius yRadius:_radius];
@@ -75,7 +77,13 @@
 //    }
     if(background) {
         NSBezierPath *backgroundPath = [NSBezierPath bezierPathWithRoundedRect:NSInsetRect(frame, 2.0f, 2.0f) xRadius:radius yRadius:radius];
-        [backgroundPath setClip];
+		[NSShadow setShadowWithOffset:NSMakeSize(0, -8 * .5) blurRadius:12 * .5
+								color:[NSColor colorWithCalibratedWhite:0 alpha:0.75]];
+		[[NSColor colorWithCalibratedWhite:0.9 alpha:1.0] set];
+		[backgroundPath fill];
+		[NSShadow clearShadow];
+		[backgroundPath setClip];
+	
         [gradient drawInRect:[backgroundPath bounds] angle:270];
     }
     if(stroke) {
@@ -129,11 +137,12 @@
 			NSBezierPath *inside = [NSBezierPath bezierPathWithRoundedRect:insidef xRadius:radius yRadius:radius];
 			[inside setLineWidth:self.dynamicStroke];
 			[inside setLineCapStyle:NSRoundLineCapStyle];
-			[(color.isDark ? color.brighter : color.darker) set];
-	
+//			[(color.isDark ? color.brighter : color.darker) set];
+			[BLACK set];
+			[inside strokeInsideWithinRect:insidef];
 			CGFloat dashArray[4] = { (_all/4), (_all/4), (_all/4), (_all/4) };
 			[inside setLineDash:dashArray count:4 phase:mPhase];
-			[BLACK set];
+			[WHITE set];
 			[inside strokeInsideWithinRect:insidef];
 			
 			//        [path setLineWidth:4.0];
@@ -181,7 +190,7 @@
 
 - (void)setHovering:(BOOL)state
 {
-	self.multiplier = (state ? 2 : .5 );
+//	self.multiplier = (state ? 2 : .5 );
 	hovering = state;
 	[self setNeedsDisplay:YES];
 }

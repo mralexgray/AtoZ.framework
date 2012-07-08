@@ -23,4 +23,19 @@ if (self != nil) {
 return self;
 }
 
++ (void)setShadowWithOffset:(NSSize)offset blurRadius:(CGFloat)radius
+color:(NSColor *)shadowColor
+{
+	NSShadow *aShadow = [[self alloc] init];
+	[aShadow setShadowOffset:offset];
+	[aShadow setShadowBlurRadius:radius];
+	[aShadow setShadowColor:shadowColor];
+	[aShadow set];
+}
+
++ (void)clearShadow
+{
+    NSShadow *aShadow = [[self alloc] init];
+    [aShadow set];
+}
 @end

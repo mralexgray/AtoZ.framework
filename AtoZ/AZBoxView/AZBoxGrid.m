@@ -33,11 +33,11 @@
 {
 	maximizeIdeally = domaximizeIdeally;
 	if (maximizeIdeally){
-		int totes =  [[self dataSource] numberOfCellsInCollectionView:self];
+		int totes =  [dataSource numberOfCellsInCollectionView:self];
 		int rows = ceil(sqrt(totes));
 		int cols = ceil(totes/ceil(sqrt(totes)));
 		//		float sizer =  ();// self.desiredNumberOfRows);
-		NSSize s = NSMakeSize(self.frame.size.width/cols, [self frame].size.height/rows );
+		NSSize s = NSMakeSize([self frame].size.width/cols, [self frame].size.height/rows );
 		self.cellSize =  s;
 		self.desiredNumberOfRows = rows;
 		self.desiredNumberOfColumns = cols;
@@ -51,6 +51,7 @@
 
 - (void) viewDidEndLiveResize {
 	if (maximizeIdeally) self.maximizeIdeally = YES;
+	[self updateLayout ];
 
 }
 
@@ -159,8 +160,8 @@
 	if(index >= numberOfCells || index == NSNotFound)
         return NSZeroRect;
     NSUInteger x = index % numberOfColumns;
-    NSUInteger y = (index - x) / numberOfColumns;
-    return NSMakeRect(x * cellSize.width, y * cellSize.height, cellSize.width, cellSize.height);
+	NSUInteger y = (index - x) / numberOfColumns;
+    return NSMakeRect(x * (cellSize.width /1), y * (cellSize.height*1), cellSize.width, cellSize.height);
 }
 - (NSIndexSet *)indexesOfCellsInRect:(NSRect)rect 	{
 	NSMutableIndexSet *indexSet = [NSMutableIndexSet indexSet];
@@ -221,6 +222,7 @@
         [NSAnimationContext endGrouping];
 }
 - (void)removeInvisibleCells {
+	if (maximizeIdeally) return;
 	NSRange range  = [self visibleRange];
     NSArray *cells = [visibleCells allValues];
     for(AZBox *cell in cells) {
@@ -258,16 +260,16 @@
 }
 - (void)reloadData 			 {
 	if(updatingData) {
-		
         calledReloadData = YES;
         return;
     }
+	
     for(NSView *view in [visibleCells allValues])
         [view removeFromSuperview];
     [visibleCells removeAllObjects];
     [reusableCellQueues removeAllObjects];
     [selection removeAllIndexes];
-    numberOfCells = [dataSource numberOfCellsInCollectionView:self];
+    numberOfCells = [[self dataSource] numberOfCellsInCollectionView:self];
     [self updateLayout];
     [self addMissingCells];
 }
@@ -294,7 +296,7 @@
     return NSMakeRange(startIndex, endIndex-startIndex);
 }
 - (void)updateLayout 	{
-	if(updatingData)
+	if(updatingData || [self inLiveResize] || maximizeIdeally)
         return;
     NSRect frame = [self frame];
     CGFloat width, height;
@@ -375,7 +377,7 @@
     desiredNumberOfRows     = NSUIntegerMax;
     reusableCellQueues  = [[NSMutableDictionary alloc] init];
     visibleCells        = [[NSMutableDictionary alloc] init];
-    selection = [[NSMutableIndexSet alloc] init];
+    selection 			= [[NSMutableIndexSet alloc] init];
     allowsSelection = YES;
 	lastHoverCellIndex = -1;
     cellSize = NSMakeSize(32.0, 32.0);
@@ -386,16 +388,18 @@
 														  owner:self
 													   userInfo:nil];
 	[self addTrackingArea:area];
-    NSClipView *clipView = [[self enclosingScrollView] contentView];
-    [clipView setPostsBoundsChangedNotifications:YES];
-	[clipView setCopiesOnScroll:NO];
+	if ([self enclosingScrollView]) {
+		NSClipView *clipView = [[self enclosingScrollView] contentView];
+		[clipView setPostsBoundsChangedNotifications:YES];
+		[clipView setCopiesOnScroll:NO];
 	
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(scrollViewDidScroll:) name:NSViewBoundsDidChangeNotification object:clipView];
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(scrollViewDidScroll:) name:NSViewBoundsDidChangeNotification object:clipView];
+	}
     [self updateLayout];
     [self reloadData];
 }
 - (BOOL)isFlipped 			{
-	return YES;
+	return NO;
 }
 - (id)initWithFrame:(NSRect)frame 		{
 	if((self = [super initWithFrame:frame])) {
@@ -425,7 +429,7 @@
     index = [self indexOfCellAtPoint:mousePoint];
     
     [self selectCellAtIndex:index];
-	AZBox *i = [self cellAtIndex:index];
+/**	AZBox *i = [self cellAtIndex:index];
 	NSSize zDragOffset = NSMakeSize(0.0, 0.0);
     NSPasteboard *zPasteBoard = [NSPasteboard pasteboardWithName:NSDragPboard];
     [zPasteBoard declareTypes:[NSArray arrayWithObject:NSTIFFPboardType]
@@ -443,7 +447,7 @@
          pasteboard:zPasteBoard 
              source:self 
           slideBack:YES];
-	
+	*/
     return;
 	
 }

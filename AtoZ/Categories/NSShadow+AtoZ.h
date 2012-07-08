@@ -12,5 +12,7 @@
 
 
 - (id)initWithColor:(NSColor *)color offset:(NSSize)offset blurRadius:(CGFloat)blur;
-
++ (void)setShadowWithOffset:(NSSize)offset blurRadius:(CGFloat)radius
+					  color:(NSColor *)shadowColor;
++ (void)clearShadow;
 @end

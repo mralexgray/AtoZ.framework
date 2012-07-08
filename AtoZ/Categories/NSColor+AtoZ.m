@@ -681,39 +681,45 @@ static NSColor *ColorWithCSSString(NSString *str) {
 	return bestColorKey;
 }
 
-- (NSColor*)closestColorListColor {
-	NSColor *thisColor = [self colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
-	CGFloat bestDistance = FLT_MAX;
-	NSColorList *colors = [NSColorList colorListNamed:@"Web Safe Colors"];
-	NSColorList *crayons = [NSColorList colorListNamed:@"Crayons"];
-
-	NSArray *avail = $array(colors, crayons);
-//	NSColorList *bestList = nil;
-	NSColor *bestColor = nil;
-	NSString *bestKey = nil;
-	for (NSColorList *list  in avail) {
-		NSEnumerator *enumerator = [[list allKeys] objectEnumerator];
-		NSString *key = nil;
-		while ((key = [enumerator nextObject])) {
-			NSColor *thatColor = [list colorWithKey:key];
-			thatColor = [thatColor colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
-			CGFloat colorDistance = 
-				fabs([thisColor redComponent] 	- [thatColor redComponent]);
-			colorDistance += fabs([thisColor blueComponent] 	- [thatColor blueComponent]);
-			colorDistance += fabs([thisColor greenComponent]	- [thatColor greenComponent]);
-			colorDistance = sqrt(colorDistance);
-			if (colorDistance < bestDistance) {	
-//				bestList = list; 
-				bestDistance = colorDistance; 
-				bestColor = thatColor; 
-				bestKey = key; }
-		}
-	}
-//	bestColorKey = [[NSBundle bundleWithPath:@"/System/Library/Colors/Web Safe Colors.clr"]
-//					localizedStringForKey:bestColorKey	value:bestColorKey 	table:@"Crayons"]; 
-	
-	return bestColor;//, @"color", bestKey, @"key", bestList, @"list");
-}
+//- (NSColor*)closestColorListColor {
+//	__block NSColor *thisColor = [self colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
+//	__block	CGFloat bestDistance = FLT_MAX;
+////	NSColorList *colors = [NSColorList colorListNamed:@"Web Safe Colors"];
+////	NSColorList *crayons = [NSColorList colorListNamed:@"Crayons"];
+//
+////	NSArray *avail = $array(colors);//, crayons);
+////	NSColorList *bestList = nil;
+//	__block NSColor *bestColor = nil;
+////	__block NSString *bestKey = nil;
+////	for (NSColorList *list  in avail) {
+////		NSEnumerator *enumerator = [[list allKeys] objectEnumerator];
+////		NSString *key = nil;
+////		while ((key = [enumerator nextObject])) {
+//	
+//	[[[NSColorList  colorListNamed:@"Web Safe Colors"] allKeys] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+//	
+//			
+//			NSColor *thatColor = [[[NSColorList colorListNamed:@"Web Safe Colors"] colorWithKey:obj]colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
+//		if (![thatColor isBoring]) {
+////			thatColor = [thatColor colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
+//			CGFloat colorDistance = 
+//				fabs([thisColor redComponent] 	- [thatColor redComponent]);
+//			colorDistance += fabs([thisColor blueComponent] 	- [thatColor blueComponent]);
+//			colorDistance += fabs([thisColor greenComponent]	- [thatColor greenComponent]);
+//			colorDistance = sqrt(colorDistance);
+//			if (colorDistance < bestDistance) {	
+////				bestList = list; 
+//				bestDistance = colorDistance; 
+//				bestColor = thatColor; 
+////				bestKey = obj; 
+//			}
+//		}
+//	}];
+////	bestColorKey = [[NSBundle bundleWithPath:@"/System/Library/Colors/Web Safe Colors.clr"]
+////					localizedStringForKey:bestColorKey	value:bestColorKey 	table:@"Crayons"]; 
+//	
+//	return bestColor;//, @"color", bestKey, @"key", bestList, @"list");
+//}
 
 
 
@@ -743,6 +749,73 @@ static NSColor *ColorWithCSSString(NSString *str) {
 }
  
 
+//- (NSColor*)closestColorListColor {
+//	NSColor *thisColor = [self colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
+//	CGFloat bestDistance = FLT_MAX;
+//	NSColorList *colors = [NSColorList colorListNamed:@"Web Safe Colors"];
+//	NSColorList *crayons = [NSColorList colorListNamed:@"Crayons"];
+//	
+//	NSArray *avail = $array(colors, crayons);
+//	//	NSColorList *bestList = nil;
+//	NSColor *bestColor = nil;
+//	NSString *bestKey = nil;
+//	for (NSColorList *list  in avail) {
+//		NSEnumerator *enumerator = [[list allKeys] objectEnumerator];
+//		NSString *key = nil;
+//		while ((key = [enumerator nextObject])) {
+//			NSColor *thatColor = [list colorWithKey:key];
+//			thatColor = [thatColor colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
+//			CGFloat colorDistance = 
+//			fabs([thisColor redComponent] 	- [thatColor redComponent]);
+//			colorDistance += fabs([thisColor blueComponent] 	- [thatColor blueComponent]);
+//			colorDistance += fabs([thisColor greenComponent]	- [thatColor greenComponent]);
+//			colorDistance = sqrt(colorDistance);
+//			if (colorDistance < bestDistance) {	
+//				//				bestList = list; 
+//				bestDistance = colorDistance; 
+//				bestColor = thatColor; 
+//				bestKey = key; }
+//		}
+//	}
+//	//	bestColorKey = [[NSBundle bundleWithPath:@"/System/Library/Colors/Web Safe Colors.clr"]
+//	//					localizedStringForKey:bestColorKey	value:bestColorKey 	table:@"Crayons"]; 
+//	
+//	return bestColor;//, @"color", bestKey, @"key", bestList, @"list");
+//}
+
+- (NSColor*)closestColorListColor {
+	NSColor *thisColor = [self colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
+	CGFloat bestDistance = FLT_MAX;
+	NSColorList *colors = [NSColorList colorListNamed:@"Web Safe Colors"];
+	NSColorList *crayons = [NSColorList colorListNamed:@"Crayons"];
+	
+	NSArray *avail = $array(colors, crayons);
+	//	NSColorList *bestList = nil;
+	NSColor *bestColor = nil;
+	NSString *bestKey = nil;
+	for (NSColorList *list  in avail) {
+		NSEnumerator *enumerator = [[list allKeys] objectEnumerator];
+		NSString *key = nil;
+		while ((key = [enumerator nextObject])) {
+			NSColor *thatColor = [list colorWithKey:key];
+			thatColor = [thatColor colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
+			CGFloat colorDistance = 
+			fabs([thisColor redComponent] 	- [thatColor redComponent]);
+			colorDistance += fabs([thisColor blueComponent] 	- [thatColor blueComponent]);
+			colorDistance += fabs([thisColor greenComponent]	- [thatColor greenComponent]);
+			colorDistance = sqrt(colorDistance);
+			if (colorDistance < bestDistance) {	
+				//				bestList = list; 
+				bestDistance = colorDistance; 
+				bestColor = thatColor; 
+				bestKey = key; }
+		}
+	}
+	//	bestColorKey = [[NSBundle bundleWithPath:@"/System/Library/Colors/Web Safe Colors.clr"]
+	//					localizedStringForKey:bestColorKey	value:bestColorKey 	table:@"Crayons"]; 
+	
+	return bestColor;//, @"color", bestKey, @"key", bestList, @"list");
+}
 
 
 - (NSColor *)closestWebColor {
