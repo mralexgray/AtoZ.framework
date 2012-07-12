@@ -2,7 +2,7 @@
 <Scheme
    version = "1.3">
    <BuildAction
-      parallelizeBuildables = "NO"
+      parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
       <BuildActionEntries>
          <BuildActionEntry
@@ -13,10 +13,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7B091A1215A8301600821FFD"
-               BuildableName = "AZBoxTest.app"
-               BlueprintName = "AZBoxTest"
-               ReferencedContainer = "container:AtoZStatusApp.xcodeproj">
+               BlueprintIdentifier = "7B7852A415ACECD2008BAD3C"
+               BuildableName = "AZLayerTest.app"
+               BlueprintName = "AZLayerTest"
+               ReferencedContainer = "container:AtoZ/AtoZ.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -31,10 +31,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7B091A1215A8301600821FFD"
-            BuildableName = "AZBoxTest.app"
-            BlueprintName = "AZBoxTest"
-            ReferencedContainer = "container:AtoZStatusApp.xcodeproj">
+            BlueprintIdentifier = "7B7852A415ACECD2008BAD3C"
+            BuildableName = "AZLayerTest.app"
+            BlueprintName = "AZLayerTest"
+            ReferencedContainer = "container:AtoZ/AtoZ.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -44,25 +44,18 @@
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Debug"
-      ignoresPersistentStateOnLaunch = "YES"
+      ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7B091A1215A8301600821FFD"
-            BuildableName = "AZBoxTest.app"
-            BlueprintName = "AZBoxTest"
-            ReferencedContainer = "container:AtoZStatusApp.xcodeproj">
+            BlueprintIdentifier = "7B7852A415ACECD2008BAD3C"
+            BuildableName = "AZLayerTest.app"
+            BlueprintName = "AZLayerTest"
+            ReferencedContainer = "container:AtoZ/AtoZ.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <EnvironmentVariables>
-         <EnvironmentVariable
-            key = "NSZombieEnabled"
-            value = "YES"
-            isEnabled = "NO">
-         </EnvironmentVariable>
-      </EnvironmentVariables>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -75,10 +68,10 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7B091A1215A8301600821FFD"
-            BuildableName = "AZBoxTest.app"
-            BlueprintName = "AZBoxTest"
-            ReferencedContainer = "container:AtoZStatusApp.xcodeproj">
+            BlueprintIdentifier = "7B7852A415ACECD2008BAD3C"
+            BuildableName = "AZLayerTest.app"
+            BlueprintName = "AZLayerTest"
+            ReferencedContainer = "container:AtoZ/AtoZ.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

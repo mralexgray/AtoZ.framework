@@ -53,9 +53,8 @@ int main(int argc, const char * argv[])
 
 		AtoZCLI *c = [AtoZCLI new];
 //		[c sizer];
-	    
-		[c listAppsPrivately];
-		
+//		[c listAppsPrivately];	
+		AZSimpleView *u = [[AZSimpleView alloc]initWithFrame:NSZeroRect];
 	}
     return 0;
 }

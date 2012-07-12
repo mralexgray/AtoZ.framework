@@ -96,7 +96,9 @@
 
 #import "AZBoxLayer.h"
 #import "AZOverlay.h"
-#import "AZSimpleView.h"
+
+//#import "AtoZInfintieScroll.h"
+
 
 #ifndef AZ_RETAIN
 #if __has_feature(objc_arc)
