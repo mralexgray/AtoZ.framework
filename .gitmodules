@@ -1,0 +1,3 @@
+[submodule "AtoZInfiniteScroll"]
+	path = AtoZInfiniteScroll
+	url = git@github.com:mralexgray/AtoZInfiniteScroll.git
