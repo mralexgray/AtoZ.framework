@@ -23,7 +23,7 @@ AZViewAnimationType;
 
 @property (nonatomic, retain) id objectRep;
 
-- (NSView *)viewWithObject:(id)object;
+- (NSView *)viewWithObjectRep:(id)object;
 
 @end
 
@@ -51,7 +51,7 @@ AZViewAnimationType;
 
 @property (assign) NSPoint center;
 - (NSPoint) center;
-- (NSPoint) centerOfFrame;
+//- (NSPoint) centerOfFrame;
 
 - (void)	animate:(AZViewAnimationType)type;
 - (void)	stopAnimating;

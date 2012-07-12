@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>AZLayerTest.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
+		</dict>
 		<key>AtoZ.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -28,6 +33,11 @@
 			<true/>
 		</dict>
 		<key>7B3422B915A5EC03006AC46C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7B7852A415ACECD2008BAD3C</key>
 		<dict>
 			<key>primary</key>
 			<true/>

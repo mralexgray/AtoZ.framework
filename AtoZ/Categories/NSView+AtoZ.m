@@ -74,7 +74,7 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
  return objc_getAssociatedObject(self, &ANIMATION_IDENTIFER);
 }
 
--(NSPoint) centerOfFrame {
+-(NSPoint) center {
 	return AZCenterOfRect ([self frame]);
 }
 

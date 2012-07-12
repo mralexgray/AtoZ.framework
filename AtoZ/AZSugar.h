@@ -131,6 +131,7 @@ static inline float RandomComponent() {  return (float)random() / (float)LONG_MA
 // degree to radians
 #define ARAD	 0.017453f
 #define DEG2RAD(x) ((x) * ARAD)
+#define RAD2DEG(rad) (rad * 180.0f / M_PI)
 
 //returns float in range 0 - 1.0f
 //usage RAND01()*3, or (int)RAND01()*3 , so there is no risk of dividing by zero

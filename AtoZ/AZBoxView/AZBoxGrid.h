@@ -1,6 +1,7 @@
 
 //  AZBoxGrid.h
 
+
 /**  USAGE
 - (NSUInteger)numberOfCellsInCollectionView:(AZBoxGrid *)view {
     return [content count];
@@ -52,6 +53,7 @@
 @end
 /*** View for displaying items in a grid like order.  * The collection view is designed to be inside of an NSScrollView instance! The AZBoxGrid class behaves much like UITableView on iOS allowing it to have hundreds of thousands cells without great performance impact (unlike NSCollectionView).  
  **/
+
 @interface AZBoxGrid : NSView {
 @public
     BOOL allowsSelection, allowsMultipleSelection;
@@ -59,6 +61,7 @@
     id <AZBoxGridDataSource> __unsafe_unretained dataSource;
     id <AZBoxGridDelegate> __unsafe_unretained delegate;
 //    NSUInteger desiredNumberOfColumns, desiredNumberOfRows;
+
     NSUInteger numberOfColumns, numberOfRows;
     NSUInteger numberOfCells;
 //    NSSize cellSize;
@@ -70,8 +73,13 @@
     BOOL unselectOnMouseUp;
     BOOL updatingData, calledReloadData;
 }
+@property (assign, nonatomic) BOOL magicSizing;
+@property (assign, nonatomic) float boxInset;
+@property (assign, nonatomic) float boxRadius;
+@property (assign, nonatomic) float scalar;
+@property (assign, nonatomic) NSUInteger numberOfColumns;
+@property (assign, nonatomic) NSUInteger numberOfRows;
 
-@property (nonatomic) BOOL maximizeIdeally;
 //- (void)mouseDown:(NSEvent *)event;
 //- (void)mouseDragged:(NSEvent *)event;
 //- (void)mouseUp:(NSEvent *)event;
@@ -136,4 +144,7 @@
 /*** Updates the collection views data and appereance according to the previously made changes.
  * @remark Use this and beginChanges if you want to update multiple properties of the collection view in one batch call to save performance.  **/
 - (void)commitChanges;
+
+
 @end
+

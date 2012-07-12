@@ -3,9 +3,9 @@
 //
 
 #ifdef __OBJC__
-	#import <Foundation/Foundation.h>
+//	#import <Foundation/Foundation.h>
 	#import <Cocoa/Cocoa.h>
-	#import <QuartzCore/QuartzCore.h>
-	#import "BaseModel.h"
+//	#import <QuartzCore/QuartzCore.h>
+
 
 #endif

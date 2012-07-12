@@ -9,14 +9,44 @@
 #import "NSString+AtoZ.h"
 #import "NSColor+AtoZ.h"
 #import "NSArray+AtoZ.h"
-
+#import "AtoZ.h"
 
 @implementation NSString (AtoZ)
 
 
-- (NSColor *)colorValue {
-	return [NSColor colorFromString:self];
+
++ (NSString *)newUniqueIdentifier
+{
+    CFUUIDRef uuid = CFUUIDCreate(NULL);
+    CFStringRef identifier = CFUUIDCreateString(NULL, uuid);
+    CFRelease(uuid);
+    return AZ_RETAIN(CFBridgingRelease(identifier));
 }
+
+
+/**
+ Returns the support folder for the application, used to store the Core Data
+ store file.  This code uses a folder named "ArtGallery" for
+ the content, either in the NSApplicationSupportDirectory location or (if the
+ former cannot be found), the system's temporary directory.
+ */
+
++ (NSString*) applicationSupportFolder {
+
+	NSString *app = [[NSBundle mainBundle]bundleIdentifier];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
+    NSString *basePath = ([paths count] > 0 ? [paths objectAtIndex:0] : NSTemporaryDirectory() );
+    return [basePath stringByAppendingPathComponent:app];
+}
+
+
++ (NSString *)randomAppPath {
+
+	return [[[[NSWorkspace sharedWorkspace] launchedApplications] valueForKeyPath:@"NSApplicationPath"]randomElement];
+}
+//- (NSColor *)colorValue {
+//	return [NSColor colorFromString:self];
+//}
 
 -(NSData *) colorData {
 	NSData *theData=[NSArchiver archivedDataWithRootObject:self];
@@ -437,6 +467,64 @@ return [self stringByTrimmingCharactersInSet:cs];
 	return [str substringToIndex:i];
 }
 
+//This method creates an NSMutableAttributedString, using an NSString and an NSMutableParagraphStyle.
+
+-(NSMutableAttributedString *) attributedParagraphWithSpacing:(float)spacing
+{
+	NSMutableParagraphStyle *aMutableParagraphStyle;
+	NSMutableAttributedString   *attString;
+	/*
+	 The only way to instantiate an NSMutableParagraphStyle is to mutably copy an
+	 NSParagraphStyle. And since we don't have an existing NSParagraphStyle available
+	 to copy, we use the default one.
+	 
+	 The default values supplied by the default NSParagraphStyle are:
+	 Alignment   NSNaturalTextAlignment
+	 Tab stops   12 left-aligned tabs, spaced by 28.0 points
+	 Line break mode   NSLineBreakByWordWrapping
+	 All others   0.0
+	 */
+	aMutableParagraphStyle = [[NSParagraphStyle defaultParagraphStyle]mutableCopy];
+	
+	// Now adjust our NSMutableParagraphStyle formatting to be whatever we want.
+	// The numeric values below are in points (72 points per inch)
+	[aMutableParagraphStyle	setAlignment:NSLeftTextAlignment];
+	[aMutableParagraphStyle setLineSpacing:spacing];
+//	[aMutableParagraphStyle setParagraphSpacing:25.5];
+//	[aMutableParagraphStyle setHeadIndent:25.0];
+//	[aMutableParagraphStyle setTailIndent:-45.0];
+	// setTailIndent: if negative, offset from right margin (right margin mark does
+	//      NOT appear); if positive, offset from left margin (margin mark DOES appear)
+//	[aMutableParagraphStyle setFirstLineHeadIndent:65.0];
+	[aMutableParagraphStyle	setLineBreakMode:NSLineBreakByWordWrapping];
+	/*
+	 possible allignments
+	 NSLeftTextAlignment
+	 NSRightTextAlignment
+	 NSCenterTextAlignment
+	 NSJustifiedTextAlignment
+	 NSNaturalTextAlignment
+	 possible line wraps
+	 NSLineBreakByWordWrapping
+	 NSLineBreakByCharWrapping
+	 NSLineBreakByClipping
+	 */
+	
+	// Instantiate the NSMutableAttributedString with the argument string
+	attString = [[NSMutableAttributedString alloc]
+				 initWithString:self];
+	// Apply your paragraph style attribute over the entire string
+	[attString addAttribute:NSParagraphStyleAttributeName
+					  value:aMutableParagraphStyle
+					  range:NSMakeRange(0,[self length])];
+//	[aMutableParagraphStyle release]; // since it was copy'd
+//	[attString autorelease]; // since it was alloc'd
+	return attString;
+}
+//If your NSTextView already has attributed strings in its textStorage, you can get the NSParagraphStyle by:
+
+//aMutableParagraphStyle = [[myTextView typingAttributes]
+//						  objectForKey:@"NSParagraphStyle"];
 
 
 @end
@@ -586,5 +674,7 @@ return re;
 	 ];
 	return self;
 }
+
+
 
 @end

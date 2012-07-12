@@ -33,7 +33,7 @@
 - (NSColor*)	closestWebColor;
 - (NSColor*) 	closestNamedColor;
 - (NSString*)	nameOfColor;
-- (NSDictionary*) closestColor;  //name, list, and color
+//- (NSDictionary*) closestColor;  //name, list, and color
 
 + (NSArray *)  colorLists; 
 + (NSArray *) fengshui;
@@ -42,14 +42,14 @@
 + (NSColor*)	randomColor;
 + (NSColor*)	randomOpaqueColor;
 + (NSColor*) 	colorFromHexRGB:	(NSString*) 	inColorString;
-+ (NSColor*) 	colorWithHTMLString:(NSString*)		hexString;
+//+ (NSColor*) 	colorWithHTMLString:(NSString*)		hexString;
 + (NSColor*)	colorWithCGColor:	(CGColorRef) 	aColor;
 + (NSColor*)	crayonColorNamed:	(NSString *)	key;
 
-+ (NSColor*)	colorWithName:(NSString *)colorName;
+//+ (NSColor*)	colorWithName:(NSString *)colorName;
 
-+ (NSColor*)	colorFromString: 	(NSString*) 	string;
-+ (NSColor*)	colorFromHexString: (NSString*)		hexString;
+//+ (NSColor*)	colorFromString: 	(NSString*) 	string;
+//+ (NSColor*)	colorFromHexString: (NSString*)		hexString;
 - (NSString*)	toHex;
 
 

@@ -6,8 +6,11 @@
 
 @interface NSString (AtoZ)
 
++ (NSString *)newUniqueIdentifier;
++ (NSString*) applicationSupportFolder;
++ (NSString*) randomAppPath;
 
-@property (readonly) NSColor *colorValue;
+//@property (readonly) NSColor *colorValue;
 
 - (void)drawCenteredInRect:(CGRect)rect withFont:(NSFont *)font;
 /*** Returns the string cleaned from leading and trailing whitespaces */
@@ -130,6 +133,9 @@
 
 + (id)stringWithData:(NSData *)data encoding:(NSStringEncoding)encoding;
 + (NSString *)stringWithCGFloat:(CGFloat)f maxDigits:(NSUInteger)numDigits;
+
+-(NSMutableAttributedString *) attributedParagraphWithSpacing:(float)spacing;
+
 @end
 
 

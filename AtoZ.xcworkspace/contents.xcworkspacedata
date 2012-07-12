@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:AtoZInfiniteScroll/AtoZInfiniteScroll.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "container:AtoZStatusAspp/AtoZStatusApp.xcodeproj">
    </FileRef>
 </Workspace>

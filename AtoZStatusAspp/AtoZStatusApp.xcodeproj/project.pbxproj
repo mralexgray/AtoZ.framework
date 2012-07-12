@@ -13,7 +13,6 @@
 		7B091A2115A8301600821FFD /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 7B091A1F15A8301600821FFD /* Credits.rtf */; };
 		7B091A2415A8301600821FFD /* AtoZAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B091A2315A8301600821FFD /* AtoZAppDelegate.m */; };
 		7B091A2715A8301600821FFD /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B091A2515A8301600821FFD /* MainMenu.xib */; };
-		7B091A4015A8866F00821FFD /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B24E9AD15A1483000A9D87A /* AtoZ.framework */; };
 		7B091A4815A888C500821FFD /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B091A4715A888C400821FFD /* ApplicationServices.framework */; };
 		7B091A4915A8891400821FFD /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BE606D015A117D100355236 /* AppKit.framework */; };
 		7B0D7C2615A3E80000037D30 /* ControlBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0D7C2515A3E7FF00037D30 /* ControlBar.m */; };
@@ -24,6 +23,10 @@
 		7B24E97215A11F4600A9D87A /* AZStatusItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B24E97115A11F4600A9D87A /* AZStatusItemView.m */; };
 		7B24E9F115A1784400A9D87A /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B24E9AD15A1483000A9D87A /* AtoZ.framework */; };
 		7B24E9F315A1785A00A9D87A /* AtoZ.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7B24E9AD15A1483000A9D87A /* AtoZ.framework */; };
+		7B78528F15ACE192008BAD3C /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B24E9B315A1486D00A9D87A /* AtoZ.framework */; };
+		7B78529015ACE326008BAD3C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B0D7C4515A3F6C800037D30 /* QuartzCore.framework */; };
+		7B78529115ACE32B008BAD3C /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B0D7C4715A3F88C00037D30 /* Quartz.framework */; };
+		7B78529215ACE333008BAD3C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BE606D215A117D100355236 /* Foundation.framework */; };
 		7BE606CE15A117D100355236 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BE606CD15A117D100355236 /* Cocoa.framework */; };
 		7BE606D815A117D200355236 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7BE606D615A117D200355236 /* InfoPlist.strings */; };
 		7BE606DA15A117D200355236 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BE606D915A117D200355236 /* main.m */; };
@@ -67,6 +70,13 @@
 			remoteGlobalIDString = 7B3422BA15A5EC03006AC46C;
 			remoteInfo = AtoZCLI;
 		};
+		7BBD96D015ACFF8400943FC1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B24E9A715A1483000A9D87A /* AtoZ.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7B7852A515ACECD2008BAD3C;
+			remoteInfo = AZLayerTest;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -105,6 +115,10 @@
 		7B24E97115A11F4600A9D87A /* AZStatusItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZStatusItemView.m; sourceTree = "<group>"; };
 		7B24E9A715A1483000A9D87A /* AtoZ.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AtoZ.xcodeproj; path = ../AtoZ/AtoZ.xcodeproj; sourceTree = "<group>"; };
 		7B24E9B315A1486D00A9D87A /* AtoZ.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AtoZ.framework; path = System/Library/Frameworks/AtoZ.framework; sourceTree = SDKROOT; };
+		7B78524615ABA801008BAD3C /* MyScroller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyScroller.h; sourceTree = "<group>"; };
+		7B78524715ABA801008BAD3C /* MyScroller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyScroller.m; sourceTree = "<group>"; };
+		7B78524815ABA801008BAD3C /* MyScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyScrollView.h; sourceTree = "<group>"; };
+		7B78524915ABA801008BAD3C /* MyScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyScrollView.m; sourceTree = "<group>"; };
 		7BE606C915A117D100355236 /* AtoZStatusApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AtoZStatusApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BE606CD15A117D100355236 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		7BE606D015A117D100355236 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -123,9 +137,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B78529215ACE333008BAD3C /* Foundation.framework in Frameworks */,
+				7B78529115ACE32B008BAD3C /* Quartz.framework in Frameworks */,
+				7B78529015ACE326008BAD3C /* QuartzCore.framework in Frameworks */,
+				7B78528F15ACE192008BAD3C /* AtoZ.framework in Frameworks */,
 				7B091A4915A8891400821FFD /* AppKit.framework in Frameworks */,
 				7B091A4815A888C500821FFD /* ApplicationServices.framework in Frameworks */,
-				7B091A4015A8866F00821FFD /* AtoZ.framework in Frameworks */,
 				7B091A1515A8301600821FFD /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -147,6 +164,10 @@
 		7B091A1615A8301600821FFD /* AZBoxTest */ = {
 			isa = PBXGroup;
 			children = (
+				7B78524615ABA801008BAD3C /* MyScroller.h */,
+				7B78524715ABA801008BAD3C /* MyScroller.m */,
+				7B78524815ABA801008BAD3C /* MyScrollView.h */,
+				7B78524915ABA801008BAD3C /* MyScrollView.m */,
 				7B091A2215A8301600821FFD /* AtoZAppDelegate.h */,
 				7B091A2315A8301600821FFD /* AtoZAppDelegate.m */,
 				7B091A2515A8301600821FFD /* MainMenu.xib */,
@@ -173,14 +194,14 @@
 				7B24E9AD15A1483000A9D87A /* AtoZ.framework */,
 				7B24E9AF15A1483000A9D87A /* AtoZTests.octest */,
 				7BA8458D15A5FAFA002402FE /* AtoZCLI */,
+				7BBD96D115ACFF8400943FC1 /* AZLayerTest.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		7BE606BE15A117D100355236 = {
+		7B7852A015ACECAF008BAD3C /* Status */ = {
 			isa = PBXGroup;
 			children = (
-				7B091A4715A888C400821FFD /* ApplicationServices.framework */,
 				7B0D7C5A15A4175900037D30 /* iCarousel.h */,
 				7B0D7C5B15A4175900037D30 /* iCarousel.m */,
 				7B24E97015A11F4600A9D87A /* AZStatusItemView.h */,
@@ -190,6 +211,15 @@
 				7BE606E215A117D200355236 /* MainMenu.xib */,
 				7B0D7C2415A3E7FF00037D30 /* ControlBar.h */,
 				7B0D7C2515A3E7FF00037D30 /* ControlBar.m */,
+			);
+			name = Status;
+			sourceTree = "<group>";
+		};
+		7BE606BE15A117D100355236 = {
+			isa = PBXGroup;
+			children = (
+				7B091A4715A888C400821FFD /* ApplicationServices.framework */,
+				7B7852A015ACECAF008BAD3C /* Status */,
 				7B091A1615A8301600821FFD /* AZBoxTest */,
 				7B24E9A715A1483000A9D87A /* AtoZ.xcodeproj */,
 				7BE606D415A117D200355236 /* Supporting Files */,
@@ -336,6 +366,13 @@
 			fileType = "compiled.mach-o.executable";
 			path = AtoZCLI;
 			remoteRef = 7BA8458C15A5FAFA002402FE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7BBD96D115ACFF8400943FC1 /* AZLayerTest.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = AZLayerTest.app;
+			remoteRef = 7BBD96D015ACFF8400943FC1 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -498,7 +535,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 			};
@@ -519,7 +556,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				SDKROOT = macosx;
 			};
 			name = Release;

@@ -189,6 +189,10 @@
 @property (retain) id last;
 @property (retain) id first;
 
+
+- (void) firstToLast;
+
+
 // alike removeLastObject
 -(void)removeFirstObject;
 
@@ -204,6 +208,8 @@
 // removes and returns the last object in the array
 // if no elements are present, nil will be returned
 -(id)pop;
+
+- (void)push:(id)obj;
 
 // shortcut for the default sortUsingSelector:@selector(compare:)
 -(NSMutableArray *)sort;

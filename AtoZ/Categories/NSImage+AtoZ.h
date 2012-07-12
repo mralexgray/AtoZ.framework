@@ -25,6 +25,7 @@ typedef enum {
 @interface NSImage (AtoZ)
 
 - (NSImage*)  coloredWithColor:(NSColor*)inColor;
+- (NSImage*)  coloredWithColor:(NSColor*)inColor composite:(NSCompositingOperation)comp;
 
 
 + (id) imageWithFileName:(NSString *)fileName inBundle:(NSBundle *)aBundle;
@@ -64,7 +65,7 @@ typedef enum {
 - (CIImage *)toCIImage;
 
 - (NSImage*) imageByRemovingTransparentAreasWithFinalRect: (NSRect*)outBox;
-+ (NSImage*) fromSVG:(NSString *)documentName withAlpha:(BOOL)hasAlpha;
+//+ (NSImage*) fromSVG:(NSString *)documentName withAlpha:(BOOL)hasAlpha;
 + (NSImage*)imageFromCGImageRef:(CGImageRef)image;
 
 - (NSImage*) addReflection:(CGFloat)percentage;
@@ -106,7 +107,8 @@ typedef enum {
 		 fileName:(NSString *)name 
 		 fileType:(NSBitmapImageFileType)type;
 
-
+- (BOOL)saveAs:(NSString *)path;
+- (NSImage *)scaleToFillSize:(NSSize)targetSize;
 @end
 
 @interface CIImage (ToNSImage)
@@ -146,4 +148,5 @@ typedef enum {
 
 @interface NSImage (Average)
 -(NSColor *)averageColor;
++ (NSImage*)maskImage:(NSImage *)image withMask:(NSImage *)maskImage;
 @end

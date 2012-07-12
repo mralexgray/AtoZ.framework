@@ -7,8 +7,8 @@
 //
 
 #import "NSImage+AtoZ.h"
-
-
+#import <AppKit/AppKit.h>
+#import <Quartz/Quartz.h>
 #import <QuartzCore/QuartzCore.h>
 #import <Foundation/Foundation.h>
 #import <QuickLook/QuickLook.h>
@@ -20,8 +20,6 @@ float distance(NSPoint aPoint);
 enum pixelComponents { red, green, blue, alpha };
 
 NSSize gradientSize = {256.0, 256.0};
-
-
 
 float distance(NSPoint aPoint)  // Stole this from some guy named Pythagoras..  Returns the distance of aPoint from the origin.
 {
@@ -41,6 +39,9 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 @implementation NSImage (AtoZ)
 
 - (NSImage*)  coloredWithColor:(NSColor*)inColor {
+	return [self coloredWithColor:inColor composite:NSCompositeDestinationIn];
+}
+- (NSImage*)  coloredWithColor:(NSColor*)inColor composite:(NSCompositingOperation)comp{
 	static CGFloat kGradientShadowLevel = 0.25;
 	static CGFloat kGradientAngle = 270.0;
 	if ( inColor ) {
@@ -51,15 +52,12 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 		[target lockFocus];
 		if ( avoidGradient ) { [inColor set]; NSRectFill(targetRect); }
 		else [gradient drawInRect:targetRect angle:kGradientAngle];
-		[self drawInRect:targetRect fromRect:NSZeroRect operation:NSCompositeDestinationIn fraction:1.0];
+		[self drawInRect:targetRect fromRect:NSZeroRect operation:comp fraction:1.0];
 		[target unlockFocus];
 		return target;
 	}
-	else {
-		return self;
-	}
+	else return self;
 }
-
 
 + (id) imageWithFileName:(NSString *)fileName inBundle:(NSBundle *)aBundle {
 	NSImage *img = nil;
@@ -276,7 +274,6 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 		return [self copy];
 	}
 }
-
 
 
 
@@ -967,7 +964,7 @@ rightDone:
 
 //+ (NSImage*)imageFromCGImageRef:(CGImageRef)image {
 //	NSImage* newImage = nil;
-//#if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5
+////#if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5
 //	NSBitmapImageRep*    newRep = [[NSBitmapImageRep alloc]initWithCGImage:image];
 //	NSSize imageSize;
 //	// Get the image dimensions.
@@ -975,20 +972,20 @@ rightDone:
 //	imageSize.width = CGImageGetWidth(image);
 //	newImage = [[NSImage alloc] initWithSize:imageSize];
 //	[newImage addRepresentation:newRep];
-//#else
-//	NSRect imageRect = NSMakeRect(0.0, 0.0, 0.0, 0.0);
-//	CGContextRef imageContext = nil;
-//	// Get the image dimensions.
-//	imageRect.size.height = CGImageGetHeight(image);
-//	imageRect.size.width = CGImageGetWidth(image);
-//	// Create a new image to receive the Quartz image data.
-//	newImage = [[NSImage alloc] initWithSize:imageRect.size];
-//	[newImage lockFocus];
-//	// Get the Quartz context and draw.
-//	imageContext = (CGContextRef)[[NSGraphicsContext currentContext]graphicsPort];
-//	CGContextDrawImage(imageContext, *(CGRect*)&imageRect, image);
-//	[newImage unlockFocus];
-//#endif
+////#else
+////	NSRect imageRect = NSMakeRect(0.0, 0.0, 0.0, 0.0);
+////	CGContextRef imageContext = nil;
+////	// Get the image dimensions.
+////	imageRect.size.height = CGImageGetHeight(image);
+////	imageRect.size.width = CGImageGetWidth(image);
+////	// Create a new image to receive the Quartz image data.
+////	newImage = [[NSImage alloc] initWithSize:imageRect.size];
+////	[newImage lockFocus];
+////	// Get the Quartz context and draw.
+////	imageContext = (CGContextRef)[[NSGraphicsContext currentContext]graphicsPort];
+////	CGContextDrawImage(imageContext, *(CGRect*)&imageRect, image);
+////	[newImage unlockFocus];
+////#endif
 //	return newImage;
 //}
 
@@ -1279,6 +1276,38 @@ CGContextRef MyCreateBitmapContext (int pixelsWide, int pixelsHigh)
 	NSData *data = [bmpImageRep representationUsingType:type properties:nil];
 	
 	return [data writeToFile:destination atomically:NO];
+}
+
+
+- (BOOL)saveAs:(NSString *)path{	
+	NSBitmapImageRep *bmpImageRep = [[NSBitmapImageRep alloc] initWithData:[self TIFFRepresentation]];
+	NSData *data = [bmpImageRep representationUsingType:NSPNGFileType properties:nil];
+	return [data writeToFile:path atomically:NO];
+}
+
+- (NSImage *)scaleToFillSize:(NSSize)targetSize {
+	NSSize sourceSize = self.size;	
+	NSRect sourceRect = NSZeroRect;
+	if (sourceSize.height > sourceSize.width) {
+		sourceRect = NSMakeRect(0.0, 
+								round((sourceSize.height - sourceSize.width) / 2), 
+								sourceSize.width, 
+								sourceSize.width);
+	}
+	else {
+		sourceRect = NSMakeRect(round((sourceSize.width - sourceSize.height) / 2), 
+								0.0, 
+								sourceSize.height, 
+								sourceSize.height);
+	}
+	NSRect destinationRect = NSZeroRect;
+	destinationRect.size = targetSize;
+	NSImage *final = [[NSImage alloc] initWithSize:targetSize];
+	[final lockFocus];
+	[[NSGraphicsContext currentContext] setImageInterpolation:NSImageInterpolationHigh];
+	[self drawInRect:destinationRect fromRect:sourceRect operation:NSCompositeSourceOver fraction:1.0];
+	[final unlockFocus];
+	return final;
 }
 
 
@@ -1637,7 +1666,8 @@ CGContextRef MyCreateBitmapContext (int pixelsWide, int pixelsHigh)
 
 @implementation NSImage (Average)
 - (NSColor *)averageColor {
-	NSBitmapImageRep *rep = (NSBitmapImageRep *)[self bestRepresentationForDevice:nil]; 	
+	NSBitmapImageRep *rep = [[self representations] objectAtIndex:0];
+//	 filterOne:<#^BOOL(id object)block#>: (NSBitmapImageRep *)[self bestRepresentationForDevice:nil]; 	
 	if (![rep isKindOfClass:[NSBitmapImageRep class]]) return nil;
 	unsigned char *pixels = [rep bitmapData];
 	
@@ -1659,4 +1689,56 @@ CGContextRef MyCreateBitmapContext (int pixelsWide, int pixelsHigh)
 	return color;
 }
 
+
+
+CGImageRef CopyImageAndAddAlphaChannel(CGImageRef sourceImage) {
+	CGImageRef retVal = NULL;
+	size_t width = CGImageGetWidth(sourceImage);
+	size_t height = CGImageGetHeight(sourceImage);
+	CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+	CGContextRef offscreenContext = CGBitmapContextCreate(NULL, width, height, 
+									8, 0, colorSpace, kCGImageAlphaPremultipliedFirst);
+	if (offscreenContext != NULL) {
+		CGContextDrawImage(offscreenContext, CGRectMake(0, 0, width, height), sourceImage);	
+		retVal = CGBitmapContextCreateImage(offscreenContext);
+		CGContextRelease(offscreenContext);
+	}
+	CGColorSpaceRelease(colorSpace);
+	return retVal;
+}
+
++ (NSImage*)maskImage:(NSImage *)image withMask:(NSImage *)maskImage {
+	CGImageRef maskRef = [maskImage cgImageRef];
+	CGImageRef mask = CGImageMaskCreate(CGImageGetWidth(maskRef),
+										CGImageGetHeight(maskRef),
+										CGImageGetBitsPerComponent(maskRef),
+										CGImageGetBitsPerPixel(maskRef),
+										CGImageGetBytesPerRow(maskRef),
+										CGImageGetDataProvider(maskRef), NULL, false);
+	
+	CGImageRef sourceImage = [image cgImageRef];
+	CGImageRef imageWithAlpha = sourceImage;
+	//add alpha channel for images that don't have one (ie GIF, JPEG, etc...)
+	//this however has a computational cost
+	if (CGImageGetAlphaInfo(sourceImage) == kCGImageAlphaNone) { 
+		imageWithAlpha = CopyImageAndAddAlphaChannel(sourceImage);
+	}
+	
+	CGImageRef masked = CGImageCreateWithMask(imageWithAlpha, mask);
+	CGImageRelease(mask);
+	
+	//release imageWithAlpha if it was created by CopyImageAndAddAlphaChannel
+	if (sourceImage != imageWithAlpha) {
+		CGImageRelease(imageWithAlpha);
+	}
+	
+	NSImage* retImage = [NSImage imageFromCGImageRef:masked];
+	CGImageRelease(masked);
+
+	return retImage;
+}
+
+
+
 @end
+

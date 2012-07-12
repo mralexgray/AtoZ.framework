@@ -4,56 +4,87 @@
 //
 #import "AZBoxGrid.h"
 #import "AZBox.h"
+#import "AtoZ.h"
 
-@interface AZBox ()
-@property (nonatomic, assign) NSInteger index;
+
+@class MyScrollView;
+@interface AZBoxGrid  ()
+{
+//	__weak MyScrollView *scrollView;
+}// called when scroll view changed the size of content view
+- (void)updateScrollValues:(MyScrollView *)scrollView;
+
+// called when content view is scrolled
+- (void)scrollValueChanged:(MyScrollView *)scrollView;
+
 @end
 
 @interface AZBoxGrid ()
 - (void)updateLayout;
 @end
 
+
+@class MyScrollView;
 @implementation AZBoxGrid
 @synthesize cellSize, desiredNumberOfColumns, desiredNumberOfRows;
-@synthesize dataSource, delegate;
+@synthesize dataSource, delegate, magicSizing;
 @synthesize unselectOnMouseUp, allowsSelection, allowsMultipleSelection;
-@synthesize maximizeIdeally;
+@synthesize boxRadius = boxRadius_, boxInset = boxInset_, scalar = scalar_;
+@synthesize numberOfRows, numberOfColumns;
+
+
+
 #pragma mark - Selection
+
+
+
 
 - (NSIndexSet *)selection {
 	return [selection copy];
 }
 
-
--(void) viewWillDraw {
+- (float) boxInset {
+	AZBox *cell = [[visibleCells allValues]randomElement];
+	return cell.inset;
 }
 
 
-- (void) setMaximizeIdeally:(BOOL)domaximizeIdeally
-{
-	maximizeIdeally = domaximizeIdeally;
-	if (maximizeIdeally){
-		int totes =  [dataSource numberOfCellsInCollectionView:self];
-		int rows = ceil(sqrt(totes));
-		int cols = ceil(totes/ceil(sqrt(totes)));
-		//		float sizer =  ();// self.desiredNumberOfRows);
-		NSSize s = NSMakeSize([self frame].size.width/cols, [self frame].size.height/rows );
-		self.cellSize =  s;
-		self.desiredNumberOfRows = rows;
-		self.desiredNumberOfColumns = cols;
-		AZTalker *n = [AZTalker new];
-		[n say:$(@"Caculated ideally to be: %i rows, %i columns.. %i pixels wide, by %i pixels high", rows, cols, (int)s.width, (int)s.height)];
-		NSLog(@"%@, rows:%i", NSStringFromSize(s), rows);
-		[self setNeedsDisplay:YES];
+- (float) boxRadius {
+	AZBox *cell = [[visibleCells allValues]randomElement];
+	return cell.radius;
+}
+
+- (void) setScalar:(float)scalar {
+	scalar_ = scalar;
+	self.cellSize = NSMakeSize(scalar_,scalar_);
+	[self updateLayout];
+}
+
+- (void) setBoxRadius:(float)boxRadius {
+	if (boxRadius_ != boxRadius) {
+		boxRadius_ = boxRadius;
+		for (AZBox * b in [self subviews]) {
+			b.radius = boxRadius;
+			b.needsDisplay = YES;
+		}
 	}
-	[self setNeedsDisplay:YES];
 }
 
-- (void) viewDidEndLiveResize {
-	if (maximizeIdeally) self.maximizeIdeally = YES;
-	[self updateLayout ];
-
+- (void) setBoxInset:(float)boxInset {
+	if (boxInset_ != boxInset) {
+		boxInset_ = boxInset;
+		for (AZBox * b in [self subviews]) {
+			b.inset = boxInset;
+			b.needsDisplay = YES;
+		}
+	}
 }
+
+
+//- (void) viewDidEndLiveResize {
+//	[self setMaximizeIdeally:maximizeIdeally];
+
+//}
 
 - (void)selectCellAtIndex:(NSUInteger)index 		  {
 	if(!allowsSelection || index == NSNotFound)
@@ -119,17 +150,17 @@
 		[self hoverOutOfCellAtIndex:lastHoverCellIndex];
 		// hover over current cell
 		AZBox *cell = [visibleCells objectForKey:[NSNumber numberWithUnsignedInteger:index]];
-		[cell setHovering:YES];
+		[cell setHovered:YES];
 		lastHoverCellIndex = index;
 	}
 }
 - (void)hoverOutOfCellAtIndex:(NSUInteger)index 	{
 	AZBox *cell = [visibleCells objectForKey:[NSNumber numberWithUnsignedInteger:index]];
-	[cell setHovering:NO];
+	[cell setHovered:NO];
 }
 - (void)hoverOutOfLastCell {
 	AZBox *cell = [visibleCells objectForKey:[NSNumber numberWithUnsignedInteger:lastHoverCellIndex]];
-    [cell setHovering:NO];
+    [cell setHovered:NO];
 }
 - (NSUInteger)indexOfCellAtPoint:(NSPoint)point 	{
 	NSSize boundsSize = [self bounds].size;
@@ -181,7 +212,7 @@
 		
         AZBox *cell = [queue lastObject];
         [queue removeLastObject];
-        [cell prepareForReuse];
+//        [cell prepareForReuse];
         return cell;
     }
     return nil;
@@ -222,7 +253,7 @@
         [NSAnimationContext endGrouping];
 }
 - (void)removeInvisibleCells {
-	if (maximizeIdeally) return;
+	if (self.magicSizing) return;
 	NSRange range  = [self visibleRange];
     NSArray *cells = [visibleCells allValues];
     for(AZBox *cell in cells) {
@@ -244,16 +275,16 @@
         }
     }
     [missingIndicies enumerateIndexesUsingBlock:^(NSUInteger index, BOOL *stop){
-        AZBox *cell = [dataSource collectionView:self cellForIndex:index];
+        AZBox *cell = [[self dataSource] collectionView:self cellForIndex:index];
         if(!cell)
             return;
         if([selection containsIndex:index])
             [cell setSelected:YES];
         [cell setIndex:index];
         [cell setFrame:[self rectForCellAtIndex:index]];
-		[cell setHidden:YES];
+//		[cell setHidden:YES];
         [self addSubview:cell];
-		[cell fadeIn];
+//		[cell fadeIn];
 //		[self per performSelector:@selector(fadeIn) afterDelay:index*.01];
         [visibleCells setObject:cell forKey:[NSNumber numberWithUnsignedInteger:index]];
     }];
@@ -269,7 +300,7 @@
     [visibleCells removeAllObjects];
     [reusableCellQueues removeAllObjects];
     [selection removeAllIndexes];
-    numberOfCells = [[self dataSource] numberOfCellsInCollectionView:self];
+    numberOfCells = [dataSource numberOfCellsInCollectionView:self];
     [self updateLayout];
     [self addMissingCells];
 }
@@ -279,7 +310,8 @@
 - (void)scrollViewDidScroll:(NSNotification *)notification {
 	[self removeInvisibleCells];
     [self addMissingCells];
-    [self setNeedsDisplay:YES];
+	[self updateLayout];
+//    [self setNeedsDisplay:YES];
 }
 - (NSRange)visibleRange {
 	NSRect rect = [self visibleRect];
@@ -296,43 +328,51 @@
     return NSMakeRange(startIndex, endIndex-startIndex);
 }
 - (void)updateLayout 	{
-	if(updatingData || [self inLiveResize] || maximizeIdeally)
-        return;
-    NSRect frame = [self frame];
-    CGFloat width, height;
-    // Calculate new boundaries for the view...
-    if(desiredNumberOfColumns == NSUIntegerMax) {
+	if(updatingData) {// || ([self inLiveResize]) )
+        return;}
+//	NSThread *thread;
+//	if (self.magicSizing) {
+//		[self performSelector:@selector(updateMagicSizing) onThread:thread withObject:nil waitUntilDone:YES];
+//		[self updateMagicSizing];
+//	} else {
+			
+		NSRect frame = [self frame];
+		CGFloat width, height;
+		// Calculate new boundaries for the view...
+		if(desiredNumberOfColumns == NSUIntegerMax) {
+			
+			numberOfColumns = floorf((float)frame.size.width / cellSize.width);
+			if (numberOfColumns < 1) numberOfColumns = 1;
+			width = frame.size.width;
+		}
+		else {
+			
+			numberOfColumns = desiredNumberOfColumns;
+			if (numberOfColumns < 1) numberOfColumns = 1;
+			width = numberOfColumns * cellSize.width;
+		}
 		
-        numberOfColumns = floorf((float)frame.size.width / cellSize.width);
-		if (numberOfColumns < 1) numberOfColumns = 1;
-        width = frame.size.width;
-    }
-    else {
+		if(desiredNumberOfRows == NSUIntegerMax && numberOfColumns > 0) {
+			
+			numberOfRows = ceilf((float)numberOfCells / numberOfColumns);
+			height = numberOfRows * cellSize.height;
+		}
+		else {
+			
+			numberOfRows = desiredNumberOfRows;
+			height = numberOfRows * cellSize.height;
+		}
 		
-        numberOfColumns = desiredNumberOfColumns;
-		if (numberOfColumns < 1) numberOfColumns = 1;
-        width = numberOfColumns * cellSize.width;
-    }
-	
-    if(desiredNumberOfRows == NSUIntegerMax && numberOfColumns > 0) {
+		frame.size.width  = width;
+		frame.size.height = height;
 		
-        numberOfRows = ceilf((float)numberOfCells / numberOfColumns);
-        height = numberOfRows * cellSize.height;
-    }
-    else {
+		// Update the frame and then all cells
+		[super setFrame:frame];
 		
-        numberOfRows = desiredNumberOfRows;
-        height = numberOfRows * cellSize.height;
-    }
-	
-    frame.size.width  = width;
-    frame.size.height = height;
-	
-    // Update the frame and then all cells
-    [super setFrame:frame];
-    [self reorderCellsAnimated:YES];
-    [self removeInvisibleCells];
-    [self addMissingCells];
+		[self reorderCellsAnimated:YES];
+		[self removeInvisibleCells];
+		[self addMissingCells];
+//	}
 }
 - (void)setFrame:(NSRect)frameRect		{
 	[super setFrame:frameRect];
@@ -342,16 +382,16 @@
 	cellSize = newCellSize;
     [self updateLayout];
 }
-- (void)setDesiredNumberOfColumns:(NSUInteger)newDesiredNumberOfColumns {
-	if (desiredNumberOfRows) desiredNumberOfRows = NSUIntegerMax;
-	desiredNumberOfColumns = newDesiredNumberOfColumns;
-    [self updateLayout];
-}
-- (void)setDesiredNumberOfRows:(NSUInteger)newDesiredNumberOfRows 		{
-	if (desiredNumberOfColumns) desiredNumberOfColumns = NSUIntegerMax;
-	desiredNumberOfRows = newDesiredNumberOfRows;
-    [self updateLayout];
-}
+//- (void)setDesiredNumberOfColumns:(NSUInteger)newDesiredNumberOfColumns {
+//	if (desiredNumberOfRows) desiredNumberOfRows = NSUIntegerMax;
+//	desiredNumberOfColumns = newDesiredNumberOfColumns;
+//    [self updateLayout];
+//}
+//- (void)setDesiredNumberOfRows:(NSUInteger)newDesiredNumberOfRows 		{
+//	if (desiredNumberOfColumns) desiredNumberOfColumns = NSUIntegerMax;
+//	desiredNumberOfRows = newDesiredNumberOfRows;
+//    [self updateLayout];
+//}
 - (void)beginChanges 		{
 	if(updatingData)
         return;
@@ -380,7 +420,7 @@
     selection 			= [[NSMutableIndexSet alloc] init];
     allowsSelection = YES;
 	lastHoverCellIndex = -1;
-    cellSize = NSMakeSize(32.0, 32.0);
+    cellSize = NSMakeSize(128.0, 128.0);
 	NSTrackingArea *area = [[NSTrackingArea alloc] initWithRect:[self frame]
 														options:(NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways | NSTrackingInVisibleRect |
 																 NSTrackingMouseMoved
@@ -391,15 +431,16 @@
 	if ([self enclosingScrollView]) {
 		NSClipView *clipView = [[self enclosingScrollView] contentView];
 		[clipView setPostsBoundsChangedNotifications:YES];
-		[clipView setCopiesOnScroll:NO];
+		[clipView setCopiesOnScroll:YES];
 	
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(scrollViewDidScroll:) name:NSViewBoundsDidChangeNotification object:clipView];
-	}
+	} else self.magicSizing = YES;
+
     [self updateLayout];
     [self reloadData];
 }
 - (BOOL)isFlipped 			{
-	return NO;
+	return YES;
 }
 - (id)initWithFrame:(NSRect)frame 		{
 	if((self = [super initWithFrame:frame])) {

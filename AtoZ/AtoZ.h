@@ -84,7 +84,37 @@
 #import "AZStopwatch.h"
 #import "AZBox.h"
 #import "AZBoxGrid.h"
+#import "AZBoxMagic.h"
+#import "BaseModel.h"
+
+#import "AZSizer.h"
+#import "AZApplePrivate.h"
+
+
+#import "AZSourceList.h"
 #import "AZTalker.h"
+
+#import "AZBoxLayer.h"
+#import "AZOverlay.h"
+#import "AZSimpleView.h"
+
+#ifndef AZ_RETAIN
+#if __has_feature(objc_arc)
+#define AZ_RETAIN(x) (x)
+#define AZ_RELEASE(x) (void)(x)
+#define AZ_AUTORELEASE(x) (x)
+#define AZ_SUPER_DEALLOC (void)(0)
+#define __AZ_BRIDGE __bridge
+#else
+#define __AZ_WEAK
+#define AZ_WEAK assign
+#define AZ_RETAIN(x) [(x) retain]
+#define AZ_RELEASE(x) [(x) release]
+#define AZ_AUTORELEASE(x) [(x) autorelease]
+#define AZ_SUPER_DEALLOC [super dealloc]
+#define __AZ_BRIDGE
+#endif
+#endif
 
 #define AZRelease(value) \
 if ( value ) { \
@@ -100,6 +130,12 @@ oldValue = newValue;
 
 #define AZConstraint(attr, rel) \
 [CAConstraint constraintWithAttribute:attr relativeTo:rel attribute:attr]
+
+#define AZConst(attr, rel) \
+[CAConstraint constraintWithAttribute:attr relativeTo:rel attribute:attr]
+
+#define AZConstScaleOff(attr, rel, scl, off) \
+[CAConstraint constraintWithAttribute:attr relativeTo:rel attribute:attr scale:scl offset:off]
 
 @interface CAConstraint (brevity)
 

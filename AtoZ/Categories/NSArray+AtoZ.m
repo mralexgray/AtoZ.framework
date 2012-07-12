@@ -135,9 +135,10 @@ static NSInteger comparatorForSortingUsingArray(id object1, id object2, void *co
 
 // array evaluating a selector
 - (NSArray *)arrayPerformingSelector:(SEL)selector {
+	SEL selecto = selector;
 	NSMutableArray *re = [NSMutableArray arrayWithCapacity:self.count];
 	for (id o in self) {
-		id v = [o performSelector:selector];
+		id v = [o performSelector:selecto];
 		if (v) {
 			[re addObject:v];
 		}
@@ -730,6 +731,14 @@ return self.lastObject;
 	return [super first];
 }
 
+- (void) firstToLast {
+    if ( self.count == 0) return; //there is no object to move, return
+	int toIndex = self.count - 1; //toIndex too large, assume a move to end
+	[self moveObjectAtIndex:0 toIndex:toIndex];
+}
+
+
+
 -(void)setFirst:(id)anObject {
 	if (anObject == nil) {
 		return;
@@ -762,6 +771,22 @@ return self.lastObject;
 	[self removeLastObject];
 	return o;
 }
+
+
+//- (id)pop
+//{
+//    // nil if [self count] == 0
+//    id lastObject = [[[self lastObject] retain] autorelease];
+//    if (lastObject)
+//        [self removeLastObject];
+//    return lastObject;
+//}
+
+- (void)push:(id)obj
+{
+	[self addObject: obj];
+}
+
 
 -(NSMutableArray *)sort {
 	[self sortUsingSelector:@selector(compare:)];

@@ -60,14 +60,15 @@
 						//	if ([AXValueGetValue(position, kAXValueCGPointType, (CFTypeRef *) &coordinates) {  
 						if (AXValueGetValue(position, kAXValueCGPointType, &coordinates)) {  
 							//	NSLog(@"position: (%f, %f)", coordinates.x, coordinates.y);
-							XYZ = [NSValue valueWithPoint:NSPointFromCGPoint(coordinates)]; 
-							posX = [NSString stringWithFormat:@"%.f", coordinates.x];  
-							posY = [NSString stringWithFormat:@"%.f", coordinates.y];
+//							XYZ = [NSValue valueWithPoint:NSPointFromCGPoint(coordinates)]; 
+//							posX = [NSString stringWithFormat:@"%.f", coordinates.x];  
+//							posY = [NSString stringWithFormat:@"%.f", coordinates.y];
 						}
 					}
 					AZFile *app = [AZFile instanceWithPath:convertedURL];
 					app.spot = counter.intValue;
 					app.dockPoint = coordinates;
+//					app.dockPoint = (__bridge_transfer CGPoint)coordinates;
 //					app.x 	 = $float(posX.floatValue);
 //					app.y	 = $float(posY.floatValue);
 					//					if ([delegate respondsToSelector:@selector(setStartupStepStatus:)]) {
