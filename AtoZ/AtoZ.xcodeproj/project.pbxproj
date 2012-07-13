@@ -909,9 +909,9 @@
 				7B4A8FF015AB267D00463B91 /* AZSourceList.m in Sources */,
 				7B78528B15ACA7AB008BAD3C /* AZBoxMagic.m in Sources */,
 				7B78529715ACEABC008BAD3C /* AZLayerManager.m in Sources */,
-				7B7852C415ACEDA3008BAD3C /* AZBoxLayer.m in Sources */,
 				7BBD96EB15AD279900943FC1 /* AZSizer.m in Sources */,
 				7BBD96EF15AD38F300943FC1 /* AZApplePrivate.m in Sources */,
+				7B7852C415ACEDA3008BAD3C /* AZBoxLayer.m in Sources */,
 				7BBD96FC15AD529A00943FC1 /* AZOverlay.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
