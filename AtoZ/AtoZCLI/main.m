@@ -52,9 +52,12 @@ int main(int argc, const char * argv[])
 	@autoreleasepool {
 
 		AtoZCLI *c = [AtoZCLI new];
+		NSArray *a = [[NSNumber numberWithInt:9] to:[NSNumber numberWithInt: 33]];
+		NSLog(@"%@", a);
+
 //		[c sizer];
 //		[c listAppsPrivately];	
-		AZSimpleView *u = [[AZSimpleView alloc]initWithFrame:NSZeroRect];
+//		AZSimpleView *u = [[AZSimpleView alloc]initWithFrame:NSZeroRect];
 	}
     return 0;
 }

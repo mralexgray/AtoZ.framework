@@ -75,7 +75,8 @@
 #import "NSWindow+AtoZ.h"
 #import "NSShadow+AtoZ.h"
 #import "NSNumber+AtoZ.h"
-
+#import "CAAnimation+AtoZ.h"
+#import "CALayer+AtoZ.h"
 
 #import "NSObject+AtoZ.h"
 
@@ -86,6 +87,7 @@
 #import "AZBoxGrid.h"
 #import "AZBoxMagic.h"
 #import "BaseModel.h"
+//#import "NSObject+AutoCoding.h"
 
 #import "AZSizer.h"
 #import "AZApplePrivate.h"
@@ -98,6 +100,9 @@
 #import "AZOverlay.h"
 
 //#import "AtoZInfintieScroll.h"
+
+CGFloat DegreesToRadians(CGFloat degrees);
+NSNumber* DegreesToNumber(CGFloat degrees);
 
 
 #ifndef AZ_RETAIN
@@ -162,8 +167,8 @@ extern NSString *const AtoZSharedInstanceUpdated;
 
 @interface AtoZ : BaseModel
 + (AtoZ*) sharedInstance;
-+ (NSMutableArray*) dock;
-+ (NSMutableArray*) dockSorted;
++ (NSArray*) dock;
++ (NSArray*) dockSorted;
 + (NSArray*) fengshui;
 + (NSArray*) runningApps;
 @end
@@ -171,6 +176,8 @@ extern NSString *const AtoZSharedInstanceUpdated;
 @property (nonatomic, readonly) CGFloat 	brightness;
 @property (nonatomic, readonly) CGFloat 	saturation;
 @property (nonatomic, readonly) CGFloat 	hue;
+@property (nonatomic, readonly) CGFloat 	hueComponent;
+
 @property (nonatomic, assign)	float 		percent;
 @property (nonatomic, assign) 	NSUInteger 	count;
 @property (nonatomic, strong)	NSString 	* name;
@@ -179,14 +186,15 @@ extern NSString *const AtoZSharedInstanceUpdated;
 @end
 
 @interface AZFile : BaseModel
+
 @property (strong, nonatomic)	NSString * 	path;
 @property (strong, nonatomic)	NSString *	name;
 @property (strong, nonatomic) 	NSColor	 * 	color;
 @property (strong, nonatomic) 	NSColor	 * 	customColor;
 @property (strong, nonatomic)	NSColor	 *	labelColor;
 @property (strong, nonatomic)	NSNumber *	labelNumber;
-@property (strong, readonly)  	NSArray	 * 	colors;
-@property (strong, readonly)  	NSImage	 * 	icon;
+@property (strong, nonatomic)  	NSArray	 * 	colors;
+@property (strong, nonatomic)  	NSImage	 * 	icon;
 @property (strong, nonatomic)  	NSImage	 * 	image;
 @property (nonatomic, assign) 		NSPoint		dockPoint;
 @property (nonatomic, assign) 		NSPoint		dockPointNew;

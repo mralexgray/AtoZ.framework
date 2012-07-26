@@ -139,7 +139,7 @@
 	//	result.font = [NSFont s*ystemFontOfSize:result.fontSize];
 	result.font =(__bridge CFStringRef) @"Ubuntu Mono Bold";
 	CGSize onwide = [name sizeWithAttributes:$map( [NSFont fontWithName:@"Ubuntu Mono Bold" size:22], NSFontAttributeName)];
-	result.bounds = AGMakeRectFromSize(onwide);
+	result.bounds = AZMakeRectFromSize(onwide);
 	result.alignmentMode = kCAAlignmentLeft;
 	result.truncationMode = kCATruncationEnd;
 	result.borderColor = kGBDebugLayerBorderColor;

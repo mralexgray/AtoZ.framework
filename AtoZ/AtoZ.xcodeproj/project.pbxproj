@@ -75,6 +75,7 @@
 		7B3422C715A5EC5F006AC46C /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B05BB10159C528300409B83 /* AtoZ.framework */; };
 		7B3422CA15A5EF03006AC46C /* AZDockQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B3422C815A5EF03006AC46C /* AZDockQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B3422CB15A5EF03006AC46C /* AZDockQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B3422C915A5EF03006AC46C /* AZDockQuery.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7B495F7815C076C7002DC694 /* RGB.clr in Resources */ = {isa = PBXBuildFile; fileRef = 7B495F7715C076C7002DC694 /* RGB.clr */; };
 		7B4A8FEF15AB267D00463B91 /* AZSourceList.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B4A8FED15AB267D00463B91 /* AZSourceList.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B4A8FF015AB267D00463B91 /* AZSourceList.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B4A8FEE15AB267D00463B91 /* AZSourceList.m */; };
 		7B58302C159B82B70039CEED /* AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B311961159B6D9E002134C4 /* AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -101,6 +102,7 @@
 		7B7852C415ACEDA3008BAD3C /* AZBoxLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7852C215ACEDA3008BAD3C /* AZBoxLayer.m */; };
 		7B7852C515ACEE99008BAD3C /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B311951159B6D9E002134C4 /* AtoZ.framework */; };
 		7B7852C615ACF4B7008BAD3C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B311995159B7FD0002134C4 /* QuartzCore.framework */; };
+		7B8558E915B2CBAF0005F558 /* circle2.tif in Resources */ = {isa = PBXBuildFile; fileRef = 7B8558E815B2CBAF0005F558 /* circle2.tif */; };
 		7BA845A115A6089A002402FE /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B311954159B6D9E002134C4 /* Cocoa.framework */; };
 		7BBD96EB15AD279900943FC1 /* AZSizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC859C415A8C0F400582632 /* AZSizer.m */; };
 		7BBD96EE15AD38F300943FC1 /* AZApplePrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BBD96EC15AD38F300943FC1 /* AZApplePrivate.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -116,6 +118,10 @@
 		7BBD988215AF7A2400943FC1 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B311995159B7FD0002134C4 /* QuartzCore.framework */; };
 		7BBD988315AF7A2400943FC1 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B311954159B6D9E002134C4 /* Cocoa.framework */; };
 		7BBD988415AF7AB600943FC1 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B6901BC159E0BF700D0DA47 /* Carbon.framework */; };
+		7BBD991215B0648A00943FC1 /* CAAnimation+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BBD991015B0648A00943FC1 /* CAAnimation+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BBD991315B0648A00943FC1 /* CAAnimation+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BBD991115B0648A00943FC1 /* CAAnimation+AtoZ.m */; };
+		7BBD991715B0688400943FC1 /* CALayer+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BBD991515B0688400943FC1 /* CALayer+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BBD991815B0688400943FC1 /* CALayer+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BBD991615B0688400943FC1 /* CALayer+AtoZ.m */; };
 		7BC859C515A8C0F400582632 /* AZSizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BC859C315A8C0F400582632 /* AZSizer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BC859CA15A8C56700582632 /* NSNumber+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BC859C815A8C56700582632 /* NSNumber+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BC859CB15A8C56700582632 /* NSNumber+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC859C915A8C56700582632 /* NSNumber+AtoZ.m */; };
@@ -151,15 +157,6 @@
 				7B3422C315A5EC03006AC46C /* AtoZCLI.1 in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 1;
-		};
-		7BBD988715AF7BFF00943FC1 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
@@ -239,6 +236,7 @@
 		7B3422C215A5EC03006AC46C /* AtoZCLI.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = AtoZCLI.1; sourceTree = "<group>"; };
 		7B3422C815A5EF03006AC46C /* AZDockQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZDockQuery.h; sourceTree = "<group>"; };
 		7B3422C915A5EF03006AC46C /* AZDockQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZDockQuery.m; sourceTree = "<group>"; };
+		7B495F7715C076C7002DC694 /* RGB.clr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = RGB.clr; sourceTree = "<group>"; };
 		7B4A8FED15AB267D00463B91 /* AZSourceList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZSourceList.h; sourceTree = "<group>"; };
 		7B4A8FEE15AB267D00463B91 /* AZSourceList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZSourceList.m; sourceTree = "<group>"; };
 		7B583058159BB90D0039CEED /* .git */ = {isa = PBXFileReference; lastKnownFileType = folder; name = .git; path = ../.git; sourceTree = SOURCE_ROOT; };
@@ -274,11 +272,18 @@
 		7B7852BC15ACECD3008BAD3C /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		7B7852C115ACEDA3008BAD3C /* AZBoxLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZBoxLayer.h; path = AZLayerGrid/AZBoxLayer.h; sourceTree = SOURCE_ROOT; };
 		7B7852C215ACEDA3008BAD3C /* AZBoxLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AZBoxLayer.m; path = AZLayerGrid/AZBoxLayer.m; sourceTree = SOURCE_ROOT; };
+		7B8558E415B2C98D0005F558 /* AZMouser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZMouser.h; sourceTree = "<group>"; };
+		7B8558E515B2C98D0005F558 /* AZMouser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZMouser.m; sourceTree = "<group>"; };
+		7B8558E815B2CBAF0005F558 /* circle2.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = circle2.tif; sourceTree = "<group>"; };
 		7BBD96EC15AD38F300943FC1 /* AZApplePrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZApplePrivate.h; sourceTree = "<group>"; };
 		7BBD96ED15AD38F300943FC1 /* AZApplePrivate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZApplePrivate.m; sourceTree = "<group>"; };
 		7BBD96F915AD529A00943FC1 /* AZOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZOverlay.h; path = AZLayerGrid/AZOverlay.h; sourceTree = SOURCE_ROOT; };
 		7BBD96FA15AD529A00943FC1 /* AZOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AZOverlay.m; path = AZLayerGrid/AZOverlay.m; sourceTree = SOURCE_ROOT; };
 		7BBD970315AD588A00943FC1 /* PLWeakCompatibility.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PLWeakCompatibility.framework; path = "../../../../disenchanted 750/DerivedData/PLWeakCompatibility-chfkqnybfsbbfpfbkrdmefgadcvh/Build/Products/Debug/PLWeakCompatibility.framework"; sourceTree = "<group>"; };
+		7BBD991015B0648A00943FC1 /* CAAnimation+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CAAnimation+AtoZ.h"; sourceTree = "<group>"; };
+		7BBD991115B0648A00943FC1 /* CAAnimation+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CAAnimation+AtoZ.m"; sourceTree = "<group>"; };
+		7BBD991515B0688400943FC1 /* CALayer+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CALayer+AtoZ.h"; sourceTree = "<group>"; };
+		7BBD991615B0688400943FC1 /* CALayer+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CALayer+AtoZ.m"; sourceTree = "<group>"; };
 		7BC859C315A8C0F400582632 /* AZSizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZSizer.h; sourceTree = "<group>"; };
 		7BC859C415A8C0F400582632 /* AZSizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZSizer.m; sourceTree = "<group>"; };
 		7BC859C815A8C56700582632 /* NSNumber+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+AtoZ.h"; sourceTree = "<group>"; };
@@ -510,6 +515,8 @@
 		7B583063159BDA900039CEED /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				7BBD991015B0648A00943FC1 /* CAAnimation+AtoZ.h */,
+				7BBD991115B0648A00943FC1 /* CAAnimation+AtoZ.m */,
 				7B6901B6159E09D800D0DA47 /* NSApplication+AtoZ.h */,
 				7B6901B7159E09D800D0DA47 /* NSApplication+AtoZ.m */,
 				7BF9E79A159E8F5000B5482D /* NSArray+AtoZ.h */,
@@ -532,6 +539,8 @@
 				7B24E97815A1299700A9D87A /* NSView+AtoZ.m */,
 				7B24E9EB15A176AB00A9D87A /* NSWindow+AtoZ.h */,
 				7B24E9EC15A176AB00A9D87A /* NSWindow+AtoZ.m */,
+				7BBD991515B0688400943FC1 /* CALayer+AtoZ.h */,
+				7BBD991615B0688400943FC1 /* CALayer+AtoZ.m */,
 			);
 			path = Categories;
 			sourceTree = SOURCE_ROOT;
@@ -539,6 +548,8 @@
 		7B583064159BDAA50039CEED /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7B495F7715C076C7002DC694 /* RGB.clr */,
+				7B8558E815B2CBAF0005F558 /* circle2.tif */,
 				7B137CF415A201C00088A630 /* linen.png */,
 				7B137CF515A201C00088A630 /* darklinen.png */,
 				7B583065159BDAF40039CEED /* atoz.icns */,
@@ -606,22 +617,24 @@
 		7BE6068915A00B8800355236 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
-				7B3422A115A52A61006AC46C /* BaseModel.h */,
-				7B3422A215A52A61006AC46C /* BaseModel.m */,
-				7B05BB0A159C40A600409B83 /* AZQueue.h */,
-				7B05BB0B159C40A600409B83 /* AZQueue.m */,
+				7BBD96EC15AD38F300943FC1 /* AZApplePrivate.h */,
+				7BBD96ED15AD38F300943FC1 /* AZApplePrivate.m */,
 				7B6901C7159E322300D0DA47 /* AZAXAuthorization.h */,
 				7B6901C8159E322300D0DA47 /* AZAXAuthorization.m */,
 				7B3422C815A5EF03006AC46C /* AZDockQuery.h */,
 				7B3422C915A5EF03006AC46C /* AZDockQuery.m */,
+				7B8558E415B2C98D0005F558 /* AZMouser.h */,
+				7B8558E515B2C98D0005F558 /* AZMouser.m */,
+				7B05BB0A159C40A600409B83 /* AZQueue.h */,
+				7B05BB0B159C40A600409B83 /* AZQueue.m */,
+				7BC859C315A8C0F400582632 /* AZSizer.h */,
+				7BC859C415A8C0F400582632 /* AZSizer.m */,
 				7BDDD5E215A3792600A5C222 /* AZStopwatch.h */,
 				7BDDD5E315A3792600A5C222 /* AZStopwatch.m */,
 				7B091A4315A887B500821FFD /* AZTalker.h */,
 				7B091A4415A887B500821FFD /* AZTalker.m */,
-				7BC859C315A8C0F400582632 /* AZSizer.h */,
-				7BC859C415A8C0F400582632 /* AZSizer.m */,
-				7BBD96EC15AD38F300943FC1 /* AZApplePrivate.h */,
-				7BBD96ED15AD38F300943FC1 /* AZApplePrivate.m */,
+				7B3422A115A52A61006AC46C /* BaseModel.h */,
+				7B3422A215A52A61006AC46C /* BaseModel.m */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -680,6 +693,8 @@
 				7B7852C315ACEDA3008BAD3C /* AZBoxLayer.h in Headers */,
 				7BBD96EE15AD38F300943FC1 /* AZApplePrivate.h in Headers */,
 				7BBD96FB15AD529A00943FC1 /* AZOverlay.h in Headers */,
+				7BBD991215B0648A00943FC1 /* CAAnimation+AtoZ.h in Headers */,
+				7BBD991715B0688400943FC1 /* CALayer+AtoZ.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -696,7 +711,6 @@
 				7B311982159B7CC5002134C4 /* ShellScript */,
 				7BBD984915AF65D100943FC1 /* ShellScript */,
 				7BBD987B15AF79D000943FC1 /* Frameworks */,
-				7BBD988715AF7BFF00943FC1 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -799,6 +813,8 @@
 				7B58306C159BDAF40039CEED /* AppledocSettings.plist in Resources */,
 				7B137CF615A201C00088A630 /* linen.png in Resources */,
 				7B137CF715A201C00088A630 /* darklinen.png in Resources */,
+				7B8558E915B2CBAF0005F558 /* circle2.tif in Resources */,
+				7B495F7815C076C7002DC694 /* RGB.clr in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -846,7 +862,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "PRODUCT=${WRAPPER_NAME}\nPRODUCT_PATH=\"$BUILT_PRODUCTS_DIR/$PRODUCT\"\nMAC_INSTALL_TARGET=\"/Library/Frameworks/$PRODUCT\"\nSDK_INSTALL_TARGET=\"/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk/System/Library/Frameworks/$PRODUCT\"\n\nsudo ln -sF $PRODUCT_PATH $MAC_INSTALL_TARGET\nsudo ln -sF $PRODUCT_PATH $SDK_INSTALL_TARGET\n#sudo ln -sF $MAC_INSTALL_TARGET $SDK_INSTALL_TARGET\n\n#/usr/local/bin/appledoc \"${SRCROOT}/Resources\"\n\n# Add custom icon (adding CFBundleIconFile to plist and .icns file in /Resources doesn't work, so we have to duplicate what happens when you paste an icon into the Finder Get Info window)\n\n# copy custom icon into top level of bundle and rename to \"Icon\" with a *trailing CR*.  path_to_icon is the path to the source icon file, already in the correct format ('icns' resource ID -16455 in resource fork), but with different filename.\n\ncp \"${SRCROOT}/Resources/atoz.icns\" \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.${WRAPPER_EXTENSION}/\"$(echo -ne \"Icon\\r\")\n\n# make custom icon file invisible\n/Developer/Tools/SetFile -a V \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.${WRAPPER_EXTENSION}/\"$(echo -ne \"Icon\\r\")\n\n# mark the bundle folder as having a custom icon\n/Developer/Tools/SetFile -a C \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.${WRAPPER_EXTENSION}\"\n";
+			shellScript = "PRODUCT=${WRAPPER_NAME}\nPRODUCT_PATH=\"$BUILT_PRODUCTS_DIR/$PRODUCT\"\nMAC_INSTALL_TARGET=\"/Library/Frameworks/$PRODUCT\"\nXCODE43_LION_INSTALL_TARGET=\"/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk/System/Library/Frameworks/$PRODUCT\"\nXCODE45_MLION_INSTALL_TARGET=\"${SDKROOT}/System/Library/Frameworks/$PRODUCT\"\n\nsudo ln -sF $PRODUCT_PATH $MAC_INSTALL_TARGET\nsudo ln -sF $PRODUCT_PATH $XCODE43_LION_INSTALL_TARGET\nsudo ln -sF $PRODUCT_PATH $XCODE45_MLION_INSTALL_TARGET\n\n#sudo ln -sF $MAC_INSTALL_TARGET $SDK_INSTALL_TARGET\n\n#/usr/local/bin/appledoc \"${SRCROOT}/Resources\"\n\n# Add custom icon (adding CFBundleIconFile to plist and .icns file in /Resources doesn't work, so we have to duplicate what happens when you paste an icon into the Finder Get Info window)\n\n# copy custom icon into top level of bundle and rename to \"Icon\" with a *trailing CR*.  path_to_icon is the path to the source icon file, already in the correct format ('icns' resource ID -16455 in resource fork), but with different filename.\n\ncp \"${SRCROOT}/Resources/atoz.icns\" \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.${WRAPPER_EXTENSION}/\"$(echo -ne \"Icon\\r\")\n\n# make custom icon file invisible\n/Developer/Tools/SetFile -a V \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.${WRAPPER_EXTENSION}/\"$(echo -ne \"Icon\\r\")\n\n# mark the bundle folder as having a custom icon\n/Developer/Tools/SetFile -a C \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.${WRAPPER_EXTENSION}\"\n";
 		};
 		7BBD984915AF65D100943FC1 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -913,6 +929,8 @@
 				7BBD96EF15AD38F300943FC1 /* AZApplePrivate.m in Sources */,
 				7B7852C415ACEDA3008BAD3C /* AZBoxLayer.m in Sources */,
 				7BBD96FC15AD529A00943FC1 /* AZOverlay.m in Sources */,
+				7BBD991315B0648A00943FC1 /* CAAnimation+AtoZ.m in Sources */,
+				7BBD991815B0688400943FC1 /* CALayer+AtoZ.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

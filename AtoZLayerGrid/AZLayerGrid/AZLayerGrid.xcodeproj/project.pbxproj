@@ -1,0 +1,478 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		7B85595715B9E8510005F558 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B85595615B9E8510005F558 /* Cocoa.framework */; };
+		7B85596115B9E8510005F558 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7B85595F15B9E8510005F558 /* InfoPlist.strings */; };
+		7B85596315B9E8510005F558 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B85596215B9E8510005F558 /* main.m */; };
+		7B85596715B9E8510005F558 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 7B85596515B9E8510005F558 /* Credits.rtf */; };
+		7B85596A15B9E8510005F558 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B85596915B9E8510005F558 /* AppDelegate.m */; };
+		7B85596D15B9E8510005F558 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B85596B15B9E8510005F558 /* MainMenu.xib */; };
+		7B85597415B9E8C30005F558 /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B85597315B9E8C30005F558 /* AtoZ.framework */; };
+		7B85597915B9ED0A0005F558 /* AZGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B85597815B9ED090005F558 /* AZGridView.m */; };
+		7BECAEEC15BF0E7A00557357 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B85595615B9E8510005F558 /* Cocoa.framework */; };
+		7BECAEF215BF0E7A00557357 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7BECAEF015BF0E7A00557357 /* InfoPlist.strings */; };
+		7BECAEF415BF0E7A00557357 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BECAEF315BF0E7A00557357 /* main.m */; };
+		7BECAEF815BF0E7A00557357 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 7BECAEF615BF0E7A00557357 /* Credits.rtf */; };
+		7BECAEFB15BF0E7A00557357 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BECAEFA15BF0E7A00557357 /* AppDelegate.m */; };
+		7BECAEFE15BF0E7A00557357 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BECAEFC15BF0E7A00557357 /* MainMenu.xib */; };
+		7BECAF0215BF0EA100557357 /* AZFoamView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BECAEE315BF0D0800557357 /* AZFoamView.m */; };
+		7BECAF0315BF0EF300557357 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B85597515B9EA280005F558 /* QuartzCore.framework */; };
+		7BECAF0415BF0EF800557357 /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B85597315B9E8C30005F558 /* AtoZ.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		7B85595215B9E8510005F558 /* AZLayerGrid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AZLayerGrid.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7B85595615B9E8510005F558 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		7B85595915B9E8510005F558 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		7B85595A15B9E8510005F558 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		7B85595B15B9E8510005F558 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		7B85595E15B9E8510005F558 /* AZLayerGrid-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AZLayerGrid-Info.plist"; sourceTree = "<group>"; };
+		7B85596015B9E8510005F558 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		7B85596215B9E8510005F558 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		7B85596415B9E8510005F558 /* AZLayerGrid-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AZLayerGrid-Prefix.pch"; sourceTree = "<group>"; };
+		7B85596615B9E8510005F558 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		7B85596815B9E8510005F558 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		7B85596915B9E8510005F558 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		7B85596C15B9E8510005F558 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		7B85597315B9E8C30005F558 /* AtoZ.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AtoZ.framework; path = "../../../../../disenchanted 750/DerivedData/AtoZ-hfqteqfcvjfinlajqwkydsqyzpiz/Build/Products/Debug/AtoZ.framework"; sourceTree = "<group>"; };
+		7B85597515B9EA280005F558 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		7B85597715B9ED090005F558 /* AZGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZGridView.h; sourceTree = "<group>"; };
+		7B85597815B9ED090005F558 /* AZGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZGridView.m; sourceTree = "<group>"; };
+		7BECAEE215BF0D0800557357 /* AZFoamView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZFoamView.h; path = ../AZLayerGrid/AZFoamView.h; sourceTree = "<group>"; };
+		7BECAEE315BF0D0800557357 /* AZFoamView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AZFoamView.m; path = ../AZLayerGrid/AZFoamView.m; sourceTree = "<group>"; };
+		7BECAEEA15BF0E7A00557357 /* AZView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AZView.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7BECAEEF15BF0E7A00557357 /* AZView-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AZView-Info.plist"; sourceTree = "<group>"; };
+		7BECAEF115BF0E7A00557357 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		7BECAEF315BF0E7A00557357 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		7BECAEF515BF0E7A00557357 /* AZView-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AZView-Prefix.pch"; sourceTree = "<group>"; };
+		7BECAEF715BF0E7A00557357 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		7BECAEF915BF0E7A00557357 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		7BECAEFA15BF0E7A00557357 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		7BECAEFD15BF0E7A00557357 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		7B85594F15B9E8510005F558 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7B85597415B9E8C30005F558 /* AtoZ.framework in Frameworks */,
+				7B85595715B9E8510005F558 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7BECAEE715BF0E7A00557357 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7BECAEEC15BF0E7A00557357 /* Cocoa.framework in Frameworks */,
+				7BECAF0415BF0EF800557357 /* AtoZ.framework in Frameworks */,
+				7BECAF0315BF0EF300557357 /* QuartzCore.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		7B85594715B9E8510005F558 = {
+			isa = PBXGroup;
+			children = (
+				7B85597515B9EA280005F558 /* QuartzCore.framework */,
+				7B85597315B9E8C30005F558 /* AtoZ.framework */,
+				7B85595C15B9E8510005F558 /* AZLayerGrid */,
+				7BECAEED15BF0E7A00557357 /* AZView */,
+				7B85595515B9E8510005F558 /* Frameworks */,
+				7B85595315B9E8510005F558 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		7B85595315B9E8510005F558 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7B85595215B9E8510005F558 /* AZLayerGrid.app */,
+				7BECAEEA15BF0E7A00557357 /* AZView.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7B85595515B9E8510005F558 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7B85595615B9E8510005F558 /* Cocoa.framework */,
+				7B85595815B9E8510005F558 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7B85595815B9E8510005F558 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7B85595915B9E8510005F558 /* AppKit.framework */,
+				7B85595A15B9E8510005F558 /* CoreData.framework */,
+				7B85595B15B9E8510005F558 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		7B85595C15B9E8510005F558 /* AZLayerGrid */ = {
+			isa = PBXGroup;
+			children = (
+				7B85596815B9E8510005F558 /* AppDelegate.h */,
+				7B85596915B9E8510005F558 /* AppDelegate.m */,
+				7B85597715B9ED090005F558 /* AZGridView.h */,
+				7B85597815B9ED090005F558 /* AZGridView.m */,
+				7B85596B15B9E8510005F558 /* MainMenu.xib */,
+				7B85595D15B9E8510005F558 /* Supporting Files */,
+			);
+			path = AZLayerGrid;
+			sourceTree = "<group>";
+		};
+		7B85595D15B9E8510005F558 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				7B85595E15B9E8510005F558 /* AZLayerGrid-Info.plist */,
+				7B85595F15B9E8510005F558 /* InfoPlist.strings */,
+				7B85596215B9E8510005F558 /* main.m */,
+				7B85596415B9E8510005F558 /* AZLayerGrid-Prefix.pch */,
+				7B85596515B9E8510005F558 /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		7BECAEED15BF0E7A00557357 /* AZView */ = {
+			isa = PBXGroup;
+			children = (
+				7BECAEF915BF0E7A00557357 /* AppDelegate.h */,
+				7BECAEE215BF0D0800557357 /* AZFoamView.h */,
+				7BECAEE315BF0D0800557357 /* AZFoamView.m */,
+				7BECAEFA15BF0E7A00557357 /* AppDelegate.m */,
+				7BECAEFC15BF0E7A00557357 /* MainMenu.xib */,
+				7BECAEEE15BF0E7A00557357 /* Supporting Files */,
+			);
+			path = AZView;
+			sourceTree = "<group>";
+		};
+		7BECAEEE15BF0E7A00557357 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				7BECAEEF15BF0E7A00557357 /* AZView-Info.plist */,
+				7BECAEF015BF0E7A00557357 /* InfoPlist.strings */,
+				7BECAEF315BF0E7A00557357 /* main.m */,
+				7BECAEF515BF0E7A00557357 /* AZView-Prefix.pch */,
+				7BECAEF615BF0E7A00557357 /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7B85595115B9E8510005F558 /* AZLayerGrid */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7B85597015B9E8510005F558 /* Build configuration list for PBXNativeTarget "AZLayerGrid" */;
+			buildPhases = (
+				7B85594E15B9E8510005F558 /* Sources */,
+				7B85594F15B9E8510005F558 /* Frameworks */,
+				7B85595015B9E8510005F558 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AZLayerGrid;
+			productName = AZLayerGrid;
+			productReference = 7B85595215B9E8510005F558 /* AZLayerGrid.app */;
+			productType = "com.apple.product-type.application";
+		};
+		7BECAEE915BF0E7A00557357 /* AZView */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7BECAEFF15BF0E7A00557357 /* Build configuration list for PBXNativeTarget "AZView" */;
+			buildPhases = (
+				7BECAEE615BF0E7A00557357 /* Sources */,
+				7BECAEE715BF0E7A00557357 /* Frameworks */,
+				7BECAEE815BF0E7A00557357 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AZView;
+			productName = AZView;
+			productReference = 7BECAEEA15BF0E7A00557357 /* AZView.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7B85594915B9E8510005F558 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = "Alex Gray";
+			};
+			buildConfigurationList = 7B85594C15B9E8510005F558 /* Build configuration list for PBXProject "AZLayerGrid" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7B85594715B9E8510005F558;
+			productRefGroup = 7B85595315B9E8510005F558 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7B85595115B9E8510005F558 /* AZLayerGrid */,
+				7BECAEE915BF0E7A00557357 /* AZView */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		7B85595015B9E8510005F558 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7B85596115B9E8510005F558 /* InfoPlist.strings in Resources */,
+				7B85596715B9E8510005F558 /* Credits.rtf in Resources */,
+				7B85596D15B9E8510005F558 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7BECAEE815BF0E7A00557357 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7BECAEF215BF0E7A00557357 /* InfoPlist.strings in Resources */,
+				7BECAEF815BF0E7A00557357 /* Credits.rtf in Resources */,
+				7BECAEFE15BF0E7A00557357 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7B85594E15B9E8510005F558 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7B85596315B9E8510005F558 /* main.m in Sources */,
+				7B85596A15B9E8510005F558 /* AppDelegate.m in Sources */,
+				7B85597915B9ED0A0005F558 /* AZGridView.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7BECAEE615BF0E7A00557357 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7BECAEF415BF0E7A00557357 /* main.m in Sources */,
+				7BECAEFB15BF0E7A00557357 /* AppDelegate.m in Sources */,
+				7BECAF0215BF0EA100557357 /* AZFoamView.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		7B85595F15B9E8510005F558 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7B85596015B9E8510005F558 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		7B85596515B9E8510005F558 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7B85596615B9E8510005F558 /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		7B85596B15B9E8510005F558 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7B85596C15B9E8510005F558 /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		7BECAEF015BF0E7A00557357 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7BECAEF115BF0E7A00557357 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		7BECAEF615BF0E7A00557357 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7BECAEF715BF0E7A00557357 /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		7BECAEFC15BF0E7A00557357 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7BECAEFD15BF0E7A00557357 /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		7B85596E15B9E8510005F558 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		7B85596F15B9E8510005F558 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		7B85597115B9E8510005F558 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../../disenchanted 750/DerivedData/AtoZ-hfqteqfcvjfinlajqwkydsqyzpiz/Build/Products/Debug\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "AZLayerGrid/AZLayerGrid-Prefix.pch";
+				INFOPLIST_FILE = "AZLayerGrid/AZLayerGrid-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		7B85597215B9E8510005F558 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../../disenchanted 750/DerivedData/AtoZ-hfqteqfcvjfinlajqwkydsqyzpiz/Build/Products/Debug\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "AZLayerGrid/AZLayerGrid-Prefix.pch";
+				INFOPLIST_FILE = "AZLayerGrid/AZLayerGrid-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		7BECAF0015BF0E7A00557357 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../../disenchanted 750/DerivedData/AtoZ-hfqteqfcvjfinlajqwkydsqyzpiz/Build/Products/Debug\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "AZView/AZView-Prefix.pch";
+				INFOPLIST_FILE = "AZView/AZView-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		7BECAF0115BF0E7A00557357 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../../disenchanted 750/DerivedData/AtoZ-hfqteqfcvjfinlajqwkydsqyzpiz/Build/Products/Debug\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "AZView/AZView-Prefix.pch";
+				INFOPLIST_FILE = "AZView/AZView-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7B85594C15B9E8510005F558 /* Build configuration list for PBXProject "AZLayerGrid" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7B85596E15B9E8510005F558 /* Debug */,
+				7B85596F15B9E8510005F558 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7B85597015B9E8510005F558 /* Build configuration list for PBXNativeTarget "AZLayerGrid" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7B85597115B9E8510005F558 /* Debug */,
+				7B85597215B9E8510005F558 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7BECAEFF15BF0E7A00557357 /* Build configuration list for PBXNativeTarget "AZView" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7BECAF0015BF0E7A00557357 /* Debug */,
+				7BECAF0115BF0E7A00557357 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 7B85594915B9E8510005F558 /* Project object */;
+}

@@ -18,7 +18,7 @@
 	statusView = [[AZStatusItemView alloc] initWithFrame:menuFrame];
 	[statusView setDelegate: self];
     [statusItem setView:statusView];//// controller:self]];
-	NSRect barFrame = AGMakeRectMaxXUnderMenuBarY(100);
+	NSRect barFrame = AZMakeRectMaxXUnderMenuBarY(100);
 	[attachedWindow setStyleMask:NSBorderlessWindowMask];
 	[attachedWindow setFrame:barFrame display:NO];
 	[attachedWindow slideUp];
@@ -90,8 +90,8 @@
 	while (inindex >= [datasource count]) inindex -= [datasource count];	NSLog(@"%ld", inindex);
     AZBox 	  *cell = [view dequeueReusableCellWithIdentifier:	$(@"cell.%ld",inindex)];
     if(!cell)  cell = [[AZBox alloc] initWithReuseIdentifier:	$(@"cell.%ld", inindex)];
-    [cell setImage:[datasource objectAtIndex:inindex]];
-	[cell setColor:RANDOMCOLOR];
+//    [cell setImage:[datasource objectAtIndex:inindex]];
+//	[cell setColor:RANDOMCOLOR];
 		return cell;
 }
 - (void)collectionView:(AZBoxGrid *)_collectionView didSelectCellAtIndex:(NSUInteger)index {

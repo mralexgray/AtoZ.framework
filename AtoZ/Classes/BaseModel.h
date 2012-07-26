@@ -145,13 +145,13 @@ extern NSString *const BaseModelSharedInstanceUpdatedNotification;
 //identifiers and filenames for model objects
 + (NSString *)newUniqueIdentifier;
 
-#ifdef BASEMODEL_ENABLE_UNIQUE_ID
+//#ifdef BASEMODEL_ENABLE_UNIQUE_ID
 
 //optional uniqueID property
 //you can enable this by adding BASEMODEL_ENABLE_UNIQUE_ID
 //to your preprocessor macros in the project build settings
 @property (nonatomic, strong) NSString *uniqueID;
 
-#endif
+//#endif
 
 @end

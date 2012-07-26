@@ -24,7 +24,7 @@ NSNumber *dNum(double d) {
   return [NSNumber numberWithDouble:d];
 }
 
-NSRange AGMakeRange(NSUInteger min, NSUInteger max) {
+NSRange AZMakeRange(NSUInteger min, NSUInteger max) {
   NSUInteger loc = MIN(min, max);
   NSUInteger len = MAX(min, max) - loc;
   return NSMakeRange(loc, len);
@@ -116,15 +116,15 @@ NSPoint AZSumPoints(NSUInteger count, NSPoint point, ...) {
   return re;
 }
 
-NSPoint AGMultiplyPoint(NSPoint point, CGFloat multiplier) {
+NSPoint AZMultiplyPoint(NSPoint point, CGFloat multiplier) {
   return NSMakePoint(point.x * multiplier, point.y * multiplier);
 }
 
-NSPoint AGMultiplyPointByPoint(NSPoint one, NSPoint another) {
+NSPoint AZMultiplyPointByPoint(NSPoint one, NSPoint another) {
   return NSMakePoint(one.x * another.x, one.y * another.y);
 }
 
-NSPoint AGMultiplyPointBySize(NSPoint one, NSSize size) {
+NSPoint AZMultiplyPointBySize(NSPoint one, NSSize size) {
   return NSMakePoint(one.x * size.width, one.y * size.height);
 }
 
@@ -153,16 +153,16 @@ NSPoint AZDividePointBySize(NSPoint point, NSSize divisor) {
 }
 
 
-NSPoint AGMovePoint(NSPoint origin, NSPoint target, CGFloat p) {
+NSPoint AZMovePoint(NSPoint origin, NSPoint target, CGFloat p) {
   // delta = distance fom target to origin
   NSPoint delta = AZSubtractPoints(target, origin);
   // multiply that with the relative distance
-  NSPoint way   = AGMultiplyPoint(delta, p);
+  NSPoint way   = AZMultiplyPoint(delta, p);
   // add it to the origin to move along the way
   return AZAddPoints(origin, way);
 }
 
-NSPoint AGMovePointAbs(NSPoint origin, NSPoint target, CGFloat pixels) {
+NSPoint AZMovePointAbs(NSPoint origin, NSPoint target, CGFloat pixels) {
   // Distance from target to origin
   NSPoint delta = AZSubtractPoints(target, origin);
   // normalize that by x to recieve the x2y-ratio
@@ -195,7 +195,7 @@ NSPoint AZCenterOfSize(NSSize size) {
                      size.height * 0.5);
 }
 
-NSPoint AGEndOfRect(NSRect rect) {
+NSPoint AZEndOfRect(NSRect rect) {
   return NSMakePoint(rect.origin.x + rect.size.width,
                      rect.origin.y + rect.size.height);
 }
@@ -231,10 +231,10 @@ NSPoint AZBorderDistanceOfRects(NSRect a, NSRect b) {
   NSPoint re = NSZeroPoint;
   
   NSPoint oa = a.origin;
-  NSPoint ea = AGEndOfRect(a);
+  NSPoint ea = AZEndOfRect(a);
   
   NSPoint ob = b.origin;
-  NSPoint eb = AGEndOfRect(b);
+  NSPoint eb = AZEndOfRect(b);
   
   // calculate the x and y separately
 
@@ -268,16 +268,16 @@ NSPoint AZBorderDistanceOfRects(NSRect a, NSRect b) {
 NSPoint AZNormalizedDistanceOfRects(NSRect from, NSRect to) {
   NSSize mul = AZInvertSize(AZBlendSizes(from.size, to.size, 0.5));
   NSPoint re = AZCenterDistanceOfRects(to, from);
-          re = AGMultiplyPointBySize(re, mul);
+          re = AZMultiplyPointBySize(re, mul);
 
   return re;
 }
 
 NSPoint AZNormalizedDistanceToCenterOfRect(NSPoint point, NSRect rect) {
   NSPoint center = AZCenterOfRect(rect);
-  NSPoint half   = AGMultiplyPoint(AZPointFromSize(rect.size), 0.5);
+  NSPoint half   = AZMultiplyPoint(AZPointFromSize(rect.size), 0.5);
   NSPoint re     = AZSubtractPoints(point, center);
-          re     = AGMultiplyPointByPoint(re, half);
+          re     = AZMultiplyPointByPoint(re, half);
   
   return re;
 }
@@ -286,7 +286,7 @@ NSPoint AZPointDistanceToBorderOfRect(NSPoint point, NSRect rect) {
   NSPoint re = NSZeroPoint;
   
   NSPoint o = rect.origin;
-  NSPoint e = AGEndOfRect(rect);
+  NSPoint e = AZEndOfRect(rect);
   
   if (point.x < o.x) {
     re.x = point.x - re.x;
@@ -331,17 +331,17 @@ NSSize AZRatioOfSizes(NSSize inner, NSSize outer) {
                     inner.height / outer.height);
 }
 
-NSSize AGMultiplySize(NSSize size, CGFloat multiplier) {
+NSSize AZMultiplySize(NSSize size, CGFloat multiplier) {
   return NSMakeSize(size.width * multiplier, 
                     size.height * multiplier);
 }
 
-NSSize AGMultiplySizeBySize(NSSize size, NSSize another) {
+NSSize AZMultiplySizeBySize(NSSize size, NSSize another) {
   return NSMakeSize(size.width * another.width, 
                     size.height * another.height);
 }
 
-NSSize AGMultiplySizeByPoint(NSSize size, NSPoint point) {
+NSSize AZMultiplySizeByPoint(NSSize size, NSPoint point) {
   return NSMakeSize(size.width * point.x, 
                     size.height * point.y);
 }
@@ -381,7 +381,7 @@ NSSize AZSizeBound(NSSize preferred, NSSize minSize, NSSize maxSize) {
 //
 
 
-NSRect AGMakeRectMaxXUnderMenuBarY(CGFloat distance) {
+NSRect AZMakeRectMaxXUnderMenuBarY(CGFloat distance) {
 	NSRect rect;
 	rect.origin = AZOriginFromMenubarWithX(distance,0);
 	rect.size = NSMakeSize( [[NSScreen mainScreen]frame].size.width, distance);
@@ -390,22 +390,22 @@ NSRect AGMakeRectMaxXUnderMenuBarY(CGFloat distance) {
 
 
 
-NSRect AGMakeRectFromPoint(NSPoint point) {
+NSRect AZMakeRectFromPoint(NSPoint point) {
   return NSMakeRect(point.x, point.y, 0, 0);
 }
 
-NSRect AGMakeRectFromSize(NSSize size) {
+NSRect AZMakeRectFromSize(NSSize size) {
   return NSMakeRect(0, 0, size.width, size.height);
 }
 
-NSRect AGMakeRect(NSPoint point, NSSize size) {
+NSRect AZMakeRect(NSPoint point, NSSize size) {
   return NSMakeRect(point.x, 
                     point.y, 
                     size.width, 
                     size.height);
 }
 
-NSRect AGMakeSquare(NSPoint center, CGFloat radius) {
+NSRect AZMakeSquare(NSPoint center, CGFloat radius) {
   return NSMakeRect(center.x - radius, 
                     center.y - radius, 
                     2 * radius, 
@@ -413,7 +413,7 @@ NSRect AGMakeSquare(NSPoint center, CGFloat radius) {
 }
 
 
-NSRect AGMultiplyRectBySize(NSRect rect, NSSize size) {
+NSRect AZMultiplyRectBySize(NSRect rect, NSSize size) {
   return NSMakeRect(rect.origin.x    * size.width,
                     rect.origin.y    * size.height,
                     rect.size.width  * size.width,

@@ -10,6 +10,18 @@
 
 
 
+CGFloat DegreesToRadians(CGFloat degrees)
+{
+    return degrees * M_PI / 180;
+}
+
+NSNumber* DegreesToNumber(CGFloat degrees)
+{
+    return [NSNumber numberWithFloat:
+            DegreesToRadians(degrees)];
+}
+
+
 @implementation CALayerNoHit
 - (BOOL)containsPoint:(CGPoint)p {	return FALSE; }
 @end
@@ -30,17 +42,17 @@ NSString *const AtoZSharedInstanceUpdated = @"AtoZSharedInstanceUpdated";
 @implementation AtoZ
 @synthesize dock, dockSorted;
 - (void) setUp {
-	self.dock = [AZDockQuery dock].mutableCopy;
+	self.dock = [AZDockQuery dock].copy;
 }
 + (AtoZ*) sharedInstance { return [super sharedInstance]; }
-+ (NSMutableArray*) dock { return [super sharedInstance].dock; }
-+ (NSMutableArray*) dockSorted {
++ (NSArray*) dock { return [super sharedInstance].dock; }
++ (NSArray*) dockSorted {
 	return  [[[[super sharedInstance].dock sortedWithKey:@"hue" ascending:YES] reversed] arrayUsingIndexedBlock:^id(id obj, NSUInteger idx) {
 		AZFile* app = obj;
 		app.spotNew = idx;
 		app.dockPointNew = [[[[super sharedInstance].dock objectAtIndex:app.spotNew] valueForKey:@"dockPoint"]pointValue];
 		return app;
-	}].mutableCopy;
+	}];
 }
 
 + (NSArray*) fengshui {
@@ -60,6 +72,7 @@ NSString *const AtoZSharedInstanceUpdated = @"AtoZSharedInstanceUpdated";
 @synthesize 	brightness, 	saturation,		hue;
 @synthesize 	percent, 		count;
 @synthesize  	name, 			color;
+@synthesize 	hueComponent;
 + (AZColor*) instanceWithObject: (NSDictionary *)dic {
 	AZColor *color = [self instance];
 	if ([dic objectForKey:@"color"]) color.color   = [dic objectForKey:@"color"]; else return nil;
@@ -71,6 +84,7 @@ NSString *const AtoZSharedInstanceUpdated = @"AtoZSharedInstanceUpdated";
 -(CGFloat) saturation {	return [self.color saturationComponent]; }
 -(CGFloat) hue 		  {	return [self.color hueComponent];		 }
 -(CGFloat) brightness {	return [self.color brightnessComponent]; }
+-(CGFloat) hueComponent  {	return [self.color hueComponent];		 }
 
 @end
 
@@ -90,7 +104,7 @@ NSString *const AtoZSharedInstanceUpdated = @"AtoZSharedInstanceUpdated";
 {
 	self.path = string;
 	self.name 	= [[string lastPathComponent] stringByDeletingPathExtension];
-
+	self.colors = [self colors];
 }
 
 - (NSArray*) colors {	
@@ -135,12 +149,15 @@ NSString *const AtoZSharedInstanceUpdated = @"AtoZSharedInstanceUpdated";
 		[colorsUnsorted addObject:acolor];
 	}
 	rawBag = nil; allBag = nil;
-	return  [colorsUnsorted sortedWithKey:@"count" ascending:NO];
+	NSArray *sort = [colorsUnsorted sortedWithKey:@"count" ascending:NO];
+	self.color = [[sort  objectAtNormalizedIndex:0]valueForKey:@"color"];
+	return  sort;
 	//	return [[NSArray alloc] initWithArray:colorsUnsorted];
 }
-- (NSColor*) color { 
-	return (color ? color : [[self.colors objectAtNormalizedIndex:0] valueForKey:@"color"]); 
-}
+//- (NSColor*) color {
+//	NSLog(@"color for %@:  %@", self.name, (color ? color : [[self.colors objectAtNormalizedIndex:0] valueForKey:@"color"]));
+//	return (color ? color : [[self.colors objectAtNormalizedIndex:0] valueForKey:@"color"]); 
+//}
 
 - (CGFloat) hue {	return self.color.hueComponent; }
 

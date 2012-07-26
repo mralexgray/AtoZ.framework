@@ -23,15 +23,15 @@ NSNumber *dNum(double d);
 // the range will always start at the lower value and have
 // a size to reach the upper value
 //
-NSRange AGMakeRange(NSUInteger min, NSUInteger max);
+NSRange AZMakeRange(NSUInteger min, NSUInteger max);
 
 //
 // Predifined Points, Sizes and Rects
 //
 #define AZHalfPoint NSMakePoint(0.5, 0.5)
-#define AGMaxPoint NSMakePoint(MAXFLOAT, MAXFLOAT)
+#define AZMaxPoint NSMakePoint(MAXFLOAT, MAXFLOAT)
 #define AZHalfSize NSMakeSize(0.5, 0.5)
-#define AGMaxSize NSMakeSize(MAXFLOAT, MAXFLOAT)
+#define AZMaxSize NSMakeSize(MAXFLOAT, MAXFLOAT)
 #define AZRelationRect NSMakeRect(0, 0, 1, 1)
 
 //
@@ -78,13 +78,13 @@ NSPoint AZSubtractPoints(NSPoint origin, NSPoint subtrahend);
 NSPoint AZSumPoints(NSUInteger count, NSPoint points, ...);
 
 // multiplies both x and y with one multiplier
-NSPoint AGMultiplyPoint(NSPoint point, CGFloat multiplier);
+NSPoint AZMultiplyPoint(NSPoint point, CGFloat multiplier);
 
 // multiplies each value with its corresponding value in another point
-NSPoint AGMultiplyPointByPoint(NSPoint one, NSPoint another);
+NSPoint AZMultiplyPointByPoint(NSPoint one, NSPoint another);
 
 // multiplies each value with its corresponding value in a size
-NSPoint AGMultiplyPointBySize(NSPoint one, NSSize size);
+NSPoint AZMultiplyPointBySize(NSPoint one, NSSize size);
 
 // positions a relative {0-1,0-1} point within absolute bounds
 NSPoint AZRelativeToAbsolutePoint(NSPoint relative, NSRect bounds);
@@ -98,11 +98,11 @@ NSPoint AZDividePointBySize(NSPoint point, NSSize divisor);
 
 // moves from an origin towards the destination point
 // at a distance of 1 it will reach the destination
-NSPoint AGMovePoint(NSPoint origin, NSPoint target, CGFloat relativeDistance);
+NSPoint AZMovePoint(NSPoint origin, NSPoint target, CGFloat relativeDistance);
 
 // moves from an origin towards the destination point
 // distance on that way is measured in pixels
-NSPoint AGMovePointAbs(NSPoint origin, NSPoint target, CGFloat pixels);
+NSPoint AZMovePointAbs(NSPoint origin, NSPoint target, CGFloat pixels);
 
 // returns the center point of a rect
 NSPoint AZCenterOfRect(NSRect rect);
@@ -111,7 +111,7 @@ NSPoint AZCenterOfRect(NSRect rect);
 NSPoint AZCenterOfSize(NSSize size);
 
 // will return the origin + size value of a rect
-NSPoint AGEndOfRect(NSRect rect);
+NSPoint AZEndOfRect(NSRect rect);
 
 // will return the average distance of two rects
 NSPoint AZCenterDistanceOfRects(NSRect from, NSRect to);
@@ -148,18 +148,18 @@ NSSize AZInvertSize(NSSize size);
 NSSize AZRatioOfSizes(NSSize inner, NSSize outer);
 
 // will multiply a size by a single multiplier
-NSSize AGMultiplySize(NSSize size, CGFloat multiplier);
+NSSize AZMultiplySize(NSSize size, CGFloat multiplier);
 
 // will multiply a size by another size
-NSSize AGMultiplySizeBySize(NSSize size, NSSize another);
+NSSize AZMultiplySizeBySize(NSSize size, NSSize another);
 
 // will multiply a size by a point
-NSSize AGMultiplySizeByPoint(NSSize size, NSPoint point);
+NSSize AZMultiplySizeByPoint(NSSize size, NSPoint point);
 
 // blends one size towards another
 // percentage == 0 -> one
 // percentage == 1 -> another
-// @see AGMovePoint
+// @see AZMovePoint
 NSSize AZBlendSizes(NSSize one, NSSize another, CGFloat percentage);
 
 NSSize AZSizeMax(NSSize one, NSSize another);
@@ -170,22 +170,22 @@ NSSize AZSizeBound(NSSize preferred, NSSize minSize, NSSize maxSize);
 // NSRect result methods
 //
 
-NSRect AGMakeRectMaxXUnderMenuBarY(CGFloat distance);
+NSRect AZMakeRectMaxXUnderMenuBarY(CGFloat distance);
 
 
 // returns a zero sized rect with the argumented point as origin
-NSRect AGMakeRectFromPoint(NSPoint point);
+NSRect AZMakeRectFromPoint(NSPoint point);
 
 // returns a zero point origin with the argumented size
-NSRect AGMakeRectFromSize(NSSize size);
+NSRect AZMakeRectFromSize(NSSize size);
 
 // just another way of defining a rect
-NSRect AGMakeRect(NSPoint point, NSSize size);
+NSRect AZMakeRect(NSPoint point, NSSize size);
 
 // creates a square rect around a center point
-NSRect AGMakeSquare(NSPoint center, CGFloat radius);
+NSRect AZMakeSquare(NSPoint center, CGFloat radius);
 
-NSRect AGMultiplyRectBySize(NSRect rect, NSSize size);
+NSRect AZMultiplyRectBySize(NSRect rect, NSSize size);
 
 // transforms a relative rect to an absolute within absolute bounds
 NSRect AZRelativeToAbsoluteRect(NSRect relative, NSRect bounds);
@@ -284,3 +284,9 @@ NSRect blendRects(NSRect start, NSRect end,float b);
 void logRect(NSRect rect);
 
 CGPoint randomPointInRect(CGRect rect);
+
+/** Returns the center point of a CGRect. */
+static inline CGPoint GetCGRectCenter( CGRect rect ) {
+    return CGPointMake(CGRectGetMidX(rect),CGRectGetMidY(rect));
+}
+

@@ -51,7 +51,7 @@ static inline NSRect AZScaleRect(NSRect frame, float factor)
 {
 	NSSize prevSize = frame.size;
 	
-	frame.size = AGMultiplySize(frame.size, factor);
+	frame.size = AZMultiplySize(frame.size, factor);
 	// NOTE: frame.origin.x -= (frame.size.width - prevSize.width) / 2;
 	//       frame.origin.y -= (frame.size.height - prevSize.height) / 2;
 	frame.origin.x += (prevSize.width - frame.size.width) / 2;

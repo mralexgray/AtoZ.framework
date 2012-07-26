@@ -47,7 +47,7 @@
 - (void)drawRect:(NSRect)rect {
 
 	[RED set];
-	[[NSBezierPath  bezierPathWithOvalInRect: AGMakeSquare([self center], NSMaxY([self bounds])*.8)] fill];
+	[[NSBezierPath  bezierPathWithOvalInRect: AZMakeSquare([self center], NSMaxY([self bounds])*.8)] fill];
     // Draw background if appropriate.
     if (_clicked) {
 		NSColor *rando = [[RANDOMCOLOR colorWithAlphaComponent:.5]darker];

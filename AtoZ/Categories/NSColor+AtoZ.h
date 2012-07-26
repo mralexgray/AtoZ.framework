@@ -214,6 +214,13 @@
 + (float *)xyzToLab:(float *)xyz;
 
 @end
+
+@interface NSColorList (AtoZ)
+
++ (id) colorListWithFileName:(NSString *)fileName inBundle:(NSBundle *)aBundle;
++ (id) colorListWithFileName:(NSString *) fileName inBundleForClass:(Class) aClass;
++ (id) colorListInFrameworkWithFileName:(NSString *) fileName;
+@end
 //
 //@implementation NSColor (AIColorAdditions_RepresentingColors)
 //

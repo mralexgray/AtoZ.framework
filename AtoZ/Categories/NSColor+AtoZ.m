@@ -786,10 +786,13 @@ static NSColor *ColorWithCSSString(NSString *str) {
 - (NSColor*)closestColorListColor {
 	NSColor *thisColor = [self colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
 	CGFloat bestDistance = FLT_MAX;
-	NSColorList *colors = [NSColorList colorListNamed:@"Web Safe Colors"];
-	//	NSColorList *crayons = [NSColorList colorListNamed:@"Crayons"];
 
-	NSArray *avail = $array(colors);//, crayons);
+	NSColorList *colors = [NSColorList colorListInFrameworkWithFileName:@"RGB.clr"];
+
+	NSColorList *safe =  [NSColorList colorListNamed:@"Web Safe Colors"];
+	NSColorList *crayons = [NSColorList colorListNamed:@"Crayons"];
+
+	NSArray *avail = $array( safe);
 //	NSColorList *bestList = nil;
 	NSColor *bestColor = nil;
 //	NSString *bestKey = nil;
@@ -2208,6 +2211,37 @@ static CGFloat hexCharsToFloat(char firstChar, char secondChar)
 
 	free(newXYZ);
 	return lab;
+}
+
+@end
+
+
+
+@interface DummyListClass : NSObject
+@end
+@implementation DummyListClass
+@end
+
+@implementation NSColorList (AtoZ)
+
++ (id) colorListWithFileName:(NSString *)fileName inBundle:(NSBundle *)aBundle {
+	NSColorList *list = nil;
+	if (aBundle != nil) {
+		NSString *listPath;
+		if ((listPath = [aBundle pathForResource: fileName ofType:nil]) != nil) {
+			list = [[NSColorList alloc] initWithName:listPath.lastPathComponent fromFile:listPath];
+		}
+	}
+	return list;
+}
+
++ (id) colorListWithFileName:(NSString *) fileName inBundleForClass:(Class) aClass {
+	return [self colorListWithFileName: fileName inBundle: [NSBundle bundleForClass: aClass]];
+}
+
++ (id) colorListInFrameworkWithFileName:(NSString *) fileName {
+	NSBundle *aBundle = [NSBundle bundleForClass: [DummyListClass class]];
+	return [self colorListWithFileName: fileName inBundle: aBundle];
 }
 
 @end

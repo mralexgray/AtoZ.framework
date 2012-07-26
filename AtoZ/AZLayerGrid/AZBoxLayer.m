@@ -7,24 +7,24 @@
 //
 
 #import "AZBoxLayer.h"
-
+#import "AtoZ.h"
 
 #define kCompositeIconHeight 155.0
 #define kIconWidth 128.0
 #define kFontHeight 25.0
 #define kMargin 30.0
 
-
-CGFloat DegreesToRadians(CGFloat degrees)
-{
-    return degrees * M_PI / 180;
-}
-
-NSNumber* DegreesToNumber(CGFloat degrees)
-{
-    return [NSNumber numberWithFloat:
-            DegreesToRadians(degrees)];
-}
+//
+//CGFloat DegreesToRadians(CGFloat degrees)
+//{
+//    return degrees * M_PI / 180;
+//}
+//
+//NSNumber* DegreesToNumber(CGFloat degrees)
+//{
+//    return [NSNumber numberWithFloat:
+//            DegreesToRadians(degrees)];
+//}
 
 @implementation AZBoxLayer
 
