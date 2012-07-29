@@ -24,6 +24,7 @@
 		7B78529015ACE326008BAD3C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B0D7C4515A3F6C800037D30 /* QuartzCore.framework */; };
 		7B78529115ACE32B008BAD3C /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B0D7C4715A3F88C00037D30 /* Quartz.framework */; };
 		7B78529215ACE333008BAD3C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BE606D215A117D100355236 /* Foundation.framework */; };
+		7B92137015C56A9900862F9D /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B24E9B315A1486D00A9D87A /* AtoZ.framework */; };
 		7BBD980D15AF463200943FC1 /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B24E9B315A1486D00A9D87A /* AtoZ.framework */; };
 		7BE606CE15A117D100355236 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BE606CD15A117D100355236 /* Cocoa.framework */; };
 		7BE606D815A117D200355236 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7BE606D615A117D200355236 /* InfoPlist.strings */; };
@@ -102,6 +103,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B92137015C56A9900862F9D /* AtoZ.framework in Frameworks */,
 				7B0D7C4815A3F88C00037D30 /* Quartz.framework in Frameworks */,
 				7B0D7C4615A3F6C800037D30 /* QuartzCore.framework in Frameworks */,
 				7BE606CE15A117D100355236 /* Cocoa.framework in Frameworks */,
@@ -157,7 +159,6 @@
 		7BE606BE15A117D100355236 = {
 			isa = PBXGroup;
 			children = (
-				7B091A4715A888C400821FFD /* ApplicationServices.framework */,
 				7B7852A015ACECAF008BAD3C /* Status */,
 				7B091A1615A8301600821FFD /* AZBoxTest */,
 				7BE606D415A117D200355236 /* Supporting Files */,
@@ -178,6 +179,7 @@
 		7BE606CC15A117D100355236 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7B091A4715A888C400821FFD /* ApplicationServices.framework */,
 				7B0D7C4715A3F88C00037D30 /* Quartz.framework */,
 				7B0D7C4515A3F6C800037D30 /* QuartzCore.framework */,
 				7B24E9B315A1486D00A9D87A /* AtoZ.framework */,
@@ -255,7 +257,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = AtoZ;
-				LastUpgradeCheck = 0430;
+				LastUpgradeCheck = 0440;
 				ORGANIZATIONNAME = "mrgray.com, inc.";
 			};
 			buildConfigurationList = 7BE606C315A117D100355236 /* Build configuration list for PBXProject "AtoZStatusApp" */;
@@ -380,6 +382,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				COMBINE_HIDPI_IMAGES = YES;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AZBoxTest/AZBoxTest-Prefix.pch";
@@ -393,6 +396,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				COMBINE_HIDPI_IMAGES = YES;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AZBoxTest/AZBoxTest-Prefix.pch";
@@ -452,6 +456,7 @@
 		7BE606E815A117D200355236 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AtoZStatusApp/AtoZStatusApp-Prefix.pch";
 				INFOPLIST_FILE = "AtoZStatusApp/AtoZStatusApp-Info.plist";
@@ -463,6 +468,7 @@
 		7BE606E915A117D200355236 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AtoZStatusApp/AtoZStatusApp-Prefix.pch";
 				INFOPLIST_FILE = "AtoZStatusApp/AtoZStatusApp-Info.plist";

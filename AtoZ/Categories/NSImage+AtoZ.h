@@ -66,7 +66,7 @@ typedef enum {
 
 - (NSImage*) imageByRemovingTransparentAreasWithFinalRect: (NSRect*)outBox;
 //+ (NSImage*) fromSVG:(NSString *)documentName withAlpha:(BOOL)hasAlpha;
-+ (NSImage*)imageFromCGImageRef:(CGImageRef)image;
+//+ (NSImage*)imageFromCGImageRef:(CGImageRef)image;
 
 - (NSImage*) addReflection:(CGFloat)percentage;
 

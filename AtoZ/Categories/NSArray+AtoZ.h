@@ -192,6 +192,7 @@
 
 - (void) firstToLast;
 
+- (void) lastToFirst;
 
 // alike removeLastObject
 -(void)removeFirstObject;

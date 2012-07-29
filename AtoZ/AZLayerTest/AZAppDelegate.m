@@ -11,6 +11,9 @@
 #import <QuartzCore/QuartzCore.h>
 
 @implementation AZAppDelegate
+@synthesize pIndi;
+@synthesize orientButton;
+@synthesize scaleSlider;
 @synthesize window = _window, root;
 
 -(void)awakeFromNib;

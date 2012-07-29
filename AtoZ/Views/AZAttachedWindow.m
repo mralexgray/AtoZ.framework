@@ -29,7 +29,7 @@
 @end
 
 @implementation AZAttachedWindow
-
+@synthesize view = _view;
 
 #pragma mark Initializers
 

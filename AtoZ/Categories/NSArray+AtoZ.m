@@ -737,6 +737,12 @@ return self.lastObject;
 	[self moveObjectAtIndex:0 toIndex:toIndex];
 }
 
+- (void) lastToFirst {
+    if ( self.count == 0) return; //there is no object to move, return
+
+	[self moveObjectAtIndex:self.count toIndex:0];
+}
+
 
 
 -(void)setFirst:(id)anObject {

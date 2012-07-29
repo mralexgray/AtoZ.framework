@@ -28,7 +28,7 @@
 //	[attachedWindow setContentView:bar];	
 //	[attachedWindow setFrame:barFrame display:NO];
 //	[attachedWindow setBackgroundColor:CLEAR];
-    datasource = [[NSMutableArray alloc] init];
+    datasource = [NSMutableArray array];
     [AZStopwatch start:@"makingBoxes:100"];
 	
 //			for(int i=0; i<; i++) // This creates 59000 elements!    {
@@ -48,7 +48,7 @@
 	grid.desiredNumberOfColumns = 10000;
 	grid.dataSource = self;
 	[grid setDesiredNumberOfColumns:NSUIntegerMax];
-	[grid setCellSize:NSMakeSize(bar.bounds.size.height, bar.bounds.size.height)];
+	[grid setCellSize:NSMakeSize(bar.bounds.size.width/datasource.count, bar.bounds.size.height)];
 //	[grid ];
 	
 //	[[attachedWindow contentView]addSubview:s];
@@ -142,8 +142,11 @@
 	[attachedWindow slideUp];// orderOut:self];
 }
 - (void) applicationDidBecomeActive:(NSNotification *)notification{
-	if (!menuWindowIsShowing) { [attachedWindow slideDown];
-		
+	[NSApp activateIgnoringOtherApps:YES];
+	if (!menuWindowIsShowing) {
+
+		[attachedWindow slideDown];
+		[attachedWindow makeKeyAndOrderFront:attachedWindow];
 		}
 }
 

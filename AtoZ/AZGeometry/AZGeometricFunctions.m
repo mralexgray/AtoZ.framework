@@ -47,6 +47,20 @@ CGFloat AZAreaOfRect(NSRect rect) {
   return AZAreaOfSize(rect.size);
 }
 
+
+NSPoint NSMakeRandomPointInRect(NSRect rect) {
+    CGPoint point = CGPointZero;
+    NSInteger max = rect.size.width;
+    NSInteger min = 0;
+    point.x = (random() % (max-min+1)) + min;
+
+    max = rect.size.height;
+    point.y = (random() % (max-min+1)) + min;
+
+    return point;
+}
+
+
 //
 // NSPoint result functions
 //
@@ -384,7 +398,7 @@ NSSize AZSizeBound(NSSize preferred, NSSize minSize, NSSize maxSize) {
 NSRect AZMakeRectMaxXUnderMenuBarY(CGFloat distance) {
 	NSRect rect;
 	rect.origin = AZOriginFromMenubarWithX(distance,0);
-	rect.size = NSMakeSize( [[NSScreen mainScreen]frame].size.width, distance);
+	rect.size = NSMakeSize( [[NSScreen mainScreen]frame].size.width-10, distance);
 	return rect;
 }
 

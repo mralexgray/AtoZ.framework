@@ -136,7 +136,7 @@ NSArray *sourceListItems;
 		}];
 //		AZSimpleView *sv = [infiniteViews first];
 		NSData * archivedView = [NSKeyedArchiver archivedDataWithRootObject:[infiniteViews first]];
-		AZSimpleView *sv = [NSKeyedUnarchiver unarchiveObjectWithData:archivedView];
+		AZInfiniteCell *sv = [NSKeyedUnarchiver unarchiveObjectWithData:archivedView];
 		
 		NSRect newbox;
 			newbox.size.height = BOXSIZE;

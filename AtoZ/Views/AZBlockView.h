@@ -17,4 +17,3 @@ typedef void(^AZBlockViewDrawer)(AZBlockView *view, NSRect dirtyRect);
 @property (nonatomic, assign) BOOL opaque;
 @end
 
-

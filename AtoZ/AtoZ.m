@@ -32,27 +32,120 @@ NSNumber* DegreesToNumber(CGFloat degrees)
 - (BOOL)containsPoint:(CGPoint)p {	return FALSE; }
 @end
 
+void ApplicationsInDirectory(NSString *searchPath, NSMutableArray *applications) {
+
+	BOOL isDir;
+	NSFileManager *manager = [NSFileManager defaultManager];
+	NSArray *files = [manager directoryContentsAtPath:searchPath];
+	NSEnumerator *fileEnum = [files objectEnumerator];
+	NSString*file;
+	while (file = [fileEnum nextObject]) {
+		[manager changeCurrentDirectoryPath:searchPath];
+		if ([manager fileExistsAtPath:file isDirectory:&isDir] && isDir) {
+			NSString *fullpath = [searchPath stringByAppendingPathComponent:file];
+			if ([[file pathExtension] isEqualToString:@"app"]) [applications addObject:fullpath];
+			else ApplicationsInDirectory(fullpath, applications);
+		}
+	}
+}
+
 
 NSString *const AtoZSharedInstanceUpdated = @"AtoZSharedInstanceUpdated";
+NSString *const AtoZDockSortedUpdated = @"AtoZDockSortedUpdated";
 
+@class AZSimpleView;
 @interface AtoZ ()
 @property (nonatomic, strong) NSMutableArray *dock;
-@property (nonatomic, strong) NSMutableArray *dockSorted;
+@property (nonatomic, strong) NSMutableArray* dockSorted;
+@property (nonatomic, strong) NSMutableArray *appFolderSorted;
+@property (nonatomic, strong) NSMutableArray *appFolder;
 @end
 @implementation AtoZ
-@synthesize dock, dockSorted;
+{
+	__weak AZSimpleView *e;
+}
+@synthesize dock, dockSorted, appFolder, appFolderSorted;
 - (void) setUp {
-	self.dock = [AZDockQuery dock].copy;
+	dock = [AZDockQuery dock].copy;
 }
 + (AtoZ*) sharedInstance { return [super sharedInstance]; }
 + (NSArray*) dock { return [super sharedInstance].dock; }
 + (NSArray*) dockSorted {
-	return  [[[[super sharedInstance].dock sortedWithKey:@"hue" ascending:YES] reversed] arrayUsingIndexedBlock:^id(id obj, NSUInteger idx) {
-		AZFile* app = obj;
-		app.spotNew = idx;
-		app.dockPointNew = [[[[super sharedInstance].dock objectAtIndex:app.spotNew] valueForKey:@"dockPoint"]pointValue];
-		return app;
-	}];
+	[AZStopwatch start:@"dockSorted"];
+
+//	if (! [AtoZ sharedInstance].dockSorted ){
+		NSLog(@"sorted noexista!.  does docko? : %@");
+//		[AtoZ sharedInstance]_dockSorted = [[[AtoZ dock] sortedWithKey:@"hue" ascending:YES] reversed].mutableCopy;
+//	}
+//	[[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:AtoZDockSortedUpdated object:[AtoZ sharedInstance].dockSorted];
+	NSLog(@"was it made?  dsorted:%@", [AtoZ sharedInstance]._dockSorted);
+	[AZStopwatch stop:@"dockSorted"];
+//	[NSThread performAZBlockOnMainThread:^{
+//		[[NSApp delegate] setValue:
+//			[[AtoZ sharedInstance]. dockSorted arrayUsingIndexedBlock:^id(id obj, NSUInteger idx) {
+//				AZFile *block = obj;
+//				AZInfiniteCell * ee = [AZInfiniteCell new];
+//				ee.file = block;
+//				ee.backgroundColor = block.color;
+//				return ee;
+//			}] forKeyPath:@"infiniteBlocks.infiniteViews"];
+//	}];
+	return  [AtoZ sharedInstance]._dockSorted;
+//
+//	if ([AtoZ sharedInstance].dockSorted) {
+//		NSLog(@"preexisting sort! ");
+//		return [AtoZ sharedInstance].dockSorted;
+//	}
+//	[AtoZ sharedInstance].dockSorted = [[[[AtoZ dock] sortedWithKey:@"hue" ascending:YES] reversed] arrayUsingIndexedBlock:^id(id obj, NSUInteger idx) {
+//		AZFile* app = obj;
+//		app.spotNew = idx;
+//		app.dockPointNew = [[[self.dock objectAtIndex:app.spotNew] valueForKey:@"dockPoint"]pointValue];
+//		return app;
+//	}];
+	// where you would call a delegate method (e.g. [self.delegate doSomething])
+	// object:nil userInfo:nil]; /* dictionary containing variables to pass to the delegate */
+//	return [AtoZ sharedInstance ].dockSorted;
+}
+
++ (NSArray*) appFolderSorted {
+	if (! [AtoZ sharedInstance].appFolderSorted )
+	[AtoZ sharedInstance].appFolderSorted = [[[AtoZ appFolder] sortedWithKey:@"hue" ascending:YES] reversed].mutableCopy;
+	return  [AtoZ sharedInstance].appFolderSorted;
+}
+
++ (NSArray*) appFolder {
+	[AZStopwatch start:@"appFolder"];
+	if (! [AtoZ sharedInstance].appFolder ) {
+		NSMutableArray *applications = [NSMutableArray array];
+		ApplicationsInDirectory(@"/Applications", applications);
+		[AtoZ sharedInstance].appFolder = [NSMutableArray array];
+		[applications enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+			[[AtoZ sharedInstance].appFolder addObject:[AZFile instanceWithPath:obj]];
+		}];
+	}
+	[AZStopwatch stop:@"appFolder"];
+//	[[AtoZ sharedInstance] useHRCoderIfAvailable];
+//	NSLog(@"%@", [[AtoZ sharedInstance] codableKeys]);
+//	[[AtoZ sharedInstance] writeToFile:@"/Users/localadmin/Desktop/poop.plist" atomically:NO];
+
+	return [AtoZ sharedInstance].appFolder;
+}
+
+- (NSArray *)uncodableKeys
+{
+    return [[AtoZ sharedInstance] uncodableKeys];
+	//[NSArray arrayWithObject:@"uncodableProperty"];
+}
+
+- (void)setWithCoder:(NSCoder *)coder
+{
+    [super setWithCoder:coder];
+//    self. = DECODE_VALUE([coder decodeObjectForKey:@"uncodableProperty"];
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder	{
+    [super encodeWithCoder:coder];
+    [coder encodeObject:@"uncodable" forKey:@"uncodableProperty"];
 }
 
 + (NSArray*) fengshui {
@@ -105,6 +198,8 @@ NSString *const AtoZSharedInstanceUpdated = @"AtoZSharedInstanceUpdated";
 	self.path = string;
 	self.name 	= [[string lastPathComponent] stringByDeletingPathExtension];
 	self.colors = [self colors];
+	customColor = WHITE;
+	labelColor = WHITE;
 }
 
 - (NSArray*) colors {	

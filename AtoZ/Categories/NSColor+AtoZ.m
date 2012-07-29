@@ -387,26 +387,26 @@ static NSColor *ColorWithCSSString(NSString *str) {
 	else return TRUE;
 }
 
-- (CGColorRef)CGColor {
-	CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-	NSColor *deviceColor = [self colorUsingColorSpaceName:NSDeviceRGBColorSpace];
-	CGFloat components[4];
-	[deviceColor getRed: &components[0] green: &components[1] blue:&components[2] alpha: &components[3]];
-	CGColorRef output = CGColorCreate(colorSpace, components);
-	CGColorSpaceRelease (colorSpace);
-	return (CGColorRef)output; //[(id)output autorelease];
-							   //	return (__bridge CGColorRef)(__bridge_transfer id)output;
-}
+//- (CGColorRef)CGColor {
+//	CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+//	NSColor *deviceColor = [self colorUsingColorSpaceName:NSDeviceRGBColorSpace];
+//	CGFloat components[4];
+//	[deviceColor getRed: &components[0] green: &components[1] blue:&components[2] alpha: &components[3]];
+//	CGColorRef output = CGColorCreate(colorSpace, components);
+//	CGColorSpaceRelease (colorSpace);
+//	return (CGColorRef)output; //[(id)output autorelease];
+//							   //	return (__bridge CGColorRef)(__bridge_transfer id)output;
+//}
 
 
-+ (NSColor*)colorWithCGColor:(CGColorRef)aColor {
-	const CGFloat *components = CGColorGetComponents(aColor);
-	CGFloat red = components[0];
-	CGFloat green = components[1];
-	CGFloat blue = components[2];
-	CGFloat alpha = components[3];
-	return [self colorWithDeviceRed:red green:green blue:blue alpha:alpha];
-}
+//+ (NSColor*)colorWithCGColor:(CGColorRef)aColor {
+//	const CGFloat *components = CGColorGetComponents(aColor);
+//	CGFloat red = components[0];
+//	CGFloat green = components[1];
+//	CGFloat blue = components[2];
+//	CGFloat alpha = components[3];
+//	return [self colorWithDeviceRed:red green:green blue:blue alpha:alpha];
+//}
 
 
 /**+ (NSColor)

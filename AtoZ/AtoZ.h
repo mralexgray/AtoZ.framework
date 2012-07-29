@@ -58,6 +58,7 @@
 //#import "AZMenuBarAppController.h"
 
 // Views
+#import "AZFoamView.h"
 #import "AZBlockView.h"
 #import "AZProgressIndicator.h"
 #import "AZPopupWindow.h"
@@ -65,6 +66,8 @@
 #import "AZAttachedWindow.h"
 
 // Categories
+#import "NSThread+AtoZ.h"
+#import "NSNotificationCenter+AtoZ.h"
 #import "NSApplication+AtoZ.h"
 #import "NSColor+AtoZ.h"
 #import "NSArray+AtoZ.h"
@@ -81,6 +84,11 @@
 #import "NSObject+AtoZ.h"
 
 #import "AZGeometry.h"
+#import "NSWindow_Flipr.h"
+
+
+#import "TransparentWindow.h"
+#import "RoundedView.h"
 
 #import "AZStopwatch.h"
 #import "AZBox.h"
@@ -91,13 +99,15 @@
 
 #import "AZSizer.h"
 #import "AZApplePrivate.h"
+#import "AZInfiniteCell.h"
+
 
 
 #import "AZSourceList.h"
 #import "AZTalker.h"
-
 #import "AZBoxLayer.h"
 #import "AZOverlay.h"
+#import "AZSimpleView.h"
 
 //#import "AtoZInfintieScroll.h"
 
@@ -164,14 +174,19 @@ oldValue = newValue;
 
 
 extern NSString *const AtoZSharedInstanceUpdated;
+extern NSString *const AtoZDockSortedUpdated;
 
 @interface AtoZ : BaseModel
 + (AtoZ*) sharedInstance;
 + (NSArray*) dock;
+- (NSArray*) dockSorted;
 + (NSArray*) dockSorted;
 + (NSArray*) fengshui;
 + (NSArray*) runningApps;
++ (NSArray*) appFolder;
++ (NSArray*) appFolderSorted;
 @end
+
 @interface AZColor : BaseModel
 @property (nonatomic, readonly) CGFloat 	brightness;
 @property (nonatomic, readonly) CGFloat 	saturation;

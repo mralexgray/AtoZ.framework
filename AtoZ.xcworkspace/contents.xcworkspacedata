@@ -2,15 +2,18 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "container:AtoZStatusAspp/AtoZStatusApp.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "container:AtoZStatusAspp/../../AtoZInfiniteScroll/AtoZInfiniteScroll/AtoZInfiniteScroll.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:AtoZLayerGrid/AZLayerGrid/AZLayerGrid.xcodeproj">
    </FileRef>
    <FileRef
       location = "container:AtoZ/AtoZ.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:AtoZStatusAspp/../../AtoZInfiniteScroll/AtoZInfiniteScroll/AtoZInfiniteScroll.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "container:AtoZStatusAspp/AtoZStatusApp.xcodeproj">
+      location = "container:../git/AJS-iTunes-API/Framework/AtoZiTunes/AtoZiTunes.xcodeproj">
    </FileRef>
 </Workspace>

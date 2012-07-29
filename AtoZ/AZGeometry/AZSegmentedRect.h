@@ -7,7 +7,10 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "AZRect.h"
+#import "AZGeometry.h"
+
+
+
 
 @class AZPoint, AZSize, AZRect;
 
@@ -55,18 +58,16 @@
 
 @end
 
+
 @interface AZRect (AZSegmentedRect)
 -(AZSegmentedRect *)segmentedRect;
 -(AZSegmentedRect *)segmentedRectWithCubicSize:(NSUInteger)size;
--(AZSegmentedRect *)segmentedRectWithWidth:(NSUInteger)width 
+-(AZSegmentedRect *)segmentedRectWithWidth:(NSUInteger)width
                                     height:(NSUInteger)height;
 @end
 
 
 @interface NSBezierPath (AZSegmentedRect)
-
--(id)traverseSegments:(NSString *)segmentDefinition 
+-(id)traverseSegments:(NSString *)segmentDefinition
                inRect:(AZSegmentedRect *)segmentedRect;
-
 @end
-

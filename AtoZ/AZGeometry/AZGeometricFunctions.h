@@ -8,6 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 
+
+
 //
 // shortcuts for [NSNumber numberWithXY]
 //
@@ -33,6 +35,10 @@ NSRange AZMakeRange(NSUInteger min, NSUInteger max);
 #define AZHalfSize NSMakeSize(0.5, 0.5)
 #define AZMaxSize NSMakeSize(MAXFLOAT, MAXFLOAT)
 #define AZRelationRect NSMakeRect(0, 0, 1, 1)
+
+
+
+NSPoint randomPointInRect(NSRect rect);
 
 //
 // Simple Length and Area calculus
@@ -283,7 +289,7 @@ int oppositeQuadrant(int quadrant);
 NSRect blendRects(NSRect start, NSRect end,float b);
 void logRect(NSRect rect);
 
-CGPoint randomPointInRect(CGRect rect);
+CGPoint NSMakeRandomPointInRect(CGRect rect);
 
 /** Returns the center point of a CGRect. */
 static inline CGPoint GetCGRectCenter( CGRect rect ) {

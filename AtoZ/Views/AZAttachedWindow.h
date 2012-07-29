@@ -140,7 +140,7 @@ typedef enum _AZWindowPosition {
 - (void)setBackgroundImage:(NSImage *)value;
 - (NSColor *)windowBackgroundColor;                    // See note 4 below.
 - (void)setBackgroundColor:(NSColor *)value;
-
+@property (retain, nonatomic) NSView *view;
 /*
  Notes regarding accessor methods:
  

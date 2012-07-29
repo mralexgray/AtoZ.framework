@@ -1,5 +1,7 @@
 DerivedData
 git
 Documentation/docset-installed.txt
-giticnore
+.gitignore
 AZBox.archive.m
+gitmodules.flawed
+AtoZInfiniteScrollmoduledisabled

@@ -8,7 +8,7 @@
 
 #import "AZStatusAppController.h"
 #import "AZStatusItemView.h"
-
+#import <AtoZ/AtoZ.h>
 
 @implementation AZStatusItemView
 {
@@ -53,12 +53,10 @@
 		NSColor *rando = [[RANDOMCOLOR colorWithAlphaComponent:.5]darker];
 		NSBezierPath *frame = [NSBezierPath bezierPathWithRect:[self frame]];
 		[frame fillGradientFrom:rando.brighter to:rando.darker angle:270];
-
-
 //        [[NSColor selectedMenuItemColor] set];
 //        NSRectFill(rect);
     }
-//
+	[[[[[NSImage systemImages]randomElement]imageScaledToFitSize:AZScaleRect([self bounds], .6).size]coloredWithColor:WHITE]drawCenteredinRect:[self frame] operation:NSCompositeSourceOver fraction:1];
 //	if (NO) {
 //		// Draw some text, just to show how it's done.
 //		NSString *text = @"3"; // whatever you want

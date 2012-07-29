@@ -21,7 +21,6 @@
 		7BECAEF815BF0E7A00557357 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 7BECAEF615BF0E7A00557357 /* Credits.rtf */; };
 		7BECAEFB15BF0E7A00557357 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BECAEFA15BF0E7A00557357 /* AppDelegate.m */; };
 		7BECAEFE15BF0E7A00557357 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BECAEFC15BF0E7A00557357 /* MainMenu.xib */; };
-		7BECAF0215BF0EA100557357 /* AZFoamView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BECAEE315BF0D0800557357 /* AZFoamView.m */; };
 		7BECAF0315BF0EF300557357 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B85597515B9EA280005F558 /* QuartzCore.framework */; };
 		7BECAF0415BF0EF800557357 /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B85597315B9E8C30005F558 /* AtoZ.framework */; };
 /* End PBXBuildFile section */
@@ -44,8 +43,6 @@
 		7B85597515B9EA280005F558 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		7B85597715B9ED090005F558 /* AZGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZGridView.h; sourceTree = "<group>"; };
 		7B85597815B9ED090005F558 /* AZGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZGridView.m; sourceTree = "<group>"; };
-		7BECAEE215BF0D0800557357 /* AZFoamView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZFoamView.h; path = ../AZLayerGrid/AZFoamView.h; sourceTree = "<group>"; };
-		7BECAEE315BF0D0800557357 /* AZFoamView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AZFoamView.m; path = ../AZLayerGrid/AZFoamView.m; sourceTree = "<group>"; };
 		7BECAEEA15BF0E7A00557357 /* AZView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AZView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BECAEEF15BF0E7A00557357 /* AZView-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AZView-Info.plist"; sourceTree = "<group>"; };
 		7BECAEF115BF0E7A00557357 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -149,8 +146,6 @@
 			isa = PBXGroup;
 			children = (
 				7BECAEF915BF0E7A00557357 /* AppDelegate.h */,
-				7BECAEE215BF0D0800557357 /* AZFoamView.h */,
-				7BECAEE315BF0D0800557357 /* AZFoamView.m */,
 				7BECAEFA15BF0E7A00557357 /* AppDelegate.m */,
 				7BECAEFC15BF0E7A00557357 /* MainMenu.xib */,
 				7BECAEEE15BF0E7A00557357 /* Supporting Files */,
@@ -274,7 +269,6 @@
 			files = (
 				7BECAEF415BF0E7A00557357 /* main.m in Sources */,
 				7BECAEFB15BF0E7A00557357 /* AppDelegate.m in Sources */,
-				7BECAF0215BF0EA100557357 /* AZFoamView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -471,6 +465,7 @@
 				7BECAF0115BF0E7A00557357 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

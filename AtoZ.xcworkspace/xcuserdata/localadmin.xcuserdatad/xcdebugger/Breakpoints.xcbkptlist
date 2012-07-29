@@ -4,7 +4,7 @@
    version = "1.0">
    <SymbolicBreakpoints>
       <SymbolicBreakpoint
-         shouldBeEnabled = "Yes"
+         shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          symbolName = "unlockFocus"
