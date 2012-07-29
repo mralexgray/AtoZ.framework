@@ -18,7 +18,7 @@
     if (self) {
 	[[self window] setBackgroundColor:ORANGE];
 	MondoSwitch *a = [[MondoSwitch alloc]initWithFrame:NSMakeRect(10,10, 30,60)];
-	[a setOn:YES];
+	[a setOn:NO];
 	[self addSubview: a];
 	 
     }

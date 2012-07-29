@@ -1387,12 +1387,11 @@
 						</object>
 						<object class="NSView" id="448205591">
 							<reference key="NSNextResponder" ref="180206759"/>
-							<int key="NSvFlags">292</int>
+							<int key="NSvFlags">289</int>
 							<array class="NSMutableArray" key="NSSubviews"/>
-							<string key="NSFrame">{{9, 30}, {92, 35}}</string>
+							<string key="NSFrame">{{96, 30}, {375, 35}}</string>
 							<reference key="NSSuperview" ref="180206759"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:20</string>
 						</object>
 					</array>

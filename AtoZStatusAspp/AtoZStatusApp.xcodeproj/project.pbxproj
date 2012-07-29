@@ -18,7 +18,6 @@
 		7B0D7C2615A3E80000037D30 /* ControlBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0D7C2515A3E7FF00037D30 /* ControlBar.m */; };
 		7B0D7C4615A3F6C800037D30 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B0D7C4515A3F6C800037D30 /* QuartzCore.framework */; };
 		7B0D7C4815A3F88C00037D30 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B0D7C4715A3F88C00037D30 /* Quartz.framework */; };
-		7B0D7C5C15A4175900037D30 /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0D7C5B15A4175900037D30 /* iCarousel.m */; };
 		7B24E96D15A11C6200A9D87A /* AZStatusAppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B24E96C15A11C6200A9D87A /* AZStatusAppController.m */; };
 		7B24E97215A11F4600A9D87A /* AZStatusItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B24E97115A11F4600A9D87A /* AZStatusItemView.m */; };
 		7B78529015ACE326008BAD3C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B0D7C4515A3F6C800037D30 /* QuartzCore.framework */; };
@@ -32,6 +31,44 @@
 		7BE606DE15A117D200355236 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 7BE606DC15A117D200355236 /* Credits.rtf */; };
 		7BE606E415A117D200355236 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BE606E215A117D200355236 /* MainMenu.xib */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		7B66CE4E15C5B1AD00ADDFE6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B66CE4715C5B1AC00ADDFE6 /* AtoZ.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7B311951159B6D9E002134C4;
+			remoteInfo = AtoZ;
+		};
+		7B66CE5015C5B1AD00ADDFE6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B66CE4715C5B1AC00ADDFE6 /* AtoZ.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7B311969159B6D9E002134C4;
+			remoteInfo = AtoZTests;
+		};
+		7B66CE5215C5B1AD00ADDFE6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B66CE4715C5B1AC00ADDFE6 /* AtoZ.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7B3422BA15A5EC03006AC46C;
+			remoteInfo = AtoZCLI;
+		};
+		7B66CE5415C5B1AD00ADDFE6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B66CE4715C5B1AC00ADDFE6 /* AtoZ.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7B7852A515ACECD2008BAD3C;
+			remoteInfo = AZLayerTest;
+		};
+		7B66CE5615C5B1B300ADDFE6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B66CE4715C5B1AC00ADDFE6 /* AtoZ.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 7B311950159B6D9E002134C4;
+			remoteInfo = AtoZ;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		7B24E9F215A1784D00A9D87A /* CopyFiles */ = {
@@ -60,13 +97,14 @@
 		7B0D7C2515A3E7FF00037D30 /* ControlBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControlBar.m; sourceTree = "<group>"; };
 		7B0D7C4515A3F6C800037D30 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		7B0D7C4715A3F88C00037D30 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
-		7B0D7C5A15A4175900037D30 /* iCarousel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iCarousel.h; sourceTree = "<group>"; };
-		7B0D7C5B15A4175900037D30 /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iCarousel.m; sourceTree = "<group>"; };
+		7B0D7C5A15A4175900037D30 /* iCarousel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iCarousel.h; path = ../iCarousel.h; sourceTree = "<group>"; };
+		7B0D7C5B15A4175900037D30 /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iCarousel.m; path = ../iCarousel.m; sourceTree = "<group>"; };
 		7B24E96B15A11C6200A9D87A /* AZStatusAppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZStatusAppController.h; sourceTree = "<group>"; };
 		7B24E96C15A11C6200A9D87A /* AZStatusAppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZStatusAppController.m; sourceTree = "<group>"; };
 		7B24E97015A11F4600A9D87A /* AZStatusItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZStatusItemView.h; sourceTree = "<group>"; };
 		7B24E97115A11F4600A9D87A /* AZStatusItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZStatusItemView.m; sourceTree = "<group>"; };
 		7B24E9B315A1486D00A9D87A /* AtoZ.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AtoZ.framework; path = System/Library/Frameworks/AtoZ.framework; sourceTree = SDKROOT; };
+		7B66CE4715C5B1AC00ADDFE6 /* AtoZ.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AtoZ.xcodeproj; path = ../AtoZ/AtoZ.xcodeproj; sourceTree = "<group>"; };
 		7B78524615ABA801008BAD3C /* MyScroller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyScroller.h; sourceTree = "<group>"; };
 		7B78524715ABA801008BAD3C /* MyScroller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyScroller.m; sourceTree = "<group>"; };
 		7B78524815ABA801008BAD3C /* MyScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyScrollView.h; sourceTree = "<group>"; };
@@ -140,11 +178,20 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		7B66CE4815C5B1AC00ADDFE6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7B66CE4F15C5B1AD00ADDFE6 /* AtoZ.framework */,
+				7B66CE5115C5B1AD00ADDFE6 /* AtoZTests.octest */,
+				7B66CE5315C5B1AD00ADDFE6 /* AtoZCLI */,
+				7B66CE5515C5B1AD00ADDFE6 /* AZLayerTest.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		7B7852A015ACECAF008BAD3C /* Status */ = {
 			isa = PBXGroup;
 			children = (
-				7B0D7C5A15A4175900037D30 /* iCarousel.h */,
-				7B0D7C5B15A4175900037D30 /* iCarousel.m */,
 				7B24E97015A11F4600A9D87A /* AZStatusItemView.h */,
 				7B24E97115A11F4600A9D87A /* AZStatusItemView.m */,
 				7B24E96B15A11C6200A9D87A /* AZStatusAppController.h */,
@@ -159,6 +206,7 @@
 		7BE606BE15A117D100355236 = {
 			isa = PBXGroup;
 			children = (
+				7B66CE4715C5B1AC00ADDFE6 /* AtoZ.xcodeproj */,
 				7B7852A015ACECAF008BAD3C /* Status */,
 				7B091A1615A8301600821FFD /* AZBoxTest */,
 				7BE606D415A117D200355236 /* Supporting Files */,
@@ -202,6 +250,8 @@
 		7BE606D415A117D200355236 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				7B0D7C5A15A4175900037D30 /* iCarousel.h */,
+				7B0D7C5B15A4175900037D30 /* iCarousel.m */,
 				7BE606D515A117D200355236 /* AtoZStatusApp-Info.plist */,
 				7BE606D615A117D200355236 /* InfoPlist.strings */,
 				7BE606D915A117D200355236 /* main.m */,
@@ -244,6 +294,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				7B66CE5715C5B1B300ADDFE6 /* PBXTargetDependency */,
 			);
 			name = AtoZStatusApp;
 			productName = AtoZStatusAspp;
@@ -270,6 +321,12 @@
 			mainGroup = 7BE606BE15A117D100355236;
 			productRefGroup = 7BE606CA15A117D100355236 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 7B66CE4815C5B1AC00ADDFE6 /* Products */;
+					ProjectRef = 7B66CE4715C5B1AC00ADDFE6 /* AtoZ.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				7BE606C815A117D100355236 /* AtoZStatusApp */,
@@ -277,6 +334,37 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		7B66CE4F15C5B1AD00ADDFE6 /* AtoZ.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = AtoZ.framework;
+			remoteRef = 7B66CE4E15C5B1AD00ADDFE6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7B66CE5115C5B1AD00ADDFE6 /* AtoZTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = AtoZTests.octest;
+			remoteRef = 7B66CE5015C5B1AD00ADDFE6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7B66CE5315C5B1AD00ADDFE6 /* AtoZCLI */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = AtoZCLI;
+			remoteRef = 7B66CE5215C5B1AD00ADDFE6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7B66CE5515C5B1AD00ADDFE6 /* AZLayerTest.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = AZLayerTest.app;
+			remoteRef = 7B66CE5415C5B1AD00ADDFE6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		7B091A1115A8301600821FFD /* Resources */ = {
@@ -319,11 +407,18 @@
 				7B24E96D15A11C6200A9D87A /* AZStatusAppController.m in Sources */,
 				7B24E97215A11F4600A9D87A /* AZStatusItemView.m in Sources */,
 				7B0D7C2615A3E80000037D30 /* ControlBar.m in Sources */,
-				7B0D7C5C15A4175900037D30 /* iCarousel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		7B66CE5715C5B1B300ADDFE6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AtoZ;
+			targetProxy = 7B66CE5615C5B1B300ADDFE6 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		7B091A1915A8301600821FFD /* InfoPlist.strings */ = {
