@@ -30,8 +30,6 @@
 		7B0D7C4015A3F0BA00037D30 /* MondoSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0D7C3A15A3F0BA00037D30 /* MondoSwitch.m */; };
 		7B0D7C4215A3F0BA00037D30 /* MondoSwitchButtonCALayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B0D7C3C15A3F0BA00037D30 /* MondoSwitchButtonCALayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B0D7C4315A3F0BA00037D30 /* MondoSwitchButtonCALayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0D7C3D15A3F0BA00037D30 /* MondoSwitchButtonCALayer.m */; };
-		7B0D7C4F15A3FDD900037D30 /* AZToggleView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B0D7C4D15A3FDD900037D30 /* AZToggleView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7B0D7C5015A3FDD900037D30 /* AZToggleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0D7C4E15A3FDD900037D30 /* AZToggleView.m */; };
 		7B0D7C5315A401A100037D30 /* AZToggle.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B0D7C5115A401A100037D30 /* AZToggle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B0D7C5515A409FC00037D30 /* AZToggle.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0D7C5215A401A100037D30 /* AZToggle.m */; };
 		7B137CF615A201C00088A630 /* linen.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B137CF415A201C00088A630 /* linen.png */; };
@@ -198,8 +196,6 @@
 		7B0D7C3A15A3F0BA00037D30 /* MondoSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MondoSwitch.m; sourceTree = "<group>"; };
 		7B0D7C3C15A3F0BA00037D30 /* MondoSwitchButtonCALayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MondoSwitchButtonCALayer.h; sourceTree = "<group>"; };
 		7B0D7C3D15A3F0BA00037D30 /* MondoSwitchButtonCALayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MondoSwitchButtonCALayer.m; sourceTree = "<group>"; };
-		7B0D7C4D15A3FDD900037D30 /* AZToggleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZToggleView.h; sourceTree = "<group>"; };
-		7B0D7C4E15A3FDD900037D30 /* AZToggleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZToggleView.m; sourceTree = "<group>"; };
 		7B0D7C5115A401A100037D30 /* AZToggle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZToggle.h; sourceTree = "<group>"; };
 		7B0D7C5215A401A100037D30 /* AZToggle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZToggle.m; sourceTree = "<group>"; };
 		7B137CF415A201C00088A630 /* linen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = linen.png; sourceTree = "<group>"; };
@@ -390,8 +386,6 @@
 				7B96424115C15818001A0B0F /* NSWindow_Flipr.h */,
 				7B96424215C15818001A0B0F /* NSWindow_Flipr.m */,
 				7BE6068915A00B8800355236 /* Utility */,
-				7B0D7C4D15A3FDD900037D30 /* AZToggleView.h */,
-				7B0D7C4E15A3FDD900037D30 /* AZToggleView.m */,
 				7B091A2E15A8448E00821FFD /* AZHoverButton.h */,
 				7B091A2F15A8448E00821FFD /* AZHoverButton.m */,
 				7B091A3C15A850E500821FFD /* AZButton.h */,
@@ -721,7 +715,6 @@
 				7B0D7C3F15A3F0BA00037D30 /* MondoSwitch.h in Headers */,
 				7BDDD5E415A3792600A5C222 /* AZStopwatch.h in Headers */,
 				7B0D7C2115A3D2C400037D30 /* AZBoxGrid.h in Headers */,
-				7B0D7C4F15A3FDD900037D30 /* AZToggleView.h in Headers */,
 				7B0D7C4215A3F0BA00037D30 /* MondoSwitchButtonCALayer.h in Headers */,
 				7B0D7C5315A401A100037D30 /* AZToggle.h in Headers */,
 				7B3422A315A52A61006AC46C /* BaseModel.h in Headers */,
@@ -965,7 +958,6 @@
 				7B0D7C2315A3D2CB00037D30 /* AZBoxGrid.m in Sources */,
 				7B0D7C4015A3F0BA00037D30 /* MondoSwitch.m in Sources */,
 				7B0D7C4315A3F0BA00037D30 /* MondoSwitchButtonCALayer.m in Sources */,
-				7B0D7C5015A3FDD900037D30 /* AZToggleView.m in Sources */,
 				7B0D7C5515A409FC00037D30 /* AZToggle.m in Sources */,
 				7B3422A415A52A61006AC46C /* BaseModel.m in Sources */,
 				7B3422CB15A5EF03006AC46C /* AZDockQuery.m in Sources */,

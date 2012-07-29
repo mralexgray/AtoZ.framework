@@ -71,6 +71,15 @@ NSString *const AtoZDockSortedUpdated = @"AtoZDockSortedUpdated";
 }
 + (AtoZ*) sharedInstance { return [super sharedInstance]; }
 + (NSArray*) dock { return [super sharedInstance].dock; }
++ (NSMutableArray*) dockSorted {
+	return  [[[[super sharedInstance].dock sortedWithKey:@"hue" ascending:YES] reversed] arrayUsingIndexedBlock:^id(id obj, NSUInteger idx) {
+		AZFile* app = obj;
+		app.spotNew = idx;
+		app.dockPointNew = [[[[super sharedInstance].dock objectAtIndex:app.spotNew] valueForKey:@"dockPoint"]pointValue];
+		return app;
+	}].mutableCopy;
+}
+/*
 + (NSArray*) dockSorted {
 	[AZStopwatch start:@"dockSorted"];
 
@@ -106,7 +115,7 @@ NSString *const AtoZDockSortedUpdated = @"AtoZDockSortedUpdated";
 	// where you would call a delegate method (e.g. [self.delegate doSomething])
 	// object:nil userInfo:nil]; /* dictionary containing variables to pass to the delegate */
 //	return [AtoZ sharedInstance ].dockSorted;
-}
+//}
 
 + (NSArray*) appFolderSorted {
 	if (! [AtoZ sharedInstance].appFolderSorted )

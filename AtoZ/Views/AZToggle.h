@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import <QuartzCore/QuartzCore.h>
 #import "AtoZ.h"
-#import "AZToggleView.h"
+//#import "AZToggleView.h"
 /** Implements iPhone-like Core Animation toggle layer.
  
  The client can change the texts and toggle state. There's also a helper method that
@@ -33,7 +33,7 @@
 
 //@interface AZToggle : NSView
 
-@interface GBToggleLayer : CALayer
+@interface AZToggleLayer : CALayer
 {
 	CALayer* thumbLayer;
 	CALayer* onBackLayer;
@@ -57,4 +57,31 @@
 /** Off state text.  @see onStateText;  */
 @property (copy) NSString* offStateText;
 @end
+
+
+/** The view that serves as Core Animation host.
+
+ The user interface is composed using Core Animation layers using the following structure:
+
+ @verbatim
+ CALayer (root)
+ |
+ +--> CALayer (container)
+ |
+ +--> CALayer ("item name")
+ |
+ +--> CATextLayer (name)
+ +--> ToggleLayer (toggle)
+ @endverbatim
+
+ The view also responds to user's interaction (only mouse is handled in this example) and updates the toggle status when the layer is clicked.   */
+
+@interface AZToggleView : NSView {
+
+	NSString	* font;
+	CALayer		* containerLayer;
+	CALayer		* rootLayer;
+}
+@end
+
 

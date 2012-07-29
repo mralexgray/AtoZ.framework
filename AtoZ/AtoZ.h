@@ -45,7 +45,7 @@
 #import "AZSugar.h"
 #import "MondoSwitch.h"
 #import "AZToggle.h"
-#import "AZToggleView.h"
+//#import "AZToggleView.h"
 
 //Classes
 
@@ -179,7 +179,7 @@ extern NSString *const AtoZDockSortedUpdated;
 @interface AtoZ : BaseModel
 + (AtoZ*) sharedInstance;
 + (NSArray*) dock;
-- (NSArray*) dockSorted;
+//- (NSArray*) dockSorted;
 + (NSArray*) dockSorted;
 + (NSArray*) fengshui;
 + (NSArray*) runningApps;

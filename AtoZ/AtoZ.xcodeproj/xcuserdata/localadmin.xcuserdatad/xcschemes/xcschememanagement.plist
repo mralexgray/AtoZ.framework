@@ -9,11 +9,6 @@
 			<key>orderHint</key>
 			<integer>3</integer>
 		</dict>
-		<key>AtoZ.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>2</integer>
-		</dict>
 		<key>AtoZCLI.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
