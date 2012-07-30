@@ -426,11 +426,12 @@ return midpoint;
 
 - (void)slideDown {
 	//	if ([[self contentView] isHidden]) [[self main] setHidden:YES];
-    NSRect firstViewFrame = [self frame];
+    NSRect firstViewFrame = [[self contentView] frame];
 	NSRect screen =  [[NSScreen mainScreen]frame];
-	firstViewFrame.origin.y = screen.size.height;// + 22;
+	firstViewFrame.origin.y = screen.size.height - 22;
+	firstViewFrame.origin.x = 0;
 	NSRect destinationRect = firstViewFrame;
-	destinationRect.origin.y -= self.frame.size.height - 22;// + 22;
+	destinationRect.origin.y -= firstViewFrame.size.height;
 	NSViewAnimation *theAnim = [[NSViewAnimation alloc] initWithViewAnimations: $array($map(
 		self, NSViewAnimationTargetKey,
 		[NSValue valueWithRect:firstViewFrame], NSViewAnimationStartFrameKey,
@@ -455,10 +456,10 @@ return midpoint;
 }
 
 - (void)slideUp {
-//	[self makeKeyAndOrderFront:self];
-    NSRect firstViewFrame = [self frame];
+
+    NSRect firstViewFrame = [[self contentView] frame];
 	NSRect newViewFrame = firstViewFrame;
-    newViewFrame.origin.y = [[NSScreen mainScreen]frame].size.height+ 22;//= self.frame.size.height;
+    newViewFrame.origin.y = [[NSScreen mainScreen]frame].size.height - 22;
 	NSViewAnimation *theAnim = [[NSViewAnimation alloc] initWithViewAnimations: $array($map(
 		self, NSViewAnimationTargetKey,
 		[NSValue valueWithRect:firstViewFrame], NSViewAnimationStartFrameKey,

@@ -18,10 +18,10 @@ static void DrawLabelAtCenterPoint(NSString* string, NSPoint center) {
 {
 	NSTrackingArea *tArea;		NSBezierPath *standard;
  	float mPhase;  				float all;
-	NSGradient *gradient;		NSTextView *tv;			NSTimer *timer;
+	NSTextView *tv;			NSTimer *timer;
 	NSButton *close;
 	NSImage *image;
-
+	NSColor *color;
 }
 @synthesize cellIdentifier, dynamicStroke, index;
 @synthesize inset = inset_,
@@ -48,8 +48,9 @@ static void DrawLabelAtCenterPoint(NSString* string, NSPoint center) {
 	self.hovered = NO;
 	self.selected = NO;
 //	self.representedObject = nil;
-	gradient = nil;
+//	gradient = nil;
 	all = 0;
+	color = PURPLE;
 	mPhase = 0;
 	[self dynamicStuff];
 }
@@ -75,8 +76,8 @@ static void DrawLabelAtCenterPoint(NSString* string, NSPoint center) {
 	representedObject_ = representedObject;
 	if ( [representedObject_ isKindOfClass:[AZFile class]] ){
 		AZFile *c = representedObject_;
-		gradient = [[NSGradient alloc] initWithStartingColor:c.color.brighter.brighter endingColor:c.color.darker.darker];
-		
+//		gradient = [[NSGradient alloc] initWithStartingColor:c.color.brighter.brighter endingColor:c.color.darker.darker];
+		color = c.color;
 		image = [ c.image coloredWithColor:c.color.contrastingForegroundColor];
 		
 		//		NSImage *ci =  (selected_ ? [ c.image tintedWithColor:c.color] : c.image);
@@ -146,18 +147,18 @@ static void DrawLabelAtCenterPoint(NSString* string, NSPoint center) {
 	//        NSGradient *outerGradient = [[NSGradient alloc] initWithColorsAndLocations: [NSColor colorWithDeviceWhite:0.20f alpha:1.0f], 0.0f,  [NSColor colorWithDeviceWhite:0.21f alpha:1.0f], 1.0f,  nil];
 	//        [outerGradient drawInRect:[outerClip bounds] angle:90.0f]; }
 	standard = [self pathWithInset:self.inset];
-	if ( standard ) {
-	[standard setLineWidth:0];
-	if (gradient) {
+//	if ( standard ) {
+//	[standard setLineWidth:0];
+//	if (gradient) {
 //		[CLEAR set];
 		[NSShadow setShadowWithOffset:NSMakeSize(3,-3) blurRadius:self.inset color:BLACK];
 		[standard stroke];
 		[NSShadow clearShadow];
 //		NSRectFill(NSInsetRect(self.bounds,inset_, inset_));
-		[gradient drawInBezierPath:standard angle:270];
+//		[gradient drawInBezierPath:standard angle:270];
 
 
-	}
+//	}
 	if ( [representedObject_ isKindOfClass:[AZFile class]] ){
 		AZFile *c = representedObject_;
 
@@ -187,9 +188,9 @@ static void DrawLabelAtCenterPoint(NSString* string, NSPoint center) {
 //		[standard setClip];
 //		[[BLACK colorWithAlphaComponent:.3] set];
 //		NSRectFillUsingOperation([self bounds], NSCompositePlusDarker);
-		[standard fillGradientFrom:[BLACK colorWithAlphaComponent:.5] to:[BLACK colorWithAlphaComponent:.1] angle:90];
+		[standard fillGradientFrom: RANDOMCOLOR to:RANDOMCOLOR angle:270];
 //		NSRectFillUsingOperation([self bounds], NSCompositeSourceOver);
-	if(self.selected) // && drawSelection)
+	else if(selected_) // && drawSelection)
 	{
 		[standard setLineWidth:self.dynamicStroke/2];
 //		[standard setLineJoinStyle:NSBevelLineJoinStyle];
@@ -206,6 +207,11 @@ static void DrawLabelAtCenterPoint(NSString* string, NSPoint center) {
 
 		DrawLabelAtCenterPoint([representedObject_ valueForKey:@"name"], NSMakePoint(NSMidX(self.bounds),NSMidY(self.bounds)));
 	}
+	else {
+	if (!color) color = RANDOMCOLOR;
+		[color set];
+		[standard setClip];
+		NSRectFill(NSZeroRect);
 	}
 //	[NSGraphicsContext restoreGraphicsState];
 	//	if (!tv) tv = self.tv; 	[self addSubview:tv]; }
@@ -222,6 +228,7 @@ static void DrawLabelAtCenterPoint(NSString* string, NSPoint center) {
 	[self setNeedsDisplay:YES];
 }
 - (void)setHovered:(BOOL)hovered	{
+//	NSLog(@"im that actual box..  my objectrep is:%@", representedObject_);
 	hovered_ = hovered;
 	[self setNeedsDisplay:YES];
 }
@@ -239,7 +246,7 @@ static void DrawLabelAtCenterPoint(NSString* string, NSPoint center) {
 }
 
 - (void)prepareForReuse {
-//    _selected = NO;
+    self.selected = NO;
 //    self.drawSelection = YES;
 //	hovered_ = NO;
 //    _image = nil;

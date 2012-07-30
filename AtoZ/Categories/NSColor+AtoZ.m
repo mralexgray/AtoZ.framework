@@ -21,6 +21,7 @@ typedef struct {
 
 
 
+
 //Convert hex to an int
 int hexToInt(char hex)
 {

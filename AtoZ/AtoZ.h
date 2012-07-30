@@ -285,3 +285,9 @@ extern NSString *const AtoZDockSortedUpdated;
 - (NSArray *) objects;
 @end
 
+//static void glossInterpolation(void *info, const float *input,
+//							   float *output);
+//void perceptualCausticColorForColor(float *inputComponents, float *outputComponents);
+extern void DrawGlossGradient(CGContextRef context, NSColor *color, NSRect inRect);
+
+

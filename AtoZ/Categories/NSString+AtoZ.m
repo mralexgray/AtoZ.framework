@@ -11,6 +11,8 @@
 #import "NSArray+AtoZ.h"
 #import "AtoZ.h"
 
+#import "RuntimeReporter.h"
+
 @implementation NSString (AtoZ)
 
 
@@ -68,15 +70,15 @@
     [self drawCenteredInRect:textBounds withFont:font];    
 }
 
-//- (void)drawCenteredInFrame:(id)frame withFont:(NSFont *)font {
-//	NSView *view = frame;
+- (void)drawCenteredInFrame:(NSRect)frame withFont:(NSString *)font {
+//	NSView *view = framer;
 //    NSSize size = view.frame.size;// WithFont:font;
-//    NSAttributedString *string = [NSAttributedString alloc] initWithString:self attributes:<#(NSDictionary *)#>
+//    NSAttributedString *string = [[NSAttributedString alloc] initWithString:self attributes:@{font:NSFontAttributeName} ];
 //    CGRect textBounds = CGRectMake(rect.origin.x + (rect.size.width - size.width) / 2,
 //                                   rect.origin.y + (rect.size.height - size.height) / 2,
 //                                   size.width, size.height);
-//    [self drawInRect:textBounds withFont:font];    
-//}
+    [self drawInRect:frame withAttributes:@{font:NSFontNameAttribute, @12:NSFontSizeAttribute}];
+}
 
 - (NSString *)trim {
 NSCharacterSet *cs = [NSCharacterSet whitespaceAndNewlineCharacterSet];
@@ -675,6 +677,51 @@ return re;
 	return self;
 }
 
+
+
+@end
+
+
+
+@implementation NSString (RuntimeReporting)
+
+- (BOOL) hasNoSubclasses { return ![self hasSubclasses]; }
+- (BOOL) hasSubclasses { return [[RuntimeReporter subclassNamesForClassNamed:self] count] ? YES : NO; }
+- (int) numberOfSubclasses { return [[RuntimeReporter subclassNamesForClassNamed:self] count]; }
+- (NSArray *) subclassNames { return [RuntimeReporter subclassNamesForClassNamed: self]; }
+
+- (NSArray *) methodNames // assumes the receiver contains a valid classname.
+{ 
+	return 
+	[[RuntimeReporter methodNamesForClassNamed:self]  
+	 sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+}
+
+- (NSArray *) ivarNames // assumes the receiver contains a valid classname.
+{ 
+	return 
+	[[RuntimeReporter iVarNamesForClassNamed:self] 
+	 sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+}
+
+- (NSArray *) propertyNames // assumes the receiver contains a valid classname.
+{ 
+	return 
+	[[RuntimeReporter propertyNamesForClassNamed:self]
+	 sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+}
+
+- (NSArray *) protocolNames // assumes the receiver contains a valid classname.
+{ 
+	return 
+	[[RuntimeReporter protocolNamesForClassNamed:self] 
+	 sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+}
+
+// KVC compliance stuff: This was needed for NSTreeController.  Not needed for the iPhone version.
+- (void) setSubclassNames:(NSArray *) names { NSLog(@"Can't set subclass names!"); }
+- (id) valueForUndefinedKey:(NSString *) key { return self; }
+- (void) setValue:(id)value forUndefinedKey:(NSString *)key { NSLog(@"unknown key:%@", key); }
 
 
 @end

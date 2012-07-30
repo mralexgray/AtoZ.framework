@@ -30,7 +30,7 @@
 {
 	[CLEAR set];
 	NSRectFill(dirtyRect);
-	NSBezierPath *p = [NSBezierPath bezierPathWithRoundedRect:[self bounds] cornerRadius:20 inCorners:OSBottomLeftCorner | OSBottomRightCorner];
+	NSBezierPath *p = [NSBezierPath bezierPathWithRoundedRect:AZMakeRectMaxXUnderMenuBarY(150) cornerRadius:20 inCorners:OSBottomLeftCorner | OSBottomRightCorner];
 	[p setClip];
 	[NSGraphicsContext saveGraphicsState];
 	NSGradient *gradient = [[NSGradient alloc]initWithStartingColor:[NSColor colorWithCalibratedWhite:0.506 alpha: 1.0] endingColor:[NSColor colorWithCalibratedWhite:0.376 alpha:1.0]];

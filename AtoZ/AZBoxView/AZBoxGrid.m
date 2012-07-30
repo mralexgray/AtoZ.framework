@@ -9,7 +9,7 @@
 
 @class MyScrollView;
 @interface AZBoxGrid  ()
-{
+{		
 //	__weak MyScrollView *scrollView;
 }// called when scroll view changed the size of content view
 - (void)updateScrollValues:(MyScrollView *)scrollView;
@@ -109,6 +109,12 @@
     BOOL delegateDoubleClick = [delegate respondsToSelector:@selector(collectionView:didDoubleClickedCellAtIndex:)];
     [selection enumerateIndexesUsingBlock:^(NSUInteger index, BOOL *stop) {
         AZBox *cell = [visibleCells objectForKey:[NSNumber numberWithUnsignedInteger:index]];
+		NSLog(@"about your selection: %@", cell.propertiesPlease);
+//		NSLog(@"parent: %@.  siblings:%@", cell.superview,[cell.superview subviews]);
+		[[NSApp delegate] setValue:$(@"%ld",cell.superview.subviews.count) forKey:@"activeViews"];
+		NSLog(@"%@", NSStringFromRange([(AZBoxGrid*)cell.superview visibleRange]));
+	NSLog(@"%@",[(AZBoxGrid*)cell.superview propertiesPlease]);
+
         [cell setSelected:YES];
         if(delegateSingleClick && ![oldSelection containsIndex:index]) {
 			[delegate collectionView:self didSelectCellAtIndex:index];
@@ -212,7 +218,7 @@
 		
         AZBox *cell = [queue lastObject];
         [queue removeLastObject];
-//        [cell prepareForReuse];
+        [cell prepareForReuse];
         return cell;
     }
     return nil;
@@ -311,7 +317,7 @@
 	[self removeInvisibleCells];
     [self addMissingCells];
 	[self updateLayout];
-//    [self setNeedsDisplay:YES];
+    [self setNeedsDisplay:YES];
 }
 - (NSRange)visibleRange {
 	NSRect rect = [self visibleRect];
@@ -382,16 +388,16 @@
 	cellSize = newCellSize;
     [self updateLayout];
 }
-//- (void)setDesiredNumberOfColumns:(NSUInteger)newDesiredNumberOfColumns {
+- (void)setDesiredNumberOfColumns:(NSUInteger)newDesiredNumberOfColumns {
 //	if (desiredNumberOfRows) desiredNumberOfRows = NSUIntegerMax;
-//	desiredNumberOfColumns = newDesiredNumberOfColumns;
-//    [self updateLayout];
-//}
-//- (void)setDesiredNumberOfRows:(NSUInteger)newDesiredNumberOfRows 		{
+	desiredNumberOfColumns = newDesiredNumberOfColumns;
+    [self updateLayout];
+}
+- (void)setDesiredNumberOfRows:(NSUInteger)newDesiredNumberOfRows 		{
 //	if (desiredNumberOfColumns) desiredNumberOfColumns = NSUIntegerMax;
-//	desiredNumberOfRows = newDesiredNumberOfRows;
-//    [self updateLayout];
-//}
+	desiredNumberOfRows = newDesiredNumberOfRows;
+    [self updateLayout];
+}
 - (void)beginChanges 		{
 	if(updatingData)
         return;
@@ -444,7 +450,8 @@
 }
 - (id)initWithFrame:(NSRect)frame 		{
 	if((self = [super initWithFrame:frame])) {
-		
+		if ([self enclosingScrollView])
+			[[[self enclosingScrollView] contentView] setPostsBoundsChangedNotifications:YES];
         [self setupCollectionView];
     }
     return self;
@@ -508,7 +515,8 @@
 	[self hoverOverCellAtIndex:index];
 	
 	float x  = NSMidX([self bounds]) - mousePoint.x;
-	NSLog(@"x pos: %f", x);
+//  this will log ALL mouse movements.. annoying
+//	NSLog(@"x pos: %f", x);
 }
 - (void)mouseExited:(NSEvent *)theEvent {
 	[self hoverOutOfLastCell];

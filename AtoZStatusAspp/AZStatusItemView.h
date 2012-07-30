@@ -23,6 +23,8 @@
 }
 
 @property (assign)  BOOL clicked;
+@property (nonatomic, retain) AZFile *file;
+
 /*** The delegate of the collection view.  **/
 @property (nonatomic, unsafe_unretained) IBOutlet id <AZStatusItemDelegate> delegate;
 

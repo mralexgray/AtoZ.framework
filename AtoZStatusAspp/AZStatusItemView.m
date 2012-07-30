@@ -46,17 +46,23 @@
 
 - (void)drawRect:(NSRect)rect {
 
-	[RED set];
-	[[NSBezierPath  bezierPathWithOvalInRect: AZMakeSquare([self center], NSMaxY([self bounds])*.8)] fill];
+//	[self.color set];
+//	[[NSBezierPath  bezierPathWithOvalInRect: AZMakeSquare([self center], NSMaxY([self bounds])*.8)] fill];
     // Draw background if appropriate.
-    if (_clicked) {
-		NSColor *rando = [[RANDOMCOLOR colorWithAlphaComponent:.5]darker];
+	NSColor *now = (self.file ? self.file.color : GREY );
+	if (!_clicked) {
+		NSBezierPath *frame = [NSBezierPath bezierPathWithRect:[self frame]];
+		[frame fillGradientFrom:now to:now angle:270];
+	} else {
+		NSColor *rando = now.darker.darker;// [[RANDOMCOLOR colorWithAlphaComponent:.5]darker];
 		NSBezierPath *frame = [NSBezierPath bezierPathWithRect:[self frame]];
 		[frame fillGradientFrom:rando.brighter to:rando.darker angle:270];
 //        [[NSColor selectedMenuItemColor] set];
 //        NSRectFill(rect);
     }
-	[[[[[NSImage systemImages]randomElement]imageScaledToFitSize:AZScaleRect([self bounds], .6).size]coloredWithColor:WHITE]drawCenteredinRect:[self frame] operation:NSCompositeSourceOver fraction:1];
+//	[[[[[NSImage systemImages]randomElement]
+
+	[[[self.file.image imageScaledToFitSize:AZScaleRect([self bounds], .6).size]coloredWithColor:WHITE]drawCenteredinRect:[self frame] operation:NSCompositeSourceOver fraction:1];
 //	if (NO) {
 //		// Draw some text, just to show how it's done.
 //		NSString *text = @"3"; // whatever you want
@@ -93,6 +99,8 @@
 //    NSPoint pt = NSMakePoint(NSMidX(frame), NSMinY(frame));
 
     if (!_clicked) {
+		[[self menu]popUpMenuPositioningItem:[self menu] atLocation:[self center] inView:self];
+
 		[delegate statusView:self isActive:YES];
 //		[controller toggleAttachedWindowAtPoint:pt];
 		_clicked = YES;

@@ -13,10 +13,13 @@
 
 @interface AZStatusAppController : NSObject 
 <	NSApplicationDelegate,	NSWindowDelegate, 
-	AZBoxGridDataSource, 	AZStatusItemDelegate	> 	
+	AZBoxGridDataSource, 	AZBoxGridDataSource,
+	AZStatusItemDelegate	>
 {
 	AZBoxGrid *grid;
     NSStatusItem *statusItem;
+	NSMenu *menu;
+	
 	AZStatusItemView *statusView;
 	IBOutlet NSScrollView *scroller;
     IBOutlet NSView *rootView;
@@ -29,7 +32,11 @@
 @property (nonatomic, retain)  IBOutlet NSWindow *attachedWindow;
 @property (nonatomic, retain)  IBOutlet NSScrollView *scroller;
 
+@property (retain) NSRunningApplication *currentApp;
+
 - (void)statusView:(AZStatusItemView *)statusItem isActive:(BOOL)active;
 //- (void)toggleAttachedWindowAtPoint:(NSPoint)pt;
+
+@property (readonly) NSString *activeViews;
 
 @end

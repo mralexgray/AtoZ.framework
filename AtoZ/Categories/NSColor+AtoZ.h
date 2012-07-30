@@ -15,6 +15,8 @@
 //#import "AGFoundation.h"
 
 
+
+
 @interface NSColor (AtoZ)
 + (NSColor*) linen;
 + (NSColor*) linenTintedWithColor:(NSColor*)color;
@@ -35,7 +37,7 @@
 - (NSString*)	nameOfColor;
 //- (NSDictionary*) closestColor;  //name, list, and color
 
-+ (NSArray *)  colorLists; 
++ (NSArray *)  colorLists;
 + (NSArray *) fengshui;
 + (NSArray *) allColors;
 
@@ -153,33 +155,33 @@
  efa180 = .9372, .6313, .5019
  e5754f = .8980, .4588, .3098
  d51f00 = .8353, .1215, 0
- 
+
  a5d0dc = .6470, .8157, .8627
  7ab5c7 = .4784, .7098, .7804
  2787a4 = .1529, .5294, .6431
- 
+
  b3b7cf = .7019, .7176, .8117
  8c91b3 = .5490, .5686, .7019
  444c84 = .2666, .2980, .5176
- 
+
  a3d3bd = .6392, .8274, .7412
  77b999 = .4666, .7255, .6
  228d59 = .1333, .5529, .3490
- 
+
  c3d286 = .7647, .8235, .5255
  a1b755 = .6314, .7176, .3333
  668a00 = .4, .5412, 0
- 
+
  caabd3 = .7921, .6706, .8274
  ac81b9 = .6745, .5059, .7255
  78328d = .4706, .1961, .5529
- 
+
  ecca82 = .9255, .7921, .5098
  e0ab51 = .8784, .6706, .3176
  cd7700 = .8039, .4666, 0
  */
- 
- 
+
+
 
 #define K_L 1
 #define K_1 0.045f
@@ -233,7 +235,7 @@
 //
 //    convertedColor = [self colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
 //    [convertedColor getRed:&red green:&green blue:&blue alpha:NULL];
-//    
+//
 //    tempNum = (red * 255.0f);
 //    hexString[0] = intToHex(tempNum / 16);
 //    hexString[1] = intToHex(tempNum % 16);
@@ -246,7 +248,7 @@
 //    hexString[4] = intToHex(tempNum / 16);
 //    hexString[5] = intToHex(tempNum % 16);
 //    hexString[6] = '\0';
-//    
+//
 //    return [NSString stringWithUTF8String:hexString];
 //}
 //
@@ -267,7 +269,7 @@
 //			(int)([tempColor redComponent] * 255.0),
 //			(int)([tempColor greenComponent] * 255.0),
 //			(int)([tempColor blueComponent] * 255.0),
-//			(int)(alphaComponent * 255.0)];		
+//			(int)(alphaComponent * 255.0)];
 //	}
 //}
 //
@@ -297,7 +299,7 @@
 //    CGFloat	a = 255;
 //
 //	const char *selfUTF8 = [self UTF8String];
-//	
+//
 //	//format: r,g,b[,a]
 //	//all components are decimal numbers 0..255.
 //	if (!isdigit(*selfUTF8)) goto scanFailed;
@@ -334,7 +336,7 @@
 //  NSUInteger	r, g, b;
 //
 //	const char *selfUTF8 = [self UTF8String];
-//	
+//
 //	//format: r,g,b
 //	//all components are decimal numbers 0..255.
 //	if (!isdigit(*selfUTF8)) goto scanFailed;
@@ -421,9 +423,9 @@
 //	if (!str) return defaultColor;
 //
 //	NSUInteger strLength = [str length];
-//	
+//
 //	NSString *colorValue = str;
-//	
+//
 //	if ([str hasPrefix:@"rgb"]) {
 //		NSUInteger leftParIndex = [colorValue rangeOfString:@"("].location;
 //		NSUInteger rightParIndex = [colorValue rangeOfString:@")"].location;
@@ -448,7 +450,7 @@
 //			alpha = [[colorComponents objectAtIndex:3] floatValue];
 //		return [NSColor colorWithCalibratedRed:red green:green blue:blue alpha:alpha];
 //	}
-//	
+//
 //	if ((!strLength) || ([str characterAtIndex:0] != '#')) {
 //		//look it up; it's a colour name
 //		NSDictionary *colorValues = [self colorNamesDictionary];
@@ -502,7 +504,7 @@
 //	//	c = x / 0xf
 //
 //	char firstChar, secondChar;
-//	
+//
 //	firstChar = *(hexString++);
 //	secondChar = (isLong ? *(hexString++) : 0x0);
 //	red = hexCharsToFloat(firstChar, secondChar);

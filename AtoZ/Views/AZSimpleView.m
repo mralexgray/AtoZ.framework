@@ -7,13 +7,16 @@
 //
 
 #import "AZSimpleView.h"
+#import "AtoZ.h"
 
 @implementation AZSimpleView
+@synthesize glossy, backgroundColor, checkerboard, gradient;
 
 - (id)initWithFrame:(NSRect)frame
 {
  	if (self = [super initWithFrame:frame]) {
 		[self setBackgroundColor:[NSColor blueColor]];
+		glossy = NO;
 	}
 	return self;
 }
@@ -35,8 +38,17 @@
 
 
 - (void)drawRect:(NSRect)rect {
-    [[self backgroundColor] set];
-    NSRectFill(rect);
+
+	if (glossy)
+		DrawGlossGradient([[NSGraphicsContext currentContext]graphicsPort],self.backgroundColor, [self bounds]);
+	else if (gradient) {
+		NSBezierPath *p =[NSBezierPath bezierPathWithRect: [self bounds]];// cornerRadius:0];
+		[p fillGradientFrom:backgroundColor.darker.darker.darker to:backgroundColor.brighter.brighter angle:270];
+	}
+	else {
+ 	    [(checkerboard ? [NSColor checkerboardWithFirstColor:backgroundColor secondColor:backgroundColor.contrastingForegroundColor squareWidth:10] : [self backgroundColor]) set];
+    	NSRectFill(rect);
+	}
 }
 
 

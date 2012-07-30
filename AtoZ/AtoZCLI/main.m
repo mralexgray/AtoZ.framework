@@ -53,8 +53,8 @@ int main(int argc, const char * argv[])
 
 		AtoZCLI *c = [AtoZCLI new];
 		NSArray *a = [[NSNumber numberWithInt:9] to:[NSNumber numberWithInt: 33]];
-		NSLog(@"%@", a);
-
+//		NSLog(@"%@", a);
+		NSLog(@"%@", @(ceil(103.0/10.0)));
 //		[c sizer];
 //		[c listAppsPrivately];	
 //		AZSimpleView *u = [[AZSimpleView alloc]initWithFrame:NSZeroRect];

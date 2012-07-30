@@ -1,34 +1,11 @@
-//
-//  AZInfiniteCell.m
-//  AtoZ
-//
-//  Created by Alex Gray on 7/28/12.
-//  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-//
-
 #import "AZInfiniteCell.h"
-
 @interface AZInfiniteCell ()
 @property (nonatomic, strong) NSAttributedString *string;
 @property (nonatomic, strong) NSTrackingArea *tArea;
-//@property (nonatomic, strong) AZTextView *atv;
 @end
-
-
 @implementation AZInfiniteCell
-@synthesize backgroundColor, selected, string, uniqueID, image, hasText, tArea, file, hovered;//, itunesApi, itunesResults, hovered;//windy;
+@synthesize backgroundColor, selected, string, uniqueID, image, hasText, tArea, file, hovered;
 
-
-
-
-//- (void) iTunesApi:(AJSiTunesAPI *)api didCompleteWithResults:(NSArray *)results {
-//	if ([api isEqualTo: self.itunesApi]) {
-//		[results enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-//			NSLog(@"extra, extra: %@", [obj propertiesPlease] );
-//		}];
-//	} else NSLog(@"Yes I delegate, but not me, this time");
-//
-//}
 
 
 
@@ -185,20 +162,23 @@
 	self.hovered = NO;
 	//	AZTalker *f = [[AZTalker alloc]init];
 	//	[f say:$(@"%@", self.file.name)];
-
 	//	id aView = self.superview;
 	//	while (! [ aView isKindOfClass:[AZInfiniteScrollView class]])
 	//		aView = [aView superview];
 	//	[(AZInfiniteScrollView*)aView stack];
-
 	//	self.windy = nil;
-
 }
-
-
 
 - (void) mouseDown:(NSEvent *)theEvent {
 	self.selected =! selected;
 }
 
 @end
+//- (void) iTunesApi:(AJSiTunesAPI *)api didCompleteWithResults:(NSArray *)results {
+//	if ([api isEqualTo: self.itunesApi]) {
+//		[results enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+//			NSLog(@"extra, extra: %@", [obj propertiesPlease] );
+//		}];
+//	} else NSLog(@"Yes I delegate, but not me, this time");
+//
+//}

@@ -20,10 +20,11 @@
 		7B0D7C4815A3F88C00037D30 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B0D7C4715A3F88C00037D30 /* Quartz.framework */; };
 		7B24E96D15A11C6200A9D87A /* AZStatusAppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B24E96C15A11C6200A9D87A /* AZStatusAppController.m */; };
 		7B24E97215A11F4600A9D87A /* AZStatusItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B24E97115A11F4600A9D87A /* AZStatusItemView.m */; };
+		7B66CE5815C5E29100ADDFE6 /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B66CE4F15C5B1AD00ADDFE6 /* AtoZ.framework */; };
+		7B66CE5915C5E29700ADDFE6 /* AtoZ.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7B66CE4F15C5B1AD00ADDFE6 /* AtoZ.framework */; };
 		7B78529015ACE326008BAD3C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B0D7C4515A3F6C800037D30 /* QuartzCore.framework */; };
 		7B78529115ACE32B008BAD3C /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B0D7C4715A3F88C00037D30 /* Quartz.framework */; };
 		7B78529215ACE333008BAD3C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BE606D215A117D100355236 /* Foundation.framework */; };
-		7B92137015C56A9900862F9D /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B24E9B315A1486D00A9D87A /* AtoZ.framework */; };
 		7BBD980D15AF463200943FC1 /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B24E9B315A1486D00A9D87A /* AtoZ.framework */; };
 		7BE606CE15A117D100355236 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BE606CD15A117D100355236 /* Cocoa.framework */; };
 		7BE606D815A117D200355236 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7BE606D615A117D200355236 /* InfoPlist.strings */; };
@@ -61,7 +62,7 @@
 			remoteGlobalIDString = 7B7852A515ACECD2008BAD3C;
 			remoteInfo = AZLayerTest;
 		};
-		7B66CE5615C5B1B300ADDFE6 /* PBXContainerItemProxy */ = {
+		7B66CE5A15C5E2D800ADDFE6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7B66CE4715C5B1AC00ADDFE6 /* AtoZ.xcodeproj */;
 			proxyType = 1;
@@ -77,6 +78,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				7B66CE5915C5E29700ADDFE6 /* AtoZ.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,7 +143,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7B92137015C56A9900862F9D /* AtoZ.framework in Frameworks */,
+				7B66CE5815C5E29100ADDFE6 /* AtoZ.framework in Frameworks */,
 				7B0D7C4815A3F88C00037D30 /* Quartz.framework in Frameworks */,
 				7B0D7C4615A3F6C800037D30 /* QuartzCore.framework in Frameworks */,
 				7BE606CE15A117D100355236 /* Cocoa.framework in Frameworks */,
@@ -294,7 +296,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				7B66CE5715C5B1B300ADDFE6 /* PBXTargetDependency */,
+				7B66CE5B15C5E2D800ADDFE6 /* PBXTargetDependency */,
 			);
 			name = AtoZStatusApp;
 			productName = AtoZStatusAspp;
@@ -413,10 +415,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		7B66CE5715C5B1B300ADDFE6 /* PBXTargetDependency */ = {
+		7B66CE5B15C5E2D800ADDFE6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = AtoZ;
-			targetProxy = 7B66CE5615C5B1B300ADDFE6 /* PBXContainerItemProxy */;
+			targetProxy = 7B66CE5A15C5E2D800ADDFE6 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -552,10 +554,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AtoZStatusApp/AtoZStatusApp-Prefix.pch";
 				INFOPLIST_FILE = "AtoZStatusApp/AtoZStatusApp-Info.plist";
 				PRODUCT_NAME = AtoZStatusApp;
+				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -564,10 +568,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AtoZStatusApp/AtoZStatusApp-Prefix.pch";
 				INFOPLIST_FILE = "AtoZStatusApp/AtoZStatusApp-Info.plist";
 				PRODUCT_NAME = AtoZStatusApp;
+				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

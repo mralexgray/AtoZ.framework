@@ -12,7 +12,7 @@
 
 //@property (readonly) NSColor *colorValue;
 
-- (void)drawCenteredInRect:(CGRect)rect withFont:(NSFont *)font;
+- (void)drawCenteredInRect:(NSRect)rect withFont:(NSString *)font;
 /*** Returns the string cleaned from leading and trailing whitespaces */
 @property (readonly) NSString *trim;
 
@@ -161,5 +161,17 @@ NSString*   StringByTruncatingStringWithAttributesForWidth( NSString* s,
 - (NSMutableString *)underscorize;
 - (NSMutableString *)replaceAll:(NSString *)needle 
                      withString:(NSString *)replacement;
+
+@end
+
+
+@interface NSString (RuntimeReporting)
+
+- (BOOL) hasSubclasses;
+- (NSArray *) subclassNames;
+- (NSArray *) methodNames;
+- (NSArray *) ivarNames;
+- (NSArray *) propertyNames;
+- (NSArray *) protocolNames;
 
 @end

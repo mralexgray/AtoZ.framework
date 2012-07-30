@@ -97,7 +97,7 @@
 	AZToggleLayer* result = [AZToggleLayer layer];
 	result.name = @"toggle";
 	result.toggleState = state;
-	if (relative)
+	if (0) // (relative)
 		[result addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMinX
 														 relativeTo:relative
 														  attribute:kCAConstraintMaxX
@@ -108,14 +108,17 @@
 	if (onText) result.onStateText = onText;
 	if (offText) result.offStateText = offText;
 
-	CGFloat onwide = [onText sizeWithAttributes:$map( [NSFont fontWithName:@"Ubuntu Mono Bold" size:20], NSFontAttributeName)].width;
-	CGFloat offwide = [offText sizeWithAttributes:$map( [NSFont fontWithName:@"Ubuntu Mono Bold" size:20], NSFontAttributeName)].width;
-	CGFloat longwide = (onwide > offwide ? onwide :offwide );
+	CGFloat onwide = [onText sizeWithAttributes:$map( [NSFont fontWithName:@"Ubuntu Mono Bold" size:12], NSFontAttributeName)].width;
+	CGFloat offwide = [offText sizeWithAttributes:$map( [NSFont fontWithName:@"Ubuntu Mono Bold" size:12], NSFontAttributeName)].width;
+	CGFloat longwide = MAX(onwide, offwide);
 	//	offTextLayer.fontSize = 20;  // [NSFont smallSystemFontSize];
 	//					   offTextLayer.font =(__bridge CFStringRef) ;
 
-	[result setValue:[NSNumber numberWithFloat:longwide/*70.0f*/] forKeyPath:@"frame.size.width"];
-	[result setValue:[NSNumber numberWithFloat:25.0f] forKeyPath:@"frame.size.height"];
+//	[result setValue:[NSNumber numberWithFloat:[self frame].size.width] //longwide/*70.0f*/]
+
+//		forKeyPath:@"frame.size.width"];
+//	[result setValue:[NSNumber numberWithFloat:25.0f] forKeyPath:@"frame.size.height"];
+   [result setValue:[NSValue valueWithSize:[self frame].size ] forKeyPath:@"frame.size"];
 	return result;
 }
 
@@ -126,11 +129,11 @@
 	result.name = @"text";
 	result.string = name;
 	//	result.foregroundColor = CGColorCreateGenericRGB(0.0f, 0.0f, 0.0f, 1.0f);
-	result.fontSize = 22;//[NSFont systemFontSize];
+	result.fontSize = [NSFont systemFontSize];
 	result.foregroundColor = cgWHITE;
 	//	result.font = [NSFont s*ystemFontOfSize:result.fontSize];
 	result.font =(__bridge CFStringRef) @"Ubuntu Mono Bold";
-	CGSize onwide = [name sizeWithAttributes:$map( [NSFont fontWithName:@"Ubuntu Mono Bold" size:22], NSFontAttributeName)];
+	CGSize onwide = [name sizeWithAttributes:$map( [NSFont fontWithName:@"Ubuntu Mono Bold" size:12], NSFontAttributeName)];
 	result.bounds = AZMakeRectFromSize(onwide);
 	result.alignmentMode = kCAAlignmentLeft;
 	result.truncationMode = kCATruncationEnd;
@@ -214,9 +217,9 @@
 	// This is a bit of fast hacking; it would be better to use array of item names or similar.
 	// Or in a real-world situation, the layers would be added by binding to a data source
 	// and responding to changes.
-	[containerLayer addSublayer:[self itemLayerWithName:@"Settings" relativeTo:@"superlayer" index:0]];
-	[containerLayer addSublayer:[self itemLayerWithName:@"Colors" relativeTo:@"superlayer" onText:@"HORIZONTAL" offText:@"POOP" state:NO index:1]];
-	[containerLayer addSublayer:[self itemLayerWithName:@"Hanky" relativeTo:@"Colors" onText:@"VAGEEN" offText:@"VILLAREAL" state:NO index:2]];
+//	[containerLayer addSublayer:[self itemLayerWithName:@"Settings" relativeTo:@"superlayer" index:0]];
+	[containerLayer addSublayer:[self itemLayerWithName:@"Colors" relativeTo:@"superlayer" onText:@"HORIZONTAL" offText:@"POOP" state:NO index:0]];
+//	[containerLayer addSublayer:[self itemLayerWithName:@"Hanky" relativeTo:@"Colors" onText:@"VAGEEN" offText:@"VILLAREAL" state:NO index:2]];
 	//	[containerLayer addSublayer:[self itemLayerWithName:@"Click these 'buttons' to change state ->"
 	//											 relativeTo:@"Item 2"
 	//												 onText:@"HORIZONTAL"
