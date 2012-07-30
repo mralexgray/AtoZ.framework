@@ -31,5 +31,6 @@
 //@property (nonatomic, retain) NSProgressIndicator *indicator;
 
 //- (id)initWithFrame:(NSRect)frame controller:(AZStatusAppController *)ctrlr;
+@property (retain) NSRunningApplication *currentApp;
 
 @end

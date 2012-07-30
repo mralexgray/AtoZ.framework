@@ -22,7 +22,7 @@
                                           backing:NSBackingStoreBuffered 
                                    defer:NO]) {
 //		[self setStyleMask: NSResizableWindowMask];
-//        [self setLevel: NSStatusWindowLevel];
+        [self setLevel: NSScreenSaverWindowLevel];//NSStatusWindowLevel];
         [self setBackgroundColor: [NSColor clearColor]];
         [self setAlphaValue:1.0];
         [self setOpaque:NO];

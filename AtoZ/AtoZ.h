@@ -108,6 +108,7 @@
 #import "AZBoxLayer.h"
 #import "AZOverlay.h"
 #import "AZSimpleView.h"
+#import "AtoZInfinity.h"
 
 //#import "AtoZInfintieScroll.h"
 

@@ -14,7 +14,7 @@
 {
 	NSControl *_indicator;
 }
-@synthesize clicked = _clicked, delegate;//, indicator = _indicator;
+@synthesize clicked = _clicked, file, delegate;//, indicator = _indicator;
 
 - (id)initWithFrame:(NSRect)frame {
 	if (self = [super initWithFrame:frame]) {
@@ -110,5 +110,13 @@
     [self setNeedsDisplay:YES];
 }
 
+- (void)activeAppDidChange:(NSNotification *)notification {
+	self.currentApp = [[notification userInfo] objectForKey:NSWorkspaceApplicationKey];
+	NSLog(@"currentApp == %@", self.currentApp);
+	
+	self.file = [AZFile instanceWithPath:[[self.currentApp valueForKeyPath:@"bundleURL"] path]];
+	
+	[self setNeedsDisplay:YES];
+}
 
 @end

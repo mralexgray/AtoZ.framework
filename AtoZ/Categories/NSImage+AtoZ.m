@@ -1282,7 +1282,7 @@ CGContextRef MyCreateBitmapContext (int pixelsWide, int pixelsHigh)
 - (BOOL)saveAs:(NSString *)path{	
 	NSBitmapImageRep *bmpImageRep = [[NSBitmapImageRep alloc] initWithData:[self TIFFRepresentation]];
 	NSData *data = [bmpImageRep representationUsingType:NSPNGFileType properties:nil];
-	return [data writeToFile:path atomically:NO];
+	return [data writeToFile:path atomically:YES];
 }
 
 - (NSImage *)scaleToFillSize:(NSSize)targetSize {
@@ -1740,5 +1740,194 @@ CGImageRef CopyImageAndAddAlphaChannel(CGImageRef sourceImage) {
 
 
 
+@end
+
+//
+//
+//#define LEOPARD 0x1050
+//#define TIGER   0x1040
+//
+//@implementation NSBitmapImageRep (GrabWindow)
+//
+//+ (NSBitmapImageRep *)bitmapRepWithScreenShotInRect:(NSRect)cocoaRect
+//{
+//    NSImage *image = [NSImage imageWithScreenShotInRect: cocoaRect];
+//    // convert it to a bitmap rep and return
+////	return [NSBitmapIm/ageRep bitmapRepFromNSImage:
+//	return [image bitmap];
+//}
+//
+//
+//@end
+//
+
+@implementation NSImage (GrabWindow)
+/*
++ (NSImage *) captureScreenImageWithFrame: (NSRect) frame
+{
+    // Fetch a graphics port of the screen
+
+    CGrafPtr screenPort = CreateNewPort ();
+    Rect screenRect;
+    GetPortBounds (screenPort, &screenRect);
+
+    // Make a temporary window as a receptacle
+
+    NSWindow *grabWindow = [[NSWindow alloc] initWithContentRect: frame
+													   styleMask: NSBorderlessWindowMask
+														 backing: NSBackingStoreRetained
+														   defer: NO
+														  screen: nil];
+    CGrafPtr windowPort = GetWindowPort ([grabWindow windowRef]);
+    Rect windowRect;
+    GetPortBounds (windowPort, &windowRect);
+    SetPort (windowPort);
+
+    // Copy the screen to the temporary window
+
+    CopyBits (GetPortBitMapForCopyBits(screenPort),
+              GetPortBitMapForCopyBits(windowPort),
+              &screenRect,
+              &windowRect,
+              srcCopy,
+              NULL);
+
+    // Get the contents of the temporary window into an NSImage
+
+    NSView *grabContentView = [grabWindow contentView];
+
+    [grabContentView lockFocus];
+    NSBitmapImageRep *screenRep;
+    screenRep = [[NSBitmapImageRep alloc] initWithFocusedViewRect: frame];
+    [grabContentView unlockFocus];
+
+    NSImage *screenImage = [[NSImage alloc] initWithSize: frame.size];
+    [screenImage addRepresentation: screenRep];
+
+    // Clean up
+    [grabWindow close];
+    DisposePort(screenPort);
+
+    return (screenImage);
+
+} // captureScreenImageWithFrame
+
++ (NSImage *)screenShotWithinRect:(NSRect)rect
+{
+	NSWindow *window = [[NSWindow alloc] initWithContentRect:rect styleMask:NSBorderlessWindowMask
+										   backing:NSBackingStoreNonretained defer:NO];
+	[window setBackgroundColor:[NSColor clearColor]];
+	[window setLevel:NSScreenSaverWindowLevel + 1];
+	[window setHasShadow:NO];
+	[window setAlphaValue:0.0];
+	[window orderFront:self];
+	[window setContentView:[[NSView alloc] initWithFrame:rect]];
+	[[window contentView] lockFocus];
+	NSBitmapImageRep *rep = [[NSBitmapImageRep alloc] initWithFocusedViewRect:[[window contentView] bounds]];
+	[[window contentView] unlockFocus];
+	[window orderOut:self];
+	[window close];
+
+	NSImage *image = [[ NSImage alloc] initWithData:[rep TIFFRepresentation]];
+//	[[ NSImage alloc] initWithSize:[rep size]];
+//	[image addRepresentation:rep];
+
+	return image;
+}
+*/
+/*
++ (NSImage*)imageWithBitmapRep: (NSBitmapImageRep*)rep {
+    NSImage *image = nil;
+    if(!rep) return image;
+
+    image = [[NSImage alloc] init];
+    [image addRepresentation: rep];
+
+    return image;// autorelease];
+}
+
++ (NSImage*)imageWithCGContextCaptureWindow: (int)wid {
+
+    // get window bounds
+    CGRect windowRect;
+    CGSGetWindowBounds(_CGSDefaultConnection(), wid, &windowRect);
+    windowRect.origin = CGPointZero;
+
+    // create an NSImage fo the window, cutting off the titlebar
+    NSImage *image = [[NSImage alloc] initWithSize: NSMakeSize(windowRect.size.width, windowRect.size.height - 22)];
+    [image lockFocus];  // lock focus on the image for drawing
+
+    // copy the contents of the window to the graphic context
+    CGContextCopyWindowCaptureContentsToRect([[NSGraphicsContext currentContext] graphicsPort],
+                                             windowRect,
+                                             _CGSDefaultConnection(),
+                                             wid,
+                                             0);
+    [image unlockFocus];
+    return image;// autorelease];
+}
+
++ (NSImage *)imageWithScreenShotInRect:(NSRect)cocoaRect {
+	PicHandle picHandle;
+	GDHandle mainDevice;
+	Rect rect;
+
+	// Convert NSRect to Rect
+	SetRect(&rect, NSMinX(cocoaRect), NSMinY(cocoaRect), NSMaxX(cocoaRect), NSMaxY(cocoaRect));
+
+	// Get the main screen. No multiple screen support here.
+	mainDevice = GetMainDevice();
+
+	// Capture the screen into the PicHandle.
+	picHandle = OpenPicture(&rect);
+	CopyBits((BitMap *)*(**mainDevice).gdPMap, (BitMap *)*(**mainDevice).gdPMap,
+			 &rect, &rect, srcCopy, 0l);
+	ClosePicture();
+
+	// Convert the PicHandle into an NSImage
+	// First lock the PicHandle so it doesn't move in memory while we copy
+	HLock((Handle)picHandle);
+
+	NSImageRep *pictImageRep = [NSPICTImageRep imageRepWithData:[NSData dataWithBytes:(*picHandle)
+																			   length:GetHandleSize((Handle)picHandle)]];
+	HUnlock((Handle)picHandle);
+
+	// We can release the PicHandle now that we're done with it
+	KillPicture(picHandle);
+
+	// Create an image with the PICT representation
+	NSImage *image = [[NSImage alloc] initWithSize: [pictImageRep size]];
+	[image addRepresentation: pictImageRep];
+    return image;// autorelease];
+}
+*/
+
+
++ (NSImage* ) imageBelowWindow: (NSWindow *) window {
+
+    // Get the CGWindowID of supplied window
+	CGWindowID windowID = [window windowNumber];
+
+	// Get window's rect in flipped screen coordinates
+	CGRect windowRect = NSRectToCGRect( [window frame] );
+	windowRect.origin.y = NSMaxY([[window screen] frame]) - NSMaxY([window frame]);
+
+	// Get a composite image of all the windows beneath your window
+	CGImageRef capturedImage = CGWindowListCreateImage( windowRect, kCGWindowListOptionOnScreenBelowWindow, windowID, kCGWindowImageDefault );
+
+	// The rest is as in the previous example...
+	if(CGImageGetWidth(capturedImage) <= 1) {
+		CGImageRelease(capturedImage);
+		return nil;
+	}
+
+	// Create a bitmap rep from the window and convert to NSImage...
+//	NSBitmapImageRep *bitmapRep = [[[NSBitmapImageRep] alloc] initWithCGImage: capturedImage];
+	NSImage *image = [NSImage imageFromCGImageRef:capturedImage ];// [NSImage]alloc] init];
+//	[image addRepresentation: bitmapRep];
+	CGImageRelease(capturedImage);
+
+	return image;
+}
 @end
 

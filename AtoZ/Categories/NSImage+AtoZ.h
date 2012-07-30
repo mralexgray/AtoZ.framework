@@ -150,3 +150,30 @@ typedef enum {
 -(NSColor *)averageColor;
 + (NSImage*)maskImage:(NSImage *)image withMask:(NSImage *)maskImage;
 @end
+
+
+
+
+@interface NSImage (GrabWindow)
+//+ (NSImage *) captureScreenImageWithFrame: (NSRect) frame;
+//
+//+ (NSImage *)screenShotWithinRect:(NSRect)rect;
+
+/*
+//+ (NSImage*)imageWithWindow:(int)wid;
+//+ (NSImage*)imageWithRect: (NSRect)rect inWindow:(int)wid;
++ (NSImage*)imageWithCGContextCaptureWindow: (int)wid;
++ (NSImage*)imageWithBitmapRep: (NSBitmapImageRep*)rep;
++ (NSImage *)imageWithScreenShotInRect:(NSRect)rect;
+@end
+
+@interface NSBitmapImageRep (GrabWindow)
+//+ (NSBitmapImageRep*)correctBitmap: (NSBitmapImageRep*)rep;
+//+ (NSBitmapImageRep*)bitmapRepFromNSImage:(NSImage*)image;
+//+ (NSBitmapImageRep*)bitmapRepWithWindow:(int)wid;
+//+ (NSBitmapImageRep*)bitmapRepWithRect: (NSRect)rect inWindow:(int)wid;
++ (NSBitmapImageRep*)bitmapRepWithScreenShotInRect:(NSRect)rect;
+*/
+
++ (NSImage* ) imageBelowWindow: (NSWindow *) window ;
+@end

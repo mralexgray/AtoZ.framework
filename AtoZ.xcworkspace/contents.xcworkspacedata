@@ -11,9 +11,12 @@
       location = "group:AtoZLayerGrid/AZLayerGrid/AZLayerGrid.xcodeproj">
    </FileRef>
    <FileRef
-      location = "container:AtoZ/AtoZ.xcodeproj">
+      location = "container:../git/AJS-iTunes-API/Framework/AtoZiTunes/AtoZiTunes.xcodeproj">
    </FileRef>
    <FileRef
-      location = "container:../git/AJS-iTunes-API/Framework/AtoZiTunes/AtoZiTunes.xcodeproj">
+      location = "group:../../../../Users/localadmin/Downloads/plausiblelabs-PLWeakCompatibility-d4b88c3/PLWeakCompatibility.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "container:AtoZ/AtoZ.xcodeproj">
    </FileRef>
 </Workspace>

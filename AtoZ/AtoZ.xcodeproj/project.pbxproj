@@ -109,7 +109,6 @@
 		7B8558E915B2CBAF0005F558 /* circle2.tif in Resources */ = {isa = PBXBuildFile; fileRef = 7B8558E815B2CBAF0005F558 /* circle2.tif */; };
 		7B92135C15C49B6600862F9D /* NSThread+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B92135A15C49B6600862F9D /* NSThread+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B92135D15C49B6600862F9D /* NSThread+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B92135B15C49B6600862F9D /* NSThread+AtoZ.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		7B92136015C4A03300862F9D /* AZInfiniteCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B92135E15C4A03300862F9D /* AZInfiniteCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B92136115C4A03300862F9D /* AZInfiniteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B92135F15C4A03300862F9D /* AZInfiniteCell.m */; };
 		7B92137415C56F4600862F9D /* AZSimpleView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B92137215C56F4600862F9D /* AZSimpleView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B92137515C56F4600862F9D /* AZSimpleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B92137315C56F4600862F9D /* AZSimpleView.m */; };
@@ -117,6 +116,13 @@
 		7B96424415C15818001A0B0F /* NSWindow_Flipr.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B96424215C15818001A0B0F /* NSWindow_Flipr.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7B9742A915C62F70006490DD /* RuntimeReporter.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B9742A715C62F70006490DD /* RuntimeReporter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B9742AA15C62F70006490DD /* RuntimeReporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B9742A815C62F70006490DD /* RuntimeReporter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7B9742AE15C68E7B006490DD /* AtoZInfinity.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B9742AC15C68E7A006490DD /* AtoZInfinity.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B9742AF15C68E7B006490DD /* AtoZInfinity.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B9742AD15C68E7A006490DD /* AtoZInfinity.m */; };
+		7B9742D015C697C4006490DD /* 1.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 7B9742CB15C697C4006490DD /* 1.pdf */; };
+		7B9742D115C697C4006490DD /* 2.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 7B9742CC15C697C4006490DD /* 2.pdf */; };
+		7B9742D215C697C4006490DD /* 3.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 7B9742CD15C697C4006490DD /* 3.pdf */; };
+		7B9742D315C697C4006490DD /* 4.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 7B9742CE15C697C4006490DD /* 4.pdf */; };
+		7B9742D415C697C4006490DD /* 5.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 7B9742CF15C697C4006490DD /* 5.pdf */; };
 		7BA845A115A6089A002402FE /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B311954159B6D9E002134C4 /* Cocoa.framework */; };
 		7BBD96EB15AD279900943FC1 /* AZSizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC859C415A8C0F400582632 /* AZSizer.m */; };
 		7BBD96EE15AD38F300943FC1 /* AZApplePrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BBD96EC15AD38F300943FC1 /* AZApplePrivate.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -139,6 +145,7 @@
 		7BC859C515A8C0F400582632 /* AZSizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BC859C315A8C0F400582632 /* AZSizer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BC859CA15A8C56700582632 /* NSNumber+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BC859C815A8C56700582632 /* NSNumber+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BC859CB15A8C56700582632 /* NSNumber+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC859C915A8C56700582632 /* NSNumber+AtoZ.m */; };
+		7BCDFC4915C6D8590003DA4D /* AZInfiniteCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B92135E15C4A03300862F9D /* AZInfiniteCell.h */; };
 		7BDDD5E415A3792600A5C222 /* AZStopwatch.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BDDD5E215A3792600A5C222 /* AZStopwatch.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BDDD5E515A3792600A5C222 /* AZStopwatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BDDD5E315A3792600A5C222 /* AZStopwatch.m */; };
 		7BE6069515A0E2DD00355236 /* NSString+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BE6069315A0E2DC00355236 /* NSString+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -297,7 +304,7 @@
 		7B8558E815B2CBAF0005F558 /* circle2.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = circle2.tif; sourceTree = "<group>"; };
 		7B92135A15C49B6600862F9D /* NSThread+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSThread+AtoZ.h"; sourceTree = "<group>"; };
 		7B92135B15C49B6600862F9D /* NSThread+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSThread+AtoZ.m"; sourceTree = "<group>"; };
-		7B92135E15C4A03300862F9D /* AZInfiniteCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZInfiniteCell.h; sourceTree = "<group>"; };
+		7B92135E15C4A03300862F9D /* AZInfiniteCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZInfiniteCell.h; path = Views/AZInfiniteCell.h; sourceTree = SOURCE_ROOT; };
 		7B92135F15C4A03300862F9D /* AZInfiniteCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZInfiniteCell.m; sourceTree = "<group>"; };
 		7B92137215C56F4600862F9D /* AZSimpleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZSimpleView.h; sourceTree = "<group>"; };
 		7B92137315C56F4600862F9D /* AZSimpleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZSimpleView.m; sourceTree = "<group>"; };
@@ -305,6 +312,13 @@
 		7B96424215C15818001A0B0F /* NSWindow_Flipr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSWindow_Flipr.m; sourceTree = "<group>"; };
 		7B9742A715C62F70006490DD /* RuntimeReporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RuntimeReporter.h; sourceTree = "<group>"; };
 		7B9742A815C62F70006490DD /* RuntimeReporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RuntimeReporter.m; sourceTree = "<group>"; };
+		7B9742AC15C68E7A006490DD /* AtoZInfinity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AtoZInfinity.h; sourceTree = "<group>"; };
+		7B9742AD15C68E7A006490DD /* AtoZInfinity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AtoZInfinity.m; sourceTree = "<group>"; };
+		7B9742CB15C697C4006490DD /* 1.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = 1.pdf; sourceTree = "<group>"; };
+		7B9742CC15C697C4006490DD /* 2.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = 2.pdf; sourceTree = "<group>"; };
+		7B9742CD15C697C4006490DD /* 3.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = 3.pdf; sourceTree = "<group>"; };
+		7B9742CE15C697C4006490DD /* 4.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = 4.pdf; sourceTree = "<group>"; };
+		7B9742CF15C697C4006490DD /* 5.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = 5.pdf; sourceTree = "<group>"; };
 		7BBD96EC15AD38F300943FC1 /* AZApplePrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZApplePrivate.h; sourceTree = "<group>"; };
 		7BBD96ED15AD38F300943FC1 /* AZApplePrivate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZApplePrivate.m; sourceTree = "<group>"; };
 		7BBD96F915AD529A00943FC1 /* AZOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZOverlay.h; path = AZLayerGrid/AZOverlay.h; sourceTree = SOURCE_ROOT; };
@@ -582,6 +596,11 @@
 		7B583064159BDAA50039CEED /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7B9742CB15C697C4006490DD /* 1.pdf */,
+				7B9742CC15C697C4006490DD /* 2.pdf */,
+				7B9742CD15C697C4006490DD /* 3.pdf */,
+				7B9742CE15C697C4006490DD /* 4.pdf */,
+				7B9742CF15C697C4006490DD /* 5.pdf */,
 				7B495F7715C076C7002DC694 /* RGB.clr */,
 				7B8558E815B2CBAF0005F558 /* circle2.tif */,
 				7B137CF415A201C00088A630 /* linen.png */,
@@ -597,6 +616,8 @@
 		7B6901BB159E0ADB00D0DA47 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				7B9742AC15C68E7A006490DD /* AtoZInfinity.h */,
+				7B9742AD15C68E7A006490DD /* AtoZInfinity.m */,
 				7B385DEC15C3B49E00A28686 /* AZFoamView.h */,
 				7B385DED15C3B49E00A28686 /* AZFoamView.m */,
 				7B7C27F915C32B39007DD569 /* RoundedView.h */,
@@ -745,9 +766,10 @@
 				7B385DEE15C3B49E00A28686 /* AZFoamView.h in Headers */,
 				7B728DF815C472D8004F6723 /* NSNotificationCenter+AtoZ.h in Headers */,
 				7B92135C15C49B6600862F9D /* NSThread+AtoZ.h in Headers */,
-				7B92136015C4A03300862F9D /* AZInfiniteCell.h in Headers */,
 				7B92137415C56F4600862F9D /* AZSimpleView.h in Headers */,
 				7B9742A915C62F70006490DD /* RuntimeReporter.h in Headers */,
+				7B9742AE15C68E7B006490DD /* AtoZInfinity.h in Headers */,
+				7BCDFC4915C6D8590003DA4D /* AZInfiniteCell.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -868,6 +890,11 @@
 				7B137CF715A201C00088A630 /* darklinen.png in Resources */,
 				7B8558E915B2CBAF0005F558 /* circle2.tif in Resources */,
 				7B495F7815C076C7002DC694 /* RGB.clr in Resources */,
+				7B9742D015C697C4006490DD /* 1.pdf in Resources */,
+				7B9742D115C697C4006490DD /* 2.pdf in Resources */,
+				7B9742D215C697C4006490DD /* 3.pdf in Resources */,
+				7B9742D315C697C4006490DD /* 4.pdf in Resources */,
+				7B9742D415C697C4006490DD /* 5.pdf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -991,6 +1018,7 @@
 				7B92136115C4A03300862F9D /* AZInfiniteCell.m in Sources */,
 				7B92137515C56F4600862F9D /* AZSimpleView.m in Sources */,
 				7B9742AA15C62F70006490DD /* RuntimeReporter.m in Sources */,
+				7B9742AF15C68E7B006490DD /* AtoZInfinity.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1120,12 +1148,12 @@
 				FRAMEWORK_VERSION = A;
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
-				GCC_ENABLE_CPP_RTTI = NO;
-				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
+				GCC_ENABLE_CPP_RTTI = YES;
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Resources/AtoZ-Prefix.pch";
-				GCC_SHORT_ENUMS = NO;
+				GCC_SHORT_ENUMS = YES;
 				HEADER_SEARCH_PATHS = (
 					"\"/Volumes/disenchanted 750/DerivedData/AtoZ-hfqteqfcvjfinlajqwkydsqyzpiz/Build/Products/Debug\"/**",
 				);
@@ -1138,6 +1166,7 @@
 				);
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Debug;
@@ -1158,12 +1187,12 @@
 				FRAMEWORK_VERSION = A;
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
-				GCC_ENABLE_CPP_RTTI = NO;
-				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
+				GCC_ENABLE_CPP_RTTI = YES;
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Resources/AtoZ-Prefix.pch";
-				GCC_SHORT_ENUMS = NO;
+				GCC_SHORT_ENUMS = YES;
 				HEADER_SEARCH_PATHS = (
 					"\"/Volumes/disenchanted 750/DerivedData/AtoZ-hfqteqfcvjfinlajqwkydsqyzpiz/Build/Products/Debug\"/**",
 				);
@@ -1176,6 +1205,7 @@
 				);
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Release;
