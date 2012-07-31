@@ -20,7 +20,7 @@
 
 - (void) awakeFromNib {
 	offset = 0;
-	orientation = AZOrientHorizontal;
+	orientation = AZOrientTop;
 	scale = AZInfiteScale1X;
 	[self 				setPostsFrameChangedNotifications:	YES];
 	[[self contentView] setPostsBoundsChangedNotifications:	YES];
@@ -31,15 +31,15 @@
 }
 
 - (void) setInfiniteViews:(NSArray *)infiniteViews {
-	if (0) {
+//	if (0) {
 		_infiniteViews = infiniteViews.mutableCopy;
 		NSLog(@"Views set.  number of views to use and reuse: %ld", _infiniteViews.count);
 		for (id sv in _infiniteViews ) {
-			[self.documentView addSubview: sv];	//	[self setNeedsDisplay:NO];
+			[[self documentView] addSubview: sv];	//	[self setNeedsDisplay:NO];
 		}
 		[self stack];
-	} else {
-		snap = [[NSImage alloc]initWithSize:AZScaleRect([[self contentView] frame], 3).size];
+//	} else {
+	/*	snap = [[NSImage alloc]initWithSize:AZScaleRect([[self contentView] frame], 3).size];
 		__block NSRect localunit = self.unit;
 		[snap lockFocus];
 		[infiniteViews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -60,7 +60,7 @@
 		[snap saveAs:@"/Users/localadmin/Desktop/whayeber.png"];
 		NSLog(@"Saved %@", snap);
 
-	}
+	}*/
 }
 - (void)setScale:(AZInfiteScale)aScale {
 	scale = aScale;
@@ -76,11 +76,11 @@
 - (NSRect) unit {
 	NSSize 	cSize = [self frame].size;
 	switch (orientation) {
-		case AZOrientHorizontal:
+		case AZOrientTop:// | AZOrientBottom:
 			cSize.width = cSize.width / _infiniteViews.count ;
 			cSize.width = cSize.width * scale;
 			break;
-		case AZOrientVertical:
+		case AZOrientLeft:// | AZOrientRight:
 			cSize.height = cSize.height / _infiniteViews.count;
 			cSize.height = cSize.height * scale;
 			
@@ -109,14 +109,14 @@
 	if ( scrollUp ) {
 		[_infiniteViews moveObjectAtIndex:_infiniteViews.count-1 toIndex:0];
 		switch (orientation) {
-			case AZOrientHorizontal:
+			case AZOrientTop | AZOrientBottom:
 				flexUnit.origin = NSZeroPoint;
 				flexUnit.origin.x -= flexUnit.size.width;
 				[[_infiniteViews objectAtIndex:0] setFrame:flexUnit];
 				flexUnit.origin.x += flexUnit.size.width;
 				[[_infiniteViews objectAtIndex:0] setFrame:flexUnit];
 				break;
-			case AZOrientVertical:
+			case AZOrientLeft | AZOrientRight:
 				flexUnit.origin = NSZeroPoint;
 				flexUnit.origin.y -= flexUnit.size.height;
 				[[_infiniteViews objectAtIndex:0] setFrame:flexUnit];
@@ -130,14 +130,16 @@
 	[_infiniteViews removeObjectAtIndex:0];
 	
 	switch (orientation) {
-		case AZOrientHorizontal:
+		case AZOrientTop:
+		case AZOrientBottom:
 			flexUnit.origin = NSMakePoint(0, NSMaxX([self bounds]));
 			[c setFrame:flexUnit];
 			flexUnit.origin.x -= flexUnit.size.width;
 			[c setFrame:flexUnit];
 			[_infiniteViews addObject:c];
 			break;
-		case AZOrientVertical:
+		case AZOrientLeft:
+		case AZOrientRight:
 			flexUnit.origin = NSMakePoint(0, NSMaxY([self bounds]));
 			[c setFrame:flexUnit];
 			flexUnit.origin.y -= flexUnit.size.height;
@@ -195,7 +197,7 @@
 		
 		//		AZInfiniteCell *s = obj;
 		NSRect pile = localunit;
-		if (orientation == AZOrientHorizontal)
+		if ((orientation == AZOrientTop ) || ( orientation == AZOrientBottom))
 			pile.origin.x = idx * localunit.size.width;
 		else
 			pile.origin.y = idx * localunit.size.height;
@@ -203,7 +205,7 @@
 		[obj setFrame: pile];
 	}];
 
-	[self addSubview: [AZBlockView viewWithFrame:[self bounds]  opaque:NO drawnUsingBlock: ^(AZBlockView *view, NSRect dirtyRect) {
+/*	[self addSubview: [AZBlockView viewWithFrame:[self bounds]  opaque:NO drawnUsingBlock: ^(AZBlockView *view, NSRect dirtyRect) {
 		NSBezierPath *path = [NSBezierPath bezierPathWithRect:AZMakeRectFromSize(NSMakeSize(dirtyRect.size.width, dirtyRect.size.height *2))];
 
 //		[RED set];
@@ -216,7 +218,9 @@
 //		positioned:NSWindowBelow relativeTo:infiniteBlocks];
 
 //	recess:[self bounds] inView:[self contentView]];
+*/
 	[self setNeedsDisplay:YES];
+
 	
 }
 
@@ -262,7 +266,7 @@
 	[NSGraphicsContext restoreGraphicsState];
 
 	// draw the gradient fill
-//	NSGradient *gradient = /*self.isHighlighted ? pressedGradient;// : normalGradient;
+//	NSGradient *gradient =  //self.isHighlighted ? pressedGradient;// : normalGradient;
 	[gradient drawInBezierPath:path angle:-90];
 */
 	// draw the inner stroke

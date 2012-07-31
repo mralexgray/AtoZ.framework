@@ -12,6 +12,7 @@
 	NSWindow *shroud;
 	NSImage *shroudShot;
 	NSImageView *shroudShotView;
+	float visiSliver;
 }
 
 @synthesize attachedWindow;//, //scroller, grid, activeViews;
@@ -21,7 +22,7 @@
 
 - (void)awakeFromNib {
 
-
+	visiSliver = 50;
 	controls.level = NSScreenSaverWindowLevel;
 	[controls setFrame:
 	 AZMakeRect( NSMakePoint([[NSScreen mainScreen]frame].size.width - [controls frame].size.width,
@@ -70,9 +71,8 @@
 	[statusItem setMenu:menu];
 
 
-	NSRect barFrame = AZMakeRectMaxXUnderMenuBarY(100);
 	[attachedWindow setStyleMask:NSBorderlessWindowMask];
-	[attachedWindow setFrame:barFrame display:NO];
+	[attachedWindow setFrame:AZMakeRectMaxXUnderMenuBarY(visiSliver) display:NO];
 	[attachedWindow slideUp];
 
 //	attachedWindow = [[NSWindow alloc]initWithContentRect:barFrame styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO];
@@ -90,12 +90,13 @@
 	}
 }
 - (IBAction)swapOrient:(id)sender {
-	if (infiniteBlocks.orientation == AZOrientVertical ) {
-		[[infiniteBlocks window] setFrame:AZMakeRectMaxXUnderMenuBarY(50) display:YES animate:YES];
-		[infiniteBlocks setOrientation: AZOrientHorizontal];
+	if 	(infiniteBlocks.orientation == AZOrientLeft){
+		[[infiniteBlocks window] setFrame:AZMakeRectMaxXUnderMenuBarY(visiSliver) display:YES animate:YES];
+		[infiniteBlocks setOrientation: AZOrientTop ];
+		(infiniteBlocks.orientation == AZOrientRight )) {
 	} else {
 		[[infiniteBlocks window] setFrame:NSMakeRect(0,0, 50, [[NSScreen mainScreen]frame].size.height-22)  display:YES animate:YES];
-		[infiniteBlocks setOrientation : AZOrientVertical];
+		[infiniteBlocks setOrientation : AZOrientLeft];
 	}
 }
 

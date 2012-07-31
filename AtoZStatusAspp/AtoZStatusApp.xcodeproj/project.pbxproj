@@ -315,6 +315,7 @@
 		7BE606BE15A117D100355236 = {
 			isa = PBXGroup;
 			children = (
+				7B66CE4715C5B1AC00ADDFE6 /* AtoZ.xcodeproj */,
 				7B7852A015ACECAF008BAD3C /* Status */,
 				7B091A1615A8301600821FFD /* AZBoxTest */,
 				7BE606D415A117D200355236 /* Supporting Files */,
@@ -337,7 +338,6 @@
 			children = (
 				7BCDFC4115C6B8300003DA4D /* Carbon.framework */,
 				7B9742B615C696C0006490DD /* PLWeakCompatibility.xcodeproj */,
-				7B66CE4715C5B1AC00ADDFE6 /* AtoZ.xcodeproj */,
 				7B9742DC15C69D92006490DD /* AtoZiTunes.xcodeproj */,
 				7B091A4715A888C400821FFD /* ApplicationServices.framework */,
 				7B0D7C4715A3F88C00037D30 /* Quartz.framework */,

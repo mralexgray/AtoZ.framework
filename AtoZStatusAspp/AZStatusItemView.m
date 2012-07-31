@@ -99,7 +99,7 @@
 //    NSPoint pt = NSMakePoint(NSMidX(frame), NSMinY(frame));
 
     if (!_clicked) {
-		[[self menu]popUpMenuPositioningItem:[self menu] atLocation:[self center] inView:self];
+		[[self menu]popUpMenuPositioningItem:[self menu] atLocation:NSZeroPoint inView:self ];// [self center] inView:self];
 
 		[delegate statusView:self isActive:YES];
 //		[controller toggleAttachedWindowAtPoint:pt];

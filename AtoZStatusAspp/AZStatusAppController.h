@@ -24,11 +24,11 @@
 	AZStatusItemView *statusView;
 }
 
-@property (unsafe_unretained) IBOutlet NSProgressIndicator *pIndi;
-@property (weak) IBOutlet TransparentWindow *controls;
-@property (strong) IBOutlet AtoZInfinity *infiniteBlocks;
-@property (weak) IBOutlet NSButton *orientButton;
-@property (weak) IBOutlet NSSlider *scaleSlider;
+@property (unsafe_unretained) 	IBOutlet NSProgressIndicator *pIndi;
+@property (weak) 				IBOutlet TransparentWindow *controls;
+@property (strong) 				IBOutlet AtoZInfinity *infiniteBlocks;
+@property (weak) 				IBOutlet NSButton *orientButton;
+@property (weak) 				IBOutlet NSSlider *scaleSlider;
 
 @property (nonatomic, retain)  IBOutlet NSWindow *attachedWindow;
 //- (void)statusView:(AZStatusItemView *)statusItem isActive:(BOOL)active;

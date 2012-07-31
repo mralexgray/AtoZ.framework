@@ -3,8 +3,11 @@
 
 
 typedef enum {
-	AZOrientHorizontal,
-	AZOrientVertical
+	AZOrientTop,
+	AZOrientLeft,
+	AZOrientBottom,
+	AZOrientRight,
+	AZOrientFiesta
 }	AZOrient;
 
 typedef enum {

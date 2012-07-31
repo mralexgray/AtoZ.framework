@@ -1818,5 +1818,12 @@ void DrawGlossGradient(CGContextRef context, NSColor *color, NSRect inRect) {
     CGFunctionRelease(gradientFunction);
 }
 
+extern void DrawLabelAtCenterPoint(NSString* string, NSPoint center) {
+	//    NSString *labelString = [NSString stringWithFormat:@"%ld", (long)dimension];
+    NSDictionary *attributes = $map([NSFont systemFontOfSize:[NSFont systemFontSizeForControlSize:NSRegularControlSize]], NSFontAttributeName, BLACK, NSForegroundColorAttributeName, WHITE, NSBackgroundColorAttributeName);
+    NSSize labelSize = [string sizeWithAttributes:attributes];
+    NSRect labelRect = NSMakeRect(center.x - 0.5 * labelSize.width, center.y - 0.5 * labelSize.height, labelSize.width, labelSize.height);
+    [string drawInRect:labelRect withAttributes:attributes];
+}
 
 

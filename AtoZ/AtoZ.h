@@ -80,7 +80,7 @@
 #import "NSNumber+AtoZ.h"
 #import "CAAnimation+AtoZ.h"
 #import "CALayer+AtoZ.h"
-
+#import "NSScreen+AtoZ.h"
 #import "NSObject+AtoZ.h"
 
 #import "AZGeometry.h"
@@ -291,4 +291,4 @@ extern NSString *const AtoZDockSortedUpdated;
 //void perceptualCausticColorForColor(float *inputComponents, float *outputComponents);
 extern void DrawGlossGradient(CGContextRef context, NSColor *color, NSRect inRect);
 
-
+extern void DrawLabelAtCenterPoint(NSString* string, NSPoint center);
