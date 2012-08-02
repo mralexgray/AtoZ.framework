@@ -8,7 +8,6 @@
 
 #import "AZProgressIndicator.h"
 #import <objc/runtime.h>
-#import "AtoZ.h"
 
 @interface AZProgressIndicator (PrivateBusiness)
 - (void)makeIndeterminatePole;

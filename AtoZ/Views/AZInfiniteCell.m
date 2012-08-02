@@ -150,14 +150,20 @@
 	if ([[NSApp delegate] respondsToSelector:@selector(simpleHovered:)])
 		[[NSApp delegate] performSelector:@selector(simpleHovered:) withObject:self];
 	NSLog(@"do I, bar for %@, listen to Mentered?", file.name);
+	[[self nextResponder] mouseMoved:theEvent];
+
 }
-- (void) mouseExited:(NSEvent *)theEvent {	self.hovered = NO;	}
+- (void) :(NSEvent *)theEvent {	self.hovered = NO;
+	[[self nextResponder] mouseMoved :theEvent];
+}
 
 - (void) mouseDown:(NSEvent *)theEvent {
 	self.selected =! selected;
 	if (!selected) { [timer invalidate]; [self setNeedsDisplay:YES]; }
 	else { mPhase = 0; timer = [NSTimer scheduledTimerWithTimeInterval:.1 target:self selector:@selector(handleAntAnimationTimer:) userInfo:nil repeats:YES];
 	}
+	[[self nextResponder] mouseDown:theEvent];
+
 }
 
 - (id)initWithFrame:(NSRect)frame
@@ -193,6 +199,11 @@
 		//		hasText = [coder decodeBoolForKey:@"hasText"];
 		//		if (atv)  [self addSubview:atv];
 	}	return self;	}
+
+- (id)copyWithZone:(NSZone *)zone;
+{
+    return self;// retain];
+}
 
 - (void) encodeWithCoder:(NSCoder *)aCoder {
     [aCoder encodeObject:backgroundColor forKey:@"backgroundColor"];

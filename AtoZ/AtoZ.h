@@ -2,77 +2,16 @@
 //  AtoZ.h
 //  AtoZ
 //
-#import "BaseModel.h"
-//#import "NSObject+AutoCoding.h"
-
-#import "AZSugar.h"
-#import "MondoSwitch.h"
-#import "AZToggle.h"
-//#import "AZToggleView.h"
-
-//Classes
-//#imoport "A
-
-#import "AZQueue.h"
-//#import "FSItem.h"
-#import "AZAXAuthorization.h"
-#import "AZDockQuery.h"
-
-// Controllers
-//#import "AZMenuBarAppController.h"
-
-// Views
-#import "AZFoamView.h"
-#import "AZBlockView.h"
-#import "AZProgressIndicator.h"
-#import "AZPopupWindow.h"
-#import "AZIndeterminateIndicator.h"
-#import "AZAttachedWindow.h"
-
-// Categories
-#import "NSThread+AtoZ.h"
-#import "NSNotificationCenter+AtoZ.h"
-#import "NSApplication+AtoZ.h"
-#import "NSColor+AtoZ.h"
-#import "NSArray+AtoZ.h"
-#import "NSString+AtoZ.h"
-#import "NSView+AtoZ.h"
-#import "NSBezierPath+AtoZ.h"
-#import "NSImage+AtoZ.h"
-#import "NSWindow+AtoZ.h"
-#import "NSShadow+AtoZ.h"
-#import "NSNumber+AtoZ.h"
-#import "CAAnimation+AtoZ.h"
-#import "CALayer+AtoZ.h"
-#import "NSScreen+AtoZ.h"
-#import "NSObject+AtoZ.h"
-
-#import "AZGeometry.h"
-#import "NSWindow_Flipr.h"
-
-
-#import "TransparentWindow.h"
-#import "RoundedView.h"
-
-#import "AZStopwatch.h"
-#import "AZBox.h"
-#import "AZBoxGrid.h"
-#import "AZBoxMagic.h"
-
-#import "AZSizer.h"
-#import "AZApplePrivate.h"
-#import "AZInfiniteCell.h"
 
 
 
-#import "AZSourceList.h"
-#import "AZTalker.h"
-#import "AZBoxLayer.h"
-#import "AZOverlay.h"
-#import "AZSimpleView.h"
-#import "AtoZInfinity.h"
+#import <Foundation/Foundation.h>
+#import <Cocoa/Cocoa.h>
+#import <QuartzCore/QuartzCore.h>
+#import <ApplicationServices/ApplicationServices.h>
 
-//#import "AtoZInfintieScroll.h"
+
+
 //  BaseModel.h
 //  Version 2.3.1
 //  ARC Helper
@@ -126,6 +65,74 @@ NSNumber* DegreesToNumber(CGFloat degrees);
 
 #define AZConstScaleOff(attr, rel, scl, off) \
 [CAConstraint constraintWithAttribute:attr relativeTo:rel attribute:attr scale:scl offset:off]
+
+
+#import "BaseModel.h"
+#import "AZApplePrivate.h"
+
+#import "AZSugar.h"
+#import "AZGeometry.h"
+
+	// Categories
+#import "NSThread+AtoZ.h"
+#import "NSNotificationCenter+AtoZ.h"
+#import "NSApplication+AtoZ.h"
+#import "NSColor+AtoZ.h"
+#import "NSArray+AtoZ.h"
+#import "NSString+AtoZ.h"
+#import "NSView+AtoZ.h"
+#import "NSBezierPath+AtoZ.h"
+#import "NSImage+AtoZ.h"
+#import "NSWindow+AtoZ.h"
+#import "NSShadow+AtoZ.h"
+#import "NSNumber+AtoZ.h"
+#import "CAAnimation+AtoZ.h"
+#import "CALayer+AtoZ.h"
+#import "NSScreen+AtoZ.h"
+#import "NSObject+AtoZ.h"
+
+#import "NSWindow_Flipr.h"
+
+
+#import "TransparentWindow.h"
+#import "RoundedView.h"
+
+	//#import "NSObject+AutoCoding.h"
+
+#import "MondoSwitch.h"
+#import "AZToggle.h"
+	//#import "AZToggleView.h"
+
+	//Classes
+	//#imoport "A
+
+#import "AZQueue.h"
+
+#import "AZDockQuery.h"
+#import "AZAXAuthorization.h"
+#import "AZMouser.h"
+	// Views
+#import "AZFoamView.h"
+#import "AZBlockView.h"
+#import "AZProgressIndicator.h"
+#import "AZPopupWindow.h"
+#import "AZIndeterminateIndicator.h"
+#import "AZAttachedWindow.h"
+#import "AZStopwatch.h"
+#import "AZBox.h"
+#import "AZBoxGrid.h"
+#import "AZBoxMagic.h"
+#import "AZSizer.h"
+#import "AZInfiniteCell.h"
+#import "AZSourceList.h"
+#import "AZTalker.h"
+#import "AZBoxLayer.h"
+#import "AZOverlay.h"
+#import "AZSimpleView.h"
+#import "AtoZInfinity.h"
+
+
+
 
 @interface CAConstraint (brevity)
 
@@ -186,8 +193,8 @@ extern NSString *const AtoZDockSortedUpdated;
 @property (strong, nonatomic)  	NSArray	 * 	colors;
 @property (strong, nonatomic)  	NSImage	 * 	icon;
 @property (strong, nonatomic)  	NSImage	 * 	image;
-@property (nonatomic, assign) 		NSPoint		dockPoint;
-@property (nonatomic, assign) 		NSPoint		dockPointNew;
+@property (nonatomic, assign) 		CGPoint		dockPoint;
+@property (nonatomic, assign) 		CGPoint		dockPointNew;
 @property (nonatomic, assign) 		NSUInteger	spot;
 @property (nonatomic, assign) 		NSUInteger 	spotNew;
 @property (nonatomic, readonly)		CGFloat		hue;

@@ -3,6 +3,7 @@
 //  AtoZ
 //
 #import <Foundation/Foundation.h>
+#import "AtoZ.h"
 
 @interface NSString (AtoZ)
 

@@ -7,18 +7,26 @@
 //
 
 
-#import "AtoZ.h"
 #import <Foundation/Foundation.h>
 #import <ApplicationServices/ApplicationServices.h>
 #import <AppKit/AppKit.h>
+#import <QuartzCore/QuartzCore.h>
+#import "AtoZ.h"
 
-static CGRect screenBounds;
+//static CGRect screenBounds;
 
-extern void mouseEvent(CGEventRef type, CGFloat posx, CGFloat posy);
-extern void mousemove(CGFloat posx, CGFloat posy);
-extern void mouseclickdn(CGFloat posx, CGFloat posy);
-extern void mouseclickup(CGFloat posx, CGFloat posy);
-extern void mousedrag(CGFloat posx, CGFloat posy);
+CGPoint MousePoint();
+void PostMouseEvent(CGMouseButton button, CGEventType type, const CGPoint point);
+void Click(const CGPoint point);
+void MoveTo(const CGPoint point);
+void DragTo(const CGPoint where);
+void DragBetwixt(const CGPoint a, const CGPoint b);
+
+//extern void mouseEvent(CGEventRef type, CGFloat posx, CGFloat posy);
+//extern void mousemove(CGFloat posx, CGFloat posy);
+//extern void mouseclickdn(CGFloat posx, CGFloat posy);
+//extern void mouseclickup(CGFloat posx, CGFloat posy);
+//extern void mousedrag(CGFloat posx, CGFloat posy);
 
 @interface AUWindowExtend : NSWindow
 - (void)setAcceptsMouseMovedEvents:(BOOL)acceptMouseMovedEvents screen:(BOOL)anyWhere;

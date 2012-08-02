@@ -7,7 +7,6 @@
 //
 
 #import "AZDockQuery.h"
-#import "AtoZ.h"
 #import <ApplicationServices/ApplicationServices.h>
 #import <Cocoa/Cocoa.h>
 #import <AppKit/AppKit.h>

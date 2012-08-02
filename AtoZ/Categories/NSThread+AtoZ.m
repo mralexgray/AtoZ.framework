@@ -6,6 +6,8 @@
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 //
 
+#import "NSThread+AtoZ.h"
+
 @implementation NSThread (BlocksAdditions)
 - (void)performBlock:(void (^)())block
 {

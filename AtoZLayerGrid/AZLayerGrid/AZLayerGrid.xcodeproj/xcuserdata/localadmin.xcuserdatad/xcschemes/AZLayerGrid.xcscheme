@@ -17,7 +17,7 @@
                BlueprintIdentifier = "7B85595115B9E8510005F558"
                BuildableName = "AZLayerGrid.app"
                BlueprintName = "AZLayerGrid"
-               ReferencedContainer = "container:AtoZLayerGrid/AZLayerGrid/AZLayerGrid.xcodeproj">
+               ReferencedContainer = "container:AZLayerGrid.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -35,7 +35,7 @@
             BlueprintIdentifier = "7B85595115B9E8510005F558"
             BuildableName = "AZLayerGrid.app"
             BlueprintName = "AZLayerGrid"
-            ReferencedContainer = "container:AtoZLayerGrid/AZLayerGrid/AZLayerGrid.xcodeproj">
+            ReferencedContainer = "container:AZLayerGrid.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -54,7 +54,7 @@
             BlueprintIdentifier = "7B85595115B9E8510005F558"
             BuildableName = "AZLayerGrid.app"
             BlueprintName = "AZLayerGrid"
-            ReferencedContainer = "container:AtoZLayerGrid/AZLayerGrid/AZLayerGrid.xcodeproj">
+            ReferencedContainer = "container:AZLayerGrid.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -72,7 +72,7 @@
             BlueprintIdentifier = "7B85595115B9E8510005F558"
             BuildableName = "AZLayerGrid.app"
             BlueprintName = "AZLayerGrid"
-            ReferencedContainer = "container:AtoZLayerGrid/AZLayerGrid/AZLayerGrid.xcodeproj">
+            ReferencedContainer = "container:AZLayerGrid.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

@@ -1,5 +1,5 @@
 #import <Cocoa/Cocoa.h>
-#import <AtoZ/AtoZ.h>
+#import "AtoZ.h"
 
 
 typedef enum {

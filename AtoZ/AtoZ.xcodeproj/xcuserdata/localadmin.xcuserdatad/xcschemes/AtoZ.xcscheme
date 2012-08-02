@@ -17,7 +17,35 @@
                BlueprintIdentifier = "7B311950159B6D9E002134C4"
                BuildableName = "AtoZ.framework"
                BlueprintName = "AtoZ"
-               ReferencedContainer = "container:AtoZ/AtoZ.xcodeproj">
+               ReferencedContainer = "container:AtoZ.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "7BA69F2315C294D4005503DF"
+               BuildableName = "AtoZiTunes.framework"
+               BlueprintName = "AtoZiTunes"
+               ReferencedContainer = "container:../../git/AJS-iTunes-API/Framework/AtoZiTunes/AtoZiTunes.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "053887981523F6CD00CDC1DF"
+               BuildableName = "PLWeakCompatibility.framework"
+               BlueprintName = "PLWeakCompatibility-MacOSX"
+               ReferencedContainer = "container:../../../../../Users/localadmin/Downloads/plausiblelabs-PLWeakCompatibility-d4b88c3/PLWeakCompatibility.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -35,7 +63,7 @@
                BlueprintIdentifier = "7B311968159B6D9E002134C4"
                BuildableName = "AtoZTests.octest"
                BlueprintName = "AtoZTests"
-               ReferencedContainer = "container:AtoZ/AtoZ.xcodeproj">
+               ReferencedContainer = "container:AtoZ.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>

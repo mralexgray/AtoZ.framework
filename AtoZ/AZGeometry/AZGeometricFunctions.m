@@ -56,6 +56,12 @@ CGFloat AZAreaOfRect(NSRect rect) {
   return AZAreaOfSize(rect.size);
 }
 
+float distanceFromPoint (NSPoint p1, NSPoint p2) {
+	float temp;
+	temp = pow(p1.x - p2.x, 2);
+	temp += pow(p1.y - p2.y, 2);
+	return sqrt(temp);
+}
 
 NSPoint NSMakeRandomPointInRect(NSRect rect) {
     CGPoint point = CGPointZero;

@@ -44,6 +44,8 @@ NSRange AZMakeRange(NSUInteger min, NSUInteger max);
 
 NSPoint randomPointInRect(NSRect rect);
 
+float distanceFromPoint (NSPoint p1,NSPoint p2);
+
 //
 // Simple Length and Area calculus
 //

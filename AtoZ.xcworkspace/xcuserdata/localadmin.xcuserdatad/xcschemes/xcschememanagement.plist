@@ -3,17 +3,6 @@
 <plist version="1.0">
 <dict>
 	<key>SchemeUserState</key>
-	<dict>
-		<key>AZLayerGrid.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>20</integer>
-		</dict>
-		<key>AtoZ.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>2</integer>
-		</dict>
-	</dict>
+	<dict/>
 </dict>
 </plist>

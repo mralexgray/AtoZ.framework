@@ -137,5 +137,3 @@ static inline float RandomComponent() {  return (float)random() / (float)LONG_MA
 //usage RAND01()*3, or (int)RAND01()*3 , so there is no risk of dividing by zero
 #define RAND01() ((random() / (float)0x7fffffff ))
 
-
-extern const NSPoint mousePoint;

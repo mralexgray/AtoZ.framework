@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "AtoZ.h"
 
 @interface AZHoverButton : NSButton
 {
