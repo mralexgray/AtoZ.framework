@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import "AtoZ.h"
 
-//@class AZFile;
+@class AZFile;
 @interface AZInfiniteCell : NSView
 {
 	NSTrackingArea *tArea;		NSBezierPath *standard;

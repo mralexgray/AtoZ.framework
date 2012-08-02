@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7BE606C815A117D100355236"
-               BuildableName = "AtoZStatusApp.app"
-               BlueprintName = "AtoZStatusApp"
-               ReferencedContainer = "container:AtoZStatusAspp/AtoZStatusApp.xcodeproj">
+               BlueprintIdentifier = "7B85595115B9E8510005F558"
+               BuildableName = "AZLayerGrid.app"
+               BlueprintName = "AZLayerGrid"
+               ReferencedContainer = "container:AtoZLayerGrid/AZLayerGrid/AZLayerGrid.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -32,10 +32,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7BE606C815A117D100355236"
-            BuildableName = "AtoZStatusApp.app"
-            BlueprintName = "AtoZStatusApp"
-            ReferencedContainer = "container:AtoZStatusAspp/AtoZStatusApp.xcodeproj">
+            BlueprintIdentifier = "7B85595115B9E8510005F558"
+            BuildableName = "AZLayerGrid.app"
+            BlueprintName = "AZLayerGrid"
+            ReferencedContainer = "container:AtoZLayerGrid/AZLayerGrid/AZLayerGrid.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -51,25 +51,13 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7BE606C815A117D100355236"
-            BuildableName = "AtoZStatusApp.app"
-            BlueprintName = "AtoZStatusApp"
-            ReferencedContainer = "container:AtoZStatusAspp/AtoZStatusApp.xcodeproj">
+            BlueprintIdentifier = "7B85595115B9E8510005F558"
+            BuildableName = "AZLayerGrid.app"
+            BlueprintName = "AZLayerGrid"
+            ReferencedContainer = "container:AtoZLayerGrid/AZLayerGrid/AZLayerGrid.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <EnvironmentVariables>
-         <EnvironmentVariable
-            key = "NSZombieEnabled"
-            value = "YES"
-            isEnabled = "YES">
-         </EnvironmentVariable>
-      </EnvironmentVariables>
       <AdditionalOptions>
-         <AdditionalOption
-            key = "NSZombieEnabled"
-            value = "YES"
-            isEnabled = "YES">
-         </AdditionalOption>
       </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
@@ -81,10 +69,10 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7BE606C815A117D100355236"
-            BuildableName = "AtoZStatusApp.app"
-            BlueprintName = "AtoZStatusApp"
-            ReferencedContainer = "container:AtoZStatusAspp/AtoZStatusApp.xcodeproj">
+            BlueprintIdentifier = "7B85595115B9E8510005F558"
+            BuildableName = "AZLayerGrid.app"
+            BlueprintName = "AZLayerGrid"
+            ReferencedContainer = "container:AtoZLayerGrid/AZLayerGrid/AZLayerGrid.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

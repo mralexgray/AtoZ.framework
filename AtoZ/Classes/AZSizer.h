@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "AtoZ.h"
 
+
+
 @interface Candidate : BaseModel
 @property (assign) float width;
 @property (assign) float height;

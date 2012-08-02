@@ -9,6 +9,8 @@
 #import "NSObject+AtoZ.h"
 #import <Foundation/Foundation.h>
 #import <objc/runtime.h>
+#import "AtoZ.h"
+
 
 @implementation NSObject (AutoCoding)
 
@@ -203,22 +205,22 @@
 
 + (id)unarchiveObjectWithPlist:(id)plist
 {
-    return [AH_AUTORELEASE([[self alloc] init]) unarchiveObjectWithPlist:plist];
+    return [AZ_AUTORELEASE([[self alloc] init]) unarchiveObjectWithPlist:plist];
 }
 
 + (id)unarchiveObjectWithFile:(NSString *)path
 {
-    return [AH_AUTORELEASE([[self alloc] init]) unarchiveObjectWithFile:path];
+    return [AZ_AUTORELEASE([[self alloc] init]) unarchiveObjectWithFile:path];
 }
 
 + (id)archivedPlistWithRootObject:(id)object
 {
-    return [AH_AUTORELEASE([[self alloc] init]) archivedPlistWithRootObject:object];
+    return [AZ_AUTORELEASE([[self alloc] init]) archivedPlistWithRootObject:object];
 }
 
 + (BOOL)archiveRootObject:(id)rootObject toFile:(NSString *)path
 {
-    return [AH_AUTORELEASE([[self alloc] init]) archiveRootObject:rootObject toFile:path];
+    return [AZ_AUTORELEASE([[self alloc] init]) archiveRootObject:rootObject toFile:path];
 }
 
 - (id)unarchiveObjectWithPlist:(id)plist
@@ -306,10 +308,10 @@
 
 - (void)dealloc
 {
-    AH_RELEASE(stack);
-    AH_RELEASE(knownObjects);
-    AH_RELEASE(unresolvedAliases);
-    AH_SUPER_DEALLOC;
+    AZ_RELEASE(stack);
+    AZ_RELEASE(knownObjects);
+    AZ_RELEASE(unresolvedAliases);
+    AZ_SUPER_DEALLOC;
 }
 
 - (BOOL)allowsKeyedCoding
@@ -503,7 +505,7 @@
         //encoded object
         [coder.stack addObject:self];
         Class class = NSClassFromString(className);
-        id object = AH_AUTORELEASE([[class alloc] initWithCoder:coder]);
+        id object = AZ_AUTORELEASE([[class alloc] initWithCoder:coder]);
         [coder.stack removeLastObject];
         return object;
     }
@@ -519,7 +521,7 @@
                 [result setObject:object forKey:key];
             }
         }
-        return AH_AUTORELEASE([result copy]);
+        return AZ_AUTORELEASE([result copy]);
     }
 }
 
@@ -896,3 +898,13 @@ static const char * getPropertyType(objc_property_t property) {
 @end
 
 
+
+@implementation NSObject (SetClass)
+- (void)setClass:(Class)aClass {
+	NSAssert(
+			 class_getInstanceSize([self class]) ==
+			 class_getInstanceSize(aClass),
+			 @"Classes must be the same size to swizzle.");
+	object_setClass(self, aClass);
+}
+@end

@@ -7,24 +7,26 @@
 @synthesize inset, radius, representedObject;
 
 
-- (void)setRepresentedObject:(id)anObjectRep {
-	self.representedObject = anObjectRep;
-	if ( [representedObject isKindOfClass:[AZFile class]] ){
-		AZFile *c = representedObject;
+- (void)setFile:(AZFile *)aFile {
+	file = aFile;
+	[self setRepresentedObject:aFile];
+}
+//- (void)setRepresentedObject:(id)anObjectRep {
+//	representedObject = anObjectRep;
+//	if ( [representedObject isKindOfClass:[AZFile class]] ){
+//		AZFile *c = representedObject;
 		//		gradient = [[NSGradient alloc] initWithStartingColor:c.color.brighter.brighter endingColor:c.color.darker.darker];
-		color = c.color;
-		image = [ c.image coloredWithColor:c.color.contrastingForegroundColor];
+//		color = c.color;
+//		image = [ c.image coloredWithColor:c.color.contrastingForegroundColor];
 
 		//		NSImage *ci =  (selected_ ? [ c.image tintedWithColor:c.color] : c.image);
-		[image setScalesWhenResized: YES];
-	}
+//		[image setScalesWhenResized: YES];
+//	}
 
-	dynamicStroke = 5;
-	inset = dynamicStroke;
-	radius = dynamicStroke;
-	if (tArea) { [self removeTrackingArea:tArea]; tArea = nil; }
-	tArea = [[NSTrackingArea alloc]initWithRect:self.bounds options:NSTrackingMouseMoved | NSTrackingActiveAlways 	 owner:self userInfo:nil];
-	[self addTrackingArea:tArea];
+//	dynamicStroke = 5;
+//	inset = dynamicStroke;
+//	radius = dynamicStroke;
+
 	//		self.color = [representedObject_ valueForKey:@"color"];
 	//	} else { NSColor *r = RANDOMCOLOR;
 	//		while ( (![r isRedish]) || ([r isBoring]) ) r = RANDOMCOLOR;
@@ -35,12 +37,12 @@
 	//		self.color = [representedObject_ valueForKeyPath:@"dictionary.color"];
 	//	tv = self.tv;//	[self makeTv];
 	//	[self addSubview:tv];
-}
+//}
 
 
 - (void)handleAntAnimationTimer:(NSTimer*)timer {
 	mPhase = (mPhase < [self halfwayWithInset] ? mPhase + [self halfwayWithInset]/128 : 0);
-	[self setNeedsDisplayInRect:NSInsetRect(self.bounds, self.inset, self.inset)];
+	[self setNeedsDisplayInRect:NSInsetRect([self bounds], self.inset, self.inset)];
 }
 //- (float) dynamicStroke {
 //	//	NSBezierPath *bez = [self pathWithInset:self.inset];
@@ -83,16 +85,16 @@
 
 - (void)drawRect:(NSRect)dirtyRect
 {
-	//	NSBezierPath *p =[NSBezierPath bezierPathWithRect: [self bounds]];// cornerRadius:0];
-	//	[p fillGradientFrom:backgroundColor.darker.darker.darker to:backgroundColor.brighter.brighter angle:270];
-	//	[backgroundColor set];
-	//	NSRectFill(rect);
+	standard =[NSBezierPath bezierPathWithRect: [self bounds]];// cornerRadius:0];
+	[standard fillGradientFrom:file.color.darker.darker.darker to:file.color.brighter.brighter angle:270];
+//	[backgroundColor set];
+//	NSRectFill([self frame]);
 
-	standard = [self pathWithInset:self.inset];
-	[NSShadow setShadowWithOffset:NSMakeSize(3,-3) blurRadius:self.inset color:BLACK];
-	[standard stroke];
-	[NSShadow clearShadow];
-	if ( [self.representedObject isKindOfClass:[AZFile class]] ){
+//	standard = [self pathWithInset:self.inset];
+//	[NSShadow setShadowWithOffset:NSMakeSize(3,-3) blurRadius:self.inset color:BLACK];
+//	[standard stroke];
+//	[NSShadow clearShadow];
+/*	if ( [self.representedObject isKindOfClass:[AZFile class]] ){
 		AZFile *c = self.representedObject;
 		NSLog(@"hhoray.. %@ passed the drawrect test", c.name);
 		if (c.colors) {
@@ -111,29 +113,32 @@
 		[image setSize: NSMakeSize(smallest, smallest)];
 		[image compositeToPoint:AZCenterOfRect([self bounds]) operation:NSCompositeSourceOver];
 	}
-	if(hovered)
-		[standard fillGradientFrom: RANDOMCOLOR to:RANDOMCOLOR angle:270];
-	else if(selected) {
-		//		[standard setLineWidth:self.dynamicStroke/2];
-		//		[standard setLineJoinStyle:NSBevelLineJoinStyle];
-		//		[standard setLineCapStyle:NSButtLineCapStyle];//NSSquareLineCapStyle];//NSRoundLineCapStyle];//
-		//		[WHITE set];
-		//		[standard strokeInside];
-		//		// strokeInsideWithinRect:NSInsetRect([self bounds], inset_*2, inset_*2)];
-		//		float slice = ([self halfwayWithInset]/32);
-		//		CGFloat dashArray[2] = { slice, slice};
-		//		[standard setLineDash:dashArray count:2 phase:mPhase];
-		//		[BLACK set];
-		//		[standard strokeInside];
-		//		//WithinRect:NSInsetRect([self bounds], inset_*2, inset_*2)];
-		//		DrawLabelAtCenterPoint([representedObject valueForKey:@"name"], NSMakePoint(NSMidX(self.bounds),NSMidY(self.bounds)));
+//	if(hovered)
+//		[standard fillGradientFrom: RANDOMCOLOR to:RANDOMCOLOR angle:270];
+//	else
+*/
+	if(selected) {
+		[standard setLineWidth: AZMinDim(self.bounds.size)*.04];
+		[standard setLineJoinStyle:NSBevelLineJoinStyle];
+		[standard setLineCapStyle:NSButtLineCapStyle];//NSSquareLineCapStyle];//NSRoundLineCapStyle];//
+		[WHITE set];
+		[standard strokeInside];
+		// strokeInsideWithinRect:NSInsetRect([self bounds], inset_*2, inset_*2)];
+		float slice = ([self halfwayWithInset]/32);
+		CGFloat dashArray[2] = { slice, slice};
+		[standard setLineDash:dashArray count:2 phase:mPhase];
+		[BLACK set];
+		[standard strokeInside];
+		//WithinRect:NSInsetRect([self bounds], inset_*2, inset_*2)];
+//		DrawLabelAtCenterPoint([representedObject valueForKey:@"name"], NSMakePoint(NSMidX(self.bounds),NSMidY(self.bounds)));
 	}
-	else {
-		if (!color) color = RANDOMCOLOR;
-		[color set];
-		[standard setClip];
-		NSRectFill(NSZeroRect);
-	}
+//	else {
+//		if (!color) color = RANDOMCOLOR;
+//		[color set];
+//		[standard setClip];
+//		NSRectFill(NSZeroRect);
+//	}
+//*/
 }
 - (void)setInset:(float)anInset {
 	self.inset = anInset;
@@ -150,19 +155,39 @@
 
 - (void) mouseDown:(NSEvent *)theEvent {
 	self.selected =! selected;
-	if (!selected) [timer invalidate];
+	if (!selected) { [timer invalidate]; [self setNeedsDisplay:YES]; }
 	else { mPhase = 0; timer = [NSTimer scheduledTimerWithTimeInterval:.1 target:self selector:@selector(handleAntAnimationTimer:) userInfo:nil repeats:YES];
 	}
 }
 
+- (id)initWithFrame:(NSRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+	NSLog(@"nibawakening, not. init");
+	self.autoresizingMask =  NSViewHeightSizable;
+    }
+    return self;
+}
 
+- (void) updateTrackingAreas {
+	if (tArea) {
+		[self removeTrackingArea:tArea];
+		tArea = nil;
+	}
+	tArea = [[NSTrackingArea alloc]initWithRect:[self bounds] options: NSTrackingMouseEnteredAndExited | NSTrackingMouseMoved | NSTrackingActiveAlways 	 owner:self userInfo:nil];
+	[self addTrackingArea:tArea];
+
+}
 
 - (id)initWithCoder:(NSCoder*)coder {
 	if ((self = [super initWithCoder:coder])) {
+		NSLog(@"initing with that darn coder");
 		backgroundColor = [coder decodeObjectForKey: @"backgroundColor"];
 		if	(!backgroundColor) backgroundColor = [NSColor redColor];
 		uniqueID = [coder decodeObjectForKey: @"uniqueID"];
 		file = [coder decodeObjectForKey:@"file"];
+		[self updateTrackingAreas];
 		//		image = [coder decodeObjectForKey: @"image"];
 		//		atv = [coder decodeObjectForKey:@"atv"];
 		//		hasText = [coder decodeBoolForKey:@"hasText"];

@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7BBD989415AF7EB800943FC1"
-               BuildableName = "AtoZInfiniteScroll.app"
-               BlueprintName = "AtoZInfiniteScroll"
-               ReferencedContainer = "container:../AtoZInfiniteScroll/AtoZInfiniteScroll/AtoZInfiniteScroll.xcodeproj">
+               BlueprintIdentifier = "7BE606C815A117D100355236"
+               BuildableName = "AtoZStatusApp.app"
+               BlueprintName = "AtoZStatusApp"
+               ReferencedContainer = "container:AtoZStatusApp.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -32,10 +32,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7BBD989415AF7EB800943FC1"
-            BuildableName = "AtoZInfiniteScroll.app"
-            BlueprintName = "AtoZInfiniteScroll"
-            ReferencedContainer = "container:../AtoZInfiniteScroll/AtoZInfiniteScroll/AtoZInfiniteScroll.xcodeproj">
+            BlueprintIdentifier = "7BE606C815A117D100355236"
+            BuildableName = "AtoZStatusApp.app"
+            BlueprintName = "AtoZStatusApp"
+            ReferencedContainer = "container:AtoZStatusApp.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -51,19 +51,12 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7BBD989415AF7EB800943FC1"
-            BuildableName = "AtoZInfiniteScroll.app"
-            BlueprintName = "AtoZInfiniteScroll"
-            ReferencedContainer = "container:../AtoZInfiniteScroll/AtoZInfiniteScroll/AtoZInfiniteScroll.xcodeproj">
+            BlueprintIdentifier = "7BE606C815A117D100355236"
+            BuildableName = "AtoZStatusApp.app"
+            BlueprintName = "AtoZStatusApp"
+            ReferencedContainer = "container:AtoZStatusApp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <EnvironmentVariables>
-         <EnvironmentVariable
-            key = "NSZombieEnabled"
-            value = "YES"
-            isEnabled = "NO">
-         </EnvironmentVariable>
-      </EnvironmentVariables>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -76,10 +69,10 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7BBD989415AF7EB800943FC1"
-            BuildableName = "AtoZInfiniteScroll.app"
-            BlueprintName = "AtoZInfiniteScroll"
-            ReferencedContainer = "container:../AtoZInfiniteScroll/AtoZInfiniteScroll/AtoZInfiniteScroll.xcodeproj">
+            BlueprintIdentifier = "7BE606C815A117D100355236"
+            BuildableName = "AtoZStatusApp.app"
+            BlueprintName = "AtoZStatusApp"
+            ReferencedContainer = "container:AtoZStatusApp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

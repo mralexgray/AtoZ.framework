@@ -75,5 +75,6 @@ AZViewAnimationType;
                   animation:(void (^)(void))animationBlock
                  completion:(void (^)(void))completionBlock;
 
++ (void)runEndBlock:(void (^)(void))completionBlock;
 
 @end

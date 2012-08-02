@@ -31,6 +31,7 @@
 //
 
 #import "BaseModel.h"
+#import "AtoZ.h"
 #import <objc/message.h>
 
 
@@ -189,7 +190,7 @@ static NSMutableDictionary *sharedInstances = nil;
 
 + (instancetype)instance
 {
-    return AH_AUTORELEASE([[self alloc] init]);
+    return AZ_AUTORELEASE([[self alloc] init]);
 }
 
 static BOOL loadingFromResourceFile = NO;
@@ -206,7 +207,7 @@ static BOOL loadingFromResourceFile = NO;
             loadingFromResourceFile = NO;
             if (object)
             {
-                AH_RELEASE(self);
+                AZ_RELEASE(self);
                 self = object;
                 return self;
             }
@@ -229,7 +230,7 @@ static BOOL loadingFromResourceFile = NO;
 + (instancetype)instanceWithObject:(id)object
 {
     //return nil if object is nil
-    return object? AH_AUTORELEASE([[self alloc] initWithObject:object]): nil;
+    return object? AZ_AUTORELEASE([[self alloc] initWithObject:object]): nil;
 }
 
 - (NSString *)setterNameForClass:(Class)class
@@ -282,7 +283,7 @@ static BOOL loadingFromResourceFile = NO;
 + (instancetype)instanceWithCoder:(NSCoder *)decoder
 {
     //return nil if coder is nil
-    return decoder? AH_AUTORELEASE([[self alloc] initWithCoder:decoder]): nil;
+    return decoder? AZ_AUTORELEASE([[self alloc] initWithCoder:decoder]): nil;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)decoder
@@ -316,7 +317,7 @@ static BOOL loadingFromResourceFile = NO;
         }
     }
 
-    return AH_AUTORELEASE([[self alloc] initWithContentsOfFile:path]);
+    return AZ_AUTORELEASE([[self alloc] initWithContentsOfFile:path]);
 }
 
 - (instancetype)initWithContentsOfFile:(NSString *)filePath
@@ -335,8 +336,8 @@ static BOOL loadingFromResourceFile = NO;
         id object = [cachedResourceFiles objectForKey:filePath];
         if (object)
         {
-            AH_RELEASE(self);
-            return ((self = (object == [NSNull null])? nil: AH_RETAIN(object)));
+            AZ_RELEASE(self);
+            return ((self = (object == [NSNull null])? nil: AZ_RETAIN(object)));
         }
     }
     
@@ -375,8 +376,8 @@ static BOOL loadingFromResourceFile = NO;
             if ([object isKindOfClass:[self class]])
             {
                 //return object
-                AH_RELEASE(self);
-                return ((self = AH_RETAIN(object)));
+                AZ_RELEASE(self);
+                return ((self = AZ_RETAIN(object)));
             }
         }
 
@@ -396,7 +397,7 @@ static BOOL loadingFromResourceFile = NO;
     }
     
     //failed to load
-    AH_RELEASE(self);
+    AZ_RELEASE(self);
     return ((self = nil));
 }
 
@@ -425,7 +426,7 @@ static BOOL loadingFromResourceFile = NO;
     CFUUIDRef uuid = CFUUIDCreate(NULL);
     CFStringRef identifier = CFUUIDCreateString(NULL, uuid);
     CFRelease(uuid);
-    return AH_RETAIN(CFBridgingRelease(identifier));
+    return AZ_RETAIN(CFBridgingRelease(identifier));
 }
 
 //#ifdef BASEMODEL_ENABLE_UNIQUE_ID
@@ -443,8 +444,8 @@ static BOOL loadingFromResourceFile = NO;
 
 - (void)dealloc
 {
-    AH_RELEASE(_uniqueID);
-    AH_SUPER_DEALLOC;
+    AZ_RELEASE(_uniqueID);
+    AZ_SUPER_DEALLOC;
 }
 
 //#endif

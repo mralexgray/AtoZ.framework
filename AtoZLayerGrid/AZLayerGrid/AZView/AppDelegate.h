@@ -11,5 +11,5 @@
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
-
+@property (retain,nonatomic) NSNumber *unit;
 @end

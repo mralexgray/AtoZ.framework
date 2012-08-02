@@ -1,5 +1,6 @@
 DerivedData
 git
+Documentation
 Documentation/docset-installed.txt
 .gitignore
 AZBox.archive.m

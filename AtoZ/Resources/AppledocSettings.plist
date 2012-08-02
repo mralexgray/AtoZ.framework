@@ -2,6 +2,23 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+
+	<key>--docset-feed-url</key>
+	<string>http://mrgray.com/docs/%DOCSETATOMFILENAME</string>
+	<key>--docset-package-url</key>
+	<string>http://mrgray.com/docs/%DOCSETPACKAGEFILENAME</string>
+	<key>--publish-docset</key>
+	<true/>
+	<key>--merge-categories</key>
+	<true/>
+	<key>--keep-undocumented-members</key>
+	<true/>
+	<key>--search-undocumented-doc</key>
+	<true/>
+	<key>--keep-undocumented-objects</key>
+	<true/>
+	<key>--keep-intermediate-files</key>
+	<true/>
 	<key>--ignore</key>
 	<array>
 		<string>ThirdParty</string>
@@ -21,13 +38,14 @@
 	<key>--create-html</key>
 	<true/>
 	<key>--output</key>
-	<string>Documentation</string>
+	<string>/sd/www/mrgray/docs</string>
+	<!-- <string>Documentation</string> -->
 	<key>--verbose</key>
-	<integer>4</integer>
+	<integer>5</integer>
 	<key>--logformat</key>
 	<integer>1</integer>
 	<key>--project-name</key>
-	<string>${EXECUTABLE_NAME}</string>
+	<string>AtoZ Framework</string>
 	<key>--input</key>
 	<array>
 		<string>../</string>

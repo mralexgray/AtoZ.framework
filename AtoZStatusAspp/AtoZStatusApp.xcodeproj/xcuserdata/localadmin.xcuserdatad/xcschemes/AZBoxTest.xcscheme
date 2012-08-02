@@ -17,7 +17,7 @@
                BlueprintIdentifier = "7B091A1215A8301600821FFD"
                BuildableName = "AZBoxTest.app"
                BlueprintName = "AZBoxTest"
-               ReferencedContainer = "container:../AtoZStatusAspp/AtoZStatusApp.xcodeproj">
+               ReferencedContainer = "container:AtoZStatusApp.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -35,7 +35,7 @@
             BlueprintIdentifier = "7B091A1215A8301600821FFD"
             BuildableName = "AZBoxTest.app"
             BlueprintName = "AZBoxTest"
-            ReferencedContainer = "container:../AtoZStatusAspp/AtoZStatusApp.xcodeproj">
+            ReferencedContainer = "container:AtoZStatusApp.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -54,7 +54,7 @@
             BlueprintIdentifier = "7B091A1215A8301600821FFD"
             BuildableName = "AZBoxTest.app"
             BlueprintName = "AZBoxTest"
-            ReferencedContainer = "container:../AtoZStatusAspp/AtoZStatusApp.xcodeproj">
+            ReferencedContainer = "container:AtoZStatusApp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -72,7 +72,7 @@
             BlueprintIdentifier = "7B091A1215A8301600821FFD"
             BuildableName = "AZBoxTest.app"
             BlueprintName = "AZBoxTest"
-            ReferencedContainer = "container:../AtoZStatusAspp/AtoZStatusApp.xcodeproj">
+            ReferencedContainer = "container:AtoZStatusApp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

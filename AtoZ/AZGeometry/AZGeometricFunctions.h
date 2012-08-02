@@ -18,6 +18,10 @@ NSNumber *uNum(NSUInteger ui);
 NSNumber *fNum(CGFloat f);
 NSNumber *dNum(double d);
 
+
+CGFloat AZMaxDim(NSSize sz);
+CGFloat AZMinDim(NSSize sz);
+
 //
 // NSRange from a min and max values
 // even though the names imply that min should be greater than max

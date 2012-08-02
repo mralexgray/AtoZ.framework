@@ -147,8 +147,8 @@
 			children = (
 				7BECAEF915BF0E7A00557357 /* AppDelegate.h */,
 				7BECAEFA15BF0E7A00557357 /* AppDelegate.m */,
-				7BECAEFC15BF0E7A00557357 /* MainMenu.xib */,
 				7BECAEEE15BF0E7A00557357 /* Supporting Files */,
+				7BECAEFC15BF0E7A00557357 /* MainMenu.xib */,
 			);
 			path = AZView;
 			sourceTree = "<group>";

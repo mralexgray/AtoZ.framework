@@ -17,7 +17,7 @@
                BlueprintIdentifier = "7B7852A415ACECD2008BAD3C"
                BuildableName = "AZLayerTest.app"
                BlueprintName = "AZLayerTest"
-               ReferencedContainer = "container:AtoZ/AtoZ.xcodeproj">
+               ReferencedContainer = "container:AtoZ.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -35,7 +35,7 @@
             BlueprintIdentifier = "7B7852A415ACECD2008BAD3C"
             BuildableName = "AZLayerTest.app"
             BlueprintName = "AZLayerTest"
-            ReferencedContainer = "container:AtoZ/AtoZ.xcodeproj">
+            ReferencedContainer = "container:AtoZ.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -54,7 +54,7 @@
             BlueprintIdentifier = "7B7852A415ACECD2008BAD3C"
             BuildableName = "AZLayerTest.app"
             BlueprintName = "AZLayerTest"
-            ReferencedContainer = "container:AtoZ/AtoZ.xcodeproj">
+            ReferencedContainer = "container:AtoZ.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -72,7 +72,7 @@
             BlueprintIdentifier = "7B7852A415ACECD2008BAD3C"
             BuildableName = "AZLayerTest.app"
             BlueprintName = "AZLayerTest"
-            ReferencedContainer = "container:AtoZ/AtoZ.xcodeproj">
+            ReferencedContainer = "container:AtoZ.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

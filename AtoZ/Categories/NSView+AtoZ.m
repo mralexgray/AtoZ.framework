@@ -327,14 +327,14 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
   }
 }
 
-@end
-
-//@implementation NSView
-//
-//+ (void)runEndBlock:(void (^)(void))completionBlock
-//{
-//  completionBlock();
-//}
-//
-//
 //@end
+//
+//@implementation NSView
+
++ (void)runEndBlock:(void (^)(void))completionBlock
+{
+  completionBlock();
+}
+
+
+@end

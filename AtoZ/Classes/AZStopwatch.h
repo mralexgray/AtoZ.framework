@@ -12,30 +12,24 @@
 
 
 #import <Foundation/Foundation.h>
-// - - - - - - - - - - - - - - - - - - -
 @interface AZStopwatch : NSObject {
 @private
 	NSMutableDictionary *items;
-	
 }
 + (void) start:(NSString *)name;
 + (void) stop:(NSString *)name;
 + (void) print:(NSString *)name;
 @end
-
-
-// - - - - - - - - - - - - - - - - - - -
-@interface AZStopwatchItem : NSObject {
-@private
-	NSString *name;
-	NSDate *started;
-	NSDate *stopped;
-}
+@interface AZStopwatchItem : NSObject
+//{
+//@private
+//	NSString *name;
+//	NSDate *started;
+//	NSDate *stopped;
+//}
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSDate *started;
 @property (nonatomic, strong) NSDate *stopped;
-
-
 + (AZStopwatchItem *) itemWithName:(NSString *)name;
 - (void) stop;
 - (NSTimeInterval) runtime;

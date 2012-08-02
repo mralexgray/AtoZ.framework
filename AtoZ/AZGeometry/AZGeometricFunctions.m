@@ -34,6 +34,15 @@ NSRange AZMakeRange(NSUInteger min, NSUInteger max) {
 // 2D Functions
 //
 
+
+CGFloat AZMinDim(NSSize sz) {
+	return MIN(sz.width, sz.height);
+}
+
+CGFloat AZMaxDim(NSSize sz) {
+	return MIN(sz.width, sz.height);
+}
+
 CGFloat AZLengthOfPoint(NSPoint pt) {
   return sqrt(pt.x * pt.x + pt.y * pt.y);
   //return ABS(pt.x) + ABS(pt.y);

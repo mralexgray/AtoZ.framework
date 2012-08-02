@@ -56,7 +56,7 @@
 {
     self = [super init];
     if (self) {
-        <#initializations#>
+        
     }
     return self;
 }

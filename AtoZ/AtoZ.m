@@ -7,8 +7,18 @@
 //
 #import "AtoZ.h"
 #import <objc/message.h>
+#import <AtoZiTunes/AtoZiTunes.h>
 
 
+void profile (const char *name, void (^work) (void)) {
+    struct timeval start, end;
+    gettimeofday (&start, NULL);
+    work();
+    gettimeofday (&end, NULL);
+    double fstart = (start.tv_sec * 1000000.0 + start.tv_usec) / 1000000.0;
+    double fend = (end.tv_sec * 1000000.0 + end.tv_usec) / 1000000.0;
+    printf("%s took %f seconds", name, fend - fstart);
+}
 
 
 CGFloat DegreesToRadians(CGFloat degrees)
@@ -195,25 +205,47 @@ NSString *const AtoZDockSortedUpdated = @"AtoZDockSortedUpdated";
 @synthesize path, name, color, customColor, labelColor, colors, icon, image;
 @synthesize dockPoint, dockPointNew, spot, spotNew;
 @synthesize hue, isRunning, hasLabel, needsToMove, labelNumber;
+@synthesize itunesInfo, itunesDescription;
+
+- (NSString*) itunesDescription {
+	return self.itunesInfo.itemDescription;
+}
+
+- (AJSiTunesResult *) itunesInfo {
+
+	return  [AtoZiTunes resultsForName:self.name];
+}
+
 
 + (AZFile*) dummy {
 	return [AZFile instanceWithPath:@"/System/Library/CoreServices/Dock.app/Contents/Resources/notloaded.icns"];
 }
-+ (id)instanceWithPath:(NSString *)_path {
-	return [self instanceWithObject:_path];
+
++ (id) instanceWithColor: (NSColor*)color {
+	AZFile*d = [AZFile instance];
+	d.color = color;
+	return d;
 }
 
-- (void)setWithString:(NSString *)string
-{
-	self.path = string;
-	self.name 	= [[string lastPathComponent] stringByDeletingPathExtension];
-	self.colors = [self colors];
-	customColor = WHITE;
-	labelColor = WHITE;
++ (id)instanceWithPath:(NSString *)path {
+
+	__block AZFile *dd = [super instance];
+	dd.path = path;
+	dd.name = [[path lastPathComponent] stringByDeletingPathExtension];
+	dd.image = [[NSWorkspace sharedWorkspace] iconForFile:path];
+	dd.image.size = NSMakeSize(128,128);
+	dd.image.scalesWhenResized = YES;
+	[NSThread performBlockInBackground:^{
+		dd.color = [[dd.colors objectAtNormalizedIndex:0]valueForKey:@"color"];
+	}];
+	return dd;
 }
 
-- (NSArray*) colors {	
-	NSArray *rawArray = [[self image] quantize];
+-(NSArray*) colors {
+
+	if (colors) return  colors;
+	else {
+	NSArray *rawArray = [self.image quantize];
 	// put all colors in a bag
 	NSBag *allBag = [NSBag bag];
 	for (id thing in rawArray ) [allBag add:thing];
@@ -254,25 +286,17 @@ NSString *const AtoZDockSortedUpdated = @"AtoZDockSortedUpdated";
 		[colorsUnsorted addObject:acolor];
 	}
 	rawBag = nil; allBag = nil;
-	NSArray *sort = [colorsUnsorted sortedWithKey:@"count" ascending:NO];
-	self.color = [[sort  objectAtNormalizedIndex:0]valueForKey:@"color"];
-	return  sort;
-	//	return [[NSArray alloc] initWithArray:colorsUnsorted];
+	return [colorsUnsorted sortedWithKey:@"count" ascending:NO];
+	}
 }
 //- (NSColor*) color {
 //	NSLog(@"color for %@:  %@", self.name, (color ? color : [[self.colors objectAtNormalizedIndex:0] valueForKey:@"color"]));
 //	return (color ? color : [[self.colors objectAtNormalizedIndex:0] valueForKey:@"color"]); 
 //}
 
-- (CGFloat) hue {	return self.color.hueComponent; }
+- (CGFloat) hue { return self.color.hueComponent; }
 
 
-- (NSImage*) image {
-	image = [[NSWorkspace sharedWorkspace] iconForFile:self.path];
-	[image setSize:NSMakeSize(128,128)];
-	[image setScalesWhenResized:YES];
-	return image;
-}
 
 - (BOOL) isRunning {
 	

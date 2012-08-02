@@ -7,10 +7,18 @@
 //
 
 
-#import <AtoZ/AtoZ.h>
+#import "AtoZ.h"
 #import <Foundation/Foundation.h>
 #import <ApplicationServices/ApplicationServices.h>
 #import <AppKit/AppKit.h>
+
+static CGRect screenBounds;
+
+extern void mouseEvent(CGEventRef type, CGFloat posx, CGFloat posy);
+extern void mousemove(CGFloat posx, CGFloat posy);
+extern void mouseclickdn(CGFloat posx, CGFloat posy);
+extern void mouseclickup(CGFloat posx, CGFloat posy);
+extern void mousedrag(CGFloat posx, CGFloat posy);
 
 @interface AUWindowExtend : NSWindow
 - (void)setAcceptsMouseMovedEvents:(BOOL)acceptMouseMovedEvents screen:(BOOL)anyWhere;

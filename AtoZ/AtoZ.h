@@ -2,45 +2,8 @@
 //  AtoZ.h
 //  AtoZ
 //
-//  Created by Alex Gray on 6/27/12.
-//  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-//
-
-/** The appledoc application handler.
- 
- This is the principal tool class. It represents the entry point for the application. The main promises of the class are parsing and validating of command line arguments and initiating documentation generation. Generation is divided into several distinct phases:
- 
- 1. Parsing data from source files: This is the initial phase where input directories and files are parsed into a memory representation (i.e. objects) suitable for subsequent handling. This is where the source code files are  parsed and validated for possible file or object-level incosistencies. This step is driven by `GBParser` class. 
- 2. Post-processing of the data parsed in the previous step: At this phase, we already have in-memory representation of all source code objects, so we can post-process and validate things such as links to other objects etc. We can also update in-memory representation with this data and therefore prepare everything for the final phase. This step is driven by `GBProcessor` class.
- 3. Generating output: This is the final phase where we use in-memory data to generate output. This step is driven by `GBGenerator` class.
- 
- @warning *Global settings implementation details:* To be able to properly apply all levels of settings - factory defaults, global settings and command line arguments - we can't solely rely on `DDCli` for parsing command line args. As the user can supply templates path from command line (instead of using one of the default paths), we need to pre-parse command line arguments for templates switches. The last one found is then used to read global settings. This solves proper settings inheritance up to global settings level. Another issue is how to implement code that deals with global settings; there are several possible solutions (the simplest from programmers point of view would be to force the user to pass in templates path as the first parameter, then `DDCli` would first process this and when we would receive notification, we could parse the option, load in global settings and resume operation). At the end I chose to pre-parse command line for template arguments before passing it to `DDCli`. This did require some tweaking to `DDCli` code (specifically the method that converts option string to KVC key was moved to public interface), but ended up as very simple to inject global settings - by simply using the same KCV messages as `DDCli` uses. This small tweak allowed us to use exactly the same path of handling global settings as normal command line arguments. The benefits are many: all argument names are alreay unit tested to properly map to settings values, code reuse for setting the values.
- */
-
-//  BaseModel.h
-//  Version 2.3.1
-//  ARC Helper
-//  Version 1.3.1
-
-#ifndef AH_RETAIN
-#if __has_feature(objc_arc)
-#define AH_RETAIN(x) (x)
-#define AH_RELEASE(x) (void)(x)
-#define AH_AUTORELEASE(x) (x)
-#define AH_SUPER_DEALLOC (void)(0)
-#define __AH_BRIDGE __bridge
-#else
-#define __AH_WEAK
-#define AH_WEAK assign
-#define AH_RETAIN(x) [(x) retain]
-#define AH_RELEASE(x) [(x) release]
-#define AH_AUTORELEASE(x) [(x) autorelease]
-#define AH_SUPER_DEALLOC [super dealloc]
-#define __AH_BRIDGE
-#endif
-#endif
-
-//  ARC Helper ends
+#import "BaseModel.h"
+//#import "NSObject+AutoCoding.h"
 
 #import "AZSugar.h"
 #import "MondoSwitch.h"
@@ -48,6 +11,7 @@
 //#import "AZToggleView.h"
 
 //Classes
+//#imoport "A
 
 #import "AZQueue.h"
 //#import "FSItem.h"
@@ -94,8 +58,6 @@
 #import "AZBox.h"
 #import "AZBoxGrid.h"
 #import "AZBoxMagic.h"
-#import "BaseModel.h"
-//#import "NSObject+AutoCoding.h"
 
 #import "AZSizer.h"
 #import "AZApplePrivate.h"
@@ -111,10 +73,10 @@
 #import "AtoZInfinity.h"
 
 //#import "AtoZInfintieScroll.h"
-
-CGFloat DegreesToRadians(CGFloat degrees);
-NSNumber* DegreesToNumber(CGFloat degrees);
-
+//  BaseModel.h
+//  Version 2.3.1
+//  ARC Helper
+//  Version 1.3.1
 
 #ifndef AZ_RETAIN
 #if __has_feature(objc_arc)
@@ -134,6 +96,11 @@ NSNumber* DegreesToNumber(CGFloat degrees);
 #endif
 #endif
 
+//  ARC Helper ends
+
+
+
+
 #define AZRelease(value) \
 if ( value ) { \
 //[value release]; \
@@ -144,6 +111,11 @@ value = nil; \
 //[ newValue retain ]; \
 AZRelease (oldValue); \
 oldValue = newValue;
+
+
+
+CGFloat DegreesToRadians(CGFloat degrees);
+NSNumber* DegreesToNumber(CGFloat degrees);
 
 
 #define AZConstraint(attr, rel) \
@@ -201,8 +173,10 @@ extern NSString *const AtoZDockSortedUpdated;
 + (id) instanceWithObject: (NSDictionary *)dic;
 @end
 
+@class AJSiTunesResult;
 @interface AZFile : BaseModel
-
+@property (strong, nonatomic)	NSString *itunesDescription;
+@property (strong, nonatomic)	AJSiTunesResult *itunesInfo;
 @property (strong, nonatomic)	NSString * 	path;
 @property (strong, nonatomic)	NSString *	name;
 @property (strong, nonatomic) 	NSColor	 * 	color;
@@ -222,6 +196,8 @@ extern NSString *const AtoZDockSortedUpdated;
 @property (nonatomic, assign)		BOOL		needsToMove;
 + (AZFile*) dummy;
 + (id)instanceWithPath:(NSString *)path;
++ (id) instanceWithColor:(NSColor*)color;
+
 @end
 
 
@@ -292,3 +268,23 @@ extern NSString *const AtoZDockSortedUpdated;
 extern void DrawGlossGradient(CGContextRef context, NSColor *color, NSRect inRect);
 
 extern void DrawLabelAtCenterPoint(NSString* string, NSPoint center);
+
+
+
+
+/** The appledoc application handler.
+ 
+ This is the principal tool class. It represents the entry point for the application. The main promises of the class are parsing and validating of command line arguments and initiating documentation generation. Generation is divided into several distinct phases:
+ 
+ 1. Parsing data from source files: This is the initial phase where input directories and files are parsed into a memory representation (i.e. objects) suitable for subsequent handling. This is where the source code files are  parsed and validated for possible file or object-level incosistencies. This step is driven by `GBParser` class. 
+ 2. Post-processing of the data parsed in the previous step: At this phase, we already have in-memory representation of all source code objects, so we can post-process and validate things such as links to other objects etc. We can also update in-memory representation with this data and therefore prepare everything for the final phase. This step is driven by `GBProcessor` class.
+ 3. Generating output: This is the final phase where we use in-memory data to generate output. This step is driven by `GBGenerator` class.
+ 
+ @warning *Global settings implementation details:* To be able to properly apply all levels of settings - factory defaults, global settings and command line arguments - we can't solely rely on `DDCli` for parsing command line args. As the user can supply templates path from command line (instead of using one of the default paths), we need to pre-parse command line arguments for templates switches. The last one found is then used to read global settings. This solves proper settings inheritance up to global settings level. Another issue is how to implement code that deals with global settings; there are several possible solutions (the simplest from programmers point of view would be to force the user to pass in templates path as the first parameter, then `DDCli` would first process this and when we would receive notification, we could parse the option, load in global settings and resume operation). At the end I chose to pre-parse command line for template arguments before passing it to `DDCli`. This did require some tweaking to `DDCli` code (specifically the method that converts option string to KVC key was moved to public interface), but ended up as very simple to inject global settings - by simply using the same KCV messages as `DDCli` uses. This small tweak allowed us to use exactly the same path of handling global settings as normal command line arguments. The benefits are many: all argument names are alreay unit tested to properly map to settings values, code reuse for setting the values.
+ */
+
+
+// usage
+// profile("Long Task", ^{ performLongTask() } );
+
+void profile (const char *name, void (^work) (void));
