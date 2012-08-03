@@ -20,6 +20,20 @@
                ReferencedContainer = "container:AZLayerGrid.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "7B311950159B6D9E002134C4"
+               BuildableName = "AtoZ.framework"
+               BlueprintName = "AtoZ"
+               ReferencedContainer = "container:../../AtoZ/AtoZ.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
