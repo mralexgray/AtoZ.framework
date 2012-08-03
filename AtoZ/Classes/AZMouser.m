@@ -1,5 +1,195 @@
 #import "AZMouser.h"
 
+#define IS_CMD( x, y ) strncmp( x, y, strlen( y ) ) == 0
+#define CMD_STRING_MAXLEN 256
+#define MOUSE_SPEED 4000 // bigger = slower
+#define MOUSE_RESOLUTION 2.5 //how much to move the cursor each interval
+#define TYPOMATIC_RATE 100000
+
+#define NO_MOUSE_BUTTON 0
+#define LEFT_MOUSE 1
+#define RIGHT_MOUSE 2
+
+#define MOUSE_DOWN 0
+#define MOUSE_UP 1
+#define MOUSE_DRAGGED 2
+#define MOUSE_MOVED 2
+
+#define SINGLE_CLICK 1
+#define DOUBLE_CLICK 2
+#define TRIPLE_CLICK 3
+
+bool bDragging = false;
+
+
+/* MOUSE INPUT */
+
+CGPoint mouseLoc() {
+//	Point currLoc;
+//
+//	GetGlobalMouse(&currLoc);
+//	CGPoint cgLoc = {.x = currLoc.h, .y = currLoc.v};
+	return MousePoint();
+}
+
+	// btn: 0 = none, 1 = left, 2 = right, etc
+CGEventType mouseEventType(int btn, int btnState) {
+	switch(btn) {
+		case NO_MOUSE_BUTTON:
+			return kCGEventMouseMoved;
+		case LEFT_MOUSE:
+			switch(btnState) {
+				case MOUSE_UP:
+					return kCGEventLeftMouseUp;
+				case MOUSE_DRAGGED:
+					return kCGEventLeftMouseDragged;
+				default:
+					return kCGEventLeftMouseDown;
+			}
+		case RIGHT_MOUSE:
+			switch(btnState) {
+				case MOUSE_UP:
+					return kCGEventRightMouseUp;
+				case MOUSE_DRAGGED:
+					return kCGEventRightMouseDragged;
+				default:
+					return kCGEventRightMouseDown;
+			}
+		default:
+			switch(btnState) {
+				case MOUSE_UP:
+					return kCGEventOtherMouseUp;
+				case MOUSE_DRAGGED:
+					return kCGEventOtherMouseDragged;
+				default:
+					return kCGEventOtherMouseDown;
+			}
+	}
+}
+
+void mouseEvent(int btn, int btnState, int clickType) {
+	CGPoint currLoc;
+	currLoc = mouseLoc();
+	CGEventType mouseType = mouseEventType(btn, btnState);
+	
+	CGMouseButton mb = (btn == LEFT_MOUSE) ? 
+    kCGMouseButtonLeft : 
+    (btn == RIGHT_MOUSE) ? 
+	kCGMouseButtonRight : 
+	kCGMouseButtonCenter;
+	
+	CGEventRef theEvent = CGEventCreateMouseEvent(NULL, mouseType, currLoc, mb);
+	
+	if (clickType) {
+		CGEventSetIntegerValueField(theEvent, kCGMouseEventClickState, clickType);
+	}
+	
+	CGEventPost(kCGHIDEventTap, theEvent);
+	CFRelease(theEvent);	
+}
+
+
+
+/* MOUSE MOVEMENT */
+
+void mouseMove(int posX, int posY) {
+	CGPoint dest = { .x = posX, .y = posY };
+	CGWarpMouseCursorPosition(dest); 
+	if (bDragging) {
+		mouseEvent(LEFT_MOUSE, MOUSE_DRAGGED, 0);
+	} else {
+		mouseEvent(NO_MOUSE_BUTTON, MOUSE_MOVED, 0);
+	}
+}
+
+void mouseMoveTo(int posX, int posY, float speed) {
+	CGPoint currLoc = MousePoint();
+		//mouseLoc();
+	CGPoint destLoc = { .x = posX, .y = posY };
+	float x = currLoc.x;
+	float y = currLoc.y;
+	float xrat, yrat;
+	
+	int diffX = abs(currLoc.x - destLoc.x);
+	int diffY = abs(currLoc.y - destLoc.y);
+	int dirX = currLoc.x > destLoc.x ? -1 : 1;
+	int dirY = currLoc.y > destLoc.y ? -1 : 1;
+	
+	if (diffX == 0 && diffY == 0) {
+		return;
+	}
+	
+	if (diffX > diffY) {
+		xrat = MOUSE_RESOLUTION * dirX;
+		if (diffY == 0) {
+			yrat = 0;
+		} else {
+			yrat = (((float)diffY / diffX) * dirY) * MOUSE_RESOLUTION;
+		}
+	} else {
+		yrat = MOUSE_RESOLUTION * dirY;
+		if (diffX == 0) {
+			xrat = 0;
+		} else {
+			xrat = (((float)diffX / diffY) * dirX) * MOUSE_RESOLUTION;
+		}
+	}
+	
+	int xArrived = 0, yArrived = 0, diff;
+	float accelerant;
+	while (!xArrived && !yArrived) {
+		diffX = abs(destLoc.x - x);
+		diffY = abs(destLoc.y - y);
+		diff = diffX > diffY ? diffX : diffY;
+		accelerant = diff > 70 ? diff / 40 : (diff > 40 ? diff / 20 : 1);
+		
+		if (!xArrived && diffX < abs(xrat)) {
+			xArrived = 1;
+			x = destLoc.x;
+		} else {
+			x += xrat * accelerant;
+		}
+		
+		if (!yArrived && diffY < abs(yrat)) {
+			yArrived = 1;
+			y = destLoc.y;
+		} else {
+			y += yrat * accelerant;
+		}
+		
+		mouseMove((int)x, (int)y);
+		usleep((int)(speed * (MOUSE_SPEED * MOUSE_RESOLUTION)));
+	}
+}
+
+/* MOUSE CLICKING */
+
+void mousePress(int btn, int clickType) {
+	mouseEvent(btn, MOUSE_DOWN, clickType);
+}
+
+void mouseRelease(int btn, int clickType) {
+	mouseEvent(btn, MOUSE_UP, clickType);
+}
+
+void mouseClick(int btn, int clickType) {
+	mousePress(btn, clickType);
+	usleep(400000);
+	mouseRelease(btn, clickType);
+}
+
+void mouseDrag(int btn, int posX, int posY) {
+	bDragging = true;
+	mouseEvent(btn, MOUSE_DOWN, SINGLE_CLICK);
+	usleep(50000);
+	mouseMoveTo(posX, posY, 5);
+	usleep(50000);
+	mouseEvent(btn, MOUSE_UP, SINGLE_CLICK);
+}
+
+
+
+
 CGPoint MousePoint() {
 	CGEventRef event = CGEventCreate(NULL);
 	CGPoint cursor = CGEventGetLocation(event);

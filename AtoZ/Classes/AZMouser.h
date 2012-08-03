@@ -13,6 +13,20 @@
 #import <QuartzCore/QuartzCore.h>
 #import "AtoZ.h"
 
+
+CGPoint mouseLoc();
+CGEventType getMouseButton(int btn, int btnState);
+void mouseEvent(int btn, int btnState, int clickType);
+
+/* MOUSE MOVEMENT */
+void mouseMove(int posX, int posY);
+void mouseMoveTo(int posX, int posY, float speed);
+/* MOUSE CLICKING */
+void mousePress(int btn, int clickType);
+void mouseRelease(int btn, int clickType);
+void mouseClick(int btn, int clickType);
+void mouseDrag(int btn, int posX, int posY);
+
 //static CGRect screenBounds;
 
 CGPoint MousePoint();

@@ -65,9 +65,6 @@
 		7B311978159B6D9E002134C4 /* AtoZTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B311977159B6D9E002134C4 /* AtoZTests.m */; };
 		7B3422A315A52A61006AC46C /* BaseModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B3422A115A52A61006AC46C /* BaseModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B3422A415A52A61006AC46C /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B3422A215A52A61006AC46C /* BaseModel.m */; };
-		7B3422BC15A5EC03006AC46C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B311959159B6D9E002134C4 /* Foundation.framework */; };
-		7B3422BF15A5EC03006AC46C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B3422BE15A5EC03006AC46C /* main.m */; };
-		7B3422C315A5EC03006AC46C /* AtoZCLI.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7B3422C215A5EC03006AC46C /* AtoZCLI.1 */; };
 		7B3422CA15A5EF03006AC46C /* AZDockQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B3422C815A5EF03006AC46C /* AZDockQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B385DEE15C3B49E00A28686 /* AZFoamView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B385DEC15C3B49E00A28686 /* AZFoamView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B385DEF15C3B49E00A28686 /* AZFoamView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B385DED15C3B49E00A28686 /* AZFoamView.m */; };
@@ -91,14 +88,8 @@
 		7B78529615ACEABC008BAD3C /* AZLayerManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B78529415ACEABC008BAD3C /* AZLayerManager.h */; };
 		7B78529715ACEABC008BAD3C /* AZLayerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B78529515ACEABC008BAD3C /* AZLayerManager.m */; };
 		7B7852A715ACECD2008BAD3C /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B311954159B6D9E002134C4 /* Cocoa.framework */; };
-		7B7852B115ACECD3008BAD3C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7B7852AF15ACECD3008BAD3C /* InfoPlist.strings */; };
-		7B7852B315ACECD3008BAD3C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7852B215ACECD3008BAD3C /* main.m */; };
-		7B7852BA15ACECD3008BAD3C /* AZAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7852B915ACECD3008BAD3C /* AZAppDelegate.m */; };
-		7B7852BD15ACECD3008BAD3C /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B7852BB15ACECD3008BAD3C /* MainMenu.xib */; };
 		7B7852C315ACEDA3008BAD3C /* AZBoxLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B7852C115ACEDA3008BAD3C /* AZBoxLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B7852C415ACEDA3008BAD3C /* AZBoxLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7852C215ACEDA3008BAD3C /* AZBoxLayer.m */; };
-		7B7852C515ACEE99008BAD3C /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B311951159B6D9E002134C4 /* AtoZ.framework */; };
-		7B7852C615ACF4B7008BAD3C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B311995159B7FD0002134C4 /* QuartzCore.framework */; };
 		7B7C27FD15C32B39007DD569 /* RoundedView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B7C27F915C32B39007DD569 /* RoundedView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B7C27FE15C32B39007DD569 /* RoundedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7C27FA15C32B39007DD569 /* RoundedView.m */; };
 		7B7C27FF15C32B39007DD569 /* TransparentWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B7C27FB15C32B39007DD569 /* TransparentWindow.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -121,7 +112,6 @@
 		7B9742D315C697C4006490DD /* 4.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 7B9742CE15C697C4006490DD /* 4.pdf */; };
 		7B9742D415C697C4006490DD /* 5.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 7B9742CF15C697C4006490DD /* 5.pdf */; };
 		7B985DC015C91E4F00A86B7C /* AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B311961159B6D9E002134C4 /* AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7BA845A115A6089A002402FE /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B311954159B6D9E002134C4 /* Cocoa.framework */; };
 		7BBD96EB15AD279900943FC1 /* AZSizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC859C415A8C0F400582632 /* AZSizer.m */; };
 		7BBD96EE15AD38F300943FC1 /* AZApplePrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BBD96EC15AD38F300943FC1 /* AZApplePrivate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BBD96EF15AD38F300943FC1 /* AZApplePrivate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BBD96ED15AD38F300943FC1 /* AZApplePrivate.m */; };
@@ -141,13 +131,11 @@
 		7BBD991815B0688400943FC1 /* CALayer+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BBD991615B0688400943FC1 /* CALayer+AtoZ.m */; };
 		7BC3C2B015C9F0DD00DA2EFA /* AZMouser.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B8558E415B2C98D0005F558 /* AZMouser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BC3C2B115C9F26D00DA2EFA /* AZMouser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B8558E515B2C98D0005F558 /* AZMouser.m */; };
-		7BC3C2EA15CB1B6E00DA2EFA /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B6901D9159E3F1800D0DA47 /* ApplicationServices.framework */; };
 		7BC3C30315CB38B000DA2EFA /* AtoZiTunes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BC3C2FE15CB389100DA2EFA /* AtoZiTunes.framework */; };
 		7BC3C31815CB3A0300DA2EFA /* PLWeakCompatibility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BC3C30D15CB39F100DA2EFA /* PLWeakCompatibility.framework */; };
 		7BC3C31A15CB3A1E00DA2EFA /* PLWeakCompatibility.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7BC3C30D15CB39F100DA2EFA /* PLWeakCompatibility.framework */; };
 		7BC3C31B15CB3A2300DA2EFA /* AtoZiTunes.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7BC3C2FE15CB389100DA2EFA /* AtoZiTunes.framework */; };
 		7BC3C31C15CB3ABD00DA2EFA /* AZDockQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B3422C915A5EF03006AC46C /* AZDockQuery.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		7BC3C31D15CB3F8100DA2EFA /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B311951159B6D9E002134C4 /* AtoZ.framework */; };
 		7BC859C515A8C0F400582632 /* AZSizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BC859C315A8C0F400582632 /* AZSizer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BC859CA15A8C56700582632 /* NSNumber+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BC859C815A8C56700582632 /* NSNumber+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BC859CB15A8C56700582632 /* NSNumber+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC859C915A8C56700582632 /* NSNumber+AtoZ.m */; };
@@ -163,6 +151,9 @@
 		7BCDFC6B15C71A810003DA4D /* UbuntuMono-R.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7BCDFC6015C71A810003DA4D /* UbuntuMono-R.ttf */; };
 		7BCDFC6C15C71A810003DA4D /* UbuntuMono-B.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7BCDFC6115C71A810003DA4D /* UbuntuMono-B.ttf */; };
 		7BCDFC6D15C71A810003DA4D /* noun_box.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 7BCDFC6215C71A810003DA4D /* noun_box.pdf */; };
+		7BDB8D7315CB52140037A4BF /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B311995159B7FD0002134C4 /* QuartzCore.framework */; };
+		7BDB8D7515CB52CE0037A4BF /* AtoZ.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7B311951159B6D9E002134C4 /* AtoZ.framework */; };
+		7BDB8D7815CB52FA0037A4BF /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B311951159B6D9E002134C4 /* AtoZ.framework */; };
 		7BDDD5E415A3792600A5C222 /* AZStopwatch.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BDDD5E215A3792600A5C222 /* AZStopwatch.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BDDD5E515A3792600A5C222 /* AZStopwatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BDDD5E315A3792600A5C222 /* AZStopwatch.m */; };
 		7BE6069515A0E2DD00355236 /* NSString+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BE6069315A0E2DC00355236 /* NSString+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -246,19 +237,16 @@
 			remoteGlobalIDString = 053887981523F6CD00CDC1DF;
 			remoteInfo = "PLWeakCompatibility-MacOSX";
 		};
+		7BDB8D7615CB52D80037A4BF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B311947159B6D9E002134C4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7B311950159B6D9E002134C4;
+			remoteInfo = AtoZ;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		7B3422B815A5EC03006AC46C /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
-			files = (
-				7B3422C315A5EC03006AC46C /* AtoZCLI.1 in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 1;
-		};
 		7BC3C31915CB3A0F00DA2EFA /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -267,6 +255,16 @@
 			files = (
 				7BC3C31B15CB3A2300DA2EFA /* AtoZiTunes.framework in CopyFiles */,
 				7BC3C31A15CB3A1E00DA2EFA /* PLWeakCompatibility.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7BDB8D7415CB52BB0037A4BF /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				7BDB8D7515CB52CE0037A4BF /* AtoZ.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -340,10 +338,6 @@
 		7B311995159B7FD0002134C4 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		7B3422A115A52A61006AC46C /* BaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseModel.h; sourceTree = "<group>"; };
 		7B3422A215A52A61006AC46C /* BaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseModel.m; sourceTree = "<group>"; };
-		7B3422BA15A5EC03006AC46C /* AtoZCLI */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = AtoZCLI; sourceTree = BUILT_PRODUCTS_DIR; };
-		7B3422BE15A5EC03006AC46C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		7B3422C115A5EC03006AC46C /* AtoZCLI-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AtoZCLI-Prefix.pch"; sourceTree = "<group>"; };
-		7B3422C215A5EC03006AC46C /* AtoZCLI.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = AtoZCLI.1; sourceTree = "<group>"; };
 		7B3422C815A5EF03006AC46C /* AZDockQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZDockQuery.h; sourceTree = "<group>"; };
 		7B3422C915A5EF03006AC46C /* AZDockQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZDockQuery.m; sourceTree = "<group>"; };
 		7B385DEC15C3B49E00A28686 /* AZFoamView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZFoamView.h; sourceTree = "<group>"; };
@@ -374,16 +368,9 @@
 		7B78528915ACA7AB008BAD3C /* AZBoxMagic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AZBoxMagic.m; path = AZBoxView/AZBoxMagic.m; sourceTree = SOURCE_ROOT; };
 		7B78529415ACEABC008BAD3C /* AZLayerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZLayerManager.h; path = AZLayerGrid/AZLayerManager.h; sourceTree = SOURCE_ROOT; };
 		7B78529515ACEABC008BAD3C /* AZLayerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AZLayerManager.m; path = AZLayerGrid/AZLayerManager.m; sourceTree = SOURCE_ROOT; };
-		7B7852A515ACECD2008BAD3C /* AZLayerTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AZLayerTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7B7852A515ACECD2008BAD3C /* .app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = .app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B7852A915ACECD2008BAD3C /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		7B7852AA15ACECD2008BAD3C /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		7B7852AE15ACECD3008BAD3C /* AZLayerTest-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AZLayerTest-Info.plist"; sourceTree = "<group>"; };
-		7B7852B015ACECD3008BAD3C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		7B7852B215ACECD3008BAD3C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		7B7852B415ACECD3008BAD3C /* AZLayerTest-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AZLayerTest-Prefix.pch"; sourceTree = "<group>"; };
-		7B7852B815ACECD3008BAD3C /* AZAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AZAppDelegate.h; sourceTree = "<group>"; };
-		7B7852B915ACECD3008BAD3C /* AZAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AZAppDelegate.m; sourceTree = "<group>"; };
-		7B7852BC15ACECD3008BAD3C /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		7B7852C115ACEDA3008BAD3C /* AZBoxLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZBoxLayer.h; path = AZLayerGrid/AZBoxLayer.h; sourceTree = SOURCE_ROOT; };
 		7B7852C215ACEDA3008BAD3C /* AZBoxLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AZBoxLayer.m; path = AZLayerGrid/AZBoxLayer.m; sourceTree = SOURCE_ROOT; };
 		7B7C27F915C32B39007DD569 /* RoundedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoundedView.h; sourceTree = "<group>"; };
@@ -460,23 +447,12 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7B3422B715A5EC03006AC46C /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7BC3C31D15CB3F8100DA2EFA /* AtoZ.framework in Frameworks */,
-				7BC3C2EA15CB1B6E00DA2EFA /* ApplicationServices.framework in Frameworks */,
-				7BA845A115A6089A002402FE /* Cocoa.framework in Frameworks */,
-				7B3422BC15A5EC03006AC46C /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		7B7852A215ACECD2008BAD3C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7B7852C615ACF4B7008BAD3C /* QuartzCore.framework in Frameworks */,
-				7B7852C515ACEE99008BAD3C /* AtoZ.framework in Frameworks */,
+				7BDB8D7315CB52140037A4BF /* QuartzCore.framework in Frameworks */,
+				7BDB8D7815CB52FA0037A4BF /* AtoZ.framework in Frameworks */,
 				7B7852A715ACECD2008BAD3C /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -584,8 +560,7 @@
 			children = (
 				7B311951159B6D9E002134C4 /* AtoZ.framework */,
 				7B311969159B6D9E002134C4 /* AtoZTests.octest */,
-				7B3422BA15A5EC03006AC46C /* AtoZCLI */,
-				7B7852A515ACECD2008BAD3C /* AZLayerTest.app */,
+				7B7852A515ACECD2008BAD3C /* .app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -639,24 +614,6 @@
 			children = (
 				7B311972159B6D9E002134C4 /* AtoZTests-Info.plist */,
 				7B311973159B6D9E002134C4 /* InfoPlist.strings */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		7B3422BD15A5EC03006AC46C /* AtoZCLI */ = {
-			isa = PBXGroup;
-			children = (
-				7B3422BE15A5EC03006AC46C /* main.m */,
-				7B3422C215A5EC03006AC46C /* AtoZCLI.1 */,
-				7B3422C015A5EC03006AC46C /* Supporting Files */,
-			);
-			path = AtoZCLI;
-			sourceTree = "<group>";
-		};
-		7B3422C015A5EC03006AC46C /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				7B3422C115A5EC03006AC46C /* AtoZCLI-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -763,28 +720,6 @@
 			path = ../AtoZ;
 			sourceTree = "<group>";
 		};
-		7B7852AC15ACECD2008BAD3C /* AZLayerTest */ = {
-			isa = PBXGroup;
-			children = (
-				7B7852B815ACECD3008BAD3C /* AZAppDelegate.h */,
-				7B7852B915ACECD3008BAD3C /* AZAppDelegate.m */,
-				7B7852BB15ACECD3008BAD3C /* MainMenu.xib */,
-				7B7852AD15ACECD3008BAD3C /* Supporting Files */,
-			);
-			path = AZLayerTest;
-			sourceTree = SOURCE_ROOT;
-		};
-		7B7852AD15ACECD3008BAD3C /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				7B7852AE15ACECD3008BAD3C /* AZLayerTest-Info.plist */,
-				7B7852AF15ACECD3008BAD3C /* InfoPlist.strings */,
-				7B7852B215ACECD3008BAD3C /* main.m */,
-				7B7852B415ACECD3008BAD3C /* AZLayerTest-Prefix.pch */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 		7BC3C2F915CB388E00DA2EFA /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -828,9 +763,7 @@
 			isa = PBXGroup;
 			children = (
 				7B583058159BB90D0039CEED /* .git */,
-				7B7852AC15ACECD2008BAD3C /* AZLayerTest */,
 				7B311970159B6D9E002134C4 /* AtoZTests */,
-				7B3422BD15A5EC03006AC46C /* AtoZCLI */,
 				7B311953159B6D9E002134C4 /* Frameworks */,
 				7B311952159B6D9E002134C4 /* Products */,
 			);
@@ -989,23 +922,6 @@
 			productReference = 7B311969159B6D9E002134C4 /* AtoZTests.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
-		7B3422B915A5EC03006AC46C /* AtoZCLI */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 7B3422C415A5EC03006AC46C /* Build configuration list for PBXNativeTarget "AtoZCLI" */;
-			buildPhases = (
-				7B3422B615A5EC03006AC46C /* Sources */,
-				7B3422B715A5EC03006AC46C /* Frameworks */,
-				7B3422B815A5EC03006AC46C /* CopyFiles */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = AtoZCLI;
-			productName = AtoZCLI;
-			productReference = 7B3422BA15A5EC03006AC46C /* AtoZCLI */;
-			productType = "com.apple.product-type.tool";
-		};
 		7B7852A415ACECD2008BAD3C /* AZLayerTest */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7B7852BE15ACECD3008BAD3C /* Build configuration list for PBXNativeTarget "AZLayerTest" */;
@@ -1013,14 +929,16 @@
 				7B7852A115ACECD2008BAD3C /* Sources */,
 				7B7852A215ACECD2008BAD3C /* Frameworks */,
 				7B7852A315ACECD2008BAD3C /* Resources */,
+				7BDB8D7415CB52BB0037A4BF /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				7BDB8D7715CB52D80037A4BF /* PBXTargetDependency */,
 			);
 			name = AZLayerTest;
 			productName = AZLayerTest;
-			productReference = 7B7852A515ACECD2008BAD3C /* AZLayerTest.app */;
+			productReference = 7B7852A515ACECD2008BAD3C /* .app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1057,7 +975,6 @@
 			targets = (
 				7B311950159B6D9E002134C4 /* AtoZ */,
 				7B311968159B6D9E002134C4 /* AtoZTests */,
-				7B3422B915A5EC03006AC46C /* AtoZCLI */,
 				7B7852A415ACECD2008BAD3C /* AZLayerTest */,
 			);
 		};
@@ -1150,8 +1067,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7B7852B115ACECD3008BAD3C /* InfoPlist.strings in Resources */,
-				7B7852BD15ACECD3008BAD3C /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1278,20 +1193,10 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7B3422B615A5EC03006AC46C /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7B3422BF15A5EC03006AC46C /* main.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		7B7852A115ACECD2008BAD3C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7B7852B315ACECD3008BAD3C /* main.m in Sources */,
-				7B7852BA15ACECD3008BAD3C /* AZAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1313,6 +1218,11 @@
 			name = "PLWeakCompatibility-MacOSX";
 			targetProxy = 7BC3C31615CB39F800DA2EFA /* PBXContainerItemProxy */;
 		};
+		7BDB8D7715CB52D80037A4BF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7B311950159B6D9E002134C4 /* AtoZ */;
+			targetProxy = 7BDB8D7615CB52D80037A4BF /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -1324,22 +1234,6 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		7B7852AF15ACECD3008BAD3C /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				7B7852B015ACECD3008BAD3C /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		7B7852BB15ACECD3008BAD3C /* MainMenu.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				7B7852BC15ACECD3008BAD3C /* en */,
-			);
-			name = MainMenu.xib;
-			sourceTree = "<group>";
-		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -1347,21 +1241,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_OBJCPP_ARC_ABI = YES;
 				COMBINE_HIDPI_IMAGES = YES;
-				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
-				GCC_WARN_ABOUT_RETURN_TYPE = NO;
-				GCC_WARN_UNINITIALIZED_AUTOS = NO;
-				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "${BUILT_PRODUCTS_DIR}/headers/**";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				SDKROOT = macosx;
@@ -1372,17 +1258,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_OBJCPP_ARC_ABI = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
-				GCC_WARN_ABOUT_RETURN_TYPE = NO;
-				GCC_WARN_UNINITIALIZED_AUTOS = NO;
-				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "${BUILT_PRODUCTS_DIR}/headers/**";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				SDKROOT = macosx;
@@ -1392,17 +1270,10 @@
 		7B31197C159B6D9E002134C4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
-				GCC_ENABLE_CPP_EXCEPTIONS = YES;
-				GCC_ENABLE_CPP_RTTI = YES;
-				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Resources/AtoZ-Prefix.pch";
-				GCC_SHORT_ENUMS = YES;
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "Resources/AtoZ-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
@@ -1413,7 +1284,7 @@
 					"-sub_umbrella",
 					AtoZiTunes,
 					"-sub_umbrella",
-					AtoZiTunes,
+					PLWeakCompatibility,
 				);
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1425,17 +1296,10 @@
 		7B31197D159B6D9E002134C4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
-				GCC_ENABLE_CPP_EXCEPTIONS = YES;
-				GCC_ENABLE_CPP_RTTI = YES;
-				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Resources/AtoZ-Prefix.pch";
-				GCC_SHORT_ENUMS = YES;
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "Resources/AtoZ-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
@@ -1446,7 +1310,7 @@
 					"-sub_umbrella",
 					AtoZiTunes,
 					"-sub_umbrella",
-					AtoZiTunes,
+					PLWeakCompatibility,
 				);
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1479,55 +1343,15 @@
 			};
 			name = Release;
 		};
-		7B3422C515A5EC03006AC46C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "AtoZCLI/AtoZCLI-Prefix.pch";
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		7B3422C615A5EC03006AC46C /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "AtoZCLI/AtoZCLI-Prefix.pch";
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
 		7B7852BF15ACECD3008BAD3C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "AZLayerTest/AZLayerTest-Prefix.pch";
-				INFOPLIST_FILE = "AZLayerTest/AZLayerTest-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
 		};
 		7B7852C015ACECD3008BAD3C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "AZLayerTest/AZLayerTest-Prefix.pch";
-				INFOPLIST_FILE = "AZLayerTest/AZLayerTest-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
 		};
@@ -1557,15 +1381,6 @@
 			buildConfigurations = (
 				7B31197F159B6D9E002134C4 /* Debug */,
 				7B311980159B6D9E002134C4 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		7B3422C415A5EC03006AC46C /* Build configuration list for PBXNativeTarget "AtoZCLI" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				7B3422C515A5EC03006AC46C /* Debug */,
-				7B3422C615A5EC03006AC46C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

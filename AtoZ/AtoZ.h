@@ -8,8 +8,11 @@
 #import <Foundation/Foundation.h>
 #import <Cocoa/Cocoa.h>
 #import <QuartzCore/QuartzCore.h>
+#import <AppKit/AppKit.h>
 #import <ApplicationServices/ApplicationServices.h>
-
+#import <AtoZiTunes/AtoZiTunes.h>
+#define EXCLUDE_STUB_PROTOTYPES 1
+#import <PLWeakCompatibility/PLWeakCompatibilityStubs.h>
 
 
 //  BaseModel.h
@@ -202,6 +205,7 @@ extern NSString *const AtoZDockSortedUpdated;
 @property (nonatomic, readonly)		BOOL		hasLabel;
 @property (nonatomic, assign)		BOOL		needsToMove;
 + (AZFile*) dummy;
++ (AZFile*) forAppNamed:(NSString*)appName;
 + (id)instanceWithPath:(NSString *)path;
 + (id) instanceWithColor:(NSColor*)color;
 

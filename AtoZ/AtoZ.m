@@ -207,6 +207,16 @@ NSString *const AtoZDockSortedUpdated = @"AtoZDockSortedUpdated";
 @synthesize hue, isRunning, hasLabel, needsToMove, labelNumber;
 @synthesize itunesInfo, itunesDescription;
 
+
++ (AZFile*) forAppNamed:(NSString*)appName  {
+
+	return [[[AtoZ dock] valueForKeyPath:@"name"]  filterOne:^BOOL(id object) {
+		return ([object isEqualTo:appName] ? YES : NO);
+	}];
+}
+
+
+
 - (NSString*) itunesDescription {
 	return self.itunesInfo.itemDescription;
 }
