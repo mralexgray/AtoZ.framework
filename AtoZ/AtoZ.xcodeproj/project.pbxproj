@@ -87,7 +87,6 @@
 		7B78528B15ACA7AB008BAD3C /* AZBoxMagic.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B78528915ACA7AB008BAD3C /* AZBoxMagic.m */; };
 		7B78529615ACEABC008BAD3C /* AZLayerManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B78529415ACEABC008BAD3C /* AZLayerManager.h */; };
 		7B78529715ACEABC008BAD3C /* AZLayerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B78529515ACEABC008BAD3C /* AZLayerManager.m */; };
-		7B7852A715ACECD2008BAD3C /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B311954159B6D9E002134C4 /* Cocoa.framework */; };
 		7B7852C315ACEDA3008BAD3C /* AZBoxLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B7852C115ACEDA3008BAD3C /* AZBoxLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B7852C415ACEDA3008BAD3C /* AZBoxLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7852C215ACEDA3008BAD3C /* AZBoxLayer.m */; };
 		7B7C27FD15C32B39007DD569 /* RoundedView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B7C27F915C32B39007DD569 /* RoundedView.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -151,9 +150,6 @@
 		7BCDFC6B15C71A810003DA4D /* UbuntuMono-R.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7BCDFC6015C71A810003DA4D /* UbuntuMono-R.ttf */; };
 		7BCDFC6C15C71A810003DA4D /* UbuntuMono-B.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7BCDFC6115C71A810003DA4D /* UbuntuMono-B.ttf */; };
 		7BCDFC6D15C71A810003DA4D /* noun_box.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 7BCDFC6215C71A810003DA4D /* noun_box.pdf */; };
-		7BDB8D7315CB52140037A4BF /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B311995159B7FD0002134C4 /* QuartzCore.framework */; };
-		7BDB8D7515CB52CE0037A4BF /* AtoZ.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7B311951159B6D9E002134C4 /* AtoZ.framework */; };
-		7BDB8D7815CB52FA0037A4BF /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B311951159B6D9E002134C4 /* AtoZ.framework */; };
 		7BDDD5E415A3792600A5C222 /* AZStopwatch.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BDDD5E215A3792600A5C222 /* AZStopwatch.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BDDD5E515A3792600A5C222 /* AZStopwatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BDDD5E315A3792600A5C222 /* AZStopwatch.m */; };
 		7BE6069515A0E2DD00355236 /* NSString+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BE6069315A0E2DC00355236 /* NSString+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -237,13 +233,6 @@
 			remoteGlobalIDString = 053887981523F6CD00CDC1DF;
 			remoteInfo = "PLWeakCompatibility-MacOSX";
 		};
-		7BDB8D7615CB52D80037A4BF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7B311947159B6D9E002134C4 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 7B311950159B6D9E002134C4;
-			remoteInfo = AtoZ;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -255,16 +244,6 @@
 			files = (
 				7BC3C31B15CB3A2300DA2EFA /* AtoZiTunes.framework in CopyFiles */,
 				7BC3C31A15CB3A1E00DA2EFA /* PLWeakCompatibility.framework in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7BDB8D7415CB52BB0037A4BF /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				7BDB8D7515CB52CE0037A4BF /* AtoZ.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -368,7 +347,6 @@
 		7B78528915ACA7AB008BAD3C /* AZBoxMagic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AZBoxMagic.m; path = AZBoxView/AZBoxMagic.m; sourceTree = SOURCE_ROOT; };
 		7B78529415ACEABC008BAD3C /* AZLayerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZLayerManager.h; path = AZLayerGrid/AZLayerManager.h; sourceTree = SOURCE_ROOT; };
 		7B78529515ACEABC008BAD3C /* AZLayerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AZLayerManager.m; path = AZLayerGrid/AZLayerManager.m; sourceTree = SOURCE_ROOT; };
-		7B7852A515ACECD2008BAD3C /* .app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = .app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B7852A915ACECD2008BAD3C /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		7B7852AA15ACECD2008BAD3C /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		7B7852C115ACEDA3008BAD3C /* AZBoxLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZBoxLayer.h; path = AZLayerGrid/AZBoxLayer.h; sourceTree = SOURCE_ROOT; };
@@ -444,16 +422,6 @@
 				7B05BB11159C528300409B83 /* AtoZ.framework in Frameworks */,
 				7B31196B159B6D9E002134C4 /* SenTestingKit.framework in Frameworks */,
 				7B31196C159B6D9E002134C4 /* Cocoa.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7B7852A215ACECD2008BAD3C /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7BDB8D7315CB52140037A4BF /* QuartzCore.framework in Frameworks */,
-				7BDB8D7815CB52FA0037A4BF /* AtoZ.framework in Frameworks */,
-				7B7852A715ACECD2008BAD3C /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -560,7 +528,6 @@
 			children = (
 				7B311951159B6D9E002134C4 /* AtoZ.framework */,
 				7B311969159B6D9E002134C4 /* AtoZTests.octest */,
-				7B7852A515ACECD2008BAD3C /* .app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -922,25 +889,6 @@
 			productReference = 7B311969159B6D9E002134C4 /* AtoZTests.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
-		7B7852A415ACECD2008BAD3C /* AZLayerTest */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 7B7852BE15ACECD3008BAD3C /* Build configuration list for PBXNativeTarget "AZLayerTest" */;
-			buildPhases = (
-				7B7852A115ACECD2008BAD3C /* Sources */,
-				7B7852A215ACECD2008BAD3C /* Frameworks */,
-				7B7852A315ACECD2008BAD3C /* Resources */,
-				7BDB8D7415CB52BB0037A4BF /* CopyFiles */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				7BDB8D7715CB52D80037A4BF /* PBXTargetDependency */,
-			);
-			name = AZLayerTest;
-			productName = AZLayerTest;
-			productReference = 7B7852A515ACECD2008BAD3C /* .app */;
-			productType = "com.apple.product-type.application";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -975,7 +923,6 @@
 			targets = (
 				7B311950159B6D9E002134C4 /* AtoZ */,
 				7B311968159B6D9E002134C4 /* AtoZTests */,
-				7B7852A415ACECD2008BAD3C /* AZLayerTest */,
 			);
 		};
 /* End PBXProject section */
@@ -1060,13 +1007,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7B311975159B6D9E002134C4 /* InfoPlist.strings in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7B7852A315ACECD2008BAD3C /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1193,13 +1133,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7B7852A115ACECD2008BAD3C /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1217,11 +1150,6 @@
 			isa = PBXTargetDependency;
 			name = "PLWeakCompatibility-MacOSX";
 			targetProxy = 7BC3C31615CB39F800DA2EFA /* PBXContainerItemProxy */;
-		};
-		7BDB8D7715CB52D80037A4BF /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 7B311950159B6D9E002134C4 /* AtoZ */;
-			targetProxy = 7BDB8D7615CB52D80037A4BF /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1343,18 +1271,6 @@
 			};
 			name = Release;
 		};
-		7B7852BF15ACECD3008BAD3C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-			};
-			name = Debug;
-		};
-		7B7852C015ACECD3008BAD3C /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1381,15 +1297,6 @@
 			buildConfigurations = (
 				7B31197F159B6D9E002134C4 /* Debug */,
 				7B311980159B6D9E002134C4 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		7B7852BE15ACECD3008BAD3C /* Build configuration list for PBXNativeTarget "AZLayerTest" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				7B7852BF15ACECD3008BAD3C /* Debug */,
-				7B7852C015ACECD3008BAD3C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
