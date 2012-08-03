@@ -20,34 +20,6 @@
                ReferencedContainer = "container:AtoZ.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7BA69F2315C294D4005503DF"
-               BuildableName = "AtoZiTunes.framework"
-               BlueprintName = "AtoZiTunes"
-               ReferencedContainer = "container:../../git/AJS-iTunes-API/Framework/AtoZiTunes/AtoZiTunes.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "053887981523F6CD00CDC1DF"
-               BuildableName = "PLWeakCompatibility.framework"
-               BlueprintName = "PLWeakCompatibility-MacOSX"
-               ReferencedContainer = "container:../../../../../Users/localadmin/Downloads/plausiblelabs-PLWeakCompatibility-d4b88c3/PLWeakCompatibility.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction

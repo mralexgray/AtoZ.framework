@@ -146,10 +146,10 @@
 		7BCDFC6715C71A810003DA4D /* NSScreen+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BCDFC5C15C71A810003DA4D /* NSScreen+AtoZ.m */; };
 		7BCDFC6815C71A810003DA4D /* NotificationCenterSpy.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BCDFC5D15C71A810003DA4D /* NotificationCenterSpy.h */; };
 		7BCDFC6915C71A810003DA4D /* NotificationCenterSpy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BCDFC5E15C71A810003DA4D /* NotificationCenterSpy.m */; };
-		7BCDFC6A15C71A810003DA4D /* missing.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BCDFC5F15C71A810003DA4D /* missing.png */; };
-		7BCDFC6B15C71A810003DA4D /* UbuntuMono-R.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7BCDFC6015C71A810003DA4D /* UbuntuMono-R.ttf */; };
-		7BCDFC6C15C71A810003DA4D /* UbuntuMono-B.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7BCDFC6115C71A810003DA4D /* UbuntuMono-B.ttf */; };
 		7BCDFC6D15C71A810003DA4D /* noun_box.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 7BCDFC6215C71A810003DA4D /* noun_box.pdf */; };
+		7BDB8D7D15CB56BA0037A4BF /* missing.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BDB8D7915CB56BA0037A4BF /* missing.png */; };
+		7BDB8D7E15CB56BA0037A4BF /* noun_box.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 7BDB8D7A15CB56BA0037A4BF /* noun_box.pdf */; };
+		7BDB8D7F15CB56BA0037A4BF /* UbuntuMono-B.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7BDB8D7B15CB56BA0037A4BF /* UbuntuMono-B.ttf */; };
 		7BDDD5E415A3792600A5C222 /* AZStopwatch.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BDDD5E215A3792600A5C222 /* AZStopwatch.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BDDD5E515A3792600A5C222 /* AZStopwatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BDDD5E315A3792600A5C222 /* AZStopwatch.m */; };
 		7BE6069515A0E2DD00355236 /* NSString+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BE6069315A0E2DC00355236 /* NSString+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -397,10 +397,10 @@
 		7BCDFC5C15C71A810003DA4D /* NSScreen+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSScreen+AtoZ.m"; path = "../Classes/NSScreen+AtoZ.m"; sourceTree = "<group>"; };
 		7BCDFC5D15C71A810003DA4D /* NotificationCenterSpy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationCenterSpy.h; sourceTree = "<group>"; };
 		7BCDFC5E15C71A810003DA4D /* NotificationCenterSpy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationCenterSpy.m; sourceTree = "<group>"; };
-		7BCDFC5F15C71A810003DA4D /* missing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = missing.png; path = ../Classes/missing.png; sourceTree = "<group>"; };
-		7BCDFC6015C71A810003DA4D /* UbuntuMono-R.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "UbuntuMono-R.ttf"; path = "../Classes/UbuntuMono-R.ttf"; sourceTree = "<group>"; };
-		7BCDFC6115C71A810003DA4D /* UbuntuMono-B.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "UbuntuMono-B.ttf"; path = "../Classes/UbuntuMono-B.ttf"; sourceTree = "<group>"; };
-		7BCDFC6215C71A810003DA4D /* noun_box.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = noun_box.pdf; path = ../Classes/noun_box.pdf; sourceTree = "<group>"; };
+		7BCDFC6215C71A810003DA4D /* noun_box.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = noun_box.pdf; sourceTree = "<group>"; };
+		7BDB8D7915CB56BA0037A4BF /* missing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = missing.png; sourceTree = "<group>"; };
+		7BDB8D7A15CB56BA0037A4BF /* noun_box.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = noun_box.pdf; sourceTree = "<group>"; };
+		7BDB8D7B15CB56BA0037A4BF /* UbuntuMono-B.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "UbuntuMono-B.ttf"; sourceTree = "<group>"; };
 		7BDDD5E215A3792600A5C222 /* AZStopwatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZStopwatch.h; sourceTree = "<group>"; };
 		7BDDD5E315A3792600A5C222 /* AZStopwatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZStopwatch.m; sourceTree = "<group>"; };
 		7BE6069315A0E2DC00355236 /* NSString+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+AtoZ.h"; sourceTree = "<group>"; };
@@ -627,9 +627,9 @@
 		7B583064159BDAA50039CEED /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				7BCDFC5F15C71A810003DA4D /* missing.png */,
-				7BCDFC6015C71A810003DA4D /* UbuntuMono-R.ttf */,
-				7BCDFC6115C71A810003DA4D /* UbuntuMono-B.ttf */,
+				7BDB8D7915CB56BA0037A4BF /* missing.png */,
+				7BDB8D7A15CB56BA0037A4BF /* noun_box.pdf */,
+				7BDB8D7B15CB56BA0037A4BF /* UbuntuMono-B.ttf */,
 				7BCDFC6215C71A810003DA4D /* noun_box.pdf */,
 				7B9742CB15C697C4006490DD /* 1.pdf */,
 				7B9742CC15C697C4006490DD /* 2.pdf */,
@@ -995,10 +995,10 @@
 				7B9742D215C697C4006490DD /* 3.pdf in Resources */,
 				7B9742D315C697C4006490DD /* 4.pdf in Resources */,
 				7B9742D415C697C4006490DD /* 5.pdf in Resources */,
-				7BCDFC6A15C71A810003DA4D /* missing.png in Resources */,
-				7BCDFC6B15C71A810003DA4D /* UbuntuMono-R.ttf in Resources */,
-				7BCDFC6C15C71A810003DA4D /* UbuntuMono-B.ttf in Resources */,
 				7BCDFC6D15C71A810003DA4D /* noun_box.pdf in Resources */,
+				7BDB8D7D15CB56BA0037A4BF /* missing.png in Resources */,
+				7BDB8D7E15CB56BA0037A4BF /* noun_box.pdf in Resources */,
+				7BDB8D7F15CB56BA0037A4BF /* UbuntuMono-B.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
