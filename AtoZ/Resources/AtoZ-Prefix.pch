@@ -4,4 +4,14 @@
 
 #ifdef __OBJC__
 
+	#import <Foundation/Foundation.h>
+	#import <Cocoa/Cocoa.h>
+	#import <ApplicationServices/ApplicationServices.h>
+//	#import <QuartzCore/QuartzCore.h>
+//	#import <AppKit/AppKit.h>
+
+	#define EXCLUDE_STUB_PROTOTYPES 1
+	#import <PLWeakCompatibility/PLWeakCompatibilityStubs.h>
+//	#import <AtoZiTunes/AtoZiTunes.h>
+
 #endif

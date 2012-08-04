@@ -94,6 +94,7 @@ static NSString *const HRCoderObjectAliasKey = @"$alias";
 
 - (NSString *)stringFromClass;
 
+
 -(void)setIntValue:(NSInteger)i forKey:(NSString *)key;
 -(void)setIntValue:(NSInteger)i forKeyPath:(NSString *)keyPath;
 

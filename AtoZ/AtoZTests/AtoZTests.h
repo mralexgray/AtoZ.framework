@@ -19,5 +19,6 @@
 @end
 
 @interface AtoZTests : SenTestCase
+- (NSString *)stringFromClass;
 @end
 

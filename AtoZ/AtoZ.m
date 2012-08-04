@@ -7,7 +7,6 @@
 //
 #import "AtoZ.h"
 #import <objc/message.h>
-#import <AtoZiTunes/AtoZiTunes.h>
 
 
 void profile (const char *name, void (^work) (void)) {
@@ -245,7 +244,7 @@ NSString *const AtoZDockSortedUpdated = @"AtoZDockSortedUpdated";
 @synthesize path, name, color, customColor, labelColor, colors, icon, image;
 @synthesize dockPoint, dockPointNew, spot, spotNew;
 @synthesize hue, isRunning, hasLabel, needsToMove, labelNumber;
-@synthesize itunesInfo, itunesDescription;
+//@synthesize itunesInfo, itunesDescription;
 
 
 + (AZFile*) forAppNamed:(NSString*)appName  {
@@ -257,14 +256,14 @@ NSString *const AtoZDockSortedUpdated = @"AtoZDockSortedUpdated";
 
 
 
-- (NSString*) itunesDescription {
-	return self.itunesInfo.itemDescription;
-}
-
-- (AJSiTunesResult *) itunesInfo {
-
-	return  [AtoZiTunes resultsForName:self.name];
-}
+//- (NSString*) itunesDescription {
+//	return self.itunesInfo.itemDescription;
+//}
+//
+//- (AJSiTunesResult *) itunesInfo {
+//
+//	return  [AtoZiTunes resultsForName:self.name];
+//}
 
 
 + (AZFile*) dummy {

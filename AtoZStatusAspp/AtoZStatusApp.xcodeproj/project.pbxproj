@@ -27,7 +27,7 @@
 		7B78529215ACE333008BAD3C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BE606D215A117D100355236 /* Foundation.framework */; };
 		7B9742D915C69995006490DD /* PLWeakCompatibility.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7B9742BF15C696C0006490DD /* PLWeakCompatibility.framework */; };
 		7B9742E715C69DCE006490DD /* AtoZiTunes.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7B9742E215C69D92006490DD /* AtoZiTunes.framework */; };
-		7B9742E815C69DDB006490DD /* AtoZiTunes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B9742E215C69D92006490DD /* AtoZiTunes.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		7B9742E815C69DDB006490DD /* AtoZiTunes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B9742E215C69D92006490DD /* AtoZiTunes.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		7BCDFC2915C6A4160003DA4D /* PLWeakCompatibility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B9742BF15C696C0006490DD /* PLWeakCompatibility.framework */; };
 		7BCDFC2C15C6A5330003DA4D /* BoxGridController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BCDFC2B15C6A5330003DA4D /* BoxGridController.m */; };
 		7BCDFC3015C6A5CD0003DA4D /* BosGridWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BCDFC2E15C6A5CD0003DA4D /* BosGridWindowController.m */; };

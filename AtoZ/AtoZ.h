@@ -5,14 +5,6 @@
 
 
 
-#import <Foundation/Foundation.h>
-#import <Cocoa/Cocoa.h>
-#import <QuartzCore/QuartzCore.h>
-#import <AppKit/AppKit.h>
-#import <ApplicationServices/ApplicationServices.h>
-#import <AtoZiTunes/AtoZiTunes.h>
-#define EXCLUDE_STUB_PROTOTYPES 1
-#import <PLWeakCompatibility/PLWeakCompatibilityStubs.h>
 
 
 //  BaseModel.h
@@ -135,7 +127,7 @@ NSNumber* DegreesToNumber(CGFloat degrees);
 #import "AtoZInfinity.h"
 
 
-
+//#import "AtoZiTunes.h"
 
 @interface CAConstraint (brevity)
 
@@ -188,10 +180,10 @@ extern NSString *const AtoZDockSortedUpdated;
 + (id) instanceWithObject: (NSDictionary *)dic;
 @end
 
-@class AJSiTunesResult;
+//@class AJSiTunesResult;
 @interface AZFile : BaseModel
 @property (strong, nonatomic)	NSString *itunesDescription;
-@property (strong, nonatomic)	AJSiTunesResult *itunesInfo;
+//@property (strong, nonatomic)	AJSiTunesResult *itunesInfo;
 @property (strong, nonatomic)	NSString * 	path;
 @property (strong, nonatomic)	NSString *	name;
 @property (strong, nonatomic) 	NSColor	 * 	color;

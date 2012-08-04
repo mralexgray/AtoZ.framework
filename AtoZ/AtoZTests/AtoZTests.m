@@ -10,6 +10,24 @@
 
 @implementation AtoZTests
 
+- (void)testStringFromClass
+{
+	STAssertEqualObjects([[[NSObject alloc] init] stringFromClass], @"NSObject", nil);
+
+	// NSString deploys a class clustering architecture. The actual class is an
+	// implementation-specific sub-class or compatible class, depending on what
+	// kind of string, and presumably what version of Cocoa and on what platform
+	// since the exact underlying class might change. Be prepared for test
+	// breakage.
+	STAssertEqualObjects([@"" stringFromClass], @"__NSCFConstantString", nil);
+
+	// This is freaky. You would not expect this to work. But it does; classes
+	// are also objects. Invoking an instance method on a class: it compiles and
+	// runs! You would expect the compiler to baulk, but no.
+	STAssertEqualObjects([NSObject stringFromClass], @"NSObject", nil);
+}
+
+
 - (void)setUp
 {
     [super setUp];
