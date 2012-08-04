@@ -80,12 +80,52 @@ NSString *const AtoZDockSortedUpdated = @"AtoZDockSortedUpdated";
 	dock = [AZDockQuery dock].copy;
 }
 + (AtoZ*) sharedInstance { return [super sharedInstance]; }
+
+
+
+- (void) handleMouseEvent:(NSEventMask)event inView:(NSView*)view withBlock:(void (^)())block {
+	if (self != [AtoZ sharedInstance]) {
+		NSLog(@"uh oh, not a shared I");
+		__typeof__(self) *aToZ = [AtoZ sharedInstance];
+	}
+	[NSEvent addLocalMonitorForEventsMatchingMask:NSMouseMovedMask handler:^NSEvent *(NSEvent *event) {
+			//		if ([event type] == NSMouseMovedMask ) {
+		NSLog(@"Mouse handler checking point for evet:%@.", event);
+		NSPoint localP = view.localPoint;
+		if ( NSPointInRect(localP, view.frame) ){
+			NSLog(@"oh my god.. point is local to view! Runnnng block");
+			[[NSThread mainThread] performBlock:block waitUntilDone:YES];
+//			[NSThread performBlockInBackground:block];
+		}
+		return event;
+	}];
+	return;
+}
+
+//- (void)performBlock:(void (^)())block {
+//	if ([[NSThread currentThread] isEqual:[self curr])
+//		block();
+//	else
+//		[self performBlock:block waitUntilDone:NO];
+//}
+//- (void)performBlock:(void (^)())block waitUntilDone:(BOOL)wait {
+//	NSThread *newThread = [NSThread new];
+//    [NSThread performSelector:@selector(az_runBlock:)
+//                     onThread:newThread
+//                   withObject:[block copy]
+//                waitUntilDone:wait];
+//}
+//+ (void)az_runBlock:(void (^)())block { block(); }
+//+ (void)performBlockInBackground:(void (^)())block {
+//	[NSThread performSelectorInBackground:@selector(az_runBlock:) withObject:[block copy]];
+//}
+
 + (NSArray*) dock { return [super sharedInstance].dock; }
 + (NSMutableArray*) dockSorted {
 	return  [[[[super sharedInstance].dock sortedWithKey:@"hue" ascending:YES] reversed] arrayUsingIndexedBlock:^id(id obj, NSUInteger idx) {
 		AZFile* app = obj;
-		app.spotNew = idx;
-		app.dockPointNew = [[[[super sharedInstance].dock objectAtIndex:app.spotNew] valueForKey:@"dockPoint"]pointValue];
+//		app.spotNew = idx;
+		app.dockPointNew = [[[AtoZ sharedInstance].dock[idx] valueForKey:@"dockPoint"]pointValue];
 		return app;
 	}].mutableCopy;
 }

@@ -50,7 +50,7 @@
 int main(int argc, const char * argv[])
 {
 	
-	@autoreleasepool {
+//	@autoreleasepool {
 			//		[AZStopwatch start:@"eval"];
 			//		AtoZCLI *c = [AtoZCLI new];
 			//		NSArray *a = [[NSNumber numberWithInt:9] to:[NSNumber numberWithInt: 33]];
@@ -68,33 +68,33 @@ int main(int argc, const char * argv[])
 			//			float vert = [[verts objectAtNormalizedIndex:index]floatValue];
 			//			NSLog(@"Dragpoint: %@", NSStringFromPoint(CGPointMake([obj floatValue],vert)));
 			//			DragTo(CGPointMake([obj floatValue],vert));
-		
-		
-		CGPoint A, B;
-		A = CGPointMake(12,12);
-		B = CGPointMake(500,12);
-		
-			//		mouseMoveTo(12,12, 10);
-			//		mouseDrag(1, (int)B.x, (int)B.y);
-		
-		NSLog(@"%@ DISTANCE: %f",		NSStringFromPoint(MousePoint()),
-			  distanceFromPoint(A, B) );
-		
-		
-		AZFile *dic = [[[AtoZ dock] valueForKeyPath:@"name"]  filterOne:^BOOL(id object) {
-			return ([object isEqualTo:@"Dictionary"] ? YES : NO);
-		}];
-		
-		AZFile *it = [AZFile forAppNamed:@"iTunes"];
-		
-		NSLog(@"it: %@   dic: %@", it, dic);
-		
-			//		DragBetwixt(A, B);
-			//		DragBetwixt(B, A);
-			//		DragBetwixt(A, B);
-			//			[obj floatValue]-1,vert),CGPointMake([obj floatValue],vert));
-			//		}];
-	}
+//		
+//		
+//		CGPoint A, B;
+//		A = CGPointMake(12,12);
+//		B = CGPointMake(500,12);
+//		
+//			//		mouseMoveTo(12,12, 10);
+//			//		mouseDrag(1, (int)B.x, (int)B.y);
+//		
+//		NSLog(@"%@ DISTANCE: %f",		NSStringFromPoint(MousePoint()),
+//			  distanceFromPoint(A, B) );
+//		
+//		
+//		AZFile *dic = [[[AtoZ dock] valueForKeyPath:@"name"]  filterOne:^BOOL(id object) {
+//			return ([object isEqualTo:@"Dictionary"] ? YES : NO);
+//		}];
+//		
+//		AZFile *it = [AZFile forAppNamed:@"iTunes"];
+//		
+//		NSLog(@"it: %@   dic: %@", it, dic);
+//		
+//			//		DragBetwixt(A, B);
+//			//		DragBetwixt(B, A);
+//			//		DragBetwixt(A, B);
+//			//			[obj floatValue]-1,vert),CGPointMake([obj floatValue],vert));
+//			//		}];
+//	}
 
 	return NSApplicationMain(argc, (const char **)argv);
 

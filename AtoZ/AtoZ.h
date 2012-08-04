@@ -168,6 +168,11 @@ extern NSString *const AtoZDockSortedUpdated;
 + (NSArray*) runningApps;
 + (NSArray*) appFolder;
 + (NSArray*) appFolderSorted;
+
+- (void) handleMouseEvent:(NSEventMask)event inView:(NSView*)view withBlock:(void (^)())block;
+//- (void)performBlock:(void (^)())block;
+//- (void)performBlock:(void (^)())block waitUntilDone:(BOOL)wait;
+
 @end
 
 @interface AZColor : BaseModel

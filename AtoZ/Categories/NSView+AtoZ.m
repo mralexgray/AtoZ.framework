@@ -336,5 +336,28 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
   completionBlock();
 }
 
+//[i convertPoint: [[i window] convertScreenToBase:[NSEvent mouseLocation]] fromView: nil ]
+- (NSPoint) localPoint;
+{
+	return [self convertPoint: [[self window] convertScreenToBase:NSPointFromCGPoint( MousePoint())] fromView:nil];
+//								[NSEvent mouseLocation]] fromView: nil ]
+}
+
+- (void) handleMouseEvent:(NSEventMask)mask withBlock:(void (^)())block  {
+		[NSEvent addLocalMonitorForEventsMatchingMask:mask handler:^NSEvent *(NSEvent *event) {
+			NSPoint localP = self.localPoint;
+			[self setNeedsDisplay:YES];
+			NSLog(@"oh my god.. point %@", NSStringFromPoint(localP));
+			if ([event type] == mask ) {
+
+//			if ( NSPointInRect(localP, view.frame) ){
+				NSLog(@"oh my god.. point is local to view: %@! Localpoint: %@...  about to run block !!". self.description, [self localPoint]);
+				[[NSThread mainThread] performBlock:block waitUntilDone:YES];
+					//			[NSThread performBlockInBackground:block];
+			}
+			return event;
+		}];
+	return;
+}
 
 @end

@@ -77,4 +77,7 @@ AZViewAnimationType;
 
 + (void)runEndBlock:(void (^)(void))completionBlock;
 
+
+- (void) handleMouseEvent:(NSEventMask)event withBlock:(void (^)())block;
+- (NSPoint) localPoint;
 @end

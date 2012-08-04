@@ -14,6 +14,65 @@
 
 
 @implementation CALayer (AtoZ)
+	//[Transpose Matrix][1]
+
+- (CATransform3D)rectToQuad:(NSRect)rect quadTLX:(double)x1a quadTLY:(double)y1a quadTRX:(double)x2a quadTRY:(double)y2a quadBLX:(double)x3a quadBLY:(double)y3a quadBRX:(double)x4a quadBRY:(double)y4a
+{
+	double X = rect.origin.x;
+	double Y = rect.origin.y;
+	double W = rect.size.width;
+	double H = rect.size.height;
+
+	double y21 = y2a - y1a;
+	double y32 = y3a - y2a;
+	double y43 = y4a - y3a;
+	double y14 = y1a - y4a;
+	double y31 = y3a - y1a;
+	double y42 = y4a - y2a;
+
+	double a = -H*(x2a*x3a*y14 + x2a*x4a*y31 - x1a*x4a*y32 + x1a*x3a*y42);
+	double b = W*(x2a*x3a*y14 + x3a*x4a*y21 + x1a*x4a*y32 + x1a*x2a*y43);
+	double c = H*X*(x2a*x3a*y14 + x2a*x4a*y31 - x1a*x4a*y32 + x1a*x3a*y42) - H*W*x1a*(x4a*y32 - x3a*y42 + x2a*y43) - W*Y*(x2a*x3a*y14 + x3a*x4a*y21 + x1a*x4a*y32 + x1a*x2a*y43);
+
+	double d = H*(-x4a*y21*y3a + x2a*y1a*y43 - x1a*y2a*y43 - x3a*y1a*y4a + x3a*y2a*y4a);
+	double e = W*(x4a*y2a*y31 - x3a*y1a*y42 - x2a*y31*y4a + x1a*y3a*y42);
+	double f = -(W*(x4a*(Y*y2a*y31 + H*y1a*y32) - x3a*(H + Y)*y1a*y42 + H*x2a*y1a*y43 + x2a*Y*(y1a - y3a)*y4a + x1a*Y*y3a*(-y2a + y4a)) - H*X*(x4a*y21*y3a - x2a*y1a*y43 + x3a*(y1a - y2a)*y4a + x1a*y2a*(-y3a + y4a)));
+
+	double g = H*(x3a*y21 - x4a*y21 + (-x1a + x2a)*y43);
+	double h = W*(-x2a*y31 + x4a*y31 + (x1a - x3a)*y42);
+	double i = W*Y*(x2a*y31 - x4a*y31 - x1a*y42 + x3a*y42) + H*(X*(-(x3a*y21) + x4a*y21 + x1a*y43 - x2a*y43) + W*(-(x3a*y2a) + x4a*y2a + x2a*y3a - x4a*y3a - x2a*y4a + x3a*y4a));
+
+        //Transposed matrix
+	CATransform3D transform;
+	transform.m11 = a / i;
+	transform.m12 = d / i;
+	transform.m13 = 0;
+	transform.m14 = g / i;
+	transform.m21 = b / i;
+	transform.m22 = e / i;
+	transform.m23 = 0;
+	transform.m24 = h / i;
+	transform.m31 = 0;
+	transform.m32 = 0;
+	transform.m33 = 1;
+	transform.m34 = 0;
+	transform.m41 = c / i;
+	transform.m42 = f / i;
+	transform.m43 = 0;
+	transform.m44 = i / i;
+	return transform;
+}
+
+
+//NSImage *image = // load a image
+//CALayer *layer = [CALayer layer];
+//[layer setContents:image];
+//[view setLayer:myLayer];
+//[view setFrame:NSMakeRect(0, 0, image.size.width, image.size.height)];
+//view.layer.transform = [self rectToQuad:view.frame quadTLX:0 quadTLY:0 quadTRX:image.size.width quadTRY:20 quadBLX:0 quadBLY:image.size.height quadBRX:image.size.width quadBRY:image.size.height + 90];
+//
+//[1]: http://codingincircles.com/2010/07/major-misunderstanding/
+
 
 + (CALayer*)closeBoxLayer
 {
@@ -132,5 +191,7 @@
 	return headerLayer;
 	
 }
+
+
 
 @end

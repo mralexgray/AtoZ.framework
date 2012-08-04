@@ -105,15 +105,20 @@ int gcd(int m, int n) {	int t, r;
 
 + (NSArray*) rectsForQuantity:(int)aNumber inRect:(NSRect)aFrame {
 	AZSizer *sizer = [AZSizer forQuantity:aNumber inRect:aFrame];
-	NSMutableArray *_rects = [NSMutableArray array];
-	for ( int r = (sizer.rows-1); r >= 0; r--){
-		for ( int c = 0; c < sizer.columns; c++ ) {
-			[_rects addObject:[NSValue valueWithRect:NSMakeRect((c * sizer.width), (r *sizer.height), sizer.width, sizer.height)]];
-		}
-	}
-	return _rects;
+	return [sizer rects];
 }
 
+
+- (NSArray*) rects {
+
+	NSMutableArray *_rects = [NSMutableArray array];
+		for ( int r = (self.rows-1); r >= 0; r--){
+		for ( int c = 0; c < self.columns; c++ ) {
+			[_rects addObject:[NSValue valueWithRect:NSMakeRect((c * self.width), (r *self.height), self.width, self.height)]];
+		}
+	}
+	return  _rects;
+}
 //- (NSArray*)boxes {
 //	NSMutableArray *boxArray = [NSMutableArray array];
 //	for ( int r = (rows.intValue-1); r >= 0; r--){
