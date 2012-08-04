@@ -13,7 +13,6 @@
 		7B85596715B9E8510005F558 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 7B85596515B9E8510005F558 /* Credits.rtf */; };
 		7B85596A15B9E8510005F558 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B85596915B9E8510005F558 /* AppDelegate.m */; };
 		7B85596D15B9E8510005F558 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B85596B15B9E8510005F558 /* MainMenu.xib */; };
-		7B85597415B9E8C30005F558 /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B85597315B9E8C30005F558 /* AtoZ.framework */; };
 		7B85597915B9ED0A0005F558 /* AZGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B85597815B9ED090005F558 /* AZGridView.m */; };
 		7BECAEEC15BF0E7A00557357 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B85595615B9E8510005F558 /* Cocoa.framework */; };
 		7BECAEF215BF0E7A00557357 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7BECAEF015BF0E7A00557357 /* InfoPlist.strings */; };
@@ -59,7 +58,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7B85597415B9E8C30005F558 /* AtoZ.framework in Frameworks */,
 				7B85595715B9E8510005F558 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

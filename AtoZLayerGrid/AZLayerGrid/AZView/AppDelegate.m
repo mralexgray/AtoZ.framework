@@ -51,10 +51,8 @@
 	
 	
 	[NSEvent addLocalMonitorForEventsMatchingMask:NSMouseMovedMask handler:^NSEvent *(NSEvent *event) {
-		
-		//	[NSEvent addGlobalMonitorForEventsMatchingMask:NSMouseMovedMask handler:^(NSEvent *event){
 		//		if ([event type] == NSMouseMovedMask ) {
-		NSPoint localP =  [i convertPoint: [[i window] convertScreenToBase:[NSEvent mouseLocation]] fromView: nil ];
+		NSPoint localP = [[_window contentView]localPoint];
 		if ( NSPointInRect(localP, i.frame) ){
 			hoveredIndex = floor(localP.x / unit.floatValue);
 			NSUInteger notzero = (hoveredIndex > 3 ? (hoveredIndex -3) : 0 );

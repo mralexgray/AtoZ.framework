@@ -56,20 +56,6 @@
 			remoteGlobalIDString = 7B311969159B6D9E002134C4;
 			remoteInfo = AtoZTests;
 		};
-		7B66CE5215C5B1AD00ADDFE6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7B66CE4715C5B1AC00ADDFE6 /* AtoZ.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 7B3422BA15A5EC03006AC46C;
-			remoteInfo = AtoZCLI;
-		};
-		7B66CE5415C5B1AD00ADDFE6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7B66CE4715C5B1AC00ADDFE6 /* AtoZ.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 7B7852A515ACECD2008BAD3C;
-			remoteInfo = AZLayerTest;
-		};
 		7B66CE5A15C5E2D800ADDFE6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7B66CE4715C5B1AC00ADDFE6 /* AtoZ.xcodeproj */;
@@ -139,6 +125,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 7BA69F2315C294D4005503DF;
 			remoteInfo = AtoZiTunes;
+		};
+		7BA6F62815CC198200994A86 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B66CE4715C5B1AC00ADDFE6 /* AtoZ.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7B82B81F15CB66D30026FE8C;
+			remoteInfo = "AtoZ Encyclopedia";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -273,8 +266,7 @@
 			children = (
 				7B66CE4F15C5B1AD00ADDFE6 /* AtoZ.framework */,
 				7B66CE5115C5B1AD00ADDFE6 /* AtoZTests.octest */,
-				7B66CE5315C5B1AD00ADDFE6 /* AtoZCLI */,
-				7B66CE5515C5B1AD00ADDFE6 /* AZLayerTest.app */,
+				7BA6F62915CC198200994A86 /* AtoZ Encyclopedia.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -473,20 +465,6 @@
 			remoteRef = 7B66CE5015C5B1AD00ADDFE6 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		7B66CE5315C5B1AD00ADDFE6 /* AtoZCLI */ = {
-			isa = PBXReferenceProxy;
-			fileType = "compiled.mach-o.executable";
-			path = AtoZCLI;
-			remoteRef = 7B66CE5215C5B1AD00ADDFE6 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7B66CE5515C5B1AD00ADDFE6 /* AZLayerTest.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = AZLayerTest.app;
-			remoteRef = 7B66CE5415C5B1AD00ADDFE6 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		7B9742BF15C696C0006490DD /* PLWeakCompatibility.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -534,6 +512,13 @@
 			fileType = wrapper.application;
 			path = TestApp.app;
 			remoteRef = 7B9742E315C69D92006490DD /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7BA6F62915CC198200994A86 /* AtoZ Encyclopedia.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "AtoZ Encyclopedia.app";
+			remoteRef = 7BA6F62815CC198200994A86 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
