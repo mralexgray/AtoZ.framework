@@ -18,6 +18,8 @@
 
 
 @interface NSColor (AtoZ)
+- (NSColor *)inverted;
+
 + (NSColor*) linen;
 + (NSColor*) linenTintedWithColor:(NSColor*)color;
 
@@ -30,7 +32,7 @@
 - (BOOL) 		isExciting;
 + (NSArray*) 	boringColors;
 
-- (CGColorRef)	CGColor;
+- (CGColorRef)	cgColor;
 - (NSString*)	crayonName;
 - (NSColor*)	closestWebColor;
 - (NSColor*) 	closestNamedColor;
@@ -97,9 +99,16 @@
 @property (readonly) BOOL isGreenish;
 @property (readonly) BOOL isYellowish;
 
+@end
 
--(NSData *) colorData;
-+ (NSColor *)colorFromData:(NSData*)theData;
+@interface NSString (THColorConversion)
+- (NSColor*) colorValue;
+- (NSData*)  colorData;
++ (NSColor*) colorFromData:(NSData*)theData;
+@end
+
+@interface NSArray (THColorConversion)
+- (NSArray *)colorValues;
 @end
 
 @interface NSCoder (AGCoder)  //(TDBindings)

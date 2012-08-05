@@ -15,10 +15,13 @@
 
 @synthesize window = _window, root, demos, contentLayer;
 
+@synthesize  rootView, isoView;
+
 + (void) initialize {
 
 //	AZTalker *welcome = [AZTalker new];
 //	[welcome say:@"welcome"];
+	[NSLogConsole sharedConsole];
 
 }
 
@@ -52,8 +55,13 @@
 }
 
 
+
+
+
 -(void)awakeFromNib{
-	
+
+	[[NSLogConsole sharedConsole]open];
+
 //	NSRect erect = NSInsetRect([[_window contentView] bounds],25,25);
 //	ibackgroundView.frame = erect;
 //	[ibackgroundView setHidden:YES];
@@ -69,23 +77,25 @@
 	NSLog(@"image:%@", image);
 	[image setSize:[_window.contentView bounds].size];
 	[root setContents:image];
-	[[_window contentView] setLayer:root];
-	[[_window contentView] setWantsLayer:YES];
-	self.contentLayer = [CALayer layer];
+	[rootView setLayer:root];
+	[rootView setWantsLayer:YES];
+	contentLayer = [CALayer layer];
 	[root addSublayer:contentLayer];
 //	NSRect r =  [AZSizer structForQuantity:[[AtoZ dockSorted]count] inRect:tiny];
-	AZSizer *cc = [AZSizer forQuantity:[AtoZ dockSorted].count inRect:[_window frame]];
+	AZSizer *cc = [AZSizer forQuantity:[AtoZ dockSorted].count inRect:[root frame]];
 	[cc.rects eachConcurrentlyWithBlock:^(NSInteger index, id obj, BOOL *stop) {
 		CALayer *rrr = [CALayer layer];
 		rrr.frame = [obj rectValue];
 		rrr.backgroundColor = [[[NSColor yellowColor]colorWithAlphaComponent:RAND_FLOAT_VAL(0,1)] CGColor];
 		[contentLayer addSublayer:rrr];
 	}];
-	[_window.contentView setPostsBoundsChangedNotifications:YES];
+	[rootView setPostsBoundsChangedNotifications:YES];
 	[[NSNotificationCenter defaultCenter] addObserver:self forKeyPath:NSViewBoundsDidChangeNotification];
 }
 
 -(void) didChangeValueForKey:(NSString *)key {
+
+NSLog(@"ooh, %@", key);
 
 //	if ( key == NSViewBoundsDidChangeNotification)
 //		[self rezhuzh];
@@ -100,11 +110,29 @@
 //	}];
 
 }
+-(IBAction)isoTest:(id)sender{
+	
+	__block id ii = [isoView superview];
+	NSLog(@"[self props]");// self.propertiesPlease);
 
+	[[NSThread mainThread]performBlock:^{
+		[rootView fadeOut];
+		[isoView setHidden:YES];
+
+		[rootView addSubview:ii];
+	} waitUntilDone:YES];
+	[ii fadeIn];
+}
 
 -(IBAction)toggleShake:(id)sender {
 
 	[root flipOver];
+	id la = [root superlayer];
+	[root removeFromSuperlayer];
+	[la setHidden:YES];
+	[la addSublayer:root];
+	[la popInAnimated];
+	NSLog(@"Must log");
 
 
 }

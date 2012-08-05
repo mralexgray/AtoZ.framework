@@ -9,7 +9,7 @@
 #import "NSColor+AtoZ.h"
 #import "AtoZ.h"
 
-//#import "AGNamedColors.h"
+#import "AZNamedColors.h"
 
 #define AIfmod( X, Y )	fmod((X),(Y))
 
@@ -213,6 +213,20 @@ static ColorNameRec sColorTable[] = {
 
 @implementation NSColor (AtoZ)
 
+- (NSColor *)inverted
+{
+
+	NSColor * original = [self colorUsingColorSpaceName:
+						  NSCalibratedRGBColorSpace];
+	CGFloat hue = [original hueComponent];
+	if (hue >= 0.5) { hue -= 0.5; } else { hue += 0.5; }
+    return [NSColor colorWithCalibratedHue:hue
+								saturation:[original saturationComponent]
+								brightness:(1.0 - [original brightnessComponent])
+									 alpha:[original alphaComponent]];
+}
+
+
 + (NSColor*) linen {
 	return [NSColor colorWithPatternImage: [NSImage imageInFrameworkWithFileName:@"linen.png"]];
 }
@@ -388,16 +402,17 @@ static NSColor *ColorWithCSSString(NSString *str) {
 	else return TRUE;
 }
 
-//- (CGColorRef)CGColor {
-//	CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-//	NSColor *deviceColor = [self colorUsingColorSpaceName:NSDeviceRGBColorSpace];
-//	CGFloat components[4];
-//	[deviceColor getRed: &components[0] green: &components[1] blue:&components[2] alpha: &components[3]];
-//	CGColorRef output = CGColorCreate(colorSpace, components);
-//	CGColorSpaceRelease (colorSpace);
-//	return (CGColorRef)output; //[(id)output autorelease];
-//							   //	return (__bridge CGColorRef)(__bridge_transfer id)output;
-//}
+- (CGColorRef)cgColor {
+	CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+	NSColor *deviceColor = [self colorUsingColorSpaceName:NSDeviceRGBColorSpace];
+	CGFloat components[4];
+	[deviceColor getRed: &components[0] green: &components[1] blue:&components[2] alpha: &components[3]];
+	CGColorRef output = CGColorCreate(colorSpace, components);
+	CGColorSpaceRelease (colorSpace);
+	return CGColorRetain(output);
+	 //[(id)output autorelease];
+//	return (__bridge CGColorRef)(__bridge_transfer id)output;
+}
 
 
 //+ (NSColor*)colorWithCGColor:(CGColorRef)aColor {
@@ -850,249 +865,254 @@ static NSColor *ColorWithCSSString(NSString *str) {
 }
 
 
-//+ (NSColor *)colorWithName:(NSString *)colorName {
-//	// name lookup
-//	NSString *lcc = colorName.lowercaseString;
-//	NSColorList *list = [AGNamedColors namedColors];
-//	for (NSString *key in list.allKeys) {
-//		if ([key.lowercaseString isEqual:lcc]) {
-//			return [list colorWithKey:key];
-//		}
-//	}
-//
-//	for (list in [NSColorList availableColorLists]) {
-//		for (NSString *key in list.allKeys) {
-//			if ([key.lowercaseString isEqual:lcc]) {
-//				return [list colorWithKey:key];
-//			}
-//		}
-//	}
-//
-//	return nil;
-//}
++ (NSColor *)colorWithName:(NSString *)colorName {
+	// name lookup
+	NSString *lcc = colorName.lowercaseString;
+	NSColorList *list = [AZNamedColors namedColors];
+	for (NSString *key in list.allKeys) {
+		if ([key.lowercaseString isEqual:lcc]) {
+			return [list colorWithKey:key];
+		}
+	}
 
-//+ (NSColor *)colorFromString:(NSString *)string {
-//	if ([string hasPrefix:@"#"]) {
-//		return [NSColor colorFromHexString:string];
-//	}
-//
-//	// shifting operations
-//	NSRange shiftRange = [string rangeOfAny:@"<! <= << <> >> => !>".wordSet];
-//	if (shiftRange.location != NSNotFound) {
-//		CGFloat p = 0.5;
-//		// determine the first of the operations
-//		NSString *op = [string substringWithRange:shiftRange];
-//		if ([op isEqual:@"<>"]) {
-//			// this will stay 50/50
-//		} else if ([op isEqual:@"<!"]) {
-//			p = 0.95;
-//		} else if ([op isEqual:@"<="]) {
-//			p = 0.85;
-//		} else if ([op isEqual:@"<<"]) {
-//			p = 0.66;
-//		} else if ([op isEqual:@">>"]) {
-//			p = 0.33;
-//		} else if ([op isEqual:@"=>"]) {
-//			p = 0.15;
-//		} else if ([op isEqual:@"!>"]) {
-//			p = 0.05;
-//		}
-//
-//		// shift operators
-//		NSString *head = [string substringToIndex:
-//						  shiftRange.location];
-//		NSString *tail = [string substringFromIndex:
-//						  shiftRange.location + shiftRange.length];
-//
-//		NSColor *first = head.trim.colorValue;
-//		NSColor *second = tail.trim.colorValue;
-//
-//		if (first != nil && second != nil) {
-//			return [first blendedColorWithFraction:p ofColor:second];
-//		}
-//		if (first != nil) {
-//			return first;
-//		}
-//		return second;
-//	}
-//
-//	if ([string contains:@" "]) {
+	for (list in [NSColorList availableColorLists]) {
+		for (NSString *key in list.allKeys) {
+			if ([key.lowercaseString isEqual:lcc]) {
+				return [list colorWithKey:key];
+			}
+		}
+	}
+
+	return nil;
+}
+
++ (NSColor *)colorFromString:(NSString *)string {
+	if ([string hasPrefix:@"#"]) {
+		return [NSColor colorFromHexString:string];
+	}
+
+	// shifting operations
+	NSRange shiftRange = [string rangeOfAny:@"<! <= << <> >> => !>".wordSet];
+	if (shiftRange.location != NSNotFound) {
+		CGFloat p = 0.5;
+		// determine the first of the operations
+		NSString *op = [string substringWithRange:shiftRange];
+		if ([op isEqual:@"<>"]) {
+			// this will stay 50/50
+		} else if ([op isEqual:@"<!"]) {
+			p = 0.95;
+		} else if ([op isEqual:@"<="]) {
+			p = 0.85;
+		} else if ([op isEqual:@"<<"]) {
+			p = 0.66;
+		} else if ([op isEqual:@">>"]) {
+			p = 0.33;
+		} else if ([op isEqual:@"=>"]) {
+			p = 0.15;
+		} else if ([op isEqual:@"!>"]) {
+			p = 0.05;
+		}
+
+		// shift operators
+		NSString *head = [string substringToIndex:
+						  shiftRange.location];
+		NSString *tail = [string substringFromIndex:
+						  shiftRange.location + shiftRange.length];
+
+		NSColor *first = head.trim.colorValue;
+		NSColor *second = tail.trim.colorValue;
+
+		if (first != nil && second != nil) {
+			return [first blendedColorWithFraction:p ofColor:second];
+		}
+		if (first != nil) {
+			return first;
+		}
+		return second;
+	}
+
+	if ([string contains:@" "]) {
 //		NSString *head = nil, *tail = nil;
 //		list(&head, &tail) = string.decapitate;
-//
-//		head = head.lowercaseString;
-//		NSColor *tailColor = [NSColor colorFromString:tail];
-//
-//		if (tailColor) {
-//			if ([head isEqualToString:@"translucent"]) {
-//				return tailColor.translucent;
-//			} else if ([head isEqualToString:@"watermark"]) {
-//				return tailColor.watermark;
-//			} else if ([head isEqualToString:@"bright"]) {
-//				return tailColor.bright;
-//			} else if ([head isEqualToString:@"brighter"]) {
-//				return tailColor.brighter;
-//			} else if ([head isEqualToString:@"dark"]) {
-//				return tailColor.dark;
-//			} else if ([head isEqualToString:@"darker"]) {
-//				return tailColor.darker;
-//			} else if ([head hasSuffix:@"%"]) {
-//				return [tailColor colorWithAlphaComponent:head.popped.floatValue / 100.0];
-//			}
-//		}
-//	}
-//
-//	if ([string contains:@","]) {
-//		NSString *comp = string;
-//		NSString *func = @"rgb";
-//
-//		if ([string contains:@"("] && [string hasSuffix:@")"]) {
-//			comp = [string substringBetweenPrefix:@"(" andSuffix:@")"];
-//			func = [[string substringBefore:@"("] lowercaseString];
-//		}
-//
-//		NSArray *vals = [comp componentsSeparatedByString:@","];
-//		CGFloat values[5];
-//		for (int i = 0; i < 5; i++) {
-//			values[i] = 1.0;
-//		}
-//
-//		for (int i = 0; i < vals.count; i++) {
-//			NSString *v = [[vals objectAtIndex:i] trim];
-//			if ([v hasSuffix:@"%"]) {
-//				values[i] = [[v substringBefore:@"%"] floatValue] / 100.0;
-//			} else {
-//				// should be a float
-//				values[i] = v.floatValue;
-//				if (values[i] > 1) {
-//					values[i] /= 255.0;
-//				}
-//			}
-//			values[i] = MIN(MAX(values[i], 0), 1);
-//		}
-//
-//		if (vals.count <= 2) {
-//			// grayscale + alpha
-//			return [NSColor colorWithDeviceWhite:values[0]
-//										   alpha:values[1]
-//					];
-//		} else if (vals.count <= 5) {
-//			// rgba || hsba
-//			if ([func hasPrefix:@"rgb"]) {
-//				return [NSColor colorWithDeviceRed:values[0]
-//											 green:values[1]
-//											  blue:values[2]
-//											 alpha:values[3]
-//						];
-//			} else if ([func hasPrefix:@"hsb"]) {
-//				return [NSColor colorWithDeviceHue:values[0]
-//										saturation:values[1]
-//										brightness:values[2]
-//											 alpha:values[3]
-//						];
-//			} else if ([func hasPrefix:@"cmyk"]) {
-//				return [NSColor colorWithDeviceCyan:values[0]
-//											magenta:values[1]
-//											 yellow:values[2]
-//											  black:values[3]
-//											  alpha:values[4]
-//						];
-//			} else {
-//				NSLog(@"Unrecognized Prefix <%@> returning nil", func);
-//			}
-//		}
-//	}
-//
-//	return [NSColor colorWithName:string];
-//}
-//
-//+ (NSColor *)colorFromHexString:(NSString *)hexString
-//{
-//	BOOL useHSB = NO;
-//	BOOL useCalibrated = NO;
-//
-//	if (hexString.length == 0) {
-//		return NSColor.blackColor;
-//	}
-//
-//	hexString = hexString.trim.uppercaseString;
-//
-//	if ([hexString hasPrefix:@"#"]) {
-//		hexString = hexString.shifted;
-//	}
-//
-//	if ([hexString hasPrefix:@"!"]) {
-//		useCalibrated = YES;
-//		hexString = hexString.shifted;
-//	}
-//
-//	if ([hexString hasPrefix:@"*"]) {
-//		useHSB = YES;
-//		hexString = hexString.shifted;
-//	}
-//
-//	int mul = 1;
-//	int max = 3;
-//	CGFloat v[4];
-//
-//	// full opacity by default
-//	v[3] = 1.0;
-//
-//	if (hexString.length == 8 || hexString.length == 4) {
-//		max++;
-//	}
-//
-//	if (hexString.length == 6 || hexString.length == 8) {
-//		// #RRGGBB || #RRGGBBAA
-//		mul = 2;
-//	} else if (hexString.length == 3 || hexString.length == 4) {
-//		// #RGB || #RGBA
-//		mul = 1;
-//	} else {
-//		return nil;
-//	}
-//
-//	for (int i = 0; i < max; i++) {
-//		NSString *sub = [hexString substringWithRange:NSMakeRange(i * mul, mul)];
-//		NSScanner *scanner = [NSScanner scannerWithString:sub];
-//		uint value = 0;
-//		[scanner scanHexInt: &value];
-//		v[i] = (float) value / (float) 0xFF;
-//	}
-//
-//	// only at full color
-//
-//	if (useHSB) {
-//		if (useCalibrated) {
-//			return [NSColor colorWithCalibratedHue:v[0]
-//										saturation:v[1]
-//										brightness:v[2]
-//											 alpha:v[3]
-//					];
-//
-//		}
-//
-//		return [NSColor colorWithDeviceHue:v[0]
-//								saturation:v[1]
-//								brightness:v[2]
-//									 alpha:v[3]
-//				];
-//	}
-//
-//	if (useCalibrated) {
-//		return [NSColor colorWithCalibratedRed:v[0]
-//										 green:v[1]
-//										  blue:v[2]
-//										 alpha:v[3]
-//				];
-//	}
-//
-//	return [NSColor colorWithDeviceRed:v[0]
-//								 green:v[1]
-//								  blue:v[2]
-//								 alpha:v[3]
-//			];
-//}
+		NSArray  *comps = string.decapitate;
+		NSString *head = comps[0];
+		NSString *tail = comps[1];
+
+		//[[string stringByTrimmingCharactersInSet:
+//								   [NSCharacterSet whitespaceAndNewlineCharacterSet]]lowercaseString];
+
+		NSColor *tailColor = [NSColor colorFromString:tail];
+
+		if (tailColor) {
+			if ([head isEqualToString:@"translucent"]) {
+				return tailColor.translucent;
+			} else if ([head isEqualToString:@"watermark"]) {
+				return tailColor.watermark;
+			} else if ([head isEqualToString:@"bright"]) {
+				return tailColor.bright;
+			} else if ([head isEqualToString:@"brighter"]) {
+				return tailColor.brighter;
+			} else if ([head isEqualToString:@"dark"]) {
+				return tailColor.dark;
+			} else if ([head isEqualToString:@"darker"]) {
+				return tailColor.darker;
+			} else if ([head hasSuffix:@"%"]) {
+				return [tailColor colorWithAlphaComponent:head.popped.floatValue / 100.0];
+			}
+		}
+	}
+
+	if ([string contains:@","]) {
+		NSString *comp = string;
+		NSString *func = @"rgb";
+
+		if ([string contains:@"("] && [string hasSuffix:@")"]) {
+			comp = [string substringBetweenPrefix:@"(" andSuffix:@")"];
+			func = [[string substringBefore:@"("] lowercaseString];
+		}
+
+		NSArray *vals = [comp componentsSeparatedByString:@","];
+		CGFloat values[5];
+		for (int i = 0; i < 5; i++) {
+			values[i] = 1.0;
+		}
+
+		for (int i = 0; i < vals.count; i++) {
+			NSString *v = [[vals objectAtIndex:i] trim];
+			if ([v hasSuffix:@"%"]) {
+				values[i] = [[v substringBefore:@"%"] floatValue] / 100.0;
+			} else {
+				// should be a float
+				values[i] = v.floatValue;
+				if (values[i] > 1) {
+					values[i] /= 255.0;
+				}
+			}
+			values[i] = MIN(MAX(values[i], 0), 1);
+		}
+
+		if (vals.count <= 2) {
+			// grayscale + alpha
+			return [NSColor colorWithDeviceWhite:values[0]
+										   alpha:values[1]
+					];
+		} else if (vals.count <= 5) {
+			// rgba || hsba
+			if ([func hasPrefix:@"rgb"]) {
+				return [NSColor colorWithDeviceRed:values[0]
+											 green:values[1]
+											  blue:values[2]
+											 alpha:values[3]
+						];
+			} else if ([func hasPrefix:@"hsb"]) {
+				return [NSColor colorWithDeviceHue:values[0]
+										saturation:values[1]
+										brightness:values[2]
+											 alpha:values[3]
+						];
+			} else if ([func hasPrefix:@"cmyk"]) {
+				return [NSColor colorWithDeviceCyan:values[0]
+											magenta:values[1]
+											 yellow:values[2]
+											  black:values[3]
+											  alpha:values[4]
+						];
+			} else {
+				NSLog(@"Unrecognized Prefix <%@> returning nil", func);
+			}
+		}
+	}
+
+	return [NSColor colorWithName:string];
+}
+
++ (NSColor *)colorFromHexString:(NSString *)hexString
+{
+	BOOL useHSB = NO;
+	BOOL useCalibrated = NO;
+
+	if (hexString.length == 0) {
+		return NSColor.blackColor;
+	}
+
+	hexString = hexString.trim.uppercaseString;
+
+	if ([hexString hasPrefix:@"#"]) {
+		hexString = hexString.shifted;
+	}
+
+	if ([hexString hasPrefix:@"!"]) {
+		useCalibrated = YES;
+		hexString = hexString.shifted;
+	}
+
+	if ([hexString hasPrefix:@"*"]) {
+		useHSB = YES;
+		hexString = hexString.shifted;
+	}
+
+	int mul = 1;
+	int max = 3;
+	CGFloat v[4];
+
+	// full opacity by default
+	v[3] = 1.0;
+
+	if (hexString.length == 8 || hexString.length == 4) {
+		max++;
+	}
+
+	if (hexString.length == 6 || hexString.length == 8) {
+		// #RRGGBB || #RRGGBBAA
+		mul = 2;
+	} else if (hexString.length == 3 || hexString.length == 4) {
+		// #RGB || #RGBA
+		mul = 1;
+	} else {
+		return nil;
+	}
+
+	for (int i = 0; i < max; i++) {
+		NSString *sub = [hexString substringWithRange:NSMakeRange(i * mul, mul)];
+		NSScanner *scanner = [NSScanner scannerWithString:sub];
+		uint value = 0;
+		[scanner scanHexInt: &value];
+		v[i] = (float) value / (float) 0xFF;
+	}
+
+	// only at full color
+
+	if (useHSB) {
+		if (useCalibrated) {
+			return [NSColor colorWithCalibratedHue:v[0]
+										saturation:v[1]
+										brightness:v[2]
+											 alpha:v[3]
+					];
+
+		}
+
+		return [NSColor colorWithDeviceHue:v[0]
+								saturation:v[1]
+								brightness:v[2]
+									 alpha:v[3]
+				];
+	}
+
+	if (useCalibrated) {
+		return [NSColor colorWithCalibratedRed:v[0]
+										 green:v[1]
+										  blue:v[2]
+										 alpha:v[3]
+				];
+	}
+
+	return [NSColor colorWithDeviceRed:v[0]
+								 green:v[1]
+								  blue:v[2]
+								 alpha:v[3]
+			];
+}
 
 - (NSColor *)deviceRGBColor {
 	return [self colorUsingColorSpaceName:NSDeviceRGBColorSpace];
@@ -2243,6 +2263,32 @@ static CGFloat hexCharsToFloat(char firstChar, char secondChar)
 + (id) colorListInFrameworkWithFileName:(NSString *) fileName {
 	NSBundle *aBundle = [NSBundle bundleForClass: [DummyListClass class]];
 	return [self colorListWithFileName: fileName inBundle: aBundle];
+}
+@end
+
+@implementation NSString (THColorConversion)
+
+- (NSColor *)colorValue {
+	return [NSColor colorFromString:self];
+}
+
+
+-(NSData *) colorData {
+	NSData *theData=[NSArchiver archivedDataWithRootObject:self];
+	return theData;
+}
+
++ (NSColor * )colorFromData:(NSData*)theData {
+	NSColor * color =  [NSUnarchiver unarchiveObjectWithData:theData];
+	return  color;
+}
+
+@end
+
+@implementation NSArray (THColorConversion)
+
+- (NSArray *)colorValues {
+	return [self arrayPerformingSelector:@selector(colorValue)];
 }
 
 @end

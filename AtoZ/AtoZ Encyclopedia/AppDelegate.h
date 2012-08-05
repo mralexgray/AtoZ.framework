@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import <AtoZ/AtoZ.h>
 #import <QuartzCore/QuartzCore.h>
+#import "IsometricView.h"
 
 #define kCompositeIconHeight 155.0
 #define kIconWidth 128.0
@@ -21,7 +22,10 @@
 	IBOutlet NSMatrix *matrix;
 }
 @property (assign) IBOutlet NSWindow *window;
+@property (assign) IBOutlet NSView *rootView;
 
+@property (assign) IBOutlet NSView *isoView;
+//@property (assign) IBOutlet NSWindow *window;
 
 
 @property (retain) CALayer *root;

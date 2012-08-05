@@ -29,6 +29,8 @@ CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13, CGFloat m14,
 
 - (CATransform3D)rectToQuad:(NSRect)rect quadTLX:(double)x1a quadTLY:(double)y1a quadTRX:(double)x2a quadTRY:(double)y2a quadBLX:(double)x3a quadBLY:(double)y3a quadBRX:(double)x4a quadBRY:(double)y4a;
 
+- (void) addConstraintsRelativeToSuperlayer;
+
 + (CALayer*)closeBoxLayer; 
 + (CALayer*)closeBoxLayerForLayer:(CALayer*)parentLayer;
 

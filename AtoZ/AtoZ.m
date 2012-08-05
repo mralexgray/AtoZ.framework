@@ -9,6 +9,7 @@
 #import <objc/message.h>
 
 
+
 void profile (const char *name, void (^work) (void)) {
     struct timeval start, end;
     gettimeofday (&start, NULL);
@@ -62,6 +63,7 @@ void ApplicationsInDirectory(NSString *searchPath, NSMutableArray *applications)
 
 NSString *const AtoZSharedInstanceUpdated = @"AtoZSharedInstanceUpdated";
 NSString *const AtoZDockSortedUpdated = @"AtoZDockSortedUpdated";
+NSString *const AtoZSuperLayer = @"superlayer";
 
 @class AZSimpleView;
 @interface AtoZ ()
@@ -73,10 +75,14 @@ NSString *const AtoZDockSortedUpdated = @"AtoZDockSortedUpdated";
 @implementation AtoZ
 {
 	__weak AZSimpleView *e;
+	
 }
-@synthesize dock, dockSorted, appFolder, appFolderSorted;
+@synthesize dock, dockSorted, appFolder, appFolderSorted, console;
 - (void) setUp {
+//	console = [NSLogConsole sharedConsole];
+//	[console open];
 	dock = [AZDockQuery dock].copy;
+
 }
 + (AtoZ*) sharedInstance { return [super sharedInstance]; }
 
@@ -85,7 +91,9 @@ NSString *const AtoZDockSortedUpdated = @"AtoZDockSortedUpdated";
 - (void) handleMouseEvent:(NSEventMask)event inView:(NSView*)view withBlock:(void (^)())block {
 	if (self != [AtoZ sharedInstance]) {
 		NSLog(@"uh oh, not a shared I");
-		__typeof__(self) *aToZ = [AtoZ sharedInstance];
+//		__typeof__(self) *aToZ = [AtoZ sharedInstance];
+//		__typeof__(self) *aToZ = [AtoZ sharedInstance];
+
 	}
 	[NSEvent addLocalMonitorForEventsMatchingMask:NSMouseMovedMask handler:^NSEvent *(NSEvent *event) {
 			//		if ([event type] == NSMouseMovedMask ) {
@@ -284,9 +292,10 @@ NSString *const AtoZDockSortedUpdated = @"AtoZDockSortedUpdated";
 	dd.image = [[NSWorkspace sharedWorkspace] iconForFile:path];
 	dd.image.size = NSMakeSize(128,128);
 	dd.image.scalesWhenResized = YES;
-	[NSThread performBlockInBackground:^{
+	[[NSThread mainThread]performBlock:^{
+//	[NSThread performBlockInBackground:^{
 		dd.color = [[dd.colors objectAtNormalizedIndex:0]valueForKey:@"color"];
-	}];
+	} waitUntilDone:YES];
 	return dd;
 }
 
@@ -410,8 +419,9 @@ return [NSNumber numberWithInt:[self intValue]+1];
 
 @implementation CALayer (AGFlip)
 - (void) flipOver {
-	[CATransaction setValue:[NSNumber numberWithFloat:2.0f]
+	[CATransaction setValue:[NSNumber numberWithFloat:3.0f]
 					 forKey:kCATransactionAnimationDuration];
+	self.position = CGPointMake(.5,.5);
 	self.transform = CATransform3DMakeRotation(DEG2RAD(180), 0.0f, 1.0f, 0.0f);
 }
 @end

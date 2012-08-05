@@ -52,18 +52,44 @@ CGFloat DegreesToRadians(CGFloat degrees);
 NSNumber* DegreesToNumber(CGFloat degrees);
 
 
+//extern NSString *const AtoZSuperLayer;
+#define AZSuperLayerSuper (@"superlayer")
+
+
 #define AZConstraint(attr, rel) \
-[CAConstraint constraintWithAttribute:attr relativeTo:rel attribute:attr]
+[CAConstraint constraintWithAttribute: attr relativeTo: rel attribute: attr]
+
+//extern NSArray* AZConstraintEdgeExcept(AZCOn attr, rel, scale, off) \
+//[NSArray arrayWithArray:@[
+//AZConstRelSuper( kCAConstraintMaxX ),
+//AZConstRelSuper( kCAConstraintMinX ),
+//AZConstRelSuper( kCAConstraintWidth),
+//AZConstRelSuper( kCAConstraintMinY ),
+//AZConstRelSuperScaleOff(kCAConstraintHeight, .2, 0),
+
+//#define AZConstraint(attr, rel) \
+//[CAConstraint constraintWithAttribute: attr relativeTo: rel attribute: attr]
 
 #define AZConst(attr, rel) \
-[CAConstraint constraintWithAttribute:attr relativeTo:rel attribute:attr]
+[CAConstraint constraintWithAttribute:attr relativeTo: rel attribute: attr]
 
 #define AZConstScaleOff(attr, rel, scl, off) \
 [CAConstraint constraintWithAttribute:attr relativeTo:rel attribute:attr scale:scl offset:off]
 
+#define AZConstRelSuper(attr) \
+[CAConstraint constraintWithAttribute:attr relativeTo:AZSuperLayerSuper attribute:attr]
+
+#define AZConstRelSuperScaleOff(attr, scl, off) \
+[CAConstraint constraintWithAttribute:attr relativeTo:AZSuperLayerSuper attribute:attr scale:scl offset:off]
+
+
 
 #import "BaseModel.h"
 #import "AZApplePrivate.h"
+
+//#define EXCLUDE_STUB_PROTOTYPES 1
+//#import <PLWeakCompatibility/PLWeakCompatibilityStubs.h>
+//	#import <AtoZiTunes/AtoZiTunes.h>
 
 #import "AZSugar.h"
 #import "AZGeometry.h"
@@ -87,7 +113,7 @@ NSNumber* DegreesToNumber(CGFloat degrees);
 #import "NSObject+AtoZ.h"
 
 #import "NSWindow_Flipr.h"
-
+#import "NSLogConsole.h"
 
 #import "TransparentWindow.h"
 #import "RoundedView.h"
@@ -152,6 +178,7 @@ extern NSString *const AtoZSharedInstanceUpdated;
 extern NSString *const AtoZDockSortedUpdated;
 
 @interface AtoZ : BaseModel
+
 + (AtoZ*) sharedInstance;
 + (NSArray*) dock;
 //- (NSArray*) dockSorted;
@@ -162,6 +189,8 @@ extern NSString *const AtoZDockSortedUpdated;
 + (NSArray*) appFolderSorted;
 
 - (void) handleMouseEvent:(NSEventMask)event inView:(NSView*)view withBlock:(void (^)())block;
+@property (strong, nonatomic) NSLogConsole *console;
+
 //- (void)performBlock:(void (^)())block;
 //- (void)performBlock:(void (^)())block waitUntilDone:(BOOL)wait;
 
