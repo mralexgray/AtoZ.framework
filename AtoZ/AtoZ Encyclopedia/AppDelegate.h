@@ -17,16 +17,29 @@
 #define kMargin 30.0
 
 
-@interface AppDelegate : NSObject <NSApplicationDelegate, NSWindowDelegate>
+@interface AppDelegate : NSObject <NSApplicationDelegate, NSWindowDelegate, AZSourceListDataSource>
 {
 	IBOutlet NSMatrix *matrix;
+	IBOutlet NSTextField *selectedItemLabel;
+	NSArray *sourceListItems;
+	IBOutlet AZSourceList *sourceList;
+
 }
-@property (assign) IBOutlet NSWindow *window;
+- (IBAction) goMouseTest:(id)sender;
+
+@property (assign) IBOutlet AZWindowExtend *window;
 @property (assign) IBOutlet NSView *rootView;
 
 @property (assign) IBOutlet NSView *isoView;
 //@property (assign) IBOutlet NSWindow *window;
+@property (weak) IBOutlet NSView *mouseTest;
+@property (weak) IBOutlet NSMatrix *mouseAction;
+@property (weak) IBOutlet NSTextField *point1x;
+@property (weak) IBOutlet NSTextField *point1y;
+@property (weak) IBOutlet NSTextField *point2x;
+@property (weak) IBOutlet NSTextField *point2y;
 
+@property (weak) IBOutlet NSTextField *coords;
 
 @property (retain) CALayer *root;
 @property (retain) CALayer *contentLayer;

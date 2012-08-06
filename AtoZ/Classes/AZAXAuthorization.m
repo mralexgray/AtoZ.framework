@@ -35,5 +35,38 @@ static bool amIAuthorized () {			bool returner = false;
 
 @implementation AZAXAuthorization
 
+- (NSString *)BundleName {
+	NSBundle *bundle = [NSBundle mainBundle];
+	NSDictionary *dict = [bundle infoDictionary];
+	NSString *name = [dict objectForKey:@"CFBundleName"];
+    if (name) {
+		return name;
+    }
+
+	return nil;
+}
+
+- (BOOL)RunCommand:(NSString *)cmd
+{
+	const char *str = [cmd UTF8String];
+
+	if(str) {
+		system(str);
+		return YES;
+	}
+
+	return NO;
+}
+
+- (IBAction)Restart:(id)sender
+{
+	NSString *name, *command;
+
+	name = [self BundleName];
+	command = [NSString stringWithFormat:@"/usr/bin/osascript -e 'tell app \"%@\" to quit' && /usr/bin/open -a \"%@\" &", name, name];
+
+	[self RunCommand:command];
+}
+
 @end
 

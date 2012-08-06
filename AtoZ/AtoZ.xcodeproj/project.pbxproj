@@ -106,6 +106,10 @@
 		7B7C27FE15C32B39007DD569 /* RoundedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7C27FA15C32B39007DD569 /* RoundedView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7B7C27FF15C32B39007DD569 /* TransparentWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B7C27FB15C32B39007DD569 /* TransparentWindow.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B7C280015C32B39007DD569 /* TransparentWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7C27FC15C32B39007DD569 /* TransparentWindow.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7B81287515D0339A0070193F /* AZWindowExtend.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B81287315D0339A0070193F /* AZWindowExtend.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B81287615D0339A0070193F /* AZWindowExtend.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B81287415D0339A0070193F /* AZWindowExtend.m */; };
+		7B8128AC15D05BFF0070193F /* AZNotificationCenter.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B8128AA15D05BFF0070193F /* AZNotificationCenter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B8128AD15D05BFF0070193F /* AZNotificationCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B8128AB15D05BFF0070193F /* AZNotificationCenter.m */; };
 		7B82B82315CB66D30026FE8C /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B82B82215CB66D30026FE8C /* Cocoa.framework */; };
 		7B82B82D15CB66D30026FE8C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7B82B82B15CB66D30026FE8C /* InfoPlist.strings */; };
 		7B82B82F15CB66D30026FE8C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B82B82E15CB66D30026FE8C /* main.m */; };
@@ -304,6 +308,10 @@
 		7B7C27FA15C32B39007DD569 /* RoundedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoundedView.m; sourceTree = "<group>"; };
 		7B7C27FB15C32B39007DD569 /* TransparentWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransparentWindow.h; sourceTree = "<group>"; };
 		7B7C27FC15C32B39007DD569 /* TransparentWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 5; lastKnownFileType = sourcecode.c.objc; path = TransparentWindow.m; sourceTree = "<group>"; };
+		7B81287315D0339A0070193F /* AZWindowExtend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZWindowExtend.h; sourceTree = "<group>"; };
+		7B81287415D0339A0070193F /* AZWindowExtend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZWindowExtend.m; sourceTree = "<group>"; };
+		7B8128AA15D05BFF0070193F /* AZNotificationCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZNotificationCenter.h; sourceTree = "<group>"; };
+		7B8128AB15D05BFF0070193F /* AZNotificationCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZNotificationCenter.m; sourceTree = "<group>"; };
 		7B82B81F15CB66D30026FE8C /* AtoZ Encyclopedia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AtoZ Encyclopedia.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B82B82215CB66D30026FE8C /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		7B82B82515CB66D30026FE8C /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -648,6 +656,8 @@
 				7B0D7C5215A401A100037D30 /* AZToggle.m */,
 				7B4A8FED15AB267D00463B91 /* AZSourceList.h */,
 				7B4A8FEE15AB267D00463B91 /* AZSourceList.m */,
+				7B81287315D0339A0070193F /* AZWindowExtend.h */,
+				7B81287415D0339A0070193F /* AZWindowExtend.m */,
 			);
 			path = Views;
 			sourceTree = SOURCE_ROOT;
@@ -760,6 +770,8 @@
 		7BE6068915A00B8800355236 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				7B8128AA15D05BFF0070193F /* AZNotificationCenter.h */,
+				7B8128AB15D05BFF0070193F /* AZNotificationCenter.m */,
 				7B23C36115CE98AF00DD1A9C /* NSLogConsole.html */,
 				7B23C36215CE98AF00DD1A9C /* NSLogConsole.m */,
 				7B23C36315CE98AF00DD1A9C /* NSLogConsole.h */,
@@ -851,6 +863,8 @@
 				7BCDFC6815C71A810003DA4D /* NotificationCenterSpy.h in Headers */,
 				7BC3C2B015C9F0DD00DA2EFA /* AZMouser.h in Headers */,
 				7B23C36615CE98AF00DD1A9C /* NSLogConsole.h in Headers */,
+				7B81287515D0339A0070193F /* AZWindowExtend.h in Headers */,
+				7B8128AC15D05BFF0070193F /* AZNotificationCenter.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1102,6 +1116,8 @@
 				7BAD6B1215CD5C2E001DE404 /* AZNamedColors.m in Sources */,
 				7B23C32415CDFBC100DD1A9C /* NSURL+AtoZ.m in Sources */,
 				7B23C36515CE98AF00DD1A9C /* NSLogConsole.m in Sources */,
+				7B81287615D0339A0070193F /* AZWindowExtend.m in Sources */,
+				7B8128AD15D05BFF0070193F /* AZNotificationCenter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1181,7 +1197,7 @@
 				);
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
-				SDKROOT = macosx;
+				SDKROOT = "";
 			};
 			name = Debug;
 		};
@@ -1193,7 +1209,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
-				SDKROOT = macosx;
+				SDKROOT = "";
 			};
 			name = Release;
 		};
@@ -1201,6 +1217,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_OBJCPP_ARC_ABI = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
@@ -1223,6 +1240,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_OBJCPP_ARC_ABI = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;

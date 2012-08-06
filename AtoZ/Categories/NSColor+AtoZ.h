@@ -9,6 +9,9 @@
 
 #import <Cocoa/Cocoa.h>
 #import <Foundation/Foundation.h>
+#import <AppKit/AppKit.h>
+#import "AtoZ.h"
+
 //#import "NSString+AG.h"
 //#import "NSArray+AG.h"
 //#import <AGFoundation/AGFoundation.h>
@@ -201,8 +204,6 @@
 
 @interface NSColor (Utilities)
 
-
-
 // The Calvetica specific colors.
 + (NSArray *)calveticaPalette;
 
@@ -223,11 +224,9 @@
 
 // Coverts a color from the XYZ color space to the L*a*b* color space.
 + (float *)xyzToLab:(float *)xyz;
-
 @end
 
 @interface NSColorList (AtoZ)
-
 + (id) colorListWithFileName:(NSString *)fileName inBundle:(NSBundle *)aBundle;
 + (id) colorListWithFileName:(NSString *) fileName inBundleForClass:(Class) aClass;
 + (id) colorListInFrameworkWithFileName:(NSString *) fileName;

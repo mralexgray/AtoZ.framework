@@ -111,12 +111,14 @@ NSNumber* DegreesToNumber(CGFloat degrees);
 #import "CALayer+AtoZ.h"
 #import "NSScreen+AtoZ.h"
 #import "NSObject+AtoZ.h"
+#import "AZNotificationCenter.h"
 
 #import "NSWindow_Flipr.h"
 #import "NSLogConsole.h"
 
 #import "TransparentWindow.h"
 #import "RoundedView.h"
+#import "AZWindowExtend.h"
 
 	//#import "NSObject+AutoCoding.h"
 
@@ -185,6 +187,7 @@ extern NSString *const AtoZDockSortedUpdated;
 + (NSArray*) dockSorted;
 + (NSArray*) fengshui;
 + (NSArray*) runningApps;
++ (NSArray*) runningAppsAsStrings;
 + (NSArray*) appFolder;
 + (NSArray*) appFolderSorted;
 

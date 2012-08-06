@@ -7,11 +7,14 @@
 //
 
 #import "NSColor+AtoZ.h"
-#import "AtoZ.h"
-
 #import "AZNamedColors.h"
 
 #define AIfmod( X, Y )	fmod((X),(Y))
+
+@interface DummyListClass : NSObject
+@end
+@implementation DummyListClass
+@end
 
 
 typedef struct {
@@ -410,8 +413,8 @@ static NSColor *ColorWithCSSString(NSString *str) {
 	CGColorRef output = CGColorCreate(colorSpace, components);
 	CGColorSpaceRelease (colorSpace);
 	return CGColorRetain(output);
-	 //[(id)output autorelease];
-//	return (__bridge CGColorRef)(__bridge_transfer id)output;
+	//[(id)output autorelease];
+	//	return (__bridge CGColorRef)(__bridge_transfer id)output;
 }
 
 
@@ -696,6 +699,28 @@ static NSColor *ColorWithCSSString(NSString *str) {
 					localizedStringForKey:bestColorKey	value:bestColorKey 	table:@"Crayons"];
 	return bestColorKey;
 }
+- (NSString *)pantoneName {
+	NSColor *thisColor = [self colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
+	CGFloat bestDistance = FLT_MAX;
+	NSString *bestColorKey = nil;
+	NSColorList *colors = [NSColorList colorListInFrameworkWithFileName:@"RGB.clr"];
+	NSEnumerator *enumerator = [[colors allKeys] objectEnumerator];
+	NSString *key = nil;
+	while ((key = [enumerator nextObject])) {
+		NSColor *thatColor = [colors colorWithKey:key];
+		thatColor = [thatColor colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
+		CGFloat colorDistance = fabs([thisColor redComponent] 	- [thatColor redComponent]);
+		colorDistance += fabs([thisColor blueComponent] 			- [thatColor blueComponent]);
+		colorDistance += fabs([thisColor greenComponent]			- [thatColor greenComponent]);
+		colorDistance = sqrt(colorDistance);
+		if (colorDistance < bestDistance) {	bestDistance = colorDistance; bestColorKey = key; }
+	}
+	//	 [colors localizedS
+	bestColorKey = [[NSBundle bundleWithPath:@"/System/Library/Colors/Crayons.clr"]
+					localizedStringForKey:bestColorKey	value:bestColorKey 	table:@"Crayons"];
+	return bestColorKey;
+}
+
 
 //- (NSColor*)closestColorListColor {
 //	__block NSColor *thisColor = [self colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
@@ -809,32 +834,41 @@ static NSColor *ColorWithCSSString(NSString *str) {
 	NSColorList *crayons = [NSColorList colorListNamed:@"Crayons"];
 
 	NSArray *avail = $array( safe);
-//	NSColorList *bestList = nil;
-	NSColor *bestColor = nil;
-//	NSString *bestKey = nil;
-	for (NSColorList *list  in avail) {
-		NSEnumerator *enumerator = [[list allKeys] objectEnumerator];
-		NSString *key = nil;
-		while ((key = [enumerator nextObject])) {
-			NSColor *thatColor = [list colorWithKey:key];
-			thatColor = [thatColor colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
-			CGFloat colorDistance =
-			fabs([thisColor redComponent] 	- [thatColor redComponent]);
-			colorDistance += fabs([thisColor blueComponent] 	- [thatColor blueComponent]);
-			colorDistance += fabs([thisColor greenComponent]	- [thatColor greenComponent]);
-			colorDistance = sqrt(colorDistance);
-			if (colorDistance < bestDistance) {
-				//				bestList = list;
-				bestDistance = colorDistance;
-				bestColor = thatColor;
-				//				bestKey = key;
-			}
-		}
-	}
-	return bestColor;//, @"color", bestKey, @"key", bestList, @"list");
-					 //	bestColorKey = [[NSBundle bundleWithPath:@"/System/Library/Colors/Web Safe Colors.clr"]
-					 //					localizedStringForKey:bestColorKey	value:bestColorKey 	table:@"Crayons"];
+	//	NSColorList *bestList = nil;
+	__block float red = [thisColor redComponent];
+	__block float green = [thisColor greenComponent];
+	__block float blue = [thisColor blueComponent];
 
+	__block NSColor *bestColor = nil;
+	__block CGFloat colorDistance;
+	////	NSString *bestKey = nil;
+	//	for (NSColorList *list  in avail) {
+	//		NSEnumerator *enumerator = [[list allKeys] objectEnumerator];
+	//		NSString *key = nil;
+	//		while ((key = [enumerator nextObject])) {
+
+	/*
+	 [avail eachConcurrentlyWithBlock:^(NSInteger index, id obj, BOOL *stop) {
+	 [[obj allKeys]filterOne:^BOOL(id object) {
+	 NSColor *thatColor = [[obj colorWithKey:object]colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
+	 CGFloat colorDistance = sqrt(		fabs( red	- [thatColor redComponent]) + fabs(blue - [thatColor blueComponent])
+	 + fabs(green	- [thatColor greenComponent]) );
+	 if (colorDistance < bestDistance)
+	 if (colorDistance < .04)
+	 return YES;   //bestList = list;
+	 else {
+	 bestDistance = colorDistance;
+	 bestColor = thatColor;
+	 return  NO;
+	 }
+	 //				return bestColor				//				bestKey = key;
+	 }return NO;
+	 }
+	 }
+	 //, @"color", bestKey, @"key", bestList, @"list");
+	 //	bestColorKey = [[NSBundle bundleWithPath:@"/System/Library/Colors/Web Safe Colors.clr"]
+	 //					localizedStringForKey:bestColorKey	value:bestColorKey 	table:@"Crayons"];
+	 */
 }
 
 
@@ -869,14 +903,14 @@ static NSColor *ColorWithCSSString(NSString *str) {
 	// name lookup
 	NSString *lcc = colorName.lowercaseString;
 	NSColorList *list = [AZNamedColors namedColors];
-	for (NSString *key in list.allKeys) {
+	for (NSString *key in [list allKeys]) {
 		if ([key.lowercaseString isEqual:lcc]) {
 			return [list colorWithKey:key];
 		}
 	}
 
 	for (list in [NSColorList availableColorLists]) {
-		for (NSString *key in list.allKeys) {
+		for (NSString *key in [list allKeys ]) {
 			if ([key.lowercaseString isEqual:lcc]) {
 				return [list colorWithKey:key];
 			}
@@ -932,14 +966,14 @@ static NSColor *ColorWithCSSString(NSString *str) {
 	}
 
 	if ([string contains:@" "]) {
-//		NSString *head = nil, *tail = nil;
-//		list(&head, &tail) = string.decapitate;
+		//		NSString *head = nil, *tail = nil;
+		//		list(&head, &tail) = string.decapitate;
 		NSArray  *comps = string.decapitate;
 		NSString *head = comps[0];
 		NSString *tail = comps[1];
 
 		//[[string stringByTrimmingCharactersInSet:
-//								   [NSCharacterSet whitespaceAndNewlineCharacterSet]]lowercaseString];
+		//								   [NSCharacterSet whitespaceAndNewlineCharacterSet]]lowercaseString];
 
 		NSColor *tailColor = [NSColor colorFromString:tail];
 
@@ -1449,16 +1483,16 @@ static NSMutableDictionary *RGBColorValues = nil;
 
 //two parts of a single path:
 //	defaultRGBTxtLocation1/VERSION/defaultRGBTxtLocation2
-static NSString *defaultRGBTxtLocation1 = @"/usr/share/emacs";
-static NSString *defaultRGBTxtLocation2 = @"etc/rgb.txt";
+//static NSString *defaultRGBTxtLocation1 = @"/usr/share/emacs";
+//static NSString *defaultRGBTxtLocation2 = @"etc/rgb.txt";
 
-#ifdef DEBUG_BUILD
-#define COLOR_DEBUG TRUE
-#else
-#define COLOR_DEBUG FALSE
-#endif
+//#ifdef DEBUG_BUILD
+//#define COLOR_DEBUG TRUE
+//#else
+//#define COLOR_DEBUG FALSE
+//#endif
 
-@implementation NSDictionary (AIColorAdditions_RGBTxtFiles)
+//@implementation NSDictionary (AIColorAdditions_RGBTxtFiles)
 
 //see /usr/share/emacs/(some version)/etc/rgb.txt for an example of such a file.
 //the pathname does not need to end in 'rgb.txt', but it must be a file in UTF-8 encoding.
@@ -1559,9 +1593,9 @@ static NSString *defaultRGBTxtLocation2 = @"etc/rgb.txt";
  return result;
  }
  */
-@end
+//@end
 
-@implementation NSColor (AIColorAdditions_RGBTxtFiles)
+//@implementation NSColor (AIColorAdditions_RGBTxtFiles)
 /*
  + (NSDictionary *)colorNamesDictionary
  {
@@ -1600,7 +1634,7 @@ static NSString *defaultRGBTxtLocation2 = @"etc/rgb.txt";
  }
  return RGBColorValues;
  }*/
-@end
+//@end
 
 @implementation NSColor (AIColorAdditions_Comparison)
 
@@ -1872,7 +1906,7 @@ scanFailed:
 
 @end
 
-@implementation NSColor (AIColorAdditions_HTMLSVGCSSColors)
+//@implementation NSColor (AIColorAdditions_HTMLSVGCSSColors)
 
 //+ (id)colorWithHTMLString:(NSString *)str
 //{
@@ -1886,6 +1920,8 @@ scanFailed:
  * @param secondChar The second hex character, or 0x0 if only one character is to be used
  * @result The float value. Returns 0 as a bailout value if firstChar or secondChar are not valid hexadecimal characters ([0-9]|[A-F]|[a-f]). Also returns 0 if firstChar and secondChar equal 0.
  */
+
+ /*
 static CGFloat hexCharsToFloat(char firstChar, char secondChar)
 {
 	CGFloat				hexValue;
@@ -2019,9 +2055,9 @@ static CGFloat hexCharsToFloat(char firstChar, char secondChar)
 
  return [self colorWithCalibratedRed:red green:green blue:blue alpha:alpha];
  }
- */
-@end
 
+@end
+*/
 @implementation NSColor (AIColorAdditions_ObjectColor)
 
 + (NSString *)representedColorForObject: (id)anObject withValidColors: (NSArray *)validColors
@@ -2237,11 +2273,6 @@ static CGFloat hexCharsToFloat(char firstChar, char secondChar)
 @end
 
 
-
-@interface DummyListClass : NSObject
-@end
-@implementation DummyListClass
-@end
 
 @implementation NSColorList (AtoZ)
 

@@ -1,4 +1,8 @@
 #import "AZMouser.h"
+#include <stdio.h>
+#include <string.h>
+#include <Carbon/Carbon.h>
+
 
 #define IS_CMD( x, y ) strncmp( x, y, strlen( y ) ) == 0
 #define CMD_STRING_MAXLEN 256
@@ -21,18 +25,130 @@
 
 bool bDragging = false;
 
+//int main (int argc, const char * argv[]) {
+//	int cnt;
+//	for (cnt = 1; cnt < argc; cnt++) {
+//		processCommand(argv[cnt]);
+//	}
+//	return 0;
+//}
+
+void processCommand(const char *cmd) {
+	int tmpx, tmpy, btn;
+	float tmpInterval;
+	UInt32 tmpkc;
+	char str[CMD_STRING_MAXLEN];
+
+	bzero(str, CMD_STRING_MAXLEN);
+	if (IS_CMD(cmd, "mouselocation")) {
+
+		CGPoint cgLoc = mouseLoc();
+		printf("%.f %.f\n", cgLoc.x, cgLoc.y);
+
+	} else if (IS_CMD(cmd, "mousewarp ")) {
+
+		print_msg("Warping mouse to location.");
+		sscanf(cmd, "mousewarp %d %d", &tmpx, &tmpy);
+		mouseMove(tmpx, tmpy);
+
+	} else if (IS_CMD(cmd, "mousemove ")) {
+
+		print_msg("Moving mouse.");
+		sscanf(cmd, "mousemove %d %d", &tmpx, &tmpy);
+		mouseMoveTo(tmpx, tmpy, 1);
+
+	} else if (IS_CMD(cmd, "mousedown")) {
+
+		print_msg("Pressing mouse button.");
+		sscanf(cmd, "mousedown %d", &btn);
+		mousePress(btn, SINGLE_CLICK);
+
+	} else if (IS_CMD(cmd, "mouseup")) {
+
+		print_msg("Releasing mouse button.");
+		sscanf(cmd, "mouseup %d", &btn);
+		mouseRelease(btn, SINGLE_CLICK);
+
+	} else if (IS_CMD(cmd, "mouseclick")) {
+
+		print_msg("Clicking mouse.");
+		sscanf(cmd, "mouseclick %d", &btn);
+		mouseClick(btn, SINGLE_CLICK);
+
+	} else if (IS_CMD(cmd, "mousedoubleclick")) {
+
+		print_msg("Double-clicking mouse.");
+		sscanf(cmd, "mousedoubleclick %d", &btn);
+		mouseClick(btn, DOUBLE_CLICK);
+
+	} else if (IS_CMD(cmd, "mousetripleclick")) {
+
+		print_msg("Triple-clicking mouse.");
+		sscanf(cmd, "mousetripleclick %d", &btn);
+		mouseClick(btn, TRIPLE_CLICK);
+
+	} else if (IS_CMD(cmd, "mousedrag ")) {
+
+		print_msg("Dragging mouse.");
+		sscanf(cmd, "mousedrag %d %d", &tmpx, &tmpy);
+		mouseDrag(LEFT_MOUSE, tmpx, tmpy);
+
+	}
+/*
+	else if (IS_CMD(cmd, "press ")) {
+
+		print_msg("Pressing key.");
+		sscanf(cmd, "press %x", &tmpkc);
+		keyPress((CGKeyCode)tmpkc, NULL);
+
+	} else if (IS_CMD(cmd, "release ")) {
+
+		print_msg("Releasing key.");
+		sscanf(cmd, "release %x", &tmpkc);
+		keyRelease((CGKeyCode)tmpkc, NULL);
+
+	} else if (IS_CMD(cmd, "hit ")) {
+
+		print_msg("Hitting key.");
+		sscanf(cmd, "hit %x", &tmpkc);
+		keyHit((CGKeyCode)tmpkc, NULL);
+
+	} else if (IS_CMD(cmd, "type ")) {
+
+		print_msg("Typing.");
+		strncpy(str, &cmd[5], CMD_STRING_MAXLEN);
+		typeString(str);
+
+	}
+	
+	 */ else if (IS_CMD(cmd, "wait")) {
+
+		print_msg("Waiting.");
+		sscanf(cmd, "wait %f", &tmpInterval);
+		usleep(1000000 * tmpInterval);
+
+	}	  else {
+
+		print_msg("I don't know what you want to do.");
+
+	}
+}
+
+void print_msg(const char *msg) {
+	printf("%s\n", msg);
+}
 
 /* MOUSE INPUT */
 
 CGPoint mouseLoc() {
 //	Point currLoc;
-//
+//	currLoc = AZMousePoint();
 //	GetGlobalMouse(&currLoc);
 //	CGPoint cgLoc = {.x = currLoc.h, .y = currLoc.v};
-	return MousePoint();
+	return AZMousePoint();// cgLoc;
 }
 
-	// btn: 0 = none, 1 = left, 2 = right, etc
+// btn: 0 = none, 1 = left, 2 = right, etc
 CGEventType mouseEventType(int btn, int btnState) {
 	switch(btn) {
 		case NO_MOUSE_BUTTON:
@@ -71,30 +187,28 @@ void mouseEvent(int btn, int btnState, int clickType) {
 	CGPoint currLoc;
 	currLoc = mouseLoc();
 	CGEventType mouseType = mouseEventType(btn, btnState);
-	
-	CGMouseButton mb = (btn == LEFT_MOUSE) ? 
-    kCGMouseButtonLeft : 
-    (btn == RIGHT_MOUSE) ? 
-	kCGMouseButtonRight : 
+
+	CGMouseButton mb = (btn == LEFT_MOUSE) ?
+    kCGMouseButtonLeft :
+    (btn == RIGHT_MOUSE) ?
+	kCGMouseButtonRight :
 	kCGMouseButtonCenter;
-	
+
 	CGEventRef theEvent = CGEventCreateMouseEvent(NULL, mouseType, currLoc, mb);
-	
+
 	if (clickType) {
 		CGEventSetIntegerValueField(theEvent, kCGMouseEventClickState, clickType);
 	}
-	
+
 	CGEventPost(kCGHIDEventTap, theEvent);
-	CFRelease(theEvent);	
+	CFRelease(theEvent);
 }
-
-
 
 /* MOUSE MOVEMENT */
 
 void mouseMove(int posX, int posY) {
 	CGPoint dest = { .x = posX, .y = posY };
-	CGWarpMouseCursorPosition(dest); 
+	CGWarpMouseCursorPosition(dest);
 	if (bDragging) {
 		mouseEvent(LEFT_MOUSE, MOUSE_DRAGGED, 0);
 	} else {
@@ -103,22 +217,21 @@ void mouseMove(int posX, int posY) {
 }
 
 void mouseMoveTo(int posX, int posY, float speed) {
-	CGPoint currLoc = MousePoint();
-		//mouseLoc();
+	CGPoint currLoc = mouseLoc();
 	CGPoint destLoc = { .x = posX, .y = posY };
 	float x = currLoc.x;
 	float y = currLoc.y;
 	float xrat, yrat;
-	
+
 	int diffX = abs(currLoc.x - destLoc.x);
 	int diffY = abs(currLoc.y - destLoc.y);
 	int dirX = currLoc.x > destLoc.x ? -1 : 1;
 	int dirY = currLoc.y > destLoc.y ? -1 : 1;
-	
+
 	if (diffX == 0 && diffY == 0) {
 		return;
 	}
-	
+
 	if (diffX > diffY) {
 		xrat = MOUSE_RESOLUTION * dirX;
 		if (diffY == 0) {
@@ -134,7 +247,7 @@ void mouseMoveTo(int posX, int posY, float speed) {
 			xrat = (((float)diffX / diffY) * dirX) * MOUSE_RESOLUTION;
 		}
 	}
-	
+
 	int xArrived = 0, yArrived = 0, diff;
 	float accelerant;
 	while (!xArrived && !yArrived) {
@@ -142,21 +255,21 @@ void mouseMoveTo(int posX, int posY, float speed) {
 		diffY = abs(destLoc.y - y);
 		diff = diffX > diffY ? diffX : diffY;
 		accelerant = diff > 70 ? diff / 40 : (diff > 40 ? diff / 20 : 1);
-		
+
 		if (!xArrived && diffX < abs(xrat)) {
 			xArrived = 1;
 			x = destLoc.x;
 		} else {
 			x += xrat * accelerant;
 		}
-		
+
 		if (!yArrived && diffY < abs(yrat)) {
 			yArrived = 1;
 			y = destLoc.y;
 		} else {
 			y += yrat * accelerant;
 		}
-		
+
 		mouseMove((int)x, (int)y);
 		usleep((int)(speed * (MOUSE_SPEED * MOUSE_RESOLUTION)));
 	}
@@ -187,10 +300,148 @@ void mouseDrag(int btn, int posX, int posY) {
 	mouseEvent(btn, MOUSE_UP, SINGLE_CLICK);
 }
 
+/* KEYBOARD INPUT */
+/*
+void typeString(char *str) {
+	Ascii2KeyCodeTable ttable;
+	InitAscii2KeyCodeTable(&ttable);
+
+	int i;
+	char chr;
+	for (i = 0; i < strlen(str); i++) {
+		chr = str[i];
+		UInt32 kc = AsciiToKeyCode(&ttable, (int)chr);
+
+		// if the kc doesn't match the char when we convert it back, assume Shift
+		CGEventFlags flags = NULL;
+		if (KeyCodeToAscii(kc) != chr) {
+			flags = kCGEventFlagMaskShift;
+		}
+		keyHit((CGKeyCode)kc, flags);
+	}
+}
+
+void keyHit(CGKeyCode kc, CGEventFlags flags) {
+	keyPress(kc, flags);
+	usleep(TYPOMATIC_RATE);
+	keyRelease(kc, flags);
+}
+
+void keyPress(CGKeyCode kc, CGEventFlags flags) {
+	toKey(kc, flags, true);
+}
+
+void keyRelease(CGKeyCode kc, CGEventFlags flags) {
+	toKey(kc, flags, false);
+}
+
+void toKey(CGKeyCode kc, CGEventFlags flags, bool upOrDown) {
+	CGEventRef theEvent = CGEventCreateKeyboardEvent(NULL, kc, upOrDown);
+	if (flags) {
+		CGEventSetFlags(theEvent, flags);
+	}
+	CGEventPost(kCGAnnotatedSessionEventTap, theEvent);
+	CFRelease(theEvent);
+}
+*/
+/*================
+ * iGetKey
+ *--------------*/
+
+/**
+ * initAscii2KeyCodeTable initializes the ascii to key code
+ * look up table using the currently active KCHR resource. This
+ * routine calls GetResource so it cannot be called at interrupt time.
+ */
+
+ /*
+static OSStatus InitAscii2KeyCodeTable(Ascii2KeyCodeTable* ttable) {
+	unsigned char* theCurrentKCHR, *ithKeyTable;
+	short count, i, j, resID;
+	Handle theKCHRRsrc;
+	ResType rType;
+
+	// set up our table to all minus ones
+	for (i = 0; i < 256; i++)
+		ttable->transtable[i] = -1;
+
+	// find the current kchr resource ID
+	ttable->kchrID = (short)GetScriptVariable(smCurrentScript, smScriptKeys);
+
+	// get the current KCHR resource
+	theKCHRRsrc = GetResource('KCHR', ttable->kchrID);
+	if (theKCHRRsrc == NULL)
+		return resNotFound;
+	GetResInfo(theKCHRRsrc, &resID, &rType, ttable->KCHRname);
+
+	// dereference the resource
+	theCurrentKCHR = (unsigned char *)(*theKCHRRsrc);
+
+	// get the count from the resource
+	count = *(short*)(theCurrentKCHR + kTableCountOffset);
+
+	// build inverse table by merging all key tables
+	for (i = 0; i < count; i++) {
+		ithKeyTable = theCurrentKCHR + kFirstTableOffset + (i * kTableSize);
+		for (j = 0; j < kTableSize; j++) {
+			if (ttable->transtable[ ithKeyTable[j] ] == -1)
+				ttable->transtable[ ithKeyTable[j] ] = j;
+		}
+	}
+
+	return noErr;
+}
+*/
+/**
+ * asciiToKeyCode looks up the ascii character in the key
+ * code look up table and returns the virtual key code for that
+ * letter. If there is no virtual key code for that letter, then
+ * the value -1 will be returned.
+ */
+/*static short AsciiToKeyCode(Ascii2KeyCodeTable* ttable, short asciiCode) {
+	if (asciiCode >= 0 && asciiCode <= 255) {
+		return ttable->transtable[asciiCode];
+	} else {
+		return false;
+	}
+}
+
+static char KeyCodeToAscii(short virtualKeyCode) {
+	unsigned long state;
+	long keyTrans;
+	char charCode;
+	Ptr kchr;
+	state = 0;
+	kchr = (Ptr)GetScriptVariable(smCurrentScript, smKCHRCache);
+	keyTrans = KeyTranslate(kchr, virtualKeyCode, &state);
+	charCode = keyTrans;
+	if (!charCode) {
+		charCode = (keyTrans >> 16);
+	}
+	return charCode;
+}
+*/
+@implementation AZMouser
+
+
+-(CGPoint) mouseLocation {
+	return mouseLoc();
+}
+
+- (void) dragFrom:(CGPoint)a to:(CGPoint)b {
 
 
 
-CGPoint MousePoint() {
+	mouseMove(a.x,a.y);
+	mouseDrag(1, b.x, b.y);
+}
+
+
+
+@end
+
+
+CGPoint AZMousePoint() {
 	CGEventRef event = CGEventCreate(NULL);
 	CGPoint cursor = CGEventGetLocation(event);
 	CFRelease(event);
@@ -205,23 +456,23 @@ CGPoint MousePoint() {
 //kCGAnnotatedSessionEventTap
 //Specifies that an event tap is placed at the point where session events have been annotated to flow to an application.
 
-void PostMouseEvent(CGMouseButton button, CGEventType type, const CGPoint point) {
+void AZPostMouseEvent(CGMouseButton button, CGEventType type, const CGPoint point) {
 	CGEventRef theEvent = CGEventCreateMouseEvent(NULL, type, point, button);
 	CGEventSetType(theEvent, type);
 	CGEventPost(kCGHIDEventTap, theEvent);
 	if (theEvent) CFRelease(theEvent);
 }
 
-void LeftClick(const CGPoint point)  {
-	PostMouseEvent(kCGMouseButtonLeft, kCGEventMouseMoved, point);
+void AZLeftClick(const CGPoint point)  {
+	AZPostMouseEvent(kCGMouseButtonLeft, kCGEventMouseMoved, point);
 	NSLog(@"Click!");
-	PostMouseEvent(kCGMouseButtonLeft, kCGEventLeftMouseDown, point);
-	PostMouseEvent(kCGMouseButtonLeft, kCGEventLeftMouseUp, point);
+	AZPostMouseEvent(kCGMouseButtonLeft, kCGEventLeftMouseDown, point);
+	AZPostMouseEvent(kCGMouseButtonLeft, kCGEventLeftMouseUp, point);
 }
 
-void DragBetwixt(const CGPoint a, const CGPoint b) {
-	PostMouseEvent(kCGMouseButtonLeft, kCGEventMouseMoved, a);
-	PostMouseEvent(kCGMouseButtonLeft, kCGEventLeftMouseDown, a);
+void AZDragBetwixt(const CGPoint a, const CGPoint b) {
+	AZPostMouseEvent(kCGMouseButtonLeft, kCGEventMouseMoved, a);
+	AZPostMouseEvent(kCGMouseButtonLeft, kCGEventLeftMouseDown, a);
 	/*	CGEventRef dragTime = CGEventCreateMouseEvent(NULL, kCGEventLeftMouseDragged, b, kCGMouseButtonLeft);
 	 CGEventPost(kCGHIDEventTap, dragTime);
 	 */
@@ -244,9 +495,9 @@ void DragBetwixt(const CGPoint a, const CGPoint b) {
 
 		//		PostMouseEvent(kCGEventLeftMouseDragged, kCGMouseButtonLeft, next);
 	}
-	PostMouseEvent(kCGMouseButtonLeft, kCGEventLeftMouseUp, b);
+	AZPostMouseEvent(kCGMouseButtonLeft, kCGEventLeftMouseUp, b);
 }
-void DragBetwixtOnFancyPath(const CGPoint a, const CGPoint b) {
+void AZDragBetwixtOnFancyPath(const CGPoint a, const CGPoint b) {
 	NSPoint AZMovePoint(NSPoint origin, NSPoint target, CGFloat relativeDistance);
 	
 	NSBezierPath *path = [NSBezierPath bezierPath];
@@ -259,22 +510,22 @@ void DragBetwixtOnFancyPath(const CGPoint a, const CGPoint b) {
 		// Draw a line from the end of the curve to the second control point
 		//	[path lineToPoint:ControlPt2];
 }
-void Click(const CGPoint point)  {
-    PostMouseEvent(kCGMouseButtonLeft, kCGEventMouseMoved, point);
+void AZClick(const CGPoint point)  {
+    AZPostMouseEvent(kCGMouseButtonLeft, kCGEventMouseMoved, point);
     NSLog(@"Click!");
-    PostMouseEvent(kCGMouseButtonLeft, kCGEventLeftMouseDown, point);
-    PostMouseEvent(kCGMouseButtonLeft, kCGEventLeftMouseUp, point);
+    AZPostMouseEvent(kCGMouseButtonLeft, kCGEventLeftMouseDown, point);
+    AZPostMouseEvent(kCGMouseButtonLeft, kCGEventLeftMouseUp, point);
 }
 
-void RightClick(const CGPoint point) 
+void AZRightClick(const CGPoint point)
 {
-	PostMouseEvent(kCGMouseButtonRight, kCGEventMouseMoved, point);
+	AZPostMouseEvent(kCGMouseButtonRight, kCGEventMouseMoved, point);
 	NSLog(@"Click Right");
-	PostMouseEvent(kCGMouseButtonRight, kCGEventRightMouseDown, point);
-	PostMouseEvent(kCGMouseButtonRight, kCGEventRightMouseUp, point);
+	AZPostMouseEvent(kCGMouseButtonRight, kCGEventRightMouseDown, point);
+	AZPostMouseEvent(kCGMouseButtonRight, kCGEventRightMouseUp, point);
 }
 
-void doubleClick(CGPoint point) {
+void AZDoubleClick(CGPoint point) {
     CGEventRef theEvent = CGEventCreateMouseEvent(NULL, kCGEventLeftMouseDown, point, kCGMouseButtonLeft);
     CGEventSetIntegerValueField
 	(theEvent, kCGMouseEventClickState, 2);
@@ -287,9 +538,10 @@ void doubleClick(CGPoint point) {
     CGEventPost(kCGHIDEventTap, theEvent); 
     CFRelease(theEvent); 
 }
-void MoveTo(const CGPoint point) {
-	PostMouseEvent(kCGMouseButtonLeft, kCGEventMouseMoved, point);
+void AZMoveTo(const CGPoint point) {
+	AZPostMouseEvent(kCGMouseButtonLeft, kCGEventMouseMoved, point);
 }
+
 	//void DragTo(const CGPoint where) {
 	////    PostMouseEvent(kCGMouseButtonLeft, kCGEventLeftMouseDown, point);
 	////	Click(a);
@@ -324,16 +576,19 @@ void MoveTo(const CGPoint point) {
  //kCGEventLeftMouseDragged
  //kCGEventRightMouseDragged
  */
-@implementation AZMouserIndicator
-@synthesize indicatorImage;
+
+
+//@implementation AZMouserIndicator
+//@synthesize indicatorImage;
 /* This routine is called at app launch time when this class is unpacked from the nib.*/
-- (void)awakeFromNib {
+/*- (void)awakeFromNib {
     self.indicatorImage = [NSImage imageInFrameworkWithFileName:@"circle2.tif"];
 	[[self window] setHasShadow:NO];
 	[self setFrameSize:indicatorImage.size];
-}
+}*/
 /*	When it's time to draw, this routine is called. This view is inside the window, the window's opaqueness has been turned off, and the window's styleMask has been set to NSBorderlessWindowMask on creation, so this view draws the all the visible content. The first two lines below fill the view with "clear" color, so that any images drawn also define the custom shape of the window.  Furthermore, if the window's alphaValue is less than 1.0, drawing will use transparency.
  */
+/*
 - (void)drawRect:(NSRect)rect {
 		// Clear the drawing rect.
     [[NSColor clearColor] set];
@@ -353,9 +608,9 @@ void MoveTo(const CGPoint point) {
 		
     }
     return self;
-}
+}*/
 /* In Interface Builder, the class for the window is set to this subclass. Overriding the initializer provides a mechanism for controlling how objects of this class are created. */
-
+/*
 - (id)initWithContentRect:(NSRect)contentRect styleMask:(NSUInteger)aStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)flag
 {
 		// Using NSBorderlessWindowMask results in a window without a title bar.
@@ -377,21 +632,15 @@ void MoveTo(const CGPoint point) {
     return self;
 }
 - (void) awakeFromNib { [self setIsVisible:NO]; }
+
+*/
 /*	 Custom windows that use the NSBorderlessWindowMask can't become key by default. Override this method so that controls in this window will be enabled.	 */
-- (BOOL)canBecomeKeyWindow  {   return NO;  }
+/*- (BOOL)canBecomeKeyWindow  {   return NO;  }
 - (BOOL)canBecomeMainWindow {	return NO;	}
 @end
+*/
 
 
-@implementation AZMouser
-@synthesize window;
-- (void) setUp {
-	self.window = [[AZMouserWindow alloc]init];
-	
-	
-}
-
-+ (AZMouser*) sharedInstance { return [super sharedInstance]; }
 /*
  - (void)from:(NSPoint)xy to:(NSPoint)zw {
  // CGPostMouseEvent( CGPoint        mouseCursorPosition,
@@ -423,9 +672,9 @@ void MoveTo(const CGPoint point) {
  //sleep(2);
  }
  */
-@end
+//@end
 
-
+/*
 @implementation AUWindowExtend
 
 static CFMachPortRef AUWE_portRef = NULL;
@@ -496,5 +745,5 @@ static CGEventRef AUWE_OnMouseMovedFactory (
 }
 
 @end
-
+*/
 /* EOF */

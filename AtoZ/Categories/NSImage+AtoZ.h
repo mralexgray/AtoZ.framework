@@ -137,7 +137,7 @@ typedef enum {
 - (BOOL)shrinkToSize:(NSSize)newSize;
 - (BOOL)createIconRepresentations;
 - (void)removeRepresentationsLargerThanSize:(NSSize)size;
-- (BOOL)shrinkToSize:(NSSize)newSize;
+//- (BOOL)shrinkToSize:(NSSize)newSize;
 - (NSImage *)duplicateOfSize:(NSSize)newSize;
 @end
 

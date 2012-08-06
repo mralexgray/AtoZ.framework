@@ -14,5 +14,6 @@
 
 @property (nonatomic, strong) NSArray *dock;
 
+- (CGPoint) locationNowForAppWithPath:(NSString*)aPath;
 + (NSArray*) dock;
 @end

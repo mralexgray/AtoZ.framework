@@ -227,6 +227,16 @@ NSString *const AtoZSuperLayer = @"superlayer";
 		else return nil;
 	}];
 }
+
++ (NSArray*) runningAppsAsStrings {
+
+	return [[[[NSWorkspace sharedWorkspace] runningApplications] valueForKeyPath:@"bundleURL"] arrayUsingBlock:^id(id obj) {
+		if ([obj isKindOfClass:[NSURL class]])
+			return [obj path];
+		else return nil;
+	}];
+}
+
 @end
 @implementation AZColor
 @synthesize 	brightness, 	saturation,		hue;

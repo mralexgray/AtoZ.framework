@@ -339,7 +339,7 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 //[i convertPoint: [[i window] convertScreenToBase:[NSEvent mouseLocation]] fromView: nil ]
 - (NSPoint) localPoint;
 {
-	return [self convertPoint: [[self window] convertScreenToBase:NSPointFromCGPoint( MousePoint())] fromView:nil];
+	return [self convertPoint: [[self window] convertScreenToBase:NSPointFromCGPoint( AZMousePoint())] fromView:nil];
 //								[NSEvent mouseLocation]] fromView: nil ]
 }
 

@@ -52,11 +52,9 @@
 						else	URLvalue = (id)path;
 					}
 					convertedURL = (NSString*)[(NSURL *)URLvalue path];	//	NSURL *convertedURL = (__bridge CFURLRef)&URLvalue;
-					CFTypeRef position;	CGPoint coordinates;	NSValue *XYZ;
-					NSMutableString *posX;	NSMutableString *posY;
+					CFTypeRef position;	CGPoint coordinates;
 					AXError result3 = AXUIElementCopyAttributeValue(axElement, kAXPositionAttribute, &position);
-					if (result3 == kAXErrorSuccess)	{	
-						//	if ([AXValueGetValue(position, kAXValueCGPointType, (CFTypeRef *) &coordinates) {  
+					if (result3 == kAXErrorSuccess)	{
 						if (AXValueGetValue(position, kAXValueCGPointType, &coordinates)) {  
 							//	NSLog(@"position: (%f, %f)", coordinates.x, coordinates.y);
 //							XYZ = [NSValue valueWithPoint:NSPointFromCGPoint(coordinates)]; 
@@ -85,6 +83,53 @@
 //	if ([self.delegate respondsToSelector:@selector(setStartupStepStatus:)])   [[self delegate] didFinishDBXInit];
 	[AZStopwatch stop:@"makeDock"];
 	return theApps;//.mutableCopy;
+}
+
+
+- (CGPoint) locationNowForAppWithPath:(NSString*)aPath {
+	[AZStopwatch start:@"getPoint"];
+	__block CGPoint thePoint = CGPointMake(0,0);	AXUIElementRef appElement = NULL;
+	appElement = AXUIElementCreateApplication(	[[[NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.apple.dock"]
+													lastObject] processIdentifier]);
+	if (appElement == NULL) return thePoint;
+	AXUIElementRef firstChild 	= (AXUIElementRef)
+	[[self subelementsFromElement:appElement forAttribute:@"AXChildren"] objectAtIndex:0];
+	NSArray *children 	= [self subelementsFromElement:firstChild forAttribute:@"AXChildren"];
+	[children enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+		AXUIElementRef axElement =  (AXUIElementRef)obj;		CFTypeRef role; 	id preferredrole;
+		AXError result4 = AXUIElementCopyAttributeValue(axElement, kAXSubroleAttribute,&role);
+		if (result4 == kAXErrorSuccess) {
+			if (AXValueGetType(role) != kAXValueIllegalType) preferredrole = [NSValue valueWithPointer:role];
+			else preferredrole = (id)role;
+			if ([preferredrole isEqualToString:@"AXApplicationDockItem"]) {
+				CFTypeRef name;
+				AXError result = AXUIElementCopyAttributeValue(axElement, kAXTitleAttribute, &name);
+				if (result == kAXErrorSuccess) {
+					// 	id titleValue; if (AXValueGetType(name) != kAXValueIllegalType) titleValue = [NSValue valueWithPointer:name]; } else  titleValue = (id)name;
+					CFTypeRef path;		id URLvalue; id convertedURL;
+					AXError result2 = AXUIElementCopyAttributeValue(axElement, kAXURLAttribute, &path);
+					if (result2 == kAXErrorSuccess) {
+						if 		(AXValueGetType(path) != kAXValueIllegalType) URLvalue = [NSValue valueWithPointer:path];
+						else	URLvalue = (id)path;
+					}
+					convertedURL = (NSString*)[(NSURL *)URLvalue path];
+					if ([convertedURL isEqualToString:aPath]) {
+						//qit matched, make point, return yes
+						CFTypeRef position;	CGPoint coordinates;
+						AXError result3 = AXUIElementCopyAttributeValue(axElement, kAXPositionAttribute, &position);
+						if (result3 == kAXErrorSuccess)	{
+							if (AXValueGetValue(position, kAXValueCGPointType, &coordinates)) {
+							thePoint = coordinates;
+							stop = YES;
+							}
+						}
+					}
+				}
+			}
+		}
+	}];
+	[AZStopwatch stop:@"getPoint"];
+	return thePoint;
 }
 
 - (NSArray *)subelementsFromElement:(AXUIElementRef)element forAttribute:(NSString *)attribute {

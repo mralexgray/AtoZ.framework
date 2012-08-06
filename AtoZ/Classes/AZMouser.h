@@ -1,58 +1,57 @@
-//
-//  AZMouser.h
-//  AtoZ
-//
-//  Created by Alex Gray on 7/15/12.
-//  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-//
 
-
-#import <Foundation/Foundation.h>
-#import <ApplicationServices/ApplicationServices.h>
-#import <AppKit/AppKit.h>
-#import <QuartzCore/QuartzCore.h>
 #import "AtoZ.h"
 
 
+/*
+void typeString(char *str);
+void keyHit(CGKeyCode kc, CGEventFlags flags);
+void keyPress(CGKeyCode kc, CGEventFlags flags);
+void keyRelease(CGKeyCode kc, CGEventFlags flags);
+void toKey(CGKeyCode kc, CGEventFlags flags, bool upOrDown);
+
+// iGetKey crap
+typedef struct {
+	short kchrID;
+	Str255 KCHRname;
+	short transtable[256];
+} Ascii2KeyCodeTable;
+
+enum {
+	kTableCountOffset = 256+2,
+	kFirstTableOffset = 256+4,
+	kTableSize = 128
+};
+
+//static OSStatus InitAscii2KeyCodeTable(Ascii2KeyCodeTable* ttable);
+//static short AsciiToKeyCode(Ascii2KeyCodeTable* ttable, short asciiCode);
+//static char KeyCodeToAscii(short virtualKeyCode);
+*/
+
+
+void processCommand(const char *cmd);
+
+void print_msg(const char *msg);
 CGPoint mouseLoc();
 CGEventType getMouseButton(int btn, int btnState);
 void mouseEvent(int btn, int btnState, int clickType);
-
-/* MOUSE MOVEMENT */
 void mouseMove(int posX, int posY);
 void mouseMoveTo(int posX, int posY, float speed);
-/* MOUSE CLICKING */
 void mousePress(int btn, int clickType);
 void mouseRelease(int btn, int clickType);
 void mouseClick(int btn, int clickType);
 void mouseDrag(int btn, int posX, int posY);
 
-//static CGRect screenBounds;
+CGPoint AZMousePoint();
 
-CGPoint MousePoint();
-void PostMouseEvent(CGMouseButton button, CGEventType type, const CGPoint point);
-void Click(const CGPoint point);
-void MoveTo(const CGPoint point);
-void DragTo(const CGPoint where);
-void DragBetwixt(const CGPoint a, const CGPoint b);
+@interface  AZMouser : BaseModel
 
-//extern void mouseEvent(CGEventRef type, CGFloat posx, CGFloat posy);
-//extern void mousemove(CGFloat posx, CGFloat posy);
-//extern void mouseclickdn(CGFloat posx, CGFloat posy);
-//extern void mouseclickup(CGFloat posx, CGFloat posy);
-//extern void mousedrag(CGFloat posx, CGFloat posy);
 
-@interface AUWindowExtend : NSWindow
-- (void)setAcceptsMouseMovedEvents:(BOOL)acceptMouseMovedEvents screen:(BOOL)anyWhere;
+- (CGPoint) mouseLocation;
+- (void) dragFrom:(CGPoint)a to:(CGPoint)b;
 @end
-@interface AZMouserIndicator : NSView
-@property (nonatomic, retain) NSImage *indicatorImage;
-@end
-@interface AZMouserWindow : NSWindow
-@property (assign) NSPoint initialLocation;
-@property (assign) AZMouserIndicator *indicatorView;
-@end
-@interface AZMouser : BaseModel
-@property (nonatomic, retain) AZMouserWindow *window;
 
-@end
+
+//@implementation AUWindowExtend :NSWindow
+//@end
+
+
