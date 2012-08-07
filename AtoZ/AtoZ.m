@@ -9,6 +9,12 @@
 #import <objc/message.h>
 
 
+CGFloat ScreenWidess(){
+	return  [[NSScreen mainScreen]frame].size.width;
+}
+CGFloat ScreenHighness 	(){
+	return	[[NSScreen mainScreen]frame].size.height;
+}
 
 void profile (const char *name, void (^work) (void)) {
     struct timeval start, end;
@@ -67,8 +73,8 @@ NSString *const AtoZSuperLayer = @"superlayer";
 
 @class AZSimpleView;
 @interface AtoZ ()
-@property (nonatomic, strong) NSMutableArray *dock;
-@property (nonatomic, strong) NSMutableArray* dockSorted;
+//@property (nonatomic, strong) NSMutableArray *dock;
+//@property (nonatomic, strong) NSMutableArray* dockSorted;
 @property (nonatomic, strong) NSMutableArray *appFolderSorted;
 @property (nonatomic, strong) NSMutableArray *appFolder;
 @end
@@ -77,64 +83,58 @@ NSString *const AtoZSuperLayer = @"superlayer";
 	__weak AZSimpleView *e;
 	
 }
-@synthesize dock, dockSorted, appFolder, appFolderSorted, console;
+//@synthesize
+//dock, dockSorted, appFolder, appFolderSorted, console;
+//	console = [NSLogConsole sharedConsole]; [console open];
+
 - (void) setUp {
-//	console = [NSLogConsole sharedConsole];
-//	[console open];
-	dock = [AZDockQuery dock].copy;
-
-}
-+ (AtoZ*) sharedInstance { return [super sharedInstance]; }
-
-
-
-- (void) handleMouseEvent:(NSEventMask)event inView:(NSView*)view withBlock:(void (^)())block {
-	if (self != [AtoZ sharedInstance]) {
-		NSLog(@"uh oh, not a shared I");
-//		__typeof__(self) *aToZ = [AtoZ sharedInstance];
-//		__typeof__(self) *aToZ = [AtoZ sharedInstance];
-
-	}
-	[NSEvent addLocalMonitorForEventsMatchingMask:NSMouseMovedMask handler:^NSEvent *(NSEvent *event) {
-			//		if ([event type] == NSMouseMovedMask ) {
-		NSLog(@"Mouse handler checking point for evet:%@.", event);
-		NSPoint localP = view.localPoint;
-		if ( NSPointInRect(localP, view.frame) ){
-			NSLog(@"oh my god.. point is local to view! Runnnng block");
-			[[NSThread mainThread] performBlock:block waitUntilDone:YES];
-//			[NSThread performBlockInBackground:block];
-		}
-		return event;
-	}];
-	return;
-}
-
-//- (void)performBlock:(void (^)())block {
-//	if ([[NSThread currentThread] isEqual:[self curr])
-//		block();
-//	else
-//		[self performBlock:block waitUntilDone:NO];
-//}
-//- (void)performBlock:(void (^)())block waitUntilDone:(BOOL)wait {
-//	NSThread *newThread = [NSThread new];
-//    [NSThread performSelector:@selector(az_runBlock:)
-//                     onThread:newThread
-//                   withObject:[block copy]
-//                waitUntilDone:wait];
-//}
-//+ (void)az_runBlock:(void (^)())block { block(); }
-//+ (void)performBlockInBackground:(void (^)())block {
-//	[NSThread performSelectorInBackground:@selector(az_runBlock:) withObject:[block copy]];
-//}
-
-+ (NSArray*) dock { return [super sharedInstance].dock; }
-+ (NSMutableArray*) dockSorted {
-	return  [[[[super sharedInstance].dock sortedWithKey:@"hue" ascending:YES] reversed] arrayUsingIndexedBlock:^id(id obj, NSUInteger idx) {
-		AZFile* app = obj;
-//		app.spotNew = idx;
-		app.dockPointNew = [[[AtoZ sharedInstance].dock[idx] valueForKey:@"dockPoint"]pointValue];
+	self.dock = [[AZDockQuery dock] arrayUsingIndexedBlock:^id(id obj, NSUInteger idx) {
+		NSLog(@"dockquery item: %@", [obj allKeys]);
+		AZFile *app = [AZFile instanceWithPath:[obj valueForKey:@"path"]];
+		app.spot = [[obj valueForKey:@"spot"]unsignedIntegerValue];
+		app.dockPoint = [[obj valueForKey:@"dockPoint"]pointValue];
 		return app;
-	}].mutableCopy;
+	}];
+}
+
+//+ (AtoZ*) sharedInstance { return [super sharedInstance]; }
++ (NSArray*) dock {		return [AtoZ sharedInstance].dock;   }
+- (NSArray*) dockOverView {		return  _dock;		}
+//- (NSArray*) dock { self.sortOrder = AZDockSortNatural;
+//	_dock = 	return _dock;
+//}
++ (NSArray*) dockSorted {
+	return [super sharedInstance].dockSorted;
+}
+
+- (NSArray*) dockSorted {
+
+	self.sortOrder = AZDockSortNatural;
+	return
+	[[[_dock sortedWithKey:@"hue" ascending:YES] reversed] arrayUsingIndexedBlock:^id(AZFile* obj, NSUInteger idx) {
+		obj.dockPointNew = [[_dock[idx] valueForKey:@"dockPoint"]pointValue];
+		return obj;
+	}];
+}
+
+- (NSArray*) selectedDock {
+	switch (self.sortOrder) {
+		case AZDockSortNatural:
+			return _dock;
+			break;
+		case AZDockSortColor:
+			return _dockSorted;
+		default:
+		break;
+//			return NSArray *a = @[$int(66) to:$int(66)];// arrayUsingBlock:^id(id obj) {
+//
+//			}];
+
+//		[[NSThread mainThread] performBlock:^{
+//		} waitUntilDone:YES];
+//		performBlockInBackground:^{
+//		}];			break;
+	}
 }
 /*
 + (NSArray*) dockSorted {
@@ -174,6 +174,23 @@ NSString *const AtoZSuperLayer = @"superlayer";
 //	return [AtoZ sharedInstance ].dockSorted;
 //}
 
+//- (void)performBlock:(void (^)())block {
+//	if ([[NSThread currentThread] isEqual:[self curr])
+//		block();
+//	else
+//		[self performBlock:block waitUntilDone:NO];
+//}
+//- (void)performBlock:(void (^)())block waitUntilDone:(BOOL)wait {
+//	NSThread *newThread = [NSThread new];
+//    [NSThread performSelector:@selector(az_runBlock:)
+//                     onThread:newThread
+//                   withObject:[block copy]
+//                waitUntilDone:wait];
+//}
+//+ (void)az_runBlock:(void (^)())block { block(); }
+//+ (void)performBlockInBackground:(void (^)())block {
+//	[NSThread performSelectorInBackground:@selector(az_runBlock:) withObject:[block copy]];
+//}
 + (NSArray*) appFolderSorted {
 	if (! [AtoZ sharedInstance].appFolderSorted )
 	[AtoZ sharedInstance].appFolderSorted = [[[AtoZ appFolder] sortedWithKey:@"hue" ascending:YES] reversed].mutableCopy;
@@ -198,22 +215,46 @@ NSString *const AtoZSuperLayer = @"superlayer";
 	return [AtoZ sharedInstance].appFolder;
 }
 
-- (NSArray *)uncodableKeys
-{
-    return [[AtoZ sharedInstance] uncodableKeys];
-	//[NSArray arrayWithObject:@"uncodableProperty"];
+
+
+
+- (void) handleMouseEvent:(NSEventMask)event inView:(NSView*)view withBlock:(void (^)())block {
+	if (self != [AtoZ sharedInstance]) {
+		NSLog(@"uh oh, not a shared I");
+		//		__typeof__(self) *aToZ = [AtoZ sharedInstance];
+		//		__typeof__(self) *aToZ = [AtoZ sharedInstance];
+
+	}
+	[NSEvent addLocalMonitorForEventsMatchingMask:NSMouseMovedMask handler:^NSEvent *(NSEvent *event) {
+		//		if ([event type] == NSMouseMovedMask ) {
+		NSLog(@"Mouse handler checking point for evet:%@.", event);
+		NSPoint localP = view.localPoint;
+		if ( NSPointInRect(localP, view.frame) ){
+			NSLog(@"oh my god.. point is local to view! Runnnng block");
+			[[NSThread mainThread] performBlock:block waitUntilDone:YES];
+			//			[NSThread performBlockInBackground:block];
+		}
+		return event;
+	}];
+	return;
 }
 
-- (void)setWithCoder:(NSCoder *)coder
-{
-    [super setWithCoder:coder];
-//    self. = DECODE_VALUE([coder decodeObjectForKey:@"uncodableProperty"];
-}
-
-- (void)encodeWithCoder:(NSCoder *)coder	{
-    [super encodeWithCoder:coder];
-    [coder encodeObject:@"uncodable" forKey:@"uncodableProperty"];
-}
+//- (NSArray *)uncodableKeys
+//{
+//    return [[AtoZ sharedInstance] uncodableKeys];
+//	//[NSArray arrayWithObject:@"uncodableProperty"];
+//}
+//
+//- (void)setWithCoder:(NSCoder *)coder
+//{
+//    [super setWithCoder:coder];
+////    self. = DECODE_VALUE([coder decodeObjectForKey:@"uncodableProperty"];
+//}
+//
+//- (void)encodeWithCoder:(NSCoder *)coder	{
+//    [super encodeWithCoder:coder];
+//    [coder encodeObject:@"uncodable" forKey:@"uncodableProperty"];
+//}
 
 + (NSArray*) fengshui {
 	return [[NSColor fengshui].reversed arrayUsingBlock:^id(id obj) {
@@ -258,6 +299,9 @@ NSString *const AtoZSuperLayer = @"superlayer";
 
 @end
 
+
+NSString *const AZFileUpdated = @"AZFileUpdated";
+
 @implementation AZFile
 @synthesize path, name, color, customColor, labelColor, colors, icon, image;
 @synthesize dockPoint, dockPointNew, spot, spotNew;
@@ -300,12 +344,16 @@ NSString *const AtoZSuperLayer = @"superlayer";
 	dd.path = path;
 	dd.name = [[path lastPathComponent] stringByDeletingPathExtension];
 	dd.image = [[NSWorkspace sharedWorkspace] iconForFile:path];
-	dd.image.size = NSMakeSize(128,128);
+//	dd.image.size = NSMakeSize(128,128);
 	dd.image.scalesWhenResized = YES;
-	[[NSThread mainThread]performBlock:^{
-//	[NSThread performBlockInBackground:^{
+//	[[NSThread mainThread]performBlock:^{
+	[NSThread performBlockInBackground:^{
 		dd.color = [[dd.colors objectAtNormalizedIndex:0]valueForKey:@"color"];
-	} waitUntilDone:YES];
+		dd.labelColor = [dd labelColor];
+		dd.labelNumber = [dd labelNumber];
+		[[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:AZFileUpdated object:[AtoZ sharedInstance].dockSorted];
+
+	}];// waitUntilDone:YES];
 	return dd;
 }
 

@@ -15,16 +15,20 @@
 	BOOL hovered;
 	float offset;
 	BOOL scrollUp;
+	NSIndexSet *screenSet;
+//	NSTrackingArea *tArea;
 }
-@synthesize 	infiniteViews = _infiniteViews, unit, scale, orientation;
+
+//@synthesize 	infiniteViews = _infiniteViews, unit, scale, orientation;
 
 - (void) awakeFromNib {
 	offset = 0;
-	orientation = AZOrientTop;
-	scale = AZInfiteScale1X;
+	_orientation = AZOrientLeft;
+	_scale = AZInfiteScale1X;
 	[self 				setPostsFrameChangedNotifications:	YES];
 	[[self contentView] setPostsBoundsChangedNotifications:	YES];
-	
+	[[self contentView] trackFullView];
+
 	//	[[NSNotificationCenter defaultCenter] 	addObserver: self 			selector:@selector(scrollDown:) name:@"scrollRequested" 	object:nil];
 	//	self.anApi = [[AJSiTunesAPI alloc] init];
 	//	self.anApi.delegate = self;
@@ -32,12 +36,39 @@
 
 - (void) setInfiniteViews:(NSArray *)infiniteViews {
 //	if (0) {
-		_infiniteViews = infiniteViews.mutableCopy;
-		NSLog(@"Views set.  number of views to use and reuse: %ld", _infiniteViews.count);
-		for (id sv in _infiniteViews ) {
-			[[self documentView] addSubview: sv];	//	[self setNeedsDisplay:NO];
-		}
-		[self stack];
+	_infiniteViews = infiniteViews.mutableCopy;
+	NSLog(@"Views set.  number of views to use and reuse: %ld", _infiniteViews.count);
+	NSSize totalBar;  NSRect barUnit;
+	if ((_orientation == AZOrientLeft) || (_orientation == AZOrientRight)) {
+	totalBar = NSMakeSize(self.contentView.frame.size.width, self.contentView.frame.size.width * _infiniteViews.count);
+	barUnit = AZSquareFromLength(self.contentView.frame.size.width);
+			} else {
+	totalBar = NSMakeSize(self.contentView.frame.size.height * _infiniteViews.count, self.contentView.frame.size.height);
+	barUnit = AZSquareFromLength(self.contentView.frame.size.height);
+	}
+	NSRect totalBarFrame = AZMakeRectFromSize(totalBar);
+	NSImage *bar = [[NSImage alloc]initWithSize:totalBar];
+	[bar lockFocus];
+	[_infiniteViews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+		NSColor *color = [obj valueForKey:@"color"];
+		if (!color) color = RANDOMCOLOR;
+		[color set];  NSRect tempRect = barUnit;
+		if ((_orientation == AZOrientLeft) || (_orientation == AZOrientRight))
+			tempRect.origin.y += idx * barUnit.size.height;
+		else tempRect.origin.x += idx * barUnit.size.width;
+		NSRectFill(tempRect);
+	}];
+	[bar unlockFocus];
+	[bar saveAs:@"/Users/localadmin/Desktop/bar.png"];
+	NSImageView *i = [[NSImageView alloc]initWithFrame:totalBarFrame];
+	i.image = bar;
+	[[self documentView]setFrame:totalBarFrame];
+	[[self documentView ]addSubview:i];
+	
+//		for (id sv in _infiniteViews ) {
+//			[[self documentView] addSubview: sv];	//	[self setNeedsDisplay:NO];
+//		}
+//		[self stack];
 //	} else {
 	/*	snap = [[NSImage alloc]initWithSize:AZScaleRect([[self contentView] frame], 3).size];
 		__block NSRect localunit = self.unit;
@@ -62,37 +93,28 @@
 
 	}*/
 }
-- (void)setScale:(AZInfiteScale)aScale {
-	scale = aScale;
-	[self stack];
-	
-}
+//- (void)setScale:(AZInfiteScale)aScale {	_scale = aScale;	[self stack]; 	}
 
-- (void)setOrientation:(AZOrient)anOrientation{
-	orientation = anOrientation;
-	[self stack];
-}
+//- (void)setOrientation:(AZOrient)anOrientation{		_orientation = anOrientation;	[self stack];	}
 
 - (NSRect) unit {
 	NSSize 	cSize = [self frame].size;
-	switch (orientation) {
+	switch (_orientation) {
 		case AZOrientTop:// | AZOrientBottom:
 			cSize.width = cSize.width / _infiniteViews.count ;
-			cSize.width = cSize.width * scale;
+			cSize.width = cSize.width * _scale;
 			break;
 		case AZOrientLeft:// | AZOrientRight:
 			cSize.height = cSize.height / _infiniteViews.count;
-			cSize.height = cSize.height * scale;
-			
+			cSize.height = cSize.height * _scale;
 			break;
 	}
-	
-	unit = AZMakeRect(NSZeroPoint, cSize);
-	return unit;
+	_unit = AZMakeRect(NSZeroPoint, cSize);
+	return _unit;
 }
 -(BOOL)isOpaque { return YES; }
 
-- (void) scrollWheel:(NSEvent *)event {
+/*- (void) scrollWheel:(NSEvent *)event {
 	//	if ([self inLiveResize]) return;
 	//	if ( MAX(abs(event.deltaX), abs(event.deltaY)) < 10 ) return;
 	//	else
@@ -108,7 +130,7 @@
 	NSRect flexUnit = self.unit;
 	if ( scrollUp ) {
 		[_infiniteViews moveObjectAtIndex:_infiniteViews.count-1 toIndex:0];
-		switch (orientation) {
+		switch (_orientation) {
 			case AZOrientTop | AZOrientBottom:
 				flexUnit.origin = NSZeroPoint;
 				flexUnit.origin.x -= flexUnit.size.width;
@@ -129,7 +151,7 @@
 	id c = [_infiniteViews objectAtIndex:0];
 	[_infiniteViews removeObjectAtIndex:0];
 	
-	switch (orientation) {
+	switch (_orientation) {
 		case AZOrientTop:
 		case AZOrientBottom:
 			flexUnit.origin = NSMakePoint(0, NSMaxX([self bounds]));
@@ -146,8 +168,11 @@
 			[c setFrame:flexUnit];
 			[_infiniteViews addObject:c];
 			break;
+		}
 	}
-
+	[self stack];
+}
+*/
 /**	__block NSRect globalShift = self.unit;
 
 	[_infiniteViews enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -179,30 +204,34 @@
 	//		[c setFrame:moved];
 	//		[_infiniteViews addObject:c];
 */
-}
-[self stack];
-//offset = 0;
-}
 
 - (void) viewDidEndLiveResize {
-	[self stack];
+//	[self stack];
 }
+/*
 - (void) stack {
+
 	//	if ([self inLiveResize]) return;
 	__block NSRect localunit = self.unit;// = [[self contentView]frame];
 	//	chopped.size.height = chopped.size.height / _infiniteViews.count;
 	//	chopped.origin = NSZeroPoint;
-	
-	[_infiniteViews enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-		
-		//		AZInfiniteCell *s = obj;
-		NSRect pile = localunit;
-		if ((orientation == AZOrientTop ) || ( orientation == AZOrientBottom))
-			pile.origin.x = idx * localunit.size.width;
-		else
-			pile.origin.y = idx * localunit.size.height;
-		[obj setNeedsDisplay:NO];
-		[obj setFrame: pile];
+	[NSThread performBlockInBackground:^{
+
+		[_infiniteViews enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(AZInfiniteCell* obj, NSUInteger idx, BOOL *stop) {
+
+			NSRect pile = localunit;
+			switch (_orientation) {
+				case AZOrientTop:
+				case AZOrientBottom:
+					pile.origin.x = idx * localunit.size.width;
+				break;
+				default:
+					pile.origin.y = idx * localunit.size.height;
+				break;
+			}
+			[obj setFrame: pile];
+			[obj setNeedsDisplay:NO];
+		}];
 	}];
 
 /*	[self addSubview: [AZBlockView viewWithFrame:[self bounds]  opaque:NO drawnUsingBlock: ^(AZBlockView *view, NSRect dirtyRect) {
@@ -219,10 +248,10 @@
 
 //	recess:[self bounds] inView:[self contentView]];
 */
-	[self setNeedsDisplay:YES];
+//	[self setNeedsDisplay:YES];
 
 	
-}
+//}
 
 
 - (void)recess:(NSRect)frame inView:(id)controlView

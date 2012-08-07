@@ -79,3 +79,16 @@
 #define NSBorderlessWindowMaskSet(bitMask) (bitMask == 0)  // NSBorderlessWindowMask == 0
 #define NSTexturedBackgroundWindowMaskSet(bitMask) ((bitMask & NSTexturedBackgroundWindowMask) != 0)
 
+static NSMutableDictionary*     pendingFades = nil;
+
+
+@interface  NSWindow (UKFade)
+
+-(void)     fadeInWithDuration: (NSTimeInterval)duration;
+-(void) fadeInOneStep: (NSTimer*)timer;
+-(void)     fadeOutWithDuration: (NSTimeInterval)duration;
+-(void) fadeOutOneStep: (NSTimer*)timer;
+-(void)	fadeToLevel: (int)lev withDuration: (NSTimeInterval)duration;
+
+
+@end

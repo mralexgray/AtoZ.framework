@@ -13,15 +13,16 @@
 
 @implementation AZDockQuery
 
-@synthesize dock;
+//@synthesize dock;
 
 -(void) setUp{
-	self.dock = [self getDock];
+	_dock = [self getDock];
 }
 
 +(NSArray*) dock {
 	return [AZDockQuery instance].dock;
 }
+
 
 
 - (NSArray *) getDock {	
@@ -34,7 +35,7 @@
 	[[self subelementsFromElement:appElement forAttribute:@"AXChildren"] objectAtIndex:0];
 	NSArray *children 	= [self subelementsFromElement:firstChild forAttribute:@"AXChildren"];
 	__block NSNumber *counter = [NSNumber numberWithInt:0];
-	NSArray *theApps = [children arrayUsingBlock:^id(id obj) {
+	return [children arrayUsingBlock:^id(id obj) {
 		AXUIElementRef axElement =  (AXUIElementRef)obj;		CFTypeRef role; 	id preferredrole;
 		AXError result4 = AXUIElementCopyAttributeValue(axElement, kAXSubroleAttribute,&role);
 		if (result4 == kAXErrorSuccess) {	
@@ -55,16 +56,20 @@
 					CFTypeRef position;	CGPoint coordinates;
 					AXError result3 = AXUIElementCopyAttributeValue(axElement, kAXPositionAttribute, &position);
 					if (result3 == kAXErrorSuccess)	{
-						if (AXValueGetValue(position, kAXValueCGPointType, &coordinates)) {  
+						if (AXValueGetValue(position, kAXValueCGPointType, &coordinates)) {
 							//	NSLog(@"position: (%f, %f)", coordinates.x, coordinates.y);
 //							XYZ = [NSValue valueWithPoint:NSPointFromCGPoint(coordinates)]; 
 //							posX = [NSString stringWithFormat:@"%.f", coordinates.x];  
 //							posY = [NSString stringWithFormat:@"%.f", coordinates.y];
 						}
 					}
-					AZFile *app = [AZFile instanceWithPath:convertedURL];
-					app.spot = counter.intValue;
-					app.dockPoint = coordinates;
+//					AZFile *app = [AZFile instanceWithPath:convertedURL];
+					NSString *app = convertedURL;
+					NSDictionary *d = @{	@"path" : app,
+											@"spot" : counter,
+									   @"dockPoint" : [NSValue valueWithPoint:coordinates]};
+//					app.spot = counter.intValue;
+//					app.dockPoint = coordinates;
 //					app.dockPoint = (__bridge_transfer CGPoint)coordinates;
 //					app.x 	 = $float(posX.floatValue);
 //					app.y	 = $float(posY.floatValue);
@@ -73,16 +78,17 @@
 					//						NSLog(@"CurrentCount: %i.  Delegate message sent",[app.spot intValue]);
 					//						[self.delegate madeDBXApp:app];	}	else NSLog(@"Couldnt update count with delegate");
 					counter = [counter increment];
-					return app;		//stepper++;
+					return d;		//stepper++;
 				} //if error success
 			} // if preferreed role
 		}
 		return nil;
+		[AZStopwatch stop:@"makeDock"];
 	}];//dock enumerator
 //	NSLog(@"** GetDockDone: Aquired from AX. **\n Sendinging notofcation \"setStartupStepStatus\"= ** 1 **. \n  Also, will send setNumberOfDBXObjects: ** %ld **.", theApps.count); //[self.delegate setStartupStepStatus:1];
 //	if ([self.delegate respondsToSelector:@selector(setStartupStepStatus:)])   [[self delegate] didFinishDBXInit];
-	[AZStopwatch stop:@"makeDock"];
-	return theApps;//.mutableCopy;
+
+//	return theApps;//.mutableCopy;
 }
 
 

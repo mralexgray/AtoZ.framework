@@ -43,9 +43,19 @@ void mouseDrag(int btn, int posX, int posY);
 
 CGPoint AZMousePoint();
 
+typedef enum {
+	AZDockOrientLeft,
+	AZDockOrientBottom,
+	AZDockOrientRight,
+} 	AZDockOrientation;
+
+
+
 @interface  AZMouser : BaseModel
+@property (assign, nonatomic) AZDockOrientation orientation;
+@property (assign, nonatomic) NSSize screenSize;
 
-
+- (void) moveTo: (CGPoint) point;
 - (CGPoint) mouseLocation;
 - (void) dragFrom:(CGPoint)a to:(CGPoint)b;
 @end

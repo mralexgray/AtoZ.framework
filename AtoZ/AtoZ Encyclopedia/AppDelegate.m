@@ -71,19 +71,33 @@
 	[_window setContentView:_mouseTest];
 	_window.delegate = self;
 
+	[AZStopwatch start:@"makingbadges"];
+	[NSThread performBlockInBackground:^{
 
-	SourceListItem *appsListItem = [SourceListItem itemWithTitle:@"APPS" identifier:@"apps"];
+		SourceListItem *appsListItem = [SourceListItem itemWithTitle:@"APPS" identifier:@"apps"];
+		[appsListItem setBadgeValue:[[AtoZ dock]count]];
+		[appsListItem setIcon:[NSImage imageNamed:NSImageNameApplicationIcon]];
+		[appsListItem setChildren:[[AtoZ dock] arrayUsingBlock:^id(AZFile* obj) {
+			SourceListItem *app = [SourceListItem itemWithTitle:obj.name identifier:obj.uniqueID icon:obj.image];
 
-//	NSArray *someListItems =[[AtoZ dock] arrayUsingBlock:^id(AZFile* obj) {
-	NSArray *someListItems =[[AtoZ runningAppsAsStrings] arrayUsingBlock:^id(id obj) {
-
-		return [SourceListItem itemWithTitle:$(@"%@",obj) identifier:obj];
-	}];
-	[appsListItem setChildren:someListItems];
-	sourceListItems = @[appsListItem];
-	[sourceList reloadData];
-
-	NSArray *g = [AtoZ dock];
+			app.color = obj.color;
+			app.objectRep = app;
+			[app setChildren:[[[obj propertiesPlease] allKeys] arrayUsingBlock:^id(NSString* key) {
+				if ( [key isEqualToAnyOf:@[@"name",@"image", @"colors"]]) return  nil;
+				else return [SourceListItem itemWithTitle:$(@"%@: %@",key,[obj valueForKey:key]) identifier:nil];
+			}]];
+			[app setBadgeValue:obj.spotNew];// //] propertiesPlease]allKeys]count]];
+		
+			return app;
+		}]];
+		[[NSThread mainThread] performBlock:^{
+			sourceListItems = @[appsListItem];
+			[AZStopwatch stop:@"makingbadges"];
+			[sourceList reloadData];
+		} waitUntilDone:YES];
+ 	}];
+	
+//	NSArray *g = @[[AZFile instanceWithPath:@"/Applications/Safari.app"]];
 
 	/*
 
@@ -117,7 +131,7 @@
 
 
 	CGPoint i = [[AZMouser sharedInstance] mouseLocation];
-	NSLog(@"delegate rec's point note: %@", NSStringFromPoint(i));
+	NSLog(@"delegate.. %ix%i", (int)i.x, (int)i.y);
 //	NSLog(@"delegate rec's point note: %@", NSStringFromPoint([point pointValue]));
 
 }
@@ -127,8 +141,12 @@
 	NSLog(@"go called, tagis: %ld", tagis);
 
 	switch (tagis) {
-		case 0:
+		case 0: {
+			CGPoint move = CGPointMake(_point1x.floatValue, _point1y.floatValue);
+			[[AZMouser sharedInstance]moveTo:move];
+
 			break;
+			}
 		case 1:
 			break;
 		case 2: {
@@ -560,8 +578,14 @@
 
 - (void)sourceList:(AZSourceList*)aSourceList setObjectValue:(id)object forItem:(id)item
 {
-	[item setTitle:object];
+
+	[item setObjectValue:[[AtoZ selectedDock] filterOne:^BOOL(AZFile* object) {
+		return ([object.uniqueID isEqualToString:[item identifier]] ? YES : NO);
+	}]];
+
+	[item setTitle:[[item object]valueForKey:@"name"]];
 }
+
 
 
 - (BOOL)sourceList:(AZSourceList*)aSourceList isItemExpandable:(id)item
@@ -573,6 +597,15 @@
 - (BOOL)sourceList:(AZSourceList*)aSourceList itemHasBadge:(id)item
 {
 	return [item hasBadge];
+}
+
+- (NSColor*)sourceList:(AZSourceList*)aSourceList badgeBackgroundColorForItem:(id)item {
+
+	AZFile *first = [[AtoZ dockSorted] filterOne:^BOOL(AZFile* object) {
+		return ( [object.uniqueID isEqualTo:[item identifier]] ? YES : NO);
+	}];
+	return first.color;
+
 }
 
 
@@ -612,7 +645,7 @@
 
 - (BOOL)sourceList:(AZSourceList*)aSourceList isGroupAlwaysExpanded:(id)group
 {
-	if([[group identifier] isEqualToString:@"library"])
+	if([[group identifier] isEqualToString:@"apps"])
 		return YES;
 
 	return NO;
@@ -623,17 +656,37 @@
 {
 	NSIndexSet *selectedIndexes = [sourceList selectedRowIndexes];
 
-	//Set the label text to represent the new selection
-	if([selectedIndexes count]>1)
-		[selectedItemLabel setStringValue:@"(multiple)"];
-	else if([selectedIndexes count]==1) {
+	if([selectedIndexes count]==1)
+	{
 		NSString *identifier = [[sourceList itemAtRow:[selectedIndexes firstIndex]] identifier];
+		AZFile *first = [[AtoZ dockSorted] filterOne:^BOOL(AZFile* object) {
+			return ( [object.uniqueID isEqualTo:identifier] ? YES : NO);
+		}];
+		[_point1x setStringValue:$(@"%f",first.dockPoint.x)];
+		[_point1y setStringValue:$(@"%f",first.dockPoint.y)];
+	}
+	if([selectedIndexes count]==2)
+	{
+		NSString *identifier = [[sourceList itemAtRow:[selectedIndexes lastIndex]] identifier];
+		AZFile *first = [[AtoZ dockSorted] filterOne:^BOOL(AZFile* object) {
+			return ( [object.uniqueID isEqualTo:identifier] ? YES : NO);
+		}];
+		[_point2x setStringValue:$(@"%f",first.dockPoint.x)];
+		[_point2y setStringValue:$(@"%f",first.dockPoint.y)];
+	}
 
-		[selectedItemLabel setStringValue:identifier];
-	}
-	else {
-		[selectedItemLabel setStringValue:@"(none)"];
-	}
+	//Set the label text to represent the new selection
+//	if([selectedIndexes count]>1)
+//		[selectedItemLabel setStringValue:@"(multiple)"];
+//
+//	else if([selectedIndexes count]==1) {
+//		NSString *identifier = [[sourceList itemAtRow:[selectedIndexes firstIndex]] identifier];
+//
+//		[selectedItemLabel setStringValue:identifier];
+//	}
+//	else {
+//		[selectedItemLabel setStringValue:@"(none)"];
+//	}
 }
 
 

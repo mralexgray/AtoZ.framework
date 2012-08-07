@@ -184,6 +184,7 @@ NSSize AZSizeBound(NSSize preferred, NSSize minSize, NSSize maxSize);
 
 NSRect AZMakeRectMaxXUnderMenuBarY(CGFloat distance);
 
+NSRect AZSquareFromLength(CGFloat length);
 
 // returns a zero sized rect with the argumented point as origin
 NSRect AZMakeRectFromPoint(NSPoint point);

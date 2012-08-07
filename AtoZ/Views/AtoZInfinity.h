@@ -20,7 +20,7 @@ typedef enum {
 
 @interface AtoZInfinity : NSScrollView // <NSWindowDelegate, AJSiTunesAPIDelegate>
 
-@property (readonly) NSRect unit;
+@property (assign, nonatomic) NSRect unit;
 @property (assign, nonatomic) AZInfiteScale scale;
 @property (assign, nonatomic) AZOrient orientation;
 @property (nonatomic, strong) NSMutableArray *infiniteViews;

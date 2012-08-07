@@ -10,13 +10,15 @@
 
 #import "AZSourceList.h"
 
+#import "AtoZ.h"
+
 //Layout constants
 #define MIN_BADGE_WIDTH							22.0		//The minimum badge width for each item (default 22.0)
 #define BADGE_HEIGHT							14.0		//The badge height for each item (default 14.0)
 #define BADGE_MARGIN							5.0			//The spacing between the badge and the cell for that row
-#define ROW_RIGHT_MARGIN						5.0			//The spacing between the right edge of the badge and the edge of the table column
+#define ROW_RIGHT_MARGIN						25.0			//The spacing between the right edge of the badge and the edge of the table column
 #define ICON_SPACING							2.0			//The spacing between the icon and it's adjacent cell
-#define DISCLOSURE_TRIANGLE_SPACE				18.0		//The indentation reserved for disclosure triangles for non-group items
+#define DISCLOSURE_TRIANGLE_SPACE				10.0		//The indentation reserved for disclosure triangles for non-group items
 
 //Drawing constants
 #define BADGE_BACKGROUND_COLOR					[NSColor colorWithCalibratedRed:(152/255.0) green:(168/255.0) blue:(202/255.0) alpha:1]
@@ -52,6 +54,150 @@ NSString * const AZSLDeleteKeyPressedOnRowsNotification = @"AZSourceListDeleteKe
 @synthesize iconSize = _iconSize;
 @dynamic dataSource;
 @dynamic delegate;
+
+/*
+- (void) highlightSelectionInClipRect:(NSRect)clipRect
+{
+	switch (YES)
+	{
+		default:
+		case NO:
+		{
+			//	This code is cribbed from iTableTextCell.... and draws the highlight for the selected
+			//	cell.
+
+			NSRange rows = [self rowsInRect:clipRect];
+			unsigned maxRow = NSMaxRange(rows);
+			unsigned row;
+			NSImage *gradient;
+			// Determine whether we should draw a blue or grey gradient.
+			// We will automatically redraw when our parent view loses/gains focus,
+			 or when our parent window loses/gains main/key status.
+			if (([[self window] firstResponder] == self) &&
+				[[self window] isMainWindow] &&
+				[[self window] isKeyWindow]) {
+				gradient = [NSImage imageNamed:@"highlight_blue.tiff"];
+			} else {
+				gradient = [NSImage imageNamed:@"highlight_grey.tiff"];
+			}
+
+			//// Make sure we draw the gradient the correct way up.
+			[gradient setFlipped:YES];
+
+			for (row = rows.location; row < maxRow; ++row)
+			{
+				if ([self isRowSelected:row])
+				{
+					NSRect selectRect = [self rectOfRow:row];
+
+					if (NSIntersectsRect(selectRect, clipRect))
+					{
+						int i = 0;
+
+						// We're selected, so draw the gradient background.
+						NSSize gradientSize = [gradient size];
+						for (i = selectRect.origin.x; i < (selectRect.origin.x + selectRect.size.width); i += gradientSize.width) {
+							[gradient drawInRect:NSMakeRect(i, selectRect.origin.y, gradientSize.width, selectRect.size.height)
+										fromRect:NSMakeRect(0, 0, gradientSize.width, gradientSize.height)
+									   operation:NSCompositeSourceOver
+										fraction:1.0];
+						}
+					}
+				}
+			}
+		}
+			break;
+
+		case YES:
+		{
+			NSRange rows = [self rowsInRect:clipRect];
+			unsigned maxRow = NSMaxRange(rows);
+			unsigned row, lastSelectedRow = NSNotFound;
+			NSColor* highlightColor = nil;
+			NSColor* highlightFrameColor = nil;
+
+			/*if ([[self window] firstResponder] == self &&
+				[[self window] isMainWindow] &&
+				[[self window] isKeyWindow])
+			{
+				highlightColor = [NSColor colorWithCalibratedRed:98.0 / 256.0 green:120.0 / 256.0 blue:156.0 / 256.0 alpha:1.0];
+				highlightFrameColor = [NSColor colorWithCalibratedRed:83.0 / 256.0 green:103.0 / 256.0 blue:139.0 / 256.0 alpha:1.0];
+			}
+			else
+			{
+				highlightColor = [NSColor colorWithCalibratedRed:160.0 / 256.0 green:160.0 / 256.0 blue:160.0 / 256.0 alpha:1.0];
+				highlightFrameColor = [NSColor colorWithCalibratedRed:150.0 / 256.0 green:150.0 / 256.0 blue:150.0 / 256.0 alpha:1.0];
+			}*/
+/*
+			for (row = rows.location; row < maxRow; ++row) {
+				if (lastSelectedRow != NSNotFound && row != lastSelectedRow + 1)
+				{
+//					if([_secondaryDataSource respondsToSelector:@selector(sourceList:objectValueForItem:)]) {
+//						return [_secondaryDataSource sourceList:self itemHasBadge:item];
+//					}
+
+
+					NSRect selectRect = [self rectOfRow:lastSelectedRow];
+
+//					[highlightFrameColor set];
+					[RANDOMCOLOR set];
+					selectRect.origin.y += NSHeight(selectRect) - 1.0;
+					selectRect.size.height = 1.0;
+					NSRectFill(selectRect);
+					lastSelectedRow = NSNotFound;
+				}
+
+				if ([self isRowSelected:row])	
+				{
+					NSRect selectRect = [self rectOfRow:row];
+
+					if (NSIntersectsRect(selectRect, clipRect))
+					{
+//						[highlightColor set];
+						[RANDOMCOLOR set];
+						NSRectFill(selectRect);
+
+						if (row != lastSelectedRow + 1)
+						{
+							selectRect.size.height = 1.0;
+							[highlightFrameColor set];
+							NSRectFill(selectRect);
+						}
+					}
+
+					lastSelectedRow = row;
+				}
+			}
+
+			if (lastSelectedRow != NSNotFound)
+			{
+				NSRect selectRect = [self rectOfRow:lastSelectedRow];
+
+				[highlightFrameColor set];
+				selectRect.origin.y += NSHeight(selectRect) - 1.0;
+				selectRect.size.height = 1.0;
+				NSRectFill(selectRect);
+				lastSelectedRow = NSNotFound;
+			}
+		}
+			break;
+	}
+}
+*/
+
+- (void)drawBackgroundInClipRect:(NSRect)clipRect {
+	NSGradient * g = [[NSGradient alloc]initWithColorsAndLocations:GRAY3, 0.0, GRAY9,.02, GRAY9, .93, GRAY1, 1.0, nil];
+//	initWithColorsAndLocations:
+//	[NSColor colorWithCalibratedWhite:.1 alpha:1], 0,
+//	[NSColor colorWithCalibratedWhite:.6 alpha:1], .05,
+//
+//	[NSColor colorWithCalibratedWhite:.6 alpha:1], .85,
+//	[NSColor colorWithCalibratedWhite:0 alpha:1], 1,nil
+//	 ];
+	[g drawInRect:clipRect angle:0];
+//    [gradient drawInRect:clipRect angle:90];
+}
+
 
 #pragma mark - Setup/Teardown
 
@@ -93,7 +239,7 @@ NSString * const AZSLDeleteKeyPressedOnRowsNotification = @"AZSourceListDeleteKe
 	//Unregister the delegate from receiving notifications
 	[[NSNotificationCenter defaultCenter] removeObserver:_secondaryDelegate name:nil object:self];
 	
-	//	[super dealloc];
+	[super dealloc];
 }
 
 
@@ -369,53 +515,74 @@ NSString * const AZSLDeleteKeyPressedOnRowsNotification = @"AZSourceListDeleteKe
 
 //This method calculates and returns the size of the badge for the row index passed to the method. If the
 //row for the row index passed to the method does not have a badge, then NSZeroSize is returned.
-- (NSSize)sizeOfBadgeAtRow:(NSInteger)rowIndex
-{
-	id rowItem = [self itemAtRow:rowIndex];
-	
-	//Make sure that the item has a badge
-	if(![self itemHasBadge:rowItem]) {
-		return NSZeroSize;
-	}
-	
-	NSAttributedString *badgeAttrString = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%d", [self badgeValueForItem:rowItem]]
-																		  attributes:[NSDictionary dictionaryWithObjectsAndKeys:BADGE_FONT, NSFontAttributeName, nil]];
-	
+- (NSSize)sizeOfBadgeAtRow:(NSInteger)rowIndex {
+	id rowItem = [self itemAtRow:rowIndex];		//Make sure that the item has a badge
+	if(![self itemHasBadge:rowItem]) 	return NSZeroSize;
+	NSAttributedString *badgeAttrString = [[NSAttributedString alloc] initWithString:$(@"%ld", [self badgeValueForItem:rowItem]) attributes:@{ NSFontAttributeName:BADGE_FONT }];
 	NSSize stringSize = [badgeAttrString size];
-	
 	//Calculate the width needed to display the text or the minimum width if it's smaller
 	CGFloat width = stringSize.width+(2*BADGE_MARGIN);
-	
-	if(width<MIN_BADGE_WIDTH) {
-		width = MIN_BADGE_WIDTH;
-	}
-	
+	if(width<MIN_BADGE_WIDTH)  width = MIN_BADGE_WIDTH;
 	//	[badgeAttrString release];
-	
 	return NSMakeSize(width, BADGE_HEIGHT);
 }
 
-- (void)viewDidMoveToSuperview
-{
+- (void)viewDidMoveToSuperview {
     //If set to YES, this will cause display issues in Lion where the right part of the outline view is cut off
     [self setAutoresizesOutlineColumn:NO];
 }
 
-#pragma mark -
-#pragma mark Drawing
+#pragma mark - Drawing
+//superDrawInRowIndex:(NSInteger)rowIndex clipRect:(NSRect)clipRect item:(id)item{
 
-- (void)drawRow:(NSInteger)rowIndex clipRect:(NSRect)clipRect
-{	
-	[super drawRow:rowIndex clipRect:clipRect];
-	
-	id item = [self itemAtRow:rowIndex];
-	
+- (void)drawGridInClipRect:(NSRect)rect
+{
+	NSRange columnRange = [self columnsInRect:rect];
+	int i;
+		NSLog(@"inside gridrect");
+	[[NSColor lightGrayColor] set];
+	for (   i = columnRange.location ;
+         i < NSMaxRange(columnRange) ;
+         i++ )
+	{
+		NSRect colRect = [self rectOfColumn:i];
+		int rightEdge
+		= (int) 0.5 + colRect.origin.x + colRect.size.width;
+		[NSBezierPath strokeLineFromPoint:
+		 NSMakePoint(-0.5+rightEdge, -0.5+rect.origin.y)
+								  toPoint:
+		 NSMakePoint(-0.5+rightEdge, -0.5+rect.origin.y +
+					 rect.size.height)];
+	}
+}
+
+- (void)drawRow:(NSInteger)rowIndex clipRect:(NSRect)clipRect {
+//	[self superDrawInRowIndex:rowIndex clipRect:clipRect item:[self itemAtRow:rowIndex]];
+
+	 [super drawRow:rowIndex clipRect:clipRect];
+//	[self drawGridInClipRect:clipRect];
+//	NSRect cellFrame = [self frameOfCellAtColumn:0 row:rowIndex];
+//	SourceListItem* theItem = [self itemAtRow:rowIndex];
+//	[theItem.color set];
+//	NSRectFillUsingOperation(cellFrame,NSCompositeSourceOver);
+
+	//	[super drawRow:rowIndex clipRect:clipRect];			SourceListItem* theItem = [self itemAtRow:rowIndex];
 	//Draw an icon if the item has one
+	id item = [self itemAtRow:rowIndex];
+	if ([item respondsToSelector:@selector(setDrawsBackground:)]) {
+		[item setDrawsBackground:false];
+	}
 	if(![self isGroupItem:item]&&[_secondaryDataSource respondsToSelector:@selector(sourceList:itemHasIcon:)])
 	{
 		if([_secondaryDataSource sourceList:self itemHasIcon:item])
 		{
+
+		
 			NSRect cellFrame = [self frameOfCellAtColumn:0 row:rowIndex];
+//			SourceListItem* theItem = [self itemAtRow:rowIndex];
+//			[theItem.color set];
+//			NSRectFillUsingOperation(cellFrame,NSCompositeDestinationOver);
+
 			NSSize iconSize = [self iconSize];
 			NSRect iconRect = NSMakeRect(NSMinX(cellFrame)-iconSize.width-ICON_SPACING,
 										 NSMidY(cellFrame)-(iconSize.width/2.0f),
@@ -441,20 +608,20 @@ NSString * const AZSLDeleteKeyPressedOnRowsNotification = @"AZSourceListDeleteKe
 					}
 					
                     //Use 10.6 NSImage drawing if we can
-                    if([icon respondsToSelector:@selector(drawInRect:fromRect:operation:fraction:respectFlipped:hints:)]) {
+//                    if([icon respondsToSelector:@selector(drawInRect:fromRect:operation:fraction:respectFlipped:hints:)]) {
                         [icon drawInRect:iconRect
                                 fromRect:NSZeroRect
-                               operation:NSCompositeSourceOver
+                               operation: NSCompositeSourceOver
                                 fraction:1
                           respectFlipped:YES hints:nil];
-                    }
-                    else {
+//                    }
+                   /* else {
                         [icon setFlipped:[self isFlipped]];
                         [icon drawInRect:iconRect
                                 fromRect:NSZeroRect
                                operation:NSCompositeSourceOver
                                 fraction:1];
-                    }
+                    }*/
 				}
 			}
 		}

@@ -32,6 +32,8 @@
 	
 	NSArray *children;
 }
+@property (nonatomic, retain) id objectRep;
+@property (nonatomic, retain) NSColor* color;
 
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *identifier;

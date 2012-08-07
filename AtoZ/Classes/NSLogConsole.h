@@ -10,6 +10,7 @@
 #import <WebKit/WebKit.h>
 
 
+#import "AtoZ.h"
 
 //[NSLogConsole sharedConsole];
 //	[[NSLogConsole sharedConsole] open];
@@ -34,7 +35,7 @@ void	NSLogPostLog(char* file, int line);
 
 @class	NSLogConsoleView;
 
-@interface NSLogConsole : NSObject {
+@interface NSLogConsole : AZSingleton {
 
 
 	// Window title
@@ -46,13 +47,13 @@ void	NSLogPostLog(char* file, int line);
 
 @property (assign) BOOL		autoOpens;
 
-@property IBOutlet	NSLogConsoleView*	webView;
-@property IBOutlet	id searchField;
-@property  IBOutlet	id po;
+@property (weak) IBOutlet	NSLogConsoleView*	webView;
+@property (weak) IBOutlet	id searchField;
+@property (weak) IBOutlet	id po;
 
-@property int			original_stderr;
-@property (strong) NSString*	logPath;
-@property NSFileHandle*	fileHandle;
+@property (assign) int			original_stderr;
+@property (nonatomic, strong) NSString*	logPath;
+@property (nonatomic, retain) NSFileHandle*	fileHandle;
 
 @property NSUInteger fileOffset;
 

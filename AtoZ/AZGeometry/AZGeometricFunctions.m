@@ -409,6 +409,9 @@ NSSize AZSizeBound(NSSize preferred, NSSize minSize, NSSize maxSize) {
 // NSRect result functions
 //
 
+NSRect AZSquareFromLength(CGFloat length) {
+	return  AZMakeRectFromSize(NSMakeSize(length,length));
+}
 
 NSRect AZMakeRectMaxXUnderMenuBarY(CGFloat distance) {
 	NSRect rect;

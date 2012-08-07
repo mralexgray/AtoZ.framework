@@ -28,16 +28,17 @@ void	NSLogPostLog(char* file, int line)
 
 + (id)sharedConsole
 {
-	static id singleton = NULL;
-	@synchronized(self)
-	{
-		if (!singleton)
-		{
-			singleton = [[self class] new];// alloc];
-//			[singleton init];
-		}
-	}
-	return singleton;
+	return [NSLogConsole sharedInstance];
+//	static id singleton = NULL;
+//	@synchronized(self)
+//	{
+//		if (!singleton)
+//		{
+//			singleton = [[self class] new];// alloc];
+////			[singleton init];
+//		}
+//	}
+//	return singleton;
 }
 
 //

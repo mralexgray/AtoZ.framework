@@ -1,6 +1,159 @@
 
 
 
+
+//  BaseModel.h
+//  Version 2.3.1
+//  ARC Helper
+//  Version 1.3.1
+
+#ifndef AZ_RETAIN
+#if __has_feature(objc_arc)
+#define AZ_RETAIN(x) (x)
+#define AZ_RELEASE(x) (void)(x)
+#define AZ_AUTORELEASE(x) (x)
+#define AZ_SUPER_DEALLOC (void)(0)
+#define __AZ_BRIDGE __bridge
+#else
+#define __AZ_WEAK
+#define AZ_WEAK assign
+#define AZ_RETAIN(x) [(x) retain]
+#define AZ_RELEASE(x) [(x) release]
+#define AZ_AUTORELEASE(x) [(x) autorelease]
+#define AZ_SUPER_DEALLOC [super dealloc]
+#define __AZ_BRIDGE
+#endif
+#endif
+
+//  ARC Helper ends
+
+
+
+
+#define AZRelease(value) \
+if ( value ) { \
+//[value release]; \
+value = nil; \
+}
+
+#define AZAssign(oldValue,newValue) \
+//[ newValue retain ]; \
+AZRelease (oldValue); \
+oldValue = newValue;
+
+
+
+CGFloat DegreesToRadians(CGFloat degrees);
+NSNumber* DegreesToNumber(CGFloat degrees);
+
+
+//extern NSString *const AtoZSuperLayer;
+#define AZSuperLayerSuper (@"superlayer")
+
+
+#define AZConstraint(attr, rel) \
+[CAConstraint constraintWithAttribute: attr relativeTo: rel attribute: attr]
+
+//extern NSArray* AZConstraintEdgeExcept(AZCOn attr, rel, scale, off) \
+//[NSArray arrayWithArray:@[
+//AZConstRelSuper( kCAConstraintMaxX ),
+//AZConstRelSuper( kCAConstraintMinX ),
+//AZConstRelSuper( kCAConstraintWidth),
+//AZConstRelSuper( kCAConstraintMinY ),
+//AZConstRelSuperScaleOff(kCAConstraintHeight, .2, 0),
+
+//#define AZConstraint(attr, rel) \
+//[CAConstraint constraintWithAttribute: attr relativeTo: rel attribute: attr]
+
+#define AZConst(attr, rel) \
+[CAConstraint constraintWithAttribute:attr relativeTo: rel attribute: attr]
+
+#define AZConstScaleOff(attr, rel, scl, off) \
+[CAConstraint constraintWithAttribute:attr relativeTo:rel attribute:attr scale:scl offset:off]
+
+#define AZConstRelSuper(attr) \
+[CAConstraint constraintWithAttribute:attr relativeTo:AZSuperLayerSuper attribute:attr]
+
+#define AZConstRelSuperScaleOff(attr, scl, off) \
+[CAConstraint constraintWithAttribute:attr relativeTo:AZSuperLayerSuper attribute:attr scale:scl offset:off]
+
+
+
+#import "BaseModel.h"
+#import "AZApplePrivate.h"
+#import "TransparentWindow.h"
+#import "RoundedView.h"
+#import "AZWindowExtend.h"
+
+//#define EXCLUDE_STUB_PROTOTYPES 1
+//#import <PLWeakCompatibility/PLWeakCompatibilityStubs.h>
+//	#import <AtoZiTunes/AtoZiTunes.h>
+
+
+#import "AZGeometry.h"
+
+// Categories
+#import "NSThread+AtoZ.h"
+#import "NSNotificationCenter+AtoZ.h"
+#import "NSApplication+AtoZ.h"
+#import "NSColor+AtoZ.h"
+#import "NSArray+AtoZ.h"
+#import "NSString+AtoZ.h"
+#import "NSView+AtoZ.h"
+#import "NSBezierPath+AtoZ.h"
+#import "NSImage+AtoZ.h"
+#import "NSWindow+AtoZ.h"
+#import "NSShadow+AtoZ.h"
+#import "NSNumber+AtoZ.h"
+#import "CAAnimation+AtoZ.h"
+#import "CALayer+AtoZ.h"
+#import "NSScreen+AtoZ.h"
+#import "NSObject+AtoZ.h"
+#import "AZNotificationCenter.h"
+
+#import "NSWindow_Flipr.h"
+#import "NSLogConsole.h"
+
+
+
+//#import "NSObject+AutoCoding.h"
+#import "AZCSSColors.h"
+
+#import "MondoSwitch.h"
+#import "AZToggle.h"
+//#import "AZToggleView.h"
+
+//Classes
+//#imoport "A
+
+#import "AZQueue.h"
+
+#import "AZDockQuery.h"
+#import "AZAXAuthorization.h"
+#import "AZMouser.h"
+// Views
+#import "AZFoamView.h"
+#import "AZBlockView.h"
+#import "AZProgressIndicator.h"
+#import "AZPopupWindow.h"
+#import "AZIndeterminateIndicator.h"
+#import "AZAttachedWindow.h"
+#import "AZStopwatch.h"
+#import "AZBox.h"
+#import "AZBoxGrid.h"
+#import "AZBoxMagic.h"
+#import "AZSizer.h"
+#import "AZInfiniteCell.h"
+#import "AZSourceList.h"
+#import "AZTalker.h"
+#import "AZBoxLayer.h"
+#import "AZOverlay.h"
+#import "AZSimpleView.h"
+#import "AtoZInfinity.h"
+
+
+//#import "AtoZiTunes.h"
+
 // Sweetness vs. longwindedness
 
 
@@ -63,8 +216,17 @@ static SC * SC##_sharedInstance = nil; \
 #define WHITE			[NSColor whiteColor]
 #define RANDOMCOLOR		[NSColor randomColor]
 #define CLEAR			[NSColor clearColor]
-#define PURPLE 			[NSColor colorWithCalibratedRed:0.317 green:0.125 blue:0.328 alpha:1.000];
-#define LGRAY			[NSColor colorWithCalibratedWhite:.33 alpha:1];
+#define PURPLE 			[NSColor colorWithCalibratedRed:0.317 green:0.125 blue:0.328 alpha:1.000]
+#define LGRAY			[NSColor colorWithCalibratedWhite:.33 alpha:1]
+#define GRAY1			[NSColor colorWithCalibratedWhite:.1 alpha:1]
+#define GRAY2			[NSColor colorWithCalibratedWhite:.2 alpha:1]
+#define GRAY3			[NSColor colorWithCalibratedWhite:.3 alpha:1]
+#define GRAY4			[NSColor colorWithCalibratedWhite:.4 alpha:1]
+#define GRAY5			[NSColor colorWithCalibratedWhite:.5 alpha:1]
+#define GRAY6			[NSColor colorWithCalibratedWhite:.6 alpha:1]
+#define GRAY7			[NSColor colorWithCalibratedWhite:.7 alpha:1]
+#define GRAY8			[NSColor colorWithCalibratedWhite:.8 alpha:1]
+#define GRAY9			[NSColor colorWithCalibratedWhite:.9 alpha:1]
 
 #define cgRED			[RED 		CGColor]
 #define cgORANGE		[ORANGE 	CGColor]
@@ -136,4 +298,5 @@ static inline float RandomComponent() {  return (float)random() / (float)LONG_MA
 //returns float in range 0 - 1.0f
 //usage RAND01()*3, or (int)RAND01()*3 , so there is no risk of dividing by zero
 #define RAND01() ((random() / (float)0x7fffffff ))
+
 

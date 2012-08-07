@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <Carbon/Carbon.h>
+#import "AtoZ.h"
 
 
 #define IS_CMD( x, y ) strncmp( x, y, strlen( y ) ) == 0
@@ -421,19 +422,107 @@ static char KeyCodeToAscii(short virtualKeyCode) {
 	return charCode;
 }
 */
+
+
+@interface AZMouser ()
+@end
+
 @implementation AZMouser
 
+- (void) setUp {
 
+	_orientation = self.orientation;
+	_screenSize = self.screenSize;
+}
+
+- (AZDockOrientation) orientation {
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	NSString   *dockPinning = [[defaults persistentDomainForName:@"com.apple.dock"] valueForKey:@"orientation"];
+	NSLog(@"Dock is on the %@", dockPinning);
+	return ([dockPinning isEqualTo:@"left"]) ? AZDockOrientLeft :
+			([dockPinning isEqualTo:@"bottom"] ? AZDockOrientBottom : AZDockOrientRight);
+}
+- (NSSize) screenSize {
+	NSArray *screens = [NSScreen screens];
+	NSScreen *mainScreen = [screens objectAtIndex:0];
+	return [mainScreen frame].size;
+//	NSLog(@"screenSize = %@", NSStringFromRect(screenSize));
+	//float xMax = screenRect.size.width;
+	//float yMax = screenRect.size.height;
+	//NSLog(@"%@",[NSString stringWithFormat:@"%.1fx%.1f",xMax, yMax]);
+}
+//NSArray *xyzw = [NSArray arrayWithObjects:
+//				 @"778", //constant axis
+//				 @"113",	// move victime
+//				 @"930", //move target
+//				 nil];
+- (CGPoint) coaxPointForPoint:(CGPoint)point {
+	switch (_orientation) {
+		case AZDockOrientBottom:
+			return CGPointMake(point.x, _screenSize.height);
+			break;
+		case AZDockOrientLeft:
+			return CGPointMake(0, point.y);
+			break;
+		case AZDockOrientRight:
+			return CGPointMake(_screenSize.width, point.y);
+			break;
+		default:
+			break;
+	}
+}
 -(CGPoint) mouseLocation {
 	return mouseLoc();
 }
 
+- (NSArray*) arcPointsBetween:(CGPoint)a and:(CGPoint)b
+{
+	float distance = distanceFromPoint(a,b);
+	float radius = 25;
+//	return [[@0 to:@20]arrayUsingIndexedBlock:^id(id obj, NSUInteger idx) {
+	NSBezierPath *originalPath = [NSBezierPath bezierPath];
+	[originalPath appendBezierPathWithArcFromPoint:a toPoint:b radius:radius];
+	NSBezierPath *flatPath = [originalPath bezierPathByFlatteningPath];
+	NSInteger count = [flatPath elementCount];
+	NSLog(@"$%ld", count);
+	NSPoint prev, curr;
+	[flatPath setLineWidth:10];
+	[RED set];
+	NSImage *image = [[NSImage alloc]initWithSize:NSMakeSize(512,512)];
+	[image lockFocus];
+	[[NSColor blackColor]set];
+	[flatPath stroke];
+	[image unlockFocus];
+	[image saveAs:@"/Users/localadmin/Desktop/curve.png"];
+
+	NSInteger i;
+	for(i = 0; i < count; ++i) {
+		// Since we are using a flattened path, no element will contain more than one point
+		NSBezierPathElement type = [flatPath elementAtIndex:i associatedPoints:&curr];
+			if(type == NSLineToBezierPathElement) {
+				NSLog(@"Line from %@ to %@",NSStringFromPoint(prev),NSStringFromPoint(curr));
+			} else if(type == NSClosePathBezierPathElement) {
+				// Get the first point in the path as the line's end. The first element in a path is a move to operation
+				[flatPath elementAtIndex:0 associatedPoints:&curr];
+				NSLog(@"Close line from %@ to %@",NSStringFromPoint(prev),NSStringFromPoint(curr));
+			}
+		}
+	return @[@22];
+}
+
+- (void) moveTo: (CGPoint) point{
+	CGPoint a = self.mouseLocation;
+	mouseMoveTo(point.x,point.y,1);
+
+}
 - (void) dragFrom:(CGPoint)a to:(CGPoint)b {
-
-
-
-	mouseMove(a.x,a.y);
-	mouseDrag(1, b.x, b.y);
+//
+//	CGPoint thePoint = [self coaxAtPoint:a];
+//	mouseMoveTo(thePoint,)(a.x,a.y);
+	usleep(10000);
+//	mouseMove(a.x, absEdge);
+//	mouseMove(a.x, dragEdge);
+//	mouseDrag(1, b.x, dragEdge);
 }
 
 

@@ -253,9 +253,13 @@ NSArray *sourceListItems;
 	}
 }
 - (id)sourceList:(AZSourceList*)aSourceList objectValueForItem:(id)item {
-	return [item title];
+
+	return [[AtoZ selectedDock] title];
+
 }
 - (void)sourceList:(AZSourceList*)aSourceList setObjectValue:(id)object forItem:(id)item {
+	[item setObjectValue:[]
+
 	[item setTitle:object];
 }
 - (BOOL)sourceList:(AZSourceList*)aSourceList isItemExpandable:(id)item {

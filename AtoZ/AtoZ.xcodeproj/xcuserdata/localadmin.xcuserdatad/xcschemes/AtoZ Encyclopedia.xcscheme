@@ -57,12 +57,14 @@
             ReferencedContainer = "container:AtoZ.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <AdditionalOptions>
-         <AdditionalOption
+      <EnvironmentVariables>
+         <EnvironmentVariable
             key = "NSZombieEnabled"
-            value = "YES"
+            value = "NO"
             isEnabled = "YES">
-         </AdditionalOption>
+         </EnvironmentVariable>
+      </EnvironmentVariables>
+      <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
    <ProfileAction

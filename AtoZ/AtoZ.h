@@ -3,184 +3,32 @@
 //  AtoZ
 //
 
+#import "AtoZUmbrella.h"
 
 
 
-
-//  BaseModel.h
-//  Version 2.3.1
-//  ARC Helper
-//  Version 1.3.1
-
-#ifndef AZ_RETAIN
-#if __has_feature(objc_arc)
-#define AZ_RETAIN(x) (x)
-#define AZ_RELEASE(x) (void)(x)
-#define AZ_AUTORELEASE(x) (x)
-#define AZ_SUPER_DEALLOC (void)(0)
-#define __AZ_BRIDGE __bridge
-#else
-#define __AZ_WEAK
-#define AZ_WEAK assign
-#define AZ_RETAIN(x) [(x) retain]
-#define AZ_RELEASE(x) [(x) release]
-#define AZ_AUTORELEASE(x) [(x) autorelease]
-#define AZ_SUPER_DEALLOC [super dealloc]
-#define __AZ_BRIDGE
-#endif
-#endif
-
-//  ARC Helper ends
-
-
-
-
-#define AZRelease(value) \
-if ( value ) { \
-//[value release]; \
-value = nil; \
-}
-
-#define AZAssign(oldValue,newValue) \
-//[ newValue retain ]; \
-AZRelease (oldValue); \
-oldValue = newValue;
-
-
-
-CGFloat DegreesToRadians(CGFloat degrees);
-NSNumber* DegreesToNumber(CGFloat degrees);
-
-
-//extern NSString *const AtoZSuperLayer;
-#define AZSuperLayerSuper (@"superlayer")
-
-
-#define AZConstraint(attr, rel) \
-[CAConstraint constraintWithAttribute: attr relativeTo: rel attribute: attr]
-
-//extern NSArray* AZConstraintEdgeExcept(AZCOn attr, rel, scale, off) \
-//[NSArray arrayWithArray:@[
-//AZConstRelSuper( kCAConstraintMaxX ),
-//AZConstRelSuper( kCAConstraintMinX ),
-//AZConstRelSuper( kCAConstraintWidth),
-//AZConstRelSuper( kCAConstraintMinY ),
-//AZConstRelSuperScaleOff(kCAConstraintHeight, .2, 0),
-
-//#define AZConstraint(attr, rel) \
-//[CAConstraint constraintWithAttribute: attr relativeTo: rel attribute: attr]
-
-#define AZConst(attr, rel) \
-[CAConstraint constraintWithAttribute:attr relativeTo: rel attribute: attr]
-
-#define AZConstScaleOff(attr, rel, scl, off) \
-[CAConstraint constraintWithAttribute:attr relativeTo:rel attribute:attr scale:scl offset:off]
-
-#define AZConstRelSuper(attr) \
-[CAConstraint constraintWithAttribute:attr relativeTo:AZSuperLayerSuper attribute:attr]
-
-#define AZConstRelSuperScaleOff(attr, scl, off) \
-[CAConstraint constraintWithAttribute:attr relativeTo:AZSuperLayerSuper attribute:attr scale:scl offset:off]
-
-
-
-#import "BaseModel.h"
-#import "AZApplePrivate.h"
-
-//#define EXCLUDE_STUB_PROTOTYPES 1
-//#import <PLWeakCompatibility/PLWeakCompatibilityStubs.h>
-//	#import <AtoZiTunes/AtoZiTunes.h>
-
-#import "AZSugar.h"
-#import "AZGeometry.h"
-
-	// Categories
-#import "NSThread+AtoZ.h"
-#import "NSNotificationCenter+AtoZ.h"
-#import "NSApplication+AtoZ.h"
-#import "NSColor+AtoZ.h"
-#import "NSArray+AtoZ.h"
-#import "NSString+AtoZ.h"
-#import "NSView+AtoZ.h"
-#import "NSBezierPath+AtoZ.h"
-#import "NSImage+AtoZ.h"
-#import "NSWindow+AtoZ.h"
-#import "NSShadow+AtoZ.h"
-#import "NSNumber+AtoZ.h"
-#import "CAAnimation+AtoZ.h"
-#import "CALayer+AtoZ.h"
-#import "NSScreen+AtoZ.h"
-#import "NSObject+AtoZ.h"
-#import "AZNotificationCenter.h"
-
-#import "NSWindow_Flipr.h"
-#import "NSLogConsole.h"
-
-#import "TransparentWindow.h"
-#import "RoundedView.h"
-#import "AZWindowExtend.h"
-
-	//#import "NSObject+AutoCoding.h"
-
-#import "MondoSwitch.h"
-#import "AZToggle.h"
-	//#import "AZToggleView.h"
-
-	//Classes
-	//#imoport "A
-
-#import "AZQueue.h"
-
-#import "AZDockQuery.h"
-#import "AZAXAuthorization.h"
-#import "AZMouser.h"
-	// Views
-#import "AZFoamView.h"
-#import "AZBlockView.h"
-#import "AZProgressIndicator.h"
-#import "AZPopupWindow.h"
-#import "AZIndeterminateIndicator.h"
-#import "AZAttachedWindow.h"
-#import "AZStopwatch.h"
-#import "AZBox.h"
-#import "AZBoxGrid.h"
-#import "AZBoxMagic.h"
-#import "AZSizer.h"
-#import "AZInfiniteCell.h"
-#import "AZSourceList.h"
-#import "AZTalker.h"
-#import "AZBoxLayer.h"
-#import "AZOverlay.h"
-#import "AZSimpleView.h"
-#import "AtoZInfinity.h"
-
-
-//#import "AtoZiTunes.h"
-
-@interface CAConstraint (brevity)
-
-//+(CAConstraint*)maxX;
-
-//#define maxY = AZConstraint(kCAConstraintMaxY,@"superlayer");
-//#define superWide = AZConstraint(kCAConstraintWidth,@"superlayer");
-//#define superHigh = AZConstraint(kCAConstraintHeight,@"superlayer");
-
-@end
-
-@interface CALayerNoHit : CALayer
-@end
-@interface CAShapeLayerNoHit : CAShapeLayer
-@end
-@interface CATextLayerNoHit : CATextLayer
-@end
-
-
+CGFloat ScreenWidess();
+CGFloat ScreenHighness();
 
 extern NSString *const AtoZSharedInstanceUpdated;
 extern NSString *const AtoZDockSortedUpdated;
 
-@interface AtoZ : BaseModel
 
+
+@interface NSObject (AtoZDelegate)
+- (void) dockItemDidUpdateValues:(NSNotification*)info;
+@end
+
+typedef enum {
+	AZDockSortNatural,
+	AZDockSortColor,
+	AZDockSortPoint,
+	AZDockSortPointNew,
+}	AZDockSort;
+
+@class NSLogConsole;
+@interface AtoZ : BaseModel
++ (NSArray*) selectedDock;
 + (AtoZ*) sharedInstance;
 + (NSArray*) dock;
 //- (NSArray*) dockSorted;
@@ -190,7 +38,9 @@ extern NSString *const AtoZDockSortedUpdated;
 + (NSArray*) runningAppsAsStrings;
 + (NSArray*) appFolder;
 + (NSArray*) appFolderSorted;
-
+@property (assign) AZDockSort sortOrder;
+@property (nonatomic, retain) NSArray *dock;
+@property (nonatomic, retain) NSArray *dockSorted;
 - (void) handleMouseEvent:(NSEventMask)event inView:(NSView*)view withBlock:(void (^)())block;
 @property (strong, nonatomic) NSLogConsole *console;
 
@@ -212,6 +62,7 @@ extern NSString *const AtoZDockSortedUpdated;
 + (id) instanceWithObject: (NSDictionary *)dic;
 @end
 
+extern NSString *const AtoZFileUpdated;
 //@class AJSiTunesResult;
 @interface AZFile : BaseModel
 @property (strong, nonatomic)	NSString *itunesDescription;
@@ -328,3 +179,23 @@ extern void DrawLabelAtCenterPoint(NSString* string, NSPoint center);
 // profile("Long Task", ^{ performLongTask() } );
 
 void profile (const char *name, void (^work) (void));
+
+
+
+@interface CAConstraint (brevity)
+
+//+(CAConstraint*)maxX;
+
+//#define maxY = AZConstraint(kCAConstraintMaxY,@"superlayer");
+//#define superWide = AZConstraint(kCAConstraintWidth,@"superlayer");
+//#define superHigh = AZConstraint(kCAConstraintHeight,@"superlayer");
+
+@end
+
+@interface CALayerNoHit : CALayer
+@end
+@interface CAShapeLayerNoHit : CAShapeLayer
+@end
+@interface CATextLayerNoHit : CATextLayer
+@end
+
