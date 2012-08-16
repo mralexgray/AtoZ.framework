@@ -116,8 +116,30 @@ void mouseUp(	  int btn,  int clickType ) 		{
 @implementation AZMouser
 
 - (void) setUp 				{
+
 	_defaults = [NSUserDefaults standardUserDefaults];
+	[self listenForCancel];
 }
+
+- (void)listenForCancel {
+
+	[NSEvent addGlobalMonitorForEventsMatchingMask:NSKeyDownMask /*NSScrollWheelMask*/ handler:^(NSEvent *event) {
+		NSLog(@"%d",event.keyCode);
+		[AZMouser reloadSharedInstance];
+//		NSUInteger key = 44; // 44 is forward slash
+
+//		NSUInteger modifier = NSCommandKeyMask;// NSControlKeyMask | NSAlternateKeyMask;
+//		if ([event keyCode] == key && [NSEvent modifierFlags] == modifier)
+//			NSRunCriticalAlertPanel(nil,@"Commmand / was detected",nil,nil,nil);
+
+		// Activate app when pressing cmd+ctrl+alt+T
+//		if([event modifierFlags] == 1835305 && [[event charactersIgnoringModifiers] compare:@"t"] == 0) {
+
+//		}
+
+	}];
+}
+
 - (float) largeValue 		{
 	return [[[_defaults persistentDomainForName:@"com.apple.dock"] valueForKey:@"largesize"]floatValue];
 }
@@ -135,10 +157,12 @@ void mouseUp(	  int btn,  int clickType ) 		{
 }
 
 - (void) moveTo:(CGPoint)point {
+
+	[NSApp activateIgnoringOtherApps:YES];
 	moveTo(point);
 }
 - (void) dragFrom:(CGPoint)a 		to:(CGPoint)z {
-
+	[NSApp activateIgnoringOtherApps:YES];
 	moveTo ( a );
 	sleep(3);					// start at A
 //	float delta = AZDistanceFromPoint(a, z);

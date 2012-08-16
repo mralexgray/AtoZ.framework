@@ -9,6 +9,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import <AtoZ/AtoZ.h>
+//#import <AtoZ/iCarousel.h>
 #import <QuartzCore/QuartzCore.h>
 #import "IsometricView.h"
 
@@ -18,7 +19,7 @@
 #define kMargin 30.0
 
 
-@interface AZEncyclopediaDelegate : NSObject <NSApplicationDelegate, NSWindowDelegate, AZSourceListDataSource>
+@interface AZEncyclopediaDelegate : NSObject <NSApplicationDelegate, NSWindowDelegate, AZSourceListDataSource, iCarouselDataSource, iCarouselDelegate>
 {
 	IBOutlet NSMatrix *matrix;
 	IBOutlet NSTextField *selectedItemLabel;
@@ -31,9 +32,13 @@
 -(IBAction) moveThemAll:(id) sender;
 -(IBAction) cancel:(id) sender;
 
+@property (nonatomic, strong) IBOutlet iCarousel *carousel;
+
+
 @property (nonatomic, retain) IBOutlet AtoZInfinity *infinityView;
-@property (assign) IBOutlet AZWindowExtend *window;
+@property (nonatomic, retain) AZWindowExtend *window;
 @property (assign) IBOutlet NSView *rootView;
+@property (strong, nonatomic) NSNumber *scale;
 
 @property (assign) IBOutlet NSView *isoView;
 //@property (assign) IBOutlet NSWindow *window;
@@ -50,6 +55,7 @@
 @property (retain) CALayer *contentLayer;
 @property (retain) NSArray *demos;
 
+@property (weak) IBOutlet AZToggleView *sortToggle;
 
 -(IBAction)toggleShake:(id)sender;
 

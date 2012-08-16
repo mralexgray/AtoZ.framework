@@ -22,6 +22,10 @@ typedef enum {
 @interface InfiniteDocumentView : NSView
 @end
 
+@interface InfiniteImageView : NSImageView
+- (BOOL)isFlipped;
+@end
+
 @interface NSClipView (InfinityAdditions)
 //- (BOOL)isFlipped;
 @end
@@ -35,7 +39,7 @@ typedef enum {
 @property (assign, nonatomic) NSRect totalBarFrame;
 
 @property (retain, nonatomic) InfiniteDocumentView *docV;
-@property (retain, nonatomic) NSImageView *imageViewBar;
+@property (retain, nonatomic) InfiniteImageView *imageViewBar;
 
 @property (assign, nonatomic) NSRect unit;
 @property (assign, nonatomic) AZInfiteScale scale;

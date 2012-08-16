@@ -27,7 +27,7 @@
 //#import <PLWeakCompatibility/PLWeakCompatibilityStubs.h>
 //	#import <AtoZiTunes/AtoZiTunes.h>
 #import "AZMouser.h"
-
+#import "iCarousel.h"
 #import "AZGeometry.h"
 
 // Categories

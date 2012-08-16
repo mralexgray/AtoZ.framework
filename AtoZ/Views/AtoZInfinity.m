@@ -12,10 +12,14 @@
 @end
 
 @implementation NSClipView (InfinityAdditions)
-//- (BOOL)isFlipped {
-//	return ([[self documentView] isKindOfClass:[InfiniteDocumentView class]] ? YES : NO);
-//}
-
+- (BOOL)isFlipped {
+	return ([[self documentView] isKindOfClass:[InfiniteDocumentView class]] ? YES : NO);
+}
+@end
+@implementation InfiniteImageView
+- (BOOL)isFlipped {
+	return YES;
+}
 @end
 
 @implementation AtoZInfinity
@@ -33,7 +37,10 @@
 @synthesize  unit =_unit, scale =_scale, orientation=_orientation, infiniteObjects = _infiniteViews, docV = _docV;
 
 - (void) awakeFromNib {
-	offset = 0;
+
+
+	// Register global key handler, passing a block as a callback function
+ 	offset = 0;
 	_orientation = AZOrientLeft;
 	_scale = AZInfiteScale0X;
 	[self 				setPostsFrameChangedNotifications:	YES];
@@ -51,6 +58,8 @@
 	//	self.anApi = [[AJSiTunesAPI alloc] init];
 	//	self.anApi.delegate = self;
 }
+
+
 
 - (void) setInfiniteObjects:(NSArray *)infiniteObjects
 {
@@ -128,7 +137,7 @@
 	}];
 	[bar unlockFocus];
 	[bar saveAs:@"/Users/localadmin/Desktop/bar.png"];
-	NSImageView* anImageViewBar = [[NSImageView alloc]initWithFrame:_totalBarFrame];
+	InfiniteImageView* anImageViewBar = [[InfiniteImageView alloc]initWithFrame:_totalBarFrame];
 	anImageViewBar.image = bar;
 	[[self documentView]setFrame:_totalBarFrame];
 	self.imageViewBar = anImageViewBar;
@@ -155,14 +164,17 @@
 {
 //	[self setNeedsDisplay: YES];
 	// or whatever work you need to do
-	NSPoint local = [[self window] convertScreenToBase:mouseLoc()];
+//	NSPoint local = [[self window] convertScreenToBase:mouseLoc()];
 
-	[self evalMouse:[self.documentView convertPoint:local	 fromView:nil]];
+	[self evalMouse:[self.documentView convertPoint:[NSEvent mouseLocation]	 fromView:nil]];
 } // boundsDidChangeNotification
 
 -(void) evalMouse:(NSPoint)thePoint {
 
 	NSLog(@"entered infinity.. point in doc: %ld",  (NSUInteger)(thePoint.y / _barUnit.size.height));
+	AZBox *d = [[AZBox alloc] initWithFrame:AZMakeRect(NSMakePoint( 0, floor(thePoint.y / _barUnit.size.height)*_barUnit.size.height), _barUnit.size)];
+
+	[self.docV addSubview:d];
 }
 //- (NSRect)adjustScroll:(NSRect)proposedVisibleRect{
 //}

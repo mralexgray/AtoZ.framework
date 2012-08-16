@@ -144,9 +144,10 @@
 //	[standard setLineWidth:0];
 //	if (gradient) {
 //		[CLEAR set];
-		[NSShadow setShadowWithOffset:NSMakeSize(3,-3) blurRadius:self.inset color:BLACK];
+/**		[NSShadow setShadowWithOffset:NSMakeSize(3,-3) blurRadius:self.inset color:BLACK];
 		[standard stroke];
 		[NSShadow clearShadow];
+*/
 //		NSRectFill(NSInsetRect(self.bounds,inset_, inset_));
 //		[gradient drawInBezierPath:standard angle:270];
 
@@ -177,11 +178,12 @@
 //        [[NSBezierPath bezierPathWithRoundedRect:NSInsetRect([self bounds], 1.5f, 1.5f) xRadius:self.radius yRadius:self.radius] stroke];
 //        [[NSColor colorWithDeviceWhite:1.0f alpha:0.1f] setStroke];
 //        [[NSBezierPath bezierPathWithRoundedRect:NSInsetRect([self bounds], 2.5f, 2.5f) xRadius:self.radius yRadius:self.radius] stroke];
-	if(hovered_)
+	if(hovered_) {
 //		[standard setClip];
-//		[[BLACK colorWithAlphaComponent:.3] set];
-//		NSRectFillUsingOperation([self bounds], NSCompositePlusDarker);
-		[standard fillGradientFrom: RANDOMCOLOR to:RANDOMCOLOR angle:270];
+		[[WHITE colorWithAlphaComponent:.3] set];
+		NSRectFillUsingOperation([self bounds], NSCompositePlusLighter);
+		}
+//		[standard fillGradientFrom: RANDOMCOLOR to:RANDOMCOLOR angle:270];
 //		NSRectFillUsingOperation([self bounds], NSCompositeSourceOver);
 	else if(selected_) // && drawSelection)
 	{
@@ -229,13 +231,22 @@
 -(void) mouseEntered:(NSEvent *)theEvent
 {
 	self.hovered = YES;
+	[[[self superview]subviews]each:^(id obj, NSUInteger index, BOOL *stop) {
+		if ( ([obj isKindOfClass:[AZBox class]]) && ([obj isNotEqualTo:self]) )
+			[(AZBox*)obj setHovered:NO];
+	}];
 }
--(void) mouseExited:(NSEvent *)theEvent {
-	self.hovered = NO;
-}
+//-(void) mouseExited:(NSEvent *)theEvent {
+//	self.hovered = NO;
+
+//}
 
 -(void) mouseDown:(NSEvent *)theEvent {
-	self.selected =! selected_;
+	self.selected = YES;
+	[[[self superview]subviews]each:^(id obj, NSUInteger index, BOOL *stop) {
+		if ( ([obj isKindOfClass:[AZBox class]]) && ([obj isNotEqualTo:self]) )
+			[(AZBox*)obj setSelected:NO];
+	}];
 }
 
 - (void)prepareForReuse {

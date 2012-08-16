@@ -134,8 +134,6 @@
 		7B0D7C2515A3E7FF00037D30 /* ControlBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ControlBar.m; path = ../ControlBar.m; sourceTree = "<group>"; };
 		7B0D7C4515A3F6C800037D30 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		7B0D7C4715A3F88C00037D30 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
-		7B0D7C5A15A4175900037D30 /* iCarousel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iCarousel.h; path = ../iCarousel.h; sourceTree = "<group>"; };
-		7B0D7C5B15A4175900037D30 /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iCarousel.m; path = ../iCarousel.m; sourceTree = "<group>"; };
 		7B24E96B15A11C6200A9D87A /* AZStatusAppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZStatusAppController.h; sourceTree = "<group>"; };
 		7B24E96C15A11C6200A9D87A /* AZStatusAppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZStatusAppController.m; sourceTree = "<group>"; };
 		7B24E97015A11F4600A9D87A /* AZStatusItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZStatusItemView.h; sourceTree = "<group>"; };
@@ -311,8 +309,6 @@
 			children = (
 				7B0D7C2415A3E7FF00037D30 /* ControlBar.h */,
 				7B0D7C2515A3E7FF00037D30 /* ControlBar.m */,
-				7B0D7C5A15A4175900037D30 /* iCarousel.h */,
-				7B0D7C5B15A4175900037D30 /* iCarousel.m */,
 				7BE606D515A117D200355236 /* AtoZStatusApp-Info.plist */,
 				7BE606D615A117D200355236 /* InfoPlist.strings */,
 				7BE606D915A117D200355236 /* main.m */,

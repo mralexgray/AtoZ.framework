@@ -12,6 +12,7 @@
 {
 BOOL cancelled;
 }
+@synthesize sortToggle;
 //@synthesize pIndi;
 //@synthesize orientButton;
 //@synthesize scaleSlider;
@@ -20,6 +21,107 @@ BOOL cancelled;
 @synthesize infinityView;
 
 @synthesize  rootView, isoView;
+
+- (NSUInteger)numberOfItemsInCarousel:(iCarousel *)carousel{
+ return [AtoZ dockSorted].count;
+}
+
+- (CGFloat)carouselItemWidth:(iCarousel *)carousel
+{
+    //set correct view size
+    //because the background image on the views makes them too large
+	return (([[self window]frame].size.height / (float)self.carousel.numberOfItems)*self.scale.floatValue);
+	//    return 200.0f;
+}
+
+- (CGFloat)carousel:(iCarousel *)_carousel valueForOption:(iCarouselOption)option withDefault:(CGFloat)value
+{
+    //customize carousel display
+    switch (option)
+    {
+        case iCarouselOptionWrap:
+		{			return YES;}
+		case iCarouselOptionVisibleItems:
+		{
+			return [AtoZ dockSorted].count;
+
+		}
+//		case iCarouselOptionTilt:
+//			return  .4;
+//		case iCarouselOptionSpacing:
+            //reduce item spacing to compensate
+            //for drop shadow and reflection around views
+//            return value * .95f;
+
+//        case iCarouselOptionFadeMax:
+//        {
+//            if (_carousel.type == iCarouselTypeCustom)
+//            {
+//                //set opacity based on distance from camera
+//                return 0.0f;
+//            }
+//            return value;
+//        }
+        default:
+        {
+            return value;
+        }
+    }
+}
+
+
+
+- (NSView *)carousel:(iCarousel *)carousel viewForItemAtIndex:(NSUInteger)index reusingView:(NSView *)view
+{
+    NSTextField *label = nil;
+    NSRect bounder = NSMakeRect(0,0,50,40);//[[self window]frame].size.height);
+
+    //create new view if no view is available for recycling
+	if (view == nil)
+	{
+        //don't do anything specific to the index within
+        //this `if (view == nil) {...}` statement because the view will be
+        //recycled and used with other index values later
+		//		NSImage *image = [[NSImage imageNamed:@"page.png"]tintedWithColor:RANDOMCOLOR];
+		//       	view = [[[NSImageView alloc] initWithFrame:NSMakeRect(0,0,[self carouselItemWidth:self.carousel],image.size.height)] autorelease];
+		//        [(NSImageView *)view setImage:image];
+		view = [[NSView alloc]initWithFrame: bounder];
+
+		//        [(NSImageView *)view setImageScaling:NSImageScaleAxesIndependently];
+		CALayer *l = [CALayer layer];
+		l.backgroundColor = cgRANDOMCOLOR;
+		l.autoresizingMask = kCALayerWidthSizable | kCALayerHeightSizable;
+		l.frame = bounder;
+		[view setWantsLayer : YES ];
+        view.layer = l;
+		label = [[[NSTextField alloc] init] autorelease];
+        [label setBackgroundColor:[NSColor clearColor]];
+        [label setBordered:NO];
+        [label setSelectable:NO];
+        [label setAlignment:NSCenterTextAlignment];
+        [label setFont:[NSFont fontWithName:[[label font] fontName] size:50]];
+        label.tag = 1;
+        [view addSubview:label];
+	}
+	else
+	{
+		[view setFrame:bounder];
+		//get a reference to the label in the recycled view
+		label = (NSTextField *)[view viewWithTag:1];
+	}
+
+	//set item label
+    //remember to always set any properties of your carousel item
+    //views outside of the `if (view == nil) {...}` check otherwise
+    //you'll get weird issues with carousel item content appearing
+    //in the wrong place in the carousel
+	[label setStringValue:[NSString stringWithFormat:@"%lu", index]];
+    [label sizeToFit];
+    [label setFrameOrigin:NSMakePoint((view.bounds.size.width - label.frame.size.width)/2.0,
+                                      (view.bounds.size.height - label.frame.size.height)/2.0)];
+	//	view.needsDisplay = YES;
+	return view;
+}
 
 + (void) initialize {
 
@@ -58,12 +160,13 @@ BOOL cancelled;
 	//[1]: http://codingincircles.com/2010/07/major-misunderstanding/
 }
 
-
-
-
-
 -(void)awakeFromNib{
 
+	_carousel.dataSource = self;
+	_carousel.delegate = self;
+	_carousel.vertical = YES;
+	_carousel.type = iCarouselTypeLinear;
+	self.scale = @1;
 //	[[NSLogConsole sharedConsole]open];
 
 	//	NSRect erect = NSInsetRect([[_window contentView] bounds],25,25);
@@ -73,10 +176,23 @@ BOOL cancelled;
 //	[_window setDelegate:self];
 //	[[_window contentView] removeFromSuperview];
 //	[_window setContentView:_mouseTest];
-	_window.delegate = self;
+//	AZWindowExtend *au = [[AZWindowExtend alloc]initWithContentRect:[[NSScreen mainScreen]frame] styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO];
+//	[[[NSApplication sharedApplication]mainWindow]addChildWindow:au ordered:NSWindowAbove];
+//	self.window = au;
+//	_window.delegate = self;
+	[NSEvent addGlobalMonitorForEventsMatchingMask: NSMouseMoved
+											   handler:^(NSEvent *event){
+			[self pointOnScreenDidChangeTo:event];
+//		if([event modifierFlags] == 1835305 && [[event charactersIgnoringModifiers] compare:@"t"] == 0) {
+
+//													   [NSApp activateIgnoringOtherApps:YES];
+//												   }
+		}];
+
 	[self makeBadges];
 	cancelled = NO;
 	self.infinityView.infiniteObjects = [AtoZ dock];
+//	[self.sortToggle]
 //	NSLog(@"Dock:  %@", dock);
 
 }
@@ -174,11 +290,11 @@ BOOL cancelled;
 }
 
 
--(void) pointOnScreenDidChangeTo:(id)point{
+-(void) pointOnScreenDidChangeTo:(NSEvent*)event {
 
-
-	CGPoint i = mouseLoc();//[[AZMouser sharedInstance] mouseLocation];
-	NSLog(@"delegate.. %ix%i", (int)i.x, (int)i.y);
+//	NSPoint i = aPoint;÷
+//	[[ud ]] mouseLoc(); ÷//[[AZMouser sharedInstance] mouseLocation];
+	NSLog(@"delegate.. %ix%i", (int)[NSEvent mouseLocation].x, (int)[NSEvent mouseLocation].y);
 //	NSLog(@"delegate rec's point note: %@", NSStringFromPoint([point pointValue]));
 
 }
@@ -192,7 +308,7 @@ BOOL cancelled;
 			CGPoint move = CGPointMake(_point1x.floatValue, _point1y.floatValue);
 //			[[AZMouser sharedInstance]moveTo:move];
 //			AZMouser *h = [AZMouser instance];
-			moveTo(move);
+			[[AZMouser sharedInstance] moveTo:move];
 			break;
 			}
 		case 1:
