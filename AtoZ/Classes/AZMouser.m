@@ -1,153 +1,241 @@
 #import "AZMouser.h"
-#include <stdio.h>
-#include <string.h>
-#include <Carbon/Carbon.h>
 #import "AtoZ.h"
+#include <string.h>
+
+bool bDragging = false;		int bMouseSpeed = 4;			/* MOUSE MOVEMENT */
 
 
-#define IS_CMD( x, y ) strncmp( x, y, strlen( y ) ) == 0
-#define CMD_STRING_MAXLEN 256
-#define MOUSE_SPEED 4000 // bigger = slower
-#define MOUSE_RESOLUTION 2.5 //how much to move the cursor each interval
-#define TYPOMATIC_RATE 100000
 
-#define NO_MOUSE_BUTTON 0
-#define LEFT_MOUSE 1
-#define RIGHT_MOUSE 2
+CGPoint mouseLoc() {
+	CGEventRef event = CGEventCreate(NULL);
+	CGPoint cursor = CGEventGetLocation(event);
+	CFRelease(event);
+	return cursor;
+}
 
-#define MOUSE_DOWN 0
-#define MOUSE_UP 1
-#define MOUSE_DRAGGED 2
-#define MOUSE_MOVED 2
+void warpTo ( CGPoint dest ) {
+	CGWarpMouseCursorPosition(dest);
+	if (bDragging) mouseEvent(LEFT_MOUSE, MOUSE_DRAGGED, 0);
+	else mouseEvent(NO_MOUSE_BUTTON, MOUSE_MOVED, 0);
+}
 
-#define SINGLE_CLICK 1
-#define DOUBLE_CLICK 2
-#define TRIPLE_CLICK 3
-
-bool bDragging = false;
-
-//int main (int argc, const char * argv[]) {
-//	int cnt;
-//	for (cnt = 1; cnt < argc; cnt++) {
-//		processCommand(argv[cnt]);
-//	}
-//	return 0;
-//}
-
-void processCommand(const char *cmd) {
-	int tmpx, tmpy, btn;
-	float tmpInterval;
-	UInt32 tmpkc;
-	char str[CMD_STRING_MAXLEN];
-
-	bzero(str, CMD_STRING_MAXLEN);
-	if (IS_CMD(cmd, "mouselocation")) {
-
-		CGPoint cgLoc = mouseLoc();
-		printf("%.f %.f\n", cgLoc.x, cgLoc.y);
-
-	} else if (IS_CMD(cmd, "mousewarp ")) {
-
-		print_msg("Warping mouse to location.");
-		sscanf(cmd, "mousewarp %d %d", &tmpx, &tmpy);
-		mouseMove(tmpx, tmpy);
-
-	} else if (IS_CMD(cmd, "mousemove ")) {
-
-		print_msg("Moving mouse.");
-		sscanf(cmd, "mousemove %d %d", &tmpx, &tmpy);
-		mouseMoveTo(tmpx, tmpy, 1);
-
-	} else if (IS_CMD(cmd, "mousedown")) {
-
-		print_msg("Pressing mouse button.");
-		sscanf(cmd, "mousedown %d", &btn);
-		mousePress(btn, SINGLE_CLICK);
-
-	} else if (IS_CMD(cmd, "mouseup")) {
-
-		print_msg("Releasing mouse button.");
-		sscanf(cmd, "mouseup %d", &btn);
-		mouseRelease(btn, SINGLE_CLICK);
-
-	} else if (IS_CMD(cmd, "mouseclick")) {
-
-		print_msg("Clicking mouse.");
-		sscanf(cmd, "mouseclick %d", &btn);
-		mouseClick(btn, SINGLE_CLICK);
-
-	} else if (IS_CMD(cmd, "mousedoubleclick")) {
-
-		print_msg("Double-clicking mouse.");
-		sscanf(cmd, "mousedoubleclick %d", &btn);
-		mouseClick(btn, DOUBLE_CLICK);
-
-	} else if (IS_CMD(cmd, "mousetripleclick")) {
-
-		print_msg("Triple-clicking mouse.");
-		sscanf(cmd, "mousetripleclick %d", &btn);
-		mouseClick(btn, TRIPLE_CLICK);
-
-	} else if (IS_CMD(cmd, "mousedrag ")) {
-
-		print_msg("Dragging mouse.");
-		sscanf(cmd, "mousedrag %d %d", &tmpx, &tmpy);
-		mouseDrag(LEFT_MOUSE, tmpx, tmpy);
-
-	}
-/*
-	else if (IS_CMD(cmd, "press ")) {
-
-		print_msg("Pressing key.");
-		sscanf(cmd, "press %x", &tmpkc);
-		keyPress((CGKeyCode)tmpkc, NULL);
-
-	} else if (IS_CMD(cmd, "release ")) {
-
-		print_msg("Releasing key.");
-		sscanf(cmd, "release %x", &tmpkc);
-		keyRelease((CGKeyCode)tmpkc, NULL);
-
-	} else if (IS_CMD(cmd, "hit ")) {
-
-		print_msg("Hitting key.");
-		sscanf(cmd, "hit %x", &tmpkc);
-		keyHit((CGKeyCode)tmpkc, NULL);
-
-	} else if (IS_CMD(cmd, "type ")) {
-
-		print_msg("Typing.");
-		strncpy(str, &cmd[5], CMD_STRING_MAXLEN);
-		typeString(str);
-
-	}
-	
-	 */ else if (IS_CMD(cmd, "wait")) {
-
-		print_msg("Waiting.");
-		sscanf(cmd, "wait %f", &tmpInterval);
-		usleep(1000000 * tmpInterval);
-
-	}	  else {
-
-		print_msg("I don't know what you want to do.");
-
+void mouseMove(int posX, int posY) {
+	CGPoint dest = { .x = posX, .y = posY };
+	CGWarpMouseCursorPosition(dest);
+	if (bDragging) {
+		mouseEvent(LEFT_MOUSE, MOUSE_DRAGGED, 0);
+	} else {
+		mouseEvent(NO_MOUSE_BUTTON, MOUSE_MOVED, 0);
 	}
 }
 
-void print_msg(const char *msg) {
-	printf("%s\n", msg);
+void moveVia( int x, int y ) {	moveTo(CGPointMake(x,y)); }
+void moveTo ( CGPoint dest ) {
+	CGPoint currLoc = mouseLoc();
+	CGPoint destLoc = dest;
+	float x = currLoc.x;
+	float y = currLoc.y;
+	float xrat, yrat;
+
+	int diffX = abs(currLoc.x - destLoc.x);
+	int diffY = abs(currLoc.y - destLoc.y);
+	int dirX = currLoc.x > destLoc.x ? -1 : 1;
+	int dirY = currLoc.y > destLoc.y ? -1 : 1;
+
+	if (diffX == 0 && diffY == 0) {
+		return;
+	}
+
+	if (diffX > diffY) {
+		xrat = MOUSE_RESOLUTION * dirX;
+		if (diffY == 0) {
+			yrat = 0;
+		} else {
+			yrat = (((float)diffY / diffX) * dirY) * MOUSE_RESOLUTION;
+		}
+	} else {
+		yrat = MOUSE_RESOLUTION * dirY;
+		if (diffX == 0) {
+			xrat = 0;
+		} else {
+			xrat = (((float)diffX / diffY) * dirX) * MOUSE_RESOLUTION;
+		}
+	}
+
+	int xArrived = 0, yArrived = 0, diff;
+	float accelerant;
+	while (!xArrived && !yArrived) {
+		diffX = abs(destLoc.x - x);
+		diffY = abs(destLoc.y - y);
+		diff = diffX > diffY ? diffX : diffY;
+		accelerant = diff > 70 ? diff / 40 : (diff > 40 ? diff / 20 : 1);
+
+		if (!xArrived && diffX < abs(xrat)) {
+			xArrived = 1;
+			x = destLoc.x;
+		} else {
+			x += xrat * accelerant;
+		}
+
+		if (!yArrived && diffY < abs(yrat)) {
+			yArrived = 1;
+			y = destLoc.y;
+		} else {
+			y += yrat * accelerant;
+		}
+
+		mouseMove((int)x, (int)y);
+		usleep((int)(bMouseSpeed * (MOUSE_SPEED * MOUSE_RESOLUTION)));
+	}
 }
+void dragTo ( CGPoint dest ) {
+	bDragging = true;
+	mouseEvent  ( 1, MOUSE_DOWN, SINGLE_CLICK);	usleep(50000);
+	moveTo ( dest );					usleep(50000);
+	mouseEvent  ( 1, MOUSE_UP, SINGLE_CLICK);
+}
+																		/* MOUSE CLICKING */
+void mouseDown(   int btn,  int clickType ) 		{
+	mouseEvent(btn, MOUSE_DOWN, clickType);
+}
+void mouseDownUp( int btn,  int clickType ) 		{
+	mouseDown(btn, clickType);
+	usleep(400000);
+	mouseUp(btn, clickType);
+}
+void mouseUp(	  int btn,  int clickType ) 		{
+	mouseEvent(btn, MOUSE_UP, clickType);
+}
+
+
+@interface AZMouser ()
+
+@property (retain) NSUserDefaults *defaults;
+@end
+
+@implementation AZMouser
+
+- (void) setUp 				{
+	_defaults = [NSUserDefaults standardUserDefaults];
+}
+- (float) largeValue 		{
+	return [[[_defaults persistentDomainForName:@"com.apple.dock"] valueForKey:@"largesize"]floatValue];
+}
+- (NSSize) screenSize 		{
+	return [[NSScreen mainScreen] frame].size;
+}
+- (CGPoint) mouseLocation	{
+	return mouseLoc();
+}
+- (AZDockOrientation) orientation 	{
+	NSString   *dockPinning = [[_defaults persistentDomainForName:@"com.apple.dock"] valueForKey:@"orientation"];
+	NSLog(@"Dock is on the %@", dockPinning);
+	return ([dockPinning isEqualTo:@"left"]) ? AZDockOrientLeft :
+	([dockPinning isEqualTo:@"bottom"] ? AZDockOrientBottom : AZDockOrientRight);
+}
+
+- (void) moveTo:(CGPoint)point {
+	moveTo(point);
+}
+- (void) dragFrom:(CGPoint)a 		to:(CGPoint)z {
+
+	moveTo ( a );
+	sleep(3);					// start at A
+//	float delta = AZDistanceFromPoint(a, z);
+//	switch (self.orientation)
+//		{case AZDockOrientBottom: {
+//			moveVia( a.x, self.screenSize.height ); 		// Coax to edge (bottom)
+//			moveTo ( a );									// start at A
+			dragTo ( z );
+//			$points( (point.x - a.x), large),
+//			$point(z) ];
+//			break;
+/*		}
+		case AZDockOrientLeft:
+//			return @[$points(0, point.y)];
+			break;
+		case AZDockOrientRight:
+//			return @[ $points(_screenSize.width, point.y)];
+			break;
+		default:
+			break;
+	}
+*/
+}
+
+
+
+
+- (NSArray*) coaxPointsForPoints:(CGPoint)point to:(CGPoint)dest {
+	float dist = AZDistanceFromPoint(point, dest);
+	float large = [self largeValue];
+	switch (self.orientation) {
+		case AZDockOrientBottom: {
+		return @[	$point(	 point),							// start at A
+					$points(	 point.x, _screenSize.height), 		// Coax to edge (bottom)
+					$point(  point ),
+					$points( (point.x - dest.x), large),
+			$point(dest) ];
+			break;
+		}
+		case AZDockOrientLeft:
+			return @[$points(0, point.y)];
+			break;
+		case AZDockOrientRight:
+			return @[ $points(_screenSize.width, point.y)];
+			break;
+		default:
+			break;
+	}
+}
+
+- (NSArray*) arcPointsBetween:(CGPoint)a and:(CGPoint)b
+{
+	float distance = distanceFromPoint(a,b);
+	float radius = 25;
+	//	return [[@0 to:@20]arrayUsingIndexedBlock:^id(id obj, NSUInteger idx) {
+	NSBezierPath *originalPath = [NSBezierPath bezierPath];
+	[originalPath appendBezierPathWithArcFromPoint:a toPoint:b radius:radius];
+	NSBezierPath *flatPath = [originalPath bezierPathByFlatteningPath];
+	NSInteger count = [flatPath elementCount];
+	NSLog(@"$%ld", count);
+	NSPoint prev, curr;
+	[flatPath setLineWidth:10];
+	[RED set];
+	NSImage *image = [[NSImage alloc]initWithSize:NSMakeSize(512,512)];
+	[image lockFocus];
+	[[NSColor blackColor]set];
+	[flatPath stroke];
+	[image unlockFocus];
+	[image saveAs:@"/Users/localadmin/Desktop/curve.png"];
+
+	NSInteger i;
+	for(i = 0; i < count; ++i) {
+		// Since we are using a flattened path, no element will contain more than one point
+		NSBezierPathElement type = [flatPath elementAtIndex:i associatedPoints:&curr];
+		if(type == NSLineToBezierPathElement) {
+			NSLog(@"Line from %@ to %@",NSStringFromPoint(prev),NSStringFromPoint(curr));
+		} else if(type == NSClosePathBezierPathElement) {
+			// Get the first point in the path as the line's end. The first element in a path is a move to operation
+			[flatPath elementAtIndex:0 associatedPoints:&curr];
+			NSLog(@"Close line from %@ to %@",NSStringFromPoint(prev),NSStringFromPoint(curr));
+		}
+	}
+	return @[@22];
+}
+
+
+@end
 
 /* MOUSE INPUT */
 
-CGPoint mouseLoc() {
+//CGPoint mouseLoc() {
 //	Point currLoc;
 //	currLoc = AZMousePoint();
 //	GetGlobalMouse(&currLoc);
 //	CGPoint cgLoc = {.x = currLoc.h, .y = currLoc.v};
-	return AZMousePoint();// cgLoc;
-}
+//	return AZMousePoint();// cgLoc;
+//}
 
 // btn: 0 = none, 1 = left, 2 = right, etc
 CGEventType mouseEventType(int btn, int btnState) {
@@ -205,101 +293,8 @@ void mouseEvent(int btn, int btnState, int clickType) {
 	CFRelease(theEvent);
 }
 
-/* MOUSE MOVEMENT */
 
-void mouseMove(int posX, int posY) {
-	CGPoint dest = { .x = posX, .y = posY };
-	CGWarpMouseCursorPosition(dest);
-	if (bDragging) {
-		mouseEvent(LEFT_MOUSE, MOUSE_DRAGGED, 0);
-	} else {
-		mouseEvent(NO_MOUSE_BUTTON, MOUSE_MOVED, 0);
-	}
-}
-
-void mouseMoveTo(int posX, int posY, float speed) {
-	CGPoint currLoc = mouseLoc();
-	CGPoint destLoc = { .x = posX, .y = posY };
-	float x = currLoc.x;
-	float y = currLoc.y;
-	float xrat, yrat;
-
-	int diffX = abs(currLoc.x - destLoc.x);
-	int diffY = abs(currLoc.y - destLoc.y);
-	int dirX = currLoc.x > destLoc.x ? -1 : 1;
-	int dirY = currLoc.y > destLoc.y ? -1 : 1;
-
-	if (diffX == 0 && diffY == 0) {
-		return;
-	}
-
-	if (diffX > diffY) {
-		xrat = MOUSE_RESOLUTION * dirX;
-		if (diffY == 0) {
-			yrat = 0;
-		} else {
-			yrat = (((float)diffY / diffX) * dirY) * MOUSE_RESOLUTION;
-		}
-	} else {
-		yrat = MOUSE_RESOLUTION * dirY;
-		if (diffX == 0) {
-			xrat = 0;
-		} else {
-			xrat = (((float)diffX / diffY) * dirX) * MOUSE_RESOLUTION;
-		}
-	}
-
-	int xArrived = 0, yArrived = 0, diff;
-	float accelerant;
-	while (!xArrived && !yArrived) {
-		diffX = abs(destLoc.x - x);
-		diffY = abs(destLoc.y - y);
-		diff = diffX > diffY ? diffX : diffY;
-		accelerant = diff > 70 ? diff / 40 : (diff > 40 ? diff / 20 : 1);
-
-		if (!xArrived && diffX < abs(xrat)) {
-			xArrived = 1;
-			x = destLoc.x;
-		} else {
-			x += xrat * accelerant;
-		}
-
-		if (!yArrived && diffY < abs(yrat)) {
-			yArrived = 1;
-			y = destLoc.y;
-		} else {
-			y += yrat * accelerant;
-		}
-
-		mouseMove((int)x, (int)y);
-		usleep((int)(speed * (MOUSE_SPEED * MOUSE_RESOLUTION)));
-	}
-}
-
-/* MOUSE CLICKING */
-
-void mousePress(int btn, int clickType) {
-	mouseEvent(btn, MOUSE_DOWN, clickType);
-}
-
-void mouseRelease(int btn, int clickType) {
-	mouseEvent(btn, MOUSE_UP, clickType);
-}
-
-void mouseClick(int btn, int clickType) {
-	mousePress(btn, clickType);
-	usleep(400000);
-	mouseRelease(btn, clickType);
-}
-
-void mouseDrag(int btn, int posX, int posY) {
-	bDragging = true;
-	mouseEvent(btn, MOUSE_DOWN, SINGLE_CLICK);
-	usleep(50000);
-	mouseMoveTo(posX, posY, 5);
-	usleep(50000);
-	mouseEvent(btn, MOUSE_UP, SINGLE_CLICK);
-}
+//void mouseMoveToPtMK(CGPoint xy) {
 
 /* KEYBOARD INPUT */
 /*
@@ -423,119 +418,6 @@ static char KeyCodeToAscii(short virtualKeyCode) {
 }
 */
 
-
-@interface AZMouser ()
-@end
-
-@implementation AZMouser
-
-- (void) setUp {
-
-	_orientation = self.orientation;
-	_screenSize = self.screenSize;
-}
-
-- (AZDockOrientation) orientation {
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NSString   *dockPinning = [[defaults persistentDomainForName:@"com.apple.dock"] valueForKey:@"orientation"];
-	NSLog(@"Dock is on the %@", dockPinning);
-	return ([dockPinning isEqualTo:@"left"]) ? AZDockOrientLeft :
-			([dockPinning isEqualTo:@"bottom"] ? AZDockOrientBottom : AZDockOrientRight);
-}
-- (NSSize) screenSize {
-	NSArray *screens = [NSScreen screens];
-	NSScreen *mainScreen = [screens objectAtIndex:0];
-	return [mainScreen frame].size;
-//	NSLog(@"screenSize = %@", NSStringFromRect(screenSize));
-	//float xMax = screenRect.size.width;
-	//float yMax = screenRect.size.height;
-	//NSLog(@"%@",[NSString stringWithFormat:@"%.1fx%.1f",xMax, yMax]);
-}
-//NSArray *xyzw = [NSArray arrayWithObjects:
-//				 @"778", //constant axis
-//				 @"113",	// move victime
-//				 @"930", //move target
-//				 nil];
-- (CGPoint) coaxPointForPoint:(CGPoint)point {
-	switch (_orientation) {
-		case AZDockOrientBottom:
-			return CGPointMake(point.x, _screenSize.height);
-			break;
-		case AZDockOrientLeft:
-			return CGPointMake(0, point.y);
-			break;
-		case AZDockOrientRight:
-			return CGPointMake(_screenSize.width, point.y);
-			break;
-		default:
-			break;
-	}
-}
--(CGPoint) mouseLocation {
-	return mouseLoc();
-}
-
-- (NSArray*) arcPointsBetween:(CGPoint)a and:(CGPoint)b
-{
-	float distance = distanceFromPoint(a,b);
-	float radius = 25;
-//	return [[@0 to:@20]arrayUsingIndexedBlock:^id(id obj, NSUInteger idx) {
-	NSBezierPath *originalPath = [NSBezierPath bezierPath];
-	[originalPath appendBezierPathWithArcFromPoint:a toPoint:b radius:radius];
-	NSBezierPath *flatPath = [originalPath bezierPathByFlatteningPath];
-	NSInteger count = [flatPath elementCount];
-	NSLog(@"$%ld", count);
-	NSPoint prev, curr;
-	[flatPath setLineWidth:10];
-	[RED set];
-	NSImage *image = [[NSImage alloc]initWithSize:NSMakeSize(512,512)];
-	[image lockFocus];
-	[[NSColor blackColor]set];
-	[flatPath stroke];
-	[image unlockFocus];
-	[image saveAs:@"/Users/localadmin/Desktop/curve.png"];
-
-	NSInteger i;
-	for(i = 0; i < count; ++i) {
-		// Since we are using a flattened path, no element will contain more than one point
-		NSBezierPathElement type = [flatPath elementAtIndex:i associatedPoints:&curr];
-			if(type == NSLineToBezierPathElement) {
-				NSLog(@"Line from %@ to %@",NSStringFromPoint(prev),NSStringFromPoint(curr));
-			} else if(type == NSClosePathBezierPathElement) {
-				// Get the first point in the path as the line's end. The first element in a path is a move to operation
-				[flatPath elementAtIndex:0 associatedPoints:&curr];
-				NSLog(@"Close line from %@ to %@",NSStringFromPoint(prev),NSStringFromPoint(curr));
-			}
-		}
-	return @[@22];
-}
-
-- (void) moveTo: (CGPoint) point{
-	CGPoint a = self.mouseLocation;
-	mouseMoveTo(point.x,point.y,1);
-
-}
-- (void) dragFrom:(CGPoint)a to:(CGPoint)b {
-//
-//	CGPoint thePoint = [self coaxAtPoint:a];
-//	mouseMoveTo(thePoint,)(a.x,a.y);
-	usleep(10000);
-//	mouseMove(a.x, absEdge);
-//	mouseMove(a.x, dragEdge);
-//	mouseDrag(1, b.x, dragEdge);
-}
-
-
-
-@end
-
-
-CGPoint AZMousePoint() {
-	CGEventRef event = CGEventCreate(NULL);
-	CGPoint cursor = CGEventGetLocation(event);
-	CFRelease(event);
-	return cursor;
-}
 //kCGHIDEventTap
 //Specifies that an event tap is placed at the point where HID system events enter the window server.
 
@@ -627,10 +509,6 @@ void AZDoubleClick(CGPoint point) {
     CGEventPost(kCGHIDEventTap, theEvent); 
     CFRelease(theEvent); 
 }
-void AZMoveTo(const CGPoint point) {
-	AZPostMouseEvent(kCGMouseButtonLeft, kCGEventMouseMoved, point);
-}
-
 	//void DragTo(const CGPoint where) {
 	////    PostMouseEvent(kCGMouseButtonLeft, kCGEventLeftMouseDown, point);
 	////	Click(a);
@@ -835,4 +713,164 @@ static CGEventRef AUWE_OnMouseMovedFactory (
 
 @end
 */
-/* EOF */
+/* void processCommand(const char *cmd) {
+	int tmpx, tmpy, btn;
+	float tmpInterval;
+	UInt32 tmpkc;
+	char str[CMD_STRING_MAXLEN];
+
+	bzero(str, CMD_STRING_MAXLEN);
+	if (IS_CMD(cmd, "mouselocation")) {
+
+		CGPoint cgLoc = mouseLoc();
+		printf("%.f %.f\n", cgLoc.x, cgLoc.y);
+
+	} else if (IS_CMD(cmd, "mousewarp ")) {
+
+		print_msg("Warping mouse to location.");
+		sscanf(cmd, "mousewarp %d %d", &tmpx, &tmpy);
+		mouseMove(tmpx, tmpy);
+
+	} else if (IS_CMD(cmd, "mousemove ")) {
+
+		print_msg("Moving mouse.");
+		sscanf(cmd, "mousemove %d %d", &tmpx, &tmpy);
+		mouseMoveTo(tmpx, tmpy, 1);
+
+	} else if (IS_CMD(cmd, "mousedown")) {
+
+		print_msg("Pressing mouse button.");
+		sscanf(cmd, "mousedown %d", &btn);
+		mousePress(btn, SINGLE_CLICK);
+
+	} else if (IS_CMD(cmd, "mouseup")) {
+
+		print_msg("Releasing mouse button.");
+		sscanf(cmd, "mouseup %d", &btn);
+		mouseRelease(btn, SINGLE_CLICK);
+
+	} else if (IS_CMD(cmd, "mouseclick")) {
+
+		print_msg("Clicking mouse.");
+		sscanf(cmd, "mouseclick %d", &btn);
+		mouseClick(btn, SINGLE_CLICK);
+
+	} else if (IS_CMD(cmd, "mousedoubleclick")) {
+
+		print_msg("Double-clicking mouse.");
+		sscanf(cmd, "mousedoubleclick %d", &btn);
+		mouseClick(btn, DOUBLE_CLICK);
+
+	} else if (IS_CMD(cmd, "mousetripleclick")) {
+
+		print_msg("Triple-clicking mouse.");
+		sscanf(cmd, "mousetripleclick %d", &btn);
+		mouseClick(btn, TRIPLE_CLICK);
+
+	} else if (IS_CMD(cmd, "mousedrag ")) {
+
+		print_msg("Dragging mouse.");
+		sscanf(cmd, "mousedrag %d %d", &tmpx, &tmpy);
+		mouseDrag(LEFT_MOUSE, tmpx, tmpy);
+
+	}
+	/
+	 else if (IS_CMD(cmd, "press ")) {
+
+	 print_msg("Pressing key.");
+	 sscanf(cmd, "press %x", &tmpkc);
+	 keyPress((CGKeyCode)tmpkc, NULL);
+
+	 } else if (IS_CMD(cmd, "release ")) {
+
+	 print_msg("Releasing key.");
+	 sscanf(cmd, "release %x", &tmpkc);
+	 keyRelease((CGKeyCode)tmpkc, NULL);
+
+	 } else if (IS_CMD(cmd, "hit ")) {
+
+	 print_msg("Hitting key.");
+	 sscanf(cmd, "hit %x", &tmpkc);
+	 keyHit((CGKeyCode)tmpkc, NULL);
+
+	 } else if (IS_CMD(cmd, "type ")) {
+
+	 print_msg("Typing.");
+	 strncpy(str, &cmd[5], CMD_STRING_MAXLEN);
+	 typeString(str);
+
+	 }
+
+	 else if (IS_CMD(cmd, "wait")) {
+
+		 print_msg("Waiting.");
+		 sscanf(cmd, "wait %f", &tmpInterval);
+		 usleep(1000000 * tmpInterval);
+
+	 }	  else {
+
+		 print_msg("I don't know what you want to do.");
+		 
+	 }
+}
+EOF */
+
+
+void print_msg(const char *msg) {
+	printf("%s\n", msg);
+}
+
+#define TYPOMATIC_RATE 100000
+#define IS_CMD( x, y ) strncmp( x, y, strlen( y ) ) == 0
+#define CMD_STRING_MAXLEN 256
+
+
+void pathForArc(CGContextRef context, CGRect r, int startAngle, int arcAngle)
+{
+    float start, end;
+    CGAffineTransform matrix;
+
+    // Save the context's state because we are going to scale it
+    CGContextSaveGState(context);
+
+    // Create a transform to scale the context so that a radius of 1 maps to the bounds
+    // of the rectangle, and transform the origin of the context to the center of
+    // the bounding rectangle.
+    matrix = CGAffineTransformMake(r.size.width/2, 0,
+                                   0, r.size.height/2,
+                                   r.origin.x + r.size.width/2,
+                                   r.origin.y + r.size.height/2);
+
+    // Apply the transform to the context
+    CGContextConcatCTM(context, matrix);
+
+    // Calculate the start and ending angles
+    if (arcAngle > 0) {
+        start = (90 - startAngle - arcAngle) * M_PI / 180;
+        end = (90 - startAngle) * M_PI / 180;
+    } else {
+        start = (90 - startAngle) * M_PI / 180;
+        end = (90 - startAngle - arcAngle) * M_PI / 180;
+    }
+
+    // Add the Arc to the path
+    CGContextAddArc(context, 0, 0, 1, start, end, false);
+
+    // Restore the context's state. This removes the translation and scaling
+    // but leaves the path, since the path is not part of the graphics state.
+    CGContextRestoreGState(context);
+}
+//void mouseWarp(	int posX, int posY ) 		{
+//	CGPoint dest = { .x = posX, .y = posY };
+//	CGWarpMouseCursorPosition(dest);
+//	if (bDragging) {
+//		mouseEvent(LEFT_MOUSE, MOUSE_DRAGGED, 0);
+//	} else {
+//		mouseEvent(NO_MOUSE_BUTTON, MOUSE_MOVED, 0);
+//	}
+//}
+
+//#include <stdio.h>
+//#include <string.h>
+//#include <Carbon/Carbon.h>
+

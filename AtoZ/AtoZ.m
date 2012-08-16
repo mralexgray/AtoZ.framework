@@ -9,109 +9,54 @@
 #import <objc/message.h>
 
 
-CGFloat ScreenWidess(){
-	return  [[NSScreen mainScreen]frame].size.width;
-}
-CGFloat ScreenHighness 	(){
-	return	[[NSScreen mainScreen]frame].size.height;
-}
 
-void profile (const char *name, void (^work) (void)) {
-    struct timeval start, end;
-    gettimeofday (&start, NULL);
-    work();
-    gettimeofday (&end, NULL);
-    double fstart = (start.tv_sec * 1000000.0 + start.tv_usec) / 1000000.0;
-    double fend = (end.tv_sec * 1000000.0 + end.tv_usec) / 1000000.0;
-    printf("%s took %f seconds", name, fend - fstart);
-}
-
-
-CGFloat DegreesToRadians(CGFloat degrees)
-{
-    return degrees * M_PI / 180;
-}
-
-NSNumber* DegreesToNumber(CGFloat degrees)
-{
-    return [NSNumber numberWithFloat:
-            DegreesToRadians(degrees)];
-}
-
-
-@implementation CALayerNoHit
-- (BOOL)containsPoint:(CGPoint)p {	return FALSE; }
-@end
-@implementation CAShapeLayerNoHit
-- (BOOL)containsPoint:(CGPoint)p {	return FALSE; }
-@end
-@implementation CATextLayerNoHit
-- (BOOL)containsPoint:(CGPoint)p {	return FALSE; }
-@end
-
-void ApplicationsInDirectory(NSString *searchPath, NSMutableArray *applications) {
-
-	BOOL isDir;
-	NSFileManager *manager = [NSFileManager defaultManager];
-	NSArray *files = [manager directoryContentsAtPath:searchPath];
-	NSEnumerator *fileEnum = [files objectEnumerator];
-	NSString*file;
-	while (file = [fileEnum nextObject]) {
-		[manager changeCurrentDirectoryPath:searchPath];
-		if ([manager fileExistsAtPath:file isDirectory:&isDir] && isDir) {
-			NSString *fullpath = [searchPath stringByAppendingPathComponent:file];
-			if ([[file pathExtension] isEqualToString:@"app"]) [applications addObject:fullpath];
-			else ApplicationsInDirectory(fullpath, applications);
-		}
-	}
-}
-
-
-NSString *const AtoZSharedInstanceUpdated = @"AtoZSharedInstanceUpdated";
-NSString *const AtoZDockSortedUpdated = @"AtoZDockSortedUpdated";
-NSString *const AtoZSuperLayer = @"superlayer";
-
-@class AZSimpleView;
-@interface AtoZ ()
-//@property (nonatomic, strong) NSMutableArray *dock;
-//@property (nonatomic, strong) NSMutableArray* dockSorted;
-@property (nonatomic, strong) NSMutableArray *appFolderSorted;
-@property (nonatomic, strong) NSMutableArray *appFolder;
-@end
 @implementation AtoZ
-{
-	__weak AZSimpleView *e;
-	
-}
-//@synthesize
-//dock, dockSorted, appFolder, appFolderSorted, console;
+@synthesize dock = _dock, dockSorted = _dockSorted, dockOutline = _dockOutline, appFolder, appFolderSorted;//, console;
+
+//{//	__weak AZSimpleView *e;
+//}
 //	console = [NSLogConsole sharedConsole]; [console open];
 
 - (void) setUp {
-	self.dock = [[AZDockQuery dock] arrayUsingIndexedBlock:^id(id obj, NSUInteger idx) {
-		NSLog(@"dockquery item: %@", [obj allKeys]);
-		AZFile *app = [AZFile instanceWithPath:[obj valueForKey:@"path"]];
-		app.spot = [[obj valueForKey:@"spot"]unsignedIntegerValue];
-		app.dockPoint = [[obj valueForKey:@"dockPoint"]pointValue];
-		return app;
-	}];
+	_dockOutline = [AZDockQuery dock];
+	_dock = [self dock];
+	// arrayUsingIndexedBlock:^id(AZFile* obj, NSUInteger idx) {
+	//			NSLog(@"dockquery item: %@", [obj allKeys]);
+
 }
 
-//+ (AtoZ*) sharedInstance { return [super sharedInstance]; }
-+ (NSArray*) dock {		return [AtoZ sharedInstance].dock;   }
-- (NSArray*) dockOverView {		return  _dock;		}
-//- (NSArray*) dock { self.sortOrder = AZDockSortNatural;
-//	_dock = 	return _dock;
-//}
++ (NSArray*) dockOutline {
+	return [super sharedInstance].dockOutline;
+}
+- (NSArray*)dockOutline {
+	return (_dockOutline ? _dockOutline : [AZDockQuery dock]);
+}
+
++ (NSArray*) dock {
+	return [AtoZ sharedInstance].dock;
+}
+
 + (NSArray*) dockSorted {
 	return [super sharedInstance].dockSorted;
+}
+- (NSArray*) dock {
+
+	self.sortOrder = AZDockSortNatural;
+	return (_dock ? _dock : [_dockOutline arrayUsingIndexedBlock:^id(AZFile *obj, NSUInteger idx) {
+		NSLog(@"Created file: %ld", idx);
+		AZFile *app = [AZFile instanceWithPath:[obj valueForKey:@"path"]];
+		app.spot = [[obj valueForKey:@"spot"]unsignedIntegerValue ];
+		app.dockPoint = [[obj valueForKey:@"dockPoint"]pointValue];
+		return app;
+	}] );
+
 }
 
 - (NSArray*) dockSorted {
 
 	self.sortOrder = AZDockSortNatural;
-	return
-	[[[_dock sortedWithKey:@"hue" ascending:YES] reversed] arrayUsingIndexedBlock:^id(AZFile* obj, NSUInteger idx) {
+	return	[[[_dock sortedWithKey:@"hue" ascending:YES] reversed] arrayUsingIndexedBlock:^id(AZFile* obj, NSUInteger idx) {
+		obj.spotNew = idx;
 		obj.dockPointNew = [[_dock[idx] valueForKey:@"dockPoint"]pointValue];
 		return obj;
 	}];
@@ -120,33 +65,33 @@ NSString *const AtoZSuperLayer = @"superlayer";
 - (NSArray*) selectedDock {
 	switch (self.sortOrder) {
 		case AZDockSortNatural:
-			return _dock;
+			return self.dock;
 			break;
 		case AZDockSortColor:
-			return _dockSorted;
+			return self.dockSorted;
 		default:
-		break;
-//			return NSArray *a = @[$int(66) to:$int(66)];// arrayUsingBlock:^id(id obj) {
-//
-//			}];
+			break;
+			//			return NSArray *a = @[$int(66) to:$int(66)];// arrayUsingBlock:^id(id obj) {
+			//
+			//			}];
 
-//		[[NSThread mainThread] performBlock:^{
-//		} waitUntilDone:YES];
-//		performBlockInBackground:^{
-//		}];			break;
+			//		[[NSThread mainThread] performBlock:^{
+			//		} waitUntilDone:YES];
+			//		performBlockInBackground:^{
+			//		}];			break;
 	}
 }
-/*
-+ (NSArray*) dockSorted {
-	[AZStopwatch start:@"dockSorted"];
+
+//+ (NSMutableArray*) dockSorted {
+// [AZStopwa /tch start:@"dockSorted"];
 
 //	if (! [AtoZ sharedInstance].dockSorted ){
-		NSLog(@"sorted noexista!.  does docko? : %@");
+// NSLog(@"sorted noexista!.  does docko? : %@");
 //		[AtoZ sharedInstance]_dockSorted = [[[AtoZ dock] sortedWithKey:@"hue" ascending:YES] reversed].mutableCopy;
 //	}
 //	[[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:AtoZDockSortedUpdated object:[AtoZ sharedInstance].dockSorted];
-	NSLog(@"was it made?  dsorted:%@", [AtoZ sharedInstance]._dockSorted);
-	[AZStopwatch stop:@"dockSorted"];
+// NSLog(@"was it made?  dsorted:%@", [AtoZ sharedInstance]._dockSorted);
+// [AZStopwatch stop:@"dockSorted"];
 //	[NSThread performAZBlockOnMainThread:^{
 //		[[NSApp delegate] setValue:
 //			[[AtoZ sharedInstance]. dockSorted arrayUsingIndexedBlock:^id(id obj, NSUInteger idx) {
@@ -157,7 +102,8 @@ NSString *const AtoZSuperLayer = @"superlayer";
 //				return ee;
 //			}] forKeyPath:@"infiniteBlocks.infiniteViews"];
 //	}];
-	return  [AtoZ sharedInstance]._dockSorted;
+// return  [AtoZ sharedInstance].dockSorted;
+//}
 //
 //	if ([AtoZ sharedInstance].dockSorted) {
 //		NSLog(@"preexisting sort! ");
@@ -169,8 +115,8 @@ NSString *const AtoZSuperLayer = @"superlayer";
 //		app.dockPointNew = [[[self.dock objectAtIndex:app.spotNew] valueForKey:@"dockPoint"]pointValue];
 //		return app;
 //	}];
-	// where you would call a delegate method (e.g. [self.delegate doSomething])
-	// object:nil userInfo:nil]; /* dictionary containing variables to pass to the delegate */
+// where you would call a delegate method (e.g. [self.delegate doSomething])
+// object:nil userInfo:nil]; /* dictionary containing variables to pass to the delegate */
 //	return [AtoZ sharedInstance ].dockSorted;
 //}
 
@@ -193,7 +139,7 @@ NSString *const AtoZSuperLayer = @"superlayer";
 //}
 + (NSArray*) appFolderSorted {
 	if (! [AtoZ sharedInstance].appFolderSorted )
-	[AtoZ sharedInstance].appFolderSorted = [[[AtoZ appFolder] sortedWithKey:@"hue" ascending:YES] reversed].mutableCopy;
+		[AtoZ sharedInstance].appFolderSorted = [[[AtoZ appFolder] sortedWithKey:@"hue" ascending:YES] reversed].mutableCopy;
 	return  [AtoZ sharedInstance].appFolderSorted;
 }
 
@@ -208,9 +154,9 @@ NSString *const AtoZSuperLayer = @"superlayer";
 		}];
 	}
 	[AZStopwatch stop:@"appFolder"];
-//	[[AtoZ sharedInstance] useHRCoderIfAvailable];
-//	NSLog(@"%@", [[AtoZ sharedInstance] codableKeys]);
-//	[[AtoZ sharedInstance] writeToFile:@"/Users/localadmin/Desktop/poop.plist" atomically:NO];
+	//	[[AtoZ sharedInstance] useHRCoderIfAvailable];
+	//	NSLog(@"%@", [[AtoZ sharedInstance] codableKeys]);
+	//	[[AtoZ sharedInstance] writeToFile:@"/Users/localadmin/Desktop/poop.plist" atomically:NO];
 
 	return [AtoZ sharedInstance].appFolder;
 }
@@ -258,13 +204,13 @@ NSString *const AtoZSuperLayer = @"superlayer";
 
 + (NSArray*) fengshui {
 	return [[NSColor fengshui].reversed arrayUsingBlock:^id(id obj) {
-		 AZFile *t = [AZFile dummy];		t.color = (NSColor*)obj; t.spot = 22;	return t;	}];
+		AZFile *t = [AZFile dummy];		t.color = (NSColor*)obj; t.spot = 22;	return t;	}];
 }
 + (NSArray*) runningApps {
 
 	return [[[[NSWorkspace sharedWorkspace] runningApplications] valueForKeyPath:@"bundleURL"] arrayUsingBlock:^id(id obj) {
 		if ([obj isKindOfClass:[NSURL class]])
-		return [AZFile instanceWithPath:[obj path]];
+			return [AZFile instanceWithPath:[obj path]];
 		else return nil;
 	}];
 }
@@ -276,6 +222,59 @@ NSString *const AtoZSuperLayer = @"superlayer";
 			return [obj path];
 		else return nil;
 	}];
+}
+
+
+static void soundCompleted(SystemSoundID soundFileObject, void *clientData) {
+    if (soundFileObject != kSystemSoundID_UserPreferredAlert)     // Clean up.
+        AudioServicesDisposeSystemSoundID(soundFileObject);
+}
+
+
+- (void)playNotificationSound:(NSDictionary *)apsDictionary
+{
+    // App could implement its own preferences so the user could specify if they want sounds or alerts.
+    // if (userEnabledSounds)
+
+    NSString *soundName = (NSString *)[apsDictionary valueForKey:(id)@"sound"];
+    if (soundName != nil) {
+        SystemSoundID soundFileObject   = kSystemSoundID_UserPreferredAlert;
+        CFURLRef soundFileURLRef        = NULL;
+
+        if ([soundName compare:@"default"] != NSOrderedSame) {
+            // Get the main bundle for the app.
+            CFBundleRef mainBundle = CFBundleGetMainBundle();
+
+            // Get the URL to the sound file to play. The sound property's value is the full filename including the extension.
+            soundFileURLRef = CFBundleCopyResourceURL(mainBundle,
+                                                      (__bridge CFStringRef)soundName,
+                                                      NULL,
+                                                      NULL);
+
+            // Create a system sound object representing the sound file.
+            AudioServicesCreateSystemSoundID(soundFileURLRef,
+                                             &soundFileObject);
+
+            CFRelease(soundFileURLRef);
+        }
+
+        // Register a function to be called when the sound is done playing.
+        AudioServicesAddSystemSoundCompletion(soundFileObject, NULL, NULL, soundCompleted, NULL);
+
+        // Play the sound.
+        AudioServicesPlaySystemSound(soundFileObject);
+    }
+}
+
+
+- (void)badgeApplicationIcon:(NSString*)string
+{
+    NSDockTile *dockTile = [[NSApplication sharedApplication] dockTile];
+    if (string != nil)
+        [dockTile setBadgeLabel:string];
+    else
+        [dockTile setBadgeLabel:nil];
+
 }
 
 @end
@@ -303,7 +302,7 @@ NSString *const AtoZSuperLayer = @"superlayer";
 NSString *const AZFileUpdated = @"AZFileUpdated";
 
 @implementation AZFile
-@synthesize path, name, color, customColor, labelColor, colors, icon, image;
+@synthesize path, name, color, customColor, labelColor, icon, image;
 @synthesize dockPoint, dockPointNew, spot, spotNew;
 @synthesize hue, isRunning, hasLabel, needsToMove, labelNumber;
 //@synthesize itunesInfo, itunesDescription;
@@ -344,14 +343,14 @@ NSString *const AZFileUpdated = @"AZFileUpdated";
 	dd.path = path;
 	dd.name = [[path lastPathComponent] stringByDeletingPathExtension];
 	dd.image = [[NSWorkspace sharedWorkspace] iconForFile:path];
-//	dd.image.size = NSMakeSize(128,128);
+	//	dd.image.size = NSMakeSize(128,128);
 	dd.image.scalesWhenResized = YES;
-//	[[NSThread mainThread]performBlock:^{
+	//	[[NSThread mainThread]performBlock:^{
 	[NSThread performBlockInBackground:^{
 		dd.color = [[dd.colors objectAtNormalizedIndex:0]valueForKey:@"color"];
 		dd.labelColor = [dd labelColor];
 		dd.labelNumber = [dd labelNumber];
-		[[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:AZFileUpdated object:[AtoZ sharedInstance].dockSorted];
+		//		[[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:AZFileUpdated object:[AtoZ sharedInstance].dockSorted];
 
 	}];// waitUntilDone:YES];
 	return dd;
@@ -359,55 +358,58 @@ NSString *const AZFileUpdated = @"AZFileUpdated";
 
 -(NSArray*) colors {
 
-	if (colors) return  colors;
+	if (_colors) return  _colors;
 	else {
-	NSArray *rawArray = [self.image quantize];
-	// put all colors in a bag
-	NSBag *allBag = [NSBag bag];
-	for (id thing in rawArray ) [allBag add:thing];
-	NSBag *rawBag = [NSBag bag];
-	int total = 0;
-	for ( NSColor *aColor in rawArray ) {
-		//get rid of any colors that account for less than 10% of total
-		if ( ( [allBag occurrencesOf:aColor] > ( .0005 * [rawArray count]) )) {
-			// test for borigness
-			if ( [aColor isBoring] == NO ) {
-				NSColor *close = [aColor closestNamedColor];
+	@autoreleasepool {
+
+		NSArray *rawArray = [self.image quantize];
+		// put all colors in a bag
+		NSBag *allBag = [NSBag bag];
+		for (id thing in rawArray ) [allBag add:thing];
+		NSBag *rawBag = [NSBag bag];
+		int total = 0;
+		for ( NSColor *aColor in rawArray ) {
+			//get rid of any colors that account for less than 10% of total
+			if ( ( [allBag occurrencesOf:aColor] > ( .0005 * [rawArray count]) )) {
+				// test for borigness
+				if ( [aColor isBoring] == NO ) {
+					NSColor *close = [aColor closestNamedColor];
+					total++;
+					[rawBag add:close];
+				}
+			}
+		}
+		NSArray *exciting = 	[[rawBag objects] filter:^BOOL(id object) {
+			NSColor *idColor = object;
+			return ([idColor isBoring] ? FALSE : TRUE);
+		}];
+
+		//uh oh, too few colors
+		if ( ([[rawBag objects]count] < 2) || (exciting.count < 2 )) {
+			for ( NSColor *salvageColor in rawArray ) {
+				NSColor *close = [salvageColor closestNamedColor];
 				total++;
 				[rawBag add:close];
-		 	}
+			}
 		}
-	}
-	NSArray *exciting = 	[[rawBag objects] filter:^BOOL(id object) {
-		NSColor *idColor = object;
-		return ([idColor isBoring] ? FALSE : TRUE);
-	}];
-	
-	//uh oh, too few colors
-	if ( ([[rawBag objects]count] < 2) || (exciting.count < 2 )) {
-		for ( NSColor *salvageColor in rawArray ) {
-			NSColor *close = [salvageColor closestNamedColor];
-			total++;
-			[rawBag add:close];
+		NSMutableArray *colorsUnsorted = [NSMutableArray array];
+
+		for (NSColor *idColor in [rawBag objects] ) {
+
+			AZColor *acolor = [AZColor instance];
+			acolor.color = idColor;
+			acolor.count = [rawBag occurrencesOf:idColor];
+			acolor.percent = ( [rawBag occurrencesOf:idColor] / (float)total );
+			[colorsUnsorted addObject:acolor];
 		}
+		rawBag = nil; allBag = nil;
+		return [colorsUnsorted sortedWithKey:@"count" ascending:NO];
 	}
-	NSMutableArray *colorsUnsorted = [NSMutableArray array];
-	
-	for (NSColor *idColor in [rawBag objects] ) {
-		
-		AZColor *acolor = [AZColor instance];
-		acolor.color = idColor;
-		acolor.count = [rawBag occurrencesOf:idColor];
-		acolor.percent = ( [rawBag occurrencesOf:idColor] / (float)total );
-		[colorsUnsorted addObject:acolor];
-	}
-	rawBag = nil; allBag = nil;
-	return [colorsUnsorted sortedWithKey:@"count" ascending:NO];
 	}
 }
 //- (NSColor*) color {
 //	NSLog(@"color for %@:  %@", self.name, (color ? color : [[self.colors objectAtNormalizedIndex:0] valueForKey:@"color"]));
-//	return (color ? color : [[self.colors objectAtNormalizedIndex:0] valueForKey:@"color"]); 
+//	return (color ? color : [[self.colors objectAtNormalizedIndex:0] valueForKey:@"color"]);
 //}
 
 - (CGFloat) hue { return self.color.hueComponent; }
@@ -415,7 +417,7 @@ NSString *const AZFileUpdated = @"AZFileUpdated";
 
 
 - (BOOL) isRunning {
-	
+
 	return  ([[[[NSWorkspace sharedWorkspace] runningApplications] valueForKeyPath:@"localizedName"]containsObject:self.name] ? YES : NO);
 }
 
@@ -435,15 +437,15 @@ NSString *const AZFileUpdated = @"AZFileUpdated";
 }
 - (void)setLabelColor:(NSColor *)aLabelColor {
 	NSError *error = nil;
-	NSURL* fileURL = [NSURL fileURLWithPath:self.path];	
+	NSURL* fileURL = [NSURL fileURLWithPath:self.path];
 	[fileURL setResourceValue:(id)aLabelColor forKey:NSURLLabelColorKey error:&error];
-	if (error) NSLog(@"Problem setting label for %@", self.name);		
+	if (error) NSLog(@"Problem setting label for %@", self.name);
 }
 - (void)setLabelNumber:(NSNumber*)aLabelNumber {
 	NSError *error = nil;
-	NSURL* fileURL = [NSURL fileURLWithPath:self.path];	
+	NSURL* fileURL = [NSURL fileURLWithPath:self.path];
 	[fileURL setResourceValue:aLabelNumber forKey:NSURLLabelNumberKey error:&error];
-	if (error) NSLog(@"Problem setting label (#) for %@", self.name);		
+	if (error) NSLog(@"Problem setting label (#) for %@", self.name);
     return;
 }
 
@@ -452,7 +454,18 @@ NSString *const AZFileUpdated = @"AZFileUpdated";
 void NSLog (NSString *format, ...) {	va_list argList;	va_start (argList, format);
 	NSString *message = [[NSString alloc] initWithFormat:format arguments:argList];
 	fprintf (stderr, "%s \n", [message UTF8String]); 	va_end  (argList);
-} // QuietLog 
+} // QuietLog
+
+@implementation  NSObject (debugandreturn)
+
+- (id) debugReturn:(id) val{
+	if ([self valueForKeyPath:@"dictionary.debug"])
+		NSLog(@"Debug Return Value: %@  Info:%@", val, [(NSObject*) val propertiesPlease]);
+	return val;
+}
+@end
+
+
 
 int max(int x, int y)
 {
@@ -462,15 +475,15 @@ int max(int x, int y)
 
 @implementation  NSNumber (Incrementer)
 - (NSNumber *)increment {
-return [NSNumber numberWithInt:[self intValue]+1];
+	return [NSNumber numberWithInt:[self intValue]+1];
 }
 @end
 
 
 @implementation CAConstraint (brevity)
 +(CAConstraint*)maxX {
-	
-	return AZConstraint(kCAConstraintMaxX,@"superlayer");	
+
+	return AZConstraint(kCAConstraintMaxX,@"superlayer");
 }
 
 @end
@@ -497,15 +510,15 @@ return [NSNumber numberWithInt:[self intValue]+1];
 	}
     return self;
 }
--(void) drawRect:(NSRect)dirtyRect {	
+-(void) drawRect:(NSRect)dirtyRect {
 	//	cotn ext
-	[color set];	NSRectFill(dirtyRect); 
+	[color set];	NSRectFill(dirtyRect);
 	selected = NO;
 	//	if (selected) [self lasso];
 }
 
-- (void) mouseUp:(NSEvent *)theEvent { 
-	
+- (void) mouseUp:(NSEvent *)theEvent {
+
 	//	NSPoint location = [self convertPoint:[theEvent locationInWindow] fromView:nil];
 	//	NSLog(@"BOX HIT AT POINT: %@", NSStringFromPoint(location));
 	selected = YES;
@@ -514,14 +527,14 @@ return [NSNumber numberWithInt:[self intValue]+1];
 	color = [NSColor whiteColor];
 	float f  = 0;
 	while ( f < .6 ) {
-		color = ( color == [NSColor blackColor] ? [NSColor whiteColor] : [NSColor blackColor]); 
+		color = ( color == [NSColor blackColor] ? [NSColor whiteColor] : [NSColor blackColor]);
 		[self performSelector:@selector(flash:) withObject:color.copy afterDelay:f];
 		f = f+.1;
 	}
 	[self performSelector:@selector(flash:) withObject:save afterDelay:.6];
 }
 //	selected = YES;
--(void) flash:(NSColor*)savedColor { 
+-(void) flash:(NSColor*)savedColor {
 	//	NSLog(@"FLASHING %@", savedColor);
 	color = savedColor;
 	[self setNeedsDisplay:YES];
@@ -1456,7 +1469,7 @@ GTM_INLINE BOOL objc_atomicCompareAndSwapInstanceVariableBarrier(id predicate,
 //
 //+ (AGFoundation *)sharedInstance	{	return [super sharedInstance]; }
 //
-//- (void)setUp {	
+//- (void)setUp {
 //
 //	//	appArray = [[NSMutableArray alloc] init];
 //	//	NSArray *ws =	 [[[NSWorkspace sharedWorkspace] launchedApplications] valueForKeyPath:@"NSApplicationPath"];
@@ -1483,19 +1496,19 @@ GTM_INLINE BOOL objc_atomicCompareAndSwapInstanceVariableBarrier(id predicate,
 //@end
 
 
-//- (void)enumerateProtocolMethods:(Protocol*)p { 
-//// Custom block, used only in this method 
-//	void (^enumerate)(BOOL, BOOL) = ^(BOOL isRequired, BOOL isInstance) { 
-//		unsigned int descriptionCount; 
-//		struct objc_method_description* methodDescriptions =  protocol_copyMethodDescriptionList(p, isRequired, isInstance, &descriptionCount); 
-//		for (int i=0; i<descriptionCount; i++) { 
-//			struct objc_method_description d = methodDescriptions[i]; 
+//- (void)enumerateProtocolMethods:(Protocol*)p {
+//// Custom block, used only in this method
+//	void (^enumerate)(BOOL, BOOL) = ^(BOOL isRequired, BOOL isInstance) {
+//		unsigned int descriptionCount;
+//		struct objc_method_description* methodDescriptions =  protocol_copyMethodDescriptionList(p, isRequired, isInstance, &descriptionCount);
+//		for (int i=0; i<descriptionCount; i++) {
+//			struct objc_method_description d = methodDescriptions[i];
 //			NSLog(@"Protocol method %@ isRequired=%d isInstance=%d",  NSStringFromSelector(d.name), isRequired, isInstance);
-//		} 
-//		if (methodDescriptions)	free(methodDescriptions); 
-//	}; 
-//	// Call our block multiple times with different arguments  
-//	// to enumerate all class, instance, required and non-required methods 
+//		}
+//		if (methodDescriptions)	free(methodDescriptions);
+//	};
+//	// Call our block multiple times with different arguments
+//	// to enumerate all class, instance, required and non-required methods
 //	enumerate(YES, YES);
 //	enumerate(YES, NO);
 //	enumerate(NO, YES);
@@ -1514,31 +1527,31 @@ GTM_INLINE BOOL objc_atomicCompareAndSwapInstanceVariableBarrier(id predicate,
     CGFloat endValue = beginsOnTop ? -M_PI : 0.0f;
     flipAnimation.fromValue = [NSNumber numberWithDouble:startValue];
     flipAnimation.toValue = [NSNumber numberWithDouble:endValue];
-	
+
     // Shrinking the view makes it seem to move away from us, for a more natural effect
     // Can also grow the view to make it move out of the screen
     CABasicAnimation *shrinkAnimation = nil;
     if ( scaleFactor != 1.0f ) {
         shrinkAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
         shrinkAnimation.toValue = [NSNumber numberWithFloat:scaleFactor];
-		
+
         // We only have to animate the shrink in one direction, then use autoreverse to "grow"
         shrinkAnimation.duration = aDuration * 0.5;
         shrinkAnimation.autoreverses = YES;
     }
-	
+
     // Combine the flipping and shrinking into one smooth animation
     CAAnimationGroup *animationGroup = [CAAnimationGroup animation];
     animationGroup.animations = [NSArray arrayWithObjects:flipAnimation, shrinkAnimation, nil];
-	
+
     // As the edge gets closer to us, it appears to move faster. Simulate this in 2D with an easing function
     animationGroup.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     animationGroup.duration = aDuration;
-	
+
     // Hold the view in the state reached by the animation until we can fix it, or else we get an annoying flicker
     animationGroup.fillMode = kCAFillModeForwards;
     animationGroup.removedOnCompletion = NO;
-	
+
     return animationGroup;
 }
 
@@ -1583,16 +1596,16 @@ GTM_INLINE BOOL objc_atomicCompareAndSwapInstanceVariableBarrier(id predicate,
 	bottomLayer.frame = NSRectToCGRect(topView.frame); // topView.frame;
     bottomLayer.doubleSided = NO;
     [hostView.layer addSublayer:bottomLayer];
-	
+
     topLayer.doubleSided = NO;
     topLayer.frame = NSRectToCGRect(topView.frame);//topView.frame;
     [hostView.layer addSublayer:topLayer];
-	
+
     [CATransaction begin];
     [CATransaction setValue:[NSNumber numberWithBool:YES] forKey:kCATransactionDisableActions];
     [topView removeFromSuperview];
     [CATransaction commit];
-	
+
     topAnimation.delegate = self;
     [CATransaction begin];
     [topLayer addAnimation:topAnimation forKey:@"flip"];
@@ -1655,7 +1668,7 @@ BOOL class_conformsToProtocol(Class cls, Protocol *protocol) {
 	// all the other apis will accept nil args.
 	// If this does get fixed, remember to enable the unit tests.
 	if (!protocol) return NO;
-	
+
 	struct objc_protocol_list *protos;
 	for (protos = cls->protocols; protos != NULL; protos = protos->next) {
 		for (long i = 0; i < protos->count; i++) {
@@ -1678,13 +1691,13 @@ BOOL class_respondsToSelector(Class cls, SEL sel) {
 
 Method *class_copyMethodList(Class cls, unsigned int *outCount) {
 	if (!cls) return NULL;
-	
+
 	unsigned int count = 0;
 	void *iterator = NULL;
 	struct objc_method_list *mlist;
 	Method *methods = NULL;
 	if (outCount) *outCount = 0;
-	
+
 	while ( (mlist = class_nextMethodList(cls, &iterator)) ) {
 		if (mlist->method_count == 0) continue;
 		methods = (Method *)realloc(methods,
@@ -1698,7 +1711,7 @@ Method *class_copyMethodList(Class cls, unsigned int *outCount) {
 		}
 		count += mlist->method_count;
 	}
-	
+
 	// List must be NULL terminated
 	if (methods) {
 		methods[count] = NULL;
@@ -1758,7 +1771,7 @@ struct objc_method_description protocol_getMethodDescription(Protocol *p,
 	} else {
 		descPtr = [p descriptionForClassMethod:aSel];
 	}
-	
+
 	struct objc_method_description desc;
 	if (descPtr) {
 		desc = *descPtr;
@@ -1805,7 +1818,7 @@ BOOL sel_isEqual(SEL lhs, SEL rhs) {
 - (void) addObjects:(id)item,...{
 	if (!item) return;
 	[self add:item];
-	
+
 	va_list objects;
 	va_start(objects, item);
 	id obj = va_arg(objects, id);
@@ -1906,7 +1919,7 @@ CGFloat perceptualGlossFractionForColor(CGFloat *inputComponents)
     const CGFloat NTSC_RED_FRACTION = 0.299;
     const CGFloat NTSC_GREEN_FRACTION = 0.587;
     const CGFloat NTSC_BLUE_FRACTION = 0.114;
-	
+
     CGFloat glossScale =
 	NTSC_RED_FRACTION * inputComponents[0] +
 	NTSC_GREEN_FRACTION * inputComponents[1] +
@@ -1968,3 +1981,79 @@ extern void DrawLabelAtCenterPoint(NSString* string, NSPoint center) {
 }
 
 
+
+
+static double frandom(double start, double end)
+{
+	double r = random();
+	r /= RAND_MAX;
+	r = start + r*(end-start);
+
+	return r;
+}
+
+void ApplicationsInDirectory(NSString *searchPath, NSMutableArray *applications) {
+    BOOL isDir;
+    NSFileManager *manager = [NSFileManager defaultManager];
+    NSArray *files = [manager directoryContentsAtPath:searchPath];
+    NSEnumerator *fileEnum = [files objectEnumerator]; NSString *file;
+    while (file = [fileEnum nextObject]) {
+        [manager changeCurrentDirectoryPath:searchPath];
+        if ([manager fileExistsAtPath:file isDirectory:&isDir] && isDir) {
+            NSString *fullpath = [searchPath stringByAppendingPathComponent:file];
+            if ([[file pathExtension] isEqualToString:@"app"]) [applications addObject:fullpath];
+            else ApplicationsInDirectory(fullpath, applications);
+        }
+    }
+}
+
+NSArray *AllApplications(NSArray *searchPaths) {
+    NSMutableArray *applications = [NSMutableArray array];
+    NSEnumerator *searchPathEnum = [searchPaths objectEnumerator]; NSString *path;
+    while (path = [searchPathEnum nextObject]) ApplicationsInDirectory(path, applications);
+    return ([applications count]) ? applications : nil;
+}
+
+
+NSString *const AtoZSharedInstanceUpdated = @"AtoZSharedInstanceUpdated";
+NSString *const AtoZDockSortedUpdated = @"AtoZDockSortedUpdated";
+NSString *const AtoZSuperLayer = @"superlayer";
+
+
+CGFloat ScreenWidess(){
+	return  [[NSScreen mainScreen]frame].size.width;
+}
+CGFloat ScreenHighness 	(){
+	return	[[NSScreen mainScreen]frame].size.height;
+}
+
+//  usage  		profile("Long Task", ^{ performLongTask() } );
+void profile (const char *name, void (^work) (void)) {
+    struct timeval start, end;
+    gettimeofday (&start, NULL);
+    work();
+    gettimeofday (&end, NULL);
+
+    double fstart = (start.tv_sec * 1000000.0 + start.tv_usec) / 1000000.0;
+    double fend = (end.tv_sec * 1000000.0 + end.tv_usec) / 1000000.0;
+
+    printf("%s took %f seconds", name, fend - fstart);
+}
+
+CGFloat DegreesToRadians(CGFloat degrees) {
+    return degrees * M_PI / 180;
+}
+NSNumber* DegreesToNumber(CGFloat degrees) {
+    return [NSNumber numberWithFloat:
+            DegreesToRadians(degrees)];
+}
+
+@implementation CALayerNoHit
+- (BOOL)containsPoint:(CGPoint)p {	return FALSE; }
+@end
+@implementation CAShapeLayerNoHit
+- (BOOL)containsPoint:(CGPoint)p {	return FALSE; }
+@end
+@implementation CATextLayerNoHit
+- (BOOL)containsPoint:(CGPoint)p {	return FALSE; }
+@end

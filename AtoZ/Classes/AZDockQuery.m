@@ -63,11 +63,17 @@
 //							posY = [NSString stringWithFormat:@"%.f", coordinates.y];
 						}
 					}
-//					AZFile *app = [AZFile instanceWithPath:convertedURL];
-					NSString *app = convertedURL;
-					NSDictionary *d = @{	@"path" : app,
-											@"spot" : counter,
-									   @"dockPoint" : [NSValue valueWithPoint:coordinates]};
+
+					AZFile *d =  [AZFile instance];
+// [AZFile instanceWithPath:convertedURL];
+//					NSString *app = convertedURL;
+					d.path =  convertedURL;
+					d.spot = counter.unsignedIntegerValue;
+					d.dockPoint = coordinates;
+
+//					NSDictionary *d = @{	@"path" : app,
+//											@"spot" : counter,
+//									   @"dockPoint" : [NSValue valueWithPoint:coordinates]};
 //					app.spot = counter.intValue;
 //					app.dockPoint = coordinates;
 //					app.dockPoint = (__bridge_transfer CGPoint)coordinates;
@@ -83,12 +89,12 @@
 			} // if preferreed role
 		}
 		return nil;
-		[AZStopwatch stop:@"makeDock"];
 	}];//dock enumerator
 //	NSLog(@"** GetDockDone: Aquired from AX. **\n Sendinging notofcation \"setStartupStepStatus\"= ** 1 **. \n  Also, will send setNumberOfDBXObjects: ** %ld **.", theApps.count); //[self.delegate setStartupStepStatus:1];
 //	if ([self.delegate respondsToSelector:@selector(setStartupStepStatus:)])   [[self delegate] didFinishDBXInit];
 
 //	return theApps;//.mutableCopy;
+	[AZStopwatch stop:@"makeDock"];
 }
 
 

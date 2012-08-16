@@ -6,14 +6,18 @@
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 //
 
-#import "AppDelegate.h"
+#import "AZEncyclopediaDelegate.h"
 
-@implementation AppDelegate
+@implementation AZEncyclopediaDelegate
+{
+BOOL cancelled;
+}
 //@synthesize pIndi;
 //@synthesize orientButton;
 //@synthesize scaleSlider;
 
 @synthesize window = _window, root, demos, contentLayer;
+@synthesize infinityView;
 
 @synthesize  rootView, isoView;
 
@@ -21,7 +25,7 @@
 
 	//	AZTalker *welcome = [AZTalker new];
 	//	[welcome say:@"welcome"];
-	[NSLogConsole sharedConsole];
+//	[NSLogConsole sharedConsole];
 
 }
 
@@ -60,43 +64,61 @@
 
 -(void)awakeFromNib{
 
-	[[NSLogConsole sharedConsole]open];
+//	[[NSLogConsole sharedConsole]open];
 
 	//	NSRect erect = NSInsetRect([[_window contentView] bounds],25,25);
 	//	ibackgroundView.frame = erect;
 	//	[ibackgroundView setHidden:YES];
 	//	[container addSubview:ibackgroundView];
-	[_window setDelegate:self];
-	[[_window contentView] removeFromSuperview];
-	[_window setContentView:_mouseTest];
+//	[_window setDelegate:self];
+//	[[_window contentView] removeFromSuperview];
+//	[_window setContentView:_mouseTest];
 	_window.delegate = self;
+	[self makeBadges];
+	cancelled = NO;
+	self.infinityView.infiniteObjects = [AtoZ dock];
+//	NSLog(@"Dock:  %@", dock);
 
-	[AZStopwatch start:@"makingbadges"];
-	[NSThread performBlockInBackground:^{
+}
+-(void) makeBadges {
+		[AZStopwatch start:@"makingbadges"];
+//	[NSThread performBlockInBackground:^{
 
 		SourceListItem *appsListItem = [SourceListItem itemWithTitle:@"APPS" identifier:@"apps"];
-		[appsListItem setBadgeValue:[[AtoZ dock]count]];
-		[appsListItem setIcon:[NSImage imageNamed:NSImageNameApplicationIcon]];
+//		[appsListItem setBadgeValue:[[AtoZ dock]count]];
+		[appsListItem setIcon:[NSImage imageNamed:NSImageNameAddTemplate]];
 		[appsListItem setChildren:[[AtoZ dock] arrayUsingBlock:^id(AZFile* obj) {
 			SourceListItem *app = [SourceListItem itemWithTitle:obj.name identifier:obj.uniqueID icon:obj.image];
+			AZFile* sorted =[[AtoZ dockSorted] filterOne:^BOOL(AZFile* sortObj) {
+				return ([sortObj.uniqueID isEqualToString:obj.uniqueID] ? YES : NO);
+			}];
+			NSLog(@"%@, spot: %ld, match sorted: %@ spot%ld", obj.name, obj.spot, sorted.name, sorted.spotNew);
+//			app.badgeValue = sorted.spotNew;
 
-			app.color = obj.color;
-			app.objectRep = app;
-			[app setChildren:[[[obj propertiesPlease] allKeys] arrayUsingBlock:^id(NSString* key) {
-				if ( [key isEqualToAnyOf:@[@"name",@"image", @"colors"]]) return  nil;
-				else return [SourceListItem itemWithTitle:$(@"%@: %@",key,[obj valueForKey:key]) identifier:nil];
+
+			app.color = sorted.color;
+			app.objectRep = sorted;
+			[app setChildren:[[[sorted propertiesPlease] allKeys] arrayUsingBlock:^id(NSString* key) {
+				if ( [key isEqualToAnyOf:@[@"name",@"image", @"color", @"colors"]]) return  nil;
+				else return [SourceListItem itemWithTitle:$(@"%@: %@",key,[sorted valueForKey:key]) identifier:nil];
 			}]];
-			[app setBadgeValue:obj.spotNew];// //] propertiesPlease]allKeys]count]];
-		
+//
 			return app;
 		}]];
-		[[NSThread mainThread] performBlock:^{
+//		[[NSThread mainThread] performBlock:^{
 			sourceListItems = @[appsListItem];
 			[AZStopwatch stop:@"makingbadges"];
 			[sourceList reloadData];
-		} waitUntilDone:YES];
- 	}];
-	
+}
+
+
+- (IBAction)reload:(id)sender {
+
+	[sourceList reloadData];
+}
+//		} waitUntilDone:YES];
+// 	}];
+
 //	NSArray *g = @[[AZFile instanceWithPath:@"/Applications/Safari.app"]];
 
 	/*
@@ -125,12 +147,37 @@
 	 }];
 	 [rootView setPostsBoundsChangedNotifications:YES];
 	 [[NSNotificationCenter defaultCenter] addObserver:self forKeyPath:NSViewBoundsDidChangeNotification];*/
+
+
+-(IBAction) cancel:(id) sender {
+	cancelled = YES;
+
 }
+-(IBAction) moveThemAll:(id) sender {
+	NSLog(@"Move them all called");
+//	AZWindowExtend *screen = [AZWindowExtend alloc]init
+
+	for (AZFile *file in [AtoZ dock]) {
+		if (cancelled == NO){
+//			[[NSThread mainThread]performBlock:^{
+				NSLog(@"%@ spot:%ld to %ld", file.name, file.spot, file.spotNew);
+
+			CGPoint now = [[AZDockQuery instance]locationNowForAppWithPath:file.path];
+			[_point1x setStringValue:$(@"%f",now.x)];
+			[_point1y setStringValue:$(@"%f",now.y)];
+			AZTalker *j =[[AZTalker alloc]init];
+			[j say:file.name];
+				[[AZMouser sharedInstance]dragFrom:now to:file.dockPointNew];
+//			} waitUntilDone:YES];
+		} else NSLog(@"cancelled is YES");
+	}
+}
+
 
 -(void) pointOnScreenDidChangeTo:(id)point{
 
 
-	CGPoint i = [[AZMouser sharedInstance] mouseLocation];
+	CGPoint i = mouseLoc();//[[AZMouser sharedInstance] mouseLocation];
 	NSLog(@"delegate.. %ix%i", (int)i.x, (int)i.y);
 //	NSLog(@"delegate rec's point note: %@", NSStringFromPoint([point pointValue]));
 
@@ -143,8 +190,9 @@
 	switch (tagis) {
 		case 0: {
 			CGPoint move = CGPointMake(_point1x.floatValue, _point1y.floatValue);
-			[[AZMouser sharedInstance]moveTo:move];
-
+//			[[AZMouser sharedInstance]moveTo:move];
+//			AZMouser *h = [AZMouser instance];
+			moveTo(move);
 			break;
 			}
 		case 1:
@@ -548,14 +596,22 @@
 
 - (NSUInteger)sourceList:(AZSourceList*)sourceList numberOfChildrenOfItem:(id)item
 {
+	SourceListItem *i = item;
+
+	NSLog(@"Object:%@", i.objectRep);// [item propertiesPlease]);
 	//Works the same way as the NSOutlineView data source: `nil` means a parent item
 	if(item==nil) {
 		return [sourceListItems count];
 	}
 	else {
+
+
 		return [[item children] count];
 	}
 }
+
+//- (BOOL)sourceList:(AZSourceList*)aSourceList isItemExpandable:(id)item {
+//
 
 
 - (id)sourceList:(AZSourceList*)aSourceList child:(NSUInteger)index ofItem:(id)item
@@ -573,13 +629,19 @@
 - (id)sourceList:(AZSourceList*)aSourceList objectValueForItem:(id)item
 {
 	return [item title];
+
+//	return [[AtoZ dockSorted] filterOne:^BOOL(AZFile* object) {
+//		return ( [object.uniqueID isEqualTo:[item identifier]] ? YES : NO);
+//	}];
+
+
 }
 
 
 - (void)sourceList:(AZSourceList*)aSourceList setObjectValue:(id)object forItem:(id)item
 {
 
-	[item setObjectValue:[[AtoZ selectedDock] filterOne:^BOOL(AZFile* object) {
+	[item setObjectValue:[[AtoZ dockSorted] filterOne:^BOOL(AZFile* object) {
 		return ([object.uniqueID isEqualToString:[item identifier]] ? YES : NO);
 	}]];
 
@@ -596,7 +658,9 @@
 
 - (BOOL)sourceList:(AZSourceList*)aSourceList itemHasBadge:(id)item
 {
-	return [item hasBadge];
+	if ([[item valueForKey:@"objectRep"] isKindOfClass:[AZFile class]])
+		return YES;
+	else return NO;   // [item hasBadge];
 }
 
 - (NSColor*)sourceList:(AZSourceList*)aSourceList badgeBackgroundColorForItem:(id)item {
@@ -611,7 +675,11 @@
 
 - (NSInteger)sourceList:(AZSourceList*)aSourceList badgeValueForItem:(id)item
 {
-	return [item badgeValue];
+	AZFile *first = [[AtoZ dockSorted] filterOne:^BOOL(AZFile* object) {
+		return ( [object.uniqueID isEqualTo:[item identifier]] ? YES : NO);
+	}];
+	return first.spotNew;
+//	return [item badgeValue];
 }
 
 
@@ -662,8 +730,12 @@
 		AZFile *first = [[AtoZ dockSorted] filterOne:^BOOL(AZFile* object) {
 			return ( [object.uniqueID isEqualTo:identifier] ? YES : NO);
 		}];
-		[_point1x setStringValue:$(@"%f",first.dockPoint.x)];
-		[_point1y setStringValue:$(@"%f",first.dockPoint.y)];
+		CGPoint now = [[AZDockQuery instance]locationNowForAppWithPath:first.path];
+		[_point1x setStringValue:$(@"%f",now.x)];
+		[_point1y setStringValue:$(@"%f",now.y)];
+		[_point2x setStringValue:$(@"%f",first.dockPointNew.x)];
+		[_point2y setStringValue:$(@"%f",first.dockPointNew.y)];
+
 	}
 	if([selectedIndexes count]==2)
 	{

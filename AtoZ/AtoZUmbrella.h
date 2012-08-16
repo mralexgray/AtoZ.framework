@@ -1,6 +1,8 @@
 
 
 
+#import "AtoZ.h"
+
 
 //  BaseModel.h
 //  Version 2.3.1
@@ -79,93 +81,25 @@ NSNumber* DegreesToNumber(CGFloat degrees);
 
 
 
-#import "BaseModel.h"
-#import "AZApplePrivate.h"
-#import "TransparentWindow.h"
-#import "RoundedView.h"
-#import "AZWindowExtend.h"
-
-//#define EXCLUDE_STUB_PROTOTYPES 1
-//#import <PLWeakCompatibility/PLWeakCompatibilityStubs.h>
-//	#import <AtoZiTunes/AtoZiTunes.h>
-
-
-#import "AZGeometry.h"
-
-// Categories
-#import "NSThread+AtoZ.h"
-#import "NSNotificationCenter+AtoZ.h"
-#import "NSApplication+AtoZ.h"
-#import "NSColor+AtoZ.h"
-#import "NSArray+AtoZ.h"
-#import "NSString+AtoZ.h"
-#import "NSView+AtoZ.h"
-#import "NSBezierPath+AtoZ.h"
-#import "NSImage+AtoZ.h"
-#import "NSWindow+AtoZ.h"
-#import "NSShadow+AtoZ.h"
-#import "NSNumber+AtoZ.h"
-#import "CAAnimation+AtoZ.h"
-#import "CALayer+AtoZ.h"
-#import "NSScreen+AtoZ.h"
-#import "NSObject+AtoZ.h"
-#import "AZNotificationCenter.h"
-
-#import "NSWindow_Flipr.h"
-#import "NSLogConsole.h"
-
-
-
-//#import "NSObject+AutoCoding.h"
-#import "AZCSSColors.h"
-
-#import "MondoSwitch.h"
-#import "AZToggle.h"
-//#import "AZToggleView.h"
-
-//Classes
-//#imoport "A
-
-#import "AZQueue.h"
-
-#import "AZDockQuery.h"
-#import "AZAXAuthorization.h"
-#import "AZMouser.h"
-// Views
-#import "AZFoamView.h"
-#import "AZBlockView.h"
-#import "AZProgressIndicator.h"
-#import "AZPopupWindow.h"
-#import "AZIndeterminateIndicator.h"
-#import "AZAttachedWindow.h"
-#import "AZStopwatch.h"
-#import "AZBox.h"
-#import "AZBoxGrid.h"
-#import "AZBoxMagic.h"
-#import "AZSizer.h"
-#import "AZInfiniteCell.h"
-#import "AZSourceList.h"
-#import "AZTalker.h"
-#import "AZBoxLayer.h"
-#import "AZOverlay.h"
-#import "AZSimpleView.h"
-#import "AtoZInfinity.h"
-
-
 //#import "AtoZiTunes.h"
 
 // Sweetness vs. longwindedness
 
+#define $point(A)       	[NSValue valueWithPoint:A]
 
-#define $(...)        ((NSString *)[NSString stringWithFormat:__VA_ARGS__,nil])
-#define $array(...)   ((NSArray *)[NSArray arrayWithObjects:__VA_ARGS__,nil])
-#define $set(...)     ((NSSet *)[NSSet setWithObjects:__VA_ARGS__,nil])
-#define $map(...)     ((NSDictionary *)[NSDictionary dictionaryWithObjectsAndKeys:__VA_ARGS__,nil])
-#define $int(A)       [NSNumber numberWithInt:(A)]
-#define $ints(...)    [NSArray arrayWithInts:__VA_ARGS__,NSNotFound]
-#define $float(A)     [NSNumber numberWithFloat:(A)]
-#define $doubles(...) [NSArray arrayWithDoubles:__VA_ARGS__,MAXFLOAT]
-#define $words(...)   [[@#__VA_ARGS__ splitByComma] trimmedStrings]
+#define $points(A,B)       	[NSValue valueWithPoint:CGPointMake(A,B)]
+#define $rect(A,B,C,D)    	[NSValue valueWithRect:CGRectMake(A,B,C,D)]
+
+#define ptmake(A,B)			CGPointMake(A,B)
+#define $(...)        		((NSString *)[NSString stringWithFormat:__VA_ARGS__,nil])
+#define $array(...)  		((NSArray *)[NSArray arrayWithObjects:__VA_ARGS__,nil])
+#define $set(...)    	 	((NSSet *)[NSSet setWithObjects:__VA_ARGS__,nil])
+#define $map(...)     		((NSDictionary *)[NSDictionary dictionaryWithObjectsAndKeys:__VA_ARGS__,nil])
+#define $int(A)       		[NSNumber numberWithInt:(A)]
+#define $ints(...)    		[NSArray arrayWithInts:__VA_ARGS__,NSNotFound]
+#define $float(A)     		[NSNumber numberWithFloat:(A)]
+#define $doubles(...) 		[NSArray arrayWithDoubles:__VA_ARGS__,MAXFLOAT]
+#define $words(...)   		[[@#__VA_ARGS__ splitByComma] trimmedStrings]
 #define $concat(A,...) { A = [A arrayByAddingObjectsFromArray:((NSArray *)[NSArray arrayWithObjects:__VA_ARGS__,nil])]; }
 
 #define nilease(A) [A release]; A = nil

@@ -56,6 +56,9 @@ CGFloat AZAreaOfRect(NSRect rect) {
   return AZAreaOfSize(rect.size);
 }
 
+float AZDistanceFromPoint (NSPoint p1,NSPoint p2) {
+	return distanceFromPoint(p1, p2);
+}
 float distanceFromPoint (NSPoint p1, NSPoint p2) {
 	float temp;
 	temp = pow(p1.x - p2.x, 2);

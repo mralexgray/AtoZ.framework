@@ -11,19 +11,37 @@ typedef enum {
 }	AZOrient;
 
 typedef enum {
-	AZInfiteScale0X  = 0,
-	AZInfiteScale1X  = 1,
-	AZInfiteScale2X  = 2,
-	AZInfiteScale3X  = 3,
-	AZInfiteScale10X = 10
+	AZInfiteScale0X,
+	AZInfiteScale1X,
+	AZInfiteScale2X,
+	AZInfiteScale3X,
+	AZInfiteScale10X
 } 	AZInfiteScale;
 
+
+@interface InfiniteDocumentView : NSView
+@end
+
+@interface NSClipView (InfinityAdditions)
+//- (BOOL)isFlipped;
+@end
+
 @interface AtoZInfinity : NSScrollView // <NSWindowDelegate, AJSiTunesAPIDelegate>
+
+@property (assign, nonatomic) NSTrackingArea *trackingArea;
+
+@property (assign, nonatomic) NSSize totalBar;
+@property (assign, nonatomic) NSRect barUnit;
+@property (assign, nonatomic) NSRect totalBarFrame;
+
+@property (retain, nonatomic) InfiniteDocumentView *docV;
+@property (retain, nonatomic) NSImageView *imageViewBar;
 
 @property (assign, nonatomic) NSRect unit;
 @property (assign, nonatomic) AZInfiteScale scale;
 @property (assign, nonatomic) AZOrient orientation;
-@property (nonatomic, strong) NSMutableArray *infiniteViews;
+@property (retain, nonatomic) NSArray *infiniteObjects;
+- (void) setupInfiniBar;
 
 //- (void) stack;
 //- (void) popItForView:(AZSimpleView*)vv;

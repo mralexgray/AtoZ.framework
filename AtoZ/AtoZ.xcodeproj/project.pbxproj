@@ -8,37 +8,34 @@
 
 /* Begin PBXBuildFile section */
 		7B05BB0C159C40A600409B83 /* AZQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B05BB0A159C40A600409B83 /* AZQueue.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7B05BB0F159C4C7400409B83 /* AZQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B05BB0B159C40A600409B83 /* AZQueue.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7B05BB14159C5C6100409B83 /* AZBlockView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B05BB12159C5C6100409B83 /* AZBlockView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7B05BB15159C5C6100409B83 /* AZBlockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B05BB13159C5C6100409B83 /* AZBlockView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7B05BB15159C5C6100409B83 /* AZBlockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B05BB13159C5C6100409B83 /* AZBlockView.m */; };
 		7B091A3015A8448E00821FFD /* AZHoverButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B091A2E15A8448E00821FFD /* AZHoverButton.h */; };
-		7B091A3115A8448E00821FFD /* AZHoverButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B091A2F15A8448E00821FFD /* AZHoverButton.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7B091A3115A8448E00821FFD /* AZHoverButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B091A2F15A8448E00821FFD /* AZHoverButton.m */; };
 		7B091A3915A845A700821FFD /* NSShadow+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B091A3715A845A700821FFD /* NSShadow+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7B091A3A15A845A700821FFD /* NSShadow+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B091A3815A845A700821FFD /* NSShadow+AtoZ.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7B091A3A15A845A700821FFD /* NSShadow+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B091A3815A845A700821FFD /* NSShadow+AtoZ.m */; };
 		7B091A3E15A850E500821FFD /* AZButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B091A3C15A850E500821FFD /* AZButton.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7B091A3F15A850E500821FFD /* AZButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B091A3D15A850E500821FFD /* AZButton.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7B091A3F15A850E500821FFD /* AZButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B091A3D15A850E500821FFD /* AZButton.m */; };
 		7B091A4515A887B500821FFD /* AZTalker.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B091A4315A887B500821FFD /* AZTalker.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7B091A4615A887B500821FFD /* AZTalker.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B091A4415A887B500821FFD /* AZTalker.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		7B0AD37D15D0AD1B005B1DBF /* DarkKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B0AD37C15D0AD1B005B1DBF /* DarkKit.framework */; };
-		7B0AD38015D0AFBB005B1DBF /* DarkKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7B0AD37C15D0AD1B005B1DBF /* DarkKit.framework */; };
+		7B091A4615A887B500821FFD /* AZTalker.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B091A4415A887B500821FFD /* AZTalker.m */; };
 		7B0B7A4515A22C0D006B5062 /* NSImage+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B0B7A4315A22C0D006B5062 /* NSImage+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7B0B7A4615A22C0D006B5062 /* NSImage+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0B7A4415A22C0D006B5062 /* NSImage+AtoZ.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7B0B7A4615A22C0D006B5062 /* NSImage+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0B7A4415A22C0D006B5062 /* NSImage+AtoZ.m */; };
 		7B0B7A7C15A3553F006B5062 /* AZIndeterminateIndicator.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B0B7A7A15A3553F006B5062 /* AZIndeterminateIndicator.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7B0B7A7D15A3553F006B5062 /* AZIndeterminateIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0B7A7B15A3553F006B5062 /* AZIndeterminateIndicator.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7B0D7C2115A3D2C400037D30 /* AZBoxGrid.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B0B7A8B15A370BB006B5062 /* AZBoxGrid.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7B0D7C2315A3D2CB00037D30 /* AZBoxGrid.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0B7A8C15A370BB006B5062 /* AZBoxGrid.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7B0D7C2315A3D2CB00037D30 /* AZBoxGrid.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0B7A8C15A370BB006B5062 /* AZBoxGrid.m */; };
 		7B0D7C3F15A3F0BA00037D30 /* MondoSwitch.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B0D7C3915A3F0BA00037D30 /* MondoSwitch.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7B0D7C4015A3F0BA00037D30 /* MondoSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0D7C3A15A3F0BA00037D30 /* MondoSwitch.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7B0D7C4215A3F0BA00037D30 /* MondoSwitchButtonCALayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B0D7C3C15A3F0BA00037D30 /* MondoSwitchButtonCALayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7B0D7C4315A3F0BA00037D30 /* MondoSwitchButtonCALayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0D7C3D15A3F0BA00037D30 /* MondoSwitchButtonCALayer.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7B0D7C4315A3F0BA00037D30 /* MondoSwitchButtonCALayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0D7C3D15A3F0BA00037D30 /* MondoSwitchButtonCALayer.m */; };
 		7B0D7C5315A401A100037D30 /* AZToggle.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B0D7C5115A401A100037D30 /* AZToggle.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7B0D7C5515A409FC00037D30 /* AZToggle.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0D7C5215A401A100037D30 /* AZToggle.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7B0D7C5515A409FC00037D30 /* AZToggle.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0D7C5215A401A100037D30 /* AZToggle.m */; };
+		7B112A9C15D45B10002C97E8 /* AZObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B112A9A15D45B10002C97E8 /* AZObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B112A9D15D45B10002C97E8 /* AZObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B112A9B15D45B10002C97E8 /* AZObject.m */; };
 		7B137CF615A201C00088A630 /* linen.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B137CF415A201C00088A630 /* linen.png */; };
 		7B137CF715A201C00088A630 /* darklinen.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B137CF515A201C00088A630 /* darklinen.png */; };
 		7B137CFC15A202510088A630 /* AZBox.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B137CFA15A202510088A630 /* AZBox.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7B137CFD15A202510088A630 /* AZBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B137CFB15A202510088A630 /* AZBox.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7B137CFD15A202510088A630 /* AZBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B137CFB15A202510088A630 /* AZBox.m */; };
 		7B23C32315CDFBC100DD1A9C /* NSURL+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B23C32115CDFBC100DD1A9C /* NSURL+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7B23C32415CDFBC100DD1A9C /* NSURL+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B23C32215CDFBC100DD1A9C /* NSURL+AtoZ.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7B23C32415CDFBC100DD1A9C /* NSURL+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B23C32215CDFBC100DD1A9C /* NSURL+AtoZ.m */; };
 		7B23C33D15CE246C00DD1A9C /* IsometricView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B23C33C15CE246C00DD1A9C /* IsometricView.m */; };
 		7B23C33E15CE267400DD1A9C /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF9E7D9159F0A8200B5482D /* Quartz.framework */; };
 		7B23C33F15CE268B00DD1A9C /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B6901BC159E0BF700D0DA47 /* Carbon.framework */; };
@@ -51,65 +48,63 @@
 		7B23C37B15CF2E8200DD1A9C /* 2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7B23C37A15CF2E8200DD1A9C /* 2.jpg */; };
 		7B23C37D15CF318500DD1A9C /* missingdial.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B23C37C15CF318500DD1A9C /* missingdial.png */; };
 		7B24E97915A1299700A9D87A /* NSView+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B24E97715A1299700A9D87A /* NSView+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7B24E97A15A1299700A9D87A /* NSView+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B24E97815A1299700A9D87A /* NSView+AtoZ.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7B24E97A15A1299700A9D87A /* NSView+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B24E97815A1299700A9D87A /* NSView+AtoZ.m */; };
 		7B24E98B15A12D2100A9D87A /* AZGeometricFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B24E97C15A12D2100A9D87A /* AZGeometricFunctions.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7B24E98C15A12D2100A9D87A /* AZGeometricFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B24E97D15A12D2100A9D87A /* AZGeometricFunctions.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7B24E98C15A12D2100A9D87A /* AZGeometricFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B24E97D15A12D2100A9D87A /* AZGeometricFunctions.m */; };
 		7B24E98D15A12D2100A9D87A /* AZGeometry.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B24E97E15A12D2100A9D87A /* AZGeometry.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B24E98E15A12D2100A9D87A /* AZGrid.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B24E97F15A12D2100A9D87A /* AZGrid.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7B24E98F15A12D2100A9D87A /* AZGrid.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B24E98015A12D2100A9D87A /* AZGrid.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7B24E98F15A12D2100A9D87A /* AZGrid.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B24E98015A12D2100A9D87A /* AZGrid.m */; };
 		7B24E99015A12D2100A9D87A /* AZMatrix.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B24E98115A12D2100A9D87A /* AZMatrix.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7B24E99115A12D2100A9D87A /* AZMatrix.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B24E98215A12D2100A9D87A /* AZMatrix.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7B24E99115A12D2100A9D87A /* AZMatrix.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B24E98215A12D2100A9D87A /* AZMatrix.m */; };
 		7B24E99215A12D2100A9D87A /* AZPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B24E98315A12D2100A9D87A /* AZPoint.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7B24E99315A12D2100A9D87A /* AZPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B24E98415A12D2100A9D87A /* AZPoint.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7B24E99315A12D2100A9D87A /* AZPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B24E98415A12D2100A9D87A /* AZPoint.m */; };
 		7B24E99415A12D2100A9D87A /* AZRect.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B24E98515A12D2100A9D87A /* AZRect.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7B24E99515A12D2100A9D87A /* AZRect.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B24E98615A12D2100A9D87A /* AZRect.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7B24E99515A12D2100A9D87A /* AZRect.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B24E98615A12D2100A9D87A /* AZRect.m */; };
 		7B24E99815A12D2100A9D87A /* AZSize.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B24E98915A12D2100A9D87A /* AZSize.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7B24E99915A12D2100A9D87A /* AZSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B24E98A15A12D2100A9D87A /* AZSize.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7B24E9A015A1309400A9D87A /* NSObject+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B24E99E15A1309300A9D87A /* NSObject+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7B24E9A115A1309400A9D87A /* NSObject+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B24E99F15A1309300A9D87A /* NSObject+AtoZ.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		7B24E9A215A139A400A9D87A /* AZProgressIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B6901D0159E388400D0DA47 /* AZProgressIndicator.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7B24E9A115A1309400A9D87A /* NSObject+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B24E99F15A1309300A9D87A /* NSObject+AtoZ.m */; };
+		7B24E9A215A139A400A9D87A /* AZProgressIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B6901D0159E388400D0DA47 /* AZProgressIndicator.m */; };
 		7B24E9A515A13A4100A9D87A /* NSBezierPath+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B24E9A315A13A4000A9D87A /* NSBezierPath+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7B24E9A615A13A4100A9D87A /* NSBezierPath+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B24E9A415A13A4000A9D87A /* NSBezierPath+AtoZ.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7B24E9A615A13A4100A9D87A /* NSBezierPath+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B24E9A415A13A4000A9D87A /* NSBezierPath+AtoZ.m */; };
 		7B24E9ED15A176AC00A9D87A /* NSWindow+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B24E9EB15A176AB00A9D87A /* NSWindow+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7B24E9EE15A176AC00A9D87A /* NSWindow+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B24E9EC15A176AB00A9D87A /* NSWindow+AtoZ.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		7B311963159B6D9E002134C4 /* AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B311962159B6D9E002134C4 /* AtoZ.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7B24E9EE15A176AC00A9D87A /* NSWindow+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B24E9EC15A176AB00A9D87A /* NSWindow+AtoZ.m */; };
+		7B311963159B6D9E002134C4 /* AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B311962159B6D9E002134C4 /* AtoZ.m */; };
 		7B31196B159B6D9E002134C4 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B31196A159B6D9E002134C4 /* SenTestingKit.framework */; };
 		7B31196C159B6D9E002134C4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B311954159B6D9E002134C4 /* Cocoa.framework */; };
 		7B311975159B6D9E002134C4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7B311973159B6D9E002134C4 /* InfoPlist.strings */; };
 		7B311978159B6D9E002134C4 /* AtoZTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B311977159B6D9E002134C4 /* AtoZTests.m */; };
 		7B3422A315A52A61006AC46C /* BaseModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B3422A115A52A61006AC46C /* BaseModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7B3422A415A52A61006AC46C /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B3422A215A52A61006AC46C /* BaseModel.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7B3422A415A52A61006AC46C /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B3422A215A52A61006AC46C /* BaseModel.m */; };
 		7B3422CA15A5EF03006AC46C /* AZDockQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B3422C815A5EF03006AC46C /* AZDockQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B385DEE15C3B49E00A28686 /* AZFoamView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B385DEC15C3B49E00A28686 /* AZFoamView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7B385DEF15C3B49E00A28686 /* AZFoamView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B385DED15C3B49E00A28686 /* AZFoamView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7B385DEF15C3B49E00A28686 /* AZFoamView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B385DED15C3B49E00A28686 /* AZFoamView.m */; };
 		7B495F7815C076C7002DC694 /* RGB.clr in Resources */ = {isa = PBXBuildFile; fileRef = 7B495F7715C076C7002DC694 /* RGB.clr */; };
 		7B4A8FEF15AB267D00463B91 /* AZSourceList.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B4A8FED15AB267D00463B91 /* AZSourceList.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7B4A8FF015AB267D00463B91 /* AZSourceList.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B4A8FEE15AB267D00463B91 /* AZSourceList.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7B4A8FF015AB267D00463B91 /* AZSourceList.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B4A8FEE15AB267D00463B91 /* AZSourceList.m */; };
 		7B583069159BDAF40039CEED /* atoz.icns in Resources */ = {isa = PBXBuildFile; fileRef = 7B583065159BDAF40039CEED /* atoz.icns */; };
 		7B58306C159BDAF40039CEED /* AppledocSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7B583068159BDAF40039CEED /* AppledocSettings.plist */; };
 		7B64C01C15D14A4A00D4ED4A /* AZCSSColors.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B64C01A15D14A4900D4ED4A /* AZCSSColors.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B64C01D15D14A4A00D4ED4A /* AZCSSColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B64C01B15D14A4900D4ED4A /* AZCSSColors.m */; };
 		7B64C5C815CB6FF100A20609 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B311995159B7FD0002134C4 /* QuartzCore.framework */; };
 		7B6901B8159E09D800D0DA47 /* NSApplication+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B6901B6159E09D800D0DA47 /* NSApplication+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7B6901B9159E09D800D0DA47 /* NSApplication+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B6901B7159E09D800D0DA47 /* NSApplication+AtoZ.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7B6901C9159E322300D0DA47 /* AZAXAuthorization.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B6901C7159E322300D0DA47 /* AZAXAuthorization.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7B6901CA159E322300D0DA47 /* AZAXAuthorization.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B6901C8159E322300D0DA47 /* AZAXAuthorization.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7B6901CA159E322300D0DA47 /* AZAXAuthorization.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B6901C8159E322300D0DA47 /* AZAXAuthorization.m */; };
 		7B6901D1159E388400D0DA47 /* AZProgressIndicator.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B6901CF159E388400D0DA47 /* AZProgressIndicator.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B6901D5159E39A400D0DA47 /* NSColor+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B6901D3159E39A400D0DA47 /* NSColor+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7B6901D6159E39A400D0DA47 /* NSColor+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B6901D4159E39A400D0DA47 /* NSColor+AtoZ.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7B6901D6159E39A400D0DA47 /* NSColor+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B6901D4159E39A400D0DA47 /* NSColor+AtoZ.m */; };
 		7B6901D8159E3AC700D0DA47 /* AtoZUmbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B6901D7159E3AC600D0DA47 /* AtoZUmbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B6CF45D15D32B8D0018A0D7 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B6CF45C15D32B8B0018A0D7 /* AudioToolbox.framework */; };
 		7B728DF815C472D8004F6723 /* NSNotificationCenter+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B728DF615C472D8004F6723 /* NSNotificationCenter+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7B728DF915C472D8004F6723 /* NSNotificationCenter+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B728DF715C472D8004F6723 /* NSNotificationCenter+AtoZ.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7B728DF915C472D8004F6723 /* NSNotificationCenter+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B728DF715C472D8004F6723 /* NSNotificationCenter+AtoZ.m */; };
 		7B78528A15ACA7AB008BAD3C /* AZBoxMagic.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B78528815ACA7AB008BAD3C /* AZBoxMagic.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7B78528B15ACA7AB008BAD3C /* AZBoxMagic.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B78528915ACA7AB008BAD3C /* AZBoxMagic.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7B78529615ACEABC008BAD3C /* AZLayerManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B78529415ACEABC008BAD3C /* AZLayerManager.h */; };
-		7B78529715ACEABC008BAD3C /* AZLayerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B78529515ACEABC008BAD3C /* AZLayerManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7B78529715ACEABC008BAD3C /* AZLayerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B78529515ACEABC008BAD3C /* AZLayerManager.m */; };
 		7B7852C315ACEDA3008BAD3C /* AZBoxLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B7852C115ACEDA3008BAD3C /* AZBoxLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7B7852C415ACEDA3008BAD3C /* AZBoxLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7852C215ACEDA3008BAD3C /* AZBoxLayer.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7B7852C415ACEDA3008BAD3C /* AZBoxLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7852C215ACEDA3008BAD3C /* AZBoxLayer.m */; };
 		7B7C27FD15C32B39007DD569 /* RoundedView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B7C27F915C32B39007DD569 /* RoundedView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7B7C27FE15C32B39007DD569 /* RoundedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7C27FA15C32B39007DD569 /* RoundedView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7B7C27FE15C32B39007DD569 /* RoundedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7C27FA15C32B39007DD569 /* RoundedView.m */; };
 		7B7C27FF15C32B39007DD569 /* TransparentWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B7C27FB15C32B39007DD569 /* TransparentWindow.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7B7C280015C32B39007DD569 /* TransparentWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7C27FC15C32B39007DD569 /* TransparentWindow.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7B7C280015C32B39007DD569 /* TransparentWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7C27FC15C32B39007DD569 /* TransparentWindow.m */; };
 		7B81287515D0339A0070193F /* AZWindowExtend.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B81287315D0339A0070193F /* AZWindowExtend.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B81287615D0339A0070193F /* AZWindowExtend.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B81287415D0339A0070193F /* AZWindowExtend.m */; };
 		7B8128AC15D05BFF0070193F /* AZNotificationCenter.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B8128AA15D05BFF0070193F /* AZNotificationCenter.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -118,21 +113,19 @@
 		7B82B82D15CB66D30026FE8C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7B82B82B15CB66D30026FE8C /* InfoPlist.strings */; };
 		7B82B82F15CB66D30026FE8C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B82B82E15CB66D30026FE8C /* main.m */; };
 		7B82B83315CB66D30026FE8C /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 7B82B83115CB66D30026FE8C /* Credits.rtf */; };
-		7B82B83615CB66D30026FE8C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B82B83515CB66D30026FE8C /* AppDelegate.m */; };
+		7B82B83615CB66D30026FE8C /* AZEncyclopediaDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B82B83515CB66D30026FE8C /* AZEncyclopediaDelegate.m */; };
 		7B82B83915CB66D30026FE8C /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B82B83715CB66D30026FE8C /* MainMenu.xib */; };
-		7B82B84015CB67F10026FE8C /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B311951159B6D9E002134C4 /* AtoZ.framework */; };
 		7B8558E915B2CBAF0005F558 /* circle2.tif in Resources */ = {isa = PBXBuildFile; fileRef = 7B8558E815B2CBAF0005F558 /* circle2.tif */; };
 		7B92135C15C49B6600862F9D /* NSThread+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B92135A15C49B6600862F9D /* NSThread+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B92135D15C49B6600862F9D /* NSThread+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B92135B15C49B6600862F9D /* NSThread+AtoZ.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		7B92136115C4A03300862F9D /* AZInfiniteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B92135F15C4A03300862F9D /* AZInfiniteCell.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7B92136115C4A03300862F9D /* AZInfiniteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B92135F15C4A03300862F9D /* AZInfiniteCell.m */; };
 		7B92137415C56F4600862F9D /* AZSimpleView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B92137215C56F4600862F9D /* AZSimpleView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7B92137515C56F4600862F9D /* AZSimpleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B92137315C56F4600862F9D /* AZSimpleView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7B92137515C56F4600862F9D /* AZSimpleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B92137315C56F4600862F9D /* AZSimpleView.m */; };
 		7B96424315C15818001A0B0F /* NSWindow_Flipr.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B96424115C15818001A0B0F /* NSWindow_Flipr.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7B96424415C15818001A0B0F /* NSWindow_Flipr.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B96424215C15818001A0B0F /* NSWindow_Flipr.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7B9742A915C62F70006490DD /* RuntimeReporter.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B9742A715C62F70006490DD /* RuntimeReporter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B9742AA15C62F70006490DD /* RuntimeReporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B9742A815C62F70006490DD /* RuntimeReporter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7B9742AE15C68E7B006490DD /* AtoZInfinity.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B9742AC15C68E7A006490DD /* AtoZInfinity.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7B9742AF15C68E7B006490DD /* AtoZInfinity.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B9742AD15C68E7A006490DD /* AtoZInfinity.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7B9742AF15C68E7B006490DD /* AtoZInfinity.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B9742AD15C68E7A006490DD /* AtoZInfinity.m */; };
 		7B9742D015C697C4006490DD /* 1.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 7B9742CB15C697C4006490DD /* 1.pdf */; };
 		7B9742D115C697C4006490DD /* 2.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 7B9742CC15C697C4006490DD /* 2.pdf */; };
 		7B9742D215C697C4006490DD /* 3.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 7B9742CD15C697C4006490DD /* 3.pdf */; };
@@ -140,12 +133,12 @@
 		7B9742D415C697C4006490DD /* 5.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 7B9742CF15C697C4006490DD /* 5.pdf */; };
 		7B985DC015C91E4F00A86B7C /* AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B311961159B6D9E002134C4 /* AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BAD6B1115CD5C2E001DE404 /* AZNamedColors.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BAD6B0F15CD5C2E001DE404 /* AZNamedColors.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7BAD6B1215CD5C2E001DE404 /* AZNamedColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BAD6B1015CD5C2E001DE404 /* AZNamedColors.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		7BBD96EB15AD279900943FC1 /* AZSizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC859C415A8C0F400582632 /* AZSizer.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7BAD6B1215CD5C2E001DE404 /* AZNamedColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BAD6B1015CD5C2E001DE404 /* AZNamedColors.m */; };
+		7BBD96EB15AD279900943FC1 /* AZSizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC859C415A8C0F400582632 /* AZSizer.m */; };
 		7BBD96EE15AD38F300943FC1 /* AZApplePrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BBD96EC15AD38F300943FC1 /* AZApplePrivate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7BBD96EF15AD38F300943FC1 /* AZApplePrivate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BBD96ED15AD38F300943FC1 /* AZApplePrivate.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7BBD96EF15AD38F300943FC1 /* AZApplePrivate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BBD96ED15AD38F300943FC1 /* AZApplePrivate.m */; };
 		7BBD96FB15AD529A00943FC1 /* AZOverlay.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BBD96F915AD529A00943FC1 /* AZOverlay.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7BBD96FC15AD529A00943FC1 /* AZOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BBD96FA15AD529A00943FC1 /* AZOverlay.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7BBD96FC15AD529A00943FC1 /* AZOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BBD96FA15AD529A00943FC1 /* AZOverlay.m */; };
 		7BBD987E15AF7A2400943FC1 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B6901DB159E3F2700D0DA47 /* Security.framework */; };
 		7BBD987F15AF7A2400943FC1 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B6901D9159E3F1800D0DA47 /* ApplicationServices.framework */; };
 		7BBD988015AF7A2400943FC1 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B311957159B6D9E002134C4 /* AppKit.framework */; };
@@ -153,37 +146,45 @@
 		7BBD988215AF7A2400943FC1 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B311995159B7FD0002134C4 /* QuartzCore.framework */; };
 		7BBD988315AF7A2400943FC1 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B311954159B6D9E002134C4 /* Cocoa.framework */; };
 		7BBD991215B0648A00943FC1 /* CAAnimation+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BBD991015B0648A00943FC1 /* CAAnimation+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7BBD991315B0648A00943FC1 /* CAAnimation+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BBD991115B0648A00943FC1 /* CAAnimation+AtoZ.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7BBD991315B0648A00943FC1 /* CAAnimation+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BBD991115B0648A00943FC1 /* CAAnimation+AtoZ.m */; };
 		7BBD991715B0688400943FC1 /* CALayer+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BBD991515B0688400943FC1 /* CALayer+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7BBD991815B0688400943FC1 /* CALayer+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BBD991615B0688400943FC1 /* CALayer+AtoZ.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7BBD991815B0688400943FC1 /* CALayer+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BBD991615B0688400943FC1 /* CALayer+AtoZ.m */; };
 		7BC3C2B015C9F0DD00DA2EFA /* AZMouser.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B8558E415B2C98D0005F558 /* AZMouser.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7BC3C2B115C9F26D00DA2EFA /* AZMouser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B8558E515B2C98D0005F558 /* AZMouser.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7BC3C2B115C9F26D00DA2EFA /* AZMouser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B8558E515B2C98D0005F558 /* AZMouser.m */; };
 		7BC3C31C15CB3ABD00DA2EFA /* AZDockQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B3422C915A5EF03006AC46C /* AZDockQuery.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7BC859C515A8C0F400582632 /* AZSizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BC859C315A8C0F400582632 /* AZSizer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BC859CA15A8C56700582632 /* NSNumber+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BC859C815A8C56700582632 /* NSNumber+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7BC859CB15A8C56700582632 /* NSNumber+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC859C915A8C56700582632 /* NSNumber+AtoZ.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7BC859CB15A8C56700582632 /* NSNumber+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC859C915A8C56700582632 /* NSNumber+AtoZ.m */; };
 		7BCDFC4915C6D8590003DA4D /* AZInfiniteCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B92135E15C4A03300862F9D /* AZInfiniteCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BCDFC6315C71A810003DA4D /* CTBadge.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BCDFC5815C71A810003DA4D /* CTBadge.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7BCDFC6415C71A810003DA4D /* CTBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BCDFC5915C71A810003DA4D /* CTBadge.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		7BCDFC6515C71A810003DA4D /* fullDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BCDFC5A15C71A810003DA4D /* fullDescription.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7BCDFC6515C71A810003DA4D /* fullDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BCDFC5A15C71A810003DA4D /* fullDescription.m */; };
 		7BCDFC6615C71A810003DA4D /* NSScreen+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BCDFC5B15C71A810003DA4D /* NSScreen+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7BCDFC6715C71A810003DA4D /* NSScreen+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BCDFC5C15C71A810003DA4D /* NSScreen+AtoZ.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7BCDFC6715C71A810003DA4D /* NSScreen+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BCDFC5C15C71A810003DA4D /* NSScreen+AtoZ.m */; };
 		7BCDFC6815C71A810003DA4D /* NotificationCenterSpy.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BCDFC5D15C71A810003DA4D /* NotificationCenterSpy.h */; };
-		7BCDFC6915C71A810003DA4D /* NotificationCenterSpy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BCDFC5E15C71A810003DA4D /* NotificationCenterSpy.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7BCDFC6915C71A810003DA4D /* NotificationCenterSpy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BCDFC5E15C71A810003DA4D /* NotificationCenterSpy.m */; };
 		7BCDFC6D15C71A810003DA4D /* noun_box.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 7BCDFC6215C71A810003DA4D /* noun_box.pdf */; };
 		7BDB8D7D15CB56BA0037A4BF /* missing.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BDB8D7915CB56BA0037A4BF /* missing.png */; };
 		7BDB8D7E15CB56BA0037A4BF /* noun_box.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 7BDB8D7A15CB56BA0037A4BF /* noun_box.pdf */; };
 		7BDB8D7F15CB56BA0037A4BF /* UbuntuMono-B.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7BDB8D7B15CB56BA0037A4BF /* UbuntuMono-B.ttf */; };
 		7BDDD5E415A3792600A5C222 /* AZStopwatch.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BDDD5E215A3792600A5C222 /* AZStopwatch.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7BDDD5E515A3792600A5C222 /* AZStopwatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BDDD5E315A3792600A5C222 /* AZStopwatch.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7BDDD5E515A3792600A5C222 /* AZStopwatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BDDD5E315A3792600A5C222 /* AZStopwatch.m */; };
 		7BE6069515A0E2DD00355236 /* NSString+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BE6069315A0E2DC00355236 /* NSString+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7BE6069615A0E2DD00355236 /* NSString+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BE6069415A0E2DD00355236 /* NSString+AtoZ.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7BE6069615A0E2DD00355236 /* NSString+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BE6069415A0E2DD00355236 /* NSString+AtoZ.m */; };
 		7BE606F115A118B400355236 /* AZAttachedWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BE606ED15A118B400355236 /* AZAttachedWindow.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7BE606F215A118B400355236 /* AZAttachedWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BE606EE15A118B400355236 /* AZAttachedWindow.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7BE606F215A118B400355236 /* AZAttachedWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BE606EE15A118B400355236 /* AZAttachedWindow.m */; };
 		7BF9E79C159E8F5000B5482D /* NSArray+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BF9E79A159E8F5000B5482D /* NSArray+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7BF9E79D159E8F5000B5482D /* NSArray+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF9E79B159E8F5000B5482D /* NSArray+AtoZ.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7BF9E79D159E8F5000B5482D /* NSArray+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF9E79B159E8F5000B5482D /* NSArray+AtoZ.m */; };
 		7BF9E7D7159F0A0500B5482D /* AZPopupWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BF9E7D5159F0A0500B5482D /* AZPopupWindow.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7BF9E7D8159F0A0500B5482D /* AZPopupWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF9E7D6159F0A0500B5482D /* AZPopupWindow.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7BF9E7D8159F0A0500B5482D /* AZPopupWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF9E7D6159F0A0500B5482D /* AZPopupWindow.m */; };
+		7BFB3DCD15D18AAE0095D79B /* PLWeakCompatibility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BFB3DCC15D18AAD0095D79B /* PLWeakCompatibility.framework */; };
+		7BFEC80715D19C55009DA347 /* NSApplication+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B6901B7159E09D800D0DA47 /* NSApplication+AtoZ.m */; };
+		7BFEC80815D19C55009DA347 /* AZSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B24E98A15A12D2100A9D87A /* AZSize.m */; };
+		7BFEC80915D19C55009DA347 /* MondoSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0D7C3A15A3F0BA00037D30 /* MondoSwitch.m */; };
+		7BFEC80A15D19C55009DA347 /* NSWindow_Flipr.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B96424215C15818001A0B0F /* NSWindow_Flipr.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7BFEC80B15D19C55009DA347 /* AZQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B05BB0B159C40A600409B83 /* AZQueue.m */; };
+		7BFEC80C15D19C55009DA347 /* AZBoxMagic.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B78528915ACA7AB008BAD3C /* AZBoxMagic.m */; };
+		7BFEC80D15D19C55009DA347 /* AZIndeterminateIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0B7A7B15A3553F006B5062 /* AZIndeterminateIndicator.m */; };
+		7BFEC80E15D19DB7009DA347 /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B311951159B6D9E002134C4 /* AtoZ.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -203,7 +204,15 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				7B0AD38015D0AFBB005B1DBF /* DarkKit.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7BFB3DCB15D18A650095D79B /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -222,7 +231,6 @@
 		7B091A3D15A850E500821FFD /* AZButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZButton.m; sourceTree = "<group>"; };
 		7B091A4315A887B500821FFD /* AZTalker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZTalker.h; sourceTree = "<group>"; };
 		7B091A4415A887B500821FFD /* AZTalker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZTalker.m; sourceTree = "<group>"; };
-		7B0AD37C15D0AD1B005B1DBF /* DarkKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DarkKit.framework; path = "../../../../disenchanted 750/DerivedData/AtoZ-hfqteqfcvjfinlajqwkydsqyzpiz/Build/Products/Debug/DarkKit.framework"; sourceTree = "<group>"; };
 		7B0B7A4315A22C0D006B5062 /* NSImage+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSImage+AtoZ.h"; sourceTree = "<group>"; };
 		7B0B7A4415A22C0D006B5062 /* NSImage+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSImage+AtoZ.m"; sourceTree = "<group>"; };
 		7B0B7A7A15A3553F006B5062 /* AZIndeterminateIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZIndeterminateIndicator.h; sourceTree = "<group>"; };
@@ -235,6 +243,8 @@
 		7B0D7C3D15A3F0BA00037D30 /* MondoSwitchButtonCALayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MondoSwitchButtonCALayer.m; sourceTree = "<group>"; };
 		7B0D7C5115A401A100037D30 /* AZToggle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZToggle.h; sourceTree = "<group>"; };
 		7B0D7C5215A401A100037D30 /* AZToggle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZToggle.m; sourceTree = "<group>"; };
+		7B112A9A15D45B10002C97E8 /* AZObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZObject.h; path = Classes/AZObject.h; sourceTree = SOURCE_ROOT; };
+		7B112A9B15D45B10002C97E8 /* AZObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AZObject.m; path = Classes/AZObject.m; sourceTree = SOURCE_ROOT; };
 		7B137CF415A201C00088A630 /* linen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = linen.png; sourceTree = "<group>"; };
 		7B137CF515A201C00088A630 /* darklinen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = darklinen.png; sourceTree = "<group>"; };
 		7B137CFA15A202510088A630 /* AZBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZBox.h; path = AZBoxView/AZBox.h; sourceTree = SOURCE_ROOT; };
@@ -314,6 +324,7 @@
 		7B6901D7159E3AC600D0DA47 /* AtoZUmbrella.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AtoZUmbrella.h; sourceTree = SOURCE_ROOT; };
 		7B6901D9159E3F1800D0DA47 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
 		7B6901DB159E3F2700D0DA47 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		7B6CF45C15D32B8B0018A0D7 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = /System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<absolute>"; };
 		7B728DF615C472D8004F6723 /* NSNotificationCenter+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNotificationCenter+AtoZ.h"; sourceTree = "<group>"; };
 		7B728DF715C472D8004F6723 /* NSNotificationCenter+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNotificationCenter+AtoZ.m"; sourceTree = "<group>"; };
 		7B78528815ACA7AB008BAD3C /* AZBoxMagic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZBoxMagic.h; path = AZBoxView/AZBoxMagic.h; sourceTree = SOURCE_ROOT; };
@@ -342,8 +353,8 @@
 		7B82B82E15CB66D30026FE8C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7B82B83015CB66D30026FE8C /* AtoZ Encyclopedia-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AtoZ Encyclopedia-Prefix.pch"; sourceTree = "<group>"; };
 		7B82B83215CB66D30026FE8C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
-		7B82B83415CB66D30026FE8C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		7B82B83515CB66D30026FE8C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		7B82B83415CB66D30026FE8C /* AZEncyclopediaDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AZEncyclopediaDelegate.h; sourceTree = "<group>"; };
+		7B82B83515CB66D30026FE8C /* AZEncyclopediaDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AZEncyclopediaDelegate.m; sourceTree = "<group>"; };
 		7B82B83815CB66D30026FE8C /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		7B8558E415B2C98D0005F558 /* AZMouser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZMouser.h; sourceTree = "<group>"; };
 		7B8558E515B2C98D0005F558 /* AZMouser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZMouser.m; sourceTree = "<group>"; };
@@ -403,6 +414,7 @@
 		7BF9E7D5159F0A0500B5482D /* AZPopupWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZPopupWindow.h; path = ../Views/AZPopupWindow.h; sourceTree = "<group>"; };
 		7BF9E7D6159F0A0500B5482D /* AZPopupWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AZPopupWindow.m; path = ../Views/AZPopupWindow.m; sourceTree = "<group>"; };
 		7BF9E7D9159F0A8200B5482D /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
+		7BFB3DCC15D18AAD0095D79B /* PLWeakCompatibility.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PLWeakCompatibility.framework; path = "../../../../disenchanted 750/DerivedData/AtoZ-hfqteqfcvjfinlajqwkydsqyzpiz/Build/Products/Debug/PLWeakCompatibility.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -420,9 +432,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BFEC80E15D19DB7009DA347 /* AtoZ.framework in Frameworks */,
 				7B64C5C815CB6FF100A20609 /* QuartzCore.framework in Frameworks */,
-				7B82B84015CB67F10026FE8C /* AtoZ.framework in Frameworks */,
-				7B0AD37D15D0AD1B005B1DBF /* DarkKit.framework in Frameworks */,
 				7B82B82315CB66D30026FE8C /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -431,6 +442,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B6CF45D15D32B8D0018A0D7 /* AudioToolbox.framework in Frameworks */,
+				7BFB3DCD15D18AAE0095D79B /* PLWeakCompatibility.framework in Frameworks */,
 				7B23C36815CE9AB800DD1A9C /* WebKit.framework in Frameworks */,
 				7B23C33F15CE268B00DD1A9C /* Carbon.framework in Frameworks */,
 				7B23C33E15CE267400DD1A9C /* Quartz.framework in Frameworks */,
@@ -460,7 +473,6 @@
 				7B96424115C15818001A0B0F /* NSWindow_Flipr.h */,
 				7B96424215C15818001A0B0F /* NSWindow_Flipr.m */,
 				7BCDFC6E15C71B340003DA4D /* Essential */,
-				7BE6068915A00B8800355236 /* Utility */,
 				7B091A2E15A8448E00821FFD /* AZHoverButton.h */,
 				7B091A2F15A8448E00821FFD /* AZHoverButton.m */,
 				7B091A3C15A850E500821FFD /* AZButton.h */,
@@ -519,8 +531,6 @@
 		7B311945159B6D9E002134C4 = {
 			isa = PBXGroup;
 			children = (
-				7B0AD37C15D0AD1B005B1DBF /* DarkKit.framework */,
-				7B23C36715CE9AB800DD1A9C /* WebKit.framework */,
 				7BD011F515CB7E9300B96BAC /* README.md */,
 				7B31195A159B6D9E002134C4 /* AtoZ */,
 				7BCDFC7415C7573B0003DA4D /* Support */,
@@ -562,10 +572,13 @@
 			isa = PBXGroup;
 			children = (
 				7B6901D7159E3AC600D0DA47 /* AtoZUmbrella.h */,
+				7B112A9A15D45B10002C97E8 /* AZObject.h */,
+				7B112A9B15D45B10002C97E8 /* AZObject.m */,
 				7B311961159B6D9E002134C4 /* AtoZ.h */,
 				7B311962159B6D9E002134C4 /* AtoZ.m */,
 				7BCDFC7515C758110003DA4D /* AZInfinity */,
 				7B583063159BDA900039CEED /* Categories */,
+				7BE6068915A00B8800355236 /* Utility */,
 				7B05BB09159C406200409B83 /* Classes */,
 				7B583064159BDAA50039CEED /* Resources */,
 				7B6901BB159E0ADB00D0DA47 /* Views */,
@@ -704,6 +717,9 @@
 		7B82B82115CB66D30026FE8C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7B6CF45C15D32B8B0018A0D7 /* AudioToolbox.framework */,
+				7BFB3DCC15D18AAD0095D79B /* PLWeakCompatibility.framework */,
+				7B23C36715CE9AB800DD1A9C /* WebKit.framework */,
 				7B82B82215CB66D30026FE8C /* Cocoa.framework */,
 				7B82B82415CB66D30026FE8C /* Other Frameworks */,
 			);
@@ -723,8 +739,8 @@
 		7B82B82815CB66D30026FE8C /* AtoZ Encyclopedia */ = {
 			isa = PBXGroup;
 			children = (
-				7B82B83415CB66D30026FE8C /* AppDelegate.h */,
-				7B82B83515CB66D30026FE8C /* AppDelegate.m */,
+				7B82B83415CB66D30026FE8C /* AZEncyclopediaDelegate.h */,
+				7B82B83515CB66D30026FE8C /* AZEncyclopediaDelegate.m */,
 				7B82B83715CB66D30026FE8C /* MainMenu.xib */,
 				7B82B82915CB66D30026FE8C /* Supporting Files */,
 				7B23C33B15CE246C00DD1A9C /* IsometricView.h */,
@@ -748,6 +764,8 @@
 		7BCDFC6E15C71B340003DA4D /* Essential */ = {
 			isa = PBXGroup;
 			children = (
+				7B8558E415B2C98D0005F558 /* AZMouser.h */,
+				7B8558E515B2C98D0005F558 /* AZMouser.m */,
 				7BAD6B0F15CD5C2E001DE404 /* AZNamedColors.h */,
 				7BAD6B1015CD5C2E001DE404 /* AZNamedColors.m */,
 				7B3422C815A5EF03006AC46C /* AZDockQuery.h */,
@@ -808,13 +826,12 @@
 				7BBD96ED15AD38F300943FC1 /* AZApplePrivate.m */,
 				7B6901C7159E322300D0DA47 /* AZAXAuthorization.h */,
 				7B6901C8159E322300D0DA47 /* AZAXAuthorization.m */,
-				7B8558E415B2C98D0005F558 /* AZMouser.h */,
-				7B8558E515B2C98D0005F558 /* AZMouser.m */,
 				7B05BB0A159C40A600409B83 /* AZQueue.h */,
 				7B05BB0B159C40A600409B83 /* AZQueue.m */,
 			);
 			name = Utility;
-			sourceTree = "<group>";
+			path = Classes;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
@@ -885,11 +902,12 @@
 				7BCDFC4915C6D8590003DA4D /* AZInfiniteCell.h in Headers */,
 				7BCDFC6315C71A810003DA4D /* CTBadge.h in Headers */,
 				7BCDFC6615C71A810003DA4D /* NSScreen+AtoZ.h in Headers */,
-				7BCDFC6815C71A810003DA4D /* NotificationCenterSpy.h in Headers */,
 				7BC3C2B015C9F0DD00DA2EFA /* AZMouser.h in Headers */,
 				7B81287515D0339A0070193F /* AZWindowExtend.h in Headers */,
 				7B8128AC15D05BFF0070193F /* AZNotificationCenter.h in Headers */,
 				7B64C01C15D14A4A00D4ED4A /* AZCSSColors.h in Headers */,
+				7B112A9C15D45B10002C97E8 /* AZObject.h in Headers */,
+				7BCDFC6815C71A810003DA4D /* NotificationCenterSpy.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -906,6 +924,7 @@
 				7B31194F159B6D9E002134C4 /* Resources */,
 				7B311982159B7CC5002134C4 /* Enabled Scripts */,
 				7BC3C29B15C9A9D400DA2EFA /* Disabled Scripts */,
+				7BFB3DCB15D18A650095D79B /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -939,10 +958,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7B82B83A15CB66D30026FE8C /* Build configuration list for PBXNativeTarget "AtoZ Encyclopedia" */;
 			buildPhases = (
+				7B0AD37F15D0AFB4005B1DBF /* CopyFiles */,
 				7B82B81B15CB66D30026FE8C /* Sources */,
 				7B82B81C15CB66D30026FE8C /* Frameworks */,
 				7B82B81D15CB66D30026FE8C /* Resources */,
-				7B0AD37F15D0AFB4005B1DBF /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -1070,7 +1089,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\nlogger \"${SRCROOT}/Resources\"\n#/usr/local/bin/appledoc \"${SRCROOT}/Resources\"\n\n# Add custom icon (adding CFBundleIconFile to plist and .icns file in /Resources doesn't work, so we have to duplicate what happens when you paste an icon into the Finder Get Info window)\n\n# copy custom icon into top level of bundle and rename to \"Icon\" with a *trailing CR*.  path_to_icon is the path to the source icon file, already in the correct format ('icns' resource ID -16455 in resource fork), but with different filename.\n\n#cp \"${SRCROOT}/Resources/atoz.icns\" \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.${WRAPPER_EXTENSION}/\"$(echo -ne \"Icon\\r\")\n\n# make custom icon file invisible\n#/Developer/Tools/SetFile -a V \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.${WRAPPER_EXTENSION}/\"$(echo -ne \"Icon\\r\")\n\n# mark the bundle folder as having a custom icon\n#/Developer/Tools/SetFile -a C \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.${WRAPPER_EXTENSION}\"\n\n\n\nPRODUCT=${WRAPPER_NAME}\nPRODUCT_PATH=\"$BUILT_PRODUCTS_DIR/$PRODUCT\"\n\nMAC_INSTALL_TARGET=\"/Library/Frameworks/\"\n\nXCODE43_LION_INSTALL_TARGET=\"/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk/System/Library/Frameworks/$PRODUCT\"\n\nXCODE45_MLION_INSTALL_TARGET=\"${SDKROOT}/System/Library/Frameworks/$PRODUCT\"\n\nXCODE455ML=\"${/Applications/Xcode45-DP2.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/}\"\n\nsudo ln -sf \"${PRODUCT_PATH}\" \"${MAC_INSTALL_TARGET}\"\n#sudo ln -sf \"${PRODUCT_PATH}\" \"${XCODE43_LION_INSTALL_TARGET}\"\n#sudo ln -sf \"${PRODUCT_PATH}\" \"${XCODE45_MLION_INSTALL_TARGET}\"\n\nsudo ln -sf \"${PRODUCT_PATH}\" \"${XCODE455ML}${PRODUCT}\"\n\n#sudo ln -sF $MAC_INSTALL_TARGET $SDK_INSTALL_TARGET\n";
+			shellScript = "\nlogger \"${SRCROOT}/Resources\"\n#/usr/local/bin/appledoc \"${SRCROOT}/Resources\"\n\n# Add custom icon (adding CFBundleIconFile to plist and .icns file in /Resources doesn't work, so we have to duplicate what happens when you paste an icon into the Finder Get Info window)\n\n# copy custom icon into top level of bundle and rename to \"Icon\" with a *trailing CR*.  path_to_icon is the path to the source icon file, already in the correct format ('icns' resource ID -16455 in resource fork), but with different filename.\n\n#cp \"${SRCROOT}/Resources/atoz.icns\" \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.${WRAPPER_EXTENSION}/\"$(echo -ne \"Icon\\r\")\n\n# make custom icon file invisible\n#/Developer/Tools/SetFile -a V \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.${WRAPPER_EXTENSION}/\"$(echo -ne \"Icon\\r\")\n\n# mark the bundle folder as having a custom icon\n#/Developer/Tools/SetFile -a C \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.${WRAPPER_EXTENSION}\"\n\nPRODUCT=\"${WRAPPER_NAME}\"\nPRODUCT_PATH=\"${BUILT_PRODUCTS_DIR}/${PRODUCT}\"\nXCODE44='/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/'\nMAC=\"/Library/Frameworks/\"\n\n\nsudo ln -sf \"${PRODUCT_PATH}\" \"${XCODE44}\"\nsudo ln -sf \"${PRODUCT_PATH}\" \"${MAC}\"\n\n\n\n\n#MAC_INSTALL_TARGET=\"/Library/Frameworks/\"\n\n#XCODE43_LION_INSTALL_TARGET=\"/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk/System/Library/Frameworks/$PRODUCT\"\n\n#XCODE45_MLION_INSTALL_TARGET=\"${SDKROOT}/System/Library/Frameworks/$PRODUCT\"\n\n#sudo ln -sf \"${PRODUCT_PATH}\" \"${MAC_INSTALL_TARGET}\"\n#sudo ln -sf \"${PRODUCT_PATH}\" \"${XCODE43_LION_INSTALL_TARGET}\"\n#sudo ln -sf \"${PRODUCT_PATH}\" \"${XCODE45_MLION_INSTALL_TARGET}\"\n\n#sudo ln -sf \"${PRODUCT_PATH}\" \"${XCODE455ML}${PRODUCT}\"\n\n#sudo ln -sF $MAC_INSTALL_TARGET $SDK_INSTALL_TARGET\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1079,6 +1098,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BFEC80715D19C55009DA347 /* NSApplication+AtoZ.m in Sources */,
+				7BFEC80815D19C55009DA347 /* AZSize.m in Sources */,
+				7BFEC80915D19C55009DA347 /* MondoSwitch.m in Sources */,
+				7BFEC80A15D19C55009DA347 /* NSWindow_Flipr.m in Sources */,
+				7BFEC80B15D19C55009DA347 /* AZQueue.m in Sources */,
+				7BFEC80C15D19C55009DA347 /* AZBoxMagic.m in Sources */,
+				7BFEC80D15D19C55009DA347 /* AZIndeterminateIndicator.m in Sources */,
 				7B311963159B6D9E002134C4 /* AtoZ.m in Sources */,
 				7B3422A415A52A61006AC46C /* BaseModel.m in Sources */,
 				7B24E98C15A12D2100A9D87A /* AZGeometricFunctions.m in Sources */,
@@ -1086,30 +1112,24 @@
 				7B24E99115A12D2100A9D87A /* AZMatrix.m in Sources */,
 				7B24E99315A12D2100A9D87A /* AZPoint.m in Sources */,
 				7B24E99515A12D2100A9D87A /* AZRect.m in Sources */,
-				7B24E99915A12D2100A9D87A /* AZSize.m in Sources */,
 				7B091A4615A887B500821FFD /* AZTalker.m in Sources */,
 				7BBD96EB15AD279900943FC1 /* AZSizer.m in Sources */,
 				7B9742AF15C68E7B006490DD /* AtoZInfinity.m in Sources */,
-				7B05BB0F159C4C7400409B83 /* AZQueue.m in Sources */,
 				7B05BB15159C5C6100409B83 /* AZBlockView.m in Sources */,
-				7B6901B9159E09D800D0DA47 /* NSApplication+AtoZ.m in Sources */,
 				7B6901CA159E322300D0DA47 /* AZAXAuthorization.m in Sources */,
-				7B6901D6159E39A400D0DA47 /* NSColor+AtoZ.m in Sources */,
 				7BF9E79D159E8F5000B5482D /* NSArray+AtoZ.m in Sources */,
 				7BF9E7D8159F0A0500B5482D /* AZPopupWindow.m in Sources */,
 				7BE6069615A0E2DD00355236 /* NSString+AtoZ.m in Sources */,
 				7BE606F215A118B400355236 /* AZAttachedWindow.m in Sources */,
+				7B6901D6159E39A400D0DA47 /* NSColor+AtoZ.m in Sources */,
 				7B24E97A15A1299700A9D87A /* NSView+AtoZ.m in Sources */,
 				7B24E9A115A1309400A9D87A /* NSObject+AtoZ.m in Sources */,
 				7B24E9A215A139A400A9D87A /* AZProgressIndicator.m in Sources */,
 				7B24E9A615A13A4100A9D87A /* NSBezierPath+AtoZ.m in Sources */,
 				7B24E9EE15A176AC00A9D87A /* NSWindow+AtoZ.m in Sources */,
 				7B137CFD15A202510088A630 /* AZBox.m in Sources */,
-				7B0B7A4615A22C0D006B5062 /* NSImage+AtoZ.m in Sources */,
-				7B0B7A7D15A3553F006B5062 /* AZIndeterminateIndicator.m in Sources */,
 				7BDDD5E515A3792600A5C222 /* AZStopwatch.m in Sources */,
 				7B0D7C2315A3D2CB00037D30 /* AZBoxGrid.m in Sources */,
-				7B0D7C4015A3F0BA00037D30 /* MondoSwitch.m in Sources */,
 				7B0D7C4315A3F0BA00037D30 /* MondoSwitchButtonCALayer.m in Sources */,
 				7B0D7C5515A409FC00037D30 /* AZToggle.m in Sources */,
 				7B091A3115A8448E00821FFD /* AZHoverButton.m in Sources */,
@@ -1117,14 +1137,13 @@
 				7B091A3F15A850E500821FFD /* AZButton.m in Sources */,
 				7BC859CB15A8C56700582632 /* NSNumber+AtoZ.m in Sources */,
 				7B4A8FF015AB267D00463B91 /* AZSourceList.m in Sources */,
-				7B78528B15ACA7AB008BAD3C /* AZBoxMagic.m in Sources */,
+				7B0B7A4615A22C0D006B5062 /* NSImage+AtoZ.m in Sources */,
 				7B78529715ACEABC008BAD3C /* AZLayerManager.m in Sources */,
 				7BBD96EF15AD38F300943FC1 /* AZApplePrivate.m in Sources */,
 				7B7852C415ACEDA3008BAD3C /* AZBoxLayer.m in Sources */,
 				7BBD96FC15AD529A00943FC1 /* AZOverlay.m in Sources */,
 				7BBD991315B0648A00943FC1 /* CAAnimation+AtoZ.m in Sources */,
 				7BBD991815B0688400943FC1 /* CALayer+AtoZ.m in Sources */,
-				7B96424415C15818001A0B0F /* NSWindow_Flipr.m in Sources */,
 				7B7C27FE15C32B39007DD569 /* RoundedView.m in Sources */,
 				7B7C280015C32B39007DD569 /* TransparentWindow.m in Sources */,
 				7B385DEF15C3B49E00A28686 /* AZFoamView.m in Sources */,
@@ -1133,18 +1152,18 @@
 				7B92136115C4A03300862F9D /* AZInfiniteCell.m in Sources */,
 				7B92137515C56F4600862F9D /* AZSimpleView.m in Sources */,
 				7B9742AA15C62F70006490DD /* RuntimeReporter.m in Sources */,
-				7BCDFC6415C71A810003DA4D /* CTBadge.m in Sources */,
 				7BCDFC6515C71A810003DA4D /* fullDescription.m in Sources */,
 				7BCDFC6915C71A810003DA4D /* NotificationCenterSpy.m in Sources */,
 				7BCDFC6715C71A810003DA4D /* NSScreen+AtoZ.m in Sources */,
 				7BC3C2B115C9F26D00DA2EFA /* AZMouser.m in Sources */,
 				7BC3C31C15CB3ABD00DA2EFA /* AZDockQuery.m in Sources */,
-				7BAD6B1215CD5C2E001DE404 /* AZNamedColors.m in Sources */,
 				7B23C32415CDFBC100DD1A9C /* NSURL+AtoZ.m in Sources */,
+				7BAD6B1215CD5C2E001DE404 /* AZNamedColors.m in Sources */,
 				7B23C36515CE98AF00DD1A9C /* NSLogConsole.m in Sources */,
 				7B81287615D0339A0070193F /* AZWindowExtend.m in Sources */,
 				7B8128AD15D05BFF0070193F /* AZNotificationCenter.m in Sources */,
 				7B64C01D15D14A4A00D4ED4A /* AZCSSColors.m in Sources */,
+				7B112A9D15D45B10002C97E8 /* AZObject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1161,7 +1180,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7B82B82F15CB66D30026FE8C /* main.m in Sources */,
-				7B82B83615CB66D30026FE8C /* AppDelegate.m in Sources */,
+				7B82B83615CB66D30026FE8C /* AZEncyclopediaDelegate.m in Sources */,
 				7B23C33D15CE246C00DD1A9C /* IsometricView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1243,16 +1262,22 @@
 		7B31197C159B6D9E002134C4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_OBJCPP_ARC_ABI = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"${SDKROOT}/System/Library/Frameworks",
+				);
 				FRAMEWORK_VERSION = A;
 				GCC_PREFIX_HEADER = "Resources/AtoZ-Prefix.pch";
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "Resources/AtoZ-Info.plist";
-				INSTALL_PATH = "@loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.6.8;
+				INSTALL_PATH = "@rpath";
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = (
 					"-Xclang",
 					"-fobjc-runtime-has-weak",
@@ -1266,16 +1291,22 @@
 		7B31197D159B6D9E002134C4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_OBJCPP_ARC_ABI = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"${SDKROOT}/System/Library/Frameworks",
+				);
 				FRAMEWORK_VERSION = A;
 				GCC_PREFIX_HEADER = "Resources/AtoZ-Prefix.pch";
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "Resources/AtoZ-Info.plist";
-				INSTALL_PATH = "@loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.6.8;
+				INSTALL_PATH = "@rpath";
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = (
 					"-Xclang",
 					"-fobjc-runtime-has-weak",

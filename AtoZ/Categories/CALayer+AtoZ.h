@@ -9,6 +9,48 @@
 #import <QuartzCore/QuartzCore.h>
 
 
+
+/** Constants for various commonly used colors. */
+extern CGColorRef kBlackColor, kWhiteColor,
+kTranslucentGrayColor, kTranslucentLightGrayColor,
+kAlmostInvisibleWhiteColor,
+kHighlightColor, kRedColor, kLightBlueColor;
+
+
+/** Moves a layer from one superlayer to another, without changing its position onscreen. */
+void ChangeSuperlayer( CALayer *layer, CALayer *newSuperlayer, int index );
+
+/** Removes a layer from its superlayer without any fade-out animation. */
+void RemoveImmediately( CALayer *layer );
+
+/** Convenience for creating a CATextLayer. */
+//CATextLayer* AddTextLayer( CALayer *superlayer,
+//                           NSString *text, NSFont* font,
+//                           enum CAAutoresizingMask align );
+
+
+/** Loads an image or pattern file into a CGImage or CGPattern.
+ If the name begins with "/", it's interpreted as an absolute filesystem path.
+ Otherwise, it's the name of a resource that's looked up in the app bundle.
+ The image must exist, or an assertion-failure exception will be raised!
+ Loaded images/patterns are cached in memory, so subsequent calls with the same name
+ are very fast. */
+CGImageRef GetCGImageNamed( NSString *name );
+CGColorRef GetCGPatternNamed( NSString *name );
+
+/** Loads image data from the pasteboard into a CGImage. */
+//CGImageRef GetCGImageFromPasteboard( NSPasteboard *pb );
+
+/** Creates a CGPattern from a CGImage. */
+CGPatternRef CreateImagePattern( CGImageRef image );
+
+/** Creates a CGColor that draws the given CGImage as a pattern. */
+CGColorRef CreatePatternColor( CGImageRef image );
+
+/** Returns the alpha value of a single pixel in a CGImage, scaled to a particular size. */
+float GetPixelAlpha( CGImageRef image, CGSize imageSize, CGPoint pt );
+
+
 #define CATransform3DPerspective(t, x, y) (CATransform3DConcat(t, CATransform3DMake(1, 0, 0, x, 0, 1, 0, y, 0, 0, 1, 0, 0, 0, 0, 1)))
 #define CATransform3DMakePerspective(x, y) (CATransform3DPerspective(CATransform3DIdentity, x, y))
 CG_INLINE CATransform3D
@@ -36,5 +78,10 @@ CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13, CGFloat m14,
 
 //Metallic grey gradient background
 + (CAGradientLayer*) greyGradient;
+
+
+-(NSString*)debugDescription;
+-(void)debugAppendToLayerTree:(NSMutableString*)treeStr indention:(NSString*)indentStr;
+//-(NSString*)debugLayerTree;
 
 @end

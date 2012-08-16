@@ -1,3 +1,4 @@
+
 //
 //  AppDelegate.h
 //  AtoZ Encyclopedia
@@ -17,7 +18,7 @@
 #define kMargin 30.0
 
 
-@interface AppDelegate : NSObject <NSApplicationDelegate, NSWindowDelegate, AZSourceListDataSource>
+@interface AZEncyclopediaDelegate : NSObject <NSApplicationDelegate, NSWindowDelegate, AZSourceListDataSource>
 {
 	IBOutlet NSMatrix *matrix;
 	IBOutlet NSTextField *selectedItemLabel;
@@ -26,7 +27,11 @@
 
 }
 - (IBAction) goMouseTest:(id)sender;
+- (IBAction) reload:(id)sender;
+-(IBAction) moveThemAll:(id) sender;
+-(IBAction) cancel:(id) sender;
 
+@property (nonatomic, retain) IBOutlet AtoZInfinity *infinityView;
 @property (assign) IBOutlet AZWindowExtend *window;
 @property (assign) IBOutlet NSView *rootView;
 

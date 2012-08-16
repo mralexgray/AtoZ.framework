@@ -579,7 +579,7 @@ return midpoint;
 -(void) fadeOutOneStep: (NSTimer*)timer
 {
     NSString*				key = [NSString stringWithFormat: @"%@", self];
-	NSMutableDictionary*	currFadeDict = [[[pendingFades objectForKey: key] retain] autorelease];	// Make sure it doesn't go away in case we're cross-fading layers.
+	NSMutableDictionary*	currFadeDict = [pendingFades objectForKey: key];//retain] autorelease];	// Make sure it doesn't go away in case we're cross-fading layers.
     float					newAlpha = [self alphaValue] - [[currFadeDict objectForKey: @"stepSize"] floatValue];
 
     if( newAlpha <= 0 )

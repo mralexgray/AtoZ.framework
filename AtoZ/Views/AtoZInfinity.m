@@ -8,8 +8,19 @@
 
 #import "AtoZInfinity.h"
 
+@implementation InfiniteDocumentView
+@end
+
+@implementation NSClipView (InfinityAdditions)
+//- (BOOL)isFlipped {
+//	return ([[self documentView] isKindOfClass:[InfiniteDocumentView class]] ? YES : NO);
+//}
+
+@end
+
 @implementation AtoZInfinity
 {
+	NSImage* bar;
 	NSImage *snap;
 	BOOL visible;
 	BOOL hovered;
@@ -19,52 +30,146 @@
 //	NSTrackingArea *tArea;
 }
 
-//@synthesize 	infiniteViews = _infiniteViews, unit, scale, orientation;
+@synthesize  unit =_unit, scale =_scale, orientation=_orientation, infiniteObjects = _infiniteViews, docV = _docV;
 
 - (void) awakeFromNib {
 	offset = 0;
 	_orientation = AZOrientLeft;
-	_scale = AZInfiteScale1X;
+	_scale = AZInfiteScale0X;
 	[self 				setPostsFrameChangedNotifications:	YES];
 	[[self contentView] setPostsBoundsChangedNotifications:	YES];
 	[[self contentView] trackFullView];
+	self.docV = [InfiniteDocumentView new];
+	[self setDocumentView:self.docV];
 
-	//	[[NSNotificationCenter defaultCenter] 	addObserver: self 			selector:@selector(scrollDown:) name:@"scrollRequested" 	object:nil];
+	NSNotificationCenter *center = [NSNotificationCenter defaultCenter] ;
+    [center addObserver: self
+			   selector: @selector(boundsDidChangeNotification:)
+				   name: NSViewBoundsDidChangeNotification
+				 object: [self contentView]];
+//	[[NSNotificationCenter defaultCenter] 	addObserver: self 			selector:@selector(scrollDown:) name:@"scrollRequested" 	object:nil];
 	//	self.anApi = [[AJSiTunesAPI alloc] init];
 	//	self.anApi.delegate = self;
 }
 
-- (void) setInfiniteViews:(NSArray *)infiniteViews {
+- (void) setInfiniteObjects:(NSArray *)infiniteObjects
+{
+	_infiniteViews = infiniteObjects.reversed;
+	[self setupInfiniBar];
+}
+
+-(void) viewDidEndLiveResize {
+	[self setupInfiniBar];
+
+}
+-(void) setScale:(AZInfiteScale)scale
+{
+	_scale = scale;
+	NSLog(@"scale=%i", scale);
+	[self setupInfiniBar];
+}
+
+- (void) setupInfiniBar {
 //	if (0) {
-	_infiniteViews = infiniteViews.mutableCopy;
+	if (_imageViewBar) {  [_imageViewBar fadeOut]; [_imageViewBar removeFromSuperview]; self.imageViewBar = nil; }
+	[[self documentView]removeTrackingArea:_trackingArea];
+	self.trackingArea = nil;
 	NSLog(@"Views set.  number of views to use and reuse: %ld", _infiniteViews.count);
-	NSSize totalBar;  NSRect barUnit;
+
 	if ((_orientation == AZOrientLeft) || (_orientation == AZOrientRight)) {
-	totalBar = NSMakeSize(self.contentView.frame.size.width, self.contentView.frame.size.width * _infiniteViews.count);
-	barUnit = AZSquareFromLength(self.contentView.frame.size.width);
-			} else {
-	totalBar = NSMakeSize(self.contentView.frame.size.height * _infiniteViews.count, self.contentView.frame.size.height);
-	barUnit = AZSquareFromLength(self.contentView.frame.size.height);
+		switch (_scale) {
+			case AZInfiteScale0X:
+				self.barUnit = AZMakeRectFromSize(NSMakeSize(self.contentView.frame.size.width,
+														self.contentView.frame.size.width));
+				self.totalBar = NSMakeSize(	_barUnit.size.width,
+										_barUnit.size.height * _infiniteViews.count);
+				break;
+			case AZInfiteScale1X:
+				self.totalBar = self.contentView.frame.size;
+				self.barUnit = AZMakeRectFromSize(NSMakeSize(_totalBar.width,
+														_totalBar.height / _infiniteViews.count));
+				break;
+			case AZInfiteScale2X:
+				self.totalBar = NSMakeSize(	self.contentView.frame.size.width,
+										self.contentView.frame.size.height * 2);
+				self.barUnit = AZMakeRectFromSize(NSMakeSize(_totalBar.width,
+														_totalBar.height / _infiniteViews.count));
+				break;
+			case AZInfiteScale3X:
+				self.totalBar = NSMakeSize(	self.contentView.frame.size.width,
+										self.contentView.frame.size.height * 3);
+				self.barUnit = AZMakeRectFromSize(NSMakeSize(_totalBar.width,
+														_totalBar.height / _infiniteViews.count));
+				break;
+			default:
+				self.totalBar = NSMakeSize(	self.contentView.frame.size.width, self.contentView.frame.size.height * 10);
+				self.barUnit = AZMakeRectFromSize(NSMakeSize(_totalBar.width,
+														_totalBar.height / _infiniteViews.count));
+				break;
+		}
+
+	} else {
+		self.barUnit = AZSquareFromLength(self.contentView.frame.size.height);
+		self.totalBar = NSMakeSize(_barUnit.size.width * _infiniteViews.count,
+						self.contentView.frame.size.height );
 	}
-	NSRect totalBarFrame = AZMakeRectFromSize(totalBar);
-	NSImage *bar = [[NSImage alloc]initWithSize:totalBar];
+	self.totalBarFrame = AZMakeRectFromSize(_totalBar);
+	NSLog(@"taking opicture, it lasts longer!");
+	bar = [[NSImage alloc]initWithSize:_totalBar];
 	[bar lockFocus];
 	[_infiniteViews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 		NSColor *color = [obj valueForKey:@"color"];
 		if (!color) color = RANDOMCOLOR;
-		[color set];  NSRect tempRect = barUnit;
+		[color set];  NSRect tempRect = _barUnit;
 		if ((_orientation == AZOrientLeft) || (_orientation == AZOrientRight))
-			tempRect.origin.y += idx * barUnit.size.height;
-		else tempRect.origin.x += idx * barUnit.size.width;
+			tempRect.origin.y += idx * _barUnit.size.height;
+		else tempRect.origin.x += idx * _barUnit.size.width;
 		NSRectFill(tempRect);
 	}];
 	[bar unlockFocus];
 	[bar saveAs:@"/Users/localadmin/Desktop/bar.png"];
-	NSImageView *i = [[NSImageView alloc]initWithFrame:totalBarFrame];
-	i.image = bar;
-	[[self documentView]setFrame:totalBarFrame];
-	[[self documentView ]addSubview:i];
-	
+	NSImageView* anImageViewBar = [[NSImageView alloc]initWithFrame:_totalBarFrame];
+	anImageViewBar.image = bar;
+	[[self documentView]setFrame:_totalBarFrame];
+	self.imageViewBar = anImageViewBar;
+	[[self documentView]addSubview:_imageViewBar];
+	[_imageViewBar fadeIn];
+	self.trackingArea = [_imageViewBar trackFullView];
+	[[self documentView]addTrackingArea:_trackingArea];
+}
+
+
+-(void) mouseMoved:(NSEvent *)theEvent {
+
+
+	[self evalMouse:[self.documentView convertPoint:theEvent.locationInWindow fromView:nil]];
+
+//	NSPoint mouse = mouseLoc();
+//	aRect.origin = [_documentView convertPoint:aPoint fromView:nil];
+//	NSRect rect=[self documentVisibleRect];
+//	CGFloat x=rect.origin.x;
+//	CGFloat y=rect.origin.y;
+}
+
+- (void) boundsDidChangeNotification: (NSNotification *) notification
+{
+//	[self setNeedsDisplay: YES];
+	// or whatever work you need to do
+	NSPoint local = [[self window] convertScreenToBase:mouseLoc()];
+
+	[self evalMouse:[self.documentView convertPoint:local	 fromView:nil]];
+} // boundsDidChangeNotification
+
+-(void) evalMouse:(NSPoint)thePoint {
+
+	NSLog(@"entered infinity.. point in doc: %ld",  (NSUInteger)(thePoint.y / _barUnit.size.height));
+}
+//- (NSRect)adjustScroll:(NSRect)proposedVisibleRect{
+//}
+/** Overridden by subclasses to modify proposedVisibleRect,returning the altered rectangle. NSClipView invokes this method to allow its document view to adjust its position during scrolling. For example, a custom view object that displays a table of data can adjust the origin of proposedVisibleRect so rows or columns arentcut off by the edge of the enclosing N S ClipView. NSViews implementation simply returnsproposedVisibleRect.
+
+NSClipView only invokes this method during automatic or user controlled scrolling. Its scrollToPoint: method~ doesnt invoke this method, so you can still force a scroll to an arbitrary point.*/
+
 //		for (id sv in _infiniteViews ) {
 //			[[self documentView] addSubview: sv];	//	[self setNeedsDisplay:NO];
 //		}
@@ -92,11 +197,11 @@
 		NSLog(@"Saved %@", snap);
 
 	}*/
-}
+
 //- (void)setScale:(AZInfiteScale)aScale {	_scale = aScale;	[self stack]; 	}
 
 //- (void)setOrientation:(AZOrient)anOrientation{		_orientation = anOrientation;	[self stack];	}
-
+/**
 - (NSRect) unit {
 	NSSize 	cSize = [self frame].size;
 	switch (_orientation) {
@@ -112,9 +217,49 @@
 	_unit = AZMakeRect(NSZeroPoint, cSize);
 	return _unit;
 }
+()*/
 -(BOOL)isOpaque { return YES; }
 
-/*- (void) scrollWheel:(NSEvent *)event {
+
+//-(void) setScale:(AZInfiteScale)scale {
+//
+////	NSPoint oldCenter = NSPointFromCGPoint(CGPointMake(oldVisibleRect.origin.x +
+//
+//	NSSize totalBar;  NSRect barUnit;
+//	if ((_orientation == AZOrientLeft) || (_orientation == AZOrientRight)) {
+//		totalBar = NSMakeSize(self.contentView.frame.size.width, self.contentView.frame.size.width * _infiniteViews.count);
+//		barUnit = AZSquareFromLength(self.contentView.frame.size.width);
+//	} else {
+//		totalBar = NSMakeSize(self.contentView.frame.size.height * _infiniteViews.count, self.contentView.frame.size.height);
+//		barUnit = AZSquareFromLength(self.contentView.frame.size.height);
+//	}
+//	NSRect totalBarFrame = AZMakeRectFromSize(totalBar);
+//
+//	switch (scale) {
+//		case AZInfiteScale0X:
+//			[[self documentView]setFrame:totalBarFrame];
+//			break;
+//		case AZInfiteScale2X: {
+//			NSRect xtwo =  [self documentVisibleRect];
+//			if ((_orientation == AZOrientLeft) || (_orientation == AZOrientRight)) {
+//				xtwo.size.height = xtwo.size.height *2;
+//				[[self documentView]setFrame:totalBarFrame];
+//			} else {
+//				xtwo.size.width = xtwo.size.width *2;
+//				[[self documentView]setFrame:totalBarFrame];
+//			}
+//		}
+//		break;
+//
+//		default:
+//			break;
+//	}
+//
+//}
+//- (void) scrollWheel:(NSEvent *)event {
+
+////	NSRect frameNow = [self documentVisibleRect];
+	// instead of this:
 	//	if ([self inLiveResize]) return;
 	//	if ( MAX(abs(event.deltaX), abs(event.deltaY)) < 10 ) return;
 	//	else
@@ -127,8 +272,8 @@
 //	offset = f;
 //-(void) dealWith:(NSEvent*)event{
 	//	NSLog(@"offset: %f   raw event x:%f  y:%f", offset, event.deltaX, event.deltaY);
-	NSRect flexUnit = self.unit;
-	if ( scrollUp ) {
+	/////NSRect flexUnit = self.unit;
+/**	if ( scrollUp ) {
 		[_infiniteViews moveObjectAtIndex:_infiniteViews.count-1 toIndex:0];
 		switch (_orientation) {
 			case AZOrientTop | AZOrientBottom:
@@ -171,8 +316,9 @@
 		}
 	}
 	[self stack];
-}
 */
+//}
+
 /**	__block NSRect globalShift = self.unit;
 
 	[_infiniteViews enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -204,10 +350,6 @@
 	//		[c setFrame:moved];
 	//		[_infiniteViews addObject:c];
 */
-
-- (void) viewDidEndLiveResize {
-//	[self stack];
-}
 /*
 - (void) stack {
 
@@ -234,7 +376,7 @@
 		}];
 	}];
 
-/*	[self addSubview: [AZBlockView viewWithFrame:[self bounds]  opaque:NO drawnUsingBlock: ^(AZBlockView *view, NSRect dirtyRect) {
+	[self addSubview: [AZBlockView viewWithFrame:[self bounds]  opaque:NO drawnUsingBlock: ^(AZBlockView *view, NSRect dirtyRect) {
 		NSBezierPath *path = [NSBezierPath bezierPathWithRect:AZMakeRectFromSize(NSMakeSize(dirtyRect.size.width, dirtyRect.size.height *2))];
 
 //		[RED set];
@@ -253,7 +395,7 @@
 	
 //}
 
-
+/**
 - (void)recess:(NSRect)frame inView:(id)controlView
 
 //- (void)drawBezelWithFrame:(NSRect)frame inView:(NSView *)controlView
@@ -287,17 +429,17 @@
 	CGFloat radius = 3.5;
 
 	NSBezierPath *path = [NSBezierPath bezierPathWithRoundedRect:rect xRadius:radius yRadius:radius];
-/*
+
 	// draw drop shadow
-	[NSGraphicsContext saveGraphicsState];
-	[dropShadow set];
-	[path fill];
-	[NSGraphicsContext restoreGraphicsState];
+//	[NSGraphicsContext saveGraphicsState];
+//	[dropShadow set];
+//	[path fill];
+//	[NSGraphicsContext restoreGraphicsState];
 
 	// draw the gradient fill
 //	NSGradient *gradient =  //self.isHighlighted ? pressedGradient;// : normalGradient;
-	[gradient drawInBezierPath:path angle:-90];
-*/
+//	[gradient drawInBezierPath:path angle:-90];
+
 	// draw the inner stroke
 	[strokeColor setStroke];
 	[path strokeInside];
@@ -308,4 +450,6 @@
 		[path fillWithInnerShadow:innerShadow2];
 //	}
 }
+*/
+
 @end

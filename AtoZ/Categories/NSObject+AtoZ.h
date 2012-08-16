@@ -76,7 +76,7 @@ static NSString *const HRCoderObjectAliasKey = @"$alias";
 	dictionary.attributeName   String(or other Type)    attributeValue
 */
 - (NSMutableDictionary*) getDictionary;
-
+- (BOOL)debug;
 @end
 
 @interface NSObject (SubclassEnumeration)

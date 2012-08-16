@@ -239,7 +239,7 @@ NSString * const AZSLDeleteKeyPressedOnRowsNotification = @"AZSourceListDeleteKe
 	//Unregister the delegate from receiving notifications
 	[[NSNotificationCenter defaultCenter] removeObserver:_secondaryDelegate name:nil object:self];
 	
-	[super dealloc];
+//	[super dealloc];
 }
 
 
