@@ -35,12 +35,15 @@ typedef enum {
 + (NSImage *)swatchWithColor:(NSColor *)color size:(NSSize)size;
 + (NSImage *)swatchWithGradientColor:(NSColor *)color size:(NSSize)size;
 
+
 + (NSImage *) prettyGradientImage;  // Generates a 256 by 256 pixel image with a complicated gradient in it.
 - (NSArray*) quantize;
 
 // draws the passed image into the passed rect, centered and scaled appropriately.
 // note that this method doesn't know anything about the current focus, so the focus must be locked outside this method
 - (void)drawCenteredinRect:(NSRect)inRect operation:(NSCompositingOperation)op fraction:(float)delta;
+
+- (NSImage *) filteredMonochromeEdge;
 
 //- (NSImage *)tintedImage;
 - (NSImage *) tintedWithColor:(NSColor *)tint ;

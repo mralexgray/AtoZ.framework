@@ -9,9 +9,11 @@
 
 #import <Cocoa/Cocoa.h>
 #import <AtoZ/AtoZ.h>
-#import "iCarousel.h"
+#import "iCarouselViewController.h"
+//iCarousel.h"
 #import <QuartzCore/QuartzCore.h>
-#import "IsometricView.h"
+//#import "IsometricView.h"
+
 
 #define kCompositeIconHeight 155.0
 #define kIconWidth 128.0
@@ -19,7 +21,7 @@
 #define kMargin 30.0
 
 
-@interface AZEncyclopediaDelegate : NSObject <NSApplicationDelegate, NSWindowDelegate, AZSourceListDataSource, iCarouselDataSource, iCarouselDelegate>
+@interface AZEncyclopediaDelegate : NSObject <NSApplicationDelegate, NSWindowDelegate, AZSourceListDataSource, iCarouselDataSource, iCarouselDelegate, AZToggleArrayViewDelegate>
 {
 	IBOutlet NSMatrix *matrix;
 	IBOutlet NSTextField *selectedItemLabel;
@@ -34,7 +36,7 @@
 
 
 @property (assign, nonatomic) CGRect scaledUnit;
-@property (nonatomic, strong) IBOutlet iCarousel *carousel;
+@property (nonatomic, strong) IBOutlet iCarouselViewController *vc;
 
 
 //@property (nonatomic, retain) IBOutlet AtoZInfinity *infinityView;
@@ -57,12 +59,12 @@
 //@property (retain) CALayer *contentLayer;
 //@property (retain) NSArray *demos;
 
-@property (weak) IBOutlet AZToggleView *sortToggle;
+@property (weak) IBOutlet AZToggleArrayView   *sortToggle;
 
 //-(IBAction)toggleShake:(id)sender;
 
 @end
-
+/*
 @class Cell;
 @interface MineField : NSObject {
     NSMutableArray *cells; // grid of cells
@@ -102,3 +104,5 @@
 -(id)init;
 
 @end
+
+*/

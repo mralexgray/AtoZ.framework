@@ -7,7 +7,7 @@
 //
 
 #import "AZEncyclopediaDelegate.h"
-
+#import "SDToolkit.h"
 @implementation AZEncyclopediaDelegate
 {
 BOOL cancelled;
@@ -19,6 +19,7 @@ BOOL cancelled;
 
 //@synthesize  rootView, isoView;
 
+/*
 - (void)setScale:(NSNumber *)scale {
 	_scale = scale;
 	[self.carousel reloadData];
@@ -127,7 +128,7 @@ BOOL cancelled;
         [label setFont:[NSFont fontWithName:[[label font] fontName] size:10]];
         label.tag = 1;
 //        [view addSubview:label];
-	/&/&/*/
+	
 	}
 	else
 	{
@@ -153,17 +154,16 @@ BOOL cancelled;
 		[obj setNeedsDisplay];
 	}];
 	[view setNeedsDisplay:YES];
-*/
 	return view;
 }
-
+*/
 -(void)awakeFromNib{
 
-	_carousel.dataSource = self;
-	_carousel.delegate = self;
-	_carousel.vertical = YES;
-	_carousel.type = iCarouselTypeLinear;
-	_scale = @1;
+//	_carousel.dataSource = self;
+//	_carousel.delegate = self;
+//	_carousel.vertical = YES;
+//	_carousel.type = iCarouselTypeLinear;
+//	_scale = @1;
 //	[[NSLogConsole sharedConsole]open];
 
 	//	NSRect erect = NSInsetRect([[_window contentView] bounds],25,25);
@@ -188,7 +188,7 @@ BOOL cancelled;
 
 	[self makeBadges];
 	cancelled = NO;
-	[_carousel reloadData];
+//	[_carousel reloadData];
 //	self.infinityView.infiniteObjects = [AtoZ dock];
 //	[self.sortToggle]
 //	NSLog(@"Dock:  %@", dock);
@@ -929,6 +929,19 @@ BOOL cancelled;
 	//
 	//[1]: http://codingincircles.com/2010/07/major-misunderstanding/
 }
+
+
+
+- (NSArray*)questionsForToggleView:(AZToggleArrayView *) view{
+	return 	@[@"Sort Alphabetically?", @"Sort By Color?" , @"Sort like Dock", @"Sort by \"Category\"?", @"Show extra app info?" ];
+
+}
+- (void)toggleStateDidChangeTo:(BOOL)state InToggleViewArray:(AZToggleArrayView *) view WithName:(NSString *)name{
+
+	NSLog(@"Toggle notifies delegtae:  %@, %@", name, (state ? @"YES"  :@"NO"));
+
+}
+
 
 
 

@@ -1,49 +1,49 @@
-//
-//  iCarousel.h
-//
-//  Version 1.7.2
-//
-//  Created by Nick Lockwood on 01/04/2011.
-//  Copyright 2011 Charcoal Design
-//
-//  Distributed under the permissive zlib License
-//  Get the latest version from either of these locations:
-//
-//  http://charcoaldesign.co.uk/source/cocoa#icarousel
-//  https://github.com/nicklockwood/iCarousel
-//
-//  This software is provided 'as-is', without any express or implied
-//  warranty.  In no event will the authors be held liable for any damages
-//  arising from the use of this software.
-//
-//  Permission is granted to anyone to use this software for any purpose,
-//  including commercial applications, and to alter it and redistribute it
-//  freely, subject to the following restrictions:
-//
-//  1. The origin of this software must not be misrepresented; you must not
-//  claim that you wrote the original software. If you use this software
-//  in a product, an acknowledgment in the product documentation would be
-//  appreciated but is not required.
-//
-//  2. Altered source versions must be plainly marked as such, and must not be
-//  misrepresented as being the original software.
-//
-//  3. This notice may not be removed or altered from any source distribution.
-//
+	//
+	//  iCarousel.h
+	//
+	//  Version 1.7.ALEX
+	//
+	//  Created by Nick Lockwood on 01/04/2011.
+	//  Copyright 2011 Charcoal Design
+	//
+	//  Distributed under the permissive zlib License
+	//  Get the latest version from either of these locations:
+	//
+	//  http://charcoaldesign.co.uk/source/cocoa#icarousel
+	//  https://github.com/nicklockwood/iCarousel
+	//
+	//  This software is provided 'as-is', without any express or implied
+	//  warranty.  In no event will the authors be held liable for any damages
+	//  arising from the use of this software.
+	//
+	//  Permission is granted to anyone to use this software for any purpose,
+	//  including commercial applications, and to alter it and redistribute it
+	//  freely, subject to the following restrictions:
+	//
+	//  1. The origin of this software must not be misrepresented; you must not
+	//  claim that you wrote the original software. If you use this software
+	//  in a product, an acknowledgment in the product documentation would be
+	//  appreciated but is not required.
+	//
+	//  2. Altered source versions must be plainly marked as such, and must not be
+	//  misrepresented as being the original software.
+	//
+	//  3. This notice may not be removed or altered from any source distribution.
+	//
 
-//
-//  ARC Helper
-//
-//  Version 2.1
-//
-//  Created by Nick Lockwood on 05/01/2012.
-//  Copyright 2012 Charcoal Design
-//
-//  Distributed under the permissive zlib license
-//  Get the latest version from here:
-//
-//  https://gist.github.com/1563325
-//
+	//
+	//  ARC Helper
+	//
+	//  Version 2.1
+	//
+	//  Created by Nick Lockwood on 05/01/2012.
+	//  Copyright 2012 Charcoal Design
+	//
+	//  Distributed under the permissive zlib license
+	//  Get the latest version from here:
+	//
+	//  https://gist.github.com/1563325
+	//
 
 #ifndef ah_retain
 #if __has_feature(objc_arc)
@@ -58,7 +58,7 @@
 #endif
 #endif
 
-//  Weak delegate support
+	//  Weak delegate support
 
 #ifndef ah_weak
 #import <Availability.h>
@@ -75,7 +75,7 @@ __MAC_OS_X_VERSION_MIN_REQUIRED > __MAC_10_7))
 #endif
 #endif
 
-//  ARC Helper ends
+	//  ARC Helper ends
 
 
 #import <QuartzCore/QuartzCore.h>
@@ -139,7 +139,7 @@ iCarouselOption;
 
 @interface iCarousel : UIView
 
-//required for 32-bit Macs
+	//required for 32-bit Macs
 #ifdef __i386__
 {
 @private
@@ -187,6 +187,7 @@ iCarouselOption;
 	BOOL _vertical;
     BOOL _ignorePerpendicularSwipes;
     NSInteger _animationDisableCount;
+
 }
 #endif
 
@@ -271,6 +272,9 @@ iCarouselOption;
 - (BOOL)carousel:(iCarousel *)carousel shouldSelectItemAtIndex:(NSInteger)index;
 - (void)carousel:(iCarousel *)carousel didSelectItemAtIndex:(NSInteger)index;
 
+
+- (void)carousel:(iCarousel *)carousel shouldHoverItemAtIndex:(NSInteger)index;
+
 - (CGFloat)carouselItemWidth:(iCarousel *)carousel;
 - (CATransform3D)carousel:(iCarousel *)carousel itemTransformForOffset:(CGFloat)offset baseTransform:(CATransform3D)transform;
 - (CGFloat)carousel:(iCarousel *)carousel valueForOption:(iCarouselOption)option withDefault:(CGFloat)value;
@@ -281,8 +285,8 @@ iCarouselOption;
 @protocol iCarouselDeprecated
 @optional
 
-//deprecated delegate and datasource methods
-//use carousel:valueForOption:withDefault: instead
+	//deprecated delegate and datasource methods
+	//use carousel:valueForOption:withDefault: instead
 
 - (NSUInteger)numberOfVisibleItemsInCarousel:(iCarousel *)carousel;
 - (void)carouselCurrentItemIndexUpdated:(iCarousel *)carousel __attribute__((deprecated));

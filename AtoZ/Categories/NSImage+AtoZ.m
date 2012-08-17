@@ -293,6 +293,37 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 	}
 }
 
+- (NSImage *) filteredMonochromeEdge
+{
+		NSSize size = [self size];
+		NSRect bounds = { NSZeroPoint, size };
+		NSImage *tintedImage = [[NSImage alloc] initWithSize:size];
+		CIImage *filterPreviewImage = [self  toCIImage];
+		[tintedImage lockFocus];
+		CIFilter *edgeWork = [CIFilter filterWithName:@"CIEdgeWork"
+										keysAndValues:kCIInputImageKey,filterPreviewImage,
+							  @"inputRadius",[NSNumber numberWithFloat:4.6],
+							  nil];
+
+		CIFilter *masktoalpha = [CIFilter filterWithName:@"CIMaskToAlpha"];
+        [masktoalpha setValue:filterPreviewImage forKey:@"inputImage"];
+        filterPreviewImage = [masktoalpha valueForKey:@"outputImage"];
+
+
+
+		[filterPreviewImage drawAtPoint:NSZeroPoint
+						fromRect:bounds
+					   operation:NSCompositeCopy
+						fraction:1.0];
+
+		[tintedImage unlockFocus];
+
+		return tintedImage;
+//	}
+//	else {
+//		return [self copy];
+//	}
+}
 
 
 - (NSBitmapImageRep*) bitmap {
