@@ -339,6 +339,10 @@ NSPoint AZPointDistanceToBorderOfRect(NSPoint point, NSRect rect) {
 // NSSize functions
 //
 
+NSSize AZSizeFromDimension(CGFloat dim) {
+	return NSMakeSize(dim, dim);
+}
+
 NSSize AZSizeFromPoint(NSPoint point) {
   return NSMakeSize(point.x, point.y);
 }

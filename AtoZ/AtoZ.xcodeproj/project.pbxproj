@@ -76,6 +76,9 @@
 		7B3422A315A52A61006AC46C /* BaseModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B3422A115A52A61006AC46C /* BaseModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B3422A415A52A61006AC46C /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B3422A215A52A61006AC46C /* BaseModel.m */; };
 		7B3422CA15A5EF03006AC46C /* AZDockQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B3422C815A5EF03006AC46C /* AZDockQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B379C8115DD840C0040A093 /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA147AC15DCE7A10041BAFE /* iCarousel.m */; };
+		7B379C8B15DDBB8A0040A093 /* AZLassoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B379C8A15DDBB8A0040A093 /* AZLassoView.m */; };
+		7B379C8D15DDBBB30040A093 /* AZLassoView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B379C8C15DDBBB30040A093 /* AZLassoView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B385DEE15C3B49E00A28686 /* AZFoamView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B385DEC15C3B49E00A28686 /* AZFoamView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B385DEF15C3B49E00A28686 /* AZFoamView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B385DED15C3B49E00A28686 /* AZFoamView.m */; };
 		7B495F7815C076C7002DC694 /* RGB.clr in Resources */ = {isa = PBXBuildFile; fileRef = 7B495F7715C076C7002DC694 /* RGB.clr */; };
@@ -132,8 +135,6 @@
 		7B9742D315C697C4006490DD /* 4.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 7B9742CE15C697C4006490DD /* 4.pdf */; };
 		7B9742D415C697C4006490DD /* 5.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 7B9742CF15C697C4006490DD /* 5.pdf */; };
 		7B985DC015C91E4F00A86B7C /* AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B311961159B6D9E002134C4 /* AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7BA147AD15DCE7A10041BAFE /* iCarousel.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BA147AB15DCE7A10041BAFE /* iCarousel.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7BA147AE15DCE7A10041BAFE /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA147AC15DCE7A10041BAFE /* iCarousel.m */; };
 		7BA147B015DCF0630041BAFE /* AtoZ.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7B311951159B6D9E002134C4 /* AtoZ.framework */; };
 		7BA147B115DCF0680041BAFE /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B311951159B6D9E002134C4 /* AtoZ.framework */; };
 		7BAD6B1115CD5C2E001DE404 /* AZNamedColors.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BAD6B0F15CD5C2E001DE404 /* AZNamedColors.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -311,6 +312,8 @@
 		7B3422A215A52A61006AC46C /* BaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseModel.m; sourceTree = "<group>"; };
 		7B3422C815A5EF03006AC46C /* AZDockQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZDockQuery.h; sourceTree = "<group>"; };
 		7B3422C915A5EF03006AC46C /* AZDockQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZDockQuery.m; sourceTree = "<group>"; };
+		7B379C8A15DDBB8A0040A093 /* AZLassoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AZLassoView.m; path = Views/AZLassoView.m; sourceTree = SOURCE_ROOT; };
+		7B379C8C15DDBBB30040A093 /* AZLassoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZLassoView.h; path = Views/AZLassoView.h; sourceTree = SOURCE_ROOT; };
 		7B385DEC15C3B49E00A28686 /* AZFoamView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZFoamView.h; sourceTree = "<group>"; };
 		7B385DED15C3B49E00A28686 /* AZFoamView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZFoamView.m; sourceTree = "<group>"; };
 		7B495F7715C076C7002DC694 /* RGB.clr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = RGB.clr; sourceTree = "<group>"; };
@@ -488,6 +491,8 @@
 				7BCDFC6E15C71B340003DA4D /* Essential */,
 				7B091A2E15A8448E00821FFD /* AZHoverButton.h */,
 				7B091A2F15A8448E00821FFD /* AZHoverButton.m */,
+				7B379C8C15DDBBB30040A093 /* AZLassoView.h */,
+				7B379C8A15DDBB8A0040A093 /* AZLassoView.m */,
 				7B091A3C15A850E500821FFD /* AZButton.h */,
 				7B091A3D15A850E500821FFD /* AZButton.m */,
 			);
@@ -923,7 +928,7 @@
 				7B64C01C15D14A4A00D4ED4A /* AZCSSColors.h in Headers */,
 				7B112A9C15D45B10002C97E8 /* AZObject.h in Headers */,
 				7BCDFC6815C71A810003DA4D /* NotificationCenterSpy.h in Headers */,
-				7BA147AD15DCE7A10041BAFE /* iCarousel.h in Headers */,
+				7B379C8D15DDBBB30040A093 /* AZLassoView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1181,7 +1186,7 @@
 				7B8128AD15D05BFF0070193F /* AZNotificationCenter.m in Sources */,
 				7B64C01D15D14A4A00D4ED4A /* AZCSSColors.m in Sources */,
 				7B112A9D15D45B10002C97E8 /* AZObject.m in Sources */,
-				7BA147AE15DCE7A10041BAFE /* iCarousel.m in Sources */,
+				7B379C8B15DDBB8A0040A093 /* AZLassoView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1200,6 +1205,7 @@
 				7B82B82F15CB66D30026FE8C /* main.m in Sources */,
 				7B82B83615CB66D30026FE8C /* AZEncyclopediaDelegate.m in Sources */,
 				7B23C33D15CE246C00DD1A9C /* IsometricView.m in Sources */,
+				7B379C8115DD840C0040A093 /* iCarousel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

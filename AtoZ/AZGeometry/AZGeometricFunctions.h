@@ -143,6 +143,9 @@ NSPoint AZNormalizedDistanceToCenterOfRect(NSPoint point, NSRect rect);
 // 
 
 // converts a point to a size
+NSSize AZSizeFromDimension(CGFloat dim);
+
+// converts a point to a size
 NSSize AZSizeFromPoint(NSPoint point);
 
 // ABS on both values of the size

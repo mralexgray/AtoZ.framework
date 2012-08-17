@@ -27,7 +27,7 @@
 //#import <PLWeakCompatibility/PLWeakCompatibilityStubs.h>
 //	#import <AtoZiTunes/AtoZiTunes.h>
 #import "AZMouser.h"
-#import "iCarousel.h"
+//#import "iCarousel.h"
 #import "AZGeometry.h"
 
 // Categories
@@ -53,6 +53,7 @@
 #import "NSLogConsole.h"
 
 #import "AZObject.h"
+#import "AZLassoView.h"
 
 
 #import "AZCSSColors.h"
@@ -115,9 +116,9 @@ typedef enum {
 
 + (AtoZ*) sharedInstance;
 
-- (NSArray*) dock;
-- (NSArray*) dockSorted;
-- (NSArray*) dockOutline;
+//- (NSArray*) dock;
+//- (NSArray*) dockSorted;
+//- (NSArray*) dockOutline;
 
 + (NSArray*) dock;
 + (NSArray*) dockSorted;
@@ -132,9 +133,9 @@ typedef enum {
 + (NSArray*) appFolderSorted;
 
 @property (assign) AZDockSort sortOrder;
-@property (nonatomic, retain) NSMutableArray *dock;
-@property (nonatomic, retain) NSMutableArray *dockSorted;
-@property (nonatomic, retain) NSMutableArray *dockOutline;
+@property (nonatomic, retain) NSArray *dock;
+@property (nonatomic, retain) NSArray *dockSorted;
+@property (nonatomic, retain) NSArray *dockOutline;
 
 @property (nonatomic, strong) NSMutableArray *appFolderSorted;
 @property (nonatomic, strong) NSMutableArray *appFolder;

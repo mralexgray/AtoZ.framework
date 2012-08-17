@@ -9,7 +9,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import <AtoZ/AtoZ.h>
-//#import <AtoZ/iCarousel.h>
+#import "iCarousel.h"
 #import <QuartzCore/QuartzCore.h>
 #import "IsometricView.h"
 
@@ -29,18 +29,20 @@
 }
 - (IBAction) goMouseTest:(id)sender;
 - (IBAction) reload:(id)sender;
--(IBAction) moveThemAll:(id) sender;
--(IBAction) cancel:(id) sender;
+- (IBAction) moveThemAll:(id) sender;
+- (IBAction) cancel:(id) sender;
 
+
+@property (assign, nonatomic) CGRect scaledUnit;
 @property (nonatomic, strong) IBOutlet iCarousel *carousel;
 
 
-@property (nonatomic, retain) IBOutlet AtoZInfinity *infinityView;
+//@property (nonatomic, retain) IBOutlet AtoZInfinity *infinityView;
 @property (nonatomic, retain) AZWindowExtend *window;
 @property (assign) IBOutlet NSView *rootView;
 @property (strong, nonatomic) NSNumber *scale;
 
-@property (assign) IBOutlet NSView *isoView;
+//@property (assign) IBOutlet NSView *isoView;
 //@property (assign) IBOutlet NSWindow *window;
 @property (weak) IBOutlet NSView *mouseTest;
 @property (weak) IBOutlet NSMatrix *mouseAction;
@@ -51,13 +53,13 @@
 
 @property (weak) IBOutlet NSTextField *coords;
 
-@property (retain) CALayer *root;
-@property (retain) CALayer *contentLayer;
-@property (retain) NSArray *demos;
+//@property (retain) CALayer *root;
+//@property (retain) CALayer *contentLayer;
+//@property (retain) NSArray *demos;
 
 @property (weak) IBOutlet AZToggleView *sortToggle;
 
--(IBAction)toggleShake:(id)sender;
+//-(IBAction)toggleShake:(id)sender;
 
 @end
 

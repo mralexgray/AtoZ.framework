@@ -64,10 +64,10 @@
 						}
 					}
 
-					AZFile *d =  [AZFile instance];
+					AZFile *d =  [AZFile instanceWithPath:convertedURL];
 // [AZFile instanceWithPath:convertedURL];
 //					NSString *app = convertedURL;
-					d.path =  convertedURL;
+//					d.path =  convertedURL;
 					d.spot = counter.unsignedIntegerValue;
 					d.dockPoint = coordinates;
 

@@ -101,6 +101,32 @@
 //	} else
 	return 5;
 }
+- (id)initWithFrame:(NSRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+		tArea = [[NSTrackingArea alloc] initWithRect:[self frame]
+			options:[self trackoptions] owner:self userInfo:nil];
+		[self addTrackingArea:tArea];
+    }
+    return self;
+}
+
+- (NSTrackingAreaOptions) trackoptions {
+	return (
+			NSTrackingInVisibleRect | NSTrackingMouseEnteredAndExited | NSTrackingActiveInKeyWindow  | NSTrackingActiveAlways | NSTrackingMouseMoved);
+}
+- (void)updateTrackingAreas{
+
+	[super updateTrackingAreas];
+	if (tArea)
+	[self removeTrackingArea:tArea];
+
+
+	tArea = [[NSTrackingArea alloc] initWithRect:NSZeroRect options:[self trackoptions] owner:self userInfo:nil];
+	[self addTrackingArea:tArea];
+
+}
 
 - (float) halfwayWithInset {
 	NSRect dim = NSInsetRect(self.bounds, self.inset, self.inset);
@@ -230,11 +256,13 @@
 
 -(void) mouseEntered:(NSEvent *)theEvent
 {
+	NSLog(@"entered the box. frame: %@", NSStringFromRect(self.frame));
 	self.hovered = YES;
-	[[[self superview]subviews]each:^(id obj, NSUInteger index, BOOL *stop) {
+	[[[[self window]contentView]allSubviews]each:^(id obj, NSUInteger index, BOOL *stop) {
 		if ( ([obj isKindOfClass:[AZBox class]]) && ([obj isNotEqualTo:self]) )
 			[(AZBox*)obj setHovered:NO];
 	}];
+//	[self setNeedsDisplay:YES];
 }
 //-(void) mouseExited:(NSEvent *)theEvent {
 //	self.hovered = NO;

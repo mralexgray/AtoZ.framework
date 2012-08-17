@@ -11,65 +11,98 @@
 
 
 @implementation AtoZ
-@synthesize dock = _dock, dockSorted = _dockSorted, dockOutline = _dockOutline, appFolder, appFolderSorted;//, console;
-
+@synthesize dockOutline, appFolder, appFolderSorted;//, console;
+@synthesize dock, dockSorted;
 //{//	__weak AZSimpleView *e;
 //}
 //	console = [NSLogConsole sharedConsole]; [console open];
 
 - (void) setUp {
-	_dockOutline = [AZDockQuery dock];
-	_dock = [self dock];
+	self.dockOutline = [AZDockQuery dock];
+	self.dock = dockOutline;
+	self.sortOrder = AZDockSortNatural;
 	// arrayUsingIndexedBlock:^id(AZFile* obj, NSUInteger idx) {
 	//			NSLog(@"dockquery item: %@", [obj allKeys]);
 
 }
 
 + (NSArray*) dockOutline {
-	return [super sharedInstance].dockOutline;
+	return [[super sharedInstance] dockOutline];
 }
-- (NSArray*)dockOutline {
-	return (_dockOutline ? _dockOutline : [AZDockQuery dock]);
-}
+//- (NSArray*)dockOutline {
+//	return _dockOutline;// ? _dockOutline : [AZDockQuery dock]);
+//}
 
 + (NSArray*) dock {
-	return [AtoZ sharedInstance].dock;
+	return [super sharedInstance].dock ;
 }
 
 + (NSArray*) dockSorted {
+
 	return [super sharedInstance].dockSorted;
 }
-- (NSArray*) dock {
+//- (NSArray*) dock {
 
-	self.sortOrder = AZDockSortNatural;
-	return (_dock ? _dock : [_dockOutline arrayUsingIndexedBlock:^id(AZFile *obj, NSUInteger idx) {
-		NSLog(@"Created file: %ld", idx);
-		AZFile *app = [AZFile instanceWithPath:[obj valueForKey:@"path"]];
-		app.spot = [[obj valueForKey:@"spot"]unsignedIntegerValue ];
-		app.dockPoint = [[obj valueForKey:@"dockPoint"]pointValue];
-		return app;
-	}] );
-
-}
+	
+//	self.sortOrder = AZDockSortNatural;
+//	if (!_dock)
+//		[[NSThread mainThread] performBlock:^{
+//			_dock
+//	return self.dock;
+/*			if (!dock)
+			self.dock =   [self.dockOutline arrayUsingIndexedBlock:^id(AZFile *obj, NSUInteger idx) {
+			AZFile *app = [AZFile instanceWithPath:[obj valueForKey:@"path"]];
+			app.spot = [[obj valueForKey:@"spot"]unsignedIntegerValue ];
+			app.dockPoint = [[obj valueForKey:@"dockPoint"]pointValue];
+			NSLog(@"Created file: %@... idx:%ld", app.name, idx);
+			return app;
+			}];
+			return dock;
+//		}waitUntilDone:YES];
+//	return _dock;
+*/
+//}/
 
 - (NSArray*) dockSorted {
 
-	self.sortOrder = AZDockSortNatural;
-	return	[[[_dock sortedWithKey:@"hue" ascending:YES] reversed] arrayUsingIndexedBlock:^id(AZFile* obj, NSUInteger idx) {
-		obj.spotNew = idx;
-		obj.dockPointNew = [[_dock[idx] valueForKey:@"dockPoint"]pointValue];
-		return obj;
-	}];
+	self.sortOrder = AZDockSortColor;
+//	[NSThread performBlockInBackground:^{
+//	if (!_dockSorted)
+//		[[NSThread mainThread] performBlock:^{
+//	if (!dockSorted)
+			return  [[[dock sortedWithKey:@"hue" ascending:YES] reversed] arrayUsingIndexedBlock:^id(AZFile* obj, NSUInteger idx) {
+//				if ([obj.name isEqualToString:@"Finder"]) {
+//					obj.spotNew = 999;
+//					obj.dockPointNew = obj.dockPoint;
+//				} else {
+					obj.spotNew = idx;
+					obj.dockPointNew = [[[dock objectAtIndex:idx]valueForKey:@"dockPoint"]pointValue];
+//				}
+
+				return obj;
+			}];
+//	return dockSorted;
+//		}waitUntilDone:YES];
+//	return _dockSorted;
+//		[[NSThread mainThread] performBlock:^{
+//			 _dockSorted = adock.mutableCopy;
+//		} waitUntilDone:YES];
+//	}];
+//	return _dockSorted;
+
 }
 
-- (NSArray*) selectedDock {
-	switch (self.sortOrder) {
++ (NSArray*) selectedDock{
+	AtoZ *shared =  [super sharedInstance];
+	AZDockSort sortorder = shared.sortOrder;
+	switch (sortorder) {
 		case AZDockSortNatural:
-			return self.dock;
+			return shared.dock;
 			break;
 		case AZDockSortColor:
-			return self.dockSorted;
+			return shared.dockSorted;
 		default:
+			return shared.dock;
 			break;
 			//			return NSArray *a = @[$int(66) to:$int(66)];// arrayUsingBlock:^id(id obj) {
 			//

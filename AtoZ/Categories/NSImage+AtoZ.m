@@ -79,6 +79,24 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 	return [self imageWithFileName: fileName inBundle: aBundle];
 }
 
++ (NSImage*)swatchWithColor:(NSColor*)color size:(NSSize)size
+{
+    NSImage *image = [[NSImage alloc] initWithSize:size];
+    [image lockFocus];
+    [color drawSwatchInRect:NSMakeRect(0, 0, size.width, size.height)];
+    [image unlockFocus];
+	return image;
+}
+
++ (NSImage *)swatchWithGradientColor:(NSColor *)color size:(NSSize)size {
+	NSImage *image = [[NSImage alloc] initWithSize:size];
+    [image lockFocus];
+	NSGradient * fade = [[NSGradient alloc] initWithStartingColor:color.brighter endingColor:color.darker.darker];
+    [fade drawInRect:NSMakeRect(0, 0, size.width, size.height) angle:270];
+	[image unlockFocus];
+	return image;
+}
+
 
 + (NSImage *) prettyGradientImage
 {

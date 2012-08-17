@@ -5,7 +5,7 @@
       location = "container:AtoZ/AtoZ.xcodeproj">
    </FileRef>
    <FileRef
-      location = "container:AtoZStatusAspp/AtoZStatusApp.xcodeproj">
+      location = "container:AtoZStatusApp/AtoZStatusApp.xcodeproj">
    </FileRef>
    <FileRef
       location = "container:AtoZStatusAspp/../../AtoZInfiniteScroll/AtoZInfiniteScroll/AtoZInfiniteScroll.xcodeproj">

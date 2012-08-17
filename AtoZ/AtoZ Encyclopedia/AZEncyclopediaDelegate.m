@@ -11,27 +11,38 @@
 @implementation AZEncyclopediaDelegate
 {
 BOOL cancelled;
+
 }
 @synthesize sortToggle;
-//@synthesize pIndi;
-//@synthesize orientButton;
-//@synthesize scaleSlider;
+@synthesize window = _window;//, root, demos, contentLayer;
+//@synthesize infinityView;
 
-@synthesize window = _window, root, demos, contentLayer;
-@synthesize infinityView;
+//@synthesize  rootView, isoView;
 
-@synthesize  rootView, isoView;
+- (void)setScale:(NSNumber *)scale {
+	_scale = scale;
+	[self.carousel reloadData];
+//	[self.carousel performSelector:@selector(reloadData) onThread:[NSThread mainThread] withObject:nil waitUntilDone:YES];
+//	[self.carousel setNeedsDisplay:YES];
+//	[self.carousel fadeIn];
 
+}
 - (NSUInteger)numberOfItemsInCarousel:(iCarousel *)carousel{
- return [AtoZ dockSorted].count;
+ 	return floor([AtoZ dockSorted].count / _scale.floatValue);
+}
+
+- (CGRect) scaledUnit {
+	return  AZMakeRect(NSZeroPoint,NSMakeSize(
+				self.carousel.frame.size.width,
+				((self.carousel.frame.size.height / [AtoZ selectedDock].count)*self.scale.floatValue)));
+//	return _scaledUnit;
 }
 
 - (CGFloat)carouselItemWidth:(iCarousel *)carousel
 {
-    //set correct view size
-    //because the background image on the views makes them too large
-	return (([[self window]frame].size.height / (float)self.carousel.numberOfItems)*self.scale.floatValue);
-	//    return 200.0f;
+    //set correct view size because the background image on the views makes them too large
+	return self.scaledUnit.size.width ;
+
 }
 
 - (CGFloat)carousel:(iCarousel *)_carousel valueForOption:(iCarouselOption)option withDefault:(CGFloat)value
@@ -43,8 +54,7 @@ BOOL cancelled;
 		{			return YES;}
 		case iCarouselOptionVisibleItems:
 		{
-			return [AtoZ dockSorted].count;
-
+			return _carousel.numberOfItems/self.scale.floatValue;
 		}
 //		case iCarouselOptionTilt:
 //			return  .4;
@@ -73,8 +83,8 @@ BOOL cancelled;
 
 - (NSView *)carousel:(iCarousel *)carousel viewForItemAtIndex:(NSUInteger)index reusingView:(NSView *)view
 {
-    NSTextField *label = nil;
-    NSRect bounder = NSMakeRect(0,0,50,40);//[[self window]frame].size.height);
+//    NSTextField *label = nil;
+//    NSRect bounder = NSMakeRect(0,0,_carousel.frame.size.width,(_carousel.frame.size.height/_carousel.numberOfItems)*_scale.floatValue);
 
     //create new view if no view is available for recycling
 	if (view == nil)
@@ -85,29 +95,45 @@ BOOL cancelled;
 		//		NSImage *image = [[NSImage imageNamed:@"page.png"]tintedWithColor:RANDOMCOLOR];
 		//       	view = [[[NSImageView alloc] initWithFrame:NSMakeRect(0,0,[self carouselItemWidth:self.carousel],image.size.height)] autorelease];
 		//        [(NSImageView *)view setImage:image];
-		view = [[NSView alloc]initWithFrame: bounder];
-
+		NSRect arbitrary = AZMakeRect(NSZeroPoint,NSMakeSize(50,50));
+		view = [[NSView alloc]initWithFrame: arbitrary];
+		NSImageView *iv = [[NSImageView alloc]initWithFrame: arbitrary];
+		NSImage *u = [[NSImage alloc]initWithSize:arbitrary.size];
+		u.scalesWhenResized = YES;
+		[u lockFocus];
+		NSColor*fill = [[[AtoZ dockSorted]objectAtIndex:index]valueForKey:@"color"];
+		if (!fill) fill = RED;
+		[fill set];
+		NSRectFill(arbitrary);
+		[u unlockFocus];
+		[iv setImage:u];
+		iv.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+		view.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+		view.autoresizesSubviews = YES;
+		[view addSubview:iv];
 		//        [(NSImageView *)view setImageScaling:NSImageScaleAxesIndependently];
-		CALayer *l = [CALayer layer];
-		l.backgroundColor = cgRANDOMCOLOR;
-		l.autoresizingMask = kCALayerWidthSizable | kCALayerHeightSizable;
-		l.frame = bounder;
-		[view setWantsLayer : YES ];
-        view.layer = l;
-		label = [[[NSTextField alloc] init] autorelease];
+//		CALayer *l = [CALayer layer];
+//		l.backgroundColor = [[[[AtoZ selectedDock]objectAtIndex:index]valueForKey:@"color"]CGColor];
+//		l.autoresizingMask = kCALayerWidthSizable | kCALayerHeightSizable;
+//		l.frame = bounder;
+//        view.layer = l;
+//		[view setWantsLayer : YES ];
+/**		label = [[[NSTextField alloc] init] autorelease];
         [label setBackgroundColor:[NSColor clearColor]];
+		[label setTextColor:WHITE];
         [label setBordered:NO];
         [label setSelectable:NO];
         [label setAlignment:NSCenterTextAlignment];
-        [label setFont:[NSFont fontWithName:[[label font] fontName] size:50]];
+        [label setFont:[NSFont fontWithName:[[label font] fontName] size:10]];
         label.tag = 1;
-        [view addSubview:label];
+//        [view addSubview:label];
+	/&/&/*/
 	}
 	else
 	{
-		[view setFrame:bounder];
+//		[view setFrame:self.scaledUnit];
 		//get a reference to the label in the recycled view
-		label = (NSTextField *)[view viewWithTag:1];
+//		label = (NSTextField *)[view viewWithTag:1];
 	}
 
 	//set item label
@@ -115,49 +141,20 @@ BOOL cancelled;
     //views outside of the `if (view == nil) {...}` check otherwise
     //you'll get weird issues with carousel item content appearing
     //in the wrong place in the carousel
-	[label setStringValue:[NSString stringWithFormat:@"%lu", index]];
+/*	[label setStringValue:[NSString stringWithFormat:@"%lu", index]];
     [label sizeToFit];
     [label setFrameOrigin:NSMakePoint((view.bounds.size.width - label.frame.size.width)/2.0,
                                       (view.bounds.size.height - label.frame.size.height)/2.0)];
 	//	view.needsDisplay = YES;
+	view.frame = bounder;
+	view.layer.frame = bounder;
+	[view.layer setNeedsDisplay];
+	[[view.layer sublayers] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+		[obj setNeedsDisplay];
+	}];
+	[view setNeedsDisplay:YES];
+*/
 	return view;
-}
-
-+ (void) initialize {
-
-	//	AZTalker *welcome = [AZTalker new];
-	//	[welcome say:@"welcome"];
-//	[NSLogConsole sharedConsole];
-
-}
-
--(void) dunno {
-
-	//	NSUInteger index = [(NSPopUpButton *)sender selectedTag];
-	NSLog(@"Selecting stylesheet %ld",index);
-
-	if (index > 1 ) {
-		[[_window contentView] performSelectorOnMainThread:@selector(fadeOut) withObject:nil waitUntilDone:YES];
-		//		[self selectStyleSheetAtIndex:index];
-		//		[ibackgroundView fadeIn];
-	} else {
-		//		[ibackgroundView performSelectorOnMainThread:@selector(fadeOut) withObject:nil waitUntilDone:YES];
-		//		[self selectStyleSheetAtIndex:index];
-		//		[backgroundView fadeIn];
-	}
-}
-
--(void) quadImage {
-
-	//	NSString* path = [NSString stringWithFormat:@"%@/Frameworks/AtoZ.framework/Resources/1.pdf", [[NSBundle mainBundle] bundlePath]];
-	//	[image saveAs:@"/Users/localadmin/Desktop/mystery.png"];
-
-	//	CALayer *layer = [CALayer layer];
-	//	[root setLayer:myLayer];
-	//	[view setFrame:NSMakeRect(0, 0, image.size.width, image.size.height)];
-	//	root.transform = [contentLayer rectToQuad:[contentLayer bounds] quadTLX:0 quadTLY:0 quadTRX:image.size.width quadTRY:20 quadBLX:0 quadBLY:image.size.height quadBRX:image.size.width quadBRY:image.size.height + 90];
-	//
-	//[1]: http://codingincircles.com/2010/07/major-misunderstanding/
 }
 
 -(void)awakeFromNib{
@@ -166,7 +163,7 @@ BOOL cancelled;
 	_carousel.delegate = self;
 	_carousel.vertical = YES;
 	_carousel.type = iCarouselTypeLinear;
-	self.scale = @1;
+	_scale = @1;
 //	[[NSLogConsole sharedConsole]open];
 
 	//	NSRect erect = NSInsetRect([[_window contentView] bounds],25,25);
@@ -191,7 +188,8 @@ BOOL cancelled;
 
 	[self makeBadges];
 	cancelled = NO;
-	self.infinityView.infiniteObjects = [AtoZ dock];
+	[_carousel reloadData];
+//	self.infinityView.infiniteObjects = [AtoZ dock];
 //	[self.sortToggle]
 //	NSLog(@"Dock:  %@", dock);
 
@@ -203,20 +201,20 @@ BOOL cancelled;
 		SourceListItem *appsListItem = [SourceListItem itemWithTitle:@"APPS" identifier:@"apps"];
 //		[appsListItem setBadgeValue:[[AtoZ dock]count]];
 		[appsListItem setIcon:[NSImage imageNamed:NSImageNameAddTemplate]];
-		[appsListItem setChildren:[[AtoZ dock] arrayUsingBlock:^id(AZFile* obj) {
+		[appsListItem setChildren:[[AtoZ sharedInstance].dockSorted arrayUsingBlock:^id(AZFile* obj) {
 			SourceListItem *app = [SourceListItem itemWithTitle:obj.name identifier:obj.uniqueID icon:obj.image];
-			AZFile* sorted =[[AtoZ dockSorted] filterOne:^BOOL(AZFile* sortObj) {
-				return ([sortObj.uniqueID isEqualToString:obj.uniqueID] ? YES : NO);
-			}];
-			NSLog(@"%@, spot: %ld, match sorted: %@ spot%ld", obj.name, obj.spot, sorted.name, sorted.spotNew);
+//			AZFile* sorted =[[AtoZ dockSorted] filterOne:^BOOL(AZFile* sortObj) {
+//				return ([sortObj.uniqueID isEqualToString:obj.uniqueID] ? YES : NO);
+//			}];
+//			NSLog(@"%@, spot: %ld, match sorted: %@ spot%ld", obj.name, obj.spot, sorted.name, sorted.spotNew);
 //			app.badgeValue = sorted.spotNew;
 
 
-			app.color = sorted.color;
-			app.objectRep = sorted;
-			[app setChildren:[[[sorted propertiesPlease] allKeys] arrayUsingBlock:^id(NSString* key) {
+			app.color = obj.color;
+			app.objectRep = obj;
+			[app setChildren:[[[obj propertiesPlease] allKeys] arrayUsingBlock:^id(NSString* key) {
 				if ( [key isEqualToAnyOf:@[@"name",@"image", @"color", @"colors"]]) return  nil;
-				else return [SourceListItem itemWithTitle:$(@"%@: %@",key,[sorted valueForKey:key]) identifier:nil];
+				else return [SourceListItem itemWithTitle:$(@"%@: %@",key,[obj valueForKey:key]) identifier:nil];
 			}]];
 //
 			return app;
@@ -341,7 +339,7 @@ BOOL cancelled;
 	//	}];
 
 }
--(IBAction)isoTest:(id)sender{
+/*-(IBAction)isoTest:(id)sender{
 
 	__block id ii = [isoView superview];
 	NSLog(@"[self props]");// self.propertiesPlease);
@@ -375,7 +373,7 @@ BOOL cancelled;
 //	NSRect r =
 
 
-/*
+
  AZSizer *cc = [AZSizer forQuantity:[AtoZ dockSorted].count inRect:[[_window contentView] frame]];
  NSLog(@"rects: %@", cc.rects);
 
@@ -458,7 +456,11 @@ BOOL cancelled;
 	[_window.contentView addSubview:(NSView *)kk];
 	//	Since the NSMatrix is a container for NSCell you need to fill them with something. In the example you posted you can do this by fetching the cell corresponding to your only row and column and setting the image.
 
+
 }
+
+
+/*
 - (void) doLayout {
 
 	NSRect r 	= [AZSizer structForQuantity:[AtoZ dockSorted		].count inRect:[[_window contentView] frame]];
@@ -490,7 +492,7 @@ BOOL cancelled;
 
 }
 
-/*
+
  [[_window contentView] setWantsLayer:YES];
  root = [CALayer layer];
  [[[_window contentView] layer] addSublayer: root ];
@@ -791,10 +793,13 @@ BOOL cancelled;
 
 - (NSInteger)sourceList:(AZSourceList*)aSourceList badgeValueForItem:(id)item
 {
-	AZFile *first = [[AtoZ dockSorted] filterOne:^BOOL(AZFile* object) {
-		return ( [object.uniqueID isEqualTo:[item identifier]] ? YES : NO);
-	}];
+	AZFile *first  = aSourceList.objectRep;
 	return first.spotNew;
+//	AZFile *first = [[AtoZ dockSorted] filterOne:^BOOL(AZFile* object) {
+//		return ( [object.uniqueID isEqualTo:[item identifier]] ? YES : NO);
+//	}];
+
+//	return first.spotNew;
 //	return [item badgeValue];
 }
 
@@ -886,5 +891,45 @@ BOOL cancelled;
 
 	//Do something here
 }
+
+
++ (void) initialize {
+
+	//	AZTalker *welcome = [AZTalker new];
+	//	[welcome say:@"welcome"];
+	//	[NSLogConsole sharedConsole];
+
+}
+
+-(void) dunno {
+
+	//	NSUInteger index = [(NSPopUpButton *)sender selectedTag];
+	NSLog(@"Selecting stylesheet %ld",index);
+
+	if (index > 1 ) {
+		[[_window contentView] performSelectorOnMainThread:@selector(fadeOut) withObject:nil waitUntilDone:YES];
+		//		[self selectStyleSheetAtIndex:index];
+		//		[ibackgroundView fadeIn];
+	} else {
+		//		[ibackgroundView performSelectorOnMainThread:@selector(fadeOut) withObject:nil waitUntilDone:YES];
+		//		[self selectStyleSheetAtIndex:index];
+		//		[backgroundView fadeIn];
+	}
+}
+
+-(void) quadImage {
+
+	//	NSString* path = [NSString stringWithFormat:@"%@/Frameworks/AtoZ.framework/Resources/1.pdf", [[NSBundle mainBundle] bundlePath]];
+	//	[image saveAs:@"/Users/localadmin/Desktop/mystery.png"];
+
+	//	CALayer *layer = [CALayer layer];
+	//	[root setLayer:myLayer];
+	//	[view setFrame:NSMakeRect(0, 0, image.size.width, image.size.height)];
+	//	root.transform = [contentLayer rectToQuad:[contentLayer bounds] quadTLX:0 quadTLY:0 quadTRX:image.size.width quadTRY:20 quadBLX:0 quadBLY:image.size.height quadBRX:image.size.width quadBRY:image.size.height + 90];
+	//
+	//[1]: http://codingincircles.com/2010/07/major-misunderstanding/
+}
+
+
 
 @end
