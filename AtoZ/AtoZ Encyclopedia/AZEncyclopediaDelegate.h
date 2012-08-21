@@ -7,13 +7,14 @@
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
 #import <AtoZ/AtoZ.h>
-#import "iCarouselViewController.h"
-//iCarousel.h"
-#import <QuartzCore/QuartzCore.h>
-//#import "IsometricView.h"
 
+#import "iCarouselViewController.h"
+
+#import "SDToolkit.h"
+#import "SDCommonAppDelegate.h"
+//#import "IsometricView.h"
+#import "AZStatusItemView.h"
 
 #define kCompositeIconHeight 155.0
 #define kIconWidth 128.0
@@ -21,14 +22,25 @@
 #define kMargin 30.0
 
 
-@interface AZEncyclopediaDelegate : NSObject <NSApplicationDelegate, NSWindowDelegate, AZSourceListDataSource, iCarouselDataSource, iCarouselDelegate, AZToggleArrayViewDelegate>
+@interface AZEncyclopediaDelegate : SDCommonAppDelegate <NSApplicationDelegate, NSWindowDelegate, AZSourceListDataSource, AZToggleArrayViewDelegate, AZStatusItemDelegate	>
 {
-	IBOutlet NSMatrix *matrix;
-	IBOutlet NSTextField *selectedItemLabel;
+	AZStatusItemView *statusView;
+
+//	IBOutlet NSMatrix *matrix;
+//	IBOutlet NSTextField *selectedItemLabel;
 	NSArray *sourceListItems;
 	IBOutlet AZSourceList *sourceList;
-
+	IBOutlet NSMenu *statusMenu;
+	NSStatusItem *statusItem;
+	NSMutableArray *noteControllers;
 }
+
+@property (assign, nonatomic) 	IBOutlet NSProgressIndicator *pIndi;
+@property (assign, nonatomic)   IBOutlet TransparentWindow *controlWindow;
+//@property (nonatomic, retain)  IBOutlet NSWindow *attachedWindow;
+
+- (IBAction) addNote:(id)sender;
+- (IBAction) removeAllNotes:(id)sender;
 - (IBAction) goMouseTest:(id)sender;
 - (IBAction) reload:(id)sender;
 - (IBAction) moveThemAll:(id) sender;
@@ -40,26 +52,26 @@
 
 
 //@property (nonatomic, retain) IBOutlet AtoZInfinity *infinityView;
-@property (nonatomic, retain) AZWindowExtend *window;
-@property (assign) IBOutlet NSView *rootView;
+//@property (nonatomic, strong) AZWindowExtend *window;
+//@property (assign) IBOutlet NSView *rootView;
 @property (strong, nonatomic) NSNumber *scale;
 
 //@property (assign) IBOutlet NSView *isoView;
-//@property (assign) IBOutlet NSWindow *window;
-@property (weak) IBOutlet NSView *mouseTest;
-@property (weak) IBOutlet NSMatrix *mouseAction;
-@property (weak) IBOutlet NSTextField *point1x;
-@property (weak) IBOutlet NSTextField *point1y;
-@property (weak) IBOutlet NSTextField *point2x;
-@property (weak) IBOutlet NSTextField *point2y;
+@property (assign) IBOutlet TransparentWindow *window;
+@property (weak, nonatomic) IBOutlet NSView *mouseTest;
+@property (weak, nonatomic) IBOutlet NSMatrix *mouseAction;
+@property (weak, nonatomic) IBOutlet NSTextField *point1x;
+@property (weak, nonatomic) IBOutlet NSTextField *point1y;
+@property (weak, nonatomic) IBOutlet NSTextField *point2x;
+@property (weak, nonatomic) IBOutlet NSTextField *point2y;
 
-@property (weak) IBOutlet NSTextField *coords;
+@property (weak, nonatomic) IBOutlet NSTextField *coords;
 
 //@property (retain) CALayer *root;
 //@property (retain) CALayer *contentLayer;
 //@property (retain) NSArray *demos;
 
-@property (weak) IBOutlet AZToggleArrayView   *sortToggle;
+@property (nonatomic, strong) IBOutlet AZToggleArrayView   *sortToggle;
 
 //-(IBAction)toggleShake:(id)sender;
 

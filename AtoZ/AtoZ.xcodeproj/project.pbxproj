@@ -7,6 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7B02364D15DF15DB0070FE12 /* AZLaunchServices.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B02364B15DF15DA0070FE12 /* AZLaunchServices.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B02364E15DF15DB0070FE12 /* AZLaunchServices.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B02364C15DF15DA0070FE12 /* AZLaunchServices.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7B02365615DF26AA0070FE12 /* AZStatusItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B02365515DF26AA0070FE12 /* AZStatusItemView.m */; };
+		7B0236AF15E07D440070FE12 /* EncyclopediaDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B379D1215DE56F10040A093 /* EncyclopediaDelegate.m */; };
+		7B0236DC15E08E640070FE12 /* PLWeakCompatibility.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7B0236C215E08BD90070FE12 /* PLWeakCompatibility.framework */; };
+		7B0236DD15E08E6D0070FE12 /* AtoZiTunes.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7B0236B915E08BD90070FE12 /* AtoZiTunes.framework */; };
+		7B0236F615E096480070FE12 /* AtoZ.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7B311951159B6D9E002134C4 /* AtoZ.framework */; };
+		7B0236F715E096C40070FE12 /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B311951159B6D9E002134C4 /* AtoZ.framework */; };
+		7B0236FC15E0AC190070FE12 /* AtoZiTunes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B0236B915E08BD90070FE12 /* AtoZiTunes.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		7B0236FD15E0AC190070FE12 /* PLWeakCompatibility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B0236C215E08BD90070FE12 /* PLWeakCompatibility.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		7B0236FE15E0AC320070FE12 /* AtoZiTunes.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7B0236B915E08BD90070FE12 /* AtoZiTunes.framework */; };
+		7B0236FF15E0AC320070FE12 /* PLWeakCompatibility.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7B0236C215E08BD90070FE12 /* PLWeakCompatibility.framework */; };
 		7B05BB0C159C40A600409B83 /* AZQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B05BB0A159C40A600409B83 /* AZQueue.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B05BB14159C5C6100409B83 /* AZBlockView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B05BB12159C5C6100409B83 /* AZBlockView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B05BB15159C5C6100409B83 /* AZBlockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B05BB13159C5C6100409B83 /* AZBlockView.m */; };
@@ -34,7 +46,6 @@
 		7B137CFD15A202510088A630 /* AZBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B137CFB15A202510088A630 /* AZBox.m */; };
 		7B23C32315CDFBC100DD1A9C /* NSURL+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B23C32115CDFBC100DD1A9C /* NSURL+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B23C32415CDFBC100DD1A9C /* NSURL+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B23C32215CDFBC100DD1A9C /* NSURL+AtoZ.m */; };
-		7B23C33D15CE246C00DD1A9C /* IsometricView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B23C33C15CE246C00DD1A9C /* IsometricView.m */; };
 		7B23C33E15CE267400DD1A9C /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF9E7D9159F0A8200B5482D /* Quartz.framework */; };
 		7B23C33F15CE268B00DD1A9C /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B6901BC159E0BF700D0DA47 /* Carbon.framework */; };
 		7B23C34015CE286100DD1A9C /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B311951159B6D9E002134C4 /* AtoZ.framework */; };
@@ -108,7 +119,6 @@
 		7B379D0E15DE566E0040A093 /* SDPreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B379CF315DE566D0040A093 /* SDPreferencesController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7B379D0F15DE566E0040A093 /* SDRoundedInstructionsImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B379CF515DE566D0040A093 /* SDRoundedInstructionsImageView.m */; };
 		7B379D1015DE566E0040A093 /* SDWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B379CF915DE566D0040A093 /* SDWindowController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		7B379D1315DE56F10040A093 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B379D1215DE56F10040A093 /* AppDelegate.m */; };
 		7B379D1515DE5C760040A093 /* GeneralPrefPane.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B379D1415DE5C760040A093 /* GeneralPrefPane.xib */; };
 		7B379D1715DE5D5C0040A093 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B379D1615DE5D5C0040A093 /* MainMenu.xib */; };
 		7B379D1A15DE5ED30040A093 /* SDNoteWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B379D1915DE5ED10040A093 /* SDNoteWindowController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -122,6 +132,9 @@
 		7B379D3215DE66840040A093 /* EditTitlePanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B379D3015DE66840040A093 /* EditTitlePanel.xib */; };
 		7B379D3515DE668F0040A093 /* NoteWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B379D3315DE668F0040A093 /* NoteWindow.xib */; };
 		7B379D3615DE668F0040A093 /* EditTitlePanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B379D3415DE668F0040A093 /* EditTitlePanel.xib */; };
+		7B379D3715DE6B2B0040A093 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B82B82515CB66D30026FE8C /* AppKit.framework */; };
+		7B379D3815DE6B310040A093 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B6901D9159E3F1800D0DA47 /* ApplicationServices.framework */; };
+		7B379D3915DE6B3C0040A093 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B6901DB159E3F2700D0DA47 /* Security.framework */; };
 		7B385DEE15C3B49E00A28686 /* AZFoamView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B385DEC15C3B49E00A28686 /* AZFoamView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B385DEF15C3B49E00A28686 /* AZFoamView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B385DED15C3B49E00A28686 /* AZFoamView.m */; };
 		7B495F7815C076C7002DC694 /* RGB.clr in Resources */ = {isa = PBXBuildFile; fileRef = 7B495F7715C076C7002DC694 /* RGB.clr */; };
@@ -159,14 +172,20 @@
 		7B82B82D15CB66D30026FE8C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7B82B82B15CB66D30026FE8C /* InfoPlist.strings */; };
 		7B82B82F15CB66D30026FE8C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B82B82E15CB66D30026FE8C /* main.m */; };
 		7B82B83315CB66D30026FE8C /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 7B82B83115CB66D30026FE8C /* Credits.rtf */; };
-		7B82B83615CB66D30026FE8C /* AZEncyclopediaDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B82B83515CB66D30026FE8C /* AZEncyclopediaDelegate.m */; };
 		7B82B83915CB66D30026FE8C /* ControlPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B82B83715CB66D30026FE8C /* ControlPanel.xib */; };
 		7B8558E915B2CBAF0005F558 /* circle2.tif in Resources */ = {isa = PBXBuildFile; fileRef = 7B8558E815B2CBAF0005F558 /* circle2.tif */; };
+		7B8A29FE15E2735000286E27 /* SMModelObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B8A29FC15E2735000286E27 /* SMModelObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B8A29FF15E2735000286E27 /* SMModelObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B8A29FD15E2735000286E27 /* SMModelObject.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7B8A2A0D15E2C52400286E27 /* AZSourceListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B8A2A0C15E2C52400286E27 /* AZSourceListViewController.m */; };
+		7B8A2A1015E2D48D00286E27 /* AZVeil.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B8A2A0E15E2D48D00286E27 /* AZVeil.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B8A2A1115E2D48D00286E27 /* AZVeil.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B8A2A0F15E2D48D00286E27 /* AZVeil.m */; };
 		7B92135C15C49B6600862F9D /* NSThread+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B92135A15C49B6600862F9D /* NSThread+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B92135D15C49B6600862F9D /* NSThread+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B92135B15C49B6600862F9D /* NSThread+AtoZ.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7B92136115C4A03300862F9D /* AZInfiniteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B92135F15C4A03300862F9D /* AZInfiniteCell.m */; };
 		7B92137415C56F4600862F9D /* AZSimpleView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B92137215C56F4600862F9D /* AZSimpleView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B92137515C56F4600862F9D /* AZSimpleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B92137315C56F4600862F9D /* AZSimpleView.m */; };
+		7B9595B115E1D0090044620B /* UbuntuTitling-Bold.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7B9595A815E1CEA20044620B /* UbuntuTitling-Bold.ttf */; };
+		7B9595B215E1D0090044620B /* UbuntuMono-B.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7BDB8D7B15CB56BA0037A4BF /* UbuntuMono-B.ttf */; };
 		7B96424315C15818001A0B0F /* NSWindow_Flipr.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B96424115C15818001A0B0F /* NSWindow_Flipr.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B9742A915C62F70006490DD /* RuntimeReporter.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B9742A715C62F70006490DD /* RuntimeReporter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B9742AA15C62F70006490DD /* RuntimeReporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B9742A815C62F70006490DD /* RuntimeReporter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -178,8 +197,6 @@
 		7B9742D315C697C4006490DD /* 4.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 7B9742CE15C697C4006490DD /* 4.pdf */; };
 		7B9742D415C697C4006490DD /* 5.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 7B9742CF15C697C4006490DD /* 5.pdf */; };
 		7B985DC015C91E4F00A86B7C /* AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B311961159B6D9E002134C4 /* AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7BA147B015DCF0630041BAFE /* AtoZ.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7B311951159B6D9E002134C4 /* AtoZ.framework */; };
-		7BA147B115DCF0680041BAFE /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B311951159B6D9E002134C4 /* AtoZ.framework */; };
 		7BAD6B1115CD5C2E001DE404 /* AZNamedColors.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BAD6B0F15CD5C2E001DE404 /* AZNamedColors.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BAD6B1215CD5C2E001DE404 /* AZNamedColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BAD6B1015CD5C2E001DE404 /* AZNamedColors.m */; };
 		7BBD96EB15AD279900943FC1 /* AZSizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC859C415A8C0F400582632 /* AZSizer.m */; };
@@ -203,6 +220,10 @@
 		7BC859C515A8C0F400582632 /* AZSizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BC859C315A8C0F400582632 /* AZSizer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BC859CA15A8C56700582632 /* NSNumber+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BC859C815A8C56700582632 /* NSNumber+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BC859CB15A8C56700582632 /* NSNumber+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC859C915A8C56700582632 /* NSNumber+AtoZ.m */; };
+		7BC8EEB115DE77ED00630FC0 /* statusimage.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BC8EEAD15DE77ED00630FC0 /* statusimage.png */; };
+		7BC8EEB215DE77ED00630FC0 /* statusimage_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BC8EEAE15DE77ED00630FC0 /* statusimage_pressed.png */; };
+		7BC8EEB315DE77ED00630FC0 /* closebox.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BC8EEAF15DE77ED00630FC0 /* closebox.png */; };
+		7BC8EEB415DE77ED00630FC0 /* closebox_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BC8EEB015DE77ED00630FC0 /* closebox_pressed.png */; };
 		7BCDFC4915C6D8590003DA4D /* AZInfiniteCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B92135E15C4A03300862F9D /* AZInfiniteCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BCDFC6315C71A810003DA4D /* CTBadge.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BCDFC5815C71A810003DA4D /* CTBadge.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BCDFC6515C71A810003DA4D /* fullDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BCDFC5A15C71A810003DA4D /* fullDescription.m */; };
@@ -212,8 +233,6 @@
 		7BCDFC6915C71A810003DA4D /* NotificationCenterSpy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BCDFC5E15C71A810003DA4D /* NotificationCenterSpy.m */; };
 		7BCDFC6D15C71A810003DA4D /* noun_box.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 7BCDFC6215C71A810003DA4D /* noun_box.pdf */; };
 		7BDB8D7D15CB56BA0037A4BF /* missing.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BDB8D7915CB56BA0037A4BF /* missing.png */; };
-		7BDB8D7E15CB56BA0037A4BF /* noun_box.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 7BDB8D7A15CB56BA0037A4BF /* noun_box.pdf */; };
-		7BDB8D7F15CB56BA0037A4BF /* UbuntuMono-B.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7BDB8D7B15CB56BA0037A4BF /* UbuntuMono-B.ttf */; };
 		7BDDD5E415A3792600A5C222 /* AZStopwatch.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BDDD5E215A3792600A5C222 /* AZStopwatch.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BDDD5E515A3792600A5C222 /* AZStopwatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BDDD5E315A3792600A5C222 /* AZStopwatch.m */; };
 		7BE6069515A0E2DD00355236 /* NSString+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BE6069315A0E2DC00355236 /* NSString+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -224,7 +243,6 @@
 		7BF9E79D159E8F5000B5482D /* NSArray+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF9E79B159E8F5000B5482D /* NSArray+AtoZ.m */; };
 		7BF9E7D7159F0A0500B5482D /* AZPopupWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BF9E7D5159F0A0500B5482D /* AZPopupWindow.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BF9E7D8159F0A0500B5482D /* AZPopupWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF9E7D6159F0A0500B5482D /* AZPopupWindow.m */; };
-		7BFB3DCD15D18AAE0095D79B /* PLWeakCompatibility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BFB3DCC15D18AAD0095D79B /* PLWeakCompatibility.framework */; };
 		7BFEC80715D19C55009DA347 /* NSApplication+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B6901B7159E09D800D0DA47 /* NSApplication+AtoZ.m */; };
 		7BFEC80815D19C55009DA347 /* AZSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B24E98A15A12D2100A9D87A /* AZSize.m */; };
 		7BFEC80915D19C55009DA347 /* MondoSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0D7C3A15A3F0BA00037D30 /* MondoSwitch.m */; };
@@ -235,14 +253,77 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		7B31196D159B6D9E002134C4 /* PBXContainerItemProxy */ = {
+		7B0236B815E08BD90070FE12 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B0236B015E08BD90070FE12 /* AtoZiTunes.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7BA69F2415C294D4005503DF;
+			remoteInfo = AtoZiTunes;
+		};
+		7B0236BA15E08BD90070FE12 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B0236B015E08BD90070FE12 /* AtoZiTunes.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7BA6A3B215C298DE005503DF;
+			remoteInfo = TestApp;
+		};
+		7B0236C115E08BD90070FE12 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B0236B315E08BD90070FE12 /* PLWeakCompatibility.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 053887991523F6CD00CDC1DF;
+			remoteInfo = "PLWeakCompatibility-MacOSX";
+		};
+		7B0236C315E08BD90070FE12 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B0236B315E08BD90070FE12 /* PLWeakCompatibility.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 053887C61523F6F700CDC1DF;
+			remoteInfo = "PLWeakCompatibility-iOS";
+		};
+		7B0236C515E08BD90070FE12 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B0236B315E08BD90070FE12 /* PLWeakCompatibility.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C2CB83461523D8F300E8ABFC;
+			remoteInfo = "PLWeakCompatibility-MacOSX-Tests";
+		};
+		7B0236C715E08BD90070FE12 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B0236B315E08BD90070FE12 /* PLWeakCompatibility.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0573A94C1526484200D0D884;
+			remoteInfo = "PLWeakCompatibility-iOS-TestRunner";
+		};
+		7B0236C915E08BD90070FE12 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B0236B315E08BD90070FE12 /* PLWeakCompatibility.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0573A9641526484200D0D884;
+			remoteInfo = "PLWeakCompatibility-iOS-Tests";
+		};
+		7B0236F415E096380070FE12 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7B311947159B6D9E002134C4 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 7B311950159B6D9E002134C4;
 			remoteInfo = AtoZ;
 		};
-		7BA1472A15DC87650041BAFE /* PBXContainerItemProxy */ = {
+		7B0236F815E0ABA40070FE12 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B0236B015E08BD90070FE12 /* AtoZiTunes.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 7BA69F2315C294D4005503DF;
+			remoteInfo = AtoZiTunes;
+		};
+		7B0236FA15E0ABA40070FE12 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B0236B315E08BD90070FE12 /* PLWeakCompatibility.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 053887981523F6CD00CDC1DF;
+			remoteInfo = "PLWeakCompatibility-MacOSX";
+		};
+		7B31196D159B6D9E002134C4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7B311947159B6D9E002134C4 /* Project object */;
 			proxyType = 1;
@@ -252,28 +333,49 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		7B0236DB15E08E500070FE12 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				7B0236DD15E08E6D0070FE12 /* AtoZiTunes.framework in CopyFiles */,
+				7B0236DC15E08E640070FE12 /* PLWeakCompatibility.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7B9595B015E1CFCE0044620B /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Fonts;
+			dstSubfolderSpec = 7;
+			files = (
+				7B9595B115E1D0090044620B /* UbuntuTitling-Bold.ttf in CopyFiles */,
+				7B9595B215E1D0090044620B /* UbuntuMono-B.ttf in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7BA147AF15DCF04D0041BAFE /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				7BA147B015DCF0630041BAFE /* AtoZ.framework in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7BFB3DCB15D18A650095D79B /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
+				7B0236FE15E0AC320070FE12 /* AtoZiTunes.framework in CopyFiles */,
+				7B0236FF15E0AC320070FE12 /* PLWeakCompatibility.framework in CopyFiles */,
+				7B0236F615E096480070FE12 /* AtoZ.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		7B02364B15DF15DA0070FE12 /* AZLaunchServices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZLaunchServices.h; sourceTree = "<group>"; };
+		7B02364C15DF15DA0070FE12 /* AZLaunchServices.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZLaunchServices.m; sourceTree = "<group>"; };
+		7B02365415DF26AA0070FE12 /* AZStatusItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZStatusItemView.h; sourceTree = "<group>"; };
+		7B02365515DF26AA0070FE12 /* AZStatusItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZStatusItemView.m; sourceTree = "<group>"; };
+		7B0236B015E08BD90070FE12 /* AtoZiTunes.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AtoZiTunes.xcodeproj; path = "/Volumes/2T/ServiceData/git/AJS-iTunes-API/Framework/AtoZiTunes/AtoZiTunes.xcodeproj"; sourceTree = "<absolute>"; };
+		7B0236B315E08BD90070FE12 /* PLWeakCompatibility.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PLWeakCompatibility.xcodeproj; path = "/Volumes/2T/ServiceData/AtoZ.framework/../../../../Users/localadmin/Downloads/plausiblelabs-PLWeakCompatibility-d4b88c3/PLWeakCompatibility.xcodeproj"; sourceTree = "<absolute>"; };
 		7B05BB0A159C40A600409B83 /* AZQueue.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; path = AZQueue.h; sourceTree = "<group>"; };
 		7B05BB0B159C40A600409B83 /* AZQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZQueue.m; sourceTree = "<group>"; };
 		7B05BB12159C5C6100409B83 /* AZBlockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZBlockView.h; sourceTree = "<group>"; };
@@ -409,8 +511,8 @@
 		7B379CF715DE566D0040A093 /* SDToolkit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDToolkit.h; sourceTree = "<group>"; };
 		7B379CF815DE566D0040A093 /* SDWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDWindowController.h; sourceTree = "<group>"; };
 		7B379CF915DE566D0040A093 /* SDWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDWindowController.m; sourceTree = "<group>"; };
-		7B379D1115DE56F10040A093 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		7B379D1215DE56F10040A093 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		7B379D1115DE56F10040A093 /* EncyclopediaDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EncyclopediaDelegate.h; path = "AtoZ Encyclopedia/EncyclopediaDelegate.h"; sourceTree = SOURCE_ROOT; };
+		7B379D1215DE56F10040A093 /* EncyclopediaDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EncyclopediaDelegate.m; sourceTree = "<group>"; };
 		7B379D1415DE5C760040A093 /* GeneralPrefPane.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GeneralPrefPane.xib; sourceTree = "<group>"; };
 		7B379D1615DE5D5C0040A093 /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 		7B379D1815DE5ED00040A093 /* SDNoteWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDNoteWindowController.h; sourceTree = "<group>"; };
@@ -490,12 +592,19 @@
 		7B8558E415B2C98D0005F558 /* AZMouser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZMouser.h; sourceTree = "<group>"; };
 		7B8558E515B2C98D0005F558 /* AZMouser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZMouser.m; sourceTree = "<group>"; };
 		7B8558E815B2CBAF0005F558 /* circle2.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = circle2.tif; sourceTree = "<group>"; };
+		7B8A29FC15E2735000286E27 /* SMModelObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMModelObject.h; sourceTree = "<group>"; };
+		7B8A29FD15E2735000286E27 /* SMModelObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMModelObject.m; sourceTree = "<group>"; };
+		7B8A2A0B15E2C52400286E27 /* AZSourceListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZSourceListViewController.h; sourceTree = "<group>"; };
+		7B8A2A0C15E2C52400286E27 /* AZSourceListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZSourceListViewController.m; sourceTree = "<group>"; };
+		7B8A2A0E15E2D48D00286E27 /* AZVeil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZVeil.h; sourceTree = "<group>"; };
+		7B8A2A0F15E2D48D00286E27 /* AZVeil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZVeil.m; sourceTree = "<group>"; };
 		7B92135A15C49B6600862F9D /* NSThread+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSThread+AtoZ.h"; sourceTree = "<group>"; };
 		7B92135B15C49B6600862F9D /* NSThread+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSThread+AtoZ.m"; sourceTree = "<group>"; };
 		7B92135E15C4A03300862F9D /* AZInfiniteCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZInfiniteCell.h; path = Views/AZInfiniteCell.h; sourceTree = SOURCE_ROOT; };
 		7B92135F15C4A03300862F9D /* AZInfiniteCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZInfiniteCell.m; sourceTree = "<group>"; };
 		7B92137215C56F4600862F9D /* AZSimpleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZSimpleView.h; sourceTree = "<group>"; };
 		7B92137315C56F4600862F9D /* AZSimpleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZSimpleView.m; sourceTree = "<group>"; };
+		7B9595A815E1CEA20044620B /* UbuntuTitling-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "UbuntuTitling-Bold.ttf"; sourceTree = "<group>"; };
 		7B96424115C15818001A0B0F /* NSWindow_Flipr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSWindow_Flipr.h; sourceTree = "<group>"; };
 		7B96424215C15818001A0B0F /* NSWindow_Flipr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSWindow_Flipr.m; sourceTree = "<group>"; };
 		7B9742A715C62F70006490DD /* RuntimeReporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RuntimeReporter.h; sourceTree = "<group>"; };
@@ -524,6 +633,10 @@
 		7BC859C415A8C0F400582632 /* AZSizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZSizer.m; sourceTree = "<group>"; };
 		7BC859C815A8C56700582632 /* NSNumber+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+AtoZ.h"; sourceTree = "<group>"; };
 		7BC859C915A8C56700582632 /* NSNumber+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+AtoZ.m"; sourceTree = "<group>"; };
+		7BC8EEAD15DE77ED00630FC0 /* statusimage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = statusimage.png; sourceTree = "<group>"; };
+		7BC8EEAE15DE77ED00630FC0 /* statusimage_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = statusimage_pressed.png; sourceTree = "<group>"; };
+		7BC8EEAF15DE77ED00630FC0 /* closebox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = closebox.png; sourceTree = "<group>"; };
+		7BC8EEB015DE77ED00630FC0 /* closebox_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = closebox_pressed.png; sourceTree = "<group>"; };
 		7BCDFC5815C71A810003DA4D /* CTBadge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTBadge.h; sourceTree = "<group>"; };
 		7BCDFC5915C71A810003DA4D /* CTBadge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTBadge.m; sourceTree = "<group>"; };
 		7BCDFC5A15C71A810003DA4D /* fullDescription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = fullDescription.m; sourceTree = "<group>"; };
@@ -534,7 +647,6 @@
 		7BCDFC6215C71A810003DA4D /* noun_box.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = noun_box.pdf; sourceTree = "<group>"; };
 		7BD011F515CB7E9300B96BAC /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		7BDB8D7915CB56BA0037A4BF /* missing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = missing.png; sourceTree = "<group>"; };
-		7BDB8D7A15CB56BA0037A4BF /* noun_box.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = noun_box.pdf; sourceTree = "<group>"; };
 		7BDB8D7B15CB56BA0037A4BF /* UbuntuMono-B.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "UbuntuMono-B.ttf"; sourceTree = "<group>"; };
 		7BDDD5E215A3792600A5C222 /* AZStopwatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZStopwatch.h; sourceTree = "<group>"; };
 		7BDDD5E315A3792600A5C222 /* AZStopwatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZStopwatch.m; sourceTree = "<group>"; };
@@ -547,7 +659,6 @@
 		7BF9E7D5159F0A0500B5482D /* AZPopupWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZPopupWindow.h; path = ../Views/AZPopupWindow.h; sourceTree = "<group>"; };
 		7BF9E7D6159F0A0500B5482D /* AZPopupWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AZPopupWindow.m; path = ../Views/AZPopupWindow.m; sourceTree = "<group>"; };
 		7BF9E7D9159F0A8200B5482D /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
-		7BFB3DCC15D18AAD0095D79B /* PLWeakCompatibility.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PLWeakCompatibility.framework; path = "../../../../disenchanted 750/DerivedData/AtoZ-hfqteqfcvjfinlajqwkydsqyzpiz/Build/Products/Debug/PLWeakCompatibility.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -565,8 +676,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B0236FC15E0AC190070FE12 /* AtoZiTunes.framework in Frameworks */,
+				7B0236FD15E0AC190070FE12 /* PLWeakCompatibility.framework in Frameworks */,
+				7B379D3915DE6B3C0040A093 /* Security.framework in Frameworks */,
+				7B379D3815DE6B310040A093 /* ApplicationServices.framework in Frameworks */,
+				7B379D3715DE6B2B0040A093 /* AppKit.framework in Frameworks */,
+				7B0236F715E096C40070FE12 /* AtoZ.framework in Frameworks */,
 				7B64C5C815CB6FF100A20609 /* QuartzCore.framework in Frameworks */,
-				7BA147B115DCF0680041BAFE /* AtoZ.framework in Frameworks */,
 				7B82B82315CB66D30026FE8C /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -576,7 +692,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7B6CF45D15D32B8D0018A0D7 /* AudioToolbox.framework in Frameworks */,
-				7BFB3DCD15D18AAE0095D79B /* PLWeakCompatibility.framework in Frameworks */,
 				7B23C36815CE9AB800DD1A9C /* WebKit.framework in Frameworks */,
 				7B23C33F15CE268B00DD1A9C /* Carbon.framework in Frameworks */,
 				7B23C33E15CE267400DD1A9C /* Quartz.framework in Frameworks */,
@@ -592,6 +707,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7B0236B115E08BD90070FE12 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7B0236B915E08BD90070FE12 /* AtoZiTunes.framework */,
+				7B0236BB15E08BD90070FE12 /* TestApp.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7B0236B415E08BD90070FE12 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7B0236C215E08BD90070FE12 /* PLWeakCompatibility.framework */,
+				7B0236C415E08BD90070FE12 /* libPLWeakCompatibility-iOS.a */,
+				7B0236C615E08BD90070FE12 /* PLWeakCompatibility-MacOSX-Tests.octest */,
+				7B0236C815E08BD90070FE12 /* PLWeakCompatibility-iOS-TestRunner.app */,
+				7B0236CA15E08BD90070FE12 /* PLWeakCompatibility-iOS-Tests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		7B05BB09159C406200409B83 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -796,6 +932,12 @@
 		7B379D2E15DE643E0040A093 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				7B02365415DF26AA0070FE12 /* AZStatusItemView.h */,
+				7B02365515DF26AA0070FE12 /* AZStatusItemView.m */,
+				7BC8EEAD15DE77ED00630FC0 /* statusimage.png */,
+				7BC8EEAE15DE77ED00630FC0 /* statusimage_pressed.png */,
+				7BC8EEAF15DE77ED00630FC0 /* closebox.png */,
+				7BC8EEB015DE77ED00630FC0 /* closebox_pressed.png */,
 				7B379D3315DE668F0040A093 /* NoteWindow.xib */,
 				7B379D3415DE668F0040A093 /* EditTitlePanel.xib */,
 				7B379D2F15DE66840040A093 /* NoteWindow.xib */,
@@ -856,11 +998,11 @@
 		7B583064159BDAA50039CEED /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7B9595A815E1CEA20044620B /* UbuntuTitling-Bold.ttf */,
 				7B23C37C15CF318500DD1A9C /* missingdial.png */,
 				7B23C37A15CF2E8200DD1A9C /* 2.jpg */,
 				7B23C35F15CE980100DD1A9C /* NSLogConsole.xib */,
 				7BDB8D7915CB56BA0037A4BF /* missing.png */,
-				7BDB8D7A15CB56BA0037A4BF /* noun_box.pdf */,
 				7BDB8D7B15CB56BA0037A4BF /* UbuntuMono-B.ttf */,
 				7BCDFC6215C71A810003DA4D /* noun_box.pdf */,
 				7B9742CB15C697C4006490DD /* 1.pdf */,
@@ -909,6 +1051,8 @@
 				7B379CA715DE0B050040A093 /* AZBackground.m */,
 				7B379CAA15DE0B550040A093 /* AZDarkButtonCell.h */,
 				7B379CAB15DE0B550040A093 /* AZDarkButtonCell.m */,
+				7B8A2A0E15E2D48D00286E27 /* AZVeil.h */,
+				7B8A2A0F15E2D48D00286E27 /* AZVeil.m */,
 			);
 			path = Views;
 			sourceTree = SOURCE_ROOT;
@@ -931,7 +1075,6 @@
 			isa = PBXGroup;
 			children = (
 				7B6CF45C15D32B8B0018A0D7 /* AudioToolbox.framework */,
-				7BFB3DCC15D18AAD0095D79B /* PLWeakCompatibility.framework */,
 				7B23C36715CE9AB800DD1A9C /* WebKit.framework */,
 				7B82B82215CB66D30026FE8C /* Cocoa.framework */,
 				7B82B82415CB66D30026FE8C /* Other Frameworks */,
@@ -952,11 +1095,12 @@
 		7B82B82815CB66D30026FE8C /* AtoZ Encyclopedia */ = {
 			isa = PBXGroup;
 			children = (
-				7B82B83415CB66D30026FE8C /* AZEncyclopediaDelegate.h */,
-				7B82B83515CB66D30026FE8C /* AZEncyclopediaDelegate.m */,
+				7B379D1615DE5D5C0040A093 /* MainMenu.xib */,
 				7B379CCB15DE566D0040A093 /* SDToolkit */,
-				7B379D1115DE56F10040A093 /* AppDelegate.h */,
-				7B379D1215DE56F10040A093 /* AppDelegate.m */,
+				7B379D1115DE56F10040A093 /* EncyclopediaDelegate.h */,
+				7B379D1215DE56F10040A093 /* EncyclopediaDelegate.m */,
+				7B8A2A0B15E2C52400286E27 /* AZSourceListViewController.h */,
+				7B8A2A0C15E2C52400286E27 /* AZSourceListViewController.m */,
 				7B379CC015DE50190040A093 /* iCarouselViewController.h */,
 				7B379CC115DE50190040A093 /* iCarouselViewController.m */,
 				7B379D2E15DE643E0040A093 /* Views */,
@@ -966,7 +1110,6 @@
 				7B379D1E15DE5F4B0040A093 /* SDGeneralPrefPane.m */,
 				7B379D1815DE5ED00040A093 /* SDNoteWindowController.h */,
 				7B379D1915DE5ED10040A093 /* SDNoteWindowController.m */,
-				7B379D1615DE5D5C0040A093 /* MainMenu.xib */,
 				7B82B83715CB66D30026FE8C /* ControlPanel.xib */,
 				7B82B82915CB66D30026FE8C /* Supporting Files */,
 				7B23C33B15CE246C00DD1A9C /* IsometricView.h */,
@@ -978,6 +1121,10 @@
 		7B82B82915CB66D30026FE8C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				7B82B83415CB66D30026FE8C /* AZEncyclopediaDelegate.h */,
+				7B82B83515CB66D30026FE8C /* AZEncyclopediaDelegate.m */,
+				7B0236B015E08BD90070FE12 /* AtoZiTunes.xcodeproj */,
+				7B0236B315E08BD90070FE12 /* PLWeakCompatibility.xcodeproj */,
 				7B82B82A15CB66D30026FE8C /* AtoZ Encyclopedia-Info.plist */,
 				7B82B82B15CB66D30026FE8C /* InfoPlist.strings */,
 				7B82B82E15CB66D30026FE8C /* main.m */,
@@ -1039,6 +1186,8 @@
 		7BE6068915A00B8800355236 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				7B8A29FC15E2735000286E27 /* SMModelObject.h */,
+				7B8A29FD15E2735000286E27 /* SMModelObject.m */,
 				7B8128AA15D05BFF0070193F /* AZNotificationCenter.h */,
 				7B8128AB15D05BFF0070193F /* AZNotificationCenter.m */,
 				7B23C36115CE98AF00DD1A9C /* NSLogConsole.html */,
@@ -1055,6 +1204,8 @@
 				7B6901C8159E322300D0DA47 /* AZAXAuthorization.m */,
 				7B05BB0A159C40A600409B83 /* AZQueue.h */,
 				7B05BB0B159C40A600409B83 /* AZQueue.m */,
+				7B02364B15DF15DA0070FE12 /* AZLaunchServices.h */,
+				7B02364C15DF15DA0070FE12 /* AZLaunchServices.m */,
 			);
 			name = Utility;
 			path = Classes;
@@ -1139,6 +1290,9 @@
 				7B379CAC15DE0B550040A093 /* AZDarkButtonCell.h in Headers */,
 				7B379CBE15DE4AE30040A093 /* AZToggleArrayView.h in Headers */,
 				7B379CC515DE50A10040A093 /* iCarousel.h in Headers */,
+				7B02364D15DF15DB0070FE12 /* AZLaunchServices.h in Headers */,
+				7B8A29FE15E2735000286E27 /* SMModelObject.h in Headers */,
+				7B8A2A1015E2D48D00286E27 /* AZVeil.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1155,7 +1309,8 @@
 				7B31194F159B6D9E002134C4 /* Resources */,
 				7B311982159B7CC5002134C4 /* Enabled Scripts */,
 				7BC3C29B15C9A9D400DA2EFA /* Disabled Scripts */,
-				7BFB3DCB15D18A650095D79B /* CopyFiles */,
+				7B0236DB15E08E500070FE12 /* CopyFiles */,
+				7B9595B015E1CFCE0044620B /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -1189,15 +1344,17 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7B82B83A15CB66D30026FE8C /* Build configuration list for PBXNativeTarget "AtoZ Encyclopedia" */;
 			buildPhases = (
+				7BA147AF15DCF04D0041BAFE /* CopyFiles */,
 				7B82B81B15CB66D30026FE8C /* Sources */,
 				7B82B81C15CB66D30026FE8C /* Frameworks */,
 				7B82B81D15CB66D30026FE8C /* Resources */,
-				7BA147AF15DCF04D0041BAFE /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				7BA1472B15DC87650041BAFE /* PBXTargetDependency */,
+				7B0236F915E0ABA40070FE12 /* PBXTargetDependency */,
+				7B0236FB15E0ABA40070FE12 /* PBXTargetDependency */,
+				7B0236F515E096380070FE12 /* PBXTargetDependency */,
 			);
 			name = "AtoZ Encyclopedia";
 			productName = "AtoZ Encyclopedia";
@@ -1224,6 +1381,16 @@
 			mainGroup = 7B311945159B6D9E002134C4;
 			productRefGroup = 7B311952159B6D9E002134C4 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 7B0236B115E08BD90070FE12 /* Products */;
+					ProjectRef = 7B0236B015E08BD90070FE12 /* AtoZiTunes.xcodeproj */;
+				},
+				{
+					ProductGroup = 7B0236B415E08BD90070FE12 /* Products */;
+					ProjectRef = 7B0236B315E08BD90070FE12 /* PLWeakCompatibility.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				7B311950159B6D9E002134C4 /* AtoZ */,
@@ -1232,6 +1399,58 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		7B0236B915E08BD90070FE12 /* AtoZiTunes.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = AtoZiTunes.framework;
+			remoteRef = 7B0236B815E08BD90070FE12 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7B0236BB15E08BD90070FE12 /* TestApp.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = TestApp.app;
+			remoteRef = 7B0236BA15E08BD90070FE12 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7B0236C215E08BD90070FE12 /* PLWeakCompatibility.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = PLWeakCompatibility.framework;
+			remoteRef = 7B0236C115E08BD90070FE12 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7B0236C415E08BD90070FE12 /* libPLWeakCompatibility-iOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libPLWeakCompatibility-iOS.a";
+			remoteRef = 7B0236C315E08BD90070FE12 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7B0236C615E08BD90070FE12 /* PLWeakCompatibility-MacOSX-Tests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "PLWeakCompatibility-MacOSX-Tests.octest";
+			remoteRef = 7B0236C515E08BD90070FE12 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7B0236C815E08BD90070FE12 /* PLWeakCompatibility-iOS-TestRunner.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "PLWeakCompatibility-iOS-TestRunner.app";
+			remoteRef = 7B0236C715E08BD90070FE12 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7B0236CA15E08BD90070FE12 /* PLWeakCompatibility-iOS-Tests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "PLWeakCompatibility-iOS-Tests.octest";
+			remoteRef = 7B0236C915E08BD90070FE12 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		7B31194F159B6D9E002134C4 /* Resources */ = {
@@ -1251,8 +1470,6 @@
 				7B9742D415C697C4006490DD /* 5.pdf in Resources */,
 				7BCDFC6D15C71A810003DA4D /* noun_box.pdf in Resources */,
 				7BDB8D7D15CB56BA0037A4BF /* missing.png in Resources */,
-				7BDB8D7E15CB56BA0037A4BF /* noun_box.pdf in Resources */,
-				7BDB8D7F15CB56BA0037A4BF /* UbuntuMono-B.ttf in Resources */,
 				7B23C36015CE980100DD1A9C /* NSLogConsole.xib in Resources */,
 				7B23C36415CE98AF00DD1A9C /* NSLogConsole.html in Resources */,
 				7B23C37B15CF2E8200DD1A9C /* 2.jpg in Resources */,
@@ -1284,6 +1501,10 @@
 				7B379D3215DE66840040A093 /* EditTitlePanel.xib in Resources */,
 				7B379D3515DE668F0040A093 /* NoteWindow.xib in Resources */,
 				7B379D3615DE668F0040A093 /* EditTitlePanel.xib in Resources */,
+				7BC8EEB115DE77ED00630FC0 /* statusimage.png in Resources */,
+				7BC8EEB215DE77ED00630FC0 /* statusimage_pressed.png in Resources */,
+				7BC8EEB315DE77ED00630FC0 /* closebox.png in Resources */,
+				7BC8EEB415DE77ED00630FC0 /* closebox_pressed.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1330,7 +1551,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\nlogger \"${SRCROOT}/Resources\"\n#/usr/local/bin/appledoc \"${SRCROOT}/Resources\"\n\n# Add custom icon (adding CFBundleIconFile to plist and .icns file in /Resources doesn't work, so we have to duplicate what happens when you paste an icon into the Finder Get Info window)\n\n# copy custom icon into top level of bundle and rename to \"Icon\" with a *trailing CR*.  path_to_icon is the path to the source icon file, already in the correct format ('icns' resource ID -16455 in resource fork), but with different filename.\n\n#cp \"${SRCROOT}/Resources/atoz.icns\" \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.${WRAPPER_EXTENSION}/\"$(echo -ne \"Icon\\r\")\n\n# make custom icon file invisible\n#/Developer/Tools/SetFile -a V \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.${WRAPPER_EXTENSION}/\"$(echo -ne \"Icon\\r\")\n\n# mark the bundle folder as having a custom icon\n#/Developer/Tools/SetFile -a C \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.${WRAPPER_EXTENSION}\"\n\nPRODUCT=\"${WRAPPER_NAME}\"\nPRODUCT_PATH=\"${BUILT_PRODUCTS_DIR}/${PRODUCT}\"\nXCODE44='/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/'\nMAC=\"/Library/Frameworks/\"\n\n\nsudo ln -sf \"${PRODUCT_PATH}\" \"${XCODE44}\"\nsudo ln -sf \"${PRODUCT_PATH}\" \"${MAC}\"\n\n\n\n\n#MAC_INSTALL_TARGET=\"/Library/Frameworks/\"\n\n#XCODE43_LION_INSTALL_TARGET=\"/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk/System/Library/Frameworks/$PRODUCT\"\n\n#XCODE45_MLION_INSTALL_TARGET=\"${SDKROOT}/System/Library/Frameworks/$PRODUCT\"\n\n#sudo ln -sf \"${PRODUCT_PATH}\" \"${MAC_INSTALL_TARGET}\"\n#sudo ln -sf \"${PRODUCT_PATH}\" \"${XCODE43_LION_INSTALL_TARGET}\"\n#sudo ln -sf \"${PRODUCT_PATH}\" \"${XCODE45_MLION_INSTALL_TARGET}\"\n\n#sudo ln -sf \"${PRODUCT_PATH}\" \"${XCODE455ML}${PRODUCT}\"\n\n#sudo ln -sF $MAC_INSTALL_TARGET $SDK_INSTALL_TARGET\n";
+			shellScript = "\nlogger \"${SRCROOT}/Resources\"\n#/usr/local/bin/appledoc \"${SRCROOT}/Resources\"\n\n# Add custom icon (adding CFBundleIconFile to plist and .icns file in /Resources doesn't work, so we have to duplicate what happens when you paste an icon into the Finder Get Info window)\n\n# copy custom icon into top level of bundle and rename to \"Icon\" with a *trailing CR*.  path_to_icon is the path to the source icon file, already in the correct format ('icns' resource ID -16455 in resource fork), but with different filename.\n\n#cp \"${SRCROOT}/Resources/atoz.icns\" \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.${WRAPPER_EXTENSION}/\"$(echo -ne \"Icon\\r\")\n\n# make custom icon file invisible\n#/Developer/Tools/SetFile -a V \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.${WRAPPER_EXTENSION}/\"$(echo -ne \"Icon\\r\")\n\n# mark the bundle folder as having a custom icon\n#/Developer/Tools/SetFile -a C \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.${WRAPPER_EXTENSION}\"\n\nPRODUCT=\"${WRAPPER_NAME}\"\nPRODUCT_PATH=\"${BUILT_PRODUCTS_DIR}/${PRODUCT}\"\nXCODE44='/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/'\nMAC=\"/Library/Frameworks/\"\n\n\n#sudo ln -sf \"${PRODUCT_PATH}\" \"${XCODE44}\"\n#sudo ln -sf \"${PRODUCT_PATH}\" \"${MAC}\"\n\n#sudo rm \"${XCODE44}/${WRAPPER_NAME}\"\n#sudo rm \"${MAC}/${WRAPPER_NAME}\"\n\n\n\n\n#MAC_INSTALL_TARGET=\"/Library/Frameworks/\"\n\n#XCODE43_LION_INSTALL_TARGET=\"/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk/System/Library/Frameworks/$PRODUCT\"\n\n#XCODE45_MLION_INSTALL_TARGET=\"${SDKROOT}/System/Library/Frameworks/$PRODUCT\"\n\n#sudo ln -sf \"${PRODUCT_PATH}\" \"${MAC_INSTALL_TARGET}\"\n#sudo ln -sf \"${PRODUCT_PATH}\" \"${XCODE43_LION_INSTALL_TARGET}\"\n#sudo ln -sf \"${PRODUCT_PATH}\" \"${XCODE45_MLION_INSTALL_TARGET}\"\n\n#sudo ln -sf \"${PRODUCT_PATH}\" \"${XCODE455ML}${PRODUCT}\"\n\n#sudo ln -sF $MAC_INSTALL_TARGET $SDK_INSTALL_TARGET\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1409,6 +1630,9 @@
 				7B379CAD15DE0B550040A093 /* AZDarkButtonCell.m in Sources */,
 				7B379CBF15DE4AE30040A093 /* AZToggleArrayView.m in Sources */,
 				7B379CC615DE50A90040A093 /* iCarousel.m in Sources */,
+				7B02364E15DF15DB0070FE12 /* AZLaunchServices.m in Sources */,
+				7B8A29FF15E2735000286E27 /* SMModelObject.m in Sources */,
+				7B8A2A1115E2D48D00286E27 /* AZVeil.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1425,8 +1649,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7B82B82F15CB66D30026FE8C /* main.m in Sources */,
-				7B82B83615CB66D30026FE8C /* AZEncyclopediaDelegate.m in Sources */,
-				7B23C33D15CE246C00DD1A9C /* IsometricView.m in Sources */,
 				7B379CC415DE502A0040A093 /* iCarouselViewController.m in Sources */,
 				7B379CFC15DE566E0040A093 /* NSApplication+AppInfo.m in Sources */,
 				7B379CFD15DE566E0040A093 /* NSArray+UsefulStuff.m in Sources */,
@@ -1448,7 +1670,6 @@
 				7B379D0E15DE566E0040A093 /* SDPreferencesController.m in Sources */,
 				7B379D0F15DE566E0040A093 /* SDRoundedInstructionsImageView.m in Sources */,
 				7B379D1015DE566E0040A093 /* SDWindowController.m in Sources */,
-				7B379D1315DE56F10040A093 /* AppDelegate.m in Sources */,
 				7B379D1A15DE5ED30040A093 /* SDNoteWindowController.m in Sources */,
 				7B379D1F15DE5F640040A093 /* SDEditTitleController.m in Sources */,
 				7B379D2015DE5F640040A093 /* SDGeneralPrefPane.m in Sources */,
@@ -1456,21 +1677,34 @@
 				7B379D2915DE634F0040A093 /* SDEditTitlePanel.m in Sources */,
 				7B379D2A15DE634F0040A093 /* SDCloseButtonCell.m in Sources */,
 				7B379D2D15DE63B10040A093 /* SDTitleFieldEditor.m in Sources */,
+				7B02365615DF26AA0070FE12 /* AZStatusItemView.m in Sources */,
+				7B0236AF15E07D440070FE12 /* EncyclopediaDelegate.m in Sources */,
+				7B8A2A0D15E2C52400286E27 /* AZSourceListViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		7B0236F515E096380070FE12 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7B311950159B6D9E002134C4 /* AtoZ */;
+			targetProxy = 7B0236F415E096380070FE12 /* PBXContainerItemProxy */;
+		};
+		7B0236F915E0ABA40070FE12 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AtoZiTunes;
+			targetProxy = 7B0236F815E0ABA40070FE12 /* PBXContainerItemProxy */;
+		};
+		7B0236FB15E0ABA40070FE12 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "PLWeakCompatibility-MacOSX";
+			targetProxy = 7B0236FA15E0ABA40070FE12 /* PBXContainerItemProxy */;
+		};
 		7B31196E159B6D9E002134C4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 7B311950159B6D9E002134C4 /* AtoZ */;
 			targetProxy = 7B31196D159B6D9E002134C4 /* PBXContainerItemProxy */;
-		};
-		7BA1472B15DC87650041BAFE /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 7B311950159B6D9E002134C4 /* AtoZ */;
-			targetProxy = 7BA1472A15DC87650041BAFE /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1522,7 +1756,7 @@
 				);
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
-				SDKROOT = "";
+				SDKROOT = macosx10.8;
 			};
 			name = Debug;
 		};
@@ -1534,27 +1768,24 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
-				SDKROOT = "";
+				SDKROOT = macosx10.8;
 			};
 			name = Release;
 		};
 		7B31197C159B6D9E002134C4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_OBJCPP_ARC_ABI = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"${SDKROOT}/System/Library/Frameworks",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				FRAMEWORK_VERSION = A;
 				GCC_PREFIX_HEADER = "Resources/AtoZ-Prefix.pch";
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "Resources/AtoZ-Info.plist";
-				INSTALL_PATH = "@rpath";
+				INSTALL_PATH = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = (
@@ -1562,6 +1793,7 @@
 					"-fobjc-runtime-has-weak",
 				);
 				PRODUCT_NAME = AtoZ;
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = framework;
 			};
@@ -1570,20 +1802,17 @@
 		7B31197D159B6D9E002134C4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_OBJCPP_ARC_ABI = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"${SDKROOT}/System/Library/Frameworks",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				FRAMEWORK_VERSION = A;
 				GCC_PREFIX_HEADER = "Resources/AtoZ-Prefix.pch";
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "Resources/AtoZ-Info.plist";
-				INSTALL_PATH = "@rpath";
+				INSTALL_PATH = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = (
@@ -1591,6 +1820,7 @@
 					"-fobjc-runtime-has-weak",
 				);
 				PRODUCT_NAME = AtoZ;
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = framework;
 			};
@@ -1628,14 +1858,11 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../../../disenchanted 750/DerivedData/AtoZ-hfqteqfcvjfinlajqwkydsqyzpiz/Build/Products/Debug\"",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "AtoZ Encyclopedia/AtoZ Encyclopedia-Prefix.pch";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -1643,9 +1870,16 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "AtoZ Encyclopedia/AtoZ Encyclopedia-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = (
+					"-Xclang",
+					"-fobjc-runtime-has-weak",
+				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1658,21 +1892,25 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../../../disenchanted 750/DerivedData/AtoZ-hfqteqfcvjfinlajqwkydsqyzpiz/Build/Products/Debug\"",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "AtoZ Encyclopedia/AtoZ Encyclopedia-Prefix.pch";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "AtoZ Encyclopedia/AtoZ Encyclopedia-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				OTHER_CFLAGS = (
+					"-Xclang",
+					"-fobjc-runtime-has-weak",
+				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

@@ -365,7 +365,7 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
 
 - (UIView *)itemViewAtIndex:(NSInteger)index
 {
-    return [_itemViews objectForKey:[NSNumber numberWithInteger:index]];
+    return _itemViews[@(index)];
 }
 
 - (UIView *)currentItemView
@@ -378,7 +378,7 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
     NSInteger index = [[_itemViews allValues] indexOfObject:view];
     if (index != NSNotFound)
     {
-        return [[[_itemViews allKeys] objectAtIndex:index] integerValue];
+        return [[_itemViews allKeys][index] integerValue];
     }
     return NSNotFound;
 }
@@ -395,7 +395,7 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
 
 - (void)setItemView:(UIView *)view forIndex:(NSInteger)index
 {
-    [_itemViews setObject:view forKey:[NSNumber numberWithInteger:index]];
+    _itemViews[@(index)] = view;
 }
 
 - (void)removeViewAtIndex:(NSInteger)index
@@ -406,11 +406,11 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
         NSInteger i = [number integerValue];
         if (i < index)
         {
-            [newItemViews setObject:[_itemViews objectForKey:number] forKey:number];
+            newItemViews[number] = _itemViews[number];
         }
         else if (i > index)
         {
-            [newItemViews setObject:[_itemViews objectForKey:number] forKey:[NSNumber numberWithInteger:i - 1]];
+            newItemViews[@(i - 1)] = _itemViews[number];
         }
     }
     self.itemViews = newItemViews;
@@ -424,11 +424,11 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
         NSInteger i = [number integerValue];
         if (i < index)
         {
-            [newItemViews setObject:[_itemViews objectForKey:number] forKey:number];
+            newItemViews[number] = _itemViews[number];
         }
         else
         {
-            [newItemViews setObject:[_itemViews objectForKey:number] forKey:[NSNumber numberWithInteger:i + 1]];
+            newItemViews[@(i + 1)] = _itemViews[number];
         }
     }
     if (view)
@@ -950,7 +950,7 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
     for (NSNumber *number in _itemViews)
     {
         NSInteger index = [number integerValue];
-        UIView *view = [_itemViews objectForKey:number];
+        UIView *view = _itemViews[number];
         [self transformItemView:view atIndex:index];
 
 #ifdef ICAROUSEL_IOS
@@ -1312,7 +1312,7 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
         if (alpha)
         {
 				//only add views with alpha > 0
-            [visibleIndices addObject:[NSNumber numberWithInteger:index]];
+            [visibleIndices addObject:@(index)];
         }
     }
 
@@ -1321,7 +1321,7 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
     {
         if (![visibleIndices containsObject:number])
         {
-            UIView *view = [_itemViews objectForKey:number];
+            UIView *view = _itemViews[number];
             if ([number integerValue] < 0 || [number integerValue] >= _numberOfItems)
             {
                 [self queuePlaceholderView:view];
@@ -1338,7 +1338,7 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
 		//add onscreen views
     for (NSNumber *number in visibleIndices)
     {
-        UIView *view = [_itemViews objectForKey:number];
+        UIView *view = _itemViews[number];
         if (view == nil)
         {
             [self loadViewAtIndex:[number integerValue]];

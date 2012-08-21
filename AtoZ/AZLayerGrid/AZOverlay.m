@@ -170,7 +170,7 @@ typedef NSUInteger AZCorner;
     NSTrackingArea *fullArea = [[NSTrackingArea alloc] initWithRect:NSZeroRect 
                                                             options:(NSTrackingCursorUpdate | NSTrackingActiveInKeyWindow | NSTrackingInVisibleRect) 
                                                               owner:self 
-                                                           userInfo:[NSDictionary dictionaryWithObject:__AZ_topLayer forKey:@"layer"]];
+                                                           userInfo:@{@"layer": __AZ_topLayer}];
     [self addTrackingArea:fullArea];
     
     [self setOverlay:__AZ_topLayer forType:IKOverlayTypeImage];
@@ -205,7 +205,7 @@ typedef NSUInteger AZCorner;
         }
     }
     
-    [__AZ_topLayer setSublayers:[NSArray array]];
+    [__AZ_topLayer setSublayers:@[]];
     
     __weak AZOverlayView *weakSelf = self;
     [__AZ_overlayCache enumerateObjectsUsingBlock:^(id overlayObject, NSUInteger i, BOOL *stop){
@@ -235,7 +235,7 @@ typedef NSUInteger AZCorner;
         NSTrackingArea *area = [[NSTrackingArea alloc] initWithRect:[strongSelf convertImageRectToViewRect:rect] 
                                                             options:(NSTrackingMouseEnteredAndExited | NSTrackingMouseMoved | NSTrackingCursorUpdate | NSTrackingActiveInKeyWindow) 
                                                               owner:self 
-                                                           userInfo:[NSDictionary dictionaryWithObject:layer forKey:@"layer"]];
+                                                           userInfo:@{@"layer": layer}];
         [self addTrackingArea:area];
         [layer setValue:area forKey:@"AZOverlayTrackingArea"];
         
@@ -314,7 +314,7 @@ typedef NSUInteger AZCorner;
 
 - (void)deselectOverlay:(NSInteger)overlayIndex
 {
-    [__AZ_selectedOverlays removeObject:[__AZ_overlayCache objectAtIndex:overlayIndex]];
+    [__AZ_selectedOverlays removeObject:__AZ_overlayCache[overlayIndex]];
     [[NSNotificationCenter defaultCenter] postNotificationName:AZOverlayViewSelectionDidChangeNotification object:self];
 }
 
@@ -325,7 +325,7 @@ typedef NSUInteger AZCorner;
 
 - (BOOL)isOverlaySelected:(NSInteger)overlayIndex
 {
-    return [__AZ_selectedOverlays containsObject:[__AZ_overlayCache objectAtIndex:overlayIndex]];
+    return [__AZ_selectedOverlays containsObject:__AZ_overlayCache[overlayIndex]];
 }
 
 - (IBAction)selectAllOverlays:(id)sender

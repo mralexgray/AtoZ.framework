@@ -67,7 +67,7 @@ NSMutableData *rawClassPointers;
 		{
 		return [[self inheritanceForClass:class_getSuperclass(aClass)] arrayByAddingObject:NSStringFromClass(aClass)];
 		}
-	return [NSArray arrayWithObject:NSStringFromClass(aClass)];	
+	return @[NSStringFromClass(aClass)];	
 	}
 
 + (NSArray *) subclassNamesForClassNamed:(NSString *) className  // Pass nil for the root classes.
@@ -132,7 +132,7 @@ NSMutableData *rawClassPointers;
 			NSMutableArray *results = [NSMutableArray arrayWithCapacity:methodCount];
 
 			while (methodCount--) 
-			[results addObject:[NSString stringWithCString: sel_getName(method_getName(methods[methodCount])) encoding: NSASCIIStringEncoding]];
+			[results addObject:@(sel_getName(method_getName(methods[methodCount])))];
 
 			free(methods);	
 			return results;
@@ -150,7 +150,7 @@ NSMutableData *rawClassPointers;
 		NSMutableArray *results = [NSMutableArray arrayWithCapacity:ivarCount];
 
 		while (ivarCount--) 
-		[results addObject:[NSString stringWithCString: ivar_getName(ivars[ivarCount]) encoding: NSASCIIStringEncoding]];
+		[results addObject:@(ivar_getName(ivars[ivarCount]))];
 
 		free(ivars);	
 		return results;
@@ -168,7 +168,7 @@ NSMutableData *rawClassPointers;
 		NSMutableArray *results = [NSMutableArray arrayWithCapacity:propsCount];
 
 		while (propsCount--) 
-			[results addObject:[NSString stringWithCString: property_getName(props[propsCount])	encoding: NSASCIIStringEncoding]];
+			[results addObject:@(property_getName(props[propsCount]))];
 
 		free(props);	
 		return results;
@@ -186,7 +186,7 @@ NSMutableData *rawClassPointers;
 		NSMutableArray *results = [NSMutableArray arrayWithCapacity:protoCount];
 
 		while (protoCount--) 
-			[results addObject:[NSString stringWithCString:protocol_getName(protos[protoCount]) encoding: NSASCIIStringEncoding] ];
+			[results addObject:@(protocol_getName(protos[protoCount])) ];
 
 		free(protos);	
 		return results;

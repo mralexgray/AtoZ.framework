@@ -1,37 +1,66 @@
-//
-//  BaseModel.m
-//
-//  Version 2.3.1
-//
-//  Created by Nick Lockwood on 25/06/2011.
-//  Copyright 2011 Charcoal Design. All rights reserved.
-//
-//  Get the latest version of BaseModel from either of these locations:
-//
-//  http://charcoaldesign.co.uk/source/cocoa#basemodel
-//  https://github.com/nicklockwood/BaseModel
-//
-//  This software is provided 'as-is', without any express or implied
-//  warranty.  In no event will the authors be held liable for any damages
-//  arising from the use of this software.
-//
-//  Permission is granted to anyone to use this software for any purpose,
-//  including commercial applications, and to alter it and redistribute it
-//  freely, subject to the following restrictions:
-//
-//  1. The origin of this software must not be misrepresented; you must not
-//  claim that you wrote the original software. If you use this software
-//  in a product, an acknowledgment in the product documentation would be
-//  appreciated but is not required.
-//
-//  2. Altered source versions must be plainly marked as such, and must not be
-//  misrepresented as being the original software.
-//
-//  3. This notice may not be removed or altered from any source distribution.
-//
+	//
+	//  BaseModel.m
+	//
+	//  Version 2.3.2
+	//
+	//  Created by Nick Lockwood on 25/06/2011.
+	//  Copyright 2011 Charcoal Design. All rights reserved.
+	//
+	//  Get the latest version of BaseModel from either of these locations:
+	//
+	//  http://charcoaldesign.co.uk/source/cocoa#basemodel
+	//  https://github.com/nicklockwood/BaseModel
+	//
+	//  This software is provided 'as-is', without any express or implied
+	//  warranty.  In no event will the authors be held liable for any damages
+	//  arising from the use of this software.
+	//
+	//  Permission is granted to anyone to use this software for any purpose,
+	//  including commercial applications, and to alter it and redistribute it
+	//  freely, subject to the following restrictions:
+	//
+	//  1. The origin of this software must not be misrepresented; you must not
+	//  claim that you wrote the original software. If you use this software
+	//  in a product, an acknowledgment in the product documentation would be
+	//  appreciated but is not required.
+	//
+	//  2. Altered source versions must be plainly marked as such, and must not be
+	//  misrepresented as being the original software.
+	//
+	//  3. This notice may not be removed or altered from any source distribution.
+	//
+
+	//
+	//  ARC Helper
+	//
+	//  Version 2.1
+	//
+	//  Created by Nick Lockwood on 05/01/2012.
+	//  Copyright 2012 Charcoal Design
+	//
+	//  Distributed under the permissive zlib license
+	//  Get the latest version from here:
+	//
+	//  https://gist.github.com/1563325
+	//
+
+#ifndef ah_retain
+#if __has_feature(objc_arc)
+#define ah_retain self
+#define ah_dealloc self
+#define release self
+#define autorelease self
+#else
+#define ah_retain retain
+#define ah_dealloc dealloc
+#define __bridge
+#endif
+#endif
+
+	//  ARC Helper ends
+
 
 #import "BaseModel.h"
-#import "AtoZ.h"
 #import <objc/message.h>
 
 
@@ -45,7 +74,7 @@ NSString *const BaseModelSharedInstanceUpdatedNotification = @"BaseModelSharedIn
 
 + (NSString *)resourceFilePath:(NSString *)path
 {
-    //check if the path is a full path or not
+		//check if the path is a full path or not
     if (![path isAbsolutePath])
     {
         return [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:path];
@@ -60,21 +89,21 @@ NSString *const BaseModelSharedInstanceUpdatedNotification = @"BaseModelSharedIn
 
 + (NSString *)saveFilePath:(NSString *)path
 {
-    //check if the path is a full path or not
+		//check if the path is a full path or not
     if (![path isAbsolutePath])
     {
-        //get the path to the application support folder
+			//get the path to the application support folder
         NSString *folder = [NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES) lastObject];
-        
+
 #ifndef __IPHONE_OS_VERSION_MAX_ALLOWED
-        
-        //append application name on Mac OS
+
+			//append application name on Mac OS
         NSString *identifier = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleNameKey];
         folder = [folder stringByAppendingPathComponent:identifier];
-        
+
 #endif
-        
-        //create the folder if it doesn't exist
+
+			//create the folder if it doesn't exist
         if (![[NSFileManager defaultManager] fileExistsAtPath:folder])
         {
             [[NSFileManager defaultManager] createDirectoryAtPath:folder
@@ -82,7 +111,7 @@ NSString *const BaseModelSharedInstanceUpdatedNotification = @"BaseModelSharedIn
                                                        attributes:nil
                                                             error:NULL];
         }
-        
+
         return [folder stringByAppendingPathComponent:path];
     }
     return path;
@@ -100,13 +129,21 @@ static NSMutableDictionary *sharedInstances = nil;
 
 + (void)setSharedInstance:(BaseModel *)instance
 {
-    if (![instance isKindOfClass:self])
+    if (instance && ![instance isKindOfClass:self])
     {
         [NSException raise:NSGenericException format:@"setSharedInstance: instance class does not match"];
     }
+    NSString *classKey = NSStringFromClass(self);
     sharedInstances = sharedInstances ?: [[NSMutableDictionary alloc] init];
-    id oldInstance = [sharedInstances objectForKey:NSStringFromClass(self)];
-    [sharedInstances setObject:instance forKey:NSStringFromClass(self)];
+    id oldInstance = [sharedInstances objectForKey:classKey];
+    if (instance)
+    {
+        [sharedInstances setObject:instance forKey:classKey];
+    }
+    else
+    {
+        [sharedInstances removeObjectForKey:classKey];
+    }
     if (oldInstance)
     {
         [[NSNotificationCenter defaultCenter] postNotificationName:BaseModelSharedInstanceUpdatedNotification object:oldInstance];
@@ -120,15 +157,16 @@ static NSMutableDictionary *sharedInstances = nil;
 
 + (instancetype)sharedInstance
 {
+    NSString *classKey = NSStringFromClass(self);
     sharedInstances = sharedInstances ?: [[NSMutableDictionary alloc] init];
-    id instance = [sharedInstances objectForKey:NSStringFromClass(self)];
+    id instance = [sharedInstances objectForKey:classKey];
     if (instance == nil)
     {
-        //load or create instance
+			//load or create instance
         [self reloadSharedInstance];
-        
-        //get loaded instance
-        instance = [sharedInstances objectForKey:NSStringFromClass(self)];
+
+			//get loaded instance
+        instance = [sharedInstances objectForKey:classKey];
     }
     return instance;
 }
@@ -136,28 +174,28 @@ static NSMutableDictionary *sharedInstances = nil;
 + (void)reloadSharedInstance
 {
     id instance = nil;
-    
-    //try loading previously saved version
-    instance = [self instanceWithContentsOfFile:[self saveFilePath]];   
+
+		//try loading previously saved version
+    instance = [self instanceWithContentsOfFile:[self saveFilePath]];
     if (instance == nil)
     {
-        //construct a new instance
+			//construct a new instance
         instance = [self instance];
     }
-    
-    //set singleton
+
+		//set singleton
     [self setSharedInstance:instance];
 }
 
 + (NSString *)resourceFile
 {
-    //used for every instance
+		//used for every instance
     return [NSStringFromClass(self) stringByAppendingPathExtension:@"plist"];
 }
 
 + (NSString *)saveFile
 {
-    //used to save shared (singleton) instance
+		//used to save shared (singleton) instance
     return [NSStringFromClass(self) stringByAppendingPathExtension:@"plist"];
 }
 
@@ -170,12 +208,12 @@ static NSMutableDictionary *sharedInstances = nil;
 {
     if ([sharedInstances objectForKey:NSStringFromClass([self class])] == self)
     {
-        //shared (singleton) instance
+			//shared (singleton) instance
         [self writeToFile:[[self class] saveFilePath] atomically:YES];
     }
     else
     {
-        //no save implementation
+			//no save implementation
         [NSException raise:NSGenericException format:@"Unable to save object, save method not implemented"];
     }
 }
@@ -185,12 +223,12 @@ static NSMutableDictionary *sharedInstances = nil;
 
 - (void)setUp
 {
-    //override this
+		//override this
 }
 
 + (instancetype)instance
 {
-    return AZ_AUTORELEASE([[self alloc] init]);
+    return [[[self alloc] init] autorelease];
 }
 
 static BOOL loadingFromResourceFile = NO;
@@ -201,20 +239,20 @@ static BOOL loadingFromResourceFile = NO;
     {
         if (!loadingFromResourceFile)
         {
-            //attempt to load from resource file
+				//attempt to load from resource file
             loadingFromResourceFile = YES;
             id object = [[[self class] alloc] initWithContentsOfFile:[[self class] resourceFilePath]];
             loadingFromResourceFile = NO;
             if (object)
             {
-                AZ_RELEASE(self);
+                [self release];
                 self = object;
                 return self;
             }
         }
         if ((self = [super init]))
         {
-            
+
 #ifdef DEBUG
             if ([self class] == [BaseModel class])
             {
@@ -229,22 +267,22 @@ static BOOL loadingFromResourceFile = NO;
 
 + (instancetype)instanceWithObject:(id)object
 {
-    //return nil if object is nil
-    return object? AZ_AUTORELEASE([[self alloc] initWithObject:object]): nil;
+		//return nil if object is nil
+    return object? [[[self alloc] initWithObject:object] autorelease]: nil;
 }
 
 - (NSString *)setterNameForClass:(Class)class
 {
-    //get class name
+		//get class name
     NSString *className = NSStringFromClass(class);
-    
-    //strip NS prefix
+
+		//strip NS prefix
     if ([className hasPrefix:@"NS"])
     {
         className = [className substringFromIndex:2];
     }
-    
-    //return setter name
+
+		//return setter name
     return [NSString stringWithFormat:@"setWith%@:", className];
 }
 
@@ -282,8 +320,8 @@ static BOOL loadingFromResourceFile = NO;
 
 + (instancetype)instanceWithCoder:(NSCoder *)decoder
 {
-    //return nil if coder is nil
-    return decoder? AZ_AUTORELEASE([[self alloc] initWithCoder:decoder]): nil;
+		//return nil if coder is nil
+    return decoder? [[[self alloc] initWithCoder:decoder] autorelease]: nil;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)decoder
@@ -304,20 +342,20 @@ static BOOL loadingFromResourceFile = NO;
 
 + (instancetype)instanceWithContentsOfFile:(NSString *)filePath
 {
-    //check if the path is a full path or not
+		//check if the path is a full path or not
     NSString *path = filePath;
     if (![path isAbsolutePath])
     {
-        //try resources
+			//try resources
         path = [self resourceFilePath:filePath];
         if (![[NSFileManager defaultManager] fileExistsAtPath:path])
         {
-            //try application support
+				//try application support
             path = [self saveFilePath:filePath];
         }
     }
 
-    return AZ_AUTORELEASE([[self alloc] initWithContentsOfFile:path]);
+    return [[[self alloc] initWithContentsOfFile:path] autorelease];
 }
 
 - (instancetype)initWithContentsOfFile:(NSString *)filePath
@@ -327,24 +365,24 @@ static BOOL loadingFromResourceFile = NO;
     {
         cachedResourceFiles = [[NSCache alloc] init];
     }
-    
-    //check cache for existing instance
-    //only cache files inside the main bundle as they are immutable 
+
+		//check cache for existing instance
+		//only cache files inside the main bundle as they are immutable
     BOOL isResourceFile = [filePath hasPrefix:[[NSBundle mainBundle] bundlePath]];
     if (isResourceFile)
     {
         id object = [cachedResourceFiles objectForKey:filePath];
         if (object)
         {
-            AZ_RELEASE(self);
-            return ((self = (object == [NSNull null])? nil: AZ_RETAIN(object)));
+            [self release];
+            return ((self = (object == [NSNull null])? nil: [object ah_retain]));
         }
     }
-    
-    //load the file
+
+		//load the file
     NSData *data = [NSData dataWithContentsOfFile:filePath];
-    
-    //attempt to deserialise data as a plist
+
+		//attempt to deserialise data as a plist
     id object = nil;
     if (data)
     {
@@ -352,11 +390,11 @@ static BOOL loadingFromResourceFile = NO;
         NSPropertyListReadOptions options = NSPropertyListMutableContainersAndLeaves;
         object = [NSPropertyListSerialization propertyListWithData:data options:options format:&format error:NULL];
     }
-        
-    //success?
+
+		//success?
     if (object)
     {
-        //check if object is an NSCoded archive
+			//check if object is an NSCoded archive
         if ([object respondsToSelector:@selector(objectForKey:)])
         {
             if ([object objectForKey:@"$archiver"])
@@ -372,32 +410,32 @@ static BOOL loadingFromResourceFile = NO;
                     object = objc_msgSend(coderClass, @selector(unarchiveObjectWithPlist:), object);
                 }
             }
-            
+
             if ([object isKindOfClass:[self class]])
             {
-                //return object
-                AZ_RELEASE(self);
-                return ((self = AZ_RETAIN(object)));
+					//return object
+                [self release];
+                return ((self = [object ah_retain]));
             }
         }
 
         if (isResourceFile)
         {
-            //cache for next time
+				//cache for next time
             [cachedResourceFiles setObject:object forKey:filePath];
         }
-        
-        //load with object
+
+			//load with object
         return ((self = [self initWithObject:object]));
     }
     else if (isResourceFile)
     {
-        //store null for non-existent files to improve performance next time
+			//store null for non-existent files to improve performance next time
         [cachedResourceFiles setObject:[NSNull null] forKey:filePath];
     }
-    
-    //failed to load
-    AZ_RELEASE(self);
+
+		//failed to load
+    [self release];
     return ((self = nil));
 }
 
@@ -426,10 +464,10 @@ static BOOL loadingFromResourceFile = NO;
     CFUUIDRef uuid = CFUUIDCreate(NULL);
     CFStringRef identifier = CFUUIDCreateString(NULL, uuid);
     CFRelease(uuid);
-    return AZ_RETAIN(CFBridgingRelease(identifier));
+    return [CFBridgingRelease(identifier) ah_retain];
 }
 
-//#ifdef BASEMODEL_ENABLE_UNIQUE_ID
+#ifdef BASEMODEL_ENABLE_UNIQUE_ID
 
 @synthesize uniqueID = _uniqueID;
 
@@ -444,10 +482,11 @@ static BOOL loadingFromResourceFile = NO;
 
 - (void)dealloc
 {
-    AZ_RELEASE(_uniqueID);
-    AZ_SUPER_DEALLOC;
+    [_uniqueID release];
+    [super ah_dealloc];
 }
 
-//#endif
+#endif
 
 @end
+

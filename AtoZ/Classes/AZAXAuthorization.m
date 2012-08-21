@@ -38,7 +38,7 @@ static bool amIAuthorized () {			bool returner = false;
 - (NSString *)BundleName {
 	NSBundle *bundle = [NSBundle mainBundle];
 	NSDictionary *dict = [bundle infoDictionary];
-	NSString *name = [dict objectForKey:@"CFBundleName"];
+	NSString *name = dict[@"CFBundleName"];
     if (name) {
 		return name;
     }

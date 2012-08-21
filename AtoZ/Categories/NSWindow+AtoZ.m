@@ -187,7 +187,7 @@ return midpoint;
 	NSArray* arr = [NSWindow visibleWindows:YES delegateClass:class];
 	
 	if ([arr count])
-		return [arr objectAtIndex:0];
+		return arr[0];
 	
 	return nil;
 }
@@ -414,9 +414,9 @@ return midpoint;
 
 - (void)fadeOut {
     [NSAnimationContext beginGrouping];
-    __block __unsafe_unretained NSWindow *bself = self;
     [[NSAnimationContext currentContext] setDuration:.6];
-    [[NSAnimationContext currentContext] setCompletionHandler:^{
+    __block __unsafe_unretained NSWindow *bself = self;
+	[[NSAnimationContext currentContext] setCompletionHandler:^{
         [bself orderOut:nil];
         [bself setAlphaValue:1.f];
     }];
@@ -424,7 +424,50 @@ return midpoint;
     [NSAnimationContext endGrouping];
 }
 
-- (void)slideDown {
+
+
+- (void) slideTo:(NSString*)rect {
+	[NSAnimationContext beginGrouping];
+	[[NSAnimationContext currentContext] setKey:kCAMediaTimingFunctionEaseInEaseOut ];
+
+	if (@"visibleRect") {
+		[self setAlphaValue:0.f];
+		[self makeKeyAndOrderFront:self];
+		[self setFrame:[[self valueForKeyPath:@"dictionary.hiddenRect"]rectValue]display:YES animate:NO];
+	}
+}
+//	__block __unsafe_unretained NSWindow *bself = self;
+//	[[NSAnimationContext currentContext] setCompletionHandler:^{
+//		if (fadeIn) {
+//			[[self animator] setAlphaValue:1.f];
+////			[bself setFrameOrigin:frame.origin];
+//			[bself orderFront:self];
+//		} else {
+//			[bself orderOut:nil];
+//			[bself setAlphaValue:1.f];
+//			[[self animator] setAlphaValue:0.f];
+//		}
+//	}];
+//	[[self animator] setContentSize:frame.size display:YES animate:YES];
+//
+//
+//    [NSAnimationContext endGrouping];
+//
+//}
+
+/*	NSViewAnimation *animation = [[NSViewAnimation alloc]
+				 initWithViewAnimations: @[
+	@{ 	NSViewAnimationTargetKey: self,
+	NSViewAnimationEffectKey: (fade ?NSViewAnimationFadeInEffect :NSViewAnimationFadeOutEffect) },
+	@{ 	NSViewAnimationTargetKey:self,
+	NSViewAnimationEndFrameKey:[NSValue valueWithRect:frame]} ]];
+
+	[animation setAnimationBlockingMode: NSAnimationBlocking];
+	[animation setDuration: 0.5]; // or however long you want it for
+
+	[animation startAnimation]; // because it's blocking, once it returns, we're done
+}*/
+/*- (void)slideDown {
 	//	if ([[self contentView] isHidden]) [[self main] setHidden:YES];
     NSRect firstViewFrame = [[self contentView] frame];
 	NSRect screen =  [[NSScreen mainScreen]frame];
@@ -454,20 +497,46 @@ return midpoint;
 	//    [[self animator] setFrameOrigin:down];
 	//    [NSAnimationContext endGrouping];
 }
+*/
+- (void)slideDown {
+	NSRect newViewFrame = [[self valueForKeyPath:@"dictionary.visibleRect"]rectValue];
+
+	CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"frame"];
+	[animation setFromValue:[NSValue valueWithRect:[self frame]]];
+	[animation setToValue:	[NSValue valueWithRect:newViewFrame]];
+
+	CABasicAnimation *fader = [CABasicAnimation animationWithKeyPath:@"alphaValue"];
+	[fader setFromValue:@0.f];
+	[fader setToValue:@1.f];
+
+
+	[self setAnimations:	@{ @"frame" : animation}];
+
+	[[self animator] setFrame:newViewFrame display:YES];
+}
 
 - (void)slideUp {
 
-    NSRect firstViewFrame = [[self contentView] frame];
-	NSRect newViewFrame = firstViewFrame;
-    newViewFrame.origin.y = [[NSScreen mainScreen]frame].size.height - 22;
-	NSViewAnimation *theAnim = [[NSViewAnimation alloc] initWithViewAnimations: $array($map(
-		self, NSViewAnimationTargetKey,
-		[NSValue valueWithRect:firstViewFrame], NSViewAnimationStartFrameKey,
-		[NSValue valueWithRect:newViewFrame], NSViewAnimationEndFrameKey))];
-	
-    [theAnim setDuration:.5]; 
-    [theAnim startAnimation];
-	
+	NSRect newViewFrame = [self frame];
+    newViewFrame.origin.y += [self frame].size.height;
+	newViewFrame.size.height = 0;
+
+	CABasicAnimation *framer = [CABasicAnimation animationWithKeyPath:@"frame"];
+	[framer setFromValue:[NSValue valueWithRect:[self frame]]];
+	[framer setToValue:	[NSValue valueWithRect:newViewFrame]];
+	[self setAnimations:	@{ @"frame" : framer}];
+
+//	[[self animator] setFrame:newViewFrame display:YES];
+
+//	NSViewAnimation *theAnim = [[NSViewAnimation alloc] initWithViewAnimations: $array($map(
+//		self, NSViewAnimationTargetKey,
+//		[NSValue valueWithRect:firstViewFrame], NSViewAnimationStartFrameKey,
+//		[NSValue valueWithRect:newViewFrame], NSViewAnimationEndFrameKey))];
+//	[theAnim setValue:self forKeyPath:@"dictionary.slideUpNowFoldUpWindow"];
+//    [theAnim setDuration:.3];
+//	[theAnim setDelegate:self];
+//    [theAnim startAnimation];
+
 	
 	//    [self makeKeyAndOrderFront:self];
 	//    [NSAnimationContext beginGrouping];
@@ -479,6 +548,21 @@ return midpoint;
 	//    [NSAnimationContext endGrouping];
 }
 
+- (void)animationDidEnd:(NSAnimation*)theAnimation {
+	NSLog(@"Yes, indeed, animation did end!");
+	 NSWindow *windy = [theAnimation valueForKeyPath:@"dictionary.slideUpNowFoldUpWindow"];
+
+	 if (windy)  {
+	 	CGFloat extendo = -[windy frame].size.height;
+		 NSLog(@"Extending vetically by %f", extendo);
+	 	[windy extendVerticallyBy:extendo];
+	}
+}
+//- (void)animation:(NSAnimation *)animation didReachProgressMark:(NSAnimationProgress)progress
+//{
+//    if ([animation valueForKeyPath:@"dictionary.preSlideUpExtendView"] == theAnim)
+//		}
+//}
 
 - (void) extendVerticallyBy:(int) amount { // extends the window vertically by the amount (which can be negative).
 	
@@ -513,10 +597,10 @@ return midpoint;
         pendingFades = [[NSMutableDictionary alloc] init];
 
     NSString*       key = [NSString stringWithFormat: @"%@", self];
-    NSDictionary*   fade = [pendingFades objectForKey: key];
+    NSDictionary*   fade = pendingFades[key];
 
     if( fade )      // Currently fading that window? Abort that fade:
-        [[fade objectForKey: @"timer"] invalidate];  // No need to remove from pendingFades, we'll replace it in a moment.
+        [fade[@"timer"] invalidate];  // No need to remove from pendingFades, we'll replace it in a moment.
 
     [self setAlphaValue: 0];
     [self orderFront: nil];
@@ -528,16 +612,16 @@ return midpoint;
 														   userInfo: nil repeats: YES];
     [[NSRunLoop currentRunLoop] addTimer: timer forMode: NSModalPanelRunLoopMode];
     [[NSRunLoop currentRunLoop] addTimer: timer forMode: NSEventTrackingRunLoopMode];
-    [pendingFades setObject: [NSMutableDictionary dictionaryWithObjectsAndKeys: timer, @"timer",
-							  [NSNumber numberWithFloat: stepSize], @"stepSize",
-							  nil] forKey: key];    // Releases of any old fades.
+    pendingFades[key] = [NSMutableDictionary dictionaryWithObjectsAndKeys: timer, @"timer",
+							  @(stepSize), @"stepSize",
+							  nil];    // Releases of any old fades.
 }
 
 
 -(void) fadeInOneStep: (NSTimer*)timer
 {
     NSString*   key = [NSString stringWithFormat: @"%@", self];
-    float       newAlpha = [self alphaValue] + [[[pendingFades objectForKey: key] objectForKey: @"stepSize"] floatValue];
+    float       newAlpha = [self alphaValue] + [pendingFades[key][@"stepSize"] floatValue];
 
     if( newAlpha >= 1.0 )
     {
@@ -557,10 +641,10 @@ return midpoint;
         pendingFades = [[NSMutableDictionary alloc] init];
 
     NSString*       key = [NSString stringWithFormat: @"%@", self];
-    NSDictionary*   fade = [pendingFades objectForKey: key];
+    NSDictionary*   fade = pendingFades[key];
 
     if( fade )      // Currently fading that window? Abort that fade:
-        [[fade objectForKey: @"timer"] invalidate];  // No need to remove from pendingFades, we'll replace it in a moment.
+        [fade[@"timer"] invalidate];  // No need to remove from pendingFades, we'll replace it in a moment.
 
     [self setAlphaValue: 1.0];
 
@@ -569,9 +653,9 @@ return midpoint;
     NSTimer*        timer = [NSTimer scheduledTimerWithTimeInterval: 0.1				// scheduled since we also want "normal" run loop mode.
 															 target: self selector: @selector(fadeOutOneStep:)
 														   userInfo: nil repeats: YES];
-    [pendingFades setObject: [NSMutableDictionary dictionaryWithObjectsAndKeys: timer, @"timer",
-							  [NSNumber numberWithFloat: stepSize], @"stepSize",
-							  nil] forKey: key];    // Releases of any old fades.
+    pendingFades[key] = [NSMutableDictionary dictionaryWithObjectsAndKeys: timer, @"timer",
+							  @(stepSize), @"stepSize",
+							  nil];    // Releases of any old fades.
     [[NSRunLoop currentRunLoop] addTimer: timer forMode: NSModalPanelRunLoopMode];
     [[NSRunLoop currentRunLoop] addTimer: timer forMode: NSEventTrackingRunLoopMode];
 }
@@ -579,8 +663,8 @@ return midpoint;
 -(void) fadeOutOneStep: (NSTimer*)timer
 {
     NSString*				key = [NSString stringWithFormat: @"%@", self];
-	NSMutableDictionary*	currFadeDict = [pendingFades objectForKey: key];//retain] autorelease];	// Make sure it doesn't go away in case we're cross-fading layers.
-    float					newAlpha = [self alphaValue] - [[currFadeDict objectForKey: @"stepSize"] floatValue];
+	NSMutableDictionary*	currFadeDict = pendingFades[key];//retain] autorelease];	// Make sure it doesn't go away in case we're cross-fading layers.
+    float					newAlpha = [self alphaValue] - [currFadeDict[@"stepSize"] floatValue];
 
     if( newAlpha <= 0 )
     {
@@ -588,14 +672,14 @@ return midpoint;
 
 		[pendingFades removeObjectForKey: key];
 
-		NSNumber*	newLevel = [currFadeDict objectForKey: @"newLevel"];
+		NSNumber*	newLevel = currFadeDict[@"newLevel"];
 		if( newLevel )
 		{
 			NSTimer*        timer = [NSTimer scheduledTimerWithTimeInterval: 0.1				// scheduled since we also want "normal" run loop mode.
 																	 target: self selector: @selector(fadeInOneStep:)
 																   userInfo: nil repeats: YES];
-			[currFadeDict setObject: timer forKey: @"timer"];
-			[pendingFades setObject: currFadeDict forKey: key];
+			currFadeDict[@"timer"] = timer;
+			pendingFades[key] = currFadeDict;
 			[[NSRunLoop currentRunLoop] addTimer: timer forMode: NSModalPanelRunLoopMode];
 			[[NSRunLoop currentRunLoop] addTimer: timer forMode: NSEventTrackingRunLoopMode];
 
@@ -622,10 +706,10 @@ return midpoint;
         pendingFades = [[NSMutableDictionary alloc] init];
 
     NSString*       key = [NSString stringWithFormat: @"%@", self];
-    NSDictionary*   fade = [pendingFades objectForKey: key];
+    NSDictionary*   fade = pendingFades[key];
 
     if( fade )      // Currently fading that window? Abort that fade:
-        [[fade objectForKey: @"timer"] invalidate];  // No need to remove from pendingFades, we'll replace it in a moment.
+        [fade[@"timer"] invalidate];  // No need to remove from pendingFades, we'll replace it in a moment.
 
     [self setAlphaValue: 1.0];
 
@@ -634,10 +718,10 @@ return midpoint;
     NSTimer*        timer = [NSTimer scheduledTimerWithTimeInterval: 0.1				// scheduled since we also want "normal" run loop mode.
 															 target: self selector: @selector(fadeOutOneStep:)
 														   userInfo: nil repeats: YES];
-    [pendingFades setObject: [NSMutableDictionary dictionaryWithObjectsAndKeys: timer, @"timer",
-							  [NSNumber numberWithFloat: stepSize], @"stepSize",
-							  [NSNumber numberWithInt: lev], @"newLevel",
-							  nil] forKey: key];    // Releases of any old fades.
+    pendingFades[key] = [NSMutableDictionary dictionaryWithObjectsAndKeys: timer, @"timer",
+							  @(stepSize), @"stepSize",
+							  @(lev), @"newLevel",
+							  nil];    // Releases of any old fades.
     [[NSRunLoop currentRunLoop] addTimer: timer forMode: NSModalPanelRunLoopMode];
     [[NSRunLoop currentRunLoop] addTimer: timer forMode: NSEventTrackingRunLoopMode];
 }

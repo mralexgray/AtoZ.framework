@@ -7,7 +7,7 @@
 //
 
 #import <QuartzCore/QuartzCore.h>
-#import "AtoZ.h"
+
 
 @interface CAAnimation (AtoZ)
 
@@ -26,4 +26,10 @@
 
 @interface CALayer (CAAnimationEGOHelper)
 - (void)popInAnimated;
+@end
+
+@interface CAAnimation (MCAdditions)
+
++ (CAAnimation *)flipAnimationWithDuration:(NSTimeInterval)aDuration;
+
 @end

@@ -79,10 +79,8 @@
 		/* LOWER TEXT */
 		NSString *string = [self progressText];
 		NSFont *font = [NSFont labelFontOfSize: [self fontSize]];
-		NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
-									backgroundTextColor, NSForegroundColorAttributeName,
-									font, NSFontAttributeName,
-									nil];
+		NSDictionary *attributes = @{NSForegroundColorAttributeName: backgroundTextColor,
+									NSFontAttributeName: font};
 		NSSize size = [string sizeWithAttributes:attributes];
 		[string drawInRect:NSOffsetRect(dirtyRect, [self alignTextOnProgress:dirtyRect fontSize:size], -dirtyRect.size.height / 2 + size.height / 2) withAttributes:attributes];
 	}
@@ -144,10 +142,8 @@
 		/* UPPER TEXT */
 		NSString *stringInProgress = [self progressText];
 		NSFont *fontInProgress = [NSFont labelFontOfSize: [self fontSize]];
-		NSDictionary *attributesInProgress = [NSDictionary dictionaryWithObjectsAndKeys:
-									frontTextColor, NSForegroundColorAttributeName,
-									fontInProgress, NSFontAttributeName,
-									nil];
+		NSDictionary *attributesInProgress = @{NSForegroundColorAttributeName: frontTextColor,
+									NSFontAttributeName: fontInProgress};
 		NSSize sizeInProgress = [stringInProgress sizeWithAttributes:attributesInProgress];
 		[stringInProgress drawInRect:NSOffsetRect(frame, [self alignTextOnProgress:frame fontSize:sizeInProgress], -frame.size.height / 2 + sizeInProgress.height / 2) withAttributes:attributesInProgress];
 	}

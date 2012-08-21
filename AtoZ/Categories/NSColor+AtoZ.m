@@ -277,7 +277,7 @@ static ColorNameRec sColorTable[] = {
 		ColorNameRec *rec = sColorTable;
 
 		for (int i = 0; i < count; ++i, ++rec)
-			[names addObject:[NSString stringWithUTF8String:rec->name]];
+			[names addObject:@(rec->name)];
 		sAllNames = [[NSArray alloc] initWithArray:names];
 	}
 	return sAllNames;
@@ -330,11 +330,11 @@ static NSColor *ColorWithCSSString(NSString *str) {
 
 		// Alpha in CSS-mode is a 0-1 float
 		if (count > 3)
-			a = (float)[[components objectAtIndex:3] floatValue];
+			a = (float)[components[3] floatValue];
 
-		float r = (float)strtoul([[components objectAtIndex:0] UTF8String], NULL, 10) / 255.0;
-		float g = (float)strtoul([[components objectAtIndex:1] UTF8String], NULL, 10) / 255.0;
-		float b = (float)strtoul([[components objectAtIndex:2] UTF8String], NULL, 10) / 255.0;
+		float r = (float)strtoul([components[0] UTF8String], NULL, 10) / 255.0;
+		float g = (float)strtoul([components[1] UTF8String], NULL, 10) / 255.0;
+		float b = (float)strtoul([components[2] UTF8String], NULL, 10) / 255.0;
 
 		return [NSColor colorWithCalibratedRed:r green:g blue:b alpha:a];
 	}
@@ -660,16 +660,16 @@ static NSColor *ColorWithCSSString(NSString *str) {
                 NSScanner *scanner = [[NSScanner alloc] initWithString:segment];
                 unsigned number;
                 while([scanner scanHexInt:&number]){
-                    [rgb addObject:[NSNumber numberWithFloat:(float)(number / (float)255)]];
+                    [rgb addObject:@((float)(number / (float)255))];
                 }
                 segment = @"";
             }
             i++;
         }
         // Pad the array out (for cases where we're given invalid input)
-        while ([rgb count] != 3) [rgb addObject:[NSNumber numberWithFloat:0.0]];
+        while ([rgb count] != 3) [rgb addObject:@0.0f];
 
-        return [NSColor colorWithCalibratedRed:[[rgb objectAtIndex:0] floatValue]   green:[[rgb objectAtIndex:1] floatValue]    blue:[[rgb objectAtIndex:2] floatValue]   alpha:1];
+        return [NSColor colorWithCalibratedRed:[rgb[0] floatValue]   green:[rgb[1] floatValue]    blue:[rgb[2] floatValue]   alpha:1];
     }
     else {
         NSException* invalidHexException = [NSException exceptionWithName:@"InvalidHexException"                       reason:@"Hex color not three or six characters excluding hash"                     userInfo:nil];
@@ -1050,7 +1050,7 @@ static NSColor *ColorWithCSSString(NSString *str) {
 		}
 
 		for (int i = 0; i < vals.count; i++) {
-			NSString *v = [[vals objectAtIndex:i] trim];
+			NSString *v = [vals[i] trim];
 			if ([v hasSuffix:@"%"]) {
 				values[i] = [[v substringBefore:@"%"] floatValue] / 100.0;
 			} else {
@@ -1813,7 +1813,7 @@ static NSMutableDictionary *RGBColorValues = nil;
 	hexString[5] = intToHex(tempNum % 16);
 	hexString[6] = '\0';
 
-	return [NSString stringWithUTF8String:hexString];
+	return @(hexString);
 }
 
 //String representation: R,G,B[,A].
@@ -2109,7 +2109,7 @@ static CGFloat hexCharsToFloat(char firstChar, char secondChar)
 		validColorsArray = defaultValidColors;
 	}
 
-	return [validColorsArray objectAtIndex:([anObject hash] % ([validColorsArray count]))];
+	return validColorsArray[([anObject hash] % ([validColorsArray count]))];
 }
 
 @end
@@ -2154,16 +2154,16 @@ static CGFloat hexCharsToFloat(char firstChar, char secondChar)
 		if ( [cleanedComponent length] == 0 )
 			continue;
 
-		NSNumber *numericValue = [NSNumber numberWithFloat:[cleanedComponent floatValue]];
+		NSNumber *numericValue = @([cleanedComponent floatValue]);
 		[componentValues addObject:numericValue];
 	}
 
 	if ( [componentValues count] != 3 )
 		return nil;
 
-	NSColor *color = [NSColor colorWithCalibratedRed:[[componentValues objectAtIndex:0] floatValue]/255.
-											   green:[[componentValues objectAtIndex:1] floatValue]/255.
-												blue:[[componentValues objectAtIndex:2] floatValue]/255.
+	NSColor *color = [NSColor colorWithCalibratedRed:[componentValues[0] floatValue]/255.
+											   green:[componentValues[1] floatValue]/255.
+												blue:[componentValues[2] floatValue]/255.
 											   alpha:1.0];
 
 	return color;
@@ -2182,7 +2182,7 @@ static CGFloat hexCharsToFloat(char firstChar, char secondChar)
 @implementation NSColor (Utilities)
 
 + (NSArray *)calveticaPalette {
-	return [NSArray arrayWithObjects:CV_PALETTE_1, CV_PALETTE_2, CV_PALETTE_3, CV_PALETTE_4, CV_PALETTE_5, CV_PALETTE_6, CV_PALETTE_7, CV_PALETTE_8, CV_PALETTE_9, CV_PALETTE_10, CV_PALETTE_11, CV_PALETTE_12, CV_PALETTE_13, CV_PALETTE_14, CV_PALETTE_15, CV_PALETTE_16, CV_PALETTE_17, CV_PALETTE_18, CV_PALETTE_19, CV_PALETTE_20, CV_PALETTE_21, nil];
+	return @[CV_PALETTE_1, CV_PALETTE_2, CV_PALETTE_3, CV_PALETTE_4, CV_PALETTE_5, CV_PALETTE_6, CV_PALETTE_7, CV_PALETTE_8, CV_PALETTE_9, CV_PALETTE_10, CV_PALETTE_11, CV_PALETTE_12, CV_PALETTE_13, CV_PALETTE_14, CV_PALETTE_15, CV_PALETTE_16, CV_PALETTE_17, CV_PALETTE_18, CV_PALETTE_19, CV_PALETTE_20, CV_PALETTE_21];
 }
 
 - (NSColor *)closestColorInCalveticaPalette {

@@ -3,5 +3,6 @@
 //
 
 #ifdef __OBJC__
+	#import <QuartzCore/QuartzCore.h>
 	#import <Cocoa/Cocoa.h>
 #endif

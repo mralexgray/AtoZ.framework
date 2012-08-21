@@ -11,39 +11,135 @@
 
 
 @implementation AtoZ
-@synthesize dockOutline, appFolder, appFolderSorted;//, console;
+{
+	BOOL fontsRegistered;
+}
+@synthesize appFolder, appFolderSorted;//, console;
 @synthesize dock, dockSorted;
 //{//	__weak AZSimpleView *e;
 //}
 //	console = [NSLogConsole sharedConsole]; [console open];
 
 - (void) setUp {
-	self.dockOutline = [AZDockQuery dock];
-	self.dock = dockOutline;
+
+
+
+	self.dock = [AZDockQuery dock];
+//	self.dockOutline = dock.copy;
 	self.sortOrder = AZDockSortNatural;
+
+}
++(NSFont*) fontWithSize:(CGFloat)fontSize {
+	return 	[[AtoZ sharedInstance] registerFonts:fontSize];
+}
+
+- (NSFont*) registerFonts:(CGFloat)size {
+	if (!fontsRegistered) {
+		NSBundle *aBundle = [NSBundle bundleForClass: [AtoZ class]];
+		NSURL *fontsURL = [NSURL fileURLWithPath:$(@"%@/Fonts",[aBundle resourcePath])];
+		if(fontsURL != nil)	{
+			OSStatus status;		FSRef fsRef;
+			CFURLGetFSRef((CFURLRef)fontsURL, &fsRef);
+			status = ATSFontActivateFromFileReference(&fsRef, kATSFontContextLocal, kATSFontFormatUnspecified, NULL, kATSOptionFlagsDefault, NULL);
+			if (status != noErr)		{
+//				theError = @"Failed to acivate fonts!";  goto error;
+			} else  { fontsRegistered = 1; NSLog(@"Fonts registered!"); }
+		}
+	}
+	return  [NSFont fontWithName:@"UbuntuTitling-Bold" size:size];
+}
+ -(NSArray*)dockSorted {
+
+ return [[[dock sortedWithKey:@"hue" ascending:YES] reversed] arrayUsingIndexedBlock:^id(AZFile* obj, NSUInteger idx) {
+			//		if ([obj.name isEqualToString:@"Finder"]) {
+			//		obj.spotNew = 999;
+			//		obj.dockPointNew = obj.dockPoint;
+			//		} else {
+		obj.spotNew = idx;
+		obj.dockPointNew = [[dock[idx]valueForKey:@"dockPoint"]pointValue];
+		return obj;
+	}];
 	// arrayUsingIndexedBlock:^id(AZFile* obj, NSUInteger idx) {
 	//			NSLog(@"dockquery item: %@", [obj allKeys]);
 
 }
 
-+ (NSArray*) dockOutline {
-	return [[super sharedInstance] dockOutline];
-}
+//+ (NSArray*) dockOutline {
+//	return [super sharedInstance].dockOutline;
+//}
 //- (NSArray*)dockOutline {
 //	return _dockOutline;// ? _dockOutline : [AZDockQuery dock]);
 //}
 
 + (NSArray*) dock {
-	return [super sharedInstance].dock ;
+	return [AtoZ sharedInstance].dock ;
 }
 
++ (NSArray*) currentScope {
+	return [AtoZ sharedInstance].dockSorted;
+}
 + (NSArray*) dockSorted {
 
-	return [super sharedInstance].dockSorted;
+	return [AtoZ sharedInstance].dockSorted;
 }
-//- (NSArray*) dock {
++ (NSArray*) appCategories {
 
-	
+	return [AtoZ sharedInstance].appCategories;
+}
+
+
+
+NSString * const kCategoryNames[] = {
+	@"Games",		@"Education",		@"Entertainment",	@"Books",	@"Lifestyle",
+	@"Utilities",	@"Business", 		@"Travel",			@"Music", 	@"Reference",
+	@"Sports",		@"Productivity",	@"News", 			@"Healthcare & Fitness",
+	@"Photography", @"Finance", 		@"Medical", 			@"Social Networking",
+	@"Navigation",	@"Weather",			@"Catalogs", 		@"Food & Drink",
+	@"Newsstand"
+};
+
+- (NSArray*) appCategories {
+	static NSArray *cats;
+    if (cats == nil) {
+        cats = [[NSArray alloc] initWithObjects:kCategoryNames count:23];
+    }
+    return cats;
+}
++ (NSJSONSerialization*) jsonReuest:(NSString*)url {
+	AtoZ *me = [AtoZ sharedInstance];
+	return [me jsonReuest:url];
+}
+
++ (NSUserDefaults *)defs {
+	return [NSUserDefaults standardUserDefaults];
+}
+
+/*- (id)objectForKeyedSubscript:(NSString *)key {
+	return [self objectForKey:key];
+}
+- (void)setObject:(id)newValue forKeyedSubscription:(NSString *)key {
+	[self setObject:newValue forKey:key];
+}
+*/
+- (NSJSONSerialization*) jsonReuest:(NSString*)url {
+	NSError *err;
+	NSURLRequest *theRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:url]
+				 cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
+	NSData *responseData = [NSURLConnection sendSynchronousRequest:theRequest returningResponse:nil error:&err];
+	if (!responseData) NSLog(@"Connection Error: %@", [err localizedDescription]);
+
+    NSError *error;
+
+	return  [NSJSONSerialization JSONObjectWithData:responseData options:0 error:&err];
+
+//    if (err) {
+//        NSAlert *alert = [NSAlert alertWithMessageText:@"Error parsing JSON" defaultButton:@"Damn that sucks" alternateButton:nil otherButton:nil informativeTextWithFormat:@"Check your JSON"];
+//        [alert beginSheetModalForWindow:[[NSApplication sharedApplication]mainWindow] modalDelegate:nil didEndSelector:nil contextInfo:nil];
+//        return;
+//    }
+//	return value;
+}
+
 //	self.sortOrder = AZDockSortNatural;
 //	if (!_dock)
 //		[[NSThread mainThread] performBlock:^{
@@ -63,34 +159,34 @@
 */
 //}/
 
-- (NSArray*) dockSorted {
-
-	self.sortOrder = AZDockSortColor;
-//	[NSThread performBlockInBackground:^{
-//	if (!_dockSorted)
-//		[[NSThread mainThread] performBlock:^{
-//	if (!dockSorted)
-			return  [[[dock sortedWithKey:@"hue" ascending:YES] reversed] arrayUsingIndexedBlock:^id(AZFile* obj, NSUInteger idx) {
-//				if ([obj.name isEqualToString:@"Finder"]) {
-//					obj.spotNew = 999;
-//					obj.dockPointNew = obj.dockPoint;
-//				} else {
-					obj.spotNew = idx;
-					obj.dockPointNew = [[[dock objectAtIndex:idx]valueForKey:@"dockPoint"]pointValue];
-//				}
-
-				return obj;
-			}];
-//	return dockSorted;
-//		}waitUntilDone:YES];
-//	return _dockSorted;
-//		[[NSThread mainThread] performBlock:^{
-//			 _dockSorted = adock.mutableCopy;
-//		} waitUntilDone:YES];
-//	}];
-//	return _dockSorted;
-
-}
+//- (NSArray*) dockSorted {
+//
+//	self.sortOrder = AZDockSortColor;
+////	[NSThread performBlockInBackground:^{
+////	if (!_dockSorted)
+////		[[NSThread mainThread] performBlock:^{
+////	if (!dockSorted)
+//			return  [[[dock sortedWithKey:@"hue" ascending:YES] reversed] arrayUsingIndexedBlock:^id(AZFile* obj, NSUInteger idx) {
+////				if ([obj.name isEqualToString:@"Finder"]) {
+////					obj.spotNew = 999;
+////					obj.dockPointNew = obj.dockPoint;
+////				} else {
+//					obj.spotNew = idx;
+//					obj.dockPointNew = [[dock[idx]valueForKey:@"dockPoint"]pointValue];
+////				}
+//
+//				return obj;
+//			}];
+////	return dockSorted;
+////		}waitUntilDone:YES];
+////	return _dockSorted;
+////		[[NSThread mainThread] performBlock:^{
+////			 _dockSorted = adock.mutableCopy;
+////		} waitUntilDone:YES];
+////	}];
+////	return _dockSorted;
+//
+//}
 
 + (NSArray*) selectedDock{
 	AtoZ *shared =  [super sharedInstance];
@@ -318,8 +414,8 @@ static void soundCompleted(SystemSoundID soundFileObject, void *clientData) {
 @synthesize 	hueComponent;
 + (AZColor*) instanceWithObject: (NSDictionary *)dic {
 	AZColor *color = [self instance];
-	if ([dic objectForKey:@"color"]) color.color   = [dic objectForKey:@"color"]; else return nil;
-	color.name 	  = ( [dic objectForKey:@"name"]   ? [dic valueForKey:@"name"]    : nil );
+	if (dic[@"color"]) color.color   = dic[@"color"]; else return nil;
+	color.name 	  = ( dic[@"name"]   ? [dic valueForKey:@"name"]    : nil );
 	color.count   = ( [dic valueForKey:@"count"]   ? [[dic valueForKey:@"count"]intValue]     : 0);
 	color.percent =	( [dic valueForKey:@"percent"] ? [[dic valueForKey:@"percent"]floatValue] : 0);
 	return color;
@@ -349,6 +445,11 @@ NSString *const AZFileUpdated = @"AZFileUpdated";
 }
 
 
+- (NSString *) calulatedBundleID {
+    NSWorkspace * workspace = [NSWorkspace sharedWorkspace];
+	NSBundle * appBundle = [NSBundle bundleWithPath:self.path];
+	return [appBundle bundleIdentifier];
+}
 
 //- (NSString*) itunesDescription {
 //	return self.itunesInfo.itemDescription;
@@ -372,23 +473,30 @@ NSString *const AZFileUpdated = @"AZFileUpdated";
 
 + (id)instanceWithPath:(NSString *)path {
 
-	__block AZFile *dd = [super instance];
+	AZFile *dd = [AZFile instance];//WithObject:path];
 	dd.path = path;
 	dd.name = [[path lastPathComponent] stringByDeletingPathExtension];
-	dd.image = [[NSWorkspace sharedWorkspace] iconForFile:path];
-	//	dd.image.size = NSMakeSize(128,128);
-	dd.image.scalesWhenResized = YES;
-	//	[[NSThread mainThread]performBlock:^{
-	[NSThread performBlockInBackground:^{
-		dd.color = [[dd.colors objectAtNormalizedIndex:0]valueForKey:@"color"];
-		dd.labelColor = [dd labelColor];
-		dd.labelNumber = [dd labelNumber];
-		//		[[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:AZFileUpdated object:[AtoZ sharedInstance].dockSorted];
+	NSWorkspace *ws =	[NSWorkspace sharedWorkspace];
+	dd.image = [ws iconForFile:path];
+	NSBundle * appBundle = [NSBundle bundleWithPath:path];
+	dd.calulatedBundleID = [appBundle bundleIdentifier];
+	dd.color = [[[dd colors] objectAtNormalizedIndex:0]valueForKey:@"color"];
+//	labelColor = [self labelColor];
+//	if (labelColor) labelNumber = [self labelNumber];
+//	[[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:AZFileUpdated object:[AtoZ sharedInstance].dockSorted];
 
-	}];// waitUntilDone:YES];
+
+
+	//	[[NSThread mainThread]performBlock:^{
 	return dd;
 }
 
+//- (void) setUp {
+	//	[NSThread performBlockInBackground:^{
+	//}];// waitUntilDone:YES];
+
+
+//}
 -(NSArray*) colors {
 
 	if (_colors) return  _colors;
@@ -484,10 +592,37 @@ NSString *const AZFileUpdated = @"AZFileUpdated";
 
 @end
 
-void NSLog (NSString *format, ...) {	va_list argList;	va_start (argList, format);
-	NSString *message = [[NSString alloc] initWithFormat:format arguments:argList];
-	fprintf (stderr, "%s \n", [message UTF8String]); 	va_end  (argList);
-} // QuietLog
+
+void _AZLog(const char *file, int lineNumber, const char *funcName, NSString *format,...) {
+	va_list arglist;
+
+	va_start (arglist, format);
+	if (![format hasSuffix: @"\n"]) {
+		format = [format stringByAppendingString: @"\n"];
+	}
+	NSString *body =  [[NSString alloc] initWithFormat: format arguments: arglist];
+	va_end (arglist);
+	const char *threadName = [[[NSThread currentThread] name] UTF8String];
+	NSString *fileName=[[NSString stringWithUTF8String:file] lastPathComponent];
+	if (threadName) {
+		fprintf(stderr,"%s/%s (%s:%d) %s",threadName,funcName,[fileName UTF8String],lineNumber,[body UTF8String]);
+	} else {
+		fprintf(stderr,"%p/%s (%s:%d) %s",[NSThread currentThread],funcName,[fileName UTF8String],lineNumber,[body UTF8String]);
+	}
+	[body release];
+}
+
+
+//void NSLog (NSString *format, ...) {
+//	va_list argList;
+//	va_start (argList, format);
+//	NSString *message = [[NSString alloc] initWithFormat:format arguments:argList];
+//
+////	fprintf (stderr, "%s \n", [message UTF8String]);
+//	va_end  (argList);
+//	const char *threadName = [[[NSThread currentThread] name] UTF8String];
+//
+//} // QuietLog
 
 @implementation  NSObject (debugandreturn)
 
@@ -508,7 +643,7 @@ int max(int x, int y)
 
 @implementation  NSNumber (Incrementer)
 - (NSNumber *)increment {
-	return [NSNumber numberWithInt:[self intValue]+1];
+	return @([self intValue]+1);
 }
 @end
 
@@ -523,7 +658,7 @@ int max(int x, int y)
 
 @implementation CALayer (AGFlip)
 - (void) flipOver {
-	[CATransaction setValue:[NSNumber numberWithFloat:3.0f]
+	[CATransaction setValue:@3.0f
 					 forKey:kCATransactionAnimationDuration];
 	self.position = CGPointMake(.5,.5);
 	self.transform = CATransform3DMakeRotation(DEG2RAD(180), 0.0f, 1.0f, 0.0f);
@@ -578,7 +713,19 @@ int max(int x, int y)
 
 
 
+@interface  NSArray (SubscriptsAdd)
+- (id)objectAtIndexedSubscript:(NSUInteger)index;
+@end
 
+@interface NSMutableArray (SubscriptsAdd)
+- (void)setObject:(id)object atIndexedSubscript:(NSUInteger)index;
+@end
+@interface  NSDictionary (SubscriptsAdd)
+- (id)objectForKeyedSubscript:(id)key;
+@end
+@interface  NSMutableDictionary (SubscriptsAdd)
+- (void)setObject:(id)object forKeyedSubscript:(id)key;
+@end
 
 
 #include <AvailabilityMacros.h>
@@ -1558,10 +1705,10 @@ GTM_INLINE BOOL objc_atomicCompareAndSwapInstanceVariableBarrier(id predicate,
     CABasicAnimation *flipAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.y"];
     CGFloat startValue = beginsOnTop ? 0.0f : M_PI;
     CGFloat endValue = beginsOnTop ? -M_PI : 0.0f;
-    flipAnimation.fromValue = [NSNumber numberWithDouble:startValue];
-    flipAnimation.toValue = [NSNumber numberWithDouble:endValue];
+    flipAnimation.fromValue = @(startValue);
+    flipAnimation.toValue = @(endValue);
 
-    // Shrinking the view makes it seem to move away from us, for a more natural effect
+    // Shrinking t/Applicationshe view makes it seem to move away from us, for a more natural effect
     // Can also grow the view to make it move out of the screen
     CABasicAnimation *shrinkAnimation = nil;
     if ( scaleFactor != 1.0f ) {
@@ -1575,7 +1722,7 @@ GTM_INLINE BOOL objc_atomicCompareAndSwapInstanceVariableBarrier(id predicate,
 
     // Combine the flipping and shrinking into one smooth animation
     CAAnimationGroup *animationGroup = [CAAnimationGroup animation];
-    animationGroup.animations = [NSArray arrayWithObjects:flipAnimation, shrinkAnimation, nil];
+    animationGroup.animations = @[flipAnimation, shrinkAnimation];
 
     // As the edge gets closer to us, it appears to move faster. Simulate this in 2D with an easing function
     animationGroup.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
@@ -1635,7 +1782,7 @@ GTM_INLINE BOOL objc_atomicCompareAndSwapInstanceVariableBarrier(id predicate,
     [hostView.layer addSublayer:topLayer];
 
     [CATransaction begin];
-    [CATransaction setValue:[NSNumber numberWithBool:YES] forKey:kCATransactionDisableActions];
+    [CATransaction setValue:@YES forKey:kCATransactionDisableActions];
     [topView removeFromSuperview];
     [CATransaction commit];
 
@@ -1650,7 +1797,7 @@ GTM_INLINE BOOL objc_atomicCompareAndSwapInstanceVariableBarrier(id predicate,
 {
 	isFlipped = !isFlipped;
     [CATransaction begin];
-    [CATransaction setValue:[NSNumber numberWithBool:YES] forKey:kCATransactionDisableActions];
+    [CATransaction setValue:@YES forKey:kCATransactionDisableActions];
     [hostView addSubview:bottomView];
     [topLayer removeFromSuperlayer];
     [bottomLayer removeFromSuperlayer];
@@ -1833,10 +1980,10 @@ BOOL sel_isEqual(SEL lhs, SEL rhs) {
 + (NSBag *) bag { 	return [[NSBag alloc] init]; }
 
 - (void) add: (id) anObject {
-	int count = 0;	NSNumber *num = [dict objectForKey:anObject];
+	int count = 0;	NSNumber *num = dict[anObject];
 	if (num) count = [num intValue];
-	NSNumber *newnum = [NSNumber numberWithInt:count + 1];
-	if ( (anObject) && (newnum) )	[dict setObject:newnum forKey:anObject];
+	NSNumber *newnum = @(count + 1);
+	if ( (anObject) && (newnum) )	dict[anObject] = newnum;
 }
 
 + (NSBag *) bagWithObjects:(id)item,... {
@@ -1865,20 +2012,20 @@ BOOL sel_isEqual(SEL lhs, SEL rhs) {
 
 - (void) remove: (id) anObject
 {
-	NSNumber *num = [dict objectForKey:anObject];
+	NSNumber *num = dict[anObject];
 	if (!num) return;
 	if ([num intValue] == 1)
 	{
 		[dict removeObjectForKey:anObject];
 		return;
 	}
-	NSNumber *newnum = [NSNumber numberWithInt:([num intValue] - 1)];
-	[dict setObject:newnum forKey:anObject];
+	NSNumber *newnum = @([num intValue] - 1);
+	dict[anObject] = newnum;
 }
 
 - (NSInteger) occurrencesOf: (id) anObject
 {
-	NSNumber *num = [dict objectForKey:anObject];
+	NSNumber *num = dict[anObject];
 	return [num intValue];
 }
 

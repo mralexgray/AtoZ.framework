@@ -49,7 +49,7 @@
 -(id)peek 
 {
     if ([array count] > 0)
-        return [array objectAtIndex:0];
+        return array[0];
 	
     return nil;
 }

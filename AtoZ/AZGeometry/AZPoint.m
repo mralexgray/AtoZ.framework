@@ -56,10 +56,8 @@
   }
   
   NSArray *allowedClasses = 
-  [NSArray arrayWithObjects:
-   [NSNumber class], [AZPoint class], [AZSize class],
-   [NSView class], [CALayer class], [NSEvent class],
-   nil];
+  @[[NSNumber class], [AZPoint class], [AZSize class],
+   [NSView class], [CALayer class], [NSEvent class]];
   
   for (id clazz in allowedClasses) {
 	if ([object isKindOfClass:clazz]) {

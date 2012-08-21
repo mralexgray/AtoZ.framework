@@ -22,13 +22,13 @@
                                         styleMask:NSBorderlessWindowMask 
                                           backing:NSBackingStoreBuffered 
                                    defer:NO]) {
-//		[self setStyleMask: NSResizableWindowMask];
-        [self setLevel: NSScreenSaverWindowLevel];//NSStatusWindowLevel];
+		[self setStyleMask: NSResizableWindowMask];
+        [self setLevel: NSStatusWindowLevel];//NSScreenSaverWindowLevel];//
         [self setBackgroundColor: [NSColor clearColor]];
         [self setAlphaValue:1.0];
         [self setOpaque:NO];
         [self setHasShadow:NO];
-        
+        [self setMovable:YES];
         return self;
     }
     

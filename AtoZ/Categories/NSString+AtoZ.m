@@ -40,7 +40,7 @@
 
 	NSString *app = [[NSBundle mainBundle]bundleIdentifier];
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
-    NSString *basePath = ([paths count] > 0 ? [paths objectAtIndex:0] : NSTemporaryDirectory() );
+    NSString *basePath = ([paths count] > 0 ? paths[0] : NSTemporaryDirectory() );
     return [basePath stringByAppendingPathComponent:app];
 }
 
@@ -344,13 +344,10 @@ return [self stringByTrimmingCharactersInSet:cs];
 - (NSArray *)splitAt:(NSString *)delimiter {
 	NSRange index = [self rangeOfString:delimiter];
 	if (index.location == NSNotFound) {
-		return [NSArray arrayWithObjects:self, nil];
+		return @[self];
 	}
-	return [NSArray arrayWithObjects:
-			[self substringToIndex:index.location],
-			[self substringFromIndex:index.location + index.length],
-			nil
-			];
+	return @[[self substringToIndex:index.location],
+			[self substringFromIndex:index.location + index.length]];
 }
 
 - (BOOL)splitAt:(NSString *)delimiter 
@@ -374,13 +371,10 @@ return [self stringByTrimmingCharactersInSet:cs];
 - (NSArray *)decapitate {
 	NSRange index = [self rangeOfString:@" "];
 	if (index.location == NSNotFound) {
-		return [NSArray arrayWithObjects:[self trim], nil];
+		return @[[self trim]];
 	}
-	return [NSArray arrayWithObjects:
-			[[self substringToIndex:index.location] trim],
-			[[self substringFromIndex:index.location + index.length] trim],
-			nil
-			];
+	return @[[[self substringToIndex:index.location] trim],
+			[[self substringFromIndex:index.location + index.length] trim]];
 }
 
 - (NSPoint)pointValue {
@@ -390,11 +384,11 @@ return [self stringByTrimmingCharactersInSet:cs];
 	if (values.count == 0) {
 		return re;
 	}
-	re.x = [[values objectAtIndex:0] floatValue];
+	re.x = [values[0] floatValue];
 	if (values.count < 2) {
 		re.y = re.x;
 	} else {
-		re.y = [[values objectAtIndex:1] floatValue];
+		re.y = [values[1] floatValue];
 	}
 	
 	return re;
@@ -404,8 +398,8 @@ return [self stringByTrimmingCharactersInSet:cs];
 	NSArray *split = [self componentsSeparatedByString:@":"];
 	
 	if (split.count > 1) {
-		return [[split objectAtIndex:0] intValue] * 60 
-		+ [[split objectAtIndex:1] intValue];
+		return [split[0] intValue] * 60 
+		+ [split[1] intValue];
 	}
 	
 	return [self intValue];
@@ -415,12 +409,12 @@ return [self stringByTrimmingCharactersInSet:cs];
 	NSArray *split = [self componentsSeparatedByString:@":"];
 	
 	if (split.count > 2) {
-		return [[split objectAtIndex:0] intValue] * 3600 
-		+ [[split objectAtIndex:1] intValue] * 60
-		+ [[split objectAtIndex:2] intValue];
+		return [split[0] intValue] * 3600 
+		+ [split[1] intValue] * 60
+		+ [split[2] intValue];
 	} else if (split.count == 2) {
-		return [[split objectAtIndex:0] intValue] * 3600 
-		+ [[split objectAtIndex:1] intValue] * 60;
+		return [split[0] intValue] * 3600 
+		+ [split[1] intValue] * 60;
 	}
 	
 	return [self intValue];
@@ -825,8 +819,7 @@ int gNSStringGeometricsTypesetterBehavior = NSTypesetterLatestBehavior ;
 		NSLog(@"[%@ %@]: Error: cannot compute size with nil font", [self class], _cmd) ;
 	}
 	else {
-		NSDictionary* attributes = [NSDictionary dictionaryWithObjectsAndKeys:
-									font, NSFontAttributeName, nil] ;
+		NSDictionary* attributes = @{NSFontAttributeName: font} ;
 		answer = [self sizeForWidth:width
 							 height:height
 						 attributes:attributes] ;

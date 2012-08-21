@@ -187,7 +187,7 @@ static NSString *collectionDescription(id collection)
 		else if (isDictionary)
 		{
 			NSString *key = [[collection allKeys] lastObject];
-			debugDescription = [NSString stringWithFormat:@"%@: %@", color(key, keyColor), [[collection objectForKey:key] debugDescription]];
+			debugDescription = [NSString stringWithFormat:@"%@: %@", color(key, keyColor), [collection[key] debugDescription]];
 		}
 		else if (isSet)
 		{
@@ -213,7 +213,7 @@ static NSString *collectionDescription(id collection)
 				[desc appendString:@": "];
 			}
 			gIndentLevel++;
-			[desc appendString:[(isDictionary ? [collection objectForKey:object] : object) debugDescription]];
+			[desc appendString:[(isDictionary ? collection[object] : object) debugDescription]];
 			gIndentLevel--;
 			[desc appendString:@"\n"];
 		}

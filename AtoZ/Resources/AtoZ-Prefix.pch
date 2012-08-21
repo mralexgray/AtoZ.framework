@@ -4,11 +4,7 @@
 
 #ifdef __OBJC__
 
-	#import <Foundation/Foundation.h>
 	#import <Cocoa/Cocoa.h>
-	#import <ApplicationServices/ApplicationServices.h>
-	#import <QuartzCore/QuartzCore.h>
-	#import <AppKit/AppKit.h>
 
 
 #endif

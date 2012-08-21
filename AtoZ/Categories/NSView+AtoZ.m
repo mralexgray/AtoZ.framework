@@ -117,7 +117,7 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 		return nil;
 	}
 	
-	return (NSView *)[self.subviews objectAtIndex:0];
+	return (NSView *)(self.subviews)[0];
 }
 
 - (NSView *)lastSubview {
@@ -125,7 +125,7 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 		return nil;
 	}
 	
-	return (NSView *)[self.subviews objectAtIndex:self.subviews.count - 1];
+	return (NSView *)(self.subviews)[self.subviews.count - 1];
 }
 
 - (void)setLastSubview:(NSView *)view {
@@ -242,8 +242,8 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 {
 	NSMutableDictionary *animationDetails = [NSMutableDictionary
 											 dictionaryWithDictionary:params];
-	[animationDetails setObject:self forKey:NSViewAnimationTargetKey];
-	return [NSArray arrayWithObject:animationDetails];
+	animationDetails[NSViewAnimationTargetKey] = self;
+	return @[animationDetails];
 }
 
 - (void)playAnimationWithParameters:(NSDictionary *)params
@@ -260,8 +260,7 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 
 - (void)fadeWithEffect:effect
 {
-	[self playAnimationWithParameters:[NSDictionary
-									   dictionaryWithObject:effect forKey:NSViewAnimationEffectKey]];
+	[self playAnimationWithParameters:@{NSViewAnimationEffectKey: effect}];
 }
 
 - (void)fadeOut 
@@ -276,17 +275,13 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 
 - (void)animateToFrame:(NSRect)newFrame
 {
-	[self playAnimationWithParameters:[NSDictionary dictionaryWithObject:
-									   [NSValue valueWithRect:newFrame] forKey:NSViewAnimationEndFrameKey]];
+	[self playAnimationWithParameters:@{NSViewAnimationEndFrameKey: [NSValue valueWithRect:newFrame]}];
 }
 
 - (void)fadeToFrame:(NSRect)newFrame
 {
-	[self playAnimationWithParameters:[NSDictionary
-									   dictionaryWithObjectsAndKeys:[NSValue valueWithRect:newFrame],
-									   NSViewAnimationEndFrameKey, [self isHidden] ?
-									   NSViewAnimationFadeInEffect : NSViewAnimationFadeOutEffect,
-									   NSViewAnimationEffectKey, nil]];
+	[self playAnimationWithParameters:@{NSViewAnimationEndFrameKey: [NSValue valueWithRect:newFrame], NSViewAnimationEffectKey: [self isHidden] ?
+									   NSViewAnimationFadeInEffect : NSViewAnimationFadeOutEffect}];
 }
 
 + (void)setDefaultDuration:(NSTimeInterval)duration

@@ -93,7 +93,7 @@
 }
 
 -(id)objectAtIndex:(NSUInteger)index {
-  return [array objectAtIndex:index];
+  return array[index];
 }
 
 -(AZSize *)size {

@@ -261,17 +261,15 @@ void	NSLogPostLog(char* file, int line)
 	// Queue message if WebView has not finished loading
 	if (!webViewLoaded)
 	{
-		id o = [NSDictionary dictionaryWithObjectsAndKeys:	[NSString stringWithString:string], @"string",
-															[NSString stringWithUTF8String:file], @"file",
-															[NSNumber numberWithInt:line], @"line",
-															nil];
+		id o = @{@"string": [NSString stringWithString:string],
+															@"file": @(file),
+															@"line": @(line)};
 		[_messageQueue addObject:o];
 		return;
 	}
-	[[self windowScriptObject] callWebScriptMethod:@"log" withArguments:[NSArray arrayWithObjects:string, 
-																			[NSString stringWithUTF8String:file], 
-																			[NSNumber numberWithInt:line],
-																			nil]];
+	[[self windowScriptObject] callWebScriptMethod:@"log" withArguments:@[string, 
+																			@(file), 
+																			@(line)]];
 }
 
 //
@@ -296,11 +294,11 @@ void	NSLogPostLog(char* file, int line)
 	
 	// Get line number
 	int line;
-	BOOL foundLine = [[NSScanner scannerWithString:[NSString stringWithUTF8String:s2+1]] scanInt:&line];
+	BOOL foundLine = [[NSScanner scannerWithString:@(s2+1)] scanInt:&line];
 	if (!foundLine)	return	NSLog(@"Did not parse line number in %@", pathAndLineNumber);
 
 	// Get path
-	NSString* path = [NSString stringWithUTF8String:s];
+	NSString* path = @(s);
 //	NSLog(@"opening line %d of _%@_", line, path);
 
 	// Open in XCode
@@ -323,7 +321,7 @@ void	NSLogPostLog(char* file, int line)
 
 - (void)search:(NSString*)string
 {
-	[[self windowScriptObject] callWebScriptMethod:@"search" withArguments:[NSArray arrayWithObjects:string, nil]];
+	[[self windowScriptObject] callWebScriptMethod:@"search" withArguments:@[string]];
 }
 
 

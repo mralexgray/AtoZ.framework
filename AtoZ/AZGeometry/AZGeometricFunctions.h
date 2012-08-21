@@ -22,6 +22,9 @@ NSNumber *dNum(double d);
 CGFloat AZMaxDim(NSSize sz);
 CGFloat AZMinDim(NSSize sz);
 
+NSRect AZScreenFrame();
+NSSize AZScreenSize();
+
 //
 // NSRange from a min and max values
 // even though the names imply that min should be greater than max

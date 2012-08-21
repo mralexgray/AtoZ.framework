@@ -95,7 +95,7 @@ static const CGFloat cornerRadius = 5.0;
 - (void)setOn:(BOOL)on animated:(BOOL)animated {
   if (!animated) {
     [CATransaction begin];
-    [CATransaction setValue:[NSNumber numberWithFloat:0] forKey:kCATransactionAnimationDuration];
+    [CATransaction setValue:@0.0f forKey:kCATransactionAnimationDuration];
   }
   [self setOn:on];    
   if (!animated) {
@@ -197,7 +197,7 @@ static const CGFloat cornerRadius = 5.0;
   // Slider tracking should be immediate
   [CATransaction begin];
   {
-    [CATransaction setValue:[NSNumber numberWithFloat:0] forKey:kCATransactionAnimationDuration];
+    [CATransaction setValue:@0.0f forKey:kCATransactionAnimationDuration];
     theSwitch.frame = newFrame;  
   }
   [CATransaction commit];

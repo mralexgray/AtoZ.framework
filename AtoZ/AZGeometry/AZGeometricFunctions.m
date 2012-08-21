@@ -21,7 +21,7 @@ NSNumber *fNum(CGFloat f) {
 }
 
 NSNumber *dNum(double d) {
-  return [NSNumber numberWithDouble:d];
+  return @(d);
 }
 
 NSRange AZMakeRange(NSUInteger min, NSUInteger max) {
@@ -30,6 +30,13 @@ NSRange AZMakeRange(NSUInteger min, NSUInteger max) {
   return NSMakeRange(loc, len);
 }
 
+
+NSRect AZScreenFrame() {
+	return [[NSScreen mainScreen]frame];
+}
+NSSize AZScreenSize(){
+return [[NSScreen mainScreen]frame].size;
+}
 //
 // 2D Functions
 //
@@ -421,9 +428,9 @@ NSRect AZSquareFromLength(CGFloat length) {
 }
 
 NSRect AZMakeRectMaxXUnderMenuBarY(CGFloat distance) {
-	NSRect rect;
-	rect.origin = AZOriginFromMenubarWithX(distance,0);
-	rect.size = NSMakeSize( [[NSScreen mainScreen]frame].size.width-10, distance);
+	NSRect rect = [[NSScreen mainScreen]frame];
+	rect.origin = NSMakePoint(0,rect.size.height - 22 - distance);
+	rect.size.height = distance;
 	return rect;
 }
 

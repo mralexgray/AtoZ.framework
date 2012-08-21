@@ -7,7 +7,7 @@
 //
 
 #import "CALayer+AtoZ.h"
-#import "AtoZ.h"
+//#import "AtoZ.h"
 
 /*
  File: QuartzUtils.m
@@ -149,7 +149,7 @@ CGImageRef GetCGImageNamed( NSString *name )
     if( ! sMap )
         sMap = [NSMutableDictionary dictionary];
 
-    CGImageRef image = [(NSImage*)[NSImage imageNamed:[sMap objectForKey: name]] cgImage];
+    CGImageRef image = [(NSImage*)[NSImage imageNamed:sMap[name]] cgImage];
     if( ! image ) {
         // Hasn't been cached yet, so load it:
         NSString *path;
@@ -161,7 +161,7 @@ CGImageRef GetCGImageNamed( NSString *name )
         }
         image = CreateCGImageFromFile(path);
         NSCAssert1(image,@"Failed to load image from %@",path);
-        [sMap setObject: (__bridge id)image forKey: name];
+        sMap[name] = (__bridge id)image;
     }
     return image;
 }
@@ -174,10 +174,10 @@ CGColorRef GetCGPatternNamed( NSString *name )         // can be resource name o
     if( ! sMap )
         sMap = [NSMutableDictionary dictionary];
 
-    CGColorRef pattern = [NSColor colorWithPatternImage:[sMap objectForKey: name]].CGColor;
+    CGColorRef pattern = [NSColor colorWithPatternImage:sMap[name]].CGColor;
     if( ! pattern ) {
         pattern = CreatePatternColor( GetCGImageNamed(name) );
-        [sMap setObject: (__bridge id)pattern forKey: name];
+        sMap[name] = (__bridge id)pattern;
     }
     return pattern;
 }
@@ -381,8 +381,8 @@ CGColorRef CreatePatternColor( CGImageRef image )
     
     // Before we can "rotate" the window, we need to make the hidden view look like it's facing backward by rotating it pi radians (180 degrees). We make this its own transaction and supress animation, because this is already the assumed state
     [CATransaction begin]; {
-        [CATransaction setValue:[NSNumber numberWithBool:YES] forKey:kCATransactionDisableActions];
-        [hiddenLayer setValue:[NSNumber numberWithDouble:M_PI] forKeyPath:@"transform.rotation.y"];
+        [CATransaction setValue:@YES forKey:kCATransactionDisableActions];
+        [hiddenLayer setValue:@M_PI forKeyPath:@"transform.rotation.y"];
 //        if (self.isDebugging) // Shadows screw up corner finding
 //            [self _hideShadow:YES];
     } [CATransaction commit];
@@ -431,7 +431,7 @@ CGColorRef CreatePatternColor( CGImageRef image )
     
     // Combine the flipping and shrinking into one smooth animation
     CAAnimationGroup *animationGroup = [CAAnimationGroup animation];
-    animationGroup.animations = [NSArray arrayWithObjects:flipAnimation, shrinkAnimation, nil];
+    animationGroup.animations = @[flipAnimation, shrinkAnimation];
 	
     // As the edge gets closer to us, it appears to move faster. Simulate this in 2D with an easing function
     animationGroup.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];

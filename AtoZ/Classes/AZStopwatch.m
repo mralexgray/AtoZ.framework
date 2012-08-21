@@ -51,7 +51,7 @@
 	if ( ! name) {
 		return nil;
 	}
-	return (AZStopwatchItem *)[items objectForKey:name];
+	return (AZStopwatchItem *)items[name];
 }
 - (void) remove:(NSString *)name {
 	// bail
@@ -67,7 +67,7 @@
 	}
 	
 	[self remove:name];
-	[items setObject:[AZStopwatchItem itemWithName:name] forKey:name];
+	items[name] = [AZStopwatchItem itemWithName:name];
 }
 
 

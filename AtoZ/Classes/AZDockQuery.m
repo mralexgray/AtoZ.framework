@@ -13,14 +13,14 @@
 
 @implementation AZDockQuery
 
-//@synthesize dock;
+@synthesize dock;
 
 -(void) setUp{
-	_dock = [self getDock];
+	self.dock = [self getDock];
 }
 
 +(NSArray*) dock {
-	return [AZDockQuery instance].dock;
+	return [AZDockQuery sharedInstance].dock;
 }
 
 
@@ -32,9 +32,9 @@
 		[[[NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.apple.dock"] lastObject] processIdentifier]);
 	if (appElement == NULL) return nil;
 	AXUIElementRef firstChild 	= (AXUIElementRef)
-	[[self subelementsFromElement:appElement forAttribute:@"AXChildren"] objectAtIndex:0];
+	[self subelementsFromElement:appElement forAttribute:@"AXChildren"][0];
 	NSArray *children 	= [self subelementsFromElement:firstChild forAttribute:@"AXChildren"];
-	__block NSNumber *counter = [NSNumber numberWithInt:0];
+	__block NSNumber *counter = @0;
 	return [children arrayUsingBlock:^id(id obj) {
 		AXUIElementRef axElement =  (AXUIElementRef)obj;		CFTypeRef role; 	id preferredrole;
 		AXError result4 = AXUIElementCopyAttributeValue(axElement, kAXSubroleAttribute,&role);
@@ -105,7 +105,7 @@
 													lastObject] processIdentifier]);
 	if (appElement == NULL) return thePoint;
 	AXUIElementRef firstChild 	= (AXUIElementRef)
-	[[self subelementsFromElement:appElement forAttribute:@"AXChildren"] objectAtIndex:0];
+	[self subelementsFromElement:appElement forAttribute:@"AXChildren"][0];
 	NSArray *children 	= [self subelementsFromElement:firstChild forAttribute:@"AXChildren"];
 	[children enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 		AXUIElementRef axElement =  (AXUIElementRef)obj;		CFTypeRef role; 	id preferredrole;

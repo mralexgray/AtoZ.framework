@@ -188,8 +188,8 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 	}
 	int counter =( [[satchel objects]count] < 10 ? [[satchel objects]count] : 10 );
 	for (int j = 0; j < counter; j++) {
-		for (int s = 0; s < [satchel occurrencesOf:[[satchel objects]objectAtIndex:j]]; s++)  
-			[catcher addObject:[[satchel objects]objectAtIndex:j]];
+		for (int s = 0; s < [satchel occurrencesOf:[satchel objects][j]]; s++)  
+			[catcher addObject:[satchel objects][j]];
 	}
 	return catcher;
 }
@@ -270,7 +270,7 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 		
 		[monochromeFilter setValue:baseImage forKey:@"inputImage"];             
 		[monochromeFilter setValue:[CIColor colorWithRed:0.75 green:0.75 blue:0.75] forKey:@"inputColor"];
-		[monochromeFilter setValue:[NSNumber numberWithFloat:1.0] forKey:@"inputIntensity"];
+		[monochromeFilter setValue:@1.0f forKey:@"inputIntensity"];
 		
 		CIFilter *compositingFilter = [CIFilter filterWithName:@"CIMultiplyCompositing"];
 		
@@ -302,7 +302,7 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 		[tintedImage lockFocus];
 		CIFilter *edgeWork = [CIFilter filterWithName:@"CIEdgeWork"
 										keysAndValues:kCIInputImageKey,filterPreviewImage,
-							  @"inputRadius",[NSNumber numberWithFloat:4.6],
+							  @"inputRadius",@4.6f,
 							  nil];
 
 		CIFilter *masktoalpha = [CIFilter filterWithName:@"CIMaskToAlpha"];
@@ -1193,8 +1193,7 @@ CGContextRef MyCreateBitmapContext (int pixelsWide, int pixelsHigh)
 + (NSImage *)imageWithPreviewOfFileAtPath:(NSString *)path ofSize:(NSSize)size asIcon:(BOOL)icon {
 	NSURL *fileURL = [NSURL fileURLWithPath:path];
     if (!path || !fileURL) return nil;
-    NSDictionary *dict = [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:icon] 
-                                                     forKey:(NSString *)kQLThumbnailOptionIconModeKey];
+    NSDictionary *dict = @{(NSString *)kQLThumbnailOptionIconModeKey: @(icon)};
     CGImageRef ref = QLThumbnailImageCreate(kCFAllocatorDefault, 
                                             (__bridge CFURLRef)fileURL, 
                                             CGSizeMake(size.width, size.height),
@@ -1501,7 +1500,7 @@ CGContextRef MyCreateBitmapContext (int pixelsWide, int pixelsHigh)
 	float thisDistance;
 	int i;
 	for (i = 0; i<(int) [reps count]; i++) {
-		thisRep = [reps objectAtIndex:i];
+		thisRep = reps[i];
 		thisDistance = MIN(theSize.width-[thisRep size] .width, theSize.height-[thisRep size] .height);  
 		
 		if (repDistance<0 && thisDistance>0) continue;
@@ -1524,8 +1523,8 @@ CGContextRef MyCreateBitmapContext (int pixelsWide, int pixelsHigh)
 	NSArray *reps = [self representations];
 	int i;
 	for (i = 0; i<(int) [reps count]; i++)
-		if (NSEqualSizes([(NSBitmapImageRep*)[reps objectAtIndex:i] size] , theSize) )
-			return [reps objectAtIndex:i];
+		if (NSEqualSizes([(NSBitmapImageRep*)reps[i] size] , theSize) )
+			return reps[i];
 	return nil;
 }
 
@@ -1715,7 +1714,7 @@ CGContextRef MyCreateBitmapContext (int pixelsWide, int pixelsHigh)
 
 @implementation NSImage (Average)
 - (NSColor *)averageColor {
-	NSBitmapImageRep *rep = [[self representations] objectAtIndex:0];
+	NSBitmapImageRep *rep = [self representations][0];
 //	 filterOne:<#^BOOL(id object)block#>: (NSBitmapImageRep *)[self bestRepresentationForDevice:nil]; 	
 	if (![rep isKindOfClass:[NSBitmapImageRep class]]) return nil;
 	unsigned char *pixels = [rep bitmapData];

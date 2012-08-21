@@ -108,7 +108,7 @@
     BOOL delegateSingleClick = [delegate respondsToSelector:@selector(collectionView:didSelectCellAtIndex:)];
     BOOL delegateDoubleClick = [delegate respondsToSelector:@selector(collectionView:didDoubleClickedCellAtIndex:)];
     [selection enumerateIndexesUsingBlock:^(NSUInteger index, BOOL *stop) {
-        AZBox *cell = [visibleCells objectForKey:[NSNumber numberWithUnsignedInteger:index]];
+        AZBox *cell = visibleCells[@(index)];
 		NSLog(@"about your selection: %@", cell.propertiesPlease);
 //		NSLog(@"parent: %@.  siblings:%@", cell.superview,[cell.superview subviews]);
 		[[NSApp delegate] setValue:$(@"%ld",cell.superview.subviews.count) forKey:@"activeViews"];
@@ -139,7 +139,7 @@
     [selection removeIndexes:indexSet];
     BOOL implementsSelector = [delegate respondsToSelector:@selector(collectionView:didDeselectCellAtIndex:)];
     [indexSet enumerateIndexesUsingBlock:^(NSUInteger index, BOOL *stop) {
-        AZBox *cell = [visibleCells objectForKey:[NSNumber numberWithUnsignedInteger:index]];
+        AZBox *cell = visibleCells[@(index)];
         [cell setSelected:NO];
         if(implementsSelector && [oldSelection containsIndex:index])
             [delegate collectionView:self didDeselectCellAtIndex:index];
@@ -155,17 +155,17 @@
 		// un-hover the previous cell
 		[self hoverOutOfCellAtIndex:lastHoverCellIndex];
 		// hover over current cell
-		AZBox *cell = [visibleCells objectForKey:[NSNumber numberWithUnsignedInteger:index]];
+		AZBox *cell = visibleCells[@(index)];
 		[cell setHovered:YES];
 		lastHoverCellIndex = index;
 	}
 }
 - (void)hoverOutOfCellAtIndex:(NSUInteger)index 	{
-	AZBox *cell = [visibleCells objectForKey:[NSNumber numberWithUnsignedInteger:index]];
+	AZBox *cell = visibleCells[@(index)];
 	[cell setHovered:NO];
 }
 - (void)hoverOutOfLastCell {
-	AZBox *cell = [visibleCells objectForKey:[NSNumber numberWithUnsignedInteger:lastHoverCellIndex]];
+	AZBox *cell = visibleCells[@(lastHoverCellIndex)];
     [cell setHovered:NO];
 }
 - (NSUInteger)indexOfCellAtPoint:(NSPoint)point 	{
@@ -213,7 +213,7 @@
 #pragma mark - Cells
 
 - (AZBox *)dequeueReusableCellWithIdentifier:(NSString *)identifier {
-	NSMutableArray *queue = [reusableCellQueues objectForKey:identifier];
+	NSMutableArray *queue = reusableCellQueues[identifier];
     if([queue count] > 0) {
 		
         AZBox *cell = [queue lastObject];
@@ -224,20 +224,20 @@
     return nil;
 }
 - (AZBox *)cellAtIndex:(NSUInteger)index {
-	return [visibleCells objectForKey:[NSNumber numberWithUnsignedInteger:index]];
+	return visibleCells[@(index)];
 }
 - (void)queueCell:(AZBox *)cell {
 	[visibleCells removeObjectForKey:[NSNumber numberWithUnsignedInteger:cell.index]];
     [cell removeFromSuperview];
     [cell setIndex:-1];
-    if([reusableCellQueues objectForKey:cell.cellIdentifier]) {
+    if(reusableCellQueues[cell.cellIdentifier]) {
 		
-        [[reusableCellQueues objectForKey:cell.cellIdentifier] addObject:cell];
+        [reusableCellQueues[cell.cellIdentifier] addObject:cell];
     }
     else {
 		
         NSMutableArray *array = [NSMutableArray arrayWithObject:cell];
-        [reusableCellQueues setObject:array forKey:cell.cellIdentifier];
+        reusableCellQueues[cell.cellIdentifier] = array;
     }
 }
 
@@ -292,7 +292,7 @@
         [self addSubview:cell];
 //		[cell fadeIn];
 //		[self per performSelector:@selector(fadeIn) afterDelay:index*.01];
-        [visibleCells setObject:cell forKey:[NSNumber numberWithUnsignedInteger:index]];
+        visibleCells[@(index)] = cell;
     }];
 }
 - (void)reloadData 			 {

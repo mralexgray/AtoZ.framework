@@ -64,6 +64,8 @@
 - (void)fadeIn;
 - (void)fadeOut;
 
+- (void) fadeInYesOrOutNo:(BOOL)fade andResizeTo:(NSRect)frame ;
+
 - (void)slideUp;
 - (void)slideDown;
 

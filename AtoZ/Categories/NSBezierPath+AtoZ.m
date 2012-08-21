@@ -135,7 +135,7 @@
         CGFloat pattern[count];
         [self getLineDash:pattern count:&count phase:NULL];
         for (i = 0; i < count; i++)
-            [array addObject:[NSNumber numberWithDouble:pattern[i]]];
+            [array addObject:@(pattern[i])];
     }
     return array;
 }
@@ -144,7 +144,7 @@
     NSInteger i, count = [newPattern count];
     CGFloat pattern[count];
     for (i = 0; i< count; i++)
-        pattern[i] = [[newPattern objectAtIndex:i] doubleValue];
+        pattern[i] = [newPattern[i] doubleValue];
     [self setLineDash:pattern count:count phase:0];
 }
 

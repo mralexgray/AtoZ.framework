@@ -23,7 +23,7 @@
 }
 
 - (void) enumerateDockColors {
-	[[[AtoZ dockSorted] valueForKeyPath:@"color"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+	[[[AtoZ sharedInstance].dockSorted valueForKeyPath:@"color"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 		NSColor *c = obj;
 		NSLog(@"Color:%@     \t \t Hue: %f\t  Sat: %f\t Lum: %f\t  Brt: %f",
 			  c.nameOfColor,

@@ -5,11 +5,12 @@
 
 
 
-#import <Cocoa/Cocoa.h>
 #import <Foundation/Foundation.h>
+#import <Cocoa/Cocoa.h>
 #import <ApplicationServices/ApplicationServices.h>
-#import <AppKit/AppKit.h>
 #import <QuartzCore/QuartzCore.h>
+#import <AppKit/AppKit.h>
+
 
 #define EXCLUDE_STUB_PROTOTYPES 1
 #import <PLWeakCompatibility/PLWeakCompatibilityStubs.h>
@@ -18,17 +19,18 @@
 //#import "AtoZUmbrella.h"
 
 
-
 #import "BaseModel.h"
+#import "SMModelObject.h"
 
-
-
-//#define EXCLUDE_STUB_PROTOTYPES 1
-//#import <PLWeakCompatibility/PLWeakCompatibilityStubs.h>
-//	#import <AtoZiTunes/AtoZiTunes.h>
+//#import <AtoZiTunes/AtoZiTunes.h>
+#import "CALayer+AtoZ.h"
 #import "AZMouser.h"
 #import "iCarousel.h"
 #import "AZGeometry.h"
+#import "AZVeil.h"
+
+
+#import "TransparentWindow.h"
 
 // Categories
 #import "NSThread+AtoZ.h"
@@ -44,7 +46,7 @@
 #import "NSShadow+AtoZ.h"
 #import "NSNumber+AtoZ.h"
 #import "CAAnimation+AtoZ.h"
-#import "CALayer+AtoZ.h"
+
 #import "NSScreen+AtoZ.h"
 #import "NSObject+AtoZ.h"
 #import "AZNotificationCenter.h"
@@ -95,6 +97,8 @@
 
 #import "AZApplePrivate.h"
 
+#import "RuntimeReporter.h"
+
 CGFloat ScreenWidess();
 CGFloat ScreenHighness();
 
@@ -114,10 +118,25 @@ typedef enum {
 	AZDockSortPointNew,
 }	AZDockSort;
 
+typedef enum {
+AZSearchByCategory,
+AZSearchByColor,
+AZSearchByName,
+AZSearchByRecent
+
+} AZSearchBy;
+
 @class NSLogConsole;
 @interface AtoZ : BaseModel
 
-+ (AtoZ*) sharedInstance;
+
+- (id)objectForKeyedSubscript:(NSString *)key;
+- (void)setObject:(id)newValue forKeyedSubscription:(NSString *)key;
+
++ (NSFont*) fontWithSize:(CGFloat)fontSize;
+- (NSJSONSerialization*) jsonReuest:(NSString*)url;
++ (NSJSONSerialization*) jsonReuest:(NSString*)url;
++ (instancetype) sharedInstance;
 
 //- (NSArray*) dock;
 //- (NSArray*) dockSorted;
@@ -125,8 +144,8 @@ typedef enum {
 
 + (NSArray*) dock;
 + (NSArray*) dockSorted;
-+ (NSArray*) dockOutline;
-+ (NSArray*) selectedDock;
+//+ (NSArray*) dockOutline;
++ (NSArray*) currentScope;
 
 + (NSArray*) fengshui;
 
@@ -138,7 +157,8 @@ typedef enum {
 @property (assign) AZDockSort sortOrder;
 @property (nonatomic, retain) NSArray *dock;
 @property (nonatomic, retain) NSArray *dockSorted;
-@property (nonatomic, retain) NSArray *dockOutline;
+@property (nonatomic, retain) NSArray *appCategories;
+//@property (nonatomic, retain) NSArray *dockOutline;
 
 @property (nonatomic, strong) NSMutableArray *appFolderSorted;
 @property (nonatomic, strong) NSMutableArray *appFolder;
@@ -168,6 +188,9 @@ extern NSString *const AtoZFileUpdated;
 //@class AJSiTunesResult;
 @interface AZFile : BaseModel
 @property (strong, nonatomic)	NSString *itunesDescription;
+@property (strong, nonatomic)	NSArray *itunesResults;
+@property (strong, nonatomic)	NSString *calulatedBundleID;
+
 //@property (strong, nonatomic)	AJSiTunesResult *itunesInfo;
 @property (strong, nonatomic)	NSString * 	path;
 @property (strong, nonatomic)	NSString *	name;
@@ -195,7 +218,34 @@ extern NSString *const AtoZFileUpdated;
 @end
 
 
+@implementation  NSArray (SubscriptsAdd)
+- (id)objectAtIndexedSubscript:(NSUInteger)index {
+	return [self objectAtIndex:index];
+}
+@end
 
+@implementation NSMutableArray (SubscriptsAdd)
+- (void)setObject:(id)object atIndexedSubscript:(NSUInteger)index {
+	if (index < self.count){
+		if (object)
+			[self replaceObjectAtIndex:index withObject:object];
+		else
+			[self removeObjectAtIndex:index];
+	} else {
+		[self addObject:object];
+	}
+}
+@end
+@implementation NSDictionary (SubscriptsAdd)
+- (id)objectForKeyedSubscript:(id)key {
+	return [self objectForKey:key];
+}
+@end
+@implementation NSMutableDictionary (SubscriptsAdd)
+- (void)setObject:(id)object forKeyedSubscript:(id)key {
+	[self setObject:object forKey:key];
+}
+@end
 
 @interface NSNumber (Incrementer)
 - (NSNumber *)increment;
@@ -531,6 +581,10 @@ static inline float RandomComponent() {  return (float)random() / (float)LONG_MA
 
 #define rand() (arc4random() % ((unsigned)RAND_MAX + 1))
 
+
+#define NSLog(args...) _AZLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args);
+
+void _AZLog(const char *file, int lineNumber, const char *funcName, NSString *format,...);
 
 //BOOL flag = YES;
 //NSLog(flag ? @"Yes" : @"No");

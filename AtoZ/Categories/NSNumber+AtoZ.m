@@ -24,7 +24,7 @@ while(bytes > 1024) {
 
 if(unit > 5) return @"HUGE";
 
-NSString *unitString = [[NSArray arrayWithObjects:@"Bytes", @"KB", @"MB", @"GB", @"TB", @"PB", nil] objectAtIndex:unit];
+NSString *unitString = @[@"Bytes", @"KB", @"MB", @"GB", @"TB", @"PB"][unit];
 
 if(unit == 0) {
 	return [NSString stringWithFormat:@"%d %@", (int)bytes, unitString];
@@ -35,27 +35,27 @@ if(unit == 0) {
 
 
 +(NSNumber *)zero {
-	return [NSNumber numberWithInt:0];
+	return @0;
 }
 
 +(NSNumber *)one {
-	return [NSNumber numberWithInt:1];
+	return @1;
 }
 
 +(NSNumber *)two {
-	return [NSNumber numberWithInt:2];
+	return @2;
 }
 
 -(NSNumber *)abs {
-	return [NSNumber numberWithDouble:fabs(self.doubleValue)];
+	return @(fabs(self.doubleValue));
 }
 
 -(NSNumber *)negate {
-	return [NSNumber numberWithDouble:-self.doubleValue];
+	return @(-self.doubleValue);
 }
 
 -(NSNumber *)transpose {
-	return [NSNumber numberWithDouble:(1 / self.doubleValue)];
+	return @(1 / self.doubleValue);
 }
 
 -(NSArray *)times:(id (^)(void))block {
@@ -78,7 +78,7 @@ if(unit == 0) {
 }
 
 -(NSArray *)to:(NSNumber *)to {
-	return [self to:to by:[NSNumber numberWithDouble:1.0]];
+	return [self to:to by:@1.0];
 }
 
 -(NSArray *)to:(NSNumber *)to by:(NSNumber *)by {
@@ -100,7 +100,7 @@ if(unit == 0) {
 	NSMutableArray *re = NSMutableArray.new;
 	
 	for (double gamma = alpha; _(gamma); gamma += delta) {
-		[re addObject:[NSNumber numberWithDouble:gamma]];
+		[re addObject:@(gamma)];
 	}
 	
 	return re;

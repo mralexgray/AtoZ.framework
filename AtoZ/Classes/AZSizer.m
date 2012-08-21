@@ -62,7 +62,7 @@ int gcd(int m, int n) {	int t, r;
 		self.quantity = aNumber;
 		int smallR = 0, rem, runnerUp, rUpItems, x;
 		x = (aNumber < 2 ? 2 : aNumber);
-		NSArray *list = [$int(2) to:$int((ceil(sqrt(x)))+4)];
+		NSArray *list = [@2 to:$int((ceil(sqrt(x)))+4)];
 		for( id rowTry in list ) {
 			int xx, itemsnow;
 			int _rows = [rowTry intValue];

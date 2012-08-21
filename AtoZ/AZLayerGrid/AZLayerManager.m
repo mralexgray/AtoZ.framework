@@ -102,7 +102,7 @@ BOOL layerIsGridCell( CALayer* layer ) { return [layer isKindOfClass: [GridCell 
 - (GridCell*) cellAtRow:(unsigned)row column:(unsigned)col
 {
     if ( row < _nRows && col < _nColumns ) {
-        id cell = [_cells objectAtIndex: row*_nColumns+col];
+        id cell = _cells[row*_nColumns+col];
         if ( cell != [NSNull null] ) {
             return cell;
         }
@@ -115,13 +115,13 @@ BOOL layerIsGridCell( CALayer* layer ) { return [layer isKindOfClass: [GridCell 
     NSParameterAssert(row<_nRows);
     NSParameterAssert(col<_nColumns);
     unsigned index = row*_nColumns+col;
-    GridCell *cell = [_cells objectAtIndex:index];
+    GridCell *cell = _cells[index];
     if ( (id)cell == [NSNull null] ) {
         CGRect frame = CGRectMake(_cellOffset.x + (col + 0.5)*_spacing.width,
                                   _cellOffset.y + (row + 0.5)*_spacing.height,
                                   _spacing.width,_spacing.height);
         cell = [[GridCell alloc] initWithGrid:self row:row column:col frame:frame];
-        [_cells replaceObjectAtIndex:index withObject:cell];
+        _cells[index] = cell;
         [self addSublayer:cell];
         [self setNeedsDisplay];
     }
@@ -151,10 +151,10 @@ BOOL layerIsGridCell( CALayer* layer ) { return [layer isKindOfClass: [GridCell 
     NSParameterAssert(row<_nRows);
     NSParameterAssert(col<_nColumns);
     unsigned index = row*_nColumns+col;
-    id cell = [_cells objectAtIndex:index];
+    id cell = _cells[index];
     if( cell != [NSNull null] )
         [cell removeFromSuperlayer];
-    [_cells replaceObjectAtIndex:index withObject:[NSNull null]];
+    _cells[index] = [NSNull null];
     [self setNeedsDisplay];
 }
 

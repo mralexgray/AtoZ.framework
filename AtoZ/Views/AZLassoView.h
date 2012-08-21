@@ -17,6 +17,7 @@
 @property (nonatomic, retain) NSString *uniqueID;
 @property (nonatomic, assign) BOOL 	selected;
 /*** YES if the mouse is hovering over cell, otherwise NO.  **/
+@property (nonatomic, assign) BOOL 	nooseMode;
 @property (nonatomic, assign) BOOL 	hovered;
 @property (nonatomic, assign) float radius;
 @property (nonatomic, assign) float inset;

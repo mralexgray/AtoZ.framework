@@ -46,7 +46,7 @@
      x,y,width,height];
     return nil;
   }
-  return [data objectAtIndex:(y * width + x)];
+  return data[(y * width + x)];
 }
 
 @end

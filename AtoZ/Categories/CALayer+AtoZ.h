@@ -1,13 +1,14 @@
-//
-//  CALayer+AtoZ.h
-//  AtoZ
-//
-//  Created by Alex Gray on 7/13/12.
-//  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-//
+	//
+	//  CALayer+AtoZ.h
+	//  AtoZ
+	//
+	//  Created by Alex Gray on 7/13/12.
+	//  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
+	//
 
 #import <QuartzCore/QuartzCore.h>
 
+#import "AtoZ.h"
 
 
 /** Constants for various commonly used colors. */
@@ -24,9 +25,9 @@ void ChangeSuperlayer( CALayer *layer, CALayer *newSuperlayer, int index );
 void RemoveImmediately( CALayer *layer );
 
 /** Convenience for creating a CATextLayer. */
-//CATextLayer* AddTextLayer( CALayer *superlayer,
-//                           NSString *text, NSFont* font,
-//                           enum CAAutoresizingMask align );
+CATextLayer* AddTextLayer( CALayer *superlayer,
+                           NSString *text, NSFont* font,
+                           enum CAAutoresizingMask align );
 
 
 /** Loads an image or pattern file into a CGImage or CGPattern.
@@ -39,7 +40,7 @@ CGImageRef GetCGImageNamed( NSString *name );
 CGColorRef GetCGPatternNamed( NSString *name );
 
 /** Loads image data from the pasteboard into a CGImage. */
-//CGImageRef GetCGImageFromPasteboard( NSPasteboard *pb );
+	//CGImageRef GetCGImageFromPasteboard( NSPasteboard *pb );
 
 /** Creates a CGPattern from a CGImage. */
 CGPatternRef CreateImagePattern( CGImageRef image );
@@ -53,6 +54,7 @@ float GetPixelAlpha( CGImageRef image, CGSize imageSize, CGPoint pt );
 
 #define CATransform3DPerspective(t, x, y) (CATransform3DConcat(t, CATransform3DMake(1, 0, 0, x, 0, 1, 0, y, 0, 0, 1, 0, 0, 0, 0, 1)))
 #define CATransform3DMakePerspective(x, y) (CATransform3DPerspective(CATransform3DIdentity, x, y))
+
 CG_INLINE CATransform3D
 CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13, CGFloat m14,
 				  CGFloat m21, CGFloat m22, CGFloat m23, CGFloat m24,
@@ -69,19 +71,21 @@ CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13, CGFloat m14,
 
 @interface CALayer (AtoZ)
 
+
 - (CATransform3D)rectToQuad:(NSRect)rect quadTLX:(double)x1a quadTLY:(double)y1a quadTRX:(double)x2a quadTRY:(double)y2a quadBLX:(double)x3a quadBLY:(double)y3a quadBRX:(double)x4a quadBRY:(double)y4a;
 
 - (void) addConstraintsRelativeToSuperlayer;
 
-+ (CALayer*)closeBoxLayer; 
++ (CALayer*)closeBoxLayer;
 + (CALayer*)closeBoxLayerForLayer:(CALayer*)parentLayer;
 
-//Metallic grey gradient background
+	//Metallic grey gradient background
 + (CAGradientLayer*) greyGradient;
 
 
 -(NSString*)debugDescription;
+
 -(void)debugAppendToLayerTree:(NSMutableString*)treeStr indention:(NSString*)indentStr;
-//-(NSString*)debugLayerTree;
+- (NSString*)debugLayerTree;
 
 @end

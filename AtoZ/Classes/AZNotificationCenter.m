@@ -152,7 +152,7 @@ static char AZNotificationHelperMagicContext;
 	id key = [self _dictionaryKeyForObserver:observer object:target keyPath:keyPath selector:selector];
 	@synchronized(self)
 	{
-		[_observerHelpers setObject:helper forKey:key];
+		_observerHelpers[key] = helper;
 	}
 	helper = nil;//release];
 
@@ -164,7 +164,7 @@ static char AZNotificationHelperMagicContext;
 	_AZNotificationHelper *helper = nil;
 	@synchronized(self)
 	{
-		helper = [_observerHelpers objectForKey:key];// retain];
+		helper = _observerHelpers[key];// retain];
 		[_observerHelpers removeObjectForKey:key];
 	}
 	[helper deregister];
@@ -200,7 +200,7 @@ static NSMutableDictionary* _children;
         _children = [[NSMutableDictionary alloc] init];
     }
 
-    [_children setObject:[[self alloc] init] forKey:NSStringFromClass([self class])];
+    _children[NSStringFromClass([self class])] = [[self alloc] init];
 }
 
 +(id) alloc {
@@ -213,7 +213,7 @@ static NSMutableDictionary* _children;
 
 -(id) init {
     id c;
-    if((c = [_children objectForKey:NSStringFromClass([self class])])) { //sic, unfactored
+    if((c = _children[NSStringFromClass([self class])])) { //sic, unfactored
         return c;
     }
     self = [super init];
@@ -221,7 +221,7 @@ static NSMutableDictionary* _children;
 }
 
 +(id) instance {
-    return [_children objectForKey:NSStringFromClass([self class])];
+    return _children[NSStringFromClass([self class])];
 }
 
 +(id) sharedInstance { //alias for instance

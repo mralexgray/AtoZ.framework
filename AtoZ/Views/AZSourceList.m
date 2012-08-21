@@ -676,8 +676,8 @@ NSString * const AZSLDeleteKeyPressedOnRowsNotification = @"AZSourceListDeleteKe
 			textColor = BADGE_SELECTED_HIDDEN_TEXT_COLOR;
 		}
 		
-		attributes = [[NSDictionary alloc] initWithObjectsAndKeys:BADGE_FONT, NSFontAttributeName,
-					  textColor, NSForegroundColorAttributeName, nil];
+		attributes = @{NSFontAttributeName: BADGE_FONT,
+					  NSForegroundColorAttributeName: textColor};
 	}
 	else
 	{
@@ -708,8 +708,8 @@ NSString * const AZSLDeleteKeyPressedOnRowsNotification = @"AZSourceListDeleteKe
 			backgroundColor = BADGE_HIDDEN_BACKGROUND_COLOR;
 		}
 		
-		attributes = [[NSDictionary alloc] initWithObjectsAndKeys:BADGE_FONT, NSFontAttributeName,
-					  badgeColor, NSForegroundColorAttributeName, nil];
+		attributes = @{NSFontAttributeName: BADGE_FONT,
+					  NSForegroundColorAttributeName: badgeColor};
 	}
 	
 	[backgroundColor set];
@@ -770,7 +770,7 @@ NSString * const AZSLDeleteKeyPressedOnRowsNotification = @"AZSourceListDeleteKe
 				//Post the notification
 				[[NSNotificationCenter defaultCenter] postNotificationName:AZSLDeleteKeyPressedOnRowsNotification
 																	object:self
-																  userInfo:[NSDictionary dictionaryWithObject:selectedIndexes forKey:@"rows"]];
+																  userInfo:@{@"rows": selectedIndexes}];
 				
 				return;
 			}
@@ -943,7 +943,7 @@ NSString * const AZSLDeleteKeyPressedOnRowsNotification = @"AZSourceListDeleteKe
 	NSInteger row = [self rowForItem:item];
 	
 	//Return the default table column
-	return [[[self tableColumns] objectAtIndex:0] dataCellForRow:row];
+	return [[self tableColumns][0] dataCellForRow:row];
 }
 
 - (void)outlineView:(NSOutlineView *)outlineView willDisplayCell:(id)cell forTableColumn:(NSTableColumn *)tableColumn item:(id)item

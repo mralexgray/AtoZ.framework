@@ -17,6 +17,7 @@
 			radius = _radius,
 			hovered = _hovered,
 			selected = _selected,
+						nooseMode = _nooseMode,
 			representedObject = _representedObject;
 @synthesize uniqueID;
 
@@ -30,6 +31,7 @@
 		_selected = NO;
 		_radius = 0;
 		_inset = 0;
+		_nooseMode = NO;
 //		[self updateTrackingAreas];
     }
     return self;
