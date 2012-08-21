@@ -23,32 +23,33 @@
 
 @end
 
+
+//
+//
+//@implementation AZToggleArrayView
+//
+//- (id) layerForToggle:(AZToggle*)toggle {
+//
+//	[[toggle codableKeys]
+//
+//		CALayer *l = [CALayer layer];
+//		
+//		return  itemW]
+//	}
+//}
+//
+//@end
+
+
+
 #pragma mark -
 
-@interface AZToggleArrayView (CoreAnimation)
 
-- (AZToggleControlLayer*) toggleLayerWithOnText:(NSString*)onText 
-								 offText:(NSString*)offText 
-							initialState:(BOOL)state;
-
-- (CATextLayer*) itemTextLayerWithName:(NSString*)name;
-- (CALayer*) itemLayerWithName:(NSString*)name relativeTo:(NSString*)relative index:(NSUInteger)index;
-
-- (CALayer*) itemLayerWithName:(NSString*)name 
-					relativeTo:(NSString*)relative 
-						onText:(NSString*)onText 
-					   offText:(NSString*)offText 
-						 state:(BOOL)state
-						 index:(NSUInteger)index;
-
-@property (readonly) CALayer* containerLayer;
-@property (readonly) CALayer* rootLayer;
-
-@end
 
 #pragma mark -
 
 @implementation AZToggleArrayView
+@synthesize delegate = _delegate, rootLayer = _rootLayer, containerLayer = _containerLayer;
 
 #pragma mark Initialization & disposal
 
@@ -81,53 +82,15 @@
 	}
 }
 
-@end
 
-#pragma mark -
 
-@implementation AZToggleArrayView (UserInteraction)
-
-- (AZToggleControlLayer*) toggleLayerForEvent:(NSEvent*)event
-{
-	// Returns the first toggle layer for the given event.
-	CALayer* hitLayer = [self.containerLayer hitTest:[self layerLocationForEvent:event]];
-	while (hitLayer)
-	{
-		if ([hitLayer isMemberOfClass:[AZToggleControlLayer class]])
-		{
-
-			NSLog(@"toggled: %@", hitLayer.name);
-			return (AZToggleControlLayer*)hitLayer;
-		}
-		hitLayer = hitLayer.superlayer;
-	}
-	return nil;
-}
-
-- (CGPoint) layerLocationForEvent:(NSEvent*)event
-{
-	// Returns the mouse location of the given event. This is where flipped view
-	// coordinates should be considered for example, so instead of simply returning
-	// the CGPoint, the result should be converted like this:
-	//   NSPoint point = [self convertPoint:[event locationInWindow] fromView:nil];
-	//   point.y = self.bounds.size.height - point.y;
-	//   return NSPointToCGPoint(point);
-	return NSPointToCGPoint([self convertPoint:[event locationInWindow] fromView:nil]);
-}
-
-@end
-
-#pragma mark -
-
-@implementation AZToggleArrayView (CoreAnimation)
-
-- (AZToggleControlLayer*) toggleLayerWithOnText:(NSString*)onText 
-								 offText:(NSString*)offText 
-							initialState:(BOOL)state
-							title: (NSString*)title
+- (AZToggleControlLayer*) toggleLayerWithOnText:(NSString*)onText
+										offText:(NSString*)offText
+								   initialState:(BOOL)state
+										  title: (NSString*)title
 {
 	AZToggleControlLayer* result = [AZToggleControlLayer layer];
-	result.name = title;//@"toggle";
+	result.name = @"toggle"; //title
 	result.toggleState = state;
 
 	[result addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMaxX
@@ -149,41 +112,45 @@
 	CATextLayer* result = [CATextLayer layer];
 	result.name = @"text";
 	result.string = name;
-//	result.foregroundColor =  CGColorCreateGenericRGB(1.0f, 1.0f, 1.0f, .89f);
-//	result.fontSize = 18;//[NSFont systemFontSize];
-	result.fontSize = 18;  // [NSFont smallSystemFontSize];
+		//	result.foregroundColor =  CGColorCreateGenericRGB(1.0f, 1.0f, 1.0f, .89f);
+		//	result.fontSize = 18;//[NSFont systemFontSize];
+
+	result.fontSize = ([_containerLayer respondsToSelector:@selector(fontSize)] ? (CGFloat)[[_containerLayer valueForKey:@"fontSize"]floatValue] : 18);
+		// [NSFont smallSystemFontSize];
 	result.font =(__bridge CFStringRef) @"Ubuntu Mono Bold";
 
-//	result.font = (__bridge CFTypeRef)[NSFont fontWithName:@"Ubuntu Mono Bold" size:18];// [NSFont systemFontOfSize:result.fontSize];(__bridge CFTypeRef)((id)
+		//	result.font = (__bridge CFTypeRef)[NSFont fontWithName:@"Ubuntu Mono Bold" size:18];// [NSFont systemFontOfSize:result.fontSize];(__bridge CFTypeRef)((id)
 	result.alignmentMode = kCAAlignmentLeft;
 	result.truncationMode = kCATruncationEnd;
 	result.borderColor = kGBDebugLayerBorderColor;
 	result.borderWidth = kGBDebugLayerBorderWidth;
-	[result addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMinX
-													 relativeTo:@"superlayer"
-													  attribute:kCAConstraintMinX
-														 offset:5.0f]];
-//	[result addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMaxX
-//													 relativeTo:@"toggle"
-//													  attribute:kCAConstraintMinX
-//														 offset:-5.0f]];
-	[result addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMidY
-													 relativeTo:@"superlayer"
-													  attribute:kCAConstraintMidY]];
+	result.constraints = @[ //AZConstRelSuperScaleOff(kCAConstraintMinX, 1, 5),
+							AZConstAttrRelNameAttrScaleOff(kCAConstraintMaxX,@"toggle", kCAConstraintMinX, 1, -5),
+							AZConstRelSuper(kCAConstraintMidY)	];
+		//	[result addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMaxX
+		//													 relativeTo:@"toggle"
+		//													  attribute:kCAConstraintMinX
+		//														 offset:-5.0f]];
 	return result;
 }
 
-- (CALayer*) itemLayerWithName:(NSString*)name 
-					relativeTo:(NSString*)relative 
+
+
+
+
+
+
+- (CALayer*) itemLayerWithName:(NSString*)name
+					relativeTo:(NSString*)relative
 						 index:(NSUInteger)index
 {
 	return [self itemLayerWithName:name relativeTo:relative onText:nil offText:nil state:NO index:index];
 }
 
-- (CALayer*) itemLayerWithName:(NSString*)name 
-					relativeTo:(NSString*)relative 
-						onText:(NSString*)onText 
-					   offText:(NSString*)offText 
+- (CALayer*) itemLayerWithName:(NSString*)name
+					relativeTo:(NSString*)relative
+						onText:(NSString*)onText
+					   offText:(NSString*)offText
 						 state:(BOOL)state
 						 index:(NSUInteger)index
 {
@@ -211,68 +178,105 @@
 
 - (CALayer*) containerLayer
 {
-	if (containerLayer) return containerLayer;
-	containerLayer = [CALayer layer];
-	containerLayer.name = @"container";
-	containerLayer.backgroundColor =  GRAY3.cgColor;//CGColorCreateGenericRGB(0.,0.,0.,1.);
-	containerLayer.borderColor = kGBDebugLayerBorderColor;
-	containerLayer.borderWidth = kGBDebugLayerBorderWidth;
-	containerLayer.layoutManager = [CAConstraintLayoutManager layoutManager];
-	[containerLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMidX
-															 relativeTo:@"superlayer"
-															  attribute:kCAConstraintMidX]];
-	[containerLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintWidth
-															 relativeTo:@"superlayer"
-															  attribute:kCAConstraintWidth
-																 offset:0]];//-20.0f]];
-	[containerLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMidY
-															 relativeTo:@"superlayer"
-															  attribute:kCAConstraintMidY]];
-	[containerLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintHeight
-															 relativeTo:@"superlayer"
-															  attribute:kCAConstraintHeight
-																 offset:0]];//-20.0f
-	
-	// This is a bit of fast hacking; it would be better to use array of item names or similar.
-	// Or in a real-world situation, the layers would be added by binding to a data source
-	// and responding to changes.
+	if (_containerLayer) return _containerLayer;
+	_containerLayer = [CALayer layer];
+	_containerLayer.name = @"container";
+	_containerLayer.backgroundColor =  GRAY3.cgColor;//CGColorCreateGenericRGB(0.,0.,0.,1.);
+	_containerLayer.borderColor   = kGBDebugLayerBorderColor;
+	_containerLayer.borderWidth   = kGBDebugLayerBorderWidth;
+	_containerLayer.layoutManager = [CAConstraintLayoutManager layoutManager];
+	_containerLayer.constraints   = @[	AZConstRelSuper(kCAConstraintMidX),
+	AZConstRelSuperScaleOff(kCAConstraintWidth, 1, 0), //-20f
+	AZConstRelSuper(kCAConstraintMidY),
+	AZConstRelSuperScaleOff(kCAConstraintHeight, 1, 0) ];//-20.0f
+
+		// This is a bit of fast hacking; it would be better to use array of item names or similar.
+		// Or in a real-world situation, the layers would be added by binding to a data source
+		// and responding to changes.
 
 
-	NSArray *yesno = [_delegate questionsForToggleView:self];
+	if ([_delegate respondsToSelector:@selector(itemsForToggleView:)]){
+		NSArray *yesno = [_delegate itemsForToggleView:self];
+		[yesno each:^(id obj, NSUInteger index, BOOL *stop) {
 
-	[yesno each:^(id obj, NSUInteger index, BOOL *stop) {
-		NSString* rel = (index == 0 ? @"superlayer" : yesno[index-1]);
-		[containerLayer addSublayer:[self itemLayerWithName:obj relativeTo:rel index:index]];
-	}];
+			NSString* rel = (index == 0 ? @"superlayer" : yesno[index-1]);
+			[_containerLayer addSublayer:obj];
+		}];
+	} else {
 
-//	[containerLayer addSublayer:[self itemLayerWithName:@"Item 2" relativeTo:index:1]];
-//	[containerLayer addSublayer:[self itemLayerWithName:@"Click these 'buttons' to change state ->" 
-//											 relativeTo:@"Item 2" 
-//												 onText:@"1" 
-//												offText:@"0" 
-//												  state:YES
-//												  index:1]];
+		NSArray *yesno = [_delegate questionsForToggleView:self];
 
-//	[containerLayer addSublayer:[self itemLayerWithName:@"BIG first Initial?"
-//											 relativeTo:@"Click these 'buttons' to change state ->"
-//												 onText:@"YES!"
-//												offText:@"NO!"
-//												  state:YES
-//												  index:1]];
-	return containerLayer;
+		[yesno each:^(id obj, NSUInteger index, BOOL *stop) {
+			NSString* rel = (index == 0 ? @"superlayer" : yesno[index-1]);
+			[_containerLayer addSublayer:[self itemLayerWithName:obj relativeTo:rel index:index]];
+		}];
+	}
+		//	[containerLayer addSublayer:[self itemLayerWithName:@"Item 2" relativeTo:index:1]];
+		//	[containerLayer addSublayer:[self itemLayerWithName:@"Click these 'buttons' to change state ->"
+		//											 relativeTo:@"Item 2"
+		//												 onText:@"1"
+		//												offText:@"0"
+		//												  state:YES
+		//												  index:1]];
+
+		//	[containerLayer addSublayer:[self itemLayerWithName:@"BIG first Initial?"
+		//											 relativeTo:@"Click these 'buttons' to change state ->"
+		//												 onText:@"YES!"
+		//												offText:@"NO!"
+		//												  state:YES
+		//												  index:1]];
+	return _containerLayer;
 }
 
 - (CALayer*) rootLayer
 {
-	if (rootLayer) return rootLayer;
-	rootLayer = [CALayer layer];
-	rootLayer.name = @"root";
-	rootLayer.layoutManager = [CAConstraintLayoutManager layoutManager];
-	[rootLayer addSublayer:self.containerLayer];
-	return rootLayer;
+	if (_rootLayer) return _rootLayer;
+	_rootLayer = [CALayer layer];
+	_rootLayer.name = @"root";
+	_rootLayer.layoutManager = [CAConstraintLayoutManager layoutManager];
+	[_rootLayer addSublayer:self.containerLayer];
+	return _rootLayer;
+}
+
+
+- (AZToggleControlLayer*) toggleLayerForEvent:(NSEvent*)event
+{
+		// Returns the first toggle layer for the given event.
+	CALayer* hitLayer = [self.containerLayer hitTest:[self layerLocationForEvent:event]];
+	while (hitLayer)
+	{
+		if ([hitLayer isMemberOfClass:[AZToggleControlLayer class]])
+		{
+
+			NSLog(@"toggled: %@", hitLayer.name);
+			return (AZToggleControlLayer*)hitLayer;
+		}
+		hitLayer = hitLayer.superlayer;
+	}
+	return nil;
+}
+
+- (CGPoint) layerLocationForEvent:(NSEvent*)event
+{
+		// Returns the mouse location of the given event. This is where flipped view
+		// coordinates should be considered for example, so instead of simply returning
+		// the CGPoint, the result should be converted like this:
+		//   NSPoint point = [self convertPoint:[event locationInWindow] fromView:nil];
+		//   point.y = self.bounds.size.height - point.y;
+		//   return NSPointToCGPoint(point);
+	return NSPointToCGPoint([self convertPoint:[event locationInWindow] fromView:nil]);
 }
 
 @end
+
+#pragma mark -
+
+//@implementation AZToggleArrayView (UserInteraction)
+//
+//
+//@end
+
+#pragma mark -
 
 
 	//
@@ -412,14 +416,8 @@
 {
 	[NSGraphicsContext saveGraphicsState];
 	[NSGraphicsContext setCurrentContext:[NSGraphicsContext graphicsContextWithGraphicsPort:context flipped:NO]];
-	if (layer == self.onBackLayer)
-	{
-		[self.onBackGradient drawInRect:layer.bounds angle:270.0f];
-	}
-	else if (layer == self.offBackLayer)
-	{
-		[self.offBackGradient drawInRect:layer.bounds angle:270.0f];
-	}
+	if (layer == self.onBackLayer)			[self.onBackGradient drawInRect:layer.bounds angle:270.0f];
+	else if (layer == self.offBackLayer)	[self.offBackGradient drawInRect:layer.bounds angle:270.0f];
 	[NSGraphicsContext restoreGraphicsState];
 }
 
@@ -429,10 +427,7 @@
 
 @implementation AZToggleControlLayer (Visuals)
 
-- (CGFloat) contentsHeight
-{
-	return self.bounds.size.height - self.borderWidth * 2.0f;
-}
+- (CGFloat) contentsHeight { 	return self.bounds.size.height - self.borderWidth * 2.0f;	}
 
 - (NSGradient*) onBackGradient
 {
@@ -443,8 +438,7 @@
 	return onBackGradient;
 }
 
-- (NSGradient*) offBackGradient
-{
+- (NSGradient*) offBackGradient	{
 	if (offBackGradient) return offBackGradient;
 	NSColor* top = [NSColor colorWithDeviceRed:0.65f green:0.65f blue:0.65f alpha:0.85f];
 	NSColor* bottom = [NSColor colorWithDeviceRed:0.85f green:0.85f blue:0.85f alpha:0.85f];
@@ -505,19 +499,14 @@
 	onTextLayer.name = @"text";
 	onTextLayer.string = @"ON";
 	onTextLayer.fontSize = 20;  // [NSFont smallSystemFontSize];
-	onTextLayer.font =(__bridge CFStringRef) @"Ubuntu Mono Bold";	onTextLayer.alignmentMode = kCAAlignmentCenter;
-	onTextLayer.truncationMode = kCATruncationEnd;
-	onTextLayer.foregroundColor = CGColorCreateGenericRGB(1.0f, 1.0f, 1.0f, 1.0f);
-	onTextLayer.shadowColor = CGColorCreateGenericRGB(0.0f, 0.0f, 0.0f, 1.0f);
-	onTextLayer.shadowOffset = CGSizeMake(0.0f, 0.0f);
-	onTextLayer.shadowRadius = 1.0f;
-	onTextLayer.shadowOpacity = 0.8f;
-	[onTextLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMidX
-														  relativeTo:@"superlayer"
-														   attribute:kCAConstraintMidX]];
-	[onTextLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMidY
-														  relativeTo:@"superlayer"
-														   attribute:kCAConstraintMidY]];
+	onTextLayer.font =	(__bridge CFStringRef) @"Ubuntu Mono Bold";	onTextLayer.alignmentMode = kCAAlignmentCenter;
+	onTextLayer.truncationMode 	= 	kCATruncationEnd;
+	onTextLayer.foregroundColor = 	cgWHITE;
+	onTextLayer.shadowColor 		= 	cgBLACK;
+	onTextLayer.shadowOffset 	= 	(CGSize){0,0};
+	onTextLayer.shadowRadius 	= 	1. ;
+	onTextLayer.shadowOpacity 	= 	.8 ;
+	onTextLayer.constraints		=   @[	AZConstRelSuper(kCAConstraintMidX),AZConstRelSuper(kCAConstraintMidY) ];
 	return onTextLayer;
 }
 
@@ -530,19 +519,14 @@
 
 	offTextLayer.fontSize = 19;//[NSFont smallSystemFontSize];
 	offTextLayer.font = (__bridge CFStringRef) @"Ubuntu Mono Bold";
-	offTextLayer.alignmentMode = kCAAlignmentCenter;
-	offTextLayer.truncationMode = kCATruncationEnd;
-	offTextLayer.foregroundColor = GRAY1.CGColor;// CGColorCreateGenericRGB(0.2f, 0.2f, 0.2f, 1.0f);
-	offTextLayer.shadowColor = CGColorCreateGenericRGB(1.0f, 1.0f, 1.0f, 1.0f);
-	offTextLayer.shadowOffset = CGSizeMake(0.0f, 0.0f);
-	offTextLayer.shadowRadius = 1.0f;
-	offTextLayer.shadowOpacity = 0.9f;
-	[offTextLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMidX
-														   relativeTo:@"superlayer"
-															attribute:kCAConstraintMidX]];
-	[offTextLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMidY
-														   relativeTo:@"superlayer"
-															attribute:kCAConstraintMidY]];
+	offTextLayer.alignmentMode 		= kCAAlignmentCenter;
+	offTextLayer.truncationMode 	= kCATruncationEnd;
+	offTextLayer.foregroundColor 	= GRAY1.CGColor;// CGColorCreateGenericRGB(0.2f, 0.2f, 0.2f, 1.0f);
+	offTextLayer.shadowColor 		= CGColorCreateGenericRGB(1.0f, 1.0f, 1.0f, 1.0f);
+	offTextLayer.shadowOffset 		= CGSizeMake(0.0f, 0.0f);
+	offTextLayer.shadowRadius 		= 1.0f;
+	offTextLayer.shadowOpacity 		= 0.9f;
+	offTextLayer .constraints		=   @[	AZConstRelSuper(kCAConstraintMidX),AZConstRelSuper(kCAConstraintMidY) ];
 	return offTextLayer;
 }
 

@@ -6,7 +6,7 @@
 //
 
 #import "AZAttachedWindow.h"
-#import "AtoZ.h"
+
 
 #define AZATTACHEDWINDOW_DEFAULT_BACKGROUND_COLOR [NSColor colorWithCalibratedWhite:0 alpha:0.85]
 #define AZATTACHEDWINDOW_DEFAULT_BORDER_COLOR [NSColor blackColor]
@@ -189,9 +189,7 @@
                               -viewMargin * AZATTACHEDWINDOW_SCALE_FACTOR);
     
     // Account for arrowHeight in new window frame.
-    // Note: we always leave room for the arrow, even if it currently set to 
-    // not be shown. This is so it can easily be toggled whilst the window 
-    // is visible, without altering the window's frame origin point.
+    // Note: we always leave room for the arrow, even if it currently set to  not be shown. This is so it can easily be toggled whilst the window is visible, without altering the window's frame origin point.
     float scaledArrowHeight = arrowHeight * AZATTACHEDWINDOW_SCALE_FACTOR;
     switch (_side) {
         case AZPositionLeft:
@@ -345,9 +343,7 @@
     NSRect parentFrame = (_window) ? [_window frame] : screenFrame;
     float arrowInset = [self _arrowInset];
     
-    // We're currently at a primary side.
-    // Try to avoid going outwith the parent area in the secondary dimension,
-    // by checking to see if an appropriate corner side would be better.
+    // We're currently at a primary side. Try to avoid going outwith the parent area in the secondary dimension, by checking to see if an appropriate corner side would be better.
     switch (side) {
         case AZPositionBottom:
         case AZPositionTop:
@@ -419,9 +415,7 @@
 
 - (void)_updateBackground
 {
-    // Call NSWindow's implementation of -setBackgroundColor: because we override 
-    // it in this class to let us set the entire background image of the window 
-    // as an NSColor patternImage.
+    // Call NSWindow's implementation of -setBackgroundColor: because we override  it in this class to let us set the entire background image of the window as an NSColor patternImage.
     NSDisableScreenUpdates();
     [super setBackgroundColor:[self _backgroundColorPatternImage]];
     if ([self isVisible]) {
@@ -437,33 +431,24 @@
     NSImage *bg = [[NSImage alloc] initWithSize:[self frame].size];
     NSRect bgRect = NSZeroRect;
     bgRect.size = [bg size];
-    
     [bg lockFocus];
     NSBezierPath *bgPath = [self _backgroundPath];
     [NSGraphicsContext saveGraphicsState];
-    [bgPath addClip];
-    
-    // Draw background.
+    [bgPath addClip];								    // Draw background.
     [_AZBackgroundColor set];
-    [bgPath fill];
-    
-    // Draw border if appropriate.
-    if (borderWidth > 0) {
-        // Double the borderWidth since we're drawing inside the path.
+    [bgPath fill];									    // Draw border if appropriate.
+    if (borderWidth > 0) {						        // Double the borderWidth since we're drawing inside the path.
         [bgPath setLineWidth:(borderWidth * 2.0) * AZATTACHEDWINDOW_SCALE_FACTOR];
         [borderColor set];
         [bgPath stroke];
     }
-    
     [NSGraphicsContext restoreGraphicsState];
     [bg unlockFocus];
-    
     return [NSColor colorWithPatternImage:bg];
 }
 
 
-- (NSBezierPath *)_backgroundPath
-{
+- (NSBezierPath *)_backgroundPath	{
     /*
      Construct path for window background, taking account of:
      1. hasArrow

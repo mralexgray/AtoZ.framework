@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7B73D8EC15E4327B00D2671A /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B85597315B9E8C30005F558 /* AtoZ.framework */; };
+		7B73D8EE15E4328900D2671A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B85597515B9EA280005F558 /* QuartzCore.framework */; };
 		7B85595715B9E8510005F558 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B85595615B9E8510005F558 /* Cocoa.framework */; };
 		7B85596115B9E8510005F558 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7B85595F15B9E8510005F558 /* InfoPlist.strings */; };
 		7B85596315B9E8510005F558 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B85596215B9E8510005F558 /* main.m */; };
@@ -58,6 +60,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B73D8EE15E4328900D2671A /* QuartzCore.framework in Frameworks */,
+				7B73D8EC15E4327B00D2671A /* AtoZ.framework in Frameworks */,
 				7B85595715B9E8510005F558 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

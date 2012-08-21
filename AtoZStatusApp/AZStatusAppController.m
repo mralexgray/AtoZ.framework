@@ -90,14 +90,14 @@
 	}
 }
 - (IBAction)swapOrient:(id)sender {
-	if 	(infiniteBlocks.orientation == AZOrientLeft){
-		[[infiniteBlocks window] setFrame:AZMakeRectMaxXUnderMenuBarY(visiSliver) display:YES animate:YES];
-		[infiniteBlocks setOrientation: AZOrientTop ];
-		(infiniteBlocks.orientation == AZOrientRight )) {
-	} else {
-		[[infiniteBlocks window] setFrame:NSMakeRect(0,0, 50, [[NSScreen mainScreen]frame].size.height-22)  display:YES animate:YES];
-		[infiniteBlocks setOrientation : AZOrientLeft];
-	}
+//	if 	(infiniteBlocks.orientation == AZOrientLeft){
+//		[[infiniteBlocks window] setFrame:AZMakeRectMaxXUnderMenuBarY(visiSliver) display:YES animate:YES];
+//		[infiniteBlocks setOrientation: AZOrientTop ];
+//		(infiniteBlocks.orientation == AZOrientRight ); {
+//	} else {
+//		[[infiniteBlocks window] setFrame:NSMakeRect(0,0, 50, [[NSScreen mainScreen]frame].size.height-22)  display:YES animate:YES];
+//		[infiniteBlocks setOrientation : AZOrientLeft];
+//	}
 }
 
 
@@ -120,7 +120,7 @@
 			return e;
 		}].mutableCopy;
 		[[NSThread mainThread] performBlock:^{
-			[infiniteBlocks setInfiniteViews:arrayOfBlocks];
+			[infiniteBlocks setInfiniteVi arrayOfBlocks];
 			[pIndi stopAnimation:pIndi];
 		}];
 		

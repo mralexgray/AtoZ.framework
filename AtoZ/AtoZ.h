@@ -446,6 +446,9 @@ NSNumber* DegreesToNumber(CGFloat degrees);
 #define AZConstRelSuperScaleOff(attr, scl, off) \
 [CAConstraint constraintWithAttribute:attr relativeTo:AZSuperLayerSuper attribute:attr scale:scl offset:off]
 
+#define AZConstAttrRelNameAttrScaleOff(attr1, relName, attr2, scl, off) \
+[CAConstraint constraintWithAttribute:attr1 relativeTo:relName attribute:attr2 scale:scl offset:off]
+
 
 
 //#import "AtoZiTunes.h"

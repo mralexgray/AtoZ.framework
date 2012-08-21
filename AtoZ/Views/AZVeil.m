@@ -11,89 +11,117 @@
 @implementation AZVeil
 
 - (void) awakeFromNib {
-	[self defineRects];
-	[_leveler orderFrontRegardless];
+
 	[_leveler setFrame:NSMakeRect(0, (ScreenHighness()-1),1,1) display:YES animate:NO];
+	[_shroud  setIgnoresMouseEvents:YES];
+	[ @[_shroud, _leveler, _window] each:^(id obj, NSUInteger index, BOOL *stop) {
+		[obj setDelegate:self];
+//		[[obj contentView] setPostsBoundsChangedNotifications:YES];
+//		[[obj contentView] setPostsFrameChangedNotifications:YES];
+		[obj  setLevel:0];
+//		[obj setOpaque:YES];
+		[obj makeKeyWindow];
+		CAAnimation *animation = [CABasicAnimation animation];
+		[animation setDelegate:self];
+		[obj setAnimations:@{ @"alphaValue":animation}];
 
-
-	[_leveler setLevel: 0];
-
-	[_shroud setLevel : 14 ];
-	[[_shroud contentView]setPostsBoundsChangedNotifications:YES];
-	[[_window contentView]setPostsFrameChangedNotifications:YES];
-
-	[_shroud setIgnoresMouseEvents:YES];
-	[_window setLevel:14];
-
+	}];
+	float sizer =100;
+	float offset = ([[NSApplication sharedApplication]isActive] ?
+					22 : (22 + sizer) );
+	self.barFrameUp = AZMakeRectMaxXUnderMenuBarY(0);
+	self.barFrame = AZMakeRectMaxXUnderMenuBarY(offset);
 
 	NSNotificationCenter *dCenter = [NSNotificationCenter defaultCenter];
 
-	[dCenter	addObserver:self	selector:@selector(applicationDidBecomeActive:)
-	 name:NSApplicationDidBecomeActiveNotification		object:NSApp];
 
-	[dCenter	 addObserver:self	 selector:@selector(applicationDidResignActive:)
-	 name:NSApplicationDidResignActiveNotification	 object:NSApp];
+	[@{ NSApplicationWillBecomeActiveNotification	:	@"applicationWillBecomeActive:",
+		NSApplicationDidBecomeActiveNotification	:	@"applicationDidBecomeActive:",
+		NSApplicationWillResignActiveNotification	:	@"applicationWillResignActive:",
+		NSApplicationDidResignActiveNotification 	:	@"applicationDidResignActive:" 	}
 
-	[dCenter	 addObserver:self selector:@selector(applicationWillBecomeActive:)
-	 name:NSApplicationWillBecomeActiveNotification	 object:NSApp];
+		enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
 
-	[dCenter	 addObserver:self	 selector:@selector(applicationWillResignActive:)
-		 name:NSApplicationWillResignActiveNotification	 object:NSApp];
+			[dCenter addObserver:self selector:NSSelectorFromString(obj)
+			name:key object:nil];//[NSApplication sharedApplication]];
+	}];
+
 }
 
 - (void) capture {
 
-	[self defineRects];
+//	NSThread *e;
+//	[self performSelector:@selector(defineRects) onThread:e withObject:nil waitUntilDone:YES];
 		//	visiNow.size.height -= offset;
 		//	visiNow.origin.y +=offset;
 		//		visible.size.height -= window.frame.size.height;
-	[_view setImage : [NSImage imageFromCGImageRef:
-											CGWindowListCreateImage(
-																	flippedSnapRect,
-																	kCGWindowListOptionOnScreenBelowWindow,
-																	[_leveler windowNumber],
-																	kCGWindowImageDefault ) ]];
-	if ([[NSApplication sharedApplication]isActive]) {
+//		[NSImage  imageBelowWindow:_leveler]]
+
+//	[self defineRects];
+
+//	if ( [[_shroud animator]isAnimating] ) return;
+	[_view setImage:[[NSImage imageFromCGImageRef: CGWindowListCreateImage(
+
+		AZFlipRectinRect(
+			AZMakeRectMaxXUnderMenuBarY(
+				_shroud.frame.size.height + _shroud.frame.origin.y ),
+					AZScreenFrame()),
+
+		kCGWindowListOptionOnScreenBelowWindow,
+		[_leveler windowNumber],kCGWindowImageNominalResolution) ]tintedWithColor:[BLACK colorWithAlphaComponent:.2]]];/*(kCGWindowImageShouldBeOpaque | kCGWindowImageBoundsIgnoreFraming*/
+//	if ([[NSApplication sharedApplication]isActive]) {
+//		[_shroud setFrame:_pushedScreenRect display:YES];
 		[_view setNeedsDisplay : YES];
-		[_shroud setFrame:pushedScreenRect display:YES];
-		[_shroud setFrame:pushedScreenRect display:YES];
-	}
+//		[_shroud display];
+//		[_window display];
+
+//	}
 }
 
 
 - (void) applicationWillResignActive:(NSNotification *)notification {
+	[NSThread performBlockInBackground:^{
+		[self capture];
+		[[NSThread mainThread] performBlock:^{
+				//			[_shroud orderFrontRegardless];
+				//			[_window orderFrontRegardless];
+			[NSAnimationContext beginGrouping];
+			[[NSAnimationContext currentContext]setDuration:2];
+			[[NSAnimationContext currentContext]setTimingFunction:[CAMediaTimingFunction functionWithName:
+																   kCAMediaTimingFunctionEaseInEaseOut]];
 
- 	[refreshWhileActiveTimer invalidate];
-	[NSAnimationContext beginGrouping];
-	[[_window animator]setFrame:barFrameUp display:YES animate:YES];
-	[[_shroud animator]setFrame:unPushedScreenRect display:YES animate:YES];
-	[NSAnimationContext endGrouping];
-	refreshWhileActiveTimer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(capture) userInfo:nil repeats:YES];
+			[[_window animator]setFrame:_barFrameUp display:YES animate:YES];
+			[[_shroud animator]setFrame:AZMenulessScreenRect() display:YES animate:YES];
 
+			[NSAnimationContext endGrouping];
+		} waitUntilDone:YES];
+	}];
 }
+//	refreshWhileActiveTimer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(capture) userInfo:nil repeats:YES];
+//	[refreshWhileActiveTimer invalidate];
+//}
 - (void) applicationDidResignActive:(NSNotification *)notification{
 
-	[@[_window, _shroud] each:^(id obj, NSUInteger index, BOOL *stop) {
-		if ([obj isVisible]) [obj fadeOutWithDuration:.001];
-	}];
-	[_shroud setFrame:unPushedScreenRect  display:NO animate:NO];
+//	[@[_window, _shroud] each:^(id obj, NSUInteger index, BOOL *stop) {
+//		if ([obj isVisible]) [obj fadeOutWithDuration:1];
+//	}];
+//	[_shroud setFrame:_unPushedScreenRect  display:NO animate:NO];
 }
 
 - (void)defineRects{
 
-	flippedSnapRect = AZScreenFrame();
+//	self.flippedSnapRect = AZScreenFrame();
+//	_flippedSnapRect.size.height -= offset;
+//	_flippedSnapRect.origin.y += offset;
 
-	float offset = ([[NSApplication sharedApplication]isActive] ?
-					22 : (22 + 46) );
-	flippedSnapRect.size.height -= offset;
-	flippedSnapRect.origin.y += offset;
+//	self.PushedScreenRect = self.unPushedScreenRect = AZMakeRectMaxXUnderMenuBarY(ScreenHighness()- 22);//AZMakeRect(NS
+//	(NSPoint){0,  ScreenHighness() - ( 22 + sizer)},(NSSize){ ScreenWidess(), 0 });
+//	_pushedScreenRect.origin.y  -= offset;//  AZMakeRectMaxXUnderMenuBarY(ScreenHighness()- 22 - 100);
+//	 AZMakeRect(NSZeroPoint, (NSSize){ ScreenWidess(),ScreenHighness() - ( 22 + sizer)});
+	
+//	_barFrameUp.origin.y += sizer;//tabView.frame.size.height;
+//	_barFrameUp.size.height = 0;
 
-	unPushedScreenRect = AZMakeRect((NSPoint){0,  ScreenHighness() - ( 22 + 46)},(NSSize){ ScreenWidess(), 0 });
-	pushedScreenRect  = AZMakeRect(NSZeroPoint, (NSSize){ ScreenWidess(),ScreenHighness() - ( 22 + 46)});
-	barFrame = AZMakeRectMaxXUnderMenuBarY(46);
-	barFrameUp = barFrame;
-	barFrameUp.origin.y += 46;//tabView.frame.size.height;
-	barFrameUp.size.height = 0;
 }
 - (void) setShroudState:(ShroudIs)shroudState{
 	_shroudState = shroudState;
@@ -108,26 +136,35 @@
 
 - (void) applicationWillBecomeActive:(NSNotification *)notification{
 
-	if (refreshWhileActiveTimer) 	[refreshWhileActiveTimer invalidate];
-	[_window setFrame:barFrameUp display:YES];
-	[_shroud setFrame:unPushedScreenRect display:YES];
+	refreshWhileActiveTimer = [NSTimer scheduledTimerWithTimeInterval:.5 target:self selector:@selector(capture) userInfo:nil repeats:YES];
+
+
+	[_window setFrame:_barFrameUp display:NO animate:NO];
+	[_shroud setFrame:AZMenulessScreenRect() display:NO animate:NO];
+	[ @[_shroud, _leveler, _window] each:^(NSWindow* obj, NSUInteger index, BOOL *stop) {
+		[obj makeKeyAndOrderFront:obj];
+	}];
+//	[_window contentView]setIs
 }
 - (void) applicationDidBecomeActive:(NSNotification *)notification {
 		//	[_shroud setAlphaValue:1];
 		//	[self performSelectorOnMainThread:@selector(capture) withObject:nil waitUntilDone:YES];
 	[NSThread performBlockInBackground:^{
 		[self capture];
-		[[NSThread mainThread] performBlock:^{
-			[_shroud orderFrontRegardless];
-			[_window orderFrontRegardless];
+			[[NSThread mainThread] performBlock:^{
+//			[_shroud orderFrontRegardless];
+//			[_window orderFrontRegardless];
 			[NSAnimationContext beginGrouping];
-			[[_window animator]setFrame:barFrame display:YES animate:YES];
-			[[_shroud animator]setFrame:pushedScreenRect display:YES animate:YES];
+			[[NSAnimationContext currentContext]setDuration:2];
+			[[NSAnimationContext currentContext]setTimingFunction:[CAMediaTimingFunction functionWithName:
+			kCAMediaTimingFunctionEaseInEaseOut]];
+
+
+			[[_window animator]setFrame:_barFrame display:YES animate:YES];
+			[[_shroud animator]setFrame:AZRectVerticallyOffsetBy(AZMenulessScreenRect(),-_barFrame.size.height) display:YES animate:YES];
 			[NSAnimationContext endGrouping];
 		} waitUntilDone:YES];
 	}];
-
-	refreshWhileActiveTimer = [NSTimer scheduledTimerWithTimeInterval:.05 target:self selector:@selector(capture) userInfo:nil repeats:YES];
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {

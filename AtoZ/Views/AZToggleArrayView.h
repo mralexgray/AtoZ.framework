@@ -63,33 +63,77 @@ __MAC_OS_X_VERSION_MIN_REQUIRED > __MAC_10_7))
  The view also responds to user's interaction (only mouse is handled in this example) and
  updates the toggle status when the layer is clicked.
  */
-@protocol AZToggleArrayViewDelegate;
-@interface AZToggleArrayView : NSView
-{
-	CALayer* containerLayer;
-	CALayer* rootLayer;
 
-	@private
 
-		id<AZToggleArrayViewDelegate> __ah_weak _delegate;
 
+@interface AZToggle : BaseModel
+
+@property (nonatomic, retain) NSString *name;
+@property (nonatomic, retain) NSString *relative;
+@property (nonatomic, retain) NSString *onText;
+@property (nonatomic, retain) NSString *offText;
+@property (nonatomic, assign) BOOL state;
+
++ (instancetype) instanceWithObject:(id)object;
+@end;
+
+
+@class  	AZToggleControlLayer;//, AZToggle;
+@protocol 	AZToggleArrayViewDelegate;
+
+@interface 	AZToggleArrayView : NSView	{
+//	@private
+//		id<AZToggleArrayViewDelegate> __ah_weak _delegate;
 }
+
+
+- (CALayer*) 				  itemLayerWithName:(NSString*)name
+						  relativeTo:(NSString*)relative
+							  onText:(NSString*)onText
+							 offText:(NSString*)offText
+							   state:(BOOL)state
+							   index:(NSUInteger)index;
+
+
+- (AZToggleControlLayer*) toggleLayerWithOnText:(NSString*)onText
+										offText:(NSString*)offText
+								   initialState:(BOOL)state;
+
+- (CATextLayer*) 		  itemTextLayerWithName:(NSString*)name;
+
+- (CALayer*) 				  itemLayerWithName:(NSString*)name
+						  relativeTo:(NSString*)relative
+							   index:(NSUInteger)index;
+
+
+
+@property (readonly) CALayer* containerLayer;
+@property (readonly) CALayer* rootLayer;
+
+// ------
+
 @property (nonatomic, ah_weak) IBOutlet id<AZToggleArrayViewDelegate> delegate;
-
-
 @end
 
 @protocol AZToggleArrayViewDelegate <NSObject>
 @required
-- (NSArray*)questionsForToggleView:(AZToggleArrayView *) view;
-@optional
-- (void)toggleStateDidChangeTo:(BOOL)state InToggleViewArray:(AZToggleArrayView *) view WithName:(NSString *)name;
 
+- (NSArray*)questionsForToggleView:(AZToggleArrayView *) view;
+
+@optional
+
+- (NSArray*) itemsForToggleView:(AZToggleArrayView *) view;
+- (void)toggleStateDidChangeTo:(BOOL)state InToggleViewArray:(AZToggleArrayView *) view WithName:(NSString *)name;
 
 @end
 
-
-
+//return @[[ itemLayerWithName:@"Item 2" relativeTo:index:1]];
+	//	[containerLayer addSublayer:[self itemLayerWithName:@"Click these 'buttons' to change state ->"
+	//											 relativeTo:@"Item 2"
+	//												 onText:@"1"
+	//												offText:@"0"
+	//												  state:YES
+	//												  index:1]];
 
 	//////////////////////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////////////////////

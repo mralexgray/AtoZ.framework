@@ -8,11 +8,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AtoZ/Categories/NSString+AtoZ.m"
-         timestampString = "366900002.978202"
+         timestampString = "367273420.151236"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "43"
-         endingLineNumber = "43"
+         startingLineNumber = "64"
+         endingLineNumber = "64"
          landmarkName = "+applicationSupportFolder"
          landmarkType = "5">
       </FileBreakpoint>

@@ -7,6 +7,9 @@
 
 @interface NSString (AtoZ)
 
+-(NSString*) urlEncoded;
+-(NSString*) urlDecoded;
+
 - (NSString *)firstLetter;
 + (NSString *)newUniqueIdentifier;
 + (NSString*) applicationSupportFolder;

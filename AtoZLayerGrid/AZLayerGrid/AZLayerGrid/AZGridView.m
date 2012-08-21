@@ -38,12 +38,12 @@
 
 - (void) doLayout {
 
-	NSRect r 	= [AZSizer structForQuantity:[AtoZ dockSorted		].count inRect:[self frame]];
+//	NSRect r 	= [AZSizer structForQuantity:[AtoZ dockSorted		].count inRect:[self frame]];
 //				   contentLayer.sublayers.count inRect:[self frame]];
-	NSLog(@"Sizer rect: %@", NSStringFromRect(r));
-	int columns = r.origin.y;
-	int rows 	= r.origin.x;
-	NSSize s 	= NSMakeSize(r.size.width, r.size.height);
+//	NSLog(@"Sizer rect: %@", NSStringFromRect(r));
+	int columns =  10;//r.origin.y;
+	int rows 	= 10;  //r.origin.x;
+	NSSize s 	= NSMakeSize(40, 40);//r.size.width, r.size.height);
 	NSUInteger rowindex,  columnindex;
 	rowindex = columnindex = 0;
 	for (AZFile *file in [AtoZ dock]) {

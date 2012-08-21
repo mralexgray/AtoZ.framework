@@ -19,19 +19,23 @@
 
 @implementation AZSourceListViewController
 //@synthesize tv = _tv, sourceList= _sourceList;
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-		[self makeBadges];
-    }
-    
-    return self;
+//- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
+//    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+//    if (self) {
+//		[self makeBadges];
+//    }    return self;
+//}
+
+- (void) awakeFromNib {
+	[self makeBadges];
 }
 
+- (NSArray*)itemsForToggleView:(AZToggleArrayView *)view {
 
-
-
+	return 	@[/*	[view itemTextLayerWithName:@"Sort:" ],*/
+				[view itemLayerWithName:	@"Color" relativeTo:@"superlayer" index:0],
+				[view itemLayerWithName:	@"A-Z" relativeTo:@"Color" 	index:1]	];
+}
 - (NSArray*)questionsForToggleView:(AZToggleArrayView *) view{
 	return 	@[@"Sort Alphabetically?", @"Sort By Color?" , @"Sort like Dock", @"Sort by \"Category\"?", @"Show extra app info?" ];
 

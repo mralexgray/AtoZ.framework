@@ -423,8 +423,28 @@ NSSize AZSizeBound(NSSize preferred, NSSize minSize, NSSize maxSize) {
 // NSRect result functions
 //
 
+
+NSRect AZRectVerticallyOffsetBy(CGRect rect, CGFloat offset) {
+	rect.origin.y += offset;
+	return  rect;
+}
+
+NSRect AZFlipRectinRect(CGRect local, CGRect dest)
+{
+	NSPoint a = NSZeroPoint;
+	a.x = dest.size.width - local.size.width;
+	a.y = dest.size.height - local.size.height;
+	return AZMakeRect(a,local.size);
+}
+
 NSRect AZSquareFromLength(CGFloat length) {
 	return  AZMakeRectFromSize(NSMakeSize(length,length));
+}
+
+NSRect AZMenulessScreenRect() {
+	NSRect e = AZScreenFrame();
+	e.size.height -= 22;
+	return e;
 }
 
 NSRect AZMakeRectMaxXUnderMenuBarY(CGFloat distance) {

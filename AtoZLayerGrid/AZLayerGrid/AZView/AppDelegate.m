@@ -19,12 +19,12 @@
 	__block NSMutableArray *crap;
 	
 }
-@synthesize mouseTest;
-@synthesize mouseAction;
-@synthesize point1x;
-@synthesize point1y;
-@synthesize point2x;
-@synthesize point2y;
+//@synthesize mouseTest;
+//@synthesize mouseAction;
+//@synthesize point1x;
+//@synthesize point1y;
+//@synthesize point2x;
+//@synthesize point2y;
 @synthesize window = _window, unit;
 
 

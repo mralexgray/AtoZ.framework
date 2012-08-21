@@ -46,7 +46,7 @@
 }
 
 - (void) applicationDidResignActive:(NSNotification *)notification {
-	[[NSApplication sharedApplication]hide:self];
+//	[[NSApplication sharedApplication]hide:self];
 }
 - (void)applicationWillTerminate:(NSNotification *)notification {
 	[self saveNotes];

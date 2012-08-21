@@ -16,6 +16,27 @@
 @implementation NSString (AtoZ)
 
 
+- (NSString*)urlEncoded {
+		// Encode all the reserved characters, per RFC 3986
+//	CFStringRef escaped =
+//	return (__bridge NSString *) CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
+//                                            (CFStringRef)self, NULL,
+//                                            (CFStringRef)@"!*'();:@&=+$,/?%#[]",kCFStringEncodingUTF8);
+//@"~!@#$%^&*():{}\"€!*’();:@&=+$,/?%#[]",
+	return (__bridge_transfer NSString*) CFURLCreateStringByAddingPercentEscapes(	NULL, (CFStringRef)self, NULL,
+				(CFStringRef)@"!*'();:@&=+$,/?%#[]", kCFStringEncodingUTF8 );
+}
+
+-(NSString*) urlDecoded {
+	NSMutableString *resultString = [NSMutableString stringWithString:self];
+	[resultString replaceOccurrencesOfString:@"+"
+								  withString:@" "
+									 options:NSLiteralSearch
+									   range:NSMakeRange(0, [resultString length])];
+	return [resultString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+}
+
+
 - (NSString *)firstLetter {
 	return [self substringWithRange:NSMakeRange(0, 1)];
 }

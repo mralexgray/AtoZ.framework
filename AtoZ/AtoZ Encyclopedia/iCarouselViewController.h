@@ -8,11 +8,22 @@ typedef  enum {
 	AZOffsetFieldsVy
 }	AZOffsetFields;
 
-@interface iCarouselViewController : NSViewController
+@interface iCarouselViewController : NSObject
 									<iCarouselDataSource, iCarouselDelegate>
+
+@property (nonatomic, assign) iCarouselType type;
+@property (nonatomic, retain) NSNumber *vScale;
+@property (nonatomic, retain) NSNumber *cScale;
+
+@property (nonatomic, retain) AZAttachedWindow *attache;
+@property (weak) IBOutlet NSView *attacheView;
 
 @property (nonatomic, assign) IBOutlet iCarousel *carousel;
 @property (nonatomic, assign) NSUInteger iconStyle;
+@property (nonatomic, assign) float size;
+@property (nonatomic, assign) float multi;
+@property (nonatomic, assign) float space;
+
 - (IBAction)readFormAndReload:(id)sender;
 
 - (IBAction)setOffsets:(id)sender;

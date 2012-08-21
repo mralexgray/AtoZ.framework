@@ -6,6 +6,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "AtoZ.h"
 
 /*
  Below are the positions the attached window can be displayed at.
@@ -141,29 +142,7 @@ typedef enum _AZWindowPosition {
 - (NSColor *)windowBackgroundColor;                    // See note 4 below.
 - (void)setBackgroundColor:(NSColor *)value;
 @property (retain, nonatomic) NSView *view;
-/*
- Notes regarding accessor methods:
- 
- 1. The border is drawn inside the viewMargin area, expanding inwards; it does not 
-    increase the width/height of the window. You can use the -setBorderWidth: and 
-    -setViewMargin: methods together to achieve the exact look/geometry you want.
-    (viewMargin is the distance between the edge of the view and the window edge.)
- 
- 2. The specified setter methods are primarily intended to be used _before_ the window 
-    is first shown. If you use them while the window is already visible, be aware 
-    that they may cause the window to move and/or resize, in order to stay anchored 
-    to the point specified in the initializer. They may also cause the view to move 
-    within the window, in order to remain centered there.
- 
-    Note that the -setHasArrow: method can safely be used at any time, and will not 
-    cause moving/resizing of the window. This is for convenience, in case you want 
-    to add or remove the arrow in response to user interaction. For example, you 
-    could make the attached window movable by its background, and if the user dragged 
-    it away from its initial point, the arrow could be removed. This would duplicate 
-    how Aperture's attached windows behave.
- 
- 3. drawsRoundCornerBesideArrow takes effect when the arrow is being drawn at a corner,
-    i.e. when it's not at one of the four primary compass directions. In this situation, 
+/* ot at one of the four primary compass directions. In this situation, 
     if drawsRoundCornerBesideArrow is YES (the default), then that corner of the window 
     will be rounded just like the other three corners, thus the arrow will be inset 
     slightly from the edge of the window to allow room for the rounded corner. If this 

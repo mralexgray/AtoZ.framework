@@ -2150,6 +2150,10 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
 }
 
 - (void)scrollWheel:(NSEvent *)theEvent {
+
+
+
+
 	_didDrag = YES;
     if (_scrollEnabled)
     {
