@@ -9,8 +9,9 @@
 #import <Cocoa/Cocoa.h>
 #import <AtoZ/AtoZ.h>
 #import "AZStatusItemView.h"
+#define EXCLUDE_STUB_PROTOTYPES 1
 #import <PLWeakCompatibility/PLWeakCompatibilityStubs.h>
-//#import "ControlBar.h"
+#import "ControlBar.h"
 
 #import <ApplicationServices/ApplicationServices.h>
 #import <Carbon/Carbon.h>

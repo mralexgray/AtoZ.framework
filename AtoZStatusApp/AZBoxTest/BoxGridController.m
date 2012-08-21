@@ -10,33 +10,33 @@
 
 @implementation BoxGridController
 
-
-datasource = [NSMutableArray array];
-[AZStopwatch start:@"makingBoxes:100"];
-
-//			for(int i=0; i<; i++) // This creates 59000 elements!    {
-[[[[NSWorkspace sharedWorkspace] runningApplications]valueForKeyPath:@"icon"]  enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-	[datasource addObject:obj];
-}];
-
-//		NSRect win = [bar bounds];
-//		float adjust = win.size.width*.5;
-//		win.size.width -= adjust;
-//		win.origin.x += adjust;
-//	[[scroller documentView] setFrame:NSMakeRect(0,0,datasource.count*10,200)];
-//	[scroller setHasHorizontalScroller:YES];
-//	win.size.width = [datasource count]*1000 * bar.bounds.size.height;
-//	grid = [[AZBoxGrid alloc] initWithFrame:win];
-grid.desiredNumberOfRows= 1;
-//	grid.desiredNumberOfColumns = 10000;
-grid.dataSource = self;
-//	grid.delegate = self;
-fakeDataSourceCount = datasource.count;
-[self foolBoxGrid];
-[AZStopwatch stop:@"makingBoxes:100"];
+//
+//datasource = [NSMutableArray array];
+//[AZStopwatch start:@"makingBoxes:100"];
+//
+////			for(int i=0; i<; i++) // This creates 59000 elements!    {
+//[[[[NSWorkspace sharedWorkspace] runningApplications]valueForKeyPath:@"icon"]  enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+//	[datasource addObject:obj];
+//}];
+//
+////		NSRect win = [bar bounds];
+////		float adjust = win.size.width*.5;
+////		win.size.width -= adjust;
+////		win.origin.x += adjust;
+////	[[scroller documentView] setFrame:NSMakeRect(0,0,datasource.count*10,200)];
+////	[scroller setHasHorizontalScroller:YES];
+////	win.size.width = [datasource count]*1000 * bar.bounds.size.height;
+////	grid = [[AZBoxGrid alloc] initWithFrame:win];
+//grid.desiredNumberOfRows= 1;
+////	grid.desiredNumberOfColumns = 10000;
+//grid.dataSource = self;
+////	grid.delegate = self;
+//fakeDataSourceCount = datasource.count;
+//[self foolBoxGrid];
+//[AZStopwatch stop:@"makingBoxes:100"];
 //	[grid setAllowsMultipleSelection:YES];
 
-NSLog(@"grid methods %@",[ NSStringFromClass([grid class]) methodNames]);
+//NSLog(@"grid methods %@",[ NSStringFromClass([grid class]) methodNames]);
 
 
 - (void) foolBoxGrid{

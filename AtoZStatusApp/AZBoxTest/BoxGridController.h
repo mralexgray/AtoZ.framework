@@ -9,16 +9,16 @@
 #import <Foundation/Foundation.h>
 
 @interface BoxGridController : NSObject
-<AZBoxGridDataSource, 	AZBoxGridDataSource>
+//<AZBoxGridDataSource, 	AZBoxGridDataSource>
 {
-	AZBoxGrid *grid;
+//	AZBoxGrid *grid;
 	IBOutlet NSScrollView *scroller;
 	IBOutlet NSView *rootView;
-	IBOutlet AZToggleView *bar;
+//	IBOutlet AZToggleView *bar;
 //    IBOutlet NSTextField *textField;
 }
 
-@property (nonatomic, retain)  IBOutlet AZBoxGrid *grid;
+//@property (nonatomic, retain)  IBOutlet AZBoxGrid *grid;
 @property (nonatomic, retain)  IBOutlet NSScrollView *scroller;
 
 

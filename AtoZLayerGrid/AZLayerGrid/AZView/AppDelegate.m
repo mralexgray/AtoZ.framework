@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import <AtoZ/AtoZ.h>
 #import <QuartzCore/QuartzCore.h>
+
 @implementation AppDelegate
 {
 	NSUInteger hoveredIndex;
@@ -56,21 +57,21 @@
 											   object: nil];
 	
 	
-	[NSEvent addLocalMonitorForEventsMatchingMask:NSMouseMovedMask handler:^NSEvent *(NSEvent *event) {
-		//		if ([event type] == NSMouseMovedMask ) {
-		NSPoint localP = [[_window contentView]localPoint];
-		if ( NSPointInRect(localP, i.frame) ){
-			hoveredIndex = floor(localP.x / unit.floatValue);
-			NSUInteger notzero = (hoveredIndex > 3 ? (hoveredIndex -3) : 0 );
-			scaledRange = NSMakeRange( notzero, 6);
-			NSLog(@"scaledRange set: %@", NSStringFromRange(scaledRange));
-			NSLog(@"Mouse moved in window. LocalP: %@.. index:%ld", NSStringFromPoint(localP), hoveredIndex);
-			[self shuffleAndShowIfNeeded];
-		} else { hoveredIndex = 10101010;  NSLog(@"Index: %ld",hoveredIndex); }
-		//		}
-		return event;
-	}];
-	
+//	[NSEvent addLocalMonitorForEventsMatchingMask:NSMouseMovedMask handler:^NSEvent *(NSEvent *event) {
+//		// if ([event type] == NSMouseMovedMask ) {
+//		NSPoint localP = [[_window contentView]localPoint];
+//		if ( NSPointInRect(_localP, i.frame) ){
+//			hoveredIndex = floor(localP.x / unit.floatValue);
+//			NSUInteger notzero = (hoveredIndex > 3 ? (hoveredIndex -3) : 0 );
+//			scaledRange = NSMakeRange( notzero, 6);
+//			NSLog(@"scaledRange set: %@", NSStringFromRange(scaledRange));
+//			NSLog(@"Mouse moved in window. LocalP: %@.. index:%ld", NSStringFromPoint(localP), hoveredIndex);
+//			[self shuffleAndShowIfNeeded];
+//		} else { hoveredIndex = 10101010;  NSLog(@"Index: %ld",hoveredIndex); }
+//		//		}
+//		return event;
+//	}];
+
 	//	NSLog(@"%@",crap = [AtoZ runningApps]);//[NSStringFromClass([i class]) methodNames]);
 	
 	

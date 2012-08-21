@@ -120,7 +120,7 @@
 			return e;
 		}].mutableCopy;
 		[[NSThread mainThread] performBlock:^{
-			[infiniteBlocks setInfiniteVi arrayOfBlocks];
+//			[infiniteBlocks setInfinit arrayOfBlocks];
 			[pIndi stopAnimation:pIndi];
 		}];
 		
