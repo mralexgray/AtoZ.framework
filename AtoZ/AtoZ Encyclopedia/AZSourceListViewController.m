@@ -192,10 +192,10 @@
 			return ( [object.uniqueID isEqualTo:identifier] ? YES : NO);
 		}];
 		CGPoint now = [[AZDockQuery instance]locationNowForAppWithPath:first.path];
-		self.point1x = $(@"%f",now.x);// setStringValue:$(@"%f",now.x)];
-		self.point1y = $(@"%f",now.y); //setStringValue:$(@"%f",now.y)];
-		self.point2x = $(@"%f",first.dockPointNew.x);//setStringValue:$(@"%f",first.dockPointNew.x)];
-		self.point2y = $(@"%f",first.dockPointNew.y);
+//		self.point1x = $(@"%f",now.x);// setStringValue:$(@"%f",now.x)];
+//		self.point1y = $(@"%f",now.y); //setStringValue:$(@"%f",now.y)];
+//		self.point2x = $(@"%f",first.dockPointNew.x);//setStringValue:$(@"%f",first.dockPointNew.x)];
+//		self.point2y = $(@"%f",first.dockPointNew.y);
 
 	}
 	if([selectedIndexes count]==2)
@@ -204,8 +204,8 @@
 		AZFile *first = [[AtoZ dockSorted] filterOne:^BOOL(AZFile* object) {
 			return ( [object.uniqueID isEqualTo:identifier] ? YES : NO);
 		}];
-		self.point2x = $(@"%f",first.dockPoint.x);
-		self.point2y = $(@"%f",first.dockPoint.y);
+//		self.point2x = $(@"%f",first.dockPoint.x);
+//		self.point2y = $(@"%f",first.dockPoint.y);
 	}
 
 		//Set the label text to represent the new selection

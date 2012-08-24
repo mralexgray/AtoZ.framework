@@ -171,7 +171,7 @@
 }
 - (void)carousel:(iCarousel *)carousel didSelectItemAtIndex:(NSInteger)index {
 
-	NSView *v = [self.carousel itemViewAtIndex:index];
+	NSView *v = [_carousel itemViewAtIndex:index];
 		//	[AtoZiTunes searchForFile:[[AtoZ currentScope]objectAtIndex:index]];
 		// [[[AtoZ dockSorted]objectAtIndex:index]valueForKey:@"name"]];
 		//	NSLog(@"response: %@", r);
@@ -321,10 +321,10 @@
 - (NSView *)carousel:(iCarousel *)carousel viewForItemAtIndex:(NSUInteger)index reusingView:(NSView *)view {
 if (!view) {
 		//    NSTextField *label = nil;
-	AZFile* f = [[AtoZ dockSorted]objectAtIndex:index];   NSColor *c = f.color;
-	if (!c) { 		NSLog(@"no colore! reload! (idx:%ld)",index); [carousel reloadData]; }
 	if (view == nil)     //create new view if no view is available for recycling
 	{
+		AZFile* f = [[AtoZ dockSorted]objectAtIndex:index];   NSColor *c = f.color;
+		if (!c) { 		NSLog(@"no colore! reload! (idx:%ld)",index); [carousel reloadData]; }
 		NSLog(@"view nil, making it (idx:%ld), again", index);
 		NSImage *ico = 	f.image;
 		NSSize icosize = AZSizeFromDimension(self.size);
@@ -356,14 +356,10 @@ if (!view) {
 			case 2: {
 					//		if (c) image = [image tintedWithColor:c];
 					//[self carouselItemWidth:_carousel], _carousel.frame.size.height)];
-
 				[swatch lockFocus];
-					//			ico.size = icosize;
 				[ico drawInRect:icorect fromRect:NSZeroRect operation:NSCompositeDestinationIn fraction:1];
-
-					//			[[ico filteredMonochromeEdge] drawCenteredinRect:icorect/*AZRightEdge(AZUpperEdge(icorect, 40), 40) */ operation:NSCompositeDestinationIn fraction:1];
-
-					//			[[ico filteredMonochromeEdge] drawCenteredinRect:AZRightEdge(AZUpperEdge(icorect, 40), 40) operation:NSCompositeSourceOver fraction:1];
+					//	[[ico filteredMonochromeEdge] drawCenteredinRect:icorect/*AZRightEdge(AZUpperEdge(icorect, 40), 40) */ operation:NSCompositeDestinationIn fraction:1];
+					//	[[ico filteredMonochromeEdge] drawCenteredinRect:AZRightEdge(AZUpperEdge(icorect, 40), 40) operation:NSCompositeSourceOver fraction:1];
 				NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString: desc.firstLetter attributes:@{ NSFontAttributeName: [NSFont fontWithName:@"Ubuntu Mono Bold" size:190],
 																	  NSForegroundColorAttributeName :WHITE} ];
 					//			[theStyle setLineSpacing:12];

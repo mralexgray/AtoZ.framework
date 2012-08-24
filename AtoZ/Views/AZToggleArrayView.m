@@ -1,13 +1,10 @@
-//
 //  ContentsView.m
 //  CoreAnimationToggleLayer
 //
 //  Created by Tomaz Kragelj on 8.12.09.
 //  Copyright (C) 2009 Gentle Bytes. All rights reserved.
-//
 
 #import <AtoZ/AtoZ.h>
-
 //#import "AZToggleControlLayer.h"
 #import "AZToggleArrayView.h"
 
@@ -23,27 +20,15 @@
 
 @end
 
-
-//
 //
 //@implementation AZToggleArrayView
 //
 //- (id) layerForToggle:(AZToggle*)toggle {
 //
-//	[[toggle codableKeys]
-//
-//		CALayer *l = [CALayer layer];
-//		
-//		return  itemW]
-//	}
+//	[[toggle codableKeys]	CALayer *l = [CALayer layer];	return  itemW]
 //}
 //
 //@end
-
-
-
-#pragma mark -
-
 
 
 #pragma mark -
@@ -53,17 +38,16 @@
 
 #pragma mark Initialization & disposal
 
-- (void) awakeFromNib
-{
+- (void) awakeFromNib 	{
 	self.layer = self.rootLayer;
 	self.wantsLayer = YES;
 }
 
 #pragma mark NSView overrides
 
-- (void) setFrame:(NSRect)frameRect
-{
-	// Disable animations whie resizing view; this makes the behavior more consistent.
+- (void) setFrame:(NSRect)frameRect	{
+
+// Disable animations whie resizing view; this makes the behavior more consistent.
 	[CATransaction begin];
 	[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
 	[super setFrame:frameRect];
@@ -82,24 +66,15 @@
 	}
 }
 
+- (AZToggleControlLayer*) toggleLayerWithOnText:(NSString*)onText		offText:(NSString*)offText
+								   initialState:(BOOL)state				  title: (NSString*)title	{
 
-
-- (AZToggleControlLayer*) toggleLayerWithOnText:(NSString*)onText
-										offText:(NSString*)offText
-								   initialState:(BOOL)state
-										  title: (NSString*)title
-{
 	AZToggleControlLayer* result = [AZToggleControlLayer layer];
 	result.name = @"toggle"; //title
 	result.toggleState = state;
+	result.constraints = @[ 		AZConstRelSuperScaleOff(kCAConstraintMaxX,1,-5.0f),
+								AZConstRelSuper(kCAConstraintMidY)	];
 
-	[result addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMaxX
-													 relativeTo:@"superlayer"
-													  attribute:kCAConstraintMaxX
-														 offset:-5.0f]];
-	[result addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMidY
-													 relativeTo:@"superlayer"
-													  attribute:kCAConstraintMidY]];
 	if (onText) result.onStateText = onText;
 	if (offText) result.offStateText = offText;
 	[result setValue:@80.0f forKeyPath:@"frame.size.width"];
@@ -107,19 +82,20 @@
 	return result;
 }
 
-- (CATextLayer*) itemTextLayerWithName:(NSString*)name
-{
+- (CATextLayer*) itemTextLayerWithName:(NSString*)name  {
+
 	CATextLayer* result = [CATextLayer layer];
 	result.name = @"text";
 	result.string = name;
-		//	result.foregroundColor =  CGColorCreateGenericRGB(1.0f, 1.0f, 1.0f, .89f);
-		//	result.fontSize = 18;//[NSFont systemFontSize];
+	//	result.foregroundColor =  CGColorCreateGenericRGB(1.0f, 1.0f, 1.0f, .89f);
+	//	result.fontSize = 18;//[NSFont systemFontSize];
 
 	result.fontSize = ([_containerLayer respondsToSelector:@selector(fontSize)] ? (CGFloat)[[_containerLayer valueForKey:@"fontSize"]floatValue] : 18);
-		// [NSFont smallSystemFontSize];
+	// [NSFont smallSystemFontSize];
 	result.font =(__bridge CFStringRef) @"Ubuntu Mono Bold";
 
-		//	result.font = (__bridge CFTypeRef)[NSFont fontWithName:@"Ubuntu Mono Bold" size:18];// [NSFont systemFontOfSize:result.fontSize];(__bridge CFTypeRef)((id)
+	//	result.font = (__bridge CFTypeRef)[NSFont fontWithName:@"Ubuntu Mono Bold" size:18];
+	// [NSFont systemFontOfSize:result.fontSize];(__bridge CFTypeRef)((id)
 	result.alignmentMode = kCAAlignmentLeft;
 	result.truncationMode = kCATruncationEnd;
 	result.borderColor = kGBDebugLayerBorderColor;
@@ -127,18 +103,9 @@
 	result.constraints = @[ //AZConstRelSuperScaleOff(kCAConstraintMinX, 1, 5),
 							AZConstAttrRelNameAttrScaleOff(kCAConstraintMaxX,@"toggle", kCAConstraintMinX, 1, -5),
 							AZConstRelSuper(kCAConstraintMidY)	];
-		//	[result addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMaxX
-		//													 relativeTo:@"toggle"
-		//													  attribute:kCAConstraintMinX
-		//														 offset:-5.0f]];
+							//	[result addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMaxX relativeTo:@"toggle" attribute:kCAConstraintMinX offset:-5.0f]];
 	return result;
 }
-
-
-
-
-
-
 
 - (CALayer*) itemLayerWithName:(NSString*)name
 					relativeTo:(NSString*)relative
@@ -159,17 +126,12 @@
 	result.borderColor = kGBDebugLayerBorderColor;
 	result.borderWidth = kGBDebugLayerBorderWidth;
 	result.layoutManager = [CAConstraintLayoutManager layoutManager];
-	[result addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMidX
-													 relativeTo:@"superlayer"
-													  attribute:kCAConstraintMidX]];
-	[result addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintWidth
-													 relativeTo:@"superlayer"
-													  attribute:kCAConstraintWidth
-														 offset:-10.0]];
-	[result addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMaxY
-													 relativeTo:relative
-													  attribute:(index == 0) ? kCAConstraintMaxY : kCAConstraintMinY
-														 offset:(index == 0 ? -7.0f : -5.0f)]];
+	result.constraints 	= @[ AZConstRelSuper(kCAConstraintMidX),
+							AZConstRelSuperScaleOff( kCAConstraintWidth, 1, -10.0 ),
+							AZConstAttrRelNameAttrScaleOff(kCAConstraintMaxY, relative,
+							(index == 0) ? kCAConstraintMaxY : kCAConstraintMinY, 1,
+							 (index == 0 ? -7.0f : -5.0f) ) ];
+							 
 	[result setValue:@30.0f forKeyPath:@"frame.size.height"];
 	[result addSublayer:[self itemTextLayerWithName:name]];
 	[result addSublayer:[self toggleLayerWithOnText:onText offText:offText initialState:state title:name]];
@@ -186,9 +148,9 @@
 	_containerLayer.borderWidth   = kGBDebugLayerBorderWidth;
 	_containerLayer.layoutManager = [CAConstraintLayoutManager layoutManager];
 	_containerLayer.constraints   = @[	AZConstRelSuper(kCAConstraintMidX),
-	AZConstRelSuperScaleOff(kCAConstraintWidth, 1, 0), //-20f
-	AZConstRelSuper(kCAConstraintMidY),
-	AZConstRelSuperScaleOff(kCAConstraintHeight, 1, 0) ];//-20.0f
+										AZConstRelSuperScaleOff(kCAConstraintWidth, 1, 0), //-20f
+										AZConstRelSuper(kCAConstraintMidY),
+										AZConstRelSuperScaleOff(kCAConstraintHeight, 1, 0) ];//-20.0f
 
 		// This is a bit of fast hacking; it would be better to use array of item names or similar.
 		// Or in a real-world situation, the layers would be added by binding to a data source
@@ -337,49 +299,26 @@
 	return self;
 }
 
-- (void) dealloc
-{
-	onBackLayer = nil;
-	offBackLayer = nil;
-}
+- (void) dealloc	{	onBackLayer = nil;	offBackLayer = nil;	}
 
 #pragma mark Toggle state handling
 
-- (void) reverseToggleState
-{
-	self.toggleState = !self.toggleState;
+- (void) reverseToggleState			{	self.toggleState = !self.toggleState;	}
+
+- (BOOL) toggleState				{	return toggleState;						}
+
+- (void) setToggleState:(BOOL)value	{
+
+	if (value != toggleState)		{	toggleState = value;	[self setNeedsLayout];	}
 }
 
-- (BOOL) toggleState
-{
-	return toggleState;
-}
-- (void) setToggleState:(BOOL)value
-{
-	if (value != toggleState)
-	{
-		toggleState = value;
-		[self setNeedsLayout];
-	}
-}
+- (NSString*) onStateText			{	return self.onTextLayer.string;				}
 
-- (NSString*) onStateText
-{
-	return self.onTextLayer.string;
-}
-- (void) setOnStateText:(NSString*)value
-{
-	self.onTextLayer.string = value;
-}
+- (void) setOnStateText:(NSString*)value	{	self.onTextLayer.string = value;	}
 
-- (NSString*) offStateText
-{
-	return self.offTextLayer.string;
-}
-- (void) setOffStateText:(NSString*)value
-{
-	self.offTextLayer.string = value;
-}
+- (NSString*) offStateText			{	return self.offTextLayer.string;		}
+
+- (void) setOffStateText:(NSString*)value	{	self.offTextLayer.string = value;	}
 
 #pragma mark CALayoutManager handling
 

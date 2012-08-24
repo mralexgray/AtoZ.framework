@@ -66,16 +66,16 @@ __MAC_OS_X_VERSION_MIN_REQUIRED > __MAC_10_7))
 
 
 
-@interface AZToggle : BaseModel
-
-@property (nonatomic, retain) NSString *name;
-@property (nonatomic, retain) NSString *relative;
-@property (nonatomic, retain) NSString *onText;
-@property (nonatomic, retain) NSString *offText;
-@property (nonatomic, assign) BOOL state;
-
-+ (instancetype) instanceWithObject:(id)object;
-@end;
+//@interface AZToggle : BaseModel
+//
+//@property (nonatomic, retain) NSString *name;
+//@property (nonatomic, retain) NSString *relative;
+//@property (nonatomic, retain) NSString *onText;
+//@property (nonatomic, retain) NSString *offText;
+//@property (nonatomic, assign) BOOL toggleState;
+//
+//+ (AZToggle*) instanceWithObject:(id)object;
+//@end;
 
 
 @class  	AZToggleControlLayer;//, AZToggle;

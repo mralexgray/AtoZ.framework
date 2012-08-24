@@ -32,6 +32,11 @@
  (c) The algorithm isn't perfect. :) If in doubt, do your own calculations and then 
      explicitly request that the window attach itself to a particular side.
  */
+typedef enum {
+AZUp,
+AZDown
+
+} AZSliding;
 
 typedef enum _AZWindowPosition {
     // The four primary sides are compatible with the preferredEdge of NSDrawer.
@@ -51,16 +56,7 @@ typedef enum _AZWindowPosition {
 } AZWindowPosition;
 
 @interface AZAttachedWindow : NSWindow {
-    NSColor *borderColor;
-    float borderWidth;
-    float viewMargin;
-    float arrowBaseWidth;
-    float arrowHeight;
-    BOOL hasArrow;
-    float cornerRadius;
-    BOOL drawsRoundCornerBesideArrow;
-    
-    @private
+     @private
     NSColor *_AZBackgroundColor;
 	NSView *_view;
  	NSWindow *_window;
@@ -70,10 +66,19 @@ typedef enum _AZWindowPosition {
     NSRect _viewFrame;
     BOOL _resizing;
 }
+@property (retain, nonatomic) NSColor *borderColor;
+@property (assign, nonatomic) float borderWidth;
+@property (assign, nonatomic) float viewMargin;
+@property (assign, nonatomic) float arrowBaseWidth;
+@property (assign, nonatomic) float arrowHeight;
+@property (assign) BOOL hasArrow;
+@property (assign, nonatomic) float cornerRadius;
+@property (assign, nonatomic) BOOL drawsRoundCornerBesideArrow;
+
 
 /*
  Initialization methods
- 
+
  Parameters:
  
  view       The view to display in the attached window. Must not be nil.
@@ -87,7 +92,7 @@ typedef enum _AZWindowPosition {
  window     The parent window to attach this one to. Note that no actual 
             relationship is created (particularly, this window is not made 
             a childWindow of the parent window).
-            Default: nil.
+ r            Default: nil.
  
  side       The side of the specified point on which to attach this window.
             Default: AZPositionAutomatic.
@@ -122,25 +127,26 @@ typedef enum _AZWindowPosition {
                    attachedToPoint:(NSPoint)point;
 
 // Accessor methods
-- (NSColor *)borderColor;
-- (void)setBorderColor:(NSColor *)value;
-- (float)borderWidth;
-- (void)setBorderWidth:(float)value;                   // See note 1 below.
-- (float)viewMargin;
-- (void)setViewMargin:(float)value;                    // See note 2 below.
-- (float)arrowBaseWidth;
-- (void)setArrowBaseWidth:(float)value;                // See note 2 below.
-- (float)arrowHeight;
-- (void)setArrowHeight:(float)value;                   // See note 2 below.
-- (float)hasArrow;
-- (void)setHasArrow:(float)value;
-- (float)cornerRadius;
-- (void)setCornerRadius:(float)value;                  // See note 2 below.
-- (float)drawsRoundCornerBesideArrow;                  // See note 3 below.
-- (void)setDrawsRoundCornerBesideArrow:(float)value;   // See note 2 below.
-- (void)setBackgroundImage:(NSImage *)value;
-- (NSColor *)windowBackgroundColor;                    // See note 4 below.
-- (void)setBackgroundColor:(NSColor *)value;
+//- (NSColor *)borderColor;
+//- (void)setBorderColor:(NSColor *)value;
+//- (float)borderWidth;
+//- (void)setBorderWidth:(float)value;                   // See note 1 below.
+//- (float)viewMargin;
+//- (void)setViewMargin:(float)value;                    // See note 2 below.
+//- (float)arrowBaseWidth;
+//- (void)setArrowBaseWidth:(float)value;                // See note 2 below.
+//- (float)arrowHeight;
+//- (void)setArrowHeight:(float)value;                   // See note 2 below.
+//- (float)hasArrow;
+//- (void)setHasArrow:(float)value;
+
+//- (float)cornerRadius;
+//- (void)setCornerRadius:(float)value;                  // See note 2 below.
+//- (float)drawsRoundCornerBesideArrow;                  // See note 3 below.
+//- (void)setDrawsRoundCornerBesideArrow:(float)value;   // See note 2 below.
+//- (void)setBackgroundImage:(NSImage *)value;
+//- (NSColor *)windowBackgroundColor;                    // See note 4 below.
+//- (void)setBackgroundColor:(NSColor *)value;
 @property (retain, nonatomic) NSView *view;
 /* ot at one of the four primary compass directions. In this situation, 
     if drawsRoundCornerBesideArrow is YES (the default), then that corner of the window 
@@ -158,5 +164,6 @@ typedef enum _AZWindowPosition {
     the entire background of the window (rounded path, arrow, etc) in an NSColor pattern 
     image, and set it as the backgroundColor of the window.
  */
+@property (nonatomic, assign) AZSliding pos;
 
 @end

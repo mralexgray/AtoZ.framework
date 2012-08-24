@@ -12,6 +12,52 @@
 #import <AppKit/AppKit.h>
 
 
+typedef enum {
+	AZOrientTop,
+	AZOrientLeft,
+	AZOrientBottom,
+	AZOrientRight,
+	AZOrientFiesta
+} AZOrient;
+
+
+typedef enum  {
+	AZInfiteScale0X,
+	AZInfiteScale1X,
+	AZInfiteScale2X,
+	AZInfiteScale3X,
+	AZInfiteScale10X
+} AZInfiteScale;
+
+
+typedef enum  {
+    LeftOn,
+    LeftOff,
+    TopOn,
+    TopOff,
+	RightOn,
+	RightOff,
+	BottomOn,
+	BottomOff
+} AZTrackState;
+
+
+typedef enum  {
+	AZDockSortNatural,
+	AZDockSortColor,
+	AZDockSortPoint,
+	AZDockSortPointNew,
+}	AZDockSort;
+
+typedef enum  {
+	AZSearchByCategory,
+	AZSearchByColor,
+	AZSearchByName,
+	AZSearchByRecent
+} AZSearchBy;
+
+
+
 #define EXCLUDE_STUB_PROTOTYPES 1
 #import <PLWeakCompatibility/PLWeakCompatibilityStubs.h>
 
@@ -21,6 +67,7 @@
 
 #import "BaseModel.h"
 #import "SMModelObject.h"
+#import "AZSimpleView.h"
 
 //#import <AtoZiTunes/AtoZiTunes.h>
 #import "CALayer+AtoZ.h"
@@ -29,8 +76,10 @@
 #import "AZGeometry.h"
 #import "AZVeil.h"
 
+#import "NotificationCenterSpy.h"
 
 #import "TransparentWindow.h"
+
 
 // Categories
 #import "NSThread+AtoZ.h"
@@ -59,10 +108,11 @@
 #import "AZBackground.h"
 #import "AZDarkButtonCell.h"
 
+#import "AZTrackingWindow.h"
 
 #import "AZCSSColors.h"
 
-#import "MondoSwitch.h"
+//#import "MondoSwitch.h"
 #import "AZToggleArrayView.h"
 
 //#import "AZToggleView.h"
@@ -92,12 +142,14 @@
 #import "AZTalker.h"
 #import "AZBoxLayer.h"
 #import "AZOverlay.h"
-#import "AZSimpleView.h"
 #import "AtoZInfinity.h"
 
 #import "AZApplePrivate.h"
 
 #import "RuntimeReporter.h"
+
+
+
 
 CGFloat ScreenWidess();
 CGFloat ScreenHighness();
@@ -105,30 +157,15 @@ CGFloat ScreenHighness();
 extern NSString *const AtoZSharedInstanceUpdated;
 extern NSString *const AtoZDockSortedUpdated;
 
-
-
 @interface NSObject (AtoZDelegate)
 - (void) dockItemDidUpdateValues:(NSNotification*)info;
 @end
 
-typedef enum {
-	AZDockSortNatural,
-	AZDockSortColor,
-	AZDockSortPoint,
-	AZDockSortPointNew,
-}	AZDockSort;
-
-typedef enum {
-AZSearchByCategory,
-AZSearchByColor,
-AZSearchByName,
-AZSearchByRecent
-
-} AZSearchBy;
 
 @class NSLogConsole;
 @interface AtoZ : BaseModel
 
++ (NSArray*)appCategories;
 
 - (id)objectForKeyedSubscript:(NSString *)key;
 - (void)setObject:(id)newValue forKeyedSubscription:(NSString *)key;
@@ -449,7 +486,11 @@ NSNumber* DegreesToNumber(CGFloat degrees);
 #define AZConstAttrRelNameAttrScaleOff(attr1, relName, attr2, scl, off) \
 [CAConstraint constraintWithAttribute:attr1 relativeTo:relName attribute:attr2 scale:scl offset:off]
 
+#define AZTArea(frame) \
+[[NSTrackingArea alloc] initWithRect:frame options:(NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways | NSTrackingInVisibleRect | NSTrackingMouseMoved ) owner:self userInfo:nil]
 
+#define AZTAreaInfo(frame, info) \
+[[NSTrackingArea alloc] initWithRect: frame options:(NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways | NSTrackingInVisibleRect | NSTrackingMouseMoved ) owner:self userInfo:info];
 
 //#import "AtoZiTunes.h"
 
@@ -580,6 +621,7 @@ return SC##_sharedInstance; \
 //CGFloat RADIANtoDEGREEES(CGFloat radians) {return radians * 180 / M_PI;};
 
 CGImageRef ApplyQuartzComposition(const char* compositionName, const CGImageRef srcImage);
+
 static inline float RandomComponent() {  return (float)random() / (float)LONG_MAX; }
 
 #define rand() (arc4random() % ((unsigned)RAND_MAX + 1))
@@ -596,7 +638,9 @@ void _AZLog(const char *file, int lineNumber, const char *funcName, NSString *fo
 #define StringFromBOOL(b) ((b) ? @"YES" : @"NO")
 
 #define LogProps(a) NSLog(@"%@", a.propertiesPlease)
-
+#define logprop(a) NSLog(@"%@", [a propertiesPlease])
+//#define logobj(a) id logit = a \	     NSLog(@"%@", a)
+#define desc(a) NSLog(@"%@", [a description])
 
 // degree to radians
 #define ARAD	 0.017453f

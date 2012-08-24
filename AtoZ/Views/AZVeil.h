@@ -9,20 +9,11 @@
 #import "AtoZ.h"
 @class  TransparentWindow;
 typedef enum { 	ShroudIsUp, ShroudIsDown} ShroudIs;
-@interface AZVeil : NSObject <NSWindowDelegate>
+@interface AZVeil : NSObject <NSWindowDelegate, NSApplicationDelegate, NSSplitViewDelegate>
 {
 	NSTimer *refreshWhileActiveTimer;
 }
 
-@property (weak) IBOutlet NSWindow *leveler;
-@property (weak) IBOutlet TransparentWindow *shroud;
-@property (weak) IBOutlet TransparentWindow *window;
-@property (weak) IBOutlet NSImageView* view;
-@property (nonatomic, assign) ShroudIs shroudState;
-//@property (nonatomic, assign) NSRect unPushedScreenRect;
-//@property (nonatomic, assign) NSRect menuLessScreen;
-@property (nonatomic, assign) NSRect barFrame;
-@property (nonatomic, assign) NSRect barFrameUp;
 //@property (nonatomic, assign) NSRect flippedSnapRect;
 
 

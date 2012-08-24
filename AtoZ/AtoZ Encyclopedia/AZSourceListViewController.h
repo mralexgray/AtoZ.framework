@@ -16,13 +16,13 @@
 @interface AZSourceListViewController : NSViewController <AZSourceListDataSource, AZToggleArrayViewDelegate>
 
 @property (weak) IBOutlet AZSourceList *sourceList;
-@property (weak) IBOutlet AZToggleArrayView *tv;
+//@property (weak) IBOutlet AZToggleArrayView *tv;
 
-@property (nonatomic, assign) IBOutlet NSString *point1x;
-@property (nonatomic, assign) IBOutlet NSString *point1y;
-@property (nonatomic, assign) IBOutlet NSString *point2x;
-@property (nonatomic, assign) IBOutlet NSString *point2y;
-
+//@property (nonatomic, assign) IBOutlet NSString *point1x;
+//@property (nonatomic, assign) IBOutlet NSString *point1y;
+//@property (nonatomic, assign) IBOutlet NSString *point2x;
+//@property (nonatomic, assign) IBOutlet NSString *point2y;
+//
 
 @property (weak) IBOutlet iCarouselViewController *carrie;
 

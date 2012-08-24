@@ -7,7 +7,6 @@
 //
 
 #import "EncyclopediaDelegate.h"
-
 #import "SDNoteWindowController.h"
 #import "SDGeneralPrefPane.h"
 
@@ -16,7 +15,6 @@
 - (void) createNoteWithDictionary:(NSDictionary*)dictionary;
 - (void) loadNotes;
 - (void) saveNotes;
-
 @end
 
 @implementation EncyclopediaDelegate
@@ -25,6 +23,8 @@
 - (id) init {
 	if (self = [super init]) {
 		self.noteControllers = [NSMutableArray array];// retain];
+//		self.s = [[AZSimpleView alloc]initWithFrame:AZScaleRect(AZScreenFrame(), .23)];
+//		self.at = [[AZAttachedWindow alloc]initWithView:self.s attachedToPoint:AZCenterOfRect(AZMenuBarFrame()) atDistance: 11];
 	}
 	return self;
 }
@@ -37,12 +37,61 @@
 //[NSImage imageNamed:@"statusimage_pressed"]];
 	[statusItem setHighlightMode:YES];
 	[statusItem setMenu:statusMenu];
+
+
+		// Get the shielding window level
+		//		NSInteger windowLevel =
+		//		CGShieldingWindowLevel();
+		// Get the screen rect of our main display
+	NSRect screenRect = [[NSScreen mainScreen] frame];
+
+		// Put up a new window
+//	self.mainWindow = [[NSWindow alloc] initWithContentRect:screenRect
+//												  styleMask:NSBorderlessWindowMask
+//													backing:NSBackingStoreBuffered
+//													  defer:NO screen:[NSScreen mainScreen]];
+
+
+	trackers = @[
+
+		self.left 	= [AZTrackingWindow initWithRect:AZLeftEdge(screenRect, 50) andID:@"left"],
+		self.top 	= [AZTrackingWindow initWithRect:AZMakeRectMaxXUnderMenuBarY(50) andID:@"top"],
+		self.right	= [AZTrackingWindow initWithRect:AZRightEdge(screenRect,50) andID:@"right"]
+	];
+	[trackers each:^(id obj, NSUInteger index, BOOL *stop) {
+
+		[obj setDelegate:self];
+		[obj makeKeyAndOrderFront:obj];
+	}];
+
+//	[@[_left, _top, _right] each:^(id obj, NSUInteger index, BOOL *stop) {
+//		[obj makeKeyAndOrderFront:obj];
+//	}];
+
+//	[_mainWindow setLevel:NSStatusWindowLevel];
+//	[_mainWindow setMovable:NO];
+//	[_mainWindow setBackgroundColor:CLEAR];
+//	[_mainWindow setAlphaValue:.2];
+
+//	self.side = 12;
+//	self.view = [[AZSimpleView alloc] initWithFrame:AZMakeRect(NSZeroPoint,(NSSize){200,200})];
+//	self.view.backgroundColor = RED;
+//	self.attachPoint = AZCenterOfRect(AZMenuBarFrame());
+
+//	[@[_mainWindow, _attachedWindow] each:^(id obj, NSUInteger index, BOOL *stop) {
+//	}];
+//	[_mainWindow addChildWindow:_attachedWindow ordered:NSWindowAbove];
+
+//	[_at setBackgroundColor:[NSColor colorWithPatternImage:[NSImage prettyGradientImage]]];
+//	[_at makeKeyAndOrderFront:_at];
+
 }
 
 // app delegate methods
 
 - (void) applicationDidFinishLaunching:(NSNotification*)notification {
-//	[self loadNotes];
+	[_mainWindow makeKeyAndOrderFront:nil];
+//	[self toggleWindow:_attachPoint];
 }
 
 - (void) applicationDidResignActive:(NSNotification *)notification {
@@ -145,5 +194,56 @@
 - (NSArray*) preferencePaneControllerClasses {
 	return @[[SDGeneralPrefPane class]];
 }
+
+
+- (void)toggleWindowInWindow:(id)window atPoint:(NSPoint) buttonPoint
+{
+
+	// Attach/detach window
+    if (!_attachedWindow) {
+		self.attachedWindow = [[MAAttachedWindow alloc] initWithView:_view
+													 attachedToPoint:_attachPoint
+															inWindow:nil
+															  onSide:_side
+														  atDistance:0];
+		[_attachedWindow setHidesOnDeactivate:NO];
+		//[_attachedWindow setBorderColor:BLACK];
+//        [textField setTextColor:WHITE];
+//        [_attachedWindow setBackgroundColor:RED];
+//        [attachedWindow setViewMargin:[viewMarginSlider floatValue]];
+//        [attachedWindow setBorderWidth:[borderWidthSlider floatValue]];
+//        [attachedWindow setCornerRadius:[cornerRadiusSlider floatValue]];
+//        [attachedWindow setHasArrow:([hasArrowCheckbox state] == NSOnState)];
+//        [attachedWindow setDrawsRoundCornerBesideArrow:
+//		 ([drawRoundCornerBesideArrowCheckbox state] == NSOnState)];
+//        [attachedWindow setArrowBaseWidth:[arrowBaseWidthSlider floatValue]];
+//        [attachedWindow setArrowHeight:[arrowHeightSlider
+
+//		[_mainWindow addChildWindow:_attachedWindow ordered:NSWindowAbove];
+		[_attachedWindow setAlphaValue:0.0];
+		[NSAnimationContext beginGrouping];
+		[[NSAnimationContext currentContext] setDuration:0.5];
+		[_attachedWindow makeKeyAndOrderFront:_attachedWindow];
+		[[_attachedWindow animator] setAlphaValue:1.0];
+		[NSAnimationContext endGrouping];
+
+    } else {
+        [_mainWindow removeChildWindow:_attachedWindow];
+        [_attachedWindow orderOut:self];
+        [_attachedWindow release];
+        _attachedWindow = nil;
+    }
+}
+
+
+//-(void)trackerDidReceiveEvent:(NSEvent*)event inRect:(NSRect)theRect {
+//
+//	NSLog(@"did receive track event: %@ in rect %@", event, NSStringFromRect(theRect));
+//	
+//}
+//
+//-(void)ignoreMouseDown:(BOOL*)event {
+//	[[_mainWindow nextResponder] mouseDown:event];
+//}
 
 @end

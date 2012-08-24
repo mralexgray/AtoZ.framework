@@ -15,7 +15,7 @@ OSStatus _LSCopyAllApplicationURLs(CFArrayRef *array);
 typedef  id (^AZMappingBlock)(id obj);
 
 @implementation AZLaunchServicesListItem
-@synthesize url, name, icon;
+//@synthesize url, name, icon;
 
 - (id)init
 {

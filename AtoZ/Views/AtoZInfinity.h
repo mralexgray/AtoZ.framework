@@ -1,24 +1,6 @@
 #import <Cocoa/Cocoa.h>
 #import "AtoZ.h"
 
-
-typedef enum {
-	AZOrientTop,
-	AZOrientLeft,
-	AZOrientBottom,
-	AZOrientRight,
-	AZOrientFiesta
-}	AZOrient;
-
-typedef enum {
-	AZInfiteScale0X,
-	AZInfiteScale1X,
-	AZInfiteScale2X,
-	AZInfiteScale3X,
-	AZInfiteScale10X
-} 	AZInfiteScale;
-
-
 @interface InfiniteDocumentView : NSView
 @end
 

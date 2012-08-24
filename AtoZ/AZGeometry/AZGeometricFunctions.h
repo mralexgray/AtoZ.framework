@@ -188,8 +188,14 @@ NSSize AZSizeBound(NSSize preferred, NSSize minSize, NSSize maxSize);
 //
 // NSRect result methods
 //
+
+NSRect AZZeroHeightBelowMenu();
+
 NSRect AZFlipRectinRect(CGRect local, CGRect dest);
 
+CGFloat AZMenuBarThickness ();
+
+NSRect AZMenuBarFrame();
 
 NSRect AZRectVerticallyOffsetBy(CGRect rect, CGFloat offset);
 

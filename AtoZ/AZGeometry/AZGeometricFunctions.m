@@ -441,6 +441,20 @@ NSRect AZSquareFromLength(CGFloat length) {
 	return  AZMakeRectFromSize(NSMakeSize(length,length));
 }
 
+NSRect AZZeroHeightBelowMenu() {
+	NSRect e = AZScreenFrame();
+	e.origin.y += (e.size.height - 22);
+	e.size.height = 0;
+	return e;
+}
+
+
+NSRect AZMenuBarFrame() {
+	return AZUpperEdge( AZScreenFrame(), AZMenuBarThickness());
+}
+
+CGFloat AZMenuBarThickness () { return [[NSStatusBar systemStatusBar] thickness]; }
+
 NSRect AZMenulessScreenRect() {
 	NSRect e = AZScreenFrame();
 	e.size.height -= 22;

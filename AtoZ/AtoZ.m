@@ -20,6 +20,9 @@
 //}
 //	console = [NSLogConsole sharedConsole]; [console open];
 
+
+
+
 - (void) setUp {
 
 
@@ -89,25 +92,23 @@
 
 
 
-NSString * const kCategoryNames[] = {
-	@"Games",		@"Education",		@"Entertainment",	@"Books",	@"Lifestyle",
-	@"Utilities",	@"Business", 		@"Travel",			@"Music", 	@"Reference",
-	@"Sports",		@"Productivity",	@"News", 			@"Healthcare & Fitness",
-	@"Photography", @"Finance", 		@"Medical", 			@"Social Networking",
-	@"Navigation",	@"Weather",			@"Catalogs", 		@"Food & Drink",
-	@"Newsstand"
-};
 
 - (NSArray*) appCategories {
-	static NSArray *cats;
-    if (cats == nil) {
-        cats = [[NSArray alloc] initWithObjects:kCategoryNames count:23];
-    }
-    return cats;
+//	static NSArray *cats;
+//    if (cats == nil) {
+			return  @[ 	@"Games",		@"Education",		@"Entertainment",	@"Books",	@"Lifestyle",
+		@"Utilities",	@"Business", 		@"Travel",			@"Music", 	@"Reference",
+		@"Sports",		@"Productivity",	@"News", 			@"Healthcare & Fitness",
+		@"Photography", @"Finance", 		@"Medical", 			@"Social Networking",
+		@"Navigation",	@"Weather",			@"Catalogs", 		@"Food & Drink",
+		@"Newsstand" ];
+//[NSArray alloc] initWithObjects:kCategoryNames count:23];
+//    }
+//    return cats;
 }
 + (NSJSONSerialization*) jsonReuest:(NSString*)url {
-	AtoZ *me = [AtoZ sharedInstance];
-	return [me jsonReuest:url];
+	AtoZ *me = [[self class] sharedInstance];
+	return  [me jsonReuest:url];
 }
 
 + (NSUserDefaults *)defs {
@@ -128,8 +129,8 @@ NSString * const kCategoryNames[] = {
 	NSData *responseData = [NSURLConnection sendSynchronousRequest:theRequest returningResponse:nil error:&err];
 	if (!responseData) NSLog(@"Connection Error: %@", [err localizedDescription]);
 
-    NSError *error;
-
+//    NSError *error;
+	
 	return  [NSJSONSerialization JSONObjectWithData:responseData options:0 error:&err];
 
 //    if (err) {
@@ -330,10 +331,16 @@ NSString * const kCategoryNames[] = {
 //    [super encodeWithCoder:coder];
 //    [coder encodeObject:@"uncodable" forKey:@"uncodableProperty"];
 //}
-
 + (NSArray*) fengshui {
+	return [[self class] fengShui];
+}
++ (NSArray*) fengShui {
 	return [[NSColor fengshui].reversed arrayUsingBlock:^id(id obj) {
-		AZFile *t = [AZFile dummy];		t.color = (NSColor*)obj; t.spot = 22;	return t;	}];
+		 AZFile *t = [AZFile instance];
+		 t.color = obj;
+		 return t;
+	}];
+//		dummy];		t.color = (NSColor*)obj; t.spot = 22;	return t;	}];
 }
 + (NSArray*) runningApps {
 
@@ -604,11 +611,17 @@ void _AZLog(const char *file, int lineNumber, const char *funcName, NSString *fo
 	va_end (arglist);
 	const char *threadName = [[[NSThread currentThread] name] UTF8String];
 	NSString *fileName=[[NSString stringWithUTF8String:file] lastPathComponent];
-	if (threadName) {
-		fprintf(stderr,"%s/%s (%s:%d) %s",threadName,funcName,[fileName UTF8String],lineNumber,[body UTF8String]);
-	} else {
-		fprintf(stderr,"%p/%s (%s:%d) %s",[NSThread currentThread],funcName,[fileName UTF8String],lineNumber,[body UTF8String]);
-	}
+//	if (threadName) {
+//		fprintf(stderr,"%s/%s (%s:%d) %s",threadName,funcName,[fileName UTF8String],lineNumber,[body UTF8String]);
+//	} else {
+//		fprintf(stderr,"%p/%s (%s:%d) %s",[NSThread currentThread],funcName,[fileName UTF8String],lineNumber,[body UTF8String]);
+//	}
+#ifdef PRINTMETHODS
+	fprintf(stderr,"%s:%d [%s] %s",[fileName UTF8String],lineNumber,funcName, [body UTF8String]);
+#else
+	fprintf(stderr,"line:%d %s",lineNumber, [body UTF8String]);
+#endif
+		//
 	[body release];
 }
 

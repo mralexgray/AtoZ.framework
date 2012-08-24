@@ -82,7 +82,7 @@ typedef enum  {
 + (NSArray *)allAvailableFileExtensionsForPboardType:(NSString *)pboard_type;
 + (NSArray *)allAvailableFileExtensionsForFileExtension:(NSString *)extension;
 
-@end
+@end	
 
 @interface AZLaunchServicesListItem : NSObject
 @property (nonatomic, retain) NSString *name;
