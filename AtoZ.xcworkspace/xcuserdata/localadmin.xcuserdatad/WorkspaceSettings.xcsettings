@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>BuildLocationStyle</key>
-	<string>UseAppPreferences</string>
+	<string>SharedDerivedDataSubfolder</string>
 	<key>CustomBuildLocationType</key>
 	<string>RelativeToDerivedData</string>
 	<key>DerivedDataLocationStyle</key>

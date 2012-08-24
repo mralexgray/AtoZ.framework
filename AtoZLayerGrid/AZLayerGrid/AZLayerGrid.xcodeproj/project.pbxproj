@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7B1C8F3115E4B07500C30618 /* WindyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B1C8F2F15E4B07500C30618 /* WindyController.m */; };
+		7B1C8F3215E4B07500C30618 /* WindyController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B1C8F3015E4B07500C30618 /* WindyController.xib */; };
 		7B73D8EC15E4327B00D2671A /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B85597315B9E8C30005F558 /* AtoZ.framework */; };
 		7B73D8EE15E4328900D2671A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B85597515B9EA280005F558 /* QuartzCore.framework */; };
 		7B85595715B9E8510005F558 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B85595615B9E8510005F558 /* Cocoa.framework */; };
@@ -27,6 +29,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7B1C8F2E15E4B07500C30618 /* WindyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WindyController.h; sourceTree = "<group>"; };
+		7B1C8F2F15E4B07500C30618 /* WindyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WindyController.m; sourceTree = "<group>"; };
+		7B1C8F3015E4B07500C30618 /* WindyController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WindyController.xib; sourceTree = "<group>"; };
 		7B85595215B9E8510005F558 /* AZLayerGrid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AZLayerGrid.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B85595615B9E8510005F558 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		7B85595915B9E8510005F558 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -86,7 +91,6 @@
 				7B85597315B9E8C30005F558 /* AtoZ.framework */,
 				7B85595C15B9E8510005F558 /* AZLayerGrid */,
 				7BECAEED15BF0E7A00557357 /* AZView */,
-				7B85595515B9E8510005F558 /* Frameworks */,
 				7B85595315B9E8510005F558 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -107,6 +111,7 @@
 				7B85595815B9E8510005F558 /* Other Frameworks */,
 			);
 			name = Frameworks;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		7B85595815B9E8510005F558 /* Other Frameworks */ = {
@@ -151,6 +156,10 @@
 				7BECAEFA15BF0E7A00557357 /* AppDelegate.m */,
 				7BECAEEE15BF0E7A00557357 /* Supporting Files */,
 				7BECAEFC15BF0E7A00557357 /* MainMenu.xib */,
+				7B1C8F2E15E4B07500C30618 /* WindyController.h */,
+				7B1C8F2F15E4B07500C30618 /* WindyController.m */,
+				7B1C8F3015E4B07500C30618 /* WindyController.xib */,
+				7B85595515B9E8510005F558 /* Frameworks */,
 			);
 			path = AZView;
 			sourceTree = "<group>";
@@ -249,6 +258,7 @@
 				7BECAEF215BF0E7A00557357 /* InfoPlist.strings in Resources */,
 				7BECAEF815BF0E7A00557357 /* Credits.rtf in Resources */,
 				7BECAEFE15BF0E7A00557357 /* MainMenu.xib in Resources */,
+				7B1C8F3215E4B07500C30618 /* WindyController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -271,6 +281,7 @@
 			files = (
 				7BECAEF415BF0E7A00557357 /* main.m in Sources */,
 				7BECAEFB15BF0E7A00557357 /* AppDelegate.m in Sources */,
+				7B1C8F3115E4B07500C30618 /* WindyController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
