@@ -54,8 +54,10 @@
 //}
 
 - (float) halfwayWithInset {
-	NSRect dim = NSInsetRect(self.bounds, self.inset, self.inset);
-	return ( (2*dim.size.width) + (2*dim.size.height) - (( 8 - ((2 * pi) * self.radius))));
+//	NSRect dim = NSInsetRect(self.bounds, self.inset, self.inset);
+//	return ( (2*dim.size.width) + (2*dim.size.height) - (( 8 - ((2 * pi) * self.radius))));
+		return AZPermineterWithRoundRadius([self frame],self.radius);
+
 }
 
 - (NSBezierPath*) pathWithInset:(float)anInset {

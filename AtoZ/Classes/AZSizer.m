@@ -7,7 +7,6 @@
 //
 
 #import "AZSizer.h"
-#import "AtoZ.h"
 
 int gcd(int m, int n) {	int t, r;
 	if (m < n) { t = m; m = n; n = t; } r = m % n; //MSLog(@"remainder for %i is %i", n, r);
@@ -37,8 +36,8 @@ int gcd(int m, int n) {	int t, r;
 @end
 
 @implementation AZSizer
-@synthesize candidates = _candidates, remainder, width, quantity, rows, columns, height, rects, paths;
-@synthesize boxes;
+//@synthesize candidates = _candidates, remainder, width, quantity, rows, columns, height, paths;
+//@synthesize boxes;
 
 //- (void) simplerItemsPerRow {
 //	rows = $int(ceil(sqrt(self.quantity)));
@@ -58,6 +57,7 @@ int gcd(int m, int n) {	int t, r;
 - (id) initWithQuantity:(NSUInteger)aNumber inRect:(NSRect)aFrame {
 	self = [super init]; 
 	if (self) {
+		self.outerFrame = aFrame;
 		self.candidates = [NSMutableArray array];
 		self.quantity = aNumber;
 		int smallR = 0, rem, runnerUp, rUpItems, x;
@@ -65,14 +65,14 @@ int gcd(int m, int n) {	int t, r;
 		NSArray *list = [@2 to:$int((ceil(sqrt(x)))+4)];
 		for( id rowTry in list ) {
 			int xx, itemsnow;
-			int _rows = [rowTry intValue];
+			int _rowCandidate = [rowTry intValue];
 			float items;
-			xx 	= gcd(x, _rows);
-			items = (float)x / _rows;
-			rem = ( _rows + ( x % _rows ) ) % _rows;
+			xx 	= gcd(x, _rowCandidate);
+			items = (float)x / _rowCandidate;
+			rem = ( _rowCandidate + ( x % _rowCandidate ) ) % _rowCandidate;
 			itemsnow = floor(items);
 			smallR = rem;
-			runnerUp = _rows;
+			runnerUp = _rowCandidate;
 			rUpItems = itemsnow;
 			NSNumber *rowsAccountingForRemainder = ( rem != 0 ? $int(runnerUp + 1) : $int(runnerUp));
 			NSDictionary *match = [[NSDictionary alloc]initWithDictionary:$map(
@@ -81,11 +81,11 @@ int gcd(int m, int n) {	int t, r;
 																			  $int(smallR), @"remainder",
 																			  NSStringFromRect(aFrame), @"screen"  )];
 			Candidate *perfect = [[Candidate alloc]initWithDictionary:match];
-			[self.candidates addObject:perfect];
+			[_candidates addObject:perfect];
 		}
 		float distanceFromOne = 99.9;
 		Candidate *winner;
-		for (Candidate *c in self.candidates) {
+		for (Candidate *c in _candidates) {
 			float distance = (c.aspectRatio < 1 ? (1.0 - c.aspectRatio) : (c.aspectRatio - 1.0));
 			if (distance < distanceFromOne) {
 				winner = c;
@@ -97,7 +97,7 @@ int gcd(int m, int n) {	int t, r;
 		self.width 		= winner.width;
 		self.height  	= winner.height;
 		self.remainder 	= winner.remainder;
-		
+		self.size 		= (NSSize) { _width, _height };
 		//	NSLog(@"Items:%ld Rows:%@ Columns:%@ Remainder: %@ Size: %ix%i", self.quantity, rows, columns, remainder, width.intValue, height.intValue);
 	}
 	return self;
@@ -110,14 +110,16 @@ int gcd(int m, int n) {	int t, r;
 
 
 - (NSArray*) rects {
-
-	NSMutableArray *_rects = [NSMutableArray array];
-		for ( int r = (self.rows-1); r >= 0; r--){
-		for ( int c = 0; c < self.columns; c++ ) {
-			[_rects addObject:[NSValue valueWithRect:NSMakeRect((c * self.width), (r *self.height), self.width, self.height)]];
+//	if (!_rects) {
+		NSMutableArray *privateRects = [NSMutableArray array];
+		for ( int r = (_rows-1); r >= 0; r--){
+			for ( int c = 0; c < _columns; c++ ) {
+				[privateRects addObject:[NSValue valueWithRect:NSMakeRect((c * _width), (r *_height), _width, _height)]];
+			}
 		}
-	}
-	return  _rects;
+//		_rects = privateRects.copy;
+//	}
+	return privateRects.copy;
 }
 //- (NSArray*)boxes {
 //	NSMutableArray *boxArray = [NSMutableArray array];

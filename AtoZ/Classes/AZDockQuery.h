@@ -11,7 +11,6 @@
 
 @interface AZDockQuery : BaseModel
 
-
 @property (nonatomic, strong) NSArray *dock;
 
 - (CGPoint) locationNowForAppWithPath:(NSString*)aPath;

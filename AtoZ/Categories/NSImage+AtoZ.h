@@ -35,7 +35,7 @@ typedef enum {
 + (NSImage *)swatchWithColor:(NSColor *)color size:(NSSize)size;
 + (NSImage *)swatchWithGradientColor:(NSColor *)color size:(NSSize)size;
 
-
+- (NSImage*) resizeWhenScaledImage;
 + (NSImage *) prettyGradientImage;  // Generates a 256 by 256 pixel image with a complicated gradient in it.
 - (NSArray*) quantize;
 

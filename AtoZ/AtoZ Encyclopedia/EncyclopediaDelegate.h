@@ -33,4 +33,6 @@
 @property (nonatomic, retain) AZTrackingWindow *left;
 @property (nonatomic, retain) AZTrackingWindow *right;
 @property (nonatomic, retain) AZTrackingWindow *top;
+
+@property (nonatomic, retain) AZTrackingWindow *bottom;
 @end

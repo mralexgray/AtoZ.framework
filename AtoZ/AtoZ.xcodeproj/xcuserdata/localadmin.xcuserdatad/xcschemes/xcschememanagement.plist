@@ -9,6 +9,21 @@
 			<key>orderHint</key>
 			<integer>2</integer>
 		</dict>
+		<key>AtoZ Encyclopedia.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
+		<key>AtoZ Entitlement.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
+		<key>AtoZ.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>0</integer>
+		</dict>
 		<key>AtoZCLI.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -30,6 +45,11 @@
 			<true/>
 		</dict>
 		<key>7B311968159B6D9E002134C4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7B31B12515E9441D00802CD5</key>
 		<dict>
 			<key>primary</key>
 			<true/>

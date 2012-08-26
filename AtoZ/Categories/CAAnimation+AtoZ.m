@@ -1,24 +1,24 @@
-//
-//  CAAnimation+AtoZ.m
-//  AtoZ
-//
-//  Created by Alex Gray on 7/13/12.
-//  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-//
+	//
+	//  CAAnimation+AtoZ.m
+	//  AtoZ
+	//
+	//  Created by Alex Gray on 7/13/12.
+	//  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
+	//
 
 #import "CAAnimation+AtoZ.h"
 #import "AtoZ.h"
 
-//CGFloat DegreesToRadians(CGFloat degrees)
-//{
-//    return degrees * M_PI / 180;
-//}
+	//CGFloat DegreesToRadians(CGFloat degrees)
+	//{
+	//    return degrees * M_PI / 180;
+	//}
 
-//NSNumber* DegreesToNumber(CGFloat degrees)
-//{
-//    return [NSNumber numberWithFloat:
-//            DegreesToRadians(degrees)];
-//}
+	//NSNumber* DegreesToNumber(CGFloat degrees)
+	//{
+	//    return [NSNumber numberWithFloat:
+	//            DegreesToRadians(degrees)];
+	//}
 
 
 
@@ -28,44 +28,44 @@
 
 {
 	CAKeyframeAnimation * animation;
-	animation = [CAKeyframeAnimation 
+	animation = [CAKeyframeAnimation
                  animationWithKeyPath:@"transform.rotation.z"];
     [animation setDuration:0.3];
     [animation setRepeatCount:10000];
-    
-    // Try to get the animation to begin to start with a small offset
-    // that will make it shake out of sync with other layers.
+
+		// Try to get the animation to begin to start with a small offset
+		// that will make it shake out of sync with other layers.
     srand([[NSDate date] timeIntervalSince1970]);
     float rand = (float)random();
     [animation setBeginTime:
 	 CACurrentMediaTime() + rand * .0000000001];
-	
+
 	NSMutableArray *values = [NSMutableArray array];
-    // Turn right
+		// Turn right
     [values addObject:DegreesToNumber(-2)];
-    // Turn left
+		// Turn left
     [values addObject:DegreesToNumber(2)];
-    // Turn right
-    [values addObject:DegreesToNumber(-2)];    
-	// Set the values for the animation
+		// Turn right
+    [values addObject:DegreesToNumber(-2)];
+		// Set the values for the animation
 	[animation setValues:values];
-    
+
 	return animation;
 }
 
 
-+ (CAAnimation*)colorAnimationForLayer:(CALayer *)theLayer 
-	withStartingColor:(NSColor*)color1 endColor:(NSColor*)color2{
-	
++ (CAAnimation*)colorAnimationForLayer:(CALayer *)theLayer
+					 withStartingColor:(NSColor*)color1 endColor:(NSColor*)color2{
+
 	CAAnimation * animation = [[CAAnimation animation]
-	  animationWithKeyPath:@"backgroundColor"];
+							   animationWithKeyPath:@"backgroundColor"];
 	NSDictionary *dic = $map(	(id)[color1 CGColor], 	@"fromValue",
-							 	(id)[color2 CGColor], 	@"toValue", 
-							 	$float(2.0), 			@"duration",
-							 	YES,						@"removedOnCompletion", 
-								kCAFillModeForwards, 	@"fillMode");
+							 (id)[color2 CGColor], 	@"toValue",
+							 $float(2.0), 			@"duration",
+							 YES,						@"removedOnCompletion",
+							 kCAFillModeForwards, 	@"fillMode");
 	[animation setValuesForKeysWithDictionary:dic];
-	[theLayer addAnimation:animation forKey:@"color"];    
+	[theLayer addAnimation:animation forKey:@"color"];
 	return animation;
 }
 
@@ -73,40 +73,40 @@
 	CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
 	[animation setFromValue:DegreesToNumber(starting)];
 	[animation setToValue:DegreesToNumber(ending)];
-	
+
 	[animation setRemovedOnCompletion:NO];
 	[animation setFillMode:kCAFillModeForwards];
-	
-//	previousValue = [slider floatValue];
-	
+
+		//	previousValue = [slider floatValue];
+
 	return animation;
 }
 
-//- (CAAnimation *)rotateAnimationFrom:(NSNumber*)startDegree to:(NSNumber*)endDegrees
-//{
-//	CABasicAnimation * animation;
-//	animation = [CABasicAnimation 
-//                 animationWithKeyPath:@"transform.rotation.z"];
-//    
-//    [animation setFromValue:NSValue DegreesToNumber(startDegree.floatValue)];// previousValue)];
-//    [animation setToValue:DegreesToNumber(endDegrees.floatValue)];
-//    
-//    [animation setRemovedOnCompletion:NO];
-//    [animation setFillMode:kCAFillModeForwards];
-//    
-//    previousValue = [slider floatValue];
-//    
-//	return animation;
-//}
+	//- (CAAnimation *)rotateAnimationFrom:(NSNumber*)startDegree to:(NSNumber*)endDegrees
+	//{
+	//	CABasicAnimation * animation;
+	//	animation = [CABasicAnimation
+	//                 animationWithKeyPath:@"transform.rotation.z"];
+	//
+	//    [animation setFromValue:NSValue DegreesToNumber(startDegree.floatValue)];// previousValue)];
+	//    [animation setToValue:DegreesToNumber(endDegrees.floatValue)];
+	//
+	//    [animation setRemovedOnCompletion:NO];
+	//    [animation setFillMode:kCAFillModeForwards];
+	//
+	//    previousValue = [slider floatValue];
+	//
+	//	return animation;
+	//}
 
 
 + (CAKeyframeAnimation*)popInAnimation {
 	CAKeyframeAnimation* animation = [CAKeyframeAnimation animation];
-	
+
 	animation.values = @[[NSValue valueWithCATransform3D:CATransform3DMakeScale(0.9, 0.9, 1.0)],
-						[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.05, 1.05, 1.0)],
-						[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.0, 1.0, 1.0)]];
-	
+	[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.05, 1.05, 1.0)],
+	[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.0, 1.0, 1.0)]];
+
 	animation.duration = 0.3f;
 	return animation;
 }
@@ -116,7 +116,7 @@
 @implementation NSView (CAAnimationEGOHelper)
 
 - (void)popInAnimated {
-	if ([self wantsLayer]) 
+	if ([self wantsLayer])
 		[[self layer] popInAnimated];
 }
 
@@ -203,7 +203,178 @@
 
 }
 
+
+//	//assuming view is your NSView
+//CGPoint newCenter = CGPointMake(view.center.x - 300, view.center.y);
+//CABasicAnimation *animation = [CABasicAnimation animation];
+//	//setup your animation eg. duration/other options
+//animation.fromValue = [NSValue valueWithCGPoint:v.center];
+//animation.toValue = [NSValue valueWithCGPoint:newCenter];
+//[view.layer addAnimation:animation forKey:@"key"];
+//
+//- (CAKeyframeAnimation *)slideOut:(NSRect)frame oriented: (AZOrient)orientation{
+//
+//    CAKeyframeAnimation *slideout = [CAKeyframeAnimation animation];
+//
+//    CGMutablePathRef slidePath = CGPathCreateMutable();
+//	CGFloat xFin, yFin;  CGPoint go;
+//
+//	switch (orientation) {
+//		case AZOrientLeft:
+//		case AZOrientRight:
+//			xFin = 	orientation == AZOrientLeft ?  - NSMaxX(frame)	:   NSMaxX(frame) ;
+//			yFin =  0;
+//			go   =  orientation == AZOrientLeft ? (CGPoint){ NSMidY(frame), -
+//				break;
+//
+//			default:
+//				break;
+//			}
+//			xFin =  orientation == AZOrientBottom  	?  0
+//			:	orientation == AZOrientTop 		?  0
+//			yFin = 	orientation == AZOrientLeft || orientation == AZOrientRight ?  0
+//			:	orientation == AZOrientTop 		?   NSMaxY(frame) : -NSMaxY(frame);
+//			go 	 =  orientation == AZOrientBottom 	:
+//
+//
+//			CGPathMoveToPoint(shakePath, NULL, NSMinX(frame), NSMinY(frame));
+//			int index;
+//			for (index = 0; index < numberOfShakes; ++index)
+//			{
+//				CGPathAddLineToPoint(shakePath, NULL, NSMinX(frame) - frame.size.width * vigourOfShake, NSMinY(frame));
+//				CGPathAddLineToPoint(shakePath, NULL, NSMinX(frame) + frame.size.width * vigourOfShake, NSMinY(frame));
+//			}
+//			CGPathCloseSubpath(shakePath);
+//			shakeAnim.path = shakePath;
+//			shakeAnim.duration = durationOfShake;
+//			return shakeAnim;
+//	}
+//
+- (CAKeyframeAnimation *)negativeShake:(NSRect)frame{
+	int numberOfShakes = 4;
+	float durationOfShake = 0.5f;
+	float vigourOfShake = 0.05f;
+
+	CAKeyframeAnimation *shakeAnim = [CAKeyframeAnimation animation];
+
+	CGMutablePathRef shakePath = CGPathCreateMutable();
+	CGPathMoveToPoint(shakePath, NULL, NSMinX(frame), NSMinY(frame));
+	int index;
+	for (index = 0; index < numberOfShakes; ++index)
+	{
+		CGPathAddLineToPoint(shakePath, NULL, NSMinX(frame) - frame.size.width * vigourOfShake, NSMinY(frame));
+		CGPathAddLineToPoint(shakePath, NULL, NSMinX(frame) + frame.size.width * vigourOfShake, NSMinY(frame));
+	}
+	CGPathCloseSubpath(shakePath);
+	shakeAnim.path = shakePath;
+	shakeAnim.duration = durationOfShake;
+	return shakeAnim;
+}
+
+- (IBAction)shakeBabyShake:(id)sender;
+{
+	NSString *key = @"frameOrigin";
+#if __i386__
+	if ([NSView defaultAnimationForKey:key] == nil){
+#elif __x86_64__
+		if ([NSWindow defaultAnimationForKey:key] == nil){
+#endif
+			NSLog(@"NSVindow not animatable for key '%@'",key);
+		}else {
+			[[NSApp keyWindow] setAnimations:[NSDictionary dictionaryWithObject:[self negativeShake:[[NSApp keyWindow] frame]] forKey:key]];
+			[[[NSApp keyWindow] animator] setFrameOrigin:[[NSApp keyWindow] frame].origin];
+		}
+	}
+
+
+//- (void)animateView:(NSView*)sender {
+//		// Get the relevant frames.
+//	NSView *enclosingView = [[[NSApplication sharedApplication] mainWindow] contentView];
+////	int rowIndex = [sender selectedRow];
+//	NSRect cellFrame = [sender frame];//OfCellAtColumn:0 row:rowIndex];
+////	NSRect buttonFrame = [button frame];
+////	NSRect mainViewFrame = [enclosingView frame];
+//
+//	/*	      * Yellow fade animation/9**/
+//
+//		// Create the yellow fade layer.
+//	CALayer *layer = [CALayer layer];
+//	[layer setDelegate:self];
+//	yellowFadeView = [[NSView alloc] init];
+//	[yellowFadeView setWantsLayer:YES];
+//	[yellowFadeView setFrame:cellFrame];
+//	[yellowFadeView setLayer:layer];
+//	[[yellowFadeView layer] setNeedsDisplay];
+//	[yellowFadeView setAlphaValue:0.0];
+//	[sourceList addSubview:yellowFadeView];
+//
+//		// Create the animation pieces.
+//	CABasicAnimation *alphaAnimation = [CABasicAnimation animationWithKeyPath: @"alphaValue"];
+//	alphaAnimation.beginTime = 1.0;
+//	alphaAnimation.fromValue = [NSNumber numberWithFloat: 0.0];
+//	alphaAnimation.toValue = [NSNumber numberWithFloat: 1.0];
+//	alphaAnimation.duration = 0.25;
+//	CABasicAnimation *alphaAnimation2 = [CABasicAnimation animationWithKeyPath: @"alphaValue"];
+//	alphaAnimation2.beginTime = 1.25;
+//	alphaAnimation2.duration = 0.25;
+//	alphaAnimation2.fromValue = [NSNumber numberWithFloat: 1.0];
+//	alphaAnimation2.toValue = [NSNumber numberWithFloat: 0.0];
+//	CABasicAnimation *alphaAnimation3 = [CABasicAnimation animationWithKeyPath: @"alphaValue"];
+//	alphaAnimation3.beginTime = 1.5;
+//	alphaAnimation3.duration = 0.25;
+//	alphaAnimation3.fromValue = [NSNumber numberWithFloat: 0.0];
+//	alphaAnimation3.toValue = [NSNumber numberWithFloat: 1.0];
+//	CABasicAnimation *alphaAnimation4 = [CABasicAnimation animationWithKeyPath: @"alphaValue"];
+//	alphaAnimation4.beginTime = 1.75;
+//	alphaAnimation4.duration = 0.25;
+//	alphaAnimation4.fromValue = [NSNumber numberWithFloat: 1.0];
+//	alphaAnimation4.toValue = [NSNumber numberWithFloat: 0.0];
+//
+//		// Create the animation group.
+//	CAAnimationGroup *yellowFadeAnimation = [CAAnimationGroup animation];
+//	yellowFadeAnimation.delegate = self;
+//	yellowFadeAnimation.animations =@[ alphaAnimation, alphaAnimation2, alphaAnimation3, alphaAnimation4 ];
+//	yellowFadeAnimation.duration = 2.0;
+//	[yellowFadeView setAnimations:@{ @"frameOrigin":yellowFadeAnimation} ];
+//
+//		// Start the yellow fade animation.
+//	[[yellowFadeView animator] setFrame:[yellowFadeView frame]];
+//}
+//
+//- (void)drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx {
+//		// Bezier path radius
+//	int radius = 4;
+//
+//		// Setup graphics context.
+//	NSGraphicsContext *nsGraphicsContext = [NSGraphicsContext graphicsContextWithGraphicsPort:ctx flipped:NO];
+//	[NSGraphicsContext saveGraphicsState];
+//	[NSGraphicsContext setCurrentContext:nsGraphicsContext];
+//
+//		// Convert to NSRect.
+//	CGRect aRect = [layer frame];
+//	NSRect rect = NSMakeRect(aRect.origin.x, aRect.origin.y, aRect.size.width, aRect.size.height);
+//
+//		// Draw dark outside line.
+//	[NSBezierPath setDefaultLineWidth:2];
+//	NSBezierPath *highlightPath = [NSBezierPath bezierPathWithRoundedRect:rect xRadius:radius yRadius:radius];
+//	[[NSColor yellowColor] set];
+//	[highlightPath stroke];
+//
+//		// Draw transparent inside fill.
+//	CGFloat r, g, b, a;
+//	[[NSColor yellowColor] getRed:&amp;r green:&amp;g blue:&amp;b alpha:&amp;a];
+//	NSColor *transparentYellow = [NSColor colorWithCalibratedRed:r green:g blue:b alpha:0.5];
+//	NSBezierPath *fillPath = [NSBezierPath bezierPathWithRoundedRect:rect xRadius:radius yRadius:radius];
+//	[transparentYellow set];
+//	[fillPath fill];
+//
+//		// Finish with graphics context.
+//	[NSGraphicsContext restoreGraphicsState];
+//}
+//
+
 @end
+
 
 
 

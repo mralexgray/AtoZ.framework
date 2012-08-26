@@ -32,28 +32,6 @@
  (c) The algorithm isn't perfect. :) If in doubt, do your own calculations and then 
      explicitly request that the window attach itself to a particular side.
  */
-typedef enum {
-AZUp,
-AZDown
-
-} AZSliding;
-
-typedef enum _AZWindowPosition {
-    // The four primary sides are compatible with the preferredEdge of NSDrawer.
-    AZPositionLeft          = NSMinXEdge, // 0
-    AZPositionRight         = NSMaxXEdge, // 2
-    AZPositionTop           = NSMaxYEdge, // 3
-    AZPositionBottom        = NSMinYEdge, // 1
-    AZPositionLeftTop       = 4,
-    AZPositionLeftBottom    = 5,
-    AZPositionRightTop      = 6,
-    AZPositionRightBottom   = 7,
-    AZPositionTopLeft       = 8,
-    AZPositionTopRight      = 9,
-    AZPositionBottomLeft    = 10,
-    AZPositionBottomRight   = 11,
-    AZPositionAutomatic     = 12
-} AZWindowPosition;
 
 @interface AZAttachedWindow : NSWindow {
      @private

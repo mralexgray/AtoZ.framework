@@ -97,6 +97,12 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 	return image;
 }
 
+- (NSImage*) resizeWhenScaledImage {
+
+	[self setScalesWhenResized:YES];
+	return self;
+}
+
 
 + (NSImage *) prettyGradientImage
 {

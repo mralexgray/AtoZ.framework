@@ -1,0 +1,44 @@
+/* 
+  LocalizedStrings.strings
+  AtoZ
+
+  Created by Alex Gray on 8/24/12.
+  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
+*/
+//typedef enum {
+//    IngredientType_text  = 0,
+//    IngredientType_audio = 1,
+//    IngredientType_video = 2,
+//    IngredientType_image = 3
+//} IngredientType;
+//write a method like this in class:
+//
+//+ (NSString*)typeStringForType:(IngredientType)_type {
+//	NSString *key = [NSString stringWithFormat:@"IngredientType_%i", _type];
+//	return NSLocalizedString(key, nil);
+//}
+//have the strings inside Localizable.strings file:
+
+/* IngredientType_text */
+"IngredientType_0" = "Text";
+/* IngredientType_audio */
+"IngredientType_1" = "Audio";
+/* IngredientType_video */
+"IngredientType_2" = "Video";
+/* IngredientType_image */
+"IngredientType_3" = "Image";
+//
+//AZOrientTop = 0,  //explicit
+//AZOrientLeft,
+//AZOrientBottom,
+//AZOrientRight,
+//AZOrientFiesta,
+
+/* IngredientType_text */
+"AZOrient0" = "Top";
+/* IngredientType_audio */
+"AZOrient1" = "Left";
+/* IngredientType_video */
+"AZOrient2" = "Bottom";
+/* IngredientType_image */
+"AZOrient3" = "Right";

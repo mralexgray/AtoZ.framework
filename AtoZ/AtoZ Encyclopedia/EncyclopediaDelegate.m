@@ -9,6 +9,8 @@
 #import "EncyclopediaDelegate.h"
 #import "SDNoteWindowController.h"
 #import "SDGeneralPrefPane.h"
+#import <AtoZ/AtoZ.h>
+
 
 @interface EncyclopediaDelegate (Private)
 
@@ -23,7 +25,6 @@
 - (id) init {
 	if (self = [super init]) {
 		self.noteControllers = [NSMutableArray array];// retain];
-//		self.s = [[AZSimpleView alloc]initWithFrame:AZScaleRect(AZScreenFrame(), .23)];
 //		self.at = [[AZAttachedWindow alloc]initWithView:self.s attachedToPoint:AZCenterOfRect(AZMenuBarFrame()) atDistance: 11];
 	}
 	return self;
@@ -37,8 +38,7 @@
 //[NSImage imageNamed:@"statusimage_pressed"]];
 	[statusItem setHighlightMode:YES];
 	[statusItem setMenu:statusMenu];
-
-
+//	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mouseMoved) name:@"mouseMoved" object:nil];
 		// Get the shielding window level
 		//		NSInteger windowLevel =
 		//		CGShieldingWindowLevel();
@@ -46,32 +46,51 @@
 	NSRect screenRect = [[NSScreen mainScreen] frame];
 
 		// Put up a new window
-//	self.mainWindow = [[NSWindow alloc] initWithContentRect:screenRect
+	self.mainWindow = [[NSWindow alloc] initWithContentRect:screenRect
+												  styleMask:NSBorderlessWindowMask
+													backing:NSBackingStoreBuffered
+													  defer:NO screen:[NSScreen mainScreen]];
+//	[_mainWindow setLevel:NSStatusWindowLevel];
+//	[_mainWindow setMovable:NO];
+	[_mainWindow setOpaque : NO];
+//	[_mainWindow setBackgroundColor:CLEAR];
+//	[_mainWindow setAlphaValue:0];
+	[_mainWindow orderFrontRegardless];
+	self.view = [[AZSimpleView alloc]initWithFrame: NSInsetRect(screenRect, 200, 200) ];
+//	AZScaleRect(AZScreenFrame(), .23)];
+	[_view setBackgroundColor:RANDOMCOLOR];
+
+//	[_mainWindow setContentView:_view];
+//	AZSimpleView *aview = [[AZSimpleView alloc]initWithFrame: NSInsetRect(_view.frame, 200, 200) ];
+//	aview.backgroundColor = ORANGE;
+	[[_mainWindow contentView] addSubview:_view];
+	[_view setNeedsDisplay:YES];
+//	[_mainWindow setIgnoresMouseEvents:YES];
+
+
+//	NSWindow *d = [[NSWindow alloc] initWithContentRect: NSInsetRect(screenRect, 200, 100)
 //												  styleMask:NSBorderlessWindowMask
 //													backing:NSBackingStoreBuffered
-//													  defer:NO screen:[NSScreen mainScreen]];
+//													  defer:NO ];
+//	d.backgroundColor = CLEAR;
 
-
-	trackers = @[
-
-		self.left 	= [AZTrackingWindow initWithRect:AZLeftEdge(screenRect, 50) andID:@"left"],
-		self.top 	= [AZTrackingWindow initWithRect:AZMakeRectMaxXUnderMenuBarY(50) andID:@"top"],
-		self.right	= [AZTrackingWindow initWithRect:AZRightEdge(screenRect,50) andID:@"right"]
-	];
-	[trackers each:^(id obj, NSUInteger index, BOOL *stop) {
-
-		[obj setDelegate:self];
-		[obj makeKeyAndOrderFront:obj];
-	}];
+//	[_mainWindow addChildWindow:d ordered:NSWindowAbove];
+//	[self fiesta];
+//	CGFloat intrusion = 60;
+//	trackers = @[
+//		self.left 	= [AZTrackingWindow oriented:AZOrientLeft intruding:intrusion],
+//		self.top 	= [AZTrackingWindow oriented:AZOrientTop intruding:intrusion],
+//		self.left 	= [AZTrackingWindow oriented:AZOrientRight intruding:intrusion],
+//		self.bottom 	= [AZTrackingWindow oriented:AZOrientBottom intruding:intrusion]
+//	];
+//	[trackers each:^(id obj, NSUInteger index, BOOL *stop) {
+//		[obj setDelegate:self];
+//		[obj makeKeyAndOrderFront:obj];
+//	}];
 
 //	[@[_left, _top, _right] each:^(id obj, NSUInteger index, BOOL *stop) {
 //		[obj makeKeyAndOrderFront:obj];
 //	}];
-
-//	[_mainWindow setLevel:NSStatusWindowLevel];
-//	[_mainWindow setMovable:NO];
-//	[_mainWindow setBackgroundColor:CLEAR];
-//	[_mainWindow setAlphaValue:.2];
 
 //	self.side = 12;
 //	self.view = [[AZSimpleView alloc] initWithFrame:AZMakeRect(NSZeroPoint,(NSSize){200,200})];
@@ -87,20 +106,68 @@
 
 }
 
+
+- (void) mouseMoved {
+
+	NSLog(@"mousse mpves:  app deleahe");
+}
+
 // app delegate methods
 
+
 - (void) applicationDidFinishLaunching:(NSNotification*)notification {
-	[_mainWindow makeKeyAndOrderFront:nil];
+
+
+	NSArray *s = [AtoZ dock];
+	[s each:^(id obj, NSUInteger index, BOOL *stop) {
+		NSLog(@"%@", [obj propertiesPlease]);
+	}];
+	
+	NSRect r = [[_mainWindow contentView] frame];
+	AZFileGridView *g = [[AZFileGridView alloc]initWithFrame:r andFiles:s.copy];
+	[[_mainWindow contentView] addSubview:g];
+
+//	[_mainWindow makeKeyAndOrderFront:nil];
+//	trackMouse();
 //	[self toggleWindow:_attachPoint];
+//	NSLog(@"%@ ",  [AtoZ dockSorted]);// valueForKeyPath:@"name"]);
+
+//	AZItemsViewFormat e;
+//	NSArray *a = $array(@"/Applications" ) ;
+//	id u = AllApplications( a);
+//	NSLog(@"%@", u); //;//  [AZLaunchServices allApplicationsFormattedAs:AZItemsAsBundleIDs] );
+// 	NSLog(@"%@",[AtoZ appFolder]);
+//	BOOL y = [[AtoZ sharedInstance] registerGrowl];
+
+//#ifdef ATOZITUNES_ENABLED
+//	[AtoZiTunes searchFor:@"iTunes"];
+//#endif
 }
 
 - (void) applicationDidResignActive:(NSNotification *)notification {
 //	[[NSApplication sharedApplication]hide:self];
 }
+
 - (void)applicationWillTerminate:(NSNotification *)notification {
 	[self saveNotes];
 }
 
+
+
+- (void)fiesta {
+
+
+	CGFloat f = AZPerimeter(  AZScreenFrame());
+	int unit = floor([AtoZ dockSorted].count / f);
+
+	[[AtoZ dockSorted] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+		NSImageView *k = [[NSImageView alloc]initWithFrame:(NSRect) { idx * unit, 0, unit, unit} ];
+		k.image = [obj valueForKey:@"image"];
+		[_view addSubview: k];
+		[k setNeedsDisplay:YES];
+		NSLog(@"added image with view,%@, %@", obj, k);
+	}];
+}
 
 
 // persistance
@@ -120,17 +187,17 @@
 		[self createNoteWithDictionary:dict];
 //		NSLog(@"dict %@", dict.description);
 	}
-	
+
 //	[self createNoteWithDictionary:@{@"title":@"welcome to your app", @"frame": NSStringFromRect( NSMakeRect(1347, 669,404, 77))}];
 }
 
 
 - (void) saveNotes {
 	NSMutableArray *array = [NSMutableArray array];
-	
+
 	for (SDNoteWindowController *controller in self.noteControllers)
 		[array addObject:[controller dictionaryRepresentation]];
-	
+
 	[SDDefaults setObject:array forKey:@"notes"];
 }
 
@@ -165,13 +232,13 @@
 
 - (IBAction) removeAllNotes:(id)sender {
 	NSAlert *alert = [[[NSAlert alloc] init] autorelease];
-	
+
 	[alert setMessageText:@"Remove all desktop labels?"];
 	[alert setInformativeText:@"This operation cannot be undone. Seriously."];
-	
+
 	[alert addButtonWithTitle:@"OK"];
 	[alert addButtonWithTitle:@"Cancel"];
-	
+
 	if ([alert runModal] == NSAlertFirstButtonReturn)
 		[self.noteControllers removeAllObjects];
 }
@@ -239,7 +306,7 @@
 //-(void)trackerDidReceiveEvent:(NSEvent*)event inRect:(NSRect)theRect {
 //
 //	NSLog(@"did receive track event: %@ in rect %@", event, NSStringFromRect(theRect));
-//	
+//
 //}
 //
 //-(void)ignoreMouseDown:(BOOL*)event {

@@ -72,6 +72,12 @@ static NSString *const HRCoderObjectAliasKey = @"$alias";
 
 @interface NSObject (AtoZ)
 
+
+
+	// Finds all properties of an object, and prints each one out as part of a string describing the class.
++ (NSString *) autoDescribeWithClassType:(Class)classType;
+
++ (NSString *) autoDescribe;
 /*	Now every instance (of every class) has a dictionary, where you can store your custom attributes. With Key-Value Coding you can set a value like this:
 
 //[myObject setValue:attributeValue forKeyPath:@"dictionary.attributeName"]

@@ -1,10 +1,10 @@
-//
-//  NSObject+AtoZ.m
-//  AtoZ
-//
-//  Created by Alex Gray on 7/1/12.
-//  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-//
+	//
+	//  NSObject+AtoZ.m
+	//  AtoZ
+	//
+	//  Created by Alex Gray on 7/1/12.
+	//  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
+	//
 
 #import "NSObject+AtoZ.h"
 #import <Foundation/Foundation.h>
@@ -31,10 +31,10 @@
 
 + (id)objectWithContentsOfFile:(NSString *)filePath
 {
-    //load the file
+		//load the file
     NSData *data = [NSData dataWithContentsOfFile:filePath];
 
-    //attempt to deserialise data as a plist
+		//attempt to deserialise data as a plist
     id object = nil;
     if (data)
     {
@@ -48,10 +48,10 @@
             object = [NSPropertyListSerialization propertyListFromData:data mutabilityOption:NSPropertyListImmutable format:&format errorDescription:NULL];
         }
 
-		//success?
+			//success?
 		if (object)
 		{
-			//check if object is an NSCoded unarchive
+				//check if object is an NSCoded unarchive
 			if ([object respondsToSelector:@selector(objectForKey:)] && object[@"$archiver"])
 			{
 				object = [NSKeyedUnarchiver unarchiveObjectWithData:data];
@@ -59,22 +59,22 @@
 		}
 		else
 		{
-			//return raw data
+				//return raw data
 			object = data;
 		}
     }
 
-	//return object
+		//return object
 	return object;
 }
 
 - (void)writeToFile:(NSString *)filePath atomically:(BOOL)useAuxiliaryFile
 {
-    //note: NSData, NSDictionary and NSArray already implement this method
-    //and do not save using NSCoding, however the objectWithContentsOfFile
-    //method will correctly recover these objects anyway
+		//note: NSData, NSDictionary and NSArray already implement this method
+		//and do not save using NSCoding, however the objectWithContentsOfFile
+		//method will correctly recover these objects anyway
 
-    //archive object
+		//archive object
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self];
     [data writeToFile:filePath atomically:YES];
 }
@@ -108,7 +108,7 @@
 
 - (void)setNilValueForKey:(NSString *)key
 {
-    //don't throw exception
+		//don't throw exception
 }
 
 - (void)setWithCoder:(NSCoder *)aDecoder
@@ -140,19 +140,19 @@
 
 @end
 
-//
-//  HRCoder.m
-//
-//  Version 1.0
-//
-//  Created by Nick Lockwood on 24/04/2012.
-//  Copyright (c) 2011 Charcoal Design
-//
-//  Distributed under the permissive zlib License
-//  Get the latest version from here:
-//
-//  https://github.com/nicklockwood/HRCoder
-//
+	//
+	//  HRCoder.m
+	//
+	//  Version 1.0
+	//
+	//  Created by Nick Lockwood on 24/04/2012.
+	//  Copyright (c) 2011 Charcoal Design
+	//
+	//  Distributed under the permissive zlib License
+	//  Get the latest version from here:
+	//
+	//  https://github.com/nicklockwood/HRCoder
+	//
 
 @interface NSObject (HRCoding)
 
@@ -203,7 +203,7 @@
 
 + (NSString *)classNameKey
 {
-    //used by BaseModel
+		//used by BaseModel
     return HRCoderClassNameKey;
 }
 
@@ -286,10 +286,10 @@
 
 - (id)unarchiveObjectWithFile:(NSString *)path
 {
-    //load the file
+		//load the file
     NSData *data = [NSData dataWithContentsOfFile:path];
 
-    //attempt to deserialise data as a plist
+		//attempt to deserialise data as a plist
     id plist = nil;
     if (data)
     {
@@ -298,7 +298,7 @@
         plist = [NSPropertyListSerialization propertyListWithData:data options:options format:&format error:NULL];
     }
 
-    //unarchive
+		//unarchive
     return [self unarchiveObjectWithPlist:plist];
 }
 
@@ -344,14 +344,14 @@
     NSInteger knownIndex = [[knownObjects allValues] indexOfObject:objv];
     if (knownIndex != NSNotFound)
     {
-        //create alias
+			//create alias
         NSString *aliasKeyPath = [knownObjects allKeys][knownIndex];
         NSDictionary *alias = @{HRCoderObjectAliasKey: aliasKeyPath};
         return alias;
     }
     else
     {
-        //encode object
+			//encode object
         NSString *oldKeyPath = keyPath;
         self.keyPath = keyPath? [keyPath stringByAppendingPathExtension:key]: key;
         knownObjects[keyPath] = objv;
@@ -414,16 +414,16 @@
 {
     if (object && key)
     {
-        //new keypath
+			//new keypath
         NSString *newKeyPath = keyPath? [keyPath stringByAppendingPathExtension:key]: key;
 
-        //check if object is an alias
+			//check if object is an alias
         if ([object isKindOfClass:[NSDictionary class]])
         {
             NSString *aliasKeyPath = ((NSDictionary *)object)[HRCoderObjectAliasKey];
             if (aliasKeyPath)
             {
-                //object alias
+					//object alias
                 id decodedObject = knownObjects[aliasKeyPath];
                 if (!decodedObject)
                 {
@@ -434,7 +434,7 @@
             }
         }
 
-        //new object
+			//new object
         NSString *oldKeyPath = keyPath;
         self.keyPath = newKeyPath;
         id decodedObject = [object unarchiveObjectWithHRCoder:self];
@@ -517,7 +517,7 @@
     NSString *className = self[HRCoderClassNameKey];
     if (className)
     {
-        //encoded object
+			//encoded object
         [coder.stack addObject:self];
         Class class = NSClassFromString(className);
         id object = AZ_AUTORELEASE([[class alloc] initWithCoder:coder]);
@@ -526,7 +526,7 @@
     }
     else
     {
-        //ordinary dictionary
+			//ordinary dictionary
         NSMutableDictionary *result = [NSMutableDictionary dictionary];
         for (NSString *key in self)
         {
@@ -637,6 +637,47 @@
 }
 
 
+	// Finds all properties of an object, and prints each one out as part of a string describing the class.
+- (NSString *) autoDescribeWithClassType:(Class)classType {
+
+    NSUInteger count;
+    objc_property_t *propList = class_copyPropertyList(classType, &count);
+    NSMutableString *propPrint = [NSMutableString string];
+
+    for ( int i = 0; i < count; i++ )
+    {
+        objc_property_t property = propList[i];
+
+        const char *propName = property_getName(property);
+        NSString *propNameString =[NSString stringWithCString:propName encoding:NSASCIIStringEncoding];
+
+        if(propName)
+        {
+            id value = [self valueForKey:propNameString];
+            [propPrint appendString:[NSString stringWithFormat:@"%@=%@ ; ", propNameString, value]];
+        }
+    }
+    free(propList);
+
+
+		// Now see if we need to map any superclasses as well.
+    Class superClass = class_getSuperclass( classType );
+    if ( superClass != nil && ! [superClass isEqual:[NSObject class]] )
+    {
+        NSString *superString = [self autoDescribeWithClassType:superClass];
+        [propPrint appendString:superString];
+    }
+
+    return propPrint;
+}
+
+- (NSString *) autoDescribe {
+	{
+		NSString *headerString = [NSString stringWithFormat:@"%@:%p:: ",[self class], self];
+		return [headerString stringByAppendingString:[self autoDescribeWithClassType:[self class]]];
+	}
+}
+
 @end
 
 @implementation NSObject (SubclassEnumeration)
@@ -673,131 +714,131 @@
 @implementation NSObject (AG)
 
 
-//- (BOOL) respondsToSelector: (SEL) aSelector {
-//    NSLog (@"%s", (char *) aSelector);
-//    return ([super respondsToSelector: aSelector]);
-//} // respondsToSelector
+	//- (BOOL) respondsToSelector: (SEL) aSelector {
+	//    NSLog (@"%s", (char *) aSelector);
+	//    return ([super respondsToSelector: aSelector]);
+	//} // respondsToSelector
 
 
 
 static const char * getPropertyType(objc_property_t property) {
-    const char *attributes = property_getAttributes(property);
-    printf("attributes=%s\n", attributes);
-    char buffer[1 + strlen(attributes)];
-    strcpy(buffer, attributes);
-    char *state = buffer, *attribute;
-    while ((attribute = strsep(&state, ",")) != NULL) {
-        if (attribute[0] == 'T' && attribute[1] != '@') {
-            // it's a C primitive type:
-            /*
+	const char *attributes = property_getAttributes(property);
+	printf("attributes=%s\n", attributes);
+	char buffer[1 + strlen(attributes)];
+	strcpy(buffer, attributes);
+	char *state = buffer, *attribute;
+	while ((attribute = strsep(&state, ",")) != NULL) {
+		if (attribute[0] == 'T' && attribute[1] != '@') {
+				// it's a C primitive type:
+			/*
 			 if you want a list of what will be returned for these primitives, search online for
 			 "objective-c" "Property Attribute Description Examples"
 			 apple docs list plenty of examples of what you get for int "i", long "l", unsigned "I", struct, etc.
 			 */
-            return (const char *)[[NSData dataWithBytes:(attribute + 1) length:strlen(attribute) - 1] bytes];
-        }
-        else if (attribute[0] == 'T' && attribute[1] == '@' && strlen(attribute) == 2) {
-            // it's an ObjC id type:
-            return "id";
-        }
-        else if (attribute[0] == 'T' && attribute[1] == '@') {
-            // it's another ObjC object type:
-            return (const char *)[[NSData dataWithBytes:(attribute + 3) length:strlen(attribute) - 4] bytes];
-        }
-    }
-    return "";
+			return (const char *)[[NSData dataWithBytes:(attribute + 1) length:strlen(attribute) - 1] bytes];
+		}
+		else if (attribute[0] == 'T' && attribute[1] == '@' && strlen(attribute) == 2) {
+				// it's an ObjC id type:
+			return "id";
+		}
+		else if (attribute[0] == 'T' && attribute[1] == '@') {
+				// it's another ObjC object type:
+			return (const char *)[[NSData dataWithBytes:(attribute + 3) length:strlen(attribute) - 4] bytes];
+		}
+	}
+	return "";
 }
 
 
 + (NSDictionary *)classPropsFor:(Class)klass
 {
-    if (klass == NULL) {
-        return nil;
-    }
+	if (klass == NULL) {
+		return nil;
+	}
 
-    NSMutableDictionary *results = [[NSMutableDictionary alloc] init];
+	NSMutableDictionary *results = [[NSMutableDictionary alloc] init];
 
-    unsigned int outCount, i;
-    objc_property_t *properties = class_copyPropertyList(klass, &outCount);
-    for (i = 0; i < outCount; i++) {
-        objc_property_t property = properties[i];
-        const char *propName = property_getName(property);
-        if(propName) {
-            const char *propType = getPropertyType(property);
-            NSString *propertyName = @(propName);
-            NSString *propertyType = @(propType);
-            results[propertyName] = propertyType;
-        }
-    }
-    free(properties);
+	unsigned int outCount, i;
+	objc_property_t *properties = class_copyPropertyList(klass, &outCount);
+	for (i = 0; i < outCount; i++) {
+		objc_property_t property = properties[i];
+		const char *propName = property_getName(property);
+		if(propName) {
+			const char *propType = getPropertyType(property);
+			NSString *propertyName = @(propName);
+			NSString *propertyType = @(propType);
+			results[propertyName] = propertyType;
+		}
+	}
+	free(properties);
 
-    // returning a copy here to make sure the dictionary is immutable
-    return results;
+		// returning a copy here to make sure the dictionary is immutable
+	return results;
 }
 /*
 
-- (NSArray*) methodDumpForClass:(Class)klass {
+ - (NSArray*) methodDumpForClass:(Class)klass {
 
-	int numClasses;
-	Class *classes = NULL;
-	classes = NULL;
-	numClasses = objc_getClassList(NULL, 0);
-	NSLog(@"Number of classes: %d", numClasses);
+ int numClasses;
+ Class *classes = NULL;
+ classes = NULL;
+ numClasses = objc_getClassList(NULL, 0);
+ NSLog(@"Number of classes: %d", numClasses);
 
-	if (numClasses > 0 )
-	{
-		classes = (__unsafe_unretained Class *)malloc(sizeof(Class) * numClasses);
-		numClasses = objc_getClassList(classes, numClasses);
-		for (int i = 0; i < numClasses; i++) {
-			NSLog(@"Class name: %s", class_getName(classes[i]));
-		}
-		free(classes);
-	}
+ if (numClasses > 0 )
+ {
+ classes = (__unsafe_unretained Class *)malloc(sizeof(Class) * numClasses);
+ numClasses = objc_getClassList(classes, numClasses);
+ for (int i = 0; i < numClasses; i++) {
+ NSLog(@"Class name: %s", class_getName(classes[i]));
+ }
+ free(classes);
+ }
 
-	int numClasses;
-	Class *classes = NULL;
+ int numClasses;
+ Class *classes = NULL;
 
-	classes = NULL;
-	numClasses = objc_getClassList(NULL, 0);
+ classes = NULL;
+ numClasses = objc_getClassList(NULL, 0);
 
-	if (numClasses &lt; 1 ) { return nil; }
-	classes = (__unsafe_unretained Class *)malloc(sizeof(Class) * numClasses);
-	numClasses = objc_getClassList(classes, numClasses);
+ if (numClasses &lt; 1 ) { return nil; }
+ classes = (__unsafe_unretained Class *)malloc(sizeof(Class) * numClasses);
+ numClasses = objc_getClassList(classes, numClasses);
 
-	// Convert to NSArray of NSStrings
-	NSMutableArray *rtn = [[NSMutableArray alloc] init];
-	const char *cname;
-	for (int i=0; i&lt;numClasses; i++) {
-		cname = class_getName(classes[i]);
-		//      if (NULL == strstr(cname, &quot;MusicalScale&quot;))
-		//          continue;
-		[rtn addObject:[NSString stringWithCString:cname
-										  encoding:NSStringEncodingConversionAllowLossy]];
-	}
-	free(classes);
+ // Convert to NSArray of NSStrings
+ NSMutableArray *rtn = [[NSMutableArray alloc] init];
+ const char *cname;
+ for (int i=0; i&lt;numClasses; i++) {
+ cname = class_getName(classes[i]);
+ //      if (NULL == strstr(cname, &quot;MusicalScale&quot;))
+ //          continue;
+ [rtn addObject:[NSString stringWithCString:cname
+ encoding:NSStringEncodingConversionAllowLossy]];
+ }
+ free(classes);
 
-	//    return rtn;
-	return [rtn filteredArrayUsingPredicate:predicate];
-}
-*/
+ //    return rtn;
+ return [rtn filteredArrayUsingPredicate:predicate];
+ }
+ */
 
-// aps suffix to avoid namespace collsion
-//   ...for Andrew Paul Sardone
-//- (NSDictionary *)propertiesDictionariate;
+	// aps suffix to avoid namespace collsion
+	//   ...for Andrew Paul Sardone
+	//- (NSDictionary *)propertiesDictionariate;
 
 
 - (NSDictionary *)propertiesPlease {
-    NSMutableDictionary *props = [NSMutableDictionary dictionary];
-    unsigned int outCount, i;
-    objc_property_t *properties = class_copyPropertyList([self class], &outCount);
-    for (i = 0; i < outCount; i++) {
-        objc_property_t property = properties[i];
-        NSString *propertyName = [[NSString alloc] initWithCString:property_getName(property)];
-        id propertyValue = [self valueForKey:(NSString *)propertyName];
-        if (propertyValue) props[propertyName] = propertyValue;
-    }
-    free(properties);
-    return props;
+	NSMutableDictionary *props = [NSMutableDictionary dictionary];
+	unsigned int outCount, i;
+	objc_property_t *properties = class_copyPropertyList([self class], &outCount);
+	for (i = 0; i < outCount; i++) {
+		objc_property_t property = properties[i];
+		NSString *propertyName = [[NSString alloc] initWithCString:property_getName(property)];
+		id propertyValue = [self valueForKey:(NSString *)propertyName];
+		if (propertyValue) props[propertyName] = propertyValue;
+	}
+	free(properties);
+	return props;
 }
 
 
@@ -845,7 +886,7 @@ static const char * getPropertyType(objc_property_t property) {
 }
 
 -(id)observeName:(NSString *)notificationName
-      usingBlock:(void (^)(NSNotification *))block
+	  usingBlock:(void (^)(NSNotification *))block
 {
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 	return [nc addObserverForName:notificationName
@@ -855,8 +896,8 @@ static const char * getPropertyType(objc_property_t property) {
 }
 
 -(void)observeObject:(NSObject *)object
-             forName:(NSString *)notificationName
-             calling:(SEL)selector
+			 forName:(NSString *)notificationName
+			 calling:(SEL)selector
 {
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 	[nc addObserver:self
@@ -883,7 +924,7 @@ static const char * getPropertyType(objc_property_t property) {
 }
 
 -(void)addObserver:(NSObject *)observer
-       forKeyPaths:(id<NSFastEnumeration>)keyPaths
+	   forKeyPaths:(id<NSFastEnumeration>)keyPaths
 {
 	for (NSString *keyPath in keyPaths) {
 		[self addObserver:observer forKeyPath:keyPath];
@@ -891,7 +932,7 @@ static const char * getPropertyType(objc_property_t property) {
 }
 
 -(void)removeObserver:(NSObject *)observer
-          forKeyPaths:(id<NSFastEnumeration>)keyPaths
+		  forKeyPaths:(id<NSFastEnumeration>)keyPaths
 {
 	for (NSString *keyPath in keyPaths) {
 		[self removeObserver:observer forKeyPath:keyPath];

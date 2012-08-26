@@ -30,12 +30,14 @@
 + (NSRect) structForQuantity:(NSUInteger)aNumber inRect:(NSRect)aFrame;
 //+ (NSSize) gridFor:(int)someitems inRect:(NSRect)aframe;
 
-@property (assign) NSUInteger quantity;
-@property (assign) int		rows;
-@property (assign) int		columns;
-@property (assign) float 	width;
-@property (assign) float	height;
-@property (assign) int		remainder;
+@property (assign, nonatomic) NSUInteger 	quantity;
+@property (assign, nonatomic) NSUInteger	rows;
+@property (assign, nonatomic) NSUInteger	columns;
+@property (assign, nonatomic) CGFloat 		width;
+@property (assign, nonatomic) CGFloat		height;
+@property (assign, nonatomic) NSSize		size;
+@property (assign, nonatomic) NSRect		outerFrame;
+@property (assign, nonatomic) int		remainder;
 @property (readonly) NSArray 	*rects;
 @property (readonly) NSArray 	*paths;
 @property (readonly) NSArray 	*boxes;

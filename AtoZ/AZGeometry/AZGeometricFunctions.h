@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-
+#import "AtoZ.h"
 
 //
 // shortcuts for [NSNumber numberWithXY]
@@ -25,6 +25,9 @@ CGFloat AZMinDim(NSSize sz);
 NSRect AZScreenFrame();
 NSSize AZScreenSize();
 
+
+NSSize AZDirectionsOffScreenWithPosition(NSRect rect, AZWindowPosition position );
+AZWindowPosition AZPositionOfRect(NSRect rect);
 //
 // NSRange from a min and max values
 // even though the names imply that min should be greater than max
@@ -53,6 +56,9 @@ float AZDistanceFromPoint (NSPoint p1,NSPoint p2);
 //
 // Simple Length and Area calculus
 //
+CGFloat AZPerimeter(NSRect rect);
+CGFloat AZPermineterWithRoundRadius (NSRect rect, CGFloat radius);
+
 CGFloat AZLengthOfPoint(NSPoint pt);
 CGFloat AZAreaOfSize(NSSize size);
 CGFloat AZAreaOfRect(NSRect rect);
@@ -167,7 +173,8 @@ NSSize AZInvertSize(NSSize size);
 NSSize AZRatioOfSizes(NSSize inner, NSSize outer);
 
 // will multiply a size by a single multiplier
-NSSize AZMultiplySize(NSSize size, CGFloat multiplier);
+NSSize AZMultiplySizeBy( NSSize size, CGFloat multiplier);
+//NSSize AZMultiplySize(NSSize size, CGFloat multiplier);
 
 // will multiply a size by another size
 NSSize AZMultiplySizeBySize(NSSize size, NSSize another);
@@ -202,6 +209,9 @@ NSRect AZRectVerticallyOffsetBy(CGRect rect, CGFloat offset);
 NSRect AZMenulessScreenRect();
 
 NSRect AZMakeRectMaxXUnderMenuBarY(CGFloat distance);
+
+CGFloat AZHeightUnderMenu();
+
 
 NSRect AZSquareFromLength(CGFloat length);
 

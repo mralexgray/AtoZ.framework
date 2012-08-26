@@ -31,6 +31,8 @@ AZViewAnimationType;
 
 @interface NSView (AtoZ)
 
+- (void) slideUp;
+- (void) slideDown;
 - (NSArray *)allSubviews;
 
 - (void)setupHostView;

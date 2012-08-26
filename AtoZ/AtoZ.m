@@ -8,6 +8,75 @@
 #import "AtoZ.h"
 #import <objc/message.h>
 
+//void WithAutoreleasePool(BasicBlock block) {
+////	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+//	@autoreleasepool {
+//
+//		block();
+//	}
+////	[pool release];
+//}
+////USAGE
+//for(id obj in array) WithAutoreleasePool(^{  	[self createLotsOfTemporaryObjectsWith:obj];  });
+
+NSString *const AZMouseNotification = @"okWindowFadeOutNow";
+
+BOOL isPathAccessible(NSString *path, SandBox mode) {
+	return access([path UTF8String], mode) == 0;
+}
+
+static CGEventRef myEventTapCallback (	CGEventTapProxy proxy,	CGEventType type,	CGEventRef event,	void * refcon ) {
+
+	// If we would get different kind of events, we can distinguish them by the variable "type", but we know we only get mouse moved events
+    CGPoint mouseLocation = CGEventGetLocation(event);
+    printf(	"Mouse is at x/y: %u/%u\n",(unsigned int)mouseLocation.x,  (unsigned int)mouseLocation.y );
+	[[ NSNotificationCenter defaultCenter] postNotificationName:@"mouseMoved" object:nil];
+
+	// Pass on the event, we must not modify it anyway, we are a listener
+    return event;
+}
+
+
+
+
+
+void trackMouse() {
+
+	CGEventMask emask;
+	CFMachPortRef myEventTap;
+	CFRunLoopSourceRef eventTapRLSrc;
+
+	// We only want one kind of event at the moment: The mouse has moved
+	emask = CGEventMaskBit(kCGEventMouseMoved);			// Create the Tap
+	myEventTap = CGEventTapCreate (		kCGSessionEventTap, // Catch all events for current user session
+								   		kCGTailAppendEventTap, // Append to end of EventTap list
+								   		kCGEventTapOptionListenOnly, // We only listen, we don't modify
+								   		emask,	&myEventTapCallback, NULL // We need no extra data in the callback
+	);																		// Create a RunLoop Source for it
+	eventTapRLSrc = CFMachPortCreateRunLoopSource(		kCFAllocatorDefault,	myEventTap,   0		);
+	// Add the source to the current RunLoop
+	CFRunLoopAddSource(		CFRunLoopGetCurrent(),		eventTapRLSrc, 		kCFRunLoopDefaultMode   );
+	// Keep the RunLoop running forever
+	CFRunLoopRun();
+}
+
+
+	// In a source file
+NSString *const FormatTypeName[FormatTypeCount] = {
+	[JSON] = @"JSON",
+	[XML] = @"XML",
+	[Atom] = @"Atom",
+	[RSS] = @"RSS",
+};
+
+NSString *const AZOrientName[AZOrientCount] = {
+	[AZOrientTop] = @"Top",
+	[AZOrientLeft] = @"Left",
+	[AZOrientBottom] = @"Bottom",
+	[AZOrientRight] = @"Right",
+	[AZOrientFiesta] = @"Fiesta",
+//	[AZOrientCount] = @"Count",
+};
 
 
 @implementation AtoZ
@@ -15,7 +84,19 @@
 	BOOL fontsRegistered;
 }
 @synthesize appFolder, appFolderSorted;//, console;
-@synthesize dock, dockSorted;
+//@synthesize dock, dockSorted;
+
++ (NSString*)stringForType:(id)type
+{
+
+	Class i = [type class];
+	NSLog(@"String: %@   Class:%@", NSStringFromClass(i), i);
+//	[type autoDescribe:type];
+	NSString *key = [NSString stringWithFormat:@"AZOrient_%i", NSStringFromClass([type class])];
+	return NSLocalizedString(key, nil);
+}
+
+
 //{//	__weak AZSimpleView *e;
 //}
 //	console = [NSLogConsole sharedConsole]; [console open];
@@ -26,12 +107,44 @@
 - (void) setUp {
 
 
-
-	self.dock = [AZDockQuery dock];
 //	self.dockOutline = dock.copy;
-	self.sortOrder = AZDockSortNatural;
+//	self.sortOrder = AZDockSortNatural;
+}
+
+- (NSBundle*) bundle {
+	return [NSBundle bundleForClass:[self class]];
+}
+#ifdef GROWL_ENABLED
+- (BOOL) registerGrowl {
+//	AtoZ *u = [[self class] sharedInstance];
+
+
+	NSString *growlPath = [[self.bundle privateFrameworksPath] stringByAppendingPathComponent:@"Growl.framework"];
+	NSLog(@"growl path: %@ ", growlPath);
+	NSBundle *growlBundle = [NSBundle bundleWithPath:growlPath];
+	if (growlBundle && [growlBundle load]) 	{	NSLog(@"Succeefully Loaded Growl.framework!");
+		[GrowlApplicationBridge registrationDictionaryFromBundle:self.bundle];
+
+// 		Register ourselves as a Growl delegate
+//		[GrowlApplicationBridge setGrowlDelegate:self];
+
+//		[GrowlApplicationBridge notifyWithTitle:@"Welcome To AtoZ" description:@"Sexy."		notificationName:@"Log" iconData:nil priority:1 isSticky:NO clickContext:nil];
+		return YES;
+	}	else {		NSLog(@"Could not load Growl.framework"); return NO; }
 
 }
+-(void)growlNotificationWasClicked:(id)clickContext {
+
+	NSLog(@"got clickback from growl... ");
+	NSLog(@"clickback: ", clickContext);
+
+}
+#endif
+
++ (void) trackIt {
+	[NSThread performBlockInBackground:^{		trackMouse();		}];
+}
+
 +(NSFont*) fontWithSize:(CGFloat)fontSize {
 	return 	[[AtoZ sharedInstance] registerFonts:fontSize];
 }
@@ -51,15 +164,22 @@
 	}
 	return  [NSFont fontWithName:@"UbuntuTitling-Bold" size:size];
 }
+
+
+
+
+
+
+
  -(NSArray*)dockSorted {
 
- return [[[dock sortedWithKey:@"hue" ascending:YES] reversed] arrayUsingIndexedBlock:^id(AZFile* obj, NSUInteger idx) {
+[[[!_dock ? self.dock : _dock sortedWithKey:@"hue" ascending:YES] reversed] arrayUsingIndexedBlock:^id(AZFile* obj, NSUInteger idx) {
 			//		if ([obj.name isEqualToString:@"Finder"]) {
 			//		obj.spotNew = 999;
 			//		obj.dockPointNew = obj.dockPoint;
 			//		} else {
 		obj.spotNew = idx;
-		obj.dockPointNew = [[dock[idx]valueForKey:@"dockPoint"]pointValue];
+		obj.dockPointNew = [[[_dock objectAtIndex:idx]valueForKey:@"dockPoint"]pointValue];
 		return obj;
 	}];
 	// arrayUsingIndexedBlock:^id(AZFile* obj, NSUInteger idx) {
@@ -76,6 +196,13 @@
 
 + (NSArray*) dock {
 	return [AtoZ sharedInstance].dock ;
+}
+- (NSArray*) dock {
+
+	if (!_dock)
+		self.dock = [AZDockQuery dock];
+	return _dock;
+//NSLog(@"dock got:  %@", _dock); 
 }
 
 + (NSArray*) currentScope {
@@ -122,6 +249,12 @@
 	[self setObject:newValue forKey:key];
 }
 */
+
+-(void) mouseSelector {
+
+	NSLog(@"selectot triggered!  by notificixation, even!");
+}
+
 - (NSJSONSerialization*) jsonReuest:(NSString*)url {
 	NSError *err;
 	NSURLRequest *theRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:url]
@@ -274,6 +407,7 @@
 }
 
 + (NSArray*) appFolder {
+
 	[AZStopwatch start:@"appFolder"];
 	if (! [AtoZ sharedInstance].appFolder ) {
 		NSMutableArray *applications = [NSMutableArray array];
@@ -342,6 +476,30 @@
 	}];
 //		dummy];		t.color = (NSColor*)obj; t.spot = 22;	return t;	}];
 }
+
+void ApplicationsInDirectory(NSString *searchPath, NSMutableArray *applications) {
+    BOOL isDir;
+    NSFileManager *manager = [NSFileManager defaultManager];
+    NSArray *files = [manager directoryContentsAtPath:searchPath];
+    NSEnumerator *fileEnum = [files objectEnumerator]; NSString *file;
+    while (file = [fileEnum nextObject]) {
+        [manager changeCurrentDirectoryPath:searchPath];
+        if ([manager fileExistsAtPath:file isDirectory:&isDir] && isDir) {
+            NSString *fullpath = [searchPath stringByAppendingPathComponent:file];
+            if ([[file pathExtension] isEqualToString:@"app"]) [applications addObject:fullpath];
+            else ApplicationsInDirectory(fullpath, applications);
+        }
+    }
+}
+
+//NSArray *AllApplications(NSArray *searchPaths) {
+//    NSMutableArray *applications = [NSMutableArray array];
+//    NSEnumerator *searchPathEnum = [searchPaths objectEnumerator]; NSString *path;
+//    while (path = [searchPathEnum nextObject]) ApplicationsInDirectory(path, applications);
+//    return ([applications count]) ? applications : nil;
+//}
+//
+
 + (NSArray*) runningApps {
 
 	return [[[[NSWorkspace sharedWorkspace] runningApplications] valueForKeyPath:@"bundleURL"] arrayUsingBlock:^id(id obj) {
@@ -366,37 +524,25 @@ static void soundCompleted(SystemSoundID soundFileObject, void *clientData) {
         AudioServicesDisposeSystemSoundID(soundFileObject);
 }
 
-
 - (void)playNotificationSound:(NSDictionary *)apsDictionary
 {
     // App could implement its own preferences so the user could specify if they want sounds or alerts.
     // if (userEnabledSounds)
-
     NSString *soundName = (NSString *)[apsDictionary valueForKey:(id)@"sound"];
     if (soundName != nil) {
         SystemSoundID soundFileObject   = kSystemSoundID_UserPreferredAlert;
         CFURLRef soundFileURLRef        = NULL;
-
         if ([soundName compare:@"default"] != NSOrderedSame) {
             // Get the main bundle for the app.
             CFBundleRef mainBundle = CFBundleGetMainBundle();
-
             // Get the URL to the sound file to play. The sound property's value is the full filename including the extension.
-            soundFileURLRef = CFBundleCopyResourceURL(mainBundle,
-                                                      (__bridge CFStringRef)soundName,
-                                                      NULL,
-                                                      NULL);
-
+            soundFileURLRef = CFBundleCopyResourceURL(mainBundle, (__bridge CFStringRef)soundName,NULL,NULL);
             // Create a system sound object representing the sound file.
-            AudioServicesCreateSystemSoundID(soundFileURLRef,
-                                             &soundFileObject);
-
+            AudioServicesCreateSystemSoundID(soundFileURLRef, &soundFileObject);
             CFRelease(soundFileURLRef);
         }
-
         // Register a function to be called when the sound is done playing.
         AudioServicesAddSystemSoundCompletion(soundFileObject, NULL, NULL, soundCompleted, NULL);
-
         // Play the sound.
         AudioServicesPlaySystemSound(soundFileObject);
     }
@@ -406,10 +552,8 @@ static void soundCompleted(SystemSoundID soundFileObject, void *clientData) {
 - (void)badgeApplicationIcon:(NSString*)string
 {
     NSDockTile *dockTile = [[NSApplication sharedApplication] dockTile];
-    if (string != nil)
-        [dockTile setBadgeLabel:string];
-    else
-        [dockTile setBadgeLabel:nil];
+    if (string != nil)  [dockTile setBadgeLabel:string];
+    else				[dockTile setBadgeLabel:nil];
 
 }
 
@@ -484,7 +628,7 @@ NSString *const AZFileUpdated = @"AZFileUpdated";
 	dd.path = path;
 	dd.name = [[path lastPathComponent] stringByDeletingPathExtension];
 	NSWorkspace *ws =	[NSWorkspace sharedWorkspace];
-	dd.image = [ws iconForFile:path];
+	dd.image = [[ws iconForFile:path]scaleToFillSize:AZSizeFromDimension(512)]	;
 	NSBundle * appBundle = [NSBundle bundleWithPath:path];
 	dd.calulatedBundleID = [appBundle bundleIdentifier];
 	dd.color = [[[dd colors] objectAtNormalizedIndex:0]valueForKey:@"color"];
@@ -599,6 +743,14 @@ NSString *const AZFileUpdated = @"AZFileUpdated";
 
 @end
 
+void _AZSimpleLog(const char *file, int lineNumber, const char *funcName, NSString *format,...){
+	va_list argList;
+	va_start (argList, format);
+	NSString *message = [[NSString alloc] initWithFormat:format arguments:argList];
+//	fprintf (stderr, "%s \n", [message UTF8String]);
+	va_end  (argList);
+//	const char *threadName = [[[NSThread currentThread] name] UTF8String];
+}
 
 void _AZLog(const char *file, int lineNumber, const char *funcName, NSString *format,...) {
 	va_list arglist;
@@ -723,22 +875,22 @@ int max(int x, int y)
 }
 @end
 
-
-
-
-@interface  NSArray (SubscriptsAdd)
-- (id)objectAtIndexedSubscript:(NSUInteger)index;
-@end
-
-@interface NSMutableArray (SubscriptsAdd)
-- (void)setObject:(id)object atIndexedSubscript:(NSUInteger)index;
-@end
-@interface  NSDictionary (SubscriptsAdd)
-- (id)objectForKeyedSubscript:(id)key;
-@end
-@interface  NSMutableDictionary (SubscriptsAdd)
-- (void)setObject:(id)object forKeyedSubscript:(id)key;
-@end
+//
+//
+//
+//@interface  NSArray (SubscriptsAdd)
+//- (id)objectAtIndexedSubscript:(NSUInteger)index;
+//@end
+//
+//@interface NSMutableArray (SubscriptsAdd)
+//- (void)setObject:(id)object atIndexedSubscript:(NSUInteger)index;
+//@end
+//@interface  NSDictionary (SubscriptsAdd)
+//- (id)objectForKeyedSubscript:(id)key;
+//@end
+//@interface  NSMutableDictionary (SubscriptsAdd)
+//- (void)setObject:(id)object forKeyedSubscript:(id)key;
+//@end
 
 
 #include <AvailabilityMacros.h>
@@ -2183,28 +2335,6 @@ static double frandom(double start, double end)
 	r = start + r*(end-start);
 
 	return r;
-}
-
-void ApplicationsInDirectory(NSString *searchPath, NSMutableArray *applications) {
-    BOOL isDir;
-    NSFileManager *manager = [NSFileManager defaultManager];
-    NSArray *files = [manager directoryContentsAtPath:searchPath];
-    NSEnumerator *fileEnum = [files objectEnumerator]; NSString *file;
-    while (file = [fileEnum nextObject]) {
-        [manager changeCurrentDirectoryPath:searchPath];
-        if ([manager fileExistsAtPath:file isDirectory:&isDir] && isDir) {
-            NSString *fullpath = [searchPath stringByAppendingPathComponent:file];
-            if ([[file pathExtension] isEqualToString:@"app"]) [applications addObject:fullpath];
-            else ApplicationsInDirectory(fullpath, applications);
-        }
-    }
-}
-
-NSArray *AllApplications(NSArray *searchPaths) {
-    NSMutableArray *applications = [NSMutableArray array];
-    NSEnumerator *searchPathEnum = [searchPaths objectEnumerator]; NSString *path;
-    while (path = [searchPathEnum nextObject]) ApplicationsInDirectory(path, applications);
-    return ([applications count]) ? applications : nil;
 }
 
 

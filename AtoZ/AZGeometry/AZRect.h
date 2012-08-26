@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import "AZGeometry.h"
 #import <Foundation/Foundation.h>
-
+#import "AZGeometricFunctions.h"
 
 
 /** Returns a rect that uses aSize as its size and centered inside the given rect.
@@ -47,15 +47,16 @@ The returned rect origin is valid whether or not your coordinate space is flippe
 
 /** Returns a rect with a width and height multiplied by the given factor and 
 by shifting the origin to retain the original rect center location. */
-static inline NSRect AZScaleRect(NSRect frame, float factor)
-{
+static inline NSRect AZScaleRect(NSRect frame, CGFloat factor) {
 	NSSize prevSize = frame.size;
-	
-	frame.size = AZMultiplySize(frame.size, factor);
+	NSRect newFrame;
+	newFrame.size  = (NSSize) {frame.size.width *2, frame.size.height*2};
+	//AZMultiplySize( frame.size,  factor);
+
 	// NOTE: frame.origin.x -= (frame.size.width - prevSize.width) / 2;
 	//       frame.origin.y -= (frame.size.height - prevSize.height) / 2;
-	frame.origin.x += (prevSize.width - frame.size.width) / 2;
-	frame.origin.y += (prevSize.height - frame.size.height) / 2;
+	newFrame.origin.x += (prevSize.width - newFrame.size.width) / 2;
+	newFrame.origin.y += (prevSize.height - newFrame.size.height) / 2;
 
 	return frame;
 }

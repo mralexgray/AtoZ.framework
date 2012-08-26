@@ -66,6 +66,60 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 @implementation NSView (AtoZ)
 //@dynamic center;
 
+
+
+-(void) slideDown {
+
+
+	NSRect newViewFrame;
+	if ([self valueForKeyPath:@"dictionary.visibleRect"] ) {
+		newViewFrame = 	[[self valueForKeyPath:@"dictionary.visibleRect"]rectValue];
+	} else {
+/*		id aView = [ @[ self, [ self superview], [self window]] filterOne:^BOOL(id object) {
+			return  [object respondsToSelector:@selector(orientation)] ? YES : NO ;
+		}];
+		if  (aView) { 	AZOrient b = (AZOrient)[aView valueForKey:@"orientation"];
+//		NSLog(@"computed orentation  %ld", b);
+			NSLog(@"computed orentation %@", AZOrientName[b]);
+		}
+*/		newViewFrame = AZMakeRectFromSize([[self superview]frame].size);
+//		AZRectVerticallyOffsetBy( [self frame], -[self frame].size.height);
+	}
+	
+	CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"frame"];
+	[animation setFromValue:[NSValue valueWithRect:[self frame]]];
+	[animation setToValue:	[NSValue valueWithRect:newViewFrame]];
+
+//	CABasicAnimation *fader = [CABasicAnimation animationWithKeyPath:@"alphaValue"];
+//	[fader setFromValue:@0.f];
+//	[fader setToValue:@1.f];
+
+
+	[self setAnimations:	@{ @"frame" : animation}];
+
+	[[self animator] setFrame:newViewFrame];
+//
+
+}
+
+-(void) slideUp {
+
+	if (! [self valueForKeyPath:@"dictionary.visibleRect"] ) {
+		NSLog(@"avaing cvisirect: %@", NSStringFromRect([self frame]));
+		[self setValue:[NSValue valueWithRect:[self frame]] forKeyPath:@"dictionary.visibleRect"];
+	}
+		NSRect newViewFrame = [self frame];
+		AZWindowPosition r = AZPositionOfRect([[self window]frame]);
+		NSSize getOut = AZDirectionsOffScreenWithPosition(newViewFrame,r);
+		newViewFrame.size.width  += getOut.width;
+		newViewFrame.size.height += getOut.height;
+		CABasicAnimation *framer = [CABasicAnimation animationWithKeyPath:@"frame"];
+		[framer setFromValue:[NSValue valueWithRect:[self frame]]];
+		[framer setToValue:	[NSValue valueWithRect:newViewFrame]];
+		[self setAnimations:	@{ @"frame" : framer}];
+		[[self animator] setFrame:newViewFrame];
+}
+
 - (NSArray *)allSubviews {
     NSMutableArray *allSubviews = [NSMutableArray arrayWithObject:self];
     NSArray *subviews = [self subviews];

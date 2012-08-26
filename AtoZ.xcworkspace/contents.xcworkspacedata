@@ -19,4 +19,7 @@
    <FileRef
       location = "container:../../../../Users/localadmin/Downloads/ciaran-psmtabbarcontrol-09383c8/PSMTabBarControl.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:../git/growl-fresh/Framework/Test apps/Status Checker/Status Checker.xcodeproj">
+   </FileRef>
 </Workspace>

@@ -31,12 +31,22 @@ NSRange AZMakeRange(NSUInteger min, NSUInteger max) {
 }
 
 
+CGFloat AZPerimeter (NSRect rect) {
+	return ( (2* rect.size.width) + (2 * rect.size.height) );
+}
+
+CGFloat AZPermineterWithRoundRadius (NSRect rect, CGFloat radius) {
+	return  ( AZPerimeter(rect) - ( ( 8 - (   (2 * pi) * radius)   )));
+}
+
+
 NSRect AZScreenFrame() {
 	return [[NSScreen mainScreen]frame];
 }
 NSSize AZScreenSize(){
 return [[NSScreen mainScreen]frame].size;
 }
+
 //
 // 2D Functions
 //
@@ -370,13 +380,12 @@ NSSize AZInvertSize(NSSize size) {
 }
 
 NSSize AZRatioOfSizes(NSSize inner, NSSize outer) {
-  return NSMakeSize(inner.width / outer.width, 
+  return NSMakeSize (inner.width / outer.width,
                     inner.height / outer.height);
 }
 
-NSSize AZMultiplySize(NSSize size, CGFloat multiplier) {
-  return NSMakeSize(size.width * multiplier, 
-                    size.height * multiplier);
+NSSize AZMultiplySize( NSSize size, CGFloat multiplier) {
+  return (NSSize) { size.width * multiplier, size.height * multiplier };
 }
 
 NSSize AZMultiplySizeBySize(NSSize size, NSSize another) {
@@ -460,6 +469,12 @@ NSRect AZMenulessScreenRect() {
 	e.size.height -= 22;
 	return e;
 }
+
+
+CGFloat AZHeightUnderMenu () {
+	return ( [[NSScreen mainScreen]frame].size.height - [[NSStatusBar systemStatusBar] thickness] );
+}
+
 
 NSRect AZMakeRectMaxXUnderMenuBarY(CGFloat distance) {
 	NSRect rect = [[NSScreen mainScreen]frame];
@@ -821,3 +836,26 @@ point.y = (random() % (max-min+1)) + min;
 
 return point;
 }
+
+
+
+
+AZWindowPosition AZPositionOfRect(NSRect rect) {
+
+	if ( AZDistanceFromPoint( rect.origin, NSZeroPoint ) == 0 )
+		return NSMaxX( rect ) == ScreenWidess() ? AZPositionBottom : AZPositionBottomLeft;
+	else if (NSMinY(rect)==0)
+		return AZPositionRight;
+	else return AZPositionTop;
+}
+
+NSSize AZDirectionsOffScreenWithPosition(NSRect rect, AZWindowPosition position )
+{
+	CGFloat deltaX = position == AZPositionLeft 	?  -NSMaxX(rect)
+	: position == AZPositionRight 	? 	NSMaxX(rect)	: 0;
+	CGFloat deltaY = position == AZPositionTop 		?  NSMaxY(rect)
+	: position == AZPositionBottom 	? -NSMaxY(rect)		: 0;
+
+	return (NSSize){deltaX,deltaY};
+}
+

@@ -12,6 +12,12 @@
 @implementation AZSimpleView
 @synthesize glossy, backgroundColor, checkerboard, gradient;
 
+
+- (BOOL)isOpaque
+{
+	return NO;
+}
+
 - (id)initWithFrame:(NSRect)frame
 {
  	if (self = [super initWithFrame:frame]) {
@@ -45,10 +51,17 @@
 		NSBezierPath *p =[NSBezierPath bezierPathWithRect: [self bounds]];// cornerRadius:0];
 		[p fillGradientFrom:backgroundColor.darker.darker.darker to:backgroundColor.brighter.brighter angle:270];
 	}
+//	else {
+// 	    [(checkerboard ? [NSColor checkerboardWithFirstColor:backgroundColor secondColor:backgroundColor.contrastingForegroundColor squareWidth:10] : [self backgroundColor]) set];
+//    	NSRectFill(rect);
 	else {
- 	    [(checkerboard ? [NSColor checkerboardWithFirstColor:backgroundColor secondColor:backgroundColor.contrastingForegroundColor squareWidth:10] : [self backgroundColor]) set];
-    	NSRectFill(rect);
+		[[NSColor colorWithCalibratedRed:0.f green:0.5f blue:0.f alpha:0.5f] set];
+		[[NSGraphicsContext currentContext]
+		 setCompositingOperation:NSCompositeClear];
+		[[NSBezierPath bezierPathWithRect:rect] fill];
 	}
+//	else	{	[self.backgroundColor ? self.backgroundColor : [NSColor clearColor]   set];		NSRectFill(rect);	}
+
 }
 
 
