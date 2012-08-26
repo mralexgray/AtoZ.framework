@@ -6,6 +6,21 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		7BA32AA315EACE830061B2BC /* AtoZAggregate */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 7BA32AA415EACE830061B2BC /* Build configuration list for PBXAggregateTarget "AtoZAggregate" */;
+			buildPhases = (
+			);
+			dependencies = (
+				7BA32AAA15EACE930061B2BC /* PBXTargetDependency */,
+				7BA32AA815EACE8F0061B2BC /* PBXTargetDependency */,
+			);
+			name = AtoZAggregate;
+			productName = AtoZAggregate;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		7B010D1715E81FE300D1C83C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7B010D1615E81FE300D1C83C /* Localizable.strings */; };
 		7B02364D15DF15DB0070FE12 /* AZLaunchServices.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B02364B15DF15DA0070FE12 /* AZLaunchServices.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -362,6 +377,20 @@
 			proxyType = 2;
 			remoteGlobalIDString = 1EEDD03C13DD485400D5AEC3;
 			remoteInfo = XPCKitTests;
+		};
+		7BA32AA715EACE8F0061B2BC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B311947159B6D9E002134C4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7B311950159B6D9E002134C4;
+			remoteInfo = AtoZ;
+		};
+		7BA32AA915EACE930061B2BC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B311947159B6D9E002134C4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7B31B12515E9441D00802CD5;
+			remoteInfo = "AtoZ Entitlement";
 		};
 		7BC398F815E45CE600482937 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1299,6 +1328,7 @@
 		7B6901BB159E0ADB00D0DA47 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				7B78529315ACEA3B008BAD3C /* AZLayerGrid */,
 				7BA425B615E7C3C200D2A471 /* AZTrackingWindow.h */,
 				7BA425B715E7C3C200D2A471 /* AZTrackingWindow.m */,
 				7BA425B215E7B52F00D2A471 /* MAAttachedWindow.h */,
@@ -1416,7 +1446,6 @@
 				7B379CA615DE0B050040A093 /* AZBackground.h */,
 				7B379CA715DE0B050040A093 /* AZBackground.m */,
 				7B379CAA15DE0B550040A093 /* AZDarkButtonCell.h */,
-				7B78529315ACEA3B008BAD3C /* AZLayerGrid */,
 				7B379CAB15DE0B550040A093 /* AZDarkButtonCell.m */,
 			);
 			name = Components;
@@ -1721,6 +1750,7 @@
 				7B311968159B6D9E002134C4 /* AtoZTests */,
 				7B82B81E15CB66D30026FE8C /* AtoZ Encyclopedia */,
 				7B31B12515E9441D00802CD5 /* AtoZ Entitlement */,
+				7BA32AA315EACE830061B2BC /* AtoZAggregate */,
 			);
 		};
 /* End PBXProject section */
@@ -2195,6 +2225,16 @@
 			target = 7B311950159B6D9E002134C4 /* AtoZ */;
 			targetProxy = 7B31B14615E9447400802CD5 /* PBXContainerItemProxy */;
 		};
+		7BA32AA815EACE8F0061B2BC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7B311950159B6D9E002134C4 /* AtoZ */;
+			targetProxy = 7BA32AA715EACE8F0061B2BC /* PBXContainerItemProxy */;
+		};
+		7BA32AAA15EACE930061B2BC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7B31B12515E9441D00802CD5 /* AtoZ Entitlement */;
+			targetProxy = 7BA32AA915EACE930061B2BC /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -2261,15 +2301,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "Mac Developer: Alex Gray (TJETSYNDCZ)";
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_VERSION = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "1BC47E89-AB12-4D8E-A035-FA4782C904D1";
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -2278,11 +2318,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "Mac Developer: Alex Gray (TJETSYNDCZ)";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_VERSION = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "1BC47E89-AB12-4D8E-A035-FA4782C904D1";
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -2368,30 +2408,20 @@
 		7B31B14215E9441D00802CD5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_ENTITLEMENTS = "AtoZ Entitlement/AtoZ Entitlement.entitlements";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AtoZ Entitlement/AtoZ Entitlement-Prefix.pch";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
+				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = "\"${TARGET_BUILD_DIR}/AtoZ.framework/Headers\"";
 				INFOPLIST_FILE = "AtoZ Entitlement/AtoZ Entitlement-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2399,27 +2429,20 @@
 		7B31B14315E9441D00802CD5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_ENTITLEMENTS = "AtoZ Entitlement/AtoZ Entitlement.entitlements";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AtoZ Entitlement/AtoZ Entitlement-Prefix.pch";
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
+				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = "\"${TARGET_BUILD_DIR}AtoZ.framework/Headers\"";
 				INFOPLIST_FILE = "AtoZ Entitlement/AtoZ Entitlement-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -2493,6 +2516,20 @@
 			};
 			name = Release;
 		};
+		7BA32AA515EACE830061B2BC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		7BA32AA615EACE830061B2BC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -2537,6 +2574,15 @@
 			buildConfigurations = (
 				7B82B83B15CB66D30026FE8C /* Debug */,
 				7B82B83C15CB66D30026FE8C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7BA32AA415EACE830061B2BC /* Build configuration list for PBXAggregateTarget "AtoZAggregate" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7BA32AA515EACE830061B2BC /* Debug */,
+				7BA32AA615EACE830061B2BC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

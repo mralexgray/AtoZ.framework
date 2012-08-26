@@ -12,17 +12,22 @@
 		<key>AtoZ Encyclopedia.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>1</integer>
+			<integer>2</integer>
 		</dict>
 		<key>AtoZ Entitlement.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>2</integer>
+			<integer>4</integer>
 		</dict>
 		<key>AtoZ.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
+		</dict>
+		<key>AtoZAggregate.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>54</integer>
 		</dict>
 		<key>AtoZCLI.xcscheme</key>
 		<dict>
@@ -70,6 +75,11 @@
 			<true/>
 		</dict>
 		<key>7B82B81E15CB66D30026FE8C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7BA32AA315EACE830061B2BC</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -21,7 +21,7 @@
 //	self.log = $(@"%@", [valueForKeyPath:@"name"]);  // works : directoryContentsAtPath
 //	self.log = $(@"%@", [[AtoZ dock]valueForKeyPath:@"name"]);  //  FAIL
 	NSRect r = [[self.window contentView] frame];
-	AZFileGridView *g = [[AZFileGridView alloc] initWithFrame:r andFiles:[ato appFolder]];
+	AZFileGridView *g = [[AZFileGridView alloc] initWithFrame:r andFiles:[AtoZ appFolder]];
 	[[self.window contentView] addSubview:g];
 
 //	AZSizer *r = dbx.ap

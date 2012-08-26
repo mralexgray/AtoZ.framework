@@ -7,12 +7,17 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "AtoZ.h"
 
 @interface AZFileGridView : NSView
 
 - (id)initWithFrame:(NSRect)frame andFiles:(NSArray*)files;
 
-@property (nonatomic, retain) NSArray *content;
+
+
+@property (nonatomic, retain) AZSizer *sizer;
+@property (nonatomic, retain) NSMutableArray *layers;
+@property (nonatomic, retain) NSMutableArray *content;
 @property (nonatomic, retain) CALayer *root;
 @property (nonatomic, retain) CALayer *contentLayer;
 

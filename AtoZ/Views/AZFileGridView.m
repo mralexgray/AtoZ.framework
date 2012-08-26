@@ -31,7 +31,7 @@
 }
 
 
-- (void)setContent:(NSArray *)content {
+- (void)setContent:(NSMutableArray *)content {
 
 	_content  = content;
 	[self doLayout];
@@ -41,7 +41,6 @@
 
 
 //	NSRect sizer 	= [AZSizer structForQuantity:_content.count inRect:[self bounds]];
-	AZSizer *i = [AZSizer forQuantity:_content.count inRect:[self frame]];
 	//				   contentLayer.sublayers.count inRect:[self frame]];
 //	NSLog(@"Sizer rect: %@", NSStringFromRect(r));
 //	int columns =  r.origin.y;
@@ -50,20 +49,28 @@
 //	NSUInteger rowindex,  columnindex;
 //	rowindex = columnindex = 0;
 //	for (AZFile *file in _content) {
-	NSLog(@"Sizer: %@", i.propertiesPlease);
-	[_content enumerateObjectsUsingBlock:^(AZFile* file, NSUInteger idx, BOOL *stop) {
-
+//	NSLog(@"Sizer: %@", i.propertiesPlease);
+	if (!_layers) {
+		self.layers = [NSMutableArray array];
+		[_content enumerateObjectsUsingBlock:^(AZFile* file, NSUInteger idx, BOOL *stop) {
 			//		if ([imageLayer valueForKey:@"locked"]) continue;
-		CALayer *fileLayer = [CALayer layer];
-		fileLayer.backgroundColor = file.color.CGColor;
-		fileLayer.contents = file.image;
-		fileLayer.contentsGravity = kCAGravityResizeAspect;
-		fileLayer.frame = [[i.rects objectAtIndex:idx]rectValue];
+			CALayer *fileLayer = [CALayer layer];
+			fileLayer.backgroundColor = file.color.CGColor;
+			[_layers addObject:fileLayer];
+			[[self layer] addSublayer:fileLayer];
+		}];
+	}
+	self.sizer = [AZSizer forQuantity:_content.count inRect:[self frame]];
+
+	//		fileLayer.contents = file.image;
+	//		fileLayer.contentsGravity = kCAGravityResizeAspect;
+	[_layers enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+
+		obj.frame = [[_sizer.rects objectAtIndex:idx]rectValue];
 //		NSRect *f = AZMakeRect(	(NSPoint) {	sizerSize.width * columnindex,
 //											_root.frame.size.height - ( (rowindex + 1) * sizerSize.height) },
 //												sizerSize);
 //		fileLayer.frame =
-		[[self layer] addSublayer:fileLayer];
 //		columnindex++;
 //		if ( ! ((columnindex + 1) <= columns) ) { columnindex = 0; rowindex++; }
 
@@ -84,7 +91,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-		self.content = files;
+		self.content = files.mutableCopy;
 		[self setWantsLayer: YES];
 		[self doLayout];
 	}
