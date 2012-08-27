@@ -38,6 +38,26 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 
 @implementation NSImage (AtoZ)
 
+
+- (NSImage *)scaleImageToFillSize:(NSSize)targetSize
+{
+	NSSize sourceSize = self.size;
+	NSRect sourceRect, destinationRect; sourceRect = destinationRect = NSZeroRect;
+	sourceRect = sourceSize.height > sourceSize.width
+	?	AZMakeRect((NSPoint){ 0.0,	round((sourceSize.height - sourceSize.width) / 2)}, sourceSize)
+	:	AZMakeRect((NSPoint){ round((sourceSize.width - sourceSize.height) / 2), 0.0},sourceSize);
+
+	destinationRect.size = targetSize;
+	NSImage *final = [[NSImage alloc] initWithSize:targetSize];
+	[final setSize:targetSize];
+	[final lockFocus];
+	[[NSGraphicsContext currentContext] setImageInterpolation:NSImageInterpolationLow];
+	[final drawInRect:destinationRect fromRect:sourceRect operation:NSCompositeSourceOver fraction:1.0];
+	[final unlockFocus];
+	return final;
+}
+
+
 - (NSImage*)  coloredWithColor:(NSColor*)inColor {
 	return [self coloredWithColor:inColor composite:NSCompositeDestinationIn];
 }

@@ -167,6 +167,7 @@ typedef enum _AZWindowPosition {
 #import "BaseModel.h"
 #import "SMModelObject.h"
 #import "AZSimpleView.h"
+#import "AZSizer.h"
 
 //#import <AtoZiTunes/AtoZiTunes.h>
 #import "CALayer+AtoZ.h"
@@ -238,7 +239,6 @@ typedef enum _AZWindowPosition {
 #import "AZBox.h"
 #import "AZBoxGrid.h"
 #import "AZBoxMagic.h"
-#import "AZSizer.h"
 #import "AZInfiniteCell.h"
 #import "AZSourceList.h"
 #import "AZTalker.h"
@@ -310,8 +310,11 @@ extern NSString *const AtoZDockSortedUpdated;
 @property (nonatomic, retain) NSArray *appCategories;
 //@property (nonatomic, retain) NSArray *dockOutline;
 
-@property (nonatomic, strong) NSMutableArray *appFolderSorted;
-@property (nonatomic, strong) NSMutableArray *appFolder;
+@property (nonatomic, strong) NSArray *appFolderSorted;
+@property (nonatomic, strong) NSArray *appFolder;
+@property (nonatomic, strong) NSArray *appFolderStrings;
+
++ (NSArray*) appFolderSamplerWith:(NSUInteger)apps;
 
 - (void) handleMouseEvent:(NSEventMask)event inView:(NSView*)view withBlock:(void (^)())block;
 //@property (strong, nonatomic) NSLogConsole *console;
@@ -742,7 +745,7 @@ static inline float RandomComponent() {  return (float)random() / (float)LONG_MA
 //#define NSLog(args...) _AZSimpleLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args);
 
 //#define NSLog(args...) _AZLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args);
-
+//
 //void _AZLog(const char *file, int lineNumber, const char *funcName, NSString *format,...);
 //void _AZSimpleLog(const char *file, int lineNumber, const char *funcName, NSString *format,...);
 

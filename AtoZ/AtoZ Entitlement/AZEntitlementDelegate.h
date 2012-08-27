@@ -14,4 +14,6 @@
 @property (assign, nonatomic) IBOutlet NSWindow *window;
 @property (nonatomic, retain) NSString *log;
 @property (nonatomic, retain) AtoZ *dbx;
+@property (nonatomic, retain) AZFileGridView *g;
+
 @end

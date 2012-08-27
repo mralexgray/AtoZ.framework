@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7B31B12515E9441D00802CD5"
-               BuildableName = "AtoZ Entitlement.app"
-               BlueprintName = "AtoZ Entitlement"
+               BlueprintIdentifier = "7BA32AA315EACE830061B2BC"
+               BuildableName = "AtoZAggregate"
+               BlueprintName = "AtoZAggregate"
                ReferencedContainer = "container:AtoZ.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -29,15 +29,6 @@
       buildConfiguration = "Debug">
       <Testables>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7B31B12515E9441D00802CD5"
-            BuildableName = "AtoZ Entitlement.app"
-            BlueprintName = "AtoZ Entitlement"
-            ReferencedContainer = "container:AtoZ.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
    </TestAction>
    <LaunchAction
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
@@ -48,21 +39,7 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7B31B12515E9441D00802CD5"
-            BuildableName = "AtoZ Entitlement.app"
-            BlueprintName = "AtoZ Entitlement"
-            ReferencedContainer = "container:AtoZ.xcodeproj">
-         </BuildableReference>
-      </BuildableProductRunnable>
       <AdditionalOptions>
-         <AdditionalOption
-            key = "NSZombieEnabled"
-            value = "YES"
-            isEnabled = "YES">
-         </AdditionalOption>
       </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
@@ -71,15 +48,6 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7B31B12515E9441D00802CD5"
-            BuildableName = "AtoZ Entitlement.app"
-            BlueprintName = "AtoZ Entitlement"
-            ReferencedContainer = "container:AtoZ.xcodeproj">
-         </BuildableReference>
-      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

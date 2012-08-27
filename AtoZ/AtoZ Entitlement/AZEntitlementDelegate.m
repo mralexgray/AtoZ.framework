@@ -16,16 +16,19 @@
 {
 //	self.log = @"hello, bitch.";  //works : log
 //	self.log = $(@"%@", [AtoZ appCategories]); //works  : array
-	self.dbx = [AtoZ sharedInstance];
-	
+//	self.dbx = [AtoZ sharedInstance];
+
 //	self.log = $(@"%@", [valueForKeyPath:@"name"]);  // works : directoryContentsAtPath
 //	self.log = $(@"%@", [[AtoZ dock]valueForKeyPath:@"name"]);  //  FAIL
-	NSRect r = [[self.window contentView] frame];
-	AZFileGridView *g = [[AZFileGridView alloc] initWithFrame:r andFiles:[AtoZ appFolder]];
-	[[self.window contentView] addSubview:g];
-
+	NSRect r = [[_window contentView] bounds];
+	self.g	 = [[AZFileGridView alloc] initWithFrame:r andFiles:[AtoZ appFolderSamplerWith:RAND_INT_VAL(23, 55)]];
+	[_g setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
+	[_window setAcceptsMouseMovedEvents:YES];
+	[_window setContentView:_g];
+//	[[_window contentView] debugDescription];
 //	AZSizer *r = dbx.ap
 	// Insert code here to initialize your application
 }
+
 
 @end

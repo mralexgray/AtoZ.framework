@@ -24,6 +24,7 @@ typedef enum {
 
 @interface NSImage (AtoZ)
 
+- (NSImage *)scaleImageToFillSize:(NSSize)targetSize;
 - (NSImage*)  coloredWithColor:(NSColor*)inColor;
 - (NSImage*)  coloredWithColor:(NSColor*)inColor composite:(NSCompositingOperation)comp;
 

@@ -149,6 +149,7 @@
 		7B379D3615DE668F0040A093 /* EditTitlePanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B379D3415DE668F0040A093 /* EditTitlePanel.xib */; };
 		7B385DEE15C3B49E00A28686 /* AZFoamView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B385DEC15C3B49E00A28686 /* AZFoamView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B385DEF15C3B49E00A28686 /* AZFoamView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B385DED15C3B49E00A28686 /* AZFoamView.m */; };
+		7B471B1115EB05BF005CDA86 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B311995159B7FD0002134C4 /* QuartzCore.framework */; };
 		7B495F7815C076C7002DC694 /* RGB.clr in Resources */ = {isa = PBXBuildFile; fileRef = 7B495F7715C076C7002DC694 /* RGB.clr */; };
 		7B4A8FEF15AB267D00463B91 /* AZSourceList.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B4A8FED15AB267D00463B91 /* AZSourceList.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B4A8FF015AB267D00463B91 /* AZSourceList.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B4A8FEE15AB267D00463B91 /* AZSourceList.m */; };
@@ -156,7 +157,7 @@
 		7B61E90115EA994E0053BACF /* AtoZ.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7B311951159B6D9E002134C4 /* AtoZ.framework */; };
 		7B61E90215EA99580053BACF /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B311951159B6D9E002134C4 /* AtoZ.framework */; };
 		7B61E91E15EAA9990053BACF /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B31B12915E9441D00802CD5 /* Cocoa.framework */; };
-		7B61E92515EAAF750053BACF /* AZFileGridView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B61E92315EAAF750053BACF /* AZFileGridView.h */; };
+		7B61E92515EAAF750053BACF /* AZFileGridView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B61E92315EAAF750053BACF /* AZFileGridView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B61E92615EAAF750053BACF /* AZFileGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B61E92415EAAF750053BACF /* AZFileGridView.m */; };
 		7B61E92715EAC9B30053BACF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B31B12E15E9441D00802CD5 /* Foundation.framework */; };
 		7B64C01C15D14A4A00D4ED4A /* AZCSSColors.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B64C01A15D14A4900D4ED4A /* AZCSSColors.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -267,6 +268,8 @@
 		7BE6069515A0E2DD00355236 /* NSString+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BE6069315A0E2DC00355236 /* NSString+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BE6069615A0E2DD00355236 /* NSString+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BE6069415A0E2DD00355236 /* NSString+AtoZ.m */; };
 		7BE606F215A118B400355236 /* AZAttachedWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BE606EE15A118B400355236 /* AZAttachedWindow.m */; };
+		7BF0571C15EB33F3003A2A7A /* AZSpinnerLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF0571A15EB33F2003A2A7A /* AZSpinnerLayer.m */; };
+		7BF0571D15EB33F3003A2A7A /* AZSpinnerLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BF0571B15EB33F3003A2A7A /* AZSpinnerLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BF9E79C159E8F5000B5482D /* NSArray+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BF9E79A159E8F5000B5482D /* NSArray+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BF9E79D159E8F5000B5482D /* NSArray+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF9E79B159E8F5000B5482D /* NSArray+AtoZ.m */; };
 		7BF9E7D7159F0A0500B5482D /* AZPopupWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BF9E7D5159F0A0500B5482D /* AZPopupWindow.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -872,6 +875,8 @@
 		7BE6069415A0E2DD00355236 /* NSString+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+AtoZ.m"; sourceTree = "<group>"; };
 		7BE606ED15A118B400355236 /* AZAttachedWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZAttachedWindow.h; path = Views/AZAttachedWindow.h; sourceTree = SOURCE_ROOT; };
 		7BE606EE15A118B400355236 /* AZAttachedWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AZAttachedWindow.m; path = Views/AZAttachedWindow.m; sourceTree = SOURCE_ROOT; };
+		7BF0571A15EB33F2003A2A7A /* AZSpinnerLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZSpinnerLayer.m; sourceTree = "<group>"; };
+		7BF0571B15EB33F3003A2A7A /* AZSpinnerLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZSpinnerLayer.h; sourceTree = "<group>"; };
 		7BF9E79A159E8F5000B5482D /* NSArray+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+AtoZ.h"; sourceTree = "<group>"; };
 		7BF9E79B159E8F5000B5482D /* NSArray+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+AtoZ.m"; sourceTree = "<group>"; };
 		7BF9E7D5159F0A0500B5482D /* AZPopupWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZPopupWindow.h; path = ../Views/AZPopupWindow.h; sourceTree = "<group>"; };
@@ -894,6 +899,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B471B1115EB05BF005CDA86 /* QuartzCore.framework in Frameworks */,
 				7B61E92715EAC9B30053BACF /* Foundation.framework in Frameworks */,
 				7B31B14415E9442A00802CD5 /* AtoZ.framework in Frameworks */,
 				7B31B12A15E9441D00802CD5 /* Cocoa.framework in Frameworks */,
@@ -1426,6 +1432,8 @@
 		7BC3990B15E461A500482937 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				7BF0571A15EB33F2003A2A7A /* AZSpinnerLayer.m */,
+				7BF0571B15EB33F3003A2A7A /* AZSpinnerLayer.h */,
 				7BA147AB15DCE7A10041BAFE /* iCarousel.h */,
 				7BA147AC15DCE7A10041BAFE /* iCarousel.m */,
 				7B0D7C3815A3F0BA00037D30 /* mondoSwitch */,
@@ -1622,6 +1630,7 @@
 				7BA425B815E7C3C200D2A471 /* AZTrackingWindow.h in Headers */,
 				7B80995215E8C7A300A6AB7C /* BlocksAdditions.h in Headers */,
 				7B61E92515EAAF750053BACF /* AZFileGridView.h in Headers */,
+				7BF0571D15EB33F3003A2A7A /* AZSpinnerLayer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2068,7 +2077,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\nlogger \"${SRCROOT}/Resources\"\n#/usr/local/bin/appledoc \"${SRCROOT}/Resources\"\n\n# Add custom icon (adding CFBundleIconFile to plist and .icns file in /Resources doesn't work, so we have to duplicate what happens when you paste an icon into the Finder Get Info window)\n\n# copy custom icon into top level of bundle and rename to \"Icon\" with a *trailing CR*.  path_to_icon is the path to the source icon file, already in the correct format ('icns' resource ID -16455 in resource fork), but with different filename.\n\n#cp \"${SRCROOT}/Resources/atoz.icns\" \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.${WRAPPER_EXTENSION}/\"$(echo -ne \"Icon\\r\")\n\n# make custom icon file invisible\n#/Developer/Tools/SetFile -a V \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.${WRAPPER_EXTENSION}/\"$(echo -ne \"Icon\\r\")\n\n# mark the bundle folder as having a custom icon\n#/Developer/Tools/SetFile -a C \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.${WRAPPER_EXTENSION}\"\n\n\ncd \"${CONFIGURATION_BUILD_DIR}/${FULL_PRODUCT_NAME}/\"\nln -sf ./Versions/Current/Frameworks ./Frameworks\n\n\nPRODUCT=\"${WRAPPER_NAME}\"\nPRODUCT_PATH=\"${BUILT_PRODUCTS_DIR}/${PRODUCT}\"\nXCODE44='/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/'\nMAC=\"/Library/Frameworks/\"\n\n\n#sudo ln -sf \"${PRODUCT_PATH}\" \"${XCODE44}\"\nif [ -d \"${MAC}/${PRODUCT}\" ]; then\n\tsudo rm \"${MAC}/${PRODUCT}\"\nfi\nenv\n\nSYMPATH=\"${TARGET_BUILD_DIR}/${PRODUCT}/Frameworks\"\nROOT=\"${TARGET_BUILD_DIR}/${PRODUCT}\"\nHEADERS=\"${TARGET_BUILD_DIR}/${PRODUCT}/AtoZ.framework/Headers\"\nCONTENTS=\"${TARGET_BUILD_DIR}/${CONTENTS_FOLDER_PATH}\"\nlogger \"${SYMPATH}\"\n\n##if [ -L \"${SYMPATH}\" ]; then\n#\tcd \"${TARGET_BUILD_DIR}/${PRODUCT}\"\n#\tln -sF Versions/Current/Frameworks Frameworks\n##else\n##\tcd \"${TARGET_BUILD_DIR}/${PRODUCT}\"\n##   ln -s Versions/Current/Frameworks Frameworks\n#\tln -s \"${CONTENTS_FOLDER_PATH/Frameworks\" \"../../Frameworks\"\n##fi\n\n\n\n\n#CONTENTS_FOLDER_PATH=AtoZ.framework/Versions/A#\n\n\n\n\n#sudo ln -sf \"${PRODUCT_PATH}\" \"${MAC}\"\n#sudo rm \"${XCODE44}/${WRAPPER_NAME}\"\n#sudo rm \"${MAC}/${WRAPPER_NAME}\"\n\n\n\n\n#MAC_INSTALL_TARGET=\"/Library/Frameworks/\"\n\n#XCODE43_LION_INSTALL_TARGET=\"/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk/System/Library/Frameworks/$PRODUCT\"\n\n#XCODE45_MLION_INSTALL_TARGET=\"${SDKROOT}/System/Library/Frameworks/$PRODUCT\"\n\n#sudo ln -sf \"${PRODUCT_PATH}\" \"${MAC_INSTALL_TARGET}\"\n#sudo ln -sf \"${PRODUCT_PATH}\" \"${XCODE43_LION_INSTALL_TARGET}\"\n#sudo ln -sf \"${PRODUCT_PATH}\" \"${XCODE45_MLION_INSTALL_TARGET}\"\n\n#sudo ln -sf \"${PRODUCT_PATH}\" \"${XCODE455ML}${PRODUCT}\"\n\n#sudo ln -sF $MAC_INSTALL_TARGET $SDK_INSTALL_TARGET\n";
+			shellScript = "\nlogger \"${SRCROOT}/Resources\"\n#/usr/local/bin/appledoc \"${SRCROOT}/Resources\"\n\n# Add custom icon (adding CFBundleIconFile to plist and .icns file in /Resources doesn't work, so we have to duplicate what happens when you paste an icon into the Finder Get Info window)\n\n# copy custom icon into top level of bundle and rename to \"Icon\" with a *trailing CR*.  path_to_icon is the path to the source icon file, already in the correct format ('icns' resource ID -16455 in resource fork), but with different filename.\n\n#cp \"${SRCROOT}/Resources/atoz.icns\" \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.${WRAPPER_EXTENSION}/\"$(echo -ne \"Icon\\r\")\n\n# make custom icon file invisible\n#/Developer/Tools/SetFile -a V \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.${WRAPPER_EXTENSION}/\"$(echo -ne \"Icon\\r\")\n\n# mark the bundle folder as having a custom icon\n#/Developer/Tools/SetFile -a C \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.${WRAPPER_EXTENSION}\"\n\n\ncd \"${CONFIGURATION_BUILD_DIR}/${FULL_PRODUCT_NAME}/\"\nln -sf ./Versions/Current/Frameworks ./Frameworks\n\n\nPRODUCT=\"${WRAPPER_NAME}\"\nPRODUCT_PATH=\"${BUILT_PRODUCTS_DIR}/${PRODUCT}\"\nXCODE44='/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/'\nMAC=\"/Library/Frameworks/\"\n\n\n#sudo ln -sf \"${PRODUCT_PATH}\" \"${XCODE44}\"\nsudo ln -sF \"${PRODUCT_PATH}\" \"${MAC}\"\n\n#if [ -d \"${MAC}/${PRODUCT}\" ]; then\n#\tsudo rm \"${MAC}/${PRODUCT}\"\n#fi\n#env\n\nSYMPATH=\"${TARGET_BUILD_DIR}/${PRODUCT}/Frameworks\"\nROOT=\"${TARGET_BUILD_DIR}/${PRODUCT}\"\nHEADERS=\"${TARGET_BUILD_DIR}/${PRODUCT}/AtoZ.framework/Headers\"\nCONTENTS=\"${TARGET_BUILD_DIR}/${CONTENTS_FOLDER_PATH}\"\nlogger \"${SYMPATH}\"\n\n#if [ -L \"${SYMPATH}\" ]; then\n#\tcd \"${TARGET_BUILD_DIR}/${PRODUCT}\"\n#\tln -sF Versions/Current/Frameworks Frameworks\n##else\n##\tcd \"${TARGET_BUILD_DIR}/${PRODUCT}\"\n##   ln -s Versions/Current/Frameworks Frameworks\n#\tln -s \"${CONTENTS_FOLDER_PATH/Frameworks\" \"../../Frameworks\"\n##fi\n\n\n\n\n#CONTENTS_FOLDER_PATH=AtoZ.framework/Versions/A#\n\n\n\n\n#sudo ln -sf \"${PRODUCT_PATH}\" \"${MAC}\"\n#sudo rm \"${XCODE44}/${WRAPPER_NAME}\"\n#sudo rm \"${MAC}/${WRAPPER_NAME}\"\n\n\n\n\n#MAC_INSTALL_TARGET=\"/Library/Frameworks/\"\n\n#XCODE43_LION_INSTALL_TARGET=\"/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk/System/Library/Frameworks/$PRODUCT\"\n\n#XCODE45_MLION_INSTALL_TARGET=\"${SDKROOT}/System/Library/Frameworks/$PRODUCT\"\n\n#sudo ln -sf \"${PRODUCT_PATH}\" \"${MAC_INSTALL_TARGET}\"\n#sudo ln -sf \"${PRODUCT_PATH}\" \"${XCODE43_LION_INSTALL_TARGET}\"\n#sudo ln -sf \"${PRODUCT_PATH}\" \"${XCODE45_MLION_INSTALL_TARGET}\"\n\n#sudo ln -sf \"${PRODUCT_PATH}\" \"${XCODE455ML}${PRODUCT}\"\n\n#sudo ln -sF $MAC_INSTALL_TARGET $SDK_INSTALL_TARGET\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -2152,6 +2161,7 @@
 				7BA425B915E7C3C200D2A471 /* AZTrackingWindow.m in Sources */,
 				7B80995315E8C7A300A6AB7C /* BlocksAdditions.m in Sources */,
 				7B61E92615EAAF750053BACF /* AZFileGridView.m in Sources */,
+				7BF0571C15EB33F3003A2A7A /* AZSpinnerLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

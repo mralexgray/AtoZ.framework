@@ -83,7 +83,7 @@ NSString *const AZOrientName[AZOrientCount] = {
 {
 	BOOL fontsRegistered;
 }
-@synthesize appFolder, appFolderSorted;//, console;
+//@synthesize appFolder, appFolderSorted;//, console;
 //@synthesize dock, dockSorted;
 
 + (NSString*)stringForType:(id)type
@@ -406,18 +406,38 @@ NSString *const AZOrientName[AZOrientCount] = {
 	return  [AtoZ sharedInstance].appFolderSorted;
 }
 
-+ (NSArray*) appFolder {
 
-	[AZStopwatch start:@"appFolder"];
-	if (! [AtoZ sharedInstance].appFolder ) {
+- (NSArray *) appFolderStrings {
+	if (!_appFolderStrings) {
+		[AZStopwatch start:@"appFolderStrings"];
 		NSMutableArray *applications = [NSMutableArray array];
 		ApplicationsInDirectory(@"/Applications", applications);
-		[AtoZ sharedInstance].appFolder = [NSMutableArray array];
-		[applications enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-			[[AtoZ sharedInstance].appFolder addObject:[AZFile instanceWithPath:obj]];
-		}];
+		_appFolderStrings = applications.copy;
+		[AZStopwatch stop:@"appFolderStrings"];
 	}
-	[AZStopwatch stop:@"appFolder"];
+	return  _appFolderStrings;
+}
+
+- (NSArray*) appFolder {
+	if (!_appFolder) {
+		[AZStopwatch start:@"appFolder"];
+		_appFolder = [_appFolderStrings ? self.appFolderStrings : _appFolderStrings  arrayUsingBlock:^id(id obj) {
+		return	[AZFile instanceWithPath:obj];
+		}];
+		[AZStopwatch stop:@"appFolder"];
+	}
+	return _appFolder;
+}
+
++ (NSArray*) appFolder {
+
+//	[AZStopwatch start:@"appFolder"];
+//	if (! [AtoZ sharedInstance].appFolder ) {
+//		NSMutableArray *applications = [NSMutableArray array];
+//		ApplicationsInDirectory(@"/Applications", applications);
+//		[AtoZ sharedInstance].appFolder = [NSMutableArray array];
+//	}
+//	[AZStopwatch stop:@"appFolder"];
 	//	[[AtoZ sharedInstance] useHRCoderIfAvailable];
 	//	NSLog(@"%@", [[AtoZ sharedInstance] codableKeys]);
 	//	[[AtoZ sharedInstance] writeToFile:@"/Users/localadmin/Desktop/poop.plist" atomically:NO];
@@ -425,6 +445,15 @@ NSString *const AZOrientName[AZOrientCount] = {
 	return [AtoZ sharedInstance].appFolder;
 }
 
++ (NSArray*) appFolderSamplerWith:(NSUInteger)apps {
+
+	[AZStopwatch start:@"appFolderSampler"];
+	return [[[AtoZ sharedInstance].appFolderStrings randomSubarrayWithSize:apps] arrayUsingBlock:^id(id obj) {
+				return [AZFile instanceWithPath:obj];
+	}];
+
+	[AZStopwatch stop:@"appFolderSampler"];
+}
 
 
 
@@ -480,7 +509,8 @@ NSString *const AZOrientName[AZOrientCount] = {
 void ApplicationsInDirectory(NSString *searchPath, NSMutableArray *applications) {
     BOOL isDir;
     NSFileManager *manager = [NSFileManager defaultManager];
-    NSArray *files = [manager directoryContentsAtPath:searchPath];
+//    NSArray *files = [manager directoryContentsAtPath:searchPath];
+    NSArray *files = [manager contentsOfDirectoryAtPath:searchPath error:nil];
     NSEnumerator *fileEnum = [files objectEnumerator]; NSString *file;
     while (file = [fileEnum nextObject]) {
         [manager changeCurrentDirectoryPath:searchPath];
@@ -628,10 +658,11 @@ NSString *const AZFileUpdated = @"AZFileUpdated";
 	dd.path = path;
 	dd.name = [[path lastPathComponent] stringByDeletingPathExtension];
 	NSWorkspace *ws =	[NSWorkspace sharedWorkspace];
-	dd.image = [[ws iconForFile:path]scaleToFillSize:AZSizeFromDimension(512)]	;
+	NSImage *u = [[ws iconForFile:path]scaleToFillSize:AZSizeFromDimension(512)];
+	dd.image = (u ? u : [NSImage imageInFrameworkWithFileName:@"missing.png"]);
 	NSBundle * appBundle = [NSBundle bundleWithPath:path];
-	dd.calulatedBundleID = [appBundle bundleIdentifier];
-	dd.color = [[[dd colors] objectAtNormalizedIndex:0]valueForKey:@"color"];
+	dd.calulatedBundleID = appBundle ? [appBundle bundleIdentifier] : @"unknown";
+	dd.color = dd.colors ? [(AZColor*)[dd.colors objectAtNormalizedIndex:0] color] : RED;
 //	labelColor = [self labelColor];
 //	if (labelColor) labelNumber = [self labelNumber];
 //	[[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:AZFileUpdated object:[AtoZ sharedInstance].dockSorted];
@@ -777,17 +808,11 @@ void _AZLog(const char *file, int lineNumber, const char *funcName, NSString *fo
 	[body release];
 }
 
+void NSLog (NSString *format, ...) {	va_list argList;	va_start (argList, format);
+	NSString *message = [[NSString alloc] initWithFormat:format arguments:argList];
+	fprintf (stderr, "*** %s ***\n", [message UTF8String]); 	va_end  (argList);
+} // QuietLog
 
-//void NSLog (NSString *format, ...) {
-//	va_list argList;
-//	va_start (argList, format);
-//	NSString *message = [[NSString alloc] initWithFormat:format arguments:argList];
-//
-////	fprintf (stderr, "%s \n", [message UTF8String]);
-//	va_end  (argList);
-//	const char *threadName = [[[NSThread currentThread] name] UTF8String];
-//
-//} // QuietLog
 
 @implementation  NSObject (debugandreturn)
 

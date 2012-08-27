@@ -14,7 +14,7 @@ int gcd(int m, int n) {	int t, r;
 }
 
 @implementation Candidate
-@synthesize width,height,rows,columns, aspectRatio, screen, remainder;
+//@synthesize width,height,rows,columns, aspectRatio, screen, remainder;
 -(id) initWithDictionary:(NSDictionary *)d{
 	self = [Candidate instance];
 	//	if ([d valueForKey:@"width"]) 	self.width 	= [[d valueForKey:@"width"]floatValue];
@@ -23,9 +23,9 @@ int gcd(int m, int n) {	int t, r;
 	self.rows = [[d valueForKey:@"rows"]intValue];
 	self.columns = [[d valueForKey:@"columns"]intValue];
 	self.screen = NSRectFromString([d valueForKey:@"screen"]);
-	self.width = ( self.screen.size.width  / (float)self.columns );
-	self.height = (self.screen.size.height / (float)self.rows );
-	self.aspectRatio = ( self.width / self.height );
+	self.width = ( _screen.size.width  / (float)_columns );
+	self.height = (_screen.size.height / (float)_rows );
+	self.aspectRatio = ( _width / _height );
 	return self;
 }
 
@@ -50,8 +50,8 @@ int gcd(int m, int n) {	int t, r;
 }
 
 + (AZSizer*) forQuantity:(NSUInteger)aNumber inRect:(NSRect)aFrame {
-	AZSizer *r = [[AZSizer alloc]initWithQuantity:aNumber inRect:aFrame];
-	return r;
+	return [[AZSizer alloc]initWithQuantity:aNumber inRect:aFrame];
+
 }
 
 - (id) initWithQuantity:(NSUInteger)aNumber inRect:(NSRect)aFrame {
@@ -60,10 +60,11 @@ int gcd(int m, int n) {	int t, r;
 		self.outerFrame = aFrame;
 		self.candidates = [NSMutableArray array];
 		self.quantity = aNumber;
-		int smallR = 0, rem, runnerUp, rUpItems, x;
+		__block int smallR = 0, rem, runnerUp, rUpItems, x;
 		x = (aNumber < 2 ? 2 : aNumber);
-		NSArray *list = [@2 to:$int((ceil(sqrt(x)))+4)];
-		for( id rowTry in list ) {
+//		for( NSNumber *rowTry in list ) {
+		[[@2 to:$int((ceil(sqrt(x)))+4)] each:^(NSNumber* rowTry, NSUInteger index, BOOL *stop) {
+
 			int xx, itemsnow;
 			int _rowCandidate = [rowTry intValue];
 			float items;
@@ -71,18 +72,15 @@ int gcd(int m, int n) {	int t, r;
 			items = (float)x / _rowCandidate;
 			rem = ( _rowCandidate + ( x % _rowCandidate ) ) % _rowCandidate;
 			itemsnow = floor(items);
-			smallR = rem;
-			runnerUp = _rowCandidate;
-			rUpItems = itemsnow;
+			smallR = rem;			runnerUp = _rowCandidate;			rUpItems = itemsnow;
 			NSNumber *rowsAccountingForRemainder = ( rem != 0 ? $int(runnerUp + 1) : $int(runnerUp));
-			NSDictionary *match = [[NSDictionary alloc]initWithDictionary:$map(
-																			  $int(rUpItems), @"columns",
-																			  rowsAccountingForRemainder, @"rows",
-																			  $int(smallR), @"remainder",
-																			  NSStringFromRect(aFrame), @"screen"  )];
-			Candidate *perfect = [[Candidate alloc]initWithDictionary:match];
-			[_candidates addObject:perfect];
-		}
+			[_candidates addObject: [[Candidate alloc]initWithDictionary:	@{
+										@"columns"	:	$int(rUpItems),
+										@"rows"		:	rowsAccountingForRemainder,
+										@"remainder":	$int(smallR),
+										@"screen"	:	NSStringFromRect(aFrame)	}]];
+
+		}];
 		float distanceFromOne = 99.9;
 		Candidate *winner;
 		for (Candidate *c in _candidates) {
@@ -97,12 +95,14 @@ int gcd(int m, int n) {	int t, r;
 		self.width 		= winner.width;
 		self.height  	= winner.height;
 		self.remainder 	= winner.remainder;
-		self.size 		= (NSSize) { _width, _height };
 		//	NSLog(@"Items:%ld Rows:%@ Columns:%@ Remainder: %@ Size: %ix%i", self.quantity, rows, columns, remainder, width.intValue, height.intValue);
 	}
 	return self;
 }
 
+- (NSSize) size {
+	return (NSSize) { _width, _height };
+}
 + (NSArray*) rectsForQuantity:(int)aNumber inRect:(NSRect)aFrame {
 	AZSizer *sizer = [AZSizer forQuantity:aNumber inRect:aFrame];
 	return [sizer rects];
@@ -121,6 +121,31 @@ int gcd(int m, int n) {	int t, r;
 //	}
 	return privateRects.copy;
 }
+
+//
+//-(void) constrainLayersInLayer:(CALayer*)layer {
+//	NSLog(@"constraining");
+//	NSUInteger index = 0;
+//	for (NSUInteger r = 0; r < _rows; r++) {
+//		for (NSUInteger c = 0; c < _columns; c++) {
+//	//		if ([layer sublayers].count > index) {
+//            CALayer *cell = [[layer sublayers]objectAtIndex:index];
+//			cell.frame = AZMakeRectFromSize(self.size);
+//            cell.name = [NSString stringWithFormat:@"%ld@%ld", c, r];
+//            cell.constraints = @[
+//				AZConstRelSuperScaleOff(kCAConstraintWidth, (1.0/ (CGFloat)_columns), 0),
+//				AZConstRelSuperScaleOff(kCAConstraintHeight,  (1.0 / (CGFloat)_rows), 0),
+//				AZConstAttrRelNameAttrScaleOff(	kCAConstraintMinX, @"superlayer",
+//											    kCAConstraintMaxX, (c / (CGFloat)_columns), 0),
+//				AZConstAttrRelNameAttrScaleOff( kCAConstraintMinY, @"superlayer",
+//												kCAConstraintMaxY, (r / (CGFloat)_rows), 0)
+//			];
+//			index++;
+//			}
+//        }
+////    }
+//	return;// layer;
+//}
 //- (NSArray*)boxes {
 //	NSMutableArray *boxArray = [NSMutableArray array];
 //	for ( int r = (rows.intValue-1); r >= 0; r--){

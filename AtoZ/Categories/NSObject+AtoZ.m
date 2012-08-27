@@ -714,6 +714,7 @@
 @implementation NSObject (AG)
 
 
+
 	//- (BOOL) respondsToSelector: (SEL) aSelector {
 	//    NSLog (@"%s", (char *) aSelector);
 	//    return ([super respondsToSelector: aSelector]);

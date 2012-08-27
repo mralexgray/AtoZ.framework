@@ -100,6 +100,7 @@ static NSString *const HRCoderObjectAliasKey = @"$alias";
 
 @interface NSObject (AG)
 
+
 //- (BOOL) respondsToSelector: (SEL) aSelector;
 
 - (NSDictionary *)propertiesPlease;
