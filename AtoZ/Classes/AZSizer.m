@@ -1,10 +1,10 @@
-//
+
 //  AZSizer.m
 //  AtoZ
-//
+
 //  Created by Alex Gray on 7/7/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-//
+
 
 #import "AZSizer.h"
 
@@ -14,6 +14,7 @@ int gcd(int m, int n) {	int t, r;
 }
 
 @implementation Candidate
+
 //@synthesize width,height,rows,columns, aspectRatio, screen, remainder;
 -(id) initWithDictionary:(NSDictionary *)d{
 	self = [Candidate instance];
@@ -122,7 +123,28 @@ int gcd(int m, int n) {	int t, r;
 	return privateRects.copy;
 }
 
-//
+
++ (AZSizer*) forQuantity:(NSUInteger)aNumber aroundRect:(NSRect)aFrame {
+	return [[AZSizer alloc]initWithQuantity:aNumber aroundRect:aFrame];
+}
+
+- (id) initWithQuantity:(NSUInteger)aNumber aroundRect:(NSRect)aFrame {
+	self = [super init];
+	if (self) {
+		self.outerFrame = aFrame;
+		self.candidates = [NSMutableArray array];
+		self.quantity = aNumber;
+		CGFloat perimeter = AZPerimeter(aFrame);
+		CGFloat outerUnit = perimeter / (float)_quantity;
+		NSRect interior = NSInsetRect(_outerFrame, outerUnit/2, outerUnit/2);
+		CGFloat innerUnit = AZPerimeter(interior) / (float)_quantity;
+		self.width = self.height = innerUnit;
+		self.rows = floor(interior.size.height / innerUnit);
+		self.columns = floor(interior.size.width / innerUnit);
+	}
+	return self;
+}
+
 //-(void) constrainLayersInLayer:(CALayer*)layer {
 //	NSLog(@"constraining");
 //	NSUInteger index = 0;
@@ -169,10 +191,10 @@ int gcd(int m, int n) {	int t, r;
 //}
 
 //+ (NSSize) gridFor:(int)someitems inRect:(NSRect)aframe {
-//
+
 //	AGIdealSizer *a = [[AGIdealSizer alloc]initWithQuantity:someitems forRect:NSStringFromRect(aframe)];
 //	return NSMakeSize(a.rows.intValue,a.columns.intValue);
-//
+
 //}
 
 //+ (AGIdealSizer*) sharedInstance {

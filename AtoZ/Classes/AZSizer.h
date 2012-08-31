@@ -1,10 +1,10 @@
-//
+
 //  AZSizer.h
 //  AtoZ
-//
+
 //  Created by Alex Gray on 7/7/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-//
+
 
 #import <Foundation/Foundation.h>
 #import "AtoZ.h"
@@ -25,7 +25,7 @@
 
 @interface AZSizer : BaseModel 
 
-
++ (AZSizer*) forQuantity:(NSUInteger)aNumber aroundRect:(NSRect)aFrame;
 + (AZSizer*) forQuantity:(NSUInteger)aNumber inRect:(NSRect)aFrame;
 + (NSRect) structForQuantity:(NSUInteger)aNumber inRect:(NSRect)aFrame;
 //+ (NSSize) gridFor:(int)someitems inRect:(NSRect)aframe;

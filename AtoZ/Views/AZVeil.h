@@ -1,10 +1,10 @@
-//
+
 //  ShroudWindow.h
 //  AtoZ
-//
+
 //  Created by Alex Gray on 8/20/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-//
+
 
 #import "AtoZ.h"
 @class  TransparentWindow;

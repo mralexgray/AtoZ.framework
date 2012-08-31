@@ -280,15 +280,15 @@
 //	while (! [ aView isKindOfClass:[AZInfiniteScrollView class]])
 //		aView = [aView superview];
 //	[(AZInfiniteScrollView*)aView popItForView:self];
-//
+
 //	[self performSelector:@selector(makeThatWindowGirl) afterDelay:1];
 //}
 //- (void)makeThatWindowGirl {
-//
+
 //	if (!self.hovered) { self.selected = NO; return; }
 //	NSLog(@"makin windy for: %@", self.file.name);
 //	self.selected = YES;
-//
+
 ////	self.windy = nil;
 ////	[self.windy makeKeyAndOrderFront:self];
 ////	AZTalker *f = [[AZTalker alloc]init];
@@ -312,7 +312,7 @@
 //			NSLog(@"extra, extra: %@", [obj propertiesPlease] );
 //		}];
 //	} else NSLog(@"Yes I delegate, but not me, this time");
-//
+
 //}
 
 
@@ -400,11 +400,11 @@
 //    {
 //        return;
 //    }
-//
+
 //    // ...
 //}
 //- (void) makeTextView {
-//
+
 //	NSMutableParagraphStyle *theStyle =[[NSMutableParagraphStyle alloc] init];
 //	[theStyle setLineSpacing:12];
 //	atv = [[AZTextView alloc]initWithFrame:NSInsetRect([self bounds],3,3)];

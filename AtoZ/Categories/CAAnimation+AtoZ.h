@@ -1,10 +1,10 @@
-//
+
 //  CAAnimation+AtoZ.h
 //  AtoZ
-//
+
 //  Created by Alex Gray on 7/13/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-//
+
 
 #import <QuartzCore/QuartzCore.h>
 
@@ -31,5 +31,15 @@
 @interface CAAnimation (MCAdditions)
 
 + (CAAnimation *)flipAnimationWithDuration:(NSTimeInterval)aDuration;
+
+@end
+
+
+
+
+@interface CAAnimation (BlocksAddition)
+
+@property (nonatomic, copy) void (^completion)(BOOL);
+@property (nonatomic, copy) void (^start)();
 
 @end

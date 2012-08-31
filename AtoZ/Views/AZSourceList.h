@@ -1,10 +1,10 @@
-//
+
 //  AZSourceList.h
 //  AZSourceList
-//
+
 //  Created by Alex Rozanski on 05/09/2009.
 //  Copyright 2009-10 Alex Rozanski http://persAZ.com
-//
+
 
 #import <Cocoa/Cocoa.h>
 /*An example of a class that could be used to represent a Source List Item

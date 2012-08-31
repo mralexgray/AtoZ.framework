@@ -1,10 +1,10 @@
-//
+
 //  AZPopupWindow.m
 //  AtoZ
-//
+
 //  Created by Alex Gray on 6/30/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-//
+
 /*
      File: ATPopupWindow.m
  Abstract:  A custom NSWindow that mainly implements a "popup" animation using CoreAnimation.

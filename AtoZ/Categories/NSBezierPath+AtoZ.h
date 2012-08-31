@@ -1,7 +1,7 @@
-//
+
 //  GTMNSBezierPath+CGPath.h
-//
-//
+
+
 
 #import <Cocoa/Cocoa.h>
 

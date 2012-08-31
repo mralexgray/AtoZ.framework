@@ -1,7 +1,7 @@
-//
+
 //  NSString+AtoZ.h
 //  AtoZ
-//
+
 #import <Foundation/Foundation.h>
 #import "AtoZ.h"
 
@@ -16,6 +16,12 @@
 + (NSString*) randomAppPath;
 
 //@property (readonly) NSColor *colorValue;
+
+// new way
+
+- (void) drawInRect:(NSRect)r withFont:(NSFont*)font andColor:(NSColor*)color;
+
+
 
 - (void)drawCenteredInRect:(NSRect)rect withFont:(NSString *)font;
 /*** Returns the string cleaned from leading and trailing whitespaces */
@@ -111,10 +117,10 @@
 - (NSString *)substringBefore:(NSString *)delimiter;
 - (NSString *)substringAfter:(NSString *)delimiter;
 
-//
+
 // The difference between the splitBy and splitAt groups is
 // that splitAt will return an array containing one or two elements
-//
+
 - (NSArray *)splitAt:(NSString *)delimiter;
 - (BOOL)splitAt:(NSString *)delimiter 
            head:(NSString **)head 
@@ -123,9 +129,9 @@
 // excuse the pun, but it divides the string into a head and body word, trimmed
 @property (readonly) NSArray *decapitate;
 
-//
+
 // TBD whether they belong here or elsewhere
-//
+
 @property (readonly) NSPoint pointValue;
 @property (readonly) NSUInteger minutesValue;
 @property (readonly) NSUInteger secondsValue;

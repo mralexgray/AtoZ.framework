@@ -79,6 +79,8 @@ __MAC_OS_X_VERSION_MIN_REQUIRED > __MAC_10_7))
 
 
 #import <QuartzCore/QuartzCore.h>
+
+
 #ifdef USING_CHAMELEON
 #define ICAROUSEL_IOS
 #elif defined __IPHONE_OS_VERSION_MAX_ALLOWED
@@ -215,7 +217,7 @@ iCarouselOption;
 @property (nonatomic, strong, readonly) NSArray *visibleItemViews;
 @property (nonatomic, readonly) CGFloat itemWidth;
 @property (nonatomic, strong, readonly) UIView *contentView;
-@property (nonatomic, readonly) CGFloat toggle;
+@property (nonatomic, assign) CGFloat toggle;		//readonly
 @property (nonatomic, assign) BOOL stopAtItemBoundary;
 @property (nonatomic, assign) BOOL scrollToItemBoundary;
 @property (nonatomic, assign) BOOL ignorePerpendicularSwipes;
@@ -272,7 +274,7 @@ iCarouselOption;
 - (BOOL)carousel:(iCarousel *)carousel shouldSelectItemAtIndex:(NSInteger)index;
 - (void)carousel:(iCarousel *)carousel didSelectItemAtIndex:(NSInteger)index;
 
-
+//ALEX
 - (void)carousel:(iCarousel *)carousel shouldHoverItemAtIndex:(NSInteger)index;
 
 - (CGFloat)carouselItemWidth:(iCarousel *)carousel;

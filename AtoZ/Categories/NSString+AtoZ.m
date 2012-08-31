@@ -1,10 +1,10 @@
-//
+
 //  NSString+AtoZ.m
 //  AtoZ
-//
+
 //  Created by Alex Gray on 7/1/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-//
+
 
 #import "NSString+AtoZ.h"
 #import "NSColor+AtoZ.h"
@@ -103,6 +103,38 @@
 //                                   size.width, size.height);
     [self drawInRect:frame withAttributes:@{font:NSFontNameAttribute, @12:NSFontSizeAttribute}];
 }
+
+- (void) drawInRect:(NSRect)r withFont:(NSFont*)font andColor:(NSColor*)color {
+
+    NSMutableParagraphStyle *paragStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
+	[paragStyle setLineBreakMode:	NSLineBreakByTruncatingTail];
+	[paragStyle setAlignment:NSCenterTextAlignment];
+    NSDictionary *dictBoldAttr = @{ 	NSFontAttributeName : font,
+							 NSForegroundColorAttributeName : [color contrastingForegroundColor],
+							  NSParagraphStyleAttributeName : paragStyle };
+
+	[self drawInRect:r withAttributes: dictBoldAttr];
+
+//		NSMutableParagraphStyle *paraStyle = [[NSMutableParagraphStyle alloc] init];
+////		[paraStyle setParagraphStyle:	[NSParagraphStyle defaultParagraphStyle]];
+////		[paraStyle setAlignment:		NSCenterTextAlignment];
+
+//		NSDictionary *msgAttrs = @{ 	   NSFontAttributeName : font.fontName,
+//										   NSFontSizeAttribute : $(@"%f",(float)[font pointSize]),
+
+//								 NSParagraphStyleAttributeName : paraStyle };
+
+//	 @{ NSParagraphStyleAttributeName : style,  NSFontNameAttribute : font.fontName,  : @(font.pointSize)}];
+
+}
+////	NSMutableParagraphStyle* style =
+//	NSParagraphStyle* style =	[[NSParagraphStyle alloc]initWithProperties: @{ NSParagraphStyleAttributeName :NSCenterTextAlignment }];
+
+//	][style setAlignment:NSCenterTextAlignment];
+//	@{ style : NSParagraphStyleAttributeName};
+//	[myString drawInRect:someRect withAttributes:attr];
+//	[style release];
+//}
 
 - (NSString *)trim {
 NSCharacterSet *cs = [NSCharacterSet whitespaceAndNewlineCharacterSet];

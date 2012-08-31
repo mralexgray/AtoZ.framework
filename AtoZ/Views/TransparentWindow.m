@@ -1,10 +1,10 @@
-//
+
 //  TransparentWindow.m
 //  RoundedFloatingPanel
-//
+
 //  Created by Matt Gemmell on Thu Jan 08 2004.
 //  <http://iratescotsman.com/>
-//
+
 
 
 #import "TransparentWindow.h"

@@ -1,10 +1,10 @@
-//
+
 //  NSImage+AtoZ.h
 //  AtoZ
-//
+
 //  Created by Alex Gray on 7/2/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-//
+
 
 #import <Cocoa/Cocoa.h>
 
@@ -162,7 +162,7 @@ typedef enum {
 
 @interface NSImage (GrabWindow)
 //+ (NSImage *) captureScreenImageWithFrame: (NSRect) frame;
-//
+
 //+ (NSImage *)screenShotWithinRect:(NSRect)rect;
 
 /*

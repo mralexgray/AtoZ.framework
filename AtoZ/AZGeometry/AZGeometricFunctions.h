@@ -1,45 +1,46 @@
-//
+
 //  AZGeometricFunctions.h
 //  Lumumba
-//
+
 //  Created by Benjamin Schüttler on 19.11.09.
 //  Copyright 2011 Rogue Coding. All rights reserved.
-//
+
 
 #import <Cocoa/Cocoa.h>
 
 #import "AtoZ.h"
 
-//
+
 // shortcuts for [NSNumber numberWithXY]
-//
+
 NSNumber *iNum(NSInteger i);
 NSNumber *uNum(NSUInteger ui);
 NSNumber *fNum(CGFloat f);
 NSNumber *dNum(double d);
 
-
+CGFloat AZMinEdge(NSRect r);
+CGFloat AZMaxEdge(NSRect r);
 CGFloat AZMaxDim(NSSize sz);
 CGFloat AZMinDim(NSSize sz);
 
 NSRect AZScreenFrame();
 NSSize AZScreenSize();
-
+NSRect AZScreenFrameUnderMenu();
 
 NSSize AZDirectionsOffScreenWithPosition(NSRect rect, AZWindowPosition position );
 AZWindowPosition AZPositionOfRect(NSRect rect);
-//
+
 // NSRange from a min and max values
 // even though the names imply that min should be greater than max
 // the order does not matter
 // the range will always start at the lower value and have
 // a size to reach the upper value
-//
+
 NSRange AZMakeRange(NSUInteger min, NSUInteger max);
 
-//
+
 // Predifined Points, Sizes and Rects
-//
+
 #define AZHalfPoint NSMakePoint(0.5, 0.5)
 #define AZMaxPoint NSMakePoint(MAXFLOAT, MAXFLOAT)
 #define AZHalfSize NSMakeSize(0.5, 0.5)
@@ -53,9 +54,9 @@ NSPoint randomPointInRect(NSRect rect);
 float distanceFromPoint (NSPoint p1,NSPoint p2);
 float AZDistanceFromPoint (NSPoint p1,NSPoint p2);
 
-//
+
 // Simple Length and Area calculus
-//
+
 CGFloat AZPerimeter(NSRect rect);
 CGFloat AZPermineterWithRoundRadius (NSRect rect, CGFloat radius);
 
@@ -66,9 +67,9 @@ CGFloat AZAreaOfRect(NSRect rect);
 // Size -> Point conversion
 NSPoint AZPointFromSize(NSSize size);
 
-//
+
 // NSPoint result methods
-//
+
 
 NSPoint AZOriginFromMenubarWithX(CGFloat yOffset, CGFloat xOffset);
 
@@ -147,11 +148,13 @@ NSPoint AZPointDistanceToBorderOfRect(NSPoint point, NSRect rect);
 NSPoint AZNormalizedDistanceOfRects(NSRect from, NSRect to);
 NSPoint AZNormalizedDistanceToCenterOfRect(NSPoint point, NSRect rect);
 
-//
+
 // NSSize result methods
 // 
+// converts a float to a rect of equal sized sizes of dim;
+NSRect AZRectFromDim(CGFloat dim);
 
-// converts a point to a size
+// converts a float to a size;
 NSSize AZSizeFromDimension(CGFloat dim);
 
 // converts a point to a size
@@ -192,9 +195,9 @@ NSSize AZSizeMax(NSSize one, NSSize another);
 NSSize AZSizeMin(NSSize one, NSSize another);
 NSSize AZSizeBound(NSSize preferred, NSSize minSize, NSSize maxSize);
 
-//
+
 // NSRect result methods
-//
+
 
 NSRect AZZeroHeightBelowMenu();
 
@@ -205,6 +208,7 @@ CGFloat AZMenuBarThickness ();
 NSRect AZMenuBarFrame();
 
 NSRect AZRectVerticallyOffsetBy(CGRect rect, CGFloat offset);
+NSRect AZRectHorizontallyOffsetBy(CGRect rect, CGFloat offset);
 
 NSRect AZMenulessScreenRect();
 
@@ -249,6 +253,16 @@ NSRect AZSquareAround(NSPoint center, CGFloat distance);
 // blends a rect from one to another
 NSRect AZBlendRects(NSRect from, NSRect to, CGFloat at);
 
+// Croped Rects
+
+NSRect AZRectTrimmedOnRight(NSRect rect, CGFloat width);
+NSRect AZRectTrimmedOnBottom(NSRect rect, CGFloat height);
+NSRect AZRectTrimmedOnLeft(NSRect rect, CGFloat width);
+NSRect AZRectTrimmedOnTop(NSRect rect, CGFloat height);
+
+
+
+
 // returns a rect at the left edge of a rect with a given inset width
 NSRect AZLeftEdge(NSRect rect, CGFloat width);
 
@@ -263,7 +277,7 @@ NSRect AZUpperEdge(NSRect rect, CGFloat height);
 
 // macro to call a border drawing method with a border width
 // this will effectively draw the border but clip the inner rect
-//
+
 // Example: AZInsideClip(NSDrawLightBezel, rect, 2);
 //          Will draw a 2px light beezel around a rect
 #define AZInsideClip(METHOD,RECT,BORDER) \
@@ -272,9 +286,9 @@ NSRect AZUpperEdge(NSRect rect, CGFloat height);
   METHOD(RECT, AZUpperEdge(RECT, BORDER)); \
   METHOD(RECT, AZLowerEdge(RECT, BORDER))
 
-//
+
 // Comparison methods
-//
+
 
 BOOL AZIsPointLeftOfRect(NSPoint point, NSRect rect);
 BOOL AZIsPointRightOfRect(NSPoint point, NSRect rect);
@@ -286,7 +300,7 @@ BOOL AZIsRectRightOfRect(NSRect rect, NSRect compare);
 BOOL AZIsRectAboveRect(NSRect rect, NSRect compare);
 BOOL AZIsRectBelowRect(NSRect rect, NSRect compare);
 
-//
+
 // EOF
 // 
 

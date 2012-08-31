@@ -20,6 +20,20 @@
                ReferencedContainer = "container:AtoZ.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "1EEDD0CE13DE9FAB00D5AEC3"
+               BuildableName = "XPCKit.framework"
+               BlueprintName = "XPCKit"
+               ReferencedContainer = "container:../../git/XPCKit/XPCKit.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction

@@ -40,11 +40,15 @@ CGFloat AZPermineterWithRoundRadius (NSRect rect, CGFloat radius) {
 }
 
 
+NSRect AZScreenFrameUnderMenu() {
+	return AZRectTrimmedOnTop( [[NSScreen mainScreen]frame], AZMenuBarThickness());
+}
 NSRect AZScreenFrame() {
 	return [[NSScreen mainScreen]frame];
 }
-NSSize AZScreenSize(){
-return [[NSScreen mainScreen]frame].size;
+
+NSSize AZScreenSize() {
+	return AZScreenFrame().size;
 }
 
 //
@@ -56,8 +60,19 @@ CGFloat AZMinDim(NSSize sz) {
 	return MIN(sz.width, sz.height);
 }
 
+
+
 CGFloat AZMaxDim(NSSize sz) {
-	return MIN(sz.width, sz.height);
+	return MAX(sz.width, sz.height);
+}
+
+
+CGFloat AZMaxEdge(NSRect r){
+	return AZMaxDim(r.size);
+}
+
+CGFloat AZMinEdge(NSRect r){
+	return AZMinDim(r.size);
 }
 
 CGFloat AZLengthOfPoint(NSPoint pt) {
@@ -356,6 +371,11 @@ NSPoint AZPointDistanceToBorderOfRect(NSPoint point, NSRect rect) {
 // NSSize functions
 //
 
+NSRect AZRectFromDim(CGFloat dim) {
+	return (NSRect){0,0,dim,dim};
+}
+
+
 NSSize AZSizeFromDimension(CGFloat dim) {
 	return NSMakeSize(dim, dim);
 }
@@ -437,6 +457,13 @@ NSRect AZRectVerticallyOffsetBy(CGRect rect, CGFloat offset) {
 	rect.origin.y += offset;
 	return  rect;
 }
+
+NSRect AZRectHorizontallyOffsetBy(CGRect rect, CGFloat offset) {
+	rect.origin.x += offset;
+	return  rect;
+}
+
+
 
 NSRect AZFlipRectinRect(CGRect local, CGRect dest)
 {
@@ -573,6 +600,25 @@ NSRect AZBlendRects(NSRect from, NSRect to, CGFloat p) {
 
   return re;
 }
+
+NSRect AZRectTrimmedOnRight(NSRect rect, CGFloat width) {
+	return (NSRect) {	rect.origin.x, 					rect.origin.y,
+					  	rect.size.width - width,  		rect.size.height	};
+}
+
+NSRect AZRectTrimmedOnBottom(NSRect rect, CGFloat height) {
+	return (NSRect) {	rect.origin.x, 					(rect.origin.y + height),
+						rect.size.width,  				(rect.size.height - height)	};
+}
+NSRect AZRectTrimmedOnLeft(NSRect rect, CGFloat width) {
+	return (NSRect) {	rect.origin.x + width, 					rect.origin.y,
+						rect.size.width - width,  		rect.size.height	};
+}
+NSRect AZRectTrimmedOnTop(NSRect rect, CGFloat height) {
+	return (NSRect) {	rect.origin.x, 					rect.origin.y,
+						rect.size.width,  				(rect.size.height - height)	};
+}
+
 
 NSRect AZLeftEdge(NSRect rect, CGFloat width) {
   return NSMakeRect(rect.origin.x, 
@@ -806,8 +852,6 @@ int closestCorner(NSRect innerRect,NSRect outerRect){
     }
     return closestCorner;
 }
-
-
 
 
 

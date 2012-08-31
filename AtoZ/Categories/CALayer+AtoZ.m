@@ -1,10 +1,10 @@
-//
+
 //  CALayer+AtoZ.m
 //  AtoZ
-//
+
 //  Created by Alex Gray on 7/13/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-//
+
 
 #import "CALayer+AtoZ.h"
 //#import "AtoZ.h"
@@ -285,6 +285,38 @@ CGColorRef CreatePatternColor( CGImageRef image )
 
 
 @implementation CALayer (AtoZ)
+
++ (CALayer*)veilForView:(CALayer*)view{
+
+
+	int pixelsHigh = (int)[view bounds].size.height;
+	int pixelsWide = (int)[view bounds].size.width;
+	int bitmapBytesPerRow   = (pixelsWide * 4);
+	int bitmapByteCount = (bitmapBytesPerRow * pixelsHigh);
+	CGColorSpaceRef colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
+		//	context = NULL;
+	CGContextRef context = CGBitmapContextCreate (NULL, pixelsWide, pixelsHigh,
+												  8,	bitmapBytesPerRow,
+												  colorSpace, kCGImageAlphaNoneSkipLast);//kCGImageAlphaNoneSkipLastkCGImageAlphaPremultipliedLast);
+	if (context== NULL)	{	NSLog(@"Failed to create context.");	return nil;	}
+	CGColorSpaceRelease( colorSpace );
+	[[view presentationLayer] renderInContext:context];
+	CALayer *layer = [CALayer layer];
+    [layer setFrame:view.bounds];
+    [layer setBackgroundColor:cgBLACK];
+	if (view) [layer setDelegate:view];
+
+	layer.autoresizingMask = kCALayerWidthSizable | kCALayerHeightSizable;
+	layer.contents =  [NSImage imageFromCGImageRef:CGBitmapContextCreateImage(context)];
+//	.frame = [view bounds];
+	layer.zPosition = 1000;
+	return  layer;
+//		CFBridgingRetain(//	NS)BitmapImageRep *bitmap = [[NSBitmapImageRep alloc] initWithCGImage:img];
+		//	CFRelease(img);
+		//	return bitmap;
+}
+
+
 	//[Transpose Matrix][1]
 
 - (CATransform3D)rectToQuad:(NSRect)rect quadTLX:(double)x1a quadTLY:(double)y1a quadTRX:(double)x2a quadTRY:(double)y2a quadBLX:(double)x3a quadBLY:(double)y3a quadBRX:(double)x4a quadBRY:(double)y4a
@@ -341,7 +373,7 @@ CGColorRef CreatePatternColor( CGImageRef image )
 //[view setLayer:myLayer];
 //[view setFrame:NSMakeRect(0, 0, image.size.width, image.size.height)];
 //view.layer.transform = [self rectToQuad:view.frame quadTLX:0 quadTLY:0 quadTRX:image.size.width quadTRY:20 quadBLX:0 quadBLY:image.size.height quadBRX:image.size.width quadBRY:image.size.height + 90];
-//
+
 //[1]: http://codingincircles.com/2010/07/major-misunderstanding/
 
 

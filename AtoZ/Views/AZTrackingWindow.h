@@ -3,7 +3,6 @@
 #import <Cocoa/Cocoa.h>
 #import "AtoZ.h"
 
-
 // key for dictionary in NSTrackingAreas's userInfo
 // NSString *kAZTrackerChanged = @"trackerState";
 
@@ -11,33 +10,69 @@
 //typedef NSInteger AZTrackerState;
 
 
-@interface AZTrackingWindow : NSWindow
+
+typedef struct AZTri {
+	CGPoint a;
+	CGPoint b;
+	CGPoint c;
+}AZTri;
+typedef struct AZTriPair {
+	AZTri uno;
+	AZTri duo;
+}AZTriPair;
+
+
+@class AZTrackingWindow;
+@interface CornerClipView : NSView
+@property (assign, nonatomic, getter = getPair) AZTriPair t;
+@property (weak) AZTrackingWindow *windy;
++ initInWindow:(AZTrackingWindow*)windy;
+@end
+
+
+
+@interface AZTrackingWindow : NSWindow <NSWindowDelegate>
 {
-	NSNotificationCenter *center;
-
+	NSRect _workingFrame;
 }
-
 @property (nonatomic, retain) AZSimpleView *view;
 @property (assign, nonatomic) AZOrient orientation;
-@property (assign, nonatomic) AZTrackState state;
+@property (assign, nonatomic) AZWindowPosition position;
+@property (nonatomic, assign) NSRect outFrame;
+@property (nonatomic, assign) NSRect visibleFrame;
+@property (nonatomic, assign) NSRect triggerFrame;
+
+
+@property (assign, nonatomic) NSUInteger capacity;
+
+
+@property (assign, nonatomic) AZSlideState slideState;
 @property (assign, nonatomic) CGFloat intrusion;
+@property (assign, nonatomic) CGFloat triggerWidth;
+
+
 @property (retain, nonatomic) NSImageView* handle;
 @property (assign, nonatomic) BOOL showsHandle;
+@property (strong, nonatomic) CornerClipView *clippy;
 
+@property (nonatomic, assign) NSRect workingFrame;
 
++ (AZTrackingWindow*) oriented:(AZWindowPosition)orient intruding:(CGFloat)distance inRect:(NSRect)frame;
 - (void) mouseHandler: (NSEvent*)event;
-+ (AZTrackingWindow*) oriented:(AZOrient)orient intruding:(CGFloat)distance;
-+ (AZTrackingWindow*) oriented:(AZOrient)orient intruding:(CGFloat)distance withDelegate:(id)del;
++ (AZTrackingWindow*) oriented:(AZWindowPosition)orient intruding:(CGFloat)distance;
++ (AZTrackingWindow*) oriented:(AZWindowPosition)orient intruding:(CGFloat)distance withDelegate:(id)del;
+-(void) slideOut;
+-(void) slideIn;
 
 //@property (assign, nonatomic) BOOL isHit;
 
 @end
 
 //@protocol AZTrackingDelegate <NSObject>
-//
+
 //-(void)ignoreMouseDown:(NSEvent*)event;
 //-(void)trackerDidReceiveEvent:(NSEvent*)event inRect:(NSRect)theRect;
-//
+
 //@end
 
 

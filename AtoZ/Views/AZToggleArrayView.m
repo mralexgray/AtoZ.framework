@@ -1,6 +1,6 @@
 //  ContentsView.m
 //  CoreAnimationToggleLayer
-//
+
 //  Created by Tomaz Kragelj on 8.12.09.
 //  Copyright (C) 2009 Gentle Bytes. All rights reserved.
 
@@ -20,14 +20,14 @@
 
 @end
 
-//
+
 //@implementation AZToggleArrayView
-//
+
 //- (id) layerForToggle:(AZToggle*)toggle {
-//
+
 //	[[toggle codableKeys]	CALayer *l = [CALayer layer];	return  itemW]
 //}
-//
+
 //@end
 
 
@@ -234,8 +234,8 @@
 #pragma mark -
 
 //@implementation AZToggleArrayView (UserInteraction)
-//
-//
+
+
 //@end
 
 #pragma mark -

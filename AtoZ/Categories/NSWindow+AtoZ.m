@@ -1,10 +1,10 @@
-//
+
 //  NSWindow+AtoZ.m
 //  AtoZ
-//
+
 //  Created by Alex Gray on 7/2/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-//
+
 #import <Cocoa/Cocoa.h>
 #import <AppKit/AppKit.h>
 #import <objc/objc.h>
@@ -14,8 +14,182 @@
 #import "AtoZ.h"
 
 #import "NSWindow+AtoZ.h"
+//#import <Carbon/Carbon.h>/
+
+
+@implementation NSWindow (NoodleEffects)
+
+- (void)animateToFrame:(NSRect)frameRect duration:(NSTimeInterval)duration
+{
+    NSViewAnimation     *animation;
+
+    animation = [[NSViewAnimation alloc] initWithViewAnimations:
+				 [NSArray arrayWithObject:[NSDictionary dictionaryWithObjectsAndKeys:
+										   self, NSViewAnimationTargetKey,
+										   [NSValue valueWithRect:frameRect], NSViewAnimationEndFrameKey, nil]]];
+
+    [animation setDuration:duration];
+    [animation setAnimationBlockingMode:NSAnimationBlocking];
+    [animation setAnimationCurve:NSAnimationLinear];
+    [animation startAnimation];
+
+    [animation release];
+}
+
+- (NSWindow *)_createZoomWindowWithRect:(NSRect)rect
+{
+    NSWindow        *zoomWindow;
+    NSImageView     *imageView;
+    NSImage         *image;
+    NSRect          frame;
+    BOOL            isOneShot;
+
+    frame = [self frame];
+
+    isOneShot = [self isOneShot];
+	if (isOneShot)
+	{
+		[self setOneShot:NO];
+	}
+
+	if ([self windowNumber] <= 0)
+	{
+		CGFloat		alpha;
+
+			// Force creation of window device by putting it on-screen. We make it transparent to minimize the chance of
+			// visible flicker.
+		alpha = [self alphaValue];
+		[self setAlphaValue:0.0];
+        [self orderBack:self];
+        [self orderOut:self];
+		[self setAlphaValue:alpha];
+	}
+
+    image = [[NSImage alloc] initWithSize:frame.size];
+    [image lockFocus];
+		// Grab the window's pixels
+    NSCopyBits([self gState], NSMakeRect(0.0, 0.0, frame.size.width, frame.size.height), NSZeroPoint);
+    [image unlockFocus];
+	[image setDataRetained:YES];
+	[image setCacheMode:NSImageCacheNever];
+
+    zoomWindow = [[NSWindow alloc] initWithContentRect:rect styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO];
+    [zoomWindow setBackgroundColor:[NSColor colorWithDeviceWhite:0.0 alpha:0.0]];
+    [zoomWindow setHasShadow:[self hasShadow]];
+	[zoomWindow setLevel:[self level]];
+    [zoomWindow setOpaque:NO];
+    [zoomWindow setReleasedWhenClosed:YES];
+    [zoomWindow useOptimizedDrawing:YES];
+
+    imageView = [[NSImageView alloc] initWithFrame:[zoomWindow contentRectForFrameRect:frame]];
+    [imageView setImage:image];
+    [imageView setImageFrameStyle:NSImageFrameNone];
+    [imageView setImageScaling:NSScaleToFit];
+    [imageView setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
+
+    [zoomWindow setContentView:imageView];
+    [image release];
+    [imageView release];
+
+		// Reset one shot flag
+    [self setOneShot:isOneShot];
+
+    return zoomWindow;
+}
+
+- (void)zoomOnFromRect:(NSRect)startRect
+{
+    NSRect              frame;
+    NSWindow            *zoomWindow;
+
+    if ([self isVisible])
+    {
+        return;
+    }
+
+    frame = [self frame];
+
+    zoomWindow = [self _createZoomWindowWithRect:startRect];
+
+	[zoomWindow orderFront:self];
+
+    [zoomWindow animateToFrame:frame duration:[zoomWindow animationResizeTime:frame] * 0.4];
+
+	[self makeKeyAndOrderFront:self];
+	[zoomWindow close];
+}
+
+- (void)zoomOffToRect:(NSRect)endRect
+{
+    NSRect              frame;
+    NSWindow            *zoomWindow;
+
+    frame = [self frame];
+
+    if (![self isVisible])
+    {
+        return;
+    }
+
+    zoomWindow = [self _createZoomWindowWithRect:frame];
+
+	[zoomWindow orderFront:self];
+    [self orderOut:self];
+
+    [zoomWindow animateToFrame:endRect duration:[zoomWindow animationResizeTime:endRect] * 0.4];
+
+	[zoomWindow close];
+}
+
+
+@end
 
 @implementation NSWindow (AtoZ)
+
+// works  is  good;
+- (CALayer*)veilLayer{
+	return  [self veilLayerForView:[self contentView]];
+}
+- (CALayer*)veilLayerForView: (NSView*)view {
+
+	CALayer *lace = [[CALayer alloc]init];
+	lace.frame = [view bounds];
+	lace.borderWidth = 10; lace.borderColor = cgRANDOMCOLOR;
+
+	CGContextRef    context = NULL;		CGColorSpaceRef colorSpace;
+	int bitmapByteCount;				int bitmapBytesPerRow;
+	int pixelsHigh = (int)[[view layer] bounds].size.height;
+	int pixelsWide = (int)[[view layer] bounds].size.width;
+
+	bitmapBytesPerRow   = (pixelsWide * 4);			bitmapByteCount     = (bitmapBytesPerRow * pixelsHigh);
+
+	colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
+
+	context = CGBitmapContextCreate (NULL, pixelsWide, pixelsHigh,	8, bitmapBytesPerRow,	colorSpace,	kCGImageAlphaPremultipliedLast);
+
+	if (context== NULL)	{	NSLog(@"Failed to create context."); return nil;	}
+
+	CGColorSpaceRelease( colorSpace );
+	[[[view layer] presentationLayer] renderInContext:context];
+//	[[[view layer] presentationLayer] recursivelyRenderInContext:context];
+	lace.contents = [NSImage imageFromCGImageRef:CGBitmapContextCreateImage(context)];
+	lace.contentsGravity = kCAGravityCenter;
+	return lace;
+//	CGImageRef img =	NSBitmapImageRep *bitmap = [[NSBitmapImageRep alloc] initWithCGImage:img];	CFRelease(img);	return bitmap;
+
+}
+
+
+- (void)veil:(NSView*)view;
+{
+		CALayer* rooot = ( [[self contentView]layer] ? [[self contentView]layer] : [[CALayer alloc]init]);
+		CALayer *veil = [CALayer veilForView:rooot];
+		veil.zPosition = 2000;
+		veil.borderColor = cgRED;
+		veil.borderWidth = 10;
+		[rooot addSublayer:veil];
+		[rooot display];
+}
 
 -(NSPoint)midpoint {
 NSRect frame = [self frame];
@@ -105,8 +279,6 @@ return midpoint;
 	return toolbarHeight;
 }
 @end
-
-
 
 
 
@@ -449,10 +621,10 @@ return midpoint;
 //		}
 //	}];
 //	[[self animator] setContentSize:frame.size display:YES animate:YES];
-//
-//
+
+
 //    [NSAnimationContext endGrouping];
-//
+
 //}
 
 /*	NSViewAnimation *animation = [[NSViewAnimation alloc]

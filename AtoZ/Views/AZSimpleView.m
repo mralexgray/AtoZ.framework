@@ -1,10 +1,10 @@
-//
+
 //  AZSimpleView.m
 //  AtoZ
-//
+
 //  Created by Alex Gray on 7/29/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-//
+
 
 #import "AZSimpleView.h"
 #import "AtoZ.h"
@@ -23,6 +23,7 @@
  	if (self = [super initWithFrame:frame]) {
 		[self setBackgroundColor:[NSColor blueColor]];
 		glossy = NO;
+		checkerboard = YES;
 	}
 	return self;
 }
@@ -45,21 +46,25 @@
 
 - (void)drawRect:(NSRect)rect {
 
-	if (glossy)
+	if (glossy) {
 		DrawGlossGradient([[NSGraphicsContext currentContext]graphicsPort],self.backgroundColor, [self bounds]);
-	else if (gradient) {
+		return;
+	}
+	if (gradient) {
 		NSBezierPath *p =[NSBezierPath bezierPathWithRect: [self bounds]];// cornerRadius:0];
 		[p fillGradientFrom:backgroundColor.darker.darker.darker to:backgroundColor.brighter.brighter angle:270];
+		return;
 	}
-//	else {
-// 	    [(checkerboard ? [NSColor checkerboardWithFirstColor:backgroundColor secondColor:backgroundColor.contrastingForegroundColor squareWidth:10] : [self backgroundColor]) set];
-//    	NSRectFill(rect);
-	else {
-		[[NSColor colorWithCalibratedRed:0.f green:0.5f blue:0.f alpha:0.5f] set];
-		[[NSGraphicsContext currentContext]
-		 setCompositingOperation:NSCompositeClear];
-		[[NSBezierPath bezierPathWithRect:rect] fill];
-	}
+	if (checkerboard)	[[NSColor checkerboardWithFirstColor:backgroundColor
+												 secondColor:backgroundColor.contrastingForegroundColor squareWidth:10]set];
+	else 				[[self backgroundColor] set];
+	NSRectFill([self bounds]);
+
+//		[[NSColor colorWithCalibratedRed:0.f green:0.5f blue:0.f alpha:0.5f] set];
+//		[[NSGraphicsContext currentContext]
+//		 setCompositingOperation:NSCompositeClear];
+//		[[NSBezierPath bezierPathWithRect:rect] fill];
+//	}
 //	else	{	[self.backgroundColor ? self.backgroundColor : [NSColor clearColor]   set];		NSRectFill(rect);	}
 
 }

@@ -1,10 +1,10 @@
-//
+
 //  NSView+AtoZ.m
 //  AtoZ
-//
+
 //  Created by Alex Gray on 7/1/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-//
+
 
 #import "NSView+AtoZ.h"
 //#import "AGFoundation.h"
@@ -38,6 +38,26 @@ static char const * const ObjectRepKey = "ObjectRep";
 - (void)setObjectRep:(id)newObjectRep {
     objc_setAssociatedObject(self, ObjectRepKey, newObjectRep, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
+
+
+- (NSImage*) captureFrame
+{
+
+    NSRect originRect = [[self window] convertRectToScreen:[self bounds]]; // toView:[[self window] contentView]];
+
+    NSRect rect = originRect;
+    rect.origin.y = 0;
+    rect.origin.x += [self window].frame.origin.x;
+    rect.origin.y += [[self window] screen].frame.size.height - [self window].frame.origin.y - [self window].frame.size.height;
+    rect.origin.y += [self window].frame.size.height - originRect.origin.y - originRect.size.height;
+
+    CGImageRef cgimg = CGWindowListCreateImage(rect,
+											   kCGWindowListOptionIncludingWindow,
+											   (CGWindowID)[[self window] windowNumber],
+											   kCGWindowImageDefault);
+    return [[NSImage alloc] initWithCGImage:cgimg size:[self bounds].size];
+}
+
 
 - (NSView *)viewWithObjectRep:(id)object {
     // Raise an exception if object is nil
@@ -98,7 +118,7 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 	[self setAnimations:	@{ @"frame" : animation}];
 
 	[[self animator] setFrame:newViewFrame];
-//
+
 
 }
 
@@ -145,7 +165,7 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 //-(void)setCenter:(NSPoint)center {
 //    objc_setAssociatedObject(self, &ISANIMATED_KEY, NSPoiu numberWithBool:animated], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 //}
-//
+
 //-(NSPoint)center {
 //   return [objc_getAssociatedObject(self, &ISANIMATED_KEY) boolValue];
 //}
@@ -157,8 +177,9 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 //    CGColorSpaceRef colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
 //    CGFloat components[4] = {0.0f, 0.0f, 0.0f, 1.0f};
 //    CGColorRef blackColor = CGColorCreate(colorSpace, components);
-//    layer.backgroundColor = blackColor; 
-    [self setLayer:layer]; 
+	layer.frame = self.bounds;
+    layer.backgroundColor = cgRANDOMCOLOR;
+    [self setLayer:layer];
     [self setWantsLayer:YES];
 //    CGColorRelease(blackColor);
 //    CGColorSpaceRelease(colorSpace);
@@ -387,7 +408,7 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 }
 
 //@end
-//
+
 //@implementation NSView
 
 + (void)runEndBlock:(void (^)(void))completionBlock
@@ -421,7 +442,7 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 
 @end
 
-//
+
 //#import "NSView+Layout.h"
 //#import "NS(Attributed)String+Geometrics.h"
 

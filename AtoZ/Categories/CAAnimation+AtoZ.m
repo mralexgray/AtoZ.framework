@@ -166,6 +166,8 @@
 
     return animationGroup;
 }
+
+
 +(CAAnimation *)flipDown:(NSTimeInterval)aDuration scaleFactor:(CGFloat)scaleFactor {
 
 		// Rotating halfway (pi radians) around the Y axis gives the appearance of flipping
@@ -204,52 +206,52 @@
 }
 
 
-//	//assuming view is your NSView
-//CGPoint newCenter = CGPointMake(view.center.x - 300, view.center.y);
-//CABasicAnimation *animation = [CABasicAnimation animation];
-//	//setup your animation eg. duration/other options
-//animation.fromValue = [NSValue valueWithCGPoint:v.center];
-//animation.toValue = [NSValue valueWithCGPoint:newCenter];
-//[view.layer addAnimation:animation forKey:@"key"];
-//
-//- (CAKeyframeAnimation *)slideOut:(NSRect)frame oriented: (AZOrient)orientation{
-//
-//    CAKeyframeAnimation *slideout = [CAKeyframeAnimation animation];
-//
-//    CGMutablePathRef slidePath = CGPathCreateMutable();
-//	CGFloat xFin, yFin;  CGPoint go;
-//
-//	switch (orientation) {
-//		case AZOrientLeft:
-//		case AZOrientRight:
-//			xFin = 	orientation == AZOrientLeft ?  - NSMaxX(frame)	:   NSMaxX(frame) ;
-//			yFin =  0;
-//			go   =  orientation == AZOrientLeft ? (CGPoint){ NSMidY(frame), -
-//				break;
-//
-//			default:
-//				break;
-//			}
-//			xFin =  orientation == AZOrientBottom  	?  0
-//			:	orientation == AZOrientTop 		?  0
-//			yFin = 	orientation == AZOrientLeft || orientation == AZOrientRight ?  0
-//			:	orientation == AZOrientTop 		?   NSMaxY(frame) : -NSMaxY(frame);
-//			go 	 =  orientation == AZOrientBottom 	:
-//
-//
-//			CGPathMoveToPoint(shakePath, NULL, NSMinX(frame), NSMinY(frame));
-//			int index;
-//			for (index = 0; index < numberOfShakes; ++index)
-//			{
-//				CGPathAddLineToPoint(shakePath, NULL, NSMinX(frame) - frame.size.width * vigourOfShake, NSMinY(frame));
-//				CGPathAddLineToPoint(shakePath, NULL, NSMinX(frame) + frame.size.width * vigourOfShake, NSMinY(frame));
-//			}
-//			CGPathCloseSubpath(shakePath);
-//			shakeAnim.path = shakePath;
-//			shakeAnim.duration = durationOfShake;
-//			return shakeAnim;
-//	}
-//
+	//	//assuming view is your NSView
+	//CGPoint newCenter = CGPointMake(view.center.x - 300, view.center.y);
+	//CABasicAnimation *animation = [CABasicAnimation animation];
+	//	//setup your animation eg. duration/other options
+	//animation.fromValue = [NSValue valueWithCGPoint:v.center];
+	//animation.toValue = [NSValue valueWithCGPoint:newCenter];
+	//[view.layer addAnimation:animation forKey:@"key"];
+	//
+	//- (CAKeyframeAnimation *)slideOut:(NSRect)frame oriented: (AZOrient)orientation{
+	//
+	//    CAKeyframeAnimation *slideout = [CAKeyframeAnimation animation];
+	//
+	//    CGMutablePathRef slidePath = CGPathCreateMutable();
+	//	CGFloat xFin, yFin;  CGPoint go;
+	//
+	//	switch (orientation) {
+	//		case AZOrientLeft:
+	//		case AZOrientRight:
+	//			xFin = 	orientation == AZOrientLeft ?  - NSMaxX(frame)	:   NSMaxX(frame) ;
+	//			yFin =  0;
+	//			go   =  orientation == AZOrientLeft ? (CGPoint){ NSMidY(frame), -
+	//				break;
+	//
+	//			default:
+	//				break;
+	//			}
+	//			xFin =  orientation == AZOrientBottom  	?  0
+	//			:	orientation == AZOrientTop 		?  0
+	//			yFin = 	orientation == AZOrientLeft || orientation == AZOrientRight ?  0
+	//			:	orientation == AZOrientTop 		?   NSMaxY(frame) : -NSMaxY(frame);
+	//			go 	 =  orientation == AZOrientBottom 	:
+	//
+	//
+	//			CGPathMoveToPoint(shakePath, NULL, NSMinX(frame), NSMinY(frame));
+	//			int index;
+	//			for (index = 0; index < numberOfShakes; ++index)
+	//			{
+	//				CGPathAddLineToPoint(shakePath, NULL, NSMinX(frame) - frame.size.width * vigourOfShake, NSMinY(frame));
+	//				CGPathAddLineToPoint(shakePath, NULL, NSMinX(frame) + frame.size.width * vigourOfShake, NSMinY(frame));
+	//			}
+	//			CGPathCloseSubpath(shakePath);
+	//			shakeAnim.path = shakePath;
+	//			shakeAnim.duration = durationOfShake;
+	//			return shakeAnim;
+	//	}
+	//
 - (CAKeyframeAnimation *)negativeShake:(NSRect)frame{
 	int numberOfShakes = 4;
 	float durationOfShake = 0.5f;
@@ -287,94 +289,244 @@
 	}
 
 
-//- (void)animateView:(NSView*)sender {
-//		// Get the relevant frames.
-//	NSView *enclosingView = [[[NSApplication sharedApplication] mainWindow] contentView];
-////	int rowIndex = [sender selectedRow];
-//	NSRect cellFrame = [sender frame];//OfCellAtColumn:0 row:rowIndex];
-////	NSRect buttonFrame = [button frame];
-////	NSRect mainViewFrame = [enclosingView frame];
-//
-//	/*	      * Yellow fade animation/9**/
-//
-//		// Create the yellow fade layer.
-//	CALayer *layer = [CALayer layer];
-//	[layer setDelegate:self];
-//	yellowFadeView = [[NSView alloc] init];
-//	[yellowFadeView setWantsLayer:YES];
-//	[yellowFadeView setFrame:cellFrame];
-//	[yellowFadeView setLayer:layer];
-//	[[yellowFadeView layer] setNeedsDisplay];
-//	[yellowFadeView setAlphaValue:0.0];
-//	[sourceList addSubview:yellowFadeView];
-//
-//		// Create the animation pieces.
-//	CABasicAnimation *alphaAnimation = [CABasicAnimation animationWithKeyPath: @"alphaValue"];
-//	alphaAnimation.beginTime = 1.0;
-//	alphaAnimation.fromValue = [NSNumber numberWithFloat: 0.0];
-//	alphaAnimation.toValue = [NSNumber numberWithFloat: 1.0];
-//	alphaAnimation.duration = 0.25;
-//	CABasicAnimation *alphaAnimation2 = [CABasicAnimation animationWithKeyPath: @"alphaValue"];
-//	alphaAnimation2.beginTime = 1.25;
-//	alphaAnimation2.duration = 0.25;
-//	alphaAnimation2.fromValue = [NSNumber numberWithFloat: 1.0];
-//	alphaAnimation2.toValue = [NSNumber numberWithFloat: 0.0];
-//	CABasicAnimation *alphaAnimation3 = [CABasicAnimation animationWithKeyPath: @"alphaValue"];
-//	alphaAnimation3.beginTime = 1.5;
-//	alphaAnimation3.duration = 0.25;
-//	alphaAnimation3.fromValue = [NSNumber numberWithFloat: 0.0];
-//	alphaAnimation3.toValue = [NSNumber numberWithFloat: 1.0];
-//	CABasicAnimation *alphaAnimation4 = [CABasicAnimation animationWithKeyPath: @"alphaValue"];
-//	alphaAnimation4.beginTime = 1.75;
-//	alphaAnimation4.duration = 0.25;
-//	alphaAnimation4.fromValue = [NSNumber numberWithFloat: 1.0];
-//	alphaAnimation4.toValue = [NSNumber numberWithFloat: 0.0];
-//
-//		// Create the animation group.
-//	CAAnimationGroup *yellowFadeAnimation = [CAAnimationGroup animation];
-//	yellowFadeAnimation.delegate = self;
-//	yellowFadeAnimation.animations =@[ alphaAnimation, alphaAnimation2, alphaAnimation3, alphaAnimation4 ];
-//	yellowFadeAnimation.duration = 2.0;
-//	[yellowFadeView setAnimations:@{ @"frameOrigin":yellowFadeAnimation} ];
-//
-//		// Start the yellow fade animation.
-//	[[yellowFadeView animator] setFrame:[yellowFadeView frame]];
-//}
-//
-//- (void)drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx {
-//		// Bezier path radius
-//	int radius = 4;
-//
-//		// Setup graphics context.
-//	NSGraphicsContext *nsGraphicsContext = [NSGraphicsContext graphicsContextWithGraphicsPort:ctx flipped:NO];
-//	[NSGraphicsContext saveGraphicsState];
-//	[NSGraphicsContext setCurrentContext:nsGraphicsContext];
-//
-//		// Convert to NSRect.
-//	CGRect aRect = [layer frame];
-//	NSRect rect = NSMakeRect(aRect.origin.x, aRect.origin.y, aRect.size.width, aRect.size.height);
-//
-//		// Draw dark outside line.
-//	[NSBezierPath setDefaultLineWidth:2];
-//	NSBezierPath *highlightPath = [NSBezierPath bezierPathWithRoundedRect:rect xRadius:radius yRadius:radius];
-//	[[NSColor yellowColor] set];
-//	[highlightPath stroke];
-//
-//		// Draw transparent inside fill.
-//	CGFloat r, g, b, a;
-//	[[NSColor yellowColor] getRed:&amp;r green:&amp;g blue:&amp;b alpha:&amp;a];
-//	NSColor *transparentYellow = [NSColor colorWithCalibratedRed:r green:g blue:b alpha:0.5];
-//	NSBezierPath *fillPath = [NSBezierPath bezierPathWithRoundedRect:rect xRadius:radius yRadius:radius];
-//	[transparentYellow set];
-//	[fillPath fill];
-//
-//		// Finish with graphics context.
-//	[NSGraphicsContext restoreGraphicsState];
-//}
-//
+	//- (void)animateView:(NSView*)sender {
+	//		// Get the relevant frames.
+	//	NSView *enclosingView = [[[NSApplication sharedApplication] mainWindow] contentView];
+	////	int rowIndex = [sender selectedRow];
+	//	NSRect cellFrame = [sender frame];//OfCellAtColumn:0 row:rowIndex];
+	////	NSRect buttonFrame = [button frame];
+	////	NSRect mainViewFrame = [enclosingView frame];
+	//
+	//	/*	      * Yellow fade animation/9**/
+	//
+	//		// Create the yellow fade layer.
+	//	CALayer *layer = [CALayer layer];
+	//	[layer setDelegate:self];
+	//	yellowFadeView = [[NSView alloc] init];
+	//	[yellowFadeView setWantsLayer:YES];
+	//	[yellowFadeView setFrame:cellFrame];
+	//	[yellowFadeView setLayer:layer];
+	//	[[yellowFadeView layer] setNeedsDisplay];
+	//	[yellowFadeView setAlphaValue:0.0];
+	//	[sourceList addSubview:yellowFadeView];
+	//
+	//		// Create the animation pieces.
+	//	CABasicAnimation *alphaAnimation = [CABasicAnimation animationWithKeyPath: @"alphaValue"];
+	//	alphaAnimation.beginTime = 1.0;
+	//	alphaAnimation.fromValue = [NSNumber numberWithFloat: 0.0];
+	//	alphaAnimation.toValue = [NSNumber numberWithFloat: 1.0];
+	//	alphaAnimation.duration = 0.25;
+	//	CABasicAnimation *alphaAnimation2 = [CABasicAnimation animationWithKeyPath: @"alphaValue"];
+	//	alphaAnimation2.beginTime = 1.25;
+	//	alphaAnimation2.duration = 0.25;
+	//	alphaAnimation2.fromValue = [NSNumber numberWithFloat: 1.0];
+	//	alphaAnimation2.toValue = [NSNumber numberWithFloat: 0.0];
+	//	CABasicAnimation *alphaAnimation3 = [CABasicAnimation animationWithKeyPath: @"alphaValue"];
+	//	alphaAnimation3.beginTime = 1.5;
+	//	alphaAnimation3.duration = 0.25;
+	//	alphaAnimation3.fromValue = [NSNumber numberWithFloat: 0.0];
+	//	alphaAnimation3.toValue = [NSNumber numberWithFloat: 1.0];
+	//	CABasicAnimation *alphaAnimation4 = [CABasicAnimation animationWithKeyPath: @"alphaValue"];
+	//	alphaAnimation4.beginTime = 1.75;
+	//	alphaAnimation4.duration = 0.25;
+	//	alphaAnimation4.fromValue = [NSNumber numberWithFloat: 1.0];
+	//	alphaAnimation4.toValue = [NSNumber numberWithFloat: 0.0];
+	//
+	//		// Create the animation group.
+	//	CAAnimationGroup *yellowFadeAnimation = [CAAnimationGroup animation];
+	//	yellowFadeAnimation.delegate = self;
+	//	yellowFadeAnimation.animations =@[ alphaAnimation, alphaAnimation2, alphaAnimation3, alphaAnimation4 ];
+	//	yellowFadeAnimation.duration = 2.0;
+	//	[yellowFadeView setAnimations:@{ @"frameOrigin":yellowFadeAnimation} ];
+	//
+	//		// Start the yellow fade animation.
+	//	[[yellowFadeView animator] setFrame:[yellowFadeView frame]];
+	//}
+	//
+	//- (void)drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx {
+	//		// Bezier path radius
+	//	int radius = 4;
+	//
+	//		// Setup graphics context.
+	//	NSGraphicsContext *nsGraphicsContext = [NSGraphicsContext graphicsContextWithGraphicsPort:ctx flipped:NO];
+	//	[NSGraphicsContext saveGraphicsState];
+	//	[NSGraphicsContext setCurrentContext:nsGraphicsContext];
+	//
+	//		// Convert to NSRect.
+	//	CGRect aRect = [layer frame];
+	//	NSRect rect = NSMakeRect(aRect.origin.x, aRect.origin.y, aRect.size.width, aRect.size.height);
+	//
+	//		// Draw dark outside line.
+	//	[NSBezierPath setDefaultLineWidth:2];
+	//	NSBezierPath *highlightPath = [NSBezierPath bezierPathWithRoundedRect:rect xRadius:radius yRadius:radius];
+	//	[[NSColor yellowColor] set];
+	//	[highlightPath stroke];
+	//
+	//		// Draw transparent inside fill.
+	//	CGFloat r, g, b, a;
+	//	[[NSColor yellowColor] getRed:&amp;r green:&amp;g blue:&amp;b alpha:&amp;a];
+	//	NSColor *transparentYellow = [NSColor colorWithCalibratedRed:r green:g blue:b alpha:0.5];
+	//	NSBezierPath *fillPath = [NSBezierPath bezierPathWithRoundedRect:rect xRadius:radius yRadius:radius];
+	//	[transparentYellow set];
+	//	[fillPath fill];
+	//
+	//		// Finish with graphics context.
+	//	[NSGraphicsContext restoreGraphicsState];
+	//}
+	//
+
+	//	@end
+
+
+
+
+
+/*   example of blocks category below
+
+ - (void)runAnimation:(id)unused
+ {
+ // Create a shaking animation that rotates a bit counter clockwisely and then rotates another
+ // bit clockwisely and repeats. Basically, add a new rotation animation in the opposite
+ // direction at the completion of each rotation animation.
+ const CGFloat duration = 0.1f;
+ const CGFloat angle = 0.03f;
+ NSNumber *angleR = [NSNumber numberWithFloat:angle];
+ NSNumber *angleL = [NSNumber numberWithFloat:-angle];
+
+ CABasicAnimation *animationL = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+ CABasicAnimation *animationR = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+
+ void (^completionR)(BOOL) = ^(BOOL finished) {
+ [self.imageView.layer setValue:angleL forKey:@"transform.rotation.z"];
+ [self.imageView.layer addAnimation:animationL forKey:@"L"]; // Add rotation animation in the opposite direction.
+ };
+
+ void (^completionL)(BOOL) = ^(BOOL finished) {
+ [self.imageView.layer setValue:angleR forKey:@"transform.rotation.z"];
+ [self.imageView.layer addAnimation:animationR forKey:@"R"];
+ };
+
+ animationL.fromValue = angleR;
+ animationL.toValue = angleL;
+ animationL.duration = duration;
+ animationL.completion = completionL; // Set completion to perform rotation in opposite direction upon completion.
+
+ animationR.fromValue = angleL;
+ animationR.toValue = angleR;
+ animationR.duration = duration;
+ animationR.completion = completionR;
+
+ // First animation performs half rotation and then proceeds to enter the loop by playing animationL in its completion block
+ CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+ animation.fromValue = [NSNumber numberWithFloat:0.f];
+ animation.toValue = angleR;
+ animation.duration = duration/2;
+ animation.completion = completionR;
+
+ [self.imageView.layer setValue:angleR forKey:@"transform.rotation.z"];
+ [self.imageView.layer addAnimation:animation forKey:@"0"];
+ }
+
+ */
+
+@end
+@interface CAAnimationDelegate : NSObject {
+    void (^_completion)(BOOL);
+    void (^_start)();
+}
+
+@property (nonatomic, copy) void (^completion)(BOOL);
+@property (nonatomic, copy) void (^start)();
+
+- (void)animationDidStart:(CAAnimation *)anim;
+- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag;
+
+@end
+
+
+@implementation CAAnimationDelegate
+
+@synthesize completion=_completion;
+@synthesize start=_start;
+
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        self.completion = nil;
+        self.start = nil;
+    }
+    return self;
+}
+
+- (void)dealloc
+{
+    self.completion = nil;
+    self.start = nil;
+//    [super dealloc];
+}
+
+- (void)animationDidStart:(CAAnimation *)anim
+{
+    if (self.start != nil) {
+        self.start();
+    }
+}
+
+- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
+{
+    if (self.completion != nil) {
+        self.completion(flag);
+    }
+}
 
 @end
 
 
 
+@implementation CAAnimation (BlocksAddition)
 
+-  (BOOL)delegateCheck
+{
+    if (self.delegate != nil && ![self.delegate isKindOfClass:[CAAnimationDelegate class]]) {
+        NSLog(@"CAAnimation(BlocksAddition) Warning: CAAnimation instance's delegate was modified externally");
+        return NO;
+    }
+    return YES;
+}
+
+- (void)setCompletion:(void (^)(BOOL))completion
+{
+    CAAnimationDelegate *newDelegate = [[CAAnimationDelegate alloc] init];
+    newDelegate.completion = completion;
+    newDelegate.start = ((CAAnimationDelegate *)self.delegate).start;
+    self.delegate = newDelegate;
+    [newDelegate release];
+}
+
+- (void (^)(BOOL))completion
+{
+    if (![self delegateCheck]) {
+        return nil;
+    }
+    return ((CAAnimationDelegate *)self.delegate).completion;
+}
+
+- (void)setStart:(void (^)())start
+{
+    CAAnimationDelegate *newDelegate = [[CAAnimationDelegate alloc] init];
+    newDelegate.start = start;
+    newDelegate.completion = ((CAAnimationDelegate *)self.delegate).completion;
+    self.delegate = newDelegate;
+    [newDelegate release];
+}
+
+- (void (^)())start
+{
+    if (![self delegateCheck]) {
+        return nil;
+    }
+    return ((CAAnimationDelegate *)self.delegate).start;
+}
+
+@end

@@ -12,7 +12,7 @@
 //    IngredientType_image = 3
 //} IngredientType;
 //write a method like this in class:
-//
+
 //+ (NSString*)typeStringForType:(IngredientType)_type {
 //	NSString *key = [NSString stringWithFormat:@"IngredientType_%i", _type];
 //	return NSLocalizedString(key, nil);
@@ -27,7 +27,7 @@
 "IngredientType_2" = "Video";
 /* IngredientType_image */
 "IngredientType_3" = "Image";
-//
+
 //AZOrientTop = 0,  //explicit
 //AZOrientLeft,
 //AZOrientBottom,

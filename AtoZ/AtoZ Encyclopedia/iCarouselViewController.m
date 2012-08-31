@@ -140,8 +140,6 @@
 
 	AZOffsetFields x =  (AZOffsetFields)[sender tag];
 
-
-
 	NSSize viewp = self.carousel.viewpointOffset;
 	NSSize cont = self.carousel.contentOffset;
 
@@ -502,35 +500,34 @@ if (!view) {
     switch (option)
     {
 
-        case 	iCarouselOptionVisibleItems:
-			return 	[[AtoZ dockSorted] count];
-				//		This is the maximum number of item views (including placeholders) that should be visible in the carousel at once. Half of this number of views will be displayed to either side of the currently selected item index. Views beyond that will not be loaded until they are scrolled into view. This allows for the carousel to contain a very large number of items without adversely affecting performance. iCarousel chooses a suitable default value based on the carousel type, however you may wish to override that value using this property (e.g. if you have implemented a custom carousel type).
+//        case 	iCarouselOptionVisibleItems:
+//			return 	[self ];
+			//		This is the maximum number of item views (including placeholders) that should be visible in the carousel at once. Half of this number of views will be displayed to either side of the currently selected item index. Views beyond that will not be loaded until they are scrolled into view. This allows for the carousel to contain a very large number of items without adversely affecting performance. iCarousel chooses a suitable default value based on the carousel type, however you may wish to override that value using this property (e.g. if you have implemented a custom carousel type).
 
-		case 	iCarouselOptionOffsetMultiplier:
+//		case 	iCarouselOptionOffsetMultiplier:
 //			return 	self.multi;//value;
-
-				return 4;// 	RAND_INT_VAL(0,5);//, <#double end#>).multi;//value;
-						//		The offset multiplier to use when the user drags the carousel with their finger. It does not affect programmatic scrolling or deceleration speed. This defaults to 1.0 for most carousel types, but defaults to 2.0 for the CoverFlow-style carousels to compensate for the fact that their items are more closely spaced and so must be dragged further to move the same distance.
+//			return 4;// 	RAND_INT_VAL(0,5);//, <#double end#>).multi;//value;
+		 //		The offset multiplier to use when the user drags the carousel with their finger. It does not affect programmatic scrolling or deceleration speed. This defaults to 1.0 for most carousel types, but defaults to 2.0 for the CoverFlow-style carousels to compensate for the fact that their items are more closely spaced and so must be dragged further to move the same distance.
 
 		case 	iCarouselOptionCount:
 			return  [[AtoZ dockSorted] count];//);RAND_INT_VAL(3,
-				//		The number of items to be displayed in the Rotary, Cylinder and Wheel transforms. Normally this is calculated automatically based on the view size and number of items in the carousel, but you can override this if you want more precise control of the carousel appearance. This property is used to calculate the carousel radius, so another option is to manipulate the radius directly.
+//		The number of items to be displayed in the Rotary, Cylinder and Wheel transforms. Normally this is calculated automatically based on the view size and number of items in the carousel, but you can override this if you want more precise control of the carousel appearance. This property is used to calculate the carousel radius, so another option is to manipulate the radius directly.
 
 		case 	iCarouselOptionWrap:
 			return 	YES;//RAND_BOOL();
-				//		boolean indicating whether the carousel should wrap when it scrolls to the end. Return YES if you want the carousel to wrap around when it reaches the end, and NO if you want it to stop. Generally, circular carousel types will wrap by default and linear ones won't. Don't worry that the return type is a floating point value - any value other than 0.0 will be treated as YES.*/
+						//		boolean indicating whether the carousel should wrap when it scrolls to the end. Return YES if you want the carousel to wrap around when it reaches the end, and NO if you want it to stop. Generally, circular carousel types will wrap by default and linear ones won't. Don't worry that the return type is a floating point value - any value other than 0.0 will be treated as YES.*/
 
         case 	iCarouselOptionSpacing:
 			return 1;//	RAND_FLOAT_VAL(0, 2*self.carousel.itemWidth);//.space;
-				// 		The spacing between  item views. This value is multiplied by the item width (or height, if the carousel is vertical) to get the total space between each item, so a value of 1.0 (the default) means no space between views (unless the views already include padding, as they do in many of the example projects).
-				// 	Reduce item spacing to compensate for drop shadow and reflection around views
+					 // 		The spacing between  item views. This value is multiplied by the item width (or height, if the carousel is vertical) to get the total space between each item, so a value of 1.0 (the default) means no space between views (unless the views already include padding, as they do in many of the example projects).
+					 // 	Reduce item spacing to compensate for drop shadow and reflection around views
 
         case	iCarouselOptionShowBackfaces:
 			return  YES;
 				//		For some carousel types, e.g. iCarouselTypeCylinder, the rear side of some views can be seen (iCarouselTypeInvertedCylinder now hides the back faces by default). If you wish to hide the backward-facing views you can return NO for this option. To override the default back-face hiding for the iCarouselTypeInvertedCylinder, you can return YES. This option may also be useful for custom carousel transforms that cause the back face of views to be displayed.*/
 
 		case	iCarouselOptionArc:
-//			return 	RAND_FLOAT_VAL(.3, 2*M_PI);
+				//			return 	RAND_FLOAT_VAL(.3, 2*M_PI);
 			return value;
 				//		The arc of the Rotary, Cylinder and Wheel transforms (in radians). Normally this defaults to 2*M_PI (a complete circle) but you can specify a smaller value, so for example a value of M_PI will create a half-circle or cylinder. This property is used to calculate the carousel radius and angle step, so another option is to manipulate those values directly.
 

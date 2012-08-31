@@ -1,10 +1,10 @@
-//
+
 //  AppDelegate.m
 //  DeskNotation
-//
+
 //  Created by Steven Degutis on 6/27/09.
 //  Copyright 2009 8th Light. All rights reserved.
-//
+
 
 #import "EncyclopediaDelegate.h"
 #import "SDNoteWindowController.h"
@@ -125,7 +125,7 @@
 	
 	NSRect r = [[_mainWindow contentView] frame];
 	AZFileGridView *g = [[AZFileGridView alloc]initWithFrame:r andFiles:s.copy];
-	[[_mainWindow contentView] addSubview:g];
+//	[[_mainWindow contentView] addSubview:g];
 
 //	[_mainWindow makeKeyAndOrderFront:nil];
 //	trackMouse();
@@ -304,11 +304,11 @@
 
 
 //-(void)trackerDidReceiveEvent:(NSEvent*)event inRect:(NSRect)theRect {
-//
+
 //	NSLog(@"did receive track event: %@ in rect %@", event, NSStringFromRect(theRect));
-//
+
 //}
-//
+
 //-(void)ignoreMouseDown:(BOOL*)event {
 //	[[_mainWindow nextResponder] mouseDown:event];
 //}

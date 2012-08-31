@@ -11,7 +11,31 @@
 #import "AtoZ.h"
 
 
+@interface GridLayoutManager : CALayer
+@end
+@implementation GridLayoutManager
 
+-(void) drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx
+{
+	AZSizer * d = [AZSizer forQuantity:layer.sublayers.count inRect:layer.bounds];
+#ifdef DEBUG
+	NSLog(@"constraining with sizer %@", d.propertiesPlease);
+#endif
+	[CATransaction begin];
+	[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
+	//	[self constrainLayersInContentLayer];
+	[layer.sublayers eachConcurrentlyWithBlock:^(NSInteger index, CALayer* obj, BOOL *stop) {
+
+		obj.anchorPoint = [[d.rects objectAtNormalizedIndex:index] rectValue].origin;
+		obj.bounds = AZMakeRectFromSize(d.size);
+	}];
+	[CATransaction commit];
+
+//	NSUInteger index = 0;
+//	for (NSUInteger r = 0; r < _sizer.rows; r++) {		for (NSUInteger c = 0; c < _sizer.columns; c++) {
+}
+
+@end
 @implementation AZFileGridView
 
 	//-(void) awakeFromNib {
@@ -163,47 +187,7 @@
  //}
 
 */
-- (NSImage*)getCurrentFrame;
-{
-	CGContextRef    context = NULL;
-	CGColorSpaceRef colorSpace;
-	int bitmapByteCount;
-	int bitmapBytesPerRow;
 
-	int pixelsHigh = (int)[[self layer] bounds].size.height;
-	int pixelsWide = (int)[[self layer] bounds].size.width;
-
-	bitmapBytesPerRow   = (pixelsWide * 4);
-	bitmapByteCount     = (bitmapBytesPerRow * pixelsHigh);
-
-	colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
-
-	context = CGBitmapContextCreate (NULL,
-									 pixelsWide,
-									 pixelsHigh,
-									 8,
-									 bitmapBytesPerRow,
-									 colorSpace,
-									 kCGImageAlphaPremultipliedLast);
-	if (context== NULL)
-	{
-		NSLog(@"Failed to create context.");
-		return nil;
-	}
-
-	CGColorSpaceRelease( colorSpace );
-
-	[[[self layer] presentationLayer] renderInContext:context];
-
-//	CGImageRef img = CGBitmapContextCreateImage(context);
-	return [NSImage imageFromCGImageRef:CGBitmapContextCreateImage(context)];
-
-//	NSBitmapImageRep *bitmap = [[NSBitmapImageRep alloc] initWithCGImage:img];
-//	CFRelease(img);
-//
-//	return bitmap;
-
-}
 
 
 -(void) viewWillStartLiveResize {
@@ -215,20 +199,16 @@
 //		[self unlockFocus];
 //	}
 //	[i unlockFocus];
-	[[_contentLayer sublayers] each:^(id obj, NSUInteger index, BOOL *stop) {
-		[obj setBackgroundColor:cgRANDOMCOLOR];
-	}];
+//	[[_contentLayer sublayers] each:^(CALayer* obj, NSUInteger index, BOOL *stop) {
+//		[obj setBackgroundColor:cgRANDOMCOLOR];
+//	}];
 //	_contentLayer.shouldRasterize = YES;
 //	NSImage *u = [self snapshot];
 
-	CALayer *veil = [CALayer layer];
-	veil.autoresizingMask = kCALayerWidthSizable | kCALayerHeightSizable;
-
-	veil.contents = [[self getCurrentFrame ] tintedWithColor:RED];
-	veil.frame = self.bounds;
-	veil.name = @"bed";
-	veil.zPosition = 1000;
-	[_contentLayer addSublayer:veil];
+//	self.veil = [CALayer veilForView:_root];
+//	[_root addSublayer:_veil];
+//	NSLog(@"veil: %@", _veil.debugDescription);////	_veil.opaque = YES;
+//	[_contentLayer addSublayer:_veil];
 //	[CATransaction begin];
 //	_contentLayer.layoutManager = self;
 //	[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
@@ -240,11 +220,12 @@
 -(void) viewDidEndLiveResize {
 //	[_contentLayer setLayoutManager:self];
 //	[self doLayout];
+
+//	CALayer *i = [[_contentLayer sublayers] filterOne:^BOOL(id object) {
+//		return [[object valueForKey:@"name"] isEqualToString:@"bed"] ? YES : NO ;
+//	}];
+//	[_veil removeFromSuperlayer];
 //	[CATransaction commit];
-	CALayer *i = [[_contentLayer sublayers] filterOne:^BOOL(id object) {
-		return [[object valueForKey:@"name"] isEqualToString:@"bed"] ? YES : NO ;
-	}];
-	[i removeFromSuperlayer];
 	[_contentLayer setNeedsLayout];
 }
 /*
@@ -272,9 +253,13 @@
 
 	_content  = content;
 	NSLog(@"making layers!");
-	[[_contentLayer sublayers]each:^(CALayer *obj, NSUInteger index, BOOL *stop) {
-		[obj removeFromSuperlayer];
-	}];
+//	[[_contentLayer sublayers]each:^(CALayer *obj, NSUInteger index, BOOL *stop) {
+//		[obj removeFromSuperlayer];
+//	}];
+//	[_gridLayer removeFromSuperlayer];
+//	self.gridLayer = [CALayer layer];
+	[CATransaction begin];
+	[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
 	[_content enumerateObjectsUsingBlock:^(AZFile* file, NSUInteger idx, BOOL *stop) {
 			//		if ([imageLayer valueForKey:@"locked"]) continue;
 		CALayer *fileLayer = [CALayer layer];
@@ -283,13 +268,17 @@
 			//			fileLayer.frame = AZMakeRectFromSize(_sizer.size);
 			//			fileLayer.frame = [[_sizer.rects objectAtIndex:idx]rectValue];
 			//			NSLog(@"setframe for: %@ to %@", file.name,  NSStringFromRect([[_sizer.rects objectAtIndex:idx]rectValue]));
-		[_contentLayer addSublayer:fileLayer];
+		[_gridLayer addSublayer:fileLayer];
+//		[_contentLayer]
+//		[_contentLayer addSublayer:_gridLayer];
 	}];
+	[CATransaction commit];
 	[_contentLayer setNeedsLayout];
 //	[self doLayout];
 }
 
-//- (void) doLayout {
+//- (void) doLayout
+/**
 - (void) layoutSublayersOfLayer:(CALayer*)layer {
 	//	NSRect sizer 	= [AZSizer structForQuantity:_content.count inRect:[self bounds]];
 		//				   contentLayer.sublayers.count inRect:[self frame]];
@@ -299,16 +288,23 @@
 		//	NSUInteger rowindex,  columnindex;
 		//	rowindex = columnindex = 0;
 		//	for (AZFile *file in _content) {
+//	if ([[self window]inLiveResize]) { [self performSelector:@selector(drawLayer:inContext:) afterDelay:.5]; return;}
 	NSLog(@"dolayout called");
 	NSLog(@"constraining with sizer %@", _sizer.propertiesPlease);
-
 	self.sizer = [AZSizer forQuantity:_content.count inRect:[self bounds]];
+//	[CATransaction begin];
+//	[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
+	[_gridLayer.sublayers eachConcurrentlyWithBlock:^(NSInteger index, CALayer* obj, BOOL *stop) {
+		obj.frame = [[_sizer.rects objectAtNormalizedIndex:index ] rectValue];
+	}];
+//	[CATransaction commit];
+//	[_gridLayer setNeedsDisplay];
 //	[self needsLayout];
-	NSUInteger index = 0;
-	_contentLayer.layoutManager = [CAConstraintLayoutManager layoutManager];
+/*	NSUInteger index = 0;
+	_gridLayer.layoutManager = [CAConstraintLayoutManager layoutManager];
 	for (NSUInteger r = 0; r < _sizer.rows; r++) {		for (NSUInteger c = 0; c < _sizer.columns; c++) {
 			//		if ([layer sublayers].count > index) {
-		CALayer *cell = [[_contentLayer sublayers]objectAtNormalizedIndex:index];
+		CALayer *cell = [[_gridLayer sublayers]objectAtNormalizedIndex:index];
 		cell.frame = AZMakeRectFromSize(_sizer.size);
 		cell.name = [NSString stringWithFormat:@"%ld@%ld", c, r];
 		cell.constraints = @[
@@ -322,8 +318,9 @@
 		index++;
 	}
 	}
+*/
 
-}
+//}
 	//	[self constrainLayersInContentLayer];
 
 	//	[_sizer performSelectorOnMainThread:@selector(constrainLayersInLayer:) withObject:_contentLayer waitUntilDone:YES];
@@ -353,8 +350,6 @@
 
 
 
-
-
 	//- (CALayer*)layerAt:(NSUInteger)idx;
 	//{
 	//	return [_contentLayer.sublayers objectAtIndex:idx];
@@ -372,17 +367,20 @@
 
 		self.root = [CALayer layer];
 		self.contentLayer = [CALayer layer];
+		self.gridLayer = [CALayer layer];
+		[_contentLayer addSublayer:_gridLayer];
 		[_root addSublayer:_contentLayer];
-		[@[_root, _contentLayer] each:^(CALayer* obj, NSUInteger index, BOOL *stop) {
+		[@[_root, _contentLayer, _gridLayer] each:^(CALayer* obj, NSUInteger index, BOOL *stop) {
 			obj.frame = [self bounds];
 			obj.autoresizingMask = kCALayerHeightSizable | kCALayerWidthSizable;
+			obj.zPosition = 100 * index;
 		}];
 		self.layer = _root;
 		[self setWantsLayer: YES];
-		[_contentLayer setLayoutManager:self];
-
+		self.gridManager = [GridLayoutManager new];
+		[_contentLayer setLayoutManager:_gridManager];
 		self.content = files;
-			//		[self doLayout];
+//		[_contentLayer setNeedsLayout];
 
 	}
 
@@ -441,12 +439,13 @@
 		//    self.offBackLayer.position = CGPointMake(left, middle);
 		//}
 		//
-	NSLog(@"constraining with sizer %@", _sizer.propertiesPlease);
+/*	NSLog(@"constraining with sizer %@", _sizer.propertiesPlease);
 		//	[CATransaction setValue:[NSNumber numberWithBool:YES] forKey:kCATransactionDisableActions];
 		//	[self constrainLayersInContentLayer];
 
 	NSUInteger index = 0;
 	for (NSUInteger r = 0; r < _sizer.rows; r++) {		for (NSUInteger c = 0; c < _sizer.columns; c++) {
+*/
 			//		if ([layer sublayers].count > index) {
 			//		CALayer *cell = [[self sublayers]objectAtNormalizedIndex:index];
 			//		cell.frame = AZMakeRectFromSize(_sizer.size);
@@ -460,11 +459,11 @@
 			//									   kCAConstraintMaxY, (r / (CGFloat)_sizer.rows), 0)
 			//		];
 			//		index++;
-	}
+//	}
 	}
 		//	[CATransaction setValue:[NSNumber numberWithBool:NO] forKey:kCATransactionDisableActions];
 
-}
+//}
 
 
 @end

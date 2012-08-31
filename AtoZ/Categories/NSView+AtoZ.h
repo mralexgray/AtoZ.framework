@@ -1,10 +1,10 @@
-//
+
 //  NSView+AtoZ.h
 //  AtoZ
-//
+
 //  Created by Alex Gray on 7/1/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-//
+
 
 #import <Cocoa/Cocoa.h>
 #import <objc/objc.h>
@@ -52,6 +52,7 @@ AZViewAnimationType;
                             userInfo:(NSDictionary *)context;
 
 - (BOOL)		requestFocus;
+- (NSImage*) captureFrame;
 
 //@property (assign) NSPoint center;
 - (NSPoint) center;

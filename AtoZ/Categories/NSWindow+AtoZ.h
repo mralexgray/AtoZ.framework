@@ -1,75 +1,93 @@
-//
+
 //  NSWindow+AtoZ.h
 //  AtoZ
-//
+
 //  Created by Alex Gray on 7/2/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-//
+
 
 #import <Cocoa/Cocoa.h>
 
+
+/*
+ Provides a "zoom" animation for windows when ordering on and off screen.
+
+ For more details, check out the related blog posts at http://www.noodlesoft.com/blog/2007/06/30/animation-in-the-time-of-tiger-part-1/ and http://www.noodlesoft.com/blog/2007/09/20/animation-in-the-time-of-tiger-part-3/
+ */
+
+@interface NSWindow (NoodleEffects)
+
+- (void) animateToFrame: (NSRect) frameRect duration:(NSTimeInterval)duration;
+- (void) zoomOnFromRect: (NSRect) startRect;
+- (void) zoomOffToRect:  (NSRect) endRect;
+
+@end
+
 @interface NSWindow (AtoZ)
 
-- (NSPoint)		midpoint; //get the midpoint of the window
-- (void)		setMidpoint:		(NSPoint)midpoint; //set the midpoint of the window
-- (void)		addViewToTitleBar:	(NSView*)viewToAdd atXPosition:(CGFloat)x;
-- (CGFloat)		heightOfTitleBar;
-- (void) setContentSize:(NSSize)aSize display:(BOOL)displayFlag animate:(BOOL)animateFlag;
-- (void) betterCenter;
+- (CALayer*)veilLayer;
+- (CALayer*)veilLayerForView: (NSView*)view;
+
+- (NSPoint)	midpoint; //get the midpoint of the window
+- (void)	setMidpoint:		(NSPoint) midpoint; //set the midpoint of the window
+- (void)	addViewToTitleBar:	(NSView*) viewToAdd atXPosition:(CGFloat)x;
+- (CGFloat)	heightOfTitleBar;
+- (void) 	setContentSize:		(NSSize) aSize display:(BOOL)displayFlag animate:(BOOL)animateFlag;
+- (void) 	betterCenter;
 
 //@property (readonly, nonatomic) BOOL isBorderless;
 @property (readonly, nonatomic) CGFloat toolbarHeight;
 @end
 
-
-
 #define kNTSetDefaultFirstResponderNotification @"NTSetDefaultFirstResponderNotification"  // object is the window, must check
 
 @interface NSWindow (Utilities)
 
-+ (void)cascadeWindow:(NSWindow*)inWindow;
+- (void)veil:(NSView*)view;
 
-+ (NSArray*)visibleWindows:(BOOL)ordered;
++ (void) cascadeWindow:(NSWindow*)inWindow;
+
++ (NSArray*) visibleWindows:(BOOL)ordered;
+
 //+ (NSArray*)visibleWindows:(BOOL)ordered delegateClass:(Class)delegateClass;
-
 //- (NSWindow*)topWindowWithDelegateClass:(Class)class;
-
-+ (BOOL)isAnyWindowVisible;
 //+ (BOOL)isAnyWindowVisibleWithDelegateClass:(Class)class;
-+ (NSArray*)miniaturizedWindows;
 
-- (void)setFloating:(BOOL)set;
-- (BOOL)isFloating;
++ (BOOL) isAnyWindowVisible;
++ (NSArray*) miniaturizedWindows;
 
-- (BOOL)isMetallic;
-- (BOOL)isBorderless;
+- (void) setFloating:(BOOL)set;
+- (BOOL) isFloating;
+
+- (BOOL) isMetallic;
+- (BOOL) isBorderless;
 
 // returns parentWindow if an NSDrawerWindow, returns self if not a drawerWindow
-- (NSWindow*)parentWindowIfDrawerWindow;
+- (NSWindow*) parentWindowIfDrawerWindow;
 
-- (BOOL)dimControls;
-- (BOOL)dimControlsKey;
-- (BOOL)keyWindowIsMenu;
+- (BOOL) dimControls;
+- (BOOL) dimControlsKey;
+- (BOOL) keyWindowIsMenu;
 
-- (void)flushActiveTextFields;
+- (void) flushActiveTextFields;
 
-- (NSRect)setContentViewAndResizeWindow:(NSView*)view display:(BOOL)display;
-- (NSRect)resizeWindowToContentSize:(NSSize)contentSize display:(BOOL)display;
-- (NSRect)windowFrameForContentSize:(NSSize)contentSize;
+- (NSRect) setContentViewAndResizeWindow: (NSView*)view 		display:(BOOL)display;
+- (NSRect) resizeWindowToContentSize: (NSSize)contentSize 	display:(BOOL)display;
+- (NSRect) windowFrameForContentSize: (NSSize)contentSize;
 
-+ (BOOL)windowRectIsOnScreen:(NSRect)windowRect;
++ (BOOL) windowRectIsOnScreen: (NSRect)windowRect;
 
-- (void)setDefaultFirstResponder;
+- (void) setDefaultFirstResponder;
 
-- (void)fadeIn;
-- (void)fadeOut;
+- (void) fadeIn;
+- (void) fadeOut;
 
-- (void) fadeInYesOrOutNo:(BOOL)fade andResizeTo:(NSRect)frame ;
+- (void) fadeInYesOrOutNo: (BOOL)fade andResizeTo: (NSRect)frame;
 
-- (void)slideUp;
-- (void)slideDown;
+- (void) slideUp;
+- (void) slideDown;
 
-- (void) extendVerticallyBy:(int) amount;
+- (void) extendVerticallyBy: (int) amount;
 
 @end
 
@@ -86,11 +104,11 @@ static NSMutableDictionary*     pendingFades = nil;
 
 @interface  NSWindow (UKFade)
 
--(void)     fadeInWithDuration: (NSTimeInterval)duration;
--(void) fadeInOneStep: (NSTimer*)timer;
--(void)     fadeOutWithDuration: (NSTimeInterval)duration;
--(void) fadeOutOneStep: (NSTimer*)timer;
--(void)	fadeToLevel: (int)lev withDuration: (NSTimeInterval)duration;
+-(void) fadeInWithDuration: (NSTimeInterval)duration;
+-(void) fadeInOneStep: 		(NSTimer*)timer;
+-(void) fadeOutWithDuration:(NSTimeInterval)duration;
+-(void) fadeOutOneStep: 	(NSTimer*)timer;
+-(void)	fadeToLevel: 		(int)lev withDuration: (NSTimeInterval)duration;
 
 
 @end

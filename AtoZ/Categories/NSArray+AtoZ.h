@@ -1,10 +1,10 @@
-//
+
 //  NSArray+AtoZ.h
 //  AtoZ
-//
+
 //  Created by Alex Gray on 6/29/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-//
+
 
 #import <Foundation/Foundation.h>
 #import "AtoZ.h"
@@ -14,6 +14,10 @@
 
 
 @interface NSArray (AtoZ)
+
+- (NSString*) stringWithEnum: (NSUInteger) e;
+- (NSUInteger) enumFromString: (NSString*) s default: (NSUInteger) def;
+- (NSUInteger) enumFromString: (NSString*) s;
 
 
 @property (readonly) NSArray *colorValues;
@@ -199,10 +203,10 @@
 // alike removeLastObject
 -(void)removeFirstObject;
 
-//
+
 // shift & pop for stacklike operations
 // they will return the removed objects
-//
+
 
 // removes and returns the first object in the array
 // if no elements are present, nil will be returned

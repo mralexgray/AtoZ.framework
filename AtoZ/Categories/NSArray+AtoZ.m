@@ -1,10 +1,10 @@
-//
+
 //  NSArray+AtoZ.m
 //  AtoZ
-//
+
 //  Created by Alex Gray on 6/29/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-//
+
 
 
 #import <Foundation/Foundation.h>
@@ -13,7 +13,16 @@
 #import "NSArray+AtoZ.h"
 
 @implementation NSArray (AtoZ)
+@dynamic trimmedStrings;
 
+- (NSString*) stringWithEnum: (NSUInteger) e; {    return [self objectAtIndex:e];	}
+
+- (NSUInteger) enumFromString: (NSString*) s default: (NSUInteger) def;
+{
+    NSUInteger n = [self indexOfObject:s];	check( n != NSNotFound ); if ( n == NSNotFound )  n = def;	return n;
+}
+
+- (NSUInteger) enumFromString: (NSString*) s;	{    return [self enumFromString:s default:0];	}
 
 - (NSArray *)colorValues {
 	return [self arrayPerformingSelector:@selector(colorValue)];
@@ -96,9 +105,9 @@ static NSInteger comparatorForSortingUsingArray(id object1, id object2, void *co
 	return re;
 }
 
-//
+
 // NSArray instance methods
-//
+
 
 // set-version of this array
 - (NSSet *)set {
@@ -293,9 +302,9 @@ static NSInteger comparatorForSortingUsingArray(id object1, id object2, void *co
 //	return re;
 //}
 
-//
+
 // accessing
-//
+
 
 - (id)objectAtIndex:(NSUInteger)index fallback:(id)fallback {
 	if (self.count <= index) {

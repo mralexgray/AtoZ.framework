@@ -1,10 +1,10 @@
-//
+
 //  MondoSwitch.m
 //  CocoaMondoKit
-//
+
 //  Created by Matthieu Cormier on 12/7/09.
 //  Copyright 2009 Preen and Prune Software and Design. All rights reserved.
-//
+
 
 #import "MondoSwitch.h"
 #import "MondoSwitchButtonCALayer.h"

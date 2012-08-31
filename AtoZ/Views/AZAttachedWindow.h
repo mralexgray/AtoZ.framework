@@ -1,9 +1,9 @@
-//
+
 //  AZAttachedWindow.h
-//
+
 //  Created by Matt Gemmell on 27/09/2007.
 //  Copyright 2007 Magic Aubergine.
-//
+
 
 #import <Cocoa/Cocoa.h>
 #import "AtoZ.h"
@@ -142,6 +142,6 @@
     the entire background of the window (rounded path, arrow, etc) in an NSColor pattern 
     image, and set it as the backgroundColor of the window.
  */
-@property (nonatomic, assign) AZSliding pos;
+@property (nonatomic, assign) AZSlideState pos;
 
 @end

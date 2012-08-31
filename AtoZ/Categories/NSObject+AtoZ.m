@@ -627,6 +627,8 @@
 
 @implementation NSObject (AtoZ)
 
+
+
 - (NSMutableDictionary*) getDictionary
 {
 	if (objc_getAssociatedObject(self, @"dictionary")==nil)
@@ -634,6 +636,17 @@
 		objc_setAssociatedObject(self,@"dictionary",[[NSMutableDictionary alloc] init],OBJC_ASSOCIATION_RETAIN);
 	}
 	return (NSMutableDictionary *)objc_getAssociatedObject(self, @"dictionary");
+}
+
+
+static char windowPosition;
+
+- (void) setWindowPosition:(AZWindowPosition)pos {
+    objc_setAssociatedObject( self, &windowPosition, @(pos), OBJC_ASSOCIATION_RETAIN );
+}
+
+- (AZWindowPosition) windowPosition {
+    return [objc_getAssociatedObject( self, &windowPosition ) intValue];
 }
 
 
@@ -952,16 +965,53 @@ static const char * getPropertyType(objc_property_t property) {
 	}
 }
 
-@end
+- (NSDictionary*) dictionaryWithValuesForKeys {
+	return [self dictionaryWithValuesForKeys:[self allKeys]];
+}
 
+- (NSArray *) allKeys {
+    Class clazz = [self class];
+    u_int count;
 
+    objc_property_t* properties = class_copyPropertyList(clazz, &count);
+    NSMutableArray* propertyArray = [NSMutableArray arrayWithCapacity:count];
+    for (int i = 0; i < count ; i++) {
+        const char* propertyName = property_getName(properties[i]);
+        [propertyArray addObject:[NSString  stringWithCString:propertyName encoding:NSUTF8StringEncoding]];
+    }
+    free(properties);
 
-@implementation NSObject (SetClass)
+	return [NSArray arrayWithArray:propertyArray];
+}
+
 - (void)setClass:(Class)aClass {
 	NSAssert(
 			 class_getInstanceSize([self class]) ==
 			 class_getInstanceSize(aClass),
 			 @"Classes must be the same size to swizzle.");
 	object_setClass(self, aClass);
+}
+
+	// In your custom class
++ (id)customClassWithProperties:(NSDictionary *)properties {
+	return [[[self alloc] initWithProperties:properties] autorelease];
+}
+
+- (id)initWithProperties:(NSDictionary *)properties {
+	if (self = [self init]) {
+		[self setValuesForKeysWithDictionary:properties];
+	}
+	return self;
+}
+
+
+@end
+
+@implementation NSDictionary (PropertyMap)
+
+- (void)mapPropertiesToObject:(id)instance	{
+    for (NSString * propertyKey in [self allKeys])	{
+        [instance setValue:[self objectForKey:propertyKey]	forKey:propertyKey];
+    }
 }
 @end

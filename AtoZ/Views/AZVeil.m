@@ -182,7 +182,7 @@
 
 	[@{ NSApplicationWillBecomeActiveNotification	:	@"appWillActivate",
 	 //		NSApplicationDidBecomeActiveNotification	:	@"applicationDidBecomeActive:",
-	 //		NSApplicationWillResignActiveNotification	:	@"applicationWillResignActive:"}
+	 //		NSAppl/Volumes/2T/ServiceData/AtoZ.framework/AtoZ/Views/AZVeil.micationWillResignActiveNotification	:	@"applicationWillResignActive:"}
 	 NSApplicationDidResignActiveNotification 	:	@"appWillResign" 	}
 
 	 enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
@@ -285,21 +285,21 @@
 		// Create a bitmap rep from the window and convert to NSImage...
 		//	NSBitmapImageRep *bitmapRep = [[NSBitmapImageRep alloc] initWithCGImage: capturedImage];
 //	NSRect screenBoxRect = [_shroud convertRectToScreen:[mBox frame]];
-//
+
 //	NSRect frame = AZMenulessScreenRect();
 //	rect.origin.x += frame.origin.x;
 //    rect.origin.y += frame.origin.y;
 //    return rect;
-//
+
 //	_view.image = [NSImage imageFromCGImageRef:
 //		CGWindowListCreateImage(  AZFlipRectinRect(AZMenulessScreenRect(), (CGRect) { 0,22,ScreenWidess(), ScreenHighness()}),
-//
+
 ////			AZFlipRectinRect( AZMenulessScreenRect(), AZScreenFrame()),
 ////			_shroud.frame,
 //			[_window windowNumber],
 //			kCGWindowListOptionOnScreenBelowWindow ,
 //			kCGWindowImageDefault							)];
-//
+
 		//				AZFlipRectinRect( _shroud.frame, AZScreenFrame()),
 		//AZMakeRectMaxXUnderMenuBarY( ScreenHighness() - 22 ), AZScreenFrame()),
 

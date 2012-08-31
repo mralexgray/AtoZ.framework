@@ -1,8 +1,8 @@
-//
+
 //  GTMNSBezierPath+CGPath.m
-//
+
 //  Category for extracting a CGPathRef from a NSBezierPath
-//
+
 
 #import "NSBezierPath+AtoZ.h"
 //#import "GTMDefines.h"

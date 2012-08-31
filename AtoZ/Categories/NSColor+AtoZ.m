@@ -1,10 +1,10 @@
-//
+
 //  NSColot+AtoZ.m
 //  AtoZ
-//
+
 //  Created by Alex Gray on 6/29/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-//
+
 
 #import "NSColor+AtoZ.h"
 #import "AZNamedColors.h"
@@ -570,7 +570,7 @@ static NSColor *ColorWithCSSString(NSString *str) {
 //	BLUE = [NSColor colorWithDeviceRed:0.253 green:0.478 blue:0.761 alpha:1.000];
 //	return BLUE;
 //}
-//
+
 //+ (NSColor *) ORANGE {    static NSColor*  ORANGE = nil;	if( ORANGE == nil )
 //	ORANGE = [NSColor colorWithDeviceRed:0.864 green:0.498 blue:0.191 alpha:1.000];
 //	return ORANGE;
@@ -766,7 +766,7 @@ static NSColor *ColorWithCSSString(NSString *str) {
 //	__block	CGFloat bestDistance = FLT_MAX;
 ////	NSColorList *colors = [NSColorList colorListNamed:@"Web Safe Colors"];
 ////	NSColorList *crayons = [NSColorList colorListNamed:@"Crayons"];
-//
+
 ////	NSArray *avail = $array(colors);//, crayons);
 ////	NSColorList *bestList = nil;
 //	__block NSColor *bestColor = nil;
@@ -775,10 +775,10 @@ static NSColor *ColorWithCSSString(NSString *str) {
 ////		NSEnumerator *enumerator = [[list allKeys] objectEnumerator];
 ////		NSString *key = nil;
 ////		while ((key = [enumerator nextObject])) {
-//
+
 //	[[[NSColorList  colorListNamed:@"Web Safe Colors"] allKeys] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-//
-//
+
+
 //			NSColor *thatColor = [[[NSColorList colorListNamed:@"Web Safe Colors"] colorWithKey:obj]colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
 //		if (![thatColor isBoring]) {
 ////			thatColor = [thatColor colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
@@ -797,11 +797,9 @@ static NSColor *ColorWithCSSString(NSString *str) {
 //	}];
 ////	bestColorKey = [[NSBundle bundleWithPath:@"/System/Library/Colors/Web Safe Colors.clr"]
 ////					localizedStringForKey:bestColorKey	value:bestColorKey 	table:@"Crayons"];
-//
+
 //	return bestColor;//, @"color", bestKey, @"key", bestList, @"list");
 //}
-
-
 
 
 
@@ -834,7 +832,7 @@ static NSColor *ColorWithCSSString(NSString *str) {
 //	CGFloat bestDistance = FLT_MAX;
 //	NSColorList *colors = [NSColorList colorListNamed:@"Web Safe Colors"];
 //	NSColorList *crayons = [NSColorList colorListNamed:@"Crayons"];
-//
+
 //	NSArray *avail = $array(colors, crayons);
 //	//	NSColorList *bestList = nil;
 //	NSColor *bestColor = nil;
@@ -859,7 +857,7 @@ static NSColor *ColorWithCSSString(NSString *str) {
 //	}
 //	//	bestColorKey = [[NSBundle bundleWithPath:@"/System/Library/Colors/Web Safe Colors.clr"]
 //	//					localizedStringForKey:bestColorKey	value:bestColorKey 	table:@"Crayons"];
-//
+
 //	return bestColor;//, @"color", bestKey, @"key", bestList, @"list");
 //}
 
@@ -1250,9 +1248,9 @@ static NSColor *ColorWithCSSString(NSString *str) {
 	return bestKey;//, @"color", bestKey, @"key", bestList, @"list");
 
 }
-//
+
 // Convenienct Methods to mess a little with the color values
-//
+
 
 - (CGFloat)luminance {
 	CGFloat r, g, b, a;
@@ -1387,9 +1385,9 @@ static NSColor *ColorWithCSSString(NSString *str) {
 								 alpha:a];
 }
 
-//
+
 // convenience for alpha shifting
-//
+
 
 - (NSColor *)opaque {
 	return [self colorWithAlphaComponent:1.0];
@@ -1411,9 +1409,9 @@ static NSColor *ColorWithCSSString(NSString *str) {
 	return [self colorWithAlphaComponent:0.25];
 }
 
-//
+
 // comparison methods
-//
+
 -(NSColor *)rgbDistanceToColor:(NSColor *)color {
 	if (!color) {
 		return nil;
@@ -2173,10 +2171,10 @@ static CGFloat hexCharsToFloat(char firstChar, char secondChar)
 
 
 
-//
+
 //  UIColor+Utilities.m
 //  ColorAlgorithm
-//
+
 //  Created by Quenton Jones on 6/11/11.
 
 @implementation NSColor (Utilities)

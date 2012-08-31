@@ -72,8 +72,6 @@
 
 
 
-
-
 // +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  
 #pragma mark -
 #pragma mark SINGLETON PATTERN
@@ -107,10 +105,6 @@ static id _sharedSingleton		= nil;
 }
 
 @end
-
-
-
-
 
 
 
@@ -188,10 +182,6 @@ static id _sharedSingleton		= nil;
 	return [NSString stringWithFormat:@"%f", secsRem];
 }
 @end
-
-
-
-
 
 
 

@@ -1,10 +1,10 @@
-//
+
 //  AZSoftButton.m
 //  AtoZ
-//
+
 //  Created by Alex Gray on 7/7/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-//
+
 
 #import "AZLassoView.h"
 
@@ -57,7 +57,7 @@
 ////	[super updateTrackingAreas];
 //	if (trackingArea)
 //		[self removeTrackingArea:trackingArea];
-//
+
 //	NSTrackingAreaOptions options = 
 //		NSTrackingInVisibleRect | NSTrackingMouseEnteredAndExited | NSTrackingActiveInKeyWindow;
 //	trackingArea = [[NSTrackingArea alloc] initWithRect:NSZeroRect options:options owner:self userInfo:nil];

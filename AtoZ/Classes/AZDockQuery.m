@@ -1,10 +1,10 @@
-//
+
 //  AZDockQuery.m
 //  AtoZ
-//
+
 //  Created by Alex Gray on 7/5/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-//
+
 
 #import "AZDockQuery.h"
 #import <ApplicationServices/ApplicationServices.h>

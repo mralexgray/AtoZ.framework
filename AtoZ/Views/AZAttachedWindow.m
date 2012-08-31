@@ -1,9 +1,9 @@
-//
+
 //  AZAttachedWindow.m
-//
+
 //  Created by Matt Gemmell on 27/09/2007.
 //  Copyright 2007 Magic Aubergine.
-//
+
 
 #import "AZAttachedWindow.h"
 
@@ -785,7 +785,7 @@
 //- (NSColor *)borderColor {
 //    return borderColor;
 //}
-//
+
 
 - (void)setBorderColor:(NSColor *)value {
     if (_borderColor != value) {
@@ -829,7 +829,7 @@
     }
 }
 
-//
+
 //- (float)arrowBaseWidth {
 //    return arrowBaseWidth;
 //}
@@ -850,7 +850,7 @@
     [self _redisplay];
 }
 
-//
+
 //- (float)arrowHeight {
 //    return arrowHeight;
 //}
@@ -864,7 +864,7 @@
     }
 }
 
-//
+
 //- (float)hasArrow {
 //    return hasArrow;
 //}
@@ -878,7 +878,7 @@
     }
 }
 
-//
+
 //- (float)cornerRadius {
 //    return cornerRadius;
 //}
@@ -919,8 +919,6 @@
         [self setBackgroundColor:[NSColor colorWithPatternImage:value]];
     }
 }
-
-
 
 
 

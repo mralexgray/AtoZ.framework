@@ -1,15 +1,33 @@
-//
+
 //  AtoZ.h
 //  AtoZ
-//
 
+
+/*  xcode shortcuts
+  @property (nonatomic, assign) <\#type\#> <\#name\#>;
+*/
 
 
 #import <Foundation/Foundation.h>
+#import <QuartzCore/QuartzCore.h>
+
+#if TARGET_OS_IPHONE
+#import <UIKit/UIKit.h>
+typedef UIView NSView;
+typedef CGSize NSSize;
+typedef CGRect NSRect;
+typedef UIColor NSColor;
+#else
+#import <AppKit/AppKit.h>
 #import <Cocoa/Cocoa.h>
 #import <ApplicationServices/ApplicationServices.h>
-#import <QuartzCore/QuartzCore.h>
-#import <AppKit/AppKit.h>
+#import <XPCKit/XPCKit.h>
+#import <xpc/xpc.h>
+#import <XPCKit/XPCKit.h>
+#import <xpc/xpc.h>
+#endif
+
+
 #define EXCLUDE_STUB_PROTOTYPES 1
 //#import <PLWeakCompatibility/PLWeakCompatibilityStubs.h>
 
@@ -19,8 +37,6 @@
 //#define ATOZITUNES_ENABLED
 //#import <AtoZiTunes/AtoZiTunes.h>
 
-#import <xpc/xpc.h>
-#import <XPCKit/XPCKit.h>
 
 
 #import "BlocksAdditions.h"
@@ -92,8 +108,11 @@ typedef enum {
 	AZOrientLeft,
 	AZOrientBottom,
 	AZOrientRight,
+	AZOrientGrid,
+	AZOrientPerimeter,
 	AZOrientFiesta,
-
+	AZOrientVertical,
+	AZOrientHorizontal,
 	AZOrientCount,
 } AZOrient;
 extern NSString *const AZOrientName[AZOrientCount];
@@ -136,11 +155,12 @@ typedef enum  {
 
 
 typedef enum {
-	AZUp,
-	AZDown
+	AZIn,
+	AZOut
+} AZSlideState;
 
-} AZSliding;
 
+#ifndef ATOZTOUCH
 typedef enum _AZWindowPosition {
 		// The four primary sides are compatible with the preferredEdge of NSDrawer.
     AZPositionLeft          = NSMinXEdge, // 0
@@ -158,7 +178,7 @@ typedef enum _AZWindowPosition {
     AZPositionAutomatic     = 12
 } AZWindowPosition;
 
-
+#import <Lumberjack/Lumberjack.h>
 
 #include <AudioToolbox/AudioToolbox.h>
 //#import "AtoZUmbrella.h"
@@ -172,7 +192,10 @@ typedef enum _AZWindowPosition {
 //#import <AtoZiTunes/AtoZiTunes.h>
 #import "CALayer+AtoZ.h"
 #import "AZMouser.h"
+
 #import "iCarousel.h"
+//#import "azCarousel.h"
+
 
 #import "AZVeil.h"
 
@@ -182,6 +205,8 @@ typedef enum _AZWindowPosition {
 
 
 // Categories
+#import "NSFileManager+AtoZ.h"
+
 #import "NSThread+AtoZ.h"
 #import "NSNotificationCenter+AtoZ.h"
 #import "NSApplication+AtoZ.h"
@@ -253,8 +278,10 @@ typedef enum _AZWindowPosition {
 
 #import "RuntimeReporter.h"
 
+#import "AZBackgroundProgressBar.h"
 
 
+static NSEventMask AZMouseActive = NSMouseMovedMask | NSMouseExitedMask |NSMouseEnteredMask;
 
 CGFloat ScreenWidess();
 CGFloat ScreenHighness();
@@ -267,8 +294,12 @@ extern NSString *const AtoZDockSortedUpdated;
 @end
 
 
+
 @class NSLogConsole;
 @interface AtoZ : BaseModel
+
+
+
 #ifdef GROWL_ENABLED
 <GrowlApplicationBridgeDelegate>
 #endif
@@ -276,12 +307,17 @@ extern NSString *const AtoZDockSortedUpdated;
 @property (nonatomic, retain) NSBundle *bundle;
 
 + (NSString*)stringForType:(id)type;
+#ifdef GROWL_ENABLED
 - (BOOL) registerGrowl;
+#endif
+#define kMaxFontSize    10000
+
++ (CGFloat)fontSizeForAreaSize:(NSSize)areaSize withString:(NSString *)stringToSize usingFont:(NSString *)fontName;
 
 + (NSArray*)appCategories;
 
-- (id)objectForKeyedSubscript:(NSString *)key;
-- (void)setObject:(id)newValue forKeyedSubscription:(NSString *)key;
+//- (id)objectForKeyedSubscript:(NSString *)key;
+//- (void)setObject:(id)newValue forKeyedSubscription:(NSString *)key;
 
 + (NSFont*) fontWithSize:(CGFloat)fontSize;
 - (NSJSONSerialization*) jsonReuest:(NSString*)url;
@@ -297,7 +333,7 @@ extern NSString *const AtoZDockSortedUpdated;
 //+ (NSArray*) dockOutline;
 + (NSArray*) currentScope;
 
-+ (NSArray*) fengshui;
++ (NSArray*) fengShui;
 
 + (NSArray*) runningApps;
 + (NSArray*) runningAppsAsStrings;
@@ -441,8 +477,6 @@ extern NSString *const AtoZFileUpdated;
 
 
 
-
-
 @interface  NSWindow (Borderless)
 + (NSWindow*) borderlessWindowWithContentRect: (NSRect)aRect;
 @end
@@ -506,6 +540,15 @@ void profile (const char *name, void (^work) (void));
 @end
 
 
+#define XCODE_COLORS 0
+
+#define XCODE_COLORS_ESCAPE @"\033["
+
+#define XCODE_COLORS_RESET_FG  XCODE_COLORS_ESCAPE @"fg;" // Clear any foreground color
+#define XCODE_COLORS_RESET_BG  XCODE_COLORS_ESCAPE @"bg;" // Clear any background color
+#define XCODE_COLORS_RESET     XCODE_COLORS_ESCAPE @";"   // Clear any foreground or background color
+
+
 
 @interface NSObject (debugandreturn)
 - (id) debugReturn:(id) val;
@@ -514,8 +557,6 @@ void profile (const char *name, void (^work) (void));
 
 
 static double frandom(double start, double end);
-
-
 
 
 
@@ -586,6 +627,11 @@ NSNumber* DegreesToNumber(CGFloat degrees);
 
 //#define AZConstraint(attr, rel) \
 //[CAConstraint constraintWithAttribute: attr relativeTo: rel attribute: attr]
+
+
+//@property (nonatomic, assign) <\#type\#> <\#name\#>;
+// AZConst(<\#CAConstraintAttribute\#>, <#\NSString\#>);
+// AZConst(<#CAConstraintAttribute#>, <#NSString*#>);
 
 #define AZConst(attr, rel) \
 [CAConstraint constraintWithAttribute:attr relativeTo: rel attribute: attr]
@@ -733,6 +779,10 @@ return SC##_sharedInstance; \
 #define RAND_DIRECTION()		(RAND_BOOL() ? 1 : -1)
 
 
+#define NEG(a)	-a
+
+
+
 //CGFloat DEGREEtoRADIAN(CGFloat degrees) {return degrees * M_PI / 180;};
 //CGFloat RADIANtoDEGREEES(CGFloat radians) {return radians * 180 / M_PI;};
 
@@ -745,7 +795,7 @@ static inline float RandomComponent() {  return (float)random() / (float)LONG_MA
 //#define NSLog(args...) _AZSimpleLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args);
 
 //#define NSLog(args...) _AZLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args);
-//
+
 //void _AZLog(const char *file, int lineNumber, const char *funcName, NSString *format,...);
 //void _AZSimpleLog(const char *file, int lineNumber, const char *funcName, NSString *format,...);
 
@@ -772,8 +822,20 @@ static inline float RandomComponent() {  return (float)random() / (float)LONG_MA
 
 void ApplicationsInDirectory(NSString *searchPath, NSMutableArray *applications);
 
+@class AZTrackingWindow;
+@interface AtoZ (Animations)
+
++ (CAAnimation *) animationForOpacity;
++ (CAAnimation *) animateionForScale;
++ (CAAnimation *) animationForRotation;
+
++ (void) flipDown:(AZTrackingWindow*)window;
+
++ (void) shakeWindow:(NSWindow*)window;
+
+@end
 
 
 
 
-
+#endif

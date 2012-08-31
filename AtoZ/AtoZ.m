@@ -1,17 +1,18 @@
-//
+
 //  BaseModel.m
 //  Version 2.3.1
-//
+
 //  http://charcoaldesign.co.uk/source/cocoa#basemodel
 //  https://github.com/nicklockwood/BaseModel
-//
+
 #import "AtoZ.h"
 #import <objc/message.h>
+
 
 //void WithAutoreleasePool(BasicBlock block) {
 ////	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 //	@autoreleasepool {
-//
+
 //		block();
 //	}
 ////	[pool release];
@@ -35,8 +36,6 @@ static CGEventRef myEventTapCallback (	CGEventTapProxy proxy,	CGEventType type,	
 	// Pass on the event, we must not modify it anyway, we are a listener
     return event;
 }
-
-
 
 
 
@@ -78,6 +77,9 @@ NSString *const AZOrientName[AZOrientCount] = {
 //	[AZOrientCount] = @"Count",
 };
 
+// Log levels: off, error, warn, info, verbose
+static const int ddLogLevel = LOG_LEVEL_VERBOSE;
+
 
 @implementation AtoZ
 {
@@ -92,7 +94,7 @@ NSString *const AZOrientName[AZOrientCount] = {
 	Class i = [type class];
 	NSLog(@"String: %@   Class:%@", NSStringFromClass(i), i);
 //	[type autoDescribe:type];
-	NSString *key = [NSString stringWithFormat:@"AZOrient_%i", NSStringFromClass([type class])];
+	NSString *key = [NSString stringWithFormat:@"AZOrient_%@", NSStringFromClass([type class])];
 	return NSLocalizedString(key, nil);
 }
 
@@ -101,12 +103,53 @@ NSString *const AZOrientName[AZOrientCount] = {
 //}
 //	console = [NSLogConsole sharedConsole]; [console open];
 
+#define kMaxFontSize    10000
 
++ (CGFloat)fontSizeForAreaSize:(NSSize)areaSize withString:(NSString *)stringToSize usingFont:(NSString *)fontName;
+{
+    NSFont * displayFont = nil;
+    NSSize stringSize = NSZeroSize;
+    NSMutableDictionary * fontAttributes = [[NSMutableDictionary alloc] init];
+
+    if (areaSize.width == 0.0 && areaSize.height == 0.0)
+        return 0.0;
+
+    NSUInteger fontLoop = 0;
+    for (fontLoop = 1; fontLoop <= kMaxFontSize; fontLoop++) {
+        displayFont = [[NSFontManager sharedFontManager] convertWeight:YES ofFont:[NSFont fontWithName:fontName size:fontLoop]];
+        [fontAttributes setObject:displayFont forKey:NSFontAttributeName];
+        stringSize = [stringToSize sizeWithAttributes:fontAttributes];
+
+        if (stringSize.width > areaSize.width)
+            break;
+        if (stringSize.height > areaSize.height)
+            break;
+    }
+
+    [fontAttributes release], fontAttributes = nil;
+
+    return (CGFloat)fontLoop - 1.0;
+}
 
 
 - (void) setUp {
 
+	char *xcode_colors = getenv(XCODE_COLORS);
 
+	if (xcode_colors && (strcmp(xcode_colors, "YES") == 0))
+	{
+			// XcodeColors is installed and enabled!
+	}
+
+
+	[DDLog addLogger:[DDTTYLogger sharedInstance]];
+
+//	DDLogVerbose(@"Verbose");
+//	DDLogInfo(@"Info");
+//	DDLogWarn(@"Warn");
+//	DDLogError(@"Error");
+
+//	[self registerFonts:<#(CGFloat)#>]
 //	self.dockOutline = dock.copy;
 //	self.sortOrder = AZDockSortNatural;
 }
@@ -160,12 +203,10 @@ NSString *const AZOrientName[AZOrientCount] = {
 			if (status != noErr)		{
 //				theError = @"Failed to acivate fonts!";  goto error;
 			} else  { fontsRegistered = 1; NSLog(@"Fonts registered!"); }
-		}
+		} else NSLog(@"couldnt register fonts!");
 	}
 	return  [NSFont fontWithName:@"UbuntuTitling-Bold" size:size];
 }
-
-
 
 
 
@@ -294,7 +335,7 @@ NSString *const AZOrientName[AZOrientCount] = {
 //}/
 
 //- (NSArray*) dockSorted {
-//
+
 //	self.sortOrder = AZDockSortColor;
 ////	[NSThread performBlockInBackground:^{
 ////	if (!_dockSorted)
@@ -308,7 +349,7 @@ NSString *const AZOrientName[AZOrientCount] = {
 //					obj.spotNew = idx;
 //					obj.dockPointNew = [[dock[idx]valueForKey:@"dockPoint"]pointValue];
 ////				}
-//
+
 //				return obj;
 //			}];
 ////	return dockSorted;
@@ -319,7 +360,7 @@ NSString *const AZOrientName[AZOrientCount] = {
 ////		} waitUntilDone:YES];
 ////	}];
 ////	return _dockSorted;
-//
+
 //}
 
 + (NSArray*) selectedDock{
@@ -367,7 +408,7 @@ NSString *const AZOrientName[AZOrientCount] = {
 //	}];
 // return  [AtoZ sharedInstance].dockSorted;
 //}
-//
+
 //	if ([AtoZ sharedInstance].dockSorted) {
 //		NSLog(@"preexisting sort! ");
 //		return [AtoZ sharedInstance].dockSorted;
@@ -483,20 +524,20 @@ NSString *const AZOrientName[AZOrientCount] = {
 //    return [[AtoZ sharedInstance] uncodableKeys];
 //	//[NSArray arrayWithObject:@"uncodableProperty"];
 //}
-//
+
 //- (void)setWithCoder:(NSCoder *)coder
 //{
 //    [super setWithCoder:coder];
 ////    self. = DECODE_VALUE([coder decodeObjectForKey:@"uncodableProperty"];
 //}
-//
+
 //- (void)encodeWithCoder:(NSCoder *)coder	{
 //    [super encodeWithCoder:coder];
 //    [coder encodeObject:@"uncodable" forKey:@"uncodableProperty"];
 //}
-+ (NSArray*) fengshui {
-	return [[self class] fengShui];
-}
+//+ (NSArray*) fengshui {
+//	return [[self class] fengShui];
+//}
 + (NSArray*) fengShui {
 	return [[NSColor fengshui].reversed arrayUsingBlock:^id(id obj) {
 		 AZFile *t = [AZFile instance];
@@ -528,7 +569,7 @@ void ApplicationsInDirectory(NSString *searchPath, NSMutableArray *applications)
 //    while (path = [searchPathEnum nextObject]) ApplicationsInDirectory(path, applications);
 //    return ([applications count]) ? applications : nil;
 //}
-//
+
 
 + (NSArray*) runningApps {
 
@@ -635,9 +676,9 @@ NSString *const AZFileUpdated = @"AZFileUpdated";
 //- (NSString*) itunesDescription {
 //	return self.itunesInfo.itemDescription;
 //}
-//
+
 //- (AJSiTunesResult *) itunesInfo {
-//
+
 //	return  [AtoZiTunes resultsForName:self.name];
 //}
 
@@ -900,13 +941,13 @@ int max(int x, int y)
 }
 @end
 
-//
-//
-//
+
+
+
 //@interface  NSArray (SubscriptsAdd)
 //- (id)objectAtIndexedSubscript:(NSUInteger)index;
 //@end
-//
+
 //@interface NSMutableArray (SubscriptsAdd)
 //- (void)setObject:(id)object atIndexedSubscript:(NSUInteger)index;
 //@end
@@ -1008,23 +1049,23 @@ int max(int x, int y)
 #endif
 
 // _GTMDevLog & _GTMDevAssert
-//
+
 // _GTMDevLog & _GTMDevAssert are meant to be a very lightweight shell for
 // developer level errors.  This implementation simply macros to NSLog/NSAssert.
 // It is not intended to be a general logging/reporting system.
-//
+
 // Please see http://code.google.com/p/google-toolbox-for-mac/wiki/DevLogNAssert
 // for a little more background on the usage of these macros.
-//
+
 //    _GTMDevLog           log some error/problem in debug builds
 //    _GTMDevAssert        assert if conditon isn't met w/in a method/function
 //                           in all builds.
-//
+
 // To replace this system, just provide different macro definitions in your
 // prefix header.  Remember, any implementation you provide *must* be thread
 // safe since this could be called by anything in what ever situtation it has
 // been placed in.
-//
+
 
 // We only define the simple macros if nothing else has defined this.
 #ifndef _GTMDevLog
@@ -1409,23 +1450,23 @@ GTM_FOREACH_ENUMEREE(element, [collection keyEnumerator])
 #endif
 
 // _GTMDevLog & _GTMDevAssert
-//
+
 // _GTMDevLog & _GTMDevAssert are meant to be a very lightweight shell for
 // developer level errors.  This implementation simply macros to NSLog/NSAssert.
 // It is not intended to be a general logging/reporting system.
-//
+
 // Please see http://code.google.com/p/google-toolbox-for-mac/wiki/DevLogNAssert
 // for a little more background on the usage of these macros.
-//
+
 //    _GTMDevLog           log some error/problem in debug builds
 //    _GTMDevAssert        assert if conditon isn't met w/in a method/function
 //                           in all builds.
-//
+
 // To replace this system, just provide different macro definitions in your
 // prefix header.  Remember, any implementation you provide *must* be thread
 // safe since this could be called by anything in what ever situtation it has
 // been placed in.
-//
+
 
 // We only define the simple macros if nothing else has defined this.
 #ifndef _GTMDevLog
@@ -1749,7 +1790,7 @@ GTM_FOREACH_ENUMEREE(element, [collection keyEnumerator])
 // The file objc-runtime.h was moved to runtime.h and in Leopard, objc-runtime.h
 // was just a wrapper around runtime.h. For the iPhone SDK, this objc-runtime.h
 // is removed in the iPhoneOS2.0 SDK.
-//
+
 // The |Object| class was removed in the iPhone2.0 SDK too.
 #if GTM_IPHONE_SDK
 #import <objc/message.h>
@@ -1824,23 +1865,23 @@ GTM_INLINE BOOL objc_atomicCompareAndSwapInstanceVariableBarrier(id predicate,
 
 
 
-//
+
 //  AGFoundation.m
 //  AGFoundation
-//
+
 //  Created by Alex Gray on 4/11/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-//
+
 
 
 
 //@implementation AGFoundation
 //@synthesize speaker;
-//
+
 //+ (AGFoundation *)sharedInstance	{	return [super sharedInstance]; }
-//
+
 //- (void)setUp {
-//
+
 //	//	appArray = [[NSMutableArray alloc] init];
 //	//	NSArray *ws =	 [[[NSWorkspace sharedWorkspace] launchedApplications] valueForKeyPath:@"NSApplicationPath"];
 //	//	int k = 0;
@@ -1850,8 +1891,8 @@ GTM_INLINE BOOL objc_atomicCompareAndSwapInstanceVariableBarrier(id predicate,
 //	//		[appArray addObject:app];
 //	//	}
 //}
-//
-//
+
+
 //-(void) say:(NSString *)thing {
 // 	// for (NSString *voice in
 // 	NSArray *voices = [NSSpeechSynthesizer availableVoices];
@@ -1862,7 +1903,7 @@ GTM_INLINE BOOL objc_atomicCompareAndSwapInstanceVariableBarrier(id predicate,
 // 	printf("Speaking as %s\n", [voice UTF8String]);
 // 	while ([speaker isSpeaking]) { usleep(40); }
 //}
-//
+
 //@end
 
 
@@ -2404,4 +2445,131 @@ NSNumber* DegreesToNumber(CGFloat degrees) {
 @end
 @implementation CATextLayerNoHit
 - (BOOL)containsPoint:(CGPoint)p {	return FALSE; }
+@end
+
+
+static int 	numberOfShakes = 3;
+static float durationOfShake = .4;
+static float vigourOfShake = 0.2f;
+
+
+@implementation AtoZ (Animations)
+
++ (CAAnimation *) animationForOpacity {
+	CABasicAnimation *fadeAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+	[fadeAnimation setAutoreverses:YES];
+	[fadeAnimation setToValue:[NSNumber numberWithFloat:0.0]];
+
+	return fadeAnimation;
+}
+
++ (CAAnimation *) animateionForScale {
+	CABasicAnimation *scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+	[scaleAnimation setAutoreverses:YES];
+	[scaleAnimation setToValue:[NSNumber numberWithFloat:0.0]];
+
+	return scaleAnimation;
+}
+
++ (CAAnimation *) animationForRotation {
+	CATransform3D transform = CATransform3DMakeRotation(M_PI, 0.0f, 1.0f, 0.0f);
+	CABasicAnimation *rotateAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
+	[rotateAnimation setToValue:[NSValue valueWithCATransform3D:transform]];
+
+	return rotateAnimation;
+}
+
+
++(CAAnimation *)flipDown:(NSTimeInterval)aDuration scaleFactor:(CGFloat)scaleFactor {
+
+		// Rotating halfway (pi radians) around the Y axis gives the appearance of flipping
+    CABasicAnimation *flipAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.y"];
+    CGFloat startValue =  /*beginsOnTop ? 0.0f :*/ M_PI;
+    CGFloat endValue =  /*beginsOnTop-M_PI :*/ 0.0f;
+    flipAnimation.fromValue = [NSNumber numberWithDouble:startValue];
+    flipAnimation.toValue = [NSNumber numberWithDouble:endValue];
+
+		// Shrinking the view makes it seem to move away from us, for a more natural effect
+		// Can also grow the view to make it move out of the screen
+    CABasicAnimation *shrinkAnimation = nil;
+    if ( scaleFactor != 1.0f ) {
+        shrinkAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+        shrinkAnimation.toValue = [NSNumber numberWithFloat:scaleFactor];
+
+			// We only have to animate the shrink in one direction, then use autoreverse to "grow"
+        shrinkAnimation.duration = aDuration * 0.5;
+        shrinkAnimation.autoreverses = YES;
+    }
+
+		// Combine the flipping and shrinking into one smooth animation
+    CAAnimationGroup *animationGroup = [CAAnimationGroup animation];
+    animationGroup.animations = [NSArray arrayWithObjects:flipAnimation, shrinkAnimation, nil];
+
+		// As the edge gets closer to us, it appears to move faster. Simulate this in 2D with an easing function
+    animationGroup.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    animationGroup.duration = aDuration;
+
+		// Hold the view in the state reached by the animation until we can fix it, or else we get an annoying flicker
+    animationGroup.fillMode = kCAFillModeForwards;
+    animationGroup.removedOnCompletion = NO;
+
+    return animationGroup;
+	
+}
+
++ (CAKeyframeAnimation *)shakeAnimation:(NSRect)frame	{
+    CAKeyframeAnimation *shakeAnimation = [CAKeyframeAnimation animation];
+    CGMutablePathRef shakePath = CGPathCreateMutable();
+    CGPathMoveToPoint(shakePath, NULL, NSMinX(frame), NSMinY(frame));
+	for (int index = 0; index < numberOfShakes; ++index)		{
+		CGPathAddLineToPoint(shakePath, NULL, NSMinX(frame) - frame.size.width * vigourOfShake, NSMinY(frame));
+		CGPathAddLineToPoint(shakePath, NULL, NSMinX(frame) + frame.size.width * vigourOfShake, NSMinY(frame));
+	}
+    CGPathCloseSubpath(shakePath);
+    shakeAnimation.path = shakePath;
+    shakeAnimation.duration = durationOfShake;
+    return shakeAnimation;
+}
+
+-(void) anmateOnPath:(id)something {
+	NSTimeInterval timeForAnimation = 1;
+	CAKeyframeAnimation *bounceAnimation=[CAKeyframeAnimation animationWithKeyPath:@"position"];
+	bounceAnimation.duration=timeForAnimation;
+	CGMutablePathRef thePath=CGPathCreateMutable();
+	CGPathMoveToPoint(thePath, NULL, 160, 514);
+	CGPathAddLineToPoint(thePath, NULL, 160, 350);
+	CGPathAddLineToPoint(thePath, NULL, 160, 406);
+	bounceAnimation.path=thePath;
+	CGPathRelease(thePath);
+	CABasicAnimation *mainAnimation=[CABasicAnimation animationWithKeyPath:@"transform"];
+	mainAnimation.removedOnCompletion=YES;
+	mainAnimation.duration=timeForAnimation;
+	mainAnimation.toValue=[NSValue valueWithCATransform3D:CATransform3DIdentity];
+
+	CAAnimationGroup *theGroup=[CAAnimationGroup animation];
+	theGroup.delegate=self;
+	theGroup.duration=timeForAnimation;
+	theGroup.timingFunction=[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
+	theGroup.animations=[NSArray arrayWithObjects:bounceAnimation,mainAnimation,nil];
+
+	CALayer *target = ([something isKindOfClass:[NSWindow class]]) ? [[something contentView]layer] : [(NSView*)something layer];
+
+	[target addAnimation:theGroup forKey:@"sagar"];
+	[something setFrame:AZCenterRectOnPoint([something frame], (NSPoint){160, 406})];//)]imgV.center=CGPointMake(160, 406);
+	[target setTransform: CATransform3DIdentity];//CGAffineTransformIdentity];
+
+}
+
++ (void)flipDown:(AZTrackingWindow*)window
+{
+	[window setAnimations:@{ @"frame":  [AtoZ flipDown:2 scaleFactor:.8]} ];// shakeAnimation:[window frame]] }];
+	[[window animator] setFrame: (window.slideState == AZOut ? window.visibleFrame : window.outFrame ) display:YES animate:YES];
+}
+
++ (void)shakeWindow:(NSWindow*)window
+{
+	[window setAnimations:[NSDictionary dictionaryWithObject:[AtoZ shakeAnimation:[window frame]] forKey:@"frameOrigin"]];
+	[[window animator] setFrameOrigin:[window frame].origin];
+}
+
 @end

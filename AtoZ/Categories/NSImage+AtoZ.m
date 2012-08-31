@@ -1,10 +1,10 @@
-//
+
 //  NSImage+AtoZ.m
 //  AtoZ
-//
+
 //  Created by Alex Gray on 7/2/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-//
+
 
 #import "NSImage+AtoZ.h"
 #import <AppKit/AppKit.h>
@@ -442,8 +442,8 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 //	
 //    return rotatedImage;
 //}
-//
-//
+
+
 
 
 
@@ -1816,13 +1816,13 @@ CGImageRef CopyImageAndAddAlphaChannel(CGImageRef sourceImage) {
 
 @end
 
-//
-//
+
+
 //#define LEOPARD 0x1050
 //#define TIGER   0x1040
-//
+
 //@implementation NSBitmapImageRep (GrabWindow)
-//
+
 //+ (NSBitmapImageRep *)bitmapRepWithScreenShotInRect:(NSRect)cocoaRect
 //{
 //    NSImage *image = [NSImage imageWithScreenShotInRect: cocoaRect];
@@ -1830,10 +1830,10 @@ CGImageRef CopyImageAndAddAlphaChannel(CGImageRef sourceImage) {
 ////	return [NSBitmapIm/ageRep bitmapRepFromNSImage:
 //	return [image bitmap];
 //}
-//
-//
+
+
 //@end
-//
+
 
 @implementation NSImage (GrabWindow)
 /*
