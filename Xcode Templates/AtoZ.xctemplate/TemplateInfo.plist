@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>AllowedTypes</key>
+        <array>
+            <string>public.objective-c-source</string>
+            <string>public.objective-c-plus-plus-source</string>
+        </array>
+        <key>DefaultCompletionName</key>
+        <string>AtoZObject</string>
+        <key>Description</key>
+        <string>Creates a new AtoZ object class.</string>
+        <key>Kind</key>
+        <string>Xcode.IDEKit.TextSubstitutionFileTemplateKind</string>
+        <key>MainTemplateFile</key>
+        <string>___FILEBASENAME___.m</string>
+        <key>Options</key>
+        <array>
+            <dict>
+                <key>Description</key>
+                <string>The name of the AtoZ class to create</string>
+                <key>Identifier</key>
+                <string>productName</string>
+                <key>Name</key>
+                <string>AtoZ</string>
+                <key>NotPersisted</key>
+                <false/>
+                <key>Required</key>
+                <true/>
+                <key>Type</key>
+                <string>text</string>
+            </dict>
+            <dict>
+                <key>Identifier</key>
+                <string>classType</string>
+                <key>Name</key>
+                <string>Class Type</string>
+                <key>Description</key>
+                <string>The subtype of class to create.</string>
+                <key>Type</key>
+                <string>popup</string>
+                <key>Default</key>
+                <string>Traditional</string>
+                <key>Values</key>
+                <array>
+                    <string>Traditional</string>
+                    <string>View</string>
+                </array>
+            </dict>
+        </array>
+        <key>Platforms</key>
+        <array>
+            <string>com.apple.platform.macosx</string>
+        </array>
+        <key>SortOrder</key>
+        <string>1</string>
+        <key>Summary</key>
+        <string>An AtoZ object class.</string>
+    </dict>
+</plist>
