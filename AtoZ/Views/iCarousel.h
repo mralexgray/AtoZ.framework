@@ -136,6 +136,17 @@ typedef enum
 }
 iCarouselOption;
 
+typedef enum{
+	OPTION1,
+	OPTION2,
+	OPTION3,
+	OPTION4,
+	OPTION5,
+	OPTION6,
+	OPTION7,
+	OPTION8
+} 	Option;
+
 
 @protocol iCarouselDataSource, iCarouselDelegate;
 

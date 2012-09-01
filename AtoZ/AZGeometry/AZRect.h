@@ -7,9 +7,9 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "AZGeometry.h"
+//#import "AZGeometry.h"
 #import <Foundation/Foundation.h>
-#import "AZGeometricFunctions.h"
+//#import "AZGeometricFunctions.h"
 
 
 /** Returns a rect that uses aSize as its size and centered inside the given rect.
@@ -62,8 +62,7 @@ static inline NSRect AZScaleRect(NSRect frame, CGFloat factor) {
 }
 
 
-@class AZPoint
-;
+@class AZPoint;
 @interface AZRect : AZPoint {
   CGFloat width;
   CGFloat height;

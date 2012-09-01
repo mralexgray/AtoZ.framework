@@ -30,7 +30,11 @@ NSRange AZMakeRange(NSUInteger min, NSUInteger max) {
   return NSMakeRange(loc, len);
 }
 
+//
+//CGSize AZAspectRatio(NSRect rect ){
 
+// CGFloat aspectRatio = ( rect.width / rect.height );
+//}
 CGFloat AZPerimeter (NSRect rect) {
 	return ( (2* rect.size.width) + (2 * rect.size.height) );
 }
@@ -887,7 +891,7 @@ return point;
 AZWindowPosition AZPositionOfRect(NSRect rect) {
 
 	if ( AZDistanceFromPoint( rect.origin, NSZeroPoint ) == 0 )
-		return NSMaxX( rect ) == ScreenWidess() ? AZPositionBottom : AZPositionBottomLeft;
+	return NSMaxX( rect ) == ScreenWidess() ? AZPositionBottom : AZPositionBottomLeft;
 	else if (NSMinY(rect)==0)
 		return AZPositionRight;
 	else return AZPositionTop;

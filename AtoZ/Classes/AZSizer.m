@@ -58,6 +58,8 @@ int gcd(int m, int n) {	int t, r;
 - (id) initWithQuantity:(NSUInteger)aNumber inRect:(NSRect)aFrame {
 	self = [super init]; 
 	if (self) {
+		_size = NSZeroSize;
+
 		self.outerFrame = aFrame;
 		self.candidates = [NSMutableArray array];
 		self.quantity = aNumber;
@@ -82,6 +84,7 @@ int gcd(int m, int n) {	int t, r;
 										@"screen"	:	NSStringFromRect(aFrame)	}]];
 
 		}];
+
 		float distanceFromOne = 99.9;
 		Candidate *winner;
 		for (Candidate *c in _candidates) {
@@ -91,6 +94,7 @@ int gcd(int m, int n) {	int t, r;
 				distanceFromOne = distance;
 			}
 		}
+		self.perimeterOnly = NO;
 		self.columns	= winner.columns;
 		self.rows 		= winner.rows;
 		self.width 		= winner.width;
@@ -101,8 +105,9 @@ int gcd(int m, int n) {	int t, r;
 	return self;
 }
 
-- (NSSize) size {
-	return (NSSize) { _width, _height };
+- (NSSize) size { return _size = _width ? (NSSize) { _width, _height }
+										: (NSSize) { _outerFrame.size.width / _columns,
+													  _outerFrame.size.height / _rows} ;
 }
 + (NSArray*) rectsForQuantity:(int)aNumber inRect:(NSRect)aFrame {
 	AZSizer *sizer = [AZSizer forQuantity:aNumber inRect:aFrame];
@@ -111,26 +116,110 @@ int gcd(int m, int n) {	int t, r;
 
 
 - (NSArray*) rects {
-//	if (!_rects) {
+
+	if (!_rects) {
 		NSMutableArray *privateRects = [NSMutableArray array];
-		for ( int r = (_rows-1); r >= 0; r--){
-			for ( int c = 0; c < _columns; c++ ) {
-				[privateRects addObject:[NSValue valueWithRect:NSMakeRect((c * _width), (r *_height), _width, _height)]];
+		if (_perimeterOnly == NO) {
+			for ( int r = (_rows-1); r >= 0; r--){
+				for ( int c = 0; c < _columns; c++ ) {
+					[privateRects addObject:
+						[NSValue valueWithRect:NSMakeRect((c * _width), (r *_height), _width, _height)]];
+				}
 			}
+		} else {
+
+			NSPoint p = NSZeroPoint; NSUInteger r1, r2, c1, c2;
+			r1 = r2 = _columns;
+			c1 = c2 = _rows;
+			while (r1 > 1) {
+				[privateRects addObject:[NSValue valueWithRect:AZMakeRect(p, _size)]];
+				p.x += _width;
+				r1--;
+			}
+			while (c1 > 1) {
+				[privateRects addObject:[NSValue valueWithRect:AZMakeRect(p, _size)]];
+				p.y += _height;
+				c1--;
+			}
+			while (r2 > 1) {
+				[privateRects addObject:[NSValue valueWithRect:AZMakeRect(p, _size)]];
+				p.x -= _width;
+				r2--;
+			}
+			while (c2 > 1) {
+				[privateRects addObject:[NSValue valueWithRect:AZMakeRect(p, _size)]];
+				p.y -= _height;
+				c2--;
+			}
+		_rects = privateRects.copy;
+		NSLog(@"perimeter only: %@", _rects);
 		}
-//		_rects = privateRects.copy;
-//	}
-	return privateRects.copy;
+	_rects = privateRects.copy;
+	}
+	return _rects;
 }
 
 
 + (AZSizer*) forQuantity:(NSUInteger)aNumber aroundRect:(NSRect)aFrame {
-	return [[AZSizer alloc]initWithQuantity:aNumber aroundRect:aFrame];
-}
 
+//	totalBoc.quantity = aNumber;
+//	totalBoc.outerFrame = aFrame;
+	CGFloat percentHigh = (aFrame.size.height/ (aFrame.size.height + aFrame.size.width));
+	NSUInteger tempRows = floor(aNumber * percentHigh);
+	NSUInteger tempColumns = aNumber - tempRows;
+ 	AZSizer* totalBoc = [AZSizer forQuantity:(tempColumns * tempRows) aroundRect:aFrame];
+	totalBoc.perimeterOnly = YES;
+	totalBoc.size = (NSSize) {aFrame.size.width / totalBoc.columns, aFrame.size.height / totalBoc.rows};
+	return  totalBoc;
+}
+//	NSMutableArray *privateRects = [NSMutableArray array];
+//	NSPoint p = NSZeroPoint; NSUInteger r1, r2, c1, c2;
+//	r1 = r2 = totalBoc.columns - 1;
+//	c1 = c2 = totalBoc.rows - 1;
+//	while (r1 > 1) {
+//		[privateRects addObject:[NSValue valueWithRect:AZMakeRect(p, totalBoc.size)]];
+//		p.x += totalBoc.size.width;
+//		r1--;
+//	}
+//	while (c1 > 1) {
+//		[privateRects addObject:[NSValue valueWithRect:AZMakeRect(p, totalBoc.size)]];
+//		p.y += totalBoc.size.height;
+//		c1--;
+//	}
+//	while (r2 > 1) {
+//		[privateRects addObject:[NSValue valueWithRect:AZMakeRect(p, totalBoc.size)]];
+//		p.x -= totalBoc.size.width;
+//		r2--;
+//	}
+//	while (c2 > 1) {
+//		[privateRects addObject:[NSValue valueWithRect:AZMakeRect(p, totalBoc.size)]];
+//		p.y -= totalBoc.size.height;
+//		c2--;
+//	}
+//	totalBoc.rects = privateRects.copy;
+
+//
+//
+//		 (_rows-1); r >= 0; r--){
+//
+//	NSUInteger x = i % numberOfColumns;
+//	NSUInteger y = i / numberOfColumns;
+//	drawingRect.origin.x = (spaceForEachFile * x) + marginLeft;
+
+//	NSUInteger rc, cc;  rc, cc = 1;
+//	for ( int t = 0;  t < 4; t++)
+//		for ( int c = 0; c < _columns; c++ ) {
+//			[privateRects addObject:[NSValue valueWithRect:NSMakeRect((c * _width), (r *_height), _width, _height)]];
+//		}
+
+/*
 - (id) initWithQuantity:(NSUInteger)aNumber aroundRect:(NSRect)aFrame {
 	self = [super init];
 	if (self) {
+
+//		self
+
+
 		self.outerFrame = aFrame;
 		self.candidates = [NSMutableArray array];
 		self.quantity = aNumber;
@@ -144,7 +233,7 @@ int gcd(int m, int n) {	int t, r;
 	}
 	return self;
 }
-
+*/
 //-(void) constrainLayersInLayer:(CALayer*)layer {
 //	NSLog(@"constraining");
 //	NSUInteger index = 0;

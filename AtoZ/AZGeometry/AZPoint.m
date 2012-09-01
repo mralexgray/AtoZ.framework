@@ -7,8 +7,8 @@
 //
 
 #import "AZPoint.h"
-#import "AZSize.h"
-#import "AZRect.h"
+//#import "AZSize.h"
+//#import "AZRect.h"
 
 @implementation AZPoint
 

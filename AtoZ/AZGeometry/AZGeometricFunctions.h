@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-#import "AtoZ.h"
+#import "AtoZUmbrella.h"
 
 
 // shortcuts for [NSNumber numberWithXY]

@@ -34,8 +34,12 @@
 - (void) disableAnimation;
 - (void) enableAnimation;
 - (NSInteger)minScrollDistanceFromIndex:(NSInteger)fromIndex toIndex:(NSInteger)toIndex;
-
+@property (nonatomic, assign) Option option;
 @end
+@interface NSObject  (iCarouselDelegate)
+- (CATransform3D)carousel:(iCarousel *)carousel index:(NSInteger)index  baseTransform:(CATransform3D)transform;
+@end
+
 @interface iCarousel (AtoZ)
 - (CGFloat)		offsetForItemAtIndex:(NSInteger)index;
 - (NSInteger)	clampedIndex:(NSInteger)index;
@@ -123,7 +127,7 @@
 		//        self.scrolling = NO;
 		//        self.decelerating = NO;
 
-	AZWindowPosition d = [self hostWindow].position;
+//	AZWindowPosition d = [self hostWindow].position;
 
 	CGFloat translation = (self.vertical) ? [theEvent deltaY]	: [theEvent deltaX];
 		//        translation	 = d == AZPositionBottom ? translation	:

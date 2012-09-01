@@ -884,7 +884,7 @@ static NSColor *ColorWithCSSString(NSString *str) {
 	//		NSString *key = nil;
 	//		while ((key = [enumerator nextObject])) {
 
-	/*
+	
 	 [avail eachConcurrentlyWithBlock:^(NSInteger index, id obj, BOOL *stop) {
 	 [[obj allKeys]filterOne:^BOOL(id object) {
 	 NSColor *thatColor = [[obj colorWithKey:object]colorUsingColorSpaceName:NSCalibratedRGBColorSpace];

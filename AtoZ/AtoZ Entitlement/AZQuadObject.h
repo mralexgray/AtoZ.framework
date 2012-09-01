@@ -11,14 +11,10 @@
 #import "AZEntitlementDelegate.h"
 #import "AZQuadCell.h"
 
-
-typedef enum {	AZMenuN,	AZMenuS,	AZMenuE,	AZMenuW,	AZMenuPositionCount } AZMenuPosition;
-extern NSString *const AZMenuPositionName[AZMenuPositionCount];	// NSLog(@"%@", FormatTypeName[XML]);
-
 //@class AZEntitlementDelegate;
 @interface AZQuadCarousel : NSObject <iCarouselDataSource, iCarouselDelegate, NSWindowDelegate>
 //{ NSRange northern, southern, eastern, western;	}
-//@property (nonatomic, assign) NSUInteger total;
+@property (nonatomic, assign) NSUInteger tilt;
 //@property (nonatomic, strong) NSMutableArray* content;
 @property (weak) id refToSelf;
 @property (nonatomic, assign) NSUInteger iconStyle;
@@ -49,12 +45,13 @@ extern NSString *const AZMenuPositionName[AZMenuPositionCount];	// NSLog(@"%@", 
 @property (nonatomic, strong) IBOutlet NSArray *southWest;
 @property (nonatomic, strong) IBOutlet NSArray *northEast;
 
-//@property (nonatomic, strong) iCarousel *carousel;
+@property (nonatomic, retain) AZSegmentedRect *seg;
+@property (nonatomic, assign) Option option;
 
 -(void) advance;
 -(void) rewind;
 
-- (IBAction)slideOutQuad:(id)sender;
+- (IBAction)toggleQuad:(id)sender;
 - (IBAction)setVeils:(id)sender;
 - (IBAction)setType:(id)sender;
 @property (assign, nonatomic)	iCarouselType cType;

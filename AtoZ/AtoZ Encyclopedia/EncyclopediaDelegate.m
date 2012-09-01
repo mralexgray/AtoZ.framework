@@ -50,21 +50,22 @@
 												  styleMask:NSBorderlessWindowMask
 													backing:NSBackingStoreBuffered
 													  defer:NO screen:[NSScreen mainScreen]];
+
 //	[_mainWindow setLevel:NSStatusWindowLevel];
 //	[_mainWindow setMovable:NO];
-	[_mainWindow setOpaque : NO];
+//	[_mainWindow setOpaque : NO];
 //	[_mainWindow setBackgroundColor:CLEAR];
 //	[_mainWindow setAlphaValue:0];
-	[_mainWindow orderFrontRegardless];
-	self.view = [[AZSimpleView alloc]initWithFrame: NSInsetRect(screenRect, 200, 200) ];
+//	[_mainWindow orderFrontRegardless];
+//	self.view = [[AZSimpleView alloc]initWithFrame: NSInsetRect(screenRect, 200, 200) ];
 //	AZScaleRect(AZScreenFrame(), .23)];
-	[_view setBackgroundColor:RANDOMCOLOR];
+//	[_view setBackgroundColor:RANDOMCOLOR];
 
 //	[_mainWindow setContentView:_view];
 //	AZSimpleView *aview = [[AZSimpleView alloc]initWithFrame: NSInsetRect(_view.frame, 200, 200) ];
 //	aview.backgroundColor = ORANGE;
-	[[_mainWindow contentView] addSubview:_view];
-	[_view setNeedsDisplay:YES];
+//	[[_mainWindow contentView] addSubview:_view];
+//	[_view setNeedsDisplay:YES];
 //	[_mainWindow setIgnoresMouseEvents:YES];
 
 

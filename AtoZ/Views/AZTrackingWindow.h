@@ -1,7 +1,6 @@
 
 
 #import <Cocoa/Cocoa.h>
-#import "AtoZ.h"
 
 // key for dictionary in NSTrackingAreas's userInfo
 // NSString *kAZTrackerChanged = @"trackerState";
@@ -29,8 +28,7 @@ typedef struct AZTriPair {
 + initInWindow:(AZTrackingWindow*)windy;
 @end
 
-
-
+@class AZSimpleView;
 @interface AZTrackingWindow : NSWindow <NSWindowDelegate>
 {
 	NSRect _workingFrame;

@@ -849,10 +849,27 @@ void _AZLog(const char *file, int lineNumber, const char *funcName, NSString *fo
 	[body release];
 }
 
-void NSLog (NSString *format, ...) {	va_list argList;	va_start (argList, format);
-	NSString *message = [[NSString alloc] initWithFormat:format arguments:argList];
-	fprintf (stderr, "*** %s ***\n", [message UTF8String]); 	va_end  (argList);
-} // QuietLog
+void _AZLog(const char *file, int lineNumber, const char *funcName, NSString *format,...);
+
+void QuietLog (const char *file, int lineNumber, const char *funcName, NSString *format, ...) {
+    if (format == nil) {
+        printf("nil\n");
+        return;
+    }
+		// Get a reference to the arguments that follow the format parameter
+    va_list argList;
+    va_start(argList, format);
+		// Perform format string argument substitution, reinstate %% escapes, then print
+    NSString *s = [[NSString alloc] initWithFormat:format arguments:argList];
+    printf("%s\n", [[s stringByReplacingOccurrencesOfString:@"%%" withString:@"%%%%"] UTF8String]);
+    [s release];
+    va_end(argList);
+}
+
+//void NSLog (NSString *format, ...) {	va_list argList;	va_start (argList, format);
+//	NSString *message = [[NSString alloc] initWithFormat:format arguments:argList];
+//	fprintf (stderr, "*** %s ***\n", [message UTF8String]); 	va_end  (argList);
+//} // QuietLog
 
 
 @implementation  NSObject (debugandreturn)
@@ -2452,7 +2469,7 @@ static int 	numberOfShakes = 3;
 static float durationOfShake = .4;
 static float vigourOfShake = 0.2f;
 
-
+@class AZTrackingWindow;
 @implementation AtoZ (Animations)
 
 + (CAAnimation *) animationForOpacity {
@@ -2560,10 +2577,13 @@ static float vigourOfShake = 0.2f;
 
 }
 
-+ (void)flipDown:(AZTrackingWindow*)window
++ (void)flipDown:(id)window
 {
-	[window setAnimations:@{ @"frame":  [AtoZ flipDown:2 scaleFactor:.8]} ];// shakeAnimation:[window frame]] }];
-	[[window animator] setFrame: (window.slideState == AZOut ? window.visibleFrame : window.outFrame ) display:YES animate:YES];
+//	[window setClass:[AZTrackingWindow class]];
+	if ([(id)window respondsToSelector:@selector(setAnimations:)]) {
+		[window setAnimations:@{ @"frame":  [AtoZ flipDown:2 scaleFactor:.8]} ];// shakeAnimation:[window frame]] }];
+//		[[window animator] setFrame: (window.slideState == AZOut ? window.visibleFrame : window.outFrame ) display:YES animate:YES];
+	}
 }
 
 + (void)shakeWindow:(NSWindow*)window

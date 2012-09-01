@@ -29,17 +29,19 @@
 + (AZSizer*) forQuantity:(NSUInteger)aNumber inRect:(NSRect)aFrame;
 + (NSRect) structForQuantity:(NSUInteger)aNumber inRect:(NSRect)aFrame;
 //+ (NSSize) gridFor:(int)someitems inRect:(NSRect)aframe;
-- (void) constrainLayersInLayer:(CALayer*)layer;
+//- (void) constrainLayersInLayer:(CALayer*)layer;
+
+@property (assign, nonatomic) BOOL 	perimeterOnly;
 
 @property (assign, nonatomic) NSUInteger 	quantity;
 @property (assign, nonatomic) NSUInteger	rows;
 @property (assign, nonatomic) NSUInteger	columns;
 @property (assign, nonatomic) CGFloat 		width;
 @property (assign, nonatomic) CGFloat		height;
-@property (readonly) NSSize		size;
+@property (assign, nonatomic) NSSize		size;
 @property (assign, nonatomic) NSRect		outerFrame;
 @property (assign, nonatomic) int		remainder;
-@property (readonly) NSArray 	*rects;
+@property (nonatomic, strong) NSArray 	*rects;
 @property (readonly) NSArray 	*paths;
 @property (readonly) NSArray 	*boxes;
 

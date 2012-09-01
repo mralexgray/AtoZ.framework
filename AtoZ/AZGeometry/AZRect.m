@@ -8,7 +8,7 @@
 
 #import "AZRect.h"
 
-#import "AtoZ.h"
+//#import "AtoZ.h"
 
 
 
@@ -16,7 +16,9 @@
 @implementation AZRect
 
 +(AZRect *)rect {
-  return [[self alloc] init];
+//  return [[self alloc] init];
+
+	return [[AZRect alloc] init];
 }
 
 +(AZRect *)rectOf:(id)object {
