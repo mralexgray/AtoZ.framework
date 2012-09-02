@@ -42,7 +42,7 @@
 -(id)objectAtX:(NSUInteger)x y:(NSUInteger)y {
   if (x > width || y > height) {
     [NSException raise:@"AZMatrixIndexOutOfBounds" 
-                format:@"Matrix index (%u, %u) out of bounds (%u, %u)",
+                format:@"Matrix index (%ld, %ld) out of bounds (%ld, %ld)",
      x,y,width,height];
     return nil;
   }

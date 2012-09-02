@@ -283,8 +283,47 @@ CGColorRef CreatePatternColor( CGImageRef image )
 }
 
 
+#define kCALayerLabel @"CALayerLabel"
 
 @implementation CALayer (AtoZ)
+
+
+- (BOOL)containsOpaquePoint:(CGPoint)p {
+	if (![self containsPoint:p]) return NO;
+	if (self.backgroundColor && CGColorGetAlpha(self.backgroundColor) > 0.15) return YES;
+	float alpha = 0.0;
+		// RESTORE if ([self isKindOfClass:[CATextLayer class]]) return YES;
+	CGImageRef image = (CGImageRef)[self.contents CGImage];
+	if( image ) {		alpha = 1.0; //RESTORE GetPixelAlpha(image, self.bounds.size, p);
+	}
+	return alpha > 0.15;
+}
+
+- (CALayer *) labelLayer {
+	return [self sublayerWithName:kCALayerLabel];
+}
+
+- (CALayer *)sublayerWithName:(NSString *)name {
+	for (CALayer *layer in [self sublayers]){	if([[layer name] isEqualToString:name]) return layer;}	return nil;
+}
+
+- (CALayer *) setLabelString:(NSString *)label {
+	CATextLayer *layer = (CATextLayer *)[self sublayerWithName:kCALayerLabel];
+	if (!label) {		[layer removeFromSuperlayer]; return nil;	}
+	if (!layer) {
+		layer = [CATextLayer layer]; 		layer.doubleSided = NO;
+		layer.wrapped = TRUE;				layer.fontSize = 14.0;
+		layer.alignmentMode = kCAAlignmentCenter;
+		layer.anchorPoint = CGPointZero;	layer.name = kCALayerLabel;
+		[self addSublayer:layer];
+	}
+	layer.string = label;
+	NSLog(@"created text layer %@", layer);
+	layer.position = CGPointZero; //CGPointMake(CGRectGetWidth(self.bounds)/2, CGRectGetHeight(self.bounds)/2);
+	layer.autoresizingMask = kCALayerHeightSizable | kCALayerWidthSizable;
+	layer.bounds = self.bounds;
+	return layer;
+}
 
 + (CALayer*)veilForView:(CALayer*)view{
 

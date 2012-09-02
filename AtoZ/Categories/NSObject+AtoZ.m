@@ -840,6 +840,13 @@ static const char * getPropertyType(objc_property_t property) {
 	//   ...for Andrew Paul Sardone
 	//- (NSDictionary *)propertiesDictionariate;
 
+- (NSDictionary *)propertiesSans:(NSString*)someKey {
+
+	NSDictionary *d = [self propertiesPlease];
+	return [d filter:^BOOL(id key, id value) {
+		return  [key isNotEqualTo:someKey] ? YES : NO;
+	}];
+}
 
 - (NSDictionary *)propertiesPlease {
 	NSMutableDictionary *props = [NSMutableDictionary dictionary];
@@ -847,7 +854,7 @@ static const char * getPropertyType(objc_property_t property) {
 	objc_property_t *properties = class_copyPropertyList([self class], &outCount);
 	for (i = 0; i < outCount; i++) {
 		objc_property_t property = properties[i];
-		NSString *propertyName = [[NSString alloc] initWithCString:property_getName(property)];
+		NSString *propertyName = [[NSString alloc] initWithCString:property_getName(property) encoding:NSUTF8StringEncoding];
 		id propertyValue = [self valueForKey:(NSString *)propertyName];
 		if (propertyValue) props[propertyName] = propertyValue;
 	}

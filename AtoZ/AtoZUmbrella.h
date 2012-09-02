@@ -17,6 +17,14 @@ extern NSString *const AZMenuPositionName[AZMenuPositionCount];
 
 
 
+
+typedef enum  {
+    AZItemsAsBundleIDs,
+    AZItemsAsPaths,
+    AZItemsAsNames
+}AZItemsViewFormat;
+
+
 typedef enum
 {
 	ReadAccess = R_OK,

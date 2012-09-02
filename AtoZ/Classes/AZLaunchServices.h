@@ -48,13 +48,6 @@ extern CFStringRef kLSSharedFileListGlobalLoginItems;
 
 
 
-
-typedef enum  {
-    AZItemsAsBundleIDs,
-    AZItemsAsPaths,
-    AZItemsAsNames
-}AZItemsViewFormat;
-
 @interface AZLaunchServices : NSObject
 
 /* Shared lists */
@@ -65,8 +58,8 @@ typedef enum  {
 + (BOOL)clearList:(CFStringRef)list_name;
 
 /* Application abilities */
-+ (NSArray *)allApplicationsFormattedAs:(enum AZItemsViewFormat)response_format;
-+ (NSArray *)allApplicationsAbleToOpenFileExtension:(NSString *)extension responseFormat:(enum AZItemsViewFormat)response_format;
++ (NSArray *)allApplicationsFormattedAs:(AZItemsViewFormat)response_format;
++ (NSArray *)allApplicationsAbleToOpenFileExtension:(NSString *)extension responseFormat:(AZItemsViewFormat)response_format;
 
 + (NSArray *)allAvailableFileTypesForApplication:(NSString *)full_path;
 + (NSArray *)allAvailableMIMETypesForApplication:(NSString *)full_path;

@@ -39,6 +39,12 @@ AZWindowPosition AZPositionOfRect(NSRect rect);
 NSRange AZMakeRange(NSUInteger min, NSUInteger max);
 
 
+
+NSRect  nanRectCheck  (NSRect  rect);
+NSPoint nanPointCheck (NSPoint point);
+NSSize  nanSizeCheck  (NSSize  size);
+id      nanCheck	  (NSValue* point);
+
 // Predifined Points, Sizes and Rects
 
 #define AZHalfPoint NSMakePoint(0.5, 0.5)
@@ -51,9 +57,14 @@ NSRange AZMakeRange(NSUInteger min, NSUInteger max);
 
 NSPoint randomPointInRect(NSRect rect);
 
-float distanceFromPoint (NSPoint p1,NSPoint p2);
-float AZDistanceFromPoint (NSPoint p1,NSPoint p2);
+CGFloat AZPointDistance(CGPoint p1, CGPoint p2);
+CGFloat AZPointAngle(CGPoint p1, CGPoint p2);
 
+CGFloat distanceFromPoint (NSPoint p1,NSPoint p2);
+CGFloat AZDistanceFromPoint (NSPoint p1,NSPoint p2);
+NSPoint AZPointOffset (NSPoint p, NSPoint size);
+NSPoint AZPointOffsetY (NSPoint p, CGFloat distance);
+NSPoint AZPointOffsetX (NSPoint p, CGFloat distance);
 
 // Simple Length and Area calculus
 

@@ -34,6 +34,7 @@
 @property (assign, nonatomic) BOOL 	perimeterOnly;
 
 @property (assign, nonatomic) NSUInteger 	quantity;
+@property (assign, nonatomic) NSUInteger 	quantityReal;
 @property (assign, nonatomic) NSUInteger	rows;
 @property (assign, nonatomic) NSUInteger	columns;
 @property (assign, nonatomic) CGFloat 		width;
@@ -41,7 +42,7 @@
 @property (assign, nonatomic) NSSize		size;
 @property (assign, nonatomic) NSRect		outerFrame;
 @property (assign, nonatomic) int		remainder;
-@property (nonatomic, strong) NSArray 	*rects;
+@property (nonatomic, copy) NSArray 	*rects;
 @property (readonly) NSArray 	*paths;
 @property (readonly) NSArray 	*boxes;
 

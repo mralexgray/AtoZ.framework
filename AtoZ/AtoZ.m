@@ -191,7 +191,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 +(NSFont*) fontWithSize:(CGFloat)fontSize {
 	return 	[[AtoZ sharedInstance] registerFonts:fontSize];
 }
-
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 - (NSFont*) registerFonts:(CGFloat)size {
 	if (!fontsRegistered) {
 		NSBundle *aBundle = [NSBundle bundleForClass: [AtoZ class]];
@@ -207,6 +207,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 	}
 	return  [NSFont fontWithName:@"UbuntuTitling-Bold" size:size];
 }
+#pragma GCC diagnostic warning "-Wdeprecated-declarations"
 
 
 
@@ -2291,7 +2292,7 @@ BOOL sel_isEqual(SEL lhs, SEL rhs) {
 @end
 
 
-void perceptualCausticColorForColor(float *inputComponents, float *outputComponents) {
+void perceptualCausticColorForColor(CGFloat *inputComponents, CGFloat *outputComponents) {
     const CGFloat CAUSTIC_FRACTION = 0.60;
     const CGFloat COSINE_ANGLE_SCALE = 1.4;
     const CGFloat MIN_RED_THRESHOLD = 0.95;
@@ -2318,8 +2319,7 @@ typedef struct {
     CGFloat color[4];    CGFloat caustic[4];    CGFloat expCoefficient;    CGFloat expScale;    CGFloat expOffset;    CGFloat initialWhite;    CGFloat finalWhite;
 } GlossParameters;
 
-static void glossInterpolation(void *info, const CGFloat *input,
-							   CGFloat *output) {
+static void glossInterpolation(void *info, const CGFloat *input, CGFloat *output) {
     GlossParameters *params = (GlossParameters *)info;
     CGFloat progress = *input;
     if (progress < 0.5)	{
@@ -2341,6 +2341,7 @@ static void glossInterpolation(void *info, const CGFloat *input,
         output[3] = params->color[3] * (1.0 - progress) + params->caustic[3] * progress;
 	}
 }
+
 CGFloat perceptualGlossFractionForColor(CGFloat *inputComponents)
 {
     const CGFloat REFLECTION_SCALE_NUMBER = 0.2;

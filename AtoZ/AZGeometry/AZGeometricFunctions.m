@@ -7,6 +7,7 @@
 //
 
 #import "AZGeometricFunctions.h"
+#import "AtoZ.h"
 
 NSNumber *iNum(NSInteger i) {
   return [NSNumber numberWithInt:i];
@@ -29,6 +30,43 @@ NSRange AZMakeRange(NSUInteger min, NSUInteger max) {
   NSUInteger len = MAX(min, max) - loc;
   return NSMakeRange(loc, len);
 }
+
+NSRect nanRectCheck(NSRect rect) {
+		rect.origin = nanPointCheck(rect.origin);
+		rect.size 	= nanSizeCheck(rect.size);
+		return rect;
+}
+NSSize nanSizeCheck(NSSize size) {
+	size.width  = isinf(size.width)  ? 0 : size.width;
+	size.height = isinf(size.height) ? 0 : size.height;
+	return  size;
+}
+NSPoint nanPointCheck(NSPoint origin) {
+	origin.x = isinf(origin.x) ? 0 : origin.x;
+	origin.y = isinf(origin.y) ? 0 : origin.y;
+	return origin;
+}
+
+//id nanCheck(NSValue* point) {
+//	id behind;
+//	if ( [point respondsToSelector:@selector(recttValue)] ) behind = (__bridge_transfer NSRect)nanRectCheck( [point rectValue]);
+//		:   [point respondsToSelector:@selector(sizeValue)]  ? nanSizeCheck(  [point pointValue])
+//		:   					 							   nanPointCheck( [point pointValue]);
+//}
+NSPoint AZPointOffset (NSPoint p, NSPoint size) {
+	p.x += size.x;
+	p.y += size.y;
+	return p;
+}
+NSPoint AZPointOffsetY (NSPoint p, CGFloat distance) {
+	p.y += distance;
+	return p;
+}
+NSPoint AZPointOffsetX (NSPoint p, CGFloat distance) {
+	p.x += distance;
+	return p;
+}
+
 
 //
 //CGSize AZAspectRatio(NSRect rect ){
@@ -91,15 +129,22 @@ CGFloat AZAreaOfSize(NSSize size) {
 CGFloat AZAreaOfRect(NSRect rect) {
   return AZAreaOfSize(rect.size);
 }
+CGFloat AZPointDistance(CGPoint p1, CGPoint p2) {
+	return sqrtf(powf(p1.x - p2.x, 2.) + powf(p1.y - p2.y, 2.));
+}
 
-float AZDistanceFromPoint (NSPoint p1,NSPoint p2) {
+CGFloat AZPointAngle(CGPoint p1, CGPoint p2) {
+	return atan2f(p1.x - p2.x, p1.y - p2.y);
+}
+
+CGFloat AZDistanceFromPoint (NSPoint p1,NSPoint p2) {
 	return distanceFromPoint(p1, p2);
 }
-float distanceFromPoint (NSPoint p1, NSPoint p2) {
-	float temp;
+CGFloat distanceFromPoint (NSPoint p1, NSPoint p2) {
+	CGFloat temp;
 	temp = pow(p1.x - p2.x, 2);
 	temp += pow(p1.y - p2.y, 2);
-	return sqrt(temp);
+	return (CGFloat)sqrt(temp);
 }
 
 NSPoint NSMakeRandomPointInRect(NSRect rect) {

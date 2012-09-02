@@ -191,6 +191,9 @@
 
 @interface NSMutableArray (AG)
 
+- (void) addPoint:(NSPoint)point;
+- (void) addRect:(NSRect)rect;
+
 // sugar properties
 @property (retain) id last;
 @property (retain) id first;

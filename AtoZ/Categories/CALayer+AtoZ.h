@@ -71,6 +71,10 @@ CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13, CGFloat m14,
 
 @interface CALayer (AtoZ)
 
+- (BOOL)containsOpaquePoint:(CGPoint)p;
+- (CALayer *) labelLayer;
+- (CALayer *) setLabelString:(NSString *)label;
+- (CALayer *) sublayerWithName:(NSString *)name;
 
 
 + (CALayer*)veilForView:(CALayer*)view;

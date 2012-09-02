@@ -29,7 +29,7 @@ typedef UIColor NSColor;
 
 
 #define EXCLUDE_STUB_PROTOTYPES 1
-//#import <PLWeakCompatibility/PLWeakCompatibilityStubs.h>
+#import <PLWeakCompatibility/PLWeakCompatibilityStubs.h>
 
 //#define GROWL_ENABLED
 //#include <Growl/Growl.h>
@@ -46,6 +46,8 @@ typedef UIColor NSColor;
 #include <AudioToolbox/AudioToolbox.h>
 #import "AtoZUmbrella.h"
 #import "AZGeometry.h"
+#import "AZGeometricFunctions.h"
+
 
 #import "BaseModel.h"
 #import "SMModelObject.h"
@@ -69,7 +71,6 @@ typedef UIColor NSColor;
 
 // Categories
 #import "NSFileManager+AtoZ.h"
-
 #import "NSThread+AtoZ.h"
 #import "NSNotificationCenter+AtoZ.h"
 #import "NSApplication+AtoZ.h"
@@ -143,6 +144,11 @@ typedef UIColor NSColor;
 #import "RuntimeReporter.h"
 
 #import "AZBackgroundProgressBar.h"
+#import "F.h"
+#import "NSArray+F.h"
+#import "NSDictionary+F.h"
+#import "NSNumber+F.h"
+
 
 
 static NSEventMask AZMouseActive = NSMouseMovedMask | NSMouseExitedMask |NSMouseEnteredMask;
@@ -357,9 +363,14 @@ extern NSString *const AtoZFileUpdated;
 - (NSArray *) objects;
 @end
 
-//static void glossInterpolation(void *info, const float *input,
+//static void glossInterpolation(void *info, const float *input);
 //							   float *output);
-//void perceptualCausticColorForColor(float *inputComponents, float *outputComponents);
+
+static void glossInterpolation(void *info, const CGFloat *input, CGFloat *output);
+
+//static void glossInterpolation(void *info, const CGFloat *input);
+
+void perceptualCausticColorForColor(CGFloat *inputComponents, CGFloat *outputComponents);
 extern void DrawGlossGradient(CGContextRef context, NSColor *color, NSRect inRect);
 
 extern void DrawLabelAtCenterPoint(NSString* string, NSPoint center);
@@ -515,8 +526,21 @@ NSNumber* DegreesToNumber(CGFloat degrees);
 #define AZTArea(frame) \
 [[NSTrackingArea alloc] initWithRect:frame options:(NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways | NSTrackingInVisibleRect | NSTrackingMouseMoved ) owner:self userInfo:nil]
 
+
+
+
 #define AZTAreaInfo(frame, info) \
 [[NSTrackingArea alloc] initWithRect: frame options:(NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways | NSTrackingInVisibleRect | NSTrackingMouseMoved ) owner:self userInfo:info];
+
+#define AZBezPath(rect) [NSBezierPath bezierPathWithRect:rect]
+#define AZQtzPath(rect) [[NSBezierPath bezierPathWithRect:rect]quartzPath]
+#define AZContentBounds [[[self window]contentView]bounds]
+
+//#define AZTransition(duration, type, subtype) CATransition *transition = [CATransition animation];
+//[transition setDuration:1.0];
+//[transition setType:kCATransitionPush];
+//[transition setSubtype:kCATransitionFromLeft];
+
 
 //#import "AtoZiTunes.h"
 
@@ -668,11 +692,15 @@ static inline float RandomComponent() {  return (float)random() / (float)LONG_MA
 //?: is the ternary conditional operator of the form:
 //condition ? result_if_true : result_if_false
 #define StringFromBOOL(b) ((b) ? @"YES" : @"NO")
+#define YESNO(b) ((b) ? @"YES" : @"NO")
+
 
 #define LogProps(a) NSLog(@"%@", a.propertiesPlease)
 #define logprop(a) NSLog(@"%@", [a propertiesPlease])
 //#define logobj(a) id logit = a \	     NSLog(@"%@", a)
 #define desc(a) NSLog(@"%@", [a description])
+
+
 
 // degree to radians
 #define ARAD	 0.017453f

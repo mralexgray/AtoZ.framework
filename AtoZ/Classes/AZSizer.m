@@ -105,9 +105,9 @@ int gcd(int m, int n) {	int t, r;
 	return self;
 }
 
-- (NSSize) size { return _size = _width ? (NSSize) { _width, _height }
-										: (NSSize) { _outerFrame.size.width / _columns,
-													  _outerFrame.size.height / _rows} ;
+- (NSSize) size { return _size = self.width ? (NSSize) { self.width, self.height }
+							   : (NSSize) { _outerFrame.size.width / _columns,
+											_outerFrame.size.height / _rows} ;
 }
 + (NSArray*) rectsForQuantity:(int)aNumber inRect:(NSRect)aFrame {
 	AZSizer *sizer = [AZSizer forQuantity:aNumber inRect:aFrame];
@@ -116,60 +116,45 @@ int gcd(int m, int n) {	int t, r;
 
 
 - (NSArray*) rects {
-
-	if (!_rects) {
-		NSMutableArray *privateRects = [NSMutableArray array];
+	if (!_rects) {		NSUInteger Q = 0;	NSMutableArray *pRects = [NSMutableArray array];
 		if (_perimeterOnly == NO) {
 			for ( int r = (_rows-1); r >= 0; r--){
 				for ( int c = 0; c < _columns; c++ ) {
-					[privateRects addObject:
-						[NSValue valueWithRect:NSMakeRect((c * _width), (r *_height), _width, _height)]];
-				}
-			}
-		} else {
-
-			NSPoint p = NSZeroPoint; NSUInteger r1, r2, c1, c2;
-			r1 = r2 = _columns;
-			c1 = c2 = _rows;
-			while (r1 > 1) {
-				[privateRects addObject:[NSValue valueWithRect:AZMakeRect(p, _size)]];
-				p.x += _width;
-				r1--;
-			}
-			while (c1 > 1) {
-				[privateRects addObject:[NSValue valueWithRect:AZMakeRect(p, _size)]];
-				p.y += _height;
-				c1--;
-			}
-			while (r2 > 1) {
-				[privateRects addObject:[NSValue valueWithRect:AZMakeRect(p, _size)]];
-				p.x -= _width;
-				r2--;
-			}
-			while (c2 > 1) {
-				[privateRects addObject:[NSValue valueWithRect:AZMakeRect(p, _size)]];
-				p.y -= _height;
-				c2--;
-			}
-		_rects = privateRects.copy;
-		NSLog(@"perimeter only: %@", _rects);
-		}
-	_rects = privateRects.copy;
+					if (Q < _quantity) {
+						[pRects addRect:(NSRect) { (c * _width), (r *_height), _width, _height }];  Q++;
+		}	}	}	}
+		else		{
+			NSPoint p = NSZeroPoint; NSUInteger r1, r2, c1, c2;		r1 = r2 = c1 = c2 = 1;	_size = self.size;
+			while (Q < _quantity) {
+				if		(r1 < _columns) { [pRects addRect:AZMakeRect(p, _size)];	p.x += _width;  r1++; Q++;	}
+				else if (c1 < _rows) 	{ [pRects addRect:AZMakeRect(p, _size)];	p.y += _height; c1++; Q++;	}
+				else if (r2 < _columns)	{ [pRects addRect:AZMakeRect(p, _size)]; 	p.x -= _width;  r2++; Q++;	}
+				else  /* (c2 < _rows)*/ { [pRects addRect:AZMakeRect(p, _size)];	p.y -= _height; c2++; Q++;	}
+		}	}
+	_rects = pRects.copy;
 	}
 	return _rects;
 }
 
-
+- (NSUInteger) quantityReal {
+	_quantityReal =  _perimeterOnly ?	(2 * _columns) + ((2 * _rows) - 4 )
+											:	 _rows * _columns;
+	if (_perimeterOnly)  _remainder = _quantityReal - _quantity;
+	return  _quantityReal;
+}
 + (AZSizer*) forQuantity:(NSUInteger)aNumber aroundRect:(NSRect)aFrame {
 
-//	totalBoc.quantity = aNumber;
-//	totalBoc.outerFrame = aFrame;
+
 	CGFloat percentHigh = (aFrame.size.height/ (aFrame.size.height + aFrame.size.width));
-	NSUInteger tempRows = floor(aNumber * percentHigh);
-	NSUInteger tempColumns = aNumber - tempRows;
- 	AZSizer* totalBoc = [AZSizer forQuantity:(tempColumns * tempRows) aroundRect:aFrame];
+ 	AZSizer* totalBoc 	= [[AZSizer alloc]init];
+	totalBoc.quantity 	= aNumber;
+	totalBoc.outerFrame = aFrame;
+	totalBoc.rows 		= 0 + (ceil(aNumber * percentHigh) / 2);
+	totalBoc.columns 	= 0 + ((aNumber - totalBoc.rows) / 2);
+
+	totalBoc.width 		= (aFrame.size.width / totalBoc.columns);
+	totalBoc.height 	= (aFrame.size.height / totalBoc.rows);
 	totalBoc.perimeterOnly = YES;
-	totalBoc.size = (NSSize) {aFrame.size.width / totalBoc.columns, aFrame.size.height / totalBoc.rows};
 	return  totalBoc;
 }
 //	NSMutableArray *privateRects = [NSMutableArray array];

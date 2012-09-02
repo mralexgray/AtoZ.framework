@@ -186,7 +186,7 @@
 
 -(NSString *)description {
   AZSize *s = self.size;
-  return [NSString stringWithFormat:@"%@(%.f, %.f; %i)",
+  return [NSString stringWithFormat:@"%@(%.f, %.f; %ld)",
           self.className,
           s.width,
           s.height,

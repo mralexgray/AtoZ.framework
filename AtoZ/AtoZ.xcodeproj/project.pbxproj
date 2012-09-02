@@ -46,6 +46,14 @@
 		7B0F8AA515F1CCCF00BB3CE7 /* AZSegmentedRect.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B24E98715A12D2100A9D87A /* AZSegmentedRect.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B0F8AA615F1CE6C00BB3CE7 /* AZSegmentedRect.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B24E98815A12D2100A9D87A /* AZSegmentedRect.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7B0F8AA715F1D5C800BB3CE7 /* AtoZUmbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B6901D7159E3AC600D0DA47 /* AtoZUmbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B0F8B0C15F2F07000BB3CE7 /* F.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B0F8B0315F2F07000BB3CE7 /* F.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B0F8B0D15F2F07000BB3CE7 /* F.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0F8B0415F2F07000BB3CE7 /* F.m */; };
+		7B0F8B0E15F2F07000BB3CE7 /* NSArray+F.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B0F8B0515F2F07000BB3CE7 /* NSArray+F.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B0F8B0F15F2F07000BB3CE7 /* NSArray+F.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0F8B0615F2F07000BB3CE7 /* NSArray+F.m */; };
+		7B0F8B1015F2F07000BB3CE7 /* NSDictionary+F.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B0F8B0715F2F07000BB3CE7 /* NSDictionary+F.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B0F8B1115F2F07000BB3CE7 /* NSDictionary+F.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0F8B0815F2F07000BB3CE7 /* NSDictionary+F.m */; };
+		7B0F8B1215F2F07000BB3CE7 /* NSNumber+F.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B0F8B0915F2F07000BB3CE7 /* NSNumber+F.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B0F8B1315F2F07000BB3CE7 /* NSNumber+F.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0F8B0A15F2F07000BB3CE7 /* NSNumber+F.m */; };
 		7B112A9C15D45B10002C97E8 /* AZObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B112A9A15D45B10002C97E8 /* AZObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B112A9D15D45B10002C97E8 /* AZObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B112A9B15D45B10002C97E8 /* AZObject.m */; };
 		7B12475B15EB91E000523869 /* AZBackgroundProgressBar.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B12475915EB91E000523869 /* AZBackgroundProgressBar.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -664,6 +672,15 @@
 		7B0D7C3A15A3F0BA00037D30 /* MondoSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MondoSwitch.m; sourceTree = "<group>"; };
 		7B0D7C3C15A3F0BA00037D30 /* MondoSwitchButtonCALayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MondoSwitchButtonCALayer.h; sourceTree = "<group>"; };
 		7B0D7C3D15A3F0BA00037D30 /* MondoSwitchButtonCALayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MondoSwitchButtonCALayer.m; sourceTree = "<group>"; };
+		7B0F8B0315F2F07000BB3CE7 /* F.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = F.h; sourceTree = "<group>"; };
+		7B0F8B0415F2F07000BB3CE7 /* F.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = F.m; sourceTree = "<group>"; };
+		7B0F8B0515F2F07000BB3CE7 /* NSArray+F.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = "NSArray+F.h"; sourceTree = "<group>"; };
+		7B0F8B0615F2F07000BB3CE7 /* NSArray+F.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+F.m"; sourceTree = "<group>"; };
+		7B0F8B0715F2F07000BB3CE7 /* NSDictionary+F.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = "NSDictionary+F.h"; sourceTree = "<group>"; };
+		7B0F8B0815F2F07000BB3CE7 /* NSDictionary+F.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+F.m"; sourceTree = "<group>"; };
+		7B0F8B0915F2F07000BB3CE7 /* NSNumber+F.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = "NSNumber+F.h"; sourceTree = "<group>"; };
+		7B0F8B0A15F2F07000BB3CE7 /* NSNumber+F.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+F.m"; sourceTree = "<group>"; };
+		7B0F8B0B15F2F07000BB3CE7 /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.markdown; sourceTree = "<group>"; };
 		7B112A9A15D45B10002C97E8 /* AZObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZObject.h; path = Classes/AZObject.h; sourceTree = SOURCE_ROOT; };
 		7B112A9B15D45B10002C97E8 /* AZObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AZObject.m; path = Classes/AZObject.m; sourceTree = SOURCE_ROOT; };
 		7B12475915EB91E000523869 /* AZBackgroundProgressBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZBackgroundProgressBar.h; sourceTree = "<group>"; };
@@ -1074,7 +1091,6 @@
 		7B05BB09159C406200409B83 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				7B6901D7159E3AC600D0DA47 /* AtoZUmbrella.h */,
 				7B112A9A15D45B10002C97E8 /* AZObject.h */,
 				7B112A9B15D45B10002C97E8 /* AZObject.m */,
 				7BCDFC6E15C71B340003DA4D /* Essential */,
@@ -1107,6 +1123,22 @@
 			);
 			name = mondoSwitch;
 			path = ../Classes/mondoSwitch;
+			sourceTree = "<group>";
+		};
+		7B0F8B0215F2F06F00BB3CE7 /* Functional */ = {
+			isa = PBXGroup;
+			children = (
+				7B0F8B0315F2F07000BB3CE7 /* F.h */,
+				7B0F8B0415F2F07000BB3CE7 /* F.m */,
+				7B0F8B0515F2F07000BB3CE7 /* NSArray+F.h */,
+				7B0F8B0615F2F07000BB3CE7 /* NSArray+F.m */,
+				7B0F8B0715F2F07000BB3CE7 /* NSDictionary+F.h */,
+				7B0F8B0815F2F07000BB3CE7 /* NSDictionary+F.m */,
+				7B0F8B0915F2F07000BB3CE7 /* NSNumber+F.h */,
+				7B0F8B0A15F2F07000BB3CE7 /* NSNumber+F.m */,
+				7B0F8B0B15F2F07000BB3CE7 /* README.markdown */,
+			);
+			path = Functional;
 			sourceTree = "<group>";
 		};
 		7B137CF915A2021E0088A630 /* AZBoxView */ = {
@@ -1212,7 +1244,9 @@
 		7B31195A159B6D9E002134C4 /* AtoZ */ = {
 			isa = PBXGroup;
 			children = (
+				7B311961159B6D9E002134C4 /* AtoZ.h */,
 				7B311962159B6D9E002134C4 /* AtoZ.m */,
+				7B6901D7159E3AC600D0DA47 /* AtoZUmbrella.h */,
 				7B6901BB159E0ADB00D0DA47 /* Views */,
 				7B583063159BDA900039CEED /* Categories */,
 				7B05BB09159C406200409B83 /* Classes */,
@@ -1393,6 +1427,7 @@
 		7B583063159BDA900039CEED /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				7B0F8B0215F2F06F00BB3CE7 /* Functional */,
 				7BBD991015B0648A00943FC1 /* CAAnimation+AtoZ.h */,
 				7BBD991115B0648A00943FC1 /* CAAnimation+AtoZ.m */,
 				7BBD991515B0688400943FC1 /* CALayer+AtoZ.h */,
@@ -1493,7 +1528,6 @@
 				7BE606EE15A118B400355236 /* AZAttachedWindow.m */,
 				7B12475915EB91E000523869 /* AZBackgroundProgressBar.h */,
 				7B12475A15EB91E000523869 /* AZBackgroundProgressBar.m */,
-				7B311961159B6D9E002134C4 /* AtoZ.h */,
 				7B137CF915A2021E0088A630 /* AZBoxView */,
 				7BCDFC7515C758110003DA4D /* AZInfinity */,
 				7B78529315ACEA3B008BAD3C /* AZLayerGrid */,
@@ -1723,6 +1757,10 @@
 				7B6901D5159E39A400D0DA47 /* NSColor+AtoZ.h in Headers */,
 				7B05BB0C159C40A600409B83 /* AZQueue.h in Headers */,
 				7B6901B8159E09D800D0DA47 /* NSApplication+AtoZ.h in Headers */,
+				7B0F8B0C15F2F07000BB3CE7 /* F.h in Headers */,
+				7B0F8B0E15F2F07000BB3CE7 /* NSArray+F.h in Headers */,
+				7B0F8B1015F2F07000BB3CE7 /* NSDictionary+F.h in Headers */,
+				7B0F8B1215F2F07000BB3CE7 /* NSNumber+F.h in Headers */,
 				7BF9E79C159E8F5000B5482D /* NSArray+AtoZ.h in Headers */,
 				7BF9E7D7159F0A0500B5482D /* AZPopupWindow.h in Headers */,
 				7B24E97915A1299700A9D87A /* NSView+AtoZ.h in Headers */,
@@ -2370,6 +2408,10 @@
 				7B9D5BAB15ED0E27005D1A76 /* NSFileManager+AtoZ.m in Sources */,
 				7B230AC015EED2CF007A680D /* azCarousel.m in Sources */,
 				7B0F8AA615F1CE6C00BB3CE7 /* AZSegmentedRect.m in Sources */,
+				7B0F8B0D15F2F07000BB3CE7 /* F.m in Sources */,
+				7B0F8B0F15F2F07000BB3CE7 /* NSArray+F.m in Sources */,
+				7B0F8B1115F2F07000BB3CE7 /* NSDictionary+F.m in Sources */,
+				7B0F8B1315F2F07000BB3CE7 /* NSNumber+F.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

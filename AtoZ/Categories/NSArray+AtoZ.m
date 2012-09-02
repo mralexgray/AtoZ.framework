@@ -724,6 +724,14 @@ static NSInteger comparatorForSortingUsingArray(id object1, id object2, void *co
 
 @implementation NSMutableArray (AG)
 
+
+- (void) addPoint:(NSPoint)point {
+	[self addObject:[NSValue valueWithPoint:point]];
+}
+- (void) addRect:(NSRect)rect {
+	[self addObject:[NSValue valueWithRect:rect]];
+}
+
 -(id)last {
 return self.lastObject;
 }
@@ -749,7 +757,7 @@ return self.lastObject;
 - (void) lastToFirst {
     if ( self.count == 0) return; //there is no object to move, return
 
-	[self moveObjectAtIndex:self.count toIndex:0];
+	[self moveObjectAtIndex:self.count-1 toIndex:0];
 }
 
 

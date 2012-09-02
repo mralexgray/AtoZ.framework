@@ -4,7 +4,6 @@
 //
 //  Created by Tomaz Kragelj on 8.12.09.
 //  Copyright (C) 2009 Gentle Bytes. All rights reserved.
-//
 
 #ifndef ah_retain
 #if __has_feature(objc_arc)
@@ -18,9 +17,7 @@
 #define __bridge
 #endif
 #endif
-
-	//  Weak delegate support
-
+//  Weak delegate support
 #ifndef ah_weak
 #import <Availability.h>
 #if (__has_feature(objc_arc)) && \
@@ -35,129 +32,116 @@ __MAC_OS_X_VERSION_MIN_REQUIRED > __MAC_10_7))
 #define __ah_weak __unsafe_unretained
 #endif
 #endif
-
-	//  ARC Helper ends
-
+//  ARC Helper ends
 
 
-#import <Cocoa/Cocoa.h>
-#import <QuartzCore/QuartzCore.h>
-
-//////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////
 /** The view that serves as Core Animation host.
+ 	The user interface is composed using Core Animation layers using the following structure:
  
- The user interface is composed using Core Animation layers using the following structure:
+	@verbatim
+	CALayer (root)
+	|
+	+--> CALayer (container)
+		|
+		+--> CALayer ("item name")
+			|
+			+--> CATextLayer (name)
+			+--> ToggleLayer (toggle)
+	@endverbatim
  
- @verbatim
- CALayer (root)
- |
- +--> CALayer (container)
-      |
-      +--> CALayer ("item name")
-           |
-           +--> CATextLayer (name)
-           +--> ToggleLayer (toggle)
- @endverbatim
- 
- The view also responds to user's interaction (only mouse is handled in this example) and
- updates the toggle status when the layer is clicked.
- */
+	The view also responds to user's interaction (only mouse is handled in this example) and updates the toggle status when the layer is clicked.
 
-
-
-//@interface AZToggle : BaseModel
-//
-//@property (nonatomic, retain) NSString *name;
-//@property (nonatomic, retain) NSString *relative;
-//@property (nonatomic, retain) NSString *onText;
-//@property (nonatomic, retain) NSString *offText;
-//@property (nonatomic, assign) BOOL toggleState;
-//
-//+ (AZToggle*) instanceWithObject:(id)object;
-//@end;
-
+*/
 
 @class  	AZToggleControlLayer;//, AZToggle;
 @protocol 	AZToggleArrayViewDelegate;
-
-@interface 	AZToggleArrayView : NSView	{
+@interface 	AZToggleArrayView : NSView
 //	@private
-//		id<AZToggleArrayViewDelegate> __ah_weak _delegate;
-}
+//	id<AZToggleArrayViewDelegate> __ah_weak _delegate;
+
+- (CALayer*) 				  itemLayerWithName:(NSString*)name 	relativeTo:(NSString*)relative
+							  			 onText:(NSString*)onText      offText:(NSString*)offText
+							   			  state:(BOOL)state 			 index:(NSUInteger)index;
 
 
-- (CALayer*) 				  itemLayerWithName:(NSString*)name
-						  relativeTo:(NSString*)relative
-							  onText:(NSString*)onText
-							 offText:(NSString*)offText
-							   state:(BOOL)state
-							   index:(NSUInteger)index;
-
-
-- (AZToggleControlLayer*) toggleLayerWithOnText:(NSString*)onText
-										offText:(NSString*)offText
-								   initialState:(BOOL)state;
+- (AZToggleControlLayer*) toggleLayerWithOnText:(NSString*)onText		offText:(NSString*)offText
+																   initialState:(BOOL)state;
 
 - (CATextLayer*) 		  itemTextLayerWithName:(NSString*)name;
 
-- (CALayer*) 				  itemLayerWithName:(NSString*)name
-						  relativeTo:(NSString*)relative
-							   index:(NSUInteger)index;
-
-
+- (CALayer*) 				  itemLayerWithName:(NSString*)name		 relativeTo:(NSString*)relative
+							   											  index:(NSUInteger)index;
 
 @property (readonly) CALayer* containerLayer;
 @property (readonly) CALayer* rootLayer;
-
-// ------
-
+@property (nonatomic, strong) NSArray *questions;
 @property (nonatomic, ah_weak) IBOutlet id<AZToggleArrayViewDelegate> delegate;
 @end
 
 @protocol AZToggleArrayViewDelegate <NSObject>
 @required
 
-- (NSArray*)questionsForToggleView:(AZToggleArrayView *) view;
+- (NSArray*)  questionsForToggleView: (AZToggleArrayView *) view;
+/* 	return 	@[@"Sort Alphabetically?", @"Sort By Color?" , @"Sort like Dock", @"Sort by \"Category\"?", @"Show extra app info?" ]; */
+
+
 
 @optional
 
-- (NSArray*) itemsForToggleView:(AZToggleArrayView *) view;
-- (void)toggleStateDidChangeTo:(BOOL)state InToggleViewArray:(AZToggleArrayView *) view WithName:(NSString *)name;
+- (NSString*) toggleView: (AZToggleArrayView*) toggleView questionAtIndex: (NSUInteger) index;
+/*	return  index == 1 ? @"What?" : @"How?";		*/
+
+- (NSInteger) numberOfTogglesInView: (AZToggleArrayView*)view;
+/*	return  _questions.count; etc		*/
+
+
+
+@optional
+
+- (AZWindowPosition) positionForQuestion: (NSString*) question;
+//- (AZWindowPosition) defaultLabelPosition;
+
+- (NSArray*) itemsForToggleView: (AZToggleArrayView*) view;
+
+/*	return 	@[	[view itemTextLayerWithName:@"Sort:" ],
+				[view itemLayerWithName:	@"Color" relativeTo:@"superlayer" index:0],
+ 				[view itemLayerWithName:	@"A-Z" relativeTo:@"Color" 	index:1]	]; 		*/
+
+
+
+
+//- (NSArray*) itemsForToggleView: (AZToggleArrayView*) view positioned: (AZWindowPosition) position;
+- (void)toggleStateDidChangeTo: (BOOL) state InToggleViewArray: (AZToggleArrayView*) view WithName:(NSString *)name;
 
 @end
 
-//return @[[ itemLayerWithName:@"Item 2" relativeTo:index:1]];
-	//	[containerLayer addSublayer:[self itemLayerWithName:@"Click these 'buttons' to change state ->"
-	//											 relativeTo:@"Item 2"
-	//												 onText:@"1"
-	//												offText:@"0"
-	//												  state:YES
-	//												  index:1]];
+/*  return @[[ itemLayerWithName:@"Item 2" relativeTo:index:1]];
+	[containerLayer addSublayer:[self itemLayerWithName:@"Click these 'buttons' to change state ->"
+											 relativeTo:@"Item 2"
+												 onText:@"1"
+												offText:@"0"
+												  state:YES
+												  index:1]];
+*/
 
-	//////////////////////////////////////////////////////////////////////////////////////////
-	//////////////////////////////////////////////////////////////////////////////////////////
-/** Implements iPhone-like Core Animation toggle layer.
+/**	Implements iPhone-like Core Animation toggle layer.
 
- The client can change the texts and toggle state. There's also a helper method that
- reverses the state that can be handy in certain situations.
+	The client can change the texts and toggle state. There's also a helper method that reverses the state that can be handy in certain situations.		The layer uses the following layout:
 
- The layer uses the following layout:
+	@verbatim
+	CALayer (root)
+	|
+	+--> CALayer (onback)
+	|    |
+	|    +--> CATextLayer (text)
+	|
+	+--> CALayer (thumb)
+	|
+	+--> CALayer (offback)
+	|
+	+--> CATextLayer (text)
+	@endverbatim																		*/
 
- @verbatim
- CALayer (root)
- |
- +--> CALayer (onback)
- |    |
- |    +--> CATextLayer (text)
- |
- +--> CALayer (thumb)
- |
- +--> CALayer (offback)
- |
- +--> CATextLayer (text)
- @endverbatim
- */
 @interface AZToggleControlLayer : CALayer
 {
 	CALayer* thumbLayer;
@@ -170,33 +154,33 @@ __MAC_OS_X_VERSION_MIN_REQUIRED > __MAC_10_7))
 	BOOL toggleState;
 }
 
-	//////////////////////////////////////////////////////////////////////////////////////////
-	/// @name State handling
-	//////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////
+/// @name State handling
+//////////////////////////////////////////////////////////////////////////////////////////
 
-/** Toggles the state from on to off or vice versa.
-
- @see toggleState;
- */
+/** Toggles the state from on to off or vice versa.		 @see toggleState;			*/
 - (void) reverseToggleState;
 
-/** Sets the toggle state.
-
- @see reverseToggleState;
- */
+/** Sets the toggle state.	 							@see reverseToggleState;	*/
 @property (assign) BOOL toggleState;
 
-/** On state text.
-
- @see offStateText;
- */
+/** On state text.										@see offStateText;			*/
 @property (copy) NSString* onStateText;
 
-/** Off state text.
-
- @see onStateText;
- */
+/** Off state text.									 	@see onStateText;			*/
 @property (copy) NSString* offStateText;
 
 
 @end
+
+
+
+	//@interface AZToggle : BaseModel
+	//@property (nonatomic, retain) NSString *name;
+	//@property (nonatomic, retain) NSString *relative;
+	//@property (nonatomic, retain) NSString *onText;
+	//@property (nonatomic, retain) NSString *offText;
+	//@property (nonatomic, assign) BOOL toggleState;
+	//+ (AZToggle*) instanceWithObject:(id)object;
+	//@end;
+

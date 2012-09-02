@@ -15,7 +15,7 @@
 }
 
 
-+(AZSegmentedRect *) rectsInside:  (NSRect) rect NSIInside: (NSRect)	rect;
+//+(AZSegmentedRect *) rectsInside:  (NSRect) rect NSIInside: (NSRect)	rect;
 
 +(AZSegmentedRect *) rectWithRect: (NSRect)	rect;
 +(AZSegmentedRect *) rectWithRect: (NSRect) rect	cubicSize: (NSUInteger) size;
