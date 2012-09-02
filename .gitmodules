@@ -1,0 +1,3 @@
+[submodule "AtoZ/Categories/Functional"]
+	path = AtoZ/Categories/Functional
+	url = git@github.com:mralexgray/Functional.m.git
