@@ -570,10 +570,7 @@ NSRect AZMakeRectFromSize(NSSize size) {
 }
 
 NSRect AZMakeRect(NSPoint point, NSSize size) {
-  return NSMakeRect(point.x, 
-                    point.y, 
-                    size.width, 
-                    size.height);
+  return  nanRectCheck((NSRect){point.x,	point.y, size.width, size.height});
 }
 
 NSRect AZMakeSquare(NSPoint center, CGFloat radius) {

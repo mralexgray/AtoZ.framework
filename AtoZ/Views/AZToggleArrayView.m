@@ -163,21 +163,40 @@
 
 	// This is a bit of fast hacking; it would be better to use array of item names or similar.
 	// Or in a real-world situation, the layers would be added by binding to a data source and responding to changes.
+//
+//	if ([_delegate respondsToSelector:@selector(numberOfTogglesInView:)]) {
+//		NSUInteger numItems = [_delegate numberOfTogglesInView:self];
+//		self.questions 		= [[NSArray arrayFrom:1 To:numItems] arrayUsingIndexedBlock:^id(id obj, NSUInteger idx) {
+//			NSString *toggleQuestion = [_delegate toggleView:self questionAtIndex:idx];
+//			AZWindowPosition where = [_delegate respondsToSelector:@selector(positionForQuestion:)]
+//								   ? [_delegate positionForQuestion:obj]
+//								   : AZPositionLeft;
+//
+//			NSString* rel = index == 0 ? @"superlayer" : [_delegate toggleView:self questionAtIndex: (idx-1) ]	;
+//			[self itemLayerWithName:toggleQuestion relativeTo:rel index:idx];
+//
+//			return toggleQuestion;
+//		}];
+//
+//
+//	}
+	if ([_delegate respondsToSelector:@selector(itemsForToggleView:)]){
+		NSArray *yesno = [_delegate itemsForToggleView:self];
+		[yesno each:^(id obj, NSUInteger index, BOOL *stop) {
 
-	if ([_delegate respondsToSelector:@selector(numberOfTogglesInView:)]) {
-		NSUInteger numItems = [_delegate numberOfTogglesInView:self];
-		self.questions 		= [[NSArray arrayFrom:1 To:numItems] arrayUsingIndexedBlock:^id(id obj, NSUInteger idx) {
-			NSString *toggleQuestion = [_delegate toggleView:self questionAtIndex:idx];
-			AZWindowPosition where = [_delegate respondsToSelector:@selector(positionForQuestion:)]
-								   ? [_delegate positionForQuestion:obj]
-								   : AZPositionLeft;
-
-			NSString* rel = index == 0 ? @"superlayer" : [_delegate toggleView:self questionAtIndex: (idx-1) ]	;
-			[self itemLayerWithName:toggleQuestion relativeTo:rel index:idx];
-
-			return toggleQuestion;
+			NSString* rel = (index == 0 ? @"superlayer" : yesno[index-1]);
+			[_containerLayer addSublayer:obj];
 		}];
-	} else if ([_delegate respondsToSelector:@selector(questionsForToggleView:)]) {
+	} else {
+
+		NSArray *yesno = [_delegate questionsForToggleView:self];
+
+		[yesno each:^(id obj, NSUInteger index, BOOL *stop) {
+			NSString* rel = (index == 0 ? @"superlayer" : yesno[index-1]);
+			[_containerLayer addSublayer:[self itemLayerWithName:obj relativeTo:rel index:index]];
+		}];
+	}
+/*	} else if ([_delegate respondsToSelector:@selector(questionsForToggleView:)]) {
 
 			self.questions = [_delegate questionsForToggleView:self];
 
@@ -205,7 +224,7 @@
 			[_containerLayer addSublayer:[self itemLayerWithName:obj relativeTo:rel index:index]];
 		}];
 	}
-		//	[containerLayer addSublayer:[self itemLayerWithName:@"Item 2" relativeTo:index:1]];
+*/		//	[containerLayer addSublayer:[self itemLayerWithName:@"Item 2" relativeTo:index:1]];
 		//	[containerLayer addSublayer:[self itemLayerWithName:@"Click these 'buttons' to change state ->"
 		//											 relativeTo:@"Item 2"
 		//												 onText:@"1"

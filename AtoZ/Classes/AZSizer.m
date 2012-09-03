@@ -105,11 +105,12 @@ int gcd(int m, int n) {	int t, r;
 	return self;
 }
 
-- (NSSize) size { return _size = self.width ? (NSSize) { self.width, self.height }
-							   : (NSSize) { _outerFrame.size.width / _columns,
-											_outerFrame.size.height / _rows} ;
+- (NSSize) size { return _size = _width ? nanSizeCheck( (NSSize){ _width, _height })
+							   : nanSizeCheck( (NSSize) { _outerFrame.size.width / _columns,
+											_outerFrame.size.height / _rows} ) ;
 }
-+ (NSArray*) rectsForQuantity:(int)aNumber inRect:(NSRect)aFrame {
++ (NSArray*) rectsForQuantity:(NSUInteger)aNumber inRect:(NSRect)aFrame {
+	aNumber = aNumber > 0 ? aNumber : 1;
 	AZSizer *sizer = [AZSizer forQuantity:aNumber inRect:aFrame];
 	return [sizer rects];
 }
@@ -143,18 +144,20 @@ int gcd(int m, int n) {	int t, r;
 	return  _quantityReal;
 }
 + (AZSizer*) forQuantity:(NSUInteger)aNumber aroundRect:(NSRect)aFrame {
-
-
-	CGFloat percentHigh = (aFrame.size.height/ (aFrame.size.height + aFrame.size.width));
+	aNumber = aNumber > 0 ? aNumber : 1;
+	NSRect normalFrame = nanRectCheck(aFrame);
+	CGFloat percentHigh = (normalFrame.size.height/ (normalFrame.size.height + normalFrame.size.width));
  	AZSizer* totalBoc 	= [[AZSizer alloc]init];
+	totalBoc.quantityReal = 0;
 	totalBoc.quantity 	= aNumber;
-	totalBoc.outerFrame = aFrame;
+	totalBoc.outerFrame = normalFrame;
 	totalBoc.rows 		= 0 + (ceil(aNumber * percentHigh) / 2);
 	totalBoc.columns 	= 0 + ((aNumber - totalBoc.rows) / 2);
 
-	totalBoc.width 		= (aFrame.size.width / totalBoc.columns);
-	totalBoc.height 	= (aFrame.size.height / totalBoc.rows);
+	totalBoc.width 		= (normalFrame.size.width / totalBoc.columns);
+	totalBoc.height 	= (normalFrame.size.height / totalBoc.rows);
 	totalBoc.perimeterOnly = YES;
+
 	return  totalBoc;
 }
 //	NSMutableArray *privateRects = [NSMutableArray array];

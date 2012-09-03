@@ -2351,11 +2351,11 @@ static CGFloat hexCharsToFloat(char firstChar, char secondChar)
 }
 
 @end
-
-@implementation NSArray (THColorConversion)
-
-- (NSArray *)colorValues {
-	return [self arrayPerformingSelector:@selector(colorValue)];
-}
-
-@end
+//
+//@implementation NSArray (THColorConversion)
+//
+//- (NSArray *)colorValues {
+//	return [self arrayPerformingSelector:@selector(colorValue)];
+//}
+//
+//@end

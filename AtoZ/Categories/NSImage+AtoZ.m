@@ -38,6 +38,24 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 
 @implementation NSImage (AtoZ)
 
+- (NSImage*) maskWithColor:(NSColor*)c {
+
+	NSImage* badgeImage = [[NSImage alloc] initWithSize:self.size];
+//	[NSGraphicsContext saveGraphicsState];
+	[badgeImage lockFocus];
+//	NSShadow *theShadow = [[NSShadow alloc] init];
+//	[theShadow setShadowOffset: NSMakeSize(0,10)];
+//	[theShadow setShadowBlurRadius:10];
+//	[theShadow setShadowColor:[[NSColor blackColor] colorWithAlphaComponent:.9]];
+//	[theShadow set];
+//	[badgeImage compositeToPoint:NSZeroPoint operation:NSCompositeSourceOver];
+//	[NSGraphicsContext restoreGraphicsState];
+	[c set];
+	NSRectFill(AZMakeRectFromSize(self.size));
+//	[self drawAtPoint:NSZeroPoint fromRect:NSZeroRect operation:NSCompositeDestinationAtop fraction:1];
+	[badgeImage unlockFocus];
+	return badgeImage;
+}
 
 - (NSImage *)scaleImageToFillSize:(NSSize)targetSize
 {
@@ -92,6 +110,18 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 
 + (id) imageWithFileName:(NSString *) fileName inBundleForClass:(Class) aClass {
 	return [self imageWithFileName: fileName inBundle: [NSBundle bundleForClass: aClass]];
+}
+
+
++ (NSArray*) iconicArray {
+	NSBundle *aBundle = [NSBundle bundleForClass: [DummyClass class]];
+	NSArray* imagePaths = [aBundle pathsForResourcesOfType:@"pdf" inDirectory:@"Iconic"];
+	NSLog(@"%@", imagePaths);
+	NSArray *images = [imagePaths arrayUsingBlock:^id(id obj) {
+		NSLog(@"loading %@", [obj lastPathComponent]);
+		return [self imageWithFileName:[obj lastPathComponent] inBundle:aBundle];
+	}];
+	return images;
 }
 
 + (id) imageInFrameworkWithFileName:(NSString *) fileName {	

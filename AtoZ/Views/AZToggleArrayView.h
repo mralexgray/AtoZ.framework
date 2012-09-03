@@ -58,6 +58,11 @@ __MAC_OS_X_VERSION_MIN_REQUIRED > __MAC_10_7))
 @interface 	AZToggleArrayView : NSView
 //	@private
 //	id<AZToggleArrayViewDelegate> __ah_weak _delegate;
+- (CALayer*) 				itemLayerWithName:(NSString*)name		relativeTo:(NSString*)relative
+									   onText:(NSString*)onText	   	   offText:(NSString*)offText
+										state:(BOOL)state				 index:(NSUInteger)index
+							  labelPositioned:(AZWindowPosition)position;
+
 
 - (CALayer*) 				  itemLayerWithName:(NSString*)name 	relativeTo:(NSString*)relative
 							  			 onText:(NSString*)onText      offText:(NSString*)offText

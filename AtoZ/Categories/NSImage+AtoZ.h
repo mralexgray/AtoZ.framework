@@ -24,6 +24,8 @@ typedef enum {
 
 @interface NSImage (AtoZ)
 
+- (NSImage*) maskWithColor:(NSColor*)c;
+
 - (NSImage *)scaleImageToFillSize:(NSSize)targetSize;
 - (NSImage*)  coloredWithColor:(NSColor*)inColor;
 - (NSImage*)  coloredWithColor:(NSColor*)inColor composite:(NSCompositingOperation)comp;
@@ -32,6 +34,9 @@ typedef enum {
 + (id) imageWithFileName:(NSString *)fileName inBundle:(NSBundle *)aBundle;
 + (id) imageWithFileName:(NSString *) fileName inBundleForClass:(Class) aClass;
 + (id) imageInFrameworkWithFileName:(NSString *) fileName;
+
++ (NSArray*) iconicArray;
+
 
 + (NSImage *)swatchWithColor:(NSColor *)color size:(NSSize)size;
 + (NSImage *)swatchWithGradientColor:(NSColor *)color size:(NSSize)size;

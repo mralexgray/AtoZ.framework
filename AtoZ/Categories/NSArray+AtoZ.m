@@ -25,7 +25,10 @@
 - (NSUInteger) enumFromString: (NSString*) s;	{    return [self enumFromString:s default:0];	}
 
 - (NSArray *)colorValues {
-	return [self arrayPerformingSelector:@selector(colorValue)];
+	return [self arrayUsingBlock:^id(id obj) {
+		return [obj colorValue];
+	}];
+//	[self arrayPerformingSelector:@selector(colorValue)];
 }
 
 
