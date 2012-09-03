@@ -44,7 +44,8 @@
 - (CGFloat)		offsetForItemAtIndex:(NSInteger)index;
 - (NSInteger)	clampedIndex:(NSInteger)index;
 - (CGFloat)		clampedOffset:(CGFloat)offset;
-- (NSInteger)	currentItemIndex;
+//- (NSInteger)	currentItemIndex;
+@property (nonatomic, assign) NSInteger currentItemIndex;
 @property (nonatomic, assign) NSTimeInterval startTime;
 @property (nonatomic, assign) CGFloat startVelocity;
 @property (nonatomic, assign, getter = isScrolling) BOOL scrolling;

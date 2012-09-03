@@ -32,8 +32,8 @@ static const NSString *didScroll = @"scrollOffset";
 
 @implementation AZQuadCarousel
 
-
-- (NSMutableArray *)items { 	if  ( _items == nil ) _items = [AtoZ appFolderSamplerWith:RAND_INT_VAL(34, 55)].mutableCopy;
+- (NSMutableArray *)items {
+	if  ( _items == nil ) _items = [AtoZ appFolderSamplerWith:RAND_INT_VAL(34, 55)].mutableCopy;
 	self.southWest = _items;
 	self.northEast = _items.reversed;
 	return  _items;
@@ -69,37 +69,40 @@ static const NSString *didScroll = @"scrollOffset";
 	self.menu_E =  [[iCarousel alloc]initWithFrame: AZMakeRectFromSize(_east.visibleFrame.size)],
 	self.menu_W =  [[iCarousel alloc]initWithFrame: AZMakeRectFromSize(_west.visibleFrame.size)] ];
 	
-
-	[ _menus each:^(iCarousel * obj, NSUInteger idx, BOOL *go) {
+	[ _menus each:^(iCarousel * obj, NSUInteger idx, BOOL *go)
+	{
 		AZTrackingWindow* w = [_quads objectAtIndex:idx];
-		[[w contentView] addSubview:obj];
-		[w setIdentifier: 	idx == 0 ? @"quad_N" : idx == 1 ? @"quad_S" : idx == 2 ? @"quad_E" : @"quad_W"];
-		[obj setIdentifier: idx == 0 ? @"menu_N" : idx == 1 ? @"menu_S" : idx == 2 ? @"menu_E" : @"menu_W"];
+		[w.contentView addSubview:obj];
 
+		w.identifier 	= idx == 0 ? @"quad_N" : idx == 1 ? @"quad_S" : idx == 2 ? @"quad_E" : @"quad_W";
+		obj.identifier	= idx == 0 ? @"menu_N" : idx == 1 ? @"menu_S" : idx == 2 ? @"menu_E" : @"menu_W";
+		obj.type 		= idx == 0 ? iCarouselTypeCustom : idx == 1 ? iCarouselTypeLinear : RAND_INT_VAL(0, 12);
+		obj.dataSource 	= self;
+		obj.delegate 	= self;
+		obj.vertical 	= idx <= 1 ?  NO : YES;
+		obj.scrollToItemBoundary	= YES;
+		obj.stopAtItemBoundary		= YES;
+		obj.centerItemWhenSelected	= NO;
+			//		[obj setHidden:YES];
+		obj.wantsLayer 	= YES;
+		[obj.window orderFrontRegardless];
 		[NSEvent addGlobalMonitorForEventsMatchingMask: AZMouseActive  handler:^(NSEvent *e) {
-			BOOL activated = NSMouseInRect(mouseLoc(), w.triggerFrame, NO);
-			if (activated) { [NSApp activateIgnoringOtherApps:YES];
+			if ( NSMouseInRect( mouseLoc(), w.triggerFrame, NO)) {
+				[NSApp activateIgnoringOtherApps:YES];
 				[_quads each:^(id obj, NSUInteger index, BOOL *stop) {
 					[obj orderFrontRegardless];
 				}];
 			}
-				//			NSLog(@"mousein rect: %@      :%@", StringFromBOOL(,
-				//			 w.identifier);
 		}];
+	}];
+	[NSApp activateIgnoringOtherApps:YES];
+	self.tilt = 0;
 
+} return self;
+	
+}
 
 			//			/* (NSStringFromPoint(  AZPointDistanceToBorderOfRect(mouseLoc(), AZScreenFrame())));  */
-		self.tilt = 0;
-		[obj setDataSource : self];
-		[obj setDelegate : self];
-		[obj setVertical : idx <= 1 ?  NO : YES];
-		[obj setType : idx == 0 ? iCarouselTypeCustom : idx == 1 ? iCarouselTypeLinear : RAND_INT_VAL(0, 12)];
-		[obj setScrollToItemBoundary : YES];
-		[obj setStopAtItemBoundary:YES];
-		[obj setCenterItemWhenSelected:NO];
-			//		[obj setHidden:YES];
-		[obj setWantsLayer:YES];
-		[[obj window] orderFrontRegardless];
 			//		[obj addObserver:self forKeyPath:@"dragging" options:0 context:NULL];
 			//@{ @"id" : obj.identifier }
 			//						    addObserver:self forKeyPath:$(@"%@.scrollOffset", obj.identifier)];
@@ -110,14 +113,6 @@ static const NSString *didScroll = @"scrollOffset";
 			//		 @"delegate" : self,
 			//		 @"vertical" : index <= 1 ?  @(NO) : @(YES),
 			//		 @"type" : @(iCarouselTypeLinear) } ];
-
-	}];
-	[NSApp activateIgnoringOtherApps:YES];
-
-
-} return self;
-
-}
 
 -(void) carouselDidScroll:(iCarousel *)carousel
 {
@@ -243,7 +238,7 @@ static const NSString *didScroll = @"scrollOffset";
 	self.activeQuadID = carousel.window.identifier;
 	self.activeMenuID = carousel.identifier;
 	self.selectedIndex = index;
-
+	self.windowLog = $(@"%@",[carousel propertiesPlease]);
 
 	CGFloat dynStrk = AZMaxDim(v.bounds.size)  * .07 ;
 	CAShapeLayer *u = [CAShapeLayer layer];
@@ -346,10 +341,18 @@ static const NSString *didScroll = @"scrollOffset";
 	//	return [self szrForPerimeter];
 	//}
 
+
+- (void) setOption:(Option)option {
+
+	_option=option;
+	[_menus each:^(id obj, NSUInteger index, BOOL *stop) {
+		[obj reloadData];
+	}];
+}
 - (CATransform3D)carousel:(iCarousel *)_carousel index:(NSInteger)index  baseTransform:(CATransform3D)transform;
 
 {
-
+	NSLog(@"inside custom delegate");
 	NSPoint now = [self.seg pointOfSegmentAtIndex:index];
 	CATransform3D translate = CATransform3DMakeTranslation(now.x,now.y , 0);
 	transform = CATransform3DConcat(transform, translate);
@@ -447,8 +450,138 @@ static const NSString *didScroll = @"scrollOffset";
 		 pathAnimation.duration = duration;
 		 [view.layer addAnimation:pathAnimation forKey:@"curveAnimation"]; /*/
 			//	return (__bridge CATransform3D)pathAnimation;
-	} else if (_option ==3) {
+	} else if (_option ==5) {
 
+			CATransform3D existing = transform;
+			CATransform3D transform = CATransform3DIdentity;
+			CALayer *topSleeve;
+			CALayer *middleSleeve;
+			CALayer *bottomSleeve;
+			CALayer *topShadow;
+			CALayer *middleShadow;
+			NSView *mainView = [carousel ];
+			CGFloat width = 300;
+			CGFloat height = 150;
+			CALayer *firstJointLayer;
+			CALayer *secondJointLayer;
+			CALayer *perspectiveLayer;
+
+			mainView = [[UIView alloc] initWithFrame:CGRectMake(50, 50, width, height*3)];
+			mainView.backgroundColor = [UIColor yellowColor];
+			[self.view addSubview:mainView];
+
+			perspectiveLayer = [CALayer layer];
+			perspectiveLayer.frame = CGRectMake(0, 0, width, height*2);
+			[mainView.layer addSublayer:perspectiveLayer];
+
+			firstJointLayer = [CATransformLayer layer];
+			firstJointLayer.frame = mainView.bounds;
+			[perspectiveLayer addSublayer:firstJointLayer];
+
+			topSleeve = [CALayer layer];
+			topSleeve.frame = CGRectMake(0, 0, width, height);
+			topSleeve.anchorPoint = CGPointMake(0.5, 0);
+			topSleeve.backgroundColor = [UIColor redColor].CGColor;
+			topSleeve.position = CGPointMake(width/2, 0);
+			[firstJointLayer addSublayer:topSleeve];
+			topSleeve.masksToBounds = YES;
+
+			secondJointLayer = [CATransformLayer layer];
+			secondJointLayer.frame = mainView.bounds;
+			secondJointLayer.frame = CGRectMake(0, 0, width, height*2);
+			secondJointLayer.anchorPoint = CGPointMake(0.5, 0);
+			secondJointLayer.position = CGPointMake(width/2, height);
+			[firstJointLayer addSublayer:secondJointLayer];
+
+			middleSleeve = [CALayer layer];
+			middleSleeve.frame = CGRectMake(0, 0, width, height);
+			middleSleeve.anchorPoint = CGPointMake(0.5, 0);
+			middleSleeve.backgroundColor = [UIColor blueColor].CGColor;
+			middleSleeve.position = CGPointMake(width/2, 0);
+			[secondJointLayer addSublayer:middleSleeve];
+			middleSleeve.masksToBounds = YES;
+
+			bottomSleeve = [CALayer layer];
+			bottomSleeve.frame = CGRectMake(0, height, width, height);
+			bottomSleeve.anchorPoint = CGPointMake(0.5, 0);
+			bottomSleeve.backgroundColor = [UIColor grayColor].CGColor;
+			bottomSleeve.position = CGPointMake(width/2, height);
+			[secondJointLayer addSublayer:bottomSleeve];
+
+			firstJointLayer.anchorPoint = CGPointMake(0.5, 0);
+			firstJointLayer.position = CGPointMake(width/2, 0);
+
+			topShadow = [CALayer layer];
+			[topSleeve addSublayer:topShadow];
+			topShadow.frame = topSleeve.bounds;
+			topShadow.backgroundColor = [UIColor blackColor].CGColor;
+			topShadow.opacity = 0;
+
+			middleShadow = [CALayer layer];
+			[middleSleeve addSublayer:middleShadow];
+			middleShadow.frame = middleSleeve.bounds;
+			middleShadow.backgroundColor = [UIColor blackColor].CGColor;
+			middleShadow.opacity = 0;
+
+			transform.m34 = -1.0/700.0;
+			perspectiveLayer.sublayerTransform = transform;
+
+			CABasicAnimation* animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.x"];
+			[animation setDuration:2];
+			[animation setAutoreverses:YES];
+			[animation setRepeatCount:INFINITY];
+			[animation setFromValue:[NSNumber numberWithDouble:0]];
+			[animation setToValue:[NSNumber numberWithDouble:-90*M_PI/180]];
+			[firstJointLayer addAnimation:animation forKey:nil];
+
+			animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.x"];
+			[animation setDuration:2];
+			[animation setAutoreverses:YES];
+			[animation setRepeatCount:INFINITY];
+			[animation setFromValue:[NSNumber numberWithDouble:0]];
+			[animation setToValue:[NSNumber numberWithDouble:180*M_PI/180]];
+			[secondJointLayer addAnimation:animation forKey:nil];
+
+			animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.x"];
+			[animation setDuration:2];
+			[animation setAutoreverses:YES];
+			[animation setRepeatCount:INFINITY];
+			[animation setFromValue:[NSNumber numberWithDouble:0]];
+			[animation setToValue:[NSNumber numberWithDouble:-90*M_PI/180]];
+			[bottomSleeve addAnimation:animation forKey:nil];
+
+			animation = [CABasicAnimation animationWithKeyPath:@"bounds.size.height"];
+			[animation setDuration:2];
+			[animation setAutoreverses:YES];
+			[animation setRepeatCount:INFINITY];
+			[animation setFromValue:[NSNumber numberWithDouble:perspectiveLayer.bounds.size.height]];
+			[animation setToValue:[NSNumber numberWithDouble:0]];
+			[perspectiveLayer addAnimation:animation forKey:nil];
+
+			animation = [CABasicAnimation animationWithKeyPath:@"position.y"];
+			[animation setDuration:2];
+			[animation setAutoreverses:YES];
+			[animation setRepeatCount:INFINITY];
+			[animation setFromValue:[NSNumber numberWithDouble:perspectiveLayer.position.y]];
+			[animation setToValue:[NSNumber numberWithDouble:0]];
+			[perspectiveLayer addAnimation:animation forKey:nil];
+
+			animation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+			[animation setDuration:2];
+			[animation setAutoreverses:YES];
+			[animation setRepeatCount:INFINITY];
+			[animation setFromValue:[NSNumber numberWithDouble:0]];
+			[animation setToValue:[NSNumber numberWithDouble:0.5]];
+			[topShadow addAnimation:animation forKey:nil];
+
+			animation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+			[animation setDuration:2];
+			[animation setAutoreverses:YES];
+			[animation setRepeatCount:INFINITY];
+			[animation setFromValue:[NSNumber numberWithDouble:0]];
+			[animation setToValue:[NSNumber numberWithDouble:0.5]];
+			[middleShadow addAnimation:animation forKey:nil];
+		}
 			//		if (carousel.identifier != AZMenuPositionName[AZMenuN] ) return transform;
 			//		else {
 
