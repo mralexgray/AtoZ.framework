@@ -35,8 +35,8 @@ static NSMutableDictionary *keyNames = nil, *nillableKeyNames = nil;
 		free(vars);
 	}
 	
-	[keyNames setObject:names forKey:self];
-	[nillableKeyNames setObject:nillableNames forKey:self];
+	[keyNames setObject:names forKey:(id)self];
+	[nillableKeyNames setObject:nillableNames forKey:(id)self];
 	[names release], [nillableNames release];
 }
 

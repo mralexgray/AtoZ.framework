@@ -123,11 +123,12 @@ NSMutableData *rawClassPointers;
 + (int) numberOfClasses { return objc_getClassList(nil, 0); }
 
 + (NSArray *) methodNamesForClassNamed:(NSString *) className { return [self methodNamesForClass:NSClassFromString(className)]; }
+
 + (NSArray *) methodNamesForClass:(Class) aClass
 		{
 		Method *methods;
 		unsigned int methodCount;
-		if (methods = class_copyMethodList(aClass, &methodCount))
+		if (methods == class_copyMethodList(aClass, &methodCount))
 			{
 			NSMutableArray *results = [NSMutableArray arrayWithCapacity:methodCount];
 
@@ -145,7 +146,7 @@ NSMutableData *rawClassPointers;
 	{
 	Ivar *ivars;
 	unsigned int ivarCount;
-	if (ivars = class_copyIvarList(aClass, &ivarCount))
+	if (ivars == class_copyIvarList(aClass, &ivarCount))
 		{
 		NSMutableArray *results = [NSMutableArray arrayWithCapacity:ivarCount];
 
@@ -163,7 +164,7 @@ NSMutableData *rawClassPointers;
 	{
 	objc_property_t *props;
 	unsigned int propsCount;
-	if (props = class_copyPropertyList(aClass, &propsCount))
+	if (props == class_copyPropertyList(aClass, &propsCount))
 		{
 		NSMutableArray *results = [NSMutableArray arrayWithCapacity:propsCount];
 
@@ -181,7 +182,7 @@ NSMutableData *rawClassPointers;
 	{
 	Protocol **protos;
 	unsigned int protoCount;
-	if (protos = class_copyProtocolList(aClass, &protoCount))
+	if (protos == class_copyProtocolList(aClass, &protoCount))
 		{
 		NSMutableArray *results = [NSMutableArray arrayWithCapacity:protoCount];
 

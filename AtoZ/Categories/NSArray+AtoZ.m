@@ -143,28 +143,32 @@ static NSInteger comparatorForSortingUsingArray(id object1, id object2, void *co
 }
 
 // array evaluating a selector
-- (NSArray *)arrayPerformingSelector:(SEL)selector {
-	SEL selecto = selector;
-	NSMutableArray *re = [NSMutableArray arrayWithCapacity:self.count];
-	for (id o in self) {
-		id v = [o performSelector:selecto];
-		if (v) {
-			[re addObject:v];
-		}
-	}
-	return re;
-}
-
-- (NSArray *)arrayPerformingSelector:(SEL)selector withObject:(id)object {
-	NSMutableArray *re = [NSMutableArray arrayWithCapacity:self.count];
-	for (id o in self) {
-		id v = [o performSelector:selector withObject:object];
-		if (v) {
-			[re addObject:v];
-		}
-	}
-	return re;
-}
+//- (NSArray *)arrayPerformingSelector:(SEL)selector {
+////	SEL selecto = selector;
+////	NSMutableArray *re = [NSMutableArray arrayWithCapacity:self.count];
+//	return [self enum^id(id obj) {
+//		if ([obj respondsToSelector:selector]){
+//			return [obj performSelector:selector];
+//		}
+//	}];
+////	for (id o in self) {
+////		id v = [NSApp sendAction:selecto to:o from:nil];
+////		[re addObject:v];
+////		}
+////	}
+////	return re;
+//}
+//
+//- (NSArray *)arrayPerformingSelector:(SEL)selector withObject:(id)object {
+//	NSMutableArray *re = [NSMutableArray arrayWithCapacity:self.count];
+//	for (id o in self) {
+//		id v = [o performSelector:selector withObject:object];
+//		if (v) {
+//			[re addObject:v];
+//		}
+//	}
+//	return re;
+//}
 
 - (NSArray *)arrayUsingBlock:(id (^)(id obj))block {
 	return [self map:block];

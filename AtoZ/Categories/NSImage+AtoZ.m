@@ -728,24 +728,19 @@ NSImage* newImage = [[NSImage alloc] initWithSize:afterSize];
 return [newImage autorelease];	
 }*/
 {
-	if (angle != 90 && angle != 270)
-		return self;
+	if (angle != 90 && angle != 270)	return self;
 	
-	NSImage *existingImage = self;
-	NSSize existingSize;
+	NSImage *existingImage = self;		NSSize existingSize;
 	
-	/**
-	 * Get the size of the original image in its raw bitmap format.
-	 * The bestRepresentationForDevice: nil tells the NSImage to just
-	 * give us the raw image instead of it's wacky DPI-translated version.
-	 */
+	/**  Get the size of the original image in its raw bitmap format.  The bestRepresentationForDevice: nil tells the NSImage to just give us the raw image instead of it's wacky DPI-translated version.   */
 	//	 NSBitmapImageRep = [existingImage bitmap];
-	existingSize.width = [[existingImage bestRepresentationForDevice: nil] pixelsWide];
-	existingSize.height = [[existingImage bestRepresentationForDevice: nil] pixelsHigh];
-	
+
+	existingSize.width = 	[[existingImage bestRepresentationForRect:AZMakeRectFromSize(existingSize)
+														      context:[NSGraphicsContext currentContext] hints:nil] pixelsWide];
+	existingSize.height = [[existingImage bestRepresentationForRect:AZMakeRectFromSize(existingSize)
+															  context:[NSGraphicsContext currentContext] hints:nil] pixelsHigh];
 	NSSize newSize = NSMakeSize(existingSize.height, existingSize.width);
 	NSImage *rotatedImage = [[NSImage alloc] initWithSize:newSize];
-	
 	[rotatedImage lockFocus];
 	
 	/**
@@ -1536,12 +1531,7 @@ CGContextRef MyCreateBitmapContext (int pixelsWide, int pixelsHigh)
 		}
 	}
 	///QSLog(@"   Rex? %@", bestRep);
-	
-	if (bestRep) return bestRep;
-	bestRep = [self bestRepresentationForDevice:nil];
-	//   QSLog(@"unable to find reps %@", reps);
-	
-	return bestRep;
+	return bestRep = bestRep ? bestRep : [self bestRepresentationForRect:AZMakeRectFromSize(theSize) context:[NSGraphicsContext currentContext] hints:nil];		//   QSLog(@"unable to find reps %@", reps);
 	return nil;
 }
 

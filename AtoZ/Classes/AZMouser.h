@@ -89,7 +89,7 @@ typedef enum {
 @property (assign, nonatomic) AZDockOrientation orientation;
 @property (assign, nonatomic) NSSize screenSize;
 @property (assign, nonatomic) BOOL debug;
-+ (AZMouser*)sharedInstance;
+//+ (AZMouser*)sharedInstance;
 
 - (void) moveTo: (CGPoint) point;
 - (CGPoint) mouseLocation;

@@ -1944,7 +1944,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = AZ;
-				LastUpgradeCheck = 0440;
+				LastUpgradeCheck = 0450;
 				ORGANIZATIONNAME = "mrgray.com, inc.";
 			};
 			buildConfigurationList = 7B31194A159B6D9E002134C4 /* Build configuration list for PBXProject "AtoZ" */;
@@ -2909,6 +2909,7 @@
 		7BA32AA515EACE830061B2BC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -2916,6 +2917,7 @@
 		7BA32AA615EACE830061B2BC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

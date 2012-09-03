@@ -30,7 +30,7 @@
 
 @interface CAAnimation (MCAdditions)
 
-+ (CAAnimation *)flipAnimationWithDuration:(NSTimeInterval)aDuration;
+//+ (CAAnimation *)flipAnimationWithDuration:(NSTimeInterval)aDuration;
 
 @end
 
