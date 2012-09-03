@@ -62,6 +62,20 @@
 		7B137CF715A201C00088A630 /* darklinen.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B137CF515A201C00088A630 /* darklinen.png */; };
 		7B137CFC15A202510088A630 /* AZBox.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B137CFA15A202510088A630 /* AZBox.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B137CFD15A202510088A630 /* AZBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B137CFB15A202510088A630 /* AZBox.m */; };
+		7B1528F615F49DE200027191 /* BlueSkyTulips.clr in Resources */ = {isa = PBXBuildFile; fileRef = 7B1528E815F49DCD00027191 /* BlueSkyTulips.clr */; };
+		7B1528F715F49DE200027191 /* Bujumbura.clr in Resources */ = {isa = PBXBuildFile; fileRef = 7B1528E915F49DCD00027191 /* Bujumbura.clr */; };
+		7B1528F815F49DE200027191 /* CoffeeBeans.clr in Resources */ = {isa = PBXBuildFile; fileRef = 7B1528EA15F49DCD00027191 /* CoffeeBeans.clr */; };
+		7B1528F915F49DE200027191 /* Daytona.clr in Resources */ = {isa = PBXBuildFile; fileRef = 7B1528EB15F49DCD00027191 /* Daytona.clr */; };
+		7B1528FA15F49DE200027191 /* FengShui.clr in Resources */ = {isa = PBXBuildFile; fileRef = 7B1528EC15F49DCD00027191 /* FengShui.clr */; };
+		7B1528FB15F49DE200027191 /* FlyingGeese.clr in Resources */ = {isa = PBXBuildFile; fileRef = 7B1528ED15F49DCD00027191 /* FlyingGeese.clr */; };
+		7B1528FC15F49DE200027191 /* GreenEggs.clr in Resources */ = {isa = PBXBuildFile; fileRef = 7B1528EE15F49DCD00027191 /* GreenEggs.clr */; };
+		7B1528FD15F49DE200027191 /* LagoonNebula.clr in Resources */ = {isa = PBXBuildFile; fileRef = 7B1528EF15F49DCD00027191 /* LagoonNebula.clr */; };
+		7B1528FE15F49DE200027191 /* Monaco.clr in Resources */ = {isa = PBXBuildFile; fileRef = 7B1528F015F49DCD00027191 /* Monaco.clr */; };
+		7B1528FF15F49DE200027191 /* MossAndLichen.clr in Resources */ = {isa = PBXBuildFile; fileRef = 7B1528F115F49DCD00027191 /* MossAndLichen.clr */; };
+		7B15290015F49DE200027191 /* OliveSunset.clr in Resources */ = {isa = PBXBuildFile; fileRef = 7B1528F215F49DCD00027191 /* OliveSunset.clr */; };
+		7B15290115F49DE200027191 /* OrigamiMice.clr in Resources */ = {isa = PBXBuildFile; fileRef = 7B1528F315F49DCD00027191 /* OrigamiMice.clr */; };
+		7B15290215F49DE200027191 /* Rainbow.clr in Resources */ = {isa = PBXBuildFile; fileRef = 7B1528F415F49DCD00027191 /* Rainbow.clr */; };
+		7B15290315F49DE200027191 /* RGB.clr in Resources */ = {isa = PBXBuildFile; fileRef = 7B1528F515F49DCD00027191 /* RGB.clr */; };
 		7B1C8F2115E49A3A00C30618 /* CategoryDataWheel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B1C8F2015E49A3A00C30618 /* CategoryDataWheel.m */; };
 		7B21670E15EA700A00DC0054 /* atoz.icns in Resources */ = {isa = PBXBuildFile; fileRef = 7BAF2EEB15E879C200099C9A /* atoz.icns */; };
 		7B230AC015EED2CF007A680D /* azCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B8F4C0615EEB38C00571612 /* azCarousel.m */; };
@@ -1740,6 +1754,20 @@
 		7B137CF515A201C00088A630 /* darklinen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = darklinen.png; sourceTree = "<group>"; };
 		7B137CFA15A202510088A630 /* AZBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZBox.h; path = AZBoxView/AZBox.h; sourceTree = SOURCE_ROOT; };
 		7B137CFB15A202510088A630 /* AZBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AZBox.m; path = AZBoxView/AZBox.m; sourceTree = SOURCE_ROOT; };
+		7B1528E815F49DCD00027191 /* BlueSkyTulips.clr */ = {isa = PBXFileReference; lastKnownFileType = file; path = BlueSkyTulips.clr; sourceTree = "<group>"; };
+		7B1528E915F49DCD00027191 /* Bujumbura.clr */ = {isa = PBXFileReference; lastKnownFileType = file; path = Bujumbura.clr; sourceTree = "<group>"; };
+		7B1528EA15F49DCD00027191 /* CoffeeBeans.clr */ = {isa = PBXFileReference; lastKnownFileType = file; path = CoffeeBeans.clr; sourceTree = "<group>"; };
+		7B1528EB15F49DCD00027191 /* Daytona.clr */ = {isa = PBXFileReference; lastKnownFileType = file; path = Daytona.clr; sourceTree = "<group>"; };
+		7B1528EC15F49DCD00027191 /* FengShui.clr */ = {isa = PBXFileReference; lastKnownFileType = file; path = FengShui.clr; sourceTree = "<group>"; };
+		7B1528ED15F49DCD00027191 /* FlyingGeese.clr */ = {isa = PBXFileReference; lastKnownFileType = file; path = FlyingGeese.clr; sourceTree = "<group>"; };
+		7B1528EE15F49DCD00027191 /* GreenEggs.clr */ = {isa = PBXFileReference; lastKnownFileType = file; path = GreenEggs.clr; sourceTree = "<group>"; };
+		7B1528EF15F49DCD00027191 /* LagoonNebula.clr */ = {isa = PBXFileReference; lastKnownFileType = file; path = LagoonNebula.clr; sourceTree = "<group>"; };
+		7B1528F015F49DCD00027191 /* Monaco.clr */ = {isa = PBXFileReference; lastKnownFileType = file; path = Monaco.clr; sourceTree = "<group>"; };
+		7B1528F115F49DCD00027191 /* MossAndLichen.clr */ = {isa = PBXFileReference; lastKnownFileType = file; path = MossAndLichen.clr; sourceTree = "<group>"; };
+		7B1528F215F49DCD00027191 /* OliveSunset.clr */ = {isa = PBXFileReference; lastKnownFileType = file; path = OliveSunset.clr; sourceTree = "<group>"; };
+		7B1528F315F49DCD00027191 /* OrigamiMice.clr */ = {isa = PBXFileReference; lastKnownFileType = file; path = OrigamiMice.clr; sourceTree = "<group>"; };
+		7B1528F415F49DCD00027191 /* Rainbow.clr */ = {isa = PBXFileReference; lastKnownFileType = file; path = Rainbow.clr; sourceTree = "<group>"; };
+		7B1528F515F49DCD00027191 /* RGB.clr */ = {isa = PBXFileReference; lastKnownFileType = text; path = RGB.clr; sourceTree = "<group>"; };
 		7B15CBD215E8504C004BA8AB /* Growl.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Growl.xcodeproj; path = "../../git/growl-fresh/Growl.xcodeproj"; sourceTree = SOURCE_ROOT; };
 		7B1C8F1F15E49A3A00C30618 /* CategoryDataWheel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryDataWheel.h; sourceTree = "<group>"; };
 		7B1C8F2015E49A3A00C30618 /* CategoryDataWheel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryDataWheel.m; sourceTree = "<group>"; };
@@ -2728,6 +2756,28 @@
 			path = ../AtoZ;
 			sourceTree = "<group>";
 		};
+		7B1528E715F49DCD00027191 /* palettes */ = {
+			isa = PBXGroup;
+			children = (
+				7B1528E815F49DCD00027191 /* BlueSkyTulips.clr */,
+				7B1528E915F49DCD00027191 /* Bujumbura.clr */,
+				7B1528EA15F49DCD00027191 /* CoffeeBeans.clr */,
+				7B1528EB15F49DCD00027191 /* Daytona.clr */,
+				7B1528EC15F49DCD00027191 /* FengShui.clr */,
+				7B1528ED15F49DCD00027191 /* FlyingGeese.clr */,
+				7B1528EE15F49DCD00027191 /* GreenEggs.clr */,
+				7B1528EF15F49DCD00027191 /* LagoonNebula.clr */,
+				7B1528F015F49DCD00027191 /* Monaco.clr */,
+				7B1528F115F49DCD00027191 /* MossAndLichen.clr */,
+				7B1528F215F49DCD00027191 /* OliveSunset.clr */,
+				7B1528F315F49DCD00027191 /* OrigamiMice.clr */,
+				7B1528F415F49DCD00027191 /* Rainbow.clr */,
+				7B1528F515F49DCD00027191 /* RGB.clr */,
+			);
+			name = palettes;
+			path = Resources/palettes;
+			sourceTree = "<group>";
+		};
 		7B21670D15EA6FF800DC0054 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
@@ -2770,6 +2820,7 @@
 		7B311945159B6D9E002134C4 = {
 			isa = PBXGroup;
 			children = (
+				7B1528E715F49DCD00027191 /* palettes */,
 				7BC70CEC15F448DA009E037A /* BlocksKit.framework */,
 				7B21670D15EA6FF800DC0054 /* Shared */,
 				7B31195A159B6D9E002134C4 /* AtoZ */,
@@ -4321,6 +4372,20 @@
 				7B9742D115C697C4006490DD /* 2.pdf in Resources */,
 				7B9742D215C697C4006490DD /* 3.pdf in Resources */,
 				7B9742D315C697C4006490DD /* 4.pdf in Resources */,
+				7B1528F615F49DE200027191 /* BlueSkyTulips.clr in Resources */,
+				7B1528F715F49DE200027191 /* Bujumbura.clr in Resources */,
+				7B1528F815F49DE200027191 /* CoffeeBeans.clr in Resources */,
+				7B1528F915F49DE200027191 /* Daytona.clr in Resources */,
+				7B1528FA15F49DE200027191 /* FengShui.clr in Resources */,
+				7B1528FB15F49DE200027191 /* FlyingGeese.clr in Resources */,
+				7B1528FC15F49DE200027191 /* GreenEggs.clr in Resources */,
+				7B1528FD15F49DE200027191 /* LagoonNebula.clr in Resources */,
+				7B1528FE15F49DE200027191 /* Monaco.clr in Resources */,
+				7B1528FF15F49DE200027191 /* MossAndLichen.clr in Resources */,
+				7B15290015F49DE200027191 /* OliveSunset.clr in Resources */,
+				7B15290115F49DE200027191 /* OrigamiMice.clr in Resources */,
+				7B15290215F49DE200027191 /* Rainbow.clr in Resources */,
+				7B15290315F49DE200027191 /* RGB.clr in Resources */,
 				7B9742D415C697C4006490DD /* 5.pdf in Resources */,
 				7BCDFC6D15C71A810003DA4D /* noun_box.pdf in Resources */,
 				7BDB8D7D15CB56BA0037A4BF /* missing.png in Resources */,

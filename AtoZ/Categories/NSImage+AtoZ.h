@@ -35,7 +35,6 @@ typedef enum {
 + (id) imageWithFileName:(NSString *) fileName inBundleForClass:(Class) aClass;
 + (id) imageInFrameworkWithFileName:(NSString *) fileName;
 
-+ (NSArray*) iconicArray;
 
 
 + (NSImage *)swatchWithColor:(NSColor *)color size:(NSSize)size;
@@ -162,7 +161,13 @@ typedef enum {
 + (NSImage*)maskImage:(NSImage *)image withMask:(NSImage *)maskImage;
 @end
 
+@interface NSImage (Icons)
++ (NSArray*) icons;
++ (NSArray*) picolStrings;
++ (NSArray*) iconStrings;
++ (NSImage*) randomIcon;
 
+@end
 
 
 @interface NSImage (GrabWindow)

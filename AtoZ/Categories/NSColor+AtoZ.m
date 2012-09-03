@@ -810,7 +810,9 @@ static NSColor *ColorWithCSSString(NSString *str) {
 
 
 + (NSArray *) fengshui {
-	__block NSColorList *l = [[NSColorList alloc] initWithName:@"FengShui" fromFile:@"/System/Library/Colors/FengShui.clr"];
+	NSBundle *aBundle = [NSBundle bundleForClass: [AtoZ class]];
+	NSString *res = $(@"%@/FengShui.clr",[aBundle resourcePath]);
+	__block NSColorList *l = [[NSColorList alloc] initWithName:@"FengShui" fromFile:res];
 	NSArray *keys = [l allKeys];
 	return [keys arrayUsingBlock:^id(id obj) {
 		NSString *i = obj;
