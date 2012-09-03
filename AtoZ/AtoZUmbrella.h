@@ -87,7 +87,7 @@ typedef enum {
 	//
 
 typedef enum {
-	AZOrientTop = 0,  //explicit
+	AZOrientTop,  //explicit
 	AZOrientLeft,
 	AZOrientBottom,
 	AZOrientRight,
@@ -95,10 +95,10 @@ typedef enum {
 	AZOrientPerimeter,
 	AZOrientFiesta,
 	AZOrientVertical,
-	AZOrientHorizontal,
-	AZOrientCount,
+	AZOrientHorizontal
+
 } AZOrient;
-extern NSString *const AZOrientName[AZOrientCount];
+//extern NSString *const AZOrientName[AZOrientCount];
 
 
 typedef enum  {

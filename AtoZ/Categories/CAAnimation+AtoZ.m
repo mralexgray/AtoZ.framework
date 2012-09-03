@@ -484,6 +484,8 @@
 
 
 
+
+	
 @implementation CAAnimation (BlocksAddition)
 
 -  (BOOL)delegateCheck

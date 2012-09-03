@@ -29,6 +29,9 @@ CATextLayer* AddTextLayer( CALayer *superlayer,
                            NSString *text, NSFont* font,
                            enum CAAutoresizingMask align );
 
+CALayer* AddImageLayer( CALayer *superlayer,
+						   NSImage *image, CGFloat scale,
+						   enum CAAutoresizingMask align );
 
 /** Loads an image or pattern file into a CGImage or CGPattern.
  If the name begins with "/", it's interpreted as an absolute filesystem path.

@@ -11,7 +11,16 @@
 #import "AtoZUmbrella.h"
 
 
+
+
+//3d
+@interface  NSObject (LayerTools)
+- (CAShapeLayer*) lassoLayerForLayer:(CALayer*)layer;
+- (CALayer*) selectionLayerForLayer:(CALayer*)layer;
+- (CATransform3D)makeTransformForAngle:(CGFloat)angle;
+- (CGPoint)_randomPointInRect:(CGRect)rect;
 // shortcuts for [NSNumber numberWithXY]
+@end
 
 NSNumber *iNum(NSInteger i);
 NSNumber *uNum(NSUInteger ui);

@@ -122,6 +122,43 @@ CATextLayer* AddTextLayer( CALayer *superlayer,
     [superlayer addSublayer: label];
     return label;
 }
+CALayer* AddImageLayer( CALayer *superlayer,
+						  NSImage *image, CGFloat scale,
+						  enum CAAutoresizingMask align )
+{
+    CALayer *label = [[CALayer alloc] init];
+    label.contents = image;
+//    label.borderColor = kBlackColor;
+	label.contentsGravity = kCAGravityResizeAspectFill;
+//    NSString *mode;
+//    if( align & kCALayerWidthSizable )
+//        mode = @"center";
+//    else if( align & kCALayerMinXMargin )
+//        mode = @"right";
+//    else
+//        mode = @"left";
+//    align |= kCALayerWidthSizable;
+//    label.autoresizingMask = kCALayerWidthSizable | kCALayerHeightSizable;
+
+//    CGFloat inset = superlayer.borderWidth + 3;
+    CGRect bounds = AZScaleRect(superlayer.bounds, scale);//(superlayer.bounds, inset, inset);
+//    CGFloat height = font.ascender;
+//    CGFloat y = bounds.origin.y;
+//    if( align & kCALayerHeightSizable )
+//        y += (bounds.size.height-height)/2.0;
+//    else if( align & kCALayerMinYMargin )
+//        y += bounds.size.height - height;
+//    align &= ~kCALayerHeightSizable;
+//    label.bounds = CGRectMake(0, font.descender,
+//                              bounds.size.width, height - font.descender);
+    label.position =  AZCenterOfRect(superlayer.bounds);
+//	CGPointMake(bounds.origin.x,y+font.descender);
+//    label.anchorPoint = CGPointMake(.5,.5);
+
+    label.autoresizingMask = align;
+    [superlayer addSublayer: label];
+    return label;
+}
 
 
 CGImageRef CreateCGImageFromFile( NSString *path )

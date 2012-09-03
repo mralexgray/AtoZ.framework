@@ -740,38 +740,6 @@ static const NSString *didScroll = @"scrollOffset";
 
 
 
-- (CAShapeLayer*) lassoLayerForLayer:(CALayer*)layer {
-
-		//	NSLog(@"Clicked: %@", [[layer valueForKey:@"azfile"] propertiesPlease] );
-	CAShapeLayer *shapeLayer = [CAShapeLayer layer];
-		//	[shapeLayer setValue:layer forKey:@"mommy"];
-	CGRect shapeRect = layer.bounds;
-	[shapeLayer setBounds:shapeRect];
-	CGFloat dynnamicStroke = .1*AZMaxDim(layer.bounds.size);
-	CGFloat half = dynnamicStroke / 2;
-		//	[shapeLayer setAutoresizingMask:kCALayerWidthSizable|kCALayerHeightSizable];
-	shapeLayer.constraints = @[		AZConstScaleOff( kCAConstraintMinX,@"superlayer", 1, half), //2), 	AZConstScaleOff( kCAConstraintMaxX,@"superlayer", 1,2),
-	AZConstScaleOff( kCAConstraintMinY,@"superlayer", 1,half), /*2),*/ 	AZConstScaleOff( kCAConstraintMaxY,@"superlayer", 1,half),
-	AZConstScaleOff( kCAConstraintWidth,@"superlayer", 1,-dynnamicStroke), 	AZConstScaleOff( kCAConstraintHeight,@"superlayer", 1, - dynnamicStroke),
-	AZConst( kCAConstraintMidX,@"superlayer"), 					AZConst( kCAConstraintMidY,@"superlayer") ];
-
-	[shapeLayer setPosition:CGPointMake(.5,.5)];
-	shapeRect.size.width -= dynnamicStroke;		shapeRect.size.height -= dynnamicStroke;
-
-	shapeLayer.fillColor 	= cgCLEARCOLOR;
-	shapeLayer.strokeColor 	= cgBLACK; [[[layer valueForKey:@"azfile"]valueForKey:@"color"]CGColor];
-	shapeLayer.lineWidth	= dynnamicStroke;
-	shapeLayer.lineJoin		= kCALineJoinRound;
-	shapeLayer.lineDashPattern = @[ @(10), @(5)];
-	shapeLayer.path = [[NSBezierPath bezierPathWithRoundedRect:NSRectFromCGRect(shapeRect) cornerRadius:layer.cornerRadius] quartzPath];
-	shapeLayer.zPosition = 3300;
-	CABasicAnimation *dashAnimation = [CABasicAnimation animationWithKeyPath:@"lineDashPhase"];
-	[dashAnimation setValuesForKeysWithDictionary:@{ 	@"fromValue":@(0.0), 	@"toValue"	   :@(15.0),
-	 @"duration" : @(0.75),	@"repeatCount" : @(10000) }];
-	[shapeLayer addAnimation:dashAnimation forKey:@"linePhase"];
-	[shapeLayer needsDisplay];
-	return shapeLayer;
-}
 
 
 

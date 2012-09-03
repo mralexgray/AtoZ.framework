@@ -70,14 +70,14 @@ NSString *const FormatTypeName[FormatTypeCount] = {
 	[RSS] = @"RSS",
 };
 
-NSString *const AZOrientName[AZOrientCount] = {
-	[AZOrientTop] = @"Top",
-	[AZOrientLeft] = @"Left",
-	[AZOrientBottom] = @"Bottom",
-	[AZOrientRight] = @"Right",
-	[AZOrientFiesta] = @"Fiesta",
-//	[AZOrientCount] = @"Count",
-};
+//NSString *const AZOrientName[AZOrientCount] = {
+//	[AZOrientTop] = @"Top",
+//	[AZOrientLeft] = @"Left",
+//	[AZOrientBottom] = @"Bottom",
+//	[AZOrientRight] = @"Right",
+//	[AZOrientFiesta] = @"Fiesta",
+////	[AZOrientCount] = @"Count",
+//};
 
 // Log levels: off, error, warn, info, verbose
 static const int ddLogLevel = LOG_LEVEL_VERBOSE;
