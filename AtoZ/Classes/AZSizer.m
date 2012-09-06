@@ -8,7 +8,8 @@
 
 #import "AZSizer.h"
 
-int gcd(int m, int n) {	int t, r;
+NSUInteger gcd(NSInteger m, NSUInteger n) {
+	int t, r;
 	if (m < n) { t = m; m = n; n = t; } r = m % n; //MSLog(@"remainder for %i is %i", n, r);
 	if (r == 0) return n; else return gcd(n, r);
 }
@@ -16,6 +17,19 @@ int gcd(int m, int n) {	int t, r;
 @implementation Candidate
 
 //@synthesize width,height,rows,columns, aspectRatio, screen, remainder;
+
++(instancetype) withRows:(NSUInteger)rows columns:(NSUInteger)columns remainder:(NSInteger)rem forRect:(NSRect)screen {
+	Candidate *u = [[self class] instance];
+	u.remainder = rem;
+	u.rows 		= rows;
+	u.columns 	= columns;
+	u.screen 	= screen;
+	u.width 	= ( screen.size.width  / (float)columns );
+	u.height 	= (screen.size.height / (float)rows );
+	u.aspectRatio = ( u.width / u.height );
+	return u;
+}
+
 -(id) initWithDictionary:(NSDictionary *)d{
 	self = [Candidate instance];
 	//	if ([d valueForKey:@"width"]) 	self.width 	= [[d valueForKey:@"width"]floatValue];
@@ -76,12 +90,14 @@ int gcd(int m, int n) {	int t, r;
 			rem = ( _rowCandidate + ( x % _rowCandidate ) ) % _rowCandidate;
 			itemsnow = floor(items);
 			smallR = rem;			runnerUp = _rowCandidate;			rUpItems = itemsnow;
-			NSNumber *rowsAccountingForRemainder = ( rem != 0 ? $int(runnerUp + 1) : $int(runnerUp));
-			[_candidates addObject: [[Candidate alloc]initWithDictionary:	@{
-										@"columns"	:	$int(rUpItems),
-										@"rows"		:	rowsAccountingForRemainder,
-										@"remainder":	$int(smallR),
-										@"screen"	:	NSStringFromRect(aFrame)	}]];
+			NSUInteger rowsAccountingForRemainder =  rem != 0 ? (NSUInteger)(runnerUp + 1) : (NSUInteger)runnerUp;
+			[_candidates addObject:[Candidate withRows:rowsAccountingForRemainder columns:rUpItems remainder:smallR forRect:aFrame]];
+
+//			  [[Candidate alloc]initWithDictionary:	@{
+//										@"columns"	:	$int(rUpItems),
+//										@"rows"		:	rowsAccountingForRemainder,
+//										@"remainder":	$int(smallR),
+//										@"screen"	:	NSStringFromRect(aFrame)	}]];
 
 		}];
 
@@ -94,12 +110,12 @@ int gcd(int m, int n) {	int t, r;
 				distanceFromOne = distance;
 			}
 		}
-		self.perimeterOnly = NO;
+		self.orient 	= AZOrientGrid;
 		self.columns	= winner.columns;
 		self.rows 		= winner.rows;
 		self.width 		= winner.width;
 		self.height  	= winner.height;
-		self.remainder 	= winner.remainder;
+//		self.remainder 	= winner.remainder;
 		//	NSLog(@"Items:%ld Rows:%@ Columns:%@ Remainder: %@ Size: %ix%i", self.quantity, rows, columns, remainder, width.intValue, height.intValue);
 	}
 	return self;
@@ -115,17 +131,25 @@ int gcd(int m, int n) {	int t, r;
 	return [sizer rects];
 }
 
+-(NSString*) 	aspectRatio
+{
+//	NSInteger i = gcd((int)self.size.width, (int)self.size.height);
+	return	self.size.height == self.size.width	?	@"** 1 : 1 **" :
+					_size.height > _size.width  ?	$(@"1 : %0.1f", (float)(_size.height/_size.width))
+											    : 	$(@"%0.1f : 1", (float)(_size.width/_size.height));
+}
 
 - (NSArray*) rects {
+	NSLog(@"Quant: %ld. Cap: %ld. Rem:%ld  Aspect:%@. Rows: %ld. Cols:%ld", _quantity, self.capacity, self.remainder, self.aspectRatio , _rows, _columns );
 	if (!_rects) {		NSUInteger Q = 0;	NSMutableArray *pRects = [NSMutableArray array];
-		if (_perimeterOnly == NO) {
+		if (_orient == AZOrientGrid) {
 			for ( int r = (_rows-1); r >= 0; r--){
 				for ( int c = 0; c < _columns; c++ ) {
 					if (Q < _quantity) {
 						[pRects addRect:(NSRect) { (c * _width), (r *_height), _width, _height }];  Q++;
 		}	}	}	}
-		else		{
-			NSPoint p = NSZeroPoint; NSUInteger r1, r2, c1, c2;		r1 = r2 = c1 = c2 = 1;	_size = self.size;
+		else if (_orient == AZOrientPerimeter) {
+			NSPoint p = NSZeroPoint; NSInteger r1, r2, c1, c2;		r1 = r2 = c1 = c2 = 1;	_size = self.size;
 			while (Q < _quantity) {
 				if		(r1 < _columns) { [pRects addRect:AZMakeRect(p, _size)];	p.x += _width;  r1++; Q++;	}
 				else if (c1 < _rows) 	{ [pRects addRect:AZMakeRect(p, _size)];	p.y += _height; c1++; Q++;	}
@@ -137,27 +161,26 @@ int gcd(int m, int n) {	int t, r;
 	return _rects;
 }
 
-- (NSUInteger) quantityReal {
-	_quantityReal =  _perimeterOnly ?	(2 * _columns) + ((2 * _rows) - 4 )
-											:	 _rows * _columns;
-	if (_perimeterOnly)  _remainder = _quantityReal - _quantity;
-	return  _quantityReal;
+- (NSUInteger) capacity {	return _orient == AZOrientPerimeter	? (2 * self.columns) + (2 * self.rows) - 4 
+														 		:	/*_orient == AZOrientGrid */  		self.rows * self.columns;
 }
+
+- (NSInteger) remainder { return self.capacity - _quantity; }
+
 + (AZSizer*) forQuantity:(NSUInteger)aNumber aroundRect:(NSRect)aFrame {
 	aNumber = aNumber > 0 ? aNumber : 1;
 	NSRect normalFrame = nanRectCheck(aFrame);
-	CGFloat percentHigh = (normalFrame.size.height/ (normalFrame.size.height + normalFrame.size.width));
+	CGFloat percentHigh = normalFrame.size.height/ (normalFrame.size.height + normalFrame.size.width);
  	AZSizer* totalBoc 	= [[AZSizer alloc]init];
-	totalBoc.quantityReal = 0;
+	totalBoc.orient 	= AZOrientPerimeter;
 	totalBoc.quantity 	= aNumber;
 	totalBoc.outerFrame = normalFrame;
-	totalBoc.rows 		= 0 + (ceil(aNumber * percentHigh) / 2);
-	totalBoc.columns 	= 0 + ((aNumber - totalBoc.rows) / 2);
-
+	totalBoc.rows 		= ceil(  (aNumber * percentHigh)   / 2 );
+	totalBoc.columns 	= (aNumber - totalBoc.rows) / 2 ;
+	while (totalBoc.remainder < 0 )	totalBoc.rows 	 += 1;
+	while (totalBoc.remainder > 2 ) 	totalBoc.columns -= 1;
 	totalBoc.width 		= (normalFrame.size.width / totalBoc.columns);
 	totalBoc.height 	= (normalFrame.size.height / totalBoc.rows);
-	totalBoc.perimeterOnly = YES;
-
 	return  totalBoc;
 }
 //	NSMutableArray *privateRects = [NSMutableArray array];

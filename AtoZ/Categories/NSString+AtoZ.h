@@ -3,10 +3,11 @@
 //  AtoZ
 
 #import <Foundation/Foundation.h>
-#import "AtoZ.h"
+//#import "AtoZ.h"
 
 @interface NSString (AtoZ)
 
+- (NSString *)stringByReplacingAllOccurancesOfString:(NSString *)search withString:(NSString *)replacement;
 -(NSString*) urlEncoded;
 -(NSString*) urlDecoded;
 

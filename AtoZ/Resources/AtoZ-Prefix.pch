@@ -6,8 +6,11 @@
 
 	#import <Cocoa/Cocoa.h>
 	#import <Foundation/Foundation.h>
+	#import <ApplicationServices/ApplicationServices.h>
 	#import <QuartzCore/QuartzCore.h>
 	#import "AZGeometry.h"
+	#import "AtoZUmbrella.h"
+//	#import "AZTalker.h"
 
 #endif
 

@@ -37,6 +37,25 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 @end
 
 @implementation NSImage (AtoZ)
+// this creates an image from the entire 'visible' rectangle of a view
+// for offscreen views this is the entire view
++ (NSImage *)createImageFromView:(NSView *)view {
+	NSRect rect = [view bounds];
+	return [self createImageFromSubView:view rect:rect];
+}
+
+	// this creates an image from a subset of the view's visible rectangle
++ (NSImage *)createImageFromSubView:(NSView *)view rect:(NSRect)rect{
+		// first get teh properly setup bitmap for this view
+	NSBitmapImageRep *imageRep = [view bitmapImageRepForCachingDisplayInRect:rect];
+		// now use that bitmap to store the desired view rectangle as bits
+	[view cacheDisplayInRect:rect toBitmapImageRep:imageRep];
+		// jam that bitrep into an image and return it
+	NSImage *image = [[[NSImage alloc] initWithSize:rect.size] autorelease];
+	[image addRepresentation:imageRep];
+	return image;
+}
+
 
 - (NSImage*) maskWithColor:(NSColor*)c {
 
@@ -652,7 +671,7 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 	
 	// Composite image appropriately
 	[result lockFocus];
-	[[NSGraphicsContext currentContext] setImageInterpolation:NSImageInterpolationHigh];
+//	[[NSGraphicsContext currentContext] setImageInterpolation:NSImageInterpolationHigh];
 	[self drawInRect:NSMakeRect(0,0,size.width,size.height) operation:NSCompositeSourceOver fraction:1.0 method:resizeMethod];
 	[result unlockFocus];
 	
@@ -666,7 +685,9 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 
 - (NSImage *)imageScaledToFitSize:(NSSize)size
 {
-	return [self imageToFitSize:size method:AGImageResizeScale];
+	[self setScalesWhenResized:YES];
+	[self setSize: size];
+	return self;
 }
 
 - (NSImageRep*)smallestRepresentation

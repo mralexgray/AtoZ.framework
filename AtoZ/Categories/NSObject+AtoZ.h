@@ -10,6 +10,8 @@
 
 #import "AtoZ.h"
 
+
+
 @interface NSUserDefaults (Subscript)
 + (NSUserDefaults*) defaults;
 - (id) 	objectForKeyedSubscript:	(NSString*) key;

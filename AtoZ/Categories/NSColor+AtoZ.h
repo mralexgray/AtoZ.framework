@@ -73,6 +73,7 @@
 @property (readonly) BOOL isDark;
 @property (readonly) NSColor *dark;
 @property (readonly) NSColor *darker;
+@property (readonly) NSColor *muchDarker;
 
 @property (readonly) NSColor *redshift;
 @property (readonly) NSColor *blueshift;

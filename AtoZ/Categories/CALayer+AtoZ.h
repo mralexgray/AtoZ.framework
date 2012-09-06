@@ -11,6 +11,13 @@
 #import "AtoZ.h"
 
 
+
+extern void prepareContext(CGContextRef ctx);
+
+void applyPerspective (CALayer* layer);
+//extern CATransform3D perspective();
+
+
 /** Constants for various commonly used colors. */
 extern CGColorRef kBlackColor, kWhiteColor,
 kTranslucentGrayColor, kTranslucentLightGrayColor,
@@ -29,9 +36,13 @@ CATextLayer* AddTextLayer( CALayer *superlayer,
                            NSString *text, NSFont* font,
                            enum CAAutoresizingMask align );
 
-CALayer* AddImageLayer( CALayer *superlayer,
-						   NSImage *image, CGFloat scale,
-						   enum CAAutoresizingMask align );
+
+void AddImageLayer( CALayer *superlayer,
+				   NSImage *image, CGFloat scale);
+CALayer* ReturnImageLayer( CALayer *superlayer,
+				   NSImage *image, CGFloat scale);
+
+//						   enum CAAutoresizingMask align );
 
 /** Loads an image or pattern file into a CGImage or CGPattern.
  If the name begins with "/", it's interpreted as an absolute filesystem path.
@@ -74,6 +85,18 @@ CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13, CGFloat m14,
 
 @interface CALayer (AtoZ)
 
+- (void) toggleFlip;
+- (void) flipOver;
+- (void) flipBack;
+
+- (void) setScale: (CGFloat) scale;
+
+- (void)pulse;
+- (void)fadeOut;
+- (void)fadeIn;
+
+
+- (CATransform3D)makeTransformForAngle:(CGFloat)angle from:(CATransform3D)start;
 - (BOOL)containsOpaquePoint:(CGPoint)p;
 - (CALayer *) labelLayer;
 - (CALayer *) setLabelString:(NSString *)label;
@@ -84,7 +107,9 @@ CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13, CGFloat m14,
 
 - (CATransform3D)rectToQuad:(NSRect)rect quadTLX:(double)x1a quadTLY:(double)y1a quadTRX:(double)x2a quadTRY:(double)y2a quadBLX:(double)x3a quadBLY:(double)y3a quadBRX:(double)x4a quadBRY:(double)y4a;
 
-- (void) addConstraintsRelativeToSuperlayer;
+- (void) addConstraintsSuperSizeScaled:(CGFloat)scale;
+- (void) addConstraintsSuperSizeScaled;
+
 
 + (CALayer*)closeBoxLayer;
 + (CALayer*)closeBoxLayerForLayer:(CALayer*)parentLayer;

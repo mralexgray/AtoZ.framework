@@ -1,4 +1,4 @@
-
+//
 //  BaseModel.m
 //  Version 2.3.1
 
@@ -82,6 +82,8 @@ NSString *const FormatTypeName[FormatTypeCount] = {
 // Log levels: off, error, warn, info, verbose
 static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
+@implementation AZDummy
+@end
 
 @implementation AtoZ
 {
@@ -144,7 +146,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 	}
 
 
-	[DDLog addLogger:[DDTTYLogger sharedInstance]];
+//	[DDLog addLogger:[DDTTYLogger sharedInstance]];
 
 //	DDLogVerbose(@"Verbose");
 //	DDLogInfo(@"Info");
@@ -190,7 +192,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 	[NSThread performBlockInBackground:^{		trackMouse();		}];
 }
 
-+(NSFont*) fontWithSize:(CGFloat)fontSize {
++ (NSFont*) fontWithSize:(CGFloat)fontSize {
 	return 	[[AtoZ sharedInstance] registerFonts:fontSize];
 }
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
@@ -576,19 +578,24 @@ void ApplicationsInDirectory(NSString *searchPath, NSMutableArray *applications)
 
 + (NSArray*) runningApps {
 
-	return [[[[NSWorkspace sharedWorkspace] runningApplications] valueForKeyPath:@"bundleURL"] arrayUsingBlock:^id(id obj) {
-		if ([obj isKindOfClass:[NSURL class]])
-			return [AZFile instanceWithPath:[obj path]];
-		else return nil;
+	return [[[self class] runningAppsAsStrings] arrayUsingBlock:^id(id obj) {
+		return [AZFile instanceWithPath:obj];
 	}];
 }
 
 + (NSArray*) runningAppsAsStrings {
 
-	return [[[[NSWorkspace sharedWorkspace] runningApplications] valueForKeyPath:@"bundleURL"] arrayUsingBlock:^id(id obj) {
-		if ([obj isKindOfClass:[NSURL class]])
-			return [obj path];
-		else return nil;
+	return [[[[[[[NSWorkspace sharedWorkspace] runningApplications] filter:^BOOL(NSRunningApplication *obj) {
+		return 	obj.activationPolicy == NSApplicationActivationPolicyProhibited ? 	NO : YES;
+//				obj.activationPolicy == NSApplicationActivationPolicyAccessory ?	NO : YES;
+	}] valueForKeyPath:@"bundleURL"] filter:^BOOL(id object) {
+		return  [object isKindOfClass:[NSURL class]] ? YES : NO;
+	}] arrayUsingBlock:^id(id obj) {
+		return [obj path];
+	}] filter:^BOOL(id obj) {
+		return 	[[obj lastPathComponent]contains:@"Google Chrome Helper.app"] 	? NO :
+				[[obj lastPathComponent]contains:@"Google Chrome Worker.app"] 	? NO :
+				[[obj lastPathComponent]contains:@"Google Chrome Renderer.app"] ? NO : YES;
 	}];
 }
 
@@ -656,11 +663,17 @@ static void soundCompleted(SystemSoundID soundFileObject, void *clientData) {
 NSString *const AZFileUpdated = @"AZFileUpdated";
 
 @implementation AZFile
-@synthesize path, name, color, customColor, labelColor, icon, image;
+@synthesize path, name, color, /*customColor labelColor,*/ icon, image;
 @synthesize dockPoint, dockPointNew, spot, spotNew;
-@synthesize hue, isRunning, hasLabel, needsToMove, labelNumber;
+@synthesize hue, isRunning, hasLabel, needsToMove; //labelNumber;
 //@synthesize itunesInfo, itunesDescription;
 
+- (void) setUp {
+	self.customColor 	= WHITE;
+	self.labelColor 	= WHITE;
+	self.labelNumber	= @(99);
+	self.position		= AZPositionAutomatic;
+}
 
 + (AZFile*) forAppNamed:(NSString*)appName  {
 
@@ -696,13 +709,17 @@ NSString *const AZFileUpdated = @"AZFileUpdated";
 	return d;
 }
 
-+ (id)instanceWithPath:(NSString *)path {
++ (instancetype)instanceWithPath:(NSString *)path {
 
 	AZFile *dd = [AZFile instance];//WithObject:path];
 	dd.path = path;
 	dd.name = [[path lastPathComponent] stringByDeletingPathExtension];
 	NSWorkspace *ws =	[NSWorkspace sharedWorkspace];
-	NSImage *u = [[ws iconForFile:path]scaleToFillSize:AZSizeFromDimension(512)];
+	NSImage *u = [ws iconForFile:path];
+	if (u) {
+		u.scalesWhenResized = YES;
+		u.size = AZSizeFromDimension(512);
+	}
 	dd.image = (u ? u : [NSImage imageInFrameworkWithFileName:@"missing.png"]);
 	NSBundle * appBundle = [NSBundle bundleWithPath:path];
 	dd.calulatedBundleID = appBundle ? [appBundle bundleIdentifier] : @"unknown";
@@ -802,13 +819,13 @@ NSString *const AZFileUpdated = @"AZFileUpdated";
 	//	You can use both the NSURLLabelNumberKey to get the number of the Finder's assigned label or the NSURLLabelColorKey to get the actual color.
 
 }
-- (void)setLabelColor:(NSColor *)aLabelColor {
+- (void)setActualLabelColor:(NSColor *)aLabelColor {
 	NSError *error = nil;
 	NSURL* fileURL = [NSURL fileURLWithPath:self.path];
 	[fileURL setResourceValue:(id)aLabelColor forKey:NSURLLabelColorKey error:&error];
 	if (error) NSLog(@"Problem setting label for %@", self.name);
 }
-- (void)setLabelNumber:(NSNumber*)aLabelNumber {
+- (void)setActualLabelNumber:(NSNumber*)aLabelNumber {
 	NSError *error = nil;
 	NSURL* fileURL = [NSURL fileURLWithPath:self.path];
 	[fileURL setResourceValue:aLabelNumber forKey:NSURLLabelNumberKey error:&error];
@@ -2468,9 +2485,7 @@ NSNumber* DegreesToNumber(CGFloat degrees) {
 @end
 
 
-static int 	numberOfShakes = 3;
-static float durationOfShake = .4;
-static float vigourOfShake = 0.2f;
+
 
 @class AZTrackingWindow;
 @implementation AtoZ (Animations)
@@ -2538,6 +2553,9 @@ static float vigourOfShake = 0.2f;
 }
 
 + (CAKeyframeAnimation *)shakeAnimation:(NSRect)frame	{
+	static int 	numberOfShakes = 3;
+	static float durationOfShake = .4;
+	static float vigourOfShake = 0.2f;
     CAKeyframeAnimation *shakeAnimation = [CAKeyframeAnimation animation];
     CGMutablePathRef shakePath = CGPathCreateMutable();
     CGPathMoveToPoint(shakePath, NULL, NSMinX(frame), NSMinY(frame));

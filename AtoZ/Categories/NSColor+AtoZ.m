@@ -1286,6 +1286,7 @@ static NSColor *ColorWithCSSString(NSString *str) {
 							brightness:MIN(1.0, MAX(b * 1.10, b + 0.05))
 								 alpha:a];
 }
+
 - (NSColor *)darker {
 	CGFloat h,s,b,a;
 	[[self calibratedRGBColor] getHue:&h saturation:&s brightness:&b alpha:&a];
@@ -1294,6 +1295,17 @@ static NSColor *ColorWithCSSString(NSString *str) {
 							brightness:MAX(0.0, MIN(b * 0.9, b - 0.05))
 								 alpha:a];
 }
+
+- (NSColor *)muchDarker {
+	CGFloat h,s,b,a;
+	[[self calibratedRGBColor] getHue:&h saturation:&s brightness:&b alpha:&a];
+	return [NSColor colorWithDeviceHue:h
+							saturation:s
+							brightness:MAX(0.0, MIN(b * 0.7, b - 0.1))
+								 alpha:a];
+}
+
+
 
 - (BOOL)isDark {
 	return self.relativeBrightness < 0.42;

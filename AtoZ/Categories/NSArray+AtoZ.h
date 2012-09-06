@@ -225,7 +225,7 @@
 -(NSMutableArray *)sort;
 
 // reverses the whole array
--(NSMutableArray *)reverse;
+-(NSMutableArray *)az_reverse;
 
 // randomizes the order of the array
 -(NSMutableArray *)shuffle;

@@ -24,6 +24,13 @@ typedef enum {
 
 @interface NSImage (AtoZ)
 
+
+
++ (NSImage *)createImageFromSubView:(NSView *)view rect:(NSRect)rect;
++ (NSImage *)createImageFromView:(NSView *)view ;
+
+
+
 - (NSImage*) maskWithColor:(NSColor*)c;
 
 - (NSImage *)scaleImageToFillSize:(NSSize)targetSize;

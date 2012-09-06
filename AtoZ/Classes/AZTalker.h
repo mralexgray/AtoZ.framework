@@ -6,10 +6,14 @@
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <ApplicationServices/ApplicationServices.h>
 #import "AtoZ.h"
 
-@interface AZTalker : NSObject <NSSpeechSynthesizerDelegate>
+@interface AZTalker : AZSingleton <NSSpeechSynthesizerDelegate>
+
+@property (strong, nonatomic) NSSpeechSynthesizer *talker;
+
 -(void) say:(NSString *)thing;
++ (instancetype)sharedInstance;
 
 @end

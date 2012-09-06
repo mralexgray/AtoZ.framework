@@ -256,7 +256,8 @@
 - (AZToggleControlLayer*) toggleLayerForEvent:(NSEvent*)event
 {
 		// Returns the first toggle layer for the given event.
-	CALayer* hitLayer = [self.containerLayer hitTest:[self layerLocationForEvent:event]];
+	CALayer* hitLayer = [self.containerLayer hitTest:[self convertPoint:[event locationInWindow] fromView:nil]];
+//	[self layerLocationForEvent:event]];
 	while (hitLayer)
 	{
 		if ([hitLayer isMemberOfClass:[AZToggleControlLayer class]])

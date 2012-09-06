@@ -13,7 +13,6 @@
 
 
 
-
 @implementation NSUserDefaults (Subscript)
 + (NSUserDefaults *)defaults {
 	return [NSUserDefaults standardUserDefaults];

@@ -173,27 +173,29 @@ static NSString *collectionDescription(id collection)
 		isSet = YES;
 	}
 
-	if ([collection count] == 0)
-	{
-		return [NSString stringWithFormat:@"%p:%@ %@ %@", collection, markerStart, color(@"empty", emptyColor), markerEnd];
-	}
-	else if ([collection count] == 1)
-	{
-		NSString *debugDescription = nil;
-		if (isArray)
-		{
-			debugDescription = [[collection lastObject] debugDescription];
+	if ( [collection respondsToSelector:@selector(count)] ){
+			if ([[collection valueForKey:@"count"]integerValue] == 0){
+
+			return [NSString stringWithFormat:@"%p:%@ %@ %@", collection, markerStart, color(@"empty", emptyColor), markerEnd];
+			}
+			else if ([[collection valueForKey:@"count"]integerValue] == 1)
+			{
+			NSString *debugDescription = nil;
+			if (isArray)
+			{
+				debugDescription = [[collection lastObject] debugDescription];
+			}
+			else if (isDictionary)
+			{
+				NSString *key = [[collection allKeys] lastObject];
+				debugDescription = [NSString stringWithFormat:@"%@: %@", color(key, keyColor), [collection[key] debugDescription]];
+			}
+			else if (isSet)
+			{
+				debugDescription = debugDescription = [[collection anyObject] debugDescription];
+			}
+			return [NSString stringWithFormat:@"%p:%@ %@ %@", collection, markerStart, debugDescription, markerEnd];
 		}
-		else if (isDictionary)
-		{
-			NSString *key = [[collection allKeys] lastObject];
-			debugDescription = [NSString stringWithFormat:@"%@: %@", color(key, keyColor), [collection[key] debugDescription]];
-		}
-		else if (isSet)
-		{
-			debugDescription = debugDescription = [[collection anyObject] debugDescription];
-		}
-		return [NSString stringWithFormat:@"%p:%@ %@ %@", collection, markerStart, debugDescription, markerEnd];
 	}
 	else
 	{
@@ -205,7 +207,7 @@ static NSString *collectionDescription(id collection)
 			indent(desc, gIndentLevel + 1);
 			if (isArray)
 			{
-				[desc appendFormat:[NSString stringWithFormat:@"%%%dd) ", [[NSString stringWithFormat:@"%d", [collection count]] length]], i++];
+//				[desc appendFormat:$(@"%%%dd) ", [[NSString stringWithFormat:@"%ld", [collection count]] length]), i++];
 			}
 			else if (isDictionary)
 			{

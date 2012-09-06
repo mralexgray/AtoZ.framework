@@ -916,39 +916,39 @@ BOOL AZIsRectBelowRect(NSRect rect, NSRect compare) {
 
 #import "math.h"
 
-BTFloatRange BTMakeFloatRange(float value,float location,float length){
-    BTFloatRange fRange;
-    fRange.value=value;
-    fRange.location=location;
-    fRange.length=length;
-    return fRange;
-}
-float BTFloatRangeMod(BTFloatRange range){
-    return fmod(range.value-range.location,range.length)+range.location;
-}
-
-float BTFloatRangeUnit(BTFloatRange range){
-    return (range.value-range.location)/range.length;
-}
+//BTFloatRange BTMakeFloatRange(float value,float location,float length){
+//    BTFloatRange fRange;
+//    fRange.value=value;
+//    fRange.location=location;
+//    fRange.length=length;
+//    return fRange;
+//}
+//float BTFloatRangeMod(BTFloatRange range){
+//    return fmod(range.value-range.location,range.length)+range.location;
+//}
+//
+//float BTFloatRangeUnit(BTFloatRange range){
+//    return (range.value-range.location)/range.length;
+//}
 
 NSPoint offsetPoint(NSPoint fromPoint, NSPoint toPoint){
     return NSMakePoint(toPoint.x-fromPoint.x,toPoint.y-fromPoint.y);
 }
-
+/*
 int oppositeQuadrant(int quadrant){
     quadrant=quadrant+2;
     quadrant%=4;
     if (!quadrant)quadrant=4;
     return quadrant;
 }
-
-NSPoint rectOffset(NSRect innerRect,NSRect outerRect,int quadrant){
+*/
+NSPoint rectOffset(NSRect innerRect,NSRect outerRect, NSInteger quadrant){
     if (quadrant)
         return NSMakePoint((quadrant == 3 || quadrant == 2) ? NSMaxX(outerRect)-NSMaxX(innerRect) : NSMinX(outerRect)-NSMinX(innerRect),
                            (quadrant == 4 || quadrant == 3) ? NSMaxY(outerRect)-NSMaxY(innerRect) : NSMinY(outerRect)-NSMinY(innerRect));
     return NSMakePoint(NSMidX(outerRect)-NSMidX(innerRect),NSMidY(outerRect)-NSMidY(innerRect)); //Center Rects
 }
-
+/*
 NSRect alignRectInRect(NSRect innerRect,NSRect outerRect,int quadrant){
     NSPoint offset=rectOffset(innerRect,outerRect,quadrant);
     return NSOffsetRect(innerRect,offset.x,offset.y);
@@ -963,7 +963,7 @@ NSRect rectZoom(NSRect rect,float zoom,int quadrant){
     newRect.size=newSize;
     return newRect;
 }
-
+*/
 
 NSRect sizeRectInRect(NSRect innerRect,NSRect outerRect,bool expand){
     float proportion=NSWidth(innerRect)/NSHeight(innerRect);
@@ -978,7 +978,7 @@ NSRect sizeRectInRect(NSRect innerRect,NSRect outerRect,bool expand){
 NSRect fitRectInRect(NSRect innerRect,NSRect outerRect,bool expand){
     return centerRectInRect(sizeRectInRect(innerRect,outerRect,expand),outerRect);
 }
-
+/*
 NSRect rectWithProportion(NSRect innerRect,float proportion,bool expand){
     NSRect xRect=NSMakeRect(0,0,innerRect.size.width,innerRect.size.width/proportion);
     NSRect yRect=NSMakeRect(0,0,innerRect.size.height*proportion,innerRect.size.height);
@@ -987,7 +987,7 @@ NSRect rectWithProportion(NSRect innerRect,float proportion,bool expand){
     else newRect = NSIntersectionRect(xRect,yRect);
     return newRect;
 }
-
+*/
 NSRect centerRectInRect(NSRect rect, NSRect mainRect){
     return NSOffsetRect(rect,NSMidX(mainRect)-NSMidX(rect),NSMidY(mainRect)-NSMidY(rect));
 }
@@ -1004,7 +1004,7 @@ NSRect constrainRectToRect(NSRect innerRect, NSRect outerRect){
         offset.y+= NSMinY(outerRect) - NSMinY(innerRect);
     return NSOffsetRect(innerRect,offset.x,offset.y);
 }
-
+/*
 NSRect expelRectFromRect(NSRect innerRect, NSRect outerRect,float peek){
     NSPoint offset=NSZeroPoint;
     
@@ -1047,6 +1047,7 @@ NSRect expelRectFromRectOnEdge(NSRect innerRect, NSRect outerRect,NSRectEdge edg
 
     return NSOffsetRect(innerRect,offset.x,offset.y);
 }
+*/
 NSRectEdge touchingEdgeForRectInRect(NSRect innerRect, NSRect outerRect){
     
     if (NSMaxX(innerRect)>=NSMaxX(outerRect)) return NSMaxXEdge;
@@ -1065,6 +1066,7 @@ NSRect rectFromSize(NSSize size){
 float distanceFromOrigin(NSPoint point){
     return hypot(point.x, point.y);
 }
+/*
 int closestCorner(NSRect innerRect,NSRect outerRect){
     float bestDistance=-1;
     int closestCorner=0;
@@ -1088,7 +1090,7 @@ NSRect blendRects(NSRect start, NSRect end,float b){
                         round(NSWidth(start)*(1-b) + NSWidth(end)*b),
                         round(NSHeight(start)*(1-b) + NSHeight(end)*b));
 }
-
+*/
 void logRect(NSRect rect){
 //QSLog(@"(%f,%f) (%fx%f)",rect.origin.x,rect.origin.y,rect.size.width,rect.size.height);
 }

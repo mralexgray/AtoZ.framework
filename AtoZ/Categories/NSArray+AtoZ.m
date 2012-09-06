@@ -130,7 +130,7 @@ static NSInteger comparatorForSortingUsingArray(id object1, id object2, void *co
 }
 
 - (NSArray *)reversed {
-	return [[self mutableCopy] reverse];
+	return [[self mutableCopy] az_reverse];
 }
 
 // array evaluating the keyPath
@@ -823,7 +823,7 @@ return self.lastObject;
 	return self;
 }
 
--(NSMutableArray *)reverse {
+-(NSMutableArray *)az_reverse {
 	@synchronized (self) {
 		for (NSUInteger i = 0; i < floor(self.count / 2); i++) {
 			[self exchangeObjectAtIndex:i withObjectAtIndex:(self.count - i - 1)];

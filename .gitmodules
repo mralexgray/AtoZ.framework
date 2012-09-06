@@ -1,3 +1,6 @@
 [submodule "AtoZ/Categories/Functional"]
 	path = AtoZ/Categories/Functional
 	url = git@github.com:mralexgray/Functional.m.git
+[submodule "AtoZ/FunSize.framework"]
+	path = AtoZ/FunSize.framework
+	url = git@github.com:mralexgray/FunSize.git

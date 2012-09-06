@@ -9,25 +9,38 @@
 
 #import "AZTalker.h"
 
-@implementation AZTalker {
+@implementation AZTalker
 
-NSSpeechSynthesizer *talker;
-}
+//NSSpeechSynthesizer *talker;
+
 
 - (id)init
 {
     self = [super init];
     if (self) {
 		
-		talker = [[NSSpeechSynthesizer alloc]init];    
-		[talker setDelegate:self];	
+
+
+//- (void) setUp {
+
+	self.talker = [[NSSpeechSynthesizer alloc]init];
+	self.talker.delegate = self;
+//}
 	}
     return self;
 }
 
+
 -(void) say:(NSString *)thing {
-	
-	[talker startSpeakingString:thing];
+
+	if ( [NSSpeechSynthesizer isAnyApplicationSpeaking] == NO){
+		[self.talker startSpeakingString:thing];
+	} else {
+
+		[self performSelector:@selector(say:) withObject:thing afterDelay:1];
+	}
 }
+
+
 
 @end

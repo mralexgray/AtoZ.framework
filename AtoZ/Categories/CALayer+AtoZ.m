@@ -7,12 +7,57 @@
 
 
 #import "CALayer+AtoZ.h"
-//#import "AtoZ.h"
+#import "AtoZ.h"
+
+/*
+struct CATransform3D
+{
+	CGFloat m11, m12, m13, m14;
+	CGFloat m21, m22, m23, m24;
+	CGFloat m31, m32, m33, m34;
+	CGFloat m41, m42, m43, m44;
+};	
+typedef struct CATransform3D CATransform3D;
+
+@property CATransform3D transform;
+@property CATransform3D sublayerTransform;
+@property CGPoint anchorPoint;
+@property CGFloat anchorPointZ;
+
+//	CATransform3D Matrix Operations
+
+CATransform3D CATransform3DMakeTranslation ( CGFloat tx, 		CGFloat ty, 	CGFloat tz		);
+CATransform3D CATransform3DMakeScale (		CGFloat sx, 		 	CGFloat sy,		CGFloat sz		);
+CATransform3D CATransform3DMakeRotation (	CGFloat angle, 	 	CGFloat x,  	CGFloat y, 		CGFloat z		);
+CATransform3D CATransform3DTranslate (		CATransform3D t, 	CGFloat tx, 	CGFloat ty, 	CGFloat tz		);
+CATransform3D CATransform3DScale (			CATransform3D t, 	CGFloat sx, 	CGFloat sy, 	CGFloat sz		);
+CATransform3D CATransform3DRotate (			CATransform3D t, 	CGFloat angle,	CGFloat x,		CGFloat y,		CGFloat z	);
+CATransform3D CATransform3DConcat (			CATransform3D a, 	CATransform3D b	);
+CATransform3D CATransform3DInvert (			CATransform3D t		);
+
+//Scale the layer along the x-axis
+	 [layer setValue:[NSNumber numberWithFloat:1.5] forKeyPath:@"transform.scale.x"];
+//Same result as above
+	CGSize biggerX = CGSizeMake(1.5, 1.);
+	[layer setValue:[NSValue valueWithCGSize:biggerX] forKeyPath:@"transform.scale"];
+*/
 
 /*
  File: QuartzUtils.m
  Abstract: Assorted CoreGraphics / Core Animation utility functions.
  */
+
+void prepareContext(CGContextRef ctx) {
+	NSGraphicsContext *nsGraphicsContext = [NSGraphicsContext graphicsContextWithGraphicsPort:ctx flipped:NO];
+	[NSGraphicsContext saveGraphicsState]; [NSGraphicsContext setCurrentContext:nsGraphicsContext];
+}
+
+
+void applyPerspective (CALayer* layer) {
+	CATransform3D perspectiveTransform = CATransform3DIdentity;
+	perspectiveTransform.m34 = 1.0 / -850;
+	layer.sublayerTransform = perspectiveTransform;
+}
 
 
 CGColorRef kBlackColor, kWhiteColor,
@@ -122,14 +167,21 @@ CATextLayer* AddTextLayer( CALayer *superlayer,
     [superlayer addSublayer: label];
     return label;
 }
-CALayer* AddImageLayer( CALayer *superlayer,
-						  NSImage *image, CGFloat scale,
-						  enum CAAutoresizingMask align )
+
+void AddImageLayer( CALayer *superlayer, NSImage *image, CGFloat scale) {
+	CALayer *u = ReturnImageLayer(superlayer, image, scale);
+	[superlayer addSublayer:u];
+	[superlayer setNeedsDisplay];
+//	return AZRelease(u);
+}
+
+CALayer* ReturnImageLayer(CALayer *superlayer, NSImage *image, CGFloat scale)
 {
-    CALayer *label = [[CALayer alloc] init];
+    CALayer *label = [[CALayer alloc]init];
     label.contents = image;
 //    label.borderColor = kBlackColor;
-	label.contentsGravity = kCAGravityResizeAspectFill;
+	label.contentsGravity = kCAGravityCenter;
+	[label addConstraintsSuperSizeScaled:scale];
 //    NSString *mode;
 //    if( align & kCALayerWidthSizable )
 //        mode = @"center";
@@ -141,7 +193,7 @@ CALayer* AddImageLayer( CALayer *superlayer,
 //    label.autoresizingMask = kCALayerWidthSizable | kCALayerHeightSizable;
 
 //    CGFloat inset = superlayer.borderWidth + 3;
-    CGRect bounds = AZScaleRect(superlayer.bounds, scale);//(superlayer.bounds, inset, inset);
+//    CGRect bounds = AZScaleRect(superlayer.bounds, scale);//(superlayer.bounds, inset, inset);
 //    CGFloat height = font.ascender;
 //    CGFloat y = bounds.origin.y;
 //    if( align & kCALayerHeightSizable )
@@ -151,12 +203,11 @@ CALayer* AddImageLayer( CALayer *superlayer,
 //    align &= ~kCALayerHeightSizable;
 //    label.bounds = CGRectMake(0, font.descender,
 //                              bounds.size.width, height - font.descender);
-    label.position =  AZCenterOfRect(superlayer.bounds);
+    label.position =  AZCenterOfRect([superlayer bounds]);
 //	CGPointMake(bounds.origin.x,y+font.descender);
 //    label.anchorPoint = CGPointMake(.5,.5);
 
-    label.autoresizingMask = align;
-    [superlayer addSublayer: label];
+//    label.autoresizingMask = align;
     return label;
 }
 
@@ -324,6 +375,100 @@ CGColorRef CreatePatternColor( CGImageRef image )
 
 @implementation CALayer (AtoZ)
 
+- (void) toggleFlip  {        //:(CATransform3D)transform {
+	BOOL isFlipped = [[self valueForKey:@"flipped"]boolValue];
+	isFlipped ? [self flipBack] : [self flipOver];
+	[self setValue:@(isFlipped =! isFlipped) forKey:@"flipped"];
+}
+
+- (void) flipOver  {        //:(CATransform3D)transform {
+    CATransform3D transform = CATransform3DIdentity;
+	transform.m34 = 1.0/700.0;
+    self.transform = CATransform3DRotate(transform, 180 * M_PI/180, 1, 0, 0);
+}
+- (void) flipBack  {        //:(CATransform3D)transform {
+    CATransform3D transform = CATransform3DIdentity;
+	transform.m34 = 1.0/700.0;
+    self.transform =  CATransform3DRotate(transform, -180 * M_PI/180, 1, 0, 0);
+}
+
+
+- (void) setScale: (CGFloat) scale {
+	[self setValue:[NSValue valueWithSize:NSSizeToCGSize((NSSize){scale,scale})] forKeyPath:@"transform.scale"];
+}
+
+
+-(void)pulse
+{
+    CIFilter *filter = [CIFilter filterWithName:@"CIBloom"]; [filter setDefaults];
+    [filter setValue:[NSNumber numberWithFloat:5.0] forKey:@"inputRadius"];
+		// name the filter so we can use the keypath to animate the inputIntensity attribute of the filter
+    [filter setName:@"pulseFilter"];
+		// set the filter to the selection layer's filters
+    [self setFilters:[NSArray arrayWithObject:filter]];
+		// create the animation that will handle the pulsing.
+    CABasicAnimation* pulseAnimation = [CABasicAnimation animation];
+		// the attribute we want to animate is the inputIntensity of the pulseFilter
+    pulseAnimation.keyPath = @"filters.pulseFilter.inputIntensity";
+		// we want it to animate from the value 0 to 1
+    pulseAnimation.fromValue = [NSNumber numberWithFloat: 0.0];
+    pulseAnimation.toValue = [NSNumber numberWithFloat: 1.5];
+		// over one a one second duration, and run an infinite number of times
+    pulseAnimation.duration = 1.0;
+    pulseAnimation.repeatCount = MAXFLOAT;
+		// we want it to fade on, and fade off, so it needs to automatically autoreverse.. this causes the intensity input to go from 0 to 1 to 0
+    pulseAnimation.autoreverses = YES;
+		// use a timing curve of easy in, easy out..
+    pulseAnimation.timingFunction = [CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionEaseInEaseOut];
+		// add the animation to the selection layer. This causes it to begin animating. We'll use pulseAnimation as the animation key name
+    [self addAnimation:pulseAnimation forKey:@"pulseAnimation"];
+}
+
+-(void)fadeIn
+{
+//    CABasicAnimation *theAnimation=[CABasicAnimation animationWithKeyPath:@"opacity"];
+//    theAnimation.duration=3.5;			theAnimation.repeatCount=1;
+//    theAnimation.autoreverses=YES;		theAnimation.fromValue=@(1.0);
+//    theAnimation.toValue=@(0.0);
+//    [self addAnimation:theAnimation forKey:@"animateOpacity"];
+	CABasicAnimation *theAnimation=[CABasicAnimation animationWithKeyPath:@"opacity"];
+    theAnimation.duration =  [self animationKeys]
+	?  [[[self  animationForKey:[self animationKeys].first] valueForKey:@"duration"]floatValue] : .5;
+	theAnimation.repeatCount=1;
+	theAnimation.fillMode =	kCAFillModeForwards;
+	theAnimation.removedOnCompletion = NO;
+//    theAnimation.autoreverses=NO;
+	theAnimation.fromValue=@(0.0);
+    theAnimation.toValue=@(1.0);
+    [self addAnimation:theAnimation forKey:@"animateOpacity"];
+//	disable
+}
+-(void)fadeOut
+{
+    CABasicAnimation *theAnimation=[CABasicAnimation animationWithKeyPath:@"opacity"];
+    theAnimation.duration =  [self animationKeys]
+						  ? [[[self  animationForKey:[self animationKeys].first] valueForKey:@"duration"]integerValue]						  : .5;
+	theAnimation.repeatCount=1;
+	theAnimation.fillMode =	kCAFillModeForwards;//kCAFillModeBoth;
+//  theAnimation.autoreverses=NO;
+	theAnimation.removedOnCompletion = NO;
+	theAnimation.fromValue=@(1.0);
+    theAnimation.toValue=@(0.0);
+    [self addAnimation:theAnimation forKey:@"animateOpacity"];
+
+}
+
+-(CATransform3D)makeTransformForAngleX:(CGFloat)angle offsetY:(CGFloat)y {
+}
+
+-(CATransform3D)makeTransformForAngle:(CGFloat)angle from:(CATransform3D)start{
+    CATransform3D transform = start;
+	CATransform3D persp = CATransform3DIdentity;
+    persp.m34 = 1.0 / -1000;
+    transform = CATransform3DConcat(transform, persp);
+	transform = CATransform3DRotate(transform,angle, 0.0, 1.0, 0.0);
+    return transform;
+}
 
 - (BOOL)containsOpaquePoint:(CGPoint)p {
 	if (![self containsPoint:p]) return NO;
@@ -441,7 +586,19 @@ CGColorRef CreatePatternColor( CGImageRef image )
 	transform.m44 = i / i;
 	return transform;
 }
+- (void) addConstraintsSuperSizeScaled:(CGFloat)scale;
+{
+	if (!self.layoutManager) self.layoutManager = [CAConstraintLayoutManager layoutManager];
+	[self addConstraint: AZConstRelSuperScaleOff(kCAConstraintWidth, scale,0)];
+	[self addConstraint: AZConstRelSuperScaleOff(kCAConstraintHeight, scale,0)];
+}
 
+- (void) addConstraintSuperSize
+{
+	if (!self.layoutManager) self.layoutManager = [CAConstraintLayoutManager layoutManager];
+	[self addConstraint: AZConstRelSuper(kCAConstraintWidth)];
+	[self addConstraint: AZConstRelSuper(kCAConstraintHeight)];
+}
 
 //NSImage *image = // load a image
 //CALayer *layer = [CALayer layer];

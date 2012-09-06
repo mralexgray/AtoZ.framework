@@ -15,6 +15,10 @@
 
 @implementation NSString (AtoZ)
 
+- (NSString *)stringByReplacingAllOccurancesOfString:(NSString *)search withString:(NSString *)replacement
+{
+	return [NSString stringWithString:[[self mutableCopy]replaceAll:search withString:replacement]];
+}
 
 - (NSString*)urlEncoded {
 		// Encode all the reserved characters, per RFC 3986

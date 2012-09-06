@@ -8,7 +8,7 @@
 
 #import "AZSegmentedRect.h"
 //#import "AtoZ.h"
-#import "AZRect.h"
+//#import "AZRect.h"
 #import "NSString+AtoZ.h"
 
 @implementation AZSegmentedRect

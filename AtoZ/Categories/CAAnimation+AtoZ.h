@@ -9,6 +9,43 @@
 #import <QuartzCore/QuartzCore.h>
 
 
+
+typedef void (^AZCAAnimationCompletionBlock)();
+
+	//Note this is slightly flawed as we set ourself as the delegate, really we should create a chained proxy, if we need that I will add it.
+
+@interface CAAnimation (AtoZ)
+
+@property (nonatomic, copy) AZCAAnimationCompletionBlock az_completionBlock;
+
+@end
+
+
+
+@interface CATransaction (TUIExtensions)
+
++ (void)CADisabledBlock:(void(^)(void))block;
+
+@end
+////typedef void (^disableCA) {
+//- (NSArray *)setPropertiesWithCADisabled:(BOOL (^)(id obj))block
+//	{
+//		NSMutableArray * results = [[NSMutableArray alloc] init];
+//		[self each:^(id obj, NSUInteger index, BOOL *stop) {
+//			if (block(obj)) {
+//				[results addObject:obj];
+//			}
+//		}];
+//		return results;
+//	}
+//
+//	[CATransaction flush];  [CATransaction begin];
+//	[CATransaction setValue:@(YES) forKey:kCATransactionDisableActions];
+//}
+
+extern void disableCA();
+
+
 @interface CAAnimation (AtoZ)
 
 + (CAAnimation*)shakeAnimation;

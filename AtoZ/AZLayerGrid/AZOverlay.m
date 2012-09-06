@@ -197,14 +197,14 @@ typedef NSUInteger AZCorner;
 - (void)drawOverlays
 {
     DLog(@"start");
-    if (![self allowsEmptyOverlaySelection] && [__AZ_selectedOverlays count] == 0 && [__AZ_overlayCache count] > 0) {
+//    if (![self allowsEmptyOverlaySelection] && __AZ_selectedOverlays.count == 0 && __AZ_overlayCache.count > 0) {
         if ([__AZ_overlayCache respondsToSelector:@selector(lastObject)]) {
             __AZ_selectedOverlays = [NSMutableArray arrayWithObject:[__AZ_overlayCache lastObject]];
         } else {
             __AZ_selectedOverlays = [NSMutableArray arrayWithObject:[__AZ_overlayCache anyObject]];
         }
-    }
-    
+//    }
+
     [__AZ_topLayer setSublayers:@[]];
     
     __weak AZOverlayView *weakSelf = self;

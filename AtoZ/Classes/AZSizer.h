@@ -10,8 +10,10 @@
 #import "AtoZ.h"
 
 
+extern NSUInteger gcd(NSInteger m, NSUInteger n);
 
 @interface Candidate : BaseModel
++(instancetype) withRows:(NSUInteger)rows columns:(NSUInteger)columns remainder:(NSInteger)rem forRect:(NSRect)screen ;
 @property (assign) float width;
 @property (assign) float height;
 @property (assign) int rows;
@@ -31,17 +33,18 @@
 //+ (NSSize) gridFor:(int)someitems inRect:(NSRect)aframe;
 //- (void) constrainLayersInLayer:(CALayer*)layer;
 
-@property (assign, nonatomic) BOOL 	perimeterOnly;
+@property (assign, nonatomic) AZOrient		orient;
 
+@property (readonly) NSString* 	aspectRatio;
 @property (assign, nonatomic) NSUInteger 	quantity;
-@property (assign, nonatomic) NSUInteger 	quantityReal;
+@property (readonly) NSUInteger 	capacity;
 @property (assign, nonatomic) NSUInteger	rows;
 @property (assign, nonatomic) NSUInteger	columns;
 @property (assign, nonatomic) CGFloat 		width;
 @property (assign, nonatomic) CGFloat		height;
 @property (assign, nonatomic) NSSize		size;
 @property (assign, nonatomic) NSRect		outerFrame;
-@property (assign, nonatomic) int		remainder;
+@property (readonly) NSInteger	remainder;
 @property (nonatomic, copy) NSArray 	*rects;
 @property (readonly) NSArray 	*paths;
 @property (readonly) NSArray 	*boxes;

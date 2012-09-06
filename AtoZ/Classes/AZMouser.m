@@ -94,18 +94,32 @@ void dragTo ( CGPoint dest ) {
 	moveTo ( dest );					usleep(50000);
 	mouseEvent  ( 1, MOUSE_UP, SINGLE_CLICK);
 }
-																		/* MOUSE CLICKING */
-void mouseDown(   int btn,  int clickType ) 		{
-	mouseEvent(btn, MOUSE_DOWN, clickType);
-}
-void mouseDownUp( int btn,  int clickType ) 		{
-	mouseDown(btn, clickType);
-	usleep(400000);
-	mouseUp(btn, clickType);
-}
-void mouseUp(	  int btn,  int clickType ) 		{
-	mouseEvent(btn, MOUSE_UP, clickType);
-}
+
+//nullEvent                     = 0,
+//mouseDown                     = 1,
+//mouseUp                       = 2,
+//keyDown                       = 3,
+//keyUp                         = 4,
+//autoKey                       = 5,
+//updateEvt                     = 6,
+//diskEvt                       = 7,    /* Not sent in Carbon. See kEventClassVolume in CarbonEvents.h*/
+//activateEvt                   = 8,
+//osEvt                         = 15,
+//kHighLevelEvent               = 23									/* MOUSE CLICKING */
+
+//void mouseDown(   EventKind btn,  EventMask clickType ) 		{
+//	mouseEvent(btn, MOUSE_DOWN, clickType);
+//}
+
+//void mouseDownUp(    EventKind btn,  EventMask clickType){ //int btn,  int clickType ) 		{
+//	mouseDown(btn, clickType);
+//	usleep(400000);
+//	mouseUp(btn, clickType);
+//}
+
+//void mouseUp(	     EventKind btn,  EventMask clickType){//int btn,  int clickType ) 		{
+//	mouseEvent(btn, MOUSE_UP, clickType);
+//}
 
 
 @interface AZMouser ()

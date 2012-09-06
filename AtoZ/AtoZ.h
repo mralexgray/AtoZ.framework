@@ -37,8 +37,12 @@ typedef UIColor NSColor;
 //#define ATOZITUNES_ENABLED
 //#import <AtoZiTunes/AtoZiTunes.h>
 
+#import <QSCore/QSCore.h>
+#import <QSFoundation/QSFoundation.h>
+#import <QSInterface/QSInterface.h>
+#import <QSEffects/QSEffects.h>
 
-
+#import <QSCore/QSCore.h>
 #import "BlocksAdditions.h"
 
 #import <Lumberjack/Lumberjack.h>
@@ -163,7 +167,8 @@ extern NSString *const AtoZDockSortedUpdated;
 - (void) dockItemDidUpdateValues:(NSNotification*)info;
 @end
 
-
+@interface AZDummy : NSObject
+@end
 
 @class NSLogConsole;
 @interface AtoZ : BaseModel
@@ -246,8 +251,8 @@ extern NSString *const AtoZDockSortedUpdated;
 extern NSString *const AtoZFileUpdated;
 //@class AJSiTunesResult;
 @interface AZFile : BaseModel
-@property (strong, nonatomic)	NSString *itunesDescription;
-@property (strong, nonatomic)	NSArray *itunesResults;
+//@property (weak)	id itunesDescription;
+//@property (weak)	id itunesResults;
 @property (strong, nonatomic)	NSString *calulatedBundleID;
 
 //@property (strong, nonatomic)	AJSiTunesResult *itunesInfo;
@@ -256,18 +261,21 @@ extern NSString *const AtoZFileUpdated;
 @property (strong, nonatomic) 	NSColor	 * 	color;
 @property (strong, nonatomic) 	NSColor	 * 	customColor;
 @property (strong, nonatomic)	NSColor	 *	labelColor;
-@property (strong, nonatomic)	NSNumber *	labelNumber;
+@property (assign, nonatomic)	NSNumber * 	labelNumber;
 @property (strong, nonatomic)  	NSArray	 * 	colors;
 @property (strong, nonatomic)  	NSImage	 * 	icon;
 @property (strong, nonatomic)  	NSImage	 * 	image;
-@property (nonatomic, assign) 		CGPoint		dockPoint;
-@property (nonatomic, assign) 		CGPoint		dockPointNew;
-@property (nonatomic, assign) 		NSUInteger	spot;
-@property (nonatomic, assign) 		NSUInteger 	spotNew;
-@property (nonatomic, readonly)		CGFloat		hue;
-@property (nonatomic, readonly)		BOOL		isRunning;
-@property (nonatomic, readonly)		BOOL		hasLabel;
-@property (nonatomic, assign)		BOOL		needsToMove;
+@property (nonatomic, assign) 	CGPoint		dockPoint;
+@property (nonatomic, assign) 	CGPoint		dockPointNew;
+@property (nonatomic, assign) 	NSUInteger	spot;
+@property (nonatomic, assign) 	NSUInteger 	spotNew;
+@property (nonatomic, readonly)	CGFloat		hue;
+@property (nonatomic, readonly)	BOOL		isRunning;
+@property (nonatomic, readonly)	BOOL		hasLabel;
+@property (nonatomic, assign)	BOOL		needsToMove;
+
+@property (nonatomic, assign)		AZWindowPosition		position;
+
 + (AZFile*) dummy;
 + (AZFile*) forAppNamed:(NSString*)appName;
 + (AZFile*) instanceWithPath:(NSString *)path;
@@ -276,35 +284,35 @@ extern NSString *const AtoZFileUpdated;
 
 @end
 
-
-@implementation  NSArray (SubscriptsAdd)
-- (id)objectAtIndexedSubscript:(NSUInteger)index {
-	return [self objectAtIndex:index];
-}
-@end
-
-@implementation NSMutableArray (SubscriptsAdd)
-- (void)setObject:(id)object atIndexedSubscript:(NSUInteger)index {
-	if (index < self.count){
-		if (object)
-			[self replaceObjectAtIndex:index withObject:object];
-		else
-			[self removeObjectAtIndex:index];
-	} else {
-		[self addObject:object];
-	}
-}
-@end
-@implementation NSDictionary (SubscriptsAdd)
-- (id)objectForKeyedSubscript:(id)key {
-	return [self objectForKey:key];
-}
-@end
-@implementation NSMutableDictionary (SubscriptsAdd)
-- (void)setObject:(id)object forKeyedSubscript:(id)key {
-	[self setObject:object forKey:key];
-}
-@end
+//
+//@implementation  NSArray (SubscriptsAdd)
+//- (id)objectAtIndexedSubscript:(NSUInteger)index {
+//	return [self objectAtIndex:index];
+//}
+//@end
+//
+//@implementation NSMutableArray (SubscriptsAdd)
+//- (void)setObject:(id)object atIndexedSubscript:(NSUInteger)index {
+//	if (index < self.count){
+//		if (object)
+//			[self replaceObjectAtIndex:index withObject:object];
+//		else
+//			[self removeObjectAtIndex:index];
+//	} else {
+//		[self addObject:object];
+//	}
+//}
+//@end
+//@implementation NSDictionary (SubscriptsAdd)
+//- (id)objectForKeyedSubscript:(id)key {
+//	return [self objectForKey:key];
+//}
+//@end
+//@implementation NSMutableDictionary (SubscriptsAdd)
+//- (void)setObject:(id)object forKeyedSubscript:(id)key {
+//	[self setObject:object forKey:key];
+//}
+//@end
 
 @interface NSNumber (Incrementer)
 - (NSNumber *)increment;
@@ -484,6 +492,9 @@ oldValue = newValue;
 CGFloat DegreesToRadians(CGFloat degrees);
 NSNumber* DegreesToNumber(CGFloat degrees);
 
+#define AZVpoint(p) [NSValue valueWithPoint:p]
+#define AZVrect(r)  [NSValue valueWithRect:r]
+#define AZVsize(s)  [NSValue valueWithSize:s]
 
 //extern NSString *const AtoZSuperLayer;
 #define AZSuperLayerSuper (@"superlayer")
@@ -581,7 +592,7 @@ return re;\
 //A.andExecuteEnumeratorBlock = \
 //  ^(B, NSUInteger C, BOOL *A##StopBlock)
 
-#define SELFBONK @throw \
+#define AZBONK @throw \
 [NSException \
 exceptionWithName:@"WriteThisMethod" \
 reason:@"You did not write this method, yet!" \

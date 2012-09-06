@@ -20,6 +20,54 @@
 	//            DegreesToRadians(degrees)];
 	//}
 
+#import <objc/runtime.h>
+
+NSString *AZCAAnimationCompletionBlockAssociatedObjectKey = @"AZCAAnimationCompletionBlockAssociatedObjectKey";
+
+@implementation CAAnimation (AtoZ)
+
+- (void)setAz_completionBlock:(AZCAAnimationCompletionBlock)block
+{
+	self.delegate = self;
+	objc_setAssociatedObject(self, &AZCAAnimationCompletionBlockAssociatedObjectKey, block, OBJC_ASSOCIATION_COPY);
+}
+
+- (AZCAAnimationCompletionBlock)az_completionBlock
+{
+	return objc_getAssociatedObject(self, &AZCAAnimationCompletionBlockAssociatedObjectKey);
+}
+
+- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
+{
+	if (flag && self.az_completionBlock != nil)
+		self.az_completionBlock();
+}
+
+@end
+
+
+@implementation CATransaction (TUIExtensions)
+
++ (void)CADisabledBlock(void(^)(void))block {
+	if ([self disableActions]) {
+			// actions are already disabled
+		block();
+	} else {
+		[self setDisableActions:YES];
+		block();
+		[self setDisableActions:NO];
+	}
+}
+
+@end
+
+void disableCA(){
+
+	[CATransaction flush];
+	[CATransaction begin];
+	[CATransaction setValue:(id)kCFBooleanTrue
+				 forKey:kCATransactionDisableActions];
+}
 
 
 @implementation CAAnimation (AtoZ)

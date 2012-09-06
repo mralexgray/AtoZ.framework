@@ -43,11 +43,11 @@ void warpTo ( CGPoint dest );
 void moveVia( int x, int y );
 void moveTo ( CGPoint dest );
 void dragTo ( CGPoint dest );
-
-
-void mouseUp(    int btn, int clickType);
-void mouseDow(   int btn, int clickType);
-void mouseUpDown(int btn, int clickType);
+//
+//
+//void mouseUp(    int btn, int clickType);
+//void mouseDow(   int btn, int clickType);
+//void mouseUpDown(int btn, int clickType);
 
 CGEventType getMouseButton(int btn, int btnState);
 void mouseEvent(int btn, int btnState, int clickType);
