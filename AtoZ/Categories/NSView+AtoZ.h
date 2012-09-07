@@ -27,22 +27,21 @@ AZViewAnimationType;
 
 @end
 
-
-
 @interface NSView (AtoZ)
-- (void) slideUp;
-- (void) slideDown;
-- (NSArray *)allSubviews;
-
-- (void)setupHostView;
-
--(NSView *)firstSubview;
--(NSView *)lastSubview;
--(void)setLastSubview:(NSView *)view;
 
 
-- (NSImage *) snapshot;
-- (NSImage *) snapshotFromRect:(NSRect) sourceRect;
+- (void)	 setupHostView;
+
+- (NSArray*) allSubviews;
+- (NSView*)	 firstSubview;
+- (NSView*)	 lastSubview;
+- (void)	 removeAllSubviews;
+- (void)	 setLastSubview:(NSView *)view;
+
+- (NSImage*) snapshot;
+- (NSImage*) snapshotFromRect:(NSRect) sourceRect;
+- (NSImage*) captureFrame;
+- (BOOL)	 requestFocus;
 
 
 -(NSTrackingArea *)trackFullView;
@@ -50,24 +49,21 @@ AZViewAnimationType;
 -(NSTrackingArea *)trackAreaWithRect:(NSRect)rect 
                             userInfo:(NSDictionary *)context;
 
-- (BOOL)		requestFocus;
-- (NSImage*) captureFrame;
+// - (NSPoint) centerOfFrame;
+// @property (assign) NSPoint center;
 
-//@property (assign) NSPoint center;
 - (NSPoint) center;
-//- (NSPoint) centerOfFrame;
 
-- (void)	animate:(AZViewAnimationType)type;
-- (void)	stopAnimating;
+- (void) resizeFrameBy:(int)value;
 
-- (void)resizeFrameBy:(int)value;
-- (void)removeAllSubviews;
-
-
-- (void)fadeOut;
-- (void)fadeIn;
-- (void)animateToFrame:(NSRect)rect;
-- (void)fadeToFrame:(NSRect)rect; // animates to supplied frame;fades in if view is hidden; fades out if view is visible
+- (void) animate:(AZViewAnimationType)type;
+- (void) stopAnimating;
+- (void) slideUp;
+- (void) slideDown;
+- (void) fadeOut;
+- (void) fadeIn;
+- (void) animateToFrame:(NSRect) rect;
+- (void) fadeToFrame: 	(NSRect) rect; // animates to supplied frame;fades in if view is hidden; fades out if view is visible
 
 + (void)setDefaultDuration:(NSTimeInterval)duration;
 + (void)setDefaultBlockingMode:(NSAnimationBlockingMode)mode;
@@ -81,7 +77,6 @@ AZViewAnimationType;
 
 + (void)runEndBlock:(void (^)(void))completionBlock;
 
-
 - (void) handleMouseEvent:(NSEventMask)event withBlock:(void (^)())block;
 - (NSPoint) localPoint;
 @end
@@ -91,27 +86,27 @@ AZViewAnimationType;
 @interface NSView (Layout)
 
 // Origin X
-- (float)leftEdge ;
-- (float)rightEdge ;
-- (float)centerX ;
-- (void)setLeftEdge:(float)t ;
-- (void)setRightEdge:(float)t ;
-- (void)setCenterX:(float)t ;
+@property (nonatomic, assign) float leftEdge;
+@property (nonatomic, assign) float rightEdge;
+@property (nonatomic, assign) float centerX;
+//- (void) setLeftEdge:(float)t ;
+//- (void) setRightEdge:(float)t ;
+//- (void) setCenterX:(float)t ;
 
 // Origin Y
-- (float)bottom ;
-- (float)top ;
-- (float)centerY ;
-- (void)setBottom:(float)t ;
-- (void)setTop:(float)t ;
-- (void)setCenterY:(float)t ;
+@property (nonatomic, assign) float bottom;
+@property (nonatomic, assign) float top;
+@property (nonatomic, assign) float centerY;
+//- (void) setBottom:(float)t ;
+//- (void) setTop:(float)t ;
+//- (void) setCenterY:(float)t ;
 
 // Size
-- (float)width ;
-- (float)height ;
-- (void)setWidth:(float)t ;
-- (void)setHeight:(float)t ;
-- (void)setSize:(NSSize)size ;
+@property (nonatomic, assign) float width;
+@property (nonatomic, assign) float height;
+//- (void) setWidth: (float) t;
+//- (void) setHeight: (float) t;
+- (void) setSize: (NSSize) size;
 
 // Incrememental Changes
 - (void)deltaX:(float)dX

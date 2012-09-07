@@ -53,6 +53,13 @@ __MAC_OS_X_VERSION_MIN_REQUIRED > __MAC_10_7))
 
 */
 
+extern NSString *const AZToggleLabel;
+extern NSString *const AZToggleRel;
+extern NSString *const AZToggleOff;
+extern NSString *const AZToggleOn;
+extern NSString *const AZToggleState;
+
+
 @class  	AZToggleControlLayer;//, AZToggle;
 @protocol 	AZToggleArrayViewDelegate;
 @interface 	AZToggleArrayView : NSView
@@ -102,6 +109,10 @@ __MAC_OS_X_VERSION_MIN_REQUIRED > __MAC_10_7))
 
 
 @optional
+
+-(NSDictionary*)toggleForView:(AZToggleArrayView*)view atIndex:(NSUInteger)index;
+-(NSUInteger) toggleCountforView:(AZToggleArrayView*) view;
+
 
 - (AZWindowPosition) positionForQuestion: (NSString*) question;
 //- (AZWindowPosition) defaultLabelPosition;

@@ -4,3 +4,6 @@
 [submodule "AtoZ/FunSize.framework"]
 	path = AtoZ/FunSize.framework
 	url = git@github.com:mralexgray/FunSize.git
+[submodule "FunSize.framework"]
+	path = FunSize.framework
+	url = git@github.com:mralexgray/FunSize.git

@@ -14,15 +14,8 @@ typedef void (^AZCAAnimationCompletionBlock)();
 
 	//Note this is slightly flawed as we set ourself as the delegate, really we should create a chained proxy, if we need that I will add it.
 
-@interface CAAnimation (AtoZ)
 
-@property (nonatomic, copy) AZCAAnimationCompletionBlock az_completionBlock;
-
-@end
-
-
-
-@interface CATransaction (TUIExtensions)
+@interface CATransaction (AtoZ)
 
 + (void)CADisabledBlock:(void(^)(void))block;
 
@@ -48,6 +41,8 @@ extern void disableCA();
 
 @interface CAAnimation (AtoZ)
 
+@property (nonatomic, copy) AZCAAnimationCompletionBlock az_completionBlock;
+
 + (CAAnimation*)shakeAnimation;
 
 + (CAAnimation*)colorAnimationForLayer:(CALayer *)theLayer withStartingColor:(NSColor*)color1 endColor:(NSColor*)color2;
@@ -71,6 +66,13 @@ extern void disableCA();
 
 @end
 
+@interface CAKeyframeAnimation (Jumping)
+
++ (CAKeyframeAnimation *)jumpAnimation;
+
++ (CAKeyframeAnimation *)dockBounceAnimationWithIconHeight:(CGFloat)iconHeight;
+
+@end
 
 
 

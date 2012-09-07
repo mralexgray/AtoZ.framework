@@ -31,6 +31,9 @@ void ChangeSuperlayer( CALayer *layer, CALayer *newSuperlayer, int index );
 /** Removes a layer from its superlayer without any fade-out animation. */
 void RemoveImmediately( CALayer *layer );
 
+/** Convenience for creating, adding,a nd returning a relatively nice CALayer. */
+extern CALayer* AddLayer( CALayer *superlayer);
+
 /** Convenience for creating a CATextLayer. */
 CATextLayer* AddTextLayer( CALayer *superlayer,
                            NSString *text, NSFont* font,
@@ -95,6 +98,10 @@ CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13, CGFloat m14,
 - (void)fadeOut;
 - (void)fadeIn;
 
+
+
++ (CALayer *) withName:(NSString*)name   inFrame:(NSRect)rect
+			   colored:(NSColor*)color withBorder:(CGFloat)width colored:(NSColor*) borderColor;
 
 - (CATransform3D)makeTransformForAngle:(CGFloat)angle from:(CATransform3D)start;
 - (BOOL)containsOpaquePoint:(CGPoint)p;

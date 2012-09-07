@@ -8,10 +8,11 @@
 	#import <Foundation/Foundation.h>
 	#import <ApplicationServices/ApplicationServices.h>
 	#import <QuartzCore/QuartzCore.h>
-	#import "AZGeometry.h"
-	#import "AtoZUmbrella.h"
-//	#import "AZTalker.h"
-
+//	#import "AZGeometry.h"
+//	#import "AtoZUmbrella.h"
+	#import <AtoZ/AtoZ.h>
+	#import <FunSize/FunSize.h>
+	
 #endif
 
 

@@ -162,6 +162,33 @@ typedef enum _AZWindowPosition {
 } AZWindowPosition;
 
 
+	//MARK: General Functions
+
+#define NSDICT(...) [NSDictionary dictionaryWithObjectsAndKeys: __VA_ARGS__, nil]
+#define NSARRAY(...) [NSArray arrayWithObjects: __VA_ARGS__, nil]
+#define NSBOOL(_X_) [NSNumber numberWithBool:(_X_)]
+#define NSSET(...) [NSSet setWithObjects: __VA_ARGS__, nil]
+
+#define NSCOLOR(r,g,b,a) [NSColor colorWithCalibratedRed:r green:g blue:b alpha:a]
+#define NSDEVICECOLOR(r,g,b,a) [NSColor colorWithDeviceRed:r green:g blue:b alpha:a]
+#define NSCOLORHSB(h,s,b,a) [NSColor colorWithDeviceHue:h saturation:s brightness:b alpha:a]
+
+	//MARK: -
+	//MARK: Log Functions
+
+#ifdef DEBUG
+#	define CWPrintClassAndMethod() NSLog(@"%s%i:\n",__PRETTY_FUNCTION__,__LINE__)
+#	define CWDebugLog(args...) NSLog(@"%s%i: %@",__PRETTY_FUNCTION__,__LINE__,[NSString stringWithFormat:args])
+#else
+#	define CWPrintClassAndMethod() /**/
+#	define CWDebugLog(args...) /**/
+#endif
+
+#define CWLog(args...) NSLog(@"%s%i: %@",__PRETTY_FUNCTION__,__LINE__,[NSString stringWithFormat:args])
+
+#define CWDebugLocationString() [NSString stringWithFormat:@"%s[%i]",__PRETTY_FUNCTION__,__LINE__]
+
+
 
 #endif
 /*

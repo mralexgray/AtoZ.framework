@@ -12,6 +12,14 @@
 #define kGBDebugLayerBorderColor kGBEnableLayerDebugging ? CGColorCreateGenericRGB(1.0f, 0.0f, 1.0f, 0.3f) : nil
 #define kGBDebugLayerBorderWidth kGBEnableLayerDebugging ? 3.0f : 0.0f
 
+
+NSString *const AZToggleLabel 	= @"AZToggleLabel";
+NSString *const AZToggleRel 		= @"AZToggleRelativeTo";
+NSString *const AZToggleOff 		= @"AZToggleOff";
+NSString *const AZToggleOn		= @"AZToggleOn";
+NSString *const AZToggleState	= @"AZToggleState";
+
+
 @interface AZToggleArrayView (UserInteraction)
 - (AZToggleControlLayer*) toggleLayerForEvent:(NSEvent*)event;
 - (CGPoint) layerLocationForEvent:(NSEvent*)event;
@@ -180,9 +188,50 @@
 //
 //
 //	}
-	if ([_delegate respondsToSelector:@selector(itemsForToggleView:)]){
+
+
+
+//	- (NSArray*)itemsForToggleView:(AZToggleArrayView *)view {
+//		return 	@[												/*	[view itemTextLayerWithName:@"Sort:" ],*/
+//		[view itemLayerWithName:	@"Color" relativeTo:@"superlayer" index:0],
+//		[view itemLayerWithName:	@"A-Z" relativeTo:@"Color" 	index:1]	];			}
+	NSString *lastRelative;
+	if ( ([_delegate respondsToSelector:@selector(toggleForView:atIndex:)]) &&
+		 ([_delegate respondsToSelector:@selector( toggleCountforView:)]) ) {
+		for (int i =0; i < [_delegate toggleCountforView:self]; i++) {
+			NSDictionary *response = [_delegate toggleForView:self atIndex:i];
+			NSString* label = response[AZToggleLabel] ? response[AZToggleLabel] : @"";
+			NSString* rel = i == 0
+						  ? @"superlayer"
+			              : lastRelative;
+						  //[[_delegate toggleForView:self atIndex:i-1] valueForKey:AZToggleRel];
+			NSString *on = response[AZToggleOn] ? response[AZToggleOn] : @"ON";
+			NSString *off = response[AZToggleOff] ? response[AZToggleOff] : @"OFF";
+			BOOL state = response[AZToggleState] ? [response boolForKey:AZToggleState] : YES;
+
+			[_containerLayer addSublayer:
+				[self itemLayerWithName:label relativeTo:rel onText:on offText:off state:state index:i]];
+			lastRelative = label;
+		}
+	}
+
+	else if ([_delegate respondsToSelector:@selector(itemsForToggleView:)]){
 		NSArray *yesno = [_delegate itemsForToggleView:self];
 		[yesno each:^(id obj, NSUInteger index, BOOL *stop) {
+//
+//	[containerLayer addSublayer:[self itemLayerWithName:@"Click these 'buttons' to change state ->"
+//											 relativeTo:@"Item 2"
+//												 onText:@"1"
+//												offText:@"0"
+//												  state:YES
+//												  index:1]];
+
+//	[containerLayer addSublayer:[self itemLayerWithName:@"BIG first Initial?"
+//											 relativeTo:@"Click these 'buttons' to change state ->"
+//												 onText:@"YES!"
+//												offText:@"NO!"
+//												  state:YES
+//												  index:1]];
 
 			NSString* rel = (index == 0 ? @"superlayer" : yesno[index-1]);
 			[_containerLayer addSublayer:obj];

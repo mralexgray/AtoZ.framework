@@ -24,6 +24,29 @@
 
 NSString *AZCAAnimationCompletionBlockAssociatedObjectKey = @"AZCAAnimationCompletionBlockAssociatedObjectKey";
 
+void disableCA(){
+
+	[CATransaction flush];
+	[CATransaction begin];
+	[CATransaction setValue:(id)kCFBooleanTrue
+					 forKey:kCATransactionDisableActions];
+}
+
+
+@implementation CATransaction (AtoZ)
++ (void)az_performWithDisabledActions:(void(^)(void))block {
+	if ([self disableActions]) {
+			// actions are already disabled
+		block();
+	} else {
+		[self setDisableActions:YES];
+		block();
+		[self setDisableActions:NO];
+	}
+}
+
+@end
+
 @implementation CAAnimation (AtoZ)
 
 - (void)setAz_completionBlock:(AZCAAnimationCompletionBlock)block
@@ -43,34 +66,6 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey = @"AZCAAnimationCompl
 		self.az_completionBlock();
 }
 
-@end
-
-
-@implementation CATransaction (TUIExtensions)
-
-+ (void)CADisabledBlock(void(^)(void))block {
-	if ([self disableActions]) {
-			// actions are already disabled
-		block();
-	} else {
-		[self setDisableActions:YES];
-		block();
-		[self setDisableActions:NO];
-	}
-}
-
-@end
-
-void disableCA(){
-
-	[CATransaction flush];
-	[CATransaction begin];
-	[CATransaction setValue:(id)kCFBooleanTrue
-				 forKey:kCATransactionDisableActions];
-}
-
-
-@implementation CAAnimation (AtoZ)
 
 + (CAAnimation*)shakeAnimation;
 
@@ -324,17 +319,13 @@ void disableCA(){
 - (IBAction)shakeBabyShake:(id)sender;
 {
 	NSString *key = @"frameOrigin";
-#if __i386__
-	if ([NSView defaultAnimationForKey:key] == nil){
-#elif __x86_64__
-		if ([NSWindow defaultAnimationForKey:key] == nil){
-#endif
-			NSLog(@"NSVindow not animatable for key '%@'",key);
-		}else {
-			[[NSApp keyWindow] setAnimations:[NSDictionary dictionaryWithObject:[self negativeShake:[[NSApp keyWindow] frame]] forKey:key]];
-			[[[NSApp keyWindow] animator] setFrameOrigin:[[NSApp keyWindow] frame].origin];
-		}
+	if ([NSWindow defaultAnimationForKey:key] == nil){
+		NSLog(@"NSVindow not animatable for key '%@'",key);
+	}else {
+		[[NSApp keyWindow] setAnimations:[NSDictionary dictionaryWithObject:[self negativeShake:[[NSApp keyWindow] frame]] forKey:key]];
+		[[[NSApp keyWindow] animator] setFrameOrigin:[[NSApp keyWindow] frame].origin];
 	}
+}
 
 
 	//- (void)animateView:(NSView*)sender {
@@ -479,8 +470,8 @@ void disableCA(){
 
 @end
 @interface CAAnimationDelegate : NSObject {
-    void (^_completion)(BOOL);
-    void (^_start)();
+	void (^_completion)(BOOL);
+	void (^_start)();
 }
 
 @property (nonatomic, copy) void (^completion)(BOOL);
@@ -499,84 +490,158 @@ void disableCA(){
 
 - (id)init
 {
-    self = [super init];
-    if (self) {
-        self.completion = nil;
-        self.start = nil;
-    }
-    return self;
+	self = [super init];
+	if (self) {
+		self.completion = nil;
+		self.start = nil;
+	}
+	return self;
 }
 
 - (void)dealloc
 {
-    self.completion = nil;
-    self.start = nil;
-//    [super dealloc];
+	self.completion = nil;
+	self.start = nil;
+		//    [super dealloc];
 }
 
 - (void)animationDidStart:(CAAnimation *)anim
 {
-    if (self.start != nil) {
-        self.start();
-    }
+	if (self.start != nil) {
+		self.start();
+	}
 }
 
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
 {
-    if (self.completion != nil) {
-        self.completion(flag);
-    }
+	if (self.completion != nil) {
+		self.completion(flag);
+	}
 }
 
 @end
 
 
 
+@implementation CAKeyframeAnimation (Jumping)
 
-	
++ (CAKeyframeAnimation *)jumpAnimation
+{
+		// these three values are subject to experimentation
+	CGFloat initialMomentum = 300.0f; // positive is upwards, per sec
+	CGFloat gravityConstant = 250.0f; // downwards pull per sec
+	CGFloat dampeningFactorPerBounce = 0.6;  // percent of rebound
+
+		// internal values for the calculation
+	CGFloat momentum = initialMomentum; // momentum starts with initial value
+	CGFloat positionOffset = 0; // we begin at the original position
+	CGFloat slicesPerSecond = 60.0f; // how many values per second to calculate
+	CGFloat lowerMomentumCutoff = 5.0f; // below this upward momentum animation ends
+
+	CGFloat duration = 0;
+	NSMutableArray *values = [NSMutableArray array];
+
+	do
+	{
+		duration += 1.0f/slicesPerSecond;
+		positionOffset+=momentum/slicesPerSecond;
+
+		if (positionOffset<0)
+		{
+			positionOffset=0;
+			momentum=-momentum*dampeningFactorPerBounce;
+		}
+
+			// gravity pulls the momentum down
+		momentum -= gravityConstant/slicesPerSecond;
+
+		CATransform3D transform = CATransform3DMakeTranslation(0, -positionOffset, 0);
+		[values addObject:[NSValue valueWithCATransform3D:transform]];
+	} while (!(positionOffset==0 && momentum < lowerMomentumCutoff));
+
+	CAKeyframeAnimation *animation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
+	animation.repeatCount = 1;
+	animation.duration = duration;
+	animation.fillMode = kCAFillModeForwards;
+	animation.values = values;
+	animation.removedOnCompletion = YES; // final stage is equal to starting stage
+	animation.autoreverses = NO;
+
+	return animation;
+}
+
++ (CAKeyframeAnimation *)dockBounceAnimationWithIconHeight:(CGFloat)iconHeight
+{
+	CGFloat factors[32] = {0, 32, 60, 83, 100, 114, 124, 128, 128, 124, 114, 100, 83, 60, 32,
+		0, 24, 42, 54, 62, 64, 62, 54, 42, 24, 0, 18, 28, 32, 28, 18, 0};
+
+	NSMutableArray *values = [NSMutableArray array];
+
+	for (int i=0; i<32; i++)
+	{
+		CGFloat positionOffset = factors[i]/128.0f * iconHeight;
+
+		CATransform3D transform = CATransform3DMakeTranslation(0, -positionOffset, 0);
+		[values addObject:[NSValue valueWithCATransform3D:transform]];
+	}
+
+	CAKeyframeAnimation *animation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
+	animation.repeatCount = 1;
+	animation.duration = 32.0f/30.0f;
+	animation.fillMode = kCAFillModeForwards;
+	animation.values = values;
+	animation.removedOnCompletion = YES; // final stage is equal to starting stage
+	animation.autoreverses = NO;
+
+	return animation;
+}
+
+@end
+
+
 @implementation CAAnimation (BlocksAddition)
 
 -  (BOOL)delegateCheck
 {
-    if (self.delegate != nil && ![self.delegate isKindOfClass:[CAAnimationDelegate class]]) {
-        NSLog(@"CAAnimation(BlocksAddition) Warning: CAAnimation instance's delegate was modified externally");
-        return NO;
-    }
-    return YES;
+	if (self.delegate != nil && ![self.delegate isKindOfClass:[CAAnimationDelegate class]]) {
+		NSLog(@"CAAnimation(BlocksAddition) Warning: CAAnimation instance's delegate was modified externally");
+		return NO;
+	}
+	return YES;
 }
 
 - (void)setCompletion:(void (^)(BOOL))completion
 {
-    CAAnimationDelegate *newDelegate = [[CAAnimationDelegate alloc] init];
-    newDelegate.completion = completion;
-    newDelegate.start = ((CAAnimationDelegate *)self.delegate).start;
-    self.delegate = newDelegate;
-    [newDelegate release];
+	CAAnimationDelegate *newDelegate = [[CAAnimationDelegate alloc] init];
+	newDelegate.completion = completion;
+	newDelegate.start = ((CAAnimationDelegate *)self.delegate).start;
+	self.delegate = newDelegate;
+	[newDelegate release];
 }
 
 - (void (^)(BOOL))completion
 {
-    if (![self delegateCheck]) {
-        return nil;
-    }
-    return ((CAAnimationDelegate *)self.delegate).completion;
+	if (![self delegateCheck]) {
+		return nil;
+	}
+	return ((CAAnimationDelegate *)self.delegate).completion;
 }
 
 - (void)setStart:(void (^)())start
 {
-    CAAnimationDelegate *newDelegate = [[CAAnimationDelegate alloc] init];
-    newDelegate.start = start;
-    newDelegate.completion = ((CAAnimationDelegate *)self.delegate).completion;
-    self.delegate = newDelegate;
-    [newDelegate release];
+	CAAnimationDelegate *newDelegate = [[CAAnimationDelegate alloc] init];
+	newDelegate.start = start;
+	newDelegate.completion = ((CAAnimationDelegate *)self.delegate).completion;
+	self.delegate = newDelegate;
+	[newDelegate release];
 }
 
 - (void (^)())start
 {
-    if (![self delegateCheck]) {
-        return nil;
-    }
-    return ((CAAnimationDelegate *)self.delegate).start;
+	if (![self delegateCheck]) {
+		return nil;
+	}
+	return ((CAAnimationDelegate *)self.delegate).start;
 }
 
 @end

@@ -128,41 +128,51 @@ void RemoveImmediately( CALayer *layer )
     [CATransaction commit];
 }
 
-
-CATextLayer* AddTextLayer( CALayer *superlayer,
-                           NSString *text, NSFont* font,
-                           enum CAAutoresizingMask align )
+CALayer* AddLayer( CALayer *superlayer)
 {
-    CATextLayer *label = [[CATextLayer alloc] init];
-    label.string = text;
-    label.font = (__bridge CGFontRef)font;
-    label.fontSize = font.pointSize;
+    CALayer *layer = [[CALayer alloc] init];
+
+    layer.backgroundColor 	= cgRANDOMCOLOR;
+	layer.position		  	= AZCenterOfRect(superlayer.frame);
+	layer.frame				= AZMakeRectFromSize(nanSizeCheck([superlayer frame].size));
+	layer.shadowOffset 		= (CGSize){ 0, 3 };
+	layer.shadowRadius 		= 5.0;
+	layer.shadowColor	 	= cgBLACK;
+	layer.shadowOpacity 	= 0.8;
+	layer.cornerRadius 		= 10.0;
+	layer.contentsGravity  	= kCAGravityResizeAspect;
+	layer.autoresizingMask 	= kCALayerWidthSizable| kCALayerHeightSizable;
+	layer.layoutManager  	= [CAConstraintLayoutManager layoutManager];
+	[layer addConstraintsSuperSizeScaled:.9];
+//	layer.delegate 	= self;
+	CATransform3D perspectiveTransform = CATransform3DIdentity;
+	perspectiveTransform.m34 = -1.0f / 2000;
+	layer.sublayerTransform = perspectiveTransform;
+	[superlayer addSublayer:layer];
+	return layer;
+}
+
+CATextLayer* AddTextLayer( CALayer *superlayer,	NSString *text, NSFont* font,	enum CAAutoresizingMask align )
+{
+    CATextLayer *label 	  = [[CATextLayer alloc] init];
     label.foregroundColor = kBlackColor;
-
-    NSString *mode;
-    if( align & kCALayerWidthSizable )
-        mode = @"center";
-    else if( align & kCALayerMinXMargin )
-        mode = @"right";
-    else
-        mode = @"left";
-    align |= kCALayerWidthSizable;
-    label.alignmentMode = mode;
-
-    CGFloat inset = superlayer.borderWidth + 3;
-    CGRect bounds = CGRectInset(superlayer.bounds, inset, inset);
-    CGFloat height = font.ascender;
-    CGFloat y = bounds.origin.y;
-    if( align & kCALayerHeightSizable )
-        y += (bounds.size.height-height)/2.0;
-    else if( align & kCALayerMinYMargin )
-        y += bounds.size.height - height;
+    label.string 		= text;
+    label.font 			= (__bridge CGFontRef)font;
+    label.fontSize 		= font.pointSize;
+    NSString *mode	 	= align & kCALayerWidthSizable 	? @"center"
+				   		: align & kCALayerMinXMargin 	? @"right"		: @"left";
+						  align |= kCALayerWidthSizable;
+	label.alignmentMode = mode;
+    CGFloat inset 		= superlayer.borderWidth + 3;
+    CGRect bounds 		= CGRectInset(superlayer.bounds, inset, inset);
+    CGFloat height 		= font.ascender;
+    CGFloat y 			= bounds.origin.y;
+	y 				   += align & kCALayerHeightSizable	? ((bounds.size.height-height) / 2.0)
+ 						: align & kCALayerMinYMargin 	? bounds.size.height - height : 0;
     align &= ~kCALayerHeightSizable;
-    label.bounds = CGRectMake(0, font.descender,
-                              bounds.size.width, height - font.descender);
-    label.position = CGPointMake(bounds.origin.x,y+font.descender);
-    label.anchorPoint = CGPointMake(0,0);
-
+    label.bounds 		= (CGRect) { 0, font.descender, bounds.size.width, height - font.descender };
+    label.position 		= (CGPoint) { bounds.origin.x, y+font.descender };
+    label.anchorPoint 	= (CGPoint) { 0, 0 };
     label.autoresizingMask = align;
     [superlayer addSublayer: label];
     return label;
@@ -457,6 +467,28 @@ CGColorRef CreatePatternColor( CGImageRef image )
     [self addAnimation:theAnimation forKey:@"animateOpacity"];
 
 }
+
+
+
++ (CALayer *) withName:(NSString*)name   inFrame:(NSRect)rect
+			   colored:(NSColor*)color withBorder:(CGFloat)width colored:(NSColor*) borderColor;
+{
+
+	CALayer *new					= [CALayer layer];
+	if (name) new.name				= name;
+	new.frame						= rect;
+	new.position					= AZCenterOfRect(rect);
+	new.borderWidth					= width;
+	if(width) {
+		new.borderWidth 			= width;
+		new.borderColor 			= borderColor.CGColor;
+	}
+	if (color)	new.backgroundColor = color.CGColor;
+	new.contentsGravity  	= kCAGravityResizeAspect;
+	new.autoresizingMask 	= kCALayerWidthSizable| kCALayerHeightSizable;
+	return  new;
+}
+
 
 -(CATransform3D)makeTransformForAngleX:(CGFloat)angle offsetY:(CGFloat)y {
 }

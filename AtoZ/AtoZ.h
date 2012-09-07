@@ -44,6 +44,7 @@ typedef UIColor NSColor;
 
 #import <QSCore/QSCore.h>
 #import "BlocksAdditions.h"
+#import <BlocksKit/BlocksKit.h>
 
 #import <Lumberjack/Lumberjack.h>
 
@@ -495,6 +496,7 @@ NSNumber* DegreesToNumber(CGFloat degrees);
 #define AZVpoint(p) [NSValue valueWithPoint:p]
 #define AZVrect(r)  [NSValue valueWithRect:r]
 #define AZVsize(s)  [NSValue valueWithSize:s]
+#define AZV3dT(t)   [NSValue valueWithCATransform3D:t]
 
 //extern NSString *const AtoZSuperLayer;
 #define AZSuperLayerSuper (@"superlayer")

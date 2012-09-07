@@ -11,11 +11,11 @@
 	<key>HasAskedToTakeAutomaticSnapshotBeforeSignificantChanges</key>
 	<true/>
 	<key>IssueFilterStyle</key>
-	<string>ShowActiveSchemeOnly</string>
+	<string>ShowAll</string>
 	<key>LiveSourceIssuesEnabled</key>
 	<true/>
 	<key>SharedBuildFolderName</key>
-	<string>Build</string>
+	<string>build</string>
 	<key>SnapshotAutomaticallyBeforeSignificantChanges</key>
 	<true/>
 	<key>SnapshotLocationStyle</key>
