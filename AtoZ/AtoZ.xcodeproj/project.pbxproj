@@ -11,9 +11,10 @@
 			isa = PBXAggregateTarget;
 			buildConfigurationList = 7BA32AA415EACE830061B2BC /* Build configuration list for PBXAggregateTarget "AtoZAggregate" */;
 			buildPhases = (
+				7BE63AB815FE9754004BA700 /* AppleDoc */,
+				7BE63ABA15FE9A02004BA700 /* ShellScript */,
 			);
 			dependencies = (
-				7BA32AAA15EACE930061B2BC /* PBXTargetDependency */,
 				7BA32AA815EACE8F0061B2BC /* PBXTargetDependency */,
 			);
 			name = AtoZAggregate;
@@ -190,10 +191,8 @@
 		7B39615A15F04FD70065813F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B311959159B6D9E002134C4 /* Foundation.framework */; };
 		7B39615F15F04FD80065813F /* AtoZTouch.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7B39615E15F04FD80065813F /* AtoZTouch.h */; };
 		7B39616115F04FD80065813F /* AtoZTouch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B39616015F04FD80065813F /* AtoZTouch.m */; };
-		7B39616815F053AE0065813F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B39616715F053AE0065813F /* UIKit.framework */; };
 		7B39616915F054810065813F /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B3422A215A52A61006AC46C /* BaseModel.m */; };
 		7B39616A15F054990065813F /* BaseModel.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7B3422A115A52A61006AC46C /* BaseModel.h */; };
-		7B39616C15F057380065813F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B39616B15F057370065813F /* QuartzCore.framework */; };
 		7B39616D15F0580B0065813F /* AtoZ.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7B311961159B6D9E002134C4 /* AtoZ.h */; };
 		7B471B1115EB05BF005CDA86 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B311995159B7FD0002134C4 /* QuartzCore.framework */; };
 		7B475B1315ED65450002137E /* bullseye.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B475B1215ED65450002137E /* bullseye.png */; };
@@ -215,7 +214,6 @@
 		7B645CD915F556CD00566160 /* PLWeakCompatibility.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7B0236C215E08BD90070FE12 /* PLWeakCompatibility.framework */; };
 		7B645D7A15F60D1B00566160 /* QSEffects.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B645D5A15F60CB600566160 /* QSEffects.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		7B645D8315F60ED900566160 /* QSCore.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7B645D5C15F60CB600566160 /* QSCore.framework */; };
-		7B645D8415F60ED900566160 /* QSFoundation.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7B645D5815F60CB600566160 /* QSFoundation.framework */; };
 		7B645D8D15F60F0800566160 /* QSInterface.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7B645D5E15F60CB600566160 /* QSInterface.framework */; };
 		7B645D8E15F60F0800566160 /* QSEffects.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7B645D5A15F60CB600566160 /* QSEffects.framework */; };
 		7B645D9015F60F7A00566160 /* QSCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B645D5C15F60CB600566160 /* QSCore.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -284,7 +282,6 @@
 		7B9742D415C697C4006490DD /* 5.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 7B9742CF15C697C4006490DD /* 5.pdf */; };
 		7B985DC015C91E4F00A86B7C /* AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B311961159B6D9E002134C4 /* AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B9D5B4E15EBFB82005D1A76 /* AZQuadObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B9D5B4D15EBFB82005D1A76 /* AZQuadObject.m */; };
-		7B9D5B6915ECD11E005D1A76 /* PLWeakCompatibility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BBD970315AD588A00943FC1 /* PLWeakCompatibility.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		7B9D5B6D15ECE47B005D1A76 /* AZQuadLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B9D5B6C15ECE47A005D1A76 /* AZQuadLayer.m */; };
 		7B9D5B7415ECE85F005D1A76 /* AZLassoLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B9D5B7315ECE85F005D1A76 /* AZLassoLayer.m */; };
 		7B9D5BAA15ED0E27005D1A76 /* NSFileManager+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B9D5BA815ED0E26005D1A76 /* NSFileManager+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -858,13 +855,13 @@
 		7BE1F68915F8D1A4005ED292 /* AtoZ-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 7B583066159BDAF40039CEED /* AtoZ-Prefix.pch */; };
 		7BE1F6AF15F910F6005ED292 /* FunSize.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7BE1F6A515F90299005ED292 /* FunSize.framework */; };
 		7BE1F6B215F9111C005ED292 /* FunSize.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BE1F6A515F90299005ED292 /* FunSize.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		7BE1F6DA15F92426005ED292 /* BlocksKit.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7BE1F6D915F92426005ED292 /* BlocksKit.framework */; };
 		7BE3FB4D15EFFD130000656D /* AZTrackingWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BA425B615E7C3C200D2A471 /* AZTrackingWindow.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BE6069515A0E2DD00355236 /* NSString+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BE6069315A0E2DC00355236 /* NSString+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BE6069615A0E2DD00355236 /* NSString+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BE6069415A0E2DD00355236 /* NSString+AtoZ.m */; };
 		7BE606F215A118B400355236 /* AZAttachedWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BE606EE15A118B400355236 /* AZAttachedWindow.m */; };
 		7BE639B415FCDE0F004BA700 /* AZMedallionView.h in Sources */ = {isa = PBXBuildFile; fileRef = 7BE639B215FCDE0F004BA700 /* AZMedallionView.h */; };
 		7BE639B515FCDE0F004BA700 /* AZMedallionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BE639B315FCDE0F004BA700 /* AZMedallionView.m */; };
+		7BE63ABD15FE9AE8004BA700 /* QSFoundation.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7B645D5815F60CB600566160 /* QSFoundation.framework */; };
 		7BF0571C15EB33F3003A2A7A /* AZSpinnerLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF0571A15EB33F2003A2A7A /* AZSpinnerLayer.m */; };
 		7BF0571D15EB33F3003A2A7A /* AZSpinnerLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BF0571B15EB33F3003A2A7A /* AZSpinnerLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BF9E79C159E8F5000B5482D /* NSArray+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BF9E79A159E8F5000B5482D /* NSArray+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1167,13 +1164,6 @@
 			remoteGlobalIDString = 7B311950159B6D9E002134C4;
 			remoteInfo = AtoZ;
 		};
-		7BA32AA915EACE930061B2BC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7B311947159B6D9E002134C4 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 7B31B12515E9441D00802CD5;
-			remoteInfo = "AtoZ Entitlement";
-		};
 		7BC398F815E45CE600482937 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7B0236B015E08BD90070FE12 /* AtoZiTunes.xcodeproj */;
@@ -1348,19 +1338,18 @@
 		7B0236DB15E08E500070FE12 /* frameworks copy */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "";
+			dstPath = Frameworks;
 			dstSubfolderSpec = 10;
 			files = (
+				7BE63ABD15FE9AE8004BA700 /* QSFoundation.framework in frameworks copy */,
 				7BE1F6AF15F910F6005ED292 /* FunSize.framework in frameworks copy */,
 				7B645D8315F60ED900566160 /* QSCore.framework in frameworks copy */,
 				7B645D8D15F60F0800566160 /* QSInterface.framework in frameworks copy */,
-				7B645D8415F60ED900566160 /* QSFoundation.framework in frameworks copy */,
 				7B645D8E15F60F0800566160 /* QSEffects.framework in frameworks copy */,
 				7B645CD915F556CD00566160 /* PLWeakCompatibility.framework in frameworks copy */,
 				7B645CD315F5563B00566160 /* XPCKit.framework in frameworks copy */,
 				7B645CD415F5563B00566160 /* Growl.framework in frameworks copy */,
 				7B645CD515F5563B00566160 /* AtoZiTunes.framework in frameworks copy */,
-				7BE1F6DA15F92426005ED292 /* BlocksKit.framework in frameworks copy */,
 				7B645CCA15F5549100566160 /* Lumberjack.framework in frameworks copy */,
 			);
 			name = "frameworks copy";
@@ -2180,8 +2169,6 @@
 		7B39615D15F04FD80065813F /* AtoZTouch-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AtoZTouch-Prefix.pch"; sourceTree = "<group>"; };
 		7B39615E15F04FD80065813F /* AtoZTouch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AtoZTouch.h; sourceTree = "<group>"; };
 		7B39616015F04FD80065813F /* AtoZTouch.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AtoZTouch.m; sourceTree = "<group>"; };
-		7B39616715F053AE0065813F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
-		7B39616B15F057370065813F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
 		7B475B1215ED65450002137E /* bullseye.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bullseye.png; sourceTree = "<group>"; };
 		7B495F7715C076C7002DC694 /* RGB.clr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = RGB.clr; sourceTree = "<group>"; };
 		7B4A8FED15AB267D00463B91 /* AZSourceList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZSourceList.h; sourceTree = "<group>"; };
@@ -2301,7 +2288,6 @@
 		7BBD96ED15AD38F300943FC1 /* AZApplePrivate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZApplePrivate.m; sourceTree = "<group>"; };
 		7BBD96F915AD529A00943FC1 /* AZOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZOverlay.h; path = AZLayerGrid/AZOverlay.h; sourceTree = SOURCE_ROOT; };
 		7BBD96FA15AD529A00943FC1 /* AZOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AZOverlay.m; path = AZLayerGrid/AZOverlay.m; sourceTree = SOURCE_ROOT; };
-		7BBD970315AD588A00943FC1 /* PLWeakCompatibility.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PLWeakCompatibility.framework; path = "../../../../disenchanted 750/DerivedData/PLWeakCompatibility-chfkqnybfsbbfpfbkrdmefgadcvh/Build/Products/Debug/PLWeakCompatibility.framework"; sourceTree = "<group>"; };
 		7BBD991015B0648A00943FC1 /* CAAnimation+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CAAnimation+AtoZ.h"; sourceTree = "<group>"; };
 		7BBD991115B0648A00943FC1 /* CAAnimation+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CAAnimation+AtoZ.m"; sourceTree = "<group>"; };
 		7BBD991515B0688400943FC1 /* CALayer+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CALayer+AtoZ.h"; sourceTree = "<group>"; };
@@ -2849,8 +2835,6 @@
 		7BDDD5E315A3792600A5C222 /* AZStopwatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZStopwatch.m; sourceTree = "<group>"; };
 		7BE1F69C15F90298005ED292 /* FunSize.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FunSize.xcodeproj; path = ../FunSize.framework/FunSize.xcodeproj; sourceTree = "<group>"; };
 		7BE1F6B315F91233005ED292 /* BlocksKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BlocksKit.xcodeproj; path = ../../../../../../../../../Volumes/2T/ServiceData/git/BlocksKit/BlocksKit.xcodeproj; sourceTree = BUILT_PRODUCTS_DIR; };
-		7BE1F6D715F92403005ED292 /* BlocksKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = BlocksKit.framework; path = /Users/localadmin/Library/Developer/Xcode/DerivedData/build/Products/Debug/BlocksKit.framework; sourceTree = "<absolute>"; };
-		7BE1F6D915F92426005ED292 /* BlocksKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = BlocksKit.framework; path = /Users/localadmin/Library/Developer/Xcode/DerivedData/build/Products/Debug/BlocksKit.framework; sourceTree = "<absolute>"; };
 		7BE6069315A0E2DC00355236 /* NSString+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+AtoZ.h"; sourceTree = "<group>"; };
 		7BE6069415A0E2DD00355236 /* NSString+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+AtoZ.m"; sourceTree = "<group>"; };
 		7BE606ED15A118B400355236 /* AZAttachedWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZAttachedWindow.h; path = Views/AZAttachedWindow.h; sourceTree = SOURCE_ROOT; };
@@ -2902,8 +2886,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7B39616C15F057380065813F /* QuartzCore.framework in Frameworks */,
-				7B39616815F053AE0065813F /* UIKit.framework in Frameworks */,
 				7B39615A15F04FD70065813F /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2925,7 +2907,6 @@
 				7B61E91E15EAA9990053BACF /* Cocoa.framework in Frameworks */,
 				7B6CF45D15D32B8D0018A0D7 /* AudioToolbox.framework in Frameworks */,
 				7B23C36815CE9AB800DD1A9C /* WebKit.framework in Frameworks */,
-				7B9D5B6915ECD11E005D1A76 /* PLWeakCompatibility.framework in Frameworks */,
 				7BE1F6B215F9111C005ED292 /* FunSize.framework in Frameworks */,
 				7B23C33F15CE268B00DD1A9C /* Carbon.framework in Frameworks */,
 				7B23C33E15CE267400DD1A9C /* Quartz.framework in Frameworks */,
@@ -3108,11 +3089,10 @@
 		7B311945159B6D9E002134C4 = {
 			isa = PBXGroup;
 			children = (
-				7BE1F6D915F92426005ED292 /* BlocksKit.framework */,
-				7BE1F6D715F92403005ED292 /* BlocksKit.framework */,
 				7B31195A159B6D9E002134C4 /* AtoZ */,
 				7B184EE815FCA98700696360 /* AtoZCLI */,
 				7B311953159B6D9E002134C4 /* Frameworks */,
+				7B21670D15EA6FF800DC0054 /* Shared */,
 				7B311952159B6D9E002134C4 /* Products */,
 				7B39615B15F04FD70065813F /* AtoZTouch */,
 				7B82B82815CB66D30026FE8C /* AtoZ Encyclopedia */,
@@ -3139,16 +3119,12 @@
 			children = (
 				7BE1F6B315F91233005ED292 /* BlocksKit.xcodeproj */,
 				7BE1F69C15F90298005ED292 /* FunSize.xcodeproj */,
-				7B21670D15EA6FF800DC0054 /* Shared */,
 				7B645D3E15F60CB500566160 /* Quicksilver.xcodeproj */,
 				7B61E90515EAA8340053BACF /* XPCKit.xcodeproj */,
 				7B15CBD215E8504C004BA8AB /* Growl.xcodeproj */,
 				7B0236B015E08BD90070FE12 /* AtoZiTunes.xcodeproj */,
 				7B0236B315E08BD90070FE12 /* PLWeakCompatibility.xcodeproj */,
 				7B230AE815EFB349007A680D /* Lumberjack.xcodeproj */,
-				7B39616B15F057370065813F /* QuartzCore.framework */,
-				7B39616715F053AE0065813F /* UIKit.framework */,
-				7BBD970315AD588A00943FC1 /* PLWeakCompatibility.framework */,
 				7BF9E7D9159F0A8200B5482D /* Quartz.framework */,
 				7B6901DB159E3F2700D0DA47 /* Security.framework */,
 				7B6901D9159E3F1800D0DA47 /* ApplicationServices.framework */,
@@ -4377,16 +4353,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7B31197B159B6D9E002134C4 /* Build configuration list for PBXNativeTarget "AtoZ" */;
 			buildPhases = (
-				7B9595B015E1CFCE0044620B /* fonts Files */,
 				7B0236DB15E08E500070FE12 /* frameworks copy */,
 				7B31194F159B6D9E002134C4 /* Resources */,
 				7BBD987B15AF79D000943FC1 /* Frameworks */,
 				7B31194E159B6D9E002134C4 /* Headers */,
 				7B31194C159B6D9E002134C4 /* Sources */,
-				7B311982159B7CC5002134C4 /* Enabled Scripts */,
-				7BC3C29B15C9A9D400DA2EFA /* Disabled Scripts */,
+				7B9595B015E1CFCE0044620B /* fonts Files */,
 				7BC70E5115F47D80009E037A /* Copy Files */,
-				7BE63A0F15FE7AA5004BA700 /* AppleDoc */,
+				7BE63AB915FE9782004BA700 /* LinkBuild To System Frameworks Directory and Create Umbrella Framework Symlink */,
 			);
 			buildRules = (
 			);
@@ -5023,36 +4997,7 @@
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
 		};
-		7B311982159B7CC5002134C4 /* Enabled Scripts */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 8;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Enabled Scripts";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 1;
-			shellPath = /bin/sh;
-			shellScript = "# Symlink build output to a common directory for easy referencing in other projects\n##mkdir -p \"$BUILD_DIR/current\"\n##rm -rf \"$BUILD_DIR/current\"\n##ln -s \"$BUILT_PRODUCTS_DIR\" \"$BUILD_DIR/current\"\n\n# Copy headers to a shared location\n##mkdir -p \"$BUILD_DIR/current/headers\"\n##for file in `find . -name \"*.h\"`; do cp $file ##\"$BUILD_DIR/current/headers/\"; done;\n\n\n\n\n#for file in `find . -name \"*.h\"`; do cp $file ##\"$BUILD_DIR/current/headers/\";\n\n\n\n\n\n#done;\n\n\n##cd \"$CONFIGURATION_BUILD_DIR/$FULL_PRODUCT_NAME/\"\n##ln -sf ./Versions/Current/Frameworks ./Frameworks\n\n";
-			showEnvVarsInLog = 0;
-		};
-		7BC3C29B15C9A9D400DA2EFA /* Disabled Scripts */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Disabled Scripts";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "find \"$TARGET_BUILD_DIR/$FULL_PRODUCT_NAME\" '(' -name '.svn' -or -name '.DS_Store' ')' -prune -print0 | xargs -0 rm -rf\n\n\nlogger \"${SRCROOT}/Resources\"\n\n\n\nFRAMEWORK_DIR=\"$BUILT_PRODUCTS_DIR/AtoZ.framework\"\nFRAMEWORKS_DIR=\"$FRAMEWORK_DIR/Versions/Frameworks\"\n\nif ( ! [ -e \"$FRAMEWORKS_DIR\" ] ); then\nln -s \"$FRAMEWORK_DIR/Versions/Current/Frameworks\" \"$FRAMEWORKS_DIR\"\nfi\n#5) Add (and copy) the super framework to your app and weak link it\n#with all of the sub frameworks of your umbrella framework (by adding\n#\"-weak_framework subFramework\" to the other linker flags).\n\n\n\n#/usr/local/bin/appledoc \"${SRCROOT}/Resources\"\n\n#mkdir \"/ServiceData/www/mrgray/docs/${WRAPPER_NAME}\"\n\n#/usr/local/bin/appledoc \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\\\n--project-name \"${WRAPPER_NAME}\" \t\t\t\t\t\t\t\t\t\t\t\t\t\t\\\n--project-company \"mrgray.com\" \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\\\n--company-id com.mrgray \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\\\n--output \"/ServiceData/www/mrgray/docs/${WRAPPER_NAME}\" \t\t\t\t\t\t\t\t\t\\\n--docset-feed-url \"http://mrgray.com/docs/${WRAPPER_NAME}/%DOCSETATOMFILENAME\" \t\t\t\\\n--docset-package-url \"http://mrgray.com/docs/${WRAPPER_NAME}/%DOCSETPACKAGEFILENAME\" \t\\\n--publish-docset \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\\\n--keep-undocumented-objects \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\\\n--keep-undocumented-members \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\\\n--search-undocumented-doc \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\\\n.\n\n\n# Add custom icon (adding CFBundleIconFile to plist and .icns file in /Resources doesn't work, so we have to duplicate what happens when you paste an icon into the Finder Get Info window)\n\n# copy custom icon into top level of bundle and rename to \"Icon\" with a *trailing CR*.  path_to_icon is the path to the source icon file, already in the correct format ('icns' resource ID -16455 in resource fork), but with different filename.\n\ncp \"${SRCROOT}/Resources/atoz.icns\" \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.${WRAPPER_EXTENSION}/\"$(echo -ne \"Icon\\r\")\n\n# make custom icon file invisible\n/Developer/Tools/SetFile -a V \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.${WRAPPER_EXTENSION}/\"$(echo -ne \"Icon\\r\")\n\n# mark the bundle folder as having a custom icon\n/Developer/Tools/SetFile -a C \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.${WRAPPER_EXTENSION}\"\n\n\n#cd \"${CONFIGURATION_BUILD_DIR}/${FULL_PRODUCT_NAME}/\"\n#ln -sf ./Versions/Current/Frameworks ./Frameworks\n\n\nPRODUCT=\"${WRAPPER_NAME}\"\nPRODUCT_PATH=\"${BUILT_PRODUCTS_DIR}/${PRODUCT}\"\nXCODE44='/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/'\nMAC=\"/Library/Frameworks/\"\n\n\n#sudo ln -sf \"${PRODUCT_PATH}\" \"${XCODE44}\"\nsudo ln -sF \"${PRODUCT_PATH}\" \"${MAC}\"\n\n#if [ -d \"${MAC}/${PRODUCT}\" ]; then\n#\tsudo rm \"${MAC}/${PRODUCT}\"\n#fi\n#env\n\nSYMPATH=\"${TARGET_BUILD_DIR}/${PRODUCT}/Frameworks\"\nROOT=\"${TARGET_BUILD_DIR}/${PRODUCT}\"\nHEADERS=\"${TARGET_BUILD_DIR}/${PRODUCT}/AtoZ.framework/Headers\"\nCONTENTS=\"${TARGET_BUILD_DIR}/${CONTENTS_FOLDER_PATH}\"\nlogger \"${SYMPATH}\"\n\n#if [ -L \"${SYMPATH}\" ]; then\n#\tcd \"${TARGET_BUILD_DIR}/${PRODUCT}\"\n#\tln -sF Versions/Current/Frameworks Frameworks\n##else\n##\tcd \"${TARGET_BUILD_DIR}/${PRODUCT}\"\n##   ln -s Versions/Current/Frameworks Frameworks\n#\tln -s \"${CONTENTS_FOLDER_PATH/Frameworks\" \"../../Frameworks\"\n##fi\n\n\n\n\n#CONTENTS_FOLDER_PATH=AtoZ.framework/Versions/A#\n\n\n\n\n#sudo ln -sf \"${PRODUCT_PATH}\" \"${MAC}\"\n#sudo rm \"${XCODE44}/${WRAPPER_NAME}\"\n#sudo rm \"${MAC}/${WRAPPER_NAME}\"\n\n\n\n\n#MAC_INSTALL_TARGET=\"/Library/Frameworks/\"\n\n#XCODE43_LION_INSTALL_TARGET=\"/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk/System/Library/Frameworks/$PRODUCT\"\n\n#XCODE45_MLION_INSTALL_TARGET=\"${SDKROOT}/System/Library/Frameworks/$PRODUCT\"\n\n#sudo ln -sf \"${PRODUCT_PATH}\" \"${MAC_INSTALL_TARGET}\"\n#sudo ln -sf \"${PRODUCT_PATH}\" \"${XCODE43_LION_INSTALL_TARGET}\"\n#sudo ln -sf \"${PRODUCT_PATH}\" \"${XCODE45_MLION_INSTALL_TARGET}\"\n\n#sudo ln -sf \"${PRODUCT_PATH}\" \"${XCODE455ML}${PRODUCT}\"\n\n#sudo ln -sF $MAC_INSTALL_TARGET $SDK_INSTALL_TARGET\n";
-		};
-		7BE63A0F15FE7AA5004BA700 /* AppleDoc */ = {
+		7BE63AB815FE9754004BA700 /* AppleDoc */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -5065,6 +5010,33 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "WWWDIR=\"/sd/www/mrgray\"\nDOCSDIR=\"/docs/atoz.framework\"\nmkdir -p \"${WWWDIR}${DOCSDIR}\"\n\n/usr/local/bin/appledoc Resources/AppledocSettings.plist\n#--project-name \"$FULL_PRODUCT_NAME\" \\\n#--project-company \"mrgray.com\" \\\n#--company-id com.github.mralexgray \\\n##--output \"${WWWDIR}${DOCSDIR}\" \\\n#--docset-feed-url \"http://mrgray.com${DOCSDIR}/%DOCSETATOMFILENAME\" \\\n#--docset-package-url \"http://mrgray.com${DOCSDIR}/%DOCSETPACKAGEFILENAME\" \\\n#--publish-docset \\\n#.";
+		};
+		7BE63AB915FE9782004BA700 /* LinkBuild To System Frameworks Directory and Create Umbrella Framework Symlink */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "LinkBuild To System Frameworks Directory and Create Umbrella Framework Symlink";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "PRODUCT_PATH=\"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}\"\nMAC=\"/Library/Frameworks/\"\n\nsudo ln -sF \"${PRODUCT_PATH}\" \"${MAC}\"\n\n#FRAMEWORKS_DIR=\"${PRODUCT_PATH}\"FRAMEWORK_DIR/Versions/Frameworks\"\n\n#if ( ! [ -e \"$FRAMEWORKS_DIR\" ] ); then\n#$$ln -s \"$FRAMEWORK_DIR/Versions/Current/Frameworks\" \"$FRAMEWORKS_DIR\"\n#fi\n";
+		};
+		7BE63ABA15FE9A02004BA700 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "find \"$TARGET_BUILD_DIR/$FULL_PRODUCT_NAME\" '(' -name '.svn' -or -name '.DS_Store' ')' -prune -print0 | xargs -0 rm -rf\n\n\nlogger \"${SRCROOT}/Resources\"\n\n\n#5) Add (and copy) the super framework to your app and weak link it\n#with all of the sub frameworks of your umbrella framework (by adding\n#\"-weak_framework subFramework\" to the other linker flags).\n\n\n\n#/usr/local/bin/appledoc \"${SRCROOT}/Resources\"\n\n#mkdir \"/ServiceData/www/mrgray/docs/${WRAPPER_NAME}\"\n\n#/usr/local/bin/appledoc \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\\\n--project-name \"${WRAPPER_NAME}\" \t\t\t\t\t\t\t\t\t\t\t\t\t\t\\\n--project-company \"mrgray.com\" \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\\\n--company-id com.mrgray \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\\\n--output \"/ServiceData/www/mrgray/docs/${WRAPPER_NAME}\" \t\t\t\t\t\t\t\t\t\\\n--docset-feed-url \"http://mrgray.com/docs/${WRAPPER_NAME}/%DOCSETATOMFILENAME\" \t\t\t\\\n--docset-package-url \"http://mrgray.com/docs/${WRAPPER_NAME}/%DOCSETPACKAGEFILENAME\" \t\\\n--publish-docset \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\\\n--keep-undocumented-objects \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\\\n--keep-undocumented-members \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\\\n--search-undocumented-doc \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\\\n.\n\n\n# Add custom icon (adding CFBundleIconFile to plist and .icns file in /Resources doesn't work, so we have to duplicate what happens when you paste an icon into the Finder Get Info window)\n\n# copy custom icon into top level of bundle and rename to \"Icon\" with a *trailing CR*.  path_to_icon is the path to the source icon file, already in the correct format ('icns' resource ID -16455 in resource fork), but with different filename.\n\ncp \"${SRCROOT}/Resources/atoz.icns\" \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.${WRAPPER_EXTENSION}/\"$(echo -ne \"Icon\\r\")\n\n# make custom icon file invisible\n/Developer/Tools/SetFile -a V \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.${WRAPPER_EXTENSION}/\"$(echo -ne \"Icon\\r\")\n\n# mark the bundle folder as having a custom icon\n/Developer/Tools/SetFile -a C \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.${WRAPPER_EXTENSION}\"\n\n\n#cd \"${CONFIGURATION_BUILD_DIR}/${FULL_PRODUCT_NAME}/\"\n#ln -sf ./Versions/Current/Frameworks ./Frameworks\n\n\n\nXCODE44='/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/'\n\n\n#sudo ln -sf \"${PRODUCT_PATH}\" \"${XCODE44}\"\n\n\n#if [ -d \"${MAC}/${PRODUCT}\" ]; then\n#\tsudo rm \"${MAC}/${PRODUCT}\"\n#fi\n#env\n\nSYMPATH=\"${TARGET_BUILD_DIR}/${PRODUCT}/Frameworks\"\nROOT=\"${TARGET_BUILD_DIR}/${PRODUCT}\"\nHEADERS=\"${TARGET_BUILD_DIR}/${PRODUCT}/AtoZ.framework/Headers\"\nCONTENTS=\"${TARGET_BUILD_DIR}/${CONTENTS_FOLDER_PATH}\"\nlogger \"${SYMPATH}\"\n\n#if [ -L \"${SYMPATH}\" ]; then\n#\tcd \"${TARGET_BUILD_DIR}/${PRODUCT}\"\n#\tln -sF Versions/Current/Frameworks Frameworks\n##else\n##\tcd \"${TARGET_BUILD_DIR}/${PRODUCT}\"\n##   ln -s Versions/Current/Frameworks Frameworks\n#\tln -s \"${CONTENTS_FOLDER_PATH/Frameworks\" \"../../Frameworks\"\n##fi\n\n\n\n\n#CONTENTS_FOLDER_PATH=AtoZ.framework/Versions/A#\n\n\n\n\n#sudo ln -sf \"${PRODUCT_PATH}\" \"${MAC}\"\n#sudo rm \"${XCODE44}/${WRAPPER_NAME}\"\n#sudo rm \"${MAC}/${WRAPPER_NAME}\"\n\n\n\n\n#MAC_INSTALL_TARGET=\"/Library/Frameworks/\"\n\n#XCODE43_LION_INSTALL_TARGET=\"/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk/System/Library/Frameworks/$PRODUCT\"\n\n#XCODE45_MLION_INSTALL_TARGET=\"${SDKROOT}/System/Library/Frameworks/$PRODUCT\"\n\n#sudo ln -sf \"${PRODUCT_PATH}\" \"${MAC_INSTALL_TARGET}\"\n#sudo ln -sf \"${PRODUCT_PATH}\" \"${XCODE43_LION_INSTALL_TARGET}\"\n#sudo ln -sf \"${PRODUCT_PATH}\" \"${XCODE45_MLION_INSTALL_TARGET}\"\n\n#sudo ln -sf \"${PRODUCT_PATH}\" \"${XCODE455ML}${PRODUCT}\"\n\n#sudo ln -sF $MAC_INSTALL_TARGET $SDK_INSTALL_TARGET\n\n\n# Symlink build output to a common directory for easy referencing in other projects\n##mkdir -p \"$BUILD_DIR/current\"\n##rm -rf \"$BUILD_DIR/current\"\n##ln -s \"$BUILT_PRODUCTS_DIR\" \"$BUILD_DIR/current\"\n\n# Copy headers to a shared location\n##mkdir -p \"$BUILD_DIR/current/headers\"\n##for file in `find . -name \"*.h\"`; do cp $file ##\"$BUILD_DIR/current/headers/\"; done;\n\n#for file in `find . -name \"*.h\"`; do cp $file ##\"$BUILD_DIR/current/headers/\";\n#done;\n##cd \"$CONFIGURATION_BUILD_DIR/$FULL_PRODUCT_NAME/\"\n##ln -sf ./Versions/Current/Frameworks ./Frameworks\n\n\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -5304,11 +5276,6 @@
 			target = 7B311950159B6D9E002134C4 /* AtoZ */;
 			targetProxy = 7BA32AA715EACE8F0061B2BC /* PBXContainerItemProxy */;
 		};
-		7BA32AAA15EACE930061B2BC /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 7B31B12515E9441D00802CD5 /* AtoZ Entitlement */;
-			targetProxy = 7BA32AA915EACE930061B2BC /* PBXContainerItemProxy */;
-		};
 		7BE1F6B115F91107005ED292 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = FunSize;
@@ -5479,10 +5446,10 @@
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)\"/**",
-					"build/**",
+					"\"$(SRCROOT)\"",
+					build,
 					/Users/localadmin/Library/Developer/Xcode/DerivedData/build/Products/Debug,
-					"\"$(SRCROOT)/Frameworks\"/**",
+					"\"$(SRCROOT)/Frameworks\"",
 				);
 				FRAMEWORK_VERSION = A;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
@@ -5490,8 +5457,8 @@
 				GCC_PREFIX_HEADER = "Resources/AtoZ-Prefix.pch";
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "Resources/AtoZ-Info.plist";
-				INSTALL_PATH = "@loader_path/../Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks ../Frameworks ../../../Frameworks";
+				INSTALL_PATH = "@rpath";
+				LD_RUNPATH_SEARCH_PATHS = "../../Frameworks @loader_path/../Frameworks ./Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				OTHER_CFLAGS = (
 					"-Xclang",
@@ -5518,6 +5485,18 @@
 					BlocksKit,
 					"-sub_umbrella",
 					PLWeakCompatibility,
+					"-sub_umbrella",
+					QSInterface,
+					"-sub_umbrella",
+					QSFoundation,
+					"-sub_umbrella",
+					QSEffects,
+					"-sub_umbrella",
+					QSCore,
+					"-sub_umbrella",
+					Lumberjack,
+					"-sub_umbrella",
+					AtoZiTunes,
 				);
 				PRODUCT_NAME = AtoZ;
 				SKIP_INSTALL = YES;
@@ -5535,10 +5514,10 @@
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)\"/**",
-					"build/**",
+					"\"$(SRCROOT)\"",
+					build,
 					/Users/localadmin/Library/Developer/Xcode/DerivedData/build/Products/Debug,
-					"\"$(SRCROOT)/Frameworks\"/**",
+					"\"$(SRCROOT)/Frameworks\"",
 				);
 				FRAMEWORK_VERSION = A;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
@@ -5546,8 +5525,8 @@
 				GCC_PREFIX_HEADER = "Resources/AtoZ-Prefix.pch";
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "Resources/AtoZ-Info.plist";
-				INSTALL_PATH = "@loader_path/../Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks ../Frameworks ../../../Frameworks";
+				INSTALL_PATH = "@rpath";
+				LD_RUNPATH_SEARCH_PATHS = "../../Frameworks @loader_path/../Frameworks ./Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				OTHER_CFLAGS = (
 					"-Xclang",
@@ -5574,6 +5553,18 @@
 					BlocksKit,
 					"-sub_umbrella",
 					PLWeakCompatibility,
+					"-sub_umbrella",
+					QSInterface,
+					"-sub_umbrella",
+					QSFoundation,
+					"-sub_umbrella",
+					QSEffects,
+					"-sub_umbrella",
+					QSCore,
+					"-sub_umbrella",
+					Lumberjack,
+					"-sub_umbrella",
+					AtoZiTunes,
 				);
 				PRODUCT_NAME = AtoZ;
 				SKIP_INSTALL = YES;

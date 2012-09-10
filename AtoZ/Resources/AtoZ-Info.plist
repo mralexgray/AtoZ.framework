@@ -2,14 +2,14 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>--docset-feed-url</key>
-	<string>http://mrgray.com/docs/%DOCSETPACKAGEFILENAME</string>
-	<key>--docset-package-url</key>
-	<string>http://mrgray.com/docs/%DOCSETATOMFILENAME</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
+	<key>CFBundleDisplayName</key>
+	<string></string>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
+	<key>CFBundleGetInfoString</key>
+	<string></string>
 	<key>CFBundleIconFile</key>
 	<string>atoz</string>
 	<key>CFBundleIdentifier</key>

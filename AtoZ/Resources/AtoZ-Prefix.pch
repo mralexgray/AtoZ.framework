@@ -4,15 +4,42 @@
 
 #ifdef __OBJC__
 
+
+	#if TARGET_OS_IPHONE
+	#import <UIKit/UIKit.h>
+	typedef UIView NSView;
+	typedef CGSize NSSize;
+	typedef CGRect NSRect;
+	typedef UIColor NSColor;
+	#else
+	#import <XPCKit/XPCKit.h>
+	#import <QSCore/QSCore.h>
+	#import <QSFoundation/QSFoundation.h>
+	#import <QSInterface/QSInterface.h>
+	#import <QSEffects/QSEffects.h>
+	#import <QSCore/QSCore.h>
+//	#import "AZGeometry.h"
+//	#import "AtoZUmbrella.h"
+//	#define GROWL_ENABLED
+//	#include <Growl/Growl.h>
+//	#define ATOZITUNES_ENABLED
+//	#import <AtoZiTunes/AtoZiTunes.h>
 	#import <Cocoa/Cocoa.h>
 	#import <Foundation/Foundation.h>
 	#import <ApplicationServices/ApplicationServices.h>
+	#import <AppKit/AppKit.h>
+	#import <AudioToolbox/AudioToolbox.h>
 	#import <QuartzCore/QuartzCore.h>
-//	#import "AZGeometry.h"
-//	#import "AtoZUmbrella.h"
+	#import <xpc/xpc.h>
+
+	#define EXCLUDE_STUB_PROTOTYPES 1
+	#import <PLWeakCompatibility/PLWeakCompatibilityStubs.h>
+
 	#import <AtoZ/AtoZ.h>
 	#import <FunSize/FunSize.h>
-	
+	#import <BlocksKit/BlocksKit.h>
+	#import <Lumberjack/Lumberjack.h>
+#endif
 #endif
 
 
