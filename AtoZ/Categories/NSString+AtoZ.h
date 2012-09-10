@@ -7,24 +7,21 @@
 
 @interface NSString (AtoZ)
 
-- (NSString *)stringByReplacingAllOccurancesOfString:(NSString *)search withString:(NSString *)replacement;
--(NSString*) urlEncoded;
--(NSString*) urlDecoded;
+- (NSString*) stringByReplacingAllOccurancesOfString:(NSString*) search withString:(NSString*) replacement;
+- (NSString*) urlEncoded;
+- (NSString*) urlDecoded;
 
-- (NSString *)firstLetter;
-+ (NSString *)newUniqueIdentifier;
+- (NSString*) firstLetter;
++ (NSString*) newUniqueIdentifier;
 + (NSString*) applicationSupportFolder;
 + (NSString*) randomAppPath;
 
 //@property (readonly) NSColor *colorValue;
 
 // new way
-
 - (void) drawInRect:(NSRect)r withFont:(NSFont*)font andColor:(NSColor*)color;
 
-
-
-- (void)drawCenteredInRect:(NSRect)rect withFont:(NSString *)font;
+- (void) drawCenteredInRect:(NSRect)rect withFont:(NSString*) font;
 /*** Returns the string cleaned from leading and trailing whitespaces */
 @property (readonly) NSString *trim;
 
@@ -51,51 +48,51 @@
 @property (readonly) BOOL isEmpty;
 
 /*** Counts occurrences of a given string */
-- (NSUInteger)count:(NSString *)aString;
+- (NSUInteger)count:(NSString*) aString;
 
 /*** Cunts occurrences of a given string with sone compare options */
-- (NSUInteger)count:(NSString *)aString options:(NSStringCompareOptions)flags;
+- (NSUInteger)count:(NSString*) aString options:(NSStringCompareOptions)flags;
 
 /*** Counts the whitespace chars that prefix this string */
 @property (readonly) NSUInteger indentationLevel;
 
 /*** Returns YES when aString is part of the this string.
  * nil and @"" are never part of any compared string */
-- (BOOL)contains:(NSString *)aString;
+- (BOOL)contains:(NSString*) aString;
 
 /*** Returns YES when this string contains ANY of the strings defined in the array */
-- (BOOL)containsAnyOf:(NSArray *)array;
+- (BOOL)containsAnyOf:(NSArray*) array;
 
 /*** Returns YES when this string contains ALL of the strings defined in the array */
-- (BOOL)containsAllOf:(NSArray *)array;
+- (BOOL)containsAllOf:(NSArray*) array;
 
 /*** Returns YES when this string starts with aString, just a synonym for hasPrefix */
-- (BOOL)startsWith:(NSString *)aString;
+- (BOOL)startsWith:(NSString*) aString;
 
 /*** Returns YES when this string ends with aString, just a synonym for hasSuffix */
-- (BOOL)endsWith:(NSString *)aString;
+- (BOOL)endsWith:(NSString*) aString;
 
 /*** Returns YES when this string has both given prefix and suffix */
-- (BOOL)hasPrefix:(NSString *)prefix andSuffix:(NSString *)suffix;
+- (BOOL)hasPrefix:(NSString*) prefix andSuffix:(NSString*) suffix;
 
 /*** Will return the substring between prefix and suffix.
  * If either prefix or suffix cannot be matched nil will be returned */
-- (NSString *)substringBetweenPrefix:(NSString *)prefix 
-                           andSuffix:(NSString *)suffix;
+- (NSString*) substringBetweenPrefix:(NSString*) prefix 
+                           andSuffix:(NSString*) suffix;
 
 /*** Oldscool indexOf, if you do not want to handle NSRange objects
  * will return -1 instead of NSNotFound */
-- (NSInteger)indexOf:(NSString *)aString;
-- (NSInteger)indexOf:(NSString *)aString 
+- (NSInteger)indexOf:(NSString*) aString;
+- (NSInteger)indexOf:(NSString*) aString 
 		  afterIndex:(NSInteger)index;
 
 /*** Oldscool lastIndexOf, if you do not want to handle NSRange objects
  * will return -1 instead of NSNotFound */
-- (NSInteger)lastIndexOf:(NSString *)aString;
+- (NSInteger)lastIndexOf:(NSString*) aString;
 
 /*** Returns the first NSRange of any matching substring in this string
  * that is part of the strings set */
-- (NSRange)rangeOfAny:(NSSet *)strings;
+- (NSRange)rangeOfAny:(NSSet*) strings;
 
 /*** Returns this string splitted by lines.
  * Shortcut for componentsSeperatedByString:@"\n" */
@@ -110,20 +107,20 @@
  * separated by whitespaces */
 @property (readonly) NSSet *wordSet;
 
-- (NSArray *)trimmedComponentsSeparatedByString:(NSString *)delimiter;
+- (NSArray*) trimmedComponentsSeparatedByString:(NSString*) delimiter;
 
 @property (readonly) NSArray *decolonize;
 @property (readonly) NSArray *splitByComma;
 
-- (NSString *)substringBefore:(NSString *)delimiter;
-- (NSString *)substringAfter:(NSString *)delimiter;
+- (NSString*) substringBefore:(NSString*) delimiter;
+- (NSString*) substringAfter:(NSString*) delimiter;
 
 
 // The difference between the splitBy and splitAt groups is
 // that splitAt will return an array containing one or two elements
 
-- (NSArray *)splitAt:(NSString *)delimiter;
-- (BOOL)splitAt:(NSString *)delimiter 
+- (NSArray*) splitAt:(NSString*) delimiter;
+- (BOOL)splitAt:(NSString*) delimiter 
            head:(NSString **)head 
            tail:(NSString **)tail;
 
@@ -143,10 +140,12 @@
 @property (readonly) NSString *ucfirst;
 @property (readonly) NSString *lcfirst;
 
-+ (id)stringWithData:(NSData *)data encoding:(NSStringEncoding)encoding;
-+ (NSString *)stringWithCGFloat:(CGFloat)f maxDigits:(NSUInteger)numDigits;
++ (id)stringWithData:(NSData*) data encoding:(NSStringEncoding)encoding;
++ (NSString*) stringWithCGFloat:(CGFloat)f maxDigits:(NSUInteger)numDigits;
 
 -(NSMutableAttributedString *) attributedParagraphWithSpacing:(float)spacing;
+- (CGFloat) widthWithFont:(NSFont *)font;
+-(NSString*) truncatedForRect:(NSRect)frame withFont:(NSFont*)font;
 
 @end
 
@@ -161,18 +160,18 @@ NSString*   StringByTruncatingStringWithAttributesForWidth( NSString* s,
 
 @interface NSMutableString (AtoZ)
 
-- (NSString *)shift;
-- (NSString *)pop;
+- (NSString*) shift;
+- (NSString*) pop;
 
-- (BOOL)removePrefix:(NSString *)prefix;
-- (BOOL)removeSuffix:(NSString *)suffix;
-- (BOOL)removePrefix:(NSString *)prefix andSuffix:(NSString *)suffix;
+- (BOOL)removePrefix:(NSString*) prefix;
+- (BOOL)removeSuffix:(NSString*) suffix;
+- (BOOL)removePrefix:(NSString*) prefix andSuffix:(NSString*) suffix;
 
-- (NSMutableString *)camelize;
-- (NSMutableString *)hyphonize;
-- (NSMutableString *)underscorize;
-- (NSMutableString *)replaceAll:(NSString *)needle 
-                     withString:(NSString *)replacement;
+- (NSMutableString*) camelize;
+- (NSMutableString*) hyphonize;
+- (NSMutableString*) underscorize;
+- (NSMutableString*) replaceAll:(NSString*) needle 
+                     withString:(NSString*) replacement;
 
 @end
 
@@ -328,21 +327,16 @@ extern int gNSStringGeometricsTypesetterBehavior ;
 @interface NSString (Geometrics)
 
 // Measuring a String With Attributes
-- (NSSize)sizeForWidth:(float)width
-				height:(float)height
-			attributes:(NSDictionary*)attributes ;
-- (float)heightForWidth:(float)width
-			 attributes:(NSDictionary*)attributes ;
-- (float)widthForHeight:(float)height
-			 attributes:(NSDictionary*)attributes ;
+- (NSSize)sizeForWidth:(float)width		height:(float)height 	attributes:(NSDictionary*)attributes ;
+
+- (float)heightForWidth:(float)width	attributes:(NSDictionary*)attributes ;
+- (float)widthForHeight:(float)height	attributes:(NSDictionary*)attributes ;
 
 // Measuring a String with a constant Font
-- (NSSize)sizeForWidth:(float)width
-				height:(float)height
-				  font:(NSFont*)font ;
-- (float)heightForWidth:(float)width
-				   font:(NSFont*)font ;
-- (float)widthForHeight:(float)height
-				   font:(NSFont*)font ;
+//- (NSSize)sizeInSize:(NSSize)size 	  font:(NSFont*)font;
+
+- (NSSize)sizeForWidth: (float)width  height:(float)height font:(NSFont*)font;
+- (float)heightForWidth:(float)width  font:(NSFont*)font;
+- (float)widthForHeight:(float)height font:(NSFont*)font;
 
 @end

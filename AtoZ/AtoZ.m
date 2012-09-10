@@ -657,6 +657,57 @@ static void soundCompleted(SystemSoundID soundFileObject, void *clientData) {
 -(CGFloat) brightness {	return [self.color brightnessComponent]; }
 -(CGFloat) hueComponent  {	return [self.color hueComponent];		 }
 
+
+-(NSArray*) colorsForImage:(NSImage*)image {
+
+	@autoreleasepool {
+
+		NSArray *rawArray = [image quantize];
+			// put all colors in a bag
+		NSBag *allBag = [NSBag bag];
+		for (id thing in rawArray ) [allBag add:thing];
+		NSBag *rawBag = [NSBag bag];
+		int total = 0;
+		for ( NSColor *aColor in rawArray ) {
+				//get rid of any colors that account for less than 10% of total
+			if ( ( [allBag occurrencesOf:aColor] > ( .0005 * [rawArray count]) )) {
+					// test for borigness
+				if ( [aColor isBoring] == NO ) {
+					NSColor *close = [aColor closestNamedColor];
+					total++;
+					[rawBag add:close];
+				}
+			}
+		}
+		NSArray *exciting = 	[[rawBag objects] filter:^BOOL(id object) {
+			NSColor *idColor = object;
+			return ([idColor isBoring] ? FALSE : TRUE);
+		}];
+
+			//uh oh, too few colors
+		if ( ([[rawBag objects]count] < 2) || (exciting.count < 2 )) {
+			for ( NSColor *salvageColor in rawArray ) {
+				NSColor *close = [salvageColor closestNamedColor];
+				total++;
+				[rawBag add:close];
+			}
+		}
+		NSMutableArray *colorsUnsorted = [NSMutableArray array];
+
+		for (NSColor *idColor in [rawBag objects] ) {
+
+			AZColor *acolor = [AZColor instance];
+			acolor.color = idColor;
+			acolor.count = [rawBag occurrencesOf:idColor];
+			acolor.percent = ( [rawBag occurrencesOf:idColor] / (float)total );
+			[colorsUnsorted addObject:acolor];
+		}
+		rawBag = nil; allBag = nil;
+		return [colorsUnsorted sortedWithKey:@"count" ascending:NO];
+	}
+}
+
+
 @end
 
 
@@ -723,7 +774,8 @@ NSString *const AZFileUpdated = @"AZFileUpdated";
 	dd.image = (u ? u : [NSImage imageInFrameworkWithFileName:@"missing.png"]);
 	NSBundle * appBundle = [NSBundle bundleWithPath:path];
 	dd.calulatedBundleID = appBundle ? [appBundle bundleIdentifier] : @"unknown";
-	dd.color = dd.colors ? [(AZColor*)[dd.colors objectAtNormalizedIndex:0] color] : RED;
+	//dd.colors ?
+	dd.color = [(AZColor*)[dd.colors objectAtNormalizedIndex:0] color];// : RED;
 //	labelColor = [self labelColor];
 //	if (labelColor) labelNumber = [self labelNumber];
 //	[[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:AZFileUpdated object:[AtoZ sharedInstance].dockSorted];

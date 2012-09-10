@@ -247,6 +247,7 @@ extern NSString *const AtoZDockSortedUpdated;
 @property (nonatomic, strong)	NSString 	* name;
 @property (nonatomic, strong)	NSColor	 	* 	color;
 + (id) instanceWithObject: (NSDictionary *)dic;
+-(NSArray*) colorsForImage:(NSImage*)image;
 @end
 
 extern NSString *const AtoZFileUpdated;
@@ -618,14 +619,14 @@ return SC##_sharedInstance; \
 #define ORANGE			[NSColor colorWithCalibratedRed:0.888 green:0.492 blue:0.000 alpha:1.000]
 #define YELLOw			[NSColor colorWithCalibratedRed:0.830 green:0.801 blue:0.277 alpha:1.000]
 #define GREEN			[NSColor colorWithCalibratedRed:0.367 green:0.583 blue:0.179 alpha:1.000]
-#define BLUE			[NSColor blueColor]
+#define BLUE			[NSColor colorWithCalibratedRed:0.267 green:0.683 blue:0.979 alpha:1.000]
 #define BLACK			[NSColor blackColor]
 #define GREY			[NSColor grayColor]
 #define WHITE			[NSColor whiteColor]
 #define RANDOMCOLOR		[NSColor randomColor]
 #define CLEAR			[NSColor clearColor]
-#define PURPLE 			[NSColor colorWithCalibratedRed:0.317 green:0.125 blue:0.328 alpha:1.000]
-#define LGRAY			[NSColor colorWithCalibratedWhite:.33 alpha:1]
+#define PURPLE 			[NSColor colorWithCalibratedRed:0.617 green:0.125 blue:0.628 alpha:1.000]
+#define LGRAY			[NSColor colorWithCalibratedWhite:.5 alpha:.6]
 #define GRAY1			[NSColor colorWithCalibratedWhite:.1 alpha:1]
 #define GRAY2			[NSColor colorWithCalibratedWhite:.2 alpha:1]
 #define GRAY3			[NSColor colorWithCalibratedWhite:.3 alpha:1]
@@ -648,6 +649,16 @@ return SC##_sharedInstance; \
 #define cgWHITE			[[NSColor whiteColor]	CGColor]
 #define cgRANDOMCOLOR	[RANDOMCOLOR	CGColor]
 #define cgCLEARCOLOR	[[NSColor clearColor]	CGColor]
+
+
+#define kBlackColor [[NSColor blackColor]	CGColor]
+#define kWhiteColor [[NSColor whiteColor]	CGColor]
+#define kTranslucentGrayColor CGColorCreate( kCGColorSpaceGenericGray, {0.0, 0.5, 1.0})
+#define kTranslucentLightGrayColor cgGREY
+#define	kAlmostInvisibleWhiteColor CGColorCreate( kCGColorSpaceGenericGray, {1, 0.05, 1.0})
+#define kHighlightColor [[NSColor randomColor] CGColor]
+#define kRedColor [[NSColor redColor]	CGColor]
+#define kLightBlueColor [[NSColor blueColor]	CGColor]
 
 
 // random macros utilizing arc4random()

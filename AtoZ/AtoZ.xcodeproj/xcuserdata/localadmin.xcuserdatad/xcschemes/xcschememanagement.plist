@@ -32,7 +32,7 @@
 		<key>AtoZCLI.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>1</integer>
+			<integer>75</integer>
 		</dict>
 		<key>AtoZTests.xcscheme</key>
 		<dict>
@@ -49,6 +49,11 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>7B184EE415FCA98600696360</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>7B311950159B6D9E002134C4</key>
 		<dict>
 			<key>primary</key>

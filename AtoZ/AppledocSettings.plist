@@ -2,21 +2,18 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-
-	<key>--docset-feed-url</key>
-	<string>http://mrgray.com/docs/%DOCSETATOMFILENAME</string>
-	<key>--docset-package-url</key>
-	<string>http://mrgray.com/docs/%DOCSETPACKAGEFILENAME</string>
+	<key>--keep-merged-sections</key>
+	<false/>
 	<key>--publish-docset</key>
 	<true/>
 	<key>--merge-categories</key>
 	<true/>
 	<key>--keep-undocumented-members</key>
-	<true/>
+	<false/>
 	<key>--search-undocumented-doc</key>
-	<true/>
+	<false/>
 	<key>--keep-undocumented-objects</key>
-	<true/>
+	<false/>
 	<key>--keep-intermediate-files</key>
 	<true/>
 	<key>--ignore</key>
@@ -37,18 +34,11 @@
 	<true/>
 	<key>--create-html</key>
 	<true/>
-	<key>--output</key>
-	<string>/sd/www/mrgray/docs</string>
-	<!-- <string>Documentation</string> -->
 	<key>--verbose</key>
-	<integer>5</integer>
+	<integer>6</integer>
 	<key>--logformat</key>
 	<integer>1</integer>
 	<key>--project-name</key>
-	<string>AtoZ Framework</string>
-	<key>--input</key>
-	<array>
-		<string>../</string>
-	</array>
+	<string>AtoZ.Framework</string>
 </dict>
 </plist>

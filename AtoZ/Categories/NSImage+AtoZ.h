@@ -143,7 +143,7 @@ typedef enum {
 
 @end
 
-@interface NSImage (Scaling)
+@interface NSImage (AtoZScaling)
 
 
 - (NSImage *)imageByAdjustingHue:(float)hue;
@@ -158,12 +158,12 @@ typedef enum {
 - (NSImage *)duplicateOfSize:(NSSize)newSize;
 @end
 
-@interface NSImage (Trim)
+@interface NSImage (AtoZTrim)
 -(NSRect)usedRect;
 - (NSImage *)scaleImageToSize:(NSSize)newSize trim:(BOOL)trim expand:(BOOL)expand scaleUp:(BOOL)scaleUp;
 @end
 
-@interface NSImage (Average)
+@interface NSImage (AtoZAverage)
 -(NSColor *)averageColor;
 + (NSImage*)maskImage:(NSImage *)image withMask:(NSImage *)maskImage;
 @end

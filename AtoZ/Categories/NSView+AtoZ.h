@@ -18,6 +18,11 @@ typedef enum
 AZViewAnimationType;
 
 
+extern void AZMoveView(NSView* view, float dX, float dY);
+extern void AZResizeView(NSView* view, float dX, float dY);
+extern void AZResizeViewMovingSubviews(NSView* view, float dXLeft, float dXRight, float dYTop, float dYBottom);
+extern NSView* AZResizeWindowAndContent(NSWindow* window, float dXLeft, float dXRight, float dYTop, float dYBottom, BOOL moveSubviews);
+
 
 @interface NSView (ObjectRep)
 
@@ -30,7 +35,7 @@ AZViewAnimationType;
 @interface NSView (AtoZ)
 
 
-- (void)	 setupHostView;
+- (CALayer*) setupHostView;
 
 - (NSArray*) allSubviews;
 - (NSView*)	 firstSubview;

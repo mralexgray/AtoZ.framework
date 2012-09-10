@@ -252,7 +252,7 @@
 }
 
 - (NSArray*) instructionImageNames {
-	return @[ @"1.pdf", @"2.pdf", @"3.pdf" ];
+	return @[ @"mrgray.logo.png", @"1.pdf", @"2.pdf", @"3.pdf" ];
 }
 
 - (BOOL) showsPreferencesToolbar {

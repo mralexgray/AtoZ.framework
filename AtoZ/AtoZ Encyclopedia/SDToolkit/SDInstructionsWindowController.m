@@ -44,6 +44,10 @@
 		[imageView setImage:image];
 		
 		[imageViews addObject:imageView];
+
+		NSLog(@"colors  %@", [image quantize]);
+
+
 	}
 	
 	// to make it appear right away in the window

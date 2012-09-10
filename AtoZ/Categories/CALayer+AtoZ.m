@@ -16,7 +16,7 @@ struct CATransform3D
 	CGFloat m21, m22, m23, m24;
 	CGFloat m31, m32, m33, m34;
 	CGFloat m41, m42, m43, m44;
-};	
+};
 typedef struct CATransform3D CATransform3D;
 
 @property CATransform3D transform;
@@ -60,10 +60,10 @@ void applyPerspective (CALayer* layer) {
 }
 
 
-CGColorRef kBlackColor, kWhiteColor,
-kTranslucentGrayColor, kTranslucentLightGrayColor,
-kAlmostInvisibleWhiteColor,
-kHighlightColor, kRedColor, kLightBlueColor;
+//CGColorRef kBlackColor, kWhiteColor,
+//kTranslucentGrayColor, kTranslucentLightGrayColor,
+//kAlmostInvisibleWhiteColor,
+//kHighlightColor, kRedColor, kLightBlueColor;
 
 static CGColorRef CreateDeviceGrayColor(CGFloat w, CGFloat a)
 {
@@ -83,18 +83,10 @@ static CGColorRef CreateDeviceRGBColor(CGFloat r, CGFloat g, CGFloat b, CGFloat 
     return color;
 }
 
-__attribute__((constructor))        // Makes this function run when the app loads
-static void InitQuartzUtils()
-{
-    kBlackColor = CreateDeviceGrayColor(0.0, 1.0); //CGColorCreate( kCGColorSpaceGenericGray, rgba );
-    kWhiteColor = CreateDeviceGrayColor(1.0, 1.0); //CGColorCreate( kCGColorSpaceGenericGray, {1.0, 1.0, 1.0});
-    kTranslucentGrayColor = CreateDeviceGrayColor(0.0, 0.5); //CGColorCreate( kCGColorSpaceGenericGray, {0.0, 0.5, 1.0});
-    kTranslucentLightGrayColor = CreateDeviceGrayColor(0.0, 0.25); //CGColorCreate( kCGColorSpaceGenericGray, {0.0, 0.25, 1.0});
-    kAlmostInvisibleWhiteColor = CreateDeviceGrayColor(1, 0.05); //CGColorCreate( kCGColorSpaceGenericGray, {1, 0.05, 1.0});
-    kHighlightColor = CreateDeviceRGBColor(1, 1, 0, 0.5); //CGColorCreate( kCGColorSpaceGenericRGB, {1, 1, 0, 0.5, 1.0});
-    kRedColor = CreateDeviceRGBColor(0.7, 0, 0, 1);
-    kLightBlueColor = CreateDeviceRGBColor(0, .8, .8, 1);
-}
+//__attribute__((constructor))        // Makes this function run when the app loads
+//static void InitQuartzUtils()
+//{
+// }
 
 
 void ChangeSuperlayer( CALayer *layer, CALayer *newSuperlayer, int index )
@@ -128,26 +120,30 @@ void RemoveImmediately( CALayer *layer )
     [CATransaction commit];
 }
 
-CALayer* AddLayer( CALayer *superlayer)
-{
-    CALayer *layer = [[CALayer alloc] init];
-
-    layer.backgroundColor 	= cgRANDOMCOLOR;
-	layer.position		  	= AZCenterOfRect(superlayer.frame);
-	layer.frame				= AZMakeRectFromSize(nanSizeCheck([superlayer frame].size));
+CALayer* AddShadow( CALayer *layer) {
 	layer.shadowOffset 		= (CGSize){ 0, 3 };
 	layer.shadowRadius 		= 5.0;
 	layer.shadowColor	 	= cgBLACK;
 	layer.shadowOpacity 	= 0.8;
-	layer.cornerRadius 		= 10.0;
+	return layer;
+}
+
+CALayer* ReturnLayer( CALayer *superlayer){
+
+    CALayer *layer 			= [[CALayer alloc] init];
+    layer.backgroundColor 	= cgRANDOMCOLOR;
+	layer.bounds			= AZMakeRectFromSize(superlayer.frame.size);
+	layer.position		  	= AZCenterOfRect(superlayer.frame);
+	layer.frame				= AZMakeRectFromSize(nanSizeCheck([superlayer frame].size));
 	layer.contentsGravity  	= kCAGravityResizeAspect;
 	layer.autoresizingMask 	= kCALayerWidthSizable| kCALayerHeightSizable;
-	layer.layoutManager  	= [CAConstraintLayoutManager layoutManager];
-	[layer addConstraintsSuperSizeScaled:.9];
-//	layer.delegate 	= self;
-	CATransform3D perspectiveTransform = CATransform3DIdentity;
-	perspectiveTransform.m34 = -1.0f / 2000;
-	layer.sublayerTransform = perspectiveTransform;
+	return layer;
+}
+
+CALayer* AddLayer( CALayer *superlayer)
+{
+	CALayer *layer = ReturnLayer(superlayer);
+	layer.delegate 	= superlayer;
 	[superlayer addSublayer:layer];
 	return layer;
 }
@@ -178,20 +174,22 @@ CATextLayer* AddTextLayer( CALayer *superlayer,	NSString *text, NSFont* font,	en
     return label;
 }
 
-void AddImageLayer( CALayer *superlayer, NSImage *image, CGFloat scale) {
+CALayer * AddImageLayer( CALayer *superlayer, NSImage *image, CGFloat scale) {
 	CALayer *u = ReturnImageLayer(superlayer, image, scale);
 	[superlayer addSublayer:u];
-	[superlayer setNeedsDisplay];
-//	return AZRelease(u);
+	[superlayer setNeedsLayout];
+	return u;
 }
 
 CALayer* ReturnImageLayer(CALayer *superlayer, NSImage *image, CGFloat scale)
 {
-    CALayer *label = [[CALayer alloc]init];
-    label.contents = image;
-//    label.borderColor = kBlackColor;
-	label.contentsGravity = kCAGravityCenter;
+    CALayer *label 			= ReturnLayer(superlayer);
+    label.contents 			= image;
+	label.layoutManager  	= [CAConstraintLayoutManager layoutManager];
 	[label addConstraintsSuperSizeScaled:scale];
+	return label;
+}
+
 //    NSString *mode;
 //    if( align & kCALayerWidthSizable )
 //        mode = @"center";
@@ -213,13 +211,9 @@ CALayer* ReturnImageLayer(CALayer *superlayer, NSImage *image, CGFloat scale)
 //    align &= ~kCALayerHeightSizable;
 //    label.bounds = CGRectMake(0, font.descender,
 //                              bounds.size.width, height - font.descender);
-    label.position =  AZCenterOfRect([superlayer bounds]);
 //	CGPointMake(bounds.origin.x,y+font.descender);
 //    label.anchorPoint = CGPointMake(.5,.5);
-
 //    label.autoresizingMask = align;
-    return label;
-}
 
 
 CGImageRef CreateCGImageFromFile( NSString *path )
@@ -490,7 +484,9 @@ CGColorRef CreatePatternColor( CGImageRef image )
 }
 
 
--(CATransform3D)makeTransformForAngleX:(CGFloat)angle offsetY:(CGFloat)y {
+-(CATransform3D)makeTransformForAngleX:(CGFloat)angle
+{
+	return [self makeTransformForAngle: angle from:CATransform3DIdentity];
 }
 
 -(CATransform3D)makeTransformForAngle:(CGFloat)angle from:(CATransform3D)start{
@@ -498,7 +494,7 @@ CGColorRef CreatePatternColor( CGImageRef image )
 	CATransform3D persp = CATransform3DIdentity;
     persp.m34 = 1.0 / -1000;
     transform = CATransform3DConcat(transform, persp);
-	transform = CATransform3DRotate(transform,angle, 0.0, 1.0, 0.0);
+	transform = CATransform3DRotate(transform, DEG2RAD(angle), 0.0, 1.0, 0.0);
     return transform;
 }
 
@@ -620,16 +616,23 @@ CGColorRef CreatePatternColor( CGImageRef image )
 }
 - (void) addConstraintsSuperSizeScaled:(CGFloat)scale;
 {
-	if (!self.layoutManager) self.layoutManager = [CAConstraintLayoutManager layoutManager];
+	[self addConstraintsSuperSize];
 	[self addConstraint: AZConstRelSuperScaleOff(kCAConstraintWidth, scale,0)];
 	[self addConstraint: AZConstRelSuperScaleOff(kCAConstraintHeight, scale,0)];
 }
 
-- (void) addConstraintSuperSize
+- (void) addConstraintsSuperSize
 {
-	if (!self.layoutManager) self.layoutManager = [CAConstraintLayoutManager layoutManager];
-	[self addConstraint: AZConstRelSuper(kCAConstraintWidth)];
-	[self addConstraint: AZConstRelSuper(kCAConstraintHeight)];
+
+	if (!self.superlayer.layoutManager) {
+		 CAConstraintLayoutManager *l = [[CAConstraintLayoutManager alloc]init];
+		self.superlayer.layoutManager = l;
+	}
+	self.constraints =	@[	AZConstRelSuper(kCAConstraintHeight),
+							AZConstRelSuper(kCAConstraintWidth),
+							AZConstRelSuper(kCAConstraintMidX),
+							AZConstRelSuper(kCAConstraintMidY)		];
+
 }
 
 //NSImage *image = // load a image
@@ -651,9 +654,9 @@ CGColorRef CreatePatternColor( CGImageRef image )
 + (CALayer*)closeBoxLayerForLayer:(CALayer*)parentLayer;
 {
     CALayer *layer = [CALayer layer];
-    [layer setFrame:CGRectMake(0.0, 0, 
+    [layer setFrame:CGRectMake(0.0, 0,
                                30.0, 30.0)];
-	
+
     [layer setBackgroundColor:cgBLACK];
     [layer setShadowColor:cgBLACK];
     [layer setShadowOpacity:1.0];
@@ -671,11 +674,11 @@ CGColorRef CreatePatternColor( CGImageRef image )
 	#define ANIMATION_DURATION_IN_SECONDS (1.0)
     // Hold the shift key to flip the window in slo-mo. It's really cool!
     CGFloat flipDuration = ANIMATION_DURATION_IN_SECONDS;// * (self.isDebugging || window.currentEvent.modifierFlags & NSShiftKeyMask ? 10.0 : 1.0);
-	
+
     // The hidden layer is "in the back" and will be rotating forward. The visible layer is "in the front" and will be rotating backward
     CALayer *hiddenLayer = bottom; //[frontView.isHidden ? frontView : backView layer];
     CALayer *visibleLayer = top;// [frontView.isHidden ? backView : frontView layer];
-    
+
     // Before we can "rotate" the window, we need to make the hidden view look like it's facing backward by rotating it pi radians (180 degrees). We make this its own transaction and supress animation, because this is already the assumed state
     [CATransaction begin]; {
         [CATransaction setValue:@YES forKey:kCATransactionDisableActions];
@@ -683,22 +686,22 @@ CGColorRef CreatePatternColor( CGImageRef image )
 //        if (self.isDebugging) // Shadows screw up corner finding
 //            [self _hideShadow:YES];
     } [CATransaction commit];
-    
+
     // There's no way to know when we are halfway through the animation, so we have to use a timer. On a sufficiently fast machine (like a Mac) this is close enough. On something like an iPhone, this can cause minor drawing glitches
 //    [self performSelector:@selector(_swapViews) withObject:nil afterDelay:flipDuration / 2.0];
-    
+
     // For debugging, sample every half-second
 //    if (self.isDebugging) {
 //        [debugger reset];
-        
+
 //        NSUInteger frameIndex;
 //        for (frameIndex = 0; frameIndex < flipDuration; frameIndex++)
 //            [debugger performSelector:@selector(sample) withObject:nil afterDelay:(CGFloat)frameIndex / 2.0];
-		
+
         // We want a sample right before the center frame, when the panel is still barely visible
 //        [debugger performSelector:@selector(sample) withObject:nil afterDelay:(CGFloat)flipDuration / 2.0 - 0.05];
 //    }
-    
+
     // Both layers animate the same way, but in opposite directions (front to back versus back to front)
     [CATransaction begin]; {
         [hiddenLayer addAnimation:[self _flipAnimationWithDuration:flipDuration isFront:NO] forKey:@"flipGroup"];
@@ -711,36 +714,36 @@ CGColorRef CreatePatternColor( CGImageRef image )
 {
     // Rotating halfway (pi radians) around the Y axis gives the appearance of flipping
     CABasicAnimation *flipAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.y"];
-	
+
     // The hidden view rotates from negative to make it look like it's in the back
 #define LEFT_TO_RIGHT (isFront ? -M_PI : M_PI)
 //#define RIGHT_TO_LEFT (isFront ? M_PI : -M_PI)
 //    flipAnimation.toValue = [NSNumber numberWithDouble:[backView isHidden] ? LEFT_TO_RIGHT : RIGHT_TO_LEFT];
-    
+
     // Shrinking the view makes it seem to move away from us, for a more natural effect
     CABasicAnimation *shrinkAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
-	
+
 //    shrinkAnimation.toValue = [NSNumber numberWithDouble:self.scale];
-	
+
     // We only have to animate the shrink in one direction, then use autoreverse to "grow"
     shrinkAnimation.duration = duration / 2.0;
     shrinkAnimation.autoreverses = YES;
-    
+
     // Combine the flipping and shrinking into one smooth animation
     CAAnimationGroup *animationGroup = [CAAnimationGroup animation];
     animationGroup.animations = @[flipAnimation, shrinkAnimation];
-	
+
     // As the edge gets closer to us, it appears to move faster. Simulate this in 2D with an easing function
     animationGroup.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-	
+
     // Set ourselves as the delegate so we can clean up when the animation is finished
     animationGroup.delegate = self;
     animationGroup.duration = duration;
-	
+
     // Hold the view in the state reached by the animation until we can fix it, or else we get an annoying flicker
     animationGroup.fillMode = kCAFillModeForwards;
     animationGroup.removedOnCompletion = NO;
-	
+
     return animationGroup;
 }
 
@@ -757,7 +760,7 @@ CGColorRef CreatePatternColor( CGImageRef image )
 	headerLayer.colors = colors;
 	headerLayer.locations = locations;
 	return headerLayer;
-	
+
 }
 
 -(NSString*)debugDescription

@@ -1528,7 +1528,7 @@ CGContextRef MyCreateBitmapContext (int pixelsWide, int pixelsHigh)
 
 @end
 
-@implementation NSImage (Scaling)
+@implementation NSImage (AtoZScaling)
 
 - (NSImage *)imageByAdjustingHue:(float)hue {
 	return self;
@@ -1714,7 +1714,7 @@ CGContextRef MyCreateBitmapContext (int pixelsWide, int pixelsHigh)
 
 @end
 
-@implementation  NSImage (Trim)
+@implementation  NSImage (AtoZTrim)
 - (NSRect) usedRect {
 	
 	
@@ -1768,7 +1768,7 @@ CGContextRef MyCreateBitmapContext (int pixelsWide, int pixelsHigh)
 }
 @end
 
-@implementation NSImage (Average)
+@implementation NSImage (AtoZAverage)
 - (NSColor *)averageColor {
 	NSBitmapImageRep *rep = [self representations][0];
 //	 filterOne:<#^BOOL(id object)block#>: (NSBitmapImageRep *)[self bestRepresentationForDevice:nil]; 	

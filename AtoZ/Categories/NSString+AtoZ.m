@@ -20,8 +20,7 @@
 	return [NSString stringWithString:[[self mutableCopy]replaceAll:search withString:replacement]];
 }
 
-- (NSString*)urlEncoded {
-		// Encode all the reserved characters, per RFC 3986
+- (NSString*)urlEncoded { 	// Encode all the reserved characters, per RFC 3986
 //	CFStringRef escaped =
 //	return (__bridge NSString *) CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
 //                                            (CFStringRef)self, NULL,
@@ -33,69 +32,46 @@
 
 -(NSString*) urlDecoded {
 	NSMutableString *resultString = [NSMutableString stringWithString:self];
-	[resultString replaceOccurrencesOfString:@"+"
-								  withString:@" "
-									 options:NSLiteralSearch
-									   range:NSMakeRange(0, [resultString length])];
+	[resultString replaceOccurrencesOfString:@"+" withString:@" " options:NSLiteralSearch range: (NSRange) {0, [resultString length]}];
 	return [resultString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
 
-
-- (NSString *)firstLetter {
-	return [self substringWithRange:NSMakeRange(0, 1)];
-}
+- (NSString *)firstLetter {	return [self substringWithRange:NSMakeRange(0, 1)]; }
 
 + (NSString *)newUniqueIdentifier
 {
-    CFUUIDRef uuid = CFUUIDCreate(NULL);
-    CFStringRef identifier = CFUUIDCreateString(NULL, uuid);
-    CFRelease(uuid);
-    return AZ_RETAIN(CFBridgingRelease(identifier));
+    CFUUIDRef uuid = CFUUIDCreate(NULL);    CFStringRef identifier = CFUUIDCreateString(NULL, uuid);
+    CFRelease(uuid);						return AZ_RETAIN(CFBridgingRelease(identifier));
 }
 
-
-/**
- Returns the support folder for the application, used to store the Core Data
- store file.  This code uses a folder named "ArtGallery" for
- the content, either in the NSApplicationSupportDirectory location or (if the
- former cannot be found), the system's temporary directory.
- */
+/**	Returns the support folder for the application, used to store the Core Data	store file.  This code uses a folder named "ArtGallery" for
+ the content, either in the NSApplicationSupportDirectory location or (if the former cannot be found), the system's temporary directory. */
 
 + (NSString*) applicationSupportFolder {
 
-	NSString *app = [[NSBundle mainBundle]bundleIdentifier];
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
     NSString *basePath = ([paths count] > 0 ? paths[0] : NSTemporaryDirectory() );
-    return [basePath stringByAppendingPathComponent:app];
+    return [basePath stringByAppendingPathComponent:[[NSBundle mainBundle]bundleIdentifier]];
 }
 
-
-+ (NSString *)randomAppPath {
-
-	return [[[[NSWorkspace sharedWorkspace] launchedApplications] valueForKeyPath:@"NSApplicationPath"]randomElement];
-}
-//- (NSColor *)colorValue {
-//	return [NSColor colorFromString:self];
-//}
-
--(NSData *) colorData {
-	NSData *theData=[NSArchiver archivedDataWithRootObject:self];
-	return theData;
++ (NSString *)randomAppPath
+{
+	return [[[[NSWorkspace sharedWorkspace]launchedApplications]valueForKeyPath:@"NSApplicationPath"]randomElement];
 }
 
-+ (NSColor * )colorFromData:(NSData*)theData {
-	NSColor * color =  [NSUnarchiver unarchiveObjectWithData:theData];
-	return  color;
-}
+//- (NSColor *)colorValue {	return [NSColor colorFromString:self]; }
 
+-(NSData*) colorData {	return [NSArchiver archivedDataWithRootObject:self]; }
 
++ (NSColor*) colorFromData:(NSData*)theData {	return  [NSUnarchiver unarchiveObjectWithData:theData];}
 
-- (void)drawCenteredInRect:(CGRect)rect withFont:(NSFont *)font {
+- (void)drawCenteredInRect:(CGRect)rect withFont:(NSFont *)font
+{
     CGSize size = CGSizeMake(20.0f, 400.0f); // [self sizeWithAttributes: //sizeWithFont:font];
-    CGRect textBounds = CGRectMake(rect.origin.x + (rect.size.width - size.width) / 2,
+    CGRect textBounds = (CGRect) { rect.origin.x + (rect.size.width - size.width) / 2,
                                    rect.origin.y + (rect.size.height - size.height) / 2,
-                                   size.width, size.height);
-    [self drawCenteredInRect:textBounds withFont:font];    
+                                   size.width, size.height };
+    [self drawCenteredInRect:textBounds withFont:font.fontName];
 }
 
 - (void)drawCenteredInFrame:(NSRect)frame withFont:(NSString *)font {
@@ -140,84 +116,44 @@
 //	[style release];
 //}
 
-- (NSString *)trim {
-NSCharacterSet *cs = [NSCharacterSet whitespaceAndNewlineCharacterSet];
-return [self stringByTrimmingCharactersInSet:cs];
+- (NSString *)trim {	NSCharacterSet *cs = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+						return [self stringByTrimmingCharactersInSet:cs];
 }
 
-- (NSString *)shifted {
-	return [self substringFromIndex:1];
+- (NSString *)shifted {	return [self substringFromIndex:1]; }
+
+- (NSString *)popped { 	return [self substringWithRange:NSMakeRange(0, self.length - 1)];	}
+
+- (NSString *)chopped {	return [self substringWithRange:NSMakeRange(1, self.length - 2)];	}
+
+- (NSString *)camelized {	return [[self mutableCopy] camelize];	}
+
+- (NSString *)hyphonized {	return [[self mutableCopy] hyphonize];	}
+
+- (NSString *)underscored {	return [[self mutableCopy] underscorize]; }
+
+- (BOOL)isEmpty { 	return (self == nil) || [self.trim isEqualToString:@""]; }
+
+/*** Actually this should be called stringByReversingThisString, but that appeared to be too much sugar-free.  Reverse ist non-destructive */
+
+- (NSString *)reversed	{		NSMutableString *re = NSMutableString.string;
+								for (int i = self.length - 1; i >= 0; i--)
+									[re appendString:[self substringWithRange:NSMakeRange(i, 1)]];	return re;
 }
 
-- (NSString *)popped {
-	return [self substringWithRange:NSMakeRange(0, self.length - 1)];
-}
-
-- (NSString *)chopped {
-	return [self substringWithRange:NSMakeRange(1, self.length - 2)];
-}
-
-- (NSString *)camelized {
-	return [[self mutableCopy] camelize];
-}
-
-- (NSString *)hyphonized {
-	return [[self mutableCopy] hyphonize];
-}
-
-- (NSString *)underscored {
-	return [[self mutableCopy] underscorize];
-}
-
-- (BOOL)isEmpty {
-	return (self == nil) || [self.trim isEqualToString:@""];
-}
-
-/**
- * Actually this should be called stringByReversingThisString,
- * but that appeared to be too much sugar-free
- *
- * reverse ist non-destructive
- */
-- (NSString *)reversed
+- (NSUInteger)count:(NSString *)s options:(NSStringCompareOptions)mask
 {
-	NSMutableString *re = NSMutableString.string;
-	
-	for (int i = self.length - 1; i >= 0; i--) {
-		[re appendString:[self substringWithRange:NSMakeRange(i, 1)]];
-	}
-	
-	return re;
+	NSUInteger re = 0;	NSRange rr, r; r = (NSRange) { 0, self.length };
+	while ((rr = [self rangeOfString:s options:mask range:r]).location != NSNotFound) {		re++;
+		r.location = rr.location + 1; 	r.length = self.length - r.location; }				return re;
 }
 
-- (NSUInteger)count:(NSString *)s options:(NSStringCompareOptions)mask {
+- (NSUInteger)count:(NSString *)aString {	return [self count:aString options:0];	}
+
+- (NSUInteger)indentationLevel
+{
 	NSUInteger re = 0;
-	NSRange r = NSMakeRange(0, self.length);
-	
-	NSRange rr;
-	
-	while ((rr = [self rangeOfString:s options:mask range:r]).location != NSNotFound) {
-		re++;
-		r.location = rr.location + 1;
-		r.length = self.length - r.location;
-	}
-	
-	return re;
-}
-
-- (NSUInteger)count:(NSString *)aString {
-	return [self count:aString options:0];
-}
-
-- (NSUInteger)indentationLevel {
-	NSUInteger re = 0;
-	
-	while (re < self.length 
-		   && [[self substringWithRange:NSMakeRange(re, 1)] isEqualToString:@" "]) 
-	{
-		re++;
-	}
-	
+	while (re < self.length && [[self substringWithRange:NSMakeRange(re, 1)] isEqualToString:@" "])		re++;
 	return re;
 }
 
@@ -225,97 +161,53 @@ return [self stringByTrimmingCharactersInSet:cs];
 	return [self rangeOfString:aString].location != NSNotFound;
 }
 
-- (BOOL)containsAnyOf:(NSArray *)array {
-	for (id v in array) {
-		NSString *s = [v description];
-		
-		if ([v isKindOfClass:[NSString class]]) {
-			s = (NSString *)v;
-		}
-		
-		if ([self contains:s]) {
-			return YES;
-		}
-	}
-	
-	return NO;         
+- (BOOL)containsAnyOf:(NSArray *)array
+{
+	for (id v in array) {	  NSString *s = [v description];
+		if ([v isKindOfClass:[NSString class]]) s = (NSString *)v;
+		if ([self contains:s]) 	return YES;
+	}	return NO;
 }
 
-- (BOOL)containsAllOf:(NSArray *)array {
-	for (id v in array) {
-		NSString *s = [v description];
-		
-		if ([v isKindOfClass:[NSString class]]) {
-			s = (NSString *)v;
-		}
-		
-		if (![self contains:s]) {
-			return NO;
-		}
+- (BOOL)containsAllOf:(NSArray*) array {
+	for (id v in array) {		NSString *s = [v description];
+		if ([v isKindOfClass:[NSString class]]) s = (NSString *)v;
+		if (![self contains:s])	return NO;
 	}
-	
 	return YES;
 }
 
-- (BOOL)startsWith:(NSString *)aString {
-	return [self hasPrefix:aString];
-}
+- (BOOL)startsWith:(NSString *)aString {	return [self hasPrefix:aString];	}
 
-- (BOOL)endsWith:(NSString *)aString {
-	return [self hasSuffix:aString];
-}
+- (BOOL)endsWith:(NSString *)aString {	return [self hasSuffix:aString];	}
 
-- (BOOL)hasPrefix:(NSString *)prefix andSuffix:(NSString *)suffix {
-	return [self hasPrefix:prefix] && [self hasSuffix:suffix];
-}
+- (BOOL)hasPrefix:(NSString *)prefix andSuffix:(NSString *)suffix {	return [self hasPrefix:prefix] && [self hasSuffix:suffix];	}
 
-- (NSString *)substringBetweenPrefix:(NSString *)prefix
-                           andSuffix:(NSString *)suffix
+- (NSString *)substringBetweenPrefix:(NSString *)prefix andSuffix:(NSString *)suffix
 {
 	NSRange pre = [self rangeOfString:prefix];
 	NSRange suf = [self rangeOfString:suffix];
-	
-	if (pre.location == NSNotFound || suf.location == NSNotFound) {
-		return nil;
-	}
-	
+	if (pre.location == NSNotFound || suf.location == NSNotFound) return nil;
 	NSUInteger loc = pre.location  + pre.length;
 	NSUInteger len = self.length - loc - (self.length - suf.location);
-	NSRange r = NSMakeRange(loc, len);
-	
 	//NSLog(@"Substring with range %i, %i, %@", loc, len, NSStringFromRange(r));
-	
-	return [self substringWithRange:r];
+	return [self substringWithRange: (NSRange) {loc, len}];
 }
 
-/**
- * Unlike the Object-C default rangeOfString
- * this method will return -1 if the String could not be found, not NSNotFound
- */
-- (NSInteger)indexOf:(NSString *)aString
-{
-	return [self indexOf:aString afterIndex:0];
-}
+/*** Unlike the Object-C default rangeOfString this method will return -1 if the String could not be found, not NSNotFound	 */
+- (NSInteger)indexOf:(NSString *)aString{ 	return [self indexOf:aString afterIndex:0];	}
 
 - (NSInteger)indexOf:(NSString *)aString afterIndex:(NSInteger)index
 {
 	NSRange lookupRange = NSMakeRange(0, self.length);
-	
-	if (index < 0 && -index < self.length) {
-		lookupRange.location = self.length + index;
-	} else {
+	if (index < 0 && -index < self.length)	lookupRange.location = self.length + index;
+	else {
 		if (index > self.length) {
-			NSString *reason = [NSString stringWithFormat:
-								@"LookupIndex %i is not within range: Expected 0-%i", 
-								index, 
-								self.length];
-			@throw [NSException exceptionWithName:@"ArrayIndexOutOfBoundsExceptions" 
-										   reason:reason
-										 userInfo:nil];
+			NSString *reason = [NSString stringWithFormat: @"LookupIndex %ld is not within range: Expected 0-%ld", index, 	self.length];
+			@throw [NSException exceptionWithName:@"ArrayIndexOutOfBoundsExceptions" reason:reason	 userInfo:nil];
 		}
 		lookupRange.location = index;
 	}
-	
 	NSRange range = [self rangeOfString:aString	options:0 range:lookupRange];
 	return (range.location == NSNotFound ? -1 : range.location);
 }
@@ -324,70 +216,40 @@ return [self stringByTrimmingCharactersInSet:cs];
 {
 	NSString *reversed = self.reversed;
 	NSInteger pos = [reversed indexOf:aString];
-	
 	return pos == -1 ? -1 : self.length - pos;
 }
 
-- (NSRange)rangeOfAny:(NSSet *)strings {
+- (NSRange)rangeOfAny:(NSSet *)strings
+{
 	NSRange re = NSMakeRange(NSNotFound, 0);
-	
-	for (NSString *s in strings) {
-		NSRange r = [self rangeOfString:s];
-		if (r.location < re.location) {
-			re = r;
-		}
-	}
-	
-	return re;
+	for (NSString *s in strings) {	NSRange r = [self rangeOfString:s];	if (r.location < re.location) re = r;	}	return re;
 }
 
-- (NSArray *)lines
-{
-	return [self componentsSeparatedByString:@"\n"];
-}
+- (NSArray *)lines	{ return [self componentsSeparatedByString:@"\n"]; }
 
 - (NSArray *)words
 {
 	NSMutableArray *re = NSMutableArray.array;
-	for (NSString *s in [self componentsSeparatedByString:@" "]) {
-		if (!s.isEmpty) {
-			[re addObject:s];
-		}
-	}
-	return re;
+	for (NSString *s in [self componentsSeparatedByString:@" "]) {  if (!s.isEmpty)	[re addObject:s];	}	return re;
 }
 
-- (NSSet *)wordSet {
-	return [NSMutableSet setWithArray:self.words];
-}
+- (NSSet *)wordSet { return [NSMutableSet setWithArray:self.words];	}
 
-- (NSArray *)trimmedComponentsSeparatedByString:(NSString *)separator {
+- (NSArray *)trimmedComponentsSeparatedByString:(NSString *)separator
+{
 	NSMutableArray *re = NSMutableArray.array;
-	
-	for (__strong NSString *s in [self componentsSeparatedByString:separator]) {
-		s = s.trim;
-		if (!s.isEmpty) {
-			[re addObject:s];
-		}
-	}
-	
+	for (__strong NSString *s in [self componentsSeparatedByString:separator]) {	s = s.trim;	if (!s.isEmpty)  [re addObject:s]; }
 	return re;
 }
 
-- (NSArray *)decolonize {
-	return [self componentsSeparatedByString:@":"];
-}
+- (NSArray *)decolonize {	return [self componentsSeparatedByString:@":"];	}
 
-- (NSArray *)splitByComma {
-	return [self componentsSeparatedByString:@","];
-}
+- (NSArray *)splitByComma {	return [self componentsSeparatedByString:@","];	}
 
-- (NSString *)substringBefore:(NSString *)delimiter {
+- (NSString *)substringBefore:(NSString *)delimiter
+{
 	NSInteger index = [self indexOf:delimiter];
-	if (index == -1) {
-		return self;
-	}
-	return [self substringToIndex:index];
+	return (index == -1) ? self : [self substringToIndex:index];
 }
 
 - (NSString *)substringAfter:(NSString *)delimiter {
@@ -398,96 +260,59 @@ return [self stringByTrimmingCharactersInSet:cs];
 	return [self substringFromIndex:index + delimiter.length];
 }
 
-- (NSArray *)splitAt:(NSString *)delimiter {
-	NSRange index = [self rangeOfString:delimiter];
-	if (index.location == NSNotFound) {
-		return @[self];
-	}
-	return @[[self substringToIndex:index.location],
-			[self substringFromIndex:index.location + index.length]];
-}
-
-- (BOOL)splitAt:(NSString *)delimiter 
-           head:(NSString **)head 
-           tail:(NSString **)tail
+- (NSArray *)splitAt:(NSString *)delimiter
 {
 	NSRange index = [self rangeOfString:delimiter];
-	if (index.location == NSNotFound) {
-		return NO;
-	}
-	
+	return (index.location == NSNotFound) ?@[self] :	 @[[self substringToIndex:index.location],
+													   [self substringFromIndex:index.location + index.length]];
+}
+
+- (BOOL)splitAt:(NSString *)delimiter head:(NSString **)head tail:(NSString **)tail
+{
+	NSRange index = [self rangeOfString:delimiter];
+	if (index.location == NSNotFound) return NO;
 	NSString *copy = self.copy;
-	
 	*head = [copy substringToIndex:index.location];
 	*tail = [copy substringFromIndex:index.location + index.length];
-	
-	
 	return YES;
 }
 
-- (NSArray *)decapitate {
+- (NSArray *)decapitate
+{
 	NSRange index = [self rangeOfString:@" "];
-	if (index.location == NSNotFound) {
-		return @[[self trim]];
-	}
-	return @[[[self substringToIndex:index.location] trim],
-			[[self substringFromIndex:index.location + index.length] trim]];
+	return (index.location == NSNotFound)	? @[[self trim]]
+											: @[[[self substringToIndex:index.location] trim],												[[self substringFromIndex:index.location + index.length] trim]];
 }
 
-- (NSPoint)pointValue {
-	NSPoint re = NSMakePoint(0.0, 0.0);
-	
-	NSArray *values = self.splitByComma;
-	if (values.count == 0) {
-		return re;
-	}
+- (NSPoint)pointValue
+{
+	NSPoint re = (NSPoint) {0.0, 0.0};		NSArray *values = self.splitByComma;
+	if (values.count == 0) 															return re;
 	re.x = [values[0] floatValue];
-	if (values.count < 2) {
-		re.y = re.x;
-	} else {
-		re.y = [values[1] floatValue];
-	}
-	
-	return re;
+	if (values.count < 2) 	re.y = re.x;	else re.y = [values[1] floatValue];		return re;
 }
 
-- (NSUInteger)minutesValue {
+- (NSUInteger)minutesValue
+{
 	NSArray *split = [self componentsSeparatedByString:@":"];
-	
-	if (split.count > 1) {
-		return [split[0] intValue] * 60 
-		+ [split[1] intValue];
-	}
-	
+	return  (split.count > 1) ? [split[0] intValue] * 60 + [split[1] intValue] : [self intValue];
+}
+
+- (NSUInteger)secondsValue
+{
+	NSArray *split = [self componentsSeparatedByString:@":"];
+	if (split.count > 2)	return [split[0] intValue] * 3600  + [split[1] intValue] * 60 + [split[2] intValue];
+	else if (split.count == 2)	return [split[0] intValue] * 3600 	+ [split[1] intValue] * 60;
 	return [self intValue];
 }
 
-- (NSUInteger)secondsValue {
-	NSArray *split = [self componentsSeparatedByString:@":"];
-	
-	if (split.count > 2) {
-		return [split[0] intValue] * 3600 
-		+ [split[1] intValue] * 60
-		+ [split[2] intValue];
-	} else if (split.count == 2) {
-		return [split[0] intValue] * 3600 
-		+ [split[1] intValue] * 60;
-	}
-	
-	return [self intValue];
-}
+-(NSURL *)url {			return [NSURL URLWithString:self];		}
 
--(NSURL *)url {
-	return [NSURL URLWithString:self];
-}
+-(NSURL *)fileURL {		return [NSURL fileURLWithPath:self];	}
 
--(NSURL *)fileURL {
-	return [NSURL fileURLWithPath:self];
-}
-
-- (NSString *)ucfirst {
-	NSString *head = [[self substringToIndex:1] uppercaseString];
-	NSString *tail = [self substringFromIndex:1];
+- (NSString *)ucfirst
+{
+	NSString *head = [[self substringToIndex:1] uppercaseString];	NSString *tail = [self substringFromIndex:1];
 	return [NSString stringWithFormat:@"%@%@", head, tail];
 }
 
@@ -497,10 +322,7 @@ return [self stringByTrimmingCharactersInSet:cs];
 	return [NSString stringWithFormat:@"%@%@", head, tail];
 }
 
-+ (id)stringWithData:(NSData *)data encoding:(NSStringEncoding)encoding
-{
-	return [[self alloc] initWithData:data encoding:encoding];
-}
++ (id)stringWithData:(NSData *)data encoding:(NSStringEncoding)encoding {	return [[self alloc] initWithData:data encoding:encoding]; }
 
 + (NSString *)stringWithCGFloat:(CGFloat)f maxDigits:(NSUInteger)numDigits
 {
@@ -582,6 +404,40 @@ return [self stringByTrimmingCharactersInSet:cs];
 //aMutableParagraphStyle = [[myTextView typingAttributes]
 //						  objectForKey:@"NSParagraphStyle"];
 
+- (CGFloat) widthWithFont:(NSFont *)font {
+	NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:font, NSFontAttributeName, nil];
+	return [[[NSAttributedString alloc] initWithString:self attributes:attributes] size].width;
+}
+
+-(NSString*) truncatedForRect:(NSRect)frame withFont:(NSFont*)font
+{
+	NSLineBreakMode	truncateMode = NSLineBreakByTruncatingMiddle;
+	CGFloat	txSize = [self widthWithFont:font];
+    if( txSize <= frame.size.width ) 	return self;    // Don't do anything if it fits.
+	NSMutableString*	currString = [NSMutableString string];
+	NSRange     rangeToCut = { 0, 0 };
+//    if( truncateMode == NSLineBreakByTruncatingTail )     	{	rangeToCut.location = [s length] -1; 	rangeToCut.length = 1; }
+//    else if( truncateMode == NSLineBreakByTruncatingHead )  {  rangeToCut.location = 0;        			rangeToCut.length = 1; }
+//    else {  // NSLineBreakByTruncatingMiddle
+	rangeToCut.location = [self length] / 2;
+	rangeToCut.length = 1;
+	//  }
+
+	while( txSize > frame.size.width )	{
+		if( truncateMode != NSLineBreakByTruncatingHead && rangeToCut.location <= 1 )	return @"...";
+        [currString setString: self];
+        [currString replaceCharactersInRange: rangeToCut withString: @"..."];
+		txSize = [currString widthWithFont:font];		rangeToCut.length++;
+//        if( truncateMode == NSLineBreakByTruncatingHead )	;   // No need to fix location, stays at start.
+//        else if( truncateMode == NSLineBreakByTruncatingTail )
+//            rangeToCut.location--;  // Fix location so range that's one longer still lies inside our string at end.
+//        else
+		if( (rangeToCut.length & 1) != 1 )     // even? NSLineBreakByTruncatingMiddle
+            rangeToCut.location--;  // Move location left every other time, so it grows to right and left and stays centered.
+        if( rangeToCut.location <= 0 || (rangeToCut.location +rangeToCut.length) > [self length] )		return @"...";
+	}
+	return currString;
+}
 
 @end
 
@@ -594,42 +450,26 @@ return [self stringByTrimmingCharactersInSet:cs];
 //	[displayTitle drawInRect: textBox withAttributes: attrs];
 //	[NSGraphicsContext restoreGraphicsState];
 
-NSString*   StringByTruncatingStringWithAttributesForWidth( NSString* s, NSDictionary* attrs,
-                                                                float wid, NSLineBreakMode truncateMode )
+NSString*   StringByTruncatingStringWithAttributesForWidth( NSString* s, NSDictionary* attrs, float wid, NSLineBreakMode truncateMode )
 {
 	NSSize				txSize = [s sizeWithAttributes: attrs];
-    if( txSize.width <= wid )   // Don't do anything if it fits.
-        return s;
-	NSMutableString*	currString = [NSMutableString string];
-	NSRange             rangeToCut = { 0, 0 };
-    if( truncateMode == NSLineBreakByTruncatingTail )    {
-        rangeToCut.location = [s length] -1;
-        rangeToCut.length = 1;
-    }
-    else if( truncateMode == NSLineBreakByTruncatingHead )    {
-        rangeToCut.location = 0;
-        rangeToCut.length = 1;
-    }
-    else {    // NSLineBreakByTruncatingMiddle
-        rangeToCut.location = [s length] / 2;
-        rangeToCut.length = 1;
-    }
-    
+    if( txSize.width <= wid ) 	return s;    // Don't do anything if it fits.
+	NSMutableString*	currString = [NSMutableString string];								NSRange     rangeToCut = { 0, 0 };
+    if( truncateMode == NSLineBreakByTruncatingTail )     	{	rangeToCut.location = [s length] -1; 	rangeToCut.length = 1; }
+    else if( truncateMode == NSLineBreakByTruncatingHead )  {  rangeToCut.location = 0;        			rangeToCut.length = 1; }
+    else {	rangeToCut.location = [s length] / 2;		rangeToCut.length = 1;  } // NSLineBreakByTruncatingMiddle
+
 	while( txSize.width > wid )	{
-		if( truncateMode != NSLineBreakByTruncatingHead && rangeToCut.location <= 1 )
-			return @"...";
+		if( truncateMode != NSLineBreakByTruncatingHead && rangeToCut.location <= 1 )	return @"...";
         [currString setString: s];
         [currString replaceCharactersInRange: rangeToCut withString: @"..."];
-		txSize = [currString sizeWithAttributes: attrs];
-        rangeToCut.length++;
-        if( truncateMode == NSLineBreakByTruncatingHead )
-            ;   // No need to fix location, stays at start.
+		txSize = [currString sizeWithAttributes: attrs];		rangeToCut.length++;
+        if( truncateMode == NSLineBreakByTruncatingHead )	;   // No need to fix location, stays at start.
         else if( truncateMode == NSLineBreakByTruncatingTail )
             rangeToCut.location--;  // Fix location so range that's one longer still lies inside our string at end.
         else if( (rangeToCut.length & 1) != 1 )     // even? NSLineBreakByTruncatingMiddle
             rangeToCut.location--;  // Move location left every other time, so it grows to right and left and stays centered.
-        if( rangeToCut.location <= 0 || (rangeToCut.location +rangeToCut.length) > [s length] )
-            return @"...";
+        if( rangeToCut.location <= 0 || (rangeToCut.location +rangeToCut.length) > [s length] )		return @"...";
 	}
 	return currString;
 }
@@ -638,104 +478,66 @@ NSString*   StringByTruncatingStringWithAttributesForWidth( NSString* s, NSDicti
 
 @implementation NSMutableString (AtoZ)
 
-- (NSString *)shift {
-NSString *re = [self substringToIndex:1];
-[self setString:[self substringFromIndex:1]];
-return re;
+- (NSString *)shift
+{
+	NSString *re = [self substringToIndex:1];
+	[self setString:[self substringFromIndex:1]];			return re;
 }
 
-- (NSString *)pop {
+- (NSString *)pop
+{
 	NSUInteger index = self.length - 1;
 	NSString *re = [self substringFromIndex:index];
-	[self setString:[self substringToIndex:index]];
-	return re;
+	[self setString:[self substringToIndex:index]];			return re;
 }
 
-- (BOOL)removePrefix:(NSString *)prefix {
-	if (![self hasPrefix:prefix]) {
-		return NO;
-	}
-	
+- (BOOL)removePrefix:(NSString *)prefix
+{
+	if (![self hasPrefix:prefix]) 							return NO;
 	NSRange range = NSMakeRange(0, prefix.length);
-	[self replaceCharactersInRange:range withString:@""];
-	
-	return YES;
+	[self replaceCharactersInRange:range withString:@""];	return YES;
 }
 
-- (BOOL)removeSuffix:(NSString *)suffix {
-	if (![self hasSuffix:suffix]) {
-		return NO;
-	}
-	
+- (BOOL)removeSuffix:(NSString *)suffix
+{
+	if (![self hasSuffix:suffix]) 							return NO;
 	NSRange range = NSMakeRange(self.length - suffix.length, suffix.length);
-	[self replaceCharactersInRange:range withString:@""];
-	
-	return YES;
+	[self replaceCharactersInRange:range withString:@""];	return YES;
 }
 
-- (BOOL)removePrefix:(NSString *)prefix andSuffix:(NSString *)suffix {
-	if (![self hasPrefix:prefix andSuffix:suffix]) {
-		return NO;
-	}
-	
+- (BOOL)removePrefix:(NSString *)prefix andSuffix:(NSString *)suffix
+{
+	if (![self hasPrefix:prefix andSuffix:suffix]) 			return NO;
 	NSRange range = NSMakeRange(0, prefix.length);
 	[self replaceCharactersInRange:range withString:@""];
-	
 	range = NSMakeRange(self.length - suffix.length, suffix.length);
-	[self replaceCharactersInRange:range withString:@""];
-	
-	return YES;
+	[self replaceCharactersInRange:range withString:@""];	return YES;
 }
 
-- (NSMutableString *)camelize {
-	unichar c;
-	unichar us = [@"_" characterAtIndex:0];
-	unichar hy = [@"-" characterAtIndex:0];
+- (NSMutableString *)camelize
+{
+	unichar c, us, hy; 		us = [@"_" characterAtIndex:0];		hy = [@"-" characterAtIndex:0];
 	NSMutableString *r = [NSMutableString string];
-	
-	for (NSUInteger i = 0; i < self.length; i++) {
-		c = [self characterAtIndex:i];
+	for (NSUInteger i = 0; i < self.length; i++) {	c = [self characterAtIndex:i];
 		if (c == us || c == hy) {
 			[r setString:[self substringWithRange:NSMakeRange(i, 1)]];
-			
-			[self replaceCharactersInRange:NSMakeRange(i, 2) 
-								withString:[r uppercaseString]];
-			i++;
+			[self replaceCharactersInRange:NSMakeRange(i, 2) withString:[r uppercaseString]];	i++;
 		}
-	}
-	
-	return self;
+	}	return self;
 }
 
-- (NSMutableString *)hyphonize {
-	return [self replaceAll:@"_" withString:@"-"];
-}
+- (NSMutableString *)hyphonize {	return [self replaceAll:@"_" withString:@"-"];	}
 
-- (NSMutableString *)underscorize {
-	return [self replaceAll:@"-" withString:@"_"];
-}
+- (NSMutableString *)underscorize {	return [self replaceAll:@"-" withString:@"_"];	}
 
-- (NSMutableString *)constantize {
-	[self setString:[[self underscorize] uppercaseString]];
-	return self;
-}
+- (NSMutableString *)constantize {	[self setString:[[self underscorize] uppercaseString]];	return self;		}
 
-- (NSMutableString *)replaceAll:(NSString *)needle 
-                     withString:(NSString *)replacement 
+- (NSMutableString *)replaceAll:(NSString *)needle withString:(NSString *)replacement
 {
-	[self replaceOccurrencesOfString:needle
-						  withString:replacement
-							 options:0
-							   range:NSMakeRange(0, self.length)
-	 ];
-	return self;
+	[self replaceOccurrencesOfString:needle withString:replacement options:0 range:NSMakeRange(0, self.length)]; 	return self;
 }
-
-
 
 @end
-
-
 
 @implementation NSString (RuntimeReporting)
 
@@ -777,7 +579,6 @@ return re;
 - (id) valueForUndefinedKey:(NSString *) key { return self; }
 - (void) setValue:(id)value forUndefinedKey:(NSString *)key { NSLog(@"unknown key:%@", key); }
 
-
 @end
 
 
@@ -788,114 +589,65 @@ int gNSStringGeometricsTypesetterBehavior = NSTypesetterLatestBehavior ;
 
 #pragma mark Measure Attributed String
 
-- (NSSize)sizeForWidth:(float)width
-				height:(float)height {
-	NSSize answer = NSZeroSize ;
-    if ([self length] > 0) {
-		// Checking for empty string is necessary since Layout Manager will give the nominal
-		// height of one line if length is 0.  Our API specifies 0.0 for an empty string.
-		NSSize size = NSMakeSize(width, height) ;
-		NSTextContainer *textContainer = [[NSTextContainer alloc] initWithContainerSize:size] ;
-		NSTextStorage *textStorage = [[NSTextStorage alloc] initWithAttributedString:self] ;
-		NSLayoutManager *layoutManager = [[NSLayoutManager alloc] init] ;
-		[layoutManager addTextContainer:textContainer] ;
-		[textStorage addLayoutManager:layoutManager] ;
-		[layoutManager setHyphenationFactor:0.0] ;
-		if (gNSStringGeometricsTypesetterBehavior != NSTypesetterLatestBehavior) {
-			[layoutManager setTypesetterBehavior:gNSStringGeometricsTypesetterBehavior] ;
-		}
-		// NSLayoutManager is lazy, so we need the following kludge to force layout:
-		[layoutManager glyphRangeForTextContainer:textContainer] ;
+- (NSSize)sizeForWidth:(float)width height:(float)height		{	NSSize answer = NSZeroSize ;
 
+	//	Checking for empty string is necessary since Layout Manager will give the nominal height of one line if length is 0.
+	if ([self length] > 0) { 			  //	Our API specifies 0.0 for an empty string.
+		NSTextContainer *textContainer 	= [[NSTextContainer alloc] initWithContainerSize:(NSSize) { width, height }];
+		NSTextStorage *textStorage 		= [[NSTextStorage 	alloc] initWithAttributedString:self];
+		NSLayoutManager *layoutManager 	= [[NSLayoutManager alloc] init];
+
+		[layoutManager 	addTextContainer:textContainer];	 [textStorage 	addLayoutManager:layoutManager];
+		[layoutManager 	setHyphenationFactor:0.0];
+		if (gNSStringGeometricsTypesetterBehavior != NSTypesetterLatestBehavior)
+			[layoutManager setTypesetterBehavior:gNSStringGeometricsTypesetterBehavior];
+		[layoutManager glyphRangeForTextContainer:textContainer];  // NSLayoutManager is lazy,we need the following kludge to force layout:
 		answer = [layoutManager usedRectForTextContainer:textContainer].size ;
-		//		[textStorage release] ;
-		//		[textContainer release] ;
-		//		[layoutManager release] ;
-
-		// In case we changed it above, set typesetterBehavior back
-		// to the default value.
-		gNSStringGeometricsTypesetterBehavior = NSTypesetterLatestBehavior ;
-	}
-
-	return answer ;
+		gNSStringGeometricsTypesetterBehavior = NSTypesetterLatestBehavior ;		// In case changed , set typesetterBehavior to default.
+	}	return answer ;
 }
 
-- (float)heightForWidth:(float)width {
-	return [self sizeForWidth:width
-					   height:FLT_MAX].height ;
-}
+- (float)heightForWidth:(float)width {		return [self sizeForWidth:width	height:FLT_MAX].height ;  }
 
-- (float)widthForHeight:(float)height {
-	return [self sizeForWidth:FLT_MAX
-					   height:height].width ;
-}
+- (float)widthForHeight:(float)height {		return [self sizeForWidth:FLT_MAX	height:height].width ;	}
 
 @end
-
 
 @implementation NSString (Geometrics)
 
 #pragma mark Given String with Attributes
 
-- (NSSize)sizeForWidth:(float)width
-				height:(float)height
-			attributes:(NSDictionary*)attributes {
-	NSSize answer ;
-
-	NSAttributedString *astr = [[NSAttributedString alloc] initWithString:self
-															   attributes:attributes] ;
-	answer = [astr sizeForWidth:width
-						 height:height] ;
-	//	[astr release] ;
-
-	return answer ;
+- (NSSize)sizeInSize:(NSSize)size 	  font:(NSFont*)font;
+{
+	return [self sizeForWidth:size.width height:size.height font:font];
 }
 
-- (float)heightForWidth:(float)width
-			 attributes:(NSDictionary*)attributes {
-	return [self sizeForWidth:width
-					   height:FLT_MAX
-				   attributes:attributes].height ;
+- (NSSize)sizeForWidth:(float)width	height:(float)height attributes:(NSDictionary*)attributes
+{
+	return [[[NSAttributedString alloc] initWithString:self attributes:attributes]  sizeForWidth:width height:height] ;
 }
 
-- (float)widthForHeight:(float)height
-			 attributes:(NSDictionary*)attributes {
-	return [self sizeForWidth:FLT_MAX
-					   height:height
-				   attributes:attributes].width ;
+- (float)heightForWidth:(float)width attributes:(NSDictionary*)attributes
+{
+	return [self sizeForWidth:width height:FLT_MAX attributes:attributes].height ;
+}
+
+- (float)widthForHeight:(float)height attributes:(NSDictionary*)attributes
+{
+	return [self sizeForWidth:FLT_MAX height:height attributes:attributes].width ;
 }
 
 #pragma mark Given String with Font
 
-- (NSSize)sizeForWidth:(float)width
-				height:(float)height
-				  font:(NSFont*)font {
+- (NSSize)sizeForWidth:(float)width height:(float)height font:(NSFont*)font
+{
 	NSSize answer = NSZeroSize ;
-
-	if (font == nil) {
-		NSLog(@"[%@ %@]: Error: cannot compute size with nil font", [self class], _cmd) ;
-	}
-	else {
-		NSDictionary* attributes = @{NSFontAttributeName: font} ;
-		answer = [self sizeForWidth:width
-							 height:height
-						 attributes:attributes] ;
-	}
-	return answer ;
+	if (font == nil)	NSLog(@"[%@ %@]: Error: cannot compute size with nil font", [self class], _cmd) ;
+	else return 		answer = [self sizeForWidth:width height:height attributes:@{NSFontAttributeName: font}] ;
 }
 
-- (float)heightForWidth:(float)width
-				   font:(NSFont*)font {
-	return [self sizeForWidth:width
-					   height:FLT_MAX
-						 font:font].height ;
-}
+- (float)heightForWidth:(float)width font:(NSFont*)font { return [self sizeForWidth:width height:FLT_MAX font:font].height ; }
 
-- (float)widthForHeight:(float)height
-				   font:(NSFont*)font {
-	return [self sizeForWidth:FLT_MAX
-					   height:height
-						 font:font].width ;
-}
+- (float)widthForHeight:(float)height font:(NSFont*)font { return [self sizeForWidth:FLT_MAX height:height font:font].width ; }
 
 @end

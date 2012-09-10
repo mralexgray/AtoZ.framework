@@ -19,10 +19,10 @@ void applyPerspective (CALayer* layer);
 
 
 /** Constants for various commonly used colors. */
-extern CGColorRef kBlackColor, kWhiteColor,
-kTranslucentGrayColor, kTranslucentLightGrayColor,
-kAlmostInvisibleWhiteColor,
-kHighlightColor, kRedColor, kLightBlueColor;
+//extern CGColorRef kBlackColor, kWhiteColor,
+//kTranslucentGrayColor, kTranslucentLightGrayColor,
+//kAlmostInvisibleWhiteColor,
+//kHighlightColor, kRedColor, kLightBlueColor;
 
 
 /** Moves a layer from one superlayer to another, without changing its position onscreen. */
@@ -31,19 +31,17 @@ void ChangeSuperlayer( CALayer *layer, CALayer *newSuperlayer, int index );
 /** Removes a layer from its superlayer without any fade-out animation. */
 void RemoveImmediately( CALayer *layer );
 
+extern CALayer* AddShadow( CALayer *layer);
 /** Convenience for creating, adding,a nd returning a relatively nice CALayer. */
 extern CALayer* AddLayer( CALayer *superlayer);
 
+extern CALayer* ReturnLayer( CALayer *superlayer);
+
 /** Convenience for creating a CATextLayer. */
-CATextLayer* AddTextLayer( CALayer *superlayer,
-                           NSString *text, NSFont* font,
-                           enum CAAutoresizingMask align );
+extern CATextLayer* AddTextLayer( CALayer *superlayer, NSString *text, NSFont* font, enum CAAutoresizingMask align );
 
-
-void AddImageLayer( CALayer *superlayer,
-				   NSImage *image, CGFloat scale);
-CALayer* ReturnImageLayer( CALayer *superlayer,
-				   NSImage *image, CGFloat scale);
+extern CALayer* AddImageLayer( 	  CALayer *superlayer, NSImage *image, CGFloat scale);
+extern CALayer* ReturnImageLayer( CALayer *superlayer, NSImage *image, CGFloat scale);
 
 //						   enum CAAutoresizingMask align );
 
@@ -115,7 +113,7 @@ CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13, CGFloat m14,
 - (CATransform3D)rectToQuad:(NSRect)rect quadTLX:(double)x1a quadTLY:(double)y1a quadTRX:(double)x2a quadTRY:(double)y2a quadBLX:(double)x3a quadBLY:(double)y3a quadBRX:(double)x4a quadBRY:(double)y4a;
 
 - (void) addConstraintsSuperSizeScaled:(CGFloat)scale;
-- (void) addConstraintsSuperSizeScaled;
+- (void) addConstraintsSuperSize;
 
 
 + (CALayer*)closeBoxLayer;

@@ -172,15 +172,20 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 
 
 
--(void)setupHostView {
+-(CALayer*) setupHostView {
     CALayer *layer = [CALayer layer]; 
 //    CGColorSpaceRef colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
 //    CGFloat components[4] = {0.0f, 0.0f, 0.0f, 1.0f};
 //    CGColorRef blackColor = CGColorCreate(colorSpace, components);
-	layer.frame = self.bounds;
+	layer.frame = [self frame];
+	layer.position = [self center];
+	layer.bounds = [self bounds];
     layer.backgroundColor = cgRANDOMCOLOR;
-    [self setLayer:layer];
+	layer.autoresizingMask = kCALayerWidthSizable | kCALayerHeightSizable;
+	[self setLayer:layer];
     [self setWantsLayer:YES];
+
+	return layer;
 //    CGColorRelease(blackColor);
 //    CGColorSpaceRelease(colorSpace);
 }
@@ -374,13 +379,13 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 	AZDefaultAnimationCurve = curve;
 }
 
-- (NSImage *) snapshot { return [self snapshotFromRect:[self bounds]]; }
-//  This method creates a new image from a portion of the receiveing view. 
+- (NSImage *) snapshot { return [self snapshotFromRect:[self frame]]; }
+
+//  This method creates a new image from a portion of the receiveing view.
 - (NSImage *) snapshotFromRect:(NSRect) sourceRect; {
 	NSImage *snapshot = [[NSImage alloc] initWithSize:sourceRect.size];
-	NSBitmapImageRep *rep;
 	[self lockFocus];
-	rep = [[NSBitmapImageRep alloc] initWithFocusedViewRect:sourceRect];
+	NSBitmapImageRep *rep = [[NSBitmapImageRep alloc] initWithFocusedViewRect:sourceRect];
 	[self unlockFocus];
 	[snapshot addRepresentation:rep];
 	return snapshot;
@@ -407,16 +412,14 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
   }
 }
 
-//@end
-
-//@implementation NSView
 
 + (void)runEndBlock:(void (^)(void))completionBlock
 {
   completionBlock();
 }
 
-//[i convertPoint: [[i window] convertScreenToBase:[NSEvent mouseLocation]] fromView: nil ]
+/////[i convertPoint: [[i window] convertScreenToBase:[NSEvent mouseLocation]] fromView: nil ]
+
 - (NSPoint) localPoint;
 {
 	return [self convertPoint: [[self window] convertScreenToBase:NSPointFromCGPoint( mouseLoc())] fromView:nil];
@@ -443,25 +446,23 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 @end
 
 
-//#import "NSView+Layout.h"
-//#import "NS(Attributed)String+Geometrics.h"
 
-void SSMoveView(NSView* view, float dX, float dY) {
+void AZMoveView(NSView* view, float dX, float dY) {
 	NSRect frame = [view frame] ;
 	frame.origin.x += dX ;
 	frame.origin.y += dY ;
 	[view setFrame:frame] ;
 }
 
-void SSResizeView(NSView* view, float dX, float dY) {
+void AZResizeView(NSView* view, float dX, float dY) {
 	NSRect frame = [view frame] ;
 	frame.size.width += dX ;
 	frame.size.height += dY ;
 	[view setFrame:frame] ;
 }
 
-void SSResizeViewMovingSubviews(NSView* view, float dXLeft, float dXRight, float dYTop, float dYBottom) {
-	SSResizeView(view, dXLeft + dXRight, dYTop + dYBottom) ;
+void AZResizeViewMovingSubviews(NSView* view, float dXLeft, float dXRight, float dYTop, float dYBottom) {
+	AZResizeView(view, dXLeft + dXRight, dYTop + dYBottom) ;
 
 	NSArray* subviews = [view subviews] ;
 	NSEnumerator* e ;
@@ -471,7 +472,7 @@ void SSResizeViewMovingSubviews(NSView* view, float dXLeft, float dXRight, float
 	if (dXLeft != 0.0) {
 		e = [subviews objectEnumerator] ;
 		while ((subview = [e nextObject])) {
-			SSMoveView(subview, dXLeft, 0.0) ;
+			AZMoveView(subview, dXLeft, 0.0) ;
 		}
 	}
 
@@ -479,109 +480,61 @@ void SSResizeViewMovingSubviews(NSView* view, float dXLeft, float dXRight, float
 	if (dYBottom != 0.0) {
 		e = [subviews objectEnumerator] ;
 		while ((subview = [e nextObject])) {
-			SSMoveView(subview, 0.0, dYBottom) ;
+			AZMoveView(subview, 0.0, dYBottom) ;
 		}
 	}
 	[view display] ;
 }
 
-NSView* SSResizeWindowAndContent(NSWindow* window, float dXLeft, float dXRight, float dYTop, float dYBottom, BOOL moveSubviews) {
+NSView* AZResizeWindowAndContent(NSWindow* window, float dXLeft, float dXRight, float dYTop, float dYBottom, BOOL moveSubviews) {
 	NSView* view = [window contentView] ;
-	if (moveSubviews) {
-		SSResizeViewMovingSubviews(view, dXLeft, dXRight, dYTop, dYBottom) ;
-	}
-	else {
-		SSResizeView(view, dXLeft + dXRight, dYTop + dYBottom) ;
-	}
+	if (moveSubviews)
+		AZResizeViewMovingSubviews(view, dXLeft, dXRight, dYTop, dYBottom) ;
+	else
+		AZResizeView(view, dXLeft + dXRight, dYTop + dYBottom) ;
 	NSRect frame = [window frame] ;
 	frame.size.width += (dXLeft + dXRight) ;
 	frame.size.height += (dYTop + dYBottom) ;
-	// Since window origin is at the bottom, and we want
-	// the bottom to move instead of the top, we also
-	// adjust the origin.y
+	// Since window origin is at the bottom, and we want  the bottom to move instead of the top, we also adjust the origin.y
 	frame.origin.y -= (dYTop + dYBottom) ;
-	// since screen y is measured from the top, we have to
-	// subtract instead of add
+	// since screen y is measured from the top, we have to	subtract instead of add
 	[window setFrame:frame display:YES] ;
-
 	return view ;  // because often this is handy
 }
 
 @implementation NSView (Layout)
 
-- (float)leftEdge {
-	return [self frame].origin.x ;
+- (float)leftEdge {	return [self frame].origin.x ;	}
+
+- (float)rightEdge {	return [self frame].origin.x + [self width] ;	}
+
+- (float)centerX {	return ([self frame].origin.x + [self width]/2) ;	}
+
+- (void)setLeftEdge:(float)t {	NSRect frame = [self frame] ;	frame.origin.x = t ;	[self setFrame:frame] ;	}
+
+- (void)setRightEdge:(float)t {	NSRect frame = [self frame] ;	frame.origin.x = t - [self width] ;	[self setFrame:frame];	}
+
+- (void)setCenterX:(float)t {	float center = [self centerX] ;	float adjustment = t - center ;
+	NSRect frame = [self frame] ;	frame.origin.x += adjustment ;	[self setFrame:frame];
 }
 
-- (float)rightEdge {
-	return [self frame].origin.x + [self width] ;
+- (float)bottom {	return [self frame].origin.y ;	}
+
+- (float)top {		return [self frame].origin.y + [self height] ;	}
+
+- (float)centerY {	return ([self frame].origin.y + [self height]/2) ;}
+
+- (void)setBottom:(float)t {	NSRect frame = [self frame] ;	frame.origin.y = t ;	[self setFrame:frame] ;	}
+
+- (void)setTop:(float)t {	NSRect frame = [self frame] ;	frame.origin.y = t - [self height] ;	[self setFrame:frame] ;	}
+
+- (void)setCenterY:(float)t {		float center = [self centerY] ;		float adjustment = t - center ;
+	NSRect frame = [self frame] ;	frame.origin.y += adjustment ;		[self setFrame:frame] ;
 }
 
-- (float)centerX {
-	return ([self frame].origin.x + [self width]/2) ;
-}
+- (float)width {	return [self frame].size.width ;		}
 
-- (void)setLeftEdge:(float)t {
-	NSRect frame = [self frame] ;
-	frame.origin.x = t ;
-	[self setFrame:frame] ;
-}
-
-- (void)setRightEdge:(float)t {
-	NSRect frame = [self frame] ;
-	frame.origin.x = t - [self width] ;
-	[self setFrame:frame] ;
-}
-
-- (void)setCenterX:(float)t {
-	float center = [self centerX] ;
-	float adjustment = t - center ;
-
-	NSRect frame = [self frame] ;
-	frame.origin.x += adjustment ;
-	[self setFrame:frame] ;
-}
-
-- (float)bottom {
-	return [self frame].origin.y ;
-}
-
-- (float)top {
-	return [self frame].origin.y + [self height] ;
-}
-
-- (float)centerY {
-	return ([self frame].origin.y + [self height]/2) ;
-}
-
-- (void)setBottom:(float)t {
-	NSRect frame = [self frame] ;
-	frame.origin.y = t ;
-	[self setFrame:frame] ;
-}
-
-- (void)setTop:(float)t {
-	NSRect frame = [self frame] ;
-	frame.origin.y = t - [self height] ;
-	[self setFrame:frame] ;
-}
-
-- (void)setCenterY:(float)t {
-	float center = [self centerY] ;
-	float adjustment = t - center ;
-
-	NSRect frame = [self frame] ;
-	frame.origin.y += adjustment ;
-	[self setFrame:frame] ;
-}
-
-- (float)width {
-	return [self frame].size.width ;
-}
-
-- (float)height {
-	return [self frame].size.height ;
-}
+- (float)height {	return [self frame].size.height ;	}
 
 - (void)setWidth:(float)t {
 	NSRect frame = [self frame] ;
@@ -650,16 +603,11 @@ NSView* SSResizeWindowAndContent(NSWindow* window, float dXLeft, float dXRight, 
 		}
 		else {
 			NSFont* font = [(NSTextView*)self font] ;
-			// According to Douglas Davidson, http://www.cocoabuilder.com/archive/message/cocoa/2002/2/13/66379,
-			// "The default font for text that has no font attribute set is 12-pt Helvetica."
-			// So, we make that interpretation...
-			if (font == nil) {
-				font = [NSFont fontWithName:@"Helvetica"
-									   size:12] ;
-			}
-
-			height = [[(NSTextView*)self string] heightForWidth:width
-														   font:font] ;
+			/* According to Douglas Davidson, http://www.cocoabuilder.com/archive/message/cocoa/2002/2/13/66379,
+			"The default font for text that has no font attribute set is 12-pt Helvetica."
+			So, we make that interpretation... */
+			if (font == nil)				font = [NSFont fontWithName:@"Helvetica" size:12] ;
+			height = [[(NSTextView*)self string] heightForWidth:width	font:font] ;
 		}
 		NSRect frame = [self frame] ;
 		frame.size.height = allowShrinking ? height : MAX(height, oldHeight) ;
@@ -667,8 +615,7 @@ NSView* SSResizeWindowAndContent(NSWindow* window, float dXLeft, float dXRight, 
 	}
 	else if ([self isKindOfClass:[NSTextField class]]) {
 		gNSStringGeometricsTypesetterBehavior = NSTypesetterBehavior_10_2_WithCompatibility ;
-		height = [[(NSTextField*)self stringValue] heightForWidth:width
-															 font:[(NSTextView*)self font]] ;
+		height = [[(NSTextField*)self stringValue] heightForWidth:width	font:[(NSTextView*)self font]] ;
 		NSRect frame = [self frame] ;
 		frame.size.height = allowShrinking ? height : MAX(height, oldHeight) ;
 		[self setFrame:frame] ;
@@ -676,14 +623,9 @@ NSView* SSResizeWindowAndContent(NSWindow* window, float dXLeft, float dXRight, 
 	else {
 		// Subclass should have set height to fit
 	}
-
 	// Clip if taller than screen
 	float screenHeight = [[NSScreen mainScreen] frame].size.height ;
-	if ([self height] > screenHeight) {
-		NSRect frame = [self frame] ;
-		frame.size.height = screenHeight ;
-		[self setFrame:frame] ;
-	}
+	if ([self height] > screenHeight) {	NSRect frame = [self frame] ;	frame.size.height = screenHeight ;	[self setFrame:frame] ;	}
 }
 
 - (NSComparisonResult)compareLeftEdges:(NSView*)otherView {
@@ -700,6 +642,7 @@ NSView* SSResizeWindowAndContent(NSWindow* window, float dXLeft, float dXRight, 
 }
 
 // The normal margin of "whitespace" that one leaves at the bottom of a window
+
 #define BOTTOM_MARGIN 20.0
 
 - (void)sizeHeightToFit {
