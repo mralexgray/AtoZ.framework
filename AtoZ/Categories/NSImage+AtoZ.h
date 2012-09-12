@@ -22,8 +22,38 @@ typedef enum {
     AGImageResizeScale
 } AGImageResizingMethod;
 
+
+CGImageRef CreateCGImageFromData(NSData* data);
+
+
 @interface NSImage (AtoZ)
 
+
+
+	// creates a copy of the current image while maintaining
+	// proportions. also centers image, if necessary
+
+- (NSSize)proportionalSizeForTargetSize:(NSSize)aSize;
+
+- (NSImage*)imageByScalingProportionallyToSize:(NSSize)aSize;
+
+- (NSImage*)imageByScalingProportionallyToSize:(NSSize)targetSize
+                                       flipped:(BOOL)isFlipped;
+
+- (NSImage*)imageByScalingProportionallyToSize:(NSSize)targetSize
+                                       flipped:(BOOL)isFlipped
+                                      addFrame:(BOOL)shouldAddFrame
+                                     addShadow:(BOOL)shouldAddShadow;
+
+- (NSImage*)imageByScalingProportionallyToSize:(NSSize)targetSize
+                                       flipped:(BOOL)isFlipped
+                                      addFrame:(BOOL)shouldAddFrame
+                                     addShadow:(BOOL)shouldAddShadow
+                                      addSheen:(BOOL)shouldAddSheen;
+
+- (NSImage*)imageByFillingVisibleAlphaWithColor:(NSColor*)fillColor;
+
+- (NSImage*)imageByConvertingToBlackAndWhite;
 
 
 + (NSImage *)createImageFromSubView:(NSView *)view rect:(NSRect)rect;

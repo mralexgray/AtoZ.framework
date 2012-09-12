@@ -13,6 +13,7 @@
 			buildPhases = (
 				7BE63AB815FE9754004BA700 /* AppleDoc */,
 				7BE63ABA15FE9A02004BA700 /* ShellScript */,
+				7BF93E5615FF3B1800211769 /* Delete Headers Inside Framework */,
 			);
 			dependencies = (
 				7BA32AA815EACE8F0061B2BC /* PBXTargetDependency */,
@@ -63,6 +64,8 @@
 		7B137CF715A201C00088A630 /* darklinen.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B137CF515A201C00088A630 /* darklinen.png */; };
 		7B137CFC15A202510088A630 /* AZBox.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B137CFA15A202510088A630 /* AZBox.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B137CFD15A202510088A630 /* AZBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B137CFB15A202510088A630 /* AZBox.m */; };
+		7B14F2891600383600CBBF7E /* RMKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B14F2881600383600CBBF7E /* RMKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		7B14F28A1600384700CBBF7E /* RMKit.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7B14F2881600383600CBBF7E /* RMKit.framework */; };
 		7B1528F615F49DE200027191 /* BlueSkyTulips.clr in Resources */ = {isa = PBXBuildFile; fileRef = 7B1528E815F49DCD00027191 /* BlueSkyTulips.clr */; };
 		7B1528F715F49DE200027191 /* Bujumbura.clr in Resources */ = {isa = PBXBuildFile; fileRef = 7B1528E915F49DCD00027191 /* Bujumbura.clr */; };
 		7B1528F815F49DE200027191 /* CoffeeBeans.clr in Resources */ = {isa = PBXBuildFile; fileRef = 7B1528EA15F49DCD00027191 /* CoffeeBeans.clr */; };
@@ -77,7 +80,7 @@
 		7B15290115F49DE200027191 /* OrigamiMice.clr in Resources */ = {isa = PBXBuildFile; fileRef = 7B1528F315F49DCD00027191 /* OrigamiMice.clr */; };
 		7B15290215F49DE200027191 /* Rainbow.clr in Resources */ = {isa = PBXBuildFile; fileRef = 7B1528F415F49DCD00027191 /* Rainbow.clr */; };
 		7B15290315F49DE200027191 /* RGB.clr in Resources */ = {isa = PBXBuildFile; fileRef = 7B1528F515F49DCD00027191 /* RGB.clr */; };
-		7B184ED215FC943E00696360 /* AZCSSColorExtraction.h in Sources */ = {isa = PBXBuildFile; fileRef = 7B184ED015FC943E00696360 /* AZCSSColorExtraction.h */; };
+		7B184ED215FC943E00696360 /* AZCSSColorExtraction.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B184ED015FC943E00696360 /* AZCSSColorExtraction.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B184ED315FC943E00696360 /* AZCSSColorExtraction.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B184ED115FC943E00696360 /* AZCSSColorExtraction.m */; };
 		7B184EE015FCA4F500696360 /* mrgray.logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B184EDF15FCA4F400696360 /* mrgray.logo.png */; };
 		7B184EE715FCA98700696360 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B311959159B6D9E002134C4 /* Foundation.framework */; };
@@ -123,6 +126,11 @@
 		7B24E9A615A13A4100A9D87A /* NSBezierPath+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B24E9A415A13A4000A9D87A /* NSBezierPath+AtoZ.m */; };
 		7B24E9ED15A176AC00A9D87A /* NSWindow+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B24E9EB15A176AB00A9D87A /* NSWindow+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B24E9EE15A176AC00A9D87A /* NSWindow+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B24E9EC15A176AB00A9D87A /* NSWindow+AtoZ.m */; };
+		7B2853F915FEE79F0077960A /* AZCategoryTests.h in Sources */ = {isa = PBXBuildFile; fileRef = 7B2853F715FEE79F0077960A /* AZCategoryTests.h */; };
+		7B2853FA15FEE79F0077960A /* AZCategoryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2853F815FEE79F0077960A /* AZCategoryTests.m */; };
+		7B28545E15FEEBA90077960A /* Tests-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7B28542915FEEBA90077960A /* Tests-Info.plist */; };
+		7B28545F15FEEBA90077960A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7B28542B15FEEBA90077960A /* InfoPlist.strings */; };
+		7B28546315FEF0870077960A /* GHUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B28546215FEF0840077960A /* GHUnit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		7B311963159B6D9E002134C4 /* AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B311962159B6D9E002134C4 /* AtoZ.m */; };
 		7B31196B159B6D9E002134C4 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B31196A159B6D9E002134C4 /* SenTestingKit.framework */; };
 		7B31196C159B6D9E002134C4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B311954159B6D9E002134C4 /* Cocoa.framework */; };
@@ -211,7 +219,7 @@
 		7B645CD315F5563B00566160 /* XPCKit.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7B645CA215F5300E00566160 /* XPCKit.framework */; };
 		7B645CD415F5563B00566160 /* Growl.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7BCFC93C15E8512D0087E0DF /* Growl.framework */; };
 		7B645CD515F5563B00566160 /* AtoZiTunes.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7B0236B915E08BD90070FE12 /* AtoZiTunes.framework */; };
-		7B645CD915F556CD00566160 /* PLWeakCompatibility.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7B0236C215E08BD90070FE12 /* PLWeakCompatibility.framework */; };
+		7B645CD915F556CD00566160 /* PLWeakCompatibility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B0236C215E08BD90070FE12 /* PLWeakCompatibility.framework */; };
 		7B645D7A15F60D1B00566160 /* QSEffects.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B645D5A15F60CB600566160 /* QSEffects.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		7B645D8315F60ED900566160 /* QSCore.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7B645D5C15F60CB600566160 /* QSCore.framework */; };
 		7B645D8D15F60F0800566160 /* QSInterface.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7B645D5E15F60CB600566160 /* QSInterface.framework */; };
@@ -230,7 +238,7 @@
 		7B6901D6159E39A400D0DA47 /* NSColor+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B6901D4159E39A400D0DA47 /* NSColor+AtoZ.m */; };
 		7B6A1A5D15E6F3940028D3E1 /* Window.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B6A1A5C15E6F3940028D3E1 /* Window.xib */; };
 		7B6CF45D15D32B8D0018A0D7 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B6CF45C15D32B8B0018A0D7 /* AudioToolbox.framework */; };
-		7B6D95EF15FA954100972A69 /* XLDragDropView.h in Sources */ = {isa = PBXBuildFile; fileRef = 7B6D95ED15FA954100972A69 /* XLDragDropView.h */; };
+		7B6D95EF15FA954100972A69 /* XLDragDropView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B6D95ED15FA954100972A69 /* XLDragDropView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B6D95F015FA954100972A69 /* XLDragDropView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B6D95EE15FA954100972A69 /* XLDragDropView.m */; };
 		7B728DF815C472D8004F6723 /* NSNotificationCenter+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B728DF615C472D8004F6723 /* NSNotificationCenter+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B728DF915C472D8004F6723 /* NSNotificationCenter+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B728DF715C472D8004F6723 /* NSNotificationCenter+AtoZ.m */; };
@@ -852,18 +860,56 @@
 		7BDB8D7D15CB56BA0037A4BF /* missing.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BDB8D7915CB56BA0037A4BF /* missing.png */; };
 		7BDDD5E415A3792600A5C222 /* AZStopwatch.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BDDD5E215A3792600A5C222 /* AZStopwatch.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BDDD5E515A3792600A5C222 /* AZStopwatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BDDD5E315A3792600A5C222 /* AZStopwatch.m */; };
-		7BE1F68915F8D1A4005ED292 /* AtoZ-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 7B583066159BDAF40039CEED /* AtoZ-Prefix.pch */; };
 		7BE1F6AF15F910F6005ED292 /* FunSize.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7BE1F6A515F90299005ED292 /* FunSize.framework */; };
-		7BE1F6B215F9111C005ED292 /* FunSize.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BE1F6A515F90299005ED292 /* FunSize.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		7BE1F6B215F9111C005ED292 /* FunSize.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BE1F6A515F90299005ED292 /* FunSize.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		7BE3FB4D15EFFD130000656D /* AZTrackingWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BA425B615E7C3C200D2A471 /* AZTrackingWindow.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BE6069515A0E2DD00355236 /* NSString+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BE6069315A0E2DC00355236 /* NSString+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BE6069615A0E2DD00355236 /* NSString+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BE6069415A0E2DD00355236 /* NSString+AtoZ.m */; };
 		7BE606F215A118B400355236 /* AZAttachedWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BE606EE15A118B400355236 /* AZAttachedWindow.m */; };
-		7BE639B415FCDE0F004BA700 /* AZMedallionView.h in Sources */ = {isa = PBXBuildFile; fileRef = 7BE639B215FCDE0F004BA700 /* AZMedallionView.h */; };
+		7BE639B415FCDE0F004BA700 /* AZMedallionView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BE639B215FCDE0F004BA700 /* AZMedallionView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BE639B515FCDE0F004BA700 /* AZMedallionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BE639B315FCDE0F004BA700 /* AZMedallionView.m */; };
 		7BE63ABD15FE9AE8004BA700 /* QSFoundation.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7B645D5815F60CB600566160 /* QSFoundation.framework */; };
 		7BF0571C15EB33F3003A2A7A /* AZSpinnerLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF0571A15EB33F2003A2A7A /* AZSpinnerLayer.m */; };
 		7BF0571D15EB33F3003A2A7A /* AZSpinnerLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BF0571B15EB33F3003A2A7A /* AZSpinnerLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BF93E2715FEF7C500211769 /* NSArrayBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2853FC15FEEBA90077960A /* NSArrayBlocksKitTest.m */; };
+		7BF93E2815FEF7C500211769 /* NSCacheBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2853FE15FEEBA90077960A /* NSCacheBlocksKitTest.m */; };
+		7BF93E2915FEF7C500211769 /* NSDictionaryBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B28540015FEEBA90077960A /* NSDictionaryBlocksKitTest.m */; };
+		7BF93E2A15FEF7C500211769 /* NSIndexSetBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B28540215FEEBA90077960A /* NSIndexSetBlocksKitTest.m */; };
+		7BF93E2B15FEF7C500211769 /* NSInvocationBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B28540415FEEBA90077960A /* NSInvocationBlocksKitTest.m */; };
+		7BF93E2C15FEF7C500211769 /* NSMutableArrayBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B28540615FEEBA90077960A /* NSMutableArrayBlocksKitTest.m */; };
+		7BF93E2D15FEF7C500211769 /* NSMutableDictionaryBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B28540815FEEBA90077960A /* NSMutableDictionaryBlocksKitTest.m */; };
+		7BF93E2E15FEF7C500211769 /* NSMutableIndexSetBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B28540A15FEEBA90077960A /* NSMutableIndexSetBlocksKitTest.m */; };
+		7BF93E2F15FEF7C500211769 /* NSMutableSetBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B28540C15FEEBA90077960A /* NSMutableSetBlocksKitTest.m */; };
+		7BF93E3015FEF7C500211769 /* NSObjectAssociatedObjectTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B28540E15FEEBA90077960A /* NSObjectAssociatedObjectTest.m */; };
+		7BF93E3115FEF7C500211769 /* NSObjectBlockObservationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B28541015FEEBA90077960A /* NSObjectBlockObservationTest.m */; };
+		7BF93E3215FEF7C500211769 /* NSObjectBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B28541215FEEBA90077960A /* NSObjectBlocksKitTest.m */; };
+		7BF93E3315FEF7C500211769 /* NSSetBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B28541415FEEBA90077960A /* NSSetBlocksKitTest.m */; };
+		7BF93E3415FEF7C500211769 /* NSTimerBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B28541615FEEBA90077960A /* NSTimerBlocksKitTest.m */; };
+		7BF93E3515FEF7C500211769 /* NSURLConnectionBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B28541815FEEBA90077960A /* NSURLConnectionBlocksKitTest.m */; };
+		7BF93E3615FEF8F400211769 /* GHUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B28546215FEF0840077960A /* GHUnit.framework */; };
+		7BF93E3715FEF90C00211769 /* NSArrayBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2853FC15FEEBA90077960A /* NSArrayBlocksKitTest.m */; };
+		7BF93E3815FEF90C00211769 /* NSCacheBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2853FE15FEEBA90077960A /* NSCacheBlocksKitTest.m */; };
+		7BF93E3915FEF90C00211769 /* NSDictionaryBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B28540015FEEBA90077960A /* NSDictionaryBlocksKitTest.m */; };
+		7BF93E3A15FEF90C00211769 /* NSIndexSetBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B28540215FEEBA90077960A /* NSIndexSetBlocksKitTest.m */; };
+		7BF93E3B15FEF90C00211769 /* NSInvocationBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B28540415FEEBA90077960A /* NSInvocationBlocksKitTest.m */; };
+		7BF93E3C15FEF90C00211769 /* NSMutableArrayBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B28540615FEEBA90077960A /* NSMutableArrayBlocksKitTest.m */; };
+		7BF93E3D15FEF90C00211769 /* NSMutableDictionaryBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B28540815FEEBA90077960A /* NSMutableDictionaryBlocksKitTest.m */; };
+		7BF93E3E15FEF90C00211769 /* NSMutableIndexSetBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B28540A15FEEBA90077960A /* NSMutableIndexSetBlocksKitTest.m */; };
+		7BF93E3F15FEF90C00211769 /* NSMutableSetBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B28540C15FEEBA90077960A /* NSMutableSetBlocksKitTest.m */; };
+		7BF93E4015FEF90C00211769 /* NSObjectAssociatedObjectTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B28540E15FEEBA90077960A /* NSObjectAssociatedObjectTest.m */; };
+		7BF93E4115FEF90C00211769 /* NSObjectBlockObservationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B28541015FEEBA90077960A /* NSObjectBlockObservationTest.m */; };
+		7BF93E4215FEF90C00211769 /* NSObjectBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B28541215FEEBA90077960A /* NSObjectBlocksKitTest.m */; };
+		7BF93E4315FEF90C00211769 /* NSSetBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B28541415FEEBA90077960A /* NSSetBlocksKitTest.m */; };
+		7BF93E4415FEF90C00211769 /* NSTimerBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B28541615FEEBA90077960A /* NSTimerBlocksKitTest.m */; };
+		7BF93E4515FEF90C00211769 /* NSURLConnectionBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B28541815FEEBA90077960A /* NSURLConnectionBlocksKitTest.m */; };
+		7BF93FA315FFA59400211769 /* PLWeakCompatibility.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7B0236C215E08BD90070FE12 /* PLWeakCompatibility.framework */; };
+		7BF93FA415FFA5C100211769 /* BlocksKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BE1F6EE15F9252C005ED292 /* BlocksKit.framework */; };
+		7BF93FA515FFA5E900211769 /* BlocksKit.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7BE1F6EE15F9252C005ED292 /* BlocksKit.framework */; };
+		7BF9854C15FEBDB200D47192 /* AtoZFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF9854A15FEBDB200D47192 /* AtoZFunctions.m */; };
+		7BF9854F15FEBDF900D47192 /* NSBag.h in Sources */ = {isa = PBXBuildFile; fileRef = 7BF9854D15FEBDF900D47192 /* NSBag.h */; };
+		7BF9855015FEBDF900D47192 /* NSBag.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF9854E15FEBDF900D47192 /* NSBag.m */; };
+		7BF9855115FEBEAE00D47192 /* AtoZFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BF9854915FEBDB100D47192 /* AtoZFunctions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BF9855215FEBEB300D47192 /* NSBag.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BF9854D15FEBDF900D47192 /* NSBag.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BF9E79C159E8F5000B5482D /* NSArray+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BF9E79A159E8F5000B5482D /* NSArray+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BF9E79D159E8F5000B5482D /* NSArray+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF9E79B159E8F5000B5482D /* NSArray+AtoZ.m */; };
 		7BF9E7D7159F0A0500B5482D /* AZPopupWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BF9E7D5159F0A0500B5482D /* AZPopupWindow.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1332,24 +1378,40 @@
 			remoteGlobalIDString = 60FF000713C023CB004A1394;
 			remoteInfo = "iOS Tests";
 		};
+		7BF9854215FEADA700D47192 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7BE1F6B315F91233005ED292 /* BlocksKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 6CC40A741447BB1400E47595;
+			remoteInfo = "OS X Framework";
+		};
+		7BF9854515FEADE300D47192 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B645D3E15F60CB500566160 /* Quicksilver.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = E1E5F97107B1FCFC0044D6EF;
+			remoteInfo = "QuickStep Foundation";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		7B0236DB15E08E500070FE12 /* frameworks copy */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = Frameworks;
+			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				7BE63ABD15FE9AE8004BA700 /* QSFoundation.framework in frameworks copy */,
+				7B14F28A1600384700CBBF7E /* RMKit.framework in frameworks copy */,
+				7BF93FA515FFA5E900211769 /* BlocksKit.framework in frameworks copy */,
 				7BE1F6AF15F910F6005ED292 /* FunSize.framework in frameworks copy */,
 				7B645D8315F60ED900566160 /* QSCore.framework in frameworks copy */,
 				7B645D8D15F60F0800566160 /* QSInterface.framework in frameworks copy */,
+				7BE63ABD15FE9AE8004BA700 /* QSFoundation.framework in frameworks copy */,
 				7B645D8E15F60F0800566160 /* QSEffects.framework in frameworks copy */,
-				7B645CD915F556CD00566160 /* PLWeakCompatibility.framework in frameworks copy */,
 				7B645CD315F5563B00566160 /* XPCKit.framework in frameworks copy */,
 				7B645CD415F5563B00566160 /* Growl.framework in frameworks copy */,
 				7B645CD515F5563B00566160 /* AtoZiTunes.framework in frameworks copy */,
+				7BF93FA315FFA59400211769 /* PLWeakCompatibility.framework in frameworks copy */,
 				7B645CCA15F5549100566160 /* Lumberjack.framework in frameworks copy */,
 			);
 			name = "frameworks copy";
@@ -1991,6 +2053,7 @@
 		7B137CF515A201C00088A630 /* darklinen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = darklinen.png; sourceTree = "<group>"; };
 		7B137CFA15A202510088A630 /* AZBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZBox.h; path = AZBoxView/AZBox.h; sourceTree = SOURCE_ROOT; };
 		7B137CFB15A202510088A630 /* AZBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AZBox.m; path = AZBoxView/AZBox.m; sourceTree = SOURCE_ROOT; };
+		7B14F2881600383600CBBF7E /* RMKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RMKit.framework; sourceTree = "<group>"; };
 		7B1528E815F49DCD00027191 /* BlueSkyTulips.clr */ = {isa = PBXFileReference; lastKnownFileType = file; path = BlueSkyTulips.clr; sourceTree = "<group>"; };
 		7B1528E915F49DCD00027191 /* Bujumbura.clr */ = {isa = PBXFileReference; lastKnownFileType = file; path = Bujumbura.clr; sourceTree = "<group>"; };
 		7B1528EA15F49DCD00027191 /* CoffeeBeans.clr */ = {isa = PBXFileReference; lastKnownFileType = file; path = CoffeeBeans.clr; sourceTree = "<group>"; };
@@ -2054,6 +2117,59 @@
 		7B24E9A415A13A4000A9D87A /* NSBezierPath+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBezierPath+AtoZ.m"; sourceTree = "<group>"; };
 		7B24E9EB15A176AB00A9D87A /* NSWindow+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSWindow+AtoZ.h"; sourceTree = "<group>"; };
 		7B24E9EC15A176AB00A9D87A /* NSWindow+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSWindow+AtoZ.m"; sourceTree = "<group>"; };
+		7B2853F715FEE79F0077960A /* AZCategoryTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = AZCategoryTests.h; sourceTree = "<group>"; };
+		7B2853F815FEE79F0077960A /* AZCategoryTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZCategoryTests.m; sourceTree = "<group>"; };
+		7B2853FB15FEEBA90077960A /* NSArrayBlocksKitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = NSArrayBlocksKitTest.h; sourceTree = "<group>"; };
+		7B2853FC15FEEBA90077960A /* NSArrayBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSArrayBlocksKitTest.m; sourceTree = "<group>"; };
+		7B2853FD15FEEBA90077960A /* NSCacheBlocksKitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = NSCacheBlocksKitTest.h; sourceTree = "<group>"; };
+		7B2853FE15FEEBA90077960A /* NSCacheBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSCacheBlocksKitTest.m; sourceTree = "<group>"; };
+		7B2853FF15FEEBA90077960A /* NSDictionaryBlocksKitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = NSDictionaryBlocksKitTest.h; sourceTree = "<group>"; };
+		7B28540015FEEBA90077960A /* NSDictionaryBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDictionaryBlocksKitTest.m; sourceTree = "<group>"; };
+		7B28540115FEEBA90077960A /* NSIndexSetBlocksKitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = NSIndexSetBlocksKitTest.h; sourceTree = "<group>"; };
+		7B28540215FEEBA90077960A /* NSIndexSetBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSIndexSetBlocksKitTest.m; sourceTree = "<group>"; };
+		7B28540315FEEBA90077960A /* NSInvocationBlocksKitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = NSInvocationBlocksKitTest.h; sourceTree = "<group>"; };
+		7B28540415FEEBA90077960A /* NSInvocationBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSInvocationBlocksKitTest.m; sourceTree = "<group>"; };
+		7B28540515FEEBA90077960A /* NSMutableArrayBlocksKitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = NSMutableArrayBlocksKitTest.h; sourceTree = "<group>"; };
+		7B28540615FEEBA90077960A /* NSMutableArrayBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSMutableArrayBlocksKitTest.m; sourceTree = "<group>"; };
+		7B28540715FEEBA90077960A /* NSMutableDictionaryBlocksKitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = NSMutableDictionaryBlocksKitTest.h; sourceTree = "<group>"; };
+		7B28540815FEEBA90077960A /* NSMutableDictionaryBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSMutableDictionaryBlocksKitTest.m; sourceTree = "<group>"; };
+		7B28540915FEEBA90077960A /* NSMutableIndexSetBlocksKitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = NSMutableIndexSetBlocksKitTest.h; sourceTree = "<group>"; };
+		7B28540A15FEEBA90077960A /* NSMutableIndexSetBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSMutableIndexSetBlocksKitTest.m; sourceTree = "<group>"; };
+		7B28540B15FEEBA90077960A /* NSMutableSetBlocksKitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = NSMutableSetBlocksKitTest.h; sourceTree = "<group>"; };
+		7B28540C15FEEBA90077960A /* NSMutableSetBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSMutableSetBlocksKitTest.m; sourceTree = "<group>"; };
+		7B28540D15FEEBA90077960A /* NSObjectAssociatedObjectTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = NSObjectAssociatedObjectTest.h; sourceTree = "<group>"; };
+		7B28540E15FEEBA90077960A /* NSObjectAssociatedObjectTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSObjectAssociatedObjectTest.m; sourceTree = "<group>"; };
+		7B28540F15FEEBA90077960A /* NSObjectBlockObservationTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = NSObjectBlockObservationTest.h; sourceTree = "<group>"; };
+		7B28541015FEEBA90077960A /* NSObjectBlockObservationTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSObjectBlockObservationTest.m; sourceTree = "<group>"; };
+		7B28541115FEEBA90077960A /* NSObjectBlocksKitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = NSObjectBlocksKitTest.h; sourceTree = "<group>"; };
+		7B28541215FEEBA90077960A /* NSObjectBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSObjectBlocksKitTest.m; sourceTree = "<group>"; };
+		7B28541315FEEBA90077960A /* NSSetBlocksKitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = NSSetBlocksKitTest.h; sourceTree = "<group>"; };
+		7B28541415FEEBA90077960A /* NSSetBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSSetBlocksKitTest.m; sourceTree = "<group>"; };
+		7B28541515FEEBA90077960A /* NSTimerBlocksKitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = NSTimerBlocksKitTest.h; sourceTree = "<group>"; };
+		7B28541615FEEBA90077960A /* NSTimerBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSTimerBlocksKitTest.m; sourceTree = "<group>"; };
+		7B28541715FEEBA90077960A /* NSURLConnectionBlocksKitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = NSURLConnectionBlocksKitTest.h; sourceTree = "<group>"; };
+		7B28541815FEEBA90077960A /* NSURLConnectionBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSURLConnectionBlocksKitTest.m; sourceTree = "<group>"; };
+		7B28541915FEEBA90077960A /* MFMailComposeViewControllerBlocksKitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = MFMailComposeViewControllerBlocksKitTest.h; sourceTree = "<group>"; };
+		7B28541A15FEEBA90077960A /* MFMailComposeViewControllerBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFMailComposeViewControllerBlocksKitTest.m; sourceTree = "<group>"; };
+		7B28541B15FEEBA90077960A /* MFMessageComposeViewControllerBlocksKitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = MFMessageComposeViewControllerBlocksKitTest.h; sourceTree = "<group>"; };
+		7B28541C15FEEBA90077960A /* MFMessageComposeViewControllerBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFMessageComposeViewControllerBlocksKitTest.m; sourceTree = "<group>"; };
+		7B28541D15FEEBA90077960A /* UIActionSheetBlocksKitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = UIActionSheetBlocksKitTest.h; sourceTree = "<group>"; };
+		7B28541E15FEEBA90077960A /* UIActionSheetBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIActionSheetBlocksKitTest.m; sourceTree = "<group>"; };
+		7B28541F15FEEBA90077960A /* UIAlertViewBlocksKitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = UIAlertViewBlocksKitTest.h; sourceTree = "<group>"; };
+		7B28542015FEEBA90077960A /* UIAlertViewBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIAlertViewBlocksKitTest.m; sourceTree = "<group>"; };
+		7B28542115FEEBA90077960A /* UIBarButtonItemBlocksKitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = UIBarButtonItemBlocksKitTest.h; sourceTree = "<group>"; };
+		7B28542215FEEBA90077960A /* UIBarButtonItemBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIBarButtonItemBlocksKitTest.m; sourceTree = "<group>"; };
+		7B28542315FEEBA90077960A /* UIControlBlocksKitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = UIControlBlocksKitTest.h; sourceTree = "<group>"; };
+		7B28542415FEEBA90077960A /* UIControlBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIControlBlocksKitTest.m; sourceTree = "<group>"; };
+		7B28542515FEEBA90077960A /* UIViewBlocksKitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = UIViewBlocksKitTest.h; sourceTree = "<group>"; };
+		7B28542615FEEBA90077960A /* UIViewBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewBlocksKitTest.m; sourceTree = "<group>"; };
+		7B28542715FEEBA90077960A /* UIWebViewBlocksKitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = UIWebViewBlocksKitTest.h; sourceTree = "<group>"; };
+		7B28542815FEEBA90077960A /* UIWebViewBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIWebViewBlocksKitTest.m; sourceTree = "<group>"; };
+		7B28542915FEEBA90077960A /* Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
+		7B28542A15FEEBA90077960A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		7B28542C15FEEBA90077960A /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
+		7B28542D15FEEBA90077960A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		7B28546215FEF0840077960A /* GHUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GHUnit.framework; path = "../../../git/gh-unit/Project-MacOSX/build/Release/GHUnit.framework"; sourceTree = "<group>"; };
 		7B311951159B6D9E002134C4 /* AtoZ.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AtoZ.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B311954159B6D9E002134C4 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		7B311957159B6D9E002134C4 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -2843,6 +2959,10 @@
 		7BE639B315FCDE0F004BA700 /* AZMedallionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZMedallionView.m; sourceTree = "<group>"; };
 		7BF0571A15EB33F2003A2A7A /* AZSpinnerLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZSpinnerLayer.m; sourceTree = "<group>"; };
 		7BF0571B15EB33F3003A2A7A /* AZSpinnerLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZSpinnerLayer.h; sourceTree = "<group>"; };
+		7BF9854915FEBDB100D47192 /* AtoZFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = AtoZFunctions.h; sourceTree = SOURCE_ROOT; };
+		7BF9854A15FEBDB200D47192 /* AtoZFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AtoZFunctions.m; sourceTree = SOURCE_ROOT; };
+		7BF9854D15FEBDF900D47192 /* NSBag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = NSBag.h; sourceTree = "<group>"; };
+		7BF9854E15FEBDF900D47192 /* NSBag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSBag.m; sourceTree = "<group>"; };
 		7BF9E79A159E8F5000B5482D /* NSArray+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+AtoZ.h"; sourceTree = "<group>"; };
 		7BF9E79B159E8F5000B5482D /* NSArray+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+AtoZ.m"; sourceTree = "<group>"; };
 		7BF9E7D5159F0A0500B5482D /* AZPopupWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZPopupWindow.h; path = ../Views/AZPopupWindow.h; sourceTree = "<group>"; };
@@ -2856,6 +2976,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7B184EF315FCAA8100696360 /* Cocoa.framework in Frameworks */,
+				7BF93E3615FEF8F400211769 /* GHUnit.framework in Frameworks */,
 				7B184EF215FCAA6800696360 /* AtoZ.framework in Frameworks */,
 				7B184EE715FCA98700696360 /* Foundation.framework in Frameworks */,
 			);
@@ -2865,6 +2986,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B28546315FEF0870077960A /* GHUnit.framework in Frameworks */,
 				7B23C34015CE286100DD1A9C /* AtoZ.framework in Frameworks */,
 				7B31196B159B6D9E002134C4 /* SenTestingKit.framework in Frameworks */,
 				7B31196C159B6D9E002134C4 /* Cocoa.framework in Frameworks */,
@@ -2904,12 +3026,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B14F2891600383600CBBF7E /* RMKit.framework in Frameworks */,
 				7B61E91E15EAA9990053BACF /* Cocoa.framework in Frameworks */,
 				7B6CF45D15D32B8D0018A0D7 /* AudioToolbox.framework in Frameworks */,
 				7B23C36815CE9AB800DD1A9C /* WebKit.framework in Frameworks */,
 				7BE1F6B215F9111C005ED292 /* FunSize.framework in Frameworks */,
 				7B23C33F15CE268B00DD1A9C /* Carbon.framework in Frameworks */,
 				7B23C33E15CE267400DD1A9C /* Quartz.framework in Frameworks */,
+				7B645CD915F556CD00566160 /* PLWeakCompatibility.framework in Frameworks */,
 				7BBD987F15AF7A2400943FC1 /* ApplicationServices.framework in Frameworks */,
 				7BBD987E15AF7A2400943FC1 /* Security.framework in Frameworks */,
 				7B645CCB15F554A800566160 /* Lumberjack.framework in Frameworks */,
@@ -2919,6 +3043,7 @@
 				7BBD988115AF7A2400943FC1 /* Foundation.framework in Frameworks */,
 				7B645D9115F60F7C00566160 /* QSFoundation.framework in Frameworks */,
 				7B645D7A15F60D1B00566160 /* QSEffects.framework in Frameworks */,
+				7BF93FA415FFA5C100211769 /* BlocksKit.framework in Frameworks */,
 				7BBD988215AF7A2400943FC1 /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3041,9 +3166,12 @@
 		7B184EE815FCA98700696360 /* AtoZCLI */ = {
 			isa = PBXGroup;
 			children = (
+				7B311970159B6D9E002134C4 /* AtoZTests */,
 				7B184EE915FCA98700696360 /* main.m */,
 				7B184EED15FCA98700696360 /* AtoZCLI.1 */,
 				7B184EEB15FCA98700696360 /* Supporting Files */,
+				7B2853F715FEE79F0077960A /* AZCategoryTests.h */,
+				7B2853F815FEE79F0077960A /* AZCategoryTests.m */,
 			);
 			path = AtoZCLI;
 			sourceTree = "<group>";
@@ -3086,6 +3214,72 @@
 			path = AZGeometry;
 			sourceTree = SOURCE_ROOT;
 		};
+		7B28542E15FEEBA90077960A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				7B28542915FEEBA90077960A /* Tests-Info.plist */,
+				7B28542B15FEEBA90077960A /* InfoPlist.strings */,
+				7B28542C15FEEBA90077960A /* Tests-Prefix.pch */,
+				7B28542D15FEEBA90077960A /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		7B28542F15FEEBA90077960A /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				7B2853FB15FEEBA90077960A /* NSArrayBlocksKitTest.h */,
+				7B2853FC15FEEBA90077960A /* NSArrayBlocksKitTest.m */,
+				7B2853FD15FEEBA90077960A /* NSCacheBlocksKitTest.h */,
+				7B2853FE15FEEBA90077960A /* NSCacheBlocksKitTest.m */,
+				7B2853FF15FEEBA90077960A /* NSDictionaryBlocksKitTest.h */,
+				7B28540015FEEBA90077960A /* NSDictionaryBlocksKitTest.m */,
+				7B28540115FEEBA90077960A /* NSIndexSetBlocksKitTest.h */,
+				7B28540215FEEBA90077960A /* NSIndexSetBlocksKitTest.m */,
+				7B28540315FEEBA90077960A /* NSInvocationBlocksKitTest.h */,
+				7B28540415FEEBA90077960A /* NSInvocationBlocksKitTest.m */,
+				7B28540515FEEBA90077960A /* NSMutableArrayBlocksKitTest.h */,
+				7B28540615FEEBA90077960A /* NSMutableArrayBlocksKitTest.m */,
+				7B28540715FEEBA90077960A /* NSMutableDictionaryBlocksKitTest.h */,
+				7B28540815FEEBA90077960A /* NSMutableDictionaryBlocksKitTest.m */,
+				7B28540915FEEBA90077960A /* NSMutableIndexSetBlocksKitTest.h */,
+				7B28540A15FEEBA90077960A /* NSMutableIndexSetBlocksKitTest.m */,
+				7B28540B15FEEBA90077960A /* NSMutableSetBlocksKitTest.h */,
+				7B28540C15FEEBA90077960A /* NSMutableSetBlocksKitTest.m */,
+				7B28540D15FEEBA90077960A /* NSObjectAssociatedObjectTest.h */,
+				7B28540E15FEEBA90077960A /* NSObjectAssociatedObjectTest.m */,
+				7B28540F15FEEBA90077960A /* NSObjectBlockObservationTest.h */,
+				7B28541015FEEBA90077960A /* NSObjectBlockObservationTest.m */,
+				7B28541115FEEBA90077960A /* NSObjectBlocksKitTest.h */,
+				7B28541215FEEBA90077960A /* NSObjectBlocksKitTest.m */,
+				7B28541315FEEBA90077960A /* NSSetBlocksKitTest.h */,
+				7B28541415FEEBA90077960A /* NSSetBlocksKitTest.m */,
+				7B28541515FEEBA90077960A /* NSTimerBlocksKitTest.h */,
+				7B28541615FEEBA90077960A /* NSTimerBlocksKitTest.m */,
+				7B28541715FEEBA90077960A /* NSURLConnectionBlocksKitTest.h */,
+				7B28541815FEEBA90077960A /* NSURLConnectionBlocksKitTest.m */,
+				7B28541915FEEBA90077960A /* MFMailComposeViewControllerBlocksKitTest.h */,
+				7B28541A15FEEBA90077960A /* MFMailComposeViewControllerBlocksKitTest.m */,
+				7B28541B15FEEBA90077960A /* MFMessageComposeViewControllerBlocksKitTest.h */,
+				7B28541C15FEEBA90077960A /* MFMessageComposeViewControllerBlocksKitTest.m */,
+				7B28541D15FEEBA90077960A /* UIActionSheetBlocksKitTest.h */,
+				7B28541E15FEEBA90077960A /* UIActionSheetBlocksKitTest.m */,
+				7B28541F15FEEBA90077960A /* UIAlertViewBlocksKitTest.h */,
+				7B28542015FEEBA90077960A /* UIAlertViewBlocksKitTest.m */,
+				7B28542115FEEBA90077960A /* UIBarButtonItemBlocksKitTest.h */,
+				7B28542215FEEBA90077960A /* UIBarButtonItemBlocksKitTest.m */,
+				7B28542315FEEBA90077960A /* UIControlBlocksKitTest.h */,
+				7B28542415FEEBA90077960A /* UIControlBlocksKitTest.m */,
+				7B28542515FEEBA90077960A /* UIViewBlocksKitTest.h */,
+				7B28542615FEEBA90077960A /* UIViewBlocksKitTest.m */,
+				7B28542715FEEBA90077960A /* UIWebViewBlocksKitTest.h */,
+				7B28542815FEEBA90077960A /* UIWebViewBlocksKitTest.m */,
+				7B28542E15FEEBA90077960A /* Supporting Files */,
+			);
+			name = Tests;
+			path = ../../../git/BlocksKit/Tests;
+			sourceTree = "<group>";
+		};
 		7B311945159B6D9E002134C4 = {
 			isa = PBXGroup;
 			children = (
@@ -3117,6 +3311,7 @@
 		7B311953159B6D9E002134C4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7B14F2881600383600CBBF7E /* RMKit.framework */,
 				7BE1F6B315F91233005ED292 /* BlocksKit.xcodeproj */,
 				7BE1F69C15F90298005ED292 /* FunSize.xcodeproj */,
 				7B645D3E15F60CB500566160 /* Quicksilver.xcodeproj */,
@@ -3145,6 +3340,8 @@
 			children = (
 				7B311961159B6D9E002134C4 /* AtoZ.h */,
 				7B311962159B6D9E002134C4 /* AtoZ.m */,
+				7BF9854915FEBDB100D47192 /* AtoZFunctions.h */,
+				7BF9854A15FEBDB200D47192 /* AtoZFunctions.m */,
 				7B6901D7159E3AC600D0DA47 /* AtoZUmbrella.h */,
 				7B6901BB159E0ADB00D0DA47 /* Views */,
 				7B583063159BDA900039CEED /* Categories */,
@@ -3157,6 +3354,8 @@
 		7B311970159B6D9E002134C4 /* AtoZTests */ = {
 			isa = PBXGroup;
 			children = (
+				7B28546215FEF0840077960A /* GHUnit.framework */,
+				7B28542F15FEEBA90077960A /* Tests */,
 				7B311976159B6D9E002134C4 /* AtoZTests.h */,
 				7B311977159B6D9E002134C4 /* AtoZTests.m */,
 				7B311971159B6D9E002134C4 /* Supporting Files */,
@@ -3372,7 +3571,6 @@
 			children = (
 				7B1528E715F49DCD00027191 /* palettes */,
 				7BC70F0315F4885A009E037A /* picol */,
-				7B311970159B6D9E002134C4 /* AtoZTests */,
 				7BAF2F0315E87BB100099C9A /* Growl Registration Ticket.growlRegDict */,
 				7BA425BA15E7E87200D2A471 /* tab.png */,
 				7BD011F515CB7E9300B96BAC /* README.md */,
@@ -4137,6 +4335,8 @@
 				7B091A4415A887B500821FFD /* AZTalker.m */,
 				7B3422A115A52A61006AC46C /* BaseModel.h */,
 				7B3422A215A52A61006AC46C /* BaseModel.m */,
+				7BF9854D15FEBDF900D47192 /* NSBag.h */,
+				7BF9854E15FEBDF900D47192 /* NSBag.m */,
 			);
 			name = Essential;
 			sourceTree = "<group>";
@@ -4282,6 +4482,7 @@
 				7B78528A15ACA7AB008BAD3C /* AZBoxMagic.h in Headers */,
 				7B78529615ACEABC008BAD3C /* AZLayerManager.h in Headers */,
 				7B7852C315ACEDA3008BAD3C /* AZBoxLayer.h in Headers */,
+				7BF9855115FEBEAE00D47192 /* AtoZFunctions.h in Headers */,
 				7B96424315C15818001A0B0F /* NSWindow_Flipr.h in Headers */,
 				7BBD96EE15AD38F300943FC1 /* AZApplePrivate.h in Headers */,
 				7BBD96FB15AD529A00943FC1 /* AZOverlay.h in Headers */,
@@ -4306,7 +4507,6 @@
 				7B64C01C15D14A4A00D4ED4A /* AZCSSColors.h in Headers */,
 				7B112A9C15D45B10002C97E8 /* AZObject.h in Headers */,
 				7BCDFC6815C71A810003DA4D /* NotificationCenterSpy.h in Headers */,
-				7B379C8D15DDBBB30040A093 /* AZLassoView.h in Headers */,
 				7B379CA815DE0B050040A093 /* AZBackground.h in Headers */,
 				7B379CAC15DE0B550040A093 /* AZDarkButtonCell.h in Headers */,
 				7B379CBE15DE4AE30040A093 /* AZToggleArrayView.h in Headers */,
@@ -4318,14 +4518,18 @@
 				7BA425B415E7B52F00D2A471 /* MAAttachedWindow.h in Headers */,
 				7B80995215E8C7A300A6AB7C /* BlocksAdditions.h in Headers */,
 				7B61E92515EAAF750053BACF /* AZFileGridView.h in Headers */,
+				7B379C8D15DDBBB30040A093 /* AZLassoView.h in Headers */,
 				7BF0571D15EB33F3003A2A7A /* AZSpinnerLayer.h in Headers */,
 				7B12475B15EB91E000523869 /* AZBackgroundProgressBar.h in Headers */,
+				7B6D95EF15FA954100972A69 /* XLDragDropView.h in Headers */,
+				7B184ED215FC943E00696360 /* AZCSSColorExtraction.h in Headers */,
+				7BE639B415FCDE0F004BA700 /* AZMedallionView.h in Headers */,
+				7BF9855215FEBEB300D47192 /* NSBag.h in Headers */,
 				7B9D5BAA15ED0E27005D1A76 /* NSFileManager+AtoZ.h in Headers */,
 				7BE3FB4D15EFFD130000656D /* AZTrackingWindow.h in Headers */,
 				7B7A852F15F81AB00071741C /* AGProcess.h in Headers */,
 				7B0F8AA515F1CCCF00BB3CE7 /* AZSegmentedRect.h in Headers */,
 				7B0F8AA715F1D5C800BB3CE7 /* AtoZUmbrella.h in Headers */,
-				7BE1F68915F8D1A4005ED292 /* AtoZ-Prefix.pch in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4365,6 +4569,8 @@
 			buildRules = (
 			);
 			dependencies = (
+				7BF9854615FEADE300D47192 /* PBXTargetDependency */,
+				7BF9854315FEADA700D47192 /* PBXTargetDependency */,
 				7BE1F6B115F91107005ED292 /* PBXTargetDependency */,
 				7B645D8615F60EF100566160 /* PBXTargetDependency */,
 				7B645D8A15F60EF100566160 /* PBXTargetDependency */,
@@ -4942,6 +5148,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				7B311975159B6D9E002134C4 /* InfoPlist.strings in Resources */,
+				7B28545E15FEEBA90077960A /* Tests-Info.plist in Resources */,
+				7B28545F15FEEBA90077960A /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5038,6 +5246,20 @@
 			shellPath = /bin/sh;
 			shellScript = "find \"$TARGET_BUILD_DIR/$FULL_PRODUCT_NAME\" '(' -name '.svn' -or -name '.DS_Store' ')' -prune -print0 | xargs -0 rm -rf\n\n\nlogger \"${SRCROOT}/Resources\"\n\n\n#5) Add (and copy) the super framework to your app and weak link it\n#with all of the sub frameworks of your umbrella framework (by adding\n#\"-weak_framework subFramework\" to the other linker flags).\n\n\n\n#/usr/local/bin/appledoc \"${SRCROOT}/Resources\"\n\n#mkdir \"/ServiceData/www/mrgray/docs/${WRAPPER_NAME}\"\n\n#/usr/local/bin/appledoc \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\\\n--project-name \"${WRAPPER_NAME}\" \t\t\t\t\t\t\t\t\t\t\t\t\t\t\\\n--project-company \"mrgray.com\" \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\\\n--company-id com.mrgray \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\\\n--output \"/ServiceData/www/mrgray/docs/${WRAPPER_NAME}\" \t\t\t\t\t\t\t\t\t\\\n--docset-feed-url \"http://mrgray.com/docs/${WRAPPER_NAME}/%DOCSETATOMFILENAME\" \t\t\t\\\n--docset-package-url \"http://mrgray.com/docs/${WRAPPER_NAME}/%DOCSETPACKAGEFILENAME\" \t\\\n--publish-docset \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\\\n--keep-undocumented-objects \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\\\n--keep-undocumented-members \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\\\n--search-undocumented-doc \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\\\n.\n\n\n# Add custom icon (adding CFBundleIconFile to plist and .icns file in /Resources doesn't work, so we have to duplicate what happens when you paste an icon into the Finder Get Info window)\n\n# copy custom icon into top level of bundle and rename to \"Icon\" with a *trailing CR*.  path_to_icon is the path to the source icon file, already in the correct format ('icns' resource ID -16455 in resource fork), but with different filename.\n\ncp \"${SRCROOT}/Resources/atoz.icns\" \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.${WRAPPER_EXTENSION}/\"$(echo -ne \"Icon\\r\")\n\n# make custom icon file invisible\n/Developer/Tools/SetFile -a V \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.${WRAPPER_EXTENSION}/\"$(echo -ne \"Icon\\r\")\n\n# mark the bundle folder as having a custom icon\n/Developer/Tools/SetFile -a C \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.${WRAPPER_EXTENSION}\"\n\n\n#cd \"${CONFIGURATION_BUILD_DIR}/${FULL_PRODUCT_NAME}/\"\n#ln -sf ./Versions/Current/Frameworks ./Frameworks\n\n\n\nXCODE44='/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/'\n\n\n#sudo ln -sf \"${PRODUCT_PATH}\" \"${XCODE44}\"\n\n\n#if [ -d \"${MAC}/${PRODUCT}\" ]; then\n#\tsudo rm \"${MAC}/${PRODUCT}\"\n#fi\n#env\n\nSYMPATH=\"${TARGET_BUILD_DIR}/${PRODUCT}/Frameworks\"\nROOT=\"${TARGET_BUILD_DIR}/${PRODUCT}\"\nHEADERS=\"${TARGET_BUILD_DIR}/${PRODUCT}/AtoZ.framework/Headers\"\nCONTENTS=\"${TARGET_BUILD_DIR}/${CONTENTS_FOLDER_PATH}\"\nlogger \"${SYMPATH}\"\n\n#if [ -L \"${SYMPATH}\" ]; then\n#\tcd \"${TARGET_BUILD_DIR}/${PRODUCT}\"\n#\tln -sF Versions/Current/Frameworks Frameworks\n##else\n##\tcd \"${TARGET_BUILD_DIR}/${PRODUCT}\"\n##   ln -s Versions/Current/Frameworks Frameworks\n#\tln -s \"${CONTENTS_FOLDER_PATH/Frameworks\" \"../../Frameworks\"\n##fi\n\n\n\n\n#CONTENTS_FOLDER_PATH=AtoZ.framework/Versions/A#\n\n\n\n\n#sudo ln -sf \"${PRODUCT_PATH}\" \"${MAC}\"\n#sudo rm \"${XCODE44}/${WRAPPER_NAME}\"\n#sudo rm \"${MAC}/${WRAPPER_NAME}\"\n\n\n\n\n#MAC_INSTALL_TARGET=\"/Library/Frameworks/\"\n\n#XCODE43_LION_INSTALL_TARGET=\"/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk/System/Library/Frameworks/$PRODUCT\"\n\n#XCODE45_MLION_INSTALL_TARGET=\"${SDKROOT}/System/Library/Frameworks/$PRODUCT\"\n\n#sudo ln -sf \"${PRODUCT_PATH}\" \"${MAC_INSTALL_TARGET}\"\n#sudo ln -sf \"${PRODUCT_PATH}\" \"${XCODE43_LION_INSTALL_TARGET}\"\n#sudo ln -sf \"${PRODUCT_PATH}\" \"${XCODE45_MLION_INSTALL_TARGET}\"\n\n#sudo ln -sf \"${PRODUCT_PATH}\" \"${XCODE455ML}${PRODUCT}\"\n\n#sudo ln -sF $MAC_INSTALL_TARGET $SDK_INSTALL_TARGET\n\n\n# Symlink build output to a common directory for easy referencing in other projects\n##mkdir -p \"$BUILD_DIR/current\"\n##rm -rf \"$BUILD_DIR/current\"\n##ln -s \"$BUILT_PRODUCTS_DIR\" \"$BUILD_DIR/current\"\n\n# Copy headers to a shared location\n##mkdir -p \"$BUILD_DIR/current/headers\"\n##for file in `find . -name \"*.h\"`; do cp $file ##\"$BUILD_DIR/current/headers/\"; done;\n\n#for file in `find . -name \"*.h\"`; do cp $file ##\"$BUILD_DIR/current/headers/\";\n#done;\n##cd \"$CONFIGURATION_BUILD_DIR/$FULL_PRODUCT_NAME/\"\n##ln -sf ./Versions/Current/Frameworks ./Frameworks\n\n\n";
 		};
+		7BF93E5615FF3B1800211769 /* Delete Headers Inside Framework */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Delete Headers Inside Framework";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Put this in a 'run script' run phase in xcode\n# Delete all framework headers\n#cd \"${BUILD_DIR}/${CONFIGURATION}/${PRODUCT_NAME}.app/Contents/Frameworks\"\n\n#if [ $? = 0 ]; then\n#find . -name \"*.h\" -print0 | xargs -0 rm\n#fi";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -5046,6 +5268,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				7B184EEA15FCA98700696360 /* main.m in Sources */,
+				7BF93E3715FEF90C00211769 /* NSArrayBlocksKitTest.m in Sources */,
+				7BF93E3815FEF90C00211769 /* NSCacheBlocksKitTest.m in Sources */,
+				7BF93E3915FEF90C00211769 /* NSDictionaryBlocksKitTest.m in Sources */,
+				7BF93E3A15FEF90C00211769 /* NSIndexSetBlocksKitTest.m in Sources */,
+				7BF93E3B15FEF90C00211769 /* NSInvocationBlocksKitTest.m in Sources */,
+				7BF93E3C15FEF90C00211769 /* NSMutableArrayBlocksKitTest.m in Sources */,
+				7BF93E3D15FEF90C00211769 /* NSMutableDictionaryBlocksKitTest.m in Sources */,
+				7BF93E3E15FEF90C00211769 /* NSMutableIndexSetBlocksKitTest.m in Sources */,
+				7BF93E3F15FEF90C00211769 /* NSMutableSetBlocksKitTest.m in Sources */,
+				7BF93E4015FEF90C00211769 /* NSObjectAssociatedObjectTest.m in Sources */,
+				7BF93E4115FEF90C00211769 /* NSObjectBlockObservationTest.m in Sources */,
+				7BF93E4215FEF90C00211769 /* NSObjectBlocksKitTest.m in Sources */,
+				7BF93E4315FEF90C00211769 /* NSSetBlocksKitTest.m in Sources */,
+				7BF93E4415FEF90C00211769 /* NSTimerBlocksKitTest.m in Sources */,
+				7BF93E4515FEF90C00211769 /* NSURLConnectionBlocksKitTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5138,12 +5375,12 @@
 				7B0F8B1115F2F07000BB3CE7 /* NSDictionary+F.m in Sources */,
 				7B0F8B1315F2F07000BB3CE7 /* NSNumber+F.m in Sources */,
 				7B7A853015F81AB00071741C /* AGProcess.m in Sources */,
-				7B6D95EF15FA954100972A69 /* XLDragDropView.h in Sources */,
 				7B6D95F015FA954100972A69 /* XLDragDropView.m in Sources */,
-				7B184ED215FC943E00696360 /* AZCSSColorExtraction.h in Sources */,
 				7B184ED315FC943E00696360 /* AZCSSColorExtraction.m in Sources */,
-				7BE639B415FCDE0F004BA700 /* AZMedallionView.h in Sources */,
 				7BE639B515FCDE0F004BA700 /* AZMedallionView.m in Sources */,
+				7BF9854C15FEBDB200D47192 /* AtoZFunctions.m in Sources */,
+				7BF9854F15FEBDF900D47192 /* NSBag.h in Sources */,
+				7BF9855015FEBDF900D47192 /* NSBag.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5151,7 +5388,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BF93E2715FEF7C500211769 /* NSArrayBlocksKitTest.m in Sources */,
+				7BF93E2815FEF7C500211769 /* NSCacheBlocksKitTest.m in Sources */,
+				7BF93E2915FEF7C500211769 /* NSDictionaryBlocksKitTest.m in Sources */,
+				7BF93E2A15FEF7C500211769 /* NSIndexSetBlocksKitTest.m in Sources */,
+				7BF93E2B15FEF7C500211769 /* NSInvocationBlocksKitTest.m in Sources */,
+				7BF93E2C15FEF7C500211769 /* NSMutableArrayBlocksKitTest.m in Sources */,
+				7BF93E2D15FEF7C500211769 /* NSMutableDictionaryBlocksKitTest.m in Sources */,
+				7BF93E2E15FEF7C500211769 /* NSMutableIndexSetBlocksKitTest.m in Sources */,
+				7BF93E2F15FEF7C500211769 /* NSMutableSetBlocksKitTest.m in Sources */,
+				7BF93E3015FEF7C500211769 /* NSObjectAssociatedObjectTest.m in Sources */,
+				7BF93E3115FEF7C500211769 /* NSObjectBlockObservationTest.m in Sources */,
+				7BF93E3215FEF7C500211769 /* NSObjectBlocksKitTest.m in Sources */,
+				7BF93E3315FEF7C500211769 /* NSSetBlocksKitTest.m in Sources */,
+				7BF93E3415FEF7C500211769 /* NSTimerBlocksKitTest.m in Sources */,
+				7BF93E3515FEF7C500211769 /* NSURLConnectionBlocksKitTest.m in Sources */,
 				7B311978159B6D9E002134C4 /* AtoZTests.m in Sources */,
+				7B2853F915FEE79F0077960A /* AZCategoryTests.h in Sources */,
+				7B2853FA15FEE79F0077960A /* AZCategoryTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5281,9 +5535,27 @@
 			name = FunSize;
 			targetProxy = 7BE1F6B015F91107005ED292 /* PBXContainerItemProxy */;
 		};
+		7BF9854315FEADA700D47192 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "OS X Framework";
+			targetProxy = 7BF9854215FEADA700D47192 /* PBXContainerItemProxy */;
+		};
+		7BF9854615FEADE300D47192 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "QuickStep Foundation";
+			targetProxy = 7BF9854515FEADE300D47192 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		7B28542B15FEEBA90077960A /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7B28542A15FEEBA90077960A /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		7B311973159B6D9E002134C4 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -5352,6 +5624,10 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../git/gh-unit/Project-MacOSX/build/Release\"",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -5385,6 +5661,10 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../git/gh-unit/Project-MacOSX/build/Release\"",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -5439,17 +5719,16 @@
 		7B31197C159B6D9E002134C4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_OBJCPP_ARC_ABI = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
+					"./**",
+					"${SRCROOT}/**",
 					"\"$(SRCROOT)\"",
-					build,
-					/Users/localadmin/Library/Developer/Xcode/DerivedData/build/Products/Debug,
-					"\"$(SRCROOT)/Frameworks\"",
+					/Volumes/2T/ServiceData/AtoZ.framework/AtoZ,
 				);
 				FRAMEWORK_VERSION = A;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
@@ -5458,7 +5737,7 @@
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "Resources/AtoZ-Info.plist";
 				INSTALL_PATH = "@rpath";
-				LD_RUNPATH_SEARCH_PATHS = "../../Frameworks @loader_path/../Frameworks ./Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				OTHER_CFLAGS = (
 					"-Xclang",
@@ -5466,8 +5745,6 @@
 					"-lobjc",
 					"-sub_library",
 					libobjc,
-					"-seg1addr",
-					0xC0000000,
 					"-umbrella",
 					AtoZ,
 				);
@@ -5476,15 +5753,15 @@
 					"-sub_library",
 					libobjc,
 					"-sub_umbrella",
+					PLWeakCompatibility,
+					"-sub_umbrella",
+					BlocksKit,
+					"-sub_umbrella",
 					Growl,
 					"-sub_umbrella",
 					XPCKit,
 					"-sub_umbrella",
 					FunSize,
-					"-sub_umbrella",
-					BlocksKit,
-					"-sub_umbrella",
-					PLWeakCompatibility,
 					"-sub_umbrella",
 					QSInterface,
 					"-sub_umbrella",
@@ -5497,6 +5774,10 @@
 					Lumberjack,
 					"-sub_umbrella",
 					AtoZiTunes,
+					"-ObjC",
+					"-all_load",
+					"-sub_umbrella",
+					RMKit,
 				);
 				PRODUCT_NAME = AtoZ;
 				SKIP_INSTALL = YES;
@@ -5507,17 +5788,16 @@
 		7B31197D159B6D9E002134C4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_OBJCPP_ARC_ABI = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
+					"./**",
+					"${SRCROOT}/**",
 					"\"$(SRCROOT)\"",
-					build,
-					/Users/localadmin/Library/Developer/Xcode/DerivedData/build/Products/Debug,
-					"\"$(SRCROOT)/Frameworks\"",
+					/Volumes/2T/ServiceData/AtoZ.framework/AtoZ,
 				);
 				FRAMEWORK_VERSION = A;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
@@ -5526,7 +5806,7 @@
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "Resources/AtoZ-Info.plist";
 				INSTALL_PATH = "@rpath";
-				LD_RUNPATH_SEARCH_PATHS = "../../Frameworks @loader_path/../Frameworks ./Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				OTHER_CFLAGS = (
 					"-Xclang",
@@ -5534,8 +5814,6 @@
 					"-lobjc",
 					"-sub_library",
 					libobjc,
-					"-seg1addr",
-					0xC0000000,
 					"-umbrella",
 					AtoZ,
 				);
@@ -5544,15 +5822,15 @@
 					"-sub_library",
 					libobjc,
 					"-sub_umbrella",
+					PLWeakCompatibility,
+					"-sub_umbrella",
+					BlocksKit,
+					"-sub_umbrella",
 					Growl,
 					"-sub_umbrella",
 					XPCKit,
 					"-sub_umbrella",
 					FunSize,
-					"-sub_umbrella",
-					BlocksKit,
-					"-sub_umbrella",
-					PLWeakCompatibility,
 					"-sub_umbrella",
 					QSInterface,
 					"-sub_umbrella",
@@ -5565,6 +5843,10 @@
 					Lumberjack,
 					"-sub_umbrella",
 					AtoZiTunes,
+					"-ObjC",
+					"-all_load",
+					"-sub_umbrella",
+					RMKit,
 				);
 				PRODUCT_NAME = AtoZ;
 				SKIP_INSTALL = YES;
@@ -5576,9 +5858,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+					"\"$(SRCROOT)/../../git/gh-unit/Project-MacOSX/build/Release\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREFIX_HEADER = "AtoZ-Prefix.pch";
+				GCC_PREFIX_HEADER = "Resources/AtoZ-Prefix.pch";
 				INFOPLIST_FILE = "AtoZTests/AtoZTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = octest;
@@ -5589,9 +5874,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+					"\"$(SRCROOT)/../../git/gh-unit/Project-MacOSX/build/Release\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREFIX_HEADER = "AtoZ-Prefix.pch";
+				GCC_PREFIX_HEADER = "Resources/AtoZ-Prefix.pch";
 				INFOPLIST_FILE = "AtoZTests/AtoZTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = octest;

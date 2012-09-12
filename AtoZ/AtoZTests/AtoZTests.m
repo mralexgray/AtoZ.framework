@@ -7,6 +7,7 @@
 //
 
 #import "AtoZTests.h"
+#import <GHUnit/GHUnit.h>
 
 @implementation AtoZTests
 
@@ -57,7 +58,7 @@
 
 - (void)testExample
 {
-    STFail(@"Unit tests are not implemented yet in AtoZTests");
+//    STFail(@"Unit tests are not implemented yet in AtoZTests");
 }
 @end
 //
@@ -71,5 +72,6 @@
 @end
 @implementation NSCharlie
 @end
+
 
 

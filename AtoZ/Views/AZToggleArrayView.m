@@ -217,7 +217,7 @@ NSString *const AZToggleState	= @"AZToggleState";
 
 	else if ([_delegate respondsToSelector:@selector(itemsForToggleView:)]){
 		NSArray *yesno = [_delegate itemsForToggleView:self];
-		[yesno each:^(id obj, NSUInteger index, BOOL *stop) {
+		[yesno az_each:^(id obj, NSUInteger index, BOOL *stop) {
 //
 //	[containerLayer addSublayer:[self itemLayerWithName:@"Click these 'buttons' to change state ->"
 //											 relativeTo:@"Item 2"
@@ -240,7 +240,7 @@ NSString *const AZToggleState	= @"AZToggleState";
 
 		NSArray *yesno = [_delegate questionsForToggleView:self];
 
-		[yesno each:^(id obj, NSUInteger index, BOOL *stop) {
+		[yesno az_each:^(id obj, NSUInteger index, BOOL *stop) {
 			NSString* rel = (index == 0 ? @"superlayer" : yesno[index-1]);
 			[_containerLayer addSublayer:[self itemLayerWithName:obj relativeTo:rel index:index]];
 		}];

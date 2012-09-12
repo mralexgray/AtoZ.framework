@@ -62,6 +62,9 @@ typedef struct AZTriPair {
 -(void) slideOut;
 -(void) slideIn;
 
++ (void) flipDown:(AZTrackingWindow*)window;
++ (void) shakeWindow:(NSWindow*)window;
+
 //@property (assign, nonatomic) BOOL isHit;
 
 @end

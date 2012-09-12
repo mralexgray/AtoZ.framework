@@ -42,9 +42,13 @@
 - (NSString*)	nameOfColor;
 //- (NSDictionary*) closestColor;  //name, list, and color
 
-+ (NSArray *)  colorLists;
 + (NSArray *) fengshui;
++ (NSArray *) colorsInFrameworkListNamed:(NSString*)name;
++ (NSArray *) colorListsInFramework;
++ (NSArray *)  colorLists;
 + (NSArray *) allColors;
++ (NSArray*)	randomPalette;
++ (NSArray*) allSystemColors;
 
 + (NSColor*)	randomColor;
 + (NSColor*)	randomOpaqueColor;

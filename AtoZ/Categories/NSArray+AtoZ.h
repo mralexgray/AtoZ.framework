@@ -23,6 +23,10 @@
 @property (readonly) NSArray *colorValues;
 
 
++ (NSMutableArray *)mutableArrayWithArrays:(NSArray *)arrays;
++ (NSArray *)arrayWithArrays:(NSArray *)arrays;
+- (NSArray *)arrayWithEach;
+
 - (NSArray *)arrayUsingIndexedBlock:(id (^)(id obj, NSUInteger idx))block;
 
 - (NSArray *)sortedWithKey:(NSString *)theKey ascending:(BOOL)ascending;
@@ -158,9 +162,9 @@
 
 -(id)firstObject;
 
--(void) each:(void (^)(id obj, NSUInteger index, BOOL *stop))block;
+-(void) az_each:(void (^)(id obj, NSUInteger index, BOOL *stop))block;
 
--(void) eachConcurrentlyWithBlock:(void (^)(NSInteger index, id obj, BOOL * stop))block;
+-(void) az_eachConcurrentlyWithBlock:(void (^)(NSInteger index, id obj, BOOL * stop))block;
 
 -(id)findWithBlock:(BOOL (^)(id obj))block;
 

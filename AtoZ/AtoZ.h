@@ -7,14 +7,143 @@
   @property (nonatomic, assign) <\#type\#> <\#name\#>;
 */
 
+#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
+#import <ApplicationServices/ApplicationServices.h>
+#import <AppKit/AppKit.h>
+#import <AudioToolbox/AudioToolbox.h>
+#import <QuartzCore/QuartzCore.h>
+#import <xpc/xpc.h>
+
+#define EXCLUDE_STUB_PROTOTYPES 1
+#import <PLWeakCompatibility/PLWeakCompatibilityStubs.h>
+#import <FunSize/FunSize.h>
+#import <Lumberjack/Lumberjack.h>
+#import <XPCKit/XPCKit.h>
+#import <QSCore/QSCore.h>
+#import <QSFoundation/QSFoundation.h>
+#import <QSInterface/QSInterface.h>
+#import <QSEffects/QSEffects.h>
+#import <QSCore/QSCore.h>
+#import <BlocksKit/BlocksKit.h>
+#import <RMKit/RMKit.h>
+
+#import <AtoZ/AtoZ.h>
 #import "AtoZUmbrella.h"
 
 
+#import <QuartzCore/QuartzCore.h>
+#import "BaseModel.h"
+#import "AtoZUmbrella.h"
+#import "AZGeometry.h"
+#import "AZGeometricFunctions.h"
+#import "AtoZFunctions.h"
+
+
+#import "NSBag.h"
+
+#import "BlocksAdditions.h"
+#import "SMModelObject.h"
+#import "AZSimpleView.h"
+#import "AZSizer.h"
+
+#import "CALayer+AtoZ.h"
+#import "AZMouser.h"
+#import "iCarousel.h"
+//#import "azCarousel.h"
+
+
+// Categories
+#import "NSFileManager+AtoZ.h"
+#import "NSThread+AtoZ.h"
+#import "NSNotificationCenter+AtoZ.h"
+#import "NSApplication+AtoZ.h"
+#import "NSColor+AtoZ.h"
+#import "NSArray+AtoZ.h"
+#import "NSString+AtoZ.h"
+#import "NSView+AtoZ.h"
+#import "NSBezierPath+AtoZ.h"
+#import "NSImage+AtoZ.h"
+#import "NSWindow+AtoZ.h"
+#import "NSShadow+AtoZ.h"
+#import "NSNumber+AtoZ.h"
+#import "CAAnimation+AtoZ.h"
+#import "NSScreen+AtoZ.h"
+#import "NSObject+AtoZ.h"
+#import "AZNotificationCenter.h"
+#import "NSWindow_Flipr.h"
+#import "NSLogConsole.h"
+#import "AZLaunchServices.h"
+#import "AZObject.h"
+#import "AZLassoView.h"
+#import "AZBackground.h"
+#import "AZDarkButtonCell.h"
+#import "AZTrackingWindow.h"
+#import "AZCSSColors.h"
+//#import "MondoSwitch.h"
+#import "AZToggleArrayView.h"
+//#import "AZToggleView.h"
+
+//Classes
+#import "AZSegmentedRect.h"
+#import "AZWindowExtend.h"
+#import "AZQueue.h"
+#import "AZDockQuery.h"
+#import "AZAXAuthorization.h"
+
+// Views
+#import "AZFoamView.h"
+#import "AZBlockView.h"
+#import "AZProgressIndicator.h"
+#import "AZPopupWindow.h"
+#import "AZIndeterminateIndicator.h"
+#import "AZAttachedWindow.h"
+#import "AZStopwatch.h"
+#import "AZBox.h"
+#import "AZBoxGrid.h"
+#import "AZBoxMagic.h"
+#import "AZInfiniteCell.h"
+#import "AZSourceList.h"
+#import "AZTalker.h"
+#import "AZBoxLayer.h"
+#import "AZOverlay.h"
+#import "AtoZInfinity.h"
+#import "AZFileGridView.h"
+#import "AZApplePrivate.h"
+#import "RuntimeReporter.h"
+#import "AZBackgroundProgressBar.h"
+#import "F.h"
+#import "NSArray+F.h"
+#import "NSDictionary+F.h"
+#import "NSNumber+F.h"
+
+#import "AZVeil.h"
+#import "NotificationCenterSpy.h"
+#import "TransparentWindow.h"
+#import <BlocksKit/BlocksKit.h>
 
 static NSEventMask AZMouseActive = NSMouseMovedMask | NSMouseExitedMask |NSMouseEnteredMask;
 
 CGFloat ScreenWidess();
 CGFloat ScreenHighness();
+
+@interface NSObject (debugandreturn)
+- (id) debugReturn:(id) val;
+@end
+
+static double frandom(double start, double end);
+
+//	#define NSLog(args...) _AZSimpleLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args);
+#define NSLog(args...) QuietLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args)
+void QuietLog (const char *file, int lineNumber, const char *funcName, NSString *format, ...);
+	//extern
+void _AZLog(const char *file, int lineNumber, const char *funcName, NSString *format,...);
+
+
+void ApplicationsInDirectory(NSString *searchPath, NSMutableArray *applications);
+
+
+
 
 extern NSString *const AtoZSharedInstanceUpdated;
 extern NSString *const AtoZDockSortedUpdated;
@@ -28,8 +157,6 @@ extern NSString *const AtoZDockSortedUpdated;
 
 @class NSLogConsole;
 @interface AtoZ : BaseModel
-
-
 
 #ifdef GROWL_ENABLED
 <GrowlApplicationBridgeDelegate>
@@ -89,7 +216,23 @@ extern NSString *const AtoZDockSortedUpdated;
 //- (void)performBlock:(void (^)())block;
 //- (void)performBlock:(void (^)())block waitUntilDone:(BOOL)wait;
 
+
+
 @end
+
+@interface AtoZ (MiscFunctions)
+
++ (NSRect)rectFromPointA:(NSPoint)pointA andPointB:(NSPoint)pointB;
++ (void) printRect:(NSRect)toPrint;
++ (void) printCGRect:(CGRect)cgRect;
++ (void) printPoint:(NSPoint)toPrint;
++ (void) printCGPoint:(CGPoint)cgPoint;
++ (void) printTransform:(CGAffineTransform)t;
+
++ (NSImage*)cropImage:(NSImage*)sourceImage withRect:(NSRect)sourceRect;
+
+@end
+
 
 @interface AZColor : BaseModel
 @property (nonatomic, readonly) CGFloat 	brightness;
@@ -171,9 +314,7 @@ extern NSString *const AtoZFileUpdated;
 //}
 //@end
 
-@interface NSNumber (Incrementer)
-- (NSNumber *)increment;
-@end
+
 
 @interface Box : NSView
 @property (assign) BOOL selected;
@@ -216,17 +357,6 @@ extern NSString *const AtoZFileUpdated;
 + (NSWindow*) borderlessWindowWithContentRect: (NSRect)aRect;
 @end
 
-@interface NSBag : NSObject {
-	NSMutableDictionary *dict;
-}
-+ (NSBag *) bag;
-+ (NSBag *) bagWithObjects: (id) anObject,...;
-- (void) add: (id) anObject;
-- (void) addObjects:(id)item,...;
-- (void) remove: (id) anObject;
-- (NSInteger) occurrencesOf: (id) anObject;
-- (NSArray *) objects;
-@end
 
 //static void glossInterpolation(void *info, const float *input);
 //							   float *output);
@@ -289,37 +419,5 @@ void profile (const char *name, void (^work) (void));
 #define XCODE_COLORS_RESET     XCODE_COLORS_ESCAPE @";"   // Clear any foreground or background color
 
 
-
-@interface NSObject (debugandreturn)
-- (id) debugReturn:(id) val;
-@end
-
-
-
-static double frandom(double start, double end);
-
-
-	//	#define NSLog(args...) _AZSimpleLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args);
-#define NSLog(args...) QuietLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args)
-void QuietLog (const char *file, int lineNumber, const char *funcName, NSString *format, ...);
-//extern
-void _AZLog(const char *file, int lineNumber, const char *funcName, NSString *format,...);
-
-
-void ApplicationsInDirectory(NSString *searchPath, NSMutableArray *applications);
-
-@class AZTrackingWindow;
-@interface AtoZ (Animations)
-
-+ (CAAnimation *) animationForOpacity;
-+ (CAAnimation *) animateionForScale;
-+ (CAAnimation *) animationForRotation;
-
-+ (void) flipDown:(AZTrackingWindow*)window;
-
-+ (void) shakeWindow:(NSWindow*)window;
-
-@end
-
-
+#import "AtoZFunctions.h"
 

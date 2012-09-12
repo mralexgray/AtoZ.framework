@@ -22,16 +22,16 @@
          </BuildActionEntry>
          <BuildActionEntry
             buildForTesting = "YES"
-            buildForRunning = "YES"
+            buildForRunning = "NO"
             buildForProfiling = "YES"
             buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
+            buildForAnalyzing = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6CC40A741447BB1400E47595"
-               BuildableName = "BlocksKit.framework"
-               BlueprintName = "OS X Framework"
-               ReferencedContainer = "container:../../git/BlocksKit/BlocksKit.xcodeproj">
+               BlueprintIdentifier = "7B311968159B6D9E002134C4"
+               BuildableName = "AtoZTests.octest"
+               BlueprintName = "AtoZTests"
+               ReferencedContainer = "container:AtoZ.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -43,7 +43,7 @@
       buildConfiguration = "Debug">
       <Testables>
          <TestableReference
-            skipped = "YES">
+            skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "7B311968159B6D9E002134C4"

@@ -11,18 +11,19 @@
 @interface NSNumber (AtoZ)
 
 
-- (NSString *)prettyBytes;
-+(NSNumber *)zero;
-+(NSNumber *)one;
-+(NSNumber *)two;
+- (NSString*) prettyBytes;
++ (NSNumber*) zero;
++ (NSNumber*) one;
++ (NSNumber*) two;
 
--(NSNumber *)abs;
--(NSNumber *)negate;
--(NSNumber *)transpose;
+- (NSNumber*) increment;
+- (NSNumber*) abs;
+- (NSNumber*) negate;
+- (NSNumber*) transpose;
 
--(NSArray *)times:(id (^)(void))block;
+- (NSArray*) times:(id (^)(void))block;
 
--(NSArray *)to:(NSNumber *)to;
--(NSArray *)to:(NSNumber *)to by:(NSNumber *)by;
+- (NSArray*) to:(NSNumber*) to;
+- (NSArray*) to:(NSNumber*) to by:(NSNumber*) by;
 
 @end

@@ -24,7 +24,7 @@
 	[CATransaction begin];
 	[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
 	//	[self constrainLayersInContentLayer];
-	[layer.sublayers eachConcurrentlyWithBlock:^(NSInteger index, CALayer* obj, BOOL *stop) {
+	[layer.sublayers az_eachConcurrentlyWithBlock:^(NSInteger index, CALayer* obj, BOOL *stop) {
 
 		obj.anchorPoint = [[d.rects objectAtNormalizedIndex:index] rectValue].origin;
 		obj.bounds = AZMakeRectFromSize(d.size);
@@ -370,7 +370,7 @@
 		self.gridLayer = [CALayer layer];
 		[_contentLayer addSublayer:_gridLayer];
 		[_root addSublayer:_contentLayer];
-		[@[_root, _contentLayer, _gridLayer] each:^(CALayer* obj, NSUInteger index, BOOL *stop) {
+		[@[_root, _contentLayer, _gridLayer] az_each:^(CALayer* obj, NSUInteger index, BOOL *stop) {
 			obj.frame = [self bounds];
 			obj.autoresizingMask = kCALayerHeightSizable | kCALayerWidthSizable;
 			obj.zPosition = 100 * index;

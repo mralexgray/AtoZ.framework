@@ -120,6 +120,19 @@ void RemoveImmediately( CALayer *layer )
     [CATransaction commit];
 }
 
+
+CALayer* AddBloom( CALayer *layer) {
+	// create the filter and set its default values
+	CIFilter *filter = [CIFilter filterWithName:@"CIBloom"];
+	[filter setDefaults];
+	[filter setValue:@(5.0) forKey:@"inputRadius"];
+	// name the filter so we can use the keypath to animate the inputIntensity attribute of the filter
+	[filter setName:@"pulseFilter"];
+	// set the filter to the selection layer's filters
+	layer.filters  = layer.filters  ? [NSArray arrayWithArrays:@[layer.filters,@[filter]]]
+									: @[filter];
+	return layer;
+}
 CALayer* AddShadow( CALayer *layer) {
 	layer.shadowOffset 		= (CGSize){ 0, 3 };
 	layer.shadowRadius 		= 5.0;
@@ -379,11 +392,35 @@ CGColorRef CreatePatternColor( CGImageRef image )
 
 @implementation CALayer (AtoZ)
 
+
+- (void)orientWithPoint:(CGPoint)point
+{
+	[self orientWithX:point.x andY:point.y];
+}
+
+- (void)orientWithX: (CGFloat)x andY: (CGFloat)y
+{
+	CATransform3D transform	 = CATransform3DConcat(
+									CATransform3DMakeRotation(x, 0, 1, 0),
+									CATransform3DMakeRotation( y, 1, 0, 0) );
+	transform.m34		= 1.0 / -450;
+	self.sublayerTransform		= transform;
+}
+
+
 - (void) toggleFlip  {        //:(CATransform3D)transform {
 	BOOL isFlipped = [[self valueForKey:@"flipped"]boolValue];
 	isFlipped ? [self flipBack] : [self flipOver];
 	[self setValue:@(isFlipped =! isFlipped) forKey:@"flipped"];
 }
+
+- (void) flipDown  {        //:(CATransform3D)transform {
+	self.anchorPoint = CGPointMake(.5, 0);
+	CATransform3D transform = CATransform3DIdentity;
+	transform.m34 = 1.0/700.0;
+    self.transform = CATransform3DRotate(transform, 180 * M_PI/180, 1, 0, 0);
+}
+
 
 - (void) flipOver  {        //:(CATransform3D)transform {
     CATransform3D transform = CATransform3DIdentity;
@@ -393,7 +430,7 @@ CGColorRef CreatePatternColor( CGImageRef image )
 - (void) flipBack  {        //:(CATransform3D)transform {
     CATransform3D transform = CATransform3DIdentity;
 	transform.m34 = 1.0/700.0;
-    self.transform =  CATransform3DRotate(transform, -180 * M_PI/180, 1, 0, 0);
+    self.transform =  CATransform3DRotate(transform, 180 * M_PI/180, -1, 0, 0);
 }
 
 
@@ -621,18 +658,30 @@ CGColorRef CreatePatternColor( CGImageRef image )
 	[self addConstraint: AZConstRelSuperScaleOff(kCAConstraintHeight, scale,0)];
 }
 
-- (void) addConstraintsSuperSize
-{
+- (void) _ensureSuperHasLayoutManager {
 
 	if (!self.superlayer.layoutManager) {
-		 CAConstraintLayoutManager *l = [[CAConstraintLayoutManager alloc]init];
+		CAConstraintLayoutManager *l = [[CAConstraintLayoutManager alloc]init];
 		self.superlayer.layoutManager = l;
 	}
+}
+
+- (void) addConstraintsSuperSize
+{
+	[self _ensureSuperHasLayoutManager];
 	self.constraints =	@[	AZConstRelSuper(kCAConstraintHeight),
 							AZConstRelSuper(kCAConstraintWidth),
 							AZConstRelSuper(kCAConstraintMidX),
 							AZConstRelSuper(kCAConstraintMidY)		];
 
+}
+
+
+- (void)addConstraints:(NSArray*)constraints{
+	[self _ensureSuperHasLayoutManager];
+	[constraints do:^(id obj) {
+		[self addConstraint:obj];
+	}];
 }
 
 //NSImage *image = // load a image
@@ -783,5 +832,97 @@ CGColorRef CreatePatternColor( CGImageRef image )
 	return str;
 }
 
+@end
+
+@implementation CATextLayer (AtoZ)
+
+- (CTFontRef)newFontWithAttributes:(NSDictionary *)attributes {
+	CTFontDescriptorRef descriptor = CTFontDescriptorCreateWithAttributes((__bridge CFDictionaryRef)attributes);
+	CTFontRef font = CTFontCreateWithFontDescriptor(descriptor, 0, NULL);
+	CFRelease(descriptor);
+	return font;
+}
+
+- (CTFontRef)newCustomFontWithName:(NSString *)fontName ofType:(NSString *)type attributes:(NSDictionary *)attributes {
+	NSString *fontPath = [[NSBundle bundleForClass:[AtoZ class]] pathForResource:fontName ofType:type];
+	NSData *data = [[NSData alloc] initWithContentsOfFile:fontPath];
+	CGDataProviderRef fontProvider = CGDataProviderCreateWithCFData((__bridge CFDataRef)data);
+	[data release];
+
+	CGFontRef cgFont = CGFontCreateWithDataProvider(fontProvider);
+	CGDataProviderRelease(fontProvider);
+
+	CTFontDescriptorRef fontDescriptor = CTFontDescriptorCreateWithAttributes((__bridge CFDictionaryRef)attributes);
+	CTFontRef font = CTFontCreateWithGraphicsFont(cgFont, 0, NULL, fontDescriptor);
+	CFRelease(fontDescriptor);
+	CGFontRelease(cgFont);
+	return font;
+}
+
+- (CGSize)suggestSizeAndFitRange:(CFRange *)range
+             forAttributedString:(NSMutableAttributedString *)attrString
+                       usingSize:(CGSize)referenceSize
+{
+	CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString((__bridge CFAttributedStringRef)attrString);
+	CGSize suggestedSize =
+	CTFramesetterSuggestFrameSizeWithConstraints(framesetter,
+												 CFRangeMake(0, [attrString length]),
+												 NULL,
+												 referenceSize,
+												 range);
+
+		//HACK: There is a bug in Core Text where suggested size is not quite right
+		//I'm padding it with half line height to make up for the bug.
+		//see the coretext-dev list: http://web.archiveorange.com/archive/v/nagQXwVJ6Gzix0veMh09
+
+	CTLineRef line = CTLineCreateWithAttributedString((__bridge CFAttributedStringRef)attrString);
+	CGFloat ascent, descent, leading;
+	CTLineGetTypographicBounds(line, &ascent, &descent, &leading);
+	CGFloat lineHeight = ascent + descent + leading;
+	suggestedSize.height += lineHeight / 2.f;
+		//END HACK
+
+	return suggestedSize;
+}
+
+- (void)setupAttributedTextLayerWithFont:(CTFontRef)font {
+	NSDictionary *baseAttributes = [NSDictionary dictionaryWithObject:(__bridge id)font
+															   forKey:(NSString *)kCTFontAttributeName];
+
+	NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:self.string
+																				   attributes:baseAttributes];
+	CFRelease(font);
+
+
+		//Make the class name in the string Courier Bold and red
+	NSDictionary *fontAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
+									@"Courier", (NSString *)kCTFontFamilyNameAttribute,
+									@"Bold", (NSString *)kCTFontStyleNameAttribute,
+									[NSNumber numberWithFloat:16.f], (NSString *)kCTFontSizeAttribute,
+									nil];
+	CTFontRef courierFont = [self newFontWithAttributes:fontAttributes];
+
+	NSRange rangeOfClassName = [[attrString string] rangeOfString:@"CATextLayer"];
+
+	[attrString addAttribute:(NSString *)kCTFontAttributeName
+					   value:(__bridge id)courierFont
+					   range:rangeOfClassName];
+	[attrString addAttribute:(NSString *)kCTForegroundColorAttributeName
+					   value:(id)[[NSColor redColor] CGColor]
+					   range:rangeOfClassName];
+
+	CFRelease(courierFont);
+
+	self.string = attrString;
+	self.wrapped = YES;
+	CFRange fitRange;
+	CGRect textDisplayRect = CGRectInset(self.bounds, 10.f, 10.f);
+	CGSize recommendedSize = [self suggestSizeAndFitRange:&fitRange
+									  forAttributedString:attrString
+												usingSize:textDisplayRect.size];
+	[self setValue:[NSValue valueWithSize:recommendedSize] forKeyPath:@"bounds.size"];
+	self.position = AZCenterOfRect(self.superlayer.bounds);
+	[attrString release];
+}
 
 @end

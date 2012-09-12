@@ -80,7 +80,7 @@ NSUInteger gcd(NSInteger m, NSUInteger n) {
 		__block int smallR = 0, rem, runnerUp, rUpItems, x;
 		x = (aNumber < 2 ? 2 : aNumber);
 //		for( NSNumber *rowTry in list ) {
-		[[@2 to:$int((ceil(sqrt(x)))+4)] each:^(NSNumber* rowTry, NSUInteger index, BOOL *stop) {
+		[[@2 to:$int((ceil(sqrt(x)))+4)] az_each:^(NSNumber* rowTry, NSUInteger index, BOOL *stop) {
 
 			int xx, itemsnow;
 			int _rowCandidate = [rowTry intValue];

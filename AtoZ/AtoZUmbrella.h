@@ -149,6 +149,17 @@ typedef enum _AZWindowPosition {
 #endif
 
 
+typedef struct {
+    CGFloat color[4];
+	CGFloat caustic[4];
+	CGFloat expCoefficient;
+	CGFloat expScale;
+	CGFloat expOffset;
+	CGFloat initialWhite;
+	CGFloat finalWhite;
+} GlossParameters;
+
+
 
 	//MARK: General Functions
 
@@ -464,111 +475,6 @@ static inline float RandomComponent() {  return (float)random() / (float)LONG_MA
 #define RAND01() ((random() / (float)0x7fffffff ))
 
 
-
-#import "BlocksAdditions.h"
-#import "AZGeometry.h"
-#import "AZGeometricFunctions.h"
-
-
-#import "BaseModel.h"
-#import "SMModelObject.h"
-#import "AZSimpleView.h"
-#import "AZSizer.h"
-
-	//#import <AtoZiTunes/AtoZiTunes.h>
-#import "CALayer+AtoZ.h"
-#import "AZMouser.h"
-
-#import "iCarousel.h"
-	//#import "azCarousel.h"
-
-
-#import "AZVeil.h"
-
-#import "NotificationCenterSpy.h"
-
-#import "TransparentWindow.h"
-
-
-	// Categories
-#import "NSFileManager+AtoZ.h"
-#import "NSThread+AtoZ.h"
-#import "NSNotificationCenter+AtoZ.h"
-#import "NSApplication+AtoZ.h"
-#import "NSColor+AtoZ.h"
-#import "NSArray+AtoZ.h"
-#import "NSString+AtoZ.h"
-#import "NSView+AtoZ.h"
-#import "NSBezierPath+AtoZ.h"
-#import "NSImage+AtoZ.h"
-#import "NSWindow+AtoZ.h"
-#import "NSShadow+AtoZ.h"
-#import "NSNumber+AtoZ.h"
-#import "CAAnimation+AtoZ.h"
-
-#import "NSScreen+AtoZ.h"
-#import "NSObject+AtoZ.h"
-#import "AZNotificationCenter.h"
-
-#import "NSWindow_Flipr.h"
-#import "NSLogConsole.h"
-
-
-#import "AZLaunchServices.h"
-
-#import "AZObject.h"
-#import "AZLassoView.h"
-#import "AZBackground.h"
-#import "AZDarkButtonCell.h"
-
-#import "AZTrackingWindow.h"
-
-#import "AZCSSColors.h"
-
-	//#import "MondoSwitch.h"
-#import "AZToggleArrayView.h"
-
-	//#import "AZToggleView.h"
-
-	//Classes
-
-#import "AZSegmentedRect.h"
-#import "AZWindowExtend.h"
-#import "AZQueue.h"
-
-#import "AZDockQuery.h"
-#import "AZAXAuthorization.h"
-
-	// Views
-#import "AZFoamView.h"
-#import "AZBlockView.h"
-#import "AZProgressIndicator.h"
-#import "AZPopupWindow.h"
-#import "AZIndeterminateIndicator.h"
-#import "AZAttachedWindow.h"
-#import "AZStopwatch.h"
-#import "AZBox.h"
-#import "AZBoxGrid.h"
-#import "AZBoxMagic.h"
-#import "AZInfiniteCell.h"
-#import "AZSourceList.h"
-#import "AZTalker.h"
-#import "AZBoxLayer.h"
-#import "AZOverlay.h"
-#import "AtoZInfinity.h"
-
-#import "AZFileGridView.h"
-
-
-#import "AZApplePrivate.h"
-
-#import "RuntimeReporter.h"
-
-#import "AZBackgroundProgressBar.h"
-#import "F.h"
-#import "NSArray+F.h"
-#import "NSDictionary+F.h"
-#import "NSNumber+F.h"
 
 
 

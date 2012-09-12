@@ -49,6 +49,69 @@ void disableCA(){
 
 @implementation CAAnimation (AtoZ)
 
++ (CAAnimation *) animationForOpacity {
+	CABasicAnimation *fadeAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+	[fadeAnimation setAutoreverses:YES];
+	[fadeAnimation setToValue:[NSNumber numberWithFloat:0.0]];
+
+	return fadeAnimation;
+}
+
++ (CAAnimation *) animateionForScale {
+	CABasicAnimation *scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+	[scaleAnimation setAutoreverses:YES];
+	[scaleAnimation setToValue:[NSNumber numberWithFloat:0.0]];
+
+	return scaleAnimation;
+}
+
++ (CAAnimation *) animationForRotation {
+	CATransform3D transform = CATransform3DMakeRotation(M_PI, 0.0f, 1.0f, 0.0f);
+	CABasicAnimation *rotateAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
+	[rotateAnimation setToValue:[NSValue valueWithCATransform3D:transform]];
+
+	return rotateAnimation;
+}
+
+
++(CAAnimation *)flipDown:(NSTimeInterval)aDuration scaleFactor:(CGFloat)scaleFactor {
+
+		// Rotating halfway (pi radians) around the Y axis gives the appearance of flipping
+    CABasicAnimation *flipAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.y"];
+    CGFloat startValue =  /*beginsOnTop ? 0.0f :*/ M_PI;
+    CGFloat endValue =  /*beginsOnTop-M_PI :*/ 0.0f;
+    flipAnimation.fromValue = [NSNumber numberWithDouble:startValue];
+    flipAnimation.toValue = [NSNumber numberWithDouble:endValue];
+
+		// Shrinking the view makes it seem to move away from us, for a more natural effect
+		// Can also grow the view to make it move out of the screen
+    CABasicAnimation *shrinkAnimation = nil;
+    if ( scaleFactor != 1.0f ) {
+        shrinkAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+        shrinkAnimation.toValue = [NSNumber numberWithFloat:scaleFactor];
+
+			// We only have to animate the shrink in one direction, then use autoreverse to "grow"
+        shrinkAnimation.duration = aDuration * 0.5;
+        shrinkAnimation.autoreverses = YES;
+    }
+
+		// Combine the flipping and shrinking into one smooth animation
+    CAAnimationGroup *animationGroup = [CAAnimationGroup animation];
+    animationGroup.animations = [NSArray arrayWithObjects:flipAnimation, shrinkAnimation, nil];
+
+		// As the edge gets closer to us, it appears to move faster. Simulate this in 2D with an easing function
+    animationGroup.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    animationGroup.duration = aDuration;
+
+		// Hold the view in the state reached by the animation until we can fix it, or else we get an annoying flicker
+    animationGroup.fillMode = kCAFillModeForwards;
+    animationGroup.removedOnCompletion = NO;
+
+    return animationGroup;
+
+}
+
+
 - (void)setAz_completionBlock:(AZCAAnimationCompletionBlock)block
 {
 	self.delegate = self;
@@ -523,7 +586,25 @@ void disableCA(){
 
 
 
-@implementation CAKeyframeAnimation (Jumping)
+@implementation CAKeyframeAnimation (JumpingAndShaking)
+
++ (CAKeyframeAnimation *)shakeAnimation:(NSRect)frame	{
+	static int 	numberOfShakes = 3;
+	static float durationOfShake = .4;
+	static float vigourOfShake = 0.2f;
+    CAKeyframeAnimation *shakeAnimation = [CAKeyframeAnimation animation];
+    CGMutablePathRef shakePath = CGPathCreateMutable();
+    CGPathMoveToPoint(shakePath, NULL, NSMinX(frame), NSMinY(frame));
+	for (int index = 0; index < numberOfShakes; ++index)		{
+		CGPathAddLineToPoint(shakePath, NULL, NSMinX(frame) - frame.size.width * vigourOfShake, NSMinY(frame));
+		CGPathAddLineToPoint(shakePath, NULL, NSMinX(frame) + frame.size.width * vigourOfShake, NSMinY(frame));
+	}
+    CGPathCloseSubpath(shakePath);
+    shakeAnimation.path = shakePath;
+    shakeAnimation.duration = durationOfShake;
+    return shakeAnimation;
+}
+
 
 + (CAKeyframeAnimation *)jumpAnimation
 {

@@ -58,6 +58,11 @@ if(unit == 0) {
 	return @(1 / self.doubleValue);
 }
 
+- (NSNumber *)increment {
+	return @([self intValue]+1);
+}
+
+
 -(NSArray *)times:(id (^)(void))block {
 	int n = self.intValue;
 	

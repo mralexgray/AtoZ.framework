@@ -808,6 +808,25 @@ static NSColor *ColorWithCSSString(NSString *str) {
 	return  [NSColorList availableColorLists];
 }
 
++ (NSArray *) colorListsInFramework {
+	NSBundle *aBundle = [NSBundle bundleForClass: [AtoZ class]];
+	NSArray *lists = [aBundle pathsForResourcesOfType:@"clr" inDirectory:@""];
+	return [lists arrayUsingBlock:^id(id obj) {
+		NSString *name = [[obj lastPathComponent]stringByDeletingPathExtension];
+		return [[NSColorList alloc] initWithName:name fromFile:obj];
+	}];
+}
+
+
++ (NSArray *) colorsInFrameworkListNamed:(NSString*)name {
+	NSArray *lists = [NSColor colorListsInFramework];
+	NSColorList *theList = [lists filterOne:^BOOL(id object) {
+		return [[(NSColorList *)object name] isEqualToString:name] ? YES : NO;
+	}];
+	return [[theList allKeys]arrayUsingBlock:^id(id obj) {
+		return [theList colorWithKey:obj];
+	}];
+}
 
 + (NSArray *) fengshui {
 	NSBundle *aBundle = [NSBundle bundleForClass: [AtoZ class]];
@@ -819,16 +838,27 @@ static NSColor *ColorWithCSSString(NSString *str) {
 		return [l colorWithKey:i];
 	}];
 }
-+ (NSArray *) allColors {
-
-	__block NSMutableArray *colorbag = [NSMutableArray array];
-	for ( NSColorList *l in [NSColor colorLists] )
-		for (NSString *k in [l allKeys])
-			[colorbag addObject: [l colorWithKey:k]];
-	return  colorbag;
++ (NSArray *) allSystemColorNames {
+	return [NSArray arrayWithArrays:[[NSColorList availableColorLists]arrayUsingBlock:^id(id obj) {
+		return [obj allKeys];
+	}]];
 }
++ (NSArray *) allSystemColors {
+	NSArray *contenders = [NSArray arrayWithArrays:[[NSColorList availableColorLists]arrayUsingBlock:^id(NSColorList* obj) {
+		return [[obj allKeys] arrayUsingBlock:^id(NSString *key) {
+			NSColor*legit = [obj colorWithKey:key];
+			return legit ? legit : WHITE;
+		}];
+	}]];
+	return [contenders filter:^BOOL(NSColor *obj) {
+		return [obj isBoring] ? NO : YES;
+	}];
 
+}
++(NSArray*) randomPalette {
 
+		return [NSColor colorsInFrameworkListNamed:[[[NSColor colorListsInFramework]randomElement] valueForKey:@"name"]];
+}
 //- (NSColor*)closestColorListColor {
 //	NSColor *thisColor = [self colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
 //	CGFloat bestDistance = FLT_MAX;
@@ -2345,6 +2375,8 @@ static CGFloat hexCharsToFloat(char firstChar, char secondChar)
 	NSBundle *aBundle = [NSBundle bundleForClass: [DummyListClass class]];
 	return [self colorListWithFileName: fileName inBundle: aBundle];
 }
+
+
 @end
 
 @implementation NSString (THColorConversion)

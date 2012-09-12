@@ -9,7 +9,7 @@
 //#define PRINTMETHODS 0
 
 #import "AZVeil.h"
-#import <AtoZ/AtoZ.h>
+#import "AtoZ.h"
 
 
 @interface AZSplitView : NSSplitView
@@ -144,7 +144,7 @@
 //	[_leveler setFrame:NSMakeRect(0, (ScreenHighness()-1),1,1) display:YES animate:NO];
 	[_shroud  setIgnoresMouseEvents:YES];
 	[NotificationCenterSpy toggleSpyingAllNotifications];
-	[ @[_leveler, _shroud, _window] each:^(id obj, NSUInteger index, BOOL *stop) {
+	[ @[_leveler, _shroud, _window] az_each:^(id obj, NSUInteger index, BOOL *stop) {
 		[obj setMovable:NO];
 		[obj setOpaque:YES];
 //		[obj  setLevel:];
@@ -161,7 +161,7 @@
 	_shroud.upFrame 	= AZMenulessScreenRect();
 
 
-	[ [[_window contentView] allSubviews] each:^(id obj, NSUInteger index, BOOL *stop) {
+	[ [[_window contentView] allSubviews] az_each:^(id obj, NSUInteger index, BOOL *stop) {
 		if ( [obj isKindOfClass:[NSSplitView class]] ) {
 			[obj setDelegate:self];
 			[obj setDividerStyle:NSSplitViewDividerStyleThick];
@@ -452,7 +452,7 @@
 	[_shroud setAlphaValue : 1];
 //	_shroud.downFrame	= AZLowerEdge(ScreenHighness()-22 - _defaultSize)
 //	   AZRectVerticallyOffsetBy(_shroud.upFrame,_defaultSize);
-	[ @[_window, _shroud] each:^(id obj, NSUInteger index, BOOL *stop) {
+	[ @[_window, _shroud] az_each:^(id obj, NSUInteger index, BOOL *stop) {
 		[obj setFrame:[[obj valueForKey:@"upFrame"] rectValue] display:NO animate:NO];
 		[obj orderFrontRegardless];
 	}];

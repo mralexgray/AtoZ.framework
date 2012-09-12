@@ -258,7 +258,7 @@
 {
 	NSLog(@"entered the box. frame: %@", NSStringFromRect(self.frame));
 	self.hovered = YES;
-	[[[[self window]contentView]allSubviews]each:^(id obj, NSUInteger index, BOOL *stop) {
+	[[[[self window]contentView]allSubviews]az_each:^(id obj, NSUInteger index, BOOL *stop) {
 		if ( ([obj isKindOfClass:[AZBox class]]) && ([obj isNotEqualTo:self]) )
 			[(AZBox*)obj setHovered:NO];
 	}];
@@ -271,7 +271,7 @@
 
 -(void) mouseDown:(NSEvent *)theEvent {
 	self.selected = YES;
-	[[[self superview]subviews]each:^(id obj, NSUInteger index, BOOL *stop) {
+	[[[self superview]subviews]az_each:^(id obj, NSUInteger index, BOOL *stop) {
 		if ( ([obj isKindOfClass:[AZBox class]]) && ([obj isNotEqualTo:self]) )
 			[(AZBox*)obj setSelected:NO];
 	}];

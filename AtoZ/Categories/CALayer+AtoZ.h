@@ -7,7 +7,7 @@
 	//
 
 #import <QuartzCore/QuartzCore.h>
-
+#import <CoreText/CoreText.h>
 #import "AtoZ.h"
 
 
@@ -30,6 +30,8 @@ void ChangeSuperlayer( CALayer *layer, CALayer *newSuperlayer, int index );
 
 /** Removes a layer from its superlayer without any fade-out animation. */
 void RemoveImmediately( CALayer *layer );
+
+extern CALayer* AddBloom( CALayer *layer);
 
 extern CALayer* AddShadow( CALayer *layer);
 /** Convenience for creating, adding,a nd returning a relatively nice CALayer. */
@@ -70,6 +72,18 @@ float GetPixelAlpha( CGImageRef image, CGSize imageSize, CGPoint pt );
 #define CATransform3DPerspective(t, x, y) (CATransform3DConcat(t, CATransform3DMake(1, 0, 0, x, 0, 1, 0, y, 0, 0, 1, 0, 0, 0, 0, 1)))
 #define CATransform3DMakePerspective(x, y) (CATransform3DPerspective(CATransform3DIdentity, x, y))
 
+/**
+As with the distort transform, the x and y values adjust intensity. I have included a CATransform3DMake method as there are no built in CATransform3D methods to create a transform by passing in 16 values (mimicking the CGAffineTransformMake method).
+
+For those that have never seen the CATransform3D struct before, you must apply the transform to a CALayer‘s transform, as opposed to a CGAffineTransform which is applied to the UIView‘s transform. If you want to apply it to a UIView, obtain it’s layer then set the transform (myView.layer = CATransform3DMakePerspective(0.002, 0)).
+
+	What do represent the two parameters in CATransform3DMakePerspective(0.002, 0) ?
+ 	The first is how much you want it to skew on the X axis (horizontally), and the second for the Y axis (vertically)
+
+	Yes, but what are the units ? (radians … ?)
+	The value goes directly into the transform, if you want to make it radians, or any other type of unit you will need to put some math in there
+ */
+
 CG_INLINE CATransform3D
 CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13, CGFloat m14,
 				  CGFloat m21, CGFloat m22, CGFloat m23, CGFloat m24,
@@ -86,9 +100,14 @@ CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13, CGFloat m14,
 
 @interface CALayer (AtoZ)
 
+- (void)addConstraints:(NSArray*)constraints;
+- (void)orientWithPoint:(CGPoint) point;
+- (void)orientWithX: (CGFloat)x andY: (CGFloat)y;
+
 - (void) toggleFlip;
 - (void) flipOver;
 - (void) flipBack;
+- (void) flipDown;
 
 - (void) setScale: (CGFloat) scale;
 
@@ -127,5 +146,15 @@ CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13, CGFloat m14,
 
 -(void)debugAppendToLayerTree:(NSMutableString*)treeStr indention:(NSString*)indentStr;
 - (NSString*)debugLayerTree;
+
+
+@end
+@interface  CATextLayer (AtoZ)
+
+- (CTFontRef)newFontWithAttributes:(NSDictionary *)attributes;
+- (CTFontRef)newCustomFontWithName:(NSString *)fontName ofType:(NSString *)type attributes:(NSDictionary *)attributes;
+- (CGSize)suggestSizeAndFitRange:(CFRange *)range	forAttributedString:(NSMutableAttributedString *)attrString
+															  usingSize:(CGSize)referenceSize;
+- (void)setupAttributedTextLayerWithFont:(CTFontRef)font;
 
 @end

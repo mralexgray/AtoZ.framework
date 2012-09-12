@@ -15,6 +15,28 @@
 @implementation NSArray (AtoZ)
 @dynamic trimmedStrings;
 
+
+
+- (NSArray *)arrayWithEach{
+	return	[NSArray arrayWithArrays:self];
+}
+
++ (NSArray *)arrayWithArrays:(NSArray *)arrays
+{
+	return [[[self mutableArrayWithArrays:arrays] copy] autorelease];
+}
+
++ (NSMutableArray *)mutableArrayWithArrays:(NSArray *)arrays
+{
+	NSMutableArray *array = [NSMutableArray arrayWithCapacity:0];
+	for (NSArray *a in arrays)
+	{
+		[array addObjectsFromArray:a];
+	}
+	return array;
+}
+
+
 - (NSString*) stringWithEnum: (NSUInteger) e; {    return [self objectAtIndex:e];	}
 
 - (NSUInteger) enumFromString: (NSString*) s default: (NSUInteger) def;
@@ -593,7 +615,7 @@ static NSInteger comparatorForSortingUsingArray(id object1, id object2, void *co
  @param index (Block Parameter) this is the index of obj in the array
  @param stop (Block Parameter) set this to YES to stop enumeration, otherwise there is no need to use this
  */
-- (void) each:(void (^)(id obj, NSUInteger index, BOOL *stop))block
+- (void) az_each:(void (^)(id obj, NSUInteger index, BOOL *stop))block
 {
 	[self enumerateObjectsUsingBlock:block];
 }
@@ -610,7 +632,7 @@ static NSInteger comparatorForSortingUsingArray(id object1, id object2, void *co
  @param obj (Block Parameter) the object being enumerated over
  @param stop (Block Parameter) if you need to stop the enumeration set this to YES otherwise do nothing
  */
-- (void) eachConcurrentlyWithBlock:(void (^)(NSInteger index, id obj, BOOL * stop))block
+- (void) az_eachConcurrentlyWithBlock:(void (^)(NSInteger index, id obj, BOOL * stop))block
 {
 	//make sure we get a unique queue identifier
     dispatch_group_t group = dispatch_group_create();
@@ -663,7 +685,7 @@ static NSInteger comparatorForSortingUsingArray(id object1, id object2, void *co
 - (NSArray *)findAllWithBlock:(BOOL (^)(id obj))block
 {
     NSMutableArray * results = [[NSMutableArray alloc] init];
-	[self each:^(id obj, NSUInteger index, BOOL *stop) {
+	[self az_each:^(id obj, NSUInteger index, BOOL *stop) {
 		if (block(obj)) {
 			[results addObject:obj];
 		}
@@ -684,7 +706,7 @@ static NSInteger comparatorForSortingUsingArray(id object1, id object2, void *co
 - (NSHashTable *) findAllIntoWeakRefsWithBlock:(BOOL (^)(id))block
 {
     NSHashTable * results = [NSHashTable hashTableWithWeakObjects];
-    [self each:^(id obj, NSUInteger index, BOOL *stop) {
+    [self az_each:^(id obj, NSUInteger index, BOOL *stop) {
 		if (block(obj)) {
 			[results addObject:obj];
 		}
@@ -707,7 +729,7 @@ static NSInteger comparatorForSortingUsingArray(id object1, id object2, void *co
 - (NSArray *) mapArray:(id (^)(id obj))block
 {
     NSMutableArray * cwArray = [[NSMutableArray alloc] init];
-	[self each:^(id obj, NSUInteger index, BOOL *stop) {
+	[self az_each:^(id obj, NSUInteger index, BOOL *stop) {
 		id rObj = block(obj);
         if (rObj) {
             [cwArray addObject:rObj];

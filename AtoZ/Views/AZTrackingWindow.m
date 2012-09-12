@@ -313,6 +313,61 @@
 
 - (void)setSlideState:(AZSlideState)slideState {}
 
+
+
+@end
+
+@class AZTrackingWindow;
+@implementation AtoZ (Animations)
+
+
+-(void) anmateOnPath:(id)something {
+	NSTimeInterval timeForAnimation = 1;
+	CAKeyframeAnimation *bounceAnimation=[CAKeyframeAnimation animationWithKeyPath:@"position"];
+	bounceAnimation.duration=timeForAnimation;
+	CGMutablePathRef thePath=CGPathCreateMutable();
+	CGPathMoveToPoint(thePath, NULL, 160, 514);
+	CGPathAddLineToPoint(thePath, NULL, 160, 350);
+	CGPathAddLineToPoint(thePath, NULL, 160, 406);
+	bounceAnimation.path=thePath;
+	CGPathRelease(thePath);
+	CABasicAnimation *mainAnimation=[CABasicAnimation animationWithKeyPath:@"transform"];
+	mainAnimation.removedOnCompletion=YES;
+	mainAnimation.duration=timeForAnimation;
+	mainAnimation.toValue=[NSValue valueWithCATransform3D:CATransform3DIdentity];
+
+	CAAnimationGroup *theGroup=[CAAnimationGroup animation];
+	theGroup.delegate=self;
+	theGroup.duration=timeForAnimation;
+	theGroup.timingFunction=[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
+	theGroup.animations=[NSArray arrayWithObjects:bounceAnimation,mainAnimation,nil];
+
+	CALayer *target = ([something isKindOfClass:[NSWindow class]]) ? [[something contentView]layer] : [(NSView*)something layer];
+
+	[target addAnimation:theGroup forKey:@"sagar"];
+	[something setFrame:AZCenterRectOnPoint([something frame], (NSPoint){160, 406})];//)]imgV.center=CGPointMake(160, 406);
+	[target setTransform: CATransform3DIdentity];//CGAffineTransformIdentity];
+
+}
+
++ (void)flipDown:(id)window
+{
+		//	[window setClass:[AZTrackingWindow class]];
+	if ([(id)window respondsToSelector:@selector(setAnimations:)]) {
+		[window setAnimations:@{ @"frame":  [CAAnimation flipDown:2 scaleFactor:.8]} ];// shakeAnimation:[window frame]] }];
+																				//		[[window animator] setFrame: (window.slideState == AZOut ? window.visibleFrame : window.outFrame ) display:YES animate:YES];
+	}
+}
+
++ (void)shakeWindow:(NSWindow*)window
+{
+	[window setAnimations:[NSDictionary dictionaryWithObject:[CAKeyframeAnimation shakeAnimation:[window frame]] forKey:@"frameOrigin"]];
+	[[window animator] setFrameOrigin:[window frame].origin];
+}
+
+@end
+
+
 	/**
 	 if 	((_slideState == AZOut) && (slideState == AZIn))	{
 
@@ -475,9 +530,6 @@
 	//[[NSRect]] screenFrame;
 	//[[NSRect]] windowFrame;
 	//float minY;
-
-@end
-
 
 
 

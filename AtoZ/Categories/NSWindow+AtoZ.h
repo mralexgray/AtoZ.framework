@@ -25,6 +25,7 @@
 
 @interface NSWindow (AtoZ)
 
++ (NSArray*) allWindows;
 - (CALayer*)veilLayer;
 - (CALayer*)veilLayerForView: (NSView*)view;
 
@@ -89,6 +90,7 @@
 
 - (void) extendVerticallyBy: (int) amount;
 
++ (NSWindow*) borderlessWindowWithContentRect: (NSRect)aRect;
 @end
 
 //@interface NSWindow (UndocumentedRoutines)

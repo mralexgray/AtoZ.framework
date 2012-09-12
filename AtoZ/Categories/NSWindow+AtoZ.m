@@ -146,6 +146,11 @@
 
 @implementation NSWindow (AtoZ)
 
+
++(NSArray*) allWindows {
+	return (__bridge_transfer id)CGWindowListCopyWindowInfo(kCGWindowListOptionAll, kCGNullWindowID);
+}	
+
 // works  is  good;
 - (CALayer*)veilLayer{
 	return  [self veilLayerForView:[self contentView]];
@@ -278,6 +283,15 @@ return midpoint;
 	
 	return toolbarHeight;
 }
+
+
++ (NSWindow*) borderlessWindowWithContentRect: (NSRect)aRect  {
+	NSWindow *new = [[NSWindow alloc] initWithContentRect:aRect styleMask: NSBorderlessWindowMask
+												  backing: NSBackingStoreBuffered	 defer: NO];
+	[new setBackgroundColor: [NSColor clearColor]];							[new setOpaque:NO];
+    return new;
+}
+
 @end
 
 
