@@ -7,3 +7,6 @@
 [submodule "CoreScroll"]
 	path = CoreScroll
 	url = https://github.com/mralexgray/CoreScroll.git
+[submodule "Frameworks/BlocksKit"]
+	path = Frameworks/BlocksKit
+	url = git://github.com/zwaldowski/BlocksKit
