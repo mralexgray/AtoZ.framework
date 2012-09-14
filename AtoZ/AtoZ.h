@@ -17,7 +17,6 @@
 
 #define EXCLUDE_STUB_PROTOTYPES 1
 #import <PLWeakCompatibility/PLWeakCompatibilityStubs.h>
-#import <FunSize/FunSize.h>
 #import <Lumberjack/Lumberjack.h>
 #import <XPCKit/XPCKit.h>
 #import <QSCore/QSCore.h>
@@ -27,12 +26,12 @@
 #import <QSCore/QSCore.h>
 #import <BlocksKit/BlocksKit.h>
 #import <RMKit/RMKit.h>
+#import <FunSize/FunSize.h>
 
-#import <AtoZ/AtoZ.h>
+//#import <AtoZ/AtoZ.h>
 #import "AtoZUmbrella.h"
 
 
-#import <QuartzCore/QuartzCore.h>
 #import "BaseModel.h"
 #import "AtoZUmbrella.h"
 #import "AZGeometry.h"
@@ -162,6 +161,16 @@ extern NSString *const AtoZDockSortedUpdated;
 <GrowlApplicationBridgeDelegate>
 #endif
 
++ (NSArray*) dock;
++ (NSArray*) dockSorted;
++ (NSArray*) currentScope;
++ (NSArray*) fengShui;
++ (NSArray*) runningApps;
++ (NSArray*) runningAppsAsStrings;
++ (NSArray*) appFolder;
++ (NSArray*) appFolderSorted;
+
+
 @property (nonatomic, retain) NSBundle *bundle;
 
 + (NSString*)stringForType:(id)type;
@@ -186,30 +195,6 @@ extern NSString *const AtoZDockSortedUpdated;
 //- (NSArray*) dockSorted;
 //- (NSArray*) dockOutline;
 
-+ (NSArray*) dock;
-+ (NSArray*) dockSorted;
-//+ (NSArray*) dockOutline;
-+ (NSArray*) currentScope;
-
-+ (NSArray*) fengShui;
-
-+ (NSArray*) runningApps;
-+ (NSArray*) runningAppsAsStrings;
-+ (NSArray*) appFolder;
-+ (NSArray*) appFolderSorted;
-
-@property (assign) AZDockSort sortOrder;
-@property (nonatomic, retain) NSArray *dock;
-@property (nonatomic, retain) NSArray *dockSorted;
-@property (nonatomic, retain) NSArray *appCategories;
-//@property (nonatomic, retain) NSArray *dockOutline;
-
-@property (nonatomic, strong) NSArray *appFolderSorted;
-@property (nonatomic, strong) NSArray *appFolder;
-@property (nonatomic, strong) NSArray *appFolderStrings;
-
-+ (NSArray*) appFolderSamplerWith:(NSUInteger)apps;
-
 - (void) handleMouseEvent:(NSEventMask)event inView:(NSView*)view withBlock:(void (^)())block;
 //@property (strong, nonatomic) NSLogConsole *console;
 
@@ -222,6 +207,10 @@ extern NSString *const AtoZDockSortedUpdated;
 
 @interface AtoZ (MiscFunctions)
 
++ (CGFloat)clamp:(CGFloat)value from:(CGFloat)minimum to:(CGFloat)maximum;
++ (CGFloat)scaleForSize:(CGSize)size inRect:(CGRect)rect;
++ (CGRect)centerSize:(CGSize)size inRect:(CGRect)rect;
++ (CGPoint)centerOfRect:(CGRect)rect;
 + (NSRect)rectFromPointA:(NSPoint)pointA andPointB:(NSPoint)pointB;
 + (void) printRect:(NSRect)toPrint;
 + (void) printCGRect:(CGRect)cgRect;
@@ -420,4 +409,4 @@ void profile (const char *name, void (^work) (void));
 
 
 #import "AtoZFunctions.h"
-
+#import "AZDock.h"

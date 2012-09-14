@@ -214,7 +214,7 @@ typedef struct {
 
 	//  ARC Helper ends
 
-
+#define NOTCENTER [NSNotificationCenter defaultCenter]
 
 
 #define AZRelease(value) \

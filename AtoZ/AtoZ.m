@@ -102,6 +102,22 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 	return NSLocalizedString(key, nil);
 }
 
++ (NSArray*) dock {
+	return [AZFiles sharedInstance].dock ;
+}
+
++ (NSArray*) currentScope {
+	return [AZFiles sharedInstance].dockSorted;
+}
++ (NSArray*) dockSorted {
+
+	return [AZFiles sharedInstance].dockSorted;
+}
++ (NSArray*) appCategories {
+
+	return [AZFiles sharedInstance].appCategories;
+}
+
 
 //{//	__weak AZSimpleView *e;
 //}
@@ -214,71 +230,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 #pragma GCC diagnostic warning "-Wdeprecated-declarations"
 
 
-
-
-
- -(NSArray*)dockSorted {
-
-[[[!_dock ? self.dock : _dock sortedWithKey:@"hue" ascending:YES] reversed] arrayUsingIndexedBlock:^id(AZFile* obj, NSUInteger idx) {
-			//		if ([obj.name isEqualToString:@"Finder"]) {
-			//		obj.spotNew = 999;
-			//		obj.dockPointNew = obj.dockPoint;
-			//		} else {
-		obj.spotNew = idx;
-		obj.dockPointNew = [[[_dock objectAtIndex:idx]valueForKey:@"dockPoint"]pointValue];
-		return obj;
-	}];
-	// arrayUsingIndexedBlock:^id(AZFile* obj, NSUInteger idx) {
-	//			NSLog(@"dockquery item: %@", [obj allKeys]);
-
-}
-
-//+ (NSArray*) dockOutline {
-//	return [super sharedInstance].dockOutline;
-//}
-//- (NSArray*)dockOutline {
-//	return _dockOutline;// ? _dockOutline : [AZDockQuery dock]);
-//}
-
-+ (NSArray*) dock {
-	return [AtoZ sharedInstance].dock ;
-}
-- (NSArray*) dock {
-
-	if (!_dock)
-		self.dock = [AZDockQuery dock];
-	return _dock;
-//NSLog(@"dock got:  %@", _dock); 
-}
-
-+ (NSArray*) currentScope {
-	return [AtoZ sharedInstance].dockSorted;
-}
-+ (NSArray*) dockSorted {
-
-	return [AtoZ sharedInstance].dockSorted;
-}
-+ (NSArray*) appCategories {
-
-	return [AtoZ sharedInstance].appCategories;
-}
-
-
-
-
-- (NSArray*) appCategories {
-//	static NSArray *cats;
-//    if (cats == nil) {
-			return  @[ 	@"Games",		@"Education",		@"Entertainment",	@"Books",	@"Lifestyle",
-		@"Utilities",	@"Business", 		@"Travel",			@"Music", 	@"Reference",
-		@"Sports",		@"Productivity",	@"News", 			@"Healthcare & Fitness",
-		@"Photography", @"Finance", 		@"Medical", 			@"Social Networking",
-		@"Navigation",	@"Weather",			@"Catalogs", 		@"Food & Drink",
-		@"Newsstand" ];
-//[NSArray alloc] initWithObjects:kCategoryNames count:23];
-//    }
-//    return cats;
-}
 + (NSJSONSerialization*) jsonReuest:(NSString*)url {
 	AtoZ *me = [[self class] sharedInstance];
 	return  [me jsonReuest:url];
@@ -369,7 +320,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 //}
 
 + (NSArray*) selectedDock{
-	AtoZ *shared =  [super sharedInstance];
+	AZFiles *shared =  [AZFiles sharedInstance];
 	AZDockSort sortorder = shared.sortOrder;
 	switch (sortorder) {
 		case AZDockSortNatural:
@@ -447,33 +398,12 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 //	[NSThread performSelectorInBackground:@selector(az_runBlock:) withObject:[block copy]];
 //}
 + (NSArray*) appFolderSorted {
-	if (! [AtoZ sharedInstance].appFolderSorted )
-		[AtoZ sharedInstance].appFolderSorted = [[[AtoZ appFolder] sortedWithKey:@"hue" ascending:YES] reversed].mutableCopy;
-	return  [AtoZ sharedInstance].appFolderSorted;
+	if (! [AZFiles sharedInstance].appFolderSorted )
+		[AZFiles sharedInstance].appFolderSorted = [AZFiles.sharedInstance.appFolder sortedWithKey:@"hue" ascending:YES].reversed.mutableCopy;
+	return  [AZFiles sharedInstance].appFolderSorted;
 }
 
 
-- (NSArray *) appFolderStrings {
-	if (!_appFolderStrings) {
-		[AZStopwatch start:@"appFolderStrings"];
-		NSMutableArray *applications = [NSMutableArray array];
-		ApplicationsInDirectory(@"/Applications", applications);
-		_appFolderStrings = applications.copy;
-		[AZStopwatch stop:@"appFolderStrings"];
-	}
-	return  _appFolderStrings;
-}
-
-- (NSArray*) appFolder {
-	if (!_appFolder) {
-		[AZStopwatch start:@"appFolder"];
-		_appFolder = [_appFolderStrings ? self.appFolderStrings : _appFolderStrings  arrayUsingBlock:^id(id obj) {
-		return	[AZFile instanceWithPath:obj];
-		}];
-		[AZStopwatch stop:@"appFolder"];
-	}
-	return _appFolder;
-}
 
 + (NSArray*) appFolder {
 
@@ -488,13 +418,13 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 	//	NSLog(@"%@", [[AtoZ sharedInstance] codableKeys]);
 	//	[[AtoZ sharedInstance] writeToFile:@"/Users/localadmin/Desktop/poop.plist" atomically:NO];
 
-	return [AtoZ sharedInstance].appFolder;
+	return [AZFiles sharedInstance].appFolder;
 }
 
 + (NSArray*) appFolderSamplerWith:(NSUInteger)apps {
 
 	[AZStopwatch start:@"appFolderSampler"];
-	return [[[AtoZ sharedInstance].appFolderStrings randomSubarrayWithSize:apps] arrayUsingBlock:^id(id obj) {
+	return [[[AZFiles sharedInstance].appFolderStrings randomSubarrayWithSize:apps] arrayUsingBlock:^id(id obj) {
 				return [AZFile instanceWithPath:obj];
 	}];
 
@@ -713,69 +643,60 @@ static void soundCompleted(SystemSoundID soundFileObject, void *clientData) {
 
 @implementation AtoZ (MiscFunctions)
 
++ (CGFloat)clamp:(CGFloat)value from:(CGFloat)minimum to:(CGFloat)maximum {
+	return value = value < minimum 	 ? minimum : value > maximum ? value = maximum : value;
+}
+
++ (CGFloat)scaleForSize:(CGSize)size inRect:(CGRect)rect {
+	CGFloat hScale = rect.size.width / size.width;
+	CGFloat vScale = rect.size.height / size.height;
+	return  MIN(hScale, vScale);
+}
+
++ (CGRect)centerSize:(CGSize)size inRect:(CGRect)rect {
+	CGFloat scale = [[self class] scaleForSize:size inRect:rect];
+	return AZMakeRect(	CGPointMake ( rect.origin.x + 0.5 * (rect.size.width  - size.width),
+								 	  rect.origin.y + 0.5 * (rect.size.height - size.height) ),
+						CGSizeMake(size.width * scale, size.height * scale) );
+}
+
++ (CGPoint)centerOfRect:(CGRect)rect { return AZCenterOfRect(rect); }
+//	CGFloat midx = CGRectGetMidX(rect);CGFloat midy = CGRectGetMidY(rect);return CGPointMake(midx, midy);
+
+
 + (NSImage*)cropImage:(NSImage*)sourceImage withRect:(NSRect)sourceRect {
 
 	NSImage* cropImage = [[NSImage alloc] initWithSize:NSMakeSize(sourceRect.size.width, sourceRect.size.height)];
 	[cropImage lockFocus];
-	{
-		[sourceImage drawInRect:NSMakeRect(0, 0, sourceRect.size.width, sourceRect.size.height)
-					   fromRect:sourceRect
-					  operation:NSCompositeSourceOver fraction:1.0];
-	}
+	[sourceImage drawInRect:(NSRect){ 0, 0, sourceRect.size.width, sourceRect.size.height}
+					   fromRect:sourceRect		operation:NSCompositeSourceOver fraction:1.0];
 	[cropImage unlockFocus];
-
-		//[cropImage autorelease];
 	return cropImage;
 }
 
 + (NSRect) rectFromPointA:(NSPoint)pointA andPointB:(NSPoint)pointB {
 
-		// get the current distance from the original mouse down point
-	float xDistance = pointB.x - pointA.x;
-	float yDistance = pointB.y - pointA.y;
-
-		// we need to create the selection rect, but the calculation is
-		// different depending on whether the mouse has been dragged
-		// up and/or to the left (lower coordinate values) or down and
-		// to the right (higher coordinate values).
+// 	get the current distance from the original mouse down point
+	float xDistance = pointB.x - pointA.x;		float yDistance = pointB.y - pointA.y;
+//	 we need to create the selection rect, but the calculation is	different depending on whether the mouse has been dragged up and/or to the left (lower coordinate values) or down and to the right (higher coordinate values).
 	NSRect returnRect;
-	if ( pointB.x < pointA.x )
-	{
-		returnRect.origin.x= pointA.x + xDistance;
-		returnRect.size.width= fabs(xDistance);
-	} else {
-		returnRect.origin.x= pointA.x;
-		returnRect.size.width= xDistance;
-	}
-
-	if ( pointB.y < pointA.y )
-	{
-		returnRect.origin.y= pointA.y + yDistance;
-		returnRect.size.height = fabs(yDistance);
-	} else {
-		returnRect.origin.y= pointA.y;
-		returnRect.size.height = yDistance;
-	}
-
+	if   ( pointB.x < pointA.x )	{	returnRect.origin.x= pointA.x + xDistance;	returnRect.size.width= fabs(xDistance);		}
+	else {								returnRect.origin.x= pointA.x;				returnRect.size.width= xDistance;		 	}
+	if   ( pointB.y < pointA.y )	{	returnRect.origin.y= pointA.y + yDistance;	returnRect.size.height = fabs(yDistance);	}
+	else {								returnRect.origin.y= pointA.y;				returnRect.size.height = yDistance;			}
 	return returnRect;
 }
 
-+ (void)printCGRect:(CGRect)cgRect {
-	[AtoZ printRect: convertToNSRect(cgRect)];
-}
++ (void)printCGRect:(CGRect)cgRect {	[AtoZ printRect: convertToNSRect(cgRect)];	}
 
 + (void) printRect:(NSRect)toPrint {
 	NSLog(@"Rect is x: %i y: %i width: %i height: %i ", (int)toPrint.origin.x, (int)toPrint.origin.y,
 		  (int)toPrint.size.width, (int)toPrint.size.height);
 }
 
-+ (void) printCGPoint:(CGPoint)cgPoint {
-	[AtoZ printPoint:convertToNSPoint(cgPoint)];
-}
++ (void) printCGPoint:(CGPoint)cgPoint {	[AtoZ printPoint:convertToNSPoint(cgPoint)];	}
 
-+ (void) printPoint:(NSPoint)toPrint {
-	NSLog(@"Point is x: %f y: %f", toPrint.x, toPrint.y);
-}
++ (void) printPoint:(NSPoint)toPrint {		NSLog(@"Point is x: %f y: %f", toPrint.x, toPrint.y);	}
 
 + (void) printTransform:(CGAffineTransform)t {
 	NSLog(@"[ %1.1f %1.1f 0.0 ]", t.a, t.b);
