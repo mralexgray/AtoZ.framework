@@ -10,3 +10,6 @@
 [submodule "Frameworks/BlocksKit"]
 	path = Frameworks/BlocksKit
 	url = git://github.com/zwaldowski/BlocksKit
+[submodule "AtoZ/Classes/Lorem-Ipsum"]
+	path = AtoZ/Classes/Lorem-Ipsum
+	url = git://github.com/dav/Objective-C-Lorem-Ipsum-Generator.git
