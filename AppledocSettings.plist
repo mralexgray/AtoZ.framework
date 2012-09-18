@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>--project-name</key>
+		<string>AtoZ.Framework</string>
+
+	<key>--input</key>
+		<array>
+			<string>./AtoZ</string>
+			<string>./Frameworks</string>
+		</array>
+	<!-- <key>--ignore</key> -->
+		<!-- <array> -->
+		<!-- </array> -->
+	<!-- <key>--output</key> -->
+ 		<!-- <string>./Documentation</string> -->
+	<!-- <key>--docset-feed-url</key> -->
+		<!-- <string>http://mrgray.com/docs/%DOCSETATOMFILENAME</string> -->
+	<!-- <key>--docset-package-url</key> -->
+	 	<!-- <string>http://mrgray.com/docs/%DOCSETPACKAGEFILENAME</string> -->
+	<!-- <key>--publish-docset</key> -->
+		<!-- <true/> -->
+	<!-- <key>--verbose</key> -->
+		<!-- <integer>4</integer> -->
+	<!-- <key>--logformat</key> -->
+		<!-- <integer>1</integer> -->
+</dict>
+</plist>

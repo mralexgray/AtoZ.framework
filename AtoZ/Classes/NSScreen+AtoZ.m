@@ -36,6 +36,12 @@
 }
 
 
++ (NSPoint)convertAndFlipEventPoint:(NSEvent*)event relativeToView:(NSView *)view {
+	NSScreen *now = [NSScreen currentScreenForMouseLocation];
+	return [now flipPoint:[now convertToScreenFromLocalPoint:event.locationInWindow relativeToView:view]];
+
+//	return [[[self class] mainScreen] flipPoint:touchPoint];
+}
 
 - (NSPoint)convertToScreenFromLocalPoint:(NSPoint)point relativeToView:(NSView *)view {
 	//	NSScreen *currentScreen = [NSScreen currentScreenForMouseLocation];

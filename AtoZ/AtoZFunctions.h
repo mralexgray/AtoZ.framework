@@ -30,6 +30,8 @@ static inline CGPoint convertToCGPoint(NSPoint point) {	return *(const CGPoint *
 #define AZWORKSPACE [NSWorkspace sharedWorkspace]
 #define AZNOTCENTER [NSNotificationCenter defaultCenter]
 
+#define CAMEDIAEASY [CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionEaseInEaseOut]
+
 static double frandom(double start, double end);
 
 extern void DrawLabelAtCenterPoint(NSString* string, NSPoint center);
@@ -47,9 +49,9 @@ static void glossInterpolation(void *info, const CGFloat *input, CGFloat *output
 @property NSInteger length;
 @end
 
-@interface NSArray (Slicing)
-- (id)objectForKeyedSubscript: (id)subscript;
-@end
+//@interface NSArray (Slicing)
+//- (id)objectForKeyedSubscript: (id)subscript;
+//@end
 
 @interface NSNumber (SliceCreation)
 - (Slice *): (NSInteger)length;

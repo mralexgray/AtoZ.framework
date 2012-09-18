@@ -36,6 +36,19 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 @implementation DummyClass 
 @end
 
+
+@implementation CIFilter (WithDefaults)
+
++ (CIFilter*) filterWithDefaultsNamed: (NSString*) name {
+
+	CIFilter *cc = [CIFilter filterWithName:name];
+	[cc setDefaults];  return cc;
+}
+
+@end
+
+
+
 @implementation NSImage (AtoZ)
 
 

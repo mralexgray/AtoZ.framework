@@ -393,6 +393,9 @@ return SC##_sharedInstance; \
 #define cgRANDOMCOLOR	[RANDOMCOLOR	CGColor]
 #define cgCLEARCOLOR	[[NSColor clearColor]	CGColor]
 
+#define RANDOMGRAY [NSColor colorWithDeviceWhite:RAND_FLOAT_VAL(0,1) alpha:1]
+#define cgRANDOMGRAY CGColorCreateGenericGray( RAND_FLOAT_VAL(0,1), 1)
+
 
 #define kBlackColor [[NSColor blackColor]	CGColor]
 #define kWhiteColor [[NSColor whiteColor]	CGColor]

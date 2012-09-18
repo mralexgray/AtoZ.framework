@@ -7,9 +7,11 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "AZGridView.h"
 
-@interface AppDelegate : NSObject <NSApplicationDelegate>
+@interface AZLayerGridDelegate : NSObject <NSApplicationDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
+@property (assign) IBOutlet AZGridView *gridView;
 
 @end

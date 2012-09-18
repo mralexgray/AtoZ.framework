@@ -8,6 +8,17 @@
 
 #import <Cocoa/Cocoa.h>
 
+
+@interface AZTextViewResponder : NSTextView
+@end
+
 @interface NSTextView (AtoZ)
+
++ (AZTextViewResponder*)  textViewForFrame:(NSRect)frame withString:(NSAttributedString*)s;
+
+- (IBAction) decrementFontSize: (id) sender;
+- (IBAction) incrementFontSize: (id) sender;
+- (IBAction) increaseFontSize:  (id) sender;
+- (void)	 changeFontSize:	 	(CGFloat) delta;
 
 @end

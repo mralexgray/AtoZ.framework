@@ -8,6 +8,11 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class AZSizer;
 @interface AZGridView : NSView
-@property NSArray *content;
+@property (nonatomic, strong) NSArray *content;
+@property (strong, nonatomic) CALayer *root;
+@property (strong, nonatomic) CALayer *contentLayer;
+
+@property (nonatomic, strong) AZSizer *ss;
 @end

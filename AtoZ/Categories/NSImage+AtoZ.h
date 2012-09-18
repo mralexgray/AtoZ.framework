@@ -26,6 +26,11 @@ typedef enum {
 CGImageRef CreateCGImageFromData(NSData* data);
 
 
+@interface CIFilter (WithDefaults)
++ (CIFilter*) filterWithDefaultsNamed: (NSString*) name;
+@end
+
+
 @interface NSImage (AtoZ)
 
 

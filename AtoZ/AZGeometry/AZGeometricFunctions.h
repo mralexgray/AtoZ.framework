@@ -22,6 +22,7 @@
 // shortcuts for [NSNumber numberWithXY]
 @end
 
+
 NSNumber *iNum(NSInteger i);
 NSNumber *uNum(NSUInteger ui);
 NSNumber *fNum(CGFloat f);

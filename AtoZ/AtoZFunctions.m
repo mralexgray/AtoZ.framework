@@ -152,11 +152,11 @@ static double frandom(double start, double end)
 
 @end
 
-@implementation NSArray (slicing)
-- (id)objectForKeyedSubscript: (id)subscript		{	Slice *slice = subscript;
-    return [self subarrayWithRange: NSMakeRange([slice start], [slice length])];
-}
-@end
+//@implementation NSArray (slicing)
+//- (id)objectForKeyedSubscript: (id)subscript		{	Slice *slice = subscript;
+//    return [self subarrayWithRange: NSMakeRange([slice start], [slice length])];
+//}
+//@end
 
 
 /*

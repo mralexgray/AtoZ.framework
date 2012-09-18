@@ -30,6 +30,7 @@
 - (NSPoint)convertToScreenFromLocalPoint:(NSPoint)point relativeToView:(NSView *)view;
 - (void)moveMouseToScreenPoint:(NSPoint)point;
 
++ (NSPoint)convertAndFlipEventPoint:(NSEvent*)event relativeToView:(NSView *)view;
 
 @end
 

@@ -14,7 +14,7 @@
 
 @interface NSUserDefaults (Subscript)
 + (NSUserDefaults*) defaults;
-- (id) 	objectForKeyedSubscript:	(NSString*) key;
+//- (id) 	objectForKeyedSubscript:	(NSString*) key;
 - (void) setObject:	(id) newValue forKeyedSubscription:	(NSString*) key;
 @end;
 

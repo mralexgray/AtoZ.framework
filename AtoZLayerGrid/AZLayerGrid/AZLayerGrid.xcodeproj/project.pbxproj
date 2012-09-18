@@ -15,7 +15,7 @@
 		7B85596115B9E8510005F558 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7B85595F15B9E8510005F558 /* InfoPlist.strings */; };
 		7B85596315B9E8510005F558 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B85596215B9E8510005F558 /* main.m */; };
 		7B85596715B9E8510005F558 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 7B85596515B9E8510005F558 /* Credits.rtf */; };
-		7B85596A15B9E8510005F558 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B85596915B9E8510005F558 /* AppDelegate.m */; };
+		7B85596A15B9E8510005F558 /* AZLayerGridDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B85596915B9E8510005F558 /* AZLayerGridDelegate.m */; };
 		7B85596D15B9E8510005F558 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B85596B15B9E8510005F558 /* MainMenu.xib */; };
 		7B85597915B9ED0A0005F558 /* AZGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B85597815B9ED090005F558 /* AZGridView.m */; };
 		7BECAEEC15BF0E7A00557357 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B85595615B9E8510005F558 /* Cocoa.framework */; };
@@ -42,8 +42,8 @@
 		7B85596215B9E8510005F558 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7B85596415B9E8510005F558 /* AZLayerGrid-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AZLayerGrid-Prefix.pch"; sourceTree = "<group>"; };
 		7B85596615B9E8510005F558 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
-		7B85596815B9E8510005F558 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		7B85596915B9E8510005F558 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		7B85596815B9E8510005F558 /* AZLayerGridDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.objj.h; path = AZLayerGridDelegate.h; sourceTree = "<group>"; };
+		7B85596915B9E8510005F558 /* AZLayerGridDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AZLayerGridDelegate.m; sourceTree = "<group>"; };
 		7B85596C15B9E8510005F558 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		7B85597315B9E8C30005F558 /* AtoZ.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AtoZ.framework; path = "../../../../../disenchanted 750/DerivedData/AtoZ-hfqteqfcvjfinlajqwkydsqyzpiz/Build/Products/Debug/AtoZ.framework"; sourceTree = "<group>"; };
 		7B85597515B9EA280005F558 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -87,7 +87,6 @@
 		7B85594715B9E8510005F558 = {
 			isa = PBXGroup;
 			children = (
-				7B85597515B9EA280005F558 /* QuartzCore.framework */,
 				7B85597315B9E8C30005F558 /* AtoZ.framework */,
 				7B85595C15B9E8510005F558 /* AZLayerGrid */,
 				7BECAEED15BF0E7A00557357 /* AZView */,
@@ -107,6 +106,7 @@
 		7B85595515B9E8510005F558 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7B85597515B9EA280005F558 /* QuartzCore.framework */,
 				7B85595615B9E8510005F558 /* Cocoa.framework */,
 				7B85595815B9E8510005F558 /* Other Frameworks */,
 			);
@@ -127,8 +127,8 @@
 		7B85595C15B9E8510005F558 /* AZLayerGrid */ = {
 			isa = PBXGroup;
 			children = (
-				7B85596815B9E8510005F558 /* AppDelegate.h */,
-				7B85596915B9E8510005F558 /* AppDelegate.m */,
+				7B85596815B9E8510005F558 /* AZLayerGridDelegate.h */,
+				7B85596915B9E8510005F558 /* AZLayerGridDelegate.m */,
 				7B85597715B9ED090005F558 /* AZGridView.h */,
 				7B85597815B9ED090005F558 /* AZGridView.m */,
 				7B85596B15B9E8510005F558 /* MainMenu.xib */,
@@ -270,7 +270,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7B85596315B9E8510005F558 /* main.m in Sources */,
-				7B85596A15B9E8510005F558 /* AppDelegate.m in Sources */,
+				7B85596A15B9E8510005F558 /* AZLayerGridDelegate.m in Sources */,
 				7B85597915B9ED0A0005F558 /* AZGridView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -342,7 +342,7 @@
 		7B85596E15B9E8510005F558 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -371,7 +371,7 @@
 		7B85596F15B9E8510005F558 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -393,9 +393,11 @@
 		7B85597115B9E8510005F558 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../../../disenchanted 750/DerivedData/AtoZ-hfqteqfcvjfinlajqwkydsqyzpiz/Build/Products/Debug\"",
+					"\"${DSTROOT}\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AZLayerGrid/AZLayerGrid-Prefix.pch";
@@ -408,9 +410,11 @@
 		7B85597215B9E8510005F558 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../../../disenchanted 750/DerivedData/AtoZ-hfqteqfcvjfinlajqwkydsqyzpiz/Build/Products/Debug\"",
+					"\"${DSTROOT}\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AZLayerGrid/AZLayerGrid-Prefix.pch";

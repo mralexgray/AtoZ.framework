@@ -15,18 +15,23 @@
 #import <QuartzCore/QuartzCore.h>
 #import <xpc/xpc.h>
 
+#import <XPCKit/XPCKit.h>
+#import <RMKit/RMKit.h>
+#import <FunSize//FunSize.h>
+#import <BlocksKit/BlocksKit.h>
+#import <xpc/xpc.h>
+
+
 #import	"BaseModel.h"
-#import	"AtoZumbrella.h"
-#import	"AZGeometry.h"
+#import	"AtoZUmbrella.h"
+#import "AtoZFunctions.h"
+#import "AtoZModels.h"
 #import "AZGeometricFunctions.h"
 
 
-#import <AtoZ/AtoZFunctions.h>
-#import <AtoZ/AtoZModels.h>
+//#import <AtoZ/BaseModel.h>
+#import "NSBag.h"
 
-
-#import <AtoZ/BaseModel.h>
-#import <AtoZ/NSBag.h>
 
 #import "BlocksAdditions.h"
 #import "SMModelObject.h"
@@ -69,6 +74,7 @@
 #import "AZCSSColors.h"
 //#import "MondoSwitch.h"
 #import "AZToggleArrayView.h"
+
 //#import "AZToggleView.h"
 
 //Classes
@@ -103,6 +109,7 @@
 #import "NSArray+F.h"
 #import "NSDictionary+F.h"
 #import "NSNumber+F.h"
+#import "NSTextView+AtoZ.h"
 
 #import "LoremIpsum.h"
 #import "AZVeil.h"
