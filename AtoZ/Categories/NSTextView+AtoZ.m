@@ -7,6 +7,7 @@
 //
 
 
+#import "NSTextView+AtoZ.h"
 
 @implementation AZTextViewResponder
 - (void) mouseDown:(NSEvent *)theEvent {

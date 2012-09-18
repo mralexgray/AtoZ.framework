@@ -7,7 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import <AtoZ/AtoZ.h>
+#import "AtoZ.h"
 
 #define UIImage NSImage
 #define UIColor NSColor

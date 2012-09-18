@@ -1,27 +1,28 @@
 // Prefix header for all source files of the 'AtoZ' target in the 'AtoZ' project
 
 #ifdef __OBJC__
-#if TARGET_OS_IPHONE
-	#import <UIKit/UIKit.h>
-	typedef UIView NSView;
-	typedef CGSize NSSize;
-	typedef CGRect NSRect;
-	typedef UIColor NSColor;
-#else
+//#if TARGET_OS_IPHONE
+//	#import <UIKit/UIKit.h>
+//	typedef UIView NSView;
+//	typedef CGSize NSSize;
+//	typedef CGRect NSRect;
+//	typedef UIColor NSColor;
+//#else
 	#import <Cocoa/Cocoa.h>
-	#import <Foundation/Foundation.h>
-	#import <ApplicationServices/ApplicationServices.h>
-	#import <AppKit/AppKit.h>
-	#import <AudioToolbox/AudioToolbox.h>
 	#import <QuartzCore/QuartzCore.h>
-	#define EXCLUDE_STUB_PROTOTYPES 1
-	#import <PLWeakCompatibility/PLWeakCompatibilityStubs.h>
-
-
-	#import	"AZGeometry.h"
-
+	#import <FunSize/FunSize.h>
+	#import	"AtoZUmbrella.h"
 	#import "AtoZ.h"
-#endif
+
+//	#import	"AZGeometry/AZGeometry.h"
+//	#import "AtoZ.h"
+//
+//	#import <ApplicationServices/ApplicationServices.h>
+//	#import <AppKit/AppKit.h>
+//	#import <AudioToolbox/AudioToolbox.h>
+//	#import <QuartzCore/QuartzCore.h>
+
+//#endif
 #endif
 
 

@@ -7,6 +7,7 @@
 //
 
 #import "AZMedallionView.h"
+#import "AtoZ.h"
 
 @implementation AZMedallionView
 
@@ -120,7 +121,7 @@
 //; UIGraphicsGetCurrentContext();
     CGContextSaveGState(contextRef);
 
-    CGImageRef imageRef = CGImageCreateWithMask(self.image.CGImage, mainMaskImageRef);
+    CGImageRef imageRef = CGImageCreateWithMask([_image cgImage], mainMaskImageRef);
 
     CGContextTranslateCTM(contextRef, 0, rect.size.height);
     CGContextScaleCTM(contextRef, 1.0, -1.0);

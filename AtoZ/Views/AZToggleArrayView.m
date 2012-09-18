@@ -4,7 +4,7 @@
 //  Copyright (C) 2009 Gentle Bytes. All rights reserved.
 
 //	#import "AZToggleControlLayer.h"
-#import <AtoZ/AtoZ.h>
+#import "AtoZ.h"
 #import "AZToggleArrayView.h"
 
 //	Change to YES to enable colored frames - useful for debugging layers layout
@@ -207,7 +207,8 @@ NSString *const AZToggleState	= @"AZToggleState";
 						  //[[_delegate toggleForView:self atIndex:i-1] valueForKey:AZToggleRel];
 			NSString *on = response[AZToggleOn] ? response[AZToggleOn] : @"ON";
 			NSString *off = response[AZToggleOff] ? response[AZToggleOff] : @"OFF";
-			BOOL state = response[AZToggleState] ? [response boolForKey:AZToggleState] : YES;
+//			BOOL state = response[AZToggleState] ? [response boolForKey:AZToggleState] : YES;
+			BOOL state = [response[AZToggleState]booleanValue];// ? YES;
 
 			[_containerLayer addSublayer:
 				[self itemLayerWithName:label relativeTo:rel onText:on offText:off state:state index:i]];
