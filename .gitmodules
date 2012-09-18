@@ -1,6 +1,3 @@
-[submodule "Frameworks/CoreScroll"]
-	path = Frameworks/CoreScroll
-	url = https://github.com/mralexgray/CoreScroll.git
 [submodule "AtoZ/Categories/Functional"]
 	path = AtoZ/Categories/Functional
 	url = git@github.com:mralexgray/Functional.m.git
@@ -10,9 +7,9 @@
 [submodule "CoreScroll"]
 	path = Frameworks/CoreScroll
 	url = https://github.com/mralexgray/CoreScroll.git
-[submodule "Frameworks/BlocksKit"]
+[submodule "BlocksKit"]
 	path = Frameworks/BlocksKit
-	url = git://github.com/zwaldowski/BlocksKit
+	url = git://github.com/zwaldowski/BlocksKit.git
 [submodule "AtoZ/Classes/Lorem-Ipsum"]
 	path = AtoZ/Classes/Lorem-Ipsum
 	url = git://github.com/dav/Objective-C-Lorem-Ipsum-Generator.git
