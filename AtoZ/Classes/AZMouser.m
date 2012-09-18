@@ -1,5 +1,5 @@
 #import "AZMouser.h"
-#import "AtoZ.h"
+//#import "AtoZ.h
 #include <string.h>
 
 bool bDragging = false;		int bMouseSpeed = 4;			/* MOUSE MOVEMENT */

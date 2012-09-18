@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Protocols/AZBoxGridDelegate.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intf/AZBoxGridDelegate</TokenIdentifier>
+			<Abstract> The collections views delegate protocol.  </Abstract>
+			<DeclaredIn>AZBoxGrid.h</DeclaredIn>
+			
+			<NodeRef refid="61"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/AZBoxGridDelegate/collectionView:didSelectCellAtIndex:</TokenIdentifier>
+			<Abstract> Invoked when the cell at the given index was selected.  </Abstract>
+			<DeclaredIn>AZBoxGrid.h</DeclaredIn>			
+			
+			<Declaration>- (void)collectionView:(AZBoxGrid *)collectionView didSelectCellAtIndex:(NSUInteger)index</Declaration>
+			
+			
+			<Anchor>//api/name/collectionView:didSelectCellAtIndex:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/AZBoxGridDelegate/collectionView:didDoubleClickedCellAtIndex:</TokenIdentifier>
+			<Abstract> Invoked when the user double clicked on the given cell.  </Abstract>
+			<DeclaredIn>AZBoxGrid.h</DeclaredIn>			
+			
+			<Declaration>- (void)collectionView:(AZBoxGrid *)collectionView didDoubleClickedCellAtIndex:(NSUInteger)index</Declaration>
+			
+			
+			<Anchor>//api/name/collectionView:didDoubleClickedCellAtIndex:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/AZBoxGridDelegate/collectionView:didDeselectCellAtIndex:</TokenIdentifier>
+			<Abstract> Invoked when the cell at the given index was deselected.  </Abstract>
+			<DeclaredIn>AZBoxGrid.h</DeclaredIn>			
+			
+			<Declaration>- (void)collectionView:(AZBoxGrid *)collectionView didDeselectCellAtIndex:(NSUInteger)index</Declaration>
+			
+			
+			<Anchor>//api/name/collectionView:didDeselectCellAtIndex:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/AZBoxGridDelegate/collectionView:keyEvent:forCellAtIndex:</TokenIdentifier>
+			<Abstract>Invoked when there was an unhandled key event. The method will be invoked for every selected cell.
+@remark Currently handled are the cursor keys.  *</Abstract>
+			<DeclaredIn>AZBoxGrid.h</DeclaredIn>			
+			
+			<Declaration>- (void)collectionView:(AZBoxGrid *)collectionView keyEvent:(NSEvent *)event forCellAtIndex:(NSUInteger)index</Declaration>
+			
+			
+			<Anchor>//api/name/collectionView:keyEvent:forCellAtIndex:</Anchor>
+		</Token>
+		
+	</File>
+</Tokens>

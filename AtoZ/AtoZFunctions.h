@@ -7,64 +7,28 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "AtoZ.h"
-//
-//@interface AtoZ (MiscUtils)
-//
-//@end
-
-@interface AZNegatableArray : NSObject
-
-- (id) objectAtIndexedSubscript: (NSInteger) index;
-- (void) setObject: (id) thing  atIndexedSubscript: (NSInteger) index;
-
-@end // AZNegatableArray
+//#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 
 
-NS_INLINE NSRect SFCopyRect(NSRect toCopy) {
-	return NSMakeRect(toCopy.origin.x, toCopy.origin.y,
-					  toCopy.size.width, toCopy.size.height);
-}
+NS_INLINE NSRect SFCopyRect(NSRect toCopy) {	return NSMakeRect(toCopy.origin.x, toCopy.origin.y, toCopy.size.width, toCopy.size.height); }
 
-NS_INLINE NSRect SFMakeRect(NSPoint origin, NSSize size) {
-	return NSMakeRect(origin.x, origin.y, size.width, size.height);
-}
+NS_INLINE NSRect SFMakeRect(NSPoint origin, NSSize size) {	return NSMakeRect(origin.x, origin.y, size.width, size.height); }
 
+NS_INLINE NSPoint SFCopyPoint(NSPoint toCopy) {	return NSMakePoint(toCopy.x, toCopy.y);	}
 
-NS_INLINE NSPoint SFCopyPoint(NSPoint toCopy) {
-	return NSMakePoint(toCopy.x, toCopy.y);
-}
+static inline CGRect convertToCGRect(NSRect rect) {	return *(const CGRect *)&rect;}
 
+static inline NSRect convertToNSRect(CGRect rect) { 	return *(const NSRect *)&rect;	}
 
-static inline CGRect
-convertToCGRect(NSRect rect)
-{
-	return *(const CGRect *)&rect;
-}
+static inline NSPoint convertToNSPoint(CGPoint point) {	return *(const NSPoint *)&point;	}
 
-static inline NSRect
-convertToNSRect(CGRect rect)
-{
-	return *(const NSRect *)&rect;
-}
-
-static inline NSPoint
-convertToNSPoint(CGPoint point)
-{
-	return *(const NSPoint *)&point;
-}
-
-static inline CGPoint
-convertToCGPoint(NSPoint point)
-{
-	return *(const CGPoint *)&point;
-}
-
-
+static inline CGPoint convertToCGPoint(NSPoint point) {	return *(const CGPoint *)&point;	}
 
 
 #define AZLOG(log) NSLog(@"%@", log)
-
+#define AZWORKSPACE [NSWorkspace sharedWorkspace]
+#define AZNOTCENTER [NSNotificationCenter defaultCenter]
 
 static double frandom(double start, double end);
 
@@ -75,6 +39,22 @@ extern void DrawGlossGradient(CGContextRef context, NSColor *color, NSRect inRec
 extern CGFloat perceptualGlossFractionForColor(CGFloat *inputComponents);
 
 static void glossInterpolation(void *info, const CGFloat *input, CGFloat *output);
+
+
+
+@interface Slice : NSObject
+@property NSInteger start;
+@property NSInteger length;
+@end
+
+@interface NSArray (Slicing)
+- (id)objectForKeyedSubscript: (id)subscript;
+@end
+
+@interface NSNumber (SliceCreation)
+- (Slice *): (NSInteger)length;
+@end
+
 
 /*
 	// make sure non-Clang compilers can still compile

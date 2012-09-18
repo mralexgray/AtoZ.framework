@@ -1,0 +1,4 @@
+Documentation set was installed to Xcode!
+
+Path: /Users/localadmin/Library/Developer/Shared/Documentation/DocSets/com.github.mralexgray.AtoZ.Framework.docset
+Time: 2012-09-16 00:31:17 +0000

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Categories/NSColor+AIColorAdditions_ObjectColor.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cat/NSColor(AIColorAdditions_ObjectColor)</TokenIdentifier>
+			<Abstract>@brief Convert one or two hex characters to a float</Abstract>
+			<DeclaredIn>NSColor+AtoZ.m</DeclaredIn>
+			
+			<NodeRef refid="43"/>
+		</Token>
+		
+		
+	</File>
+</Tokens>

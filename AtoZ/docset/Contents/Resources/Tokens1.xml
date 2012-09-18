@@ -1,0 +1,605 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/AGProcess.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/AGProcess</TokenIdentifier>
+			<Abstract>@class AGProcess
+@abstract A class for reporting Unix process statistics.
+@discussion AGProcess is a class for reporting Unix process statistics. It is similar to NSProcessInfo except that it provides more information, and can represent any process, not just the current process. Additionally it provides methods for sending signals to processes.</Abstract>
+			<DeclaredIn>AGProcess.h</DeclaredIn>
+			
+			<NodeRef refid="1"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AGProcess/initWithProcessIdentifier:</TokenIdentifier>
+			<Abstract>@method initWithProcessIdentifier:
+Initializes the receiver with the given process identifier. Returns nil if no such process exists.</Abstract>
+			<DeclaredIn>AGProcess.h</DeclaredIn>			
+			
+			<Declaration>- (id)initWithProcessIdentifier:(int)pid</Declaration>
+			
+			
+			<Anchor>//api/name/initWithProcessIdentifier:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/AGProcess/currentProcess</TokenIdentifier>
+			<Abstract>@method currentProcess
+Returns the current process.</Abstract>
+			<DeclaredIn>AGProcess.h</DeclaredIn>			
+			
+			<Declaration>+ (AGProcess *)currentProcess</Declaration>
+			
+			
+			<Anchor>//api/name/currentProcess</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/AGProcess/allProcesses</TokenIdentifier>
+			<Abstract>@method allProcesses
+Returns an array of all processes.</Abstract>
+			<DeclaredIn>AGProcess.h</DeclaredIn>			
+			
+			<Declaration>+ (NSArray *)allProcesses</Declaration>
+			
+			
+			<Anchor>//api/name/allProcesses</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/AGProcess/userProcesses</TokenIdentifier>
+			<Abstract>@method userProcesses
+Returns an array of all processes running for the current user.</Abstract>
+			<DeclaredIn>AGProcess.h</DeclaredIn>			
+			
+			<Declaration>+ (NSArray *)userProcesses</Declaration>
+			
+			
+			<Anchor>//api/name/userProcesses</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/AGProcess/processForProcessIdentifier:</TokenIdentifier>
+			<Abstract>@method processForProcessIdentifier:
+Returns the process for the given process identifier, or nil if no such process exists.</Abstract>
+			<DeclaredIn>AGProcess.h</DeclaredIn>			
+			
+			<Declaration>+ (AGProcess *)processForProcessIdentifier:(int)pid</Declaration>
+			
+			
+			<Anchor>//api/name/processForProcessIdentifier:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/AGProcess/processesForProcessGroup:</TokenIdentifier>
+			<Abstract>@method processesForProcessGroup:
+Returns an array of all processes in the given process group.</Abstract>
+			<DeclaredIn>AGProcess.h</DeclaredIn>			
+			
+			<Declaration>+ (NSArray *)processesForProcessGroup:(int)pgid</Declaration>
+			
+			
+			<Anchor>//api/name/processesForProcessGroup:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/AGProcess/processesForTerminal:</TokenIdentifier>
+			<Abstract>@method processesForTerminal:
+Returns an array of all processes running on the given terminal. Takes a terminal device number.</Abstract>
+			<DeclaredIn>AGProcess.h</DeclaredIn>			
+			
+			<Declaration>+ (NSArray *)processesForTerminal:(int)tdev</Declaration>
+			
+			
+			<Anchor>//api/name/processesForTerminal:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/AGProcess/processesForUser:</TokenIdentifier>
+			<Abstract>@method processesForUser:
+Returns an array of all processes for the given user.</Abstract>
+			<DeclaredIn>AGProcess.h</DeclaredIn>			
+			
+			<Declaration>+ (NSArray *)processesForUser:(int)uid</Declaration>
+			
+			
+			<Anchor>//api/name/processesForUser:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/AGProcess/processesForRealUser:</TokenIdentifier>
+			<Abstract>@method processesForRealUser:
+Returns an array of all processes for the given real user.</Abstract>
+			<DeclaredIn>AGProcess.h</DeclaredIn>			
+			
+			<Declaration>+ (NSArray *)processesForRealUser:(int)ruid</Declaration>
+			
+			
+			<Anchor>//api/name/processesForRealUser:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/AGProcess/processForCommand:</TokenIdentifier>
+			<Abstract>@method processForCommand:
+Returns the process for the given command, or nil if no such process exists. If there is more than one process with the same command, there is no guarantee which will be returned.</Abstract>
+			<DeclaredIn>AGProcess.h</DeclaredIn>			
+			
+			<Declaration>+ (AGProcess *)processForCommand:(NSString *)comm</Declaration>
+			
+			
+			<Anchor>//api/name/processForCommand:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/AGProcess/processesForCommand:</TokenIdentifier>
+			<Abstract>@method processesForCommand:
+Returns an array of all processes for the given command.</Abstract>
+			<DeclaredIn>AGProcess.h</DeclaredIn>			
+			
+			<Declaration>+ (NSArray *)processesForCommand:(NSString *)comm</Declaration>
+			
+			
+			<Anchor>//api/name/processesForCommand:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AGProcess/processIdentifier</TokenIdentifier>
+			<Abstract>@method processIdentifier
+Returns the process identifier.</Abstract>
+			<DeclaredIn>AGProcess.h</DeclaredIn>			
+			
+			<Declaration>- (int)processIdentifier</Declaration>
+			
+			
+			<Anchor>//api/name/processIdentifier</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AGProcess/parentProcessIdentifier</TokenIdentifier>
+			<Abstract>@method parentProcessIdentifier
+Returns the parent process identifier.</Abstract>
+			<DeclaredIn>AGProcess.h</DeclaredIn>			
+			
+			<Declaration>- (int)parentProcessIdentifier</Declaration>
+			
+			
+			<Anchor>//api/name/parentProcessIdentifier</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AGProcess/processGroup</TokenIdentifier>
+			<Abstract>@method processGroup
+Returns the process group.</Abstract>
+			<DeclaredIn>AGProcess.h</DeclaredIn>			
+			
+			<Declaration>- (int)processGroup</Declaration>
+			
+			
+			<Anchor>//api/name/processGroup</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AGProcess/terminal</TokenIdentifier>
+			<Abstract>@method terminal
+Returns the terminal device number.</Abstract>
+			<DeclaredIn>AGProcess.h</DeclaredIn>			
+			
+			<Declaration>- (int)terminal</Declaration>
+			
+			
+			<Anchor>//api/name/terminal</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AGProcess/terminalProcessGroup</TokenIdentifier>
+			<Abstract>@method terminalProcessGroup
+Returns the terminal process group.</Abstract>
+			<DeclaredIn>AGProcess.h</DeclaredIn>			
+			
+			<Declaration>- (int)terminalProcessGroup</Declaration>
+			
+			
+			<Anchor>//api/name/terminalProcessGroup</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AGProcess/userIdentifier</TokenIdentifier>
+			<Abstract>@method userIdentifier
+Returns the user identifier.</Abstract>
+			<DeclaredIn>AGProcess.h</DeclaredIn>			
+			
+			<Declaration>- (int)userIdentifier</Declaration>
+			
+			
+			<Anchor>//api/name/userIdentifier</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AGProcess/realUserIdentifier</TokenIdentifier>
+			<Abstract>@method realUserIdentifier
+Returns the real user identifier.</Abstract>
+			<DeclaredIn>AGProcess.h</DeclaredIn>			
+			
+			<Declaration>- (int)realUserIdentifier</Declaration>
+			
+			
+			<Anchor>//api/name/realUserIdentifier</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AGProcess/percentCPUUsage</TokenIdentifier>
+			<Abstract>@method percentCPUUsage
+Returns the current CPU usage in the range 0.0 - 1.0.</Abstract>
+			<DeclaredIn>AGProcess.h</DeclaredIn>			
+			
+			<Declaration>- (double)percentCPUUsage</Declaration>
+			
+			
+			<Anchor>//api/name/percentCPUUsage</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AGProcess/totalCPUTime</TokenIdentifier>
+			<Abstract>@method totalCPUTime
+Returns the accumulated CPU time in seconds.</Abstract>
+			<DeclaredIn>AGProcess.h</DeclaredIn>			
+			
+			<Declaration>- (double)totalCPUTime</Declaration>
+			
+			
+			<Anchor>//api/name/totalCPUTime</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AGProcess/userCPUTime</TokenIdentifier>
+			<Abstract>@method userCPUTime
+Returns the accumulated user CPU time in seconds.</Abstract>
+			<DeclaredIn>AGProcess.h</DeclaredIn>			
+			
+			<Declaration>- (double)userCPUTime</Declaration>
+			
+			
+			<Anchor>//api/name/userCPUTime</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AGProcess/systemCPUTime</TokenIdentifier>
+			<Abstract>@method systemCPUTime
+Returns the accumulated system CPU time in seconds.</Abstract>
+			<DeclaredIn>AGProcess.h</DeclaredIn>			
+			
+			<Declaration>- (double)systemCPUTime</Declaration>
+			
+			
+			<Anchor>//api/name/systemCPUTime</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AGProcess/percentMemoryUsage</TokenIdentifier>
+			<Abstract>@method percentMemoryUsage
+Returns resident memory usage as a fraction of the host's physical memory in the range 0.0 - 1.0.</Abstract>
+			<DeclaredIn>AGProcess.h</DeclaredIn>			
+			
+			<Declaration>- (double)percentMemoryUsage</Declaration>
+			
+			
+			<Anchor>//api/name/percentMemoryUsage</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AGProcess/virtualMemorySize</TokenIdentifier>
+			<Abstract>@method virtualMemorySize
+Returns the virtual memory size in bytes.</Abstract>
+			<DeclaredIn>AGProcess.h</DeclaredIn>			
+			
+			<Declaration>- (unsigned)virtualMemorySize</Declaration>
+			
+			
+			<Anchor>//api/name/virtualMemorySize</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AGProcess/residentMemorySize</TokenIdentifier>
+			<Abstract>@method residentMemorySize
+Returns the resident memory size in bytes.</Abstract>
+			<DeclaredIn>AGProcess.h</DeclaredIn>			
+			
+			<Declaration>- (unsigned)residentMemorySize</Declaration>
+			
+			
+			<Anchor>//api/name/residentMemorySize</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AGProcess/state</TokenIdentifier>
+			<Abstract>@method state
+Returns the current state. Possible values are defined by AGProcessState.</Abstract>
+			<DeclaredIn>AGProcess.h</DeclaredIn>			
+			
+			<Declaration>- (AGProcessState)state</Declaration>
+			
+			
+			<Anchor>//api/name/state</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AGProcess/priority</TokenIdentifier>
+			<Abstract>@method priority
+Returns the current priority.</Abstract>
+			<DeclaredIn>AGProcess.h</DeclaredIn>			
+			
+			<Declaration>- (int)priority</Declaration>
+			
+			
+			<Anchor>//api/name/priority</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AGProcess/basePriority</TokenIdentifier>
+			<Abstract>@method basePriority
+Returns the base priority.</Abstract>
+			<DeclaredIn>AGProcess.h</DeclaredIn>			
+			
+			<Declaration>- (int)basePriority</Declaration>
+			
+			
+			<Anchor>//api/name/basePriority</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AGProcess/threadCount</TokenIdentifier>
+			<Abstract>@method threadCount
+Returns the number of threads.</Abstract>
+			<DeclaredIn>AGProcess.h</DeclaredIn>			
+			
+			<Declaration>- (int)threadCount</Declaration>
+			
+			
+			<Anchor>//api/name/threadCount</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AGProcess/command</TokenIdentifier>
+			<Abstract>@method command
+Attempts to return the command that was called to execute the process. If that fails, attempts to return the accounting name. If that fails, returns an empty string.</Abstract>
+			<DeclaredIn>AGProcess.h</DeclaredIn>			
+			
+			<Declaration>- (NSString *)command</Declaration>
+			
+			
+			<Anchor>//api/name/command</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AGProcess/annotation</TokenIdentifier>
+			<Abstract>@method annotation
+Returns an annotation that can be used to distinguish multiple instances of a process name. The current implementation does this by examining the command line arguments for "DashboardClient" and "java" processes. If there is no annotation, the method returns nil.</Abstract>
+			<DeclaredIn>AGProcess.h</DeclaredIn>			
+			
+			<Declaration>- (NSString *)annotation</Declaration>
+			
+			
+			<Anchor>//api/name/annotation</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AGProcess/annotatedCommand</TokenIdentifier>
+			<Abstract>@method annotatedCommand
+Returns a composite string consisting of the command name and its annotation</Abstract>
+			<DeclaredIn>AGProcess.h</DeclaredIn>			
+			
+			<Declaration>- (NSString *)annotatedCommand</Declaration>
+			
+			
+			<Anchor>//api/name/annotatedCommand</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AGProcess/arguments</TokenIdentifier>
+			<Abstract>@method arguments
+Returns an array containing the command line arguments called to execute the process. This method is not perfectly reliable.</Abstract>
+			<DeclaredIn>AGProcess.h</DeclaredIn>			
+			
+			<Declaration>- (NSArray *)arguments</Declaration>
+			
+			
+			<Anchor>//api/name/arguments</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AGProcess/environment</TokenIdentifier>
+			<Abstract>@method environment
+Returns a dictionary containing the environment variables of the process. This method is not perfectly reliable.</Abstract>
+			<DeclaredIn>AGProcess.h</DeclaredIn>			
+			
+			<Declaration>- (NSDictionary *)environment</Declaration>
+			
+			
+			<Anchor>//api/name/environment</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AGProcess/parent</TokenIdentifier>
+			<Abstract>@method parent
+Returns the parent process.</Abstract>
+			<DeclaredIn>AGProcess.h</DeclaredIn>			
+			
+			<Declaration>- (AGProcess *)parent</Declaration>
+			
+			
+			<Anchor>//api/name/parent</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AGProcess/children</TokenIdentifier>
+			<Abstract>@method children
+Returns an array containing the process's children, if any.</Abstract>
+			<DeclaredIn>AGProcess.h</DeclaredIn>			
+			
+			<Declaration>- (NSArray *)children</Declaration>
+			
+			
+			<Anchor>//api/name/children</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AGProcess/siblings</TokenIdentifier>
+			<Abstract>@method siblings
+Returns an array containing the process's siblings, if any.</Abstract>
+			<DeclaredIn>AGProcess.h</DeclaredIn>			
+			
+			<Declaration>- (NSArray *)siblings</Declaration>
+			
+			
+			<Anchor>//api/name/siblings</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AGProcess/suspend</TokenIdentifier>
+			<Abstract>@method suspend
+Sends SIGSTOP.</Abstract>
+			<DeclaredIn>AGProcess.h</DeclaredIn>			
+			
+			<Declaration>- (BOOL)suspend</Declaration>
+			
+			
+			<Anchor>//api/name/suspend</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AGProcess/resume</TokenIdentifier>
+			<Abstract>@method resume
+Sends SIGCONT.</Abstract>
+			<DeclaredIn>AGProcess.h</DeclaredIn>			
+			
+			<Declaration>- (BOOL)resume</Declaration>
+			
+			
+			<Anchor>//api/name/resume</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AGProcess/interrupt</TokenIdentifier>
+			<Abstract>@method interrupt
+Sends SIGINT.</Abstract>
+			<DeclaredIn>AGProcess.h</DeclaredIn>			
+			
+			<Declaration>- (BOOL)interrupt</Declaration>
+			
+			
+			<Anchor>//api/name/interrupt</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AGProcess/terminate</TokenIdentifier>
+			<Abstract>@method terminate
+Sends SIGTERM.</Abstract>
+			<DeclaredIn>AGProcess.h</DeclaredIn>			
+			
+			<Declaration>- (BOOL)terminate</Declaration>
+			
+			
+			<Anchor>//api/name/terminate</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AGProcess/faults</TokenIdentifier>
+			<Abstract>@method faults
+Returns the number of page faults.</Abstract>
+			<DeclaredIn>AGProcess.h</DeclaredIn>			
+			
+			<Declaration>- (int)faults</Declaration>
+			
+			
+			<Anchor>//api/name/faults</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AGProcess/pageins</TokenIdentifier>
+			<Abstract>@method pageins
+Returns the number of pageins.</Abstract>
+			<DeclaredIn>AGProcess.h</DeclaredIn>			
+			
+			<Declaration>- (int)pageins</Declaration>
+			
+			
+			<Anchor>//api/name/pageins</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AGProcess/copyOnWriteFaults</TokenIdentifier>
+			<Abstract>@method copyOnWriteFaults
+Returns the number of copy on write faults.</Abstract>
+			<DeclaredIn>AGProcess.h</DeclaredIn>			
+			
+			<Declaration>- (int)copyOnWriteFaults</Declaration>
+			
+			
+			<Anchor>//api/name/copyOnWriteFaults</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AGProcess/messagesSent</TokenIdentifier>
+			<Abstract>@method messagesSent
+Returns the number of Mach messages sent.</Abstract>
+			<DeclaredIn>AGProcess.h</DeclaredIn>			
+			
+			<Declaration>- (int)messagesSent</Declaration>
+			
+			
+			<Anchor>//api/name/messagesSent</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AGProcess/messagesReceived</TokenIdentifier>
+			<Abstract>@method messagesReceived
+Returns the number of Mach messages received.</Abstract>
+			<DeclaredIn>AGProcess.h</DeclaredIn>			
+			
+			<Declaration>- (int)messagesReceived</Declaration>
+			
+			
+			<Anchor>//api/name/messagesReceived</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AGProcess/machSystemCalls</TokenIdentifier>
+			<Abstract>@method machSystemCalls
+Returns the number of Mach system calls.</Abstract>
+			<DeclaredIn>AGProcess.h</DeclaredIn>			
+			
+			<Declaration>- (int)machSystemCalls</Declaration>
+			
+			
+			<Anchor>//api/name/machSystemCalls</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AGProcess/unixSystemCalls</TokenIdentifier>
+			<Abstract>@method unixSystemCalls
+Returns the number of Unix system calls.</Abstract>
+			<DeclaredIn>AGProcess.h</DeclaredIn>			
+			
+			<Declaration>- (int)unixSystemCalls</Declaration>
+			
+			
+			<Anchor>//api/name/unixSystemCalls</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AGProcess/contextSwitches</TokenIdentifier>
+			<Abstract>@method contextSwitches
+Returns the number of context switches.</Abstract>
+			<DeclaredIn>AGProcess.h</DeclaredIn>			
+			
+			<Declaration>- (int)contextSwitches</Declaration>
+			
+			
+			<Anchor>//api/name/contextSwitches</Anchor>
+		</Token>
+		
+	</File>
+</Tokens>

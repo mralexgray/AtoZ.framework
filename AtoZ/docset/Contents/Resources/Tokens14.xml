@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/AZStatusItemView.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/AZStatusItemView</TokenIdentifier>
+			<Abstract></Abstract>
+			<DeclaredIn>AZStatusItemView.h</DeclaredIn>
+			
+			<NodeRef refid="14"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AZStatusItemView/setDelegate:</TokenIdentifier>
+			<Abstract> The delegate of the collection view.  </Abstract>
+			<DeclaredIn>AZStatusItemView.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, unsafe_unretained) IBOutlet id&lt;AZStatusItemDelegate&gt; delegate</Declaration>
+			
+			
+			<Anchor>//api/name/delegate</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/AZStatusItemView/delegate</TokenIdentifier>
+			<Abstract> The delegate of the collection view.  </Abstract>
+			<DeclaredIn>AZStatusItemView.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, unsafe_unretained) IBOutlet id&lt;AZStatusItemDelegate&gt; delegate</Declaration>
+			
+			
+			<Anchor>//api/name/delegate</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AZStatusItemView/drawRect:</TokenIdentifier>
+			<Abstract>/		[_indicator setStyle:NSProgressIndicatorSpinningStyle];
+/		[self addSubview:_indicator];
+/		[cell setSpinning:YES];</Abstract>
+			<DeclaredIn>AZStatusItemView.m</DeclaredIn>			
+			
+			<Declaration>- (void)drawRect:(NSRect)rect</Declaration>
+			
+			
+			<Anchor>//api/name/drawRect:</Anchor>
+		</Token>
+		
+	</File>
+</Tokens>

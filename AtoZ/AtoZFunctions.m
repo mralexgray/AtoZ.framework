@@ -7,44 +7,7 @@
 //
 
 #import "AtoZFunctions.h"
-#import "AtoZ.h"
-
-@interface AZNegatableArray () {
-    NSMutableArray *_backingstore;
-}
-@end // extension
-
-@implementation AZNegatableArray
-
-- (id) init {    if ((self = [super init])) {        _backingstore = [NSMutableArray array];	}	return self;	} // init
-
-- (NSString *) description {    return [_backingstore description];	} // descriptioin
-
-//	The implementation of the accessor is very straightforward.
-//	If the index is negative, do a little arithmetic to put the index on the positive side of zero.
-
-- (id) objectAtIndexedSubscript: (NSInteger) index
-{
-    if (index < 0) index = _backingstore.count + index;
-	return [_backingstore objectAtIndex: index];
-} // objectAtIndexedSubscript
-
-//	You can do the exact same calculation in setObject:atIndexedSubscript: and call it a day. But for fun, and to make the mutating method a little more interesting, the array will use a null-fill when setting a value far off the end of the collection (where “far” is more than one index). Recall that with vanilla Cocoa, setting a value exactly one index past the end of an NSMutableArray will extend it and anything farther throws an exception. BNRNegativeArray will fill in intervening indexes with [NSNull null].
-
-- (void) setObject: (id) thing  atIndexedSubscript: (NSInteger) index {
-    if (index < 0) index = _backingstore.count + index;
-
-//	Mutable array only allows setting the first-empty-index, like  -insertObject:atIndex:.  Any past that throws a range exception.
-//	So let's be different and fill in intervening spaces w/ [NSNull null] If you want to see @NULL, dupe rdar://10892975
-
-    NSInteger toAdd 					= 	index - _backingstore.count;
-	for (int i = 0; i < toAdd; i++) 		[_backingstore addObject: [NSNull null]];
-    if (index >= _backingstore.count)		[_backingstore addObject: thing];
-	else  [_backingstore replaceObjectAtIndex: index  withObject: thing];
-} // setObject atIndexedSubscript
-
-@end // AZNegatableArray
-
+//#import "AtoZ.h"
 
 
 void perceptualCausticColorForColor(CGFloat *inputComponents, CGFloat *outputComponents) {
@@ -174,7 +137,50 @@ static double frandom(double start, double end)
 	return r;
 }
 
+@implementation Slice
+@end
 
+@implementation NSNumber (SliceCreation)
+
+- (Slice *): (NSInteger)length
+{
+    Slice *slice = [[Slice alloc] init];
+    [slice setStart: [self integerValue]];
+    [slice setLength: length];
+    return slice;
+}
+
+@end
+
+@implementation NSArray (slicing)
+- (id)objectForKeyedSubscript: (id)subscript		{	Slice *slice = subscript;
+    return [self subarrayWithRange: NSMakeRange([slice start], [slice length])];
+}
+@end
+
+
+/*
+int main(int argc, char **argv)
+{	@autoreleasepool
+    {	NSMutableArray *array = [NSMutableArray array];
+        for(int i = 0; i < 100; i++)
+            [array addObject: @(i * i)];
+
+        NSArray *sliced = array[[@5:8]];
+        NSLog(@"%@", sliced);
+    }
+}
+*/
+	// 2012-07-09 17:15:12.705 a.out[84967:707] (
+	//     25,
+	//     36,
+	//     49,
+	//     64,
+	//     81,
+	//     100,
+	//     121,
+	//     144
+	// )
 
 
 

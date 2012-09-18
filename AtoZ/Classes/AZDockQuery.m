@@ -70,7 +70,7 @@
 						}
 
 						if ( convertedURL != nil) {
-							AZFile *d =  [AZFile instanceWithPath:convertedURL];
+							AZDockItem *d =  [AZDockItem instanceWithPath:convertedURL];
 								d.spot = idx;
 								d.dockPoint = coordinates;
 
@@ -128,7 +128,7 @@
 						if (result3 == kAXErrorSuccess)	{
 							if (AXValueGetValue(position, kAXValueCGPointType, &coordinates)) {
 							thePoint = coordinates;
-							stop = YES;
+							*stop = YES;
 							}
 						}
 					}

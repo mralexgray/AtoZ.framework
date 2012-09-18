@@ -35,7 +35,7 @@
 //	NSTrackingArea *tArea;
 }
 
-@synthesize  unit =_unit, scale =_scale, orientation=_orientation, infiniteObjects = _infiniteViews, docV = _docV;
+//@synthesize  unit =_unit, scale =_scale, orientation=_orientation, infiniteObjects = _infiniteObjects, docV = _docV;
 
 - (void) awakeFromNib {
 
@@ -44,14 +44,15 @@
  	offset = 0;
 	_orientation = AZOrientLeft;
 	_scale = AZInfiteScale0X;
-	[self 				setPostsFrameChangedNotifications:	YES];
-	[[self contentView] setPostsBoundsChangedNotifications:	YES];
-	[[self contentView] trackFullView];
-	self.docV = [InfiniteDocumentView new];
-	[self setDocumentView:self.docV];
+	self.docV 											= [InfiniteDocumentView new];
+	self.documentView									= _docV;
 
-	NSNotificationCenter *center = [NSNotificationCenter defaultCenter] ;
-    [center addObserver: self
+	self.postsFrameChangedNotifications 				= YES;
+	self.contentView.postsBoundsChangedNotifications 	= YES;
+	[self.contentView trackFullView];
+
+
+	[NOTCENTER addObserver: self
 			   selector: @selector(boundsDidChangeNotification:)
 				   name: NSViewBoundsDidChangeNotification
 				 object: [self contentView]];
@@ -64,7 +65,7 @@
 
 - (void) setInfiniteObjects:(NSArray *)infiniteObjects
 {
-	_infiniteViews = infiniteObjects.reversed;
+	_infiniteObjects = infiniteObjects.reversed;
 	[self setupInfiniBar];
 }
 
@@ -84,7 +85,7 @@
 	if (_imageViewBar) {  [_imageViewBar fadeOut]; [_imageViewBar removeFromSuperview]; self.imageViewBar = nil; }
 	[[self documentView]removeTrackingArea:_trackingArea];
 	self.trackingArea = nil;
-	NSLog(@"Views set.  number of views to use and reuse: %ld", _infiniteViews.count);
+	NSLog(@"Views set.  number of views to use and reuse: %ld", _infiniteObjects.count);
 
 	if ((_orientation == AZOrientLeft) || (_orientation == AZOrientRight)) {
 		switch (_scale) {
@@ -92,42 +93,42 @@
 				self.barUnit = AZMakeRectFromSize(NSMakeSize(self.contentView.frame.size.width,
 														self.contentView.frame.size.width));
 				self.totalBar = NSMakeSize(	_barUnit.size.width,
-										_barUnit.size.height * _infiniteViews.count);
+										_barUnit.size.height * _infiniteObjects.count);
 				break;
 			case AZInfiteScale1X:
 				self.totalBar = self.contentView.frame.size;
 				self.barUnit = AZMakeRectFromSize(NSMakeSize(_totalBar.width,
-														_totalBar.height / _infiniteViews.count));
+														_totalBar.height / _infiniteObjects.count));
 				break;
 			case AZInfiteScale2X:
 				self.totalBar = NSMakeSize(	self.contentView.frame.size.width,
 										self.contentView.frame.size.height * 2);
 				self.barUnit = AZMakeRectFromSize(NSMakeSize(_totalBar.width,
-														_totalBar.height / _infiniteViews.count));
+														_totalBar.height / _infiniteObjects.count));
 				break;
 			case AZInfiteScale3X:
 				self.totalBar = NSMakeSize(	self.contentView.frame.size.width,
 										self.contentView.frame.size.height * 3);
 				self.barUnit = AZMakeRectFromSize(NSMakeSize(_totalBar.width,
-														_totalBar.height / _infiniteViews.count));
+														_totalBar.height / _infiniteObjects.count));
 				break;
 			default:
 				self.totalBar = NSMakeSize(	self.contentView.frame.size.width, self.contentView.frame.size.height * 10);
 				self.barUnit = AZMakeRectFromSize(NSMakeSize(_totalBar.width,
-														_totalBar.height / _infiniteViews.count));
+														_totalBar.height / _infiniteObjects.count));
 				break;
 		}
 
 	} else {
 		self.barUnit = AZSquareFromLength(self.contentView.frame.size.height);
-		self.totalBar = NSMakeSize(_barUnit.size.width * _infiniteViews.count,
+		self.totalBar = NSMakeSize(_barUnit.size.width * _infiniteObjects.count,
 						self.contentView.frame.size.height );
 	}
 	self.totalBarFrame = AZMakeRectFromSize(_totalBar);
 	NSLog(@"taking opicture, it lasts longer!");
 	bar = [[NSImage alloc]initWithSize:_totalBar];
 	[bar lockFocus];
-	[_infiniteViews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+	[_infiniteObjects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 		NSColor *color = [obj valueForKey:@"color"];
 		if (!color) color = RANDOMCOLOR;
 		[color set];  NSRect tempRect = _barUnit;
@@ -183,7 +184,7 @@
 
 NSClipView only invokes this method during automatic or user controlled scrolling. Its scrollToPoint: method~ doesnt invoke this method, so you can still force a scroll to an arbitrary point.*/
 
-//		for (id sv in _infiniteViews ) {
+//		for (id sv in _infiniteObjects ) {
 //			[[self documentView] addSubview: sv];	//	[self setNeedsDisplay:NO];
 //		}
 //		[self stack];
@@ -219,11 +220,11 @@ NSClipView only invokes this method during automatic or user controlled scrollin
 	NSSize 	cSize = [self frame].size;
 	switch (_orientation) {
 		case AZOrientTop:// | AZOrientBottom:
-			cSize.width = cSize.width / _infiniteViews.count ;
+			cSize.width = cSize.width / _infiniteObjects.count ;
 			cSize.width = cSize.width * _scale;
 			break;
 		case AZOrientLeft:// | AZOrientRight:
-			cSize.height = cSize.height / _infiniteViews.count;
+			cSize.height = cSize.height / _infiniteObjects.count;
 			cSize.height = cSize.height * _scale;
 			break;
 	}
@@ -240,10 +241,10 @@ NSClipView only invokes this method during automatic or user controlled scrollin
 //
 //	NSSize totalBar;  NSRect barUnit;
 //	if ((_orientation == AZOrientLeft) || (_orientation == AZOrientRight)) {
-//		totalBar = NSMakeSize(self.contentView.frame.size.width, self.contentView.frame.size.width * _infiniteViews.count);
+//		totalBar = NSMakeSize(self.contentView.frame.size.width, self.contentView.frame.size.width * _infiniteObjects.count);
 //		barUnit = AZSquareFromLength(self.contentView.frame.size.width);
 //	} else {
-//		totalBar = NSMakeSize(self.contentView.frame.size.height * _infiniteViews.count, self.contentView.frame.size.height);
+//		totalBar = NSMakeSize(self.contentView.frame.size.height * _infiniteObjects.count, self.contentView.frame.size.height);
 //		barUnit = AZSquareFromLength(self.contentView.frame.size.height);
 //	}
 //	NSRect totalBarFrame = AZMakeRectFromSize(totalBar);
@@ -287,27 +288,27 @@ NSClipView only invokes this method during automatic or user controlled scrollin
 	//	NSLog(@"offset: %f   raw event x:%f  y:%f", offset, event.deltaX, event.deltaY);
 	/////NSRect flexUnit = self.unit;
 /**	if ( scrollUp ) {
-		[_infiniteViews moveObjectAtIndex:_infiniteViews.count-1 toIndex:0];
+		[_infiniteObjects moveObjectAtIndex:_infiniteObjects.count-1 toIndex:0];
 		switch (_orientation) {
 			case AZOrientTop | AZOrientBottom:
 				flexUnit.origin = NSZeroPoint;
 				flexUnit.origin.x -= flexUnit.size.width;
-				[[_infiniteViews objectAtIndex:0] setFrame:flexUnit];
+				[[_infiniteObjects objectAtIndex:0] setFrame:flexUnit];
 				flexUnit.origin.x += flexUnit.size.width;
-				[[_infiniteViews objectAtIndex:0] setFrame:flexUnit];
+				[[_infiniteObjects objectAtIndex:0] setFrame:flexUnit];
 				break;
 			case AZOrientLeft | AZOrientRight:
 				flexUnit.origin = NSZeroPoint;
 				flexUnit.origin.y -= flexUnit.size.height;
-				[[_infiniteViews objectAtIndex:0] setFrame:flexUnit];
+				[[_infiniteObjects objectAtIndex:0] setFrame:flexUnit];
 				flexUnit.origin.y += flexUnit.size.height;
-				[[_infiniteViews objectAtIndex:0] setFrame:flexUnit];
+				[[_infiniteObjects objectAtIndex:0] setFrame:flexUnit];
 				break;
 		}
 	} else  {
 
-	id c = [_infiniteViews objectAtIndex:0];
-	[_infiniteViews removeObjectAtIndex:0];
+	id c = [_infiniteObjects objectAtIndex:0];
+	[_infiniteObjects removeObjectAtIndex:0];
 	
 	switch (_orientation) {
 		case AZOrientTop:
@@ -316,7 +317,7 @@ NSClipView only invokes this method during automatic or user controlled scrollin
 			[c setFrame:flexUnit];
 			flexUnit.origin.x -= flexUnit.size.width;
 			[c setFrame:flexUnit];
-			[_infiniteViews addObject:c];
+			[_infiniteObjects addObject:c];
 			break;
 		case AZOrientLeft:
 		case AZOrientRight:
@@ -324,7 +325,7 @@ NSClipView only invokes this method during automatic or user controlled scrollin
 			[c setFrame:flexUnit];
 			flexUnit.origin.y -= flexUnit.size.height;
 			[c setFrame:flexUnit];
-			[_infiniteViews addObject:c];
+			[_infiniteObjects addObject:c];
 			break;
 		}
 	}
@@ -334,7 +335,7 @@ NSClipView only invokes this method during automatic or user controlled scrollin
 
 /**	__block NSRect globalShift = self.unit;
 
-	[_infiniteViews enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+	[_infiniteObjects enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 		if (orientation == AZOrientHorizontal )
 			globalShift.origin.x += offset; ( offset > 0 ? unit.size.width : - unit.size.width);
 		else  globalShift.origin.y += ( event.deltaY > 0 ? unit.size.height : - unit.size.height);
@@ -361,18 +362,18 @@ NSClipView only invokes this method during automatic or user controlled scrollin
 	//		[c setFrame:moved];
 	//		moved.origin.y -= scooch;
 	//		[c setFrame:moved];
-	//		[_infiniteViews addObject:c];
+	//		[_infiniteObjects addObject:c];
 */
 /*
 - (void) stack {
 
 	//	if ([self inLiveResize]) return;
 	__block NSRect localunit = self.unit;// = [[self contentView]frame];
-	//	chopped.size.height = chopped.size.height / _infiniteViews.count;
+	//	chopped.size.height = chopped.size.height / _infiniteObjects.count;
 	//	chopped.origin = NSZeroPoint;
 	[NSThread performBlockInBackground:^{
 
-		[_infiniteViews enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(AZInfiniteCell* obj, NSUInteger idx, BOOL *stop) {
+		[_infiniteObjects enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(AZInfiniteCell* obj, NSUInteger idx, BOOL *stop) {
 
 			NSRect pile = localunit;
 			switch (_orientation) {

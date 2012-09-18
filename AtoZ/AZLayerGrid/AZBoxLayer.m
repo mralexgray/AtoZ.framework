@@ -7,7 +7,7 @@
 //
 
 #import "AZBoxLayer.h"
-#import "AtoZ.h"
+//#import <AtoZ/AtoZ.h>
 
 #define kCompositeIconHeight 155.0
 #define kIconWidth 128.0

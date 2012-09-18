@@ -15,31 +15,18 @@
 #import <QuartzCore/QuartzCore.h>
 #import <xpc/xpc.h>
 
-#define EXCLUDE_STUB_PROTOTYPES 1
-#import <PLWeakCompatibility/PLWeakCompatibilityStubs.h>
-#import <Lumberjack/Lumberjack.h>
-#import <XPCKit/XPCKit.h>
-#import <QSCore/QSCore.h>
-#import <QSFoundation/QSFoundation.h>
-#import <QSInterface/QSInterface.h>
-#import <QSEffects/QSEffects.h>
-#import <QSCore/QSCore.h>
-#import <BlocksKit/BlocksKit.h>
-#import <RMKit/RMKit.h>
-#import <FunSize/FunSize.h>
-
-//#import <AtoZ/AtoZ.h>
-#import "AtoZUmbrella.h"
-
-
-#import "BaseModel.h"
-#import "AtoZUmbrella.h"
-#import "AZGeometry.h"
+#import	"BaseModel.h"
+#import	"AtoZumbrella.h"
+#import	"AZGeometry.h"
 #import "AZGeometricFunctions.h"
-#import "AtoZFunctions.h"
 
 
-#import "NSBag.h"
+#import <AtoZ/AtoZFunctions.h>
+#import <AtoZ/AtoZModels.h>
+
+
+#import <AtoZ/BaseModel.h>
+#import <AtoZ/NSBag.h>
 
 #import "BlocksAdditions.h"
 #import "SMModelObject.h"
@@ -54,6 +41,7 @@
 
 // Categories
 #import "NSFileManager+AtoZ.h"
+#import "NSBundle+AtoZ.h"
 #import "NSThread+AtoZ.h"
 #import "NSNotificationCenter+AtoZ.h"
 #import "NSApplication+AtoZ.h"
@@ -116,12 +104,13 @@
 #import "NSDictionary+F.h"
 #import "NSNumber+F.h"
 
+#import "LoremIpsum.h"
 #import "AZVeil.h"
 #import "NotificationCenterSpy.h"
 #import "TransparentWindow.h"
 #import <BlocksKit/BlocksKit.h>
 
-static NSEventMask AZMouseActive = NSMouseMovedMask | NSMouseExitedMask |NSMouseEnteredMask;
+//static NSEventMask AZMouseActive = NSMouseMovedMask | NSMouseExitedMask |NSMouseEnteredMask;
 
 CGFloat ScreenWidess();
 CGFloat ScreenHighness();
@@ -157,6 +146,10 @@ extern NSString *const AtoZDockSortedUpdated;
 @class NSLogConsole;
 @interface AtoZ : BaseModel
 
++ (NSString*) resources;
++ (NSArray*) appFolderSamplerWith:(NSUInteger)apps;
+
+
 #ifdef GROWL_ENABLED
 <GrowlApplicationBridgeDelegate>
 #endif
@@ -177,9 +170,6 @@ extern NSString *const AtoZDockSortedUpdated;
 #ifdef GROWL_ENABLED
 - (BOOL) registerGrowl;
 #endif
-#define kMaxFontSize    10000
-
-+ (CGFloat)fontSizeForAreaSize:(NSSize)areaSize withString:(NSString *)stringToSize usingFont:(NSString *)fontName;
 
 + (NSArray*)appCategories;
 
@@ -219,57 +209,6 @@ extern NSString *const AtoZDockSortedUpdated;
 + (void) printTransform:(CGAffineTransform)t;
 
 + (NSImage*)cropImage:(NSImage*)sourceImage withRect:(NSRect)sourceRect;
-
-@end
-
-
-@interface AZColor : BaseModel
-@property (nonatomic, readonly) CGFloat 	brightness;
-@property (nonatomic, readonly) CGFloat 	saturation;
-@property (nonatomic, readonly) CGFloat 	hue;
-@property (nonatomic, readonly) CGFloat 	hueComponent;
-
-@property (nonatomic, assign)	float 		percent;
-@property (nonatomic, assign) 	NSUInteger 	count;
-@property (nonatomic, strong)	NSString 	* name;
-@property (nonatomic, strong)	NSColor	 	* 	color;
-+ (id) instanceWithObject: (NSDictionary *)dic;
--(NSArray*) colorsForImage:(NSImage*)image;
-@end
-
-extern NSString *const AtoZFileUpdated;
-//@class AJSiTunesResult;
-@interface AZFile : BaseModel
-//@property (weak)	id itunesDescription;
-//@property (weak)	id itunesResults;
-@property (strong, nonatomic)	NSString *calulatedBundleID;
-
-//@property (strong, nonatomic)	AJSiTunesResult *itunesInfo;
-@property (strong, nonatomic)	NSString * 	path;
-@property (strong, nonatomic)	NSString *	name;
-@property (strong, nonatomic) 	NSColor	 * 	color;
-@property (strong, nonatomic) 	NSColor	 * 	customColor;
-@property (strong, nonatomic)	NSColor	 *	labelColor;
-@property (assign, nonatomic)	NSNumber * 	labelNumber;
-@property (strong, nonatomic)  	NSArray	 * 	colors;
-@property (strong, nonatomic)  	NSImage	 * 	icon;
-@property (strong, nonatomic)  	NSImage	 * 	image;
-@property (nonatomic, assign) 	CGPoint		dockPoint;
-@property (nonatomic, assign) 	CGPoint		dockPointNew;
-@property (nonatomic, assign) 	NSUInteger	spot;
-@property (nonatomic, assign) 	NSUInteger 	spotNew;
-@property (nonatomic, readonly)	CGFloat		hue;
-@property (nonatomic, readonly)	BOOL		isRunning;
-@property (nonatomic, readonly)	BOOL		hasLabel;
-@property (nonatomic, assign)	BOOL		needsToMove;
-
-@property (nonatomic, assign)		AZWindowPosition		position;
-
-+ (AZFile*) dummy;
-+ (AZFile*) forAppNamed:(NSString*)appName;
-+ (AZFile*) instanceWithPath:(NSString *)path;
-+ (AZFile*) instanceWithColor:(NSColor*)color;
-//+ (instancetype) instanceWithObject:(id)object;
 
 @end
 
@@ -407,6 +346,3 @@ void profile (const char *name, void (^work) (void));
 #define XCODE_COLORS_RESET_BG  XCODE_COLORS_ESCAPE @"bg;" // Clear any background color
 #define XCODE_COLORS_RESET     XCODE_COLORS_ESCAPE @";"   // Clear any foreground or background color
 
-
-#import "AtoZFunctions.h"
-#import "AZDock.h"

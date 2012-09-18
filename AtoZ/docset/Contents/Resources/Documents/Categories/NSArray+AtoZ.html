@@ -1,0 +1,2464 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
+		<title>NSArray(AtoZ) Category Reference</title>
+		<meta id="xcode-display" name="xcode-display" content="render"/>
+		<meta name="viewport" content="width=550" />
+		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
+		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
+		<meta name="generator" content="appledoc 2.0.5 (build 789)" />
+	</head>
+	<body>
+		<header id="top_header">
+			<div id="library" class="hideInXcode">
+				<h1><a id="libraryTitle" href="../index.html">AtoZ.Framework </a></h1>
+				<a id="developerHome" href="../index.html">mrgray.com</a>
+			</div>
+			
+			<div id="title" role="banner">
+				<h1 class="hideInXcode">NSArray(AtoZ) Category Reference</h1>
+			</div>
+			<ul id="headerButtons" role="toolbar">
+				<li id="toc_button">
+					<button aria-label="Show Table of Contents" role="checkbox" class="open" id="table_of_contents"><span class="disclosure"></span>Table of Contents</button>
+				</li>
+				<li id="jumpto_button" role="navigation">
+					<select id="jumpTo">
+	<option value="top">Jump To&#133;</option>
+	
+	
+	
+	
+	<option value="tasks">Tasks</option>
+	
+	
+	
+	
+	
+	<option value="properties">Properties</option>
+	
+	<option value="//api/name/numbers">&nbsp;&nbsp;&nbsp;&nbsp;numbers</option>
+	
+	<option value="//api/name/randomElement">&nbsp;&nbsp;&nbsp;&nbsp;randomElement</option>
+	
+	<option value="//api/name/set">&nbsp;&nbsp;&nbsp;&nbsp;set</option>
+	
+	<option value="//api/name/shuffeled">&nbsp;&nbsp;&nbsp;&nbsp;shuffeled</option>
+	
+	<option value="//api/name/strings">&nbsp;&nbsp;&nbsp;&nbsp;strings</option>
+	
+	<option value="//api/name/trimmedStrings">&nbsp;&nbsp;&nbsp;&nbsp;trimmedStrings</option>
+	
+	
+	
+	
+	<option value="class_methods">Class Methods</option>
+	
+	<option value="//api/name/arrayWithDoubles:">&nbsp;&nbsp;&nbsp;&nbsp;+ arrayWithDoubles:</option>
+	
+	<option value="//api/name/arrayWithInts:">&nbsp;&nbsp;&nbsp;&nbsp;+ arrayWithInts:</option>
+	
+	
+	
+	
+	<option value="instance_methods">Instance Methods</option>
+	
+	<option value="//api/name/allKindOfClass:">&nbsp;&nbsp;&nbsp;&nbsp;- allKindOfClass:</option>
+	
+	<option value="//api/name/andExecuteEnumeratorBlock">&nbsp;&nbsp;&nbsp;&nbsp;- andExecuteEnumeratorBlock</option>
+	
+	<option value="//api/name/arrayUsingBlock:">&nbsp;&nbsp;&nbsp;&nbsp;- arrayUsingBlock:</option>
+	
+	<option value="//api/name/arrayWithKey:">&nbsp;&nbsp;&nbsp;&nbsp;- arrayWithKey:</option>
+	
+	<option value="//api/name/arrayWithoutArray:">&nbsp;&nbsp;&nbsp;&nbsp;- arrayWithoutArray:</option>
+	
+	<option value="//api/name/arrayWithoutObject:">&nbsp;&nbsp;&nbsp;&nbsp;- arrayWithoutObject:</option>
+	
+	<option value="//api/name/arrayWithoutObjects:">&nbsp;&nbsp;&nbsp;&nbsp;- arrayWithoutObjects:</option>
+	
+	<option value="//api/name/arrayWithoutSet:">&nbsp;&nbsp;&nbsp;&nbsp;- arrayWithoutSet:</option>
+	
+	<option value="//api/name/az_each:">&nbsp;&nbsp;&nbsp;&nbsp;- az_each:</option>
+	
+	<option value="//api/name/az_eachConcurrentlyWithBlock:">&nbsp;&nbsp;&nbsp;&nbsp;- az_eachConcurrentlyWithBlock:</option>
+	
+	<option value="//api/name/containsAll:">&nbsp;&nbsp;&nbsp;&nbsp;- containsAll:</option>
+	
+	<option value="//api/name/containsAny:">&nbsp;&nbsp;&nbsp;&nbsp;- containsAny:</option>
+	
+	<option value="//api/name/elementsOfClass:">&nbsp;&nbsp;&nbsp;&nbsp;- elementsOfClass:</option>
+	
+	<option value="//api/name/filter:">&nbsp;&nbsp;&nbsp;&nbsp;- filter:</option>
+	
+	<option value="//api/name/filterOne:">&nbsp;&nbsp;&nbsp;&nbsp;- filterOne:</option>
+	
+	<option value="//api/name/findAllIntoWeakRefsWithBlock:">&nbsp;&nbsp;&nbsp;&nbsp;- findAllIntoWeakRefsWithBlock:</option>
+	
+	<option value="//api/name/findAllWithBlock:">&nbsp;&nbsp;&nbsp;&nbsp;- findAllWithBlock:</option>
+	
+	<option value="//api/name/findWithBlock:">&nbsp;&nbsp;&nbsp;&nbsp;- findWithBlock:</option>
+	
+	<option value="//api/name/firstObject">&nbsp;&nbsp;&nbsp;&nbsp;- firstObject</option>
+	
+	<option value="//api/name/isObjectInArrayWithBlock:">&nbsp;&nbsp;&nbsp;&nbsp;- isObjectInArrayWithBlock:</option>
+	
+	<option value="//api/name/map:">&nbsp;&nbsp;&nbsp;&nbsp;- map:</option>
+	
+	<option value="//api/name/mapArray:">&nbsp;&nbsp;&nbsp;&nbsp;- mapArray:</option>
+	
+	<option value="//api/name/objectAtIndex:fallback:">&nbsp;&nbsp;&nbsp;&nbsp;- objectAtIndex:fallback:</option>
+	
+	<option value="//api/name/objectAtNormalizedIndex:">&nbsp;&nbsp;&nbsp;&nbsp;- objectAtNormalizedIndex:</option>
+	
+	<option value="//api/name/objectOrNilAtIndex:">&nbsp;&nbsp;&nbsp;&nbsp;- objectOrNilAtIndex:</option>
+	
+	<option value="//api/name/objectsWithFormat:">&nbsp;&nbsp;&nbsp;&nbsp;- objectsWithFormat:</option>
+	
+	<option value="//api/name/randomSubarrayWithSize:">&nbsp;&nbsp;&nbsp;&nbsp;- randomSubarrayWithSize:</option>
+	
+	<option value="//api/name/reduce:">&nbsp;&nbsp;&nbsp;&nbsp;- reduce:</option>
+	
+	<option value="//api/name/setAndExecuteEnumeratorBlock:">&nbsp;&nbsp;&nbsp;&nbsp;- setAndExecuteEnumeratorBlock:</option>
+	
+	
+	
+</select>
+				</li>
+			</ul>
+		</header>
+		<nav id="tocContainer" class="isShowingTOC">
+			<ul id="toc" role="tree">
+				
+
+
+
+<li role="treeitem" id="task_treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#tasks">Tasks</a></span><ul>
+	
+</ul></li>
+
+
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#properties">Properties</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/numbers">numbers</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/randomElement">randomElement</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/set">set</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/shuffeled">shuffeled</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/strings">strings</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/trimmedStrings">trimmedStrings</a></span></li>
+	
+</ul></li>
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#class_methods">Class Methods</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/arrayWithDoubles:">arrayWithDoubles:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/arrayWithInts:">arrayWithInts:</a></span></li>
+	
+</ul></li>
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/allKindOfClass:">allKindOfClass:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/andExecuteEnumeratorBlock">andExecuteEnumeratorBlock</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/arrayUsingBlock:">arrayUsingBlock:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/arrayWithKey:">arrayWithKey:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/arrayWithoutArray:">arrayWithoutArray:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/arrayWithoutObject:">arrayWithoutObject:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/arrayWithoutObjects:">arrayWithoutObjects:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/arrayWithoutSet:">arrayWithoutSet:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/az_each:">az_each:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/az_eachConcurrentlyWithBlock:">az_eachConcurrentlyWithBlock:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/containsAll:">containsAll:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/containsAny:">containsAny:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/elementsOfClass:">elementsOfClass:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/filter:">filter:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/filterOne:">filterOne:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/findAllIntoWeakRefsWithBlock:">findAllIntoWeakRefsWithBlock:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/findAllWithBlock:">findAllWithBlock:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/findWithBlock:">findWithBlock:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/firstObject">firstObject</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/isObjectInArrayWithBlock:">isObjectInArrayWithBlock:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/map:">map:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/mapArray:">mapArray:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/objectAtIndex:fallback:">objectAtIndex:fallback:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/objectAtNormalizedIndex:">objectAtNormalizedIndex:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/objectOrNilAtIndex:">objectOrNilAtIndex:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/objectsWithFormat:">objectsWithFormat:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/randomSubarrayWithSize:">randomSubarrayWithSize:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/reduce:">reduce:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/setAndExecuteEnumeratorBlock:">setAndExecuteEnumeratorBlock:</a></span></li>
+	
+</ul></li>
+
+
+			</ul>
+		</nav>
+		<article>
+			<div id="contents" class="isShowingTOC" role="main">
+				<a title="NSArray(AtoZ) Category Reference" name="top"></a>
+				<div class="main-navigation navigation-top">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="header">
+					<div class="section-header">
+						<h1 class="title title-header">NSArray(AtoZ) Category Reference</h1>
+					</div>		
+				</div>
+				<div id="container">	
+					
+					<div class="section section-specification"><table cellspacing="0"><tbody>
+						<tr>
+	<td class="specification-title">Declared in</td>
+	<td class="specification-value">NSArray+AtoZ.h<br />NSArray+AtoZ.m</td>
+</tr>
+						</tbody></table></div>
+					
+					
+					
+					
+					
+					
+					<div class="section section-tasks">
+						<a title="Tasks" name="tasks"></a>
+						<h2 class="subtitle subtitle-tasks">Tasks</h2>
+						
+						
+						
+						
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/arrayWithInts:">+&nbsp;arrayWithInts:</a></code>
+		<span class="tooltip"><ul>
+<li>Returns an NSArray containing a number of NSNumber elements that have been initialized with NSInteger values. As this method takes a variadic argument list you have to terminate the input with a NSNotFound entry This is done automatically via the $ints(&hellip;) macro</li>
+</ul>
+</span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/arrayWithDoubles:">+&nbsp;arrayWithDoubles:</a></code>
+		<span class="tooltip"><ul>
+<li>Returns an NSArray containing a number of NSNumber elements that have been initialized with double values. As this method takes a variadic argument list you have to terminate the input with a FLOAT_MAX entry This is done automatically via the $doubles(&hellip;) macro</li>
+</ul>
+</span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/set">&nbsp;&nbsp;set</a></code>
+		<span class="tooltip"><ul>
+<li>Returns an NSSet containing the same elements as the array (unique of course, as the set does not keep doubled entries)</li>
+</ul>
+</span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/arrayWithKey:">&ndash;&nbsp;arrayWithKey:</a></code>
+		<span class="tooltip"><ul>
+<li>Returns an array of the same size as the original one with the result of calling the keyPath on each object</li>
+</ul>
+</span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/arrayUsingBlock:">&ndash;&nbsp;arrayUsingBlock:</a></code>
+		<span class="tooltip"><ul>
+<li>Returns an array of the same size as the original one with the results of performing the block on each object</li>
+</ul>
+</span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/map:">&ndash;&nbsp;map:</a></code>
+		<span class="tooltip"><ul>
+<li>Shortcut for the arrayUsingBlock method map is better known in more functional oriented languages</li>
+</ul>
+</span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/reduce:">&ndash;&nbsp;reduce:</a></code>
+		<span class="tooltip"><ul>
+<li>performs consecutive calls of block for every pair of elements in this array</li>
+</ul>
+</span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/arrayWithoutObject:">&ndash;&nbsp;arrayWithoutObject:</a></code>
+		<span class="tooltip"><ul>
+<li>Returns a subArray that does not contain the argument object</li>
+</ul>
+</span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/arrayWithoutObjects:">&ndash;&nbsp;arrayWithoutObjects:</a></code>
+		<span class="tooltip"><ul>
+<li>Returns a subArray that does not contain any of the passed arguments</li>
+</ul>
+</span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/arrayWithoutArray:">&ndash;&nbsp;arrayWithoutArray:</a></code>
+		<span class="tooltip"><ul>
+<li>Returns a subArray that does not contain any value that the passed NSArray contains</li>
+</ul>
+</span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/arrayWithoutSet:">&ndash;&nbsp;arrayWithoutSet:</a></code>
+		<span class="tooltip"><ul>
+<li>Returns a subArray that does not contain any value that the passed NSSet contains</li>
+</ul>
+</span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/filter:">&ndash;&nbsp;filter:</a></code>
+		<span class="tooltip"><ul>
+<li>Returns a subArray in wich all object returned true for the block Reduced version of filteredArrayUsingBlock, without the dictionary</li>
+</ul>
+</span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/filterOne:">&ndash;&nbsp;filterOne:</a></code>
+		<span class="tooltip"><ul>
+<li>Filters one element from the array that returns YES from the called block might not always be the same, it just will return any match! In case you are not absolutely sure that there is only ONE match better use filter and grab the result manually will return nil for no match</li>
+</ul>
+</span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/allKindOfClass:">&ndash;&nbsp;allKindOfClass:</a></code>
+		<span class="tooltip"><ul>
+<li>Returns YES when all members of the current array pass the isKindOfClass test with the given Class</li>
+</ul>
+</span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/elementsOfClass:">&ndash;&nbsp;elementsOfClass:</a></code>
+		<span class="tooltip"><ul>
+<li>Returns a subArray with all members of the original array that pass the isKindOfClass test with the given Class</li>
+</ul>
+</span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/numbers">&nbsp;&nbsp;numbers</a></code>
+		<span class="tooltip"><ul>
+<li>Shortcut for elementsOfClass:NSNumber.class</li>
+</ul>
+</span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/strings">&nbsp;&nbsp;strings</a></code>
+		<span class="tooltip"><ul>
+<li>Shortcut for elementsOfClass:NSString.class</li>
+</ul>
+</span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/trimmedStrings">&nbsp;&nbsp;trimmedStrings</a></code>
+		<span class="tooltip"><ul>
+<li>Returns a subArray with all NSString members and calls trim on each before returning</li>
+</ul>
+</span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/randomElement">&nbsp;&nbsp;randomElement</a></code>
+		<span class="tooltip"><ul>
+<li>Returns a random element from this array</li>
+</ul>
+</span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/randomSubarrayWithSize:">&ndash;&nbsp;randomSubarrayWithSize:</a></code>
+		<span class="tooltip"><ul>
+<li>Returns a random subArray of this array with up to &lsquo;size&rsquo; elements</li>
+</ul>
+</span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/shuffeled">&nbsp;&nbsp;shuffeled</a></code>
+		<span class="tooltip"><ul>
+<li>Returns a shuffeled version of this array</li>
+</ul>
+</span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/objectAtNormalizedIndex:">&ndash;&nbsp;objectAtNormalizedIndex:</a></code>
+		<span class="tooltip"><ul>
+<li>A failsave version of objectAtIndex When the given index is outside the bounds of the array it will be projected onto the bounds of the array Just imagine the array to be a ring  that will have its <a href="#//api/name/first">first</a> and last element connected to each other</li>
+</ul>
+</span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/objectAtIndex:fallback:">&ndash;&nbsp;objectAtIndex:fallback:</a></code>
+		<span class="tooltip"><ul>
+<li>A failsave version of objectAtIndex that will return the fallback value in case an error occurrs or the value is nil</li>
+</ul>
+</span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/objectOrNilAtIndex:">&ndash;&nbsp;objectOrNilAtIndex:</a></code>
+		<span class="tooltip"><ul>
+<li>Will at least return nil in case the index does not fit the array</li>
+</ul>
+</span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/containsAny:">&ndash;&nbsp;containsAny:</a></code>
+		<span class="tooltip"><ul>
+<li>Returns YES when this array contains any of the elements in enumerable</li>
+</ul>
+</span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/containsAll:">&ndash;&nbsp;containsAll:</a></code>
+		<span class="tooltip"><ul>
+<li>Returns YES when this array contains all of the elements in enumerable</li>
+</ul>
+</span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/andExecuteEnumeratorBlock">&ndash;&nbsp;andExecuteEnumeratorBlock</a></code>
+		<span class="tooltip"><ul>
+<li>dummy, just for the &lsquo;foreach&rsquo; macro</li>
+</ul>
+</span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/setAndExecuteEnumeratorBlock:">&ndash;&nbsp;setAndExecuteEnumeratorBlock:</a></code>
+		<span class="tooltip"><ul>
+<li>Just a case study at the moment. Just another way of writing enumerateUsingBlock, but as it&rsquo;s written kvc conform the foreach macro can be used to write code like foreach (id o, array) {   &hellip; }</li>
+</ul>
+</span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/objectsWithFormat:">&ndash;&nbsp;objectsWithFormat:</a></code>
+		<span class="tooltip"><p>*</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/firstObject">&ndash;&nbsp;firstObject</a></code>
+		<span class="tooltip"><p>Convenience Method to return the first object in
+a NSArray</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/az_each:">&ndash;&nbsp;az_each:</a></code>
+		<span class="tooltip"><p>Iterates over all the objects in an array and calls the block on each object</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/az_eachConcurrentlyWithBlock:">&ndash;&nbsp;az_eachConcurrentlyWithBlock:</a></code>
+		<span class="tooltip"><p>Enumerates over the receiving arrays objects concurrently in a synchronous method.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/findWithBlock:">&ndash;&nbsp;findWithBlock:</a></code>
+		<span class="tooltip"><p>Finds the first instance of the object that you indicate
+via a block (returning a bool) you are looking for</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/isObjectInArrayWithBlock:">&ndash;&nbsp;isObjectInArrayWithBlock:</a></code>
+		<span class="tooltip"><p>Exactly like findWithBlock except it returns a BOOL</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/findAllWithBlock:">&ndash;&nbsp;findAllWithBlock:</a></code>
+		<span class="tooltip"><p>Like find but instead of returning the first object
+that passes the test it returns all objects passing the
+bool block test</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/findAllIntoWeakRefsWithBlock:">&ndash;&nbsp;findAllIntoWeakRefsWithBlock:</a></code>
+		<span class="tooltip"><p>experimental method
+like find but instead uses NSHashTable to store weak pointers to
+all objects passing the test of the bool block</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/mapArray:">&ndash;&nbsp;mapArray:</a></code>
+		<span class="tooltip"><p>mapArray basically maps an array by enumerating
+over the array to be mapped and executes the block while
+passing in the object to map. You simply need to either
+(1) return the object to be mapped in the new array or
+(2) return nil if you don&rsquo;t want to map the passed in object</p></span>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+					</div>
+					
+					
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Properties" name="properties"></a>
+						<h2 class="subtitle subtitle-methods">Properties</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/numbers" title="numbers"></a>
+	<h3 class="subsubtitle method-title">numbers</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>Shortcut for elementsOfClass:NSNumber.class</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (readonly) NSArray *numbers</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>Shortcut for elementsOfClass:NSNumber.class</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSArray+AtoZ.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/randomElement" title="randomElement"></a>
+	<h3 class="subsubtitle method-title">randomElement</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>Returns a random element from this array</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (readonly) id randomElement</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>Returns a random element from this array</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSArray+AtoZ.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/set" title="set"></a>
+	<h3 class="subsubtitle method-title">set</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>Returns an NSSet containing the same elements as the array (unique of course, as the set does not keep doubled entries)</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (readonly) NSSet *set</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>Returns an NSSet containing the same elements as the array (unique of course, as the set does not keep doubled entries)</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSArray+AtoZ.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/shuffeled" title="shuffeled"></a>
+	<h3 class="subsubtitle method-title">shuffeled</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>Returns a shuffeled version of this array</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (readonly) NSArray *shuffeled</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>Returns a shuffeled version of this array</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSArray+AtoZ.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/strings" title="strings"></a>
+	<h3 class="subsubtitle method-title">strings</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>Shortcut for elementsOfClass:NSString.class</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (readonly) NSArray *strings</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>Shortcut for elementsOfClass:NSString.class</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSArray+AtoZ.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/trimmedStrings" title="trimmedStrings"></a>
+	<h3 class="subsubtitle method-title">trimmedStrings</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>Returns a subArray with all NSString members and calls trim on each before returning</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (readonly) NSArray *trimmedStrings</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>Returns a subArray with all NSString members and calls trim on each before returning</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSArray+AtoZ.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Class Methods" name="class_methods"></a>
+						<h2 class="subtitle subtitle-methods">Class Methods</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/arrayWithDoubles:" title="arrayWithDoubles:"></a>
+	<h3 class="subsubtitle method-title">arrayWithDoubles:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>Returns an NSArray containing a number of NSNumber elements that have been initialized with double values. As this method takes a variadic argument list you have to terminate the input with a FLOAT_MAX entry This is done automatically via the $doubles(&hellip;) macro</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>+ (NSArray *)arrayWithDoubles:(double)<em>d</em>, <em>...</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>Returns an NSArray containing a number of NSNumber elements that have been initialized with double values. As this method takes a variadic argument list you have to terminate the input with a FLOAT_MAX entry This is done automatically via the $doubles(&hellip;) macro</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSArray+AtoZ.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/arrayWithInts:" title="arrayWithInts:"></a>
+	<h3 class="subsubtitle method-title">arrayWithInts:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>Returns an NSArray containing a number of NSNumber elements that have been initialized with NSInteger values. As this method takes a variadic argument list you have to terminate the input with a NSNotFound entry This is done automatically via the $ints(&hellip;) macro</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>+ (NSArray *)arrayWithInts:(NSInteger)<em>i</em>, <em>...</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>Returns an NSArray containing a number of NSNumber elements that have been initialized with NSInteger values. As this method takes a variadic argument list you have to terminate the input with a NSNotFound entry This is done automatically via the $ints(&hellip;) macro</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSArray+AtoZ.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Instance Methods" name="instance_methods"></a>
+						<h2 class="subtitle subtitle-methods">Instance Methods</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/allKindOfClass:" title="allKindOfClass:"></a>
+	<h3 class="subsubtitle method-title">allKindOfClass:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>Returns YES when all members of the current array pass the isKindOfClass test with the given Class</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (BOOL)allKindOfClass:(Class)<em>aClass</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>Returns YES when all members of the current array pass the isKindOfClass test with the given Class</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSArray+AtoZ.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/andExecuteEnumeratorBlock" title="andExecuteEnumeratorBlock"></a>
+	<h3 class="subsubtitle method-title">andExecuteEnumeratorBlock</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>dummy, just for the &lsquo;foreach&rsquo; macro</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (id)andExecuteEnumeratorBlock</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>dummy, just for the &lsquo;foreach&rsquo; macro</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSArray+AtoZ.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/arrayUsingBlock:" title="arrayUsingBlock:"></a>
+	<h3 class="subsubtitle method-title">arrayUsingBlock:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>Returns an array of the same size as the original one with the results of performing the block on each object</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (NSArray *)arrayUsingBlock:(id ( ^ ) ( id obj ))<em>block</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>Returns an array of the same size as the original one with the results of performing the block on each object</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSArray+AtoZ.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/arrayWithKey:" title="arrayWithKey:"></a>
+	<h3 class="subsubtitle method-title">arrayWithKey:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>Returns an array of the same size as the original one with the result of calling the keyPath on each object</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (NSArray *)arrayWithKey:(NSString *)<em>keyPath</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>Returns an array of the same size as the original one with the result of calling the keyPath on each object</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSArray+AtoZ.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/arrayWithoutArray:" title="arrayWithoutArray:"></a>
+	<h3 class="subsubtitle method-title">arrayWithoutArray:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>Returns a subArray that does not contain any value that the passed NSArray contains</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (NSArray *)arrayWithoutArray:(NSArray *)<em>value</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>Returns a subArray that does not contain any value that the passed NSArray contains</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSArray+AtoZ.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/arrayWithoutObject:" title="arrayWithoutObject:"></a>
+	<h3 class="subsubtitle method-title">arrayWithoutObject:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>Returns a subArray that does not contain the argument object</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (NSArray *)arrayWithoutObject:(id)<em>object</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>Returns a subArray that does not contain the argument object</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSArray+AtoZ.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/arrayWithoutObjects:" title="arrayWithoutObjects:"></a>
+	<h3 class="subsubtitle method-title">arrayWithoutObjects:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>Returns a subArray that does not contain any of the passed arguments</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (NSArray *)arrayWithoutObjects:(id)<em>object</em>, <em>...</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>Returns a subArray that does not contain any of the passed arguments</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSArray+AtoZ.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/arrayWithoutSet:" title="arrayWithoutSet:"></a>
+	<h3 class="subsubtitle method-title">arrayWithoutSet:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>Returns a subArray that does not contain any value that the passed NSSet contains</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (NSArray *)arrayWithoutSet:(NSSet *)<em>values</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>Returns a subArray that does not contain any value that the passed NSSet contains</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSArray+AtoZ.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/az_each:" title="az_each:"></a>
+	<h3 class="subsubtitle method-title">az_each:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Iterates over all the objects in an array and calls the block on each object</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (void)az_each:(void ( ^ ) ( id obj , NSUInteger index , BOOL *stop ))<em>block</em></code></div>
+	
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>obj</em></dt>
+			<dd><p>(Block Parameter) this is the object in the array currently being enumerated over</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>index</em></dt>
+			<dd><p>(Block Parameter) this is the index of obj in the array</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>stop</em></dt>
+			<dd><p>(Block Parameter) <a href="#//api/name/set">set</a> this to YES to stop enumeration, otherwise there is no need to use this</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Iterates over all the objects in an array and calls the block on each object</p>
+
+<p>This iterates over all the objects in an array calling the block on each object
+until it reaches the end of the array or until the BOOL <em>stop pointer is <a href="#//api/name/set">set</a> to YES.
+This method was inspired by Ruby&rsquo;s each method and works very similarly to it, while
+at the same time staying close to existing ObjC standards for block arguments which
+is why it passes a BOOL </em>stop pointer allowing you to signal for enumeration to end.</p>
+
+<p>Important! If block is nil then this method will throw an exception.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSArray+AtoZ.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/az_eachConcurrentlyWithBlock:" title="az_eachConcurrentlyWithBlock:"></a>
+	<h3 class="subsubtitle method-title">az_eachConcurrentlyWithBlock:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Enumerates over the receiving arrays objects concurrently in a synchronous method.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (void)az_eachConcurrentlyWithBlock:(void ( ^ ) ( NSInteger index , id obj , BOOL *stop ))<em>block</em></code></div>
+	
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>index</em></dt>
+			<dd><p>(Block Parameter) the position of the object in the array</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>obj</em></dt>
+			<dd><p>(Block Parameter) the object being enumerated over</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>stop</em></dt>
+			<dd><p>(Block Parameter) if you need to stop the enumeration <a href="#//api/name/set">set</a> this to YES otherwise do nothing</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Enumerates over the receiving arrays objects concurrently in a synchronous method.</p>
+
+<p>Enumerates over all the objects in the receiving array concurrently. That is it will
+go over each object and execute a block passing that object in the array as a parameter
+in the block. This methods asynchronously executes a block for all objects in the array
+but waits for all blocks to finish executing before going on.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSArray+AtoZ.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/containsAll:" title="containsAll:"></a>
+	<h3 class="subsubtitle method-title">containsAll:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>Returns YES when this array contains all of the elements in enumerable</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (BOOL)containsAll:(id&lt;NSFastEnumeration&gt;)<em>enumerable</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>Returns YES when this array contains all of the elements in enumerable</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSArray+AtoZ.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/containsAny:" title="containsAny:"></a>
+	<h3 class="subsubtitle method-title">containsAny:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>Returns YES when this array contains any of the elements in enumerable</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (BOOL)containsAny:(id&lt;NSFastEnumeration&gt;)<em>enumerable</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>Returns YES when this array contains any of the elements in enumerable</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSArray+AtoZ.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/elementsOfClass:" title="elementsOfClass:"></a>
+	<h3 class="subsubtitle method-title">elementsOfClass:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>Returns a subArray with all members of the original array that pass the isKindOfClass test with the given Class</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (NSArray *)elementsOfClass:(Class)<em>aClass</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>Returns a subArray with all members of the original array that pass the isKindOfClass test with the given Class</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSArray+AtoZ.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/filter:" title="filter:"></a>
+	<h3 class="subsubtitle method-title">filter:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>Returns a subArray in wich all object returned true for the block Reduced version of filteredArrayUsingBlock, without the dictionary</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (NSArray *)filter:(BOOL ( ^ ) ( id object ))<em>block</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>Returns a subArray in wich all object returned true for the block Reduced version of filteredArrayUsingBlock, without the dictionary</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSArray+AtoZ.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/filterOne:" title="filterOne:"></a>
+	<h3 class="subsubtitle method-title">filterOne:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>Filters one element from the array that returns YES from the called block might not always be the same, it just will return any match! In case you are not absolutely sure that there is only ONE match better use filter and grab the result manually will return nil for no match</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (id)filterOne:(BOOL ( ^ ) ( id object ))<em>block</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>Filters one element from the array that returns YES from the called block might not always be the same, it just will return any match! In case you are not absolutely sure that there is only ONE match better use filter and grab the result manually will return nil for no match</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSArray+AtoZ.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/findAllIntoWeakRefsWithBlock:" title="findAllIntoWeakRefsWithBlock:"></a>
+	<h3 class="subsubtitle method-title">findAllIntoWeakRefsWithBlock:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>experimental method
+like find but instead uses NSHashTable to store weak pointers to
+all objects passing the test of the bool block</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (NSHashTable *)findAllIntoWeakRefsWithBlock:(BOOL ( ^ ) ( id ))<em>block</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>experimental method
+like find but instead uses NSHashTable to store weak pointers to
+all objects passing the test of the bool block</p>
+
+<p>I don&rsquo;t particularly like this name but given objc&rsquo;s naming
+structure this is as good as I can do for now</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSArray+AtoZ.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/findAllWithBlock:" title="findAllWithBlock:"></a>
+	<h3 class="subsubtitle method-title">findAllWithBlock:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Like find but instead of returning the first object
+that passes the test it returns all objects passing the
+bool block test</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (NSArray *)findAllWithBlock:(BOOL ( ^ ) ( id obj ))<em>block</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Like find but instead of returning the first object
+that passes the test it returns all objects passing the
+bool block test</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSArray+AtoZ.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/findWithBlock:" title="findWithBlock:"></a>
+	<h3 class="subsubtitle method-title">findWithBlock:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Finds the first instance of the object that you indicate
+via a block (returning a bool) you are looking for</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (id)findWithBlock:(BOOL ( ^ ) ( id obj ))<em>block</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Finds the first instance of the object that you indicate
+via a block (returning a bool) you are looking for</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSArray+AtoZ.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/firstObject" title="firstObject"></a>
+	<h3 class="subsubtitle method-title">firstObject</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Convenience Method to return the first object in
+a NSArray</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (id)firstObject</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Convenience Method to return the first object in
+a NSArray</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSArray+AtoZ.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/isObjectInArrayWithBlock:" title="isObjectInArrayWithBlock:"></a>
+	<h3 class="subsubtitle method-title">isObjectInArrayWithBlock:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Exactly like findWithBlock except it returns a BOOL</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (BOOL)isObjectInArrayWithBlock:(BOOL ( ^ ) ( id obj ))<em>block</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Exactly like findWithBlock except it returns a BOOL</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSArray+AtoZ.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/map:" title="map:"></a>
+	<h3 class="subsubtitle method-title">map:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>Shortcut for the arrayUsingBlock method map is better known in more functional oriented languages</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (NSArray *)map:(id ( ^ ) ( id obj ))<em>block</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>Shortcut for the arrayUsingBlock method map is better known in more functional oriented languages</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSArray+AtoZ.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/mapArray:" title="mapArray:"></a>
+	<h3 class="subsubtitle method-title">mapArray:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>mapArray basically maps an array by enumerating
+over the array to be mapped and executes the block while
+passing in the object to map. You simply need to either
+(1) return the object to be mapped in the new array or
+(2) return nil if you don&rsquo;t want to map the passed in object</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (NSArray *)mapArray:(id ( ^ ) ( id obj ))<em>block</em></code></div>
+	
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>block</em></dt>
+			<dd><p>a block in which you return an object to be mapped to a new array or nil to not map it</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>a new mapped array</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>mapArray basically maps an array by enumerating
+over the array to be mapped and executes the block while
+passing in the object to map. You simply need to either
+(1) return the object to be mapped in the new array or
+(2) return nil if you don&rsquo;t want to map the passed in object</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSArray+AtoZ.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/objectAtIndex:fallback:" title="objectAtIndex:fallback:"></a>
+	<h3 class="subsubtitle method-title">objectAtIndex:fallback:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>A failsave version of objectAtIndex that will return the fallback value in case an error occurrs or the value is nil</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (id)objectAtIndex:(NSUInteger)<em>index</em> fallback:(id)<em>fallback</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>A failsave version of objectAtIndex that will return the fallback value in case an error occurrs or the value is nil</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSArray+AtoZ.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/objectAtNormalizedIndex:" title="objectAtNormalizedIndex:"></a>
+	<h3 class="subsubtitle method-title">objectAtNormalizedIndex:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>A failsave version of objectAtIndex When the given index is outside the bounds of the array it will be projected onto the bounds of the array Just imagine the array to be a ring  that will have its <a href="#//api/name/first">first</a> and last element connected to each other</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (id)objectAtNormalizedIndex:(NSInteger)<em>index</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>A failsave version of objectAtIndex When the given index is outside the bounds of the array it will be projected onto the bounds of the array Just imagine the array to be a ring  that will have its <a href="#//api/name/first">first</a> and last element connected to each other</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSArray+AtoZ.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/objectOrNilAtIndex:" title="objectOrNilAtIndex:"></a>
+	<h3 class="subsubtitle method-title">objectOrNilAtIndex:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>Will at least return nil in case the index does not fit the array</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (id)objectOrNilAtIndex:(NSUInteger)<em>index</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>Will at least return nil in case the index does not fit the array</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSArray+AtoZ.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/objectsWithFormat:" title="objectsWithFormat:"></a>
+	<h3 class="subsubtitle method-title">objectsWithFormat:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>*</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (NSArray *)objectsWithFormat:(NSString *)<em>format</em>, <em>...</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>*</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSArray+AtoZ.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/randomSubarrayWithSize:" title="randomSubarrayWithSize:"></a>
+	<h3 class="subsubtitle method-title">randomSubarrayWithSize:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>Returns a random subArray of this array with up to &lsquo;size&rsquo; elements</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (NSArray *)randomSubarrayWithSize:(NSUInteger)<em>size</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>Returns a random subArray of this array with up to &lsquo;size&rsquo; elements</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSArray+AtoZ.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/reduce:" title="reduce:"></a>
+	<h3 class="subsubtitle method-title">reduce:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>performs consecutive calls of block for every pair of elements in this array</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (id)reduce:(id ( ^ ) ( id a , id b ))<em>block</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>performs consecutive calls of block for every pair of elements in this array</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSArray+AtoZ.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/setAndExecuteEnumeratorBlock:" title="setAndExecuteEnumeratorBlock:"></a>
+	<h3 class="subsubtitle method-title">setAndExecuteEnumeratorBlock:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>Just a case study at the moment. Just another way of writing enumerateUsingBlock, but as it&rsquo;s written kvc conform the foreach macro can be used to write code like foreach (id o, array) {   &hellip; }</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (void)setAndExecuteEnumeratorBlock:(void ( ^ ) ( id obj , NSUInteger idx , BOOL *stop ))<em>block</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>Just a case study at the moment. Just another way of writing enumerateUsingBlock, but as it&rsquo;s written kvc conform the foreach macro can be used to write code like foreach (id o, array) {   &hellip; }</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSArray+AtoZ.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
+					
+				</div>
+				<div class="main-navigation navigation-bottom">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="footer">
+					<hr />
+					<div class="footer-copyright">
+						<p><span class="copyright">&copy; 2012 mrgray.com. All rights reserved. (Last updated: 2012-09-15)</span><br />
+						
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.5 (build 789)</a>.</span></p>
+						
+					</div>
+				</div>
+			</div>
+		</article>
+		<script type="text/javascript">
+			function jumpToChange()
+			{
+				window.location.hash = this.options[this.selectedIndex].value;
+			}
+			
+			function toggleTOC()
+			{
+				var contents = document.getElementById('contents');
+				var tocContainer = document.getElementById('tocContainer');
+				
+				if (this.getAttribute('class') == 'open')
+				{
+					this.setAttribute('class', '');
+					contents.setAttribute('class', '');
+					tocContainer.setAttribute('class', '');
+					
+					window.name = "hideTOC";
+				}
+				else
+				{
+					this.setAttribute('class', 'open');
+					contents.setAttribute('class', 'isShowingTOC');
+					tocContainer.setAttribute('class', 'isShowingTOC');
+					
+					window.name = "";
+				}
+				return false;
+			}
+			
+			function toggleTOCEntryChildren(e)
+			{
+				e.stopPropagation();
+				var currentClass = this.getAttribute('class');
+				if (currentClass == 'children') {
+					this.setAttribute('class', 'children open');
+				}
+				else if (currentClass == 'children open') {
+					this.setAttribute('class', 'children');
+				}
+				return false;
+			}
+			
+			function tocEntryClick(e)
+			{
+				e.stopPropagation();
+				return true;
+			}
+			
+			function init()
+			{
+				var selectElement = document.getElementById('jumpTo');
+				selectElement.addEventListener('change', jumpToChange, false);
+				
+				var tocButton = document.getElementById('table_of_contents');
+				tocButton.addEventListener('click', toggleTOC, false);
+				
+				var taskTreeItem = document.getElementById('task_treeitem');
+				if (taskTreeItem.getElementsByTagName('li').length > 0)
+				{
+					taskTreeItem.setAttribute('class', 'children');
+					taskTreeItem.firstChild.setAttribute('class', 'disclosure');
+				}
+				
+				var tocList = document.getElementById('toc');
+				
+				var tocEntries = tocList.getElementsByTagName('li');
+				for (var i = 0; i < tocEntries.length; i++) {
+					tocEntries[i].addEventListener('click', toggleTOCEntryChildren, false);
+				}
+				
+				var tocLinks = tocList.getElementsByTagName('a');
+				for (var i = 0; i < tocLinks.length; i++) {
+					tocLinks[i].addEventListener('click', tocEntryClick, false);
+				}
+				
+				if (window.name == "hideTOC") {
+					toggleTOC.call(tocButton);
+				}
+			}
+			
+			window.onload = init;
+		</script>
+	</body>
+</html>

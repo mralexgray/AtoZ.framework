@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/Grid.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/Grid</TokenIdentifier>
+			<Abstract>Regular geometric grids of GridCells that Bits can be placed on.
+(customized for Xiangqi).</Abstract>
+			<DeclaredIn>AZLayerManager.h</DeclaredIn>
+			
+			<NodeRef refid="25"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/Grid/initWithRows:columns:spacing:position:cellOffset:backgroundColor:</TokenIdentifier>
+			<Abstract>Initializes a new Grid with the given dimensions and cell size, and position in superview.
+Note that a new Grid has no cells! Either call addAllCells, or addCellAtRow:column:.</Abstract>
+			<DeclaredIn>AZLayerManager.h</DeclaredIn>			
+			
+			<Declaration>- (id)initWithRows:(unsigned)nRows columns:(unsigned)nColumns spacing:(CGSize)spacing position:(CGPoint)pos cellOffset:(CGPoint)cellOffset backgroundColor:(CGColorRef)backgroundColor</Declaration>
+			
+			
+			<Anchor>//api/name/initWithRows:columns:spacing:position:cellOffset:backgroundColor:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/Grid/cellAtRow:column:</TokenIdentifier>
+			<Abstract>Returns the GridCell at the given coordinates, or nil if there is no cell there.
+It's OK to call this with off-the-board coordinates; it will just return nil.</Abstract>
+			<DeclaredIn>AZLayerManager.h</DeclaredIn>			
+			
+			<Declaration>- (GridCell *)cellAtRow:(unsigned)row column:(unsigned)col</Declaration>
+			
+			
+			<Anchor>//api/name/cellAtRow:column:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/Grid/addAllCells</TokenIdentifier>
+			<Abstract>Adds cells at all coordinates, creating a complete grid.</Abstract>
+			<DeclaredIn>AZLayerManager.h</DeclaredIn>			
+			
+			<Declaration>- (void)addAllCells</Declaration>
+			
+			
+			<Anchor>//api/name/addAllCells</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/Grid/addCellAtRow:column:</TokenIdentifier>
+			<Abstract>Adds a GridCell at the given coordinates.</Abstract>
+			<DeclaredIn>AZLayerManager.h</DeclaredIn>			
+			
+			<Declaration>- (GridCell *)addCellAtRow:(unsigned)row column:(unsigned)col</Declaration>
+			
+			
+			<Anchor>//api/name/addCellAtRow:column:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/Grid/removeCellAtRow:column:</TokenIdentifier>
+			<Abstract>Removes a particular cell, leaving a blank space.</Abstract>
+			<DeclaredIn>AZLayerManager.h</DeclaredIn>			
+			
+			<Declaration>- (void)removeCellAtRow:(unsigned)row column:(unsigned)col</Declaration>
+			
+			
+			<Anchor>//api/name/removeCellAtRow:column:</Anchor>
+		</Token>
+		
+	</File>
+</Tokens>

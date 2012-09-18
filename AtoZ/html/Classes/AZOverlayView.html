@@ -1,0 +1,2074 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
+		<title>AZOverlayView Class Reference</title>
+		<meta id="xcode-display" name="xcode-display" content="render"/>
+		<meta name="viewport" content="width=550" />
+		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
+		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
+		<meta name="generator" content="appledoc 2.0.5 (build 789)" />
+	</head>
+	<body>
+		<header id="top_header">
+			<div id="library" class="hideInXcode">
+				<h1><a id="libraryTitle" href="../index.html">AtoZ.Framework </a></h1>
+				<a id="developerHome" href="../index.html">mrgray.com</a>
+			</div>
+			
+			<div id="title" role="banner">
+				<h1 class="hideInXcode">AZOverlayView Class Reference</h1>
+			</div>
+			<ul id="headerButtons" role="toolbar">
+				<li id="toc_button">
+					<button aria-label="Show Table of Contents" role="checkbox" class="open" id="table_of_contents"><span class="disclosure"></span>Table of Contents</button>
+				</li>
+				<li id="jumpto_button" role="navigation">
+					<select id="jumpTo">
+	<option value="top">Jump To&#133;</option>
+	
+	<option value="overview">Overview</option>
+	
+	
+	
+	
+	<option value="tasks">Tasks</option>
+	
+	
+	
+	
+	
+	<option value="properties">Properties</option>
+	
+	<option value="//api/name/action">&nbsp;&nbsp;&nbsp;&nbsp;action</option>
+	
+	<option value="//api/name/allowsCreatingOverlays">&nbsp;&nbsp;&nbsp;&nbsp;allowsCreatingOverlays</option>
+	
+	<option value="//api/name/allowsDeletingOverlays">&nbsp;&nbsp;&nbsp;&nbsp;allowsDeletingOverlays</option>
+	
+	<option value="//api/name/allowsEmptyOverlaySelection">&nbsp;&nbsp;&nbsp;&nbsp;allowsEmptyOverlaySelection</option>
+	
+	<option value="//api/name/allowsModifyingOverlays">&nbsp;&nbsp;&nbsp;&nbsp;allowsModifyingOverlays</option>
+	
+	<option value="//api/name/allowsMultipleOverlaySelection">&nbsp;&nbsp;&nbsp;&nbsp;allowsMultipleOverlaySelection</option>
+	
+	<option value="//api/name/allowsOverlappingOverlays">&nbsp;&nbsp;&nbsp;&nbsp;allowsOverlappingOverlays</option>
+	
+	<option value="//api/name/allowsOverlaySelection">&nbsp;&nbsp;&nbsp;&nbsp;allowsOverlaySelection</option>
+	
+	<option value="//api/name/clickedOverlay">&nbsp;&nbsp;&nbsp;&nbsp;clickedOverlay</option>
+	
+	<option value="//api/name/doubleAction">&nbsp;&nbsp;&nbsp;&nbsp;doubleAction</option>
+	
+	<option value="//api/name/overlayBorderColor">&nbsp;&nbsp;&nbsp;&nbsp;overlayBorderColor</option>
+	
+	<option value="//api/name/overlayBorderWidth">&nbsp;&nbsp;&nbsp;&nbsp;overlayBorderWidth</option>
+	
+	<option value="//api/name/overlayDataSource">&nbsp;&nbsp;&nbsp;&nbsp;overlayDataSource</option>
+	
+	<option value="//api/name/overlayDelegate">&nbsp;&nbsp;&nbsp;&nbsp;overlayDelegate</option>
+	
+	<option value="//api/name/overlayFillColor">&nbsp;&nbsp;&nbsp;&nbsp;overlayFillColor</option>
+	
+	<option value="//api/name/overlaySelectionBorderColor">&nbsp;&nbsp;&nbsp;&nbsp;overlaySelectionBorderColor</option>
+	
+	<option value="//api/name/overlaySelectionFillColor">&nbsp;&nbsp;&nbsp;&nbsp;overlaySelectionFillColor</option>
+	
+	<option value="//api/name/rightAction">&nbsp;&nbsp;&nbsp;&nbsp;rightAction</option>
+	
+	<option value="//api/name/target">&nbsp;&nbsp;&nbsp;&nbsp;target</option>
+	
+	
+	
+	
+	
+	
+	<option value="instance_methods">Instance Methods</option>
+	
+	<option value="//api/name/deselectAllOverlays:">&nbsp;&nbsp;&nbsp;&nbsp;- deselectAllOverlays:</option>
+	
+	<option value="//api/name/deselectOverlay:">&nbsp;&nbsp;&nbsp;&nbsp;- deselectOverlay:</option>
+	
+	<option value="//api/name/enterState:">&nbsp;&nbsp;&nbsp;&nbsp;- enterState:</option>
+	
+	<option value="//api/name/isOverlaySelected:">&nbsp;&nbsp;&nbsp;&nbsp;- isOverlaySelected:</option>
+	
+	<option value="//api/name/numberOfSelectedOverlays">&nbsp;&nbsp;&nbsp;&nbsp;- numberOfSelectedOverlays</option>
+	
+	<option value="//api/name/reloadData">&nbsp;&nbsp;&nbsp;&nbsp;- reloadData</option>
+	
+	<option value="//api/name/selectAllOverlays:">&nbsp;&nbsp;&nbsp;&nbsp;- selectAllOverlays:</option>
+	
+	<option value="//api/name/selectOverlayIndexes:byExtendingSelection:">&nbsp;&nbsp;&nbsp;&nbsp;- selectOverlayIndexes:byExtendingSelection:</option>
+	
+	<option value="//api/name/selectedOverlayIndex">&nbsp;&nbsp;&nbsp;&nbsp;- selectedOverlayIndex</option>
+	
+	<option value="//api/name/selectedOverlayIndexes">&nbsp;&nbsp;&nbsp;&nbsp;- selectedOverlayIndexes</option>
+	
+	<option value="//api/name/selectedOverlays">&nbsp;&nbsp;&nbsp;&nbsp;- selectedOverlays</option>
+	
+	
+	
+</select>
+				</li>
+			</ul>
+		</header>
+		<nav id="tocContainer" class="isShowingTOC">
+			<ul id="toc" role="tree">
+				
+<li role="treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#overview">Overview</a></span></li>
+
+
+
+
+<li role="treeitem" id="task_treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#tasks">Tasks</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Setting the Overlay Data Source">Setting the Overlay Data Source</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Setting the Overlay Delegate">Setting the Overlay Delegate</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Loading Data">Loading Data</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Managing State">Managing State</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Target-action Behavior">Target-action Behavior</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Selecting Overlays">Selecting Overlays</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Setting Display Attributes">Setting Display Attributes</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Configuring Behavior">Configuring Behavior</a></span></li>
+	
+</ul></li>
+
+
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#properties">Properties</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/action">action</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/allowsCreatingOverlays">allowsCreatingOverlays</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/allowsDeletingOverlays">allowsDeletingOverlays</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/allowsEmptyOverlaySelection">allowsEmptyOverlaySelection</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/allowsModifyingOverlays">allowsModifyingOverlays</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/allowsMultipleOverlaySelection">allowsMultipleOverlaySelection</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/allowsOverlappingOverlays">allowsOverlappingOverlays</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/allowsOverlaySelection">allowsOverlaySelection</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/clickedOverlay">clickedOverlay</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/doubleAction">doubleAction</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/overlayBorderColor">overlayBorderColor</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/overlayBorderWidth">overlayBorderWidth</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/overlayDataSource">overlayDataSource</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/overlayDelegate">overlayDelegate</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/overlayFillColor">overlayFillColor</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/overlaySelectionBorderColor">overlaySelectionBorderColor</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/overlaySelectionFillColor">overlaySelectionFillColor</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/rightAction">rightAction</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/target">target</a></span></li>
+	
+</ul></li>
+
+
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/deselectAllOverlays:">deselectAllOverlays:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/deselectOverlay:">deselectOverlay:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/enterState:">enterState:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/isOverlaySelected:">isOverlaySelected:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/numberOfSelectedOverlays">numberOfSelectedOverlays</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/reloadData">reloadData</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/selectAllOverlays:">selectAllOverlays:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/selectOverlayIndexes:byExtendingSelection:">selectOverlayIndexes:byExtendingSelection:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/selectedOverlayIndex">selectedOverlayIndex</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/selectedOverlayIndexes">selectedOverlayIndexes</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/selectedOverlays">selectedOverlays</a></span></li>
+	
+</ul></li>
+
+
+			</ul>
+		</nav>
+		<article>
+			<div id="contents" class="isShowingTOC" role="main">
+				<a title="AZOverlayView Class Reference" name="top"></a>
+				<div class="main-navigation navigation-top">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="header">
+					<div class="section-header">
+						<h1 class="title title-header">AZOverlayView Class Reference</h1>
+					</div>		
+				</div>
+				<div id="container">	
+					
+					<div class="section section-specification"><table cellspacing="0"><tbody>
+						<tr>
+	<td class="specification-title">Inherits from</td>
+	<td class="specification-value">IKImageView</td>
+</tr><tr>
+	<td class="specification-title">Declared in</td>
+	<td class="specification-value">AZOverlay.h<br />AZOverlay.m</td>
+</tr>
+						</tbody></table></div>
+					
+					
+					
+					
+					<div class="section section-overview">
+						<a title="Overview" name="overview"></a>
+						<h2 class="subtitle subtitle-overview">Overview</h2>
+						<p>The overlay view.</p>
+
+<p>An AZOverlayView object displays a series of overlays for an image.</p>
+
+<p>An overlay view does not store its own data, instead it retrieves data values as needed from a data source to which it has a weak reference. You should not, therefore, try to directly set data values programmatically in the table view; instead you should modify the values in the data source and allow the changes to be reflected in the table view.</p>
+
+<p>See the AZOverlayViewDelegate informal protocol, which declares methods that return views for rows and columns as well as enable selectable cell editing, custom tracking, custom views and cells for individual columns and rows, and selection control. Additional functionality is also available through the use of delegate methods.</p>
+
+<p>See the AZOverlayViewDataSource informal protocol, declares the methods that an NSTableView object uses to provide and access the contents of its data source object.</p>
+					</div>
+					
+					
+					
+					
+					
+					<div class="section section-tasks">
+						<a title="Tasks" name="tasks"></a>
+						<h2 class="subtitle subtitle-tasks">Tasks</h2>
+						
+						
+						<a title="Setting the Overlay Data Source" name="task_Setting the Overlay Data Source"></a>
+						<h3 class="subsubtitle task-title">Setting the Overlay Data Source</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/overlayDataSource">&nbsp;&nbsp;overlayDataSource</a></code>
+		<span class="tooltip"><p>Sets the receiver’s data source to a given object.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li>
+						</ul>
+						
+						
+						<a title="Setting the Overlay Delegate" name="task_Setting the Overlay Delegate"></a>
+						<h3 class="subsubtitle task-title">Setting the Overlay Delegate</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/overlayDelegate">&nbsp;&nbsp;overlayDelegate</a></code>
+		<span class="tooltip"><p>Sets the receiver’s overlay delegate to a given object.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li>
+						</ul>
+						
+						
+						<a title="Loading Data" name="task_Loading Data"></a>
+						<h3 class="subsubtitle task-title">Loading Data</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/reloadData">&ndash;&nbsp;reloadData</a></code>
+		<span class="tooltip"><p>Marks the receiver as needing redisplay, so it will reload the data for
+visible cells and draw the new values.</p></span>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+						
+						<a title="Managing State" name="task_Managing State"></a>
+						<h3 class="subsubtitle task-title">Managing State</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/enterState:">&ndash;&nbsp;enterState:</a></code>
+		<span class="tooltip"><p>Attempt to enter new state.</p></span>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+						
+						<a title="Target-action Behavior" name="task_Target-action Behavior"></a>
+						<h3 class="subsubtitle task-title">Target-action Behavior</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/target">&nbsp;&nbsp;target</a></code>
+		<span class="tooltip"><p>Specifies the target object to receive <a href="#//api/name/action">action</a> messages from the receiver.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/action">&nbsp;&nbsp;action</a></code>
+		<span class="tooltip"><p>Specifies the message selector sent to the <a href="#//api/name/target">target</a> when the user single-clicks
+an overlay.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/doubleAction">&nbsp;&nbsp;doubleAction</a></code>
+		<span class="tooltip"><p>Specifies the message selector sent to the <a href="#//api/name/target">target</a> when the user double-clicks
+an overlay.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/rightAction">&nbsp;&nbsp;rightAction</a></code>
+		<span class="tooltip"><p>Specifies the message selector sent to the <a href="#//api/name/target">target</a> when the user right-clicks
+an overlay.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/clickedOverlay">&nbsp;&nbsp;clickedOverlay</a></code>
+		<span class="tooltip"><p>Specifies the index of the overlay the user clicked to trigger an <a href="#//api/name/action">action</a> message.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li>
+						</ul>
+						
+						
+						<a title="Selecting Overlays" name="task_Selecting Overlays"></a>
+						<h3 class="subsubtitle task-title">Selecting Overlays</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/allowsOverlaySelection">&nbsp;&nbsp;allowsOverlaySelection</a></code>
+		<span class="tooltip"><p>Specifies whether receiver should allow overlay selection.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/allowsEmptyOverlaySelection">&nbsp;&nbsp;allowsEmptyOverlaySelection</a></code>
+		<span class="tooltip"><p>Specifies whether receiver should allow empty overlay selections.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/allowsMultipleOverlaySelection">&nbsp;&nbsp;allowsMultipleOverlaySelection</a></code>
+		<span class="tooltip"><p>Specifies whether receiver should allow multiple overlay selection.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/selectOverlayIndexes:byExtendingSelection:">&ndash;&nbsp;selectOverlayIndexes:byExtendingSelection:</a></code>
+		<span class="tooltip"><p>Sets the overlay selection using <em>indexes</em> possibly extending the selection.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/selectedOverlayIndex">&ndash;&nbsp;selectedOverlayIndex</a></code>
+		<span class="tooltip"><p>Returns the index of the last overlay selected or added to the selection.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/selectedOverlayIndexes">&ndash;&nbsp;selectedOverlayIndexes</a></code>
+		<span class="tooltip"><p>Returns an index set containing the indexes of the selected overlays.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/selectedOverlays">&ndash;&nbsp;selectedOverlays</a></code>
+		<span class="tooltip"><p>Returns an array containing the selected overlays.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/deselectOverlay:">&ndash;&nbsp;deselectOverlay:</a></code>
+		<span class="tooltip"><p>Deselects the overlay at overlayIndex if it’s selected, regardless of whether empty selection
+is allowed.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/numberOfSelectedOverlays">&ndash;&nbsp;numberOfSelectedOverlays</a></code>
+		<span class="tooltip"><p>Returns the number of selected overlays.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/isOverlaySelected:">&ndash;&nbsp;isOverlaySelected:</a></code>
+		<span class="tooltip"><p>Returns a Boolean value that indicates whether the overlay at a given index is selected.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/selectAllOverlays:">&ndash;&nbsp;selectAllOverlays:</a></code>
+		<span class="tooltip"><p>Select all overlays.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/deselectAllOverlays:">&ndash;&nbsp;deselectAllOverlays:</a></code>
+		<span class="tooltip"><p>Deselect all overlays.</p></span>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+						
+						<a title="Setting Display Attributes" name="task_Setting Display Attributes"></a>
+						<h3 class="subsubtitle task-title">Setting Display Attributes</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/overlayFillColor">&nbsp;&nbsp;overlayFillColor</a></code>
+		<span class="tooltip"><p>The color used to fill an overlay.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/overlayBorderColor">&nbsp;&nbsp;overlayBorderColor</a></code>
+		<span class="tooltip"><p>The color used for the border of an overlay.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/overlaySelectionFillColor">&nbsp;&nbsp;overlaySelectionFillColor</a></code>
+		<span class="tooltip"><p>The color used to fill a selected overlay.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/overlaySelectionBorderColor">&nbsp;&nbsp;overlaySelectionBorderColor</a></code>
+		<span class="tooltip"><p>The color used for the border of a selected overlay.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/overlayBorderWidth">&nbsp;&nbsp;overlayBorderWidth</a></code>
+		<span class="tooltip"><p>Specifies the border width of an overlay.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li>
+						</ul>
+						
+						
+						<a title="Configuring Behavior" name="task_Configuring Behavior"></a>
+						<h3 class="subsubtitle task-title">Configuring Behavior</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/allowsCreatingOverlays">&nbsp;&nbsp;allowsCreatingOverlays</a></code>
+		<span class="tooltip"><p>Specifies whether receiver should allow creating overlays.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/allowsModifyingOverlays">&nbsp;&nbsp;allowsModifyingOverlays</a></code>
+		<span class="tooltip"><p>Specifies whether receiver should allow modifying overlays.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/allowsDeletingOverlays">&nbsp;&nbsp;allowsDeletingOverlays</a></code>
+		<span class="tooltip"><p>Specifies whether receiver should allow deleting overlays.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/allowsOverlappingOverlays">&nbsp;&nbsp;allowsOverlappingOverlays</a></code>
+		<span class="tooltip"><p>Specifies whether receiver should allow overlapping overlays. This will affect creating, moving, and resizing overlays.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li>
+						</ul>
+						
+					</div>
+					
+					
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Properties" name="properties"></a>
+						<h2 class="subtitle subtitle-methods">Properties</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/action" title="action"></a>
+	<h3 class="subsubtitle method-title">action</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Specifies the message selector sent to the <a href="#//api/name/target">target</a> when the user single-clicks
+an overlay.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property SEL action</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Specifies the message selector sent to the <a href="#//api/name/target">target</a> when the user single-clicks
+an overlay.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection see-also-section">
+		<h4 class="method-subtitle">See Also</h4>
+		<ul>
+			
+			<li><code><p><a href="#//api/name/target">@property target</a></p></code></li>
+			
+			<li><code><p><a href="#//api/name/clickedOverlay">@property clickedOverlay</a></p></code></li>
+			
+		</ul>
+	</div>
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AZOverlay.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/allowsCreatingOverlays" title="allowsCreatingOverlays"></a>
+	<h3 class="subsubtitle method-title">allowsCreatingOverlays</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Specifies whether receiver should allow creating overlays.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property BOOL allowsCreatingOverlays</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Specifies whether receiver should allow creating overlays.</p>
+
+<p>Defaults to <code>YES</code>.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AZOverlay.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/allowsDeletingOverlays" title="allowsDeletingOverlays"></a>
+	<h3 class="subsubtitle method-title">allowsDeletingOverlays</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Specifies whether receiver should allow deleting overlays.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property BOOL allowsDeletingOverlays</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Specifies whether receiver should allow deleting overlays.</p>
+
+<p>Defaults to <code>YES</code>.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AZOverlay.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/allowsEmptyOverlaySelection" title="allowsEmptyOverlaySelection"></a>
+	<h3 class="subsubtitle method-title">allowsEmptyOverlaySelection</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Specifies whether receiver should allow empty overlay selections.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property BOOL allowsEmptyOverlaySelection</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Specifies whether receiver should allow empty overlay selections.</p>
+
+<p>Defaults to <code>YES</code>.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AZOverlay.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/allowsModifyingOverlays" title="allowsModifyingOverlays"></a>
+	<h3 class="subsubtitle method-title">allowsModifyingOverlays</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Specifies whether receiver should allow modifying overlays.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property BOOL allowsModifyingOverlays</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Specifies whether receiver should allow modifying overlays.</p>
+
+<p>Defaults to <code>YES</code>.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AZOverlay.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/allowsMultipleOverlaySelection" title="allowsMultipleOverlaySelection"></a>
+	<h3 class="subsubtitle method-title">allowsMultipleOverlaySelection</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Specifies whether receiver should allow multiple overlay selection.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property BOOL allowsMultipleOverlaySelection</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Specifies whether receiver should allow multiple overlay selection.</p>
+
+<p>Defaults to <code>YES</code>.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AZOverlay.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/allowsOverlappingOverlays" title="allowsOverlappingOverlays"></a>
+	<h3 class="subsubtitle method-title">allowsOverlappingOverlays</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Specifies whether receiver should allow overlapping overlays. This will affect creating, moving, and resizing overlays.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property BOOL allowsOverlappingOverlays</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Specifies whether receiver should allow overlapping overlays. This will affect creating, moving, and resizing overlays.</p>
+
+<p>Defaults to <code>NO</code>.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AZOverlay.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/allowsOverlaySelection" title="allowsOverlaySelection"></a>
+	<h3 class="subsubtitle method-title">allowsOverlaySelection</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Specifies whether receiver should allow overlay selection.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property BOOL allowsOverlaySelection</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Specifies whether receiver should allow overlay selection.</p>
+
+<p>Defaults to <code>YES</code>.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AZOverlay.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/clickedOverlay" title="clickedOverlay"></a>
+	<h3 class="subsubtitle method-title">clickedOverlay</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Specifies the index of the overlay the user clicked to trigger an <a href="#//api/name/action">action</a> message.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (readonly) NSInteger clickedOverlay</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Specifies the index of the overlay the user clicked to trigger an <a href="#//api/name/action">action</a> message.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection see-also-section">
+		<h4 class="method-subtitle">See Also</h4>
+		<ul>
+			
+			<li><code><p><a href="#//api/name/target">@property target</a></p></code></li>
+			
+		</ul>
+	</div>
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AZOverlay.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/doubleAction" title="doubleAction"></a>
+	<h3 class="subsubtitle method-title">doubleAction</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Specifies the message selector sent to the <a href="#//api/name/target">target</a> when the user double-clicks
+an overlay.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property SEL doubleAction</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Specifies the message selector sent to the <a href="#//api/name/target">target</a> when the user double-clicks
+an overlay.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection see-also-section">
+		<h4 class="method-subtitle">See Also</h4>
+		<ul>
+			
+			<li><code><p><a href="#//api/name/target">@property target</a></p></code></li>
+			
+			<li><code><p><a href="#//api/name/clickedOverlay">@property clickedOverlay</a></p></code></li>
+			
+		</ul>
+	</div>
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AZOverlay.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/overlayBorderColor" title="overlayBorderColor"></a>
+	<h3 class="subsubtitle method-title">overlayBorderColor</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The color used for the border of an overlay.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property CGColorRef overlayBorderColor</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>The color used for the border of an overlay.</p>
+
+<p>Defaults to opaque blue.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AZOverlay.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/overlayBorderWidth" title="overlayBorderWidth"></a>
+	<h3 class="subsubtitle method-title">overlayBorderWidth</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Specifies the border width of an overlay.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property CGFloat overlayBorderWidth</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Specifies the border width of an overlay.</p>
+
+<p>Defaults to 3 points.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AZOverlay.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/overlayDataSource" title="overlayDataSource"></a>
+	<h3 class="subsubtitle method-title">overlayDataSource</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Sets the receiver’s data source to a given object.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (weak) IBOutlet id overlayDataSource</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Sets the receiver’s data source to a given object.</p>
+
+<p>In a managed memory environment, the receiver maintains a weak reference to the
+data source.</p>
+
+<p>Setting the data source will implicitly reload the overlay view.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection see-also-section">
+		<h4 class="method-subtitle">See Also</h4>
+		<ul>
+			
+			<li><code><p><a href="../Categories/NSObject+AZOverlayViewDataSource.html">NSObject(AZOverlayViewDataSource)</a></p></code></li>
+			
+		</ul>
+	</div>
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AZOverlay.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/overlayDelegate" title="overlayDelegate"></a>
+	<h3 class="subsubtitle method-title">overlayDelegate</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Sets the receiver’s overlay delegate to a given object.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (weak) IBOutlet id overlayDelegate</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Sets the receiver’s overlay delegate to a given object.</p>
+
+<p>In a managed memory environment, the receiver maintains a weak reference to the
+delegate.</p>
+
+<p>Setting the delegate will implicitly reload the overlay view.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection see-also-section">
+		<h4 class="method-subtitle">See Also</h4>
+		<ul>
+			
+			<li><code><p><a href="../Categories/NSObject+AZOverlayViewDelegate.html">NSObject(AZOverlayViewDelegate)</a></p></code></li>
+			
+		</ul>
+	</div>
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AZOverlay.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/overlayFillColor" title="overlayFillColor"></a>
+	<h3 class="subsubtitle method-title">overlayFillColor</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The color used to fill an overlay.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property CGColorRef overlayFillColor</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>The color used to fill an overlay.</p>
+
+<p>Defaults to transparent blue.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AZOverlay.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/overlaySelectionBorderColor" title="overlaySelectionBorderColor"></a>
+	<h3 class="subsubtitle method-title">overlaySelectionBorderColor</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The color used for the border of a selected overlay.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property CGColorRef overlaySelectionBorderColor</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>The color used for the border of a selected overlay.</p>
+
+<p>Defaults to opaque green.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AZOverlay.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/overlaySelectionFillColor" title="overlaySelectionFillColor"></a>
+	<h3 class="subsubtitle method-title">overlaySelectionFillColor</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The color used to fill a selected overlay.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property CGColorRef overlaySelectionFillColor</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>The color used to fill a selected overlay.</p>
+
+<p>Defaults to transparent green.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AZOverlay.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/rightAction" title="rightAction"></a>
+	<h3 class="subsubtitle method-title">rightAction</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Specifies the message selector sent to the <a href="#//api/name/target">target</a> when the user right-clicks
+an overlay.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property SEL rightAction</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Specifies the message selector sent to the <a href="#//api/name/target">target</a> when the user right-clicks
+an overlay.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection see-also-section">
+		<h4 class="method-subtitle">See Also</h4>
+		<ul>
+			
+			<li><code><p><a href="#//api/name/target">@property target</a></p></code></li>
+			
+			<li><code><p><a href="#//api/name/clickedOverlay">@property clickedOverlay</a></p></code></li>
+			
+		</ul>
+	</div>
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AZOverlay.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/target" title="target"></a>
+	<h3 class="subsubtitle method-title">target</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Specifies the target object to receive <a href="#//api/name/action">action</a> messages from the receiver.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (weak) IBOutlet id target</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Specifies the target object to receive <a href="#//api/name/action">action</a> messages from the receiver.</p>
+
+<p>In a managed memory environment, the receiver maintains a weak reference to the
+target.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection see-also-section">
+		<h4 class="method-subtitle">See Also</h4>
+		<ul>
+			
+			<li><code><p><a href="#//api/name/action">@property action</a></p></code></li>
+			
+			<li><code><p><a href="#//api/name/doubleAction">@property doubleAction</a></p></code></li>
+			
+			<li><code><p><a href="#//api/name/rightAction">@property rightAction</a></p></code></li>
+			
+			<li><code><p><a href="#//api/name/clickedOverlay">@property clickedOverlay</a></p></code></li>
+			
+		</ul>
+	</div>
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AZOverlay.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
+					
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Instance Methods" name="instance_methods"></a>
+						<h2 class="subtitle subtitle-methods">Instance Methods</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/deselectAllOverlays:" title="deselectAllOverlays:"></a>
+	<h3 class="subsubtitle method-title">deselectAllOverlays:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Deselect all overlays.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (IBAction)deselectAllOverlays:(id)<em>sender</em></code></div>
+	
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>sender</em></dt>
+			<dd><p>Typically the object that sent the message.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Deselect all overlays.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AZOverlay.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/deselectOverlay:" title="deselectOverlay:"></a>
+	<h3 class="subsubtitle method-title">deselectOverlay:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Deselects the overlay at overlayIndex if it’s selected, regardless of whether empty selection
+is allowed.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (void)deselectOverlay:(NSInteger)<em>overlayIndex</em></code></div>
+	
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>overlayIndex</em></dt>
+			<dd><p>The index of the overlay to deselect.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Deselects the overlay at overlayIndex if it’s selected, regardless of whether empty selection
+is allowed.</p>
+
+<p>If the indicated overlay was the last overlay selected by the user, the overlay selected
+prior to this one effectively becomes the last selected overlay.</p>
+
+<p>This method doesn’t check with the delegate before changing the selection.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AZOverlay.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/enterState:" title="enterState:"></a>
+	<h3 class="subsubtitle method-title">enterState:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Attempt to enter new state.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (BOOL)enterState:(AZState)<em>theState</em></code></div>
+	
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>theState</em></dt>
+			<dd><p>The state that should be entered.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p><code>YES</code> if the state could be changed; otherwise <code>NO</code>.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Attempt to enter new state.</p>
+
+<p>Discussion about allowances here.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AZOverlay.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/isOverlaySelected:" title="isOverlaySelected:"></a>
+	<h3 class="subsubtitle method-title">isOverlaySelected:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Returns a Boolean value that indicates whether the overlay at a given index is selected.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (BOOL)isOverlaySelected:(NSInteger)<em>overlayIndex</em></code></div>
+	
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>overlayIndex</em></dt>
+			<dd><p>The index of the overlay to test.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p><code>YES</code> if the overlay at overlayIndex is selected, otherwise <code>NO</code>.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Returns a Boolean value that indicates whether the overlay at a given index is selected.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AZOverlay.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/numberOfSelectedOverlays" title="numberOfSelectedOverlays"></a>
+	<h3 class="subsubtitle method-title">numberOfSelectedOverlays</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Returns the number of selected overlays.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (NSInteger)numberOfSelectedOverlays</code></div>
+	
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>The number of selected overlays.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Returns the number of selected overlays.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AZOverlay.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/reloadData" title="reloadData"></a>
+	<h3 class="subsubtitle method-title">reloadData</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Marks the receiver as needing redisplay, so it will reload the data for
+visible cells and draw the new values.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (void)reloadData</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Marks the receiver as needing redisplay, so it will reload the data for
+visible cells and draw the new values.</p>
+
+<p>This method forces redraw of all overlays in the receiver.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AZOverlay.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/selectAllOverlays:" title="selectAllOverlays:"></a>
+	<h3 class="subsubtitle method-title">selectAllOverlays:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Select all overlays.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (IBAction)selectAllOverlays:(id)<em>sender</em></code></div>
+	
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>sender</em></dt>
+			<dd><p>Typically the object that sent the message.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Select all overlays.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AZOverlay.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/selectOverlayIndexes:byExtendingSelection:" title="selectOverlayIndexes:byExtendingSelection:"></a>
+	<h3 class="subsubtitle method-title">selectOverlayIndexes:byExtendingSelection:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Sets the overlay selection using <em>indexes</em> possibly extending the selection.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (void)selectOverlayIndexes:(NSIndexSet *)<em>indexes</em> byExtendingSelection:(BOOL)<em>extend</em></code></div>
+	
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>indexes</em></dt>
+			<dd><p>The indexes to select.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>extend</em></dt>
+			<dd><p><code>YES</code> if the selection should be extended, <code>NO</code> if the current selection should be changed.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Sets the overlay selection using <em>indexes</em> possibly extending the selection.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AZOverlay.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/selectedOverlayIndex" title="selectedOverlayIndex"></a>
+	<h3 class="subsubtitle method-title">selectedOverlayIndex</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Returns the index of the last overlay selected or added to the selection.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (NSInteger)selectedOverlayIndex</code></div>
+	
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>The index of the last overlay selected or added to the selection, or –1 if no overlay is selected.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Returns the index of the last overlay selected or added to the selection.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AZOverlay.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/selectedOverlayIndexes" title="selectedOverlayIndexes"></a>
+	<h3 class="subsubtitle method-title">selectedOverlayIndexes</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Returns an index set containing the indexes of the selected overlays.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (NSIndexSet *)selectedOverlayIndexes</code></div>
+	
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>An index set containing the indexes of the selected overlays.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Returns an index set containing the indexes of the selected overlays.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AZOverlay.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/selectedOverlays" title="selectedOverlays"></a>
+	<h3 class="subsubtitle method-title">selectedOverlays</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Returns an array containing the selected overlays.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (NSArray *)selectedOverlays</code></div>
+	
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>An array containing the selected overlays.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Returns an array containing the selected overlays.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AZOverlay.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
+					
+				</div>
+				<div class="main-navigation navigation-bottom">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="footer">
+					<hr />
+					<div class="footer-copyright">
+						<p><span class="copyright">&copy; 2012 mrgray.com. All rights reserved. (Last updated: 2012-09-15)</span><br />
+						
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.5 (build 789)</a>.</span></p>
+						
+					</div>
+				</div>
+			</div>
+		</article>
+		<script type="text/javascript">
+			function jumpToChange()
+			{
+				window.location.hash = this.options[this.selectedIndex].value;
+			}
+			
+			function toggleTOC()
+			{
+				var contents = document.getElementById('contents');
+				var tocContainer = document.getElementById('tocContainer');
+				
+				if (this.getAttribute('class') == 'open')
+				{
+					this.setAttribute('class', '');
+					contents.setAttribute('class', '');
+					tocContainer.setAttribute('class', '');
+					
+					window.name = "hideTOC";
+				}
+				else
+				{
+					this.setAttribute('class', 'open');
+					contents.setAttribute('class', 'isShowingTOC');
+					tocContainer.setAttribute('class', 'isShowingTOC');
+					
+					window.name = "";
+				}
+				return false;
+			}
+			
+			function toggleTOCEntryChildren(e)
+			{
+				e.stopPropagation();
+				var currentClass = this.getAttribute('class');
+				if (currentClass == 'children') {
+					this.setAttribute('class', 'children open');
+				}
+				else if (currentClass == 'children open') {
+					this.setAttribute('class', 'children');
+				}
+				return false;
+			}
+			
+			function tocEntryClick(e)
+			{
+				e.stopPropagation();
+				return true;
+			}
+			
+			function init()
+			{
+				var selectElement = document.getElementById('jumpTo');
+				selectElement.addEventListener('change', jumpToChange, false);
+				
+				var tocButton = document.getElementById('table_of_contents');
+				tocButton.addEventListener('click', toggleTOC, false);
+				
+				var taskTreeItem = document.getElementById('task_treeitem');
+				if (taskTreeItem.getElementsByTagName('li').length > 0)
+				{
+					taskTreeItem.setAttribute('class', 'children');
+					taskTreeItem.firstChild.setAttribute('class', 'disclosure');
+				}
+				
+				var tocList = document.getElementById('toc');
+				
+				var tocEntries = tocList.getElementsByTagName('li');
+				for (var i = 0; i < tocEntries.length; i++) {
+					tocEntries[i].addEventListener('click', toggleTOCEntryChildren, false);
+				}
+				
+				var tocLinks = tocList.getElementsByTagName('a');
+				for (var i = 0; i < tocLinks.length; i++) {
+					tocLinks[i].addEventListener('click', tocEntryClick, false);
+				}
+				
+				if (window.name == "hideTOC") {
+					toggleTOC.call(tocButton);
+				}
+			}
+			
+			window.onload = init;
+		</script>
+	</body>
+</html>

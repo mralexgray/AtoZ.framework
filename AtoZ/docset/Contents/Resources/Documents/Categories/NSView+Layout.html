@@ -1,0 +1,430 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
+		<title>NSView(Layout) Category Reference</title>
+		<meta id="xcode-display" name="xcode-display" content="render"/>
+		<meta name="viewport" content="width=550" />
+		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
+		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
+		<meta name="generator" content="appledoc 2.0.5 (build 789)" />
+	</head>
+	<body>
+		<header id="top_header">
+			<div id="library" class="hideInXcode">
+				<h1><a id="libraryTitle" href="../index.html">AtoZ.Framework </a></h1>
+				<a id="developerHome" href="../index.html">mrgray.com</a>
+			</div>
+			
+			<div id="title" role="banner">
+				<h1 class="hideInXcode">NSView(Layout) Category Reference</h1>
+			</div>
+			<ul id="headerButtons" role="toolbar">
+				<li id="toc_button">
+					<button aria-label="Show Table of Contents" role="checkbox" class="open" id="table_of_contents"><span class="disclosure"></span>Table of Contents</button>
+				</li>
+				<li id="jumpto_button" role="navigation">
+					<select id="jumpTo">
+	<option value="top">Jump To&#133;</option>
+	
+	
+	
+	
+	<option value="tasks">Tasks</option>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<option value="instance_methods">Instance Methods</option>
+	
+	<option value="//api/name/compareLeftEdges:">&nbsp;&nbsp;&nbsp;&nbsp;- compareLeftEdges:</option>
+	
+	<option value="//api/name/sizeHeightToFit">&nbsp;&nbsp;&nbsp;&nbsp;- sizeHeightToFit</option>
+	
+	<option value="//api/name/sizeHeightToFitAllowShrinking:">&nbsp;&nbsp;&nbsp;&nbsp;- sizeHeightToFitAllowShrinking:</option>
+	
+	
+	
+</select>
+				</li>
+			</ul>
+		</header>
+		<nav id="tocContainer" class="isShowingTOC">
+			<ul id="toc" role="tree">
+				
+
+
+
+<li role="treeitem" id="task_treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#tasks">Tasks</a></span><ul>
+	
+</ul></li>
+
+
+
+
+
+
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/compareLeftEdges:">compareLeftEdges:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/sizeHeightToFit">sizeHeightToFit</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/sizeHeightToFitAllowShrinking:">sizeHeightToFitAllowShrinking:</a></span></li>
+	
+</ul></li>
+
+
+			</ul>
+		</nav>
+		<article>
+			<div id="contents" class="isShowingTOC" role="main">
+				<a title="NSView(Layout) Category Reference" name="top"></a>
+				<div class="main-navigation navigation-top">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="header">
+					<div class="section-header">
+						<h1 class="title title-header">NSView(Layout) Category Reference</h1>
+					</div>		
+				</div>
+				<div id="container">	
+					
+					<div class="section section-specification"><table cellspacing="0"><tbody>
+						<tr>
+	<td class="specification-title">Declared in</td>
+	<td class="specification-value">NSView+AtoZ.h<br />NSView+AtoZ.m</td>
+</tr>
+						</tbody></table></div>
+					
+					
+					
+					
+					
+					
+					<div class="section section-tasks">
+						<a title="Tasks" name="tasks"></a>
+						<h2 class="subtitle subtitle-tasks">Tasks</h2>
+						
+						
+						
+						
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/sizeHeightToFitAllowShrinking:">&ndash;&nbsp;sizeHeightToFitAllowShrinking:</a></code>
+		<span class="tooltip"><p>@brief    Resizes the height of the receiver to fit its current content.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/compareLeftEdges:">&ndash;&nbsp;compareLeftEdges:</a></code>
+		<span class="tooltip"><p>@brief    Compares the left edge of the receiver with the left
+edge of a other view.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/sizeHeightToFit">&ndash;&nbsp;sizeHeightToFit</a></code>
+		<span class="tooltip"><p>@brief    Based on the &ldquo;lowest&rdquo; subview among the receiver&rsquo;s subview,
+i.e. the one with the smallest frame.origin.y, sizes the receiver
+to fit it.</p></span>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+					</div>
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Instance Methods" name="instance_methods"></a>
+						<h2 class="subtitle subtitle-methods">Instance Methods</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/compareLeftEdges:" title="compareLeftEdges:"></a>
+	<h3 class="subsubtitle method-title">compareLeftEdges:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>@brief    Compares the left edge of the receiver with the left
+edge of a other view.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (NSComparisonResult)compareLeftEdges:(NSView *)<em>otherView</em></code></div>
+	
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>NSOrderedAscending if the other view&rsquo;s left edge is
+to the right of the receiver, etc.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>@brief    Compares the left edge of the receiver with the left
+edge of a other view.</p>
+
+<p>@param    otherView</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSView+AtoZ.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/sizeHeightToFit" title="sizeHeightToFit"></a>
+	<h3 class="subsubtitle method-title">sizeHeightToFit</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>@brief    Based on the &ldquo;lowest&rdquo; subview among the receiver&rsquo;s subview,
+i.e. the one with the smallest frame.origin.y, sizes the receiver
+to fit it.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (void)sizeHeightToFit</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>@brief    Based on the &ldquo;lowest&rdquo; subview among the receiver&rsquo;s subview,
+i.e. the one with the smallest frame.origin.y, sizes the receiver
+to fit it.</p>
+
+<p>@details  This method takes a completely different approach than the
+others in this class.  Indeed, it was written years later (201105).</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSView+AtoZ.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/sizeHeightToFitAllowShrinking:" title="sizeHeightToFitAllowShrinking:"></a>
+	<h3 class="subsubtitle method-title">sizeHeightToFitAllowShrinking:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>@brief    Resizes the height of the receiver to fit its current content.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (void)sizeHeightToFitAllowShrinking:(BOOL)<em>allowShrinking</em></code></div>
+	
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>allowShrinking</em></dt>
+			<dd><p>If YES, the method always resizes the
+receiver&rsquo;s height to fit the current content.&nbsp; If NO, and if the
+height required by the receiver&rsquo;s current content is smaller than
+the receiver&rsquo;s current height, the receiver&rsquo;s height is not resized.&nbsp;
+This is used to avoid a changing height which could be annoying in many
+circumstances.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>@brief    Resizes the height of the receiver to fit its current content.</p>
+
+<p>@details  The default implementation works properly if the receiver is
+an NSTextField or NSTextView.&nbsp; For any other subclass, all it does
+is clip if the height is not taller than the screen, so subclasses
+may invoke super to get this function.&nbsp; Otherwise, it&rsquo;s a no-op, which
+is appropriate for subclasses that have a constant height,
+independent of their content, for example NSButton or NSPopUpButton.&nbsp;
+Todo: I should move the NSTextField and NSTextView code from
+this method into subclass methods, as I have done with NSTableView
+in SSLabelledList.m</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSView+AtoZ.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
+					
+				</div>
+				<div class="main-navigation navigation-bottom">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="footer">
+					<hr />
+					<div class="footer-copyright">
+						<p><span class="copyright">&copy; 2012 mrgray.com. All rights reserved. (Last updated: 2012-09-15)</span><br />
+						
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.5 (build 789)</a>.</span></p>
+						
+					</div>
+				</div>
+			</div>
+		</article>
+		<script type="text/javascript">
+			function jumpToChange()
+			{
+				window.location.hash = this.options[this.selectedIndex].value;
+			}
+			
+			function toggleTOC()
+			{
+				var contents = document.getElementById('contents');
+				var tocContainer = document.getElementById('tocContainer');
+				
+				if (this.getAttribute('class') == 'open')
+				{
+					this.setAttribute('class', '');
+					contents.setAttribute('class', '');
+					tocContainer.setAttribute('class', '');
+					
+					window.name = "hideTOC";
+				}
+				else
+				{
+					this.setAttribute('class', 'open');
+					contents.setAttribute('class', 'isShowingTOC');
+					tocContainer.setAttribute('class', 'isShowingTOC');
+					
+					window.name = "";
+				}
+				return false;
+			}
+			
+			function toggleTOCEntryChildren(e)
+			{
+				e.stopPropagation();
+				var currentClass = this.getAttribute('class');
+				if (currentClass == 'children') {
+					this.setAttribute('class', 'children open');
+				}
+				else if (currentClass == 'children open') {
+					this.setAttribute('class', 'children');
+				}
+				return false;
+			}
+			
+			function tocEntryClick(e)
+			{
+				e.stopPropagation();
+				return true;
+			}
+			
+			function init()
+			{
+				var selectElement = document.getElementById('jumpTo');
+				selectElement.addEventListener('change', jumpToChange, false);
+				
+				var tocButton = document.getElementById('table_of_contents');
+				tocButton.addEventListener('click', toggleTOC, false);
+				
+				var taskTreeItem = document.getElementById('task_treeitem');
+				if (taskTreeItem.getElementsByTagName('li').length > 0)
+				{
+					taskTreeItem.setAttribute('class', 'children');
+					taskTreeItem.firstChild.setAttribute('class', 'disclosure');
+				}
+				
+				var tocList = document.getElementById('toc');
+				
+				var tocEntries = tocList.getElementsByTagName('li');
+				for (var i = 0; i < tocEntries.length; i++) {
+					tocEntries[i].addEventListener('click', toggleTOCEntryChildren, false);
+				}
+				
+				var tocLinks = tocList.getElementsByTagName('a');
+				for (var i = 0; i < tocLinks.length; i++) {
+					tocLinks[i].addEventListener('click', tocEntryClick, false);
+				}
+				
+				if (window.name == "hideTOC") {
+					toggleTOC.call(tocButton);
+				}
+			}
+			
+			window.onload = init;
+		</script>
+	</body>
+</html>

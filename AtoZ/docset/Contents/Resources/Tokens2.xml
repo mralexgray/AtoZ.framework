@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/AZBlockView.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/AZBlockView</TokenIdentifier>
+			<Abstract>/	block typeof__(self)</Abstract>
+			<DeclaredIn>AZBlockView.h</DeclaredIn>
+			
+			<NodeRef refid="2"/>
+		</Token>
+		
+		
+	</File>
+</Tokens>

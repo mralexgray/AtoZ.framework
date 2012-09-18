@@ -80,7 +80,7 @@ NSString *const FormatTypeName[FormatTypeCount] = {
 //};
 
 // Log levels: off, error, warn, info, verbose
-static const int ddLogLevel = LOG_LEVEL_VERBOSE;
+//static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 @implementation AZDummy
 @end
@@ -91,6 +91,8 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 }
 //@synthesize appFolder, appFolderSorted;//, console;
 //@synthesize dock, dockSorted;
+
++ (NSString*) resources { return [[NSBundle bundleForClass: [self class]] resourcePath]; }
 
 + (NSString*)stringForType:(id)type
 {
@@ -123,33 +125,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 //}
 //	console = [NSLogConsole sharedConsole]; [console open];
 
-#define kMaxFontSize    10000
-
-+ (CGFloat)fontSizeForAreaSize:(NSSize)areaSize withString:(NSString *)stringToSize usingFont:(NSString *)fontName;
-{
-    NSFont * displayFont = nil;
-    NSSize stringSize = NSZeroSize;
-    NSMutableDictionary * fontAttributes = [[NSMutableDictionary alloc] init];
-
-    if (areaSize.width == 0.0 && areaSize.height == 0.0)
-        return 0.0;
-
-    NSUInteger fontLoop = 0;
-    for (fontLoop = 1; fontLoop <= kMaxFontSize; fontLoop++) {
-        displayFont = [[NSFontManager sharedFontManager] convertWeight:YES ofFont:[NSFont fontWithName:fontName size:fontLoop]];
-        [fontAttributes setObject:displayFont forKey:NSFontAttributeName];
-        stringSize = [stringToSize sizeWithAttributes:fontAttributes];
-
-        if (stringSize.width > areaSize.width)
-            break;
-        if (stringSize.height > areaSize.height)
-            break;
-    }
-
-    [fontAttributes release], fontAttributes = nil;
-
-    return (CGFloat)fontLoop - 1.0;
-}
 
 
 - (void) setUp {
@@ -574,18 +549,21 @@ static void soundCompleted(SystemSoundID soundFileObject, void *clientData) {
 @synthesize 	percent, 		count;
 @synthesize  	name, 			color;
 @synthesize 	hueComponent;
-+ (AZColor*) instanceWithObject: (NSDictionary *)dic {
-	AZColor *color = [self instance];
-	if (dic[@"color"]) color.color   = dic[@"color"]; else return nil;
-	color.name 	  = ( dic[@"name"]   ? [dic valueForKey:@"name"]    : nil );
-	color.count   = ( [dic valueForKey:@"count"]   ? [[dic valueForKey:@"count"]intValue]     : 0);
-	color.percent =	( [dic valueForKey:@"percent"] ? [[dic valueForKey:@"percent"]floatValue] : 0);
+
++ (instancetype) instanceWithColor:(NSColor*)color {
+
+}
++ (AZColor*) instanceWithObject: (NSDictionary *)dic {	if (!dic[@"color"])  return nil;
+	AZColor *color = [[self class] instanceWithColor:dic[@"color"]];
+	color.name 	  =  dic [@"name"]    ?  dic [@"name"]    			   : @"";
+	color.count   =  dic [@"count"]   ? [dic [@"count"] intValue]      : 0;
+	color.percent =	 dic [@"percent"] ? [dic [@"percent"] floatValue]  : 0;
 	return color;
 }
--(CGFloat) saturation {	return [self.color saturationComponent]; }
--(CGFloat) hue 		  {	return [self.color hueComponent];		 }
--(CGFloat) brightness {	return [self.color brightnessComponent]; }
--(CGFloat) hueComponent  {	return [self.color hueComponent];		 }
+//-(CGFloat) saturation 	{	return [_color saturationComponent]; }
+//-(CGFloat) hue 		  	{	return [_color hueComponent];		 }
+//-(CGFloat) brightness 	{	return [_color brightnessComponent]; }
+//-(CGFloat) hueComponent {	return [color_ hueComponent];		 		}
 
 
 -(NSArray*) colorsForImage:(NSImage*)image {
@@ -706,183 +684,6 @@ static void soundCompleted(SystemSoundID soundFileObject, void *clientData) {
 
 @end
 
-
-
-NSString *const AZFileUpdated = @"AZFileUpdated";
-
-@implementation AZFile
-@synthesize path, name, color, /*customColor labelColor,*/ icon, image;
-@synthesize dockPoint, dockPointNew, spot, spotNew;
-@synthesize hue, isRunning, hasLabel, needsToMove; //labelNumber;
-//@synthesize itunesInfo, itunesDescription;
-
-- (void) setUp {
-	self.customColor 	= WHITE;
-	self.labelColor 	= WHITE;
-	self.labelNumber	= @(99);
-	self.position		= AZPositionAutomatic;
-}
-
-+ (AZFile*) forAppNamed:(NSString*)appName  {
-
-	return [[[AtoZ dock] valueForKeyPath:@"name"]  filterOne:^BOOL(id object) {
-		return ([object isEqualTo:appName] ? YES : NO);
-	}];
-}
-
-
-- (NSString *) calulatedBundleID {
-    NSWorkspace * workspace = [NSWorkspace sharedWorkspace];
-	NSBundle * appBundle = [NSBundle bundleWithPath:self.path];
-	return [appBundle bundleIdentifier];
-}
-
-//- (NSString*) itunesDescription {
-//	return self.itunesInfo.itemDescription;
-//}
-
-//- (AJSiTunesResult *) itunesInfo {
-
-//	return  [AtoZiTunes resultsForName:self.name];
-//}
-
-
-+ (AZFile*) dummy {
-	return [AZFile instanceWithPath:@"/System/Library/CoreServices/Dock.app/Contents/Resources/notloaded.icns"];
-}
-
-+ (id) instanceWithColor: (NSColor*)color {
-	AZFile*d = [AZFile instance];
-	d.color = color;
-	return d;
-}
-
-+ (instancetype)instanceWithPath:(NSString *)path {
-
-	AZFile *dd = [AZFile instance];//WithObject:path];
-	dd.path = path;
-	dd.name = [[path lastPathComponent] stringByDeletingPathExtension];
-	NSWorkspace *ws =	[NSWorkspace sharedWorkspace];
-	NSImage *u = [ws iconForFile:path];
-	if (u) {
-		u.scalesWhenResized = YES;
-		u.size = AZSizeFromDimension(512);
-	}
-	dd.image = (u ? u : [NSImage imageInFrameworkWithFileName:@"missing.png"]);
-	NSBundle * appBundle = [NSBundle bundleWithPath:path];
-	dd.calulatedBundleID = appBundle ? [appBundle bundleIdentifier] : @"unknown";
-	//dd.colors ?
-	dd.color = [(AZColor*)[dd.colors objectAtNormalizedIndex:0] color];// : RED;
-//	labelColor = [self labelColor];
-//	if (labelColor) labelNumber = [self labelNumber];
-//	[[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:AZFileUpdated object:[AtoZ sharedInstance].dockSorted];
-
-
-
-	//	[[NSThread mainThread]performBlock:^{
-	return dd;
-}
-
-//- (void) setUp {
-	//	[NSThread performBlockInBackground:^{
-	//}];// waitUntilDone:YES];
-
-
-//}
--(NSArray*) colors {
-
-	if (_colors) return  _colors;
-	else {
-	@autoreleasepool {
-
-		NSArray *rawArray = [self.image quantize];
-		// put all colors in a bag
-		NSBag *allBag = [NSBag bag];
-		for (id thing in rawArray ) [allBag add:thing];
-		NSBag *rawBag = [NSBag bag];
-		int total = 0;
-		for ( NSColor *aColor in rawArray ) {
-			//get rid of any colors that account for less than 10% of total
-			if ( ( [allBag occurrencesOf:aColor] > ( .0005 * [rawArray count]) )) {
-				// test for borigness
-				if ( [aColor isBoring] == NO ) {
-					NSColor *close = [aColor closestNamedColor];
-					total++;
-					[rawBag add:close];
-				}
-			}
-		}
-		NSArray *exciting = 	[[rawBag objects] filter:^BOOL(id object) {
-			NSColor *idColor = object;
-			return ([idColor isBoring] ? FALSE : TRUE);
-		}];
-
-		//uh oh, too few colors
-		if ( ([[rawBag objects]count] < 2) || (exciting.count < 2 )) {
-			for ( NSColor *salvageColor in rawArray ) {
-				NSColor *close = [salvageColor closestNamedColor];
-				total++;
-				[rawBag add:close];
-			}
-		}
-		NSMutableArray *colorsUnsorted = [NSMutableArray array];
-
-		for (NSColor *idColor in [rawBag objects] ) {
-
-			AZColor *acolor = [AZColor instance];
-			acolor.color = idColor;
-			acolor.count = [rawBag occurrencesOf:idColor];
-			acolor.percent = ( [rawBag occurrencesOf:idColor] / (float)total );
-			[colorsUnsorted addObject:acolor];
-		}
-		rawBag = nil; allBag = nil;
-		return [colorsUnsorted sortedWithKey:@"count" ascending:NO];
-	}
-	}
-}
-//- (NSColor*) color {
-//	NSLog(@"color for %@:  %@", self.name, (color ? color : [[self.colors objectAtNormalizedIndex:0] valueForKey:@"color"]));
-//	return (color ? color : [[self.colors objectAtNormalizedIndex:0] valueForKey:@"color"]);
-//}
-
-- (CGFloat) hue { return self.color.hueComponent; }
-
-
-
-- (BOOL) isRunning {
-
-	return  ([[[[NSWorkspace sharedWorkspace] runningApplications] valueForKeyPath:@"localizedName"]containsObject:self.name] ? YES : NO);
-}
-
-- (NSColor*) labelColor {
-	NSURL* fileURL = [NSURL fileURLWithPath:self.path];
-	NSDictionary *d = [fileURL resourceValuesForKeys:$array(NSURLLabelColorKey) error:nil];
-	return ( [d valueForKey:NSURLLabelColorKey]  ? (NSColor*) [d valueForKey:NSURLLabelColorKey] : nil);
-}
-
-
-- (NSNumber*) labelNumber {
-	NSURL* fileURL = [NSURL fileURLWithPath:self.path];
-	NSDictionary *d = [fileURL resourceValuesForKeys:$array(NSURLLabelNumberKey) error:nil];
-	return ( [d valueForKey:NSURLLabelNumberKey] ? [d valueForKey:NSURLLabelNumberKey] : nil);
-	//	You can use both the NSURLLabelNumberKey to get the number of the Finder's assigned label or the NSURLLabelColorKey to get the actual color.
-
-}
-- (void)setActualLabelColor:(NSColor *)aLabelColor {
-	NSError *error = nil;
-	NSURL* fileURL = [NSURL fileURLWithPath:self.path];
-	[fileURL setResourceValue:(id)aLabelColor forKey:NSURLLabelColorKey error:&error];
-	if (error) NSLog(@"Problem setting label for %@", self.name);
-}
-- (void)setActualLabelNumber:(NSNumber*)aLabelNumber {
-	NSError *error = nil;
-	NSURL* fileURL = [NSURL fileURLWithPath:self.path];
-	[fileURL setResourceValue:aLabelNumber forKey:NSURLLabelNumberKey error:&error];
-	if (error) NSLog(@"Problem setting label (#) for %@", self.name);
-    return;
-}
-
-@end
 
 void _AZSimpleLog(const char *file, int lineNumber, const char *funcName, NSString *format,...){
 	va_list argList;

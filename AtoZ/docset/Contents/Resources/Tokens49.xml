@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Categories/NSObject+AG.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cat/NSObject(AG)</TokenIdentifier>
+			<Abstract></Abstract>
+			<DeclaredIn>NSObject+AtoZ.h</DeclaredIn>
+			
+			<NodeRef refid="49"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/NSObject(AG)/setClass:</TokenIdentifier>
+			<Abstract>Example:
+	MyObject *obj = [[MyObject alloc] init];
+	obj.a = @"Hello A";  //setting some values to attributes
+	obj.b = @"Hello B";</Abstract>
+			<DeclaredIn>NSObject+AtoZ.h</DeclaredIn>			
+			
+			<Declaration>- (void)setClass:(Class)aClass</Declaration>
+			
+			
+			<Anchor>//api/name/setClass:</Anchor>
+		</Token>
+		
+	</File>
+</Tokens>

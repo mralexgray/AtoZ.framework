@@ -926,6 +926,18 @@ static const char * getPropertyType(objc_property_t property) {
 			 object:object];
 }
 
+
+-(void)observeName:(NSString *)notificationName
+			 calling:(SEL)selector
+{
+	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+	[nc addObserver:self
+		   selector:selector
+			   name:notificationName
+			 object:nil];
+}
+
+
 -(void)stopObserving:(NSObject *)object forName:(NSString *)notificationName {
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 	[nc removeObserver:self name:notificationName object:object];
@@ -1011,6 +1023,27 @@ static const char * getPropertyType(objc_property_t property) {
 }
 
 
+@end
+
+
+@implementation NSObject (PrimitiveEvocation)
+
+- (void *)performSelector:(SEL)selector withValue:(void *)value {
+    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[self methodSignatureForSelector:selector]];
+    [invocation setSelector:selector];
+    [invocation setTarget:self];
+    [invocation setArgument:value atIndex:2];
+    [invocation invoke];
+    NSUInteger length = [[invocation methodSignature] methodReturnLength];
+
+    if (length > 0) {		// If method is non-void:
+        void *buffer = (void *)malloc(length);
+        [invocation getReturnValue:buffer];
+        return buffer;
+    }
+    return NULL;			// If method is void:
+
+}
 @end
 
 @implementation NSDictionary (PropertyMap)

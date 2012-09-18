@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/AtoZTests.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/AtoZTests</TokenIdentifier>
+			<Abstract></Abstract>
+			<DeclaredIn>AtoZTests.h</DeclaredIn>
+			
+			<NodeRef refid="21"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AtoZTests/tearDown</TokenIdentifier>
+			<Abstract>/	NSLog(@"%d=%d=%d", c=[NSBravo instance],     [NSBravo sharedInstance],     [NSBravo sharedInstance]);
+/	NSLog(@"%d=%d=%d", d=[NSCharlie instance],   [NSCharlie instanceWithObject:@"wghay6e"],   [NSCharlie sharedInstance]);</Abstract>
+			<DeclaredIn>AtoZTests.m</DeclaredIn>			
+			
+			<Declaration>- (void)tearDown</Declaration>
+			
+			
+			<Anchor>//api/name/tearDown</Anchor>
+		</Token>
+		
+	</File>
+</Tokens>

@@ -24,11 +24,21 @@ void quantize() {
 
 }
 
+void TestStopwatchBlock (NSString* name) {
+	[AZStopwatch stopwatch:name timing:^{
+			[AtoZ performBlock:^{
+//				[self someLongAssFunction];
+			} afterDelay:10];
+		[AtoZ performSelector:@selector(dock) onThread:[NSThread mainThread] withObject:nil waitUntilDone:YES];
+			AZLOG(@"longblock");
+	}];
+}
+
 //const NSImage*paddy = [[NSImage alloc]initWithContentsOfFile:@"/Library/Desktop Pictures/Rice Paddy.jpg"];
 
 int main(int argc, const char * argv[])
 {
-
+	TestStopwatchBlock(@"testTheWatch");
 
 	NSArray *u = [NSArray arrayWithArrays: @[@[@"array1", @[@"array1level2"]],@[@"array2", @"array2item2"], @[@"array3"]]];
 	AZLOG(	u );
@@ -37,11 +47,22 @@ int main(int argc, const char * argv[])
 //	AZLOG([NSColor colorListsInFramework]);
 	AZLOG([NSColor colorsInFrameworkListNamed:@"OrigamiMice"]);
 
-	NSImage *web = [NSImage imageFromWebPageAtURL:[NSURL URLWithString:@"http://google.com"] encoding:NSUTF8StringEncoding];
-	AZLOG(web);
+//	NSImage *web = [NSImage imageFromWebPageAtURL:[NSURL URLWithString:@"http://google.com"] encoding:NSUTF8StringEncoding];
+//	AZLOG(web);
 //	[paddy quantize];
 				//		[[AZColor sharedInstance] colorsForImage:[NSImage imageInFrameworkWithFileName:@"mrgray.logo.png"]]);
-	
+	AZFile *s = [AZFile	instanceWithImage:[NSImage randomIcon]];
+	AZLOG(s.propertiesPlease);
+	[s.image saveAs:@"/Users/localadmin/Desktop/poops.png"];
+
+	AZFile* dum = [AZFile dummy];
+	AZLOG(dum.propertiesPlease);
+	[dum.image saveAs:@"/Users/localadmin/Desktop/poop.png"];
+
+	AZFile* ss = [AZFile instanceWithColor:RANDOMCOLOR];
+	AZLOG(ss.propertiesPlease);
+	[ss.image saveAs:@"/Users/localadmin/Desktop/poopss.png"];
+
     return 0;
 }
 

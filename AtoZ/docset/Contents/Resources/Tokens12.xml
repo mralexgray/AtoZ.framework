@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/AZQuadCarousel.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/AZQuadCarousel</TokenIdentifier>
+			<Abstract></Abstract>
+			<DeclaredIn>AZQuadObject.h</DeclaredIn>
+			
+			<NodeRef refid="12"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AZQuadCarousel/carousel:didSelectItemAtIndex:</TokenIdentifier>
+			<Abstract>	AZTrackingWindow t = (AZTrackingWindow)carousel.window;
+	 NSSize trkrSize		= [[t contentView] bounds].size;
+	 CGFloat trkLong 	= t.orientation == AZOrientVertical ? trkrSize.height : trkrSize.width;
+	 trkLong = trkLong / t.capacity;
+	 NSSize dim 			= t.orientation == AZOrientVertical ? (NSSize) { _intrusion,  trkLong  }
+	 : (NSSize) { trkLong, 	_intrusion };
+	 if(!_fontSize) self.fontSize = [AtoZ fontSizeForAreaSize:dim withString:@"300" usingFont:@"Ubuntu Mono Bold"];
+	 NSTextView *label = nil;
+	 if (view == nil)	{
+	 view = [[NSTextView alloc] initWithFrame: AZMakeRectFromSize(dim) ];
+	 [(NSTextView*)view setBackgroundColor: RANDOMCOLOR ];</Abstract>
+			<DeclaredIn>AZQuadObject.m</DeclaredIn>			
+			
+			<Declaration>- (void)carousel:(iCarousel *)carousel didSelectItemAtIndex:(NSInteger)index</Declaration>
+			
+			
+			<Anchor>//api/name/carousel:didSelectItemAtIndex:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AZQuadCarousel/observeValueForKeyPath:ofObject:change:context:</TokenIdentifier>
+			<Abstract>/            return value;// * 1.05f;</Abstract>
+			<DeclaredIn>AZQuadObject.m</DeclaredIn>			
+			
+			<Declaration>- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context</Declaration>
+			
+			
+			<Anchor>//api/name/observeValueForKeyPath:ofObject:change:context:</Anchor>
+		</Token>
+		
+	</File>
+</Tokens>

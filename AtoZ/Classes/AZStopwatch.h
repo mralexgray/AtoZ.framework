@@ -16,6 +16,8 @@
 @private
 	NSMutableDictionary *items;
 }
+
++ (void) stopwatch:(NSString*)name timing:(void (^)())block;
 + (void) start:(NSString *)name;
 + (void) stop:(NSString *)name;
 + (void) print:(NSString *)name;

@@ -498,5 +498,31 @@ static void CGPathCallback(void *info, const CGPathElement *element)
     [self setLineWidth:lineWidth];
 }
 
++(NSBezierPath*) bezierPathWithCappedBoxInRect: (NSRect)rect
+{
+    NSBezierPath* bezierPath = [NSBezierPath bezierPath];
+    float cornerSize = rect.size.height / 2;
+		// Corners:
+    NSPoint leftTop 	= NSMakePoint(NSMinX(rect) + cornerSize, NSMaxY(rect));
+    NSPoint rightTop 	= NSMakePoint(NSMaxX(rect) - cornerSize, NSMaxY(rect));
+    NSPoint rightBottom = NSMakePoint(NSMaxX(rect) - cornerSize, NSMinY(rect));
+    NSPoint leftBottom 	= NSMakePoint(NSMinX(rect) + cornerSize, NSMinY(rect));
+		// Create our capped box:
+		// Top edge:
+    [bezierPath moveToPoint:leftTop];
+    [bezierPath lineToPoint:rightTop];
+		// Right cap:
+    [bezierPath appendBezierPathWithArcWithCenter:NSMakePoint(rightTop.x,(NSMaxY(rect)+NSMinY(rect))/2)
+										   radius:cornerSize startAngle:90 endAngle:-90 clockwise:YES];
+		// Bottom edge:
+    [bezierPath lineToPoint: rightBottom];
+    [bezierPath lineToPoint: leftBottom];
+		// Left cap:
+    [bezierPath appendBezierPathWithArcWithCenter:NSMakePoint(leftTop.x,(NSMaxY(rect)+NSMinY(rect))/2)
+										   radius:cornerSize startAngle:-90 endAngle:90 clockwise:YES];
+    [bezierPath closePath]; // Just to be safe.
+    return bezierPath;
+}
+
 
 @end

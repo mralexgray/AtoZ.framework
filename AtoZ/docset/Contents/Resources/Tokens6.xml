@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/AZButtonCell.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/AZButtonCell</TokenIdentifier>
+			<Abstract></Abstract>
+			<DeclaredIn>AZButton.h</DeclaredIn>
+			
+			<NodeRef refid="6"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AZButtonCell/az_drawCheckboxBezelWithFrame:inView:</TokenIdentifier>
+			<Abstract>	 NSGraphicsContext *ctx = [NSGraphicsContext currentContext];
+	 
+	 CGFloat roundedRadius = 0.0f;
+	 
+	 BOOL outer = YES;
+	 BOOL background = YES;
+	 BOOL stroke = YES;
+	 BOOL innerStroke = YES;
+	 
+	 if(outer) {
+	 [ctx saveGraphicsState];
+	 NSBezierPath *outerClip = [NSBezierPath bezierPathWithRoundedRect:frame xRadius:roundedRadius yRadius:roundedRadius];
+	 [outerClip setClip];
+	 
+	 NSGradient *outerGradient = [[NSGradient alloc] initWithColorsAndLocations:
+	 [NSColor colorWithDeviceWhite:0.20f alpha:1.0f], 0.0f, 
+	 [NSColor colorWithDeviceWhite:0.21f alpha:1.0f], 1.0f, 
+	 nil];
+	 
+	 [outerGradient drawInRect:[outerClip bounds] angle:90.0f];
+	 //        [outerGradient release];
+	 [ctx restoreGraphicsState];
+	 }
+     
+	 if(background) {
+	 [ctx saveGraphicsState];
+	 NSBezierPath *backgroundPath = [NSBezierPath bezierPathWithRoundedRect:NSInsetRect(frame, 2.0f, 2.0f) xRadius:roundedRadius yRadius:roundedRadius];
+	 [backgroundPath setClip];
+	 self.buttonColor = RED;
+	 NSGradient *backgroundGradient = [[NSGradient alloc] initWithColorsAndLocations:
+	 //			[[[buttonColor darker] darker]darker]
+	 BLACK, 0,
+	 [[buttonColor darker] darker], .12,
+	 [buttonColor darker], .5,
+	 buttonColor, .5,
+	 [buttonColor brighter], .9,
+	 WHITE, 1,nil];
+	 //			[[buttonColor brighter]brighter],1, nil];
+	 //            [NSColor colorWithDeviceWhite:0.17f alpha:1.0f], 0.0f, 
+	 //            [NSColor colorWithDeviceWhite:0.20f alpha:1.0f], 0.12f, 
+	 //                                          [NSColor colorWithDeviceWhite:0.27f alpha:1.0f], 0.5f, 
+	 //                                          [NSColor colorWithDeviceWhite:0.30f alpha:1.0f], 0.5f, 
+	 //                                          [NSColor colorWithDeviceWhite:0.42f alpha:1.0f], 0.98f, 
+	 //                                          [NSColor colorWithDeviceWhite:0.50f alpha:1.0f], 1.0f, 
+	 //                                          nil];
+	 
+	 [backgroundGradient drawInRect:[backgroundPath bounds] angle:270.0f];
+	 //        [backgroundGradient release];
+	 [ctx restoreGraphicsState];
+	 }
+	 
+	 if(stroke) {
+	 [ctx saveGraphicsState];
+	 [[NSColor colorWithDeviceWhite:0.12f alpha:1.0f] setStroke];
+	 [[NSBezierPath bezierPathWithRoundedRect:NSInsetRect(frame, 1.5f, 1.5f) xRadius:roundedRadius yRadius:roundedRadius] stroke];
+	 [ctx restoreGraphicsState];
+	 }
+	 
+	 if(innerStroke) {
+	 [ctx saveGraphicsState];
+	 [[NSColor colorWithDeviceWhite:1.0f alpha:0.05f] setStroke];
+	 [[NSBezierPath bezierPathWithRoundedRect:NSInsetRect(frame, 2.5f, 2.5f) xRadius:roundedRadius yRadius:roundedRadius] stroke];
+	 [ctx restoreGraphicsState];        
+	 }
+	 
+	 if([self isHighlighted]) {
+	 [ctx saveGraphicsState];
+	 [[NSBezierPath bezierPathWithRoundedRect:NSInsetRect(frame, 2.0f, 2.0f) xRadius:roundedRadius yRadius:roundedRadius] setClip];
+	 //		NSColor *highlight = [RANDOMCOLOR colorWithAlphaComponent:.5];
+	 [[NSColor colorWithCalibratedWhite:0.0f alpha:0.35] setFill];
+	 //		[highlight setFill];
+	 NSRectFillUsingOperation(frame, NSCompositeSourceOver);
+	 [ctx restoreGraphicsState];
+	 }
+	 }
+	 *</Abstract>
+			<DeclaredIn>AZButton.m</DeclaredIn>			
+			
+			<Declaration>- (void)az_drawCheckboxBezelWithFrame:(NSRect)frame inView:(NSView *)controlView</Declaration>
+			
+			
+			<Anchor>//api/name/az_drawCheckboxBezelWithFrame:inView:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AZButtonCell/az_drawCheckboxTitle:withFrame:inView:</TokenIdentifier>
+			<Abstract>	 //	NSLog(@"Strtig keys %@",[title attributeKeys]);
+	 NSColor *contrasting = WHITE;
+	 // [buttonColor contrastingForegroundColor];
+	 
+	 //    BOOL blue = [self az_shouldDrawBlueButton];
+	 NSString *label = [title string];
+	 NSShadow *textShadow = [NSShadow new];
+	 //    [textShadow setShadowOffset:blue ? AZButtonBlueTextShadowOffset : AZButtonBlackTextShadowOffset];
+	 textShadow.shadowColor = ([contrasting isDark] ? WHITE : BLACK);
+	 NSFont *buttonFont = [NSFont fontWithName:@"Ubuntu Mono Bold" size:12.0];
+	 
+	 NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:buttonFont, NSFontAttributeName, contrasting, NSForegroundColorAttributeName, textShadow, NSShadowAttributeName, nil];
+	 NSAttributedString *attrLabel = [[NSAttributedString alloc] initWithString:label attributes:attributes];
+	 NSSize labelSize = title.size;
+	 NSRect labelRect = NSMakeRect(NSMidX(frame) - (labelSize.width / 2.f), NSMidY(frame) - (labelSize.height / 2.f), labelSize.width, labelSize.height);
+	 [attrLabel drawInRect: frame];
+	 //	NSIntegralRect(labelRect)];
+	 
+	 return labelRect;
+	 *</Abstract>
+			<DeclaredIn>AZButton.m</DeclaredIn>			
+			
+			<Declaration>- (NSRect)az_drawCheckboxTitle:(NSAttributedString *)title withFrame:(NSRect)frame inView:(NSView *)controlView</Declaration>
+			
+			
+			<Anchor>//api/name/az_drawCheckboxTitle:withFrame:inView:</Anchor>
+		</Token>
+		
+	</File>
+</Tokens>

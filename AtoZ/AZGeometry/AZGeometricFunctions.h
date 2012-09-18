@@ -280,6 +280,10 @@ NSRect AZRectTrimmedOnBottom(NSRect rect, CGFloat height);
 NSRect AZRectTrimmedOnLeft(NSRect rect, CGFloat width);
 NSRect AZRectTrimmedOnTop(NSRect rect, CGFloat height);
 
+NSRect AZRectExceptWide (NSRect rect, CGFloat wide);
+NSRect AZRectExceptHigh (NSRect rect, CGFloat high);
+NSRect AZRectExceptOriginX (NSRect rect, CGFloat x);
+NSRect AZRectExceptOriginY (NSRect rect, CGFloat y);
 
 
 

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Categories/NSObject+AZOverlayViewDataSource.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cat/NSObject(AZOverlayViewDataSource)</TokenIdentifier>
+			<Abstract>An informal protocol.</Abstract>
+			<DeclaredIn>AZOverlay.h</DeclaredIn>
+			
+			<NodeRef refid="50"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/NSObject(AZOverlayViewDataSource)/numberOfOverlaysInOverlayView:</TokenIdentifier>
+			<Abstract>Returns the number of overlays managed for anOverlayView by the data source object.</Abstract>
+			<DeclaredIn>AZOverlay.h</DeclaredIn>			
+			
+			<Declaration>- (NSUInteger)numberOfOverlaysInOverlayView:(AZOverlayView *)anOverlayView</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>anOverlayView</Name>
+					<Abstract>The overlay view that sent the message.</Abstract>
+				</Parameter>
+			</Parameters>
+			<ReturnValue><Abstract>The number of overlays in anOverlayView.</Abstract></ReturnValue>
+			<Anchor>//api/name/numberOfOverlaysInOverlayView:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/NSObject(AZOverlayViewDataSource)/overlayView:overlayObjectAtIndex:</TokenIdentifier>
+			<Abstract>Invoked by the overlay view to return the data object associated with the specified index.</Abstract>
+			<DeclaredIn>AZOverlay.h</DeclaredIn>			
+			
+			<Declaration>- (id)overlayView:(AZOverlayView *)anOverlayView overlayObjectAtIndex:(NSUInteger)num</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>anOverlayView</Name>
+					<Abstract>The overlay view that sent the message.</Abstract>
+				</Parameter><Parameter>
+					<Name>num</Name>
+					<Abstract>The overlay view that sent the message.</Abstract>
+				</Parameter>
+			</Parameters>
+			<ReturnValue><Abstract>An item in the data source at the specified index of the view. Must respond to -(NSRect)rect
+or -(NSRect)rectValue.</Abstract></ReturnValue>
+			<Anchor>//api/name/overlayView:overlayObjectAtIndex:</Anchor>
+		</Token>
+		
+	</File>
+</Tokens>

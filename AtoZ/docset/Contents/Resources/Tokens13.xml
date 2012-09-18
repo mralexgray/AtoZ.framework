@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/AZRect.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/AZRect</TokenIdentifier>
+			<Abstract>Returns a rect with a width and height multiplied by the given factor and
+by shifting the origin to retain the original rect center location.</Abstract>
+			<DeclaredIn>AZRect.h</DeclaredIn>
+			
+			<NodeRef refid="13"/>
+		</Token>
+		
+		
+	</File>
+</Tokens>

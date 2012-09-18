@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Categories/NSView+AtoZ.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cat/NSView(AtoZ)</TokenIdentifier>
+			<Abstract></Abstract>
+			<DeclaredIn>NSView+AtoZ.h</DeclaredIn>
+			
+			<NodeRef refid="56"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/NSView(AtoZ)/localPoint</TokenIdentifier>
+			<Abstract>//[i convertPoint: [[i window] convertScreenToBase:[NSEvent mouseLocation]] fromView: nil ]</Abstract>
+			<DeclaredIn>NSView+AtoZ.h</DeclaredIn>			
+			
+			<Declaration>- (NSPoint)localPoint</Declaration>
+			
+			
+			<Anchor>//api/name/localPoint</Anchor>
+		</Token>
+		
+	</File>
+</Tokens>

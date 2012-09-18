@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Categories/NSBundle+AtoZ.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cat/NSBundle(AtoZ)</TokenIdentifier>
+			<Abstract></Abstract>
+			<DeclaredIn>NSBundle+AtoZ.h</DeclaredIn>
+			
+			<NodeRef refid="41"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/NSBundle(AtoZ)/applicationSupportFolder</TokenIdentifier>
+			<Abstract>	Returns the support folder for the application, used to store the Core Data	store file.  This code uses a folder named "ArtGallery" for
+the content, either in the NSApplicationSupportDirectory location or (if the former cannot be found), the system's temporary directory.</Abstract>
+			<DeclaredIn>NSBundle+AtoZ.h</DeclaredIn>			
+			
+			<Declaration>+ (NSString *)applicationSupportFolder</Declaration>
+			
+			
+			<Anchor>//api/name/applicationSupportFolder</Anchor>
+		</Token>
+		
+	</File>
+</Tokens>

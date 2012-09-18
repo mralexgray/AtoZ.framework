@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Categories/NSString+AtoZ.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cat/NSString(AtoZ)</TokenIdentifier>
+			<Abstract></Abstract>
+			<DeclaredIn>NSString+AtoZ.h</DeclaredIn>
+			
+			<NodeRef refid="54"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/NSString(AtoZ)/setTrim:</TokenIdentifier>
+			<Abstract>* Returns the string cleaned from leading and trailing whitespaces</Abstract>
+			<DeclaredIn>NSString+AtoZ.h</DeclaredIn>			
+			
+			<Declaration>@property (readonly) NSString *trim</Declaration>
+			
+			
+			<Anchor>//api/name/trim</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfp/NSString(AtoZ)/trim</TokenIdentifier>
+			<Abstract>* Returns the string cleaned from leading and trailing whitespaces</Abstract>
+			<DeclaredIn>NSString+AtoZ.h</DeclaredIn>			
+			
+			<Declaration>@property (readonly) NSString *trim</Declaration>
+			
+			
+			<Anchor>//api/name/trim</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/NSString(AtoZ)/setReversed:</TokenIdentifier>
+			<Abstract>* Returns the reverse version of the string</Abstract>
+			<DeclaredIn>NSString+AtoZ.h</DeclaredIn>			
+			
+			<Declaration>@property (readonly) NSString *reversed</Declaration>
+			
+			
+			<Anchor>//api/name/reversed</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfp/NSString(AtoZ)/reversed</TokenIdentifier>
+			<Abstract>* Returns the reverse version of the string</Abstract>
+			<DeclaredIn>NSString+AtoZ.h</DeclaredIn>			
+			
+			<Declaration>@property (readonly) NSString *reversed</Declaration>
+			
+			
+			<Anchor>//api/name/reversed</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/NSString(AtoZ)/setShifted:</TokenIdentifier>
+			<Abstract>* Returns the substring after the first character in this string</Abstract>
+			<DeclaredIn>NSString+AtoZ.h</DeclaredIn>			
+			
+			<Declaration>@property (readonly) NSString *shifted</Declaration>
+			
+			
+			<Anchor>//api/name/shifted</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfp/NSString(AtoZ)/shifted</TokenIdentifier>
+			<Abstract>* Returns the substring after the first character in this string</Abstract>
+			<DeclaredIn>NSString+AtoZ.h</DeclaredIn>			
+			
+			<Declaration>@property (readonly) NSString *shifted</Declaration>
+			
+			
+			<Anchor>//api/name/shifted</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/NSString(AtoZ)/setPopped:</TokenIdentifier>
+			<Abstract>* Returns the substring not containing the last character of this string</Abstract>
+			<DeclaredIn>NSString+AtoZ.h</DeclaredIn>			
+			
+			<Declaration>@property (readonly) NSString *popped</Declaration>
+			
+			
+			<Anchor>//api/name/popped</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfp/NSString(AtoZ)/popped</TokenIdentifier>
+			<Abstract>* Returns the substring not containing the last character of this string</Abstract>
+			<DeclaredIn>NSString+AtoZ.h</DeclaredIn>			
+			
+			<Declaration>@property (readonly) NSString *popped</Declaration>
+			
+			
+			<Anchor>//api/name/popped</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/NSString(AtoZ)/setChopped:</TokenIdentifier>
+			<Abstract>* Combination of shifted and popped, removes the first and last character</Abstract>
+			<DeclaredIn>NSString+AtoZ.h</DeclaredIn>			
+			
+			<Declaration>@property (readonly) NSString *chopped</Declaration>
+			
+			
+			<Anchor>//api/name/chopped</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfp/NSString(AtoZ)/chopped</TokenIdentifier>
+			<Abstract>* Combination of shifted and popped, removes the first and last character</Abstract>
+			<DeclaredIn>NSString+AtoZ.h</DeclaredIn>			
+			
+			<Declaration>@property (readonly) NSString *chopped</Declaration>
+			
+			
+			<Anchor>//api/name/chopped</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/NSString(AtoZ)/setCamelized:</TokenIdentifier>
+			<Abstract>* Returns a CamelCase Version of this string</Abstract>
+			<DeclaredIn>NSString+AtoZ.h</DeclaredIn>			
+			
+			<Declaration>@property (readonly) NSString *camelized</Declaration>
+			
+			
+			<Anchor>//api/name/camelized</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfp/NSString(AtoZ)/camelized</TokenIdentifier>
+			<Abstract>* Returns a CamelCase Version of this string</Abstract>
+			<DeclaredIn>NSString+AtoZ.h</DeclaredIn>			
+			
+			<Declaration>@property (readonly) NSString *camelized</Declaration>
+			
+			
+			<Anchor>//api/name/camelized</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/NSString(AtoZ)/setIsEmpty:</TokenIdentifier>
+			<Abstract>* Returns YES if this string is nil or contains nothing but whitespaces</Abstract>
+			<DeclaredIn>NSString+AtoZ.h</DeclaredIn>			
+			
+			<Declaration>@property (readonly) BOOL isEmpty</Declaration>
+			
+			
+			<Anchor>//api/name/isEmpty</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfp/NSString(AtoZ)/isEmpty</TokenIdentifier>
+			<Abstract>* Returns YES if this string is nil or contains nothing but whitespaces</Abstract>
+			<DeclaredIn>NSString+AtoZ.h</DeclaredIn>			
+			
+			<Declaration>@property (readonly) BOOL isEmpty</Declaration>
+			
+			
+			<Anchor>//api/name/isEmpty</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/NSString(AtoZ)/count:</TokenIdentifier>
+			<Abstract>* Counts occurrences of a given string</Abstract>
+			<DeclaredIn>NSString+AtoZ.h</DeclaredIn>			
+			
+			<Declaration>- (NSUInteger)count:(NSString *)aString</Declaration>
+			
+			
+			<Anchor>//api/name/count:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/NSString(AtoZ)/count:options:</TokenIdentifier>
+			<Abstract>* Cunts occurrences of a given string with sone compare options</Abstract>
+			<DeclaredIn>NSString+AtoZ.h</DeclaredIn>			
+			
+			<Declaration>- (NSUInteger)count:(NSString *)aString options:(NSStringCompareOptions)flags</Declaration>
+			
+			
+			<Anchor>//api/name/count:options:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/NSString(AtoZ)/setIndentationLevel:</TokenIdentifier>
+			<Abstract>* Counts the whitespace chars that prefix this string</Abstract>
+			<DeclaredIn>NSString+AtoZ.h</DeclaredIn>			
+			
+			<Declaration>@property (readonly) NSUInteger indentationLevel</Declaration>
+			
+			
+			<Anchor>//api/name/indentationLevel</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfp/NSString(AtoZ)/indentationLevel</TokenIdentifier>
+			<Abstract>* Counts the whitespace chars that prefix this string</Abstract>
+			<DeclaredIn>NSString+AtoZ.h</DeclaredIn>			
+			
+			<Declaration>@property (readonly) NSUInteger indentationLevel</Declaration>
+			
+			
+			<Anchor>//api/name/indentationLevel</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/NSString(AtoZ)/contains:</TokenIdentifier>
+			<Abstract>Returns YES when aString is part of the this string.
+nil and @"" are never part of any compared string</Abstract>
+			<DeclaredIn>NSString+AtoZ.h</DeclaredIn>			
+			
+			<Declaration>- (BOOL)contains:(NSString *)aString</Declaration>
+			
+			
+			<Anchor>//api/name/contains:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/NSString(AtoZ)/containsAnyOf:</TokenIdentifier>
+			<Abstract>* Returns YES when this string contains ANY of the strings defined in the array</Abstract>
+			<DeclaredIn>NSString+AtoZ.h</DeclaredIn>			
+			
+			<Declaration>- (BOOL)containsAnyOf:(NSArray *)array</Declaration>
+			
+			
+			<Anchor>//api/name/containsAnyOf:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/NSString(AtoZ)/containsAllOf:</TokenIdentifier>
+			<Abstract>* Returns YES when this string contains ALL of the strings defined in the array</Abstract>
+			<DeclaredIn>NSString+AtoZ.h</DeclaredIn>			
+			
+			<Declaration>- (BOOL)containsAllOf:(NSArray *)array</Declaration>
+			
+			
+			<Anchor>//api/name/containsAllOf:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/NSString(AtoZ)/startsWith:</TokenIdentifier>
+			<Abstract>* Returns YES when this string starts with aString, just a synonym for hasPrefix</Abstract>
+			<DeclaredIn>NSString+AtoZ.h</DeclaredIn>			
+			
+			<Declaration>- (BOOL)startsWith:(NSString *)aString</Declaration>
+			
+			
+			<Anchor>//api/name/startsWith:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/NSString(AtoZ)/endsWith:</TokenIdentifier>
+			<Abstract>* Returns YES when this string ends with aString, just a synonym for hasSuffix</Abstract>
+			<DeclaredIn>NSString+AtoZ.h</DeclaredIn>			
+			
+			<Declaration>- (BOOL)endsWith:(NSString *)aString</Declaration>
+			
+			
+			<Anchor>//api/name/endsWith:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/NSString(AtoZ)/hasPrefix:andSuffix:</TokenIdentifier>
+			<Abstract>* Returns YES when this string has both given prefix and suffix</Abstract>
+			<DeclaredIn>NSString+AtoZ.h</DeclaredIn>			
+			
+			<Declaration>- (BOOL)hasPrefix:(NSString *)prefix andSuffix:(NSString *)suffix</Declaration>
+			
+			
+			<Anchor>//api/name/hasPrefix:andSuffix:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/NSString(AtoZ)/substringBetweenPrefix:andSuffix:</TokenIdentifier>
+			<Abstract>Will return the substring between prefix and suffix.
+If either prefix or suffix cannot be matched nil will be returned</Abstract>
+			<DeclaredIn>NSString+AtoZ.h</DeclaredIn>			
+			
+			<Declaration>- (NSString *)substringBetweenPrefix:(NSString *)prefix andSuffix:(NSString *)suffix</Declaration>
+			
+			
+			<Anchor>//api/name/substringBetweenPrefix:andSuffix:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/NSString(AtoZ)/indexOf:</TokenIdentifier>
+			<Abstract>Oldscool indexOf, if you do not want to handle NSRange objects
+will return -1 instead of NSNotFound</Abstract>
+			<DeclaredIn>NSString+AtoZ.h</DeclaredIn>			
+			
+			<Declaration>- (NSInteger)indexOf:(NSString *)aString</Declaration>
+			
+			
+			<Anchor>//api/name/indexOf:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/NSString(AtoZ)/lastIndexOf:</TokenIdentifier>
+			<Abstract>Oldscool lastIndexOf, if you do not want to handle NSRange objects
+will return -1 instead of NSNotFound</Abstract>
+			<DeclaredIn>NSString+AtoZ.h</DeclaredIn>			
+			
+			<Declaration>- (NSInteger)lastIndexOf:(NSString *)aString</Declaration>
+			
+			
+			<Anchor>//api/name/lastIndexOf:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/NSString(AtoZ)/rangeOfAny:</TokenIdentifier>
+			<Abstract>Returns the first NSRange of any matching substring in this string
+that is part of the strings set</Abstract>
+			<DeclaredIn>NSString+AtoZ.h</DeclaredIn>			
+			
+			<Declaration>- (NSRange)rangeOfAny:(NSSet *)strings</Declaration>
+			
+			
+			<Anchor>//api/name/rangeOfAny:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/NSString(AtoZ)/setLines:</TokenIdentifier>
+			<Abstract>Returns this string splitted by lines.
+Shortcut for componentsSeperatedByString:@"\n"</Abstract>
+			<DeclaredIn>NSString+AtoZ.h</DeclaredIn>			
+			
+			<Declaration>@property (readonly) NSArray *lines</Declaration>
+			
+			
+			<Anchor>//api/name/lines</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfp/NSString(AtoZ)/lines</TokenIdentifier>
+			<Abstract>Returns this string splitted by lines.
+Shortcut for componentsSeperatedByString:@"\n"</Abstract>
+			<DeclaredIn>NSString+AtoZ.h</DeclaredIn>			
+			
+			<Declaration>@property (readonly) NSArray *lines</Declaration>
+			
+			
+			<Anchor>//api/name/lines</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/NSString(AtoZ)/setWords:</TokenIdentifier>
+			<Abstract>Returns this string splitted by whitespaces.
+Shortcut for componentsSeperatedByString:@" "
+Empty elements will not be part of the resulting array</Abstract>
+			<DeclaredIn>NSString+AtoZ.h</DeclaredIn>			
+			
+			<Declaration>@property (readonly) NSArray *words</Declaration>
+			
+			
+			<Anchor>//api/name/words</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfp/NSString(AtoZ)/words</TokenIdentifier>
+			<Abstract>Returns this string splitted by whitespaces.
+Shortcut for componentsSeperatedByString:@" "
+Empty elements will not be part of the resulting array</Abstract>
+			<DeclaredIn>NSString+AtoZ.h</DeclaredIn>			
+			
+			<Declaration>@property (readonly) NSArray *words</Declaration>
+			
+			
+			<Anchor>//api/name/words</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/NSString(AtoZ)/setWordSet:</TokenIdentifier>
+			<Abstract>Returns a set with all unique elements of this String,
+separated by whitespaces</Abstract>
+			<DeclaredIn>NSString+AtoZ.h</DeclaredIn>			
+			
+			<Declaration>@property (readonly) NSSet *wordSet</Declaration>
+			
+			
+			<Anchor>//api/name/wordSet</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfp/NSString(AtoZ)/wordSet</TokenIdentifier>
+			<Abstract>Returns a set with all unique elements of this String,
+separated by whitespaces</Abstract>
+			<DeclaredIn>NSString+AtoZ.h</DeclaredIn>			
+			
+			<Declaration>@property (readonly) NSSet *wordSet</Declaration>
+			
+			
+			<Anchor>//api/name/wordSet</Anchor>
+		</Token>
+		
+	</File>
+</Tokens>

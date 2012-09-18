@@ -1,7 +1,7 @@
 
 //  BaseModel.h
 
-//  Version 2.3.1
+//  Version 2.3.1 ALEX
 
 //  Created by Nick Lockwood on 25/06/2011.
 //  Copyright 2011 Charcoal Design
@@ -104,6 +104,9 @@ extern NSString *const BaseModelSharedInstanceUpdatedNotification;
 
 @interface BaseModel : NSObject <BaseModel>
 
+- (NSString*)saveInstanceInAppSupp;
++ (instancetype)instanceWithID:(NSString*)uniqueID;
+
 //new autoreleased instance
 + (instancetype)instance;
 
@@ -145,14 +148,14 @@ extern NSString *const BaseModelSharedInstanceUpdatedNotification;
 //identifiers and filenames for model objects
 + (NSString *)newUniqueIdentifier;
 
-#define BASEMODEL_ENABLE_UNIQUE_ID 1
-#ifdef BASEMODEL_ENABLE_UNIQUE_ID
+//#define BASEMODEL_ENABLE_UNIQUE_ID 1
+//#ifdef BASEMODEL_ENABLE_UNIQUE_ID
 
 //optional uniqueID property
 //you can enable this by adding BASEMODEL_ENABLE_UNIQUE_ID
 //to your preprocessor macros in the project build settings
 @property (nonatomic, strong) NSString *uniqueID;
 
-#endif
+//#endif
 
 @end

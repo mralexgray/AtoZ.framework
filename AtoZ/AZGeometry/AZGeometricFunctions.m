@@ -848,6 +848,25 @@ NSRect AZRectTrimmedOnTop(NSRect rect, CGFloat height) {
 }
 
 
+NSRect AZRectExceptWide(NSRect rect, CGFloat wide) {
+	return (NSRect) {	rect.origin.x, 	rect.origin.y, wide, rect.size.height};
+}
+
+NSRect AZRectExceptHigh(NSRect rect, CGFloat high){
+	return (NSRect) { rect.origin.x, 	rect.origin.y, rect.size.width, high};
+}
+
+NSRect AZRectExceptOriginX(NSRect rect, CGFloat x)
+{
+	return (NSRect) { x, rect.origin.y, rect.size.width, rect.size.height};
+}
+NSRect AZRectExceptOriginY(NSRect rect, CGFloat y)
+{
+	return (NSRect) { rect.origin.x, y, rect.size.width, rect.size.height};
+}
+
+
+
 NSRect AZLeftEdge(NSRect rect, CGFloat width) {
   return NSMakeRect(rect.origin.x, 
                     rect.origin.y, 

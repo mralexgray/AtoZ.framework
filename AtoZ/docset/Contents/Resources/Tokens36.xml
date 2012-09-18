@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Categories/CAConstraint+brevity.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cat/CAConstraint(brevity)</TokenIdentifier>
+			<Abstract>The appledoc application handler.</Abstract>
+			<DeclaredIn>AtoZ.h</DeclaredIn>
+			
+			<NodeRef refid="36"/>
+		</Token>
+		
+		
+	</File>
+</Tokens>

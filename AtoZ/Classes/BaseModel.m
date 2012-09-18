@@ -39,6 +39,20 @@ NSString *const BaseModelSharedInstanceUpdatedNotification = @"BaseModelSharedIn
 
 @implementation BaseModel
 
+- (NSString*)saveInstanceInAppSupp;
+{
+	NSString *savePath = [self.uniqueID stringByAppendingPathExtension:@"plist"];
+	[self writeToFile:savePath atomically:YES];
+	AZLOG(savePath);
+	return savePath;
+}
+
++ (instancetype)instanceWithID:(NSString*)uniqueID;
+{
+	return [[self class] instanceWithContentsOfFile:[uniqueID stringByAppendingPathExtension:@"plist"]];
+
+}
+
 #pragma mark -
 #pragma mark Private utility methods
 

@@ -54,7 +54,7 @@ typedef enum _OSCornerTypes
 - (void)strokeInside;
 - (void)strokeInsideWithinRect:(NSRect)clipRect;
 
-
++ (NSBezierPath*) bezierPathWithCappedBoxInRect: (NSRect)rect;
 
 
 @end

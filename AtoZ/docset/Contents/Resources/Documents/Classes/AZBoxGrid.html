@@ -1,0 +1,2003 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
+		<title>AZBoxGrid Class Reference</title>
+		<meta id="xcode-display" name="xcode-display" content="render"/>
+		<meta name="viewport" content="width=550" />
+		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
+		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
+		<meta name="generator" content="appledoc 2.0.5 (build 789)" />
+	</head>
+	<body>
+		<header id="top_header">
+			<div id="library" class="hideInXcode">
+				<h1><a id="libraryTitle" href="../index.html">AtoZ.Framework </a></h1>
+				<a id="developerHome" href="../index.html">mrgray.com</a>
+			</div>
+			
+			<div id="title" role="banner">
+				<h1 class="hideInXcode">AZBoxGrid Class Reference</h1>
+			</div>
+			<ul id="headerButtons" role="toolbar">
+				<li id="toc_button">
+					<button aria-label="Show Table of Contents" role="checkbox" class="open" id="table_of_contents"><span class="disclosure"></span>Table of Contents</button>
+				</li>
+				<li id="jumpto_button" role="navigation">
+					<select id="jumpTo">
+	<option value="top">Jump To&#133;</option>
+	
+	<option value="overview">Overview</option>
+	
+	
+	
+	
+	<option value="tasks">Tasks</option>
+	
+	
+	
+	
+	
+	<option value="properties">Properties</option>
+	
+	<option value="//api/name/allowsMultipleSelection">&nbsp;&nbsp;&nbsp;&nbsp;allowsMultipleSelection</option>
+	
+	<option value="//api/name/allowsSelection">&nbsp;&nbsp;&nbsp;&nbsp;allowsSelection</option>
+	
+	<option value="//api/name/cellSize">&nbsp;&nbsp;&nbsp;&nbsp;cellSize</option>
+	
+	<option value="//api/name/dataSource">&nbsp;&nbsp;&nbsp;&nbsp;dataSource</option>
+	
+	<option value="//api/name/delegate">&nbsp;&nbsp;&nbsp;&nbsp;delegate</option>
+	
+	<option value="//api/name/desiredNumberOfColumns">&nbsp;&nbsp;&nbsp;&nbsp;desiredNumberOfColumns</option>
+	
+	<option value="//api/name/desiredNumberOfRows">&nbsp;&nbsp;&nbsp;&nbsp;desiredNumberOfRows</option>
+	
+	<option value="//api/name/selection">&nbsp;&nbsp;&nbsp;&nbsp;selection</option>
+	
+	<option value="//api/name/unselectOnMouseUp">&nbsp;&nbsp;&nbsp;&nbsp;unselectOnMouseUp</option>
+	
+	
+	
+	
+	
+	
+	<option value="instance_methods">Instance Methods</option>
+	
+	<option value="//api/name/beginChanges">&nbsp;&nbsp;&nbsp;&nbsp;- beginChanges</option>
+	
+	<option value="//api/name/cellAtIndex:">&nbsp;&nbsp;&nbsp;&nbsp;- cellAtIndex:</option>
+	
+	<option value="//api/name/commitChanges">&nbsp;&nbsp;&nbsp;&nbsp;- commitChanges</option>
+	
+	<option value="//api/name/dequeueReusableCellWithIdentifier:">&nbsp;&nbsp;&nbsp;&nbsp;- dequeueReusableCellWithIdentifier:</option>
+	
+	<option value="//api/name/deselectAllCells">&nbsp;&nbsp;&nbsp;&nbsp;- deselectAllCells</option>
+	
+	<option value="//api/name/deselectCellAtIndex:">&nbsp;&nbsp;&nbsp;&nbsp;- deselectCellAtIndex:</option>
+	
+	<option value="//api/name/deselectCellsAtIndexes:">&nbsp;&nbsp;&nbsp;&nbsp;- deselectCellsAtIndexes:</option>
+	
+	<option value="//api/name/hoverOutOfCellAtIndex:">&nbsp;&nbsp;&nbsp;&nbsp;- hoverOutOfCellAtIndex:</option>
+	
+	<option value="//api/name/hoverOutOfLastCell">&nbsp;&nbsp;&nbsp;&nbsp;- hoverOutOfLastCell</option>
+	
+	<option value="//api/name/hoverOverCellAtIndex:">&nbsp;&nbsp;&nbsp;&nbsp;- hoverOverCellAtIndex:</option>
+	
+	<option value="//api/name/indexOfCellAtPoint:">&nbsp;&nbsp;&nbsp;&nbsp;- indexOfCellAtPoint:</option>
+	
+	<option value="//api/name/indexOfCellAtPosition:">&nbsp;&nbsp;&nbsp;&nbsp;- indexOfCellAtPosition:</option>
+	
+	<option value="//api/name/indexesOfCellsInRect:">&nbsp;&nbsp;&nbsp;&nbsp;- indexesOfCellsInRect:</option>
+	
+	<option value="//api/name/mouseDragged:">&nbsp;&nbsp;&nbsp;&nbsp;- mouseDragged:</option>
+	
+	<option value="//api/name/positionOfCellAtIndex:">&nbsp;&nbsp;&nbsp;&nbsp;- positionOfCellAtIndex:</option>
+	
+	<option value="//api/name/rectForCellAtIndex:">&nbsp;&nbsp;&nbsp;&nbsp;- rectForCellAtIndex:</option>
+	
+	<option value="//api/name/reloadData">&nbsp;&nbsp;&nbsp;&nbsp;- reloadData</option>
+	
+	<option value="//api/name/selectCellAtIndex:">&nbsp;&nbsp;&nbsp;&nbsp;- selectCellAtIndex:</option>
+	
+	<option value="//api/name/selectCellsAtIndexes:">&nbsp;&nbsp;&nbsp;&nbsp;- selectCellsAtIndexes:</option>
+	
+	<option value="//api/name/visibleRange">&nbsp;&nbsp;&nbsp;&nbsp;- visibleRange</option>
+	
+	
+	
+</select>
+				</li>
+			</ul>
+		</header>
+		<nav id="tocContainer" class="isShowingTOC">
+			<ul id="toc" role="tree">
+				
+<li role="treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#overview">Overview</a></span></li>
+
+
+
+
+<li role="treeitem" id="task_treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#tasks">Tasks</a></span><ul>
+	
+</ul></li>
+
+
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#properties">Properties</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/allowsMultipleSelection">allowsMultipleSelection</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/allowsSelection">allowsSelection</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/cellSize">cellSize</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/dataSource">dataSource</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/delegate">delegate</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/desiredNumberOfColumns">desiredNumberOfColumns</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/desiredNumberOfRows">desiredNumberOfRows</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/selection">selection</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/unselectOnMouseUp">unselectOnMouseUp</a></span></li>
+	
+</ul></li>
+
+
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/beginChanges">beginChanges</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/cellAtIndex:">cellAtIndex:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/commitChanges">commitChanges</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/dequeueReusableCellWithIdentifier:">dequeueReusableCellWithIdentifier:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/deselectAllCells">deselectAllCells</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/deselectCellAtIndex:">deselectCellAtIndex:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/deselectCellsAtIndexes:">deselectCellsAtIndexes:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/hoverOutOfCellAtIndex:">hoverOutOfCellAtIndex:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/hoverOutOfLastCell">hoverOutOfLastCell</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/hoverOverCellAtIndex:">hoverOverCellAtIndex:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/indexOfCellAtPoint:">indexOfCellAtPoint:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/indexOfCellAtPosition:">indexOfCellAtPosition:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/indexesOfCellsInRect:">indexesOfCellsInRect:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/mouseDragged:">mouseDragged:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/positionOfCellAtIndex:">positionOfCellAtIndex:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/rectForCellAtIndex:">rectForCellAtIndex:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/reloadData">reloadData</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/selectCellAtIndex:">selectCellAtIndex:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/selectCellsAtIndexes:">selectCellsAtIndexes:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/visibleRange">visibleRange</a></span></li>
+	
+</ul></li>
+
+
+			</ul>
+		</nav>
+		<article>
+			<div id="contents" class="isShowingTOC" role="main">
+				<a title="AZBoxGrid Class Reference" name="top"></a>
+				<div class="main-navigation navigation-top">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="header">
+					<div class="section-header">
+						<h1 class="title title-header">AZBoxGrid Class Reference</h1>
+					</div>		
+				</div>
+				<div id="container">	
+					
+					<div class="section section-specification"><table cellspacing="0"><tbody>
+						<tr>
+	<td class="specification-title">Inherits from</td>
+	<td class="specification-value">NSView</td>
+</tr><tr>
+	<td class="specification-title">Declared in</td>
+	<td class="specification-value">AZBoxGrid.h<br />AZBoxGrid.m</td>
+</tr>
+						</tbody></table></div>
+					
+					
+					
+					
+					<div class="section section-overview">
+						<a title="Overview" name="overview"></a>
+						<h2 class="subtitle subtitle-overview">Overview</h2>
+						<p>View for displaying items in a grid like order.  * The collection view is designed to be inside of an NSScrollView instance! The AZBox<a href="../Classes/Grid.html">Grid</a> class behaves much like UITableView on iOS allowing it to have hundreds of thousands cells without great performance impact (unlike NSCollectionView).</p>
+					</div>
+					
+					
+					
+					
+					
+					<div class="section section-tasks">
+						<a title="Tasks" name="tasks"></a>
+						<h2 class="subtitle subtitle-tasks">Tasks</h2>
+						
+						
+						
+						<h3 class="subsubtitle task-title">Other Methods</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/cellSize">&nbsp;&nbsp;cellSize</a></code>
+		<span class="tooltip"><ul>
+<li>The size of one cell. Each cell shares the very same size.  *</li>
+</ul>
+</span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/desiredNumberOfColumns">&nbsp;&nbsp;desiredNumberOfColumns</a></code>
+		<span class="tooltip"><ul>
+<li>The number of columns the collection view should use, or NSUIntegerMax to let the collection view decide what column number fits best.  *</li>
+</ul>
+</span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/desiredNumberOfRows">&nbsp;&nbsp;desiredNumberOfRows</a></code>
+		<span class="tooltip"><p>The number of rows the collection view should use, or NSUIntegerMax to let the collection view use an dynmaic row number.
+@remark If you set desiredNumberOfRows to a fixed value, the collection view might not show all cells but only those who fit into the desired rows.  *</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/selection">&nbsp;&nbsp;selection</a></code>
+		<span class="tooltip"><ul>
+<li>The currently selected cells.  *</li>
+</ul>
+</span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/dataSource">&nbsp;&nbsp;dataSource</a></code>
+		<span class="tooltip"><ul>
+<li>The data source of the collection view.  *</li>
+</ul>
+</span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/delegate">&nbsp;&nbsp;delegate</a></code>
+		<span class="tooltip"><ul>
+<li>The delegate of the collection view.  *</li>
+</ul>
+</span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/allowsSelection">&nbsp;&nbsp;allowsSelection</a></code>
+		<span class="tooltip"><ul>
+<li>YES if the collection view should allow <a href="#//api/name/selection">selection</a>, otherwise NO. The default value is YES.  *</li>
+</ul>
+</span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/allowsMultipleSelection">&nbsp;&nbsp;allowsMultipleSelection</a></code>
+		<span class="tooltip"><ul>
+<li>YES if the collection view should allow the <a href="#//api/name/selection">selection</a> of multiple cells at the same time, otherwise NO. The default value is NO.  *</li>
+</ul>
+</span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/unselectOnMouseUp">&nbsp;&nbsp;unselectOnMouseUp</a></code>
+		<span class="tooltip"><ul>
+<li>YES if the collection view should deselect the currently selected cell when the mouse button is released. The default value is NO.  *</li>
+</ul>
+</span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/dequeueReusableCellWithIdentifier:">&ndash;&nbsp;dequeueReusableCellWithIdentifier:</a></code>
+		<span class="tooltip"><ul>
+<li>Returns a queued cell or nil if no cell is currently in the queue. Use this if possible instead of creating new <a href="../Classes/AZBox.html">AZBox</a> instances.   *</li>
+</ul>
+</span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/cellAtIndex:">&ndash;&nbsp;cellAtIndex:</a></code>
+		<span class="tooltip"><p>Returns the cell at the given index.
+@remark The cell must be visible, otherwise the method will return nil.  *</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/reloadData">&ndash;&nbsp;reloadData</a></code>
+		<span class="tooltip"><ul>
+<li>Forces the collection view to throw away all cached data including cells and selections and then reloading the data from scratch.  *</li>
+</ul>
+</span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/selectCellAtIndex:">&ndash;&nbsp;selectCellAtIndex:</a></code>
+		<span class="tooltip"><ul>
+<li>Selects the cell with the given index.  *</li>
+</ul>
+</span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/selectCellsAtIndexes:">&ndash;&nbsp;selectCellsAtIndexes:</a></code>
+		<span class="tooltip"><ul>
+<li>Selects all cells of the index set, or, if <a href="#//api/name/allowsMultipleSelection">allowsMultipleSelection</a> is set to NO, selectes the cell at the first index of the set.  *</li>
+</ul>
+</span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/deselectCellAtIndex:">&ndash;&nbsp;deselectCellAtIndex:</a></code>
+		<span class="tooltip"><ul>
+<li>Deselects the cell at the given index.  *</li>
+</ul>
+</span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/deselectCellsAtIndexes:">&ndash;&nbsp;deselectCellsAtIndexes:</a></code>
+		<span class="tooltip"><ul>
+<li>Deselcts all cells of the index set.  *</li>
+</ul>
+</span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/deselectAllCells">&ndash;&nbsp;deselectAllCells</a></code>
+		<span class="tooltip"><ul>
+<li>Deselects all previously selected cells.  *</li>
+</ul>
+</span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/hoverOverCellAtIndex:">&ndash;&nbsp;hoverOverCellAtIndex:</a></code>
+		<span class="tooltip"><ul>
+<li>The mouse is hovering over the given cell.  *</li>
+</ul>
+</span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/hoverOutOfCellAtIndex:">&ndash;&nbsp;hoverOutOfCellAtIndex:</a></code>
+		<span class="tooltip"><ul>
+<li>The mouse was hovering over the given cell and is now out of the cell area.  *</li>
+</ul>
+</span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/hoverOutOfLastCell">&ndash;&nbsp;hoverOutOfLastCell</a></code>
+		<span class="tooltip"><ul>
+<li>Hover out of the most recent cell that the mouse was hovering over.  *</li>
+</ul>
+</span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/indexOfCellAtPoint:">&ndash;&nbsp;indexOfCellAtPoint:</a></code>
+		<span class="tooltip"><ul>
+<li>Returns the index of the cell at the given point.  *</li>
+</ul>
+</span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/indexOfCellAtPosition:">&ndash;&nbsp;indexOfCellAtPosition:</a></code>
+		<span class="tooltip"><ul>
+<li>Returns the index of the cell at the given position.  *</li>
+</ul>
+</span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/positionOfCellAtIndex:">&ndash;&nbsp;positionOfCellAtIndex:</a></code>
+		<span class="tooltip"><ul>
+<li>Returns the position of the cell at the given index. For example the top left cell has the point 0|0 while the one on the right side of it has 1|0 etc.  *</li>
+</ul>
+</span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/rectForCellAtIndex:">&ndash;&nbsp;rectForCellAtIndex:</a></code>
+		<span class="tooltip"><ul>
+<li>Returns the frame of the cell at the given index.  *</li>
+</ul>
+</span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/indexesOfCellsInRect:">&ndash;&nbsp;indexesOfCellsInRect:</a></code>
+		<span class="tooltip"><ul>
+<li>Returns a set of indexes that are inside the rect.  *</li>
+</ul>
+</span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/visibleRange">&ndash;&nbsp;visibleRange</a></code>
+		<span class="tooltip"><ul>
+<li>Returns the currently visible index range.  *</li>
+</ul>
+</span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/beginChanges">&ndash;&nbsp;beginChanges</a></code>
+		<span class="tooltip"><p>Begins a block of changes. The collection view will only update its data and appereance when you call <a href="#//api/name/commitChanges">commitChanges</a>.
+@remark A call to <a href="#//api/name/reloadData">reloadData</a> will also be delayed until a <a href="#//api/name/commitChanges">commitChanges</a> call.  *</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/commitChanges">&ndash;&nbsp;commitChanges</a></code>
+		<span class="tooltip"><p>Updates the collection views data and appereance according to the previously made changes.
+@remark Use this and <a href="#//api/name/beginChanges">beginChanges</a> if you want to update multiple properties of the collection view in one batch call to save performance.  *</p></span>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+						
+						
+						<h3 class="subsubtitle task-title">Other Methods</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/mouseDragged:">&ndash;&nbsp;mouseDragged:</a></code>
+		<span class="tooltip"><pre><code>AZBox *i = [self cellAtIndex:index];
+NSSize zDragOffset = NSMakeSize(0.0, 0.0);
+NSPasteboard *zPasteBoard = [NSPasteboard pasteboardWithName:NSDragPboard];
+[zPasteBoard declareTypes:[NSArray arrayWithObject:NSTIFFPboardType]
+                    owner:self];
+NSImage *snap = [(NSView*)i snapshot];
+[zPasteBoard setData:[snap TIFFRepresentation] 
+             forType:NSTIFFPboardType];
+
+NSPoint originFlip  = i.frame.origin;
+originFlip.y += i.frame.size.height;
+[self dragImage:snap
+             at:originFlip
+         offset:zDragOffset
+          event:event
+     pasteboard:zPasteBoard 
+         source:self 
+      slideBack:YES];
+</code></pre></span>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+					</div>
+					
+					
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Properties" name="properties"></a>
+						<h2 class="subtitle subtitle-methods">Properties</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/allowsMultipleSelection" title="allowsMultipleSelection"></a>
+	<h3 class="subsubtitle method-title">allowsMultipleSelection</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>YES if the collection view should allow the <a href="#//api/name/selection">selection</a> of multiple cells at the same time, otherwise NO. The default value is NO.  *</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) BOOL allowsMultipleSelection</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>YES if the collection view should allow the <a href="#//api/name/selection">selection</a> of multiple cells at the same time, otherwise NO. The default value is NO.  *</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AZBoxGrid.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/allowsSelection" title="allowsSelection"></a>
+	<h3 class="subsubtitle method-title">allowsSelection</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>YES if the collection view should allow <a href="#//api/name/selection">selection</a>, otherwise NO. The default value is YES.  *</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) BOOL allowsSelection</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>YES if the collection view should allow <a href="#//api/name/selection">selection</a>, otherwise NO. The default value is YES.  *</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AZBoxGrid.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/cellSize" title="cellSize"></a>
+	<h3 class="subsubtitle method-title">cellSize</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>The size of one cell. Each cell shares the very same size.  *</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) NSSize cellSize</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>The size of one cell. Each cell shares the very same size.  *</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AZBoxGrid.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/dataSource" title="dataSource"></a>
+	<h3 class="subsubtitle method-title">dataSource</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>The data source of the collection view.  *</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, unsafe_unretained) IBOutlet id&lt;AZBoxGridDataSource&gt; dataSource</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>The data source of the collection view.  *</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AZBoxGrid.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/delegate" title="delegate"></a>
+	<h3 class="subsubtitle method-title">delegate</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>The delegate of the collection view.  *</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, unsafe_unretained) IBOutlet id&lt;AZBoxGridDelegate&gt; delegate</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>The delegate of the collection view.  *</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AZBoxGrid.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/desiredNumberOfColumns" title="desiredNumberOfColumns"></a>
+	<h3 class="subsubtitle method-title">desiredNumberOfColumns</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>The number of columns the collection view should use, or NSUIntegerMax to let the collection view decide what column number fits best.  *</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) NSUInteger desiredNumberOfColumns</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>The number of columns the collection view should use, or NSUIntegerMax to let the collection view decide what column number fits best.  *</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AZBoxGrid.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/desiredNumberOfRows" title="desiredNumberOfRows"></a>
+	<h3 class="subsubtitle method-title">desiredNumberOfRows</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The number of rows the collection view should use, or NSUIntegerMax to let the collection view use an dynmaic row number.
+@remark If you set desiredNumberOfRows to a fixed value, the collection view might not show all cells but only those who fit into the desired rows.  *</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) NSUInteger desiredNumberOfRows</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>The number of rows the collection view should use, or NSUIntegerMax to let the collection view use an dynmaic row number.
+@remark If you set desiredNumberOfRows to a fixed value, the collection view might not show all cells but only those who fit into the desired rows.  *</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AZBoxGrid.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/selection" title="selection"></a>
+	<h3 class="subsubtitle method-title">selection</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>The currently selected cells.  *</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (weak, nonatomic, readonly) NSIndexSet *selection</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>The currently selected cells.  *</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AZBoxGrid.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/unselectOnMouseUp" title="unselectOnMouseUp"></a>
+	<h3 class="subsubtitle method-title">unselectOnMouseUp</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>YES if the collection view should deselect the currently selected cell when the mouse button is released. The default value is NO.  *</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) BOOL unselectOnMouseUp</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>YES if the collection view should deselect the currently selected cell when the mouse button is released. The default value is NO.  *</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AZBoxGrid.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
+					
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Instance Methods" name="instance_methods"></a>
+						<h2 class="subtitle subtitle-methods">Instance Methods</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/beginChanges" title="beginChanges"></a>
+	<h3 class="subsubtitle method-title">beginChanges</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Begins a block of changes. The collection view will only update its data and appereance when you call <a href="#//api/name/commitChanges">commitChanges</a>.
+@remark A call to <a href="#//api/name/reloadData">reloadData</a> will also be delayed until a <a href="#//api/name/commitChanges">commitChanges</a> call.  *</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (void)beginChanges</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Begins a block of changes. The collection view will only update its data and appereance when you call <a href="#//api/name/commitChanges">commitChanges</a>.
+@remark A call to <a href="#//api/name/reloadData">reloadData</a> will also be delayed until a <a href="#//api/name/commitChanges">commitChanges</a> call.  *</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AZBoxGrid.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/cellAtIndex:" title="cellAtIndex:"></a>
+	<h3 class="subsubtitle method-title">cellAtIndex:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Returns the cell at the given index.
+@remark The cell must be visible, otherwise the method will return nil.  *</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (AZBox *)cellAtIndex:(NSUInteger)<em>index</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Returns the cell at the given index.
+@remark The cell must be visible, otherwise the method will return nil.  *</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AZBoxGrid.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/commitChanges" title="commitChanges"></a>
+	<h3 class="subsubtitle method-title">commitChanges</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Updates the collection views data and appereance according to the previously made changes.
+@remark Use this and <a href="#//api/name/beginChanges">beginChanges</a> if you want to update multiple properties of the collection view in one batch call to save performance.  *</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (void)commitChanges</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Updates the collection views data and appereance according to the previously made changes.
+@remark Use this and <a href="#//api/name/beginChanges">beginChanges</a> if you want to update multiple properties of the collection view in one batch call to save performance.  *</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AZBoxGrid.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/dequeueReusableCellWithIdentifier:" title="dequeueReusableCellWithIdentifier:"></a>
+	<h3 class="subsubtitle method-title">dequeueReusableCellWithIdentifier:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>Returns a queued cell or nil if no cell is currently in the queue. Use this if possible instead of creating new <a href="../Classes/AZBox.html">AZBox</a> instances.   *</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (AZBox *)dequeueReusableCellWithIdentifier:(NSString *)<em>identifier</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>Returns a queued cell or nil if no cell is currently in the queue. Use this if possible instead of creating new <a href="../Classes/AZBox.html">AZBox</a> instances.   *</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AZBoxGrid.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/deselectAllCells" title="deselectAllCells"></a>
+	<h3 class="subsubtitle method-title">deselectAllCells</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>Deselects all previously selected cells.  *</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (void)deselectAllCells</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>Deselects all previously selected cells.  *</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AZBoxGrid.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/deselectCellAtIndex:" title="deselectCellAtIndex:"></a>
+	<h3 class="subsubtitle method-title">deselectCellAtIndex:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>Deselects the cell at the given index.  *</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (void)deselectCellAtIndex:(NSUInteger)<em>index</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>Deselects the cell at the given index.  *</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AZBoxGrid.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/deselectCellsAtIndexes:" title="deselectCellsAtIndexes:"></a>
+	<h3 class="subsubtitle method-title">deselectCellsAtIndexes:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>Deselcts all cells of the index set.  *</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (void)deselectCellsAtIndexes:(NSIndexSet *)<em>indexSet</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>Deselcts all cells of the index set.  *</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AZBoxGrid.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/hoverOutOfCellAtIndex:" title="hoverOutOfCellAtIndex:"></a>
+	<h3 class="subsubtitle method-title">hoverOutOfCellAtIndex:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>The mouse was hovering over the given cell and is now out of the cell area.  *</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (void)hoverOutOfCellAtIndex:(NSUInteger)<em>index</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>The mouse was hovering over the given cell and is now out of the cell area.  *</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AZBoxGrid.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/hoverOutOfLastCell" title="hoverOutOfLastCell"></a>
+	<h3 class="subsubtitle method-title">hoverOutOfLastCell</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>Hover out of the most recent cell that the mouse was hovering over.  *</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (void)hoverOutOfLastCell</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>Hover out of the most recent cell that the mouse was hovering over.  *</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AZBoxGrid.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/hoverOverCellAtIndex:" title="hoverOverCellAtIndex:"></a>
+	<h3 class="subsubtitle method-title">hoverOverCellAtIndex:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>The mouse is hovering over the given cell.  *</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (void)hoverOverCellAtIndex:(NSUInteger)<em>index</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>The mouse is hovering over the given cell.  *</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AZBoxGrid.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/indexOfCellAtPoint:" title="indexOfCellAtPoint:"></a>
+	<h3 class="subsubtitle method-title">indexOfCellAtPoint:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>Returns the index of the cell at the given point.  *</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (NSUInteger)indexOfCellAtPoint:(NSPoint)<em>point</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>Returns the index of the cell at the given point.  *</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AZBoxGrid.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/indexOfCellAtPosition:" title="indexOfCellAtPosition:"></a>
+	<h3 class="subsubtitle method-title">indexOfCellAtPosition:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>Returns the index of the cell at the given position.  *</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (NSUInteger)indexOfCellAtPosition:(NSPoint)<em>point</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>Returns the index of the cell at the given position.  *</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AZBoxGrid.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/indexesOfCellsInRect:" title="indexesOfCellsInRect:"></a>
+	<h3 class="subsubtitle method-title">indexesOfCellsInRect:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>Returns a set of indexes that are inside the rect.  *</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (NSIndexSet *)indexesOfCellsInRect:(NSRect)<em>rect</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>Returns a set of indexes that are inside the rect.  *</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AZBoxGrid.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/mouseDragged:" title="mouseDragged:"></a>
+	<h3 class="subsubtitle method-title">mouseDragged:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<pre><code>AZBox *i = [self cellAtIndex:index];
+NSSize zDragOffset = NSMakeSize(0.0, 0.0);
+NSPasteboard *zPasteBoard = [NSPasteboard pasteboardWithName:NSDragPboard];
+[zPasteBoard declareTypes:[NSArray arrayWithObject:NSTIFFPboardType]
+                    owner:self];
+NSImage *snap = [(NSView*)i snapshot];
+[zPasteBoard setData:[snap TIFFRepresentation] 
+             forType:NSTIFFPboardType];
+
+NSPoint originFlip  = i.frame.origin;
+originFlip.y += i.frame.size.height;
+[self dragImage:snap
+             at:originFlip
+         offset:zDragOffset
+          event:event
+     pasteboard:zPasteBoard 
+         source:self 
+      slideBack:YES];
+</code></pre>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (void)mouseDragged:(NSEvent *)<em>event</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<pre><code>AZBox *i = [self cellAtIndex:index];
+NSSize zDragOffset = NSMakeSize(0.0, 0.0);
+NSPasteboard *zPasteBoard = [NSPasteboard pasteboardWithName:NSDragPboard];
+[zPasteBoard declareTypes:[NSArray arrayWithObject:NSTIFFPboardType]
+                    owner:self];
+NSImage *snap = [(NSView*)i snapshot];
+[zPasteBoard setData:[snap TIFFRepresentation] 
+             forType:NSTIFFPboardType];
+
+NSPoint originFlip  = i.frame.origin;
+originFlip.y += i.frame.size.height;
+[self dragImage:snap
+             at:originFlip
+         offset:zDragOffset
+          event:event
+     pasteboard:zPasteBoard 
+         source:self 
+      slideBack:YES];
+</code></pre>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AZBoxGrid.m</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/positionOfCellAtIndex:" title="positionOfCellAtIndex:"></a>
+	<h3 class="subsubtitle method-title">positionOfCellAtIndex:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>Returns the position of the cell at the given index. For example the top left cell has the point 0|0 while the one on the right side of it has 1|0 etc.  *</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (NSPoint)positionOfCellAtIndex:(NSUInteger)<em>index</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>Returns the position of the cell at the given index. For example the top left cell has the point 0|0 while the one on the right side of it has 1|0 etc.  *</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AZBoxGrid.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/rectForCellAtIndex:" title="rectForCellAtIndex:"></a>
+	<h3 class="subsubtitle method-title">rectForCellAtIndex:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>Returns the frame of the cell at the given index.  *</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (NSRect)rectForCellAtIndex:(NSInteger)<em>index</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>Returns the frame of the cell at the given index.  *</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AZBoxGrid.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/reloadData" title="reloadData"></a>
+	<h3 class="subsubtitle method-title">reloadData</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>Forces the collection view to throw away all cached data including cells and selections and then reloading the data from scratch.  *</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (void)reloadData</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>Forces the collection view to throw away all cached data including cells and selections and then reloading the data from scratch.  *</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AZBoxGrid.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/selectCellAtIndex:" title="selectCellAtIndex:"></a>
+	<h3 class="subsubtitle method-title">selectCellAtIndex:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>Selects the cell with the given index.  *</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (void)selectCellAtIndex:(NSUInteger)<em>index</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>Selects the cell with the given index.  *</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AZBoxGrid.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/selectCellsAtIndexes:" title="selectCellsAtIndexes:"></a>
+	<h3 class="subsubtitle method-title">selectCellsAtIndexes:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>Selects all cells of the index set, or, if <a href="#//api/name/allowsMultipleSelection">allowsMultipleSelection</a> is set to NO, selectes the cell at the first index of the set.  *</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (void)selectCellsAtIndexes:(NSIndexSet *)<em>indexSet</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>Selects all cells of the index set, or, if <a href="#//api/name/allowsMultipleSelection">allowsMultipleSelection</a> is set to NO, selectes the cell at the first index of the set.  *</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AZBoxGrid.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/visibleRange" title="visibleRange"></a>
+	<h3 class="subsubtitle method-title">visibleRange</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>Returns the currently visible index range.  *</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (NSRange)visibleRange</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>Returns the currently visible index range.  *</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AZBoxGrid.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
+					
+				</div>
+				<div class="main-navigation navigation-bottom">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="footer">
+					<hr />
+					<div class="footer-copyright">
+						<p><span class="copyright">&copy; 2012 mrgray.com. All rights reserved. (Last updated: 2012-09-15)</span><br />
+						
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.5 (build 789)</a>.</span></p>
+						
+					</div>
+				</div>
+			</div>
+		</article>
+		<script type="text/javascript">
+			function jumpToChange()
+			{
+				window.location.hash = this.options[this.selectedIndex].value;
+			}
+			
+			function toggleTOC()
+			{
+				var contents = document.getElementById('contents');
+				var tocContainer = document.getElementById('tocContainer');
+				
+				if (this.getAttribute('class') == 'open')
+				{
+					this.setAttribute('class', '');
+					contents.setAttribute('class', '');
+					tocContainer.setAttribute('class', '');
+					
+					window.name = "hideTOC";
+				}
+				else
+				{
+					this.setAttribute('class', 'open');
+					contents.setAttribute('class', 'isShowingTOC');
+					tocContainer.setAttribute('class', 'isShowingTOC');
+					
+					window.name = "";
+				}
+				return false;
+			}
+			
+			function toggleTOCEntryChildren(e)
+			{
+				e.stopPropagation();
+				var currentClass = this.getAttribute('class');
+				if (currentClass == 'children') {
+					this.setAttribute('class', 'children open');
+				}
+				else if (currentClass == 'children open') {
+					this.setAttribute('class', 'children');
+				}
+				return false;
+			}
+			
+			function tocEntryClick(e)
+			{
+				e.stopPropagation();
+				return true;
+			}
+			
+			function init()
+			{
+				var selectElement = document.getElementById('jumpTo');
+				selectElement.addEventListener('change', jumpToChange, false);
+				
+				var tocButton = document.getElementById('table_of_contents');
+				tocButton.addEventListener('click', toggleTOC, false);
+				
+				var taskTreeItem = document.getElementById('task_treeitem');
+				if (taskTreeItem.getElementsByTagName('li').length > 0)
+				{
+					taskTreeItem.setAttribute('class', 'children');
+					taskTreeItem.firstChild.setAttribute('class', 'disclosure');
+				}
+				
+				var tocList = document.getElementById('toc');
+				
+				var tocEntries = tocList.getElementsByTagName('li');
+				for (var i = 0; i < tocEntries.length; i++) {
+					tocEntries[i].addEventListener('click', toggleTOCEntryChildren, false);
+				}
+				
+				var tocLinks = tocList.getElementsByTagName('a');
+				for (var i = 0; i < tocLinks.length; i++) {
+					tocLinks[i].addEventListener('click', tocEntryClick, false);
+				}
+				
+				if (window.name == "hideTOC") {
+					toggleTOC.call(tocButton);
+				}
+			}
+			
+			window.onload = init;
+		</script>
+	</body>
+</html>

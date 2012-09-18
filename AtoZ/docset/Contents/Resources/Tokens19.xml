@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/AtoZ.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/AtoZ</TokenIdentifier>
+			<Abstract></Abstract>
+			<DeclaredIn>AtoZ.h</DeclaredIn>
+			
+			<NodeRef refid="19"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/AtoZ/fengShui</TokenIdentifier>
+			<Abstract>/    self. = DECODE_VALUE([coder decodeObjectForKey:@"uncodableProperty"];</Abstract>
+			<DeclaredIn>AtoZ.h</DeclaredIn>			
+			
+			<Declaration>+ (NSArray *)fengShui</Declaration>
+			
+			
+			<Anchor>//api/name/fengShui</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/AtoZ/selectedDock</TokenIdentifier>
+			<Abstract>/	return dockSorted;
+/		}waitUntilDone:YES];
+/	return _dockSorted;
+/		[[NSThread mainThread] performBlock:^{
+/			 _dockSorted = adock.mutableCopy;
+/		} waitUntilDone:YES];
+/	}];
+/	return _dockSorted;</Abstract>
+			<DeclaredIn>AtoZ.m</DeclaredIn>			
+			
+			<Declaration>+ (NSArray *)selectedDock</Declaration>
+			
+			
+			<Anchor>//api/name/selectedDock</Anchor>
+		</Token>
+		
+	</File>
+</Tokens>

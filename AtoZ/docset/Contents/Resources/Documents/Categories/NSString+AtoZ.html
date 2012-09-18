@@ -1,0 +1,1560 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
+		<title>NSString(AtoZ) Category Reference</title>
+		<meta id="xcode-display" name="xcode-display" content="render"/>
+		<meta name="viewport" content="width=550" />
+		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
+		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
+		<meta name="generator" content="appledoc 2.0.5 (build 789)" />
+	</head>
+	<body>
+		<header id="top_header">
+			<div id="library" class="hideInXcode">
+				<h1><a id="libraryTitle" href="../index.html">AtoZ.Framework </a></h1>
+				<a id="developerHome" href="../index.html">mrgray.com</a>
+			</div>
+			
+			<div id="title" role="banner">
+				<h1 class="hideInXcode">NSString(AtoZ) Category Reference</h1>
+			</div>
+			<ul id="headerButtons" role="toolbar">
+				<li id="toc_button">
+					<button aria-label="Show Table of Contents" role="checkbox" class="open" id="table_of_contents"><span class="disclosure"></span>Table of Contents</button>
+				</li>
+				<li id="jumpto_button" role="navigation">
+					<select id="jumpTo">
+	<option value="top">Jump To&#133;</option>
+	
+	
+	
+	
+	<option value="tasks">Tasks</option>
+	
+	
+	
+	
+	
+	<option value="properties">Properties</option>
+	
+	<option value="//api/name/camelized">&nbsp;&nbsp;&nbsp;&nbsp;camelized</option>
+	
+	<option value="//api/name/chopped">&nbsp;&nbsp;&nbsp;&nbsp;chopped</option>
+	
+	<option value="//api/name/indentationLevel">&nbsp;&nbsp;&nbsp;&nbsp;indentationLevel</option>
+	
+	<option value="//api/name/isEmpty">&nbsp;&nbsp;&nbsp;&nbsp;isEmpty</option>
+	
+	<option value="//api/name/lines">&nbsp;&nbsp;&nbsp;&nbsp;lines</option>
+	
+	<option value="//api/name/popped">&nbsp;&nbsp;&nbsp;&nbsp;popped</option>
+	
+	<option value="//api/name/reversed">&nbsp;&nbsp;&nbsp;&nbsp;reversed</option>
+	
+	<option value="//api/name/shifted">&nbsp;&nbsp;&nbsp;&nbsp;shifted</option>
+	
+	<option value="//api/name/trim">&nbsp;&nbsp;&nbsp;&nbsp;trim</option>
+	
+	<option value="//api/name/wordSet">&nbsp;&nbsp;&nbsp;&nbsp;wordSet</option>
+	
+	<option value="//api/name/words">&nbsp;&nbsp;&nbsp;&nbsp;words</option>
+	
+	
+	
+	
+	
+	
+	<option value="instance_methods">Instance Methods</option>
+	
+	<option value="//api/name/contains:">&nbsp;&nbsp;&nbsp;&nbsp;- contains:</option>
+	
+	<option value="//api/name/containsAllOf:">&nbsp;&nbsp;&nbsp;&nbsp;- containsAllOf:</option>
+	
+	<option value="//api/name/containsAnyOf:">&nbsp;&nbsp;&nbsp;&nbsp;- containsAnyOf:</option>
+	
+	<option value="//api/name/count:">&nbsp;&nbsp;&nbsp;&nbsp;- count:</option>
+	
+	<option value="//api/name/count:options:">&nbsp;&nbsp;&nbsp;&nbsp;- count:options:</option>
+	
+	<option value="//api/name/endsWith:">&nbsp;&nbsp;&nbsp;&nbsp;- endsWith:</option>
+	
+	<option value="//api/name/hasPrefix:andSuffix:">&nbsp;&nbsp;&nbsp;&nbsp;- hasPrefix:andSuffix:</option>
+	
+	<option value="//api/name/indexOf:">&nbsp;&nbsp;&nbsp;&nbsp;- indexOf:</option>
+	
+	<option value="//api/name/lastIndexOf:">&nbsp;&nbsp;&nbsp;&nbsp;- lastIndexOf:</option>
+	
+	<option value="//api/name/rangeOfAny:">&nbsp;&nbsp;&nbsp;&nbsp;- rangeOfAny:</option>
+	
+	<option value="//api/name/startsWith:">&nbsp;&nbsp;&nbsp;&nbsp;- startsWith:</option>
+	
+	<option value="//api/name/substringBetweenPrefix:andSuffix:">&nbsp;&nbsp;&nbsp;&nbsp;- substringBetweenPrefix:andSuffix:</option>
+	
+	
+	
+</select>
+				</li>
+			</ul>
+		</header>
+		<nav id="tocContainer" class="isShowingTOC">
+			<ul id="toc" role="tree">
+				
+
+
+
+<li role="treeitem" id="task_treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#tasks">Tasks</a></span><ul>
+	
+</ul></li>
+
+
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#properties">Properties</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/camelized">camelized</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/chopped">chopped</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/indentationLevel">indentationLevel</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/isEmpty">isEmpty</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/lines">lines</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/popped">popped</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/reversed">reversed</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/shifted">shifted</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/trim">trim</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/wordSet">wordSet</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/words">words</a></span></li>
+	
+</ul></li>
+
+
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/contains:">contains:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/containsAllOf:">containsAllOf:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/containsAnyOf:">containsAnyOf:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/count:">count:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/count:options:">count:options:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/endsWith:">endsWith:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/hasPrefix:andSuffix:">hasPrefix:andSuffix:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/indexOf:">indexOf:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/lastIndexOf:">lastIndexOf:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/rangeOfAny:">rangeOfAny:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/startsWith:">startsWith:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/substringBetweenPrefix:andSuffix:">substringBetweenPrefix:andSuffix:</a></span></li>
+	
+</ul></li>
+
+
+			</ul>
+		</nav>
+		<article>
+			<div id="contents" class="isShowingTOC" role="main">
+				<a title="NSString(AtoZ) Category Reference" name="top"></a>
+				<div class="main-navigation navigation-top">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="header">
+					<div class="section-header">
+						<h1 class="title title-header">NSString(AtoZ) Category Reference</h1>
+					</div>		
+				</div>
+				<div id="container">	
+					
+					<div class="section section-specification"><table cellspacing="0"><tbody>
+						<tr>
+	<td class="specification-title">Declared in</td>
+	<td class="specification-value">NSString+AtoZ.h<br />NSString+AtoZ.m</td>
+</tr>
+						</tbody></table></div>
+					
+					
+					
+					
+					
+					
+					<div class="section section-tasks">
+						<a title="Tasks" name="tasks"></a>
+						<h2 class="subtitle subtitle-tasks">Tasks</h2>
+						
+						
+						
+						
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/trim">&nbsp;&nbsp;trim</a></code>
+		<span class="tooltip"><ul>
+<li>Returns the string cleaned from leading and trailing whitespaces</li>
+</ul>
+</span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/reversed">&nbsp;&nbsp;reversed</a></code>
+		<span class="tooltip"><ul>
+<li>Returns the reverse version of the string</li>
+</ul>
+</span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/shifted">&nbsp;&nbsp;shifted</a></code>
+		<span class="tooltip"><ul>
+<li>Returns the substring after the first character in this string</li>
+</ul>
+</span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/popped">&nbsp;&nbsp;popped</a></code>
+		<span class="tooltip"><ul>
+<li>Returns the substring not containing the last character of this string</li>
+</ul>
+</span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/chopped">&nbsp;&nbsp;chopped</a></code>
+		<span class="tooltip"><ul>
+<li>Combination of <a href="#//api/name/shifted">shifted</a> and <a href="#//api/name/popped">popped</a>, removes the first and last character</li>
+</ul>
+</span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/camelized">&nbsp;&nbsp;camelized</a></code>
+		<span class="tooltip"><ul>
+<li>Returns a CamelCase Version of this string</li>
+</ul>
+</span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/isEmpty">&nbsp;&nbsp;isEmpty</a></code>
+		<span class="tooltip"><ul>
+<li>Returns YES if this string is nil or contains nothing but whitespaces</li>
+</ul>
+</span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/count:">&ndash;&nbsp;count:</a></code>
+		<span class="tooltip"><ul>
+<li>Counts occurrences of a given string</li>
+</ul>
+</span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/count:options:">&ndash;&nbsp;count:options:</a></code>
+		<span class="tooltip"><ul>
+<li>Cunts occurrences of a given string with sone compare options</li>
+</ul>
+</span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/indentationLevel">&nbsp;&nbsp;indentationLevel</a></code>
+		<span class="tooltip"><ul>
+<li>Counts the whitespace chars that prefix this string</li>
+</ul>
+</span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/contains:">&ndash;&nbsp;contains:</a></code>
+		<span class="tooltip"><p>Returns YES when aString is part of the this string.
+nil and @&ldquo;&rdquo; are never part of any compared string</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/containsAnyOf:">&ndash;&nbsp;containsAnyOf:</a></code>
+		<span class="tooltip"><ul>
+<li>Returns YES when this string contains ANY of the strings defined in the array</li>
+</ul>
+</span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/containsAllOf:">&ndash;&nbsp;containsAllOf:</a></code>
+		<span class="tooltip"><ul>
+<li>Returns YES when this string contains ALL of the strings defined in the array</li>
+</ul>
+</span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/startsWith:">&ndash;&nbsp;startsWith:</a></code>
+		<span class="tooltip"><ul>
+<li>Returns YES when this string starts with aString, just a synonym for hasPrefix</li>
+</ul>
+</span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/endsWith:">&ndash;&nbsp;endsWith:</a></code>
+		<span class="tooltip"><ul>
+<li>Returns YES when this string ends with aString, just a synonym for hasSuffix</li>
+</ul>
+</span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/hasPrefix:andSuffix:">&ndash;&nbsp;hasPrefix:andSuffix:</a></code>
+		<span class="tooltip"><ul>
+<li>Returns YES when this string has both given prefix and suffix</li>
+</ul>
+</span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/substringBetweenPrefix:andSuffix:">&ndash;&nbsp;substringBetweenPrefix:andSuffix:</a></code>
+		<span class="tooltip"><p>Will return the substring between prefix and suffix.
+If either prefix or suffix cannot be matched nil will be returned</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/indexOf:">&ndash;&nbsp;indexOf:</a></code>
+		<span class="tooltip"><p>Oldscool indexOf, if you do not want to handle NSRange objects
+will return -1 instead of NSNotFound</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/lastIndexOf:">&ndash;&nbsp;lastIndexOf:</a></code>
+		<span class="tooltip"><p>Oldscool lastIndexOf, if you do not want to handle NSRange objects
+will return -1 instead of NSNotFound</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/rangeOfAny:">&ndash;&nbsp;rangeOfAny:</a></code>
+		<span class="tooltip"><p>Returns the first NSRange of any matching substring in this string
+that is part of the strings set</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/lines">&nbsp;&nbsp;lines</a></code>
+		<span class="tooltip"><p>Returns this string splitted by lines.
+Shortcut for componentsSeperatedByString:@&ldquo;\n&rdquo;</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/words">&nbsp;&nbsp;words</a></code>
+		<span class="tooltip"><p>Returns this string splitted by whitespaces.
+Shortcut for componentsSeperatedByString:@&ldquo; &rdquo;
+Empty elements will not be part of the resulting array</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/wordSet">&nbsp;&nbsp;wordSet</a></code>
+		<span class="tooltip"><p>Returns a set with all unique elements of this String,
+separated by whitespaces</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li>
+						</ul>
+						
+					</div>
+					
+					
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Properties" name="properties"></a>
+						<h2 class="subtitle subtitle-methods">Properties</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/camelized" title="camelized"></a>
+	<h3 class="subsubtitle method-title">camelized</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>Returns a CamelCase Version of this string</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (readonly) NSString *camelized</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>Returns a CamelCase Version of this string</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSString+AtoZ.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/chopped" title="chopped"></a>
+	<h3 class="subsubtitle method-title">chopped</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>Combination of <a href="#//api/name/shifted">shifted</a> and <a href="#//api/name/popped">popped</a>, removes the first and last character</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (readonly) NSString *chopped</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>Combination of <a href="#//api/name/shifted">shifted</a> and <a href="#//api/name/popped">popped</a>, removes the first and last character</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSString+AtoZ.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/indentationLevel" title="indentationLevel"></a>
+	<h3 class="subsubtitle method-title">indentationLevel</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>Counts the whitespace chars that prefix this string</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (readonly) NSUInteger indentationLevel</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>Counts the whitespace chars that prefix this string</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSString+AtoZ.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/isEmpty" title="isEmpty"></a>
+	<h3 class="subsubtitle method-title">isEmpty</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>Returns YES if this string is nil or contains nothing but whitespaces</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (readonly) BOOL isEmpty</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>Returns YES if this string is nil or contains nothing but whitespaces</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSString+AtoZ.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/lines" title="lines"></a>
+	<h3 class="subsubtitle method-title">lines</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Returns this string splitted by lines.
+Shortcut for componentsSeperatedByString:@&ldquo;\n&rdquo;</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (readonly) NSArray *lines</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Returns this string splitted by lines.
+Shortcut for componentsSeperatedByString:@&ldquo;\n&rdquo;</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSString+AtoZ.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/popped" title="popped"></a>
+	<h3 class="subsubtitle method-title">popped</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>Returns the substring not containing the last character of this string</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (readonly) NSString *popped</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>Returns the substring not containing the last character of this string</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSString+AtoZ.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/reversed" title="reversed"></a>
+	<h3 class="subsubtitle method-title">reversed</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>Returns the reverse version of the string</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (readonly) NSString *reversed</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>Returns the reverse version of the string</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSString+AtoZ.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/shifted" title="shifted"></a>
+	<h3 class="subsubtitle method-title">shifted</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>Returns the substring after the first character in this string</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (readonly) NSString *shifted</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>Returns the substring after the first character in this string</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSString+AtoZ.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/trim" title="trim"></a>
+	<h3 class="subsubtitle method-title">trim</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>Returns the string cleaned from leading and trailing whitespaces</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (readonly) NSString *trim</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>Returns the string cleaned from leading and trailing whitespaces</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSString+AtoZ.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/wordSet" title="wordSet"></a>
+	<h3 class="subsubtitle method-title">wordSet</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Returns a set with all unique elements of this String,
+separated by whitespaces</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (readonly) NSSet *wordSet</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Returns a set with all unique elements of this String,
+separated by whitespaces</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSString+AtoZ.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/words" title="words"></a>
+	<h3 class="subsubtitle method-title">words</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Returns this string splitted by whitespaces.
+Shortcut for componentsSeperatedByString:@&ldquo; &rdquo;
+Empty elements will not be part of the resulting array</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (readonly) NSArray *words</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Returns this string splitted by whitespaces.
+Shortcut for componentsSeperatedByString:@&ldquo; &rdquo;
+Empty elements will not be part of the resulting array</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSString+AtoZ.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
+					
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Instance Methods" name="instance_methods"></a>
+						<h2 class="subtitle subtitle-methods">Instance Methods</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/contains:" title="contains:"></a>
+	<h3 class="subsubtitle method-title">contains:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Returns YES when aString is part of the this string.
+nil and @&ldquo;&rdquo; are never part of any compared string</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (BOOL)contains:(NSString *)<em>aString</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Returns YES when aString is part of the this string.
+nil and @&ldquo;&rdquo; are never part of any compared string</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSString+AtoZ.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/containsAllOf:" title="containsAllOf:"></a>
+	<h3 class="subsubtitle method-title">containsAllOf:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>Returns YES when this string contains ALL of the strings defined in the array</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (BOOL)containsAllOf:(NSArray *)<em>array</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>Returns YES when this string contains ALL of the strings defined in the array</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSString+AtoZ.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/containsAnyOf:" title="containsAnyOf:"></a>
+	<h3 class="subsubtitle method-title">containsAnyOf:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>Returns YES when this string contains ANY of the strings defined in the array</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (BOOL)containsAnyOf:(NSArray *)<em>array</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>Returns YES when this string contains ANY of the strings defined in the array</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSString+AtoZ.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/count:" title="count:"></a>
+	<h3 class="subsubtitle method-title">count:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>Counts occurrences of a given string</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (NSUInteger)count:(NSString *)<em>aString</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>Counts occurrences of a given string</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSString+AtoZ.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/count:options:" title="count:options:"></a>
+	<h3 class="subsubtitle method-title">count:options:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>Cunts occurrences of a given string with sone compare options</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (NSUInteger)count:(NSString *)<em>aString</em> options:(NSStringCompareOptions)<em>flags</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>Cunts occurrences of a given string with sone compare options</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSString+AtoZ.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/endsWith:" title="endsWith:"></a>
+	<h3 class="subsubtitle method-title">endsWith:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>Returns YES when this string ends with aString, just a synonym for hasSuffix</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (BOOL)endsWith:(NSString *)<em>aString</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>Returns YES when this string ends with aString, just a synonym for hasSuffix</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSString+AtoZ.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/hasPrefix:andSuffix:" title="hasPrefix:andSuffix:"></a>
+	<h3 class="subsubtitle method-title">hasPrefix:andSuffix:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>Returns YES when this string has both given prefix and suffix</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (BOOL)hasPrefix:(NSString *)<em>prefix</em> andSuffix:(NSString *)<em>suffix</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>Returns YES when this string has both given prefix and suffix</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSString+AtoZ.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/indexOf:" title="indexOf:"></a>
+	<h3 class="subsubtitle method-title">indexOf:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Oldscool indexOf, if you do not want to handle NSRange objects
+will return -1 instead of NSNotFound</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (NSInteger)indexOf:(NSString *)<em>aString</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Oldscool indexOf, if you do not want to handle NSRange objects
+will return -1 instead of NSNotFound</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSString+AtoZ.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/lastIndexOf:" title="lastIndexOf:"></a>
+	<h3 class="subsubtitle method-title">lastIndexOf:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Oldscool lastIndexOf, if you do not want to handle NSRange objects
+will return -1 instead of NSNotFound</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (NSInteger)lastIndexOf:(NSString *)<em>aString</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Oldscool lastIndexOf, if you do not want to handle NSRange objects
+will return -1 instead of NSNotFound</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSString+AtoZ.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/rangeOfAny:" title="rangeOfAny:"></a>
+	<h3 class="subsubtitle method-title">rangeOfAny:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Returns the first NSRange of any matching substring in this string
+that is part of the strings set</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (NSRange)rangeOfAny:(NSSet *)<em>strings</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Returns the first NSRange of any matching substring in this string
+that is part of the strings set</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSString+AtoZ.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/startsWith:" title="startsWith:"></a>
+	<h3 class="subsubtitle method-title">startsWith:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<ul>
+<li>Returns YES when this string starts with aString, just a synonym for hasPrefix</li>
+</ul>
+
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (BOOL)startsWith:(NSString *)<em>aString</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<ul>
+<li>Returns YES when this string starts with aString, just a synonym for hasPrefix</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSString+AtoZ.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/substringBetweenPrefix:andSuffix:" title="substringBetweenPrefix:andSuffix:"></a>
+	<h3 class="subsubtitle method-title">substringBetweenPrefix:andSuffix:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Will return the substring between prefix and suffix.
+If either prefix or suffix cannot be matched nil will be returned</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (NSString *)substringBetweenPrefix:(NSString *)<em>prefix</em> andSuffix:(NSString *)<em>suffix</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Will return the substring between prefix and suffix.
+If either prefix or suffix cannot be matched nil will be returned</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSString+AtoZ.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
+					
+				</div>
+				<div class="main-navigation navigation-bottom">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="footer">
+					<hr />
+					<div class="footer-copyright">
+						<p><span class="copyright">&copy; 2012 mrgray.com. All rights reserved. (Last updated: 2012-09-15)</span><br />
+						
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.5 (build 789)</a>.</span></p>
+						
+					</div>
+				</div>
+			</div>
+		</article>
+		<script type="text/javascript">
+			function jumpToChange()
+			{
+				window.location.hash = this.options[this.selectedIndex].value;
+			}
+			
+			function toggleTOC()
+			{
+				var contents = document.getElementById('contents');
+				var tocContainer = document.getElementById('tocContainer');
+				
+				if (this.getAttribute('class') == 'open')
+				{
+					this.setAttribute('class', '');
+					contents.setAttribute('class', '');
+					tocContainer.setAttribute('class', '');
+					
+					window.name = "hideTOC";
+				}
+				else
+				{
+					this.setAttribute('class', 'open');
+					contents.setAttribute('class', 'isShowingTOC');
+					tocContainer.setAttribute('class', 'isShowingTOC');
+					
+					window.name = "";
+				}
+				return false;
+			}
+			
+			function toggleTOCEntryChildren(e)
+			{
+				e.stopPropagation();
+				var currentClass = this.getAttribute('class');
+				if (currentClass == 'children') {
+					this.setAttribute('class', 'children open');
+				}
+				else if (currentClass == 'children open') {
+					this.setAttribute('class', 'children');
+				}
+				return false;
+			}
+			
+			function tocEntryClick(e)
+			{
+				e.stopPropagation();
+				return true;
+			}
+			
+			function init()
+			{
+				var selectElement = document.getElementById('jumpTo');
+				selectElement.addEventListener('change', jumpToChange, false);
+				
+				var tocButton = document.getElementById('table_of_contents');
+				tocButton.addEventListener('click', toggleTOC, false);
+				
+				var taskTreeItem = document.getElementById('task_treeitem');
+				if (taskTreeItem.getElementsByTagName('li').length > 0)
+				{
+					taskTreeItem.setAttribute('class', 'children');
+					taskTreeItem.firstChild.setAttribute('class', 'disclosure');
+				}
+				
+				var tocList = document.getElementById('toc');
+				
+				var tocEntries = tocList.getElementsByTagName('li');
+				for (var i = 0; i < tocEntries.length; i++) {
+					tocEntries[i].addEventListener('click', toggleTOCEntryChildren, false);
+				}
+				
+				var tocLinks = tocList.getElementsByTagName('a');
+				for (var i = 0; i < tocLinks.length; i++) {
+					tocLinks[i].addEventListener('click', tocEntryClick, false);
+				}
+				
+				if (window.name == "hideTOC") {
+					toggleTOC.call(tocButton);
+				}
+			}
+			
+			window.onload = init;
+		</script>
+	</body>
+</html>

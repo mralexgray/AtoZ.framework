@@ -168,3 +168,14 @@ extern NSView* AZResizeWindowAndContent(NSWindow* window, float dXLeft, float dX
 
 
 @end
+
+
+@interface NSView (findSubview)
+
+- (NSArray *)subviewsOfKind:(Class)kind withTag:(NSInteger)tag;
+- (NSArray *)subviewsOfKind:(Class)kind;
+
+- (NSView *)firstSubviewOfKind:(Class)kind withTag:(NSInteger)tag;
+- (NSView *)firstSubviewOfKind:(Class)kind;
+
+@end

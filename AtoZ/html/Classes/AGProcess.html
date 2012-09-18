@@ -1,0 +1,2892 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
+		<title>AGProcess Class Reference</title>
+		<meta id="xcode-display" name="xcode-display" content="render"/>
+		<meta name="viewport" content="width=550" />
+		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
+		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
+		<meta name="generator" content="appledoc 2.0.5 (build 789)" />
+	</head>
+	<body>
+		<header id="top_header">
+			<div id="library" class="hideInXcode">
+				<h1><a id="libraryTitle" href="../index.html">AtoZ.Framework </a></h1>
+				<a id="developerHome" href="../index.html">mrgray.com</a>
+			</div>
+			
+			<div id="title" role="banner">
+				<h1 class="hideInXcode">AGProcess Class Reference</h1>
+			</div>
+			<ul id="headerButtons" role="toolbar">
+				<li id="toc_button">
+					<button aria-label="Show Table of Contents" role="checkbox" class="open" id="table_of_contents"><span class="disclosure"></span>Table of Contents</button>
+				</li>
+				<li id="jumpto_button" role="navigation">
+					<select id="jumpTo">
+	<option value="top">Jump To&#133;</option>
+	
+	<option value="overview">Overview</option>
+	
+	
+	
+	
+	<option value="tasks">Tasks</option>
+	
+	
+	
+	
+	
+	
+	
+	<option value="class_methods">Class Methods</option>
+	
+	<option value="//api/name/allProcesses">&nbsp;&nbsp;&nbsp;&nbsp;+ allProcesses</option>
+	
+	<option value="//api/name/currentProcess">&nbsp;&nbsp;&nbsp;&nbsp;+ currentProcess</option>
+	
+	<option value="//api/name/processForCommand:">&nbsp;&nbsp;&nbsp;&nbsp;+ processForCommand:</option>
+	
+	<option value="//api/name/processForProcessIdentifier:">&nbsp;&nbsp;&nbsp;&nbsp;+ processForProcessIdentifier:</option>
+	
+	<option value="//api/name/processesForCommand:">&nbsp;&nbsp;&nbsp;&nbsp;+ processesForCommand:</option>
+	
+	<option value="//api/name/processesForProcessGroup:">&nbsp;&nbsp;&nbsp;&nbsp;+ processesForProcessGroup:</option>
+	
+	<option value="//api/name/processesForRealUser:">&nbsp;&nbsp;&nbsp;&nbsp;+ processesForRealUser:</option>
+	
+	<option value="//api/name/processesForTerminal:">&nbsp;&nbsp;&nbsp;&nbsp;+ processesForTerminal:</option>
+	
+	<option value="//api/name/processesForUser:">&nbsp;&nbsp;&nbsp;&nbsp;+ processesForUser:</option>
+	
+	<option value="//api/name/userProcesses">&nbsp;&nbsp;&nbsp;&nbsp;+ userProcesses</option>
+	
+	
+	
+	
+	<option value="instance_methods">Instance Methods</option>
+	
+	<option value="//api/name/annotatedCommand">&nbsp;&nbsp;&nbsp;&nbsp;- annotatedCommand</option>
+	
+	<option value="//api/name/annotation">&nbsp;&nbsp;&nbsp;&nbsp;- annotation</option>
+	
+	<option value="//api/name/arguments">&nbsp;&nbsp;&nbsp;&nbsp;- arguments</option>
+	
+	<option value="//api/name/basePriority">&nbsp;&nbsp;&nbsp;&nbsp;- basePriority</option>
+	
+	<option value="//api/name/children">&nbsp;&nbsp;&nbsp;&nbsp;- children</option>
+	
+	<option value="//api/name/command">&nbsp;&nbsp;&nbsp;&nbsp;- command</option>
+	
+	<option value="//api/name/contextSwitches">&nbsp;&nbsp;&nbsp;&nbsp;- contextSwitches</option>
+	
+	<option value="//api/name/copyOnWriteFaults">&nbsp;&nbsp;&nbsp;&nbsp;- copyOnWriteFaults</option>
+	
+	<option value="//api/name/environment">&nbsp;&nbsp;&nbsp;&nbsp;- environment</option>
+	
+	<option value="//api/name/faults">&nbsp;&nbsp;&nbsp;&nbsp;- faults</option>
+	
+	<option value="//api/name/initWithProcessIdentifier:">&nbsp;&nbsp;&nbsp;&nbsp;- initWithProcessIdentifier:</option>
+	
+	<option value="//api/name/interrupt">&nbsp;&nbsp;&nbsp;&nbsp;- interrupt</option>
+	
+	<option value="//api/name/machSystemCalls">&nbsp;&nbsp;&nbsp;&nbsp;- machSystemCalls</option>
+	
+	<option value="//api/name/messagesReceived">&nbsp;&nbsp;&nbsp;&nbsp;- messagesReceived</option>
+	
+	<option value="//api/name/messagesSent">&nbsp;&nbsp;&nbsp;&nbsp;- messagesSent</option>
+	
+	<option value="//api/name/pageins">&nbsp;&nbsp;&nbsp;&nbsp;- pageins</option>
+	
+	<option value="//api/name/parent">&nbsp;&nbsp;&nbsp;&nbsp;- parent</option>
+	
+	<option value="//api/name/parentProcessIdentifier">&nbsp;&nbsp;&nbsp;&nbsp;- parentProcessIdentifier</option>
+	
+	<option value="//api/name/percentCPUUsage">&nbsp;&nbsp;&nbsp;&nbsp;- percentCPUUsage</option>
+	
+	<option value="//api/name/percentMemoryUsage">&nbsp;&nbsp;&nbsp;&nbsp;- percentMemoryUsage</option>
+	
+	<option value="//api/name/priority">&nbsp;&nbsp;&nbsp;&nbsp;- priority</option>
+	
+	<option value="//api/name/processGroup">&nbsp;&nbsp;&nbsp;&nbsp;- processGroup</option>
+	
+	<option value="//api/name/processIdentifier">&nbsp;&nbsp;&nbsp;&nbsp;- processIdentifier</option>
+	
+	<option value="//api/name/realUserIdentifier">&nbsp;&nbsp;&nbsp;&nbsp;- realUserIdentifier</option>
+	
+	<option value="//api/name/residentMemorySize">&nbsp;&nbsp;&nbsp;&nbsp;- residentMemorySize</option>
+	
+	<option value="//api/name/resume">&nbsp;&nbsp;&nbsp;&nbsp;- resume</option>
+	
+	<option value="//api/name/siblings">&nbsp;&nbsp;&nbsp;&nbsp;- siblings</option>
+	
+	<option value="//api/name/state">&nbsp;&nbsp;&nbsp;&nbsp;- state</option>
+	
+	<option value="//api/name/suspend">&nbsp;&nbsp;&nbsp;&nbsp;- suspend</option>
+	
+	<option value="//api/name/systemCPUTime">&nbsp;&nbsp;&nbsp;&nbsp;- systemCPUTime</option>
+	
+	<option value="//api/name/terminal">&nbsp;&nbsp;&nbsp;&nbsp;- terminal</option>
+	
+	<option value="//api/name/terminalProcessGroup">&nbsp;&nbsp;&nbsp;&nbsp;- terminalProcessGroup</option>
+	
+	<option value="//api/name/terminate">&nbsp;&nbsp;&nbsp;&nbsp;- terminate</option>
+	
+	<option value="//api/name/threadCount">&nbsp;&nbsp;&nbsp;&nbsp;- threadCount</option>
+	
+	<option value="//api/name/totalCPUTime">&nbsp;&nbsp;&nbsp;&nbsp;- totalCPUTime</option>
+	
+	<option value="//api/name/unixSystemCalls">&nbsp;&nbsp;&nbsp;&nbsp;- unixSystemCalls</option>
+	
+	<option value="//api/name/userCPUTime">&nbsp;&nbsp;&nbsp;&nbsp;- userCPUTime</option>
+	
+	<option value="//api/name/userIdentifier">&nbsp;&nbsp;&nbsp;&nbsp;- userIdentifier</option>
+	
+	<option value="//api/name/virtualMemorySize">&nbsp;&nbsp;&nbsp;&nbsp;- virtualMemorySize</option>
+	
+	
+	
+</select>
+				</li>
+			</ul>
+		</header>
+		<nav id="tocContainer" class="isShowingTOC">
+			<ul id="toc" role="tree">
+				
+<li role="treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#overview">Overview</a></span></li>
+
+
+
+
+<li role="treeitem" id="task_treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#tasks">Tasks</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Signals Methods">Signals Methods</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_MachTaskEvents Methods">MachTaskEvents Methods</a></span></li>
+	
+</ul></li>
+
+
+
+
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#class_methods">Class Methods</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/allProcesses">allProcesses</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/currentProcess">currentProcess</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/processForCommand:">processForCommand:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/processForProcessIdentifier:">processForProcessIdentifier:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/processesForCommand:">processesForCommand:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/processesForProcessGroup:">processesForProcessGroup:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/processesForRealUser:">processesForRealUser:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/processesForTerminal:">processesForTerminal:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/processesForUser:">processesForUser:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/userProcesses">userProcesses</a></span></li>
+	
+</ul></li>
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/annotatedCommand">annotatedCommand</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/annotation">annotation</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/arguments">arguments</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/basePriority">basePriority</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/children">children</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/command">command</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/contextSwitches">contextSwitches</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/copyOnWriteFaults">copyOnWriteFaults</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/environment">environment</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/faults">faults</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/initWithProcessIdentifier:">initWithProcessIdentifier:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/interrupt">interrupt</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/machSystemCalls">machSystemCalls</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/messagesReceived">messagesReceived</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/messagesSent">messagesSent</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/pageins">pageins</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/parent">parent</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/parentProcessIdentifier">parentProcessIdentifier</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/percentCPUUsage">percentCPUUsage</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/percentMemoryUsage">percentMemoryUsage</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/priority">priority</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/processGroup">processGroup</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/processIdentifier">processIdentifier</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/realUserIdentifier">realUserIdentifier</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/residentMemorySize">residentMemorySize</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/resume">resume</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/siblings">siblings</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/state">state</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/suspend">suspend</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/systemCPUTime">systemCPUTime</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/terminal">terminal</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/terminalProcessGroup">terminalProcessGroup</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/terminate">terminate</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/threadCount">threadCount</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/totalCPUTime">totalCPUTime</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/unixSystemCalls">unixSystemCalls</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/userCPUTime">userCPUTime</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/userIdentifier">userIdentifier</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/virtualMemorySize">virtualMemorySize</a></span></li>
+	
+</ul></li>
+
+
+			</ul>
+		</nav>
+		<article>
+			<div id="contents" class="isShowingTOC" role="main">
+				<a title="AGProcess Class Reference" name="top"></a>
+				<div class="main-navigation navigation-top">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="header">
+					<div class="section-header">
+						<h1 class="title title-header">AGProcess Class Reference</h1>
+					</div>		
+				</div>
+				<div id="container">	
+					
+					<div class="section section-specification"><table cellspacing="0"><tbody>
+						<tr>
+	<td class="specification-title">Inherits from</td>
+	<td class="specification-value">NSObject</td>
+</tr><tr>
+	<td class="specification-title">Declared in</td>
+	<td class="specification-value">AGProcess.h<br />AGProcess.m</td>
+</tr>
+						</tbody></table></div>
+					
+					
+					
+					
+					<div class="section section-overview">
+						<a title="Overview" name="overview"></a>
+						<h2 class="subtitle subtitle-overview">Overview</h2>
+						<p>@class AGProcess
+@abstract A class for reporting Unix process statistics.
+@discussion AGProcess is a class for reporting Unix process statistics. It is similar to NSProcessInfo except that it provides more information, and can represent any process, not just the current process. Additionally it provides methods for sending signals to processes.</p>
+
+<p>Instances are created with <a href="#//api/name/initWithProcessIdentifier:">initWithProcessIdentifier:</a> or <a href="#//api/name/processForProcessIdentifier:">processForProcessIdentifier:</a>, but several convenience methods exist for obtaining instances based on other information, the most useful being <a href="#//api/name/currentProcess">currentProcess</a>, <a href="#//api/name/allProcesses">allProcesses</a>, and +userProcess.</p>
+
+<p>The level of information an AGProcess can return depends on the user&rsquo;s permission. In general, a user can obtain general information like the <a href="#//api/name/arguments">arguments</a> or process ID for any process, but can only obtain CPU and memory usage statistics for their own processes, unless they are root. Also, no information is available after the process has exited except the process ID and the <a href="#//api/name/state">state</a> (AGProcessStateZombie or AGProcessStateExited). Methods which return a numerical value will return AGProcessValueUnknown if the statistic can&rsquo;t be obtained.</p>
+
+<p>@category AGProcess (Signals)
+@abstract Extends AGProcess to send UNIX signals.</p>
+
+<p>@category AGProcess (MachTaskEvents)
+@abstract Extends AGProcess to get information about Mach task events.</p>
+					</div>
+					
+					
+					
+					
+					
+					<div class="section section-tasks">
+						<a title="Tasks" name="tasks"></a>
+						<h2 class="subtitle subtitle-tasks">Tasks</h2>
+						
+						
+						
+						<h3 class="subsubtitle task-title">Other Methods</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/initWithProcessIdentifier:">&ndash;&nbsp;initWithProcessIdentifier:</a></code>
+		<span class="tooltip"><p>@method initWithProcessIdentifier:
+Initializes the receiver with the given process identifier. Returns nil if no such process exists.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/currentProcess">+&nbsp;currentProcess</a></code>
+		<span class="tooltip"><p>@method currentProcess
+Returns the current process.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/allProcesses">+&nbsp;allProcesses</a></code>
+		<span class="tooltip"><p>@method allProcesses
+Returns an array of all processes.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/userProcesses">+&nbsp;userProcesses</a></code>
+		<span class="tooltip"><p>@method userProcesses
+Returns an array of all processes running for the current user.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/processForProcessIdentifier:">+&nbsp;processForProcessIdentifier:</a></code>
+		<span class="tooltip"><p>@method processForProcessIdentifier:
+Returns the process for the given process identifier, or nil if no such process exists.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/processesForProcessGroup:">+&nbsp;processesForProcessGroup:</a></code>
+		<span class="tooltip"><p>@method processesForProcessGroup:
+Returns an array of all processes in the given process group.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/processesForTerminal:">+&nbsp;processesForTerminal:</a></code>
+		<span class="tooltip"><p>@method processesForTerminal:
+Returns an array of all processes running on the given <a href="#//api/name/terminal">terminal</a>. Takes a <a href="#//api/name/terminal">terminal</a> device number.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/processesForUser:">+&nbsp;processesForUser:</a></code>
+		<span class="tooltip"><p>@method processesForUser:
+Returns an array of all processes for the given user.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/processesForRealUser:">+&nbsp;processesForRealUser:</a></code>
+		<span class="tooltip"><p>@method processesForRealUser:
+Returns an array of all processes for the given real user.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/processForCommand:">+&nbsp;processForCommand:</a></code>
+		<span class="tooltip"><p>@method processForCommand:
+Returns the process for the given <a href="#//api/name/command">command</a>, or nil if no such process exists. If there is more than one process with the same <a href="#//api/name/command">command</a>, there is no guarantee which will be returned.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/processesForCommand:">+&nbsp;processesForCommand:</a></code>
+		<span class="tooltip"><p>@method processesForCommand:
+Returns an array of all processes for the given <a href="#//api/name/command">command</a>.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/processIdentifier">&ndash;&nbsp;processIdentifier</a></code>
+		<span class="tooltip"><p>@method processIdentifier
+Returns the process identifier.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/parentProcessIdentifier">&ndash;&nbsp;parentProcessIdentifier</a></code>
+		<span class="tooltip"><p>@method parentProcessIdentifier
+Returns the <a href="#//api/name/parent">parent</a> process identifier.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/processGroup">&ndash;&nbsp;processGroup</a></code>
+		<span class="tooltip"><p>@method processGroup
+Returns the process group.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/terminal">&ndash;&nbsp;terminal</a></code>
+		<span class="tooltip"><p>@method terminal
+Returns the terminal device number.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/terminalProcessGroup">&ndash;&nbsp;terminalProcessGroup</a></code>
+		<span class="tooltip"><p>@method terminalProcessGroup
+Returns the <a href="#//api/name/terminal">terminal</a> process group.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/userIdentifier">&ndash;&nbsp;userIdentifier</a></code>
+		<span class="tooltip"><p>@method userIdentifier
+Returns the user identifier.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/realUserIdentifier">&ndash;&nbsp;realUserIdentifier</a></code>
+		<span class="tooltip"><p>@method realUserIdentifier
+Returns the real user identifier.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/percentCPUUsage">&ndash;&nbsp;percentCPUUsage</a></code>
+		<span class="tooltip"><p>@method percentCPUUsage
+Returns the current CPU usage in the range 0.0 &ndash; 1.0.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/totalCPUTime">&ndash;&nbsp;totalCPUTime</a></code>
+		<span class="tooltip"><p>@method totalCPUTime
+Returns the accumulated CPU time in seconds.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/userCPUTime">&ndash;&nbsp;userCPUTime</a></code>
+		<span class="tooltip"><p>@method userCPUTime
+Returns the accumulated user CPU time in seconds.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/systemCPUTime">&ndash;&nbsp;systemCPUTime</a></code>
+		<span class="tooltip"><p>@method systemCPUTime
+Returns the accumulated system CPU time in seconds.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/percentMemoryUsage">&ndash;&nbsp;percentMemoryUsage</a></code>
+		<span class="tooltip"><p>@method percentMemoryUsage
+Returns resident memory usage as a fraction of the host&rsquo;s physical memory in the range 0.0 &ndash; 1.0.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/virtualMemorySize">&ndash;&nbsp;virtualMemorySize</a></code>
+		<span class="tooltip"><p>@method virtualMemorySize
+Returns the virtual memory size in bytes.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/residentMemorySize">&ndash;&nbsp;residentMemorySize</a></code>
+		<span class="tooltip"><p>@method residentMemorySize
+Returns the resident memory size in bytes.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/state">&ndash;&nbsp;state</a></code>
+		<span class="tooltip"><p>@method state
+Returns the current state. Possible values are defined by AGProcessState.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/priority">&ndash;&nbsp;priority</a></code>
+		<span class="tooltip"><p>@method priority
+Returns the current priority.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/basePriority">&ndash;&nbsp;basePriority</a></code>
+		<span class="tooltip"><p>@method basePriority
+Returns the base <a href="#//api/name/priority">priority</a>.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/threadCount">&ndash;&nbsp;threadCount</a></code>
+		<span class="tooltip"><p>@method threadCount
+Returns the number of threads.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/command">&ndash;&nbsp;command</a></code>
+		<span class="tooltip"><p>@method command
+Attempts to return the command that was called to execute the process. If that fails, attempts to return the accounting name. If that fails, returns an empty string.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/annotation">&ndash;&nbsp;annotation</a></code>
+		<span class="tooltip"><p>@method annotation
+Returns an annotation that can be used to distinguish multiple instances of a process name. The current implementation does this by examining the <a href="#//api/name/command">command</a> line <a href="#//api/name/arguments">arguments</a> for &ldquo;DashboardClient&rdquo; and &ldquo;java&rdquo; processes. If there is no annotation, the method returns nil.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/annotatedCommand">&ndash;&nbsp;annotatedCommand</a></code>
+		<span class="tooltip"><p>@method annotatedCommand
+Returns a composite string consisting of the <a href="#//api/name/command">command</a> name and its <a href="#//api/name/annotation">annotation</a></p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/arguments">&ndash;&nbsp;arguments</a></code>
+		<span class="tooltip"><p>@method arguments
+Returns an array containing the <a href="#//api/name/command">command</a> line arguments called to execute the process. This method is not perfectly reliable.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/environment">&ndash;&nbsp;environment</a></code>
+		<span class="tooltip"><p>@method environment
+Returns a dictionary containing the environment variables of the process. This method is not perfectly reliable.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/parent">&ndash;&nbsp;parent</a></code>
+		<span class="tooltip"><p>@method parent
+Returns the parent process.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/children">&ndash;&nbsp;children</a></code>
+		<span class="tooltip"><p>@method children
+Returns an array containing the process&rsquo;s children, if any.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/siblings">&ndash;&nbsp;siblings</a></code>
+		<span class="tooltip"><p>@method siblings
+Returns an array containing the process&rsquo;s siblings, if any.</p></span>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+						
+						<a title="Signals Methods" name="task_Signals Methods"></a>
+						<h3 class="subsubtitle task-title">Signals Methods</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/suspend">&ndash;&nbsp;suspend</a></code>
+		<span class="tooltip"><p>@method suspend
+Sends SIGSTOP.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/resume">&ndash;&nbsp;resume</a></code>
+		<span class="tooltip"><p>@method resume
+Sends SIGCONT.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/interrupt">&ndash;&nbsp;interrupt</a></code>
+		<span class="tooltip"><p>@method interrupt
+Sends SIGINT.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/terminate">&ndash;&nbsp;terminate</a></code>
+		<span class="tooltip"><p>@method terminate
+Sends SIGTERM.</p></span>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+						
+						<a title="MachTaskEvents Methods" name="task_MachTaskEvents Methods"></a>
+						<h3 class="subsubtitle task-title">MachTaskEvents Methods</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/faults">&ndash;&nbsp;faults</a></code>
+		<span class="tooltip"><p>@method faults
+Returns the number of page faults.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/pageins">&ndash;&nbsp;pageins</a></code>
+		<span class="tooltip"><p>@method pageins
+Returns the number of pageins.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/copyOnWriteFaults">&ndash;&nbsp;copyOnWriteFaults</a></code>
+		<span class="tooltip"><p>@method copyOnWriteFaults
+Returns the number of copy on write <a href="#//api/name/faults">faults</a>.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/messagesSent">&ndash;&nbsp;messagesSent</a></code>
+		<span class="tooltip"><p>@method messagesSent
+Returns the number of Mach messages sent.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/messagesReceived">&ndash;&nbsp;messagesReceived</a></code>
+		<span class="tooltip"><p>@method messagesReceived
+Returns the number of Mach messages received.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/machSystemCalls">&ndash;&nbsp;machSystemCalls</a></code>
+		<span class="tooltip"><p>@method machSystemCalls
+Returns the number of Mach system calls.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/unixSystemCalls">&ndash;&nbsp;unixSystemCalls</a></code>
+		<span class="tooltip"><p>@method unixSystemCalls
+Returns the number of Unix system calls.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/contextSwitches">&ndash;&nbsp;contextSwitches</a></code>
+		<span class="tooltip"><p>@method contextSwitches
+Returns the number of context switches.</p></span>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+					</div>
+					
+					
+					
+					
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Class Methods" name="class_methods"></a>
+						<h2 class="subtitle subtitle-methods">Class Methods</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/allProcesses" title="allProcesses"></a>
+	<h3 class="subsubtitle method-title">allProcesses</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>@method allProcesses
+Returns an array of all processes.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>+ (NSArray *)allProcesses</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>@method allProcesses
+Returns an array of all processes.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AGProcess.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/currentProcess" title="currentProcess"></a>
+	<h3 class="subsubtitle method-title">currentProcess</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>@method currentProcess
+Returns the current process.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>+ (AGProcess *)currentProcess</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>@method currentProcess
+Returns the current process.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AGProcess.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/processForCommand:" title="processForCommand:"></a>
+	<h3 class="subsubtitle method-title">processForCommand:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>@method processForCommand:
+Returns the process for the given <a href="#//api/name/command">command</a>, or nil if no such process exists. If there is more than one process with the same <a href="#//api/name/command">command</a>, there is no guarantee which will be returned.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>+ (AGProcess *)processForCommand:(NSString *)<em>comm</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>@method processForCommand:
+Returns the process for the given <a href="#//api/name/command">command</a>, or nil if no such process exists. If there is more than one process with the same <a href="#//api/name/command">command</a>, there is no guarantee which will be returned.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AGProcess.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/processForProcessIdentifier:" title="processForProcessIdentifier:"></a>
+	<h3 class="subsubtitle method-title">processForProcessIdentifier:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>@method processForProcessIdentifier:
+Returns the process for the given process identifier, or nil if no such process exists.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>+ (AGProcess *)processForProcessIdentifier:(int)<em>pid</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>@method processForProcessIdentifier:
+Returns the process for the given process identifier, or nil if no such process exists.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AGProcess.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/processesForCommand:" title="processesForCommand:"></a>
+	<h3 class="subsubtitle method-title">processesForCommand:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>@method processesForCommand:
+Returns an array of all processes for the given <a href="#//api/name/command">command</a>.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>+ (NSArray *)processesForCommand:(NSString *)<em>comm</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>@method processesForCommand:
+Returns an array of all processes for the given <a href="#//api/name/command">command</a>.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AGProcess.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/processesForProcessGroup:" title="processesForProcessGroup:"></a>
+	<h3 class="subsubtitle method-title">processesForProcessGroup:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>@method processesForProcessGroup:
+Returns an array of all processes in the given process group.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>+ (NSArray *)processesForProcessGroup:(int)<em>pgid</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>@method processesForProcessGroup:
+Returns an array of all processes in the given process group.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AGProcess.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/processesForRealUser:" title="processesForRealUser:"></a>
+	<h3 class="subsubtitle method-title">processesForRealUser:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>@method processesForRealUser:
+Returns an array of all processes for the given real user.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>+ (NSArray *)processesForRealUser:(int)<em>ruid</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>@method processesForRealUser:
+Returns an array of all processes for the given real user.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AGProcess.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/processesForTerminal:" title="processesForTerminal:"></a>
+	<h3 class="subsubtitle method-title">processesForTerminal:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>@method processesForTerminal:
+Returns an array of all processes running on the given <a href="#//api/name/terminal">terminal</a>. Takes a <a href="#//api/name/terminal">terminal</a> device number.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>+ (NSArray *)processesForTerminal:(int)<em>tdev</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>@method processesForTerminal:
+Returns an array of all processes running on the given <a href="#//api/name/terminal">terminal</a>. Takes a <a href="#//api/name/terminal">terminal</a> device number.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AGProcess.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/processesForUser:" title="processesForUser:"></a>
+	<h3 class="subsubtitle method-title">processesForUser:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>@method processesForUser:
+Returns an array of all processes for the given user.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>+ (NSArray *)processesForUser:(int)<em>uid</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>@method processesForUser:
+Returns an array of all processes for the given user.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AGProcess.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/userProcesses" title="userProcesses"></a>
+	<h3 class="subsubtitle method-title">userProcesses</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>@method userProcesses
+Returns an array of all processes running for the current user.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>+ (NSArray *)userProcesses</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>@method userProcesses
+Returns an array of all processes running for the current user.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AGProcess.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Instance Methods" name="instance_methods"></a>
+						<h2 class="subtitle subtitle-methods">Instance Methods</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/annotatedCommand" title="annotatedCommand"></a>
+	<h3 class="subsubtitle method-title">annotatedCommand</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>@method annotatedCommand
+Returns a composite string consisting of the <a href="#//api/name/command">command</a> name and its <a href="#//api/name/annotation">annotation</a></p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (NSString *)annotatedCommand</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>@method annotatedCommand
+Returns a composite string consisting of the <a href="#//api/name/command">command</a> name and its <a href="#//api/name/annotation">annotation</a></p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AGProcess.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/annotation" title="annotation"></a>
+	<h3 class="subsubtitle method-title">annotation</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>@method annotation
+Returns an annotation that can be used to distinguish multiple instances of a process name. The current implementation does this by examining the <a href="#//api/name/command">command</a> line <a href="#//api/name/arguments">arguments</a> for &ldquo;DashboardClient&rdquo; and &ldquo;java&rdquo; processes. If there is no annotation, the method returns nil.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (NSString *)annotation</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>@method annotation
+Returns an annotation that can be used to distinguish multiple instances of a process name. The current implementation does this by examining the <a href="#//api/name/command">command</a> line <a href="#//api/name/arguments">arguments</a> for &ldquo;DashboardClient&rdquo; and &ldquo;java&rdquo; processes. If there is no annotation, the method returns nil.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AGProcess.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/arguments" title="arguments"></a>
+	<h3 class="subsubtitle method-title">arguments</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>@method arguments
+Returns an array containing the <a href="#//api/name/command">command</a> line arguments called to execute the process. This method is not perfectly reliable.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (NSArray *)arguments</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>@method arguments
+Returns an array containing the <a href="#//api/name/command">command</a> line arguments called to execute the process. This method is not perfectly reliable.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AGProcess.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/basePriority" title="basePriority"></a>
+	<h3 class="subsubtitle method-title">basePriority</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>@method basePriority
+Returns the base <a href="#//api/name/priority">priority</a>.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (int)basePriority</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>@method basePriority
+Returns the base <a href="#//api/name/priority">priority</a>.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AGProcess.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/children" title="children"></a>
+	<h3 class="subsubtitle method-title">children</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>@method children
+Returns an array containing the process&rsquo;s children, if any.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (NSArray *)children</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>@method children
+Returns an array containing the process&rsquo;s children, if any.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AGProcess.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/command" title="command"></a>
+	<h3 class="subsubtitle method-title">command</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>@method command
+Attempts to return the command that was called to execute the process. If that fails, attempts to return the accounting name. If that fails, returns an empty string.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (NSString *)command</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>@method command
+Attempts to return the command that was called to execute the process. If that fails, attempts to return the accounting name. If that fails, returns an empty string.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AGProcess.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/contextSwitches" title="contextSwitches"></a>
+	<h3 class="subsubtitle method-title">contextSwitches</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>@method contextSwitches
+Returns the number of context switches.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (int)contextSwitches</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>@method contextSwitches
+Returns the number of context switches.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AGProcess.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/copyOnWriteFaults" title="copyOnWriteFaults"></a>
+	<h3 class="subsubtitle method-title">copyOnWriteFaults</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>@method copyOnWriteFaults
+Returns the number of copy on write <a href="#//api/name/faults">faults</a>.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (int)copyOnWriteFaults</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>@method copyOnWriteFaults
+Returns the number of copy on write <a href="#//api/name/faults">faults</a>.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AGProcess.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/environment" title="environment"></a>
+	<h3 class="subsubtitle method-title">environment</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>@method environment
+Returns a dictionary containing the environment variables of the process. This method is not perfectly reliable.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (NSDictionary *)environment</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>@method environment
+Returns a dictionary containing the environment variables of the process. This method is not perfectly reliable.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AGProcess.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/faults" title="faults"></a>
+	<h3 class="subsubtitle method-title">faults</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>@method faults
+Returns the number of page faults.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (int)faults</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>@method faults
+Returns the number of page faults.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AGProcess.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/initWithProcessIdentifier:" title="initWithProcessIdentifier:"></a>
+	<h3 class="subsubtitle method-title">initWithProcessIdentifier:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>@method initWithProcessIdentifier:
+Initializes the receiver with the given process identifier. Returns nil if no such process exists.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (id)initWithProcessIdentifier:(int)<em>pid</em></code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>@method initWithProcessIdentifier:
+Initializes the receiver with the given process identifier. Returns nil if no such process exists.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AGProcess.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/interrupt" title="interrupt"></a>
+	<h3 class="subsubtitle method-title">interrupt</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>@method interrupt
+Sends SIGINT.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (BOOL)interrupt</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>@method interrupt
+Sends SIGINT.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AGProcess.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/machSystemCalls" title="machSystemCalls"></a>
+	<h3 class="subsubtitle method-title">machSystemCalls</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>@method machSystemCalls
+Returns the number of Mach system calls.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (int)machSystemCalls</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>@method machSystemCalls
+Returns the number of Mach system calls.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AGProcess.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/messagesReceived" title="messagesReceived"></a>
+	<h3 class="subsubtitle method-title">messagesReceived</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>@method messagesReceived
+Returns the number of Mach messages received.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (int)messagesReceived</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>@method messagesReceived
+Returns the number of Mach messages received.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AGProcess.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/messagesSent" title="messagesSent"></a>
+	<h3 class="subsubtitle method-title">messagesSent</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>@method messagesSent
+Returns the number of Mach messages sent.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (int)messagesSent</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>@method messagesSent
+Returns the number of Mach messages sent.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AGProcess.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/pageins" title="pageins"></a>
+	<h3 class="subsubtitle method-title">pageins</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>@method pageins
+Returns the number of pageins.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (int)pageins</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>@method pageins
+Returns the number of pageins.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AGProcess.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/parent" title="parent"></a>
+	<h3 class="subsubtitle method-title">parent</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>@method parent
+Returns the parent process.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (AGProcess *)parent</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>@method parent
+Returns the parent process.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AGProcess.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/parentProcessIdentifier" title="parentProcessIdentifier"></a>
+	<h3 class="subsubtitle method-title">parentProcessIdentifier</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>@method parentProcessIdentifier
+Returns the <a href="#//api/name/parent">parent</a> process identifier.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (int)parentProcessIdentifier</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>@method parentProcessIdentifier
+Returns the <a href="#//api/name/parent">parent</a> process identifier.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AGProcess.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/percentCPUUsage" title="percentCPUUsage"></a>
+	<h3 class="subsubtitle method-title">percentCPUUsage</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>@method percentCPUUsage
+Returns the current CPU usage in the range 0.0 &ndash; 1.0.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (double)percentCPUUsage</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>@method percentCPUUsage
+Returns the current CPU usage in the range 0.0 &ndash; 1.0.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AGProcess.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/percentMemoryUsage" title="percentMemoryUsage"></a>
+	<h3 class="subsubtitle method-title">percentMemoryUsage</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>@method percentMemoryUsage
+Returns resident memory usage as a fraction of the host&rsquo;s physical memory in the range 0.0 &ndash; 1.0.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (double)percentMemoryUsage</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>@method percentMemoryUsage
+Returns resident memory usage as a fraction of the host&rsquo;s physical memory in the range 0.0 &ndash; 1.0.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AGProcess.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/priority" title="priority"></a>
+	<h3 class="subsubtitle method-title">priority</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>@method priority
+Returns the current priority.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (int)priority</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>@method priority
+Returns the current priority.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AGProcess.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/processGroup" title="processGroup"></a>
+	<h3 class="subsubtitle method-title">processGroup</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>@method processGroup
+Returns the process group.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (int)processGroup</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>@method processGroup
+Returns the process group.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AGProcess.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/processIdentifier" title="processIdentifier"></a>
+	<h3 class="subsubtitle method-title">processIdentifier</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>@method processIdentifier
+Returns the process identifier.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (int)processIdentifier</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>@method processIdentifier
+Returns the process identifier.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AGProcess.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/realUserIdentifier" title="realUserIdentifier"></a>
+	<h3 class="subsubtitle method-title">realUserIdentifier</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>@method realUserIdentifier
+Returns the real user identifier.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (int)realUserIdentifier</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>@method realUserIdentifier
+Returns the real user identifier.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AGProcess.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/residentMemorySize" title="residentMemorySize"></a>
+	<h3 class="subsubtitle method-title">residentMemorySize</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>@method residentMemorySize
+Returns the resident memory size in bytes.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (unsigned)residentMemorySize</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>@method residentMemorySize
+Returns the resident memory size in bytes.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AGProcess.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/resume" title="resume"></a>
+	<h3 class="subsubtitle method-title">resume</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>@method resume
+Sends SIGCONT.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (BOOL)resume</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>@method resume
+Sends SIGCONT.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AGProcess.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/siblings" title="siblings"></a>
+	<h3 class="subsubtitle method-title">siblings</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>@method siblings
+Returns an array containing the process&rsquo;s siblings, if any.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (NSArray *)siblings</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>@method siblings
+Returns an array containing the process&rsquo;s siblings, if any.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AGProcess.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/state" title="state"></a>
+	<h3 class="subsubtitle method-title">state</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>@method state
+Returns the current state. Possible values are defined by AGProcessState.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (AGProcessState)state</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>@method state
+Returns the current state. Possible values are defined by AGProcessState.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AGProcess.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/suspend" title="suspend"></a>
+	<h3 class="subsubtitle method-title">suspend</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>@method suspend
+Sends SIGSTOP.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (BOOL)suspend</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>@method suspend
+Sends SIGSTOP.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AGProcess.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/systemCPUTime" title="systemCPUTime"></a>
+	<h3 class="subsubtitle method-title">systemCPUTime</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>@method systemCPUTime
+Returns the accumulated system CPU time in seconds.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (double)systemCPUTime</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>@method systemCPUTime
+Returns the accumulated system CPU time in seconds.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AGProcess.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/terminal" title="terminal"></a>
+	<h3 class="subsubtitle method-title">terminal</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>@method terminal
+Returns the terminal device number.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (int)terminal</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>@method terminal
+Returns the terminal device number.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AGProcess.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/terminalProcessGroup" title="terminalProcessGroup"></a>
+	<h3 class="subsubtitle method-title">terminalProcessGroup</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>@method terminalProcessGroup
+Returns the <a href="#//api/name/terminal">terminal</a> process group.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (int)terminalProcessGroup</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>@method terminalProcessGroup
+Returns the <a href="#//api/name/terminal">terminal</a> process group.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AGProcess.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/terminate" title="terminate"></a>
+	<h3 class="subsubtitle method-title">terminate</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>@method terminate
+Sends SIGTERM.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (BOOL)terminate</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>@method terminate
+Sends SIGTERM.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AGProcess.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/threadCount" title="threadCount"></a>
+	<h3 class="subsubtitle method-title">threadCount</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>@method threadCount
+Returns the number of threads.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (int)threadCount</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>@method threadCount
+Returns the number of threads.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AGProcess.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/totalCPUTime" title="totalCPUTime"></a>
+	<h3 class="subsubtitle method-title">totalCPUTime</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>@method totalCPUTime
+Returns the accumulated CPU time in seconds.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (double)totalCPUTime</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>@method totalCPUTime
+Returns the accumulated CPU time in seconds.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AGProcess.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/unixSystemCalls" title="unixSystemCalls"></a>
+	<h3 class="subsubtitle method-title">unixSystemCalls</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>@method unixSystemCalls
+Returns the number of Unix system calls.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (int)unixSystemCalls</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>@method unixSystemCalls
+Returns the number of Unix system calls.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AGProcess.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/userCPUTime" title="userCPUTime"></a>
+	<h3 class="subsubtitle method-title">userCPUTime</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>@method userCPUTime
+Returns the accumulated user CPU time in seconds.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (double)userCPUTime</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>@method userCPUTime
+Returns the accumulated user CPU time in seconds.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AGProcess.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/userIdentifier" title="userIdentifier"></a>
+	<h3 class="subsubtitle method-title">userIdentifier</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>@method userIdentifier
+Returns the user identifier.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (int)userIdentifier</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>@method userIdentifier
+Returns the user identifier.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AGProcess.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/virtualMemorySize" title="virtualMemorySize"></a>
+	<h3 class="subsubtitle method-title">virtualMemorySize</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>@method virtualMemorySize
+Returns the virtual memory size in bytes.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (unsigned)virtualMemorySize</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>@method virtualMemorySize
+Returns the virtual memory size in bytes.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AGProcess.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
+					
+				</div>
+				<div class="main-navigation navigation-bottom">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="footer">
+					<hr />
+					<div class="footer-copyright">
+						<p><span class="copyright">&copy; 2012 mrgray.com. All rights reserved. (Last updated: 2012-09-15)</span><br />
+						
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.5 (build 789)</a>.</span></p>
+						
+					</div>
+				</div>
+			</div>
+		</article>
+		<script type="text/javascript">
+			function jumpToChange()
+			{
+				window.location.hash = this.options[this.selectedIndex].value;
+			}
+			
+			function toggleTOC()
+			{
+				var contents = document.getElementById('contents');
+				var tocContainer = document.getElementById('tocContainer');
+				
+				if (this.getAttribute('class') == 'open')
+				{
+					this.setAttribute('class', '');
+					contents.setAttribute('class', '');
+					tocContainer.setAttribute('class', '');
+					
+					window.name = "hideTOC";
+				}
+				else
+				{
+					this.setAttribute('class', 'open');
+					contents.setAttribute('class', 'isShowingTOC');
+					tocContainer.setAttribute('class', 'isShowingTOC');
+					
+					window.name = "";
+				}
+				return false;
+			}
+			
+			function toggleTOCEntryChildren(e)
+			{
+				e.stopPropagation();
+				var currentClass = this.getAttribute('class');
+				if (currentClass == 'children') {
+					this.setAttribute('class', 'children open');
+				}
+				else if (currentClass == 'children open') {
+					this.setAttribute('class', 'children');
+				}
+				return false;
+			}
+			
+			function tocEntryClick(e)
+			{
+				e.stopPropagation();
+				return true;
+			}
+			
+			function init()
+			{
+				var selectElement = document.getElementById('jumpTo');
+				selectElement.addEventListener('change', jumpToChange, false);
+				
+				var tocButton = document.getElementById('table_of_contents');
+				tocButton.addEventListener('click', toggleTOC, false);
+				
+				var taskTreeItem = document.getElementById('task_treeitem');
+				if (taskTreeItem.getElementsByTagName('li').length > 0)
+				{
+					taskTreeItem.setAttribute('class', 'children');
+					taskTreeItem.firstChild.setAttribute('class', 'disclosure');
+				}
+				
+				var tocList = document.getElementById('toc');
+				
+				var tocEntries = tocList.getElementsByTagName('li');
+				for (var i = 0; i < tocEntries.length; i++) {
+					tocEntries[i].addEventListener('click', toggleTOCEntryChildren, false);
+				}
+				
+				var tocLinks = tocList.getElementsByTagName('a');
+				for (var i = 0; i < tocLinks.length; i++) {
+					tocLinks[i].addEventListener('click', tocEntryClick, false);
+				}
+				
+				if (window.name == "hideTOC") {
+					toggleTOC.call(tocButton);
+				}
+			}
+			
+			window.onload = init;
+		</script>
+	</body>
+</html>

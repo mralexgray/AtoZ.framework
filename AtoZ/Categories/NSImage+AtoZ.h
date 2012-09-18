@@ -81,31 +81,35 @@ CGImageRef CreateCGImageFromData(NSData* data);
 + (NSImage *) prettyGradientImage;  // Generates a 256 by 256 pixel image with a complicated gradient in it.
 - (NSArray*) quantize;
 
+
+
+- (void) drawFloatingRightInFrame:(NSRect)aFrame;  //ACG FLOATIAMGE
+
+
 // draws the passed image into the passed rect, centered and scaled appropriately.
 // note that this method doesn't know anything about the current focus, so the focus must be locked outside this method
-- (void)drawCenteredinRect:(NSRect)inRect operation:(NSCompositingOperation)op fraction:(float)delta;
+- (void) drawCenteredinRect:(NSRect) inRect operation:(NSCompositingOperation)op fraction:(float)delta;
+- (void) drawInRect:(NSRect)dstRect operation:(NSCompositingOperation)op
+			fraction:(float)delta       method:(AGImageResizingMethod)resizeMethod;
 
-- (NSImage *) filteredMonochromeEdge;
+- (NSImage *) 	filteredMonochromeEdge;
 
 //- (NSImage *)tintedImage;
-- (NSImage *) tintedWithColor:(NSColor *)tint ;
+- (NSImage *) 	tintedWithColor:(NSColor*) tint ;
 - (NSBitmapImageRep*) bitmap;
-- (CGImageRef) cgImage;
+- (CGImageRef) 	cgImage;
 //- (NSImage*)imageRotatedByDegrees:(CGFloat)degrees;
+//- (NSImage*)imageByScalingProportionallyToSize:(NSSize)targetSize;
+- (NSImage*)	imageByScalingProportionallyToSize:(NSSize) targetSize background:(NSColor*) bk;
 
+- (NSImage*)	imageToFitSize:(NSSize)size method:(AGImageResizingMethod)resizeMethod;
+- (NSImage*)	imageCroppedToFitSize:(NSSize)size;
+- (NSImage*)	imageScaledToFitSize:(NSSize)size;
 
-- (NSImage*)imageByScalingProportionallyToSize:(NSSize)targetSize;
-- (NSImage*)imageByScalingProportionallyToSize:(NSSize)targetSize background:(NSColor*)bk;
-
-- (void)drawInRect:(NSRect)dstRect operation:(NSCompositingOperation)op fraction:(float)delta method:(AGImageResizingMethod)resizeMethod;
-- (NSImage*)imageToFitSize:(NSSize)size method:(AGImageResizingMethod)resizeMethod;
-- (NSImage*)imageCroppedToFitSize:(NSSize)size;
-- (NSImage*)imageScaledToFitSize:(NSSize)size;
-
-- (NSImageRep*)largestRepresentation; 
-- (NSSize)sizeLargestRepresentation;
-- (NSImageRep*)smallestRepresentation;
-- (NSSize)sizeSmallestRepresentation;
+- (NSImageRep*) largestRepresentation;
+- (NSSize) 		sizeLargestRepresentation;
+- (NSImageRep*) smallestRepresentation;
+- (NSSize)		sizeSmallestRepresentation;
 
 - (NSImage*)rotated:(int)angle;
 - (NSRect) proportionalRectForTargetRect:(NSRect)targetRect;
@@ -199,6 +203,8 @@ CGImageRef CreateCGImageFromData(NSData* data);
 @end
 
 @interface NSImage (Icons)
+
++ (NSArray*) iconsColoredWithColor:(NSColor*)color;
 + (NSArray*) icons;
 + (NSArray*) picolStrings;
 + (NSArray*) iconStrings;

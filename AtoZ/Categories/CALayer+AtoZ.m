@@ -465,6 +465,14 @@ CGColorRef CreatePatternColor( CGImageRef image )
     [self addAnimation:pulseAnimation forKey:@"pulseAnimation"];
 }
 
+
+
+- (void)addAnimations:(NSArray*)anims forKeys:(NSArray *)keys;
+{
+	[anims enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+		[self addAnimation:obj forKey:keys[idx]];
+	}];
+}
 -(void)fadeIn
 {
 //    CABasicAnimation *theAnimation=[CABasicAnimation animationWithKeyPath:@"opacity"];
@@ -570,6 +578,35 @@ CGColorRef CreatePatternColor( CGImageRef image )
 	layer.autoresizingMask = kCALayerHeightSizable | kCALayerWidthSizable;
 	layer.bounds = self.bounds;
 	return layer;
+}
+
+- (CALayer*)magnifier: (NSView*)view {
+
+	CALayer *lace = [[CALayer alloc]init];
+	lace.frame = [view bounds];
+	lace.borderWidth = 10; lace.borderColor = cgRANDOMCOLOR;
+
+	CGContextRef    context = NULL;		CGColorSpaceRef colorSpace;
+	int bitmapByteCount;				int bitmapBytesPerRow;
+	int pixelsHigh = (int)[[view layer] bounds].size.height;
+	int pixelsWide = (int)[[view layer] bounds].size.width;
+
+	bitmapBytesPerRow   = (pixelsWide * 4);			bitmapByteCount     = (bitmapBytesPerRow * pixelsHigh);
+
+	colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
+
+	context = CGBitmapContextCreate (NULL, pixelsWide, pixelsHigh,	8, bitmapBytesPerRow,	colorSpace,	kCGImageAlphaPremultipliedLast);
+
+	if (context== NULL)	{	NSLog(@"Failed to create context."); return nil;	}
+
+	CGColorSpaceRelease( colorSpace );
+	[[[view layer] presentationLayer] renderInContext:context];
+		//	[[[view layer] presentationLayer] recursivelyRenderInContext:context];
+	lace.contents = [NSImage imageFromCGImageRef:CGBitmapContextCreateImage(context)];
+	lace.contentsGravity = kCAGravityCenter;
+	return lace;
+		//	CGImageRef img =	NSBitmapImageRep *bitmap = [[NSBitmapImageRep alloc] initWithCGImage:img];	CFRelease(img);	return bitmap;
+	
 }
 
 + (CALayer*)veilForView:(CALayer*)view{
@@ -830,6 +867,11 @@ CGColorRef CreatePatternColor( CGImageRef image )
 	NSMutableString *str = [NSMutableString string];
 	[self debugAppendToLayerTree:str indention:@""];
 	return str;
+}
+
+- (void) addSublayers:(NSArray*)subLayers;
+{
+	[subLayers do:^(id obj) {	[self addSublayer:obj];	}];
 }
 
 @end

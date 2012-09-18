@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/AZToggleArrayView.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/AZToggleArrayView</TokenIdentifier>
+			<Abstract>The view that serves as Core Animation host.
+	The user interface is composed using Core Animation layers using the following structure:</Abstract>
+			<DeclaredIn>AZToggleArrayView.h</DeclaredIn>
+			
+			<NodeRef refid="16"/>
+		</Token>
+		
+		
+	</File>
+</Tokens>

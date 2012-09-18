@@ -115,7 +115,7 @@ CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13, CGFloat m14,
 - (void)fadeOut;
 - (void)fadeIn;
 
-
+- (void)addAnimations:(NSArray*)anims forKeys:(NSArray *)keys;
 
 + (CALayer *) withName:(NSString*)name   inFrame:(NSRect)rect
 			   colored:(NSColor*)color withBorder:(CGFloat)width colored:(NSColor*) borderColor;
@@ -146,7 +146,7 @@ CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13, CGFloat m14,
 
 -(void)debugAppendToLayerTree:(NSMutableString*)treeStr indention:(NSString*)indentStr;
 - (NSString*)debugLayerTree;
-
+- (void) addSublayers:(NSArray*)subLayers;
 
 @end
 @interface  CATextLayer (AtoZ)

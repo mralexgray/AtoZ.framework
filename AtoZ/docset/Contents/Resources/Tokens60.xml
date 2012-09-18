@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Protocols/AZBoxGridDataSource.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intf/AZBoxGridDataSource</TokenIdentifier>
+			<Abstract>  USAGE
+- (NSUInteger)numberOfCellsInCollectionView: *)view {
+    return [content count];
+}
+- (AZBox )collectionView:(AZBoxGrid )view cellForIndex:(NSUInteger)index
+{
+    AZBox *cell = [view dequeueReusableCellWithIdentifier:@"cell"];
+	if(!cell)
+        cell = [[AZBox alloc] initWithReuseIdentifier:@"cell"];
+		[cell setImage:[content objectAtIndex:index]];
+    return cell;
+}
+- (void)collectionView:(AZBoxGrid *)_collectionView didSelectCellAtIndex:(NSUInteger)index {
+    NSLog(@"Selected cell at index: %u", (unsigned int)index);
+    NSLog(@"Position: %@", NSStringFromPoint([_collectionView positionOfCellAtIndex:index]));
+}
+- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+    content = [[NSMutableArray alloc] init];
+    for(int i=0; i<1000; i++) // This creates 59000 elements!    {
+		[[[[NSWorkspace sharedWorkspace] runningApplications]valueForKeyPath:@"icon"]  enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+			[content addObject:obj];
+		}];
+	}
+	[collectionView reloadData];
+    [collectionView setCellSize:NSMakeSize(64.0, 64.0)];
+	[collectionView setAllowsMultipleSelection:YES];
+}</Abstract>
+			<DeclaredIn>AZBoxGrid.h</DeclaredIn>
+			
+			<NodeRef refid="60"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/AZBoxGridDataSource/numberOfCellsInCollectionView:</TokenIdentifier>
+			<Abstract> This method is invoked to ask the data source for the number of cells inside the collection view.  </Abstract>
+			<DeclaredIn>AZBoxGrid.h</DeclaredIn>			
+			
+			<Declaration>- (NSUInteger)numberOfCellsInCollectionView:(AZBoxGrid *)collectionView</Declaration>
+			
+			
+			<Anchor>//api/name/numberOfCellsInCollectionView:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/AZBoxGridDataSource/collectionView:cellForIndex:</TokenIdentifier>
+			<Abstract> This method is involed to ask the data source for a cell to display at the given index. You should first try to dequeue an old cell before creating a new one!  </Abstract>
+			<DeclaredIn>AZBoxGrid.h</DeclaredIn>			
+			
+			<Declaration>- (AZBox *)collectionView:(AZBoxGrid *)collectionView cellForIndex:(NSUInteger)index</Declaration>
+			
+			
+			<Anchor>//api/name/collectionView:cellForIndex:</Anchor>
+		</Token>
+		
+	</File>
+</Tokens>

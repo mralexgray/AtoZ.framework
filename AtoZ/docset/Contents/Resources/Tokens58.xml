@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Categories/NSWindow+AtoZ.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cat/NSWindow(AtoZ)</TokenIdentifier>
+			<Abstract></Abstract>
+			<DeclaredIn>NSWindow+AtoZ.h</DeclaredIn>
+			
+			<NodeRef refid="58"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/NSWindow(AtoZ)/addViewToTitleBar:atXPosition:</TokenIdentifier>
+			<Abstract>	   NSButton *button = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, 100, 100)];
+[button setBezelStyle:NSRecessedBezelStyle];
+NSButton *closeButton = [NSWindow standardWindowButton:NSWindowZoomButton forStyleMask:self.window.styleMask];
+[self.window addViewToTitleBar:button atXPosition:self.window.frame.size.width - button.frame.size.width - 10];
+[self.window addViewToTitleBar:closeButton atXPosition:70];</Abstract>
+			<DeclaredIn>NSWindow+AtoZ.h</DeclaredIn>			
+			
+			<Declaration>- (void)addViewToTitleBar:(NSView *)viewToAdd atXPosition:(CGFloat)x</Declaration>
+			
+			
+			<Anchor>//api/name/addViewToTitleBar:atXPosition:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/NSWindow(AtoZ)/betterCenter</TokenIdentifier>
+			<Abstract>@brief 	The method 'center' puts the window really close to the top of the screen.
+This method puts it not so close.</Abstract>
+			<DeclaredIn>NSWindow+AtoZ.h</DeclaredIn>			
+			
+			<Declaration>- (void)betterCenter</Declaration>
+			
+			
+			<Anchor>//api/name/betterCenter</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/NSWindow(AtoZ)/setToolbarHeight:</TokenIdentifier>
+			<Abstract>@brief 	Height of the toolbar @result The height of the toolbar, or 0 if no toolbar exists or is visible</Abstract>
+			<DeclaredIn>NSWindow+AtoZ.h</DeclaredIn>			
+			
+			<Declaration>@property (readonly, nonatomic) CGFloat toolbarHeight</Declaration>
+			
+			
+			<Anchor>//api/name/toolbarHeight</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfp/NSWindow(AtoZ)/toolbarHeight</TokenIdentifier>
+			<Abstract>@brief 	Height of the toolbar @result The height of the toolbar, or 0 if no toolbar exists or is visible</Abstract>
+			<DeclaredIn>NSWindow+AtoZ.h</DeclaredIn>			
+			
+			<Declaration>@property (readonly, nonatomic) CGFloat toolbarHeight</Declaration>
+			
+			
+			<Anchor>//api/name/toolbarHeight</Anchor>
+		</Token>
+		
+	</File>
+</Tokens>

@@ -9,11 +9,35 @@
 #import "NSString+AtoZ.h"
 #import "NSColor+AtoZ.h"
 #import "NSArray+AtoZ.h"
-#import "AtoZ.h"
+
 
 #import "RuntimeReporter.h"
 
+#define kMaxFontSize    10000
+
 @implementation NSString (AtoZ)
+
+- (CGFloat)pointSizeForFrame:(NSRect)frame withFont:(NSString *)fontName;
+{
+	return [[self class] pointSizeForFrame:frame withFont:fontName forString:self];
+}
+
++ (CGFloat)pointSizeForFrame:(NSRect)frame withFont:(NSString *)fontName forString:(NSString*)string;
+{
+    NSFont * displayFont = nil;
+    NSSize stringSize = NSZeroSize;
+    NSUInteger fontLoop = 0;
+	NSMutableDictionary * fontAttributes = [[NSMutableDictionary alloc] init];
+    if (frame.size.width == 0.0 && frame.size.height == 0.0) return 0.0;
+    for (fontLoop = 1; fontLoop <= kMaxFontSize; fontLoop++) {
+        displayFont = [[NSFontManager sharedFontManager] convertWeight:YES ofFont:[NSFont fontWithName:fontName size:fontLoop]];
+        [fontAttributes setObject:displayFont forKey:NSFontAttributeName];
+        stringSize = [string sizeWithAttributes:fontAttributes];
+        if ( (stringSize.width > frame.size.width) || (stringSize.height > frame.size.height) )	break;
+    }
+    [fontAttributes release], fontAttributes = nil;
+    return (CGFloat)fontLoop - 1.0;
+}
 
 - (NSString *)stringByReplacingAllOccurancesOfString:(NSString *)search withString:(NSString *)replacement
 {
@@ -44,20 +68,21 @@
     CFRelease(uuid);						return AZ_RETAIN(CFBridgingRelease(identifier));
 }
 
-/**	Returns the support folder for the application, used to store the Core Data	store file.  This code uses a folder named "ArtGallery" for
- the content, either in the NSApplicationSupportDirectory location or (if the former cannot be found), the system's temporary directory. */
-
-+ (NSString*) applicationSupportFolder {
-
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
-    NSString *basePath = ([paths count] > 0 ? paths[0] : NSTemporaryDirectory() );
-    return [basePath stringByAppendingPathComponent:[[NSBundle mainBundle]bundleIdentifier]];
-}
 
 + (NSString *)randomAppPath
 {
 	return [[[[NSWorkspace sharedWorkspace]launchedApplications]valueForKeyPath:@"NSApplicationPath"]randomElement];
 }
+
++ (NSString*) randomWords:(NSInteger)number;
+{
+	return [[LoremIpsum new] words:number];
+}
++ (NSString*) randomSentences:(NSInteger)number;
+{
+	return [[LoremIpsum new] sentences:number];
+}
+
 
 //- (NSColor *)colorValue {	return [NSColor colorFromString:self]; }
 
@@ -343,6 +368,13 @@
 		}
 	}
 	return [str substringToIndex:i];
+}
+
+- (NSAttributedString*) attributedWithSize:(NSUInteger)size andColor:(NSColor*)color {
+	return [[NSAttributedString alloc] initWithString:self attributes:@{
+				NSFontAttributeName : [NSFont fontWithName:@"Ubuntu Mono Bold" size:size],
+						NSForegroundColorAttributeName :	 color}];
+
 }
 
 //This method creates an NSMutableAttributedString, using an NSString and an NSMutableParagraphStyle.

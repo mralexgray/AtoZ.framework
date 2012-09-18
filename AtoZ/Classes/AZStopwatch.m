@@ -17,6 +17,17 @@
 @end
 // ==============================================================
 @implementation AZStopwatch
+
+//+(void)stopwatch:(NSString*)stopwatch aroundBlock:(void (^)())block;
++ (void) stopwatch:(NSString*)name timing:(void (^)())block
+{
+	[AZStopwatch start:name];
+    block();
+	[AZStopwatch stop: name];
+}
+
+
+
 + (void) start:(NSString *)name {
 	[[AZStopwatch sharedInstance] add:name];
 }

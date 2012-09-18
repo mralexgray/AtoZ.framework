@@ -64,7 +64,7 @@
 }
 
 - (NSFont*) font {
-	CGFloat size =  [AtoZ fontSizeForAreaSize:[self bounds].size withString:@"M" usingFont:@"Ubuntu Mono Bold"];
+	CGFloat size =  [@"M" pointSizeForFrame:[self bounds] withFont:@"Ubuntu Mono Bold"];
 	return	_font  = [NSFont fontWithName:@"Ubuntu Mono Bold" size:size];
 }
 

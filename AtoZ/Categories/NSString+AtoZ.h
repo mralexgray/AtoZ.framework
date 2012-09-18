@@ -3,9 +3,13 @@
 //  AtoZ
 
 #import <Foundation/Foundation.h>
-//#import "AtoZ.h"
+#import "AtoZ.h"
 
 @interface NSString (AtoZ)
+
+
+- (CGFloat)pointSizeForFrame:(NSRect)frame withFont:(NSString *)fontName;
++ (CGFloat)pointSizeForFrame:(NSRect)frame withFont:(NSString *)fontName forString:(NSString*)string;
 
 - (NSString*) stringByReplacingAllOccurancesOfString:(NSString*) search withString:(NSString*) replacement;
 - (NSString*) urlEncoded;
@@ -13,8 +17,10 @@
 
 - (NSString*) firstLetter;
 + (NSString*) newUniqueIdentifier;
-+ (NSString*) applicationSupportFolder;
 + (NSString*) randomAppPath;
+
++ (NSString*) randomWords:(NSInteger)number;
++ (NSString*) randomSentences:(NSInteger)number;
 
 //@property (readonly) NSColor *colorValue;
 
@@ -140,8 +146,12 @@
 @property (readonly) NSString *ucfirst;
 @property (readonly) NSString *lcfirst;
 
-+ (id)stringWithData:(NSData*) data encoding:(NSStringEncoding)encoding;
++ (id)	stringWithData:(NSData*) data encoding:(NSStringEncoding)encoding;
 + (NSString*) stringWithCGFloat:(CGFloat)f maxDigits:(NSUInteger)numDigits;
+
+
+- (NSAttributedString*) attributedWithSize:(NSUInteger)size andColor:(NSColor*)color;
+
 
 -(NSMutableAttributedString *) attributedParagraphWithSpacing:(float)spacing;
 - (CGFloat) widthWithFont:(NSFont *)font;

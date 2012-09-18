@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Categories/NSColor+AtoZ.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cat/NSColor(AtoZ)</TokenIdentifier>
+			<Abstract></Abstract>
+			<DeclaredIn>NSColor+AtoZ.h</DeclaredIn>
+			
+			<NodeRef refid="44"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/NSColor(AtoZ)/isExciting</TokenIdentifier>
+			<Abstract>/	}</Abstract>
+			<DeclaredIn>NSColor+AtoZ.h</DeclaredIn>			
+			
+			<Declaration>- (BOOL)isExciting</Declaration>
+			
+			
+			<Anchor>//api/name/isExciting</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/NSColor(AtoZ)/closestWebColor</TokenIdentifier>
+			<Abstract>/	NSString *bestKey = nil;</Abstract>
+			<DeclaredIn>NSColor+AtoZ.h</DeclaredIn>			
+			
+			<Declaration>- (NSColor *)closestWebColor</Declaration>
+			
+			
+			<Anchor>//api/name/closestWebColor</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/NSColor(AtoZ)/colorLists</TokenIdentifier>
+			<Abstract>/	bestColorKey = [[NSBundle bundleWithPath:@"/System/Library/Colors/Web Safe Colors.clr"]
+/					localizedStringForKey:bestColorKey	value:bestColorKey 	table:@"Crayons"];</Abstract>
+			<DeclaredIn>NSColor+AtoZ.h</DeclaredIn>			
+			
+			<Declaration>+ (NSArray *)colorLists</Declaration>
+			
+			
+			<Anchor>//api/name/colorLists</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/NSColor(AtoZ)/MAUVE</TokenIdentifier>
+			<Abstract>+ (NSColor)</Abstract>
+			<DeclaredIn>NSColor+AtoZ.m</DeclaredIn>			
+			
+			<Declaration>+ (NSColor *)MAUVE</Declaration>
+			
+			
+			<Anchor>//api/name/MAUVE</Anchor>
+		</Token>
+		
+	</File>
+</Tokens>

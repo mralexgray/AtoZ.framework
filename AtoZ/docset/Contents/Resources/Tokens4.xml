@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/AZBoxGrid.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/AZBoxGrid</TokenIdentifier>
+			<Abstract>View for displaying items in a grid like order.  * The collection view is designed to be inside of an NSScrollView instance! The AZBoxGrid class behaves much like UITableView on iOS allowing it to have hundreds of thousands cells without great performance impact (unlike NSCollectionView).</Abstract>
+			<DeclaredIn>AZBoxGrid.h</DeclaredIn>
+			
+			<NodeRef refid="4"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AZBoxGrid/setCellSize:</TokenIdentifier>
+			<Abstract> The size of one cell. Each cell shares the very same size.  </Abstract>
+			<DeclaredIn>AZBoxGrid.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, assign) NSSize cellSize</Declaration>
+			
+			
+			<Anchor>//api/name/cellSize</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/AZBoxGrid/cellSize</TokenIdentifier>
+			<Abstract> The size of one cell. Each cell shares the very same size.  </Abstract>
+			<DeclaredIn>AZBoxGrid.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, assign) NSSize cellSize</Declaration>
+			
+			
+			<Anchor>//api/name/cellSize</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AZBoxGrid/setDesiredNumberOfColumns:</TokenIdentifier>
+			<Abstract> The number of columns the collection view should use, or NSUIntegerMax to let the collection view decide what column number fits best.  </Abstract>
+			<DeclaredIn>AZBoxGrid.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, assign) NSUInteger desiredNumberOfColumns</Declaration>
+			
+			
+			<Anchor>//api/name/desiredNumberOfColumns</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/AZBoxGrid/desiredNumberOfColumns</TokenIdentifier>
+			<Abstract> The number of columns the collection view should use, or NSUIntegerMax to let the collection view decide what column number fits best.  </Abstract>
+			<DeclaredIn>AZBoxGrid.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, assign) NSUInteger desiredNumberOfColumns</Declaration>
+			
+			
+			<Anchor>//api/name/desiredNumberOfColumns</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AZBoxGrid/setDesiredNumberOfRows:</TokenIdentifier>
+			<Abstract>The number of rows the collection view should use, or NSUIntegerMax to let the collection view use an dynmaic row number.
+@remark If you set desiredNumberOfRows to a fixed value, the collection view might not show all cells but only those who fit into the desired rows.  *</Abstract>
+			<DeclaredIn>AZBoxGrid.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, assign) NSUInteger desiredNumberOfRows</Declaration>
+			
+			
+			<Anchor>//api/name/desiredNumberOfRows</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/AZBoxGrid/desiredNumberOfRows</TokenIdentifier>
+			<Abstract>The number of rows the collection view should use, or NSUIntegerMax to let the collection view use an dynmaic row number.
+@remark If you set desiredNumberOfRows to a fixed value, the collection view might not show all cells but only those who fit into the desired rows.  *</Abstract>
+			<DeclaredIn>AZBoxGrid.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, assign) NSUInteger desiredNumberOfRows</Declaration>
+			
+			
+			<Anchor>//api/name/desiredNumberOfRows</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AZBoxGrid/setSelection:</TokenIdentifier>
+			<Abstract> The currently selected cells.  </Abstract>
+			<DeclaredIn>AZBoxGrid.h</DeclaredIn>			
+			
+			<Declaration>@property (weak, nonatomic, readonly) NSIndexSet *selection</Declaration>
+			
+			
+			<Anchor>//api/name/selection</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/AZBoxGrid/selection</TokenIdentifier>
+			<Abstract> The currently selected cells.  </Abstract>
+			<DeclaredIn>AZBoxGrid.h</DeclaredIn>			
+			
+			<Declaration>@property (weak, nonatomic, readonly) NSIndexSet *selection</Declaration>
+			
+			
+			<Anchor>//api/name/selection</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AZBoxGrid/setDataSource:</TokenIdentifier>
+			<Abstract> The data source of the collection view.  </Abstract>
+			<DeclaredIn>AZBoxGrid.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, unsafe_unretained) IBOutlet id&lt;AZBoxGridDataSource&gt; dataSource</Declaration>
+			
+			
+			<Anchor>//api/name/dataSource</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/AZBoxGrid/dataSource</TokenIdentifier>
+			<Abstract> The data source of the collection view.  </Abstract>
+			<DeclaredIn>AZBoxGrid.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, unsafe_unretained) IBOutlet id&lt;AZBoxGridDataSource&gt; dataSource</Declaration>
+			
+			
+			<Anchor>//api/name/dataSource</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AZBoxGrid/setDelegate:</TokenIdentifier>
+			<Abstract> The delegate of the collection view.  </Abstract>
+			<DeclaredIn>AZBoxGrid.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, unsafe_unretained) IBOutlet id&lt;AZBoxGridDelegate&gt; delegate</Declaration>
+			
+			
+			<Anchor>//api/name/delegate</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/AZBoxGrid/delegate</TokenIdentifier>
+			<Abstract> The delegate of the collection view.  </Abstract>
+			<DeclaredIn>AZBoxGrid.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, unsafe_unretained) IBOutlet id&lt;AZBoxGridDelegate&gt; delegate</Declaration>
+			
+			
+			<Anchor>//api/name/delegate</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AZBoxGrid/setAllowsSelection:</TokenIdentifier>
+			<Abstract> YES if the collection view should allow selection, otherwise NO. The default value is YES.  </Abstract>
+			<DeclaredIn>AZBoxGrid.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, assign) BOOL allowsSelection</Declaration>
+			
+			
+			<Anchor>//api/name/allowsSelection</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/AZBoxGrid/allowsSelection</TokenIdentifier>
+			<Abstract> YES if the collection view should allow selection, otherwise NO. The default value is YES.  </Abstract>
+			<DeclaredIn>AZBoxGrid.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, assign) BOOL allowsSelection</Declaration>
+			
+			
+			<Anchor>//api/name/allowsSelection</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AZBoxGrid/setAllowsMultipleSelection:</TokenIdentifier>
+			<Abstract> YES if the collection view should allow the selection of multiple cells at the same time, otherwise NO. The default value is NO.  </Abstract>
+			<DeclaredIn>AZBoxGrid.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, assign) BOOL allowsMultipleSelection</Declaration>
+			
+			
+			<Anchor>//api/name/allowsMultipleSelection</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/AZBoxGrid/allowsMultipleSelection</TokenIdentifier>
+			<Abstract> YES if the collection view should allow the selection of multiple cells at the same time, otherwise NO. The default value is NO.  </Abstract>
+			<DeclaredIn>AZBoxGrid.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, assign) BOOL allowsMultipleSelection</Declaration>
+			
+			
+			<Anchor>//api/name/allowsMultipleSelection</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AZBoxGrid/setUnselectOnMouseUp:</TokenIdentifier>
+			<Abstract> YES if the collection view should deselect the currently selected cell when the mouse button is released. The default value is NO.  </Abstract>
+			<DeclaredIn>AZBoxGrid.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, assign) BOOL unselectOnMouseUp</Declaration>
+			
+			
+			<Anchor>//api/name/unselectOnMouseUp</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/AZBoxGrid/unselectOnMouseUp</TokenIdentifier>
+			<Abstract> YES if the collection view should deselect the currently selected cell when the mouse button is released. The default value is NO.  </Abstract>
+			<DeclaredIn>AZBoxGrid.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, assign) BOOL unselectOnMouseUp</Declaration>
+			
+			
+			<Anchor>//api/name/unselectOnMouseUp</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AZBoxGrid/dequeueReusableCellWithIdentifier:</TokenIdentifier>
+			<Abstract> Returns a queued cell or nil if no cell is currently in the queue. Use this if possible instead of creating new AZBox instances.   </Abstract>
+			<DeclaredIn>AZBoxGrid.h</DeclaredIn>			
+			
+			<Declaration>- (AZBox *)dequeueReusableCellWithIdentifier:(NSString *)identifier</Declaration>
+			
+			
+			<Anchor>//api/name/dequeueReusableCellWithIdentifier:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AZBoxGrid/cellAtIndex:</TokenIdentifier>
+			<Abstract>Returns the cell at the given index.
+@remark The cell must be visible, otherwise the method will return nil.  *</Abstract>
+			<DeclaredIn>AZBoxGrid.h</DeclaredIn>			
+			
+			<Declaration>- (AZBox *)cellAtIndex:(NSUInteger)index</Declaration>
+			
+			
+			<Anchor>//api/name/cellAtIndex:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AZBoxGrid/reloadData</TokenIdentifier>
+			<Abstract> Forces the collection view to throw away all cached data including cells and selections and then reloading the data from scratch.  </Abstract>
+			<DeclaredIn>AZBoxGrid.h</DeclaredIn>			
+			
+			<Declaration>- (void)reloadData</Declaration>
+			
+			
+			<Anchor>//api/name/reloadData</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AZBoxGrid/selectCellAtIndex:</TokenIdentifier>
+			<Abstract> Selects the cell with the given index.  </Abstract>
+			<DeclaredIn>AZBoxGrid.h</DeclaredIn>			
+			
+			<Declaration>- (void)selectCellAtIndex:(NSUInteger)index</Declaration>
+			
+			
+			<Anchor>//api/name/selectCellAtIndex:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AZBoxGrid/selectCellsAtIndexes:</TokenIdentifier>
+			<Abstract> Selects all cells of the index set, or, if allowsMultipleSelection is set to NO, selectes the cell at the first index of the set.  </Abstract>
+			<DeclaredIn>AZBoxGrid.h</DeclaredIn>			
+			
+			<Declaration>- (void)selectCellsAtIndexes:(NSIndexSet *)indexSet</Declaration>
+			
+			
+			<Anchor>//api/name/selectCellsAtIndexes:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AZBoxGrid/deselectCellAtIndex:</TokenIdentifier>
+			<Abstract> Deselects the cell at the given index.  </Abstract>
+			<DeclaredIn>AZBoxGrid.h</DeclaredIn>			
+			
+			<Declaration>- (void)deselectCellAtIndex:(NSUInteger)index</Declaration>
+			
+			
+			<Anchor>//api/name/deselectCellAtIndex:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AZBoxGrid/deselectCellsAtIndexes:</TokenIdentifier>
+			<Abstract> Deselcts all cells of the index set.  </Abstract>
+			<DeclaredIn>AZBoxGrid.h</DeclaredIn>			
+			
+			<Declaration>- (void)deselectCellsAtIndexes:(NSIndexSet *)indexSet</Declaration>
+			
+			
+			<Anchor>//api/name/deselectCellsAtIndexes:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AZBoxGrid/deselectAllCells</TokenIdentifier>
+			<Abstract> Deselects all previously selected cells.  </Abstract>
+			<DeclaredIn>AZBoxGrid.h</DeclaredIn>			
+			
+			<Declaration>- (void)deselectAllCells</Declaration>
+			
+			
+			<Anchor>//api/name/deselectAllCells</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AZBoxGrid/hoverOverCellAtIndex:</TokenIdentifier>
+			<Abstract> The mouse is hovering over the given cell.  </Abstract>
+			<DeclaredIn>AZBoxGrid.h</DeclaredIn>			
+			
+			<Declaration>- (void)hoverOverCellAtIndex:(NSUInteger)index</Declaration>
+			
+			
+			<Anchor>//api/name/hoverOverCellAtIndex:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AZBoxGrid/hoverOutOfCellAtIndex:</TokenIdentifier>
+			<Abstract> The mouse was hovering over the given cell and is now out of the cell area.  </Abstract>
+			<DeclaredIn>AZBoxGrid.h</DeclaredIn>			
+			
+			<Declaration>- (void)hoverOutOfCellAtIndex:(NSUInteger)index</Declaration>
+			
+			
+			<Anchor>//api/name/hoverOutOfCellAtIndex:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AZBoxGrid/hoverOutOfLastCell</TokenIdentifier>
+			<Abstract> Hover out of the most recent cell that the mouse was hovering over.  </Abstract>
+			<DeclaredIn>AZBoxGrid.h</DeclaredIn>			
+			
+			<Declaration>- (void)hoverOutOfLastCell</Declaration>
+			
+			
+			<Anchor>//api/name/hoverOutOfLastCell</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AZBoxGrid/indexOfCellAtPoint:</TokenIdentifier>
+			<Abstract> Returns the index of the cell at the given point.  </Abstract>
+			<DeclaredIn>AZBoxGrid.h</DeclaredIn>			
+			
+			<Declaration>- (NSUInteger)indexOfCellAtPoint:(NSPoint)point</Declaration>
+			
+			
+			<Anchor>//api/name/indexOfCellAtPoint:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AZBoxGrid/indexOfCellAtPosition:</TokenIdentifier>
+			<Abstract> Returns the index of the cell at the given position.  </Abstract>
+			<DeclaredIn>AZBoxGrid.h</DeclaredIn>			
+			
+			<Declaration>- (NSUInteger)indexOfCellAtPosition:(NSPoint)point</Declaration>
+			
+			
+			<Anchor>//api/name/indexOfCellAtPosition:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AZBoxGrid/positionOfCellAtIndex:</TokenIdentifier>
+			<Abstract> Returns the position of the cell at the given index. For example the top left cell has the point 0|0 while the one on the right side of it has 1|0 etc.  </Abstract>
+			<DeclaredIn>AZBoxGrid.h</DeclaredIn>			
+			
+			<Declaration>- (NSPoint)positionOfCellAtIndex:(NSUInteger)index</Declaration>
+			
+			
+			<Anchor>//api/name/positionOfCellAtIndex:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AZBoxGrid/rectForCellAtIndex:</TokenIdentifier>
+			<Abstract> Returns the frame of the cell at the given index.  </Abstract>
+			<DeclaredIn>AZBoxGrid.h</DeclaredIn>			
+			
+			<Declaration>- (NSRect)rectForCellAtIndex:(NSInteger)index</Declaration>
+			
+			
+			<Anchor>//api/name/rectForCellAtIndex:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AZBoxGrid/indexesOfCellsInRect:</TokenIdentifier>
+			<Abstract> Returns a set of indexes that are inside the rect.  </Abstract>
+			<DeclaredIn>AZBoxGrid.h</DeclaredIn>			
+			
+			<Declaration>- (NSIndexSet *)indexesOfCellsInRect:(NSRect)rect</Declaration>
+			
+			
+			<Anchor>//api/name/indexesOfCellsInRect:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AZBoxGrid/visibleRange</TokenIdentifier>
+			<Abstract> Returns the currently visible index range.  </Abstract>
+			<DeclaredIn>AZBoxGrid.h</DeclaredIn>			
+			
+			<Declaration>- (NSRange)visibleRange</Declaration>
+			
+			
+			<Anchor>//api/name/visibleRange</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AZBoxGrid/beginChanges</TokenIdentifier>
+			<Abstract>Begins a block of changes. The collection view will only update its data and appereance when you call commitChanges.
+@remark A call to reloadData will also be delayed until a commitChanges call.  *</Abstract>
+			<DeclaredIn>AZBoxGrid.h</DeclaredIn>			
+			
+			<Declaration>- (void)beginChanges</Declaration>
+			
+			
+			<Anchor>//api/name/beginChanges</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AZBoxGrid/commitChanges</TokenIdentifier>
+			<Abstract>Updates the collection views data and appereance according to the previously made changes.
+@remark Use this and beginChanges if you want to update multiple properties of the collection view in one batch call to save performance.  *</Abstract>
+			<DeclaredIn>AZBoxGrid.h</DeclaredIn>			
+			
+			<Declaration>- (void)commitChanges</Declaration>
+			
+			
+			<Anchor>//api/name/commitChanges</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/AZBoxGrid/mouseDragged:</TokenIdentifier>
+			<Abstract>	AZBox *i = [self cellAtIndex:index];
+	NSSize zDragOffset = NSMakeSize(0.0, 0.0);
+    NSPasteboard *zPasteBoard = [NSPasteboard pasteboardWithName:NSDragPboard];
+    [zPasteBoard declareTypes:[NSArray arrayWithObject:NSTIFFPboardType]
+                        owner:self];
+	NSImage snap = [(NSView)i snapshot];
+    [zPasteBoard setData:[snap TIFFRepresentation] 
+                 forType:NSTIFFPboardType];
+	
+	NSPoint originFlip  = i.frame.origin;
+	originFlip.y += i.frame.size.height;
+    [self dragImage:snap
+                 at:originFlip
+             offset:zDragOffset
+              event:event
+         pasteboard:zPasteBoard 
+             source:self 
+          slideBack:YES];
+	</Abstract>
+			<DeclaredIn>AZBoxGrid.m</DeclaredIn>			
+			
+			<Declaration>- (void)mouseDragged:(NSEvent *)event</Declaration>
+			
+			
+			<Anchor>//api/name/mouseDragged:</Anchor>
+		</Token>
+		
+	</File>
+</Tokens>
