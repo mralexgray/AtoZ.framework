@@ -15,3 +15,6 @@
 	url = git://github.com/dav/Objective-C-Lorem-Ipsum-Generator.git
 
 
+[submodule "Frameworks/NanoStore"]
+	path = Frameworks/NanoStore
+	url = https://github.com/tciuro/NanoStore.git
