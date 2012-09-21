@@ -18,3 +18,6 @@
 [submodule "Frameworks/NanoStore"]
 	path = Frameworks/NanoStore
 	url = https://github.com/tciuro/NanoStore.git
+[submodule "AtoZ/Categories/NSScreen-PointConversion"]
+	path = AtoZ/Categories/NSScreen-PointConversion
+	url = git://github.com/oscardelben/NSScreen-PointConversion.git
