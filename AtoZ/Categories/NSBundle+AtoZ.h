@@ -10,7 +10,11 @@
 
 @interface NSBundle (AtoZ)
 
++ (NSString*) appSuppFolder;
++ (NSString*) appSuppDir;
 + (NSString*) applicationSupportFolder;
++ (NSString*) appSuppSubPathNamed:(NSString*)name;
+
 + (NSString*) calulatedBundleIDForPath:(NSString*)path;
 
 @end

@@ -11,6 +11,22 @@
 #import <Quartz/Quartz.h>
 
 
+
+const CGPoint AZAnchorTop		= (CGPoint) { .5, 1 };
+const CGPoint AZAnchorBottom		= (CGPoint) { .5, 0 };
+const CGPoint AZAnchorRight		= (CGPoint) {  1,.5 };
+const CGPoint AZAnchorLeft 		= (CGPoint) {  0,.5 };
+
+CGPoint AZAnchorPointForPosition( AZWindowPosition pos){
+
+	return pos == AZPositionLeft   ? AZAnchorLeft
+		 : pos == AZPositionTop    ? AZAnchorTop
+		 : pos == AZPositionBottom ? AZAnchorBottom
+		 : pos == AZPositionRight  ? AZAnchorRight
+		 : (CGPoint) {  0,.5 };
+}
+
+
 @implementation  NSObject (LayerTools)
 -(CALayer*) selectionLayerForLayer:(CALayer*)layer {
 
@@ -598,6 +614,10 @@ NSPoint AZPointDistanceToBorderOfRect(NSPoint point, NSRect rect) {
   return re;
 }
 
+
+NSPoint AZPointFromDim(CGFloat val){
+	return (NSPoint){val,val};
+}
 //
 // NSSize functions
 //
@@ -1131,15 +1151,36 @@ return point;
 }
 
 
+AZOrient deltaDirectionOfPoints(NSPoint a, NSPoint b){
 
+	return a.x != b.x ? AZOrientHorizontal : AZOrientVertical;
+}
 
 AZWindowPosition AZPositionOfRect(NSRect rect) {
+	CGFloat minDist = ScreenWidess();
+	AZWindowPosition winner;
+	NSPoint myCenter = AZCenterOfRect(rect);
+	CGFloat maxDim = AZMaxEdge(rect);
+	NSSize screen = AZScreenSize();
+	CGFloat test;
 
-	if ( AZDistanceFromPoint( rect.origin, NSZeroPoint ) == 0 )
-	return NSMaxX( rect ) == ScreenWidess() ? AZPositionBottom : AZPositionBottomLeft;
-	else if (NSMinY(rect)==0)
-		return AZPositionRight;
-	else return AZPositionTop;
+	test = AZDistanceFromPoint( myCenter, (NSPoint) { 0, myCenter.y }); //testleft
+	if  ( test < minDist) { 	minDist = test; winner = AZPositionLeft;}
+
+	test = AZDistanceFromPoint( myCenter, (NSPoint) { myCenter.x,  0 }); //testbottom  OK
+	if  ( test < minDist) { 	minDist = test; winner = AZPositionBottom; }
+
+	test = AZDistanceFromPoint( myCenter, (NSPoint) {screen.width, myCenter.y }); //testright
+	if  ( test < minDist) { 	minDist = test; winner = AZPositionRight; }
+
+	test = AZDistanceFromPoint( myCenter, (NSPoint) { myCenter.x, screen.height }); //testright
+	if  ( test < minDist) { 	minDist = test; winner = AZPositionTop; }
+
+	return  winner;
+//	return NSMaxX( rect ) == ScreenWidess() ? AZPositionBottom : AZPositionBottomLeft;
+//	else if (NSMinY(rect)==0)
+//		return AZPositionRight;
+//	else return AZPositionTop;
 }
 
 NSSize AZDirectionsOffScreenWithPosition(NSRect rect, AZWindowPosition position )

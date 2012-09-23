@@ -32,15 +32,26 @@ void ChangeSuperlayer( CALayer *layer, CALayer *newSuperlayer, int index );
 void RemoveImmediately( CALayer *layer );
 
 extern CALayer* AddBloom( CALayer *layer);
+extern CALayer* AddPulsatingBloom( CALayer *layer);
 
 extern CALayer* AddShadow( CALayer *layer);
 /** Convenience for creating, adding,a nd returning a relatively nice CALayer. */
 extern CALayer* AddLayer( CALayer *superlayer);
 
 extern CALayer* ReturnLayer( CALayer *superlayer);
+extern CALayer* NewLayerWithFrame(NSRect rect);
 
 /** Convenience for creating a CATextLayer. */
-extern CATextLayer* AddTextLayer( CALayer *superlayer, NSString *text, NSFont* font, enum CAAutoresizingMask align );
+extern CATextLayer* AddLabel( CALayer *superlayer, NSString *text);
+/** Convenience for creating a CATextLayer. */
+extern CATextLayer* AddTextLayer( CALayer *superlayer,
+						  NSString *text, NSFont* font,
+						  enum CAAutoresizingMask align );
+extern CATextLayer* AddLabel( CALayer *superlayer,
+								 NSString *text);
+
+extern CATextLayer* AddLabelLayer( CALayer *superlayer,
+								 NSString *text, NSFont* font );
 
 extern CALayer* AddImageLayer( 	  CALayer *superlayer, NSImage *image, CGFloat scale);
 extern CALayer* ReturnImageLayer( CALayer *superlayer, NSImage *image, CGFloat scale);
@@ -104,7 +115,16 @@ CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13, CGFloat m14,
 - (void)orientWithPoint:(CGPoint) point;
 - (void)orientWithX: (CGFloat)x andY: (CGFloat)y;
 
-- (void) toggleFlip;
+- (void) setAnchorPointRelative: (CGPoint) anchorPoint;
+- (void) setAnchorPoint: (CGPoint) anchorPoint inRect:(NSRect)rect;
+- (void) setAnchorPoint: (CGPoint) anchorPoint inView: (NSView *) view;
+- (void) flipHorizontally;
+- (void) flipVertically;
+- (void) flipBackAtEdge:	(AZWindowPosition)position;
+- (void) flipForwardAtEdge: (AZWindowPosition)position;
+
+- (CATransform3D) flipAnimationPositioned:(AZWindowPosition)pos;
+
 - (void) flipOver;
 - (void) flipBack;
 - (void) flipDown;

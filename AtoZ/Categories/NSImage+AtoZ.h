@@ -33,7 +33,8 @@ CGImageRef CreateCGImageFromData(NSData* data);
 
 @interface NSImage (AtoZ)
 
-
+//- (NSImage*) maskedByColor:(NSColor *)color;
+- (NSImage*) scaledToMax:(CGFloat)f;
 
 	// creates a copy of the current image while maintaining
 	// proportions. also centers image, if necessary

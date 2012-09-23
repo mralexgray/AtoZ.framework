@@ -6,7 +6,8 @@
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 //
 
-//#import "AtoZ.h"
+#import "AtoZFunctions.h"
+#import "AtoZUmbrella.h"
 #import "AtoZ.h"
 
 @interface AZFiles : BaseModel

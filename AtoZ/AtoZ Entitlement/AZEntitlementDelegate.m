@@ -38,6 +38,11 @@
 //	[[_window contentView] debugDescription];
 //	AZSizer *r = dbx.ap
 	// Insert code here to initialize your application
+
+	self.cc = [AZCalculatorController new];
+	[_cc.window setFrame:[[NSScreen mainScreen]frame] display:YES animate:YES];
+	[_cc.window setDelegate:self];
+	[_cc.window makeKeyAndOrderFront:_cc.window];
 }
 
 

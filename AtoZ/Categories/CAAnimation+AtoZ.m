@@ -49,6 +49,87 @@ void disableCA(){
 
 @implementation CAAnimation (AtoZ)
 
+
++ (CAKeyframeAnimation *)rotateAnimation{
+
+	CAKeyframeAnimation *rotateAnimation= [CAKeyframeAnimation animationWithKeyPath:@"transform.rotation.z"];
+	rotateAnimation.values = @[@(0.0), @(M_PI * 2), @(0.0)];
+	rotateAnimation.duration = 0.5f;
+	rotateAnimation.keyTimes = @[@(0), @(.4), @(.5)];
+
+//	CAKeyframeAnimation *positionAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
+//	positionAnimation.duration = 0.5f;
+//	CGMutablePathRef path = CGPathCreateMutable();
+//	CGPathMoveToPoint(path, NULL, item.endPoint.x, item.endPoint.y);
+//	CGPathAddLineToPoint(path, NULL, item.farPoint.x, item.farPoint.y);
+//	CGPathAddLineToPoint(path, NULL, item.startPoint.x, item.startPoint.y);
+//	positionAnimation.path = path;
+//	CGPathRelease(path);
+}
+//	CAAnimationGroup *animationgroup = [CAAnimationGroup animation];
+//	animationgroup.animations = [NSArray arrayWithObjects:positionAnimation, rotateAnimation, nil];
+//	animationgroup.duration = 0.5f;
+//	animationgroup.fillMode = kCAFillModeForwards;
+//	animationgroup.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
+//	[item.layer addAnimation:animationgroup forKey:@"Close"];
+//	item.layer.position = item.startPoint;
+//	_flag --;
+//	}
+
++ (CAAnimationGroup *)blowupAnimationAtPoint:(CGPoint)p
+{
+    CAKeyframeAnimation *positionAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
+    positionAnimation.values = @[AZVpoint(p)];
+    positionAnimation.keyTimes = [NSArray arrayWithObjects: [NSNumber numberWithFloat:.3], nil];
+
+    CABasicAnimation *scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform"];
+    scaleAnimation.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeScale(3, 3, 1)];
+
+    CABasicAnimation *opacityAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+    opacityAnimation.toValue  = [NSNumber numberWithFloat:0.0f];
+
+    CAAnimationGroup *animationgroup = [CAAnimationGroup animation];
+    animationgroup.animations = [NSArray arrayWithObjects:positionAnimation, scaleAnimation, opacityAnimation, nil];
+    animationgroup.duration = 0.3f;
+    animationgroup.fillMode = kCAFillModeForwards;
+
+    return animationgroup;
+}
+
++ (CAAnimationGroup *)shrinkAnimationAtPoint:(CGPoint)p
+{
+    CAKeyframeAnimation *positionAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
+    positionAnimation.values = @[AZVpoint(p)];
+    positionAnimation.keyTimes = [NSArray arrayWithObjects: [NSNumber numberWithFloat:.3], nil];
+
+    CABasicAnimation *scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform"];
+    scaleAnimation.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeScale(.01, .01, 1)];
+
+    CABasicAnimation *opacityAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+    opacityAnimation.toValue  = [NSNumber numberWithFloat:0.0f];
+
+    CAAnimationGroup *animationgroup = [CAAnimationGroup animation];
+    animationgroup.animations = [NSArray arrayWithObjects:positionAnimation, scaleAnimation, opacityAnimation, nil];
+    animationgroup.duration = 0.3f;
+    animationgroup.fillMode = kCAFillModeForwards;
+
+    return animationgroup;
+}
+
+
+
+
++ (CAAnimation*)animationOnPath:(CGPathRef)p duration:(CFTimeInterval)d timeOffset:(CFTimeInterval)o;
+{//- (CAAnimation*)animationForCurrentPath:(CFTimeInterval)timeOffset {
+	CAKeyframeAnimation* animation = [CAKeyframeAnimation animation];
+	animation.path = p;
+	animation.duration = d;
+	animation.timeOffset = o;
+    animation.repeatCount = 1;
+	animation.removedOnCompletion = NO;
+	return animation;
+}
+
 + (CAAnimation *) animationForOpacity {
 	CABasicAnimation *fadeAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
 	[fadeAnimation setAutoreverses:YES];
@@ -66,10 +147,10 @@ void disableCA(){
 }
 
 + (CAAnimation *) animationForRotation {
-	CATransform3D transform = CATransform3DMakeRotation(M_PI, 0.0f, 1.0f, 0.0f);
 	CABasicAnimation *rotateAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
-	[rotateAnimation setToValue:[NSValue valueWithCATransform3D:transform]];
-
+	[rotateAnimation setToValue:AZV3dT( CATransform3DMakeRotation(M_PI, 0, 1, 0) )];
+	[rotateAnimation setRepeatCount:HUGE_VALF];
+	[rotateAnimation setDuration:2];
 	return rotateAnimation;
 }
 

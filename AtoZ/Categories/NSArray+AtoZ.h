@@ -13,7 +13,25 @@
 //#import "NSMutableArray+AG.h"
 
 
+@interface NSArray (EnumExtensions)
+
+- (NSString*) stringWithEnum: (NSUInteger) enumVal;
+- (NSUInteger) enumFromString: (NSString*) strVal default: (NSUInteger) def;
+- (NSUInteger) enumFromString: (NSString*) strVal;
+
+@end
+
+
+@interface  NSArray (NSTableDataSource)
+- (id) tableView:(NSTableView*)aTableView objectValueForTableColumn:(NSTableColumn*)aTableColumn row:(int)rowIndex;
+- (int) numberOfRowsInTableView:(NSTableView *)aTableView;
+@end
+
 @interface NSArray (AtoZ)
+
+
++ (NSArray*) arrayFromPlist:(NSString*)path;
+- (void) saveToPlistAtPath:(NSString*)path;
 
 - (NSString*) stringWithEnum: (NSUInteger) e;
 - (NSUInteger) enumFromString: (NSString*) s default: (NSUInteger) def;
@@ -113,6 +131,7 @@
 
 /*** A failsave version of objectAtIndex When the given index is outside the bounds of the array it will be projected onto the bounds of the array Just imagine the array to be a ring  that will have its first and last element connected to each other */
 - (id)objectAtNormalizedIndex:(NSInteger)index;
+- (id)normal:(NSInteger)index;
 
 /*** A failsave version of objectAtIndex that will return the fallback value in case an error occurrs or the value is nil */
 - (id)objectAtIndex:(NSUInteger)index fallback:(id)fallback;

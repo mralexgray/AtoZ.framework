@@ -101,7 +101,7 @@ NSString *const AZToggleState	= @"AZToggleState";
 	result.truncationMode = kCATruncationEnd;
 	result.borderColor 	  = kGBDebugLayerBorderColor;
 	result.borderWidth 	  = kGBDebugLayerBorderWidth;
-	CAConstraint *left 	  =
+//	CAConstraint *left 	  =
 	result.constraints	  = @[ //AZConstRelSuperScaleOff(kCAConstraintMinX, 1, 5),
 
 

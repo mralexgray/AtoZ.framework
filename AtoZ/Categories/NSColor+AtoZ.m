@@ -838,12 +838,15 @@ static NSColor *ColorWithCSSString(NSString *str) {
 		return [l colorWithKey:i];
 	}];
 }
-+ (NSArray *) allSystemColorNames {
+
++ (NSArray *) allSystemColorNames { return [[self class] systemColorNames]; }
++ (NSArray *) systemColorNames {
 	return [NSArray arrayWithArrays:[[NSColorList availableColorLists]arrayUsingBlock:^id(id obj) {
 		return [obj allKeys];
 	}]];
 }
-+ (NSArray *) allSystemColors {
++ (NSArray *) allSystemColors { return [[self class] systemColors]; }
++ (NSArray *) systemColors {
 	NSArray *contenders = [NSArray arrayWithArrays:[[NSColorList availableColorLists]arrayUsingBlock:^id(NSColorList* obj) {
 		return [[obj allKeys] arrayUsingBlock:^id(NSString *key) {
 			NSColor*legit = [obj colorWithKey:key];
@@ -2355,7 +2358,10 @@ static CGFloat hexCharsToFloat(char firstChar, char secondChar)
 
 
 @implementation NSColorList (AtoZ)
-
+- (NSColor*) randomColor;
+{
+	return [self  colorWithKey:[[self allKeys] randomElement]];
+}
 + (id) colorListWithFileName:(NSString *)fileName inBundle:(NSBundle *)aBundle {
 	NSColorList *list = nil;
 	if (aBundle != nil) {

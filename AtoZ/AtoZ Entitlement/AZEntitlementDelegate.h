@@ -12,6 +12,10 @@
 @class AZQuadCarousel;
 @interface AZEntitlementDelegate : NSObject <NSApplicationDelegate>
 
+
+@property (retain, nonatomic) AZCalculatorController *cc;
+
+
 @property (assign, nonatomic) IBOutlet AZTrackingWindow *north;
 @property (assign, nonatomic) IBOutlet AZTrackingWindow *south;
 @property (assign, nonatomic) IBOutlet AZTrackingWindow *east;

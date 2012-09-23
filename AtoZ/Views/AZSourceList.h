@@ -32,13 +32,13 @@
 	
 	NSArray *children;
 }
-@property (nonatomic, retain) id objectRep;
-@property (nonatomic, retain) NSColor* color;
+@property (nonatomic, strong) id objectRep;
+@property (nonatomic, strong) NSColor* color;
 
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *identifier;
-@property (nonatomic) NSImage *icon;
-@property NSInteger badgeValue;
+@property (nonatomic, strong) NSImage *icon;
+@property (nonatomic, assign) NSInteger badgeValue;
 
 @property (nonatomic, copy) NSArray *children;
 

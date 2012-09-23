@@ -7,6 +7,7 @@
 
 
 #import "AZBlockView.h"
+#import "AtoZ.h"
 
 //@implementation AZBlockView
 //@synthesize drawBlock, opaque;

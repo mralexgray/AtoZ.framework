@@ -13,17 +13,19 @@
 @synthesize glossy, backgroundColor, checkerboard, gradient;
 
 
-- (BOOL)isOpaque
-{
-	return NO;
-}
+//- (BOOL)isOpaque
+//{
+//	return NO;
+//}
 
 - (id)initWithFrame:(NSRect)frame
 {
  	if (self = [super initWithFrame:frame]) {
-		[self setBackgroundColor:[NSColor blueColor]];
+		[self setBackgroundColor:[NSColor colorWithCalibratedRed:0.532 green:0.625 blue:0.550 alpha:1.000]];
 		glossy = NO;
-		checkerboard = YES;
+		checkerboard = NO;
+		self.clear = NO;
+		
 	}
 	return self;
 }
@@ -50,15 +52,15 @@
 		DrawGlossGradient([[NSGraphicsContext currentContext]graphicsPort],self.backgroundColor, [self bounds]);
 		return;
 	}
-	if (gradient) {
+	else if (gradient) {
 		NSBezierPath *p =[NSBezierPath bezierPathWithRect: [self bounds]];// cornerRadius:0];
 		[p fillGradientFrom:backgroundColor.darker.darker.darker to:backgroundColor.brighter.brighter angle:270];
 		return;
 	}
-	if (checkerboard)	[[NSColor checkerboardWithFirstColor:backgroundColor
+	else if (checkerboard)	[[NSColor checkerboardWithFirstColor:backgroundColor
 												 secondColor:backgroundColor.contrastingForegroundColor squareWidth:10]set];
-	else 				[[self backgroundColor] set];
-	NSRectFill([self bounds]);
+	else [_clear ? CLEAR :  backgroundColor ? backgroundColor : RANDOMCOLOR set];
+	NSRectFill( [self bounds] );
 
 //		[[NSColor colorWithCalibratedRed:0.f green:0.5f blue:0.f alpha:0.5f] set];
 //		[[NSGraphicsContext currentContext]

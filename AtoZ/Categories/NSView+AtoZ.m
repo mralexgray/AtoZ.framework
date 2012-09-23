@@ -333,7 +333,7 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 	[animation setAnimationBlockingMode:AZDefaultAnimationBlockingMode];
 	[animation setDuration:AZDefaultAnimationDuration];
 	[animation setAnimationCurve:AZDefaultAnimationCurve];
-	[animation setDelegate:self];
+	[animation setDelegate:(id)self];
 	[animation startAnimation];
 }
 

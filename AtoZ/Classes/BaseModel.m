@@ -33,7 +33,8 @@
 #import "BaseModel.h"
 #import <objc/message.h>
 #import "AtoZ.h"
-
+#import "AtoZFunctions.h"
+#import "AtoZUmbrella.h"
 
 NSString *const BaseModelSharedInstanceUpdatedNotification = @"BaseModelSharedInstanceUpdatedNotification";
 

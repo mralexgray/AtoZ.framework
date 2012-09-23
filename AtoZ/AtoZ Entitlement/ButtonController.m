@@ -13,7 +13,7 @@
 - (IBAction)more:(id)sender {
 
 	[_quads.items addObject:@"*"];
-	[_quads.menus each:^(id obj, NSUInteger index, BOOL *stop) {
+	[_quads.menus az_each:^(id obj, NSUInteger index, BOOL *stop) {
 		[obj reloadData];
 	}];
 
@@ -22,7 +22,7 @@
 - (IBAction)less:(id)sender {
 
 	[_quads.items removeLastObject];
-	[_quads.menus each:^(id obj, NSUInteger index, BOOL *stop) {
+	[_quads.menus az_each:^(id obj, NSUInteger index, BOOL *stop) {
 		[obj reloadData];
 	}];
 

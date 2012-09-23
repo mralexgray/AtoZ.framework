@@ -60,6 +60,10 @@
     return self;
 }
 
+- (CGFloat) dynamicStroke {
+	return _dynamicStroke = AZMaxDim(self.bounds.size)  * .07;
+}
+
 - (void) awakeFromNib {
 }
 

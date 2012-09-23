@@ -14,28 +14,27 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import <QuartzCore/QuartzCore.h>
 #import <xpc/xpc.h>
+#import <FunSize/FunSize.h>
+
 #define EXCLUDE_STUB_PROTOTYPES 1
 #import <PLWeakCompatibility/PLWeakCompatibilityStubs.h>
 
 //#import <XPCKit/XPCKit.h>
 //#import <RMKit/RMKit.h>
-//#import <FunSize/FunSize.h>
 //#import <BlocksKit/BlocksKit.h>
-#import <xpc/xpc.h>
 
-#import "AZGeometry.h"
+
 #import "AtoZFunctions.h"
+#import "AZGeometry.h"
+
 #import "AZGeometricFunctions.h"
-//#import "AtoZUmbrella.h"
+#import "AtoZUmbrella.h"
 
 //#import "AtoZ.h"
 #import	"BaseModel.h"
-//#import	"AtoZUmbrella.h"
-//#import "AtoZFunctions.h"
+
+
 #import "AtoZModels.h"
-
-
-//#import <AtoZ/BaseModel.h>
 #import "NSBag.h"
 
 
@@ -44,13 +43,14 @@
 #import "AZSimpleView.h"
 #import "AZSizer.h"
 
-#import "CALayer+AtoZ.h"
 #import "AZMouser.h"
 #import "iCarousel.h"
 //#import "azCarousel.h"
 
+#import "AZCalculatorController.h"
 
 // Categories
+#import "CALayer+AtoZ.h"
 #import "NSFileManager+AtoZ.h"
 #import "NSBundle+AtoZ.h"
 #import "NSThread+AtoZ.h"
@@ -68,29 +68,42 @@
 #import "CAAnimation+AtoZ.h"
 #import "NSScreen+AtoZ.h"
 #import "NSObject+AtoZ.h"
+#import "NSDictionary+AtoZ.h"
+
+//#import "MondoSwitch.h"
+//#import "AZToggleView.h"
+
+//Classes
+#import "AZSegmentedRect.h"
+#import "AZQueue.h"
+#import "AZDockQuery.h"
+#import "AZAXAuthorization.h"
 #import "AZNotificationCenter.h"
-#import "NSWindow_Flipr.h"
 #import "NSLogConsole.h"
 #import "AZLaunchServices.h"
 #import "AZObject.h"
 #import "AZLassoView.h"
 #import "AZBackground.h"
-#import "AZDarkButtonCell.h"
-#import "AZTrackingWindow.h"
 #import "AZCSSColors.h"
-//#import "MondoSwitch.h"
+
+//Controls
 #import "AZToggleArrayView.h"
+#import "AZDarkButtonCell.h"
 
-//#import "AZToggleView.h"
-
-//Classes
-#import "AZSegmentedRect.h"
+//Windows
+#import "AZTrackingWindow.h"
 #import "AZWindowExtend.h"
-#import "AZQueue.h"
-#import "AZDockQuery.h"
-#import "AZAXAuthorization.h"
+#import "NSWindow_Flipr.h"
+
+//CoreScroll
+#import "AZCoreScrollView.h"
+#import "AZSnapShotLayer.h"
+#import "AZTimeLineLayout.h"
+#import "AZScrollPaneLayer.h"
+#import "AZScrollerLayer.h"
 
 // Views
+#import "AZLassoView.h"
 #import "AZFoamView.h"
 #import "AZBlockView.h"
 #import "AZProgressIndicator.h"
@@ -117,13 +130,15 @@
 #import "NSNumber+F.h"
 #import "NSTextView+AtoZ.h"
 
+
 #import "LoremIpsum.h"
 #import "AZVeil.h"
 #import "NotificationCenterSpy.h"
 #import "TransparentWindow.h"
 #import <BlocksKit/BlocksKit.h>
 
-//static NSEventMask AZMouseActive = NSMouseMovedMask | NSMouseExitedMask |NSMouseEnteredMask;
+static NSEventMask AZMouseActive = (NSMouseMovedMask | NSMouseExitedMask |NSMouseEnteredMask);
+//static NSEventMask AZMouseButton = NS | NSMouseExitedMask |NSMouseEnteredMask;
 
 CGFloat ScreenWidess();
 CGFloat ScreenHighness();
@@ -132,16 +147,6 @@ CGFloat ScreenHighness();
 - (id) debugReturn:(id) val;
 @end
 
-static double frandom(double start, double end);
-
-//	#define NSLog(args...) _AZSimpleLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args);
-#define NSLog(args...) QuietLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args)
-void QuietLog (const char *file, int lineNumber, const char *funcName, NSString *format, ...);
-	//extern
-void _AZLog(const char *file, int lineNumber, const char *funcName, NSString *format,...);
-
-
-void ApplicationsInDirectory(NSString *searchPath, NSMutableArray *applications);
 
 
 
@@ -162,10 +167,15 @@ extern NSString *const AtoZDockSortedUpdated;
 + (NSString*) resources;
 + (NSArray*) appFolderSamplerWith:(NSUInteger)apps;
 
+- (NSPoint)convertToScreenFromLocalPoint:(NSPoint)point relativeToView:(NSView *)view;
+- (void)moveMouseToScreenPoint:(NSPoint)point;
 
 #ifdef GROWL_ENABLED
 <GrowlApplicationBridgeDelegate>
 #endif
+
+
++ (NSString*) stringForPosition:(AZWindowPosition)enumVal;
 
 + (NSArray*) dock;
 + (NSArray*) dockSorted;
@@ -265,9 +275,6 @@ extern NSString *const AtoZDockSortedUpdated;
 @end
 
 
-@interface CALayer (AGFlip)
-- (void) flipOver;
-@end
 
 @interface CAAnimation (NSViewFlipper)
 +(CAAnimation *)flipAnimationWithDuration:(NSTimeInterval)duration forLayerBeginningOnTop:(BOOL)beginsOnTop scaleFactor:(CGFloat)scaleFactor;

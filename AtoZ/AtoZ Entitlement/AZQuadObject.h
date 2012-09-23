@@ -20,6 +20,9 @@
 @property (nonatomic, assign) NSUInteger iconStyle;
 //@property (nonatomic, assign) iCarouselType type;
 
+
+@property (nonatomic, strong) AZTrackingWindow *floater;
+
 @property (nonatomic, strong) AZTrackingWindow *north;
 @property (nonatomic, strong) AZTrackingWindow *south;
 @property (nonatomic, strong) AZTrackingWindow *east;
@@ -51,6 +54,7 @@
 -(void) advance;
 -(void) rewind;
 
+- (IBAction)toggleQuadFlip:(id)sender;
 - (IBAction)toggleQuad:(id)sender;
 - (IBAction)setVeils:(id)sender;
 - (IBAction)setType:(id)sender;

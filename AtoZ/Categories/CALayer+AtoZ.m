@@ -8,6 +8,8 @@
 
 #import "CALayer+AtoZ.h"
 #import "AtoZ.h"
+#import "AtoZUmbrella.h"
+#import "AtoZFunctions.h"
 
 /*
 struct CATransform3D
@@ -141,13 +143,41 @@ CALayer* AddShadow( CALayer *layer) {
 	return layer;
 }
 
+CALayer* AddPulsatingBloom( CALayer *layer) {
+	AddBloom(layer);
+	// create the animation that will handle the pulsing.
+	CABasicAnimation* pulseAnimation = [CABasicAnimation animation];
+	// the attribute we want to animate is the inputIntensity	of the pulseFilter
+	pulseAnimation.keyPath 			= @"filters.pulseFilter.inputIntensity";
+	// we want it to animate from the value 0 to 1
+	pulseAnimation.fromValue 		= @(0.0);
+	pulseAnimation.toValue 			= @(4.5);
+	// over a one second duration, and run an infinite number of times
+	pulseAnimation.duration 			= 1.0;
+	pulseAnimation.repeatCount 		= HUGE_VALF;
+	// we want it to fade on, and fade off, so it needs to automatically autoreverse.. this causes the intensity	input to go from 0 to 1 to 0
+	pulseAnimation.autoreverses 	= YES;
+	// use a timing curve of easy in, easy out..
+	pulseAnimation.timingFunction 	= [CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionEaseInEaseOut];
+	// add the animation to the selection layer. This causes it to begin animating. We'll use pulseAnimation as the animation key name
+	[layer addAnimation:pulseAnimation forKey:@"pulseAnimation"];
+	return layer;
+}
+
+CALayer* NewLayerWithFrame(NSRect rect){
+    CALayer *layer 			= [[CALayer alloc] init];
+	layer.bounds			= AZMakeRectFromSize(rect.size);
+	layer.position		  	= AZCenterOfRect(rect);
+	layer.autoresizingMask 	= kCALayerWidthSizable| kCALayerHeightSizable;
+	return layer;
+}
 CALayer* ReturnLayer( CALayer *superlayer){
 
     CALayer *layer 			= [[CALayer alloc] init];
-    layer.backgroundColor 	= cgRANDOMCOLOR;
+//    layer.backgroundColor 	= cgRANDOMCOLOR;
 	layer.bounds			= AZMakeRectFromSize(superlayer.frame.size);
 	layer.position		  	= AZCenterOfRect(superlayer.frame);
-	layer.frame				= AZMakeRectFromSize(nanSizeCheck([superlayer frame].size));
+//	layer.frame				= AZMakeRectFromSize(nanSizeCheck([superlayer frame].size));
 	layer.contentsGravity  	= kCAGravityResizeAspect;
 	layer.autoresizingMask 	= kCALayerWidthSizable| kCALayerHeightSizable;
 	return layer;
@@ -161,45 +191,103 @@ CALayer* AddLayer( CALayer *superlayer)
 	return layer;
 }
 
-CATextLayer* AddTextLayer( CALayer *superlayer,	NSString *text, NSFont* font,	enum CAAutoresizingMask align )
+CATextLayer* AddLabel( CALayer *superlayer,
+						  NSString *text)
 {
-    CATextLayer *label 	  = [[CATextLayer alloc] init];
-    label.foregroundColor = kBlackColor;
-    label.string 		= text;
-    label.font 			= (__bridge CGFontRef)font;
-    label.fontSize 		= font.pointSize;
-    NSString *mode	 	= align & kCALayerWidthSizable 	? @"center"
-				   		: align & kCALayerMinXMargin 	? @"right"		: @"left";
-						  align |= kCALayerWidthSizable;
-	label.alignmentMode = mode;
-    CGFloat inset 		= superlayer.borderWidth + 3;
-    CGRect bounds 		= CGRectInset(superlayer.bounds, inset, inset);
-    CGFloat height 		= font.ascender;
-    CGFloat y 			= bounds.origin.y;
-	y 				   += align & kCALayerHeightSizable	? ((bounds.size.height-height) / 2.0)
- 						: align & kCALayerMinYMargin 	? bounds.size.height - height : 0;
-    align &= ~kCALayerHeightSizable;
-    label.bounds 		= (CGRect) { 0, font.descender, bounds.size.width, height - font.descender };
-    label.position 		= (CGPoint) { bounds.origin.x, y+font.descender };
-    label.anchorPoint 	= (CGPoint) { 0, 0 };
-    label.autoresizingMask = align;
-    [superlayer addSublayer: label];
+	NSFont *font = [NSFont fontWithName:@"UbuntuTitling-Bold" size:29];
+	return AddTextLayer(superlayer, text, font, kCALayerWidthSizable);
+}
+
+extern CATextLayer* AddLabelLayer( CALayer *superlayer,								 NSString *text, NSFont* font )
+{
+	return AddTextLayer(superlayer, text, font, kCALayerWidthSizable);
+}
+
+
+
+CATextLayer* AddTextLayer( CALayer *superlayer,
+							  NSString *text, NSFont* font,
+							  enum CAAutoresizingMask align )
+
+{	CATextLayer *label = [[CATextLayer alloc] init];
+	[label setValue:@(YES) forKey:@"label"];
+	label.string = text;
+    label.font = (__bridge CGFontRef)font;
+    label.fontSize = font.pointSize;
+//	CGColorRef sup = superlayer.backgroundColor;
+	label.foregroundColor =  kBlackColor;
+// sup ? sup :
+//    NSString *mode;
+//    if( align & kCALayerWidthSizable )		mode = @"center";
+//    else if( align & kCALayerMinXMargin ) 	mode = @"right";
+//    else									mode = @"left";
+//    align |= kCALayerWidthSizable;
+//    label.alignmentMode = mode;
+
+//    CGFloat inset 	= superlayer.borderWidth + 3;
+    CGRect  bounds 	= nanRectCheck(superlayer.bounds);// CGRectInset(superlayer.bounds, inset, inset));
+    CGFloat height 	= font.ascender;
+//    CGFloat y 		= bounds.origin.y;
+//    if		( align & kCALayerHeightSizable )	y += (bounds.size.height-height)/2.0;
+//    else if	( align & kCALayerMinYMargin 	)	y += bounds.size.height - height;
+//			  align &= ~kCALayerHeightSizable;
+
+	label.bounds 	= bounds;// nanRectCheck(  CGRectMake(0, font.descender, bounds.size.width, height - font.descender));
+    label.position 	= nanPointCheck(AZCenterOfRect(superlayer.bounds));//CGPointMake(bounds.origin.x,y+font.descender));
+//    label.anchorPoint = (CGPoint) { .5,.5 };
+    label.autoresizingMask = kCALayerWidthSizable | kCALayerHeightSizable;// align;
+	[superlayer addSublayer: label];
     return label;
 }
 
+//
+//CATextLayer* AddTextLayer( CALayer *superlayer,	NSString *text, NSFont* font,	enum CAAutoresizingMask align )
+//{
+//    CATextLayer *label 	  = [[CATextLayer alloc] init];
+//    label.foregroundColor = kBlackColor;
+//    label.string 		= text;
+//    label.font 			= (__bridge CGFontRef)font;
+//    label.fontSize 		= font.pointSize;
+//    NSString *mode	 	= align & kCALayerWidthSizable 	? @"center"
+//				   		: align & kCALayerMinXMargin 	? @"right"		: @"left";
+//						  align |= kCALayerWidthSizable;
+//	label.alignmentMode = mode;
+//    CGFloat inset 		= superlayer.borderWidth + 3;
+//    CGRect bounds 		= CGRectInset(superlayer.bounds, inset, inset);
+//    CGFloat height 		= font.ascender;
+//    CGFloat y 			= bounds.origin.y;
+//	y 				   += align & kCALayerHeightSizable	? ((bounds.size.height-height) / 2.0)
+// 						: align & kCALayerMinYMargin 	? bounds.size.height - height : 0;
+//    align &= ~kCALayerHeightSizable;
+//    label.bounds 		= (CGRect) { 0, font.descender, bounds.size.width, height - font.descender };
+//    label.position 		= (CGPoint) { bounds.origin.x, y+font.descender };
+//    label.anchorPoint 	= (CGPoint) { 0, 0 };
+//    label.autoresizingMask = align;
+//    [superlayer addSublayer: label];
+//    return label;
+//}
+
 CALayer * AddImageLayer( CALayer *superlayer, NSImage *image, CGFloat scale) {
 	CALayer *u = ReturnImageLayer(superlayer, image, scale);
+
+//	u.contentsCenter = AZCenterRectOnRect(superlayer.bounds, new);
+//	, scale), superlayer.frame);
 	[superlayer addSublayer:u];
-	[superlayer setNeedsLayout];
+	[superlayer layoutIfNeeded];
 	return u;
 }
 
 CALayer* ReturnImageLayer(CALayer *superlayer, NSImage *image, CGFloat scale)
 {
     CALayer *label 			= ReturnLayer(superlayer);
-    label.contents 			= image;
-	label.layoutManager  	= [CAConstraintLayoutManager layoutManager];
-	[label addConstraintsSuperSizeScaled:scale];
+	NSSize old 				= superlayer.frame.size;
+	image.size				= (NSSize) { old.width * scale, old.height * scale};
+	label.contentsGravity 	= kCAGravityCenter;
+	label.contentsRect 		= AZMakeRectFromSize(old);
+	label.contents 			= image;
+	[label setValue:@(YES) forKey:@"image"];
+//	label.layoutManager  	= [CAConstraintLayoutManager layoutManager];
+//	[label addConstraintsSuperSizeScaled:scale];
 	return label;
 }
 
@@ -407,6 +495,68 @@ CGColorRef CreatePatternColor( CGImageRef image )
 	self.sublayerTransform		= transform;
 }
 
+//- (void) flipHorizontally {	[self flipForward:YES vertically:NO atPosition:99]; }
+//- (void) flipVertically;  {	[self flipForward:YES vertically:YES atPosition:99]; }
+- (void) flipBackAtEdge:	(AZWindowPosition)position;{  	[self flipForward:NO  atPosition:position];  }
+- (void) flipForwardAtEdge: (AZWindowPosition)position;{  	[self flipForward:YES  atPosition:position]; }
+
+
+- (CATransform3D) flipAnimationPositioned:(AZWindowPosition)pos {
+	CGPoint dir = (CGPoint) {   pos == AZPositionTop || pos ==AZPositionBottom ? 1 : 0,
+								pos == AZPositionTop || pos ==AZPositionBottom ? 0 : 1 };
+	CATransform3D flip = CATransform3DMakeRotation(DEG2RAD(180), dir.x, dir.y, 0.0f);
+
+	if ( ![self boolForKey:@"flippedOver"] ) {
+		CATransform3D now = self.transform;
+		[self setValue:AZV3dT(now) forKey:@"savedTransform"];
+		[self setBool:YES forKey:@"flippedOver"];
+		return CATransform3DConcat(now, flip);
+	} else {
+		[self setBool:NO forKey:@"flippedOver"];
+		 return [[self valueForKey:@"savedTransform"]CATransform3DValue];
+	}
+}
+- (void) flipForward:(BOOL)forward  atPosition:(AZWindowPosition)pos {
+
+
+	CGPoint new = AZAnchorPointForPosition(pos);
+#ifdef DEBUGTALKER
+//	AZTALK($(@"Old: %.1f by %.1f and new is: %.1f by %.1f", self.anchorPoint.x, self.anchorPoint.y, new.x, new.y));
+#endif
+	[self setAnchorPoint:new inRect:[self bounds]];
+
+	[self animate:@"transform" toTransform:[self flipAnimationPositioned:pos] time:1 eased:CAMEDIAEASY];// completion:^{
+
+//		BOOL newFlipState = [self valueForKey:@"flippedOver"] ? ![self boolForKey:@"flippedOver"] : YES;
+#ifdef DEBUGTALKER
+//	AZTALK($(@"%@ flipped", newFlipState ? @"IS" : @"is NOT "));
+#endif
+
+//	}];
+//	AZLOG([self debugDescription]);
+}
+
+
+- (void) setAnchorPoint: (CGPoint) anchorPoint inView: (NSView *) view{
+	[self setAnchorPoint:anchorPoint inRect:[view bounds]];
+}
+
+- (void) setAnchorPointRelative: (CGPoint) anchorPoint{
+	[self setAnchorPoint:anchorPoint inRect:[self bounds]];
+}
+
+
+- (void) setAnchorPoint: (CGPoint) anchorPoint inRect:(NSRect)rect
+{
+    CGPoint newPoint = (CGPoint) { rect.size.width * anchorPoint.x, rect.size.height * anchorPoint.y };
+    CGPoint oldPoint = (CGPoint) { rect.size.width * self.anchorPoint.x, rect.size.height * self.anchorPoint.y };
+//    newPoint = CGPo CGPointApplyAffineTransform(newPoint, self.transform); oldPoint = CGPointApplyAffineTransform(oldPoint, self.transform);
+	CGPoint position = self.position;
+    position.x -= oldPoint.x;	position.x += newPoint.x;
+    position.y -= oldPoint.y;	position.y += newPoint.y;
+	self.position = position;
+    self.anchorPoint = anchorPoint;
+}
 
 - (void) toggleFlip  {        //:(CATransform3D)transform {
 	BOOL isFlipped = [[self valueForKey:@"flipped"]boolValue];

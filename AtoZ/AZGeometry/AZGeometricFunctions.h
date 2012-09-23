@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 #import "AtoZUmbrella.h"
-
+#import "AtoZFunctions.h"
 
 
 
@@ -37,8 +37,17 @@ NSRect AZScreenFrame();
 NSSize AZScreenSize();
 NSRect AZScreenFrameUnderMenu();
 
+FOUNDATION_EXPORT const CGPoint AZAnchorTop;
+FOUNDATION_EXPORT const CGPoint AZAnchorBottom;
+FOUNDATION_EXPORT const CGPoint AZAnchorRight;
+FOUNDATION_EXPORT const CGPoint AZAnchorLeft;
+
+CGPoint AZAnchorPointForPosition( AZWindowPosition pos);
+
 NSSize AZDirectionsOffScreenWithPosition(NSRect rect, AZWindowPosition position );
 AZWindowPosition AZPositionOfRect(NSRect rect);
+
+AZOrient deltaDirectionOfPoints(NSPoint a, NSPoint b);
 
 // NSRange from a min and max values
 // even though the names imply that min should be greater than max
@@ -168,6 +177,8 @@ NSPoint AZPointDistanceToBorderOfRect(NSPoint point, NSRect rect);
 
 NSPoint AZNormalizedDistanceOfRects(NSRect from, NSRect to);
 NSPoint AZNormalizedDistanceToCenterOfRect(NSPoint point, NSRect rect);
+
+NSPoint AZPointFromDim(CGFloat val);
 
 
 // NSSize result methods

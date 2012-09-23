@@ -8,7 +8,7 @@
 
 #import "AZFileGridView.h"
 #import <QuartzCore/QuartzCore.h>
-#import "AtoZ.h"
+
 
 
 @interface GridLayoutManager : CALayer

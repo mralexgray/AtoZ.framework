@@ -12,9 +12,58 @@
 
 #import "NSArray+AtoZ.h"
 
+
+
+
+@implementation NSArray (EnumExtensions)
+
+- (NSString*) stringWithEnum: (NSUInteger) enumVal
+{
+    return [self objectAtIndex:enumVal];
+}
+
+- (NSUInteger) enumFromString: (NSString*) strVal default: (NSUInteger) def
+{
+    NSUInteger n = [self indexOfObject:strVal];
+    if(n == NSNotFound) n = def;
+    return n;
+}
+
+- (NSUInteger) enumFromString: (NSString*) strVal
+{
+    return [self enumFromString:strVal default:0];
+}
+
+@end
+
+
+@implementation NSArray (NSTableDataSource)
+
+- (id) tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex
+{
+	id obj = [self objectAtIndex:rowIndex]; if (obj == nil)		return nil;
+	if (![obj isKindOfClass:[NSDictionary class]])		return obj;
+	return [(NSDictionary *)obj objectForKey:[aTableColumn identifier]];
+}
+- (int) numberOfRowsInTableView:(NSTableView *)aTableView { 	return [self count];  }
+
+@end
+
 @implementation NSArray (AtoZ)
 @dynamic trimmedStrings;
 
+
++ (NSArray*) arrayFromPlist:(NSString*)path {
+
+	return [NSPropertyListSerialization propertyListFromData:
+		   [NSData dataWithContentsOfFile:path] mutabilityOption:NSPropertyListImmutable
+													      format:nil errorDescription:nil];
+}
+- (void) saveToPlistAtPath:(NSString*)path{
+
+	[HRCoder archiveRootObject:self toFile:path];
+	[NSTask launchedTaskWithLaunchPath:@"/usr/bin/plutil" arguments:@[@"-convert", @"xml1", path]];
+}
 
 
 - (NSArray *)arrayWithEach{
@@ -463,8 +512,10 @@ static NSInteger comparatorForSortingUsingArray(id object1, id object2, void *co
 	return re;
 }
 
-- (id)objectAtNormalizedIndex:(NSInteger)index {
-	if (self.count == 0) {
+- (id)objectAtNormalizedIndex:(NSInteger)index { return [self normal:index]; }
+- (id)normal:(NSInteger)index {
+
+		if (self.count == 0) {
 		return nil;
 	}
 	

@@ -52,6 +52,8 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 @implementation NSImage (AtoZ)
 
 
+
+
 - (NSSize)proportionalSizeForTargetSize:(NSSize)targetSize
 {
     NSSize imageSize = [self size];
@@ -1044,6 +1046,10 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 - (NSImage *)imageCroppedToFitSize:(NSSize)size
 {
 	return [self imageToFitSize:size method:AGImageResizeCrop];
+}
+
+- (NSImage *)scaledToMax:(CGFloat)f {
+	return [self imageScaledToFitSize: AZSizeFromDimension(f)];
 }
 
 - (NSImage *)imageScaledToFitSize:(NSSize)size

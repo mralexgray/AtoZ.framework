@@ -27,4 +27,5 @@ typedef enum AZQuadCellModel {
 @property (nonatomic, strong) NSString *string;
 @property (nonatomic, strong) NSColor *color;
 @property (nonatomic, assign) NSFont *font;
+@property (nonatomic, assign) CGFloat dynamicStroke;
 @end

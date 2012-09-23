@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 @interface AZSimpleView : NSView
+@property (assign) BOOL clear;
 @property (assign) BOOL glossy;
 @property (assign) BOOL gradient;
 @property (assign) BOOL checkerboard;

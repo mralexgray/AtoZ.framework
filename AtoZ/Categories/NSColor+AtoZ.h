@@ -2,11 +2,6 @@
 //  NSColot+AtoZ.h
 //  AtoZ
 
-//  Created by Alex Gray on 6/29/12.
-//  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-
-
-
 #import <Cocoa/Cocoa.h>
 #import <Foundation/Foundation.h>
 #import <AppKit/AppKit.h>
@@ -17,52 +12,51 @@
 //#import <AGFoundation/AGFoundation.h>
 //#import "AGFoundation.h"
 
-
-
-
 @interface NSColor (AtoZ)
-- (NSColor *)inverted;
+- (NSColor*) inverted;
 
 + (NSColor*) linen;
-+ (NSColor*) linenTintedWithColor:(NSColor*)color;
++ (NSColor*) linenTintedWithColor: (NSColor*) color;
 
-+ (NSColor*)checkerboardWithFirstColor: (NSColor*)firstColor secondColor: (NSColor*)secondColor squareWidth: (CGFloat)width;
++ (NSColor*) checkerboardWithFirstColor: (NSColor*) firstColor secondColor: (NSColor*) secondColor
+															   squareWidth: (CGFloat)width;
++ (NSArray*) colorNames;
++ (NSColor*) colorNamed:(NSString*)string;
 
-+ (NSArray *)	colorNames;
-+ (NSColor *)	colorNamed:(NSString *)string;
+- (BOOL)	 isBoring;
+- (BOOL)	 isExciting;
++ (NSArray*) boringColors;
 
-- (BOOL) 		isBoring;
-- (BOOL) 		isExciting;
-+ (NSArray*) 	boringColors;
+
+- (NSString*) 	nameOfColor;
+- (NSString*) 	crayonName;
+- (NSColor*) 	closestWebColor;
+- (NSColor*)	closestNamedColor;
+//- (NSDictionary*)	closestColor;  //name, list, and color
 
 - (CGColorRef)	cgColor;
-- (NSString*)	crayonName;
-- (NSColor*)	closestWebColor;
-- (NSColor*) 	closestNamedColor;
-- (NSString*)	nameOfColor;
-//- (NSDictionary*) closestColor;  //name, list, and color
 
-+ (NSArray *) fengshui;
-+ (NSArray *) colorsInFrameworkListNamed:(NSString*)name;
-+ (NSArray *) colorListsInFramework;
-+ (NSArray *)  colorLists;
-+ (NSArray *) allColors;
++ (NSArray*)	fengshui;
++ (NSArray*)	colorsInFrameworkListNamed:(NSString*)name;
++ (NSArray*)	colorListsInFramework;
++ (NSArray*)	colorLists;
++ (NSArray*)	allColors;
 + (NSArray*)	randomPalette;
-+ (NSArray*) allSystemColors;
++ (NSArray*)	systemColors;
++ (NSArray*)	systemColorNames;
 
 + (NSColor*)	randomColor;
 + (NSColor*)	randomOpaqueColor;
-+ (NSColor*) 	colorFromHexRGB:	(NSString*) 	inColorString;
-//+ (NSColor*) 	colorWithHTMLString:(NSString*)		hexString;
-+ (NSColor*)	colorWithCGColor:	(CGColorRef) 	aColor;
-+ (NSColor*)	crayonColorNamed:	(NSString *)	key;
++ (NSColor*)	colorFromHexRGB: (NSString*) inColorString;
+//+ (NSColor*)	colorWithHTMLString:(NSString*)	hexString;
 
-//+ (NSColor*)	colorWithName:(NSString *)colorName;
++ (NSColor*)	colorWithCGColor: (CGColorRef) aColor;
++ (NSColor*)	crayonColorNamed: (NSString*) key;
 
-//+ (NSColor*)	colorFromString: 	(NSString*) 	string;
-//+ (NSColor*)	colorFromHexString: (NSString*)		hexString;
+//+ (NSColor*)	colorWithName:(NSString*)colorName;
+//+ (NSColor*)	colorFromString: 	(NSString*)	string;
+//+ (NSColor*)	colorFromHexString: (NSString*)	hexString;
 - (NSString*)	toHex;
-
 
 @property (readonly) NSColor *deviceRGBColor;
 @property (readonly) NSColor *calibratedRGBColor;
@@ -82,7 +76,7 @@
 @property (readonly) NSColor *redshift;
 @property (readonly) NSColor *blueshift;
 
--(NSColor *)blend:(NSColor *)other;
+-(NSColor*)blend:(NSColor*)other;
 
 @property (readonly) NSColor *whitened;
 @property (readonly) NSColor *blackened;
@@ -97,41 +91,41 @@
 @property (readonly) NSColor *translucent;
 @property (readonly) NSColor *watermark;
 
--(NSColor *)rgbDistanceToColor:(NSColor *)color;
--(NSColor *)hsbDistanceToColor:(NSColor *)color;
-@property (readonly) CGFloat rgbWeight;
-@property (readonly) CGFloat hsbWeight;
+-(NSColor*)rgbDistanceToColor:(NSColor*)color;
+-(NSColor*)hsbDistanceToColor:(NSColor*)color;
+@property (readonly)	CGFloat rgbWeight;
+@property (readonly)	CGFloat hsbWeight;
 
-@property (readonly) BOOL isBlueish;
-@property (readonly) BOOL isRedish;
-@property (readonly) BOOL isGreenish;
-@property (readonly) BOOL isYellowish;
+@property (readonly)	BOOL isBlueish;
+@property (readonly)	BOOL isRedish;
+@property (readonly)	BOOL isGreenish;
+@property (readonly)	BOOL isYellowish;
 
 @end
 
 @interface NSString (THColorConversion)
-- (NSColor*) colorValue;
-- (NSData*)  colorData;
-+ (NSColor*) colorFromData:(NSData*)theData;
+- (NSColor*)	colorValue;
+- (NSData*)	 colorData;
++ (NSColor*)	colorFromData:(NSData*)theData;
 @end
 
 @interface NSArray (THColorConversion)
-- (NSArray *)colorValues;
+- (NSArray*)colorValues;
 @end
 
-@interface NSCoder (AGCoder)  //(TDBindings)
+@interface NSCoder (AGCoder)	 //(TDBindings)
 
 +(void)encodeColor:(CGColorRef)theColor  withCoder:(NSCoder*)encoder withKey:(NSString*)theKey;
 
 @end
 @interface NSColor (NSColor_ColorspaceEquality)
 
-- (BOOL) isEqualToColor:(NSColor*)inColor colorSpace:(NSString*)inColorSpace;
+- (BOOL)	isEqualToColor:(NSColor*)inColor colorSpace:(NSString*)inColorSpace;
 
 @end
 @interface NSColor (NSColor_CSSRGB)
 
-+ (NSColor*) colorWithCSSRGB:(NSString*)rgbString;
++ (NSColor*)	colorWithCSSRGB:(NSString*)rgbString;
 
 @end
 
@@ -141,9 +135,9 @@
 @interface NSColor (AIColorAdditions_HLS)
 
 //Linearly adjust a color
-#define cap(x) { if (x < 0) {x = 0;} else if (x > 1) {x = 1;} }
+#define cap(x)	{ if (x < 0)	{x = 0;} else if (x > 1)	{x = 1;} }
 
-- (NSColor *)adjustHue:(CGFloat)dHue saturation:(CGFloat)dSat brightness:(CGFloat)dBrit;
+- (NSColor*)adjustHue:(CGFloat)dHue saturation:(CGFloat)dSat brightness:(CGFloat)dBrit;
 
 @end
 #define CV_PALETTE_1 [NSColor colorWithDeviceRed:.9372 green:.6313 blue:.5019 alpha:1]
@@ -210,36 +204,38 @@
 @interface NSColor (Utilities)
 
 // The Calvetica specific colors.
-+ (NSArray *)calveticaPalette;
++ (NSArray*)calveticaPalette;
 
 // Determines which color in the Calvetica palette most closely matches the recipient color.
-- (NSColor *)closestColorInCalveticaPalette;
+- (NSColor*)closestColorInCalveticaPalette;
 
 // Determines which color in the array of colors most closely matches recipient color.
-- (NSColor *)closestColorInPalette:(NSArray *)palette;
+- (NSColor*)closestColorInPalette:(NSArray*)palette;
 
 // Converts the recipient UIColor to the L*a*b* color space.
-- (float *)colorToLab;
+- (float*)colorToLab;
 
 // Converts a color from the RGB color space to the L*a*b* color space.
-+ (float *)rgbToLab:(float *)rgb;
++ (float*)rgbToLab:(float*)rgb;
 
 // Converts a color from the RGB color space to the XYZ color space.
-+ (float *)rgbToXYZ:(float *)rgb;
++ (float*)rgbToXYZ:(float*)rgb;
 
 // Coverts a color from the XYZ color space to the L*a*b* color space.
-+ (float *)xyzToLab:(float *)xyz;
++ (float*)xyzToLab:(float*)xyz;
 @end
 
 @interface NSColorList (AtoZ)
-+ (id) colorListWithFileName:(NSString *)fileName inBundle:(NSBundle *)aBundle;
-+ (id) colorListWithFileName:(NSString *) fileName inBundleForClass:(Class) aClass;
-+ (id) colorListInFrameworkWithFileName:(NSString *) fileName;
+
+- (NSColor*)	randomColor;
++ (id)	colorListWithFileName:(NSString*)fileName inBundle:(NSBundle*)aBundle;
++ (id)	colorListWithFileName:(NSString*)	fileName inBundleForClass:(Class)	aClass;
++ (id)	colorListInFrameworkWithFileName:(NSString*)	fileName;
 @end
 
 //@implementation NSColor (AIColorAdditions_RepresentingColors)
 
-//- (NSString *)hexString
+//- (NSString*)hexString
 //{
 //    CGFloat 	red,green,blue;
 //    char	hexString[7];
@@ -266,12 +262,12 @@
 //}
 
 ////String representation: R,G,B[,A].
-//- (NSString *)stringRepresentation
+//- (NSString*)stringRepresentation
 //{
 //    NSColor	*tempColor = [self colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
 //	CGFloat alphaComponent = [tempColor alphaComponent];
 
-//	if (alphaComponent == 1.0) {
+//	if (alphaComponent == 1.0)	{
 //		return [NSString stringWithFormat:@"%d,%d,%d",
 //			(int)([tempColor redComponent] * 255.0),
 //			(int)([tempColor greenComponent] * 255.0),
@@ -286,12 +282,12 @@
 //	}
 //}
 
-////- (NSString *)CSSRepresentation
+////- (NSString*)CSSRepresentation
 ////{
 ////	CGFloat alpha = [self alphaComponent];
-////	if ((1.0 - alpha) >= 0.000001) {
+////	if ((1.0 - alpha)	>= 0.000001)	{
 ////		NSColor *rgb = [self colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
-////		//CSS3 defines rgba() to take 0..255 for the color components, but 0..1 for the alpha component. Thus, we must multiply by 255 for the color components, but not for the alpha component.
+////		//CSS3 defines rgba()	to take 0..255 for the color components, but 0..1 for the alpha component. Thus, we must multiply by 255 for the color components, but not for the alpha component.
 ////		return [NSString stringWithFormat:@"rgba(%@,%@,%@,%@)",
 ////			[NSString stringWithCGFloat:[rgb redComponent]   * 255.0f maxDigits:6],
 ////			[NSString stringWithCGFloat:[rgb greenComponent] * 255.0f maxDigits:6],
@@ -306,7 +302,7 @@
 
 //@implementation NSString (AIColorAdditions_RepresentingColors)
 
-//- (NSColor *)representedColor
+//- (NSColor*)representedColor
 //{
 //    CGFloat	r = 255, g = 255, b = 255;
 //    CGFloat	a = 255;
@@ -315,34 +311,34 @@
 
 //	//format: r,g,b[,a]
 //	//all components are decimal numbers 0..255.
-//	if (!isdigit(*selfUTF8)) goto scanFailed;
+//	if (!isdigit(*selfUTF8))	goto scanFailed;
 //	r = (CGFloat)strtoul(selfUTF8, (char **)&selfUTF8, /*base*/ 10);
 
-//	if(*selfUTF8 == ',') ++selfUTF8;
+//	if(*selfUTF8 == ',')	++selfUTF8;
 //	else                 goto scanFailed;
 
-//	if (!isdigit(*selfUTF8)) goto scanFailed;
+//	if (!isdigit(*selfUTF8))	goto scanFailed;
 //	g = (CGFloat)strtoul(selfUTF8, (char **)&selfUTF8, /*base*/ 10);
-//	if(*selfUTF8 == ',') ++selfUTF8;
+//	if(*selfUTF8 == ',')	++selfUTF8;
 //	else                 goto scanFailed;
 
-//	if (!isdigit(*selfUTF8)) goto scanFailed;
+//	if (!isdigit(*selfUTF8))	goto scanFailed;
 //	b = (CGFloat)strtoul(selfUTF8, (char **)&selfUTF8, /*base*/ 10);
-//	if (*selfUTF8 == ',') {
+//	if (*selfUTF8 == ',')	{
 //		++selfUTF8;
 //		a = (CGFloat)strtoul(selfUTF8, (char **)&selfUTF8, /*base*/ 10);
 
-//		if (*selfUTF8) goto scanFailed;
-//	} else if (*selfUTF8 != '\0') {
+//		if (*selfUTF8)	goto scanFailed;
+//	} else if (*selfUTF8 != '\0')	{
 //		goto scanFailed;
 //	}
 
-//    return [NSColor colorWithCalibratedRed:(r/255) green:(g/255) blue:(b/255) alpha:(a/255)] ;
+//    return [NSColor colorWithCalibratedRed:(r/255)	green:(g/255)	blue:(b/255)	alpha:(a/255)] ;
 //scanFailed:
 //	return nil;
 //}
 
-//- (NSColor *)representedColorWithAlpha:(CGFloat)alpha
+//- (NSColor*)representedColorWithAlpha:(CGFloat)alpha
 //{
 //	//this is the same as above, but the alpha component is overridden.
 
@@ -352,22 +348,22 @@
 
 //	//format: r,g,b
 //	//all components are decimal numbers 0..255.
-//	if (!isdigit(*selfUTF8)) goto scanFailed;
+//	if (!isdigit(*selfUTF8))	goto scanFailed;
 //	r = strtoul(selfUTF8, (char **)&selfUTF8, /*base*/ 10);
 
-//	if (*selfUTF8 != ',') goto scanFailed;
+//	if (*selfUTF8 != ',')	goto scanFailed;
 //	++selfUTF8;
 
-//	if (!isdigit(*selfUTF8)) goto scanFailed;
+//	if (!isdigit(*selfUTF8))	goto scanFailed;
 //	g = strtoul(selfUTF8, (char **)&selfUTF8, /*base*/ 10);
 
-//	if (*selfUTF8 != ',') goto scanFailed;
+//	if (*selfUTF8 != ',')	goto scanFailed;
 //	++selfUTF8;
 
-//	if (!isdigit(*selfUTF8)) goto scanFailed;
+//	if (!isdigit(*selfUTF8))	goto scanFailed;
 //	b = strtoul(selfUTF8, (char **)&selfUTF8, /*base*/ 10);
 
-//    return [NSColor colorWithCalibratedRed:(r/255) green:(g/255) blue:(b/255) alpha:alpha];
+//    return [NSColor colorWithCalibratedRed:(r/255)	green:(g/255)	blue:(b/255)	alpha:alpha];
 //scanFailed:
 //	return nil;
 //}
@@ -376,26 +372,26 @@
 
 //@implementation NSColor (AIColorAdditions_RandomColor)
 
-//+ (NSColor *)randomColor
+//+ (NSColor*)randomColor
 //{
-//	return [NSColor colorWithCalibratedRed:(arc4random() % 65536) / 65536.0f
-//	                                 green:(arc4random() % 65536) / 65536.0f
-//	                                  blue:(arc4random() % 65536) / 65536.0f
+//	return [NSColor colorWithCalibratedRed:(arc4random()	% 65536)	/ 65536.0f
+//	                                 green:(arc4random()	% 65536)	/ 65536.0f
+//	                                  blue:(arc4random()	% 65536)	/ 65536.0f
 //	                                 alpha:1.0f];
 //}
-//+ (NSColor *)randomColorWithAlpha
+//+ (NSColor*)randomColorWithAlpha
 //{
-//	return [NSColor colorWithCalibratedRed:(arc4random() % 65536) / 65536.0f
-//	                                 green:(arc4random() % 65536) / 65536.0f
-//	                                  blue:(arc4random() % 65536) / 65536.0f
-//	                                 alpha:(arc4random() % 65536) / 65536.0f];
+//	return [NSColor colorWithCalibratedRed:(arc4random()	% 65536)	/ 65536.0f
+//	                                 green:(arc4random()	% 65536)	/ 65536.0f
+//	                                  blue:(arc4random()	% 65536)	/ 65536.0f
+//	                                 alpha:(arc4random()	% 65536)	/ 65536.0f];
 //}
 
 //@end
 
 //@implementation NSColor (AIColorAdditions_HTMLSVGCSSColors)
 
-////+ (id)colorWithHTMLString:(NSString *)str
+////+ (id)colorWithHTMLString:(NSString*)str
 ////{
 ////	return [self colorWithHTMLString:str defaultColor:nil];
 ////}
@@ -412,12 +408,12 @@
 //	CGFloat				hexValue;
 //	NSUInteger		firstDigit;
 //	firstDigit = hexToInt(firstChar);
-//	if (firstDigit != -1) {
+//	if (firstDigit != -1)	{
 //		hexValue = firstDigit;
-//		if (secondChar != 0x0) {
+//		if (secondChar != 0x0)	{
 //			int secondDigit = hexToInt(secondChar);
 //			if (secondDigit != -1)
-//				hexValue = (hexValue * 16.0f + secondDigit) / 255.0f;
+//				hexValue = (hexValue * 16.0f + secondDigit)	/ 255.0f;
 //			else
 //				hexValue = 0;
 //		} else {
@@ -431,28 +427,28 @@
 //	return hexValue;
 //}
 ///*
-//+ (id)colorWithHTMLString:(NSString *)str defaultColor:(NSColor *)defaultColor
+//+ (id)colorWithHTMLString:(NSString*)str defaultColor:(NSColor*)defaultColor
 //{
-//	if (!str) return defaultColor;
+//	if (!str)	return defaultColor;
 
 //	NSUInteger strLength = [str length];
 
 //	NSString *colorValue = str;
 
-//	if ([str hasPrefix:@"rgb"]) {
+//	if ([str hasPrefix:@"rgb"])	{
 //		NSUInteger leftParIndex = [colorValue rangeOfString:@"("].location;
 //		NSUInteger rightParIndex = [colorValue rangeOfString:@")"].location;
 //		if (leftParIndex == NSNotFound || rightParIndex == NSNotFound)
 //		{
-//			NSLog(@"+[NSColor(AIColorAdditions) colorWithHTMLString:] called with unrecognised color function (str is %@); returning %@", str, defaultColor);
+//			NSLog(@"+[NSColor(AIColorAdditions)	colorWithHTMLString:] called with unrecognised color function (str is %@); returning %@", str, defaultColor);
 //			return defaultColor;
 //		}
 //		leftParIndex++;
 //		NSRange substrRange = NSMakeRange(leftParIndex, rightParIndex - leftParIndex);
 //		colorValue = [colorValue substringWithRange:substrRange];
 //		NSArray *colorComponents = [colorValue componentsSeparatedByString:@","];
-//		if ([colorComponents count] < 3 || [colorComponents count] > 4) {
-//			NSLog(@"+[NSColor(AIColorAdditions) colorWithHTMLString:] called with a color function with the wrong number of arguments (str is %@); returning %@", str, defaultColor);
+//		if ([colorComponents count] < 3 || [colorComponents count] > 4)	{
+//			NSLog(@"+[NSColor(AIColorAdditions)	colorWithHTMLString:] called with a color function with the wrong number of arguments (str is %@); returning %@", str, defaultColor);
 //			return defaultColor;
 //		}
 //		float red, green, blue, alpha = 1.0f;
@@ -464,20 +460,20 @@
 //		return [NSColor colorWithCalibratedRed:red green:green blue:blue alpha:alpha];
 //	}
 
-//	if ((!strLength) || ([str characterAtIndex:0] != '#')) {
+//	if ((!strLength)	|| ([str characterAtIndex:0] != '#'))	{
 //		//look it up; it's a colour name
 //		NSDictionary *colorValues = [self colorNamesDictionary];
 //		colorValue = [colorValues objectForKey:str];
-//		if (!colorValue) colorValue = [colorValues objectForKey:[str lowercaseString]];
-//		if (!colorValue) {
+//		if (!colorValue)	colorValue = [colorValues objectForKey:[str lowercaseString]];
+//		if (!colorValue)	{
 //#if COLOR_DEBUG
-//			NSLog(@"+[NSColor(AIColorAdditions) colorWithHTMLString:] called with unrecognised color name (str is %@); returning %@", str, defaultColor);
+//			NSLog(@"+[NSColor(AIColorAdditions)	colorWithHTMLString:] called with unrecognised color name (str is %@); returning %@", str, defaultColor);
 //#endif
 //			return defaultColor;
 //		}
 //	}
 
-//	//we need room for at least 9 characters (#00ff00ff) plus the NUL terminator.
+//	//we need room for at least 9 characters (#00ff00ff)	plus the NUL terminator.
 //	//this array is 12 bytes long because I like multiples of four. ;)
 //	enum { hexStringArrayLength = 12 };
 //	size_t hexStringLength = 0;
@@ -494,14 +490,14 @@
 //	CGFloat		alpha = 1.0f;
 
 //	//skip # if present.
-//	if (*hexString == '#') {
+//	if (*hexString == '#')	{
 //		++hexString;
 //		--hexStringLength;
 //	}
 
-//	if (hexStringLength < 3) {
+//	if (hexStringLength < 3)	{
 //#if COLOR_DEBUG
-//		NSLog(@"+[%@ colorWithHTMLString:] called with a string that cannot possibly be a hexadecimal color specification (e.g. #ff0000, #00b, #cc08) (string: %@ input: %@); returning %@", NSStringFromClass(self), colorValue, str, defaultColor);
+//		NSLog(@"+[%@ colorWithHTMLString:] called with a string that cannot possibly be a hexadecimal color specification (e.g. #ff0000, #00b, #cc08)	(string: %@ input: %@); returning %@", NSStringFromClass(self), colorValue, str, defaultColor);
 //#endif
 //		return defaultColor;
 //	}
@@ -512,25 +508,25 @@
 //	BOOL isLong = hexStringLength > 4;
 
 //	//for a long component c = 'xy':
-//	//	c = (x * 0x10 + y) / 0xff
+//	//	c = (x * 0x10 + y)	/ 0xff
 //	//for a short component c = 'x':
 //	//	c = x / 0xf
 
 //	char firstChar, secondChar;
 
 //	firstChar = *(hexString++);
-//	secondChar = (isLong ? *(hexString++) : 0x0);
+//	secondChar = (isLong ? *(hexString++)	: 0x0);
 //	red = hexCharsToFloat(firstChar, secondChar);
 
 //	firstChar = *(hexString++);
-//	secondChar = (isLong ? *(hexString++) : 0x0);
+//	secondChar = (isLong ? *(hexString++)	: 0x0);
 //	green = hexCharsToFloat(firstChar, secondChar);
 
 //	firstChar = *(hexString++);
-//	secondChar = (isLong ? *(hexString++) : 0x0);
+//	secondChar = (isLong ? *(hexString++)	: 0x0);
 //	blue = hexCharsToFloat(firstChar, secondChar);
 
-//	if (*hexString) {
+//	if (*hexString)	{
 //		//we still have one more component to go: this is alpha.
 //		//without this component, alpha defaults to 1.0 (see initialiser above).
 //		firstChar = *(hexString++);
@@ -545,20 +541,20 @@
 
 //@implementation NSColor (AIColorAdditions_ObjectColor)
 
-//+ (NSString *)representedColorForObject: (id)anObject withValidColors: (NSArray *)validColors;
+//+ (NSString*)representedColorForObject: (id)anObject withValidColors: (NSArray*)validColors;
 
 //@end
 
 
 //@implementation NSColor (NSColor_ColorspaceEquality)
 
-//- (BOOL) isEqualToColor:(NSColor*)inColor colorSpace:(NSString*)inColorSpace ;
+//- (BOOL)	isEqualToColor:(NSColor*)inColor colorSpace:(NSString*)inColorSpace ;
 
 //@end
 
 
 //@implementation NSColor (NSColor_CSSRGB)
 
-//+ (NSColor*) colorWithCSSRGB:(NSString*)rgbString;
+//+ (NSColor*)	colorWithCSSRGB:(NSString*)rgbString;
 
 //@end

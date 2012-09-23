@@ -10,9 +10,12 @@
 //#else
 	#import <Cocoa/Cocoa.h>
 	#import <QuartzCore/QuartzCore.h>
-	#import <FunSize/FunSize.h>
 	#import	"AtoZUmbrella.h"
+	#import "AtoZFunctions.h"
+	#import "AZGeometry.h"
 	#import "AtoZ.h"
+
+//	#import <FunSize/FunSize.h>
 
 //	#import	"AZGeometry/AZGeometry.h"
 //	#import "AtoZ.h"

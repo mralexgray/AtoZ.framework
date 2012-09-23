@@ -1,6 +1,7 @@
 
 #import "AZQuadObject.h"
-
+#import <AtoZ/AtoZ.h>
+//#import <FunSize/FunSize.h>
 
 
 	//NSString *const FormatTypeName[FormatTypeCount] = {
@@ -18,10 +19,7 @@ NSString *const AZMenuPositionName[AZMenuPositionCount] = {
 };
 
 AZQuadCarousel * refToSelf;
-	//int cCallback()
-	//{
-	//    [refToSelf someMethod:someArg];
-	//}
+//int cCallback()//{	//    [refToSelf someMethod:someArg];//}
 
 void wLog(NSString* log) {
 	[refToSelf setWindowLog:log];
@@ -39,12 +37,8 @@ static const NSString *didScroll = @"scrollOffset";
 	return  _items;
 }
 
-- (CGFloat)intrusion {
-
-	_intrusion = AZPerimeter(AZScreenFrame()) / (self.items.count);
-	if (_quads) [_quads each:^(AZTrackingWindow* obj, NSUInteger index, BOOL *stop) {
-		[obj setIntrusion:_intrusion];
-	}];
+- (CGFloat)intrusion {	 _intrusion = AZPerimeter(AZScreenFrame()) / (self.items.count);
+	if (_quads)	[_quads  do:^(AZTrackingWindow* obj) { [obj setIntrusion:_intrusion]; }];
 	return _intrusion;
 }
 - (id) init { self = [super init];  if (self) {
@@ -55,28 +49,27 @@ static const NSString *didScroll = @"scrollOffset";
 	self.south =   [AZTrackingWindow oriented: AZPositionBottom  intruding:_intrusion], //withDelegate:self],
 	self.east  =   [AZTrackingWindow oriented: AZPositionRight 	 intruding:_intrusion],// withDelegate:self],
 	self.west  =   [AZTrackingWindow oriented: AZPositionLeft 	 intruding:_intrusion] ]; // withDelegate:self] ];
-	
 
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive:) name:NSApplicationDidBecomeActiveNotification object:nil];
+	[NOTCENTER addObserver:self selector:@selector(applicationDidBecomeActive:) name:NSApplicationDidBecomeActiveNotification object:nil];
 
+//	id eventMonitor = [NSEvent addLocalMonitorForEventsMatchingMask:NSMouseEnteredMask handler:^(NSEvent *incomingEvent)
+//	 {NSEvent *result = incomingEvent;
+	/*NSLog(@"%i", (int)[result keyCode]);*/ //NSLog(@"%@",result);	 return result;		}];
 
-		//	id eventMonitor = [NSEvent addLocalMonitorForEventsMatchingMask:NSMouseEnteredMask handler:^(NSEvent *incomingEvent)
-		//	 {		NSEvent *result = incomingEvent;		/*NSLog(@"%i", (int)[result keyCode]);*/ NSLog(@"%@",result);	 return result;		}];
-
-	self.menus  = @[
+	self.menus  =
+	[@[
 	self.menu_N =  [[iCarousel alloc]initWithFrame: AZMakeRectFromSize(_north.visibleFrame.size)],
 	self.menu_S =  [[iCarousel alloc]initWithFrame: AZMakeRectFromSize(_south.visibleFrame.size)],
 	self.menu_E =  [[iCarousel alloc]initWithFrame: AZMakeRectFromSize(_east.visibleFrame.size)],
-	self.menu_W =  [[iCarousel alloc]initWithFrame: AZMakeRectFromSize(_west.visibleFrame.size)] ];
-	
-	[ _menus each:^(iCarousel * obj, NSUInteger idx, BOOL *go)
-	{
+	self.menu_W =  [[iCarousel alloc]initWithFrame: AZMakeRectFromSize(_west.visibleFrame.size)]
+	]
+	 arrayUsingIndexedBlock:^id(iCarousel* obj, NSUInteger idx) {
+
 		AZTrackingWindow* w = [_quads objectAtIndex:idx];
 		[w.contentView addSubview:obj];
-
 		w.identifier 	= idx == 0 ? @"quad_N" : idx == 1 ? @"quad_S" : idx == 2 ? @"quad_E" : @"quad_W";
 		obj.identifier	= idx == 0 ? @"menu_N" : idx == 1 ? @"menu_S" : idx == 2 ? @"menu_E" : @"menu_W";
-		obj.type 		= idx == 0 ? iCarouselTypeCustom : idx == 1 ? iCarouselTypeLinear : RAND_INT_VAL(0, 12);
+		obj.type 		= iCarouselTypeCustom;//idx == 0 ? iCarouselTypeCustom : idx == 1 ? iCarouselTypeLinear : RAND_INT_VAL(0, 12);
 		obj.dataSource 	= self;
 		obj.delegate 	= self;
 		obj.vertical 	= idx <= 1 ?  NO : YES;
@@ -86,14 +79,15 @@ static const NSString *didScroll = @"scrollOffset";
 			//		[obj setHidden:YES];
 		obj.wantsLayer 	= YES;
 		[obj.window orderFrontRegardless];
-		[NSEvent addGlobalMonitorForEventsMatchingMask: AZMouseActive  handler:^(NSEvent *e) {
+		[NSEvent addGlobalMonitorForEventsMatchingMask:  AZMouseActive handler:^(NSEvent *e) {
 			if ( NSMouseInRect( mouseLoc(), w.triggerFrame, NO)) {
 				[NSApp activateIgnoringOtherApps:YES];
-				[_quads each:^(id obj, NSUInteger index, BOOL *stop) {
+				[_quads az_each:^(id obj, NSUInteger index, BOOL *stop) {
 					[obj orderFrontRegardless];
 				}];
 			}
 		}];
+	 return obj;
 	}];
 	[NSApp activateIgnoringOtherApps:YES];
 	self.tilt = 0;
@@ -120,14 +114,14 @@ static const NSString *didScroll = @"scrollOffset";
 		//	NSLog(@"%@ scrolling", carousel.identifier);
 		//	NSArray *fileredCars = [_menus filteredArrayUsingBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
 		//		return NSPointInRect(mouseLoc(), [carousel frame]) ? NO : YES;															}];
-		//	[fileredCars each:^(iCarousel* obj, NSUInteger index, BOOL *stop) {
+		//	[fileredCars az_each:^(iCarousel* obj, NSUInteger index, BOOL *stop) {
 		//		AZWindowPosition d =	 obj.window.position;
 		//		NSLog(@"setting %@ to offset: %@", [obj valueForKey:@"identifier"], @(carousel.scrollOffset));
 		// 		return <#expression#>
 		//		CGFloat wasoff = [obj scrollOffset];
 		//		[obj scrollByOffset:carousel.scrollOffset duration:0];
 		//		[obj setScrollOffset: wasoff + ];
-		//	[_menus each:^(id obj, NSUInteger index, BOOL *stop) {
+		//	[_menus az_each:^(id obj, NSUInteger index, BOOL *stop) {
 		//		AZWindowPosition d = [(AZTrackingWindow*)carousel.window position];
 		//		CGFloat so = (( d == AZPositionRight) || ( d == AZPositionTop) ? carousel.scrollOffset : NEG(carousel.scrollOffset));
 		//		[obj setScrollOffset:so];
@@ -221,7 +215,7 @@ static const NSString *didScroll = @"scrollOffset";
 /*
  -(NSUInteger)visibleItems {
  __block	NSUInteger i = 0;
- [_menus each:^(iCarousel *obj, NSUInteger index, BOOL *stop) {
+ [_menus az_each:^(iCarousel *obj, NSUInteger index, BOOL *stop) {
  i += [obj visibleItemViews].count;
  }];
  return i;
@@ -238,54 +232,48 @@ static const NSString *didScroll = @"scrollOffset";
 	self.activeQuadID = carousel.window.identifier;
 	self.activeMenuID = carousel.identifier;
 	self.selectedIndex = index;
-	self.windowLog = $(@"%@",[carousel propertiesPlease]);
+	self.windowLog = $(@"%@", [v propertiesPlease]);
 
-	CGFloat dynStrk = AZMaxDim(v.bounds.size)  * .07 ;
-	CAShapeLayer *u = [CAShapeLayer layer];
-	CALayer *x = [CALayer layer];
-	u.frame = v.layer.bounds;
-	x.frame = v.layer.bounds;
-	x.backgroundColor = cgRANDOMCOLOR;
-	x.borderColor = cgWHITE;
-	[u setFillColor:cgCLEARCOLOR];
-	[u setStrokeColor: cgBLACK];// [[[layer valueForKey:@"azfile"]valueForKey:@"color"]CGColor]];
-	[u setLineWidth:dynStrk];
-	[u setLineJoin:kCALineJoinRound];
-	[u setLineDashPattern:@[ @(15), @(15)]];
-	NSBezierPath *p = [NSBezierPath bezierPathWithRoundedRect:NSInsetRect(v.bounds, dynStrk/2, dynStrk/2) cornerRadius:0];
-	[u setPath:[p quartzPath]];
+	CAShapeLayer *u 	= [CAShapeLayer layer];
+	CALayer *x 			= [CALayer layer];
+	u.frame = x.frame 	= v.layer.bounds;
+	x.backgroundColor 	= cgRANDOMCOLOR;
+	x.borderColor 		= cgWHITE;
+	u.fillColor			= cgCLEARCOLOR;
+	u.strokeColor		= cgBLACK;			// [[[layer valueForKey:@"azfile"]valueForKey:@"color"]CGColor]];
+	u.lineWidth			= v.dynamicStroke;
+	u.lineJoin			= kCALineJoinRound;
+	u.lineDashPattern	= @[ @(15), @(15) ];
+	u.path				= [NSBezierPath bezierPathWithRoundedRect:NSInsetRect( v.bounds, v.dynamicStroke/2, v.dynamicStroke/2) cornerRadius:0].quartzPath;
 	CABasicAnimation *dashAnimation = [CABasicAnimation animationWithKeyPath:@"lineDashPhase"];
-	[dashAnimation setFromValue:[NSNumber numberWithFloat:0.0f]];
-	[dashAnimation setToValue:[NSNumber numberWithFloat:30.0f]];
-	[dashAnimation setDuration:0.75f];
-	[dashAnimation setRepeatCount:10000];
+	dashAnimation.fromValue		= @(0.0f);
+	dashAnimation.toValue		= @(30.0f);
+	dashAnimation.duration 		= 0.75f;
+	dashAnimation.repeatCount 	= 10000;
 	[u addAnimation:dashAnimation forKey:@"linePhase"];
-
-
-	AZTrackingWindow *e = [AZTrackingWindow oriented:v.position intruding:[v height] inRect:AZRectVerticallyOffsetBy([v frame],[v height])];
-
-		//	oriented:AZPositionTop intruding:60 inRect:AZRectHorizontallyOffsetBy(v.frame)];
-
-
-		//	NSBezierPath *p2 =[NSBezierPath bezierPathWithRoundedRect:AZLowerEdge(v.frame,25) cornerRadius:10 inCorners:(OSBottomRightCorner|OSBottomLeftCorner)];
-	[u setPath:[p quartzPath]];
-	[v.layer addSublayer:x];
-	[v.layer addSublayer:u];
+	NSRect windowrect = [v.layer convertRect:v.layer.frame fromLayer:nil];// convertRect:v.frame fromView:nil];
+//	CGPoint where = [v convertPoint:v.frame.origin fromView:v.superview];// loc;// convertPoint:v.layer.origin locationInWindow fromView: nil]]);
+//    where = [_gameboard convertPoint: where fromLayer:			 self.layer];
+	self.windowLog = $(@"Vlayer frame = %@", NSStringFromRect(windowrect));
+	CGFloat inset = AZMaxDim(v.frame.size);
+	AZTrackingWindow *e = [AZTrackingWindow oriented:v.position intruding:2*inset inRect:v.layer.frame];
+//						   AZRectVerticallyOffsetBy([v frame],inset)];
+//	oriented:AZPositionTop intruding:60 inRect:AZRectHorizontallyOffsetBy(v.frame)];
+//	NSBezierPath *p2 =[NSBezierPath bezierPathWithRoundedRect:AZLowerEdge(v.frame,25) cornerRadius:10 inCorners:(OSBottomRightCorner|OSBottomLeftCorner)];
+	[v.layer addSublayers:@[x, u]];
 	[v.layer needsDisplay];
 	[[v window] addChildWindow:e ordered:NSWindowBelow];
 	[e slideIn];
-
-
 }
 
 
--(void) advance {	[_quads each:^(id obj, NSUInteger index, BOOL *stop) {
+-(void) advance {	[_quads az_each:^(id obj, NSUInteger index, BOOL *stop) {
 	[obj shiftIndexesStartingAtIndex:[obj firstIndex] by:1];
 }];
 }
 
 
--(void) rewind {		[_quads each:^(id obj, NSUInteger index, BOOL *stop) {
+-(void) rewind {		[_quads az_each:^(id obj, NSUInteger index, BOOL *stop) {
 	[obj shiftIndexesStartingAtIndex:[obj firstIndex] by:-1];
 }];
 }
@@ -293,7 +281,6 @@ static const NSString *didScroll = @"scrollOffset";
 - (IBAction)toggleQuad:(id)sender	{
 
 	NSString *sliderID;
-
 	if ([sender isKindOfClass:[NSString class]]) sliderID = [sender stringValue];
 	else sliderID = _activeQuadID;
 	AZTrackingWindow *slider = [_quads filterOne:^BOOL(AZTrackingWindow* object) {
@@ -303,12 +290,55 @@ static const NSString *didScroll = @"scrollOffset";
 	[slider performSelector:slider.slideState == AZOut ? @selector(slideIn) : @selector(slideOut)];
 }
 
+
+- (IBAction)toggleQuadFlip:(id)sender {
+
+	NSString *sliderID;
+	if ([sender isKindOfClass:[NSString class]]) sliderID = [sender stringValue];
+	else sliderID = _activeQuadID;
+	AZTrackingWindow *slider = [_quads filterOne:^BOOL(AZTrackingWindow* object) {
+		return [object.identifier isEqualToString:sliderID] ? YES : NO;
+	}];
+	AZWindowPosition pos = slider.position;
+	iCarousel *carrie = [[slider.contentView subviewsOfKind:[iCarousel class]]objectAtIndex:0];
+	__block NSTimeInterval time = 0;
+
+//	CGFloat count = carrie.numberOfItems; //increase this to make a larger circle
+//	CGFloat spacing = 1.0f; // increase this to increase separation distance between items
+//	CGFloat arc = M_PI * 2.0f; //reduce this if you don't want a complete circle
+//
+//	CGFloat radius = fmaxf(_itemWidth * spacing / 2.0f, _itemWidth * spacing / 2.0f / tanf(arc/2.0f/count));
+//	CGFloat angle = offset / count * arc;
+//
+//	return CATransform3DTranslate(transform, radius * cos(angle) - radius, radius * sin(angle), 0.0f);
+//#define DEBUGTALKER 0 
+	[carrie.layer sublayersBlockSkippingSelf:^(CALayer *layer) {
+		[layer performBlock:^(CALayer* sender) {
+			[sender flipBackAtEdge:pos];
+		} afterDelay:time];   time += .1;
+	}];
+//	CALayer *itsLayer = [[[slider.contentView subviewsOfKind:[iCarousel class]]objectAtIndex:0]layer];
+
+
+	
+//	if ([itsLayer valueForKey:@"flippedOver"]) {
+//		BOOL flippedDown = [[itsLayer valueForKey:@"flippedOver"] boolValue];
+//		CATransform3D = flippedDown ? CATransform3DIdentity : CATransform3DPerspective(<#t#>, <#x#>, <#y#>)
+// 		if (flippedDown)	[itsLayer animate:@"bounds" toTransform:<#(CATransform3D)#> time:<#(NSTimeInterval)#> ;
+//		else  				[itsLayer flipOver];  flippedDown =! flippedDown;
+//		[itsLayer setValue:@(flippedDown) forKey:@"flippedOver"];
+//	} else {
+//		[itsLayer flipOver];
+//		[itsLayer setValue:@(YES) forKey:@"flippedOver"];
+//	}
+}
+
 - (IBAction)setType:(id)sender {
 
 		//	type =	type <= 11 ? type++ : 1 ;
 	self.cType =  RAND_INT_VAL(0 , 12);
 	NSLog(@"setting type to : %ul", _cType);
-	[_menus each:^(iCarousel *obj, NSUInteger index, BOOL *stop) {
+	[_menus az_each:^(iCarousel *obj, NSUInteger index, BOOL *stop) {
 		[obj setType:_cType];
 		[obj reloadData];
 	}];
@@ -316,7 +346,7 @@ static const NSString *didScroll = @"scrollOffset";
 }
 
 - (IBAction)setVeils:(id)sender; {
-	[_quads each:^(AZTrackingWindow *obj, NSUInteger index, BOOL *stop) {
+	[_quads az_each:^(AZTrackingWindow *obj, NSUInteger index, BOOL *stop) {
 
 		if (! [[obj contentView]layer] ) 		[[obj contentView]setWantsLayer:YES];
 			//		CALayer * f =  [CALayer veilForView:	[[obj contentView]layer]];
@@ -345,7 +375,7 @@ static const NSString *didScroll = @"scrollOffset";
 - (void) setOption:(Option)option {
 
 	_option=option;
-	[_menus each:^(id obj, NSUInteger index, BOOL *stop) {
+	[_menus az_each:^(id obj, NSUInteger index, BOOL *stop) {
 		[obj reloadData];
 	}];
 }
@@ -450,7 +480,7 @@ static const NSString *didScroll = @"scrollOffset";
 		 pathAnimation.duration = duration;
 		 [view.layer addAnimation:pathAnimation forKey:@"curveAnimation"]; /*/
 			//	return (__bridge CATransform3D)pathAnimation;
-	} else if (_option ==5) {
+	}/* else if (_option ==5) {
 
 			CATransform3D existing = transform;
 			CATransform3D transform = CATransform3DIdentity;
@@ -467,7 +497,7 @@ static const NSString *didScroll = @"scrollOffset";
 			CALayer *perspectiveLayer;
 
 			mainView = [[UIView alloc] initWithFrame:CGRectMake(50, 50, width, height*3)];
-			mainView.backgroundColor = [UIColor yellowColor];
+			mainView.backgroundColor = [NSColor yellowColor];
 			[self.view addSubview:mainView];
 
 			perspectiveLayer = [CALayer layer];
@@ -481,7 +511,7 @@ static const NSString *didScroll = @"scrollOffset";
 			topSleeve = [CALayer layer];
 			topSleeve.frame = CGRectMake(0, 0, width, height);
 			topSleeve.anchorPoint = CGPointMake(0.5, 0);
-			topSleeve.backgroundColor = [UIColor redColor].CGColor;
+			topSleeve.backgroundColor = [NSColor redColor].CGColor;
 			topSleeve.position = CGPointMake(width/2, 0);
 			[firstJointLayer addSublayer:topSleeve];
 			topSleeve.masksToBounds = YES;
@@ -496,7 +526,7 @@ static const NSString *didScroll = @"scrollOffset";
 			middleSleeve = [CALayer layer];
 			middleSleeve.frame = CGRectMake(0, 0, width, height);
 			middleSleeve.anchorPoint = CGPointMake(0.5, 0);
-			middleSleeve.backgroundColor = [UIColor blueColor].CGColor;
+			middleSleeve.backgroundColor = [NSColor blueColor].CGColor;
 			middleSleeve.position = CGPointMake(width/2, 0);
 			[secondJointLayer addSublayer:middleSleeve];
 			middleSleeve.masksToBounds = YES;
@@ -504,7 +534,7 @@ static const NSString *didScroll = @"scrollOffset";
 			bottomSleeve = [CALayer layer];
 			bottomSleeve.frame = CGRectMake(0, height, width, height);
 			bottomSleeve.anchorPoint = CGPointMake(0.5, 0);
-			bottomSleeve.backgroundColor = [UIColor grayColor].CGColor;
+			bottomSleeve.backgroundColor = [NSColor grayColor].CGColor;
 			bottomSleeve.position = CGPointMake(width/2, height);
 			[secondJointLayer addSublayer:bottomSleeve];
 
@@ -514,13 +544,13 @@ static const NSString *didScroll = @"scrollOffset";
 			topShadow = [CALayer layer];
 			[topSleeve addSublayer:topShadow];
 			topShadow.frame = topSleeve.bounds;
-			topShadow.backgroundColor = [UIColor blackColor].CGColor;
+			topShadow.backgroundColor = [NSColor blackColor].CGColor;
 			topShadow.opacity = 0;
 
 			middleShadow = [CALayer layer];
 			[middleSleeve addSublayer:middleShadow];
 			middleShadow.frame = middleSleeve.bounds;
-			middleShadow.backgroundColor = [UIColor blackColor].CGColor;
+			middleShadow.backgroundColor = [NSColor blackColor].CGColor;
 			middleShadow.opacity = 0;
 
 			transform.m34 = -1.0/700.0;
@@ -598,7 +628,7 @@ static const NSString *didScroll = @"scrollOffset";
 			//		NSUInteger t = _carousel.numberOfItems;
 			//		hUnit = lenn / t;
 
-	}else return  transform;
+	} */ else return  transform;
 }
 
 
@@ -687,7 +717,7 @@ static const NSString *didScroll = @"scrollOffset";
 	//{
 	//	_content = content;
 	//	NSLog(@"set content: %@", _content);
-	// 	[ _menus each:^(id obj, NSUInteger index, BOOL *stop) {
+	// 	[ _menus az_each:^(id obj, NSUInteger index, BOOL *stop) {
 	//		[obj reloadData];
 	//	}];
 	//}
@@ -723,7 +753,7 @@ static const NSString *didScroll = @"scrollOffset";
 	 if ([object isEqualTo:lassie]) return  NO;
 	 else if ([object isKindOfClass:[AZLassoView class]]) return YES;
 	 else return NO;
-	 }] each:^(AZLassoView* obj, NSUInteger index, BOOL *stop) {
+	 }] az_each:^(AZLassoView* obj, NSUInteger index, BOOL *stop) {
 	 obj.hovered = NO;
 	 }];
 	 */
@@ -824,7 +854,7 @@ static const NSString *didScroll = @"scrollOffset";
 - (void) setTilt:(NSUInteger)tilt {
 
 	_tilt = tilt;
-	[_menus  each:^(id obj, NSUInteger index, BOOL *stop) {
+	[_menus  az_each:^(id obj, NSUInteger index, BOOL *stop) {
 		[obj reloadData];
 	}];
 }
@@ -848,7 +878,7 @@ static const NSString *didScroll = @"scrollOffset";
 		case 	iCarouselOptionSpacing:				return 1;//	RAND_FLOAT_VAL(0, 2*self.carousel.itemWidth);//.space;
 															 // 		The spacing between  item views. This value is multiplied by the item width (or height, if the carousel is vertical) to get the total space between each item, so a value of 1.0 (the default) means no space between views (unless the views already include padding, as they do in many of the example projects).	 // 	Reduce item spacing to compensate for drop shadow and reflection around views
 
-		case	iCarouselOptionShowBackfaces:		return  NO;
+		case	iCarouselOptionShowBackfaces:		return  YES;
 				//		For some carousel types, e.g. iCarouselTypeCylinder, the rear side of some views can be seen (iCarouselTypeInvertedCylinder now hides the back faces by default). If you wish to hide the backward-facing views you can return NO for this option. To override the default back-face hiding for the iCarouselTypeInvertedCylinder, you can return YES. This option may also be useful for custom carousel transforms that cause the back face of views to be displayed.
 
 		case	iCarouselOptionArc:					return value;				//			return 	RAND_FLOAT_VAL(.3, 2*M_PI);
@@ -860,7 +890,7 @@ static const NSString *didScroll = @"scrollOffset";
 		case	iCarouselOptionRadius:				return 	value;
 				//		The radius of the Rotary, Cylinder and Wheel transforms in pixels/points. This is usually calculated so that the number of visible items exactly fits into the specified arc. You can manipulate this value to increase or reduce the item spacing (and the radius of the circle).
 
-		case	iCarouselOptionTilt:				return 	_tilt;
+		case	iCarouselOptionTilt:				return 	self.tilt;
 				//		The tilt applied to the non-centered items in the CoverFlow, CoverFlow2 and TimeMachine carousel types. This value should be in the range 0.0 to 1.0.
 
 		case 	iCarouselOptionFadeMax:				return 	value;		case	iCarouselOptionFadeMin:				return 	value;
@@ -1044,7 +1074,7 @@ static const NSString *didScroll = @"scrollOffset";
  if ([object isEqualTo:lassie]) return  NO;
  else if ([object isKindOfClass:[AZLassoView class]]) return YES;
  else return NO;
- }] each:^(AZLassoView* obj, NSUInteger index, BOOL *stop) {
+ }] az_each:^(AZLassoView* obj, NSUInteger index, BOOL *stop) {
  obj.selected = NO;
  }];
 
@@ -1079,7 +1109,7 @@ static const NSString *didScroll = @"scrollOffset";
 /*
  - (NSArray*) allItems {
  //	__block	NSMutableArray *i = [NSMutableArray array];
- //	[_quads each:^(id obj, NSUInteger index, BOOL *stop) {
+ //	[_quads az_each:^(id obj, NSUInteger index, BOOL *stop) {
  //		[i addObjectsFromArray:obj];
  //	}];
  return [_quadContent arrayUsingIndexedBlock:^id(id obj, NSUInteger idx) {

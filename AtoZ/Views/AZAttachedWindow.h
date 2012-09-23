@@ -49,7 +49,7 @@
 @property (assign, nonatomic) float viewMargin;
 @property (assign, nonatomic) float arrowBaseWidth;
 @property (assign, nonatomic) float arrowHeight;
-@property (assign) BOOL hasArrow;
+@property (assign, nonatomic) BOOL hasArrow;
 @property (assign, nonatomic) float cornerRadius;
 @property (assign, nonatomic) BOOL drawsRoundCornerBesideArrow;
 

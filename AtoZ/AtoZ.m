@@ -7,80 +7,9 @@
 
 
 #import "AtoZ.h"
-#import <objc/message.h>
-#import <sys/time.h>
+#import "AtoZFunctions.h"
+#import "AtoZUmbrella.h"
 
-
-//void WithAutoreleasePool(BasicBlock block) {
-////	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-//	@autoreleasepool {
-
-//		block();
-//	}
-////	[pool release];
-//}
-////USAGE
-//for(id obj in array) WithAutoreleasePool(^{  	[self createLotsOfTemporaryObjectsWith:obj];  });
-
-NSString *const AZMouseNotification = @"okWindowFadeOutNow";
-
-BOOL isPathAccessible(NSString *path, SandBox mode) {
-	return access([path UTF8String], mode) == 0;
-}
-
-static CGEventRef myEventTapCallback (	CGEventTapProxy proxy,	CGEventType type,	CGEventRef event,	void * refcon ) {
-
-	// If we would get different kind of events, we can distinguish them by the variable "type", but we know we only get mouse moved events
-    CGPoint mouseLocation = CGEventGetLocation(event);
-    printf(	"Mouse is at x/y: %u/%u\n",(unsigned int)mouseLocation.x,  (unsigned int)mouseLocation.y );
-	[[ NSNotificationCenter defaultCenter] postNotificationName:@"mouseMoved" object:nil];
-
-	// Pass on the event, we must not modify it anyway, we are a listener
-    return event;
-}
-
-
-
-void trackMouse() {
-
-	CGEventMask emask;
-	CFMachPortRef myEventTap;
-	CFRunLoopSourceRef eventTapRLSrc;
-
-	// We only want one kind of event at the moment: The mouse has moved
-	emask = CGEventMaskBit(kCGEventMouseMoved);			// Create the Tap
-	myEventTap = CGEventTapCreate (		kCGSessionEventTap, // Catch all events for current user session
-								   		kCGTailAppendEventTap, // Append to end of EventTap list
-								   		kCGEventTapOptionListenOnly, // We only listen, we don't modify
-								   		emask,	&myEventTapCallback, NULL // We need no extra data in the callback
-	);																		// Create a RunLoop Source for it
-	eventTapRLSrc = CFMachPortCreateRunLoopSource(		kCFAllocatorDefault,	myEventTap,   0		);
-	// Add the source to the current RunLoop
-	CFRunLoopAddSource(		CFRunLoopGetCurrent(),		eventTapRLSrc, 		kCFRunLoopDefaultMode   );
-	// Keep the RunLoop running forever
-	CFRunLoopRun();
-}
-
-
-	// In a source file
-NSString *const FormatTypeName[FormatTypeCount] = {
-	[JSON] = @"JSON",
-	[XML] = @"XML",
-	[Atom] = @"Atom",
-	[RSS] = @"RSS",
-};
-
-//NSString *const AZOrientName[AZOrientCount] = {
-//	[AZOrientTop] = @"Top",
-//	[AZOrientLeft] = @"Left",
-//	[AZOrientBottom] = @"Bottom",
-//	[AZOrientRight] = @"Right",
-//	[AZOrientFiesta] = @"Fiesta",
-////	[AZOrientCount] = @"Count",
-//};
-
-// Log levels: off, error, warn, info, verbose
-//static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 @implementation AZDummy
 @end
@@ -89,6 +18,29 @@ NSString *const FormatTypeName[FormatTypeCount] = {
 {
 	BOOL fontsRegistered;
 }
+
+
+
+
+	// Place this in the .m file, inside the @implementation block
+	// A method to convert an enum to string
++ (NSString*) stringForPosition:(AZWindowPosition)enumVal
+{	NSArray *them = [[NSArray alloc]initWithObjects:AZWindowPositionTypeArray];
+
+	return  [them objectAtIndex:enumVal];// isEqualToString: @"ZPositionLeft"] ? @"LEFT" :, @"ZPositionBottom", @"ZPositionRight", @"ZPositionTop",  <#(NSString *)#>;
+}
+
+	// A method to retrieve the int value from the NSArray of NSStrings
+-(AZWindowPosition) imageTypeStringToEnum:(NSString*)strVal
+{
+//	NSLog(@"%@", AZWindowPositionTypeArray);
+    NSArray *imageTypeArray = [[NSArray alloc]initWithObjects:AZWindowPositionTypeArray];
+
+    return (AZWindowPosition)[ imageTypeArray indexOfObject:strVal];
+//    if(n < 1) n = AZPositionLeft;
+//
+}
+
 //@synthesize appFolder, appFolderSorted;//, console;
 //@synthesize dock, dockSorted;
 
@@ -406,7 +358,31 @@ NSString *const FormatTypeName[FormatTypeCount] = {
 	[AZStopwatch stop:@"appFolderSampler"];
 }
 
+- (NSPoint)convertToScreenFromLocalPoint:(NSPoint)point relativeToView:(NSView *)view
+{
+	NSScreen *currentScreen = [NSScreen currentScreenForMouseLocation];
+	if(currentScreen)
+		{
+		NSPoint windowPoint = [view convertPoint:point toView:nil];
+		NSPoint screenPoint = [[view window] convertBaseToScreen:windowPoint];
+		NSPoint flippedScreenPoint = [currentScreen flipPoint:screenPoint];
+		flippedScreenPoint.y += [currentScreen frame].origin.y;
 
+		return flippedScreenPoint;
+		}
+
+	return NSZeroPoint;
+}
+
+- (void)moveMouseToScreenPoint:(NSPoint)point
+{
+	CGPoint cgPoint = NSPointToCGPoint(point);
+	CGEventSourceSetLocalEventsSuppressionInterval(nil,0);
+//	CGSetLocalEventsSuppressionInterval(0.0);
+	CGWarpMouseCursorPosition(cgPoint);
+	CGEventSourceSetLocalEventsSuppressionInterval(nil,.25);
+//	CGSetLocalEventsSuppressionInterval(0.25);
+}
 
 - (void) handleMouseEvent:(NSEventMask)event inView:(NSView*)view withBlock:(void (^)())block {
 	if (self != [AtoZ sharedInstance]) {
@@ -457,21 +433,6 @@ NSString *const FormatTypeName[FormatTypeCount] = {
 //		dummy];		t.color = (NSColor*)obj; t.spot = 22;	return t;	}];
 }
 
-void ApplicationsInDirectory(NSString *searchPath, NSMutableArray *applications) {
-    BOOL isDir;
-    NSFileManager *manager = [NSFileManager defaultManager];
-//    NSArray *files = [manager directoryContentsAtPath:searchPath];
-    NSArray *files = [manager contentsOfDirectoryAtPath:searchPath error:nil];
-    NSEnumerator *fileEnum = [files objectEnumerator]; NSString *file;
-    while (file = [fileEnum nextObject]) {
-        [manager changeCurrentDirectoryPath:searchPath];
-        if ([manager fileExistsAtPath:file isDirectory:&isDir] && isDir) {
-            NSString *fullpath = [searchPath stringByAppendingPathComponent:file];
-            if ([[file pathExtension] isEqualToString:@"app"]) [applications addObject:fullpath];
-            else ApplicationsInDirectory(fullpath, applications);
-        }
-    }
-}
 
 //NSArray *AllApplications(NSArray *searchPaths) {
 //    NSMutableArray *applications = [NSMutableArray array];
@@ -665,14 +626,14 @@ static void soundCompleted(SystemSoundID soundFileObject, void *clientData) {
 	return returnRect;
 }
 
-+ (void)printCGRect:(CGRect)cgRect {	[AtoZ printRect: convertToNSRect(cgRect)];	}
++ (void)printCGRect:(CGRect)cgRect {	[AtoZ printRect:cgRect];	}
 
 + (void) printRect:(NSRect)toPrint {
 	NSLog(@"Rect is x: %i y: %i width: %i height: %i ", (int)toPrint.origin.x, (int)toPrint.origin.y,
 		  (int)toPrint.size.width, (int)toPrint.size.height);
 }
 
-+ (void) printCGPoint:(CGPoint)cgPoint {	[AtoZ printPoint:convertToNSPoint(cgPoint)];	}
++ (void) printCGPoint:(CGPoint)cgPoint {	[AtoZ printPoint:cgPoint];	}
 
 + (void) printPoint:(NSPoint)toPrint {		NSLog(@"Point is x: %f y: %f", toPrint.x, toPrint.y);	}
 
@@ -685,62 +646,6 @@ static void soundCompleted(SystemSoundID soundFileObject, void *clientData) {
 @end
 
 
-void _AZSimpleLog(const char *file, int lineNumber, const char *funcName, NSString *format,...){
-	va_list argList;
-	va_start (argList, format);
-	NSString *message = [[NSString alloc] initWithFormat:format arguments:argList];
-//	fprintf (stderr, "%s \n", [message UTF8String]);
-	va_end  (argList);
-//	const char *threadName = [[[NSThread currentThread] name] UTF8String];
-}
-
-void _AZLog(const char *file, int lineNumber, const char *funcName, NSString *format,...) {
-	va_list arglist;
-
-	va_start (arglist, format);
-	if (![format hasSuffix: @"\n"]) {
-		format = [format stringByAppendingString: @"\n"];
-	}
-	NSString *body =  [[NSString alloc] initWithFormat: format arguments: arglist];
-	va_end (arglist);
-	const char *threadName = [[[NSThread currentThread] name] UTF8String];
-	NSString *fileName=[[NSString stringWithUTF8String:file] lastPathComponent];
-//	if (threadName) {
-//		fprintf(stderr,"%s/%s (%s:%d) %s",threadName,funcName,[fileName UTF8String],lineNumber,[body UTF8String]);
-//	} else {
-//		fprintf(stderr,"%p/%s (%s:%d) %s",[NSThread currentThread],funcName,[fileName UTF8String],lineNumber,[body UTF8String]);
-//	}
-#ifdef PRINTMETHODS
-	fprintf(stderr,"%s:%d [%s] %s",[fileName UTF8String],lineNumber,funcName, [body UTF8String]);
-#else
-	fprintf(stderr,"line:%d %s",lineNumber, [body UTF8String]);
-#endif
-		//
-	[body release];
-}
-
-void _AZLog(const char *file, int lineNumber, const char *funcName, NSString *format,...);
-
-void QuietLog (const char *file, int lineNumber, const char *funcName, NSString *format, ...) {
-    if (format == nil) {
-        printf("nil\n");
-        return;
-    }
-		// Get a reference to the arguments that follow the format parameter
-    va_list argList;
-    va_start(argList, format);
-		// Perform format string argument substitution, reinstate %% escapes, then print
-    NSString *s = [[NSString alloc] initWithFormat:format arguments:argList];
-    printf("%s\n", [[s stringByReplacingOccurrencesOfString:@"%%" withString:@"%%%%"] UTF8String]);
-    [s release];
-    va_end(argList);
-}
-
-//void NSLog (NSString *format, ...) {	va_list argList;	va_start (argList, format);
-//	NSString *message = [[NSString alloc] initWithFormat:format arguments:argList];
-//	fprintf (stderr, "*** %s ***\n", [message UTF8String]); 	va_end  (argList);
-//} // QuietLog
-
 
 @implementation  NSObject (debugandreturn)
 
@@ -752,15 +657,6 @@ void QuietLog (const char *file, int lineNumber, const char *funcName, NSString 
 @end
 
 
-
-int max(int x, int y)
-{
-    return x > y ? x : y;
-}
-
-
-
-
 @implementation CAConstraint (brevity)
 +(CAConstraint*)maxX {
 
@@ -769,14 +665,6 @@ int max(int x, int y)
 
 @end
 
-@implementation CALayer (AGFlip)
-- (void) flipOver {
-	[CATransaction setValue:@3.0f
-					 forKey:kCATransactionAnimationDuration];
-	self.position = CGPointMake(.5,.5);
-	self.transform = CATransform3DMakeRotation(DEG2RAD(180), 0.0f, 1.0f, 0.0f);
-}
-@end
 
 
 @implementation Box
@@ -991,204 +879,6 @@ int max(int x, int y)
 {
     return (isFlipped ? backView : frontView);
 }
-@end
-
-// Released by Drew McCormack into the pubic domain (2010).
-
-
-
-#if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5
-#import <stdlib.h>
-#import <string.h>
-
-Class object_getClass(id obj) {
-	if (!obj) return NULL;
-	return obj->isa;
-}
-
-const char *class_getName(Class cls) {
-	if (!cls) return "nil";
-	return cls->name;
-}
-
-BOOL class_conformsToProtocol(Class cls, Protocol *protocol) {
-	// We intentionally don't check cls as it crashes on Leopard so we want
-	// to crash on Tiger as well.
-	// I logged
-	// Radar 5572978 class_conformsToProtocol crashes when arg1 is passed as nil
-	// because it seems odd that this API won't accept nil for cls considering
-	// all the other apis will accept nil args.
-	// If this does get fixed, remember to enable the unit tests.
-	if (!protocol) return NO;
-
-	struct objc_protocol_list *protos;
-	for (protos = cls->protocols; protos != NULL; protos = protos->next) {
-		for (long i = 0; i < protos->count; i++) {
-			if ([protos->list[i] conformsTo:protocol]) {
-				return YES;
-			}
-		}
-	}
-	return NO;
-}
-
-Class class_getSuperclass(Class cls) {
-	if (!cls) return NULL;
-	return cls->super_class;
-}
-
-BOOL class_respondsToSelector(Class cls, SEL sel) {
-	return class_getInstanceMethod(cls, sel) != nil;
-}
-
-Method *class_copyMethodList(Class cls, unsigned int *outCount) {
-	if (!cls) return NULL;
-
-	unsigned int count = 0;
-	void *iterator = NULL;
-	struct objc_method_list *mlist;
-	Method *methods = NULL;
-	if (outCount) *outCount = 0;
-
-	while ( (mlist = class_nextMethodList(cls, &iterator)) ) {
-		if (mlist->method_count == 0) continue;
-		methods = (Method *)realloc(methods,
-									sizeof(Method) * (count + mlist->method_count + 1));
-		if (!methods) {
-			//Memory alloc failed, so what can we do?
-			return NULL;  // COV_NF_LINE
-		}
-		for (int i = 0; i < mlist->method_count; i++) {
-			methods[i + count] = &mlist->method_list[i];
-		}
-		count += mlist->method_count;
-	}
-
-	// List must be NULL terminated
-	if (methods) {
-		methods[count] = NULL;
-	}
-	if (outCount) *outCount = count;
-	return methods;
-}
-
-SEL method_getName(Method method) {
-	if (!method) return NULL;
-	return method->method_name;
-}
-
-IMP method_getImplementation(Method method) {
-	if (!method) return NULL;
-	return method->method_imp;
-}
-
-IMP method_setImplementation(Method method, IMP imp) {
-	// We intentionally don't test method for nil.
-	// Leopard fails here, so should we.
-	// I logged this as Radar:
-	// 5572981 method_setImplementation crashes if you pass nil for the
-	// method arg (arg 1)
-	// because it seems odd that this API won't accept nil for method considering
-	// all the other apis will accept nil args.
-	// If this does get fixed, remember to enable the unit tests.
-	// This method works differently on SnowLeopard than
-	// on Leopard. If you pass in a nil for IMP on SnowLeopard
-	// it doesn't change anything. On Leopard it will. Since
-	// attempting to change a sel to nil is probably an error
-	// we follow the SnowLeopard way of doing things.
-	IMP oldImp = NULL;
-	if (imp) {
-		oldImp = method->method_imp;
-		method->method_imp = imp;
-	}
-	return oldImp;
-}
-
-void method_exchangeImplementations(Method m1, Method m2) {
-	if (m1 == m2) return;
-	if (!m1 || !m2) return;
-	IMP imp2 = method_getImplementation(m2);
-	IMP imp1 = method_setImplementation(m1, imp2);
-	method_setImplementation(m2, imp1);
-}
-
-struct objc_method_description protocol_getMethodDescription(Protocol *p,
-                                                             SEL aSel,
-                                                             BOOL isRequiredMethod,
-                                                             BOOL isInstanceMethod) {
-	struct objc_method_description *descPtr = NULL;
-	// No such thing as required in ObjC1.
-	if (isInstanceMethod) {
-		descPtr = [p descriptionForInstanceMethod:aSel];
-	} else {
-		descPtr = [p descriptionForClassMethod:aSel];
-	}
-
-	struct objc_method_description desc;
-	if (descPtr) {
-		desc = *descPtr;
-	} else {
-		bzero(&desc, sizeof(desc));
-	}
-	return desc;
-}
-
-BOOL sel_isEqual(SEL lhs, SEL rhs) {
-	// Apple (informally) promises this will work in the future:
-	// http://twitter.com/#!/gparker/status/2400099786
-	return (lhs == rhs) ? YES : NO;
-}
-
-#endif
-
-
-
-
-
-
-
-
-NSString *const AtoZSharedInstanceUpdated = @"AtoZSharedInstanceUpdated";
-NSString *const AtoZDockSortedUpdated = @"AtoZDockSortedUpdated";
-NSString *const AtoZSuperLayer = @"superlayer";
-
-
-CGFloat ScreenWidess(){
-	return  [[NSScreen mainScreen]frame].size.width;
-}
-CGFloat ScreenHighness 	(){
-	return	[[NSScreen mainScreen]frame].size.height;
-}
-
-//  usage  		profile("Long Task", ^{ performLongTask() } );
-void profile (const char *name, void (^work) (void)) {
-    struct timeval start, end;
-    gettimeofday (&start, NULL);
-    work();
-    gettimeofday (&end, NULL);
-
-    double fstart = (start.tv_sec * 1000000.0 + start.tv_usec) / 1000000.0;
-    double fend = (end.tv_sec * 1000000.0 + end.tv_usec) / 1000000.0;
-
-    printf("%s took %f seconds", name, fend - fstart);
-}
-
-CGFloat DegreesToRadians(CGFloat degrees) {
-    return degrees * M_PI / 180;
-}
-NSNumber* DegreesToNumber(CGFloat degrees) {
-    return [NSNumber numberWithFloat:
-            DegreesToRadians(degrees)];
-}
-
-@implementation CALayerNoHit
-- (BOOL)containsPoint:(CGPoint)p {	return FALSE; }
-@end
-@implementation CAShapeLayerNoHit
-- (BOOL)containsPoint:(CGPoint)p {	return FALSE; }
-@end
-@implementation CATextLayerNoHit
-- (BOOL)containsPoint:(CGPoint)p {	return FALSE; }
 @end
 
 

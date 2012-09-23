@@ -6,15 +6,9 @@
 //  Copyright (c) 2012 Mikkel Eide Eriksen. All rights reserved.
 //
 
-#ifdef DEBUG
-#   define DLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
-#else
-#   define DLog(...)
-#endif
-
-#define AZDistance(A,B) sqrtf(powf(fabs(A.x - B.x), 2.0f) + powf(fabs(A.y - B.y), 2.0f))
 
 #import "AZOverlay.h"
+//#import "AtoZ.h"
 
 #pragma mark -
 #pragma mark Helper class extension
@@ -152,8 +146,8 @@ typedef NSUInteger AZCorner;
 {
     [super awakeFromNib];
     
-    DLog(@"overlayDelegate: %@", __AZ_overlayDelegate);
-    DLog(@"overlayDataSource: %@", __AZ_overlayDataSource);
+    AZLOG($(@"overlayDelegate: %@", __AZ_overlayDelegate));
+    AZLOG($(@"overlayDataSource: %@", __AZ_overlayDataSource));
 	
     [self performSelector:@selector(initialSetup) withObject:nil afterDelay:0.0f];
 }
@@ -179,11 +173,11 @@ typedef NSUInteger AZCorner;
 - (void)reloadData
 {
     if (__AZ_overlayDataSource) {
-        DLog(@"Setting up overlays from overlayDataSouce: %@", __AZ_overlayDataSource);
+        AZLOG($(@"Setting up overlays from overlayDataSouce: %@", __AZ_overlayDataSource));
         
         NSUInteger count = [__AZ_overlayDataSource numberOfOverlaysInOverlayView:self];
         
-        DLog(@"Number of overlays to create: %lu", count);
+        AZLOG($(@"Number of overlays to create: %lu", count));
         
         __AZ_overlayCache = [NSMutableArray arrayWithCapacity:count];
         for (NSUInteger i = 0; i < count; i++) {
@@ -196,7 +190,7 @@ typedef NSUInteger AZCorner;
 
 - (void)drawOverlays
 {
-    DLog(@"start");
+    AZLOG(@"start");
 //    if (![self allowsEmptyOverlaySelection] && __AZ_selectedOverlays.count == 0 && __AZ_overlayCache.count > 0) {
         if ([__AZ_overlayCache respondsToSelector:@selector(lastObject)]) {
             __AZ_selectedOverlays = [NSMutableArray arrayWithObject:[__AZ_overlayCache lastObject]];
@@ -210,7 +204,7 @@ typedef NSUInteger AZCorner;
     __weak AZOverlayView *weakSelf = self;
     [__AZ_overlayCache enumerateObjectsUsingBlock:^(id overlayObject, NSUInteger i, BOOL *stop){
         AZOverlayView *strongSelf = weakSelf;
-        DLog(@"Creating layer #%lu", i);
+        AZLOG($(@"Creating layer #%lu", i));
         
         NSRect rect = NSZeroRect;
         if ([overlayObject respondsToSelector:@selector(rectValue)]) {
@@ -230,7 +224,7 @@ typedef NSUInteger AZCorner;
         [layer setValue:[NSNumber numberWithInteger:i] forKey:@"AZOverlayNumber"];
         [layer setValue:overlayObject forKey:@"AZOverlayObject"];
         
-        DLog(@"Created layer: %@", layer);
+        AZLOG($(@"Created layer: %@", layer));
         
         NSTrackingArea *area = [[NSTrackingArea alloc] initWithRect:[strongSelf convertImageRectToViewRect:rect] 
                                                             options:(NSTrackingMouseEnteredAndExited | NSTrackingMouseMoved | NSTrackingCursorUpdate | NSTrackingActiveInKeyWindow) 

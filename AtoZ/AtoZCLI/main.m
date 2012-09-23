@@ -63,6 +63,12 @@ int main(int argc, const char * argv[])
 	AZLOG(ss.propertiesPlease);
 	[ss.image saveAs:@"/Users/localadmin/Desktop/poopss.png"];
 
+
+
+	CGPoint a = AZAnchorPointForPosition( AZPositionLeft);
+
+	NSLog(@"%@", NSStringFromPoint(a));
+	
     return 0;
 }
 

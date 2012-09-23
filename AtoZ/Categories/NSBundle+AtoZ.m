@@ -13,13 +13,26 @@
 /**	Returns the support folder for the application, used to store the Core Data	store file.  This code uses a folder named "ArtGallery" for
  the content, either in the NSApplicationSupportDirectory location or (if the former cannot be found), the system's temporary directory. */
 
++ (NSString*) appSuppSubPathNamed:(NSString*)name;
+{
+	return [[[self class] applicationSupportFolder]stringByAppendingPathComponent:name];
+}
+
++ (NSString *)appSuppDir {
+
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
+    NSString *basePath = ([paths count] > 0) ? [paths objectAtIndex:0] : NSTemporaryDirectory();
+    return [basePath stringByAppendingPathComponent:[[NSBundle bundleForClass:[AtoZ class]] bundleIdentifier]];
+}
++ (NSString*) appSuppFolder {
+	return [[self class] applicationSupportFolder];
+}
 + (NSString*) applicationSupportFolder {
 	//Create App directory if not exists:
-	NSFileManager* fileManager = [[NSFileManager alloc] init];
-	NSString* bundleID = [[NSBundle mainBundle] bundleIdentifier];
+	NSFileManager* fileManager = [NSFileManager new];
+	NSString* bundleID = [[NSBundle bundleForClass:[AtoZ class]] bundleIdentifier];
 	NSArray* urlPaths = [fileManager URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask];
 	NSURL* appDirectory = [[urlPaths objectAtIndex:0] URLByAppendingPathComponent:bundleID isDirectory:YES];
-	//TODO: handle the error
 	if (![fileManager fileExistsAtPath:[appDirectory path]]) {
 		[fileManager createDirectoryAtURL:appDirectory withIntermediateDirectories:NO attributes:nil error:nil];
 	}

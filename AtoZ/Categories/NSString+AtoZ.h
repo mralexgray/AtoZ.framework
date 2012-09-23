@@ -7,6 +7,7 @@
 
 @interface NSString (AtoZ)
 
+- (void) copyFileAtPathTo:(NSString*)path;
 
 - (CGFloat)pointSizeForFrame:(NSRect)frame withFont:(NSString *)fontName;
 + (CGFloat)pointSizeForFrame:(NSRect)frame withFont:(NSString *)fontName forString:(NSString*)string;

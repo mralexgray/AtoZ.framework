@@ -46,7 +46,7 @@
 	if ([self isAnimating]&&(progress<0.99)) {
 /// Update the window unless we're nearly at the end. No sense duplicating the final window.
 // We can be sure the delegate responds to display.
-		[(id)[self delegate] display];
+//		[(id)[self delegate] display:YES animate:YES];
 	}
 }
 

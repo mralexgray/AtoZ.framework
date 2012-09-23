@@ -1,79 +1,47 @@
 
 
-#import <Cocoa/Cocoa.h>
+#import "AtoZ.h"
 
-// key for dictionary in NSTrackingAreas's userInfo
-// NSString *kAZTrackerChanged = @"trackerState";
-
-
-//typedef NSInteger AZTrackerState;
+// key for dictionary in NSTrackingAreas's userInfo  NSString *kAZTrackerChanged = @"trackerState";
 
 
+@interface AZTrackingWindow : NSWindow
+@property (nonatomic, assign) AZWindowPosition 	position;
 
-typedef struct AZTri {
-	CGPoint a;
-	CGPoint b;
-	CGPoint c;
-}AZTri;
-typedef struct AZTriPair {
-	AZTri uno;
-	AZTri duo;
-}AZTriPair;
+@property (nonatomic, assign) AZSlideState 		slideState;
+@property (nonatomic, assign) CGFloat 			triggerWidth, 	intrusion;
+@property (nonatomic, assign) NSRect 			triggerFrame, 	workingFrame, 	visibleFrame;
+
+@property (nonatomic, strong) AZSimpleView 		*view;
+
++ (AZTrackingWindow*) oriented:(AZWindowPosition)orient intruding:(CGFloat)distance inRect:(NSRect)frame;
++ (AZTrackingWindow*) oriented:(AZWindowPosition)orient intruding:(CGFloat)distance;
++ (AZTrackingWindow*) oriented:(AZWindowPosition)orient intruding:(CGFloat)distance withDelegate:(id)del;
+
+@property (readonly) NSRect	 	outFrame;
+@property (readonly) AZOrient 	orientation;
+@property (readonly) NSUInteger capacity;
+
+- (void) slideOut;
+- (void) slideIn;
+- (void) setPosition: (AZWindowPosition)position;
+
+@end
+
+
+/*
 
 
 @class AZTrackingWindow;
-@interface CornerClipView : NSView
-@property (assign, nonatomic, getter = getPair) AZTriPair t;
-@property (weak) AZTrackingWindow *windy;
-+ initInWindow:(AZTrackingWindow*)windy;
-@end
 
-@class AZSimpleView;
-@interface AZTrackingWindow : NSWindow <NSWindowDelegate>
-{
-	NSRect _workingFrame;
-}
-@property (nonatomic, retain) AZSimpleView *view;
-@property (assign, nonatomic) AZOrient orientation;
-@property (assign, nonatomic) AZWindowPosition position;
-@property (nonatomic, assign) NSRect outFrame;
-@property (nonatomic, assign) NSRect visibleFrame;
-@property (nonatomic, assign) NSRect triggerFrame;
+//+ (void) flipDown:(AZTrackingWindow*)window;
+//+ (void) shakeWindow:(NSWindow*)window;
 
+@protocol AZTrackingDelegate <NSObject>
 
-@property (assign, nonatomic) NSUInteger capacity;
-
-
-@property (assign, nonatomic) AZSlideState slideState;
-@property (assign, nonatomic) CGFloat intrusion;
-@property (assign, nonatomic) CGFloat triggerWidth;
-
-
-@property (retain, nonatomic) NSImageView* handle;
-@property (assign, nonatomic) BOOL showsHandle;
-@property (strong, nonatomic) CornerClipView *clippy;
-
-@property (nonatomic, assign) NSRect workingFrame;
-
-+ (AZTrackingWindow*) oriented:(AZWindowPosition)orient intruding:(CGFloat)distance inRect:(NSRect)frame;
-- (void) mouseHandler: (NSEvent*)event;
-+ (AZTrackingWindow*) oriented:(AZWindowPosition)orient intruding:(CGFloat)distance;
-+ (AZTrackingWindow*) oriented:(AZWindowPosition)orient intruding:(CGFloat)distance withDelegate:(id)del;
--(void) slideOut;
--(void) slideIn;
-
-+ (void) flipDown:(AZTrackingWindow*)window;
-+ (void) shakeWindow:(NSWindow*)window;
-
-//@property (assign, nonatomic) BOOL isHit;
+-(void)ignoreMouseDown:(NSEvent*)event;
+-(void)trackerDidReceiveEvent:(NSEvent*)event inRect:(NSRect)theRect;
 
 @end
-
-//@protocol AZTrackingDelegate <NSObject>
-
-//-(void)ignoreMouseDown:(NSEvent*)event;
-//-(void)trackerDidReceiveEvent:(NSEvent*)event inRect:(NSRect)theRect;
-
-//@end
-
+*/
 

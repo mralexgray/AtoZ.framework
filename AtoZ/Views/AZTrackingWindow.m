@@ -1,171 +1,112 @@
-	//
-	//  AZTrackingDelegateView.m
-	//  AtoZ
-	//
-	//  Created by Alex Gray on 8/24/12.
-	//  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-	//
+
+typedef struct AZTri {		CGPoint a;	CGPoint b;	CGPoint c;	}AZTri;
+typedef struct AZTriPair {	AZTri uno;	AZTri duo;  				}AZTriPair;
 
 #import "AZTrackingWindow.h"
-#import "AtoZ.h"
 
+@interface NSWindow (Animations)
+- (void) shake;
+@end
+
+
+
+@interface  AZTrackingWindow ()
+@property (nonatomic, strong) NSImageView* 		handle;
+@property (nonatomic, assign) BOOL 				showsHandle;
+//@property (nonatomic, strong) CornerClipView 	*clippy;
+- (void) mouseHandler:(NSEvent *)theEvent;
+@end
 
 @implementation AZTrackingWindow
+
++ (AZTrackingWindow *) standardInit {
+   AZTrackingWindow *w = [[[self class] alloc] initWithContentRect:AZScreenFrame()
+														 styleMask:NSBorderlessWindowMask
+														   backing:NSBackingStoreBuffered defer:NO];
+	w.slideState 	= AZIn;
+	w.level 		= NSStatusWindowLevel;				   w.movableByWindowBackground 		= NO;
+	w.hasShadow		= NO;								   w.backgroundColor 				= CLEAR;
+	[w setOpaque:NO];
+	w.contentView	= [[AZSimpleView alloc]initWithFrame: [w.contentView bounds]];	w.view 	= w.contentView;
+	w.view.backgroundColor = CLEAR;
+	[ @{   	NSApplicationWillBecomeActiveNotification 	:	@"slideIn",
+	 		NSApplicationDidResignActiveNotification 	: 	@"slideOut" }	each:^( id key, id obj ) {
+			[w observeObject:NSApp forName:obj calling: NSSelectorFromString ( obj ) ];	}];
+//	[NSEvent addLocalMonitorForEventsMatchingMask:NSLeftMouseDownMask handler:^NSEvent *(NSEvent *e) {
+//		[w shake];
+//		return e;
+//	}];
+	return w;
+}
+
++ (AZTrackingWindow*) oriented:(AZWindowPosition)orient intruding:(CGFloat)distance inRect:(NSRect)frame withDelegate: (id) del
 {
-
-	BOOL shouldDrag;
-	BOOL shouldRedoInitials;
-	NSPoint initialLocation;
-	NSPoint initialLocationOnScreen;
-	NSRect initialFrame;
-	NSPoint currentLocation;
-	NSPoint newOrigin;
-	NSRect screenFrame;
-	NSRect windowFrame;
-	float minY;
-}
-	//	 key values for dictionary in NSTrackingAreas's userInfo,
-	//	 which tracking area is being tracked
-//@synthesize workingFrame = _workingFrame;
-
-
-+ (AZTrackingWindow*) oriented:(AZWindowPosition)orient intruding:(CGFloat)distance inRect:(NSRect)frame{
-
-
-	AZTrackingWindow *w = [[AZTrackingWindow alloc] initWithContentRect:frame styleMask:NSResizableWindowMask
-																backing:NSBackingStoreBuffered defer:NO];
-	w.position 			= orient;
-	w.intrusion 		= distance;
-	w.slideState 		= AZIn;
-	w.workingFrame = frame;
-	[w setFrameOrigin:frame.origin];
-		//	NSLog(@"Class method factory result: %@", w.propertiesPlease);
+	AZTrackingWindow *w  = [[self class] standardInit];		w.position = orient;	w.intrusion = distance;
+	w.workingFrame 		 = NSEqualRects(frame, NSZeroRect) ?  AZScreenFrameUnderMenu() : frame;		//	[w setFrameOrigin:frame.origin];
+	if (del) w.delegate = del;		// NSLog(@"Class method factory result: %@", w.propertiesPlease);
+	[w setFrame: w.visibleFrame display:YES];
 	return w;
 }
 
-+ (AZTrackingWindow*) oriented:(AZWindowPosition)orient intruding:(CGFloat)distance{
-	return [AZTrackingWindow oriented:orient intruding:distance withDelegate:nil];
++ (AZTrackingWindow*) oriented:(AZWindowPosition)o intruding:(CGFloat)d inRect:(NSRect)frame {
+	return [[self class] oriented:o intruding:d inRect:frame withDelegate:nil]; 			 }
+
++ (AZTrackingWindow*) oriented:(AZWindowPosition)o intruding:(CGFloat)d 					 {
+	return [[self class] oriented:o intruding:d inRect:NSZeroRect withDelegate:nil]; 		 }
+
++ (AZTrackingWindow*) oriented:(AZWindowPosition)o intruding:(CGFloat)d withDelegate:(id)del {
+	return [[self class] oriented:o intruding:d inRect:NSZeroRect withDelegate:del];		 }
+
+
+- (NSRect) outFrame {	NSSize w = self.visibleFrame.size;
+
+	return 	_position == AZPositionLeft
+		  ? NSOffsetRect(_visibleFrame,  NEG(w.width), -w.height / 2 )
+		  : _position == AZPositionTop
+		  ? AZRectHorizontallyOffsetBy( AZRectTrimmedOnBottom( _visibleFrame, 	w.height),  -w.width / 2 )
+		  :	_position == AZPositionRight
+		  ? NSOffsetRect(_visibleFrame, w.width, w.height / 2 )  : (NSRect) {  w.width/2,  NEG(w.height),  w.width,  w.height  };
 }
 
-+ (AZTrackingWindow*) oriented:(AZWindowPosition)orient intruding:(CGFloat)distance withDelegate:(id)del{
-
-
-	AZTrackingWindow *w = [[AZTrackingWindow alloc] initWithContentRect:AZScreenFrame() styleMask:NSResizableWindowMask
-																backing:NSBackingStoreBuffered	defer:NO];
-
-	w.position 			= orient;		w.workingFrame = AZScreenFrameUnderMenu();
-	w.intrusion 		= distance;		if (del) w.delegate = del;
-	w.slideState 		= AZIn;
-	NSLog(@"Class method factory result: %@", w.propertiesPlease);
-	return w;
+- (NSRect) triggerFrame {	   _visibleFrame = self.visibleFrame;
+															  if (!_triggerWidth) self.triggerWidth = 6;
+														    return _triggerFrame =
+	self.position == AZPositionLeft  ? AZLeftEdge ( _visibleFrame, _triggerWidth)
+  :	    _position == AZPositionTop	 ? AZUpperEdge( _visibleFrame, _triggerWidth)
+  :     _position == AZPositionRight ? AZRightEdge( _visibleFrame, _triggerWidth)
+  :	                                   AZLowerEdge( _visibleFrame, _triggerWidth);
 }
+- (NSRect) visibleFrame { 		 return _visibleFrame =
 
-
-- (NSRect) outFrame {
-	_visibleFrame = self.visibleFrame;		NSSize delters = _visibleFrame.size;	return _outFrame =
-
-	_position == AZPositionLeft	  ?  NSOffsetRect(_visibleFrame, NEG(delters.width), (-delters.height/2))
-
-	:	_position == AZPositionTop	  ?  AZRectHorizontallyOffsetBy(
-																	AZRectTrimmedOnBottom( _visibleFrame, delters.height), (-delters.width/2))
-
-	:	_position == AZPositionRight  ?  NSOffsetRect(_visibleFrame, delters.width, delters.height/2	)
-
-	:					(NSRect) { delters.width/2 , -delters.height, delters.width, delters.height};
-		//NSOffsetRect( _visibleFrame, -delters.height, delters.width/2 ) ;
-}
-
-
-
-
-- (NSRect) triggerFrame {  _visibleFrame = self.visibleFrame; if (!_triggerWidth) self.triggerWidth = 6;
-
-	return _triggerFrame =
-	self.position == AZPositionLeft		?	AZLeftEdge( _visibleFrame, _triggerWidth)
-	:	self.position == AZPositionTop		?	AZUpperEdge(_visibleFrame, _triggerWidth)
-	:	self.position == AZPositionRight	?	AZRightEdge( _visibleFrame, _triggerWidth)
-	: 											AZLowerEdge(_visibleFrame, _triggerWidth);
+	_position == AZPositionLeft  ? AZRectTrimmedOnTop(    AZLeftEdge  ( _workingFrame, _intrusion), _intrusion)
+  :	_position == AZPositionTop   ? AZRectTrimmedOnRight(  AZUpperEdge ( _workingFrame, _intrusion), _intrusion)
+	//	AZRectTrimmedOnRight( AZMakeRectMaxXUnderMenuBarY (self.intrusion), self.intrusion)
+  :	_position == AZPositionRight ?	AZRectTrimmedOnBottom( AZRightEdge( _workingFrame, _intrusion), _intrusion)
+  : 									(NSRect) {_intrusion, 0, _workingFrame.size.width - _intrusion, _intrusion};
 }
 
 
+- (AZOrient)orientation { return _position == AZPositionBottom || _position == AZPositionTop ? AZOrientHorizontal : AZOrientVertical; }
 
-- (NSRect) visibleFrame { _workingFrame = self.workingFrame; _intrusion = self.intrusion; return _visibleFrame =
+- (NSUInteger) capacity { return floor ( AZMaxEdge(self.visibleFrame) / _intrusion ); }
 
-	self.position == AZPositionLeft
-	?	AZRectTrimmedOnTop(		AZLeftEdge(_workingFrame, _intrusion), _intrusion)
 
-	:	self.position == AZPositionTop
-	? 	AZRectTrimmedOnRight( AZUpperEdge(_workingFrame,_intrusion), _intrusion)
-		//
-		//	AZRectTrimmedOnRight( AZMakeRectMaxXUnderMenuBarY (self.intrusion), self.intrusion)
-
-	:	self.position == AZPositionRight
-	?	AZRectTrimmedOnBottom( 		AZRightEdge( _workingFrame, _intrusion), _intrusion)
-
-	: 	(NSRect) {_intrusion, 0, _workingFrame.size.width - _intrusion, _intrusion}  ;
-
-}
-
-- (AZOrient)orientation		{
-	switch (self.position) {
-		case AZPositionBottom:
-		case AZPositionTop:
-			return AZOrientHorizontal;
-		default:
-			return AZOrientVertical;
-	}
-}
-
-- (NSUInteger) capacity {
-	if (!_capacity) {
-		_capacity = floor ( AZMaxEdge(self.visibleFrame) / _intrusion );
-		NSLog(@"window:%@ setCapacity:%ld", self.identifier, _capacity);
-	}
-	return _capacity;
-}
-- (id) initWithContentRect:(NSRect)contentRect
-			     styleMask:(NSUInteger)aStyle
-				   backing:(NSBackingStoreType)bufferingType
-				     defer:(BOOL)flag {							if (self = [super initWithContentRect:contentRect
-																		  styleMask:NSBorderlessWindowMask
-																			backing:NSBackingStoreBuffered
-																			  defer:NO]) {
-		
-		//		self.level 			 			= NSStatusWindowLevel;
-		//		self.backgroundColor 			= CLEAR;
-		//		self.alphaValue      			= 1.0;
-		//		self.opaque				 		= NO;
-		//		self.hasShadow		 			= YES;
-		//		self.movable		 			= YES;
-		//		self s		 			= YES;
-		//		[self setMovableByWindowBackground:YES];
-		//		self.hidesOnDeactivate			= YES;
-	self.acceptsMouseMovedEvents	= YES;
-		//		self.ignoresMouseEvents 		= NO;
-		//		[self setExcludedFromWindowsMenu:NO];
-	self.showsHandle				= NO;
+//  NSLog(@"window:%@ setCapacity:%ld", self.identifier, _capacity);
+/*  NSApplicationWillResignActiveNotification	:	@"applicationWillResignActive:"} */
+/*  NSApplicationDidBecomeActiveNotification	:	@"applicationDidBecomeActive:",  */
+//	self.opaque				 		= NO;
+//	self.movable		 			= NO;
+//	self.hidesOnDeactivate			= YES;
+//	self.ignoresMouseEvents 			= NO;
+//  self.excludedFromWindowsMenu	= NO;
+//	self.showsHandle				= NO;
 //	self.intrusion 					= 100;
-		//		self.slideState					= AZOut;
-		//		self.position 					= AZPositionTop;
+//  self.slideState					= AZOut;
+//  self.position 					= AZPositionTop;
 
-
-	self.view =[[AZSimpleView alloc]initWithFrame:[[self contentView]bounds]];
-	_view.backgroundColor = RANDOMCOLOR;
-		//		_view.wantsLayer = YES;
-	[[self contentView] addSubview:_view ];
-		// positioned:NSWindowBelow relativeTo:self.contentView];
-		//		_view.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
-		//		[[self contentView ] addSubview:_view];
-		//		[_view setNeedsDisplay:YES];
-	[@{ NSApplicationWillBecomeActiveNotification	:	@"slideIn",
-	 //		NSApplicationDidBecomeActiveNotification	:	@"applicationDidBecomeActive:",
-	 //		NSApplicationWillResignActiveNotification	:	@"applicationWillResignActive:"}
-	 NSApplicationDidResignActiveNotification 	:	@"slideOut" 	}
-
-	 enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-		 [self observeObject:NSApp forName:key calling:NSSelectorFromString(obj)];
-	 }];
-	NSLog(@"AZtrackingWIndow Init done;");
+//  positioned:NSWindowBelow relativeTo:self.contentView];
+//	_view.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+//	[[self contentView ] addSubview:_view];  [_view setNeedsDisplay:YES];
 //	[self orderFrontRegardless];
 
 		//	[NSEvent addGlobalMonitorForEventsMatchingMask:NSMouseMovedMask handler:^(NSEvent *w) {
@@ -185,9 +126,6 @@
 		//		//		_clippy.wantsLayer = YES;
 		//		[[self contentView] addSubview:_clippy];
 		//		[_clippy setNeedsDisplay:YES];
-}
-	return self;
-}
 
 
 -(void) setShowsHandle:(BOOL)showsHandle {
@@ -223,42 +161,28 @@
 	NSLog(@"im awake.  position: %@. origin:%f.0x%f.0 size:%f.0x%f.0", $(@"%ud",_position), self.frame.origin.x, self.frame.origin.y,self.frame.size.width, self.frame.size.height);
 }
 -(void) slideIn {
+	NSRect o = self.outFrame;
+	if ( ! NSEqualRects(self.frame, o) ) { [self setFrame:o display:NO animate:NO];	}
+	[CATransaction transactionWithLength:1 easing:CAMEDIAEASY actions:^{
+	[[self animator] setFrame:_visibleFrame display:YES animate:YES];
+			self.slideState = AZIn;
+	}];
 
-
-	[self setFrame:_outFrame display:NO animate:NO];
-	[NSAnimationContext beginGrouping];
-	[[NSAnimationContext currentContext] setTimingFunction:
-	 [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
-	[[NSAnimationContext currentContext] setDuration:1.0f];
-
-	[[self animator] setFrame:self.visibleFrame display:YES animate:YES];
-	[NSAnimationContext endGrouping];
-		//	[AtoZ shakeWindow:self];
-
-
+		//	[AtoZ shakeWindow:self]
 		//		[AtoZ flipDown:self];
 		//	CALayer *snap = [CALayer veilForView:[[self contentView] layer]];
 		//	[snap flipOver];
 		//	[AtoZ flipDown:self];
-
-	_slideState = AZIn;
 }
 -(void) slideOut {
 
-		//	[AtoZ flipDown:self];
-		//	[AtoZ shakeWindow:self];
-		//	[self setFrame:self.visibleFrame display:YES animate:NO];
-		//	CALayer *snap = [CALayer veilForView:[[self contentView] layer]];
-		//	[snap flipOver];
-	[NSAnimationContext beginGrouping];
-	[[NSAnimationContext currentContext] setTimingFunction:
-	 [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
-	[[NSAnimationContext currentContext] setDuration:1.0f];
-	[[self animator] setFrame:self.outFrame display:YES animate:YES];
-	[NSAnimationContext endGrouping];
+//	[AtoZ flipDown:self];	[AtoZ shakeWindow:self];
+//	[self setFrame:self.visibleFrame display:YES animate:NO];	CALayer *snap = [CALayer veilForView:[[self contentView] layer]]; [snap flipOver];
 
-		//	[AtoZ flipDown:self];
-	_slideState = AZOut;
+	[CATransaction transactionWithLength:1 easing:CAMEDIAEASY actions:^{
+		[[self animator] setFrame:self.outFrame display:YES animate:YES];
+		self.slideState = AZOut;
+	}];
 }
 
 -(void) setPosition:(AZWindowPosition)position
@@ -266,32 +190,30 @@
 	_position = position;
 	switch (position) {
 		case AZPositionBottom:
-			_view.backgroundColor = WHITE;
-			_view.checkerboard = NO;
-				//			_view.glossy = YES;
+//			_view.backgroundColor = WHITE;
+//			_view.checkerboard = NO;
+//			_view.glossy = YES;
 			break;
 		case AZPositionRight:
-			_view.backgroundColor = BLACK;
-				//			_view.glossy = YES;
-			_view.checkerboard = NO;
+//			_view.backgroundColor = BLACK;
+//			_view.glossy = YES;
+//			_view.checkerboard = NO;
 			break;
 		case AZPositionLeft:
-			_view.backgroundColor = GREY;
-				//			_view.glossy = YES;
-			_view.checkerboard = NO;
+//			_view.backgroundColor = GREY;
+//			_view.glossy = YES;
+//			_view.checkerboard = NO;
 			break;
 		default:
-			_view.backgroundColor = ORANGE;
-			_view.checkerboard = NO;
+//			_view.backgroundColor = ORANGE;
+//			_view.checkerboard = NO;
 			break;
 	}
 
 		//	self.slideState = _slideState;
-	_visibleFrame = self.visibleFrame;
-	_outFrame = self.outFrame;
+//	_visibleFrame 	= self.visibleFrame;
+//	_outFrame 		= self.outFrame;
 }
-
-
 
 - (BOOL) acceptsFirstResponder {
 	return YES;
@@ -299,7 +221,6 @@
 
 
 - (void) mouseHandler:(NSEvent *)theEvent {
-
 	NSPoint mousePoint = [theEvent locationInWindow];
 	BOOL isHit = (NSPointInRect(mousePoint, [self frame]));
 	NSLog(@"Mouse:  %@", theEvent);
@@ -310,15 +231,10 @@
 		//	}
 }
 
-
-- (void)setSlideState:(AZSlideState)slideState {}
-
-
-
 @end
 
 @class AZTrackingWindow;
-@implementation AtoZ (Animations)
+@implementation NSWindow (Animations)
 
 
 -(void) anmateOnPath:(id)something {
@@ -358,11 +274,11 @@
 																				//		[[window animator] setFrame: (window.slideState == AZOut ? window.visibleFrame : window.outFrame ) display:YES animate:YES];
 	}
 }
-
-+ (void)shakeWindow:(NSWindow*)window
+- (void)shake;
+//+ (void)shakeWindow:(NSWindow*)window
 {
-	[window setAnimations:[NSDictionary dictionaryWithObject:[CAKeyframeAnimation shakeAnimation:[window frame]] forKey:@"frameOrigin"]];
-	[[window animator] setFrameOrigin:[window frame].origin];
+	[self setAnimations:@{ @"frameOrigin" : [CAKeyframeAnimation shakeAnimation:[self frame]] }];
+	[[self animator] setFrameOrigin:[self frame].origin];
 }
 
 @end
@@ -508,30 +424,22 @@
  {
  newOrigin.y=screenFrame.origin.y + (screenFrame.size.height-windowFrame.size.height);
  }
+*/
+ //  go ahead and move the window to the new location	 [self setFrameOrigin:newOrigin];
 
- //go ahead and move the window to the new location
- [self setFrameOrigin:newOrigin];
+//	BOOL 	shouldDrag, 	 shouldRedoInitials;
+//	NSPoint initialLocation, initialLocationOnScreen, 	currentLocation, 	newOrigin;
+//	NSRect 	screenFrame, 	 windowFrame, 				initialFrame;
+//	float 	minY;
 
- }
- }
-
- - (void)mouseUp:(NSEvent*)theEvent
- {
- shouldRedoInitials = YES;
- }
- */
-	//BOOL shouldDrag;
-	//BOOL shouldRedoInitials;
-	//[[NSPoint]] initialLocation;
-	//[[NSPoint]] initialLocationOnScreen;
-	//[[NSRect]] initialFrame;
-	//[[NSPoint]] currentLocation;
-	//[[NSPoint]] newOrigin;
-	//[[NSRect]] screenFrame;
-	//[[NSRect]] windowFrame;
-	//float minY;
+//	 key values for dictionary in NSTrackingAreas's userInfo, which tracking area is being tracked
 
 
+@interface CornerClipView : NSView
+@property (assign, nonatomic, getter = getPair) AZTriPair t;
+@property (weak) AZTrackingWindow *windy;
++ initInWindow:(AZTrackingWindow*)windy;
+@end
 
 @implementation CornerClipView
 

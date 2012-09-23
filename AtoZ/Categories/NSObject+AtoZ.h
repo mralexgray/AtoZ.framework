@@ -111,6 +111,8 @@ static NSString *const HRCoderObjectAliasKey = @"$alias";
 
 @interface NSObject (AG)
 
+
+- (IBAction)performActionFromSegment:(id)sender;
 //- (BOOL) respondsToSelector:	(SEL) aSelector;
 
 - (NSDictionary*) propertiesPlease;
@@ -143,6 +145,10 @@ static NSString *const HRCoderObjectAliasKey = @"$alias";
 		   calling:(SEL)selector;
 
 - (void) stopObserving:	(NSObject*) object forName:	(NSString*) notificationName;
+
+
+- (void) performSelectorWithoutWarnings:(SEL) aSelector withObject:(id)obj;
+
 
 - (void) performSelector:	(SEL) aSelector afterDelay:	(NSTimeInterval) seconds;
 - (void) addObserver:	(NSObject*) observer forKeyPath:	(NSString*) keyPath;

@@ -6,8 +6,8 @@
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 //
 
-//#import "AtoZModels.h"
-#import <AtoZ/AtoZ.h>
+#import "AtoZModels.h"
+
 
 //
 //@dynamic  appCategories;// = _appCategories,

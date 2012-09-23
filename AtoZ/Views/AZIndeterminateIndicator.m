@@ -12,10 +12,10 @@
 
 
 #import "AZIndeterminateIndicator.h"
+#import "AtoZ.h"
 
 #define ConvertAngle(a) (fmod((90.0-(a)), 360.0))
 
-#define DEG2RAD  0.017453292519943295
 
 @implementation AZIndeterminateIndicator
 
@@ -144,9 +144,9 @@
 		[NSBezierPath setDefaultLineCapStyle:NSRoundLineCapStyle];
 		[NSBezierPath setDefaultLineWidth:strokeWidth];
 		if ([self isSpinning]) {
-			a = (270+(step* 30))*DEG2RAD;
+			a = DEG2RAD(270+(step* 30));
 		} else {
-			a = 270*DEG2RAD;
+			a = DEG2RAD(270);
 		}
 		a = flipFactor*a;
 		int i;
@@ -165,7 +165,7 @@
 			outer = NSMakePoint(center.x+cos(a)*outerRadius, center.y+sin(a)*outerRadius);
 			inner = NSMakePoint(center.x+cos(a)*innerRadius, center.y+sin(a)*innerRadius);
 			[NSBezierPath strokeLineFromPoint:inner toPoint:outer];
-			a -= flipFactor*30*DEG2RAD;
+			a -= DEG2RAD(flipFactor*30);
 		}
 	}
 }

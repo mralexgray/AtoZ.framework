@@ -17,6 +17,13 @@
 
 @implementation NSString (AtoZ)
 
+- (void) copyFileAtPathTo:(NSString*)path
+{
+	if ( [[NSFileManager defaultManager] isReadableFileAtPath:self] )
+		[[NSFileManager defaultManager] copyItemAtPath:self toPath:path error:nil];
+}
+
+
 - (CGFloat)pointSizeForFrame:(NSRect)frame withFont:(NSString *)fontName;
 {
 	return [[self class] pointSizeForFrame:frame withFont:fontName forString:self];

@@ -726,6 +726,21 @@ static char windowPosition;
 @implementation NSObject (AG)
 
 
+- (void)performActionFromSegment:(id)sender {
+
+	BOOL isSelected;	NSString *label;
+	BOOL isSegmented = [sender isKindOfClass:[NSSegmentedControl class]];
+//	if (isSegmented) {
+		NSInteger selectedSegment = [sender selectedSegment];
+//		 = [sender isSelectedForSegment:selectedSegment];
+		label = [sender labelForSegment:selectedSegment];
+		BOOL *optionPtr = &isSelected;
+//	} else
+//		label = [sender label];
+	SEL fabricated = NSSelectorFromString($(@"set%@:", label));
+	[[sender delegate] performSelector:fabricated withValue:optionPtr];
+//	[[AZTalker sharedInstance] say:$(@"%@ is %@ selected", string, isSelected ? @"" : @"NOT")];
+}
 
 	//- (BOOL) respondsToSelector: (SEL) aSelector {
 	//    NSLog (@"%s", (char *) aSelector);
@@ -942,6 +957,16 @@ static const char * getPropertyType(objc_property_t property) {
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 	[nc removeObserver:self name:notificationName object:object];
 }
+
+
+- (void) performSelectorWithoutWarnings:(SEL)aSelector withObject:(id)obj{
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+	[self performSelector:aSelector withObject:obj];
+#pragma clang diagnostic pop
+}
+
+
 
 -(void)performSelector:(SEL)aSelector afterDelay:(NSTimeInterval)seconds {
 	[self performSelector:aSelector withObject:nil afterDelay:seconds];

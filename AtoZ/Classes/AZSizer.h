@@ -46,6 +46,7 @@ extern NSUInteger gcd(NSInteger m, NSUInteger n);
 @property (assign, nonatomic) NSRect		outerFrame;
 @property (readonly) NSInteger	remainder;
 @property (nonatomic, copy) NSArray 	*rects;
+@property (nonatomic, copy) NSMutableArray 	*positions;
 @property (readonly) NSArray 	*paths;
 @property (readonly) NSArray 	*boxes;
 

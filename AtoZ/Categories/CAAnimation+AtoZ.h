@@ -6,6 +6,8 @@
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 
 #import <QuartzCore/QuartzCore.h>
+#import <Cocoa/Cocoa.h>
+#import <AppKit/AppKit.h>
 
 typedef void (^AZCAAnimationCompletionBlock)();
 
@@ -30,6 +32,11 @@ extern void disableCA();
 
 @interface CAAnimation (AtoZ)
 
++ (CAAnimationGroup *)shrinkAnimationAtPoint:(CGPoint)p;
+
++ (CAAnimationGroup *)blowupAnimationAtPoint:(CGPoint)p;
+
++ (CAAnimation*)animationOnPath:(CGPathRef)p duration:(CFTimeInterval)d timeOffset:(CFTimeInterval)o;
 + (CAAnimation*) animationForOpacity;
 + (CAAnimation*) animationForScale;
 + (CAAnimation*) animationForRotation;

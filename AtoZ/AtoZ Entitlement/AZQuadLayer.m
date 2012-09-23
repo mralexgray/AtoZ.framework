@@ -76,7 +76,7 @@
 {
 
 	NSLog(@"delegate called");
-	[_contentLayer.sublayers each:^(CALayer *obj, NSUInteger index, BOOL *stop) {
+	[_contentLayer.sublayers az_each:^(CALayer *obj, NSUInteger index, BOOL *stop) {
 		NSLog(@"sublayer:%ld:  %@", index, obj.propertiesPlease);
 			//	obj.frame = [[s.rects objectAtNormalizedIndex:index]rectValue];
 			//			obj.layoutManager = [CAConstraintLayoutManager layoutManager];
