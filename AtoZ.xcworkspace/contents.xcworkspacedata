@@ -17,6 +17,6 @@
       location = "group:../git/growl-fresh/Framework/Test apps/Status Checker/Status Checker.xcodeproj">
    </FileRef>
    <FileRef
-      location = "container:Frameworks/FunSize.framework">
+      location = "group:../git/MTTokenField/TokenField.xcodeproj">
    </FileRef>
 </Workspace>
