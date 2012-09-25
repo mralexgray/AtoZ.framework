@@ -7,7 +7,7 @@
 //
 
 #import "AtoZModels.h"
-
+#import "AtoZFunctions.h"
 
 //
 //@dynamic  appCategories;// = _appCategories,
@@ -18,41 +18,88 @@
 //@dynamic  appFolder;// = _appFolder,
 //@dynamic  appFolderSorted;// = _appFolderSorted;
 
-@implementation AZFiles
+@interface  AZFolder ()
+@end
+@implementation AZFolder
 
-- (NSArray*) dock {		return _dock = !_dock ? [AZDockQuery dock] :_dock;	}
 
-- (NSArray*) dockSorted {		[[self.dock sortedWithKey:@"hue" ascending:YES]
-											arrayUsingIndexedBlock:^id(AZDockItem* obj, NSUInteger idx) {
-		obj.spotNew = idx;
-		obj.dockPointNew = [_dock[idx][@"dockPoint"]pointValue];
-		return obj;
-								}];  //		if ([obj.name isEqualToString:@"Finder"]) {obj.spotNew = 999;` obj.dockPointNew =
++ (instancetype) instanceWithItems:(NSArray*)items {
+	AZFolder *n = [[self class] instance];
+	n.items = items.mutableCopy;
+	return n;
+}
++ (instancetype) instanceWithPaths:(NSArray*)paths {
+	AZFolder *n = [[self class] instance];
+	n.items = [paths arrayUsingBlock:^id(id obj) {
+		return  [AZFile instanceWithPath:obj];
+	}].mutableCopy;
+	return n;
 }
 
-- (NSArray *) appFolderStrings {
-	if  (!_appFolderStrings) {
-		[AZStopwatch start:@"appFolderStrings"];
-		NSMutableArray *applications = [NSMutableArray array];
+- (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(id __unsafe_unretained [])buffer count:(NSUInteger)len {
+    return [_items countByEnumeratingWithState:state objects:buffer count:len];
+}
+
+- (NSUInteger)count { return self.items.count; }
+- (id)objectAtIndex:(NSUInteger)index; { return [self.items normal:index]; }
+
+//@interface  NSArray (SubscriptsAdd)
+- (id)objectAtIndexedSubscript:(NSUInteger)index; { return [self.items normal:index]; }
+
+//@interface NSMutableArray (SubscriptsAdd)
+- (void)setObject:(id)object atIndexedSubscript:(NSUInteger)index;
+{
+	index < self.items.count   ?  object
+	      ?  [self.items replaceObjectAtIndex:index withObject:object]
+	      :  [self.items removeObjectAtIndex:index]
+		  :  [self.items addObject:object];
+}
+
+- (void) addObject:(id) obj{
+	[self.items addObject:obj];
+}
+//@interface  NSDictionary (SubscriptsAdd)
+- (id)objectForKeyedSubscript:(id)k { return [self valueForKey:k]; }
+
+//@interface  NSMutableDictionary (SubscriptsAdd)
+- (void)setObject:(id)o forKeyedSubscript:(id)k {[self setValue:o forKey:k]; }
+@end
+
+@implementation  AZDock
+
+- (void) setUp {		[[AZDockQuery instance] dock: self];
+
+}
+
+//- (NSArray*) dockSorted {		[[self.dock sortedWithKey:@"hue" ascending:YES]
+//											arrayUsingIndexedBlock:^id(AZDockItem* obj, NSUInteger idx) {
+//		obj.spotNew = idx;
+//		obj.dockPointNew = [_dock[idx][@"dockPoint"]pointValue];
+//		return obj;
+//								}];  //		if ([obj.name isEqualToString:@"Finder"]) {obj.spotNew = 999;` obj.dockPointNew =
+//}
+
+@end
+@implementation AZAppFolder
+
+
++ (instancetype) samplerWithBetween:(NSUInteger)lowItems and:(NSUInteger)hightItems{
+		
+}
++ (NSArray*)paths {
+	__block NSMutableArray *applications = [NSMutableArray array];
+	[AZStopwatch  stopwatch:@"appFolderStrings" timing:^{
 		ApplicationsInDirectory(@"/Applications", applications);
-		_appFolderStrings = applications.copy;
-		[AZStopwatch stop:@"appFolderStrings"];
-	}
-	return  _appFolderStrings;
+	}];
+	return  applications;
 }
 
-- (NSArray*) appFolder {
-	if (!_appFolder) {
-		[AZStopwatch start:@"appFolder"];
-		_appFolder = [self.appFolderStrings arrayUsingBlock:^id(id obj) {
-			return	[AZFile instanceWithPath:obj];
-		}];
-		[AZStopwatch stop:@"appFolder"];
-	}
-	return _appFolder;
++ (instancetype) appFolder {
+	[AZStopwatch start:@"appFolder"];
+	AZAppFolder *a = [super instanceWithPaths:[[self class]paths]];
+	[AZStopwatch stop:@"appFolder"];
+	return a;
 }
-
-
 
 - (NSArray*) appCategories {
 		//	static NSArray *cats;
@@ -121,7 +168,7 @@ NSString *const AZFileUpdated = @"AZFileUpdated";
 
 + (instancetype)instanceWithPath:(NSString *)path {
 
-	return [[AZFile alloc]initWithObject:path];
+	return [AZFile instanceWithObject:path];
 		//	[[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:AZFileUpdated object:[AtoZ sharedInstance].dockSorted];
 }
 
@@ -248,11 +295,13 @@ NSString *const AZFileUpdated = @"AZFileUpdated";
 @implementation AZDockItem
 
 
+
 + (instancetype)instanceWithPath:(NSString *)path {
-	AZDockItem *k = [super instance];
-	[k setWithString:path];
+	AZDockItem *k = [AZDockItem instanceWithObject:path];
+//		[k setWit]//:path];
+
 		//	k.path = path;
-	AZLOG(@"method called");
+	NSLog(@"Made dockItem for %@", k.name);
 		//AZDockItem * s = [AZDockItem instance];
 		//	[AZDockItem instanceWithPath::[super instanceWithPath:path]];
 	return k;

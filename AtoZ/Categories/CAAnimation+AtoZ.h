@@ -5,9 +5,7 @@
 //  Created by Alex Gray on 7/13/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 
-#import <QuartzCore/QuartzCore.h>
-#import <Cocoa/Cocoa.h>
-#import <AppKit/AppKit.h>
+
 
 typedef void (^AZCAAnimationCompletionBlock)();
 
@@ -29,60 +27,40 @@ typedef void (^AZCAAnimationCompletionBlock)();
 //}
 
 extern void disableCA();
+@interface CAKeyframeAnimation (JumpingAndShaking)
+
++ (CAKeyframeAnimation *)shakeAnimation:(NSRect)frame;
++ (CAKeyframeAnimation *)jumpAnimation;
++ (CAKeyframeAnimation *)dockBounceAnimationWithIconHeight:(CGFloat)iconHeight;
+
+@end
 
 @interface CAAnimation (AtoZ)
 
-+ (CAAnimationGroup *)shrinkAnimationAtPoint:(CGPoint)p;
-
-+ (CAAnimationGroup *)blowupAnimationAtPoint:(CGPoint)p;
-
-+ (CAAnimation*)animationOnPath:(CGPathRef)p duration:(CFTimeInterval)d timeOffset:(CFTimeInterval)o;
-+ (CAAnimation*) animationForOpacity;
-+ (CAAnimation*) animationForScale;
-+ (CAAnimation*) animationForRotation;
-
-+(CAAnimation *)flipDown:(NSTimeInterval)aDuration scaleFactor:(CGFloat)scaleFactor;
++ (CAKA*)           popInAnimation;
++ (CAG*)    shrinkAnimationAtPoint: (CGPoint)p;
++ (CAAG*)   blowupAnimationAtPoint: (CGPoint)p;
++ (CAA*)            shakeAnimation;
++ (CAA*)       animationForOpacity;
++ (CAA*)         animationForScale;
++ (CAA*)      animationForRotation;
++ (CAA*) flipAnimationWithDuration: (NSTI)aDur;
++ (CAA*)                  flipDown: (NSTI)aDur  scaleFactor: (CGF)scale;
++ (CAA*) 	       animationOnPath: (CGPR)path  duration:    (CFTI)d 	  timeOffset: (CFTI)o;
++ (CAA*)    colorAnimationForLayer: (CAL*)layer start:       (NSC*)c1  	  end: (NSC*)c2;
++ (CAA*)   rotateAnimationForLayer: (CAL*)layer start:       (CGF)fl1     end: (CGF)fl1;
 
 @property (nonatomic, copy) AZCAAnimationCompletionBlock az_completionBlock;
 
-+ (CAAnimation*) shakeAnimation;
-
-+ (CAAnimation*) colorAnimationForLayer:(CALayer*) theLayer withStartingColor:(NSColor*) color1 endColor:(NSColor*) color2;
-
-+ (CAAnimation*)rotateAnimationForLayer:(CALayer *)theLayer start:(CGFloat)starting end:(CGFloat)ending;
-
-+ (CAKeyframeAnimation*)popInAnimation;	
 @end
 
 @interface NSView (CAAnimationEGOHelper)
 - (void)popInAnimated;
 @end
-
 @interface CALayer (CAAnimationEGOHelper)
 - (void)popInAnimated;
 @end
 
-@interface CAAnimation (MCAdditions)
-
-//+ (CAAnimation *)flipAnimationWithDuration:(NSTimeInterval)aDuration;
-
-@end
-
-@interface CAKeyframeAnimation (JumpingAndShaking)
-
-+ (CAKeyframeAnimation *)shakeAnimation:(NSRect)frame;
-
-+ (CAKeyframeAnimation *)jumpAnimation;
-
-+ (CAKeyframeAnimation *)dockBounceAnimationWithIconHeight:(CGFloat)iconHeight;
-
-@end
 
 
 
-@interface CAAnimation (BlocksAddition)
-
-@property (nonatomic, copy) void (^completion)(BOOL);
-@property (nonatomic, copy) void (^start)();
-
-@end

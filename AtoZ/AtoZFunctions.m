@@ -27,7 +27,7 @@
 }
 @end
 
-void ApplicationsInDirectory(NSString *searchPath, NSMutableArray *applications) {
+extern void ApplicationsInDirectory(NSString *searchPath, NSMutableArray *applications) {
 	__block BOOL isDir;
 	[[AZFILEMANAGER contentsOfDirectoryAtPath:searchPath error:nil]az_each:^(id obj, NSUInteger index, BOOL *stop) {
 		[AZFILEMANAGER changeCurrentDirectoryPath:searchPath];
@@ -321,8 +321,8 @@ static double frandom(double start, double end)
 	return r;
 }
 
-@implementation Slice
-@end
+//@implementation Slice
+//@end
 
 //@implementation NSNumber (SliceCreation)
 //

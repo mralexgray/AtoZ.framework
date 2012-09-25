@@ -7,13 +7,15 @@
 //
 
 #import <ApplicationServices/ApplicationServices.h>
-#import "AtoZ.h"
+#import "BaseModel.h"
 
-@interface AZTalker : AZSingleton <NSSpeechSynthesizerDelegate>
+@interface AZTalker : NSObject <NSSpeechSynthesizerDelegate>
 
 @property (strong, nonatomic) NSSpeechSynthesizer *talker;
 
 -(void) say:(NSString *)thing;
 + (instancetype)sharedInstance;
+
++(void)say:(NSString*)s;
 
 @end

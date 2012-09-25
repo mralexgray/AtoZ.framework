@@ -16,14 +16,14 @@
 //@synthesize dock;
 
 
-+ (NSArray*) dock {
-	return [AZDockQuery sharedInstance].dock;
-}
+//+ (NSArray*) dock:(AZDock*)dock {
+//	return [[AZDockQuery sharedInstance] dock: dock];
+//}
 
-- (NSArray *) dock {
-
+//- (NSArray *) dock:(AZDock*)dock {
+- (void) dock:(AZDock*)dock{
 	if (!_dock)  {
-		__block NSMutableArray *dockItems = [NSMutableArray array];
+		__block AZDock *dockItems = [AZDock instance];
 
 		[AZStopwatch start:@"makeDock"];  NSLog(@"A dock is born!");
 		AXUIElementRef appElement = NULL;
@@ -76,7 +76,7 @@
 							d.spot = idx;
 							d.dockPoint = coordinates;
 
-							[dockItems addObject:d];		//stepper++;
+							[dock addObject: d];// addObject:d];		//stepper++;
 						}
 					} //if error success
 				} // if preferreed role
@@ -91,7 +91,7 @@
 		[AZStopwatch stop:@"makeDock"];
 
 	} //if _dock noexista
-	return _dock;
+//	return _dock;
 }
 
 

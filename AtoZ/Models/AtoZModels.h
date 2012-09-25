@@ -10,17 +10,25 @@
 #import "AtoZUmbrella.h"
 #import "AtoZ.h"
 
-@interface AZFiles : BaseModel
+@interface AZFolder : BaseModel <NSCopying, NSMutableCopying, NSFastEnumeration>
+@property (nonatomic, retain) NSMutableArray *items;
+@property (readonly) NSArray *files;
+@property (readonly) NSArray *folders;
+@property (nonatomic, strong) NSArray *strings;
++ (instancetype) instanceWithItems:(NSArray*)items;
++ (instancetype) instanceWithPaths:(NSArray*)paths;
+@end
 
+@interface AZAppFolder : AZFolder
+//+ (instancetype) samplerWithBetween:(NSUInteger)minItems andMax:(NSUInteger)items;
+@property (nonatomic, retain) NSArray *appCategories;
+@property (nonatomic, strong) NSArray *sorted;
+@end
+
+@interface AZDock : AZFolder
 @property (nonatomic, assign) AZDockSort sortOrder;
 @property (nonatomic, retain) NSArray *dock;
 @property (nonatomic, retain) NSArray *dockSorted;
-@property (nonatomic, retain) NSArray *appCategories;
-
-@property (nonatomic, strong) NSArray *appFolderSorted;
-@property (nonatomic, strong) NSArray *appFolder;
-@property (nonatomic, strong) NSArray *appFolderStrings;
-
 @end
 
 @interface AZFile : BaseModel
@@ -38,7 +46,7 @@
 @property (assign, nonatomic) NSNumber *  labelNumber;
 @property (strong, nonatomic) NSArray  *  colors;
 @property (strong, nonatomic) NSImage  *  image;
-@property (nonatomic, readonly)	CGFloat	  hue;
+@property (nonatomic, assign)	CGFloat	  hue;
 @property (nonatomic, readonly)	BOOL	  hasLabel;
 
 @property (nonatomic, assign)	AZWindowPosition		position;

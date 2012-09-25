@@ -189,8 +189,19 @@ static char AZNotificationHelperMagicContext;
 
 
 
+//Subclassible thread-safe ARC singleton
+//Copyright Kevin Lawler. Released under ISC.
 
 @implementation AZSingleton
+
+//- (id)objectForKeyedSubscript:(NSString *)key {
+// return [_children objectForKey:key];
+// }
+//
+//- (void)setObject:(id)newValue forKeyedSubscription:(NSString *)key {
+//	 [_children setObject:newValue forKey:key];
+//}
+//
 
 static NSMutableDictionary* _children;
 
@@ -200,7 +211,7 @@ static NSMutableDictionary* _children;
         _children = [[NSMutableDictionary alloc] init];
     }
 
-    _children[NSStringFromClass([self class])] = [[self alloc] init];
+    [_children setObject:[[self alloc] init] forKey:NSStringFromClass([self class])];
 }
 
 +(id) alloc {
@@ -213,7 +224,7 @@ static NSMutableDictionary* _children;
 
 -(id) init {
     id c;
-    if((c = _children[NSStringFromClass([self class])])) { //sic, unfactored
+    if((c = [_children objectForKey:NSStringFromClass([self class])])) { //sic, unfactored
         return c;
     }
     self = [super init];
@@ -221,7 +232,7 @@ static NSMutableDictionary* _children;
 }
 
 +(id) instance {
-    return _children[NSStringFromClass([self class])];
+    return [_children objectForKey:NSStringFromClass([self class])];
 }
 
 +(id) sharedInstance { //alias for instance
@@ -232,7 +243,7 @@ static NSMutableDictionary* _children;
     return [self instance];
 }
 
-//stop other creative stuff
+	//stop other creative stuff
 +(id) new {
     return [self instance];
 }

@@ -88,10 +88,11 @@ void	NSLogPostLog(char* file, int line);
 	// Queue them - they will be unqueued when WebView has loaded.
 	BOOL	webViewLoaded;
 }
-@property (strong, nonatomic)	id		messageQueue;
-- (void)logString:(NSString*)string file:(char*)file lineNumber:(int)line;
-- (void)clear;
-- (void)search:(NSString*)string;
+@property (strong, nonatomic) id messageQueue;
+
+- (void) logString:(NSString*) string file: (char*)file lineNumber:(int)line;
+- (void) clear;
+- (void) search: (NSString*) string;
 
 @end
 

@@ -809,7 +809,8 @@ static NSColor *ColorWithCSSString(NSString *str) {
 }
 
 + (NSArray *) colorListsInFramework {
-	NSBundle *aBundle = [NSBundle bundleForClass: [AtoZ class]];
+	NSBundle *aBundle = [NSBundle bundleWithIdentifier:@"com.github.mralexgray.AtoZ"];
+//										bundleForClass: [AtoZ class]];
 	NSArray *lists = [aBundle pathsForResourcesOfType:@"clr" inDirectory:@""];
 	return [lists arrayUsingBlock:^id(id obj) {
 		NSString *name = [[obj lastPathComponent]stringByDeletingPathExtension];
@@ -845,6 +846,7 @@ static NSColor *ColorWithCSSString(NSString *str) {
 		return [obj allKeys];
 	}]];
 }
++ (NSArray *) allColors { return [[self class] systemColors]; }
 + (NSArray *) allSystemColors { return [[self class] systemColors]; }
 + (NSArray *) systemColors {
 	NSArray *contenders = [NSArray arrayWithArrays:[[NSColorList availableColorLists]arrayUsingBlock:^id(NSColorList* obj) {

@@ -30,6 +30,12 @@
     return self;
 }
 
++(void)say:(NSString*)s
+{
+	[NSTask launchedTaskWithLaunchPath:@"/usr/bin/say" arguments:@[s]];
+}
+
+
 
 -(void) say:(NSString *)thing {
 

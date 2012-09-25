@@ -57,19 +57,19 @@
 }
 
 + (NSArray*) dock {
-	return [AZFiles sharedInstance].dock ;
+	return (NSArray*)[AZDock sharedInstance];
 }
 
 + (NSArray*) currentScope {
-	return [AZFiles sharedInstance].dockSorted;
+	return [AZFolder sharedInstance].items;
 }
 + (NSArray*) dockSorted {
 
-	return [AZFiles sharedInstance].dockSorted;
+	return [AZDock sharedInstance].dockSorted;
 }
 + (NSArray*) appCategories {
 
-	return [AZFiles sharedInstance].appCategories;
+	return [AZAppFolder sharedInstance].appCategories;
 }
 
 
@@ -100,10 +100,19 @@
 //	self.dockOutline = dock.copy;
 //	self.sortOrder = AZDockSortNatural;
 }
-
-- (NSBundle*) bundle {
-	return [NSBundle bundleForClass:[self class]];
++ (NSString *) version;
+{
+    NSString *myVersion	= [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    NSString *buildNum 	= [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString*)kCFBundleVersionKey];
+    NSString *versText	= myVersion
+						? buildNum 	? [NSString stringWithFormat:@"Version: %@ (%@)", myVersion, buildNum]
+									: [NSString stringWithFormat:@"Version: %@", myVersion]
+			    		: buildNum  ? [NSString stringWithFormat:@"Version: %@", buildNum] : nil;
+    AZLOG(versText); return versText;
 }
+//- (NSBundle*) bundle {
+//	return [NSBundle bundleWithIdentifier: bundleForClass:[self class]];
+//}
 #ifdef GROWL_ENABLED
 - (BOOL) registerGrowl {
 //	AtoZ *u = [[self class] sharedInstance];
@@ -246,66 +255,6 @@
 
 //}
 
-+ (NSArray*) selectedDock{
-	AZFiles *shared =  [AZFiles sharedInstance];
-	AZDockSort sortorder = shared.sortOrder;
-	switch (sortorder) {
-		case AZDockSortNatural:
-			return shared.dock;
-			break;
-		case AZDockSortColor:
-			return shared.dockSorted;
-		default:
-			return shared.dock;
-			break;
-			//			return NSArray *a = @[$int(66) to:$int(66)];// arrayUsingBlock:^id(id obj) {
-			//
-			//			}];
-
-			//		[[NSThread mainThread] performBlock:^{
-			//		} waitUntilDone:YES];
-			//		performBlockInBackground:^{
-			//		}];			break;
-	}
-}
-
-//+ (NSMutableArray*) dockSorted {
-// [AZStopwa /tch start:@"dockSorted"];
-
-//	if (! [AtoZ sharedInstance].dockSorted ){
-// NSLog(@"sorted noexista!.  does docko? : %@");
-//		[AtoZ sharedInstance]_dockSorted = [[[AtoZ dock] sortedWithKey:@"hue" ascending:YES] reversed].mutableCopy;
-//	}
-//	[[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:AtoZDockSortedUpdated object:[AtoZ sharedInstance].dockSorted];
-// NSLog(@"was it made?  dsorted:%@", [AtoZ sharedInstance]._dockSorted);
-// [AZStopwatch stop:@"dockSorted"];
-//	[NSThread performAZBlockOnMainThread:^{
-//		[[NSApp delegate] setValue:
-//			[[AtoZ sharedInstance]. dockSorted arrayUsingIndexedBlock:^id(id obj, NSUInteger idx) {
-//				AZFile *block = obj;
-//				AZInfiniteCell * ee = [AZInfiniteCell new];
-//				ee.file = block;
-//				ee.backgroundColor = block.color;
-//				return ee;
-//			}] forKeyPath:@"infiniteBlocks.infiniteViews"];
-//	}];
-// return  [AtoZ sharedInstance].dockSorted;
-//}
-
-//	if ([AtoZ sharedInstance].dockSorted) {
-//		NSLog(@"preexisting sort! ");
-//		return [AtoZ sharedInstance].dockSorted;
-//	}
-//	[AtoZ sharedInstance].dockSorted = [[[[AtoZ dock] sortedWithKey:@"hue" ascending:YES] reversed] arrayUsingIndexedBlock:^id(id obj, NSUInteger idx) {
-//		AZFile* app = obj;
-//		app.spotNew = idx;
-//		app.dockPointNew = [[[self.dock objectAtIndex:app.spotNew] valueForKey:@"dockPoint"]pointValue];
-//		return app;
-//	}];
-// where you would call a delegate method (e.g. [self.delegate doSomething])
-// object:nil userInfo:nil]; /* dictionary containing variables to pass to the delegate */
-//	return [AtoZ sharedInstance ].dockSorted;
-//}
 
 //- (void)performBlock:(void (^)())block {
 //	if ([[NSThread currentThread] isEqual:[self curr])
@@ -325,9 +274,9 @@
 //	[NSThread performSelectorInBackground:@selector(az_runBlock:) withObject:[block copy]];
 //}
 + (NSArray*) appFolderSorted {
-	if (! [AZFiles sharedInstance].appFolderSorted )
-		[AZFiles sharedInstance].appFolderSorted = [AZFiles.sharedInstance.appFolder sortedWithKey:@"hue" ascending:YES].reversed.mutableCopy;
-	return  [AZFiles sharedInstance].appFolderSorted;
+	return [AZAppFolder sharedInstance].sorted;
+//		[AZFiles sharedInstance].appFolderSorted = [AZFiles.sharedInstance.appFolder sortedWithKey:@"hue" ascending:YES].reversed.mutableCopy;
+//	return  [AZFiles sharedInstance].appFolderSorted;
 }
 
 
@@ -345,18 +294,15 @@
 	//	NSLog(@"%@", [[AtoZ sharedInstance] codableKeys]);
 	//	[[AtoZ sharedInstance] writeToFile:@"/Users/localadmin/Desktop/poop.plist" atomically:NO];
 
-	return [AZFiles sharedInstance].appFolder;
+	return (NSArray*)[AZAppFolder sharedInstance];
 }
 
-+ (NSArray*) appFolderSamplerWith:(NSUInteger)apps {
-
-	[AZStopwatch start:@"appFolderSampler"];
-	return [[[AZFiles sharedInstance].appFolderStrings randomSubarrayWithSize:apps] arrayUsingBlock:^id(id obj) {
-				return [AZFile instanceWithPath:obj];
-	}];
-
-	[AZStopwatch stop:@"appFolderSampler"];
-}
+//+ (NSArray*) appFolderSamplerWith:(NSUInteger)apps {
+//
+//	[AZStopwatch start:@"appFolderSampler"];
+//	return (NSArray*)[AZAppFolder samplerWithBetween:apps andMax:apps];
+//	[AZStopwatch stop:@"appFolderSampler"];
+//}
 
 - (NSPoint)convertToScreenFromLocalPoint:(NSPoint)point relativeToView:(NSView *)view
 {

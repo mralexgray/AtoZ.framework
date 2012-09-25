@@ -14,6 +14,7 @@
 
 extern void prepareContext(CGContextRef ctx);
 
+
 void applyPerspective (CALayer* layer);
 //extern CATransform3D perspective();
 
@@ -111,9 +112,11 @@ CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13, CGFloat m14,
 
 @interface CALayer (AtoZ)
 
+
 - (void)addConstraints:(NSArray*)constraints;
 - (void)orientWithPoint:(CGPoint) point;
 - (void)orientWithX: (CGFloat)x andY: (CGFloat)y;
+- (void)orientOnEvent: (NSEvent*)event;
 
 - (void) setAnchorPointRelative: (CGPoint) anchorPoint;
 - (void) setAnchorPoint: (CGPoint) anchorPoint inRect:(NSRect)rect;

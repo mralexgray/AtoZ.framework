@@ -10,10 +10,17 @@
 //#else
 	#import <Cocoa/Cocoa.h>
 	#import <QuartzCore/QuartzCore.h>
+	#import <objc/runtime.h>
+	#import <Carbon/Carbon.h>
+	#import <AppKit/AppKit.h>
+	#import <FunSize/FunSize.h>
+	#import "F.h"
 	#import	"AtoZUmbrella.h"
-	#import "AtoZFunctions.h"
 	#import "AZGeometry.h"
+	#import "AtoZFunctions.h"
 	#import "AtoZ.h"
+
+	#import "AZTalker.h"
 
 //	#import <FunSize/FunSize.h>
 

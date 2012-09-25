@@ -1,74 +1,77 @@
 
 //  AtoZ.h
-//  AtoZ
-
 
 /*  xcode shortcuts
   @property (nonatomic, assign) <\#type\#> <\#name\#>;
 */
 
+#import <AppKit/AppKit.h>
+#import <ApplicationServices/ApplicationServices.h>
+#import <AudioToolbox/AudioToolbox.h>
 #import <Cocoa/Cocoa.h>
 #import <Foundation/Foundation.h>
-#import <ApplicationServices/ApplicationServices.h>
-#import <AppKit/AppKit.h>
-#import <AudioToolbox/AudioToolbox.h>
+#import <FunSize/FunSize.h>
 #import <QuartzCore/QuartzCore.h>
 #import <xpc/xpc.h>
-#import <FunSize/FunSize.h>
+
+
+#import	"BaseModel.h"
+#import "BlocksAdditions.h"
+#import "F.h"
+#import "NSArray+F.h"
+#import "NSBag.h"
+#import "NSDictionary+F.h"
+#import "NSNumber+F.h"
+#import "SMModelObject.h"
+
 
 #define EXCLUDE_STUB_PROTOTYPES 1
 #import <PLWeakCompatibility/PLWeakCompatibilityStubs.h>
+#import <BlocksKit/BlocksKit.h>
 
 //#import <XPCKit/XPCKit.h>
 //#import <RMKit/RMKit.h>
-//#import <BlocksKit/BlocksKit.h>
+#import "NotificationCenterSpy.h"
+#import "TransparentWindow.h"
+#import "LoremIpsum.h"
+
+//#import "AtoZFunctions.h"
+//#import "AZGeometry.h"
+//#import "AZGeometricFunctions.h"
 
 
-#import "AtoZFunctions.h"
-#import "AZGeometry.h"
 
-#import "AZGeometricFunctions.h"
-#import "AtoZUmbrella.h"
-
-//#import "AtoZ.h"
-#import	"BaseModel.h"
-
-
-#import "AtoZModels.h"
-#import "NSBag.h"
-
-
-#import "BlocksAdditions.h"
-#import "SMModelObject.h"
-#import "AZSimpleView.h"
-#import "AZSizer.h"
-
-#import "AZMouser.h"
 #import "iCarousel.h"
 //#import "azCarousel.h"
 
 #import "AZCalculatorController.h"
 
-// Categories
-#import "CALayer+AtoZ.h"
-#import "NSFileManager+AtoZ.h"
-#import "NSBundle+AtoZ.h"
-#import "NSThread+AtoZ.h"
-#import "NSNotificationCenter+AtoZ.h"
-#import "NSApplication+AtoZ.h"
-#import "NSColor+AtoZ.h"
-#import "NSArray+AtoZ.h"
-#import "NSString+AtoZ.h"
-#import "NSView+AtoZ.h"
-#import "NSBezierPath+AtoZ.h"
-#import "NSImage+AtoZ.h"
-#import "NSWindow+AtoZ.h"
-#import "NSShadow+AtoZ.h"
-#import "NSNumber+AtoZ.h"
+#import "AZSizer.h"
+#import "AZMouser.h"
+#import "AtoZModels.h"
+#import "AZSimpleView.h"
+
+	// Categories
 #import "CAAnimation+AtoZ.h"
-#import "NSScreen+AtoZ.h"
-#import "NSObject+AtoZ.h"
+#import "CALayer+AtoZ.h"
+#import "NSApplication+AtoZ.h"
+#import "NSArray+AtoZ.h"
+#import "NSBezierPath+AtoZ.h"
+#import "NSBundle+AtoZ.h"
+#import "NSColor+AtoZ.h"
 #import "NSDictionary+AtoZ.h"
+#import "NSFileManager+AtoZ.h"
+#import "NSImage+AtoZ.h"
+#import "NSNotificationCenter+AtoZ.h"
+#import "NSNumber+AtoZ.h"
+#import "NSObject+AtoZ.h"
+#import "NSScreen+AtoZ.h"
+#import "NSShadow+AtoZ.h"
+#import "NSString+AtoZ.h"
+#import "NSThread+AtoZ.h"
+#import "NSView+AtoZ.h"
+#import "NSWindow+AtoZ.h"
+
 
 //#import "MondoSwitch.h"
 //#import "AZToggleView.h"
@@ -103,6 +106,7 @@
 #import "AZScrollerLayer.h"
 
 // Views
+#import "AZLassoLayer.h"
 #import "AZLassoView.h"
 #import "AZFoamView.h"
 #import "AZBlockView.h"
@@ -116,7 +120,6 @@
 #import "AZBoxMagic.h"
 #import "AZInfiniteCell.h"
 #import "AZSourceList.h"
-#import "AZTalker.h"
 #import "AZBoxLayer.h"
 #import "AZOverlay.h"
 #import "AtoZInfinity.h"
@@ -124,18 +127,9 @@
 #import "AZApplePrivate.h"
 #import "RuntimeReporter.h"
 #import "AZBackgroundProgressBar.h"
-#import "F.h"
-#import "NSArray+F.h"
-#import "NSDictionary+F.h"
-#import "NSNumber+F.h"
 #import "NSTextView+AtoZ.h"
 
-
-#import "LoremIpsum.h"
 #import "AZVeil.h"
-#import "NotificationCenterSpy.h"
-#import "TransparentWindow.h"
-#import <BlocksKit/BlocksKit.h>
 
 static NSEventMask AZMouseActive = (NSMouseMovedMask | NSMouseExitedMask |NSMouseEnteredMask);
 //static NSEventMask AZMouseButton = NS | NSMouseExitedMask |NSMouseEnteredMask;
@@ -163,19 +157,10 @@ extern NSString *const AtoZDockSortedUpdated;
 
 @class NSLogConsole;
 @interface AtoZ : BaseModel
-
-+ (NSString*) resources;
-+ (NSArray*) appFolderSamplerWith:(NSUInteger)apps;
-
-- (NSPoint)convertToScreenFromLocalPoint:(NSPoint)point relativeToView:(NSView *)view;
-- (void)moveMouseToScreenPoint:(NSPoint)point;
-
 #ifdef GROWL_ENABLED
 <GrowlApplicationBridgeDelegate>
 #endif
 
-
-+ (NSString*) stringForPosition:(AZWindowPosition)enumVal;
 
 + (NSArray*) dock;
 + (NSArray*) dockSorted;
@@ -184,38 +169,35 @@ extern NSString *const AtoZDockSortedUpdated;
 + (NSArray*) runningApps;
 + (NSArray*) runningAppsAsStrings;
 + (NSArray*) appFolder;
++ (NSArray*) appCategories;
 + (NSArray*) appFolderSorted;
++ (NSArray*) appFolderSamplerWith: (NSUInteger) apps;
++ (NSString*) resources;
+- (NSPoint) convertToScreenFromLocalPoint: (NSPoint) point relativeToView: (NSView*) view;
+- (void) moveMouseToScreenPoint: (NSPoint) point;
+- (void) handleMouseEvent: (NSEventMask)event inView: (NSView*)view withBlock: (void (^)())block;
++ (NSString*) stringForPosition: (AZWindowPosition) enumVal;
++ (NSString*) stringForType: (id) type;
+
++ (NSFont*) fontWithSize: (CGFloat) fontSize;
+
+- (NSJSONSerialization*) jsonReuest: (NSString*) url;
++ (NSJSONSerialization*) jsonReuest: (NSString*) url;
 
 
 @property (nonatomic, retain) NSBundle *bundle;
 
-+ (NSString*)stringForType:(id)type;
 #ifdef GROWL_ENABLED
 - (BOOL) registerGrowl;
 #endif
 
-+ (NSArray*)appCategories;
 
+//@property (strong, nonatomic) NSLogConsole *console;
 //- (id)objectForKeyedSubscript:(NSString *)key;
 //- (void)setObject:(id)newValue forKeyedSubscription:(NSString *)key;
 
-+ (NSFont*) fontWithSize:(CGFloat)fontSize;
-- (NSJSONSerialization*) jsonReuest:(NSString*)url;
-+ (NSJSONSerialization*) jsonReuest:(NSString*)url;
-//+ (instancetype) sharedInstance;
-
-//- (NSArray*) dock;
-//- (NSArray*) dockSorted;
-//- (NSArray*) dockOutline;
-
-- (void) handleMouseEvent:(NSEventMask)event inView:(NSView*)view withBlock:(void (^)())block;
-//@property (strong, nonatomic) NSLogConsole *console;
-
 //- (void)performBlock:(void (^)())block;
 //- (void)performBlock:(void (^)())block waitUntilDone:(BOOL)wait;
-
-
-
 @end
 
 @interface AtoZ (MiscFunctions)

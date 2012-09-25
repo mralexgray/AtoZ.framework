@@ -7,7 +7,8 @@
 //
 
 #import "NSApplication+AtoZ.h"
-#import <Carbon/Carbon.h>
+
+#import "AtoZ.h"
 
 NSString *const kShowDockIconUserDefaultsKey = @"ShowDockIcon";
 

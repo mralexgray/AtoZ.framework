@@ -479,8 +479,84 @@ CGColorRef CreatePatternColor( CGImageRef image )
 #define kCALayerLabel @"CALayerLabel"
 
 @implementation CALayer (AtoZ)
+/**
+
++ (CAShapeLayer*) lassoLayerForLayer:(CALayer*)layer {
+
+//	NSLog(@"Clicked: %@", [[layer valueForKey:@"azfile"] propertiesPlease] );
+	CAShapeLayer *shapeLayer = [CAShapeLayer layer];
+//	[shapeLayer setValue:layer forKey:@"mommy"];
+		//	float total = 	( (2*contentLayer.bounds.size.width) + (2*contentLayer.bounds.size.height) - (( 8 - ((2 * pi) * contentLayer.cornerRadius))));
+	CGRect shapeRect = layer.bounds;
+	shapeLayer.frame = shapeRect;
+		//	[shapeLayer setAutoresizingMask:kCALayerWidthSizable|kCALayerHeightSizable];
+	NSArray *constraints = [NSArray arrayWithObjects:
+							AZConstScaleOff( kCAConstraintMinX,@"superlayer", 1,2),
+							AZConstScaleOff( kCAConstraintMaxX,@"superlayer", 1,2),
+							AZConstScaleOff( kCAConstraintMinY,@"superlayer", 1,2),
+							AZConstScaleOff( kCAConstraintMaxY,@"superlayer", 1,2),
+							AZConstScaleOff( kCAConstraintWidth,@"superlayer", 1,-4),
+							AZConstScaleOff( kCAConstraintHeight,@"superlayer", 1, -4),
+							AZConst( kCAConstraintMidX,@"superlayer"),
+							AZConst( kCAConstraintMidY,@"superlayer"),  nil];
+	shapeLayer.constraints = constraints;
+	[shapeLayer setFillColor:cgCLEARCOLOR];
+	[shapeLayer setStrokeColor: [[[layer valueForKey:@"azfile"]valueForKey:@"color"]CGColor]];
+	[shapeLayer setLineWidth:4];
+	[shapeLayer setLineJoin:kCALineJoinRound];
+	[shapeLayer setLineDashPattern:@[ @(10), @(5)]];
+	// Setup the path
+	shapeRect.size.width -= 4;
+	shapeRect.size.height -= 4;
+		//	CGMutablePathRef path = CGPathCreateMutable();
+		//	CGPathAddRect(path, NULL, shapeRect);
+		//	[shapeLayer setPath:path];
+		//	CGPathRelease(path);
+	[shapeLayer setPath:[[NSBezierPath bezierPathWithRoundedRect:shapeRect
+													cornerRadius:layer.cornerRadius] quartzPath]];
+	CABasicAnimation *dashAnimation = [CABasicAnimation animationWithKeyPath:@"lineDashPhase"];
+	[dashAnimation setFromValue:@(0.0f)];
+	[dashAnimation setToValue:@(15.0f)];
+	[dashAnimation setDuration:0.75f];
+	[dashAnimation setRepeatCount:10000];
+	[shapeLayer addAnimation:dashAnimation forKey:@"linePhase"];
+
+		//	float total = (((2* NSMaxX(contentLayer.frame)) + (2 * NSMaxY(box.frame)))/16);
+		//	CABasicAnimation *dashAnimation = [CABasicAnimation animationWithKeyPath:@"lineDashPhase"];
+		//	dashAnimation.fromValue 	= $float(0.0f);	dashAnimation.toValue 	= $float
+		//	(total);
+		//
+		//	dashAnimation.duration	= 3;				dashAnimation.repeatCount = 10000;
+		//	//	dashAnimation.beginTime = CACurrentMediaTime();// + 2;
+		//	[shapeLayer addAnimation:dashAnimation forKey:@"linePhase"];
+		//	shapeLayer.fillColor 		= cgRED;
+		//	shapeLayer.strokeColor		= cgBLACK;
+		//	shapeLayer.lineJoin			= kCALineJoinMiter;
+		//	shapeLayer.lineDashPattern 	= $array( $int(total/8), $int(total/8));
+		//
+		//	//			srelectedBox.shapeLayer.lineDashPattern 	= $array( $int(15), $int(45));
+		//	shapeLayer.lineWidth = 5;
+		//	[shapeLayer setPath:[[NSBezierPath bezierPathWithRoundedRect:contentLayer.bounds cornerRadius:contentLayer.cornerRadius ] quartzPath]];
+	[layer addSublayer:shapeLayer];
+	[shapeLayer addConstraintsSuperSize];
+ 	return shapeLayer;
+}
+
+//- (void) redrawPath {
+//	CALayer *selected = [_lassoLayer valueForKey:@"mommy"];
+//	CGRect shapeRect = selected.bounds;
+//	shapeRect.size.width -= 4;
+//	shapeRect.size.height -= 4;
+//	CGMutablePathRef path = CGPathCreateMutable();
+//	CGPathAddRect(path, NULL, shapeRect);
+//	[_lassoLayer setPath:path];
+//	CGPathRelease(path);
+//	[_contentLayer setNeedsDisplay];
+//	
+//}
 
 
+*/
 - (void)orientWithPoint:(CGPoint)point
 {
 	[self orientWithX:point.x andY:point.y];
@@ -494,6 +570,17 @@ CGColorRef CreatePatternColor( CGImageRef image )
 	transform.m34		= 1.0 / -450;
 	self.sublayerTransform		= transform;
 }
+
+//- (void)orientOnEvent: (NSEvent*)event;
+//{
+//	CGPoint point = NSPointToCGPoint([self convertPoint:theEvent.locationInWindow fromView:nil]);
+//	draggedDuringThisClick = true;
+//
+//	deltaX = (point.x - dragStart.x)/200;
+//deltaY = -(point.y - dragStart.y)/200;
+//[self orientWithX:(angleX+deltaX) andY:(angleY+deltaY)];
+
+
 
 //- (void) flipHorizontally {	[self flipForward:YES vertically:NO atPosition:99]; }
 //- (void) flipVertically;  {	[self flipForward:YES vertically:YES atPosition:99]; }

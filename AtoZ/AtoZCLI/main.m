@@ -36,39 +36,55 @@ void TestStopwatchBlock (NSString* name) {
 
 //const NSImage*paddy = [[NSImage alloc]initWithContentsOfFile:@"/Library/Desktop Pictures/Rice Paddy.jpg"];
 
+@interface AAAA : BaseModel
+@end
+@implementation AAAA
+@end
+
 int main(int argc, const char * argv[])
 {
-	TestStopwatchBlock(@"testTheWatch");
+	[AZStopwatch stopwatch:@"Runtime" timing:^{
 
-	NSArray *u = [NSArray arrayWithArrays: @[@[@"array1", @[@"array1level2"]],@[@"array2", @"array2item2"], @[@"array3"]]];
-	AZLOG(	u );
+		NSLog(@"TEST start");
+	//	TestStopwatchBlock(@"testTheWatch");
+		NSArray *u = [NSArray arrayWithArrays: @[@[@"array1", @[@"array1level2"]],@[@"array2", @"array2item2"], @[@"array3"]]];
+		AZLOG(	u );
 
-//	AZLOG([NSColor allColors]);
-//	AZLOG([NSColor colorListsInFramework]);
-	AZLOG([NSColor colorsInFrameworkListNamed:@"OrigamiMice"]);
+		AZLOG([NSColor allColors]);
+	//	[NSThread performBlock:^{
+	//		[AZTalker say:StringFromBOOL([AZDock conformsToProtocol:@protocol(NSCopying)])];
+	//	} afterDelay:2];
+	//	[AZTalker say:StringFromBOOL([AZDock conformsToProtocol:@protocol(NSFileManagerDelegate)])];
+	//	[AZTalker say:StringFromBOOL([AZDock conformsToProtocol:@protocol(NSFastEnumeration)])];
+		AZLOG([AZDock sharedInstance]);
+	//	AZLOG([NSColor colorsInFrameworkListNamed:@"OrigamiMice"]);
 
-//	NSImage *web = [NSImage imageFromWebPageAtURL:[NSURL URLWithString:@"http://google.com"] encoding:NSUTF8StringEncoding];
-//	AZLOG(web);
-//	[paddy quantize];
-				//		[[AZColor sharedInstance] colorsForImage:[NSImage imageInFrameworkWithFileName:@"mrgray.logo.png"]]);
-	AZFile *s = [AZFile	instanceWithImage:[NSImage randomIcon]];
-	AZLOG(s.propertiesPlease);
-	[s.image saveAs:@"/Users/localadmin/Desktop/poops.png"];
+	//	NSImage *web = [NSImage imageFromWebPageAtURL:[NSURL URLWithString:@"http://google.com"] encoding:NSUTF8StringEncoding];
+	//	AZLOG(web);
+	//	[paddy quantize];
+					//		[[AZColor sharedInstance] colorsForImage:[NSImage imageInFrameworkWithFileName:@"mrgray.logo.png"]]);
+	//	AZFile *s = [AZFile	instanceWithImage:[NSImage randomIcon]];
+	//	AZLOG(s.propertiesPlease);
+	//	[s.image saveAs:@"/Users/localadmin/Desktop/poops.png"];
 
-	AZFile* dum = [AZFile dummy];
-	AZLOG(dum.propertiesPlease);
-	[dum.image saveAs:@"/Users/localadmin/Desktop/poop.png"];
-
-	AZFile* ss = [AZFile instanceWithColor:RANDOMCOLOR];
-	AZLOG(ss.propertiesPlease);
-	[ss.image saveAs:@"/Users/localadmin/Desktop/poopss.png"];
-
-
-
-	CGPoint a = AZAnchorPointForPosition( AZPositionLeft);
-
-	NSLog(@"%@", NSStringFromPoint(a));
-	
+	//	AZFile* dum = [AZFile dummy];
+	//	AZLOG(dum.propertiesPlease);
+	//	[dum.image saveAs:@"/Users/localadmin/Desktop/poop.png"];
+	//
+	//	AZFile* ss = [AZFile instanceWithColor:RANDOMCOLOR];
+	//	AZLOG(ss.propertiesPlease);
+	//	[ss.image saveAs:@"/Users/localadmin/Desktop/poopss.png"];
+	//
+	//	AZTalker *welcome = [AZTalker new];
+	//	[welcome say:@"welcome"];
+	//
+	//	[[AZTalker sharedInstance]say:@"huge vgaenn"];
+	//
+	//
+	//	CGPoint a = AZAnchorPointForPosition( AZPositionLeft);
+	//
+	//	NSLog(@"%@", NSStringFromPoint(a));
+	}]; 
     return 0;
 }
 
