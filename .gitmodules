@@ -1,21 +1,21 @@
 [submodule "AtoZ/Categories/Functional"]
 	path = AtoZ/Categories/Functional
-	url = git@github.com:mralexgray/Functional.m.git
-[submodule "FunSize.framework"]
+	url = https://github.com/mralexgray/Functional.m.git
+[submodule "Frameworks/FunSize.framework"]
 	path = Frameworks/FunSize.framework
-	url = git@github.com:mralexgray/FunSize.git
-[submodule "CoreScroll"]
+	url = https://github.com/mralexgray/FunSize.git
+[submodule "Frameworks/CoreScroll"]
 	path = Frameworks/CoreScroll
 	url = https://github.com/mralexgray/CoreScroll.git
-[submodule "BlocksKit"]
+[submodule "Frameworks/BlocksKit"]
 	path = Frameworks/BlocksKit
-	url = git://github.com/zwaldowski/BlocksKit.git
+	url = https://github.com/mralexgray/BlocksKit.git
 [submodule "AtoZ/Classes/Lorem-Ipsum"]
 	path = AtoZ/Classes/Lorem-Ipsum
 	url = git://github.com/dav/Objective-C-Lorem-Ipsum-Generator.git
 [submodule "Frameworks/NanoStore"]
 	path = Frameworks/NanoStore
-	url = https://github.com/tciuro/NanoStore.git
+	url = https://github.com/mralexgray/NanoStore.git
 [submodule "AtoZ/Categories/NSScreen-PointConversion"]
 	path = AtoZ/Categories/NSScreen-PointConversion
 	url = git://github.com/oscardelben/NSScreen-PointConversion.git
