@@ -88,6 +88,7 @@
 #import "AZLassoView.h"
 #import "AZBackground.h"
 #import "AZCSSColors.h"
+#import "CTGradient.h"
 
 //Controls
 #import "AZToggleArrayView.h"
@@ -106,6 +107,8 @@
 #import "AZScrollerLayer.h"
 
 // Views
+#import "CalcModel.h"
+
 #import "AZLassoLayer.h"
 #import "AZLassoView.h"
 #import "AZFoamView.h"

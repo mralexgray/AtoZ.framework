@@ -29,6 +29,7 @@
 		7B02364E15DF15DB0070FE12 /* AZLaunchServices.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B02364C15DF15DA0070FE12 /* AZLaunchServices.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7B02365615DF26AA0070FE12 /* AZStatusItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B02365515DF26AA0070FE12 /* AZStatusItemView.m */; };
 		7B0236AF15E07D440070FE12 /* EncyclopediaDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B379D1215DE56F10040A093 /* EncyclopediaDelegate.m */; };
+		7B04C2C316118DBE00F46AD2 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B82B82215CB66D30026FE8C /* Cocoa.framework */; };
 		7B05BB0C159C40A600409B83 /* AZQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B05BB0A159C40A600409B83 /* AZQueue.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B05BB14159C5C6100409B83 /* AZBlockView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B05BB12159C5C6100409B83 /* AZBlockView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B05BB15159C5C6100409B83 /* AZBlockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B05BB13159C5C6100409B83 /* AZBlockView.m */; };
@@ -244,6 +245,8 @@
 		7B6CF45D15D32B8D0018A0D7 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B6CF45C15D32B8B0018A0D7 /* AudioToolbox.framework */; };
 		7B6D95EF15FA954100972A69 /* XLDragDropView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B6D95ED15FA954100972A69 /* XLDragDropView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B6D95F015FA954100972A69 /* XLDragDropView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B6D95EE15FA954100972A69 /* XLDragDropView.m */; };
+		7B71E728161268190015F4E4 /* CTGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B71E726161268190015F4E4 /* CTGradient.m */; };
+		7B71E729161268900015F4E4 /* CTGradient.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B71E725161268190015F4E4 /* CTGradient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B728DF815C472D8004F6723 /* NSNotificationCenter+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B728DF615C472D8004F6723 /* NSNotificationCenter+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B728DF915C472D8004F6723 /* NSNotificationCenter+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B728DF715C472D8004F6723 /* NSNotificationCenter+AtoZ.m */; };
 		7B73D8EB15E4212D00D2671A /* AZAttachedWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BE606ED15A118B400355236 /* AZAttachedWindow.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -2260,6 +2263,8 @@
 		7B6CF45C15D32B8B0018A0D7 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = /System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<absolute>"; };
 		7B6D95ED15FA954100972A69 /* XLDragDropView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = XLDragDropView.h; sourceTree = "<group>"; };
 		7B6D95EE15FA954100972A69 /* XLDragDropView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLDragDropView.m; sourceTree = "<group>"; };
+		7B71E725161268190015F4E4 /* CTGradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = CTGradient.h; path = Models/CTGradient.h; sourceTree = SOURCE_ROOT; };
+		7B71E726161268190015F4E4 /* CTGradient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTGradient.m; path = Models/CTGradient.m; sourceTree = SOURCE_ROOT; };
 		7B728DF615C472D8004F6723 /* NSNotificationCenter+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNotificationCenter+AtoZ.h"; sourceTree = "<group>"; };
 		7B728DF715C472D8004F6723 /* NSNotificationCenter+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNotificationCenter+AtoZ.m"; sourceTree = "<group>"; };
 		7B78528815ACA7AB008BAD3C /* AZBoxMagic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZBoxMagic.h; path = AZBoxView/AZBoxMagic.h; sourceTree = SOURCE_ROOT; };
@@ -3103,6 +3108,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B04C2C316118DBE00F46AD2 /* Cocoa.framework in Frameworks */,
 				7BF93E3615FEF8F400211769 /* GHUnit.framework in Frameworks */,
 				7B184EF215FCAA6800696360 /* AtoZ.framework in Frameworks */,
 				7B184EE715FCA98700696360 /* Foundation.framework in Frameworks */,
@@ -3387,6 +3393,7 @@
 			children = (
 				7B311961159B6D9E002134C4 /* AtoZ.h */,
 				7B311962159B6D9E002134C4 /* AtoZ.m */,
+				7B583066159BDAF40039CEED /* AtoZ-Prefix.pch */,
 				7B6901D7159E3AC600D0DA47 /* AtoZUmbrella.h */,
 				7BF9854915FEBDB100D47192 /* AtoZFunctions.h */,
 				7BF9854A15FEBDB200D47192 /* AtoZFunctions.m */,
@@ -3661,7 +3668,6 @@
 				7B6B382715F52C9100DC4D51 /* fonts */,
 				7B23C35F15CE980100DD1A9C /* NSLogConsole.xib */,
 				7B583065159BDAF40039CEED /* atoz.icns */,
-				7B583066159BDAF40039CEED /* AtoZ-Prefix.pch */,
 				7B583068159BDAF40039CEED /* AppledocSettings.plist */,
 				7B583067159BDAF40039CEED /* AtoZ-Info.plist */,
 				7B010D1615E81FE300D1C83C /* Localizable.strings */,
@@ -3672,6 +3678,8 @@
 		7B59C8281600D346009DAFCA /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				7B71E725161268190015F4E4 /* CTGradient.h */,
+				7B71E726161268190015F4E4 /* CTGradient.m */,
 				7B59C8241600D341009DAFCA /* AtoZModels.h */,
 				7B59C8251600D341009DAFCA /* AtoZModels.m */,
 			);
@@ -4680,34 +4688,34 @@
 		7BE6068915A00B8800355236 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
-				7BBB12D816054F02005D73CF /* LoremIpsum.h */,
-				7BBB12D916054F02005D73CF /* LoremIpsum.m */,
 				7B7A852D15F81AB00071741C /* AGProcess.h */,
 				7B7A852E15F81AB00071741C /* AGProcess.m */,
-				7B64C01A15D14A4900D4ED4A /* AZCSSColors.h */,
-				7B64C01B15D14A4900D4ED4A /* AZCSSColors.m */,
-				7B80995015E8C7A200A6AB7C /* BlocksAdditions.h */,
-				7B80995115E8C7A200A6AB7C /* BlocksAdditions.m */,
-				7B8A29FC15E2735000286E27 /* SMModelObject.h */,
-				7B8A29FD15E2735000286E27 /* SMModelObject.m */,
-				7B8128AA15D05BFF0070193F /* AZNotificationCenter.h */,
-				7B8128AB15D05BFF0070193F /* AZNotificationCenter.m */,
-				7B23C36115CE98AF00DD1A9C /* NSLogConsole.html */,
-				7B23C36215CE98AF00DD1A9C /* NSLogConsole.m */,
-				7B23C36315CE98AF00DD1A9C /* NSLogConsole.h */,
-				7BCDFC5A15C71A810003DA4D /* fullDescription.m */,
-				7BCDFC5D15C71A810003DA4D /* NotificationCenterSpy.h */,
-				7BCDFC5E15C71A810003DA4D /* NotificationCenterSpy.m */,
-				7B9742A815C62F70006490DD /* RuntimeReporter.m */,
-				7B9742A715C62F70006490DD /* RuntimeReporter.h */,
 				7BBD96EC15AD38F300943FC1 /* AZApplePrivate.h */,
 				7BBD96ED15AD38F300943FC1 /* AZApplePrivate.m */,
 				7B6901C7159E322300D0DA47 /* AZAXAuthorization.h */,
 				7B6901C8159E322300D0DA47 /* AZAXAuthorization.m */,
-				7B05BB0A159C40A600409B83 /* AZQueue.h */,
-				7B05BB0B159C40A600409B83 /* AZQueue.m */,
+				7B64C01A15D14A4900D4ED4A /* AZCSSColors.h */,
+				7B64C01B15D14A4900D4ED4A /* AZCSSColors.m */,
 				7B02364B15DF15DA0070FE12 /* AZLaunchServices.h */,
 				7B02364C15DF15DA0070FE12 /* AZLaunchServices.m */,
+				7B8128AA15D05BFF0070193F /* AZNotificationCenter.h */,
+				7B8128AB15D05BFF0070193F /* AZNotificationCenter.m */,
+				7B05BB0A159C40A600409B83 /* AZQueue.h */,
+				7B05BB0B159C40A600409B83 /* AZQueue.m */,
+				7B80995015E8C7A200A6AB7C /* BlocksAdditions.h */,
+				7B80995115E8C7A200A6AB7C /* BlocksAdditions.m */,
+				7BCDFC5A15C71A810003DA4D /* fullDescription.m */,
+				7BBB12D816054F02005D73CF /* LoremIpsum.h */,
+				7BBB12D916054F02005D73CF /* LoremIpsum.m */,
+				7BCDFC5D15C71A810003DA4D /* NotificationCenterSpy.h */,
+				7BCDFC5E15C71A810003DA4D /* NotificationCenterSpy.m */,
+				7B23C36315CE98AF00DD1A9C /* NSLogConsole.h */,
+				7B23C36115CE98AF00DD1A9C /* NSLogConsole.html */,
+				7B23C36215CE98AF00DD1A9C /* NSLogConsole.m */,
+				7B9742A715C62F70006490DD /* RuntimeReporter.h */,
+				7B9742A815C62F70006490DD /* RuntimeReporter.m */,
+				7B8A29FC15E2735000286E27 /* SMModelObject.h */,
+				7B8A29FD15E2735000286E27 /* SMModelObject.m */,
 			);
 			name = Utility;
 			path = Classes;
@@ -4720,6 +4728,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B3422A315A52A61006AC46C /* BaseModel.h in Headers */,
 				7BC02759160D36A300BAE74D /* AZCalculatorController.h in Headers */,
 				7BC0275D160D36CB00BAE74D /* CalcModel.h in Headers */,
 				7B4F0242160A4E9A00A79C77 /* AZCoreScrollView.h in Headers */,
@@ -4727,6 +4736,7 @@
 				7B4F0244160A4E9A00A79C77 /* AZScrollerProtocols.h in Headers */,
 				7B4F0245160A4E9A00A79C77 /* AZScrollPaneLayer.h in Headers */,
 				7B4F0246160A4E9A00A79C77 /* AZSnapShotLayer.h in Headers */,
+				7B71E729161268900015F4E4 /* CTGradient.h in Headers */,
 				7B6901B8159E09D800D0DA47 /* NSApplication+AtoZ.h in Headers */,
 				7B4F0247160A4E9A00A79C77 /* AZTimeLineLayout.h in Headers */,
 				7BEF70261603112800A0300E /* NSBundle+AtoZ.h in Headers */,
@@ -4762,7 +4772,6 @@
 				7B0B7A7C15A3553F006B5062 /* AZIndeterminateIndicator.h in Headers */,
 				7BDDD5E415A3792600A5C222 /* AZStopwatch.h in Headers */,
 				7B0D7C2115A3D2C400037D30 /* AZBoxGrid.h in Headers */,
-				7B3422A315A52A61006AC46C /* BaseModel.h in Headers */,
 				7B3422CA15A5EF03006AC46C /* AZDockQuery.h in Headers */,
 				7B091A3015A8448E00821FFD /* AZHoverButton.h in Headers */,
 				7B091A3915A845A700821FFD /* NSShadow+AtoZ.h in Headers */,
@@ -5645,6 +5654,7 @@
 				7BC0275E160D36CB00BAE74D /* CalcModel.m in Sources */,
 				7B1946A7160EE786003C74D3 /* NSEvent+AtoZ.m in Sources */,
 				7B06C9D5160F0BC200342A9D /* AZLassoLayer.m in Sources */,
+				7B71E728161268190015F4E4 /* CTGradient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

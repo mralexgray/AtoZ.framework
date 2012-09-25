@@ -50,13 +50,15 @@ int main(int argc, const char * argv[])
 		NSArray *u = [NSArray arrayWithArrays: @[@[@"array1", @[@"array1level2"]],@[@"array2", @"array2item2"], @[@"array3"]]];
 		AZLOG(	u );
 
-		AZLOG([NSColor allColors]);
+//		AZLOG([NSColor allColors]);
 	//	[NSThread performBlock:^{
 	//		[AZTalker say:StringFromBOOL([AZDock conformsToProtocol:@protocol(NSCopying)])];
 	//	} afterDelay:2];
 	//	[AZTalker say:StringFromBOOL([AZDock conformsToProtocol:@protocol(NSFileManagerDelegate)])];
 	//	[AZTalker say:StringFromBOOL([AZDock conformsToProtocol:@protocol(NSFastEnumeration)])];
-		AZLOG([AZDock sharedInstance]);
+//		AZLOG([AZAppFolder sharedInstance]);
+		AZLOG([AZFile forAppNamed:@"/Applications/Safari.app"]);
+
 	//	AZLOG([NSColor colorsInFrameworkListNamed:@"OrigamiMice"]);
 
 	//	NSImage *web = [NSImage imageFromWebPageAtURL:[NSURL URLWithString:@"http://google.com"] encoding:NSUTF8StringEncoding];

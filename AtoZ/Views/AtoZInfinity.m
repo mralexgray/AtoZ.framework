@@ -43,7 +43,7 @@
 	// Register global key handler, passing a block as a callback function
  	offset = 0;
 	_orientation = AZOrientLeft;
-	_scale = AZInfiteScale0X;
+	_scale = Scale0X;
 	self.docV 											= [InfiniteDocumentView new];
 	self.documentView									= _docV;
 
@@ -52,7 +52,7 @@
 	[self.contentView trackFullView];
 
 
-	[NOTCENTER addObserver: self
+	[AZNOTCENTER addObserver: self
 			   selector: @selector(boundsDidChangeNotification:)
 				   name: NSViewBoundsDidChangeNotification
 				 object: [self contentView]];
@@ -89,24 +89,24 @@
 
 	if ((_orientation == AZOrientLeft) || (_orientation == AZOrientRight)) {
 		switch (_scale) {
-			case AZInfiteScale0X:
+			case Scale0X:
 				self.barUnit = AZMakeRectFromSize(NSMakeSize(self.contentView.frame.size.width,
 														self.contentView.frame.size.width));
 				self.totalBar = NSMakeSize(	_barUnit.size.width,
 										_barUnit.size.height * _infiniteObjects.count);
 				break;
-			case AZInfiteScale1X:
+			case Scale1X:
 				self.totalBar = self.contentView.frame.size;
 				self.barUnit = AZMakeRectFromSize(NSMakeSize(_totalBar.width,
 														_totalBar.height / _infiniteObjects.count));
 				break;
-			case AZInfiteScale2X:
+			case Scale2X:
 				self.totalBar = NSMakeSize(	self.contentView.frame.size.width,
 										self.contentView.frame.size.height * 2);
 				self.barUnit = AZMakeRectFromSize(NSMakeSize(_totalBar.width,
 														_totalBar.height / _infiniteObjects.count));
 				break;
-			case AZInfiteScale3X:
+			case Scale3X:
 				self.totalBar = NSMakeSize(	self.contentView.frame.size.width,
 										self.contentView.frame.size.height * 3);
 				self.barUnit = AZMakeRectFromSize(NSMakeSize(_totalBar.width,

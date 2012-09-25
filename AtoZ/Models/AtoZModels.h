@@ -6,9 +6,9 @@
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 //
 
-#import "AtoZFunctions.h"
-#import "AtoZUmbrella.h"
-#import "AtoZ.h"
+//#import "AtoZFunctions.h"
+//#import "AtoZUmbrella.h"
+#import "BaseModel.h"
 
 @interface AZFolder : BaseModel <NSCopying, NSMutableCopying, NSFastEnumeration>
 @property (nonatomic, retain) NSMutableArray *items;

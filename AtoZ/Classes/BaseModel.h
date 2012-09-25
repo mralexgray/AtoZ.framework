@@ -67,13 +67,13 @@
 
 
 #import <Foundation/Foundation.h>
-
+#import <Cocoa/Cocoa.h>
 #import <objc/message.h>
 #import <objc/runtime.h>
-#import "AtoZ.h"
-#import "AtoZFunctions.h"
-#import "AtoZUmbrella.h"
-#import "NSObject+AtoZ.h"
+//#import "AtoZ.h"
+//#import "AtoZFunctions.h"
+//#import "AtoZUmbrella.h"
+//#import "NSObject+AtoZ.h"
 
 extern NSString *const BaseModelSharedInstanceUpdatedNotification;
 
@@ -83,7 +83,6 @@ extern NSString *const BaseModelSharedInstanceUpdatedNotification;
 
 @protocol BaseModel <NSObject>
 @optional
-
 //loading sequence:
 //setUp called first
 //then setWithDictionary/Array/String if resource file exists
@@ -98,17 +97,16 @@ extern NSString *const BaseModelSharedInstanceUpdatedNotification;
 - (void)setWithCoder:(NSCoder *)coder;
 
 //NSCoding
-
 - (void)encodeWithCoder:(NSCoder *)coder;
 
 @end
-
 
 //use the BaseModel class as the base class for any of your
 //model objects. BaseModels can be standalone objects, or
 //act as sub-properties of a larger object
 
-@interface BaseModel : NSObject <BaseModel, NSCoding, NSCopying, NSFastEnumeration>
+@interface BaseModel : NSObject
+<BaseModel, NSCoding, NSCopying, NSFastEnumeration>
 
 - (NSString*)saveInstanceInAppSupp;
 + (instancetype)instanceWithID:(NSString*)uniqueID;

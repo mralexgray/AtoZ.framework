@@ -85,7 +85,7 @@ static NSInteger snapshotNumber;
 	_imageLayer.constraints = @[
 								AZConstScaleOff(kCAConstraintWidth, @"superlayer", .7, 0),
 								AZConstScaleOff(kCAConstraintMaxX, 	@"superlayer", .9,0),
-								AZConst(kCAConstraintMidY, 	@"superlayer")	];
+								AZConstRelSuper(kCAConstraintMidY)	];
 
 	_imageLayer.contents = [[objectRep valueForKey:@"image"] imageScaledToFitSize:AZSizeFromDimension(512)];
 	_imageLayer.contentsGravity = kCAGravityResizeAspect;

@@ -6,7 +6,6 @@
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 
 
-
 typedef void (^AZCAAnimationCompletionBlock)();
 
 //Note this is slightly flawed as we set ourself as the delegate, really we should create a chained proxy, if we need that I will add it.
@@ -35,11 +34,22 @@ extern void disableCA();
 
 @end
 
+
+
 @interface CAAnimation (AtoZ)
+#define CAL CALayer
+#define CGF CGFloat
+#define NSC NSColor
+#define CAA CAAnimation
+#define CGPR CGPathRef
+#define CFTI CFTimeInterval
+#define CAKA CAKeyframeAnimation
+#define CAAG CAGroupAnimation
+#define NSTI NSTimeInterval
 
 + (CAKA*)           popInAnimation;
-+ (CAG*)    shrinkAnimationAtPoint: (CGPoint)p;
-+ (CAAG*)   blowupAnimationAtPoint: (CGPoint)p;
++ (CAAnimationGroup*)   shrinkAnimationAtPoint: (CGPoint)p;
++ (CAAnimationGroup*)   blowupAnimationAtPoint: (CGPoint)p;
 + (CAA*)            shakeAnimation;
 + (CAA*)       animationForOpacity;
 + (CAA*)         animationForScale;

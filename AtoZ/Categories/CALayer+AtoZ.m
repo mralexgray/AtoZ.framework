@@ -595,7 +595,7 @@ CGColorRef CreatePatternColor( CGImageRef image )
 
 	if ( ![self boolForKey:@"flippedOver"] ) {
 		CATransform3D now = self.transform;
-		[self setValue:AZV3dT(now) forKey:@"savedTransform"];
+		[self setValue:AZV3d(now) forKey:@"savedTransform"];
 		[self setBool:YES forKey:@"flippedOver"];
 		return CATransform3DConcat(now, flip);
 	} else {

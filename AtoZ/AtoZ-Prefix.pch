@@ -1,5 +1,6 @@
 // Prefix header for all source files of the 'AtoZ' target in the 'AtoZ' project
 
+
 #ifdef __OBJC__
 //#if TARGET_OS_IPHONE
 //	#import <UIKit/UIKit.h>
@@ -14,13 +15,17 @@
 	#import <Carbon/Carbon.h>
 	#import <AppKit/AppKit.h>
 	#import <FunSize/FunSize.h>
+	#import "BaseModel.h"
 	#import "F.h"
-	#import	"AtoZUmbrella.h"
-	#import "AZGeometry.h"
-	#import "AtoZFunctions.h"
-	#import "AtoZ.h"
+	#import "AZGeometricFunctions.h"
 
+	#import "AZGeometry.h"
+	#import	"AtoZUmbrella.h"
+	#import "AtoZFunctions.h"
+	#import "AtoZModels.h"
+	#import "AtoZ.h"
 	#import "AZTalker.h"
+
 
 //	#import <FunSize/FunSize.h>
 

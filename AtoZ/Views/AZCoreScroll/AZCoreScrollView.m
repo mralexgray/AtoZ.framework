@@ -14,7 +14,7 @@
 
 
 @interface AZCoreScrollView ()							//@private
-@property (nonatomic, retain) NSGradient				* bgGradient;
+@property (nonatomic, retain) NSGradient				*bgGradient;
 @property (nonatomic, assign) AZTimeLineViewEventType 	currentMouseEventType;
 @end
 
@@ -95,10 +95,8 @@
 }
 
 - (void)setupListeners {
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appNoLongerActive:)
-												 name:NSApplicationWillResignActiveNotification				 object:[NSApplication sharedApplication]];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appBecameActive:)
-												 name:NSApplicationWillBecomeActiveNotification			 object:[NSApplication sharedApplication]];
+	[AZNOTCENTER addObserver:self selector:@selector(appNoLongerActive:) name:NSApplicationWillResignActiveNotification object:[NSApplication sharedApplication]];
+	[AZNOTCENTER addObserver:self selector:@selector(appBecameActive:) name:NSApplicationWillBecomeActiveNotification object:[NSApplication sharedApplication]];
 }
 
 #pragma mark - NSView Methods

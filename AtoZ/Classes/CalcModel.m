@@ -12,7 +12,7 @@
 
 @synthesize accumulatorValue;
 @synthesize transientValue;
-@synthesize restartText;
+@synthesize restartText, currentOperation;
 
 - (id)init {
 	accumulatorValue = transientValue = 0.0;

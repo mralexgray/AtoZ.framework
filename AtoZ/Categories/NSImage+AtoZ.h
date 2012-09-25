@@ -33,6 +33,8 @@ CGImageRef CreateCGImageFromData(NSData* data);
 
 @interface NSImage (AtoZ)
 
++ (NSImage *)reflectedImage:(NSImage *)sourceImage amountReflected:(float)fraction;
+
 //- (NSImage*) maskedByColor:(NSColor *)color;
 - (NSImage*) scaledToMax:(CGFloat)f;
 
@@ -77,6 +79,7 @@ CGImageRef CreateCGImageFromData(NSData* data);
 + (id) imageWithFileName:(NSString *)fileName inBundle:(NSBundle *)aBundle;
 + (id) imageWithFileName:(NSString *) fileName inBundleForClass:(Class) aClass;
 + (id) imageInFrameworkWithFileName:(NSString *) fileName;
++ (id) frameworkImageNamed:(NSString *)name;
 
 
 
@@ -210,6 +213,8 @@ CGImageRef CreateCGImageFromData(NSData* data);
 
 @interface NSImage (Icons)
 
++ (NSArray*) systemIcons;
+- (NSImage*)  coloredWithColor:(NSColor*)inColor composite:(NSCompositingOperation)comp;
 + (NSArray*) iconsColoredWithColor:(NSColor*)color;
 + (NSArray*) icons;
 + (NSArray*) picolStrings;

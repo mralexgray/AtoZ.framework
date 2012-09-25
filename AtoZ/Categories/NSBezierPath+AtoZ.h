@@ -4,6 +4,7 @@
 
 
 #import <Cocoa/Cocoa.h>
+#import <AppKit/AppKit.h>
 
 @interface NSAffineTransform (UKShearing)
 -(void)	shearXBy: (CGFloat)xFraction yBy: (CGFloat)yFraction;
@@ -17,7 +18,22 @@ typedef enum _OSCornerTypes
 	OSBottomRightCorner = 8
 } OSCornerType;
 
-@interface NSBezierPath (AG)
+typedef enum {
+	AMTriangleUp = 0,
+	AMTriangleDown,
+	AMTriangleLeft,
+	AMTriangleRight
+} AMTriangleOrientation;
+
+@interface NSBezierPath (AtoZ)
+
++ (NSBezierPath *)bezierPathWithPlateInRect:(NSRect)rect;
+
+- (void)appendBezierPathWithPlateInRect:(NSRect)rect;
+- (void)appendBezierPathWithRoundedRect:(NSRect)rect cornerRadius:(float)radius;
++ (NSBezierPath *)bezierPathWithTriangleInRect:(NSRect)aRect orientation:(AMTriangleOrientation)orientation;
+- (void)appendBezierPathWithTriangleInRect:(NSRect)aRect orientation:(AMTriangleOrientation)orientation;
+
 
 
 - (void)fillGradientFrom:(NSColor*)inStartColor to:(NSColor*)inEndColor angle:(float)inAngle;

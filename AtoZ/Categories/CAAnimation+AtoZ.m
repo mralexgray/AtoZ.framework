@@ -7,19 +7,9 @@
 	//
 
 #import "CAAnimation+AtoZ.h"
+#import <AtoZFunctions.h>
 #import "AtoZ.h"
-
-	//CGFloat DegreesToRadians(CGFloat degrees)
-	//{
-	//    return degrees * M_PI / 180;
-	//}
-
-	//NSNumber* DegreesToNumber(CGFloat degrees)
-	//{
-	//    return [NSNumber numberWithFloat:
-	//            DegreesToRadians(degrees)];
-	//}
-
+#import "AtoZUmbrella.h"
 #import <objc/runtime.h>
 
 NSString *AZCAAnimationCompletionBlockAssociatedObjectKey = @"AZCAAnimationCompletionBlockAssociatedObjectKey";
@@ -34,15 +24,10 @@ void disableCA(){
 
 
 @implementation CATransaction (AtoZ)
-+ (void)az_performWithDisabledActions:(void(^)(void))block {
-	if ([self disableActions]) {
-			// actions are already disabled
-		block();
-	} else {
-		[self setDisableActions:YES];
-		block();
-		[self setDisableActions:NO];
-	}
++ (void)az_performWithDisabledActions:(void(^)(void))block
+{
+	if    ([self disableActions])	     block();
+	else { [self setDisableActions:YES]; block(); [self setDisableActions:NO]; }
 }
 
 @end
@@ -148,48 +133,10 @@ void disableCA(){
 
 + (CAAnimation *) animationForRotation {
 	CABasicAnimation *rotateAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
-	[rotateAnimation setToValue:AZV3dT( CATransform3DMakeRotation(M_PI, 0, 1, 0) )];
+	[rotateAnimation setToValue:AZV3d( CATransform3DMakeRotation(M_PI, 0, 1, 0) )];
 	[rotateAnimation setRepeatCount:HUGE_VALF];
 	[rotateAnimation setDuration:2];
 	return rotateAnimation;
-}
-
-
-+(CAAnimation *)flipDown:(NSTimeInterval)aDuration scaleFactor:(CGFloat)scaleFactor {
-
-		// Rotating halfway (pi radians) around the Y axis gives the appearance of flipping
-    CABasicAnimation *flipAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.y"];
-    CGFloat startValue =  /*beginsOnTop ? 0.0f :*/ M_PI;
-    CGFloat endValue =  /*beginsOnTop-M_PI :*/ 0.0f;
-    flipAnimation.fromValue = [NSNumber numberWithDouble:startValue];
-    flipAnimation.toValue = [NSNumber numberWithDouble:endValue];
-
-		// Shrinking the view makes it seem to move away from us, for a more natural effect
-		// Can also grow the view to make it move out of the screen
-    CABasicAnimation *shrinkAnimation = nil;
-    if ( scaleFactor != 1.0f ) {
-        shrinkAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
-        shrinkAnimation.toValue = [NSNumber numberWithFloat:scaleFactor];
-
-			// We only have to animate the shrink in one direction, then use autoreverse to "grow"
-        shrinkAnimation.duration = aDuration * 0.5;
-        shrinkAnimation.autoreverses = YES;
-    }
-
-		// Combine the flipping and shrinking into one smooth animation
-    CAAnimationGroup *animationGroup = [CAAnimationGroup animation];
-    animationGroup.animations = [NSArray arrayWithObjects:flipAnimation, shrinkAnimation, nil];
-
-		// As the edge gets closer to us, it appears to move faster. Simulate this in 2D with an easing function
-    animationGroup.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    animationGroup.duration = aDuration;
-
-		// Hold the view in the state reached by the animation until we can fix it, or else we get an annoying flicker
-    animationGroup.fillMode = kCAFillModeForwards;
-    animationGroup.removedOnCompletion = NO;
-
-    return animationGroup;
-
 }
 
 
@@ -298,26 +245,7 @@ void disableCA(){
 	return animation;
 }
 
-@end
 
-@implementation NSView (CAAnimationEGOHelper)
-
-- (void)popInAnimated {
-	if ([self wantsLayer])
-		[[self layer] popInAnimated];
-}
-
-@end
-
-@implementation CALayer (CAAnimationEGOHelper)
-
-- (void)popInAnimated {
-	[self addAnimation:[CAAnimation popInAnimation] forKey:@"transform"];
-}
-
-@end
-
-@implementation CAAnimation (MCAdditions)
 
 +(CAAnimation *)flipAnimationWithDuration:(NSTimeInterval)aDuration forLayerBeginningOnTop:(BOOL)beginsOnTop scaleFactor:(CGFloat)scaleFactor {
 		// Rotating halfway (pi radians) around the Y axis gives the appearance of flipping
@@ -355,6 +283,8 @@ void disableCA(){
 }
 
 
+
+
 +(CAAnimation *)flipDown:(NSTimeInterval)aDuration scaleFactor:(CGFloat)scaleFactor {
 
 		// Rotating halfway (pi radians) around the Y axis gives the appearance of flipping
@@ -389,9 +319,158 @@ void disableCA(){
     animationGroup.removedOnCompletion = NO;
 
     return animationGroup;
-
+	
 }
 
+
+
+
+	//@implementation CAKeyframeAnimation (JumpingAndShaking)
+
++ (CAKeyframeAnimation *)shakeAnimation:(NSRect)frame	{
+	static int 	numberOfShakes = 3;
+	static float durationOfShake = .4;
+	static float vigourOfShake = 0.2f;
+    CAKeyframeAnimation *shakeAnimation = [CAKeyframeAnimation animation];
+    CGMutablePathRef shakePath = CGPathCreateMutable();
+    CGPathMoveToPoint(shakePath, NULL, NSMinX(frame), NSMinY(frame));
+	for (int index = 0; index < numberOfShakes; ++index)		{
+		CGPathAddLineToPoint(shakePath, NULL, NSMinX(frame) - frame.size.width * vigourOfShake, NSMinY(frame));
+		CGPathAddLineToPoint(shakePath, NULL, NSMinX(frame) + frame.size.width * vigourOfShake, NSMinY(frame));
+	}
+    CGPathCloseSubpath(shakePath);
+    shakeAnimation.path = shakePath;
+    shakeAnimation.duration = durationOfShake;
+    return shakeAnimation;
+}
+
+
++ (CAKeyframeAnimation *)jumpAnimation
+{
+		// these three values are subject to experimentation
+	CGFloat initialMomentum = 300.0f; // positive is upwards, per sec
+	CGFloat gravityConstant = 250.0f; // downwards pull per sec
+	CGFloat dampeningFactorPerBounce = 0.6;  // percent of rebound
+
+		// internal values for the calculation
+	CGFloat momentum = initialMomentum; // momentum starts with initial value
+	CGFloat positionOffset = 0; // we begin at the original position
+	CGFloat slicesPerSecond = 60.0f; // how many values per second to calculate
+	CGFloat lowerMomentumCutoff = 5.0f; // below this upward momentum animation ends
+
+	CGFloat duration = 0;
+	NSMutableArray *values = [NSMutableArray array];
+
+	do
+		{
+		duration += 1.0f/slicesPerSecond;
+		positionOffset+=momentum/slicesPerSecond;
+
+		if (positionOffset<0)
+			{
+			positionOffset=0;
+			momentum=-momentum*dampeningFactorPerBounce;
+			}
+
+			// gravity pulls the momentum down
+		momentum -= gravityConstant/slicesPerSecond;
+
+		CATransform3D transform = CATransform3DMakeTranslation(0, -positionOffset, 0);
+		[values addObject:[NSValue valueWithCATransform3D:transform]];
+		} while (!(positionOffset==0 && momentum < lowerMomentumCutoff));
+
+	CAKeyframeAnimation *animation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
+	animation.repeatCount = 1;
+	animation.duration = duration;
+	animation.fillMode = kCAFillModeForwards;
+	animation.values = values;
+	animation.removedOnCompletion = YES; // final stage is equal to starting stage
+	animation.autoreverses = NO;
+
+	return animation;
+}
+
++ (CAKeyframeAnimation *)dockBounceAnimationWithIconHeight:(CGFloat)iconHeight
+{
+	CGFloat factors[32] = {0, 32, 60, 83, 100, 114, 124, 128, 128, 124, 114, 100, 83, 60, 32,
+		0, 24, 42, 54, 62, 64, 62, 54, 42, 24, 0, 18, 28, 32, 28, 18, 0};
+
+	NSMutableArray *values = [NSMutableArray array];
+
+	for (int i=0; i<32; i++)
+		{
+		CGFloat positionOffset = factors[i]/128.0f * iconHeight;
+
+		CATransform3D transform = CATransform3DMakeTranslation(0, -positionOffset, 0);
+		[values addObject:[NSValue valueWithCATransform3D:transform]];
+		}
+
+	CAKeyframeAnimation *animation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
+	animation.repeatCount = 1;
+	animation.duration = 32.0f/30.0f;
+	animation.fillMode = kCAFillModeForwards;
+	animation.values = values;
+	animation.removedOnCompletion = YES; // final stage is equal to starting stage
+	animation.autoreverses = NO;
+	
+	return animation;
+}
+
+- (CAKeyframeAnimation *)negativeShake:(NSRect)frame{
+	int numberOfShakes = 4;
+	float durationOfShake = 0.5f;
+	float vigourOfShake = 0.05f;
+
+	CAKeyframeAnimation *shakeAnim = [CAKeyframeAnimation animation];
+
+	CGMutablePathRef shakePath = CGPathCreateMutable();
+	CGPathMoveToPoint(shakePath, NULL, NSMinX(frame), NSMinY(frame));
+	int index;
+	for (index = 0; index < numberOfShakes; ++index)
+		{
+		CGPathAddLineToPoint(shakePath, NULL, NSMinX(frame) - frame.size.width * vigourOfShake, NSMinY(frame));
+		CGPathAddLineToPoint(shakePath, NULL, NSMinX(frame) + frame.size.width * vigourOfShake, NSMinY(frame));
+		}
+	CGPathCloseSubpath(shakePath);
+	shakeAnim.path = shakePath;
+	shakeAnim.duration = durationOfShake;
+	return shakeAnim;
+}
+
+- (IBAction)shakeBabyShake:(id)sender;
+{
+	NSString *key = @"frameOrigin";
+	if ([NSWindow defaultAnimationForKey:key] == nil){
+		NSLog(@"NSVindow not animatable for key '%@'",key);
+	}else {
+		[[NSApp keyWindow] setAnimations:[NSDictionary dictionaryWithObject:[self negativeShake:[[NSApp keyWindow] frame]] forKey:key]];
+		[[[NSApp keyWindow] animator] setFrameOrigin:[[NSApp keyWindow] frame].origin];
+	}
+}
+
+
+
+
+@end
+
+@implementation NSView (CAAnimationEGOHelper)
+
+- (void)popInAnimated {
+	if ([self wantsLayer])
+		[[self layer] popInAnimated];
+}
+
+@end
+
+@implementation CALayer (CAAnimationEGOHelper)
+
+- (void)popInAnimated {
+	[self addAnimation:[CAAnimation popInAnimation] forKey:@"transform"];
+}
+
+@end
+
+//@implementation CAAnimation (MCAdditions)
 
 	//	//assuming view is your NSView
 	//CGPoint newCenter = CGPointMake(view.center.x - 300, view.center.y);
@@ -439,38 +518,6 @@ void disableCA(){
 	//			return shakeAnim;
 	//	}
 	//
-- (CAKeyframeAnimation *)negativeShake:(NSRect)frame{
-	int numberOfShakes = 4;
-	float durationOfShake = 0.5f;
-	float vigourOfShake = 0.05f;
-
-	CAKeyframeAnimation *shakeAnim = [CAKeyframeAnimation animation];
-
-	CGMutablePathRef shakePath = CGPathCreateMutable();
-	CGPathMoveToPoint(shakePath, NULL, NSMinX(frame), NSMinY(frame));
-	int index;
-	for (index = 0; index < numberOfShakes; ++index)
-	{
-		CGPathAddLineToPoint(shakePath, NULL, NSMinX(frame) - frame.size.width * vigourOfShake, NSMinY(frame));
-		CGPathAddLineToPoint(shakePath, NULL, NSMinX(frame) + frame.size.width * vigourOfShake, NSMinY(frame));
-	}
-	CGPathCloseSubpath(shakePath);
-	shakeAnim.path = shakePath;
-	shakeAnim.duration = durationOfShake;
-	return shakeAnim;
-}
-
-- (IBAction)shakeBabyShake:(id)sender;
-{
-	NSString *key = @"frameOrigin";
-	if ([NSWindow defaultAnimationForKey:key] == nil){
-		NSLog(@"NSVindow not animatable for key '%@'",key);
-	}else {
-		[[NSApp keyWindow] setAnimations:[NSDictionary dictionaryWithObject:[self negativeShake:[[NSApp keyWindow] frame]] forKey:key]];
-		[[[NSApp keyWindow] animator] setFrameOrigin:[[NSApp keyWindow] frame].origin];
-	}
-}
-
 
 	//- (void)animateView:(NSView*)sender {
 	//		// Get the relevant frames.
@@ -564,55 +611,7 @@ void disableCA(){
 
 
 
-/*   example of blocks category below
 
- - (void)runAnimation:(id)unused
- {
- // Create a shaking animation that rotates a bit counter clockwisely and then rotates another
- // bit clockwisely and repeats. Basically, add a new rotation animation in the opposite
- // direction at the completion of each rotation animation.
- const CGFloat duration = 0.1f;
- const CGFloat angle = 0.03f;
- NSNumber *angleR = [NSNumber numberWithFloat:angle];
- NSNumber *angleL = [NSNumber numberWithFloat:-angle];
-
- CABasicAnimation *animationL = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
- CABasicAnimation *animationR = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
-
- void (^completionR)(BOOL) = ^(BOOL finished) {
- [self.imageView.layer setValue:angleL forKey:@"transform.rotation.z"];
- [self.imageView.layer addAnimation:animationL forKey:@"L"]; // Add rotation animation in the opposite direction.
- };
-
- void (^completionL)(BOOL) = ^(BOOL finished) {
- [self.imageView.layer setValue:angleR forKey:@"transform.rotation.z"];
- [self.imageView.layer addAnimation:animationR forKey:@"R"];
- };
-
- animationL.fromValue = angleR;
- animationL.toValue = angleL;
- animationL.duration = duration;
- animationL.completion = completionL; // Set completion to perform rotation in opposite direction upon completion.
-
- animationR.fromValue = angleL;
- animationR.toValue = angleR;
- animationR.duration = duration;
- animationR.completion = completionR;
-
- // First animation performs half rotation and then proceeds to enter the loop by playing animationL in its completion block
- CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
- animation.fromValue = [NSNumber numberWithFloat:0.f];
- animation.toValue = angleR;
- animation.duration = duration/2;
- animation.completion = completionR;
-
- [self.imageView.layer setValue:angleR forKey:@"transform.rotation.z"];
- [self.imageView.layer addAnimation:animation forKey:@"0"];
- }
-
- */
-
-@end
 @interface CAAnimationDelegate : NSObject {
 	void (^_completion)(BOOL);
 	void (^_start)();
@@ -663,103 +662,9 @@ void disableCA(){
 	}
 }
 
-@end
-
-
-
-@implementation CAKeyframeAnimation (JumpingAndShaking)
-
-+ (CAKeyframeAnimation *)shakeAnimation:(NSRect)frame	{
-	static int 	numberOfShakes = 3;
-	static float durationOfShake = .4;
-	static float vigourOfShake = 0.2f;
-    CAKeyframeAnimation *shakeAnimation = [CAKeyframeAnimation animation];
-    CGMutablePathRef shakePath = CGPathCreateMutable();
-    CGPathMoveToPoint(shakePath, NULL, NSMinX(frame), NSMinY(frame));
-	for (int index = 0; index < numberOfShakes; ++index)		{
-		CGPathAddLineToPoint(shakePath, NULL, NSMinX(frame) - frame.size.width * vigourOfShake, NSMinY(frame));
-		CGPathAddLineToPoint(shakePath, NULL, NSMinX(frame) + frame.size.width * vigourOfShake, NSMinY(frame));
-	}
-    CGPathCloseSubpath(shakePath);
-    shakeAnimation.path = shakePath;
-    shakeAnimation.duration = durationOfShake;
-    return shakeAnimation;
-}
-
-
-+ (CAKeyframeAnimation *)jumpAnimation
-{
-		// these three values are subject to experimentation
-	CGFloat initialMomentum = 300.0f; // positive is upwards, per sec
-	CGFloat gravityConstant = 250.0f; // downwards pull per sec
-	CGFloat dampeningFactorPerBounce = 0.6;  // percent of rebound
-
-		// internal values for the calculation
-	CGFloat momentum = initialMomentum; // momentum starts with initial value
-	CGFloat positionOffset = 0; // we begin at the original position
-	CGFloat slicesPerSecond = 60.0f; // how many values per second to calculate
-	CGFloat lowerMomentumCutoff = 5.0f; // below this upward momentum animation ends
-
-	CGFloat duration = 0;
-	NSMutableArray *values = [NSMutableArray array];
-
-	do
-	{
-		duration += 1.0f/slicesPerSecond;
-		positionOffset+=momentum/slicesPerSecond;
-
-		if (positionOffset<0)
-		{
-			positionOffset=0;
-			momentum=-momentum*dampeningFactorPerBounce;
-		}
-
-			// gravity pulls the momentum down
-		momentum -= gravityConstant/slicesPerSecond;
-
-		CATransform3D transform = CATransform3DMakeTranslation(0, -positionOffset, 0);
-		[values addObject:[NSValue valueWithCATransform3D:transform]];
-	} while (!(positionOffset==0 && momentum < lowerMomentumCutoff));
-
-	CAKeyframeAnimation *animation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
-	animation.repeatCount = 1;
-	animation.duration = duration;
-	animation.fillMode = kCAFillModeForwards;
-	animation.values = values;
-	animation.removedOnCompletion = YES; // final stage is equal to starting stage
-	animation.autoreverses = NO;
-
-	return animation;
-}
-
-+ (CAKeyframeAnimation *)dockBounceAnimationWithIconHeight:(CGFloat)iconHeight
-{
-	CGFloat factors[32] = {0, 32, 60, 83, 100, 114, 124, 128, 128, 124, 114, 100, 83, 60, 32,
-		0, 24, 42, 54, 62, 64, 62, 54, 42, 24, 0, 18, 28, 32, 28, 18, 0};
-
-	NSMutableArray *values = [NSMutableArray array];
-
-	for (int i=0; i<32; i++)
-	{
-		CGFloat positionOffset = factors[i]/128.0f * iconHeight;
-
-		CATransform3D transform = CATransform3DMakeTranslation(0, -positionOffset, 0);
-		[values addObject:[NSValue valueWithCATransform3D:transform]];
-	}
-
-	CAKeyframeAnimation *animation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
-	animation.repeatCount = 1;
-	animation.duration = 32.0f/30.0f;
-	animation.fillMode = kCAFillModeForwards;
-	animation.values = values;
-	animation.removedOnCompletion = YES; // final stage is equal to starting stage
-	animation.autoreverses = NO;
-
-	return animation;
-}
+	//@end
 
 @end
-
 
 @implementation CAAnimation (BlocksAddition)
 
@@ -807,3 +712,53 @@ void disableCA(){
 }
 
 @end
+
+/*   example of blocks category below
+
+ - (void)runAnimation:(id)unused
+ {
+ // Create a shaking animation that rotates a bit counter clockwisely and then rotates another
+ // bit clockwisely and repeats. Basically, add a new rotation animation in the opposite
+ // direction at the completion of each rotation animation.
+ const CGFloat duration = 0.1f;
+ const CGFloat angle = 0.03f;
+ NSNumber *angleR = [NSNumber numberWithFloat:angle];
+ NSNumber *angleL = [NSNumber numberWithFloat:-angle];
+
+ CABasicAnimation *animationL = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+ CABasicAnimation *animationR = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+
+ void (^completionR)(BOOL) = ^(BOOL finished) {
+ [self.imageView.layer setValue:angleL forKey:@"transform.rotation.z"];
+ [self.imageView.layer addAnimation:animationL forKey:@"L"]; // Add rotation animation in the opposite direction.
+ };
+
+ void (^completionL)(BOOL) = ^(BOOL finished) {
+ [self.imageView.layer setValue:angleR forKey:@"transform.rotation.z"];
+ [self.imageView.layer addAnimation:animationR forKey:@"R"];
+ };
+
+ animationL.fromValue = angleR;
+ animationL.toValue = angleL;
+ animationL.duration = duration;
+ animationL.completion = completionL; // Set completion to perform rotation in opposite direction upon completion.
+
+ animationR.fromValue = angleL;
+ animationR.toValue = angleR;
+ animationR.duration = duration;
+ animationR.completion = completionR;
+
+ // First animation performs half rotation and then proceeds to enter the loop by playing animationL in its completion block
+ CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+ animation.fromValue = [NSNumber numberWithFloat:0.f];
+ animation.toValue = angleR;
+ animation.duration = duration/2;
+ animation.completion = completionR;
+
+ [self.imageView.layer setValue:angleR forKey:@"transform.rotation.z"];
+ [self.imageView.layer addAnimation:animation forKey:@"0"];
+ }
+ 
+ */
+
+

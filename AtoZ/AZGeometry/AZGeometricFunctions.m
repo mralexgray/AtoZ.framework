@@ -53,7 +53,10 @@ CGPoint AZAnchorPointForPosition( AZWindowPosition pos){
 	pulseAnimation.timingFunction = [CAMediaTimingFunction functionWithName:
 									 kCAMediaTimingFunctionEaseInEaseOut];
 	[aselectionLayer addAnimation:pulseAnimation forKey:@"pulseAnimation"];
-	NSArray *constraints = [NSArray arrayWithObjects: AZConst( kCAConstraintWidth,@"superlayer"), AZConst( kCAConstraintHeight,@"superlayer"), AZConst( kCAConstraintMidX,@"superlayer"), AZConst( kCAConstraintMidY,@"superlayer"),  nil];
+	NSArray *constraints = @[ 	AZConstRelSuper(kCAConstraintWidth),
+								AZConstRelSuper(kCAConstraintHeight),
+								AZConstRelSuper(kCAConstraintMidX),
+								AZConstRelSuper(kCAConstraintMidY)];
 	aselectionLayer.constraints = constraints;
 
 
@@ -80,8 +83,8 @@ CGPoint AZAnchorPointForPosition( AZWindowPosition pos){
 											AZConstScaleOff( kCAConstraintMaxY,@"superlayer", 1,half),
 											AZConstScaleOff( kCAConstraintWidth,@"superlayer", 1,-dynnamicStroke),
 											AZConstScaleOff( kCAConstraintHeight,@"superlayer", 1, - dynnamicStroke),
-											AZConst( kCAConstraintMidX,@"superlayer"),
-											AZConst( kCAConstraintMidY,@"superlayer") ];
+											AZConstRelSuper(kCAConstraintMidX),
+											AZConstRelSuper(kCAConstraintMidY) ];
 //	[shapeLayer setPosition:CGPointMake(.5,.5)];
 //	shapeRect.size.width -= dynnamicStroke;		shapeRect.size.height -= dynnamicStroke;
 

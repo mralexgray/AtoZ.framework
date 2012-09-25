@@ -52,6 +52,26 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 @implementation NSImage (AtoZ)
 
 
++ (NSImage *)reflectedImage:(NSImage *)sourceImage amountReflected:(float)fraction
+{
+	NSImage *reflection = [[NSImage alloc]initWithSize:sourceImage.size];
+	[reflection setFlipped:NO];
+	NSRect reflectionRect = (NSRect)	{0, 0,
+									sourceImage.size.width,
+									sourceImage.size.height*fraction};
+	[reflection lockFocus];
+	CTGradient *fade = [CTGradient gradientWithBeginningColor:
+     						[NSColor colorWithCalibratedWhite:1.0 alpha:0.5]
+											      endingColor:[NSColor clearColor]];
+	[fade fillRect:reflectionRect angle:90.0];
+	[sourceImage drawAtPoint:(NSPoint){0,0}
+					fromRect:reflectionRect
+				   operation:NSCompositeSourceIn
+					fraction:1.0];
+	[reflection unlockFocus];
+	return reflection;
+}
+
 
 
 - (NSSize)proportionalSizeForTargetSize:(NSSize)targetSize
@@ -480,6 +500,16 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 + (id) imageWithFileName:(NSString *) fileName inBundleForClass:(Class) aClass {
 	return [self imageWithFileName: fileName inBundle: [NSBundle bundleForClass: aClass]];
 }
+
++ (id)frameworkImageNamed:(NSString *)name {
+	NSImage *image = [NSImage imageNamed:name]
+				   ? [NSImage imageNamed:name]
+				   : [[NSImage alloc] initWithContentsOfFile:
+					  [AZFWORKBUNDLE pathForImageResource:name]];
+	image.name = image ? name : nil;
+	return image ? image : nil;
+}
+
 
 
 + (id) imageInFrameworkWithFileName:(NSString *) fileName {	
@@ -2235,6 +2265,20 @@ CGImageRef CopyImageAndAddAlphaChannel(CGImageRef sourceImage) {
 
 
 @implementation NSImage (Icons)
+
++(NSArray*) systemIcons{
+	NSString *base = @"/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/";
+	NSArray * f = [[[AZFILEMANAGER contentsOfDirectoryAtPath:base error:nil] filter:^BOOL(id object) {
+		return [(NSString*)object contains:@".icn"] ? YES : NO;
+	}] arrayUsingBlock:^id(id obj) {
+		return [base stringByAppendingPathComponent:obj];
+	}];
+	return [[f arrayUsingBlock:^id(id obj) {
+		return  [[NSImage alloc] initWithContentsOfFile:obj];
+	}] filter:^BOOL(id object) {
+		return [object isKindOfClass:[NSImage class]] ? YES : NO;
+	}];
+}
 
 //+ (NSArray*) iconStrings {
 

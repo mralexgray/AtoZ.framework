@@ -1,68 +1,76 @@
 
-#define  		  CAL CALayer
-#define  		  CGF CGFloat
-#define  		  NSC NSColor
-#define  		  CAA CAAnimation
-#define   		 CGPR CGPathRef
-#define 		 CFTI CFTimeInterval
-#define 		 CAKA CAKeyframeAnimation
-#define 		 CAAG CAGroupAnimation
-#define          NSTI NSTimeInterval
-
+#define AZFWORKBUNDLE [NSBundle bundleForClass:[AtoZ class]]
+#define AZMAINBUNDLE [NSBundle mainBundle]
 #define   CAMEDIAEASY [CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionEaseInEaseOut]
 #define   AZWORKSPACE [NSWorkspace sharedWorkspace]
 #define   AZNOTCENTER [NSNotificationCenter defaultCenter]
 #define AZFILEMANAGER [NSFileManager defaultManager]
 
-#define   AZTALK (log) [[ AZTalker new] say:log]
-#define  AZBezPath (rect) [  NSBezierPath bezierPathWithRect:rect ]
-#define  AZQtzPath (rect) [[ NSBezierPath bezierPathWithRect:rect ] quartzPath]
+#define  AZTALK(log) 	 [[AZTalker new] say:log]
+#define  AZBezPath(rect) [NSBezierPath bezierPathWithRect:rect]
+#define  AZQtzPath(rect) [[NSBezierPath bezierPathWithRect:rect]quartzPath]
 
 #define AZContentBounds [[[self window]contentView]bounds]
 
-#define  AZVposi (p) [NSValue valueWithPosition:      p]
-#define AZVpoint (p) [NSValue valueWithPoint:         p]
-#define  AZVrect (r) [NSValue valueWithRect:          r]
-#define  AZVsize (s) [NSValue valueWithSize:          s]
-#define   AZV3dT (t) [NSValue valueWithCATransform3D: t]
+#define  AZVposi(p) [NSValue valueWithPosition:      p]
+#define AZVpoint(p) [NSValue valueWithPoint:         p]
+#define  AZVrect(r) [NSValue valueWithRect:          r]
+#define  AZVsize(s) [NSValue valueWithSize:          s]
+#define   AZV3d(t) [NSValue valueWithCATransform3D: t]
 
 #define AZSuperLayerSuper (@"superlayer")
 
-#define CACcWA CAConstraint constraintWithAttribute
+//#define CACcWA CAConstraint constraintWithAttribute
 
-#define AZConstraint    (attr,rel) [CACcWA:attr relativeTo: rel attribute: attr]
-#define AZConst 	    (attr,rel) [CACcWA:attr relativeTo: rel attribute: attr]
+#define AZConstraint(attr,rel) [CAConstraint constraintWithAttribute \
+:attr relativeTo:rel attribute:attr]
 
-#define AZConstScaleOff (attr,rel,scl,off) :attr relativeTo:rel attribute:attr scale:scl offset:off]
+#define AZConst(attrib, relate) [CAConstraint constraintWithAttribute: \
+attrib relativeTo:rel attribute:attrib]
 
-#define AZConstRelSuper(attr) [CAConstraint constraintWithAttribute:attr relativeTo:AZSuperLayerSuper attribute:attr]
+#define AZConstScaleOff(attr, rel, scl, off) [CAConstraint constraintWithAttribute\
+:attr relativeTo:rel attribute:attr scale:scl offset:off]
 
-#define AZConstRelSuperScaleOff(attr, scl, off) [CAConstraint constraintWithAttribute:attr relativeTo:AZSuperLayerSuper attribute:attr scale:scl offset:off]
+#define AZConstRelSuper(attr) [CAConstraint constraintWithAttribute\
+:attr relativeTo:@"superlayer" attribute:attr]
 
-#define AZConstAttrRelNameAttrScaleOff(attr1, relName, attr2, scl, off) [CAConstraint constraintWithAttribute:attr1 relativeTo:relName attribute:attr2 scale:scl offset:off]
+#define AZConstRelSuperScaleOff(attr, scl, off) [CAConstraint constraintWithAttribute\
+:attr relativeTo:AZSuperLayerSuper attribute:attr scale:scl offset:off]
+
+#define AZConstAttrRelNameAttrScaleOff(attr1, relName, attr2, scl, off) [CAConstraint constraintWithAttribute:\
+attr1 relativeTo:relName attribute:attr2 scale:scl offset:off]
 
 #define AZTArea(frame) [[NSTrackingArea alloc] initWithRect:frame options:(NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways | NSTrackingInVisibleRect | NSTrackingMouseMoved ) owner:self userInfo:nil]
 
-#define AZTAreaInfo(frame, info) [[NSTrackingArea alloc] initWithRect: frame options:(NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways | NSTrackingInVisibleRect | NSTrackingMouseMoved ) owner:self userInfo:info];
+#define AZTAreaInfo(frame,info) [[NSTrackingArea alloc] initWithRect: frame options:(NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways | NSTrackingInVisibleRect | NSTrackingMouseMoved ) owner:self userInfo:info];
 
 
 #define AZDistance(A,B) sqrtf(powf(fabs(A.x - B.x), 2.0f) + powf(fabs(A.y - B.y), 2.0f))
 #define rand() (arc4random() % ((unsigned)RAND_MAX + 1))
-#define NEG (a)	-a
-#define AZLOG(log) NSLog(@"%@", log)
-#define StringFromBOOL(b) ((b) ? @"YES" : @"NO")
-#define YESNO(b) ((b) ? @"YES" : @"NO")
+
+#define NEG(a) -a
+
+#define AZLOG(a) NSLog(@"%@", a)
+//#define AZLOG ( log )  NSLog(@"%@", log  )
+
+#define StringFromBOOL(b) (b?@"YES":@"NO")
+
+//#define YESNO ( b )          ( (b) ? @"YES" : @"NO" )
+//#define YESNO ( b )    b ? @"YES" : @"NO"
 
 // degree to radians
-#define ARAD	 0.017453f
-#define DEG2RAD(x) ((x) * ARAD)
-#define RAD2DEG(rad) (rad * 180.0f / M_PI)
+#define ARAD 0.017453f
+#define DEG2RAD(x) ((x)*ARAD)
+
+#define RAD2DEG (rad) (rad * 180.0f / M_PI)
+
 
 //returns float in range 0 - 1.0f
 //usage RAND01()*3, or (int)RAND01()*3 , so there is no risk of dividing by zero
+
 #define RAND01() ((random() / (float)0x7fffffff ))
 
-#define rand() (arc4random() % ((unsigned)RAND_MAX + 1))
+//#define rand() (arc4random() % ((unsigned)RAND_MAX + 1))
 
 
 #define RED				[NSColor colorWithCalibratedRed:0.797 green:0.000 blue:0.043 alpha:1.000]
@@ -87,65 +95,64 @@
 #define GRAY8			[NSColor colorWithCalibratedWhite:.8 alpha:1]
 #define GRAY9			[NSColor colorWithCalibratedWhite:.9 alpha:1]
 
-#define cgRED			[RED 		CGColor]
-#define cgORANGE		[ORANGE 	CGColor]
-#define cgYELLOW		[YELLOW		CGColor]
-#define cgGREEN			[GREEN		CGColor]
-#define cgPURPLE		[PURPLE		CGColor]
+#define cgRED			[RED 		 			CGColor]
+#define cgORANGE		[ORANGE 	 			CGColor]
+#define cgYELLOW		[YELLOW		 			CGColor]
+#define cgGREEN			[GREEN		 			CGColor]
+#define cgPURPLE		[PURPLE		 			CGColor]
+#define cgRANDOMCOLOR	[RANDOMCOLOR 			CGColor]
 
-#define cgBLUE			[[NSColor blueColor]	CGColor]
+#define cgBLUE			[[NSColor  blueColor]	CGColor]
 #define cgBLACK			[[NSColor blackColor]	CGColor]
-#define cgGREY			[[NSColor grayColor]	CGColor]
+#define cgGREY			[[NSColor  grayColor]	CGColor]
 #define cgWHITE			[[NSColor whiteColor]	CGColor]
-#define cgRANDOMCOLOR	[RANDOMCOLOR	CGColor]
 #define cgCLEARCOLOR	[[NSColor clearColor]	CGColor]
 
 #define RANDOMGRAY [NSColor colorWithDeviceWhite:RAND_FLOAT_VAL(0,1) alpha:1]
 #define cgRANDOMGRAY CGColorCreateGenericGray( RAND_FLOAT_VAL(0,1), 1)
 
 
-#define kBlackColor [[NSColor blackColor]	CGColor]
-#define kWhiteColor [[NSColor whiteColor]	CGColor]
+#define kBlackColor 	[[NSColor  blackColor]	CGColor]
+#define kWhiteColor 	[[NSColor  whiteColor]	CGColor]
+#define kHighlightColor [[NSColor randomColor]  CGColor]
+#define kRedColor   	[[NSColor    redColor]  CGColor]
+#define kLightBlueColor [[NSColor   blueColor]	CGColor]
+
 #define kTranslucentGrayColor CGColorCreate( kCGColorSpaceGenericGray, {0.0, 0.5, 1.0})
 #define kTranslucentLightGrayColor cgGREY
 #define	kAlmostInvisibleWhiteColor CGColorCreate( kCGColorSpaceGenericGray, {1, 0.05, 1.0})
-#define kHighlightColor [[NSColor randomColor] CGColor]
-#define kRedColor [[NSColor redColor]	CGColor]
-#define kLightBlueColor [[NSColor blueColor]	CGColor]
 
 
-	// random macros utilizing arc4random()
-
+// random macros utilizing arc4random()
 #define RAND_UINT_MAX		0xFFFFFFFF
 #define RAND_INT_MAX		0x7FFFFFFF
 
-	// RAND_UINT() positive unsigned integer from 0 to RAND_UINT_MAX
-	// RAND_INT() positive integer from 0 to RAND_INT_MAX
-	// RAND_INT_VAL(a,b) integer on the interval [a,b] (includes a and b)
+// RAND_UINT() positive unsigned integer from 0 to RAND_UINT_MAX
+// RAND_INT() positive integer from 0 to RAND_INT_MAX
+// RAND_INT_VAL(a,b) integer on the interval [a,b] (includes a and b)
 #define RAND_UINT()				arc4random()
 #define RAND_INT()				((int)(arc4random() & 0x7FFFFFFF))
 #define RAND_INT_VAL(a,b)		((arc4random() % ((b)-(a)+1)) + (a))
 
-	// RAND_FLOAT() float between 0 and 1 (including 0 and 1)
-	// RAND_FLOAT_VAL(a,b) float between a and b (including a and b)
+// RAND_FLOAT() float between 0 and 1 (including 0 and 1)
+// RAND_FLOAT_VAL(a,b) float between a and b (including a and b)
 #define RAND_FLOAT()			(((float)arc4random()) / RAND_UINT_MAX)
 #define RAND_FLOAT_VAL(a,b)		(((((float)arc4random()) * ((b)-(a))) / RAND_UINT_MAX) + (a))
 
-	// note: Random doubles will contain more precision than floats, but will NOT utilize the
-	//        full precision of the double. They are still limited to the 32-bit precision of arc4random
-	// RAND_DOUBLE() double between 0 and 1 (including 0 and 1)
-	// RAND_DOUBLE_VAL(a,b) double between a and b (including a and b)
+// note: Random doubles will contain more precision than floats, but will NOT utilize the
+//        full precision of the double. They are still limited to the 32-bit precision of arc4random
+// RAND_DOUBLE() double between 0 and 1 (including 0 and 1)
+// RAND_DOUBLE_VAL(a,b) double between a and b (including a and b)
 #define RAND_DOUBLE()			(((double)arc4random()) / RAND_UINT_MAX)
 #define RAND_DOUBLE_VAL(a,b)	(((((double)arc4random()) * ((b)-(a))) / RAND_UINT_MAX) + (a))
 
-	// RAND_BOOL() a random boolean (0 or 1)
-	// RAND_DIRECTION() -1 or +1 (usage: int steps = 10*RAND_DIRECTION();  will get you -10 or 10)
+// RAND_BOOL() a random boolean (0 or 1)
+// RAND_DIRECTION() -1 or +1 (usage: int steps = 10*RAND_DIRECTION();  will get you -10 or 10)
 #define RAND_BOOL()				(arc4random() & 1)
 #define RAND_DIRECTION()		(RAND_BOOL() ? 1 : -1)
 
 
 #define $point(A)       	[NSValue valueWithPoint:A]
-
 #define $points(A,B)       	[NSValue valueWithPoint:CGPointMake(A,B)]
 #define $rect(A,B,C,D)    	[NSValue valueWithRect:CGRectMake(A,B,C,D)]
 
@@ -159,10 +166,10 @@
 #define $float(A)     		[NSNumber numberWithFloat:(A)]
 #define $doubles(...) 		[NSArray arrayWithDoubles:__VA_ARGS__,MAXFLOAT]
 #define $words(...)   		[[@#__VA_ARGS__ splitByComma] trimmedStrings]
-#define $concat(A,...) { A = [A arrayByAddingObjectsFromArray:((NSArray *)[NSArray arrayWithObjects:__VA_ARGS__,nil])]; }
+//#define $concat(A,...) { A = [A arrayByAddingObjectsFromArray:((NSArray *)[NSArray arrayWithObjects:__VA_ARGS__,nil])]; }
 
 
-	// s stringByReplacingOccurrencesOfString:@"fff	" withString:@"%%%%"] )
+// s stringByReplacingOccurrencesOfString:@"fff	" withString:@"%%%%"] )
 //#define AZLOG(log,...) NSLog(@"%@", [log s stringByReplacingOccurrencesOfString:@"fff	" withString:@"%%%%"] )
 
 #ifdef DEBUG
