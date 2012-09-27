@@ -2,4 +2,5 @@ Documentation
 .gitignore
 gitmodules.flawed
 README.md
-AtoZ/AtoZiTunes.framework
+AtoZ/AtoZiTunes.frameworkFrameworks/Cocotron/
+Frameworks/Cocotron
