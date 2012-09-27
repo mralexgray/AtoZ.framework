@@ -77,6 +77,7 @@
 //#import "AZToggleView.h"
 
 //Classes
+#import "AZHostView.h"
 #import "AZSegmentedRect.h"
 #import "AZQueue.h"
 #import "AZDockQuery.h"
@@ -89,7 +90,7 @@
 #import "AZBackground.h"
 #import "AZCSSColors.h"
 #import "CTGradient.h"
-
+#import "Transition.h"
 //Controls
 #import "AZToggleArrayView.h"
 #import "AZDarkButtonCell.h"
@@ -131,7 +132,7 @@
 #import "RuntimeReporter.h"
 #import "AZBackgroundProgressBar.h"
 #import "NSTextView+AtoZ.h"
-
+#import "CTBadge.h"
 #import "AZVeil.h"
 
 static NSEventMask AZMouseActive = (NSMouseMovedMask | NSMouseExitedMask |NSMouseEnteredMask);

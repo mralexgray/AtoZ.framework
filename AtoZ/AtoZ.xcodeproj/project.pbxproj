@@ -127,10 +127,7 @@
 		7B24E9A615A13A4100A9D87A /* NSBezierPath+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B24E9A415A13A4000A9D87A /* NSBezierPath+AtoZ.m */; };
 		7B24E9ED15A176AC00A9D87A /* NSWindow+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B24E9EB15A176AB00A9D87A /* NSWindow+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B24E9EE15A176AC00A9D87A /* NSWindow+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B24E9EC15A176AB00A9D87A /* NSWindow+AtoZ.m */; };
-		7B2853F915FEE79F0077960A /* AZCategoryTests.h in Sources */ = {isa = PBXBuildFile; fileRef = 7B2853F715FEE79F0077960A /* AZCategoryTests.h */; };
 		7B2853FA15FEE79F0077960A /* AZCategoryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2853F815FEE79F0077960A /* AZCategoryTests.m */; };
-		7B28545E15FEEBA90077960A /* Tests-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7B28542915FEEBA90077960A /* Tests-Info.plist */; };
-		7B28545F15FEEBA90077960A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7B28542B15FEEBA90077960A /* InfoPlist.strings */; };
 		7B28546315FEF0870077960A /* GHUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B28546215FEF0840077960A /* GHUnit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		7B311963159B6D9E002134C4 /* AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B311962159B6D9E002134C4 /* AtoZ.m */; };
 		7B31196B159B6D9E002134C4 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B31196A159B6D9E002134C4 /* SenTestingKit.framework */; };
@@ -247,6 +244,9 @@
 		7B6D95F015FA954100972A69 /* XLDragDropView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B6D95EE15FA954100972A69 /* XLDragDropView.m */; };
 		7B71E728161268190015F4E4 /* CTGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B71E726161268190015F4E4 /* CTGradient.m */; };
 		7B71E729161268900015F4E4 /* CTGradient.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B71E725161268190015F4E4 /* CTGradient.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B71E72E16127CDF0015F4E4 /* Transition.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B71E72C16127CDF0015F4E4 /* Transition.m */; };
+		7B71E736161290E60015F4E4 /* Transition.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B71E72B16127CDF0015F4E4 /* Transition.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B71E796161355BA0015F4E4 /* CTBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BCDFC5915C71A810003DA4D /* CTBadge.m */; };
 		7B728DF815C472D8004F6723 /* NSNotificationCenter+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B728DF615C472D8004F6723 /* NSNotificationCenter+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B728DF915C472D8004F6723 /* NSNotificationCenter+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B728DF715C472D8004F6723 /* NSNotificationCenter+AtoZ.m */; };
 		7B73D8EB15E4212D00D2671A /* AZAttachedWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BE606ED15A118B400355236 /* AZAttachedWindow.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -868,6 +868,8 @@
 		7BCDFC6815C71A810003DA4D /* NotificationCenterSpy.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BCDFC5D15C71A810003DA4D /* NotificationCenterSpy.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BCDFC6915C71A810003DA4D /* NotificationCenterSpy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BCDFC5E15C71A810003DA4D /* NotificationCenterSpy.m */; };
 		7BCDFC6D15C71A810003DA4D /* noun_box.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 7BCDFC6215C71A810003DA4D /* noun_box.pdf */; };
+		7BCEF6441613EEC200EFC74E /* AZHostView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BCEF6431613EEC200EFC74E /* AZHostView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BCEF6461613EECA00EFC74E /* AZHostView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BCEF6451613EECA00EFC74E /* AZHostView.m */; };
 		7BD6B5671606503800B52659 /* document_alt_fill.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 7BD6B4B61606503700B52659 /* document_alt_fill.pdf */; };
 		7BD6B5681606503800B52659 /* document_alt_stroke.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 7BD6B4B71606503700B52659 /* document_alt_stroke.pdf */; };
 		7BD6B5691606503800B52659 /* document_fill.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 7BD6B4B81606503700B52659 /* document_fill.pdf */; };
@@ -2006,7 +2008,7 @@
 		7B1528F515F49DCD00027191 /* RGB.clr */ = {isa = PBXFileReference; lastKnownFileType = text; path = RGB.clr; sourceTree = "<group>"; };
 		7B184ED015FC943E00696360 /* AZCSSColorExtraction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = AZCSSColorExtraction.h; sourceTree = "<group>"; };
 		7B184ED115FC943E00696360 /* AZCSSColorExtraction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZCSSColorExtraction.m; sourceTree = "<group>"; };
-		7B184EDF15FCA4F400696360 /* mrgray.logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = mrgray.logo.png; path = ../../../www/global/icons/mrgray.logo.png; sourceTree = "<group>"; };
+		7B184EDF15FCA4F400696360 /* mrgray.logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = mrgray.logo.png; path = ../mrgray.logo.png; sourceTree = "<group>"; };
 		7B184EE515FCA98600696360 /* AtoZCLI */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = AtoZCLI; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B184EE915FCA98700696360 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7B184EEC15FCA98700696360 /* AtoZCLI-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AtoZCLI-Prefix.pch"; sourceTree = "<group>"; };
@@ -2029,7 +2031,7 @@
 		7B23C36315CE98AF00DD1A9C /* NSLogConsole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSLogConsole.h; sourceTree = "<group>"; };
 		7B23C36715CE9AB800DD1A9C /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		7B23C37A15CF2E8200DD1A9C /* 2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2.jpg; sourceTree = "<group>"; };
-		7B23C37C15CF318500DD1A9C /* missingdial.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = missingdial.png; sourceTree = "<group>"; };
+		7B23C37C15CF318500DD1A9C /* missingdial.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = missingdial.png; path = ../missingdial.png; sourceTree = "<group>"; };
 		7B24E97715A1299700A9D87A /* NSView+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSView+AtoZ.h"; sourceTree = "<group>"; };
 		7B24E97815A1299700A9D87A /* NSView+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSView+AtoZ.m"; sourceTree = "<group>"; };
 		7B24E97C15A12D2100A9D87A /* AZGeometricFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZGeometricFunctions.h; sourceTree = "<group>"; };
@@ -2265,6 +2267,8 @@
 		7B6D95EE15FA954100972A69 /* XLDragDropView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLDragDropView.m; sourceTree = "<group>"; };
 		7B71E725161268190015F4E4 /* CTGradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = CTGradient.h; path = Models/CTGradient.h; sourceTree = SOURCE_ROOT; };
 		7B71E726161268190015F4E4 /* CTGradient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTGradient.m; path = Models/CTGradient.m; sourceTree = SOURCE_ROOT; };
+		7B71E72B16127CDF0015F4E4 /* Transition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = Transition.h; path = Models/Transition.h; sourceTree = SOURCE_ROOT; };
+		7B71E72C16127CDF0015F4E4 /* Transition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Transition.m; path = Models/Transition.m; sourceTree = SOURCE_ROOT; };
 		7B728DF615C472D8004F6723 /* NSNotificationCenter+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNotificationCenter+AtoZ.h"; sourceTree = "<group>"; };
 		7B728DF715C472D8004F6723 /* NSNotificationCenter+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNotificationCenter+AtoZ.m"; sourceTree = "<group>"; };
 		7B78528815ACA7AB008BAD3C /* AZBoxMagic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZBoxMagic.h; path = AZBoxView/AZBoxMagic.h; sourceTree = SOURCE_ROOT; };
@@ -2340,7 +2344,7 @@
 		7BA425B315E7B52F00D2A471 /* MAAttachedWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MAAttachedWindow.m; path = "../AtoZ Encyclopedia/MAAttachedWindow.m"; sourceTree = "<group>"; };
 		7BA425B615E7C3C200D2A471 /* AZTrackingWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZTrackingWindow.h; sourceTree = "<group>"; };
 		7BA425B715E7C3C200D2A471 /* AZTrackingWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZTrackingWindow.m; sourceTree = "<group>"; };
-		7BA425BA15E7E87200D2A471 /* tab.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tab.png; sourceTree = "<group>"; };
+		7BA425BA15E7E87200D2A471 /* tab.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tab.png; path = ../tab.png; sourceTree = "<group>"; };
 		7BAD6B0F15CD5C2E001DE404 /* AZNamedColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZNamedColors.h; sourceTree = "<group>"; };
 		7BAD6B1015CD5C2E001DE404 /* AZNamedColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZNamedColors.m; sourceTree = "<group>"; };
 		7BAF2F0315E87BB100099C9A /* Growl Registration Ticket.growlRegDict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Growl Registration Ticket.growlRegDict"; sourceTree = "<group>"; };
@@ -2896,6 +2900,8 @@
 		7BCDFC5D15C71A810003DA4D /* NotificationCenterSpy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationCenterSpy.h; sourceTree = "<group>"; };
 		7BCDFC5E15C71A810003DA4D /* NotificationCenterSpy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationCenterSpy.m; sourceTree = "<group>"; };
 		7BCDFC6215C71A810003DA4D /* noun_box.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = noun_box.pdf; sourceTree = "<group>"; };
+		7BCEF6431613EEC200EFC74E /* AZHostView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZHostView.h; sourceTree = "<group>"; };
+		7BCEF6451613EECA00EFC74E /* AZHostView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZHostView.m; sourceTree = "<group>"; };
 		7BD011F515CB7E9300B96BAC /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; name = README.md; path = ../../README.md; sourceTree = "<group>"; };
 		7BD6B4B61606503700B52659 /* document_alt_fill.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = document_alt_fill.pdf; sourceTree = "<group>"; };
 		7BD6B4B71606503700B52659 /* document_alt_stroke.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = document_alt_stroke.pdf; sourceTree = "<group>"; };
@@ -3678,6 +3684,8 @@
 		7B59C8281600D346009DAFCA /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				7B71E72B16127CDF0015F4E4 /* Transition.h */,
+				7B71E72C16127CDF0015F4E4 /* Transition.m */,
 				7B71E725161268190015F4E4 /* CTGradient.h */,
 				7B71E726161268190015F4E4 /* CTGradient.m */,
 				7B59C8241600D341009DAFCA /* AtoZModels.h */,
@@ -3723,6 +3731,8 @@
 		7B6901BB159E0ADB00D0DA47 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				7BCEF6451613EECA00EFC74E /* AZHostView.m */,
+				7BCEF6431613EEC200EFC74E /* AZHostView.h */,
 				7B6D95ED15FA954100972A69 /* XLDragDropView.h */,
 				7B6D95EE15FA954100972A69 /* XLDragDropView.m */,
 				7B7EA4AC16026ACA0027D180 /* WIndows */,
@@ -4660,7 +4670,8 @@
 				7B137CF515A201C00088A630 /* darklinen.png */,
 			);
 			name = Images;
-			sourceTree = "<group>";
+			path = Resources/Images;
+			sourceTree = SOURCE_ROOT;
 		};
 		7BE2A4F31611576E003D6B92 /* Linked Frameworks */ = {
 			isa = PBXGroup;
@@ -4729,6 +4740,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7B3422A315A52A61006AC46C /* BaseModel.h in Headers */,
+				7B71E736161290E60015F4E4 /* Transition.h in Headers */,
 				7BC02759160D36A300BAE74D /* AZCalculatorController.h in Headers */,
 				7BC0275D160D36CB00BAE74D /* CalcModel.h in Headers */,
 				7B4F0242160A4E9A00A79C77 /* AZCoreScrollView.h in Headers */,
@@ -4736,7 +4748,6 @@
 				7B4F0244160A4E9A00A79C77 /* AZScrollerProtocols.h in Headers */,
 				7B4F0245160A4E9A00A79C77 /* AZScrollPaneLayer.h in Headers */,
 				7B4F0246160A4E9A00A79C77 /* AZSnapShotLayer.h in Headers */,
-				7B71E729161268900015F4E4 /* CTGradient.h in Headers */,
 				7B6901B8159E09D800D0DA47 /* NSApplication+AtoZ.h in Headers */,
 				7B4F0247160A4E9A00A79C77 /* AZTimeLineLayout.h in Headers */,
 				7BEF70261603112800A0300E /* NSBundle+AtoZ.h in Headers */,
@@ -4828,12 +4839,14 @@
 				7B9D5BAA15ED0E27005D1A76 /* NSFileManager+AtoZ.h in Headers */,
 				7BBB12DC16054F37005D73CF /* LoremIpsum.h in Headers */,
 				7BE8F1D5160624DB000D04F6 /* NSTextView+AtoZ.h in Headers */,
+				7B71E729161268900015F4E4 /* CTGradient.h in Headers */,
 				7BE3FB4D15EFFD130000656D /* AZTrackingWindow.h in Headers */,
 				7B1946A6160EE786003C74D3 /* NSEvent+AtoZ.h in Headers */,
 				7B7A852F15F81AB00071741C /* AGProcess.h in Headers */,
 				7B0F8AA515F1CCCF00BB3CE7 /* AZSegmentedRect.h in Headers */,
 				7B0F8AA715F1D5C800BB3CE7 /* AtoZUmbrella.h in Headers */,
 				7B06C9D4160F0BB900342A9D /* AZLassoLayer.h in Headers */,
+				7BCEF6441613EEC200EFC74E /* AZHostView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5413,8 +5426,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7B311975159B6D9E002134C4 /* InfoPlist.strings in Resources */,
-				7B28545E15FEEBA90077960A /* Tests-Info.plist in Resources */,
-				7B28545F15FEEBA90077960A /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5655,6 +5666,9 @@
 				7B1946A7160EE786003C74D3 /* NSEvent+AtoZ.m in Sources */,
 				7B06C9D5160F0BC200342A9D /* AZLassoLayer.m in Sources */,
 				7B71E728161268190015F4E4 /* CTGradient.m in Sources */,
+				7B71E72E16127CDF0015F4E4 /* Transition.m in Sources */,
+				7B71E796161355BA0015F4E4 /* CTBadge.m in Sources */,
+				7BCEF6461613EECA00EFC74E /* AZHostView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5678,7 +5692,6 @@
 				7BF93E3415FEF7C500211769 /* NSTimerBlocksKitTest.m in Sources */,
 				7BF93E3515FEF7C500211769 /* NSURLConnectionBlocksKitTest.m in Sources */,
 				7B311978159B6D9E002134C4 /* AtoZTests.m in Sources */,
-				7B2853F915FEE79F0077960A /* AZCategoryTests.h in Sources */,
 				7B2853FA15FEE79F0077960A /* AZCategoryTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -5927,7 +5940,7 @@
 				DSTROOT = build;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "/Volumes/2T/ServiceData/AtoZ.framework/AtoZ/AtoZ-Prefix.pch";
+				GCC_PREFIX_HEADER = "/Volumes/2T/ServiceData/AtoZ.framework/AtoZ/AtoZ-Prefix.pch   ";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = (
@@ -5950,7 +5963,7 @@
 				DSTROOT = build;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "/Volumes/2T/ServiceData/AtoZ.framework/AtoZ/AtoZ-Prefix.pch";
+				GCC_PREFIX_HEADER = "/Volumes/2T/ServiceData/AtoZ.framework/AtoZ/AtoZ-Prefix.pch   ";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = (
@@ -6082,7 +6095,7 @@
 					"\"$(SRCROOT)/../../git/gh-unit/Project-MacOSX/build/Release\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREFIX_HEADER = "Resources/AtoZ-Prefix.pch";
+				GCC_PREFIX_HEADER = "/Volumes/2T/ServiceData/AtoZ.framework/AtoZ/AtoZ-Prefix.pch";
 				INFOPLIST_FILE = "AtoZTests/AtoZTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = octest;
@@ -6098,7 +6111,7 @@
 					"\"$(SRCROOT)/../../git/gh-unit/Project-MacOSX/build/Release\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREFIX_HEADER = "Resources/AtoZ-Prefix.pch";
+				GCC_PREFIX_HEADER = "/Volumes/2T/ServiceData/AtoZ.framework/AtoZ/AtoZ-Prefix.pch";
 				INFOPLIST_FILE = "AtoZTests/AtoZTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = octest;

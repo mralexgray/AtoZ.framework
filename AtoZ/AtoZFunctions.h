@@ -18,6 +18,9 @@
 //static inline NSPoint convertToNSPoint(CGPoint point) {	return *(const NSPoint *)&point;	}
 //static inline CGPoint convertToCGPoint(NSPoint point) {	return *(const CGPoint *)&point;	}
 
+extern BOOL IsEmpty(id obj);
+
+extern CGFloat percent(CGFloat val);
 
 extern void ApplicationsInDirectory(NSString *searchPath, NSMutableArray *applications);
 

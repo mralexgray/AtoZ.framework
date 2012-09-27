@@ -477,8 +477,66 @@ CGColorRef CreatePatternColor( CGImageRef image )
 
 
 #define kCALayerLabel @"CALayerLabel"
-
 @implementation CALayer (AtoZ)
+
+- (id)objectForKeyedSubscript:(NSString *)key
+{
+	return [self valueForKey:key];
+}
+
+- (void)setObject:(id)object forKeyedSubscript:(NSString *)key
+{
+	if (IsEmpty(object)) [self setValue:@"" forKey:key];
+	else [self setValue:object forKey:key];
+}
+
+
+-(void)rotateAroundYAxis:(CGFloat)radians
+{
+	[self vFk:@"animating"] ? ^{ return; }() : ^{ [self setValue:@(YES) forKey:@"animating"];
+		[CATransaction transactionWithLength:1 easing:CAMEDIAEASY actions:^{
+			self.sublayerTransform = CATransform3DMakeRotation(radians, 0, 1, 0);
+		}];
+	}();
+}
+
+
+-(void)setHostingLayerAnchorPoint:(CGPoint)point
+{
+	CALayer* topLayer = [self.superlayers lastObject];
+	topLayer.anchorPoint = point;
+//	topLayer.frame = [layerView bounds];
+}
+
+
+-(void)animateCameraToPosition:(CGPoint)point
+{
+	[self vFk:@"animating"] ? ^{ return; }() : ^{ [self setValue:@(YES) forKey:@"animating"];
+
+		[CATransaction transactionWithLength:2 easing:CAMEDIAEASY actions:^{
+	//	} setCompletionBlock:^ { // referencing mBeingAnimated creates a retain cycle as the block will retain self mBeingAnimated = NO; }];
+			CGFloat cameraX = percent(point.x);		//[cameraXField doubleValue]);
+			CGFloat cameraY = percent(point.y);		//[cameraYField doubleValue]);
+			[self setHostingLayerAnchorPoint: (CGPoint){cameraX, cameraY}];
+		}];
+		[self setValue:@(NO) forKey:@"animating"];
+	}();
+}
+
+-(void)rotateBy45
+{
+	[self vFk:@"animating"] ? ^{ return; }() : ^{ [self setValue:@(YES) forKey:@"animating"];
+		[self rotateAroundYAxis:M_PI_4];
+		[self setValue:@(NO) forKey:@"animating"];
+	}();
+
+}
+
+-(void)rotateBy90
+{
+	[self rotateAroundYAxis:M_PI_2];
+}
+
 /**
 
 + (CAShapeLayer*) lassoLayerForLayer:(CALayer*)layer {

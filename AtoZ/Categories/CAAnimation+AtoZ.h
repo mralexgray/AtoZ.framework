@@ -37,15 +37,6 @@ extern void disableCA();
 
 
 @interface CAAnimation (AtoZ)
-#define CAL CALayer
-#define CGF CGFloat
-#define NSC NSColor
-#define CAA CAAnimation
-#define CGPR CGPathRef
-#define CFTI CFTimeInterval
-#define CAKA CAKeyframeAnimation
-#define CAAG CAGroupAnimation
-#define NSTI NSTimeInterval
 
 + (CAKA*)           popInAnimation;
 + (CAAnimationGroup*)   shrinkAnimationAtPoint: (CGPoint)p;

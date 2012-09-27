@@ -27,6 +27,16 @@
 }
 @end
 
+BOOL IsEmpty(id obj) {
+	return 		obj == nil
+			|| 	(NSNull *)obj == [NSNull null]
+			||	([obj respondsToSelector:@selector(length)] && [obj length] == 0)
+			|| 	([obj respondsToSelector:@selector(count)] 	&& [obj count] 	== 0);
+}
+
+extern CGFloat percent(CGFloat val)
+{	return val > 5 && val < 100 ? val/100 : val > 1 ? 1 : val < 0 ? 0 : val; }
+
 extern void ApplicationsInDirectory(NSString *searchPath, NSMutableArray *applications) {
 	__block BOOL isDir;
 	[[AZFILEMANAGER contentsOfDirectoryAtPath:searchPath error:nil]az_each:^(id obj, NSUInteger index, BOOL *stop) {

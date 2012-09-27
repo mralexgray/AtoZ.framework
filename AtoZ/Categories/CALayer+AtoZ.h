@@ -112,6 +112,8 @@ CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13, CGFloat m14,
 
 @interface CALayer (AtoZ)
 
+- (id)objectForKeyedSubscript:(NSString *)key;
+- (void)setObject:(id)object forKeyedSubscript:(NSString *)key;
 
 - (void)addConstraints:(NSArray*)constraints;
 - (void)orientWithPoint:(CGPoint) point;

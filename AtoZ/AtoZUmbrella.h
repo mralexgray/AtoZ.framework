@@ -5,6 +5,43 @@
 #define   AZWORKSPACE [NSWorkspace sharedWorkspace]
 #define   AZNOTCENTER [NSNotificationCenter defaultCenter]
 #define AZFILEMANAGER [NSFileManager defaultManager]
+#define AZGRAPHICSCTX [NSGraphicsContext currentContext]
+#define  AZQTZCONTEXT [[NSGraphicsContext currentContext] graphicsPort]
+
+#define NSI  NSInteger
+#define NSS  NSString
+#define NSA  NSArray
+#define NSP  NSPoint
+#define NSR  NSRect
+#define NSD  NSDictionary
+#define NSC  NSColor
+#define CAL  CALayer
+#define CGF  CGFloat
+#define CIF  CIFilter
+#define CAA  CAAnimation
+#define CGPR CGPathRef
+#define CFTI CFTimeInterval
+#define CATL CATextLayer
+#define CAKA CAKeyframeAnimation
+#define CAT3 CATansform3D
+#define CAAG CAGroupAnimation
+#define NSMA NSMutableArray
+#define NSMD NSMutableDictionary
+#define NSTI NSTimeInterval
+#define NSUI NSUInteger
+
+#define bgC backgroundColor
+#define fgC foregroundColor
+#define autoRM autoresizingMask
+
+#define CASIZEABLE kCALayerWidthSizable| kCALayerHeightSizable
+
+#define vFk valueForKey
+#define pV pointValue
+#define rV rectValue
+#define fV floatValue
+
+#define  AZLAYOUTMGR [CAConstraintLayoutManager layoutManager]
 
 #define  AZTALK(log) 	 [[AZTalker new] say:log]
 #define  AZBezPath(rect) [NSBezierPath bezierPathWithRect:rect]

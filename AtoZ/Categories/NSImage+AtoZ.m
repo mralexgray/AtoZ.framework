@@ -685,29 +685,29 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 
 
 
-//- (NSImage *)tintedImage
-//{
-//	NSImage *tintImage = [[NSImage alloc] initWithSize:[self size]];
-//	
-//	[tintImage lockFocus];
-//	[[[NSColor blackColor] colorWithAlphaComponent:1] set];
-//	[[NSBezierPath bezierPathWithRect:(NSRect){NSZeroPoint, [self size]}] fill];
-//	[tintImage unlockFocus];
-//	
-//	NSImage *tintMaskImage = [[NSImage alloc] initWithSize:[self size]];
-//	[tintMaskImage lockFocus];
-//	[self compositeToPoint:NSZeroPoint operation:NSCompositeCopy];
-//	[tintImage compositeToPoint:NSZeroPoint operation:NSCompositeSourceIn];
-//	[tintMaskImage unlockFocus];
-//	
-//	NSImage *newImage = [[NSImage alloc] initWithSize:[self size]]; 
-//	[newImage lockFocus];
-//	[self dissolveToPoint:NSZeroPoint fraction:0.6];
-//	[tintMaskImage compositeToPoint:NSZeroPoint operation:NSCompositeDestinationAtop];
-//	[newImage unlockFocus];
-//	
-//	return newImage;
-//}
+- (NSImage *)tintedImage
+{
+	NSImage *tintImage = [[NSImage alloc] initWithSize:[self size]];
+	
+	[tintImage lockFocus];
+	[[[NSColor blackColor] colorWithAlphaComponent:1] set];
+	[[NSBezierPath bezierPathWithRect:(NSRect){NSZeroPoint, [self size]}] fill];
+	[tintImage unlockFocus];
+	
+	NSImage *tintMaskImage = [[NSImage alloc] initWithSize:[self size]];
+	[tintMaskImage lockFocus];
+	[self compositeToPoint:NSZeroPoint operation:NSCompositeCopy];
+	[tintImage compositeToPoint:NSZeroPoint operation:NSCompositeSourceIn];
+	[tintMaskImage unlockFocus];
+	
+	NSImage *newImage = [[NSImage alloc] initWithSize:[self size]]; 
+	[newImage lockFocus];
+	[self dissolveToPoint:NSZeroPoint fraction:0.6];
+	[tintMaskImage compositeToPoint:NSZeroPoint operation:NSCompositeDestinationAtop];
+	[newImage unlockFocus];
+	
+	return newImage;
+}
 
 
 - (NSImage *) tintedWithColor:(NSColor *)tint 
@@ -848,33 +848,33 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
  I have not yet tested this with a non-square image.
  */
 
-//- (NSImage*)imageRotatedByDegrees:(CGFloat)degrees {
-//	NSSize rotatedSize = NSMakeSize(self.size.height, self.size.width) ;
-//	NSImage* rotatedImage = [[NSImage alloc] initWithSize:rotatedSize] ;
-//	
-//    NSAffineTransform* transform = [NSAffineTransform transform] ;
-//	
-//    // In order to avoid clipping the image, translate
-//    // the coordinate system to its center
-//    [transform translateXBy:+self.size.width/2
-//                        yBy:+self.size.height/2] ;
-//    // then rotate
-//    [transform rotateByDegrees:degrees] ;
-//    // Then translate the origin system back to
-//    // the bottom left
-//    [transform translateXBy:-rotatedSize.width/2
-//                        yBy:-rotatedSize.height/2] ;
-//	
-//    [rotatedImage lockFocus] ;
-//    [transform concat] ;
-//    [self drawAtPoint:NSMakePoint(0,0)
-//             fromRect:NSZeroRect
-//            operation:NSCompositeCopy
-//             fraction:1.0] ;
-//    [rotatedImage unlockFocus] ;
-//	
-//    return rotatedImage;
-//}
+- (NSImage*)imageRotatedByDegrees:(CGFloat)degrees {
+	NSSize rotatedSize = NSMakeSize(self.size.height, self.size.width) ;
+	NSImage* rotatedImage = [[NSImage alloc] initWithSize:rotatedSize] ;
+	
+    NSAffineTransform* transform = [NSAffineTransform transform] ;
+	
+    // In order to avoid clipping the image, translate
+    // the coordinate system to its center
+    [transform translateXBy:+self.size.width/2
+                        yBy:+self.size.height/2] ;
+    // then rotate
+    [transform rotateByDegrees:degrees] ;
+    // Then translate the origin system back to
+    // the bottom left
+    [transform translateXBy:-rotatedSize.width/2
+                        yBy:-rotatedSize.height/2] ;
+	
+    [rotatedImage lockFocus] ;
+    [transform concat] ;
+    [self drawAtPoint:NSMakePoint(0,0)
+             fromRect:NSZeroRect
+            operation:NSCompositeCopy
+             fraction:1.0] ;
+    [rotatedImage unlockFocus] ;
+	
+    return rotatedImage;
+}
 
 
 
@@ -2265,6 +2265,25 @@ CGImageRef CopyImageAndAddAlphaChannel(CGImageRef sourceImage) {
 
 
 @implementation NSImage (Icons)
+
++ (NSArray*) frameworkImages;{
+
+
+	NSArray * f = [NSArray arrayWithArrays:@[
+		[AZFWORKBUNDLE pathsForResourcesOfType:@"pdf" inDirectory:@""],
+		[AZFWORKBUNDLE pathsForResourcesOfType:@"png" inDirectory:@""],
+	   	[AZFWORKBUNDLE pathsForResourcesOfType:@"icns" inDirectory:@""]]];
+			   //; error:nil] filter:^BOOL(id object) {
+//		return [(NSString*)object contains:@".icn"] ? YES : NO;
+//	return [f arrayUsingBlock:^id(id obj) {
+//		return [base stringByAppendingPathComponent:obj];
+//	}];
+	return [[f arrayUsingBlock:^id(id obj) {
+		return  [[NSImage alloc] initWithContentsOfFile:obj];
+	}] filter:^BOOL(id object) {
+		return [object isKindOfClass:[NSImage class]] ? YES : NO;
+	}];
+}
 
 +(NSArray*) systemIcons{
 	NSString *base = @"/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/";

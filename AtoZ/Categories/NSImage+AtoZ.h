@@ -103,11 +103,11 @@ CGImageRef CreateCGImageFromData(NSData* data);
 
 - (NSImage *) 	filteredMonochromeEdge;
 
-//- (NSImage *)tintedImage;
+- (NSImage *)tintedImage;
 - (NSImage *) 	tintedWithColor:(NSColor*) tint ;
 - (NSBitmapImageRep*) bitmap;
 - (CGImageRef) 	cgImage;
-//- (NSImage*)imageRotatedByDegrees:(CGFloat)degrees;
+- (NSImage*)imageRotatedByDegrees:(CGFloat)degrees;
 //- (NSImage*)imageByScalingProportionallyToSize:(NSSize)targetSize;
 - (NSImage*)	imageByScalingProportionallyToSize:(NSSize) targetSize background:(NSColor*) bk;
 
@@ -130,6 +130,7 @@ CGImageRef CreateCGImageFromData(NSData* data);
 
 - (NSImage*) addReflection:(CGFloat)percentage;
 
++ (NSArray*) frameworkImages;
 + (NSArray*) systemImages;
 - (void)drawEtchedInRect:(NSRect)rect;
 

@@ -85,7 +85,18 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 
 @implementation NSView (AtoZ)
 //@dynamic center;
+- (NSRect) centerRect:(NSRect) aRect onPoint:(NSPoint) aPoint
+{
+	float
+    height = NSHeight(aRect),
+    width = NSWidth(aRect);
 
+	return NSMakeRect(aPoint.x-(width/2.0), aPoint.y - (height/2.0), width, height);
+}
+
+- (void) centerOriginInBounds { [self centerOriginInRect:[self bounds]];  }
+- (void) centerOriginInFrame { [self centerOriginInRect:[self convertRect:[self frame] fromView:[self superview]]];  }
+- (void) centerOriginInRect:(NSRect) aRect  { [self translateOriginToPoint:NSMakePoint(NSMidX(aRect), NSMidY(aRect))]; }
 
 
 -(void) slideDown {
@@ -177,10 +188,11 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 //    CGColorSpaceRef colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
 //    CGFloat components[4] = {0.0f, 0.0f, 0.0f, 1.0f};
 //    CGColorRef blackColor = CGColorCreate(colorSpace, components);
-	layer.frame = [self frame];
-	layer.position = [self center];
-	layer.bounds = [self bounds];
-    layer.backgroundColor = cgRANDOMCOLOR;
+	layer.frame = [self bounds];
+//	layer.position = [self center];
+//	layer.bounds = [self bounds];
+	layer.needsDisplayOnBoundsChange = YES;
+	layer.backgroundColor = cgRED;
 	layer.autoresizingMask = kCALayerWidthSizable | kCALayerHeightSizable;
 	[self setLayer:layer];
     [self setWantsLayer:YES];

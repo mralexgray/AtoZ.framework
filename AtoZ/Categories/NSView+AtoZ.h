@@ -34,6 +34,10 @@ extern NSView* AZResizeWindowAndContent(NSWindow* window, float dXLeft, float dX
 
 @interface NSView (AtoZ)
 
+- (NSRect) centerRect:(NSRect) aRect onPoint:(NSPoint) aPoint;
+- (void) centerOriginInBounds;
+- (void) centerOriginInFrame;
+- (void) centerOriginInRect:(NSRect) aRect;
 
 - (CALayer*) setupHostView;
 

@@ -60,7 +60,7 @@ void resolveHSV(float *color1, float *color2);
 	free(elementToRemove);
 	}
   
-  [super dealloc];
+//  [super dealloc];
   }
 
 - (id)copyWithZone:(NSZone *)zone
