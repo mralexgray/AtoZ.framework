@@ -51,6 +51,15 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 
 @implementation NSImage (AtoZ)
 
++ (NSArray*) randomImages:(NSUI)number{
+	NSArray *images = [NSArray arrayWithArrays:@[[NSImage icons], [NSImage systemIcons], [NSImage frameworkImages]]];
+	return [images.shuffeled randomSubarrayWithSize:number];
+
+}
+
++ (void) drawInQuadrants:(NSArray*)images inRect:(NSRect)frame {  __block int indy = 1;
+	[images do:^(id obj){ [(NSImage*)obj drawInRect: alignRectInRect(AZRectFromDim(frame.size.width/2),frame,indy)]; indy++;  }];
+}
 
 + (NSImage *)reflectedImage:(NSImage *)sourceImage amountReflected:(float)fraction
 {

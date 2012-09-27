@@ -8,70 +8,30 @@
 
 //#import "AtoZFunctions.h"
 //#import "AtoZUmbrella.h"
-#import "BaseModel.h"
+#import "AZObject.h"
+#import "AtoZModels.h"
 
 @interface AZFolder : BaseModel <NSCopying, NSMutableCopying, NSFastEnumeration>
-@property (nonatomic, retain) NSMutableArray *items;
-@property (readonly) NSArray *files;
-@property (readonly) NSArray *folders;
-@property (nonatomic, strong) NSArray *strings;
-+ (instancetype) instanceWithItems:(NSArray*)items;
-+ (instancetype) instanceWithPaths:(NSArray*)paths;
+
+//@property (readonly) NSArray *files;
+//@property (readonly) NSArray *folders;
+//@property (readonly) NSArray *paths;
+//@property (readonly) NSArray *categories;
+
++ (instancetype) appFolder;
+
++ (NSArray *) samplerWithBetween:(NSUInteger)minItems andMax:(NSUInteger)items;
+
++ (AZFolder*) instanceWithFiles:(NSArray*)file;
++ (AZFolder*) instanceWithPaths:(NSArray*)strings;
+
 @end
 
-@interface AZAppFolder : AZFolder
-//+ (instancetype) samplerWithBetween:(NSUInteger)minItems andMax:(NSUInteger)items;
-@property (nonatomic, retain) NSArray *appCategories;
-@property (nonatomic, strong) NSArray *sorted;
-@end
-
-@interface AZDock : AZFolder
+@interface AZDock : BaseModel
+@property (readonly) NSArray *dock;
+@property (readonly) NSArray *dockSorted;
 @property (nonatomic, assign) AZDockSort sortOrder;
-@property (nonatomic, retain) NSArray *dock;
-@property (nonatomic, retain) NSArray *dockSorted;
 @end
-
-@interface AZFile : BaseModel
-//	@property (weak)	id itunesDescription;
-//	@property (weak)	id itunesResults;
-//	@property (strong, nonatomic)	AJSiTunesResult *itunesInfo;
-//	@property (strong, nonatomic)  	NSImage	 * 	icon;
-
-@property (strong, nonatomic) NSString *  calulatedBundleID;
-@property (strong, nonatomic) NSString *  path;
-@property (strong, nonatomic) NSString *  name;
-@property (strong, nonatomic) NSColor  *  color;
-@property (strong, nonatomic) NSColor  *  customColor;
-@property (strong, nonatomic) NSColor  *  labelColor;
-@property (assign, nonatomic) NSNumber *  labelNumber;
-@property (strong, nonatomic) NSArray  *  colors;
-@property (strong, nonatomic) NSImage  *  image;
-@property (nonatomic, assign)	CGFloat	  hue;
-@property (nonatomic, readonly)	BOOL	  hasLabel;
-
-@property (nonatomic, assign)	AZWindowPosition		position;
-
-+ (instancetype) dummy;
-+ (instancetype) forAppNamed:		(NSString*)appName;
-+ (instancetype) instanceWithPath:	(NSString *)path;
-+ (instancetype) instanceWithImage:(NSImage *)image;
-+ (instancetype) instanceWithColor:	(NSColor*)color;
-	//+ (instancetype) instanceWithObject:(id)object;
-- (void)setActualLabelColor:(NSColor *)aLabelColor;
-
-@end
-
-@interface AZDockItem : AZFile
-+ (instancetype)instanceWithPath:(NSString *)path;
-@property (nonatomic, assign) 	CGPoint		dockPoint;
-@property (nonatomic, assign) 	CGPoint		dockPointNew;
-@property (nonatomic, assign) 	NSUInteger	spot;
-@property (nonatomic, assign) 	NSUInteger 	spotNew;
-@property (nonatomic, readonly)	BOOL		isRunning;
-@property (nonatomic, assign)	BOOL		needsToMove;
-@end
-
-
 
 @interface AZColor : BaseModel
 @property (nonatomic, readonly) CGFloat 	brightness;
@@ -89,5 +49,5 @@
 
 @end
 
-extern NSString *const AtoZFileUpdated;
+//extern NSString *const AtoZFileUpdated;
 	//@class AJSiTunesResult;

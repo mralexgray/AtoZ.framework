@@ -8,10 +8,12 @@
 
 #import <Cocoa/Cocoa.h>
 #import "AtoZ.h"
-
+#import <QuartzCore/QuartzCore.h>
 
 @interface AZHostView : NSView
-
+{
+	CAL *_host;
+}
 @property (nonatomic, retain) CAL *host;
 
 @end

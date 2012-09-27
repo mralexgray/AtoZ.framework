@@ -50,7 +50,7 @@ static const NSString *didScroll = @"scrollOffset";
 	self.east  =   [AZTrackingWindow oriented: AZPositionRight 	 intruding:_intrusion],// withDelegate:self],
 	self.west  =   [AZTrackingWindow oriented: AZPositionLeft 	 intruding:_intrusion] ]; // withDelegate:self] ];
 
-	[NOTCENTER addObserver:self selector:@selector(applicationDidBecomeActive:) name:NSApplicationDidBecomeActiveNotification object:nil];
+	[AZNOTCENTER addObserver:self selector:@selector(applicationDidBecomeActive:) name:NSApplicationDidBecomeActiveNotification object:nil];
 
 //	id eventMonitor = [NSEvent addLocalMonitorForEventsMatchingMask:NSMouseEnteredMask handler:^(NSEvent *incomingEvent)
 //	 {NSEvent *result = incomingEvent;

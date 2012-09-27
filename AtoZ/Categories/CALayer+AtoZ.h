@@ -15,6 +15,7 @@
 extern void prepareContext(CGContextRef ctx);
 
 
+
 void applyPerspective (CALayer* layer);
 //extern CATransform3D perspective();
 
@@ -112,6 +113,10 @@ CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13, CGFloat m14,
 
 @interface CALayer (AtoZ)
 
+- (void) addPerspectiveForVerticalOffset:(CGFloat)pixels;
+- (CAL*)hitTestEvent:(NSEvent*)e inView:(NSView*)v;
+
+
 - (id)objectForKeyedSubscript:(NSString *)key;
 - (void)setObject:(id)object forKeyedSubscript:(NSString *)key;
 
@@ -175,6 +180,7 @@ CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13, CGFloat m14,
 
 @end
 @interface  CATextLayer (AtoZ)
+
 
 - (CTFontRef)newFontWithAttributes:(NSDictionary *)attributes;
 - (CTFontRef)newCustomFontWithName:(NSString *)fontName ofType:(NSString *)type attributes:(NSDictionary *)attributes;

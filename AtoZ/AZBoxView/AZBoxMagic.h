@@ -8,10 +8,10 @@
 
 #import <Cocoa/Cocoa.h>
 #import "AtoZ.h"
+#import "AZFile.h"
 
 
-
-@class AZBoxMagic, AZFile;
+@class AZBoxMagic;
 @protocol AZBoxMagicDataSource <NSObject>
 @required
 /*** This method is invoked to ask the data source for the number of cells inside the collection view.  **/

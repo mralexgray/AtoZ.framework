@@ -117,7 +117,10 @@
 	pulseAnimation.timingFunction = [CAMediaTimingFunction functionWithName:
 									 kCAMediaTimingFunctionEaseInEaseOut];
 	[aselectionLayer addAnimation:pulseAnimation forKey:@"pulseAnimation"];
-	NSArray *constraints = [NSArray arrayWithObjects: AZConst( kCAConstraintWidth,@"superlayer"), AZConst( kCAConstraintHeight,@"superlayer"), AZConst( kCAConstraintMidX,@"superlayer"), AZConst( kCAConstraintMidY,@"superlayer"),  nil];
+	NSArray *constraints = @[ 	AZConstRelSuper( kCAConstraintWidth),
+								AZConstRelSuper( kCAConstraintHeight),
+								AZConstRelSuper( kCAConstraintMidX),
+								AZConstRelSuper( kCAConstraintMidY)];
 	aselectionLayer.constraints = constraints;
 
 
@@ -140,15 +143,15 @@
 
 	[shapeLayer setBounds:shapeRect];
 		//	[shapeLayer setAutoresizingMask:kCALayerWidthSizable|kCALayerHeightSizable];
-	NSArray *constraints = [NSArray arrayWithObjects:
+	NSArray *constraints = @[
 							AZConstScaleOff( kCAConstraintMinX,@"superlayer", 1,2),
 							AZConstScaleOff( kCAConstraintMaxX,@"superlayer", 1,2),
 							AZConstScaleOff( kCAConstraintMinY,@"superlayer", 1,2),
 							AZConstScaleOff( kCAConstraintMaxY,@"superlayer", 1,2),
 							AZConstScaleOff( kCAConstraintWidth,@"superlayer", 1,-4),
 							AZConstScaleOff( kCAConstraintHeight,@"superlayer", 1, -4),
-							AZConst( kCAConstraintMidX,@"superlayer"),
-							AZConst( kCAConstraintMidY,@"superlayer"),  nil];
+							AZConstRelSuper( kCAConstraintMidX),
+							AZConstRelSuper(kCAConstraintMidY)];
 	shapeLayer.constraints = constraints;
 		//	[shapeLayer setPosition:CGPointMake(.5,.5)];
 	[shapeLayer setFillColor:cgCLEARCOLOR];

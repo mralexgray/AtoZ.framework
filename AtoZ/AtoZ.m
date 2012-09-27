@@ -9,6 +9,7 @@
 #import "AtoZ.h"
 #import "AtoZFunctions.h"
 #import "AtoZUmbrella.h"
+#import "AtoZModels.h"
 
 
 @implementation AZDummy
@@ -55,23 +56,23 @@
 	NSString *key = [NSString stringWithFormat:@"AZOrient_%@", NSStringFromClass([type class])];
 	return NSLocalizedString(key, nil);
 }
-
-+ (NSArray*) dock {
-	return (NSArray*)[AZDock sharedInstance];
-}
-
-+ (NSArray*) currentScope {
-	return [AZFolder sharedInstance].items;
-}
-+ (NSArray*) dockSorted {
-
-	return [AZDock sharedInstance].dockSorted;
-}
-+ (NSArray*) appCategories {
-
-	return [AZAppFolder sharedInstance].appCategories;
-}
-
+//
+//+ (NSArray*) dock {
+//	return (NSArray*)[AZDock sharedInstance];
+//}
+//
+//+ (NSArray*) currentScope {
+//	return [AZFolder sharedInstance].items;
+//}
+//+ (NSArray*) dockSorted {
+//
+//	return [AZDock sharedInstance].dockSorted;
+//}
+//+ (NSArray*) appCategories {
+//
+//	return [AZAppFolder sharedInstance].appCategories;
+//}
+//
 
 	//{//	__weak AZSimpleView *e;
 	//}
@@ -272,37 +273,37 @@
 	//+ (void)az_runBlock:(void (^)())block { block(); }
 	//+ (void)performBlockInBackground:(void (^)())block {
 	//	[NSThread performSelectorInBackground:@selector(az_runBlock:) withObject:[block copy]];
-	//}
-+ (NSArray*) appFolderSorted {
-	return [AZAppFolder sharedInstance].sorted;
-		//		[AZFiles sharedInstance].appFolderSorted = [AZFiles.sharedInstance.appFolder sortedWithKey:@"hue" ascending:YES].reversed.mutableCopy;
-		//	return  [AZFiles sharedInstance].appFolderSorted;
-}
+//	//}
+//+ (NSArray*) appFolderSorted {
+//	return [AZAppFolder sharedInstance].sorted;
+//		//		[AZFiles sharedInstance].appFolderSorted = [AZFiles.sharedInstance.appFolder sortedWithKey:@"hue" ascending:YES].reversed.mutableCopy;
+//		//	return  [AZFiles sharedInstance].appFolderSorted;
+//}
+//
+//
+//
+//+ (NSArray*) appFolder {
+//
+//		//	[AZStopwatch start:@"appFolder"];
+//		//	if (! [AtoZ sharedInstance].appFolder ) {
+//		//		NSMutableArray *applications = [NSMutableArray array];
+//		//		ApplicationsInDirectory(@"/Applications", applications);
+//		//		[AtoZ sharedInstance].appFolder = [NSMutableArray array];
+//		//	}
+//		//	[AZStopwatch stop:@"appFolder"];
+//		//	[[AtoZ sharedInstance] useHRCoderIfAvailable];
+//		//	NSLog(@"%@", [[AtoZ sharedInstance] codableKeys]);
+//		//	[[AtoZ sharedInstance] writeToFile:@"/Users/localadmin/Desktop/poop.plist" atomically:NO];
+//
+//	return (NSArray*)[AZAppFolder sharedInstance];
+//}
 
-
-
-+ (NSArray*) appFolder {
-
-		//	[AZStopwatch start:@"appFolder"];
-		//	if (! [AtoZ sharedInstance].appFolder ) {
-		//		NSMutableArray *applications = [NSMutableArray array];
-		//		ApplicationsInDirectory(@"/Applications", applications);
-		//		[AtoZ sharedInstance].appFolder = [NSMutableArray array];
-		//	}
-		//	[AZStopwatch stop:@"appFolder"];
-		//	[[AtoZ sharedInstance] useHRCoderIfAvailable];
-		//	NSLog(@"%@", [[AtoZ sharedInstance] codableKeys]);
-		//	[[AtoZ sharedInstance] writeToFile:@"/Users/localadmin/Desktop/poop.plist" atomically:NO];
-
-	return (NSArray*)[AZAppFolder sharedInstance];
-}
-
-	//+ (NSArray*) appFolderSamplerWith:(NSUInteger)apps {
-	//
-	//	[AZStopwatch start:@"appFolderSampler"];
-	//	return (NSArray*)[AZAppFolder samplerWithBetween:apps andMax:apps];
-	//	[AZStopwatch stop:@"appFolderSampler"];
-	//}
+//+ (NSArray*) appFolderSamplerWith:(NSUInteger)apps {
+//
+//	[AZStopwatch start:@"appFolderSampler"];
+//	return (NSArray*)[AZFolder appFolderSamplerWith:apps andMax:apps];
+//	[AZStopwatch stop:@"appFolderSampler"];
+//}
 
 - (NSPoint)convertToScreenFromLocalPoint:(NSPoint)point relativeToView:(NSView *)view
 {
@@ -370,14 +371,14 @@
 	//+ (NSArray*) fengshui {
 	//	return [[self class] fengShui];
 	//}
-+ (NSArray*) fengShui {
-	return [[NSColor fengshui].reversed arrayUsingBlock:^id(id obj) {
-		AZFile *t = [AZFile instance];
-		t.color = obj;
-		return t;
-	}];
-		//		dummy];		t.color = (NSColor*)obj; t.spot = 22;	return t;	}];
-}
+//+ (NSArray*) fengShui {
+//	return [[NSColor fengshui].reversed arrayUsingBlock:^id(id obj) {
+//		AZFile *t = [AZFile instance];
+//		t.color = obj;
+//		return t;
+//	}];
+//		//		dummy];		t.color = (NSColor*)obj; t.spot = 22;	return t;	}];
+//}
 
 
 	//NSArray *AllApplications(NSArray *searchPaths) {

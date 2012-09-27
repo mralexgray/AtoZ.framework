@@ -14,20 +14,22 @@
 #import <QuartzCore/QuartzCore.h>
 #import <xpc/xpc.h>
 
-
 #import	"BaseModel.h"
+#import "NSBag.h"
+
 #import "BlocksAdditions.h"
 #import "F.h"
 #import "NSArray+F.h"
-#import "NSBag.h"
 #import "NSDictionary+F.h"
 #import "NSNumber+F.h"
-#import "SMModelObject.h"
+//#import "AZModelObject.h"
 
 
 #define EXCLUDE_STUB_PROTOTYPES 1
 #import <PLWeakCompatibility/PLWeakCompatibilityStubs.h>
 #import <BlocksKit/BlocksKit.h>
+
+
 
 //#import <XPCKit/XPCKit.h>
 //#import <RMKit/RMKit.h>
@@ -85,7 +87,6 @@
 #import "AZNotificationCenter.h"
 #import "NSLogConsole.h"
 #import "AZLaunchServices.h"
-#import "AZObject.h"
 #import "AZLassoView.h"
 #import "AZBackground.h"
 #import "AZCSSColors.h"
@@ -102,7 +103,7 @@
 
 //CoreScroll
 #import "AZCoreScrollView.h"
-#import "AZSnapShotLayer.h"
+//#import "AZSnapShotLayer.h"
 #import "AZTimeLineLayout.h"
 #import "AZScrollPaneLayer.h"
 #import "AZScrollerLayer.h"
@@ -349,6 +350,6 @@ void profile (const char *name, void (^work) (void));
 #define XCODE_COLORS_ESCAPE @"\033["
 
 #define XCODE_COLORS_RESET_FG  XCODE_COLORS_ESCAPE @"fg;" // Clear any foreground color
-#define XCODE_COLORS_RESET_BG  XCODE_COLORS_ESCAPE @"bg;" // Clear any background color
+//#define XCODE_COLORS_RESET_BG  XCODE_COLORS_ESCAPE @"bg;" // Clear any background color
 #define XCODE_COLORS_RESET     XCODE_COLORS_ESCAPE @";"   // Clear any foreground or background color
 

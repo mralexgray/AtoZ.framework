@@ -136,14 +136,15 @@ void trackMouse() {
 	//static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 
-//void _AZSimpleLog(const char *file, int lineNumber, const char *funcName, NSString *format,...){
-//	va_list argList;
-//	va_start (argList, format);
-//	NSString *message = [[NSString alloc] initWithFormat:format arguments:argList];
-//		//	fprintf (stderr, "%s \n", [message UTF8String]);
-//	va_end  (argList);
-//		//	const char *threadName = [[[NSThread currentThread] name] UTF8String];
-//}
+void _AZSimpleLog(const char *file, int lineNumber, const char *funcName, NSString *format,...){
+	va_list argList;
+	va_start (argList, format);
+	NSString *path = [[NSString stringWithUTF8String:file] lastPathComponent];
+	NSString *message = [[NSString alloc] initWithFormat:format arguments:argList];
+	fprintf (stderr, "[%s]:%i %s \n", [path UTF8String], lineNumber, [message UTF8String]);
+	va_end  (argList);
+//	const char *threadName = [[[NSThread currentThread] name] UTF8String];
+}
 //
 //void _AZLog(const char *file, int lineNumber, const char *funcName, NSString *format,...) {
 //	va_list arglist;
@@ -188,11 +189,48 @@ void trackMouse() {
 //    va_end(argList);
 //}
 
-void NSLog (NSString *format, ...) {
-	va_list argList;	va_start (argList, format);
-	NSString *message = [[NSString alloc] initWithFormat:format arguments:argList];
-	fprintf (stderr, "*** %s ***\n", [message UTF8String]); 	va_end  (argList);
+
+
+//void QuietLog (NSString *format, ...) { if (format == nil) { printf("nil\n"); return; }
+//	// Get a reference to the arguments that follow the format parameter
+//    va_list argList;  va_start(argList, format);
+//	// Perform format string argument substitution, reinstate %% escapes, then print
+//    NSString *s = [[NSString alloc] initWithFormat:format arguments:argList];
+//    printf("%s\n", [[s stringByReplacingOccurrencesOfString:@"%%" withString:@"%%%%"] UTF8String]);
+//    [s release];
+//    va_end(argList);
+//}
+
+// NSLog() writes out entirely too much stuff.  Most of the time I'm  not interested in the program name, process ID, and current time down to the subsecond level.
+// This takes an NSString with printf-style format, and outputs it. regular old printf can't be used instead because it doesn't support the '%@' format option.
+
+void QuietLog (NSString *format, ...) {
+	va_list argList; va_start (argList, format);
+	NSS *message = 	[[NSS alloc] initWithFormat: format arguments: argList];
+	printf ("%s", [message UTF8String]); va_end  (argList);
 } // QuietLog
+
+#ifndef NDEBUG
+#import <Foundation/Foundation.h>
+#import <stdio.h>
+
+extern void _NSSetLogCStringFunction(void (*)(const char *string, unsigned length, BOOL withSyslogBanner));
+
+static void PrintNSLogMessage(const char *string, unsigned length, BOOL withSyslogBanner){
+	puts(string);
+}
+
+static void HackNSLog(void) __attribute__((constructor));
+static void HackNSLog(void){
+	_NSSetLogCStringFunction(PrintNSLogMessage);
+}
+#endif
+
+//void QuietLog (NSString *format, ...) {
+//	va_list argList;	va_start (argList, format);
+//	NSString *message = [[NSString alloc] initWithFormat:format arguments:argList];
+//	fprintf (stderr, "*** %s ***\n", [message UTF8String]); 	va_end  (argList);
+//} // QuietLog
 
 
 void perceptualCausticColorForColor(CGFloat *inputComponents, CGFloat *outputComponents) {

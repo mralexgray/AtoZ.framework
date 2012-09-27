@@ -354,7 +354,7 @@ BOOL AZIsRectBelowRect(NSRect rect, NSRect compare);
 //NSPoint rectOffset(NSRect innerRect,NSRect outerRect,int quadrant);
 //
 
-//NSRect rectZoom(NSRect rect,float zoom,int quadrant);
+NSRect rectZoom(NSRect rect,float zoom,int quadrant);
 
 NSRect sizeRectInRect(NSRect innerRect,NSRect outerRect,bool expand);
 NSPoint offsetPoint(NSPoint fromPoint, NSPoint toPoint);
@@ -363,8 +363,11 @@ NSRect centerRectInRect(NSRect rect, NSRect mainRect);
 NSRect rectFromSize(NSSize size);
 //NSRect rectWithProportion(NSRect innerRect,float proportion,bool expand);
 
+
+NSRect quadrant(NSRect r, NSUInteger i);
+
 NSRect constrainRectToRect(NSRect innerRect, NSRect outerRect);
-//NSRect alignRectInRect(NSRect innerRect,NSRect outerRect,int quadrant);
+NSRect alignRectInRect(NSRect innerRect,NSRect outerRect,int quadrant);
 //NSRect expelRectFromRect(NSRect innerRect, NSRect outerRect,float peek);
 //NSRect expelRectFromRectOnEdge(NSRect innerRect, NSRect outerRect,NSRectEdge edge,float peek);
 

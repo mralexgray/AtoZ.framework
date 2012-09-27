@@ -681,8 +681,9 @@ int gNSStringGeometricsTypesetterBehavior = NSTypesetterLatestBehavior ;
 - (NSSize)sizeForWidth:(float)width height:(float)height font:(NSFont*)font
 {
 	NSSize answer = NSZeroSize ;
-	if (font == nil)	NSLog(@"[%@ %@]: Error: cannot compute size with nil font", [self class], _cmd) ;
-	else return 		answer = [self sizeForWidth:width height:height attributes:@{NSFontAttributeName: font}] ;
+//	if (font == nil)	NSLog(@"[%@ %@]: Error: cannot compute size with nil font", [self class], _cmd) ;
+//	else
+		return 		answer = [self sizeForWidth:width height:height attributes:@{NSFontAttributeName: font}] ;
 }
 
 - (float)heightForWidth:(float)width font:(NSFont*)font { return [self sizeForWidth:width height:FLT_MAX font:font].height ; }

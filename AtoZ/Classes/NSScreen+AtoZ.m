@@ -38,8 +38,8 @@
 
 + (NSPoint)convertAndFlipEventPoint:(NSEvent*)event relativeToView:(NSView *)view {
 	NSScreen *now = [NSScreen currentScreenForMouseLocation];
-	return [now flipPoint:[now convertToScreenFromLocalPoint:event.locationInWindow relativeToView:view]];
-
+	NSPoint j = [now flipPoint:[now convertToScreenFromLocalPoint:event.locationInWindow relativeToView:view]];
+	return [view isFlipped] ? [[self mainScreen]flipPoint:j] :j;
 //	return [[[self class] mainScreen] flipPoint:touchPoint];
 }
 

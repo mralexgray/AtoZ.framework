@@ -27,7 +27,7 @@
 @property (assign, nonatomic) NSUInteger side;
 
 @property (nonatomic, retain) NSWindow *mainWindow;
-@property (nonatomic, retain) MAAttachedWindow * attachedWindow;
+@property (nonatomic, retain) AZAttachedWindow * attachedWindow;
 @property (assign, nonatomic) NSPoint attachPoint;
 
 @property (nonatomic, retain) AZTrackingWindow *left;

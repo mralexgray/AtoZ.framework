@@ -479,6 +479,24 @@ CGColorRef CreatePatternColor( CGImageRef image )
 #define kCALayerLabel @"CALayerLabel"
 @implementation CALayer (AtoZ)
 
+- (CAL*)hitTestEvent:(NSEvent*)e inView:(NSView*)v
+{
+	NSPoint mD = [NSScreen convertAndFlipEventPoint:e relativeToView:v];
+	return [self hitTest: mD];
+}
+
+//How to set the CATransform3DRotate along the x-axis for a specified height with perspective
+-(void) addPerspectiveForVerticalOffset: (CGFloat)pixels;
+{
+	CGFloat totalHeight = self.bounds.size.height; //height is 30
+	CGFloat heightToSetViewTo = 5;
+	CGFloat rad = acosf( heightToSetViewTo / totalHeight);
+	CATransform3D rT = CATransform3DIdentity;
+	rT = CATransform3DRotate(rT, rad, 1.0f, 0.0f, 0.0f);
+	self.transform = rT;
+	CGFloat zDist = 1000;
+	rT.m34 = 1.0f /  -zDist;
+}
 - (id)objectForKeyedSubscript:(NSString *)key
 {
 	return [self valueForKey:key];

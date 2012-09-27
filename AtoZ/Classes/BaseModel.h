@@ -81,7 +81,7 @@ extern NSString *const BaseModelSharedInstanceUpdatedNotification;
 //the BaseModel protocol defines optional methods that
 //you can define on your BaseModel subclasses to extend their functionality
 
-@protocol BaseModel <NSObject>
+@protocol BaseModel <NSObject, NSFastEnumeration>
 @optional
 //loading sequence:
 //setUp called first
@@ -104,9 +104,18 @@ extern NSString *const BaseModelSharedInstanceUpdatedNotification;
 //use the BaseModel class as the base class for any of your
 //model objects. BaseModels can be standalone objects, or
 //act as sub-properties of a larger object
+#import "F.h"
+#import "AtoZUmbrella.h"
 
 @interface BaseModel : NSObject
 <BaseModel, NSCoding, NSCopying, NSFastEnumeration>
+
+@property (nonatomic, strong) NSMutableArray *backingstore;
+
+- (NSMA*)nmap:(id (^)(id obj, NSUInteger index))block;
+- (void) eachWithIndex:(VoidIteratorArrayWithIndexBlock) block;
+- (NSMA *) map:(MapArrayBlock) block;
+- (NSMA *) filter:(BoolArrayBlock) block;
 
 - (NSString*)saveInstanceInAppSupp;
 + (instancetype)instanceWithID:(NSString*)uniqueID;
@@ -159,6 +168,11 @@ extern NSString *const BaseModelSharedInstanceUpdatedNotification;
 //you can enable this by adding BASEMODEL_ENABLE_UNIQUE_ID
 //to your preprocessor macros in the project build settings
 @property (nonatomic, strong) NSString *uniqueID;
+
+- (id) objectAtIndexedSubscript: (NSInteger) index;
+- (void) setObject: (id) thing;
+- (id)objectForKeyedSubscript:(NSString *)key;
+- (void)setObject:(id)object forKeyedSubscript:(NSString *)key;
 
 //#endif
 

@@ -33,6 +33,8 @@ CGImageRef CreateCGImageFromData(NSData* data);
 
 @interface NSImage (AtoZ)
 
++ (void) drawInQuadrants:(NSArray*)images inRect:(NSRect)frame;
+
 + (NSImage *)reflectedImage:(NSImage *)sourceImage amountReflected:(float)fraction;
 
 //- (NSImage*) maskedByColor:(NSColor *)color;
@@ -221,6 +223,7 @@ CGImageRef CreateCGImageFromData(NSData* data);
 + (NSArray*) picolStrings;
 + (NSArray*) iconStrings;
 + (NSImage*) randomIcon;
++ (NSArray*) randomImages:(NSUI)number;
 
 @end
 

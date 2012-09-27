@@ -49,6 +49,7 @@ int main(int argc, const char * argv[])
 	//	TestStopwatchBlock(@"testTheWatch");
 		NSArray *u = [NSArray arrayWithArrays: @[@[@"array1", @[@"array1level2"]],@[@"array2", @"array2item2"], @[@"array3"]]];
 		AZLOG(	u );
+		AZLOG([NSArray classMethods]);
 
 //		AZLOG([NSColor allColors]);
 	//	[NSThread performBlock:^{

@@ -137,7 +137,7 @@
 		7B31B13615E9441D00802CD5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B31B13515E9441D00802CD5 /* main.m */; };
 		7B31B13D15E9441D00802CD5 /* AZEntitlementDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B31B13C15E9441D00802CD5 /* AZEntitlementDelegate.m */; };
 		7B31B14015E9441D00802CD5 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B31B13E15E9441D00802CD5 /* MainMenu.xib */; };
-		7B31B14415E9442A00802CD5 /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B311951159B6D9E002134C4 /* AtoZ.framework */; };
+		7B31B14415E9442A00802CD5 /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B311951159B6D9E002134C4 /* AtoZ.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		7B31B14F15E9449F00802CD5 /* AtoZ.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7B311951159B6D9E002134C4 /* AtoZ.framework */; };
 		7B3422A315A52A61006AC46C /* BaseModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B3422A115A52A61006AC46C /* BaseModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B3422A415A52A61006AC46C /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B3422A215A52A61006AC46C /* BaseModel.m */; };
@@ -272,8 +272,6 @@
 		7B82B82F15CB66D30026FE8C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B82B82E15CB66D30026FE8C /* main.m */; };
 		7B82B83915CB66D30026FE8C /* ControlPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B82B83715CB66D30026FE8C /* ControlPanel.xib */; };
 		7B8558E915B2CBAF0005F558 /* circle2.tif in Resources */ = {isa = PBXBuildFile; fileRef = 7B8558E815B2CBAF0005F558 /* circle2.tif */; };
-		7B8A29FE15E2735000286E27 /* SMModelObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B8A29FC15E2735000286E27 /* SMModelObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7B8A29FF15E2735000286E27 /* SMModelObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B8A29FD15E2735000286E27 /* SMModelObject.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7B8A2A0D15E2C52400286E27 /* AZSourceListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B8A2A0C15E2C52400286E27 /* AZSourceListViewController.m */; };
 		7B8A2A1015E2D48D00286E27 /* AZVeil.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B8A2A0E15E2D48D00286E27 /* AZVeil.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B8A2A1115E2D48D00286E27 /* AZVeil.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B8A2A0F15E2D48D00286E27 /* AZVeil.m */; };
@@ -320,6 +318,9 @@
 		7BBD991315B0648A00943FC1 /* CAAnimation+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BBD991115B0648A00943FC1 /* CAAnimation+AtoZ.m */; };
 		7BBD991715B0688400943FC1 /* CALayer+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BBD991515B0688400943FC1 /* CALayer+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BBD991815B0688400943FC1 /* CALayer+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BBD991615B0688400943FC1 /* CALayer+AtoZ.m */; };
+		7BBDB48A16148265001B864B /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B82B82215CB66D30026FE8C /* Cocoa.framework */; };
+		7BBDB4AD161497DE001B864B /* AZFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BBDB4AB161497DB001B864B /* AZFile.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BBDB4AE161497DE001B864B /* AZFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BBDB4AC161497DC001B864B /* AZFile.m */; };
 		7BC02741160CC68300BAE74D /* Ivolkswagen DemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7BC02740160CC68300BAE74D /* Ivolkswagen DemiBold.otf */; };
 		7BC02742160CC6E200BAE74D /* Ivolkswagen DemiBold.otf in fonts Files */ = {isa = PBXBuildFile; fileRef = 7BC02740160CC68300BAE74D /* Ivolkswagen DemiBold.otf */; };
 		7BC02756160D365300BAE74D /* Calculator.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BC02755160D365300BAE74D /* Calculator.xib */; };
@@ -2305,8 +2306,8 @@
 		7B8558E415B2C98D0005F558 /* AZMouser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZMouser.h; sourceTree = "<group>"; };
 		7B8558E515B2C98D0005F558 /* AZMouser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZMouser.m; sourceTree = "<group>"; };
 		7B8558E815B2CBAF0005F558 /* circle2.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = circle2.tif; sourceTree = "<group>"; };
-		7B8A29FC15E2735000286E27 /* SMModelObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMModelObject.h; sourceTree = "<group>"; };
-		7B8A29FD15E2735000286E27 /* SMModelObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMModelObject.m; sourceTree = "<group>"; };
+		7B8A29FC15E2735000286E27 /* AZModelObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZModelObject.h; sourceTree = "<group>"; };
+		7B8A29FD15E2735000286E27 /* AZModelObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZModelObject.m; sourceTree = "<group>"; };
 		7B8A2A0B15E2C52400286E27 /* AZSourceListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZSourceListViewController.h; sourceTree = "<group>"; };
 		7B8A2A0C15E2C52400286E27 /* AZSourceListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZSourceListViewController.m; sourceTree = "<group>"; };
 		7B8A2A0E15E2D48D00286E27 /* AZVeil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZVeil.h; sourceTree = "<group>"; };
@@ -2358,6 +2359,8 @@
 		7BBD991115B0648A00943FC1 /* CAAnimation+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CAAnimation+AtoZ.m"; sourceTree = "<group>"; };
 		7BBD991515B0688400943FC1 /* CALayer+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CALayer+AtoZ.h"; sourceTree = "<group>"; };
 		7BBD991615B0688400943FC1 /* CALayer+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CALayer+AtoZ.m"; sourceTree = "<group>"; };
+		7BBDB4AB161497DB001B864B /* AZFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZFile.h; path = Models/AZFile.h; sourceTree = SOURCE_ROOT; };
+		7BBDB4AC161497DC001B864B /* AZFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AZFile.m; path = Models/AZFile.m; sourceTree = SOURCE_ROOT; };
 		7BC02740160CC68300BAE74D /* Ivolkswagen DemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Ivolkswagen DemiBold.otf"; path = "Fonts/Ivolkswagen DemiBold.otf"; sourceTree = "<group>"; };
 		7BC02755160D365300BAE74D /* Calculator.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Calculator.xib; sourceTree = "<group>"; };
 		7BC02757160D36A200BAE74D /* AZCalculatorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = AZCalculatorController.h; sourceTree = "<group>"; };
@@ -3135,6 +3138,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BBDB48A16148265001B864B /* Cocoa.framework in Frameworks */,
 				7B471B1115EB05BF005CDA86 /* QuartzCore.framework in Frameworks */,
 				7B31B14415E9442A00802CD5 /* AtoZ.framework in Frameworks */,
 			);
@@ -3685,11 +3689,13 @@
 			isa = PBXGroup;
 			children = (
 				7B71E72B16127CDF0015F4E4 /* Transition.h */,
-				7B71E72C16127CDF0015F4E4 /* Transition.m */,
 				7B71E725161268190015F4E4 /* CTGradient.h */,
 				7B71E726161268190015F4E4 /* CTGradient.m */,
+				7B71E72C16127CDF0015F4E4 /* Transition.m */,
 				7B59C8241600D341009DAFCA /* AtoZModels.h */,
 				7B59C8251600D341009DAFCA /* AtoZModels.m */,
+				7BBDB4AB161497DB001B864B /* AZFile.h */,
+				7BBDB4AC161497DC001B864B /* AZFile.m */,
 			);
 			name = Models;
 			path = AtoZ;
@@ -4725,8 +4731,8 @@
 				7B23C36215CE98AF00DD1A9C /* NSLogConsole.m */,
 				7B9742A715C62F70006490DD /* RuntimeReporter.h */,
 				7B9742A815C62F70006490DD /* RuntimeReporter.m */,
-				7B8A29FC15E2735000286E27 /* SMModelObject.h */,
-				7B8A29FD15E2735000286E27 /* SMModelObject.m */,
+				7B8A29FC15E2735000286E27 /* AZModelObject.h */,
+				7B8A29FD15E2735000286E27 /* AZModelObject.m */,
 			);
 			name = Utility;
 			path = Classes;
@@ -4824,7 +4830,6 @@
 				7B379CBE15DE4AE30040A093 /* AZToggleArrayView.h in Headers */,
 				7B379CC515DE50A10040A093 /* iCarousel.h in Headers */,
 				7B02364D15DF15DB0070FE12 /* AZLaunchServices.h in Headers */,
-				7B8A29FE15E2735000286E27 /* SMModelObject.h in Headers */,
 				7B8A2A1015E2D48D00286E27 /* AZVeil.h in Headers */,
 				7B73D8EB15E4212D00D2671A /* AZAttachedWindow.h in Headers */,
 				7B80995215E8C7A300A6AB7C /* BlocksAdditions.h in Headers */,
@@ -4847,6 +4852,7 @@
 				7B0F8AA715F1D5C800BB3CE7 /* AtoZUmbrella.h in Headers */,
 				7B06C9D4160F0BB900342A9D /* AZLassoLayer.h in Headers */,
 				7BCEF6441613EEC200EFC74E /* AZHostView.h in Headers */,
+				7BBDB4AD161497DE001B864B /* AZFile.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5563,9 +5569,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				7BFEC80715D19C55009DA347 /* NSApplication+AtoZ.m in Sources */,
+				7BFEC80B15D19C55009DA347 /* AZQueue.m in Sources */,
 				7BFEC80815D19C55009DA347 /* AZSize.m in Sources */,
 				7BFEC80A15D19C55009DA347 /* NSWindow_Flipr.m in Sources */,
-				7BFEC80B15D19C55009DA347 /* AZQueue.m in Sources */,
 				7BFEC80C15D19C55009DA347 /* AZBoxMagic.m in Sources */,
 				7BFEC80D15D19C55009DA347 /* AZIndeterminateIndicator.m in Sources */,
 				7B311963159B6D9E002134C4 /* AtoZ.m in Sources */,
@@ -5631,7 +5637,6 @@
 				7B379CBF15DE4AE30040A093 /* AZToggleArrayView.m in Sources */,
 				7B379CC615DE50A90040A093 /* iCarousel.m in Sources */,
 				7B02364E15DF15DB0070FE12 /* AZLaunchServices.m in Sources */,
-				7B8A29FF15E2735000286E27 /* SMModelObject.m in Sources */,
 				7B8A2A1115E2D48D00286E27 /* AZVeil.m in Sources */,
 				7BA425B915E7C3C200D2A471 /* AZTrackingWindow.m in Sources */,
 				7B80995315E8C7A300A6AB7C /* BlocksAdditions.m in Sources */,
@@ -5669,6 +5674,7 @@
 				7B71E72E16127CDF0015F4E4 /* Transition.m in Sources */,
 				7B71E796161355BA0015F4E4 /* CTBadge.m in Sources */,
 				7BCEF6461613EECA00EFC74E /* AZHostView.m in Sources */,
+				7BBDB4AE161497DE001B864B /* AZFile.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6021,8 +6027,6 @@
 					XPCKit,
 					"-sub_umbrella",
 					NanoStore,
-					"-sub_umbrella",
-					AtoZiTunes,
 				);
 				PRODUCT_NAME = AtoZ;
 				SHARED_PRECOMPS_DIR = /Users/localadmin/Library/Developer/Xcode/DerivedData/build/precomps;
@@ -6076,8 +6080,6 @@
 					XPCKit,
 					"-sub_umbrella",
 					NanoStore,
-					"-sub_umbrella",
-					AtoZiTunes,
 				);
 				PRODUCT_NAME = AtoZ;
 				SHARED_PRECOMPS_DIR = /Users/localadmin/Library/Developer/Xcode/DerivedData/build/precomps;

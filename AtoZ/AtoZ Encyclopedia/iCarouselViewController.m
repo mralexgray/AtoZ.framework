@@ -183,7 +183,7 @@
 		if ([object isEqualTo:lassie]) return  NO;
 		else if ([object isKindOfClass:[AZLassoView class]]) return YES;
 		else return NO;
-	}] each:^(AZLassoView* obj, NSUInteger index, BOOL *stop) {
+	}] az_each:^(AZLassoView* obj, NSUInteger index, BOOL *stop) {
 		obj.selected = NO;
 	}];
 
@@ -226,7 +226,7 @@
 		if ([object isEqualTo:lassie]) return  NO;
 		else if ([object isKindOfClass:[AZLassoView class]]) return YES;
 		else return NO;
-	}] each:^(AZLassoView* obj, NSUInteger index, BOOL *stop) {
+	}] az_each:^(AZLassoView* obj, NSUInteger index, BOOL *stop) {
 		obj.hovered = NO;
 	}];
 

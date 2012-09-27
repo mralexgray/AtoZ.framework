@@ -7,7 +7,7 @@
 #define AZFILEMANAGER [NSFileManager defaultManager]
 #define AZGRAPHICSCTX [NSGraphicsContext currentContext]
 #define  AZQTZCONTEXT [[NSGraphicsContext currentContext] graphicsPort]
-
+#define  AZSHAREDAPP  [NSApplication sharedApplication]
 #define NSI  NSInteger
 #define NSS  NSString
 #define NSA  NSArray
@@ -32,7 +32,7 @@
 
 #define bgC backgroundColor
 #define fgC foregroundColor
-#define autoRM autoresizingMask
+#define arMASK autoresizingMask
 
 #define CASIZEABLE kCALayerWidthSizable| kCALayerHeightSizable
 

@@ -134,7 +134,7 @@
 - (NSInteger)sourceList:(AZSourceList*)aSourceList badgeValueForItem:(id)item
 {
 	AZFile *first  = aSourceList.objectRep;
-	return first.spotNew;
+//	return first.;
 		//	AZFile *first = [[AtoZ dockSorted] filterOne:^BOOL(AZFile* object) {
 		//		return ( [object.uniqueID isEqualTo:[item identifier]] ? YES : NO);
 		//	}];
@@ -241,12 +241,12 @@
 	SourceListItem *appsListItem = [SourceListItem itemWithTitle:@"APPS" identifier:@"apps"];
 		//		[appsListItem setBadgeValue:[[AtoZ dock]count]];
 	[appsListItem setIcon:[NSImage imageNamed:NSImageNameAddTemplate]];
-	[appsListItem setChildren:[[AtoZ sharedInstance].dockSorted arrayUsingBlock:^id(AZFile* obj) {
+	[appsListItem setChildren:[[AtoZ dockSorted] arrayUsingBlock:^id(AZFile* obj) {
 		SourceListItem *app = [SourceListItem itemWithTitle:obj.name identifier:obj.uniqueID icon:obj.image];
 			//			AZFile* sorted =[[AtoZ dockSorted] filterOne:^BOOL(AZFile* sortObj) {
 			//				return ([sortObj.uniqueID isEqualToString:obj.uniqueID] ? YES : NO);
 			//			}];
-		NSLog(@"%@, spot: %ld, match ", obj.name, obj.spot);//, oc.name, sorted.spotNew);
+//		NSLog(@"%@, spot: %ld, match ", obj.name, obj.spot);//, oc.name, sorted.spotNew);
 															//			app.badgeValue = sorted.spotNew;
 
 

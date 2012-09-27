@@ -69,7 +69,7 @@
 //	}];
 }
 
-
+/*
 
 - (void)runAnimation:(id)unused
 {
@@ -115,5 +115,5 @@
 	[self.imageView.layer addAnimation:animation forKey:@"0"];
 }
 
-
+*/
 @end

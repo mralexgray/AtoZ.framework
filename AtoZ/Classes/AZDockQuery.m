@@ -11,19 +11,23 @@
 #import <AppKit/AppKit.h>
 #import "AtoZ.h"
 #import "AZDockQuery.h"
+#import "AtoZModels.h"
+#import "AZFile.h"
+#import "AtoZUmbrella.h"
+
 
 @implementation AZDockQuery
-//@synthesize dock;
+	//@synthesize dock;
 
 
-//+ (NSArray*) dock:(AZDock*)dock {
-//	return [[AZDockQuery sharedInstance] dock: dock];
-//}
+	//+ (NSArray*) dock:(AZDock*)dock {
+	//	return [[AZDockQuery sharedInstance] dock: dock];
+	//}
 
-//- (NSArray *) dock:(AZDock*)dock {
+	//- (NSArray *) dock:(AZDock*)dock {
 - (void) dock:(AZDock*)dock{
 	if (!_dock)  {
-		__block AZDock *dockItems = [AZDock instance];
+		__block AZDock *dockItems = [AZDock sharedInstance];
 
 		[AZStopwatch start:@"makeDock"];  NSLog(@"A dock is born!");
 		AXUIElementRef appElement = NULL;
@@ -72,11 +76,11 @@
 						}
 
 						if ( convertedURL != nil) {
-							AZDockItem *d =  [AZDockItem instanceWithPath:convertedURL];
-							d.spot = idx;
-							d.dockPoint = coordinates;
+//						AZDockItem *g = (AZDockItem*)[AZFile instanceWithPath:convertedURL];
+//						g.spot = idx;
+//						g.dockPoint = coordinates;
 
-							[dock addObject: d];// addObject:d];		//stepper++;
+//							dockItems[idx]=g;// addObject: d];// addObject:d];		//stepper++;
 						}
 					} //if error success
 				} // if preferreed role
@@ -91,7 +95,7 @@
 		[AZStopwatch stop:@"makeDock"];
 
 	} //if _dock noexista
-//	return _dock;
+	  //	return _dock;
 }
 
 
@@ -147,7 +151,7 @@
 	if (result != kAXErrorSuccess) return nil;
 	result = AXUIElementCopyAttributeValues(element, (__bridge CFStringRef)attribute, 0, count, (CFArrayRef *)&subElements);
 	if (result != kAXErrorSuccess) return nil;
-	return subElements;	// autorelease];	
+	return subElements;	// autorelease];
 }
 
 

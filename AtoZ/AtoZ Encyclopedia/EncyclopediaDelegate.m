@@ -120,7 +120,7 @@
 
 
 	NSArray *s = [AtoZ dock];
-	[s each:^(id obj, NSUInteger index, BOOL *stop) {
+	[s az_each:^(id obj, NSUInteger index, BOOL *stop) {
 		NSLog(@"%@", [obj propertiesPlease]);
 	}];
 	
@@ -269,7 +269,7 @@
 
 	// Attach/detach window
     if (!_attachedWindow) {
-		self.attachedWindow = [[MAAttachedWindow alloc] initWithView:_view
+		self.attachedWindow = [[AZAttachedWindow alloc] initWithView:_view
 													 attachedToPoint:_attachPoint
 															inWindow:nil
 															  onSide:_side

@@ -992,7 +992,12 @@ NSPoint rectOffset(NSRect innerRect,NSRect outerRect, NSInteger quadrant){
                            (quadrant == 4 || quadrant == 3) ? NSMaxY(outerRect)-NSMaxY(innerRect) : NSMinY(outerRect)-NSMinY(innerRect));
     return NSMakePoint(NSMidX(outerRect)-NSMidX(innerRect),NSMidY(outerRect)-NSMidY(innerRect)); //Center Rects
 }
-/*
+
+
+NSRect quadrant(NSRect r, NSUInteger i) {
+	return alignRectInRect (AZRectFromDim(AZMinEdge(r)/2),r, i);
+}
+
 NSRect alignRectInRect(NSRect innerRect,NSRect outerRect,int quadrant){
     NSPoint offset=rectOffset(innerRect,outerRect,quadrant);
     return NSOffsetRect(innerRect,offset.x,offset.y);
@@ -1007,7 +1012,7 @@ NSRect rectZoom(NSRect rect,float zoom,int quadrant){
     newRect.size=newSize;
     return newRect;
 }
-*/
+
 
 NSRect sizeRectInRect(NSRect innerRect,NSRect outerRect,bool expand){
     float proportion=NSWidth(innerRect)/NSHeight(innerRect);

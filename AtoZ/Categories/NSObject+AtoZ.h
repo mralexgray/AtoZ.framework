@@ -11,7 +11,6 @@
 #import "AtoZ.h"
 
 
-
 @interface NSUserDefaults (Subscript)
 + (NSUserDefaults*) defaults;
 //- (id) 	objectForKeyedSubscript:	(NSString*) key;
@@ -120,6 +119,7 @@ static NSString *const HRCoderObjectAliasKey = @"$alias";
 
 + (NSDictionary*) classPropsFor:	(Class) klass;
 //- (NSArray*) methodDumpForClass:	(NSString*) Class;
++ (NSArray*) classMethods;
 
 - (NSString*) stringFromClass;
 
