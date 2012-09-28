@@ -27,174 +27,7 @@ CGPoint AZAnchorPointForPosition( AZWindowPosition pos){
 }
 
 
-@implementation  NSObject (LayerTools)
--(CALayer*) selectionLayerForLayer:(CALayer*)layer {
-
-	CALayer *aselectionLayer = [CALayer layer];
-		//		selectionLayer.bounds = CGRectMake (0.0,0.0,width,height);
-	aselectionLayer.borderWidth = 4.0;
-	aselectionLayer.cornerRadius = layer.cornerRadius;
-	aselectionLayer.borderColor= cgWHITE;
-
-	CIFilter *filter = [CIFilter filterWithName:@"CIBloom"];
-	[filter setDefaults];
-	[filter setValue:[NSNumber numberWithFloat:5.0f] forKey:@"inputRadius"];
-	[filter setName:@"pulseFilter"];
-	[aselectionLayer setFilters:[NSArray arrayWithObject:filter]];
-
-		// The selectionLayer shows a subtle pulse as it is displayed. This section of the code create the pulse animation setting the filters.pulsefilter.inputintensity to range from 0 to 2. This will happen every second, autoreverse, and repeat forever
-	CABasicAnimation* pulseAnimation = [CABasicAnimation animation];
-	pulseAnimation.keyPath = @"filters.pulseFilter.inputIntensity";
-	pulseAnimation.fromValue = [NSNumber numberWithFloat: 0.0f];
-	pulseAnimation.toValue = [NSNumber numberWithFloat: 2.0f];
-	pulseAnimation.duration = 1.0;
-	pulseAnimation.repeatCount = HUGE_VALF;
-	pulseAnimation.autoreverses = YES;
-	pulseAnimation.timingFunction = [CAMediaTimingFunction functionWithName:
-									 kCAMediaTimingFunctionEaseInEaseOut];
-	[aselectionLayer addAnimation:pulseAnimation forKey:@"pulseAnimation"];
-	NSArray *constraints = @[ 	AZConstRelSuper(kCAConstraintWidth),
-								AZConstRelSuper(kCAConstraintHeight),
-								AZConstRelSuper(kCAConstraintMidX),
-								AZConstRelSuper(kCAConstraintMidY)];
-	aselectionLayer.constraints = constraints;
-
-
-
-		//		// set the first item as selected
-		//		[self changeSelectedIndex:0];
-		//
-		//		// finally, the selection layer is added to the root layer
-		//		[rootLayer addSublayer:self.selectionLayer];
-	return aselectionLayer;
-}
-- (CAShapeLayer*) lassoLayerForLayer:(CALayer*)layer {
-
-		//	NSLog(@"Clicked: %@", [[layer valueForKey:@"azfile"] propertiesPlease] );
-	CAShapeLayer *shapeLayer = [CAShapeLayer layer];
-		//	[shapeLayer setValue:layer forKey:@"mommy"];
-	CGFloat dynnamicStroke 		= .05 * AZMaxDim(layer.bounds.size);
-	CGFloat half 				= dynnamicStroke / 2;
-	shapeLayer.bounds			= NSInsetRect(layer.bounds, dynnamicStroke, dynnamicStroke);
-	shapeLayer.autoresizingMask	= kCALayerWidthSizable|kCALayerHeightSizable;
-	shapeLayer.constraints 		= @[		AZConstScaleOff( kCAConstraintMinX,@"superlayer", 1, half),
-									// 		AZConstScaleOff( kCAConstraintMaxX,@"superlayer", 1,2),
-											AZConstScaleOff( kCAConstraintMinY,@"superlayer", 1,half), /*2),*/
-											AZConstScaleOff( kCAConstraintMaxY,@"superlayer", 1,half),
-											AZConstScaleOff( kCAConstraintWidth,@"superlayer", 1,-dynnamicStroke),
-											AZConstScaleOff( kCAConstraintHeight,@"superlayer", 1, - dynnamicStroke),
-											AZConstRelSuper(kCAConstraintMidX),
-											AZConstRelSuper(kCAConstraintMidY) ];
-//	[shapeLayer setPosition:CGPointMake(.5,.5)];
-//	shapeRect.size.width -= dynnamicStroke;		shapeRect.size.height -= dynnamicStroke;
-
-	shapeLayer.fillColor 	= cgCLEARCOLOR;
-	shapeLayer.strokeColor 	= cgBLACK;// [[[layer valueForKey:@"azfile"]valueForKey:@"color"]CGColor];
-	shapeLayer.lineWidth	= half;
-	shapeLayer.lineJoin		= kCALineJoinRound;
-	shapeLayer.lineDashPattern = @[ @(20), @(20)];
-	shapeLayer.path = [[NSBezierPath bezierPathWithRoundedRect:shapeLayer.bounds cornerRadius:layer.cornerRadius] quartzPath];
-	shapeLayer.zPosition = 3300;
-	CABasicAnimation *dashAnimation = [CABasicAnimation animationWithKeyPath:@"lineDashPhase"];
-	[dashAnimation setValuesForKeysWithDictionary:@{ 	@"fromValue":@(0.0), 	@"toValue"	   :@(40.0),
-	 @"duration" : @(0.75),	@"repeatCount" : @(10000) }];
-	[shapeLayer addAnimation:dashAnimation forKey:@"linePhase"];
-	[shapeLayer needsDisplay];
-	return shapeLayer;
-}
-
-//- (CAShapeLayer*) lassoLayerForLayer:(CALayer*)layer {
-//
-//	NSLog(@"Clicked: %@", [[layer valueForKey:@"azfile"] propertiesPlease] );
-//	CAShapeLayer *shapeLayer = [CAShapeLayer layer];
-//	[shapeLayer setValue:layer forKey:@"mommy"];
-//		//	float total = 	( (2*contentLayer.bounds.size.width) + (2*contentLayer.bounds.size.height) - (( 8 - ((2 * pi) * contentLayer.cornerRadius))));
-//	CGRect shapeRect = layer.bounds;
-//
-//	[shapeLayer setBounds:shapeRect];
-//		//	[shapeLayer setAutoresizingMask:kCALayerWidthSizable|kCALayerHeightSizable];
-//	NSArray *constraints = [NSArray arrayWithObjects:
-//							AZConstScaleOff( kCAConstraintMinX,@"superlayer", 1,2),
-//							AZConstScaleOff( kCAConstraintMaxX,@"superlayer", 1,2),
-//							AZConstScaleOff( kCAConstraintMinY,@"superlayer", 1,2),
-//							AZConstScaleOff( kCAConstraintMaxY,@"superlayer", 1,2),
-//							AZConstScaleOff( kCAConstraintWidth,@"superlayer", 1,-4),
-//							AZConstScaleOff( kCAConstraintHeight,@"superlayer", 1, -4),
-//							AZConst( kCAConstraintMidX,@"superlayer"),
-//							AZConst( kCAConstraintMidY,@"superlayer"),  nil];
-//	shapeLayer.constraints = constraints;
-//		//	[shapeLayer setPosition:CGPointMake(.5,.5)];
-//	[shapeLayer setFillColor:cgCLEARCOLOR];
-//	[shapeLayer setStrokeColor: [[[layer valueForKey:@"azfile"]valueForKey:@"color"]CGColor]];
-//	[shapeLayer setLineWidth:4];
-//	[shapeLayer setLineJoin:kCALineJoinRound];
-//	[shapeLayer setLineDashPattern:@[ @(10), @(5)]];
-//		//	 [NSArray arrayWithObjects:[NSNumber numberWithInt:10],
-//		//	  [NSNumber numberWithInt:5],
-//		//	  nil]];
-//		// Setup the path
-//	shapeRect.size.width -= 4;
-//	shapeRect.size.height -= 4;
-//	NSBezierPath *p = [NSBezierPath bezierPathWithRoundedRect:NSRectFromCGRect(shapeRect) cornerRadius:layer.cornerRadius];
-//
-//		//	CGMutablePathRef path = CGPathCreateMutable();
-//		//	CGPathAddRect(path, NULL, shapeRect);
-//		//	[shapeLayer setPath:path];
-//		//	CGPathRelease(path);
-//	[shapeLayer setPath:[p quartzPath]];
-//	CABasicAnimation *dashAnimation = [CABasicAnimation animationWithKeyPath:@"lineDashPhase"];
-//	[dashAnimation setFromValue:[NSNumber numberWithFloat:0.0f]];
-//	[dashAnimation setToValue:[NSNumber numberWithFloat:15.0f]];
-//	[dashAnimation setDuration:0.75f];
-//	[dashAnimation setRepeatCount:10000];
-//
-//	[shapeLayer addAnimation:dashAnimation forKey:@"linePhase"];
-//
-//		//	float total = (((2* NSMaxX(contentLayer.frame)) + (2 * NSMaxY(box.frame)))/16);
-//		//	CABasicAnimation *dashAnimation = [CABasicAnimation animationWithKeyPath:@"lineDashPhase"];
-//		//	dashAnimation.fromValue 	= $float(0.0f);	dashAnimation.toValue 	= $float
-//		//	(total);
-//		//
-//		//	dashAnimation.duration	= 3;				dashAnimation.repeatCount = 10000;
-//		//	//	dashAnimation.beginTime = CACurrentMediaTime();// + 2;
-//		//	[shapeLayer addAnimation:dashAnimation forKey:@"linePhase"];
-//		//	shapeLayer.fillColor 		= cgRED;
-//		//	shapeLayer.strokeColor		= cgBLACK;
-//		//	shapeLayer.lineJoin			= kCALineJoinMiter;
-//		//	shapeLayer.lineDashPattern 	= $array( $int(total/8), $int(total/8));
-//		//
-//		//	//			srelectedBox.shapeLayer.lineDashPattern 	= $array( $int(15), $int(45));
-//		//	shapeLayer.lineWidth = 5;
-//		//	[shapeLayer setPath:[[NSBezierPath bezierPathWithRoundedRect:contentLayer.bounds cornerRadius:contentLayer.cornerRadius ] quartzPath]];
-// 	return shapeLayer;
-//}
-/*
-- (void) redrawPath {
-	CALayer *selected = [lassoLayer valueForKey:@"mommy"];
-	CGRect shapeRect = selected.bounds;
-	shapeRect.size.width -= 4;
-	shapeRect.size.height -= 4;
-	CGMutablePathRef path = CGPathCreateMutable();
-	CGPathAddRect(path, NULL, shapeRect);
-	[lassoLayer setPath:path];
-	CGPathRelease(path);
-}
-
-
-*/
--(CATransform3D)makeTransformForAngle:(CGFloat)angle{ // from:(CATransform3D)start{
-
-	CATransform3D transform;// = start;
-							// the following two lines are the key to achieve the perspective effect
-	CATransform3D persp = CATransform3DIdentity;
-	persp.m34 = 1.0 / -500;
-
-	transform = CATransform3DConcat(transform, persp);
-	transform = CATransform3DRotate(transform,angle, 0.0, 1.0, 0.0);
-	return transform;
-}
-
-- (CGPoint)_randomPointInRect:(CGRect)rect
+CGPoint randomPointInRect (CGRect rect)
 {
 	CGPoint point = CGPointZero;
 	NSInteger max = rect.size.width;
@@ -207,7 +40,6 @@ CGPoint AZAnchorPointForPosition( AZWindowPosition pos){
 	return point;
 }
 
-@end
 
 
 NSNumber *iNum(NSInteger i) {
@@ -347,6 +179,7 @@ CGFloat distanceFromPoint (NSPoint p1, NSPoint p2) {
 	temp += pow(p1.y - p2.y, 2);
 	return (CGFloat)sqrt(temp);
 }
+
 
 NSPoint NSMakeRandomPointInRect(NSRect rect) {
     CGPoint point = CGPointZero;
@@ -1145,18 +978,6 @@ void logRect(NSRect rect){
 }
 
 
-CGPoint randomPointInRect(CGRect rect) {
-
-CGPoint point = CGPointZero;
-NSInteger max = rect.size.width;
-NSInteger min = 0;
-point.x = (random() % (max-min+1)) + min;
-
-max = rect.size.height;
-point.y = (random() % (max-min+1)) + min;
-
-return point;
-}
 
 
 AZOrient deltaDirectionOfPoints(NSPoint a, NSPoint b){

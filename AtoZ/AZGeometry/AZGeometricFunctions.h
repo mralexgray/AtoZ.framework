@@ -1,37 +1,21 @@
 
 //  AZGeometricFunctions.h
 //  Lumumba
-
 //  Created by Benjamin Schüttler on 19.11.09.
 //  Copyright 2011 Rogue Coding. All rights reserved.
 
-
-#import <Cocoa/Cocoa.h>
-
-#import "AtoZUmbrella.h"
-//#import "AtoZFunctions.h"
+//#import "AtoZUmbrella.h"
 
 
+NSNumber *iNum ( NSInteger   i );
+NSNumber *uNum ( NSUInteger ui );
+NSNumber *fNum ( CGFloat f );
+NSNumber *dNum ( double  d );
 
-//3d
-@interface  NSObject (LayerTools)
-- (CAShapeLayer*) lassoLayerForLayer:(CALayer*)layer;
-- (CALayer*) selectionLayerForLayer:(CALayer*)layer;
-- (CATransform3D)makeTransformForAngle:(CGFloat)angle;
-- (CGPoint)_randomPointInRect:(CGRect)rect;
-// shortcuts for [NSNumber numberWithXY]
-@end
-
-
-NSNumber *iNum(NSInteger i);
-NSNumber *uNum(NSUInteger ui);
-NSNumber *fNum(CGFloat f);
-NSNumber *dNum(double d);
-
-CGFloat AZMinEdge(NSRect r);
-CGFloat AZMaxEdge(NSRect r);
-CGFloat AZMaxDim(NSSize sz);
-CGFloat AZMinDim(NSSize sz);
+CGFloat AZMinEdge ( NSRect r );
+CGFloat AZMaxEdge ( NSRect r );
+CGFloat AZMaxDim ( NSSize sz );
+CGFloat AZMinDim ( NSSize sz );
 
 NSRect AZScreenFrame();
 NSSize AZScreenSize();
@@ -43,34 +27,28 @@ FOUNDATION_EXPORT const CGPoint AZAnchorRight;
 FOUNDATION_EXPORT const CGPoint AZAnchorLeft;
 
 CGPoint AZAnchorPointForPosition( AZWindowPosition pos);
+NSSize  AZDirectionsOffScreenWithPosition ( NSRect rect, AZWindowPosition position );
 
-NSSize AZDirectionsOffScreenWithPosition(NSRect rect, AZWindowPosition position );
-AZWindowPosition AZPositionOfRect(NSRect rect);
+AZWindowPosition AZPositionOfRect ( NSRect rect );
+AZOrient deltaDirectionOfPoints ( NSPoint a, NSPoint b );
 
-AZOrient deltaDirectionOfPoints(NSPoint a, NSPoint b);
+/**	NSRange from a min and max values even though the names imply that min should be greater than max the order does not matter the range will always start at the lower value and have a size to reach the upper value **/
 
-// NSRange from a min and max values
-// even though the names imply that min should be greater than max
-// the order does not matter
-// the range will always start at the lower value and have
-// a size to reach the upper value
+NSRange AZMakeRange ( NSUInteger min, NSUInteger max );
 
-NSRange AZMakeRange(NSUInteger min, NSUInteger max);
-
-
-
-NSRect  nanRectCheck  (NSRect  rect);
-NSPoint nanPointCheck (NSPoint point);
-NSSize  nanSizeCheck  (NSSize  size);
-id      nanCheck	  (NSValue* point);
+ NSRect nanRectCheck  ( NSRect 	 rect  );
+NSPoint nanPointCheck ( NSPoint  point );
+ NSSize nanSizeCheck  ( NSSize   size  );
+     id nanCheck	  ( NSValue* point );
 
 // Predifined Points, Sizes and Rects
 
-#define AZHalfPoint NSMakePoint(0.5, 0.5)
-#define AZMaxPoint NSMakePoint(MAXFLOAT, MAXFLOAT)
-#define AZHalfSize NSMakeSize(0.5, 0.5)
-#define AZMaxSize NSMakeSize(MAXFLOAT, MAXFLOAT)
-#define AZRelationRect NSMakeRect(0, 0, 1, 1)
+#define AZHalfPoint NSMakePoint ( 0.5, 0.5 )
+#define  AZMaxPoint NSMakePoint ( MAXFLOAT, MAXFLOAT )
+#define  AZHalfSize NSMakeSize ( 0.5, 0.5 )
+#define   AZMaxSize NSMakeSize ( MAXFLOAT, MAXFLOAT )
+
+#define AZRelationRect NSMakeRect ( 0, 0, 1, 1 )
 
 
 
@@ -97,12 +75,8 @@ CGFloat AZAreaOfRect(NSRect rect);
 // Size -> Point conversion
 NSPoint AZPointFromSize(NSSize size);
 
-
 // NSPoint result methods
-
-
 NSPoint AZOriginFromMenubarWithX(CGFloat yOffset, CGFloat xOffset);
-
 
 // returns the absolute values of a point (pt.x >= 0, pt.y >= 0)
 NSPoint AZAbsPoint(NSPoint point);
@@ -337,22 +311,6 @@ BOOL AZIsRectAboveRect(NSRect rect, NSRect compare);
 BOOL AZIsRectBelowRect(NSRect rect, NSRect compare);
 
 
-// EOF
-// 
-
-//
-//typedef struct _BTFloatRange {
-//    float value;
-//    float location;
-//    float length;
-//} BTFloatRange;
-//
-//
-//BTFloatRange BTMakeFloatRange(float value,float location,float length);
-//float BTFloatRangeMod(BTFloatRange range);
-//float BTFloatRangeUnit(BTFloatRange range);
-//NSPoint rectOffset(NSRect innerRect,NSRect outerRect,int quadrant);
-//
 
 NSRect rectZoom(NSRect rect,float zoom,int quadrant);
 
@@ -363,7 +321,6 @@ NSRect centerRectInRect(NSRect rect, NSRect mainRect);
 NSRect rectFromSize(NSSize size);
 //NSRect rectWithProportion(NSRect innerRect,float proportion,bool expand);
 
-
 NSRect quadrant(NSRect r, NSUInteger i);
 
 NSRect constrainRectToRect(NSRect innerRect, NSRect outerRect);
@@ -371,17 +328,32 @@ NSRect alignRectInRect(NSRect innerRect,NSRect outerRect,int quadrant);
 //NSRect expelRectFromRect(NSRect innerRect, NSRect outerRect,float peek);
 //NSRect expelRectFromRectOnEdge(NSRect innerRect, NSRect outerRect,NSRectEdge edge,float peek);
 
-    NSRectEdge touchingEdgeForRectInRect(NSRect innerRect, NSRect outerRect);
-//int closestCorner(NSRect innerRect,NSRect outerRect);
-//int oppositeQuadrant(int quadrant);
+NSRectEdge touchingEdgeForRectInRect(NSRect innerRect, NSRect outerRect);
+int closestCorner(NSRect innerRect,NSRect outerRect);
+int oppositeQuadrant(int quadrant);
 //
-//NSRect blendRects(NSRect start, NSRect end,float b);
+NSRect blendRects(NSRect start, NSRect end,float b);
 void logRect(NSRect rect);
 
 CGPoint NSMakeRandomPointInRect(CGRect rect);
+CGPoint randomPointInRect (CGRect rect);
 
 /** Returns the center point of a CGRect. */
 static inline CGPoint GetCGRectCenter( CGRect rect ) {
     return CGPointMake(CGRectGetMidX(rect),CGRectGetMidY(rect));
 }
 
+
+	// EOF
+
+	//typedef struct _BTFloatRange {
+	//    float value;
+	//    float location;
+	//    float length;
+	//} BTFloatRange;
+	//
+	//
+	//BTFloatRange BTMakeFloatRange(float value,float location,float length);
+	//float BTFloatRangeMod(BTFloatRange range);
+	//float BTFloatRangeUnit(BTFloatRange range);
+	//NSPoint rectOffset(NSRect innerRect,NSRect outerRect,int quadrant);
