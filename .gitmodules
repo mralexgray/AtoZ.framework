@@ -19,3 +19,6 @@
 [submodule "AtoZ/Categories/NSScreen-PointConversion"]
 	path = AtoZ/Categories/NSScreen-PointConversion
 	url = git://github.com/oscardelben/NSScreen-PointConversion.git
+[submodule "Frameworks/PLWeakCompatibility"]
+	path = Frameworks/PLWeakCompatibility
+	url = https://github.com/mralexgray/PLWeakCompatibility.git
