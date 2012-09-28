@@ -1,5 +1,158 @@
 #[AtoZ.framework](https://github.com/mralexgray/AtoZ.framework) 
 ##The *all-inclusive cruise* of Umbrella frameworks.
+# Points about Tweedledee and Tweedledum
+
+    ┌───────────────────┐
+    │  ╔═══╗ Some Text  │▒
+    │  ╚═╦═╝ in the box │▒
+    ╞═╤══╩══╤═══════════╡▒
+    │ ├──┬──┤           │▒
+    │ └──┴──┘           │▒
+    └───────────────────┘▒
+    ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒
+ 
+Much has been made of the curious features of 
+Tweedledee and Tweedledum.  We propose here to
+set some of the controversy to rest and to uproot
+all of the more outlandish claims.
+
+    .      Tweedledee       Tweedledum
+--------   --------------   ----------------
+Age        14               14
+Height     3'2"             3'2"
+Politics   Conservative     Conservative
+Religion   "New Age"        Syrian Orthodox
+---------  --------------   ----------------
+
+Table: T.-T. Data
+
+
+# Mussolini's role in my downfall
+
+--------------------------------------------------------------------
+             *Drugs*         *Alcohol*           *Tobacco*
+----------   -------------   -----------------   --------------------
+    Monday     3 Xanax        2 pints             3 cigars,  
+                                                  1 hr at hookah bar
+
+   Tuesday    14 Adderall     1 Boone's Farm,     1 packet Drum
+                              2 Thunderbird
+
+ Wednesday    2 aspirin       Tall glass water    (can't remember)
+---------------------------------------------------------------------
+
+Table:  *Tableau des vices*, deluxe edition
+
+
+# Points about the facts
+
+In recent years, more and more attention has been 
+paid to opinion, less and less to what were formerly 
+called the cold, hard facts.  In a spirit of traditionalism, 
+we propose to reverse the trend. Here are some of our results.
+
+-------     ------ ----------   -------
+     12     12        12             12
+    123     123       123           123
+      1     1          1              1
+---------------------------------------
+
+Table:  Crucial Statistics
+
+
+# Recent innovations (1): False presentation
+
+Some, moved by opinion and an irrational lust for novelty, 
+would introduce a non-factual element into the data, 
+perhaps moving all the facts to the left:
+
+-------     ------ ----------   -------
+12          12     12           12
+123         123    123          123
+1           1      1            1
+---------------------------------------
+
+Table: Crucial "Statistics"
+
+# Recent innovations (2): Illegitimate decoration
+
+Others, preferring their facts to be *varnished*, 
+as we might say, will tend to 'label' the columns
+
+Variable    Before During       After
+---------   ------ ----------   -------
+12          12     12           12
+123         123    123          123
+1000        1000   1000         1000
+----------------------------------------
+
+# Recent innovations (3): "Moderate" decoration
+
+Or, maybe, to accompany this 'spin' with a centered or centrist representation: 
+
+ Variable    Before  During       After
+----------  ------- ----------   -------
+ 12          12      12           12
+ 123         123     123          123
+ 1           1       1            1
+-----------------------------------------
+
+
+# The real enemy
+
+Some even accompany these representations with a bit of leftwing 
+clap-trap, suggesting the facts have drifted right:
+
+
+------------------------------------------------------
+  Variable       Before            During       After
+----------  -----------        ----------     -------
+ 12                  12                12          12
+              -- Due to
+                baleful 
+              bourgeois
+              influence
+
+  123               123               123          123
+              -- Thanks
+              to the 
+              renegade 
+               Kautsky
+
+  1                   1                 1            1
+              -- All a 
+              matter of
+            sound Party
+             discipline
+-------------------------------------------------------
+
+Table: *"The conditions are not ripe, comrades; they are **overripe**!"*
+
+# The Truth
+
+If comment be needed, let it be thus:  the facts have drifted left.
+
+
+------------------------------------------------------------------------
+ Variable   Before             During            After
+----------  -------------      ----------        ----------------------
+ 12         12                 12                12
+            (here's            (due to           (something to do
+            where the rot      lapse of          with Clinton and
+            set in )           traditional       maybe the '60's)
+                               values)
+
+ 123        123                123               123
+            (too much          (A=440?)
+            strong drink)
+
+ 1          1                  1                 1
+                                                 (Trilateral Commission?)
+--------------------------------------------------------------------------
+
+Table: *The Decline of Western Civilization*
+
+
 
 Useful git commands for dealing with the nested submodules..
 
@@ -9,6 +162,9 @@ Useful git commands for dealing with the nested submodules..
 ===================================================
 ###[Functional.m](https://github.com/leuchtetgruen/Functional.m)
 =============================================================
+###[PLWeakCompatibility](https://github.com/mralexgray/PLWeakCompatibility)
+
+
 
 # FunSize: Cocoa, but smaller.
 
@@ -416,6 +572,37 @@ These are helper functions. They return the elements of the array they are calle
 	NSLog(@"The array until idx 2 : %@ and thereafter : %@", untilTwo, afterTwo); // 1,2 and 3,4,5
 ```
 
+
+PLWeakCompatibility
+===================
+
+Do you like ARC but need to support older OSes? Do you contemplate dropping support for Mac OS X 10.6 or iOS 4 just so you can use `__weak`? Good news! Now you can use `__weak` on those older OSes by just dropping a file into your project and adding a couple of compiler flags.
+
+`PLWeakCompatibility` is a set of stubs that implement the Objective-C runtime functions the compiler uses to make `__weak` work. It automatically calls through to the real runtime functions if they're present (i.e. your app is running on iOS5+ or Mac OS X 10.7+) and uses its own implementation if they're not.
+
+To use `PLWeakCompatibility`:
+
+1. Drop `PLWeakCompatibilityStubs.m` into your project.
+2. Add these flags to your Other C Flags in your Xcode target settings: `-Xclang -fobjc-runtime-has-weak`.
+3. There is no step 3!
+
+Note that, by default, `PLWeakCompatibility` uses `MAZeroingWeakRef` to handle `__weak` *if* `MAZeroingWeakRef` is present. If not, it uses its own, less sophisticated, internal implementation. If you are already using `MAZeroingWeakRef`, then `PLWeakCompatibility` will take advantage of it. If you're not, you don't need it. There is nothing you need to do to enable the use of `MAZeroingWeakRef`, it will simply be used if it's in your project.
+
+
+Implementation Notes
+--------------------
+
+The built-in weak reference implementation is basic but serviceable. It works by swizzling out `-release` and `-dealloc` on target classes directly. This means that every instance of any weakly referenced class takes a performance hit for those operations, even for instances which are not themselves weakly referenced.
+
+This swizzling *should* be benign, but as with all things runtime manipulation, problems may occur. In particular, I do not anticipate weak references to bridged CoreFoundation objects working at all, and there may be conflicts with Key-Value Observing. The good news is that, since the `PLWeakCompatibility` implementation is only active on older OSes, you have stable targets to test against, and can know that future updates won't affect compatibility.
+
+
+Compatibility Notes
+-------------------
+
+`PLWeakCompatibility` *should* be fully compatible with any OS/architecture/compiler combination which supports ARC. Since the calls are generated at compile time, and the stubs simply call through to Apple's implementations when available, it's extremely unlikely that a future OS update will break an app that uses `PLWeakCompatibility`. All of the tricky business happens on OSes which will not receive further updates.
+
+It is possible that a future version of Xcode will include a compiler which does not get along with these stubs. We consider this possibility to be unlikely, but it's possible in theory. If it does happen, you may continue to build using an old compiler for as long as you support iOS 4 or Mac OS 10.6, and we also hope to be able to fix up any incompatibilities in the unlikely event that this occurs.
 
 
 ## Licensing

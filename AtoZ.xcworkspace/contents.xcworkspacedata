@@ -11,7 +11,7 @@
       location = "group:AtoZLayerGrid/AZLayerGrid/AZLayerGrid.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:../../../../Users/localadmin/Downloads/plausiblelabs-PLWeakCompatibility-d4b88c3/PLWeakCompatibility.xcodeproj">
+      location = "container:Frameworks/PLWeakCompatibility/PLWeakCompatibility.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:../git/growl-fresh/Framework/Test apps/Status Checker/Status Checker.xcodeproj">
