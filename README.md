@@ -1,6 +1,9 @@
 #[AtoZ.framework](https://github.com/mralexgray/AtoZ.framework) 
 ##The *all-inclusive cruise* of Umbrella frameworks.
 
+Useful git commands for dealing with the nested submodules..
+
+```git submodule foreach 'echo `git commit -am "sync"`'```
 
 ###[BlocksKit](http://zwaldowski.github.com/BlocksKit)
 ===================================================
@@ -26,29 +29,16 @@ FunSize is an Objective-C framework comprised entirely of categories and intende
 
 ## Current Status
 
-FunSize was written while writing a Mac OS X application. Most of it presumably
-works on iOS, but some `#ifdef`s are probably needed for classes that don't
-exist (`NSView`). I used garbage collection in that application, and while
-I attempted to insert `retain`, `release`, and `autorelease` where applicable,
-I haven't tested it extensively without GC (for this reason, I will not be
-using GC in my next application).
+FunSize was written while writing a Mac OS X application. Most of it presumably works on iOS, but some `#ifdef`s are probably needed for classes that don't exist (`NSView`). I used garbage collection in that application, and while I attempted to insert `retain`, `release`, and `autorelease` where applicable,
+I haven't tested it extensively without GC (for this reason, I will not be using GC in my next application).
 
-**New Note**: It *seems* to work fine with reference counting now, as I've been
-running Leaks on my current project, which uses manual reference counting and
-makes extensive use of FunSize. If there are any remaining leaks, they would
-show up pretty clearly in Leaks anyways (which I assume everyone runs...right?)
+**New Note**: It *seems* to work fine with reference counting now, as I've been running Leaks on my current project, which uses manual reference counting and makes extensive use of FunSize. If there are any remaining leaks, they would show up pretty clearly in Leaks anyways (which I assume everyone runs...right?)
 
 ## Usage
 
-The Xcode project target is a framework. Honestly, I haven't really used it, I
-simply added the source files to my project. Either way should work, however. I
-don't think Apple will be shipping FunSize any time soon, so you'll have to
-distribute it with each application anyways.
+The Xcode project target is a framework. Honestly, I haven't really used it, I simply added the source files to my project. Either way should work, however. I don't think Apple will be shipping FunSize any time soon, so you'll have to distribute it with each application anyways.
 
-`FunSize.h` imports all of the other headers. Personally, I added it to my
-prefix header so that FunSize feels like part of Cocoa. Actually, while I was 
-writing this, I was surprised to learn that `-[NSImage CGImage]` *isn't* part
-of Cocoa.
+`FunSize.h` imports all of the other headers. Personally, I added it to my prefix header so that FunSize feels like part of Cocoa. Actually, while I was writing this, I was surprised to learn that `-[NSImage CGImage]` *isn't* part of Cocoa.
 
 ## Style
 
