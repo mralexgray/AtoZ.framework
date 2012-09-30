@@ -25,8 +25,7 @@
 	extern CALayer* AddBloom  ( CALayer *layer);
 
 /** Convenience for creating, adding,a nd returning a relatively nice CALayer. */
-	extern CALayer* AddLayer(    CALayer *superlayer );
-	extern CALayer* ReturnLayer( CALayer *superlayer );
+	extern CALayer* NewLayerInLayer( CALayer *superlayer );
 	extern CALayer* NewLayerWithFrame( NSRect rect );
 
 /** Convenience for creating a CATextLayer. */
@@ -70,6 +69,8 @@ For those that have never seen the CATransform3D struct before, you must apply t
 											   CGFloat m31, CGFloat m32, CGFloat m33, CGFloat m34,
 											   CGFloat m41, CGFloat m42, CGFloat m43, CGFloat m44);
 @interface CALayer (AtoZ)
+
+- (void)blinkLayerWithColor:(NSColor *)color;
 
 - (void) addPerspectiveForVerticalOffset:(CGFloat)pixels;
 - (CAL*)hitTestEvent:(NSEvent*)e inView:(NSView*)v;

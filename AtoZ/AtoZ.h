@@ -12,6 +12,12 @@
 #import <Foundation/Foundation.h>
 #import <FunSize/FunSize.h>
 #import <QuartzCore/QuartzCore.h>
+#define EXCLUDE_STUB_PROTOTYPES 1
+#import <PLWeakCompatibility/PLWeakCompatibilityStubs.h>
+#import <BlocksKit/BlocksKit.h>
+#import <XPCKit/XPCKit.h>
+#import <NanoStore/NanoStore.h>
+#import <Growl/Growl.h>
 #import <xpc/xpc.h>
 
 #import	"BaseModel.h"
@@ -25,9 +31,6 @@
 //#import "AZModelObject.h"
 
 
-#define EXCLUDE_STUB_PROTOTYPES 1
-#import <PLWeakCompatibility/PLWeakCompatibilityStubs.h>
-#import <BlocksKit/BlocksKit.h>
 
 
 
@@ -37,9 +40,9 @@
 #import "TransparentWindow.h"
 #import "LoremIpsum.h"
 
-//#import "AtoZFunctions.h"
-//#import "AZGeometry.h"
-//#import "AZGeometricFunctions.h"
+#import "AtoZFunctions.h"
+#import "AZGeometry.h"
+#import "AZGeometricFunctions.h"
 
 
 
@@ -292,19 +295,6 @@ extern NSString *const AtoZDockSortedUpdated;
 @interface  NSWindow (Borderless)
 + (NSWindow*) borderlessWindowWithContentRect: (NSRect)aRect;
 @end
-
-
-//static void glossInterpolation(void *info, const float *input);
-//							   float *output);
-
-static void glossInterpolation(void *info, const CGFloat *input, CGFloat *output);
-
-//static void glossInterpolation(void *info, const CGFloat *input);
-
-void perceptualCausticColorForColor(CGFloat *inputComponents, CGFloat *outputComponents);
-extern void DrawGlossGradient(CGContextRef context, NSColor *color, NSRect inRect);
-
-extern void DrawLabelAtCenterPoint(NSString* string, NSPoint center);
 
 
 

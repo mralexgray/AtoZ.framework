@@ -12,118 +12,101 @@
 #import "AtoZModels.h"
 
 
+@implementation CALayerNoHit
+- (BOOL)containsPoint:(CGPoint)p {	return FALSE; }
+@end
+@implementation CAShapeLayerNoHit
+- (BOOL)containsPoint:(CGPoint)p {	return FALSE; }
+@end
+@implementation CATextLayerNoHit
+- (BOOL)containsPoint:(CGPoint)p {	return FALSE; }
+@end
+
 @implementation AZDummy
 @end
 
+@interface AtoZ ()
+@property (nonatomic, assign) BOOL fontsRegistered;
+@end
+
 @implementation AtoZ
-{
-	BOOL fontsRegistered;
-}
 
 
-
-
-	// Place this in the .m file, inside the @implementation block
-	// A method to convert an enum to string
+// Place this in the .m file, inside the @implementation block
+// A method to convert an enum to string
 + (NSString*) stringForPosition:(AZWindowPosition)enumVal
 {	NSArray *them = [[NSArray alloc]initWithObjects:AZWindowPositionTypeArray];
 
-	return  [them objectAtIndex:enumVal];// isEqualToString: @"ZPositionLeft"] ? @"LEFT" :, @"ZPositionBottom", @"ZPositionRight", @"ZPositionTop",  <#(NSString *)#>;
+	return  [them objectAtIndex:enumVal];
+	// isEqualToString: @"ZPositionLeft"] ? @"LEFT" :, @"ZPositionBottom", @"ZPositionRight", @"ZPositionTop", ;
 }
-
-	// A method to retrieve the int value from the NSArray of NSStrings
+// A method to retrieve the int value from the NSArray of NSStrings
 -(AZWindowPosition) imageTypeStringToEnum:(NSString*)strVal
-{
-		//	NSLog(@"%@", AZWindowPositionTypeArray);
+{		//	NSLog(@"%@", AZWindowPositionTypeArray);
     NSArray *imageTypeArray = [[NSArray alloc]initWithObjects:AZWindowPositionTypeArray];
-
-    return (AZWindowPosition)[ imageTypeArray indexOfObject:strVal];
+   return (AZWindowPosition)[ imageTypeArray indexOfObject:strVal];
 		//    if(n < 1) n = AZPositionLeft;
-		//
 }
 
-	//@synthesize appFolder, appFolderSorted;//, console;
-	//@synthesize dock, dockSorted;
 
 + (NSString*) resources { return [[NSBundle bundleForClass: [self class]] resourcePath]; }
 
 + (NSString*)stringForType:(id)type
 {
-
 	Class i = [type class];
 	NSLog(@"String: %@   Class:%@", NSStringFromClass(i), i);
 		//	[type autoDescribe:type];
 	NSString *key = [NSString stringWithFormat:@"AZOrient_%@", NSStringFromClass([type class])];
 	return NSLocalizedString(key, nil);
 }
-//
+
 //+ (NSArray*) dock {
 //	return (NSArray*)[AZDock sharedInstance];
 //}
-//
-//+ (NSArray*) currentScope {
-//	return [AZFolder sharedInstance].items;
-//}
-//+ (NSArray*) dockSorted {
-//
-//	return [AZDock sharedInstance].dockSorted;
-//}
-//+ (NSArray*) appCategories {
-//
-//	return [AZAppFolder sharedInstance].appCategories;
-//}
+//+ (NSArray*) currentScope { 	return [AZFolder sharedInstance].items; }
+//+ (NSArray*) dockSorted { 	return [AZDock sharedInstance].dockSorted; }
+//+ (NSArray*) appCategories {	return [AZAppFolder sharedInstance].appCategories; }
+
 + (NSArray*) appCategories {		static NSArray *cats;  return cats = cats ? cats :
 	@[	@"Games", @"Education", @"Entertainment", @"Books", @"Lifestyle", @"Utilities", @"Business", @"Travel", @"Music", @"Reference", @"Sports", @"Productivity", @"News", @"Healthcare & Fitness", @"Photography", @"Finance", @"Medical", @"Social Networking", @"Navigation", @"Weather", @"Catalogs", @"Food & Drink", @"Newsstand" ];
 }
 
-	//{//	__weak AZSimpleView *e;
-	//}
-	//	console = [NSLogConsole sharedConsole]; [console open];
-
-
-
-- (void) setUp {
-
-	char *xcode_colors = getenv(XCODE_COLORS);
-
-	if (xcode_colors && (strcmp(xcode_colors, "YES") == 0))
-		{
-			// XcodeColors is installed and enabled!
-		}
-
-
-		//	[DDLog addLogger:[DDTTYLogger sharedInstance]];
-
-		//	DDLogVerbose(@"Verbose");
-		//	DDLogInfo(@"Info");
-		//	DDLogWarn(@"Warn");
-		//	DDLogError(@"Error");
-
-		//	[self registerFonts:<#(CGFloat)#>]
-		//	self.dockOutline = dock.copy;
-		//	self.sortOrder = AZDockSortNatural;
+//{//	__weak AZSimpleView *e;
+//}
+//	console = [NSLogConsole sharedConsole]; [console open];
++(void)initialize {
+	AZLOG(@"Initialize AtoZ");
+	AtoZ *u = [[self class] sharedInstance];
+	NSLog(@"Initialized AtoZ.sharedinstance as: %@", u.propertiesPlease);
 }
+- (void) setUp {
+	AZLOG(@"setup AtoZ");
+	char *xcode_colors = getenv(XCODE_COLORS);
+	xcode_colors && (strcmp(xcode_colors, "YES") == 0) ? ^{/* XcodeColors=installed+enabled! */}() : nil;
+	//	[DDLog addLogger:[DDTTYLogger sharedInstance]];
+	//	DDLogVerbose(@"Verbose"); DDLogInfo(@"Info"); DDLogWarn(@"Warn"); DDLogError(@"Error");
+	//	[self registerFonts:(CGFloat)]
+	//	self.sortOrder = AZDockSortNatural;
+}
+
 + (NSString *) version;
 {
-    NSString *myVersion	= [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
-    NSString *buildNum 	= [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString*)kCFBundleVersionKey];
+    NSString *myVersion	= [[AZFWORKBUNDLE infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    NSString *buildNum 	= [[AZFWORKBUNDLE infoDictionary] objectForKey:(NSString*)kCFBundleVersionKey];
     NSString *versText	= myVersion
 	? buildNum 	? [NSString stringWithFormat:@"Version: %@ (%@)", myVersion, buildNum]
 	: [NSString stringWithFormat:@"Version: %@", myVersion]
 	: buildNum  ? [NSString stringWithFormat:@"Version: %@", buildNum] : nil;
     AZLOG(versText); return versText;
 }
-	//- (NSBundle*) bundle {
-	//	return [NSBundle bundleWithIdentifier: bundleForClass:[self class]];
-	//}
++ (NSBundle*) bundle {	return [NSBundle bundleForClass:[self class]]; }
+
+#define GROWL_ENABLED 0
 #ifdef GROWL_ENABLED
 - (BOOL) registerGrowl {
-		//	AtoZ *u = [[self class] sharedInstance];
 
-
-	NSString *growlPath = [[self.bundle privateFrameworksPath] stringByAppendingPathComponent:@"Growl.framework"];
-	NSLog(@"growl path: %@ ", growlPath);
-	NSBundle *growlBundle = [NSBundle bundleWithPath:growlPath];
+	NSBundle *growlBundle = [NSBundle bundleWithPath:[[[[self class]bundle] sharedFrameworksPath] stringByAppendingPathComponent:@"Growl.framework"]];
+	NSLog(@"growl props: %@ ", [growlBundle propertiesPlease]);
 	if (growlBundle && [growlBundle load]) 	{	NSLog(@"Succeefully Loaded Growl.framework!");
 		[GrowlApplicationBridge registrationDictionaryFromBundle:self.bundle];
 

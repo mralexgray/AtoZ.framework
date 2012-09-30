@@ -163,15 +163,24 @@ extern NSString *const BaseModelSharedInstanceUpdatedNotification;
 
 
 
-//- (void)enumerateObjectsUsingBlock:(void (^)(id obj, NSUInteger idx, BOOL *stop))block;
-//- (id) objectAtIndexedSubscript: (NSInteger) index;
-//- (void) setObject: (id) thing;
+- (void)enumerateObjectsUsingBlock:(void (^)(id obj, NSUInteger idx, BOOL *stop))block;
+
+- (id) objectAtIndexedSubscript: (NSInteger) index;
+- (void) setObject: (id) thing;
 - (id)objectForKeyedSubscript:(NSString *)key;
 - (void)setObject:(id)object forKeyedSubscript:(NSString *)key;
 
 //#endif
 
 @property (nonatomic, strong) NSMutableArray *backingstore;
+
+
+- (id)randomElement;
+- (NSArray *)shuffeled;
+- (NSArray *)randomSubarrayWithSize:(NSUInteger)size;
+- (id)objectAtNormalizedIndex:(NSInteger)index;
+- (id)normal:(NSInteger)index;
+
 
 - (void) eachWithIndex:(VoidIteratorArrayWithIndexBlock) block;
 - (instancetype) map:(MapArrayBlock) block;

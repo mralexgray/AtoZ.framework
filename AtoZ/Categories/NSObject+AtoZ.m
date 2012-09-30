@@ -714,6 +714,25 @@ static char windowPosition;
 @implementation NSObject (AG)
 
 
+- (IBAction)showMethodsInFrameWork:(id)sender {
+
+//	[NSTask launchedTaskWithLaunchPath:@"/usr/bin/say" arguments:@[s]];
+
+		//	BOOL isSelected;	NSString *label;
+//	BOOL isSegmented = [sender isKindOfClass:[NSSegmentedControl class]];
+//		//	if (isSegmented) {
+//	NSInteger selectedSegment = [sender selectedSegment];
+//		//		 = [sender isSelectedForSegment:selectedSegment];
+//	label = [sender labelForSegment:selectedSegment];
+//	BOOL *optionPtr = &isSelected;
+//		//	} else
+//		//		label = [sender label];
+//	SEL fabricated = NSSelectorFromString($(@"set%@:", label));
+//	[[sender delegate] performSelector:fabricated withValue:optionPtr];
+		//	[[AZTalker sharedInstance] say:$(@"%@ is %@ selected", string, isSelected ? @"" : @"NOT")];
+}
+
+
 - (void)performActionFromSegment:(id)sender {
 
 	BOOL isSelected;	NSString *label;

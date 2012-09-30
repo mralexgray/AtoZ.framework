@@ -192,11 +192,11 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 //	layer.position = [self center];
 //	layer.bounds = [self bounds];
 	layer.needsDisplayOnBoundsChange = YES;
-	layer.backgroundColor = cgRED;
+	layer.backgroundColor = cgCLEARCOLOR;
 	layer.autoresizingMask = kCALayerWidthSizable | kCALayerHeightSizable;
 	[self setLayer:layer];
     [self setWantsLayer:YES];
-
+	NSLog(@"setup hosting layer:%@", layer.debugDescription);
 	return layer;
 //    CGColorRelease(blackColor);
 //    CGColorSpaceRelease(colorSpace);

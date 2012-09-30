@@ -35,16 +35,8 @@ static NSMutableDictionary *keyNames = nil, *nillableKeyNames = nil;
 
 @implementation BaseModel
 
-- (void)enumerateObjectsUsingBlock:(void (^)(id obj, NSUInteger idx, BOOL *stop))block {
 
-	[_backingstore enumerateObjectsUsingBlock:^(id objectTwo, NSUInteger idx, BOOL *stop){
-			block(objectTwo);
-	}];
-}
-- (void)enumerateObjectsWithOptions:(NSEnumerationOptions)opts usingBlock:(void (^)(id obj, NSUInteger idx, BOOL *stop))
-
-
-- (void)makeObjectsPerformSelector
+//- (void)makeObjectsPerformSelector
 //- (void)makeObjectsPerformSelector:(SEL)selector withObject:()
 	//enumerateObjectsUsingBlock:
 	//or enumerateObjectsWithOptions:usingBlock:
@@ -62,26 +54,23 @@ static NSMutableDictionary *keyNames = nil, *nillableKeyNames = nil;
 
 - (void) setObject: (id) thing  atIndexedSubscript: (NSInteger) index {
     if (!_usesBackingStore) { AZLOG(@"warning.. no backing store.  Changes not made"); return; }
-
-    if (index < 0) index = _backingstore.count + index;
-
+ if (index < 0) index = _backingstore.count + index;
 		// Mutable array only allows setting the first-empty-index, like
 		// -insertObject:atIndex:.  Any past that throws a range exception.
 		// So let's be different and fill in intervening spaces w/ [NSNull null]
 		// If you want to see @NULL, dupe rdar://10892975
-
     NSInteger toAdd = index - _backingstore.count;;
     for (int i = 0; i < toAdd; i++) {
         [_backingstore addObject: [NSNull null]];
     }
-
     if (index >= _backingstore.count) {
         [_backingstore addObject: thing];
     } else {
         [_backingstore replaceObjectAtIndex: index  withObject: thing];
     }
-
 } // setObject atIndexedSubscript
+
+
 
 //
 //- (id) objectAtIndexedSubscript: (NSInteger) index {
@@ -100,7 +89,7 @@ static NSMutableDictionary *keyNames = nil, *nillableKeyNames = nil;
 //
 ////				   atIndexedSubscript: (NSInteger) index;
 ////				   {
-//
+////
 //- (void) setObject: (id) thing atIndexedSubscript: (NSInteger) index;
 //{
 //	NSString *d = (@"Selector attempt:replaceObjectAtIndex:%ld",index) NSStringFromClass( [self class]);
@@ -115,6 +104,29 @@ static NSMutableDictionary *keyNames = nil, *nillableKeyNames = nil;
 // 	else return nil;
 //
 //}
+
+
+- (id)randomElement {return _backingstore.randomElement;}
+
+- (NSArray *)shuffeled {	return _backingstore.shuffeled; }
+
+- (NSArray *)randomSubarrayWithSize:(NSUInteger)size {
+	size = normalizedNumberLessThan(@(size), _backingstore.count);
+	return [_backingstore randomSubarrayWithSize:size];
+}
+
+- (id)objectAtNormalizedIndex:(NSInteger)index { return [self normal:index]; }
+
+- (id)normal:(NSInteger)index {
+	if (_backingstore.count == 0) return nil;
+	while (index < 0)
+		index += _backingstore.count;
+	return _backingstore[index % _backingstore.count];
+}
+
+
+
+
 - (id)objectForKeyedSubscript:(NSString *)key {
 	return [self valueForKey:key];
 }

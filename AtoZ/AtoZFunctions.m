@@ -14,6 +14,22 @@
 #import <sys/time.h>
 
 
+
+//static void glossInterpolation(void *info, const float *input);
+//float *output);
+
+//static
+void glossInterpolation(void *info, const CGFloat *input, CGFloat *output);
+//static void glossInterpolation(void *info, const CGFloat *input);
+
+void perceptualCausticColorForColor(CGFloat *inputComponents, CGFloat *outputComponents);
+extern void DrawGlossGradient(CGContextRef context, NSColor *color, NSRect inRect);
+extern void DrawLabelAtCenterPoint(NSString* string, NSPoint center);
+
+
+
+
+
 //void _AZSimpleLog(const char *file, int lineNumber, const char *funcName, NSString *format,...){
 // va_list argList;
 // va_start (argList, format);
@@ -24,18 +40,35 @@
 // //	const char *threadName = [[[NSThread currentThread] name] UTF8String];
 //}
 
+//#define WIDTH 13600
+//#define HEIGHT 100
+//#define STEP 100
 
-@implementation NSValue (AZWindowPosition)
+//void drawLines(BOOL horizontal, CGFloat from, CGFloat to, CGFloat step, NSRect bounds) {
+//{
+//    for (CGFloat i = from; i <= to; i += step) {
+//        NSRect rect;
+//        if (horizontal) rect = NSMakeRect (bounds.origin.x - x + i, bounds.origin.y + bounds.size.height - 1 + y - HEIGHT, 1, HEIGHT + 1);
+//         else rect = NSMakeRect(bounds.origin.x - x, bounds.origin.y + bounds.size.height - 1 + y - i, WIDTH + 1, 1);
+//
+//		NSString *string = [NSString stringWithFormat:@"%i",(int) (i/STEP)];
+//			//    	NSRect bounds = self.bounds;
+//    	[string drawAtPoint:AGCenterOfRect(bounds) withAttributes:nil];
+//		 // NSMakePoint(10, bounds.origin.y + bounds.size.height - 20)
+//		[NSBezierPath setDefaultLineWidth:5];
+//		[NSBezierPath set
+//		[RANDOMCOLOR set];
+//		[NSBezierPath strokeRect:rect];
+//		[NSBezierPath fillRect:rect];
+//    }
+//}
 
-+ (id)valueWithPosition:(AZWindowPosition)pos;
-{
-    return [NSValue value:&pos withObjCType:@encode(AZWindowPosition)];
+
+NSUInteger normalizedNumberLessThan (id number, NSUInteger max){
+	NSUInteger u= [number integerValue];
+	u = u <=max ? u : max;
+	return u;
 }
-- (AZWindowPosition)positionValue;
-{
-    AZWindowPosition pos; [self getValue:&pos]; return pos;
-}
-@end
 
 BOOL IsEmpty(id obj) {
 	return 		obj == nil
@@ -343,7 +376,7 @@ void DrawGlossGradient(CGContextRef context, NSColor *color, NSRect inRect) {
 
 
 
-extern void PoofAtPoint( NSPoint pt, CGFloat radius){
+void PoofAtPoint( NSPoint pt, CGFloat radius){
 	NSShowAnimationEffect(NSAnimationEffectPoof, pt, (CGSize){radius, radius}, nil, 0, nil);
 }
 
@@ -1120,17 +1153,6 @@ NSNumber* DegreesToNumber(CGFloat degrees) {
     return [NSNumber numberWithFloat:
             DegreesToRadians(degrees)];
 }
-
-@implementation CALayerNoHit
-- (BOOL)containsPoint:(CGPoint)p {	return FALSE; }
-@end
-@implementation CAShapeLayerNoHit
-- (BOOL)containsPoint:(CGPoint)p {	return FALSE; }
-@end
-@implementation CATextLayerNoHit
-- (BOOL)containsPoint:(CGPoint)p {	return FALSE; }
-@end
-
 
 
 

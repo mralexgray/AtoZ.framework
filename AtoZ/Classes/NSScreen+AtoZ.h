@@ -12,6 +12,8 @@
 
 @interface NSScreen (PointConversion)
 
++ (NSPoint)convertAndFlipMousePointInView:(NSView *)view;
+
 /* 
  Returns the screen where the mouse resides
 */

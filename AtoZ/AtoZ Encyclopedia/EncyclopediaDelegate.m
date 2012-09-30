@@ -14,7 +14,7 @@
 @end
 
 @implementation EncyclopediaDelegate
-@synthesize noteControllers;
+@synthesize noteControllers, statusItem, statusMenu;
 
 - (id) init {
 	if (self = [super init]) {
@@ -25,11 +25,13 @@
 }
 
 - (void) awakeFromNib {
-	statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength];
-	statusItem.image 			= [[NSImage imageInFrameworkWithFileName:@"atoz.icns"]scaledToMax:22];  //statusimage
-	statusItem.alternateImage	= [NSImage icons].randomElement; //[NSImage imageNamed:@"statusimage_pressed"]];
-	statusItem.highlightMode		= YES;
-	statusItem.menu				= statusMenu;
+	self.statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength];
+	statusItem.image  = [[NSImage imageInFrameworkWithFileName:@"atoz.icns"]scaledToMax:22];
+//   // [NSImage icons][0];//
+//statusimage
+//	statusItem.alternateImage	= [NSImage icons][11];//.randomElement; //[NSImage imageNamed:@"statusimage_pressed"]];
+	statusItem.highlightMode = YES;
+	statusItem.menu			= statusMenu;
 		// Get the shielding window level
 		//		NSInteger windowLevel = CGShieldingWindowLevel();
 		// Get the screen rect of our main display
@@ -40,13 +42,13 @@
 													backing:NSBackingStoreBuffered
 													  defer:NO screen:[NSScreen mainScreen]];
 
-//	[_mainWindow setLevel:NSStatusWindowLevel];
-//	[_mainWindow setMovable:NO];
-//	[_mainWindow setOpaque : NO];
-//	[_mainWindow setBackgroundColor:CLEAR];
-//	[_mainWindow setAlphaValue:0];
-//	[_mainWindow orderFrontRegardless];
-//	self.view = [[AZSimpleView alloc]initWithFrame: NSInsetRect(screenRect, 200, 200) ];
+	[_mainWindow setLevel:NSStatusWindowLevel];
+//	[_mainWindow setMovable:YES;
+	[_mainWindow setOpaque : NO];
+	[_mainWindow setBackgroundColor:CLEAR];
+	[_mainWindow setAlphaValue:0];
+	[_mainWindow orderFrontRegardless];
+	self.view = [[AZSimpleView alloc]initWithFrame: NSInsetRect(screenRect, 200, 200) ];
 //	AZScaleRect(AZScreenFrame(), .23)];
 //	[_view setBackgroundColor:RANDOMCOLOR];
 
@@ -107,7 +109,7 @@
 	
 	NSRect r = [[_mainWindow contentView] frame];
 	AZFileGridView *g = [[AZFileGridView alloc]initWithFrame:r andFiles:s];
-//	[[_mainWindow contentView] addSubview:g];
+	[[_mainWindow contentView] addSubview:g];
 
 //	[_mainWindow makeKeyAndOrderFront:nil];
 //	trackMouse();

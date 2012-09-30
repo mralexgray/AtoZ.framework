@@ -30,7 +30,7 @@ static NSInteger snapshotNumber;
 	[root addConstraintsSuperSize];
 //	root.layoutManager 			= [CAConstraintLayoutManager layoutManager];
 //	root.autoresizingMask 		= kCALayerHeightSizable | kCALayerWidthSizable;
-	CALayer *contentLayer 		= ReturnLayer(root);//[CALayer layer];				// Our container layer
+	CALayer *contentLayer 		= NewLayerWithFrame(root.frame);//[CALayer layer];				// Our container layer
 	root.contentLayer 			= contentLayer;
 //	contentLayer.anchorPoint 	= CGPointMake(0, 0);
 //	contentLayer.bounds 		= CGRectMake(00, 00, 50, 50);

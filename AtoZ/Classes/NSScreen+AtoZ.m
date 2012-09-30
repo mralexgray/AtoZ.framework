@@ -35,12 +35,17 @@
     return NSMakePoint(aPoint.x, self.frame.size.height - aPoint.y);
 }
 
++ (NSPoint)convertAndFlipMousePointInView:(NSView *)view {
+	NSScreen *now = [NSScreen currentScreenForMouseLocation];
+	NSPoint mp = mouseLoc();
+	NSPoint j = [now flipPoint:[now convertToScreenFromLocalPoint:mp relativeToView:view]];
+	return [view isFlipped] ? [[self mainScreen]flipPoint:j] :j;
+
+}
 
 + (NSPoint)convertAndFlipEventPoint:(NSEvent*)event relativeToView:(NSView *)view {
-	NSScreen *now = [NSScreen currentScreenForMouseLocation];
-	NSPoint j = [now flipPoint:[now convertToScreenFromLocalPoint:event.locationInWindow relativeToView:view]];
-	return [view isFlipped] ? [[self mainScreen]flipPoint:j] :j;
-//	return [[[self class] mainScreen] flipPoint:touchPoint];
+
+		return [[self class] convertAndFlipMousePointInView:view];
 }
 
 - (NSPoint)convertToScreenFromLocalPoint:(NSPoint)point relativeToView:(NSView *)view {

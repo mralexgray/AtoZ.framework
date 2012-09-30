@@ -19,7 +19,7 @@ NSString *const AZFileUpdated = @"AZFileUpdated";
 	//@synthesize itunesInfo, itunesDescription;
 
 - (void) setUp {
-	self.color 			= RED;
+//	self.color 			= RED;
 	self.customColor 	= BLACK;
 	self.labelColor 	= BLACK;
 	self.labelNumber	= @(99);
@@ -93,60 +93,58 @@ NSString *const AZFileUpdated = @"AZFileUpdated";
 
 
 -(NSArray*) colors {
-
+	[AZStopwatch start:$(@"%@.colorquant", self.name)];
 	if (_colors) return  _colors;
-	else {
-		@autoreleasepool {
-
-			NSArray *rawArray = [self.image quantize];
-				// put all colors in a bag
-			NSBag *allBag = [NSBag bag];
-			for (id thing in rawArray ) [allBag add:thing];
-			NSBag *rawBag = [NSBag bag];
-			int total = 0;
-			for ( NSColor *aColor in rawArray ) {
-					//get rid of any colors that account for less than 10% of total
-				if ( ( [allBag occurrencesOf:aColor] > ( .0005 * [rawArray count]) )) {
-						// test for borigness
-					if ( [aColor isBoring] == NO ) {
-						NSColor *close = [aColor closestNamedColor];
-						total++;
-						[rawBag add:close];
-					}
-				}
-			}
-			NSArray *exciting = 	[[rawBag objects] filter:^BOOL(id object) {
-				NSColor *idColor = object;
-				return ([idColor isBoring] ? FALSE : TRUE);
-			}];
-
-				//uh oh, too few colors
-			if ( ([[rawBag objects]count] < 2) || (exciting.count < 2 )) {
-				for ( NSColor *salvageColor in rawArray ) {
-					NSColor *close = [salvageColor closestNamedColor];
+	@autoreleasepool {
+		NSArray *raw = [self.image quantize];
+			// put all colors in a bag
+		NSBag *allBag = [NSBag bag];
+		[raw do:^(id obj) { [allBag add:obj];}];
+		NSBag *rawBag = [NSBag bag];
+		int total = 0;
+		for ( NSColor *aColor in raw ) {
+				//get rid of any colors that account for less than 10% of total
+			if ( ( [allBag occurrencesOf:aColor] > ( .0005 * [raw count]) )) {
+					// test for borigness
+				if ( [aColor isBoring] == NO ) {
+					NSColor *close = [aColor closestNamedColor];
 					total++;
 					[rawBag add:close];
 				}
 			}
-			NSMutableArray *colorsUnsorted = [NSMutableArray array];
-
-			for (NSColor *idColor in [rawBag objects] ) {
-
-				AZColor *acolor = [AZColor instance];
-				acolor.color = idColor;
-				acolor.count = [rawBag occurrencesOf:idColor];
-				acolor.percent = ( [rawBag occurrencesOf:idColor] / (float)total );
-				[colorsUnsorted addObject:acolor];
-			}
-			rawBag = nil; allBag = nil;
-			return [colorsUnsorted sortedWithKey:@"count" ascending:NO];
 		}
+		NSArray *exciting = 	[[rawBag objects] filter:^BOOL(id object) {
+			NSColor *idColor = object;
+			return ([idColor isBoring] ? FALSE : TRUE);
+		}];
+			//uh oh, too few colors
+		if ( ([[rawBag objects]count] < 2) || (exciting.count < 2 )) {
+			for ( NSColor *salvageColor in raw ) {
+				NSColor *close = [salvageColor closestNamedColor];
+				total++;
+				[rawBag add:close];
+			}
+		}
+		NSA*colorsUnsorted = [[rawBag objects]nmap:^id(NSColor* obj, NSUInteger index) {
+			AZColor *acolor = [AZColor instance];
+			acolor.color = obj;
+			NSUInteger occ = [rawBag occurrencesOf:obj];
+			acolor.count = occ;
+			acolor.percent = occ / (float)total;
+			return acolor;
+		}];
+
+		rawBag = nil; allBag = nil;
+		return [colorsUnsorted sortedWithKey:@"count" ascending:NO];
 	}
+	[AZStopwatch stop:$(@"%@.colorquant", self.name)];
 }
-	//- (NSColor*) color {
-	//	NSLog(@"color for %@:  %@", self.name, (color ? color : [[self.colors objectAtNormalizedIndex:0] valueForKey:@"color"]));
-	//	return (color ? color : [[self.colors objectAtNormalizedIndex:0] valueForKey:@"color"]);
-	//}
+
+- (NSColor*) color {
+	_color = _color ?  _color : [self.colors normal:0][@"color"];
+	NSLog(@"color for %@:  %@", self.name, _color);
+	return _color;
+}
 
 - (CGFloat) hue { return self.color.hueComponent; }
 

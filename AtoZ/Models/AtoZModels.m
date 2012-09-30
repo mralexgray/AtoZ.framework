@@ -19,10 +19,15 @@
 //@dynamic  appFolderSorted;// = _appFolderSorted;
 
 @interface  AZFolder ()
-@property (nonatomic, retain) NSMutableArray *items;
+@property (nonatomic, retain) NSMutableArray *paths;
 @end
 
 @implementation AZFolder
+
+
+- (NSUInteger)count{
+	return self.backingstore.count;
+}
 
 
 + (AZFolder*) samplerWithBetween:(NSUInteger)minItems andMax:(NSUInteger)items;
@@ -32,9 +37,10 @@
 }
 
 + (id) instanceWithItems:(NSArray*)items {
-	return [items[0]  isKindOfClass:[AZFile class]]
-		 ? [[self class]instanceWithFiles:items]
-		 : [[self class]instanceWithPaths:items];
+	return  [AZFolder instanceWithPaths:items];
+//	if ([items[0]  isKindOfClass:[AZFile class]])
+//		 ? [[self class]instanceWithFiles:items]
+//		 : [[self class]instanceWithPaths:items];
 }
 
 //+ (NSArray *) samplerWithBetween:(NSUInteger)minItems andMax:(NSUInteger)items{
@@ -49,19 +55,28 @@
 //	return newBook;
 //}
 + (id) instanceWithFiles:(NSArray*)files {
-	AZFolder *me = [[self class]array];
-//	me.backingstore  = files.mutableCopy;
-	return me = files.mutableCopy;
+	AZFolder *me = [[self class]instance];
+	me.backingstore  = files.mutableCopy;
+	return me.mutableCopy;
 }
 
 + (id) instanceWithPaths:(NSArray*)paths {
-	AZFolder *me. = [[self class] instance];//instancesWithArray:paths];
-	return me.ba = [paths map:^id(id obj) {
+	AZFolder *me = [[self class] instance];//instancesWithArray:paths];
+	me.backingstore = [paths map:^id(id obj) {
 		return  [AZFile instanceWithPath:obj];
 	}].mutableCopy;
+	return  me;
+
 }
 
-+ (instancetype) appFolder {
++ (NSA*) appFolder {
+	AZFolder *u = [AZFolder instance];
+	return u;
+}
+
+- (NSArray *)files {	return self.backingstore;  }
+
+- (NSArray*) appFolder {
 
 	[AZStopwatch start:@"appFolder"];
 	NSMA *paths = [NSMA array];
@@ -97,9 +112,7 @@
 
 @implementation  AZDock
 
-- (void) setUp {		[[AZDockQuery instance] dock: self];
-
-}
+- (void) setUp {		[[AZDockQuery instance] dock: self];}
 
 //- (NSArray*) dockSorted {		[[self.dock sortedWithKey:@"hue" ascending:YES]
 //											arrayUsingIndexedBlock:^id(AZDockItem* obj, NSUInteger idx) {

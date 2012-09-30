@@ -10,18 +10,17 @@
 #import "SDToolkit.h"
 #import "SDCommonAppDelegate.h"
 
-@interface EncyclopediaDelegate : SDCommonAppDelegate  <NSApplicationDelegate> {
-	IBOutlet NSMenu *statusMenu;
-	NSStatusItem *statusItem;
-	NSArray *trackers;
-}
-@property (retain, nonatomic) NSMutableArray *noteControllers;
+@interface EncyclopediaDelegate : SDCommonAppDelegate  <NSApplicationDelegate>
+
+@property (nonatomic, assign) IBOutlet NSMenu *statusMenu;
+@property (nonatomic, strong) NSStatusItem *statusItem;
+@property (nonatomic, strong) NSArray *trackers;
+
+@property (nonatomic, strong) NSMutableArray *noteControllers;
 
 @property (nonatomic, retain) AZBox *s;
 @property (nonatomic, retain) AZAttachedWindow *at;
 
-- (IBAction) addNote:(id)sender;
-- (IBAction) removeAllNotes:(id)sender;
 @property (nonatomic, retain) AZSimpleView *view;
 
 @property (assign, nonatomic) NSUInteger side;
@@ -33,6 +32,9 @@
 @property (nonatomic, retain) AZTrackingWindow *left;
 @property (nonatomic, retain) AZTrackingWindow *right;
 @property (nonatomic, retain) AZTrackingWindow *top;
-
 @property (nonatomic, retain) AZTrackingWindow *bottom;
+
+- (IBAction) addNote:(id)sender;
+- (IBAction) removeAllNotes:(id)sender;
+
 @end

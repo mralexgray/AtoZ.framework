@@ -166,28 +166,21 @@ CALayer* AddPulsatingBloom( CALayer *layer) {
 
 CALayer* NewLayerWithFrame(NSRect rect){
     CALayer *layer 			= [[CALayer alloc] init];
+	layer.frame				= rect;
 	layer.bounds			= AZMakeRectFromSize(rect.size);
 	layer.position		  	= AZCenterOfRect(rect);
+	layer.layoutManager		= AZLAYOUTMGR;
 	layer.autoresizingMask 	= kCALayerWidthSizable| kCALayerHeightSizable;
-	return layer;
-}
-CALayer* ReturnLayer( CALayer *superlayer){
-
-    CALayer *layer 			= [[CALayer alloc] init];
-//    layer.backgroundColor 	= cgRANDOMCOLOR;
-	layer.bounds			= AZMakeRectFromSize(superlayer.frame.size);
-	layer.position		  	= AZCenterOfRect(superlayer.frame);
-//	layer.frame				= AZMakeRectFromSize(nanSizeCheck([superlayer frame].size));
 	layer.contentsGravity  	= kCAGravityResizeAspect;
-	layer.autoresizingMask 	= kCALayerWidthSizable| kCALayerHeightSizable;
+    layer.backgroundColor 	= cgCLEARCOLOR;
 	return layer;
 }
-
-CALayer* AddLayer( CALayer *superlayer)
+CALayer* NewLayerInLayer( CALayer *superlayer)
 {
-	CALayer *layer = ReturnLayer(superlayer);
-	layer.delegate 	= superlayer;
+	CALayer *layer 			= NewLayerWithFrame(nanRectCheck(superlayer.frame));
+	layer.delegate 			= superlayer;
 	[superlayer addSublayer:layer];
+	[layer addConstraintsSuperSize];
 	return layer;
 }
 
@@ -279,7 +272,7 @@ CALayer * AddImageLayer( CALayer *superlayer, NSImage *image, CGFloat scale) {
 
 CALayer* ReturnImageLayer(CALayer *superlayer, NSImage *image, CGFloat scale)
 {
-    CALayer *label 			= ReturnLayer(superlayer);
+    CALayer *label 			= NewLayerWithFrame(superlayer.frame);
 	NSSize old 				= superlayer.frame.size;
 	image.size				= (NSSize) { old.width * scale, old.height * scale};
 	label.contentsGravity 	= kCAGravityCenter;
@@ -490,11 +483,37 @@ CG_INLINE CATransform3D CATransform3DMake( CGFloat m11, CGFloat m12, CGFloat m13
 #define kCALayerLabel @"CALayerLabel"
 @implementation CALayer (AtoZ)
 
+
+- (void)blinkLayerWithColor:(NSColor*)color {
+    CABasicAnimation * blinkAnimation = [CABasicAnimation animationWithKeyPath:@"backgroundColor"];
+    [blinkAnimation setDuration:0.4];
+    [blinkAnimation setAutoreverses:YES];
+    [blinkAnimation setFromValue:(id)self.backgroundColor];
+    [blinkAnimation setToValue:(id)color.CGColor];
+    [self addAnimation:blinkAnimation forKey:@"blink"];
+}
+
 - (CAL*)hitTestEvent:(NSEvent*)e inView:(NSView*)v
 {
 	NSPoint mD = [NSScreen convertAndFlipEventPoint:e relativeToView:v];
 	return [self hitTest: mD];
 }
+-(CALayer*)hitTest:(NSPoint)p inView:(NSView*)v forClass:(Class)klass
+{
+
+	NSPoint pp =  [NSScreen convertAndFlipMousePointInView:v];
+    CALayer* layer = [self hitTest:pp];
+
+    while (layer != nil && ![layer isKindOfClass:klass])
+		{
+        layer = [layer superlayer];
+		}
+
+    return layer;
+}
+
+
+
 
 //How to set the CATransform3DRotate along the x-axis for a specified height with perspective
 -(void) addPerspectiveForVerticalOffset: (CGFloat)pixels;
@@ -673,7 +692,6 @@ CG_INLINE CATransform3D CATransform3DMake( CGFloat m11, CGFloat m12, CGFloat m13
 	transform = CATransform3DRotate(transform,angle, 0.0, 1.0, 0.0);
 	return transform;
 }
-
 
 - (id)objectForKeyedSubscript:(NSString *)key
 {
@@ -1180,13 +1198,6 @@ CG_INLINE CATransform3D CATransform3DMake( CGFloat m11, CGFloat m12, CGFloat m13
 	[self addConstraint: AZConstRelSuperScaleOff(kCAConstraintHeight, scale,0)];
 }
 
-- (void) _ensureSuperHasLayoutManager {
-
-	if (!self.superlayer.layoutManager) {
-		CAConstraintLayoutManager *l = [[CAConstraintLayoutManager alloc]init];
-		self.superlayer.layoutManager = l;
-	}
-}
 
 - (void) addConstraintsSuperSize
 {
@@ -1196,6 +1207,13 @@ CG_INLINE CATransform3D CATransform3DMake( CGFloat m11, CGFloat m12, CGFloat m13
 							AZConstRelSuper(kCAConstraintMidX),
 							AZConstRelSuper(kCAConstraintMidY)		];
 
+}
+- (void) _ensureSuperHasLayoutManager {
+
+	if (!self.superlayer.layoutManager) {
+		CAConstraintLayoutManager *l = [[CAConstraintLayoutManager alloc]init];
+		self.superlayer.layoutManager = l;
+	}
 }
 
 

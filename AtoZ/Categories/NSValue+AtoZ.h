@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSValue (AtoZ)
-
+@interface NSValue (AZWindowPosition)
++ (id)valueWithPosition: (AZWindowPosition) pos;
+- (AZWindowPosition) positionValue;
 @end

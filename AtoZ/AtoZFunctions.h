@@ -1,15 +1,7 @@
-//
 //  AtoZFunctions.h
-//  AtoZ
-//
 
 //#import "AtoZ.h"
-
-
 //PUT IN PRECOMP #define NSLog(args...) _AZSimpleLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args);
-
-
-
 
 //NS_INLINE  void QuietLog (const char *file, int lineNumber, const char *funcName, NSString *format, ...);
 //#define NSLog(args...) QuietLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args)
@@ -22,28 +14,39 @@
 //static inline NSPoint convertToNSPoint(CGPoint point) {	return *(const NSPoint *)&point;	}
 //static inline CGPoint convertToCGPoint(NSPoint point) {	return *(const CGPoint *)&point;	}
 
-extern BOOL IsEmpty(id obj);
-
-extern CGFloat percent(CGFloat val);
-
-extern void ApplicationsInDirectory(NSString *searchPath, NSMutableArray *applications);
-
-static double frandom(double start, double end);
-
-extern void DrawLabelAtCenterPoint(NSString* string, NSPoint center);
-
-extern void DrawGlossGradient(CGContextRef context, NSColor *color, NSRect inRect);
-
-extern CGFloat perceptualGlossFractionForColor(CGFloat *inputComponents);
-
-static void glossInterpolation(void *info, const CGFloat *input, CGFloat *output);
-
-extern void PoofAtPoint( NSPoint pt, CGFloat radius);
-
-extern void QuietLog (NSString *format, ...);
+BOOL IsEmpty(id obj);
 
 
+void ApplicationsInDirectory(NSString *searchPath, NSMutableArray *applications);
+void PoofAtPoint( NSPoint pt, CGFloat radius);
+void QuietLog (NSString *format, ...);
+void DrawLabelAtCenterPoint(NSString* string, NSPoint center);
+void DrawGlossGradient(CGContextRef context, NSColor *color, NSRect inRect);
 
+CGFloat perceptualGlossFractionForColor ( CGFloat *inputComponents );
+CGFloat percent ( CGFloat val );
+CGFloat DegreesToRadians ( CGFloat degrees );
+
+CGFloat DEGREEtoRADIAN(CGFloat degrees) {return degrees * M_PI / 180;};
+CGFloat RADIANtoDEGREEES(CGFloat radians) {return radians * 180 / M_PI;};
+
+
+NSNumber* DegreesToNumber(CGFloat degrees);
+
+CGImageRef ApplyQuartzComposition ( const char* compositionName, const CGImageRef srcImage );
+
+//	were static
+void glossInterpolation(void *info, const CGFloat *input, CGFloat *output);
+inline float RandomComponent() {  return (float)random() / (float)LONG_MAX; }
+double frandom ( double start, double end );
+
+
+
+
+
+
+
+//extern NSUInteger normalizedNumberLessThan (id number, NSUInteger max);
 //@interface Slice : NSObject
 //@property NSInteger start;
 //@property NSInteger length;
@@ -169,20 +172,11 @@ static inline id MAEachHelper(NSArray *array, CFMutableDictionaryRef *eachTableP
 
 
 
-CGFloat DegreesToRadians(CGFloat degrees);
-NSNumber* DegreesToNumber(CGFloat degrees);
 
 
 
 
 
-
-	//CGFloat DEGREEtoRADIAN(CGFloat degrees) {return degrees * M_PI / 180;};
-	//CGFloat RADIANtoDEGREEES(CGFloat radians) {return radians * 180 / M_PI;};
-
-CGImageRef ApplyQuartzComposition(const char* compositionName, const CGImageRef srcImage);
-
-static inline float RandomComponent() {  return (float)random() / (float)LONG_MAX; }
 
 
 

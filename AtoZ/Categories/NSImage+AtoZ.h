@@ -8,6 +8,13 @@
 
 #import <Cocoa/Cocoa.h>
 
+
+@interface CIFilter (Subscript)
+- (id)objectForKeyedSubscript:(NSString *)key;
+- (void)setObject:(id)object forKeyedSubscript:(NSString *)key;
+@end
+
+
 static inline int get_bit(unsigned char *arr, unsigned long bit_num)
 {
 	return ( arr[(bit_num/8)] & (1 << (bit_num%8)) );
@@ -212,6 +219,12 @@ CGImageRef CreateCGImageFromData(NSData* data);
 @interface NSImage (AtoZAverage)
 -(NSColor *)averageColor;
 + (NSImage*)maskImage:(NSImage *)image withMask:(NSImage *)maskImage;
++ (NSImage*)screeShot;
+
+
+@end
+@interface NSImage (Matrix)
+- (NSImage*) addPerspectiveMatrix:(CIPerspectiveMatrix)matrix; //8PointMatrix
 @end
 
 @interface NSImage (Icons)
@@ -250,6 +263,7 @@ CGImageRef CreateCGImageFromData(NSData* data);
 */
 
 + (NSImage* ) imageBelowWindow: (NSWindow *) window ;
+
 @end
 
 /* utility category on NSImage used for converting
@@ -259,4 +273,20 @@ CGImageRef CreateCGImageFromData(NSData* data);
  original NSImage encoding format.  compressionVlue is between 0 and 1.
  values 0.6 thru 0.7 are fine for most purposes.  */
 - (NSData *)JFIFData:(float) compressionValue;
+@end
+
+
+@implementation NSImage (Matrix)
+- (NSImage*) addPerspectiveMatrix:(CIPerspectiveMatrix)matrix { //8PointMatrix
+
+	CIImage* cImg = [self toCIImage];//  [[CIImage alloc] initWithCGImage: screenie];
+	CIFilter *filter = [CIFilter filterWithName: @"CIPerspectiveTransform"];
+	[filter setDefaults];
+	[filter setValue:cImg forKey: @"inputImage"];  //    CGImageRelease(screenie);
+	filter [ @"inputTopLeft" ] 	  = [CIVector vectorWithX:matrix.tlX  Y:matrix.tlY];
+	filter [ @"inputTopRight" ]   = [CIVector vectorWithX:matrix.trX  Y:matrix.trY];
+	filter [ @"inputBottomLeft" ] = [CIVector vectorWithX:matrix.blX Y: matrix.blY];
+	filter [ @"inputBottomRight"] = [CIVector vectorWithX:matrix.brX Y: matrix.brY];
+	return  [[filter valueForKey: @"outputImage"]toNSImage];
+}
 @end

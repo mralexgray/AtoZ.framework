@@ -8,6 +8,14 @@
 
 #import "NSValue+AtoZ.h"
 
-@implementation NSValue (AtoZ)
 
+@implementation NSValue (AZWindowPosition)
++ (id)valueWithPosition:(AZWindowPosition)pos;
+{
+    return [NSValue value:&pos withObjCType:@encode(AZWindowPosition)];
+}
+- (AZWindowPosition)positionValue;
+{
+    AZWindowPosition pos; [self getValue:&pos]; return pos;
+}
 @end

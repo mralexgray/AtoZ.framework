@@ -14,6 +14,23 @@
 #import <QuickLook/QuickLook.h>
 #import "AtoZ.h"
 
+
+
+@implementation  CIFilter (Subscript)
+- (id)objectForKeyedSubscript:(NSString *)key
+{
+	return [self valueForKey:key];
+}
+
+- (void)setObject:(id)object forKeyedSubscript:(NSString *)key
+{
+	if (IsEmpty(object)) [self setValue:@"" forKey:key];
+	else [self setValue:object forKey:key];
+}
+
+@end
+
+
 // Just one function to declare...
 float distance(NSPoint aPoint);
 
@@ -2275,6 +2292,9 @@ CGImageRef CopyImageAndAddAlphaChannel(CGImageRef sourceImage) {
 
 @implementation NSImage (Icons)
 
++ (NSImage*)screeShot {
+	return [[NSImage alloc]initWithCGImage:CGWindowListCreateImage(CGRectInfinite, kCGWindowListOptionOnScreenOnly, kCGNullWindowID, kCGWindowImageDefault) size:AZScreenSize()];
+}
 + (NSArray*) frameworkImages;{
 
 
@@ -2540,3 +2560,22 @@ CGImageRef CreateCGImageFromData(NSData* data)
 
     return imageRef;
 }
+
+//	CIFilter *matrix = (CIPerspectiveMatrix){  w*.1, h*.8,	 w*.7, h , w*.1, 0,	 w*.7, h/2};
+//	[someNSImage addPerspectiveMatrix: matrix];
+
+@implementation NSImage (Matrix)
+- (NSImage*) addPerspectiveMatrix:(CIPerspectiveMatrix)matrix { //8PointMatrix
+
+	CIImage* cImg = [self toCIImage];//  [[CIImage alloc] initWithCGImage: screenie];
+	CIFilter *filter = [CIFilter filterWithName: @"CIPerspectiveTransform"];
+	[filter setDefaults];
+	[filter setValue:cImg forKey: @"inputImage"];  //    CGImageRelease(screenie);
+	filter [ @"inputTopLeft" ] 	  = [CIVector vectorWithX:matrix.tlX  Y:matrix.tlY];
+	filter [ @"inputTopRight" ]   = [CIVector vectorWithX:matrix.trX  Y:matrix.trY];
+	filter [ @"inputBottomLeft" ] = [CIVector vectorWithX:matrix.blX Y: matrix.blY];
+	filter [ @"inputBottomRight"] = [CIVector vectorWithX:matrix.brX Y: matrix.brY];
+	return  [[filter valueForKey: @"outputImage"]toNSImage];
+}
+@end
+

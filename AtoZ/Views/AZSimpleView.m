@@ -73,3 +73,50 @@
 
 
 @end
+
+
+@implementation AZSimpleGridView
+@synthesize rows, columns, grid;
+
+- (void)awakeFromNib {
+
+    self.wantsLayer = YES;
+    self.grid = self.layer;
+    self.grid.backgroundColor = cgRANDOMCOLOR;
+    self.grid.layoutManager = [CAConstraintLayoutManager layoutManager];
+
+	[self setDimensions:(NSSize){8,8}];
+}
+
+-(void) setDimensions:(NSSize)dims {
+	_dimensions = dims;
+	rows = _dimensions.width; 	columns = _dimensions.height;
+
+	for (int r = 0; r < rows; r++) {
+        for (int c = 0; c < columns; c++) {
+            CALayer *cell = [CALayer layer];
+            cell.borderColor = CGColorCreateGenericGray(0.8, 0.8);
+            cell.borderWidth = 1;  cell.cornerRadius = 4;
+            cell.name = [NSString stringWithFormat:@"%u@%u", c, r];
+            cell.constraints = @[[CAConstraint constraintWithAttribute: kCAConstraintWidth
+										relativeTo: @"superlayer"
+										 attribute: kCAConstraintWidth
+											 scale: 1.0 / columns  offset: 0],
+			 [CAConstraint constraintWithAttribute: kCAConstraintHeight
+										relativeTo: @"superlayer"
+										 attribute: kCAConstraintHeight
+											 scale: 1.0 / rows   offset: 0],
+             [CAConstraint constraintWithAttribute: kCAConstraintMinX
+										relativeTo: @"superlayer"
+										 attribute: kCAConstraintMaxX
+											 scale: c / (float)columns   offset: 0],
+			 [CAConstraint constraintWithAttribute: kCAConstraintMinY
+										relativeTo: @"superlayer"
+										 attribute: kCAConstraintMaxY
+											 scale: r / (float)rows    offset: 0]];
+			[grid addSublayer:cell];
+		}
+	}
+}
+
+@end

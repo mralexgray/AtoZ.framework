@@ -1,3 +1,54 @@
+/**	const
+
+ 	extern NSString * const MyConstant;
+ 	
+	You'll see this in header files. It tells the compiler that the variable MyConstant exists and can be used in your implementation files.	More likely than not, the variable is set something like:
+
+	NSString * const MyConstant = @"foo";
+ 	
+ 	The value can't be changed. If you want a global that can be changed, then drop the const from the declaration.
+ 
+	The position of the const keyword relative to the type identifier doesn't matter
+
+		const NSString *MyConstant = @"foo";  ===  NSString const *MyConstant = @"foo";
+
+	You can also legally declare both the pointer and the referenced value const, for maximum constness:
+
+ 		const NSString * const MyConstant = @"foo";
+extern
+
+	Allows you to declare a variable in one compilation unit, and let the compiler know that you've defined that variable in a separate compilation unit. You would generally use this only for global values and constants.
+
+ 	A compilation unit is a single .m file, as well as all the .h files it includes. At build time the compiler compiles each .m file into a separate .o file, and then the linker hooks them all together into a single binary. Usually the way one compilation unit knows about identifiers (such as a class name) declared in another compilation unit is by importing a header file. But, in the case of globals, they are often not part of a class's public interface, so they're frequently declared and defined in a .m file.
+	
+ 	If compilation unit A declares a global in a .m file:
+
+		#import "A.h"
+		NSString *someGlobalValue;
+
+	and compilation unit B wants to use that global:
+
+		#import "B.h"
+		extern NSString *someGlobalValue;
+
+		@implementation B
+		- (void)someFunc {  
+			NSString *localValue = [self getSomeValue];
+			[localValue isEqualToString:someGlobalValue] ? ^{ ... }() : ^{ ... }();
+		}
+
+	unit B has to somehow tell the compiler to use the variable declared by unit A. It can't import the .m file where the declaration occurs, so it uses extern to tell the compiler that the variable exists elsewhere.
+	Note that if unit A and unit B both have this line at the top level of the file:
+
+		NSString *someGlobalValue;
+	
+ 	then you have two compilation units declaring the same global variable, and the linker will fail with a duplicate symbol error. If you want to have a variable like this that exists only inside a compilation unit, and is invisible to any other compilation units (even if they use extern), you can use the static keyword:
+
+		static NSString * const someFileLevelConstant = @"wibble";
+
+ 	This can be useful for constants that you want to use within a single implementation file, but won't need elsewhere
+**/
+
 //NS_INLINE void _AZSimpleLog(const char *file, int lineNumber, const char *funcName, NSString *format,...);
 
 NS_INLINE void _AZSimpleLog(const char *file, int lineNumber, const char *funcName, NSString *format,...){
@@ -12,14 +63,14 @@ NS_INLINE void _AZSimpleLog(const char *file, int lineNumber, const char *funcNa
 
 #define NSLog(args...) _AZSimpleLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args);
 
-#define kIMAGE @"image"
-#define kCOLOR @"color"
-#define kINDEX @"index"
-#define kLAYER @"layer"
+#define kIMG @"image"
+#define kCLR @"color"
+#define kIDX @"index"
+#define kLAY @"layer"
 #define kPOS   @"position"
 #define kPSTRING @"pString"
-#define kSTRING @"string"
-#define kFRAME 	@"frame"
+#define kSTR @"string"
+#define kFRM 	@"frame"
 #define kHIDE 	@"hide"
 
 #define AZFWORKBUNDLE [NSBundle bundleForClass:[AtoZ class]]
@@ -287,6 +338,8 @@ attr1 relativeTo:relName attribute:attr2 scale:scl offset:off]
 #define $affectors(A,...) +(NSSet *)keyPathsForValuesAffecting##A { static NSSet *re = nil; \
 if (!re) { re = [[[@#__VA_ARGS__ splitByComma] trimmedStrings] set]; } return re; }
 
+typedef struct { CAConstraintAttribute constraint; CGFloat scale; CGFloat offset; }AZCAConstraint;
+
 
 typedef enum  {	Scale0X,Scale1X,Scale2X,Scale3X,Scale10X									} AZInfiteScale;
 typedef enum  { LeftOn,LeftOff,TopOn,TopOff,RightOn,RightOff,BottomOn,BottomOff			} AZTrackState;
@@ -297,35 +350,29 @@ typedef enum  { AZMenuN,AZMenuS,AZMenuE,AZMenuW,AZMenuPositionCount						} AZMen
 typedef enum  {	AZOrientTop,	AZOrientLeft,AZOrientBottom,	AZOrientRight,AZOrientGrid,
 				AZOrientPerimeter,AZOrientFiesta,AZOrientVertical,AZOrientHorizontal	} AZOrient;
 #ifndef ATOZTOUCH
-typedef enum AZWindowPosition {	AZPositionLeft 			= NSMinXEdge, // 0  NSDrawer
-								AZPositionRight         = NSMaxXEdge, // 2  preferredEdge
-								AZPositionTop           = NSMaxYEdge, // 3  compatibility
-								AZPositionBottom        = NSMinYEdge, // 1  numbering!
-								AZPositionLeftTop       = 4,
-								AZPositionLeftBottom    = 5,
-								AZPositionRightTop      = 6,
-								AZPositionRightBottom   = 7,
-								AZPositionTopLeft       = 8,
-								AZPositionTopRight      = 9,
-								AZPositionBottomLeft    = 10,
-								AZPositionBottomRight   = 11,
-								AZPositionAutomatic     = 12							} AZWindowPosition;
+typedef enum  {	AZPositionLeft 			= NSMinXEdge, // 0  NSDrawer
+				AZPositionRight         = NSMaxXEdge, // 2  preferredEdge
+				AZPositionTop           = NSMaxYEdge, // 3  compatibility
+				AZPositionBottom        = NSMinYEdge, // 1  numbering!
+				AZPositionLeftTop       = 4,	AZPositionLeftBottom    = 5,
+				AZPositionRightTop      = 6,	AZPositionRightBottom   = 7,
+				AZPositionTopLeft       = 8,	AZPositionTopRight      = 9,
+				AZPositionBottomLeft    = 10,	AZPositionBottomRight   = 11,
+				AZPositionAutomatic     = 12											} AZWindowPosition;
 
-
-@interface NSValue (AZWindowPosition)
-+ (id)valueWithPosition: (AZWindowPosition) pos;
-- (AZWindowPosition) positionValue;
-@end
-
+// NSVALUE defined, see NSValue+AtoZ.h
 #define AZWindowPositionTypeArray @"Left",@"Bottom",@"Right",@"Top",@"LeftTop",@"LeftBottom",@"RightTop",@"RightBottom",@"TopLeft",@"TopRight",@"BottomLeft",@"Right",@"Automatic",nil
-
 #endif
 
+typedef struct {	CGFloat tlX; CGFloat tlY;
+					CGFloat trX; CGFloat trY;
+					CGFloat blX; CGFloat blY;
+					CGFloat brX; CGFloat brY;
+} CIPerspectiveMatrix;
 
-	//extern NSString *const AZOrientName[AZOrientCount];
-
+//extern NSString *const AZOrientName[AZOrientCount];
 extern NSString *const AZMenuPositionName[AZMenuPositionCount];
-	// NSLog(@"%@", FormatTypeName[XML]);
+// NSLog(@"%@", FormatTypeName[XML]);
 
 //NSString *const FormatTypeName[FormatTypeCount] = { [JSON]=@"JSON", [XML]=@"XML", [Atom] = @"Atom", [RSS] = @"RSS", };
 

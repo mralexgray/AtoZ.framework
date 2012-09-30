@@ -10,20 +10,25 @@
 //#import "AtoZUmbrella.h"
 #import "AZObject.h"
 #import "AtoZModels.h"
+#import <Cocoa/Cocoa.h>
 
-@interface AZFolder : BaseModel
-//BaseModel <NSCopying, NSMutableCopying, NSFastEnumeration>
+@interface AZFolder : BaseModel  <BaseModel, NSCopying, NSMutableCopying, NSFastEnumeration>
 
-//@property (readonly) NSArray *files;
-//@property (readonly) NSArray *folders;
-//@property (readonly) NSArray *paths;
-//@property (readonly) NSArray *categories;
 
-+ (instancetype) appFolder;
+@property (nonatomic, retain) NSMA *backingstore;
 
-+ (instancetype) samplerWithBetween:(NSUInteger)minItems andMax:(NSUInteger)items;
 
-+ (instancetype) instanceWithFiles:(NSArray*)file;
+@property (readonly) NSArray *files;
+@property (readonly) NSUInteger count;
+@property (readonly) NSArray *folders;
+@property (readonly) NSArray *appFolder;
+@property (readonly) NSArray *categories;
+
+
++ (NSMA*) appFolder;
++ (NSMA*) samplerWithBetween:(NSUInteger)minItems andMax:(NSUInteger)items;
+
++ (instancetype) instanceWithFiles:(NSArray*)files;
 + (instancetype) instanceWithPaths:(NSArray*)strings;
 
 @end
