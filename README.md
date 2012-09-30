@@ -1,15 +1,169 @@
-#[AtoZ.framework](https://github.com/mralexgray/AtoZ.framework) 
-##The *all-inclusive cruise* of Umbrella frameworks.
-# Points about Tweedledee and Tweedledum
+[<kbd>A</kbd>to<kbd>Z</kbd>.framework](https://github.com/mralexgray/AtoZ.framework)
+-------------------------------------------------------------------------------------
+###The *all-inclusive cruise* of Umbrella frameworks.
 
-    ┌───────────────────┐
-    │  ╔═══╗ Some Text  │▒
-    │  ╚═╦═╝ in the box │▒
-    ╞═╤══╩══╤═══════════╡▒
-    │ ├──┬──┤           │▒
-    │ └──┴──┘           │▒
-    └───────────────────┘▒
-    ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒
+```CompileC /Users/localadmin/Library/Developer/Xcode/DerivedData/build/Intermediates/AtoZ.build/Debug/AtoZ.build/Objects-normal/x86_64/azCarousel.o Views/azCarousel.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler```
+    ```cd /Volumes/2T/ServiceData/AtoZ.framework/AtoZ```
+    ```setenv LANG en_US.US-ASCII```
+    ```/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c```
+    ```-arch x86_64 -fmessage-length=0 -std=c99 -fobjc-arc```
+    ```-Wno-trigraphs -fpascal-strings -Os -Wno-missing-field-initializers```
+    ```-Wno-missing-prototypes -Wno-return-type -Wno-implicit-atomic-properties```
+    ```-Wno-receiver-is-weak -Wformat -Wno-missing-braces -Wparentheses```
+    ```-Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter```
+    ```-Wno-unused-variable -Wunused-value -Wno-empty-body -Wno-uninitialized```
+    ```-Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion```
+    ```-Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector```
+    ```-Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations```
+    ```-DDEBUGTALKER=1 -isysroot /Applications/Xcode.app/.../MacOSX10.8.sdk```
+    ```-fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.6```
+    ```-g -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -I/Users/localadmin/Library/Developer/Xcode/DerivedData/build/Intermediates/AtoZ.build/Debug/AtoZ.build/AtoZ.hmap -I/Users/localadmin/Library/Developer/Xcode/DerivedData/build/Products/Debug/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Users/localadmin/Library/Developer/Xcode/DerivedData/build/Intermediates/AtoZ.build/Debug/AtoZ.build/DerivedSources/x86_64 -I/Users/localadmin/Library/Developer/Xcode/DerivedData/build/Intermediates/AtoZ.build/Debug/AtoZ.build/DerivedSources -F/Users/localadmin/Library/Developer/Xcode/DerivedData/build/Products/Debug -F/Users/localadmin/Library/Developer/Xcode/DerivedData/build/Products/Debug -F/Users/localadmin/Library/Developer/Xcode/DerivedData/build/Products/Debug/AutomagicCoding.app -F/Users/localadmin/Library/Developer/Xcode/DerivedData/build/Products/Debug/AutomagicCodingTests-NO_THROW.octest -F/Users/localadmin/Library/Developer/Xcode/DerivedData/build/Products/Debug/AutomagicCodingTests.octest -F/Users/localadmin/Library/Developer/Xcode/DerivedData/build/Products/Debug/OAuthConsumer.framework.dSYM "-F/Users/localadmin/Library/Developer/Xcode/DerivedData/build/Products/Debug/Transformed Image.app" -F/Users/localadmin/Library/Developer/Xcode/DerivedData/build/Products/Debug/TwitterPlane.app -F/Users/localadmin/Library/Developer/Xcode/DerivedData/build/Products/Debug/AutomagicCoding.app/Contents -F/Users/localadmin/Library/Developer/Xcode/DerivedData/build/Products/Debug/AutomagicCodingTests-NO_THROW.octest/Contents -F/Users/localadmin/Library/Developer/Xcode/DerivedData/build/Products/Debug/AutomagicCodingTests.octest/Contents -F/Users/localadmin/Library/Developer/Xcode/DerivedData/build/Products/Debug/OAuthConsumer.framework.dSYM/Contents "-F/Users/localadmin/Library/Developer/Xcode/DerivedData/build/Products/Debug/Transformed Image.app/Contents" -F/Users/localadmin/Library/Developer/Xcode/DerivedData/build/Products/Debug/TwitterPlane.app/Contents -F/Users/localadmin/Library/Developer/Xcode/DerivedData/build/Products/Debug/AutomagicCoding.app/Contents/MacOS -F/Users/localadmin/Library/Developer/Xcode/DerivedData/build/Products/Debug/AutomagicCoding.app/Contents/Resources -F/Users/localadmin/Library/Developer/Xcode/DerivedData/build/Products/Debug/AutomagicCodingTests-NO_THROW.octest/Contents/MacOS -F/Users/localadmin/Library/Developer/Xcode/DerivedData/build/Products/Debug/AutomagicCodingTests-NO_THROW.octest/Contents/Resources -F/Users/localadmin/Library/Developer/Xcode/DerivedData/build/Products/Debug/AutomagicCodingTests.octest/Contents/MacOS -F/Users/localadmin/Library/Developer/Xcode/DerivedData/build/Products/Debug/AutomagicCodingTests.octest/Contents/Resources -F/Users/localadmin/Library/Developer/Xcode/DerivedData/build/Products/Debug/OAuthConsumer.framework.dSYM/Contents/Resources "-F/Users/localadmin/Library/Developer/Xcode/DerivedData/build/Products/Debug/Transformed Image.app/Contents/MacOS" "-F/Users/localadmin/Library/Developer/Xcode/DerivedData/build/Products/Debug/Transformed Image.app/Contents/Resources" -F/Users/localadmin/Library/Developer/Xcode/DerivedData/build/Products/Debug/TwitterPlane.app/Contents/Frameworks -F/Users/localadmin/Library/Developer/Xcode/DerivedData/build/Products/Debug/TwitterPlane.app/Contents/MacOS -F/Users/localadmin/Library/Developer/Xcode/DerivedData/build/Products/Debug/TwitterPlane.app/Contents/Resources -F/Users/localadmin/Library/Developer/Xcode/DerivedData/build/Products/Debug/OAuthConsumer.framework.dSYM/Contents/Resources/DWARF -F/Users/localadmin/Library/Developer/Xcode/DerivedData/build/Products/Debug -Xclang -fobjc-runtime-has-weak -lobjc -sub_library libobjc -include /Users/localadmin/Library/Developer/Xcode/DerivedData/build/Intermediates/PrecompiledHeaders/AtoZ-Prefix-azyuvasafkyfgnfurbesiaqyitzf/AtoZ-Prefix.pch -MMD -MT dependencies -MF /Users/localadmin/Library/Developer/Xcode/DerivedData/build/Intermediates/AtoZ.build/Debug/AtoZ.build/Objects-normal/x86_64/azCarousel.d --serialize-diagnostics /Users/localadmin/Library/Developer/Xcode/DerivedData/build/Intermediates/AtoZ.build/Debug/AtoZ.build/Objects-normal/x86_64/azCarousel.dia -c /Volumes/2T/ServiceData/AtoZ.framework/AtoZ/Views/azCarousel.m -o /Users/localadmin/Library/Developer/Xcode/DerivedData/build/Intermediates/AtoZ.build/Debug/AtoZ.build/Objects-normal/x86_64/azCarousel.o
+```
+clang: warning: -lobjc: 'linker' input unused when '-c' is present
+clang: warning: argument unused during compilation: '-sub_library libobjc'
+fatal error: file '/Volumes/2T/ServiceData/AtoZ.framework/AtoZ/AtoZ-Prefix.pch' has been modified since the precompiled header was built
+1 error generated.
+```
+
+* SHA: be6a8cc1c1ecfe9489fb51e4869af15a13fc2cd2
+* User@SHA ref: mojombo@be6a8cc1c1ecfe9489fb51e4869af15a13fc2cd2
+* User/Project@SHA: mojombo/god@be6a8cc1c1ecfe9489fb51e4869af15a13fc2cd2
+* \#Num: #1
+* User/#Num: mojombo#1
+* User/Project#Num: mojombo/god#1
+
+These are dangerous goodies though, and we need to make sure email addresses don't get mangled:
+
+My email addy is tom@github.com.
+
+Math is hard, let's go shopping
+-------------------------------
+
+In first grade I learned that 5 > 3 and 2 < 7. Maybe some arrows. 1 -> 2 -> 3. 9 <- 8 <- 7.
+
+Triangles man! a^2 + b^2 = c^2
+
+We all like making lists
+------------------------
+
+The above header should be an H2 tag. Now, for a list of fruits:
+
+* Red Apples
+* Purple Grapes
+* Green Kiwifruits
+
+Let's get crazy:
+
+1.  This is a list item with two paragraphs. Lorem ipsum dolor
+    sit amet, consectetuer adipiscing elit. Aliquam hendrerit
+    mi posuere lectus.
+
+    Vestibulum enim wisi, viverra nec, fringilla in, laoreet
+    vitae, risus. Donec sit amet nisl. Aliquam semper ipsum
+    sit amet velit.
+
+2.  Suspendisse id sem consectetuer libero luctus adipiscing.
+
+What about some code **in** a list? That's insane, right?
+
+1. In Ruby you can map like this:
+
+        ['a', 'b'].map { |x| x.uppercase }
+
+2. In Rails, you can do a shortcut:
+
+        ['a', 'b'].map(&:uppercase)
+
+Some people seem to like definition lists
+
+<dl>
+  <dt>Lower cost</dt>
+  <dd>The new version of this product costs significantly less than the previous one!</dd>
+  <dt>Easier to use</dt>
+  <dd>We've changed the product so that it's much easier to use!</dd>
+</dl>
+
+I am a robot
+------------
+
+Maybe you want to print `robot` to the console 1000 times. Why not?
+
+    def robot_invasion
+      puts("robot " * 1000)
+    end
+
+You see, that was formatted as code because it's been indented by four spaces.
+
+How about we throw some angle braces and ampersands in there?
+
+    <div class="footer">
+        &copy; 2004 Foo Corporation
+    </div>
+
+Set in stone
+------------
+
+Preformatted blocks are useful for ASCII art:
+
+<pre>
+             ,-. 
+    ,     ,-.   ,-. 
+   / \   (   )-(   ) 
+   \ |  ,.>-(   )-< 
+    \|,' (   )-(   ) 
+     Y ___`-'   `-' 
+     |/__/   `-' 
+     | 
+     | 
+     |    -hrr- 
+  ___|_____________ 
+</pre>
+
+Playing the blame game
+----------------------
+
+If you need to blame someone, the best way to do so is by quoting them:
+
+> I, at any rate, am convinced that He does not throw dice.
+
+Or perhaps someone a little less eloquent:
+
+> I wish you'd have given me this written question ahead of time so I
+> could plan for it... I'm sure something will pop into my head here in
+> the midst of this press conference, with all the pressure of trying to
+> come up with answer, but it hadn't yet...
+>
+> I don't want to sound like
+> I have made no mistakes. I'm confident I have. I just haven't - you
+> just put me under the spot here, and maybe I'm not as quick on my feet
+> as I should be in coming up with one.
+
+Table for two
+-------------
+
+<table>
+  <tr>
+    <th>ID</th><th>Name</th><th>Rank</th>
+  </tr>
+  <tr>
+    <td>1</td><td>Tom Preston-Werner</td><td>Awesome</td>
+  </tr>
+  <tr>
+    <td>2</td><td>Albert Einstein</td><td>Nearly as awesome</td>
+  </tr>
+</table>
+
+Crazy linking action
+--------------------
+
+I get 10 times more traffic from [Google] [1] than from
+[Yahoo] [2] or [MSN] [3].
+
+  [1]: http://google.com/        "Google"
+  [2]: http://search.yahoo.com/  "Yahoo Search"
+  [3]: http://search.msn.com/    "MSN Search"
+  
+# Points about Tweedledee and Tweedledum
  
 Much has been made of the curious features of 
 Tweedledee and Tweedledum.  We propose here to
@@ -164,8 +318,8 @@ Useful git commands for dealing with the nested submodules..
 =============================================================
 ###[PLWeakCompatibility](https://github.com/mralexgray/PLWeakCompatibility)
 
-
-
+[NSUserDefaults+Subscript](https://github.com/asmallteapot/NSUserDefaults-Subscript)
+ provides access to preferences using Objective-C’s subscript syntax.]
 # FunSize: Cocoa, but smaller.
 
 FunSize is an Objective-C framework comprised entirely of categories and intended to make Cocoa code shorter, while maintaining expressiveness. Here are a few approaches taken:
@@ -415,8 +569,8 @@ This example checks if all or any elements in the collection are even numbers
     NSLog(@"Only even numbers : Array %d - Dict %d", [numberArray isValidForAll:isEvenArrayBlock], [numberDict isValidForAll:isEvenDictBlock]);
     # pragma mark - isValidForAny
     NSLog(@"Any even numbers : Array %d - Dict %d", [numberArray isValidForAny:isEvenArrayBlock], [numberDict isValidForAny:isEvenDictBlock]);
-
 ```
+
 ##countValidEntries
 
 Counts the number of entries in a set, for which the given block returns true:
@@ -622,3 +776,8 @@ Unsure about your rights?  [Read more.](http://zwaldowski.github.com/BlocksKit/i
 
 All of the included code is licensed either under BSD, MIT, or is in the public domain. A full list of contributors exists on the [project page](http://zwaldowski.github.com/BlocksKit/index.html#contributors). Individual credits exist in the header files and documentation. We thank them for their contributions to the open source community.
 
+▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒
+
+<pre>
+▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒
+</pre>

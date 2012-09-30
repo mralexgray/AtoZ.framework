@@ -35,6 +35,21 @@ static NSMutableDictionary *keyNames = nil, *nillableKeyNames = nil;
 
 @implementation BaseModel
 
+- (void)enumerateObjectsUsingBlock:(void (^)(id obj, NSUInteger idx, BOOL *stop))block {
+
+	[_backingstore enumerateObjectsUsingBlock:^(id objectTwo, NSUInteger idx, BOOL *stop){
+			block(objectTwo);
+	}];
+}
+- (void)enumerateObjectsWithOptions:(NSEnumerationOptions)opts usingBlock:(void (^)(id obj, NSUInteger idx, BOOL *stop))
+
+
+- (void)makeObjectsPerformSelector
+//- (void)makeObjectsPerformSelector:(SEL)selector withObject:()
+	//enumerateObjectsUsingBlock:
+	//or enumerateObjectsWithOptions:usingBlock:
+
+
 - (id) objectAtIndexedSubscript: (NSInteger) index {
 	if (!_usesBackingStore) {
 			AZLOG(@"warning.. no backing store.  Changes not made");
@@ -765,4 +780,34 @@ static BOOL loadingFromResourceFile = NO;
 	[self writeToDescription:description withIndent:1];
 	return description;
 }
+
+
+
++ (id)retrieve:(NSString *)key
+{
+    return [NSKeyedUnarchiver unarchiveObjectWithFile:$(@"%@/%@.archive",
+		NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0], key)];
+}
+
++ (BOOL)persist:(id)object key:(NSString *)key
+{
+    return [NSKeyedArchiver archiveRootObject:object toFile: $(@"%@/%@.archive",
+		NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0], key)];
+}
+
++ (BOOL)delete:(NSString *)key
+{
+    return [AZFILEMANAGER removeItemAtPath: $(@"%@/%@.archive",
+		NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0], key) error:NULL];
+}
+
++ (BOOL)deleteEverything {
+
+	__block BOOL stop;
+	[[AZFILEMANAGER contentsOfDirectoryAtPath:NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0] error:NULL] az_each:^(id obj, NSUInteger index, BOOL *stop) {
+		*stop = [AZFILEMANAGER removeItemAtPath:obj error:NULL];
+    }];
+	return stop;
+}
+
 @end

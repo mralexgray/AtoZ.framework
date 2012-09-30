@@ -1,19 +1,13 @@
 
 //  AppDelegate.m
 //  DeskNotation
-
 //  Created by Steven Degutis on 6/27/09.
-//  Copyright 2009 8th Light. All rights reserved.
-
-
 #import "EncyclopediaDelegate.h"
 #import "SDNoteWindowController.h"
 #import "SDGeneralPrefPane.h"
 #import <AtoZ/AtoZ.h>
 
-
 @interface EncyclopediaDelegate (Private)
-
 - (void) createNoteWithDictionary:(NSDictionary*)dictionary;
 - (void) loadNotes;
 - (void) saveNotes;
@@ -25,26 +19,21 @@
 - (id) init {
 	if (self = [super init]) {
 		self.noteControllers = [NSMutableArray array];// retain];
-//		self.at = [[AZAttachedWindow alloc]initWithView:self.s attachedToPoint:AZCenterOfRect(AZMenuBarFrame()) atDistance: 11];
+		self.at = [[AZAttachedWindow alloc]initWithView:self.s attachedToPoint:AZCenterOfRect(AZMenuBarFrame()) atDistance: 11];
 	}
 	return self;
 }
 
 - (void) awakeFromNib {
 	statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength];
-	[statusItem setImage:[NSImage systemImages].randomElement];
-	// [NSImage imageNamed:@"atoz"]];//statusimage"]];
-	[statusItem setAlternateImage:[NSImage systemImages].randomElement];
-//[NSImage imageNamed:@"statusimage_pressed"]];
-	[statusItem setHighlightMode:YES];
-	[statusItem setMenu:statusMenu];
-//	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mouseMoved) name:@"mouseMoved" object:nil];
+	statusItem.image 			= [[NSImage imageInFrameworkWithFileName:@"atoz.icns"]scaledToMax:22];  //statusimage
+	statusItem.alternateImage	= [NSImage icons].randomElement; //[NSImage imageNamed:@"statusimage_pressed"]];
+	statusItem.highlightMode		= YES;
+	statusItem.menu				= statusMenu;
 		// Get the shielding window level
-		//		NSInteger windowLevel =
-		//		CGShieldingWindowLevel();
+		//		NSInteger windowLevel = CGShieldingWindowLevel();
 		// Get the screen rect of our main display
 	NSRect screenRect = [[NSScreen mainScreen] frame];
-
 		// Put up a new window
 	self.mainWindow = [[NSWindow alloc] initWithContentRect:screenRect
 												  styleMask:NSBorderlessWindowMask
@@ -108,24 +97,16 @@
 }
 
 
-- (void) mouseMoved {
-
-	NSLog(@"mousse mpves:  app deleahe");
-}
+- (void) mouseMoved { NSLog(@"mousse mpves:  app deleahe"); }
 
 // app delegate methods
-
-
 - (void) applicationDidFinishLaunching:(NSNotification*)notification {
-
-
-	NSArray *s = [AtoZ dock];
-	[s az_each:^(id obj, NSUInteger index, BOOL *stop) {
-		NSLog(@"%@", [obj propertiesPlease]);
-	}];
+//	NSArray *s = [AtoZ dock];
+	NSArray *s = [AZFolder appFolder].copy;
+	[s eachWithIndex:^(id obj, NSInteger idx) { NSLog(@"%@", [obj propertiesPlease]); }];
 	
 	NSRect r = [[_mainWindow contentView] frame];
-	AZFileGridView *g = [[AZFileGridView alloc]initWithFrame:r andFiles:s.copy];
+	AZFileGridView *g = [[AZFileGridView alloc]initWithFrame:r andFiles:s];
 //	[[_mainWindow contentView] addSubview:g];
 
 //	[_mainWindow makeKeyAndOrderFront:nil];
@@ -161,8 +142,9 @@
 	CGFloat f = AZPerimeter(  AZScreenFrame());
 	int unit = floor([AtoZ dockSorted].count / f);
 
-	[[AtoZ dockSorted] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-		NSImageView *k = [[NSImageView alloc]initWithFrame:(NSRect) { idx * unit, 0, unit, unit} ];
+//	[[AtoZ dockSorted]
+	 [[AZFolder appFolder] eachWithIndex:^(id obj, NSInteger i){
+		NSImageView *k = [[NSImageView alloc]initWithFrame:(NSRect) { i * unit, 0, unit, unit} ];
 		k.image = [obj valueForKey:@"image"];
 		[_view addSubview: k];
 		[k setNeedsDisplay:YES];

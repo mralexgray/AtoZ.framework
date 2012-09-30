@@ -6,7 +6,11 @@
 //#import "AtoZ.h"
 
 
-#define NSLog(args...) _AZSimpleLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args);
+//PUT IN PRECOMP #define NSLog(args...) _AZSimpleLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args);
+
+
+
+
 //NS_INLINE  void QuietLog (const char *file, int lineNumber, const char *funcName, NSString *format, ...);
 //#define NSLog(args...) QuietLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args)
 //NS_INLINE void _AZLog(const char *file, int lineNumber, const char *funcName, NSString *format,...);
@@ -17,7 +21,6 @@
 //static inline NSRect convertToNSRect(CGRect rect) { 	return *(const NSRect *)&rect;	}
 //static inline NSPoint convertToNSPoint(CGPoint point) {	return *(const NSPoint *)&point;	}
 //static inline CGPoint convertToCGPoint(NSPoint point) {	return *(const CGPoint *)&point;	}
-extern void _AZSimpleLog(const char *file, int lineNumber, const char *funcName, NSString *format,...);
 
 extern BOOL IsEmpty(id obj);
 

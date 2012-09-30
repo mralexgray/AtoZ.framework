@@ -11,7 +11,8 @@
 #import "AZObject.h"
 #import "AtoZModels.h"
 
-@interface AZFolder : BaseModel <NSCopying, NSMutableCopying, NSFastEnumeration>
+@interface AZFolder : BaseModel
+//BaseModel <NSCopying, NSMutableCopying, NSFastEnumeration>
 
 //@property (readonly) NSArray *files;
 //@property (readonly) NSArray *folders;
@@ -20,10 +21,10 @@
 
 + (instancetype) appFolder;
 
-+ (NSArray *) samplerWithBetween:(NSUInteger)minItems andMax:(NSUInteger)items;
++ (instancetype) samplerWithBetween:(NSUInteger)minItems andMax:(NSUInteger)items;
 
-+ (AZFolder*) instanceWithFiles:(NSArray*)file;
-+ (AZFolder*) instanceWithPaths:(NSArray*)strings;
++ (instancetype) instanceWithFiles:(NSArray*)file;
++ (instancetype) instanceWithPaths:(NSArray*)strings;
 
 @end
 

@@ -110,15 +110,7 @@ extern NSString *const BaseModelSharedInstanceUpdatedNotification;
 @interface BaseModel : NSObject
 <BaseModel, NSCoding, NSCopying, NSFastEnumeration>
 
-@property (nonatomic, strong) NSMutableArray *backingstore;
 
-- (NSMA*)nmap:(id (^)(id obj, NSUInteger index))block;
-- (void) eachWithIndex:(VoidIteratorArrayWithIndexBlock) block;
-- (NSMA *) map:(MapArrayBlock) block;
-- (NSMA *) filter:(BoolArrayBlock) block;
-
-- (NSString*)saveInstanceInAppSupp;
-+ (instancetype)instanceWithID:(NSString*)uniqueID;
 
 //new autoreleased instance
 + (instancetype)instance;
@@ -169,11 +161,31 @@ extern NSString *const BaseModelSharedInstanceUpdatedNotification;
 //to your preprocessor macros in the project build settings
 @property (nonatomic, strong) NSString *uniqueID;
 
-- (id) objectAtIndexedSubscript: (NSInteger) index;
-- (void) setObject: (id) thing;
+
+
+//- (void)enumerateObjectsUsingBlock:(void (^)(id obj, NSUInteger idx, BOOL *stop))block;
+//- (id) objectAtIndexedSubscript: (NSInteger) index;
+//- (void) setObject: (id) thing;
 - (id)objectForKeyedSubscript:(NSString *)key;
 - (void)setObject:(id)object forKeyedSubscript:(NSString *)key;
 
 //#endif
+
+@property (nonatomic, strong) NSMutableArray *backingstore;
+
+- (void) eachWithIndex:(VoidIteratorArrayWithIndexBlock) block;
+- (instancetype) map:(MapArrayBlock) block;
+- (instancetype) nmap:(id (^)(id obj, NSUInteger index))block;
+- (NSArray*) filter:(BoolArrayBlock) block;
+- (NSString*) saveInstanceInAppSupp;
++ (instancetype) instanceWithID:(NSString*)uniqueID;
+
+
+	// NSCODING extras
++ (id)retrieve:(NSString *)key;
++ (BOOL)persist:(id)object key:(NSString *)key;
++ (BOOL)delete:(NSString *)key;
++ (BOOL)deleteEverything;
+
 
 @end

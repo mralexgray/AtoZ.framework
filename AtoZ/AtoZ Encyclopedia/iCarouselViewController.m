@@ -184,6 +184,7 @@
 		else if ([object isKindOfClass:[AZLassoView class]]) return YES;
 		else return NO;
 	}] az_each:^(AZLassoView* obj, NSUInteger index, BOOL *stop) {
+		AZLOG(@"Ridem cowboy")
 		obj.selected = NO;
 	}];
 
@@ -227,7 +228,7 @@
 		else if ([object isKindOfClass:[AZLassoView class]]) return YES;
 		else return NO;
 	}] az_each:^(AZLassoView* obj, NSUInteger index, BOOL *stop) {
-		obj.hovered = NO;
+		AZLOG(@"remove the rope");  obj.hovered = NO;
 	}];
 
 }

@@ -22,3 +22,6 @@
 [submodule "Frameworks/PLWeakCompatibility"]
 	path = Frameworks/PLWeakCompatibility
 	url = https://github.com/mralexgray/PLWeakCompatibility.git
+[submodule "AtoZ/Categories/NSUserDefaults-Subscript"]
+	path = AtoZ/Categories/NSUserDefaults-Subscript
+	url = https://github.com/asmallteapot/NSUserDefaults-Subscript.git

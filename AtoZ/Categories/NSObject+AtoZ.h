@@ -11,12 +11,6 @@
 #import "AtoZ.h"
 
 
-@interface NSUserDefaults (Subscript)
-+ (NSUserDefaults*) defaults;
-//- (id) 	objectForKeyedSubscript:	(NSString*) key;
-- (void) setObject:	(id) newValue forKeyedSubscription:	(NSString*) key;
-@end;
-
 //  HRCoder.h
 //  Version 1.0
 //  Created by Nick Lockwood on 24/04/2012.

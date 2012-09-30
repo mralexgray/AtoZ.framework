@@ -18,6 +18,12 @@
 // ==============================================================
 @implementation AZStopwatch
 
+
++ (void) named:(NSString*)name block:(void (^)())block
+{
+	[AZStopwatch stopwatch:name timing:block];
+}
+
 //+(void)stopwatch:(NSString*)stopwatch aroundBlock:(void (^)())block;
 + (void) stopwatch:(NSString*)name timing:(void (^)())block
 {

@@ -13,18 +13,6 @@
 
 
 
-@implementation NSUserDefaults (Subscript)
-+ (NSUserDefaults *)defaults {
-	return [NSUserDefaults standardUserDefaults];
-}
-	//- (id)objectForKeyedSubscript:(NSString *)key {
-	//	return [self objectForKey:key];
-	//}
-	//- (void)setObject:(id)newValue forKeyedSubscription:(NSString *)key {
-	//	[self setObject:newValue forKey:key];
-	//}
-@end
-
 
 @implementation NSObject (AutoCoding)
 

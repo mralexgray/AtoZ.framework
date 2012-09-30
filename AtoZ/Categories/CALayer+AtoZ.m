@@ -836,68 +836,27 @@ CG_INLINE CATransform3D CATransform3DMake( CGFloat m11, CGFloat m12, CGFloat m13
 
 
 
-//- (void) flipHorizontally {	[self flipForward:YES vertically:NO atPosition:99]; }
-//- (void) flipVertically;  {	[self flipForward:YES vertically:YES atPosition:99]; }
-- (void) flipBackAtEdge:	(AZWindowPosition)position;{  	[self flipForward:NO  atPosition:position];  }
-- (void) flipForwardAtEdge: (AZWindowPosition)position;{  	[self flipForward:YES  atPosition:position]; }
-
-
-- (CATransform3D) flipAnimationPositioned:(AZWindowPosition)pos {
-	CGPoint dir = (CGPoint) {   pos == AZPositionTop || pos ==AZPositionBottom ? 1 : 0,
-								pos == AZPositionTop || pos ==AZPositionBottom ? 0 : 1 };
-	CATransform3D flip = CATransform3DMakeRotation(DEG2RAD(180), dir.x, dir.y, 0.0f);
-
-	if ( ![self boolForKey:@"flippedOver"] ) {
-		CATransform3D now = self.transform;
-		[self setValue:AZV3d(now) forKey:@"savedTransform"];
-		[self setBool:YES forKey:@"flippedOver"];
-		return CATransform3DConcat(now, flip);
-	} else {
-		[self setBool:NO forKey:@"flippedOver"];
-		 return [[self valueForKey:@"savedTransform"]CATransform3DValue];
-	}
-}
-- (void) flipForward:(BOOL)forward  atPosition:(AZWindowPosition)pos {
-
-
-	CGPoint new = AZAnchorPointForPosition(pos);
-#ifdef DEBUGTALKER
-//	AZTALK($(@"Old: %.1f by %.1f and new is: %.1f by %.1f", self.anchorPoint.x, self.anchorPoint.y, new.x, new.y));
-#endif
-	[self setAnchorPoint:new inRect:[self bounds]];
-
-	[self animate:@"transform" toTransform:[self flipAnimationPositioned:pos] time:1 eased:CAMEDIAEASY];// completion:^{
-
-//		BOOL newFlipState = [self valueForKey:@"flippedOver"] ? ![self boolForKey:@"flippedOver"] : YES;
-#ifdef DEBUGTALKER
-//	AZTALK($(@"%@ flipped", newFlipState ? @"IS" : @"is NOT "));
-#endif
-
-//	}];
-//	AZLOG([self debugDescription]);
-}
-
-
 - (void) setAnchorPoint: (CGPoint) anchorPoint inView: (NSView *) view{
 	[self setAnchorPoint:anchorPoint inRect:[view bounds]];
 }
-
 - (void) setAnchorPointRelative: (CGPoint) anchorPoint{
 	[self setAnchorPoint:anchorPoint inRect:[self bounds]];
 }
-
-
 - (void) setAnchorPoint: (CGPoint) anchorPoint inRect:(NSRect)rect
 {
     CGPoint newPoint = (CGPoint) { rect.size.width * anchorPoint.x, rect.size.height * anchorPoint.y };
     CGPoint oldPoint = (CGPoint) { rect.size.width * self.anchorPoint.x, rect.size.height * self.anchorPoint.y };
-//    newPoint = CGPo CGPointApplyAffineTransform(newPoint, self.transform); oldPoint = CGPointApplyAffineTransform(oldPoint, self.transform);
+		//    newPoint = CGPo CGPointApplyAffineTransform(newPoint, self.transform); oldPoint = CGPointApplyAffineTransform(oldPoint, self.transform);
 	CGPoint position = self.position;
     position.x -= oldPoint.x;	position.x += newPoint.x;
     position.y -= oldPoint.y;	position.y += newPoint.y;
 	self.position = position;
     self.anchorPoint = anchorPoint;
 }
+	//- (void) flipHorizontally {	[self flipForward:YES vertically:NO atPosition:99]; }
+	//- (void) flipVertically;  {	[self flipForward:YES vertically:YES atPosition:99]; }
+- (void) flipBackAtEdge:    (AZWindowPosition)position;{ [self flipForward:NO  atPosition: position]; }
+- (void) flipForwardAtEdge: (AZWindowPosition)position;{ [self flipForward:YES atPosition: position]; }
 
 - (void) toggleFlip  {        //:(CATransform3D)transform {
 	BOOL isFlipped = [[self valueForKey:@"flipped"]boolValue];
@@ -923,6 +882,41 @@ CG_INLINE CATransform3D CATransform3DMake( CGFloat m11, CGFloat m12, CGFloat m13
 	transform.m34 = 1.0/700.0;
     self.transform =  CATransform3DRotate(transform, 180 * M_PI/180, -1, 0, 0);
 }
+
+- (CATransform3D) flipAnimationPositioned:(AZWindowPosition)pos {
+	CGPoint dir = (CGPoint) {   pos == AZPositionTop || pos ==AZPositionBottom ? 1 : 0,
+								pos == AZPositionTop || pos ==AZPositionBottom ? 0 : 1 };
+	CATransform3D flip = CATransform3DMakeRotation(DEG2RAD(180), dir.x, dir.y, 0.0f);
+
+	if ( ![self boolForKey:@"flipped"] ) {
+		CATransform3D now = self.transform;
+		[self setValue:AZV3d(now) forKey:@"savedTransform"];
+		[self setBool:YES forKey:@"flipped"];
+		return CATransform3DConcat(now, flip);
+	} else {
+		[self setBool:NO forKey:@"flipped"];
+		return [self[@"savedTransform"]CATransform3DValue];
+	}
+}
+
+
+- (void) flipForward:(BOOL)forward  atPosition:(AZWindowPosition)pos {
+	CGPoint calcedAnchor = AZAnchorPointForPosition(pos);
+#ifdef DEBUGTALKER
+//	AZTALK($(@"Old: %.1f by %.1f and new is: %.1f by %.1f", self.anchorPoint.x, self.anchorPoint.y, new.x, new.y));
+#endif
+	[self setAnchorPoint:calcedAnchor inRect:self.bounds];
+	[self animate:@"transform" toTransform:[self flipAnimationPositioned:pos] time:1 eased:CAMEDIAEASY];
+	// completion:^{
+//		BOOL newFlipState = [self valueForKey:@"flippedOver"] ? ![self boolForKey:@"flippedOver"] : YES;
+#ifdef DEBUGTALKER
+//	AZTALK($(@"%@ flipped", newFlipState ? @"IS" : @"is NOT "));
+#endif
+//	}];
+//	AZLOG([self debugDescription]);
+}
+
+
 
 
 - (void) setScale: (CGFloat) scale {

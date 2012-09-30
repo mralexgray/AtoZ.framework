@@ -1,6 +1,5 @@
 // Prefix header for all source files of the 'AtoZ' target in the 'AtoZ' project
 
-
 #ifdef __OBJC__
 //#if TARGET_OS_IPHONE
 //	#import <UIKit/UIKit.h>
@@ -10,75 +9,13 @@
 //	typedef UIColor NSColor;
 //#else
 	#import <Cocoa/Cocoa.h>
+	#import <Foundation/Foundation.h>
 	#import <QuartzCore/QuartzCore.h>
 	#import <objc/runtime.h>
 	#import <Carbon/Carbon.h>
 	#import <AppKit/AppKit.h>
-	#import <FunSize/FunSize.h>
-	#import "BaseModel.h"
-	#import "AZObject.h"
-	#import "F.h"
-	#import "AZGeometricFunctions.h"
-
-	#import "AZObject.h"
-	#import "AZFile.h"
-	#import "AZGeometry.h"
-	#import	"AtoZUmbrella.h"
-	#import "AtoZFunctions.h"
-	#import "AtoZModels.h"
-	#import "AtoZ.h"
-	#import "AZTalker.h"
-
-//#define NSLog(__VA_ARGS__) NSLog(@"[%s:%d]: %@", __FILE__, __LINE__, [NSString stringWithFormat:__VA_ARGS__])
 
 
-	//	#define NSLog(args...) QuietLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args)
-//#define NSLog(...) qlog(format,...) {\
-
-
-//#else
-//# define NSLog(…) /* */
-//#endif
-
-//#define NSLog(...) NSLog(__VA_ARGS__) {\
-//va_list argList;\
-//va_start(argList, format);\
-//NSString *file = [[NSString stringWithUTF8String:__FILE__] lastPathComponent]; \
-//printf("%s:%d - ", [file UTF8String], __LINE__); \
-//QuietLog((format),##__VA_ARGS__); \
-//}
-
-//if (format == nil) {	printf("nil\n"); return; }\
-//va_list argList;\
-//va_start(argList, format);\
-//NSString *s = [[NSString alloc] initWithFormat:format arguments:argList];\
-//printf("%s\n", [[s stringByReplacingOccurrencesOfString:@"%%" withString:@"%%%%"] UTF8String]);\
-//[s release];\
-//va_end(argList);\
-//}
-
-//{ \
-//NSString *file = [[NSString stringWithUTF8String:__FILE__] lastPathComponent]; \
-//printf("%s:%d - ", [file UTF8String], __LINE__); \
-//QuietLog((format),##__VA_ARGS__); \
-//}
-	//	#define NSLog(format,...) { \
-//	NSString *file = [[NSString stringWithUTF8String:__FILE__] lastPathComponent]; \
-//	printf("%s:%d - ", [file UTF8String], __LINE__); \
-//	QuietLog((format),##__VA_ARGS__);	}
-
-
-//	#import <FunSize/FunSize.h>
-
-//	#import	"AZGeometry/AZGeometry.h"
-//	#import "AtoZ.h"
-//
-//	#import <ApplicationServices/ApplicationServices.h>
-//	#import <AppKit/AppKit.h>
-//	#import <AudioToolbox/AudioToolbox.h>
-//	#import <QuartzCore/QuartzCore.h>
-
-//#endif
 #endif
 
 

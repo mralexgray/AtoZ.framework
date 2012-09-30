@@ -25,7 +25,13 @@
 @implementation AZFolder
 
 
-+ (instancetype) instanceWithItems:(NSArray*)items {
++ (AZFolder*) samplerWithBetween:(NSUInteger)minItems andMax:(NSUInteger)items;
+{
+	NSMA*applications = [NSMA array]; ApplicationsInDirectory(@"/Applications",applications);
+	return [AZFolder instanceWithPaths:[applications randomSubarrayWithSize:(items - minItems)]];
+}
+
++ (id) instanceWithItems:(NSArray*)items {
 	return [items[0]  isKindOfClass:[AZFile class]]
 		 ? [[self class]instanceWithFiles:items]
 		 : [[self class]instanceWithPaths:items];
@@ -42,18 +48,17 @@
 //	AZFolder *newBook = [[self class] instanceWithItems:self.items.mutableCopy];
 //	return newBook;
 //}
-+ (instancetype) instanceWithFiles:(NSArray*)files {
-	AZFolder *me = [[self class]instance];
-	me.backingstore  = files.mutableCopy;
-	return me;
++ (id) instanceWithFiles:(NSArray*)files {
+	AZFolder *me = [[self class]array];
+//	me.backingstore  = files.mutableCopy;
+	return me = files.mutableCopy;
 }
 
-+ (instancetype) instanceWithPaths:(NSArray*)paths {
-	AZFolder *me = [[self class]instance];
-	me.backingstore  = [paths map:^id(id obj) {
++ (id) instanceWithPaths:(NSArray*)paths {
+	AZFolder *me. = [[self class] instance];//instancesWithArray:paths];
+	return me.ba = [paths map:^id(id obj) {
 		return  [AZFile instanceWithPath:obj];
 	}].mutableCopy;
-	return me;
 }
 
 + (instancetype) appFolder {
@@ -66,19 +71,6 @@
 
 }
 
-- (NSArray*) appCategories {
-		//	static NSArray *cats;
-		//    if (cats == nil) {
-	return  @[ 	@"Games",		@"Education",		@"Entertainment",	@"Books",	@"Lifestyle",
-	@"Utilities",	@"Business", 		@"Travel",			@"Music", 	@"Reference",
-	@"Sports",		@"Productivity",	@"News", 			@"Healthcare & Fitness",
-	@"Photography", @"Finance", 		@"Medical", 			@"Social Networking",
-	@"Navigation",	@"Weather",			@"Catalogs", 		@"Food & Drink",
-	@"Newsstand" ];
-		//[NSArray alloc] initWithObjects:kCategoryNames count:23];
-		//    }
-		//    return cats;
-}
 
 
 //@interface  NSArray (SubscriptsAdd)

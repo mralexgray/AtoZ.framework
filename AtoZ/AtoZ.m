@@ -72,7 +72,9 @@
 //
 //	return [AZAppFolder sharedInstance].appCategories;
 //}
-//
++ (NSArray*) appCategories {		static NSArray *cats;  return cats = cats ? cats :
+	@[	@"Games", @"Education", @"Entertainment", @"Books", @"Lifestyle", @"Utilities", @"Business", @"Travel", @"Music", @"Reference", @"Sports", @"Productivity", @"News", @"Healthcare & Fitness", @"Photography", @"Finance", @"Medical", @"Social Networking", @"Navigation", @"Weather", @"Catalogs", @"Food & Drink", @"Newsstand" ];
+}
 
 	//{//	__weak AZSimpleView *e;
 	//}

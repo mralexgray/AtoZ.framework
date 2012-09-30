@@ -1,3 +1,26 @@
+//NS_INLINE void _AZSimpleLog(const char *file, int lineNumber, const char *funcName, NSString *format,...);
+
+NS_INLINE void _AZSimpleLog(const char *file, int lineNumber, const char *funcName, NSString *format,...){
+	va_list argList;
+	va_start (argList, format);
+	NSString *path = [[NSString stringWithUTF8String:file] lastPathComponent];
+	NSString *message = [[NSString alloc] initWithFormat:format arguments:argList];
+	fprintf (stderr, "[%s]:%i %s \n", [path UTF8String], lineNumber, [message UTF8String]);
+	va_end  (argList);
+		//	const char *threadName = [[[NSThread currentThread] name] UTF8String];
+}
+
+#define NSLog(args...) _AZSimpleLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args);
+
+#define kIMAGE @"image"
+#define kCOLOR @"color"
+#define kINDEX @"index"
+#define kLAYER @"layer"
+#define kPOS   @"position"
+#define kPSTRING @"pString"
+#define kSTRING @"string"
+#define kFRAME 	@"frame"
+#define kHIDE 	@"hide"
 
 #define AZFWORKBUNDLE [NSBundle bundleForClass:[AtoZ class]]
 #define AZMAINBUNDLE [NSBundle mainBundle]

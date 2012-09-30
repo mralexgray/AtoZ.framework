@@ -14,6 +14,16 @@
 #import <sys/time.h>
 
 
+//void _AZSimpleLog(const char *file, int lineNumber, const char *funcName, NSString *format,...){
+// va_list argList;
+// va_start (argList, format);
+// NSString *path = [[NSString stringWithUTF8String:file] lastPathComponent];
+// NSString *message = [[NSString alloc] initWithFormat:format arguments:argList];
+// fprintf (stderr, "[%s]:%i %s \n", [path UTF8String], lineNumber, [message UTF8String]);
+// va_end  (argList);
+// //	const char *threadName = [[[NSThread currentThread] name] UTF8String];
+//}
+
 
 @implementation NSValue (AZWindowPosition)
 
@@ -136,15 +146,6 @@ void trackMouse() {
 	//static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 
-void _AZSimpleLog(const char *file, int lineNumber, const char *funcName, NSString *format,...){
-	va_list argList;
-	va_start (argList, format);
-	NSString *path = [[NSString stringWithUTF8String:file] lastPathComponent];
-	NSString *message = [[NSString alloc] initWithFormat:format arguments:argList];
-	fprintf (stderr, "[%s]:%i %s \n", [path UTF8String], lineNumber, [message UTF8String]);
-	va_end  (argList);
-//	const char *threadName = [[[NSThread currentThread] name] UTF8String];
-}
 //
 //void _AZLog(const char *file, int lineNumber, const char *funcName, NSString *format,...) {
 //	va_list arglist;
