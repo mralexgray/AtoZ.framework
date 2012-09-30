@@ -1,5 +1,8 @@
 Documentation
 .gitignore
+AtoZ.xcworkspace/xcuserdata/*
+AtoZ/Resources/Frameworks/*
+Frameworks/*
 AtoZ/AtoZiTunes.frameworkFrameworks/Cocotron/
 Frameworks/Cocotron
 # Xcode
@@ -20,3 +23,4 @@ profile
 *.moved-aside
 .DS_Store
 Notes.txt
+*Breakpoints
