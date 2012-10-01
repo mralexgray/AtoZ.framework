@@ -1,27 +1,36 @@
 [submodule "AtoZ/Categories/Functional"]
 	path = AtoZ/Categories/Functional
 	url = https://github.com/mralexgray/Functional.m.git
+	ignore = dirty
 [submodule "Frameworks/FunSize.framework"]
 	path = Frameworks/FunSize.framework
 	url = https://github.com/mralexgray/FunSize.git
+	ignore = dirty
 [submodule "Frameworks/CoreScroll"]
 	path = Frameworks/CoreScroll
 	url = https://github.com/mralexgray/CoreScroll.git
+	ignore = dirty
 [submodule "Frameworks/BlocksKit"]
 	path = Frameworks/BlocksKit
 	url = https://github.com/mralexgray/BlocksKit.git
+	ignore = dirty
 [submodule "AtoZ/Classes/Lorem-Ipsum"]
 	path = AtoZ/Classes/Lorem-Ipsum
 	url = git://github.com/dav/Objective-C-Lorem-Ipsum-Generator.git
+	ignore = dirty
 [submodule "Frameworks/NanoStore"]
 	path = Frameworks/NanoStore
 	url = https://github.com/mralexgray/NanoStore.git
+	ignore = dirty
 [submodule "AtoZ/Categories/NSScreen-PointConversion"]
 	path = AtoZ/Categories/NSScreen-PointConversion
 	url = git://github.com/oscardelben/NSScreen-PointConversion.git
+	ignore = dirty
 [submodule "Frameworks/PLWeakCompatibility"]
 	path = Frameworks/PLWeakCompatibility
 	url = https://github.com/mralexgray/PLWeakCompatibility.git
+	ignore = dirty
 [submodule "AtoZ/Categories/NSUserDefaults-Subscript"]
 	path = AtoZ/Categories/NSUserDefaults-Subscript
 	url = https://github.com/asmallteapot/NSUserDefaults-Subscript.git
+	ignore = dirty
