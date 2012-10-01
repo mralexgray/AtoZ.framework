@@ -31,23 +31,43 @@
 
 @implementation AtoZ
 
-
-// Place this in the .m file, inside the @implementation block
-// A method to convert an enum to string
+// Place inside the @implementation block - A method to convert an enum to string
 + (NSString*) stringForPosition:(AZWindowPosition)enumVal
-{	NSArray *them = [[NSArray alloc]initWithObjects:AZWindowPositionTypeArray];
-
-	return  [them objectAtIndex:enumVal];
-	// isEqualToString: @"ZPositionLeft"] ? @"LEFT" :, @"ZPositionBottom", @"ZPositionRight", @"ZPositionTop", ;
+{
+	return  [[NSArray alloc]initWithObjects:AZWindowPositionTypeArray][enumVal];
 }
 // A method to retrieve the int value from the NSArray of NSStrings
 -(AZWindowPosition) imageTypeStringToEnum:(NSString*)strVal
-{		//	NSLog(@"%@", AZWindowPositionTypeArray);
-    NSArray *imageTypeArray = [[NSArray alloc]initWithObjects:AZWindowPositionTypeArray];
-   return (AZWindowPosition)[ imageTypeArray indexOfObject:strVal];
-		//    if(n < 1) n = AZPositionLeft;
+{
+   return (AZWindowPosition)
+	[[[NSArray alloc]initWithObjects:AZWindowPositionTypeArray] indexOfObject:strVal];
+}
++(void)initialize {
+	AZLOG(@"Initialize AtoZ");
+	AtoZ *u = [[self class] sharedInstance];
+	NSLog(@"Initialized AtoZ.sharedinstance as: %@", u.propertiesPlease);
+}
+- (void) setUp {
+	AZLOG(@"setup AtoZ");
+	char *xcode_colors = getenv(XCODE_COLORS);
+	xcode_colors && (strcmp(xcode_colors, "YES") == 0) ? ^{/* XcodeColors=installed+enabled! */}() : nil;
+		//	[DDLog addLogger:[DDTTYLogger sharedInstance]];
+		//	DDLogVerbose(@"Verbose"); DDLogInfo(@"Info"); DDLogWarn(@"Warn"); DDLogError(@"Error");
+		//	[self registerFonts:(CGFloat)]
+		//	self.sortOrder = AZDockSortNatural;
 }
 
++ (NSString *) version;
+{
+    NSString *myVersion	= [[AZFWORKBUNDLE infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    NSString *buildNum 	= [[AZFWORKBUNDLE infoDictionary] objectForKey:(NSString*)kCFBundleVersionKey];
+    NSString *versText	= myVersion
+	? buildNum 	? [NSString stringWithFormat:@"Version: %@ (%@)", myVersion, buildNum]
+	: [NSString stringWithFormat:@"Version: %@", myVersion]
+	: buildNum  ? [NSString stringWithFormat:@"Version: %@", buildNum] : nil;
+    AZLOG(versText); return versText;
+}
++ (NSBundle*) bundle {	return [NSBundle bundleForClass:[self class]]; }
 
 + (NSString*) resources { return [[NSBundle bundleForClass: [self class]] resourcePath]; }
 
@@ -74,32 +94,6 @@
 //{//	__weak AZSimpleView *e;
 //}
 //	console = [NSLogConsole sharedConsole]; [console open];
-+(void)initialize {
-	AZLOG(@"Initialize AtoZ");
-	AtoZ *u = [[self class] sharedInstance];
-	NSLog(@"Initialized AtoZ.sharedinstance as: %@", u.propertiesPlease);
-}
-- (void) setUp {
-	AZLOG(@"setup AtoZ");
-	char *xcode_colors = getenv(XCODE_COLORS);
-	xcode_colors && (strcmp(xcode_colors, "YES") == 0) ? ^{/* XcodeColors=installed+enabled! */}() : nil;
-	//	[DDLog addLogger:[DDTTYLogger sharedInstance]];
-	//	DDLogVerbose(@"Verbose"); DDLogInfo(@"Info"); DDLogWarn(@"Warn"); DDLogError(@"Error");
-	//	[self registerFonts:(CGFloat)]
-	//	self.sortOrder = AZDockSortNatural;
-}
-
-+ (NSString *) version;
-{
-    NSString *myVersion	= [[AZFWORKBUNDLE infoDictionary] objectForKey:@"CFBundleShortVersionString"];
-    NSString *buildNum 	= [[AZFWORKBUNDLE infoDictionary] objectForKey:(NSString*)kCFBundleVersionKey];
-    NSString *versText	= myVersion
-	? buildNum 	? [NSString stringWithFormat:@"Version: %@ (%@)", myVersion, buildNum]
-	: [NSString stringWithFormat:@"Version: %@", myVersion]
-	: buildNum  ? [NSString stringWithFormat:@"Version: %@", buildNum] : nil;
-    AZLOG(versText); return versText;
-}
-+ (NSBundle*) bundle {	return [NSBundle bundleForClass:[self class]]; }
 
 #define GROWL_ENABLED 0
 #ifdef GROWL_ENABLED
