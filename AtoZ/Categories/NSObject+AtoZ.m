@@ -13,10 +13,32 @@
 
 
 
+@implementation NSObject (AssociatedValues)
+- (void)setAssociatedValue:(id)value forKey:(NSS*)key {
+    [self setAssociatedValue:value forKey:key policy:OBJC_ASSOCIATION_ASSIGN];
+}
+
+- (void)setAssociatedValue:(id)value forKey:(NSS*)key policy:(objc_AssociationPolicy)policy {
+    objc_setAssociatedObject(self, (__bridge const void *)(key), value, policy);
+}
+
+- (id)associatedValueForKey:(NSS*)key {
+    return objc_getAssociatedObject(self, (__bridge const void *)(key));
+}
+
+- (void)removeAssociatedValueForKey:(NSS*)key {
+    objc_setAssociatedObject(self, (__bridge const void *)(key), nil, OBJC_ASSOCIATION_ASSIGN);
+}
+
+- (void)removeAllAssociatedValues {
+    objc_removeAssociatedObjects(self);
+}
+@end
+
 
 @implementation NSObject (AutoCoding)
 
-+ (id)objectWithContentsOfFile:(NSString *)filePath
++ (id)objectWithContentsOfFile:(NSS*)filePath
 {
 		//load the file
     NSData *data = [NSData dataWithContentsOfFile:filePath];
@@ -55,9 +77,9 @@
 	return object;
 }
 
-- (void)writeToFile:(NSString *)filePath atomically:(BOOL)useAuxiliaryFile
+- (void)writeToFile:(NSS*)filePath atomically:(BOOL)useAuxiliaryFile
 {
-		//note: NSData, NSDictionary and NSArray already implement this method
+		//note: NSData, NSD and NSArray already implement this method
 		//and do not save using NSCoding, however the objectWithContentsOfFile
 		//method will correctly recover these objects anyway
 
@@ -68,7 +90,7 @@
 
 - (NSArray *)codableKeys
 {
-    NSMutableArray *array = [NSMutableArray array];
+    NSMA*array = [NSMA array];
     Class class = [self class];
     while (class != [NSObject class])
 		{
@@ -78,7 +100,7 @@
 			{
             objc_property_t property = properties[i];
             const char *name = property_getName(property);
-            NSString *key = @(name);
+            NSS*key = @(name);
             [array addObject:key];
 			}
         free(properties);
@@ -93,14 +115,14 @@
     return nil;
 }
 
-- (void)setNilValueForKey:(NSString *)key
+- (void)setNilValueForKey:(NSS*)key
 {
 		//don't throw exception
 }
 
 - (void)setWithCoder:(NSCoder *)aDecoder
 {
-    for (NSString *key in [self codableKeys])
+    for (NSS*key in [self codableKeys])
 		{
         id object = [aDecoder decodeObjectForKey:key];
         [self setValue:object forKey:key];
@@ -118,7 +140,7 @@
 
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
-    for (NSString *key in [self codableKeys])
+    for (NSS*key in [self codableKeys])
 		{
         id object = [self valueForKey:key];
         [aCoder encodeObject:object forKey:key];
@@ -161,7 +183,7 @@
     return sharedInstance;
 }
 
-- (NSString *)description
+- (NSS*)description
 {
     return [NSString stringWithFormat:@"<%@>", NSStringFromClass([self class])];
 }
@@ -171,12 +193,12 @@
 
 @interface HRCoder ()
 
-@property (nonatomic, strong) NSMutableArray *stack;
-@property (nonatomic, strong) NSMutableDictionary *knownObjects;
-@property (nonatomic, strong) NSMutableDictionary *unresolvedAliases;
-@property (nonatomic, strong) NSString *keyPath;
+@property (nonatomic, strong) NSMA*stack;
+@property (nonatomic, strong) NSMD *knownObjects;
+@property (nonatomic, strong) NSMD *unresolvedAliases;
+@property (nonatomic, strong) NSS*keyPath;
 
-+ (NSString *)classNameKey;
++ (NSS*)classNameKey;
 
 @end
 
@@ -188,7 +210,7 @@
 @synthesize unresolvedAliases;
 @synthesize keyPath;
 
-+ (NSString *)classNameKey
++ (NSS*)classNameKey
 {
 		//used by BaseModel
     return HRCoderClassNameKey;
@@ -198,9 +220,9 @@
 {
     if ((self = [super init]))
 		{
-        stack = [[NSMutableArray alloc] initWithObjects:[NSMutableDictionary dictionary], nil];
-        knownObjects = [[NSMutableDictionary alloc] init];
-        unresolvedAliases = [[NSMutableDictionary alloc] init];
+        stack = [[NSMA alloc] initWithObjects:[NSMD dictionary], nil];
+        knownObjects = [[NSMD alloc] init];
+        unresolvedAliases = [[NSMD alloc] init];
 		}
     return self;
 }
@@ -210,7 +232,7 @@
     return [AZ_AUTORELEASE([[self alloc] init]) unarchiveObjectWithPlist:plist];
 }
 
-+ (id)unarchiveObjectWithFile:(NSString *)path
++ (id)unarchiveObjectWithFile:(NSS*)path
 {
     return [AZ_AUTORELEASE([[self alloc] init]) unarchiveObjectWithFile:path];
 }
@@ -220,7 +242,7 @@
     return [AZ_AUTORELEASE([[self alloc] init]) archivedPlistWithRootObject:object];
 }
 
-+ (BOOL)archiveRootObject:(id)rootObject toFile:(NSString *)path
++ (BOOL)archiveRootObject:(id)rootObject toFile:(NSS*)path
 {
     return [AZ_AUTORELEASE([[self alloc] init]) archiveRootObject:rootObject toFile:path];
 }
@@ -234,12 +256,12 @@
     if (rootObject)
 		{
         knownObjects[HRCoderRootObjectKey] = rootObject;
-        for (NSString *_keyPath in unresolvedAliases)
+        for (NSS*_keyPath in unresolvedAliases)
 			{
             id aliasKeyPath = unresolvedAliases[_keyPath];
             id aliasedObject = knownObjects[aliasKeyPath];
             id node = rootObject;
-            for (NSString *key in [_keyPath componentsSeparatedByString:@"."])
+            for (NSS*key in [_keyPath componentsSeparatedByString:@"."])
 				{
                 id _node = nil;
                 if ([node isKindOfClass:[NSArray class]])
@@ -271,7 +293,7 @@
     return rootObject;
 }
 
-- (id)unarchiveObjectWithFile:(NSString *)path
+- (id)unarchiveObjectWithFile:(NSS*)path
 {
 		//load the file
     NSData *data = [NSData dataWithContentsOfFile:path];
@@ -300,7 +322,7 @@
     return plist;
 }
 
-- (BOOL)archiveRootObject:(id)rootObject toFile:(NSString *)path
+- (BOOL)archiveRootObject:(id)rootObject toFile:(NSS*)path
 {
     id object = [self archivedPlistWithRootObject:rootObject];
     NSPropertyListFormat format = NSPropertyListBinaryFormat_v1_0;
@@ -321,25 +343,25 @@
     return YES;
 }
 
-- (BOOL)containsValueForKey:(NSString *)key
+- (BOOL)containsValueForKey:(NSS*)key
 {
     return [stack lastObject][key] != nil;
 }
 
-- (id)encodedObject:(id)objv forKey:(NSString *)key
+- (id)encodedObject:(id)objv forKey:(NSS*)key
 {
     NSInteger knownIndex = [[knownObjects allValues] indexOfObject:objv];
     if (knownIndex != NSNotFound)
 		{
 			//create alias
-        NSString *aliasKeyPath = [knownObjects allKeys][knownIndex];
-        NSDictionary *alias = @{HRCoderObjectAliasKey: aliasKeyPath};
+        NSS*aliasKeyPath = [knownObjects allKeys][knownIndex];
+        NSD *alias = @{HRCoderObjectAliasKey: aliasKeyPath};
         return alias;
 		}
     else
 		{
 			//encode object
-        NSString *oldKeyPath = keyPath;
+        NSS*oldKeyPath = keyPath;
         self.keyPath = keyPath? [keyPath stringByAppendingPathExtension:key]: key;
         knownObjects[keyPath] = objv;
         id encodedObject = [objv archivedObjectWithHRCoder:self];
@@ -348,13 +370,13 @@
 		}
 }
 
-- (void)encodeObject:(id)objv forKey:(NSString *)key
+- (void)encodeObject:(id)objv forKey:(NSS*)key
 {
     id object = [self encodedObject:objv forKey:key];
     [stack lastObject][key] = object;
 }
 
-- (void)encodeConditionalObject:(id)objv forKey:(NSString *)key
+- (void)encodeConditionalObject:(id)objv forKey:(NSS*)key
 {
     if ([[knownObjects allValues] containsObject:objv])
 		{
@@ -362,52 +384,52 @@
 		}
 }
 
-- (void)encodeBool:(BOOL)boolv forKey:(NSString *)key
+- (void)encodeBool:(BOOL)boolv forKey:(NSS*)key
 {
     [stack lastObject][key] = @(boolv);
 }
 
-- (void)encodeInt:(int)intv forKey:(NSString *)key
+- (void)encodeInt:(int)intv forKey:(NSS*)key
 {
     [stack lastObject][key] = @(intv);
 }
 
-- (void)encodeInt32:(int32_t)intv forKey:(NSString *)key
+- (void)encodeInt32:(int32_t)intv forKey:(NSS*)key
 {
     [stack lastObject][key] = [NSNumber numberWithLong:intv];
 }
 
-- (void)encodeInt64:(int64_t)intv forKey:(NSString *)key
+- (void)encodeInt64:(int64_t)intv forKey:(NSS*)key
 {
     [stack lastObject][key] = @(intv);
 }
 
-- (void)encodeFloat:(float)realv forKey:(NSString *)key
+- (void)encodeFloat:(float)realv forKey:(NSS*)key
 {
     [stack lastObject][key] = @(realv);
 }
 
-- (void)encodeDouble:(double)realv forKey:(NSString *)key
+- (void)encodeDouble:(double)realv forKey:(NSS*)key
 {
     [stack lastObject][key] = @(realv);
 }
 
-- (void)encodeBytes:(const uint8_t *)bytesp length:(NSUInteger)lenv forKey:(NSString *)key
+- (void)encodeBytes:(const uint8_t *)bytesp length:(NSUInteger)lenv forKey:(NSS*)key
 {
     [stack lastObject][key] = [NSData dataWithBytes:bytesp length:lenv];
 }
 
-- (id)decodeObject:(id)object forKey:(NSString *)key
+- (id)decodeObject:(id)object forKey:(NSS*)key
 {
     if (object && key)
 		{
 			//new keypath
-        NSString *newKeyPath = keyPath? [keyPath stringByAppendingPathExtension:key]: key;
+        NSS*newKeyPath = keyPath? [keyPath stringByAppendingPathExtension:key]: key;
 
 			//check if object is an alias
-        if ([object isKindOfClass:[NSDictionary class]])
+        if ([object isKindOfClass:[NSD class]])
 			{
-            NSString *aliasKeyPath = ((NSDictionary *)object)[HRCoderObjectAliasKey];
+            NSS*aliasKeyPath = ((NSD *)object)[HRCoderObjectAliasKey];
             if (aliasKeyPath)
 				{
 					//object alias
@@ -422,7 +444,7 @@
 			}
 
 			//new object
-        NSString *oldKeyPath = keyPath;
+        NSS*oldKeyPath = keyPath;
         self.keyPath = newKeyPath;
         id decodedObject = [object unarchiveObjectWithHRCoder:self];
         knownObjects[keyPath] = decodedObject;
@@ -432,42 +454,42 @@
     return nil;
 }
 
-- (id)decodeObjectForKey:(NSString *)key
+- (id)decodeObjectForKey:(NSS*)key
 {
     return [self decodeObject:[stack lastObject][key] forKey:key];
 }
 
-- (BOOL)decodeBoolForKey:(NSString *)key
+- (BOOL)decodeBoolForKey:(NSS*)key
 {
     return [[stack lastObject][key] boolValue];
 }
 
-- (int)decodeIntForKey:(NSString *)key
+- (int)decodeIntForKey:(NSS*)key
 {
     return [[stack lastObject][key] intValue];
 }
 
-- (int32_t)decodeInt32ForKey:(NSString *)key
+- (int32_t)decodeInt32ForKey:(NSS*)key
 {
     return [[stack lastObject][key] longValue];
 }
 
-- (int64_t)decodeInt64ForKey:(NSString *)key
+- (int64_t)decodeInt64ForKey:(NSS*)key
 {
     return [[stack lastObject][key] longLongValue];
 }
 
-- (float)decodeFloatForKey:(NSString *)key
+- (float)decodeFloatForKey:(NSS*)key
 {
     return [[stack lastObject][key] floatValue];
 }
 
-- (double)decodeDoubleForKey:(NSString *)key
+- (double)decodeDoubleForKey:(NSS*)key
 {
     return [[stack lastObject][key] doubleValue];
 }
 
-- (const uint8_t *)decodeBytesForKey:(NSString *)key returnedLength:(NSUInteger *)lengthp
+- (const uint8_t *)decodeBytesForKey:(NSS*)key returnedLength:(NSUInteger *)lengthp
 {
     NSData *data = [stack lastObject][key];
     *lengthp = [data length];
@@ -486,7 +508,7 @@
 
 - (id)archivedObjectWithHRCoder:(HRCoder *)coder
 {
-    NSMutableDictionary *result = [NSMutableDictionary dictionary];
+    NSMD *result = [NSMD dictionary];
     [coder.stack addObject:result];
     result[HRCoderClassNameKey] = NSStringFromClass([self class]);
     [(id <NSCoding>)self encodeWithCoder:coder];
@@ -497,11 +519,11 @@
 @end
 
 
-@implementation NSDictionary(HRCoding)
+@implementation NSD(HRCoding)
 
 - (id)unarchiveObjectWithHRCoder:(HRCoder *)coder
 {
-    NSString *className = self[HRCoderClassNameKey];
+    NSS*className = self[HRCoderClassNameKey];
     if (className)
 		{
 			//encoded object
@@ -514,8 +536,8 @@
     else
 		{
 			//ordinary dictionary
-        NSMutableDictionary *result = [NSMutableDictionary dictionary];
-        for (NSString *key in self)
+        NSMD *result = [NSMD dictionary];
+        for (NSS*key in self)
 			{
             id object = [coder decodeObjectForKey:key];
             if (object)
@@ -529,9 +551,9 @@
 
 - (id)archivedObjectWithHRCoder:(HRCoder *)coder
 {
-    NSMutableDictionary *result = [NSMutableDictionary dictionary];
+    NSMD *result = [NSMD dictionary];
     [coder.stack addObject:result];
-    for (NSString *key in self)
+    for (NSS*key in self)
 		{
         [coder encodeObject:self[key] forKey:key];
 		}
@@ -546,10 +568,10 @@
 
 - (id)unarchiveObjectWithHRCoder:(HRCoder *)coder
 {
-    NSMutableArray *result = [NSMutableArray array];
+    NSMA*result = [NSMA array];
     for (int i = 0; i < [self count]; i++)
 		{
-        NSString *key = [NSString stringWithFormat:@"%i", i];
+        NSS*key = [NSString stringWithFormat:@"%i", i];
         id encodedObject = self[i];
         id decodedObject = [coder decodeObject:encodedObject forKey:key];
         [result addObject:decodedObject];
@@ -559,11 +581,11 @@
 
 - (id)archivedObjectWithHRCoder:(HRCoder *)coder
 {
-    NSMutableArray *result = [NSMutableArray array];
+    NSMA*result = [NSMA array];
     for (int i = 0; i < [self count]; i++)
 		{
         id object = self[i];
-        NSString *key = [NSString stringWithFormat:@"%i", i];
+        NSS*key = [NSString stringWithFormat:@"%i", i];
         [result addObject:[coder encodedObject:object forKey:key]];
 		}
     return result;
@@ -615,68 +637,63 @@
 @implementation NSObject (AtoZ)
 
 
+- (id)objectForKeyedSubscript:(id)key {
+	return  [self respondsToSelector:@selector(key)] ? [self valueForKey:key] : nil;
+}
 
-- (NSMutableDictionary*) getDictionary
+- (void)setObject:(id)obj forKeyedSubscript:(id <NSCopying>)key {
+//	[self respondsToSelector:@selector(backingtore
+//			   [self respondsToSelector:@selector($(@"set%@", [key uppercaseString]))] ? nil;
+}
+
+- (void)performBlock:(void (^)(void))block afterDelay:(NSTimeInterval)delay
+{
+    block = [[block copy] autorelease];
+    [self performSelector:@selector(fireBlockAfterDelay:) withObject:block afterDelay:delay];
+}
+
+- (void)fireBlockAfterDelay:(void (^)(void))block { block(); }
+
+
+- (NSMD*) getDictionary
 {
 	if (objc_getAssociatedObject(self, @"dictionary")==nil)
-		{
-		objc_setAssociatedObject(self,@"dictionary",[[NSMutableDictionary alloc] init],OBJC_ASSOCIATION_RETAIN);
-		}
-	return (NSMutableDictionary *)objc_getAssociatedObject(self, @"dictionary");
+		objc_setAssociatedObject(self,@"dictionary",[NSMD dictionary],OBJC_ASSOCIATION_RETAIN);
+	return (NSMD *)objc_getAssociatedObject(self, @"dictionary");
 }
 
 
 static char windowPosition;
 
-- (void) setWindowPosition:(AZWindowPosition)pos {
-    objc_setAssociatedObject( self, &windowPosition, @(pos), OBJC_ASSOCIATION_RETAIN );
-}
+- (void) setWindowPosition:(AZWindowPosition)pos { objc_setAssociatedObject( self, &windowPosition, @(pos), OBJC_ASSOCIATION_RETAIN ); }
 
-- (AZWindowPosition) windowPosition {
-    return [objc_getAssociatedObject( self, &windowPosition ) intValue];
-}
+- (AZWindowPosition) windowPosition { return [objc_getAssociatedObject( self, &windowPosition ) intValue]; }
 
-
-	// Finds all properties of an object, and prints each one out as part of a string describing the class.
-- (NSString *) autoDescribeWithClassType:(Class)classType {
-
-    NSUInteger count;
-    objc_property_t *propList = class_copyPropertyList(classType, &count);
-    NSMutableString *propPrint = [NSMutableString string];
-
-    for ( int i = 0; i < count; i++ )
-		{
-        objc_property_t property = propList[i];
-
-        const char *propName = property_getName(property);
-        NSString *propNameString =[NSString stringWithCString:propName encoding:NSASCIIStringEncoding];
-
-        if(propName)
-			{
-            id value = [self valueForKey:propNameString];
-            [propPrint appendString:[NSString stringWithFormat:@"%@=%@ ; ", propNameString, value]];
-			}
-		}
+// 	Finds all properties of an object, and prints each one out as part of a string describing the class.
+- (NSS*) autoDescribeWithClassType:(Class)classType
+{
+    unsigned int count;
+    objc_property_t *propList 	= class_copyPropertyList(classType, &count);
+    NSMutableString *propPrint 	= [NSMutableString string];
+    for ( int i = 0; i < count; i++ ) {
+        objc_property_t prop 	= propList[i];
+        const char *propName 	= property_getName(prop);
+        NSS*propNameStr 	= [NSString stringWithCString:propName encoding:NSASCIIStringEncoding];
+        if(propName) { id value = [self valueForKey:propNameStr];
+					   [propPrint appendString:[NSString stringWithFormat:@"%@=%@ ; ", propNameStr, value]]; }
+	}
     free(propList);
-
-
-		// Now see if we need to map any superclasses as well.
+	// Now see if we need to map any superclasses as well.
     Class superClass = class_getSuperclass( classType );
-    if ( superClass != nil && ! [superClass isEqual:[NSObject class]] )
-		{
-        NSString *superString = [self autoDescribeWithClassType:superClass];
+    if ( superClass != nil && ! [superClass isEqual:[NSObject class]] ) {
+        NSS*superString = [self autoDescribeWithClassType:superClass];
         [propPrint appendString:superString];
-		}
-
+	}
     return propPrint;
 }
 
-- (NSString *) autoDescribe {
-	{
-	NSString *headerString = [NSString stringWithFormat:@"%@:%p:: ",[self class], self];
-	return [headerString stringByAppendingString:[self autoDescribeWithClassType:[self class]]];
-	}
-}
+- (NSS*) autoDescribe { return [$(@"%@:%p:: ",[self class], self) stringByAppendingString:[self autoDescribeWithClassType:[self class]]]; }
+
 
 @end
 
@@ -684,7 +701,7 @@ static char windowPosition;
 
 +(NSArray *)subclasses
 {
-	NSMutableArray *subClasses = [NSMutableArray array];
+	NSMA*subClasses = [NSMA array];
 	Class	*classes	= nil;
 	int		count		= objc_getClassList(NULL, 0);
 
@@ -718,7 +735,7 @@ static char windowPosition;
 
 //	[NSTask launchedTaskWithLaunchPath:@"/usr/bin/say" arguments:@[s]];
 
-		//	BOOL isSelected;	NSString *label;
+		//	BOOL isSelected;	NSS*label;
 //	BOOL isSegmented = [sender isKindOfClass:[NSSegmentedControl class]];
 //		//	if (isSegmented) {
 //	NSInteger selectedSegment = [sender selectedSegment];
@@ -735,7 +752,7 @@ static char windowPosition;
 
 - (void)performActionFromSegment:(id)sender {
 
-	BOOL isSelected;	NSString *label;
+	BOOL isSelected;	NSS*label;
 	BOOL isSegmented = [sender isKindOfClass:[NSSegmentedControl class]];
 		//	if (isSegmented) {
 	NSInteger selectedSegment = [sender selectedSegment];
@@ -763,36 +780,22 @@ static const char * getPropertyType(objc_property_t property) {
 	strcpy(buffer, attributes);
 	char *state = buffer, *attribute;
 	while ((attribute = strsep(&state, ",")) != NULL) {
-		if (attribute[0] == 'T' && attribute[1] != '@') {
-				// it's a C primitive type:
-			/*
-			 if you want a list of what will be returned for these primitives, search online for
-			 "objective-c" "Property Attribute Description Examples"
-			 apple docs list plenty of examples of what you get for int "i", long "l", unsigned "I", struct, etc.
-			 */
-			return (const char *)[[NSData dataWithBytes:(attribute + 1) length:strlen(attribute) - 1] bytes];
-		}
-		else if (attribute[0] == 'T' && attribute[1] == '@' && strlen(attribute) == 2) {
-				// it's an ObjC id type:
-			return "id";
-		}
-		else if (attribute[0] == 'T' && attribute[1] == '@') {
-				// it's another ObjC object type:
-			return (const char *)[[NSData dataWithBytes:(attribute + 3) length:strlen(attribute) - 4] bytes];
-		}
+//	If you want a list of what will be returned for these primitives, search online for "objective-c" "Property Attribute Description Examples" apple docs list plenty of examples of what you get for int "i", long "l", unsigned "I", struct, etc.
+			// it's a C primitive type:
+		return attribute[0] == 'T' && attribute[1] != '@' ? (const char *)[[NSData dataWithBytes:(attribute + 1) length:strlen(attribute) - 1] bytes]
+			// it's an ObjC id type:
+		: attribute[0] == 'T' && attribute[1] == '@' && strlen(attribute) == 2  ? "id"
+			// it's another ObjC object type:
+		: attribute[0] == 'T' && attribute[1] == '@' ? (const char *)[[NSData dataWithBytes:(attribute + 3) length:strlen(attribute) - 4] bytes]
+		: "";
 	}
-	return "";
 }
 
 
-+ (NSDictionary *)classPropsFor:(Class)klass
++ (NSD *)classPropsFor:(Class)klass
 {
-	if (klass == NULL) {
-		return nil;
-	}
-
-	NSMutableDictionary *results = [[NSMutableDictionary alloc] init];
-
+	if (klass == NULL) return nil;
+	NSMD *results = [NSMD dictionary];
 	unsigned int outCount, i;
 	objc_property_t *properties = class_copyPropertyList(klass, &outCount);
 	for (i = 0; i < outCount; i++) {
@@ -800,18 +803,15 @@ static const char * getPropertyType(objc_property_t property) {
 		const char *propName = property_getName(property);
 		if(propName) {
 			const char *propType = getPropertyType(property);
-			NSString *propertyName = @(propName);
-			NSString *propertyType = @(propType);
+			NSS*propertyName = @(propName);
+			NSS*propertyType = @(propType);
 			results[propertyName] = propertyType;
 		}
 	}
-	free(properties);
-
-		// returning a copy here to make sure the dictionary is immutable
-	return results;
+	free(properties);	return results; 	// returning a copy here to make sure the dictionary is immutable
 }
-/*
 
+/*
  - (NSArray*) methodDumpForClass:(Class)klass {
 
  int numClasses;
@@ -841,7 +841,7 @@ static const char * getPropertyType(objc_property_t property) {
  numClasses = objc_getClassList(classes, numClasses);
 
  // Convert to NSArray of NSStrings
- NSMutableArray *rtn = [[NSMutableArray alloc] init];
+ NSMA*rtn = [[NSMA alloc] init];
  const char *cname;
  for (int i=0; i&lt;numClasses; i++) {
  cname = class_getName(classes[i]);
@@ -864,31 +864,22 @@ static const char * getPropertyType(objc_property_t property) {
 	Method *methods = class_copyMethodList(objc_getMetaClass(className), &numMethods);
 	for (int i = 0; i < numMethods; i++) {
 		[ii addObject:NSStringFromSelector(method_getName(methods[i]))];
-			//	    NSLog(@"%@", NSStringFromSelector(method_getName(methods[i])));
+//	    NSLog(@"%@", NSStringFromSelector(method_getName(methods[i])));
 	}
 	return ii.copy;
 }	
 
 	// aps suffix to avoid namespace collsion
 	//   ...for Andrew Paul Sardone
-	//- (NSDictionary *)propertiesDictionariate;
+	//- (NSD *)propertiesDictionariate;
 
-- (NSDictionary *)propertiesSans:(NSString*)someKey {
+- (NSD*)propertiesSans:(NSS*)someKey { return [[self propertiesPlease] filter:^BOOL(id key,id value) { return [key isNotEqualTo:someKey] ? YES : NO; }]; }
 
-	NSDictionary *d = [self propertiesPlease];
-	return [d filter:^BOOL(id key, id value) {
-		return  [key isNotEqualTo:someKey] ? YES : NO;
-	}];
-}
-
-- (NSDictionary *)propertiesPlease {
-	NSMutableDictionary *props = [NSMutableDictionary dictionary];
-	unsigned int outCount, i;
-	objc_property_t *properties = class_copyPropertyList([self class], &outCount);
-	for (i = 0; i < outCount; i++) {
-		objc_property_t property = properties[i];
-		NSString *propertyName = [[NSString alloc] initWithCString:property_getName(property) encoding:NSUTF8StringEncoding];
-		id propertyValue = [self valueForKey:(NSString *)propertyName];
+- (NSD *)propertiesPlease {	NSMD *props = [NSMD dictionary];	unsigned int outCount, i;
+										objc_property_t *properties = class_copyPropertyList([self class], &outCount);
+	for (i = 0; i < outCount; i++) {	objc_property_t property = properties[i];
+		NSS*propertyName = [[NSString alloc] initWithCString:property_getName(property) encoding:NSUTF8StringEncoding];
+		id propertyValue = [self valueForKey:(NSS*)propertyName];
 		if (propertyValue) props[propertyName] = propertyValue;
 	}
 	free(properties);
@@ -897,60 +888,47 @@ static const char * getPropertyType(objc_property_t property) {
 
 
 
-- (NSString *)stringFromClass
-{
-	return NSStringFromClass([self class]);
-}
+- (NSS*)stringFromClass {	return NSStringFromClass( [self class]); }
 
+- (void)setIntValue:(NSInteger)i forKey:(NSS*)key { [self setValue:[NSNumber numberWithInt:i] forKey:key]; }
 
--(void)setIntValue:(NSInteger)i forKey:(NSString *)key {
-	[self setValue:[NSNumber numberWithInt:i] forKey:key];
-}
+-(void)setIntValue:(NSInteger)i forKeyPath:(NSS*)keyPath { [self setValue:[NSNumber numberWithInt:i] forKeyPath:keyPath]; }
 
--(void)setIntValue:(NSInteger)i forKeyPath:(NSString *)keyPath {
-	[self setValue:[NSNumber numberWithInt:i] forKeyPath:keyPath];
-}
+-(void)setFloatValue:(CGFloat)f forKey:(NSS*)key {[self setValue:[NSNumber numberWithFloat:f] forKey:key]; }
 
--(void)setFloatValue:(CGFloat)f forKey:(NSString *)key {
-	[self setValue:[NSNumber numberWithFloat:f] forKey:key];
-}
+-(void)setFloatValue:(CGFloat)f forKeyPath:(NSS*)keyPath {	[self setValue:[NSNumber numberWithFloat:f] forKeyPath:keyPath]; }
 
--(void)setFloatValue:(CGFloat)f forKeyPath:(NSString *)keyPath {
-	[self setValue:[NSNumber numberWithFloat:f] forKeyPath:keyPath];
-}
+-(BOOL)isEqualToAnyOf:(id<NSFastEnumeration>)enumerable {	for (id o in enumerable) { if ([self isEqual:o]) return YES; } return NO; }
 
--(BOOL)isEqualToAnyOf:(id<NSFastEnumeration>)enumerable {
-	for (id o in enumerable) {
-		if ([self isEqual:o]) {
-			return YES;
-		}
-	}
+-(void)fire:(NSS*)notificationName { [AZNOTCENTER postNotificationName:notificationName object:self]; }
 
-	return NO;
-}
-
--(void)fire:(NSString *)notificationName {
-	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-	[nc postNotificationName:notificationName object:self];
-}
-
--(void)fire:(NSString *)notificationName userInfo:(NSDictionary *)context {
+-(void)fire:(NSS*)notificationName userInfo:(NSD *)context {
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 	[nc postNotificationName:notificationName object:self userInfo:context];
 }
 
--(id)observeName:(NSString *)notificationName
+
+-(id)observeObject:(NSS*)notificationName
 	  usingBlock:(void (^)(NSNotification *))block
 {
-	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-	return [nc addObserverForName:notificationName
+	return [AZNOTCENTER addObserverForName:notificationName
+									object:self
+									 queue:nil
+								usingBlock:block];
+}
+
+
+-(id)observeName:(NSS*)notificationName
+	  usingBlock:(void (^)(NSNotification *))block
+{
+	return [AZNOTCENTER addObserverForName:notificationName
 						   object:self
 							queue:nil
 					   usingBlock:block];
 }
 
 -(void)observeObject:(NSObject *)object
-			 forName:(NSString *)notificationName
+			 forName:(NSS*)notificationName
 			 calling:(SEL)selector
 {
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
@@ -961,7 +939,7 @@ static const char * getPropertyType(objc_property_t property) {
 }
 
 
--(void)observeName:(NSString *)notificationName
+-(void)observeName:(NSS*)notificationName
 		   calling:(SEL)selector
 {
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
@@ -972,7 +950,7 @@ static const char * getPropertyType(objc_property_t property) {
 }
 
 
--(void)stopObserving:(NSObject *)object forName:(NSString *)notificationName {
+-(void)stopObserving:(NSObject *)object forName:(NSS*)notificationName {
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 	[nc removeObserver:self name:notificationName object:object];
 }
@@ -991,7 +969,7 @@ static const char * getPropertyType(objc_property_t property) {
 	[self performSelector:aSelector withObject:nil afterDelay:seconds];
 }
 
--(void)addObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath {
+-(void)addObserver:(NSObject *)observer forKeyPath:(NSS*)keyPath {
 	[self addObserver:observer
 		   forKeyPath:keyPath
 			  options:0
@@ -1002,7 +980,7 @@ static const char * getPropertyType(objc_property_t property) {
 -(void)addObserver:(NSObject *)observer
 	   forKeyPaths:(id<NSFastEnumeration>)keyPaths
 {
-	for (NSString *keyPath in keyPaths) {
+	for (NSS*keyPath in keyPaths) {
 		[self addObserver:observer forKeyPath:keyPath];
 	}
 }
@@ -1010,56 +988,39 @@ static const char * getPropertyType(objc_property_t property) {
 -(void)removeObserver:(NSObject *)observer
 		  forKeyPaths:(id<NSFastEnumeration>)keyPaths
 {
-	for (NSString *keyPath in keyPaths) {
+	for (NSS*keyPath in keyPaths) {
 		[self removeObserver:observer forKeyPath:keyPath];
 	}
 }
 
--(void)willChangeValueForKeys:(id<NSFastEnumeration>)keys {
-	for (id key in keys) {
-		[self willChangeValueForKey:key];
-	}
-}
+-(void)willChangeValueForKeys:(id<NSFastEnumeration>)keys {	for (id key in keys) [self willChangeValueForKey:key];  }
 
--(void)didChangeValueForKeys:(id<NSFastEnumeration>)keys {
-	for (id key in keys) {
-		[self didChangeValueForKey:key];
-	}
-}
+-(void)didChangeValueForKeys:(id<NSFastEnumeration>)keys { for (id key in keys)		[self didChangeValueForKey:key]; }
 
-- (NSDictionary*) dictionaryWithValuesForKeys {
-	return [self dictionaryWithValuesForKeys:[self allKeys]];
-}
+- (NSD*) dictionaryWithValuesForKeys { return [self dictionaryWithValuesForKeys:[self allKeys]]; }
 
-- (NSArray *) allKeys {
-	Class clazz = [self class];
-	u_int count;
-
-	objc_property_t* properties = class_copyPropertyList(clazz, &count);
-	NSMutableArray* propertyArray = [NSMutableArray arrayWithCapacity:count];
+- (NSArray *) allKeys {	Class clazz = [self class];	 u_int count;
+	objc_property_t* properties 	= class_copyPropertyList(clazz, &count);
+	NSMA* propertyArray = [NSMA arrayWithCapacity:count];
 	for (int i = 0; i < count ; i++) {
 		const char* propertyName = property_getName(properties[i]);
 		[propertyArray addObject:[NSString  stringWithCString:propertyName encoding:NSUTF8StringEncoding]];
 	}
 	free(properties);
-
 	return [NSArray arrayWithArray:propertyArray];
 }
 
-- (void)setClass:(Class)aClass {
-	NSAssert(
-			 class_getInstanceSize([self class]) ==
-			 class_getInstanceSize(aClass),
-			 @"Classes must be the same size to swizzle.");
+- (void)setClass:(Class)aClass {	NSAssert( class_getInstanceSize([self class]) == class_getInstanceSize(aClass),
+			 									@"Classes must be the same size to swizzle.");
 	object_setClass(self, aClass);
 }
 
 	// In your custom class
-+ (id)customClassWithProperties:(NSDictionary *)properties {
++ (id)customClassWithProperties:(NSD *)properties {
 	return [[[self alloc] initWithProperties:properties] autorelease];
 }
 
-- (id)initWithProperties:(NSDictionary *)properties {
+- (id)initWithProperties:(NSD *)properties {
 	if (self = [self init]) {
 		[self setValuesForKeysWithDictionary:properties];
 	}
@@ -1090,10 +1051,10 @@ static const char * getPropertyType(objc_property_t property) {
 }
 @end
 
-@implementation NSDictionary (PropertyMap)
+@implementation NSD (PropertyMap)
 
 - (void)mapPropertiesToObject:(id)instance	{
-	for (NSString * propertyKey in [self allKeys])	{
+	for (NSS* propertyKey in [self allKeys])	{
 		[instance setValue:[self objectForKey:propertyKey]	forKey:propertyKey];
 	}
 }

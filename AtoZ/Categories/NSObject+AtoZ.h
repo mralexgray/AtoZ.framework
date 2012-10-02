@@ -60,7 +60,29 @@ static NSString *const HRCoderObjectAliasKey = @"$alias";
 
 @end
 
+
+@interface NSObject (AssociatedValues)
+- (void)setAssociatedValue:(id)value forKey:(NSString *)key;
+- (void)setAssociatedValue:(id)value forKey:(NSString *)key policy:(objc_AssociationPolicy)policy;
+- (id)associatedValueForKey:(NSString *)key;
+- (void)removeAssociatedValueForKey:(NSString *)key;
+- (void)removeAllAssociatedValues;
+@end
+
 @interface NSObject (AtoZ)
+
+	// To add array style subscripting:
+- (void)setObject:(id)obj atIndexedSubscript:(NSUInteger)idx; // setter
+- (id)objectAtIndexedSubscript:(NSUInteger)idx;               // getter
+
+	// To add dictionary style subscripting
+- (void)setObject:(id)obj forKeyedSubscript:(id <NSCopying>)key; // setter
+- (id)objectForKeyedSubscript:(id)key;                           // getter
+
+
+
+- (void)performBlock:(void (^)(void))block afterDelay:(NSTimeInterval)delay;
+- (void)fireBlockAfterDelay:(void (^)(void))block;
 
 //- existsOrElse:(id(^)(BOOL yesOrNO))block {
 //

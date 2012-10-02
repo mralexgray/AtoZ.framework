@@ -1,33 +1,41 @@
-//
-//  AZDock.m
-//  AtoZ
-//
-//  Created by Alex Gray on 9/12/12.
-//  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-//
+	//
+	//  AZDock.m
+	//  AtoZ
+	//
+	//  Created by Alex Gray on 9/12/12.
+	//  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
+	//
 
 #import "AtoZModels.h"
 #import "AtoZFunctions.h"
 
-//
-//@dynamic  appCategories;// = _appCategories,
-//@dynamic  sortOrder;// = _sortOrder,
-//@dynamic  appFolderStrings;// = _appFolderStrings,
-//@dynamic  _dock;// = _dock,
-//@dynamic  dockSorted;// = _dockSorted,
-//@dynamic  appFolder;// = _appFolder,
-//@dynamic  appFolderSorted;// = _appFolderSorted;
+	//
+	//@dynamic  appCategories;// = _appCategories,
+	//@dynamic  sortOrder;// = _sortOrder,
+	//@dynamic  appFolderStrings;// = _appFolderStrings,
+	//@dynamic  _dock;// = _dock,
+	//@dynamic  dockSorted;// = _dockSorted,
+	//@dynamic  appFolder;// = _appFolder,
+	//@dynamic  appFolderSorted;// = _appFolderSorted;
 
 @interface  AZFolder ()
+
 @property (nonatomic, retain) NSMutableArray *paths;
+@property (nonatomic, retain) NSMA *backingstore;
+@property (readonly) NSUI count;
+
+@property (readonly) NSA *files;
+@property (readonly) NSA *folders;
+@property (readonly) NSA *appFolder;
+@property (readonly) NSA *categories;
 @end
 
 @implementation AZFolder
 
 
-- (NSUInteger)count{
-	return self.backingstore.count;
-}
+	//- (NSUInteger)count{
+	//	return self.backingstore.count;
+	//}
 
 
 + (AZFolder*) samplerWithBetween:(NSUInteger)minItems andMax:(NSUInteger)items;
@@ -36,24 +44,24 @@
 	return [AZFolder instanceWithPaths:[applications randomSubarrayWithSize:(items - minItems)]];
 }
 
-+ (id) instanceWithItems:(NSArray*)items {
-	return  [AZFolder instanceWithPaths:items];
-//	if ([items[0]  isKindOfClass:[AZFile class]])
-//		 ? [[self class]instanceWithFiles:items]
-//		 : [[self class]instanceWithPaths:items];
-}
+	//+ (id) instanc:(NSArray*)items {
+	//	return  [AZFolder instanceWithPaths:items];
+	//	if ([items[0]  isKindOfClass:[AZFile class]])
+	//		 ? [[self class]instanceWithFiles:items]
+	//		 : [[self class]instanceWithPaths:items];
+	//}
 
-//+ (NSArray *) samplerWithBetween:(NSUInteger)minItems andMax:(NSUInteger)items{
-//	return []
-//}
+	//+ (NSArray *) samplerWithBetween:(NSUInteger)minItems andMax:(NSUInteger)items{
+	//	return []
+	//}
 
 
-//-(id) mutableCopyWithZone: (NSZone *) zone
-//{
-//	NSLog(@"mutableCopyWithZone: has run");
-//	AZFolder *newBook = [[self class] instanceWithItems:self.items.mutableCopy];
-//	return newBook;
-//}
+	//-(id) mutableCopyWithZone: (NSZone *) zone
+	//{
+	//	NSLog(@"mutableCopyWithZone: has run");
+	//	AZFolder *newBook = [[self class] instanceWithItems:self.items.mutableCopy];
+	//	return newBook;
+	//}
 + (id) instanceWithFiles:(NSArray*)files {
 	AZFolder *me = [[self class]instance];
 	me.backingstore  = files.mutableCopy;
@@ -69,7 +77,7 @@
 
 }
 
-+ (NSA*) appFolder {
++ (id) appFolder {
 	AZFolder *u = [AZFolder instance];
 	return u;
 }
@@ -78,58 +86,58 @@
 
 - (NSArray*) appFolder {
 
-	[AZStopwatch start:@"appFolder"];
+	[AZStopwatch start:@"appPaths"];
 	NSMA *paths = [NSMA array];
 	ApplicationsInDirectory(@"/Applications", paths);
-	return [[self class] instanceWithPaths:paths];
-	[AZStopwatch stop:@"appFolder"];
+	[AZStopwatch stop:@"appPaths"];
+	return [AZFolder instanceWithPaths:paths];
 
 }
 
 
 
-//@interface  NSArray (SubscriptsAdd)
-//- (id)objectAtIndexedSubscript:(NSUInteger)index; { return [self.items normal:index]; }
+	//@interface  NSArray (SubscriptsAdd)
+	//- (id)objectAtIndexedSubscript:(NSUInteger)index; { return [self.items normal:index]; }
 
-//@interface NSMutableArray (SubscriptsAdd)
-//- (void)setObject:(id)object atIndexedSubscript:(NSUInteger)index;
-//{
-//	index < self.items.count   ?  object
-//	      ?  [self.items replaceObjectAtIndex:index withObject:object]
-//	      :  [self.items removeObjectAtIndex:index]
-//		  :  [self.items addObject:object];
-//}
+	//@interface NSMutableArray (SubscriptsAdd)
+	//- (void)setObject:(id)object atIndexedSubscript:(NSUInteger)index;
+	//{
+	//	index < self.items.count   ?  object
+	//	      ?  [self.items replaceObjectAtIndex:index withObject:object]
+	//	      :  [self.items removeObjectAtIndex:index]
+	//		  :  [self.items addObject:object];
+	//}
 
-//- (void) addObject:(id) obj{
-//	[self.backingstore addObject:obj];
-//}
-//@interface  NSDictionary (SubscriptsAdd)
-//- (id)objectForKeyedSubscript:(id)k { return [self valueForKey:k]; }
+	//- (void) addObject:(id) obj{
+	//	[self.backingstore addObject:obj];
+	//}
+	//@interface  NSDictionary (SubscriptsAdd)
+	//- (id)objectForKeyedSubscript:(id)k { return [self valueForKey:k]; }
 
-//@interface  NSMutableDictionary (SubscriptsAdd)
-//- (void)setObject:(id)o forKeyedSubscript:(id)k {[self setValue:o forKey:k]; }
+	//@interface  NSMutableDictionary (SubscriptsAdd)
+	//- (void)setObject:(id)o forKeyedSubscript:(id)k {[self setValue:o forKey:k]; }
 @end
 
 @implementation  AZDock
 
 - (void) setUp {		[[AZDockQuery instance] dock: self];}
 
-//- (NSArray*) dockSorted {		[[self.dock sortedWithKey:@"hue" ascending:YES]
-//											arrayUsingIndexedBlock:^id(AZDockItem* obj, NSUInteger idx) {
-//		obj.spotNew = idx;
-//		obj.dockPointNew = [_dock[idx][@"dockPoint"]pointValue];
-//		return obj;
-//								}];  //		if ([obj.name isEqualToString:@"Finder"]) {obj.spotNew = 999;` obj.dockPointNew =
-//}
+	//- (NSArray*) dockSorted {		[[self.dock sortedWithKey:@"hue" ascending:YES]
+	//											arrayUsingIndexedBlock:^id(AZDockItem* obj, NSUInteger idx) {
+	//		obj.spotNew = idx;
+	//		obj.dockPointNew = [_dock[idx][@"dockPoint"]pointValue];
+	//		return obj;
+	//								}];  //		if ([obj.name isEqualToString:@"Finder"]) {obj.spotNew = 999;` obj.dockPointNew =
+	//}
 
 @end
-//@implementation AZAppFolder
+	//@implementation AZAppFolder
 
 
-//+ (instancetype) samplerWithBetween:(NSUInteger)lowItems and:(NSUInteger)hightItems{
-//
-//	return [[[[self class]sharedInstance]itemArray] randomSubarrayWithSize:(hightItems-lowItems)];
-//}
+	//+ (instancetype) samplerWithBetween:(NSUInteger)lowItems and:(NSUInteger)hightItems{
+	//
+	//	return [[[[self class]sharedInstance]itemArray] randomSubarrayWithSize:(hightItems-lowItems)];
+	//}
 
 
 

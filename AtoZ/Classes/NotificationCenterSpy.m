@@ -19,6 +19,7 @@ static NotificationCenterSpy *sharedInstance = nil;
 
 @synthesize spying;
 
+
 + (NotificationCenterSpy *)sharedNotificationCenterSpy {
 	
 	static dispatch_once_t sharedToken;

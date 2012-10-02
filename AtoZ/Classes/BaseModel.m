@@ -26,7 +26,8 @@
 #import "AtoZFunctions.h"
 
 NSString *const BaseModelSharedInstanceUpdatedNotification = @"BaseModelSharedInstanceUpdatedNotification";
-	// Holds metadata for subclasses of SMModelObject
+
+// Holds metadata for subclasses of SMModelObject
 static NSMutableDictionary *keyNames = nil, *nillableKeyNames = nil;
 
 @interface BaseModel ()
@@ -42,123 +43,112 @@ static NSMutableDictionary *keyNames = nil, *nillableKeyNames = nil;
 	//or enumerateObjectsWithOptions:usingBlock:
 
 
-- (id) objectAtIndexedSubscript: (NSInteger) index {
-	if (!_usesBackingStore) {
-			AZLOG(@"warning.. no backing store.  Changes not made");
-			return nil;
+- (id) objectForKeyedSubscript: (NSString*) key { return [self valueForKey:key]; }
+
+- (id) objectAtIndexedSubscript: (NSInteger) index  // todelete if (index < 0) index = _backingstore.count + index;
+{
+	!_usesBackingStore ? ^{ AZLOG(@"warning! no backing store!"); return nil; }() : nil;
+    return [_backingstore objectAtIndex: index < 0 ? _backingstore.count + index : index];
+}
+- (void) setObject:(id)object forKeyedSubscript: (NSString*)key {
+	NSString *stringer = $(@"set%@", [key capitalizedString]);
+	SEL stringed = NSSelectorFromString(stringer);
+	if ([self respondsToSelector:stringed]) {
+					id newV = IsEmpty(object) ? @"" : object;
+					[self setValue:newV forKey:key];
+	} else {		const char *bar = [key UTF8String];
+
+					[self associateCopyOfValue:object withKey:bar];
+					NSLog(@"asscoiated the value %@, with %@", object, key);
 	}
-    if (index < 0) index = _backingstore.count + index;
-    return [_backingstore objectAtIndex: index];
-} // objectAtIndexedSubscript
-//You can do the exact same calculation in setObject:atIndexedSubscript: and call it a day. But for fun, and to make the mutating method a little more interesting, the array will use a null-fill when setting a value far off the end of the collection (where “far” is more than one index). Recall that with vanilla Cocoa, setting a value exactly one index past the end of an NSMutableArray will extend it and anything farther throws an exception. BNRNegativeArray will fill in intervening indexes with [NSNull null].
+}
+//You can do the exact same calculation in setObject:atIndexedSubscript: and call it a day. But for fun, and to make the mutating method a little more interesting, the array will use a null-fill when setting a value far off the end of the collection (where “far” is more than one index). IN regular Cocoa, setting a value exactly one index past the end of an NSMutArr will extend it and anything farther throws an exception. BNRNegativeArray will fill in intervening indexes with [NSNull null].
 
 - (void) setObject: (id) thing  atIndexedSubscript: (NSInteger) index {
-    if (!_usesBackingStore) { AZLOG(@"warning.. no backing store.  Changes not made"); return; }
- if (index < 0) index = _backingstore.count + index;
-		// Mutable array only allows setting the first-empty-index, like
-		// -insertObject:atIndex:.  Any past that throws a range exception.
-		// So let's be different and fill in intervening spaces w/ [NSNull null]
-		// If you want to see @NULL, dupe rdar://10892975
-    NSInteger toAdd = index - _backingstore.count;;
-    for (int i = 0; i < toAdd; i++) {
-        [_backingstore addObject: [NSNull null]];
-    }
-    if (index >= _backingstore.count) {
-        [_backingstore addObject: thing];
-    } else {
-        [_backingstore replaceObjectAtIndex: index  withObject: thing];
-    }
-} // setObject atIndexedSubscript
+    !_usesBackingStore ? ^{ 	AZLOG(@"warning.. no backing store. Makibng");
+								_backingstore = self.backingstore;
+	}() :  ^{
+ 		NSI fixedIndex; if (index < 0) fixedIndex = _backingstore.count + index;
+		// Mutable array only allows setting the first-empty-index, like  -insertObject:atIndex:.  Any past that throws a range exception.  So let's be different and fill in intervening spaces w/ [NSNull null]
+		NSInteger toAdd 				  = fixedIndex - _backingstore.count;;
+		for (int i = 0; i < toAdd; i++)	    [_backingstore addObject: [NSNull null]];
+		fixedIndex >= _backingstore.count ? [_backingstore addObject: thing]
+										  : [_backingstore replaceObjectAtIndex: fixedIndex  withObject: thing];  }();
+}
 
 
 
 //
 //- (id) objectAtIndexedSubscript: (NSInteger) index {
-//
-//	NSString *d = NSStringFromClass( [self class]);
-//	d = [d stringByReplacingOccurrencesOfString:@"AZ" withString:@""];
-//	d = [NSString stringWithFormat:@"%@:objectAtIndex:", d];
-//	SEL itTries = @selector(d);
-//	if ([self respondsToSelector:itTries]) {
-//				   objc_msgSend(self, itTries, @(index));
-//				   return self;
-//	}
+//	NSString *d = NSStringFromClass( [self class]); d = [d stringByReplacingOccurrencesOfString:@"AZ" withString:@""];
+//	d = [NSString stringWithFormat:@"%@:objectAtIndex:", d]; SEL itTries = @selector(d);
+//	if ([self respondsToSelector:itTries]) { objc_msgSend(self, itTries, @(index)); return self; }
 // 	else return nil;
 //}
-//
-//
-////				   atIndexedSubscript: (NSInteger) index;
-////				   {
-////
-//- (void) setObject: (id) thing atIndexedSubscript: (NSInteger) index;
-//{
+
+//- (void) setObject: (id) thing atIndexedSubscript: (NSInteger) index;{
 //	NSString *d = (@"Selector attempt:replaceObjectAtIndex:%ld",index) NSStringFromClass( [self class]);
 //	d = [d stringByReplacingOccurrencesOfString:@"AZ" withString:@""];
-//	d = [NSString stringWithFormat:];
-//	NSLog;
-//	SEL itTries = @selector(d);
-//	if ([self respondsToSelector:itTries]) {
-//		objc_msgSend(self, itTries, @(index));
-//		return self;
-//	}
-// 	else return nil;
-//
-//}
+//	d = [NSString stringWithFormat:];	SEL itTries = @selector(d);
+//	if ([self respondsToSelector:itTries]) { 		objc_msgSend(self, itTries, @(index));
+//		return self;  } else return nil; }
 
 
-- (id)randomElement {return _backingstore.randomElement;}
+- (void) eachWithIndex:(VoidIteratorArrayWithIndexBlock) block 	{ [F eachInArrayWithIndex:_backingstore withBlock:block]; 	}
 
-- (NSArray *)shuffeled {	return _backingstore.shuffeled; }
-
-- (NSArray *)randomSubarrayWithSize:(NSUInteger)size {
-	size = normalizedNumberLessThan(@(size), _backingstore.count);
-	return [_backingstore randomSubarrayWithSize:size];
+- (NSMA*) map:(MapArrayBlock) block 		{ return [F mapArray:_backingstore withBlock:block].mutableCopy; 				}
+- (NSMA*) filter:(BoolArrayBlock) block 	{ return [F filterArray:_backingstore withBlock:block].mutableCopy; 		 	}
+- (NSMA*) nmap:(id (^)(id obj, NSUInteger index))block {	NSMA *re = [NSMA array];
+	for (int i = 0; i < _backingstore.count; i++) {		id v, o = _backingstore[i]; if ((v = block(o,i))) [re addObject:v]; }
+	return re.mutableCopy;
 }
 
-- (id)objectAtNormalizedIndex:(NSInteger)index { return [self normal:index]; }
-
-- (id)normal:(NSInteger)index {
-	if (_backingstore.count == 0) return nil;
-	while (index < 0)
-		index += _backingstore.count;
-	return _backingstore[index % _backingstore.count];
+- (id) objectAtNormalizedIndex:(NSI)index 		{ return [self normal:index]; 		}
+- (id) randomElement 							{ return _backingstore.randomElement; }
+- (NSA*) shuffeled 								{ return _backingstore.shuffeled; 	}
+- (NSA*) randomSubarrayWithSize: (NSUI) size	{
+	return [_backingstore randomSubarrayWithSize: normalizedNumberLessThan(@(size), _backingstore.count)];
 }
-
-
-
-
-- (id)objectForKeyedSubscript:(NSString *)key {
-	return [self valueForKey:key];
+- (id)normal:(NSInteger)index					{		if (_backingstore.count == 0)   return nil;
+									else {	while 	  (index < 0)  index += _backingstore.count;
+											return _backingstore  [index %  _backingstore.count];	}
 }
-
-- (void)setObject:(id)object forKeyedSubscript:(NSString *)key
-{
-	if (IsEmpty(object)) [self setValue:@"" forKey:key];
-	else [self setValue:object forKey:key];
-}
-
-
-- (NSString*)saveInstanceInAppSupp;
-{
+- (NSString*)saveInstanceInAppSupp;				{
 	NSString *savePath = [self.uniqueID stringByAppendingPathExtension:@"plist"];
-	[self writeToFile:savePath atomically:YES];
-	AZLOG(savePath);
-	return savePath;
+	[self writeToFile:savePath atomically:YES];  AZLOG(savePath);	return savePath;
 }
 + (instancetype)instanceWithID:(NSString*)uniqueID;
 {
 	return [[self class] instanceWithContentsOfFile:[uniqueID stringByAppendingPathExtension:@"plist"]];
 }
-#pragma mark -
-#pragma mark Private utility methods
+- (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(id __unsafe_unretained []) stackbuf count:(NSUInteger)len {
+//- (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(__unsafe_unretained id [])buffer count:(NSUInteger)len {
+    return [_backingstore countByEnumeratingWithState:state objects:stackbuf count:len];
+}
+//    return _usesBackingStore ? [_backingstore countByEnumeratingWithState:state objects:buffer count:len] : 0;
+
+- (NSUInteger)count { 						return _usesBackingStore ? _backingstore.count : 0; }
+- (id)objectAtIndex:(NSUInteger)index; {	return _usesBackingStore ? [_backingstore normal:index] : nil; }
+
+- (NSMA*) backingstore { if (!_backingstore) AZLOG($(@"Making store for %@", self));
+						return _backingstore = !_backingstore ? [NSMA array] : _backingstore;
+}
+
+//+ (NSMA*)backingstore
+//{
+//	static NSMutableArray* backingstore = nil;
+//
+//	backingstore == nil ? backingstore = [NSMutableArray array] : nil;
+//
+//	return backingstore ?: static NSMutableArray *_;
+//	_backingstore = ;
+//	self.usesBackingStore = YES;
+//}
+
+#pragma mark - Private utility methods
 + (NSString *)resourceFilePath:(NSString *)path
-{
-		//check if the path is a full path or not
-    if (![path isAbsolutePath])
-		{
-        return [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:path];
-		}
-    return path;
+{		//check if the path is a full path or not
+    return [path isAbsolutePath] ? path : [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:path];
 }
 + (NSString *)resourceFilePath
 {
@@ -167,19 +157,14 @@ static NSMutableDictionary *keyNames = nil, *nillableKeyNames = nil;
 + (NSString *)saveFilePath:(NSString *)path
 {
 		//check if the path is a full path or not
-    if (![path isAbsolutePath])
-		{
+    if (![path isAbsolutePath]) {
 			//get the path to the application support folder
         NSString *folder = [NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES) lastObject];
-
 #ifndef __IPHONE_OS_VERSION_MAX_ALLOWED
-
-			//append application name on Mac OS
+		//append application name on Mac OS
         NSString *identifier = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleNameKey];
         folder = [folder stringByAppendingPathComponent:identifier];
-
 #endif
-
 			//create the folder if it doesn't exist
         if (![[NSFileManager defaultManager] fileExistsAtPath:folder])
 			{
@@ -194,138 +179,61 @@ static NSMutableDictionary *keyNames = nil, *nillableKeyNames = nil;
     return path;
 }
 + (NSString *)saveFilePath
-{
-    return [self saveFilePath:[self saveFile]];
-}
-#pragma mark -
-#pragma mark Singleton behaviour
+{ return [self saveFilePath:[self saveFile]]; }
+
+#pragma mark - Singleton behaviour
+
 static NSMutableDictionary *sharedInstances = nil;
+
 + (void)setSharedInstance:(BaseModel *)instance
 {
-    if (![instance isKindOfClass:self])
-		{
-        [NSException raise:NSGenericException format:@"setSharedInstance: instance class does not match"];
-		}
-    sharedInstances = sharedInstances ?: [[NSMutableDictionary alloc] init];
-    id oldInstance = [sharedInstances objectForKey:NSStringFromClass(self)];
-    [sharedInstances setObject:instance forKey:NSStringFromClass(self)];
-    if (oldInstance)
-		{
-        [[NSNotificationCenter defaultCenter] postNotificationName:BaseModelSharedInstanceUpdatedNotification object:oldInstance];
-		}
+    if (![instance isKindOfClass:self]) [NSException raise:NSGenericException format:@"setSharedInstance: instance class does not match"];
+    sharedInstances = sharedInstances ?: [[NSMD alloc] init];
+    id oldInstance = [sharedInstances objectForKey:	NSStringFromClass(self)];
+    [sharedInstances setObject:instance forKey: 	NSStringFromClass(self)];
+    if (oldInstance) [AZNOTCENTER postNotificationName:BaseModelSharedInstanceUpdatedNotification object:oldInstance];
 }
 + (BOOL)hasSharedInstance
-{
-    return [sharedInstances objectForKey:NSStringFromClass(self)] != nil;
-}
+{ return [sharedInstances objectForKey:NSStringFromClass(self)] != nil; }
 + (instancetype)sharedInstance
 {
     sharedInstances = sharedInstances ?: [[NSMutableDictionary alloc] init];
     id instance = [sharedInstances objectForKey:NSStringFromClass(self)];
-    if (instance == nil)
-		{
-			//load or create instance
-        [self reloadSharedInstance];
-
-			//get loaded instance
-        instance = [sharedInstances objectForKey:NSStringFromClass(self)];
-		}
+    if (instance == nil)	{
+		[self reloadSharedInstance];	//load or create instance
+		instance = [sharedInstances objectForKey:NSStringFromClass(self)];		//get loaded instance
+	}
     return instance;
 }
 + (void)reloadSharedInstance
 {
     id instance = nil;
-
-		//try loading previously saved version
+	//try loading previously saved version
     instance = [self instanceWithContentsOfFile:[self saveFilePath]];
-    if (instance == nil)
-		{
-			//construct a new instance
-        instance = [self instance];
-		}
-
-		//set singleton
-    [self setSharedInstance:instance];
+    if (instance == nil) instance = [self instance];			//construct a new instance
+    [self setSharedInstance:instance];		//set singleton
 }
 + (NSString *)resourceFile
 {
 		//used for every instance
     return [NSStringFromClass(self) stringByAppendingPathExtension:@"plist"];
 }
-+ (NSString *)saveFile
-{
-		//used to save shared (singleton) instance
-    return [NSStringFromClass(self) stringByAppendingPathExtension:@"plist"];
++ (NSString *)saveFile { return [NSStringFromClass(self) stringByAppendingPathExtension:@"plist"]; //used to save shared (singleton) instance
 }
-- (BOOL)useHRCoderIfAvailable
-{
-    return NO;
-}
+- (BOOL)useHRCoderIfAvailable { return YES; }
 - (void)save
 {
     if ([sharedInstances objectForKey:NSStringFromClass([self class])] == self)
-		{
-			//shared (singleton) instance
-        [self writeToFile:[[self class] saveFilePath] atomically:YES];
-		}
-    else
-		{
-			//no save implementation
-        [NSException raise:NSGenericException format:@"Unable to save object, save method not implemented"];
-		}
-}
-- (NSMA*)nmap:(id (^)(id obj, NSUInteger index))block {
-	NSMutableArray *re = [NSMutableArray arrayWithCapacity:_backingstore.count];
-	for (int i = 0; i < _backingstore.count; i++) {
-		id v, o = _backingstore[i];
-		if ((v = block(o,i))) [re addObject:v];
-	}
-	return re.mutableCopy;
+        [self writeToFile:[[self class] saveFilePath] atomically:YES];//shared (singleton) instance
+    else [NSException raise:NSGenericException format:@"Unable to save object, save method not implemented"]; //no save implementation
 }
 
-- (void) eachWithIndex:(VoidIteratorArrayWithIndexBlock) block {
-    [F eachInArrayWithIndex:_backingstore withBlock:block];
-}
-- (NSMA *) map:(MapArrayBlock) block {
-    return [F mapArray:_backingstore withBlock:block].mutableCopy;
-}
-- (NSMA *) filter:(BoolArrayBlock) block {
-    return [F filterArray:_backingstore withBlock:block].mutableCopy;
-}
-
-#pragma mark -
-#pragma mark Default constructors
+#pragma mark - Default constructors
 - (void)setUp
 {
 		//override this
 }
-+ (instancetype)instance
-{
-    return AH_AUTORELEASE([[self alloc] init]);
-}
-- (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(id __unsafe_unretained []) stackbuf count:(NSUInteger)len {
-
-//- (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(__unsafe_unretained id [])buffer count:(NSUInteger)len {
-    return [_backingstore countByEnumeratingWithState:state objects:stackbuf count:len];
-}
-
-//- (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(id __unsafe_unretained [])buffer count:(NSUInteger)len {
-//
-//    return _usesBackingStore ? [_backingstore countByEnumeratingWithState:state objects:buffer count:len] : 0;
-//}
-
-- (NSUInteger)count { return _usesBackingStore ? _backingstore.count : 0; }
-- (id)objectAtIndex:(NSUInteger)index; {
-		return _usesBackingStore ? [_backingstore normal:index] : nil;
-}
-
-
-- (void)setBackingstore:(NSMutableArray *)backingstore
-{
-
-	_backingstore = backingstore;
-	self.usesBackingStore = YES;
-}
++ (instancetype)instance {    return AH_AUTORELEASE([[self alloc] init]); }
 
 static BOOL loadingFromResourceFile = NO;
 - (instancetype)init
@@ -509,30 +417,20 @@ static BOOL loadingFromResourceFile = NO;
 }
 - (void)writeToFile:(NSString *)path atomically:(BOOL)atomically
 {
-    NSData *data = nil;
-    Class coderClass = NSClassFromString(@"HRCoder");
-    if (coderClass && [self useHRCoderIfAvailable])
-		{
+    NSData *data = nil;  Class coderClass = NSClassFromString(@"HRCoder");
+    if (coderClass && [self useHRCoderIfAvailable]) {
         id plist = objc_msgSend(coderClass, @selector(archivedPlistWithRootObject:), self);
         NSPropertyListFormat format = NSPropertyListBinaryFormat_v1_0;
         data = [NSPropertyListSerialization dataWithPropertyList:plist format:format options:0 error:NULL];
-		}
-    else
-		{
+	} else
         data = [NSKeyedArchiver archivedDataWithRootObject:self];
-		}
     [data writeToFile:[[self class] saveFilePath:path] atomically:YES];
 }
-#pragma mark -
-#pragma mark Unique identifier generation
-+ (NSString *)newUniqueIdentifier
-{
-    CFUUIDRef uuid = CFUUIDCreate(NULL);
-    CFStringRef identifier = CFUUIDCreateString(NULL, uuid);
-    CFRelease(uuid);
-    return AH_RETAIN(CFBridgingRelease(identifier));
-}
-	//#ifdef BASEMODEL_ENABLE_UNIQUE_ID
+
+#pragma mark - Unique identifier generation
++ (NSString *)newUniqueIdentifier	{ CFUUIDRef uuid = CFUUIDCreate(NULL); CFStringRef idt = CFUUIDCreateString(NULL, uuid);
+													   CFRelease(uuid);    return AH_RETAIN(CFBridgingRelease(idt));
+}	//#ifdef BASEMODEL_ENABLE_UNIQUE_ID
 @synthesize uniqueID = _uniqueID;
 - (NSString *)uniqueID
 {
@@ -552,28 +450,20 @@ static BOOL loadingFromResourceFile = NO;
 }
 	//#endif
 	//@end
-	//
-	//
-	//
 	//@implementation SMModelObject
-	// Before this class is first accessed, we'll need to build up our associated metadata, basically
-	// just a list of all our property names so we can quickly enumerate through them for various methods.
-	// Also we maintain a separate list of property names that can be set to nil (type ID) for fast dealloc.
-	// Helper for easily enumerating through our instance variables.
+/**	Before this class is first accessed, we'll need to build up our associated metadata, basically just a list of all our property names so we can quickly enumerate through them for various methods. Also we maintain a separate list of property names that can be set to nil (type ID) for fast dealloc. Helper for easily enumerating through our instance variables.
+*/
 - (void)enumerateIvarsUsingBlock:(void (^)(Ivar var, NSString *name, BOOL *cancel))block {
 	BOOL cancel = NO;
 	for (Class cls = [self class]; !cancel && cls != [self class]; cls = [cls superclass]) {
 		unsigned int varCount;
 		Ivar *vars = class_copyIvarList(cls, &varCount);
 		for (int i = 0; !cancel && i < varCount; i++) {
-			Ivar var = vars[i];
-			NSString *name = [[NSString alloc] initWithUTF8String:ivar_getName(var)];
-			block(var, name, &cancel);
-			[name release];
-		}
-		free(vars);
-	}
-}
+			Ivar var = vars[i];			NSString *name = [[NSString alloc] initWithUTF8String:ivar_getName(var)];
+			block(var, name, &cancel);	[name release];
+}	free(vars);	}	}
+
+
 	// NSCoder implementation, for unarchiving
 	//- (id) initWithCoder:(NSCoder *)aDecoder {
 	//	if (self = [super init]) {

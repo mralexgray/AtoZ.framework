@@ -13,6 +13,9 @@
 
 #import <Foundation/Foundation.h>
 
+
+#define AZNOTCENTERSPYTOGGLE [NotificationCenterSpy toggleSpyingAllNotifications]
+
 @interface NotificationCenterSpy : NSObject
 
 + (void)toggleSpyingAllNotifications;

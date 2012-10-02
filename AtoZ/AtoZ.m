@@ -27,9 +27,20 @@
 
 @interface AtoZ ()
 @property (nonatomic, assign) BOOL fontsRegistered;
+@property (nonatomic, strong) AZSoundEffect *soundEffect;
 @end
 
 @implementation AtoZ
+
+- (AZSoundEffect *)soundEffect
+{ 	// lazy loading
+//	return _soundEffect = _soundEffect == nil
+//						? [[AZSoundEffect alloc] initWithSoundNamed:@"welcome.wav"]
+//						: _soundEffect;
+	return _soundEffect = _soundEffect ? _soundEffect
+						: [[AZSoundEffect alloc] initWithSoundNamed:@"welcome.wav"];
+}
+
 
 // Place inside the @implementation block - A method to convert an enum to string
 + (NSString*) stringForPosition:(AZWindowPosition)enumVal
@@ -42,11 +53,11 @@
    return (AZWindowPosition)
 	[[[NSArray alloc]initWithObjects:AZWindowPositionTypeArray] indexOfObject:strVal];
 }
-+(void)initialize {
-	AZLOG(@"Initialize AtoZ");
-	AtoZ *u = [[self class] sharedInstance];
-	NSLog(@"Initialized AtoZ.sharedinstance as: %@", u.propertiesPlease);
-}
+//+(void)initialize {
+//	AZLOG(@"Initialize AtoZ");
+//	AtoZ *u = [[self class] sharedInstance];
+//	NSLog(@"Initialized AtoZ.sharedinstance as: %@", u.propertiesPlease);
+//}
 - (void) setUp {
 	AZLOG(@"setup AtoZ");
 	char *xcode_colors = getenv(XCODE_COLORS);
@@ -55,6 +66,7 @@
 		//	DDLogVerbose(@"Verbose"); DDLogInfo(@"Info"); DDLogWarn(@"Warn"); DDLogError(@"Error");
 		//	[self registerFonts:(CGFloat)]
 		//	self.sortOrder = AZDockSortNatural;
+ 	[self.soundEffect play];
 }
 
 + (NSString *) version;
@@ -95,7 +107,7 @@
 //}
 //	console = [NSLogConsole sharedConsole]; [console open];
 
-#define GROWL_ENABLED 0
+//#define GROWL_ENABLED 1
 #ifdef GROWL_ENABLED
 - (BOOL) registerGrowl {
 
@@ -129,7 +141,7 @@
 }
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 - (NSFont*) registerFonts:(CGFloat)size {
-	if (!fontsRegistered) {
+	if (!_fontsRegistered) {
 		NSBundle *aBundle = [NSBundle bundleForClass: [AtoZ class]];
 		NSURL *fontsURL = [NSURL fileURLWithPath:$(@"%@/Fonts",[aBundle resourcePath])];
 		if(fontsURL != nil)	{
@@ -138,7 +150,7 @@
 			status = ATSFontActivateFromFileReference(&fsRef, kATSFontContextLocal, kATSFontFormatUnspecified, NULL, kATSOptionFlagsDefault, NULL);
 			if (status != noErr)		{
 					//				theError = @"Failed to acivate fonts!";  goto error;
-			} else  { fontsRegistered = 1; NSLog(@"Fonts registered!"); }
+			} else  { _fontsRegistered = 1; NSLog(@"Fonts registered!"); }
 		} else NSLog(@"couldnt register fonts!");
 	}
 	return  [NSFont fontWithName:@"UbuntuTitling-Bold" size:size];

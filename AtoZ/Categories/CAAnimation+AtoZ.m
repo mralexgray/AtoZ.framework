@@ -35,6 +35,8 @@ void disableCA(){
 @implementation CAAnimation (AtoZ)
 
 
+
+
 + (CAKeyframeAnimation *)rotateAnimation{
 
 	CAKeyframeAnimation *rotateAnimation= [CAKeyframeAnimation animationWithKeyPath:@"transform.rotation.z"];

@@ -182,9 +182,11 @@ extern NSString *const BaseModelSharedInstanceUpdatedNotification;
 - (id)normal:(NSInteger)index;
 
 
+
+
 - (void) eachWithIndex:(VoidIteratorArrayWithIndexBlock) block;
-- (instancetype) map:(MapArrayBlock) block;
-- (instancetype) nmap:(id (^)(id obj, NSUInteger index))block;
+- (NSMA*) map:(MapArrayBlock) block;
+- (NSMA*) nmap:(id (^)(id obj, NSUInteger index))block;
 - (NSArray*) filter:(BoolArrayBlock) block;
 - (NSString*) saveInstanceInAppSupp;
 + (instancetype) instanceWithID:(NSString*)uniqueID;

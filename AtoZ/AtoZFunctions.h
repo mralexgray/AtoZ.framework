@@ -16,6 +16,8 @@
 
 BOOL IsEmpty(id obj);
 
+NSString* AZStringFromRect(NSRect rect);
+NSArray* ApplicationPathsInDirectory(NSString *searchPath);
 
 void ApplicationsInDirectory(NSString *searchPath, NSMutableArray *applications);
 void PoofAtPoint( NSPoint pt, CGFloat radius);
@@ -27,8 +29,12 @@ CGFloat perceptualGlossFractionForColor ( CGFloat *inputComponents );
 CGFloat percent ( CGFloat val );
 CGFloat DegreesToRadians ( CGFloat degrees );
 
-CGFloat DEGREEtoRADIAN(CGFloat degrees) {return degrees * M_PI / 180;};
-CGFloat RADIANtoDEGREEES(CGFloat radians) {return radians * 180 / M_PI;};
+//CGFloat DEG2RAD(CGFloat degrees);
+//{return degrees * M_PI / 180;};
+//CGFloat RAD2DEG(CGFloat radians) {return radians * 180 / M_PI;};
+
+NSString* JRNSStringFromCATransform3D(CATransform3D transform);
+NSString* prettyFloat(CGFloat f);
 
 
 NSNumber* DegreesToNumber(CGFloat degrees);
@@ -41,13 +47,10 @@ inline float RandomComponent() {  return (float)random() / (float)LONG_MAX; }
 double frandom ( double start, double end );
 
 
+NSUInteger normalizedNumberLessThan (id number, NSUInteger max);
 
 
-
-
-
-//extern NSUInteger normalizedNumberLessThan (id number, NSUInteger max);
-//@interface Slice : NSObject
+	//@interface Slice : NSObject
 //@property NSInteger start;
 //@property NSInteger length;
 //@end

@@ -15,21 +15,11 @@
 @interface AZFolder : BaseModel  <BaseModel, NSCopying, NSMutableCopying, NSFastEnumeration>
 
 
-@property (nonatomic, retain) NSMA *backingstore;
 
-
-@property (readonly) NSArray *files;
-@property (readonly) NSUInteger count;
-@property (readonly) NSArray *folders;
-@property (readonly) NSArray *appFolder;
-@property (readonly) NSArray *categories;
-
-
-+ (NSMA*) appFolder;
-+ (NSMA*) samplerWithBetween:(NSUInteger)minItems andMax:(NSUInteger)items;
-
-+ (instancetype) instanceWithFiles:(NSArray*)files;
-+ (instancetype) instanceWithPaths:(NSArray*)strings;
++ (id) appFolder;
++ (id) samplerWithBetween:(NSUInteger)minItems andMax:(NSUInteger)items;
++ (id) instanceWithFiles:(NSArray*)files;
++ (id) instanceWithPaths:(NSArray*)strings;
 
 @end
 

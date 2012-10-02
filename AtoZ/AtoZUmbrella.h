@@ -97,8 +97,9 @@ NS_INLINE void _AZSimpleLog(const char *file, int lineNumber, const char *funcNa
 #define CFTI CFTimeInterval
 #define CATL CATextLayer
 #define CAKA CAKeyframeAnimation
-#define CAT3 CATansform3D
-#define CAAG CAGroupAnimation
+#define CAT3 CATransform3D
+#define CAGA CAGroupAnimation
+#define CAAG CAAnimationGroup
 #define NSMA NSMutableArray
 #define NSMD NSMutableDictionary
 #define NSTI NSTimeInterval
@@ -131,7 +132,9 @@ NS_INLINE void _AZSimpleLog(const char *file, int lineNumber, const char *funcNa
 
 #define AZSuperLayerSuper (@"superlayer")
 
-//#define CACcWA CAConstraint constraintWithAttribute
+#define CATIMENOW CACurrentMediaTime()
+
+	//#define CACcWA CAConstraint constraintWithAttribute
 
 #define AZConstraint(attr,rel) [CAConstraint constraintWithAttribute \
 :attr relativeTo:rel attribute:attr]
@@ -340,6 +343,16 @@ if (!re) { re = [[[@#__VA_ARGS__ splitByComma] trimmedStrings] set]; } return re
 
 typedef struct { CAConstraintAttribute constraint; CGFloat scale; CGFloat offset; }AZCAConstraint;
 
+typedef enum {
+	Games, Education, Entertainment,
+	Books, Lifestyle, Utilities, Business,
+	Travel, Music, Reference, Sports,
+	Productivity, News, HealthcareFitness,
+	Photography, Finance, Medical, SocialNetworking,
+	Navigation, Weather, Catalogs, FoodDrink, Newsstand
+} 	AppCat;
+
+#define AppCatTypeArray @"Games", @"Education", @"Entertainment", @"Books", @"Lifestyle", @"Utilities", @"Business", @"Travel", @"Music", @"Reference", @"Sports", @"Productivity", @"News", @"Healthcare & Fitness", @"Photography", @"Finance", @"Medical", @"Social Networking", @"Navigation", @"Weather", @"Catalogs", @"Food & Drink", @"Newsstand", nil
 
 typedef enum  {	Scale0X,Scale1X,Scale2X,Scale3X,Scale10X									} AZInfiteScale;
 typedef enum  { LeftOn,LeftOff,TopOn,TopOff,RightOn,RightOff,BottomOn,BottomOff			} AZTrackState;

@@ -15,6 +15,11 @@
 
 
 
+
+
+NSString* AZStringFromRect(NSRect rect){
+	return $(@"%0.fx%0.f x %0.fx%0.f", rect.origin.x, rect.origin.x, rect.size.width, rect.size.height);
+}
 //static void glossInterpolation(void *info, const float *input);
 //float *output);
 
@@ -63,6 +68,35 @@ extern void DrawLabelAtCenterPoint(NSString* string, NSPoint center);
 //    }
 //}
 
+NSString* prettyFloat(CGFloat f) {
+    if (f == 0) { return @"0"; } else if (f == 1) { return @"1";
+    } else { return [NSString stringWithFormat:@"%.1f", f]; }
+}
+
+NSString* JRNSStringFromCATransform3D(CATransform3D transform) {
+		// format: [1 0 0 0; 0 1 0 0; 0 0 1 0; 0 0 0 1]
+
+    return CATransform3DIsIdentity(transform)
+	? @"CATransform3DIdentity"
+	: [NSString stringWithFormat:@"[%@ %@ %@ %@; %@ %@ %@ %@; %@ %@ %@ %@; %@ %@ %@ %@]",
+	   prettyFloat(transform.m11),
+	   prettyFloat(transform.m12),
+	   prettyFloat(transform.m13),
+	   prettyFloat(transform.m14),
+	   prettyFloat(transform.m21),
+	   prettyFloat(transform.m22),
+	   prettyFloat(transform.m23),
+	   prettyFloat(transform.m24),
+	   prettyFloat(transform.m31),
+	   prettyFloat(transform.m32),
+	   prettyFloat(transform.m33),
+	   prettyFloat(transform.m34),
+	   prettyFloat(transform.m41),
+	   prettyFloat(transform.m42),
+	   prettyFloat(transform.m43),
+	   prettyFloat(transform.m44)
+	   ];
+}
 
 NSUInteger normalizedNumberLessThan (id number, NSUInteger max){
 	NSUInteger u= [number integerValue];
@@ -79,6 +113,21 @@ BOOL IsEmpty(id obj) {
 
 extern CGFloat percent(CGFloat val)
 {	return val > 5 && val < 100 ? val/100 : val > 1 ? 1 : val < 0 ? 0 : val; }
+
+NSArray* ApplicationPathsInDirectory(NSString *searchPath) {
+	__block BOOL isDir;
+	__block NSMA *u = [NSMA array];
+	[[AZFILEMANAGER contentsOfDirectoryAtPath:searchPath error:nil]az_each:^(id obj, NSUInteger index, BOOL *stop) {
+		[AZFILEMANAGER changeCurrentDirectoryPath:searchPath];
+		if ([AZFILEMANAGER fileExistsAtPath:obj isDirectory:&isDir] && isDir) {
+			NSString *fullpath = [searchPath stringByAppendingPathComponent:obj];
+			if ([[obj pathExtension] isEqualToString:@"app"])
+				[u addObject:fullpath];
+//			else ApplicationsInDirectory(fullpath, applications);
+		}
+	}];
+	return u.copy;
+}
 
 extern void ApplicationsInDirectory(NSString *searchPath, NSMutableArray *applications) {
 	__block BOOL isDir;
@@ -290,7 +339,7 @@ void perceptualCausticColorForColor(CGFloat *inputComponents, CGFloat *outputCom
     [targetColor getComponents:outputComponents];
 }
 
-static void glossInterpolation(void *info, const CGFloat *input, CGFloat *output) {
+void glossInterpolation(void *info, const CGFloat *input, CGFloat *output) {
     GlossParameters *params = (GlossParameters *)info;
     CGFloat progress = *input;
     if (progress < 0.5)	{
@@ -394,7 +443,8 @@ extern void DrawLabelAtCenterPoint(NSString* string, NSPoint center) {
 
 
 
-static double frandom(double start, double end)
+//static
+double frandom(double start, double end)
 {
 	double r = random();
 	r /= RAND_MAX;

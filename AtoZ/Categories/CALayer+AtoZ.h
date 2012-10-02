@@ -70,6 +70,8 @@ For those that have never seen the CATransform3D struct before, you must apply t
 											   CGFloat m41, CGFloat m42, CGFloat m43, CGFloat m44);
 @interface CALayer (AtoZ)
 
+- (void) addConstraintsRelSuper:(id) firstObject, ...;  // This method takes a nil-terminated list of objects.
+
 - (void)blinkLayerWithColor:(NSColor *)color;
 
 - (void) addPerspectiveForVerticalOffset:(CGFloat)pixels;
