@@ -104,7 +104,7 @@
 // app delegate methods
 - (void) applicationDidFinishLaunching:(NSNotification*)notification {
 //	NSArray *s = [AtoZ dock];
-	NSArray *s = [AZFolder appFolder].copy;
+	NSArray *s = [AZFolder appFolder];
 	[s eachWithIndex:^(id obj, NSInteger idx) { NSLog(@"%@", [obj propertiesPlease]); }];
 	
 	NSRect r = [[_mainWindow contentView] frame];
@@ -236,7 +236,7 @@
 }
 
 - (NSArray*) instructionImageNames {
-	return @[ @"mrgray.logo.png", @"1.pdf", @"2.pdf", @"3.pdf" ];
+	return [NSImage frameworkImages];//@[ @"mrgray.logo.png", @"1.pdf", @"2.pdf", @"3.pdf" ];
 }
 
 - (BOOL) showsPreferencesToolbar {

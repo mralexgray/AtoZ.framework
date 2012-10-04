@@ -19,3 +19,29 @@
     AZWindowPosition pos; [self getValue:&pos]; return pos;
 }
 @end
+
+@implementation NSValue (AtoZAutoBox)
+
+@end
+
+struct _Pair
+{   short val;
+	short count;
+};
+
+typedef struct _Pair Pair;
+
+@interface NSValue (Pair)
++ (id)valueWithPair:(Pair)pair;
+- (Pair)pairValue;
+@end
+@implementation NSValue (Pair)
++ (id)valueWithPair:(Pair)pair
+{
+    return [NSValue value:&pair withObjCType:@encode(Pair)];
+}
+- (Pair)pairValue
+{
+    Pair pair; [self getValue:&pair]; return pair;
+}
+@end

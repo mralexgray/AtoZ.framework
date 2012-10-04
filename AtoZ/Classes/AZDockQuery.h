@@ -8,6 +8,7 @@
 
 #import "AtoZ.h"
 #import "AtoZModels.h"
+#import "AZFile.h"
 
 @interface AZDockQuery : BaseModel
 {
@@ -17,5 +18,5 @@
 
 - (CGPoint) locationNowForAppWithPath:(NSString*)aPath;
 + (NSArray*) dock;
--(void)dock: (AZDock*) dock;
+//-(void)dock: (AZDock*) dock;
 @end

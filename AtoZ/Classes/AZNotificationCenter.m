@@ -57,28 +57,18 @@ static char AZNotificationHelperMagicContext;
 //}
 
 #pragma mark -
-
-- (void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+- (void) observeValueForKeyPath:(NSString *)keyPath 	ofObject:(id)object
+						 change:(NSDictionary *)change 	 context:(void *)context
 {
-    if(context == &AZNotificationHelperMagicContext)
-	{
-		// we only ever sign up for one notification per object, so if we got here
-		// then we *know* that the key path and object are what we want
-		((void (*)(id, SEL, NSString *, id, NSDictionary *, id))objc_msgSend)(_observer, _selector, keyPath, object, change, _userInfo);
-	}
-	else
-	{
-		[super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
-	}
+    context == &AZNotificationHelperMagicContext
+	// we only ever sign up for one notification per object, so if we got here then we *know* that the key path and object are what we want
+	? ((void (*)(id, SEL, NSS *, id, NSD *, id))objc_msgSend)(_observer, _selector,keyPath, object, change, _userInfo)
+	: [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
 }
 
-- (void)deregister
-{
-	[_target removeObserver:self forKeyPath:_keyPath];
-}
+- (void)deregister	{	[_target removeObserver:self forKeyPath:_keyPath];	}
 
 @end
-
 
 @implementation AZNotificationCenter
 
@@ -188,72 +178,3 @@ static char AZNotificationHelperMagicContext;
 @end
 
 
-
-//Subclassible thread-safe ARC singleton
-//Copyright Kevin Lawler. Released under ISC.
-
-@implementation AZSingleton
-
-//- (id)objectForKeyedSubscript:(NSString *)key {
-// return [_children objectForKey:key];
-// }
-//
-//- (void)setObject:(id)newValue forKeyedSubscription:(NSString *)key {
-//	 [_children setObject:newValue forKey:key];
-//}
-//
-
-static NSMutableDictionary* _children;
-
-+(void) initialize //thread-safe
-{
-    if(!_children) {
-        _children = [[NSMutableDictionary alloc] init];
-    }
-
-    [_children setObject:[[self alloc] init] forKey:NSStringFromClass([self class])];
-}
-
-+(id) alloc {
-    id c;
-    if((c = [self instance])) {
-        return c;
-    }
-    return [self allocWithZone:nil];
-}
-
--(id) init {
-    id c;
-    if((c = [_children objectForKey:NSStringFromClass([self class])])) { //sic, unfactored
-        return c;
-    }
-    self = [super init];
-    return self;
-}
-
-+(id) instance {
-    return [_children objectForKey:NSStringFromClass([self class])];
-}
-
-+(id) sharedInstance { //alias for instance
-    return [self instance];
-}
-
-+(id) singleton {      //alias for instance
-    return [self instance];
-}
-
-	//stop other creative stuff
-+(id) new {
-    return [self instance];
-}
-
-+(id)copyWithZone:(NSZone *)zone {
-    return [self instance];
-}
-
-+(id)mutableCopyWithZone:(NSZone *)zone {
-    return [self instance];
-}
-
-@end

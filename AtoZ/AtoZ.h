@@ -5,6 +5,14 @@
   @property (nonatomic, assign) <\#type\#> <\#name\#>;
 */
 
+@interface AZSingleton : NSObject
++(id) instance;
++(id) sharedInstance; //alias for instance
++(id) singleton;      //alias for instance
+@end
+
+
+
 #import <AppKit/AppKit.h>
 #import <ApplicationServices/ApplicationServices.h>
 #import <AudioToolbox/AudioToolbox.h>
@@ -20,6 +28,7 @@
 //#import <Growl/Growl.h>
 #import <xpc/xpc.h>
 
+#import "AtoZUmbrella.h"
 #import	"BaseModel.h"
 #import "NSBag.h"
 
@@ -96,7 +105,7 @@
 #import "AZBackground.h"
 #import "AZCSSColors.h"
 #import "CTGradient.h"
-#import "AZSoundEffect.h"
+#import "AZSound.h"
 #import "Transition.h"
 
 	//Controls
@@ -153,10 +162,6 @@ CGFloat ScreenHighness();
 - (id) debugReturn:(id) val;
 @end
 
-
-
-
-
 extern NSString *const AtoZSharedInstanceUpdated;
 extern NSString *const AtoZDockSortedUpdated;
 
@@ -168,10 +173,14 @@ extern NSString *const AtoZDockSortedUpdated;
 @end
 
 @class NSLogConsole;
-@interface AtoZ : BaseModel
+@interface AtoZ : AZSingleton
 #ifdef GROWL_ENABLED
 <GrowlApplicationBridgeDelegate>
 #endif
+
+@property (nonatomic, strong) SoundManager *sManager;
+
++ (void)playSound:(id)number;
 
 
 + (NSArray*) dock;
@@ -185,17 +194,25 @@ extern NSString *const AtoZDockSortedUpdated;
 + (NSArray*) appFolderSorted;
 + (NSArray*) appFolderSamplerWith: (NSUInteger) apps;
 + (NSString*) resources;
++ (void) trackIt;
+
 - (NSPoint) convertToScreenFromLocalPoint: (NSPoint) point relativeToView: (NSView*) view;
 - (void) moveMouseToScreenPoint: (NSPoint) point;
 - (void) handleMouseEvent: (NSEventMask)event inView: (NSView*)view withBlock: (void (^)())block;
+
 + (NSString*) stringForPosition: (AZWindowPosition) enumVal;
 + (NSString*) stringForType: (id) type;
 
 + (NSFont*) fontWithSize: (CGFloat) fontSize;
+- (NSFont*) registerFonts:(CGFloat)size;
 
 - (NSJSONSerialization*) jsonReuest: (NSString*) url;
 + (NSJSONSerialization*) jsonReuest: (NSString*) url;
-
++ (NSString *) version;
++ (NSBundle*) bundle;
++ (NSString*) resources;
++ (NSString*) stringForType:(id)type;
++ (NSArray*) appCategories;
 
 @property (nonatomic, retain) NSBundle *bundle;
 
@@ -313,11 +330,6 @@ extern NSString *const AtoZDockSortedUpdated;
  @warning *Global settings implementation details:* To be able to properly apply all levels of settings - factory defaults, global settings and command line arguments - we can't solely rely on `DDCli` for parsing command line args. As the user can supply templates path from command line (instead of using one of the default paths), we need to pre-parse command line arguments for templates switches. The last one found is then used to read global settings. This solves proper settings inheritance up to global settings level. Another issue is how to implement code that deals with global settings; there are several possible solutions (the simplest from programmers point of view would be to force the user to pass in templates path as the first parameter, then `DDCli` would first process this and when we would receive notification, we could parse the option, load in global settings and resume operation). At the end I chose to pre-parse command line for template arguments before passing it to `DDCli`. This did require some tweaking to `DDCli` code (specifically the method that converts option string to KVC key was moved to public interface), but ended up as very simple to inject global settings - by simply using the same KCV messages as `DDCli` uses. This small tweak allowed us to use exactly the same path of handling global settings as normal command line arguments. The benefits are many: all argument names are alreay unit tested to properly map to settings values, code reuse for setting the values.
  */
 
-
-// usage
-// profile("Long Task", ^{ performLongTask() } );
-
-void profile (const char *name, void (^work) (void));
 
 
 

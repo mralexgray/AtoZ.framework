@@ -313,8 +313,8 @@ static const NSString *didScroll = @"scrollOffset";
 //	return CATransform3DTranslate(transform, radius * cos(angle) - radius, radius * sin(angle), 0.0f);
 //#define DEBUGTALKER 0 
 	[carrie.layer sublayersBlockSkippingSelf:^(CALayer *layer) {
-		[layer performBlock:^(CALayer* sender) {
-			[sender flipBackAtEdge:pos];
+		[layer  performBlock:^{
+			[layer flipBackAtEdge:pos];
 		} afterDelay:time];   time += .1;
 	}];
 //	CALayer *itsLayer = [[[slider.contentView subviewsOfKind:[iCarousel class]]objectAtIndex:0]layer];

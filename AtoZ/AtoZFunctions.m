@@ -15,6 +15,14 @@
 
 
 
+int (^triple)(int) = ^(int number) {
+    return number * 3;
+};
+
+
+id (^logAndReturn)(id) = ^(id toLog) {
+	AZLOG(toLog); return toLog;
+};
 
 
 NSString* AZStringFromRect(NSRect rect){
@@ -186,24 +194,16 @@ static CGEventRef myEventTapCallback (	CGEventTapProxy proxy,	CGEventType type,	
 
 
 
-void trackMouse() {
-
-	CGEventMask emask;
-	CFMachPortRef myEventTap;
-	CFRunLoopSourceRef eventTapRLSrc;
-
-		// We only want one kind of event at the moment: The mouse has moved
-	emask = CGEventMaskBit(kCGEventMouseMoved);			// Create the Tap
-	myEventTap = CGEventTapCreate (		kCGSessionEventTap, // Catch all events for current user session
-								   kCGTailAppendEventTap, // Append to end of EventTap list
-								   kCGEventTapOptionListenOnly, // We only listen, we don't modify
-								   emask,	&myEventTapCallback, NULL // We need no extra data in the callback
-								   );																		// Create a RunLoop Source for it
-	eventTapRLSrc = CFMachPortCreateRunLoopSource(		kCFAllocatorDefault,	myEventTap,   0		);
-		// Add the source to the current RunLoop
-	CFRunLoopAddSource(		CFRunLoopGetCurrent(),		eventTapRLSrc, 		kCFRunLoopDefaultMode   );
-		// Keep the RunLoop running forever
-	CFRunLoopRun();
+void trackMouse() {		CGEventMask emask;	CFMachPortRef myEvTap;	CFRunLoopSourceRef evTapRLSrc;
+						// We only want one kind of event at the moment: The mouse has moved
+	emask = CGEventMaskBit(kCGEventMouseMoved);									// Create the Tap
+	myEvTap = CGEventTapCreate (	kCGSessionEventTap,  						// Catch all events for current user session
+									kCGTailAppendEventTap,  					// Append to end of EventTap list
+									kCGEventTapOptionListenOnly,  				// We only listen, we don't modify
+									emask,	&myEventTapCallback, NULL);  		// We need no extra data in the callback
+	evTapRLSrc = CFMachPortCreateRunLoopSource( kCFAllocatorDefault, myEvTap, 0 );	// Create a RunLoop Source for it
+	CFRunLoopAddSource(	CFRunLoopGetCurrent(), evTapRLSrc, kCFRunLoopDefaultMode );	// Add the source to the current RunLoop
+	CFRunLoopRun();																    // Keep the RunLoop running forever
 }
 
 //
@@ -440,6 +440,16 @@ extern void DrawLabelAtCenterPoint(NSString* string, NSPoint center) {
     [string drawInRect:labelRect withAttributes:attributes];
 }
 
+
+#import <CoreServices/CoreServices.h>
+#import <stdlib.h>
+
+
+static void PrintUsageAndQuit(void)
+{
+	printf("Usage: tmtool <status|include|exclude|excludep> <path>\n");
+	exit(EXIT_FAILURE);
+}
 
 
 

@@ -71,6 +71,20 @@ static NSString *const HRCoderObjectAliasKey = @"$alias";
 
 @interface NSObject (AtoZ)
 
+/*
+[WSLObjectSwitch switchOn:<id object> defaultBlock:^{ NSLog (@"Dee Fault"); }
+                    cases:	@"sausage", ^{ NSLog (@"Hello, sweetie."); },
+							@"test",    ^{ NSLog (@"A test"); }, nil];
+*/
+
+typedef void (^caseBlock)();
++(void)switchOn:(id<NSObject>)obj cases:casesList, ...;
+
++(void)switchOn:(id<NSObject>)obj
+   defaultBlock:(caseBlock)defaultBlock
+          cases:casesList, ...;
+
+
 	// To add array style subscripting:
 - (void)setObject:(id)obj atIndexedSubscript:(NSUInteger)idx; // setter
 - (id)objectAtIndexedSubscript:(NSUInteger)idx;               // getter

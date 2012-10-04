@@ -29,7 +29,7 @@
 
 @interface NSArray (AtoZ)
 
-
+- (void) logEach;
 + (NSArray*) arrayFromPlist:(NSString*)path;
 - (void) saveToPlistAtPath:(NSString*)path;
 

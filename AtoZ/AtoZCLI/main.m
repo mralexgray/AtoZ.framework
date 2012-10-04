@@ -45,11 +45,13 @@ int main(int argc, const char * argv[])
 {
 	[AZStopwatch stopwatch:@"Runtime" timing:^{
 
-		NSLog(@"TEST start");
-	//	TestStopwatchBlock(@"testTheWatch");
-		NSArray *u = [NSArray arrayWithArrays: @[@[@"array1", @[@"array1level2"]],@[@"array2", @"array2item2"], @[@"array3"]]];
-		AZLOG(	u );
-		AZLOG([NSArray classMethods]);
+//		NSLog(@"TEST start");
+		AZFile *f = [AZFile instanceWithPath:@"/Applications/Safari.app"];
+		AZLOG([AZFILEMANAGER attributesOfItemAtPath:f.path error:nil]);
+//	TestStopwatchBlock(@"testTheWatch");
+//		NSArray *u = [NSArray arrayWithArrays: @[@[@"array1", @[@"array1level2"]],@[@"array2", @"array2item2"], @[@"array3"]]];
+//		AZLOG(	u );
+//		AZLOG([NSArray classMethods]);
 
 //		AZLOG([NSColor allColors]);
 	//	[NSThread performBlock:^{
@@ -58,7 +60,7 @@ int main(int argc, const char * argv[])
 	//	[AZTalker say:StringFromBOOL([AZDock conformsToProtocol:@protocol(NSFileManagerDelegate)])];
 	//	[AZTalker say:StringFromBOOL([AZDock conformsToProtocol:@protocol(NSFastEnumeration)])];
 //		AZLOG([AZAppFolder sharedInstance]);
-		AZLOG([AZFile forAppNamed:@"/Applications/Safari.app"]);
+//		AZLOG([AZFile forAppNamed:@"/Applications/Safari.app"]);
 
 	//	AZLOG([NSColor colorsInFrameworkListNamed:@"OrigamiMice"]);
 

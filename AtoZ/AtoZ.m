@@ -12,6 +12,9 @@
 #import "AtoZModels.h"
 
 
+
+
+
 @implementation CALayerNoHit
 - (BOOL)containsPoint:(CGPoint)p {	return FALSE; }
 @end
@@ -27,18 +30,34 @@
 
 @interface AtoZ ()
 @property (nonatomic, assign) BOOL fontsRegistered;
-@property (nonatomic, strong) AZSoundEffect *soundEffect;
 @end
 
 @implementation AtoZ
 
-- (AZSoundEffect *)soundEffect
-{ 	// lazy loading
-//	return _soundEffect = _soundEffect == nil
-//						? [[AZSoundEffect alloc] initWithSoundNamed:@"welcome.wav"]
-//						: _soundEffect;
-	return _soundEffect = _soundEffect ? _soundEffect
-						: [[AZSoundEffect alloc] initWithSoundNamed:@"welcome.wav"];
+- (id)init {
+    self = [super init];
+    if (self) {
+		self.sManager = [SoundManager sharedManager];
+		[self.sManager prepareToPlay];
+		[[self class] playSound:@"welcome"];
+    }
+    return self;
+}
+
++ (void)playSound:(id)number {
+
+	NSArray *sounds = @[@"welcome.wav", @"bling"];
+	NSString *select = number ? [sounds filterOne:^BOOL(id object) {
+		return [(NSString*)object contains:number] ? YES : NO;
+	}] : sounds[0];
+	NSS*song = select ? select : sounds[0];
+	NSLog(@"Playing song: %@", song);
+	[[[self sharedInstance] sManager] playSound:song looping:NO];
+}
+
++ (void)setSoundVolume:(NSUInteger)outtaHundred
+{
+    [[AtoZ instance] sManager].soundVolume = outtaHundred / 100.0;
 }
 
 
@@ -58,16 +77,16 @@
 //	AtoZ *u = [[self class] sharedInstance];
 //	NSLog(@"Initialized AtoZ.sharedinstance as: %@", u.propertiesPlease);
 //}
-- (void) setUp {
-	AZLOG(@"setup AtoZ");
-	char *xcode_colors = getenv(XCODE_COLORS);
-	xcode_colors && (strcmp(xcode_colors, "YES") == 0) ? ^{/* XcodeColors=installed+enabled! */}() : nil;
-		//	[DDLog addLogger:[DDTTYLogger sharedInstance]];
-		//	DDLogVerbose(@"Verbose"); DDLogInfo(@"Info"); DDLogWarn(@"Warn"); DDLogError(@"Error");
-		//	[self registerFonts:(CGFloat)]
-		//	self.sortOrder = AZDockSortNatural;
- 	[self.soundEffect play];
-}
+//- (void) setUp {
+//	AZLOG(@"setup AtoZ");
+////	char *xcode_colors = getenv(XCODE_COLORS);
+////	xcode_colors && (strcmp(xcode_colors, "YES") == 0) ? ^{/* XcodeColors=installed+enabled! */}() : nil;
+//		//	[DDLog addLogger:[DDTTYLogger sharedInstance]];
+//		//	DDLogVerbose(@"Verbose"); DDLogInfo(@"Info"); DDLogWarn(@"Warn"); DDLogError(@"Error");
+//		//	[self registerFonts:(CGFloat)]
+//		//	self.sortOrder = AZDockSortNatural;
+//	[[[AZSoundEffect alloc]initWithSoundNamed:@"welcome.wav"]play];
+//}
 
 + (NSString *) version;
 {
@@ -167,13 +186,6 @@
 	return [NSUserDefaults standardUserDefaults];
 }
 
-/*- (id)objectForKeyedSubscript:(NSString *)key {
- return [self objectForKey:key];
- }
- - (void)setObject:(id)newValue forKeyedSubscription:(NSString *)key {
- [self setObject:newValue forKey:key];
- }
- */
 
 -(void) mouseSelector {
 
@@ -186,11 +198,8 @@
 												cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
 	NSData *responseData = [NSURLConnection sendSynchronousRequest:theRequest returningResponse:nil error:&err];
 	if (!responseData) NSLog(@"Connection Error: %@", [err localizedDescription]);
-
 		//    NSError *error;
-
 	return  [NSJSONSerialization JSONObjectWithData:responseData options:0 error:&err];
-
 		//    if (err) {
 		//        NSAlert *alert = [NSAlert alertWithMessageText:@"Error parsing JSON" defaultButton:@"Damn that sucks" alternateButton:nil otherButton:nil informativeTextWithFormat:@"Check your JSON"];
 		//        [alert beginSheetModalForWindow:[[NSApplication sharedApplication]mainWindow] modalDelegate:nil didEndSelector:nil contextInfo:nil];
@@ -247,6 +256,13 @@
 
 	//}
 
+/*- (id)objectForKeyedSubscript:(NSString *)key {
+ return [self objectForKey:key];
+ }
+ - (void)setObject:(id)newValue forKeyedSubscription:(NSString *)key {
+ [self setObject:newValue forKey:key];
+ }
+ */
 
 	//- (void)performBlock:(void (^)())block {
 	//	if ([[NSThread currentThread] isEqual:[self curr])
@@ -299,48 +315,27 @@
 - (NSPoint)convertToScreenFromLocalPoint:(NSPoint)point relativeToView:(NSView *)view
 {
 	NSScreen *currentScreen = [NSScreen currentScreenForMouseLocation];
-	if(currentScreen)
-		{
-		NSPoint windowPoint = [view convertPoint:point toView:nil];
-		NSPoint screenPoint = [[view window] convertBaseToScreen:windowPoint];
-		NSPoint flippedScreenPoint = [currentScreen flipPoint:screenPoint];
-		flippedScreenPoint.y += [currentScreen frame].origin.y;
-
-		return flippedScreenPoint;
-		}
-
-	return NSZeroPoint;
+	return currentScreen ? (NSPoint) ^{	NSPoint windowPoint, screenPoint, flippedScreenPoint;
+		windowPoint = [view convertPoint:point toView:nil];
+		screenPoint = [[view window] convertBaseToScreen: windowPoint];
+		return AZPointOffsetY([currentScreen flipPoint: screenPoint], [currentScreen frame].origin.y);
+	}() : NSZeroPoint;
 }
 
-- (void)moveMouseToScreenPoint:(NSPoint)point
-{
-	CGPoint cgPoint = NSPointToCGPoint(point);
-	CGEventSourceSetLocalEventsSuppressionInterval(nil,0);
-		//	CGSetLocalEventsSuppressionInterval(0.0);
-	CGWarpMouseCursorPosition(cgPoint);
-	CGEventSourceSetLocalEventsSuppressionInterval(nil,.25);
-		//	CGSetLocalEventsSuppressionInterval(0.25);
-}
+- (void)moveMouseToScreenPoint:(NSPoint)point {	CGSUPRESSINTERVAL(0); CGWarpMouseCursorPosition(point); CGSUPRESSINTERVAL(.25);}
 
 - (void) handleMouseEvent:(NSEventMask)event inView:(NSView*)view withBlock:(void (^)())block {
-	if (self != [AtoZ sharedInstance]) {
-		NSLog(@"uh oh, not a shared I");
-			//		__typeof__(self) *aToZ = [AtoZ sharedInstance];
-			//		__typeof__(self) *aToZ = [AtoZ sharedInstance];
-
-	}
-	[NSEvent addLocalMonitorForEventsMatchingMask:NSMouseMovedMask handler:^NSEvent *(NSEvent *event) {
-			//		if ([event type] == NSMouseMovedMask ) {
+	if (self != [AtoZ new]) NSLog(@"uh oh, not a shared I"); // __typeof__(self) *aToZ = [AtoZ sharedInstance];
+	[NSEvent addLocalMonitorForEventsMatchingMask:event handler:^NSEvent *(NSEvent *event) {
+	//	if ([event type] == NSMouseMovedMask ) {
 		NSLog(@"Mouse handler checking point for evet:%@.", event);
-		NSPoint localP = view.localPoint;
-		if ( NSPointInRect(localP, view.frame) ){
+		NSPointInRect(view.localPoint, view.frame) ? ^{
 			NSLog(@"oh my god.. point is local to view! Runnnng block");
-			[[NSThread mainThread] performBlock:block waitUntilDone:YES];
-				//			[NSThread performBlockInBackground:block];
-		}
+			block();
+//			[[NSThread mainThread] performBlock:block waitUntilDone:YES]; // [NSThread performBlockInBackground:block];
+		}() : nil;
 		return event;
 	}];
-	return;
 }
 
 	//- (NSArray *)uncodableKeys
@@ -741,9 +736,38 @@ static void soundCompleted(SystemSoundID soundFileObject, void *clientData) {
 }
 
 -(NSView *)visibleView
-{
-    return (isFlipped ? backView : frontView);
+{	return (isFlipped ? backView : frontView);
 }
 @end
 
 
+
+
+	//- (id)objectForKeyedSubscript:(NSString *)key {
+	// return [_children objectForKey:key];
+	// }
+	//
+	//- (void)setObject:(id)newValue forKeyedSubscription:(NSString *)key {
+	//	 [_children setObject:newValue forKey:key];
+	//}
+	//
+
+//Subclassible thread-safe ARC singleton  Copyright Kevin Lawler. Released under ISC.
+@implementation AZSingleton
+static NSMD* _children;
++(void) initialize { //thread-safe
+    _children = !_children ? [NSMD dictionary] : _children;
+    _children [NSStringFromClass([self class])] = [[self alloc] init];
+}
++(id) alloc { id c; return (c = [self instance]) ? c : [self allocWithZone:nil];  }
+-(id) init  { id c; if((c = [_children objectForKey:NSStringFromClass([self class])])) return c;  //sic, unfactored
+	return  self = [super init];
+}
++(id) instance {		return _children [NSStringFromClass([self class])];  }
++(id) sharedInstance { 	return [self instance];  }  //alias for instance
++(id) singleton {  		return [self instance];	}  //alias for instance
++(id) new {				return [self instance]; }	//stop other creative stuff
++(id)copyWithZone:(NSZone *)zone {			return [self instance]; }
++(id)mutableCopyWithZone:(NSZone *)zone {	return [self instance]; }
+
+@end

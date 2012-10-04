@@ -52,6 +52,13 @@
 @implementation NSArray (AtoZ)
 @dynamic trimmedStrings;
 
+- (void) logEach;
+{
+
+	[self eachWithIndex:^(id obj, NSInteger idx) {
+		NSLog(@"Index %ld: %@",idx, obj);;
+	}];
+}
 
 + (NSArray*) arrayFromPlist:(NSString*)path {
 
@@ -687,7 +694,7 @@ static NSInteger comparatorForSortingUsingArray(id object1, id object2, void *co
 {
 	//make sure we get a unique queue identifier
     dispatch_group_t group = dispatch_group_create();
-	dispatch_queue_t queue = dispatch_queue_create([[NSString stringWithFormat:@"%@%@", @"com.AGFoundation.NSArray_", [AtoZ newUniqueIdentifier]] UTF8String], DISPATCH_QUEUE_CONCURRENT);
+	dispatch_queue_t queue = dispatch_queue_create([[NSString stringWithFormat:@"%@%@", @"com.AGFoundation.NSArray_", [NSString newUniqueIdentifier]] UTF8String], DISPATCH_QUEUE_CONCURRENT);
     __block BOOL _stop = NO;
     NSInteger idx = 0;
 

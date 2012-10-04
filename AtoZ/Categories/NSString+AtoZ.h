@@ -351,3 +351,37 @@ extern int gNSStringGeometricsTypesetterBehavior ;
 - (float)widthForHeight:(float)height font:(NSFont*)font;
 
 @end
+
+
+
+//  NSLog(@"%@", [@"Hello" : @", " : [NSColor redColor] : @"World!" : @"  " : [NSNumber numberWithInt:42]]);
+@interface NSString (JASillyString)
+
+-:a;
+-:a:b;
+-:a:b:c;
+-:a:b:c:d;
+-:a:b:c:d:e;
+-:a:b:c:d:e:f;
+-:a:b:c:d:e:f:g;
+-:a:b:c:d:e:f:g:h;
+-:a:b:c:d:e:f:g:h:i;
+-:a:b:c:d:e:f:g:h:i:j;
+-:a:b:c:d:e:f:g:h:i:j:k;
+-:a:b:c:d:e:f:g:h:i:j:k:l;
+-:a:b:c:d:e:f:g:h:i:j:k:l:m;
+-:a:b:c:d:e:f:g:h:i:j:k:l:m:n;
+-:a:b:c:d:e:f:g:h:i:j:k:l:m:n:o;
+-:a:b:c:d:e:f:g:h:i:j:k:l:m:n:o:p;
+-:a:b:c:d:e:f:g:h:i:j:k:l:m:n:o:p:q;
+-:a:b:c:d:e:f:g:h:i:j:k:l:m:n:o:p:q:r;
+-:a:b:c:d:e:f:g:h:i:j:k:l:m:n:o:p:q:r:s;
+-:a:b:c:d:e:f:g:h:i:j:k:l:m:n:o:p:q:r:s:t;
+-:a:b:c:d:e:f:g:h:i:j:k:l:m:n:o:p:q:r:s:t:u;
+-:a:b:c:d:e:f:g:h:i:j:k:l:m:n:o:p:q:r:s:t:u:v;
+-:a:b:c:d:e:f:g:h:i:j:k:l:m:n:o:p:q:r:s:t:u:v:w;
+-:a:b:c:d:e:f:g:h:i:j:k:l:m:n:o:p:q:r:s:t:u:v:w:x;
+-:a:b:c:d:e:f:g:h:i:j:k:l:m:n:o:p:q:r:s:t:u:v:w:x:y;
+-:a:b:c:d:e:f:g:h:i:j:k:l:m:n:o:p:q:r:s:t:u:v:w:x:y:z;
+
+@end

@@ -7,38 +7,35 @@
 
 
 #import <Cocoa/Cocoa.h>
+#import "AtoZ.h"
+#import "AZFile.h"
 
+static inline int get_bit(unsigned char *arr, unsigned long bit_num) {	return ( arr[(bit_num/8)] & (1 << (bit_num%8)) ); }
 
-@interface CIFilter (Subscript)
-- (id)objectForKeyedSubscript:(NSString *)key;
-- (void)setObject:(id)object forKeyedSubscript:(NSString *)key;
-@end
-
-
-static inline int get_bit(unsigned char *arr, unsigned long bit_num)
-{
-	return ( arr[(bit_num/8)] & (1 << (bit_num%8)) );
-}
-
-
-
-typedef enum {
-    AGImageResizeCrop,
-    AGImageResizeCropStart,
-    AGImageResizeCropEnd,
-    AGImageResizeScale
-} AGImageResizingMethod;
-
+typedef enum { AGImageResizeCrop, AGImageResizeCropStart, AGImageResizeCropEnd, AGImageResizeScale } AGImageResizingMethod;
 
 CGImageRef CreateCGImageFromData(NSData* data);
 
-
-@interface CIFilter (WithDefaults)
-+ (CIFilter*) filterWithDefaultsNamed: (NSString*) name;
-@end
-
-
+@class AZFile;
 @interface NSImage (AtoZ)
+
+@property (readonly, strong) NSColor *color;
+@property (readonly, strong) NSArray *colors;
+
++ (NSArray*) frameworkImagePaths;
++ (NSArray*) frameworkImages;
++ (NSArray*) systemImages;
++ (NSImage*) screenShot;
++ (NSArray*) systemIcons;
+- (NSImage*) coloredWithColor:(NSColor*)inColor composite:(NSCompositingOperation)comp;
++ (NSArray*) iconsColoredWithColor:(NSColor*)color;
++ (NSArray*) icons;
++ (NSArray*) picolStrings;
++ (NSArray*) iconStrings;
++ (NSImage*) randomIcon;
++ (NSArray*) randomImages:(NSUI)number;
+
++ (NSImage*) forFile:(AZFile*)file;
 
 + (void) drawInQuadrants:(NSArray*)images inRect:(NSRect)frame;
 
@@ -98,7 +95,8 @@ CGImageRef CreateCGImageFromData(NSData* data);
 - (NSImage*) resizeWhenScaledImage;
 + (NSImage *) prettyGradientImage;  // Generates a 256 by 256 pixel image with a complicated gradient in it.
 - (NSArray*) quantize;
-
++ (NSImage*) desktopImage;
+- (void)openQuantizedSwatch;
 
 
 - (void) drawFloatingRightInFrame:(NSRect)aFrame;  //ACG FLOATIAMGE
@@ -139,8 +137,6 @@ CGImageRef CreateCGImageFromData(NSData* data);
 
 - (NSImage*) addReflection:(CGFloat)percentage;
 
-+ (NSArray*) frameworkImages;
-+ (NSArray*) systemImages;
 - (void)drawEtchedInRect:(NSRect)rect;
 
 
@@ -219,27 +215,10 @@ CGImageRef CreateCGImageFromData(NSData* data);
 @interface NSImage (AtoZAverage)
 -(NSColor *)averageColor;
 + (NSImage*)maskImage:(NSImage *)image withMask:(NSImage *)maskImage;
-+ (NSImage*)screeShot;
-
-
 @end
 @interface NSImage (Matrix)
 - (NSImage*) addPerspectiveMatrix:(CIPerspectiveMatrix)matrix; //8PointMatrix
 @end
-
-@interface NSImage (Icons)
-
-+ (NSArray*) systemIcons;
-- (NSImage*)  coloredWithColor:(NSColor*)inColor composite:(NSCompositingOperation)comp;
-+ (NSArray*) iconsColoredWithColor:(NSColor*)color;
-+ (NSArray*) icons;
-+ (NSArray*) picolStrings;
-+ (NSArray*) iconStrings;
-+ (NSImage*) randomIcon;
-+ (NSArray*) randomImages:(NSUI)number;
-
-@end
-
 
 @interface NSImage (GrabWindow)
 //+ (NSImage *) captureScreenImageWithFrame: (NSRect) frame;
@@ -275,18 +254,11 @@ CGImageRef CreateCGImageFromData(NSData* data);
 - (NSData *)JFIFData:(float) compressionValue;
 @end
 
-
-@implementation NSImage (Matrix)
-- (NSImage*) addPerspectiveMatrix:(CIPerspectiveMatrix)matrix { //8PointMatrix
-
-	CIImage* cImg = [self toCIImage];//  [[CIImage alloc] initWithCGImage: screenie];
-	CIFilter *filter = [CIFilter filterWithName: @"CIPerspectiveTransform"];
-	[filter setDefaults];
-	[filter setValue:cImg forKey: @"inputImage"];  //    CGImageRelease(screenie);
-	filter [ @"inputTopLeft" ] 	  = [CIVector vectorWithX:matrix.tlX  Y:matrix.tlY];
-	filter [ @"inputTopRight" ]   = [CIVector vectorWithX:matrix.trX  Y:matrix.trY];
-	filter [ @"inputBottomLeft" ] = [CIVector vectorWithX:matrix.blX Y: matrix.blY];
-	filter [ @"inputBottomRight"] = [CIVector vectorWithX:matrix.brX Y: matrix.brY];
-	return  [[filter valueForKey: @"outputImage"]toNSImage];
-}
+@interface CIFilter (Subscript)
+- (id)objectForKeyedSubscript:(NSString *)key;
+- (void)setObject:(id)object forKeyedSubscript:(NSString *)key;
 @end
+@interface CIFilter (WithDefaults)
++ (CIFilter*) filterWithDefaultsNamed: (NSString*) name;
+@end
+
