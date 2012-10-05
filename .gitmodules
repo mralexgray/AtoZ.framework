@@ -34,3 +34,6 @@
 	path = AtoZ/Categories/NSUserDefaults-Subscript
 	url = https://github.com/asmallteapot/NSUserDefaults-Subscript.git
 	ignore = dirty
+[submodule "Frameworks/CocoaPuffs"]
+	path = Frameworks/CocoaPuffs
+	url = https://github.com/macprog-guy/CocoaPuffs.git

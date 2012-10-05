@@ -33,8 +33,8 @@
 	_contentLayer.position 	= [self center];
 	_contentLayer.bounds 	= [self bounds];
 	[_contentLayer addConstraintsSuperSize];
-	self.content 			= [[AtoZ appFolderSamplerWith:34]arrayUsingBlock:^id(id obj) {
-		return [AZFile instanceWithImage:obj];}];
+	self.content 			= [AZFolder samplerWithCount:34];// arrayUsingBlock:^id(id obj) {
+//		return [AZFile instanceWithImage:obj];}];
 //	}][AtoZ appFolderSamplerWith: RAND_INT_VAL(12, 29)];
 	_root.sublayers 		= @[_contentLayer];
 	[_root setNeedsLayout];

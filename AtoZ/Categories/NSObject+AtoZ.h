@@ -71,6 +71,8 @@ static NSString *const HRCoderObjectAliasKey = @"$alias";
 
 @interface NSObject (AtoZ)
 
+-(void) setWithDictionary:(NSD*)dic;
+
 /*
 [WSLObjectSwitch switchOn:<id object> defaultBlock:^{ NSLog (@"Dee Fault"); }
                     cases:	@"sausage", ^{ NSLog (@"Hello, sweetie."); },

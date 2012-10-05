@@ -244,6 +244,62 @@
 		7B6629F9161DEA30003D5EE0 /* PLWeakCompatibility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B276CD41616A4320083C29E /* PLWeakCompatibility.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		7B6629FA161DEA4A003D5EE0 /* PLWeakCompatibility.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7B276CD41616A4320083C29E /* PLWeakCompatibility.framework */; };
 		7B662A13161E0AB5003D5EE0 /* bling.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A12161E0AB5003D5EE0 /* bling.caf */; };
+		7B662A4F161E3231003D5EE0 /* 1085.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A16161E3230003D5EE0 /* 1085.caf */; };
+		7B662A50161E3231003D5EE0 /* beat.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A17161E3231003D5EE0 /* beat.caf */; };
+		7B662A51161E3231003D5EE0 /* Blip Synth 01.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A18161E3231003D5EE0 /* Blip Synth 01.caf */; };
+		7B662A52161E3231003D5EE0 /* Bongo Groove 01.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A19161E3231003D5EE0 /* Bongo Groove 01.caf */; };
+		7B662A53161E3231003D5EE0 /* Cartoon Boing.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A1A161E3231003D5EE0 /* Cartoon Boing.caf */; };
+		7B662A54161E3231003D5EE0 /* Comedy Boing.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A1B161E3231003D5EE0 /* Comedy Boing.caf */; };
+		7B662A55161E3231003D5EE0 /* Comedy High Honk.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A1C161E3231003D5EE0 /* Comedy High Honk.caf */; };
+		7B662A56161E3231003D5EE0 /* Comedy Low Honk.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A1D161E3231003D5EE0 /* Comedy Low Honk.caf */; };
+		7B662A57161E3231003D5EE0 /* Comedy Whistle.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A1E161E3231003D5EE0 /* Comedy Whistle.caf */; };
+		7B662A58161E3231003D5EE0 /* diamond.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A1F161E3231003D5EE0 /* diamond.caf */; };
+		7B662A59161E3231003D5EE0 /* game-start.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A20161E3231003D5EE0 /* game-start.caf */; };
+		7B662A5A161E3231003D5EE0 /* new-mail.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A21161E3231003D5EE0 /* new-mail.caf */; };
+		7B662A5B161E3231003D5EE0 /* photoShutter.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A22161E3231003D5EE0 /* photoShutter.caf */; };
+		7B662A5C161E3231003D5EE0 /* Short Accent.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A23161E3231003D5EE0 /* Short Accent.caf */; };
+		7B662A5D161E3231003D5EE0 /* sms-received.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A24161E3231003D5EE0 /* sms-received.caf */; };
+		7B662A5E161E3231003D5EE0 /* Suspense Accents 01.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A25161E3231003D5EE0 /* Suspense Accents 01.caf */; };
+		7B662A5F161E3231003D5EE0 /* alarm.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A27161E3231003D5EE0 /* alarm.caf */; };
+		7B662A60161E3231003D5EE0 /* beep-beep.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A28161E3231003D5EE0 /* beep-beep.caf */; };
+		7B662A61161E3231003D5EE0 /* click.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A29161E3231003D5EE0 /* click.caf */; };
+		7B662A62161E3231003D5EE0 /* dtmf-0.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A2A161E3231003D5EE0 /* dtmf-0.caf */; };
+		7B662A63161E3231003D5EE0 /* dtmf-1.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A2B161E3231003D5EE0 /* dtmf-1.caf */; };
+		7B662A64161E3231003D5EE0 /* dtmf-2.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A2C161E3231003D5EE0 /* dtmf-2.caf */; };
+		7B662A65161E3231003D5EE0 /* dtmf-3.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A2D161E3231003D5EE0 /* dtmf-3.caf */; };
+		7B662A66161E3231003D5EE0 /* dtmf-4.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A2E161E3231003D5EE0 /* dtmf-4.caf */; };
+		7B662A67161E3231003D5EE0 /* dtmf-5.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A2F161E3231003D5EE0 /* dtmf-5.caf */; };
+		7B662A68161E3231003D5EE0 /* dtmf-6.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A30161E3231003D5EE0 /* dtmf-6.caf */; };
+		7B662A69161E3231003D5EE0 /* dtmf-7.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A31161E3231003D5EE0 /* dtmf-7.caf */; };
+		7B662A6A161E3231003D5EE0 /* dtmf-8.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A32161E3231003D5EE0 /* dtmf-8.caf */; };
+		7B662A6B161E3231003D5EE0 /* dtmf-9.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A33161E3231003D5EE0 /* dtmf-9.caf */; };
+		7B662A6C161E3231003D5EE0 /* dtmf-pound.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A34161E3231003D5EE0 /* dtmf-pound.caf */; };
+		7B662A6D161E3231003D5EE0 /* dtmf-star.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A35161E3231003D5EE0 /* dtmf-star.caf */; };
+		7B662A6E161E3231003D5EE0 /* lock.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A36161E3231003D5EE0 /* lock.caf */; };
+		7B662A6F161E3231003D5EE0 /* long_low_short_high.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A37161E3231003D5EE0 /* long_low_short_high.caf */; };
+		7B662A70161E3231003D5EE0 /* low_power.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A38161E3231003D5EE0 /* low_power.caf */; };
+		7B662A71161E3231003D5EE0 /* mail-sent.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A39161E3231003D5EE0 /* mail-sent.caf */; };
+		7B662A72161E3231003D5EE0 /* middle_9_short_double_low.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A3A161E3231003D5EE0 /* middle_9_short_double_low.caf */; };
+		7B662A73161E3231003D5EE0 /* new-mail.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A3B161E3231003D5EE0 /* new-mail.caf */; };
+		7B662A74161E3231003D5EE0 /* photoShutter.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A3C161E3231003D5EE0 /* photoShutter.caf */; };
+		7B662A75161E3231003D5EE0 /* ReceivedMessage.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A3D161E3231003D5EE0 /* ReceivedMessage.caf */; };
+		7B662A76161E3231003D5EE0 /* RingerChanged.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A3E161E3231003D5EE0 /* RingerChanged.caf */; };
+		7B662A77161E3231003D5EE0 /* SentMessage.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A3F161E3231003D5EE0 /* SentMessage.caf */; };
+		7B662A78161E3231003D5EE0 /* short_double_high.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A40161E3231003D5EE0 /* short_double_high.caf */; };
+		7B662A79161E3231003D5EE0 /* short_double_low.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A41161E3231003D5EE0 /* short_double_low.caf */; };
+		7B662A7A161E3231003D5EE0 /* short_low_high.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A42161E3231003D5EE0 /* short_low_high.caf */; };
+		7B662A7B161E3231003D5EE0 /* SIMToolkitCallDropped.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A43161E3231003D5EE0 /* SIMToolkitCallDropped.caf */; };
+		7B662A7C161E3231003D5EE0 /* SIMToolkitGeneralBeep.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A44161E3231003D5EE0 /* SIMToolkitGeneralBeep.caf */; };
+		7B662A7D161E3231003D5EE0 /* SIMToolkitNegativeACK.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A45161E3231003D5EE0 /* SIMToolkitNegativeACK.caf */; };
+		7B662A7E161E3231003D5EE0 /* SIMToolkitPositiveACK.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A46161E3231003D5EE0 /* SIMToolkitPositiveACK.caf */; };
+		7B662A7F161E3231003D5EE0 /* SIMToolkitSMS.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A47161E3231003D5EE0 /* SIMToolkitSMS.caf */; };
+		7B662A80161E3231003D5EE0 /* sms-received.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A48161E3231003D5EE0 /* sms-received.caf */; };
+		7B662A81161E3231003D5EE0 /* submarine.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A49161E3231003D5EE0 /* submarine.caf */; };
+		7B662A82161E3231003D5EE0 /* Tink.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A4A161E3231003D5EE0 /* Tink.caf */; };
+		7B662A83161E3231003D5EE0 /* unlock.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A4B161E3231003D5EE0 /* unlock.caf */; };
+		7B662A84161E3231003D5EE0 /* Voicemail.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A4C161E3231003D5EE0 /* Voicemail.caf */; };
+		7B662A85161E3231003D5EE0 /* Voicemail.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A4D161E3231003D5EE0 /* Voicemail.caf */; };
+		7B662A86161E3231003D5EE0 /* win.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A4E161E3231003D5EE0 /* win.caf */; };
 		7B6901B8159E09D800D0DA47 /* NSApplication+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B6901B6159E09D800D0DA47 /* NSApplication+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B6901C9159E322300D0DA47 /* AZAXAuthorization.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B6901C7159E322300D0DA47 /* AZAXAuthorization.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B6901CA159E322300D0DA47 /* AZAXAuthorization.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B6901C8159E322300D0DA47 /* AZAXAuthorization.m */; };
@@ -2237,6 +2293,62 @@
 		7B64C01B15D14A4900D4ED4A /* AZCSSColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZCSSColors.m; sourceTree = "<group>"; };
 		7B6629DB161DE924003D5EE0 /* BlocksKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BlocksKit.xcodeproj; path = ../Frameworks/BlocksKit/BlocksKit.xcodeproj; sourceTree = "<group>"; };
 		7B662A12161E0AB5003D5EE0 /* bling.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = bling.caf; sourceTree = "<group>"; };
+		7B662A16161E3230003D5EE0 /* 1085.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = 1085.caf; sourceTree = "<group>"; };
+		7B662A17161E3231003D5EE0 /* beat.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = beat.caf; sourceTree = "<group>"; };
+		7B662A18161E3231003D5EE0 /* Blip Synth 01.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Blip Synth 01.caf"; sourceTree = "<group>"; };
+		7B662A19161E3231003D5EE0 /* Bongo Groove 01.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Bongo Groove 01.caf"; sourceTree = "<group>"; };
+		7B662A1A161E3231003D5EE0 /* Cartoon Boing.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Cartoon Boing.caf"; sourceTree = "<group>"; };
+		7B662A1B161E3231003D5EE0 /* Comedy Boing.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Comedy Boing.caf"; sourceTree = "<group>"; };
+		7B662A1C161E3231003D5EE0 /* Comedy High Honk.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Comedy High Honk.caf"; sourceTree = "<group>"; };
+		7B662A1D161E3231003D5EE0 /* Comedy Low Honk.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Comedy Low Honk.caf"; sourceTree = "<group>"; };
+		7B662A1E161E3231003D5EE0 /* Comedy Whistle.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Comedy Whistle.caf"; sourceTree = "<group>"; };
+		7B662A1F161E3231003D5EE0 /* diamond.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = diamond.caf; sourceTree = "<group>"; };
+		7B662A20161E3231003D5EE0 /* game-start.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "game-start.caf"; sourceTree = "<group>"; };
+		7B662A21161E3231003D5EE0 /* new-mail.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "new-mail.caf"; sourceTree = "<group>"; };
+		7B662A22161E3231003D5EE0 /* photoShutter.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = photoShutter.caf; sourceTree = "<group>"; };
+		7B662A23161E3231003D5EE0 /* Short Accent.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Short Accent.caf"; sourceTree = "<group>"; };
+		7B662A24161E3231003D5EE0 /* sms-received.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "sms-received.caf"; sourceTree = "<group>"; };
+		7B662A25161E3231003D5EE0 /* Suspense Accents 01.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Suspense Accents 01.caf"; sourceTree = "<group>"; };
+		7B662A27161E3231003D5EE0 /* alarm.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = alarm.caf; sourceTree = "<group>"; };
+		7B662A28161E3231003D5EE0 /* beep-beep.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "beep-beep.caf"; sourceTree = "<group>"; };
+		7B662A29161E3231003D5EE0 /* click.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = click.caf; sourceTree = "<group>"; };
+		7B662A2A161E3231003D5EE0 /* dtmf-0.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "dtmf-0.caf"; sourceTree = "<group>"; };
+		7B662A2B161E3231003D5EE0 /* dtmf-1.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "dtmf-1.caf"; sourceTree = "<group>"; };
+		7B662A2C161E3231003D5EE0 /* dtmf-2.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "dtmf-2.caf"; sourceTree = "<group>"; };
+		7B662A2D161E3231003D5EE0 /* dtmf-3.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "dtmf-3.caf"; sourceTree = "<group>"; };
+		7B662A2E161E3231003D5EE0 /* dtmf-4.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "dtmf-4.caf"; sourceTree = "<group>"; };
+		7B662A2F161E3231003D5EE0 /* dtmf-5.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "dtmf-5.caf"; sourceTree = "<group>"; };
+		7B662A30161E3231003D5EE0 /* dtmf-6.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "dtmf-6.caf"; sourceTree = "<group>"; };
+		7B662A31161E3231003D5EE0 /* dtmf-7.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "dtmf-7.caf"; sourceTree = "<group>"; };
+		7B662A32161E3231003D5EE0 /* dtmf-8.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "dtmf-8.caf"; sourceTree = "<group>"; };
+		7B662A33161E3231003D5EE0 /* dtmf-9.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "dtmf-9.caf"; sourceTree = "<group>"; };
+		7B662A34161E3231003D5EE0 /* dtmf-pound.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "dtmf-pound.caf"; sourceTree = "<group>"; };
+		7B662A35161E3231003D5EE0 /* dtmf-star.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "dtmf-star.caf"; sourceTree = "<group>"; };
+		7B662A36161E3231003D5EE0 /* lock.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = lock.caf; sourceTree = "<group>"; };
+		7B662A37161E3231003D5EE0 /* long_low_short_high.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = long_low_short_high.caf; sourceTree = "<group>"; };
+		7B662A38161E3231003D5EE0 /* low_power.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = low_power.caf; sourceTree = "<group>"; };
+		7B662A39161E3231003D5EE0 /* mail-sent.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "mail-sent.caf"; sourceTree = "<group>"; };
+		7B662A3A161E3231003D5EE0 /* middle_9_short_double_low.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = middle_9_short_double_low.caf; sourceTree = "<group>"; };
+		7B662A3B161E3231003D5EE0 /* new-mail.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "new-mail.caf"; sourceTree = "<group>"; };
+		7B662A3C161E3231003D5EE0 /* photoShutter.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = photoShutter.caf; sourceTree = "<group>"; };
+		7B662A3D161E3231003D5EE0 /* ReceivedMessage.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ReceivedMessage.caf; sourceTree = "<group>"; };
+		7B662A3E161E3231003D5EE0 /* RingerChanged.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = RingerChanged.caf; sourceTree = "<group>"; };
+		7B662A3F161E3231003D5EE0 /* SentMessage.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SentMessage.caf; sourceTree = "<group>"; };
+		7B662A40161E3231003D5EE0 /* short_double_high.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = short_double_high.caf; sourceTree = "<group>"; };
+		7B662A41161E3231003D5EE0 /* short_double_low.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = short_double_low.caf; sourceTree = "<group>"; };
+		7B662A42161E3231003D5EE0 /* short_low_high.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = short_low_high.caf; sourceTree = "<group>"; };
+		7B662A43161E3231003D5EE0 /* SIMToolkitCallDropped.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SIMToolkitCallDropped.caf; sourceTree = "<group>"; };
+		7B662A44161E3231003D5EE0 /* SIMToolkitGeneralBeep.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SIMToolkitGeneralBeep.caf; sourceTree = "<group>"; };
+		7B662A45161E3231003D5EE0 /* SIMToolkitNegativeACK.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SIMToolkitNegativeACK.caf; sourceTree = "<group>"; };
+		7B662A46161E3231003D5EE0 /* SIMToolkitPositiveACK.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SIMToolkitPositiveACK.caf; sourceTree = "<group>"; };
+		7B662A47161E3231003D5EE0 /* SIMToolkitSMS.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SIMToolkitSMS.caf; sourceTree = "<group>"; };
+		7B662A48161E3231003D5EE0 /* sms-received.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "sms-received.caf"; sourceTree = "<group>"; };
+		7B662A49161E3231003D5EE0 /* submarine.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = submarine.caf; sourceTree = "<group>"; };
+		7B662A4A161E3231003D5EE0 /* Tink.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Tink.caf; sourceTree = "<group>"; };
+		7B662A4B161E3231003D5EE0 /* unlock.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = unlock.caf; sourceTree = "<group>"; };
+		7B662A4C161E3231003D5EE0 /* Voicemail.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Voicemail.caf; sourceTree = "<group>"; };
+		7B662A4D161E3231003D5EE0 /* Voicemail.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Voicemail.caf; sourceTree = "<group>"; };
+		7B662A4E161E3231003D5EE0 /* win.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = win.caf; sourceTree = "<group>"; };
 		7B6901B6159E09D800D0DA47 /* NSApplication+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSApplication+AtoZ.h"; sourceTree = "<group>"; };
 		7B6901B7159E09D800D0DA47 /* NSApplication+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSApplication+AtoZ.m"; sourceTree = "<group>"; };
 		7B6901BC159E0BF700D0DA47 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
@@ -3666,6 +3778,7 @@
 		7B583064159BDAA50039CEED /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7B662A15161E3230003D5EE0 /* Sounds */,
 				7B662A12161E0AB5003D5EE0 /* bling.caf */,
 				7B22CA85161B358700D17C40 /* welcome.wav */,
 				7B311952159B6D9E002134C4 /* Products */,
@@ -3732,6 +3845,77 @@
 				7B6629F1161DE925003D5EE0 /* iOS Tests.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		7B662A15161E3230003D5EE0 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				7B662A16161E3230003D5EE0 /* 1085.caf */,
+				7B662A17161E3231003D5EE0 /* beat.caf */,
+				7B662A18161E3231003D5EE0 /* Blip Synth 01.caf */,
+				7B662A19161E3231003D5EE0 /* Bongo Groove 01.caf */,
+				7B662A1A161E3231003D5EE0 /* Cartoon Boing.caf */,
+				7B662A1B161E3231003D5EE0 /* Comedy Boing.caf */,
+				7B662A1C161E3231003D5EE0 /* Comedy High Honk.caf */,
+				7B662A1D161E3231003D5EE0 /* Comedy Low Honk.caf */,
+				7B662A1E161E3231003D5EE0 /* Comedy Whistle.caf */,
+				7B662A1F161E3231003D5EE0 /* diamond.caf */,
+				7B662A20161E3231003D5EE0 /* game-start.caf */,
+				7B662A21161E3231003D5EE0 /* new-mail.caf */,
+				7B662A22161E3231003D5EE0 /* photoShutter.caf */,
+				7B662A23161E3231003D5EE0 /* Short Accent.caf */,
+				7B662A24161E3231003D5EE0 /* sms-received.caf */,
+				7B662A25161E3231003D5EE0 /* Suspense Accents 01.caf */,
+				7B662A26161E3231003D5EE0 /* UISounds */,
+				7B662A4D161E3231003D5EE0 /* Voicemail.caf */,
+				7B662A4E161E3231003D5EE0 /* win.caf */,
+			);
+			path = Sounds;
+			sourceTree = "<group>";
+		};
+		7B662A26161E3231003D5EE0 /* UISounds */ = {
+			isa = PBXGroup;
+			children = (
+				7B662A27161E3231003D5EE0 /* alarm.caf */,
+				7B662A28161E3231003D5EE0 /* beep-beep.caf */,
+				7B662A29161E3231003D5EE0 /* click.caf */,
+				7B662A2A161E3231003D5EE0 /* dtmf-0.caf */,
+				7B662A2B161E3231003D5EE0 /* dtmf-1.caf */,
+				7B662A2C161E3231003D5EE0 /* dtmf-2.caf */,
+				7B662A2D161E3231003D5EE0 /* dtmf-3.caf */,
+				7B662A2E161E3231003D5EE0 /* dtmf-4.caf */,
+				7B662A2F161E3231003D5EE0 /* dtmf-5.caf */,
+				7B662A30161E3231003D5EE0 /* dtmf-6.caf */,
+				7B662A31161E3231003D5EE0 /* dtmf-7.caf */,
+				7B662A32161E3231003D5EE0 /* dtmf-8.caf */,
+				7B662A33161E3231003D5EE0 /* dtmf-9.caf */,
+				7B662A34161E3231003D5EE0 /* dtmf-pound.caf */,
+				7B662A35161E3231003D5EE0 /* dtmf-star.caf */,
+				7B662A36161E3231003D5EE0 /* lock.caf */,
+				7B662A37161E3231003D5EE0 /* long_low_short_high.caf */,
+				7B662A38161E3231003D5EE0 /* low_power.caf */,
+				7B662A39161E3231003D5EE0 /* mail-sent.caf */,
+				7B662A3A161E3231003D5EE0 /* middle_9_short_double_low.caf */,
+				7B662A3B161E3231003D5EE0 /* new-mail.caf */,
+				7B662A3C161E3231003D5EE0 /* photoShutter.caf */,
+				7B662A3D161E3231003D5EE0 /* ReceivedMessage.caf */,
+				7B662A3E161E3231003D5EE0 /* RingerChanged.caf */,
+				7B662A3F161E3231003D5EE0 /* SentMessage.caf */,
+				7B662A40161E3231003D5EE0 /* short_double_high.caf */,
+				7B662A41161E3231003D5EE0 /* short_double_low.caf */,
+				7B662A42161E3231003D5EE0 /* short_low_high.caf */,
+				7B662A43161E3231003D5EE0 /* SIMToolkitCallDropped.caf */,
+				7B662A44161E3231003D5EE0 /* SIMToolkitGeneralBeep.caf */,
+				7B662A45161E3231003D5EE0 /* SIMToolkitNegativeACK.caf */,
+				7B662A46161E3231003D5EE0 /* SIMToolkitPositiveACK.caf */,
+				7B662A47161E3231003D5EE0 /* SIMToolkitSMS.caf */,
+				7B662A48161E3231003D5EE0 /* sms-received.caf */,
+				7B662A49161E3231003D5EE0 /* submarine.caf */,
+				7B662A4A161E3231003D5EE0 /* Tink.caf */,
+				7B662A4B161E3231003D5EE0 /* unlock.caf */,
+				7B662A4C161E3231003D5EE0 /* Voicemail.caf */,
+			);
+			path = UISounds;
 			sourceTree = "<group>";
 		};
 		7B6901BB159E0ADB00D0DA47 /* Views */ = {
@@ -5398,6 +5582,62 @@
 				7BC02756160D365300BAE74D /* Calculator.xib in Resources */,
 				7B22CA86161B358700D17C40 /* welcome.wav in Resources */,
 				7B662A13161E0AB5003D5EE0 /* bling.caf in Resources */,
+				7B662A4F161E3231003D5EE0 /* 1085.caf in Resources */,
+				7B662A50161E3231003D5EE0 /* beat.caf in Resources */,
+				7B662A51161E3231003D5EE0 /* Blip Synth 01.caf in Resources */,
+				7B662A52161E3231003D5EE0 /* Bongo Groove 01.caf in Resources */,
+				7B662A53161E3231003D5EE0 /* Cartoon Boing.caf in Resources */,
+				7B662A54161E3231003D5EE0 /* Comedy Boing.caf in Resources */,
+				7B662A55161E3231003D5EE0 /* Comedy High Honk.caf in Resources */,
+				7B662A56161E3231003D5EE0 /* Comedy Low Honk.caf in Resources */,
+				7B662A57161E3231003D5EE0 /* Comedy Whistle.caf in Resources */,
+				7B662A58161E3231003D5EE0 /* diamond.caf in Resources */,
+				7B662A59161E3231003D5EE0 /* game-start.caf in Resources */,
+				7B662A5A161E3231003D5EE0 /* new-mail.caf in Resources */,
+				7B662A5B161E3231003D5EE0 /* photoShutter.caf in Resources */,
+				7B662A5C161E3231003D5EE0 /* Short Accent.caf in Resources */,
+				7B662A5D161E3231003D5EE0 /* sms-received.caf in Resources */,
+				7B662A5E161E3231003D5EE0 /* Suspense Accents 01.caf in Resources */,
+				7B662A5F161E3231003D5EE0 /* alarm.caf in Resources */,
+				7B662A60161E3231003D5EE0 /* beep-beep.caf in Resources */,
+				7B662A61161E3231003D5EE0 /* click.caf in Resources */,
+				7B662A62161E3231003D5EE0 /* dtmf-0.caf in Resources */,
+				7B662A63161E3231003D5EE0 /* dtmf-1.caf in Resources */,
+				7B662A64161E3231003D5EE0 /* dtmf-2.caf in Resources */,
+				7B662A65161E3231003D5EE0 /* dtmf-3.caf in Resources */,
+				7B662A66161E3231003D5EE0 /* dtmf-4.caf in Resources */,
+				7B662A67161E3231003D5EE0 /* dtmf-5.caf in Resources */,
+				7B662A68161E3231003D5EE0 /* dtmf-6.caf in Resources */,
+				7B662A69161E3231003D5EE0 /* dtmf-7.caf in Resources */,
+				7B662A6A161E3231003D5EE0 /* dtmf-8.caf in Resources */,
+				7B662A6B161E3231003D5EE0 /* dtmf-9.caf in Resources */,
+				7B662A6C161E3231003D5EE0 /* dtmf-pound.caf in Resources */,
+				7B662A6D161E3231003D5EE0 /* dtmf-star.caf in Resources */,
+				7B662A6E161E3231003D5EE0 /* lock.caf in Resources */,
+				7B662A6F161E3231003D5EE0 /* long_low_short_high.caf in Resources */,
+				7B662A70161E3231003D5EE0 /* low_power.caf in Resources */,
+				7B662A71161E3231003D5EE0 /* mail-sent.caf in Resources */,
+				7B662A72161E3231003D5EE0 /* middle_9_short_double_low.caf in Resources */,
+				7B662A73161E3231003D5EE0 /* new-mail.caf in Resources */,
+				7B662A74161E3231003D5EE0 /* photoShutter.caf in Resources */,
+				7B662A75161E3231003D5EE0 /* ReceivedMessage.caf in Resources */,
+				7B662A76161E3231003D5EE0 /* RingerChanged.caf in Resources */,
+				7B662A77161E3231003D5EE0 /* SentMessage.caf in Resources */,
+				7B662A78161E3231003D5EE0 /* short_double_high.caf in Resources */,
+				7B662A79161E3231003D5EE0 /* short_double_low.caf in Resources */,
+				7B662A7A161E3231003D5EE0 /* short_low_high.caf in Resources */,
+				7B662A7B161E3231003D5EE0 /* SIMToolkitCallDropped.caf in Resources */,
+				7B662A7C161E3231003D5EE0 /* SIMToolkitGeneralBeep.caf in Resources */,
+				7B662A7D161E3231003D5EE0 /* SIMToolkitNegativeACK.caf in Resources */,
+				7B662A7E161E3231003D5EE0 /* SIMToolkitPositiveACK.caf in Resources */,
+				7B662A7F161E3231003D5EE0 /* SIMToolkitSMS.caf in Resources */,
+				7B662A80161E3231003D5EE0 /* sms-received.caf in Resources */,
+				7B662A81161E3231003D5EE0 /* submarine.caf in Resources */,
+				7B662A82161E3231003D5EE0 /* Tink.caf in Resources */,
+				7B662A83161E3231003D5EE0 /* unlock.caf in Resources */,
+				7B662A84161E3231003D5EE0 /* Voicemail.caf in Resources */,
+				7B662A85161E3231003D5EE0 /* Voicemail.caf in Resources */,
+				7B662A86161E3231003D5EE0 /* win.caf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

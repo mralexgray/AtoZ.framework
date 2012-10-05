@@ -141,6 +141,17 @@
 @implementation NSObject (AtoZ)
 
 
+-(void) setWithDictionary:(NSD*)dic;
+{
+	[[dic allKeys] each:^(id obj) {
+		NSString *j = $(@"set%@", [obj capitalizedString]);
+		SEL setter = @selector(j);
+		[self performSelectorWithoutWarnings:setter withObject:dic[obj]];
+	}];
+
+}
+
+
 +(void)switchOn:(id<NSObject>)obj cases:casesList, ...
 {
     va_list list;    va_start(list, casesList);	id<NSObject> o = casesList;

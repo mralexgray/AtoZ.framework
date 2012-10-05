@@ -39,11 +39,14 @@
     if (self) {
 		self.sManager = [SoundManager sharedManager];
 		[self.sManager prepareToPlay];
-		[[self class] playSound:@"welcome"];
+		[AtoZ playRandomSound];
     }
     return self;
 }
 
+
++ (void) playRandomSound {	[[[self sharedInstance] sManager] playSound:[Sound randomSound] looping:NO]; }
+//[AtoZ playSound:@1];
 + (void)playSound:(id)number {
 
 	NSArray *sounds = @[@"welcome.wav", @"bling"];

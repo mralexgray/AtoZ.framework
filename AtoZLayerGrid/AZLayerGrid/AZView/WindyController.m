@@ -89,12 +89,11 @@
 {
 	NSRect windowFrame = [[self window] frame];
 	// Get mouse location in global coordinates
-	initialLocation = [[self window] convertBaseToScreen:[theEvent locationInWindow]];
-	initialLocation.x -= windowFrame.origin.x;
-	initialLocation.y -= windowFrame.origin.y;
+	_initialLocation = [[self window] convertBaseToScreen:[theEvent locationInWindow]];
+	_initialLocation.x -= windowFrame.origin.x;
+	_initialLocation.y -= windowFrame.origin.y;
 }
 
 
-@end
 
 @end

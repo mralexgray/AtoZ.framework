@@ -258,20 +258,33 @@
 - (void) replaceObjectAtIndex:(NSUI) index withObject: (id) anObject 	{
 	[self.backingstore replaceObjectAtIndex:index withObject:anObject];
 }
+-(void)firstToLast{
+	[self.backingstore firstToLast];
+}
+-(void)lastToFirst{
+	[self.backingstore lastToFirst];
+}
 
 + (id) appFolder;
 {
 	AZFolder *u = [AZFolder new];
 	return (id)u.appFolder;
 }
-
-//+ (instancetype) samplerWithCount:(NSUInteger)items;
++ (id) samplerWithCount:(NSUInteger)items;
+{
+	AZFolder *u = [AZFolder new];
+	return [u samplerWithCount:items];
+}
+- (id) samplerWithCount:(NSUInteger)items;
+{
+	return [AZFolder instanceWithPaths:[[self appFolderPaths] randomSubarrayWithSize:items]];
+}
 //+ (id) samplerWithBetween:(NSUInteger)minItems andMax:(NSUInteger)items;
 //+ (id) instanceWithFiles:(NSArray*)files;
 //+ (id) instanceWithPaths:(NSArray*)strings;
 //+ (id) instanceWithPath:(NSArray*)strings;
 
-+(instancetype) instanceWithFiles:(NSArray*)files {	return  [[AZFolder alloc]initWithArray:files];	}
++ (id) instanceWithFiles:(NSArray*)files {	return  [[AZFolder alloc]initWithArray:files];	}
 
 + (id) instanceWithPaths:(NSArray*)paths {	return [[AZFolder alloc]initWithArray:paths];	}
 
@@ -286,14 +299,17 @@
 
 - (NSArray *)files {	return self.backingstore;  }
 
-- (NSArray*) appFolder {
-
+- (NSArray*) appFolderPaths {
 	[AZStopwatch start:@"appPaths"];
 	NSMA *paths = [NSMA array];
 	ApplicationsInDirectory(@"/Applications", paths);
 	[AZStopwatch stop:@"appPaths"];
-	return [AZFolder instanceWithPaths:paths];
+	return paths.copy;
+}
 
+- (id) appFolder {
+
+	return [AZFolder instanceWithPaths:[self appFolderPaths]];
 }
 
 

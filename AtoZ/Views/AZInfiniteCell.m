@@ -53,10 +53,12 @@
 //	return 5;
 //}
 
-- (float) halfwayWithInset {
+- (void)setInset:(float)anInset {	self.inset = anInset; [self setNeedsDisplay:YES]; }
+
+- (float) halfwayWithInset { return AZPermineterWithRoundRadius([self frame],self.radius);
 //	NSRect dim = NSInsetRect(self.bounds, self.inset, self.inset);
 //	return ( (2*dim.size.width) + (2*dim.size.height) - (( 8 - ((2 * pi) * self.radius))));
-		return AZPermineterWithRoundRadius([self frame],self.radius);
+
 
 }
 
@@ -88,7 +90,9 @@
 - (void)drawRect:(NSRect)dirtyRect
 {
 	standard =[NSBezierPath bezierPathWithRect: [self bounds]];// cornerRadius:0];
-	[standard fillGradientFrom:file.color.darker.darker.darker to:file.color.brighter.brighter angle:270];
+	NSColor *now = [file.color isExciting] ? file.color : self.backgroundColor;
+	[standard fillGradientFrom:now.darker.darker.darker to:now.brighter.brighter angle:270];
+	[file.image drawInRect:[self bounds]];
 //	[backgroundColor set];
 //	NSRectFill([self frame]);
 
@@ -115,14 +119,13 @@
 		[image setSize: NSMakeSize(smallest, smallest)];
 		[image compositeToPoint:AZCenterOfRect([self bounds]) operation:NSCompositeSourceOver];
 	}
-//	if(hovered)
-//		[standard fillGradientFrom: RANDOMCOLOR to:RANDOMCOLOR angle:270];
-//	else
 */
+	[standard setLineWidth: AZMinDim(self.bounds.size)*.04];
+	[standard setLineJoinStyle:NSBevelLineJoinStyle];
+	[standard setLineCapStyle:NSButtLineCapStyle];//NSSquareLineCapStyle];//NSRoundLineCapStyle];//
+	if(hovered)
+		[standard drawBlurWithColor:RANDOMCOLOR radius:20];// GradientFrom: RANDOMCOLOR to:RANDOMCOLOR angle:270];
 	if(selected) {
-		[standard setLineWidth: AZMinDim(self.bounds.size)*.04];
-		[standard setLineJoinStyle:NSBevelLineJoinStyle];
-		[standard setLineCapStyle:NSButtLineCapStyle];//NSSquareLineCapStyle];//NSRoundLineCapStyle];//
 		[WHITE set];
 		[standard strokeInside];
 		// strokeInsideWithinRect:NSInsetRect([self bounds], inset_*2, inset_*2)];
@@ -131,9 +134,9 @@
 		[standard setLineDash:dashArray count:2 phase:mPhase];
 		[BLACK set];
 		[standard strokeInside];
+	}
 		//WithinRect:NSInsetRect([self bounds], inset_*2, inset_*2)];
 //		DrawLabelAtCenterPoint([representedObject valueForKey:@"name"], NSMakePoint(NSMidX(self.bounds),NSMidY(self.bounds)));
-	}
 //	else {
 //		if (!color) color = RANDOMCOLOR;
 //		[color set];
@@ -141,10 +144,6 @@
 //		NSRectFill(NSZeroRect);
 //	}
 //*/
-}
-- (void)setInset:(float)anInset {
-	self.inset = anInset;
-	[self setNeedsDisplay:YES];
 }
 
 - (void) mouseEntered:(NSEvent *)theEvent {

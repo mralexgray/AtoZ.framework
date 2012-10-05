@@ -2,6 +2,21 @@
 -------------------------------------------------------------------------------------
 ###The *all-inclusive cruise* of Umbrella frameworks.
 
+STARS:
+
+AZPermineterWithRoundRadius([self frame],self.radius);
+
+-(void) setWithDictionary:(NSD*)dic;
+{
+	[[dic allKeys] each:^(id obj) {
+		NSString *j = $(@"set%@", [obj capitalizedString]);
+		SEL setter = @selector(j);
+		[self performSelectorWithoutWarnings:setter withObject:dic[obj]];
+	}];
+
+}
+
+
 
 # ConciseKit
 

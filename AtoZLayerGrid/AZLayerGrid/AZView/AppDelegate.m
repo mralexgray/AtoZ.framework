@@ -82,12 +82,12 @@
 		[AZStopwatch start:@"performingBlockInBackground"];
 		//		crap = [[NSColor fengshui] arrayUsingIndexedBlock:^id(id obj, NSUInteger idx) {
 		
-		[[AtoZ dock] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+		[[AZFolder samplerWithCount:30] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 			
 			AZFile *block = obj;
 			//			block.color = ;
 			AZInfiniteCell *e = [AZInfiniteCell new];// alloc]initWithFrame:NSZeroRect];
-			e.backgroundColor = block.color;
+			e.backgroundColor = RANDOMCOLOR;//block.color ? block.color : RANDOMCOLOR;
 			e.file = block;
 			[crap addObject:e];
 			//[AZFile instanceWithColor:obj];//RANDOMCOLOR];// obj;//[AZFile instanceWithColor:obj];CRAP=

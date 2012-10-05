@@ -46,6 +46,7 @@ typedef void (^SoundCompletionHandler)(BOOL didFinish);
 }
 #endif
 
++ (Sound *) randomSound;
 + (Sound *)soundNamed:(NSString *)name;
 + (Sound *)soundWithContentsOfFile:(NSString *)path;
 - (Sound *)initWithContentsOfFile:(NSString *)path;

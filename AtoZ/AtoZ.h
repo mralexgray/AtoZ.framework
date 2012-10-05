@@ -181,7 +181,7 @@ extern NSString *const AtoZDockSortedUpdated;
 @property (nonatomic, strong) SoundManager *sManager;
 
 + (void)playSound:(id)number;
-
++ (void) playRandomSound;
 
 + (NSArray*) dock;
 + (NSArray*) dockSorted;
