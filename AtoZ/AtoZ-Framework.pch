@@ -8,6 +8,7 @@
 	#import <Carbon/Carbon.h>
 	#import <AppKit/AppKit.h>
 	#import <FunSize/FunSize.h>
+	#import <CocoaPuffs/CocoaPuffs.h>
 	#import "BaseModel.h"
 	#import "AZObject.h"
 	#import "F.h"

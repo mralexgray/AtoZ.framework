@@ -37,3 +37,6 @@
 [submodule "Frameworks/CocoaPuffs"]
 	path = Frameworks/CocoaPuffs
 	url = https://github.com/macprog-guy/CocoaPuffs.git
+[submodule "Frameworks/BaseModel"]
+	path = Frameworks/BaseModel
+	url = https://github.com/mralexgray/BaseModel.git

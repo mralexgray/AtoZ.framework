@@ -145,8 +145,7 @@
 		7B31B14015E9441D00802CD5 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B31B13E15E9441D00802CD5 /* MainMenu.xib */; };
 		7B31B14415E9442A00802CD5 /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B311951159B6D9E002134C4 /* AtoZ.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		7B31B14F15E9449F00802CD5 /* AtoZ.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7B311951159B6D9E002134C4 /* AtoZ.framework */; };
-		7B3422A315A52A61006AC46C /* BaseModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B3422A115A52A61006AC46C /* BaseModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7B3422A415A52A61006AC46C /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B3422A215A52A61006AC46C /* BaseModel.m */; };
+		7B3422A315A52A61006AC46C /* AZBaseModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B3422A115A52A61006AC46C /* AZBaseModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B3422CA15A5EF03006AC46C /* AZDockQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B3422C815A5EF03006AC46C /* AZDockQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B379C8B15DDBB8A0040A093 /* AZLassoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B379C8A15DDBB8A0040A093 /* AZLassoView.m */; };
 		7B379C8D15DDBBB30040A093 /* AZLassoView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B379C8C15DDBBB30040A093 /* AZLassoView.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -200,8 +199,7 @@
 		7B39615A15F04FD70065813F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B311959159B6D9E002134C4 /* Foundation.framework */; };
 		7B39615F15F04FD80065813F /* AtoZTouch.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7B39615E15F04FD80065813F /* AtoZTouch.h */; };
 		7B39616115F04FD80065813F /* AtoZTouch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B39616015F04FD80065813F /* AtoZTouch.m */; };
-		7B39616915F054810065813F /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B3422A215A52A61006AC46C /* BaseModel.m */; };
-		7B39616A15F054990065813F /* BaseModel.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7B3422A115A52A61006AC46C /* BaseModel.h */; };
+		7B39616A15F054990065813F /* AZBaseModel.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7B3422A115A52A61006AC46C /* AZBaseModel.h */; };
 		7B39616D15F0580B0065813F /* AtoZ.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7B311961159B6D9E002134C4 /* AtoZ.h */; };
 		7B449C6A1616084C00AB9335 /* NSUserDefaults+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B449C671616084C00AB9335 /* NSUserDefaults+AtoZ.m */; };
 		7B449C6C1616087D00AB9335 /* NSUserDefaults+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B449C661616084C00AB9335 /* NSUserDefaults+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -300,6 +298,11 @@
 		7B662A84161E3231003D5EE0 /* Voicemail.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A4C161E3231003D5EE0 /* Voicemail.caf */; };
 		7B662A85161E3231003D5EE0 /* Voicemail.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A4D161E3231003D5EE0 /* Voicemail.caf */; };
 		7B662A86161E3231003D5EE0 /* win.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A4E161E3231003D5EE0 /* win.caf */; };
+		7B662AC1161EBB0D003D5EE0 /* CocoaPuffs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B662ABC161EBADC003D5EE0 /* CocoaPuffs.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		7B662AC2161EBB3F003D5EE0 /* CocoaPuffs.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7B662ABC161EBADC003D5EE0 /* CocoaPuffs.framework */; };
+		7B662ADB161EE363003D5EE0 /* AZBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B662ADA161EE363003D5EE0 /* AZBaseModel.m */; };
+		7B662ADE161EE384003D5EE0 /* BaseModel.h in Sources */ = {isa = PBXBuildFile; fileRef = 7B662ADC161EE384003D5EE0 /* BaseModel.h */; };
+		7B662ADF161EE384003D5EE0 /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B662ADD161EE384003D5EE0 /* BaseModel.m */; };
 		7B6901B8159E09D800D0DA47 /* NSApplication+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B6901B6159E09D800D0DA47 /* NSApplication+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B6901C9159E322300D0DA47 /* AZAXAuthorization.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B6901C7159E322300D0DA47 /* AZAXAuthorization.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B6901CA159E322300D0DA47 /* AZAXAuthorization.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B6901C8159E322300D0DA47 /* AZAXAuthorization.m */; };
@@ -1328,6 +1331,27 @@
 			remoteGlobalIDString = 053887981523F6CD00CDC1DF;
 			remoteInfo = "PLWeakCompatibility-MacOSX";
 		};
+		7B662ABB161EBADC003D5EE0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B662AB3161EBADA003D5EE0 /* CocoaPuffs.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0785774C15FF4FD800C28714;
+			remoteInfo = CocoaPuffs;
+		};
+		7B662ABD161EBADC003D5EE0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B662AB3161EBADA003D5EE0 /* CocoaPuffs.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0785776415FF4FD900C28714;
+			remoteInfo = CocoaPuffsTests;
+		};
+		7B662ABF161EBAF8003D5EE0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B662AB3161EBADA003D5EE0 /* CocoaPuffs.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 0785774B15FF4FD800C28714;
+			remoteInfo = CocoaPuffs;
+		};
 		7BA32AA715EACE8F0061B2BC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7B311947159B6D9E002134C4 /* Project object */;
@@ -1379,6 +1403,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				7B662AC2161EBB3F003D5EE0 /* CocoaPuffs.framework in frameworks copy */,
 				7B6629FA161DEA4A003D5EE0 /* PLWeakCompatibility.framework in frameworks copy */,
 				7B6629F5161DE95E003D5EE0 /* BlocksKit.framework in frameworks copy */,
 				7BDEDBB31609E1BC00F34D2F /* NanoStore.framework in frameworks copy */,
@@ -1415,7 +1440,7 @@
 			dstSubfolderSpec = 16;
 			files = (
 				7B39616D15F0580B0065813F /* AtoZ.h in CopyFiles */,
-				7B39616A15F054990065813F /* BaseModel.h in CopyFiles */,
+				7B39616A15F054990065813F /* AZBaseModel.h in CopyFiles */,
 				7B39615F15F04FD80065813F /* AtoZTouch.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2167,8 +2192,7 @@
 		7B31B13C15E9441D00802CD5 /* AZEntitlementDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AZEntitlementDelegate.m; sourceTree = "<group>"; };
 		7B31B13F15E9441D00802CD5 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		7B31B14515E9443200802CD5 /* AtoZ Entitlement.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "AtoZ Entitlement.entitlements"; sourceTree = "<group>"; };
-		7B3422A115A52A61006AC46C /* BaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseModel.h; sourceTree = "<group>"; };
-		7B3422A215A52A61006AC46C /* BaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseModel.m; sourceTree = "<group>"; };
+		7B3422A115A52A61006AC46C /* AZBaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = AZBaseModel.h; sourceTree = "<group>"; };
 		7B3422C815A5EF03006AC46C /* AZDockQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZDockQuery.h; sourceTree = "<group>"; };
 		7B3422C915A5EF03006AC46C /* AZDockQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZDockQuery.m; sourceTree = "<group>"; };
 		7B379C8A15DDBB8A0040A093 /* AZLassoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AZLassoView.m; path = Views/AZLassoView.m; sourceTree = SOURCE_ROOT; };
@@ -2349,6 +2373,10 @@
 		7B662A4C161E3231003D5EE0 /* Voicemail.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Voicemail.caf; sourceTree = "<group>"; };
 		7B662A4D161E3231003D5EE0 /* Voicemail.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Voicemail.caf; sourceTree = "<group>"; };
 		7B662A4E161E3231003D5EE0 /* win.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = win.caf; sourceTree = "<group>"; };
+		7B662AB3161EBADA003D5EE0 /* CocoaPuffs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CocoaPuffs.xcodeproj; path = ../Frameworks/CocoaPuffs/CocoaPuffs.xcodeproj; sourceTree = "<group>"; };
+		7B662ADA161EE363003D5EE0 /* AZBaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZBaseModel.m; sourceTree = "<group>"; };
+		7B662ADC161EE384003D5EE0 /* BaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = BaseModel.h; path = ../../Frameworks/BaseModel/BaseModel/BaseModel.h; sourceTree = "<group>"; };
+		7B662ADD161EE384003D5EE0 /* BaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseModel.m; path = ../../Frameworks/BaseModel/BaseModel/BaseModel.m; sourceTree = "<group>"; };
 		7B6901B6159E09D800D0DA47 /* NSApplication+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSApplication+AtoZ.h"; sourceTree = "<group>"; };
 		7B6901B7159E09D800D0DA47 /* NSApplication+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSApplication+AtoZ.m"; sourceTree = "<group>"; };
 		7B6901BC159E0BF700D0DA47 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
@@ -3269,6 +3297,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7BDEDBB21609E1A100F34D2F /* NanoStore.framework in Frameworks */,
+				7B662AC1161EBB0D003D5EE0 /* CocoaPuffs.framework in Frameworks */,
 				7B5ABAC21608DEED00530EA7 /* FunSize.framework in Frameworks */,
 				7B5ABAC41608DEED00530EA7 /* XPCKit.framework in Frameworks */,
 				7B6CF45D15D32B8D0018A0D7 /* AudioToolbox.framework in Frameworks */,
@@ -3541,6 +3570,7 @@
 		7B311953159B6D9E002134C4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7B662AB3161EBADA003D5EE0 /* CocoaPuffs.xcodeproj */,
 				7B6629DB161DE924003D5EE0 /* BlocksKit.xcodeproj */,
 				7B14F2881600383600CBBF7E /* RMKit.framework */,
 				7BDEDB7E16095C2700F34D2F /* NanoStore.xcodeproj */,
@@ -3916,6 +3946,15 @@
 				7B662A4C161E3231003D5EE0 /* Voicemail.caf */,
 			);
 			path = UISounds;
+			sourceTree = "<group>";
+		};
+		7B662AB4161EBADA003D5EE0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7B662ABC161EBADC003D5EE0 /* CocoaPuffs.framework */,
+				7B662ABE161EBADC003D5EE0 /* CocoaPuffsTests.octest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		7B6901BB159E0ADB00D0DA47 /* Views */ = {
@@ -4788,6 +4827,9 @@
 		7BCDFC6E15C71B340003DA4D /* Essential */ = {
 			isa = PBXGroup;
 			children = (
+				7B662ADC161EE384003D5EE0 /* BaseModel.h */,
+				7B662ADD161EE384003D5EE0 /* BaseModel.m */,
+				7B662ADA161EE363003D5EE0 /* AZBaseModel.m */,
 				7B24E97B15A12CED00A9D87A /* AZGeometry */,
 				7B8558E415B2C98D0005F558 /* AZMouser.h */,
 				7B8558E515B2C98D0005F558 /* AZMouser.m */,
@@ -4801,8 +4843,7 @@
 				7BDDD5E315A3792600A5C222 /* AZStopwatch.m */,
 				7B091A4315A887B500821FFD /* AZTalker.h */,
 				7B091A4415A887B500821FFD /* AZTalker.m */,
-				7B3422A115A52A61006AC46C /* BaseModel.h */,
-				7B3422A215A52A61006AC46C /* BaseModel.m */,
+				7B3422A115A52A61006AC46C /* AZBaseModel.h */,
 				7BF9854D15FEBDF900D47192 /* NSBag.h */,
 				7BF9854E15FEBDF900D47192 /* NSBag.m */,
 			);
@@ -4922,7 +4963,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7B095E01161AD7E50076C990 /* AZMenuBarWindow.h in Headers */,
-				7B3422A315A52A61006AC46C /* BaseModel.h in Headers */,
+				7B3422A315A52A61006AC46C /* AZBaseModel.h in Headers */,
 				7B71E736161290E60015F4E4 /* Transition.h in Headers */,
 				7B449C6C1616087D00AB9335 /* NSUserDefaults+AtoZ.h in Headers */,
 				7BC02759160D36A300BAE74D /* AZCalculatorController.h in Headers */,
@@ -5073,6 +5114,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				7B662AC0161EBAF8003D5EE0 /* PBXTargetDependency */,
 				7B6629F8161DEA20003D5EE0 /* PBXTargetDependency */,
 				7B6629F3161DE92C003D5EE0 /* PBXTargetDependency */,
 				7BDEDB9216095C2F00F34D2F /* PBXTargetDependency */,
@@ -5181,6 +5223,10 @@
 				{
 					ProductGroup = 7B6629DC161DE924003D5EE0 /* Products */;
 					ProjectRef = 7B6629DB161DE924003D5EE0 /* BlocksKit.xcodeproj */;
+				},
+				{
+					ProductGroup = 7B662AB4161EBADA003D5EE0 /* Products */;
+					ProjectRef = 7B662AB3161EBADA003D5EE0 /* CocoaPuffs.xcodeproj */;
 				},
 				{
 					ProductGroup = 7B5ABAAD1608D76500530EA7 /* Products */;
@@ -5330,6 +5376,20 @@
 			fileType = wrapper.application;
 			path = "iOS Tests.app";
 			remoteRef = 7B6629F0161DE925003D5EE0 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7B662ABC161EBADC003D5EE0 /* CocoaPuffs.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = CocoaPuffs.framework;
+			remoteRef = 7B662ABB161EBADC003D5EE0 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7B662ABE161EBADC003D5EE0 /* CocoaPuffsTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = CocoaPuffsTests.octest;
+			remoteRef = 7B662ABD161EBADC003D5EE0 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		7BDEDB8A16095C2800F34D2F /* NanoStore.framework */ = {
@@ -5774,7 +5834,6 @@
 				7BFEC80C15D19C55009DA347 /* AZBoxMagic.m in Sources */,
 				7BFEC80D15D19C55009DA347 /* AZIndeterminateIndicator.m in Sources */,
 				7B311963159B6D9E002134C4 /* AtoZ.m in Sources */,
-				7B3422A415A52A61006AC46C /* BaseModel.m in Sources */,
 				7B24E98C15A12D2100A9D87A /* AZGeometricFunctions.m in Sources */,
 				7B24E98F15A12D2100A9D87A /* AZGrid.m in Sources */,
 				7B24E99115A12D2100A9D87A /* AZMatrix.m in Sources */,
@@ -5879,6 +5938,9 @@
 				7B7DC2BF1618DDC700F3F367 /* NSValue+AtoZ.m in Sources */,
 				7B095E00161AD78D0076C990 /* AZMenuBarWindow.m in Sources */,
 				7B22CA83161B321100D17C40 /* AZSound.m in Sources */,
+				7B662ADB161EE363003D5EE0 /* AZBaseModel.m in Sources */,
+				7B662ADE161EE384003D5EE0 /* BaseModel.h in Sources */,
+				7B662ADF161EE384003D5EE0 /* BaseModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5923,7 +5985,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7B39616915F054810065813F /* BaseModel.m in Sources */,
 				7B39616115F04FD80065813F /* AtoZTouch.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -6000,6 +6061,11 @@
 			isa = PBXTargetDependency;
 			name = "PLWeakCompatibility-MacOSX";
 			targetProxy = 7B6629F7161DEA20003D5EE0 /* PBXContainerItemProxy */;
+		};
+		7B662AC0161EBAF8003D5EE0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = CocoaPuffs;
+			targetProxy = 7B662ABF161EBAF8003D5EE0 /* PBXContainerItemProxy */;
 		};
 		7BA32AA815EACE8F0061B2BC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -6249,6 +6315,8 @@
 					AppKit,
 					"-sub_umbrella",
 					Foundation,
+					"-sub_umbrella",
+					CocoaPuffs,
 				);
 				PRODUCT_NAME = AtoZ;
 				SHARED_PRECOMPS_DIR = /Users/localadmin/Library/Developer/Xcode/DerivedData/build/precomps;
@@ -6312,6 +6380,8 @@
 					AppKit,
 					"-sub_umbrella",
 					Foundation,
+					"-sub_umbrella",
+					CocoaPuffs,
 				);
 				PRODUCT_NAME = AtoZ;
 				SHARED_PRECOMPS_DIR = /Users/localadmin/Library/Developer/Xcode/DerivedData/build/precomps;
