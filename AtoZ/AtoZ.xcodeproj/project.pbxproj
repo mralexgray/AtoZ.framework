@@ -205,8 +205,8 @@
 		7B39616115F04FD80065813F /* AtoZTouch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B39616015F04FD80065813F /* AtoZTouch.m */; };
 		7B39616A15F054990065813F /* AZBaseModel.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7B3422A115A52A61006AC46C /* AZBaseModel.h */; };
 		7B39616D15F0580B0065813F /* AtoZ.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7B311961159B6D9E002134C4 /* AtoZ.h */; };
-		7B449C6A1616084C00AB9335 /* NSUserDefaults+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B449C671616084C00AB9335 /* NSUserDefaults+AtoZ.m */; };
-		7B449C6C1616087D00AB9335 /* NSUserDefaults+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B449C661616084C00AB9335 /* NSUserDefaults+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B449C6A1616084C00AB9335 /* NSUserDefaults+Subscript.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B449C671616084C00AB9335 /* NSUserDefaults+Subscript.m */; };
+		7B449C6C1616087D00AB9335 /* NSUserDefaults+Subscript.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B449C661616084C00AB9335 /* NSUserDefaults+Subscript.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B449C701616136500AB9335 /* NSObject-Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B449C6E1616136500AB9335 /* NSObject-Utilities.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7B449C711616138900AB9335 /* NSObject-Utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B449C6D1616136500AB9335 /* NSObject-Utilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B449D9A1616411100AB9335 /* AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B311961159B6D9E002134C4 /* AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -2293,8 +2293,8 @@
 		7B39615D15F04FD80065813F /* AtoZTouch-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AtoZTouch-Prefix.pch"; sourceTree = "<group>"; };
 		7B39615E15F04FD80065813F /* AtoZTouch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AtoZTouch.h; sourceTree = "<group>"; };
 		7B39616015F04FD80065813F /* AtoZTouch.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AtoZTouch.m; sourceTree = "<group>"; };
-		7B449C661616084C00AB9335 /* NSUserDefaults+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSUserDefaults+AtoZ.h"; path = "NSUserDefaults-Subscript/NSUserDefaults+AtoZ.h"; sourceTree = "<group>"; };
-		7B449C671616084C00AB9335 /* NSUserDefaults+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSUserDefaults+AtoZ.m"; path = "NSUserDefaults-Subscript/NSUserDefaults+AtoZ.m"; sourceTree = "<group>"; };
+		7B449C661616084C00AB9335 /* NSUserDefaults+Subscript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSUserDefaults+Subscript.h"; path = "NSUserDefaults-Subscript/NSUserDefaults+Subscript.h"; sourceTree = "<group>"; };
+		7B449C671616084C00AB9335 /* NSUserDefaults+Subscript.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSUserDefaults+Subscript.m"; path = "NSUserDefaults-Subscript/NSUserDefaults+Subscript.m"; sourceTree = "<group>"; };
 		7B449C6D1616136500AB9335 /* NSObject-Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = "NSObject-Utilities.h"; sourceTree = "<group>"; };
 		7B449C6E1616136500AB9335 /* NSObject-Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject-Utilities.m"; sourceTree = "<group>"; };
 		7B449D9B16164B5200AB9335 /* AtoZ-Framework.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AtoZ-Framework.pch"; sourceTree = "<group>"; };
@@ -3817,8 +3817,8 @@
 				7B92135B15C49B6600862F9D /* NSThread+AtoZ.m */,
 				7B23C32115CDFBC100DD1A9C /* NSURL+AtoZ.h */,
 				7B23C32215CDFBC100DD1A9C /* NSURL+AtoZ.m */,
-				7B449C661616084C00AB9335 /* NSUserDefaults+AtoZ.h */,
-				7B449C671616084C00AB9335 /* NSUserDefaults+AtoZ.m */,
+				7B449C661616084C00AB9335 /* NSUserDefaults+Subscript.h */,
+				7B449C671616084C00AB9335 /* NSUserDefaults+Subscript.m */,
 				7B7DC2BC1618DDC600F3F367 /* NSValue+AtoZ.h */,
 				7B7DC2BD1618DDC700F3F367 /* NSValue+AtoZ.m */,
 				7B24E97715A1299700A9D87A /* NSView+AtoZ.h */,
@@ -4995,7 +4995,7 @@
 				7B662AE0161EE3E5003D5EE0 /* BaseModel.h in Headers */,
 				7B3422A315A52A61006AC46C /* AZBaseModel.h in Headers */,
 				7B71E736161290E60015F4E4 /* Transition.h in Headers */,
-				7B449C6C1616087D00AB9335 /* NSUserDefaults+AtoZ.h in Headers */,
+				7B449C6C1616087D00AB9335 /* NSUserDefaults+Subscript.h in Headers */,
 				7BC02759160D36A300BAE74D /* AZCalculatorController.h in Headers */,
 				7BC0275D160D36CB00BAE74D /* CalcModel.h in Headers */,
 				7B4F0242160A4E9A00A79C77 /* AZCoreScrollView.h in Headers */,
@@ -5968,7 +5968,7 @@
 				7B71E796161355BA0015F4E4 /* CTBadge.m in Sources */,
 				7BCEF6461613EECA00EFC74E /* AZHostView.m in Sources */,
 				7BBDB4AE161497DE001B864B /* AZFile.m in Sources */,
-				7B449C6A1616084C00AB9335 /* NSUserDefaults+AtoZ.m in Sources */,
+				7B449C6A1616084C00AB9335 /* NSUserDefaults+Subscript.m in Sources */,
 				7B449C701616136500AB9335 /* NSObject-Utilities.m in Sources */,
 				7B7DC2BF1618DDC700F3F367 /* NSValue+AtoZ.m in Sources */,
 				7B095E00161AD78D0076C990 /* AZMenuBarWindow.m in Sources */,
