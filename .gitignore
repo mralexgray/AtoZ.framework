@@ -4,8 +4,7 @@ Documentation
 .gitignore
 AtoZ.xcworkspace/xcuserdata/*
 AtoZ/Resources/Frameworks/*
-#Frameworks/*
-AtoZ/AtoZiTunes.frameworkFrameworks/Cocotron/
+AtoZ/AtoZiTunes.framework
 Frameworks/Cocotron
 # Xcode
 build/*

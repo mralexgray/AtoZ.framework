@@ -4,16 +4,4 @@
    <FileRef
       location = "container:AtoZ/AtoZ.xcodeproj">
    </FileRef>
-   <FileRef
-      location = "container:AtoZStatusAspp/../../AtoZInfiniteScroll/AtoZInfiniteScroll/AtoZInfiniteScroll.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:AtoZLayerGrid/AZLayerGrid/AZLayerGrid.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:../git/growl-fresh/Framework/Test apps/Status Checker/Status Checker.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:../git/MTTokenField/TokenField.xcodeproj">
-   </FileRef>
 </Workspace>
