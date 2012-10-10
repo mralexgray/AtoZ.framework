@@ -19,19 +19,16 @@
 BOOL SameString(const char *a, const char *b);
 NSString* bitString(NSUInteger mask);
 
-static inline NSString* typeStringForType(thing) {
-	return 	SameString( @encode(typeof(thing)), @encode(typeof(CAConstraintAttribute)))
-	? [NSString stringWithFormat:NSLocalizedString( @"CAConstraintAttribute_%i",thing]
-	: nil;
-	//	NSString *key = [NSString stringWithFormat:@"IngredientType_%i", _type];
+//static inline NSString* typeStringForType(thing) {
+//	return 	SameString( @encode(typeof(thing)), @encode(typeof(CAConstraintAttribute)))
+//	? [NSString stringWithFormat:NSLocalizedString( @"CAConstraintAttribute_%i",thing]
+//	: nil;
+//	//	NSString *key = [NSString stringWithFormat:@"IngredientType_%i", _type];
+//
+//}
 
-}
-static inline BOOL isEmpty(id thing) { return
-	thing == nil
-	?: ([thing respondsToSelector:@selector(length)] && [(NSData *)thing length] == 0)
-	?: ([thing respondsToSelector:@selector(count)]  && [(NSArray *)thing count] == 0)
-	?: NO;
-}
+//static inline
+//BOOL isEmpty(id thing);
 
 
 int (^triple)(int);
@@ -44,7 +41,7 @@ id LogAndReturn(id toLog); //= ^(id toLog) { AZLOG(toLog); return toLog; };
 
 //void (^now)(void) = ^ {    NSDate *date = [NSDate date]; NSLog(@"The date and time is %@", date); };
 
-BOOL IsEmpty(id obj);
+//BOOL IsEmpty(id obj);
 
 NSString* stringForPosition(AZWindowPosition enumVal);
 NSString* AZStringFromRect(NSRect rect);

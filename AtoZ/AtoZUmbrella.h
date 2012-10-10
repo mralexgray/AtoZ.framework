@@ -46,6 +46,7 @@ extern
 
 //NS_INLINE void _AZSimpleLog(const char *file, int lineNumber, const char *funcName, NSString *format,...);
 
+
 NS_INLINE void _AZSimpleLog( const char *file, int lineNumber, const char *funcName, NSString *format, ... )
 {
 	va_list   argList;

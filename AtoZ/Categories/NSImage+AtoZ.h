@@ -8,6 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 #import "AtoZ.h"
+#import "AtoZUmbrella.h"
+#import "AtoZFunctions.h"
 #import "AZFile.h"
 
 static inline int get_bit(unsigned char *arr, unsigned long bit_num) {	return ( arr[(bit_num/8)] & (1 << (bit_num%8)) ); }
