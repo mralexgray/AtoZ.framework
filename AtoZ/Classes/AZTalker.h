@@ -9,13 +9,11 @@
 #import <ApplicationServices/ApplicationServices.h>
 #import "BaseModel.h"
 
-@interface AZTalker : NSObject <NSSpeechSynthesizerDelegate>
+@interface AZTalker : BaseModel <NSSpeechSynthesizerDelegate>
 
 @property (strong, nonatomic) NSSpeechSynthesizer *talker;
 
--(void) say:(NSString *)thing;
-+ (instancetype)sharedInstance;
-
-+(void)say:(NSString*)s;
+-(void) say:(NSString*)thing;
++(void) say:(NSString*)thing;
 
 @end

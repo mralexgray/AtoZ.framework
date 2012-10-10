@@ -22,6 +22,7 @@ CGImageRef CreateCGImageFromData(NSData* data);
 @property (readonly, strong) NSColor *color;
 @property (readonly, strong) NSArray *colors;
 
++ (NSArray*) frameworkImageNames;
 + (NSArray*) frameworkImagePaths;
 + (NSArray*) frameworkImages;
 + (NSArray*) systemImages;
@@ -261,4 +262,5 @@ CGImageRef CreateCGImageFromData(NSData* data);
 @interface CIFilter (WithDefaults)
 + (CIFilter*) filterWithDefaultsNamed: (NSString*) name;
 @end
+
 

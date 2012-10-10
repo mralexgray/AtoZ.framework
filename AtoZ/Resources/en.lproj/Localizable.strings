@@ -20,6 +20,25 @@
 //have the strings inside Localizable.strings file:
 
 /* IngredientType_text */
+"CAConstraintAttribute_0" = "MinX"  ;
+"CAConstraintAttribute_1" = "MidX"  ;
+"CAConstraintAttribute_2" = "MaxX"  ;
+"CAConstraintAttribute_3" = "MinY"  ;
+"CAConstraintAttribute_4" = "MidY"  ;
+"CAConstraintAttribute_5" = "MaxY"  ;
+"CAConstraintAttribute_6" = "Width" ;
+"CAConstraintAttribute_7" = "Height";
+
+/* IngredientType_audio */
+"IngredientType_1" = "Audio";
+/* IngredientType_video */
+"IngredientType_2" = "Video";
+/* IngredientType_image */
+"IngredientType_3" = "Image";
+
+
+
+/* IngredientType_text */
 "IngredientType_0" = "Text";
 /* IngredientType_audio */
 "IngredientType_1" = "Audio";

@@ -1,7 +1,7 @@
 #import "AZFile.h"
+
 @implementation AZFile
 @synthesize name=_name,
-//			path=_path,
 			image=_image,
 			colors=_colors,
 			hasLabel=_hasLabel,
@@ -348,7 +348,7 @@
 {
 	return [self.files filteredArrayUsingPredicate:
 			[NSPredicate predicateWithFormat:@"name CONTAINS[cd] %@ OR artist.name CONTAINS[cd] %@", filter, filter]];
-
+*/
 /**    NSMutableArray *searchResults = [NSMutableArray array];
     if ([filter length] !=0) {
         [searchResults addObjectsFromArray:[self.files filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name CONTAINS[cd] %@ OR artist.name CONTAINS[cd] %@", filter, filter]]];

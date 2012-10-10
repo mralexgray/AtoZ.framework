@@ -115,7 +115,7 @@ NSString * const AZSLDeleteKeyPressedOnRowsNotification = @"AZSourceListDeleteKe
 			unsigned row, lastSelectedRow = NSNotFound;
 			NSColor* highlightColor = nil;
 			NSColor* highlightFrameColor = nil;
-
+*/
 			/*if ([[self window] firstResponder] == self &&
 				[[self window] isMainWindow] &&
 				[[self window] isKeyWindow])
@@ -537,7 +537,9 @@ NSString * const AZSLDeleteKeyPressedOnRowsNotification = @"AZSourceListDeleteKe
 
 - (void)drawGridInClipRect:(NSRect)rect
 {
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 	NSRange columnRange = [self columnsInRect:rect];
+#pragma GCC diagnostic warning "-Wdeprecated-declarations"
 	int i;
 		NSLog(@"inside gridrect");
 	[[NSColor lightGrayColor] set];
@@ -716,7 +718,7 @@ NSString * const AZSLDeleteKeyPressedOnRowsNotification = @"AZSourceListDeleteKe
 	[badgePath fill];
 	
 	//Draw the badge text
-	NSAttributedString *badgeAttrString = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%d", [self badgeValueForItem:rowItem]] 
+	NSAttributedString *badgeAttrString = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%ld", [self badgeValueForItem:rowItem]] 
 																		  attributes:attributes];
 	NSSize stringSize = [badgeAttrString size];
 	NSPoint badgeTextPoint = NSMakePoint(NSMidX(badgeFrame)-(stringSize.width/2.0),		//Center in the badge frame

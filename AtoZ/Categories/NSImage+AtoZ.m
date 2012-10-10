@@ -68,7 +68,10 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 
 @implementation NSImage (AtoZ)
 
-
++ (NSArray*) frameworkImageNames
+{
+	return [[NSImage frameworkImagePaths]mapSelector:@selector(lastPathComponent)];
+}
 
 
 + (NSImage*)screenShot {
@@ -77,7 +80,7 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 
 
 + (NSArray*) frameworkImagePaths {
-	return (NSArray*)logAndReturn( [NSArray arrayWithArrays:@[
+	return (NSArray*)LogAndReturn( [NSArray arrayWithArrays:@[
 			   [AZFWORKBUNDLE pathsForResourcesOfType:@"pdf" inDirectory:@""],
 			   [AZFWORKBUNDLE pathsForResourcesOfType:@"png" inDirectory:@""],
 			   [AZFWORKBUNDLE pathsForResourcesOfType:@"icns" inDirectory:@""]]]);
@@ -272,7 +275,7 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 {
     NSImage* sourceImage = self;
 
-	NSImageRep* rep = [sourceImage bestRepresentationForDevice:nil];
+	NSImageRep* rep = [sourceImage bestRepresentationForSize:targetSize];
 	NSInteger pixelsWide = [rep pixelsWide];
 	NSInteger pixelsHigh = [rep pixelsHigh];
 	[sourceImage setSize:NSMakeSize(pixelsWide,pixelsHigh)];

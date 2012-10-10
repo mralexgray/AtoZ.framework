@@ -19,7 +19,7 @@
 @interface NSDictionary (OFExtensions)
 
 - (NSDictionary *)dictionaryWithObject:(id)anObj forKey:(NSString *)key;
-- (NSDictionary *)dictionaryByAddingObjectsFromDictionary:(NSDictionary *)otherDictionary;
+//- (NSDictionary *)dictionaryByAddingObjectsFromDictionary:(NSDictionary *)otherDictionary;
 
 - (id)anyObject;
 - (NSString *)keyForObjectEqualTo:(id)anObj;

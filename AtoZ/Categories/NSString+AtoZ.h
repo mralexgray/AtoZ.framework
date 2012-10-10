@@ -7,6 +7,13 @@
 
 @interface NSString (AtoZ)
 
+- (unichar)lastCharacter;
+- (NSString*)substringToLastCharacter;
+//- (NSString*)decodeAllPercentEscapes;
+- (NSString*)decodeAllAmpersandEscapes;
+- (NSNumber*)numberValue;
+
+
 - (void) copyFileAtPathTo:(NSString*)path;
 
 - (CGFloat)pointSizeForFrame:(NSRect)frame withFont:(NSString *)fontName;

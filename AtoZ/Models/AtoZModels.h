@@ -12,3 +12,9 @@
 #import "AtoZModels.h"
 #import <Cocoa/Cocoa.h>
 
+@interface SizeObj : NSObject
+@property (readwrite) CGFloat width, height;
++ (id)forSize:(NSSize)sz;
+- (id)initWithSize:(NSSize)sz;
+- (NSSize)sizeValue;
+@end

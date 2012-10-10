@@ -33,9 +33,9 @@
 + (NSArray*) arrayFromPlist:(NSString*)path;
 - (void) saveToPlistAtPath:(NSString*)path;
 
-- (NSString*) stringWithEnum: (NSUInteger) e;
-- (NSUInteger) enumFromString: (NSString*) s default: (NSUInteger) def;
-- (NSUInteger) enumFromString: (NSString*) s;
+- (NSString*) stringWithEnum: (NSUInteger) anEnum;
+- (NSUInteger) enumFromString: (NSString*) aString default: (NSUInteger) def;
+- (NSUInteger) enumFromString: (NSString*) aString;
 
 
 @property (readonly) NSArray *colorValues;

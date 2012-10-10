@@ -17,6 +17,35 @@
 
 @implementation NSString (AtoZ)
 
+- (unichar)lastCharacter {
+    return [self characterAtIndex:([self length] - 1)];
+}
+
+- (NSString*)substringToLastCharacter {
+    return [self substringToIndex:([self length] - 1)];
+}
+
+/*
+ - (id)decodeAllPercentEscapes {
+ NSString *cocoaWay =
+ NSString* cfWay = CFURLCreateStringByReplacingPercentEscapes(kCFAllocatorDefault, [self UTF8String], CFSTR(""));
+ NSString* cocoaWay = [self stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+ if(![cfWay isEqualToString:cocoaWay]) {
+ NSLog(@"[%@ %s]: CF and Cocoa different for %@", [self class], sel_getName(_cmd), self);
+ }
+ return cfWay;
+ }*/
+
+- (NSString*)decodeAllAmpersandEscapes {
+    return [self stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
+}
+
+
+- (NSNumber*)numberValue {
+    return [[[NSNumberFormatter alloc] init] numberFromString:self];
+}
+
+
 - (void) copyFileAtPathTo:(NSString*)path
 {
 	if ( [[NSFileManager defaultManager] isReadableFileAtPath:self] )
@@ -148,9 +177,7 @@
 //	[style release];
 //}
 
-- (NSString *)trim {	NSCharacterSet *cs = [NSCharacterSet whitespaceAndNewlineCharacterSet];
-						return [self stringByTrimmingCharactersInSet:cs];
-}
+- (NSString*)trim {    return [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]; }
 
 - (NSString *)shifted {	return [self substringFromIndex:1]; }
 
@@ -164,8 +191,11 @@
 
 - (NSString *)underscored {	return [[self mutableCopy] underscorize]; }
 
-- (BOOL)isEmpty { 	return (self == nil) || [self.trim isEqualToString:@""]; }
-
+- (BOOL)isEmpty { 	 return (self == nil || [self isKindOfClass:[NSNull class]]
+							 			 || [self.trim isEqualToString:@""]
+							 			 || ([self respondsToSelector:@selector(length)] && ([(NSData *)self length] == 0))
+							 			 || ([self respondsToSelector:@selector(count)] && ([(NSArray *)self count] == 0)));
+}
 /*** Actually this should be called stringByReversingThisString, but that appeared to be too much sugar-free.  Reverse ist non-destructive */
 
 - (NSString *)reversed	{		NSMutableString *re = NSMutableString.string;
@@ -363,7 +393,7 @@
 	//^-----^   <-Returns this substring. (Trailing zeroes are deleted.)
 	//42.000000
 	//^^        <-Returns this substring (everything before the decimal point) for a whole number.
-	NSString *format = numDigits ? [NSString stringWithFormat:@"%%.%uf", numDigits] : @"%f";
+	NSString *format = numDigits ? [NSString stringWithFormat:@"%%.%luf", numDigits] : @"%f";
 	NSString *str = [NSString stringWithFormat:format, (double)f];
 	NSUInteger i = [str length];
 	while (i-- > 0) {

@@ -130,6 +130,13 @@
 	[self closePath];
 }
 
+- (void) drawWithFill:(NSColor*)fill andStroke:(NSColor*)stroke
+{
+	[fill setFill];
+	[self fill];
+	[stroke setStroke];
+	[self stroke];
+}
 
 - (void)fillGradientFrom:(NSColor*)inStartColor to:(NSColor*)inEndColor angle:(float)inAngle
 {

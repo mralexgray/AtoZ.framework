@@ -42,7 +42,7 @@
 
 
 
-
+#import "AZTalker.h"
 //#import <XPCKit/XPCKit.h>
 //#import <RMKit/RMKit.h>
 #import "NotificationCenterSpy.h"
@@ -54,11 +54,13 @@
 #import "AZGeometricFunctions.h"
 
 
-
+#import "SynthesizeSingleton.h"
 #import "iCarousel.h"
 //#import "azCarousel.h"
 
 #import "AZCalculatorController.h"
+
+#import "AZLayer.h"
 
 #import "AZSizer.h"
 #import "AZMouser.h"
@@ -76,6 +78,7 @@
 #import "NSDictionary+AtoZ.h"
 #import "NSFileManager+AtoZ.h"
 #import "NSImage+AtoZ.h"
+#import "NSImage-Tint.h"
 #import "NSNotificationCenter+AtoZ.h"
 #import "NSNumber+AtoZ.h"
 #import "NSObject+AtoZ.h"
@@ -185,14 +188,14 @@ extern NSString *const AtoZDockSortedUpdated;
 
 + (NSArray*) dock;
 + (NSArray*) dockSorted;
-+ (NSArray*) currentScope;
-+ (NSArray*) fengShui;
+//+ (NSArray*) currentScope;
+//+ (NSArray*) fengShui;
 + (NSArray*) runningApps;
 + (NSArray*) runningAppsAsStrings;
-+ (NSArray*) appFolder;
-+ (NSArray*) appCategories;
-+ (NSArray*) appFolderSorted;
-+ (NSArray*) appFolderSamplerWith: (NSUInteger) apps;
+//+ (NSArray*) appFolder;
+//+ (NSArray*) appCategories;
+//+ (NSArray*) appFolderSorted;
+//+ (NSArray*) appFolderSamplerWith: (NSUInteger) apps;
 + (NSString*) resources;
 + (void) trackIt;
 

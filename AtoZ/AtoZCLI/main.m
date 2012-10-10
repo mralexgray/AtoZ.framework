@@ -41,13 +41,66 @@ void TestStopwatchBlock (NSString* name) {
 @implementation AAAA
 @end
 
+
+@interface TestView : NSView <NSWindowDelegate> { }
+
+@property (strong) CALayer* lay;
+-(void)drawRect:(NSRect)rect;
+@end
+
+@implementation TestView
+
+-(void)viewDidMoveToSuperview {
+	NSLog(@"view did load");
+	self.wantsLayer = YES;
+	self.lay = [CALayer layer];
+	_lay.frame = quadrant(self.bounds, 1);
+	_lay.backgroundColor = cgRED;
+	self.layer.sublayers = @[_lay];
+}
+-(void)drawRect:(NSRect)rect {
+    [[NSColor blueColor] set];
+    NSRectFill( [self bounds] );
+}
+
+-(void)windowWillClose:(NSNotification *)note {
+    [[NSApplication sharedApplication] terminate:self];
+}
+
+- (void) mouseDown:(NSEvent*)ev
+{
+	//	[_lay animateOverAndUpFrom:_lay.position to:AZCenterOfRect(quadrant(self.bounds, 3)) duration:5];
+
+
+}
+@end
+
 int main(int argc, const char * argv[])
 {
 	[AZStopwatch stopwatch:@"Runtime" timing:^{
 
-//		NSLog(@"TEST start");
+		//		NSLog(@"TEST start");
 		AZFile *f = [AZFile instanceWithPath:@"/Applications/Safari.app"];
 		AZLOG([AZFILEMANAGER attributesOfItemAtPath:f.path error:nil]);
+
+	}];
+	@autoreleasepool {
+
+		NSApplication *app			= [NSApplication sharedApplication];
+		NSRect 			frame  	= (NSRect) { 100, 100, 300, 300 };
+		NSWindow 			*window 	= [[NSWindow alloc] initWithContentRect:frame
+														   styleMask:NSTitledWindowMask|NSResizableWindowMask
+															 backing:NSBackingStoreBuffered defer:false];
+		[window setTitle:@"Testing"];
+		AtoZ *whatver = [AtoZ sharedInstance];
+//		[AtoZ playRandomSound];
+		TestView *view = [[TestView alloc] initWithFrame:frame];
+		[window setContentView:view];
+		[window setDelegate:view];
+		//		[window makeKeyAndOrderFront:window];
+		[NSApp activateIgnoringOtherApps:YES];
+		[app run];
+	}
 //	TestStopwatchBlock(@"testTheWatch");
 //		NSArray *u = [NSArray arrayWithArrays: @[@[@"array1", @[@"array1level2"]],@[@"array2", @"array2item2"], @[@"array3"]]];
 //		AZLOG(	u );
@@ -89,7 +142,7 @@ int main(int argc, const char * argv[])
 	//	CGPoint a = AZAnchorPointForPosition( AZPositionLeft);
 	//
 	//	NSLog(@"%@", NSStringFromPoint(a));
-	}]; 
+
     return 0;
 }
 

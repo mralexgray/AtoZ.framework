@@ -43,9 +43,9 @@
 #define kNTSetDefaultFirstResponderNotification @"NTSetDefaultFirstResponderNotification"  // object is the window, must check
 
 @interface NSWindow (Utilities)
-
+/*
 - (void)veil:(NSView*)view;
-
+*/
 + (void) cascadeWindow:(NSWindow*)inWindow;
 
 + (NSArray*) visibleWindows:(BOOL)ordered;
@@ -82,15 +82,16 @@
 
 - (void) fadeIn;
 - (void) fadeOut;
-
+/*
 - (void) fadeInYesOrOutNo: (BOOL)fade andResizeTo: (NSRect)frame;
-
+*/
 - (void) slideUp;
 - (void) slideDown;
 
 - (void) extendVerticallyBy: (int) amount;
-
+/*
 + (NSWindow*) borderlessWindowWithContentRect: (NSRect)aRect;
+*/
 @end
 
 //@interface NSWindow (UndocumentedRoutines)

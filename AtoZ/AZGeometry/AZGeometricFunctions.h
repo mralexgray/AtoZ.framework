@@ -7,6 +7,8 @@
 //#import "AtoZUmbrella.h"
 
 
+BOOL AZEqualRects(NSR r1, NSR r2);
+
 NSNumber *iNum ( NSInteger   i );
 NSNumber *uNum ( NSUInteger ui );
 NSNumber *fNum ( CGFloat f );
@@ -52,7 +54,6 @@ NSPoint nanPointCheck ( NSPoint  point );
 
 
 
-NSPoint randomPointInRect(NSRect rect);
 
 CGFloat AZPointDistance(CGPoint p1, CGPoint p2);
 CGFloat AZPointAngle(CGPoint p1, CGPoint p2);
@@ -271,7 +272,8 @@ NSRect AZRectExceptHigh (NSRect rect, CGFloat high);
 NSRect AZRectExceptOriginX (NSRect rect, CGFloat x);
 NSRect AZRectExceptOriginY (NSRect rect, CGFloat y);
 
-
+// returns a rect with insets of the same size x and y
+NSRect AZInsetRect(NSRect rect, CGFloat inset);
 
 // returns a rect at the left edge of a rect with a given inset width
 NSRect AZLeftEdge(NSRect rect, CGFloat width);
@@ -321,7 +323,9 @@ NSRect centerRectInRect(NSRect rect, NSRect mainRect);
 NSRect rectFromSize(NSSize size);
 //NSRect rectWithProportion(NSRect innerRect,float proportion,bool expand);
 
-NSRect quadrant(NSRect r, NSUInteger i);
+NSRect sectionPositioned(NSRect r, AZWindowPosition p);
+int oppositeQuadrant(int quadrant);
+NSRect quadrant(NSRect r, NSUInteger quad);
 
 NSRect constrainRectToRect(NSRect innerRect, NSRect outerRect);
 NSRect alignRectInRect(NSRect innerRect,NSRect outerRect,int quadrant);
@@ -336,7 +340,7 @@ NSRect blendRects(NSRect start, NSRect end,float b);
 void logRect(NSRect rect);
 
 CGPoint NSMakeRandomPointInRect(CGRect rect);
-CGPoint randomPointInRect (CGRect rect);
+NSPoint randomPointInRect(NSRect rect);
 
 /** Returns the center point of a CGRect. */
 static inline CGPoint GetCGRectCenter( CGRect rect ) {

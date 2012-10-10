@@ -11,7 +11,7 @@
 #import "AtoZ.h"
 
 #import "NSArray+AtoZ.h"
-
+#import "HRCoder.h"
 
 
 
@@ -93,14 +93,14 @@
 }
 
 
-- (NSString*) stringWithEnum: (NSUInteger) e; {    return [self objectAtIndex:e];	}
+- (NSString*) stringWithEnum: (NSUInteger) anEnum; {    return [self objectAtIndex:anEnum];	}
 
-- (NSUInteger) enumFromString: (NSString*) s default: (NSUInteger) def;
+- (NSUInteger) enumFromString: (NSString*) aString default: (NSUInteger) def;
 {
-    NSUInteger n = [self indexOfObject:s];	check( n != NSNotFound ); if ( n == NSNotFound )  n = def;	return n;
+    NSUInteger n = [self indexOfObject:aString];	check( n != NSNotFound ); if ( n == NSNotFound )  n = def;	return n;
 }
 
-- (NSUInteger) enumFromString: (NSString*) s;	{    return [self enumFromString:s default:0];	}
+- (NSUInteger) enumFromString: (NSString*) aString;	{    return [self enumFromString:aString default:0];	}
 
 - (NSArray *)colorValues {
 	return [self arrayUsingBlock:^id(id obj) {

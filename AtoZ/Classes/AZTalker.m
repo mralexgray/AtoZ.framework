@@ -14,37 +14,35 @@
 //NSSpeechSynthesizer *talker;
 
 
-- (id)init
-{
-    self = [super init];
-    if (self) {
-		
+//- (id)init
+//{
+//    self = [super init];
+//    if (self) {
+//
+//	}
+//    return self;
+//}
 
+- (void) setUp {
 
-//- (void) setUp {
-
-	self.talker = [[NSSpeechSynthesizer alloc]init];
+	self.talker = [NSSpeechSynthesizer new];
 	self.talker.delegate = self;
 //}
-	}
-    return self;
 }
 
-+(void)say:(NSString*)s
++(void)say:(NSString*)thing
 {
-	[NSTask launchedTaskWithLaunchPath:@"/usr/bin/say" arguments:@[s]];
+	[NSTask launchedTaskWithLaunchPath:@"/usr/bin/say" arguments:@[thing]];
 }
-
-
 
 -(void) say:(NSString *)thing {
 
-	if ( [NSSpeechSynthesizer isAnyApplicationSpeaking] == NO){
-		[self.talker startSpeakingString:thing];
-	} else {
+	[NSSpeechSynthesizer isAnyApplicationSpeaking] == NO
+	? [_talker startSpeakingString:thing]
+	: [[NSThread mainThread] performBlock:^{
+		[self say:thing];
+	} waitUntilDone:YES];// performSelector:@selector(say:) withObject:thing afterDelay:1];
 
-		[self performSelector:@selector(say:) withObject:thing afterDelay:1];
-	}
 }
 
 

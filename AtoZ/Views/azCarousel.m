@@ -21,7 +21,7 @@
 
 @interface iCarousel ()
 
-- (AZTrackingWindow*)hostWindow;
+//- (AZTrackingWindow*)hostWindow;
 
 - (void)layOutItemViews;
 	//- (void)didScroll;

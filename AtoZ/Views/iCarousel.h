@@ -249,7 +249,7 @@ typedef enum{
 - (UIView*) itemViewAtIndex: (NSInteger)index;
 - (NSInteger)indexOfItemView: (UIView*) view;
 - (NSInteger)indexOfItemViewOrSubview: (UIView*) view;
-- (CGFloat)offsetForItemAtIndex: (NSInteger)index;
+//- (CGFloat)offsetForItemAtIndex: (NSInteger)index;
 
 - (void)removeItemAtIndex: (NSInteger)index animated: (BOOL)animated;
 - (void)insertItemAtIndex: (NSInteger)index animated: (BOOL)animated;

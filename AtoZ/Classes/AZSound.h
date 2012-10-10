@@ -18,6 +18,7 @@
 #else
 #define SM_SOUND NSSound
 #endif
+#import "AtoZ.h"
 
 
 extern NSString *const SoundDidFinishPlayingNotification;

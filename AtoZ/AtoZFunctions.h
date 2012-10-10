@@ -1,19 +1,37 @@
-	//  AtoZFunctions.h
+//  AtoZFunctions.h
 
-	//#import "AtoZ.h"
-	//PUT IN PRECOMP #define NSLog(args...) _AZSimpleLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args);
+//#import "AtoZ.h"
+//PUT IN PRECOMP #define NSLog(args...) _AZSimpleLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args);
 
-	//NS_INLINE  void QuietLog (const char *file, int lineNumber, const char *funcName, NSString *format, ...);
-	//#define NSLog(args...) QuietLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args)
-	//NS_INLINE void _AZLog(const char *file, int lineNumber, const char *funcName, NSString *format,...);
-	//NS_INLINE NSRect SFCopyRect(NSRect toCopy) {	return NSMakeRect(toCopy.origin.x, toCopy.origin.y, toCopy.size.width, toCopy.size.height); }
-	//NS_INLINE NSRect SFMakeRect(NSPoint origin, NSSize size) {	return NSMakeRect(origin.x, origin.y, size.width, size.height); }
-	//NS_INLINE NSPoint SFCopyPoint(NSPoint toCopy) {	return NSMakePoint(toCopy.x, toCopy.y);	}
-	//static inline CGRect convertToCGRect(NSRect rect) {	return *(const CGRect *)&rect;}
-	//static inline NSRect convertToNSRect(CGRect rect) { 	return *(const NSRect *)&rect;	}
-	//static inline NSPoint convertToNSPoint(CGPoint point) {	return *(const NSPoint *)&point;	}
-	//static inline CGPoint convertToCGPoint(NSPoint point) {	return *(const CGPoint *)&point;	}
+//NS_INLINE  void QuietLog (const char *file, int lineNumber, const char *funcName, NSString *format, ...);
+//#define NSLog(args...) QuietLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args)
+//NS_INLINE void _AZLog(const char *file, int lineNumber, const char *funcName, NSString *format,...);
+//NS_INLINE NSRect SFCopyRect(NSRect toCopy) {	return NSMakeRect(toCopy.origin.x, toCopy.origin.y, toCopy.size.width, toCopy.size.height); }
+//NS_INLINE NSRect SFMakeRect(NSPoint origin, NSSize size) {	return NSMakeRect(origin.x, origin.y, size.width, size.height); }
+//NS_INLINE NSPoint SFCopyPoint(NSPoint toCopy) {	return NSMakePoint(toCopy.x, toCopy.y);	}
+//static inline CGRect convertToCGRect(NSRect rect) {	return *(const CGRect *)&rect;}
+//static inline NSRect convertToNSRect(CGRect rect) { 	return *(const NSRect *)&rect;	}
+//static inline NSPoint convertToNSPoint(CGPoint point) {	return *(const NSPoint *)&point;	}
+//static inline CGPoint convertToCGPoint(NSPoint point) {	return *(const CGPoint *)&point;	}
 
+
+
+BOOL SameString(const char *a, const char *b);
+NSString* bitString(NSUInteger mask);
+
+static inline NSString* typeStringForType(thing) {
+	return 	SameString( @encode(typeof(thing)), @encode(typeof(CAConstraintAttribute)))
+	? [NSString stringWithFormat:NSLocalizedString( @"CAConstraintAttribute_%i",thing]
+	: nil;
+	//	NSString *key = [NSString stringWithFormat:@"IngredientType_%i", _type];
+
+}
+static inline BOOL isEmpty(id thing) { return
+	thing == nil
+	?: ([thing respondsToSelector:@selector(length)] && [(NSData *)thing length] == 0)
+	?: ([thing respondsToSelector:@selector(count)]  && [(NSArray *)thing count] == 0)
+	?: NO;
+}
 
 
 int (^triple)(int);
@@ -21,12 +39,14 @@ int (^triple)(int);
 //USAGE: .... return (NSArray*)logAndReturn( [NSArray arrayWithArrays:@[blah,blahb]] );
 
 
-id (^logAndReturn)(id); //= ^(id toLog) { AZLOG(toLog); return toLog; };
+//id (^logAndReturn)(id); //= ^(id toLog) { AZLOG(toLog); return toLog; };
+id LogAndReturn(id toLog); //= ^(id toLog) { AZLOG(toLog); return toLog; };
 
 //void (^now)(void) = ^ {    NSDate *date = [NSDate date]; NSLog(@"The date and time is %@", date); };
 
 BOOL IsEmpty(id obj);
 
+NSString* stringForPosition(AZWindowPosition enumVal);
 NSString* AZStringFromRect(NSRect rect);
 NSArray* ApplicationPathsInDirectory(NSString *searchPath);
 
@@ -40,9 +60,9 @@ CGFloat perceptualGlossFractionForColor ( CGFloat *inputComponents );
 CGFloat percent ( CGFloat val );
 CGFloat DegreesToRadians ( CGFloat degrees );
 
-	//CGFloat DEG2RAD(CGFloat degrees);
-	//{return degrees * M_PI / 180;};
-	//CGFloat RAD2DEG(CGFloat radians) {return radians * 180 / M_PI;};
+//CGFloat DEG2RAD(CGFloat degrees);
+//{return degrees * M_PI / 180;};
+//CGFloat RAD2DEG(CGFloat radians) {return radians * 180 / M_PI;};
 
 NSString* JRNSStringFromCATransform3D(CATransform3D transform);
 NSString* prettyFloat(CGFloat f);
@@ -52,7 +72,7 @@ NSNumber* DegreesToNumber(CGFloat degrees);
 
 CGImageRef ApplyQuartzComposition ( const char* compositionName, const CGImageRef srcImage );
 
-	//	were static
+//	were static
 void glossInterpolation(void *info, const CGFloat *input, CGFloat *output);
 inline float RandomComponent() {  return (float)random() / (float)LONG_MAX; }
 double frandom ( double start, double end );
@@ -70,38 +90,38 @@ void profile (const char *name, void (^work) (void));
 /*
  int main (int argc, const char * argv[]) {
  @autoreleasepool {
-	 if (argc < 3) PrintUsageAndQuit();
-	 NSS *verb = [NSS stringWithUTF8String:argv[1]];
-	 unsigned i;
-	 for (i = 2; i < argc; i++) {
-		char buffer[PATH_MAX];
-		NSS  *path  = [NSS stringWithUTF8String:argv[i]];
-		realpath([[path stringByExpandingTildeInPath] UTF8String], buffer);
-		path 	   	= [NSString stringWithUTF8String: buffer];
-		NSURL *url 	= [NSURL fileURLWithPath: path];
-		if ([verb isEqualToString:@"status"])  	{	AZLOG(@"STATUS");	}
-		else if ([verb isEqualToString:@"include"]){	AZLOG(@"INCLUDE");	}
-		else  										{	PrintUsageAndQuit();}
-		}
-	 }
-	 return 0;
+ if (argc < 3) PrintUsageAndQuit();
+ NSS *verb = [NSS stringWithUTF8String:argv[1]];
+ unsigned i;
+ for (i = 2; i < argc; i++) {
+ char buffer[PATH_MAX];
+ NSS  *path  = [NSS stringWithUTF8String:argv[i]];
+ realpath([[path stringByExpandingTildeInPath] UTF8String], buffer);
+ path 	   	= [NSString stringWithUTF8String: buffer];
+ NSURL *url 	= [NSURL fileURLWithPath: path];
+ if ([verb isEqualToString:@"status"])  	{	AZLOG(@"STATUS");	}
+ else if ([verb isEqualToString:@"include"]){	AZLOG(@"INCLUDE");	}
+ else  										{	PrintUsageAndQuit();}
+ }
+ }
+ return 0;
  }
  */
 static void PrintUsageAndQuit(void) __attribute__((noreturn));
-	//static void PrintStatus(NSURL *url);
+//static void PrintStatus(NSURL *url);
 
-	//@interface Slice : NSObject
-	//@property NSInteger start;
-	//@property NSInteger length;
-	//@end
+//@interface Slice : NSObject
+//@property NSInteger start;
+//@property NSInteger length;
+//@end
 
-	//@interface NSArray (Slicing)
-	//- (id)objectForKeyedSubscript: (id)subscript;
-	//@end
+//@interface NSArray (Slicing)
+//- (id)objectForKeyedSubscript: (id)subscript;
+//@end
 
-	//@interface NSNumber (SliceCreation)
-	//- (Slice *): (NSInteger)length;
-	//@end
+//@interface NSNumber (SliceCreation)
+//- (Slice *): (NSInteger)length;
+//@end
 
 
 /*
@@ -135,19 +155,19 @@ static void PrintUsageAndQuit(void) __attribute__((noreturn));
 /**  Sometimes it's useful to work on multiple arrays in parallel. For example, imagine that you have two arrays of strings and you want to create a third array that contains the contents of the two arrays combined into a single string. With MACollectionUtilities this is extremely easy:
  */
 
-	//	NSArray *first = ARRAY(@"alpha", @"air", @"bicy");
-	//	NSArray *second = ARRAY(@"bet", @"plane", @"cle");
-	//	NSArray *words = MAP(first, [obj stringByAppendingString: EACH(second)]);
+//	NSArray *first = ARRAY(@"alpha", @"air", @"bicy");
+//	NSArray *second = ARRAY(@"bet", @"plane", @"cle");
+//	NSArray *words = MAP(first, [obj stringByAppendingString: EACH(second)]);
 
-	// 		words now contains alphabet, airplane, bicycle
+// 		words now contains alphabet, airplane, bicycle
 
 /*** The EACH macro depends on context set up by the other macros. You can only use it with the macros, not with the methods.
  You can use multiple arrays with multiple EACH macros to enumerate several collections in parallel:
  ***/
 
-	///	NSArray *result = MAP(objects, [obj performSelector: NSSelectorFromString(EACH(selectorNames))
-	///                                        withObject: EACH(firstArguments)
-	///										withObject: EACH(secondArguments)];
+///	NSArray *result = MAP(objects, [obj performSelector: NSSelectorFromString(EACH(selectorNames))
+///                                        withObject: EACH(firstArguments)
+///										withObject: EACH(secondArguments)];
 
 /*** The EACH macro works by creating and tracking an NSEnumerator internally. It lazily creates the enumerator on the first use, and then uses nextObject at each call. Thus if your arrays are not the same length, it will begin to return nil, watch out.
 

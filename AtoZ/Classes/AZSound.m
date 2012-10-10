@@ -1,5 +1,6 @@
 
 #import "AZSound.h"
+#import "BaseModel.h"
 #import "AtoZ.h"
 
 #pragma mark Sound class

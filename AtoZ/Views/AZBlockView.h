@@ -30,3 +30,30 @@ typedef void(^AZBlockViewDrawer)(AZBlockView *view, NSRect dirtyRect);
 @property (nonatomic, assign) BOOL opaque;
 @end
 
+//Usage:
+/*
+
+- (void) awakeFromNib {
+ 	block __typeof(self) blockSelf = self; 
+ 	[[self view] addSubview:[BNRBlockView viewWithFrame:contentRect opaque:NO drawnUsingBlock:^(BNRBlockView *view, NSRect dirtyRect) { 
+ 		[[blockSelf roundedRectFillColor] set]; 
+		[[NSBezierPath bezierPathWithRoundedRect:[view bounds] xRadius:5 yRadius:5] fill]; 
+ 	}]];
+}
+
+*/
+
+@class BNRBlockView;
+typedef void(^BNRBlockViewDrawer)(BNRBlockView *view, NSRect dirtyRect);
+@interface BNRBlockView : NSView
+{
+//	BNRBlockViewDrawer drawBlock;
+//	BOOL opaque;
+}
+
++ (BNRBlockView *)viewWithFrame:(NSRect)frame  opaque:(BOOL)opaque
+                drawnUsingBlock:(BNRBlockViewDrawer)drawBlock;
+
+@property (nonatomic, copy) BNRBlockViewDrawer drawBlock;
+@property (nonatomic, assign) BOOL opaque;
+@end

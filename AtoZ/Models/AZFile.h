@@ -1,70 +1,48 @@
 #import "AtoZ.h"
+#import "AtoZUmbrella.h"
 
-// Base abstract class that wraps a file system URL
-@interface AZFile : BaseModel //	<BaseModel,NSCopying, NSMutableCopying, NSPasteboardWriting, NSPasteboardReading>
+#define RONLY readonly
+#define RDWRT readwrite
+#define ASSGN assign
+#define NATOM nonatomic
+#define STRNG strong
 
-@property (nonatomic, strong, readonly) NSString	*name, *calulatedBundleID;
-@property (nonatomic, strong, readonly) NSColor		*labelColor;
-@property (nonatomic, strong, readonly) NSImage  	*image;
-@property (nonatomic, assign, readonly) NSUInteger 	labelNumber;
-@property (nonatomic, assign, readonly)	CGFloat	  	hue;
-@property (nonatomic, assign, readonly)	BOOL	  	hasLabel;
+@interface AZFile : BaseModel  // Base abstract class that wraps a file system URL
 
-@property (nonatomic, strong) 	NSString 	*path;
-@property (nonatomic, strong) 	NSColor		*color, *customColor;
-@property (nonatomic, readonly) NSArray  	*colors;
+@property (NATOM, STRNG, RONLY) NSS		*name, 		*calulatedBundleID;
+@property (NATOM, STRNG, RONLY) NSC		*labelColor;
+@property (NATOM, STRNG, RONLY) NSIMG  	*image;
+@property (NATOM, ASSGN, RONLY) NSUI	labelNumber;
+@property (NATOM, ASSGN, RONLY) CGF	  	hue;
+@property (NATOM, ASSGN, RONLY) BOOL		hasLabel;
+
+@property (nonatomic, strong) 	NSS 	*path;
+@property (nonatomic, strong) 	NSC		*color, *customColor;
+@property (nonatomic, readonly) NSA  	*colors;
 @property (nonatomic, assign)	AZWindowPosition		position;
 
-+ (id) forAppNamed:(NSString*)appName;
-+ (id) instanceWithPath:	(NSString*) path;
-+ (id) instanceWithImage:	(NSImage*)  image;
-+ (id) instanceWithColor:	(NSColor*)  color;
-
++ (id) forAppNamed: 	  (NSS*)appName;
++ (id) instanceWithPath:  (NSS*) path;
++ (id) instanceWithImage: (NSIMG*)  image;
++ (id) instanceWithColor: (NSC*)  color;
 - (void) setActualLabelColor: (NSColor*) aColor;
-
 @end
 
 // Concrete subclass of ATDesktopEntity that loads children from a folder
 @interface AZFolder : NSArray //AZFile
-
 //@property(nonatomic, readonly) NSMutableArray *children;
-
 @property (readonly) NSUI count;
 //@property (readonly) NSUI capacity;
 - (id) initWithArray:(NSArray *)array;
 + (id) appFolder;
 + (id) samplerWithCount:(NSUInteger)items;
-+ (id) samplerWithBetween:(NSUInteger)minItems andMax:(NSUInteger)items;
+//+ (id) samplerWithBetween:(NSUInteger)minItems andMax:(NSUInteger)items;
 + (id) instanceWithFiles:(NSArray*)files;
 + (id) instanceWithPaths:(NSArray*)strings;
 
 //- (NSArray*)filesMatchingFilter: (NSString *)filte
 //- (NSArray*)filesWithCategory: (AppCat)cat;
 @end
-
-
-
-//@interface AZImage : NSObject
-//
-//@property (weak,nonatomic)	id objectRep;
-//
-//@property (retain) NSColor *fillColor;
-//@property (copy) NSString *fillColorName;
-//
-//@property (strong, readwrite) NSString *title;
-//
-//// Access to the image. This property can be observed to find out when it changes and is fully loaded.
-//@property (strong) NSImage *image;
-//@property (readonly, retain) NSImage *thumbnailImage;
-//
-//	// Asynchronously loads the image (if not already loaded). A KVO notification is sent out when the image is loaded.
-//- (void)loadImage;
-//
-//	// A nil image isn't loaded (or couldn't be loaded). An image that is in the process of loading has imageLoading set to YES
-//@property (readonly) BOOL imageLoading;
-//
-//@end
-
 @interface AZDockApp : BaseModel
 
 + (instancetype)instanceWithPath:(NSString *)path;
@@ -96,6 +74,30 @@
 + (instancetype) instanceWithColor:(NSColor*)color count:(NSUI)c total:(NSUI) totes;
 
 @end
+
+
+
+//@interface AZImage : NSObject
+//
+//@property (weak,nonatomic)	id objectRep;
+//
+//@property (retain) NSColor *fillColor;
+//@property (copy) NSString *fillColorName;
+//
+//@property (strong, readwrite) NSString *title;
+//
+//// Access to the image. This property can be observed to find out when it changes and is fully loaded.
+//@property (strong) NSImage *image;
+//@property (readonly, retain) NSImage *thumbnailImage;
+//
+//	// Asynchronously loads the image (if not already loaded). A KVO notification is sent out when the image is loaded.
+//- (void)loadImage;
+//
+//	// A nil image isn't loaded (or couldn't be loaded). An image that is in the process of loading has imageLoading set to YES
+//@property (readonly) BOOL imageLoading;
+//
+//@end
+
 
 	//extern NSString *const AtoZFileUpdated;
 	//@class AJSiTunesResult;

@@ -483,6 +483,67 @@ CG_INLINE CATransform3D CATransform3DMake( CGFloat m11, CGFloat m12, CGFloat m13
 #define kCALayerLabel @"CALayerLabel"
 @implementation CALayer (AtoZ)
 
+- (NSNumber *) addValues:(int) count, ... {
+    va_list args;
+    va_start(args, count);
+
+    NSNumber *value;
+
+    double retval;
+
+    for( int i = 0; i < count; i++ ) {
+		value = va_arg(args, NSNumber *);
+
+		retval += [value doubleValue];
+
+    }
+
+    va_end(args);
+    return [NSNumber numberWithDouble:retval];
+}
+
+- (void) addConstraintsRelSuper:(NSNumber*) nilAttributeList, ...  // This method takes a nil-terminated list of objects.
+{
+    va_list args;
+    va_start(args, nilAttributeList);
+    NSNumber *value;
+
+	id arg = nil;
+	while( value = va_arg( args, NSNumber * ) )
+
+	while ((arg = va_arg(args,id))) {
+		/// Do your thing with arg here
+	}
+
+	va_end(args);
+}
+-(void) animatePositionByAxis:(CGP)toPt duration:(NSUI)time{
+
+	[CATransaction transactionWithLength:time
+								  easing:CAMEDIAEASY
+								 actions: ^{
+
+		[CATransaction setCompletionBlock:^(void) {	 self.position = toPt;  }];
+
+//		 NSP stepX 	= (NSP) { toPt.x, fromPt.y};
+		CAAG *group = [CAAG animation];
+		CABA *posX	= [CABA animationWithKeyPath:@"position.x"];
+		CABA *posY 	= [CABA animationWithKeyPath:@"position.y"];
+	 	 NSA *anis	= @[posX, posY];
+		[anis eachWithIndex:^(CABA *obj, NSInteger idx) {
+			obj.removedOnC	= NO;
+			obj.fillMode 	= kCAFillModeForwards;
+			obj.duration	=   					 time / 2;
+			obj.beginTime	= idx == 0 ? CATIMENOW : time / 2;
+//			obj.fromValue 	= AZVpoint( idx == 0 ? fromPt : stepX );
+			obj.toValue    	= AZVpoint( toPt);// idx == 0 ? stepX  : toPt  );
+		}];
+		group.animations 	= anis;
+		[self addAnimation:group forKey:nil];
+	}];
+}
+
+
 
 - (void)blinkLayerWithColor:(NSColor*)color {
     CABasicAnimation * blinkAnimation = [CABasicAnimation animationWithKeyPath:@"backgroundColor"];
@@ -569,10 +630,33 @@ CG_INLINE CATransform3D CATransform3DMake( CGFloat m11, CGFloat m12, CGFloat m13
 		//		[rootLayer addSublayer:self.selectionLayer];
 	return aselectionLayer;
 }
-- (CAShapeLayer*) lassoLayerForLayer:(CALayer*)layer {
+
+- (void) toggleLasso:(BOOL)state  {        //:(CATransform3D)transform {
+	if (state) {
+		AZLOG($(@"TOGGLING LASSO ON for %@", self));
+		[[[[self superlayers] filterOne:^BOOL(id object) {
+			return [object[@"name"]isEqualToAnyOf:@[@"root", @"host"]];
+		}] sublayers]each:^(id obj) {
+			[obj sublayersBlockSkippingSelf:^(CALayer *layer) {
+				if ([layer.name isEqualToString:@"lasso"]) [layer removeFromSuperlayer];
+			}]; }];
+	}
+	else { CAShapeLayer *lasso = [self lassoLayerForLayer:self];
+		lasso.name = @"lasso";  [self addSublayer:lasso];
+	}
+//	[self sublayersBlockSkippingSelf:^(CALayer *layer) {
+//		[layer[@"name"] isEqualToString:@"lasso"
+//	}]
+//	BOOL isFlipped = [[self valueForKey:@"flipped"]boolValue];
+//	isFlipped ? [self flipBack] : [self flipOver];
+//	[self setValue:@(isFlipped =! isFlipped) forKey:@"flipped"];
+}
+
+
+- (id) lassoLayerForLayer:(CALayer*)layer {
 
 		//	NSLog(@"Clicked: %@", [[layer valueForKey:@"azfile"] propertiesPlease] );
-	CAShapeLayer *shapeLayer = [CAShapeLayer layer];
+	CAShapeLayerNoHit *shapeLayer = [CAShapeLayerNoHit layer];
 		//	[shapeLayer setValue:layer forKey:@"mommy"];
 	CGFloat dynnamicStroke 		= .05 * AZMaxDim(layer.bounds.size);
 	CGFloat half 				= dynnamicStroke / 2;
@@ -1065,8 +1149,11 @@ CG_INLINE CATransform3D CATransform3DMake( CGFloat m11, CGFloat m12, CGFloat m13
 	return [self sublayerWithName:kCALayerLabel];
 }
 
-- (CALayer *)sublayerWithName:(NSString *)name {
-	for (CALayer *layer in [self sublayers]){	if([[layer name] isEqualToString:name]) return layer;}	return nil;
+- (id)sublayerWithName:(NSString *)name {
+	return [self.sublayers filterOne:^BOOL(id object) {
+		return [[object valueForKey:@"name"] isEqualToString:name];
+	}];
+	return nil;
 }
 
 - (CALayer *) setLabelString:(NSString *)label {

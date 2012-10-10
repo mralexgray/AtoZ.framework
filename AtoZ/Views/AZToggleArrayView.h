@@ -5,36 +5,6 @@
 //  Created by Tomaz Kragelj on 8.12.09.
 //  Copyright (C) 2009 Gentle Bytes. All rights reserved.
 
-#ifndef ah_retain
-#if __has_feature(objc_arc)
-#define ah_retain self
-#define ah_dealloc self
-#define release self
-#define autorelease self
-#else
-#define ah_retain retain
-#define ah_dealloc dealloc
-#define __bridge
-#endif
-#endif
-//  Weak delegate support
-#ifndef ah_weak
-#import <Availability.h>
-#if (__has_feature(objc_arc)) && \
-((defined __IPHONE_OS_VERSION_MIN_REQUIRED && \
-__IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_5_0) || \
-(defined __MAC_OS_X_VERSION_MIN_REQUIRED && \
-__MAC_OS_X_VERSION_MIN_REQUIRED > __MAC_10_7))
-#define ah_weak weak
-#define __ah_weak __weak
-#else
-#define ah_weak unsafe_unretained
-#define __ah_weak __unsafe_unretained
-#endif
-#endif
-//  ARC Helper ends
-
-
 /** The view that serves as Core Animation host.
  	The user interface is composed using Core Animation layers using the following structure:
  
@@ -50,6 +20,35 @@ __MAC_OS_X_VERSION_MIN_REQUIRED > __MAC_10_7))
 	@endverbatim
  
 	The view also responds to user's interaction (only mouse is handled in this example) and updates the toggle status when the layer is clicked.
+
+*/
+/*
+USAGE;
+-(NSDictionary*) toggleForView:(AZToggleArrayView*)view atIndex:(NSUInteger)index;
+{
+	return 	index == 0 ? @{ AZToggleLabel : @"Grid"}    :
+	index == 1 ? @{ AZToggleLabel : @"Fiesta", AZToggleOn : @"FoN", AZToggleOff : @"FoFF"}  :
+	index == 2 ? @{ AZToggleLabel : @"Fiesta"}  :
+	@{ AZToggleLabel : @"Fiesta"}	;
+}
+
+-(NSUInteger) toggleCountforView:(AZToggleArrayView*) view	{	return 4;	}
+
+ - (NSArray*)itemsForToggleView:(AZToggleArrayView *)view {
+ //	return 	@[///	[view itemTextLayerWithName:@"Sort:" ],
+ //	[view itemLayerWithName:	@"Orient" relativeTo:@"superlayer" index:0],
+ //	[view itemLayerWithName:	@"Top" relativeTo:@"Orient" 	index:1]	];
+ }
+
+- (void)toggleStateDidChangeTo:(BOOL)state InToggleViewArray:(AZToggleArrayView *) view WithName:(NSString *)name{
+	NSDictionary *action = @{
+
+	@"toggle0" : ^{	self.orient = _orient == AZOrientGrid ? AZOrientPerimeter : AZOrientGrid; [_content shuffle]; 			},
+	@"toggle1" : ^{	[_content do:^(AZGridTransformCell* obj) {	state ? [obj.front fadeOut] : [obj.front fadeIn]; 	}];		},
+	@"toggle2" : ^{	[_content do:^(AZGridTransformCell* obj) { 	state ? [obj.back fadeOut] : [obj.back fadeIn];  	}];		},
+	@"toggle4" : ^{	[_content do:^(AZGridTransformCell* obj) {	obj.hidden = obj.hidden ? NO : YES;					}]; 	} 	};
+	((void (^)()) [action objectForKey:name] )();		[_root setNeedsLayout];
+}
 
 */
 

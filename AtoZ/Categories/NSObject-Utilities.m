@@ -132,7 +132,7 @@
 	
 	if (argcount != totalArgs) 
 	{
-		printf("Invocation argument count mismatch: %d expected, %d sent\n", [ms numberOfArguments], argcount);
+		printf("Invocation argument count mismatch: %ld expected, %d sent\n", [ms numberOfArguments], argcount);
 		return NULL;
 	}
 	

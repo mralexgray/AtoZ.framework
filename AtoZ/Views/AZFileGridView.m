@@ -300,6 +300,7 @@
 //	[CATransaction commit];
 //	[_gridLayer setNeedsDisplay];
 //	[self needsLayout];
+ */
 /*	NSUInteger index = 0;
 	_gridLayer.layoutManager = [CAConstraintLayoutManager layoutManager];
 	for (NSUInteger r = 0; r < _sizer.rows; r++) {		for (NSUInteger c = 0; c < _sizer.columns; c++) {

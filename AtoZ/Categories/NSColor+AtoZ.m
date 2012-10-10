@@ -2030,7 +2030,7 @@ static CGFloat hexCharsToFloat(char firstChar, char secondChar)
 
 	return hexValue;
 }
-/*
+
  + (id)colorWithHTMLString:(NSString *)str defaultColor:(NSColor *)defaultColor
  {
  if (!str) return defaultColor;

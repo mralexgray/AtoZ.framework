@@ -68,16 +68,26 @@ For those that have never seen the CATransform3D struct before, you must apply t
 					  						   CGFloat m21, CGFloat m22, CGFloat m23, CGFloat m24,
 											   CGFloat m31, CGFloat m32, CGFloat m33, CGFloat m34,
 											   CGFloat m41, CGFloat m42, CGFloat m43, CGFloat m44);
+
+#import "AtoZUmbrella.h"
+
 @interface CALayer (AtoZ)
 
-- (void) addConstraintsRelSuper:(id) firstObject, ...;  // This method takes a nil-terminated list of objects.
+
+-(void) animatePositionByAxis:(CGP)toPt duration:(NSUI)time;
+
+- (void) addConstraintsRelSuper:(CAConstraintAttribute) nilAttributeList, ...;  // This method takes a nil-terminated list of objects.
 
 - (void)blinkLayerWithColor:(NSColor *)color;
 
 - (void) addPerspectiveForVerticalOffset:(CGFloat)pixels;
 - (CAL*)hitTestEvent:(NSEvent*)e inView:(NSView*)v;
 
-- (CAShapeLayer*) lassoLayerForLayer:(CALayer*)layer;
+- (void) toggleLasso:(BOOL)state;
+
+- (id) lassoLayerForLayer:(CALayer*)layer;
+- (void) redrawPath;
+
 - (CALayer*) selectionLayerForLayer:(CALayer*)layer;
 - (CATransform3D)makeTransformForAngle:(CGFloat)angle;
 
@@ -119,7 +129,7 @@ For those that have never seen the CATransform3D struct before, you must apply t
 - (BOOL)containsOpaquePoint:(CGPoint)p;
 - (CALayer *) labelLayer;
 - (CALayer *) setLabelString:(NSString *)label;
-- (CALayer *) sublayerWithName:(NSString *)name;
+- (id) sublayerWithName:(NSString *)name;
 
 
 + (CALayer*)veilForView:(CALayer*)view;

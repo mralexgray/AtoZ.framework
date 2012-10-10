@@ -10,9 +10,9 @@
 typedef void (^AZCAAnimationCompletionBlock)();
 
 //Note this is slightly flawed as we set ourself as the delegate, really we should create a chained proxy, if we need that I will add it.
-@interface CATransaction (AtoZ)
-+ (void)CADisabledBlock:(void(^)(void))block;
-@end
+//@interface CATransaction (AtoZ)
+//+ (void)CADisabledBlock:(void(^)(void))block;
+//@end
 
 ////typedef void (^disableCA) {
 //- (NSArray *)setPropertiesWithCADisabled:(BOOL (^)(id obj))block		{
@@ -45,12 +45,12 @@ extern void disableCA();
 + (CAAnimationGroup*)   blowupAnimationAtPoint: (CGPoint)p;
 + (CAA*)            shakeAnimation;
 + (CAA*)       animationForOpacity;
-+ (CAA*)         animationForScale;
+//+ (CAA*)         animationForScale;
 + (CAA*)      animationForRotation;
-+ (CAA*) flipAnimationWithDuration: (NSTI)aDur;
+//+ (CAA*) flipAnimationWithDuration: (NSTI)aDur;
 + (CAA*)                  flipDown: (NSTI)aDur  scaleFactor: (CGF)scale;
 + (CAA*) 	       animationOnPath: (CGPR)path  duration:    (CFTI)d 	  timeOffset: (CFTI)o;
-+ (CAA*)    colorAnimationForLayer: (CAL*)layer start:       (NSC*)c1  	  end: (NSC*)c2;
+//+ (CAA*)    colorAnimationForLayer: (CAL*)layer start:       (NSC*)c1  	  end: (NSC*)c2;
 + (CAA*)   rotateAnimationForLayer: (CAL*)layer start:       (CGF)fl1     end: (CGF)fl1;
 
 @property (nonatomic, copy) AZCAAnimationCompletionBlock az_completionBlock;

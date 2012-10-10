@@ -14,19 +14,54 @@
 #import <sys/time.h>
 
 
+BOOL SameString(const char *a, const char *b) {
+	return [$(@"%s", a) isEqualToString:$(@"%s", b)];
+}
+
+NSString * AZToStringFromTypeAndValue(const char * typeCode, void * value)
+{
+    return 	SameString( typeCode, @encode(   NSP))  ?  NSStringFromPoint( *( NSPoint			*)value)
+	:		SameString( typeCode, @encode(   NSS))  ?  NSStringFromSize ( *( NSSize			 	*)value)
+	:		SameString( typeCode, @encode(   NSR))  ?  AZStringFromRect ( *( NSRect 			*)value)
+	: 		SameString( typeCode, @encode(  BOOL))  ?  StringFromBOOL   ( *( BOOL  	 			*)value)
+	: 		SameString( typeCode, @encode( AZPOS))  ?  stringForPosition( *( AZWindowPosition	*)value)
+	: nil;
+}
+
+NSString* bitString(NSUInteger mask){	NSString *str = @""; // Prepend "0" or "1", depending on the bit
+	for (NSUInteger i = 0; i < 8 ; i++) { str = [NSString stringWithFormat:@"%@%@", mask & 1 ? @"1" : @"0" , str];  mask >>= 1;  }
+	return str;
+}
+
 
 int (^triple)(int) = ^(int number) {
     return number * 3;
 };
 
-
-id (^logAndReturn)(id) = ^(id toLog) {
-	AZLOG(toLog); return toLog;
+id LogAndReturn(id toLog) {
+	AZLOG(toLog);
+	return toLog;
 };
+
+//id LogKeyAndReturn(id toLog, NSString key) {
+//	AZLOG([toLog valueForKey:<#(NSString *)#>);
+//	return toLog;
+//};
+
+
+
+//id (^logAndReturn)(id) = ^(id toLog) {
+//	AZLOG(toLog); return toLog;
+//};
+
+NSString* stringForPosition(AZWindowPosition enumVal)
+{
+	return  [[NSArray alloc]initWithObjects:AZWindowPositionTypeArray][enumVal];
+}
 
 
 NSString* AZStringFromRect(NSRect rect){
-	return $(@"%0.fx%0.f x %0.fx%0.f", rect.origin.x, rect.origin.x, rect.size.width, rect.size.height);
+	return $(@"x.%0.f y.%0.f %0.fw %0.fh", rect.origin.x, rect.origin.x, rect.size.width, rect.size.height);
 }
 //static void glossInterpolation(void *info, const float *input);
 //float *output);
@@ -112,12 +147,12 @@ NSUInteger normalizedNumberLessThan (id number, NSUInteger max){
 	return u;
 }
 
-BOOL IsEmpty(id obj) {
-	return 		obj == nil
-			|| 	(NSNull *)obj == [NSNull null]
-			||	([obj respondsToSelector:@selector(length)] && [obj length] == 0)
-			|| 	([obj respondsToSelector:@selector(count)] 	&& [obj count] 	== 0);
-}
+//BOOL IsEmpty(id obj) {
+//	return 		obj == nil
+//			|| 	(NSNull *)obj == [NSNull null]
+//			||	([obj respondsToSelector:@selector(length)] && [obj length] == 0)
+//			|| 	([obj respondsToSelector:@selector(count)] 	&& [obj count] 	== 0);
+//}
 
 extern CGFloat percent(CGFloat val)
 {	return val > 5 && val < 100 ? val/100 : val > 1 ? 1 : val < 0 ? 0 : val; }

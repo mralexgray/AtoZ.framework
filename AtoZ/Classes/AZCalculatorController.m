@@ -76,7 +76,7 @@
 }
 
 - (void)setLabel {
-	labelValue = [NSString stringWithFormat:@"%G", [_calc accumulatorValue]];
+	labelValue = [NSString stringWithFormat:@"%ld", [_calc accumulatorValue]];
 	[_label setStringValue:labelValue];
 }
 

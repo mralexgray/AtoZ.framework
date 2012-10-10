@@ -11,6 +11,9 @@
 #import <Quartz/Quartz.h>
 
 
+BOOL AZEqualRects(NSR r1, NSR r2){
+	return NSEqualRects(r1,r2);
+}
 
 const CGPoint AZAnchorTop		= (CGPoint) { .5, 1 };
 const CGPoint AZAnchorBottom		= (CGPoint) { .5, 0 };
@@ -721,7 +724,9 @@ NSRect AZRectExceptOriginY(NSRect rect, CGFloat y)
 	return (NSRect) { rect.origin.x, y, rect.size.width, rect.size.height};
 }
 
-
+NSRect AZInsetRect(NSRect rect, CGFloat inset){
+	return NSInsetRect(rect, inset,inset);
+}
 
 NSRect AZLeftEdge(NSRect rect, CGFloat width) {
   return NSMakeRect(rect.origin.x, 
@@ -827,8 +832,23 @@ NSPoint rectOffset(NSRect innerRect,NSRect outerRect, NSInteger quadrant){
 }
 
 
-NSRect quadrant(NSRect r, NSUInteger i) {
-	return alignRectInRect (AZRectFromDim(AZMinEdge(r)/2),r, i);
+int oppositeQuadrant(int quadrant){
+    quadrant = quadrant + 2;
+    quadrant%=4;
+    return !quadrant ? 4 : quadrant;
+}
+
+NSRect sectionPositioned(NSRect r, AZWindowPosition p){
+
+	NSUInteger quad 	= 	p == AZPositionBottomLeft 	? 1
+						:	p == AZPositionLeftTop 		? 2
+						:	p == AZPositionRightTop 		? 3
+						:	p == AZPositionRightBottom 	? 4 : 4;
+
+	return quadrant(r, (NSUInteger)quadrant);
+}
+NSRect quadrant(NSRect r, NSUInteger quad) {
+	return alignRectInRect (AZRectFromDim(AZMinEdge(r)/2),r, quad);
 }
 
 NSRect alignRectInRect(NSRect innerRect,NSRect outerRect,int quadrant){

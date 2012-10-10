@@ -50,7 +50,7 @@
 + (NSColor*)	colorFromHexRGB: (NSString*) inColorString;
 //+ (NSColor*)	colorWithHTMLString:(NSString*)	hexString;
 
-+ (NSColor*)	colorWithCGColor: (CGColorRef) aColor;
+//+ (NSColor*)	colorWithCGColor: (CGColorRef) aColor;
 + (NSColor*)	crayonColorNamed: (NSString*) key;
 
 //+ (NSColor*)	colorWithName:(NSString*)colorName;

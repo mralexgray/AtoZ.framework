@@ -37,31 +37,49 @@
 - (id)init {
     self = [super init];
     if (self) {
+		[self registerHotKeys];
 		self.sManager = [SoundManager sharedManager];
 		[self.sManager prepareToPlay];
-		[AtoZ playRandomSound];
     }
     return self;
 }
 
+OSStatus HotKeyHandler(EventHandlerCallRef nextHandler, EventRef theEvent, void *userData)
+{
+	NSLog(@"HotKeyHandler theEvent:%@ ", theEvent );
+    [AtoZ playRandomSound];
+    return noErr;
+}
 
-+ (void) playRandomSound {	[[[self sharedInstance] sManager] playSound:[Sound randomSound] looping:NO]; }
-//[AtoZ playSound:@1];
-+ (void)playSound:(id)number {
+- (void)registerHotKeys
+{
+    EventHotKeyRef 	hotKeyRef;
+	EventTypeSpec 	eventType;
+	EventHotKeyID 	hotKeyID;
 
-	NSArray *sounds = @[@"welcome.wav", @"bling"];
-	NSString *select = number ? [sounds filterOne:^BOOL(id object) {
-		return [(NSString*)object contains:number] ? YES : NO;
-	}] : sounds[0];
-	NSS*song = select ? select : sounds[0];
-	NSLog(@"Playing song: %@", song);
+    eventType.eventClass  = kEventClassKeyboard;
+    eventType.eventKind   = kEventHotKeyPressed;
+    hotKeyID.signature 	  = 'htk1';
+    hotKeyID.id			  = 1;
+
+    InstallApplicationEventHandler(&HotKeyHandler, 1, &eventType, NULL, NULL);
+    // Cmd+Ctrl+Space to toggle visibility.
+    RegisterEventHotKey(49, cmdKey+controlKey, hotKeyID, GetApplicationEventTarget(), 0, &hotKeyRef);
+}
+
+- (void)applicationDidFinishLaunching:(NSNotification *)aNotification  { [self registerHotKeys]; }
+
++ (void) playRandomSound {	[[[self sharedInstance] sManager] playSound:[Sound randomSound] looping:NO]; } //[AtoZ playSound:@1];
+
++ (void)playSound:(id)number
+{
+	NSA *sounds = @[@"welcome.wav", @"bling"];
+	NSS *select = number ? [sounds filterOne:^BOOL(id object) { return [(NSString*)object contains:number] ? YES : NO; }] : sounds[0];
+	NSS *song   = select ? select : sounds[0];                           NSLog(@"Playing song: %@", song);
 	[[[self sharedInstance] sManager] playSound:song looping:NO];
 }
 
-+ (void)setSoundVolume:(NSUInteger)outtaHundred
-{
-    [[AtoZ instance] sManager].soundVolume = outtaHundred / 100.0;
-}
++ (void)setSoundVolume:(NSUInteger)outtaHundred { [[AtoZ instance] sManager].soundVolume = outtaHundred / 100.0; }
 
 
 // Place inside the @implementation block - A method to convert an enum to string
@@ -72,9 +90,19 @@
 // A method to retrieve the int value from the NSArray of NSStrings
 -(AZWindowPosition) imageTypeStringToEnum:(NSString*)strVal
 {
-   return (AZWindowPosition)
-	[[[NSArray alloc]initWithObjects:AZWindowPositionTypeArray] indexOfObject:strVal];
+   return (AZWindowPosition) [[[NSA alloc]initWithObjects:AZWindowPositionTypeArray] indexOfObject:strVal];
 }
+
++ (NSString*)stringForType:(id)type
+{
+	Class i = [type class];
+	NSLog(@"String: %@   Class:%@", NSStringFromClass(i), i);
+	//	[type autoDescribe:type];
+	NSString *key = [NSString stringWithFormat:@"AZOrient_%@", NSStringFromClass([type class])];
+	return NSLocalizedString(key, nil);
+}
+
+
 //+(void)initialize {
 //	AZLOG(@"Initialize AtoZ");
 //	AtoZ *u = [[self class] sharedInstance];
@@ -95,28 +123,20 @@
 {
     NSString *myVersion	= [[AZFWORKBUNDLE infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     NSString *buildNum 	= [[AZFWORKBUNDLE infoDictionary] objectForKey:(NSString*)kCFBundleVersionKey];
-    NSString *versText	= myVersion
-	? buildNum 	? [NSString stringWithFormat:@"Version: %@ (%@)", myVersion, buildNum]
-	: [NSString stringWithFormat:@"Version: %@", myVersion]
-	: buildNum  ? [NSString stringWithFormat:@"Version: %@", buildNum] : nil;
-    AZLOG(versText); return versText;
+    LogAndReturn( myVersion ? buildNum ? [NSString stringWithFormat:@"Version: %@ (%@)", myVersion, buildNum]
+									: [NSString stringWithFormat:@"Version: %@", myVersion]
+						: buildNum  ? [NSString stringWithFormat:@"Version: %@", buildNum]
+									: nil);
+//    AZLOG(versText); return versText;
 }
 + (NSBundle*) bundle {	return [NSBundle bundleForClass:[self class]]; }
 
 + (NSString*) resources { return [[NSBundle bundleForClass: [self class]] resourcePath]; }
 
-+ (NSString*)stringForType:(id)type
-{
-	Class i = [type class];
-	NSLog(@"String: %@   Class:%@", NSStringFromClass(i), i);
-		//	[type autoDescribe:type];
-	NSString *key = [NSString stringWithFormat:@"AZOrient_%@", NSStringFromClass([type class])];
-	return NSLocalizedString(key, nil);
-}
 
-//+ (NSArray*) dock {
-//	return (NSArray*)[AZDock sharedInstance];
-//}
++ (NSArray*) dock {
+	return (NSArray*)[AZDock sharedInstance];
+}
 //+ (NSArray*) currentScope { 	return [AZFolder sharedInstance].items; }
 //+ (NSArray*) dockSorted { 	return [AZDock sharedInstance].dockSorted; }
 //+ (NSArray*) appCategories {	return [AZAppFolder sharedInstance].appCategories; }

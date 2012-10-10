@@ -9,57 +9,7 @@
 #import <Foundation/Foundation.h>
 
 #import "AtoZ.h"
-
-
-//  HRCoder.h
-//  Version 1.0
-//  Created by Nick Lockwood on 24/04/2012.
-//  Copyright (c) 2011 Charcoal Design
-
-//  Distributed under the permissive zlib License
-//  Get the latest version from here:
-//  https: //github.com/nicklockwood/HRCoder
-
-//  ARC Helper required;
-
-static NSString *const HRCoderClassNameKey = @"$class";
-static NSString *const HRCoderRootObjectKey = @"$root";
-static NSString *const HRCoderObjectAliasKey = @"$alias";
-
-@interface HRCoderAliasPlaceholder : NSObject
-
-+ (HRCoderAliasPlaceholder*) placeholder;
-
-@end
-
-@interface HRCoder : NSCoder
-
-+ (id) unarchiveObjectWithPlist: 	(id) plist;
-+ (id) unarchiveObjectWithFile: 	(NSString*) path;
-+ (id) archivedPlistWithRootObject:	(id) object;
-+ (BOOL) archiveRootObject: 			(id) rootObject toFile:	(NSString*) path;
-
-- (id) unarchiveObjectWithPlist:		(id) plist;
-- (id) unarchiveObjectWithFile:		(NSString*) path;
-- (id) archivedPlistWithRootObject:	(id) object;
-- (BOOL) archiveRootObject:	(id) rootObject toFile:	(NSString*) path;
-
-@end
-
-@interface NSObject (AutoCoding) <NSCoding>
-
-//coding
-
-- (NSArray*) codableKeys;
-- (NSArray*) uncodableKeys;
-
-//loading / saving
-
-+ (id) objectWithContentsOfFile:	(NSString*) path;
-- (void) writeToFile:	(NSString*) filePath atomically:	(BOOL) useAuxiliaryFile;
-
-@end
-
+#import <objc/runtime.h>
 
 @interface NSObject (AssociatedValues)
 - (void)setAssociatedValue:(id)value forKey:(NSString *)key;
@@ -67,9 +17,29 @@ static NSString *const HRCoderObjectAliasKey = @"$alias";
 - (id)associatedValueForKey:(NSString *)key;
 - (void)removeAssociatedValueForKey:(NSString *)key;
 - (void)removeAllAssociatedValues;
+
 @end
 
+
+//- (void)registerObservation{    [observee addObserverForKeyPath:@"someValue" task:^(id obj, NSDictionary *change) {
+//								   NSLog(@"someValue changed: %@", change);  }]; }
+
+
+typedef NSString AZBlockToken;
+typedef void (^AZBlockTask)(id obj, NSDictionary *change);
+
+@interface NSObject (AZBlockObservation)
+
+//@interface NSObject (AMBlockObservation)
+- (AZBlockToken *)addObserverForKeyPath:(NSString *)keyPath task:(AZBlockTask)task;
+- (AZBlockToken *)addObserverForKeyPath:(NSString *)keyPath onQueue:(NSOperationQueue *)queue task:(AZBlockTask)task;
+- (void)removeObserverWithBlockToken:(AZBlockToken *)token;
+@end
+
+
 @interface NSObject (AtoZ)
+
+
 
 -(void) setWithDictionary:(NSD*)dic;
 
@@ -86,11 +56,11 @@ typedef void (^caseBlock)();
    defaultBlock:(caseBlock)defaultBlock
           cases:casesList, ...;
 
-
+/*
 	// To add array style subscripting:
 - (void)setObject:(id)obj atIndexedSubscript:(NSUInteger)idx; // setter
 - (id)objectAtIndexedSubscript:(NSUInteger)idx;               // getter
-
+*/
 	// To add dictionary style subscripting
 - (void)setObject:(id)obj forKeyedSubscript:(id <NSCopying>)key; // setter
 - (id)objectForKeyedSubscript:(id)key;                           // getter
@@ -113,7 +83,7 @@ typedef void (^caseBlock)();
 
 
 	// Finds all properties of an object, and prints each one out as part of a string describing the class.
-+ (NSString*)  autoDescribeWithClassType:	(Class) classType;
+//+ (NSString*)  autoDescribeWithClassType:	(Class) classType;
 
 + (NSString*)  autoDescribe;
 
@@ -133,7 +103,8 @@ typedef void (^caseBlock)();
 	dictionary.attributeName   String(or other Type)    attributeValue
 */
 - (NSMutableDictionary*) getDictionary;
-- (BOOL) debug;
+
+//- (BOOL) debug;
 @end
 
 @interface NSObject (SubclassEnumeration)

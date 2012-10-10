@@ -5,15 +5,10 @@
 	You'll see this in header files. It tells the compiler that the variable MyConstant exists and can be used in your implementation files.	More likely than not, the variable is set something like:
 
 	NSString * const MyConstant = @"foo";
- 	
  	The value can't be changed. If you want a global that can be changed, then drop the const from the declaration.
- 
-	The position of the const keyword relative to the type identifier doesn't matter
-
+ 	The position of the const keyword relative to the type identifier doesn't matter
 		const NSString *MyConstant = @"foo";  ===  NSString const *MyConstant = @"foo";
-
 	You can also legally declare both the pointer and the referenced value const, for maximum constness:
-
  		const NSString * const MyConstant = @"foo";
 extern
 
@@ -51,60 +46,87 @@ extern
 
 //NS_INLINE void _AZSimpleLog(const char *file, int lineNumber, const char *funcName, NSString *format,...);
 
-NS_INLINE void _AZSimpleLog(const char *file, int lineNumber, const char *funcName, NSString *format,...){
-	va_list argList;
+NS_INLINE void _AZSimpleLog( const char *file, int lineNumber, const char *funcName, NSString *format, ... )
+{
+	va_list   argList;
 	va_start (argList, format);
-	NSString *path = [[NSString stringWithUTF8String:file] lastPathComponent];
+	NSString *path  = [[NSString stringWithUTF8String:file] lastPathComponent];
 	NSString *message = [[NSString alloc] initWithFormat:format arguments:argList];
-	fprintf (stderr, "[%s]:%i %s \n", [path UTF8String], lineNumber, [message UTF8String]);
+	fprintf ( stderr, "[%s]:%i %s \n", [path UTF8String], lineNumber, [message UTF8String] );
 	va_end  (argList);
-		//	const char *threadName = [[[NSThread currentThread] name] UTF8String];
+	//	const char *threadName = [[[NSThread currentThread] name] UTF8String];
 }
 
 #define NSLog(args...) _AZSimpleLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args);
 
-#define kIMG @"image"
-#define kCLR @"color"
-#define kIDX @"index"
-#define kLAY @"layer"
-#define kPOS   @"position"
+NSString * AZToStringFromTypeAndValue(const char * typeCode, void * value);
+
+#define LOCALIZED_STRING(key) [[NSBundle bundleForClass:[AtoZ class]]localizedStringForKey:(key) value:@"" table:nil]
+
+
+/* You cannot take the address of a return value like that, only a variable. Thus, you’d have to put the result in a temporary variable:
+The way to get around this problem is use another GCC extension allowing statements in expressions. Thus, the macro creates a temporary variable, _Y_, with the same type of _X_ (again using typeof) and passes the address of this temporary to the function.
+ http://www.dribin.org/dave/blog/archives/2008/09/22/convert_to_nsstring/
+*/
+#define AZString(_X_) ({typeof(_X_) _Y_ = (_X_);\
+AZToStringFromTypeAndValue(@encode(typeof(_X_)), &_Y_);})
+
+
+#define kIMG 	@"image"
+#define kCLR 	@"color"
+#define kIDX 	@"index"
+#define kLAY 	@"layer"
+#define kPOS 	@"position"
 #define kPSTRING @"pString"
-#define kSTR @"string"
+#define kSTR 	@"string"
 #define kFRM 	@"frame"
 #define kHIDE 	@"hide"
 
 #define AZFWORKBUNDLE [NSBundle bundleForClass:[AtoZ class]]
-#define AZMAINBUNDLE [NSBundle mainBundle]
+#define  AZMAINBUNDLE [NSBundle mainBundle]
 #define   CAMEDIAEASY [CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionEaseInEaseOut]
 #define   AZWORKSPACE [NSWorkspace sharedWorkspace]
 #define   AZNOTCENTER [NSNotificationCenter defaultCenter]
 #define AZFILEMANAGER [NSFileManager defaultManager]
 #define AZGRAPHICSCTX [NSGraphicsContext currentContext]
 #define  AZQTZCONTEXT [[NSGraphicsContext currentContext] graphicsPort]
-#define  AZSHAREDAPP  [NSApplication sharedApplication]
+#define   AZSHAREDAPP [NSApplication sharedApplication]
 
 #define APP_NAME [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleName"]
 #define APP_VERSION [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]
 #define OPEN_URL(urlString) [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:urlString]]
 
-	// Retrieving preference values
+/* Retrieving preference values */
+
 #define PREF_KEY_VALUE(x) [[[NSUserDefaultsController sharedUserDefaultsController] values] valueForKey:(x)]
 #define PREF_KEY_BOOL(x) [(PREF_KEY_VALUE(x)) boolValue]
 #define PREF_SET_KEY_VALUE(x, y) [[[NSUserDefaultsController sharedUserDefaultsController] values] setValue:(y) forKey:(x)]
 #define PREF_OBSERVE_VALUE(x, y) [[NSUserDefaultsController sharedUserDefaultsController] addObserver:y forKeyPath:x options:NSKeyValueObservingOptionOld context:nil]
 
 /* key, observer, object */
+
 #define OB_OBSERVE_VALUE(x, y, z) [(z) addObserver:y forKeyPath:x options:NSKeyValueObservingOptionOld context:nil];
 
+
+#define AZBUNDLE [NSBundle bundleForClass:[AtoZ class]]
+
+#define AZLocalizedString(key) NSLocalizedStringFromTableInBundle(key,nil,AZBUNDLE,nil)
+
+//#define AZLocalizedString(key, comment) NSLocalizedStringFromTableInBundle((key)nil, [NSBundle bundleWithIdentifier:AZBUNDLE,(comment))
+
+//Usage:
+//AZLocalizedString(@"ZeebaGreeting", @"Huluu zeeba")
+
+
+//+ (NSString*)typeStringForType:(IngredientType)_type {
+//	NSString *key = [NSString stringWithFormat:@"IngredientType_%i", _type];
+//	return NSLocalizedString(key, nil);
+//}
+
+
 #ifdef __OBJC__
-static inline BOOL isEmpty(id thing) {
-    return thing == nil
-	|| ([thing respondsToSelector:@selector(length)]
-        && [(NSData *)thing length] == 0)
-	|| ([thing respondsToSelector:@selector(count)]
-        && [(NSArray *)thing count] == 0);
-}
 #endif
+
 
 
 #define PROPSTRONG (@property (nonatomic,strong) )
@@ -114,6 +136,9 @@ static inline BOOL isEmpty(id thing) {
 #define ASSIGN ((nonatomic,assign) )
 
 #define CGSUPRESSINTERVAL(x) CGEventSourceSetLocalEventsSuppressionInterval(nil,x)
+
+
+#define AZPOS AZWindowPosition
 
 #define NSI NSInteger
 #define IBO IBOutlet
@@ -126,11 +151,18 @@ static inline BOOL isEmpty(id thing) {
 #define NSC NSColor
 #define CAL CALayer
 #define CGF CGFloat
+#define CGP CGPoint
+#define CGR CGRect
+#define CGS CGSize
 #define CIF CIFilter
 #define CAA CAAnimation
 #define CGPR CGPathRef
 #define CFTI CFTimeInterval
 #define CATL CATextLayer
+#define CASL CAScrollLayer
+#define CABA CABasicAnimation
+#define CAT CATransaction
+
 #define CAKA CAKeyframeAnimation
 #define CAT3 CATransform3D
 #define CAGA CAGroupAnimation
@@ -149,10 +181,14 @@ static inline BOOL isEmpty(id thing) {
 
 #define CASIZEABLE kCALayerWidthSizable| kCALayerHeightSizable
 
+#define removedOnC removedOnCompletion
+
 #define vFk valueForKey
 #define pV pointValue
 #define rV rectValue
 #define fV floatValue
+
+#define AZBind(binder,binding,toObj,keyPath) [binder bind:binding toObject:toObj withKeyPath:keyPath options:nil]
 
 #define  AZLAYOUTMGR [CAConstraintLayoutManager layoutManager]
 
@@ -197,6 +233,8 @@ attr1 relativeTo:relName attribute:attr2 scale:scl offset:off]
 #define AZTAreaInfo(frame,info) [[NSTrackingArea alloc] initWithRect: frame options:(NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways | NSTrackingInVisibleRect | NSTrackingMouseMoved ) owner:self userInfo:info];
 
 
+#define CLAMP(value, lowerBound, upperbound) MAX( lowerBound, MIN( upperbound, value ))
+
 #define AZDistance(A,B) sqrtf(powf(fabs(A.x - B.x), 2.0f) + powf(fabs(A.y - B.y), 2.0f))
 #define rand() (arc4random() % ((unsigned)RAND_MAX + 1))
 
@@ -224,6 +262,10 @@ attr1 relativeTo:relName attribute:attr2 scale:scl offset:off]
 
 //#define rand() (arc4random() % ((unsigned)RAND_MAX + 1))
 
+
+#define LINEN [NSColor linen]
+#define RANDOMLINEN [NSColor linenTintedWithColor:RANDOMCOLOR]
+#define CHECKERS [NSColor checkerboardWithFirstColor: BLACK secondColor: WHITE squareWidth:25]
 
 #define RED				[NSColor colorWithCalibratedRed:0.797 green:0.000 blue:0.043 alpha:1.000]
 #define ORANGE			[NSColor colorWithCalibratedRed:0.888 green:0.492 blue:0.000 alpha:1.000]
@@ -392,14 +434,34 @@ typedef enum {
 
 #define AppCatTypeArray @"Games", @"Education", @"Entertainment", @"Books", @"Lifestyle", @"Utilities", @"Business", @"Travel", @"Music", @"Reference", @"Sports", @"Productivity", @"News", @"Healthcare & Fitness", @"Photography", @"Finance", @"Medical", @"Social Networking", @"Navigation", @"Weather", @"Catalogs", @"Food & Drink", @"Newsstand", nil
 
-typedef enum  {	Scale0X,Scale1X,Scale2X,Scale3X,Scale10X									} AZInfiteScale;
+
+typedef enum {
+	AZOrientTop,
+	AZOrientLeft,
+	AZOrientBottom,
+	AZOrientRight,
+	AZOrientGrid,
+	AZOrientPerimeter,
+	AZOrientFiesta,
+	AZOrientVertical,
+	AZOrientHorizontal,
+}	AZOrient;
+
+typedef enum {
+	AZInfiteScale0X,
+	AZInfiteScale1X,
+	AZInfiteScale2X,
+	AZInfiteScale3X,
+	AZInfiteScale10X
+} 	AZInfiteScale;
+
+
+
 typedef enum  { LeftOn,LeftOff,TopOn,TopOff,RightOn,RightOff,BottomOn,BottomOff			} AZTrackState;
 typedef enum  {	AZDockSortNatural,AZDockSortColor,AZDockSortPoint,AZDockSortPointNew	} AZDockSort;
 typedef enum  {	AZSearchByCategory,AZSearchByColor,AZSearchByName,AZSearchByRecent		} AZSearchBy;
 typedef enum  {	AZIn,AZOut																} AZSlideState;
 typedef enum  { AZMenuN,AZMenuS,AZMenuE,AZMenuW,AZMenuPositionCount						} AZMenuPosition;
-typedef enum  {	AZOrientTop,	AZOrientLeft,AZOrientBottom,	AZOrientRight,AZOrientGrid,
-				AZOrientPerimeter,AZOrientFiesta,AZOrientVertical,AZOrientHorizontal	} AZOrient;
 #ifndef ATOZTOUCH
 typedef enum  {	AZPositionLeft 			= NSMinXEdge, // 0  NSDrawer
 				AZPositionRight         = NSMaxXEdge, // 2  preferredEdge
@@ -566,6 +628,36 @@ return SC##_sharedInstance; \
 #endif
 
 	//  ARC Helper ends
+
+#ifndef ah_retain
+#if __has_feature(objc_arc)
+#define ah_retain self
+#define ah_dealloc self
+#define release self
+#define autorelease self
+#else
+#define ah_retain retain
+#define ah_dealloc dealloc
+#define __bridge
+#endif
+#endif
+//  Weak delegate support
+#ifndef ah_weak
+#import <Availability.h>
+#if (__has_feature(objc_arc)) && \
+((defined __IPHONE_OS_VERSION_MIN_REQUIRED && \
+__IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_5_0) || \
+(defined __MAC_OS_X_VERSION_MIN_REQUIRED && \
+__MAC_OS_X_VERSION_MIN_REQUIRED > __MAC_10_7))
+#define ah_weak weak
+#define __ah_weak __weak
+#else
+#define ah_weak unsafe_unretained
+#define __ah_weak __unsafe_unretained
+#endif
+#endif
+//  ARC Helper ends
+
 
 
 

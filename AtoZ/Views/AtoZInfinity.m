@@ -43,7 +43,7 @@
 	// Register global key handler, passing a block as a callback function
  	offset = 0;
 	_orientation = AZOrientLeft;
-	_scale = Scale0X;
+	_scale = AZInfiteScale0X;
 	self.docV 											= [InfiniteDocumentView new];
 	self.documentView									= _docV;
 
@@ -89,24 +89,24 @@
 
 	if ((_orientation == AZOrientLeft) || (_orientation == AZOrientRight)) {
 		switch (_scale) {
-			case Scale0X:
+			case AZInfiteScale0X:
 				self.barUnit = AZMakeRectFromSize(NSMakeSize(self.contentView.frame.size.width,
 														self.contentView.frame.size.width));
 				self.totalBar = NSMakeSize(	_barUnit.size.width,
 										_barUnit.size.height * _infiniteObjects.count);
 				break;
-			case Scale1X:
+			case AZInfiteScale1X:
 				self.totalBar = self.contentView.frame.size;
 				self.barUnit = AZMakeRectFromSize(NSMakeSize(_totalBar.width,
 														_totalBar.height / _infiniteObjects.count));
 				break;
-			case Scale2X:
+			case AZInfiteScale2X:
 				self.totalBar = NSMakeSize(	self.contentView.frame.size.width,
 										self.contentView.frame.size.height * 2);
 				self.barUnit = AZMakeRectFromSize(NSMakeSize(_totalBar.width,
 														_totalBar.height / _infiniteObjects.count));
 				break;
-			case Scale3X:
+			case AZInfiteScale3X:
 				self.totalBar = NSMakeSize(	self.contentView.frame.size.width,
 										self.contentView.frame.size.height * 3);
 				self.barUnit = AZMakeRectFromSize(NSMakeSize(_totalBar.width,

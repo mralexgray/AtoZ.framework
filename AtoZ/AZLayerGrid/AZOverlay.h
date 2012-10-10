@@ -20,7 +20,9 @@ enum {
     AZIdleState,
     AZCreatingState,
     AZModifyingState,
-    AZDeletingState
+    AZDeletingState,
+	AZOn,
+	AZOff
 };
 typedef NSUInteger AZState;
 

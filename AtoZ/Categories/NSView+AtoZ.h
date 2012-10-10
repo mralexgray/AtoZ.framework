@@ -49,7 +49,7 @@ extern NSView* AZResizeWindowAndContent(NSWindow* window, float dXLeft, float dX
 
 - (NSImage*) snapshot;
 - (NSImage*) snapshotFromRect:(NSRect) sourceRect;
-- (NSImage*) captureFrame;
+//- (NSImage*) captureFrame;
 - (BOOL)	 requestFocus;
 
 

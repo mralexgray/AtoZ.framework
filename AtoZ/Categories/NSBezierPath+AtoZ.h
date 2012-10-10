@@ -35,7 +35,7 @@ typedef enum {
 - (void)appendBezierPathWithTriangleInRect:(NSRect)aRect orientation:(AMTriangleOrientation)orientation;
 
 
-
+- (void) drawWithFill:(NSColor*)fill andStroke:(NSColor*)stroke;
 - (void)fillGradientFrom:(NSColor*)inStartColor to:(NSColor*)inEndColor angle:(float)inAngle;
 
 + (NSBezierPath *)bezierPathWithLeftRoundedRect:(NSRect)rect radius:(CGFloat)radius;
