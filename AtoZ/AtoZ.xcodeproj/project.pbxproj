@@ -264,8 +264,6 @@
 		7B662A5E161E3231003D5EE0 /* Suspense Accents 01.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A25161E3231003D5EE0 /* Suspense Accents 01.caf */; };
 		7B662A85161E3231003D5EE0 /* Voicemail.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A4D161E3231003D5EE0 /* Voicemail.caf */; };
 		7B662A86161E3231003D5EE0 /* win.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A4E161E3231003D5EE0 /* win.caf */; };
-		7B662AC1161EBB0D003D5EE0 /* CocoaPuffs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B662ABC161EBADC003D5EE0 /* CocoaPuffs.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		7B662AC2161EBB3F003D5EE0 /* CocoaPuffs.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7B662ABC161EBADC003D5EE0 /* CocoaPuffs.framework */; };
 		7B662ADB161EE363003D5EE0 /* AZBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B662ADA161EE363003D5EE0 /* AZBaseModel.m */; };
 		7B662ADF161EE384003D5EE0 /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B662ADD161EE384003D5EE0 /* BaseModel.m */; };
 		7B662AE0161EE3E5003D5EE0 /* BaseModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B662ADC161EE384003D5EE0 /* BaseModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -410,6 +408,8 @@
 		7BC0275A160D36A300BAE74D /* AZCalculatorController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC02758160D36A200BAE74D /* AZCalculatorController.m */; };
 		7BC0275D160D36CB00BAE74D /* CalcModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BC0275B160D36CB00BAE74D /* CalcModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BC0275E160D36CB00BAE74D /* CalcModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC0275C160D36CB00BAE74D /* CalcModel.m */; };
+		7BC141BA16255AEF00DE1021 /* CocoaPuffs.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7BC141B916255AEF00DE1021 /* CocoaPuffs.framework */; };
+		7BC141BB16255B2000DE1021 /* CocoaPuffs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BC141B916255AEF00DE1021 /* CocoaPuffs.framework */; };
 		7BC3990315E45D2700482937 /* Nexa Bold.otf in fonts Files */ = {isa = PBXBuildFile; fileRef = 7B4E9E3915E365BA00C0581A /* Nexa Bold.otf */; };
 		7BC3990415E45D2700482937 /* Nexa Light.otf in fonts Files */ = {isa = PBXBuildFile; fileRef = 7B4E9E3A15E365BA00C0581A /* Nexa Light.otf */; };
 		7BC3990515E45D2700482937 /* fontawesome.ttf in fonts Files */ = {isa = PBXBuildFile; fileRef = 7B4E9E3715E35B5500C0581A /* fontawesome.ttf */; };
@@ -1341,27 +1341,6 @@
 			remoteGlobalIDString = 053887981523F6CD00CDC1DF;
 			remoteInfo = "PLWeakCompatibility-MacOSX";
 		};
-		7B662ABB161EBADC003D5EE0 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7B662AB3161EBADA003D5EE0 /* CocoaPuffs.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 0785774C15FF4FD800C28714;
-			remoteInfo = CocoaPuffs;
-		};
-		7B662ABD161EBADC003D5EE0 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7B662AB3161EBADA003D5EE0 /* CocoaPuffs.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 0785776415FF4FD900C28714;
-			remoteInfo = CocoaPuffsTests;
-		};
-		7B662ABF161EBAF8003D5EE0 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7B662AB3161EBADA003D5EE0 /* CocoaPuffs.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 0785774B15FF4FD800C28714;
-			remoteInfo = CocoaPuffs;
-		};
 		7BA32AA715EACE8F0061B2BC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7B311947159B6D9E002134C4 /* Project object */;
@@ -1413,7 +1392,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				7B662AC2161EBB3F003D5EE0 /* CocoaPuffs.framework in frameworks copy */,
+				7BC141BA16255AEF00DE1021 /* CocoaPuffs.framework in frameworks copy */,
 				7B6629FA161DEA4A003D5EE0 /* PLWeakCompatibility.framework in frameworks copy */,
 				7B6629F5161DE95E003D5EE0 /* BlocksKit.framework in frameworks copy */,
 				7BDEDBB31609E1BC00F34D2F /* NanoStore.framework in frameworks copy */,
@@ -2388,7 +2367,6 @@
 		7B662A4C161E3231003D5EE0 /* Voicemail.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Voicemail.caf; sourceTree = "<group>"; };
 		7B662A4D161E3231003D5EE0 /* Voicemail.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Voicemail.caf; sourceTree = "<group>"; };
 		7B662A4E161E3231003D5EE0 /* win.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = win.caf; sourceTree = "<group>"; };
-		7B662AB3161EBADA003D5EE0 /* CocoaPuffs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CocoaPuffs.xcodeproj; path = ../Frameworks/CocoaPuffs/CocoaPuffs.xcodeproj; sourceTree = "<group>"; };
 		7B662ADA161EE363003D5EE0 /* AZBaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZBaseModel.m; sourceTree = "<group>"; };
 		7B662ADC161EE384003D5EE0 /* BaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = BaseModel.h; path = ../../Frameworks/BaseModel/BaseModel/BaseModel.h; sourceTree = "<group>"; };
 		7B662ADD161EE384003D5EE0 /* BaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseModel.m; path = ../../Frameworks/BaseModel/BaseModel/BaseModel.m; sourceTree = "<group>"; };
@@ -2515,6 +2493,7 @@
 		7BC02758160D36A200BAE74D /* AZCalculatorController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZCalculatorController.m; sourceTree = "<group>"; };
 		7BC0275B160D36CB00BAE74D /* CalcModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = CalcModel.h; sourceTree = "<group>"; };
 		7BC0275C160D36CB00BAE74D /* CalcModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalcModel.m; sourceTree = "<group>"; };
+		7BC141B916255AEF00DE1021 /* CocoaPuffs.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaPuffs.framework; path = "Compiled Frameworks/CocoaPuffs.framework"; sourceTree = "<group>"; };
 		7BC70F0415F4885B009E037A /* accept.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = accept.pdf; sourceTree = "<group>"; };
 		7BC70F0515F4885B009E037A /* adressbook.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = adressbook.pdf; sourceTree = "<group>"; };
 		7BC70F0615F4885B009E037A /* agent.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = agent.pdf; sourceTree = "<group>"; };
@@ -3315,9 +3294,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BC141BB16255B2000DE1021 /* CocoaPuffs.framework in Frameworks */,
 				7B662AE1161F484B003D5EE0 /* Cocoa.framework in Frameworks */,
 				7BDEDBB21609E1A100F34D2F /* NanoStore.framework in Frameworks */,
-				7B662AC1161EBB0D003D5EE0 /* CocoaPuffs.framework in Frameworks */,
 				7B5ABAC21608DEED00530EA7 /* FunSize.framework in Frameworks */,
 				7B5ABAC41608DEED00530EA7 /* XPCKit.framework in Frameworks */,
 				7B6CF45D15D32B8D0018A0D7 /* AudioToolbox.framework in Frameworks */,
@@ -3556,6 +3535,7 @@
 		7B311945159B6D9E002134C4 = {
 			isa = PBXGroup;
 			children = (
+				7BC141B916255AEF00DE1021 /* CocoaPuffs.framework */,
 				7B311961159B6D9E002134C4 /* AtoZ.h */,
 				7B311962159B6D9E002134C4 /* AtoZ.m */,
 				7B583066159BDAF40039CEED /* AtoZ-Prefix.pch */,
@@ -3592,7 +3572,6 @@
 		7B311953159B6D9E002134C4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				7B662AB3161EBADA003D5EE0 /* CocoaPuffs.xcodeproj */,
 				7B6629DB161DE924003D5EE0 /* BlocksKit.xcodeproj */,
 				7B14F2881600383600CBBF7E /* RMKit.framework */,
 				7BDEDB7E16095C2700F34D2F /* NanoStore.xcodeproj */,
@@ -3971,15 +3950,6 @@
 				7B662A4C161E3231003D5EE0 /* Voicemail.caf */,
 			);
 			path = UISounds;
-			sourceTree = "<group>";
-		};
-		7B662AB4161EBADA003D5EE0 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				7B662ABC161EBADC003D5EE0 /* CocoaPuffs.framework */,
-				7B662ABE161EBADC003D5EE0 /* CocoaPuffsTests.octest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		7B6901BB159E0ADB00D0DA47 /* Views */ = {
@@ -5149,7 +5119,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				7B662AC0161EBAF8003D5EE0 /* PBXTargetDependency */,
 				7B6629F8161DEA20003D5EE0 /* PBXTargetDependency */,
 				7B6629F3161DE92C003D5EE0 /* PBXTargetDependency */,
 				7BDEDB9216095C2F00F34D2F /* PBXTargetDependency */,
@@ -5258,10 +5227,6 @@
 				{
 					ProductGroup = 7B6629DC161DE924003D5EE0 /* Products */;
 					ProjectRef = 7B6629DB161DE924003D5EE0 /* BlocksKit.xcodeproj */;
-				},
-				{
-					ProductGroup = 7B662AB4161EBADA003D5EE0 /* Products */;
-					ProjectRef = 7B662AB3161EBADA003D5EE0 /* CocoaPuffs.xcodeproj */;
 				},
 				{
 					ProductGroup = 7B5ABAAD1608D76500530EA7 /* Products */;
@@ -5411,20 +5376,6 @@
 			fileType = wrapper.application;
 			path = "iOS Tests.app";
 			remoteRef = 7B6629F0161DE925003D5EE0 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7B662ABC161EBADC003D5EE0 /* CocoaPuffs.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = CocoaPuffs.framework;
-			remoteRef = 7B662ABB161EBADC003D5EE0 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7B662ABE161EBADC003D5EE0 /* CocoaPuffsTests.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = CocoaPuffsTests.octest;
-			remoteRef = 7B662ABD161EBADC003D5EE0 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		7BDEDB8A16095C2800F34D2F /* NanoStore.framework */ = {
@@ -6100,11 +6051,6 @@
 			name = "PLWeakCompatibility-MacOSX";
 			targetProxy = 7B6629F7161DEA20003D5EE0 /* PBXContainerItemProxy */;
 		};
-		7B662AC0161EBAF8003D5EE0 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = CocoaPuffs;
-			targetProxy = 7B662ABF161EBAF8003D5EE0 /* PBXContainerItemProxy */;
-		};
 		7BA32AA815EACE8F0061B2BC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 7B311950159B6D9E002134C4 /* AtoZ */;
@@ -6316,7 +6262,10 @@
 				COPY_PHASE_STRIP = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Compiled Frameworks\"",
+				);
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AtoZ-Framework.pch";
@@ -6375,7 +6324,10 @@
 				COPY_PHASE_STRIP = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Compiled Frameworks\"",
+				);
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AtoZ-Framework.pch";
