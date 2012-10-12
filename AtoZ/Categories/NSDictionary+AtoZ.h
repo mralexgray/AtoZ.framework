@@ -23,12 +23,8 @@
 - (void)enumerateEachSortedKeyAndObjectUsingBlock:(void(^)(id key, id obj, NSUInteger idx))block;
 
 @end
-
-
 @interface NSDictionary (OFExtensions)
 /// Enumerate each key and object in the dictioanry.
-
-
 
 - (NSDictionary *)dictionaryWithObject:(id)anObj forKey:(NSString *)key;
 //- (NSDictionary *)dictionaryByAddingObjectsFromDictionary:(NSDictionary *)otherDictionary;
@@ -70,8 +66,6 @@
 
 - (unsigned long long int)unsignedLongLongForKey:(NSString *)key defaultValue:(unsigned long long int)defaultValue;
 - (unsigned long long int)unsignedLongLongForKey:(NSString *)key;
-
-
     // This seems more convenient than having to write your own if statement a zillion times
 - (id)objectForKey:(NSString *)key defaultObject:(id)defaultObject;
 

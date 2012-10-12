@@ -65,8 +65,6 @@
 	[self createLeftArrow];
 	[self createRightArrow];
 	[self createScrollTray];
-
-
 	self.sublayers = @[tray, leftArrow, rightArrow];
 	return self;
 }
@@ -78,8 +76,6 @@
 
 #pragma mark -
 #pragma mark Slider Methods
-
-
 // Where newWidth is a number between 0.0 and 1.0 representing
 // the percentage...
 - (void)setSliderWidth:(CGFloat)widthPercentage {
@@ -103,8 +99,6 @@
 	if( newX + frame.size.width > tray.frame.size.width ) {
 		newX = tray.frame.size.width - frame.size.width;
 	}
-
-
 	slider.frame = CGRectMake(newX, frame.origin.y, frame.size.width, frame.size.height);
 }
 
@@ -119,8 +113,6 @@
 	[CATransaction setValue:@0.4f forKey:@"animationDuration"];
 	[_scrollerContent scrollToPosition: newX / tray.frame.size.width];
 }
-
-
 - (void) createScrollTray {
 
 	tray = [CALayer layer];
@@ -190,8 +182,6 @@
 //	rightSide.frame = CGRectMake(0, 0, INNER_RADIUS, sliderHeight);
 //	rightSide.name = @"rightSide";
 //	[rightSide addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMaxX relativeTo:@"superlayer" attribute:kCAConstraintMaxX]];
-
-
 	NSImage* bgImage = [self createGlassImageForSize:NSMakeSize(initialWidth, sliderHeight)];
 	// crop the image into 3 pieces
 	//[ 0 -> INNER_RADIUS ][ INNER_RADIUS -> initialWidth - INNER_RADIUS * 2 ][ initialWidth - INNER_RADIUS -> initialWidth ]
@@ -247,8 +237,6 @@
 //
 //	slider.filters = @[colorFilter];
 }
-
-
 // Makes the left and right side of the slider rounded based on the points provided
 // Creates a Mask and draws a rounded border on the provided image that is set to the contents
 - (void)setSliderSideLayer:(CALayer*)layer contents:(NSImage*)image andPts:(NSPoint)pt1 pt2:(NSPoint)pt2 pt3:(NSPoint)pt3 {
@@ -279,12 +267,8 @@
 	[self addMask:maskImage toLayer:layer];
 
 }
-
-
 #pragma mark -
 #pragma mark Arrow Helper Methods
-
-
 - (void) createLeftArrow {
 	float minX = 0;
 	float minY = 0;
@@ -307,16 +291,12 @@
 	CALayer* arrowContent = [CALayer layer];
 	arrowContent.frame = leftArrow.frame;
 	[leftArrow addSublayer:arrowContent];
-
-
 	// ----------Creating content -----------------
 
 	NSPoint pt1 = NSMakePoint(CORNER_RADIUS , centerPoint.y);
 	NSPoint pt2 = NSMakePoint(pt1.x + INNER_RADIUS, maxY - 4);
 	NSPoint pt3 = NSMakePoint(pt2.x, minY + 4);
 	NSBezierPath* arrowPath = [self createArrowTriangleWithPt:pt1 pt2:pt2 pt3:pt3];
-
-
 	NSPoint borderPt1 = NSMakePoint(topRight.x, topRight.y - BORDERWIDTH);
 	NSPoint borderPt2 = centerPoint;
 	NSPoint borderPt3 = NSMakePoint(bottomRight.x, bottomRight.y + BORDERWIDTH);
@@ -410,8 +390,6 @@
 
 	return borderPath;
 }
-
-
 - (NSBezierPath*) createArrowTriangleWithPt:(NSPoint)pt1 pt2:(NSPoint)pt2 pt3:(NSPoint)pt3 {
 	NSBezierPath* arrowPath = [NSBezierPath bezierPath];
 
@@ -423,8 +401,6 @@
 
 	return arrowPath;
 }
-
-
 // Five parameters. Tastes awful but it works.
 - (NSImage*)createArrowMaskImageForPt:(NSPoint)pt1 pt2:(NSPoint)pt2 pt3:(NSPoint)pt3 pt4:(NSPoint)pt4 pt5:(NSPoint)pt5 {
 	NSBezierPath* path = [NSBezierPath bezierPath];
@@ -447,12 +423,8 @@
 	//[maskImage autorelease];
 	return maskImage;
 }
-
-
 #pragma mark -
 #pragma mark General Helper Methods
-
-
 - (NSImage*) createGlassImageForSize:(NSSize)size {
 	NSBezierPath* glassEffect = [NSBezierPath bezierPath];
 /*
@@ -474,8 +446,6 @@
 
 	NSGradient* topGlassGradient = [[NSGradient alloc] initWithStartingColor:topGradientBottom
 																 endingColor:topGradientTop];
-
-
 	NSColor* botGradientTop = [NSColor colorWithCalibratedWhite:1.0 alpha:0.0];
 	NSColor* botGradientBottom= [NSColor colorWithCalibratedWhite:1.0 alpha:0.129];
 
@@ -496,8 +466,6 @@
 	}
 	[glassedImage unlockFocus];
 	
-
-
 	//[topGlassGradient release];
 	//[botGlassGradient release];
 	//[glassedImage autorelease];
@@ -523,8 +491,6 @@
 }
 
 - (void) addContents:(NSImage*)contentsImage toLayer:(CALayer*)layer {
-
-
 	[contentsImage setScalesWhenResized:YES];
 
 	layer.contents = contentsImage;
@@ -551,8 +517,6 @@
 									 selector:@selector(periodicMouseDownEvent:)
 									 userInfo:NULL repeats:NO];
 }
-
-
 // If the user holds down the mouse keep scrolling
 - (void)periodicMouseDownEvent:(NSTimer *)timer {
 
@@ -591,8 +555,6 @@
 		}
 
 	}
-
-
 	if ( !mouseDownTimer ) {
 		NSTimeInterval regularInterval = 0.1;
 		mouseDownTimer = [NSTimer scheduledTimerWithTimeInterval:regularInterval target:self
@@ -646,12 +608,8 @@
 		[self startMouseDownTimer];
 		return YES;
 	}
-
-
 	return NO;
 }
-
-
 - (void)mouseDragged:(CGPoint)inputPoint {
 
 	CGPoint point = [self convertPoint:inputPoint fromLayer:self.superlayer];
@@ -683,8 +641,6 @@
 	}
 
 }
-
-
 - (void)mouseUp:(CGPoint)inputPoint {
 	[CATransaction setValue:@0.0f forKey:@"animationDuration"];
 

@@ -3,8 +3,6 @@
 #import "AtoZ.h"
 
 // key for dictionary in NSTrackingAreas's userInfo  NSString *kAZTrackerChanged = @"trackerState";
-
-
 @interface AZTrackingWindow : NSWindow
 @property (nonatomic, assign) AZWindowPosition 	position;
 
@@ -27,11 +25,7 @@
 - (void) setPosition: (AZWindowPosition)position;
 
 @end
-
-
 /*
-
-
 @class AZTrackingWindow;
 
 //+ (void) flipDown:(AZTrackingWindow*)window;

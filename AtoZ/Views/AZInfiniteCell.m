@@ -1,12 +1,8 @@
 #import "AZInfiniteCell.h"
-
-
 @implementation AZInfiniteCell
 @synthesize backgroundColor, selected, uniqueID, hovered, file;
 @synthesize cellIdentifier, dynamicStroke;//, index;
 @synthesize inset, radius, representedObject;
-
-
 - (void)setFile:(AZFile *)aFile {
 	file = aFile;
 	[self setRepresentedObject:aFile];
@@ -38,8 +34,6 @@
 	//	tv = self.tv;//	[self makeTv];
 	//	[self addSubview:tv];
 //}
-
-
 - (void)handleAntAnimationTimer:(NSTimer*)timer {
 	mPhase = (mPhase < [self halfwayWithInset] ? mPhase + [self halfwayWithInset]/128 : 0);
 	[self setNeedsDisplayInRect:NSInsetRect([self bounds], self.inset, self.inset)];
@@ -58,8 +52,6 @@
 - (float) halfwayWithInset { return AZPermineterWithRoundRadius([self frame],self.radius);
 //	NSRect dim = NSInsetRect(self.bounds, self.inset, self.inset);
 //	return ( (2*dim.size.width) + (2*dim.size.height) - (( 8 - ((2 * pi) * self.radius))));
-
-
 }
 
 - (NSBezierPath*) pathWithInset:(float)anInset {
@@ -214,8 +206,6 @@
 }
 
 @end
-
-
 //- (NSAttributedString *) string {
 //	string = nil;
 //	string = [[NSAttributedString alloc] initWithString:
@@ -227,8 +217,6 @@
 //}
 //- (BOOL)isOpaque { return YES; }
 //- (void)drawRect:(NSRect)rect {
-
-
 //	[backgroundColor set];//÷
 //	NSGradient *rrr = [[NSGradient alloc]initWithStartingColor:backgroundColor.darker.darker e/ndingColor:backgroundColor.brighter.brighter ];
 //	initWithColorsAndLocations:
@@ -238,8 +226,6 @@
  backgroundColor, 					.9,
  backgroundColor.darker.darker,		 1,nil]; */
 //	NSBezierPath *p =[NSBezierPath bezierPathWithRoundedRect:[self bounds] cornerRadius:5 inCorners:OSBottomRightCorner];
-
-
 //angle:270];
 //    NSRectFill(rect);
 /*	if (image) {
@@ -300,11 +286,7 @@
 //		aView = [aView superview];
 //	[(AZInfiniteScrollView*)aView stack];
 //	self.windy = nil;
-
-
 //-(BOOL)isOpaque { return YES; }
-
-
 //- (void) iTunesApi:(AJSiTunesAPI *)api didCompleteWithResults:(NSArray *)results {
 //	if ([api isEqualTo: self.itunesApi]) {
 //		[results enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -313,8 +295,6 @@
 //	} else NSLog(@"Yes I delegate, but not me, this time");
 
 //}
-
-
 
 
 //image, hasText, tArea, file, hovered;
@@ -413,5 +393,3 @@
 //	[[atv textStorage] setForegroundColor:[NSColor blackColor]];
 //	//	[self addSubview: atv];
 //}
-
-

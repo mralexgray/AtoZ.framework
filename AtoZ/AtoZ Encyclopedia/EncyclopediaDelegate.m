@@ -58,8 +58,6 @@
 //	[[_mainWindow contentView] addSubview:_view];
 //	[_view setNeedsDisplay:YES];
 //	[_mainWindow setIgnoresMouseEvents:YES];
-
-
 //	NSWindow *d = [[NSWindow alloc] initWithContentRect: NSInsetRect(screenRect, 200, 100)
 //												  styleMask:NSBorderlessWindowMask
 //													backing:NSBackingStoreBuffered
@@ -97,8 +95,6 @@
 //	[_at makeKeyAndOrderFront:_at];
 
 }
-
-
 - (void) mouseMoved { NSLog(@"mousse mpves:  app deleahe"); }
 
 // app delegate methods
@@ -136,11 +132,7 @@
 	[self saveNotes];
 }
 
-
-
 - (void)fiesta {
-
-
 	CGFloat f = AZPerimeter(  AZScreenFrame());
 	int unit = floor([AtoZ dockSorted].count / f);
 
@@ -153,8 +145,6 @@
 		NSLog(@"added image with view,%@, %@", obj, k);
 	}];
 }
-
-
 // persistance
 
 - (void) loadNotes {
@@ -175,8 +165,6 @@
 
 //	[self createNoteWithDictionary:@{@"title":@"welcome to your app", @"frame": NSStringFromRect( NSMakeRect(1347, 669,404, 77))}];
 }
-
-
 - (void) saveNotes {
 	NSMutableArray *array = [NSMutableArray array];
 
@@ -227,8 +215,6 @@
 	if ([alert runModal] == NSAlertFirstButtonReturn)
 		[self.noteControllers removeAllObjects];
 }
-
-
 // specifics
 
 - (void) appRegisteredSuccessfully {
@@ -246,8 +232,6 @@
 - (NSArray*) preferencePaneControllerClasses {
 	return @[[SDGeneralPrefPane class]];
 }
-
-
 - (void)toggleWindowInWindow:(id)window atPoint:(NSPoint) buttonPoint
 {
 
@@ -286,8 +270,6 @@
         _attachedWindow = nil;
     }
 }
-
-
 //-(void)trackerDidReceiveEvent:(NSEvent*)event inRect:(NSRect)theRect {
 
 //	NSLog(@"did receive track event: %@ in rect %@", event, NSStringFromRect(theRect));

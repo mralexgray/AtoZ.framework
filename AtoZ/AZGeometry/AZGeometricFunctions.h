@@ -5,8 +5,6 @@
 //  Copyright 2011 Rogue Coding. All rights reserved.
 
 //#import "AtoZUmbrella.h"
-
-
 BOOL AZEqualRects(NSR r1, NSR r2);
 
 NSNumber *iNum ( NSInteger   i );
@@ -51,8 +49,6 @@ NSPoint nanPointCheck ( NSPoint  point );
 #define   AZMaxSize NSMakeSize ( MAXFLOAT, MAXFLOAT )
 
 #define AZRelationRect NSMakeRect ( 0, 0, 1, 1 )
-
-
 
 
 CGFloat AZPointDistance(CGPoint p1, CGPoint p2);
@@ -154,8 +150,6 @@ NSPoint AZNormalizedDistanceOfRects(NSRect from, NSRect to);
 NSPoint AZNormalizedDistanceToCenterOfRect(NSPoint point, NSRect rect);
 
 NSPoint AZPointFromDim(CGFloat val);
-
-
 // NSSize result methods
 // 
 // converts a float to a rect of equal sized sizes of dim;
@@ -201,11 +195,7 @@ NSSize AZBlendSizes(NSSize one, NSSize another, CGFloat percentage);
 NSSize AZSizeMax(NSSize one, NSSize another);
 NSSize AZSizeMin(NSSize one, NSSize another);
 NSSize AZSizeBound(NSSize preferred, NSSize minSize, NSSize maxSize);
-
-
 // NSRect result methods
-
-
 NSRect AZZeroHeightBelowMenu();
 
 NSRect AZFlipRectinRect(CGRect local, CGRect dest);
@@ -222,8 +212,6 @@ NSRect AZMenulessScreenRect();
 NSRect AZMakeRectMaxXUnderMenuBarY(CGFloat distance);
 
 CGFloat AZHeightUnderMenu();
-
-
 NSRect AZSquareFromLength(CGFloat length);
 
 // returns a zero sized rect with the argumented point as origin
@@ -297,11 +285,7 @@ NSRect AZUpperEdge(NSRect rect, CGFloat height);
   METHOD(RECT, AZRightEdge(RECT, BORDER)); \
   METHOD(RECT, AZUpperEdge(RECT, BORDER)); \
   METHOD(RECT, AZLowerEdge(RECT, BORDER))
-
-
 // Comparison methods
-
-
 BOOL AZIsPointLeftOfRect(NSPoint point, NSRect rect);
 BOOL AZIsPointRightOfRect(NSPoint point, NSRect rect);
 BOOL AZIsPointAboveRect(NSPoint point, NSRect rect);
@@ -311,8 +295,6 @@ BOOL AZIsRectLeftOfRect(NSRect rect, NSRect compare);
 BOOL AZIsRectRightOfRect(NSRect rect, NSRect compare);
 BOOL AZIsRectAboveRect(NSRect rect, NSRect compare);
 BOOL AZIsRectBelowRect(NSRect rect, NSRect compare);
-
-
 
 NSRect rectZoom(NSRect rect,float zoom,int quadrant);
 
@@ -346,8 +328,6 @@ NSPoint randomPointInRect(NSRect rect);
 static inline CGPoint GetCGRectCenter( CGRect rect ) {
     return CGPointMake(CGRectGetMidX(rect),CGRectGetMidY(rect));
 }
-
-
 	// EOF
 
 	//typedef struct _BTFloatRange {

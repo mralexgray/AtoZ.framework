@@ -5,15 +5,11 @@
 //  Created by Alex Gray on 6/29/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 
-
-
 #import <Foundation/Foundation.h>
 #import "AtoZ.h"
 
 #import "NSArray+AtoZ.h"
 #import "HRCoder.h"
-
-
 
 @implementation NSArray (EnumExtensions)
 
@@ -35,8 +31,6 @@
 }
 
 @end
-
-
 @implementation NSArray (NSTableDataSource)
 
 - (id) tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex
@@ -71,8 +65,6 @@
 	[HRCoder archiveRootObject:self toFile:path];
 	[NSTask launchedTaskWithLaunchPath:@"/usr/bin/plutil" arguments:@[@"-convert", @"xml1", path]];
 }
-
-
 - (NSArray *)arrayWithEach{
 	return	[NSArray arrayWithArrays:self];
 }
@@ -91,8 +83,6 @@
 	}
 	return array;
 }
-
-
 - (NSString*) stringWithEnum: (NSUInteger) anEnum; {    return self[anEnum];	}
 
 - (NSUInteger) enumFromString: (NSString*) aString default: (NSUInteger) def;
@@ -108,8 +98,6 @@
 	}];
 //	[self arrayPerformingSelector:@selector(colorValue)];
 }
-
-
 - (NSArray *)arrayUsingIndexedBlock:(id (^)(id obj, NSUInteger idx))block {
 
    NSMutableArray *result = [NSMutableArray arrayWithCapacity:[self count]];
@@ -123,8 +111,6 @@
 - (NSArray *)sortedWithKey:(NSString *)theKey ascending:(BOOL)ascending {
     return [self sortedArrayUsingDescriptors:@[[[NSSortDescriptor alloc] initWithKey:theKey ascending:ascending]]];
 }
-
-
 static NSInteger comparatorForSortingUsingArray(id object1, id object2, void *context)
 {
     // Use NSArray's -indexOfObject:anObject rather than its "identical" form,
@@ -149,8 +135,6 @@ static NSInteger comparatorForSortingUsingArray(id object1, id object2, void *co
 //{	NSArray *array = [
 //    return [self sortedArrayUsingFunction:comparatorForSortingUsingArray context:otherArray];
 //}
-
-
 
 // an array of NSNumbers with Integer values, NSNotFound is the terminator
 + (NSArray *)arrayWithInts:(NSInteger)i,... {
@@ -185,11 +169,7 @@ static NSInteger comparatorForSortingUsingArray(id object1, id object2, void *co
 	
 	return re;
 }
-
-
 // NSArray instance methods
-
-
 // set-version of this array
 - (NSSet *)set {
 	return [NSSet setWithArray:self];
@@ -386,11 +366,7 @@ static NSInteger comparatorForSortingUsingArray(id object1, id object2, void *co
 //	
 //	return re;
 //}
-
-
 // accessing
-
-
 - (id)objectAtIndex:(NSUInteger)index fallback:(id)fallback {
 	if (self.count <= index) {
 		return fallback;
@@ -412,8 +388,6 @@ static NSInteger comparatorForSortingUsingArray(id object1, id object2, void *co
 	
 	return self[index];
 }
-
-
 - (id)first {
 	return [self objectOrNilAtIndex:0];
 }
@@ -581,8 +555,6 @@ static NSInteger comparatorForSortingUsingArray(id object1, id object2, void *co
 	
 	return YES;
 }
-
-
 -(BOOL)doesNotContainObjects:(id<NSFastEnumeration>)enumerable {
    for (id x in enumerable) {
      if ([self containsObject:x]) return NO; // exists, abort!
@@ -809,11 +781,7 @@ static NSInteger comparatorForSortingUsingArray(id object1, id object2, void *co
 	return nanRectCheck([[self normal:index]rectValue]);
 }
 @end
-
-
 @implementation NSMutableArray (AG)
-
-
 - (void) addPoint:(NSPoint)point {
 	[self addObject:[NSValue valueWithPoint:point]];
 }
@@ -849,8 +817,6 @@ return self.lastObject;
 	[self moveObjectAtIndex:self.count-1 toIndex:0];
 }
 
-
-
 -(void)setFirst:(id)anObject {
 	if (anObject == nil) {
 		return;
@@ -883,8 +849,6 @@ return self.lastObject;
 	[self removeLastObject];
 	return o;
 }
-
-
 //- (id)pop
 //{
 //    // nil if [self count] == 0
@@ -898,8 +862,6 @@ return self.lastObject;
 {
 	[self addObject: obj];
 }
-
-
 -(NSMutableArray *)sort {
 	[self sortUsingSelector:@selector(compare:)];
 	return self;

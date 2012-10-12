@@ -4,8 +4,6 @@
 
 //  Created by Alex Gray on 7/13/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-
-
 #import "CALayer+AtoZ.h"
 #import "AtoZ.h"
 #import "AtoZUmbrella.h"
@@ -53,15 +51,11 @@ void prepareContext(CGContextRef ctx) {
 	NSGraphicsContext *nsGraphicsContext = [NSGraphicsContext graphicsContextWithGraphicsPort:ctx flipped:NO];
 	[NSGraphicsContext saveGraphicsState]; [NSGraphicsContext setCurrentContext:nsGraphicsContext];
 }
-
-
 void applyPerspective (CALayer* layer) {
 	CATransform3D perspectiveTransform = CATransform3DIdentity;
 	perspectiveTransform.m34 = 1.0 / -850;
 	layer.sublayerTransform = perspectiveTransform;
 }
-
-
 //CGColorRef kBlackColor, kWhiteColor,
 //kTranslucentGrayColor, kTranslucentLightGrayColor,
 //kAlmostInvisibleWhiteColor,
@@ -89,8 +83,6 @@ static CGColorRef CreateDeviceRGBColor(CGFloat r, CGFloat g, CGFloat b, CGFloat 
 //static void InitQuartzUtils()
 //{
 // }
-
-
 void ChangeSuperlayer( CALayer *layer, CALayer *newSuperlayer, int index )
 {
     // Disable actions, else the layer will move to the wrong place and then back!
@@ -110,8 +102,6 @@ void ChangeSuperlayer( CALayer *layer, CALayer *newSuperlayer, int index )
 
     [CATransaction commit];
 }
-
-
 void RemoveImmediately( CALayer *layer )
 {
     [CATransaction flush];
@@ -121,8 +111,6 @@ void RemoveImmediately( CALayer *layer )
     [layer removeFromSuperlayer];
     [CATransaction commit];
 }
-
-
 CALayer* AddBloom( CALayer *layer) {
 	// create the filter and set its default values
 	CIFilter *filter = [CIFilter filterWithName:@"CIBloom"];
@@ -195,8 +183,6 @@ extern CATextLayer* AddLabelLayer( CALayer *superlayer,								 NSString *text, 
 {
 	return AddTextLayer(superlayer, text, font, kCALayerWidthSizable);
 }
-
-
 
 CATextLayer* AddTextLayer( CALayer *superlayer,
 							  NSString *text, NSFont* font,
@@ -308,8 +294,6 @@ CALayer* ReturnImageLayer(CALayer *superlayer, NSImage *image, CGFloat scale)
 //	CGPointMake(bounds.origin.x,y+font.descender);
 //    label.anchorPoint = CGPointMake(.5,.5);
 //    label.autoresizingMask = align;
-
-
 CGImageRef CreateCGImageFromFile( NSString *path )
 {
     CGImageRef image = NULL;
@@ -326,8 +310,6 @@ CGImageRef CreateCGImageFromFile( NSString *path )
     }
     return image;
 }
-
-
 CGImageRef GetCGImageNamed( NSString *name )
 {
     // For efficiency, loaded images are cached in a dictionary by name.
@@ -351,8 +333,6 @@ CGImageRef GetCGImageNamed( NSString *name )
     }
     return image;
 }
-
-
 CGColorRef GetCGPatternNamed( NSString *name )         // can be resource name or abs. path
 {
     // For efficiency, loaded patterns are cached in a dictionary by name.
@@ -367,8 +347,6 @@ CGColorRef GetCGPatternNamed( NSString *name )         // can be resource name o
     }
     return pattern;
 }
-
-
 //CGImageRef GetCGImageFromPasteboard( NSPasteboard *pb )
 //{
 //    CGImageSourceRef src = NULL;
@@ -392,8 +370,6 @@ CGColorRef GetCGPatternNamed( NSString *name )         // can be resource name o
 //    } else
 //        return NULL;
 //}
-
-
 float GetPixelAlpha( CGImageRef image, CGSize imageSize, CGPoint pt )
 {
     // Trivial reject:
@@ -418,12 +394,8 @@ float GetPixelAlpha( CGImageRef image, CGSize imageSize, CGPoint pt )
                        image);
     return sPixel[0] / 255.0;
 }
-
-
 #pragma mark -
 #pragma mark PATTERNS:
-
-
 // callback for CreateImagePattern.
 static void drawPatternImage (void *info, CGContextRef ctx)
 {
@@ -438,8 +410,6 @@ static void releasePatternImage( void *info )
 {
     CGImageRelease( (CGImageRef)info );
 }
-
-
 CGPatternRef CreateImagePattern( CGImageRef image )
 {
     NSCParameterAssert(image);
@@ -455,8 +425,6 @@ CGPatternRef CreateImagePattern( CGImageRef image )
                             true,
                             &callbacks);
 }
-
-
 CGColorRef CreatePatternColor( CGImageRef image )
 {
     CGPatternRef pattern = CreateImagePattern(image);
@@ -577,8 +545,6 @@ CG_INLINE CATransform3D CATransform3DMake( CGFloat m11, CGFloat m12, CGFloat m13
 //	[CATransaction commit];
 }
 
-
-
 - (void)blinkLayerWithColor:(NSColor*)color {
     CABasicAnimation * blinkAnimation = [CABasicAnimation animationWithKeyPath:@"backgroundColor"];
     [blinkAnimation setDuration:0.4];
@@ -606,8 +572,6 @@ CG_INLINE CATransform3D CATransform3DMake( CGFloat m11, CGFloat m12, CGFloat m13
 
     return layer;
 }
-
-
 
 
 //How to set the CATransform3DRotate along the x-axis for a specified height with perspective
@@ -655,8 +619,6 @@ CG_INLINE CATransform3D CATransform3DMake( CGFloat m11, CGFloat m12, CGFloat m13
 	AZConstRelSuper(kCAConstraintMidY)];
 	aselectionLayer.constraints = constraints;
 
-
-
 		//		// set the first item as selected
 		//		[self changeSelectedIndex:0];
 		//
@@ -685,8 +647,6 @@ CG_INLINE CATransform3D CATransform3DMake( CGFloat m11, CGFloat m12, CGFloat m13
 //	isFlipped ? [self flipBack] : [self flipOver];
 //	[self setValue:@(isFlipped =! isFlipped) forKey:@"flipped"];
 }
-
-
 - (id) lassoLayerForLayer:(CALayer*)layer {
 
 		//	NSLog(@"Clicked: %@", [[layer valueForKey:@"azfile"] propertiesPlease] );
@@ -821,8 +781,6 @@ CG_INLINE CATransform3D CATransform3DMake( CGFloat m11, CGFloat m12, CGFloat m13
 	if (IsEmpty(object)) [self setValue:@"" forKey:key];
 	else [self setValue:object forKey:key];
 }
-
-
 -(void)rotateAroundYAxis:(CGFloat)radians
 {
 	[self vFk:@"animating"] ? ^{ return; }() : ^{ [self setValue:@(YES) forKey:@"animating"];
@@ -831,16 +789,12 @@ CG_INLINE CATransform3D CATransform3DMake( CGFloat m11, CGFloat m12, CGFloat m13
 		}];
 	}();
 }
-
-
 -(void)setHostingLayerAnchorPoint:(CGPoint)point
 {
 	CALayer* topLayer = [self.superlayers lastObject];
 	topLayer.anchorPoint = point;
 //	topLayer.frame = [layerView bounds];
 }
-
-
 -(void)animateCameraToPosition:(CGPoint)point
 {
 	[self vFk:@"animating"] ? ^{ return; }() : ^{ [self setValue:@(YES) forKey:@"animating"];
@@ -944,8 +898,6 @@ CG_INLINE CATransform3D CATransform3DMake( CGFloat m11, CGFloat m12, CGFloat m13
 //	[_contentLayer setNeedsDisplay];
 //	
 //}
-
-
 */
 - (void)orientWithPoint:(CGPoint)point
 {
@@ -969,8 +921,6 @@ CG_INLINE CATransform3D CATransform3DMake( CGFloat m11, CGFloat m12, CGFloat m13
 //	deltaX = (point.x - dragStart.x)/200;
 //deltaY = -(point.y - dragStart.y)/200;
 //[self orientWithX:(angleX+deltaX) andY:(angleY+deltaY)];
-
-
 
 - (void) setAnchorPoint: (CGPoint) anchorPoint inView: (NSView *) view{
 	[self setAnchorPoint:anchorPoint inRect:[view bounds]];
@@ -1027,8 +977,6 @@ CG_INLINE CATransform3D CATransform3DMake( CGFloat m11, CGFloat m12, CGFloat m13
 	return CATransform3DMakeRotation(DEG2RAD(180), dir.x, dir.y, 0.0f);
 }
 
-
-
 - (void) flipForward:(BOOL)forward  atPosition:(AZWindowPosition)pos {
 	![self[@"flipped"]boolValue] ? ^{
 //		[self setAnchorPointRelative:self.position];
@@ -1057,13 +1005,9 @@ CG_INLINE CATransform3D CATransform3DMake( CGFloat m11, CGFloat m12, CGFloat m13
 #ifdef DEBUGTALKER
 //	AZTALK($(@"%@ flipped", newFlipState ? @"IS" : @"is NOT "));
 #endif
-
-
 - (void) setScale: (CGFloat) scale {
 	[self setValue:[NSValue valueWithSize:NSSizeToCGSize((NSSize){scale,scale})] forKeyPath:@"transform.scale"];
 }
-
-
 -(void)pulse
 {
     CIFilter *filter = [CIFilter filterWithName:@"CIBloom"]; [filter setDefaults];
@@ -1089,8 +1033,6 @@ CG_INLINE CATransform3D CATransform3DMake( CGFloat m11, CGFloat m12, CGFloat m13
 		// add the animation to the selection layer. This causes it to begin animating. We'll use pulseAnimation as the animation key name
     [self addAnimation:pulseAnimation forKey:@"pulseAnimation"];
 }
-
-
 
 - (void)addAnimations:(NSArray*)anims forKeys:(NSArray *)keys;
 {
@@ -1132,8 +1074,6 @@ CG_INLINE CATransform3D CATransform3DMake( CGFloat m11, CGFloat m12, CGFloat m13
 
 }
 
-
-
 + (CALayer *) withName:(NSString*)name   inFrame:(NSRect)rect
 			   colored:(NSColor*)color withBorder:(CGFloat)width colored:(NSColor*) borderColor;
 {
@@ -1152,8 +1092,6 @@ CG_INLINE CATransform3D CATransform3DMake( CGFloat m11, CGFloat m12, CGFloat m13
 	new.autoresizingMask 	= kCALayerWidthSizable| kCALayerHeightSizable;
 	return  new;
 }
-
-
 -(CATransform3D)makeTransformForAngleX:(CGFloat)angle
 {
 	return [self makeTransformForAngle: angle from:CATransform3DIdentity];
@@ -1238,8 +1176,6 @@ CG_INLINE CATransform3D CATransform3DMake( CGFloat m11, CGFloat m12, CGFloat m13
 }
 
 + (CALayer*)veilForView:(CALayer*)view{
-
-
 	int pixelsHigh = (int)[view bounds].size.height;
 	int pixelsWide = (int)[view bounds].size.width;
 	int bitmapBytesPerRow   = (pixelsWide * 4);
@@ -1266,8 +1202,6 @@ CG_INLINE CATransform3D CATransform3DMake( CGFloat m11, CGFloat m12, CGFloat m13
 		//	CFRelease(img);
 		//	return bitmap;
 }
-
-
 	//[Transpose Matrix][1]
 
 - (CATransform3D)rectToQuad:(NSRect)rect quadTLX:(double)x1a quadTLY:(double)y1a quadTRX:(double)x2a quadTRY:(double)y2a quadBLX:(double)x3a quadBLY:(double)y3a quadBRX:(double)x4a quadBRY:(double)y4a
@@ -1322,8 +1256,6 @@ CG_INLINE CATransform3D CATransform3DMake( CGFloat m11, CGFloat m12, CGFloat m13
 	[self addConstraint: AZConstRelSuperScaleOff(kCAConstraintWidth, scale,0)];
 	[self addConstraint: AZConstRelSuperScaleOff(kCAConstraintHeight, scale,0)];
 }
-
-
 - (void) addConstraintsSuperSize
 {
 	[self _ensureSuperHasLayoutManager];
@@ -1340,8 +1272,6 @@ CG_INLINE CATransform3D CATransform3DMake( CGFloat m11, CGFloat m12, CGFloat m13
 		self.superlayer.layoutManager = l;
 	}
 }
-
-
 - (void)addConstraints:(NSArray*)constraints{
 	[self _ensureSuperHasLayoutManager];
 	[constraints do:^(id obj) {
@@ -1357,8 +1287,6 @@ CG_INLINE CATransform3D CATransform3DMake( CGFloat m11, CGFloat m12, CGFloat m13
 //view.layer.transform = [self rectToQuad:view.frame quadTLX:0 quadTLY:0 quadTRX:image.size.width quadTRY:20 quadBLX:0 quadBLY:image.size.height quadBRX:image.size.width quadBRY:image.size.height + 90];
 
 //[1]: http://codingincircles.com/2010/07/major-misunderstanding/
-
-
 + (CALayer*)closeBoxLayer
 {
 	CALayer *layer = [CALayer closeBoxLayerForLayer:nil];
@@ -1381,8 +1309,6 @@ CG_INLINE CATransform3D CATransform3DMake( CGFloat m11, CGFloat m12, CGFloat m13
 	if (parentLayer) [layer setDelegate:parentLayer];
 	return layer;
 }
-
-
 - (void)flipLayer:(CALayer*)top withLayer:(CALayer*)bottom
 {
 	#define ANIMATION_DURATION_IN_SECONDS (1.0)
@@ -1422,8 +1348,6 @@ CG_INLINE CATransform3D CATransform3DMake( CGFloat m11, CGFloat m12, CGFloat m13
         [visibleLayer addAnimation:[self _flipAnimationWithDuration:flipDuration isFront:YES] forKey:@"flipGroup"];
     } [CATransaction commit];
 }
-
-
 - (CAAnimationGroup *)_flipAnimationWithDuration:(CGFloat)duration isFront:(BOOL)isFront;
 {
     // Rotating halfway (pi radians) around the Y axis gives the appearance of flipping
@@ -1460,8 +1384,6 @@ CG_INLINE CATransform3D CATransform3DMake( CGFloat m11, CGFloat m12, CGFloat m13
 
     return animationGroup;
 }
-
-
 //Metallic grey gradient background
 + (CAGradientLayer*) greyGradient {
 	NSArray *colors =  $array(
@@ -1561,8 +1483,6 @@ CG_INLINE CATransform3D CATransform3DMake( CGFloat m11, CGFloat m12, CGFloat m13
 	NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:self.string
 																				   attributes:baseAttributes];
 	CFRelease(font);
-
-
 		//Make the class name in the string Courier Bold and red
 	NSDictionary *fontAttributes = @{(NSString *)kCTFontFamilyNameAttribute: @"Courier",
 									(NSString *)kCTFontStyleNameAttribute: @"Bold",

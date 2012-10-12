@@ -196,5 +196,3 @@ NSMutableData *rawClassPointers;
 	}
 
 @end
-
-

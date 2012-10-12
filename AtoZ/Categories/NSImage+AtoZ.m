@@ -4,8 +4,6 @@
 
 //  Created by Alex Gray on 7/2/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-
-
 #import "NSImage+AtoZ.h"
 #import <AppKit/AppKit.h>
 #import <Quartz/Quartz.h>
@@ -16,8 +14,6 @@ static inline int get_bit(unsigned char *arr, unsigned long bit_num) {
 }
 
 enum pixelComponents { red, green, blue, alpha };
-
-
 float distance(NSPoint aPoint)  // Stole this from some guy named Pythagoras..  Returns the distance of aPoint from the origin.
 {
 	return sqrt(aPoint.x * aPoint.x + aPoint.y *aPoint.y);
@@ -32,8 +28,6 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 @end
 @implementation DummyClass 
 @end
-
-
 @implementation CIFilter (WithDefaults)
 
 + (CIFilter*) filterWithDefaultsNamed: (NSString*) name {
@@ -44,15 +38,11 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 
 @end
 
-
-
 @implementation NSImage (AtoZ)
 
 + (NSImage*)screenShot {
 	return [[NSImage alloc]initWithCGImage:CGWindowListCreateImage(CGRectInfinite, kCGWindowListOptionOnScreenOnly, kCGNullWindowID, kCGWindowImageDefault) size:AZScreenSize()];
 }
-
-
 
 + (NSArray*) frameworkImagePaths {
 	return ( [NSArray arrayWithArrays:@[
@@ -66,8 +56,6 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 {
 	return [[NSImage frameworkImagePaths]mapSelector:@selector(lastPathComponent)];
 }
-
-
 + (NSArray*) frameworkImages;{
 	//; error:nil] filter:^BOOL(id object) { return [(NSString*)object contains:@".icn"] ? YES : NO;
 	//	return [f arrayUsingBlock:^id(id obj) {	return [base stringByAppendingPathComponent:obj]; }];
@@ -136,8 +124,6 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 	
 }
 
-
-
 + (NSImage*) forFile:(AZFile*)file;
 {
 	NSSize theSize = AZSizeFromDimension(512);
@@ -174,8 +160,6 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 	[reflection unlockFocus];
 	return reflection;
 }
-
-
 
 - (NSSize)proportionalSizeForTargetSize:(NSSize)targetSize
 {
@@ -508,8 +492,6 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
     return finalImage;
 }
 
-
-
 // this creates an image from the entire 'visible' rectangle of a view
 // for offscreen views this is the entire view
 + (NSImage *)createImageFromView:(NSView *)view {
@@ -528,8 +510,6 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 	[image addRepresentation:imageRep];
 	return image;
 }
-
-
 - (NSImage*) maskWithColor:(NSColor*)c {
 
 	NSImage* badgeImage = [[NSImage alloc] initWithSize:self.size];
@@ -566,8 +546,6 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 	[final unlockFocus];
 	return final;
 }
-
-
 - (NSImage*)  coloredWithColor:(NSColor*)inColor {
 	return [self coloredWithColor:inColor composite:NSCompositeDestinationIn];
 }
@@ -758,8 +736,6 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 {
 	return [[NSImage alloc] initWithContentsOfURL:[[AZFILEMANAGER contentsOfDirectoryAtURL:[NSURL fileURLWithPath:@"/Library/Desktop Pictures" isDirectory:YES] includingPropertiesForKeys:nil options:0 error:nil]randomElement]];
 }
-
-
 - (void) drawFloatingRightInFrame:(NSRect)aFrame {		NSRect r 	= aFrame;
 
 	float max 	= (r.size.width > r.size.height ? r.size.height : r.size.width) * .8;
@@ -769,8 +745,6 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 				  fromRect: NSZeroRect
 				 operation: NSCompositeSourceOver];
 }
-
-
 
 // draws the passed image into the passed rect, centered and scaled appropriately.
 // note that this method doesn't know anything about the current focus, so the focus must be locked outside this method
@@ -802,8 +776,6 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 	[self drawInRect:drawnRect fromRect:srcRect operation:op fraction:delta];
 }
 
-
-
 - (NSImage *)tintedImage
 {
 	NSImage *tintImage = [[NSImage alloc] initWithSize:[self size]];
@@ -827,8 +799,6 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 	
 	return newImage;
 }
-
-
 - (NSImage *) tintedWithColor:(NSColor *)tint 
 {
 	if (tint != nil) {
@@ -887,8 +857,6 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
         [masktoalpha setValue:filterPreviewImage forKey:@"inputImage"];
         filterPreviewImage = [masktoalpha valueForKey:@"outputImage"];
 
-
-
 		[filterPreviewImage drawAtPoint:NSZeroPoint
 						fromRect:bounds
 					   operation:NSCompositeCopy
@@ -902,8 +870,6 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 //		return [self copy];
 //	}
 }
-
-
 - (NSBitmapImageRep*) bitmap {
 	// returns a 32-bit bitmap rep of the receiver, whatever its original format. The image rep is not added to the image.
 	NSSize size = [self size];
@@ -955,8 +921,6 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 	//	
 	//	return img;
 }
-
-
 /*!
  @brief    Rotates an image around its center by a given
  angle in degrees and returns the new image.
@@ -994,10 +958,6 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 	
     return rotatedImage;
 }
-
-
-
-
 
 - (NSImage*)imageByScalingProportionallyToSize:(NSSize)targetSize background:(NSColor*)bk
 {
@@ -1232,8 +1192,6 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 	else
 		return [self size];
 }
-
-
 - (NSImageRep*)largestRepresentation
 {
 	int area = 0;
@@ -1363,8 +1321,6 @@ return [newImage autorelease];
 	CIImage *im = [[CIImage alloc]	initWithBitmapImageRep:bitmapimagerep];
 	return im;
 }
-
-
 -(NSImage*)	imageByRemovingTransparentAreasWithFinalRect: (NSRect*)outBox
 {
 	NSRect		oldRect = NSZeroRect;
@@ -1592,8 +1548,6 @@ rightDone:
 	
 	return imageWithReflection;
 }
-
-
 //+ (NSImage*)imageFromCGImageRef:(CGImageRef)image {
 //	NSImage* newImage = nil;
 ////#if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5
@@ -1665,8 +1619,6 @@ rightDone:
     //restore the graphics state
     CGContextRestoreGState(c);
 }
-
-
 
 
 CGContextRef MyCreateBitmapContext (int pixelsWide, int pixelsHigh)
@@ -1769,8 +1721,6 @@ CGContextRef MyCreateBitmapContext (int pixelsWide, int pixelsHigh)
 	return NULL;
 }
 
-
-
 #pragma mark Quicklook Preview
 
 + (NSImage *)imageWithPreviewOfFileAtPath:(NSString *)path ofSize:(NSSize)size asIcon:(BOOL)icon {
@@ -1808,11 +1758,7 @@ CGContextRef MyCreateBitmapContext (int pixelsWide, int pixelsHigh)
     return nil;
 }
 
-
-
 #pragma mark Resizing Image
-
-
 + (NSImage *)resizedImage:(NSImage *)sourceImage 
 				  newSize:(NSSize)size 
 		  lockAspectRatio:(BOOL)lock // pass YES if you want to lock aspect ratio
@@ -1844,8 +1790,6 @@ CGContextRef MyCreateBitmapContext (int pixelsWide, int pixelsHigh)
 	return resizedImage;
 }
 
-
-
 #pragma mark Cropping Image
 
 - (NSImage *)croppedImage:(CGRect)bounds
@@ -1857,8 +1801,6 @@ CGContextRef MyCreateBitmapContext (int pixelsWide, int pixelsHigh)
 	[self unlockFocus];
     return croppedImage;
 }
-
-
 
 #pragma mark Save Image
 
@@ -1908,8 +1850,6 @@ CGContextRef MyCreateBitmapContext (int pixelsWide, int pixelsHigh)
 	
 	return [data writeToFile:destination atomically:NO];
 }
-
-
 - (BOOL)saveAs:(NSString *)path{	
 	NSBitmapImageRep *bmpImageRep = [[NSBitmapImageRep alloc] initWithData:[self TIFFRepresentation]];
 	NSData *data = [bmpImageRep representationUsingType:NSPNGFileType properties:nil];
@@ -1940,11 +1880,7 @@ CGContextRef MyCreateBitmapContext (int pixelsWide, int pixelsHigh)
 	[final unlockFocus];
 	return final;
 }
-
-
 @end
-
-
 @implementation CIImage (ToNSImage)
 //While we're at it, let's get the conversion back to NSImage out of the way. Here's a similar category method on CIImage. Well, two actually: one that assumes you want the whole extent of the image; the other to grab just a particular rectangle:
 
@@ -1964,8 +1900,6 @@ CGContextRef MyCreateBitmapContext (int pixelsWide, int pixelsHigh)
 	return [self toNSImageFromRect:[self extent]];
 	
 }
-
-
 - (CIImage *)rotateDegrees:(float)aDegrees
 {
 	CIImage *im = self;
@@ -1990,11 +1924,7 @@ CGContextRef MyCreateBitmapContext (int pixelsWide, int pixelsHigh)
 	}
 	return im;
 }
-
-
 @end
-
-
 @implementation NSImage (CGImageConversion)
 
 - (NSBitmapImageRep*) bitmap {
@@ -2115,8 +2045,6 @@ CGContextRef MyCreateBitmapContext (int pixelsWide, int pixelsHigh)
 	[self setScalesWhenResized:NO];
 	return YES;
 }
-
-
 - (BOOL)createRepresentationOfSize:(NSSize)newSize { 
 	// ***warning   * !? should this be done on the main thread?
 	//
@@ -2232,8 +2160,6 @@ CGContextRef MyCreateBitmapContext (int pixelsWide, int pixelsHigh)
 	return YES;
 }
 
-
-
 @end
 
 @implementation  NSImage (AtoZTrim)
@@ -2315,8 +2241,6 @@ CGContextRef MyCreateBitmapContext (int pixelsWide, int pixelsHigh)
 	return color;
 }
 
-
-
 CGImageRef CopyImageAndAddAlphaChannel(CGImageRef sourceImage) {
 	CGImageRef retVal = NULL;
 	size_t width = CGImageGetWidth(sourceImage);
@@ -2364,11 +2288,7 @@ CGImageRef CopyImageAndAddAlphaChannel(CGImageRef sourceImage) {
 	return retImage;
 }
 
-
-
 @end
-
-
 
 //#define LEOPARD 0x1050
 //#define TIGER   0x1040
@@ -2382,8 +2302,6 @@ CGImageRef CopyImageAndAddAlphaChannel(CGImageRef sourceImage) {
 ////	return [NSBitmapIm/ageRep bitmapRepFromNSImage:
 //	return [image bitmap];
 //}
-
-
 //@end
 
 /*+ (NSArray*) picolStrings {		static NSArray *_picolSrtrings;
@@ -2539,8 +2457,6 @@ _picolSrtrings = [@[@"xml_document.pdf", @"xml.pdf", @"zoom_in.pdf", @"zoom_out.
     return image;// autorelease];
 }
 */
-
-
 + (NSImage* ) imageBelowWindow: (NSWindow *) window {
 
     // Get the CGWindowID of supplied window
@@ -2568,8 +2484,6 @@ _picolSrtrings = [@[@"xml_document.pdf", @"xml.pdf", @"zoom_in.pdf", @"zoom_out.
 	return image;
 }
 @end
-
-
 	// from http://developer.apple.com/technotes/tn2005/tn2143.html
 
 CGImageRef CreateCGImageFromData(NSData* data)
@@ -2603,8 +2517,6 @@ CGImageRef CreateCGImageFromData(NSData* data)
 	return  [[filter valueForKey: @"outputImage"]toNSImage];
 }
 @end
-
-
 @implementation  CIFilter (Subscript)
 - (id)   objectForKeyedSubscript:(NSS*)key {						   return [self valueForKey:key];			 }
 - (void) setObject:(id)object forKeyedSubscript:(NSS*)key {	isEmpty(object) ? [self setValue:@"" forKey:key]

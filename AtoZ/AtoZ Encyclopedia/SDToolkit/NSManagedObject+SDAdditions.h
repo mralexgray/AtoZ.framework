@@ -7,8 +7,6 @@
 //
 
 #import <CoreData/CoreData.h>
-
-
 @interface NSManagedObject (SDAdditions)
 
 + (id) createObjectInManagedObjectContext:(NSManagedObjectContext*)MOC;

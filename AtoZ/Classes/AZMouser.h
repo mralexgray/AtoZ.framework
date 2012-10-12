@@ -1,7 +1,5 @@
 
 #import "AtoZ.h"
-
-
 /* pathForArc : Adds an arc (a segment of an oval) fitting inside a rectangle to the path.
 
 context : The CG context to render to.
@@ -9,8 +7,6 @@ r : The CG rectangle that defines the arc's boundary..
 startAngle : The angle indicating the start of the arc.
 arcAngle : The angle indicating the arcÕs extent.
 */
-
-
 void pathForArc(CGContextRef context, CGRect r, int startAngle, int arcAngle);
 void typeString(char *str);
 void keyHit(CGKeyCode kc, CGEventFlags flags);
@@ -84,8 +80,6 @@ typedef enum {
 #define TRIPLE_CLICK 	3
 
 @interface  AZMouser : BaseModel
-
-
 @property (assign, nonatomic) AZDockOrientation orientation;
 @property (assign, nonatomic) NSSize screenSize;
 @property (assign, nonatomic) BOOL debug;
@@ -95,9 +89,5 @@ typedef enum {
 - (CGPoint) mouseLocation;
 - (void) dragFrom:(CGPoint)a to:(CGPoint)b;
 @end
-
-
 //@implementation AUWindowExtend :NSWindow
 //@end
-
-

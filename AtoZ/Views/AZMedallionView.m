@@ -15,22 +15,12 @@
 //@synthesize image, borderColor, borderWidth, shadowColor, shadowOffset, shadowBlur;
 
 - (void)setImage:(NSImage *)aImage	{	_image = aImage;  [self setNeedsDisplay:YES];	}
-
-
 - (void)setBorderColor:(UIColor *)aBorderColor{ _borderColor = aBorderColor; [self setNeedsDisplay:YES]; }
-
-
 - (void)setBorderWidth:(CGFloat)aBorderWidth	{	_borderWidth = aBorderWidth;	[self setNeedsDisplay:YES]; }
-
-
 - (void)setShadowColor:(NSColor *)aShadowColor{       _shadowColor = aShadowColor; [self setNeedsDisplay:YES]; }
-
-
 - (void)setShadowOffset:(CGSize)aShadowOffset	{   _shadowOffset = aShadowOffset; [self setNeedsDisplay:YES]; }
 
 - (void)setShadowBlur:(CGFloat)aShadowBlur { _shadowBlur = aShadowBlur;  [self setNeedsDisplay:YES]; }
-
-
 - (id)initWithFrame:(NSRect)frame
 {
     self = [super initWithFrame:frame];
@@ -46,8 +36,6 @@
 	}
     return self;
 }
-
-
 
 #pragma mark - Drawing
 

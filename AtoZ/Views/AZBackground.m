@@ -4,13 +4,9 @@
 
 //  Created by Alex Gray on 8/17/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-
-
 #import "AZBackground.h"
 
 @implementation AZBackground
-
-
 - (id)initWithFrame:(NSRect)frame {
     if (self = [super initWithFrame:frame]) {
     }

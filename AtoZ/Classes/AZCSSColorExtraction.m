@@ -10,8 +10,6 @@
 #import <AtoZ/AtoZ.h>
 
 @implementation AZCSSColorExtraction
-
-
 //- (NSArray*)quantize:(NSString*)imagePath{
 - (id)init
 {
@@ -24,8 +22,6 @@
     }
     return self;
 }
-
-
 - (NSArray*)colorsInStyleSheet:(NSString*)text{
 }
 //

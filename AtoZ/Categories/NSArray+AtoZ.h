@@ -4,15 +4,11 @@
 
 //  Created by Alex Gray on 6/29/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-
-
 #import <Foundation/Foundation.h>
 #import "AtoZ.h"
 
 //#import "NSString+AG.h"
 //#import "NSMutableArray+AG.h"
-
-
 @interface NSArray (EnumExtensions)
 
 - (NSString*) stringWithEnum: (NSUInteger) enumVal;
@@ -20,8 +16,6 @@
 - (NSUInteger) enumFromString: (NSString*) strVal;
 
 @end
-
-
 @interface  NSArray (NSTableDataSource)
 - (id) tableView:(NSTableView*)aTableView objectValueForTableColumn:(NSTableColumn*)aTableColumn row:(int)rowIndex;
 - (int) numberOfRowsInTableView:(NSTableView *)aTableView;
@@ -36,11 +30,7 @@
 - (NSString*) stringWithEnum: (NSUInteger) anEnum;
 - (NSUInteger) enumFromString: (NSString*) aString default: (NSUInteger) def;
 - (NSUInteger) enumFromString: (NSString*) aString;
-
-
 @property (readonly) NSArray *colorValues;
-
-
 + (NSMutableArray *)mutableArrayWithArrays:(NSArray *)arrays;
 + (NSArray *)arrayWithArrays:(NSArray *)arrays;
 - (NSArray *)arrayWithEach;
@@ -49,8 +39,6 @@
 
 - (NSArray *)sortedWithKey:(NSString *)theKey ascending:(BOOL)ascending;
 //- (NSArray *)sortedArrayUsingArray:(NSArray *)otherArray;
-
-
 /*** Returns an NSArray containing a number of NSNumber elements that have been initialized with NSInteger values. As this method takes a variadic argument list you have to terminate the input with a NSNotFound entry This is done automatically via the $ints(...) macro */
 + (NSArray *)arrayWithInts:(NSInteger)i,...;
 
@@ -154,13 +142,9 @@
 
 /*** Returns YES when this array contains all of the elements in enumerable */
 - (BOOL)containsAll:(id <NSFastEnumeration>)enumerable;
-
-
 -(BOOL)doesNotContainObjects:(id<NSFastEnumeration>)enumerable;
 
 -(BOOL)doesNotContainObject:(id)object;
-
-
 /*** dummy, just for the 'foreach' macro */
 -(id)andExecuteEnumeratorBlock;
 
@@ -173,8 +157,6 @@
 
 -(NSArray *)filteredArrayUsingBlock:
 (BOOL (^)(id evaluatedObject, NSDictionary *bindings))block;
-
-
 -(NSArray*) uniqueObjects;
 
 -(NSArray*) uniqueObjectsSortedUsingSelector: (SEL)comparator;
@@ -196,8 +178,6 @@
 #endif
 
 -(NSArray *)mapArray:(id (^)(id obj))block;
-
-
 @end
 
 @interface NSArray(ListComprehensions) 
@@ -211,11 +191,7 @@
 @end
 
 
-
-
 @interface NSMutableArray (AG)
-
-
 
 - (void) addPoint:(NSPoint)point;
 - (void) addRect:(NSRect)rect;
@@ -223,20 +199,14 @@
 // sugar properties
 @property (retain) id last;
 @property (retain) id first;
-
-
 - (void) firstToLast;
 
 - (void) lastToFirst;
 
 // alike removeLastObject
 -(void)removeFirstObject;
-
-
 // shift & pop for stacklike operations
 // they will return the removed objects
-
-
 // removes and returns the first object in the array
 // if no elements are present, nil will be returned
 -(id)shift;

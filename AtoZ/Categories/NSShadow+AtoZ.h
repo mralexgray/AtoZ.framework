@@ -9,8 +9,6 @@
 #import <Cocoa/Cocoa.h>
 
 @interface NSShadow (AtoZ)
-
-
 - (id)initWithColor:(NSColor *)color offset:(NSSize)offset blurRadius:(CGFloat)blur;
 + (void)setShadowWithOffset:(NSSize)offset blurRadius:(CGFloat)radius
 					  color:(NSColor *)shadowColor;

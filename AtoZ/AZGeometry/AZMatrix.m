@@ -7,8 +7,6 @@
 //
 
 #import "AZMatrix.h"
-
-
 @implementation AZMatrix
 
 -(id)init {
@@ -20,8 +18,6 @@
   
   return self;
 }
-
-
 @synthesize width, height;
 
 -(void)setHeight:(NSUInteger)hv {

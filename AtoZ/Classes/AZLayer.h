@@ -11,8 +11,6 @@
 
 @interface AZLayer : CATransformLayer
 
-
-
 + (AZLayer*)withFrame:(NSRect)frame forObject:(id)file atIndex:(NSUInteger)index;
 - (void)orientWithX: (CGFloat)x andY: (CGFloat)y;
 

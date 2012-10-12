@@ -4,8 +4,6 @@
 
 //  Created by Alex Gray on 7/1/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-
-
 #import <Foundation/Foundation.h>
 
 #import "AtoZ.h"
@@ -19,12 +17,8 @@
 - (void)removeAllAssociatedValues;
 
 @end
-
-
 //- (void)registerObservation{    [observee addObserverForKeyPath:@"someValue" task:^(id obj, NSDictionary *change) {
 //								   NSLog(@"someValue changed: %@", change);  }]; }
-
-
 typedef NSString AZBlockToken;
 typedef void (^AZBlockTask)(id obj, NSDictionary *change);
 
@@ -35,11 +29,7 @@ typedef void (^AZBlockTask)(id obj, NSDictionary *change);
 - (AZBlockToken *)addObserverForKeyPath:(NSString *)keyPath onQueue:(NSOperationQueue *)queue task:(AZBlockTask)task;
 - (void)removeObserverWithBlockToken:(AZBlockToken *)token;
 @end
-
-
 @interface NSObject (AtoZ)
-
-
 /* USAGE:
 -(void)mouseDown:(NSEvent*)theEvent {
     NSColor* newColor = //mouse down changes the color somehow (view-driven change)
@@ -47,8 +37,6 @@ typedef void (^AZBlockTask)(id obj, NSDictionary *change);
     [self propagateValue:newColor forBinding:@"color"];  } */
 
 -(void) propagateValue:(id)value forBinding:(NSString*)binding;
-
-
 
 -(void) setWithDictionary:(NSD*)dic;
 
@@ -74,8 +62,6 @@ typedef void (^caseBlock)();
 - (void)setObject:(id)obj forKeyedSubscript:(id <NSCopying>)key; // setter
 - (id)objectForKeyedSubscript:(id)key;                           // getter
 
-
-
 - (void)performBlock:(void (^)(void))block afterDelay:(NSTimeInterval)delay;
 - (void)fireBlockAfterDelay:(void (^)(void))block;
 
@@ -89,8 +75,6 @@ typedef void (^caseBlock)();
 //    block();
 //    [self commit];
 //}
-
-
 	// Finds all properties of an object, and prints each one out as part of a string describing the class.
 //+ (NSString*)  autoDescribeWithClassType:	(Class) classType;
 
@@ -160,11 +144,7 @@ typedef void (^caseBlock)();
 		   calling:(SEL)selector;
 
 - (void) stopObserving:	(NSObject*) object forName:	(NSString*) notificationName;
-
-
 - (void) performSelectorWithoutWarnings:(SEL) aSelector withObject:(id)obj;
-
-
 - (void) performSelector:	(SEL) aSelector afterDelay:	(NSTimeInterval) seconds;
 - (void) addObserver:	(NSObject*) observer forKeyPath:	(NSString*) keyPath;
 - (void) addObserver:	(NSObject*) observer 
@@ -174,8 +154,6 @@ typedef void (^caseBlock)();
 
 - (void) willChangeValueForKeys:	(id<NSFastEnumeration>) keys;
 - (void) didChangeValueForKeys:	(id<NSFastEnumeration>) keys;
-
-
 #pragma PropertyArray
 - (NSDictionary*) dictionaryWithValuesForKeys;
 - (NSArray*)  allKeys;
@@ -196,15 +174,11 @@ typedef void (^caseBlock)();
 
 #pragma SetClass
 - (void) setClass:	(Class) aClass;
-
-
 // In your custom class
 + (id) customClassWithProperties:	(NSDictionary*) properties;
 - (id) initWithProperties:	(NSDictionary*) properties;
 
 @end
-
-
 
 
 //It actually works best if you create a category on NSObject and just drop that method straight in there, that way you can call it on any object.
@@ -255,8 +229,6 @@ NSString *str = (__bridge NSString *)*p;
 NSLog(@"string is %@", str);
 free(p);
 */
-
-
 /// USAGE:  [someDictionary mapPropertiesToObject: someObject];
 
 @interface NSDictionary  (PropertyMap)

@@ -6,13 +6,9 @@
 #import "AZScrollerLayer.h"
 
 //#import	<AtoZ/AtoZ.h>
-
-
 #define SFLeftArrowKey 123
 #define SFRightArrowKey 124
 #define SHIFT_ANIM_SPEED 2.0f
-
-
 @interface AZCoreScrollView ()							//@private
 @property (nonatomic, retain) NSGradient				*bgGradient;
 @property (nonatomic, assign) AZTimeLineViewEventType 	currentMouseEventType;
@@ -60,8 +56,6 @@
 			AZConstAttrRelNameAttrScaleOff(kCAConstraintMaxY, 	@"superlayer", kCAConstraintMaxY,   1, 0),
 			AZConstAttrRelNameAttrScaleOff(kCAConstraintMinY, 	@"superlayer", kCAConstraintMaxY,  .8, 1),
 			AZConstAttrRelNameAttrScaleOff(kCAConstraintHeight, @"superlayer", kCAConstraintHeight,.2, 0) ];
-
-
 //		AZConstRelSuperScaleOff( kCAConstraintMinY, 		1, 	40	),
 // AZConstRelSuper ( kCAConstraintMaxX), AZConstRelSuper ( kCAConstraintMinY),
 // AZConstRelSuper ( kCAConstraintMaxX), AZConstRelSuperScaleOff( kCAConstraintWidth, 	1,	 0	),	//-20
@@ -90,8 +84,6 @@
 	[contentContainer layoutSublayers];
 	[contentContainer layoutIfNeeded];
 	[_bodyLayer selectSnapShot:0];
-
-
 }
 
 - (void)setupListeners {
@@ -140,8 +132,6 @@
 
 	if ([event modifierFlags] & (NSAlphaShiftKeyMask|NSShiftKeyMask))
 		[CATransaction setValue:@SHIFT_ANIM_SPEED forKey:@"animationDuration"];
-
-
 	else if ( CGRectContainsPoint ( _bodyLayer.frame, cgLocation )) {
 		[_bodyLayer mouseDownAtPointInSuperlayer:cgLocation];
 	}
@@ -177,8 +167,6 @@
 - (void)scrollWheel:(NSEvent *)theEvent {
 	[_scrollerLayer moveSlider:-[theEvent deltaX] ];
 }
-
-
 #pragma mark -
 #pragma mark Listener Methods
 
@@ -194,16 +182,12 @@
 	[_bodyLayer setOpacity:1.0];
 }
 
-
-
 #pragma mark -
 #pragma mark private methods
 
 - (void)moveSelection:(NSInteger)dx {
 	[_bodyLayer moveSelection:dx];
 }
-
-
 
 - (void)debugLayers:(NSArray*)layers {
 

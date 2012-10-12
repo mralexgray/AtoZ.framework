@@ -5,8 +5,6 @@
 //  Created by Alex Gray on 7/13/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 
-
-
 typedef void (^AZCAAnimationCompletionBlock)();
 
 //Note this is slightly flawed as we set ourself as the delegate, really we should create a chained proxy, if we need that I will add it.
@@ -35,11 +33,7 @@ extern void disableCA();
 
 @end
 
-
-
 @interface CAAnimation (AtoZ)
-
-
 + (CAKA*)           popInAnimation;
 + (CAAnimationGroup*)   shrinkAnimationAtPoint: (CGPoint)p;
 + (CAAnimationGroup*)   blowupAnimationAtPoint: (CGPoint)p;
@@ -63,7 +57,5 @@ extern void disableCA();
 @interface CALayer (CAAnimationEGOHelper)
 - (void)popInAnimated;
 @end
-
-
 
 

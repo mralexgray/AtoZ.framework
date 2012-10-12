@@ -1,6 +1,4 @@
 
-
-
 //  AZBorderlessResizeWindow.m
 //  AtoZ
 //
@@ -10,15 +8,11 @@
 
 #import "AZBorderlessResizeWindow.h"
 
-
-
 @interface AZBorderlessResizeWindow  ()
 @property (ASSGN, NATOM) NSP initialMouseLocation;
 @property (ASSGN, NATOM) NSR initialWindowFrame;
 @property (ASSGN, NATOM) BOOL isResizeOperation;
 @end
-
-
 @implementation AZBorderlessResizeWindow
 @synthesize  initialMouseLocation, initialWindowFrame, isResizeOperation ;
 
@@ -42,8 +36,6 @@
 
     return self;
 }
-
-
 - (BOOL)canBecomeKeyWindow
 {
     return YES;
@@ -130,6 +122,4 @@
 {
     [self setIsVisible:![self isVisible]];
 }
-
-
 @end

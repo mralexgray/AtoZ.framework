@@ -5,13 +5,9 @@
 //  Created by Alex Gray on 9/19/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 //
-
-
 #import <Foundation/Foundation.h>
 #import <objc/runtime.h>
 #import "NSDictionary+AtoZ.h"
-
-
 
 @implementation NSMutableDictionary (AtoZ)
 
@@ -47,16 +43,12 @@
     }];
 }
 @end
-
-
 // This horrible hack is hereby placed in the public domain. I recommend never using it for anything.
 #if 0
 #define LOG NSLog
 #else
 #define LOG(...) do {} while (0)
 #endif
-
-
 static NSString *PropertyNameFromSetter(NSString *setterName)
 {
 	setterName = [setterName substringFromIndex:3];                // Remove "set"
@@ -65,14 +57,10 @@ static NSString *PropertyNameFromSetter(NSString *setterName)
 	tail = [tail substringToIndex:[tail length] - 1];        // Remove ":"
 	return [firstChar stringByAppendingString:tail];        // Convert first char to lowercase.
 }
-
-
 static id DynamicDictionaryGetter(id self, SEL _cmd)
 {
 	return self[NSStringFromSelector(_cmd)];
 }
-
-
 static void DynamicDictionarySetter(id self, SEL _cmd, id value)
 {
 	NSString *key = PropertyNameFromSetter(NSStringFromSelector(_cmd));
@@ -86,8 +74,6 @@ static void DynamicDictionarySetter(id self, SEL _cmd, id value)
 		self[key] = value;
         }
 }
-
-
 @implementation NSDictionary (DynamicAccessors)
 
 + (BOOL)resolveInstanceMethod:(SEL)sel
@@ -142,11 +128,7 @@ dict.numberProp = @42;
 }
 
 @end
-
-
 #include <stdlib.h>
-
-
 #if !defined(TARGET_OS_IPHONE) || !TARGET_OS_IPHONE
 #define CGPointValue pointValue
 #define CGRectValue rectValue
@@ -465,8 +447,6 @@ dict.numberProp = @42;
 {
     return [self integerForKey:key defaultValue:0];
 }
-
-
 - (id)objectForKey:(NSString *)key defaultObject:(id)defaultObject;
 {
     id value = self[key];
@@ -495,11 +475,7 @@ dict.numberProp = @42;
 
     return newDictionary;
 }
-
-
 @end
-
-
 @implementation NSDictionary (OFDeprecatedExtensions)
 
 - (id)valueForKey:(NSString *)key defaultValue:(id)defaultValue;

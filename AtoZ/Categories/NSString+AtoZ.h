@@ -12,8 +12,6 @@
 //- (NSString*)decodeAllPercentEscapes;
 - (NSString*)decodeAllAmpersandEscapes;
 - (NSNumber*)numberValue;
-
-
 - (void) copyFileAtPathTo:(NSString*)path;
 
 - (CGFloat)pointSizeForFrame:(NSRect)frame withFont:(NSString *)fontName;
@@ -128,8 +126,6 @@
 
 - (NSString*) substringBefore:(NSString*) delimiter;
 - (NSString*) substringAfter:(NSString*) delimiter;
-
-
 // The difference between the splitBy and splitAt groups is
 // that splitAt will return an array containing one or two elements
 
@@ -140,8 +136,6 @@
 
 // excuse the pun, but it divides the string into a head and body word, trimmed
 @property (readonly) NSArray *decapitate;
-
-
 // TBD whether they belong here or elsewhere
 
 @property (readonly) NSPoint pointValue;
@@ -156,25 +150,17 @@
 
 + (id)	stringWithData:(NSData*) data encoding:(NSStringEncoding)encoding;
 + (NSString*) stringWithCGFloat:(CGFloat)f maxDigits:(NSUInteger)numDigits;
-
-
 - (NSAttributedString*) attributedWithSize:(NSUInteger)size andColor:(NSColor*)color;
-
-
 -(NSMutableAttributedString *) attributedParagraphWithSpacing:(float)spacing;
 - (CGFloat) widthWithFont:(NSFont *)font;
 -(NSString*) truncatedForRect:(NSRect)frame withFont:(NSFont*)font;
 
 @end
-
-
 // Truncate a string by inserting an ellipsis ("..."). truncateMode can be NSLineBreakByTruncatingHead, NSLineBreakByTruncatingMiddle or NSLineBreakByTruncatingTail.
 NSString*   StringByTruncatingStringWithAttributesForWidth( NSString* s,
                                                                 NSDictionary* attrs,
                                                                 float wid,
                                                                 NSLineBreakMode truncateMode );
-
-
 
 @interface NSMutableString (AtoZ)
 
@@ -192,8 +178,6 @@ NSString*   StringByTruncatingStringWithAttributesForWidth( NSString* s,
                      withString:(NSString*) replacement;
 
 @end
-
-
 @interface NSString (RuntimeReporting)
 
 - (BOOL) hasSubclasses;
@@ -204,8 +188,6 @@ NSString*   StringByTruncatingStringWithAttributesForWidth( NSString* s,
 - (NSArray *) protocolNames;
 
 @end
-
-
 /*
 
  * SUMMARY
@@ -328,8 +310,6 @@ NSString*   StringByTruncatingStringWithAttributesForWidth( NSString* s,
  factor, and the idea of generalizing to support NSAttributedString.
 
  */
-
-
 extern int gNSStringGeometricsTypesetterBehavior ;
 
 @interface NSAttributedString (Geometrics)
@@ -358,8 +338,6 @@ extern int gNSStringGeometricsTypesetterBehavior ;
 - (float)widthForHeight:(float)height font:(NSFont*)font;
 
 @end
-
-
 
 //  NSLog(@"%@", [@"Hello" : @", " : [NSColor redColor] : @"World!" : @"  " : [NSNumber numberWithInt:42]]);
 @interface NSString (JASillyString)

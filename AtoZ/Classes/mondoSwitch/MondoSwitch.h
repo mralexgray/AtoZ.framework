@@ -4,11 +4,7 @@
 
 //  Created by Matthieu Cormier on 12/7/09.
 //  Copyright 2009 Preen and Prune Software and Design. All rights reserved.
-
-
 #import <Cocoa/Cocoa.h>
-
-
 
 // This class emulates a switch component.  Switches are used quite often
 // in the iPhone interface but are not available on the Mac OS X platform.
@@ -49,6 +45,4 @@
 // wouldn't be required.
 @property(retain) id target;
 @property SEL action;
-
-
 @end

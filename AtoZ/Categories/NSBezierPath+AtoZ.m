@@ -2,8 +2,6 @@
 //  GTMNSBezierPath+CGPath.m
 
 //  Category for extracting a CGPathRef from a NSBezierPath
-
-
 #import "NSBezierPath+AtoZ.h"
 //#import "GTMDefines.h"
 #import "AtoZ.h"
@@ -32,8 +30,6 @@
 }
 
 @end
-
-
 @implementation NSBezierPath (AtoZ)
 
 + (NSBezierPath *)bezierPathWithPlateInRect:(NSRect)rect
@@ -58,8 +54,6 @@
 		[self closePath];
 	}
 }
-
-
 //+ (NSBezierPath *)bezierPathWithRoundedRect:(NSRect)rect cornerRadius:(float)radius
 //{
 //	NSBezierPath *result = [[[NSBezierPath alloc] init] autorelease];
@@ -290,8 +284,6 @@
     return bounds;
 }
 
-
-
 + (NSBezierPath *)bezierPathWithRoundedRect:(NSRect)aRect cornerRadius:(CGFloat)radius inCorners:(OSCornerType)corners
 {
 	NSBezierPath* path = [self bezierPath];
@@ -443,8 +435,6 @@ static void CGPathCallback(void *info, const CGPathElement *element)
 		}
 	}
 }
-
-
 + (NSBezierPath *)bezierPathWithCGPath:(CGPathRef)pathRef
 {
 	NSBezierPath *path = [NSBezierPath bezierPath];
@@ -553,8 +543,6 @@ static void CGPathCallback(void *info, const CGPathElement *element)
 
 	[NSGraphicsContext restoreGraphicsState];
 }
-
-
 - (void)fillWithInnerShadow:(NSShadow *)shadow
 {
 	[NSGraphicsContext state:^{	NSSize offset, originalOffset;
@@ -660,8 +648,6 @@ static void CGPathCallback(void *info, const CGPathElement *element)
     [bezierPath closePath]; // Just to be safe.
     return bezierPath;
 }
-
-
 #pragma mark Rounded rectangles
 
 + (NSBezierPath *)bezierPathRoundedRectOfSize:(NSSize)backgroundSize
@@ -834,18 +820,12 @@ static void CGPathCallback(void *info, const CGPathElement *element)
 - (NSBezierPath *)bezierPathByScalingToSize:(NSSize)newSize {
 	return [[[self copy] autorelease] scaleToSize:newSize];
 }
-
-
 @end
-
-
 #define POINTSIZE 5.0
 #define HANDLESIZE 3.0
 #define HANDLELINEWIDTH 1.5
 #define DEFAULTPOINTCOLOR [NSColor redColor]
 #define DEFAULTHANDLECOLOR [NSColor greenColor]
-
-
 @implementation NSBezierPath (ESPoints)
 
 #pragma mark MAIN CONVENIENCE METHODS
@@ -865,8 +845,6 @@ static void CGPathCallback(void *info, const CGPathElement *element)
 - (void) drawPoint: (NSPoint) pt {
 	[self drawPoint:pt inColor: DEFAULTPOINTCOLOR];
 }
-
-
 - (void) drawPoint: (NSPoint) pt inColor: (NSColor*) pointColor {
 	NSBezierPath * bp = [NSBezierPath bezierPathWithRect:NSMakeRect(pt.x - POINTSIZE * 0.5, pt.y - POINTSIZE * 0.5, POINTSIZE, POINTSIZE)];
 	[pointColor set];
@@ -881,8 +859,6 @@ static void CGPathCallback(void *info, const CGPathElement *element)
 	[pointColor set];
 	[bp fill];
 }
-
-
 #pragma mark DRAWING PATH ELEMENTS
 
 - (NSPoint) drawPathElement:(int) n withPreviousPoint: (NSPoint) previous {

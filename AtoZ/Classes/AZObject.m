@@ -8,8 +8,6 @@
 
 #import "AZObject.h"
 #import <objc/runtime.h>
-
-
 @interface  AZObject ()
 + (void)setLastModifiedKey:(NSString*)key forInstance:(id)object;
 @end
@@ -125,8 +123,6 @@ static BOOL loadingFromResourceFile = NO;
 		
 	myObserver's setMyKey will then be called for each change of any attribute of any instance.
 */
-
-
 - (id)objectForKeyedSubscript:(NSString *)key
 {
 	return [self valueForKey:key];
@@ -204,8 +200,6 @@ static NSMutableDictionary *sharedInstances = nil;
 		//used to save shared (singleton) instance
     return [NSStringFromClass(self) stringByAppendingPathExtension:@"plist"];
 }
-
-
 //	returns our the singleton instance that will be used for global observing
 //+ (AZObject*)sharedInstance
 //{
@@ -234,8 +228,6 @@ static NSString* lastModifiedKey;
 
 // Holds metadata for subclasses of SMModelObject
 static NSMutableDictionary *keyNames = nil, *nillableKeyNames = nil;
-
-
 // Before this class is first accessed, we'll need to build up our associated metadata, basically
 // just a list of all our property names so we can quickly enumerate through them for various methods.
 // Also we maintain a separate list of property names that can be set to nil (type ID) for fast dealloc.
@@ -388,8 +380,6 @@ static NSMutableDictionary *keyNames = nil, *nillableKeyNames = nil;
 	[self writeToDescription:description withIndent:1];
 	return description;
 }
-
-
 #pragma mark -Unique identifier generation
 + (NSString *)newUniqueIdentifier
 {

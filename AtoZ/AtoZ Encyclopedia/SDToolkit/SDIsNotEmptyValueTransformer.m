@@ -7,8 +7,6 @@
 //
 
 #import "SDIsNotEmptyValueTransformer.h"
-
-
 @implementation SDIsNotEmptyValueTransformer
 
 + (Class)transformedValueClass { return [NSNumber class]; }

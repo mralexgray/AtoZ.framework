@@ -4,8 +4,6 @@
 
 //  Created by Alex Gray on 7/7/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-
-
 #import "AZLassoView.h"
 
 @implementation AZLassoView
@@ -36,8 +34,6 @@
     }
     return self;
 }
-
-
 - (void)handleAntAnimationTimer:(NSTimer*)timer {
 	mPhase = (mPhase < [self halfwayWithInset] ? mPhase + [self halfwayWithInset]/128 : 0);
 	[self setNeedsDisplayInRect:NSInsetRect(self.bounds, self.inset, self.inset)];
@@ -50,8 +46,6 @@
 	//	} else
 	return (AZMaxDim([self bounds].size) * .1);
 }
-
-
 //- (void)updateTrackingAreas
 //{
 ////	[super updateTrackingAreas];
@@ -63,8 +57,6 @@
 //	trackingArea = [[NSTrackingArea alloc] initWithRect:NSZeroRect options:options owner:self userInfo:nil];
 //	[self addTrackingArea:trackingArea];
 //}
-
-
 - (void)drawRect:(NSRect)dirtyRect
 {
 	NSBezierPath	*standard = [NSBezierPath bezierPathWithRoundedRect:
@@ -139,8 +131,6 @@
 //{
 //	self.hovered = NO;
 //}
-
-
 //-(void) mouseDown:(NSEvent *)theEvent {
 //	self.selected = YES;
 //	[[[self superview]allSubviews]each:^(id obj, NSUInteger index, BOOL *stop) {
@@ -148,7 +138,5 @@
 //			[(AZLassoView*)obj setSelected:NO];
 //	}];
 //}
-
-
 
 @end

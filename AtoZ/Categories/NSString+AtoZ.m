@@ -4,13 +4,9 @@
 
 //  Created by Alex Gray on 7/1/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-
-
 #import "NSString+AtoZ.h"
 #import "NSColor+AtoZ.h"
 #import "NSArray+AtoZ.h"
-
-
 #import "RuntimeReporter.h"
 
 #define kMaxFontSize    10000
@@ -39,20 +35,14 @@
 - (NSString*)decodeAllAmpersandEscapes {
     return [self stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
 }
-
-
 - (NSNumber*)numberValue {
     return [[[NSNumberFormatter alloc] init] numberFromString:self];
 }
-
-
 - (void) copyFileAtPathTo:(NSString*)path
 {
 	if ( [[NSFileManager defaultManager] isReadableFileAtPath:self] )
 		[[NSFileManager defaultManager] copyItemAtPath:self toPath:path error:nil];
 }
-
-
 - (CGFloat)pointSizeForFrame:(NSRect)frame withFont:(NSString *)fontName;
 {
 	return [[self class] pointSizeForFrame:frame withFont:fontName forString:self];
@@ -103,8 +93,6 @@
     CFUUIDRef uuid = CFUUIDCreate(NULL);    CFStringRef identifier = CFUUIDCreateString(NULL, uuid);
     CFRelease(uuid);						return AZ_RETAIN(CFBridgingRelease(identifier));
 }
-
-
 + (NSString *)randomAppPath
 {
 	return [[[[NSWorkspace sharedWorkspace]launchedApplications]valueForKeyPath:@"NSApplicationPath"]randomElement];
@@ -118,8 +106,6 @@
 {
 	return [[LoremIpsum new] sentences:number];
 }
-
-
 //- (NSColor *)colorValue {	return [NSColor colorFromString:self]; }
 
 -(NSData*) colorData {	return [NSArchiver archivedDataWithRootObject:self]; }
@@ -543,8 +529,6 @@ NSString*   StringByTruncatingStringWithAttributesForWidth( NSString* s, NSDicti
 	return currString;
 }
 
-
-
 @implementation NSMutableString (AtoZ)
 
 - (NSString *)shift
@@ -650,8 +634,6 @@ NSString*   StringByTruncatingStringWithAttributesForWidth( NSString* s, NSDicti
 
 @end
 
-
-
 int gNSStringGeometricsTypesetterBehavior = NSTypesetterLatestBehavior ;
 
 @implementation NSAttributedString (Geometrics)
@@ -724,13 +706,9 @@ int gNSStringGeometricsTypesetterBehavior = NSTypesetterLatestBehavior ;
 
 #import <objc/runtime.h>
 #import <stdarg.h>
-
-
 static BOOL IsColonOnlySelector(SEL selector);
 static NSUInteger ColonCount(SEL selector);
 static NSString *SillyStringImplementation(id self, SEL _cmd, ...);
-
-
 @implementation NSString (JASillyStringImpl)
 
 + (BOOL)resolveInstanceMethod:(SEL)sel
@@ -746,23 +724,17 @@ static NSString *SillyStringImplementation(id self, SEL _cmd, ...);
 }
 
 @end
-
-
 static BOOL IsColonOnlySelector(SEL selector)
 {
 	NSString *selString = NSStringFromSelector(selector);  NSUInteger i, count = selString.length;
 	for (i = 0; i < count; ++i)		if ([selString characterAtIndex:i] != ':')  return NO;
 	return YES;
 }
-
-
 static NSUInteger ColonCount(SEL selector)
 {
 	assert(IsColonOnlySelector(selector));
 	return NSStringFromSelector(selector).length;
 }
-
-
 static NSString *SillyStringImplementation(id self, SEL _cmd, ...)
 {
 	NSUInteger i, count = ColonCount(_cmd);

@@ -4,8 +4,6 @@
 
 //  Created by Alex Gray on 7/7/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-
-
 #import "AZSizer.h"
 
 NSUInteger gcd(NSInteger m, NSUInteger n) {
@@ -162,8 +160,6 @@ NSUInteger gcd(NSInteger m, NSUInteger n) {
 	}
 	return _rects;
 }
-
-
 //NSRect 	e = ([[_s.rects objectAtNormalizedIndex:index] rectValue]);
 
 - (NSUInteger) capacity {	return _orient == AZOrientPerimeter	? (2 * self.columns) + (2 * self.rows) - 4 
@@ -234,8 +230,6 @@ NSUInteger gcd(NSInteger m, NSUInteger n) {
 	if (self) {
 
 //		self
-
-
 		self.outerFrame = aFrame;
 		self.candidates = [NSMutableArray array];
 		self.quantity = aNumber;
@@ -307,8 +301,6 @@ NSUInteger gcd(NSInteger m, NSUInteger n) {
 //}
 
 @end
-
-
 /**+ (id)forQuantity:(int)numItems forRect:(NSRect)frame{
  //	int rows = ceil(sqrt(numItems));
  //	__block int smallR = 0, rem, runnerUp, rUpItems;

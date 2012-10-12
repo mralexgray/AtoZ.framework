@@ -7,8 +7,6 @@
 //
 
 #import <Cocoa/Cocoa.h>
-
-
 @interface NSString (PathAdditions)
 
 - (BOOL) isEqualToPath:(NSString*)otherPath;

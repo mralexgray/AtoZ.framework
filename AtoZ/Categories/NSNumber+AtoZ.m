@@ -9,8 +9,6 @@
 #import "NSNumber+AtoZ.h"
 
 @implementation NSNumber (AtoZ)
-
-
 - (NSString *)prettyBytes {
 float bytes = [self longValue];
 NSUInteger unit = 0;
@@ -32,8 +30,6 @@ if(unit == 0) {
 	return [NSString stringWithFormat:@"%.2f %@", (float)bytes, unitString];
 }
 }
-
-
 +(NSNumber *)zero {
 	return @0;
 }
@@ -61,8 +57,6 @@ if(unit == 0) {
 - (NSNumber *)increment {
 	return @([self intValue]+1);
 }
-
-
 -(NSArray *)times:(id (^)(void))block {
 	int n = self.intValue;
 	
@@ -110,6 +104,4 @@ if(unit == 0) {
 	
 	return re;
 }
-
-
 @end

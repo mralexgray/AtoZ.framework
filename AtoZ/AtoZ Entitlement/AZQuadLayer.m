@@ -4,12 +4,8 @@
 
 //  Created by Alex Gray on 8/28/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-
-
 #import "AZQuadLayer.h"
 #import <AtoZ/AtoZ.h>
-
-
 
 @interface  AZQuadLayerView ()
 @property (nonatomic, retain) CALayer *root;
@@ -123,8 +119,6 @@
 								AZConstRelSuper( kCAConstraintMidY)];
 	aselectionLayer.constraints = constraints;
 
-
-
 		//		// set the first item as selected
 		//		[self changeSelectedIndex:0];
 		//
@@ -211,8 +205,6 @@
 	[_contentLayer setNeedsDisplay];
 
 }
-
-
 - (void)drawRect:(NSRect)dirtyRect
 {
 	if (_lassoLayer) {
@@ -255,8 +247,6 @@
  //	transform.m34 = 1.0 / -zDistance;
  contentLayer.sublayerTransform = transform;
  //	contentLayer.sublayerTransform = CATransform3DMakePerspective(x/100, 0);//0.002
-
-
  }
  - (void)mouseDragged:(NSEvent *)theEvent {
  // Get view coordinates
@@ -268,8 +258,6 @@
  [self orientWithX:(angleX+deltaX) andY:(angleY+deltaY)];
  }
  */
-
-
 - (void)mouseDown:(NSEvent *)theEvent{
 		// Getting clicked point.
     NSPoint mousePointInView = [self convertPoint:theEvent.locationInWindow fromView:nil];
@@ -283,8 +271,6 @@
 		//	NSLog(@"Hit %@", draggingLayer);
 	if ( [_clickedLayer superlayer] == self.layer) self.clickedLayer = [[_clickedLayer sublayers]objectAtIndex:0];
 	if ( [[_clickedLayer superlayer] valueForKey:@"isTile"]) self.clickedLayer = [_clickedLayer superlayer];
-
-
 	_lasstSelectedLayer.zPosition = 0;
 	self.lasstSelectedLayer = _clickedLayer;
 	_clickedLayer.zPosition = 1000;

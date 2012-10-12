@@ -14,8 +14,6 @@
   CGFloat x;
   CGFloat y;
 }
-
-
 +(AZPoint *)point;
 +(AZPoint *)pointOf:(id)object;
 +(AZPoint *)pointWithX:(CGFloat)x y:(CGFloat)y;

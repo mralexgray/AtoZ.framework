@@ -4,16 +4,10 @@
 
 	//  http://charcoaldesign.co.uk/source/cocoa#basemodel
 	//  https://github.com/nicklockwood/BaseModel
-
-
 #import "AtoZ.h"
 #import "AtoZFunctions.h"
 #import "AtoZUmbrella.h"
 #import "AtoZModels.h"
-
-
-
-
 
 @implementation CALayerNoHit
 - (BOOL)containsPoint:(CGPoint)p {	return FALSE; }
@@ -85,8 +79,6 @@ OSStatus HotKeyHandler(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 }
 
 + (void)setSoundVolume:(NSUInteger)outtaHundred { [SoundManager sharedManager].soundVolume = outtaHundred / 100.0; }
-
-
 // Place inside the @implementation block - A method to convert an enum to string
 + (NSString*) stringForPosition:(AZWindowPosition)enumVal
 {
@@ -106,8 +98,6 @@ OSStatus HotKeyHandler(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 	NSString *key = [NSString stringWithFormat:@"AZOrient_%@", NSStringFromClass([type class])];
 	return NSLocalizedString(key, nil);
 }
-
-
 //+(void)initialize {
 //	AZLOG(@"Initialize AtoZ");
 //	AtoZ *u = [[self class] sharedInstance];
@@ -137,8 +127,6 @@ OSStatus HotKeyHandler(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 + (NSBundle*) bundle {	return [NSBundle bundleForClass:[self class]]; }
 
 + (NSString*) resources { return [[NSBundle bundleForClass: [self class]] resourcePath]; }
-
-
 + (NSArray*) dock {
 	return (NSArray*)[AZDock sharedInstance];
 }
@@ -203,8 +191,6 @@ OSStatus HotKeyHandler(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 	return  [NSFont fontWithName:@"UbuntuTitling-Bold" size:size];
 }
 #pragma GCC diagnostic warning "-Wdeprecated-declarations"
-
-
 + (NSJSONSerialization*) jsonReuest:(NSString*)url {
 	AtoZ *me = [[self class] sharedInstance];
 	return  [me jsonReuest:url];
@@ -213,8 +199,6 @@ OSStatus HotKeyHandler(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 + (NSUserDefaults *)defs {
 	return [NSUserDefaults standardUserDefaults];
 }
-
-
 -(void) mouseSelector {
 
 	NSLog(@"selectot triggered!  by notificixation, even!");
@@ -393,16 +377,12 @@ OSStatus HotKeyHandler(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 //	}];
 //		//		dummy];		t.color = (NSColor*)obj; t.spot = 22;	return t;	}];
 //}
-
-
 	//NSArray *AllApplications(NSArray *searchPaths) {
 	//    NSMutableArray *applications = [NSMutableArray array];
 	//    NSEnumerator *searchPathEnum = [searchPaths objectEnumerator]; NSString *path;
 	//    while (path = [searchPathEnum nextObject]) ApplicationsInDirectory(path, applications);
 	//    return ([applications count]) ? applications : nil;
 	//}
-
-
 + (NSArray*) runningApps {
 
 	return [[[self class] runningAppsAsStrings] arrayUsingBlock:^id(id obj) {
@@ -425,8 +405,6 @@ OSStatus HotKeyHandler(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 		[[obj lastPathComponent]contains:@"Google Chrome Renderer.app"] ? NO : YES;
 	}];
 }
-
-
 static void soundCompleted(SystemSoundID soundFileObject, void *clientData) {
     if (soundFileObject != kSystemSoundID_UserPreferredAlert)     // Clean up.
         AudioServicesDisposeSystemSoundID(soundFileObject);
@@ -455,8 +433,6 @@ static void soundCompleted(SystemSoundID soundFileObject, void *clientData) {
         AudioServicesPlaySystemSound(soundFileObject);
     }
 }
-
-
 - (void)badgeApplicationIcon:(NSString*)string
 {
     NSDockTile *dockTile = [[NSApplication sharedApplication] dockTile];
@@ -466,8 +442,6 @@ static void soundCompleted(SystemSoundID soundFileObject, void *clientData) {
 }
 
 @end
-
-
 @implementation AtoZ (MiscFunctions)
 
 + (CGFloat)clamp:(CGFloat)value from:(CGFloat)minimum to:(CGFloat)maximum {
@@ -489,8 +463,6 @@ static void soundCompleted(SystemSoundID soundFileObject, void *clientData) {
 
 + (CGPoint)centerOfRect:(CGRect)rect { return AZCenterOfRect(rect); }
 	//	CGFloat midx = CGRectGetMidX(rect);CGFloat midy = CGRectGetMidY(rect);return CGPointMake(midx, midy);
-
-
 + (NSImage*)cropImage:(NSImage*)sourceImage withRect:(NSRect)sourceRect {
 
 	NSImage* cropImage = [[NSImage alloc] initWithSize:NSMakeSize(sourceRect.size.width, sourceRect.size.height)];
@@ -533,8 +505,6 @@ static void soundCompleted(SystemSoundID soundFileObject, void *clientData) {
 
 @end
 
-
-
 @implementation  NSObject (debugandreturn)
 
 - (id) debugReturn:(id) val{
@@ -543,8 +513,6 @@ static void soundCompleted(SystemSoundID soundFileObject, void *clientData) {
 	return val;
 }
 @end
-
-
 	//@implementation CAConstraint (brevity)
 	//+(CAConstraint*)maxX {
 	//
@@ -552,8 +520,6 @@ static void soundCompleted(SystemSoundID soundFileObject, void *clientData) {
 	//}
 	//
 	//@end
-
-
 
 @implementation Box
 @synthesize color, save, selected, shapeLayer;
@@ -600,8 +566,6 @@ static void soundCompleted(SystemSoundID soundFileObject, void *clientData) {
 @end
 
 
-
-
 	//@implementation AGFoundation
 	//@synthesize speaker;
 
@@ -618,8 +582,6 @@ static void soundCompleted(SystemSoundID soundFileObject, void *clientData) {
 	//	//		[appArray addObject:app];
 	//	//	}
 	//}
-
-
 	//-(void) say:(NSString *)thing {
 	// 	// for (NSString *voice in
 	// 	NSArray *voices = [NSSpeechSynthesizer availableVoices];
@@ -632,8 +594,6 @@ static void soundCompleted(SystemSoundID soundFileObject, void *clientData) {
 	//}
 
 	//@end
-
-
 	//- (void)enumerateProtocolMethods:(Protocol*)p {
 	//// Custom block, used only in this method
 	//	void (^enumerate)(BOOL, BOOL) = ^(BOOL isRequired, BOOL isInstance) {
@@ -652,8 +612,6 @@ static void soundCompleted(SystemSoundID soundFileObject, void *clientData) {
 	//	enumerate(NO, YES);
 	//	enumerate(NO, NO);
 	//}aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-
-
 
 
 @implementation CAAnimation (NSViewFlipper)
@@ -767,8 +725,6 @@ static void soundCompleted(SystemSoundID soundFileObject, void *clientData) {
 {	return (isFlipped ? backView : frontView);
 }
 @end
-
-
 
 
 	//- (id)objectForKeyedSubscript:(NSString *)key {

@@ -4,8 +4,6 @@
 
 //  Created by Alex Gray on 7/1/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-
-
 #import "NSView+AtoZ.h"
 //#import "AGFoundation.h"
 #import "AZGeometricFunctions.h"
@@ -15,8 +13,6 @@
 //@interface NSView ()
 //+ (void)runEndBlock:(void (^)(void))completionBlock;
 //@end
-
-
 
 
 NSTimeInterval AZDefaultAnimationDuration = -1; // -1 makes the system provide a default duration
@@ -38,8 +34,6 @@ static char const * const ObjectRepKey = "ObjectRep";
 - (void)setObjectRep:(id)newObjectRep {
     objc_setAssociatedObject(self, ObjectRepKey, newObjectRep, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
-
-
 - (NSImage*) captureFrame
 {
 
@@ -57,8 +51,6 @@ static char const * const ObjectRepKey = "ObjectRep";
 											   kCGWindowImageDefault);
     return [[NSImage alloc] initWithCGImage:cgimg size:[self bounds].size];
 }
-
-
 - (NSView *)viewWithObjectRep:(id)object {
     // Raise an exception if object is nil
     if (object == nil) {
@@ -97,11 +89,7 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 - (void) centerOriginInBounds { [self centerOriginInRect:[self bounds]];  }
 - (void) centerOriginInFrame { [self centerOriginInRect:[self convertRect:[self frame] fromView:[self superview]]];  }
 - (void) centerOriginInRect:(NSRect) aRect  { [self translateOriginToPoint:NSMakePoint(NSMidX(aRect), NSMidY(aRect))]; }
-
-
 -(void) slideDown {
-
-
 	NSRect newViewFrame;
 	if ([self valueForKeyPath:@"dictionary.visibleRect"] ) {
 		newViewFrame = 	[[self valueForKeyPath:@"dictionary.visibleRect"]rectValue];
@@ -124,13 +112,9 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 //	CABasicAnimation *fader = [CABasicAnimation animationWithKeyPath:@"alphaValue"];
 //	[fader setFromValue:@0.f];
 //	[fader setToValue:@1.f];
-
-
 	[self setAnimations:	@{ @"frame" : animation}];
 
 	[[self animator] setFrame:newViewFrame];
-
-
 }
 
 -(void) slideUp {
@@ -159,8 +143,6 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
     }
     return [allSubviews copy];
 }
-
-
 -(void)setAnimationIdentifer:(NSString *)newAnimationIdentifer{
     objc_setAssociatedObject(self, &ANIMATION_IDENTIFER, newAnimationIdentifer, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
@@ -194,8 +176,6 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 //   return [objc_getAssociatedObject(self, &ISANIMATED_KEY) boolValue];
 //}
 
-
-
 -(CALayer*) setupHostView {
     CALayer *layer = [CALayer layer]; 
 //    CGColorSpaceRef colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
@@ -214,8 +194,6 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 //    CGColorRelease(blackColor);
 //    CGColorSpaceRelease(colorSpace);
 }
-
-
 - (NSView *)firstSubview
 {
 	if ([self.subviews count] == 0) {
@@ -252,8 +230,6 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 //for (loop = 0;loop < [subviews count]; loop++) {
 //	[[subviews objectAtIndex:loop] removeFromSuperview];
 //}
-
-
 -(NSTrackingArea *)trackFullView {
 	NSTrackingAreaOptions options =
 	NSTrackingMouseEnteredAndExited
@@ -289,8 +265,6 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 -(BOOL)requestFocus {
 	return [[self window] makeFirstResponder:self];
 }
-
-
 
 -(void)animate:(AZViewAnimationType)type {
 	
@@ -329,8 +303,6 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 	// stopping the wiggle now
 	[self.layer removeAllAnimations];
 }
-
-
 - (void)resizeFrameBy:(int)value {
 	NSRect frame = [self frame];
 	[[self animator]setFrame:CGRectMake(frame.origin.x,
@@ -339,8 +311,6 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 										frame.size.height + value
 										)];
 }
-
-
 
 
 - (NSArray *)animationArrayForParameters:(NSDictionary *)params
@@ -361,8 +331,6 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 	[animation setDelegate:(id)self];
 	[animation startAnimation];
 }
-
-
 - (void)fadeWithEffect:effect
 {
 	[self playAnimationWithParameters:@{NSViewAnimationEffectKey: effect}];
@@ -436,8 +404,6 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
     [self performSelector:@selector(runEndBlock:) withObject:completionBlockCopy afterDelay:duration];
   }
 }
-
-
 + (void)runEndBlock:(void (^)(void))completionBlock
 {
   completionBlock();
@@ -469,8 +435,6 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 }
 
 @end
-
-
 
 void AZMoveView(NSView* view, float dX, float dY) {
 	NSRect frame = [view frame] ;
@@ -615,8 +579,6 @@ NSView* AZResizeWindowAndContent(NSWindow* window, float dXLeft, float dXRight, 
 	[self deltaY:0.0
 		  deltaH:dH] ;
 }
-
-
 - (void)sizeHeightToFitAllowShrinking:(BOOL)allowShrinking {
 	float oldHeight = [self height] ;
 	float width = [self width] ;
@@ -723,6 +685,4 @@ NSView* AZResizeWindowAndContent(NSWindow* window, float dXLeft, float dXRight, 
 - (NSView *)firstSubviewOfKind:(Class)kind {
     return [self firstSubviewOfKind:kind withTag:NSNotFound];
 }
-
-
 @end

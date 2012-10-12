@@ -6,22 +6,16 @@
 //  Created by Alex Gray on 8/2/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 //
-
-
 #import "iCarouselViewController.h"
 #import "SDToolkit.h"
 #import "SDCommonAppDelegate.h"
 //#import "IsometricView.h"
 #import "AZStatusItemView.h"
 #import <AtoZ/AtoZ.h>
-
-
 #define kCompositeIconHeight 155.0
 #define kIconWidth 128.0
 #define kFontHeight 25.0
 #define kMargin 30.0
-
-
 @interface AZEncyclopediaDelegate : SDCommonAppDelegate <NSApplicationDelegate, NSWindowDelegate, AZSourceListDataSource, AZToggleArrayViewDelegate, AZStatusItemDelegate	>
 {
 	AZStatusItemView *statusView;
@@ -45,12 +39,8 @@
 - (IBAction) reload:(id)sender;
 - (IBAction) moveThemAll:(id) sender;
 - (IBAction) cancel:(id) sender;
-
-
 @property (assign, nonatomic) CGRect scaledUnit;
 @property (nonatomic, strong) IBOutlet iCarouselViewController *vc;
-
-
 //@property (nonatomic, retain) IBOutlet AtoZInfinity *infinityView;
 //@property (nonatomic, strong) AZWindowExtend *window;
 //@property (assign) IBOutlet NSView *rootView;
@@ -99,8 +89,6 @@
 -(BOOL)autoExposeCellAtRow:(int)r Col:(int)c;
 
 @end
-
-
 @interface Cell : NSObject {
     BOOL hasMine; // cell has a mine
     BOOL exposed;   // cell has been exposed (may or may not have mine)

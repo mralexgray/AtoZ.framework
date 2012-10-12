@@ -8,20 +8,14 @@
 
 #import "AZLayerManager.h"
 //#import "AtoZ.h"
-
-
 @implementation AZLayerManager
 
 @end
-
-
 /*
 
  File: Grid.h
 
  Abstract: Abstract superclass of regular geometric grids of GridCells that Bits can be placed on.
-
-
 
 #import "Grid.h"
 #import "Piece.h"
@@ -99,8 +93,6 @@ BOOL layerIsGridCell( CALayer* layer ) { return [layer isKindOfClass: [GridCell 
 
 #pragma mark -
 #pragma mark GEOMETRY:
-
-
 - (GridCell*) cellAtRow:(unsigned)row column:(unsigned)col
 {
     if ( row < _nRows && col < _nColumns ) {
@@ -159,12 +151,8 @@ BOOL layerIsGridCell( CALayer* layer ) { return [layer isKindOfClass: [GridCell 
     _cells[index] = [NSNull null];
     [self setNeedsDisplay];
 }
-
-
 #pragma mark -
 #pragma mark DRAWING:
-
-
 - (void) drawCellsInContext:(CGContextRef)ctx
 {
     // Subroutine of -drawInContext:. Draws all the cells, with or without a fill.
@@ -190,8 +178,6 @@ BOOL layerIsGridCell( CALayer* layer ) { return [layer isKindOfClass: [GridCell 
 }
 
 @end
-
-
 // ---------------------------------------------------------------------------
 #pragma mark -
 

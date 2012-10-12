@@ -3,8 +3,6 @@
 
 //  Created by Matt Gemmell on 27/09/2007.
 //  Copyright 2007 Magic Aubergine.
-
-
 #import <Cocoa/Cocoa.h>
 #import "AtoZ.h"
 
@@ -52,8 +50,6 @@
 @property (assign, nonatomic) BOOL hasArrow;
 @property (assign, nonatomic) float cornerRadius;
 @property (assign, nonatomic) BOOL drawsRoundCornerBesideArrow;
-
-
 /*
  Initialization methods
 

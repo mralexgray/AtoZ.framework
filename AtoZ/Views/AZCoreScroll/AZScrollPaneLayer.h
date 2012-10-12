@@ -2,8 +2,6 @@
 #import <Quartz/Quartz.h>
 
 #import "AZScrollerProtocols.h"
-
-
 // - assumes the layout manager is a SFTimeLineLayout
 // - assumes all sublayers are SFSnapShotLayers
 
@@ -12,8 +10,6 @@
 BOOL selectionAnim;
 
 __unsafe_unretained id <AZScrollerContentController> _contentController;
-
-
 CGFloat contentWidth;
 CGFloat visibleWidth;
 CGFloat stepSize;

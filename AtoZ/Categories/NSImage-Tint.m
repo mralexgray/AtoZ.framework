@@ -7,8 +7,6 @@
 //
 
 #import "NSImage-Tint.h"
-
-
 @interface NSImage(BBlockPrivate)
 + (NSCache *)drawingCache;
 @end
@@ -50,8 +48,6 @@
 }
 
 @end
-
-
 CGFloat const TBITintMatrixGrayscale[] = {
     0.3, 0.59, 0.11,
     0.3, 0.59, 0.11,

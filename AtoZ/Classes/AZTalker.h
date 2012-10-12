@@ -18,6 +18,4 @@
 -(void) say:(NSString*)thing;
 +(void) say:(NSString*)thing;
 +(void) randomDicksonism;
-
-
 @end

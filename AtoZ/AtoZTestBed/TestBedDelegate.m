@@ -27,8 +27,6 @@
 @end
 const CGFloat dash[2] = {100, 60};
 
-
-
 @interface TestBedDelegate ()
 @property (nonatomic, retain) CATransition *transition;
 @property (nonatomic, retain) NSA *transitions;
@@ -207,8 +205,6 @@ const CGFloat dash[2] = {100, 60};
 #define TRANSITION_IN_KEY  @"transition in"
 #define TRANSITION_IDENT   @"transition type"
 
-
-
 @implementation NASpinSeque
 
 + (id)animateTo:(id)v inSuperView:(id)sV
@@ -225,8 +221,6 @@ const CGFloat dash[2] = {100, 60};
 	return n;
 }
 - (void)perform{
-
-
 	CABA *rotation = [CABA animationWithKeyPath:@"transform.rotation"];
     rotation.fromValue = @0.0;
     rotation.toValue   = @(M_PI * SPINS);

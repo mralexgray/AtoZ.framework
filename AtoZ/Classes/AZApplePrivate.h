@@ -10,9 +10,5 @@
 #import "AtoZ.h"
 
 @interface AZApplePrivate : BaseModel
-
-
 + (NSArray*) registeredApps;
-
-
 @end

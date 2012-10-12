@@ -1,8 +1,6 @@
 
 //  AZBlockView.h
 //  AtoZ
-
-
 /*  USAGE
 
 [[someView addSubview:

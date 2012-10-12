@@ -9,8 +9,6 @@
 #import "AZFileGridView.h"
 #import <QuartzCore/QuartzCore.h>
 
-
-
 @interface GridLayoutManager : CALayer
 @end
 @implementation GridLayoutManager
@@ -52,8 +50,6 @@
  CALayer *back = [CALayer greyGradient];
  back.frame = NSRectToCGRect(self.frame);
  [mainLayer addSublayer:back];
-
-
  self.contentLayer = [CALayer layer];
  self.contentLayer.name = @"letterLayer";
  //	self.contentLayer.anchorPoint = CGPointMake(0.5, 0.5);
@@ -96,8 +92,6 @@
  //	if (_content)	[self doLayout];
 
  }
-
-
 
  - (void)drawLayer:(CALayer *)layer inContext:(CGContextRef)cgContext
  {
@@ -187,8 +181,6 @@
  //}
 
 */
-
-
 
 -(void) viewWillStartLiveResize {
 //	NSImage * i = [[NSImage alloc] initWithData:[[self getCurrentFrame] TIFFRepresentation]]; //Size:[self frame].size];
@@ -349,8 +341,6 @@
 
 	//}
 
-
-
 	//- (CALayer*)layerAt:(NSUInteger)idx;
 	//{
 	//	return [_contentLayer.sublayers objectAtIndex:idx];
@@ -465,6 +455,4 @@
 		//	[CATransaction setValue:[NSNumber numberWithBool:NO] forKey:kCATransactionDisableActions];
 
 //}
-
-
 @end

@@ -8,8 +8,6 @@
 
 #import "iCarouselViewController.h"
 
-
-
 @interface iCarouselViewController ()
 @property (assign, nonatomic) iCarouselOption spacing;
 @property (nonatomic, assign) BOOL wrap;
@@ -17,16 +15,12 @@
 @property (nonatomic, assign) NSUInteger scalar;
 
 @end
-
-
 @implementation iCarouselViewController
 @synthesize form;
 @synthesize size = _size, space = _space, multi = _multi;
 @synthesize carousel = _carousel;
 @synthesize wrap;
 @synthesize scalar; //items
-
-
 	//- (id)initWithWindow:(NSWindow *)window
 	//{
 	//    if ((self = [super ini initWithWindow:window]))
@@ -52,8 +46,6 @@
 
 		// Create our container layer
 		//	starfieldLayer = [CALayer layer];
-
-
 		//        //set up data
 	wrap = YES;
 		////        self.items = [AtoZ dock];
@@ -79,8 +71,6 @@
 	transform.m34 = 1.0 / -zDistance;
 		//	starfieldLayer.sublayerTransform = transform;
 }
-
-
 -(void)setVScale:(NSNumber *)vScale {
 	_vScale = vScale;
 	_carousel.viewpointOffset = (CGSize){0, _vScale.floatValue};
@@ -93,8 +83,6 @@
 	_carousel.contentOffset = (CGSize){0, _cScale.floatValue};
 	[_carousel reloadData];
 }
-
-
 
 - (void)setDefs {
 	_multi = 1;
@@ -123,13 +111,9 @@
 		//		NSInteger delt = floor(e.scrollingDeltaX + e.scrollingDeltaY);
 		//		NSLog(@"delt: %@", e.description);
 		//		[self.carousel scrollByNumberOfItems:delt duration:1];
-
-
 		//	}];
 
 }
-
-
 - (IBAction)readFormAndReload:(id)sender {
 	_carousel.perspective = -1.0f/[sender floatValue];
 		//	_carousel.scrollSpeed = [[self.form selectTextAtRow:2 column:1] integerValue];//2.0f;
@@ -160,8 +144,6 @@
 		default:
 			break;
 	}
-
-
 	_carousel.viewpointOffset = viewp;// CGSizeMake([[self.form selectTextAtRow:1 column:2] floatValue],[[self.form selectTextAtRow:2 column:2] floatValue]);
 	_carousel.contentOffset = cont;//CGSizeMake([[self.form selectTextAtRow:1 column:3] floatValue],[[self.form selectTextAtRow:2 column:3] floatValue]);
 
@@ -193,8 +175,6 @@
 		[RANDOMCOLOR set];
 		[path fill];
 	}];
-
-
 	self.attache = [[AZAttachedWindow alloc] initWithView:self.attacheView attachedToPoint:AZCenterOfRect(lassie.frame)];
 	[_attache setLevel:NSFloatingWindowLevel];
 	[_attache orderFrontRegardless];
@@ -305,8 +285,6 @@
 {
     [_carousel removeItemAtIndex:_carousel.currentItemIndex animated:YES];
 }
-
-
 #pragma mark -
 #pragma mark iCarousel methods
 
@@ -559,6 +537,4 @@ if (!view) {
 			
     }
 }
-
-
 @end

@@ -10,8 +10,6 @@
 
 #import "AZVeil.h"
 #import "AtoZ.h"
-
-
 @interface AZSplitView : NSSplitView
 @property (nonatomic, retain) NSColor* dividerColor;
 @end
@@ -64,8 +62,6 @@
 @property (nonatomic, assign) NSRect barFrame;
 @property (nonatomic, assign) NSRect barFrameUp;
 @end
-
-
 
 @implementation AZVeil	{
 
@@ -137,8 +133,6 @@
 
 }
 
-
-
 - (void) awakeFromNib {
 //	self.view.image = nil;
 //	[_leveler setFrame:NSMakeRect(0, (ScreenHighness()-1),1,1) display:YES animate:NO];
@@ -159,8 +153,6 @@
 	self.defaultSize 		= 300;
 	_window.upFrame	 	= AZZeroHeightBelowMenu();
 	_shroud.upFrame 	= AZMenulessScreenRect();
-
-
 	[ [[_window contentView] allSubviews] az_each:^(id obj, NSUInteger index, BOOL *stop) {
 		if ( [obj isKindOfClass:[NSSplitView class]] ) {
 			[obj setDelegate:self];
@@ -205,8 +197,6 @@
 		//
 		//	[[_window contentView] addTrackingArea:boxTrackingArea];
 		//	[_closeButton addTrackingArea:buttonTrackingArea];
-
-
 }
 
 	// MARK: -
@@ -251,8 +241,6 @@
 
 	[self conditionallyShowCloseButton];
 }
-
-
 	//- (void) horizonSplitWillResizeSubviewsHandler:(NSNotification*) note {
 	//
 	//}
@@ -304,8 +292,6 @@
 		//AZMakeRectMaxXUnderMenuBarY( ScreenHighness() - 22 ), AZScreenFrame()),
 
 
-
-
 		//	[image addRepresentation: bitmapRep];
 		//	CGImageRelease(capturedImage);
 
@@ -339,8 +325,6 @@
 											   kCGWindowImageDefault);
     return [[NSImage alloc] initWithCGImage:cgimg size:[aView bounds].size];
 }
-
-
 	//	NSThread *e;
 	//	[self performSelector:@selector(defineRects) onThread:e withObject:nil waitUntilDone:YES];
 	//	visiNow.size.height -= offset;
@@ -361,11 +345,7 @@
 
 	//	return [NSImage imageFromCGImageRef:CGWindowListCreateImage( 	AZFlipRectinRect(AZMakeRectMaxXUnderMenuBarY( ScreenHighness() - 22 ), AZScreenFrame()), thisWindow, kCGWindowListOptionOnScreenBelowWindow | kCGWindowImageNominalResolution)];
 
-
-
 	//	    AZFlipRectinRect(AZMakeRectMaxXUnderMenuBarY( ScreenHighness() - 22 ), AZScreenFrame()),  thisWindow, kCGWindowListOptionOnScreenBelowWindow, kCGWindowImageNominalResolution)];
-
-
 	//AZMenulessScreenRect(), [_leveler windowNumber],
 
 	//		CGWindowListCreateImage( AZFlipRectinRect( AZMenulessScreenRect(), AZScreenFrame()), windy,
@@ -383,8 +363,6 @@
 	//	}
 
 	//}
-
-
 - (void) appWillResign { //:(NSNotification *)notification {
 
 	[NSThread performBlockInBackground:^{
@@ -444,8 +422,6 @@
 	//}
 
 - (void) appWillActivate {
-
-
 	[self capture];
 	_window.downFrame 	= AZMakeRectMaxXUnderMenuBarY(_defaultSize);
 	_shroud.downFrame =  AZLowerEdge(AZScreenFrame(), 300 +22);
@@ -466,8 +442,6 @@
 		//	[_window contentView]setIs
 		//}
 		//- (void) applicationDidBecomeActive:(NSNotification *)notification {
-
-
 		//	[NSThread performBlockInBackground:^{
 		//	[self performSelectorOnMainThread:@selector(capture) withObject:nil waitUntilDone:YES];
 		//			[[NSThread mainThread] performBlock:^{

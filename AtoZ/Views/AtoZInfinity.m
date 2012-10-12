@@ -38,8 +38,6 @@
 //@synthesize  unit =_unit, scale =_scale, orientation=_orientation, infiniteObjects = _infiniteObjects, docV = _docV;
 
 - (void) awakeFromNib {
-
-
 	// Register global key handler, passing a block as a callback function
  	offset = 0;
 	_orientation = AZOrientLeft;
@@ -50,8 +48,6 @@
 	self.postsFrameChangedNotifications 				= YES;
 	self.contentView.postsBoundsChangedNotifications 	= YES;
 	[self.contentView trackFullView];
-
-
 	[AZNOTCENTER addObserver: self
 			   selector: @selector(boundsDidChangeNotification:)
 				   name: NSViewBoundsDidChangeNotification
@@ -60,8 +56,6 @@
 	//	self.anApi = [[AJSiTunesAPI alloc] init];
 	//	self.anApi.delegate = self;
 }
-
-
 
 - (void) setInfiniteObjects:(NSArray *)infiniteObjects
 {
@@ -148,11 +142,7 @@
 	self.trackingArea = [_imageViewBar trackFullView];
 	[[self documentView]addTrackingArea:_trackingArea];
 }
-
-
 -(void) mouseMoved:(NSEvent *)theEvent {
-
-
 	[self evalMouse:[self.documentView convertPoint:theEvent.locationInWindow fromView:nil]];
 
 //	NSPoint mouse = mouseLoc();
@@ -233,8 +223,6 @@ NSClipView only invokes this method during automatic or user controlled scrollin
 }
 ()*/
 -(BOOL)isOpaque { return YES; }
-
-
 //-(void) setScale:(AZInfiteScale)scale {
 //
 ////	NSPoint oldCenter = NSPointFromCGPoint(CGPointMake(oldVisibleRect.origin.x +
@@ -420,8 +408,6 @@ NSClipView only invokes this method during automatic or user controlled scrollin
 	static NSShadow *dropShadow = nil;
 	static NSShadow *innerShadow1 = nil;
 	static NSShadow *innerShadow2 = nil;
-
-
 	if (pressedGradient == nil) {
 		pressedGradient = [[NSGradient alloc] initWithStartingColor:[NSColor colorWithCalibratedWhite:.506 alpha:1.0]
 														endingColor:[NSColor colorWithCalibratedWhite:.376 alpha:1.0]];

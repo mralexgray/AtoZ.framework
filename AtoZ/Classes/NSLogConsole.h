@@ -34,15 +34,11 @@ void	NSLogPostLog(char* file, int line);
 @class	NSLogConsoleView;
 
 @interface NSLogConsole : AZSingleton {
-
-
 	// Window title
 	NSString*	windowTitle;
 }
 
 @property (assign) 	IBOutlet	 id	window;
-
-
 @property (assign) BOOL		autoOpens;
 
 @property (weak) IBOutlet	NSLogConsoleView*	webView;
@@ -54,8 +50,6 @@ void	NSLogPostLog(char* file, int line);
 @property (nonatomic, retain) NSFileHandle*	fileHandle;
 
 @property NSUInteger fileOffset;
-
-
 + (id)sharedConsole;
 
 - (void)open;
@@ -72,13 +66,9 @@ void	NSLogPostLog(char* file, int line);
 @property (copy) NSString* windowTitle;
 @property (retain, nonatomic) NSMutableArray *messageQueue;
 @end
-
-
 @interface NSWindow(Goodies)
 - (void)setBottomCornerRounded:(BOOL)a;
 @end
-
-
 
 @interface NSLogConsoleView : WebView {
 

@@ -58,8 +58,6 @@
 - (BOOL) isRunning {
 	return  ([[[[NSWorkspace sharedWorkspace] runningApplications] valueForKeyPath:@"localizedName"]containsObject:self.name] ? YES : NO);
 }
-
-
 //			if ( filtered.count < 2) || (exciting.count < 2 )) {
 //				for ( NSColor *salvageColor in raw ) {
 //					NSColor *close = [salvageColor closestNamedColor];
@@ -313,8 +311,6 @@
 }
 
 
-
-
 /*
  Our custom accessor method for our songs synthesized property is the starting point for our application’s lazy
  loading architecture and uses key-value coding extensively. The first time we call -songs, we finds that the
@@ -384,8 +380,6 @@
     return songsArray;
 }
 - (NSUInteger)count{	return self.files.count; }
-
-
 + (AZFolder*) samplerWithCount:(NSUInteger)items;
 {
 	return [[self class]samplerWithBetween:0 andMax:items];
@@ -450,8 +444,6 @@
 
 @end
 	//@implementation AZAppFolder
-
-
 	//+ (instancetype) samplerWithBetween:(NSUInteger)lowItems and:(NSUInteger)hightItems{
 	//
 	//	return [[[[self class]sharedInstance]itemArray] randomSubarrayWithSize:(hightItems-lowItems)];
@@ -532,8 +524,6 @@ static NSOperationQueue *AZSharedOperationQueue() {
 //    self.title = [super title];
 //    return self;
 //}
-
-
 
 //static NSImage *ATThumbnailImageFromImage(NSImage *image) {
 //    NSSize imageSize = [image size];
@@ -642,8 +632,6 @@ static NSOperationQueue *AZSharedOperationQueue() {
 //@end
 
 
-
-
 @implementation AZColor
 @synthesize 	brightness, 	saturation,		hue;
 @synthesize 	percent = _percent, count;
@@ -728,13 +716,7 @@ static NSOperationQueue *AZSharedOperationQueue() {
 */
 @end
 
-
-
-
-
 @implementation AZDockItem
-
-
 
 + (instancetype)instanceWithPath:(NSString *)path {
 		//	AZDockItem *k = [AZDockItem instanceWithObject:path];

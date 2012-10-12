@@ -4,8 +4,6 @@
 
 bool bDragging = false;		int bMouseSpeed = 4;			/* MOUSE MOVEMENT */
 
-
-
 CGPoint mouseLoc() {
 	CGEventRef event = CGEventCreate(NULL);
 	CGPoint cursor = CGEventGetLocation(event);
@@ -120,8 +118,6 @@ void dragTo ( CGPoint dest ) {
 //void mouseUp(	     EventKind btn,  EventMask clickType){//int btn,  int clickType ) 		{
 //	mouseEvent(btn, MOUSE_UP, clickType);
 //}
-
-
 @interface AZMouser ()
 
 @property (retain) NSUserDefaults *defaults;
@@ -202,8 +198,6 @@ void dragTo ( CGPoint dest ) {
 }
 
 
-
-
 - (NSArray*) coaxPointsForPoints:(CGPoint)point to:(CGPoint)dest {
 	float dist = AZDistanceFromPoint(point, dest);
 	float large = [self largeValue];
@@ -261,8 +255,6 @@ void dragTo ( CGPoint dest ) {
 	}
 	return @[@22];
 }
-
-
 @end
 
 /* MOUSE INPUT */
@@ -330,8 +322,6 @@ void mouseEvent(int btn, int btnState, int clickType) {
 	CGEventPost(kCGHIDEventTap, theEvent);
 	CFRelease(theEvent);
 }
-
-
 //void mouseMoveToPtMK(CGPoint xy) {
 
 /* KEYBOARD INPUT */
@@ -552,8 +542,6 @@ void AZDoubleClick(CGPoint point) {
 	////	Click(a);
 	//	PostMouseEvent(kCGEventLeftMouseDragged, kCGMouseButtonLeft, where);
 	//}
-
-
 /*	CGEventRef event = CGEventCreateMouseEvent(NULL, kCGEventLeftMouseDragged, point, kCGMouseButtonLeft);
  CGEventPost(kCGHIDEventTap, event);
  CFRelease(event);
@@ -581,8 +569,6 @@ void AZDoubleClick(CGPoint point) {
  //kCGEventLeftMouseDragged
  //kCGEventRightMouseDragged
  */
-
-
 //@implementation AZMouserIndicator
 //@synthesize indicatorImage;
 /* This routine is called at app launch time when this class is unpacked from the nib.*/
@@ -604,8 +590,6 @@ void AZDoubleClick(CGPoint point) {
 @end
 @implementation AZMouserWindow
 @synthesize initialLocation, indicatorView;
-
-
 - (id)init
 {
     self = [super init];
@@ -644,8 +628,6 @@ void AZDoubleClick(CGPoint point) {
 - (BOOL)canBecomeMainWindow {	return NO;	}
 @end
 */
-
-
 /*
  - (void)from:(NSPoint)xy to:(NSPoint)zw {
  // CGPostMouseEvent( CGPoint        mouseCursorPosition,
@@ -852,8 +834,6 @@ static CGEventRef AUWE_OnMouseMovedFactory (
 	 }
 }
 EOF */
-
-
 void print_msg(const char *msg) {
 	printf("%s\n", msg);
 }
@@ -861,8 +841,6 @@ void print_msg(const char *msg) {
 #define TYPOMATIC_RATE 100000
 #define IS_CMD( x, y ) strncmp( x, y, strlen( y ) ) == 0
 #define CMD_STRING_MAXLEN 256
-
-
 void pathForArc(CGContextRef context, CGRect r, int startAngle, int arcAngle)
 {
     float start, end;

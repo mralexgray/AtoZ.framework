@@ -32,8 +32,6 @@ typedef enum {
 
 @property (nonatomic, assign) NSUInteger		frames;//debug
 
-
-
 - (id)initWithDelegate:(id)object shadingImage:(CIImage*)aInputShadingImage;
 
 - (void)setStyle:(int)aStyle direction:(float)aDirection;

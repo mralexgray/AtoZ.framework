@@ -11,15 +11,11 @@
 #define kGBEnableLayerDebugging NO
 #define kGBDebugLayerBorderColor kGBEnableLayerDebugging ? CGColorCreateGenericRGB(1.0f, 0.0f, 1.0f, 0.3f) : nil
 #define kGBDebugLayerBorderWidth kGBEnableLayerDebugging ? 3.0f : 0.0f
-
-
 NSString *const AZToggleLabel 	= @"AZToggleLabel";
 NSString *const AZToggleRel 		= @"AZToggleRelativeTo";
 NSString *const AZToggleOff 		= @"AZToggleOff";
 NSString *const AZToggleOn		= @"AZToggleOn";
 NSString *const AZToggleState	= @"AZToggleState";
-
-
 @interface AZToggleArrayView (UserInteraction)
 - (AZToggleControlLayer*) toggleLayerForEvent:(NSEvent*)event;
 - (CGPoint) layerLocationForEvent:(NSEvent*)event;
@@ -30,8 +26,6 @@ NSString *const AZToggleState	= @"AZToggleState";
 //	[[toggle codableKeys]	CALayer *l = [CALayer layer];	return  itemW]
 //}
 //@end
-
-
 #pragma mark -
 @implementation AZToggleArrayView
 @synthesize delegate = _delegate, rootLayer = _rootLayer, containerLayer = _containerLayer;
@@ -103,8 +97,6 @@ NSString *const AZToggleState	= @"AZToggleState";
 	result.borderWidth 	  = kGBDebugLayerBorderWidth;
 //	CAConstraint *left 	  =
 	result.constraints	  = @[ //AZConstRelSuperScaleOff(kCAConstraintMinX, 1, 5),
-
-
 							AZConstRelSuper(kCAConstraintMidY)	];
 							//	[result addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMaxX relativeTo:@"toggle" attribute:kCAConstraintMinX offset:-5.0f]];
 	return result;
@@ -124,8 +116,6 @@ NSString *const AZToggleState	= @"AZToggleState";
 						 state:(BOOL)state
 						 index:(NSUInteger)index
 			   labelPositioned:(AZWindowPosition)position {
-
-
 	CALayer* result = [CALayer layer];
 	result.name = name;
 	result.borderColor = kGBDebugLayerBorderColor;
@@ -143,8 +133,6 @@ NSString *const AZToggleState	= @"AZToggleState";
 	return result;
 
 }
-
-
 - (CALayer*) itemLayerWithName:(NSString*)name
 					relativeTo:(NSString*)relative
 						onText:(NSString*)onText
@@ -188,8 +176,6 @@ NSString *const AZToggleState	= @"AZToggleState";
 //
 //
 //	}
-
-
 
 //	- (NSArray*)itemsForToggleView:(AZToggleArrayView *)view {
 //		return 	@[												/*	[view itemTextLayerWithName:@"Sort:" ],*/
@@ -290,8 +276,6 @@ NSString *const AZToggleState	= @"AZToggleState";
 		//												  index:1]];
 	return _containerLayer;
 }
-
-
 - (CALayer*) rootLayer
 {
 	if (_rootLayer) return _rootLayer;
@@ -301,8 +285,6 @@ NSString *const AZToggleState	= @"AZToggleState";
 	[_rootLayer addSublayer:self.containerLayer];
 	return _rootLayer;
 }
-
-
 - (AZToggleControlLayer*) toggleLayerForEvent:(NSEvent*)event
 {
 		// Returns the first toggle layer for the given event.
@@ -337,8 +319,6 @@ NSString *const AZToggleState	= @"AZToggleState";
 #pragma mark -
 
 //@implementation AZToggleArrayView (UserInteraction)
-
-
 //@end
 
 #pragma mark -

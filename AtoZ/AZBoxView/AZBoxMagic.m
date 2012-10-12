@@ -8,8 +8,6 @@
 
 #import "AZBoxMagic.h"
 #import "AtoZ.h"
-
-
 @interface AZBoxMagic ()
 @property NSSize cellSize;
 @property NSUInteger rows;
@@ -31,8 +29,6 @@
 
 - (void)drawRect:(NSRect)dirtyRect
 {
-
-
 }
 
 - (void) reload {

@@ -7,8 +7,6 @@
 //
 
 #import "SDCloseButtonCell.h"
-
-
 @implementation SDCloseButtonCell
 
 - (void)drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView {

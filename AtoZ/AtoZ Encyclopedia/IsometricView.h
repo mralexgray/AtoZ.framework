@@ -8,11 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import <QuartzCore/QuartzCore.h>
-
-
 @interface IsometricView : NSView {
-
-
 	CGGradientRef backgroundGradient;
 	// Container layer for our text layers
 	CALayer*	containerLayer;
@@ -30,6 +26,4 @@
 - (IBAction)appearWithRotation:(id)sender;
 - (IBAction)appearWithTranslation:(id)sender;
 - (IBAction)appearWithScale:(id)sender;
-
-
 @end

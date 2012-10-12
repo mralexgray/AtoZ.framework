@@ -57,8 +57,6 @@ extern NSString *const AZToggleRel;
 extern NSString *const AZToggleOff;
 extern NSString *const AZToggleOn;
 extern NSString *const AZToggleState;
-
-
 @class  	AZToggleControlLayer;//, AZToggle;
 @protocol 	AZToggleArrayViewDelegate;
 @interface 	AZToggleArrayView : NSView
@@ -68,13 +66,9 @@ extern NSString *const AZToggleState;
 									   onText:(NSString*)onText	   	   offText:(NSString*)offText
 										state:(BOOL)state				 index:(NSUInteger)index
 							  labelPositioned:(AZWindowPosition)position;
-
-
 - (CALayer*) 				  itemLayerWithName:(NSString*)name 	relativeTo:(NSString*)relative
 							  			 onText:(NSString*)onText      offText:(NSString*)offText
 							   			  state:(BOOL)state 			 index:(NSUInteger)index;
-
-
 - (AZToggleControlLayer*) toggleLayerWithOnText:(NSString*)onText		offText:(NSString*)offText
 																   initialState:(BOOL)state;
 
@@ -95,8 +89,6 @@ extern NSString *const AZToggleState;
 - (NSArray*)  questionsForToggleView: (AZToggleArrayView *) view;
 /* 	return 	@[@"Sort Alphabetically?", @"Sort By Color?" , @"Sort like Dock", @"Sort by \"Category\"?", @"Show extra app info?" ]; */
 
-
-
 @optional
 
 - (NSString*) toggleView: (AZToggleArrayView*) toggleView questionAtIndex: (NSUInteger) index;
@@ -105,14 +97,10 @@ extern NSString *const AZToggleState;
 - (NSInteger) numberOfTogglesInView: (AZToggleArrayView*)view;
 /*	return  _questions.count; etc		*/
 
-
-
 @optional
 
 -(NSDictionary*)toggleForView:(AZToggleArrayView*)view atIndex:(NSUInteger)index;
 -(NSUInteger) toggleCountforView:(AZToggleArrayView*) view;
-
-
 - (AZWindowPosition) positionForQuestion: (NSString*) question;
 //- (AZWindowPosition) defaultLabelPosition;
 
@@ -121,8 +109,6 @@ extern NSString *const AZToggleState;
 /*	return 	@[	[view itemTextLayerWithName:@"Sort:" ],
 				[view itemLayerWithName:	@"Color" relativeTo:@"superlayer" index:0],
  				[view itemLayerWithName:	@"A-Z" relativeTo:@"Color" 	index:1]	]; 		*/
-
-
 
 
 //- (NSArray*) itemsForToggleView: (AZToggleArrayView*) view positioned: (AZWindowPosition) position;
@@ -184,11 +170,7 @@ extern NSString *const AZToggleState;
 
 /** Off state text.									 	@see onStateText;			*/
 @property (copy) NSString* offStateText;
-
-
 @end
-
-
 
 	//@interface AZToggle : BaseModel
 	//@property (nonatomic, retain) NSString *name;

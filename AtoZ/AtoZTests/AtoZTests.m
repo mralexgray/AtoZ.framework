@@ -27,8 +27,6 @@
 	// runs! You would expect the compiler to baulk, but no.
 	STAssertEqualObjects([NSObject stringFromClass], @"NSObject", nil);
 }
-
-
 - (void)setUp
 {
     [super setUp];
@@ -72,6 +70,4 @@
 @end
 @implementation NSCharlie
 @end
-
-
 

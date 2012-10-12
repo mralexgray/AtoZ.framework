@@ -1,7 +1,5 @@
 
 // Convenience Macros
-
-
 #define SDDefaults [NSUserDefaults standardUserDefaults]
 
 #if defined(DEBUG)

@@ -4,8 +4,6 @@
 
 //  Created by Alex Gray on 7/1/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-
-
 #import <Cocoa/Cocoa.h>
 #import <objc/objc.h>
 
@@ -16,14 +14,10 @@ typedef enum
 	AZViewAnimationTypeFlipVeryically
 }
 AZViewAnimationType;
-
-
 extern void AZMoveView(NSView* view, float dX, float dY);
 extern void AZResizeView(NSView* view, float dX, float dY);
 extern void AZResizeViewMovingSubviews(NSView* view, float dXLeft, float dXRight, float dYTop, float dYBottom);
 extern NSView* AZResizeWindowAndContent(NSWindow* window, float dXLeft, float dXRight, float dYTop, float dYBottom, BOOL moveSubviews);
-
-
 @interface NSView (ObjectRep)
 
 @property (nonatomic, retain) id objectRep;
@@ -51,8 +45,6 @@ extern NSView* AZResizeWindowAndContent(NSWindow* window, float dXLeft, float dX
 - (NSImage*) snapshotFromRect:(NSRect) sourceRect;
 //- (NSImage*) captureFrame;
 - (BOOL)	 requestFocus;
-
-
 -(NSTrackingArea *)trackFullView;
 -(NSTrackingArea *)trackAreaWithRect:(NSRect)rect;
 -(NSTrackingArea *)trackAreaWithRect:(NSRect)rect 
@@ -91,8 +83,6 @@ extern NSView* AZResizeWindowAndContent(NSWindow* window, float dXLeft, float dX
 - (NSPoint) localPoint;
 @end
 
-
-
 @interface NSView (Layout)
 
 // Origin X
@@ -127,8 +117,6 @@ extern NSView* AZResizeWindowAndContent(NSWindow* window, float dXLeft, float dX
 - (void)deltaY:(float)dY ;
 - (void)deltaW:(float)dW ;
 - (void)deltaH:(float)dH ;
-
-
 /*!
  @brief    Resizes the height of the receiver to fit its current content.
 
@@ -170,11 +158,7 @@ extern NSView* AZResizeWindowAndContent(NSWindow* window, float dXLeft, float dX
  others in this class.  Indeed, it was written years later (201105).
  */
 - (void)sizeHeightToFit ;
-
-
 @end
-
-
 @interface NSView (findSubview)
 
 - (NSArray *)subviewsOfKind:(Class)kind withTag:(NSInteger)tag;

@@ -7,8 +7,6 @@
 //
 
 #import "SDGeneralPrefPane.h"
-
-
 @implementation SDGeneralPrefPane
 
 - (id) init {

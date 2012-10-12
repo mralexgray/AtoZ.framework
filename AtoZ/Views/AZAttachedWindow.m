@@ -3,11 +3,7 @@
 
 //  Created by Matt Gemmell on 27/09/2007.
 //  Copyright 2007 Magic Aubergine.
-
-
 #import "AZAttachedWindow.h"
-
-
 #define AZATTACHEDWINDOW_DEFAULT_BACKGROUND_COLOR [NSColor colorWithCalibratedWhite:0 alpha:0.85]
 #define AZATTACHEDWINDOW_DEFAULT_BORDER_COLOR [NSColor blackColor]
 #define AZATTACHEDWINDOW_SCALE_FACTOR [[NSScreen mainScreen] userSpaceScaleFactor]
@@ -36,8 +32,6 @@
 @synthesize view = _view;
 
 #pragma mark Initializers
-
-
 - (AZAttachedWindow *)initWithView:(NSView *)view 
                    attachedToPoint:(NSPoint)point 
                           inWindow:(NSWindow *)window 
@@ -106,8 +100,6 @@
     }
     return self;
 }
-
-
 - (AZAttachedWindow *)initWithView:(NSView *)view 
                    attachedToPoint:(NSPoint)point 
                           inWindow:(NSWindow *)window 
@@ -117,8 +109,6 @@
                      inWindow:window onSide:AZPositionAutomatic 
                    atDistance:distance];
 }
-
-
 - (AZAttachedWindow *)initWithView:(NSView *)view 
                    attachedToPoint:(NSPoint)point 
                             onSide:(AZWindowPosition)side 
@@ -128,8 +118,6 @@
                      inWindow:nil onSide:side 
                    atDistance:distance];
 }
-
-
 - (AZAttachedWindow *)initWithView:(NSView *)view 
                    attachedToPoint:(NSPoint)point 
                         atDistance:(float)distance
@@ -138,8 +126,6 @@
                      inWindow:nil onSide:AZPositionAutomatic 
                    atDistance:distance];
 }
-
-
 - (AZAttachedWindow *)initWithView:(NSView *)view 
                    attachedToPoint:(NSPoint)point 
                           inWindow:(NSWindow *)window
@@ -148,8 +134,6 @@
                      inWindow:window onSide:AZPositionAutomatic 
                    atDistance:0];
 }
-
-
 - (AZAttachedWindow *)initWithView:(NSView *)view 
                    attachedToPoint:(NSPoint)point 
                             onSide:(AZWindowPosition)side
@@ -158,8 +142,6 @@
                      inWindow:nil onSide:side 
                    atDistance:0];
 }
-
-
 - (AZAttachedWindow *)initWithView:(NSView *)view 
                    attachedToPoint:(NSPoint)point
 {
@@ -167,18 +149,12 @@
                      inWindow:nil onSide:AZPositionAutomatic 
                    atDistance:0];
 }
-
-
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
 }
-
-
 #pragma mark Geometry
-
-
 - (void)_updateGeometry
 {
     NSRect contentRect = NSZeroRect;
@@ -304,8 +280,6 @@
     [[self  animator] setFrame:contentRect display:NO];
     [[_view  animator] setFrame:_viewFrame];
 }
-
-
 - (AZWindowPosition)_bestSideForAutomaticPosition
 {
     // Get all relevant geometry in screen coordinates.
@@ -405,18 +379,12 @@
     
     return side;
 }
-
-
 - (float)_arrowInset
 {
     float cornerInset = (self.drawsRoundCornerBesideArrow) ? self.cornerRadius : 0;
     return (cornerInset + (self.arrowBaseWidth / 2.0)) * AZATTACHEDWINDOW_SCALE_FACTOR;
 }
-
-
 #pragma mark Drawing
-
-
 - (void)_updateBackground
 {
     // Call NSWindow's implementation of -setBackgroundColor: because we override  it in this class to let us set the entire background image of the window as an NSColor patternImage.
@@ -428,8 +396,6 @@
     }
 //    NSEnableScreenUpdates();
 }
-
-
 - (NSColor *)_backgroundColorPatternImage
 {
     NSImage *bg = [[NSImage alloc] initWithSize:[self frame].size];
@@ -450,8 +416,6 @@
     [bg unlockFocus];
     return [NSColor colorWithPatternImage:bg];
 }
-
-
 - (NSBezierPath *)_backgroundPath	{
     /*
      Construct path for window background, taking account of:
@@ -642,8 +606,6 @@
     [path closePath];
     return path;
 }
-
-
 - (void)_appendArrowToPath:(NSBezierPath *)path
 {
     if (!self.hasArrow) {
@@ -699,8 +661,6 @@
     [path lineToPoint:tipPt];
     [path lineToPoint:endPt];
 }
-
-
 - (void)_redisplay
 {
     if (_resizing) {
@@ -714,29 +674,19 @@
     NSEnableScreenUpdates();
     _resizing = NO;
 }
-
-
 # pragma mark Window Behaviour
-
-
 - (BOOL)canBecomeMainWindow
 {
     return YES;
 }
-
-
 - (BOOL)canBecomeKeyWindow
 {
     return YES;
 }
-
-
 - (BOOL)isExcludedFromWindowsMenu
 {
     return YES;
 }
-
-
 - (BOOL)validateMenuItem:(NSMenuItem *)item
 {
     if (_window) {
@@ -744,8 +694,6 @@
     }
     return [super validateMenuItem:item];
 }
-
-
 - (IBAction)performClose:(id)sender
 {
     if (_window) {
@@ -754,25 +702,15 @@
         [super performClose:sender];
     }
 }
-
-
 # pragma mark Notification handlers
-
-
 - (void)windowDidResize:(NSNotification *)note
 {
     [self _redisplay];
 }
-
-
 #pragma mark Accessors
-
-
 - (NSColor *)windowBackgroundColor {
     return _AZBackgroundColor;
 }
-
-
 - (void)setBackgroundColor:(NSColor *)value {
     if (_AZBackgroundColor != value) {
         _AZBackgroundColor = [value copy];
@@ -780,13 +718,9 @@
         [self _updateBackground];
     }
 }
-
-
 //- (NSColor *)borderColor {
 //    return borderColor;
 //}
-
-
 - (void)setBorderColor:(NSColor *)value {
     if (_borderColor != value) {
         _borderColor = [value copy];
@@ -794,13 +728,9 @@
         [self _updateBackground];
     }
 }
-
-
 //- (float)borderWidth {
 //    return borderWidth;
 //}
-
-
 - (void)setBorderWidth:(float)value {
     if (self.borderWidth != value) {
         float maxBorderWidth = self.viewMargin;
@@ -813,13 +743,9 @@
         [self _updateBackground];
     }
 }
-
-
 //- (float)viewMargin {
 //    return viewMargin;
 //}
-
-
 - (void)setViewMargin:(float)value {
     if (self.viewMargin != value) {
         _viewMargin = MAX(value, 0.0);
@@ -828,13 +754,9 @@
         [self setCornerRadius:self.cornerRadius];
     }
 }
-
-
 //- (float)arrowBaseWidth {
 //    return arrowBaseWidth;
 //}
-
-
 - (void)setArrowBaseWidth:(float)value {
     float maxWidth = (MIN(_viewFrame.size.width, _viewFrame.size.height) + 
                       (self.viewMargin * 2.0)) - self.cornerRadius;
@@ -849,13 +771,9 @@
     
     [self _redisplay];
 }
-
-
 //- (float)arrowHeight {
 //    return arrowHeight;
 //}
-
-
 - (void)setArrowHeight:(float)value {
     if (self.arrowHeight != value) {
         _arrowHeight = value;
@@ -863,13 +781,9 @@
         [self _redisplay];
     }
 }
-
-
 //- (float)hasArrow {
 //    return hasArrow;
 //}
-
-
 - (void)setHasArrow:(float)value {
     if (self.hasArrow != value) {
         _hasArrow = value;
@@ -877,13 +791,9 @@
         [self _updateBackground];
     }
 }
-
-
 //- (float)cornerRadius {
 //    return cornerRadius;
 //}
-
-
 - (void)setCornerRadius:(float)value {
     float maxRadius = ((MIN(_viewFrame.size.width, _viewFrame.size.height) + 
                         (self.viewMargin * 2.0)) - self.arrowBaseWidth) / 2.0;
@@ -897,13 +807,9 @@
     // Adjust arrowBaseWidth appropriately.
     [self setArrowBaseWidth:self.arrowBaseWidth];
 }
-
-
 //- (float)drawsRoundCornerBesideArrow {
 //    return drawsRoundCornerBesideArrow;
 //}
-
-
 - (void)setDrawsRoundCornerBesideArrow:(float)value {
     if (_drawsRoundCornerBesideArrow != value) {
         _drawsRoundCornerBesideArrow = value;
@@ -911,18 +817,12 @@
         [self _redisplay];
     }
 }
-
-
 - (void)setBackgroundImage:(NSImage *)value
 {
     if (value) {
         [self setBackgroundColor:[NSColor colorWithPatternImage:value]];
     }
 }
-
-
-
-
 
 - (void)mouseDragged:(NSEvent *)theEvent
  {
@@ -954,12 +854,8 @@
  // Prevent dragging off right of screen
  newOrigin.x = NSMaxX(screenFrame) - windowFrame.size.width;
  }
-
-
  [self setFrameOrigin:newOrigin];
  }
-
-
  - (void)mouseDown:(NSEvent *)theEvent
  {
  NSRect windowFrame = [self frame];

@@ -4,8 +4,6 @@
 
 //  Created by Alex Gray on 7/24/12.
 //  Copyright (c) 2012 Alex Gray. All rights reserved.
-
-
 #import "AZFoamView.h"
 
 static inline double radians (double degrees) { return degrees * M_PI/180; }
@@ -57,8 +55,6 @@ static inline double radians (double degrees) { return degrees * M_PI/180; }
         }
 
     }
-
-
 
 }
 

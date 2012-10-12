@@ -5,8 +5,6 @@
 - (void)scrollContentResized;
 
 @end
-
-
 @protocol AZScrollerContent
 
 - (CGFloat)contentWidth;
@@ -20,5 +18,3 @@
 - (void)scrollToPosition:(CGFloat)position;
 
 @end
-
-

@@ -11,8 +11,6 @@
 #import "AtoZ.h"
 
 NSString *const kShowDockIconUserDefaultsKey = @"ShowDockIcon";
-
-
 @implementation NSApplication (AtoZ)
 
 + (id)infoValueForKey:(NSString *)key {
@@ -47,6 +45,4 @@ NSString *const kShowDockIconUserDefaultsKey = @"ShowDockIcon";
         [[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
     }
 }
-
-
 @end

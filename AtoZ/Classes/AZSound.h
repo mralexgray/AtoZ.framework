@@ -10,8 +10,6 @@
 #define SM_USE_AV_AUDIO_PLAYER
 #endif
 #endif
-
-
 #ifdef SM_USE_AV_AUDIO_PLAYER
 #import <AVFoundation/AVFoundation.h>
 #define SM_SOUND AVAudioPlayer
@@ -19,14 +17,8 @@
 #define SM_SOUND NSSound
 #endif
 #import "AtoZ.h"
-
-
 extern NSString *const SoundDidFinishPlayingNotification;
-
-
 typedef void (^SoundCompletionHandler)(BOOL didFinish);
-
-
 @interface Sound : NSObject
 
 	//required for 32-bit Macs
@@ -69,8 +61,6 @@ typedef void (^SoundCompletionHandler)(BOOL didFinish);
 - (void)stop;
 
 @end
-
-
 @interface SoundManager : NSObject
 
 	//required for 32-bit Macs

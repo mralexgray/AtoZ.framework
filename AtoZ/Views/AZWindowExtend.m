@@ -5,14 +5,10 @@
 #import "AZWindowExtend.h"
 
 
-
-
 @interface NSObject(AZWindowExtend)
 - (void)pointOnScreenDidChangeTo:(id)point;
 // ... other methods here
 @end
-
-
 @implementation AZWindowExtendController
 - (void)awakeFromNib
 {
@@ -27,8 +23,6 @@
 
 @end
 @implementation AZWindowExtend
-
-
 - (void) awakeFromNib {
 	[self setAcceptsMouseMovedEvents:YES screen:YES];
 
@@ -49,8 +43,6 @@
 //    NSString *keyPath = [bindingInfo valueForKey:NSObservedKeyPathKey];
 //    [boundObject setValue:[NSNumber numberWithFloat:[self floatValue]]
 //               forKeyPath:keyPath];
-
-
 	NSPoint point = [NSEvent mouseLocation];
 	NSString *infoText = [[NSString alloc] initWithFormat:@"x:%.2f\ny:%.2f", point.x, point.y];
 	[_coordinates setStringValue:infoText];
@@ -61,8 +53,6 @@
 	}
 
 }
-
-
 static CFMachPortRef AUWE_portRef = NULL;
 static CFRunLoopSourceRef AUWE_loopSourceRef = NULL;
 

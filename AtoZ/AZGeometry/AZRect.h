@@ -10,8 +10,6 @@
 //#import "AZGeometry.h"
 #import <Foundation/Foundation.h>
 //#import "AZGeometricFunctions.h"
-
-
 /** Returns a rect that uses aSize as its size and centered inside the given rect.
 
 The returned rect is expressed relative the given rect parent coordinate space.<br />
@@ -43,8 +41,6 @@ To get a rect expressed relative the the given rect itself, see ETCenteredRect()
 
 The returned rect origin is valid whether or not your coordinate space is flipped. */
 //extern NSRect AZScaledRect(NSSize aSize, NSRect inRect);
-
-
 /** Returns a rect with a width and height multiplied by the given factor and 
 by shifting the origin to retain the original rect center location. */
 static inline NSRect AZScaleRect(NSRect frame, CGFloat factor) {
@@ -60,8 +56,6 @@ static inline NSRect AZScaleRect(NSRect frame, CGFloat factor) {
 
 	return frame;
 }
-
-
 @class AZPoint;
 @interface AZRect : AZPoint {
   CGFloat width;

@@ -19,8 +19,6 @@
 //	|| ([thing respondsToSelector:@selector(count)]  && [(NSArray *)thing count] == 0)
 //	|| NO;
 //}
-
-
 CIFilter* CIFilterDefaultNamed(NSString* name){
 	CIFilter *x = [CIFilter filterWithName:name];
 	[x setDefaults];
@@ -54,8 +52,6 @@ NSString* bitString(NSUInteger mask){	NSString *str = @""; // Prepend "0" or "1"
 	return str;
 }
 
-
-
 int (^triple)(int) = ^(int number) {
     return number * 3;
 };
@@ -70,8 +66,6 @@ id LogAndReturn(id toLog) {
 //	return toLog;
 //};
 
-
-
 //id (^logAndReturn)(id) = ^(id toLog) {
 //	AZLOG(toLog); return toLog;
 //};
@@ -80,8 +74,6 @@ NSString* stringForPosition(AZWindowPosition enumVal)
 {
 	return  [[NSArray alloc]initWithObjects:AZWindowPositionTypeArray][enumVal];
 }
-
-
 NSString* AZStringFromRect(NSRect rect){
 	return $(@"x.%0.f y.%0.f %0.fw %0.fh", rect.origin.x, rect.origin.x, rect.size.width, rect.size.height);
 }
@@ -96,14 +88,10 @@ void perceptualCausticColorForColor(CGFloat *inputComponents, CGFloat *outputCom
 extern void DrawGlossGradient(CGContextRef context, NSColor *color, NSRect inRect);
 extern void DrawLabelAtCenterPoint(NSString* string, NSPoint center);
 
-
-
 void NSRectFillWithColor (NSRect rect, NSColor* color){
 	[color set];
 	NSRectFill(rect);
 }
-
-
 
 //void _AZSimpleLog(const char *file, int lineNumber, const char *funcName, NSString *format,...){
 // va_list argList;
@@ -173,8 +161,6 @@ NSUInteger normalizedNumberLessThan (id number, NSUInteger max){
 	u = u <=max ? u : max;
 	return u;
 }
-
-
 //static inline
 //BOOL isEmpty(id thing){
 //	return	thing == nil
@@ -182,8 +168,6 @@ NSUInteger normalizedNumberLessThan (id number, NSUInteger max){
 //	|| ([thing respondsToSelector:@selector(count)]  && [(NSArray *)thing count] == 0)
 //	|| NO;
 //}
-
-
 BOOL IsEmpty(id obj) {
 	return 		obj == nil
 			|| 	(NSNull *)obj == [NSNull null]
@@ -222,8 +206,6 @@ extern void ApplicationsInDirectory(NSString *searchPath, NSMutableArray *applic
     }];
 }
 
-
-
 //	BOOL isDir;
 //    NSFileManager *manager = [NSFileManager defaultManager];
 //    NSArray *files = [manager contentsOfDirectoryAtPath:searchPath error:nil];
@@ -238,8 +220,6 @@ extern void ApplicationsInDirectory(NSString *searchPath, NSMutableArray *applic
 //        }
 //    }
 //}
-
-
 //void WithAutoreleasePool(BasicBlock block) {
 //	@autoreleasepool {
 //		block();
@@ -263,8 +243,6 @@ static CGEventRef myEventTapCallback (	CGEventTapProxy proxy,	CGEventType type,	
 		// Pass on the event, we must not modify it anyway, we are a listener
     return event;
 }
-
-
 
 void trackMouse() {		CGEventMask emask;	CFMachPortRef myEvTap;	CFRunLoopSourceRef evTapRLSrc;
 						// We only want one kind of event at the moment: The mouse has moved
@@ -298,8 +276,6 @@ void trackMouse() {		CGEventMask emask;	CFMachPortRef myEvTap;	CFRunLoopSourceRe
 
 	// Log levels: off, error, warn, info, verbose
 	//static const int ddLogLevel = LOG_LEVEL_VERBOSE;
-
-
 //
 //void _AZLog(const char *file, int lineNumber, const char *funcName, NSString *format,...) {
 //	va_list arglist;
@@ -344,8 +320,6 @@ void trackMouse() {		CGEventMask emask;	CFMachPortRef myEvTap;	CFRunLoopSourceRe
 //    va_end(argList);
 //}
 
-
-
 //void QuietLog (NSString *format, ...) { if (format == nil) { printf("nil\n"); return; }
 //	// Get a reference to the arguments that follow the format parameter
 //    va_list argList;  va_start(argList, format);
@@ -386,8 +360,6 @@ static void HackNSLog(void){
 //	NSString *message = [[NSString alloc] initWithFormat:format arguments:argList];
 //	fprintf (stderr, "*** %s ***\n", [message UTF8String]); 	va_end  (argList);
 //} // QuietLog
-
-
 void perceptualCausticColorForColor(CGFloat *inputComponents, CGFloat *outputComponents) {
     const CGFloat CAUSTIC_FRACTION = 0.60;
     const CGFloat COSINE_ANGLE_SCALE = 1.4;
@@ -448,8 +420,6 @@ CGFloat perceptualGlossFractionForColor(CGFloat *inputComponents)
     glossScale = pow(glossScale, REFLECTION_SCALE_NUMBER);
     return glossScale;
 }
-
-
 void DrawGlossGradient(CGContextRef context, NSColor *color, NSRect inRect) {
     const CGFloat EXP_COEFFICIENT = 1.2;
     const CGFloat REFLECTION_MAX = 0.60;
@@ -495,13 +465,9 @@ void DrawGlossGradient(CGContextRef context, NSColor *color, NSRect inRect) {
     CGFunctionRelease(gradientFunction);
 }
 
-
-
 void PoofAtPoint( NSPoint pt, CGFloat radius){
 	NSShowAnimationEffect(NSAnimationEffectPoof, pt, (CGSize){radius, radius}, nil, 0, nil);
 }
-
-
 
 
 extern void DrawLabelAtCenterPoint(NSString* string, NSPoint center) {
@@ -511,19 +477,13 @@ extern void DrawLabelAtCenterPoint(NSString* string, NSPoint center) {
     NSRect labelRect = NSMakeRect(center.x - 0.5 * labelSize.width, center.y - 0.5 * labelSize.height, labelSize.width, labelSize.height);
     [string drawInRect:labelRect withAttributes:attributes];
 }
-
-
 #import <CoreServices/CoreServices.h>
 #import <stdlib.h>
-
-
 static void PrintUsageAndQuit(void)
 {
 	printf("Usage: tmtool <status|include|exclude|excludep> <path>\n");
 	exit(EXIT_FAILURE);
 }
-
-
 
 //static
 double frandom(double start, double end)
@@ -555,8 +515,6 @@ double frandom(double start, double end)
 //    return [self subarrayWithRange: NSMakeRange([slice start], [slice length])];
 //}
 //@end
-
-
 /*
 int main(int argc, char **argv)
 {	@autoreleasepool
@@ -581,8 +539,6 @@ int main(int argc, char **argv)
 	// )
 
 
-
-
 	//@interface  NSArray (SubscriptsAdd)
 	//- (id)objectAtIndexedSubscript:(NSUInteger)index;
 	//@end
@@ -596,8 +552,6 @@ int main(int argc, char **argv)
 	//@interface  NSMutableDictionary (SubscriptsAdd)
 	//- (void)setObject:(id)object forKeyedSubscript:(id)key;
 	//@end
-
-
 #include <AvailabilityMacros.h>
 #include <TargetConditionals.h>
 
@@ -640,8 +594,6 @@ int main(int argc, char **argv)
 	// CPP symbols that can be overridden in a prefix to control how the toolbox
 	// is compiled.
 	// ----------------------------------------------------------------------------
-
-
 	// By setting the _CONTAINERS_VALIDATION_FAILED_LOG and
 	// GTM_CONTAINERS_VALIDATION_FAILED_ASSERT macros you can control what happens
 	// when a validation fails. If you implement your own validators, you may want
@@ -704,8 +656,6 @@ int main(int argc, char **argv)
 	// prefix header.  Remember, any implementation you provide *must* be thread
 	// safe since this could be called by anything in what ever situtation it has
 	// been placed in.
-
-
 	// We only define the simple macros if nothing else has defined this.
 #ifndef _GTMDevLog
 
@@ -810,8 +760,6 @@ typedef char _GTMCompileAssertSymbol(__LINE__, msg) [ ((test) ? 1 : -1) ]
 #endif
 #endif
 */
-
-
 	// To simplify support for 64bit (and Leopard in general), we provide the type
 	// defines for non Leopard SDKs
 #if !(MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
@@ -908,8 +856,6 @@ typedef float CGFloat;
 #define NS_CONSUMES_SELF
 #endif
 #endif
-
-
 //#else /* !defined(__LP64__) || !__LP64__ */
 //typedef float CGFloat;
 //#define CGFLOAT_MIN FLT_MIN
@@ -1013,8 +959,6 @@ typedef float CGFloat;
 //@class NSString;
 //GTM_EXTERN void _GTMUnitTestDevLog(NSString *format, ...);
 //
-
-
 	// Macro to allow you to create NSStrings out of other macros.
 	// #define FOO foo
 	// NSString *fooString = GTM_NSSTRINGIFY(FOO);
@@ -1051,8 +995,6 @@ GTM_FOREACH_ENUMEREE(element, [collection keyEnumerator])
 #import <objc/objc-api.h>
 #import <objc/objc-auto.h>
 
-
-
 	// The file objc-runtime.h was moved to runtime.h and in Leopard, objc-runtime.h
 	// was just a wrapper around runtime.h. For the iPhone SDK, this objc-runtime.h
 	// is removed in the iPhoneOS2.0 SDK.
@@ -1087,20 +1029,12 @@ OBJC_EXPORT BOOL sel_isEqual(SEL lhs, SEL rhs);
 
 */
 
-
-
 int max(int x, int y)
 {
     return x > y ? x : y;
 }
 
-
-
-
-
 	// Released by Drew McCormack into the pubic domain (2010).
-
-
 
 #if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5
 #import <stdlib.h>
@@ -1247,17 +1181,9 @@ BOOL sel_isEqual(SEL lhs, SEL rhs) {
 #endif
 
 
-
-
-
-
-
-
 NSString *const AtoZSharedInstanceUpdated = @"AtoZSharedInstanceUpdated";
 NSString *const AtoZDockSortedUpdated = @"AtoZDockSortedUpdated";
 NSString *const AtoZSuperLayer = @"superlayer";
-
-
 CGFloat ScreenWidess(){
 	return  [[NSScreen mainScreen]frame].size.width;
 }
@@ -1285,10 +1211,6 @@ NSNumber* DegreesToNumber(CGFloat degrees) {
     return [NSNumber numberWithFloat:
             DegreesToRadians(degrees)];
 }
-
-
-
-
 
 /*
  // Defined on 10.6 and above.
@@ -1427,8 +1349,6 @@ NSNumber* DegreesToNumber(CGFloat degrees) {
  // CPP symbols that can be overridden in a prefix to control how the toolbox
  // is compiled.
  // ----------------------------------------------------------------------------
-
-
  // By setting the GTM_CONTAINERS_VALIDATION_FAILED_LOG and
  // GTM_CONTAINERS_VALIDATION_FAILED_ASSERT macros you can control what happens
  // when a validation fails. If you implement your own validators, you may want
@@ -1491,8 +1411,6 @@ NSNumber* DegreesToNumber(CGFloat degrees) {
  // prefix header.  Remember, any implementation you provide *must* be thread
  // safe since this could be called by anything in what ever situtation it has
  // been placed in.
-
-
  // We only define the simple macros if nothing else has defined this.
  #ifndef _GTMDevLog
 

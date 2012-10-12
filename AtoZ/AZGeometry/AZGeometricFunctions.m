@@ -9,8 +9,6 @@
 #import "AZGeometricFunctions.h"
 #import "AtoZ.h"
 #import <Quartz/Quartz.h>
-
-
 BOOL AZEqualRects(NSR r1, NSR r2){
 	return NSEqualRects(r1,r2);
 }
@@ -28,8 +26,6 @@ CGPoint AZAnchorPointForPosition( AZWindowPosition pos){
 		 : pos == AZPositionRight  ? AZAnchorRight
 		 : (CGPoint) {  0,.5 };
 }
-
-
 CGPoint randomPointInRect (CGRect rect)
 {
 	CGPoint point = CGPointZero;
@@ -42,8 +38,6 @@ CGPoint randomPointInRect (CGRect rect)
 
 	return point;
 }
-
-
 
 NSNumber *iNum(NSInteger i) {
   return [NSNumber numberWithInt:i];
@@ -102,8 +96,6 @@ NSPoint AZPointOffsetX (NSPoint p, CGFloat distance) {
 	p.x += distance;
 	return p;
 }
-
-
 //
 //CGSize AZAspectRatio(NSRect rect ){
 
@@ -116,8 +108,6 @@ CGFloat AZPerimeter (NSRect rect) {
 CGFloat AZPermineterWithRoundRadius (NSRect rect, CGFloat radius) {
 	return  ( AZPerimeter(rect) - ( ( 8 - (   (2 * pi) * radius)   )));
 }
-
-
 NSRect AZScreenFrameUnderMenu() {
 	return AZRectTrimmedOnTop( [[NSScreen mainScreen]frame], AZMenuBarThickness());
 }
@@ -132,19 +122,13 @@ NSSize AZScreenSize() {
 //
 // 2D Functions
 //
-
-
 CGFloat AZMinDim(NSSize sz) {
 	return MIN(sz.width, sz.height);
 }
 
-
-
 CGFloat AZMaxDim(NSSize sz) {
 	return MAX(sz.width, sz.height);
 }
-
-
 CGFloat AZMaxEdge(NSRect r){
 	return AZMaxDim(r.size);
 }
@@ -182,8 +166,6 @@ CGFloat distanceFromPoint (NSPoint p1, NSPoint p2) {
 	temp += pow(p1.y - p2.y, 2);
 	return (CGFloat)sqrt(temp);
 }
-
-
 NSPoint NSMakeRandomPointInRect(NSRect rect) {
     CGPoint point = CGPointZero;
     NSInteger max = rect.size.width;
@@ -195,8 +177,6 @@ NSPoint NSMakeRandomPointInRect(NSRect rect) {
 
     return point;
 }
-
-
 //
 // NSPoint result functions
 //
@@ -301,8 +281,6 @@ NSPoint AZDividePointByPoint(NSPoint point, NSPoint divisor) {
 NSPoint AZDividePointBySize(NSPoint point, NSSize divisor) {
   return NSMakePoint(point.x / divisor.width, point.y / divisor.height);
 }
-
-
 NSPoint AZMovePoint(NSPoint origin, NSPoint target, CGFloat p) {
   // delta = distance fom target to origin
   NSPoint delta = AZSubtractPoints(target, origin);
@@ -349,8 +327,6 @@ NSPoint AZEndOfRect(NSRect rect) {
   return NSMakePoint(rect.origin.x + rect.size.width,
                      rect.origin.y + rect.size.height);
 }
-
-
 /*
  *   +-------+
  *   |       |   
@@ -452,8 +428,6 @@ NSPoint AZPointDistanceToBorderOfRect(NSPoint point, NSRect rect) {
 
   return re;
 }
-
-
 NSPoint AZPointFromDim(CGFloat val){
 	return (NSPoint){val,val};
 }
@@ -464,8 +438,6 @@ NSPoint AZPointFromDim(CGFloat val){
 NSRect AZRectFromDim(CGFloat dim) {
 	return (NSRect){0,0,dim,dim};
 }
-
-
 NSSize AZSizeFromDimension(CGFloat dim) {
 	return NSMakeSize(dim, dim);
 }
@@ -473,8 +445,6 @@ NSSize AZSizeFromDimension(CGFloat dim) {
 NSSize AZSizeFromPoint(NSPoint point) {
   return NSMakeSize(point.x, point.y);
 }
-
-
 
 NSSize AZAbsSize(NSSize size) {
   return NSMakeSize(ABS(size.width), ABS(size.height));
@@ -536,13 +506,9 @@ NSSize AZSizeBound(NSSize preferred, NSSize minSize, NSSize maxSize) {
   
   return re;
 }
-
-
 //
 // NSRect result functions
 //
-
-
 NSRect AZRectVerticallyOffsetBy(CGRect rect, CGFloat offset) {
 	rect.origin.y += offset;
 	return  rect;
@@ -552,8 +518,6 @@ NSRect AZRectHorizontallyOffsetBy(CGRect rect, CGFloat offset) {
 	rect.origin.x += offset;
 	return  rect;
 }
-
-
 
 NSRect AZFlipRectinRect(CGRect local, CGRect dest)
 {
@@ -573,8 +537,6 @@ NSRect AZZeroHeightBelowMenu() {
 	e.size.height = 0;
 	return e;
 }
-
-
 NSRect AZMenuBarFrame() {
 	return AZUpperEdge( AZScreenFrame(), AZMenuBarThickness());
 }
@@ -586,21 +548,15 @@ NSRect AZMenulessScreenRect() {
 	e.size.height -= 22;
 	return e;
 }
-
-
 CGFloat AZHeightUnderMenu () {
 	return ( [[NSScreen mainScreen]frame].size.height - [[NSStatusBar systemStatusBar] thickness] );
 }
-
-
 NSRect AZMakeRectMaxXUnderMenuBarY(CGFloat distance) {
 	NSRect rect = [[NSScreen mainScreen]frame];
 	rect.origin = NSMakePoint(0,rect.size.height - 22 - distance);
 	rect.size.height = distance;
 	return rect;
 }
-
-
 
 NSRect AZMakeRectFromPoint(NSPoint point) {
   return NSMakeRect(point.x, point.y, 0, 0);
@@ -620,8 +576,6 @@ NSRect AZMakeSquare(NSPoint center, CGFloat radius) {
                     2 * radius, 
                     2 * radius);
 }
-
-
 NSRect AZMultiplyRectBySize(NSRect rect, NSSize size) {
   return NSMakeRect(rect.origin.x    * size.width,
                     rect.origin.y    * size.height,
@@ -645,8 +599,6 @@ NSRect AZAbsoluteToRelativeRect(NSRect a, NSRect b) {
                     a.size.height / b.size.height
                     );
 }
-
-
 NSRect AZPositionRectOnRect(NSRect inner, NSRect outer, NSPoint position) {
   return NSMakeRect(outer.origin.x 
                     + (outer.size.width - inner.size.width) * position.x, 
@@ -705,8 +657,6 @@ NSRect AZRectTrimmedOnTop(NSRect rect, CGFloat height) {
 	return (NSRect) {	rect.origin.x, 					rect.origin.y,
 						rect.size.width,  				(rect.size.height - height)	};
 }
-
-
 NSRect AZRectExceptWide(NSRect rect, CGFloat wide) {
 	return (NSRect) {	rect.origin.x, 	rect.origin.y, wide, rect.size.height};
 }
@@ -830,8 +780,6 @@ NSPoint rectOffset(NSRect innerRect,NSRect outerRect, NSInteger quadrant){
                            (quadrant == 4 || quadrant == 3) ? NSMaxY(outerRect)-NSMaxY(innerRect) : NSMinY(outerRect)-NSMinY(innerRect));
     return NSMakePoint(NSMidX(outerRect)-NSMidX(innerRect),NSMidY(outerRect)-NSMidY(innerRect)); //Center Rects
 }
-
-
 int oppositeQuadrant(int quadrant){
     quadrant = quadrant + 2;
     quadrant%=4;
@@ -857,16 +805,12 @@ NSRect alignRectInRect(NSRect innerRect,NSRect outerRect,int quadrant){
 }
 
 
-
-
 NSRect rectZoom(NSRect rect,float zoom,int quadrant){
     NSSize newSize=NSMakeSize(NSWidth(rect)*zoom,NSHeight(rect)*zoom);
     NSRect newRect=rect;
     newRect.size=newSize;
     return newRect;
 }
-
-
 NSRect sizeRectInRect(NSRect innerRect,NSRect outerRect,bool expand){
     float proportion=NSWidth(innerRect)/NSHeight(innerRect);
     NSRect xRect=NSMakeRect(0,0,outerRect.size.width,outerRect.size.width/proportion);
@@ -959,8 +903,6 @@ NSRectEdge touchingEdgeForRectInRect(NSRect innerRect, NSRect outerRect){
     return -1;
 }
 
-
-
 NSRect rectFromSize(NSSize size){
     return NSMakeRect(0,0,size.width,size.height);
 }
@@ -983,8 +925,6 @@ int closestCorner(NSRect innerRect,NSRect outerRect){
     return closestCorner;
 }
 
-
-
 NSRect blendRects(NSRect start, NSRect end,float b){
     
     return NSMakeRect(  round(NSMinX(start)*(1-b) + NSMinX(end)*b),
@@ -996,8 +936,6 @@ NSRect blendRects(NSRect start, NSRect end,float b){
 void logRect(NSRect rect){
 //QSLog(@"(%f,%f) (%fx%f)",rect.origin.x,rect.origin.y,rect.size.width,rect.size.height);
 }
-
-
 
 
 AZOrient deltaDirectionOfPoints(NSPoint a, NSPoint b){

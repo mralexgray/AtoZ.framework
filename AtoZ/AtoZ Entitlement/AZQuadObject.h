@@ -4,8 +4,6 @@
 
 //  Created by Alex Gray on 8/27/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-
-
 #import <Foundation/Foundation.h>
 #import <AtoZ/AtoZ.h>
 #import "AZEntitlementDelegate.h"
@@ -31,8 +29,6 @@
 -(void) advance;
 -(void) rewind;
 @end
-
-
 //@property (nonatomic, strong) IBOutlet NSArray *southWest;
 //@property (nonatomic, strong) IBOutlet NSArray *northEast;
 //@property (nonatomic, assign) iCarouselType type;

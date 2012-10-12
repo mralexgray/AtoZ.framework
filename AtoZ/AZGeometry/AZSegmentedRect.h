@@ -16,8 +16,6 @@
 @interface AZSegmentedRect : AZRect {	NSPoint segments;			BOOL emptyBorder;
   										NSSize minimumSegmentSize;	NSSize maximumSegmentSize;
 }
-
-
 //+(AZSegmentedRect *) rectsInside:  (NSRect) rect NSIInside: (NSRect)	rect;
 
 +(AZSegmentedRect *) rectWithRect: (NSRect)	rect;
@@ -53,8 +51,6 @@
 - (NSPoint) pointWithString: 	(NSString *) string;
 
 @end
-
-
 @interface AZRect (AZSegmentedRect)
 
 - (AZSegmentedRect*) segmentedRect;
@@ -62,8 +58,6 @@
 - (AZSegmentedRect*) segmentedRectWithWidth: 	 (NSUInteger) width 	height: (NSUInteger) height;
 
 @end
-
-
 @interface NSBezierPath (AZSegmentedRect) 
 
 - (id) traverseSegments: (NSString *) segmentDefinition inRect: (AZSegmentedRect *) segmentedRect;

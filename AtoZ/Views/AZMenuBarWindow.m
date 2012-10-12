@@ -9,8 +9,6 @@
 #import "AZMenuBarWindow.h"
 
 @implementation AZMenuBarWindow
-
-
 - (id) init {    self = [self initWithContentRect:[[NSScreen mainScreen] frame]
 										styleMask:NSBorderlessWindowMask	backing:NSBackingStoreBuffered	defer:NO];
 

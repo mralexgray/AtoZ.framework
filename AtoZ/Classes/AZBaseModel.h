@@ -30,8 +30,6 @@
 
 //  3. This notice may not be removed or altered from any source distribution.
 
-
-
 #import <Foundation/Foundation.h>
 #import <Cocoa/Cocoa.h>
 #import <objc/message.h>
@@ -42,8 +40,6 @@
 //#import "NSObject+AtoZ.h"
 
 extern NSString *const AZBaseModelSharedInstanceUpdatedNotification;
-
-
 //the BaseModel protocol defines optional methods that
 //you can define on your BaseModel subclasses to extend their functionality
 
@@ -75,8 +71,6 @@ extern NSString *const AZBaseModelSharedInstanceUpdatedNotification;
 
 @interface AZBaseModel : NSObject
 <AZBaseModel, NSCoding, NSCopying, NSFastEnumeration>
-
-
 
 //new autoreleased instance
 + (instancetype)instance;
@@ -127,8 +121,6 @@ extern NSString *const AZBaseModelSharedInstanceUpdatedNotification;
 //to your preprocessor macros in the project build settings
 @property (nonatomic, strong) NSString *uniqueID;
 
-
-
 - (void)enumerateObjectsUsingBlock:(void (^)(id obj, NSUInteger idx, BOOL *stop))block;
 
 - (id) objectAtIndexedSubscript: (NSInteger) index;
@@ -139,15 +131,11 @@ extern NSString *const AZBaseModelSharedInstanceUpdatedNotification;
 //#endif
 
 @property (nonatomic, strong) NSMutableArray *backingstore;
-
-
 - (id)randomElement;
 - (NSArray *)shuffeled;
 - (NSArray *)randomSubarrayWithSize:(NSUInteger)size;
 - (id)objectAtNormalizedIndex:(NSInteger)index;
 - (id)normal:(NSInteger)index;
-
-
 
 
 - (void) eachWithIndex:(VoidIteratorArrayWithIndexBlock) block;
@@ -156,13 +144,9 @@ extern NSString *const AZBaseModelSharedInstanceUpdatedNotification;
 - (NSArray*) filter:(BoolArrayBlock) block;
 - (NSString*) saveInstanceInAppSupp;
 + (instancetype) instanceWithID:(NSString*)uniqueID;
-
-
 	// NSCODING extras
 + (id)retrieve:(NSString *)key;
 + (BOOL)persist:(id)object key:(NSString *)key;
 + (BOOL)delete:(NSString *)key;
 + (BOOL)deleteEverything;
-
-
 @end

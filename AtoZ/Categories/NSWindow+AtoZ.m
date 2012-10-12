@@ -15,11 +15,7 @@
 
 #import "NSWindow+AtoZ.h"
 //#import <Carbon/Carbon.h>/
-
-
 @implementation NSWindow (NoodleEffects)
-
-
 
 - (void)animateToFrame:(NSRect)frameRect duration:(NSTimeInterval)duration
 {
@@ -141,13 +137,9 @@
 
 	[zoomWindow close];
 }
-
-
 @end
 
 @implementation NSWindow (AtoZ)
-
-
 +(NSArray*) allWindows {
 	return (__bridge_transfer id)CGWindowListCopyWindowInfo(kCGWindowListOptionAll, kCGNullWindowID);
 }	
@@ -184,8 +176,6 @@
 //	CGImageRef img =	NSBitmapImageRep *bitmap = [[NSBitmapImageRep alloc] initWithCGImage:img];	CFRelease(img);	return bitmap;
 
 }
-
-
 - (void)veil:(NSView*)view;
 {
 		CALayer* rooot = ( [[self contentView]layer] ? [[self contentView]layer] : [[CALayer alloc]init]);
@@ -256,8 +246,6 @@ return midpoint;
 	
 	[self setFrame:frame display:displayFlag animate:animateFlag];
 }
-
-
 /** @brief 	The method 'center' puts the window really close to the top of the screen.  
  This method puts it not so close. */
 - (void)betterCenter {
@@ -284,8 +272,6 @@ return midpoint;
 	
 	return toolbarHeight;
 }
-
-
 + (NSWindow*) borderlessWindowWithContentRect: (NSRect)aRect  {
 	NSWindow *new = [[NSWindow alloc] initWithContentRect:aRect styleMask: NSBorderlessWindowMask
 												  backing: NSBackingStoreBuffered	 defer: NO];
@@ -294,8 +280,6 @@ return midpoint;
 }
 
 @end
-
-
 
 //  CocoatechCore
 @interface NSWindow (NSDrawerWindowUndocumented)
@@ -611,8 +595,6 @@ return midpoint;
     [NSAnimationContext endGrouping];
 }
 
-
-
 - (void) slideTo:(NSString*)rect {
 	[NSAnimationContext beginGrouping];
 	[[NSAnimationContext currentContext] setKey:kCAMediaTimingFunctionEaseInEaseOut ];
@@ -636,8 +618,6 @@ return midpoint;
 //		}
 //	}];
 //	[[self animator] setContentSize:frame.size display:YES animate:YES];
-
-
 //    [NSAnimationContext endGrouping];
 
 //}
@@ -695,8 +675,6 @@ return midpoint;
 	CABasicAnimation *fader = [CABasicAnimation animationWithKeyPath:@"alphaValue"];
 	[fader setFromValue:@0.f];
 	[fader setToValue:@1.f];
-
-
 	[self setAnimations:	@{ @"frame" : animation}];
 
 	[[self animator] setFrame:newViewFrame display:YES];
@@ -774,8 +752,6 @@ return midpoint;
 //This is the core of it - it just extends or shrinks the window's bottom edge by the given amount, leaving all the current subviews undisturbed. It could probably most usefully be a catego
 @end
 
-
-
 @implementation NSWindow (UKFade)
 
 -(void)     fadeInWithDuration: (NSTimeInterval)duration
@@ -803,8 +779,6 @@ return midpoint;
 							  @(stepSize), @"stepSize",
 							  nil];    // Releases of any old fades.
 }
-
-
 -(void) fadeInOneStep: (NSTimer*)timer
 {
     NSString*   key = [NSString stringWithFormat: @"%@", self];
@@ -820,8 +794,6 @@ return midpoint;
     //NSLog(@"Fading in: %f", newAlpha);		// DEBUG ONLY!
     [self setAlphaValue: newAlpha];
 }
-
-
 -(void)     fadeOutWithDuration: (NSTimeInterval)duration
 {
     if( !pendingFades )
@@ -885,8 +857,6 @@ return midpoint;
 	//NSLog(@"Fading out: %f", newAlpha);		// DEBUG ONLY!
 	[self setAlphaValue: newAlpha];
 }
-
-
 -(void)	fadeToLevel: (int)lev withDuration: (NSTimeInterval)duration
 {
     if( !pendingFades )
@@ -912,7 +882,5 @@ return midpoint;
     [[NSRunLoop currentRunLoop] addTimer: timer forMode: NSModalPanelRunLoopMode];
     [[NSRunLoop currentRunLoop] addTimer: timer forMode: NSEventTrackingRunLoopMode];
 }
-
-
 @end
 

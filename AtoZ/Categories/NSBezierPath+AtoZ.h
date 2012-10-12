@@ -1,8 +1,6 @@
 
 //  GTMNSBezierPath+CGPath.h
 
-
-
 #import <Cocoa/Cocoa.h>
 #import <AppKit/AppKit.h>
 
@@ -33,8 +31,6 @@ typedef enum {
 - (void)appendBezierPathWithRoundedRect:(NSRect)rect cornerRadius:(float)radius;
 + (NSBezierPath *)bezierPathWithTriangleInRect:(NSRect)aRect orientation:(AMTriangleOrientation)orientation;
 - (void)appendBezierPathWithTriangleInRect:(NSRect)aRect orientation:(AMTriangleOrientation)orientation;
-
-
 - (void) drawWithFill:(NSColor*)fill andStroke:(NSColor*)stroke;
 - (void)fillGradientFrom:(NSColor*)inStartColor to:(NSColor*)inEndColor angle:(float)inAngle;
 
@@ -47,13 +43,9 @@ typedef enum {
 - (NSRect)nonEmptyBounds;
 
 - (NSPoint)associatedPointForElementAtIndex:(NSUInteger)anIndex;
-
-
 + (NSBezierPath *)bezierPathWithRoundedRect:(NSRect)aRect cornerRadius:(CGFloat)radius;
 + (NSBezierPath *)bezierPathWithRoundedRect:(NSRect)aRect cornerRadius:(CGFloat)radius inCorners:(OSCornerType)corners;
 - (CGPathRef)quartzPath;
-
-
 + (NSBezierPath *)bezierPathWithCGPath:(CGPathRef)pathRef;
 - (CGPathRef)cgPath;
 ///  Extract a CGPathRef from a NSBezierPath.
@@ -116,8 +108,6 @@ typedef enum {
 - (NSBezierPath *)bezierPathByScalingToSize:(NSSize)newSize;
 
 @end
-
-
 /*
 
  Available at
@@ -145,8 +135,6 @@ typedef enum {
  The remaining methods allow finer control of the colour usage and are
  helper methods for doing the drawing.
  */
-
-
 @interface NSBezierPath (ESPoints)
 
 - (void) drawPointsAndHandles;

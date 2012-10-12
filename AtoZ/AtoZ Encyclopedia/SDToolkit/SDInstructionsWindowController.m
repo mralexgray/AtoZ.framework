@@ -31,7 +31,7 @@
 	NSArray *imageNames = [delegate instructionImageNames];
 	
 	for (NSString *imageName in imageNames) {
-		NSImage *image = ( [NSImage imageNamed:imageName] ? [NSImage imageNamed:imageName] : [NSImage imageInFrameworkWithFileName:imageName]);
+		NSImage *image = ( [NSImage imageNamed:imageName] ? [NSImage imageNamed:imageName] : [NSImage az_imageNamed:imageName]);
 
 		NSRect imageViewFrame = NSZeroRect;
 		imageViewFrame.size = [imageViewContainer frame].size;
@@ -46,8 +46,6 @@
 		[imageViews addObject:imageView];
 
 		NSLog(@"colors  %@", [image quantize]);
-
-
 	}
 	
 	// to make it appear right away in the window

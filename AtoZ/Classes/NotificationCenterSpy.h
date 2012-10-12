@@ -12,8 +12,6 @@
 //  Call the method again to disable
 
 #import <Foundation/Foundation.h>
-
-
 #define AZNOTCENTERSPYTOGGLE [NotificationCenterSpy toggleSpyingAllNotifications]
 
 @interface NotificationCenterSpy : NSObject

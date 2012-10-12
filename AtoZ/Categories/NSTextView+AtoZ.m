@@ -5,8 +5,6 @@
 //  Created by Alex Gray on 9/16/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 //
-
-
 #import "NSTextView+AtoZ.h"
 
 @implementation AZTextViewResponder
@@ -14,11 +12,7 @@
 	[[self nextResponder] mouseDown:theEvent];
 }
 @end
-
-
 @implementation NSTextView (AtoZ)
-
-
 + (AZTextViewResponder*)  textViewForFrame:(NSRect)frame withString:(NSAttributedString*)s {
 
 	NSMutableParagraphStyle *style = [[NSParagraphStyle defaultParagraphStyle]mutableCopy];//

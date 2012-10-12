@@ -5,12 +5,8 @@
 //  Created by Matt Gemmell on Thu Jan 08 2004.
 //  <http://iratescotsman.com/>
 
-
-
 #import "TransparentWindow.h"
 #import "AtoZ.h"
-
-
 
 @interface   TransparentWindow ()
 
@@ -21,8 +17,6 @@ NSRect RectFromScreen(NSRect aRect, NSView *aView);
 NSRect RectFromViewToView(NSRect aRect, NSView *fromView, NSView *toView);
 - (CAAnimation *) animationWithDuration:(CGFloat)time flip:(BOOL)bFlip right:(BOOL)rightFlip;
 @end
-
-
 @implementation TransparentWindow
 
 - (id) initWithContentRect:(NSRect)contentRect       	  styleMask:(NSUInteger)aStyle
@@ -45,14 +39,10 @@ NSRect RectFromViewToView(NSRect aRect, NSView *fromView, NSView *toView);
     
     return nil;
 }
-
-
 - (BOOL) canBecomeKeyWindow
 {
     return YES;
 }
-
-
 
 @synthesize flipRight;
 @synthesize duration;
@@ -87,8 +77,6 @@ NSRect RectFromViewToView(NSRect aRect, NSView *fromView, NSView *toView);
 	 [layer setShadowOpacity:0.5f];
 	 [layer setShadowOffset:CGSizeMake(0,-10)];
 	 [layer setShadowRadius:15.0f];
-
-
 	 return layer;
 }
 
@@ -233,8 +221,6 @@ NSRect RectFromViewToView(NSRect aRect, NSView *fromView, NSView *toView) {
 }
 
 
-
-
 /*- (void)mouseDragged:(NSEvent *)theEvent
 {
     NSPoint currentLocation;
@@ -269,8 +255,6 @@ NSRect RectFromViewToView(NSRect aRect, NSView *fromView, NSView *toView) {
     
     [self setFrameOrigin:newOrigin];
 }
-
-
 - (void)mouseDown:(NSEvent *)theEvent
 {    
     NSRect windowFrame = [self frame];

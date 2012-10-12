@@ -14,8 +14,6 @@ typedef enum {
 	SFTrayInputRight = (1 << 6),
 } SFScrollerMouseDownInput;
 
-
-
 @interface AZScrollerLayer : CALayer < AZScrollerContentController > {
 
 	CALayer* leftArrow;

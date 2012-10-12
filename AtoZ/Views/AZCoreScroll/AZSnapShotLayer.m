@@ -14,8 +14,6 @@
 static NSInteger snapshotNumber;
 
 //@synthesize trannyLayer, constrainLayer, imageLayer, gradLayer;
-
-
 + (AZSnapShotLayer*) rootSnapWithFile:(AZFile *)file andDisplayMode:(AZDisplayMode)mode {
 
 	AZSnapShotLayer *u = [[self class] rootSnapshot];
@@ -57,8 +55,6 @@ static NSInteger snapshotNumber;
 //	labelLayer.position = CGPointrMake(50, 20+i*50);
 //	labelLayer.anchorPoint = AZCenterOfRect(contentLayer.bounds);
 //	labelLayer.bounds = CGRectMake(0, 0, contentLayer.bounds.size.w, contentLayer.bounds.size.height);
-
-
 //	AddBloom(labelLayer);
 	AddShadow(labelLayer);
 	AddPulsatingBloom(labelLayer);
@@ -70,8 +66,6 @@ static NSInteger snapshotNumber;
 	[root addSublayer:contentLayer];
 	return root;
 }
-
-
 - (void)didChangeValueForKey:(NSString *)key {
 		if ([key isEqualToString:@"bounds"] || [key isEqualToString:@"frame"]) {
 		_labelLayer.fontSize = _labelLayer.bounds.size.height;
@@ -102,8 +96,6 @@ static NSInteger snapshotNumber;
 //	CIImage *imageToDraw = [filter valueForKey:@"outputImage"];
 //	filter.name			= @"edges";
 //	imageLayer.filters 	= @[filter];
-
-
 
 }
 
@@ -155,6 +147,4 @@ static NSInteger snapshotNumber;
 
 	}
 }
-
-
 @end

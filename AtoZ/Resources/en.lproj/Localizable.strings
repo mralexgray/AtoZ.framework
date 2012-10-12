@@ -36,8 +36,6 @@
 /* IngredientType_image */
 "IngredientType_3" = "Image";
 
-
-
 /* IngredientType_text */
 "IngredientType_0" = "Text";
 /* IngredientType_audio */

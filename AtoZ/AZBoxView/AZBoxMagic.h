@@ -9,8 +9,6 @@
 #import <Cocoa/Cocoa.h>
 #import "AtoZ.h"
 #import "AZFile.h"
-
-
 @class AZBoxMagic;
 @protocol AZBoxMagicDataSource <NSObject>
 @required

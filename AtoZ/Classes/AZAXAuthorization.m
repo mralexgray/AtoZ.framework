@@ -11,8 +11,6 @@
 #import <Security/Security.h>
 //#import <AGFoundation/DBXGridView.h>
 #import "AZAXAuthorization.h"
-
-
 OSStatus LaunchPrivilegedProcess(NSString *path) {	AuthorizationRef  authRef;	OSStatus status =
 					AuthorizationCreate( NULL, kAuthorizationEmptyEnvironment, kAuthorizationFlagDefaults, &authRef);
     if (status == 	errAuthorizationSuccess) {

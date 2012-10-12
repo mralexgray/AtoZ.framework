@@ -7,8 +7,6 @@
 //
 
 #import "SDInstructionsWindow.h"
-
-
 @implementation SDInstructionsWindow
 
 - (void) swipeWithEvent:(NSEvent*)event {

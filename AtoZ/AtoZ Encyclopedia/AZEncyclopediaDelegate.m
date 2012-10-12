@@ -68,8 +68,6 @@
 	//}
 
 
-
-
 - (NSArray*)questionsForToggleView:(AZToggleArrayView *) view{
 	return 	@[@"Sort Alphabetically?", @"Sort By Color?" , @"Sort like Dock", @"Sort by \"Category\"?", @"Show extra app info?" ];
 
@@ -111,10 +109,6 @@
 	//		 ];
 	//}
 
-
-
-
-
 - (void)awakeFromNib {
 
 	splitView = [[[_window contentView]allSubviews]filterOne:^BOOL(id object) {
@@ -150,8 +144,6 @@
 	[pIndi startAnimation:pIndi];
 		//	[scaleSlider setAction:@selector(switchViewScale:)];
 		//	[orientButton setAction:@selector(swapOrient:)];
-
-
 	[[[NSWorkspace sharedWorkspace] notificationCenter] addObserver:statusView
 														   selector:@selector(activeAppDidChange:)
 															   name:NSWorkspaceDidActivateApplicationNotification object:nil];
@@ -213,8 +205,6 @@
 	//	[attachedWindow setBackgroundColor:CLEAR];
 
 
-
-
 	//	- (void)statusView:(AZStatusItemView *)statusItem isActive:(BOOL)active{
 	//
 	//		shroud = [[NSWindow alloc]initWithContentRect:[[NSScreen mainScreen]visibleFrame]  styleMask: NSBorderlessWindowMask backing: NSBackingStoreRetained defer: NO];
@@ -252,8 +242,6 @@
 	//			//	[statusView.menu  [self menu]];
 	//
 	//	}
-
-
 	//	- (void) showMenu {
 	//			// This will show the menu at the current mouse position
 	//		[statusItem.menu popUpMenuPositioningItem:[[statusItem menu] itemAtIndex:0] atLocation:[NSEvent mouseLocation] inView:nil];
@@ -286,8 +274,6 @@
 	//		//[NSImage imageNamed:@"statusimage_pressed"]];
 	//	[statusItem setHighlightMode:YES];
 	//	[statusItem setMenu:statusMenu];
-
-
 	//	[NSEvent addGlobalMonitorForEventsMatchingMask: NSMouseMoved
 	//										   handler:^(NSEvent *event){
 	//											   [self pointOnScreenDidChangeTo:event];
@@ -296,8 +282,6 @@
 	//													   [NSApp activateIgnoringOtherApps:YES];
 	//												   }
 	//										   }];
-
-
 - (void) applicationDidFinishLaunching:(NSNotification*)notification {
 	[self.vc.carousel reloadData];
 	[self loadNotes];
@@ -344,8 +328,6 @@
 
 	[self createNoteWithDictionary:@{@"title":@"wasa", @"frame": [NSValue valueWithRect:NSMakeRect( 200, 669,404, 77)] }];
 }
-
-
 - (void) saveNotes {
 	NSMutableArray *array = [NSMutableArray array];
 
@@ -393,8 +375,6 @@
 	if ([alert runModal] == NSAlertFirstButtonReturn)
 		[noteControllers removeAllObjects];
 }
-
-
 	// specifics
 
 - (void) appRegisteredSuccessfully {
@@ -427,8 +407,6 @@
 			//			}];
 		NSLog(@"%@, spot: %ld, match ", obj.name, obj.spot);//, oc.name, sorted.spotNew);
 															//			app.badgeValue = sorted.spotNew;
-
-
 		app.color = obj.color;
 		app.objectRep = obj;
 		[app setChildren:[[[obj propertiesPlease] allKeys] arrayUsingBlock:^id(NSString* key) {
@@ -443,8 +421,6 @@
 	[AZStopwatch stop:@"makingbadges"];
 	[sourceList reloadData];
 }
-
-
 - (IBAction)reload:(id)sender {
 
 	[sourceList reloadData];
@@ -455,8 +431,6 @@
 	//	NSArray *g = @[[AZFile instanceWithPath:@"/Applications/Safari.app"]];
 
 /*
-
-
  //LAYER
  self.root = [CALayer layer];
  root.name = @"root";
@@ -480,8 +454,6 @@
  }];
  [rootView setPostsBoundsChangedNotifications:YES];
  [[NSNotificationCenter defaultCenter] addObserver:self forKeyPath:NSViewBoundsDidChangeNotification];*/
-
-
 -(IBAction) cancel:(id) sender {
 	cancelled = YES;
 
@@ -505,8 +477,6 @@
 		} else NSLog(@"cancelled is YES");
 	}
 }
-
-
 -(void) pointOnScreenDidChangeTo:(NSEvent*)event {
 
 		//	NSPoint i = aPoint;÷
@@ -581,8 +551,6 @@
  [la addSublayer:root];
  [la popInAnimated];
  NSLog(@"Must log");
-
-
  }
  //	self.contentLayer = [CALayer layer];
 
@@ -590,8 +558,6 @@
 
  //	[self quadImage];
  //	NSRect r =
-
-
 
  AZSizer *cc = [AZSizer forQuantity:[AtoZ dockSorted].count inRect:[[_window contentView] frame]];
  NSLog(@"rects: %@", cc.rects);
@@ -674,11 +640,7 @@
  kk.frame = AZLowerEdge(_window.frame, 200);
  [_window.contentView addSubview:(NSView *)kk];
  //	Since the NSMatrix is a container for NSCell you need to fill them with something. In the example you posted you can do this by fetching the cell corresponding to your only row and column and setting the image.
-
-
  }
-
-
  - (void) doLayout {
 
  NSRect r 	= [AZSizer structForQuantity:[AtoZ dockSorted		].count inRect:[[_window contentView] frame]];
@@ -706,11 +668,7 @@
  //      imageLayer.transform = rot;
  //		box.identifier = $(@"%ldx%ld", rowindex, columnindex);
  }
-
-
  }
-
-
  [[_window contentView] setWantsLayer:YES];
  root = [CALayer layer];
  [[[_window contentView] layer] addSublayer: root ];
@@ -756,11 +714,7 @@
  //    [layer3 toggleShake];
  //    [layer4 toggleShake];
  }
-
-
  @end
-
-
 
 
  @implementation MineField
@@ -905,8 +859,6 @@
 
  @end
 
-
-
  @implementation Cell
 
  @synthesize hasMine;
@@ -925,8 +877,6 @@
 
  @end
  */
-
-
 #pragma mark -
 #pragma mark Source List Data Source Methods
 
@@ -940,16 +890,12 @@
 		return [sourceListItems count];
 	}
 	else {
-
-
 		return [[item children] count];
 	}
 }
 
 	//- (BOOL)sourceList:(AZSourceList*)aSourceList isItemExpandable:(id)item {
 	//
-
-
 - (id)sourceList:(AZSourceList*)aSourceList child:(NSUInteger)index ofItem:(id)item
 {
 		//Works the same way as the NSOutlineView data source: `nil` means a parent item
@@ -960,8 +906,6 @@
 		return [item children][index];
 	}
 }
-
-
 - (id)sourceList:(AZSourceList*)aSourceList objectValueForItem:(id)item
 {
 	return [item title];
@@ -969,11 +913,7 @@
 		//	return [[AtoZ dockSorted] filterOne:^BOOL(AZFile* object) {
 		//		return ( [object.uniqueID isEqualTo:[item identifier]] ? YES : NO);
 		//	}];
-
-
 }
-
-
 - (void)sourceList:(AZSourceList*)aSourceList setObjectValue:(id)object forItem:(id)item
 {
 
@@ -984,14 +924,10 @@
 	[item setTitle:[[item object]valueForKey:@"name"]];
 }
 
-
-
 - (BOOL)sourceList:(AZSourceList*)aSourceList isItemExpandable:(id)item
 {
 	return [item hasChildren];
 }
-
-
 - (BOOL)sourceList:(AZSourceList*)aSourceList itemHasBadge:(id)item
 {
 	if ([[item valueForKey:@"objectRep"] isKindOfClass:[AZFile class]])
@@ -1007,8 +943,6 @@
 	return first.color;
 
 }
-
-
 - (NSInteger)sourceList:(AZSourceList*)aSourceList badgeValueForItem:(id)item
 {
 	AZFile *first  = aSourceList.objectRep;
@@ -1020,14 +954,10 @@
 		//	return first.spotNew;
 		//	return [item badgeValue];
 }
-
-
 - (BOOL)sourceList:(AZSourceList*)aSourceList itemHasIcon:(id)item
 {
 	return [item hasIcon];
 }
-
-
 - (NSImage*)sourceList:(AZSourceList*)aSourceList iconForItem:(id)item
 {
 	return [item icon];
@@ -1057,8 +987,6 @@
 
 	return NO;
 }
-
-
 - (void)sourceListSelectionDidChange:(NSNotification *)notification
 {
 	NSIndexSet *selectedIndexes = [sourceList selectedRowIndexes];
@@ -1099,8 +1027,6 @@
 		//		[selectedItemLabel setStringValue:@"(none)"];
 		//	}
 }
-
-
 - (void)sourceListDeleteKeyPressedOnRows:(NSNotification *)notification
 {
 	NSIndexSet *rows = [notification userInfo][@"rows"];
@@ -1109,8 +1035,6 @@
 
 		//Do something here
 }
-
-
 + (void) initialize {
 
 		//	AZTalker *welcome = [AZTalker new];
@@ -1144,9 +1068,5 @@
 		//	root.transform = [contentLayer rectToQuad:[contentLayer bounds] quadTLX:0 quadTLY:0 quadTRX:image.size.width quadTRY:20 quadBLX:0 quadBLY:image.size.height quadBRX:image.size.width quadBRY:image.size.height + 90];
 		//[1]: http://codingincircles.com/2010/07/major-misunderstanding/
 }
-
-
-
-
 
 @end

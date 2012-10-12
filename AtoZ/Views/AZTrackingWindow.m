@@ -8,8 +8,6 @@ typedef struct AZTriPair {	AZTri uno;	AZTri duo;  				}AZTriPair;
 - (void) shake;
 @end
 
-
-
 @interface  AZTrackingWindow ()
 @property (nonatomic, strong) NSImageView* 		handle;
 @property (nonatomic, assign) BOOL 				showsHandle;
@@ -56,8 +54,6 @@ typedef struct AZTriPair {	AZTri uno;	AZTri duo;  				}AZTriPair;
 
 + (AZTrackingWindow*) oriented:(AZWindowPosition)o intruding:(CGFloat)d withDelegate:(id)del {
 	return [[self class] oriented:o intruding:d inRect:NSZeroRect withDelegate:del];		 }
-
-
 - (NSRect) outFrame {	NSSize w = self.visibleFrame.size;
 
 	return 	_position == AZPositionLeft
@@ -84,13 +80,9 @@ typedef struct AZTriPair {	AZTri uno;	AZTri duo;  				}AZTriPair;
   :	_position == AZPositionRight ?	AZRectTrimmedOnBottom( AZRightEdge( _workingFrame, _intrusion), _intrusion)
   : 									(NSRect) {_intrusion, 0, _workingFrame.size.width - _intrusion, _intrusion};
 }
-
-
 - (AZOrient)orientation { return _position == AZPositionBottom || _position == AZPositionTop ? AZOrientHorizontal : AZOrientVertical; }
 
 - (NSUInteger) capacity { return floor ( AZMaxEdge(self.visibleFrame) / _intrusion ); }
-
-
 //  NSLog(@"window:%@ setCapacity:%ld", self.identifier, _capacity);
 /*  NSApplicationWillResignActiveNotification	:	@"applicationWillResignActive:"} */
 /*  NSApplicationDidBecomeActiveNotification	:	@"applicationDidBecomeActive:",  */
@@ -126,8 +118,6 @@ typedef struct AZTriPair {	AZTri uno;	AZTri duo;  				}AZTriPair;
 		//		//		_clippy.wantsLayer = YES;
 		//		[[self contentView] addSubview:_clippy];
 		//		[_clippy setNeedsDisplay:YES];
-
-
 -(void) setShowsHandle:(BOOL)showsHandle {
 
 	if ( (showsHandle == NO) && (_handle)) [[_handle animator] setAlphaValue:0];
@@ -218,8 +208,6 @@ typedef struct AZTriPair {	AZTri uno;	AZTri duo;  				}AZTriPair;
 - (BOOL) acceptsFirstResponder {
 	return YES;
 }
-
-
 - (void) mouseHandler:(NSEvent *)theEvent {
 	NSPoint mousePoint = [theEvent locationInWindow];
 	BOOL isHit = (NSPointInRect(mousePoint, [self frame]));
@@ -235,8 +223,6 @@ typedef struct AZTriPair {	AZTri uno;	AZTri duo;  				}AZTriPair;
 
 @class AZTrackingWindow;
 @implementation NSWindow (Animations)
-
-
 -(void) anmateOnPath:(id)something {
 	NSTimeInterval timeForAnimation = 1;
 	CAKeyframeAnimation *bounceAnimation=[CAKeyframeAnimation animationWithKeyPath:@"position"];
@@ -282,8 +268,6 @@ typedef struct AZTriPair {	AZTri uno;	AZTri duo;  				}AZTriPair;
 }
 
 @end
-
-
 	/**
 	 if 	((_slideState == AZOut) && (slideState == AZIn))	{
 
@@ -317,8 +301,6 @@ typedef struct AZTriPair {	AZTri uno;	AZTri duo;  				}AZTriPair;
 	//	//			[self mouseHandler:e];
 	//	//			return e;
 	//	}];
-
-
 	//
 	//- (void) makeTrackers {
 	//		[obj setBackgroundColor:RANDOMCOLOR];
@@ -379,8 +361,6 @@ typedef struct AZTriPair {	AZTri uno;	AZTri duo;  				}AZTriPair;
 
  minY = windowFrame.origin.y+(windowFrame.size.height-288);
  }
-
-
  // 1. Is the Event a resize drag (test for bottom right-hand corner)?
  if (shouldDrag == FALSE)
  {
@@ -433,8 +413,6 @@ typedef struct AZTriPair {	AZTri uno;	AZTri duo;  				}AZTriPair;
 //	float 	minY;
 
 //	 key values for dictionary in NSTrackingAreas's userInfo, which tracking area is being tracked
-
-
 @interface CornerClipView : NSView
 @property (assign, nonatomic, getter = getPair) AZTriPair t;
 @property (weak) AZTrackingWindow *windy;
@@ -442,8 +420,6 @@ typedef struct AZTriPair {	AZTri uno;	AZTri duo;  				}AZTriPair;
 @end
 
 @implementation CornerClipView
-
-
 + initInWindow:(AZTrackingWindow*)windy; {
 
 	CornerClipView *e = [[[self class] alloc]initWithFrame:[[windy contentView]bounds]];
@@ -467,8 +443,6 @@ typedef struct AZTriPair {	AZTri uno;	AZTri duo;  				}AZTriPair;
 
 		[[NSRunLoop currentRunLoop] addTimer: timer forMode: NSDefaultRunLoopMode];
 		[[NSRunLoop currentRunLoop] addTimer: timer forMode: NSEventTrackingRunLoopMode];
-
-
 			//		[self setWantsLayer:YES];
     }
     return self;
@@ -498,8 +472,6 @@ typedef struct AZTriPair {	AZTri uno;	AZTri duo;  				}AZTriPair;
 		//	[path setClip];
 		//	[NSGraphicsContext restoreGraphicsState];
 }
-
-
 - (AZTriPair) getPair {			CGFloat i = _windy.intrusion;
 
 	if ( _windy.position == AZPositionTop ) {

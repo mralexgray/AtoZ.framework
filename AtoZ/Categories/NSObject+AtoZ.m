@@ -21,8 +21,6 @@
     objc_removeAssociatedObjects(self);
 }
 @end
-
-
 #import <dispatch/dispatch.h>
 #import <objc/runtime.h>
 
@@ -181,8 +179,6 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary()
 	[boundObject setValue:value forKeyPath:boundKeyPath];
 }
 
-
-
 -(void) setWithDictionary:(NSD*)dic;
 {
 	[[dic allKeys] each:^(id obj) {
@@ -192,8 +188,6 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary()
 	}];
 
 }
-
-
 +(void)switchOn:(id<NSObject>)obj cases:casesList, ...
 {
     va_list list;    va_start(list, casesList);	id<NSObject> o = casesList;
@@ -231,16 +225,12 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary()
 }
 
 - (void)fireBlockAfterDelay:(void (^)(void))block { block(); }
-
-
 - (NSMD*) getDictionary
 {
 	if (objc_getAssociatedObject( self, @"dictionary" ) == nil)
 		objc_setAssociatedObject( self, @"dictionary", [NSMD dictionary], OBJC_ASSOCIATION_RETAIN);
 	return (NSMD *)objc_getAssociatedObject( self, @"dictionary" );
 }
-
-
 static char windowPosition;
 
 - (void) setWindowPosition:(AZWindowPosition)pos { objc_setAssociatedObject( self, &windowPosition, @(pos), OBJC_ASSOCIATION_RETAIN ); }
@@ -272,8 +262,6 @@ static char windowPosition;
 
 - (NSS*) autoDescribe { return [$(@"%@:%p:: ", [self class], self) stringByAppendingString:
 											   [self autoDescribeWithClassType:[self class]]]; }
-
-
 @end
 
 @implementation NSObject (SubclassEnumeration)
@@ -308,8 +296,6 @@ static char windowPosition;
 @end
 
 @implementation NSObject (AG)
-
-
 - (IBAction)showMethodsInFrameWork:(id)sender {
 
 //	[NSTask launchedTaskWithLaunchPath:@"/usr/bin/say" arguments:@[s]];
@@ -366,14 +352,10 @@ static char windowPosition;
 //	[[sender delegate] performSelector:fabricated withValue:optionPtr];
 //	//	[[AZTalker sharedInstance] say:$(@"%@ is %@ selected", string, isSelected ? @"" : @"NOT")];
 //}
-
-
 	//- (BOOL) respondsToSelector: (SEL) aSelector {
 	//    NSLog (@"%s", (char *) aSelector);
 	//    return ([super respondsToSelector: aSelector]);
 	//} // respondsToSelector
-
-
 
 static const char * getPropertyType(objc_property_t property) {
 	const char *attributes = property_getAttributes(property);
@@ -392,8 +374,6 @@ static const char * getPropertyType(objc_property_t property) {
 		: "";
 	}
 }
-
-
 + (NSD *)classPropsFor:(Class)klass
 {
 	if (klass == NULL) return nil;
@@ -488,8 +468,6 @@ static const char * getPropertyType(objc_property_t property) {
 	return props;
 }
 
-
-
 - (NSS*)stringFromClass {	return NSStringFromClass( [self class]); }
 
 - (void)setIntValue:(NSInteger)i forKey:(NSS*)key { [self setValue:[NSNumber numberWithInt:i] forKey:key]; }
@@ -508,8 +486,6 @@ static const char * getPropertyType(objc_property_t property) {
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 	[nc postNotificationName:notificationName object:self userInfo:context];
 }
-
-
 -(id)observeObject:(NSS*)notificationName
 	  usingBlock:(void (^)(NSNotification *))block
 {
@@ -518,8 +494,6 @@ static const char * getPropertyType(objc_property_t property) {
 									 queue:nil
 								usingBlock:block];
 }
-
-
 -(id)observeName:(NSS*)notificationName
 	  usingBlock:(void (^)(NSNotification *))block
 {
@@ -539,8 +513,6 @@ static const char * getPropertyType(objc_property_t property) {
 			   name:notificationName
 			 object:object];
 }
-
-
 -(void)observeName:(NSS*)notificationName
 		   calling:(SEL)selector
 {
@@ -550,22 +522,16 @@ static const char * getPropertyType(objc_property_t property) {
 			   name:notificationName
 			 object:nil];
 }
-
-
 -(void)stopObserving:(NSObject *)object forName:(NSS*)notificationName {
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 	[nc removeObserver:self name:notificationName object:object];
 }
-
-
 - (void) performSelectorWithoutWarnings:(SEL)aSelector withObject:(id)obj{
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 	[self performSelector:aSelector withObject:obj];
 #pragma clang diagnostic pop
 }
-
-
 
 -(void)performSelector:(SEL)aSelector afterDelay:(NSTimeInterval)seconds {
 	[self performSelector:aSelector withObject:nil afterDelay:seconds];
@@ -628,8 +594,6 @@ static const char * getPropertyType(objc_property_t property) {
 }
 
 @end
-
-
 @implementation NSObject (PrimitiveEvocation)
 
 - (void *)performSelector:(SEL)selector withValue:(void *)value {

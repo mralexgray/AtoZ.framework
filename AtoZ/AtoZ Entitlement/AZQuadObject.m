@@ -13,8 +13,6 @@ AZQuadCarousel * refToSelf;  //int cCallback()//{	//    [refToSelf someMethod:so
 void wLog(NSString* log) { 	[refToSelf setWindowLog:log]; }
 
 static const NSString *didScroll = @"scrollOffset";
-
-
 @interface AZQuadCarousel ()
 
 @property (nonatomic, strong) AZTrackingWindow *north, *south, *east, *west;
@@ -45,8 +43,6 @@ static const NSString *didScroll = @"scrollOffset";
 
 	[self addObserver:<#(NSObject *)#> forKeyPaths:<#(id<NSFastEnumeration>)#>:self forKeyPaths:@[NSApplicationDidBecomeActiveNotification, NSApplicationDidResignActiveNotification]];
 	[AZNOTCENTER addObserver:self selector:@selector(applicationDidBecomeActive:) name:NSApplicationDidBecomeActiveNotification object:nil];
-
-
 //	id eventMonitor = [NSEvent addLocalMonitorForEventsMatchingMask:NSMouseEnteredMask handler:^(NSEvent *incomingEvent)
 //	 {NSEvent *result = incomingEvent;
 	/*NSLog(@"%i", (int)[result keyCode]);*/ //NSLog(@"%@",result);	 return result;		}];
@@ -134,8 +130,6 @@ static const NSString *didScroll = @"scrollOffset";
 		//		[self.carousel reloadData];
 }
 
-
-
 - (NSUInteger)numberOfItemsInCarousel:(iCarousel *)carousel
 {
 	return self.items.count;
@@ -211,8 +205,6 @@ static const NSString *didScroll = @"scrollOffset";
  return i;
  }*/
 
-
-
 - (void)carousel:(iCarousel *)carousel  didSelectItemAtIndex:(NSInteger)index {
 
 	AZQuadCell *v = (AZQuadCell *)[carousel itemViewAtIndex:index];
@@ -255,14 +247,10 @@ static const NSString *didScroll = @"scrollOffset";
 	[[v window] addChildWindow:e ordered:NSWindowBelow];
 	[e slideIn];
 }
-
-
 -(void) advance {	[_quads az_each:^(id obj, NSUInteger index, BOOL *stop) {
 	[obj shiftIndexesStartingAtIndex:[obj firstIndex] by:1];
 }];
 }
-
-
 -(void) rewind {		[_quads az_each:^(id obj, NSUInteger index, BOOL *stop) {
 	[obj shiftIndexesStartingAtIndex:[obj firstIndex] by:-1];
 }];
@@ -279,8 +267,6 @@ static const NSString *didScroll = @"scrollOffset";
 
 	[slider performSelector:slider.slideState == AZOut ? @selector(slideIn) : @selector(slideOut)];
 }
-
-
 - (IBAction)toggleQuadFlip:(id)sender {
 
 	NSString *sliderID;
@@ -308,8 +294,6 @@ static const NSString *didScroll = @"scrollOffset";
 		} afterDelay:time];   time += .1;
 	}];
 //	CALayer *itsLayer = [[[slider.contentView subviewsOfKind:[iCarousel class]]objectAtIndex:0]layer];
-
-
 	
 //	if ([itsLayer valueForKey:@"flippedOver"]) {
 //		BOOL flippedDown = [[itsLayer valueForKey:@"flippedOver"] boolValue];
@@ -342,8 +326,6 @@ static const NSString *didScroll = @"scrollOffset";
 //	 [obj veilLayerForView:[[[obj contentView]subviews]lastObject]]];
 //}];
 //}
-
-
 //		CALayer * f =  [CALayer veilForView:	[[obj contentView]layer]];
 			//		f.frame  = [[obj contentView]bounds];
 		/*		iCarousel *c = [[[obj contentView]subviews] filterOne:^BOOL(id object) {
@@ -352,8 +334,6 @@ static const NSString *didScroll = @"scrollOffset";
 		 */
 			//		[f display];
 			//		[obj reloadData];
-
-
 	//-(AZSizer*) szrForPerimeter {
 	//	return [AZSizer forQuantity:_content.count aroundRect:AZScreenFrame()];
 	//}
@@ -361,8 +341,6 @@ static const NSString *didScroll = @"scrollOffset";
 	//- (AZSizer*)szr {
 	//	return [self szrForPerimeter];
 	//}
-
-
 - (void) setOption:(Option)option {
 
 	_option=option;
@@ -382,8 +360,6 @@ static const NSString *didScroll = @"scrollOffset";
 }
 - (CATransform3D)carousel:(iCarousel *)carousel itemTransformForOffset:(CGFloat)offset baseTransform:(CATransform3D)transform
 {
-
-
 	if (_option == 0) {				/*  factory linear */
 		CGFloat spacing = 1;// [carousel valueForOption:iCarouselOptionSpacing withDefault:1.0f];
 		return CATransform3DTranslate(transform, offset * _seg.width ,0, 0);//_itemWidth * spacing, 0.0f, 0.0f);
@@ -414,8 +390,6 @@ static const NSString *didScroll = @"scrollOffset";
 	}
 	else if (_option == 4)
 	{
-
-
 		NSRect indentR = NSInsetRect(carousel.frame, 66, 66);
 		CGFloat lenn = AZPerimeter(indentR);
 		NSBezierPath *movePath = [NSBezierPath bezierPathWithRect:indentR];
@@ -622,10 +596,6 @@ static const NSString *didScroll = @"scrollOffset";
 	} */ else return  transform;
 }
 
-
-
-
-
 	//		//implement 'flip3D' style carousel
 	//    transform = CATransform3DRotate(transform, M_PI / 8.0f, 0.0f, 1.0f, 0.0f);
 	//    return CATransform3DTranslate(transform, 0.0f, 0.0f, offset * _carousel.itemWidth);
@@ -656,16 +626,12 @@ static const NSString *didScroll = @"scrollOffset";
 	//            return value;
 	//    }
 	//}
-
-
 	//	[_menu_N setValuesForKeysWithDictionary:@ { @"windowPosition" : @(AZPositionTop),
 	//		@"vertical" : @(NO)} ];
 
 	//	[_car1 setValue:AZPositionLeft]	 :	if (remainder > 1) base++;	break;
 	//		case AZQuadRight :	if (remainder > 2) base++;  break;
 	//		default			 :	if (remainder > 3) base++;	break;
-
-
 	//[self observeName:@"content" usingBlock:^(NSNotification *m) {
 	//		_content = self.content;
 	//		[_menu_N reloadData];
@@ -691,8 +657,6 @@ static const NSString *didScroll = @"scrollOffset";
 		//						  context:context];
 }
 
-
-
 	//	if (context == DotViewUndoAndRedisplay) {
 	//        NSUndoManager *undoManager = [[self window] undoManager];
 	//        if ([keyPath isEqual:@"center"]) [[undoManager prepareWithInvocationTarget:self] setCenter:[[change objectForKey:NSKeyValueChangeOldKey] pointValue]];
@@ -701,8 +665,6 @@ static const NSString *didScroll = @"scrollOffset";
 	//	if ([keyPath isEqual:@"multiplier"]) {
 	//	if ([keyPath isEqual:@"desiredNumberOfColumns"]) {
 	//	[[undoManager prepareWithInvocationTarget:self] setCenter:[[change objectForKey:NSKeyValueChangeOldKey] pointValue]];
-
-
 
 	//- (void)setContent:(NSMutableArray *)content
 	//{
@@ -724,8 +686,6 @@ static const NSString *didScroll = @"scrollOffset";
 		default				  :	if (remainder > 3) base++;	break;
 	}	return base;
 }
-
-
 	//	return 	(carousel == _menu_N) ? ( self.total - [self itemsInQuad: AZPositionTop]	)
 	//	:  carousel  == _menu_S  ? ( self.total - [self itemsInQuad: AZPositionBottom]	)
 	//	:  carousel  == _menu_E  ? ( self.total - [self itemsInQuad: AZPositionLeft]	)
@@ -751,8 +711,6 @@ static const NSString *didScroll = @"scrollOffset";
 }
 
 
-
-
 #pragma mark - iCarousel methods
 /* - (NSView *)carousel:(iCarousel *)carousel viewForItemAtIndex:(NSUInteger)index reusingView:(NSView *)view {
 
@@ -776,8 +734,6 @@ static const NSString *didScroll = @"scrollOffset";
  return view;
  }
  */
-
-
 	//	NSTextField *label = nil;
 
 	//		//create new view if no view is available for recycling
@@ -805,15 +761,11 @@ static const NSString *didScroll = @"scrollOffset";
 	//}
 
 
-
-
 	//- (CGFloat)carouselItemWidth:(iCarousel *)carousel
 	//{
 	//		//set correct view size
 	//		//because the background image on the views makes them too large
 	//}
-
-
 
 	//- (void)carouselDidScroll:(iCarousel *)carousel {
 	////    if (carousel == carousel)
@@ -891,10 +843,6 @@ static const NSString *didScroll = @"scrollOffset";
 		default:									return 	value;
 	}
 }
-
-
-
-
 
 
 
@@ -1026,8 +974,6 @@ static const NSString *didScroll = @"scrollOffset";
  */
 
 
-
-
 	//	u.backgroundColor = cgCLEARCOLOR;
 	//	u.path = [[NSBezierPath bezierPathWithRoundedRect:[v frame] cornerRadius:0] quartzPath];
 	//	u.borderColor = cgRANDOMCOLOR;
@@ -1095,8 +1041,6 @@ static const NSString *didScroll = @"scrollOffset";
  //	[b setHovered:YES];
  //	[v setNeedsDisplay:YES];
  */
-
-
 /*
  - (NSArray*) allItems {
  //	__block	NSMutableArray *i = [NSMutableArray array];
@@ -1114,8 +1058,6 @@ static const NSString *didScroll = @"scrollOffset";
  NSUInteger first = [self _firstIndexInQuad:quadrant];
  NSUInteger firstadjusted = first + _externalZeroIndex;
  NSUInteger firstadjustedEnd = first + ct;
-
-
  return [[@(firstadjusted) to:@(firstadjustedEnd)] arrayUsingIndexedBlock:^id(id obj, NSUInteger idx) {
 
  return  [_quadContent objectAtNormalizedIndex:[obj intValue]];
@@ -1124,14 +1066,10 @@ static const NSString *didScroll = @"scrollOffset";
  //	return q.copy;
  //	 [_quadContent subarrayFromIndex:q.firstIndex toIndex:q.lastIndex];
  }
-
-
  -(NSRange) forQuad:(AZQuad) quadrant {
 
  }
  -(void)insertItems:(NSArray*)items{
-
-
 
 
  }
@@ -1145,8 +1083,6 @@ static const NSString *didScroll = @"scrollOffset";
  //
  //	}];
  }
-
-
  - (NSUInteger) _firstIndexInQuad :(AZQuad)quadrant {
 
  NSUInteger start =  0;
@@ -1171,16 +1107,12 @@ static const NSString *didScroll = @"scrollOffset";
  //		NSMutableIndexSet
 
  }
-
-
  -(id) objectAtIndex:(NSUInteger)index inQuad:(AZQuad)quadrant {
 
  NSMutableArray *q = [self quadForType:quadrant];
  return  [q objectAtIndex:index];
  }
  */
-
-
 
 /*	self.window = [[NSWindow alloc]initWithContentRect:
  NSInsetRect([[NSScreen mainScreen]frame],200,200) styleMask:NSTitledWindowMask backing:NSBackingStoreBuffered  defer:NO];

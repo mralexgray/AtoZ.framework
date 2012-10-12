@@ -7,8 +7,6 @@
 //
 
 #import "NSEvent+AtoZ.h"
-
-
 @implementation NSControl (AtoZ)
 
 - (void) setAction:(SEL)method withTarget:(id)object;
@@ -18,11 +16,7 @@
 }
 
 @end
-
-
 @implementation NSEvent (AtoZ)
-
-
 + (void) shiftClick:(void(^)(void))block {
 
 	[NSEvent addLocalMonitorForEventsMatchingMask:NSKeyDownMask handler: ^(NSEvent *event){

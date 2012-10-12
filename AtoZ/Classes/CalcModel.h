@@ -1,8 +1,6 @@
 	//  CalcButton.h
 	//  Calc
 	//  Created by Tom Gallacher on 15/11/2010.
-
-
 #import "AtoZ.h"
 
 typedef enum _arithmeticOperator {

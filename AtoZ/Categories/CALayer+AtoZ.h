@@ -47,8 +47,6 @@
 	extern CGColorRef CreatePatternColor ( CGImageRef image );
 /** Returns the alpha value of a single pixel in a CGImage, scaled to a particular size. */
 	float GetPixelAlpha ( CGImageRef image, CGSize imageSize, CGPoint pt );
-
-
 #define CATransform3DPerspective(t, x, y) (CATransform3DConcat(t, CATransform3DMake(1, 0, 0, x, 0, 1, 0, y, 0, 0, 1, 0, 0, 0, 0, 1)))
 #define CATransform3DMakePerspective(x, y) (CATransform3DPerspective(CATransform3DIdentity, x, y))
 
@@ -72,8 +70,6 @@ For those that have never seen the CATransform3D struct before, you must apply t
 #import "AtoZUmbrella.h"
 
 @interface CALayer (AtoZ)
-
-
 -(void) animateXThenYToFrame:(NSR)toRect duration:(NSUI)time;
 
 - (void) addConstraintsRelSuper:(CAConstraintAttribute) nilAttributeList, ...;  // This method takes a nil-terminated list of objects.
@@ -90,8 +86,6 @@ For those that have never seen the CATransform3D struct before, you must apply t
 
 - (CALayer*) selectionLayerForLayer:(CALayer*)layer;
 - (CATransform3D)makeTransformForAngle:(CGFloat)angle;
-
-
 - (id)objectForKeyedSubscript:(NSString *)key;
 - (void)setObject:(id)object forKeyedSubscript:(NSString *)key;
 
@@ -130,23 +124,17 @@ For those that have never seen the CATransform3D struct before, you must apply t
 - (CALayer *) labelLayer;
 - (CALayer *) setLabelString:(NSString *)label;
 - (id) sublayerWithName:(NSString *)name;
-
-
 + (CALayer*)veilForView:(CALayer*)view;
 
 - (CATransform3D)rectToQuad:(NSRect)rect quadTLX:(double)x1a quadTLY:(double)y1a quadTRX:(double)x2a quadTRY:(double)y2a quadBLX:(double)x3a quadBLY:(double)y3a quadBRX:(double)x4a quadBRY:(double)y4a;
 
 - (void) addConstraintsSuperSizeScaled:(CGFloat)scale;
 - (void) addConstraintsSuperSize;
-
-
 + (CALayer*)closeBoxLayer;
 + (CALayer*)closeBoxLayerForLayer:(CALayer*)parentLayer;
 
 	//Metallic grey gradient background
 + (CAGradientLayer*) greyGradient;
-
-
 -(NSString*)debugDescription;
 
 -(void)debugAppendToLayerTree:(NSMutableString*)treeStr indention:(NSString*)indentStr;
@@ -155,8 +143,6 @@ For those that have never seen the CATransform3D struct before, you must apply t
 
 @end
 @interface  CATextLayer (AtoZ)
-
-
 - (CTFontRef)newFontWithAttributes:(NSDictionary *)attributes;
 - (CTFontRef)newCustomFontWithName:(NSString *)fontName ofType:(NSString *)type attributes:(NSDictionary *)attributes;
 - (CGSize)suggestSizeAndFitRange:(CFRange *)range	forAttributedString:(NSMutableAttributedString *)attrString

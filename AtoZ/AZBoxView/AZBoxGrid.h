@@ -145,7 +145,5 @@
 /*** Updates the collection views data and appereance according to the previously made changes.
  * @remark Use this and beginChanges if you want to update multiple properties of the collection view in one batch call to save performance.  **/
 - (void)commitChanges;
-
-
 @end
 

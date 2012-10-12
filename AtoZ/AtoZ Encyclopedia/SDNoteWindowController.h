@@ -10,8 +10,6 @@
 #import "SDToolkit.h"
 #import <QuartzCore/QuartzCore.h>
 #import <AtoZ/AtoZ.h>
-
-
 @interface SDNoteWindowController : NSWindowController {
 	NSDictionary *dictionaryToLoadFrom;
 	

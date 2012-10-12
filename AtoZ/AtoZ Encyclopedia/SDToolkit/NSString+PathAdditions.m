@@ -7,8 +7,6 @@
 //
 
 #import "NSString+PathAdditions.h"
-
-
 @implementation NSString (PathAdditions)
 
 - (BOOL) isEqualToPath:(NSString*)otherPath {

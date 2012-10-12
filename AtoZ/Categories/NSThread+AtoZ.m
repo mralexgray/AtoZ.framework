@@ -9,8 +9,6 @@
 #import "NSThread+AtoZ.h"
 
 @implementation NSThread (BlocksAdditions)
-
-
 + (void)performBlockInBackground:(void (^)())block {
 	[NSThread performSelectorInBackground:@selector(runBlock:)
 	                           withObject:[[block copy] autorelease]];
@@ -58,8 +56,6 @@
 + (void)runAZBlock:(void (^)())block{
 	block();
 }
-
-
 - (void)performAZBlock:(void (^)())block{
 
 	if ([[NSThread currentThread] isEqual:self])

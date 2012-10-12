@@ -1,7 +1,5 @@
 #import "AtoZ.h"
 #import "AtoZUmbrella.h"
-
-
 @interface AZFile : BaseModel  // Base abstract class that wraps a file system URL
 
 @property (NATOM, STRNG, RONLY) NSS		*name, 		*calulatedBundleID;
@@ -49,8 +47,6 @@
 @property (readonly)			BOOL		isRunning;
 @end
 
-
-
 @interface AZDock : BaseModel
 @property (readonly) NSArray *dock;
 @property (readonly) NSArray *dockSorted;
@@ -69,8 +65,6 @@
 + (instancetype) instanceWithColor:(NSColor*)color count:(NSUI)c total:(NSUI) totes;
 
 @end
-
-
 
 //@interface AZImage : NSObject
 //
@@ -92,8 +86,6 @@
 //@property (readonly) BOOL imageLoading;
 //
 //@end
-
-
 	//extern NSString *const AtoZFileUpdated;
 	//@class AJSiTunesResult;
 

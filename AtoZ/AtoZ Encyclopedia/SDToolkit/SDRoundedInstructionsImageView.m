@@ -7,8 +7,6 @@
 //
 
 #import "SDRoundedInstructionsImageView.h"
-
-
 @implementation SDRoundedInstructionsImageView
 
 - (void) drawRect:(NSRect)dirtyRect {

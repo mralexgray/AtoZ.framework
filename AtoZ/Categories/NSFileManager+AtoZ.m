@@ -4,8 +4,6 @@
 
 //  Created by Alex Gray on 8/28/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-
-
 #import "NSFileManager+AtoZ.h"
 #include <glob.h>
 
@@ -33,11 +31,7 @@ NSString *NSDCIMFolder()
 {
 	return @"/var/mobile/Media/DCIM";
 }
-
-
 @implementation NSFileManager (AtoZ)
-
-
 #pragma Globbing
 
 - (NSArray*) arrayWithFilesMatchingPattern: (NSString*) pattern inDirectory: (NSString*) directory {
@@ -64,8 +58,6 @@ NSString *NSDCIMFolder()
  iPhone Developer's Cookbook, 3.0 Edition
  BSD License, Use at your own risk
  */
-
-
 
 + (NSString *) pathForItemNamed: (NSString *) fname inFolder: (NSString *) path
 {

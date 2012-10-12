@@ -4,8 +4,6 @@
 
 //  Created by Alex Gray on 8/28/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-
-
 #import <Cocoa/Cocoa.h>
 #import <QuartzCore/QuartzCore.h>
 

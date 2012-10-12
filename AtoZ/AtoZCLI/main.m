@@ -9,8 +9,6 @@
 #import <Foundation/Foundation.h>
 #import <AtoZ/AtoZ.h>
 //#import <RMKit/RMKit.h>
-
-
 void quantize() {
 	[AZStopwatch start:@"quantize"];
 	@autoreleasepool {
@@ -40,8 +38,6 @@ void TestStopwatchBlock (NSString* name) {
 @end
 @implementation AAAA
 @end
-
-
 @interface TestView : NSView <NSWindowDelegate> { }
 
 @property (strong) CALayer* lay;
@@ -70,8 +66,6 @@ void TestStopwatchBlock (NSString* name) {
 - (void) mouseDown:(NSEvent*)ev
 {
 	//	[_lay animateOverAndUpFrom:_lay.position to:AZCenterOfRect(quadrant(self.bounds, 3)) duration:5];
-
-
 }
 @end
 
@@ -192,8 +186,6 @@ int main(int argc, const char * argv[])
 }
 
 @end
-
-
 #import <Foundation/Foundation.h>
 
 #import <GHUnit/GHUnit.h>
@@ -223,6 +215,4 @@ int main(int argc, char *argv[]) {
 		return retVal;
 	}
 }
-
-
 */

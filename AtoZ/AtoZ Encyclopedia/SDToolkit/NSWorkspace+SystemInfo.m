@@ -7,8 +7,6 @@
 //
 
 #import "NSWorkspace+SystemInfo.h"
-
-
 @implementation NSWorkspace (SystemInfo)
 
 + (NSString*) systemVersion {

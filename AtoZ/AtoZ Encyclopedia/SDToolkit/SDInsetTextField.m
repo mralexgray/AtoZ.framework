@@ -7,8 +7,6 @@
 //
 
 #import "SDInsetTextField.h"
-
-
 @implementation SDInsetTextField
 
 - (id) initWithCoder:(NSCoder*)coder {

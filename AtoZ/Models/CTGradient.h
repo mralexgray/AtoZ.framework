@@ -23,8 +23,6 @@ typedef enum  _CTBlendingMode
 	CTChromaticBlendingMode,
 	CTInverseChromaticBlendingMode
 	} CTGradientBlendingMode;
-
-
 @interface CTGradient : NSObject <NSCopying, NSCoding>
 	{
 	CTGradientElement* elementList;
@@ -56,8 +54,6 @@ typedef enum  _CTBlendingMode
 - (CTGradientBlendingMode)blendingMode;
 - (NSColor *)colorStopAtIndex:(unsigned)index;
 - (NSColor *)colorAtPosition:(float)position;
-
-
 - (void)drawSwatchInRect:(NSRect)rect;
 - (void)fillRect:(NSRect)rect angle:(float)angle;					//fills rect with axial gradient
 																	//	angle in degrees

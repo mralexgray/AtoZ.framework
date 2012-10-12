@@ -13,8 +13,6 @@
 //static inline NSRect convertToNSRect(CGRect rect) { 	return *(const NSRect *)&rect;	}
 //static inline NSPoint convertToNSPoint(CGPoint point) {	return *(const NSPoint *)&point;	}
 //static inline CGPoint convertToCGPoint(NSPoint point) {	return *(const CGPoint *)&point;	}
-
-
 #import "AtoZ.h"
 
 CIFilter* CIFilterDefaultNamed(NSString* name);
@@ -24,8 +22,6 @@ NSString* bitString(NSUInteger mask);
 // Check if the "thing" pass'd is empty
 
 BOOL isEmpty(id thing);
-
-
 //static inline NSString* typeStringForType(thing) {
 //	return 	SameString( @encode(typeof(thing)), @encode(typeof(CAConstraintAttribute)))
 //	? [NSString stringWithFormat:NSLocalizedString( @"CAConstraintAttribute_%i",thing]
@@ -36,13 +32,9 @@ BOOL isEmpty(id thing);
 
 //static inline
 //BOOL isEmpty(id thing);
-
-
 int (^triple)(int);
 
 //USAGE: .... return (NSArray*)logAndReturn( [NSArray arrayWithArrays:@[blah,blahb]] );
-
-
 //id (^logAndReturn)(id); //= ^(id toLog) { AZLOG(toLog); return toLog; };
 id LogAndReturn(id toLog); //= ^(id toLog) { AZLOG(toLog); return toLog; };
 
@@ -63,8 +55,6 @@ void DrawGlossGradient(CGContextRef context, NSColor *color, NSRect inRect);
 CGFloat perceptualGlossFractionForColor ( CGFloat *inputComponents );
 CGFloat percent ( CGFloat val );
 CGFloat DegreesToRadians ( CGFloat degrees );
-
-
 void NSRectFillWithColor (NSRect rect, NSColor* color);
 
 //CGFloat DEG2RAD(CGFloat degrees);
@@ -73,8 +63,6 @@ void NSRectFillWithColor (NSRect rect, NSColor* color);
 
 NSString* JRNSStringFromCATransform3D(CATransform3D transform);
 NSString* prettyFloat(CGFloat f);
-
-
 NSNumber* DegreesToNumber(CGFloat degrees);
 
 CGImageRef ApplyQuartzComposition ( const char* compositionName, const CGImageRef srcImage );
@@ -83,15 +71,11 @@ CGImageRef ApplyQuartzComposition ( const char* compositionName, const CGImageRe
 void glossInterpolation(void *info, const CGFloat *input, CGFloat *output);
 inline float RandomComponent() {  return (float)random() / (float)LONG_MAX; }
 double frandom ( double start, double end );
-
-
 NSUInteger normalizedNumberLessThan (id number, NSUInteger max);
 
 // usage
 // profile("Long Task", ^{ performLongTask() } );
 void profile (const char *name, void (^work) (void));
-
-
 
 
 /*
@@ -129,8 +113,6 @@ static void PrintUsageAndQuit(void) __attribute__((noreturn));
 //@interface NSNumber (SliceCreation)
 //- (Slice *): (NSInteger)length;
 //@end
-
-
 /*
  // make sure non-Clang compilers can still compile
  #ifndef __has_feature
@@ -142,8 +124,6 @@ static void PrintUsageAndQuit(void) __attribute__((noreturn));
  #define __autoreleasing
  #define __bridge
  #endif
-
-
  #define ARRAY(...) ([NSArray arrayWithObjects: IDARRAY(__VA_ARGS__) count: IDCOUNT(__VA_ARGS__)])
  #define SET(...) ([NSSet setWithObjects: IDARRAY(__VA_ARGS__) count: IDCOUNT(__VA_ARGS__)])
 
@@ -234,18 +214,6 @@ static void PrintUsageAndQuit(void) __attribute__((noreturn));
  }
 
  */
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

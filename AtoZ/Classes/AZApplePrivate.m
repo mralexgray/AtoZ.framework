@@ -8,8 +8,6 @@
 
 #import "AZApplePrivate.h"
 #import <ApplicationServices/ApplicationServices.h>
-
-
 extern void _LSCopyAllApplicationURLs(NSArray**);
 
 @implementation AZApplePrivate

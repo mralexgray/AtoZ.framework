@@ -4,14 +4,10 @@
 
 //  Created by Alex Gray on 8/25/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-
-
 #import "AZEntitlementDelegate.h"
 #import <PLWeakCompatibility/PLWeakCompatibilityStubs.h>
 #import <AtoZ/AtoZ.h>
 #import "AZQuadObject.h"
-
-
 @implementation AZEntitlementDelegate
 //@synthesize log = _log;
 
@@ -44,8 +40,6 @@
 	[_cc.window setDelegate:self];
 	[_cc.window makeKeyAndOrderFront:_cc.window];
 }
-
-
 - (void) awakeFromNib {
 
 //	self.quad = [[AZQuadCarousel alloc]init];
@@ -116,6 +110,4 @@
 }
 
 */
-
-
 @end

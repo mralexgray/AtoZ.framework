@@ -48,8 +48,6 @@
 //#else
 //#define MAX_VISIBLE_ITEMS 30
 //#endif
-
-
 @interface iCarousel ()
 
 @property (nonatomic, strong) UIView *contentView;
@@ -81,8 +79,6 @@
 NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *self);
 
 @end
-
-
 @implementation iCarousel
 {	NSTrackingArea *trackingArea; }
 @synthesize dataSource = _dataSource;
@@ -153,8 +149,6 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
     _centerItemWhenSelected = YES;
 
     _contentView = [[UIView alloc] initWithFrame:self.bounds];
-
-
 #ifdef ICAROUSEL_IOS
 
     UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(didPan:)];
@@ -330,8 +324,6 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
         [CATransaction setDisableActions:YES];
     }
 }
-
-
 #pragma mark -
 #pragma mark View management
 
@@ -420,8 +412,6 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
     }
     self.itemViews = newItemViews;
 }
-
-
 #pragma mark -
 #pragma mark View layout
 
@@ -1137,8 +1127,6 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
 		//update views
     [self didScroll];
 }
-
-
 #pragma mark -
 #pragma mark View queing
 
@@ -1177,8 +1165,6 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
     }
     return [view autorelease];
 }
-
-
 #pragma mark -
 #pragma mark View loading
 
@@ -1355,8 +1341,6 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
         [self scrollToItemAtIndex:0 animated:(_numberOfPlaceholders > 0)];
     }
 }
-
-
 #pragma mark -
 #pragma mark Scrolling
 
@@ -1917,11 +1901,7 @@ _timer = [NSTimer scheduledTimerWithTimeInterval:1.0/60.0	target:self		selector:
 //		//update previous index
 //    _previousItemIndex = currentIndex;
 //}
-
-
 #ifdef ICAROUSEL_IOS
-
-
 #pragma mark -
 #pragma mark Gestures and taps
 
@@ -2105,8 +2085,6 @@ _timer = [NSTimer scheduledTimerWithTimeInterval:1.0/60.0	target:self		selector:
 }
 
 #else
-
-
 #pragma mark -
 #pragma mark Mouse control
 
@@ -2117,8 +2095,6 @@ _timer = [NSTimer scheduledTimerWithTimeInterval:1.0/60.0	target:self		selector:
 }
 
 //- (void)scrollWheel:(NSEvent *)theEvent {
-
-
 
 
 //	_didDrag = YES;
@@ -2208,8 +2184,6 @@ _timer = [NSTimer scheduledTimerWithTimeInterval:1.0/60.0	target:self		selector:
 		//check for tapped view
 		//	for (UIView *view in [
 	[[_itemViews allValues] enumerateObjectsUsingBlock:^(NSView* obj, NSUInteger idx, BOOL *stop) {
-
-
 			//sortedArrayUsingFunction:(NSInteger (*)(id, id, void *))compareViewDepth context:(__bridge void *)self] reverseObjectEnumerator])
 			//	{
 		if ([obj.superview.layer hitTest:position])		{
@@ -2290,8 +2264,6 @@ _timer = [NSTimer scheduledTimerWithTimeInterval:1.0/60.0	target:self		selector:
         }
     }
 }
-
-
 #pragma mark -
 #pragma mark Keyboard control
 

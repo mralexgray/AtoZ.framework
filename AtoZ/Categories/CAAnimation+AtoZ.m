@@ -21,8 +21,6 @@ void disableCA(){
 	[CATransaction setValue:(id)kCFBooleanTrue
 					 forKey:kCATransactionDisableActions];
 }
-
-
 @implementation CATransaction (AtoZ)
 + (void)az_performWithDisabledActions:(void(^)(void))block
 {
@@ -33,8 +31,6 @@ void disableCA(){
 @end
 
 @implementation CAAnimation (AtoZ)
-
-
 + (CAKeyframeAnimation *)rotateAnimation{
 
 	CAKeyframeAnimation *rotateAnimation= [CAKeyframeAnimation animationWithKeyPath:@"transform.rotation.z"];
@@ -102,8 +98,6 @@ void disableCA(){
 }
 
 
-
-
 + (CAAnimation*)animationOnPath:(CGPathRef)p duration:(CFTimeInterval)d timeOffset:(CFTimeInterval)o;
 {//- (CAAnimation*)animationForCurrentPath:(CFTimeInterval)timeOffset {
 	CAKeyframeAnimation* animation = [CAKeyframeAnimation animation];
@@ -138,8 +132,6 @@ void disableCA(){
 	[rotateAnimation setDuration:2];
 	return rotateAnimation;
 }
-
-
 - (void)setAz_completionBlock:(AZCAAnimationCompletionBlock)block
 {
 	self.delegate = self;
@@ -156,8 +148,6 @@ void disableCA(){
 	if (flag && self.az_completionBlock != nil)
 		self.az_completionBlock();
 }
-
-
 + (CAAnimation*)shakeAnimation;
 
 {
@@ -186,8 +176,6 @@ void disableCA(){
 
 	return animation;
 }
-
-
 + (CAAnimation*)colorAnimationForLayer:(CALayer *)theLayer
 					 withStartingColor:(NSColor*)color1 endColor:(NSColor*)color2{
 
@@ -232,8 +220,6 @@ void disableCA(){
 	//
 	//	return animation;
 	//}
-
-
 + (CAKeyframeAnimation*)popInAnimation {
 	CAKeyframeAnimation* animation = [CAKeyframeAnimation animation];
 
@@ -244,8 +230,6 @@ void disableCA(){
 	animation.duration = 0.3f;
 	return animation;
 }
-
-
 
 +(CAAnimation *)flipAnimationWithDuration:(NSTimeInterval)aDuration forLayerBeginningOnTop:(BOOL)beginsOnTop scaleFactor:(CGFloat)scaleFactor {
 		// Rotating halfway (pi radians) around the Y axis gives the appearance of flipping
@@ -281,8 +265,6 @@ void disableCA(){
 
     return animationGroup;
 }
-
-
 
 
 +(CAAnimation *)flipDown:(NSTimeInterval)aDuration scaleFactor:(CGFloat)scaleFactor {
@@ -323,8 +305,6 @@ void disableCA(){
 }
 
 
-
-
 	//@implementation CAKeyframeAnimation (JumpingAndShaking)
 
 + (CAKeyframeAnimation *)shakeAnimation:(NSRect)frame	{
@@ -343,8 +323,6 @@ void disableCA(){
     shakeAnimation.duration = durationOfShake;
     return shakeAnimation;
 }
-
-
 + (CAKeyframeAnimation *)jumpAnimation
 {
 		// these three values are subject to experimentation
@@ -447,8 +425,6 @@ void disableCA(){
 		[[[NSApp keyWindow] animator] setFrameOrigin:[[NSApp keyWindow] frame].origin];
 	}
 }
-
-
 
 
 @end
@@ -608,10 +584,6 @@ void disableCA(){
 	//	@end
 
 
-
-
-
-
 @interface CAAnimationDelegate : NSObject {
 	void (^_completion)(BOOL);
 	void (^_start)();
@@ -624,8 +596,6 @@ void disableCA(){
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag;
 
 @end
-
-
 @implementation CAAnimationDelegate
 
 @synthesize completion=_completion;
@@ -760,5 +730,3 @@ void disableCA(){
  }
  
  */
-
-

@@ -6,8 +6,6 @@
 //
 
 #import "AZSpinnerLayer.h"
-
-
 @interface AZSpinnerLayer ()
 
 // Animation
@@ -24,8 +22,6 @@
 - (void)disposeAnimTimer;
 
 @end
-
-
 @implementation AZSpinnerLayer
 
 //------------------------------------------------------------------------------
@@ -55,8 +51,6 @@
 
 //    [super dealloc];
 }
-
-
 //------------------------------------------------------------------------------
 #pragma mark -
 #pragma mark Overrides
@@ -83,8 +77,6 @@
     }
     [CATransaction commit];
 }
-
-
 //------------------------------------------------------------------------------
 #pragma mark -
 #pragma mark Animation
@@ -155,8 +147,6 @@
 
     [self setNeedsDisplay];
 }
-
-
 //------------------------------------------------------------------------------
 #pragma mark -
 #pragma mark Properties and Accessors
@@ -198,8 +188,6 @@
         [self startProgressAnimation];
     }
 }
-
-
 //------------------------------------------------------------------------------
 #pragma mark -
 #pragma mark Helper Methods
@@ -270,8 +258,6 @@
 }
 
 @end
-
-
 //------------------------------------------------------------------------------
 #pragma mark -
 #pragma mark Helper Functions
@@ -299,8 +285,6 @@ CGColorRef CGColorCreateFromNSColor(NSColor *nscolor)
     return cgcolor;
 #undef yrkspil_float_t
 }
-
-
 NSColor *NSColorFromCGColorRef(CGColorRef cgcolor)
 {
     NSColorSpace *colorSpace = [NSColorSpace deviceRGBColorSpace];

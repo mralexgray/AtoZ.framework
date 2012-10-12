@@ -7,8 +7,6 @@
 //
 
 #import "SDWindowController.h"
-
-
 @implementation SDWindowController
 
 - (id)initWithWindowNibName:(NSString *)windowNibName {

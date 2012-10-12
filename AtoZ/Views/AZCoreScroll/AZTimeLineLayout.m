@@ -1,8 +1,6 @@
 
 #import "AZTimeLineLayout.h"
 #import <Foundation/Foundation.h>
-
-
 NSString *selectedSnapShot = @"selectedSnapShot";
 
 @implementation AZTimeLineLayout
@@ -48,8 +46,6 @@ static AZTimeLineLayout *sharedLayoutManager;
 	CGFloat currentSnapshotDim = layer.bounds.size.height - YMARGIN * 2;
 	return CGSizeMake(XMARGIN*(i+1) +currentSnapshotDim*i, layer.frame.size.height);
 }
-
-
 - (void)layoutSublayersOfLayer:(CALayer *)layer {
 	//NSLog(@"layoutSublayersOfLayer called "	);
 	NSArray* array = [layer sublayers];

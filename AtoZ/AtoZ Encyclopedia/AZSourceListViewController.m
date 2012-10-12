@@ -47,8 +47,6 @@
 	_carrie.iconStyle = RAND_INT_VAL(1, 3);
 	[_carrie.carousel reloadData];
 }
-
-
 #pragma mark -
 #pragma mark Source List Data Source Methods
 
@@ -62,16 +60,12 @@
 		return [sourceListItems count];
 	}
 	else {
-
-
 		return [[item children] count];
 	}
 }
 
 	//- (BOOL)sourceList:(AZSourceList*)aSourceList isItemExpandable:(id)item {
 	//
-
-
 - (id)sourceList:(AZSourceList*)aSourceList child:(NSUInteger)index ofItem:(id)item
 {
 		//Works the same way as the NSOutlineView data source: `nil` means a parent item
@@ -82,8 +76,6 @@
 		return [item children][index];
 	}
 }
-
-
 - (id)sourceList:(AZSourceList*)aSourceList objectValueForItem:(id)item
 {
 	return [item title];
@@ -91,11 +83,7 @@
 		//	return [[AtoZ dockSorted] filterOne:^BOOL(AZFile* object) {
 		//		return ( [object.uniqueID isEqualTo:[item identifier]] ? YES : NO);
 		//	}];
-
-
 }
-
-
 - (void)sourceList:(AZSourceList*)aSourceList setObjectValue:(id)object forItem:(id)item
 {
 
@@ -106,14 +94,10 @@
 	[item setTitle:[[item object]valueForKey:@"name"]];
 }
 
-
-
 - (BOOL)sourceList:(AZSourceList*)aSourceList isItemExpandable:(id)item
 {
 	return [item hasChildren];
 }
-
-
 - (BOOL)sourceList:(AZSourceList*)aSourceList itemHasBadge:(id)item
 {
 	if ([[item valueForKey:@"objectRep"] isKindOfClass:[AZFile class]])
@@ -129,8 +113,6 @@
 	return first.color;
 
 }
-
-
 - (NSInteger)sourceList:(AZSourceList*)aSourceList badgeValueForItem:(id)item
 {
 	AZFile *first  = aSourceList.objectRep;
@@ -142,14 +124,10 @@
 		//	return first.spotNew;
 		//	return [item badgeValue];
 }
-
-
 - (BOOL)sourceList:(AZSourceList*)aSourceList itemHasIcon:(id)item
 {
 	return [item hasIcon];
 }
-
-
 - (NSImage*)sourceList:(AZSourceList*)aSourceList iconForItem:(id)item
 {
 	return [item icon];
@@ -179,8 +157,6 @@
 
 	return NO;
 }
-
-
 - (void)sourceListSelectionDidChange:(NSNotification *)notification
 {
 	NSIndexSet *selectedIndexes = [_sourceList selectedRowIndexes];
@@ -221,8 +197,6 @@
 		//		[selectedItemLabel setStringValue:@"(none)"];
 		//	}
 }
-
-
 - (void)sourceListDeleteKeyPressedOnRows:(NSNotification *)notification
 {
 	NSIndexSet *rows = [notification userInfo][@"rows"];
@@ -231,8 +205,6 @@
 
 		//Do something here
 }
-
-
 
 -(void) makeBadges {
 	[AZStopwatch start:@"makingbadges"];
@@ -248,8 +220,6 @@
 			//			}];
 //		NSLog(@"%@, spot: %ld, match ", obj.name, obj.spot);//, oc.name, sorted.spotNew);
 															//			app.badgeValue = sorted.spotNew;
-
-
 		app.color = obj.color;
 		app.objectRep = obj;
 		[app setChildren:[[[obj propertiesPlease] allKeys] arrayUsingBlock:^id(NSString* key) {
@@ -264,7 +234,5 @@
 	[AZStopwatch stop:@"makingbadges"];
 	[_sourceList reloadData];
 }
-
-
 
 @end

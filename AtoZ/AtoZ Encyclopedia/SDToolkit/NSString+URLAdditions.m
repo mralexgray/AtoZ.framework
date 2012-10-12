@@ -7,8 +7,6 @@
 //
 
 #import "NSString+URLAdditions.h"
-
-
 @implementation NSString (URLAdditions)
 
 - (NSString*) stringByURLEncodingString {

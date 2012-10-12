@@ -11,8 +11,6 @@
 //#import "AtoZ.h"
 
 
-
-
 @implementation AZRect
 
 +(AZRect *)rect {

@@ -4,15 +4,11 @@
 
 //  Created by Alex Gray on 7/2/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-
-
 #import <Cocoa/Cocoa.h>
 #import "AtoZ.h"
 //#import "AtoZUmbrella.h"
 //#import "AtoZFunctions.h"
 //#import "AZFile.h"
-
-
 static inline int get_bit(unsigned char *arr, unsigned long bit_num);
 CGImageRef 		  CreateCGImageFromData( NSData* data );
 float 			  distance( NSPoint aPoint ); // Just one function to declare...
@@ -23,8 +19,6 @@ typedef enum {
 	AGImageResizeCropEnd,
 	AGImageResizeScale
 } 	AGImageResizingMethod;
-
-
 @class AZFile;
 @interface NSImage (AtoZ)
 
@@ -85,13 +79,9 @@ typedef enum {
 - (NSIMG*) scaleImageToFillSize:	(NSSize) targetSize;
 - (NSIMG*) coloredWithColor:	  	(NSC*) inColor;
 - (NSIMG*) coloredWithColor:		(NSC*) inColor	composite:(NSCompositingOperation)comp;
-
-
 + (NSIMG*) az_imageNamed:	  (NSS*) name;
 + (NSIMG*) imageWithFileName: (NSS*) fileName inBundle:(NSB*)aBundle;
 + (NSIMG*) imageWithFileName: (NSS*) fileName inBundleForClass:(Class) aClass;
-
-
 
 + (NSIMG*)swatchWithColor:(NSC *)color size:(NSSize)size;
 + (NSIMG*)swatchWithGradientColor:(NSC *)color size:(NSSize)size;
@@ -101,11 +91,7 @@ typedef enum {
 - (NSA*) quantize;
 + (NSIMG*) desktopImage;
 - (void)openQuantizedSwatch;
-
-
 - (void) drawFloatingRightInFrame:(NSRect)aFrame;  //ACG FLOATIAMGE
-
-
 // draws the passed image into the passed rect, centered and scaled appropriately.
 // note that this method doesn't know anything about the current focus, so the focus must be locked outside this method
 - (void) drawCenteredinRect:(NSRect) inRect operation:(NSCompositingOperation)op fraction:(float)delta;
@@ -142,8 +128,6 @@ typedef enum {
 - (NSIMG*) addReflection:(CGFloat)percentage;
 
 - (void)drawEtchedInRect:(NSRect)rect;
-
-
 - (NSIMG*) maskedWithColor:(NSC *)color;
 
 /*!
@@ -170,8 +154,6 @@ typedef enum {
 /*!    @abstract   returning an cropped NSIMG*/
 - (NSIMG*)croppedImage:(CGRect)bounds;
 
-
-
 /*!    @abstract   save image to disk*/
 - (BOOL)saveImage:(NSString *)path 
 		 fileName:(NSString *)name 
@@ -197,8 +179,6 @@ typedef enum {
 @end
 
 @interface NSImage (AtoZScaling)
-
-
 - (NSIMG*)imageByAdjustingHue:(float)hue;
 - (NSIMG*)imageByAdjustingHue:(float)hue saturation:(float)saturation;
 - (NSImageRep *)representationOfSize:(NSSize)theSize;
@@ -265,5 +245,3 @@ typedef enum {
 @interface CIFilter (WithDefaults)
 + (CIFilter*) filterWithDefaultsNamed: (NSString*) name;
 @end
-
-

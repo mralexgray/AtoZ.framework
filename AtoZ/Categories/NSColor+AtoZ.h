@@ -26,8 +26,6 @@
 - (BOOL)	 isBoring;
 - (BOOL)	 isExciting;
 + (NSArray*) boringColors;
-
-
 - (NSString*) 	nameOfColor;
 - (NSString*) 	crayonName;
 - (NSColor*) 	closestWebColor;
@@ -130,8 +128,6 @@
 @end
 
 
-
-
 @interface NSColor (AIColorAdditions_HLS)
 
 //Linearly adjust a color
@@ -191,8 +187,6 @@
  e0ab51 = .8784, .6706, .3176
  cd7700 = .8039, .4666, 0
  */
-
-
 
 #define K_L 1
 #define K_1 0.045f
@@ -544,15 +538,11 @@
 //+ (NSString*)representedColorForObject: (id)anObject withValidColors: (NSArray*)validColors;
 
 //@end
-
-
 //@implementation NSColor (NSColor_ColorspaceEquality)
 
 //- (BOOL)	isEqualToColor:(NSColor*)inColor colorSpace:(NSString*)inColorSpace ;
 
 //@end
-
-
 //@implementation NSColor (NSColor_CSSRGB)
 
 //+ (NSColor*)	colorWithCSSRGB:(NSString*)rgbString;

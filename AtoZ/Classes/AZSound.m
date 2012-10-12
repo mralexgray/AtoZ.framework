@@ -36,8 +36,6 @@ NSString *const SoundDidFinishPlayingNotification = @"SoundDidFinishPlayingNotif
 @synthesize url;
 @synthesize sound;
 @synthesize completionHandler;
-
-
 + (Sound*) randomSound {
 	NSArray *randos = [[SoundManager sharedManager]soundPaths].copy;
     return [[Sound alloc]initWithContentsOfFile:[(NSS*)randos.randomElement copy]];
@@ -242,8 +240,6 @@ NSString *const SoundDidFinishPlayingNotification = @"SoundDidFinishPlayingNotif
 }
 
 @end
-
-
 #pragma mark SoundManager class
 @interface SoundManager ()
 @property (nonatomic, strong) Sound *currentMusic;
@@ -422,8 +418,6 @@ NSString *const SoundDidFinishPlayingNotification = @"SoundDidFinishPlayingNotif
 }
 
 @end
-
-
 
 //
 //  SoundManager.m

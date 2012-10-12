@@ -4,8 +4,6 @@
 //  Created by Nick Lockwood on 05/01/2012. Copyright 2012 Charcoal Design
 //  Distributed under the permissive zlib license
 //  Get the latest version from here: https://gist.github.com/1563325
-
-
 #ifndef AH_RETAIN
 #if __has_feature(objc_arc)
 #define AH_RETAIN(x) (x)
@@ -25,8 +23,6 @@
 #endif
 
 //  ARC Helper ends
-
-
 #ifdef __OBJC__
 	#import <Cocoa/Cocoa.h>
 	#import <Foundation/Foundation.h>
@@ -60,12 +56,8 @@
 //	#import "AZTalker.h"
 
 //#define NSLog(__VA_ARGS__) NSLog(@"[%s:%d]: %@", __FILE__, __LINE__, [NSString stringWithFormat:__VA_ARGS__])
-
-
 //	#define NSLog(args...) QuietLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args)
 //#define NSLog(...) qlog(format,...) {\
-
-
 //#else
 //# define NSLog(…) /* */
 //#endif
@@ -108,6 +100,4 @@
 //#endif
 
 #endif
-
-
 

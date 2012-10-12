@@ -22,8 +22,6 @@
 	CGFloat relativeCenterPoint = ([self visibleRect].origin.x + [self visibleRect].size.width * 0.5)
 	/ contentWidth;
 	[super layoutSublayers];
-
-
 	if ( contentWidth != [self contentWidth] || visibleWidth != [self visibleWidth] ) {
 		contentWidth = [self contentWidth];
 		visibleWidth = [self visibleWidth];
@@ -35,8 +33,6 @@
 		[self scrollToPoint:CGPointMake(contentWidth * relativeCenterPoint - visibleWidth * 0.5, 0)];
 	}
 }
-
-
 - (void)mouseDownAtPointInSuperlayer:(CGPoint)inputPoint {
 	CGPoint point = [self convertPoint:inputPoint fromLayer:self.superlayer];
 
@@ -87,8 +83,6 @@
 	boundsAnimation.fromValue= AZVrect(currentBounds);
 	boundsAnimation.toValue = AZVrect(newBounds);
 	[layer addAnimation:boundsAnimation forKey:@"animateBounds"];
-
-
 	CABasicAnimation *positionAnimation;
 
 	NSPoint animationOrigin = NSMakePoint(layer.frame.origin.x - expansion * 0.5,
@@ -118,8 +112,6 @@
 	return number != nil ? [number integerValue] : 0;
 }
 
-
-
 #pragma mark -
 #pragma mark CAScrollLayer Methods
 
@@ -127,12 +119,8 @@
 	[super scrollToPoint:thePoint];
 	[_contentController scrollPositionChanged:thePoint.x];
 }
-
-
 #pragma mark -
 #pragma mark SFScrollerContent Protocol Methods
-
-
 - (CGFloat)contentWidth {
 	return [ self.layoutManager preferredSizeOfLayer:self].width;
 }
@@ -150,8 +138,6 @@
 	if( position > 1 ) {
 		positionPercentage = 1;
 	}
-
-
 	CGFloat newX = [self contentWidth] * positionPercentage;
 	if (newX > contentWidth - visibleWidth ) newX = contentWidth - visibleWidth;
 	[self scrollToPoint:CGPointMake(newX, 0)];
@@ -169,8 +155,6 @@
 - (CGFloat)stepSize {
 	return stepSize;
 }
-
-
 
 
 - (void)startWiggling:(CALayer*)laylay {
@@ -197,7 +181,5 @@
 	[laylay removeAnimationForKey:@"wiggleRotation"];
 	[laylay removeAnimationForKey:@"wiggleTranslationY"];
 }
-
-
 
 @end

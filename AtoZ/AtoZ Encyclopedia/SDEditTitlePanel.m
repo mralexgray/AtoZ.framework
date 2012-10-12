@@ -7,8 +7,6 @@
 //
 
 #import "SDEditTitlePanel.h"
-
-
 @implementation SDEditTitlePanel
 
 - (id) initWithContentRect:(NSRect)contentRect styleMask:(NSUInteger)aStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)flag {

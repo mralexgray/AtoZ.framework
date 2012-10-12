@@ -6,8 +6,6 @@
 //
 
 #import "BlocksAdditions.h"
-
-
 @implementation NSObject (BlocksAdditions)
 
 - (void)my_callBlock
@@ -91,8 +89,6 @@ void Parallelized(int count, void (^block)(int i)) {
 }
 
 @end
-
-
 @implementation NSArray (CollectionsAdditions)
 
 - (void)do: (void (^)(id obj))block	{    for(id obj in self)        block(obj);	}

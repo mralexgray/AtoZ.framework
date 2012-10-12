@@ -9,8 +9,6 @@
 
 #import <libkern/OSAtomic.h>
 #import <objc/message.h>
-
-
 @interface _AZNotificationHelper : NSObject
 
 @property	id	observer;
@@ -176,5 +174,3 @@ static char AZNotificationHelperMagicContext;
 }
 
 @end
-
-

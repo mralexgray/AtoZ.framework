@@ -27,8 +27,6 @@ void inverseChromaticEvaluation(void *info, const float *in, float *out);
 void transformRGB_HSV(float *components);
 void transformHSV_RGB(float *components);
 void resolveHSV(float *color1, float *color2);
-
-
 @implementation CTGradient
 /////////////////////////////////////Initialization Type Stuff
 - (id)init
@@ -126,11 +124,7 @@ void resolveHSV(float *color1, float *color2);
 	}
   return self;
   }
-
-
 #pragma mark -
-
-
 
 #pragma mark Creation
 + (id)gradientWithBeginningColor:(NSColor *)begin endingColor:(NSColor *)end
@@ -493,8 +487,6 @@ void resolveHSV(float *color1, float *color2);
 
 #pragma mark -
 
-
-
 #pragma mark Modification
 - (CTGradient *)gradientWithAlphaComponent:(float)alpha
   {
@@ -523,8 +515,6 @@ void resolveHSV(float *color1, float *color2);
   
   return [newGradient autorelease];
   }
-
-
 //Adds a color stop with <color> at <position> in elementList
 //(if two elements are at the same position then added imediatly after the one that was there already)
 - (CTGradient *)addColorStop:(NSColor *)color atPosition:(float)position
@@ -544,8 +534,6 @@ void resolveHSV(float *color1, float *color2);
   
   return [newGradient autorelease];
   }
-
-
 //Removes the color stop at <position> from elementList
 - (CTGradient *)removeColorStopAtPosition:(float)position
   {
@@ -569,8 +557,6 @@ void resolveHSV(float *color1, float *color2);
   return [newGradient autorelease];
   }
 #pragma mark -
-
-
 
 #pragma mark Information
 - (CTGradientBlendingMode)blendingMode
@@ -615,8 +601,6 @@ void resolveHSV(float *color1, float *color2);
 								   alpha:components[3]];
   }
 #pragma mark -
-
-
 
 #pragma mark Drawing
 - (void)drawSwatchInRect:(NSRect)rect
@@ -737,8 +721,6 @@ void resolveHSV(float *color1, float *color2);
   }
 
 #pragma mark -
-
-
 
 #pragma mark Private Methods
 - (void)setBlendingMode:(CTGradientBlendingMode)mode;
@@ -890,8 +872,6 @@ void resolveHSV(float *color1, float *color2);
   
   return removedElement;
   }
-
-
 - (CTGradientElement *)elementAtIndex:(unsigned)index;			
   {
   unsigned count = 0;
@@ -909,8 +889,6 @@ void resolveHSV(float *color1, float *color2);
   return nil;
   }
 #pragma mark -
-
-
 
 #pragma mark Core Graphics
 //////////////////////////////////////Blending Functions/////////////////////////////////////
@@ -974,8 +952,6 @@ void linearEvaluation (void *info, const float *in, float *out)
   	out[3] = (color2->alpha - color1->alpha)*position + color1->alpha;
   	}
   }
-
-
 
 
 //Chromatic Evaluation - 
@@ -1067,8 +1043,6 @@ void chromaticEvaluation(void *info, const float *in, float *out)
   //printf("%.4f: %.4f,%.4f,%.4f\n",position,color1->red,color1->green,color1->blue);
   }
 
-
-
 //Inverse Chromatic Evaluation - 
 //	Inverse Chromatic is about the same story as Chromatic Blend, but here the Hue
 //	is strictly decreasing, that is we need to get from color1 to color2 by decreasing
@@ -1148,12 +1122,6 @@ void inverseChromaticEvaluation(void *info, const float *in, float *out)
     
   transformHSV_RGB(out);
   }
-
-
-
-
-
-
 
 
 

@@ -9,8 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @interface NSNumber (AtoZ)
-
-
 - (NSString*) prettyBytes;
 + (NSNumber*) zero;
 + (NSNumber*) one;

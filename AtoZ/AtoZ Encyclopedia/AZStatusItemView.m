@@ -36,14 +36,10 @@
 //    }
 //    return self;
 //}
-
-
 //- (void)dealloc
 //{
 //    controller = nil;
 //}
-
-
 - (void)drawRect:(NSRect)rect {
 
 //	[self.color set];
@@ -91,8 +87,6 @@
 //		[text drawInRect:msgRect withAttributes:msgAttrs];
 //	}
 }
-
-
 - (void)mouseDown:(NSEvent *)event
 {
 	NSRect frame = [[self window] frame];

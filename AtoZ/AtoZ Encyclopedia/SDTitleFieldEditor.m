@@ -7,8 +7,6 @@
 //
 
 #import "SDTitleFieldEditor.h"
-
-
 @implementation SDTitleFieldEditor
 
 - (id) init {

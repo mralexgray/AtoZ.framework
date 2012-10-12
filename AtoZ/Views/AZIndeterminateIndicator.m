@@ -9,14 +9,10 @@
 //  Based off of AMIndeterminateProgressIndicatorCell created by Andreas, version date 2007-04-03.
 //  http://www.harmless.de
 //  Copyright 2007 Andreas Mayer. All rights reserved.
-
-
 #import "AZIndeterminateIndicator.h"
 #import "AtoZ.h"
 
 #define ConvertAngle(a) (fmod((90.0-(a)), 360.0))
-
-
 @implementation AZIndeterminateIndicator
 
 @synthesize parentControl, spinning, doubleValue, animationDelay, displayedWhenStopped, color;
@@ -30,8 +26,6 @@
 	}
 	return self;
 }
-
-
 - (double)doubleValue
 {
 	return doubleValue;

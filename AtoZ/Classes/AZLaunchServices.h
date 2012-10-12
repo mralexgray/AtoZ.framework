@@ -32,8 +32,6 @@
 	//  kLSSharedFileListRecentServerItems
 	//  kLSSharedFileListSessionLoginItems
 	//  kLSSharedFileListGlobalLoginItems
-
-
 extern CFStringRef kLSSharedFileListFavoriteVolumes;
 extern CFStringRef kLSSharedFileListFavoriteItems;
 extern CFStringRef kLSSharedFileListRecentApplicationItems;
@@ -45,8 +43,6 @@ extern CFStringRef kLSSharedFileListGlobalLoginItems;
 #import <Cocoa/Cocoa.h>
 
 #import <Foundation/Foundation.h>
-
-
 
 @interface AZLaunchServices : NSObject
 

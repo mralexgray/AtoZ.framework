@@ -7,8 +7,6 @@
 //
 
 #import "NSArray+UsefulStuff.h"
-
-
 @implementation NSArray (UsefulStuff)
 
 - (NSArray*) reversedArray {

@@ -5,8 +5,6 @@
 //  Created by Mikkel Eide Eriksen on 25/01/12.
 //  Copyright (c) 2012 Mikkel Eide Eriksen. All rights reserved.
 //
-
-
 #import "AZOverlay.h"
 //#import "AtoZ.h"
 
@@ -813,8 +811,6 @@ typedef NSUInteger AZCorner;
     }
 }
 
-
-
 #pragma mark Properties
 
 - (id)overlayDataSource
@@ -917,8 +913,6 @@ typedef NSUInteger AZCorner;
 {
     return __AZ_overlaySelectionBorderColor;
 }
-
-
 @synthesize overlayBorderWidth = __AZ_overlayBorderWidth;
 
 @synthesize allowsCreatingOverlays = __AZ_allowsCreatingOverlays;

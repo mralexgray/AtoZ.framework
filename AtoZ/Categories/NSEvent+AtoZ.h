@@ -8,8 +8,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-
-
 @interface NSControl (AtoZ)
 
 - (void) setAction:(SEL)method withTarget:(id)object;

@@ -135,8 +135,6 @@ NSString * const AZSLDeleteKeyPressedOnRowsNotification = @"AZSourceListDeleteKe
 //					if([_secondaryDataSource respondsToSelector:@selector(sourceList:objectValueForItem:)]) {
 //						return [_secondaryDataSource sourceList:self itemHasBadge:item];
 //					}
-
-
 					NSRect selectRect = [self rectOfRow:lastSelectedRow];
 
 //					[highlightFrameColor set];
@@ -197,8 +195,6 @@ NSString * const AZSLDeleteKeyPressedOnRowsNotification = @"AZSourceListDeleteKe
 	[g drawInRect:clipRect angle:0];
 //    [gradient drawInRect:clipRect angle:90];
 }
-
-
 #pragma mark - Setup/Teardown
 
 - (id)initWithCoder:(NSCoder*)decoder
@@ -241,8 +237,6 @@ NSString * const AZSLDeleteKeyPressedOnRowsNotification = @"AZSourceListDeleteKe
 	
 //	[super dealloc];
 }
-
-
 #pragma mark -
 #pragma mark Custom Accessors
 
@@ -269,8 +263,6 @@ NSString * const AZSLDeleteKeyPressedOnRowsNotification = @"AZSourceListDeleteKe
 	[self registerDelegateToReceiveNotification:AZSLDeleteKeyPressedOnRowsNotification
 								   withSelector:@selector(sourceListDeleteKeyPressedOnRows:)];
 }
-
-
 - (void)setDataSource:(id<AZSourceListDataSource>)aDataSource
 {
 	_secondaryDataSource = aDataSource;
@@ -361,15 +353,11 @@ NSString * const AZSLDeleteKeyPressedOnRowsNotification = @"AZSourceListDeleteKe
 	
 	return 0;
 }
-
-
 - (BOOL)isGroupItem:(id)item
 {
 	//Groups are defined as root items (at level 0)
 	return 0==[self levelForItem:item];
 }
-
-
 - (BOOL)isGroupAlwaysExpanded:(id)group
 {
 	//Make sure that the item IS a group to prevent unwanted queries sent to the data source
@@ -382,8 +370,6 @@ NSString * const AZSLDeleteKeyPressedOnRowsNotification = @"AZSourceListDeleteKe
 	
 	return NO;
 }
-
-
 - (BOOL)itemHasBadge:(id)item
 {
 	if([_secondaryDataSource respondsToSelector:@selector(sourceList:itemHasBadge:)]) {
@@ -461,8 +447,6 @@ NSString * const AZSLDeleteKeyPressedOnRowsNotification = @"AZSourceListDeleteKe
     
     return frame;
 }
-
-
 - (NSRect)frameOfCellAtColumn:(NSInteger)column row:(NSInteger)row
 {
 	id item = [self itemAtRow:row];
@@ -511,8 +495,6 @@ NSString * const AZSLDeleteKeyPressedOnRowsNotification = @"AZSourceListDeleteKe
 						  cellSize.height);
 	}
 }
-
-
 //This method calculates and returns the size of the badge for the row index passed to the method. If the
 //row for the row index passed to the method does not have a badge, then NSZeroSize is returned.
 - (NSSize)sizeOfBadgeAtRow:(NSInteger)rowIndex {
@@ -785,8 +767,6 @@ NSString * const AZSLDeleteKeyPressedOnRowsNotification = @"AZSourceListDeleteKe
 
 #pragma mark -
 #pragma mark Menu Handling
-
-
 - (NSMenu *)menuForEvent:(NSEvent *)theEvent
 {
 	NSMenu * m = nil;
@@ -813,8 +793,6 @@ NSString * const AZSLDeleteKeyPressedOnRowsNotification = @"AZSourceListDeleteKe
 	
 	return 0;
 }
-
-
 - (id)outlineView:(NSOutlineView *)outlineView child:(NSInteger)index ofItem:(id)item
 {	
 	if([_secondaryDataSource conformsToProtocol:@protocol(AZSourceListDataSource)]) {
@@ -823,8 +801,6 @@ NSString * const AZSLDeleteKeyPressedOnRowsNotification = @"AZSourceListDeleteKe
 	
 	return nil;
 }
-
-
 - (BOOL)outlineView:(NSOutlineView *)outlineView isItemExpandable:(id)item
 {	
 	if([_secondaryDataSource conformsToProtocol:@protocol(AZSourceListDataSource)]) {
@@ -833,8 +809,6 @@ NSString * const AZSLDeleteKeyPressedOnRowsNotification = @"AZSourceListDeleteKe
 	
 	return NO;
 }
-
-
 - (id)outlineView:(NSOutlineView *)outlineView objectValueForTableColumn:(NSTableColumn *)tableColumn byItem:(id)item
 {
 	if([_secondaryDataSource conformsToProtocol:@protocol(AZSourceListDataSource)]) {
@@ -843,16 +817,12 @@ NSString * const AZSLDeleteKeyPressedOnRowsNotification = @"AZSourceListDeleteKe
 	
 	return nil;
 }
-
-
 - (void)outlineView:(NSOutlineView *)outlineView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn byItem:(id)item
 {	
 	if([_secondaryDataSource conformsToProtocol:@protocol(AZSourceListDataSource)]) {
 		[_secondaryDataSource sourceList:self setObjectValue:object forItem:item];
 	}
 }
-
-
 - (id)outlineView:(NSOutlineView *)outlineView itemForPersistentObject:(id)object
 {
 	if([_secondaryDataSource respondsToSelector:@selector(sourceList:itemForPersistentObject:)]) {
@@ -905,8 +875,6 @@ NSString * const AZSLDeleteKeyPressedOnRowsNotification = @"AZSourceListDeleteKe
 	
 	return nil;
 }
-
-
 #pragma mark -
 #pragma mark NSOutlineView Delegate methods
 
@@ -969,8 +937,6 @@ NSString * const AZSLDeleteKeyPressedOnRowsNotification = @"AZSourceListDeleteKe
 	
 	return YES;
 }
-
-
 - (NSIndexSet *)outlineView:(NSOutlineView *)outlineView selectionIndexesForProposedSelection:(NSIndexSet *)proposedSelectionIndexes
 {	
 	//The outline view will try to select the first row if -[allowsEmptySelection:] is set to NO – if this is a group row
@@ -1002,8 +968,6 @@ NSString * const AZSLDeleteKeyPressedOnRowsNotification = @"AZSourceListDeleteKe
 	
 	return YES;
 }
-
-
 - (BOOL)outlineView:(NSOutlineView *)outlineView shouldTrackCell:(NSCell *)cell forTableColumn:(NSTableColumn *)tableColumn item:(id)item
 {	
 	if([_secondaryDelegate respondsToSelector:@selector(sourceList:shouldTrackCell:forItem:)]) {
@@ -1035,8 +999,6 @@ NSString * const AZSLDeleteKeyPressedOnRowsNotification = @"AZSourceListDeleteKe
 {
 	[[NSNotificationCenter defaultCenter] postNotificationName:AZSLSelectionIsChangingNotification object:self];
 }
-
-
 - (void)outlineViewSelectionDidChange:(NSNotification *)notification
 {
 	[[NSNotificationCenter defaultCenter] postNotificationName:AZSLSelectionDidChangeNotification object:self];	
@@ -1084,8 +1046,6 @@ NSString * const AZSLDeleteKeyPressedOnRowsNotification = @"AZSourceListDeleteKe
 }
 
 @end
-
-
 @implementation SourceListItem
 
 @synthesize title;
@@ -1106,16 +1066,12 @@ NSString * const AZSLDeleteKeyPressedOnRowsNotification = @"AZSourceListDeleteKe
 	
 	return self;
 }
-
-
 + (id)itemWithTitle:(NSString*)aTitle identifier:(NSString*)anIdentifier
 {	
 	SourceListItem *item = [SourceListItem itemWithTitle:aTitle identifier:anIdentifier icon:nil];
 	
 	return item;
 }
-
-
 + (id)itemWithTitle:(NSString*)aTitle identifier:(NSString*)anIdentifier icon:(NSImage*)anIcon
 {
 	SourceListItem *item = [[SourceListItem alloc] init];
@@ -1126,8 +1082,6 @@ NSString * const AZSLDeleteKeyPressedOnRowsNotification = @"AZSourceListDeleteKe
 	
 	return item;
 }
-
-
 
 #pragma mark -
 #pragma mark Custom Accessors

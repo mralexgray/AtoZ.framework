@@ -7,8 +7,6 @@
 //
 
 #import <Cocoa/Cocoa.h>
-
-
 @interface AZObject : NSObject <NSCoding,NSCopying,NSFastEnumeration>
 
 // Shared instance is the object modified after each key change
@@ -18,12 +16,8 @@
 //	call this to get last modified key of last modified instance
 //+ (AZObject*)lastModifiedInstance;
 //+ (NSString*)lastModifiedKey;
-
-
 @property (nonatomic, retain) NSString *lastModifiedKey;
 @property (nonatomic, retain) AZObject *lastModifiedInstance;
 @property (nonatomic, retain) AZObject *sharedInstance;
 @property (nonatomic, retain) NSString *uniqueID;
-
-
 @end

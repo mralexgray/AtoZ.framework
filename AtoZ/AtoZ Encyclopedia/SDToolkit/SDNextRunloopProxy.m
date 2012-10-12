@@ -7,8 +7,6 @@
 //
 
 #import "SDNextRunloopProxy.h"
-
-
 @implementation SDNextRunloopProxy
 
 - (id) initWithTarget:(id)newTarget {

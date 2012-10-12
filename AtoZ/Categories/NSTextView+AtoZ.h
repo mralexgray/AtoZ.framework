@@ -7,8 +7,6 @@
 //
 
 #import <Cocoa/Cocoa.h>
-
-
 @interface AZTextViewResponder : NSTextView
 @end
 

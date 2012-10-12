@@ -4,15 +4,11 @@
 
 //  Created by Alex Gray on 7/29/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-
-
 #import "AZSimpleView.h"
 #import "AtoZ.h"
 
 @implementation AZSimpleView
 @synthesize glossy, backgroundColor, checkerboard, gradient;
-
-
 //- (BOOL)isOpaque
 //{
 //	return NO;
@@ -44,8 +40,6 @@
 	[self setFrame: theBox];
 	[self setNeedsDisplay: YES];
 }
-
-
 - (void)drawRect:(NSRect)rect {
 
 	if (glossy) {
@@ -70,11 +64,7 @@
 //	else	{	[self.backgroundColor ? self.backgroundColor : [NSColor clearColor]   set];		NSRectFill(rect);	}
 
 }
-
-
 @end
-
-
 @implementation AZSimpleGridView
 @synthesize rows, columns, grid;
 

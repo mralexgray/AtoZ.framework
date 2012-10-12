@@ -7,8 +7,6 @@
 //
 
 #import "NSString+UUID.h"
-
-
 @implementation NSString (UniqueAdditions)
 
 + (NSString*) UUIDString {

@@ -4,8 +4,6 @@
 
 //  Created by Alex Gray on 8/28/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-
-
 #import <Foundation/Foundation.h>
 
 NSString *NSDocumentsFolder();
@@ -14,8 +12,6 @@ NSString *NSTmpFolder();
 NSString *NSBundleFolder();
 
 @interface NSFileManager (AtoZ)
-
-
 - (NSArray*) arrayWithFilesMatchingPattern: (NSString*) pattern inDirectory: (NSString*) directory;
 
 + (NSString *) pathForItemNamed: (NSString *) fname inFolder: (NSString *) path;

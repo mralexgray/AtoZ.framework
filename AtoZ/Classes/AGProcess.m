@@ -45,8 +45,6 @@
 //	Fixed a memory leak during command allocation when the parser failed - Steve Gehrman
 //	Fixed a memory leak when deallocating an instance -- the annotation was not being freed - Craig Hockenberry
 //	Added annotations for Konfabulator widgets - Craig Hockenberry
-
-
 #import "AGProcess.h"
 #import <Foundation/Foundation.h>
 #include <mach/mach_host.h>
@@ -537,7 +535,7 @@ AGGetMachTaskEvents(task_t task, int *faults, int *pageins, int *cow_faults, int
 				for (; cp < buffer + length; cp++) {
 					if (*cp == '\0') {
 						if (strlen(currentItem) > 0) {
-							NSString *itemString = [NSString stringWithUTF8String:currentItem];
+							NSString *itemString = @(currentItem);
 							if (itemString) {
 								//NSLog(@"AGProcess: doProcArgs: itemString = %@", itemString);
 
@@ -607,21 +605,21 @@ AGGetMachTaskEvents(task_t task, int *faults, int *pageins, int *cow_faults, int
 			// we're using the newer sysctl selector, so use the argument count (less one for the command argument)
 			int i;
 			for (i = [args count] - 1; i >= (argumentCount - 1); i--) {
-				NSString *string = [args objectAtIndex:i];
+				NSString *string = args[i];
 				unsigned long index = [string rangeOfString:@"="].location;
 				if (index != NSNotFound)
-					[env setObject:[string substringFromIndex:index + 1] forKey:[string substringToIndex:index]];
+					env[[string substringToIndex:index]] = [string substringFromIndex:index + 1];
 			}
 			args = [args subarrayWithRange:NSMakeRange(0, i + 1)];
 		} else {
 			// we're using the older sysctl selector, so we just guess by looking for an '=' in the argument
 			int i;
 			for (i = [args count] - 1; i >= 0; i--) {
-				NSString *string = [args objectAtIndex:i];
+				NSString *string = args[i];
 				unsigned long index = [string rangeOfString:@"="].location;
 				if (index == NSNotFound)
 					break;
-				[env setObject:[string substringFromIndex:index + 1] forKey:[string substringToIndex:index]];
+				env[[string substringToIndex:index]] = [string substringFromIndex:index + 1];
 			}
 			args = [args subarrayWithRange:NSMakeRange(0, i + 1)];
 		}
@@ -715,15 +713,15 @@ AGGetMachTaskEvents(task_t task, int *faults, int *pageins, int *cow_faults, int
 	NSMutableArray *result = [NSMutableArray array];
 	int i, count = [all count];
 	for (i = 0; i < count; i++)
-		if ([[[all objectAtIndex:i] command] isEqualToString:comm])
-			[result addObject:[all objectAtIndex:i]];
+		if ([[all[i] command] isEqualToString:comm])
+			[result addObject:all[i]];
 	return result;
 }
 
 + (AGProcess *)processForCommand:(NSString *)comm {
 	NSArray *processes = [self processesForCommand:comm];
 	if ([processes count])
-		return [processes objectAtIndex:0];
+		return processes[0];
 	return nil;
 }
 
@@ -834,8 +832,8 @@ AGGetMachTaskEvents(task_t task, int *faults, int *pageins, int *cow_faults, int
 	NSMutableArray *children = [NSMutableArray array];
 	int i, count = [all count];
 	for (i = 0; i < count; i++)
-		if ([[all objectAtIndex:i] parentProcessIdentifier] == process)
-			[children addObject:[all objectAtIndex:i]];
+		if ([all[i] parentProcessIdentifier] == process)
+			[children addObject:all[i]];
 	return children;
 }
 
@@ -844,7 +842,7 @@ AGGetMachTaskEvents(task_t task, int *faults, int *pageins, int *cow_faults, int
 	NSMutableArray *siblings = [NSMutableArray array];
 	int i, count = [all count], ppid = [self parentProcessIdentifier];
 	for (i = 0; i < count; i++) {
-        AGProcess *p = [all objectAtIndex:i];
+        AGProcess *p = all[i];
 		if ([p parentProcessIdentifier] == ppid && [p processIdentifier] != process)
 			[siblings addObject:p];
     }

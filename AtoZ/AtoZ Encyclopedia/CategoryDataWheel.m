@@ -9,8 +9,6 @@
 #import "CategoryDataWheel.h"
 
 @implementation CategoryDataWheel
-
-
 - (void)awakeFromNib
 {
 		//set up data

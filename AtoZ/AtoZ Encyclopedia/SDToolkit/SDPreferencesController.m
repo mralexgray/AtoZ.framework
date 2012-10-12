@@ -11,11 +11,7 @@
 #import "NSWindow+Geometry.h"
 
 @interface SDPreferencesController (Private)
-
-
 @end
-
-
 @implementation SDPreferencesController
 
 @synthesize delegate;

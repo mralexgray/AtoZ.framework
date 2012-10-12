@@ -4,8 +4,6 @@
 
 //  Created by Alex Gray on 6/28/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-
-
 #import "AZBlockView.h"
 #import "AtoZ.h"
 
@@ -32,8 +30,6 @@
 //- (BOOL)isOpaque {
 //	return opaque;
 //}
-
-
 @implementation BNRBlockView
 @synthesize drawBlock, opaque;
 
@@ -52,8 +48,6 @@
 - (BOOL)isOpaque { 	return opaque;	}
 
 @end
-
-
 @implementation AZBlockView
 @synthesize drawBlock, opaque;
 + (AZBlockView*)  viewWithFrame:(NSRect)frame  opaque:(BOOL)opaque

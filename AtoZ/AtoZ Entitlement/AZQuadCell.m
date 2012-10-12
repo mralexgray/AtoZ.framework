@@ -4,8 +4,6 @@
 
 //  Created by Alex Gray on 8/29/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-
-
 #import "AZQuadCell.h"
 #import <AtoZ/AtoZ.h>
 
@@ -67,8 +65,6 @@
 	CGFloat size =  [@"M" pointSizeForFrame:[self bounds] withFont:@"Ubuntu Mono Bold"];
 	return	_font  = [NSFont fontWithName:@"Ubuntu Mono Bold" size:size];
 }
-
-
 //[swatch lockFocus];
 //[ico drawInRect:AZMakeRectFromSize(ico.size) fromRect:NSZeroRect operation:NSCompositeDestinationIn fraction:1];
 //	operation:NSCompositeDestinationIn fraction:1];
@@ -79,8 +75,6 @@
 //swatch = [swatch addReflection:.5];
 //view = [[NSImageView alloc] initWithFrame:AZMakeRectFromSize(swatch.size)];
 //[(NSImageView *)view setImage:swatch];
-
-
 - (void)drawRect:(NSRect)dirtyRect
 {
 
@@ -91,8 +85,6 @@
 
 // NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString: desc.firstLetter attributes:@{ NSFontAttributeName: [NSFont fontWithName:@"Ubuntu Mono Bold" size:190],
 		//													  NSForegroundColorAttributeName :WHITE} ];
-
-
 //	NSMutableParagraphStyle* style = [[NSMutableParagraphStyle alloc] init];
 //	[self.color.contrastingForegroundColor set];
 //	[style setAlignment:NSCenterTextAlignment];
@@ -105,8 +97,6 @@
 //	[self.color set];
 
 //	[s drawInRect:[self bounds] fromRect:NSZeroRect operation:NSCompositeDestinationAtop fraction:1];
-
-
 //	[tt set];
 //	[s drawInRect:[self bounds] fromRect:NSZeroRect operation:NSCompositeDestinationOver fraction:1];
 
@@ -118,7 +108,5 @@
 //	[self.string  drawWithFont:self.font];
 
 }
-
-
 
 @end

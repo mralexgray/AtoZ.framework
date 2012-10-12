@@ -45,8 +45,6 @@ extern
 **/
 
 //NS_INLINE void _AZSimpleLog(const char *file, int lineNumber, const char *funcName, NSString *format,...);
-
-
 NS_INLINE void _AZSimpleLog( const char *file, int lineNumber, const char *funcName, NSString *format, ... )
 {
 	va_list   argList;
@@ -63,8 +61,6 @@ NS_INLINE void _AZSimpleLog( const char *file, int lineNumber, const char *funcN
 NSString * AZToStringFromTypeAndValue(const char * typeCode, void * value);
 
 #define LOCALIZED_STRING(key) [[NSBundle bundleForClass:[AtoZ class]]localizedStringForKey:(key) value:@"" table:nil]
-
-
 /* You cannot take the address of a return value like that, only a variable. Thus, you’d have to put the result in a temporary variable:
 The way to get around this problem is use another GCC extension allowing statements in expressions. Thus, the macro creates a temporary variable, _Y_, with the same type of _X_ (again using typeof) and passes the address of this temporary to the function.
  http://www.dribin.org/dave/blog/archives/2008/09/22/convert_to_nsstring/
@@ -81,8 +77,6 @@ AZToStringFromTypeAndValue(@encode(typeof(_X_)), &_Y_);})
 #define CP copy
 #define SET setter
 #define GET getter
-
-
 
 #define kIMG 	@"image"
 #define kCLR 	@"color"
@@ -121,8 +115,6 @@ AZToStringFromTypeAndValue(@encode(typeof(_X_)), &_Y_);})
 /* key, observer, object */
 
 #define OB_OBSERVE_VALUE(x, y, z) [(z) addObserver:y forKeyPath:x options:NSKeyValueObservingOptionOld context:nil];
-
-
 #define AZBUNDLE [NSBundle bundleForClass:[AtoZ class]]
 
 #define AZLocalizedString(key) NSLocalizedStringFromTableInBundle(key,nil,AZBUNDLE,nil)
@@ -131,18 +123,12 @@ AZToStringFromTypeAndValue(@encode(typeof(_X_)), &_Y_);})
 
 //Usage:
 //AZLocalizedString(@"ZeebaGreeting", @"Huluu zeeba")
-
-
 //+ (NSString*)typeStringForType:(IngredientType)_type {
 //	NSString *key = [NSString stringWithFormat:@"IngredientType_%i", _type];
 //	return NSLocalizedString(key, nil);
 //}
-
-
 #ifdef __OBJC__
 #endif
-
-
 
 #define PROPSTRONG (@property (nonatomic,strong) )
 #define PROPASSIGN (@property (nonatomic,assign) )
@@ -151,8 +137,6 @@ AZToStringFromTypeAndValue(@encode(typeof(_X_)), &_Y_);})
 #define ASSIGN ((nonatomic,assign) )
 
 #define CGSUPRESSINTERVAL(x) CGEventSourceSetLocalEventsSuppressionInterval(nil,x)
-
-
 #define AZPOS AZWindowPosition
 
 #define NSI NSInteger
@@ -254,8 +238,6 @@ attr1 relativeTo:relName attribute:attr2 scale:scl offset:off]
 #define AZTArea(frame) [[NSTrackingArea alloc] initWithRect:frame options:(NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways | NSTrackingInVisibleRect | NSTrackingMouseMoved ) owner:self userInfo:nil]
 
 #define AZTAreaInfo(frame,info) [[NSTrackingArea alloc] initWithRect: frame options:(NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways | NSTrackingInVisibleRect | NSTrackingMouseMoved ) owner:self userInfo:info];
-
-
 #define CLAMP(value, lowerBound, upperbound) MAX( lowerBound, MIN( upperbound, value ))
 
 #define AZDistance(A,B) sqrtf(powf(fabs(A.x - B.x), 2.0f) + powf(fabs(A.y - B.y), 2.0f))
@@ -276,16 +258,12 @@ attr1 relativeTo:relName attribute:attr2 scale:scl offset:off]
 #define DEG2RAD(x) ((x)*ARAD)
 
 #define RAD2DEG (rad) (rad * 180.0f / M_PI)
-
-
 //returns float in range 0 - 1.0f
 //usage RAND01()*3, or (int)RAND01()*3 , so there is no risk of dividing by zero
 
 #define RAND01() ((random() / (float)0x7fffffff ))
 
 //#define rand() (arc4random() % ((unsigned)RAND_MAX + 1))
-
-
 #define LINEN [NSColor linen]
 #define RANDOMLINEN [NSColor linenTintedWithColor:RANDOMCOLOR]
 #define CHECKERS [NSColor checkerboardWithFirstColor: BLACK secondColor: WHITE squareWidth:25]
@@ -327,8 +305,6 @@ attr1 relativeTo:relName attribute:attr2 scale:scl offset:off]
 
 #define RANDOMGRAY [NSColor colorWithDeviceWhite:RAND_FLOAT_VAL(0,1) alpha:1]
 #define cgRANDOMGRAY CGColorCreateGenericGray( RAND_FLOAT_VAL(0,1), 1)
-
-
 #define kBlackColor 	[[NSColor  blackColor]	CGColor]
 #define kWhiteColor 	[[NSColor  whiteColor]	CGColor]
 #define kHighlightColor [[NSColor randomColor]  CGColor]
@@ -338,8 +314,6 @@ attr1 relativeTo:relName attribute:attr2 scale:scl offset:off]
 #define kTranslucentGrayColor CGColorCreate( kCGColorSpaceGenericGray, {0.0, 0.5, 1.0})
 #define kTranslucentLightGrayColor cgGREY
 #define	kAlmostInvisibleWhiteColor CGColorCreate( kCGColorSpaceGenericGray, {1, 0.05, 1.0})
-
-
 // random macros utilizing arc4random()
 #define RAND_UINT_MAX		0xFFFFFFFF
 #define RAND_INT_MAX		0x7FFFFFFF
@@ -367,8 +341,6 @@ attr1 relativeTo:relName attribute:attr2 scale:scl offset:off]
 // RAND_DIRECTION() -1 or +1 (usage: int steps = 10*RAND_DIRECTION();  will get you -10 or 10)
 #define RAND_BOOL()				(arc4random() & 1)
 #define RAND_DIRECTION()		(RAND_BOOL() ? 1 : -1)
-
-
 #define $point(A)       	[NSValue valueWithPoint:A]
 #define $points(A,B)       	[NSValue valueWithPoint:CGPointMake(A,B)]
 #define $rect(A,B,C,D)    	[NSValue valueWithRect:CGRectMake(A,B,C,D)]
@@ -384,8 +356,6 @@ attr1 relativeTo:relName attribute:attr2 scale:scl offset:off]
 #define $doubles(...) 		[NSArray arrayWithDoubles:__VA_ARGS__,MAXFLOAT]
 #define $words(...)   		[[@#__VA_ARGS__ splitByComma] trimmedStrings]
 //#define $concat(A,...) { A = [A arrayByAddingObjectsFromArray:((NSArray *)[NSArray arrayWithObjects:__VA_ARGS__,nil])]; }
-
-
 // s stringByReplacingOccurrencesOfString:@"fff	" withString:@"%%%%"] )
 //#define AZLOG(log,...) NSLog(@"%@", [log s stringByReplacingOccurrencesOfString:@"fff	" withString:@"%%%%"] )
 
@@ -394,8 +364,6 @@ attr1 relativeTo:relName attribute:attr2 scale:scl offset:off]
 #else
 #   define DLog(...)
 #endif
-
-
 //#define NSLog(args...) _AZSimpleLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args);
 
 //#define NSLog(args...) _AZLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args);
@@ -411,8 +379,6 @@ attr1 relativeTo:relName attribute:attr2 scale:scl offset:off]
 #define logprop(a) NSLog(@"%@", [a propertiesPlease])
 //#define logobj(a) id logit = a \	     NSLog(@"%@", a)
 #define desc(a) NSLog(@"%@", [a description])
-
-
 
 
 #pragma - General Functions
@@ -456,8 +422,6 @@ typedef enum {
 } 	AppCat;
 
 #define AppCatTypeArray @"Games", @"Education", @"Entertainment", @"Books", @"Lifestyle", @"Utilities", @"Business", @"Travel", @"Music", @"Reference", @"Sports", @"Productivity", @"News", @"Healthcare & Fitness", @"Photography", @"Finance", @"Medical", @"Social Networking", @"Navigation", @"Weather", @"Catalogs", @"Food & Drink", @"Newsstand", nil
-
-
 typedef enum {
 	AZOrientTop,
 	AZOrientLeft,
@@ -477,8 +441,6 @@ typedef enum {
 	AZInfiteScale3X,
 	AZInfiteScale10X
 } 	AZInfiteScale;
-
-
 
 typedef enum  { LeftOn,LeftOff,TopOn,TopOff,RightOn,RightOff,BottomOn,BottomOff			} AZTrackState;
 typedef enum  {	AZDockSortNatural,AZDockSortColor,AZDockSortPoint,AZDockSortPointNew	} AZDockSort;
@@ -511,14 +473,10 @@ extern NSString *const AZMenuPositionName[AZMenuPositionCount];
 // NSLog(@"%@", FormatTypeName[XML]);
 
 //NSString *const FormatTypeName[FormatTypeCount] = { [JSON]=@"JSON", [XML]=@"XML", [Atom] = @"Atom", [RSS] = @"RSS", };
-
-
 typedef enum {	AZItemsAsBundleIDs,
 				AZItemsAsPaths,
 				AZItemsAsNames
 } AZItemsViewFormat;
-
-
 typedef enum {	ReadAccess = R_OK,
 				WriteAccess = W_OK,
 				ExecuteAccess = X_OK,
@@ -526,8 +484,6 @@ typedef enum {	ReadAccess = R_OK,
 } SandBox;
 
 BOOL isPathAccessible(NSString *path, SandBox mode);
-
-
 void trackMouse();
 // In a header file
 //typedef enum {
@@ -547,8 +503,6 @@ void trackMouse();
 	//	[Atom] = @"Atom",
 	//	[RSS] = @"RSS",
 	//};
-
-
 typedef enum {
     IngredientType_text  = 0,
     IngredientType_audio = 1,
@@ -581,8 +535,6 @@ typedef struct {
 	CGFloat finalWhite;
 } GlossParameters;
 
-
-
 #define AZBONK @throw \
 [NSException \
 exceptionWithName:@"WriteThisMethod" \
@@ -602,8 +554,6 @@ return SC##_sharedInstance; \
 	//[transition setDuration:1.0];
 	//[transition setType:kCATransitionPush];
 	//[transition setSubtype:kCATransitionFromLeft];
-
-
 	//extern NSArray* AZConstraintEdgeExcept(AZCOn attr, rel, scale, off) \
 	//[NSArray arrayWithArray:@[
 	//AZConstRelSuper( kCAConstraintMaxX ),
@@ -614,18 +564,12 @@ return SC##_sharedInstance; \
 
 	//#define AZConstraint(attr, rel) \
 	//[CAConstraint constraintWithAttribute: attr relativeTo: rel attribute: attr]
-
-
 	//@property (nonatomic, assign) <\#type\#> <\#name\#>;
 	// AZConst(<\#CAConstraintAttribute\#>, <#\NSString\#>);
 	// AZConst(<#CAConstraintAttribute#>, <#NSString*#>);
-
-
 	//#import "AtoZiTunes.h"
 
 	// Sweetness vs. longwindedness
-
-
 
 	//  BaseModel.h
 	//  Version 2.3.1
@@ -682,8 +626,6 @@ __MAC_OS_X_VERSION_MIN_REQUIRED > __MAC_10_7))
 //  ARC Helper ends
 
 
-
-
 #define AZRelease(value) \
 if ( value ) { \
 //[value release]; \
@@ -694,8 +636,6 @@ value = nil; \
 //[ newValue retain ]; \
 AZRelease (oldValue); \
 oldValue = newValue;
-
-
 
 #define foreach(B,A) A.andExecuteEnumeratorBlock = \
 ^(B, NSUInteger A##Index, BOOL *A##StopBlock)

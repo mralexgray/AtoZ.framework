@@ -4,8 +4,6 @@
 
 	//  Created by Alex Gray on 7/5/12.
 	//  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-
-
 #import <ApplicationServices/ApplicationServices.h>
 #import <Cocoa/Cocoa.h>
 #import <AppKit/AppKit.h>
@@ -14,12 +12,8 @@
 #import "AtoZModels.h"
 #import "AZFile.h"
 #import "AtoZUmbrella.h"
-
-
 @implementation AZDockQuery
 	//@synthesize dock;
-
-
 	//+ (NSArray*) dock:(AZDock*)dock {
 	//	return [[AZDockQuery sharedInstance] dock: dock];
 	//}
@@ -37,8 +31,6 @@
 		AXUIElementRef firstChild 	=
 		(AXUIElementRef) [self subelementsFromElement:appElement forAttribute:@"AXChildren"][0];
 		NSArray *children 	= [self subelementsFromElement:firstChild forAttribute:@"AXChildren"];
-
-
 		[children enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 
 			AXUIElementRef axElement =  (AXUIElementRef)obj;
@@ -97,8 +89,6 @@
 	} //if _dock noexista
 	  //	return _dock;
 }
-
-
 - (CGPoint) locationNowForAppWithPath:(NSString*)aPath {
 	[AZStopwatch start:@"getPoint"];
 	__block CGPoint thePoint = CGPointMake(0,0);	AXUIElementRef appElement = NULL;
@@ -153,7 +143,5 @@
 	if (result != kAXErrorSuccess) return nil;
 	return subElements;	// autorelease];
 }
-
-
 
 @end

@@ -353,8 +353,6 @@
 {
 	return [self valueByPerformingSelector:selector withObject:nil withObject:nil];
 }
-
-
 // Return an array of all an object's selectors
 + (NSArray *) getSelectorListForClass
 {
@@ -514,11 +512,7 @@
 {
 	return [self tryPerformSelector:aSelector withObject:nil withObject:nil];
 }
-
-
 @end
-
-
 
 @implementation NSObject (NSCoding)
 

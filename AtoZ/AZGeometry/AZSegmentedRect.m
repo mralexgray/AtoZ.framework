@@ -133,8 +133,6 @@
 }
 
 -(AZRect *)rectForPerimeterIndex:(NSUInteger)index {
-
-
 }
 
 -(AZRect *)segmentAtIndex:(NSUInteger)index {
@@ -174,8 +172,6 @@
 		m.y = self.segmentSize.height;
 	}
 	re.y = [sy.trim floatValue] * m.y;
-
-
 	return re;
 }
 
@@ -194,8 +190,6 @@
 	return [AZSegmentedRect rectWithRect:self.rect width:hv height:wv];
 }
 @end
-
-
 @implementation NSBezierPath (AZSegmentedRect)
 
 -(id)traverseSegments:(NSString *)segmentDefinition

@@ -5,8 +5,6 @@
 #import "AZBoxGrid.h"
 #import "AZBox.h"
 #import "AtoZ.h"
-
-
 @class MyScrollView;
 @interface AZBoxGrid  ()
 {		
@@ -22,8 +20,6 @@
 @interface AZBoxGrid ()
 - (void)updateLayout;
 @end
-
-
 @class MyScrollView;
 @implementation AZBoxGrid
 @synthesize cellSize, desiredNumberOfColumns, desiredNumberOfRows;
@@ -32,11 +28,7 @@
 @synthesize boxRadius = boxRadius_, boxInset = boxInset_, scalar = scalar_;
 @synthesize numberOfRows, numberOfColumns;
 
-
-
 #pragma mark - Selection
-
-
 
 
 - (NSIndexSet *)selection {
@@ -47,8 +39,6 @@
 	AZBox *cell = [[visibleCells allValues]randomElement];
 	return cell.inset;
 }
-
-
 - (float) boxRadius {
 	AZBox *cell = [[visibleCells allValues]randomElement];
 	return cell.radius;
@@ -79,8 +69,6 @@
 		}
 	}
 }
-
-
 //- (void) viewDidEndLiveResize {
 //	[self setMaximizeIdeally:maximizeIdeally];
 

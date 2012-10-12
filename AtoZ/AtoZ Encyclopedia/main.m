@@ -9,8 +9,6 @@
 //#import <Cocoa/Cocoa.h>
 //#import <Foundation/Foundation.h>
 //#import <AtoZ/AtoZ.h>
-
-
 @interface AtoZCLI : NSObject
 @end
 
@@ -45,8 +43,6 @@
 	NSLog(@"%@", [AZApplePrivate registeredApps]);
 }
 @end
-
-
 int main(int argc, const char * argv[])
 {
 	
@@ -99,14 +95,10 @@ int main(int argc, const char * argv[])
 	return NSApplicationMain(argc, (const char **)argv);
 
 }
-
-
 	//int main(int argc, char *argv[])
 	//{
 	//	return NSApplicationMain(argc, (const char **)argv);
 	//}
-
-
 	//
 	//  AZAppDelegate.h
 	//  AZLayerTest

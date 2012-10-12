@@ -109,8 +109,6 @@
 - (BOOL)isOpaque {
 	return NO;
 }
-
-
 // This is called to calculate the transition images and to start the animation.
 // The initial and final windows aren't retained, so weird things might happen if
 // they go away during the animation. We assume both windows have the exact same frame.

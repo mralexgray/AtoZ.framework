@@ -9,8 +9,6 @@
 //  Based off of AMIndeterminateProgressIndicatorCell created by Andreas, version date 2007-04-03.
 //  http://www.harmless.de
 //  Copyright 2007 Andreas Mayer. All rights reserved.
-
-
 #import <Cocoa/Cocoa.h>
 
 @interface AZIndeterminateIndicator : NSCell {
@@ -33,9 +31,5 @@
 
 @property (assign, getter = isDisplayedWhenStopped)	BOOL displayedWhenStopped;
 @property (assign, getter = isSpinning) BOOL spinning;
-
-
 - (void)animate:(NSTimer *)aTimer;
-
-
 @end

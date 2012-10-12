@@ -39,8 +39,6 @@ typedef NSUInteger AZState;
  
  */
 @interface AZOverlayView : IKImageView
-
-
 /// ---------------------------------
 /// @name Setting the Overlay Data Source
 /// ---------------------------------
@@ -324,8 +322,6 @@ extern NSString *AZOverlayViewOverlayDidDeleteNotification;
  @return The number of overlays in anOverlayView.
  */
 - (NSUInteger)numberOfOverlaysInOverlayView:(AZOverlayView *)anOverlayView;
-
-
 /** Invoked by the overlay view to return the data object associated with the specified index.
  
  @param anOverlayView The overlay view that sent the message.
@@ -347,8 +343,6 @@ extern NSString *AZOverlayViewOverlayDidDeleteNotification;
  See [AZOverlayView overlayDelegate]
  */
 @interface NSObject (AZOverlayViewDelegate)
-
-
 /// ---------------------------------
 /// @name Events
 /// ---------------------------------
@@ -398,8 +392,6 @@ extern NSString *AZOverlayViewOverlayDidDeleteNotification;
  @see overlayView:didModifyOverlay:newRect:
  */
 - (void)overlayView:(AZOverlayView *)anOverlayView didDeleteOverlay:(id)overlayObject;
-
-
 /// ---------------------------------
 /// @name Events
 /// ---------------------------------

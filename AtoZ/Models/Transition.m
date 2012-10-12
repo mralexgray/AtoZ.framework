@@ -48,8 +48,6 @@
 	self.style 		= aStyle;
 	self.direction 	= aDirection;
 }
-
-
 - (NSTimeInterval)transitionDuration
 {
     return transitionDuration;
@@ -58,8 +56,6 @@
 {
     transitionDuration = aTransitionDuration;
 }
-
-
 /* Utility:
  * Capture a view into a CoreImage of rect size
  *   I know it's horrible, but at least it is only called twice when starting the transition
@@ -361,8 +357,6 @@
 			//standard transistion
 			[transitionFilter setValue:@(time) forKey:@"inputTime"];
 		}
-
-
 	// Draw the output, or pass on to second filter
 	CIImage * outputCIImage = [transitionFilter valueForKey:@"outputImage"];
 	if(self.chaining) {
@@ -400,6 +394,4 @@
     // Now ask the AnimatingTabView (which set itself as our delegate) to display.  Sending a -display message differs from sending -setNeedsDisplay: or -setNeedsDisplayInRect: in that it demands an immediate, syncrhonous redraw of the view.  Most of the time, it's preferrable to send a -setNeedsDisplay... message, which gives AppKit the opportunity to coalesce potentially numerous display requests and update the window efficiently when it's convenient.  But for a syncrhonously executing animation, it's appropriate to use -display.
 	[(NSView*)self.delegate display];
 }
-
-
 @end

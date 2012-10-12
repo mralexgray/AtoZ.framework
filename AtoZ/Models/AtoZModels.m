@@ -18,8 +18,6 @@
 	//@dynamic  appFolder;// = _appFolder,
 	//@dynamic  appFolderSorted;// = _appFolderSorted;
 
-
-
 @implementation SizeObj
 @synthesize width, height;
 

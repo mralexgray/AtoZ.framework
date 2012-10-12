@@ -35,8 +35,6 @@ typedef  id (^AZMappingBlock)(id obj);
 //}
 
 @end
-
-
 @interface AZLaunchServices (Private)
 + (NSArray *)mappingArray:(NSArray *)array usingBlock:(AZMappingBlock)block;
 + (NSInteger)indexOfItemWithURL:(NSURL *)url inList:(CFStringRef)list_name;
@@ -83,8 +81,7 @@ typedef  id (^AZMappingBlock)(id obj);
 {
     if (index == -1) return NO;
     LSSharedFileListRef list = LSSharedFileListCreate(NULL, (CFStringRef)list_name, NULL);
-    LSSharedFileListItemRef item_to_remove = (LSSharedFileListItemRef)[(NSArray *)LSSharedFileListCopySnapshot(list, NULL)
-                                                                       objectAtIndex: index];
+    LSSharedFileListItemRef item_to_remove = (LSSharedFileListItemRef)((NSArray *)LSSharedFileListCopySnapshot(list, NULL))[index];
     if (!item_to_remove || !list) return (NO);
     LSSharedFileListItemRemove(list , item_to_remove);
     CFRelease(list);
@@ -104,8 +101,6 @@ typedef  id (^AZMappingBlock)(id obj);
     BOOL isok = (LSSharedFileListRemoveAllItems(list) == noErr);
     return (CFRelease(list), isok);
 }
-
-
 #pragma mark Applications
 
 + (NSArray *)allApplicationsFormattedAs:(AZItemsViewFormat)response_format
@@ -127,18 +122,15 @@ typedef  id (^AZMappingBlock)(id obj);
     return [AZLaunchServices prepareArray: [(NSArray *)bundles autorelease]
                                withFormat: response_format];
 }
-
-
 + (NSArray *)allAvailableFileTypesForApplication:(NSString *)full_path
 {
-    NSArray *all_doc_types = [[NSDictionary dictionaryWithContentsOfFile: full_path]
-                              objectForKey: @"CFBundleDocumentTypes"];
+    NSArray *all_doc_types = [NSDictionary dictionaryWithContentsOfFile: full_path][@"CFBundleDocumentTypes"];
     if ( ! all_doc_types) return nil;
 
     return [AZLaunchServices mappingArray: all_doc_types
                                usingBlock:^id(NSDictionary * obj) {
                                    /* Use 0 as index because it's highest level of file types' hierarchy */
-                                   id tmp =  [[obj objectForKey: @"LSItemContentTypes"] objectAtIndex: 0];
+                                   id tmp =  obj[@"LSItemContentTypes"][0];
                                    return tmp;
                                }];
 }
@@ -146,40 +138,34 @@ typedef  id (^AZMappingBlock)(id obj);
 /* Return only MIMEs defined in LaunchService database */
 + (NSArray *)allAvailableMIMETypesForApplication:(NSString *)full_path
 {
-    NSArray *all_doc_types = [[NSDictionary dictionaryWithContentsOfFile: full_path]
-                              objectForKey: @"CFBundleDocumentTypes"];
+    NSArray *all_doc_types = [NSDictionary dictionaryWithContentsOfFile: full_path][@"CFBundleDocumentTypes"];
     if ( ! all_doc_types) return nil;
 
     return [AZLaunchServices mappingArray: all_doc_types usingBlock:^id(id obj) {
 
-        NSArray * tmp_array = [obj objectForKey: @"LSItemContentTypes"];
+        NSArray * tmp_array = obj[@"LSItemContentTypes"];
         /* If we can't recognize a MIME type for some file type - take a look on it' parent type */
         /* e.g. com.pkware.zip-archive (no MIME type) --> public.zip-archive (MIME is OK)*/
         id value = nil;
         for (NSUInteger i = 0; i < [tmp_array count] && !value; i++) {
-            value = (NSString *)UTTypeCopyPreferredTagWithClass((CFStringRef)[tmp_array objectAtIndex: i],
+            value = (NSString *)UTTypeCopyPreferredTagWithClass((CFStringRef)tmp_array[i],
                                                                 kUTTagClassMIMEType);
         }
         return value;
     }];
 }
-
-
 + (NSArray *)allAvailableFileExtensionsForApplication:(NSString *)full_path
 {
-    NSArray *all_doc_types = [[NSDictionary dictionaryWithContentsOfFile: full_path]
-                              objectForKey: @"CFBundleDocumentTypes"];
+    NSArray *all_doc_types = [NSDictionary dictionaryWithContentsOfFile: full_path][@"CFBundleDocumentTypes"];
     if ( !all_doc_types) {
         return nil;
     }
 	NSMutableArray *value = [[NSMutableArray alloc] init];
     [all_doc_types enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        [value addObjectsFromArray: [obj objectForKey: @"CFBundleTypeExtensions"]];
+        [value addObjectsFromArray: obj[@"CFBundleTypeExtensions"]];
     }];
     return [value autorelease];
 }
-
-
 
 
 #pragma mark Files
@@ -220,7 +206,7 @@ typedef  id (^AZMappingBlock)(id obj);
                 valueForKey: @"public.filename-extension"];
     [tmp_dict release];
 
-    return [value isKindOfClass:NSClassFromString(@"NSArray")] ? value : [NSArray arrayWithObject: value];
+    return [value isKindOfClass:NSClassFromString(@"NSArray")] ? value : @[value];
 }
 
 + (NSString *)preferredFileExtensionForMIMEType:(NSString *)mime_type
@@ -256,8 +242,6 @@ typedef  id (^AZMappingBlock)(id obj);
     return (CFRelease(uti), value);
 }
 
-
-
 #pragma mark Private
 
 + (NSArray *)prepareArray:(NSArray *)array withFormat:(/*enum */AZItemsViewFormat)format
@@ -291,8 +275,6 @@ typedef  id (^AZMappingBlock)(id obj);
     }];
     return idx;
 }
-
-
 /* Going throw an array's elements doing something with them, and create items for a new array */
 
 + (NSArray *)mappingArray:(NSArray *)array usingBlock:(AZMappingBlock)block

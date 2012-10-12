@@ -4,13 +4,9 @@
 
 //  Created by Matthieu Cormier on 12/7/09.
 //  Copyright 2009 Preen and Prune Software and Design. All rights reserved.
-
-
 #import "MondoSwitch.h"
 #import "MondoSwitchButtonCALayer.h"
 #import "AtoZ.h"
-
-
 @interface MondoSwitch (PrivateMethods)
 -(void)setupLayers;
 -(CGPoint) pointForEvent:(NSEvent *) event;
@@ -25,8 +21,6 @@
 @implementation MondoSwitch
 
 @synthesize on, target, action;
-
-
 #pragma mark -
 #pragma mark init methods
 
@@ -66,8 +60,6 @@
 		return;
 	AZAssign(_bgGradient, gradient);
 }
-
-
 -(void)setupLayers {
 
 	// create a layer and match its frame to the view's frame
@@ -90,8 +82,6 @@
 
 	CGFloat midX = CGRectGetMidX( mainLayer.frame );
 	CGFloat midY = CGRectGetMidY( mainLayer.frame );
-
-
 	// create a "container" layer for all content layers.
 	// same frame as the view's master layer, automatically
 	// resizes as necessary.
@@ -116,8 +106,6 @@
 
 	[self bind:@"on" toObject:buttonLayer withKeyPath:@"on" options:nil];
 }
-
-
 
 - (void)drawRect:(NSRect)dirtyRect {
 	// The logic is pushed to another operation so that
@@ -149,8 +137,6 @@
 	[borderColor set];
 	[path stroke];
 }
-
-
 
 #pragma mark -
 #pragma mark propertyMethods
@@ -203,6 +189,4 @@
 //	AZRelease(target);
 //	//  [super dealloc];
 //}
-
-
 @end

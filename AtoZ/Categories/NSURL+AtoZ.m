@@ -7,8 +7,6 @@
 //
 
 #import "NSURL+AtoZ.h"
-
-
 /* data passing categories on NSURLRequest and NSMutableURLRequest.  see the
  header file for more info.  */
 //@implementation NSURLRequest (SpecialProtocol)
@@ -26,8 +24,6 @@
 //						forKey:[SpecialProtocol specialProtocolVarsKey] inRequest:self];
 //}
 //@end
-
-
 
 @implementation NSURL (AtoZ)
 

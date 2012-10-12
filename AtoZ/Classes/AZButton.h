@@ -12,11 +12,7 @@
 @property (nonatomic, retain) NSColor *color;
 @property (assign) BOOL isTopTab;
 @end
-
-
 @interface AZButton : NSButton
-
-
 typedef void (^AZButtonCallback)();
 
 /// Set the callback block to be called when the mouse **enters** the button.
@@ -28,6 +24,4 @@ typedef void (^AZButtonCallback)();
 /// Set both the **enter* and **exit** callback blocks.
 - (void)setInCallback:(AZButtonCallback)inBlock
        andOutCallback:(AZButtonCallback)outBlock;
-
-
 @end

@@ -76,11 +76,7 @@ __MAC_OS_X_VERSION_MIN_REQUIRED >				__MAC_10_7))
 #endif
 
 	//  ARC Helper ends
-
-
 #import <QuartzCore/QuartzCore.h>
-
-
 #ifdef USING_CHAMELEON
 #define ICAROUSEL_IOS
 #elif defined				__IPHONE_OS_VERSION_MAX_ALLOWED
@@ -90,16 +86,12 @@ typedef CGSize NSSize;
 #else
 #define ICAROUSEL_MACOS
 #endif
-
-
 #ifdef ICAROUSEL_IOS
 #import <UIKit/UIKit.h>
 #else
 #import <Cocoa/Cocoa.h>
 typedef NSView UIView;
 #endif
-
-
 typedef enum
 {
     iCarouselTypeLinear = 0,
@@ -116,8 +108,6 @@ typedef enum
     iCarouselTypeCustom
 }
 iCarouselType;
-
-
 typedef enum
 {
     iCarouselOptionWrap = 0,
@@ -146,8 +136,6 @@ typedef enum{
 	OPTION7,
 	OPTION8
 } 	Option;
-
-
 @protocol iCarouselDataSource, iCarouselDelegate;
 
 @interface iCarousel : UIView
@@ -258,8 +246,6 @@ typedef enum{
 - (void)reloadData;
 
 @end
-
-
 @protocol iCarouselDataSource <NSObject>
 
 - (NSUInteger)numberOfItemsInCarousel: (iCarousel*) carousel;
@@ -271,8 +257,6 @@ typedef enum{
 - (UIView*) carousel: (iCarousel*) carousel placeholderViewAtIndex: (NSUInteger)index reusingView: (UIView*) view;
 
 @end
-
-
 @protocol iCarouselDelegate <NSObject>
 @optional
 
@@ -300,8 +284,6 @@ typedef enum{
 														   withDefault: (CGFloat)value;
 
 @end
-
-
 @protocol iCarouselDeprecated
 @optional
 

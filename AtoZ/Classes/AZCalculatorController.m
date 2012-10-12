@@ -20,14 +20,10 @@
 	}
 	return _sharedCalc;
 }
-
-
 	// Subclasses can override this to use a nib with a different name.
 + (NSString *)nibName{
 	return @"Calculator";
 }
-
-
 //assert (g_inspector != nil); // or other error handling
 
 //[g_inspector showWindow: self];
@@ -49,8 +45,6 @@
 	}
     return self;
 }
-
-
 //- (id)init {
 //	calc = [[CalcModel alloc] init];
 //	return self;

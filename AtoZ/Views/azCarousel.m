@@ -1,8 +1,6 @@
 	//#import "azCarousel.h"
 #import <AtoZ/AtoZ.h>
 #import "iCarousel.h"
-
-
 #define MIN_TOGGLE_DURATION 0.2f
 #define MAX_TOGGLE_DURATION 0.4f
 #define SCROLL_DURATION 0.4f
@@ -17,8 +15,6 @@
 #else
 #define MAX_VISIBLE_ITEMS 30
 #endif
-
-
 @interface iCarousel ()
 
 //- (AZTrackingWindow*)hostWindow;
@@ -54,8 +50,6 @@
 @property (nonatomic, assign) NSTimeInterval toggleTime;
 	//@property (nonatomic, assign, getter = isWrapEnabled) BOOL wrapEnabled;
 @property (nonatomic, assign) CGFloat previousTranslation;
-
-
 @property (nonatomic, assign) NSInteger numberOfPlaceholdersToShow;
 @property (nonatomic, assign) NSInteger numberOfVisibleItems;
 @property (nonatomic, assign) CGFloat itemWidth;
@@ -79,15 +73,11 @@
 	//@property (nonatomic, assign) BOOL didDrag;
 
 	//@property (nonatomic, assign) NSInteger animationDisableCount;
-
-
 @implementation iCarousel (AtoZ)
 
 @dynamic startVelocity, 	startTime, 						scrolling, 					previousItemIndex;
 @dynamic itemWidth, 		numberOfVisibleItems, 			offsetMultiplier, 			endOffset;
 @dynamic startOffset, 		numberOfPlaceholdersToShow,		previousTranslation,		toggleTime;
-
-
 - (AZTrackingWindow*) hostWindow {	return  (AZTrackingWindow*)[self window]; }
 
 	//- (id)initWithFrame:(NSRect)frame {     if ((self = [super initWithFrame:frame])) {
@@ -133,14 +123,10 @@
 	CGFloat translation = (self.vertical) ? [theEvent deltaY]	: [theEvent deltaX];
 		//        translation	 = d == AZPositionBottom ? translation	:
 		//					   d == AZPositionLeft   ? translation	: -translation;
-
-
 	CGFloat factor = 1.f;
 	if (!self.wrapEnabled && self.bounces)
 
 		factor = 1.0f - fminf(fabsf(self.scrollOffset - [self clampedOffset:self.scrollOffset]), self.bounceDistance) / self.bounceDistance;
-
-
 	NSTimeInterval thisTime = [theEvent timestamp];
 	self.startVelocity = -(translation / (thisTime - self.startTime)) * factor * self.scrollSpeed / self.itemWidth;
 	self.startTime = thisTime;
@@ -151,8 +137,6 @@
 	[self enableAnimation];
 }
 	//}
-
-
 
 - (void)didScroll
 {
@@ -218,8 +202,6 @@
 	//update previous index
     self.previousItemIndex = currentIndex;
 }
-
-
 - (CGFloat)offsetForItemAtIndex:(NSInteger)index
 {
 		//calculate relative position

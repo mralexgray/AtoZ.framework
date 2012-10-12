@@ -201,8 +201,6 @@ forKey:@#N]
 	}
 	return instance;
 }
-
-
 +(NSString *)nameOfColor:(NSColor *)color {
 	return [self nameOfColor:color savingDistance:nil];
 }

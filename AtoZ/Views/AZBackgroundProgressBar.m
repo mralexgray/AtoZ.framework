@@ -4,13 +4,9 @@
 
 //  Created by Alex Gray on 8/27/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-
-
 #import "AZBackgroundProgressBar.h"
 
-
-
-	//The number of pixels we phase every second
+//The number of pixels we phase every second
 const CGFloat pixelsPerSecond = 60.0;
 const CGFloat framesPerSecond = 30.0;
 
@@ -19,10 +15,10 @@ const CGFloat framesPerSecond = 30.0;
 - (id)initWithFrame:(NSRect)frameRect
 {
 	if (self = [super initWithFrame:frameRect])
-	{
+		{
 		shouldStop = NO;
 		[self startAnimation:nil];
-	}
+		}
 
 	return self;
 }
@@ -34,8 +30,8 @@ const CGFloat framesPerSecond = 30.0;
 
 - (void)drawRect:(NSRect)dirtyRect
 {
-//	if (shouldStop)
-//		return;
+	//	if (shouldStop)
+	//		return;
 
 	NSRect rect = [self bounds];
 
@@ -51,7 +47,7 @@ const CGFloat framesPerSecond = 30.0;
 
 	NSInteger i;
 	for (i = -numX; i < numX; i++)
-	{
+		{
 		[bp moveToPoint:NSMakePoint(lastX +0.5, rect.size.height+0.5   - h)];
 		[bp lineToPoint:NSMakePoint(lastX + bandWidth+0.5, 0+0.5 + h)];
 		[bp lineToPoint:NSMakePoint(lastX + bandWidth + bandWidth+0.5, 0+0.5 + h)];
@@ -59,13 +55,13 @@ const CGFloat framesPerSecond = 30.0;
 		[bp lineToPoint:NSMakePoint(lastX+0.5, rect.size.height+0.5 - h)];
 
 		lastX += bandWidth * 2 - 1;
-	}
+		}
 
 	[[NSColor colorWithCalibratedWhite:0.0 alpha:0.06] set];
 	[bp fill];
 }
 
-	//FIXME: It would be more reliable to use an NSTimer here
+//FIXME: It would be more reliable to use an NSTimer here
 - (void)doAnimation
 {
 	if (shouldStop)

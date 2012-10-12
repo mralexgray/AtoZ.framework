@@ -4,8 +4,6 @@
 
 //  Created by Alex Rozanski on 05/09/2009.
 //  Copyright 2009-10 Alex Rozanski http://persAZ.com
-
-
 #import <Cocoa/Cocoa.h>
 /*An example of a class that could be used to represent a Source List Item
  
@@ -45,8 +43,6 @@
 //Convenience methods
 + (id)itemWithTitle:(NSString*)aTitle identifier:(NSString*)anIdentifier;
 + (id)itemWithTitle:(NSString*)aTitle identifier:(NSString*)anIdentifier icon:(NSImage*)anIcon;
-
-
 - (BOOL)hasBadge;
 - (BOOL)hasChildren;
 - (BOOL)hasIcon;
@@ -112,8 +108,6 @@
 - (NSArray *)sourceList:(AZSourceList*)aSourceList namesOfPromisedFilesDroppedAtDestination:(NSURL *)dropDestination forDraggedItems:(NSArray *)items;
 
 @end
-
-
 @class AZSourceList;
 
 @protocol AZSourceListDelegate <NSObject>
@@ -154,8 +148,6 @@
 - (void)sourceListItemDidCollapse:(NSNotification *)notification;
 
 - (void)sourceListDeleteKeyPressedOnRows:(NSNotification *)notification;
-
-
 @end
 
 //AZSourceList delegate notifications

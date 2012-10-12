@@ -7,8 +7,6 @@
 //
 
 #import "SDInsetDividerView.h"
-
-
 @implementation SDInsetDividerView
 
 - (void) drawRect:(NSRect)dirtyRect {

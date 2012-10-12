@@ -17,8 +17,6 @@
 @end
 // ==============================================================
 @implementation AZStopwatch
-
-
 + (void) named:(NSString*)name block:(void (^)())block
 {
 	[AZStopwatch stopwatch:name timing:block];
@@ -31,8 +29,6 @@
     block();
 	[AZStopwatch stop: name];
 }
-
-
 
 + (void) start:(NSString *)name {
 	[[AZStopwatch sharedInstance] add:name];
@@ -58,8 +54,6 @@
 		NSLog(@"No stopwatch named [%@] found", name);
 	}
 }
-
-
 // ----------------------
 // INTERNALS
 // ----------------------
@@ -86,8 +80,6 @@
 	[self remove:name];
 	items[name] = [AZStopwatchItem itemWithName:name];
 }
-
-
 
 // +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  
 #pragma mark -
@@ -122,12 +114,6 @@ static id _sharedSingleton		= nil;
 }
 
 @end
-
-
-
-
-
-
 
 
 
@@ -199,11 +185,5 @@ static id _sharedSingleton		= nil;
 	return [NSString stringWithFormat:@"%f", secsRem];
 }
 @end
-
-
-
-
-
-
 
 

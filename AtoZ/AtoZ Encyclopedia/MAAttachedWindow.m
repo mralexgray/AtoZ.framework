@@ -28,11 +28,7 @@
 @end
 
 @implementation MAAttachedWindow
-
-
 #pragma mark Initializers
-
-
 - (MAAttachedWindow *)initWithView:(NSView *)view 
                    attachedToPoint:(NSPoint)point 
                           inWindow:(NSWindow *)window 
@@ -101,8 +97,6 @@
     }
     return self;
 }
-
-
 - (MAAttachedWindow *)initWithView:(NSView *)view 
                    attachedToPoint:(NSPoint)point 
                           inWindow:(NSWindow *)window 
@@ -112,8 +106,6 @@
                      inWindow:window onSide:MAPositionAutomatic 
                    atDistance:distance];
 }
-
-
 - (MAAttachedWindow *)initWithView:(NSView *)view 
                    attachedToPoint:(NSPoint)point 
                             onSide:(MAWindowPosition)side 
@@ -123,8 +115,6 @@
                      inWindow:nil onSide:side 
                    atDistance:distance];
 }
-
-
 - (MAAttachedWindow *)initWithView:(NSView *)view 
                    attachedToPoint:(NSPoint)point 
                         atDistance:(float)distance
@@ -133,8 +123,6 @@
                      inWindow:nil onSide:MAPositionAutomatic 
                    atDistance:distance];
 }
-
-
 - (MAAttachedWindow *)initWithView:(NSView *)view 
                    attachedToPoint:(NSPoint)point 
                           inWindow:(NSWindow *)window
@@ -143,8 +131,6 @@
                      inWindow:window onSide:MAPositionAutomatic 
                    atDistance:0];
 }
-
-
 - (MAAttachedWindow *)initWithView:(NSView *)view 
                    attachedToPoint:(NSPoint)point 
                             onSide:(MAWindowPosition)side
@@ -153,8 +139,6 @@
                      inWindow:nil onSide:side 
                    atDistance:0];
 }
-
-
 - (MAAttachedWindow *)initWithView:(NSView *)view 
                    attachedToPoint:(NSPoint)point
 {
@@ -162,8 +146,6 @@
                      inWindow:nil onSide:MAPositionAutomatic 
                    atDistance:0];
 }
-
-
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -172,11 +154,7 @@
     
     [super dealloc];
 }
-
-
 #pragma mark Geometry
-
-
 - (void)_updateGeometry
 {
     NSRect contentRect = NSZeroRect;
@@ -304,8 +282,6 @@
     [self setFrame:contentRect display:NO];
     [_view setFrame:_viewFrame];
 }
-
-
 - (MAWindowPosition)_bestSideForAutomaticPosition
 {
     // Get all relevant geometry in screen coordinates.
@@ -407,18 +383,12 @@
     
     return side;
 }
-
-
 - (float)_arrowInset
 {
     float cornerInset = (drawsRoundCornerBesideArrow) ? cornerRadius : 0;
     return (cornerInset + (arrowBaseWidth / 2.0)) * MAATTACHEDWINDOW_SCALE_FACTOR;
 }
-
-
 #pragma mark Drawing
-
-
 - (void)_updateBackground
 {
     // Call NSWindow's implementation of -setBackgroundColor: because we override 
@@ -432,8 +402,6 @@
     }
     NSEnableScreenUpdates();
 }
-
-
 - (NSColor *)_backgroundColorPatternImage
 {
     NSImage *bg = [[NSImage alloc] initWithSize:[self frame].size];
@@ -462,8 +430,6 @@
     
     return [NSColor colorWithPatternImage:[bg autorelease]];
 }
-
-
 - (NSBezierPath *)_backgroundPath
 {
     /*
@@ -655,8 +621,6 @@
     [path closePath];
     return path;
 }
-
-
 - (void)_appendArrowToPath:(NSBezierPath *)path
 {
     if (!hasArrow) {
@@ -712,8 +676,6 @@
     [path lineToPoint:tipPt];
     [path lineToPoint:endPt];
 }
-
-
 - (void)_redisplay
 {
     if (_resizing) {
@@ -727,29 +689,19 @@
     NSEnableScreenUpdates();
     _resizing = NO;
 }
-
-
 # pragma mark Window Behaviour
-
-
 - (BOOL)canBecomeMainWindow
 {
     return NO;
 }
-
-
 - (BOOL)canBecomeKeyWindow
 {
     return YES;
 }
-
-
 - (BOOL)isExcludedFromWindowsMenu
 {
     return YES;
 }
-
-
 - (BOOL)validateMenuItem:(NSMenuItem *)item
 {
     if (_window) {
@@ -757,8 +709,6 @@
     }
     return [super validateMenuItem:item];
 }
-
-
 - (IBAction)performClose:(id)sender
 {
     if (_window) {
@@ -767,20 +717,12 @@
         [super performClose:sender];
     }
 }
-
-
 # pragma mark Notification handlers
-
-
 - (void)windowDidResize:(NSNotification *)note
 {
     [self _redisplay];
 }
-
-
 #pragma mark Accessors
-
-
 - (void)setPoint:(NSPoint)point side:(MAWindowPosition)side
 {
 	// Thanks to Martin Redington.
@@ -791,13 +733,9 @@
 	[self _updateBackground];
 	NSEnableScreenUpdates();
 }
-
-
 - (NSColor *)windowBackgroundColor {
     return [[_MABackgroundColor retain] autorelease];
 }
-
-
 - (void)setBackgroundColor:(NSColor *)value {
     if (_MABackgroundColor != value) {
         [_MABackgroundColor release];
@@ -806,13 +744,9 @@
         [self _updateBackground];
     }
 }
-
-
 - (NSColor *)borderColor {
     return [[borderColor retain] autorelease];
 }
-
-
 - (void)setBorderColor:(NSColor *)value {
     if (borderColor != value) {
         [borderColor release];
@@ -821,13 +755,9 @@
         [self _updateBackground];
     }
 }
-
-
 - (float)borderWidth {
     return borderWidth;
 }
-
-
 - (void)setBorderWidth:(float)value {
     if (borderWidth != value) {
         float maxBorderWidth = viewMargin;
@@ -840,13 +770,9 @@
         [self _updateBackground];
     }
 }
-
-
 - (float)viewMargin {
     return viewMargin;
 }
-
-
 - (void)setViewMargin:(float)value {
     if (viewMargin != value) {
         viewMargin = MAX(value, 0.0);
@@ -855,13 +781,9 @@
         [self setCornerRadius:cornerRadius];
     }
 }
-
-
 - (float)arrowBaseWidth {
     return arrowBaseWidth;
 }
-
-
 - (void)setArrowBaseWidth:(float)value {
     float maxWidth = (MIN(_viewFrame.size.width, _viewFrame.size.height) + 
                       (viewMargin * 2.0)) - cornerRadius;
@@ -876,13 +798,9 @@
     
     [self _redisplay];
 }
-
-
 - (float)arrowHeight {
     return arrowHeight;
 }
-
-
 - (void)setArrowHeight:(float)value {
     if (arrowHeight != value) {
         arrowHeight = value;
@@ -890,13 +808,9 @@
         [self _redisplay];
     }
 }
-
-
 - (float)hasArrow {
     return hasArrow;
 }
-
-
 - (void)setHasArrow:(float)value {
     if (hasArrow != value) {
         hasArrow = value;
@@ -904,13 +818,9 @@
         [self _updateBackground];
     }
 }
-
-
 - (float)cornerRadius {
     return cornerRadius;
 }
-
-
 - (void)setCornerRadius:(float)value {
     float maxRadius = ((MIN(_viewFrame.size.width, _viewFrame.size.height) + 
                         (viewMargin * 2.0)) - arrowBaseWidth) / 2.0;
@@ -924,13 +834,9 @@
     // Adjust arrowBaseWidth appropriately.
     [self setArrowBaseWidth:arrowBaseWidth];
 }
-
-
 - (float)drawsRoundCornerBesideArrow {
     return drawsRoundCornerBesideArrow;
 }
-
-
 - (void)setDrawsRoundCornerBesideArrow:(float)value {
     if (drawsRoundCornerBesideArrow != value) {
         drawsRoundCornerBesideArrow = value;
@@ -938,14 +844,10 @@
         [self _redisplay];
     }
 }
-
-
 - (void)setBackgroundImage:(NSImage *)value
 {
     if (value) {
         [self setBackgroundColor:[NSColor colorWithPatternImage:value]];
     }
 }
-
-
 @end

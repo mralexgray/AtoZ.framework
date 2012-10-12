@@ -5,15 +5,11 @@
 //  Created by Alex Gray on 7/7/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 
-
-
 #import "AZTalker.h"
 
 @implementation AZTalker
 
 //NSSpeechSynthesizer *talker;
-
-
 //- (id)init
 //{
 //    self = [super init];
@@ -42,8 +38,6 @@
 	@"I really shouldn't be doing this; but I'm going to have an ad for IKEA right now.",
 	@"This is a complete IKEA closet.  The bed is underneath my pants.",
 	@"If you have a look - you can see that everything fits - into this particle board.   You just paint it white.. pull it out... oh gold and silver! (those are my two signature colors.)"];
-
-
 }
 +(void) randomDicksonism {
 	[self say:[[self dicksonisms]randomElement]];
@@ -63,7 +57,5 @@
 	} waitUntilDone:YES];// performSelector:@selector(say:) withObject:thing afterDelay:1];
 
 }
-
-
 
 @end

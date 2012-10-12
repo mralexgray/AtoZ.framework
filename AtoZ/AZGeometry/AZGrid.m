@@ -11,8 +11,6 @@
 @interface AZGrid (Private)
 -(void)_init;
 @end
-
-
 @implementation AZGrid
 
 -(void)_init {
@@ -20,8 +18,6 @@
   style = AZGridStyleCompact;
   order = AZGridRowMajorOrder;
 }
-
-
 -(id)init {
   if ((self = [super init])) {
     [self _init];

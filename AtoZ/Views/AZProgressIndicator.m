@@ -4,16 +4,12 @@
 
 //  Created by Alex Gray on 6/29/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-
-
 #import "AZProgressIndicator.h"
 #import <objc/runtime.h>
 
 @interface AZProgressIndicator (PrivateBusiness)
 - (void)makeIndeterminatePole;
 @end
-
-
 @implementation AZProgressIndicator
 
 @synthesize doubleValue, maxValue;
@@ -24,8 +20,6 @@
 @synthesize progressText, fontSize;
 @synthesize progressHolderColor, progressColor;
 @synthesize backgroundTextColor, frontTextColor;
-
-
 - (id)initWithFrame:(NSRect)frameRect {
 	id superInit = [super initWithFrame:frameRect];
 	if (superInit) {
@@ -151,8 +145,6 @@
 	
 	[NSGraphicsContext restoreGraphicsState];
 }
-
-
 - (void)makeIndeterminatePole {
 	_indeterminateImage2 = [[NSImage alloc] initWithSize:NSMakeSize([self frame].size.height, [self frame].size.height)];
 	[_indeterminateImage2 setTemplate:YES];
@@ -206,8 +198,6 @@
 	
 	[_indeterminateImage unlockFocus];
 }
-
-
 - (void)drawIndeterminate:(NSTimer*)theTimer { _step++; [self setNeedsDisplay:YES];}
 - (float)alignTextOnProgress:(NSRect)rect fontSize:(NSSize)size {
 	switch ([self progressTextAlignt]) {
@@ -236,8 +226,6 @@
 	}
 }
 - (int)progressTextAlignt {return position;}
-
-
 - (void) startAnimation:(id)sender {
 	
 	if ([self window]) {
@@ -291,8 +279,6 @@
     
 	}
 }
-
-
 - (void)setFrame:(NSRect)frameRect {
 	[super setFrame:frameRect];
 	[self makeIndeterminatePole];

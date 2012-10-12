@@ -5,13 +5,9 @@
 //  Created by Matt Gemmell on Thu Jan 08 2004.
 //  <http://iratescotsman.com/>
 //
-
-
 #import "RoundedView.h"
 
 @implementation RoundedView
-
-
 - (void)drawRect:(NSRect)rect
 {
     NSColor *bgColor = [NSColor colorWithCalibratedWhite:0.0 alpha:0.9];
@@ -50,6 +46,4 @@
     [bgColor set];
     [bgPath fill];
 }
-
-
 @end

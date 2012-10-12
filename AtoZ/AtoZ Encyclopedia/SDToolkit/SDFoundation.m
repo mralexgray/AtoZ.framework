@@ -7,8 +7,6 @@
 //
 
 #import "SDFoundation.h"
-
-
 NSString* NSStringFromCGRect(CGRect rect) {
 	return NSStringFromRect(NSRectFromCGRect(rect));
 }

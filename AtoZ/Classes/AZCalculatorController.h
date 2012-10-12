@@ -26,8 +26,6 @@
 - (IBAction)clear:(id)sender;
 - (IBAction)getValue:(id)sender;
 - (void)setLabel;
-
-
 @property (assign) IBOutlet NSTextField *label;
 //NSString *labelValue;
 

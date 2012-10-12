@@ -4,11 +4,7 @@
 
 //  Created by Alex Gray on 7/2/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-
-
 #import <Cocoa/Cocoa.h>
-
-
 /*
  Provides a "zoom" animation for windows when ordering on and off screen.
 
@@ -103,8 +99,6 @@
 #define NSTexturedBackgroundWindowMaskSet(bitMask) ((bitMask & NSTexturedBackgroundWindowMask) != 0)
 
 static NSMutableDictionary*     pendingFades = nil;
-
-
 @interface  NSWindow (UKFade)
 
 -(void) fadeInWithDuration: (NSTimeInterval)duration;
@@ -112,6 +106,4 @@ static NSMutableDictionary*     pendingFades = nil;
 -(void) fadeOutWithDuration:(NSTimeInterval)duration;
 -(void) fadeOutOneStep: 	(NSTimer*)timer;
 -(void)	fadeToLevel: 		(int)lev withDuration: (NSTimeInterval)duration;
-
-
 @end

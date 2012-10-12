@@ -11,21 +11,15 @@
 #import "AtoZ.h"
 
 BOOL inited = NO;
-
-
 void	NSLogPostLog(char* file, int line)
 {
 	if (!inited)	return;
 	[[NSLogConsole sharedConsole] updateLogWithFile:file lineNumber:line];
 }
 
-
-
 @implementation NSLogConsole
 
 @synthesize autoOpens, windowTitle, messageQueue, window = _window, original_stderr  = _original_stderr;
-
-
 + (id)sharedConsole
 {
 	return [NSLogConsole sharedInstance];
@@ -50,8 +44,6 @@ void	NSLogPostLog(char* file, int line)
 	/* Initialize webInspector. */
 	[[NSUserDefaults standardUserDefaults] setBool:TRUE forKey:@"WebKitDeveloperExtras"];
 	[[NSUserDefaults standardUserDefaults] synchronize];
-
-
 	id o		= [super init];
 	autoOpens	= YES;
 	_logPath		= NULL;
@@ -89,8 +81,6 @@ void	NSLogPostLog(char* file, int line)
 //	NSData *data = [[aNotification userInfo] objectForKey:NSFileHandleNotificationDataItem];
 	[[NSLogConsole sharedConsole] updateLogWithFile:"" lineNumber:0];
 }
-
-
 - (void)open
 {
 	if (!_window)
@@ -182,17 +172,7 @@ void	NSLogPostLog(char* file, int line)
 //	[str release];
 }
 
-
-
 @end
-
-
-
-
-
-
-
-
 
 
 
@@ -217,8 +197,6 @@ void	NSLogPostLog(char* file, int line)
 
 	// Frame load
 	[self setFrameLoadDelegate:self];
-
-
 	NSBundle *aBundle = [NSBundle bundleForClass: [AtoZ class]];
 	id path = [aBundle pathForResource:@"NSLogConsole" ofType:@"html"];
 
@@ -312,8 +290,6 @@ void	NSLogPostLog(char* file, int line)
 	script = nil;
 //	[script release];
 }
-
-
 - (void)clear
 {
 	[[self windowScriptObject] callWebScriptMethod:@"clear" withArguments:nil];
@@ -323,7 +299,5 @@ void	NSLogPostLog(char* file, int line)
 {
 	[[self windowScriptObject] callWebScriptMethod:@"search" withArguments:@[string]];
 }
-
-
 @end
 

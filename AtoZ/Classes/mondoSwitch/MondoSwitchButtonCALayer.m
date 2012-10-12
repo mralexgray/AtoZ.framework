@@ -4,12 +4,8 @@
 
 //  Created by Matthieu Cormier on 12/8/09.
 //  Copyright 2009 Preen and Prune Software and Design. All rights reserved.
-
-
 #import "MondoSwitchButtonCALayer.h"
 #import "AtoZ.h"
-
-
 @implementation MondoSwitchButtonCALayer
 
 // The grayscale values for the button colors.
@@ -53,8 +49,6 @@ static const CGFloat cornerRadius = 5.0;
 //  [super dealloc];
 }
 
-
-
 #pragma mark -
 #pragma mark mouse events
 
@@ -73,8 +67,6 @@ static const CGFloat cornerRadius = 5.0;
     [self switchSide];
     [theSwitch setContents:(__bridge_transfer id)notClickedImgRef];
 }
-
-
 -(void)mouseDragged:(CGPoint)point {
   
   if (_currentEventState == PPdragOccurred ||  _currentEventState == PPcanDragSwitch) {
@@ -114,8 +106,6 @@ static const CGFloat cornerRadius = 5.0;
   
   theSwitch.cornerRadius = cornerRadius;
   theSwitch.borderWidth = 0.5;
-
-
   
   // Sizing --
   // The Time Machine Switch on 10.6.2 has a sizing of 93px wide and 27px height.
@@ -225,6 +215,4 @@ static const CGFloat cornerRadius = 5.0;
   
   return imgRef;  
 }
-
-
 @end

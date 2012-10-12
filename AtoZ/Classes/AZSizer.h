@@ -4,8 +4,6 @@
 
 //  Created by Alex Gray on 7/7/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-
-
 #import "AtoZ.h"
 #import "AtoZUmbrella.h"
 
@@ -22,8 +20,6 @@ extern NSUInteger gcd(NSInteger m, NSUInteger n);
 @property (assign) int remainder;
 -(id) initWithDictionary:(NSDictionary *)d;
 @end
-
-
 @interface AZSizer : BaseModel 
 
 + (AZSizer*) forQuantity:(NSUInteger)aNumber aroundRect:(NSRect)aFrame;

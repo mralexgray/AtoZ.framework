@@ -7,8 +7,6 @@
 
 #import <Cocoa/Cocoa.h>
 #import <QuartzCore/QuartzCore.h>
-
-
 @interface AZSpinnerLayer : CALayer {
     BOOL _isRunning;
     NSTimer *_animationTimer;

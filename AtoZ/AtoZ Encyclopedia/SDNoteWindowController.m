@@ -10,12 +10,8 @@
 
 #import "SDEditTitleController.h"
 #import "SDGeneralPrefPane.h"
-
-
 @interface SDNoteWindowController (Private)
 @end
-
-
 @implementation SDNoteWindowController
 
 - (id) init {

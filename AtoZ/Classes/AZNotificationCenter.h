@@ -6,8 +6,6 @@
 
 #import <Cocoa/Cocoa.h>
 #import "AtoZ.h"
-
-
 @interface AZNotificationCenter : AZSingleton
 {
 	NSMutableDictionary*	_observerHelpers;

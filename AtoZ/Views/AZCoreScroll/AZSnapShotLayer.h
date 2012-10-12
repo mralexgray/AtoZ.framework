@@ -3,8 +3,6 @@
 #import "AZSnapShotLayer.h"
 #import "AtoZ.h"
 
-
-
 typedef enum  {
 	AZAdobeInitals,
 	AZAppleFlip

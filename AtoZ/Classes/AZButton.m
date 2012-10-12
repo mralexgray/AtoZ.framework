@@ -2,8 +2,6 @@
 //  AZButton.m
 //  AtoZ
 //
-
-
 #import "AZButton.h"
 #import "AtoZ.h"
 
@@ -54,8 +52,6 @@ static NSString* const AZButtonReturnKeyEquivalent = @"\r";
 - (NSRect)az_drawButtonTitle:(NSAttributedString*)title withFrame:(NSRect)frame inView:(NSView*)controlView;
 - (NSRect)az_drawCheckboxTitle:(NSAttributedString*)title withFrame:(NSRect)frame inView:(NSView*)controlView;
 - (NSBezierPath *)az_checkmarkPathForRect:(NSRect)rect mixed:(BOOL)mixed;
-
-
 
 @end
 
@@ -311,8 +307,6 @@ static NSString* const AZButtonReturnKeyEquivalent = @"\r";
 	return (!color ? BLUE : color);
 }
 
-
-
 //- (void)az_drawButtonBezelWithFrame:(NSRect)frame inView:(NSView*)controlView
 //{
 //    frame = NSInsetRect(frame, 0.5f, 0.5f);
@@ -409,8 +403,6 @@ static NSString* const AZButtonReturnKeyEquivalent = @"\r";
 //}
 
 @end
-
-
 @implementation AZButton{
     AZButtonCallback _inCallback;
     AZButtonCallback _outCallback;
@@ -434,8 +426,6 @@ static NSString* const AZButtonReturnKeyEquivalent = @"\r";
 - (void)mouseEntered:(NSEvent *)theEvent{  !(self.isEnabled && _inCallback) ?: _inCallback();  }
 
 - (void)mouseExited:(NSEvent *)theEvent{ !_outCallback ?: _outCallback();	}
-
-
 + (Class)cellClass {
 	return [AZButtonCell class];
 }

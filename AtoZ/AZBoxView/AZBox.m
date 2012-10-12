@@ -1,8 +1,6 @@
 #import "AZBox.h"
 #import "AtoZ.h"
 
-
-
 @interface AZBox ()
 @property (readonly) float dynamicStroke;
 @end
@@ -87,8 +85,6 @@
 	//	tv = self.tv;//	[self makeTv];
 	//	[self addSubview:tv];
 }
-
-
 - (void)handleAntAnimationTimer:(NSTimer*)timer {
 	mPhase = (mPhase < [self halfwayWithInset] ? mPhase + [self halfwayWithInset]/128 : 0);
 	[self setNeedsDisplayInRect:NSInsetRect(self.bounds, self.inset, self.inset)];
@@ -121,8 +117,6 @@
 	[super updateTrackingAreas];
 	if (tArea)
 	[self removeTrackingArea:tArea];
-
-
 	tArea = [[NSTrackingArea alloc] initWithRect:NSZeroRect options:[self trackoptions] owner:self userInfo:nil];
 	[self addTrackingArea:tArea];
 
@@ -176,8 +170,6 @@
 */
 //		NSRectFill(NSInsetRect(self.bounds,inset_, inset_));
 //		[gradient drawInBezierPath:standard angle:270];
-
-
 //	}
 	if ( [representedObject_ isKindOfClass:[AZFile class]] ){
 		AZFile *c = representedObject_;
@@ -305,15 +297,11 @@
 //	if ([keyPath isEqual:@"multiplier"]) {
 //	if ([keyPath isEqual:@"desiredNumberOfColumns"]) {
 //	[[undoManager prepareWithInvocationTarget:self] setCenter:[[change objectForKey:NSKeyValueChangeOldKey] pointValue]];
-
-
 //-(void) setMultiplier:(float)amultiplier {
 // 	multiplier = amultiplier;
 //	NSRect r = AZScaleRect([self frame], multiplier);
 //	[self setFrame:r];
 //	[self setNeedsDisplay:YES];
 //}
-
-
 @end
 

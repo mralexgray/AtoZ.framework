@@ -7,11 +7,7 @@
 //
 
 #import "IsometricView.h"
-
-
 @implementation IsometricView
-
-
 
 //
 //	awakeFromNib
@@ -78,8 +74,6 @@
 								CGPointMake(width/2, -height/2), 0,
 								kCGGradientDrawsAfterEndLocation);
 }
-
-
 //
 //	enableShadows
 //		enable/disable shadows of text layers
@@ -96,8 +90,6 @@
 		layer.shadowOpacity = hasShadows ? 1 : 0;
 	}
 }
-
-
 //
 //	IB : toggle shadows
 //
@@ -168,8 +160,6 @@
 		[CATransaction commit];
 	}
 }
-
-
 - (IBAction)appearWithScale:(id)sender
 {
 	// Hide layers
@@ -193,7 +183,5 @@
 		[CATransaction commit];
 	}
 }
-
-
 
 @end

@@ -11,8 +11,6 @@
 +(id) singleton;      //alias for instance
 @end
 
-
-
 #import <AppKit/AppKit.h>
 #import <ApplicationServices/ApplicationServices.h>
 #import <AudioToolbox/AudioToolbox.h>
@@ -41,8 +39,6 @@
 //#import "AZModelObject.h"
 
 
-
-
 #import "AZTalker.h"
 //#import <XPCKit/XPCKit.h>
 //#import <RMKit/RMKit.h>
@@ -53,8 +49,6 @@
 #import "AtoZFunctions.h"
 #import "AZGeometry.h"
 #import "AZGeometricFunctions.h"
-
-
 #import "SynthesizeSingleton.h"
 #import "iCarousel.h"
 //#import "azCarousel.h"
@@ -229,8 +223,6 @@ extern NSString *const AtoZDockSortedUpdated;
 #ifdef GROWL_ENABLED
 - (BOOL) registerGrowl;
 #endif
-
-
 //@property (strong, nonatomic) NSLogConsole *console;
 //- (id)objectForKeyedSubscript:(NSString *)key;
 //- (void)setObject:(id)newValue forKeyedSubscription:(NSString *)key;
@@ -286,16 +278,12 @@ extern NSString *const AtoZDockSortedUpdated;
 //}
 //@end
 
-
-
 @interface Box : NSView
 @property (assign) BOOL selected;
 @property (copy, readwrite) CAShapeLayer *shapeLayer;
 @property (copy, readwrite) NSColor *save;
 @property (copy, readwrite) NSColor *color;
 @end
-
-
 
 @interface CAAnimation (NSViewFlipper)
 +(CAAnimation *)flipAnimationWithDuration:(NSTimeInterval)duration forLayerBeginningOnTop:(BOOL)beginsOnTop scaleFactor:(CGFloat)scaleFactor;
@@ -320,13 +308,9 @@ extern NSString *const AtoZDockSortedUpdated;
 -(void)flip;
 @end
 
-
-
 @interface  NSWindow (Borderless)
 + (NSWindow*) borderlessWindowWithContentRect: (NSRect)aRect;
 @end
-
-
 
 
 /** The appledoc application handler.
@@ -339,8 +323,6 @@ extern NSString *const AtoZDockSortedUpdated;
 
  @warning *Global settings implementation details:* To be able to properly apply all levels of settings - factory defaults, global settings and command line arguments - we can't solely rely on `DDCli` for parsing command line args. As the user can supply templates path from command line (instead of using one of the default paths), we need to pre-parse command line arguments for templates switches. The last one found is then used to read global settings. This solves proper settings inheritance up to global settings level. Another issue is how to implement code that deals with global settings; there are several possible solutions (the simplest from programmers point of view would be to force the user to pass in templates path as the first parameter, then `DDCli` would first process this and when we would receive notification, we could parse the option, load in global settings and resume operation). At the end I chose to pre-parse command line for template arguments before passing it to `DDCli`. This did require some tweaking to `DDCli` code (specifically the method that converts option string to KVC key was moved to public interface), but ended up as very simple to inject global settings - by simply using the same KCV messages as `DDCli` uses. This small tweak allowed us to use exactly the same path of handling global settings as normal command line arguments. The benefits are many: all argument names are alreay unit tested to properly map to settings values, code reuse for setting the values.
  */
-
-
 
 
 @interface CAConstraint (brevity)
@@ -359,8 +341,6 @@ extern NSString *const AtoZDockSortedUpdated;
 @end
 @interface CATextLayerNoHit : CATextLayer
 @end
-
-
 #define XCODE_COLORS 0
 
 #define XCODE_COLORS_ESCAPE @"\033["

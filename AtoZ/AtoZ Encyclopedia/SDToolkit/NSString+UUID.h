@@ -7,8 +7,6 @@
 //
 
 #import <Cocoa/Cocoa.h>
-
-
 @interface NSString (UniqueAdditions)
 
 + (NSString*) UUIDString;

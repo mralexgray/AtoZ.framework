@@ -7,8 +7,6 @@
 //
 
 #import <Cocoa/Cocoa.h>
-
-
 @interface SDNextRunloopProxy : NSObject {
 	id target;
 	NSInvocation *invocation;

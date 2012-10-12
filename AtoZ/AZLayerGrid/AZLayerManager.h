@@ -7,8 +7,6 @@
 //
 
 #import <Cocoa/Cocoa.h>
-
-
 @interface AZLayerManager : NSObject
 @end
 /* Abstract: Abstract superclass of regular geometric grids of GridCells that Bits can be placed on.
@@ -67,8 +65,6 @@ BOOL layerIsGridCell( CALayer* layer );
 - (void) removeCellAtRow:(unsigned)row column:(unsigned)col;
 
 @end
-
-
 /** A single cell in a grid (customized for Xiangqi). */
 @interface GridCell : CALayer
 {
