@@ -67,7 +67,7 @@
     if (frame.size.width == 0.0 && frame.size.height == 0.0) return 0.0;
     for (fontLoop = 1; fontLoop <= kMaxFontSize; fontLoop++) {
         displayFont = [[NSFontManager sharedFontManager] convertWeight:YES ofFont:[NSFont fontWithName:fontName size:fontLoop]];
-        [fontAttributes setObject:displayFont forKey:NSFontAttributeName];
+        fontAttributes[NSFontAttributeName] = displayFont;
         stringSize = [string sizeWithAttributes:fontAttributes];
         if ( (stringSize.width > frame.size.width) || (stringSize.height > frame.size.height) )	break;
     }
@@ -474,7 +474,7 @@
 //						  objectForKey:@"NSParagraphStyle"];
 
 - (CGFloat) widthWithFont:(NSFont *)font {
-	NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:font, NSFontAttributeName, nil];
+	NSDictionary *attributes = @{NSFontAttributeName: font};
 	return [[[NSAttributedString alloc] initWithString:self attributes:attributes] size].width;
 }
 

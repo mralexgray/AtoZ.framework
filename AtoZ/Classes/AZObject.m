@@ -162,8 +162,8 @@ static NSMutableDictionary *sharedInstances = nil;
         [NSException raise:NSGenericException format:@"setSharedInstance: instance class does not match"];
 		}
     sharedInstances = sharedInstances ?: [[NSMutableDictionary alloc] init];
-    id oldInstance = [sharedInstances objectForKey:NSStringFromClass(self)];
-    [sharedInstances setObject:instance forKey:NSStringFromClass(self)];
+    id oldInstance = sharedInstances[NSStringFromClass(self)];
+    sharedInstances[NSStringFromClass(self)] = instance;
     if (oldInstance)
 		{
         [[NSNotificationCenter defaultCenter] postNotificationName:AZObjectSharedInstanceUpdatedNotification object:oldInstance];
@@ -171,19 +171,19 @@ static NSMutableDictionary *sharedInstances = nil;
 }
 + (BOOL)hasSharedInstance
 {
-    return [sharedInstances objectForKey:NSStringFromClass(self)] != nil;
+    return sharedInstances[NSStringFromClass(self)] != nil;
 }
 + (instancetype)sharedInstance
 {
     sharedInstances = sharedInstances ?: [[NSMutableDictionary alloc] init];
-    id instance = [sharedInstances objectForKey:NSStringFromClass(self)];
+    id instance = sharedInstances[NSStringFromClass(self)];
     if (instance == nil)
 		{
 			//load or create instance
         [self reloadSharedInstance];
 
 			//get loaded instance
-        instance = [sharedInstances objectForKey:NSStringFromClass(self)];
+        instance = sharedInstances[NSStringFromClass(self)];
 		}
     return instance;
 }
@@ -256,14 +256,14 @@ static NSMutableDictionary *keyNames = nil, *nillableKeyNames = nil;
 		}
 		free(vars);
 	}
-	[keyNames setObject:names forKey:(id)self];
-	[nillableKeyNames setObject:nillableNames forKey:(id)self];
+	keyNames[(id)self] = names;
+	nillableKeyNames[(id)self] = nillableNames;
 	[names release], [nillableNames release];
 }
 
-- (NSArray *)allKeys {	return [keyNames objectForKey:[self class]];	}
+- (NSArray *)allKeys {	return keyNames[[self class]];	}
 
-- (NSArray *)nillableKeys {	return [nillableKeyNames objectForKey:[self class]];	}
+- (NSArray *)nillableKeys {	return nillableKeyNames[[self class]];	}
 
 // NSCoder implementation, for unarchiving
 - (id) initWithCoder:(NSCoder *)aDecoder {
@@ -366,7 +366,7 @@ static NSMutableDictionary *keyNames = nil, *nillableKeyNames = nil;
 				[self writeLineBreakToString:description withTabs:indent];
 				[description appendFormat:@"\t%@ = ",key];
 
-				id child = [object objectForKey:key];
+				id child = object[key];
 
 				if ([child isKindOfClass:[AZObject class]])
 					[child writeToDescription:description withIndent:indent+2];

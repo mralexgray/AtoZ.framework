@@ -54,13 +54,13 @@ typedef void (^SoundCompletionHandler)(BOOL didFinish);
 + (Sound *)soundWithContentsOfURL:(NSURL *)url;
 - (Sound *)initWithContentsOfURL:(NSURL *)url;
 
-@property (nonatomic, readonly, copy) NSString *name;
-@property (nonatomic, readonly, strong) NSURL *url;
-@property (nonatomic, readonly, getter = isPlaying) BOOL playing;
-@property (nonatomic, assign, getter = isLooping) BOOL looping;
-@property (nonatomic, copy) SoundCompletionHandler completionHandler;
-@property (nonatomic, assign) float baseVolume;
-@property (nonatomic, assign) float volume;
+@property (NATOM, RONLY, copy ) 			 NSS *name;
+@property (NATOM, RONLY, STRNG) 			 NSURL *url;
+@property (NATOM, RONLY, getter = isPlaying) BOOL playing;
+@property (NATOM, ASSGN, getter = isLooping) BOOL looping;
+@property (NATOM, copy ) SoundCompletionHandler completionHandler;
+@property (NATOM, ASSGN) 					float baseVolume;
+@property (NATOM, ASSGN) 					float volume;
 
 - (void)fadeTo:(float)volume duration:(NSTimeInterval)duration;
 - (void)fadeIn:(NSTimeInterval)duration;
@@ -94,6 +94,7 @@ typedef void (^SoundCompletionHandler)(BOOL didFinish);
 @property (nonatomic, assign) float musicVolume;
 @property (nonatomic, assign) NSTimeInterval soundFadeDuration;
 @property (nonatomic, assign) NSTimeInterval musicFadeDuration;
+@property (NATOM, STRNG) NSArray *soundPaths;
 
 + (SoundManager *)sharedManager;
 

@@ -9,34 +9,14 @@
 #import "NSImage+AtoZ.h"
 #import <AppKit/AppKit.h>
 #import <Quartz/Quartz.h>
-#import <QuartzCore/QuartzCore.h>
-#import <Foundation/Foundation.h>
 #import <QuickLook/QuickLook.h>
-#import "AtoZ.h"
 
-
-
-@implementation  CIFilter (Subscript)
-- (id)objectForKeyedSubscript:(NSString *)key
-{
-	return [self valueForKey:key];
+static inline int get_bit(unsigned char *arr, unsigned long bit_num) {
+	return ( arr[(bit_num/8)] & (1 << (bit_num%8)) );
 }
-
-- (void)setObject:(id)object forKeyedSubscript:(NSString *)key
-{
-	if (IsEmpty(object)) [self setValue:@"" forKey:key];
-	else [self setValue:object forKey:key];
-}
-
-@end
-
-
-// Just one function to declare...
-float distance(NSPoint aPoint);
 
 enum pixelComponents { red, green, blue, alpha };
 
-NSSize gradientSize = {256.0, 256.0};
 
 float distance(NSPoint aPoint)  // Stole this from some guy named Pythagoras..  Returns the distance of aPoint from the origin.
 {
@@ -68,28 +48,33 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 
 @implementation NSImage (AtoZ)
 
++ (NSImage*)screenShot {
+	return [[NSImage alloc]initWithCGImage:CGWindowListCreateImage(CGRectInfinite, kCGWindowListOptionOnScreenOnly, kCGNullWindowID, kCGWindowImageDefault) size:AZScreenSize()];
+}
+
+
+
++ (NSArray*) frameworkImagePaths {
+	return ( [NSArray arrayWithArrays:@[
+									[AZFWORKBUNDLE pathsForResourcesOfType:@"pdf" inDirectory:@""],
+									[AZFWORKBUNDLE pathsForResourcesOfType:@"png" inDirectory:@""],
+									[AZFWORKBUNDLE pathsForResourcesOfType:@"icns" inDirectory:@""]]]);
+//	(NSArray*)LogAndReturn
+}
+
 + (NSArray*) frameworkImageNames
 {
 	return [[NSImage frameworkImagePaths]mapSelector:@selector(lastPathComponent)];
 }
 
 
-+ (NSImage*)screenShot {
-	return [[NSImage alloc]initWithCGImage:CGWindowListCreateImage(CGRectInfinite, kCGWindowListOptionOnScreenOnly, kCGNullWindowID, kCGWindowImageDefault) size:AZScreenSize()];
-}
-
-
-+ (NSArray*) frameworkImagePaths {
-	return (NSArray*)LogAndReturn( [NSArray arrayWithArrays:@[
-			   [AZFWORKBUNDLE pathsForResourcesOfType:@"pdf" inDirectory:@""],
-			   [AZFWORKBUNDLE pathsForResourcesOfType:@"png" inDirectory:@""],
-			   [AZFWORKBUNDLE pathsForResourcesOfType:@"icns" inDirectory:@""]]]);
-
-}
 + (NSArray*) frameworkImages;{
 	//; error:nil] filter:^BOOL(id object) { return [(NSString*)object contains:@".icn"] ? YES : NO;
 	//	return [f arrayUsingBlock:^id(id obj) {	return [base stringByAppendingPathComponent:obj]; }];
-	return [[[[self class]frameworkImagePaths] arrayUsingBlock:^id(id obj) { return [[NSIMG alloc]initWithContentsOfFile:obj];
+	return [[[NSImage frameworkImagePaths] arrayUsingBlock:^id(id obj) {
+
+		return //[obj isKindOfClass:[NSString]] ?
+				[[NSIMG alloc]initWithContentsOfFile:obj];
 											}] filter:^BOOL(id object) { return [object isKindOfClass:[NSIMG class]]; }];
 }
 
@@ -118,7 +103,7 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 
 +(NSImage*) randomIcon {
 	NSString *ia = [[self class]picolStrings].randomElement;
-	return [NSImage imageInFrameworkWithFileName:ia];
+	return [NSImage az_imageNamed:ia];
 		//	NSLog(@"rando: %@", i);
 		//	return i;
 }
@@ -126,16 +111,24 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 + (NSArray*) iconsColoredWithColor:(NSColor*)color;
 {
 }
++(NSS*)picolFolderPath{
+	return [[AtoZ resources] stringByAppendingPathComponent:@"picol/"];
+}
++(NSArray*)picolStrings {
+
+	return [NSFileManager filesInFolder:[[self class]picolFolderPath]];
+}
 
 + (NSArray*) icons {
 
-	NSString *picol = [[AtoZ resources] stringByAppendingPathComponent:@"picol/"];
-	return [[NSFileManager filesInFolder:picol] map:^id(id obj) {
-		return [[NSImage alloc]initWithContentsOfFile:[picol stringByAppendingPathComponent:obj]];
+	return [[[NSImage picolStrings] map:^id(id obj) {
+		return [[NSImage alloc]initWithContentsOfFile:obj] ?: [NSNull null];
+	}]filter:^BOOL(id object) {
+		return [object isKindOfClass:[NSImage class]];
 	}];
 
 		//	return  [[[self class] picolStrings] map:^id(id obj) {
-		//		NSImage *i = [NSImage imageInFrameworkWithFileName:obj];
+		//		NSImage *i = [NSImage az_imageNamed:obj];
 		//		NSLog(@"loading %@  aka %@", [obj lastPathComponent], i);
 		//		return i;
 		//	}];
@@ -149,7 +142,7 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 {
 	NSSize theSize = AZSizeFromDimension(512);
 	return [AZWORKSPACE iconForFile:file.path] 	? [[AZWORKSPACE iconForFile:file.path]imageScaledToFitSize:theSize]
-												: [NSImage imageInFrameworkWithFileName:@"missing.png"];
+												: [NSImage az_imageNamed:@"missing.png"];
 }
 
 + (NSArray*) randomImages:(NSUI)number{
@@ -596,7 +589,7 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 	else return self;
 }
 
-+ (id) imageWithFileName:(NSString *)fileName inBundle:(NSBundle *)aBundle {
++ (NSIMG*) imageWithFileName:(NSString *)fileName inBundle:(NSBundle *)aBundle {
 	NSImage *img = nil;
 	if (aBundle != nil) {
 		NSString *imagePath;
@@ -607,25 +600,21 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 	return img;
 }
 
-+ (id) imageWithFileName:(NSString *) fileName inBundleForClass:(Class) aClass {
++ (NSIMG*) imageWithFileName:(NSString *) fileName inBundleForClass:(Class) aClass {
 	return [self imageWithFileName: fileName inBundle: [NSBundle bundleForClass: aClass]];
 }
 
-+ (id)frameworkImageNamed:(NSString *)name {
-	NSImage *image = [NSImage imageNamed:name]
-				   ? [NSImage imageNamed:name]
-				   : [[NSImage alloc] initWithContentsOfFile:
-					  [AZFWORKBUNDLE pathForImageResource:name]];
-	image.name = image ? name : nil;
-	return image ? image : nil;
++ (NSIMG*)az_imageNamed:(NSString *)name {
+	NSIMG *i =  [NSIMG imageNamed:name]
+			 ?:[[NSIMG alloc]initWithContentsOfFile: [AZFWORKBUNDLE pathForImageResource:name]];
+	i.name 	= i.name ?: name;
+	return i;
 }
 
-
-
-+ (id) imageInFrameworkWithFileName:(NSString *) fileName {	
-	NSBundle *aBundle = [NSBundle bundleForClass: [DummyClass class]];
-	return [self imageWithFileName: fileName inBundle: aBundle];
-}
+//+ (NSIMG*) az_imageNamed:(NSString *) fileName {
+//	NSBundle *aBundle = [NSBundle bundleForClass: [self class]];
+//	return [self imageWithFileName: fileName inBundle: aBundle];
+//}
 
 + (NSImage*)swatchWithColor:(NSColor*)color size:(NSSize)size
 {
@@ -645,15 +634,11 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 	return image;
 }
 
-- (NSImage*) resizeWhenScaledImage {
-
-	[self setScalesWhenResized:YES];
-	return self;
-}
-
+- (NSImage*) resizeWhenScaledImage {	[self setScalesWhenResized:YES]; return self;	}
 
 + (NSImage *) prettyGradientImage
 {
+	NSSize gradientSize = AZSizeFromDimension(256);
 	NSImage 
     *newImage = [[self alloc] initWithSize:gradientSize];  // In this case, the pixel dimensions match the image size.
 	
@@ -2619,3 +2604,9 @@ CGImageRef CreateCGImageFromData(NSData* data)
 }
 @end
 
+
+@implementation  CIFilter (Subscript)
+- (id)   objectForKeyedSubscript:(NSS*)key {						   return [self valueForKey:key];			 }
+- (void) setObject:(id)object forKeyedSubscript:(NSS*)key {	isEmpty(object) ? [self setValue:@"" forKey:key]
+	: [self setValue:object forKey:key];	 }
+@end

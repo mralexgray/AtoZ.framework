@@ -8,6 +8,14 @@
 
 #import <Cocoa/Cocoa.h>
 
+
+
+@interface NSControl (AtoZ)
+
+- (void) setAction:(SEL)method withTarget:(id)object;
+
+@end
+
 @interface NSEvent (AtoZ)
 
 + (void) shiftClick:(void(^)(void))block;

@@ -15,9 +15,16 @@
 //static inline CGPoint convertToCGPoint(NSPoint point) {	return *(const CGPoint *)&point;	}
 
 
+#import "AtoZ.h"
+
+CIFilter* CIFilterDefaultNamed(NSString* name);
 
 BOOL SameString(const char *a, const char *b);
 NSString* bitString(NSUInteger mask);
+// Check if the "thing" pass'd is empty
+
+BOOL isEmpty(id thing);
+
 
 //static inline NSString* typeStringForType(thing) {
 //	return 	SameString( @encode(typeof(thing)), @encode(typeof(CAConstraintAttribute)))
@@ -56,6 +63,9 @@ void DrawGlossGradient(CGContextRef context, NSColor *color, NSRect inRect);
 CGFloat perceptualGlossFractionForColor ( CGFloat *inputComponents );
 CGFloat percent ( CGFloat val );
 CGFloat DegreesToRadians ( CGFloat degrees );
+
+
+void NSRectFillWithColor (NSRect rect, NSColor* color);
 
 //CGFloat DEG2RAD(CGFloat degrees);
 //{return degrees * M_PI / 180;};

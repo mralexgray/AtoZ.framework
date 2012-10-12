@@ -86,7 +86,7 @@
 {
 	NSLog(@"Additional area for divider requested \n\t Frame for divider at index %ld: %@\n   with tag %ld",
 		  (long)dividerIndex,
-		  NSStringFromRect([[[splitView subviews] objectAtIndex:dividerIndex] frame]),
+		  NSStringFromRect([[splitView subviews][dividerIndex] frame]),
 		  [splitView tag]);
 	return NSZeroRect;
 }
@@ -102,7 +102,7 @@
 - (CGFloat)splitView:(NSSplitView *)splitView constrainMaxCoordinate:(CGFloat)max ofSubviewAt:(NSInteger)index
 {
 	NSLog(@"Constrains asked for maximum coordinate %.2f on subview at index %ld", max, (long)index);
-	NSLog(@"\tFrame for subview at index %ld: %@\n  with tag %ld", (long)index, NSStringFromRect([[[splitView subviews] objectAtIndex:index] frame]), [splitView tag]);
+	NSLog(@"\tFrame for subview at index %ld: %@\n  with tag %ld", (long)index, NSStringFromRect([[splitView subviews][index] frame]), [splitView tag]);
 	return max;
 }
 
@@ -127,7 +127,7 @@
 {
 	NSLog(@"Constrains asked for the divider position %.2f on subview at index %ld", proposedPosition, (long)index);
 	NSLog(@"\tThe divider (split) position has changed!");
-	NSLog(@"\tFrame for subview at index %ld: %@\n", (long)index, NSStringFromRect([[[splitView subviews] objectAtIndex:index] frame]));
+	NSLog(@"\tFrame for subview at index %ld: %@\n", (long)index, NSStringFromRect([[splitView subviews][index] frame]));
 	return proposedPosition;
 }
 

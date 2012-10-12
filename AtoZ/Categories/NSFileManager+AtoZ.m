@@ -146,7 +146,7 @@ NSString *NSDCIMFolder()
             BOOL linkCountOK = (links_followed++ < MAXSYMLINKS);
             if (!linkCountOK) {
                 if (outError)
-                    *outError = [NSError errorWithDomain:NSPOSIXErrorDomain code:ELOOP userInfo:[NSDictionary dictionaryWithObject:filePath forKey:NSFilePathErrorKey]];
+                    *outError = [NSError errorWithDomain:NSPOSIXErrorDomain code:ELOOP userInfo:@{NSFilePathErrorKey: filePath}];
                 return nil;
             }
 #endif
@@ -267,7 +267,7 @@ NSString *NSDCIMFolder()
 
 - (BOOL)touchItemAtURL:(NSURL *)url error:(NSError **)outError;
 {
-    NSDictionary *attributes = [[NSDictionary alloc] initWithObjectsAndKeys:[NSDate date], NSFileModificationDate, nil];
+    NSDictionary *attributes = @{NSFileModificationDate: [NSDate date]};
     BOOL rc = [self setAttributes:attributes ofItemAtPath:[[url absoluteURL] path] error:outError];
     [attributes release];
     return rc;

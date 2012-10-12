@@ -169,6 +169,19 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
  return objc_getAssociatedObject(self, &ANIMATION_IDENTIFER);
 }
 
+- (void) swapSubs:(NSView*)view;
+{
+	NSS* firstID = [[self firstSubview]identifier];
+	[[self firstSubview]fadeOut];
+	[self removeAllSubviews];
+
+	[view setHidden:YES];
+	[self addSubview:view];
+	[view setFrame:self.bounds];
+	[view fadeIn];
+	NSLog(@"Swapped subview: %@ for %@", firstID, view);
+}
+
 -(NSPoint) center {
 	return AZCenterOfRect ([self frame]);
 }
@@ -704,7 +717,7 @@ NSView* AZResizeWindowAndContent(NSWindow* window, float dXLeft, float dXRight, 
 }
 
 - (NSView *)firstSubviewOfKind:(Class)kind withTag:(NSInteger)tag {
-    return [[self findSubviewsOfKind:kind withTag:tag inView:self] objectAtIndex:0];
+    return [self findSubviewsOfKind:kind withTag:tag inView:self][0];
 }
 
 - (NSView *)firstSubviewOfKind:(Class)kind {

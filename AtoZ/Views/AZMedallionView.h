@@ -18,7 +18,7 @@
 @property (nonatomic, retain) UIImage *image;
 @property (nonatomic, retain) UIColor *borderColor;
 @property (nonatomic, assign) CGFloat borderWidth;
-@property (nonatomic, retain) UIColor *shadowColor;
+@property (nonatomic, retain) UIColor *shadowColor, 	*backgroundColor;
 @property (nonatomic, assign) CGSize shadowOffset;
 @property (nonatomic, assign) CGFloat shadowBlur;
 

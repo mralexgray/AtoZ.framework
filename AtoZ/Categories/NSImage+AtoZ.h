@@ -8,97 +8,98 @@
 
 #import <Cocoa/Cocoa.h>
 #import "AtoZ.h"
-#import "AtoZUmbrella.h"
-#import "AtoZFunctions.h"
-#import "AZFile.h"
+//#import "AtoZUmbrella.h"
+//#import "AtoZFunctions.h"
+//#import "AZFile.h"
 
-static inline int get_bit(unsigned char *arr, unsigned long bit_num) {	return ( arr[(bit_num/8)] & (1 << (bit_num%8)) ); }
 
-typedef enum { AGImageResizeCrop, AGImageResizeCropStart, AGImageResizeCropEnd, AGImageResizeScale } AGImageResizingMethod;
+static inline int get_bit(unsigned char *arr, unsigned long bit_num);
+CGImageRef 		  CreateCGImageFromData( NSData* data );
+float 			  distance( NSPoint aPoint ); // Just one function to declare...
 
-CGImageRef CreateCGImageFromData(NSData* data);
+typedef enum {
+	AGImageResizeCrop,
+	AGImageResizeCropStart,
+	AGImageResizeCropEnd,
+	AGImageResizeScale
+} 	AGImageResizingMethod;
+
 
 @class AZFile;
 @interface NSImage (AtoZ)
 
-@property (readonly, strong) NSColor *color;
-@property (readonly, strong) NSArray *colors;
+@property (readonly, strong) NSC *color;
+@property (readonly, strong) NSA *colors;
 
-+ (NSArray*) frameworkImageNames;
-+ (NSArray*) frameworkImagePaths;
-+ (NSArray*) frameworkImages;
-+ (NSArray*) systemImages;
-+ (NSImage*) screenShot;
-+ (NSArray*) systemIcons;
-- (NSImage*) coloredWithColor:(NSColor*)inColor composite:(NSCompositingOperation)comp;
-+ (NSArray*) iconsColoredWithColor:(NSColor*)color;
-+ (NSArray*) icons;
-+ (NSArray*) picolStrings;
-+ (NSArray*) iconStrings;
-+ (NSImage*) randomIcon;
-+ (NSArray*) randomImages:(NSUI)number;
++ (NSA*) frameworkImageNames;
++ (NSA*) frameworkImagePaths;
++ (NSA*) frameworkImages;
++ (NSA*) systemImages;
++ (NSIMG*) screenShot;
++ (NSA*) systemIcons;
+- (NSIMG*) coloredWithColor:(NSC*)inColor composite:(NSCompositingOperation)comp;
++ (NSA*) icoNSCedWithColor:(NSC*)color;
++ (NSA*) icons;
++ (NSA*) picolStrings;
++ (NSA*) iconStrings;
++ (NSIMG*) randomIcon;
++ (NSA*) randomImages:(NSUI)number;
 
-+ (NSImage*) forFile:(AZFile*)file;
++ (NSIMG*) forFile:(AZFile*)file;
 
-+ (void) drawInQuadrants:(NSArray*)images inRect:(NSRect)frame;
++ (void) drawInQuadrants:(NSA*)images inRect:(NSRect)frame;
 
-+ (NSImage *)reflectedImage:(NSImage *)sourceImage amountReflected:(float)fraction;
++ (NSIMG*)reflectedImage:(NSIMG*)sourceImage amountReflected:(float)fraction;
 
-//- (NSImage*) maskedByColor:(NSColor *)color;
-- (NSImage*) scaledToMax:(CGFloat)f;
+//- (NSIMG*) maskedByColor:(NSC *)color;
+- (NSIMG*) scaledToMax:(CGFloat)f;
 
 	// creates a copy of the current image while maintaining
 	// proportions. also centers image, if necessary
 
 - (NSSize)proportionalSizeForTargetSize:(NSSize)aSize;
 
-- (NSImage*)imageByScalingProportionallyToSize:(NSSize)aSize;
+- (NSIMG*)imageByScalingProportionallyToSize:(NSSize)aSize;
 
-- (NSImage*)imageByScalingProportionallyToSize:(NSSize)targetSize
+- (NSIMG*)imageByScalingProportionallyToSize:(NSSize)targetSize
                                        flipped:(BOOL)isFlipped;
 
-- (NSImage*)imageByScalingProportionallyToSize:(NSSize)targetSize
+- (NSIMG*)imageByScalingProportionallyToSize:(NSSize)targetSize
                                        flipped:(BOOL)isFlipped
                                       addFrame:(BOOL)shouldAddFrame
                                      addShadow:(BOOL)shouldAddShadow;
 
-- (NSImage*)imageByScalingProportionallyToSize:(NSSize)targetSize
+- (NSIMG*)imageByScalingProportionallyToSize:(NSSize)targetSize
                                        flipped:(BOOL)isFlipped
                                       addFrame:(BOOL)shouldAddFrame
                                      addShadow:(BOOL)shouldAddShadow
                                       addSheen:(BOOL)shouldAddSheen;
 
-- (NSImage*)imageByFillingVisibleAlphaWithColor:(NSColor*)fillColor;
+- (NSIMG*)imageByFillingVisibleAlphaWithColor:(NSC*)fillColor;
+- (NSIMG*)imageByConvertingToBlackAndWhite;
+- (NSIMG*) maskWithColor:(NSC*)c;
 
-- (NSImage*)imageByConvertingToBlackAndWhite;
++ (NSIMG*) createImageFromSubView:(NSView*) view	rect:(NSRect)rect;
++ (NSIMG*) createImageFromView:	(NSView*) view;
 
-
-+ (NSImage *)createImageFromSubView:(NSView *)view rect:(NSRect)rect;
-+ (NSImage *)createImageFromView:(NSView *)view ;
-
-
-
-- (NSImage*) maskWithColor:(NSColor*)c;
-
-- (NSImage *)scaleImageToFillSize:(NSSize)targetSize;
-- (NSImage*)  coloredWithColor:(NSColor*)inColor;
-- (NSImage*)  coloredWithColor:(NSColor*)inColor composite:(NSCompositingOperation)comp;
+- (NSIMG*) scaleImageToFillSize:	(NSSize) targetSize;
+- (NSIMG*) coloredWithColor:	  	(NSC*) inColor;
+- (NSIMG*) coloredWithColor:		(NSC*) inColor	composite:(NSCompositingOperation)comp;
 
 
-+ (id) imageWithFileName:(NSString *)fileName inBundle:(NSBundle *)aBundle;
-+ (id) imageWithFileName:(NSString *) fileName inBundleForClass:(Class) aClass;
-+ (id) imageInFrameworkWithFileName:(NSString *) fileName;
-+ (id) frameworkImageNamed:(NSString *)name;
++ (NSIMG*) az_imageNamed:	  (NSS*) name;
++ (NSIMG*) imageWithFileName: (NSS*) fileName inBundle:(NSB*)aBundle;
++ (NSIMG*) imageWithFileName: (NSS*) fileName inBundleForClass:(Class) aClass;
 
 
 
-+ (NSImage *)swatchWithColor:(NSColor *)color size:(NSSize)size;
-+ (NSImage *)swatchWithGradientColor:(NSColor *)color size:(NSSize)size;
++ (NSIMG*)swatchWithColor:(NSC *)color size:(NSSize)size;
++ (NSIMG*)swatchWithGradientColor:(NSC *)color size:(NSSize)size;
 
-- (NSImage*) resizeWhenScaledImage;
-+ (NSImage *) prettyGradientImage;  // Generates a 256 by 256 pixel image with a complicated gradient in it.
-- (NSArray*) quantize;
-+ (NSImage*) desktopImage;
+- (NSIMG*) resizeWhenScaledImage;
++ (NSIMG*) prettyGradientImage;  // Generates a 256 by 256 pixel image with a complicated gradient in it.
+- (NSA*) quantize;
++ (NSIMG*) desktopImage;
 - (void)openQuantizedSwatch;
 
 
@@ -111,63 +112,63 @@ CGImageRef CreateCGImageFromData(NSData* data);
 - (void) drawInRect:(NSRect)dstRect operation:(NSCompositingOperation)op
 			fraction:(float)delta       method:(AGImageResizingMethod)resizeMethod;
 
-- (NSImage *) 	filteredMonochromeEdge;
+- (NSIMG*) 	filteredMonochromeEdge;
 
-- (NSImage *)tintedImage;
-- (NSImage *) 	tintedWithColor:(NSColor*) tint ;
+- (NSIMG*)tintedImage;
+- (NSIMG*) 	tintedWithColor:(NSC*) tint ;
 - (NSBitmapImageRep*) bitmap;
 - (CGImageRef) 	cgImage;
-- (NSImage*)imageRotatedByDegrees:(CGFloat)degrees;
-//- (NSImage*)imageByScalingProportionallyToSize:(NSSize)targetSize;
-- (NSImage*)	imageByScalingProportionallyToSize:(NSSize) targetSize background:(NSColor*) bk;
+- (NSIMG*)imageRotatedByDegrees:(CGFloat)degrees;
+//- (NSIMG*)imageByScalingProportionallyToSize:(NSSize)targetSize;
+- (NSIMG*)	imageByScalingProportionallyToSize:(NSSize) targetSize background:(NSC*) bk;
 
-- (NSImage*)	imageToFitSize:(NSSize)size method:(AGImageResizingMethod)resizeMethod;
-- (NSImage*)	imageCroppedToFitSize:(NSSize)size;
-- (NSImage*)	imageScaledToFitSize:(NSSize)size;
+- (NSIMG*)	imageToFitSize:(NSSize)size method:(AGImageResizingMethod)resizeMethod;
+- (NSIMG*)	imageCroppedToFitSize:(NSSize)size;
+- (NSIMG*)	imageScaledToFitSize:(NSSize)size;
 
 - (NSImageRep*) largestRepresentation;
 - (NSSize) 		sizeLargestRepresentation;
 - (NSImageRep*) smallestRepresentation;
 - (NSSize)		sizeSmallestRepresentation;
 
-- (NSImage*)rotated:(int)angle;
+- (NSIMG*)rotated:(int)angle;
 - (NSRect) proportionalRectForTargetRect:(NSRect)targetRect;
 - (CIImage *)toCIImage;
 
-- (NSImage*) imageByRemovingTransparentAreasWithFinalRect: (NSRect*)outBox;
-//+ (NSImage*) fromSVG:(NSString *)documentName withAlpha:(BOOL)hasAlpha;
-//+ (NSImage*)imageFromCGImageRef:(CGImageRef)image;
+- (NSIMG*) imageByRemovingTransparentAreasWithFinalRect: (NSRect*)outBox;
+//+ (NSIMG*) fromSVG:(NSString *)documentName withAlpha:(BOOL)hasAlpha;
+//+ (NSIMG*)imageFromCGImageRef:(CGImageRef)image;
 
-- (NSImage*) addReflection:(CGFloat)percentage;
+- (NSIMG*) addReflection:(CGFloat)percentage;
 
 - (void)drawEtchedInRect:(NSRect)rect;
 
 
-- (NSImage *) maskedWithColor:(NSColor *)color;
+- (NSIMG*) maskedWithColor:(NSC *)color;
 
 /*!
  @method     
  @abstract   converting a CGImageRef to NSImage
  @discussion 
  */
-+ (NSImage*)imageFromCGImageRef:(CGImageRef)image;
++ (NSIMG*)imageFromCGImageRef:(CGImageRef)image;
 
 /*!    @abstract   converting a NSImage to CGImageRef */
 - (CGImageRef)cgImageRef;
 
 // Borrowed from Matt Legend Gemmell   A category on NSImage allowing you to get an image containing  a Quick Look preview of the file at a given path. You can specify the size,   and whether the preview should be rendered as an icon (i.e. with a document border,   drop-shadow, page-curl and file type/extension label superimposed).  If Quick Look can’t generate a preview for the specified file, You’ll be given the file’s Finder icon instead  (which is how the Quick Look panel itself behaves in Leopard).
-+ (NSImage *)imageWithPreviewOfFileAtPath:(NSString *)path 
++ (NSIMG*)imageWithPreviewOfFileAtPath:(NSString *)path 
 								   ofSize:(NSSize)size 
 								   asIcon:(BOOL)icon;
 
 /*!    @abstract   converting the input NSImage to a new size */
-+ (NSImage *)resizedImage:(NSImage *)sourceImage 
++ (NSIMG*)resizedImage:(NSIMG*)sourceImage 
 				  newSize:(NSSize)size 
 		  lockAspectRatio:(BOOL)lock // pass YES if you want to lock aspect ratio
    lockAspectRatioByWidth:(BOOL)flag; // pass YES to lock aspect ratio by width or passing NO to lock by height
 
-/*!    @abstract   returning an cropped NSImage */
-- (NSImage *)croppedImage:(CGRect)bounds;
+/*!    @abstract   returning an cropped NSIMG*/
+- (NSIMG*)croppedImage:(CGRect)bounds;
 
 
 
@@ -177,13 +178,13 @@ CGImageRef CreateCGImageFromData(NSData* data);
 		 fileType:(NSBitmapImageFileType)type;
 
 - (BOOL)saveAs:(NSString *)path;
-- (NSImage *)scaleToFillSize:(NSSize)targetSize;
+- (NSIMG*)scaleToFillSize:(NSSize)targetSize;
 @end
 
 @interface CIImage (ToNSImage)
 
-- (NSImage *) toNSImageFromRect:(CGRect)r;
-- (NSImage *) toNSImage;
+- (NSIMG*) toNSImageFromRect:(CGRect)r;
+- (NSIMG*) toNSImage;
 - (CIImage *) rotateDegrees:(float)aDegrees;
 
 @end
@@ -198,8 +199,8 @@ CGImageRef CreateCGImageFromData(NSData* data);
 @interface NSImage (AtoZScaling)
 
 
-- (NSImage *)imageByAdjustingHue:(float)hue;
-- (NSImage *)imageByAdjustingHue:(float)hue saturation:(float)saturation;
+- (NSIMG*)imageByAdjustingHue:(float)hue;
+- (NSIMG*)imageByAdjustingHue:(float)hue saturation:(float)saturation;
 - (NSImageRep *)representationOfSize:(NSSize)theSize;
 - (NSImageRep *)bestRepresentationForSize:(NSSize)theSize;
 - (BOOL)createRepresentationOfSize:(NSSize)newSize;
@@ -207,44 +208,44 @@ CGImageRef CreateCGImageFromData(NSData* data);
 - (BOOL)createIconRepresentations;
 - (void)removeRepresentationsLargerThanSize:(NSSize)size;
 //- (BOOL)shrinkToSize:(NSSize)newSize;
-- (NSImage *)duplicateOfSize:(NSSize)newSize;
+- (NSIMG*)duplicateOfSize:(NSSize)newSize;
 @end
 
 @interface NSImage (AtoZTrim)
 -(NSRect)usedRect;
-- (NSImage *)scaleImageToSize:(NSSize)newSize trim:(BOOL)trim expand:(BOOL)expand scaleUp:(BOOL)scaleUp;
+- (NSIMG*)scaleImageToSize:(NSSize)newSize trim:(BOOL)trim expand:(BOOL)expand scaleUp:(BOOL)scaleUp;
 @end
 
 @interface NSImage (AtoZAverage)
--(NSColor *)averageColor;
-+ (NSImage*)maskImage:(NSImage *)image withMask:(NSImage *)maskImage;
+-(NSC *)averageColor;
++ (NSIMG*)maskImage:(NSIMG*)image withMask:(NSIMG*)maskImage;
 @end
 @interface NSImage (Matrix)
-- (NSImage*) addPerspectiveMatrix:(CIPerspectiveMatrix)matrix; //8PointMatrix
+- (NSIMG*) addPerspectiveMatrix:(CIPerspectiveMatrix)matrix; //8PointMatrix
 @end
 
 @interface NSImage (GrabWindow)
-//+ (NSImage *) captureScreenImageWithFrame: (NSRect) frame;
+//+ (NSIMG*) captureScreenImageWithFrame: (NSRect) frame;
 
-//+ (NSImage *)screenShotWithinRect:(NSRect)rect;
+//+ (NSIMG*)screenShotWithinRect:(NSRect)rect;
 
 /*
-//+ (NSImage*)imageWithWindow:(int)wid;
-//+ (NSImage*)imageWithRect: (NSRect)rect inWindow:(int)wid;
-+ (NSImage*)imageWithCGContextCaptureWindow: (int)wid;
-+ (NSImage*)imageWithBitmapRep: (NSBitmapImageRep*)rep;
-+ (NSImage *)imageWithScreenShotInRect:(NSRect)rect;
+//+ (NSIMG*)imageWithWindow:(int)wid;
+//+ (NSIMG*)imageWithRect: (NSRect)rect inWindow:(int)wid;
++ (NSIMG*)imageWithCGContextCaptureWindow: (int)wid;
++ (NSIMG*)imageWithBitmapRep: (NSBitmapImageRep*)rep;
++ (NSIMG*)imageWithScreenShotInRect:(NSRect)rect;
 @end
 
 @interface NSBitmapImageRep (GrabWindow)
 //+ (NSBitmapImageRep*)correctBitmap: (NSBitmapImageRep*)rep;
-//+ (NSBitmapImageRep*)bitmapRepFromNSImage:(NSImage*)image;
+//+ (NSBitmapImageRep*)bitmapRepFromNSImage:(NSIMG*)image;
 //+ (NSBitmapImageRep*)bitmapRepWithWindow:(int)wid;
 //+ (NSBitmapImageRep*)bitmapRepWithRect: (NSRect)rect inWindow:(int)wid;
 + (NSBitmapImageRep*)bitmapRepWithScreenShotInRect:(NSRect)rect;
 */
 
-+ (NSImage* ) imageBelowWindow: (NSWindow *) window ;
++ (NSIMG* ) imageBelowWindow: (NSWindow *) window ;
 
 @end
 

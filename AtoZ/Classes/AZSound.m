@@ -39,19 +39,24 @@ NSString *const SoundDidFinishPlayingNotification = @"SoundDidFinishPlayingNotif
 
 
 + (Sound*) randomSound {
-    NSString *path = [[AZFWORKBUNDLE pathsForResourcesOfType:@"caf" inDirectory:@""]randomElement];
-    return [self soundWithContentsOfFile:path];
+	NSArray *randos = [[SoundManager sharedManager]soundPaths].copy;
+    return [[Sound alloc]initWithContentsOfFile:[(NSS*)randos.randomElement copy]];
 }
 
 + (Sound *)soundNamed:(NSString *)name
 {
-    NSString *path = name;
-    if (![path isAbsolutePath])
-		name = [[name pathExtension] isEqualToString:@""]
-			 ? [name stringByAppendingPathExtension:@"caf"]
-			 : name;
-	path = [[NSBundle bundleForClass:[AtoZ class]] pathForResource:name ofType:nil];
-    return [self soundWithContentsOfFile:path];
+	AZLOG(@"aout to accesss sounds");
+
+	NSS* file = [name endsWith:@"caf"] && [name isAbsolutePath] ? name
+	: [[NSBundle bundleForClass:[self class]] pathForResource:[name lastPathComponent] ofType:nil];
+
+//		 = [[name pathExtension] isEqualToString:@""]
+//			 ? [name stringByAppendingPathExtension:@"caf"]
+//			 : name;
+//	path = [[NSBundle bundleForClass:[AtoZ class]] pathForResource:name ofType:nil];
+	AZLOG(file);
+	return [self soundWithContentsOfFile:file];
+
 }
 
 + (Sound *)soundWithContentsOfFile:(NSString *)path
@@ -246,7 +251,7 @@ NSString *const SoundDidFinishPlayingNotification = @"SoundDidFinishPlayingNotif
 @end
 
 @implementation SoundManager
-@synthesize currentMusic, currentSounds, allowsBackgroundMusic, soundVolume, musicVolume, soundFadeDuration, musicFadeDuration;
+@synthesize currentMusic, currentSounds, allowsBackgroundMusic, soundVolume, musicVolume, soundFadeDuration, musicFadeDuration, soundPaths;
 
 + (SoundManager *)sharedManager
 {
@@ -258,6 +263,8 @@ NSString *const SoundDidFinishPlayingNotification = @"SoundDidFinishPlayingNotif
 - (SoundManager *)init
 {
     if ((self = [super init])) {
+
+		soundPaths  = [AZFWORKBUNDLE pathsForResourcesOfType:@"caf" inDirectory:@""];
         soundVolume = 1.0f;
         musicVolume = 1.0f;
         soundFadeDuration = 1.0;
@@ -292,14 +299,14 @@ NSString *const SoundDidFinishPlayingNotification = @"SoundDidFinishPlayingNotif
 {
     @autoreleasepool
     {
-	NSArray *extensions = [NSArray arrayWithObjects:@"caf", @"m4a", @"mp4", @"mp3", @"wav", @"aif", nil];
+	NSArray *extensions = @[@"caf", @"m4a", @"mp4", @"mp3", @"wav", @"aif"];
 	NSArray *paths = nil; 		BOOL foundSound = NO;
 	for (NSString *extension in extensions)
         {
 		paths = [[NSBundle mainBundle] pathsForResourcesOfType:extension inDirectory:nil];
 		if ([paths count])
             {
-			[self prepareToPlayWithSound:[paths objectAtIndex:0]];
+			[self prepareToPlayWithSound:paths[0]];
 			foundSound = YES;
 			break;
             }

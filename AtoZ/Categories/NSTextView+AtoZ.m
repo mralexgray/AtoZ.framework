@@ -47,7 +47,7 @@
 											   BOOL *stop)
 	{
 #pragma unused(stop)
-	NSFont *font = [attributesDictionary objectForKey:NSFontAttributeName];
+	NSFont *font = attributesDictionary[NSFontAttributeName];
          if (font) {
              [textStorage removeAttribute:NSFontAttributeName range:range];
              font = [[NSFontManager sharedFontManager] convertFont:font toSize:[font pointSize] + 1];

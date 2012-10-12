@@ -120,7 +120,7 @@ int main(int argc, const char * argv[])
 	//	NSImage *web = [NSImage imageFromWebPageAtURL:[NSURL URLWithString:@"http://google.com"] encoding:NSUTF8StringEncoding];
 	//	AZLOG(web);
 	//	[paddy quantize];
-					//		[[AZColor sharedInstance] colorsForImage:[NSImage imageInFrameworkWithFileName:@"mrgray.logo.png"]]);
+					//		[[AZColor sharedInstance] colorsForImage:[NSImage az_imageNamed:@"mrgray.logo.png"]]);
 	//	AZFile *s = [AZFile	instanceWithImage:[NSImage randomIcon]];
 	//	AZLOG(s.propertiesPlease);
 	//	[s.image saveAs:@"/Users/localadmin/Desktop/poops.png"];

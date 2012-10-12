@@ -74,7 +74,7 @@ For those that have never seen the CATransform3D struct before, you must apply t
 @interface CALayer (AtoZ)
 
 
--(void) animatePositionByAxis:(CGP)toPt duration:(NSUI)time;
+-(void) animateXThenYToFrame:(NSR)toRect duration:(NSUI)time;
 
 - (void) addConstraintsRelSuper:(CAConstraintAttribute) nilAttributeList, ...;  // This method takes a nil-terminated list of objects.
 

@@ -33,8 +33,8 @@
 	NSSize theSize = AZSizeFromDimension(512);
 	return _image = _image ? _image
 				  : [AZWORKSPACE iconForFile:_path] ? [[AZWORKSPACE iconForFile:_path]imageScaledToFitSize:theSize]
-				  :	_color ? [[NSImage imageInFrameworkWithFileName:@"missing.png"]tintedWithColor: _color]
-				  : [NSImage imageInFrameworkWithFileName:@"missing.png"];
+				  :	_color ? [[NSImage az_imageNamed:@"missing.png"]tintedWithColor: _color]
+				  : [NSImage az_imageNamed:@"missing.png"];
 }
 -(NSA*) colors 	{
 	return _colors = _colors ? _colors : (NSArray*)^{
@@ -217,7 +217,7 @@
 		//	d.color = [color isBoring] ? RANDOMCOLOR : color;
 		//	d.colors = @[color];
 		//	NSImage *ren = [[NSImage alloc]initWithContentsOfFile:d.path];
-		//	d.image = [[[NSImage imageInFrameworkWithFileName:@"missing.png"]imageByScalingProportionallyToSize:AZSizeFromDimension(512)] tintedWithColor:color];
+		//	d.image = [[[NSImage az_imageNamed:@"missing.png"]imageByScalingProportionallyToSize:AZSizeFromDimension(512)] tintedWithColor:color];
 	return d;
 }
 + (instancetype) instanceWithImage:(NSImage *)image {
@@ -256,7 +256,7 @@
 	[self.backingstore removeObjectAtIndex:index];
 }
 - (void) replaceObjectAtIndex:(NSUI) index withObject: (id) anObject 	{
-	[self.backingstore replaceObjectAtIndex:index withObject:anObject];
+	(self.backingstore)[index] = anObject;
 }
 -(void)firstToLast{
 	[self.backingstore firstToLast];
@@ -485,8 +485,8 @@ static NSOperationQueue *AZSharedOperationQueue() {
 //		if (hasIcon) {
 //			_image = [[AZWORKSPACE iconForFile:_path]imageScaledToFitSize:theSize];
 //			_colors = self.colors;
-//		} else _image = _color ? [[NSImage imageInFrameworkWithFileName:@"missing.png"]tintedWithColor: _color]
-//			:  [NSImage imageInFrameworkWithFileName:@"missing.png"];
+//		} else _image = _color ? [[NSImage az_imageNamed:@"missing.png"]tintedWithColor: _color]
+//			:  [NSImage az_imageNamed:@"missing.png"];
 //	}
 //	return  _image;
 //}

@@ -65,16 +65,16 @@ void disableCA(){
 {
     CAKeyframeAnimation *positionAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
     positionAnimation.values = @[AZVpoint(p)];
-    positionAnimation.keyTimes = [NSArray arrayWithObjects: [NSNumber numberWithFloat:.3], nil];
+    positionAnimation.keyTimes = @[@.3f];
 
     CABasicAnimation *scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform"];
     scaleAnimation.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeScale(3, 3, 1)];
 
     CABasicAnimation *opacityAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-    opacityAnimation.toValue  = [NSNumber numberWithFloat:0.0f];
+    opacityAnimation.toValue  = @0.0f;
 
     CAAnimationGroup *animationgroup = [CAAnimationGroup animation];
-    animationgroup.animations = [NSArray arrayWithObjects:positionAnimation, scaleAnimation, opacityAnimation, nil];
+    animationgroup.animations = @[positionAnimation, scaleAnimation, opacityAnimation];
     animationgroup.duration = 0.3f;
     animationgroup.fillMode = kCAFillModeForwards;
 
@@ -85,16 +85,16 @@ void disableCA(){
 {
     CAKeyframeAnimation *positionAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
     positionAnimation.values = @[AZVpoint(p)];
-    positionAnimation.keyTimes = [NSArray arrayWithObjects: [NSNumber numberWithFloat:.3], nil];
+    positionAnimation.keyTimes = @[@.3f];
 
     CABasicAnimation *scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform"];
     scaleAnimation.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeScale(.01, .01, 1)];
 
     CABasicAnimation *opacityAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-    opacityAnimation.toValue  = [NSNumber numberWithFloat:0.0f];
+    opacityAnimation.toValue  = @0.0f;
 
     CAAnimationGroup *animationgroup = [CAAnimationGroup animation];
-    animationgroup.animations = [NSArray arrayWithObjects:positionAnimation, scaleAnimation, opacityAnimation, nil];
+    animationgroup.animations = @[positionAnimation, scaleAnimation, opacityAnimation];
     animationgroup.duration = 0.3f;
     animationgroup.fillMode = kCAFillModeForwards;
 
@@ -118,7 +118,7 @@ void disableCA(){
 + (CAAnimation *) animationForOpacity {
 	CABasicAnimation *fadeAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
 	[fadeAnimation setAutoreverses:YES];
-	[fadeAnimation setToValue:[NSNumber numberWithFloat:0.0]];
+	[fadeAnimation setToValue:@0.0f];
 
 	return fadeAnimation;
 }
@@ -126,7 +126,7 @@ void disableCA(){
 + (CAAnimation *) animateionForScale {
 	CABasicAnimation *scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
 	[scaleAnimation setAutoreverses:YES];
-	[scaleAnimation setToValue:[NSNumber numberWithFloat:0.0]];
+	[scaleAnimation setToValue:@0.0f];
 
 	return scaleAnimation;
 }
@@ -252,8 +252,8 @@ void disableCA(){
     CABasicAnimation *flipAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.y"];
     CGFloat startValue = beginsOnTop ? 0.0f : M_PI;
     CGFloat endValue = beginsOnTop ? -M_PI : 0.0f;
-    flipAnimation.fromValue = [NSNumber numberWithDouble:startValue];
-    flipAnimation.toValue = [NSNumber numberWithDouble:endValue];
+    flipAnimation.fromValue = @(startValue);
+    flipAnimation.toValue = @(endValue);
 
 		// Shrinking the view makes it seem to move away from us, for a more natural effect
 		// Can also grow the view to make it move out of the screen
@@ -269,7 +269,7 @@ void disableCA(){
 
 		// Combine the flipping and shrinking into one smooth animation
     CAAnimationGroup *animationGroup = [CAAnimationGroup animation];
-    animationGroup.animations = [NSArray arrayWithObjects:flipAnimation, shrinkAnimation, nil];
+    animationGroup.animations = @[flipAnimation, shrinkAnimation];
 
 		// As the edge gets closer to us, it appears to move faster. Simulate this in 2D with an easing function
     animationGroup.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
@@ -291,8 +291,8 @@ void disableCA(){
     CABasicAnimation *flipAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.y"];
     CGFloat startValue =  /*beginsOnTop ? 0.0f :*/ M_PI;
     CGFloat endValue =  /*beginsOnTop-M_PI :*/ 0.0f;
-    flipAnimation.fromValue = [NSNumber numberWithDouble:startValue];
-    flipAnimation.toValue = [NSNumber numberWithDouble:endValue];
+    flipAnimation.fromValue = @(startValue);
+    flipAnimation.toValue = @(endValue);
 
 		// Shrinking the view makes it seem to move away from us, for a more natural effect
 		// Can also grow the view to make it move out of the screen
@@ -308,7 +308,7 @@ void disableCA(){
 
 		// Combine the flipping and shrinking into one smooth animation
     CAAnimationGroup *animationGroup = [CAAnimationGroup animation];
-    animationGroup.animations = [NSArray arrayWithObjects:flipAnimation, shrinkAnimation, nil];
+    animationGroup.animations = @[flipAnimation, shrinkAnimation];
 
 		// As the edge gets closer to us, it appears to move faster. Simulate this in 2D with an easing function
     animationGroup.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
@@ -443,7 +443,7 @@ void disableCA(){
 	if ([NSWindow defaultAnimationForKey:key] == nil){
 		NSLog(@"NSVindow not animatable for key '%@'",key);
 	}else {
-		[[NSApp keyWindow] setAnimations:[NSDictionary dictionaryWithObject:[self negativeShake:[[NSApp keyWindow] frame]] forKey:key]];
+		[[NSApp keyWindow] setAnimations:@{key: [self negativeShake:[[NSApp keyWindow] frame]]}];
 		[[[NSApp keyWindow] animator] setFrameOrigin:[[NSApp keyWindow] frame].origin];
 	}
 }

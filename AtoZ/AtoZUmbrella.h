@@ -72,6 +72,17 @@ The way to get around this problem is use another GCC extension allowing stateme
 #define AZString(_X_) ({typeof(_X_) _Y_ = (_X_);\
 AZToStringFromTypeAndValue(@encode(typeof(_X_)), &_Y_);})
 
+#define RONLY readonly
+#define RDWRT readwrite
+#define ASSGN assign
+#define NATOM nonatomic
+#define STRNG strong
+#define ASS assign
+#define CP copy
+#define SET setter
+#define GET getter
+
+
 
 #define kIMG 	@"image"
 #define kCLR 	@"color"
@@ -90,8 +101,11 @@ AZToStringFromTypeAndValue(@encode(typeof(_X_)), &_Y_);})
 #define   AZNOTCENTER [NSNotificationCenter defaultCenter]
 #define AZFILEMANAGER [NSFileManager defaultManager]
 #define AZGRAPHICSCTX [NSGraphicsContext currentContext]
+#define AZCURRENTCTX AZGRAPHICSCTX
 #define  AZQTZCONTEXT [[NSGraphicsContext currentContext] graphicsPort]
 #define   AZSHAREDAPP [NSApplication sharedApplication]
+
+#define loMismo isEqualToString
 
 #define APP_NAME [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleName"]
 #define APP_VERSION [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]
@@ -146,6 +160,9 @@ AZToStringFromTypeAndValue(@encode(typeof(_X_)), &_Y_);})
 #define NSIMG NSImage
 #define NSS NSString
 #define NSA NSArray
+#define NSB NSBundle
+#define NSBP NSBezierPath
+#define NSAT NSAffineTransform
 #define NSP NSPoint
 #define NSR NSRect
 #define NSD NSDictionary
@@ -164,7 +181,11 @@ AZToStringFromTypeAndValue(@encode(typeof(_X_)), &_Y_);})
 #define CABA CABasicAnimation
 #define CAT CATransaction
 
+#define BLKVIEW BNRBlockView
 #define CAKA CAKeyframeAnimation
+#define CAT3DTR CATransform3DTranslate
+#define CAT3DR CATransform3DRotate
+#define CAT3D CATransform3D
 #define CAT3 CATransform3D
 #define CAGA CAGroupAnimation
 #define CAAG CAAnimationGroup
@@ -179,9 +200,9 @@ AZToStringFromTypeAndValue(@encode(typeof(_X_)), &_Y_);})
 #define bgC backgroundColor
 #define fgC foregroundColor
 #define arMASK autoresizingMask
-
-#define CASIZEABLE kCALayerWidthSizable| kCALayerHeightSizable
-
+#define nDoBC needsDisplayOnBoundsChange
+#define CASIZEABLE kCALayerWidthSizable | kCALayerHeightSizable
+#define NSSIZEABLE NSViewHeightSizable | NSViewWidthSizable
 #define removedOnC removedOnCompletion
 
 #define vFk valueForKey
@@ -195,6 +216,7 @@ AZToStringFromTypeAndValue(@encode(typeof(_X_)), &_Y_);})
 
 #define  AZTALK(log) 	 [[AZTalker new] say:log]
 #define  AZBezPath(rect) [NSBezierPath bezierPathWithRect:rect]
+#define  NSBezPath(rect) AZBezPath(rect)
 #define  AZQtzPath(rect) [[NSBezierPath bezierPathWithRect:rect]quartzPath]
 
 #define AZContentBounds [[[self window]contentView]bounds]

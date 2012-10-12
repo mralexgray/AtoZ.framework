@@ -1,11 +1,6 @@
 #import "AtoZ.h"
 #import "AtoZUmbrella.h"
 
-#define RONLY readonly
-#define RDWRT readwrite
-#define ASSGN assign
-#define NATOM nonatomic
-#define STRNG strong
 
 @interface AZFile : BaseModel  // Base abstract class that wraps a file system URL
 

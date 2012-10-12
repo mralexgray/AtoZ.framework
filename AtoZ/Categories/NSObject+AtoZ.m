@@ -116,7 +116,7 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary()
             [dict release];
 			}
         AZObserverTrampoline *trampoline = [[AZObserverTrampoline alloc] initObservingObject:self keyPath:keyPath onQueue:queue task:task];
-        [dict setObject:trampoline forKey:token];
+        dict[token] = trampoline;
         [trampoline release];
     });
     return token;
@@ -126,7 +126,7 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary()
 {
     dispatch_sync(AZObserverMutationQueueCreatingIfNecessary(), ^{
         NSMutableDictionary *observationDictionary = objc_getAssociatedObject(self, (__bridge const void *)(AZObserverMapKey));
-        AZObserverTrampoline *trampoline = [observationDictionary objectForKey:token];
+        AZObserverTrampoline *trampoline = observationDictionary[token];
         if (!trampoline)
 			{
             NSLog(@"[NSObject(AZBlockObservation) removeObserverWithBlockToken]: Ignoring attempt to remove non-existent observer on %@ for token %@.", self, token);
@@ -144,6 +144,42 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary()
 #import <stdarg.h>
 
 @implementation NSObject (AtoZ)
+
+-(void) propagateValue:(id)value forBinding:(NSString*)binding;
+{
+	NSParameterAssert(binding != nil);
+	//WARNING: bindingInfo contains NSNull, so it must be accounted for
+	NSDictionary* bindingInfo = [self infoForBinding:binding];
+	if(!bindingInfo) return; //there is no binding
+	//apply the value transformer, if one has been set
+	NSDictionary* bindingOptions = [bindingInfo objectForKey:NSOptionsKey];
+	if(bindingOptions){
+		NSValueTransformer* transformer = [bindingOptions valueForKey:NSValueTransformerBindingOption];
+		if(!transformer || (id)transformer == [NSNull null]){
+			NSString* transformerName = [bindingOptions valueForKey:NSValueTransformerNameBindingOption];
+			if(transformerName && (id)transformerName != [NSNull null]){
+				transformer = [NSValueTransformer valueTransformerForName:transformerName];
+			}
+		}
+
+		if(transformer && (id)transformer != [NSNull null]){
+			if([[transformer class] allowsReverseTransformation]){
+				value = [transformer reverseTransformedValue:value];
+			} else {
+				NSLog(@"WARNING: binding \"%@\" has value transformer, but it doesn't allow reverse transformations in %s", binding, __PRETTY_FUNCTION__);
+	}}}
+	id boundObject = [bindingInfo objectForKey:NSObservedObjectKey];
+	if(!boundObject || boundObject == [NSNull null]){
+		NSLog(@"ERROR: NSObservedObjectKey was nil for binding \"%@\" in %s", binding, __PRETTY_FUNCTION__);
+		return;
+	}
+	NSString* boundKeyPath = [bindingInfo objectForKey:NSObservedKeyPathKey];
+	if(!boundKeyPath || (id)boundKeyPath == [NSNull null]){
+		NSLog(@"ERROR: NSObservedKeyPathKey was nil for binding \"%@\" in %s", binding, __PRETTY_FUNCTION__);
+		return;
+	}
+	[boundObject setValue:value forKeyPath:boundKeyPath];
+}
 
 
 
@@ -179,6 +215,7 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary()
 }
 
 - (id)objectForKeyedSubscript:(id)key {
+	if ([key isKindOfClass:[NSS class]]) return [self respondsToString:key] ? [self valueForKey:key] : nil;
 	return  [self respondsToSelector:@selector(key)] ? [self valueForKey:key] : nil;
 }
 
@@ -219,7 +256,7 @@ static char windowPosition;
     for ( int i = 0; i < count; i++ ) {
         objc_property_t prop 	= propList[i];
         const char *propName 	= property_getName(prop);
-        NSS*propNameStr 	= [NSString stringWithCString:propName encoding:NSASCIIStringEncoding];
+        NSS*propNameStr 	= @(propName);
         if(propName) { id value = [self valueForKey:propNameStr];
 					   [propPrint appendString:[NSString stringWithFormat:@"%@=%@ ; ", propNameStr, value]]; }
 	}
@@ -291,6 +328,14 @@ static char windowPosition;
 		//	[[AZTalker sharedInstance] say:$(@"%@ is %@ selected", string, isSelected ? @"" : @"NOT")];
 }
 
+- (NSS*)segmentLabel {
+	return    [self isKindOfClass:[NSSegmentedControl class]]
+			? [(NSSegmentedControl*)self labelForSegment:[(NSSegmentedControl*)self selectedSegment]] : nil;
+}
+
+- (BOOL) respondsToString:(NSS*)string{
+	return [self respondsToSelector:NSSelectorFromString(string)];
+}
 
 - (void)performActionFromSegment:(id)sender {
 
@@ -307,6 +352,21 @@ static char windowPosition;
 	[[sender delegate] performSelector:fabricated withValue:optionPtr];
 		//	[[AZTalker sharedInstance] say:$(@"%@ is %@ selected", string, isSelected ? @"" : @"NOT")];
 }
+//- (void)performActionFromLabel:(id)sender {
+//
+//	BOOL isSelected;	NSS*label;
+//	BOOL isButton = [sender isKindOfClass:[NSButton class]];
+//	NSInteger buttonState = [sender state];
+//	//		 = [sender isSelectedForSegment:selectedSegment];
+//	label = [sender label];
+//	BOOL *optionPtr = &buttonState;
+//	//	} else
+//	//		label = [sender label];
+//	SEL fabricated = NSSelectorFromString(label);
+//	[[sender delegate] performSelector:fabricated withValue:optionPtr];
+//	//	[[AZTalker sharedInstance] say:$(@"%@ is %@ selected", string, isSelected ? @"" : @"NOT")];
+//}
+
 
 	//- (BOOL) respondsToSelector: (SEL) aSelector {
 	//    NSLog (@"%s", (char *) aSelector);
@@ -546,7 +606,7 @@ static const char * getPropertyType(objc_property_t property) {
 	NSMA* propertyArray = [NSMA arrayWithCapacity:count];
 	for (int i = 0; i < count ; i++) {
 		const char* propertyName = property_getName(properties[i]);
-		[propertyArray addObject:[NSString  stringWithCString:propertyName encoding:NSUTF8StringEncoding]];
+		[propertyArray addObject:@(propertyName)];
 	}
 	free(properties);
 	return [NSArray arrayWithArray:propertyArray];
@@ -594,7 +654,7 @@ static const char * getPropertyType(objc_property_t property) {
 
 - (void)mapPropertiesToObject:(id)instance	{
 	for (NSS* propertyKey in [self allKeys])	{
-		[instance setValue:[self objectForKey:propertyKey]	forKey:propertyKey];
+		[instance setValue:self[propertyKey]	forKey:propertyKey];
 	}
 }
 @end

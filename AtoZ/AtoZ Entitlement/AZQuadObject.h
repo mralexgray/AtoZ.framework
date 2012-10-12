@@ -11,57 +11,36 @@
 #import "AZEntitlementDelegate.h"
 #import "AZQuadCell.h"
 
-//@class AZEntitlementDelegate;
 @interface AZQuadCarousel : NSObject <iCarouselDataSource, iCarouselDelegate, NSWindowDelegate>
-//{ NSRange northern, southern, eastern, western;	}
-@property (nonatomic, assign) NSUInteger tilt;
-//@property (nonatomic, strong) NSMutableArray* content;
-@property (weak) id refToSelf;
-@property (nonatomic, assign) NSUInteger iconStyle;
-//@property (nonatomic, assign) iCarouselType type;
 
+@property (assign, nonatomic) iCarouselType cType;
+@property (nonatomic, assign) CGFloat fontSize,intrusion;;
+@property (nonatomic, assign) NSUInteger iconStyle, selectedIndex, tilt;
 
-@property (nonatomic, strong) AZTrackingWindow *floater;
-
-@property (nonatomic, strong) AZTrackingWindow *north;
-@property (nonatomic, strong) AZTrackingWindow *south;
-@property (nonatomic, strong) AZTrackingWindow *east;
-@property (nonatomic, strong) AZTrackingWindow *west;
-@property (nonatomic, assign) CGFloat intrusion;
-
-@property (nonatomic, strong) iCarousel *menu_N;
-@property (nonatomic, strong) iCarousel *menu_S;
-@property (nonatomic, strong) iCarousel *menu_E;
-@property (nonatomic, strong) iCarousel *menu_W;
-
-@property (nonatomic, strong)  NSArray 	 *menus;
-@property (nonatomic, strong)  NSArray 	 *quads;
-
-//@property (nonatomic, assign) NSUInteger visibleItems;
-@property (nonatomic, assign) NSUInteger selectedIndex;
-//@property (unsafe_unretained)) iCarousel *activeMenu;
-@property (nonatomic, strong) NSString *activeMenuID;
-@property (nonatomic, strong) NSString *activeQuadID;
-@property (nonatomic, strong) NSString *windowLog;
-//@property (nonatomic, assign) BOOL wrap;
 @property (nonatomic, strong) IBOutlet NSMutableArray *items;
-@property (nonatomic, strong) IBOutlet NSArray *southWest;
-@property (nonatomic, strong) IBOutlet NSArray *northEast;
-
 @property (nonatomic, retain) AZSegmentedRect *seg;
 @property (nonatomic, assign) Option option;
 
+- (IBAction) toggleQuadFlip: (id)sender;
+- (IBAction) toggleQuad:	 (id)sender;
+- (IBAction) setVeils:		 (id)sender;
+- (IBAction) setType:		 (id)sender;
+
+@property (weak) id refToSelf;
+
 -(void) advance;
 -(void) rewind;
-
-- (IBAction)toggleQuadFlip:(id)sender;
-- (IBAction)toggleQuad:(id)sender;
-- (IBAction)setVeils:(id)sender;
-- (IBAction)setType:(id)sender;
-@property (assign, nonatomic)	iCarouselType cType;
-
-@property (nonatomic, assign) CGFloat fontSize;
 @end
+
+
+//@property (nonatomic, strong) IBOutlet NSArray *southWest;
+//@property (nonatomic, strong) IBOutlet NSArray *northEast;
+//@property (nonatomic, assign) iCarouselType type;
+//@property (nonatomic, strong) NSMutableArray* content;
+//@property (nonatomic, strong) AZTrackingWindow *floater;
+//@property (nonatomic, assign) NSUInteger visibleItems;
+//@property (unsafe_unretained)) iCarousel *activeMenu;
+//@property (nonatomic, assign) BOOL wrap;
 
 //@property (weak) IBOutlet AZEntitlementDelegate *entitler;
 //@property (nonatomic, strong) AZSizer *szr;

@@ -63,6 +63,7 @@ extern NSView* AZResizeWindowAndContent(NSWindow* window, float dXLeft, float dX
 
 - (NSPoint) center;
 
+- (void) swapSubs:(NSView*)view;
 - (void) resizeFrameBy:(int)value;
 
 - (void) animate:(AZViewAnimationType)type;

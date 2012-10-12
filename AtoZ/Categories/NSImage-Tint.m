@@ -9,6 +9,49 @@
 #import "NSImage-Tint.h"
 
 
+@interface NSImage(BBlockPrivate)
++ (NSCache *)drawingCache;
+@end
+
+@implementation NSImage(BBlock)
+
++ (NSCache *)drawingCache{
+    static NSCache *cache = nil;
+    static dispatch_once_t predicate;
+    dispatch_once(&predicate, ^{
+        cache = [[NSCache alloc] init];
+    });
+    return cache;
+}
+
++ (NSImage *)imageForSize:(NSSize)size withDrawingBlock:(void(^)())drawingBlock{
+    if(size.width <= 0 || size.width <= 0){
+        return nil;
+    }
+
+    NSImage *image = [[NSImage alloc] initWithSize:size];
+    [image lockFocus];
+    drawingBlock();
+    [image unlockFocus];
+#if !__has_feature(objc_arc)
+    return [image autorelease];
+#else
+    return image;
+#endif
+}
+
++ (NSImage *)imageWithIdentifier:(NSString *)identifier forSize:(NSSize)size andDrawingBlock:(void(^)())drawingBlock{
+    NSImage *image = [[[self class] drawingCache] objectForKey:identifier];
+    if(image == nil){
+        image = [[self class] imageForSize:size withDrawingBlock:drawingBlock];
+        [[[self class] drawingCache] setObject:image forKey:identifier];
+    }
+    return image;
+}
+
+@end
+
+
 CGFloat const TBITintMatrixGrayscale[] = {
     0.3, 0.59, 0.11,
     0.3, 0.59, 0.11,

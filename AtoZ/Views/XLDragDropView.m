@@ -18,7 +18,7 @@
 
 - (void)load {
     _isFileReady = NO;
-    [self registerForDraggedTypes:[NSArray arrayWithObject:NSFilenamesPboardType]];
+    [self registerForDraggedTypes:@[NSFilenamesPboardType]];
 }
 
 - (id)initWithFrame:(NSRect)frame {
@@ -89,11 +89,11 @@
     if ((NSDragOperationGeneric & [sender draggingSourceOperationMask]) 
         == NSDragOperationGeneric) {
         NSPasteboard *paste = [sender draggingPasteboard];
-        NSArray *types = [NSArray arrayWithObjects:NSFilenamesPboardType, nil];
+        NSArray *types = @[NSFilenamesPboardType];
         NSString *desiredType = [paste availableTypeFromArray:types];
         if ([desiredType isEqualToString:NSFilenamesPboardType]) {
             NSArray *fileArray = [paste propertyListForType:@"NSFilenamesPboardType"];
-            NSString *path = [fileArray objectAtIndex:0];
+            NSString *path = fileArray[0];
             BOOL hasDesiredSuffix = NO;
             hasDesiredSuffix = [_desiredSuffixes containsObject:path.pathExtension];
             if (hasDesiredSuffix) [self setCurrentBackgroundImage:_highlightedBackgroundImage];
@@ -122,7 +122,7 @@
 
 - (BOOL)performDragOperation:(id <NSDraggingInfo>)sender {
     NSPasteboard *paste = [sender draggingPasteboard];
-    NSArray *types = [NSArray arrayWithObjects:NSFilenamesPboardType, nil];
+    NSArray *types = @[NSFilenamesPboardType];
     NSString *desiredType = [paste availableTypeFromArray:types];
     NSData *carriedData = [paste dataForType:desiredType];
     if (!carriedData) {
@@ -132,7 +132,7 @@
     else {
         if ([desiredType isEqualToString:NSFilenamesPboardType]) {
             NSArray *fileArray = [paste propertyListForType:@"NSFilenamesPboardType"];
-            NSString *path = [fileArray objectAtIndex:0];
+            NSString *path = fileArray[0];
             BOOL hasDesiredSuffix = NO;
             hasDesiredSuffix = [_desiredSuffixes containsObject:path.pathExtension];
             if (!hasDesiredSuffix) {

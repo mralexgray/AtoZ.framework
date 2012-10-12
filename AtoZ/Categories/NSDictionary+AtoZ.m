@@ -18,17 +18,34 @@
 - (void)setColor:(NSColor *)aColor forKey:(NSString *)aKey
 {
     NSData *theData=[NSArchiver archivedDataWithRootObject:aColor];
-    [self setObject:theData forKey:aKey];
+    self[aKey] = theData;
 }
 
 - (NSColor *)colorForKey:(NSString *)aKey
 {
     NSColor *theColor = nil;
-    NSData *theData = [self objectForKey:aKey];
+    NSData *theData = self[aKey];
     if (theData != nil) theColor=(NSColor *)[NSUnarchiver unarchiveObjectWithData:theData];
     return theColor;
 }
 
+@end
+
+@implementation  NSDictionary (AtoZ)
+- (void)enumerateEachKeyAndObjectUsingBlock:(void(^)(id key, id obj))block{
+    NSParameterAssert(block != nil);
+    [self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop){
+        block(key, obj);
+    }];
+}
+
+- (void)enumerateEachSortedKeyAndObjectUsingBlock:(void(^)(id key, id obj, NSUInteger idx))block{
+    NSParameterAssert(block != nil);
+    NSArray *keys = [[self allKeys] sortedArrayUsingSelector:@selector(compare:)];
+    [keys enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        block(obj, [self objectForKey:obj], idx);
+    }];
+}
 @end
 
 
@@ -52,7 +69,7 @@ static NSString *PropertyNameFromSetter(NSString *setterName)
 
 static id DynamicDictionaryGetter(id self, SEL _cmd)
 {
-	return [self objectForKey:NSStringFromSelector(_cmd)];
+	return self[NSStringFromSelector(_cmd)];
 }
 
 
@@ -66,7 +83,7 @@ static void DynamicDictionarySetter(id self, SEL _cmd, id value)
         }
 	else
         {
-		[self setObject:value forKey:key];
+		self[key] = value;
         }
 }
 
@@ -151,7 +168,7 @@ dict.numberProp = @42;
 - (id)anyObject;
 {
     for (NSString *key in self)
-        return [self objectForKey:key];
+        return self[key];
     return nil;
 }
 
@@ -160,10 +177,10 @@ dict.numberProp = @42;
 {
     NSUInteger keyCount = [self count];
 
-    if (keyCount == 0 || (keyCount == 1 && [self objectForKey:key] != nil))
-        return anObj ? [NSDictionary dictionaryWithObject:anObj forKey:key] : [NSDictionary dictionary];
+    if (keyCount == 0 || (keyCount == 1 && self[key] != nil))
+        return anObj ? @{key: anObj} : @{};
 
-    if ([self objectForKey:key] == anObj)
+    if (self[key] == anObj)
         return [NSDictionary dictionaryWithDictionary:self];
 
     NSMutableArray *newKeys = [[NSMutableArray alloc] initWithCapacity:keyCount+1];
@@ -172,7 +189,7 @@ dict.numberProp = @42;
     for (NSString *aKey in self) {
         if (![aKey isEqual:key]) {
             [newKeys addObject:aKey];
-            [newValues addObject:[self objectForKey:aKey]];
+            [newValues addObject:self[aKey]];
         }
     }
 
@@ -269,14 +286,14 @@ dict.numberProp = @42;
 - (NSString *)keyForObjectEqualTo:(id)anObject;
 {
     for (NSString *key in self)
-        if ([[self objectForKey:key] isEqual:anObject])
+        if ([self[key] isEqual:anObject])
 			return key;
     return nil;
 }
 
 - (NSString *)stringForKey:(NSString *)key defaultValue:(NSString *)defaultValue;
 {
-    id object = [self objectForKey:key];
+    id object = self[key];
     if (![object isKindOfClass:[NSString class]])
         return defaultValue;
     return object;
@@ -293,7 +310,7 @@ dict.numberProp = @42;
     for (id value in defaultValue)
         OBPRECONDITION([value isKindOfClass:[NSString class]]);
 #endif
-    NSArray *array = [self objectForKey:key];
+    NSArray *array = self[key];
     if (![array isKindOfClass:[NSArray class]])
         return defaultValue;
     for (id value in array) {
@@ -310,7 +327,7 @@ dict.numberProp = @42;
 
 - (float)floatForKey:(NSString *)key defaultValue:(float)defaultValue;
 {
-    id value = [self objectForKey:key];
+    id value = self[key];
     if (value)
         return [value floatValue];
     return defaultValue;
@@ -323,7 +340,7 @@ dict.numberProp = @42;
 
 - (double)doubleForKey:(NSString *)key defaultValue:(double)defaultValue;
 {
-    id value = [self objectForKey:key];
+    id value = self[key];
     if (value)
         return [value doubleValue];
     return defaultValue;
@@ -336,7 +353,7 @@ dict.numberProp = @42;
 
 - (CGPoint)pointForKey:(NSString *)key defaultValue:(CGPoint)defaultValue;
 {
-    id value = [self objectForKey:key];
+    id value = self[key];
     if ([value isKindOfClass:[NSString class]] && ![(NSS*)value isEqualToString:@""])
         return NSPointFromString(value);
     else if ([value isKindOfClass:[NSValue class]])
@@ -352,7 +369,7 @@ dict.numberProp = @42;
 
 - (CGSize)sizeForKey:(NSString *)key defaultValue:(CGSize)defaultValue;
 {
-    id value = [self objectForKey:key];
+    id value = self[key];
     if ([value isKindOfClass:[NSString class]] && ![(NSS*)value isEqualToString:@""])
         return NSSizeFromString(value);
     else if ([value isKindOfClass:[NSValue class]])
@@ -368,7 +385,7 @@ dict.numberProp = @42;
 
 - (CGRect)rectForKey:(NSString *)key defaultValue:(CGRect)defaultValue;
 {
-    id value = [self objectForKey:key];
+    id value = self[key];
     if ([value isKindOfClass:[NSString class]] && ![(NSS*)value isEqualToString:@""])
         return NSRectFromString(value);
     else if ([value isKindOfClass:[NSValue class]])
@@ -384,7 +401,7 @@ dict.numberProp = @42;
 
 - (BOOL)boolForKey:(NSString *)key defaultValue:(BOOL)defaultValue;
 {
-    id value = [self objectForKey:key];
+    id value = self[key];
 
     if ([value isKindOfClass:[NSString class]] || [value isKindOfClass:[NSNumber class]])
         return [value boolValue];
@@ -399,7 +416,7 @@ dict.numberProp = @42;
 
 - (int)intForKey:(NSString *)key defaultValue:(int)defaultValue;
 {
-    id value = [self objectForKey:key];
+    id value = self[key];
     if (!value)
         return defaultValue;
     return [value intValue];
@@ -412,7 +429,7 @@ dict.numberProp = @42;
 
 - (unsigned int)unsignedIntForKey:(NSString *)key defaultValue:(unsigned int)defaultValue;
 {
-    id value = [self objectForKey:key];
+    id value = self[key];
     if (value == nil)
         return defaultValue;
     return [value unsignedIntValue];
@@ -425,7 +442,7 @@ dict.numberProp = @42;
 
 - (unsigned long long int)unsignedLongLongForKey:(NSString *)key defaultValue:(unsigned long long int)defaultValue;
 {
-    id value = [self objectForKey:key];
+    id value = self[key];
     if (value == nil)
         return defaultValue;
     return [value unsignedLongLongValue];
@@ -438,7 +455,7 @@ dict.numberProp = @42;
 
 - (NSInteger)integerForKey:(NSString *)key defaultValue:(NSInteger)defaultValue;
 {
-    id value = [self objectForKey:key];
+    id value = self[key];
     if (!value)
         return defaultValue;
     return [value integerValue];
@@ -452,7 +469,7 @@ dict.numberProp = @42;
 
 - (id)objectForKey:(NSString *)key defaultObject:(id)defaultObject;
 {
-    id value = [self objectForKey:key];
+    id value = self[key];
     if (value)
         return value;
     return defaultObject;
@@ -463,17 +480,17 @@ dict.numberProp = @42;
     NSMutableDictionary *newDictionary = [self mutableCopy];
 		// Run through the new dictionary and replace any objects that respond to -deepMutableCopy or -mutableCopy with copies.
     for (id aKey in self) {
-		id anObject = [newDictionary objectForKey:aKey];
+		id anObject = newDictionary[aKey];
         if ([anObject respondsToSelector:@selector(deepMutableCopy)]) {
             anObject = [(NSDictionary *)anObject deepMutableCopy];
-            [newDictionary setObject:anObject forKey:aKey];
+            newDictionary[aKey] = anObject;
             [anObject release];
         } else if ([anObject conformsToProtocol:@protocol(NSMutableCopying)]) {
             anObject = [anObject mutableCopy];
-            [newDictionary setObject:anObject forKey:aKey];
+            newDictionary[aKey] = anObject;
             [anObject release];
         } else
-            [newDictionary setObject:anObject forKey:aKey];
+            newDictionary[aKey] = anObject;
     }
 
     return newDictionary;

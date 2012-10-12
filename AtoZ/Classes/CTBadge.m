@@ -255,12 +255,12 @@ const float CTSmallLabelSize = 11.;
 	labelFont = [NSFont fontWithName:@"Helvetica-Bold" size:size];
   
   NSMutableParagraphStyle *pStyle = [[NSMutableParagraphStyle alloc] init];[pStyle setAlignment:NSCenterTextAlignment];
-  NSDictionary *attributes = [[NSDictionary alloc] initWithObjectsAndKeys:[self labelColor], NSForegroundColorAttributeName,
-																		  labelFont        , NSFontAttributeName           , nil];
+  NSDictionary *attributes = @{NSForegroundColorAttributeName: [self labelColor],
+																		  NSFontAttributeName: labelFont};
   
   //Label stuff
   if([label length] >= 6)	//replace with summarized string - ellipses at end and a zero-width space to trick us into using the 5-wide badge
-    label = [NSString stringWithFormat:@"%@%@", [label substringToIndex:3], [NSString stringWithUTF8String:"\xe2\x80\xa6\xe2\x80\x8b"]];
+    label = [NSString stringWithFormat:@"%@%@", [label substringToIndex:3], @"\xe2\x80\xa6\xe2\x80\x8b"];
   
   NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:label attributes:attributes];
   
@@ -272,7 +272,7 @@ const float CTSmallLabelSize = 11.;
   if(value < 100000)
 	return [NSString stringWithFormat:@"%u", value];
   else //give infinity
-	return [NSString stringWithUTF8String:"\xe2\x88\x9e"];
+	return @"\xe2\x88\x9e";
   }
 
 - (NSImage *)badgeMaskOfSize:(float)size length:(unsigned)length;

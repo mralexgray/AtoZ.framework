@@ -22,8 +22,9 @@
 #import <QuartzCore/QuartzCore.h>
 #define EXCLUDE_STUB_PROTOTYPES 1
 #import <PLWeakCompatibility/PLWeakCompatibilityStubs.h>
-#import <BlocksKit/BlocksKit.h>
+//#import <BlocksKit/BlocksKit.h>
 #import <XPCKit/XPCKit.h>
+//#import <CocoaPuffs/CocoaPuffs.h>
 //#import <NanoStore/NanoStore.h>
 //#import <Growl/Growl.h>
 #import <xpc/xpc.h>
@@ -68,6 +69,7 @@
 #import "AZSimpleView.h"
 
 	// Categories
+#import "NSEvent+AtoZ.h"
 #import "CAAnimation+AtoZ.h"
 #import "CALayer+AtoZ.h"
 #import "NSApplication+AtoZ.h"
@@ -89,13 +91,16 @@
 #import "NSView+AtoZ.h"
 #import "NSValue+AtoZ.h"
 #import "NSWindow+AtoZ.h"
-#import "NSUserDefaults+AtoZ.h"
+//#import "NSUserDefaults+AtoZ.h"
 #import "NSObject-Utilities.h"
 
 //#import "MondoSwitch.h"
 //#import "AZToggleView.h"
 
 //Classes
+#import "AZDebugLayer.h"
+#import "AZInstantApp.h"
+
 #import "AZHostView.h"
 #import "AZSegmentedRect.h"
 #import "AZQueue.h"
@@ -119,6 +124,7 @@
 #import "AZTrackingWindow.h"
 #import "AZWindowExtend.h"
 #import "NSWindow_Flipr.h"
+#import "AZBorderlessResizeWindow.h"
 
 //CoreScroll
 #import "AZCoreScrollView.h"
@@ -129,7 +135,7 @@
 
 // Views
 #import "CalcModel.h"
-
+#import "AZMedallionView.h"
 #import "AZLassoLayer.h"
 #import "AZLassoView.h"
 #import "AZFoamView.h"
@@ -176,14 +182,15 @@ extern NSString *const AtoZDockSortedUpdated;
 @end
 
 @class NSLogConsole;
-@interface AtoZ : AZSingleton
+@interface AtoZ : BaseModel
+
 #ifdef GROWL_ENABLED
 <GrowlApplicationBridgeDelegate>
 #endif
 
-@property (nonatomic, strong) SoundManager *sManager;
+//@property (NATOM, STRNG) SoundManager *sManager;
 
-+ (void)playSound:(id)number;
++ (void) playSound:(id)number;
 + (void) playRandomSound;
 
 + (NSArray*) dock;

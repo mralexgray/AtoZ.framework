@@ -19,7 +19,7 @@
 
 - (NSString*) stringWithEnum: (NSUInteger) enumVal
 {
-    return [self objectAtIndex:enumVal];
+    return self[enumVal];
 }
 
 - (NSUInteger) enumFromString: (NSString*) strVal default: (NSUInteger) def
@@ -41,9 +41,9 @@
 
 - (id) tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex
 {
-	id obj = [self objectAtIndex:rowIndex]; if (obj == nil)		return nil;
+	id obj = self[rowIndex]; if (obj == nil)		return nil;
 	if (![obj isKindOfClass:[NSDictionary class]])		return obj;
-	return [(NSDictionary *)obj objectForKey:[aTableColumn identifier]];
+	return ((NSDictionary *)obj)[[aTableColumn identifier]];
 }
 - (int) numberOfRowsInTableView:(NSTableView *)aTableView { 	return [self count];  }
 
@@ -93,7 +93,7 @@
 }
 
 
-- (NSString*) stringWithEnum: (NSUInteger) anEnum; {    return [self objectAtIndex:anEnum];	}
+- (NSString*) stringWithEnum: (NSUInteger) anEnum; {    return self[anEnum];	}
 
 - (NSUInteger) enumFromString: (NSString*) aString default: (NSUInteger) def;
 {
@@ -805,7 +805,9 @@ static NSInteger comparatorForSortingUsingArray(id object1, id object2, void *co
 
 + (NSArray*)arrayWithBlock:(id(^)(int index))block range:(NSRange)range if:(BOOL(^)(int index))blockTest { id array = [NSMutableArray array]; for (int i=range.location; i<range.location+range.length; i++) if (blockTest(i))	 [array addObject:block(i)]; return	array; } 
 
-
+-(NSR)rectAtIndex:(NSUInteger)index{
+	return nanRectCheck([[self normal:index]rectValue]);
+}
 @end
 
 

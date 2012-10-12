@@ -68,10 +68,10 @@
 - (NSArray *)arrayWithKey:(NSString *)keyPath;
 
 /*** Returns an array of the same size as the original one with the result of performing the selector on each object */
-//- (NSArray *)arrayPerformingSelector:(SEL)selector;
+- (NSArray *)arrayPerformingSelector:(SEL)selector;
 
 /*** Returns an array of the same size as the original one with the result of performing the selector on each object */
-//- (NSArray *)arrayPerformingSelector:(SEL)selector withObject:(id)object;
+- (NSArray *)arrayPerformingSelector:(SEL)selector withObject:(id)object;
 
 /*** Returns an array of the same size as the original one with the results of performing the block on each object */
 - (NSArray *)arrayUsingBlock:(id (^)(id obj))block;
@@ -207,12 +207,15 @@
 // The same with a condition 
 + (NSArray*)arrayWithBlock:(id(^)(int index))block range:(NSRange)range if:(BOOL(^)(int index))blockTest;
 
+-(NSR)rectAtIndex:(NSUInteger)index;
 @end
 
 
 
 
 @interface NSMutableArray (AG)
+
+
 
 - (void) addPoint:(NSPoint)point;
 - (void) addRect:(NSRect)rect;

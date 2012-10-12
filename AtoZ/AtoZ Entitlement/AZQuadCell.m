@@ -15,17 +15,14 @@
 {
     self = [super initWithFrame:NSZeroRect];
     if (self) {
-		[self setupHostView];
-
-
+//		[self setupHostView];
+		self.wantsLayer = YES;
 		NSSize trkrSize		= [[window contentView] bounds].size;
-		
 		CGFloat trkLong 	= window.orientation == AZOrientVertical ? trkrSize.height : trkrSize.width;
-
-		trkLong = ( trkLong / (float) window.capacity );
+		trkLong 			= ( trkLong / (float) window.capacity );
 
 		NSSize dim 			= window.orientation == AZOrientVertical ? (NSSize) { window.intrusion,  trkLong  }
-							: (NSSize) { trkLong, 	window.intrusion };
+																	 : (NSSize) { trkLong, 	window.intrusion };
 		self.superWindow 	= window;
 		self.position 		= window.position;
 		self.frame 		=	AZMakeRectFromSize(dim);
@@ -39,7 +36,6 @@
 		}
 		if (!_color) self.color 		= RANDOMCOLOR;
 		if (!_string) self.string		= $(@"%ld",index);
-
 		self.layer.backgroundColor = [_color cgColor];
 	
 		CATextLayer *l = [CATextLayer layer];

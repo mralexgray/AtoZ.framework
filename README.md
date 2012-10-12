@@ -4649,8 +4649,8 @@ typedef struct {
 + (id)prettyGradientImage;
 + (id)swatchWithGradientColor:(id)arg1 size:(struct CGSize)arg2;
 + (id)swatchWithColor:(id)arg1 size:(struct CGSize)arg2;
-+ (id)imageInFrameworkWithFileName:(id)arg1;
-+ (id)frameworkImageNamed:(id)arg1;
++ (id)az_imageNamed:(id)arg1;
++ (id)az_imageNamed:(id)arg1;
 + (id)imageWithFileName:(id)arg1 inBundleForClass:(Class)arg2;
 + (id)imageWithFileName:(id)arg1 inBundle:(id)arg2;
 + (id)createImageFromSubView:(id)arg1 rect:(struct CGRect)arg2;

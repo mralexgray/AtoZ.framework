@@ -8,6 +8,12 @@
 //#import "GTMDefines.h"
 #import "AtoZ.h"
 
+#define ONE_THIRD  (1.0f/3.0f)
+#define TWO_THIRDS (2.0f/3.0f)
+#define ONE_HALF    0.5f
+
+#define DEFAULT_SHAFT_WIDTH ONE_THIRD
+#define DEFAULT_SHAFT_LENGTH_MULTI 1.0f
 
 @implementation NSAffineTransform (UKShearing)
 
@@ -515,35 +521,59 @@ static void CGPathCallback(void *info, const CGPathElement *element)
 #endif//MCBEZIER_USE_PRIVATE_FUNCTION
 }
 
-- (void)fillWithInnerShadow:(NSShadow *)shadow
-{
+- (void)applyInnerShadow:(NSShadow *)shadow {
 	[NSGraphicsContext saveGraphicsState];
-	
-	NSSize offset = shadow.shadowOffset;
-	NSSize originalOffset = offset;
-	CGFloat radius = shadow.shadowBlurRadius;
+
+	NSShadow *shadowCopy = [shadow copy];
+
+	NSSize offset = shadowCopy.shadowOffset;
+	CGFloat radius = shadowCopy.shadowBlurRadius;
+
 	NSRect bounds = NSInsetRect(self.bounds, -(ABS(offset.width) + radius), -(ABS(offset.height) + radius));
+
 	offset.height += bounds.size.height;
-	shadow.shadowOffset = offset;
+	shadowCopy.shadowOffset = offset;
+
 	NSAffineTransform *transform = [NSAffineTransform transform];
-	if ([[NSGraphicsContext currentContext] isFlipped])
-		[transform translateXBy:0 yBy:bounds.size.height];
-	else
-		[transform translateXBy:0 yBy:-bounds.size.height];
-	
+	[transform translateXBy:0 yBy:([[NSGraphicsContext currentContext] isFlipped] ? 1 : -1) * bounds.size.height];
+
 	NSBezierPath *drawingPath = [NSBezierPath bezierPathWithRect:bounds];
 	[drawingPath setWindingRule:NSEvenOddWindingRule];
+
 	[drawingPath appendBezierPath:self];
 	[drawingPath transformUsingAffineTransform:transform];
-	
+
 	[self addClip];
-	[shadow set];
+	[shadowCopy set];
+
 	[[NSColor blackColor] set];
 	[drawingPath fill];
-	
-	shadow.shadowOffset = originalOffset;
-	
+
+	[shadowCopy release];
+
 	[NSGraphicsContext restoreGraphicsState];
+}
+
+
+- (void)fillWithInnerShadow:(NSShadow *)shadow
+{
+	[NSGraphicsContext state:^{	NSSize offset, originalOffset;
+		originalOffset = offset = shadow.shadowOffset;
+		CGF rad = shadow.shadowBlurRadius;
+		NSR bounds = NSInsetRect(self.bounds, -(ABS(offset.width) + rad), -(ABS(offset.height) + rad));
+		offset.height += bounds.size.height;
+		shadow.shadowOffset = offset;
+		NSAffineTransform *transform = [NSAT transform];
+		[AZCURRENTCTX isFlipped] 	? [transform translateXBy:0 yBy:bounds.size.height]
+									: [transform translateXBy:0 yBy:-bounds.size.height];
+		NSBP *drawingPath = AZBezPath(bounds);
+		[drawingPath setWindingRule:NSEvenOddWindingRule];
+		[drawingPath appendBezierPath:self];
+		[drawingPath transformUsingAffineTransform:transform];
+		[self addClip];					[shadow set];
+		[[NSColor blackColor] set];		[drawingPath fill];
+		shadow.shadowOffset = originalOffset;
+	}];
 }
 
 - (void)drawBlurWithColor:(NSColor *)color radius:(CGFloat)radius
@@ -631,5 +661,276 @@ static void CGPathCallback(void *info, const CGPathElement *element)
     return bezierPath;
 }
 
+
+#pragma mark Rounded rectangles
+
++ (NSBezierPath *)bezierPathRoundedRectOfSize:(NSSize)backgroundSize
+{
+	NSRect pathRect = NSMakeRect(0, 0, backgroundSize.width, backgroundSize.height);
+
+	return [self bezierPathWithRoundedRect:pathRect];
+}
+
++ (NSBezierPath *)bezierPathWithRoundedRect:(NSRect)bounds
+{
+	return [self bezierPathWithRoundedRect:bounds radius:MIN(bounds.size.width, bounds.size.height) / 2.0f];
+}
+
++ (NSBezierPath *)bezierPathWithRoundedRect:(NSRect)rect radius:(CGFloat)radius
+{
+	return [NSBezierPath bezierPathWithRoundedRect:rect xRadius:radius yRadius:radius];
+}
+
++ (NSBezierPath *)bezierPathWithRoundedTopCorners:(NSRect)rect radius:(CGFloat)radius
+{
+    NSBezierPath	*path = [NSBezierPath bezierPath];
+    NSPoint 		topLeft, topRight, bottomLeft, bottomRight;
+
+    topLeft = NSMakePoint(rect.origin.x, rect.origin.y);
+    topRight = NSMakePoint(rect.origin.x + rect.size.width, rect.origin.y);
+    bottomLeft = NSMakePoint(rect.origin.x, rect.origin.y + rect.size.height);
+    bottomRight = NSMakePoint(rect.origin.x + rect.size.width, rect.origin.y + rect.size.height);
+
+	[path moveToPoint:NSMakePoint(bottomLeft.x, bottomLeft.y)];
+	[path lineToPoint:NSMakePoint(topLeft.x, topLeft.y + radius)];
+
+    [path appendBezierPathWithArcWithCenter:NSMakePoint(topLeft.x + radius, topLeft.y + radius)
+                                     radius:radius
+                                 startAngle:180
+                                   endAngle:270
+                                  clockwise:NO];
+    [path lineToPoint:NSMakePoint(topRight.x - radius, topRight.y)];
+
+    [path appendBezierPathWithArcWithCenter:NSMakePoint(topRight.x - radius, topRight.y + radius)
+                                     radius:radius
+                                 startAngle:270
+                                   endAngle:0
+                                  clockwise:NO];
+    [path lineToPoint:NSMakePoint(bottomRight.x, bottomRight.y)];
+	[path closePath];
+
+    return path;
+}
+
++ (NSBezierPath *)bezierPathWithRoundedBottomCorners:(NSRect)rect radius:(CGFloat)radius
+{
+    NSBezierPath	*path = [NSBezierPath bezierPath];
+    NSPoint 		topLeft, topRight, bottomLeft, bottomRight;
+
+    topLeft = NSMakePoint(rect.origin.x, rect.origin.y);
+    topRight = NSMakePoint(rect.origin.x + rect.size.width, rect.origin.y);
+    bottomLeft = NSMakePoint(rect.origin.x, rect.origin.y + rect.size.height);
+    bottomRight = NSMakePoint(rect.origin.x + rect.size.width, rect.origin.y + rect.size.height);
+
+	[path moveToPoint:NSMakePoint(topRight.x, topRight.y)];
+	[path lineToPoint:NSMakePoint(bottomRight.x, bottomRight.y - radius)];
+
+    [path appendBezierPathWithArcWithCenter:NSMakePoint(bottomRight.x - radius, bottomRight.y - radius)
+                                     radius:radius
+                                 startAngle:0
+                                   endAngle:90
+                                  clockwise:NO];
+    [path lineToPoint:NSMakePoint(bottomLeft.x + radius, bottomLeft.y)];
+
+    [path appendBezierPathWithArcWithCenter:NSMakePoint(bottomLeft.x + radius, bottomLeft.y - radius)
+                                     radius:radius
+                                 startAngle:90
+                                   endAngle:180
+                                  clockwise:NO];
+    [path lineToPoint:NSMakePoint(topLeft.x, topLeft.y)];
+	[path closePath];
+
+    return path;
+}
+
+#pragma mark Arrows
+
++ (NSBezierPath *)bezierPathWithArrowWithShaftLengthMultiplier:(CGFloat)shaftLengthMulti shaftWidth:(CGFloat)shaftWidth {
+	NSBezierPath *arrowPath = [NSBezierPath bezierPath];
+
+	/*   5
+	 *  / \
+	 * /   \    1-7 = points
+	 *6-7 3-4   the point of the triangle is 100% from the bottom.
+	 *    |     the back edge of the triangle is 50% * shaftLengthMulti from the bottom.
+	 *  1-2
+	 */
+
+	const CGFloat shaftLength = ONE_HALF * shaftLengthMulti;
+	const CGFloat shaftEndY = -(shaftLength - ONE_HALF); //the end of the arrow shaft (points 1-2).
+														 //wing width = the distance between 6 and 7 and 3 and 4.
+	const CGFloat wingWidth = (1.0f - shaftWidth) * 0.5f;
+
+	//start with the bottom vertex.
+	[arrowPath moveToPoint:NSMakePoint(wingWidth,  shaftEndY)]; //1
+	[arrowPath relativeLineToPoint:NSMakePoint(shaftWidth, 0.0f)]; //2
+																   //up to the inner right corner.
+	[arrowPath relativeLineToPoint:NSMakePoint(0.0f, shaftLength)]; //3
+																	//far right.
+	[arrowPath relativeLineToPoint:NSMakePoint(wingWidth,  0.0f)]; //4
+																   //top center - the point of the arrow.
+	[arrowPath lineToPoint:NSMakePoint(ONE_HALF,  1.0f)]; //5
+														  //far left.
+	[arrowPath lineToPoint:NSMakePoint(0.0f,  ONE_HALF)]; //6
+														  //inner left corner.
+	[arrowPath relativeLineToPoint:NSMakePoint(wingWidth,  0.0f)]; //7
+																   //to the finish line! yay!
+	[arrowPath closePath];
+
+	return arrowPath;
+}
+
++ (NSBezierPath *)bezierPathWithArrowWithShaftLengthMultiplier:(CGFloat)shaftLengthMulti {
+	return [self bezierPathWithArrowWithShaftLengthMultiplier:shaftLengthMulti
+	                                               shaftWidth:DEFAULT_SHAFT_WIDTH];
+}
++ (NSBezierPath *)bezierPathWithArrowWithShaftWidth:(CGFloat)shaftWidth {
+	return [self bezierPathWithArrowWithShaftLengthMultiplier:DEFAULT_SHAFT_LENGTH_MULTI
+	                                               shaftWidth:shaftWidth];
+}
++ (NSBezierPath *)bezierPathWithArrow {
+	return [self bezierPathWithArrowWithShaftLengthMultiplier:DEFAULT_SHAFT_LENGTH_MULTI
+	                                               shaftWidth:DEFAULT_SHAFT_WIDTH];
+}
+
+#pragma mark Nifty things
+
+//these three are in-place.
+- (NSBezierPath *)flipHorizontally {
+	NSAffineTransform *transform = [NSAffineTransform transform];
+
+	//adapted from http://developer.apple.com/documentation/Carbon/Conceptual/QuickDrawToQuartz2D/tq_other/chapter_3_section_2.html
+	[transform translateXBy: 1.0f yBy: 0.0f];
+	[transform     scaleXBy:-1.0f yBy: 1.0f];
+
+	[self transformUsingAffineTransform:transform];
+	return self;
+}
+- (NSBezierPath *)flipVertically {
+	NSAffineTransform *transform = [NSAffineTransform transform];
+
+	//http://developer.apple.com/documentation/Carbon/Conceptual/QuickDrawToQuartz2D/tq_other/chapter_3_section_2.html
+	[transform translateXBy: 0.0f yBy: 1.0f];
+	[transform     scaleXBy: 1.0f yBy:-1.0f];
+
+	[self transformUsingAffineTransform:transform];
+	return self;
+}
+- (NSBezierPath *)scaleToSize:(NSSize)newSize {
+	NSAffineTransform *transform = [NSAffineTransform transform];
+	[transform scaleXBy:newSize.width yBy:newSize.height];
+
+	[self transformUsingAffineTransform:transform];
+	return self;
+}
+
+//these three return an autoreleased copy.
+- (NSBezierPath *)bezierPathByFlippingHorizontally {
+	return [(NSBezierPath*)[[self copy] autorelease] flipHorizontally];
+}
+- (NSBezierPath *)bezierPathByFlippingVertically {
+	return [(NSBezierPath*)[[self copy] autorelease] flipVertically];
+}
+- (NSBezierPath *)bezierPathByScalingToSize:(NSSize)newSize {
+	return [[[self copy] autorelease] scaleToSize:newSize];
+}
+
+
+@end
+
+
+#define POINTSIZE 5.0
+#define HANDLESIZE 3.0
+#define HANDLELINEWIDTH 1.5
+#define DEFAULTPOINTCOLOR [NSColor redColor]
+#define DEFAULTHANDLECOLOR [NSColor greenColor]
+
+
+@implementation NSBezierPath (ESPoints)
+
+#pragma mark MAIN CONVENIENCE METHODS
+- (void) drawPointsAndHandles {
+	[self drawPointsInColor:DEFAULTPOINTCOLOR withHandlesInColor:DEFAULTHANDLECOLOR];
+}
+
+- (void) drawPointsInColor: (NSColor*) pointColor withHandlesInColor: (NSColor *) handleColor {
+	NSPoint previousPoint = NSMakePoint(0.0, 0.0);
+	for (NSInteger i=0; i < [self elementCount]; i++) {
+		previousPoint = [self drawPathElement:i withPreviousPoint: previousPoint inColor:pointColor withHandlesInColor: handleColor];
+	}
+}
+
+#pragma mark DRAWING POINTS
+
+- (void) drawPoint: (NSPoint) pt {
+	[self drawPoint:pt inColor: DEFAULTPOINTCOLOR];
+}
+
+
+- (void) drawPoint: (NSPoint) pt inColor: (NSColor*) pointColor {
+	NSBezierPath * bp = [NSBezierPath bezierPathWithRect:NSMakeRect(pt.x - POINTSIZE * 0.5, pt.y - POINTSIZE * 0.5, POINTSIZE, POINTSIZE)];
+	[pointColor set];
+	[bp fill];
+}
+
+- (void) drawHandlePoint: (NSPoint) pt {
+	[self drawHandlePoint: pt inColor:DEFAULTHANDLECOLOR];
+}
+- (void) drawHandlePoint: (NSPoint) pt inColor: (NSColor*) pointColor {
+	NSBezierPath * bp = [NSBezierPath bezierPathWithRect:NSMakeRect(pt.x-HANDLESIZE * 0.5, pt.y - HANDLESIZE * 0.5, HANDLESIZE, HANDLESIZE)];
+	[pointColor set];
+	[bp fill];
+}
+
+
+#pragma mark DRAWING PATH ELEMENTS
+
+- (NSPoint) drawPathElement:(int) n withPreviousPoint: (NSPoint) previous {
+	return [self drawPathElement:n withPreviousPoint:previous inColor:DEFAULTPOINTCOLOR withHandlesInColor:DEFAULTHANDLECOLOR];
+}
+- (NSPoint) drawPathElement:(int) n  withPreviousPoint: (NSPoint) previous inColor: (NSColor*) pointColor withHandlesInColor: (NSColor*) handleColor {
+	NSPoint previousPoint;
+	NSPoint points[3];
+	NSBezierPathElement element = [self elementAtIndex: n associatedPoints:points];
+	NSBezierPath * bp;
+	switch (element) {
+		case NSCurveToBezierPathElement:
+			bp = [NSBezierPath bezierPath];
+			[bp moveToPoint:previous];
+			[bp lineToPoint:points[0]];
+			[bp moveToPoint:points[2]];
+			[bp lineToPoint:points[1]];
+			[bp setLineWidth:HANDLELINEWIDTH];
+			[handleColor set];
+			[bp stroke];
+
+			[self drawHandlePoint: points[0] inColor:handleColor];
+			[self drawHandlePoint: points[1] inColor:handleColor];
+			[self drawPoint:points[2] inColor:pointColor];
+
+			previousPoint = points[2];
+			break;
+
+		case NSMoveToBezierPathElement:
+			[self drawPoint:points[0] inColor:pointColor];
+			previousPoint = points[0];
+			break;
+
+		case NSLineToBezierPathElement:
+			[self drawPoint:points[0] inColor:pointColor];
+
+			/*
+			 bp = [NSBezierPath bezierPath];
+			 [bp moveToPoint:previousPoint];
+			 [bp lineToPoint:points[0]];
+			 [handleColor:set];
+			 [bp setLineWidth:HANDLELINEWIDTH];
+			 [bp stroke]
+			 */
+			previousPoint = points[0];
+			break;
+	}
+	return previousPoint;
+}
 
 @end

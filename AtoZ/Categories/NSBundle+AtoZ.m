@@ -21,7 +21,7 @@
 + (NSString *)appSuppDir {
 
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
-    NSString *basePath = ([paths count] > 0) ? [paths objectAtIndex:0] : NSTemporaryDirectory();
+    NSString *basePath = ([paths count] > 0) ? paths[0] : NSTemporaryDirectory();
     return [basePath stringByAppendingPathComponent:[[NSBundle bundleForClass:[AtoZ class]] bundleIdentifier]];
 }
 + (NSString*) appSuppFolder {
@@ -32,7 +32,7 @@
 	NSFileManager* fileManager = [NSFileManager new];
 	NSString* bundleID = [[NSBundle bundleForClass:[AtoZ class]] bundleIdentifier];
 	NSArray* urlPaths = [fileManager URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask];
-	NSURL* appDirectory = [[urlPaths objectAtIndex:0] URLByAppendingPathComponent:bundleID isDirectory:YES];
+	NSURL* appDirectory = [urlPaths[0] URLByAppendingPathComponent:bundleID isDirectory:YES];
 	if (![fileManager fileExistsAtPath:[appDirectory path]]) {
 		[fileManager createDirectoryAtURL:appDirectory withIntermediateDirectories:NO attributes:nil error:nil];
 	}

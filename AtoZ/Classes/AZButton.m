@@ -411,7 +411,30 @@ static NSString* const AZButtonReturnKeyEquivalent = @"\r";
 @end
 
 
-@implementation AZButton
+@implementation AZButton{
+    AZButtonCallback _inCallback;
+    AZButtonCallback _outCallback;
+}
+
+- (void)setInCallback:(AZButtonCallback)block{ 		_inCallback = [block copy];	}
+
+- (void)setOutCallback:(AZButtonCallback)block{    _outCallback = [block copy];	}
+
+- (void)setInCallback:(AZButtonCallback)inBlock       andOutCallback:(AZButtonCallback)outBlock{
+    [self setInCallback:inBlock];
+    [self setOutCallback:outBlock];
+}
+
+- (id)initWithFrame:(NSRect)frame{
+    if((self = [super initWithFrame:frame]))
+        [self addTrackingArea:[[NSTrackingArea alloc] initWithRect:self.visibleRect options:NSTrackingMouseEnteredAndExited|NSTrackingActiveAlways owner:self userInfo:nil]];
+    return self;
+}
+
+- (void)mouseEntered:(NSEvent *)theEvent{  !(self.isEnabled && _inCallback) ?: _inCallback();  }
+
+- (void)mouseExited:(NSEvent *)theEvent{ !_outCallback ?: _outCallback();	}
+
 
 + (Class)cellClass {
 	return [AZButtonCell class];

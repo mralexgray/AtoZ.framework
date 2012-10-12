@@ -33,21 +33,24 @@
 @end
 
 @implementation AtoZ
+//@synthesize sManager;
+//- (id)init {
+//    self = [super init];
+//    if (self) {
 
-- (id)init {
-    self = [super init];
-    if (self) {
-		[self registerHotKeys];
-		self.sManager = [SoundManager sharedManager];
-		[self.sManager prepareToPlay];
-    }
-    return self;
+- (void) setUp {
+    [[SoundManager sharedManager] prepareToPlay];
+	[self registerHotKeys];
+//		sManager = [SoundManager sharedManager];
+//		[sManager prepareToPlay];
+
+//    return self;
 }
 
 OSStatus HotKeyHandler(EventHandlerCallRef nextHandler, EventRef theEvent, void *userData)
 {
 	NSLog(@"HotKeyHandler theEvent:%@ ", theEvent );
-    [AtoZ playRandomSound];
+	[AtoZ playRandomSound];
     return noErr;
 }
 
@@ -69,17 +72,19 @@ OSStatus HotKeyHandler(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification  { [self registerHotKeys]; }
 
-+ (void) playRandomSound {	[[[self sharedInstance] sManager] playSound:[Sound randomSound] looping:NO]; } //[AtoZ playSound:@1];
++ (void) playRandomSound {	[[SoundManager sharedManager] playSound:[Sound randomSound] looping:NO]; }
+
+//[AtoZ playSound:@1];
 
 + (void)playSound:(id)number
 {
 	NSA *sounds = @[@"welcome.wav", @"bling"];
 	NSS *select = number ? [sounds filterOne:^BOOL(id object) { return [(NSString*)object contains:number] ? YES : NO; }] : sounds[0];
 	NSS *song   = select ? select : sounds[0];                           NSLog(@"Playing song: %@", song);
-	[[[self sharedInstance] sManager] playSound:song looping:NO];
+	[[SoundManager sharedManager]  playSound:song looping:NO];
 }
 
-+ (void)setSoundVolume:(NSUInteger)outtaHundred { [[AtoZ instance] sManager].soundVolume = outtaHundred / 100.0; }
++ (void)setSoundVolume:(NSUInteger)outtaHundred { [SoundManager sharedManager].soundVolume = outtaHundred / 100.0; }
 
 
 // Place inside the @implementation block - A method to convert an enum to string
@@ -121,8 +126,8 @@ OSStatus HotKeyHandler(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 
 + (NSString *) version;
 {
-    NSString *myVersion	= [[AZFWORKBUNDLE infoDictionary] objectForKey:@"CFBundleShortVersionString"];
-    NSString *buildNum 	= [[AZFWORKBUNDLE infoDictionary] objectForKey:(NSString*)kCFBundleVersionKey];
+    NSString *myVersion	= [AZFWORKBUNDLE infoDictionary][@"CFBundleShortVersionString"];
+    NSString *buildNum 	= [AZFWORKBUNDLE infoDictionary][(NSString*)kCFBundleVersionKey];
     LogAndReturn( myVersion ? buildNum ? [NSString stringWithFormat:@"Version: %@ (%@)", myVersion, buildNum]
 									: [NSString stringWithFormat:@"Version: %@", myVersion]
 						: buildNum  ? [NSString stringWithFormat:@"Version: %@", buildNum]
@@ -783,7 +788,7 @@ static NSMD* _children;
     _children [NSStringFromClass([self class])] = [[self alloc] init];
 }
 +(id) alloc { id c; return (c = [self instance]) ? c : [self allocWithZone:nil];  }
--(id) init  { id c; if((c = [_children objectForKey:NSStringFromClass([self class])])) return c;  //sic, unfactored
+-(id) init  { id c; if((c = _children[NSStringFromClass([self class])])) return c;  //sic, unfactored
 	return  self = [super init];
 }
 +(id) instance {		return _children [NSStringFromClass([self class])];  }

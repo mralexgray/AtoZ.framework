@@ -10,10 +10,6 @@
 #import "AtoZ.h"
 
 @implementation AZMedallionView
-
-{
-	NSColor *backgroundColor;
-}
 #pragma mark - Properties
 
 //@synthesize image, borderColor, borderWidth, shadowColor, shadowOffset, shadowBlur;
@@ -42,11 +38,11 @@
 	    self.alphaGradient = NULL;
 		self.borderColor = [NSColor whiteColor];
 		self.borderWidth = 5.f;
-		self.shadowColor = [NSColor colorWithDeviceRed:0.25f green:0.25f blue:0.25f alpha:.75f];
-		self.shadowOffset = CGSizeMake(0, 0);
-		self.shadowBlur = 2.f;
-		backgroundColor = [NSColor clearColor];
-		return [self initWithFrame:CGRectMake(0, 0, 128.f, 128.f)];
+		self.shadowColor = [NSColor colorWithDeviceRed:0.25f green:0.25f blue:0.25f alpha:.85f];
+		self.shadowOffset = CGSizeMake(3, 2);
+		self.shadowBlur = 3.f;
+		self.backgroundColor = [NSColor randomColor];
+//		return [self initWithFrame:CGRectMake(0, 0, 128.f, 128.f)];
 	}
     return self;
 }

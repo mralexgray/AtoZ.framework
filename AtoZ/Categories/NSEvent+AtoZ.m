@@ -8,6 +8,18 @@
 
 #import "NSEvent+AtoZ.h"
 
+
+@implementation NSControl (AtoZ)
+
+- (void) setAction:(SEL)method withTarget:(id)object;
+{
+	[self setAction:method];
+	[self setTarget:object];
+}
+
+@end
+
+
 @implementation NSEvent (AtoZ)
 
 

@@ -499,7 +499,7 @@ CG_INLINE CATransform3D CATransform3DMake( CGFloat m11, CGFloat m12, CGFloat m13
     }
 
     va_end(args);
-    return [NSNumber numberWithDouble:retval];
+    return @(retval);
 }
 
 - (void) addConstraintsRelSuper:(NSNumber*) nilAttributeList, ...  // This method takes a nil-terminated list of objects.
@@ -517,30 +517,64 @@ CG_INLINE CATransform3D CATransform3DMake( CGFloat m11, CGFloat m12, CGFloat m13
 
 	va_end(args);
 }
--(void) animatePositionByAxis:(CGP)toPt duration:(NSUI)time{
+-(void) animateXThenYToFrame:(NSR)toRect duration:(NSUI)time;
+{
+//	NSRect max, min;
+//	max = AZIsRectRightOfRect(self.frame,toRect) ? self.frame : toRect;
+//	min = NSEqualRects(max, self.frame) ? toRect : self.frame;
+//	NSPOint dist = AZNormalizedDistanceToCenterOfRect(self.position,toRect);
+//	AZCenterDistanceOfRects(self.frame, ).x		//	self > AZCenterOfRect( toRect).x ? self.position :
+	NSP interim 	= (NSP) { AZCenterOfRect(toRect).x, self.position.y};//AZPointOffsetX(self.position, );
 
-	[CATransaction transactionWithLength:time
-								  easing:CAMEDIAEASY
-								 actions: ^{
-
-		[CATransaction setCompletionBlock:^(void) {	 self.position = toPt;  }];
-
-//		 NSP stepX 	= (NSP) { toPt.x, fromPt.y};
-		CAAG *group = [CAAG animation];
-		CABA *posX	= [CABA animationWithKeyPath:@"position.x"];
-		CABA *posY 	= [CABA animationWithKeyPath:@"position.y"];
-	 	 NSA *anis	= @[posX, posY];
-		[anis eachWithIndex:^(CABA *obj, NSInteger idx) {
-			obj.removedOnC	= NO;
-			obj.fillMode 	= kCAFillModeForwards;
-			obj.duration	=   					 time / 2;
-			obj.beginTime	= idx == 0 ? CATIMENOW : time / 2;
-//			obj.fromValue 	= AZVpoint( idx == 0 ? fromPt : stepX );
-			obj.toValue    	= AZVpoint( toPt);// idx == 0 ? stepX  : toPt  );
+//	[CATransaction transactionWithLength:1 actions:^{
+//		[CATransaction transactionWithLength:1 actions:^{
+	[self boolForKey:@"animating"] ? [CATransaction immediately:^{
+//		[AtoZ playRandomSound];
+		self.position = self.position;
+	}] : nil;
+	[self setBool:YES forKey:@"animating"];
+	[CATransaction begin];
+	[CATransaction setAnimationDuration:1];
+	[CATransaction setCompletionBlock:^(void) {
+//		[AZTalker say:@"finished ONE"];
+		[CATransaction transactionWithLength:1 actions:^{
+			self.position = AZCenterOfRect( toRect);
+			[CATransaction setCompletionBlock:^{
+//				[AZTalker say:@"finished 2"];
+				[self setBool:NO forKey:@"animating"];
+			}];
 		}];
-		group.animations 	= anis;
-		[self addAnimation:group forKey:nil];
 	}];
+	self.position = interim;
+	[CATransaction commit];
+
+//	}];
+//			self.position = nanPointCheck(AZCenterOfRect(toRect));
+//			self.bounds =	AZMakeRectFromSize( nanSizeCheck( toRect.size ));
+//	}];
+//	CAAG *group = [CAAG animation];
+//	CABA *posX	= [CABA animationWithKeyPath:@"position.x"];
+//	CABA *posY 	= [CABA animationWithKeyPath:@"position.y"];
+//	CABA *bndr	= [CABA animationWithKeyPath:@"bounds"];
+//	CGF baseTime = [self convertTime:CACurrentMediaTime() fromLayer:nil];
+////    anim.beginTime = baseTime + (delay * i++);
+//	group.animations 	= [@[posX, posY, bndr] nmap:^id(CABA *obj, NSUInteger idx) {
+//		obj.removedOnC	= NO;
+//		obj.fillMode 	= kCAFillModeForwards;
+//		obj.duration	= idx <= 1 ? (time / 2) : time;
+//		obj.beginTime	= idx == 0 || idx == 2  ? baseTime : (baseTime + (time / 2));
+//		NSP interim 	= NSMakePoint( AZCenterOfRect(toRect).x, self.position.y);
+//		obj.fromValue 	= idx == 0 ? AZVpoint( self.position )
+//						: idx == 1 ? AZVpoint( interim )
+//						:			 AZVrect( self.bounds );
+//		obj.toValue    	= idx == 0 ? AZVpoint( interim )
+//					    : idx == 1 ? AZVpoint( AZCenterOfRect(toRect) )
+//						: 			 AZVrect ( AZMakeRectFromSize(toRect.size) );
+//		return obj;
+//	}];
+//
+//	[self addAnimation:group forKey:nil];
+//	[CATransaction commit];
 }
 
 
@@ -600,15 +634,15 @@ CG_INLINE CATransform3D CATransform3DMake( CGFloat m11, CGFloat m12, CGFloat m13
 
 	CIFilter *filter = [CIFilter filterWithName:@"CIBloom"];
 	[filter setDefaults];
-	[filter setValue:[NSNumber numberWithFloat:5.0f] forKey:@"inputRadius"];
+	[filter setValue:@5.0f forKey:@"inputRadius"];
 	[filter setName:@"pulseFilter"];
-	[aselectionLayer setFilters:[NSArray arrayWithObject:filter]];
+	[aselectionLayer setFilters:@[filter]];
 
 		// The selectionLayer shows a subtle pulse as it is displayed. This section of the code create the pulse animation setting the filters.pulsefilter.inputintensity to range from 0 to 2. This will happen every second, autoreverse, and repeat forever
 	CABasicAnimation* pulseAnimation = [CABasicAnimation animation];
 	pulseAnimation.keyPath = @"filters.pulseFilter.inputIntensity";
-	pulseAnimation.fromValue = [NSNumber numberWithFloat: 0.0f];
-	pulseAnimation.toValue = [NSNumber numberWithFloat: 2.0f];
+	pulseAnimation.fromValue = @0.0f;
+	pulseAnimation.toValue = @2.0f;
 	pulseAnimation.duration = 1.0;
 	pulseAnimation.repeatCount = HUGE_VALF;
 	pulseAnimation.autoreverses = YES;
@@ -1033,18 +1067,18 @@ CG_INLINE CATransform3D CATransform3DMake( CGFloat m11, CGFloat m12, CGFloat m13
 -(void)pulse
 {
     CIFilter *filter = [CIFilter filterWithName:@"CIBloom"]; [filter setDefaults];
-    [filter setValue:[NSNumber numberWithFloat:5.0] forKey:@"inputRadius"];
+    [filter setValue:@5.0f forKey:@"inputRadius"];
 		// name the filter so we can use the keypath to animate the inputIntensity attribute of the filter
     [filter setName:@"pulseFilter"];
 		// set the filter to the selection layer's filters
-    [self setFilters:[NSArray arrayWithObject:filter]];
+    [self setFilters:@[filter]];
 		// create the animation that will handle the pulsing.
     CABasicAnimation* pulseAnimation = [CABasicAnimation animation];
 		// the attribute we want to animate is the inputIntensity of the pulseFilter
     pulseAnimation.keyPath = @"filters.pulseFilter.inputIntensity";
 		// we want it to animate from the value 0 to 1
-    pulseAnimation.fromValue = [NSNumber numberWithFloat: 0.0];
-    pulseAnimation.toValue = [NSNumber numberWithFloat: 1.5];
+    pulseAnimation.fromValue = @0.0f;
+    pulseAnimation.toValue = @1.5f;
 		// over one a one second duration, and run an infinite number of times
     pulseAnimation.duration = 1.0;
     pulseAnimation.repeatCount = MAXFLOAT;
@@ -1522,8 +1556,7 @@ CG_INLINE CATransform3D CATransform3DMake( CGFloat m11, CGFloat m12, CGFloat m13
 }
 
 - (void)setupAttributedTextLayerWithFont:(CTFontRef)font {
-	NSDictionary *baseAttributes = [NSDictionary dictionaryWithObject:(__bridge id)font
-															   forKey:(NSString *)kCTFontAttributeName];
+	NSDictionary *baseAttributes = @{(NSString *)kCTFontAttributeName: (__bridge id)font};
 
 	NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:self.string
 																				   attributes:baseAttributes];
@@ -1531,11 +1564,9 @@ CG_INLINE CATransform3D CATransform3DMake( CGFloat m11, CGFloat m12, CGFloat m13
 
 
 		//Make the class name in the string Courier Bold and red
-	NSDictionary *fontAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-									@"Courier", (NSString *)kCTFontFamilyNameAttribute,
-									@"Bold", (NSString *)kCTFontStyleNameAttribute,
-									[NSNumber numberWithFloat:16.f], (NSString *)kCTFontSizeAttribute,
-									nil];
+	NSDictionary *fontAttributes = @{(NSString *)kCTFontFamilyNameAttribute: @"Courier",
+									(NSString *)kCTFontStyleNameAttribute: @"Bold",
+									(NSString *)kCTFontSizeAttribute: @16.f};
 	CTFontRef courierFont = [self newFontWithAttributes:fontAttributes];
 
 	NSRange rangeOfClassName = [[attrString string] rangeOfString:@"CATextLayer"];

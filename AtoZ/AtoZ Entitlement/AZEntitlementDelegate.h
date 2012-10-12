@@ -20,6 +20,7 @@
 @property (assign, nonatomic) IBOutlet AZTrackingWindow *south;
 @property (assign, nonatomic) IBOutlet AZTrackingWindow *east;
 @property (assign, nonatomic) IBOutlet AZTrackingWindow *west;
+
 @property (nonatomic, retain) NSString *log;
 @property (nonatomic, retain) AtoZ *dbx;
 @property (nonatomic, retain) AZFileGridView *g;
@@ -28,6 +29,6 @@
 
 @property (nonatomic, retain) IBOutlet AZQuadCarousel *quad;
 
-
+- (IBAction)saveAction:(id)sender;
 
 @end

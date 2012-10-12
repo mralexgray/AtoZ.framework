@@ -61,7 +61,7 @@
 			//this `if (view == nil) {...}` statement because the view will be
 			//recycled and used with other index values later
         view = [[NSImageView alloc] initWithFrame:CGRectMake(0, 0, 200.0f, 200.0f)];
-        ((NSImageView *)view).image = [NSImage imageInFrameworkWithFileName:@"4.pdf"];
+        ((NSImageView *)view).image = [NSImage az_imageNamed:@"4.pdf"];
 	}
 	return view;
 }

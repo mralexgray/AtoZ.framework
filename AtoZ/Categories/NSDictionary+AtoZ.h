@@ -16,7 +16,19 @@
 
 @end
 
+@interface NSDictionary (AtoZ)
+
+- (void)enumerateEachKeyAndObjectUsingBlock:(void(^)(id key, id obj))block;
+
+- (void)enumerateEachSortedKeyAndObjectUsingBlock:(void(^)(id key, id obj, NSUInteger idx))block;
+
+@end
+
+
 @interface NSDictionary (OFExtensions)
+/// Enumerate each key and object in the dictioanry.
+
+
 
 - (NSDictionary *)dictionaryWithObject:(id)anObj forKey:(NSString *)key;
 //- (NSDictionary *)dictionaryByAddingObjectsFromDictionary:(NSDictionary *)otherDictionary;

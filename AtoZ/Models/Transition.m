@@ -354,12 +354,12 @@
 				width:radius height:height];	
 						
 	} else if(self.style==AnimatingTabViewZoomDissolveTransitionStyle) {
-			[transitionFilter setValue:[NSNumber numberWithFloat:(20*time)] forKey:@"inputAmount"];
-			[transitionFilter2 setValue:[NSNumber numberWithFloat:time] forKey:@"inputTime"];
+			[transitionFilter setValue:@(20*time) forKey:@"inputAmount"];
+			[transitionFilter2 setValue:@(time) forKey:@"inputTime"];
 		self.chaining = YES;
 		} else {
 			//standard transistion
-			[transitionFilter setValue:[NSNumber numberWithFloat:time] forKey:@"inputTime"];
+			[transitionFilter setValue:@(time) forKey:@"inputTime"];
 		}
 
 

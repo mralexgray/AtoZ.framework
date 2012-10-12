@@ -40,6 +40,15 @@ typedef void (^AZBlockTask)(id obj, NSDictionary *change);
 @interface NSObject (AtoZ)
 
 
+/* USAGE:
+-(void)mouseDown:(NSEvent*)theEvent {
+    NSColor* newColor = //mouse down changes the color somehow (view-driven change)
+    self.color = newColor;
+    [self propagateValue:newColor forBinding:@"color"];  } */
+
+-(void) propagateValue:(id)value forBinding:(NSString*)binding;
+
+
 
 -(void) setWithDictionary:(NSD*)dic;
 
@@ -113,6 +122,9 @@ typedef void (^caseBlock)();
 
 @interface NSObject (AG)
 
+- (NSS*)segmentLabel;
+
+- (BOOL) respondsToString:(NSS*)string;
 
 - (IBAction)performActionFromSegment:(id)sender;
 //- (BOOL) respondsToSelector:	(SEL) aSelector;

@@ -231,10 +231,10 @@ static ColorNameRec sColorTable[] = {
 
 
 + (NSColor*) linen {
-	return [NSColor colorWithPatternImage: [NSImage imageInFrameworkWithFileName:@"linen.png"]];
+	return [NSColor colorWithPatternImage: [NSImage az_imageNamed:@"linen.png"]];
 }
 + (NSColor*) linenTintedWithColor:(NSColor*)color {
-	return [NSColor colorWithPatternImage:[[NSImage imageInFrameworkWithFileName:@"linen.png"]tintedWithColor:color]];
+	return [NSColor colorWithPatternImage:[[NSImage az_imageNamed:@"linen.png"]tintedWithColor:color]];
 }
 
 + (NSColor*)checkerboardWithFirstColor: (NSColor*)firstColor secondColor: (NSColor*)secondColor squareWidth: (CGFloat)width

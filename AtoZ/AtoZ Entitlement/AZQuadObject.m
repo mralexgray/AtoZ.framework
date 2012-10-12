@@ -1,15 +1,5 @@
 
 #import "AZQuadObject.h"
-#import <AtoZ/AtoZ.h>
-//#import <FunSize/FunSize.h>
-
-
-	//NSString *const FormatTypeName[FormatTypeCount] = {
-	//	[JSON] = @"JSON",
-	//	[XML] = @"XML",
-	//	[Atom] = @"Atom",
-	//	[RSS] = @"RSS",
-	//};
 
 NSString *const AZMenuPositionName[AZMenuPositionCount] = {
 	[AZMenuN] = @"menu_N",
@@ -18,23 +8,26 @@ NSString *const AZMenuPositionName[AZMenuPositionCount] = {
 	[AZMenuW] = @"menu_W",
 };
 
-AZQuadCarousel * refToSelf;
-//int cCallback()//{	//    [refToSelf someMethod:someArg];//}
+AZQuadCarousel * refToSelf;  //int cCallback()//{	//    [refToSelf someMethod:someArg];//}
 
-void wLog(NSString* log) {
-	[refToSelf setWindowLog:log];
-}
-
+void wLog(NSString* log) { 	[refToSelf setWindowLog:log]; }
 
 static const NSString *didScroll = @"scrollOffset";
 
+
+@interface AZQuadCarousel ()
+
+@property (nonatomic, strong) AZTrackingWindow *north, *south, *east, *west;
+@property (nonatomic, strong) iCarousel *menu_N, *menu_S, *menu_E, *menu_W;
+@property (nonatomic, strong) NSString *activeMenuID, *activeQuadID, *windowLog;
+@property (nonatomic, strong) NSArray 	 *menus, *quads;
+
+@end
 @implementation AZQuadCarousel
 
 - (NSMutableArray *)items {
-	if  ( _items == nil ) _items = [AtoZ appFolderSamplerWith:RAND_INT_VAL(34, 55)].mutableCopy;
-	self.southWest = _items;
-	self.northEast = _items.reversed;
-	return  _items;
+	return _items = _items ?: [AZFolder samplerWithCount:RAND_INT_VAL(34, 55)];
+//	self.southWest = _items; self.northEast = _items.reversed;
 }
 
 - (CGFloat)intrusion {	 _intrusion = AZPerimeter(AZScreenFrame()) / (self.items.count);
@@ -50,7 +43,9 @@ static const NSString *didScroll = @"scrollOffset";
 	self.east  =   [AZTrackingWindow oriented: AZPositionRight 	 intruding:_intrusion],// withDelegate:self],
 	self.west  =   [AZTrackingWindow oriented: AZPositionLeft 	 intruding:_intrusion] ]; // withDelegate:self] ];
 
+	[self addObserver:<#(NSObject *)#> forKeyPaths:<#(id<NSFastEnumeration>)#>:self forKeyPaths:@[NSApplicationDidBecomeActiveNotification, NSApplicationDidResignActiveNotification]];
 	[AZNOTCENTER addObserver:self selector:@selector(applicationDidBecomeActive:) name:NSApplicationDidBecomeActiveNotification object:nil];
+
 
 //	id eventMonitor = [NSEvent addLocalMonitorForEventsMatchingMask:NSMouseEnteredMask handler:^(NSEvent *incomingEvent)
 //	 {NSEvent *result = incomingEvent;
@@ -69,29 +64,23 @@ static const NSString *didScroll = @"scrollOffset";
 		[w.contentView addSubview:obj];
 		w.identifier 	= idx == 0 ? @"quad_N" : idx == 1 ? @"quad_S" : idx == 2 ? @"quad_E" : @"quad_W";
 		obj.identifier	= idx == 0 ? @"menu_N" : idx == 1 ? @"menu_S" : idx == 2 ? @"menu_E" : @"menu_W";
-		obj.type 		= iCarouselTypeCustom;//idx == 0 ? iCarouselTypeCustom : idx == 1 ? iCarouselTypeLinear : RAND_INT_VAL(0, 12);
+		obj.type 		= 1;//iCarouselTypeCustom;  idx == 0 ? iCarouselTypeCustom : idx == 1 ? iCarouselTypeLinear : RAND_INT_VAL(0, 12);
 		obj.dataSource 	= self;
 		obj.delegate 	= self;
 		obj.vertical 	= idx <= 1 ?  NO : YES;
 		obj.scrollToItemBoundary	= YES;
 		obj.stopAtItemBoundary		= YES;
-		obj.centerItemWhenSelected	= NO;
-			//		[obj setHidden:YES];
+		obj.centerItemWhenSelected	= YES;
+		obj.bounceDistance = 20;
 		obj.wantsLayer 	= YES;
 		[obj.window orderFrontRegardless];
 		[NSEvent addGlobalMonitorForEventsMatchingMask:  AZMouseActive handler:^(NSEvent *e) {
-			if ( NSMouseInRect( mouseLoc(), w.triggerFrame, NO)) {
-				[NSApp activateIgnoringOtherApps:YES];
-				[_quads az_each:^(id obj, NSUInteger index, BOOL *stop) {
-					[obj orderFrontRegardless];
-				}];
+			if ( NSMouseInRect( mouseLoc(), w.triggerFrame, NO)) {  [NSApp activateIgnoringOtherApps:YES];
+				[_quads az_each:^(id obj, NSUI index, BOOL *stop) {	[obj orderFrontRegardless]; }];
 			}
 		}];
 	 return obj;
-	}];
-	[NSApp activateIgnoringOtherApps:YES];
-	self.tilt = 0;
-
+	}];	[NSApp activateIgnoringOtherApps:YES];		//	self.tilt = 0;
 } return self;
 	
 }
@@ -117,7 +106,7 @@ static const NSString *didScroll = @"scrollOffset";
 		//	[fileredCars az_each:^(iCarousel* obj, NSUInteger index, BOOL *stop) {
 		//		AZWindowPosition d =	 obj.window.position;
 		//		NSLog(@"setting %@ to offset: %@", [obj valueForKey:@"identifier"], @(carousel.scrollOffset));
-		// 		return <#expression#>
+		// 		return expression
 		//		CGFloat wasoff = [obj scrollOffset];
 		//		[obj scrollByOffset:carousel.scrollOffset duration:0];
 		//		[obj setScrollOffset: wasoff + ];
@@ -137,6 +126,7 @@ static const NSString *didScroll = @"scrollOffset";
 		//		self.activeMenuID = carousel.identifier;
 }
 - (void) applicationDidBecomeActive:(NSNotification*) note {
+	[self toggleQuadFlip:nil];
 	NSLog(@"Active!");
 }
 - (void) applicationWillFinishLaunching:(NSNotification *)notification {
@@ -187,7 +177,7 @@ static const NSString *didScroll = @"scrollOffset";
 		//	NSUInteger reg = e % _items.count;
 
 		//	AZWindowPosition d = [(AZTrackingWindow*)carousel.window position];
-	id item = (( d == AZPositionRight) || ( d == AZPositionTop) ? _northEast[index] : _southWest[index]);
+	id item = _items[index];// = (( d == AZPositionRight) || ( d == AZPositionTop) ? _northEast[index] : _southWest[index]);
 
 		//	else id flipper = self.items[index];
 	return  view = view == nil ?
@@ -345,22 +335,23 @@ static const NSString *didScroll = @"scrollOffset";
 
 }
 
-- (IBAction)setVeils:(id)sender; {
-	[_quads az_each:^(AZTrackingWindow *obj, NSUInteger index, BOOL *stop) {
+//- (IBAction)setVeils:(id)sender; {
+//	[_quads az_each:^(AZTrackingWindow *obj, NSUInteger index, BOOL *stop) {
+//		if (! [[obj contentView]layer] ) 		[[obj contentView]setWantsLayer:YES];
+//	[[[obj contentView]layer]addSublayer:
+//	 [obj veilLayerForView:[[[obj contentView]subviews]lastObject]]];
+//}];
+//}
 
-		if (! [[obj contentView]layer] ) 		[[obj contentView]setWantsLayer:YES];
-			//		CALayer * f =  [CALayer veilForView:	[[obj contentView]layer]];
+
+//		CALayer * f =  [CALayer veilForView:	[[obj contentView]layer]];
 			//		f.frame  = [[obj contentView]bounds];
 		/*		iCarousel *c = [[[obj contentView]subviews] filterOne:^BOOL(id object) {
 		 return [object isKindOfClass:[iCarousel class]] ? YES : NO;
 		 }];
-		 */		[[[obj contentView]layer]addSublayer:
-				 [obj veilLayerForView:[[[obj contentView]subviews]lastObject]]];
-
+		 */
 			//		[f display];
 			//		[obj reloadData];
-	}];
-}
 
 
 	//-(AZSizer*) szrForPerimeter {
@@ -791,7 +782,7 @@ static const NSString *didScroll = @"scrollOffset";
 
 	//		//create new view if no view is available for recycling
 	//	if (view == nil)	{
-	//		NSImage *image = [NSImage imageInFrameworkWithFileName:@"2.pdf"];
+	//		NSImage *image = [NSImage az_imageNamed:@"2.pdf"];
 	//       	view = [[[NSImageView alloc] initWithFrame:NSMakeRect(0,0,image.size.width,image.size.height)] autorelease];
 	//        [(NSImageView *)view setImage:image];
 	//        [(NSImageView *)view setImageScaling:NSImageScaleAxesIndependently];
@@ -1003,7 +994,7 @@ static const NSString *didScroll = @"scrollOffset";
 	//don't do anything specific to the index within
 	//this `if (view == nil) {...}` statement because the view will be
 	//recycled and used with other index values later
-/*		NSImage *image = [NSImage imageInFrameworkWithFileName:@"4.pdf"];
+/*		NSImage *image = [NSImage az_imageNamed:@"4.pdf"];
  view = [[[NSImageView alloc] initWithFrame:NSMakeRect(0,0,image.size.width,image.size.height)] autorelease];
  [(NSImageView *)view setImage:image];
  [(NSImageView *)view setImageScaling:NSImageScaleAxesIndependently];
@@ -1197,7 +1188,7 @@ static const NSString *didScroll = @"scrollOffset";
  NSImageView *backgroundView = [[NSImageView alloc] initWithFrame:[[_window contentView] bounds]];
  backgroundView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
  [backgroundView setImageScaling:NSImageScaleAxesIndependently];
- backgroundView.image = 	[NSImage imageInFrameworkWithFileName:@"3.pdf"];
+ backgroundView.image = 	[NSImage az_imageNamed:@"3.pdf"];
 
  [_window.contentView addSubview:backgroundView];
  self.carousel = [[iCarousel alloc] initWithFrame:[[_window contentView] bounds]];
