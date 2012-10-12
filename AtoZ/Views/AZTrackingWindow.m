@@ -116,7 +116,7 @@ typedef struct AZTriPair {	AZTri uno;	AZTri duo;  				}AZTriPair;
 		//		AZMakeRectFromSize(contentRect.size)]/
 		//AZCenteredRect(contentRect.size)		AZSizeFromDimension(AZMinDim([self frame].size)), [self frame])];
 		//		_handle.
-		//		imageInFrameworkWithFileName:@"tab.png"];
+		//		az_imageNamed:@"tab.png"];
 		//		NSLog(@"handleimage %@", _handle.image);
 		//		[NSEvent  addLocalMonitorForEventsMatchingMask:NSMouseEnteredMask | NSMouseExitedMask handler:^NSEvent *(NSEvent *ff) {
 		//			NSLog(@"lcoal event: %@", ff);
@@ -140,7 +140,7 @@ typedef struct AZTriPair {	AZTri uno;	AZTri duo;  				}AZTriPair;
 - (NSImageView*) handle {
 
 	if ( !_handle) {
-		NSImage* i = [NSImage imageInFrameworkWithFileName:@"bullseye.png"];
+		NSImage* i = [NSImage az_imageNamed:@"bullseye.png"];
 		self.handle = [[NSImageView alloc]initWithFrame:AZMakeRectFromSize(i.size)];
 		_handle.image 	=  i;
 //		_handle.center 	=  [[self contentView] center]((_position == AZPositionTop) || (_position == AZPositionBottom) ? NSMidX(_visibleFrame)?
@@ -256,7 +256,7 @@ typedef struct AZTriPair {	AZTri uno;	AZTri duo;  				}AZTriPair;
 	theGroup.delegate=self;
 	theGroup.duration=timeForAnimation;
 	theGroup.timingFunction=[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
-	theGroup.animations=[NSArray arrayWithObjects:bounceAnimation,mainAnimation,nil];
+	theGroup.animations=@[bounceAnimation,mainAnimation];
 
 	CALayer *target = ([something isKindOfClass:[NSWindow class]]) ? [[something contentView]layer] : [(NSView*)something layer];
 

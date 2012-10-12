@@ -129,16 +129,16 @@ NSRect RectFromViewToView(NSRect aRect, NSView *fromView, NSView *toView) {
 		  endValue = bFlip ? -M_PI : 0.0f;
 	 }
 
-	 flipAnimation.fromValue = [NSNumber numberWithDouble:startValue];
-	 flipAnimation.toValue = [NSNumber numberWithDouble:endValue];
+	 flipAnimation.fromValue = @(startValue);
+	 flipAnimation.toValue = @(endValue);
 
 	 CABasicAnimation *scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
-	 scaleAnimation.toValue = [NSNumber numberWithFloat:1.3f];
+	 scaleAnimation.toValue = @1.3f;
 	 scaleAnimation.duration = time * 0.5;
 	 scaleAnimation.autoreverses = YES;
 
 	 CAAnimationGroup *animationGroup = [CAAnimationGroup animation];
-	 animationGroup.animations = [NSArray arrayWithObjects:flipAnimation, scaleAnimation, nil];
+	 animationGroup.animations = @[flipAnimation, scaleAnimation];
 	 animationGroup.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
 	 animationGroup.duration = time;
 	 animationGroup.fillMode = kCAFillModeForwards;
