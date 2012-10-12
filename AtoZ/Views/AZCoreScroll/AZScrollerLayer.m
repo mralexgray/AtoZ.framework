@@ -223,7 +223,7 @@
 		// name the filter so we can use the keypath to animate the inputIntensity attribute of the filter
 	[filter setName:@"pulseFilter"];
 		// set the filter to the selection layer's filters
-	[slider setFilters:[NSArray arrayWithObject:filter]];
+	[slider setFilters:@[filter]];
 
 //
 //	CIImage *image = [CIImage imageWithCGImage:[[NSImage randomIcon] cgImageRef]];

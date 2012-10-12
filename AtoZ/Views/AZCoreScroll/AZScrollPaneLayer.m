@@ -54,13 +54,13 @@
 	// -- check that integer is within bounds
 	if( index < 0 || index >= [[self sublayers] count] )		return;
 	NSInteger selectedIndex = [self selectedIndex];
-	AZSnapShotLayer* snapShot = [ [self sublayers] objectAtIndex:selectedIndex];
+	AZSnapShotLayer* snapShot = [self sublayers][selectedIndex];
 	AZFile *f = snapShot.objectRep;
 	CGColorRef rrr = f.color.CGColor;
 	NSLog(@"selected:%@",f);
 	snapShot.backgroundColor = rrr;
 	snapShot.selected = NO;
-	snapShot = [ [self sublayers] objectAtIndex:index];
+	snapShot = [self sublayers][index];
 	snapShot.selected =YES;
 	[self setValue:@(index) forKey:selectedSnapShot];
 	[self zoomAnimation:snapShot];
@@ -177,18 +177,16 @@
 
 	laylay.position = CGPointMake(.5,.5);
 	CAKeyframeAnimation *anim = [CAKeyframeAnimation animationWithKeyPath:@"transform.rotation"];
-	anim.values = [NSArray arrayWithObjects:[NSNumber numberWithFloat:-0.05],
-					 [NSNumber numberWithFloat:0.05],
-					 nil];
+	anim.values = @[@-0.05f,
+					 @0.05f];
 	anim.duration = RAND_FLOAT_VAL(.2,.7);
 	anim.autoreverses = YES;
 	anim.repeatCount = HUGE_VALF;
 	[laylay addAnimation:anim forKey:@"wiggleRotation"];
 
 	anim = [CAKeyframeAnimation animationWithKeyPath:@"transform.translation.y"];
-	anim.values = [NSArray arrayWithObjects:[NSNumber numberWithFloat:-1],
-					 [NSNumber numberWithFloat:1],
-					 nil];
+	anim.values = @[@-1.0f,
+					 @1.0f];
 	anim.duration = RAND_FLOAT_VAL(.1,.3);//0.07f + ((tileIndex % 10) * 0.01f);
 	anim.autoreverses = YES;
 	anim.repeatCount = HUGE_VALF;

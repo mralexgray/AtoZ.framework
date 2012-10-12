@@ -20,9 +20,9 @@ static AZTimeLineLayout *sharedLayoutManager;
 	int selectedIndex 	= ( number != nil ? [number intValue] : 0 );
 		NSInteger totalSnapShots = [ [layer sublayers] count];
 	
-	CALayer* snapShot 	= [ [layer sublayers] objectAtIndex:selectedIndex];
-	CALayer* lastShot 	= [ [layer sublayers] objectAtIndex:totalSnapShots - 1];
-	CALayer* firstShot 	= [ [layer sublayers] objectAtIndex:0];
+	CALayer* snapShot 	= [layer sublayers][selectedIndex];
+	CALayer* lastShot 	= [layer sublayers][totalSnapShots - 1];
+	CALayer* firstShot 	= [layer sublayers][0];
 		
 	// What will the visible rect be if we center the selected snapshot? 
 	CGRect selectedRect 	= [snapShot frame];
@@ -60,7 +60,7 @@ static AZTimeLineLayout *sharedLayoutManager;
 	CALayer* subLayer;
 
 	for ( i = 0; i < count; i++ ) {
-		subLayer = [array objectAtIndex:i]; 
+		subLayer = array[i]; 
 		subLayer.frame = CGRectMake(XMARGIN*(i+1) +currentSnapshotDim*i, YMARGIN, 
 																currentSnapshotDim, currentSnapshotDim);
 	}
