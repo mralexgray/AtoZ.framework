@@ -8,12 +8,16 @@
 
 #import <ApplicationServices/ApplicationServices.h>
 #import "BaseModel.h"
+#import "AtoZ.h"
 
 @interface AZTalker : BaseModel <NSSpeechSynthesizerDelegate>
 
 @property (strong, nonatomic) NSSpeechSynthesizer *talker;
 
++(NSA*) dicksonisms;
 -(void) say:(NSString*)thing;
 +(void) say:(NSString*)thing;
++(void) randomDicksonism;
+
 
 @end

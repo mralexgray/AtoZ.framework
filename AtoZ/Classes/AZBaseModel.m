@@ -48,7 +48,7 @@ static NSMutableDictionary *keyNames = nil, *nillableKeyNames = nil;
 - (id) objectAtIndexedSubscript: (NSInteger) index  // todelete if (index < 0) index = _backingstore.count + index;
 {
 	!_usesBackingStore ? ^{ AZLOG(@"warning! no backing store!"); return nil; }() : nil;
-    return [_backingstore objectAtIndex: index < 0 ? _backingstore.count + index : index];
+    return _backingstore[index < 0 ? _backingstore.count + index : index];
 }
 - (void) setObject:(id)object forKeyedSubscript: (NSString*)key {
 	NSString *stringer = $(@"set%@", [key capitalizedString]);
@@ -189,19 +189,19 @@ static NSMutableDictionary *sharedInstances = nil;
 {
     if (![instance isKindOfClass:self]) [NSException raise:NSGenericException format:@"setSharedInstance: instance class does not match"];
     sharedInstances = sharedInstances ?: [[NSMD alloc] init];
-    id oldInstance = [sharedInstances objectForKey:	NSStringFromClass(self)];
-    [sharedInstances setObject:instance forKey: 	NSStringFromClass(self)];
+    id oldInstance = sharedInstances[NSStringFromClass(self)];
+    sharedInstances[NSStringFromClass(self)] = instance;
     if (oldInstance) [AZNOTCENTER postNotificationName:BaseModelSharedInstanceUpdatedNotification object:oldInstance];
 }
 + (BOOL)hasSharedInstance
-{ return [sharedInstances objectForKey:NSStringFromClass(self)] != nil; }
+{ return sharedInstances[NSStringFromClass(self)] != nil; }
 + (instancetype)sharedInstance
 {
     sharedInstances = sharedInstances ?: [[NSMutableDictionary alloc] init];
-    id instance = [sharedInstances objectForKey:NSStringFromClass(self)];
+    id instance = sharedInstances[NSStringFromClass(self)];
     if (instance == nil)	{
 		[self reloadSharedInstance];	//load or create instance
-		instance = [sharedInstances objectForKey:NSStringFromClass(self)];		//get loaded instance
+		instance = sharedInstances[NSStringFromClass(self)];		//get loaded instance
 	}
     return instance;
 }
@@ -223,7 +223,7 @@ static NSMutableDictionary *sharedInstances = nil;
 - (BOOL)useHRCoderIfAvailable { return YES; }
 - (void)save
 {
-    if ([sharedInstances objectForKey:NSStringFromClass([self class])] == self)
+    if (sharedInstances[NSStringFromClass([self class])] == self)
         [self writeToFile:[[self class] saveFilePath] atomically:YES];//shared (singleton) instance
     else [NSException raise:NSGenericException format:@"Unable to save object, save method not implemented"]; //no save implementation
 }
@@ -369,7 +369,7 @@ static BOOL loadingFromResourceFile = NO;
     BOOL isResourceFile = [filePath hasPrefix:[[NSBundle mainBundle] bundlePath]];
     if (isResourceFile)
 		{
-        id object = [cachedResourceFiles objectForKey:filePath];
+        id object = cachedResourceFiles[filePath];
         if (object)
 			{
             AH_RELEASE(self);
@@ -388,11 +388,11 @@ static BOOL loadingFromResourceFile = NO;
 	if (object)	{    //success?
 					 //check if object is an NSCoded archive
         if ([object respondsToSelector:@selector(objectForKey:)])	{
-            if ([object objectForKey:@"$archiver"])    object = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+            if (object[@"$archiver"])    object = [NSKeyedUnarchiver unarchiveObjectWithData:data];
             else {
                 Class coderClass = NSClassFromString(@"HRCoder");
                 NSString *classNameKey = [coderClass valueForKey:@"classNameKey"];
-                if ([object objectForKey:classNameKey])
+                if (object[classNameKey])
                     object = objc_msgSend(coderClass, @selector(unarchiveObjectWithPlist:), object);
 			}
             if ([object isKindOfClass:[self class]]) {
@@ -403,14 +403,14 @@ static BOOL loadingFromResourceFile = NO;
         if (isResourceFile)
 			{
 				//cache for next time
-            [cachedResourceFiles setObject:object forKey:filePath];
+            cachedResourceFiles[filePath] = object;
 			}
 
 			//load with object
         return ((self = [self initWithObject:object]));
     }
 	else if (isResourceFile)   //store null for non-existent files to improve performance next time
-        [cachedResourceFiles setObject:[NSNull null] forKey:filePath];
+        cachedResourceFiles[filePath] = [NSNull null];
 		//failed to load
     AH_RELEASE(self);
     return ((self = nil));

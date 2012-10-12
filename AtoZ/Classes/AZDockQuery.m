@@ -35,7 +35,7 @@
 												  [[[NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.apple.dock"] lastObject] processIdentifier]);
 		if (appElement == NULL) return nil;
 		AXUIElementRef firstChild 	=
-		(AXUIElementRef) [[self subelementsFromElement:appElement forAttribute:@"AXChildren"]objectAtIndex:0];
+		(AXUIElementRef) [self subelementsFromElement:appElement forAttribute:@"AXChildren"][0];
 		NSArray *children 	= [self subelementsFromElement:firstChild forAttribute:@"AXChildren"];
 
 
@@ -106,7 +106,7 @@
 												  lastObject] processIdentifier]);
 	if (appElement == NULL) return thePoint;
 	AXUIElementRef firstChild 	= (AXUIElementRef)
-	[[self subelementsFromElement:appElement forAttribute:@"AXChildren"]objectAtIndex:0];
+	[self subelementsFromElement:appElement forAttribute:@"AXChildren"][0];
 	NSArray *children 	= [self subelementsFromElement:firstChild forAttribute:@"AXChildren"];
 	[children enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 		AXUIElementRef axElement =  (AXUIElementRef)obj;		CFTypeRef role; 	id preferredrole;

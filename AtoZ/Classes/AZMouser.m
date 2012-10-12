@@ -587,7 +587,7 @@ void AZDoubleClick(CGPoint point) {
 //@synthesize indicatorImage;
 /* This routine is called at app launch time when this class is unpacked from the nib.*/
 /*- (void)awakeFromNib {
-    self.indicatorImage = [NSImage imageInFrameworkWithFileName:@"circle2.tif"];
+    self.indicatorImage = [NSImage az_imageNamed:@"circle2.tif"];
 	[[self window] setHasShadow:NO];
 	[self setFrameSize:indicatorImage.size];
 }*/
