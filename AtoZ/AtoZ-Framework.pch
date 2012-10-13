@@ -43,7 +43,7 @@
 //	#import "AtoZModels.h"
 //	#import "AZObject.h"
 	#import	"AtoZUmbrella.h"
-	#import "F.h"
+//	#import "F.h"
 	#import "AZGeometricFunctions.h"
 
 //	#import "AZObject.h"

@@ -33,6 +33,13 @@ BOOL isEmpty(id thing) {			return thing == nil
 	?: NO;
 }
 
+BOOL areSame(id a, id b) {	return a == b
+		?: [a isKindOfClass:[NSS class]] && [b isKindOfClass:[NSS class]] && [a isEqualToString:b]
+//		?: [thing respondsToString:@"length"] && ![(NSData*)thing length]
+//		?: [thing respondsToString:@"count" ] && ![(NSA*)thing     count]
+		?: NO;
+}
+
 BOOL SameString(const char *a, const char *b) {
 	return [$(@"%s", a) isEqualToString:$(@"%s", b)];
 }

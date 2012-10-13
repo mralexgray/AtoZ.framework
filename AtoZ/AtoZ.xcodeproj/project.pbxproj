@@ -164,7 +164,6 @@
 		7B379CBE15DE4AE30040A093 /* AZToggleArrayView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B379CBC15DE4AE20040A093 /* AZToggleArrayView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B379CBF15DE4AE30040A093 /* AZToggleArrayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B379CBD15DE4AE30040A093 /* AZToggleArrayView.m */; };
 		7B379CC415DE502A0040A093 /* iCarouselViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B379CC115DE50190040A093 /* iCarouselViewController.m */; };
-		7B379CC515DE50A10040A093 /* iCarousel.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BA147AB15DCE7A10041BAFE /* iCarousel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B379CFA15DE566E0040A093 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 7B379CCC15DE566D0040A093 /* .gitignore */; };
 		7B379CFB15DE566E0040A093 /* InstructionsWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B379CCD15DE566D0040A093 /* InstructionsWindow.xib */; };
 		7B379CFC15DE566E0040A093 /* NSApplication+AppInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B379CCF15DE566D0040A093 /* NSApplication+AppInfo.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -201,7 +200,6 @@
 		7B379D3215DE66840040A093 /* EditTitlePanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B379D3015DE66840040A093 /* EditTitlePanel.xib */; };
 		7B379D3515DE668F0040A093 /* NoteWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B379D3315DE668F0040A093 /* NoteWindow.xib */; };
 		7B379D3615DE668F0040A093 /* EditTitlePanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B379D3415DE668F0040A093 /* EditTitlePanel.xib */; };
-		7B38367B1624989B009DE5A0 /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA147AC15DCE7A10041BAFE /* iCarousel.m */; };
 		7B385DEE15C3B49E00A28686 /* AZFoamView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B385DEC15C3B49E00A28686 /* AZFoamView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B385DEF15C3B49E00A28686 /* AZFoamView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B385DED15C3B49E00A28686 /* AZFoamView.m */; };
 		7B39615A15F04FD70065813F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B311959159B6D9E002134C4 /* Foundation.framework */; };
@@ -232,6 +230,8 @@
 		7B4F0245160A4E9A00A79C77 /* AZScrollPaneLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B4F0231160A4DEA00A79C77 /* AZScrollPaneLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B4F0246160A4E9A00A79C77 /* AZSnapShotLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B4F0233160A4DEA00A79C77 /* AZSnapShotLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B4F0247160A4E9A00A79C77 /* AZTimeLineLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B4F0235160A4DEA00A79C77 /* AZTimeLineLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B527D321628D8FE00A2DC62 /* iCarousel.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BA147AB15DCE7A10041BAFE /* iCarousel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B527D331628DA4600A2DC62 /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA147AC15DCE7A10041BAFE /* iCarousel.m */; };
 		7B583069159BDAF40039CEED /* atoz.icns in Resources */ = {isa = PBXBuildFile; fileRef = 7B583065159BDAF40039CEED /* atoz.icns */; };
 		7B59C8271600D342009DAFCA /* AtoZModels.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B59C8251600D341009DAFCA /* AtoZModels.m */; };
 		7B59C837160105E8009DAFCA /* AtoZModels.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B59C8241600D341009DAFCA /* AtoZModels.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1188,7 +1188,7 @@
 		7BF9E79D159E8F5000B5482D /* NSArray+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF9E79B159E8F5000B5482D /* NSArray+AtoZ.m */; };
 		7BF9E7D7159F0A0500B5482D /* AZPopupWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BF9E7D5159F0A0500B5482D /* AZPopupWindow.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BF9E7D8159F0A0500B5482D /* AZPopupWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF9E7D6159F0A0500B5482D /* AZPopupWindow.m */; };
-		7BFEC80715D19C55009DA347 /* NSApplication+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B6901B7159E09D800D0DA47 /* NSApplication+AtoZ.m */; };
+		7BFEC80715D19C55009DA347 /* NSApplication+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B6901B7159E09D800D0DA47 /* NSApplication+AtoZ.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7BFEC80815D19C55009DA347 /* AZSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B24E98A15A12D2100A9D87A /* AZSize.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7BFEC80A15D19C55009DA347 /* NSWindow_Flipr.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B96424215C15818001A0B0F /* NSWindow_Flipr.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7BFEC80B15D19C55009DA347 /* AZQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B05BB0B159C40A600409B83 /* AZQueue.m */; };
@@ -5124,7 +5124,6 @@
 				7B379CA815DE0B050040A093 /* AZBackground.h in Headers */,
 				7B379CAC15DE0B550040A093 /* AZDarkButtonCell.h in Headers */,
 				7B379CBE15DE4AE30040A093 /* AZToggleArrayView.h in Headers */,
-				7B379CC515DE50A10040A093 /* iCarousel.h in Headers */,
 				7B02364D15DF15DB0070FE12 /* AZLaunchServices.h in Headers */,
 				7B8A2A1015E2D48D00286E27 /* AZVeil.h in Headers */,
 				7B73D8EB15E4212D00D2671A /* AZAttachedWindow.h in Headers */,
@@ -5152,6 +5151,7 @@
 				7BDF56AA1627697B00041A42 /* AZDebugLayer.h in Headers */,
 				7BDF56B21627C2ED00041A42 /* AZInstantApp.h in Headers */,
 				7B662AEA16208907003D5EE0 /* NSObject+AutoCoding.h in Headers */,
+				7B527D321628D8FE00A2DC62 /* iCarousel.h in Headers */,
 				7B662AEB16208907003D5EE0 /* HRCoder.h in Headers */,
 				7B1822CE162390D800C19DBB /* AZLayer.h in Headers */,
 				7B06C9D4160F0BB900342A9D /* AZLassoLayer.h in Headers */,
@@ -5882,6 +5882,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B527D331628DA4600A2DC62 /* iCarousel.m in Sources */,
 				7B1822CF162390E000C19DBB /* AZLayer.m in Sources */,
 				7BE639B515FCDE0F004BA700 /* AZMedallionView.m in Sources */,
 				7BDF567D1626B68600041A42 /* AZBorderlessResizeWindow.m in Sources */,
@@ -6001,7 +6002,6 @@
 				7B662ADF161EE384003D5EE0 /* BaseModel.m in Sources */,
 				7B662AE7162088C7003D5EE0 /* NSObject+AutoCoding.m in Sources */,
 				7B662AE9162088C7003D5EE0 /* HRCoder.m in Sources */,
-				7B38367B1624989B009DE5A0 /* iCarousel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

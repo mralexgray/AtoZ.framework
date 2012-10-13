@@ -4,4 +4,7 @@
    <FileRef
       location = "container:AtoZ/AtoZ.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:AZLayerGrid/AZLayerGrid.xcodeproj">
+   </FileRef>
 </Workspace>

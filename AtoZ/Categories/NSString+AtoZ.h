@@ -370,3 +370,28 @@ extern int gNSStringGeometricsTypesetterBehavior ;
 -:a:b:c:d:e:f:g:h:i:j:k:l:m:n:o:p:q:r:s:t:u:v:w:x:y:z;
 
 @end
+
+
+
+@interface NSString (Extensions)
+- (BOOL) hasCaseInsensitivePrefix:(NSString*)prefix;
+- (NSString*) urlEscapedString;  // Uses UTF-8 encoding and also escapes characters that can confuse the parameter string part of the URL
+- (NSString*) unescapeURLString;  // Uses UTF-8 encoding
+- (NSString*) extractFirstSentence;
+- (NSArray*) extractAllSentences;
+- (NSIndexSet*) extractSentenceIndices;
+- (NSString*) stripParenthesis;  // Remove all parenthesis and their content
+- (BOOL) containsString:(NSString*)string;
+- (NSArray*) extractAllWords;
+- (NSRange) rangeOfWordAtLocation:(NSUInteger)location;
+- (NSRange) rangeOfNextWordFromLocation:(NSUInteger)location;
+- (NSString*) stringByDeletingPrefix:(NSString*)prefix;
+- (NSString*) stringByDeletingSuffix:(NSString*)suffix;
+- (NSString*) stringByReplacingPrefix:(NSString*)prefix withString:(NSString*)string;
+- (NSString*) stringByReplacingSuffix:(NSString*)suffix withString:(NSString*)string;
+- (BOOL) isIntegerNumber;
+@end
+
+@interface NSMutableString (Extensions)
+- (void) trimWhitespaceAndNewlineCharacters;  // From both ends
+@end

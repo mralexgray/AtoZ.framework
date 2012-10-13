@@ -99,6 +99,14 @@ AZToStringFromTypeAndValue(@encode(typeof(_X_)), &_Y_);})
 #define  AZQTZCONTEXT [[NSGraphicsContext currentContext] graphicsPort]
 #define   AZSHAREDAPP [NSApplication sharedApplication]
 
+#define DCHECK(__CONDITION__)
+//#define check(x)		if (!(x)) return 0;
+#define NOT_REACHED() \
+do { \
+AZLOG(@"<INTERNAL INCONSISTENCY>"); \
+} while (0)
+
+
 #define loMismo isEqualToString
 
 #define APP_NAME [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleName"]

@@ -53,10 +53,10 @@
 + (AZBlockView*)  viewWithFrame:(NSRect)frame  opaque:(BOOL)opaque
 				drawnUsingBlock:(AZBlockViewDrawer)theDrawBlock
 {
-	__typeof__(self) view = [[AZBlockView alloc] initWithFrame:frame];
-	[view setDrawBlock:theDrawBlock];
-	[view setOpaque:opaque];
-	return view;// autorelease];
+//	__typeof__(self) view = [[AZBlockView alloc] initWithFrame:frame];
+//	[view setDrawBlock:theDrawBlock];
+//	[view setOpaque:opaque];
+//	return view;// autorelease];
 }
 
 //- (void)dealloc

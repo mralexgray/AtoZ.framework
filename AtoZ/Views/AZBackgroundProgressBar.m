@@ -14,49 +14,33 @@ const CGFloat framesPerSecond = 30.0;
 
 - (id)initWithFrame:(NSRect)frameRect
 {
-	if (self = [super initWithFrame:frameRect])
-		{
+	if (self = [super initWithFrame:frameRect]) {
 		shouldStop = NO;
 		[self startAnimation:nil];
-		}
-
-	return self;
+	}	return self;
 }
 
-- (BOOL)isFlipped
-{
-	return YES;
-}
+- (BOOL)isFlipped { return YES;  }
 
 - (void)drawRect:(NSRect)dirtyRect
 {
 	//	if (shouldStop)
 	//		return;
-
 	NSRect rect = [self bounds];
-
 	NSBezierPath *bp = [NSBezierPath bezierPath];
 	NSInteger numX = ceil(rect.size.width / 25.0);
-
 	CGFloat bandWidth = 20;
-
 	CGFloat h = 0.0;
-
 	CGFloat modPhase = round(fmod(phase, rect.size.width));
 	CGFloat lastX = -27 + modPhase - rect.size.width;
-
-	NSInteger i;
-	for (i = -numX; i < numX; i++)
-		{
-		[bp moveToPoint:NSMakePoint(lastX +0.5, rect.size.height+0.5   - h)];
-		[bp lineToPoint:NSMakePoint(lastX + bandWidth+0.5, 0+0.5 + h)];
-		[bp lineToPoint:NSMakePoint(lastX + bandWidth + bandWidth+0.5, 0+0.5 + h)];
-		[bp lineToPoint:NSMakePoint(lastX + bandWidth+0.5, rect.size.height+0.5 - h)];
-		[bp lineToPoint:NSMakePoint(lastX+0.5, rect.size.height+0.5 - h)];
-
+	for ( NSInteger i = -numX; i < numX; i++) {
+		[bp moveToPoint:NSMakePoint( lastX +0.5, rect.size.height+0.5   - h)];
+		[bp lineToPoint:NSMakePoint( lastX + bandWidth+0.5, 0+0.5 + h)];
+		[bp lineToPoint:NSMakePoint( lastX + bandWidth + bandWidth+0.5, 0+0.5 + h)];
+		[bp lineToPoint:NSMakePoint( lastX + bandWidth+0.5, rect.size.height+0.5 - h)];
+		[bp lineToPoint:NSMakePoint( lastX+0.5, rect.size.height+0.5 - h)];
 		lastX += bandWidth * 2 - 1;
-		}
-
+	}
 	[[NSColor colorWithCalibratedWhite:0.0 alpha:0.06] set];
 	[bp fill];
 }
@@ -64,23 +48,16 @@ const CGFloat framesPerSecond = 30.0;
 //FIXME: It would be more reliable to use an NSTimer here
 - (void)doAnimation
 {
-	if (shouldStop)
-		return;
-
-	phase += pixelsPerSecond / framesPerSecond;
-
-	[self display];
-	[self performSelector:@selector(doAnimation) withObject:nil afterDelay:1.0 / framesPerSecond];
+	if (shouldStop)	return;		phase += pixelsPerSecond / framesPerSecond;
+	[self display]; [self performSelector:@selector(doAnimation) withObject:nil afterDelay:1.0 / framesPerSecond];
 }
 - (IBAction)startAnimation:(id)sender
 {
-	shouldStop = NO;
-	[self performSelector:@selector(doAnimation) withObject:nil afterDelay:1.0 / framesPerSecond];
+	shouldStop = NO; [self performSelector:@selector(doAnimation) withObject:nil afterDelay:1.0/framesPerSecond];
 }
 - (IBAction)stopAnimation:(id)sender
 {
-	shouldStop = YES;
-	[self display]; //-display instead of -setNeedsDisplay: because the main thread may be blocked immediately after this call, so the drawing has to be done *now*
+	shouldStop = YES;  [self display];
+	//-display instead of -setNeedsDisplay: because the main thread may be blocked immediately after this call, so the drawing has to be done *now*
 }
-
 @end

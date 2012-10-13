@@ -24,6 +24,9 @@ typedef void (^AZBlockTask)(id obj, NSDictionary *change);
 
 @interface NSObject (AZBlockObservation)
 
+-(void)observeKeyPath:(NSS*)keyPath;
+
+- (NSA*)addObserverForKeyPaths:(NSA*)keyPaths task:(AZBlockTask)task;
 //@interface NSObject (AMBlockObservation)
 - (AZBlockToken *)addObserverForKeyPath:(NSString *)keyPath task:(AZBlockTask)task;
 - (AZBlockToken *)addObserverForKeyPath:(NSString *)keyPath onQueue:(NSOperationQueue *)queue task:(AZBlockTask)task;

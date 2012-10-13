@@ -30,6 +30,23 @@ BOOL isEmpty(id thing);
 //
 //}
 
+static inline BOOL NSRangeContainsIndex(NSRange range, NSUInteger index) {
+	if ((range.location != NSNotFound) && range.length) {
+		return (index >= range.location) && (index < range.location + range.length);
+	}
+	return NO;
+}
+
+static inline BOOL NSRangeContainsRange(NSRange range1, NSRange range2) {
+	if ((range1.location != NSNotFound) && range1.length && (range2.location != NSNotFound) && range2.length) {
+		return (range2.location >= range1.location) && (range2.location < range1.location + range1.length) &&
+		(range2.location + range2.length >= range1.location) && (range2.location + range2.length < range1.location + range1.length);
+	}
+	return NO;
+}
+
+BOOL areSame(id a, id b);
+
 //static inline
 //BOOL isEmpty(id thing);
 int (^triple)(int);

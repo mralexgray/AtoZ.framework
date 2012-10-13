@@ -32,6 +32,8 @@ NSString *NSDCIMFolder()
 	return @"/var/mobile/Media/DCIM";
 }
 @implementation NSFileManager (AtoZ)
+
+
 #pragma Globbing
 
 - (NSArray*) arrayWithFilesMatchingPattern: (NSString*) pattern inDirectory: (NSString*) directory {
@@ -337,6 +339,150 @@ static void _appendPropertiesOfTreeAtURL(NSFileManager *self, NSMutableString *s
 
     NSLog(@"%@:\n%@\n", [url absoluteString], str);
     [str release];
+}
+
+#endif
+
+@end
+
+
+
+
+@implementation NSFileManager (Extensions)
+
+- (NSString*) mimeTypeFromFileExtension:(NSString*)extension {
+	NSString* type = nil;
+	extension = [extension lowercaseString];
+	if (extension.length) {
+		CFStringRef identifier = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (CFStringRef)CFBridgingRetain(extension), NULL);
+		if (identifier) {
+			type = [(id)CFBridgingRelease(UTTypeCopyPreferredTagWithClass(identifier, kUTTagClassMIMEType)) autorelease];
+			CFRelease(identifier);
+		}
+	}
+	if (!type.length) {
+		type = @"application/octet-stream";
+	}
+	return type;
+}
+
+- (BOOL) getExtendedAttributeBytes:(void*)bytes length:(NSUInteger)length withName:(NSString*)name forFileAtPath:(NSString*)path {
+	if (bytes) {
+		const char* utf8Name = [name UTF8String];
+		const char* utf8Path = [path UTF8String];
+		ssize_t result = getxattr(utf8Path, utf8Name, bytes, length, 0, 0);
+		if (result == length) {
+			return YES;
+		}
+	}
+	return NO;
+}
+
+- (NSData*) extendedAttributeDataWithName:(NSString*)name forFileAtPath:(NSString*)path {
+	const char* utf8Name = [name UTF8String];
+	const char* utf8Path = [path UTF8String];
+	ssize_t result = getxattr(utf8Path, utf8Name, NULL, 0, 0, 0);
+	if (result >= 0) {
+		NSMutableData* data = [NSMutableData dataWithLength:result];
+		if ([self getExtendedAttributeBytes:data.mutableBytes length:data.length withName:name forFileAtPath:path]) {
+			return data;
+		}
+	}
+	return nil;
+}
+
+- (NSString*) extendedAttributeStringWithName:(NSString*)name forFileAtPath:(NSString*)path {
+	NSData* data = [self extendedAttributeDataWithName:name forFileAtPath:path];
+	return data ? [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease] : nil;
+}
+
+- (BOOL) setExtendedAttributeBytes:(const void*)bytes length:(NSUInteger)length withName:(NSString*)name forFileAtPath:(NSString*)path {
+	if (bytes || !length) {
+		const char* utf8Name = [name UTF8String];
+		const char* utf8Path = [path UTF8String];
+		int result = setxattr(utf8Path, utf8Name, bytes, length, 0, 0);
+		return (result >= 0 ? YES : NO);
+	}
+	return NO;
+}
+
+- (BOOL) setExtendedAttributeData:(NSData*)data withName:(NSString*)name forFileAtPath:(NSString*)path {
+	return [self setExtendedAttributeBytes:data.bytes length:data.length withName:name forFileAtPath:path];
+}
+
+- (BOOL) setExtendedAttributeString:(NSString*)string withName:(NSString*)name forFileAtPath:(NSString*)path {
+	NSData* data = [string dataUsingEncoding:NSUTF8StringEncoding];
+	return data ? [self setExtendedAttributeData:data withName:name forFileAtPath:path] : NO;
+}
+
+- (BOOL) removeItemAtPathIfExists:(NSString*)path {
+	if ([self fileExistsAtPath:path]) {
+		return [self removeItemAtPath:path error:NULL];
+	}
+	return YES;
+}
+#include <sys/types.h>
+#include <dirent.h>
+
+- (NSArray*) _itemsInDirectoryAtPath:(NSString*)path invisible:(BOOL)invisible type1:(mode_t)type1 type2:(mode_t)type2 {
+	NSMutableArray* array = nil;
+	const char* systemPath = [path fileSystemRepresentation];
+	DIR* directory;
+	if ((directory = opendir(systemPath))) {
+		array = [NSMutableArray array];
+		size_t baseLength = strlen(systemPath);
+		struct dirent storage;
+		struct dirent* entry;
+		while(1) {
+			if ((readdir_r(directory, &storage, &entry) != 0) || !entry) {
+				break;
+			}
+			if (entry->d_ino == 0) {
+				continue;
+			}
+			if (entry->d_name[0] == '.') {
+				if ((entry->d_namlen == 1) || ((entry->d_namlen == 2) && (entry->d_name[1] == '.')) || !invisible) {
+					continue;
+				}
+			}
+
+			char* buffer = malloc(baseLength + 1 + entry->d_namlen + 1);
+			bcopy(systemPath, buffer, baseLength);
+			buffer[baseLength] = '/';
+			bcopy(entry->d_name, &buffer[baseLength + 1], entry->d_namlen + 1);
+			struct stat fileInfo;
+			if (lstat(buffer, &fileInfo) == 0) {
+				if (((fileInfo.st_mode & S_IFMT) == type1) || ((fileInfo.st_mode & S_IFMT) == type2)) {
+					NSString* item = [self stringWithFileSystemRepresentation:entry->d_name length:entry->d_namlen];
+					if (item) {
+						[array addObject:item];
+					}
+				}
+			}
+			free(buffer);
+		}
+		closedir(directory);
+	}
+	return array;
+}
+
+- (NSArray*) directoriesInDirectoryAtPath:(NSString*)path includeInvisible:(BOOL)invisible {
+	return [self _itemsInDirectoryAtPath:path invisible:invisible type1:S_IFDIR type2:0];
+}
+
+- (NSArray*) filesInDirectoryAtPath:(NSString*)path includeInvisible:(BOOL)invisible includeSymlinks:(BOOL)symlinks {
+	return [self _itemsInDirectoryAtPath:path invisible:invisible type1:S_IFREG type2:(symlinks ? S_IFLNK : 0)];
+}
+
+#if TARGET_OS_IPHONE
+
+// https://developer.apple.com/library/ios/#qa/qa1719/_index.html
+- (void) setDoNotBackupAttributeAtPath:(NSString*)path {
+	u_int8_t value = 1;
+	int result = setxattr([path fileSystemRepresentation], "com.apple.MobileBackup", &value, sizeof(value), 0, 0);
+	if (result) {
+		LOG_ERROR(@"Failed setting do-not-backup attribute on \"%@\": %s (%i)", path, strerror(result), result);
+	}
 }
 
 #endif

@@ -97,6 +97,12 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary()
 
 @implementation NSObject (AZBlockObservation)
 
+- (NSA*)addObserverForKeyPaths:(NSA*)keyPaths task:(AZBlockTask)task{
+	return [keyPaths map:^id(id obj) {
+		return [self addObserverForKeyPath:obj onQueue:nil task:task];
+	}];
+}
+
 - (AZBlockToken *)addObserverForKeyPath:(NSString *)keyPath task:(AZBlockTask)task
 {
     return [self addObserverForKeyPath:keyPath onQueue:nil task:task];
@@ -533,20 +539,21 @@ static const char * getPropertyType(objc_property_t property) {
 #pragma clang diagnostic pop
 }
 
--(void)performSelector:(SEL)aSelector afterDelay:(NSTimeInterval)seconds {
+-(void)performSelector:(SEL)aSelector afterDelay:(NSTimeInterval)seconds
+{
 	[self performSelector:aSelector withObject:nil afterDelay:seconds];
 }
 
--(void)addObserver:(NSObject *)observer forKeyPath:(NSS*)keyPath {
-	[self addObserver:observer
-		   forKeyPath:keyPath
-			  options:0
-			  context:nil
-	 ];
+-(void)observeKeyPath:(NSS*)keyPath
+{
+	[self addObserver:self forKeyPath:keyPath options:NSKeyValueObservingOptionOld|NSKeyValueObservingOptionNew context:nil];
+}
+-(void)addObserver:(NSObject *)observer forKeyPath:(NSS*)keyPath
+{
+	[self addObserver:observer forKeyPath:keyPath options:NSKeyValueObservingOptionOld|NSKeyValueObservingOptionNew context:nil];
 }
 
--(void)addObserver:(NSObject *)observer
-	   forKeyPaths:(id<NSFastEnumeration>)keyPaths
+-(void)addObserver:(NSObject *)observer forKeyPaths:(id<NSFastEnumeration>)keyPaths
 {
 	for (NSS*keyPath in keyPaths) {
 		[self addObserver:observer forKeyPath:keyPath];

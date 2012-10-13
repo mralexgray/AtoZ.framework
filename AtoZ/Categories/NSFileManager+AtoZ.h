@@ -53,3 +53,22 @@ NSString *NSBundleFolder();
 #endif
 
 @end
+
+
+
+@interface NSFileManager (Extensions)
+- (NSString*) mimeTypeFromFileExtension:(NSString*)extension;
+- (BOOL) getExtendedAttributeBytes:(void*)bytes length:(NSUInteger)length withName:(NSString*)name forFileAtPath:(NSString*)path;
+- (NSData*) extendedAttributeDataWithName:(NSString*)name forFileAtPath:(NSString*)path;
+- (NSString*) extendedAttributeStringWithName:(NSString*)name forFileAtPath:(NSString*)path;  // Uses UTF8 encoding
+- (BOOL) setExtendedAttributeBytes:(const void*)bytes length:(NSUInteger)length withName:(NSString*)name forFileAtPath:(NSString*)path;
+- (BOOL) setExtendedAttributeData:(NSData*)data withName:(NSString*)name forFileAtPath:(NSString*)path;
+- (BOOL) setExtendedAttributeString:(NSString*)string withName:(NSString*)name forFileAtPath:(NSString*)path;  // Uses UTF8 encoding
+- (BOOL) removeItemAtPathIfExists:(NSString*)path;
+- (NSArray*) directoriesInDirectoryAtPath:(NSString*)path includeInvisible:(BOOL)invisible;
+- (NSArray*) filesInDirectoryAtPath:(NSString*)path includeInvisible:(BOOL)invisible includeSymlinks:(BOOL)symlinks;
+#if TARGET_OS_IPHONE
+- (void) setDoNotBackupAttributeAtPath:(NSString*)path;  // Has no effect prior to iOS 5.0.1
+#endif
+@end
+
