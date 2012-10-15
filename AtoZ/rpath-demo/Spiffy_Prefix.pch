@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'Spiffy' target in the 'Spiffy' project
+//
+
+#ifdef __OBJC__
+    #import <Cocoa/Cocoa.h>
+#endif

@@ -20,6 +20,6 @@
 
 @interface NSColor (AZCSSColors)
 
-@property (readonly) NSString *webName;
+@property (RONLY) NSString *webName;
 
 @end

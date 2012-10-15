@@ -43,13 +43,13 @@
     BOOL _resizing;
 }
 @property (retain, nonatomic) NSColor *borderColor;
-@property (assign, nonatomic) float borderWidth;
-@property (assign, nonatomic) float viewMargin;
-@property (assign, nonatomic) float arrowBaseWidth;
-@property (assign, nonatomic) float arrowHeight;
-@property (assign, nonatomic) BOOL hasArrow;
-@property (assign, nonatomic) float cornerRadius;
-@property (assign, nonatomic) BOOL drawsRoundCornerBesideArrow;
+@property (NATOM, ASS) float borderWidth;
+@property (NATOM, ASS) float viewMargin;
+@property (NATOM, ASS) float arrowBaseWidth;
+@property (NATOM, ASS) float arrowHeight;
+@property (NATOM, ASS) BOOL hasArrow;
+@property (NATOM, ASS) float cornerRadius;
+@property (NATOM, ASS) BOOL drawsRoundCornerBesideArrow;
 /*
  Initialization methods
 

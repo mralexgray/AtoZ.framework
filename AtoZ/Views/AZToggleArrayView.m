@@ -331,9 +331,9 @@ NSString *const AZToggleState	= @"AZToggleState";
 
 @interface AZToggleControlLayer (Visuals)
 
-@property (readonly) CGFloat contentsHeight;
-@property (readonly) NSGradient* onBackGradient;
-@property (readonly) NSGradient* offBackGradient;
+@property (RONLY) CGFloat contentsHeight;
+@property (RONLY) NSGradient* onBackGradient;
+@property (RONLY) NSGradient* offBackGradient;
 
 @end
 
@@ -341,11 +341,11 @@ NSString *const AZToggleState	= @"AZToggleState";
 
 @interface AZToggleControlLayer (CoreAnimation)
 
-@property (readonly) CALayer* thumbLayer;
-@property (readonly) CALayer* onBackLayer;
-@property (readonly) CALayer* offBackLayer;
-@property (readonly) CATextLayer* onTextLayer;
-@property (readonly) CATextLayer* offTextLayer;
+@property (RONLY) CALayer* thumbLayer;
+@property (RONLY) CALayer* onBackLayer;
+@property (RONLY) CALayer* offBackLayer;
+@property (RONLY) CATextLayer* onTextLayer;
+@property (RONLY) CATextLayer* offTextLayer;
 
 @end
 

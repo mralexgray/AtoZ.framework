@@ -5,9 +5,9 @@
 @property (NATOM, STRNG, RONLY) NSS		*name, 		*calulatedBundleID;
 @property (NATOM, STRNG, RONLY) NSC		*labelColor;
 @property (NATOM, STRNG, RONLY) NSIMG  	*image;
-@property (NATOM, ASSGN, RONLY) NSUI	labelNumber;
-@property (NATOM, ASSGN, RONLY) CGF	  	hue;
-@property (NATOM, ASSGN, RONLY) BOOL		hasLabel;
+@property (NATOM, ASS, RONLY) NSUI	labelNumber;
+@property (NATOM, ASS, RONLY) CGF	  	hue;
+@property (NATOM, ASS, RONLY) BOOL		hasLabel;
 
 @property (nonatomic, strong) 	NSS 	*path;
 @property (nonatomic, strong) 	NSC		*color, *customColor;
@@ -24,8 +24,8 @@
 // Concrete subclass of ATDesktopEntity that loads children from a folder
 @interface AZFolder : NSArray //AZFile
 //@property(nonatomic, readonly) NSMutableArray *children;
-@property (readonly) NSUI count;
-//@property (readonly) NSUI capacity;
+@property (RONLY) NSUI count;
+//@property (RONLY) NSUI capacity;
 - (id) initWithArray:(NSArray *)array;
 + (id) appFolder;
 + (id) samplerWithCount:(NSUInteger)items;
@@ -44,12 +44,12 @@
 @property (nonatomic, assign) 	CGPoint		dockPointNew;
 @property (nonatomic, assign) 	NSUInteger	spot;
 @property (nonatomic, assign) 	NSUInteger 	spotNew;
-@property (readonly)			BOOL		isRunning;
+@property (RONLY)			BOOL		isRunning;
 @end
 
 @interface AZDock : BaseModel
-@property (readonly) NSArray *dock;
-@property (readonly) NSArray *dockSorted;
+@property (RONLY) NSArray *dock;
+@property (RONLY) NSArray *dockSorted;
 @property (nonatomic, assign) AZDockSort sortOrder;
 @end
 
@@ -83,7 +83,7 @@
 //- (void)loadImage;
 //
 //	// A nil image isn't loaded (or couldn't be loaded). An image that is in the process of loading has imageLoading set to YES
-//@property (readonly) BOOL imageLoading;
+//@property (RONLY) BOOL imageLoading;
 //
 //@end
 	//extern NSString *const AtoZFileUpdated;
@@ -114,7 +114,7 @@
 	//- (void)loadImage;
 	//
 	//	// A nil image isn't loaded (or couldn't be loaded). An image that is in the process of loading has imageLoading set to YES
-	//@property (readonly) BOOL imageLoading;
+	//@property (RONLY) BOOL imageLoading;
 	//
 	//@end
 	// Declared constants to avoid typos in KVO. Common prefixes are used for easy code completion.

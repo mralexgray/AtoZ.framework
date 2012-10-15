@@ -77,8 +77,8 @@ extern NSString *const AZToggleState;
 - (CALayer*) 				  itemLayerWithName:(NSString*)name		 relativeTo:(NSString*)relative
 							   											  index:(NSUInteger)index;
 
-@property (readonly) CALayer* containerLayer;
-@property (readonly) CALayer* rootLayer;
+@property (RONLY) CALayer* containerLayer;
+@property (RONLY) CALayer* rootLayer;
 @property (nonatomic, strong) NSArray *questions;
 @property (nonatomic, ah_weak) IBOutlet id<AZToggleArrayViewDelegate> delegate;
 @end

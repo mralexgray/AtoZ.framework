@@ -23,11 +23,11 @@
 
 @property (nonatomic, retain) AZSimpleView *view;
 
-@property (assign, nonatomic) NSUInteger side;
+@property (NATOM, ASS) NSUInteger side;
 
 @property (nonatomic, retain) NSWindow *mainWindow;
 @property (nonatomic, retain) AZAttachedWindow * attachedWindow;
-@property (assign, nonatomic) NSPoint attachPoint;
+@property (NATOM, ASS) NSPoint attachPoint;
 
 @property (nonatomic, retain) AZTrackingWindow *left;
 @property (nonatomic, retain) AZTrackingWindow *right;

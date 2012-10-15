@@ -5,6 +5,7 @@
 
 #import <AtoZ/AtoZ.h>
 #import <QuartzCore/QuartzCore.h>
+
 @interface NASpinSeque : NSObject
 
 @property (retain, strong) NSView *v1, *v2, *sV;
@@ -13,9 +14,9 @@
 @end
 
 @interface TestBedDelegate : NSObject <NSApplicationDelegate>
-@property (ASSGN) IBOutlet NSWindow 		  *window;
-@property (ASSGN) IBOutlet NSSegmentedControl *segments;
-@property (ASSGN) IBOutlet NSView 			  *targetView;
+@property (ASS) IBOutlet NSWindow 		  *window;
+@property (ASS) IBOutlet NSSegmentedControl *segments;
+@property (ASS) IBOutlet NSView 			  *targetView;
 @property (STRNG, NATOM) AZMedallionView 	*medallion;
 @property (STRNG, NATOM) BNRBlockView 	    *blockView;
 @property (STRNG, NATOM) AZHostView			*hostView;

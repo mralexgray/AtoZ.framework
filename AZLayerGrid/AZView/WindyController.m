@@ -9,7 +9,7 @@
 #import "WindyController.h"
 
 @interface WindyController ()
-@property (assign, nonatomic) NSPoint initialLocation;
+@property (NATOM, ASS) NSPoint initialLocation;
 @end
 
 @implementation WindyController

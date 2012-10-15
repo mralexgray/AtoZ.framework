@@ -17,7 +17,7 @@
 	NSImage *image;
 	NSColor *color;
 }
-@property (readonly) float dynamicStroke;
+@property (RONLY) float dynamicStroke;
 
 @property (assign) 			  BOOL 		selected;
 @property (assign) 			  BOOL 		hovered;
@@ -26,8 +26,8 @@
 @property (nonatomic, strong) NSString 	*uniqueID;
 @property (nonatomic, strong) AZFile	*file;
 
-@property (assign, nonatomic) float radius;
-@property (assign, nonatomic) float inset;
+@property (NATOM, ASS) float radius;
+@property (NATOM, ASS) float inset;
 @property (nonatomic, strong) id 	representedObject;
 @property (nonatomic, readonly) NSString *cellIdentifier;
 

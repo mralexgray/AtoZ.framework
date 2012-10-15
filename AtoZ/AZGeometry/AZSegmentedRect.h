@@ -30,8 +30,8 @@
 @property (nonatomic, assign)  NSSize minimumSegmentSize;
 @property (nonatomic, assign)  NSSize maximumSegmentSize;
 
-@property (readonly)  NSUInteger segmentCount;
-@property (readonly)  NSSize 	 segmentSize;
+@property (RONLY)  NSUInteger segmentCount;
+@property (RONLY)  NSSize 	 segmentSize;
 
 - (id) setCubicSize:	  (NSUInteger) size;
 - (id) setDimensionWidth: (NSUInteger) width 	height: (NSUInteger) height;

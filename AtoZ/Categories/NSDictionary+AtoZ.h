@@ -16,6 +16,22 @@
 
 @end
 
+//http://appventure.me/2011/12/fast-nsdictionary-traversal-in-objective-c.html
+//	supports retrieving individual NSArray entities during traversal. I.e.: ‘data.friends.data.0.name’ to access the first friends name
+@interface NSDictionary (objectForKeyList)
+- (id)objectForKeyList:(id)key, ...;
+@end
+
+
+//	syntax of path similar to Java: record.array[N].item
+//	items are separated by . and array indices in []
+//	example: a.b[N][M].c.d
+
+@interface  NSMutableDictionary (GetObjectForKeyPath)
+- (id)objectForKeyPath:(NSString *)inKeyPath;
+-(void)setObject:(id)inValue forKeyPath:(NSString *)inKeyPath;
+@end
+
 @interface NSDictionary (AtoZ)
 
 - (void)enumerateEachKeyAndObjectUsingBlock:(void(^)(id key, id obj))block;

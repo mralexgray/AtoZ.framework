@@ -56,48 +56,48 @@
 //+ (NSColor*)	colorFromHexString: (NSString*)	hexString;
 - (NSString*)	toHex;
 
-@property (readonly) NSColor *deviceRGBColor;
-@property (readonly) NSColor *calibratedRGBColor;
+@property (RONLY) NSColor *deviceRGBColor;
+@property (RONLY) NSColor *calibratedRGBColor;
 
-@property (readonly) CGFloat luminance;
-@property (readonly) CGFloat relativeBrightness;
+@property (RONLY) CGFloat luminance;
+@property (RONLY) CGFloat relativeBrightness;
 
-@property (readonly) BOOL isBright;
-@property (readonly) NSColor *bright;
-@property (readonly) NSColor *brighter;
+@property (RONLY) BOOL isBright;
+@property (RONLY) NSColor *bright;
+@property (RONLY) NSColor *brighter;
 
-@property (readonly) BOOL isDark;
-@property (readonly) NSColor *dark;
-@property (readonly) NSColor *darker;
-@property (readonly) NSColor *muchDarker;
+@property (RONLY) BOOL isDark;
+@property (RONLY) NSColor *dark;
+@property (RONLY) NSColor *darker;
+@property (RONLY) NSColor *muchDarker;
 
-@property (readonly) NSColor *redshift;
-@property (readonly) NSColor *blueshift;
+@property (RONLY) NSColor *redshift;
+@property (RONLY) NSColor *blueshift;
 
 -(NSColor*)blend:(NSColor*)other;
 
-@property (readonly) NSColor *whitened;
-@property (readonly) NSColor *blackened;
+@property (RONLY) NSColor *whitened;
+@property (RONLY) NSColor *blackened;
 
-@property (readonly) NSColor *contrastingForegroundColor;
-@property (readonly) NSColor *complement;
-@property (readonly) NSColor *rgbComplement;
+@property (RONLY) NSColor *contrastingForegroundColor;
+@property (RONLY) NSColor *complement;
+@property (RONLY) NSColor *rgbComplement;
 
-@property (readonly) NSColor *opaque;
-@property (readonly) NSColor *lessOpaque;
-@property (readonly) NSColor *moreOpaque;
-@property (readonly) NSColor *translucent;
-@property (readonly) NSColor *watermark;
+@property (RONLY) NSColor *opaque;
+@property (RONLY) NSColor *lessOpaque;
+@property (RONLY) NSColor *moreOpaque;
+@property (RONLY) NSColor *translucent;
+@property (RONLY) NSColor *watermark;
 
 -(NSColor*)rgbDistanceToColor:(NSColor*)color;
 -(NSColor*)hsbDistanceToColor:(NSColor*)color;
-@property (readonly)	CGFloat rgbWeight;
-@property (readonly)	CGFloat hsbWeight;
+@property (RONLY)	CGFloat rgbWeight;
+@property (RONLY)	CGFloat hsbWeight;
 
-@property (readonly)	BOOL isBlueish;
-@property (readonly)	BOOL isRedish;
-@property (readonly)	BOOL isGreenish;
-@property (readonly)	BOOL isYellowish;
+@property (RONLY)	BOOL isBlueish;
+@property (RONLY)	BOOL isRedish;
+@property (RONLY)	BOOL isGreenish;
+@property (RONLY)	BOOL isYellowish;
 
 @end
 

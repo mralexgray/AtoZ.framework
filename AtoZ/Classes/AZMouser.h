@@ -80,9 +80,9 @@ typedef enum {
 #define TRIPLE_CLICK 	3
 
 @interface  AZMouser : BaseModel
-@property (assign, nonatomic) AZDockOrientation orientation;
-@property (assign, nonatomic) NSSize screenSize;
-@property (assign, nonatomic) BOOL debug;
+@property (NATOM, ASS) AZDockOrientation orientation;
+@property (NATOM, ASS) NSSize screenSize;
+@property (NATOM, ASS) BOOL debug;
 //+ (AZMouser*)sharedInstance;
 
 - (void) moveTo: (CGPoint) point;

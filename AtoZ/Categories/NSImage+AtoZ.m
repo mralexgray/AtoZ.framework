@@ -40,6 +40,16 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 
 @implementation NSImage (AtoZ)
 
+
++ (NSIMG*) imageFromURL:(NSS*)url {
+	return  [[NSImage alloc] initWithData: [NSData dataWithContentsOfURL: [NSURL URLWithString:url]]];
+
+//	url =  [url doesContain:@"http://"] || [url doesContain:@"http://"] ? url : $(@"http://%@", url);
+//	return [[NSImage alloc] initWithData: [NSData dataWithContentsOfURL: [NSURL URLWithString:url]]];
+}
+
+
+
 + (NSImage*)screenShot {
 	return [[NSImage alloc]initWithCGImage:CGWindowListCreateImage(CGRectInfinite, kCGWindowListOptionOnScreenOnly, kCGNullWindowID, kCGWindowImageDefault) size:AZScreenSize()];
 }
@@ -660,14 +670,34 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 }
 
 - (NSArray*) quantize {
-		[NSGraphicsContext saveGraphicsState];
+	self.size = NSMakeSize(32, 32);
+	NSBitmapImageRep *imageRep = [self bitmap];
+	[imageRep bitmapImageRepByConvertingToColorSpace:[NSColorSpace deviceRGBColorSpace]	renderingIntent:NSColorRenderingIntentDefault];
+	NSMA *catcher =  [NSMA array];	NSBag *satchel = [NSBag bag];
+	NSInteger width, height; 	height = width = 32;	// 	[imageRep pixelsWide]; NSInteger height 	= 	[imageRep pixelsHigh];
+	for (int i = 0; i < width; i++) {
+		for (int j = 0; j < height; j++) {  				//	[self setColor:AGColorFromNSColor([imageRep colorAtX:i y:j])
+			NSColor *thisPx = [imageRep colorAtX:i y:j];
+			[thisPx alphaComponent] == 0 ?: [satchel add:thisPx];
+		}
+	}
+	int counter = ( [[satchel objects]count] < 10 ? [[satchel objects]count] : 10 );
+	for (int j = 0; j < counter; j++) {
+		for (int s = 0; s < [satchel occurrencesOf:[satchel objects][j]]; s++)
+			[catcher addObject:[satchel objects][j]];
+	}
+	//	}];
+	return catcher;
+
+}
+//		[NSGraphicsContext saveGraphicsState];
 //	NSImage *quantized = self.copy;
-	[self setSize:NSMakeSize(32, 32)];
+//	[self setSize:NSMakeSize(32, 32)];
 	//	[anImage setSize:NSMakeSize(32, 32)];
 //    NSSize size = [self size];
 //    NSRect iconRect = NSMakeRect(0, 0, size.width, size.height);
 //    [self lockFocus];
-	NSBitmapImageRep *imageRep = [self bitmap];
+//	NSBitmapImageRep *imageRep = [self bitmap];
 //    NSBitmapImageRep *imageRep = [[NSBitmapImageRep alloc] initWithFocusedViewRect:iconRect];
 //    [self unlockFocus];
 	//	[nSImage imageNamed:NSImageNameHomeTemplate
@@ -690,47 +720,56 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 	
 	
 	//	NSBitmapImageRep *imageRep = (NSBitmapImageRep *)[self smallestRepresentation];
-	[imageRep bitmapImageRepByConvertingToColorSpace:
-	 [NSColorSpace deviceRGBColorSpace]	renderingIntent:NSColorRenderingIntentDefault];
-	NSMutableArray *catcher =  [NSMutableArray array];
-	NSBag *satchel = [NSBag bag];
-	NSInteger width 	= 	[imageRep pixelsWide];
-	NSInteger height 	= 	[imageRep pixelsHigh];
-	for (NSInteger i = 0; i < width; i++) {
-		for (NSInteger j = 0; j < height; j++) {
-			//	[self setColor:AGColorFromNSColor([imageRep colorAtX:i y:j])
-			NSColor *thisPx = [imageRep colorAtX:i y:j];
-			if ( ! [thisPx alphaComponent] == 0.) [satchel add:thisPx];
-		}
-	}
-	int counter =( [[satchel objects]count] < 10 ? [[satchel objects]count] : 10 );
-	for (int j = 0; j < counter; j++) {
-		for (int s = 0; s < [satchel occurrencesOf:[satchel objects][j]]; s++)  
-			[catcher addObject:[satchel objects][j]];
-	}
-	return catcher;
-}
+//	[NSGraphicsContext state:^{
+- (NSIMG*)generateQuantizedSwatch{
 
+	NSA* q = [self quantize];
+	NSImage *u = [[NSImage alloc]initWithSize:AZSizeFromPoint((NSPoint){512,256})];
+	AZSizer *s = [AZSizer forQuantity:q.count inRect:AZRectFromDim(256)];
+	[u lockFocus];
+	[s.rects eachWithIndex:^(id obj, NSInteger idx) {
+		[(NSColor*)q[idx] set];
+		NSRectFill([obj rectValue]);
+	}];
+	[[self scaledToMax:256] drawAtPoint:(NSPoint){256,0} fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1];
+	[u unlockFocus];
+	return u;
+}
 - (void)openQuantizedSwatch{
 	[AZStopwatch named:@"openQuantizedSwatch" block:^{
-
-		NSA* q = [self quantize];
-		NSImage *u = [[NSImage alloc]initWithSize:AZSizeFromPoint((NSPoint){1024,512})];
-		AZSizer *s = [AZSizer forQuantity:q.count inRect:AZRectFromDim(512)];
-		[u lockFocus];
-		[s.rects eachWithIndex:^(id obj, NSInteger idx) {
-			[(NSColor*)q[idx] set];
-			NSRectFill([obj rectValue]);
-		}];
-		[[self scaledToMax:512] drawAtPoint:(NSPoint){512,0} fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1];
-		[u unlockFocus];
 		NSS* p = $(@"/tmp/quantization.%@.png",[NSString newUniqueIdentifier]);
-		[u saveAs:p];
+		[[self generateQuantizedSwatch] saveAs:p];
 		AZLOG(p);
 		[AZWORKSPACE openFile:p withApplication:@"Preview"];
 
 	}];
 }
+
++ (void)openQuantizeChartFor:(NSA*)images {
+	[AZStopwatch named:@"openQuantizedChart" block:^{
+
+		NSA* swatches = [images map:^id(id obj) {	return  [obj generateQuantizedSwatch]; }];
+		NSSize single = [(NSIMG*)swatches[0] size];
+		NSRect chartRect = [AZSizer rectForQuantity:swatches.count ofSize:single withColumns:4];
+		//AZMakeRectFromSize((NSSize){ single.width*4, swatches.count/4 *single.height });
+		AZSizer *s = [AZSizer forQuantity:swatches.count inRect:chartRect];
+		AZLOG(AZStringFromRect(chartRect));
+		NSIMG* locker = [[NSIMG alloc]initWithSize:chartRect.size];
+//		[NSGraphicsContext state:^{
+			[locker lockFocus];
+			[s.rects eachWithIndex:^(id obj, NSInteger idx) {
+				[swatches[idx] drawAtPoint:[obj rectValue].origin fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1];
+			}];
+			[locker unlockFocus];
+//		}];
+		NSS* p = $(@"/tmp/quantization.%@.png",[NSString newUniqueIdentifier]);
+		[locker saveAs:p];
+		AZLOG(p);
+		[AZWORKSPACE openFile:p withApplication:@"Preview"];
+
+	}];
+}
+
 
 + (NSImage*) desktopImage;
 {

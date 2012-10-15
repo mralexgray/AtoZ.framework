@@ -39,10 +39,10 @@
 - (id) valueByPerformingSelector:(SEL)selector;
 
 // Access to object essentials for run-time checks. Stored by class in dictionary.
-@property (readonly) NSDictionary *selectors;
-@property (readonly) NSDictionary *properties;
-@property (readonly) NSDictionary *ivars;
-@property (readonly) NSDictionary *protocols;
+@property (RONLY) NSDictionary *selectors;
+@property (RONLY) NSDictionary *properties;
+@property (RONLY) NSDictionary *ivars;
+@property (RONLY) NSDictionary *protocols;
 
 // Check for properties, ivar. Use respondsToSelector: and conformsToProtocol: as well
 - (BOOL) hasProperty: (NSString *) propertyName;

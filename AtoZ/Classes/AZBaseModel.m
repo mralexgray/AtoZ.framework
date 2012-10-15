@@ -31,14 +31,18 @@ NSString *const AZBaseModelSharedInstanceUpdatedNotification = @"AZBaseModelShar
 static NSMutableDictionary *keyNames = nil, *nillableKeyNames = nil;
 
 @interface AZBaseModel ()
-@property (assign, nonatomic) BOOL usesBackingStore;
+@property (NATOM, ASS) BOOL usesBackingStore;
 @end
 
 @implementation AZBaseModel
+
+
 //- (void)makeObjectsPerformSelector
 //- (void)makeObjectsPerformSelector:(SEL)selector withObject:()
 	//enumerateObjectsUsingBlock:
 	//or enumerateObjectsWithOptions:usingBlock:
+
+
 - (id) objectForKeyedSubscript: (NSString*) key { return [self valueForKey:key]; }
 
 - (id) objectAtIndexedSubscript: (NSInteger) index  // todelete if (index < 0) index = _backingstore.count + index;
@@ -72,6 +76,8 @@ static NSMutableDictionary *keyNames = nil, *nillableKeyNames = nil;
 										  : [_backingstore replaceObjectAtIndex: fixedIndex  withObject: thing];  }();
 }
 
+
+
 //
 //- (id) objectAtIndexedSubscript: (NSInteger) index {
 //	NSString *d = NSStringFromClass( [self class]); d = [d stringByReplacingOccurrencesOfString:@"AZ" withString:@""];
@@ -86,6 +92,8 @@ static NSMutableDictionary *keyNames = nil, *nillableKeyNames = nil;
 //	d = [NSString stringWithFormat:];	SEL itTries = @selector(d);
 //	if ([self respondsToSelector:itTries]) { 		objc_msgSend(self, itTries, @(index));
 //		return self;  } else return nil; }
+
+
 - (void) eachWithIndex:(VoidIteratorArrayWithIndexBlock) block 	{ [F eachInArrayWithIndex:_backingstore withBlock:block]; 	}
 
 - (NSMA*) map:(MapArrayBlock) block 		{ return [F mapArray:_backingstore withBlock:block].mutableCopy; 				}
@@ -454,6 +462,8 @@ static BOOL loadingFromResourceFile = NO;
 			Ivar var = vars[i];			NSString *name = [[NSString alloc] initWithUTF8String:ivar_getName(var)];
 			block(var, name, &cancel);	[name release];
 }	free(vars);	}	}
+
+
 	// NSCoder implementation, for unarchiving
 	//- (id) initWithCoder:(NSCoder *)aDecoder {
 	//	if (self = [super init]) {
@@ -673,6 +683,8 @@ static BOOL loadingFromResourceFile = NO;
 //	return description;
 //}
 
+
+
 + (id)retrieve:(NSString *)key
 {
     return [NSKeyedUnarchiver unarchiveObjectWithFile:$(@"%@/%@.archive",
@@ -699,5 +711,7 @@ static BOOL loadingFromResourceFile = NO;
     }];
 	return stop;
 }
+
+
 @end
 

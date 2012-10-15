@@ -8,10 +8,10 @@
 @class AZQuadCarousel;
 @interface AZEntitlementDelegate : NSObject <NSApplicationDelegate>
 @property (retain, nonatomic) AZCalculatorController *cc;
-@property (assign, nonatomic) IBOutlet AZTrackingWindow *north;
-@property (assign, nonatomic) IBOutlet AZTrackingWindow *south;
-@property (assign, nonatomic) IBOutlet AZTrackingWindow *east;
-@property (assign, nonatomic) IBOutlet AZTrackingWindow *west;
+@property (NATOM, ASS) IBOutlet AZTrackingWindow *north;
+@property (NATOM, ASS) IBOutlet AZTrackingWindow *south;
+@property (NATOM, ASS) IBOutlet AZTrackingWindow *east;
+@property (NATOM, ASS) IBOutlet AZTrackingWindow *west;
 
 @property (nonatomic, retain) NSString *log;
 @property (nonatomic, retain) AtoZ *dbx;

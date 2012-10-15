@@ -28,36 +28,36 @@
 + (NSString*) randomWords:(NSInteger)number;
 + (NSString*) randomSentences:(NSInteger)number;
 
-//@property (readonly) NSColor *colorValue;
+//@property (RONLY) NSColor *colorValue;
 
 // new way
 - (void) drawInRect:(NSRect)r withFont:(NSFont*)font andColor:(NSColor*)color;
 
 - (void) drawCenteredInRect:(NSRect)rect withFont:(NSString*) font;
 /*** Returns the string cleaned from leading and trailing whitespaces */
-@property (readonly) NSString *trim;
+@property (RONLY) NSString *trim;
 
 /*** Returns the reverse version of the string */
-@property (readonly) NSString *reversed;
+@property (RONLY) NSString *reversed;
 
 /*** Returns the substring after the first character in this string */
-@property (readonly) NSString *shifted;
+@property (RONLY) NSString *shifted;
 
 /*** Returns the substring not containing the last character of this string */
-@property (readonly) NSString *popped;
+@property (RONLY) NSString *popped;
 
 /*** Combination of shifted and popped, removes the first and last character */
-@property (readonly) NSString *chopped;
+@property (RONLY) NSString *chopped;
 
 /*** Returns a CamelCase Version of this string */
-@property (readonly) NSString *camelized;
+@property (RONLY) NSString *camelized;
 
-@property (readonly) NSString *hyphonized;
+@property (RONLY) NSString *hyphonized;
 
-@property (readonly) NSString *underscored;
+@property (RONLY) NSString *underscored;
 
 /*** Returns YES if this string is nil or contains nothing but whitespaces */
-@property (readonly) BOOL isEmpty;
+@property (RONLY) BOOL isEmpty;
 
 /*** Counts occurrences of a given string */
 - (NSUInteger)count:(NSString*) aString;
@@ -66,7 +66,7 @@
 - (NSUInteger)count:(NSString*) aString options:(NSStringCompareOptions)flags;
 
 /*** Counts the whitespace chars that prefix this string */
-@property (readonly) NSUInteger indentationLevel;
+@property (RONLY) NSUInteger indentationLevel;
 
 /*** Returns YES when aString is part of the this string.
  * nil and @"" are never part of any compared string */
@@ -108,21 +108,21 @@
 
 /*** Returns this string splitted by lines.
  * Shortcut for componentsSeperatedByString:@"\n" */
-@property (readonly) NSArray *lines;
+@property (RONLY) NSArray *lines;
 
 /*** Returns this string splitted by whitespaces.
  * Shortcut for componentsSeperatedByString:@" "
  * Empty elements will not be part of the resulting array */
-@property (readonly) NSArray *words;
+@property (RONLY) NSArray *words;
 
 /*** Returns a set with all unique elements of this String,
  * separated by whitespaces */
-@property (readonly) NSSet *wordSet;
+@property (RONLY) NSSet *wordSet;
 
 - (NSArray*) trimmedComponentsSeparatedByString:(NSString*) delimiter;
 
-@property (readonly) NSArray *decolonize;
-@property (readonly) NSArray *splitByComma;
+@property (RONLY) NSArray *decolonize;
+@property (RONLY) NSArray *splitByComma;
 
 - (NSString*) substringBefore:(NSString*) delimiter;
 - (NSString*) substringAfter:(NSString*) delimiter;
@@ -135,18 +135,18 @@
            tail:(NSString **)tail;
 
 // excuse the pun, but it divides the string into a head and body word, trimmed
-@property (readonly) NSArray *decapitate;
+@property (RONLY) NSArray *decapitate;
 // TBD whether they belong here or elsewhere
 
-@property (readonly) NSPoint pointValue;
-@property (readonly) NSUInteger minutesValue;
-@property (readonly) NSUInteger secondsValue;
+@property (RONLY) NSPoint pointValue;
+@property (RONLY) NSUInteger minutesValue;
+@property (RONLY) NSUInteger secondsValue;
 
-@property (readonly) NSURL *url;
-@property (readonly) NSURL *fileURL;
+@property (RONLY) NSURL *url;
+@property (RONLY) NSURL *fileURL;
 
-@property (readonly) NSString *ucfirst;
-@property (readonly) NSString *lcfirst;
+@property (RONLY) NSString *ucfirst;
+@property (RONLY) NSString *lcfirst;
 
 + (id)	stringWithData:(NSData*) data encoding:(NSStringEncoding)encoding;
 + (NSString*) stringWithCGFloat:(CGFloat)f maxDigits:(NSUInteger)numDigits;

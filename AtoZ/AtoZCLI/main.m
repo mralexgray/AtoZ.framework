@@ -71,15 +71,9 @@ void TestStopwatchBlock (NSString* name) {
 
 int main(int argc, const char * argv[])
 {
-	[AZStopwatch stopwatch:@"Runtime" timing:^{
 
-		//		NSLog(@"TEST start");
-		AZFile *f = [AZFile instanceWithPath:@"/Applications/Safari.app"];
-		AZLOG([AZFILEMANAGER attributesOfItemAtPath:f.path error:nil]);
-
-	}];
 	@autoreleasepool {
-
+/*
 		NSApplication *app			= [NSApplication sharedApplication];
 		NSRect 			frame  	= (NSRect) { 100, 100, 300, 300 };
 		NSWindow 			*window 	= [[NSWindow alloc] initWithContentRect:frame
@@ -94,7 +88,16 @@ int main(int argc, const char * argv[])
 		//		[window makeKeyAndOrderFront:window];
 		[NSApp activateIgnoringOtherApps:YES];
 		[app run];
-	}
+	} */
+		[AZStopwatch stopwatch:@"Runtime" timing:^{
+
+			//		NSLog(@"TEST start");
+			AZFile *f = [AZFile instanceWithPath:@"/Applications/Safari.app"];
+			AZLOG([AZFILEMANAGER attributesOfItemAtPath:f.path error:nil]);
+			
+		}];
+		AZLOG([[AtoZ sharedInstance]instanceMethodNames]);
+
 //	TestStopwatchBlock(@"testTheWatch");
 //		NSArray *u = [NSArray arrayWithArrays: @[@[@"array1", @[@"array1level2"]],@[@"array2", @"array2item2"], @[@"array3"]]];
 //		AZLOG(	u );
@@ -136,7 +139,7 @@ int main(int argc, const char * argv[])
 	//	CGPoint a = AZAnchorPointForPosition( AZPositionLeft);
 	//
 	//	NSLog(@"%@", NSStringFromPoint(a));
-
+	}
     return 0;
 }
 

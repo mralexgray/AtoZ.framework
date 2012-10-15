@@ -44,7 +44,7 @@
 @interface AZVeil ()
 @property (nonatomic, assign) ShroudIs shroudState;
 
-@property (assign, nonatomic) CGFloat defaultSize;
+@property (NATOM, ASS) CGFloat defaultSize;
 @property (weak) IBOutlet id closeButton;
 @property (weak) IBOutlet id quad1;
 @property (weak) IBOutlet id quad2;

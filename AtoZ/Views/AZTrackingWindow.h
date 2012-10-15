@@ -16,9 +16,9 @@
 + (AZTrackingWindow*) oriented:(AZWindowPosition)orient intruding:(CGFloat)distance;
 + (AZTrackingWindow*) oriented:(AZWindowPosition)orient intruding:(CGFloat)distance withDelegate:(id)del;
 
-@property (readonly) NSRect	 	outFrame;
-@property (readonly) AZOrient 	orientation;
-@property (readonly) NSUInteger capacity;
+@property (RONLY) NSRect	 	outFrame;
+@property (RONLY) AZOrient 	orientation;
+@property (RONLY) NSUInteger capacity;
 
 - (void) slideOut;
 - (void) slideIn;

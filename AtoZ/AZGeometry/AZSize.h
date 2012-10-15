@@ -29,9 +29,9 @@
 @property (assign) CGFloat width;
 @property (assign) CGFloat height;
 
-@property (readonly) CGFloat min;
-@property (readonly) CGFloat max;
-@property (readonly) CGFloat wthRatio;
+@property (RONLY) CGFloat min;
+@property (RONLY) CGFloat max;
+@property (RONLY) CGFloat wthRatio;
 
 -(id)growBy:(id)object;
 -(id)growByWidth:(CGFloat)width height:(CGFloat)height;

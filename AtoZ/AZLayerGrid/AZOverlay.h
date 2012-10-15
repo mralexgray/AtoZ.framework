@@ -133,7 +133,7 @@ typedef NSUInteger AZState;
  
  @see target
  */
-@property (readonly) NSInteger clickedOverlay;
+@property (RONLY) NSInteger clickedOverlay;
 
 /// ---------------------------------
 /// @name Selecting Overlays

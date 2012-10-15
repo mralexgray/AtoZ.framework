@@ -33,6 +33,10 @@ typedef void (^AZBlockTask)(id obj, NSDictionary *change);
 - (void)removeObserverWithBlockToken:(AZBlockToken *)token;
 @end
 @interface NSObject (AtoZ)
+- (NSArray *) instanceMethods;
+- (NSArray *) instanceMethodNames;
++ (NSArray *) instanceMethods;
+
 /* USAGE:
 -(void)mouseDown:(NSEvent*)theEvent {
     NSColor* newColor = //mouse down changes the color somehow (view-driven change)
@@ -110,6 +114,9 @@ typedef void (^caseBlock)();
 @interface NSObject (AG)
 
 - (NSS*)segmentLabel;
+
+BOOL respondsTo(id obj, SEL selector);
+BOOL respondsToString(id obj,NSS* string);
 
 - (BOOL) respondsToString:(NSS*)string;
 

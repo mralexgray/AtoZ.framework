@@ -11,7 +11,7 @@
 
 @interface AZQuadCarousel : NSObject <iCarouselDataSource, iCarouselDelegate, NSWindowDelegate>
 
-@property (assign, nonatomic) iCarouselType cType;
+@property (NATOM, ASS) iCarouselType cType;
 @property (nonatomic, assign) CGFloat fontSize,intrusion;;
 @property (nonatomic, assign) NSUInteger iconStyle, selectedIndex, tilt;
 

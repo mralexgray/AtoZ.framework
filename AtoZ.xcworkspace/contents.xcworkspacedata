@@ -7,4 +7,10 @@
    <FileRef
       location = "group:AZLayerGrid/AZLayerGrid.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:Frameworks/BlocksKit/BlocksKit.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Frameworks/CocoaPuffs/CocoaPuffs.xcodeproj">
+   </FileRef>
 </Workspace>

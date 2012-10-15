@@ -152,6 +152,9 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define NSIMG NSImage
 #define NSS NSString
 #define NSA NSArray
+#define NSAC NSArrayController
+#define NSTXTV NSTextView
+#define NSTXTF NSTextField
 #define NSB NSBundle
 #define NSBP NSBezierPath
 #define NSAT NSAffineTransform

@@ -1,3 +1,63 @@
+#import <xpc/xpc.h>
+#import <Cocoa/Cocoa.h>
+#import <objc/runtime.h>
+#import <Quartz/Quartz.h>
+#import <Carbon/Carbon.h>
+#import <AppKit/AppKit.h>
+#import <QuartzCore/QuartzCore.h>
+#import <Foundation/Foundation.h>
+#import <AudioToolbox/AudioToolbox.h>
+#import <ApplicationServices/ApplicationServices.h>
+#import	"AtoZUmbrella.h"
+
+#define EXCLUDE_STUB_PROTOTYPES 1
+#import <PLWeakCompatibility/PLWeakCompatibilityStubs.h>
+
+#import "AZGeometricFunctions.h"
+
+//	#import "AZObject.h"
+//	#import "AZFile.h"
+#import "AZGeometry.h"
+#import "AtoZFunctions.h"
+//#import "Nu.h"
+
+#import <XPCKit/XPCKit.h>
+#import <FunSize/FunSize.h>
+#import <BlocksKit/BlocksKit.h>
+#import <CocoaPuffs/CocoaPuffs.h>
+//#import <NanoStore/NSFNanoObjectProtocol.h>
+//#import <NanoStore/NSFNanoObject.h>
+//#import <NanoStore/NSFNanoGlobals.h>
+//#import <NanoStore/NSFNanoStore.h>
+//#import <NanoStore/NSFNanoPredicate.h>
+//#import <NanoStore/NSFNanoExpression.h>
+//#import <NanoStore/NSFNanoSearch.h>
+//#import <NanoStore/NSFNanoSortDescriptor.h>
+//#import <NanoStore/NSFNanoResult.h>
+//#import <NanoStore/NSFNanoBag.h>
+//#import <NanoStore/NSFNanoEngine.h>
+//#import <NanoStore/NSFNanoGlobals.h>
+#import <NanoStore/NanoStore.h>
+//#import <Growl/Growl.h>
+
+
+#import <FunSize/FunSize.h>
+#import <CocoaPuffs/CocoaPuffs.h>
+#import <BlocksKit/BlocksKit.h>
+//#import <NanoStore/NanoStore.h>
+
+//#import "Nu.h"
+#import "BaseModel.h"
+//	#import "AtoZModels.h"
+//	#import "AZObject.h"
+//#import	"AtoZUmbrella.h"
+#import "F.h"
+
+//	#import "AtoZModels.h"
+//#import "AtoZ.h"
+//	#import "AZTalker.h"
+
+
 
 //  AtoZ.h
 
@@ -11,21 +71,6 @@
 +(id) singleton;      //alias for instance
 @end
 
-#import <AppKit/AppKit.h>
-#import <ApplicationServices/ApplicationServices.h>
-#import <AudioToolbox/AudioToolbox.h>
-#import <Cocoa/Cocoa.h>
-#import <Foundation/Foundation.h>
-#import <FunSize/FunSize.h>
-#import <QuartzCore/QuartzCore.h>
-#define EXCLUDE_STUB_PROTOTYPES 1
-#import <PLWeakCompatibility/PLWeakCompatibilityStubs.h>
-//#import <BlocksKit/BlocksKit.h>
-#import <XPCKit/XPCKit.h>
-//#import <CocoaPuffs/CocoaPuffs.h>
-//#import <NanoStore/NanoStore.h>
-//#import <Growl/Growl.h>
-#import <xpc/xpc.h>
 
 #import "AtoZUmbrella.h"
 #import	"BaseModel.h"
@@ -300,7 +345,7 @@ extern NSString *const AtoZDockSortedUpdated;
     BOOL isFlipped;
     NSTimeInterval duration;
 }
-@property (readonly) BOOL isFlipped;
+@property (RONLY) BOOL isFlipped;
 @property NSTimeInterval duration;
 @property (weak, readonly) NSView *visibleView;
 -(id)initWithHostView:(NSView *)newHost frontView:(NSView *)newFrontView backView:(NSView *)newBackView;

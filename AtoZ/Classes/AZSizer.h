@@ -25,25 +25,28 @@ extern NSUInteger gcd(NSInteger m, NSUInteger n);
 + (AZSizer*) forQuantity:(NSUInteger)aNumber aroundRect:(NSRect)aFrame;
 + (AZSizer*) forQuantity:(NSUInteger)aNumber inRect:(NSRect)aFrame;
 + (NSRect) structForQuantity:(NSUInteger)aNumber inRect:(NSRect)aFrame;
+
++ (NSRect) rectForQuantity:(NSUInteger)q ofSize:(NSSize)s withColumns:(NSUInteger)c;
+
 //+ (NSSize) gridFor:(int)someitems inRect:(NSRect)aframe;
 //- (void) constrainLayersInLayer:(CALayer*)layer;
 
-@property (assign, nonatomic) AZOrient		orient;
+@property (NATOM, ASS) AZOrient		orient;
 
-@property (readonly) NSString* 	aspectRatio;
-@property (assign, nonatomic) NSUInteger 	quantity;
-@property (readonly) NSUInteger 	capacity;
-@property (assign, nonatomic) NSUInteger	rows;
-@property (assign, nonatomic) NSUInteger	columns;
-@property (assign, nonatomic) CGFloat 		width;
-@property (assign, nonatomic) CGFloat		height;
-@property (assign, nonatomic) NSSize		size;
-@property (assign, nonatomic) NSRect		outerFrame;
-@property (readonly) NSInteger	remainder;
-@property (nonatomic, copy) NSArray 	*rects;
-@property (nonatomic, copy) NSMutableArray 	*positions;
-@property (readonly) NSArray 	*paths;
-@property (readonly) NSArray 	*boxes;
+@property (RONLY) 		  NSString* 	aspectRatio;
+@property (NATOM, ASS) NSUInteger 	quantity;
+@property (RONLY) NSUInteger 	capacity;
+@property (NATOM, ASS) NSUInteger	rows;
+@property (NATOM, ASS) NSUInteger	columns;
+@property (NATOM, ASS) CGFloat 		width;
+@property (NATOM, ASS) CGFloat		height;
+@property (NATOM, ASS) NSSize		size;
+@property (NATOM, ASS) NSRect		outerFrame;
+@property (RONLY) NSInteger	remainder;
+@property (NATOM, CP) NSArray 	*rects;
+@property (NATOM, CP) NSMutableArray 	*positions;
+@property (RONLY) NSArray 	*paths;
+@property (RONLY) NSArray 	*boxes;
 
 @end
 

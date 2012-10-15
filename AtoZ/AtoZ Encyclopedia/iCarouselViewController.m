@@ -9,7 +9,7 @@
 #import "iCarouselViewController.h"
 
 @interface iCarouselViewController ()
-@property (assign, nonatomic) iCarouselOption spacing;
+@property (NATOM, ASS) iCarouselOption spacing;
 @property (nonatomic, assign) BOOL wrap;
 	//@property (nonatomic, retain) NSArray *items;
 @property (nonatomic, assign) NSUInteger scalar;

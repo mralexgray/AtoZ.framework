@@ -36,13 +36,13 @@ enum AZGridOrder {
 
 -(id)initWithCapacity:(NSUInteger)numItems;
 
-@property (readonly) NSUInteger count;
+@property (RONLY) NSUInteger count;
 @property (unsafe_unretained, readonly) AZSize* size;
-@property (readonly) CGFloat width;
-@property (readonly) CGFloat height;
+@property (RONLY) CGFloat width;
+@property (RONLY) CGFloat height;
 
-@property (readonly) CGFloat min;
-@property (readonly) CGFloat max;
+@property (RONLY) CGFloat min;
+@property (RONLY) CGFloat max;
 
 @property (assign) NSUInteger parallels;
 @property (assign) NSUInteger order;

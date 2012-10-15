@@ -29,8 +29,8 @@
 	NSMutableArray *noteControllers;
 }
 
-@property (assign, nonatomic) 	IBOutlet NSProgressIndicator *pIndi;
-@property (assign, nonatomic)   IBOutlet TransparentWindow *controlWindow;
+@property (NATOM, ASS) 	IBOutlet NSProgressIndicator *pIndi;
+@property (NATOM, ASS)   IBOutlet TransparentWindow *controlWindow;
 //@property (nonatomic, retain)  IBOutlet NSWindow *attachedWindow;
 
 - (IBAction) addNote:(id)sender;
@@ -39,7 +39,7 @@
 - (IBAction) reload:(id)sender;
 - (IBAction) moveThemAll:(id) sender;
 - (IBAction) cancel:(id) sender;
-@property (assign, nonatomic) CGRect scaledUnit;
+@property (NATOM, ASS) CGRect scaledUnit;
 @property (nonatomic, strong) IBOutlet iCarouselViewController *vc;
 //@property (nonatomic, retain) IBOutlet AtoZInfinity *infinityView;
 //@property (nonatomic, strong) AZWindowExtend *window;

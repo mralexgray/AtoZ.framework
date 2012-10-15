@@ -9,9 +9,9 @@
 #import "AZBorderlessResizeWindow.h"
 
 @interface AZBorderlessResizeWindow  ()
-@property (ASSGN, NATOM) NSP initialMouseLocation;
-@property (ASSGN, NATOM) NSR initialWindowFrame;
-@property (ASSGN, NATOM) BOOL isResizeOperation;
+@property (ASS, NATOM) NSP initialMouseLocation;
+@property (ASS, NATOM) NSR initialWindowFrame;
+@property (ASS, NATOM) BOOL isResizeOperation;
 @end
 @implementation AZBorderlessResizeWindow
 @synthesize  initialMouseLocation, initialWindowFrame, isResizeOperation ;

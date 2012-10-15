@@ -55,6 +55,14 @@ NSUInteger gcd(NSInteger m, NSUInteger n) {
 //- (void) simplerItemsPerRow {
 //	rows = $int(ceil(sqrt(self.quantity)));
 //}
++ (NSRect) rectForQuantity:(NSUInteger)q ofSize:(NSSize)s withColumns:(NSUInteger)c;
+{
+	CGFloat width, height;
+	width = c * s.width;
+	int rows = q % c == 0 ? q / c : ceil( q / c);
+	height = rows * s.width;
+	return (NSRect){0,0,width, height};
+}
 
 + (NSRect) structForQuantity:(NSUInteger)aNumber inRect:(NSRect)aFrame {
 	AZSizer *r = [[AZSizer alloc]initWithQuantity:aNumber inRect:aFrame];

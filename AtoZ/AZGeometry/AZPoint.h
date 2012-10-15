@@ -26,12 +26,12 @@
 -(id)initWithX:(CGFloat)x y:(CGFloat)y;
 
 @property (assign) NSPoint point;
-@property (readonly) CGPoint cgpoint;
+@property (RONLY) CGPoint cgpoint;
 @property (assign) CGFloat x;
 @property (assign) CGFloat y;
 
-@property (readonly) CGFloat min;
-@property (readonly) CGFloat max;
+@property (RONLY) CGFloat min;
+@property (RONLY) CGFloat max;
 
 -(id)moveTo:(id)object;
 

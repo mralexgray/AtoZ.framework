@@ -10,7 +10,7 @@ NSString *const AZMenuPositionName[AZMenuPositionCount] = {
 
 AZQuadCarousel * refToSelf;  //int cCallback()//{	//    [refToSelf someMethod:someArg];//}
 
-void wLog(NSString* log) { 	[refToSelf setWindowLog:log]; }
+//void wLog(NSString* log) { 	[refToSelf setWindowLog:log]; }
 
 static const NSString *didScroll = @"scrollOffset";
 @interface AZQuadCarousel ()
@@ -41,7 +41,7 @@ static const NSString *didScroll = @"scrollOffset";
 	self.east  =   [AZTrackingWindow oriented: AZPositionRight 	 intruding:_intrusion],// withDelegate:self],
 	self.west  =   [AZTrackingWindow oriented: AZPositionLeft 	 intruding:_intrusion] ]; // withDelegate:self] ];
 
-	[self addObserver:<#(NSObject *)#> forKeyPaths:<#(id<NSFastEnumeration>)#>:self forKeyPaths:@[NSApplicationDidBecomeActiveNotification, NSApplicationDidResignActiveNotification]];
+//	[self addObserver:<#(NSObject *)#> forKeyPaths:<#(id<NSFastEnumeration>)#>:self forKeyPaths:@[NSApplicationDidBecomeActiveNotification, NSApplicationDidResignActiveNotification]];
 	[AZNOTCENTER addObserver:self selector:@selector(applicationDidBecomeActive:) name:NSApplicationDidBecomeActiveNotification object:nil];
 //	id eventMonitor = [NSEvent addLocalMonitorForEventsMatchingMask:NSMouseEnteredMask handler:^(NSEvent *incomingEvent)
 //	 {NSEvent *result = incomingEvent;
@@ -95,7 +95,7 @@ static const NSString *didScroll = @"scrollOffset";
 
 -(void) carouselDidScroll:(iCarousel *)carousel
 {
-	wLog($(@"%@ scrolling! %@  %f", carousel.window.identifier, carousel.identifier, carousel.scrollOffset));
+//	wLog($(@"%@ scrolling! %@  %f", carousel.window.identifier, carousel.identifier, carousel.scrollOffset));
 		//	NSLog(@"%@ scrolling", carousel.identifier);
 		//	NSArray *fileredCars = [_menus filteredArrayUsingBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
 		//		return NSPointInRect(mouseLoc(), [carousel frame]) ? NO : YES;															}];

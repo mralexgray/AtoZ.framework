@@ -81,7 +81,7 @@ static inline NSRect AZScaleRect(NSRect frame, CGFloat factor) {
 
 @property (assign) CGFloat width;
 @property (assign) CGFloat height;
-@property (readonly) CGFloat area;
+@property (RONLY) CGFloat area;
 
 @property (assign) NSPoint origin;
 @property (assign) NSPoint center;

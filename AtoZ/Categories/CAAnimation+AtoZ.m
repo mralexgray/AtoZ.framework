@@ -589,8 +589,8 @@ void disableCA(){
 	void (^_start)();
 }
 
-@property (nonatomic, copy) void (^completion)(BOOL);
-@property (nonatomic, copy) void (^start)();
+@property (NATOM, CP) void (^completion)(BOOL);
+@property (NATOM, CP) void (^start)();
 
 - (void)animationDidStart:(CAAnimation *)anim;
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag;

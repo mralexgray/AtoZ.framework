@@ -3,6 +3,7 @@
 #import <objc/runtime.h>
 #import "NSObject+AtoZ.h"
 #import "AtoZ.h"
+#import "Nu.h"
 
 @implementation NSObject (AssociatedValues)
 - (void)setAssociatedValue: (id)value  forKey: (NSS*) key {
@@ -148,6 +149,43 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary()
 #import <stdarg.h>
 
 @implementation NSObject (AtoZ)
+
++ (NSArray *) instanceMethods
+{
+    NSMutableArray *array = [NSMutableArray array];
+    unsigned int method_count;
+    Method *method_list = class_copyMethodList([self class], &method_count);
+    int i;
+    for (i = 0; i < method_count; i++) {
+//        [array addObject:[[[NuMethod alloc] initWithMethod:method_list[i]] autorelease]];
+    }
+    free(method_list);
+    [array sortUsingSelector:@selector(compare:)];
+    return array;
+}
+- (NSArray *) instanceMethods
+{
+    NSMutableArray *array = [NSMutableArray array];
+    unsigned int method_count;
+    Method *method_list = class_copyMethodList([self class], &method_count);
+    int i;
+    for (i = 0; i < method_count; i++) {
+//        [array addObject:[[[NuMethod alloc] initWithMethod:method_list[i]] autorelease]];
+    }
+    free(method_list);
+    [array sortUsingSelector:@selector(compare:)];
+    return array;
+}
+
+
+/*! Get an array containing the names of the instance methods of a class. */
+- (NSArray *) instanceMethodNames
+{
+    id methods = [self instanceMethods];
+    return [methods mapSelector:@selector(name)];
+}
+
+
 
 -(void) propagateValue:(id)value forBinding:(NSString*)binding;
 {
@@ -325,6 +363,13 @@ static char windowPosition;
 			? [(NSSegmentedControl*)self labelForSegment:[(NSSegmentedControl*)self selectedSegment]] : nil;
 }
 
+BOOL respondsToString(id obj,NSS* string){
+	return [obj respondsToString:string];
+}
+
+BOOL respondsTo(id obj, SEL selector){
+	return [obj respondsToSelector:selector];
+}
 - (BOOL) respondsToString:(NSS*)string{
 	return [self respondsToSelector:NSSelectorFromString(string)];
 }

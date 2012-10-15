@@ -33,12 +33,12 @@
 @property (nonatomic, strong) id objectRep;
 @property (nonatomic, strong) NSColor* color;
 
-@property (nonatomic, copy) NSString *title;
-@property (nonatomic, copy) NSString *identifier;
+@property (NATOM, CP) NSString *title;
+@property (NATOM, CP) NSString *identifier;
 @property (nonatomic, strong) NSImage *icon;
 @property (nonatomic, assign) NSInteger badgeValue;
 
-@property (nonatomic, copy) NSArray *children;
+@property (NATOM, CP) NSArray *children;
 
 //Convenience methods
 + (id)itemWithTitle:(NSString*)aTitle identifier:(NSString*)anIdentifier;

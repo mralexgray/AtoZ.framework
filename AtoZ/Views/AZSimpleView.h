@@ -15,7 +15,7 @@
 @property (nonatomic, strong) NSColor *backgroundColor;
 @end
 @interface AZSimpleGridView : NSView
-@property (assign, nonatomic) NSSize dimensions;
+@property (NATOM, ASS) NSSize dimensions;
 @property (nonatomic, retain)  CALayer *grid;
-@property (assign, nonatomic) NSUInteger rows, columns;
+@property (NATOM, ASS) NSUInteger rows, columns;
 @end

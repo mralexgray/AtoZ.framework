@@ -26,6 +26,163 @@
 }
 
 @end
+@implementation NSDictionary (objectForKeyList)
+
+- (id)objectForKeyList:(id)key, ...
+{
+	id object = self;	va_list ap; 	va_start(ap, key);
+	for ( ; key; key = va_arg(ap, id))	object = [object objectForKey:key];
+	va_end(ap);	return object;
+}
+@end
+
+@implementation NSDictionary(GetObjectForKeyPath)
+
+//	syntax of path similar to Java: record.array[N].item
+//	items are separated by . and array indices in []
+//	example: a.b[N][M].c.d
+
+- (id)objectForKeyPath:(NSString *)inKeyPath
+{
+	NSArray	*components = [inKeyPath componentsSeparatedByString:@"."]	;
+	int		i, j, n = [components count], m	;
+	id		curContainer = self	;
+
+	for (i=0; i<n ; i++)	{
+		NSString	*curPathItem = [components objectAtIndex:i]	;
+		NSArray		*indices = [curPathItem componentsSeparatedByString:@"["]	;
+
+		m = [indices count]	;
+		if (m == 1)	{	// no [ -> object is a dict or a leave
+			curContainer = [curContainer objectForKey:curPathItem]	;
+		}
+		else	{
+			//	indices is an array of string "arrayKeyName" "i1]" "i2]" "i3]"
+			//	arrayKeyName equal to curPathItem
+
+			if (![curContainer isKindOfClass:[NSDictionary class]])
+				return nil	;
+
+			curPathItem = [curPathItem substringToIndex:[curPathItem rangeOfString:@"["].location]	;
+			curContainer = [curContainer objectForKey:curPathItem]	;
+
+			for(j=1;j<m;j++)	{
+				int	index = [[indices objectAtIndex:j] intValue]	;
+
+				if (![curContainer isKindOfClass:[NSArray class]])
+					return nil	;
+
+				if (index >= [curContainer count])
+					return nil	;
+
+				curContainer = [curContainer objectAtIndex:index];
+			}
+		}
+
+	}
+
+	return curContainer	;
+}
+
+-(void)setObject:(id)inValue forKeyPath:(NSString *)inKeyPath
+{
+	NSArray	*components = [inKeyPath componentsSeparatedByString:@"."]	;
+	int		i, j, n = [components count], m	;
+	id		containerContainer = nil	;
+	id		curContainer = self	;
+	NSString	*curPathItem = nil	;
+	NSArray		*indices	;
+	int			index	;
+	BOOL		needArray = NO	;
+
+	for (i=0; i<n ; i++)	{
+
+		curPathItem = [components objectAtIndex:i]	;
+		indices = [curPathItem componentsSeparatedByString:@"["]	;
+		m = [indices count]	;
+
+
+		if (m == 1)	{
+			if ([curContainer isKindOfClass:[NSNull class]])	{
+				curContainer = [NSMutableDictionary dictionary]	;
+				if (needArray)	{
+					[containerContainer replaceObjectAtIndex:index  withObject:curContainer]	;
+				}
+				else	{
+					[containerContainer setObject:curContainer forKey:curPathItem]	;
+				}
+			}
+
+			containerContainer = curContainer	;
+			curContainer = [curContainer objectForKey:curPathItem]	;
+
+			needArray = NO	;
+			if (![containerContainer isKindOfClass:[NSDictionary class]])
+				[NSException raise:@"Path item not a dictionary" format:@"(keyPath %@ - offending %@)",inKeyPath,curPathItem]	;
+
+			if (curContainer == nil)	{
+				curContainer = [NSMutableDictionary dictionary]	;
+				[containerContainer setObject:curContainer forKey:curPathItem]	;
+			}
+		}
+		else	{
+			needArray = YES	;
+			//	indices is an array of string "arrayKeyName" "i1]" "i2]" "i3]"
+			//	arrayKeyName equal to curPathItem
+			curPathItem = [curPathItem substringToIndex:[curPathItem rangeOfString:@"["].location]	;
+			containerContainer = curContainer	;
+			curContainer = [curContainer objectForKey:curPathItem]	;
+
+			if (curContainer == nil)	{
+				curContainer = [NSMutableArray array]	;
+				[containerContainer setObject:curContainer forKey:curPathItem]	;
+			}
+
+			if (![curContainer isKindOfClass:[NSArray class]])
+				[NSException raise:@"Path item not an array" format:@"(keyPath %@ - offending %@)",inKeyPath,curPathItem]	;
+
+			for(j=1;j<m-1;j++)	{
+				index = [[indices objectAtIndex:j] intValue]	;
+
+				containerContainer = curContainer	;
+				curContainer = [curContainer objectAtIndex:index]	;
+				if ([curContainer isKindOfClass:[NSNull class]])	{
+					curContainer = [NSMutableArray array]	;
+					[containerContainer replaceObjectAtIndex:index withObject:curContainer]	;
+				}
+				else	if (![curContainer isKindOfClass:[NSArray class]])
+					[NSException raise:@"Path item not an array" format:@"(keyPath %@ - offending %@ index %d)",inKeyPath,curPathItem,j-1]	;
+			}
+
+			index = [[indices objectAtIndex:m-1] intValue]	;
+
+			if (index >= [curContainer count])	{
+				int	k	;
+
+				for (k=[curContainer count]; k<=index; k++)
+					[curContainer addObject:[NSNull null]]	;
+			}
+
+			containerContainer = curContainer	;
+			curContainer = [curContainer objectAtIndex:index]	;
+		}
+
+	}
+
+	if (needArray)	{	// containerContainer must be an array
+		if (![containerContainer isKindOfClass:[NSArray class]])
+			[NSException raise:@"Last path item is not an array" format:@"(keyPath %@)",inKeyPath]	;
+		[containerContainer	replaceObjectAtIndex:index withObject:inValue]	;
+	}
+	else	{
+		if (![containerContainer isKindOfClass:[NSDictionary class]])
+			[NSException raise:@"Before-last path item is not a dictionary" format:@"(keyPath %@)",inKeyPath]	;
+
+		[containerContainer setObject:inValue forKey:curPathItem]	;
+	}
+}
+@end
+
 
 @implementation  NSDictionary (AtoZ)
 - (void)enumerateEachKeyAndObjectUsingBlock:(void(^)(id key, id obj))block{

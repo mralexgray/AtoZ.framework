@@ -49,10 +49,10 @@ typedef void (^SoundCompletionHandler)(BOOL didFinish);
 @property (NATOM, RONLY, copy ) 			 NSS *name;
 @property (NATOM, RONLY, STRNG) 			 NSURL *url;
 @property (NATOM, RONLY, getter = isPlaying) BOOL playing;
-@property (NATOM, ASSGN, getter = isLooping) BOOL looping;
-@property (NATOM, copy ) SoundCompletionHandler completionHandler;
-@property (NATOM, ASSGN) 					float baseVolume;
-@property (NATOM, ASSGN) 					float volume;
+@property (NATOM, ASS, getter = isLooping) BOOL looping;
+@property (NATOM, CP ) SoundCompletionHandler completionHandler;
+@property (NATOM, ASS) 					float baseVolume;
+@property (NATOM, ASS) 					float volume;
 
 - (void)fadeTo:(float)volume duration:(NSTimeInterval)duration;
 - (void)fadeIn:(NSTimeInterval)duration;

@@ -11,7 +11,7 @@
 {
 	NSTrackingArea *trackingArea;
 }
-@property (readonly) float dynamicStroke;
+@property (RONLY) float dynamicStroke;
 @property (nonatomic, retain) NSString *uniqueID;
 @property (nonatomic, assign) BOOL 	selected;
 /*** YES if the mouse is hovering over cell, otherwise NO.  **/

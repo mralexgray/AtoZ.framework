@@ -47,7 +47,7 @@ extern void disableCA();
 //+ (CAA*)    colorAnimationForLayer: (CAL*)layer start:       (NSC*)c1  	  end: (NSC*)c2;
 + (CAA*)   rotateAnimationForLayer: (CAL*)layer start:       (CGF)fl1     end: (CGF)fl1;
 
-@property (nonatomic, copy) AZCAAnimationCompletionBlock az_completionBlock;
+@property (NATOM, CP) AZCAAnimationCompletionBlock az_completionBlock;
 
 @end
 

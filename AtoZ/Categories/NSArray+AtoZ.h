@@ -30,7 +30,7 @@
 - (NSString*) stringWithEnum: (NSUInteger) anEnum;
 - (NSUInteger) enumFromString: (NSString*) aString default: (NSUInteger) def;
 - (NSUInteger) enumFromString: (NSString*) aString;
-@property (readonly) NSArray *colorValues;
+@property (RONLY) NSArray *colorValues;
 + (NSMutableArray *)mutableArrayWithArrays:(NSArray *)arrays;
 + (NSArray *)arrayWithArrays:(NSArray *)arrays;
 - (NSArray *)arrayWithEach;
@@ -46,11 +46,11 @@
 + (NSArray *)arrayWithDoubles:(double)d,...;
 
 /*** Returns an NSSet containing the same elements as the array (unique of course, as the set does not keep doubled entries) */
-@property (readonly) NSSet *set;
+@property (RONLY) NSSet *set;
 
-@property (readonly) NSArray *shifted;
-@property (readonly) NSArray *popped;
-@property (readonly) NSArray *reversed;
+@property (RONLY) NSArray *shifted;
+@property (RONLY) NSArray *popped;
+@property (RONLY) NSArray *reversed;
 
 /*** Returns an array of the same size as the original one with the result of calling the keyPath on each object */
 - (NSArray *)arrayWithKey:(NSString *)keyPath;
@@ -97,25 +97,25 @@
 - (NSArray *)elementsOfClass:(Class)aClass;
 
 /*** Shortcut for elementsOfClass:NSNumber.class */
-@property (readonly) NSArray *numbers;
+@property (RONLY) NSArray *numbers;
 
 /*** Shortcut for elementsOfClass:NSString.class */
-@property (readonly) NSArray *strings;
+@property (RONLY) NSArray *strings;
 /*** Returns a subArray with all NSString members and calls trim on each before returning */
-@property (readonly) NSArray *trimmedStrings;
+@property (RONLY) NSArray *trimmedStrings;
 
 - (NSArray *)subarrayFromIndex:(NSInteger)start;
 - (NSArray *)subarrayToIndex:(NSInteger)end;
 - (NSArray *)subarrayFromIndex:(NSInteger)start toIndex:(NSInteger)end;
 
 /*** Returns a random element from this array */
-@property (readonly) id randomElement;
+@property (RONLY) id randomElement;
 
 /*** Returns a random subArray of this array with up to 'size' elements */
 - (NSArray *)randomSubarrayWithSize:(NSUInteger)size;
 
 /*** Returns a shuffeled version of this array */
-@property (readonly) NSArray *shuffeled;
+@property (RONLY) NSArray *shuffeled;
 
 /*** A failsave version of objectAtIndex When the given index is outside the bounds of the array it will be projected onto the bounds of the array Just imagine the array to be a ring  that will have its first and last element connected to each other */
 - (id)objectAtNormalizedIndex:(NSInteger)index;
@@ -127,12 +127,12 @@
 /*** Will at least return nil in case the index does not fit the array */
 - (id)objectOrNilAtIndex:(NSUInteger)index;
 
-@property (readonly) id first;
-@property (readonly) id second;
-@property (readonly) id thrid;
-@property (readonly) id fourth;
-@property (readonly) id fifth;
-@property (readonly) id sixth;
+@property (RONLY) id first;
+@property (RONLY) id second;
+@property (RONLY) id thrid;
+@property (RONLY) id fourth;
+@property (RONLY) id fifth;
+@property (RONLY) id sixth;
 
 - (NSInteger)sumIntWithKey:(NSString *)keyPath;
 - (CGFloat)sumFloatWithKey:(NSString *)keyPath;

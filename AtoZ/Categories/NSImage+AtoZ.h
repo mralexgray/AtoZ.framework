@@ -25,6 +25,8 @@ typedef enum {
 @property (readonly, strong) NSC *color;
 @property (readonly, strong) NSA *colors;
 
++ (NSIMG*) imageFromURL:(NSS*)url;
+
 + (NSA*) frameworkImageNames;
 + (NSA*) frameworkImagePaths;
 + (NSA*) frameworkImages;
@@ -91,6 +93,8 @@ typedef enum {
 - (NSA*) quantize;
 + (NSIMG*) desktopImage;
 - (void)openQuantizedSwatch;
+- (NSIMG*)generateQuantizedSwatch;
++ (void)openQuantizeChartFor:(NSA*)images;
 - (void) drawFloatingRightInFrame:(NSRect)aFrame;  //ACG FLOATIAMGE
 // draws the passed image into the passed rect, centered and scaled appropriately.
 // note that this method doesn't know anything about the current focus, so the focus must be locked outside this method
