@@ -237,6 +237,10 @@
 		7B59C837160105E8009DAFCA /* AtoZModels.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B59C8241600D341009DAFCA /* AtoZModels.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B5ABAC71608E26800530EA7 /* FunSize.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7B5ABAB21608D76500530EA7 /* FunSize.framework */; };
 		7B5ABAC81608E26800530EA7 /* XPCKit.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7B645CA215F5300E00566160 /* XPCKit.framework */; };
+		7B5B2CC8162CA4AF00B454C2 /* AZPrismView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5B2CC6162CA4AF00B454C2 /* AZPrismView.m */; };
+		7B5B2CCA162CA4D900B454C2 /* AZPrismView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B5B2CC5162CA4AF00B454C2 /* AZPrismView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B5B2CD7162CD12500B454C2 /* AZImageToDataTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B5B2CD5162CD12500B454C2 /* AZImageToDataTransformer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B5B2CD8162CD12500B454C2 /* AZImageToDataTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5B2CD6162CD12500B454C2 /* AZImageToDataTransformer.m */; };
 		7B61E90115EA994E0053BACF /* AtoZ.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7B311951159B6D9E002134C4 /* AtoZ.framework */; };
 		7B61E90215EA99580053BACF /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B311951159B6D9E002134C4 /* AtoZ.framework */; };
 		7B61E92515EAAF750053BACF /* AZFileGridView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B61E92315EAAF750053BACF /* AZFileGridView.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -2305,6 +2309,10 @@
 		7B583068159BDAF40039CEED /* AppledocSettings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AppledocSettings.plist; path = ../AppledocSettings.plist; sourceTree = SOURCE_ROOT; };
 		7B59C8241600D341009DAFCA /* AtoZModels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = AtoZModels.h; path = Models/AtoZModels.h; sourceTree = SOURCE_ROOT; };
 		7B59C8251600D341009DAFCA /* AtoZModels.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AtoZModels.m; path = Models/AtoZModels.m; sourceTree = SOURCE_ROOT; };
+		7B5B2CC5162CA4AF00B454C2 /* AZPrismView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = AZPrismView.h; sourceTree = "<group>"; };
+		7B5B2CC6162CA4AF00B454C2 /* AZPrismView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZPrismView.m; sourceTree = "<group>"; };
+		7B5B2CD5162CD12500B454C2 /* AZImageToDataTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = AZImageToDataTransformer.h; path = Models/AZImageToDataTransformer.h; sourceTree = SOURCE_ROOT; };
+		7B5B2CD6162CD12500B454C2 /* AZImageToDataTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AZImageToDataTransformer.m; path = Models/AZImageToDataTransformer.m; sourceTree = SOURCE_ROOT; };
 		7B61E90515EAA8340053BACF /* XPCKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = XPCKit.xcodeproj; path = ../../git/XPCKit/XPCKit.xcodeproj; sourceTree = "<group>"; };
 		7B61E92315EAAF750053BACF /* AZFileGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZFileGridView.h; path = Views/AZFileGridView.h; sourceTree = SOURCE_ROOT; };
 		7B61E92415EAAF750053BACF /* AZFileGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AZFileGridView.m; path = Views/AZFileGridView.m; sourceTree = SOURCE_ROOT; };
@@ -3888,6 +3896,8 @@
 				7BBDB4AB161497DB001B864B /* AZFile.h */,
 				7BBDB4AC161497DC001B864B /* AZFile.m */,
 				7B0F16F01620F1ED00E028FC /* SynthesizeSingleton.h */,
+				7B5B2CD5162CD12500B454C2 /* AZImageToDataTransformer.h */,
+				7B5B2CD6162CD12500B454C2 /* AZImageToDataTransformer.m */,
 			);
 			name = Models;
 			path = AtoZ;
@@ -3989,6 +3999,8 @@
 		7B6901BB159E0ADB00D0DA47 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				7B5B2CC5162CA4AF00B454C2 /* AZPrismView.h */,
+				7B5B2CC6162CA4AF00B454C2 /* AZPrismView.m */,
 				7BCEF6451613EECA00EFC74E /* AZHostView.m */,
 				7BCEF6431613EEC200EFC74E /* AZHostView.h */,
 				7B6D95ED15FA954100972A69 /* XLDragDropView.h */,
@@ -5046,7 +5058,9 @@
 			files = (
 				7B095E01161AD7E50076C990 /* AZMenuBarWindow.h in Headers */,
 				7B662AE0161EE3E5003D5EE0 /* BaseModel.h in Headers */,
+				7B5B2CD7162CD12500B454C2 /* AZImageToDataTransformer.h in Headers */,
 				7B3422A315A52A61006AC46C /* AZBaseModel.h in Headers */,
+				7B5B2CCA162CA4D900B454C2 /* AZPrismView.h in Headers */,
 				7B71E736161290E60015F4E4 /* Transition.h in Headers */,
 				7B449C6C1616087D00AB9335 /* NSUserDefaults+Subscript.h in Headers */,
 				7BC02759160D36A300BAE74D /* AZCalculatorController.h in Headers */,
@@ -5844,7 +5858,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "PRODUCT_PATH=\"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}\"\nMAC=\"/Library/Frameworks/\"\n\nsudo ln -sF \"${PRODUCT_PATH}\" \"${MAC}\"\n\ncd \"${PRODUCT_PATH}\"\nln -sF Versions/Current/Frameworks Frameworks\n\n#FRAMEWORKS_DIR=\"${PRODUCT_PATH}\"FRAMEWORK_DIR/Versions/Frameworks\"\n\n#if ( ! [ -e \"$FRAMEWORKS_DIR\" ] ); then\n#$$ln -s \"$FRAMEWORK_DIR/Versions/Current/Frameworks\" \"$FRAMEWORKS_DIR\"\n#fi\n";
+			shellScript = "PRODUCT_PATH=\"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}\"\nMAC=\"/Library/Frameworks/\"\n\nsudo ln -sF \"${PRODUCT_PATH}\" \"${MAC}\"\n\ncd \"${PRODUCT_PATH}\"\nln -sF Versions/Current/Frameworks Frameworks\n\n#install_name_tool -change \\\n#\"@executable_path/../Frameworks/${WRAPPER_NAME}/Versions/A/${PRODUCT_NAME}\" \\\n#\"@loader_path/../../../../Frameworks/${WRAPPER_NAME}/Versions/A/${PRODUCT_NAME}\" \\\n#\"$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/BaseTenAppKit.framework/Versions/A/BaseTenAppKit\"\n\n#-header-pad_max_install_names\n\n#FRAMEWORKS_DIR=\"${PRODUCT_PATH}\"FRAMEWORK_DIR/Versions/Frameworks\"\n\n#if ( ! [ -e \"$FRAMEWORKS_DIR\" ] ); then\n#$$ln -s \"$FRAMEWORK_DIR/Versions/Current/Frameworks\" \"$FRAMEWORKS_DIR\"\n#fi\n";
 		};
 		7BE63ABA15FE9A02004BA700 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -6009,6 +6023,8 @@
 				7B662AE7162088C7003D5EE0 /* NSObject+AutoCoding.m in Sources */,
 				7B662AE9162088C7003D5EE0 /* HRCoder.m in Sources */,
 				7B254D41162A9F86006B6AC6 /* AZKVOllection.m in Sources */,
+				7B5B2CC8162CA4AF00B454C2 /* AZPrismView.m in Sources */,
+				7B5B2CD8162CD12500B454C2 /* AZImageToDataTransformer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6333,6 +6349,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
@@ -6350,6 +6367,7 @@
 				INSTALL_PATH = "@rpath//Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks @loader_path/Frameworks @executable_path/../ @rpath";
 				MACOSX_DEPLOYMENT_TARGET = 10.6.8;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = (
 					"-Xclang",
 					"-fobjc-runtime-has-weak",
@@ -6372,6 +6390,7 @@
 					BlocksKit,
 					"-sub_umbrella",
 					NanoStore,
+					"-header-pad_max_install_names",
 				);
 				PRODUCT_NAME = AtoZ;
 				SDKROOT = macosx;
@@ -6385,6 +6404,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
@@ -6402,6 +6422,7 @@
 				INSTALL_PATH = "@rpath//Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks @loader_path/Frameworks @executable_path/../ @rpath";
 				MACOSX_DEPLOYMENT_TARGET = 10.6.8;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = (
 					"-Xclang",
 					"-fobjc-runtime-has-weak",
@@ -6424,6 +6445,7 @@
 					BlocksKit,
 					"-sub_umbrella",
 					NanoStore,
+					"-header-pad_max_install_names",
 				);
 				PRODUCT_NAME = AtoZ;
 				SDKROOT = macosx;

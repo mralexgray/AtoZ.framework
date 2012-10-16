@@ -24,7 +24,7 @@ typedef void (^AZBlockTask)(id obj, NSDictionary *change);
 
 @interface NSObject (AZBlockObservation)
 
--(void)observeKeyPath:(NSS*)keyPath;
+//-(void)observeKeyPath:(NSS*)keyPath;
 
 - (NSA*)addObserverForKeyPaths:(NSA*)keyPaths task:(AZBlockTask)task;
 //@interface NSObject (AMBlockObservation)
@@ -187,7 +187,7 @@ BOOL respondsToString(id obj,NSS* string);
 // In your custom class
 + (id) customClassWithProperties:	(NSDictionary*) properties;
 - (id) initWithProperties:	(NSDictionary*) properties;
-
++(id)newFromDictionary:(NSD*)dic;
 @end
 
 
@@ -244,5 +244,13 @@ free(p);
 @interface NSDictionary  (PropertyMap)
 
 - (void) mapPropertiesToObject:	(id) instance;
+
+@end
+
+@interface NSObject (KVCExtensions)
+
+- (void) setPropertiesWithDictionary:(NSD*)dictionary;
+- (BOOL) canSetValueForKey:	   (NSString*) key;
+- (BOOL) canSetValueForKeyPath: (NSString*) keyPath;
 
 @end

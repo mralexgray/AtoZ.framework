@@ -448,6 +448,21 @@ CG_INLINE CATransform3D CATransform3DMake( CGFloat m11, CGFloat m12, CGFloat m13
 	return t;
 }
 
+
+
+@implementation CALayer (VariadicConstraints)
+- (void)addConstraintsRelSuper:(CAConstraintAttribute)first,...{ /* REQUIRES NSNotFound termination */
+    va_list args; 	va_start(args, first);
+    for (NSUInteger arg = first;
+		 arg != NSNotFound;
+		 arg = va_arg(args, NSUInteger))
+		{ [self addConstraint:AZConstRelSuper(arg)]; }
+    va_end(args);
+}
+
+@end
+
+
 #define kCALayerLabel @"CALayerLabel"
 @implementation CALayer (AtoZ)
 
@@ -470,7 +485,25 @@ CG_INLINE CATransform3D CATransform3DMake( CGFloat m11, CGFloat m12, CGFloat m13
     return @(retval);
 }
 
-- (void) addConstraintsRelSuper:(NSNumber*) nilAttributeList, ...  // This method takes a nil-terminated list of objects.
+//@implementation NSMutableArray (variadicMethodExample)
+
+//- (void) appendObjects:(id) firstObject, ...
+//{
+//	id eachObject;
+//	va_list argumentList;
+//	if (firstObject) // The first argument isn't part of the varargs list,
+//		{                                   // so we'll handle it separately.
+//			[self addObject: firstObject];
+//			va_start(argumentList, firstObject); // Start scanning for arguments after firstObject.
+//			while (eachObject = va_arg(argumentList, id)) // As many times as we can get an argument of type "id"
+//				[self addObject: eachObject]; // that isn't nil, add it to self's contents.
+//			va_end(argumentList);
+//		}
+//}
+
+//@end
+
+- (void) addConstraintsRelSuperOr:(NSNumber*) nilAttributeList, ...  // This method takes a nil-terminated list of objects.
 {
     va_list args;
     va_start(args, nilAttributeList);

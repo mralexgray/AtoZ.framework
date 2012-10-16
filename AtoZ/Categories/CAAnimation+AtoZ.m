@@ -12,6 +12,71 @@
 #import "AtoZUmbrella.h"
 #import <objc/runtime.h>
 
+@implementation CATransition (AtoZ)
+
+
++ (NSA*)transitionsFor:(id)targetView
+{
+
+	NSRect rect = [targetView bounds];
+	CIImage *inputMaskImage, *inputShadingImage;
+	inputMaskImage = inputShadingImage = [[NSImage az_imageNamed:@"linen"] toCIImage];
+	//	CIImage  = [inputMaskImagetoCIImage];
+	return  @[ kCATransitionFade, kCATransitionMoveIn, kCATransitionPush, kCATransitionReveal,
+	^{ 		CIFilter *transitionFilter = CIFilterDefaultNamed(@"CICopyMachineTransition");
+		transitionFilter.name = @"CICopyMachineTransition";
+		[transitionFilter setValue:[CIVector vectorWithX:rect.origin.x
+													   Y:rect.origin.y
+													   Z:rect.size.width
+													   W:rect.size.height] forKey:@"inputExtent"];
+		return transitionFilter;
+	}(), ^{	// Scale our mask image to match the transition area size, and set the scaled result as the "inputMaskImage" to the transitionFilter.
+		CIFilter *transitionFilter = CIFilterDefaultNamed(@"CIDisintegrateWithMaskTransition");
+		CIFilter *maskScalingFilter = CIFilterDefaultNamed(@"CILanczosScaleTransform");
+		transitionFilter.name = @"CIDisintegrateWithMaskTransition";
+		CGRect maskExtent = [[[targetView snapshot]toCIImage] extent];// rect;//[inputMaskImage extent];
+		float xScale = rect.size.width  / maskExtent.size.width;
+		float yScale = rect.size.height / maskExtent.size.height;
+		[maskScalingFilter setValue:@(yScale) forKey:@"inputScale"];
+		[maskScalingFilter setValue:@(xScale / yScale) forKey:@"inputAspectRatio"];
+		[maskScalingFilter setValue:inputMaskImage forKey:@"inputImage"];
+		[transitionFilter setValue:[maskScalingFilter valueForKey:@"outputImage"] forKey:@"inputMaskImage"];
+		return transitionFilter;
+	}(), ^{
+		return CIFilterDefaultNamed(@"CIDissolveTransition");
+	}(),^{
+		CIFilter* transitionFilter = CIFilterDefaultNamed(@"CIFlashTransition");
+		[transitionFilter setValue:[CIVector vectorWithX:NSMidX(rect) Y:NSMidY(rect)] forKey:@"inputCenter"];
+		[transitionFilter setValue:[CIVector vectorWithX:rect.origin.x Y:rect.origin.y Z:rect.size.width W:rect.size.height] forKey:@"inputExtent"];
+		transitionFilter.name = @"CIFlashTransition";
+		return transitionFilter;
+	}(),^{
+		CIFilter* transitionFilter = CIFilterDefaultNamed(@"CIModTransition");
+		[transitionFilter setValue:[CIVector vectorWithX:NSMidX(rect) Y:NSMidY(rect)] forKey:@"inputCenter"];
+		transitionFilter.name = @"CIModTransition";
+		return transitionFilter;
+	}(),^{
+
+		CIFilter*transitionFilter = CIFilterDefaultNamed(@"CIPageCurlTransition");
+		[transitionFilter setValue:[NSNumber numberWithFloat:-M_PI_4] forKey:@"inputAngle"];
+		[transitionFilter setValue:inputShadingImage forKey:@"inputShadingImage"];
+		[transitionFilter setValue:inputShadingImage forKey:@"inputBacksideImage"];
+		[transitionFilter setValue:[CIVector vectorWithX:rect.origin.x Y:rect.origin.y Z:rect.size.width W:rect.size.height] forKey:@"inputExtent"];
+		return transitionFilter;
+	}(),^{	return CIFilterDefaultNamed(@"CISwipeTransition");
+	}(),^{
+		CIFilter*transitionFilter = CIFilterDefaultNamed(@"CIRippleTransition");
+		[transitionFilter setValue:[CIVector vectorWithX:NSMidX(rect) Y:NSMidY(rect)] forKey:@"inputCenter"];
+		[transitionFilter setValue:[CIVector vectorWithX:rect.origin.x Y:rect.origin.y Z:rect.size.width W:rect.size.height] forKey:@"inputExtent"];
+		[transitionFilter setValue:inputShadingImage forKey:@"inputShadingImage"];
+		return transitionFilter;
+	}()];
+	
+}
+
+@end
+
+
 NSString *AZCAAnimationCompletionBlockAssociatedObjectKey = @"AZCAAnimationCompletionBlockAssociatedObjectKey";
 
 void disableCA(){

@@ -11,6 +11,9 @@
 
 @implementation NSMutableDictionary (AtoZ)
 
+
+
+
 - (void)setColor:(NSColor *)aColor forKey:(NSString *)aKey
 {
     NSData *theData=[NSArchiver archivedDataWithRootObject:aColor];
@@ -185,6 +188,41 @@
 
 
 @implementation  NSDictionary (AtoZ)
++ (NSDictionary*) dictionaryWithValue:(id)value forKeys:(NSA*)keys
+{
+	__block NSMutableDictionary *dict = [NSMutableDictionary new];
+	[keys do:^(id obj) { dict[obj] = value; }];
+	return dict;
+}
+
+
+- (NSDictionary*) dictionaryWithValue:(id)value forKey:(id)key
+{
+	// Would be nice to make our own dictionary subclass that made this
+	// more efficient.
+	NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:self];
+	[dict setValue:value forKey:key];
+	return dict;
+}
+
+- (NSDictionary*) dictionaryWithoutKey:(id)key
+{
+	NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:self];
+	[dict removeObjectForKey:key];
+	return dict;
+}
+
+- (NSDictionary*) dictionaryWithKey:(id)newKey replacingKey:(id)oldKey;
+{
+	NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:self];
+	id value = dict[oldKey];
+	if (value != nil) {
+		[dict removeObjectForKey:oldKey];
+		[dict setObject:value forKey:newKey];
+	}
+	return dict;
+}
+
 - (void)enumerateEachKeyAndObjectUsingBlock:(void(^)(id key, id obj))block{
     NSParameterAssert(block != nil);
     [self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop){

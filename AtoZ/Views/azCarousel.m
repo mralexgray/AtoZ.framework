@@ -75,7 +75,7 @@
 	//@property (nonatomic, assign) NSInteger animationDisableCount;
 @implementation iCarousel (AtoZ)
 
-@dynamic startVelocity, 	startTime, 						scrolling, 					previousItemIndex;
+@dynamic startVelocity, 	startTime, 						scrolling, 					previousItemIndex, currentItemIndex;
 @dynamic itemWidth, 		numberOfVisibleItems, 			offsetMultiplier, 			endOffset;
 @dynamic startOffset, 		numberOfPlaceholdersToShow,		previousTranslation,		toggleTime;
 - (AZTrackingWindow*) hostWindow {	return  (AZTrackingWindow*)[self window]; }

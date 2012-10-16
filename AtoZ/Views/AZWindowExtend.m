@@ -94,8 +94,14 @@ static CGEventRef AUWE_OnMouseMovedFactory (
 	if (anyWhere) {
 		[super setAcceptsMouseMovedEvents:NO];
 		if (!AUWE_portRef) {
-			if ((AUWE_portRef = CGEventTapCreate(kCGSessionEventTap, kCGHeadInsertEventTap, kCGEventTapOptionListenOnly,
-												 CGEventMaskBit(kCGEventMouseMoved), AUWE_OnMouseMovedFactory, CFBridgingRetain(self)))) {
+			if ((AUWE_portRef = CGEventTapCreate(kCGSessionEventTap,
+												 kCGHeadInsertEventTap,
+												 kCGEventTapOptionListenOnly,
+												 CGEventMaskBit(kCGEventMouseMoved),
+												 AUWE_OnMouseMovedFactory,
+//												 CFBridgingRetain(self)
+												 nil
+												 ))) {
 				if ((AUWE_loopSourceRef = CFMachPortCreateRunLoopSource(kCFAllocatorDefault, AUWE_portRef, 0))) {
 					CFRunLoopAddSource(CFRunLoopGetCurrent(), AUWE_loopSourceRef, kCFRunLoopCommonModes);
 					CGEventTapEnable(AUWE_portRef, true);

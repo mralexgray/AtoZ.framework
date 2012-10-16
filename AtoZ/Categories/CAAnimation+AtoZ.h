@@ -1,7 +1,7 @@
 
 //  CAAnimation+AtoZ.h
 //  AtoZ
-
+#import <QuartzCore/QuartzCore.h>
 //  Created by Alex Gray on 7/13/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 
@@ -58,4 +58,9 @@ extern void disableCA();
 - (void)popInAnimated;
 @end
 
+@interface CATransition (AtoZ)
+
++ (NSA*)transitionsFor:(id)targetView;
+
+@end
 

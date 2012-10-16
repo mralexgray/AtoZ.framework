@@ -784,7 +784,7 @@
 //- (float)hasArrow {
 //    return hasArrow;
 //}
-- (void)setHasArrow:(float)value {
+- (void)setHasArrow:(BOOL)value {
     if (self.hasArrow != value) {
         _hasArrow = value;
         
@@ -810,7 +810,7 @@
 //- (float)drawsRoundCornerBesideArrow {
 //    return drawsRoundCornerBesideArrow;
 //}
-- (void)setDrawsRoundCornerBesideArrow:(float)value {
+- (void)setDrawsRoundCornerBesideArrow:(BOOL)value {
     if (_drawsRoundCornerBesideArrow != value) {
         _drawsRoundCornerBesideArrow = value;
         

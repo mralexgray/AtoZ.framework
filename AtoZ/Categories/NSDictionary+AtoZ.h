@@ -34,6 +34,11 @@
 
 @interface NSDictionary (AtoZ)
 
++ (NSDictionary*) dictionaryWithValue:(id)value forKeys:(NSA*)keys;
+- (NSDictionary*) dictionaryWithValue:(id)value forKey:(id)key;
+- (NSDictionary*) dictionaryWithoutKey:(id)key;
+- (NSDictionary*) dictionaryWithKey:(id)newKey replacingKey:(id)oldKey;
+
 - (void)enumerateEachKeyAndObjectUsingBlock:(void(^)(id key, id obj))block;
 
 - (void)enumerateEachSortedKeyAndObjectUsingBlock:(void(^)(id key, id obj, NSUInteger idx))block;

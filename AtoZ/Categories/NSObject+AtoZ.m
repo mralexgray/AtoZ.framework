@@ -258,8 +258,20 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary()
 }
 
 - (void)setObject:(id)obj forKeyedSubscript:(id <NSCopying>)key {
-//	[self respondsToSelector:@selector(backingtore
-//			   [self respondsToSelector:@selector($(@"set%@", [key uppercaseString]))] ? nil;
+
+	[(NSS*)key contains:@"."] ? ^{
+		[self canSetValueForKeyPath:(NSS*)key] ? ^{
+			NSLog(@"Setting Value: %@ forKeyPath:%@", obj, key);
+			[self setValue:obj forKeyPath:(NSS*)key];
+			NSLog(@"New val: %@.", self[key]);
+		}() : ^{  NSLog(@"Cannot set keypath: \"%@\" via subscript... \"%@\" does not respond. Current val:%@.",key, self, self[key]);}();
+	}() : [self canSetValueForKey:(NSS*)key] ? ^{
+			NSLog(@"Setting Value: %@ forKey:%@", obj, key);
+			[self setValue:obj forKey:(NSS*)key];
+			NSLog(@"New val: %@.", self[key]);
+	}() : ^{  NSLog(@"Cannot set \"%@\" via subscript... \"%@\" does not respond. Current val:%@.",key, self, self[key]);
+	}();
+
 }
 
 - (void)performBlock:(void (^)(void))block afterDelay:(NSTimeInterval)delay
@@ -635,11 +647,23 @@ static const char * getPropertyType(objc_property_t property) {
 	object_setClass(self, aClass);
 }
 
++(id)newFromDictionary:(NSD*)dic {
+	return [[self class] customClassWithProperties:dic];
+}
+
 //	In your custom class
 + (id)customClassWithProperties:(NSD *)properties { return [[[self alloc] initWithProperties:properties] autorelease];}
 
 - (id)initWithProperties:(NSD *)properties {
-	if (self = [self init]) {
+	if ([[properties allKeys]containsObject:@"frame"]){
+		if (self = [(NSView*)self initWithFrame:[properties rectForKey:@"frame"]]) {
+			[self setValuesForKeysWithDictionary:[properties dictionaryWithoutKey:@"frame"]];
+		}
+	}
+//	if ([self isKindOfClass:[NSView class]])
+//	if (self = [self init])
+//else
+	else if (self = [self init]) {
 		[self setValuesForKeysWithDictionary:properties];
 	}
 	return self;
@@ -675,3 +699,52 @@ static const char * getPropertyType(objc_property_t property) {
 }
 @end
 
+
+@implementation NSObject (KVCExtensions)
+
+
+- (void) setPropertiesWithDictionary:(NSD*)dictionary;
+{
+	[dictionary mapPropertiesToObject:self];
+}
+// Can set value for key follows the Key Value Settings search pattern as defined in the apple documentation
+- (BOOL)canSetValueForKey:(NSString *)key
+{
+	NSS* capKey = [key stringByReplacingCharactersInRange:NSMakeRange(0, 1) // Check for SEL-based setter
+											   withString:[[key substringToIndex:1] uppercaseString]];
+	if ([self respondsToString:$(@"set%@:",capKey)]) return YES;
+
+    //	If you can access the instance variable directly, check if that exists.
+	//	Patterns for instance variable naming:  1. _<key>  2. _is<Key>  3. <key>  4. is<Key>
+
+    if ([[self class] accessInstanceVariablesDirectly]) {   // Declare all the patters for the key
+        const char *pattern1 = [$(@"_%@",	   key) UTF8String];
+        const char *pattern2 = [$(@"_is%@", capKey) UTF8String];
+        const char *pattern3 = [$(@"%@",	   key) UTF8String];
+        const char *pattern4 = [$(@"is%@",  capKey) UTF8String];  unsigned int numIvars = 0;
+
+		Ivar *ivarList = class_copyIvarList([self class], &numIvars);
+        for (unsigned int i = 0; i < numIvars; i++) {
+			const char *name = ivar_getName(*ivarList);
+            if (strcmp(name, pattern1) == 0 || strcmp(name, pattern2) == 0 ||
+                strcmp(name, pattern3) == 0 || strcmp(name, pattern4) == 0) { return YES; }
+            ivarList++;
+        }
+    }
+    return NO;
+}
+
+// Traverse the key path finding you can set the values. Keypath is a set of keys delimited by "."
+- (BOOL)canSetValueForKeyPath:(NSString *)keyPath
+{
+    NSRange delimeterRange = [keyPath rangeOfCharacterFromSet:
+							 [NSCharacterSet characterSetWithCharactersInString: @"."]];
+    if (delimeterRange.location == NSNotFound) return [self canSetValueForKey:keyPath];
+
+    NSString *first	= [keyPath substringToIndex:	delimeterRange.location		];
+    NSString *rest 	= [keyPath substringFromIndex: (delimeterRange.location + 1)];
+
+    return [self canSetValueForKey:first] ? [[self valueForKey:first] canSetValueForKeyPath:rest] : NO;
+}
+
+@end

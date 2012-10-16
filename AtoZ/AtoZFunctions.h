@@ -1,5 +1,10 @@
 //  AtoZFunctions.h
 
+#import "AtoZ.h"
+#import "AtoZUmbrella.h"
+#import <objc/message.h>
+#import <sys/time.h>
+
 //#import "AtoZ.h"
 //PUT IN PRECOMP #define NSLog(args...) _AZSimpleLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args);
 
@@ -13,7 +18,6 @@
 //static inline NSRect convertToNSRect(CGRect rect) { 	return *(const NSRect *)&rect;	}
 //static inline NSPoint convertToNSPoint(CGPoint point) {	return *(const NSPoint *)&point;	}
 //static inline CGPoint convertToCGPoint(NSPoint point) {	return *(const CGPoint *)&point;	}
-#import "AtoZ.h"
 
 CIFilter* CIFilterDefaultNamed(NSString* name);
 
@@ -44,6 +48,8 @@ static inline BOOL NSRangeContainsRange(NSRange range1, NSRange range2) {
 	}
 	return NO;
 }
+
+NSString * AZToStringFromTypeAndValue(const char * typeCode, void * value);
 
 BOOL areSame(id a, id b);
 

@@ -7,11 +7,6 @@
 //
 
 #import "AtoZFunctions.h"
-#import "AtoZ.h"
-#import "AtoZUmbrella.h"
-
-#import <objc/message.h>
-#import <sys/time.h>
 
 //static inline BOOL isEmpty(id thing);
 //	return	thing == nil

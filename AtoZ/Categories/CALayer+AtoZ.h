@@ -68,6 +68,9 @@ For those that have never seen the CATransform3D struct before, you must apply t
 											   CGFloat m41, CGFloat m42, CGFloat m43, CGFloat m44);
 
 #import "AtoZUmbrella.h"
+@interface CALayer (VariadicConstraints)
+- (void)addConstraintsRelSuper:(CAConstraintAttribute)first,...; /* REQUIRES NSNotFound termination */
+@end
 
 @interface CALayer (AtoZ)
 -(void) animateXThenYToFrame:(NSR)toRect duration:(NSUI)time;

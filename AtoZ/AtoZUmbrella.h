@@ -58,7 +58,6 @@ NS_INLINE void _AZSimpleLog( const char *file, int lineNumber, const char *funcN
 
 #define NSLog(args...) _AZSimpleLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args);
 
-NSString * AZToStringFromTypeAndValue(const char * typeCode, void * value);
 
 #define LOCALIZED_STRING(key) [[NSBundle bundleForClass:[AtoZ class]]localizedStringForKey:(key) value:@"" table:nil]
 /* You cannot take the address of a return value like that, only a variable. Thus, you’d have to put the result in a temporary variable:

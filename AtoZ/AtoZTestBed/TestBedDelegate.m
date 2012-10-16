@@ -35,89 +35,23 @@ const CGFloat dash[2] = {100, 60};
 
 @implementation TestBedDelegate
 
--(CATransition*)transition {
+-(CATransition*)transition
+{
     // Construct a new CATransition that describes the transition effect we want.
     CATransition *transition = [CATransition animation];
-	// We want to build a CIFilter-based CATransition.  When an CATransition's "filter" property is set, the CATransition's "type" and "subtype" properties are ignored, so we don't need to bother setting them.
-
-	id tranny = [self.transitions randomElement];
-	NSLog(@"New tranny: %@", tranny);
-	if ([_transition isKindOfClass:[CIFilter class]])
-		[transition setFilter:tranny];
-	else{
-		[transition setType:tranny];
-
-		[transition setSubtype:@[kCATransitionFromRight, kCATransitionFromLeft, kCATransitionFromTop, kCATransitionFromBottom].randomElement];
-		[transition setDuration:1.0];
-	}
-	return transition;
-
-}
--(NSA*)transitions {
-//	__block
-	NSRect rect = [_targetView bounds];
-	CIImage *inputMaskImage, *inputShadingImage;
-	inputMaskImage = inputShadingImage = [[NSImage az_imageNamed:@"linen"] toCIImage];
-//	CIImage  = [inputMaskImagetoCIImage];
-
-	return _transitions = _transitions ?: @[
-
-	kCATransitionFade, kCATransitionMoveIn, kCATransitionPush, kCATransitionReveal,
-	^{ 		CIFilter *transitionFilter = CIFilterDefaultNamed(@"CICopyMachineTransition");
-		transitionFilter.name = @"CICopyMachineTransition";
-		[transitionFilter setValue:[CIVector vectorWithX:rect.origin.x
-													   Y:rect.origin.y
-													   Z:rect.size.width
-													   W:rect.size.height] forKey:@"inputExtent"];
-		return transitionFilter;
-	}(), ^{	// Scale our mask image to match the transition area size, and set the scaled result as the "inputMaskImage" to the transitionFilter.
-		CIFilter *transitionFilter = CIFilterDefaultNamed(@"CIDisintegrateWithMaskTransition");
-		CIFilter *maskScalingFilter = CIFilterDefaultNamed(@"CILanczosScaleTransform");
-		transitionFilter.name = @"CIDisintegrateWithMaskTransition";
-		CGRect maskExtent = [[[_targetView snapshot]toCIImage] extent];// rect;//[inputMaskImage extent];
-		float xScale = rect.size.width  / maskExtent.size.width;
-		float yScale = rect.size.height / maskExtent.size.height;
-		[maskScalingFilter setValue:@(yScale) forKey:@"inputScale"];
-		[maskScalingFilter setValue:@(xScale / yScale) forKey:@"inputAspectRatio"];
-		[maskScalingFilter setValue:inputMaskImage forKey:@"inputImage"];
-		[transitionFilter setValue:[maskScalingFilter valueForKey:@"outputImage"] forKey:@"inputMaskImage"];
-		return transitionFilter;
-	}(), ^{
-		return CIFilterDefaultNamed(@"CIDissolveTransition");
-	}(),^{
-		CIFilter* transitionFilter = CIFilterDefaultNamed(@"CIFlashTransition");
-		[transitionFilter setValue:[CIVector vectorWithX:NSMidX(rect) Y:NSMidY(rect)] forKey:@"inputCenter"];
-		[transitionFilter setValue:[CIVector vectorWithX:rect.origin.x Y:rect.origin.y Z:rect.size.width W:rect.size.height] forKey:@"inputExtent"];
-		transitionFilter.name = @"CIFlashTransition";
-		return transitionFilter;
-	}(),^{
-		CIFilter* transitionFilter = CIFilterDefaultNamed(@"CIModTransition");
-		[transitionFilter setValue:[CIVector vectorWithX:NSMidX(rect) Y:NSMidY(rect)] forKey:@"inputCenter"];
-		transitionFilter.name = @"CIModTransition";
-		return transitionFilter;
-	}(),^{
-
-		CIFilter*transitionFilter = CIFilterDefaultNamed(@"CIPageCurlTransition");
-		[transitionFilter setValue:[NSNumber numberWithFloat:-M_PI_4] forKey:@"inputAngle"];
-		[transitionFilter setValue:inputShadingImage forKey:@"inputShadingImage"];
-		[transitionFilter setValue:inputShadingImage forKey:@"inputBacksideImage"];
-		[transitionFilter setValue:[CIVector vectorWithX:rect.origin.x Y:rect.origin.y Z:rect.size.width W:rect.size.height] forKey:@"inputExtent"];
-		return transitionFilter;
-	}(),^{	return CIFilterDefaultNamed(@"CISwipeTransition");
-	}(),^{
-		CIFilter*transitionFilter = CIFilterDefaultNamed(@"CIRippleTransition");
-		[transitionFilter setValue:[CIVector vectorWithX:NSMidX(rect) Y:NSMidY(rect)] forKey:@"inputCenter"];
-		[transitionFilter setValue:[CIVector vectorWithX:rect.origin.x Y:rect.origin.y Z:rect.size.width W:rect.size.height] forKey:@"inputExtent"];
-		[transitionFilter setValue:inputShadingImage forKey:@"inputShadingImage"];
-		return transitionFilter;
-	}()];
-
+	// We want to build a CIFilter-based CATransition.  When CATransition's "filter" is set, "type" and "subtype" properties are ignored.
+	CATransition* tranny = [CATransition transitionsFor:_targetView].randomElement; 		NSLog(@"New tranny: %@", tranny);
+	return [tranny isKindOfClass:[CIFilter class]] 	? 	   ^{
+		transition.filter 	= tranny; return transition;	 }() : ^{  //itsa filter
+		transition.type		= tranny;
+		transition.subtype	= @[ kCATransitionFromRight, kCATransitionFromLeft, kCATransitionFromTop, kCATransitionFromBottom].randomElement;
+		transition.duration	= 1.0];	  return transition; }();
 }
 -(void) awakeFromNib
 {
-	[self.segments 	 setAction:@selector(setView:) withTarget:self];
-	[self.targetView setupHostView];
-	[_targetView swapSubs:self.debugLayers];
+	[_]segments 	 setAction:@selector(setView:) withTarget:self];
+	[_targetView setupHostView];
+	[_targetView 	swapSubs:self.debugLayers];
 	[self addObserverForKeyPath:@"self.targetView.subviews" task:^(id obj, NSDictionary *change) {
 		AZLOG(@"subviews changed");
 	}];

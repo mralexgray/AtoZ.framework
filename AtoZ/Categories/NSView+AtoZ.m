@@ -76,6 +76,15 @@ static NSString *ANIMATION_IDENTIFER = @"animation";
 static char const * const ISANIMATED_KEY = "ObjectRep";
 
 @implementation NSView (AtoZ)
+
+- (void) maximize{
+	NSRect r = [self.window.contentView bounds];
+	self.autoresizesSubviews = YES;
+	self.autoresizingMask = NSSIZEABLE;
+	[self setFrame:r];
+	[self setNeedsDisplay:YES];
+
+}
 //@dynamic center;
 - (NSRect) centerRect:(NSRect) aRect onPoint:(NSPoint) aPoint
 {

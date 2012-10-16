@@ -43,18 +43,18 @@ NSString *const SoundDidFinishPlayingNotification = @"SoundDidFinishPlayingNotif
 
 + (Sound *)soundNamed:(NSString *)name
 {
-	AZLOG(@"aout to accesss sounds");
 
 	NSS* file = [name endsWith:@"caf"] && [name isAbsolutePath] ? name
-	: [[NSBundle bundleForClass:[self class]] pathForResource:[name lastPathComponent] ofType:nil];
+			  : [[NSBundle bundleForClass:[AtoZ class]] pathForResource:[name lastPathComponent] ofType:nil];
+	AZLOG($(@"aout to accesss sound with Path: %@", file));
 
 //		 = [[name pathExtension] isEqualToString:@""]
 //			 ? [name stringByAppendingPathExtension:@"caf"]
 //			 : name;
 //	path = [[NSBundle bundleForClass:[AtoZ class]] pathForResource:name ofType:nil];
-	AZLOG(file);
-	return [self soundWithContentsOfFile:file];
-
+//	AZLOG(file);
+	Sound *u = [self soundWithContentsOfFile:file];
+	return u ? u : nil;
 }
 
 + (Sound *)soundWithContentsOfFile:(NSString *)path

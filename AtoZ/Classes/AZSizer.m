@@ -12,6 +12,18 @@ NSUInteger gcd(NSInteger m, NSUInteger n) {
 	if (r == 0) return n; else return gcd(n, r);
 }
 
+@interface Candidate : BaseModel
++(instancetype) withRows:(NSUInteger)rows columns:(NSUInteger)columns remainder:(NSInteger)rem forRect:(NSRect)screen ;
+@property (assign) float width;
+@property (assign) float height;
+@property (assign) int rows;
+@property (assign) int columns;
+@property (assign) float aspectRatio;
+@property (assign) NSRect screen;
+@property (assign) int remainder;
+-(id) initWithDictionary:(NSDictionary *)d;
+@end
+
 @implementation Candidate
 
 //@synthesize width,height,rows,columns, aspectRatio, screen, remainder;
@@ -45,6 +57,13 @@ NSUInteger gcd(NSInteger m, NSUInteger n) {
 @end
 
 @interface AZSizer ()
+@property (RDWRT)  NSUInteger	rows;
+@property (RDWRT)  NSUInteger	columns;
+@property (RDWRT)  CGFloat 	width;
+@property (RDWRT)  CGFloat		height;
+@property (NATOM, RDWRT) NSSize		size;
+@property (NATOM, RDWRT) NSRect		outerFrame;
+
 @property  (retain, nonatomic) NSMutableArray *candidates;
 @end
 

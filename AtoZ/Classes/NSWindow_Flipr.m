@@ -155,7 +155,7 @@
 // but we need to compensate for the time spent here, which seems to be about 3 to 5x what's needed
 // for subsequent frames.
 		animation = [[FliprAnimation alloc] initWithAnimationCurve:NSAnimationEaseInOut];
-		[animation setDelegate:self];
+		[animation setDelegate:(id)self];
 // This is probably redundant...
 		[animation setCurrentProgress:0.0];
 		[flipr orderWindow:NSWindowBelow relativeTo:[finalWindow windowNumber]];
