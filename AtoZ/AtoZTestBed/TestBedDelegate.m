@@ -45,11 +45,11 @@ const CGFloat dash[2] = {100, 60};
 		transition.filter 	= tranny; return transition;	 }() : ^{  //itsa filter
 		transition.type		= tranny;
 		transition.subtype	= @[ kCATransitionFromRight, kCATransitionFromLeft, kCATransitionFromTop, kCATransitionFromBottom].randomElement;
-		transition.duration	= 1.0];	  return transition; }();
+		transition.duration	= 1.0;	  return transition; }();
 }
 -(void) awakeFromNib
 {
-	[_]segments 	 setAction:@selector(setView:) withTarget:self];
+	[_segments 	 setAction:@selector(setView:) withTarget:self];
 	[_targetView setupHostView];
 	[_targetView 	swapSubs:self.debugLayers];
 	[self addObserverForKeyPath:@"self.targetView.subviews" task:^(id obj, NSDictionary *change) {

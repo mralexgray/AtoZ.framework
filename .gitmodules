@@ -40,3 +40,6 @@
 [submodule "Frameworks/BaseModel"]
 	path = Frameworks/BaseModel
 	url = https://github.com/mralexgray/BaseModel.git
+[submodule "Frameworks/Zangetsu"]
+	path = Frameworks/Zangetsu
+	url = https://github.com/mralexgray/Zangetsu.git

@@ -14,6 +14,7 @@
 - (void)setColor:(NSColor *)aColor forKey:(NSString *)aKey;
 - (NSColor *)colorForKey:(NSString *)aKey;
 
+- (BOOL)setObjectOrNull:(id)anObject forKey:(id)aKey;
 @end
 
 //http://appventure.me/2011/12/fast-nsdictionary-traversal-in-objective-c.html
@@ -33,7 +34,7 @@
 @end
 
 @interface NSDictionary (AtoZ)
-
+- (id)findDictionaryWithValue:(id)value;
 + (NSDictionary*) dictionaryWithValue:(id)value forKeys:(NSA*)keys;
 - (NSDictionary*) dictionaryWithValue:(id)value forKey:(id)key;
 - (NSDictionary*) dictionaryWithoutKey:(id)key;
@@ -42,8 +43,13 @@
 - (void)enumerateEachKeyAndObjectUsingBlock:(void(^)(id key, id obj))block;
 
 - (void)enumerateEachSortedKeyAndObjectUsingBlock:(void(^)(id key, id obj, NSUInteger idx))block;
-
 @end
+
+@interface  NSArray (FindDictionary)
+- (id)findDictionaryWithValue:(id)value;
+@end
+
+
 @interface NSDictionary (OFExtensions)
 /// Enumerate each key and object in the dictioanry.
 

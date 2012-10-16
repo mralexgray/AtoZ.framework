@@ -11,7 +11,12 @@
 
 @implementation NSMutableDictionary (AtoZ)
 
-
+//Returns NO if `anObject` is nil; can be used by the sender of the message or ignored if it is irrelevant.
+- (BOOL)setObjectOrNull:(id)anObject forKey:(id)aKey
+{
+	if(anObject!=nil) {		[self setObject:anObject forKey:aKey]; 		return YES; }
+	else {					[self setObject:[NSNull null] forKey:aKey];	return NO;	}
+}
 
 
 - (void)setColor:(NSColor *)aColor forKey:(NSString *)aKey
@@ -187,7 +192,37 @@
 @end
 
 
+@implementation NSArray (FindDictionary)
+
+- (id)findDictionaryWithValue:(id)value
+{
+    __block id match = nil;
+    [self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+		match = [obj isKindOfClass:[NSArray class]] ? [self findDictionaryWithValue:value]
+		: [obj isKindOfClass:[NSDictionary class]]  ? [(NSD*)obj findDictionaryWithValue:value] : nil;
+		*stop = (match!=nil);
+	}];
+	return match;
+}
+@end
 @implementation  NSDictionary (AtoZ)
+
+- (id)findDictionaryWithValue:(id)value
+{
+	__block id match = nil;
+	[self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+		match = [obj isEqual:value] ? self
+			  :	[obj isKindOfClass:[NSArray class]] ? [obj findDictionaryWithValue:value]
+			  : [obj isKindOfClass:[self class]]    ? [obj findDictionaryWithValue:value] : nil;
+		*stop = (match!=nil);
+	}];
+	return match;
+}
+
+// NSDictionary *resultDict = [self findDictionaryForValue:@"i'm an id" inArray:array];
+
+
+
 + (NSDictionary*) dictionaryWithValue:(id)value forKeys:(NSA*)keys
 {
 	__block NSMutableDictionary *dict = [NSMutableDictionary new];
@@ -224,18 +259,18 @@
 }
 
 - (void)enumerateEachKeyAndObjectUsingBlock:(void(^)(id key, id obj))block{
-    NSParameterAssert(block != nil);
-    [self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop){
-        block(key, obj);
-    }];
+	NSParameterAssert(block != nil);
+	[self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop){
+		block(key, obj);
+	}];
 }
 
 - (void)enumerateEachSortedKeyAndObjectUsingBlock:(void(^)(id key, id obj, NSUInteger idx))block{
-    NSParameterAssert(block != nil);
-    NSArray *keys = [[self allKeys] sortedArrayUsingSelector:@selector(compare:)];
-    [keys enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        block(obj, [self objectForKey:obj], idx);
-    }];
+	NSParameterAssert(block != nil);
+	NSArray *keys = [[self allKeys] sortedArrayUsingSelector:@selector(compare:)];
+	[keys enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+		block(obj, [self objectForKey:obj], idx);
+	}];
 }
 @end
 // This horrible hack is hereby placed in the public domain. I recommend never using it for anything.
@@ -261,43 +296,43 @@ static void DynamicDictionarySetter(id self, SEL _cmd, id value)
 	NSString *key = PropertyNameFromSetter(NSStringFromSelector(_cmd));
 
 	if (value == nil)
-        {
+		{
 		[self removeObjectForKey:key];
-        }
+		}
 	else
-        {
+		{
 		self[key] = value;
-        }
+		}
 }
 @implementation NSDictionary (DynamicAccessors)
 
 + (BOOL)resolveInstanceMethod:(SEL)sel
 {
 	NSString *selStr = NSStringFromSelector(sel);
-        // Only handle selectors with no colon.
+	// Only handle selectors with no colon.
 	if ([selStr rangeOfString:@":"].location == NSNotFound)
-        {
+		{
 		LOG(@"Generating dynamic accessor -%@", selStr);
 		return class_addMethod(self, sel, (IMP)DynamicDictionaryGetter, @encode(id(*)(id, SEL)));
-        }
+		}
 	else
-        {
+		{
 		return [super resolveInstanceMethod:sel];
-        }
+		}
 }
 
 @end
 
 /**
 
-@interface NSDictionary (MyProperties)
-@property (retain) NSString *stringProp;
-@property (retain) NSNumber *numberProp;
-@end
+ @interface NSDictionary (MyProperties)
+ @property (retain) NSString *stringProp;
+ @property (retain) NSNumber *numberProp;
+ @end
 
-NSMD *dict = [NSMD dictionary];
-dict.stringProp = @"This is a string";
-dict.numberProp = @42;
+ NSMD *dict = [NSMD dictionary];
+ dict.stringProp = @"This is a string";
+ dict.numberProp = @42;
 
  */
 
@@ -306,20 +341,20 @@ dict.numberProp = @42;
 + (BOOL)resolveInstanceMethod:(SEL)sel
 {
 	NSString *selStr = NSStringFromSelector(sel);
-        // Only handle selectors beginning with "set", ending with a colon and with no intermediate colons.
-        // Also, to simplify PropertyNameFromSetter, we requre a length of at least 5 (2 + "set").
+	// Only handle selectors beginning with "set", ending with a colon and with no intermediate colons.
+	// Also, to simplify PropertyNameFromSetter, we requre a length of at least 5 (2 + "set").
 	if ([selStr hasPrefix:@"set"] &&
 		[selStr hasSuffix:@":"] &&
 		[selStr rangeOfString:@":" options:0 range:NSMakeRange(0, [selStr length] - 1)].location == NSNotFound &&
 		[selStr length] >= 6)
-        {
+		{
 		LOG(@"Generating dynamic accessor -%@ for property \"%@\"", selStr, PropertyNameFromSetter(selStr));
 		return class_addMethod(self, sel, (IMP)DynamicDictionarySetter, @encode(id(*)(id, SEL, id)));
-        }
+		}
 	else
-        {
+		{
 		return [super resolveInstanceMethod:sel];
-        }
+		}
 }
 
 @end
@@ -344,42 +379,42 @@ dict.numberProp = @42;
 
 - (id)anyObject;
 {
-    for (NSString *key in self)
-        return self[key];
-    return nil;
+	for (NSString *key in self)
+		return self[key];
+	return nil;
 }
 
 /*" Returns an object which is a shallow copy of the receiver except that the given key now maps to anObj. anObj may be nil in order to remove the given key from the dictionary. "*/
 - (NSDictionary *)dictionaryWithObject:(id)anObj forKey:(NSString *)key;
 {
-    NSUInteger keyCount = [self count];
+	NSUInteger keyCount = [self count];
 
-    if (keyCount == 0 || (keyCount == 1 && self[key] != nil))
-        return anObj ? @{key: anObj} : @{};
+	if (keyCount == 0 || (keyCount == 1 && self[key] != nil))
+		return anObj ? @{key: anObj} : @{};
 
-    if (self[key] == anObj)
-        return [NSDictionary dictionaryWithDictionary:self];
+	if (self[key] == anObj)
+		return [NSDictionary dictionaryWithDictionary:self];
 
-    NSMutableArray *newKeys = [[NSMutableArray alloc] initWithCapacity:keyCount+1];
-    NSMutableArray *newValues = [[NSMutableArray alloc] initWithCapacity:keyCount+1];
+	NSMutableArray *newKeys = [[NSMutableArray alloc] initWithCapacity:keyCount+1];
+	NSMutableArray *newValues = [[NSMutableArray alloc] initWithCapacity:keyCount+1];
 
-    for (NSString *aKey in self) {
-        if (![aKey isEqual:key]) {
-            [newKeys addObject:aKey];
-            [newValues addObject:self[aKey]];
-        }
-    }
+	for (NSString *aKey in self) {
+		if (![aKey isEqual:key]) {
+			[newKeys addObject:aKey];
+			[newValues addObject:self[aKey]];
+		}
+	}
 
-    if (anObj != nil) {
-        [newKeys addObject:key];
-        [newValues addObject:anObj];
-    }
+	if (anObj != nil) {
+		[newKeys addObject:key];
+		[newValues addObject:anObj];
+	}
 
-    NSDictionary *result = [NSDictionary dictionaryWithObjects:newValues forKeys:newKeys];
-    [newKeys release];
-    [newValues release];
+	NSDictionary *result = [NSDictionary dictionaryWithObjects:newValues forKeys:newKeys];
+	[newKeys release];
+	[newValues release];
 
-    return result;
+	return result;
 }
 
 /*" Returns an object which is a shallow copy of the receiver except that the key-value pairs from aDictionary are included (overriding existing key-value associations if they existed). "*/
@@ -462,220 +497,220 @@ dict.numberProp = @42;
 
 - (NSString *)keyForObjectEqualTo:(id)anObject;
 {
-    for (NSString *key in self)
-        if ([self[key] isEqual:anObject])
+	for (NSString *key in self)
+		if ([self[key] isEqual:anObject])
 			return key;
-    return nil;
+	return nil;
 }
 
 - (NSString *)stringForKey:(NSString *)key defaultValue:(NSString *)defaultValue;
 {
-    id object = self[key];
-    if (![object isKindOfClass:[NSString class]])
-        return defaultValue;
-    return object;
+	id object = self[key];
+	if (![object isKindOfClass:[NSString class]])
+		return defaultValue;
+	return object;
 }
 
 - (NSString *)stringForKey:(NSString *)key;
 {
-    return [self stringForKey:key defaultValue:nil];
+	return [self stringForKey:key defaultValue:nil];
 }
 
 - (NSArray *)stringArrayForKey:(NSString *)key defaultValue:(NSArray *)defaultValue;
 {
 #ifdef OMNI_ASSERTIONS_ON
-    for (id value in defaultValue)
-        OBPRECONDITION([value isKindOfClass:[NSString class]]);
+	for (id value in defaultValue)
+		OBPRECONDITION([value isKindOfClass:[NSString class]]);
 #endif
-    NSArray *array = self[key];
-    if (![array isKindOfClass:[NSArray class]])
-        return defaultValue;
-    for (id value in array) {
-        if (![value isKindOfClass:[NSString class]])
-            return defaultValue;
-    }
-    return array;
+	NSArray *array = self[key];
+	if (![array isKindOfClass:[NSArray class]])
+		return defaultValue;
+	for (id value in array) {
+		if (![value isKindOfClass:[NSString class]])
+			return defaultValue;
+	}
+	return array;
 }
 
 - (NSArray *)stringArrayForKey:(NSString *)key;
 {
-    return [self stringArrayForKey:key defaultValue:nil];
+	return [self stringArrayForKey:key defaultValue:nil];
 }
 
 - (float)floatForKey:(NSString *)key defaultValue:(float)defaultValue;
 {
-    id value = self[key];
-    if (value)
-        return [value floatValue];
-    return defaultValue;
+	id value = self[key];
+	if (value)
+		return [value floatValue];
+	return defaultValue;
 }
 
 - (float)floatForKey:(NSString *)key;
 {
-    return [self floatForKey:key defaultValue:0.0f];
+	return [self floatForKey:key defaultValue:0.0f];
 }
 
 - (double)doubleForKey:(NSString *)key defaultValue:(double)defaultValue;
 {
-    id value = self[key];
-    if (value)
-        return [value doubleValue];
-    return defaultValue;
+	id value = self[key];
+	if (value)
+		return [value doubleValue];
+	return defaultValue;
 }
 
 - (double)doubleForKey:(NSString *)key;
 {
-    return [self doubleForKey:key defaultValue:0.0];
+	return [self doubleForKey:key defaultValue:0.0];
 }
 
 - (CGPoint)pointForKey:(NSString *)key defaultValue:(CGPoint)defaultValue;
 {
-    id value = self[key];
-    if ([value isKindOfClass:[NSString class]] && ![(NSS*)value isEqualToString:@""])
-        return NSPointFromString(value);
-    else if ([value isKindOfClass:[NSValue class]])
-        return [value CGPointValue];
-    else
-        return defaultValue;
+	id value = self[key];
+	if ([value isKindOfClass:[NSString class]] && ![(NSS*)value isEqualToString:@""])
+		return NSPointFromString(value);
+	else if ([value isKindOfClass:[NSValue class]])
+		return [value CGPointValue];
+	else
+		return defaultValue;
 }
 
 - (CGPoint)pointForKey:(NSString *)key;
 {
-    return [self pointForKey:key defaultValue:NSZeroPoint];
+	return [self pointForKey:key defaultValue:NSZeroPoint];
 }
 
 - (CGSize)sizeForKey:(NSString *)key defaultValue:(CGSize)defaultValue;
 {
-    id value = self[key];
-    if ([value isKindOfClass:[NSString class]] && ![(NSS*)value isEqualToString:@""])
-        return NSSizeFromString(value);
-    else if ([value isKindOfClass:[NSValue class]])
-        return [value CGSizeValue];
-    else
-        return defaultValue;
+	id value = self[key];
+	if ([value isKindOfClass:[NSString class]] && ![(NSS*)value isEqualToString:@""])
+		return NSSizeFromString(value);
+	else if ([value isKindOfClass:[NSValue class]])
+		return [value CGSizeValue];
+	else
+		return defaultValue;
 }
 
 - (CGSize)sizeForKey:(NSString *)key;
 {
-    return [self sizeForKey:key defaultValue:NSZeroSize];
+	return [self sizeForKey:key defaultValue:NSZeroSize];
 }
 
 - (CGRect)rectForKey:(NSString *)key defaultValue:(CGRect)defaultValue;
 {
-    id value = self[key];
-    if ([value isKindOfClass:[NSString class]] && ![(NSS*)value isEqualToString:@""])
-        return NSRectFromString(value);
-    else if ([value isKindOfClass:[NSValue class]])
-        return [value CGRectValue];
-    else
-        return defaultValue;
+	id value = self[key];
+	if ([value isKindOfClass:[NSString class]] && ![(NSS*)value isEqualToString:@""])
+		return NSRectFromString(value);
+	else if ([value isKindOfClass:[NSValue class]])
+		return [value CGRectValue];
+	else
+		return defaultValue;
 }
 
 - (CGRect)rectForKey:(NSString *)key;
 {
-    return [self rectForKey:key defaultValue:NSZeroRect];
+	return [self rectForKey:key defaultValue:NSZeroRect];
 }
 
 - (BOOL)boolForKey:(NSString *)key defaultValue:(BOOL)defaultValue;
 {
-    id value = self[key];
+	id value = self[key];
 
-    if ([value isKindOfClass:[NSString class]] || [value isKindOfClass:[NSNumber class]])
-        return [value boolValue];
+	if ([value isKindOfClass:[NSString class]] || [value isKindOfClass:[NSNumber class]])
+		return [value boolValue];
 
-    return defaultValue;
+	return defaultValue;
 }
 
 - (BOOL)boolForKey:(NSString *)key;
 {
-    return [self boolForKey:key defaultValue:NO];
+	return [self boolForKey:key defaultValue:NO];
 }
 
 - (int)intForKey:(NSString *)key defaultValue:(int)defaultValue;
 {
-    id value = self[key];
-    if (!value)
-        return defaultValue;
-    return [value intValue];
+	id value = self[key];
+	if (!value)
+		return defaultValue;
+	return [value intValue];
 }
 
 - (int)intForKey:(NSString *)key;
 {
-    return [self intForKey:key defaultValue:0];
+	return [self intForKey:key defaultValue:0];
 }
 
 - (unsigned int)unsignedIntForKey:(NSString *)key defaultValue:(unsigned int)defaultValue;
 {
-    id value = self[key];
-    if (value == nil)
-        return defaultValue;
-    return [value unsignedIntValue];
+	id value = self[key];
+	if (value == nil)
+		return defaultValue;
+	return [value unsignedIntValue];
 }
 
 - (unsigned int)unsignedIntForKey:(NSString *)key;
 {
-    return [self unsignedIntForKey:key defaultValue:0];
+	return [self unsignedIntForKey:key defaultValue:0];
 }
 
 - (unsigned long long int)unsignedLongLongForKey:(NSString *)key defaultValue:(unsigned long long int)defaultValue;
 {
-    id value = self[key];
-    if (value == nil)
-        return defaultValue;
-    return [value unsignedLongLongValue];
+	id value = self[key];
+	if (value == nil)
+		return defaultValue;
+	return [value unsignedLongLongValue];
 }
 
 - (unsigned long long int)unsignedLongLongForKey:(NSString *)key;
 {
-    return [self unsignedLongLongForKey:key defaultValue:0ULL];
+	return [self unsignedLongLongForKey:key defaultValue:0ULL];
 }
 
 - (NSInteger)integerForKey:(NSString *)key defaultValue:(NSInteger)defaultValue;
 {
-    id value = self[key];
-    if (!value)
-        return defaultValue;
-    return [value integerValue];
+	id value = self[key];
+	if (!value)
+		return defaultValue;
+	return [value integerValue];
 }
 
 - (NSInteger)integerForKey:(NSString *)key;
 {
-    return [self integerForKey:key defaultValue:0];
+	return [self integerForKey:key defaultValue:0];
 }
 - (id)objectForKey:(NSString *)key defaultObject:(id)defaultObject;
 {
-    id value = self[key];
-    if (value)
-        return value;
-    return defaultObject;
+	id value = self[key];
+	if (value)
+		return value;
+	return defaultObject;
 }
 
 - (id)deepMutableCopy;
 {
-    NSMutableDictionary *newDictionary = [self mutableCopy];
-		// Run through the new dictionary and replace any objects that respond to -deepMutableCopy or -mutableCopy with copies.
-    for (id aKey in self) {
+	NSMutableDictionary *newDictionary = [self mutableCopy];
+	// Run through the new dictionary and replace any objects that respond to -deepMutableCopy or -mutableCopy with copies.
+	for (id aKey in self) {
 		id anObject = newDictionary[aKey];
-        if ([anObject respondsToSelector:@selector(deepMutableCopy)]) {
-            anObject = [(NSDictionary *)anObject deepMutableCopy];
-            newDictionary[aKey] = anObject;
-            [anObject release];
-        } else if ([anObject conformsToProtocol:@protocol(NSMutableCopying)]) {
-            anObject = [anObject mutableCopy];
-            newDictionary[aKey] = anObject;
-            [anObject release];
-        } else
-            newDictionary[aKey] = anObject;
-    }
+		if ([anObject respondsToSelector:@selector(deepMutableCopy)]) {
+			anObject = [(NSDictionary *)anObject deepMutableCopy];
+			newDictionary[aKey] = anObject;
+			[anObject release];
+		} else if ([anObject conformsToProtocol:@protocol(NSMutableCopying)]) {
+			anObject = [anObject mutableCopy];
+			newDictionary[aKey] = anObject;
+			[anObject release];
+		} else
+			newDictionary[aKey] = anObject;
+	}
 
-    return newDictionary;
+	return newDictionary;
 }
 @end
 @implementation NSDictionary (OFDeprecatedExtensions)
 
 - (id)valueForKey:(NSString *)key defaultValue:(id)defaultValue;
 {
-    return [self objectForKey:key defaultObject:defaultValue];
+	return [self objectForKey:key defaultObject:defaultValue];
 }
 
 @end
