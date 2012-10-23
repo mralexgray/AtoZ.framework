@@ -7,9 +7,8 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "AZGeometricFunctions.h"
+#import "AtoZGeometry.h"
 #import "AtoZ.h"
-#import "AZGeometry.h"
 
 @class AZPoint, AZSize,  AZRect;
 

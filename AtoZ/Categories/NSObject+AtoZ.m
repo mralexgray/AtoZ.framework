@@ -3,7 +3,29 @@
 #import <objc/runtime.h>
 #import "NSObject+AtoZ.h"
 #import "AtoZ.h"
-#import "Nu.h"
+//#import "Nu.h"
+
+
+#import <objc/runtime.h>
+
+@implementation NSObject (AMAssociatedObjects)
+
+- (void)associate:(id)value with:(void *)key
+{
+	objc_setAssociatedObject(self, key, value, OBJC_ASSOCIATION_RETAIN);
+}
+
+- (void)weaklyAssociate:(id)value with:(void *)key
+{
+	objc_setAssociatedObject(self, key, value, OBJC_ASSOCIATION_ASSIGN);
+}
+
+- (id)associatedValueFor:(void *)key
+{
+	return objc_getAssociatedObject(self, key);
+}
+
+@end
 
 @implementation NSObject (AssociatedValues)
 - (void)setAssociatedValue: (id)value  forKey: (NSS*) key {
@@ -252,25 +274,47 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary()
     va_end(list);
 }
 
-- (id)objectForKeyedSubscript:(id)key {
-	if ([key isKindOfClass:[NSS class]]) return [self respondsToString:key] ? [self valueForKey:key] : nil;
-	return  [self respondsToSelector:@selector(key)] ? [self valueForKey:key] : nil;
+- (id)objectForKeyedSubscript:(id)key
+{
+	NSArray *syms = [NSThread  callStackSymbols];
+	if ([syms count] > 1) {
+		NSLog(@"<%@ %p> %@ - caller: %@ ", [self class], self, NSStringFromSelector(_cmd),[syms objectAtIndex:1]);
+	} else {
+		NSLog(@"<%@ %p> %@", [self class], self, NSStringFromSelector(_cmd));
+	}
+	
+	NSLog(@"CMD: %@ requesting subscript:%@", [NSString stringWithUTF8String:__func__], key);
+	id result = nil;
+//	if ([key isKindOfClass:[NSS class]])
+		result = [self respondsToString:key] ? [self valueForKey:key] : nil;
+		if (!result)
+		result = [self respondsToSelector:@selector(valueForKeyPath:)] ? [self valueForKeyPath:key] : nil;
+		if (!result)
+		result = [self respondsToSelector:@selector(objectForKey:)] ? [(id)self objectForKey:key] : nil;
+		if (!result)
+		result = [self respondsToSelector:@selector(objectForKeyPath:)] ? [(id)self objectForKeyPath:key] : nil;
+
+	if (!result) NSLog(@"%@ cannot coerce value for keyedSubstring: %@", self, key);
+	return result;
 }
 
 - (void)setObject:(id)obj forKeyedSubscript:(id <NSCopying>)key {
-
+	__block BOOL wasSet = NO;
 	[(NSS*)key contains:@"."] ? ^{
 		[self canSetValueForKeyPath:(NSS*)key] ? ^{
 			NSLog(@"Setting Value: %@ forKeyPath:%@", obj, key);
 			[self setValue:obj forKeyPath:(NSS*)key];
-			NSLog(@"New val: %@.", self[key]);
-		}() : ^{  NSLog(@"Cannot set keypath: \"%@\" via subscript... \"%@\" does not respond. Current val:%@.",key, self, self[key]);}();
+//			NSLog(@"New val: %@.", self[key]);
+			wasSet = [self [key] isEqualTo:obj];
+		}() : ^{  NSLog(@"Cannot set object:%@ for (dot)keypath:\"%@\" via subscript... \"%@\" does not respond. Current val:%@.",obj, key, self, self[key]);}();
 	}() : [self canSetValueForKey:(NSS*)key] ? ^{
-			NSLog(@"Setting Value: %@ forKey:%@", obj, key);
+//			NSLog(@"Setting Value: %@ forKey:%@", obj, key);
 			[self setValue:obj forKey:(NSS*)key];
-			NSLog(@"New val: %@.", self[key]);
-	}() : ^{  NSLog(@"Cannot set \"%@\" via subscript... \"%@\" does not respond. Current val:%@.",key, self, self[key]);
+			wasSet = [self[key] isEqualTo:obj];
+//			NSLog(@"New val: %@.", self[key]);
+	}() : ^{  NSLog(@"Cannot set object:%@ for key:\"%@\" via subscript... \"%@\" does not respond. Current val:%@.",obj, key, self, self[key]);
 	}();
+	wasSet ?: NSLog(@"subscrpipt key:%@ NOT set, despite edfforts", key);
 
 }
 
@@ -352,6 +396,140 @@ static char windowPosition;
 @end
 
 @implementation NSObject (AG)
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (id)performSelector:(SEL)selector withObject:(id)p1 withObject:(id)p2 withObject:(id)p3 {
+	NSMethodSignature *sig = [self methodSignatureForSelector:selector];
+	if (sig) {
+		NSInvocation* invo = [NSInvocation invocationWithMethodSignature:sig];
+		[invo setTarget:self];
+		[invo setSelector:selector];
+		[invo setArgument:&p1 atIndex:2];
+		[invo setArgument:&p2 atIndex:3];
+		[invo setArgument:&p3 atIndex:4];
+		[invo invoke];
+		if (sig.methodReturnLength) {
+			id anObject;
+			[invo getReturnValue:&anObject];
+			return anObject;
+		} else {
+			return nil;
+		}
+	} else {
+		return nil;
+	}
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (id)performSelector:(SEL)selector withObject:(id)p1 withObject:(id)p2 withObject:(id)p3
+		   withObject:(id)p4 {
+	NSMethodSignature *sig = [self methodSignatureForSelector:selector];
+	if (sig) {
+		NSInvocation* invo = [NSInvocation invocationWithMethodSignature:sig];
+		[invo setTarget:self];
+		[invo setSelector:selector];
+		[invo setArgument:&p1 atIndex:2];
+		[invo setArgument:&p2 atIndex:3];
+		[invo setArgument:&p3 atIndex:4];
+		[invo setArgument:&p4 atIndex:5];
+		[invo invoke];
+		if (sig.methodReturnLength) {
+			id anObject;
+			[invo getReturnValue:&anObject];
+			return anObject;
+		} else {
+			return nil;
+		}
+	} else {
+		return nil;
+	}
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (id)performSelector:(SEL)selector withObject:(id)p1 withObject:(id)p2 withObject:(id)p3
+		   withObject:(id)p4 withObject:(id)p5 {
+	NSMethodSignature *sig = [self methodSignatureForSelector:selector];
+	if (sig) {
+		NSInvocation* invo = [NSInvocation invocationWithMethodSignature:sig];
+		[invo setTarget:self];
+		[invo setSelector:selector];
+		[invo setArgument:&p1 atIndex:2];
+		[invo setArgument:&p2 atIndex:3];
+		[invo setArgument:&p3 atIndex:4];
+		[invo setArgument:&p4 atIndex:5];
+		[invo setArgument:&p5 atIndex:6];
+		[invo invoke];
+		if (sig.methodReturnLength) {
+			id anObject;
+			[invo getReturnValue:&anObject];
+			return anObject;
+		} else {
+			return nil;
+		}
+	} else {
+		return nil;
+	}
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (id)performSelector:(SEL)selector withObject:(id)p1 withObject:(id)p2 withObject:(id)p3
+		   withObject:(id)p4 withObject:(id)p5 withObject:(id)p6 {
+	NSMethodSignature *sig = [self methodSignatureForSelector:selector];
+	if (sig) {
+		NSInvocation* invo = [NSInvocation invocationWithMethodSignature:sig];
+		[invo setTarget:self];
+		[invo setSelector:selector];
+		[invo setArgument:&p1 atIndex:2];
+		[invo setArgument:&p2 atIndex:3];
+		[invo setArgument:&p3 atIndex:4];
+		[invo setArgument:&p4 atIndex:5];
+		[invo setArgument:&p5 atIndex:6];
+		[invo setArgument:&p6 atIndex:7];
+		[invo invoke];
+		if (sig.methodReturnLength) {
+			id anObject;
+			[invo getReturnValue:&anObject];
+			return anObject;
+		} else {
+			return nil;
+		}
+	} else {
+		return nil;
+	}
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (id)performSelector:(SEL)selector withObject:(id)p1 withObject:(id)p2 withObject:(id)p3
+		   withObject:(id)p4 withObject:(id)p5 withObject:(id)p6 withObject:(id)p7 {
+	NSMethodSignature *sig = [self methodSignatureForSelector:selector];
+	if (sig) {
+		NSInvocation* invo = [NSInvocation invocationWithMethodSignature:sig];
+		[invo setTarget:self];
+		[invo setSelector:selector];
+		[invo setArgument:&p1 atIndex:2];
+		[invo setArgument:&p2 atIndex:3];
+		[invo setArgument:&p3 atIndex:4];
+		[invo setArgument:&p4 atIndex:5];
+		[invo setArgument:&p5 atIndex:6];
+		[invo setArgument:&p6 atIndex:7];
+		[invo setArgument:&p7 atIndex:8];
+		[invo invoke];
+		if (sig.methodReturnLength) {
+			id anObject;
+			[invo getReturnValue:&anObject];
+			return anObject;
+		} else {
+			return nil;
+		}
+	} else {
+		return nil;
+	}
+}
+
+
 - (IBAction)showMethodsInFrameWork:(id)sender {
 
 //	[NSTask launchedTaskWithLaunchPath:@"/usr/bin/say" arguments:@[s]];

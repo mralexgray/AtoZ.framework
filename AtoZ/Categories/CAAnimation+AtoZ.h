@@ -35,8 +35,8 @@ extern void disableCA();
 
 @interface CAAnimation (AtoZ)
 + (CAKA*)           popInAnimation;
-+ (CAAnimationGroup*)   shrinkAnimationAtPoint: (CGPoint)p;
-+ (CAAnimationGroup*)   blowupAnimationAtPoint: (CGPoint)p;
++ (CAAG*)   shrinkAnimationAtPoint: (CGPoint)p;
++ (CAAG*)   blowupAnimationAtPoint: (CGPoint)p;
 + (CAA*)            shakeAnimation;
 + (CAA*)       animationForOpacity;
 //+ (CAA*)         animationForScale;

@@ -130,7 +130,7 @@ static BOOL loadingFromResourceFile = NO;
 
 - (void)setObject:(id)object forKeyedSubscript:(NSString *)key
 {
-	if (IsEmpty(object)) [self setValue:@"" forKey:key];
+	if (isEmpty(object)) [self setValue:@"" forKey:key];
 	else [self setValue:object forKey:key];
 }
 
@@ -274,7 +274,7 @@ static NSMutableDictionary *keyNames = nil, *nillableKeyNames = nil;
 // Automatic dealloc.
 - (void) dealloc {
 	for (NSString *name in [self nillableKeys]) [self setValue:nil forKey:name];
-//	[super dealloc];
+	[super dealloc];
 }
 
 	// NSCopying implementation

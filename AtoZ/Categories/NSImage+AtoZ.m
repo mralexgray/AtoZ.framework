@@ -98,7 +98,12 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 	//	return [aBundle pathsForResourcesOfType:@"pdf" inDirectory:@"picol"];
 	//	NSLog(@"%@", imagePaths);
 	//}
++(NSImage*) frameworkImageNamed:(NSS*)string {
 
+	return [NSImage imageWithFileName:string inBundle:AZFWORKBUNDLE];
+//	[self frameworkImagePaths]filterOne:^BOOL(id object) {
+//	return [object endsWith:string];
+}
 +(NSImage*) randomIcon {
 	NSString *ia = [[self class]picolStrings].randomElement;
 	return [NSImage az_imageNamed:ia];
@@ -119,10 +124,14 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 
 + (NSArray*) icons {
 
-	return [[[NSImage picolStrings] map:^id(id obj) {
-		return [[NSImage alloc]initWithContentsOfFile:obj] ?: [NSNull null];
+	return 	[[[AZFWORKBUNDLE pathsForResourcesOfType:@"pdf" inDirectory:@""]
+			  //	[[[NSImage picolStrings] map:^id(id obj) {
+	map:^id(id obj) {
+		NSImage *u =[[NSImage alloc]initWithContentsOfFile:obj];// ?: [NSNull null];
+		u.name = [[obj lastPathComponent]stringByDeletingPathExtension];
+		return u;
 	}]filter:^BOOL(id object) {
-		return [object isKindOfClass:[NSImage class]];
+		return [object isKindOfClass:[NSImage class]] && !isEmpty(object);
 	}];
 
 		//	return  [[[self class] picolStrings] map:^id(id obj) {
@@ -146,6 +155,83 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 	return [images.shuffeled randomSubarrayWithSize:number];
 
 }
+
+
+
++(NSImage*) blackBadgeForRect:(NSRect)frame{
+
+	return [[self class] badgeForRect:frame withColor:BLACK];
+}
+
++ (NSIMG*) badgeForRect:(NSR)frame withColor:(NSC*)color
+{
+	return [self badgeForRect:frame withColor:color stroked:nil];
+}
+
++ (NSIMG*) badgeForRect:(NSR)frame withColor:(NSC*)color stroked:(NSC*) stroke
+{
+	return [self badgeForRect:frame withColor:color stroked:stroke withString:nil];
+}
+
++ (NSIMG*) badgeForRect:(NSR)frame withColor:(NSC*)color stroked:(NSC*) stroke withString:(NSS*)string {
+
+
+	CGF inset 		= .1 * AZMinDim( frame.size );
+	
+	NSR outerRect	= AZCenterRectOnRect(AZRectFromDim((AZMinDim(frame.size)-inset)), frame);
+//AZSquareInRect( 	  NSInsetRect( newFrame, inset, inset ));
+	NSR centerRect 	= NSInsetRect( outerRect, inset/2, inset/2 );
+
+	NSC* contraster = stroke ?: [color contrastingForegroundColor];
+	NSC* variant 	= [contraster isDark] ? contraster.brighter.brighter : contraster.darker.darker;
+	
+	NSSZ shadowOff 	= NSMakeSize((inset/6),-(inset/6));
+	NSBP *centerBP	= [NSBP bezierPathWithOvalInRect:centerRect];
+	NSBP *outerBP	= [NSBP bezierPathWithOvalInRect:outerRect];
+	NSShadow *innerShadow = [NSShadow shadowWithOffset:AZMultiplySize(shadowOff, .5) blurRadius:inset/4 color: color.darker.darker.darker];
+
+	NSIMG *badge    = [[self alloc]initWithSize:frame.size];
+	[badge 		lockFocus];
+	[NSShadow	setShadowWithOffset:shadowOff blurRadius: inset/4 color: [BLACK alpha:.75]];
+	[outerBP 	fill];
+	[NSShadow	clearShadow];
+	[outerBP	fillGradientFrom:variant				 to:contraster 			angle:90];
+	[centerBP	fillGradientFrom:color.brighter.brighter to:color.darker.darker angle:270];
+
+	[CLEAR set];
+	[centerBP 	fillWithInnerShadow:innerShadow];
+	!string ?: ^{
+		[innerShadow set];
+		[string drawInRect:AZInsetRect(centerRect, inset) withFontNamed:@"PrintBold" andColor:contraster];
+		/*Ubuntu Mono Bold"*//*Nexa Bold" Ivolkswagen DemiBold"*/
+	}();
+	[badge unlockFocus];
+	return badge;
+
+}
+
+- (void) drawAtPoint:(NSP)point inRect:(NSR)rect{
+	[self drawAtPoint:point fromRect:rect operation:NSCompositeSourceOver fraction:1];
+}
+
+- (void) drawAtPoint:(NSP)point;
+{
+	[self drawAtPoint:point fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1];
+}
+
+- (void) draw{
+	[self drawAtPoint:NSZeroPoint fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1];
+}
+
+- (CAL*) imageLayerForRect:(NSR)rect;{
+	CALayer *s = NewLayerWithFrame(rect);
+	return ReturnImageLayer(s, self, 1);
+}
+- (void) drawinQuadrant: (QUAD)quad inRect:(NSR)rect;
+{
+	[self drawInRect: alignRectInRect(AZRectFromDim(rect.size.width/2),rect,quad)];
+}
+
 
 + (void) drawInQuadrants:(NSArray*)images inRect:(NSRect)frame {  __block int indy = 1;
 	[images do:^(id obj){ [(NSImage*)obj drawInRect: alignRectInRect(AZRectFromDim(frame.size.width/2),frame,indy)]; indy++;  }];
@@ -461,8 +547,8 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 - (NSImage*)imageByFillingVisibleAlphaWithColor:(NSColor*)fillColor
 {
 		// convert source image to CIImage
-    NSData* sourceImageData = [self TIFFRepresentation];
-    CIImage* imageToFill = [CIImage imageWithData:sourceImageData];
+//    NSData* sourceImageData = [self TIFFRepresentation];
+    CIImage* imageToFill = [self toCIImage];// [CIImage imageWithData:sourceImageData];
 
 		// create CIFalseColor filter
     CIColor* color = [[CIColor alloc] initWithColor:fillColor];

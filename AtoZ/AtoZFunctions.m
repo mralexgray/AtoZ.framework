@@ -14,6 +14,65 @@
 //	|| ([thing respondsToSelector:@selector(count)]  && [(NSArray *)thing count] == 0)
 //	|| NO;
 //}
+
+
+
+//// SANDBOX
+
+NSString *realHomeDirectory () {
+	const char *home = getpwuid(getuid())->pw_dir;
+	NSString *path = [[NSFileManager defaultManager]
+					  stringWithFileSystemRepresentation:home
+					  length:strlen(home)];
+	static NSString *realHomeDirectory = nil;
+	return realHomeDirectory = [[NSURL fileURLWithPath:path isDirectory:YES] path];
+}
+BOOL powerBox(){
+	NSOpenPanel *openPanel = [[NSOpenPanel alloc] init];
+	[openPanel setCanChooseFiles:NO];
+	[openPanel setCanChooseDirectories:YES];
+	[openPanel setCanCreateDirectories:YES];
+
+	[openPanel beginWithCompletionHandler:^(NSInteger result){
+		if (result == NSFileHandlingPanelOKButton) {
+			for (NSURL *fileURL in [openPanel URLs]) {
+				NSString *filename = [fileURL path];
+				[[NSUserDefaults standardUserDefaults] setObject:filename forKey:@"PathToFolder"];
+
+				NSError *error = nil;
+				NSData *bookmark = [fileURL bookmarkDataWithOptions:NSURLBookmarkCreationWithSecurityScope
+									 includingResourceValuesForKeys:nil
+													  relativeToURL:nil
+															  error:&error];
+				if (error) {
+					NSLog(@"Error creating bookmark for URL (%@): %@", fileURL, error);
+					[NSApp presentError:error];
+				} else {
+					[[NSUserDefaults standardUserDefaults] setObject:bookmark forKey:@"PathToFolder"];
+					[[NSUserDefaults standardUserDefaults] synchronize];
+				}
+				break;
+			}
+		}
+	}];
+
+	NSError *error = nil;
+	NSData *bookmark = [[NSUserDefaults standardUserDefaults] objectForKey:@"PathToFolder"];
+	NSURL *bookmarkedURL = [NSURL URLByResolvingBookmarkData:bookmark options:NSURLBookmarkResolutionWithSecurityScope relativeToURL:nil bookmarkDataIsStale:nil error:&error];
+	BOOL ok = [bookmarkedURL startAccessingSecurityScopedResource];
+	NSLog(@"Accessed ok: %d %@", ok, [bookmarkedURL relativePath]);
+	return ok;
+}
+
+
+OSStatus HotKeyHandler(EventHandlerCallRef nextHandler, EventRef theEvent, void *userData)
+{
+	NSLog(@"HotKeyHandler theEvent:%@ ", theEvent );
+	[AtoZ playRandomSound];
+    return noErr;
+}
+
+
 CIFilter* CIFilterDefaultNamed(NSString* name){
 	CIFilter *x = [CIFilter filterWithName:name];
 	[x setDefaults];
@@ -95,6 +154,13 @@ void NSRectFillWithColor (NSRect rect, NSColor* color){
 	NSRectFill(rect);
 }
 
+
+NSPoint getCenter(NSView *view)
+{
+    return NSMakePoint(floorf(view.bounds.origin.x + (view.bounds.size.width / 2)),
+                       floorf(view.bounds.origin.y + (view.bounds.size.height / 2)));
+}
+
 //void _AZSimpleLog(const char *file, int lineNumber, const char *funcName, NSString *format,...){
 // va_list argList;
 // va_start (argList, format);
@@ -128,33 +194,41 @@ void NSRectFillWithColor (NSRect rect, NSColor* color){
 //    }
 //}
 
+extern CGFloat randomComponent(void) {
+    return (CGFloat)(random() / (CGFloat)INT_MAX);
+}
+
 NSString* prettyFloat(CGFloat f) {
     if (f == 0) { return @"0"; } else if (f == 1) { return @"1";
     } else { return [NSString stringWithFormat:@"%.1f", f]; }
 }
+NSString* kindaPrettyFloat(CGFloat f) {
+    if (f == 0) { return @"0"; } else if (f == 1) { return @"1";
+    } else { return [NSString stringWithFormat:@"%.3f", f]; }
+}
 
-NSString* JRNSStringFromCATransform3D(CATransform3D transform) {
+NSString* StringFromCATransform3D(CATransform3D transform) {
 		// format: [1 0 0 0; 0 1 0 0; 0 0 1 0; 0 0 0 1]
 
     return CATransform3DIsIdentity(transform)
 	? @"CATransform3DIdentity"
-	: [NSString stringWithFormat:@"[%@ %@ %@ %@; %@ %@ %@ %@; %@ %@ %@ %@; %@ %@ %@ %@]",
-	   prettyFloat(transform.m11),
-	   prettyFloat(transform.m12),
-	   prettyFloat(transform.m13),
-	   prettyFloat(transform.m14),
-	   prettyFloat(transform.m21),
-	   prettyFloat(transform.m22),
-	   prettyFloat(transform.m23),
-	   prettyFloat(transform.m24),
-	   prettyFloat(transform.m31),
-	   prettyFloat(transform.m32),
-	   prettyFloat(transform.m33),
-	   prettyFloat(transform.m34),
-	   prettyFloat(transform.m41),
-	   prettyFloat(transform.m42),
-	   prettyFloat(transform.m43),
-	   prettyFloat(transform.m44)
+	: [NSString stringWithFormat:@"[\n%@\t%@\t%@\t%@;\n%@\t%@\t%@\t%@;\n%@\t%@\t%@\t%@;\n%@\t%@\t%@\t%@]",
+	   kindaPrettyFloat(transform.m11),
+	   kindaPrettyFloat(transform.m12),
+	   kindaPrettyFloat(transform.m13),
+	   kindaPrettyFloat(transform.m14),
+	   kindaPrettyFloat(transform.m21),
+	   kindaPrettyFloat(transform.m22),
+	   kindaPrettyFloat(transform.m23),
+	   kindaPrettyFloat(transform.m24),
+	   kindaPrettyFloat(transform.m31),
+	   kindaPrettyFloat(transform.m32),
+	   kindaPrettyFloat(transform.m33),
+	   kindaPrettyFloat(transform.m34),
+	   kindaPrettyFloat(transform.m41),
+	   kindaPrettyFloat(transform.m42),
+	   kindaPrettyFloat(transform.m43),
+	   kindaPrettyFloat(transform.m44)
 	   ];
 }
 
@@ -1543,3 +1617,97 @@ NSNumber* DegreesToNumber(CGFloat degrees) {
  #define CGFLOAT_MAX DBL_MAX
  #define CGFLOAT_IS_DOUBLE 1
  */
+
+
+// MARK: Helper functions
+
+// Creates a vertical grayscale gradient of the specified size and returns a CGImage
+CGImageRef CreateGradientImage(int pixelsWide, int pixelsHigh)
+{
+    CGImageRef theCGImage = NULL;
+
+    // Create a grayscale color space
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceGray();
+
+    // Create the bitmap context to draw into
+    CGContextRef gradientContext = CGBitmapContextCreate(NULL, pixelsWide, pixelsHigh, 8, 0, colorSpace, kCGImageAlphaNone);
+
+    // Define start and end color stops (alpha values required even though not used in the gradient)
+    CGFloat colors[] = {0.0, 1.0, 1.0, 1.0};
+    CGPoint gradientStartPoint = CGPointZero;
+    CGPoint gradientEndPoint = CGPointMake(0, pixelsHigh);
+
+    // Draw the gradient
+    CGGradientRef grayScaleGradient = CGGradientCreateWithColorComponents(colorSpace, colors, NULL, 2);
+    CGContextDrawLinearGradient(gradientContext,
+                                grayScaleGradient,
+                                gradientStartPoint,
+                                gradientEndPoint,
+                                kCGGradientDrawsAfterEndLocation);
+
+    // Create the image from the context
+    theCGImage = CGBitmapContextCreateImage(gradientContext);
+
+    // Clean up
+    CGGradientRelease(grayScaleGradient);
+    CGContextRelease(gradientContext);
+    CGColorSpaceRelease(colorSpace);
+
+    // Return the CGImageRef containing the gradient (with refcount = 1)
+    return theCGImage;
+}
+
+
+NSImage *reflectedView(NSView*view){
+// Creates an autoreleased reflected image of the contents of the main view
+    // Calculate the size of the reflection in devices units - supports hires displays
+    CGFloat displayScale = 1.0f;
+
+    CGSize deviceReflectionSize = view.bounds.size;
+    deviceReflectionSize.width *= displayScale;
+    deviceReflectionSize.height *= displayScale;
+
+    // Create the bitmap context to draw into
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    CGContextRef ctx = CGBitmapContextCreate(NULL,
+                                             deviceReflectionSize.width,
+                                             deviceReflectionSize.height,
+                                             8,
+                                             0,
+                                             colorSpace,
+                                             // Optimal BGRA format for the device:
+                                             (kCGBitmapByteOrder32Little | kCGImageAlphaPremultipliedFirst));
+    CGColorSpaceRelease(colorSpace);
+
+    if (!ctx)
+		{
+        return nil;
+		}
+
+    // Create a 1 pixel-wide gradient (will be stretched by CGContextClipToMask)
+    CGImageRef gradientImage = CreateGradientImage(1, deviceReflectionSize.height);
+
+	// Use the gradient image as a mask
+    CGContextClipToMask(ctx, CGRectMake(0.0f, 0.0f, deviceReflectionSize.width, deviceReflectionSize.height), gradientImage);
+    CGImageRelease(gradientImage);
+
+    // Translate origin to position reflection correctly. Reflection will be flipped automatically because of differences between
+    // Quartz2D coordinate system and CALayer coordinate system.
+	CGContextTranslateCTM(ctx, 0.0, -view.bounds.size.height * displayScale + deviceReflectionSize.height);
+    CGContextScaleCTM(ctx, displayScale, displayScale);
+
+    // Render into the reflection context. Rendering is wrapped in a transparency layer otherwise sublayers
+    // will be rendered individually using the gradient mask and hidden layers will show through
+	CGContextBeginTransparencyLayer(ctx, NULL);
+    [view.layer renderInContext:ctx];
+    CGContextEndTransparencyLayer(ctx);
+
+    // Create the reflection image from the context
+	CGImageRef reflectionCGImage = CGBitmapContextCreateImage(ctx);
+//	NSSize ww = [reflectionCGImage
+    NSImage *reflectionImage = [NSImage imageFromCGImageRef:reflectionCGImage];// alloc]initWithCGImage:reflectionCGImage];
+	CGContextRelease(ctx);
+	CGImageRelease(reflectionCGImage);
+
+	return reflectionImage;
+}

@@ -3,6 +3,9 @@
 #import "BaseModel.h"
 #import "AtoZ.h"
 
+static NSA *soundPaths(){ return  [AZFWORKBUNDLE pathsForResourcesOfType:@"caf" inDirectory:@""]; }
+
+
 #pragma mark Sound class
 NSString *const SoundDidFinishPlayingNotification = @"SoundDidFinishPlayingNotification";
 
@@ -36,26 +39,43 @@ NSString *const SoundDidFinishPlayingNotification = @"SoundDidFinishPlayingNotif
 @synthesize url;
 @synthesize sound;
 @synthesize completionHandler;
+
+
+
 + (Sound*) randomSound {
-	NSArray *randos = [[SoundManager sharedManager]soundPaths].copy;
-    return [[Sound alloc]initWithContentsOfFile:[(NSS*)randos.randomElement copy]];
+
+//	NSArray *randos = ;//[[SoundManager sharedManager]soundPaths];
+    return [[Sound alloc]initWithContentsOfFile:[[SoundManager soundPaths] randomElement]];// [(NSS*)randos.randomElement copy]];
 }
 
 + (Sound *)soundNamed:(NSString *)name
 {
+	return [[Sound alloc]initWithContentsOfFile:[[SoundManager soundPaths] filterOne:^BOOL(id object) {
+		return [(NSS*)object containsString:name];
+	}]];
+}
+//	NSArray *randos = LogAndReturn([[SoundManager sharedManager]soundPaths].copy);
 
-	NSS* file = [name endsWith:@"caf"] && [name isAbsolutePath] ? name
-			  : [[NSBundle bundleForClass:[AtoZ class]] pathForResource:[name lastPathComponent] ofType:nil];
-	AZLOG($(@"aout to accesss sound with Path: %@", file));
-
+//	NSA *i = LogAndReturn([[SoundManager sharedManager]soundPaths].copy);
+//	id path = [randos filterOne:^BOOL(id object) {
+//		return [(NSS*)object containsString:[name stringByReplacingOccurrencesOfString:@".caf" withString:@""]];
+//	}];
+//	if(path)NSLog(@"found path:%@", path);
+//	if (path) return [[Sound alloc]initWithContentsOfFile:path];
+//	else{
+////	NSS* file = [name endsWith:@"caf"] && [name isAbsolutePath] ? name
+//			  : [[NSBundle bundleForClass:[AtoZ class]] pathForResource:[name lastPathComponent] ofType:nil];
+//	AZLOG($(@"Couldnt find sound named: %@", name));
+//	return nil;
+//	}
 //		 = [[name pathExtension] isEqualToString:@""]
 //			 ? [name stringByAppendingPathExtension:@"caf"]
 //			 : name;
 //	path = [[NSBundle bundleForClass:[AtoZ class]] pathForResource:name ofType:nil];
 //	AZLOG(file);
-	Sound *u = [self soundWithContentsOfFile:file];
-	return u ? u : nil;
-}
+//	Sound *u = [self soundWithContentsOfFile:file];
+//	return u ? u : nil;
+//}
 
 + (Sound *)soundWithContentsOfFile:(NSString *)path
 {
@@ -94,7 +114,7 @@ NSString *const SoundDidFinishPlayingNotification = @"SoundDidFinishPlayingNotif
 #else
         sound = [[NSSound alloc] initWithContentsOfURL:_url byReference:YES];
 #endif
-        self.volume = .6f;
+//        volume = .6f;
 		}
     return self;
 }
@@ -129,7 +149,7 @@ NSString *const SoundDidFinishPlayingNotification = @"SoundDidFinishPlayingNotif
     return [[url path] lastPathComponent];
 }
 
-- (void)setbaseVolume:(float)_baseVolume
+- (void)setbaseVolume:(CGFloat)_baseVolume
 {
     _baseVolume = fminf(1.0f, fmaxf(0.0f, _baseVolume));
 
@@ -141,13 +161,13 @@ NSString *const SoundDidFinishPlayingNotification = @"SoundDidFinishPlayingNotif
 		}
 }
 
-- (float)volume
+- (CGFloat)volume
 {
     if (timer)  return targetVolume / baseVolume;
     else        return [sound volume] / baseVolume;
 }
 
-- (void)setVolume:(float)volume
+- (void)setVolume:(CGFloat)volume
 {
     volume = fminf(1.0f, fmaxf(0.0f, volume));
 	if (timer) targetVolume = volume * baseVolume;
@@ -206,7 +226,7 @@ NSString *const SoundDidFinishPlayingNotification = @"SoundDidFinishPlayingNotif
     [self performSelector:@selector(setSelfReference:) withObject:nil afterDelay:0.0];
 }
 
-- (void)fadeTo:(float)volume duration:(NSTimeInterval)duration
+- (void)fadeTo:(CGFloat)volume duration:(NSTimeInterval)duration
 {
     startVolume = [sound volume];
     targetVolume = volume * baseVolume;
@@ -246,30 +266,55 @@ NSString *const SoundDidFinishPlayingNotification = @"SoundDidFinishPlayingNotif
 @property (nonatomic, strong) NSMutableArray *currentSounds;
 @end
 
+
 @implementation SoundManager
-@synthesize currentMusic, currentSounds, allowsBackgroundMusic, soundVolume, musicVolume, soundFadeDuration, musicFadeDuration, soundPaths;
+@synthesize currentMusic, currentSounds, allowsBackgroundMusic, soundVolume, musicVolume, soundFadeDuration, musicFadeDuration;
+
++ (void) playRandomSound;
+{
+	[[self sharedInstance]playSound:[Sound randomSound]];
+}
+
 
 + (SoundManager *)sharedManager
 {
-    static SoundManager *sharedManager = nil;
-    if (sharedManager == nil) sharedManager = [[self alloc] init];
-    return sharedManager;
+//	SoundManager *man =
+	return [SoundManager sharedInstance];
+
+//    static SoundManager *sharedManager = nil;
+//    if (sharedManager == nil) sharedManager = [SoundManager ];//[[self alloc] init];
+//    return sharedManager;
 }
 
 - (SoundManager *)init
 {
     if ((self = [super init])) {
 
-		soundPaths  = [AZFWORKBUNDLE pathsForResourcesOfType:@"caf" inDirectory:@""];
         soundVolume = 1.0f;
         musicVolume = 1.0f;
         soundFadeDuration = 1.0;
         musicFadeDuration = 1.0;
         currentSounds = [NSMA array];
+
 	}
     return self;
 }
 
++ (NSArray *)soundPaths
+{
+	static NSArray *data = nil;
+	if (!data) {
+		data =  [AZFWORKBUNDLE pathsForResourcesOfType:@"caf" inDirectory:@""];
+//		[[NSArray arrayWithObjects:..., nil] retain];
+	}
+	return data;
+}
+
+//- (NSA*)soundPaths{
+//	static NSA* sounds = nil;
+//	return soundPaths = sounds = [AZFWORKBUNDLE pathsForResourcesOfType:@"caf" inDirectory:@""];
+
+//}
 - (void)setAllowsBackgroundMusic:(BOOL)allow
 {
     if (allowsBackgroundMusic != allow)
@@ -390,15 +435,22 @@ NSString *const SoundDidFinishPlayingNotification = @"SoundDidFinishPlayingNotif
 
 - (BOOL)isPlayingMusic { return currentMusic != nil; }
 
-- (void)setSoundVolume:(float)newVolume { soundVolume = newVolume; for(Sound *sound in currentSounds) sound.volume=soundVolume; }
+- (void)setSoundVolume:(CGFloat)newVolume { soundVolume = newVolume; for(Sound *sound in currentSounds) sound.volume=soundVolume; }
 
-- (void)setMusicVolume:(float)newVolume { musicVolume = newVolume; currentMusic.volume = musicVolume; }
+- (void)setMusicVolume:(CGFloat)newVolume { musicVolume = newVolume; currentMusic.volume = musicVolume; }
 
 - (void)soundFinished:(NSNotification *)notification
 {
+
+	NSLog(@"soundfinished...  Notification.... %@  curentSounds:%@",notification,currentSounds);
     Sound *sound = [notification object];
-    [currentSounds removeObject:sound];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:SoundDidFinishPlayingNotification object:sound];
+    if((sound)&& [currentSounds containsObject:sound]) {
+		AZLOG(@"removingsoundszhuzh");
+			[currentSounds removeObject:sound];
+    	[[NSNotificationCenter defaultCenter] removeObserver:self name:SoundDidFinishPlayingNotification object:sound];
+	}
+	AZLOG(@"sound cleanup finnished");
+
 }
 
 - (void)musicFinished:(NSNotification *)notification

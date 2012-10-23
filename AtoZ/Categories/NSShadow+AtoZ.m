@@ -23,13 +23,17 @@ if (self != nil) {
 return self;
 }
 
-+ (void)setShadowWithOffset:(NSSize)offset blurRadius:(CGFloat)radius
-color:(NSColor *)shadowColor
-{
++ (NSShadow*)shadowWithOffset:(NSSize)offset blurRadius:(CGFloat)radius color:(NSColor *)shadowColor {
 	NSShadow *aShadow = [[self alloc] init];
 	[aShadow setShadowOffset:offset];
 	[aShadow setShadowBlurRadius:radius];
 	[aShadow setShadowColor:shadowColor];
+	return aShadow;
+}
+
++ (void)setShadowWithOffset:(NSSize)offset blurRadius:(CGFloat)radius color:(NSColor *)shadowColor
+{
+	NSShadow *aShadow = [self shadowWithOffset:offset blurRadius:radius color:shadowColor];
 	[aShadow set];
 }
 

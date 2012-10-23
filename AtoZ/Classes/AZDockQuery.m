@@ -4,14 +4,8 @@
 
 	//  Created by Alex Gray on 7/5/12.
 	//  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-#import <ApplicationServices/ApplicationServices.h>
-#import <Cocoa/Cocoa.h>
-#import <AppKit/AppKit.h>
-#import "AtoZ.h"
 #import "AZDockQuery.h"
-#import "AtoZModels.h"
-#import "AZFile.h"
-#import "AtoZUmbrella.h"
+
 @implementation AZDockQuery
 	//@synthesize dock;
 	//+ (NSArray*) dock:(AZDock*)dock {
@@ -19,7 +13,7 @@
 	//}
 
 	//- (NSArray *) dock:(AZDock*)dock {
-- (void) dock:(AZDock*)dock{
+- (NSArray*)dock{
 	if (!_dock)  {
 		__block AZDock *dockItems = [AZDock sharedInstance];
 
@@ -88,6 +82,7 @@
 
 	} //if _dock noexista
 	  //	return _dock;
+	return _dock;
 }
 - (CGPoint) locationNowForAppWithPath:(NSString*)aPath {
 	[AZStopwatch start:@"getPoint"];

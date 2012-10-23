@@ -140,10 +140,16 @@
 
 - (void)fillGradientFrom:(NSColor*)inStartColor to:(NSColor*)inEndColor angle:(float)inAngle
 {
-	CIImage*	coreimage;
+
+
+	NSGradient *fillGradient = [[NSGradient alloc] initWithStartingColor:inStartColor endingColor:inEndColor];
 	
+	[fillGradient drawInBezierPath:self angle:inAngle];
+	/*
+	
+	CIImage*	coreimage;
 	inStartColor = [inStartColor colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
-	inEndColor = [inEndColor colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
+	inEndColor 	 = [inEndColor colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
 	
 	CIColor* startColor = [CIColor colorWithRed:[inStartColor redComponent] green:[inStartColor greenComponent] blue:[inStartColor blueComponent] alpha:[inStartColor alphaComponent]];
 	CIColor* endColor = [CIColor colorWithRed:[inEndColor redComponent] green:[inEndColor greenComponent] blue:[inEndColor blueComponent] alpha:[inEndColor alphaComponent]];
@@ -176,6 +182,7 @@
 	[context drawImage:coreimage atPoint:CGPointZero fromRect:CGRectMake( 0.0, 0.0, [self bounds].size.width + 100.0, [self bounds].size.height + 100.0 )];
 	
 	[[NSGraphicsContext currentContext] restoreGraphicsState];
+	*/
 }
 
 + (NSBezierPath *)bezierPathWithLeftRoundedRect:(NSRect)rect radius:(CGFloat)radius

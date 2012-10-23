@@ -54,7 +54,7 @@ static NSMutableDictionary *keyNames = nil, *nillableKeyNames = nil;
 	NSString *stringer = $(@"set%@", [key capitalizedString]);
 	SEL stringed = NSSelectorFromString(stringer);
 	if ([self respondsToSelector:stringed]) {
-					id newV = IsEmpty(object) ? @"" : object;
+					id newV = isEmpty(object) ? @"" : object;
 					[self setValue:newV forKey:key];
 	} else {		const char *bar = [key UTF8String];
 

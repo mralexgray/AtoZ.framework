@@ -28,6 +28,10 @@ extern NSView* AZResizeWindowAndContent(NSWindow* window, float dXLeft, float dX
 
 @interface NSView (AtoZ)
 
+- (NSP)  getCenterOnFrame;
+- (NSP)  getCenter;
+- (void) setCenter: (NSP)center;
+
 - (void) maximize;
 - (NSRect) centerRect:(NSRect) aRect onPoint:(NSPoint) aPoint;
 - (void) centerOriginInBounds;

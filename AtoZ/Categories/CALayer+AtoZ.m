@@ -9,6 +9,25 @@
 #import "AtoZUmbrella.h"
 #import "AtoZFunctions.h"
 
+@interface CAShapeLayer (Lassos)
+- (void) redrawPath;
+@end
+@implementation CAShapeLayer (Lassos)
+- (void) redrawPath {
+	CALayer *selected = [self valueForKey:@"mommy"];
+	CGRect shapeRect = selected.bounds;
+	shapeRect.size.width -= 4;
+	shapeRect.size.height -= 4;
+	CGMutablePathRef path = CGPathCreateMutable();
+	CGPathAddRect(path, NULL, shapeRect);
+	[self setPath:path];
+	CGPathRelease(path);
+	[self.superlayer setNeedsDisplay];
+
+}
+@end
+
+
 /*
 struct CATransform3D
 {
@@ -436,10 +455,11 @@ CGColorRef CreatePatternColor( CGImageRef image )
     return color;
 }
 
-CG_INLINE CATransform3D CATransform3DMake( CGFloat m11, CGFloat m12, CGFloat m13, CGFloat m14,
-										  CGFloat m21, CGFloat m22, CGFloat m23, CGFloat m24,
-										  CGFloat m31, CGFloat m32, CGFloat m33, CGFloat m34,
-										  CGFloat m41, CGFloat m42, CGFloat m43, CGFloat m44) {
+extern CATransform3D CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13, CGFloat m14,
+				  CGFloat m21, CGFloat m22, CGFloat m23, CGFloat m24,
+				  CGFloat m31, CGFloat m32, CGFloat m33, CGFloat m34,
+				  CGFloat m41, CGFloat m42, CGFloat m43, CGFloat m44)
+{
 	CATransform3D t;
 	t.m11 = m11; t.m12 = m12; t.m13 = m13; t.m14 = m14;
 	t.m21 = m21; t.m22 = m22; t.m23 = m23; t.m24 = m24;
@@ -447,6 +467,7 @@ CG_INLINE CATransform3D CATransform3DMake( CGFloat m11, CGFloat m12, CGFloat m13
 	t.m41 = m41; t.m42 = m42; t.m43 = m43; t.m44 = m44;
 	return t;
 }
+
 
 
 
@@ -684,7 +705,7 @@ CG_INLINE CATransform3D CATransform3DMake( CGFloat m11, CGFloat m12, CGFloat m13
 
 		//	NSLog(@"Clicked: %@", [[layer valueForKey:@"azfile"] propertiesPlease] );
 	CAShapeLayerNoHit *shapeLayer = [CAShapeLayerNoHit layer];
-		//	[shapeLayer setValue:layer forKey:@"mommy"];
+	shapeLayer[@"mommy"] 		= layer;
 	CGFloat dynnamicStroke 		= .05 * AZMaxDim(layer.bounds.size);
 	CGFloat half 				= dynnamicStroke / 2;
 	shapeLayer.bounds			= NSInsetRect(layer.bounds, dynnamicStroke, dynnamicStroke);
@@ -780,17 +801,6 @@ CG_INLINE CATransform3D CATransform3DMake( CGFloat m11, CGFloat m12, CGFloat m13
 	//		//	[shapeLayer setPath:[[NSBezierPath bezierPathWithRoundedRect:contentLayer.bounds cornerRadius:contentLayer.cornerRadius ] quartzPath]];
 	// 	return shapeLayer;
 	//}
-/*
- - (void) redrawPath {
- CALayer *selected = [lassoLayer valueForKey:@"mommy"];
- CGRect shapeRect = selected.bounds;
- shapeRect.size.width -= 4;
- shapeRect.size.height -= 4;
- CGMutablePathRef path = CGPathCreateMutable();
- CGPathAddRect(path, NULL, shapeRect);
- [lassoLayer setPath:path];
- CGPathRelease(path);
- } */
 
 -(CATransform3D)makeTransformForAngle:(CGFloat)angle{ // from:(CATransform3D)start{
 
@@ -811,7 +821,7 @@ CG_INLINE CATransform3D CATransform3DMake( CGFloat m11, CGFloat m12, CGFloat m13
 
 - (void)setObject:(id)object forKeyedSubscript:(NSString *)key
 {
-	if (IsEmpty(object)) [self setValue:@"" forKey:key];
+	if (isEmpty(object)) [self setValue:@"" forKey:key];
 	else [self setValue:object forKey:key];
 }
 -(void)rotateAroundYAxis:(CGFloat)radians

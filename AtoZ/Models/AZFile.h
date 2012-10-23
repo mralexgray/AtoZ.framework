@@ -9,7 +9,7 @@
 @property (NATOM, ASS, RONLY) CGF	  	hue;
 @property (NATOM, ASS, RONLY) BOOL		hasLabel;
 
-@property (nonatomic, strong) 	NSS 	*path;
+@property (nonatomic, strong) 	NSS 	*path,*itemKind;
 @property (nonatomic, strong) 	NSC		*color, *customColor;
 @property (nonatomic, readonly) NSA  	*colors;
 @property (nonatomic, assign)	AZWindowPosition		position;
@@ -22,14 +22,16 @@
 @end
 
 // Concrete subclass of ATDesktopEntity that loads children from a folder
+
+
 @interface AZFolder : NSArray //AZFile
-//@property(nonatomic, readonly) NSMutableArray *children;
 @property (RONLY) NSUI count;
-//@property (RONLY) NSUI capacity;
+//	@property(nonatomic, readonly) NSMutableArray *children;
+//	@property (RONLY) NSUI capacity;
 - (id) initWithArray:(NSArray *)array;
 + (id) appFolder;
 + (id) samplerWithCount:(NSUInteger)items;
-//+ (id) samplerWithBetween:(NSUInteger)minItems andMax:(NSUInteger)items;
+// + (id) samplerWithBetween:(NSUInteger)minItems andMax:(NSUInteger)items;
 + (id) instanceWithFiles:(NSArray*)files;
 + (id) instanceWithPaths:(NSArray*)strings;
 

@@ -10,6 +10,7 @@
 //  Version: 2.0
 
 #import "CTBadge.h"
+#import "AtoZ.h"
 
 const float CTLargeBadgeSize = 46.;
 const float CTSmallBadgeSize = 23.;
@@ -19,7 +20,7 @@ const float CTSmallLabelSize = 11.;
 @interface CTBadge (Private)
 - (NSImage *)badgeMaskOfSize:(float)size length:(unsigned)length;				//return a badge with height of <size> to fit <length> characters
 - (NSAttributedString *)labelForString:(NSString *)string size:(unsigned)size;	//returns appropriately attributed label string (not autoreleased)
-- (NSString *)stringForValue:(unsigned)value;									//returns string for display (replaces large numbers with infinity)
+- (NSString *)stringForValue:(NSInteger)value;									//returns string for display (replaces large numbers with infinity)
 - (NSGradient *)badgeGradient;													//gradient used to fill badge mask
 @end
 
@@ -34,8 +35,8 @@ const float CTSmallLabelSize = 11.;
 	badgeColor = nil;
 	labelColor = nil;
 	
-	[self setBadgeColor:[NSColor redColor]];
-	[self setLabelColor:[NSColor whiteColor]];
+	[self setBadgeColor:RANDOMCOLOR];
+	[self setLabelColor:self.badgeColor.contrastingForegroundColor];
 	}
   return self;
   }
@@ -165,7 +166,7 @@ const float CTSmallLabelSize = 11.;
   
   [badgeImage lockFocus];
 	[badgeGradient drawInRect:NSMakeRect(origin.x, origin.y, floorf(badgeSize.width), floorf(badgeSize.height)) angle:angle];			//apply the gradient
-	[badgeMask compositeToPoint:origin operation: NSCompositeDestinationAtop];															//knock out the badge area
+	[badgeMask drawAtPoint:origin fromRect:NSZeroRect operation:NSCompositeDestinationAtop fraction:1];	//knock out the badge area
 	[label drawInRect:NSMakeRect(origin.x+floorf((badgeSize.width-labelSize.width)/2), origin.y+floorf((badgeSize.height-labelSize.height)/2), badgeSize.width, labelSize.height)];	//draw label in center
   [badgeImage unlockFocus];
   
@@ -175,13 +176,13 @@ const float CTSmallLabelSize = 11.;
   
   [image lockFocus];
 	[NSGraphicsContext saveGraphicsState];
-	  NSShadow *theShadow = [[NSShadow alloc] init];
-	  [theShadow setShadowOffset: NSMakeSize(0,-shadowOffset)];
-	  [theShadow setShadowBlurRadius:shadowBlurRadius];
-	  [theShadow setShadowColor:[[NSColor blackColor] colorWithAlphaComponent:shadowOpacity]];
-	  [theShadow set];
-	  [badgeImage compositeToPoint:NSZeroPoint operation:NSCompositeSourceOver];
-	[NSGraphicsContext restoreGraphicsState];
+		NSShadow *theShadow = [[NSShadow alloc] init];
+		[theShadow setShadowOffset: NSMakeSize(0,-shadowOffset)];
+		[theShadow setShadowBlurRadius:shadowBlurRadius];
+		[theShadow setShadowColor:[[NSColor blackColor] colorWithAlphaComponent:shadowOpacity]];
+		[theShadow set];
+		[badgeImage drawAtPoint:NSZeroPoint];
+		[NSGraphicsContext restoreGraphicsState];
   [image unlockFocus];
   
   
@@ -195,7 +196,7 @@ const float CTSmallLabelSize = 11.;
   //draw large icon in the upper right corner of the overlay image
   [overlayImage lockFocus];
 	NSSize badgeSize = [badgeImage size];
-	[badgeImage compositeToPoint:NSMakePoint(128-dx-badgeSize.width,128-dy-badgeSize.height) operation:NSCompositeSourceOver];  
+	[badgeImage drawAtPoint:NSMakePoint(128-dx-badgeSize.width,128-dy-badgeSize.height)];
   [overlayImage unlockFocus];
 
   return overlayImage;
@@ -208,7 +209,7 @@ const float CTSmallLabelSize = 11.;
   
   //Put the appIcon underneath the badgeOverlay
   [badgeOverlay lockFocus];
-	[appIcon compositeToPoint:NSZeroPoint operation:NSCompositeDestinationOver];
+	[appIcon draw];
   [badgeOverlay unlockFocus];
   
   [NSApp setApplicationIconImage:badgeOverlay];
@@ -246,7 +247,7 @@ const float CTSmallLabelSize = 11.;
   
   NSMutableParagraphStyle *pStyle = [[NSMutableParagraphStyle alloc] init];[pStyle setAlignment:NSCenterTextAlignment];
   NSDictionary *attributes = @{NSForegroundColorAttributeName: [self labelColor],
-																		  NSFontAttributeName: labelFont};
+																			NSFontAttributeName: labelFont};
   
   //Label stuff
   if([label length] >= 6)	//replace with summarized string - ellipses at end and a zero-width space to trick us into using the 5-wide badge
@@ -257,10 +258,10 @@ const float CTSmallLabelSize = 11.;
   return attributedString;
   }
 
-- (NSString *)stringForValue:(unsigned)value
+- (NSString *)stringForValue:(NSInteger)value
   {
   if(value < 100000)
-	return [NSString stringWithFormat:@"%u", value];
+	return [NSString stringWithFormat:@"%ld", value];
   else //give infinity
 	return @"\xe2\x88\x9e";
   }
@@ -270,13 +271,13 @@ const float CTSmallLabelSize = 11.;
   NSImage *badgeMask;
   
   if(length <=2)
-	badgeMask = [NSImage imageNamed:@"CTBadge_1.pdf"];
+	badgeMask = [NSImage frameworkImageNamed:@"CTBadge_1.pdf"];
   else if(length <=3)
-	badgeMask = [NSImage imageNamed:@"CTBadge_3.pdf"];
+	badgeMask = [NSImage frameworkImageNamed:@"CTBadge_3.pdf"];
   else if(length <=4)
-	badgeMask = [NSImage imageNamed:@"CTBadge_4.pdf"];
+	badgeMask = [NSImage frameworkImageNamed:@"CTBadge_4.pdf"];
   else
-	badgeMask = [NSImage imageNamed:@"CTBadge_5.pdf"];
+	badgeMask = [NSImage frameworkImageNamed:@"CTBadge_5.pdf"];
   
   if(size > 0 && size != [badgeMask size].height)
 	{

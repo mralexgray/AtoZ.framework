@@ -40,18 +40,25 @@
 #import <QuartzCore/QuartzCore.h>
 #import <Foundation/Foundation.h>
 #import <AudioToolbox/AudioToolbox.h>
+#import <AVFoundation/AVFoundation.h>
+#import <CoreFoundation/CoreFoundation.h>
 #import <ApplicationServices/ApplicationServices.h>
+#import <Zangetsu/Zangetsu.h>
+
+
+
 #import	"AtoZUmbrella.h"
+#import "AtoZGeometry.h"
+#import "AtoZFunctions.h"
 
 #define EXCLUDE_STUB_PROTOTYPES 1
 #import <PLWeakCompatibility/PLWeakCompatibilityStubs.h>
-
-#import "AZGeometricFunctions.h"
+#import <BlocksKit/BlocksKit.h>
+#import <FunSize/FunSize.h>
 
 //	#import "AZObject.h"
 //	#import "AZFile.h"
-#import "AZGeometry.h"
-#import "AtoZFunctions.h"
+//#import "AZGeometry.h"
 //#import "Nu.h"
 
 

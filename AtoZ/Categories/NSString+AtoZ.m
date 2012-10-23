@@ -43,6 +43,9 @@
 	if ( [[NSFileManager defaultManager] isReadableFileAtPath:self] )
 		[[NSFileManager defaultManager] copyItemAtPath:self toPath:path error:nil];
 }
+
+
+
 - (CGFloat)pointSizeForFrame:(NSRect)frame withFont:(NSString *)fontName;
 {
 	return [[self class] pointSizeForFrame:frame withFont:fontName forString:self];
@@ -64,6 +67,8 @@
     [fontAttributes release], fontAttributes = nil;
     return (CGFloat)fontLoop - 1.0;
 }
+
+
 
 - (NSString *)stringByReplacingAllOccurancesOfString:(NSString *)search withString:(NSString *)replacement
 {
@@ -128,20 +133,29 @@
 //    CGRect textBounds = CGRectMake(rect.origin.x + (rect.size.width - size.width) / 2,
 //                                   rect.origin.y + (rect.size.height - size.height) / 2,
 //                                   size.width, size.height);
-    [self drawInRect:frame withAttributes:@{font:NSFontNameAttribute, @12:NSFontSizeAttribute}];
+    [self drawInRect:frame withFontNamed:font andColor:WHITE];//@{font:NSFontNameAttribute }];
 }
 
 - (void) drawInRect:(NSRect)r withFont:(NSFont*)font andColor:(NSColor*)color {
+	 [self drawInRect:r withFontNamed:font.fontName andColor:color];
+}
 
-    NSMutableParagraphStyle *paragStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
-	[paragStyle setLineBreakMode:	NSLineBreakByTruncatingTail];
-	[paragStyle setAlignment:NSCenterTextAlignment];
-    NSDictionary *dictBoldAttr = @{ 	NSFontAttributeName : font,
-							 NSForegroundColorAttributeName : [color contrastingForegroundColor],
-							  NSParagraphStyleAttributeName : paragStyle };
+- (void) drawInRect:(NSRect)r withFontNamed:(NSS*)fontName andColor:(NSColor*)color {
 
-	[self drawInRect:r withAttributes: dictBoldAttr];
+	NSMutableParagraphStyle *paraAttr = [[NSMutableParagraphStyle defaultParagraphStyle ] mutableCopy];
+    [paraAttr setAlignment:NSCenterTextAlignment];
+    [paraAttr setLineBreakMode:NSLineBreakByTruncatingTail];
 
+
+	CGFloat points = [self pointSizeForFrame:r withFont:fontName];
+    NSDictionary *attrsDictionary = @{	NSFontAttributeName				: [NSFont fontWithName:fontName size:points],
+									 	NSForegroundColorAttributeName	: color,
+									 	NSParagraphStyleAttributeName	: paraAttr};
+
+    NSAttributedString *drawingString = [[NSAttributedString alloc]  initWithString:self attributes:attrsDictionary];
+	[drawingString drawInRect:r];
+
+}
 //		NSMutableParagraphStyle *paraStyle = [[NSMutableParagraphStyle alloc] init];
 ////		[paraStyle setParagraphStyle:	[NSParagraphStyle defaultParagraphStyle]];
 ////		[paraStyle setAlignment:		NSCenterTextAlignment];
@@ -153,7 +167,7 @@
 
 //	 @{ NSParagraphStyleAttributeName : style,  NSFontNameAttribute : font.fontName,  : @(font.pointSize)}];
 
-}
+
 ////	NSMutableParagraphStyle* style =
 //	NSParagraphStyle* style =	[[NSParagraphStyle alloc]initWithProperties: @{ NSParagraphStyleAttributeName :NSCenterTextAlignment }];
 

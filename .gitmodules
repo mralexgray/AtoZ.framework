@@ -43,3 +43,6 @@
 [submodule "Frameworks/Zangetsu"]
 	path = Frameworks/Zangetsu
 	url = https://github.com/mralexgray/Zangetsu.git
+[submodule "Frameworks/MAKVONotificationCenter"]
+	path = Frameworks/MAKVONotificationCenter
+	url = https://github.com/mikeash/MAKVONotificationCenter.git

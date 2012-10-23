@@ -56,6 +56,7 @@ NS_INLINE void _AZSimpleLog( const char *file, int lineNumber, const char *funcN
 	//	const char *threadName = [[[NSThread currentThread] name] UTF8String];
 }
 
+
 #define NSLog(args...) _AZSimpleLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args);
 
 
@@ -76,6 +77,9 @@ AZToStringFromTypeAndValue(@encode(typeof(_X_)), &_Y_);})
 #define CP copy
 #define SET setter
 #define GET getter
+
+#define pBCN postsBoundsChangedNotifications
+#define pFCN postsFrameChangedNotifications
 
 #define kIMG 	@"image"
 #define kCLR 	@"color"
@@ -149,6 +153,8 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define NSI NSInteger
 #define IBO IBOutlet
 #define NSIMG NSImage
+#define NSSZ NSSize
+
 #define NSS NSString
 #define NSA NSArray
 #define NSAC NSArrayController
@@ -184,6 +190,8 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define CAGA CAGroupAnimation
 #define CAAG CAAnimationGroup
 #define NSMA NSMutableArray
+#define NSMSet NSMutableSet
+
 #define NSMS NSMutableString
 #define NSAS NSAttributedString
 #define NSMAS NSMutableAttributedString
@@ -204,6 +212,8 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define rV rectValue
 #define fV floatValue
 
+#define AZBindSelector(observer,sel,keypath,obj) [AZNOTCENTER addObserver:observer selector:sel name:keypath object:obj]
+
 #define AZBind(binder,binding,toObj,keyPath) [binder bind:binding toObject:toObj withKeyPath:keyPath options:nil]
 
 #define  AZLAYOUTMGR [CAConstraintLayoutManager layoutManager]
@@ -220,6 +230,11 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define  AZVrect(r) [NSValue valueWithRect:          r]
 #define  AZVsize(s) [NSValue valueWithSize:          s]
 #define   AZV3d(t) [NSValue valueWithCATransform3D: t]
+
+
+#define CATransform3DPerspective(t, x, y) (CATransform3DConcat(t, CATransform3DMake(1, 0, 0, x, 0, 1, 0, y, 0, 0, 1, 0, 0, 0, 0, 1)))
+#define CATransform3DMakePerspective(x, y) (CATransform3DPerspective(CATransform3DIdentity, x, y))
+
 
 #define AZSuperLayerSuper (@"superlayer")
 
@@ -256,7 +271,8 @@ attr1 relativeTo:relName attribute:attr2 scale:scl offset:off]
 #define NEG(a) -a
 
 #define AZLOG(a) NSLog(@"%@", a)
-//#define AZLOG ( log )  NSLog(@"%@", log  )
+
+//static inline void AZLOG(id args){ _AZSimpleLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args); }
 
 #define StringFromBOOL(b) (b?@"YES":@"NO")
 
@@ -396,10 +412,10 @@ attr1 relativeTo:relName attribute:attr2 scale:scl offset:off]
 #define NSDICT (...) [NSDictionary dictionaryWithObjectsAndKeys: __VA_ARGS__, nil]
 #define NSARRAY(...) [NSArray arrayWithObjects: __VA_ARGS__, nil]
 #define NSBOOL (_X_) [NSNumber numberWithBool:(_X_)]
-#define NSSET  (...) [NSSet setWithObjects: __VA_ARGS__, nil]
+//#define NSSET  (...) [NSSet setWithObjects: __VA_ARGS__, nil]
 
-#define NSCOLOR       (r,g,b,a) [NSColor colorWithCalibratedRed:r green:g blue:b alpha:a]
-#define NSDEVICECOLOR (r,g,b,a) [NSColor colorWithDeviceRed:r green:g blue:b alpha:a]
+//#define NSCOLOR       (r,g,b,a) [NSColor colorWithCalibratedRed:r green:g blue:b alpha:a]
+//#define NSDEVICECOLOR (r,g,b,a) [NSColor colorWithDeviceRed:r green:g blue:b alpha:a]
 #define NSCOLORHSB    (h,s,b,a) [NSColor colorWithDeviceHue:h saturation:s brightness:b alpha:a]
 
 #pragma - Log Functions
@@ -471,6 +487,15 @@ typedef enum  {	AZPositionLeft 			= NSMinXEdge, // 0  NSDrawer
 // NSVALUE defined, see NSValue+AtoZ.h
 #define AZWindowPositionTypeArray @"Left",@"Bottom",@"Right",@"Top",@"LeftTop",@"LeftBottom",@"RightTop",@"RightBottom",@"TopLeft",@"TopRight",@"BottomLeft",@"Right",@"Automatic",nil
 #endif
+
+#define QUAD AZQuadrant
+
+typedef enum 	{
+	TopLeft     = 1,
+	TopRight 	= 2,
+	BotLeft		= 3,
+	BotRight   	= 4
+} 	AZQuadrant;
 
 typedef struct {	CGFloat tlX; CGFloat tlY;
 					CGFloat trX; CGFloat trY;

@@ -7,6 +7,56 @@
 //
 
 #import <Cocoa/Cocoa.h>
+@interface NSImage (Transform)
+
+/*!
+ @brief    Rotates an image around its center by a given
+ angle in degrees and returns the new image.
+
+ @details  The width and height of the returned image are,
+ respectively, the height and width of the receiver.
+
+ I have not yet tested this with a non-square image.
+
+ Consider another way to draw images rotated:
+
+ CGContextRotateCTM(UIGraphicsGetCurrentContext(), M_PI / 2.0);
+ [img drawAtPoint...];
+ --
+ David Duncan
+ Apple DTS Animation and Printing
+ */
+- (NSImage*)imageRotatedByDegrees:(CGFloat)degrees ;
+
+@end
+
+
+@interface NSImage (Merge)
+
+/*!
+ @brief    Returns an image constructed by tiling a given array
+ of images side-by-side or top-to-bottom.
+
+ @param    spacingX  Spacing which will be applied horizontally between
+ images, and at the left and right borders.
+ @param    spacingY  Spacing which will be applied vertitally between
+ images, and at the bottom and top borders.
+ @param    vertically  YES to tile the given images from top
+ to bottom, starting with the first image in the array at the top.
+ NO to tile the given images from left to right, starting with
+ the first image in the array at the left.
+ */
++ (NSImage*)imageByTilingImages:(NSArray*)images
+					   spacingX:(CGFloat)spacingY
+					   spacingY:(CGFloat)spacingY
+					 vertically:(BOOL)vertically ;
+
+- (NSImage*)imageBorderedWithInset:(CGFloat)inset ;
+
+- (NSImage*)imageBorderedWithOutset:(CGFloat)outset ;
+
+@end
+
 
 // Helper method for creating unique image identifiers
 #define BBlockImageIdentifier(fmt, ...) [NSString stringWithFormat:(@"%@%@" fmt), \

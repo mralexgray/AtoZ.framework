@@ -1,0 +1,15 @@
+kernel vec4 irisOpenEffect(sampler image, sampler targetImage, float currTime)
+{
+	vec2 pos = samplerCoord(image);
+	vec4 sourcePixel = unpremultiply( sample(image, pos) );
+	vec4 targetPixel = unpremultiply( sample(targetImage, pos) );
+	vec4 outputPixel;
+	float biggerEdge = (samplerSize(image).x > samplerSize(image).y) ? samplerSize(image).x : samplerSize(image).y;
+	float radius = (biggerEdge * 0.6) * currTime;
+
+	outputPixel = (((pos.x - (samplerSize(image).x * 0.5)) * (pos.x - (samplerSize(image).x * 0.5)))
+	+ ((pos.y - (samplerSize(image).y * 0.5)) * (pos.y - (samplerSize(image).y * 0.5)))
+	< (radius * radius)) ? targetPixel : sourcePixel;
+
+	return premultiply(outputPixel);
+}

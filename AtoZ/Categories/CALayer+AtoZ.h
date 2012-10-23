@@ -13,7 +13,7 @@
 	void prepareContext(CGContextRef ctx);
 
 	extern void applyPerspective (CALayer* layer);
-	extern CATransform3D perspective();
+//	extern CATransform3D perspective();
 
 /** Moves a layer from one superlayer to another, without changing its position onscreen. */
 	extern void ChangeSuperlayer( CALayer *layer, CALayer *newSuperlayer, int index );
@@ -47,8 +47,6 @@
 	extern CGColorRef CreatePatternColor ( CGImageRef image );
 /** Returns the alpha value of a single pixel in a CGImage, scaled to a particular size. */
 	float GetPixelAlpha ( CGImageRef image, CGSize imageSize, CGPoint pt );
-#define CATransform3DPerspective(t, x, y) (CATransform3DConcat(t, CATransform3DMake(1, 0, 0, x, 0, 1, 0, y, 0, 0, 1, 0, 0, 0, 0, 1)))
-#define CATransform3DMakePerspective(x, y) (CATransform3DPerspective(CATransform3DIdentity, x, y))
 
 /**
 As with the distort transform, the x and y values adjust intensity. I have included a CATransform3DMake method as there are no built in CATransform3D methods to create a transform by passing in 16 values (mimicking the CGAffineTransformMake method).
@@ -61,21 +59,26 @@ For those that have never seen the CATransform3D struct before, you must apply t
 	Yes, but what are the units ? (radians … ?)
 	The value goes directly into the transform, if you want to make it radians, or any other type of unit you will need to put some math in there
  */
-
-	CG_INLINE CATransform3D CATransform3DMake( CGFloat m11, CGFloat m12, CGFloat m13, CGFloat m14,
-					  						   CGFloat m21, CGFloat m22, CGFloat m23, CGFloat m24,
-											   CGFloat m31, CGFloat m32, CGFloat m33, CGFloat m34,
-											   CGFloat m41, CGFloat m42, CGFloat m43, CGFloat m44);
+extern CATransform3D CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13, CGFloat m14,
+				  CGFloat m21, CGFloat m22, CGFloat m23, CGFloat m24,
+				  CGFloat m31, CGFloat m32, CGFloat m33, CGFloat m34,
+				  CGFloat m41, CGFloat m42, CGFloat m43, CGFloat m44);
+//
+//
+//	CG_INLINE CATransform3D CATransform3DMake( CGFloat m11, CGFloat m12, CGFloat m13, CGFloat m14,
+//					  						   CGFloat m21, CGFloat m22, CGFloat m23, CGFloat m24,
+//											   CGFloat m31, CGFloat m32, CGFloat m33, CGFloat m34,
+//											   CGFloat m41, CGFloat m42, CGFloat m43, CGFloat m44);
 
 #import "AtoZUmbrella.h"
 @interface CALayer (VariadicConstraints)
 - (void)addConstraintsRelSuper:(CAConstraintAttribute)first,...; /* REQUIRES NSNotFound termination */
+//- (void) addConstraintsRelSuper:(CAConstraintAttribute) nilAttributeList, ...;  // This method takes a nil-terminated list of objects.
 @end
 
 @interface CALayer (AtoZ)
 -(void) animateXThenYToFrame:(NSR)toRect duration:(NSUI)time;
 
-- (void) addConstraintsRelSuper:(CAConstraintAttribute) nilAttributeList, ...;  // This method takes a nil-terminated list of objects.
 
 - (void)blinkLayerWithColor:(NSColor *)color;
 

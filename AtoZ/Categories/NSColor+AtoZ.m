@@ -5,6 +5,7 @@
 //  Created by Alex Gray on 6/29/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 #import "NSColor+AtoZ.h"
+#import "AtoZ.h"
 #import "AZNamedColors.h"
 
 #define AIfmod( X, Y )	fmod((X),(Y))
@@ -203,6 +204,11 @@ static ColorNameRec sColorTable[] = {
 	{ 0x9acd32, "yellowgreen" },
 };
 @implementation NSColor (AtoZ)
+
+- (NSColor*) alpha:(CGFloat)floater
+{
+	return [self colorWithAlphaComponent:floater];
+}
 
 - (NSColor *)inverted
 {
@@ -558,7 +564,7 @@ static NSColor *ColorWithCSSString(NSString *str) {
 	return MAUVE;
 }
 + (NSColor *)randomOpaqueColor {	float c[4];
-	c[0] = RandomComponent();	c[1] = RandomComponent();	c[2] = RandomComponent();	c[3] = 1.0;
+	c[0] = randomComponent();	c[1] = randomComponent();	c[2] = randomComponent();	c[3] = 1.0;
 	return [NSColor colorWithCalibratedRed:c[0] green:c[1] blue:c[2] alpha:c[3]];
 }
 + (NSColor *)randomColor {

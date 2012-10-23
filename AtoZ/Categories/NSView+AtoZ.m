@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 #import "NSView+AtoZ.h"
 //#import "AGFoundation.h"
-#import "AZGeometricFunctions.h"
+#import "AtoZGeometry.h"
 #import "AtoZ.h"
 #import <QuartzCore/QuartzCore.h>
 
@@ -76,6 +76,22 @@ static NSString *ANIMATION_IDENTIFER = @"animation";
 static char const * const ISANIMATED_KEY = "ObjectRep";
 
 @implementation NSView (AtoZ)
+
+- (void)setCenter:(NSPoint)center
+{
+    [self setFrameOrigin:NSMakePoint(floorf(center.x - (NSWidth([self bounds])) / 2),
+                                     floorf(center.y - (NSHeight([self bounds])) / 2))];
+}
+- (NSPoint)getCenter
+{
+    return NSMakePoint(floorf(self.bounds.origin.x + (self.bounds.size.width / 2)),
+                       floorf(self.bounds.origin.y + (self.bounds.size.height / 2)));
+}
+- (NSPoint)getCenterOnFrame
+{
+    return NSMakePoint(floorf(self.frame.origin.x + (self.frame.size.width / 2)),
+                       floorf(self.frame.origin.y + (self.frame.size.height / 2)));
+}
 
 - (void) maximize{
 	NSRect r = [self.window.contentView bounds];

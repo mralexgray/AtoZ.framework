@@ -7,12 +7,13 @@
 //
 
 #import "AtoZ.h"
-#import "AtoZModels.h"
-#import "AZFile.h"
+
+
 @interface AZDockQuery : BaseModel
-{
-	NSArray *_dock, *_dockSorted;
-}
+//{
+//	NSArray *_dock, *_dockSorted;
+//}
+@property (nonatomic, strong) NSMA *dockSorted;
 @property (nonatomic, strong) NSArray *dock;
 - (CGPoint) locationNowForAppWithPath:(NSString*)aPath;
 

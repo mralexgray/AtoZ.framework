@@ -1,34 +1,4 @@
-#import <xpc/xpc.h>
-#import <Cocoa/Cocoa.h>
-#import <objc/runtime.h>
-#import <Quartz/Quartz.h>
-#import <Carbon/Carbon.h>
-#import <AppKit/AppKit.h>
-#import <QuartzCore/QuartzCore.h>
-#import <Foundation/Foundation.h>
-#import <AudioToolbox/AudioToolbox.h>
-#import <ApplicationServices/ApplicationServices.h>
-
-#define EXCLUDE_STUB_PROTOTYPES 1
-#import <PLWeakCompatibility/PLWeakCompatibilityStubs.h>
-
-#import <XPCKit/XPCKit.h>
-#import <FunSize/FunSize.h>
-#import <BlocksKit/BlocksKit.h>
-#import <CocoaPuffs/CocoaPuffs.h>
-#import <NanoStore/NanoStore.h>
-
-#import	"AtoZUmbrella.h"
-#import "BaseModel.h"
-
-#import	"AtoZUmbrella.h"
-#import "AZGeometricFunctions.h"
-#import "AZGeometry.h"
-#import "AtoZFunctions.h"
-//	#import "AZObject.h"
-//	#import "AZFile.h"
-//  #import "Nu.h"
-
+//#import "Nu.h"
 //#import <NanoStore/NSFNanoObjectProtocol.h>
 //#import <NanoStore/NSFNanoObject.h>
 //#import <NanoStore/NSFNanoGlobals.h>
@@ -42,11 +12,79 @@
 //#import <NanoStore/NSFNanoEngine.h>
 //#import <NanoStore/NSFNanoGlobals.h>
 //#import <Growl/Growl.h>
-
 //#import "Nu.h"
+#import <xpc/xpc.h>
+#import <Cocoa/Cocoa.h>
+#import <objc/runtime.h>
+#import <Quartz/Quartz.h>
+#import <Carbon/Carbon.h>
+#import <AppKit/AppKit.h>
+#import <QuartzCore/QuartzCore.h>
+#import <Foundation/Foundation.h>
+#import <AudioToolbox/AudioToolbox.h>
+#import <ApplicationServices/ApplicationServices.h>
+
+#define EXCLUDE_STUB_PROTOTYPES 1
+#import <PLWeakCompatibility/PLWeakCompatibilityStubs.h>
+//#import <RMKit/RMKit.h>
+#import <XPCKit/XPCKit.h>
+#import <FunSize/FunSize.h>
+#import <BlocksKit/BlocksKit.h>
+#import <CocoaPuffs/CocoaPuffs.h>
+#import <NanoStore/NanoStore.h>
+#import <Zangetsu/Zangetsu.h>
+#import "MAKVONotificationCenter.h"
+#import "F.h"
+#import "NSBag.h"
+#import	"BaseModel.h"
+#import "NSArray+F.h"
+#import "NSNumber+F.h"
+#import "NSDictionary+F.h"
+
+#import "BlocksAdditions.h"
+
+@interface AZSingleton : NSObject
++(id) instance;
++(id) sharedInstance; //alias for instance
++(id) singleton;      //alias for instance
+@end
+
+#import "NotificationCenterSpy.h"
+#import "TransparentWindow.h"
+#import "LoremIpsum.h"
+
+#import "AtoZUmbrella.h"
+#import "AtoZGeometry.h"
+
+//#import "AZModelObject.h"
+
+
+#import "AZTalker.h"
+
+#import "AtoZFunctions.h"
+//#import "AZGeometry.h"
+#import "SynthesizeSingleton.h"
+//#import "iCarousel.h"
+//#import "azCarousel.h"
+
+
+#import "BaseModel.h"
+#import "CTGradient.h"
+#import "AZApplePrivate.h"
+#import "RuntimeReporter.h"
+#import "CTBadge.h"
+#import "AZBackgroundProgressBar.h"
+#import "AZStopwatch.h"
+
+
+#import	"AtoZUmbrella.h"
+#import "AtoZGeometry.h"
+//#import "AZGeometry.h"
+#import "AtoZFunctions.h"
+//	#import "AZObject.h"
+//	#import "AZFile.h"
 //	#import "AtoZModels.h"
 //	#import "AZObject.h"
-#import "F.h"
 
 //	#import "AtoZModels.h"
 //#import "AtoZ.h"
@@ -60,39 +98,6 @@
   @property (nonatomic, assign) <\#type\#> <\#name\#>;
 */
 
-@interface AZSingleton : NSObject
-+(id) instance;
-+(id) sharedInstance; //alias for instance
-+(id) singleton;      //alias for instance
-@end
-
-
-#import "AtoZUmbrella.h"
-#import	"BaseModel.h"
-#import "NSBag.h"
-
-#import "BlocksAdditions.h"
-#import "F.h"
-#import "NSArray+F.h"
-#import "NSDictionary+F.h"
-#import "NSNumber+F.h"
-//#import "AZModelObject.h"
-
-
-#import "AZTalker.h"
-//#import <XPCKit/XPCKit.h>
-//#import <RMKit/RMKit.h>
-#import "NotificationCenterSpy.h"
-#import "TransparentWindow.h"
-#import "LoremIpsum.h"
-
-#import "AtoZFunctions.h"
-#import "AZGeometry.h"
-#import "AZGeometricFunctions.h"
-#import "SynthesizeSingleton.h"
-#import "iCarousel.h"
-//#import "azCarousel.h"
-
 #import "AZCalculatorController.h"
 
 #import "AZLayer.h"
@@ -103,6 +108,7 @@
 #import "AZSimpleView.h"
 
 	// Categories
+#import "NSManagedObjectContext+EasyFetch.h"
 #import "NSEvent+AtoZ.h"
 #import "CAAnimation+AtoZ.h"
 #import "CALayer+AtoZ.h"
@@ -146,7 +152,6 @@
 #import "AZLassoView.h"
 #import "AZBackground.h"
 #import "AZCSSColors.h"
-#import "CTGradient.h"
 #import "AZSound.h"
 #import "Transition.h"
 
@@ -179,7 +184,6 @@
 #import "AZPopupWindow.h"
 #import "AZIndeterminateIndicator.h"
 #import "AZAttachedWindow.h"
-#import "AZStopwatch.h"
 #import "AZBox.h"
 #import "AZBoxGrid.h"
 #import "AZBoxMagic.h"
@@ -189,11 +193,8 @@
 #import "AZOverlay.h"
 #import "AtoZInfinity.h"
 #import "AZFileGridView.h"
-#import "AZApplePrivate.h"
-#import "RuntimeReporter.h"
-#import "AZBackgroundProgressBar.h"
 #import "NSTextView+AtoZ.h"
-#import "CTBadge.h"
+
 #import "AZVeil.h"
 
 // COREDATA
@@ -355,6 +356,25 @@ extern NSString *const AtoZDockSortedUpdated;
 @interface  NSWindow (Borderless)
 + (NSWindow*) borderlessWindowWithContentRect: (NSRect)aRect;
 @end
+@interface CALayerNoHit : CALayer
+@end
+@interface CAShapeLayerNoHit : CAShapeLayer
+@end
+@interface CATextLayerNoHit : CATextLayer
+@end
+#define XCODE_COLORS 0
+#define XCODE_COLORS_ESCAPE @"\033["
+#define XCODE_COLORS_RESET_FG  XCODE_COLORS_ESCAPE @"fg;" // Clear any foreground color
+														  //#define XCODE_COLORS_RESET_BG  XCODE_COLORS_ESCAPE @"bg;" // Clear any background color
+#define XCODE_COLORS_RESET     XCODE_COLORS_ESCAPE @";"   // Clear any foreground or background color
+
+
+@interface CAConstraint (brevity)
+//+(CAConstraint*)maxX;
+//#define maxY = AZConstraint(kCAConstraintMaxY,@"superlayer");
+//#define superWide = AZConstraint(kCAConstraintWidth,@"superlayer");
+//#define superHigh = AZConstraint(kCAConstraintHeight,@"superlayer");
+@end
 
 
 /** The appledoc application handler.
@@ -367,29 +387,4 @@ extern NSString *const AtoZDockSortedUpdated;
 
  @warning *Global settings implementation details:* To be able to properly apply all levels of settings - factory defaults, global settings and command line arguments - we can't solely rely on `DDCli` for parsing command line args. As the user can supply templates path from command line (instead of using one of the default paths), we need to pre-parse command line arguments for templates switches. The last one found is then used to read global settings. This solves proper settings inheritance up to global settings level. Another issue is how to implement code that deals with global settings; there are several possible solutions (the simplest from programmers point of view would be to force the user to pass in templates path as the first parameter, then `DDCli` would first process this and when we would receive notification, we could parse the option, load in global settings and resume operation). At the end I chose to pre-parse command line for template arguments before passing it to `DDCli`. This did require some tweaking to `DDCli` code (specifically the method that converts option string to KVC key was moved to public interface), but ended up as very simple to inject global settings - by simply using the same KCV messages as `DDCli` uses. This small tweak allowed us to use exactly the same path of handling global settings as normal command line arguments. The benefits are many: all argument names are alreay unit tested to properly map to settings values, code reuse for setting the values.
  */
-
-
-@interface CAConstraint (brevity)
-
-//+(CAConstraint*)maxX;
-
-//#define maxY = AZConstraint(kCAConstraintMaxY,@"superlayer");
-//#define superWide = AZConstraint(kCAConstraintWidth,@"superlayer");
-//#define superHigh = AZConstraint(kCAConstraintHeight,@"superlayer");
-
-@end
-
-@interface CALayerNoHit : CALayer
-@end
-@interface CAShapeLayerNoHit : CAShapeLayer
-@end
-@interface CATextLayerNoHit : CATextLayer
-@end
-#define XCODE_COLORS 0
-
-#define XCODE_COLORS_ESCAPE @"\033["
-
-#define XCODE_COLORS_RESET_FG  XCODE_COLORS_ESCAPE @"fg;" // Clear any foreground color
-//#define XCODE_COLORS_RESET_BG  XCODE_COLORS_ESCAPE @"bg;" // Clear any background color
-#define XCODE_COLORS_RESET     XCODE_COLORS_ESCAPE @";"   // Clear any foreground or background color
 

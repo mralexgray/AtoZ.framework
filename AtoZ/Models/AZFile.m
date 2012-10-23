@@ -1,5 +1,6 @@
 #import "AZFile.h"
 
+
 @implementation AZFile
 @synthesize name=_name,
 			image=_image,
@@ -11,7 +12,7 @@
 @synthesize hue=_hue;
 
 -(void)didChangeValueForKey:(NSString *)key {
-	NSLog(@"Object chaged:%@",key);
+	NSLog(@"Object chaged:%@   val:%@",key, self[key]);
 	[key isEqualToString:@"path"] ? ^{}()
 								  : NSLog(@"no action taken.");
 }
@@ -22,12 +23,21 @@
 	[object isKindOfClass:[NSColor class]]  ? ^{ _color = object; }() 	: nil;
 	return self;
 }
+- (NSString *)itemDisplayName {
+	return self.name;
+}
+
+- (NSString *)itemKind {
+	return _itemKind = _itemKind ?: [_path hasSuffix:@"app"] ? @"Application" : @"Folder";
+}
+
 
 -(NSS*) name	{
 	return _name = _name ? _name :
+				   _path ? [AZFILEMANAGER displayNameAtPath:_path] :
 				   _path ? [[_path lastPathComponent] stringByDeletingPathExtension] :
 				  _color ? [_color nameOfColor] :
-				  _image ? [_image name] : @"";
+				  _image ? [_image name] : @"N/A";
 }
 -(NSIMG*) image {
 	NSSize theSize = AZSizeFromDimension(512);
@@ -306,8 +316,8 @@
 }
 
 - (id) appFolder {
-
-	return [AZFolder instanceWithPaths:[self appFolderPaths]];
+	static AZFolder *_appFolderPaths = nil;
+	return _appFolderPaths = _appFolderPaths ?: [AZFolder instanceWithPaths:[self appFolderPaths]];
 }
 
 
@@ -716,9 +726,9 @@ static NSOperationQueue *AZSharedOperationQueue() {
 */
 @end
 
-@implementation AZDockItem
+//@implementation AZDockItem
 
-+ (instancetype)instanceWithPath:(NSString *)path {
+//+ (instancetype)instanceWithPath:(NSString *)path {
 		//	AZDockItem *k = [AZDockItem instanceWithObject:path];
 		//		[k setWit]//:path];
 
@@ -731,7 +741,7 @@ static NSOperationQueue *AZSharedOperationQueue() {
 		//	u.path = string;
 		//	[[self super] setUp]; //WithPath:string];
 		//	return u;
-}
+//}
 	//@property (nonatomic, assign) 	CGPoint		dockPoint;
 	//@property (nonatomic, assign) 	CGPoint		dockPointNew;
 	//@property (nonatomic, assign) 	NSUInteger	spot;
@@ -739,7 +749,7 @@ static NSOperationQueue *AZSharedOperationQueue() {
 	//@property (nonatomic, readonly)	BOOL		isRunning;
 	//@property (nonatomic, assign)	BOOL		needsToMove;
 
-@end
+//@end
 
 	//+ (instancetype) dummy;
 	//- (NSString*) itunesDescription { return self.itunesInfo.itemDescription; }

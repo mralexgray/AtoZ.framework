@@ -60,4 +60,38 @@
 }
 
 
+- (NSArray *)frameworkClasses;
+{
+
+    NSMutableArray *array = [NSMutableArray array];
+//    int numberOfClasses = objc_getClassList(NULL, 0);
+//    Class *classes = calloc(sizeof(Class), numberOfClasses);
+//    numberOfClasses = objc_getClassList(classes, numberOfClasses);
+//    for (int i = 0; i < numberOfClasses; ++i) {
+//        Class c = classes[i];
+//        if ([NSBundle bundleForClass:c] == self) {
+//            [array addObject:c];
+//        }
+//    }
+//    free(classes);
+    return array;
+}
+
+
+- (void) cacheImages;
+{
+	NSA*u = [@[@"pdf", @"png"] map:^(NSString *type){
+		return  [[self pathsForResourcesOfType:type inDirectory: nil] map:^(NSS*path) {
+			NSS*name = [[path lastPathComponent]stringByDeletingPathExtension];
+			return [NSImage imageNamed:name] ? name : ^{
+				NSImage *needsPath = [[NSImage alloc]  initByReferencingFile:path];
+				if (needsPath) needsPath.name = name;
+				return needsPath;
+			}();
+		}];
+	}];
+	AZLOG(u);
+}
+
+
 @end

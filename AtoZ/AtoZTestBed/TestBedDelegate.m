@@ -11,7 +11,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 @interface NSObject (getLayer)
-- (CAL*)getLayer;
+- (CAL*)	getLayer;
 + (NSView*)viewInView:(NSView*)view;
 @end
 @implementation NSObject (getLayer)
@@ -49,6 +49,8 @@ const CGFloat dash[2] = {100, 60};
 }
 -(void) awakeFromNib
 {
+	[self loadSecondNib:nil];
+	[AtoZ sharedInstance];
 	[_segments 	 setAction:@selector(setView:) withTarget:self];
 	[_targetView setupHostView];
 	[_targetView 	swapSubs:self.debugLayers];
@@ -57,6 +59,24 @@ const CGFloat dash[2] = {100, 60};
 	}];
 }
 
+
+- (IBAction)loadSecondNib:(id)sender
+{
+	NSWindowController* awc = [[NSWindowController alloc] initWithWindowNibName:@"TestBed"];
+	[awc showWindow:self];
+    [[awc window] makeKeyAndOrderFront:nil];
+    [[NSApplication sharedApplication] arrangeInFront:nil];
+//	
+//	// Load with NSBundle
+//	NSLog(@"Loading NIB …");
+//
+//	if (![NSBundle loadNibNamed:@"TestBed" owner:self])
+//		{
+//		NSLog(@"Warning! Could not load myNib file.\n");
+//		}
+}
+
+
 - (AZMedallionView*)medallion {
 	return 	_medallion = _medallion ?: ^{
 		AZMedallionView *n = [[AZMedallionView alloc]initWithFrame:_targetView.frame];
@@ -64,14 +84,22 @@ const CGFloat dash[2] = {100, 60};
 		return n;  }();
 }
 - (void) setView:(id)sender	{
-//	self.seque =
-	[self.targetView setAnimations:@{@"subviews":self.transition}];
-	[self respondsToString:[sender segmentLabel]] ?
+	Sound *rando = [Sound soundNamed:@"unlock"];
+	[[SoundManager sharedManager] prepareToPlayWithSound:rando];
+	[[SoundManager sharedInstance] playSound:rando];
+//
+	NSS* str= [sender segmentLabel] ?: @"";
+	if ([self respondsToSelector:NSSelectorFromString(str)]){
+//		id newV = self[[sender segmentLabel]];
+//		newV[@"hidden"] = @(YES);
+//		if ([_targetView.subviews doesNotContainObject:newV])
 
-	[[_targetView animator] replaceSubview:[[_targetView subviews]objectAtIndex:0] with:[self valueForKey:[sender segmentLabel]]]
+//		[_targetView addSubview:newV];
+//		[self.targetView setAnimations:@{@"subviews":self.transition}];
+		[self.targetView replaceSubview:_targetView.subviews[0] with:[self valueForKey:[sender segmentLabel]]];
 			 //newImageView];
 //			   ? [NASpinSeque animateTo:self[[sender segmentLabel]] inSuperView:_targetView]
-			   :  nil;
+	}
 
 }
 //								[self.targetView  swapSubs:self[[sender segmentLabel]]] : nil;	}
@@ -82,7 +110,7 @@ const CGFloat dash[2] = {100, 60};
 	[BLKVIEW viewWithFrame:_targetView.frame opaque:YES drawnUsingBlock: ^(BLKVIEW *view, NSR dirtyRect) {
 		view.arMASK = NSSIZEABLE;
 		NSBP *arrow	= [[NSBezierPath bezierPathWithArrow]scaleToSize:AZScaleRect(view.frame, .5).size];
-		NSC  *color = RANDOMCOLOR;
+//		NSC  *color = RANDOMCOLOR;
 //		[view associatedValueForKey:@"blockC"]
 //		color :? [view setAssociatedValue:[NSC linenTintedWithColor:RANDOMCOLOR] forKey:@"blockC"];
 		NSRectFillWithColor( view.frame, [view associatedValueForKey:@"blockC"] );
@@ -106,11 +134,26 @@ const CGFloat dash[2] = {100, 60};
 -(NSView*)debugLayers {
 	return 	_debugLayers = _debugLayers ?: (NSView*)^{
 		AZDebugLayer *dL = [AZDebugLayer layer];
-		dL.backgroundColor = cgRED;
+		dL.backgroundColor = cgGREEN;
 		NSView *v = [[NSView alloc]initWithFrame:_targetView.frame];
 		v.arMASK = NSSIZEABLE;
-		v.layer = dL;
+		v.layer = dL;//[CALayer layer];
 		v.wantsLayer = YES;
+//		[v.layer addSublayer:dL];
+		[[[AZFolder samplerWithCount:4]valueForKeyPath:@"image"] eachWithIndex:^(id obj, NSInteger idx) {
+			NSR framer = quadrant(_targetView.bounds, idx+1);
+			CAL *new = [CALayer layer];
+			new.frame = framer;
+			new.backgroundColor = cgRANDOMCOLOR;//NewLayerWithFrame(framer);
+			new.contents = obj;
+			new.transform = [new makeTransformForAngle:.45];
+//			applyPerspective(new);
+			//			NSUI ii = (NSUI)idx;
+//			NSRect r = quadrant(_targetView.frame, 1);
+//			[new addSublayer:ReturnImageLayer(dL, obj, 1)];
+			[v.layer addSublayer:new];
+//			[v.layer addSublayer:[(NSIMG*)obj imageLayerForRect:quadrant(_targetView.frame, ii+1)]];
+		}];
 		return v;
 	}();
 

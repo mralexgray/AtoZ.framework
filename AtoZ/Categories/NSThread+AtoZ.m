@@ -8,6 +8,22 @@
 
 #import "NSThread+AtoZ.h"
 
+
+@implementation  NSThread (AtoZ)
+
++ (void) stackTrace {
+
+	NSArray *syms = [[self class] callStackSymbols];
+	if ([syms count] > 1) {
+		NSLog(@"<%@ %p> %@ - caller: %@ ", [self class], self, NSStringFromSelector(_cmd),[syms objectAtIndex:1]);
+	} else {
+		NSLog(@"<%@ %p> %@", [self class], self, NSStringFromSelector(_cmd));
+	}
+}
+
+@end
+
+
 @implementation NSThread (BlocksAdditions)
 + (void)performBlockInBackground:(void (^)())block {
 	[NSThread performSelectorInBackground:@selector(runBlock:)

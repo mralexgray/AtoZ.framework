@@ -16,77 +16,82 @@
 #else
 #define SM_SOUND NSSound
 #endif
+
 #import "AtoZ.h"
+
+
 extern NSString *const SoundDidFinishPlayingNotification;
+
 typedef void (^SoundCompletionHandler)(BOOL didFinish);
+
 @interface Sound : NSObject
 
-	//required for 32-bit Macs
-#ifdef __i386__
-{
-@private
-
-    float baseVolume;
-    float startVolume;
-    float targetVolume;
-    NSTimeInterval fadeTime;
-    NSTimeInterval fadeStart;
-    NSTimer *timer;
-    Sound *selfReference;
-    NSURL *url;
-    SM_SOUND *sound;
-    SoundCompletionHandler completionHandler;
-}
-#endif
+//	//required for 32-bit Macs
+//#ifdef __i386__
+//{
+//@private
+//
+//    CGFloat baseVolume;
+//    CGFloat startVolume;
+//    CGFloat targetVolume;
+//    NSTimeInterval fadeTime;
+//    NSTimeInterval fadeStart;
+//    NSTimer *timer;
+//    Sound *selfReference;
+//    NSURL *url;
+//    SM_SOUND *sound;
+//    SoundCompletionHandler completionHandler;
+//}
+//#endif
 
 + (Sound *) randomSound;
-+ (Sound *)soundNamed:(NSString *)name;
-+ (Sound *)soundWithContentsOfFile:(NSString *)path;
-- (Sound *)initWithContentsOfFile:(NSString *)path;
-+ (Sound *)soundWithContentsOfURL:(NSURL *)url;
-- (Sound *)initWithContentsOfURL:(NSURL *)url;
++ (Sound *) soundNamed:				(NSS*) name;
++ (Sound *) soundWithContentsOfFile:(NSS*) path;
+- (Sound *) initWithContentsOfFile: (NSS*) path;
++ (Sound *) soundWithContentsOfURL: (NSURL*)url;
+- (Sound *) initWithContentsOfURL:  (NSURL*)url;
 
 @property (NATOM, RONLY, copy ) 			 NSS *name;
 @property (NATOM, RONLY, STRNG) 			 NSURL *url;
 @property (NATOM, RONLY, getter = isPlaying) BOOL playing;
 @property (NATOM, ASS, getter = isLooping) BOOL looping;
 @property (NATOM, CP ) SoundCompletionHandler completionHandler;
-@property (NATOM, ASS) 					float baseVolume;
-@property (NATOM, ASS) 					float volume;
+@property (NATOM, ASS) 					CGFloat baseVolume;
+@property (NATOM, ASS) 					CGFloat volume;
 
-- (void)fadeTo:(float)volume duration:(NSTimeInterval)duration;
+- (void)fadeTo:(CGFloat)volume duration:(NSTimeInterval)duration;
 - (void)fadeIn:(NSTimeInterval)duration;
 - (void)fadeOut:(NSTimeInterval)duration;
 - (void)play;
 - (void)stop;
 
 @end
-@interface SoundManager : NSObject
+@interface SoundManager : BaseModel
 
 	//required for 32-bit Macs
-#ifdef __i386__
-{
-@private
-
-    Sound *currentMusic;
-    NSMutableArray *currentSounds;
-    BOOL allowsBackgroundMusic;
-    float soundVolume;
-    float musicVolume;
-    NSTimeInterval soundFadeDuration;
-    NSTimeInterval musicFadeDuration;
-}
-#endif
+//#ifdef __i386__
+//{
+//@private
+//
+//    Sound *currentMusic;
+//    NSMutableArray *currentSounds;
+//    BOOL allowsBackgroundMusic;
+//    CGFloat soundVolume;
+//    CGFloat musicVolume;
+//    NSTimeInterval soundFadeDuration;
+//    NSTimeInterval musicFadeDuration;
+//}
+//#endif
 
 @property (nonatomic, readonly, getter = isPlayingMusic) BOOL playingMusic;
 @property (nonatomic, assign) BOOL allowsBackgroundMusic;
-@property (nonatomic, assign) float soundVolume;
-@property (nonatomic, assign) float musicVolume;
-@property (nonatomic, assign) NSTimeInterval soundFadeDuration;
-@property (nonatomic, assign) NSTimeInterval musicFadeDuration;
-@property (NATOM, STRNG) NSArray *soundPaths;
+@property (nonatomic, assign) CGFloat soundVolume, musicVolume;
+@property (nonatomic, assign) NSTimeInterval soundFadeDuration, musicFadeDuration;
 
 + (SoundManager *)sharedManager;
+
++ (NSArray *)soundPaths;
++ (void) playRandomSound;
 
 - (void)prepareToPlayWithSound:(id)soundOrName;
 - (void)prepareToPlay;

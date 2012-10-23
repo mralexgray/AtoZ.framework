@@ -32,21 +32,17 @@
 //    self = [super init];
 //    if (self) {
 
-- (void) setUp {
-    [[SoundManager sharedManager] prepareToPlay];
-	[self registerHotKeys];
-//		sManager = [SoundManager sharedManager];
-//		[sManager prepareToPlay];
-
-//    return self;
-}
-
-OSStatus HotKeyHandler(EventHandlerCallRef nextHandler, EventRef theEvent, void *userData)
+- (void) setUp
 {
-	NSLog(@"HotKeyHandler theEvent:%@ ", theEvent );
-	[AtoZ playRandomSound];
-    return noErr;
+	[AZStopwatch named:@"Welcome to AtoZ.framework." block:^{
+		Sound *rando = [Sound randomSound];
+		[[SoundManager sharedManager] prepareToPlayWithSound:rando];
+		[[SoundManager sharedManager] playSound:rando];
+		[AZFWORKBUNDLE cacheImages];
+		[self registerHotKeys];
+	}];
 }
+
 
 - (void)registerHotKeys
 {
@@ -174,6 +170,33 @@ OSStatus HotKeyHandler(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 + (NSFont*) fontWithSize:(CGFloat)fontSize {
 	return 	[[AtoZ sharedInstance] registerFonts:fontSize];
 }
+
++ (void) initialize {
+	[self activateFonts];
+}
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
++(void) activateFonts {
+	__block NSError *err;
+	NSString *fontFilePath = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"/Fonts"];
+	NSArray *fonts = [AZFILEMANAGER contentsOfDirectoryAtPath:fontFilePath error:nil];
+	[fonts each:^(id obj) {
+		NSURL *fontsURL = [NSURL fileURLWithPath:[fontFilePath stringByAppendingPathComponent:obj]];
+		if(fontsURL != nil)
+			{
+			OSStatus status; FSRef fsRef;
+			CFURLGetFSRef((CFURLRef)fontsURL, &fsRef);
+			status = ATSFontActivateFromFileReference(&fsRef, kATSFontContextLocal, kATSFontFormatUnspecified,
+													  NULL, kATSOptionFlagsDefault, NULL);
+			if ( status != noErr ) {
+				NSError *error = [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:nil];
+				AZLOG($(@"Error: %@\nFailed to acivate font at %@!", error, obj));
+			}
+			else AZLOG($( @"Successfully acivated font %@!", [obj lastPathComponent]));
+		}
+	}];
+}
+	#pragma GCC diagnostic warning "-Wdeprecated-declarations"
+
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 - (NSFont*) registerFonts:(CGFloat)size {
 	if (!_fontsRegistered) {
@@ -181,10 +204,11 @@ OSStatus HotKeyHandler(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 		NSURL *fontsURL = [NSURL fileURLWithPath:$(@"%@/Fonts",[aBundle resourcePath])];
 		if(fontsURL != nil)	{
 			OSStatus status;		FSRef fsRef;
+			NSError *err;
 			CFURLGetFSRef((CFURLRef)fontsURL, &fsRef);
 			status = ATSFontActivateFromFileReference(&fsRef, kATSFontContextLocal, kATSFontFormatUnspecified, NULL, kATSOptionFlagsDefault, NULL);
 			if (status != noErr)		{
-					//				theError = @"Failed to acivate fonts!";  goto error;
+//				err = @"Failed to acivate fonts!";  goto err;
 			} else  { _fontsRegistered = 1; NSLog(@"Fonts registered!"); }
 		} else NSLog(@"couldnt register fonts!");
 	}

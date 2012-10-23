@@ -9,6 +9,20 @@
 #import "AtoZ.h"
 #import <objc/runtime.h>
 
+
+//Here’s how you’d store a value with a strong reference:
+//			objc_setAssociatedObject(obj, key, value, OBJC_ASSOCIATION_RETAIN);
+//And how you’d get it back:
+//			id value = objc_getAssociatedObject(obj, key);
+
+//key can be any void *; it doesn’t have to implement NSCopying. See objc/runtime.h for the other memory management flags.
+
+@interface NSObject (AMAssociatedObjects)
+- (void)associate:(id)value with:(void *)key; // Strong reference
+- (void)weaklyAssociate:(id)value with:(void *)key;
+- (id)associatedValueFor:(void *)key;
+@end
+
 @interface NSObject (AssociatedValues)
 - (void)setAssociatedValue:(id)value forKey:(NSString *)key;
 - (void)setAssociatedValue:(id)value forKey:(NSString *)key policy:(objc_AssociationPolicy)policy;
@@ -112,6 +126,20 @@ typedef void (^caseBlock)();
 @end
 
 @interface NSObject (AG)
+
+/**
+ * Additional performSelector signatures that support up to 7 arguments.
+ */
+- (id)performSelector:(SEL)selector withObject:(id)p1 withObject:(id)p2 withObject:(id)p3;
+- (id)performSelector:(SEL)selector withObject:(id)p1 withObject:(id)p2 withObject:(id)p3
+		   withObject:(id)p4;
+- (id)performSelector:(SEL)selector withObject:(id)p1 withObject:(id)p2 withObject:(id)p3
+		   withObject:(id)p4 withObject:(id)p5;
+- (id)performSelector:(SEL)selector withObject:(id)p1 withObject:(id)p2 withObject:(id)p3
+		   withObject:(id)p4 withObject:(id)p5 withObject:(id)p6;
+- (id)performSelector:(SEL)selector withObject:(id)p1 withObject:(id)p2 withObject:(id)p3
+		   withObject:(id)p4 withObject:(id)p5 withObject:(id)p6 withObject:(id)p7;
+
 
 - (NSS*)segmentLabel;
 

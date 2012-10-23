@@ -2,10 +2,6 @@
 //  NSColot+AtoZ.h
 //  AtoZ
 
-#import <Cocoa/Cocoa.h>
-#import <Foundation/Foundation.h>
-#import <AppKit/AppKit.h>
-#import "AtoZ.h"
 
 //#import "NSString+AG.h"
 //#import "NSArray+AG.h"
@@ -13,6 +9,7 @@
 //#import "AGFoundation.h"
 
 @interface NSColor (AtoZ)
+- (NSColor*) alpha:(CGFloat)floater;
 - (NSColor*) inverted;
 
 + (NSColor*) linen;

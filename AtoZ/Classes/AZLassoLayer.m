@@ -34,18 +34,21 @@
 @implementation AZLassoLayer
 
 + (AZLassoLayer*)lasso:(CALayer*)layer{
-	__block BOOL bail = NO;;
-	[layer.sublayers each:^(id sender) {
-		CALayer *aLayer = (CALayer*)layer;
-		if ([aLayer isKindOfClass:[AZLassoLayer class]]) bail = YES;
-		[aLayer removeFromSuperlayer];
-	}];
-	AZLOG($(@"lasso exist:%@  for %@", StringFromBOOL(bail),layer.debugDescription));
-	if (bail) return;
-	else {		AZLassoLayer *new = [AZLassoLayer layer];
-									[layer addSublayer:new];
+//	__block BOOL bail = NO;;
+	return [layer.sublayers filterOne:^BOOL(id object) {
+
+//		CALayer *aLayer = (CALayer*)layer;
+		return [object isKindOfClass:[AZLassoLayer class]];
+		//) bail = YES;
+//		[aLayer removeFromSuperlayer];
+	}] ?: ^{
+//		AZLOG($(@"lasso   for %@", StringFromBOOL(bail),layer.debugDescription));
+//	if (bail) return ;
+//	else {
+			AZLassoLayer *new = [AZLassoLayer layer];
+							    [layer addSublayer:new];
 		   				return new;
-	}
+	}();
 }
 
 //-(void)removeForLayer:(CALayer*) layer;

@@ -4,7 +4,19 @@
 //  Created by Benjamin Schüttler on 19.11.09.
 //  Copyright 2011 Rogue Coding. All rights reserved.
 
-//#import "AtoZUmbrella.h"
+#import "AtoZUmbrella.h"
+#import "AZPoint.h"
+#import "AZSize.h"
+
+#import "AZRect.h"
+#import "AZGrid.h"
+#import "AZMatrix.h"
+#import "AZSegmentedRect.h"
+#import "AtoZ.h"
+
+@interface AtoZGeometry:NSObject
+@end
+
 BOOL AZEqualRects(NSR r1, NSR r2);
 
 NSNumber *iNum ( NSInteger   i );
@@ -17,9 +29,9 @@ CGFloat AZMaxEdge ( NSRect r );
 CGFloat AZMaxDim ( NSSize sz );
 CGFloat AZMinDim ( NSSize sz );
 
-NSRect AZScreenFrame();
-NSSize AZScreenSize();
-NSRect AZScreenFrameUnderMenu();
+NSRect AZScreenFrame(void);
+NSSize AZScreenSize(void);
+NSRect AZScreenFrameUnderMenu(void);
 
 FOUNDATION_EXPORT const CGPoint AZAnchorTop;
 FOUNDATION_EXPORT const CGPoint AZAnchorBottom;
@@ -59,6 +71,15 @@ CGFloat AZDistanceFromPoint (NSPoint p1,NSPoint p2);
 NSPoint AZPointOffset (NSPoint p, NSPoint size);
 NSPoint AZPointOffsetY (NSPoint p, CGFloat distance);
 NSPoint AZPointOffsetX (NSPoint p, CGFloat distance);
+
+int GCD(int a, int b);
+BOOL isWhole(CGFloat fl);
+NSI AZLowestCommonDenominator(int a, int b);
+
+
+NSString* AZAspectRatioString(CGFloat ratio);
+CGFloat AZAspectRatioOf(CGFloat width, CGFloat height);
+CGFloat AZAspectRatioForSize(NSSize size);
 
 // Simple Length and Area calculus
 
@@ -176,6 +197,8 @@ NSSize AZInvertSize(NSSize size);
 // will return the ratio of an inner size to an outer size
 NSSize AZRatioOfSizes(NSSize inner, NSSize outer);
 
+NSSize AZMultiplySize( NSSize size, CGFloat multiplier);
+
 // will multiply a size by a single multiplier
 NSSize AZMultiplySizeBy( NSSize size, CGFloat multiplier);
 //NSSize AZMultiplySize(NSSize size, CGFloat multiplier);
@@ -196,22 +219,22 @@ NSSize AZSizeMax(NSSize one, NSSize another);
 NSSize AZSizeMin(NSSize one, NSSize another);
 NSSize AZSizeBound(NSSize preferred, NSSize minSize, NSSize maxSize);
 // NSRect result methods
-NSRect AZZeroHeightBelowMenu();
+NSRect AZZeroHeightBelowMenu(void);
 
 NSRect AZFlipRectinRect(CGRect local, CGRect dest);
 
-CGFloat AZMenuBarThickness ();
+CGFloat AZMenuBarThickness (void);
 
-NSRect AZMenuBarFrame();
+NSRect AZMenuBarFrame(void);
 
 NSRect AZRectVerticallyOffsetBy(CGRect rect, CGFloat offset);
 NSRect AZRectHorizontallyOffsetBy(CGRect rect, CGFloat offset);
 
-NSRect AZMenulessScreenRect();
+NSRect AZMenulessScreenRect(void);
 
 NSRect AZMakeRectMaxXUnderMenuBarY(CGFloat distance);
 
-CGFloat AZHeightUnderMenu();
+CGFloat AZHeightUnderMenu(void);
 NSRect AZSquareFromLength(CGFloat length);
 
 // returns a zero sized rect with the argumented point as origin
@@ -298,6 +321,10 @@ BOOL AZIsRectBelowRect(NSRect rect, NSRect compare);
 
 NSRect rectZoom(NSRect rect,float zoom,int quadrant);
 
+
+NSRect AZSquareInRect(NSRect rect);
+
+
 NSRect sizeRectInRect(NSRect innerRect,NSRect outerRect,bool expand);
 NSPoint offsetPoint(NSPoint fromPoint, NSPoint toPoint);
 NSRect fitRectInRect(NSRect innerRect,NSRect outerRect,bool expand);
@@ -307,7 +334,7 @@ NSRect rectFromSize(NSSize size);
 
 NSRect sectionPositioned(NSRect r, AZWindowPosition p);
 int oppositeQuadrant(int quadrant);
-NSRect quadrant(NSRect r, NSUInteger quad);
+NSRect quadrant(NSRect r, AZQuadrant quad);
 
 NSRect constrainRectToRect(NSRect innerRect, NSRect outerRect);
 NSRect alignRectInRect(NSRect innerRect,NSRect outerRect,int quadrant);

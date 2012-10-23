@@ -8,9 +8,20 @@
 
 #import <Foundation/Foundation.h>
 #import <AtoZ/AtoZ.h>
+
+
+void cliDefaults(){
+	NSUserDefaults *defaults = [[NSUserDefaults alloc] init];
+//	NSUInteger counter = [defaults[@"counter"]unsignedIntegerValue] +1;
+
+//    [defaults setPersistentDomain:[NSDictionary dictionaryWithObject:@(counter) forKey:@"counter"] forName:@"com.mralexgray.atozCLI"];
+//    [defaults synchronize];
+//	NSLog(@"welcome the the CLI.  We've launched %ld times!", counter);
+}
 //#import <RMKit/RMKit.h>
 void quantize() {
 	[AZStopwatch start:@"quantize"];
+	cliDefaults();
 	@autoreleasepool {
 //		[[NSImage systemImages] eachConcurrentlyWithBlock:^(NSInteger index, id objI, BOOL *stop) {
 //	   		[[[AZColor sharedInstance] colorsForImage:objI] az_each:^(id obj, NSUInteger index, BOOL *stop) {
@@ -90,7 +101,7 @@ int main(int argc, const char * argv[])
 		[app run];
 	} */
 		[AZStopwatch stopwatch:@"Runtime" timing:^{
-
+			AZLOG([CWPathUtilities applicationSupportFolder]);
 			//		NSLog(@"TEST start");
 			AZFile *f = [AZFile instanceWithPath:@"/Applications/Safari.app"];
 			AZLOG([AZFILEMANAGER attributesOfItemAtPath:f.path error:nil]);
@@ -139,6 +150,10 @@ int main(int argc, const char * argv[])
 	//	CGPoint a = AZAnchorPointForPosition( AZPositionLeft);
 	//
 	//	NSLog(@"%@", NSStringFromPoint(a));
+
+		NSA* s  = [NSA arrayWithContentsOfFile:@"/Users/localadmin/Desktop/gists.plist"];
+		NSBag *b = [s ojectsInSubdictionariesForKey:@"language"];
+		AZLOG(b);
 	}
     return 0;
 }

@@ -27,74 +27,78 @@ typedef enum {
 
 + (NSIMG*) imageFromURL:(NSS*)url;
 
++ (NSIMG*) blackBadgeForRect:(NSR)frame;
++ (NSIMG*) badgeForRect:(NSR)frame withColor:(NSC*)color;
++ (NSIMG*) badgeForRect:(NSR)frame withColor:(NSC*)color stroked:(NSC*) stroke;
++ (NSIMG*) badgeForRect:(NSR)frame withColor:(NSC*)color stroked:(NSC*) stroke withString:(NSS*)string;
+
++ (NSA*) randomImages:(NSUI)number;
++ (NSA*) systemImages;
++ (NSIMG*) screenShot;
+- (NSIMG*) coloredWithColor:(NSC*)inColor composite:(NSCompositingOperation)comp;
+
++ (NSA*) iconsTintedWith:(NSC*)color;
++ (NSA*) icons;
++ (NSA*) systemIcons;
+
++ (NSIMG*) randomIcon;
++ (NSIMG*) forFile:(AZFile*)file;
+
++ (NSIMG*) frameworkImageNamed:(NSS*)string;
 + (NSA*) frameworkImageNames;
 + (NSA*) frameworkImagePaths;
 + (NSA*) frameworkImages;
-+ (NSA*) systemImages;
-+ (NSIMG*) screenShot;
-+ (NSA*) systemIcons;
-- (NSIMG*) coloredWithColor:(NSC*)inColor composite:(NSCompositingOperation)comp;
-+ (NSA*) icoNSCedWithColor:(NSC*)color;
-+ (NSA*) icons;
+
 + (NSA*) picolStrings;
 + (NSA*) iconStrings;
-+ (NSIMG*) randomIcon;
-+ (NSA*) randomImages:(NSUI)number;
 
-+ (NSIMG*) forFile:(AZFile*)file;
-
+- (NSIMG*) scaledToMax:(CGFloat)f;
+- (void) draw;
+- (void) drawAtPoint:(NSP)point inRect:(NSR)rect;
+- (void) drawAtPoint:(NSP)point;
+- (CAL*) imageLayerForRect:(NSR)rect;
+- (void) drawinQuadrant: (QUAD)quad inRect:(NSR)rect;
 + (void) drawInQuadrants:(NSA*)images inRect:(NSRect)frame;
 
 + (NSIMG*)reflectedImage:(NSIMG*)sourceImage amountReflected:(float)fraction;
-
-//- (NSIMG*) maskedByColor:(NSC *)color;
-- (NSIMG*) scaledToMax:(CGFloat)f;
-
-	// creates a copy of the current image while maintaining
-	// proportions. also centers image, if necessary
-
-- (NSSize)proportionalSizeForTargetSize:(NSSize)aSize;
-
-- (NSIMG*)imageByScalingProportionallyToSize:(NSSize)aSize;
-
-- (NSIMG*)imageByScalingProportionallyToSize:(NSSize)targetSize
-                                       flipped:(BOOL)isFlipped;
-
-- (NSIMG*)imageByScalingProportionallyToSize:(NSSize)targetSize
-                                       flipped:(BOOL)isFlipped
-                                      addFrame:(BOOL)shouldAddFrame
-                                     addShadow:(BOOL)shouldAddShadow;
-
-- (NSIMG*)imageByScalingProportionallyToSize:(NSSize)targetSize
-                                       flipped:(BOOL)isFlipped
-                                      addFrame:(BOOL)shouldAddFrame
-                                     addShadow:(BOOL)shouldAddShadow
-                                      addSheen:(BOOL)shouldAddSheen;
-
-- (NSIMG*)imageByFillingVisibleAlphaWithColor:(NSC*)fillColor;
-- (NSIMG*)imageByConvertingToBlackAndWhite;
-- (NSIMG*) maskWithColor:(NSC*)c;
-
-+ (NSIMG*) createImageFromSubView:(NSView*) view	rect:(NSRect)rect;
-+ (NSIMG*) createImageFromView:	(NSView*) view;
-
-- (NSIMG*) scaleImageToFillSize:	(NSSize) targetSize;
 - (NSIMG*) coloredWithColor:	  	(NSC*) inColor;
 - (NSIMG*) coloredWithColor:		(NSC*) inColor	composite:(NSCompositingOperation)comp;
 + (NSIMG*) az_imageNamed:	  (NSS*) name;
 + (NSIMG*) imageWithFileName: (NSS*) fileName inBundle:(NSB*)aBundle;
 + (NSIMG*) imageWithFileName: (NSS*) fileName inBundleForClass:(Class) aClass;
 
-+ (NSIMG*)swatchWithColor:(NSC *)color size:(NSSize)size;
-+ (NSIMG*)swatchWithGradientColor:(NSC *)color size:(NSSize)size;
++ (NSIMG*) swatchWithColor:			(NSC*)color size:(NSSize)size;
++ (NSIMG*) swatchWithGradientColor: (NSC*)color size:(NSSize)size;
 
 - (NSIMG*) resizeWhenScaledImage;
 + (NSIMG*) prettyGradientImage;  // Generates a 256 by 256 pixel image with a complicated gradient in it.
 - (NSA*) quantize;
 + (NSIMG*) desktopImage;
-- (void)openQuantizedSwatch;
-- (NSIMG*)generateQuantizedSwatch;
-+ (void)openQuantizeChartFor:(NSA*)images;
+- (void) openQuantizedSwatch;
+- (NSIMG*) generateQuantizedSwatch;
++ (void) openQuantizeChartFor:(NSA*)images;
+
+//- (NSIMG*) maskedByColor:(NSC *)color;
+
+	// creates a copy of the current image while maintaining
+	// proportions. also centers image, if necessary
+
+- (NSSize)proportionalSizeForTargetSize:(NSSize)aSize;
+- (NSIMG*)imageByScalingProportionallyToSize:(NSSize)aSize;
+- (NSIMG*)imageByScalingProportionallyToSize:(NSSize)targetSize     flipped:(BOOL)isFlipped;
+- (NSIMG*)imageByScalingProportionallyToSize:(NSSize)targetSize     flipped:(BOOL)isFlipped
+									addFrame:(BOOL)shouldAddFrame addShadow:(BOOL)shouldAddShadow;
+- (NSIMG*)imageByScalingProportionallyToSize:(NSSize)targetSize     flipped:(BOOL)isFlipped
+								    addFrame:(BOOL)shouldAddFrame addShadow:(BOOL)shouldAddShadow
+																   addSheen:(BOOL)shouldAddSheen;
+- (NSIMG*) imageByFillingVisibleAlphaWithColor:(NSC*)fillColor;
+- (NSIMG*) imageByConvertingToBlackAndWhite;
+- (NSIMG*) maskWithColor:(NSC*)c;
+
++ (NSIMG*) createImageFromSubView:(NSView*) view	rect:(NSRect)rect;
++ (NSIMG*) createImageFromView:	(NSView*) view;
+
+- (NSIMG*) scaleImageToFillSize:	(NSSize) targetSize;
 - (void) drawFloatingRightInFrame:(NSRect)aFrame;  //ACG FLOATIAMGE
 // draws the passed image into the passed rect, centered and scaled appropriately.
 // note that this method doesn't know anything about the current focus, so the focus must be locked outside this method
@@ -111,6 +115,10 @@ typedef enum {
 - (NSIMG*)imageRotatedByDegrees:(CGFloat)degrees;
 //- (NSIMG*)imageByScalingProportionallyToSize:(NSSize)targetSize;
 - (NSIMG*)	imageByScalingProportionallyToSize:(NSSize) targetSize background:(NSC*) bk;
+
+
+// Borrowed from Matt Legend Gemmell   A category on NSImage allowing you to get an image containing  a Quick Look preview of the file at a given path. You can specify the size,   and whether the preview should be rendered as an icon (i.e. with a document border,   drop-shadow, page-curl and file type/extension label superimposed).  If Quick Look can’t generate a preview for the specified file, You’ll be given the file’s Finder icon instead  (which is how the Quick Look panel itself behaves in Leopard).
++ (NSIMG*)imageWithPreviewOfFileAtPath:(NSString *)path  ofSize:(NSSize)size asIcon:(BOOL)icon;
 
 - (NSIMG*)	imageToFitSize:(NSSize)size method:(AGImageResizingMethod)resizeMethod;
 - (NSIMG*)	imageCroppedToFitSize:(NSSize)size;
@@ -137,17 +145,10 @@ typedef enum {
 /*!
  @method     
  @abstract   converting a CGImageRef to NSImage
- @discussion 
  */
 + (NSIMG*)imageFromCGImageRef:(CGImageRef)image;
-
-/*!    @abstract   converting a NSImage to CGImageRef */
 - (CGImageRef)cgImageRef;
 
-// Borrowed from Matt Legend Gemmell   A category on NSImage allowing you to get an image containing  a Quick Look preview of the file at a given path. You can specify the size,   and whether the preview should be rendered as an icon (i.e. with a document border,   drop-shadow, page-curl and file type/extension label superimposed).  If Quick Look can’t generate a preview for the specified file, You’ll be given the file’s Finder icon instead  (which is how the Quick Look panel itself behaves in Leopard).
-+ (NSIMG*)imageWithPreviewOfFileAtPath:(NSString *)path 
-								   ofSize:(NSSize)size 
-								   asIcon:(BOOL)icon;
 
 /*!    @abstract   converting the input NSImage to a new size */
 + (NSIMG*)resizedImage:(NSIMG*)sourceImage 
@@ -183,26 +184,26 @@ typedef enum {
 @end
 
 @interface NSImage (AtoZScaling)
-- (NSIMG*)imageByAdjustingHue:(float)hue;
-- (NSIMG*)imageByAdjustingHue:(float)hue saturation:(float)saturation;
-- (NSImageRep *)representationOfSize:(NSSize)theSize;
-- (NSImageRep *)bestRepresentationForSize:(NSSize)theSize;
-- (BOOL)createRepresentationOfSize:(NSSize)newSize;
-- (BOOL)shrinkToSize:(NSSize)newSize;
-- (BOOL)createIconRepresentations;
-- (void)removeRepresentationsLargerThanSize:(NSSize)size;
+- (NSIMG*) imageByAdjustingHue:(float)hue;
+- (NSIMG*) imageByAdjustingHue:(float)hue saturation:(float)saturation;
+- (NSImageRep*) representationOfSize:(NSSize)theSize;
+- (NSImageRep*) bestRepresentationForSize:(NSSize)theSize;
+- (BOOL) createRepresentationOfSize:(NSSize)newSize;
+- (BOOL) shrinkToSize:(NSSize)newSize;
+- (BOOL) createIconRepresentations;
+- (void) removeRepresentationsLargerThanSize:(NSSize)size;
 //- (BOOL)shrinkToSize:(NSSize)newSize;
 - (NSIMG*)duplicateOfSize:(NSSize)newSize;
 @end
 
 @interface NSImage (AtoZTrim)
--(NSRect)usedRect;
-- (NSIMG*)scaleImageToSize:(NSSize)newSize trim:(BOOL)trim expand:(BOOL)expand scaleUp:(BOOL)scaleUp;
+- (NSRect) usedRect;
+- (NSIMG*) scaleImageToSize:(NSSize)newSize trim:(BOOL)trim expand:(BOOL)expand scaleUp:(BOOL)scaleUp;
 @end
 
 @interface NSImage (AtoZAverage)
--(NSC *)averageColor;
-+ (NSIMG*)maskImage:(NSIMG*)image withMask:(NSIMG*)maskImage;
+-(NSC*) averageColor;
++ (NSIMG*) maskImage:(NSIMG*)image withMask:(NSIMG*)maskImage;
 @end
 @interface NSImage (Matrix)
 - (NSIMG*) addPerspectiveMatrix:(CIPerspectiveMatrix)matrix; //8PointMatrix

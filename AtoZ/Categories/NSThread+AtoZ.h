@@ -16,6 +16,12 @@
 - (void)performBlock:(void (^)())block afterDelay:(NSTimeInterval)delay;
 
 @end
+
+@interface NSThread (AtoZ)
+
++ (void) stackTrace;
+
+@end
 /*
 @interface NSThread (AZBlocks)
 

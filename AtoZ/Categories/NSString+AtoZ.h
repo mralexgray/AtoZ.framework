@@ -30,6 +30,7 @@
 
 //@property (RONLY) NSColor *colorValue;
 
+- (void) drawInRect:(NSRect)r withFontNamed:(NSS*)fontName andColor:(NSColor*)color;
 // new way
 - (void) drawInRect:(NSRect)r withFont:(NSFont*)font andColor:(NSColor*)color;
 

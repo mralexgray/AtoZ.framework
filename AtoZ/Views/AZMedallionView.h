@@ -14,12 +14,11 @@
 
 @interface AZMedallionView : NSView
 
+@property (nonatomic, retain) NSImage 		*image;
+@property (nonatomic, assign) CGFloat 		borderWidth, shadowBlur;
+@property (nonatomic, retain) NSColor 		*shadowColor, *borderColor, 	*backgroundColor;
+@property (nonatomic, assign) CGSize 		shadowOffset;
 @property (nonatomic, assign) CGGradientRef alphaGradient;
-@property (nonatomic, retain) UIImage *image;
-@property (nonatomic, retain) UIColor *borderColor;
-@property (nonatomic, assign) CGFloat borderWidth;
-@property (nonatomic, retain) UIColor *shadowColor, 	*backgroundColor;
-@property (nonatomic, assign) CGSize shadowOffset;
-@property (nonatomic, assign) CGFloat shadowBlur;
+
 
 @end

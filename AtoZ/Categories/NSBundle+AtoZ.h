@@ -10,11 +10,13 @@
 
 @interface NSBundle (AtoZ)
 
-+ (NSString*) appSuppFolder;
-+ (NSString*) appSuppDir;
-+ (NSString*) applicationSupportFolder;
-+ (NSString*) appSuppSubPathNamed:(NSString*)name;
++ (NSS*) appSuppFolder;
++ (NSS*) appSuppDir;
++ (NSS*) applicationSupportFolder;
++ (NSS*) appSuppSubPathNamed: (NSS*)name;
 
-+ (NSString*) calulatedBundleIDForPath:(NSString*)path;
++ (NSS*) calulatedBundleIDForPath: (NSS*)path;
+- (NSA*) frameworkClasses;
+- (void) cacheImages;
 
 @end

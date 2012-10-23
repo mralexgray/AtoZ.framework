@@ -140,7 +140,7 @@ NSString *const AZToggleState	= @"AZToggleState";
 						 state:(BOOL)state
 						 index:(NSUInteger)index
 {
-	return [self itemLayerWithName:name relativeTo:relative onText:onText offText:offText state:state index:index labelPositioned:nil];
+	return [self itemLayerWithName:name relativeTo:relative onText:onText offText:offText state:state index:index labelPositioned:99];
 }
 
 - (CALayer*) containerLayer

@@ -935,7 +935,7 @@ AGGetMachTaskEvents(task_t task, int *faults, int *pageins, int *cow_faults, int
 	return count;
 }
 
-- (unsigned)hash {
+- (NSUInteger)hash {
 	return process;
 }
 

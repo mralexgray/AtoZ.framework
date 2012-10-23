@@ -161,7 +161,7 @@ static char AZNotificationHelperMagicContext;
 
 @end
 
-@implementation NSObject (MAKVONotification)
+@implementation NSObject (AZKVONotification)
 
 - (void)addObserver:(id)observer forKeyPath:(NSString *)keyPath selector:(SEL)selector userInfo:(id)userInfo options:(NSKeyValueObservingOptions)options
 {

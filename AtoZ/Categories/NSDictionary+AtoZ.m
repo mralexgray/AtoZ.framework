@@ -714,3 +714,65 @@ static void DynamicDictionarySetter(id self, SEL _cmd, id value)
 }
 
 @end
+
+
+@implementation NSCountedSet (Votes)
+
+- (id)winner {
+	id winner = nil ;
+	NSInteger highestCount = 0 ;
+	for (id object in self) {
+		NSInteger count = [self countForObject:object] ;
+		if (count > highestCount) {
+			highestCount = count ;
+			winner = object ;
+		}
+		else if (count == highestCount) {
+			winner = nil ;
+		}
+	}
+
+	return winner ;
+}
+
+@end
+
+
+@implementation NSArray (Subdictionaries)
+
+//- (NSBag*) ojectsInSubdictionariesForKey:(id)key {
+//	__block NSBag* objects = [NSBag bag];
+//	[self each:^(id obj) {
+//		if ([obj isKindOfClass:[NSDictionary class]]){
+//			[(NSD*)obj objectsInSubdictionariesForKey:key withBag:objects]
+//
+//
+//		id object = [obj objectForKey:key] ;
+//		if (object) [objects add:object];
+//	}];
+////		else if (defaultObject) {
+////			[objects add:defaultObject] ;
+////		}
+////	}
+//	return objects ;
+//}
+@end
+@implementation NSDictionary (Subdictionaries)
+
+- (NSCountedSet*)objectsInSubdictionariesForKey:(id)key
+								  defaultObject:(id)defaultObject {
+	NSCountedSet* objects = [NSCountedSet set] ;
+	for (NSDictionary* subdictionary in [self allValues]) {
+		id object = [subdictionary objectForKey:key] ;
+		if (object) {
+			[objects addObject:object] ;
+		}
+		else if (defaultObject) {
+			[objects addObject:defaultObject] ;
+		}
+	}
+
+	return objects ;
+}
+
+@end

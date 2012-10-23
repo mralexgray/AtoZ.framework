@@ -6,9 +6,14 @@
 //  Copyright 2011 Rogue Coding. All rights reserved.
 //
 
-#import "AZGeometricFunctions.h"
+#import "AtoZGeometry.h"
 #import "AtoZ.h"
 #import <Quartz/Quartz.h>
+
+@implementation AtoZGeometry
+@end
+
+
 BOOL AZEqualRects(NSR r1, NSR r2){
 	return NSEqualRects(r1,r2);
 }
@@ -96,7 +101,55 @@ NSPoint AZPointOffsetX (NSPoint p, CGFloat distance) {
 	p.x += distance;
 	return p;
 }
-//
+
+CGFloat AZAspectRatioForSize(NSSize size){
+	return	size.height == size.width	? 1.0 :
+	size.width / size.height;
+}
+CGFloat AZAspectRatioOf(CGFloat width, CGFloat height){
+	return AZAspectRatioForSize(NSMakeSize(width, height));
+}
+
+NSI AZLowestCommonDenominator(int a, int b){
+	int i;
+	for(i = 2; (a % i != 0) || (b%i != 0); ++i)
+		{
+		if( i > a || i > b)//a and b are prime
+			return 1;
+		}
+	return i;
+}
+
+BOOL isWhole(CGFloat fl) {
+	return fmod(fl, 1.0) == 0.0 ? YES : NO;
+}
+
+int GCD(int a, int b) {
+    while (a != 0 && b != 0)	 if (a > b) a %= b; else  b %= a;
+	return a == 0 ? b : a;
+}
+
+// Using Konrad's code:
+
+//var gcd = GCD(A, B);
+//return string.Format("{0}:{1}", A / gcd, B / gcd)
+
+NSString* AZAspectRatioString(CGFloat ratio)
+{
+	CGFloat a, b; int newRatio, m; m =10;
+	if (ratio != 1.0) {
+		while (	isWhole(m * ratio) == NO) m = m *10;
+
+		newRatio = GCD(m, (int)m*ratio );
+	}
+
+	return	ratio == 1.0 ?	@"** 1 : 1 **" : $(@"%i : %i", (int)(m*ratio/newRatio),(int)(m/newRatio));
+//	size.height > _size.width  ?	$(@"1 : %0.1f", (float)(_size.height/_size.width))
+//	//	: 	$(@"%0.1f : 1", (float)(_size.width/_size.height));
+//	return
+// @"poop";
+}
+
 //CGSize AZAspectRatio(NSRect rect ){
 
 // CGFloat aspectRatio = ( rect.width / rect.height );
@@ -108,14 +161,14 @@ CGFloat AZPerimeter (NSRect rect) {
 CGFloat AZPermineterWithRoundRadius (NSRect rect, CGFloat radius) {
 	return  ( AZPerimeter(rect) - ( ( 8 - (   (2 * pi) * radius)   )));
 }
-NSRect AZScreenFrameUnderMenu() {
+NSRect AZScreenFrameUnderMenu(void) {
 	return AZRectTrimmedOnTop( [[NSScreen mainScreen]frame], AZMenuBarThickness());
 }
-NSRect AZScreenFrame() {
+NSRect AZScreenFrame(void) {
 	return [[NSScreen mainScreen]frame];
 }
 
-NSSize AZScreenSize() {
+NSSize AZScreenSize(void) {
 	return AZScreenFrame().size;
 }
 
@@ -531,24 +584,24 @@ NSRect AZSquareFromLength(CGFloat length) {
 	return  AZMakeRectFromSize(NSMakeSize(length,length));
 }
 
-NSRect AZZeroHeightBelowMenu() {
+NSRect AZZeroHeightBelowMenu(void) {
 	NSRect e = AZScreenFrame();
 	e.origin.y += (e.size.height - 22);
 	e.size.height = 0;
 	return e;
 }
-NSRect AZMenuBarFrame() {
+NSRect AZMenuBarFrame(void) {
 	return AZUpperEdge( AZScreenFrame(), AZMenuBarThickness());
 }
 
-CGFloat AZMenuBarThickness () { return [[NSStatusBar systemStatusBar] thickness]; }
+CGFloat AZMenuBarThickness (void) { return [[NSStatusBar systemStatusBar] thickness]; }
 
-NSRect AZMenulessScreenRect() {
+NSRect AZMenulessScreenRect(void) {
 	NSRect e = AZScreenFrame();
 	e.size.height -= 22;
 	return e;
 }
-CGFloat AZHeightUnderMenu () {
+CGFloat AZHeightUnderMenu (void) {
 	return ( [[NSScreen mainScreen]frame].size.height - [[NSStatusBar systemStatusBar] thickness] );
 }
 NSRect AZMakeRectMaxXUnderMenuBarY(CGFloat distance) {
@@ -567,7 +620,7 @@ NSRect AZMakeRectFromSize(NSSize size) {
 }
 
 NSRect AZMakeRect(NSPoint point, NSSize size) {
-  return  nanRectCheck((NSRect){point.x,	point.y, size.width, size.height});
+  return  nanRectCheck( NSMakeRect(point.x,	point.y, size.width, size.height));
 }
 
 NSRect AZMakeSquare(NSPoint center, CGFloat radius) {
@@ -641,37 +694,37 @@ NSRect AZBlendRects(NSRect from, NSRect to, CGFloat p) {
 }
 
 NSRect AZRectTrimmedOnRight(NSRect rect, CGFloat width) {
-	return (NSRect) {	rect.origin.x, 					rect.origin.y,
-					  	rect.size.width - width,  		rect.size.height	};
+	return NSMakeRect(	rect.origin.x, 					rect.origin.y,
+					  	rect.size.width - width,  		rect.size.height	);
 }
 
 NSRect AZRectTrimmedOnBottom(NSRect rect, CGFloat height) {
-	return (NSRect) {	rect.origin.x, 					(rect.origin.y + height),
-						rect.size.width,  				(rect.size.height - height)	};
+	return NSMakeRect(	rect.origin.x, 					(rect.origin.y + height),
+						rect.size.width,  				(rect.size.height - height)	);
 }
 NSRect AZRectTrimmedOnLeft(NSRect rect, CGFloat width) {
-	return (NSRect) {	rect.origin.x + width, 					rect.origin.y,
-						rect.size.width - width,  		rect.size.height	};
+	return NSMakeRect( 	rect.origin.x + width, 					rect.origin.y,
+						rect.size.width - width,  		rect.size.height	);
 }
 NSRect AZRectTrimmedOnTop(NSRect rect, CGFloat height) {
-	return (NSRect) {	rect.origin.x, 					rect.origin.y,
-						rect.size.width,  				(rect.size.height - height)	};
+	return NSMakeRect(	rect.origin.x, 					rect.origin.y,
+						rect.size.width,  				(rect.size.height - height)	);
 }
 NSRect AZRectExceptWide(NSRect rect, CGFloat wide) {
-	return (NSRect) {	rect.origin.x, 	rect.origin.y, wide, rect.size.height};
+	return NSMakeRect(	rect.origin.x, 	rect.origin.y, wide, rect.size.height);
 }
 
 NSRect AZRectExceptHigh(NSRect rect, CGFloat high){
-	return (NSRect) { rect.origin.x, 	rect.origin.y, rect.size.width, high};
+	return NSMakeRect(rect.origin.x, 	rect.origin.y, rect.size.width, high);
 }
 
 NSRect AZRectExceptOriginX(NSRect rect, CGFloat x)
 {
-	return (NSRect) { x, rect.origin.y, rect.size.width, rect.size.height};
+	return NSMakeRect ( x, rect.origin.y, rect.size.width, rect.size.height);
 }
 NSRect AZRectExceptOriginY(NSRect rect, CGFloat y)
 {
-	return (NSRect) { rect.origin.x, y, rect.size.width, rect.size.height};
+	return NSMakeRect(rect.origin.x, y, rect.size.width, rect.size.height);
 }
 
 NSRect AZInsetRect(NSRect rect, CGFloat inset){
@@ -774,7 +827,7 @@ int oppositeQuadrant(int quadrant){
     return quadrant;
 }
 */
-NSPoint rectOffset(NSRect innerRect,NSRect outerRect, NSInteger quadrant){
+static NSPoint rectOffset(NSRect innerRect,NSRect outerRect, NSInteger quadrant){
     if (quadrant)
         return NSMakePoint((quadrant == 3 || quadrant == 2) ? NSMaxX(outerRect)-NSMaxX(innerRect) : NSMinX(outerRect)-NSMinX(innerRect),
                            (quadrant == 4 || quadrant == 3) ? NSMaxY(outerRect)-NSMaxY(innerRect) : NSMinY(outerRect)-NSMinY(innerRect));
@@ -795,7 +848,7 @@ NSRect sectionPositioned(NSRect r, AZWindowPosition p){
 
 	return quadrant(r, (NSUInteger)quadrant);
 }
-NSRect quadrant(NSRect r, NSUInteger quad) {
+NSRect quadrant(NSRect r, AZQuadrant quad) {
 	return alignRectInRect (AZRectFromDim(AZMinEdge(r)/2),r, quad);
 }
 
@@ -834,6 +887,11 @@ NSRect rectWithProportion(NSRect innerRect,float proportion,bool expand){
     return newRect;
 }
 */
+
+NSRect AZSquareInRect(NSRect rect) {
+	return centerRectInRect(AZSquareFromLength(AZMinDim(rect.size)), rect);
+}
+
 NSRect centerRectInRect(NSRect rect, NSRect mainRect){
     return NSOffsetRect(rect,NSMidX(mainRect)-NSMidX(rect),NSMidY(mainRect)-NSMidY(rect));
 }
@@ -907,7 +965,7 @@ NSRect rectFromSize(NSSize size){
     return NSMakeRect(0,0,size.width,size.height);
 }
 
-float distanceFromOrigin(NSPoint point){
+static float distanceFromOrigin(NSPoint point){
     return hypot(point.x, point.y);
 }
 /*
@@ -964,7 +1022,7 @@ AZWindowPosition AZPositionOfRect(NSRect rect) {
 	if  ( test < minDist) { 	minDist = test; winner = AZPositionTop; }
 
 	return  winner;
-//	return NSMaxX( rect ) == ScreenWidess() ? AZPositionBottom : AZPositionBottomLeft;
+//	return NSMaxX( rect ) == ScreenWidess(void) ? AZPositionBottom : AZPositionBottomLeft;
 //	else if (NSMinY(rect)==0)
 //		return AZPositionRight;
 //	else return AZPositionTop;
