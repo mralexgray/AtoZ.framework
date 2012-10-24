@@ -49,3 +49,6 @@
 [submodule "Frameworks/Rebel"]
 	path = Frameworks/Rebel
 	url = https://github.com/mralexgray/Rebel.git
+[submodule "Frameworks/AtoZBezierPath"]
+	path = Frameworks/AtoZBezierPath
+	url = https://github.com/mralexgray/AtoZBezierPath.git

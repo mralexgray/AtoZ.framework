@@ -399,6 +399,8 @@
 		7BB86F6B1637225C0000C242 /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BB86F6A1637225C0000C242 /* AtoZ.framework */; };
 		7BB86F6C163723C30000C242 /* TestBed.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BDF56A41627695500041A42 /* TestBed.xib */; };
 		7BB86F6D163733B60000C242 /* AZPropellerView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BB0095B16311BB500750FEB /* AZPropellerView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BB86F8716383FF90000C242 /* Rebel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BB86F8216383FCE0000C242 /* Rebel.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		7BB86F881638402A0000C242 /* Rebel.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7BB86F8216383FCE0000C242 /* Rebel.framework */; };
 		7BBB12DB16054F02005D73CF /* LoremIpsum.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BBB12D916054F02005D73CF /* LoremIpsum.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7BBB12DC16054F37005D73CF /* LoremIpsum.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BBB12D816054F02005D73CF /* LoremIpsum.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BBD96EB15AD279900943FC1 /* AZSizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC859C415A8C0F400582632 /* AZSizer.m */; };
@@ -1345,6 +1347,27 @@
 			remoteGlobalIDString = 7B311950159B6D9E002134C4;
 			remoteInfo = AtoZ;
 		};
+		7BB86F8116383FCE0000C242 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7BB86F7716383FCD0000C242 /* Rebel.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D09AE4DF15C5F45200ECAD10;
+			remoteInfo = Rebel;
+		};
+		7BB86F8316383FCE0000C242 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7BB86F7716383FCD0000C242 /* Rebel.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D09AE4F715C5F45300ECAD10;
+			remoteInfo = RebelTests;
+		};
+		7BB86F8516383FDC0000C242 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7BB86F7716383FCD0000C242 /* Rebel.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D09AE4DE15C5F45200ECAD10;
+			remoteInfo = Rebel;
+		};
 		7BC69054162BA94100B71602 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7BC69049162BA94000B71602 /* NanoStore.xcodeproj */;
@@ -1438,6 +1461,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				7BB86F881638402A0000C242 /* Rebel.framework in frameworks copy */,
 				7BD908CD162F7C99000DE2BB /* Zangetsu.framework in frameworks copy */,
 				7BC69166162C030E00B71602 /* NanoStore.framework in frameworks copy */,
 				7B5ABAC71608E26800530EA7 /* FunSize.framework in frameworks copy */,
@@ -2566,6 +2590,7 @@
 		7BB0095E16311D7700750FEB /* AZPropellerBadge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AZPropellerBadge.png; sourceTree = "<group>"; };
 		7BB0095F16311D7700750FEB /* AZPropellerBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AZPropellerBar.png; sourceTree = "<group>"; };
 		7BB86F6A1637225C0000C242 /* AtoZ.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AtoZ.framework; path = ../../../../../Library/Frameworks/AtoZ.framework; sourceTree = "<group>"; };
+		7BB86F7716383FCD0000C242 /* Rebel.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Rebel.xcodeproj; path = ../Frameworks/Rebel/Rebel.xcodeproj; sourceTree = "<group>"; };
 		7BBB12D816054F02005D73CF /* LoremIpsum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = LoremIpsum.h; path = "Lorem-Ipsum/LoremIpsum.h"; sourceTree = "<group>"; };
 		7BBB12D916054F02005D73CF /* LoremIpsum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoremIpsum.m; path = "Lorem-Ipsum/LoremIpsum.m"; sourceTree = "<group>"; };
 		7BBD96EC15AD38F300943FC1 /* AZApplePrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZApplePrivate.h; sourceTree = "<group>"; };
@@ -3414,6 +3439,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BB86F8716383FF90000C242 /* Rebel.framework in Frameworks */,
 				7BFA3F0B162B8AA0003264A4 /* XPCKit.framework in Frameworks */,
 				7BCB36BA162D31A100E61080 /* Zangetsu.framework in Frameworks */,
 				7BC69167162C031800B71602 /* NanoStore.framework in Frameworks */,
@@ -3717,6 +3743,7 @@
 		7B311953159B6D9E002134C4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7BB86F7716383FCD0000C242 /* Rebel.xcodeproj */,
 				7BC69049162BA94000B71602 /* NanoStore.xcodeproj */,
 				7BCB36A5162D313400E61080 /* Zangetsu.xcodeproj */,
 				7BFA3EC5162B4DF0003264A4 /* CleanAndCopyToCompiledFrameWorks.sh */,
@@ -4230,6 +4257,15 @@
 				7B82B82B15CB66D30026FE8C /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		7BB86F7816383FCD0000C242 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7BB86F8216383FCE0000C242 /* Rebel.framework */,
+				7BB86F8416383FCE0000C242 /* RebelTests.octest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		7BC02754160D363D00BAE74D /* Calculator */ = {
@@ -5347,6 +5383,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				7BB86F8616383FDC0000C242 /* PBXTargetDependency */,
 				7BCB36B8162D315800E61080 /* PBXTargetDependency */,
 				7BC69165162C030500B71602 /* PBXTargetDependency */,
 				7B6629F8161DEA20003D5EE0 /* PBXTargetDependency */,
@@ -5485,6 +5522,10 @@
 					ProjectRef = 7B0236B315E08BD90070FE12 /* PLWeakCompatibility.xcodeproj */;
 				},
 				{
+					ProductGroup = 7BB86F7816383FCD0000C242 /* Products */;
+					ProjectRef = 7BB86F7716383FCD0000C242 /* Rebel.xcodeproj */;
+				},
+				{
 					ProductGroup = 7B645C9A15F5300E00566160 /* Products */;
 					ProjectRef = 7B61E90515EAA8340053BACF /* XPCKit.xcodeproj */;
 				},
@@ -5590,6 +5631,20 @@
 			fileType = wrapper.cfbundle;
 			path = XPCKitTests.octest;
 			remoteRef = 7B645CA915F5300E00566160 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7BB86F8216383FCE0000C242 /* Rebel.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Rebel.framework;
+			remoteRef = 7BB86F8116383FCE0000C242 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7BB86F8416383FCE0000C242 /* RebelTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = RebelTests.octest;
+			remoteRef = 7BB86F8316383FCE0000C242 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		7BC69055162BA94100B71602 /* NanoStore.framework */ = {
@@ -6325,6 +6380,11 @@
 			target = 7B311950159B6D9E002134C4 /* AtoZ */;
 			targetProxy = 7BA32AA715EACE8F0061B2BC /* PBXContainerItemProxy */;
 		};
+		7BB86F8616383FDC0000C242 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Rebel;
+			targetProxy = 7BB86F8516383FDC0000C242 /* PBXContainerItemProxy */;
+		};
 		7BC69165162C030500B71602 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = NanoStore;
@@ -6597,6 +6657,8 @@
 					"-sub_umbrella",
 					NanoStore,
 					"-header-pad_max_install_names",
+					"-sub_umbrella",
+					Rebel,
 				);
 				PRODUCT_NAME = AtoZ;
 				RUN_CLANG_STATIC_ANALYZER = NO;
@@ -6668,6 +6730,8 @@
 					"-sub_umbrella",
 					NanoStore,
 					"-header-pad_max_install_names",
+					"-sub_umbrella",
+					Rebel,
 				);
 				PRODUCT_NAME = AtoZ;
 				RUN_CLANG_STATIC_ANALYZER = NO;

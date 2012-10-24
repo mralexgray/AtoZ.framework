@@ -33,6 +33,8 @@
 #import <CocoaPuffs/CocoaPuffs.h>
 #import <NanoStore/NanoStore.h>
 #import <Zangetsu/Zangetsu.h>
+#import <Rebel/Rebel.h>
+
 #import "MAKVONotificationCenter.h"
 #import "F.h"
 #import "NSBag.h"
