@@ -1393,6 +1393,118 @@
 			remoteGlobalIDString = 7BB86FE016384C490000C242;
 			remoteInfo = AtoZBezierPath;
 		};
+		7BB870491638A0550000C242 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7BB8702D1638A0520000C242 /* Quicksilver.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8D1107320486CEB800E47090;
+			remoteInfo = Quicksilver;
+		};
+		7BB8704B1638A0550000C242 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7BB8702D1638A0520000C242 /* Quicksilver.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E1E5F9AF07B1FCFC0044D6EF;
+			remoteInfo = "QuickStep Foundation";
+		};
+		7BB8704D1638A0550000C242 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7BB8702D1638A0520000C242 /* Quicksilver.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E1E5F9C307B1FD100044D6EF;
+			remoteInfo = "QuickStep Effects";
+		};
+		7BB8704F1638A0550000C242 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7BB8702D1638A0520000C242 /* Quicksilver.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E103F1600647200700447FE0;
+			remoteInfo = "QuickStep Core";
+		};
+		7BB870511638A0550000C242 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7BB8702D1638A0520000C242 /* Quicksilver.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E1B5F31206573C2900FCFBE2;
+			remoteInfo = "QuickStep Interface";
+		};
+		7BB870531638A0550000C242 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7BB8702D1638A0520000C242 /* Quicksilver.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7F0BD5DD07B52EA8003F3DC3;
+			remoteInfo = "Core Support";
+		};
+		7BB870551638A0550000C242 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7BB8702D1638A0520000C242 /* Quicksilver.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4D002D021311465B009040B7;
+			remoteInfo = "Bezel Interface";
+		};
+		7BB870571638A0550000C242 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7BB8702D1638A0520000C242 /* Quicksilver.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4D002D61131148C2009040B7;
+			remoteInfo = "Finder Module";
+		};
+		7BB870591638A0550000C242 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7BB8702D1638A0520000C242 /* Quicksilver.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4D002D88131149A3009040B7;
+			remoteInfo = "Primer Interface";
+		};
+		7BB8705B1638A0550000C242 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7BB8702D1638A0520000C242 /* Quicksilver.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4D002DAD13114A2E009040B7;
+			remoteInfo = "HotKey Triggers";
+		};
+		7BB8705D1638A0550000C242 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7BB8702D1638A0520000C242 /* Quicksilver.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7F9703D009AFEE8700E9EA77;
+			remoteInfo = QSDroplet;
+		};
+		7BB8705F1638A0550000C242 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7BB8702D1638A0520000C242 /* Quicksilver.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 66448D9614F42790000FA2E2;
+			remoteInfo = QSFoundationTests;
+		};
+		7BB870611638A0550000C242 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7BB8702D1638A0520000C242 /* Quicksilver.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 666E45EE150225EA0034E60A;
+			remoteInfo = QSCoreTests;
+		};
+		7BB870631638A0550000C242 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7BB8702D1638A0520000C242 /* Quicksilver.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 66D11C6415022A75002EE6E5;
+			remoteInfo = QSEffectsTests;
+		};
+		7BB870651638A0550000C242 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7BB8702D1638A0520000C242 /* Quicksilver.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 66D11C8B15022B08002EE6E5;
+			remoteInfo = QSInterfaceTests;
+		};
+		7BB870671638A0550000C242 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7BB8702D1638A0520000C242 /* Quicksilver.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 66D11CB415022C82002EE6E5;
+			remoteInfo = QuicksilverTests;
+		};
 		7BC69054162BA94100B71602 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7BC69049162BA94000B71602 /* NanoStore.xcodeproj */;
@@ -2621,6 +2733,7 @@
 		7BB87022163853030000C242 /* AZGeometryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = AZGeometryViewController.h; sourceTree = "<group>"; };
 		7BB87023163853030000C242 /* AZGeometryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZGeometryViewController.m; sourceTree = "<group>"; };
 		7BB87024163853030000C242 /* AZGeometryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AZGeometryViewController.xib; sourceTree = "<group>"; };
+		7BB8702D1638A0520000C242 /* Quicksilver.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Quicksilver.xcodeproj; path = ../Frameworks/QuickSilver/Quicksilver/Quicksilver.xcodeproj; sourceTree = "<group>"; };
 		7BBB12D816054F02005D73CF /* LoremIpsum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = LoremIpsum.h; path = "Lorem-Ipsum/LoremIpsum.h"; sourceTree = "<group>"; };
 		7BBB12D916054F02005D73CF /* LoremIpsum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoremIpsum.m; path = "Lorem-Ipsum/LoremIpsum.m"; sourceTree = "<group>"; };
 		7BBD96EC15AD38F300943FC1 /* AZApplePrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZApplePrivate.h; sourceTree = "<group>"; };
@@ -3774,6 +3887,7 @@
 		7B311953159B6D9E002134C4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7BB8702D1638A0520000C242 /* Quicksilver.xcodeproj */,
 				7BB8701116384FF00000C242 /* AtoZBezierPath.xcodeproj */,
 				7BB86F7716383FCD0000C242 /* Rebel.xcodeproj */,
 				7BC69049162BA94000B71602 /* NanoStore.xcodeproj */,
@@ -4305,6 +4419,29 @@
 			children = (
 				7BB8701B16384FF20000C242 /* VectorBoolean.app */,
 				7BB8701D16384FF20000C242 /* AtoZBezierPath.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7BB8702E1638A0520000C242 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7BB8704A1638A0550000C242 /* Quicksilver.app */,
+				7BB8704C1638A0550000C242 /* QSFoundation.framework */,
+				7BB8704E1638A0550000C242 /* QSEffects.framework */,
+				7BB870501638A0550000C242 /* QSCore.framework */,
+				7BB870521638A0550000C242 /* QSInterface.framework */,
+				7BB870541638A0550000C242 /* Core Support.qsplugin */,
+				7BB870561638A0550000C242 /* Bezel Interface.qsplugin */,
+				7BB870581638A0550000C242 /* Finder Module.qsplugin */,
+				7BB8705A1638A0550000C242 /* Primer Interface.qsplugin */,
+				7BB8705C1638A0550000C242 /* HotKey Triggers.qsplugin */,
+				7BB8705E1638A0550000C242 /* QSDroplet.app */,
+				7BB870601638A0550000C242 /* QSFoundationTests.octest */,
+				7BB870621638A0550000C242 /* QSCoreTests.octest */,
+				7BB870641638A0550000C242 /* QSEffectsTests.octest */,
+				7BB870661638A0550000C242 /* QSInterfaceTests.octest */,
+				7BB870681638A0550000C242 /* QuicksilverTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -5571,6 +5708,10 @@
 					ProjectRef = 7B0236B315E08BD90070FE12 /* PLWeakCompatibility.xcodeproj */;
 				},
 				{
+					ProductGroup = 7BB8702E1638A0520000C242 /* Products */;
+					ProjectRef = 7BB8702D1638A0520000C242 /* Quicksilver.xcodeproj */;
+				},
+				{
 					ProductGroup = 7BB86F7816383FCD0000C242 /* Products */;
 					ProjectRef = 7BB86F7716383FCD0000C242 /* Rebel.xcodeproj */;
 				},
@@ -5708,6 +5849,118 @@
 			fileType = wrapper.framework;
 			path = AtoZBezierPath.framework;
 			remoteRef = 7BB8701C16384FF20000C242 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7BB8704A1638A0550000C242 /* Quicksilver.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = Quicksilver.app;
+			remoteRef = 7BB870491638A0550000C242 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7BB8704C1638A0550000C242 /* QSFoundation.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = QSFoundation.framework;
+			remoteRef = 7BB8704B1638A0550000C242 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7BB8704E1638A0550000C242 /* QSEffects.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = QSEffects.framework;
+			remoteRef = 7BB8704D1638A0550000C242 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7BB870501638A0550000C242 /* QSCore.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = QSCore.framework;
+			remoteRef = 7BB8704F1638A0550000C242 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7BB870521638A0550000C242 /* QSInterface.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = QSInterface.framework;
+			remoteRef = 7BB870511638A0550000C242 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7BB870541638A0550000C242 /* Core Support.qsplugin */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "Core Support.qsplugin";
+			remoteRef = 7BB870531638A0550000C242 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7BB870561638A0550000C242 /* Bezel Interface.qsplugin */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "Bezel Interface.qsplugin";
+			remoteRef = 7BB870551638A0550000C242 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7BB870581638A0550000C242 /* Finder Module.qsplugin */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "Finder Module.qsplugin";
+			remoteRef = 7BB870571638A0550000C242 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7BB8705A1638A0550000C242 /* Primer Interface.qsplugin */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "Primer Interface.qsplugin";
+			remoteRef = 7BB870591638A0550000C242 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7BB8705C1638A0550000C242 /* HotKey Triggers.qsplugin */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "HotKey Triggers.qsplugin";
+			remoteRef = 7BB8705B1638A0550000C242 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7BB8705E1638A0550000C242 /* QSDroplet.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = QSDroplet.app;
+			remoteRef = 7BB8705D1638A0550000C242 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7BB870601638A0550000C242 /* QSFoundationTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = QSFoundationTests.octest;
+			remoteRef = 7BB8705F1638A0550000C242 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7BB870621638A0550000C242 /* QSCoreTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = QSCoreTests.octest;
+			remoteRef = 7BB870611638A0550000C242 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7BB870641638A0550000C242 /* QSEffectsTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = QSEffectsTests.octest;
+			remoteRef = 7BB870631638A0550000C242 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7BB870661638A0550000C242 /* QSInterfaceTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = QSInterfaceTests.octest;
+			remoteRef = 7BB870651638A0550000C242 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7BB870681638A0550000C242 /* QuicksilverTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = QuicksilverTests.octest;
+			remoteRef = 7BB870671638A0550000C242 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		7BC69055162BA94100B71602 /* NanoStore.framework */ = {

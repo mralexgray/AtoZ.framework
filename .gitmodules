@@ -55,3 +55,6 @@
 [submodule "Frameworks/QuickSilver"]
 	path = Frameworks/QuickSilver
 	url = https://github.com/quicksilver/Quicksilver.git
+[submodule "Frameworks/ConciseKit"]
+	path = Frameworks/ConciseKit
+	url = https://github.com/mralexgray/ConciseKit.git
