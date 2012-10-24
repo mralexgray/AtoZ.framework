@@ -52,3 +52,6 @@
 [submodule "Frameworks/AtoZBezierPath"]
 	path = Frameworks/AtoZBezierPath
 	url = https://github.com/mralexgray/AtoZBezierPath.git
+[submodule "Frameworks/QuickSilver"]
+	path = Frameworks/QuickSilver
+	url = https://github.com/quicksilver/Quicksilver.git

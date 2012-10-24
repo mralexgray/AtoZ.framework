@@ -33,7 +33,11 @@ NSString *NSDCIMFolder()
 }
 @implementation NSFileManager (AtoZ)
 
-
+- (NSArray*) pathsOfContentsOfDirectory:(NSString*) directory;
+{
+	NSArray*files = [AZFILEMANAGER contentsOfDirectoryAtPath:directory error:nil];
+	return [files map:^id(id obj) {		return [directory stringByAppendingPathComponent:obj];}];
+}
 #pragma Globbing
 
 - (NSArray*) arrayWithFilesMatchingPattern: (NSString*) pattern inDirectory: (NSString*) directory {

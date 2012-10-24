@@ -34,6 +34,7 @@
 #import <NanoStore/NanoStore.h>
 #import <Zangetsu/Zangetsu.h>
 #import <Rebel/Rebel.h>
+#import <AtoZBezierPath/AtoZBezierPath.h>
 
 #import "MAKVONotificationCenter.h"
 #import "F.h"
@@ -234,6 +235,10 @@ extern NSString *const AtoZDockSortedUpdated;
 
 + (void) playSound:(id)number;
 + (void) playRandomSound;
+
++(NSArray*)fonts;
+
++ (NSS*) randomFontName;
 
 + (NSArray*) dock;
 //+ (NSArray*) dockSorted;

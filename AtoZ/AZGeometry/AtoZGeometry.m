@@ -833,24 +833,25 @@ int oppositeQuadrant(int quadrant){
     return quadrant;
 }
 */
-static NSPoint rectOffset(NSRect innerRect,NSRect outerRect, NSInteger quadrant){
-    if (quadrant)
-        return NSMakePoint((quadrant == 3 || quadrant == 2) ? NSMaxX(outerRect)-NSMaxX(innerRect) : NSMinX(outerRect)-NSMinX(innerRect),
-                           (quadrant == 4 || quadrant == 3) ? NSMaxY(outerRect)-NSMaxY(innerRect) : NSMinY(outerRect)-NSMinY(innerRect));
-    return NSMakePoint(NSMidX(outerRect)-NSMidX(innerRect),NSMidY(outerRect)-NSMidY(innerRect)); //Center Rects
+NSPoint rectOffset(NSRect innerRect,NSRect outerRect, QUAD quadrant){
+    if (quadrant )
+        return NSMakePoint((quadrant == 2 || quadrant == 1) ? NSMaxX(outerRect)-NSMaxX(innerRect) : NSMinX(outerRect)-NSMinX(innerRect),
+                           (quadrant == 3 || quadrant == 2) ? NSMaxY(outerRect)-NSMaxY(innerRect) : NSMinY(outerRect)-NSMinY(innerRect));
+    return NSMakePoint( NSMidX(outerRect)-NSMidX(innerRect), NSMidY(outerRect)-NSMidY(innerRect) ); //Center Rects
 }
+
 int oppositeQuadrant(int quadrant){
     quadrant = quadrant + 2;
-    quadrant%=4;
-    return !quadrant ? 4 : quadrant;
+    quadrant%=3;
+    return !quadrant ? 3 : quadrant;
 }
 
 NSRect sectionPositioned(NSRect r, AZWindowPosition p){
 
-	NSUInteger quad 	= 	p == AZPositionBottomLeft 	? 1
-						:	p == AZPositionLeftTop 		? 2
-						:	p == AZPositionRightTop 		? 3
-						:	p == AZPositionRightBottom 	? 4 : 4;
+	NSUInteger quad 	= 	p == AZPositionBottomLeft 	? 0
+						:	p == AZPositionLeftTop 		? 1
+						:	p == AZPositionRightTop 		? 2
+						:	p == AZPositionRightBottom 	? 3 : 3;
 
 	return quadrant(r, (NSUInteger)quadrant);
 }
@@ -858,7 +859,20 @@ NSRect quadrant(NSRect r, AZQuadrant quad) {
 	return alignRectInRect (AZRectFromDim(AZMinEdge(r)/2),r, quad);
 }
 
-NSRect alignRectInRect(NSRect innerRect,NSRect outerRect,int quadrant){
+CGFloat quadrantsVerticalGutter(NSRect r)
+{
+	NSRect aQ = quadrant(r, 1);
+	return NSWidth(r) - (NSWidth(aQ) *2);
+}
+
+CGFloat quadrantsHorizontalGutter(NSRect r)
+{
+	NSRect aQ = quadrant(r, 1);
+	return NSHeight(r) - (NSHeight(aQ) *2);
+}
+
+
+NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant){
     NSPoint offset=rectOffset(innerRect,outerRect,quadrant);
     return NSOffsetRect(innerRect,offset.x,offset.y);
 }

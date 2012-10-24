@@ -5,6 +5,7 @@
 
 #import <AtoZ/AtoZ.h>
 #import <QuartzCore/QuartzCore.h>
+#import "AZGeometryViewController.h"
 
 @interface NASpinSeque : NSObject
 
@@ -14,6 +15,9 @@
 @end
 
 @interface TestBedDelegate : NSObject <NSApplicationDelegate>
+
+@property (assign) IBOutlet AZGeometryViewController *geoVC;
+
 @property (ASS) IBOutlet NSWindow 		  *window;
 @property (ASS) IBOutlet NSSegmentedControl *segments;
 @property (ASS) IBOutlet NSView 			  *targetView;

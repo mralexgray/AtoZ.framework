@@ -343,7 +343,7 @@
 		7B80995215E8C7A300A6AB7C /* BlocksAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B80995015E8C7A200A6AB7C /* BlocksAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B80995315E8C7A300A6AB7C /* BlocksAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B80995115E8C7A200A6AB7C /* BlocksAdditions.m */; };
 		7B81287515D0339A0070193F /* AZWindowExtend.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B81287315D0339A0070193F /* AZWindowExtend.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7B81287615D0339A0070193F /* AZWindowExtend.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B81287415D0339A0070193F /* AZWindowExtend.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		7B81287615D0339A0070193F /* AZWindowExtend.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B81287415D0339A0070193F /* AZWindowExtend.m */; };
 		7B8128AC15D05BFF0070193F /* AZNotificationCenter.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B8128AA15D05BFF0070193F /* AZNotificationCenter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B8128AD15D05BFF0070193F /* AZNotificationCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B8128AB15D05BFF0070193F /* AZNotificationCenter.m */; };
 		7B82B82315CB66D30026FE8C /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B82B82215CB66D30026FE8C /* Cocoa.framework */; };
@@ -401,6 +401,10 @@
 		7BB86F6D163733B60000C242 /* AZPropellerView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BB0095B16311BB500750FEB /* AZPropellerView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BB86F8716383FF90000C242 /* Rebel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BB86F8216383FCE0000C242 /* Rebel.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		7BB86F881638402A0000C242 /* Rebel.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7BB86F8216383FCE0000C242 /* Rebel.framework */; };
+		7BB87020163850110000C242 /* AtoZBezierPath.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BB8701D16384FF20000C242 /* AtoZBezierPath.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		7BB870211638501F0000C242 /* AtoZBezierPath.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7BB8701D16384FF20000C242 /* AtoZBezierPath.framework */; };
+		7BB87026163853030000C242 /* AZGeometryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BB87023163853030000C242 /* AZGeometryViewController.m */; };
+		7BB87027163853030000C242 /* AZGeometryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BB87024163853030000C242 /* AZGeometryViewController.xib */; };
 		7BBB12DB16054F02005D73CF /* LoremIpsum.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BBB12D916054F02005D73CF /* LoremIpsum.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7BBB12DC16054F37005D73CF /* LoremIpsum.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BBB12D816054F02005D73CF /* LoremIpsum.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BBD96EB15AD279900943FC1 /* AZSizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC859C415A8C0F400582632 /* AZSizer.m */; };
@@ -1368,6 +1372,27 @@
 			remoteGlobalIDString = D09AE4DE15C5F45200ECAD10;
 			remoteInfo = Rebel;
 		};
+		7BB8701A16384FF20000C242 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7BB8701116384FF00000C242 /* AtoZBezierPath.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A1C48B331395FA380043E2C7;
+			remoteInfo = VectorBoolean;
+		};
+		7BB8701C16384FF20000C242 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7BB8701116384FF00000C242 /* AtoZBezierPath.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7BB86FE116384C490000C242;
+			remoteInfo = AtoZBezierPath;
+		};
+		7BB8701E163850050000C242 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7BB8701116384FF00000C242 /* AtoZBezierPath.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 7BB86FE016384C490000C242;
+			remoteInfo = AtoZBezierPath;
+		};
 		7BC69054162BA94100B71602 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7BC69049162BA94000B71602 /* NanoStore.xcodeproj */;
@@ -1461,6 +1486,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				7BB870211638501F0000C242 /* AtoZBezierPath.framework in frameworks copy */,
 				7BB86F881638402A0000C242 /* Rebel.framework in frameworks copy */,
 				7BD908CD162F7C99000DE2BB /* Zangetsu.framework in frameworks copy */,
 				7BC69166162C030E00B71602 /* NanoStore.framework in frameworks copy */,
@@ -2591,6 +2617,10 @@
 		7BB0095F16311D7700750FEB /* AZPropellerBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AZPropellerBar.png; sourceTree = "<group>"; };
 		7BB86F6A1637225C0000C242 /* AtoZ.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AtoZ.framework; path = ../../../../../Library/Frameworks/AtoZ.framework; sourceTree = "<group>"; };
 		7BB86F7716383FCD0000C242 /* Rebel.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Rebel.xcodeproj; path = ../Frameworks/Rebel/Rebel.xcodeproj; sourceTree = "<group>"; };
+		7BB8701116384FF00000C242 /* AtoZBezierPath.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AtoZBezierPath.xcodeproj; path = ../Frameworks/AtoZBezierPath/AtoZBezierPath.xcodeproj; sourceTree = "<group>"; };
+		7BB87022163853030000C242 /* AZGeometryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = AZGeometryViewController.h; sourceTree = "<group>"; };
+		7BB87023163853030000C242 /* AZGeometryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZGeometryViewController.m; sourceTree = "<group>"; };
+		7BB87024163853030000C242 /* AZGeometryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AZGeometryViewController.xib; sourceTree = "<group>"; };
 		7BBB12D816054F02005D73CF /* LoremIpsum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = LoremIpsum.h; path = "Lorem-Ipsum/LoremIpsum.h"; sourceTree = "<group>"; };
 		7BBB12D916054F02005D73CF /* LoremIpsum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoremIpsum.m; path = "Lorem-Ipsum/LoremIpsum.m"; sourceTree = "<group>"; };
 		7BBD96EC15AD38F300943FC1 /* AZApplePrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZApplePrivate.h; sourceTree = "<group>"; };
@@ -3439,6 +3469,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BB87020163850110000C242 /* AtoZBezierPath.framework in Frameworks */,
 				7BB86F8716383FF90000C242 /* Rebel.framework in Frameworks */,
 				7BFA3F0B162B8AA0003264A4 /* XPCKit.framework in Frameworks */,
 				7BCB36BA162D31A100E61080 /* Zangetsu.framework in Frameworks */,
@@ -3743,6 +3774,7 @@
 		7B311953159B6D9E002134C4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7BB8701116384FF00000C242 /* AtoZBezierPath.xcodeproj */,
 				7BB86F7716383FCD0000C242 /* Rebel.xcodeproj */,
 				7BC69049162BA94000B71602 /* NanoStore.xcodeproj */,
 				7BCB36A5162D313400E61080 /* Zangetsu.xcodeproj */,
@@ -4264,6 +4296,15 @@
 			children = (
 				7BB86F8216383FCE0000C242 /* Rebel.framework */,
 				7BB86F8416383FCE0000C242 /* RebelTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7BB8701216384FF00000C242 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7BB8701B16384FF20000C242 /* VectorBoolean.app */,
+				7BB8701D16384FF20000C242 /* AtoZBezierPath.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -5107,6 +5148,9 @@
 				7BDF56A41627695500041A42 /* TestBed.xib */,
 				7B7D55A1163093C400711D0F /* MainMenu.xib */,
 				7BDF56961627695500041A42 /* Supporting Files */,
+				7BB87022163853030000C242 /* AZGeometryViewController.h */,
+				7BB87023163853030000C242 /* AZGeometryViewController.m */,
+				7BB87024163853030000C242 /* AZGeometryViewController.xib */,
 			);
 			path = AtoZTestBed;
 			sourceTree = "<group>";
@@ -5383,6 +5427,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				7BB8701F163850050000C242 /* PBXTargetDependency */,
 				7BB86F8616383FDC0000C242 /* PBXTargetDependency */,
 				7BCB36B8162D315800E61080 /* PBXTargetDependency */,
 				7BC69165162C030500B71602 /* PBXTargetDependency */,
@@ -5509,6 +5554,10 @@
 			productRefGroup = 7B311952159B6D9E002134C4 /* Products */;
 			projectDirPath = "";
 			projectReferences = (
+				{
+					ProductGroup = 7BB8701216384FF00000C242 /* Products */;
+					ProjectRef = 7BB8701116384FF00000C242 /* AtoZBezierPath.xcodeproj */;
+				},
 				{
 					ProductGroup = 7B5ABAAD1608D76500530EA7 /* Products */;
 					ProjectRef = 7BE1F69C15F90298005ED292 /* FunSize.xcodeproj */;
@@ -5645,6 +5694,20 @@
 			fileType = wrapper.cfbundle;
 			path = RebelTests.octest;
 			remoteRef = 7BB86F8316383FCE0000C242 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7BB8701B16384FF20000C242 /* VectorBoolean.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = VectorBoolean.app;
+			remoteRef = 7BB8701A16384FF20000C242 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7BB8701D16384FF20000C242 /* AtoZBezierPath.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = AtoZBezierPath.framework;
+			remoteRef = 7BB8701C16384FF20000C242 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		7BC69055162BA94100B71602 /* NanoStore.framework */ = {
@@ -6034,6 +6097,7 @@
 				7BDF56A01627695500041A42 /* Credits.rtf in Resources */,
 				7B7D55A3163093C400711D0F /* MainMenu.xib in Resources */,
 				7BB86F6C163723C30000C242 /* TestBed.xib in Resources */,
+				7BB87027163853030000C242 /* AZGeometryViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6344,6 +6408,7 @@
 			files = (
 				7BDF569C1627695500041A42 /* main.m in Sources */,
 				7BDF56A31627695500041A42 /* TestBedDelegate.m in Sources */,
+				7BB87026163853030000C242 /* AZGeometryViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6384,6 +6449,11 @@
 			isa = PBXTargetDependency;
 			name = Rebel;
 			targetProxy = 7BB86F8516383FDC0000C242 /* PBXContainerItemProxy */;
+		};
+		7BB8701F163850050000C242 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AtoZBezierPath;
+			targetProxy = 7BB8701E163850050000C242 /* PBXContainerItemProxy */;
 		};
 		7BC69165162C030500B71602 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -6659,6 +6729,8 @@
 					"-header-pad_max_install_names",
 					"-sub_umbrella",
 					Rebel,
+					"-sub_umbrella",
+					AtoZBezierPath,
 				);
 				PRODUCT_NAME = AtoZ;
 				RUN_CLANG_STATIC_ANALYZER = NO;
@@ -6732,6 +6804,8 @@
 					"-header-pad_max_install_names",
 					"-sub_umbrella",
 					Rebel,
+					"-sub_umbrella",
+					AtoZBezierPath,
 				);
 				PRODUCT_NAME = AtoZ;
 				RUN_CLANG_STATIC_ANALYZER = NO;

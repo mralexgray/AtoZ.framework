@@ -13,11 +13,20 @@
 @property (weak) AZWindowExtend *window;
 @end
 
-@interface AZWindowExtend : NSWindow
 
-- (void)setAcceptsMouseMovedEvents:(BOOL)acceptMouseMovedEvents screen:(BOOL)anyWhere;
+@interface AZContentView : NSView
+@end
+
+@interface AZWindowExtend : NSWindow
 
 //@property (nonatomic, retain) IBOutlet NSTextField *coordinates;
 @property (weak) IBOutlet NSTextField *coordinates;
-@property (NATOM, ASS) CGPoint point;
+
+@property (NATOM, ASS) 	 CGPoint point;
+@property (STRNG, NATOM) NSHashTable *eventViews;
+@property (STRNG, NATOM) NSView	*contentV;
+
+//- (void)addEventView:(NSView *)aView;
+- (void)setAcceptsMouseMovedEvents:(BOOL)acceptMouseMovedEvents screen:(BOOL)anyWhere;
+
 @end

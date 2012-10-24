@@ -340,6 +340,10 @@ NSRect sectionPositioned(NSRect r, AZWindowPosition p);
 int oppositeQuadrant(int quadrant);
 NSRect quadrant(NSRect r, AZQuadrant quad);
 
+CGFloat quadrantsVerticalGutter(NSRect r);
+
+CGFloat quadrantsHorizontalGutter(NSRect r);
+
 NSRect constrainRectToRect(NSRect innerRect, NSRect outerRect);
 NSRect alignRectInRect(NSRect innerRect,NSRect outerRect,int quadrant);
 //NSRect expelRectFromRect(NSRect innerRect, NSRect outerRect,float peek);

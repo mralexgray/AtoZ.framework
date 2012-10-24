@@ -4,6 +4,8 @@
 //
 #import "AZWindowExtend.h"
 
+@implementation AZContentView
+@end
 
 @interface NSObject(AZWindowExtend)
 - (void)pointOnScreenDidChangeTo:(id)point;
@@ -22,7 +24,26 @@
 }
 
 @end
+
 @implementation AZWindowExtend
+
+
+- (id) initWithContentRect:(NSRect)contentRect styleMask:(NSUInteger)windowStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)deferCreation
+{
+	if (!(self = [super initWithContentRect:contentRect
+								  styleMask:windowStyle
+								  	backing:bufferingType
+									  defer:deferCreation])) return nil;
+
+	self.eventViews = [NSHashTable hashTableWithWeakObjects];
+	self.contentV = [[AZContentView alloc]initWithFrame:contentRect];
+	return self;
+}
+
+- (id) contentView {
+	return  self.contentV;
+}
+
 - (void) awakeFromNib {
 	[self setAcceptsMouseMovedEvents:YES screen:YES];
 
@@ -124,6 +145,41 @@ static CGEventRef AUWE_OnMouseMovedFactory (
 		}
 		[super setAcceptsMouseMovedEvents:acceptMouseMovedEvents];
 	}
+}
+
+/*
+ 
+ add a click view
+ 
+ click view must be a sub view of the NSWindow contentView
+ 
+ */
+- (void)addClickView:(NSView *)aView
+{
+	if ([aView isDescendantOf:[self contentView]] && [aView respondsToSelector:@selector(subviewClicked:)]) {
+		
+		// _clickViews will maintain a weak ref to aView so we don't need to remove it
+		[self.eventViews addObject:aView];
+	}
+}
+
+/* send event This action method dispatches mouse and keyboard events sent to the window by the NSApplication object */
+- (void)sendEvent:(NSEvent *)event
+{
+	// look for mouse down
+	if ([event type] == NSLeftMouseDown) {
+		// look for deepest subview
+		NSView *deepView = [[self contentView] hitTest:[event locationInWindow]];
+		if (deepView) {
+			for (NSView *aClickView in _eventViews) {
+				if ([deepView isDescendantOf:aClickView]) {
+					[(id)aClickView perform:@selector(subviewClicked:) withObject:deepView];
+					break;
+				}
+			}
+		}			
+	}
+	[super sendEvent:event];
 }
 
 @end

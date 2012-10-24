@@ -206,6 +206,9 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define nDoBC needsDisplayOnBoundsChange
 #define CASIZEABLE kCALayerWidthSizable | kCALayerHeightSizable
 #define NSSIZEABLE NSViewHeightSizable | NSViewWidthSizable
+
+#define NSSIZEABLE NSViewHeightSizable | NSViewWidthSizable
+
 #define removedOnC removedOnCompletion
 
 #define vFk valueForKey
@@ -492,10 +495,10 @@ typedef enum  {	AZPositionLeft 			= NSMinXEdge, // 0  NSDrawer
 #define QUAD AZQuadrant
 
 typedef enum 	{
-	TopLeft     = 1,
-	TopRight 	= 2,
-	BotLeft		= 3,
-	BotRight   	= 4
+	TopLeft,
+	TopRight,
+	BotRight,
+	BotLeft
 } 	AZQuadrant;
 
 typedef struct {	CGFloat tlX; CGFloat tlY;

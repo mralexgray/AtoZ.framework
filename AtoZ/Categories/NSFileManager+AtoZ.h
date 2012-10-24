@@ -6,12 +6,16 @@
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 #import <Foundation/Foundation.h>
 
-NSString *NSDocumentsFolder();
-NSString *NSLibraryFolder();
-NSString *NSTmpFolder();
-NSString *NSBundleFolder();
+NSString *NSDocumentsFolder(void);
+NSString *NSLibraryFolder(void);
+NSString *NSTmpFolder(void);
+NSString *NSBundleFolder(void);
 
 @interface NSFileManager (AtoZ)
+
+- (NSArray*) pathsOfContentsOfDirectory:(NSString*) directory;
+
+
 - (NSArray*) arrayWithFilesMatchingPattern: (NSString*) pattern inDirectory: (NSString*) directory;
 
 + (NSString *) pathForItemNamed: (NSString *) fname inFolder: (NSString *) path;

@@ -46,6 +46,13 @@
 @implementation NSArray (AtoZ)
 @dynamic trimmedStrings;
 
+
+- (NSA*) URLsForPaths {
+	return [self map:^id(id obj) { return [NSURL fileURLWithPath:obj]; }];
+}
+
+
+
 - (void) logEach;
 {
 

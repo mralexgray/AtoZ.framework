@@ -27,6 +27,8 @@
 @end
 
 @implementation AtoZ
+
+
 //@synthesize sManager;
 //- (id)init {
 //    self = [super init];
@@ -35,6 +37,7 @@
 - (void) setUp
 {
 	[AZStopwatch named:@"Welcome to AtoZ.framework." block:^{
+		AZLOG([AtoZ fonts]);
 		Sound *rando = [Sound randomSound];
 		[[SoundManager sharedManager] prepareToPlayWithSound:rando];
 		[[SoundManager sharedManager] playSound:rando];
@@ -43,6 +46,10 @@
 	}];
 }
 
++ (NSS*) randomFontName;
+{
+	return [AtoZ fonts].randomElement;
+}
 
 - (void)registerHotKeys
 {
@@ -172,49 +179,51 @@
 }
 
 + (void) initialize {
-	[self activateFonts];
 }
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-+(void) activateFonts {
++ (NSArray *)fonts {
+	static NSArray *internalFonts = nil;
 	__block NSError *err;
-	NSString *fontFilePath = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"/Fonts"];
-	NSArray *fonts = [AZFILEMANAGER contentsOfDirectoryAtPath:fontFilePath error:nil];
-	[fonts each:^(id obj) {
-		NSURL *fontsURL = [NSURL fileURLWithPath:[fontFilePath stringByAppendingPathComponent:obj]];
-		if(fontsURL != nil)
-			{
-			OSStatus status; FSRef fsRef;
-			CFURLGetFSRef((CFURLRef)fontsURL, &fsRef);
-			status = ATSFontActivateFromFileReference(&fsRef, kATSFontContextLocal, kATSFontFormatUnspecified,
-													  NULL, kATSOptionFlagsDefault, NULL);
-			if ( status != noErr ) {
-				NSError *error = [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:nil];
-				AZLOG($(@"Error: %@\nFailed to acivate font at %@!", error, obj));
-			}
-			else AZLOG($( @"Successfully acivated font %@!", [obj lastPathComponent]));
-		}
-	}];
-}
-	#pragma GCC diagnostic warning "-Wdeprecated-declarations"
-
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-- (NSFont*) registerFonts:(CGFloat)size {
-	if (!_fontsRegistered) {
-		NSBundle *aBundle = [NSBundle bundleForClass: [AtoZ class]];
-		NSURL *fontsURL = [NSURL fileURLWithPath:$(@"%@/Fonts",[aBundle resourcePath])];
-		if(fontsURL != nil)	{
-			OSStatus status;		FSRef fsRef;
-			NSError *err;
-			CFURLGetFSRef((CFURLRef)fontsURL, &fsRef);
-			status = ATSFontActivateFromFileReference(&fsRef, kATSFontContextLocal, kATSFontFormatUnspecified, NULL, kATSOptionFlagsDefault, NULL);
-			if (status != noErr)		{
-//				err = @"Failed to acivate fonts!";  goto err;
-			} else  { _fontsRegistered = 1; NSLog(@"Fonts registered!"); }
-		} else NSLog(@"couldnt register fonts!");
-	}
-	return  [NSFont fontWithName:@"UbuntuTitling-Bold" size:size];
+	return internalFonts = internalFonts ?: [[[[AZFILEMANAGER pathsOfContentsOfDirectory:[[AZFWORKBUNDLE resourcePath] stringByAppendingPathComponent:@"/Fonts"]]URLsForPaths] filter: ^BOOL(NSURL* obj) {
+			if (obj) {
+				OSStatus status; FSRef fsRef;
+				CFURLGetFSRef((CFURLRef)obj, &fsRef);
+				status = ATSFontActivateFromFileReference(&fsRef, kATSFontContextLocal, kATSFontFormatUnspecified,
+														  NULL, kATSOptionFlagsDefault, NULL);
+				return  status != noErr  ? ^ {
+					NSError *error = [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:nil];
+					AZLOG($(@"Error: %@\nFailed to acivate font at %@!", error, obj));
+					return  NO;
+				}() : YES;		//		else { 			 AZLOG($( @"Successfully acivated font %@!", [obj lastPathComponent])); }
+			} else return NO;
+		}] map:^id(NSURL *obj) {
+//			NSFontManager
+			CFArrayRef fontDescription = CTFontManagerCreateFontDescriptorsFromURL((__bridge CFURLRef)obj);
+        	id dict = LogAndReturn( [(NSArray*)CFBridgingRelease(fontDescription) objectAtIndex:0] );
+			return [dict objectForKey:@"NSFontNameAttribute"] ?: @"N/A";
+		}];	//		 return [obj.lastPathComponent stringByDeletingPathExtension];
+	
 }
 #pragma GCC diagnostic warning "-Wdeprecated-declarations"
+
+//#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+//- (NSFont*) registerFonts:(CGFloat)size {
+//	if (!_fontsRegistered) {
+//		NSBundle *aBundle = [NSBundle bundleForClass: [AtoZ class]];
+//		NSURL *fontsURL = [NSURL fileURLWithPath:$(@"%@/Fonts",[aBundle resourcePath])];
+//		if(fontsURL != nil)	{
+//			OSStatus status;		FSRef fsRef;
+//			NSError *err;
+//			CFURLGetFSRef((CFURLRef)fontsURL, &fsRef);
+//			status = ATSFontActivateFromFileReference(&fsRef, kATSFontContextLocal, kATSFontFormatUnspecified, NULL, kATSOptionFlagsDefault, NULL);
+//			if (status != noErr)		{
+////				err = @"Failed to acivate fonts!";  goto err;
+//			} else  { _fontsRegistered = 1; NSLog(@"Fonts registered!"); }
+//		} else NSLog(@"couldnt register fonts!");
+//	}
+//	return  [NSFont fontWithName:@"UbuntuTitling-Bold" size:size];
+//}
+//#pragma GCC diagnostic warning "-Wdeprecated-declarations"
 + (NSJSONSerialization*) jsonReuest:(NSString*)url {
 	AtoZ *me = [[self class] sharedInstance];
 	return  [me jsonReuest:url];

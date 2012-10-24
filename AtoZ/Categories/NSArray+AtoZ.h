@@ -23,6 +23,7 @@
 
 @interface NSArray (AtoZ)
 
+- (NSA*) URLsForPaths;
 - (void) logEach;
 + (NSArray*) arrayFromPlist:(NSString*)path;
 - (void) saveToPlistAtPath:(NSString*)path;

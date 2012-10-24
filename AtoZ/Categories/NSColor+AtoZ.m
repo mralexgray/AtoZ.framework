@@ -1353,7 +1353,7 @@ static NSColor *ColorWithCSSString(NSString *str) {
 }
 
 - (NSColor *)complement {
-	NSColor *c = self.calibratedRGBColor;
+	NSColor *c = self.colorSpaceName == NSPatternColorSpace ? [self.patternImage quantize][0] : self.calibratedRGBColor;
 	if (!c) {
 		NSLog(@"Cannot create complement for color %@", self);
 		return self;
@@ -1365,10 +1365,8 @@ static NSColor *ColorWithCSSString(NSString *str) {
 	if (h > 1) {
 		h -= 1.0;
 	}
-	return [NSColor colorWithDeviceHue:h
-							saturation:s
-							brightness:b
-								 alpha:a];
+	NSC *newish = 	[NSColor colorWithDeviceHue:h saturation:s	brightness:b alpha:a];
+	return self.colorSpaceName == NSPatternColorSpace ? [NSColor colorWithPatternImage:[self.patternImage tintedWithColor:newish]]: newish;
 }
 
 - (NSColor *)rgbComplement {

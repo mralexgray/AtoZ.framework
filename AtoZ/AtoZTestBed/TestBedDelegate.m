@@ -9,7 +9,6 @@
 #import "TestBedDelegate.h"
 #import <Quartz/Quartz.h>
 #import <QuartzCore/QuartzCore.h>
-
 @interface NSObject (getLayer)
 - (CAL*)	getLayer;
 + (NSView*) viewInView:(NSView*)view;
@@ -36,6 +35,7 @@ const CGFloat dash[2] = {100, 60};
 @implementation TestBedDelegate
 -(void) awakeFromNib {
 	[AtoZ sharedInstance];
+
 	[self loadSecondNib:nil];
 	[_segments 	 setAction:@selector(setView:) withTarget:self];
 	[_targetView setupHostView];
@@ -48,6 +48,8 @@ const CGFloat dash[2] = {100, 60};
 -(NSImageView*)badges {
 
 	_badges = [[NSImageView alloc]initWithFrame:_targetView.frame];
+	_badges.arMASK = NSSIZEABLE;
+	_badges.imageScaling = NSImageScaleProportionallyUpOrDown;
 	AZSizer *s = [AZSizer forQuantity:10 inRect:_targetView.frame];
 	NSIMG *badgeQuad = [[NSImage alloc]initWithSize:_targetView.frame.size];
 	[badgeQuad lockFocus];
@@ -63,17 +65,28 @@ const CGFloat dash[2] = {100, 60};
 {	return 	_blockView = _blockView ?:
 	[BLKVIEW viewWithFrame:_targetView.frame opaque:NO drawnUsingBlock: ^(BLKVIEW *view, NSR dirtyRect) {
 		view.arMASK = NSSIZEABLE;
+		NSRect topBox = AZUpperEdge(view.frame, 100);
+		NSRect botBox = AZRectTrimmedOnTop(view.frame, 100);
 		NSA*paletteArray = [NSColor randomPalette];
-		NSBP *arrow	= [[NSBezierPath bezierPathWithArrow]scaleToSize:AZScaleRect(view.frame, .5).size];
+
 		[view associate:[NSC linenTintedWithColor:paletteArray.randomElement] with:@"blockC"];
-		NSRectFillWithColor( view.frame, [view associatedValueForKey:@"blockC"] );
-		[[NSBezierPath bezierPathWithTriangleInRect:
-			  quadrant( view.frame, 1 ) orientation:AMTriangleLeft] drawWithFill:paletteArray.randomElement andStroke:paletteArray.randomElement];
+		NSRectFillWithColor( botBox, [view associatedValueForKey:@"blockC"] );
+		NSRectFillWithColor( topBox, [[view associatedValueForKey:@"blockC"] complement]);
+		NSBP *arrow	= [[NSBezierPath bezierPathWithArrow]
+									 scaleToSize: (NSSZ) { quadrantsVerticalGutter(botBox), NSHeight(botBox) }];
 		[arrow setLineWidth:5];
-		[arrow setLineDash:dash count:20 phase:40];
+//		[arrow setLineDash:dash count:20 phase:40];
 		[arrow drawWithFill:paletteArray.randomElement andStroke:paletteArray.randomElement];
 		[arrow drawPointsAndHandles];
-		[@" I am Drawn in a block.\n And this text is guaranteed to fit! " drawInRect:view.bounds withFontNamed:@"Ubuntu Mono Bold" andColor:WHITE];
+
+		[[NSArray from:0 to:3] eachWithIndex:^(id obj, NSInteger idx) {
+			NSBP *tri = [NSBezierPath bezierPathWithTriangleInRect:
+			  quadrant( botBox, (QUAD)idx ) orientation:(AMTriangleOrientation)idx];
+			[tri drawWithFill:paletteArray.randomElement andStroke:paletteArray.randomElement];
+			[tri drawPointsAndHandles];
+
+		}];
+		[@" I am Drawn in a block.\n And this text is guaranteed to fit! " drawInRect:topBox withFontNamed:[AtoZ randomFontName] andColor:WHITE];
 	}];
 }
 
