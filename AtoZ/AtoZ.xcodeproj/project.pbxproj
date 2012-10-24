@@ -335,7 +335,6 @@
 		7B7C27FE15C32B39007DD569 /* RoundedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7C27FA15C32B39007DD569 /* RoundedView.m */; };
 		7B7C27FF15C32B39007DD569 /* TransparentWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B7C27FB15C32B39007DD569 /* TransparentWindow.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B7C280015C32B39007DD569 /* TransparentWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7C27FC15C32B39007DD569 /* TransparentWindow.m */; };
-		7B7D5588163070FD00711D0F /* AZCIFilters.h in Sources */ = {isa = PBXBuildFile; fileRef = 7B7D5586163070FC00711D0F /* AZCIFilters.h */; };
 		7B7D5589163070FD00711D0F /* AZCIFilters.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7D5587163070FC00711D0F /* AZCIFilters.m */; };
 		7B7D558F1630781C00711D0F /* NSError+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7D558D1630781B00711D0F /* NSError+AtoZ.m */; };
 		7B7D55A3163093C400711D0F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B7D55A1163093C400711D0F /* MainMenu.xib */; };
@@ -374,7 +373,6 @@
 		7B9742D415C697C4006490DD /* 5.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 7B9742CF15C697C4006490DD /* 5.pdf */; };
 		7B9ADD7B1632B9BC0026FA02 /* NSManagedObjectContext+EasyFetch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B9ADD791632B99B0026FA02 /* NSManagedObjectContext+EasyFetch.m */; };
 		7B9ADD7C1632B9C30026FA02 /* NSManagedObjectContext+EasyFetch.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B9ADD7A1632B99B0026FA02 /* NSManagedObjectContext+EasyFetch.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7B9ADE741635B36C0026FA02 /* TestBed.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BDF56A41627695500041A42 /* TestBed.xib */; };
 		7B9ADEA21635C51A0026FA02 /* CTBadge_1.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 7B9ADE9E1635C51A0026FA02 /* CTBadge_1.pdf */; };
 		7B9ADEA31635C51A0026FA02 /* CTBadge_3.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 7B9ADE9F1635C51A0026FA02 /* CTBadge_3.pdf */; };
 		7B9ADEA41635C51A0026FA02 /* CTBadge_4.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 7B9ADEA01635C51A0026FA02 /* CTBadge_4.pdf */; };
@@ -396,9 +394,11 @@
 		7BAD6B1215CD5C2E001DE404 /* AZNamedColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BAD6B1015CD5C2E001DE404 /* AZNamedColors.m */; };
 		7BAF2F0415E87BB100099C9A /* Growl Registration Ticket.growlRegDict in Resources */ = {isa = PBXBuildFile; fileRef = 7BAF2F0315E87BB100099C9A /* Growl Registration Ticket.growlRegDict */; };
 		7BB0095C16311BB500750FEB /* AZPropellerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BB0095A16311BB500750FEB /* AZPropellerView.m */; };
-		7BB0095D16311BB500750FEB /* AZPropellerView.h in Sources */ = {isa = PBXBuildFile; fileRef = 7BB0095B16311BB500750FEB /* AZPropellerView.h */; };
 		7BB0096016311D7700750FEB /* AZPropellerBadge.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BB0095E16311D7700750FEB /* AZPropellerBadge.png */; };
 		7BB0096116311D7700750FEB /* AZPropellerBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BB0095F16311D7700750FEB /* AZPropellerBar.png */; };
+		7BB86F6B1637225C0000C242 /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BB86F6A1637225C0000C242 /* AtoZ.framework */; };
+		7BB86F6C163723C30000C242 /* TestBed.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BDF56A41627695500041A42 /* TestBed.xib */; };
+		7BB86F6D163733B60000C242 /* AZPropellerView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BB0095B16311BB500750FEB /* AZPropellerView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BBB12DB16054F02005D73CF /* LoremIpsum.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BBB12D916054F02005D73CF /* LoremIpsum.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7BBB12DC16054F37005D73CF /* LoremIpsum.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BBB12D816054F02005D73CF /* LoremIpsum.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BBD96EB15AD279900943FC1 /* AZSizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC859C415A8C0F400582632 /* AZSizer.m */; };
@@ -1155,7 +1155,6 @@
 		7BDDD5E415A3792600A5C222 /* AZStopwatch.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BDDD5E215A3792600A5C222 /* AZStopwatch.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BDDD5E515A3792600A5C222 /* AZStopwatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BDDD5E315A3792600A5C222 /* AZStopwatch.m */; };
 		7BDF55DF1625668B00041A42 /* BlocksKit.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7BDF55DE1625668A00041A42 /* BlocksKit.framework */; };
-		7BDF55E61625723600041A42 /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B311951159B6D9E002134C4 /* AtoZ.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		7BDF56061625A45C00041A42 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BDF56051625A45C00041A42 /* AVFoundation.framework */; };
 		7BDF567D1626B68600041A42 /* AZBorderlessResizeWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BDF567B1626B68600041A42 /* AZBorderlessResizeWindow.m */; };
 		7BDF567E1626B83200041A42 /* AZBorderlessResizeWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BDF567A1626B68600041A42 /* AZBorderlessResizeWindow.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -2566,6 +2565,7 @@
 		7BB0095B16311BB500750FEB /* AZPropellerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = AZPropellerView.h; sourceTree = "<group>"; };
 		7BB0095E16311D7700750FEB /* AZPropellerBadge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AZPropellerBadge.png; sourceTree = "<group>"; };
 		7BB0095F16311D7700750FEB /* AZPropellerBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AZPropellerBar.png; sourceTree = "<group>"; };
+		7BB86F6A1637225C0000C242 /* AtoZ.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AtoZ.framework; path = ../../../../../Library/Frameworks/AtoZ.framework; sourceTree = "<group>"; };
 		7BBB12D816054F02005D73CF /* LoremIpsum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = LoremIpsum.h; path = "Lorem-Ipsum/LoremIpsum.h"; sourceTree = "<group>"; };
 		7BBB12D916054F02005D73CF /* LoremIpsum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoremIpsum.m; path = "Lorem-Ipsum/LoremIpsum.m"; sourceTree = "<group>"; };
 		7BBD96EC15AD38F300943FC1 /* AZApplePrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZApplePrivate.h; sourceTree = "<group>"; };
@@ -3364,7 +3364,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7BDF55E61625723600041A42 /* AtoZ.framework in Frameworks */,
+				7BB86F6B1637225C0000C242 /* AtoZ.framework in Frameworks */,
 				7B04C2C316118DBE00F46AD2 /* Cocoa.framework in Frameworks */,
 				7BF93E3615FEF8F400211769 /* GHUnit.framework in Frameworks */,
 				7B184EE715FCA98700696360 /* Foundation.framework in Frameworks */,
@@ -3414,8 +3414,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7B23C33E15CE267400DD1A9C /* Quartz.framework in Frameworks */,
 				7BFA3F0B162B8AA0003264A4 /* XPCKit.framework in Frameworks */,
+				7BCB36BA162D31A100E61080 /* Zangetsu.framework in Frameworks */,
 				7BC69167162C031800B71602 /* NanoStore.framework in Frameworks */,
 				7BFA3F0C162B8ABA003264A4 /* PLWeakCompatibility.framework in Frameworks */,
 				7BFA3F0D162B8AC8003264A4 /* BlocksKit.framework in Frameworks */,
@@ -3425,10 +3425,10 @@
 				7B23C36815CE9AB800DD1A9C /* WebKit.framework in Frameworks */,
 				7B23C33F15CE268B00DD1A9C /* Carbon.framework in Frameworks */,
 				7BBD987F15AF7A2400943FC1 /* ApplicationServices.framework in Frameworks */,
+				7B23C33E15CE267400DD1A9C /* Quartz.framework in Frameworks */,
 				7BBD987E15AF7A2400943FC1 /* Security.framework in Frameworks */,
 				7BBD988015AF7A2400943FC1 /* AppKit.framework in Frameworks */,
 				7BBD988115AF7A2400943FC1 /* Foundation.framework in Frameworks */,
-				7BCB36BA162D31A100E61080 /* Zangetsu.framework in Frameworks */,
 				7BDF56061625A45C00041A42 /* AVFoundation.framework in Frameworks */,
 				7B662AE1161F484B003D5EE0 /* Cocoa.framework in Frameworks */,
 				7BBD988215AF7A2400943FC1 /* QuartzCore.framework in Frameworks */,
@@ -3671,6 +3671,7 @@
 		7B311945159B6D9E002134C4 = {
 			isa = PBXGroup;
 			children = (
+				7BB86F6A1637225C0000C242 /* AtoZ.framework */,
 				7B82B82815CB66D30026FE8C /* AtoZ Encyclopedia */,
 				7B31B12F15E9441D00802CD5 /* AtoZ Entitlement */,
 				7B449D9B16164B5200AB9335 /* AtoZ-Framework.pch */,
@@ -5298,6 +5299,7 @@
 				7BDF56B21627C2ED00041A42 /* AZInstantApp.h in Headers */,
 				7B662AEA16208907003D5EE0 /* NSObject+AutoCoding.h in Headers */,
 				7B662AEB16208907003D5EE0 /* HRCoder.h in Headers */,
+				7BB86F6D163733B60000C242 /* AZPropellerView.h in Headers */,
 				7B1822CE162390D800C19DBB /* AZLayer.h in Headers */,
 				7BFDF4DA162E07C800B0E149 /* MAKVONotificationCenter.h in Headers */,
 				7B06C9D4160F0BB900342A9D /* AZLassoLayer.h in Headers */,
@@ -5976,7 +5978,7 @@
 				7BDF569A1627695500041A42 /* InfoPlist.strings in Resources */,
 				7BDF56A01627695500041A42 /* Credits.rtf in Resources */,
 				7B7D55A3163093C400711D0F /* MainMenu.xib in Resources */,
-				7B9ADE741635B36C0026FA02 /* TestBed.xib in Resources */,
+				7BB86F6C163723C30000C242 /* TestBed.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6190,11 +6192,9 @@
 				7B5B2CD8162CD12500B454C2 /* AZImageToDataTransformer.m in Sources */,
 				7BFDF4DB162E07C800B0E149 /* MAKVONotificationCenter.m in Sources */,
 				7BD908BF162F580E000DE2BB /* AtoZGeometry.m in Sources */,
-				7B7D5588163070FD00711D0F /* AZCIFilters.h in Sources */,
 				7B7D5589163070FD00711D0F /* AZCIFilters.m in Sources */,
 				7B7D558F1630781C00711D0F /* NSError+AtoZ.m in Sources */,
 				7BB0095C16311BB500750FEB /* AZPropellerView.m in Sources */,
-				7BB0095D16311BB500750FEB /* AZPropellerView.h in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

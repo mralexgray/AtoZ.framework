@@ -176,6 +176,10 @@ NSPoint AZPointFromDim(CGFloat val);
 // converts a float to a rect of equal sized sizes of dim;
 NSRect AZRectFromDim(CGFloat dim);
 
+//  Makes Rect 0, 0, boundsX, boundsY  easy syntax AZRectBy(200,233)
+NSRect AZRectBy(CGFloat boundX, CGFloat boundY);
+
+
 // converts a float to a size;
 NSSize AZSizeFromDimension(CGFloat dim);
 

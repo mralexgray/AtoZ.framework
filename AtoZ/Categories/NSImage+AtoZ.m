@@ -174,7 +174,7 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 }
 
 + (NSIMG*) badgeForRect:(NSR)frame withColor:(NSC*)color stroked:(NSC*) stroke withString:(NSS*)string {
-
+	if (![AtoZ hasSharedInstance]) [AtoZ sharedInstance];
 
 	CGF inset 		= .1 * AZMinDim( frame.size );
 	

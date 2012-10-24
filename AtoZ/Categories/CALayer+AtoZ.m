@@ -866,6 +866,30 @@ extern CATransform3D CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13, CG
 	[self rotateAroundYAxis:M_PI_2];
 }
 
+- (void)animateToColor:(NSColor*)color{
+	NSString *key = [self isKindOfClass:[CAShapeLayer class]] ? @"fillColor" : @"backgroundColor";
+	CABasicAnimation *anime = [CABasicAnimation animationWithKeyPath:key];
+	anime.toValue 		= (id)color.CGColor;
+	anime.duration 		= 5.0f;
+	anime.autoreverses 	= NO;
+	anime.fillMode		= kCAFillModeForwards;
+	anime.removedOnCompletion = NO;
+	[self addAnimation:anime forKey:@"color"];
+
+
+//	CAAnimation * animation = [[CAAnimation animation]
+//							   animationWithKeyPath:@"backgroundColor"];
+//
+//	NSDictionary *dic = $map(	(id)[color1 CGColor], 	@"fromValue",
+//							 (id)[color2 CGColor], 	@"toValue",
+//							 $float(2.0), 			@"duration",
+//							 YES,						@"removedOnCompletion",
+//							 kCAFillModeForwards, 	@"fillMode");
+//	[animation setValuesForKeysWithDictionary:dic];
+//	[theLayer addAnimation:animation forKey:@"color"];
+//	return animation;
+}
+
 /**
 
 + (CAShapeLayer*) lassoLayerForLayer:(CALayer*)layer {

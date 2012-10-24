@@ -241,20 +241,6 @@ void disableCA(){
 
 	return animation;
 }
-+ (CAAnimation*)colorAnimationForLayer:(CALayer *)theLayer
-					 withStartingColor:(NSColor*)color1 endColor:(NSColor*)color2{
-
-	CAAnimation * animation = [[CAAnimation animation]
-							   animationWithKeyPath:@"backgroundColor"];
-	NSDictionary *dic = $map(	(id)[color1 CGColor], 	@"fromValue",
-							 (id)[color2 CGColor], 	@"toValue",
-							 $float(2.0), 			@"duration",
-							 YES,						@"removedOnCompletion",
-							 kCAFillModeForwards, 	@"fillMode");
-	[animation setValuesForKeysWithDictionary:dic];
-	[theLayer addAnimation:animation forKey:@"color"];
-	return animation;
-}
 
 + (CAAnimation*)rotateAnimationForLayer:(CALayer *)theLayer start:(CGFloat)starting end:(CGFloat)ending {
 	CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];

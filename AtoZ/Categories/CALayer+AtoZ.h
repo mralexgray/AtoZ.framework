@@ -119,6 +119,7 @@ extern CATransform3D CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13, CG
 - (void)pulse;
 - (void)fadeOut;
 - (void)fadeIn;
+- (void)animateToColor:(NSColor*)color;
 
 - (void)addAnimations:(NSArray*)anims forKeys:(NSArray *)keys;
 

@@ -46,3 +46,6 @@
 [submodule "Frameworks/MAKVONotificationCenter"]
 	path = Frameworks/MAKVONotificationCenter
 	url = https://github.com/mikeash/MAKVONotificationCenter.git
+[submodule "Frameworks/Rebel"]
+	path = Frameworks/Rebel
+	url = https://github.com/mralexgray/Rebel.git

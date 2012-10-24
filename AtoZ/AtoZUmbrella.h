@@ -178,6 +178,7 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define CFTI CFTimeInterval
 #define CATL CATextLayer
 #define CASL CAScrollLayer
+#define CASHL CAShapeLayer
 #define CABA CABasicAnimation
 #define CAT CATransaction
 

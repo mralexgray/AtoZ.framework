@@ -488,6 +488,12 @@ NSPoint AZPointFromDim(CGFloat val){
 // NSSize functions
 //
 
+
+NSRect AZRectBy(CGFloat boundX, CGFloat boundY)
+{
+	return NSMakeRect(0,0,boundX, boundY);
+}
+
 NSRect AZRectFromDim(CGFloat dim) {
 	return (NSRect){0,0,dim,dim};
 }

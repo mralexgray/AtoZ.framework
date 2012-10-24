@@ -194,6 +194,7 @@
 #import "AtoZInfinity.h"
 #import "AZFileGridView.h"
 #import "NSTextView+AtoZ.h"
+#import "AZPropellerView.h"
 
 #import "AZVeil.h"
 

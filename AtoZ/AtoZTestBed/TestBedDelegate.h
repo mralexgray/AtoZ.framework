@@ -25,4 +25,8 @@
 
 @property (STRNG, NATOM) NASpinSeque 		*seque;
 
+@property (STRNG, NATOM) NSImageView 		*badges;
+@property (STRNG, NATOM) AZPrismView 		*prism;
+@property (STRNG, NATOM) AtoZ 		*propeller;
+
 @end

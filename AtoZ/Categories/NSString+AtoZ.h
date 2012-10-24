@@ -20,6 +20,7 @@
 - (NSString*) stringByReplacingAllOccurancesOfString:(NSString*) search withString:(NSString*) replacement;
 - (NSString*) urlEncoded;
 - (NSString*) urlDecoded;
+- (unichar)lastCharacter;
 
 - (NSString*) firstLetter;
 + (NSString*) newUniqueIdentifier;

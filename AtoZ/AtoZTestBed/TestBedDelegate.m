@@ -12,7 +12,7 @@
 
 @interface NSObject (getLayer)
 - (CAL*)	getLayer;
-+ (NSView*)viewInView:(NSView*)view;
++ (NSView*) viewInView:(NSView*)view;
 @end
 @implementation NSObject (getLayer)
 + (NSView*)viewInView:(NSView*)view;
@@ -34,6 +34,49 @@ const CGFloat dash[2] = {100, 60};
 @end
 
 @implementation TestBedDelegate
+-(void) awakeFromNib {
+	[AtoZ sharedInstance];
+	[self loadSecondNib:nil];
+	[_segments 	 setAction:@selector(setView:) withTarget:self];
+	[_targetView setupHostView];
+	[_targetView 	swapSubs:self.debugLayers];
+	[self addObserverForKeyPath:@"self.targetView.subviews" task:^(id obj, NSDictionary *change) {
+		AZLOG(@"subviews changed");
+	}];
+}
+
+-(NSImageView*)badges {
+
+	_badges = [[NSImageView alloc]initWithFrame:_targetView.frame];
+	AZSizer *s = [AZSizer forQuantity:10 inRect:_targetView.frame];
+	NSIMG *badgeQuad = [[NSImage alloc]initWithSize:_targetView.frame.size];
+	[badgeQuad lockFocus];
+		[s.rects eachWithIndex:^(id obj, NSInteger idx) {
+			[[NSImage badgeForRect:AZMakeRectFromSize(s.size) withColor:RANDOMCOLOR  stroked:nil withString:$(@"%ld", idx)]drawInRect:[obj rectValue]];
+		}];
+	[badgeQuad unlockFocus];
+	_badges.image = badgeQuad;
+	return _badges;
+
+}
+- (BLKVIEW*)blockView
+{	return 	_blockView = _blockView ?:
+	[BLKVIEW viewWithFrame:_targetView.frame opaque:NO drawnUsingBlock: ^(BLKVIEW *view, NSR dirtyRect) {
+		view.arMASK = NSSIZEABLE;
+		NSA*paletteArray = [NSColor randomPalette];
+		NSBP *arrow	= [[NSBezierPath bezierPathWithArrow]scaleToSize:AZScaleRect(view.frame, .5).size];
+		[view associate:[NSC linenTintedWithColor:paletteArray.randomElement] with:@"blockC"];
+		NSRectFillWithColor( view.frame, [view associatedValueForKey:@"blockC"] );
+		[[NSBezierPath bezierPathWithTriangleInRect:
+			  quadrant( view.frame, 1 ) orientation:AMTriangleLeft] drawWithFill:paletteArray.randomElement andStroke:paletteArray.randomElement];
+		[arrow setLineWidth:5];
+		[arrow setLineDash:dash count:20 phase:40];
+		[arrow drawWithFill:paletteArray.randomElement andStroke:paletteArray.randomElement];
+		[arrow drawPointsAndHandles];
+		[@" I am Drawn in a block.\n And this text is guaranteed to fit! " drawInRect:view.bounds withFontNamed:@"Ubuntu Mono Bold" andColor:WHITE];
+	}];
+}
+
 
 -(CATransition*)transition
 {
@@ -47,26 +90,19 @@ const CGFloat dash[2] = {100, 60};
 		transition.subtype	= @[ kCATransitionFromRight, kCATransitionFromLeft, kCATransitionFromTop, kCATransitionFromBottom].randomElement;
 		transition.duration	= 1.0;	  return transition; }();
 }
--(void) awakeFromNib
-{
-	[self loadSecondNib:nil];
-	[AtoZ sharedInstance];
-	[_segments 	 setAction:@selector(setView:) withTarget:self];
-	[_targetView setupHostView];
-	[_targetView 	swapSubs:self.debugLayers];
-	[self addObserverForKeyPath:@"self.targetView.subviews" task:^(id obj, NSDictionary *change) {
-		AZLOG(@"subviews changed");
-	}];
-}
 
 
 - (IBAction)loadSecondNib:(id)sender
 {
 	NSWindowController* awc = [[NSWindowController alloc] initWithWindowNibName:@"TestBed"];
-	[awc showWindow:self];
-    [[awc window] makeKeyAndOrderFront:nil];
+	[[awc window] makeKeyAndOrderFront:nil];
     [[NSApplication sharedApplication] arrangeInFront:nil];
-//	
+
+//	NSWindowController* awc = [[NSWindowController alloc] initWithWindowNibName:@"TestBed" owner:self];
+//	[awc showWindow:self];
+//    [[awc window] makeKeyAndOrderFront:nil];
+//    [[NSApplication sharedApplication] arrangeInFront:nil];
+//
 //	// Load with NSBundle
 //	NSLog(@"Loading NIB …");
 //
@@ -105,23 +141,7 @@ const CGFloat dash[2] = {100, 60};
 //								[self.targetView  swapSubs:self[[sender segmentLabel]]] : nil;	}
 
 //- (void)setDebugLayers:(BNRBlockView*)debugLayers {
-- (BLKVIEW*)blockView
-{	return 	_blockView = _blockView ?:
-	[BLKVIEW viewWithFrame:_targetView.frame opaque:YES drawnUsingBlock: ^(BLKVIEW *view, NSR dirtyRect) {
-		view.arMASK = NSSIZEABLE;
-		NSBP *arrow	= [[NSBezierPath bezierPathWithArrow]scaleToSize:AZScaleRect(view.frame, .5).size];
-//		NSC  *color = RANDOMCOLOR;
-//		[view associatedValueForKey:@"blockC"]
-//		color :? [view setAssociatedValue:[NSC linenTintedWithColor:RANDOMCOLOR] forKey:@"blockC"];
-		NSRectFillWithColor( view.frame, [view associatedValueForKey:@"blockC"] );
-		[[NSBezierPath bezierPathWithTriangleInRect:
-			  quadrant( view.frame, 1 ) orientation:AMTriangleLeft] drawWithFill:RED andStroke:RANDOMCOLOR];
-		[arrow setLineWidth:5];
-		[arrow setLineDash:dash count:20 phase:40];
-		[arrow drawWithFill:RED andStroke:RANDOMCOLOR];
-		[arrow drawPointsAndHandles];
-	}];
-}
+
 
 -(AZHostView*)hostView {
 	return 	_hostView = _hostView ?: (AZHostView*)^{
