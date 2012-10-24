@@ -1,0 +1,37 @@
+{
+    IBClasses = (
+        {
+            CLASS = AppController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                colorWell = NSColorWell; 
+                graphicsController = NSArrayController; 
+                graphicsView = GraphicsView; 
+                radiusField = NSTextField; 
+                radiusSlider = NSSlider; 
+                shadowInspector = JoystickView; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            CLASS = GraphicsArrayController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {graphicsView = NSView; }; 
+            SUPERCLASS = NSArrayController; 
+        }, 
+        {CLASS = GraphicsView; LANGUAGE = ObjC; SUPERCLASS = NSView; }, 
+        {CLASS = JoystickView; LANGUAGE = ObjC; SUPERCLASS = NSView; }, 
+        {
+            CLASS = MyDocument; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                graphicsController = NSArrayController; 
+                graphicsView = GraphicsView; 
+                shadowInspector = JoystickView; 
+            }; 
+            SUPERCLASS = NSDocument; 
+        }
+    ); 
+    IBVersion = 1; 
+}
