@@ -46,6 +46,10 @@
 @implementation NSArray (AtoZ)
 @dynamic trimmedStrings;
 
+- (void) setStringsToNilOnbehalfOf:(id)entity;
+{
+	[self each:^(id obj) { [entity setValue:nil forKey:obj]; }];
+}
 
 - (NSA*) URLsForPaths {
 	return [self map:^id(id obj) { return [NSURL fileURLWithPath:obj]; }];

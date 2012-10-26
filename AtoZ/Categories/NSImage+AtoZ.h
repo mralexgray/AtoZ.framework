@@ -74,6 +74,7 @@ typedef enum {
 + (NSIMG*) prettyGradientImage;  // Generates a 256 by 256 pixel image with a complicated gradient in it.
 - (NSA*) quantize;
 + (NSIMG*) desktopImage;
+- (void) openInPreview;
 - (void) openQuantizedSwatch;
 - (NSIMG*) generateQuantizedSwatch;
 + (void) openQuantizeChartFor:(NSA*)images;

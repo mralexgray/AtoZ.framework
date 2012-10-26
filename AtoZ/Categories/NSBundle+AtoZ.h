@@ -17,6 +17,8 @@
 
 + (NSS*) calulatedBundleIDForPath: (NSS*)path;
 - (NSA*) frameworkClasses;
-- (void) cacheImages;
+- (NSA*) cacheImages;
+- (void) cacheNamedImages;
+- (NSArray *)recursivePathsForResourcesOfType:(NSString *)type inDirectory:(NSString *)directoryPath;
 
 @end

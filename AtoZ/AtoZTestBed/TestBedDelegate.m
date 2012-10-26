@@ -9,6 +9,8 @@
 #import "TestBedDelegate.h"
 #import <Quartz/Quartz.h>
 #import <QuartzCore/QuartzCore.h>
+#import "ConciseKit.h"
+
 @interface NSObject (getLayer)
 - (CAL*)	getLayer;
 + (NSView*) viewInView:(NSView*)view;
@@ -33,7 +35,18 @@ const CGFloat dash[2] = {100, 60};
 @end
 
 @implementation TestBedDelegate
+
++ (NSImage*) swizzleImageNamed:(NSString*)string {
+	AZLOG($(@"imagenamed called for: %@!", string));
+//	NSBeep();
+	return [NSImage frameworkImageNamed:string];
+}
+
+
 -(void) awakeFromNib {
+
+//	[$ swizzleClassMethod:@selector(imageNamed:) with:@selector(az_imageNamed:) in:[NSImage class]];
+
 	[AtoZ sharedInstance];
 
 	[self loadSecondNib:nil];
@@ -45,22 +58,56 @@ const CGFloat dash[2] = {100, 60};
 	}];
 }
 
+-(NSImageView*) baseImageView {
+	NSImageView *v = [[NSImageView alloc]initWithFrame:_targetView.frame];
+	v.arMASK = NSSIZEABLE;
+	v.imageScaling = NSImageScaleProportionallyUpOrDown;
+	v.image = [[NSImage alloc]initWithSize:_targetView.frame.size];
+	return v;
+}
 -(NSImageView*)badges {
 
-	_badges = [[NSImageView alloc]initWithFrame:_targetView.frame];
-	_badges.arMASK = NSSIZEABLE;
-	_badges.imageScaling = NSImageScaleProportionallyUpOrDown;
+	_badges = [self baseImageView];
 	AZSizer *s = [AZSizer forQuantity:10 inRect:_targetView.frame];
-	NSIMG *badgeQuad = [[NSImage alloc]initWithSize:_targetView.frame.size];
-	[badgeQuad lockFocus];
+	[_badges.image lockFocus];
 		[s.rects eachWithIndex:^(id obj, NSInteger idx) {
 			[[NSImage badgeForRect:AZMakeRectFromSize(s.size) withColor:RANDOMCOLOR  stroked:nil withString:$(@"%ld", idx)]drawInRect:[obj rectValue]];
 		}];
-	[badgeQuad unlockFocus];
-	_badges.image = badgeQuad;
+	[_badges.image unlockFocus];
 	return _badges;
+}
+
+-(NSImageView*)imageNamed {
+	_imageNamed = [self baseImageView];
+	AZSizer *s = [AZSizer forQuantity:[NSIMG frameworkImageNames].count inRect:_targetView.frame];
+	NSA* rects = s.rects.copy;
+	[_imageNamed.image lockFocus];
+		[[NSIMG frameworkImageNames] eachWithIndex:^(id obj, NSInteger idx) {
+			[[NSIMG az_imageNamed:obj] drawInRect:[[rects normal: idx]rectValue] fraction:1];
+			// badgeForRect:AZMakeRectFromSize(s.size) withColor:RANDOMCOLOR  stroked:nil withString:$(@"%ld", idx)]drawInRect:[obj rectValue]];
+		}];
+	[_imageNamed.image unlockFocus];
+	return _imageNamed;
+
 
 }
+-(NSImageView*)picol {
+	_picol = [self baseImageView];
+	AZSizer *s = [AZSizer forQuantity:[NSIMG icons].count inRect:_targetView.frame];
+	NSA* rects = s.rects.copy;
+	[_picol.image lockFocus];
+		[[NSIMG icons] eachWithIndex:^(id obj, NSInteger idx) {
+			[obj drawInRect:[[rects normal: idx]rectValue] fraction:1];
+			// badgeForRect:AZMakeRectFromSize(s.size) withColor:RANDOMCOLOR  stroked:nil withString:$(@"%ld", idx)]drawInRect:[obj rectValue]];
+		}];
+	[_picol.image unlockFocus];
+	return _picol;
+
+
+}
+
+
+
 - (BLKVIEW*)blockView
 {	return 	_blockView = _blockView ?:
 	[BLKVIEW viewWithFrame:_targetView.frame opaque:NO drawnUsingBlock: ^(BLKVIEW *view, NSR dirtyRect) {

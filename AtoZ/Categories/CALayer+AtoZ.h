@@ -77,6 +77,11 @@ extern CATransform3D CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13, CG
 @end
 
 @interface CALayer (AtoZ)
+
+- (BOOL) pixelsHitTest:(CGPoint)p;
+- (BOOL) pixelsIntersectWithRect:(CGRect)rect;
+
+
 -(void) animateXThenYToFrame:(NSR)toRect duration:(NSUI)time;
 
 

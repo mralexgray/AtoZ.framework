@@ -1316,18 +1316,18 @@
 								<object class="NSSegmentedControl" id="1061104900">
 									<reference key="NSNextResponder" ref="880922189"/>
 									<int key="NSvFlags">266</int>
-									<string key="NSFrame">{{98, 19}, {582, 19}}</string>
+									<string key="NSFrame">{{34, 13}, {713, 25}}</string>
 									<reference key="NSSuperview" ref="880922189"/>
 									<reference key="NSNextKeyView" ref="155232093"/>
 									<string key="NSReuseIdentifierKey">_NS:9</string>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSSegmentedCell" key="NSCell" id="97480108">
 										<int key="NSCellFlags">67633152</int>
-										<int key="NSCellFlags2">131072</int>
+										<int key="NSCellFlags2">0</int>
 										<object class="NSFont" key="NSSupport">
 											<string key="NSName">LucidaGrande</string>
-											<double key="NSSize">11</double>
-											<int key="NSfFlags">3100</int>
+											<double key="NSSize">13</double>
+											<int key="NSfFlags">1044</int>
 										</object>
 										<string key="NSCellIdentifier">_NS:9</string>
 										<reference key="NSControlView" ref="1061104900"/>
@@ -1335,11 +1335,11 @@
 											<object class="NSSegmentItem">
 												<object class="NSCustomResource" key="NSSegmentItemImage">
 													<string key="NSClassName">NSImage</string>
-													<string key="NSResourceName">sitemap</string>
+													<string key="NSResourceName">umbrella</string>
 												</object>
 												<string key="NSSegmentItemLabel">debugLayers</string>
 												<bool key="NSSegmentItemSelected">YES</bool>
-												<int key="NSSegmentItemImageScaling">0</int>
+												<int key="NSSegmentItemImageScaling">3</int>
 											</object>
 											<object class="NSSegmentItem">
 												<string key="NSSegmentItemLabel">instantApp</string>
@@ -1347,6 +1347,7 @@
 												<int key="NSSegmentItemImageScaling">0</int>
 											</object>
 											<object class="NSSegmentItem">
+												<double key="NSSegmentItemWidth">103</double>
 												<object class="NSCustomResource" key="NSSegmentItemImage">
 													<string key="NSClassName">NSImage</string>
 													<string key="NSResourceName">Frameworks/AtoZ/Resources/3.pdf</string>
@@ -1359,7 +1360,7 @@
 												<int key="NSSegmentItemImageScaling">0</int>
 											</object>
 											<object class="NSSegmentItem">
-												<string key="NSSegmentItemLabel">az_imageNamed</string>
+												<string key="NSSegmentItemLabel">imageNamed</string>
 												<int key="NSSegmentItemImageScaling">0</int>
 											</object>
 											<object class="NSSegmentItem">
@@ -1371,6 +1372,7 @@
 												<int key="NSSegmentItemImageScaling">0</int>
 											</object>
 											<object class="NSSegmentItem">
+												<string key="NSSegmentItemLabel">picol</string>
 												<int key="NSSegmentItemImageScaling">0</int>
 											</object>
 										</array>
@@ -3237,7 +3239,7 @@
 				<string key="549.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="550.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="551.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<integer value="2" key="552.IBNSSegmentedControlInspectorSelectedSegmentMetadataKey"/>
+				<integer value="0" key="552.IBNSSegmentedControlInspectorSelectedSegmentMetadataKey"/>
 				<string key="552.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="556.CustomClassName">AZGeometryViewController</string>
 				<string key="556.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -3275,7 +3277,7 @@
 			<string key="Frameworks/AtoZ/Resources/3.pdf">{128, 128}</string>
 			<string key="NSMenuCheckmark">{11, 11}</string>
 			<string key="NSMenuMixedState">{10, 3}</string>
-			<string key="sitemap">{32, 32}</string>
+			<string key="umbrella">{32, 32}</string>
 		</dictionary>
 	</data>
 </archive>

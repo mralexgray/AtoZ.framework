@@ -23,6 +23,8 @@
 
 @interface NSArray (AtoZ)
 
+- (void) setStringsToNilOnbehalfOf:(id)entity;
+
 - (NSA*) URLsForPaths;
 - (void) logEach;
 + (NSArray*) arrayFromPlist:(NSString*)path;

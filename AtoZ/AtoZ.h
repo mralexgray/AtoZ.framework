@@ -67,10 +67,10 @@
 #import "AtoZFunctions.h"
 //#import "AZGeometry.h"
 #import "SynthesizeSingleton.h"
-//#import "iCarousel.h"
+#import "iCarousel.h"
 //#import "azCarousel.h"
 
-
+#import "ConciseKit.h"
 #import "BaseModel.h"
 #import "CTGradient.h"
 #import "AZApplePrivate.h"
@@ -127,6 +127,7 @@
 #import "NSNotificationCenter+AtoZ.h"
 #import "NSNumber+AtoZ.h"
 #import "NSObject+AtoZ.h"
+#import "NSObject+Properties.h"
 #import "NSScreen+AtoZ.h"
 #import "NSShadow+AtoZ.h"
 #import "NSString+AtoZ.h"
@@ -236,12 +237,16 @@ extern NSString *const AtoZDockSortedUpdated;
 + (void) playSound:(id)number;
 + (void) playRandomSound;
 
-+(NSArray*)fonts;
++ (NSArray*)fonts;
+
+@property (NATOM, STRNG) NSA* fonts;
+@property (NATOM, STRNG) NSA* cachedImages;
+
 
 + (NSS*) randomFontName;
 
 + (NSArray*) dock;
-//+ (NSArray*) dockSorted;
++ (NSArray*) dockSorted;
 //+ (NSArray*) currentScope;
 //+ (NSArray*) fengShui;
 + (NSArray*) runningApps;

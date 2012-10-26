@@ -12,9 +12,13 @@
 @property (retain, strong) NSView *v1, *v2, *sV;
 @property (retain, strong) CAL *l1, *l2;
 + (id)animateTo:(id)v1 inSuperView:(id)sV;
+
+
 @end
 
 @interface TestBedDelegate : NSObject <NSApplicationDelegate>
+
++ (NSImage*) swizzleImageNamed:(NSString*)string;
 
 @property (assign) IBOutlet AZGeometryViewController *geoVC;
 
@@ -29,7 +33,7 @@
 
 @property (STRNG, NATOM) NASpinSeque 		*seque;
 
-@property (STRNG, NATOM) NSImageView 		*badges;
+@property (STRNG, NATOM) NSImageView 		*badges, *imageNamed, *picol;
 @property (STRNG, NATOM) AZPrismView 		*prism;
 @property (STRNG, NATOM) AtoZ 		*propeller;
 

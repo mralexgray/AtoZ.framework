@@ -34,14 +34,36 @@
 //    self = [super init];
 //    if (self) {
 
+static NSA* cachedI = nil;
++ (void) load {
+//	cachedI = [AZFWORKBUNDLE cacheImages];
+}
+
+
++ (NSIMG*)azimage:(NSString *)name {
+	AZLOG($(	@"AZImage! Name: %@.. SEL:%@", name, NSStringFromSelector(_cmd)));
+	__block NSIMG *i =  [NSIMG imageNamed:name];
+	if (!i) dispatch_once:^{
+		[[NSIMG alloc]initWithContentsOfFile: [AZFWORKBUNDLE pathForImageResource:name]];
+		i =  [NSIMG imageNamed:name];
+		i.name 	= i.name ?: name;
+	 }();
+	return i;
+}
+
+
 - (void) setUp
 {
+	dispatch_once:^{	[$ swizzleClassMethod:@selector(imageNamed:) in:[NSIMG class] with:@selector(azimage:) in:[AtoZ class]];}();
+
 	[AZStopwatch named:@"Welcome to AtoZ.framework." block:^{
-		AZLOG([AtoZ fonts]);
+//		[AZFWORKBUNDLE cacheNamedImages];
+		_cachedImages = cachedI;
+		_fonts = [AtoZ fonts];
+
 		Sound *rando = [Sound randomSound];
 		[[SoundManager sharedManager] prepareToPlayWithSound:rando];
 		[[SoundManager sharedManager] playSound:rando];
-		[AZFWORKBUNDLE cacheImages];
 		[self registerHotKeys];
 	}];
 }
@@ -134,12 +156,17 @@
 	return (NSArray*)[AZDock sharedInstance];
 }
 //+ (NSArray*) currentScope { 	return [AZFolder sharedInstance].items; }
-//+ (NSArray*) dockSorted { 	return [AZDock sharedInstance].dockSorted; }
++ (NSArray*) dockSorted { 	return [AZFolder samplerWithCount:20];} // sharedInstance].dockSorted; }
 //+ (NSArray*) appCategories {	return [AZAppFolder sharedInstance].appCategories; }
 
 + (NSArray*) appCategories {		static NSArray *cats;  return cats = cats ? cats :
 	@[	@"Games", @"Education", @"Entertainment", @"Books", @"Lifestyle", @"Utilities", @"Business", @"Travel", @"Music", @"Reference", @"Sports", @"Productivity", @"News", @"Healthcare & Fitness", @"Photography", @"Finance", @"Medical", @"Social Networking", @"Navigation", @"Weather", @"Catalogs", @"Food & Drink", @"Newsstand" ];
 }
+
+- (NSS*) description {
+	return [[[self propertiesPlease] valueForKey:@"description"] componentsJoinedByString:@""];
+}
+
 
 //{//	__weak AZSimpleView *e;
 //}

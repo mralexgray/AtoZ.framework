@@ -78,8 +78,15 @@ AZToStringFromTypeAndValue(@encode(typeof(_X_)), &_Y_);})
 #define SET setter
 #define GET getter
 
+#define setPBCN setPostsBoundsChangedNotifications:YES
+#define setPFCN setPostsFrameChangedNotifications:YES
+
 #define pBCN postsBoundsChangedNotifications
 #define pFCN postsFrameChangedNotifications
+
+#define NSKVOBEFOREAFTER NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld
+#define NSEVENTLOCALMASK NSEvent addLocalMonitorForEventsMatchingMask
+#define NSEVENTGLOBALMASK NSEvent addGlobalMonitorForEventsMatchingMask
 
 #define kIMG 	@"image"
 #define kCLR 	@"color"
@@ -155,6 +162,9 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define NSIMG NSImage
 #define NSSZ NSSize
 
+#define NSVAL NSValue
+#define NSV NSView
+#define NSN NSNumber
 #define NSS NSString
 #define NSA NSArray
 #define NSAC NSArrayController

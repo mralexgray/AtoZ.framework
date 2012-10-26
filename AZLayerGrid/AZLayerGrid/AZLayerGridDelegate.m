@@ -14,7 +14,7 @@
 
 - (void)awakeFromNib
 {
-	
+	[AtoZ sharedInstance];
 //	CALayer *root 			= [CALayer greyGradient];
 //	[root setValue:@(YES) forKey:@"locked"];
 //	root.frame 				= [_window.contentView bounds];

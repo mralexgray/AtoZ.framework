@@ -77,11 +77,23 @@
     return array;
 }
 
+- (NSArray *)recursivePathsForResourcesOfType:(NSString *)type inDirectory:(NSString *)directoryPath{
 
-- (void) cacheImages;
+    NSMutableArray *filePaths = [NSMutableArray new];  // Enumerators are recursive
+    NSDirectoryEnumerator *enumerator = [[NSFileManager defaultManager] enumeratorAtPath:directoryPath];
+    NSString *filePath;
+    while ((filePath = [enumerator nextObject]) != nil){
+        // If we have the right type of file, add it to the list Make sure to prepend the directory path
+        if([[filePath pathExtension] isEqualToString:type])
+            [filePaths addObject:[directoryPath stringByAppendingString:filePath]];
+	}
+    return filePaths;
+}
+
+- (NSA*) cacheImages;
 {
 	NSA*u = [@[@"pdf", @"png"] map:^(NSString *type){
-		return  [[self pathsForResourcesOfType:type inDirectory: nil] map:^(NSS*path) {
+		return  [[self recursivePathsForResourcesOfType:type inDirectory:[self resourcePath]] map:^(NSS*path) {
 			NSS*name = [[path lastPathComponent]stringByDeletingPathExtension];
 			return [NSImage imageNamed:name] ? name : ^{
 				NSImage *needsPath = [[NSImage alloc]  initByReferencingFile:path];
@@ -90,8 +102,33 @@
 			}();
 		}];
 	}];
-	AZLOG(u);
+	AZLOG($(@"Cached %ld images.",u.count));
+	return  [NSArray arrayWithArrays:[u valueForKeyPath:@"name"]];
 }
 
 
+- (void) cacheNamedImages;
+{
+	NSCountedSet *typesCounter = [NSCountedSet new];
+    NSArray *types = [NSImage imageFileTypes];
+    NSEnumerator *e = [types objectEnumerator];
+    NSString *type;
+    while ((type = [e nextObject]) != nil) {
+		NSArray *files = [self recursivePathsForResourcesOfType:type inDirectory:[self resourcePath]];
+		NSEnumerator *e2 = [files objectEnumerator];
+		NSString *imagepath;
+		while ((imagepath = [e2 nextObject]) != nil) {
+		   NSString *name = [[imagepath lastPathComponent] stringByDeletingPathExtension];
+		   NSImage *image = [NSImage imageNamed:name];
+		   if (!image) {
+				image = [[NSImage alloc]  initByReferencingFile:imagepath];
+				if (image) {
+				   [image setName: name];
+				}
+			}
+			if (image) [typesCounter addObject:type];
+		}
+    }
+	LOG_EXPR(typesCounter);
+}
 @end

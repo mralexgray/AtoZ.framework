@@ -148,7 +148,9 @@ BOOL respondsToString(id obj,NSS* string);
 
 - (BOOL) respondsToString:(NSS*)string;
 
-- (IBAction)performActionFromSegment:(id)sender;
+- (IBAction)increment:(id)sender;
+- (IBAction)setFromSegmentLabel:(id)sender;
+- (IBAction)performActionFromSegmentLabel:(id)sender;
 //- (BOOL) respondsToSelector:	(SEL) aSelector;
 
 - (NSDictionary*) propertiesPlease;

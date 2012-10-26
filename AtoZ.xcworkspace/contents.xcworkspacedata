@@ -8,9 +8,6 @@
       location = "group:AZLayerGrid/AZLayerGrid.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:Frameworks/BlocksKit/BlocksKit.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:Frameworks/CocoaPuffs/CocoaPuffs.xcodeproj">
+      location = "group:../git/StackInbox/StackInbox.xcodeproj">
    </FileRef>
 </Workspace>

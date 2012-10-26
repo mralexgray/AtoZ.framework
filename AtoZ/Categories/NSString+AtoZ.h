@@ -397,3 +397,11 @@ extern int gNSStringGeometricsTypesetterBehavior ;
 @interface NSMutableString (Extensions)
 - (void) trimWhitespaceAndNewlineCharacters;  // From both ends
 @end
+
+// Utility function to convert KVC values into property-style values
+
+@interface NSString (AQPropertyKVC)
+
+- (NSString *) propertyStyleString;
+
+@end

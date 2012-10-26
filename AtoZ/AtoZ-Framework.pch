@@ -44,9 +44,13 @@
 #import <CoreFoundation/CoreFoundation.h>
 #import <ApplicationServices/ApplicationServices.h>
 #import <Zangetsu/Zangetsu.h>
+#import <Rebel/Rebel.h>
+#import <AtoZBezierPath/AtoZBezierPath.h>
 
 
 
+#import "ConciseKit.h"
+#import "BaseModel.h"
 #import	"AtoZUmbrella.h"
 #import "AtoZGeometry.h"
 #import "AtoZFunctions.h"

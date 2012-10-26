@@ -7,6 +7,7 @@
 //
 
 #import "WindyController.h"
+#import <AtoZ/AtoZ.h>
 
 @interface WindyController ()
 @property (NATOM, ASS) NSPoint initialLocation;
@@ -23,10 +24,11 @@
 			[[self window] setStyleMask: NSResizableWindowMask];
 			[[self window] setLevel: NSStatusWindowLevel];//NSScreenSaverWindowLevel];//
 			[[self window] setBackgroundColor: [NSColor clearColor]];
-			[[self window] setAlphaValue:1.0];
+//			[[self window] setAlphaValue:.0];
 			[[self window] setOpaque:NO];
 			[[self window] setHasShadow:NO];
 			[[self window] setMovable:YES];
+			[self.window setFrame:AZMakeRectMaxXUnderMenuBarY(100) display:YES animate:YES];
 			return self;
 		}
 

@@ -64,16 +64,15 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 
 + (NSArray*) frameworkImageNames
 {
-	return [[NSImage frameworkImagePaths]mapSelector:@selector(lastPathComponent)];
+	return [[[NSImage frameworkImagePaths]mapSelector:@selector(lastPathComponent)]mapSelector:@selector(stringByDeletingPathExtension)];
 }
 + (NSArray*) frameworkImages;{
 	//; error:nil] filter:^BOOL(id object) { return [(NSString*)object contains:@".icn"] ? YES : NO;
 	//	return [f arrayUsingBlock:^id(id obj) {	return [base stringByAppendingPathComponent:obj]; }];
 	return [[[NSImage frameworkImagePaths] arrayUsingBlock:^id(id obj) {
 
-		return //[obj isKindOfClass:[NSString]] ?
-				[[NSIMG alloc]initWithContentsOfFile:obj];
-											}] filter:^BOOL(id object) { return [object isKindOfClass:[NSIMG class]]; }];
+		return [[NSIMG alloc]initWithContentsOfFile:obj];
+	}] filter:^BOOL(id object) { return [object isKindOfClass:[NSIMG class]]; }];
 }
 
 +(NSArray*) systemIcons{	static NSArray *_systemIcons;
@@ -114,8 +113,10 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 + (NSArray*) iconsColoredWithColor:(NSColor*)color;
 {
 }
+
 +(NSS*)picolFolderPath{
-	return [[AtoZ resources] stringByAppendingPathComponent:@"picol/"];
+	static NSS* pFPath = nil;
+	return pFPath = [[AtoZ resources] stringByAppendingPathComponent:@"picol/"];
 }
 +(NSArray*)picolStrings {
 
@@ -124,11 +125,10 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 
 + (NSArray*) icons {
 
-	return 	[[[AZFWORKBUNDLE pathsForResourcesOfType:@"pdf" inDirectory:@""]
-			  //	[[[NSImage picolStrings] map:^id(id obj) {
-	map:^id(id obj) {
-		NSImage *u =[[NSImage alloc]initWithContentsOfFile:obj];// ?: [NSNull null];
-		u.name = [[obj lastPathComponent]stringByDeletingPathExtension];
+	return 	[[[NSImage picolStrings] map:^id(id obj) {
+
+		NSImage *u =[[NSImage alloc]initWithContentsOfFile:[[self picolFolderPath]stringByAppendingPathComponent:obj]];
+		u.name = [obj stringByDeletingPathExtension];
 		return u;
 	}]filter:^BOOL(id object) {
 		return [object isKindOfClass:[NSImage class]] && !isEmpty(object);
@@ -680,7 +680,7 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 
 + (NSIMG*)az_imageNamed:(NSString *)name {
 	NSIMG *i =  [NSIMG imageNamed:name]
-			 ?:[[NSIMG alloc]initWithContentsOfFile: [AZFWORKBUNDLE pathForImageResource:name]];
+			 ?: [[NSIMG alloc]initWithContentsOfFile: [AZFWORKBUNDLE pathForImageResource:name]];
 	i.name 	= i.name ?: name;
 	return i;
 }
@@ -821,6 +821,15 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 	[u unlockFocus];
 	return u;
 }
+
+- (void) openInPreview;
+{		NSS* p = $(@"/tmp/atoztempimage.%@.png",[NSString newUniqueIdentifier]);
+		[self saveAs:p];
+		[NSTask launchedTaskWithLaunchPath:@"/usr/bin/open" arguments:@[@"-a", @"Preview", p]];
+
+//		[AZWORKSPACE openFile:p withApplication:@"Preview"];
+}
+
 - (void)openQuantizedSwatch{
 	[AZStopwatch named:@"openQuantizedSwatch" block:^{
 		NSS* p = $(@"/tmp/quantization.%@.png",[NSString newUniqueIdentifier]);

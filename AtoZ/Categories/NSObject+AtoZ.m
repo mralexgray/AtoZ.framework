@@ -564,7 +564,40 @@ BOOL respondsTo(id obj, SEL selector){
 	return [self respondsToSelector:NSSelectorFromString(string)];
 }
 
-- (void)performActionFromSegment:(id)sender {
+
+- (IBAction)performActionFromSegmentLabel:(id)sender;
+{
+	BOOL isSegmented = [sender isKindOfClass:[NSSegmentedControl class]];
+	if (isSegmented) {
+		BOOL isSelected;	NSS*label;
+		NSInteger selectedSegment = [sender selectedSegment];
+		label = [sender labelForSegment:selectedSegment];
+		BOOL *optionPtr = &isSelected;
+		if ([self respondsToString:label]){
+			SEL fabricated = NSSelectorFromString(label);
+			[self performSelector:fabricated withValue:nil];
+		}
+	}
+}
+
+- (IBAction)increment:(id)sender;
+{
+	BOOL isSegmented = [sender isKindOfClass:[NSSegmentedControl class]];
+	if (isSegmented) {
+		BOOL isSelected;	NSS*label;
+		NSInteger selectedSegment = [sender selectedSegment];
+		label = [sender labelForSegment:selectedSegment];
+		BOOL *optionPtr = &isSelected;
+		
+		NSI prop = [self integerForKey:label];
+		NSI newVal = (prop+1);
+		[self setValue:[NSVAL value:(const void*)newVal withObjCType:[self typeOfPropertyNamed:label]] forKey:label];
+	}
+}
+
+
+
+- (void)setFromSegmentLabel:(id)sender {
 
 	BOOL isSelected;	NSS*label;
 	BOOL isSegmented = [sender isKindOfClass:[NSSegmentedControl class]];
@@ -573,8 +606,7 @@ BOOL respondsTo(id obj, SEL selector){
 		//		 = [sender isSelectedForSegment:selectedSegment];
 	label = [sender labelForSegment:selectedSegment];
 	BOOL *optionPtr = &isSelected;
-		//	} else
-		//		label = [sender label];
+
 	SEL fabricated = NSSelectorFromString($(@"set%@:", label));
 	[[sender delegate] performSelector:fabricated withValue:optionPtr];
 		//	[[AZTalker sharedInstance] say:$(@"%@ is %@ selected", string, isSelected ? @"" : @"NOT")];
@@ -833,6 +865,14 @@ static const char * getPropertyType(objc_property_t property) {
 + (id)customClassWithProperties:(NSD *)properties { return [[[self alloc] initWithProperties:properties] autorelease];}
 
 - (id)initWithProperties:(NSD *)properties {
+//	if ([self isKindOfClass:[CALayer class]]) {
+//		if ([[properties allKeys]containsObject:@"frame"]){
+//			self[@"frame"] = [properties rectForKey:@"frame"] {
+//			[self setValuesForKeysWithDictionary:[properties dictionaryWithoutKey:@"frame"]];
+//		}
+//	}
+//
+//	}
 	if ([[properties allKeys]containsObject:@"frame"]){
 		if (self = [(NSView*)self initWithFrame:[properties rectForKey:@"frame"]]) {
 			[self setValuesForKeysWithDictionary:[properties dictionaryWithoutKey:@"frame"]];
