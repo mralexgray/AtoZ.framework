@@ -442,14 +442,14 @@ NSString *const SoundDidFinishPlayingNotification = @"SoundDidFinishPlayingNotif
 - (void)soundFinished:(NSNotification *)notification
 {
 
-	NSLog(@"soundfinished...  Notification.... %@  curentSounds:%@",notification,currentSounds);
+//	NSLog(@"soundfinished...  Notification.... %@  curentSounds:%@",notification,currentSounds);
     Sound *sound = [notification object];
     if((sound)&& [currentSounds containsObject:sound]) {
-		AZLOG(@"removingsoundszhuzh");
+//		AZLOG(@"removingsoundszhuzh");
 			[currentSounds removeObject:sound];
     	[[NSNotificationCenter defaultCenter] removeObserver:self name:SoundDidFinishPlayingNotification object:sound];
 	}
-	AZLOG(@"sound cleanup finnished");
+//	AZLOG(@"sound cleanup finnished");
 
 }
 

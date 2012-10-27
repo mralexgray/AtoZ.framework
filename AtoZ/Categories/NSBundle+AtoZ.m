@@ -77,6 +77,21 @@
     return array;
 }
 
+- (NSS *)recursiveSearchForPathOfResourceNamed:(NSString *)name;
+{
+	NSFileManager *fm = [[NSFileManager alloc] init]; // +defaultManager is not thread safe
+	NSDirectoryEnumerator *enumerator = [fm enumeratorAtPath: [self resourcePath]];
+
+	NSS* file = [[enumerator allObjects] filterOne:^BOOL(NSS* filePath) {
+
+		return (!isEmpty([name pathExtension])) ? [filePath endsWith:name]
+												: [[filePath stringByDeletingPathExtension] endsWith:name];
+
+	}];
+	return file ? [[self resourcePath] stringByAppendingPathComponent:file] : nil;
+
+}
+
 - (NSArray *)recursivePathsForResourcesOfType:(NSString *)type inDirectory:(NSString *)directoryPath{
 
     NSMutableArray *filePaths = [NSMutableArray new];  // Enumerators are recursive
@@ -131,4 +146,57 @@
     }
 	LOG_EXPR(typesCounter);
 }
+
+NSString *appSupportSubpath = @"/System/Library/Frameworks";
+NSString *ext = @"framework";
+
+
+//+ (NSMutableArray *)systemFrameworks;
+//{
+//    NSArray *librarySearchPaths;
+//    NSEnumerator *searchPathEnum;
+//    NSString *currPath;
+//    NSMutableArray *bundleSearchPaths = [NSMutableArray array];
+//    NSMutableArray *allBundles = [NSMutableArray array];
+// 
+//    librarySearchPaths = NSSearchPathForDirectoriesInDomains(
+//        NSLibraryDirectory, NSAllDomainsMask - NSSystemDomainMask, YES);
+// 
+//    searchPathEnum = [librarySearchPaths objectEnumerator];
+//    while(currPath = [searchPathEnum nextObject])
+//	  if([[currBundlePath pathExtension] isEqualToString:ext])
+//			{
+//			 [allBundles addObject:[currPath
+//					   stringByAppendingPathComponent:currBundlePath]];
+//			}
+//	   //    {
+////        [bundleSearchPaths addObject:
+////            [currPath stringByAppendingPathComponent:appSupportSubpath]];
+////    }
+////    [bundleSearchPaths addObject:
+////        [[NSBundle mainBundle] builtInPlugInsPath]];
+//
+////    searchPathEnum = [bundleSearchPaths objectEnumerator];
+////    while(currPath = [searchPathEnum nextObject])
+////    {
+//        NSDirectoryEnumerator *bundleEnum;
+//        NSString *currBundlePath;
+//        bundleEnum = [[NSFileManager defaultManager]
+//            enumeratorAtPath:currPath];
+//        if(bundleEnum)
+//        {
+//            while(currBundlePath = [bundleEnum nextObject])
+//            {
+//                if([[currBundlePath pathExtension] isEqualToString:ext])
+//                {
+//                 [allBundles addObject:[currPath
+//                           stringByAppendingPathComponent:currBundlePath]];
+//                }
+//            }
+//        }
+//    }
+// 
+//    return allBundles;
+//}
+//
 @end

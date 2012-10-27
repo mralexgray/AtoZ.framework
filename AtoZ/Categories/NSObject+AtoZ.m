@@ -276,14 +276,14 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary()
 
 - (id)objectForKeyedSubscript:(id)key
 {
-	NSArray *syms = [NSThread  callStackSymbols];
-	if ([syms count] > 1) {
-		NSLog(@"<%@ %p> %@ - caller: %@ ", [self class], self, NSStringFromSelector(_cmd),[syms objectAtIndex:1]);
-	} else {
-		NSLog(@"<%@ %p> %@", [self class], self, NSStringFromSelector(_cmd));
-	}
-	
-	NSLog(@"CMD: %@ requesting subscript:%@", [NSString stringWithUTF8String:__func__], key);
+//	NSArray *syms = [NSThread  callStackSymbols];
+//	if ([syms count] > 1) {
+//		NSLog(@"<%@ %p> %@ - caller: %@ ", [self class], self, NSStringFromSelector(_cmd),[syms objectAtIndex:1]);
+//	} else {
+//		NSLog(@"<%@ %p> %@", [self class], self, NSStringFromSelector(_cmd));
+//	}
+
+//	NSLog(@"CMD: %@ requesting subscript:%@", [NSString stringWithUTF8String:__func__], key);
 	id result = nil;
 //	if ([key isKindOfClass:[NSS class]])
 		result = [self respondsToString:key] ? [self valueForKey:key] : nil;

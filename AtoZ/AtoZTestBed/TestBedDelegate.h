@@ -18,23 +18,22 @@
 
 @interface TestBedDelegate : NSObject <NSApplicationDelegate>
 
-+ (NSImage*) swizzleImageNamed:(NSString*)string;
-
 @property (assign) IBOutlet AZGeometryViewController *geoVC;
 
-@property (ASS) IBOutlet NSWindow 		  *window;
+@property (ASS) IBOutlet NSWindow 		  	*window;
 @property (ASS) IBOutlet NSSegmentedControl *segments;
-@property (ASS) IBOutlet NSView 			  *targetView;
-@property (STRNG, NATOM) AZMedallionView 	*medallion;
-@property (STRNG, NATOM) BNRBlockView 	    *blockView;
-@property (STRNG, NATOM) AZHostView			*hostView;
-@property (STRNG, NATOM) NSView				*debugLayers;
-@property (STRNG, NATOM) AZGrid				*azGrid;
+@property (ASS) IBOutlet NSView 			*targetView;
+@property (STRNG,NATOM) AZHostView			*hostView;
+@property (STRNG,NATOM) AZGrid				*azGrid;
+@property (STRNG,NATOM) NASpinSeque 		*seque;
+@property (STRNG,NATOM) AZPrismView 		*prism;
+@property (STRNG,NATOM) AtoZ 				*propeller;
 
-@property (STRNG, NATOM) NASpinSeque 		*seque;
-
-@property (STRNG, NATOM) NSImageView 		*badges, *imageNamed, *picol;
-@property (STRNG, NATOM) AZPrismView 		*prism;
-@property (STRNG, NATOM) AtoZ 		*propeller;
+@property (STRNG,NATOM) AZMedallionView *medallion;
+@property (STRNG,NATOM) BLKVIEW	   	 	*blockView;
+@property (STRNG,NATOM) NSV	 			*debugLayers;
+@property (STRNG,NATOM) NSIV	 			*badges,
+										*imageNamed,
+										*picol;
 
 @end

@@ -45,8 +45,9 @@
 #import <ApplicationServices/ApplicationServices.h>
 #import <Zangetsu/Zangetsu.h>
 #import <Rebel/Rebel.h>
-#import <AtoZBezierPath/AtoZBezierPath.h>
 
+#import <AtoZBezierPath/AtoZBezierPath.h>
+#import <SNRHUDKit/SNRHUDKit.h>
 
 
 #import "ConciseKit.h"

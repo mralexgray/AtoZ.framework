@@ -23,15 +23,35 @@ const CGPoint AZAnchorBottom		= (CGPoint) { .5, 0 };
 const CGPoint AZAnchorRight		= (CGPoint) {  1,.5 };
 const CGPoint AZAnchorLeft 		= (CGPoint) {  0,.5 };
 
+
+AZWindowPosition AZPositionAtPerimeterInRect(NSRect edgeBox, NSRect outer)
+{
+	AZOrient vORh = (edgeBox.origin.x == outer.origin.x || (edgeBox.origin.x + edgeBox.size.width) == outer.size.width)
+				  ? AZOrientVertical : AZOrientHorizontal;
+	AZWindowPosition p;
+	if ( vORh == AZOrientHorizontal ) p = edgeBox.origin.y == 0 ? AZPositionBottom : AZPositionTop;
+	else 				              p = edgeBox.origin.x == 0 ? AZPositionLeft : AZPositionRight;
+	return p;
+}
+
 CGPoint AZAnchorPointForPosition( AZWindowPosition pos){
 
 	return pos == AZPositionLeft   ? AZAnchorLeft
 		 : pos == AZPositionTop    ? AZAnchorTop
 		 : pos == AZPositionBottom ? AZAnchorBottom
-		 : pos == AZPositionRight  ? AZAnchorRight
-		 : (CGPoint) {  0,.5 };
+		 : 		  					 AZAnchorRight;   // pos == AZPositionRight
+
 }
-CGPoint randomPointInRect (CGRect rect)
+
+NSRect	AZRandomRectinRect(CGRect rect){
+
+	NSRect r = AZRectFromDim(AZMaxDim(rect.size));
+	r.origin = AZRandomPointInRect(rect);
+	return r;
+}
+
+
+CGPoint AZRandomPointInRect(CGRect rect)
 {
 	CGPoint point = CGPointZero;
 	NSInteger max = rect.size.width;
@@ -218,17 +238,6 @@ CGFloat distanceFromPoint (NSPoint p1, NSPoint p2) {
 	temp = pow(p1.x - p2.x, 2);
 	temp += pow(p1.y - p2.y, 2);
 	return (CGFloat)sqrt(temp);
-}
-NSPoint NSMakeRandomPointInRect(NSRect rect) {
-    CGPoint point = CGPointZero;
-    NSInteger max = rect.size.width;
-    NSInteger min = 0;
-    point.x = (random() % (max-min+1)) + min;
-
-    max = rect.size.height;
-    point.y = (random() % (max-min+1)) + min;
-
-    return point;
 }
 //
 // NSPoint result functions

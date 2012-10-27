@@ -1,13 +1,15 @@
-	//
-	//  BaseModel.m
-	//  Version 2.3.1
+//
+//  BaseModel.m
+//  Version 2.3.1
 
-	//  http://charcoaldesign.co.uk/source/cocoa#basemodel
-	//  https://github.com/nicklockwood/BaseModel
+//  http://charcoaldesign.co.uk/source/cocoa#basemodel
+//  https://github.com/nicklockwood/BaseModel
 #import "AtoZ.h"
 #import "AtoZFunctions.h"
 #import "AtoZUmbrella.h"
 #import "AtoZModels.h"
+#import <objc/runtime.h>
+
 
 @implementation CALayerNoHit
 - (BOOL)containsPoint:(CGPoint)p {	return FALSE; }
@@ -35,30 +37,42 @@
 //    if (self) {
 
 static NSA* cachedI = nil;
-+ (void) load {
-//	cachedI = [AZFWORKBUNDLE cacheImages];
-}
 
+//	AZLOG($(	@"AZImage! Name: %@.. SEL:%@", name, NSStringFromSelector(_cmd)));
+//	NSIMG *i;  // =  [NSIMG  new];//imageNamed:name];
+//	if (!i) dispatch_once:^{
+//		[[NSIMG alloc]initWithContentsOfFile: [AZFWORKBUNDLE pathForImageResource:name]];
+//		i =  [NSIMG imageNamed:name];
+//		i.name 	= i.name ?: name;
+//	 }();
+//	i = [NSIMG imageNamed:name];
+//	return i;
 
-+ (NSIMG*)azimage:(NSString *)name {
-	AZLOG($(	@"AZImage! Name: %@.. SEL:%@", name, NSStringFromSelector(_cmd)));
-	__block NSIMG *i =  [NSIMG imageNamed:name];
-	if (!i) dispatch_once:^{
-		[[NSIMG alloc]initWithContentsOfFile: [AZFWORKBUNDLE pathForImageResource:name]];
-		i =  [NSIMG imageNamed:name];
-		i.name 	= i.name ?: name;
-	 }();
-	return i;
-}
+//	return [NSIMG imageNamed:name];
+//			?: [[NSIMG alloc]initWithContentsOfFile: [AZFWORKBUNDLE pathForImageResource:name]];
+//	i.name 	= i.name ?: name;
+//	return/ i;
+//}
 
+//+(void) testSizzle {
+//	AZLOG(@"The original, non -siizled");
+//	AZLOG(NSStringFromSelector(_cmd));
+//}
+//+(void) testSizzleReplacement {
+//	AZLOG(@"Totally swizzed OUT ***************************");
+//	[self testSizzleReplacement];
+//	AZLOG(NSStringFromSelector(_cmd));
+//}
+//	[[AtoZ class] testSizzle];
+//	[$ swizzleClassMethod:@selector(testSizzle) in:[AtoZ class] with:@selector(testSizzleReplacement) in:[AtoZ class]];
+//	[[AtoZ class] testSizzle];
 
 - (void) setUp
 {
-	dispatch_once:^{	[$ swizzleClassMethod:@selector(imageNamed:) in:[NSIMG class] with:@selector(azimage:) in:[AtoZ class]];}();
 
 	[AZStopwatch named:@"Welcome to AtoZ.framework." block:^{
-//		[AZFWORKBUNDLE cacheNamedImages];
-		_cachedImages = cachedI;
+		//		[AZFWORKBUNDLE cacheNamedImages];
+//		_cachedImages = cachedI;
 		_fonts = [AtoZ fonts];
 
 		Sound *rando = [Sound randomSound];
@@ -75,18 +89,18 @@ static NSA* cachedI = nil;
 
 - (void)registerHotKeys
 {
-    EventHotKeyRef 	hotKeyRef;
+	EventHotKeyRef 	hotKeyRef;
 	EventTypeSpec 	eventType;
 	EventHotKeyID 	hotKeyID;
 
-    eventType.eventClass  = kEventClassKeyboard;
-    eventType.eventKind   = kEventHotKeyPressed;
-    hotKeyID.signature 	  = 'htk1';
-    hotKeyID.id			  = 1;
+	eventType.eventClass  = kEventClassKeyboard;
+	eventType.eventKind   = kEventHotKeyPressed;
+	hotKeyID.signature 	  = 'htk1';
+	hotKeyID.id			  = 1;
 
-    InstallApplicationEventHandler(&HotKeyHandler, 1, &eventType, NULL, NULL);
-    // Cmd+Ctrl+Space to toggle visibility.
-    RegisterEventHotKey(49, cmdKey+controlKey, hotKeyID, GetApplicationEventTarget(), 0, &hotKeyRef);
+	InstallApplicationEventHandler(&HotKeyHandler, 1, &eventType, NULL, NULL);
+	// Cmd+Ctrl+Space to toggle visibility.
+	RegisterEventHotKey(49, cmdKey+controlKey, hotKeyID, GetApplicationEventTarget(), 0, &hotKeyRef);
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification  { [self registerHotKeys]; }
@@ -112,7 +126,7 @@ static NSA* cachedI = nil;
 // A method to retrieve the int value from the NSArray of NSStrings
 -(AZWindowPosition) imageTypeStringToEnum:(NSString*)strVal
 {
-   return (AZWindowPosition) [[[NSA alloc]initWithObjects:AZWindowPositionTypeArray] indexOfObject:strVal];
+	return (AZWindowPosition) [[[NSA alloc]initWithObjects:AZWindowPositionTypeArray] indexOfObject:strVal];
 }
 
 + (NSString*)stringForType:(id)type
@@ -141,13 +155,13 @@ static NSA* cachedI = nil;
 
 + (NSString *) version;
 {
-    NSString *myVersion	= [AZFWORKBUNDLE infoDictionary][@"CFBundleShortVersionString"];
-    NSString *buildNum 	= [AZFWORKBUNDLE infoDictionary][(NSString*)kCFBundleVersionKey];
-    LogAndReturn( myVersion ? buildNum ? [NSString stringWithFormat:@"Version: %@ (%@)", myVersion, buildNum]
-									: [NSString stringWithFormat:@"Version: %@", myVersion]
-						: buildNum  ? [NSString stringWithFormat:@"Version: %@", buildNum]
-									: nil);
-//    AZLOG(versText); return versText;
+	NSString *myVersion	= [AZFWORKBUNDLE infoDictionary][@"CFBundleShortVersionString"];
+	NSString *buildNum 	= [AZFWORKBUNDLE infoDictionary][(NSString*)kCFBundleVersionKey];
+	LogAndReturn( myVersion ? buildNum ? [NSString stringWithFormat:@"Version: %@ (%@)", myVersion, buildNum]
+				 : [NSString stringWithFormat:@"Version: %@", myVersion]
+				 : buildNum  ? [NSString stringWithFormat:@"Version: %@", buildNum]
+				 : nil);
+	//    AZLOG(versText); return versText;
 }
 + (NSBundle*) bundle {	return [NSBundle bundleForClass:[self class]]; }
 
@@ -181,10 +195,10 @@ static NSA* cachedI = nil;
 	if (growlBundle && [growlBundle load]) 	{	NSLog(@"Succeefully Loaded Growl.framework!");
 		[GrowlApplicationBridge registrationDictionaryFromBundle:self.bundle];
 
-			// 		Register ourselves as a Growl delegate
-			//		[GrowlApplicationBridge setGrowlDelegate:self];
+		// 		Register ourselves as a Growl delegate
+		//		[GrowlApplicationBridge setGrowlDelegate:self];
 
-			//		[GrowlApplicationBridge notifyWithTitle:@"Welcome To AtoZ" description:@"Sexy."		notificationName:@"Log" iconData:nil priority:1 isSticky:NO clickContext:nil];
+		//		[GrowlApplicationBridge notifyWithTitle:@"Welcome To AtoZ" description:@"Sexy."		notificationName:@"Log" iconData:nil priority:1 isSticky:NO clickContext:nil];
 		return YES;
 	}	else {		NSLog(@"Could not load Growl.framework"); return NO; }
 
@@ -212,24 +226,24 @@ static NSA* cachedI = nil;
 	static NSArray *internalFonts = nil;
 	__block NSError *err;
 	return internalFonts = internalFonts ?: [[[[AZFILEMANAGER pathsOfContentsOfDirectory:[[AZFWORKBUNDLE resourcePath] stringByAppendingPathComponent:@"/Fonts"]]URLsForPaths] filter: ^BOOL(NSURL* obj) {
-			if (obj) {
-				OSStatus status; FSRef fsRef;
-				CFURLGetFSRef((CFURLRef)obj, &fsRef);
-				status = ATSFontActivateFromFileReference(&fsRef, kATSFontContextLocal, kATSFontFormatUnspecified,
-														  NULL, kATSOptionFlagsDefault, NULL);
-				return  status != noErr  ? ^ {
-					NSError *error = [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:nil];
-					AZLOG($(@"Error: %@\nFailed to acivate font at %@!", error, obj));
-					return  NO;
-				}() : YES;		//		else { 			 AZLOG($( @"Successfully acivated font %@!", [obj lastPathComponent])); }
-			} else return NO;
-		}] map:^id(NSURL *obj) {
-//			NSFontManager
-			CFArrayRef fontDescription = CTFontManagerCreateFontDescriptorsFromURL((__bridge CFURLRef)obj);
-        	id dict = LogAndReturn( [(NSArray*)CFBridgingRelease(fontDescription) objectAtIndex:0] );
-			return [dict objectForKey:@"NSFontNameAttribute"] ?: @"N/A";
-		}];	//		 return [obj.lastPathComponent stringByDeletingPathExtension];
-	
+		if (obj) {
+			OSStatus status; FSRef fsRef;
+			CFURLGetFSRef((CFURLRef)obj, &fsRef);
+			status = ATSFontActivateFromFileReference(&fsRef, kATSFontContextLocal, kATSFontFormatUnspecified,
+													  NULL, kATSOptionFlagsDefault, NULL);
+			return  status != noErr  ? ^ {
+				NSError *error = [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:nil];
+				AZLOG($(@"Error: %@\nFailed to acivate font at %@!", error, obj));
+				return  NO;
+			}() : YES;		//		else { 			 AZLOG($( @"Successfully acivated font %@!", [obj lastPathComponent])); }
+		} else return NO;
+	}] map:^id(NSURL *obj) {
+		//			NSFontManager
+		CFArrayRef fontDescription = CTFontManagerCreateFontDescriptorsFromURL((__bridge CFURLRef)obj);
+		id dict = LogAndReturn( [(NSArray*)CFBridgingRelease(fontDescription) objectAtIndex:0] );
+		return [dict objectForKey:@"NSFontNameAttribute"] ?: @"N/A";
+	}];	//		 return [obj.lastPathComponent stringByDeletingPathExtension];
+
 }
 #pragma GCC diagnostic warning "-Wdeprecated-declarations"
 
@@ -270,21 +284,21 @@ static NSA* cachedI = nil;
 												cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
 	NSData *responseData = [NSURLConnection sendSynchronousRequest:theRequest returningResponse:nil error:&err];
 	if (!responseData) NSLog(@"Connection Error: %@", [err localizedDescription]);
-		//    NSError *error;
+	//    NSError *error;
 	return  [NSJSONSerialization JSONObjectWithData:responseData options:0 error:&err];
-		//    if (err) {
-		//        NSAlert *alert = [NSAlert alertWithMessageText:@"Error parsing JSON" defaultButton:@"Damn that sucks" alternateButton:nil otherButton:nil informativeTextWithFormat:@"Check your JSON"];
-		//        [alert beginSheetModalForWindow:[[NSApplication sharedApplication]mainWindow] modalDelegate:nil didEndSelector:nil contextInfo:nil];
-		//        return;
-		//    }
-		//	return value;
+	//    if (err) {
+	//        NSAlert *alert = [NSAlert alertWithMessageText:@"Error parsing JSON" defaultButton:@"Damn that sucks" alternateButton:nil otherButton:nil informativeTextWithFormat:@"Check your JSON"];
+	//        [alert beginSheetModalForWindow:[[NSApplication sharedApplication]mainWindow] modalDelegate:nil didEndSelector:nil contextInfo:nil];
+	//        return;
+	//    }
+	//	return value;
 }
 
-	//	self.sortOrder = AZDockSortNatural;
-	//	if (!_dock)
-	//		[[NSThread mainThread] performBlock:^{
-	//			_dock
-	//	return self.dock;
+//	self.sortOrder = AZDockSortNatural;
+//	if (!_dock)
+//		[[NSThread mainThread] performBlock:^{
+//			_dock
+//	return self.dock;
 /*			if (!dock)
  self.dock =   [self.dockOutline arrayUsingIndexedBlock:^id(AZFile *obj, NSUInteger idx) {
  AZFile *app = [AZFile instanceWithPath:[obj valueForKey:@"path"]];
@@ -297,36 +311,36 @@ static NSA* cachedI = nil;
  //		}waitUntilDone:YES];
  //	return _dock;
  */
-	//}/
+//}/
 
-	//- (NSArray*) dockSorted {
+//- (NSArray*) dockSorted {
 
-	//	self.sortOrder = AZDockSortColor;
-	////	[NSThread performBlockInBackground:^{
-	////	if (!_dockSorted)
-	////		[[NSThread mainThread] performBlock:^{
-	////	if (!dockSorted)
-	//			return  [[[dock sortedWithKey:@"hue" ascending:YES] reversed] arrayUsingIndexedBlock:^id(AZFile* obj, NSUInteger idx) {
-	////				if ([obj.name isEqualToString:@"Finder"]) {
-	////					obj.spotNew = 999;
-	////					obj.dockPointNew = obj.dockPoint;
-	////				} else {
-	//					obj.spotNew = idx;
-	//					obj.dockPointNew = [[dock[idx]valueForKey:@"dockPoint"]pointValue];
-	////				}
+//	self.sortOrder = AZDockSortColor;
+////	[NSThread performBlockInBackground:^{
+////	if (!_dockSorted)
+////		[[NSThread mainThread] performBlock:^{
+////	if (!dockSorted)
+//			return  [[[dock sortedWithKey:@"hue" ascending:YES] reversed] arrayUsingIndexedBlock:^id(AZFile* obj, NSUInteger idx) {
+////				if ([obj.name isEqualToString:@"Finder"]) {
+////					obj.spotNew = 999;
+////					obj.dockPointNew = obj.dockPoint;
+////				} else {
+//					obj.spotNew = idx;
+//					obj.dockPointNew = [[dock[idx]valueForKey:@"dockPoint"]pointValue];
+////				}
 
-	//				return obj;
-	//			}];
-	////	return dockSorted;
-	////		}waitUntilDone:YES];
-	////	return _dockSorted;
-	////		[[NSThread mainThread] performBlock:^{
-	////			 _dockSorted = adock.mutableCopy;
-	////		} waitUntilDone:YES];
-	////	}];
-	////	return _dockSorted;
+//				return obj;
+//			}];
+////	return dockSorted;
+////		}waitUntilDone:YES];
+////	return _dockSorted;
+////		[[NSThread mainThread] performBlock:^{
+////			 _dockSorted = adock.mutableCopy;
+////		} waitUntilDone:YES];
+////	}];
+////	return _dockSorted;
 
-	//}
+//}
 
 /*- (id)objectForKeyedSubscript:(NSString *)key {
  return [self objectForKey:key];
@@ -336,22 +350,22 @@ static NSA* cachedI = nil;
  }
  */
 
-	//- (void)performBlock:(void (^)())block {
-	//	if ([[NSThread currentThread] isEqual:[self curr])
-	//		block();
-	//	else
-	//		[self performBlock:block waitUntilDone:NO];
-	//}
-	//- (void)performBlock:(void (^)())block waitUntilDone:(BOOL)wait {
-	//	NSThread *newThread = [NSThread new];
-	//    [NSThread performSelector:@selector(az_runBlock:)
-	//                     onThread:newThread
-	//                   withObject:[block copy]
-	//                waitUntilDone:wait];
-	//}
-	//+ (void)az_runBlock:(void (^)())block { block(); }
-	//+ (void)performBlockInBackground:(void (^)())block {
-	//	[NSThread performSelectorInBackground:@selector(az_runBlock:) withObject:[block copy]];
+//- (void)performBlock:(void (^)())block {
+//	if ([[NSThread currentThread] isEqual:[self curr])
+//		block();
+//	else
+//		[self performBlock:block waitUntilDone:NO];
+//}
+//- (void)performBlock:(void (^)())block waitUntilDone:(BOOL)wait {
+//	NSThread *newThread = [NSThread new];
+//    [NSThread performSelector:@selector(az_runBlock:)
+//                     onThread:newThread
+//                   withObject:[block copy]
+//                waitUntilDone:wait];
+//}
+//+ (void)az_runBlock:(void (^)())block { block(); }
+//+ (void)performBlockInBackground:(void (^)())block {
+//	[NSThread performSelectorInBackground:@selector(az_runBlock:) withObject:[block copy]];
 //	//}
 //+ (NSArray*) appFolderSorted {
 //	return [AZAppFolder sharedInstance].sorted;
@@ -399,36 +413,36 @@ static NSA* cachedI = nil;
 - (void) handleMouseEvent:(NSEventMask)event inView:(NSView*)view withBlock:(void (^)())block {
 	if (self != [AtoZ new]) NSLog(@"uh oh, not a shared I"); // __typeof__(self) *aToZ = [AtoZ sharedInstance];
 	[NSEvent addLocalMonitorForEventsMatchingMask:event handler:^NSEvent *(NSEvent *event) {
-	//	if ([event type] == NSMouseMovedMask ) {
+		//	if ([event type] == NSMouseMovedMask ) {
 		NSLog(@"Mouse handler checking point for evet:%@.", event);
 		NSPointInRect(view.localPoint, view.frame) ? ^{
 			NSLog(@"oh my god.. point is local to view! Runnnng block");
 			block();
-//			[[NSThread mainThread] performBlock:block waitUntilDone:YES]; // [NSThread performBlockInBackground:block];
+			//			[[NSThread mainThread] performBlock:block waitUntilDone:YES]; // [NSThread performBlockInBackground:block];
 		}() : nil;
 		return event;
 	}];
 }
 
-	//- (NSArray *)uncodableKeys
-	//{
-	//    return [[AtoZ sharedInstance] uncodableKeys];
-	//	//[NSArray arrayWithObject:@"uncodableProperty"];
-	//}
+//- (NSArray *)uncodableKeys
+//{
+//    return [[AtoZ sharedInstance] uncodableKeys];
+//	//[NSArray arrayWithObject:@"uncodableProperty"];
+//}
 
-	//- (void)setWithCoder:(NSCoder *)coder
-	//{
-	//    [super setWithCoder:coder];
-	////    self. = DECODE_VALUE([coder decodeObjectForKey:@"uncodableProperty"];
-	//}
+//- (void)setWithCoder:(NSCoder *)coder
+//{
+//    [super setWithCoder:coder];
+////    self. = DECODE_VALUE([coder decodeObjectForKey:@"uncodableProperty"];
+//}
 
-	//- (void)encodeWithCoder:(NSCoder *)coder	{
-	//    [super encodeWithCoder:coder];
-	//    [coder encodeObject:@"uncodable" forKey:@"uncodableProperty"];
-	//}
-	//+ (NSArray*) fengshui {
-	//	return [[self class] fengShui];
-	//}
+//- (void)encodeWithCoder:(NSCoder *)coder	{
+//    [super encodeWithCoder:coder];
+//    [coder encodeObject:@"uncodable" forKey:@"uncodableProperty"];
+//}
+//+ (NSArray*) fengshui {
+//	return [[self class] fengShui];
+//}
 //+ (NSArray*) fengShui {
 //	return [[NSColor fengshui].reversed arrayUsingBlock:^id(id obj) {
 //		AZFile *t = [AZFile instance];
@@ -437,12 +451,12 @@ static NSA* cachedI = nil;
 //	}];
 //		//		dummy];		t.color = (NSColor*)obj; t.spot = 22;	return t;	}];
 //}
-	//NSArray *AllApplications(NSArray *searchPaths) {
-	//    NSMutableArray *applications = [NSMutableArray array];
-	//    NSEnumerator *searchPathEnum = [searchPaths objectEnumerator]; NSString *path;
-	//    while (path = [searchPathEnum nextObject]) ApplicationsInDirectory(path, applications);
-	//    return ([applications count]) ? applications : nil;
-	//}
+//NSArray *AllApplications(NSArray *searchPaths) {
+//    NSMutableArray *applications = [NSMutableArray array];
+//    NSEnumerator *searchPathEnum = [searchPaths objectEnumerator]; NSString *path;
+//    while (path = [searchPathEnum nextObject]) ApplicationsInDirectory(path, applications);
+//    return ([applications count]) ? applications : nil;
+//}
 + (NSArray*) runningApps {
 
 	return [[[self class] runningAppsAsStrings] arrayUsingBlock:^id(id obj) {
@@ -454,7 +468,7 @@ static NSA* cachedI = nil;
 
 	return [[[[[[[NSWorkspace sharedWorkspace] runningApplications] filter:^BOOL(NSRunningApplication *obj) {
 		return 	obj.activationPolicy == NSApplicationActivationPolicyProhibited ? 	NO : YES;
-			//				obj.activationPolicy == NSApplicationActivationPolicyAccessory ?	NO : YES;
+		//				obj.activationPolicy == NSApplicationActivationPolicyAccessory ?	NO : YES;
 	}] valueForKeyPath:@"bundleURL"] filter:^BOOL(id object) {
 		return  [object isKindOfClass:[NSURL class]] ? YES : NO;
 	}] arrayUsingBlock:^id(id obj) {
@@ -466,38 +480,38 @@ static NSA* cachedI = nil;
 	}];
 }
 static void soundCompleted(SystemSoundID soundFileObject, void *clientData) {
-    if (soundFileObject != kSystemSoundID_UserPreferredAlert)     // Clean up.
-        AudioServicesDisposeSystemSoundID(soundFileObject);
+	if (soundFileObject != kSystemSoundID_UserPreferredAlert)     // Clean up.
+		AudioServicesDisposeSystemSoundID(soundFileObject);
 }
 
 - (void)playNotificationSound:(NSDictionary *)apsDictionary
 {
-		// App could implement its own preferences so the user could specify if they want sounds or alerts.
-		// if (userEnabledSounds)
-    NSString *soundName = (NSString *)[apsDictionary valueForKey:(id)@"sound"];
-    if (soundName != nil) {
-        SystemSoundID soundFileObject   = kSystemSoundID_UserPreferredAlert;
-        CFURLRef soundFileURLRef        = NULL;
-        if ([soundName compare:@"default"] != NSOrderedSame) {
-				// Get the main bundle for the app.
-            CFBundleRef mainBundle = CFBundleGetMainBundle();
-				// Get the URL to the sound file to play. The sound property's value is the full filename including the extension.
-            soundFileURLRef = CFBundleCopyResourceURL(mainBundle, (__bridge CFStringRef)soundName,NULL,NULL);
-				// Create a system sound object representing the sound file.
-            AudioServicesCreateSystemSoundID(soundFileURLRef, &soundFileObject);
-            CFRelease(soundFileURLRef);
-        }
-			// Register a function to be called when the sound is done playing.
-        AudioServicesAddSystemSoundCompletion(soundFileObject, NULL, NULL, soundCompleted, NULL);
-			// Play the sound.
-        AudioServicesPlaySystemSound(soundFileObject);
-    }
+	// App could implement its own preferences so the user could specify if they want sounds or alerts.
+	// if (userEnabledSounds)
+	NSString *soundName = (NSString *)[apsDictionary valueForKey:(id)@"sound"];
+	if (soundName != nil) {
+		SystemSoundID soundFileObject   = kSystemSoundID_UserPreferredAlert;
+		CFURLRef soundFileURLRef        = NULL;
+		if ([soundName compare:@"default"] != NSOrderedSame) {
+			// Get the main bundle for the app.
+			CFBundleRef mainBundle = CFBundleGetMainBundle();
+			// Get the URL to the sound file to play. The sound property's value is the full filename including the extension.
+			soundFileURLRef = CFBundleCopyResourceURL(mainBundle, (__bridge CFStringRef)soundName,NULL,NULL);
+			// Create a system sound object representing the sound file.
+			AudioServicesCreateSystemSoundID(soundFileURLRef, &soundFileObject);
+			CFRelease(soundFileURLRef);
+		}
+		// Register a function to be called when the sound is done playing.
+		AudioServicesAddSystemSoundCompletion(soundFileObject, NULL, NULL, soundCompleted, NULL);
+		// Play the sound.
+		AudioServicesPlaySystemSound(soundFileObject);
+	}
 }
 - (void)badgeApplicationIcon:(NSString*)string
 {
-    NSDockTile *dockTile = [[NSApplication sharedApplication] dockTile];
-    if (string != nil)  [dockTile setBadgeLabel:string];
-    else				[dockTile setBadgeLabel:nil];
+	NSDockTile *dockTile = [[NSApplication sharedApplication] dockTile];
+	if (string != nil)  [dockTile setBadgeLabel:string];
+	else				[dockTile setBadgeLabel:nil];
 
 }
 
@@ -522,7 +536,7 @@ static void soundCompleted(SystemSoundID soundFileObject, void *clientData) {
 }
 
 + (CGPoint)centerOfRect:(CGRect)rect { return AZCenterOfRect(rect); }
-	//	CGFloat midx = CGRectGetMidX(rect);CGFloat midy = CGRectGetMidY(rect);return CGPointMake(midx, midy);
+//	CGFloat midx = CGRectGetMidX(rect);CGFloat midy = CGRectGetMidY(rect);return CGPointMake(midx, midy);
 + (NSImage*)cropImage:(NSImage*)sourceImage withRect:(NSRect)sourceRect {
 
 	NSImage* cropImage = [[NSImage alloc] initWithSize:NSMakeSize(sourceRect.size.width, sourceRect.size.height)];
@@ -535,9 +549,9 @@ static void soundCompleted(SystemSoundID soundFileObject, void *clientData) {
 
 + (NSRect) rectFromPointA:(NSPoint)pointA andPointB:(NSPoint)pointB {
 
-		// 	get the current distance from the original mouse down point
+	// 	get the current distance from the original mouse down point
 	float xDistance = pointB.x - pointA.x;		float yDistance = pointB.y - pointA.y;
-		//	 we need to create the selection rect, but the calculation is	different depending on whether the mouse has been dragged up and/or to the left (lower coordinate values) or down and to the right (higher coordinate values).
+	//	 we need to create the selection rect, but the calculation is	different depending on whether the mouse has been dragged up and/or to the left (lower coordinate values) or down and to the right (higher coordinate values).
 	NSRect returnRect;
 	if   ( pointB.x < pointA.x )	{	returnRect.origin.x= pointA.x + xDistance;	returnRect.size.width= fabs(xDistance);		}
 	else {								returnRect.origin.x= pointA.x;				returnRect.size.width= xDistance;		 	}
@@ -573,40 +587,40 @@ static void soundCompleted(SystemSoundID soundFileObject, void *clientData) {
 	return val;
 }
 @end
-	//@implementation CAConstraint (brevity)
-	//+(CAConstraint*)maxX {
-	//
-	//	return AZConstraint(kCAConstraintMaxX,@"superlayer");
-	//}
-	//
-	//@end
+//@implementation CAConstraint (brevity)
+//+(CAConstraint*)maxX {
+//
+//	return AZConstraint(kCAConstraintMaxX,@"superlayer");
+//}
+//
+//@end
 
 @implementation Box
 @synthesize color, save, selected, shapeLayer;
 - (id)initWithFrame:(NSRect)frame
 {
-    self = [super initWithFrame:frame];
-    if (self) {
+	self = [super initWithFrame:frame];
+	if (self) {
 		shapeLayer = [CAShapeLayer layer];
 		[self setLayer:shapeLayer];
 		[self setWantsLayer:YES];
 	}
-    return self;
+	return self;
 }
 -(void) drawRect:(NSRect)dirtyRect {
-		//	cotn ext
+	//	cotn ext
 	[color set];	NSRectFill(dirtyRect);
 	selected = NO;
-		//	if (selected) [self lasso];
+	//	if (selected) [self lasso];
 }
 
 - (void) mouseUp:(NSEvent *)theEvent {
 
-		//	NSPoint location = [self convertPoint:[theEvent locationInWindow] fromView:nil];
-		//	NSLog(@"BOX HIT AT POINT: %@", NSStringFromPoint(location));
+	//	NSPoint location = [self convertPoint:[theEvent locationInWindow] fromView:nil];
+	//	NSLog(@"BOX HIT AT POINT: %@", NSStringFromPoint(location));
 	selected = YES;
 	save = color.copy;
-		//	NSLog(@"Saved %@", self.save);
+	//	NSLog(@"Saved %@", self.save);
 	color = [NSColor whiteColor];
 	float f  = 0;
 	while ( f < .6 ) {
@@ -616,99 +630,99 @@ static void soundCompleted(SystemSoundID soundFileObject, void *clientData) {
 	}
 	[self performSelector:@selector(flash:) withObject:save afterDelay:.6];
 }
-	//	selected = YES;
+//	selected = YES;
 -(void) flash:(NSColor*)savedColor {
-		//	NSLog(@"FLASHING %@", savedColor);
+	//	NSLog(@"FLASHING %@", savedColor);
 	color = savedColor;
 	[self setNeedsDisplay:YES];
-		//	if (selected) {  [self drawLasso]; }
+	//	if (selected) {  [self drawLasso]; }
 }
 @end
 
 
-	//@implementation AGFoundation
-	//@synthesize speaker;
+//@implementation AGFoundation
+//@synthesize speaker;
 
-	//+ (AGFoundation *)sharedInstance	{	return [super sharedInstance]; }
+//+ (AGFoundation *)sharedInstance	{	return [super sharedInstance]; }
 
-	//- (void)setUp {
+//- (void)setUp {
 
-	//	//	appArray = [[NSMutableArray alloc] init];
-	//	//	NSArray *ws =	 [[[NSWorkspace sharedWorkspace] launchedApplications] valueForKeyPath:@"NSApplicationPath"];
-	//	//	int k = 0;
-	//	//	for (NSString *path in ws) 	{
-	//	//		DBXApp *app = [DBXApp instanceWithPath:path];
-	//	//		[app setIndex:k];  k++;
-	//	//		[appArray addObject:app];
-	//	//	}
-	//}
-	//-(void) say:(NSString *)thing {
-	// 	// for (NSString *voice in
-	// 	NSArray *voices = [NSSpeechSynthesizer availableVoices];
-	// 	NSUInteger randomIndex = arc4random() % [voices count];
-	// 	NSString *voice = [voices objectAtIndex:randomIndex];
-	// 	[speaker setVoice: voice ];
-	// 	[speaker startSpeakingString: thing];
-	// 	printf("Speaking as %s\n", [voice UTF8String]);
-	// 	while ([speaker isSpeaking]) { usleep(40); }
-	//}
+//	//	appArray = [[NSMutableArray alloc] init];
+//	//	NSArray *ws =	 [[[NSWorkspace sharedWorkspace] launchedApplications] valueForKeyPath:@"NSApplicationPath"];
+//	//	int k = 0;
+//	//	for (NSString *path in ws) 	{
+//	//		DBXApp *app = [DBXApp instanceWithPath:path];
+//	//		[app setIndex:k];  k++;
+//	//		[appArray addObject:app];
+//	//	}
+//}
+//-(void) say:(NSString *)thing {
+// 	// for (NSString *voice in
+// 	NSArray *voices = [NSSpeechSynthesizer availableVoices];
+// 	NSUInteger randomIndex = arc4random() % [voices count];
+// 	NSString *voice = [voices objectAtIndex:randomIndex];
+// 	[speaker setVoice: voice ];
+// 	[speaker startSpeakingString: thing];
+// 	printf("Speaking as %s\n", [voice UTF8String]);
+// 	while ([speaker isSpeaking]) { usleep(40); }
+//}
 
-	//@end
-	//- (void)enumerateProtocolMethods:(Protocol*)p {
-	//// Custom block, used only in this method
-	//	void (^enumerate)(BOOL, BOOL) = ^(BOOL isRequired, BOOL isInstance) {
-	//		unsigned int descriptionCount;
-	//		struct objc_method_description* methodDescriptions =  protocol_copyMethodDescriptionList(p, isRequired, isInstance, &descriptionCount);
-	//		for (int i=0; i<descriptionCount; i++) {
-	//			struct objc_method_description d = methodDescriptions[i];
-	//			NSLog(@"Protocol method %@ isRequired=%d isInstance=%d",  NSStringFromSelector(d.name), isRequired, isInstance);
-	//		}
-	//		if (methodDescriptions)	free(methodDescriptions);
-	//	};
-	//	// Call our block multiple times with different arguments
-	//	// to enumerate all class, instance, required and non-required methods
-	//	enumerate(YES, YES);
-	//	enumerate(YES, NO);
-	//	enumerate(NO, YES);
-	//	enumerate(NO, NO);
-	//}aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+//@end
+//- (void)enumerateProtocolMethods:(Protocol*)p {
+//// Custom block, used only in this method
+//	void (^enumerate)(BOOL, BOOL) = ^(BOOL isRequired, BOOL isInstance) {
+//		unsigned int descriptionCount;
+//		struct objc_method_description* methodDescriptions =  protocol_copyMethodDescriptionList(p, isRequired, isInstance, &descriptionCount);
+//		for (int i=0; i<descriptionCount; i++) {
+//			struct objc_method_description d = methodDescriptions[i];
+//			NSLog(@"Protocol method %@ isRequired=%d isInstance=%d",  NSStringFromSelector(d.name), isRequired, isInstance);
+//		}
+//		if (methodDescriptions)	free(methodDescriptions);
+//	};
+//	// Call our block multiple times with different arguments
+//	// to enumerate all class, instance, required and non-required methods
+//	enumerate(YES, YES);
+//	enumerate(YES, NO);
+//	enumerate(NO, YES);
+//	enumerate(NO, NO);
+//}aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 
 
 @implementation CAAnimation (NSViewFlipper)
 
 +(CAAnimation *)flipAnimationWithDuration:(NSTimeInterval)aDuration forLayerBeginningOnTop:(BOOL)beginsOnTop scaleFactor:(CGFloat)scaleFactor {
-		// Rotating halfway (pi radians) around the Y axis gives the appearance of flipping
-    CABasicAnimation *flipAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.y"];
-    CGFloat startValue = beginsOnTop ? 0.0f : M_PI;
-    CGFloat endValue = beginsOnTop ? -M_PI : 0.0f;
-    flipAnimation.fromValue = @(startValue);
-    flipAnimation.toValue = @(endValue);
+	// Rotating halfway (pi radians) around the Y axis gives the appearance of flipping
+	CABasicAnimation *flipAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.y"];
+	CGFloat startValue = beginsOnTop ? 0.0f : M_PI;
+	CGFloat endValue = beginsOnTop ? -M_PI : 0.0f;
+	flipAnimation.fromValue = @(startValue);
+	flipAnimation.toValue = @(endValue);
 
-		// Shrinking t/Applicationshe view makes it seem to move away from us, for a more natural effect
-		// Can also grow the view to make it move out of the screen
-    CABasicAnimation *shrinkAnimation = nil;
-    if ( scaleFactor != 1.0f ) {
-        shrinkAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
-        shrinkAnimation.toValue = [NSNumber numberWithFloat:scaleFactor];
+	// Shrinking t/Applicationshe view makes it seem to move away from us, for a more natural effect
+	// Can also grow the view to make it move out of the screen
+	CABasicAnimation *shrinkAnimation = nil;
+	if ( scaleFactor != 1.0f ) {
+		shrinkAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+		shrinkAnimation.toValue = [NSNumber numberWithFloat:scaleFactor];
 
-			// We only have to animate the shrink in one direction, then use autoreverse to "grow"
-        shrinkAnimation.duration = aDuration * 0.5;
-        shrinkAnimation.autoreverses = YES;
-    }
+		// We only have to animate the shrink in one direction, then use autoreverse to "grow"
+		shrinkAnimation.duration = aDuration * 0.5;
+		shrinkAnimation.autoreverses = YES;
+	}
 
-		// Combine the flipping and shrinking into one smooth animation
-    CAAnimationGroup *animationGroup = [CAAnimationGroup animation];
-    animationGroup.animations = @[flipAnimation, shrinkAnimation];
+	// Combine the flipping and shrinking into one smooth animation
+	CAAnimationGroup *animationGroup = [CAAnimationGroup animation];
+	animationGroup.animations = @[flipAnimation, shrinkAnimation];
 
-		// As the edge gets closer to us, it appears to move faster. Simulate this in 2D with an easing function
-    animationGroup.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    animationGroup.duration = aDuration;
+	// As the edge gets closer to us, it appears to move faster. Simulate this in 2D with an easing function
+	animationGroup.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+	animationGroup.duration = aDuration;
 
-		// Hold the view in the state reached by the animation until we can fix it, or else we get an annoying flicker
-    animationGroup.fillMode = kCAFillModeForwards;
-    animationGroup.removedOnCompletion = NO;
+	// Hold the view in the state reached by the animation until we can fix it, or else we get an annoying flicker
+	animationGroup.fillMode = kCAFillModeForwards;
+	animationGroup.removedOnCompletion = NO;
 
-    return animationGroup;
+	return animationGroup;
 }
 
 @end
@@ -716,12 +730,12 @@ static void soundCompleted(SystemSoundID soundFileObject, void *clientData) {
 
 -(CALayer *)layerFromContents
 {
-    CALayer *newLayer = [CALayer layer];
-    newLayer.bounds = NSRectToCGRect(self.bounds);
-    NSBitmapImageRep *bitmapRep = [self bitmapImageRepForCachingDisplayInRect:self.bounds];
-    [self cacheDisplayInRect:self.bounds toBitmapImageRep:bitmapRep];
-    newLayer.contents = (id)bitmapRep.CGImage;
-    return newLayer;
+	CALayer *newLayer = [CALayer layer];
+	newLayer.bounds = NSRectToCGRect(self.bounds);
+	NSBitmapImageRep *bitmapRep = [self bitmapImageRepForCachingDisplayInRect:self.bounds];
+	[self cacheDisplayInRect:self.bounds toBitmapImageRep:bitmapRep];
+	newLayer.contents = (id)bitmapRep.CGImage;
+	return newLayer;
 }
 
 @end
@@ -732,53 +746,53 @@ static void soundCompleted(SystemSoundID soundFileObject, void *clientData) {
 
 -(id)initWithHostView:(NSView *)newHostView frontView:(NSView *)newFrontView backView:(NSView *)newBackView
 {
-    if ( self = [super init] ) {
-    	hostView = newHostView;
-        frontView = newFrontView;
-        backView = newBackView;
-        duration = 0.75;
-    }
-    return self;
+	if ( self = [super init] ) {
+		hostView = newHostView;
+		frontView = newFrontView;
+		backView = newBackView;
+		duration = 0.75;
+	}
+	return self;
 }
 
 -(void)flip {
 	if ( isFlipped ) { topView = backView; bottomView = frontView; }
-    else {topView = frontView; bottomView = backView; }
+	else {topView = frontView; bottomView = backView; }
 	CAAnimation *topAnimation = [CAAnimation flipAnimationWithDuration:duration forLayerBeginningOnTop:YES scaleFactor:1.3f];
-    CAAnimation *bottomAnimation = [CAAnimation flipAnimationWithDuration:duration forLayerBeginningOnTop:NO scaleFactor:1.3f];
+	CAAnimation *bottomAnimation = [CAAnimation flipAnimationWithDuration:duration forLayerBeginningOnTop:NO scaleFactor:1.3f];
 	bottomView.frame = topView.frame; topLayer = [topView layerFromContents]; bottomLayer = [bottomView layerFromContents];
 	CGFloat zDistance = 1500.0f; CATransform3D perspective = CATransform3DIdentity;
-    perspective.m34 = -1. / zDistance; topLayer.transform = perspective; bottomLayer.transform = perspective;
+	perspective.m34 = -1. / zDistance; topLayer.transform = perspective; bottomLayer.transform = perspective;
 	bottomLayer.frame = NSRectToCGRect(topView.frame); // topView.frame;
-    bottomLayer.doubleSided = NO;
-    [hostView.layer addSublayer:bottomLayer];
+	bottomLayer.doubleSided = NO;
+	[hostView.layer addSublayer:bottomLayer];
 
-    topLayer.doubleSided = NO;
-    topLayer.frame = NSRectToCGRect(topView.frame);//topView.frame;
-    [hostView.layer addSublayer:topLayer];
+	topLayer.doubleSided = NO;
+	topLayer.frame = NSRectToCGRect(topView.frame);//topView.frame;
+	[hostView.layer addSublayer:topLayer];
 
-    [CATransaction begin];
-    [CATransaction setValue:@YES forKey:kCATransactionDisableActions];
-    [topView removeFromSuperview];
-    [CATransaction commit];
+	[CATransaction begin];
+	[CATransaction setValue:@YES forKey:kCATransactionDisableActions];
+	[topView removeFromSuperview];
+	[CATransaction commit];
 
-    topAnimation.delegate = self;
-    [CATransaction begin];
-    [topLayer addAnimation:topAnimation forKey:@"flip"];
-    [bottomLayer addAnimation:bottomAnimation forKey:@"flip"];
-    [CATransaction commit];
+	topAnimation.delegate = self;
+	[CATransaction begin];
+	[topLayer addAnimation:topAnimation forKey:@"flip"];
+	[bottomLayer addAnimation:bottomAnimation forKey:@"flip"];
+	[CATransaction commit];
 }
 
 -(void)animationDidStop:(CAAnimation *)animation finished:(BOOL)flag;
 {
 	isFlipped = !isFlipped;
-    [CATransaction begin];
-    [CATransaction setValue:@YES forKey:kCATransactionDisableActions];
-    [hostView addSubview:bottomView];
-    [topLayer removeFromSuperlayer];
-    [bottomLayer removeFromSuperlayer];
-    topLayer = nil; bottomLayer = nil;
-    [CATransaction commit];
+	[CATransaction begin];
+	[CATransaction setValue:@YES forKey:kCATransactionDisableActions];
+	[hostView addSubview:bottomView];
+	[topLayer removeFromSuperlayer];
+	[bottomLayer removeFromSuperlayer];
+	topLayer = nil; bottomLayer = nil;
+	[CATransaction commit];
 }
 
 -(NSView *)visibleView
@@ -787,21 +801,21 @@ static void soundCompleted(SystemSoundID soundFileObject, void *clientData) {
 @end
 
 
-	//- (id)objectForKeyedSubscript:(NSString *)key {
-	// return [_children objectForKey:key];
-	// }
-	//
-	//- (void)setObject:(id)newValue forKeyedSubscription:(NSString *)key {
-	//	 [_children setObject:newValue forKey:key];
-	//}
-	//
+//- (id)objectForKeyedSubscript:(NSString *)key {
+// return [_children objectForKey:key];
+// }
+//
+//- (void)setObject:(id)newValue forKeyedSubscription:(NSString *)key {
+//	 [_children setObject:newValue forKey:key];
+//}
+//
 
 //Subclassible thread-safe ARC singleton  Copyright Kevin Lawler. Released under ISC.
 @implementation AZSingleton
 static NSMD* _children;
 +(void) initialize { //thread-safe
-    _children = !_children ? [NSMD dictionary] : _children;
-    _children [NSStringFromClass([self class])] = [[self alloc] init];
+	_children = !_children ? [NSMD dictionary] : _children;
+	_children [NSStringFromClass([self class])] = [[self alloc] init];
 }
 +(id) alloc { id c; return (c = [self instance]) ? c : [self allocWithZone:nil];  }
 -(id) init  { id c; if((c = _children[NSStringFromClass([self class])])) return c;  //sic, unfactored

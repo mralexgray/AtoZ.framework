@@ -20,7 +20,7 @@
 @interface NSThread (AtoZ)
 
 + (void) stackTrace;
-
++ (void) stackTraceAtIndex:(NSUI)index;
 @end
 /*
 @interface NSThread (AZBlocks)

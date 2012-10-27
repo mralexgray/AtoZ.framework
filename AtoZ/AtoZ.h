@@ -232,6 +232,8 @@ extern NSString *const AtoZDockSortedUpdated;
 <GrowlApplicationBridgeDelegate>
 #endif
 
++ (NSIMG*)imageNamed:(NSString *)name;
+
 //@property (NATOM, STRNG) SoundManager *sManager;
 
 + (void) playSound:(id)number;
@@ -241,6 +243,9 @@ extern NSString *const AtoZDockSortedUpdated;
 
 @property (NATOM, STRNG) NSA* fonts;
 @property (NATOM, STRNG) NSA* cachedImages;
+
++(void) testSizzle;
++(void) testSizzleReplacement;
 
 
 + (NSS*) randomFontName;

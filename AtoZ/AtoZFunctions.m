@@ -118,7 +118,10 @@ int (^triple)(int) = ^(int number) {
 };
 
 id LogAndReturn(id toLog) {
-	AZLOG(toLog);
+	[NSThread stackTraceAtIndex:2];
+//	AZLOG([NSThread  callStackSymbols]);
+
+	AZLOG($(@"Log+Return: %@", toLog));
 	return toLog;
 };
 

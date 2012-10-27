@@ -25,6 +25,8 @@ typedef enum {
 @property (readonly, strong) NSC *color;
 @property (readonly, strong) NSA *colors;
 
++ (NSIMG*)swizzledImageNamed:(NSString *)name;
+
 + (NSIMG*) imageFromURL:(NSS*)url;
 
 + (NSIMG*) blackBadgeForRect:(NSR)frame;

@@ -160,8 +160,11 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define NSI NSInteger
 #define IBO IBOutlet
 #define NSIMG NSImage
+#define NSIV NSImageView
 #define NSSZ NSSize
 
+//#define ID \(NSObject*\)
+#define NSO NSObject
 #define NSVAL NSValue
 #define NSV NSView
 #define NSN NSNumber
@@ -191,6 +194,7 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define CASHL CAShapeLayer
 #define CABA CABasicAnimation
 #define CAT CATransaction
+#define CATRANNY CATransition
 
 #define BLKVIEW BNRBlockView
 #define CAKA CAKeyframeAnimation

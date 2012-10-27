@@ -21,6 +21,17 @@
 	}
 }
 
+
++ (void) stackTraceAtIndex:(NSUI)index {
+
+	NSArray *syms = [[self class] callStackSymbols];
+	if ([syms count] > 1) {
+		NSLog(@"<%@ %p> %@ - caller: %@ ", [self class], self, NSStringFromSelector(_cmd),[syms objectAtIndex:index]);
+	} else {
+		NSLog(@"<%@ %p> %@", [self class], self, NSStringFromSelector(_cmd));
+	}
+}
+
 @end
 
 

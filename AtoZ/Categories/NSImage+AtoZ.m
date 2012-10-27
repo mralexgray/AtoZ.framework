@@ -40,6 +40,55 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 
 @implementation NSImage (AtoZ)
 
++ (void) load {
+	[$ swizzleClassMethod:@selector(imageNamed:) with:@selector(swizzledImageNamed:) in:[NSIMG class]];
+}
+
+
++ (NSIMG*)swizzledImageNamed:(NSString *)name {
+
+	static NSMD* __nameToImageDict = nil;
+
+	// locate by name or load from main bundle
+	NSImage *image = [self swizzledImageNamed:name];
+	if (image) return image;
+	if([name length] == 0) return nil;	// there is no unnamed image...
+	if([name isEqualToString:@"NSApplicationIcon"])
+	{ // try to load application icon
+		NSS *subst = [[NSB mainBundle] objectForInfoDictionaryKey:@"CFBundleIconFile"];	// replace from Info.plist
+		if([subst length] > 0) name = subst;			// try to load
+		if((image = [__nameToImageDict objectForKey:name])) { // found a record in cache
+			if([image isKindOfClass:[NSNull class]]) return nil; // we know that we don't know...
+			return image;
+		}
+	}
+	NSS *path, *ext;
+	NSBundle *bundle;
+	NSEnumerator *e;
+	NSArray *fileTypes = [NSImageRep imageFileTypes];
+
+	// locate in specific bundle (e.g. a loaded bundle) and then in AppKit.framework
+	path = [AZFWORKBUNDLE recursiveSearchForPathOfResourceNamed:name];
+	if(!path) { // If not found in app bundle search for image in system
+		bundle= [NSBundle bundleForClass:[[[NSApplication sharedApplication]delegate] class]];
+		path = [bundle recursiveSearchForPathOfResourceNamed:name];
+	}
+	if(!path) { // If not found in app bundle search for image in system
+		bundle= [NSBundle bundleForClass:[NSIMG class]];
+		path = [bundle recursiveSearchForPathOfResourceNamed:name];
+	}
+	if(path && (image = [[NSImage alloc] initByReferencingFile:path]))
+	{ // file really exists
+		[image setName:name];	// will save in __nameToImageDict - and increment retain count
+		[image autorelease];	// don't leak if everything is released - unfortunately we are never deleted from the image cache
+	}
+	if(!image)
+		[__nameToImageDict setObject:[NSNull null] forKey:name];	// save a tag that we don't know the image
+	return image;
+}
+
+
+
 
 + (NSIMG*) imageFromURL:(NSS*)url {
 	return  [[NSImage alloc] initWithData: [NSData dataWithContentsOfURL: [NSURL URLWithString:url]]];

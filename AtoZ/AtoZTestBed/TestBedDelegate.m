@@ -36,23 +36,24 @@ const CGFloat dash[2] = {100, 60};
 
 @implementation TestBedDelegate
 
-+ (NSImage*) swizzleImageNamed:(NSString*)string {
-	AZLOG($(@"imagenamed called for: %@!", string));
-//	NSBeep();
-	return [NSImage frameworkImageNamed:string];
-}
-
 
 -(void) awakeFromNib {
 
-//	[$ swizzleClassMethod:@selector(imageNamed:) with:@selector(az_imageNamed:) in:[NSImage class]];
-
 	[AtoZ sharedInstance];
-
-	[self loadSecondNib:nil];
-	[_segments 	 setAction:@selector(setView:) withTarget:self];
+//	[self loadSecondNib:nil];
+	[self.segments 	 setAction:@selector(setView:) withTarget:self];
 	[_targetView setupHostView];
-	[_targetView 	swapSubs:self.debugLayers];
+//	CATRANNY *transition = [[CATRANNY alloc]initWithProperties:@{@"type":kCATransitionPush, @"subtype":kCATransitionFromLeft}];
+
+	CATransition *transition = [CATransition animation];
+	[transition setType:	kCATransitionMoveIn];
+	[transition setSubtype:	kCATransitionFromLeft];
+	// Specify an explicit duration for the transition.
+    [transition setDuration:1.0];
+    // Associate the CATransition we've just built with the "subviews" key for this SlideshowView instance, so that when we swap ImageView instances in our -transitionToImage: method below (via -replaceSubview:with:).
+    [_targetView setAnimations:[NSDictionary dictionaryWithObject:transition forKey:@"subviews"]];
+
+	[self.targetView 	swapSubs:self.debugLayers];
 	[self addObserverForKeyPath:@"self.targetView.subviews" task:^(id obj, NSDictionary *change) {
 		AZLOG(@"subviews changed");
 	}];
@@ -78,29 +79,40 @@ const CGFloat dash[2] = {100, 60};
 }
 
 -(NSImageView*)imageNamed {
-	_imageNamed = [self baseImageView];
-	AZSizer *s = [AZSizer forQuantity:[NSIMG frameworkImageNames].count inRect:_targetView.frame];
-	NSA* rects = s.rects.copy;
-	[_imageNamed.image lockFocus];
-		[[NSIMG frameworkImageNames] eachWithIndex:^(id obj, NSInteger idx) {
-			[[NSIMG az_imageNamed:obj] drawInRect:[[rects normal: idx]rectValue] fraction:1];
-			// badgeForRect:AZMakeRectFromSize(s.size) withColor:RANDOMCOLOR  stroked:nil withString:$(@"%ld", idx)]drawInRect:[obj rectValue]];
-		}];
-	[_imageNamed.image unlockFocus];
-	return _imageNamed;
+	return _imageNamed = _imageNamed ?: ^{
+		NSImageView *base = [self baseImageView];
+		AZSizer *s = [AZSizer forQuantity:[NSIMG frameworkImages].count inRect:_targetView.frame];
+		NSA* rects = s.rects.copy;
+		[base.image lockFocus];
+			[[NSIMG frameworkImages] eachWithIndex:^(id obj, NSInteger idx) {
+				[obj drawInRect:[[rects normal: idx]rectValue] fraction:1];
+				// badgeForRect:AZMakeRectFromSize(s.size) withColor:RANDOMCOLOR  stroked:nil withString:$(@"%ld", idx)]drawInRect:[obj rectValue]];
+			}];
+		[base.image unlockFocus];
+//		[base addObserverForKeyPath: task:<#^(id obj, NSDictionary *change)task#>
+		return base;
+	}();
 
 
 }
 -(NSImageView*)picol {
-	_picol = [self baseImageView];
-	AZSizer *s = [AZSizer forQuantity:[NSIMG icons].count inRect:_targetView.frame];
-	NSA* rects = s.rects.copy;
-	[_picol.image lockFocus];
-		[[NSIMG icons] eachWithIndex:^(id obj, NSInteger idx) {
-			[obj drawInRect:[[rects normal: idx]rectValue] fraction:1];
-			// badgeForRect:AZMakeRectFromSize(s.size) withColor:RANDOMCOLOR  stroked:nil withString:$(@"%ld", idx)]drawInRect:[obj rectValue]];
-		}];
-	[_picol.image unlockFocus];
+
+	if (_picol) {	NSR old = [[_picol associatedValueForKey:_picol.identifier]rectValue]; logRect(old); logRect(_targetView.frame);
+					if (NSEqualRects(_targetView.frame, old)) return  _picol;
+	}
+	else _picol = ^{NSIV *iv  	= [self baseImageView];
+			AZSizer *s	= [AZSizer forQuantity:[NSIMG icons].count inRect:_targetView.frame];
+			NSA* rects 	= s.rects.copy;
+			[iv.image lockFocus];
+				[[NSIMG icons] eachWithIndex:^(id obj, NSInteger idx) {
+					[obj drawInRect:[[rects normal: idx]rectValue] fraction:1];
+		// badgeForRect:AZMakeRectFromSize(s.size) withColor:RANDOMCOLOR  stroked:nil withString:$(@"%ld", idx)]drawInRect:[obj rectValue]];
+				}];
+			[iv.image unlockFocus];
+			iv.identifier = [NSS newUniqueIdentifier];
+			[iv associateValue:AZVrect(_targetView.frame) withKey:[iv.identifier UTF8String]];
+			return iv;
+	}();
 	return _picol;
 
 
@@ -138,18 +150,18 @@ const CGFloat dash[2] = {100, 60};
 }
 
 
--(CATransition*)transition
-{
-    // Construct a new CATransition that describes the transition effect we want.
-    CATransition *transition = [CATransition animation];
-	// We want to build a CIFilter-based CATransition.  When CATransition's "filter" is set, "type" and "subtype" properties are ignored.
-	CATransition* tranny = [CATransition transitionsFor:_targetView].randomElement; 		NSLog(@"New tranny: %@", tranny);
-	return [tranny isKindOfClass:[CIFilter class]] 	? 	   ^{
-		transition.filter 	= tranny; return transition;	 }() : ^{  //itsa filter
-		transition.type		= tranny;
-		transition.subtype	= @[ kCATransitionFromRight, kCATransitionFromLeft, kCATransitionFromTop, kCATransitionFromBottom].randomElement;
-		transition.duration	= 1.0;	  return transition; }();
-}
+//-(CATransition*)transition
+//{
+//    // Construct a new CATransition that describes the transition effect we want.
+//    CATransition *transition = [CATransition animation];
+//	// We want to build a CIFilter-based CATransition.  When CATransition's "filter" is set, "type" and "subtype" properties are ignored.
+//	CATransition* tranny = [CATransition transitionsFor:_targetView].randomElement; 		NSLog(@"New tranny: %@", tranny);
+//	return [tranny isKindOfClass:[CIFilter class]] 	? 	   ^{
+//		transition.filter 	= tranny; return transition;	 }() : ^{  //itsa filter
+//		transition.type		= tranny;
+//		transition.subtype	= @[ kCATransitionFromRight, kCATransitionFromLeft, kCATransitionFromTop, kCATransitionFromBottom].randomElement;
+//		transition.duration	= 1.0;	  return transition; }();
+//}
 
 
 - (IBAction)loadSecondNib:(id)sender
@@ -179,22 +191,24 @@ const CGFloat dash[2] = {100, 60};
 		n.image = [NSImage systemIcons].randomElement;
 		return n;  }();
 }
-- (void) setView:(id)sender	{
-	Sound *rando = [Sound soundNamed:@"unlock"];
-	[[SoundManager sharedManager] prepareToPlayWithSound:rando];
-	[[SoundManager sharedInstance] playSound:rando];
-//
-	NSS* str= [sender segmentLabel] ?: @"";
-	if ([self respondsToSelector:NSSelectorFromString(str)]){
-//		id newV = self[[sender segmentLabel]];
-//		newV[@"hidden"] = @(YES);
-//		if ([_targetView.subviews doesNotContainObject:newV])
 
+- (void) setView:(id)sender
+{
+	NSV *newView;
+	NSS* label = [sender segmentLabel];
+	newView = [label isEqualToString:@"prism"] ? [[AZPrismView alloc]initWithFrame:_targetView.frame] :
+				[label isEqualToString:@"azGrid"] ? [[AZGrid alloc]initWithCapacity:23] :
+	[self respondsToSelector:NSSelectorFromString(label)] ? self[[sender segmentLabel]] :nil;
+//		id newV = self[[sender segmentLabel]]; newV[@"hidden"] = @(YES);
+//		if ([_targetView.subviews doesNotContainObject:newV])
 //		[_targetView addSubview:newV];
 //		[self.targetView setAnimations:@{@"subviews":self.transition}];
-		[self.targetView replaceSubview:_targetView.subviews[0] with:[self valueForKey:[sender segmentLabel]]];
-			 //newImageView];
+	if (newView) {	[[_targetView animator] replaceSubview:_targetView.firstSubview with:newView];
 //			   ? [NASpinSeque animateTo:self[[sender segmentLabel]] inSuperView:_targetView]
+
+	[[SoundManager sharedManager] prepareToPlayWithSound:[Sound soundNamed:@"unlock"]];
+	[[SoundManager sharedInstance] playSound:[Sound soundNamed:@"unlock"]];
+
 	}
 
 }

@@ -38,6 +38,7 @@ FOUNDATION_EXPORT const CGPoint AZAnchorBottom;
 FOUNDATION_EXPORT const CGPoint AZAnchorRight;
 FOUNDATION_EXPORT const CGPoint AZAnchorLeft;
 
+AZWindowPosition AZPositionAtPerimeterInRect(NSRect edgeBox, NSRect outer);
 CGPoint AZAnchorPointForPosition( AZWindowPosition pos);
 NSSize  AZDirectionsOffScreenWithPosition ( NSRect rect, AZWindowPosition position );
 
@@ -356,8 +357,9 @@ int oppositeQuadrant(int quadrant);
 NSRect blendRects(NSRect start, NSRect end,float b);
 void logRect(NSRect rect);
 
-CGPoint NSMakeRandomPointInRect(CGRect rect);
-NSPoint randomPointInRect(NSRect rect);
+
+NSRect	AZRandomRectinRect(CGRect rect);
+CGPoint AZRandomPointInRect(CGRect rect);
 
 /** Returns the center point of a CGRect. */
 static inline CGPoint GetCGRectCenter( CGRect rect ) {

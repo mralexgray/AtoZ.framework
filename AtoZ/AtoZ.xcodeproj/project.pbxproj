@@ -152,6 +152,11 @@
 		7B31B14F15E9449F00802CD5 /* AtoZ.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7B311951159B6D9E002134C4 /* AtoZ.framework */; };
 		7B3422A315A52A61006AC46C /* AZBaseModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B3422A115A52A61006AC46C /* AZBaseModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B3422CA15A5EF03006AC46C /* AZDockQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B3422C815A5EF03006AC46C /* AZDockQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B375680163B63B8003D52B7 /* BlocksKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B99B96F16394E3A00500715 /* BlocksKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		7B375681163B63B8003D52B7 /* CocoaPuffs.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7B99B97B16394E3B00500715 /* CocoaPuffs.framework */; };
+		7B375682163B63C3003D52B7 /* SNRHUDKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B375674163B62B6003D52B7 /* SNRHUDKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		7B375683163B63DA003D52B7 /* BlocksKit.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7B99B96F16394E3A00500715 /* BlocksKit.framework */; };
+		7B375684163B63E3003D52B7 /* SNRHUDKit.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7B375674163B62B6003D52B7 /* SNRHUDKit.framework */; };
 		7B379C8B15DDBB8A0040A093 /* AZLassoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B379C8A15DDBB8A0040A093 /* AZLassoView.m */; };
 		7B379C8D15DDBBB30040A093 /* AZLassoView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B379C8C15DDBBB30040A093 /* AZLassoView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B379CA815DE0B050040A093 /* AZBackground.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B379CA615DE0B050040A093 /* AZBackground.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -413,7 +418,6 @@
 		7BB0096016311D7700750FEB /* AZPropellerBadge.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BB0095E16311D7700750FEB /* AZPropellerBadge.png */; };
 		7BB0096116311D7700750FEB /* AZPropellerBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BB0095F16311D7700750FEB /* AZPropellerBar.png */; };
 		7BB86F6B1637225C0000C242 /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BB86F6A1637225C0000C242 /* AtoZ.framework */; };
-		7BB86F6C163723C30000C242 /* TestBed.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BDF56A41627695500041A42 /* TestBed.xib */; };
 		7BB86F6D163733B60000C242 /* AZPropellerView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BB0095B16311BB500750FEB /* AZPropellerView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BB86F8716383FF90000C242 /* Rebel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BB86F8216383FCE0000C242 /* Rebel.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		7BB86F881638402A0000C242 /* Rebel.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7BB86F8216383FCE0000C242 /* Rebel.framework */; };
@@ -447,7 +451,6 @@
 		7BC0275A160D36A300BAE74D /* AZCalculatorController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC02758160D36A200BAE74D /* AZCalculatorController.m */; };
 		7BC0275D160D36CB00BAE74D /* CalcModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BC0275B160D36CB00BAE74D /* CalcModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BC0275E160D36CB00BAE74D /* CalcModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC0275C160D36CB00BAE74D /* CalcModel.m */; };
-		7BC141BA16255AEF00DE1021 /* CocoaPuffs.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7BC141B916255AEF00DE1021 /* CocoaPuffs.framework */; };
 		7BC3990315E45D2700482937 /* Nexa Bold.otf in fonts Files */ = {isa = PBXBuildFile; fileRef = 7B4E9E3915E365BA00C0581A /* Nexa Bold.otf */; };
 		7BC3990415E45D2700482937 /* Nexa Light.otf in fonts Files */ = {isa = PBXBuildFile; fileRef = 7B4E9E3A15E365BA00C0581A /* Nexa Light.otf */; };
 		7BC3990515E45D2700482937 /* fontawesome.ttf in fonts Files */ = {isa = PBXBuildFile; fileRef = 7B4E9E3715E35B5500C0581A /* fontawesome.ttf */; };
@@ -1176,7 +1179,6 @@
 		7BDB8D7D15CB56BA0037A4BF /* missing.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BDB8D7915CB56BA0037A4BF /* missing.png */; };
 		7BDDD5E415A3792600A5C222 /* AZStopwatch.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BDDD5E215A3792600A5C222 /* AZStopwatch.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BDDD5E515A3792600A5C222 /* AZStopwatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BDDD5E315A3792600A5C222 /* AZStopwatch.m */; };
-		7BDF55DF1625668B00041A42 /* BlocksKit.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7BDF55DE1625668A00041A42 /* BlocksKit.framework */; };
 		7BDF56061625A45C00041A42 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BDF56051625A45C00041A42 /* AVFoundation.framework */; };
 		7BDF567D1626B68600041A42 /* AZBorderlessResizeWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BDF567B1626B68600041A42 /* AZBorderlessResizeWindow.m */; };
 		7BDF567E1626B83200041A42 /* AZBorderlessResizeWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BDF567A1626B68600041A42 /* AZBorderlessResizeWindow.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1225,11 +1227,9 @@
 		7BF9E79D159E8F5000B5482D /* NSArray+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF9E79B159E8F5000B5482D /* NSArray+AtoZ.m */; };
 		7BF9E7D7159F0A0500B5482D /* AZPopupWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BF9E7D5159F0A0500B5482D /* AZPopupWindow.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BF9E7D8159F0A0500B5482D /* AZPopupWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF9E7D6159F0A0500B5482D /* AZPopupWindow.m */; };
-		7BFA3F06162B8A2C003264A4 /* CocoaPuffs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BC141B916255AEF00DE1021 /* CocoaPuffs.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		7BFA3F07162B8A3B003264A4 /* FunSize.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B5ABAB21608D76500530EA7 /* FunSize.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		7BFA3F0B162B8AA0003264A4 /* XPCKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B645CA215F5300E00566160 /* XPCKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		7BFA3F0C162B8ABA003264A4 /* PLWeakCompatibility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B276CD41616A4320083C29E /* PLWeakCompatibility.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		7BFA3F0D162B8AC8003264A4 /* BlocksKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BDF55DE1625668A00041A42 /* BlocksKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		7BFDF4DA162E07C800B0E149 /* MAKVONotificationCenter.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BFDF4D8162E07C800B0E149 /* MAKVONotificationCenter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BFDF4DB162E07C800B0E149 /* MAKVONotificationCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BFDF4D9162E07C800B0E149 /* MAKVONotificationCenter.m */; };
 		7BFEC80715D19C55009DA347 /* NSApplication+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B6901B7159E09D800D0DA47 /* NSApplication+AtoZ.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -1289,6 +1289,41 @@
 			proxyType = 1;
 			remoteGlobalIDString = 7B311950159B6D9E002134C4;
 			remoteInfo = AtoZ;
+		};
+		7B375673163B62B6003D52B7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B37566A163B62B4003D52B7 /* SNRHUDKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0392857D14CCCBF300D02672;
+			remoteInfo = SNRHUDKit;
+		};
+		7B375675163B62B6003D52B7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B37566A163B62B4003D52B7 /* SNRHUDKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 039285AE14CCD40500D02672;
+			remoteInfo = Catalog;
+		};
+		7B37567A163B6352003D52B7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B37566A163B62B4003D52B7 /* SNRHUDKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 0392857C14CCCBF300D02672;
+			remoteInfo = SNRHUDKit;
+		};
+		7B37567C163B6363003D52B7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7BA7D241163945E60073BADC /* CocoaPuffs.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 0785774B15FF4FD800C28714;
+			remoteInfo = CocoaPuffs;
+		};
+		7B37567E163B636D003D52B7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7BA7D243163946080073BADC /* BlocksKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 6CC40A741447BB1400E47595;
+			remoteInfo = "OS X Framework";
 		};
 		7B5ABAB11608D76500530EA7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1670,15 +1705,16 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				7B375684163B63E3003D52B7 /* SNRHUDKit.framework in frameworks copy */,
+				7B375683163B63DA003D52B7 /* BlocksKit.framework in frameworks copy */,
+				7B375681163B63B8003D52B7 /* CocoaPuffs.framework in frameworks copy */,
 				7BB870211638501F0000C242 /* AtoZBezierPath.framework in frameworks copy */,
 				7BB86F881638402A0000C242 /* Rebel.framework in frameworks copy */,
-				7BD908CD162F7C99000DE2BB /* Zangetsu.framework in frameworks copy */,
 				7BC69166162C030E00B71602 /* NanoStore.framework in frameworks copy */,
+				7BD908CD162F7C99000DE2BB /* Zangetsu.framework in frameworks copy */,
 				7B5ABAC71608E26800530EA7 /* FunSize.framework in frameworks copy */,
-				7BDF55DF1625668B00041A42 /* BlocksKit.framework in frameworks copy */,
-				7BC141BA16255AEF00DE1021 /* CocoaPuffs.framework in frameworks copy */,
-				7B6629FA161DEA4A003D5EE0 /* PLWeakCompatibility.framework in frameworks copy */,
 				7B5ABAC81608E26800530EA7 /* XPCKit.framework in frameworks copy */,
+				7B6629FA161DEA4A003D5EE0 /* PLWeakCompatibility.framework in frameworks copy */,
 			);
 			name = "frameworks copy";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2486,6 +2522,7 @@
 		7B3422A115A52A61006AC46C /* AZBaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = AZBaseModel.h; sourceTree = "<group>"; };
 		7B3422C815A5EF03006AC46C /* AZDockQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZDockQuery.h; sourceTree = "<group>"; };
 		7B3422C915A5EF03006AC46C /* AZDockQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZDockQuery.m; sourceTree = "<group>"; };
+		7B37566A163B62B4003D52B7 /* SNRHUDKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SNRHUDKit.xcodeproj; path = ../../git/SNRHUDKit/SNRHUDKit.xcodeproj; sourceTree = "<group>"; };
 		7B379C8A15DDBB8A0040A093 /* AZLassoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AZLassoView.m; path = Views/AZLassoView.m; sourceTree = SOURCE_ROOT; };
 		7B379C8C15DDBBB30040A093 /* AZLassoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZLassoView.h; path = Views/AZLassoView.h; sourceTree = SOURCE_ROOT; };
 		7B379CA615DE0B050040A093 /* AZBackground.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZBackground.h; sourceTree = "<group>"; };
@@ -3606,7 +3643,6 @@
 		7BDF569F1627695500041A42 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		7BDF56A11627695500041A42 /* TestBedDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.objj.h; path = TestBedDelegate.h; sourceTree = "<group>"; };
 		7BDF56A21627695500041A42 /* TestBedDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestBedDelegate.m; sourceTree = "<group>"; };
-		7BDF56A51627695500041A42 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/TestBed.xib; sourceTree = "<group>"; };
 		7BDF56AE1627BE4200041A42 /* AZInstantApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = AZInstantApp.h; sourceTree = "<group>"; };
 		7BDF56AF1627BE4200041A42 /* AZInstantApp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZInstantApp.m; sourceTree = "<group>"; };
 		7BE1F69C15F90298005ED292 /* FunSize.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FunSize.xcodeproj; path = ../Frameworks/FunSize.framework/FunSize.xcodeproj; sourceTree = SOURCE_ROOT; };
@@ -3694,13 +3730,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				7BB87020163850110000C242 /* AtoZBezierPath.framework in Frameworks */,
+				7B375682163B63C3003D52B7 /* SNRHUDKit.framework in Frameworks */,
+				7B375680163B63B8003D52B7 /* BlocksKit.framework in Frameworks */,
 				7BB86F8716383FF90000C242 /* Rebel.framework in Frameworks */,
 				7BFA3F0B162B8AA0003264A4 /* XPCKit.framework in Frameworks */,
 				7BCB36BA162D31A100E61080 /* Zangetsu.framework in Frameworks */,
 				7BC69167162C031800B71602 /* NanoStore.framework in Frameworks */,
 				7BFA3F0C162B8ABA003264A4 /* PLWeakCompatibility.framework in Frameworks */,
-				7BFA3F0D162B8AC8003264A4 /* BlocksKit.framework in Frameworks */,
-				7BFA3F06162B8A2C003264A4 /* CocoaPuffs.framework in Frameworks */,
 				7BFA3F07162B8A3B003264A4 /* FunSize.framework in Frameworks */,
 				7B6CF45D15D32B8D0018A0D7 /* AudioToolbox.framework in Frameworks */,
 				7B23C36815CE9AB800DD1A9C /* WebKit.framework in Frameworks */,
@@ -3994,6 +4030,7 @@
 		7B311953159B6D9E002134C4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7B37566A163B62B4003D52B7 /* SNRHUDKit.xcodeproj */,
 				7BE2A4F31611576E003D6B92 /* Linked Frameworks */,
 				7BDF568E1627695300041A42 /* Frameworks */,
 				7BA7D243163946080073BADC /* BlocksKit.xcodeproj */,
@@ -4067,6 +4104,15 @@
 				7B31B13715E9441D00802CD5 /* AtoZ Entitlement-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		7B37566B163B62B4003D52B7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7B375674163B62B6003D52B7 /* SNRHUDKit.framework */,
+				7B375676163B62B6003D52B7 /* Catalog.app */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		7B379CCB15DE566D0040A093 /* SDToolkit */ = {
@@ -5518,7 +5564,6 @@
 			children = (
 				7BDF56A11627695500041A42 /* TestBedDelegate.h */,
 				7BDF56A21627695500041A42 /* TestBedDelegate.m */,
-				7BDF56A41627695500041A42 /* TestBed.xib */,
 				7B7D55A1163093C400711D0F /* MainMenu.xib */,
 				7BDF56961627695500041A42 /* Supporting Files */,
 				7BB87022163853030000C242 /* AZGeometryViewController.h */,
@@ -5809,6 +5854,9 @@
 			buildRules = (
 			);
 			dependencies = (
+				7B37567F163B636D003D52B7 /* PBXTargetDependency */,
+				7B37567D163B6363003D52B7 /* PBXTargetDependency */,
+				7B37567B163B6352003D52B7 /* PBXTargetDependency */,
 				7BB8701F163850050000C242 /* PBXTargetDependency */,
 				7BB86F8616383FDC0000C242 /* PBXTargetDependency */,
 				7BCB36B8162D315800E61080 /* PBXTargetDependency */,
@@ -5973,6 +6021,10 @@
 					ProjectRef = 7BB86F7716383FCD0000C242 /* Rebel.xcodeproj */;
 				},
 				{
+					ProductGroup = 7B37566B163B62B4003D52B7 /* Products */;
+					ProjectRef = 7B37566A163B62B4003D52B7 /* SNRHUDKit.xcodeproj */;
+				},
+				{
 					ProductGroup = 7B645C9A15F5300E00566160 /* Products */;
 					ProjectRef = 7B61E90515EAA8340053BACF /* XPCKit.xcodeproj */;
 				},
@@ -6029,6 +6081,20 @@
 			fileType = wrapper.cfbundle;
 			path = "PLWeakCompatibility-iOS-Tests.octest";
 			remoteRef = 7B276CDB1616A4320083C29E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7B375674163B62B6003D52B7 /* SNRHUDKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SNRHUDKit.framework;
+			remoteRef = 7B375673163B62B6003D52B7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7B375676163B62B6003D52B7 /* Catalog.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = Catalog.app;
+			remoteRef = 7B375675163B62B6003D52B7 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		7B5ABAB21608D76500530EA7 /* FunSize.framework */ = {
@@ -6664,7 +6730,6 @@
 				7BDF569A1627695500041A42 /* InfoPlist.strings in Resources */,
 				7BDF56A01627695500041A42 /* Credits.rtf in Resources */,
 				7B7D55A3163093C400711D0F /* MainMenu.xib in Resources */,
-				7BB86F6C163723C30000C242 /* TestBed.xib in Resources */,
 				7BB87027163853030000C242 /* AZGeometryViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -6998,6 +7063,21 @@
 			target = 7B311950159B6D9E002134C4 /* AtoZ */;
 			targetProxy = 7B31B14615E9447400802CD5 /* PBXContainerItemProxy */;
 		};
+		7B37567B163B6352003D52B7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SNRHUDKit;
+			targetProxy = 7B37567A163B6352003D52B7 /* PBXContainerItemProxy */;
+		};
+		7B37567D163B6363003D52B7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = CocoaPuffs;
+			targetProxy = 7B37567C163B6363003D52B7 /* PBXContainerItemProxy */;
+		};
+		7B37567F163B636D003D52B7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "OS X Framework";
+			targetProxy = 7B37567E163B636D003D52B7 /* PBXContainerItemProxy */;
+		};
 		7B5ABABA1608DEC700530EA7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = XPCKit;
@@ -7129,14 +7209,6 @@
 				7BDF569F1627695500041A42 /* en */,
 			);
 			name = Credits.rtf;
-			sourceTree = "<group>";
-		};
-		7BDF56A41627695500041A42 /* TestBed.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				7BDF56A51627695500041A42 /* en */,
-			);
-			name = TestBed.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -7304,6 +7376,8 @@
 					Rebel,
 					"-sub_umbrella",
 					AtoZBezierPath,
+					"-sub_umbrella",
+					SNRHUDKit,
 				);
 				PRODUCT_NAME = AtoZ;
 				RUN_CLANG_STATIC_ANALYZER = NO;
@@ -7379,6 +7453,8 @@
 					Rebel,
 					"-sub_umbrella",
 					AtoZBezierPath,
+					"-sub_umbrella",
+					SNRHUDKit,
 				);
 				PRODUCT_NAME = AtoZ;
 				RUN_CLANG_STATIC_ANALYZER = NO;
