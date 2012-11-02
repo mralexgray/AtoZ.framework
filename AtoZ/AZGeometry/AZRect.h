@@ -78,6 +78,10 @@ static inline NSRect AZScaleRect(NSRect frame, CGFloat factor) {
 -(id)initWithSize:(NSSize)size;
 -(id)initFromPoint:(NSPoint)ptOne 
            toPoint:(NSPoint)ptTwo;
+- (id) initWithFrame:(NSR)frame inFrame:(NSR)superframe;
+
+@property (assign)   CGPoint anchor, position;
+@property (assign)   AZWindowPosition orient;
 
 @property (assign) CGFloat width;
 @property (assign) CGFloat height;

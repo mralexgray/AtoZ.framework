@@ -24,6 +24,23 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 	//	DLog(@"%@", bir);
 }
 
+//// from http://developer.apple.com/technotes/tn2005/tn2143.html
+//
+//CGImageRef CreateCGImageFromData(NSData* data)
+//{
+//    CGImageRef        imageRef = NULL;
+//    CGImageSourceRef  sourceRef;
+//
+//    sourceRef = CGImageSourceCreateWithData((__bridge CFDataRef)data, NULL);
+//    if(sourceRef) {
+//        imageRef = CGImageSourceCreateImageAtIndex(sourceRef, 0, NULL);
+//        CFRelease(sourceRef);
+//    }
+//
+//    return imageRef;
+//}
+
+
 @interface DummyClass : NSObject
 @end
 @implementation DummyClass 
@@ -39,6 +56,92 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 @end
 
 @implementation NSImage (AtoZ)
+
+// ---------------------------------------------------------------------------
+// -glowingSphereImageWithScaleFactor:
+// ---------------------------------------------------------------------------
+// create a new "sphere" layer and add it to the container layer
+
++ (NSImage*)glowingSphereImageWithScaleFactor:(CGFloat)scale coreColor:(NSC*)core glowColor:(NSC*)glow
+{
+    if ( scale > 10.0 || scale < 0.5 ) {
+        NSLog(@"%@: larger than 10.0 or less than 0.5 scale. returning nil.", NSStringFromSelector(_cmd));
+        return nil;        
+    }
+    
+    // the image is two parts: a core sphere and a blur.
+    // the blurred image is larger, and the final image
+    // must be large enough to contain it.
+    NSSize sphereCoreSize = NSMakeSize(5*scale,5*scale);    
+    NSSize sphereBlurSize = NSMakeSize(10*scale,10*scale);
+    NSSize finalImageSize = NSMakeSize(sphereBlurSize.width*2,sphereBlurSize.width*2);
+    NSRect finalImageRect;
+    finalImageRect.origin = NSZeroPoint;
+    finalImageRect.size   = finalImageSize;
+
+    // define a drawing rect for the core of the sphere
+    NSRect sphereCoreRect;
+    sphereCoreRect.origin = NSZeroPoint;
+    sphereCoreRect.size = sphereCoreSize;
+    CGFloat sphereCoreOffset = (finalImageSize.width - sphereCoreSize.width) * 0.5;
+    
+    // create the "core sphere" image
+    NSImage* solidCircle = [[NSImage alloc] initWithSize:sphereCoreSize];
+    [solidCircle lockFocus];
+        [core setFill];
+        [[NSBezierPath bezierPathWithOvalInRect:sphereCoreRect] fill];
+    [solidCircle unlockFocus];
+    
+    // define a drawing rect for the sphere blur
+    NSRect sphereBlurRect;
+    sphereBlurRect.origin.x = (finalImageSize.width - sphereBlurSize.width) * 0.5;
+    sphereBlurRect.origin.y = (finalImageSize.width - sphereBlurSize.width) * 0.5;
+    sphereBlurRect.size = sphereBlurSize;
+
+    // create the "sphere blur" image (not yet blurred)
+    NSImage* blurImage = [[NSImage alloc] initWithSize:finalImageSize];
+    [blurImage lockFocus];
+        [glow setFill];
+        [[NSBezierPath bezierPathWithOvalInRect:sphereBlurRect] fill];
+    [blurImage unlockFocus];
+    
+    // convert the "sphere blur" image to a CIImage for processing
+    NSData* dataForBlurImage = [blurImage TIFFRepresentation];
+    CIImage* ciBlurImage = [CIImage imageWithData:dataForBlurImage];
+
+    // apply the blur using CIGaussianBlur
+    CIFilter* filter = [CIFilter filterWithName:@"CIGaussianBlur"];
+    [filter setDefaults];
+    NSNumber* inputRadius = [NSNumber numberWithFloat:3.0];
+    [filter setValue:inputRadius forKey:@"inputRadius"];
+    [filter setValue:ciBlurImage forKey:@"inputImage"];
+    CIImage* ciBlurredImage = [filter valueForKey:@"outputImage"];
+    ciBlurredImage = [ciBlurredImage imageByCroppingToRect:NSRectToCGRect(finalImageRect)];
+
+    // draw the final image
+    NSImage* compositeImage = [[NSImage alloc] initWithSize:finalImageSize];
+    [compositeImage lockFocus];    
+    
+        // draw glow first
+        [ciBlurredImage drawInRect:finalImageRect
+                          fromRect:finalImageRect
+                         operation:NSCompositeSourceOver
+                          fraction:0.7];
+                          
+        // now draw solid sphere on top
+        [solidCircle drawInRect:NSOffsetRect(sphereCoreRect,sphereCoreOffset,sphereCoreOffset)
+                       fromRect:sphereCoreRect
+                      operation:NSCompositeSourceOver
+                       fraction:1.0];
+                        
+    [compositeImage unlockFocus];
+    
+//    [solidCircle release];
+//    [blurImage release];
+
+    return compositeImage;// autorelease];
+}
+
 
 + (void) load {
 	[$ swizzleClassMethod:@selector(imageNamed:) with:@selector(swizzledImageNamed:) in:[NSIMG class]];
@@ -2252,7 +2355,7 @@ CGContextRef MyCreateBitmapContext (int pixelsWide, int pixelsHigh)
 		
 		if (!smallContext) return NO;
 		
-		NSRect drawRect = fitRectInRect(rectFromSize([bestRep size]), rectFromSize(newSize), NO);
+		NSRect drawRect = AZFitRectInRect(AZRectFromSize([bestRep size]), AZRectFromSize(newSize), NO);
 		
         CGContextDrawImage(smallContext, NSRectToCGRect(drawRect), imageRef);
 		
@@ -2385,8 +2488,8 @@ CGContextRef MyCreateBitmapContext (int pixelsWide, int pixelsHigh)
 }
 
 - (NSImage *)scaleImageToSize:(NSSize)newSize trim:(BOOL)trim expand:(BOOL)expand scaleUp:(BOOL)scaleUp {
-	NSRect sourceRect = (trim?[self usedRect] :rectFromSize([self size]) );
-	NSRect drawRect = (scaleUp || NSHeight(sourceRect) >newSize.height || NSWidth(sourceRect)>newSize.width ? sizeRectInRect(sourceRect, rectFromSize(newSize), expand) : NSMakeRect(0, 0, NSWidth(sourceRect), NSHeight(sourceRect)));
+	NSRect sourceRect = (trim?[self usedRect] :AZRectFromSize([self size]) );
+	NSRect drawRect = (scaleUp || NSHeight(sourceRect) >newSize.height || NSWidth(sourceRect)>newSize.width ? AZSizeRectInRect(sourceRect, AZRectFromSize(newSize), expand) : NSMakeRect(0, 0, NSWidth(sourceRect), NSHeight(sourceRect)));
 	NSImage *tempImage = [[NSImage alloc] initWithSize:NSMakeSize(NSWidth(drawRect), NSHeight(drawRect) )];
 	[tempImage lockFocus];
 	{

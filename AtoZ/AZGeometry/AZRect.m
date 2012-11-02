@@ -12,6 +12,7 @@
 
 
 @implementation AZRect
+@synthesize position, orient, anchor;
 
 +(AZRect *)rect {
 //  return [[self alloc] init];
@@ -128,7 +129,17 @@
   return self;
 }
 
+- (id) initWithFrame:(NSR)frame inFrame:(NSR)superframe {
+  	if (!(self = self.init)) return nil;
+	width = frame.size.width;
+    height = frame.size.height;
+	self.orient = AZPositionAtPerimeterInRect(frame, superframe);
+	self.anchor = AZAnchorPointForPosition(self.orient);
+	return self;
+}
+
 -(id)initFromPoint:(NSPoint)ptOne toPoint:(NSPoint)ptTwo {
+
   if ((self = self.init)) {
     x = MIN(ptOne.x, ptTwo.x);
     y = MIN(ptOne.y, ptTwo.y);

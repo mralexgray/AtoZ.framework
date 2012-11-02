@@ -13,6 +13,9 @@
 #pragma mark - Properties
 
 //@synthesize image, borderColor, borderWidth, shadowColor, shadowOffset, shadowBlur;
+//+ (NSSet *)keyPathsForValuesAffectingTemperatureFahrenheit {
+//    return [NSSet setWithObject:@"tempeatureKelvin"];
+//}
 
 + (NSSet*) keyPathsForValuesAffectingValueForKey:(NSString *)key {
 

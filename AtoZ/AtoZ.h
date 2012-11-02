@@ -27,14 +27,22 @@
 #define EXCLUDE_STUB_PROTOTYPES 1
 #import <PLWeakCompatibility/PLWeakCompatibilityStubs.h>
 //#import <RMKit/RMKit.h>
+
+#import <Rebel/Rebel.h>
 #import <XPCKit/XPCKit.h>
 #import <FunSize/FunSize.h>
-#import <BlocksKit/BlocksKit.h>
-#import <CocoaPuffs/CocoaPuffs.h>
-#import <NanoStore/NanoStore.h>
 #import <Zangetsu/Zangetsu.h>
-#import <Rebel/Rebel.h>
+//#import <SNRHUDKit/SNRHUDKit.h>
+#import <BlocksKit/BlocksKit.h>
+#import <NanoStore/NanoStore.h>
+#import <CocoaPuffs/CocoaPuffs.h>
 #import <AtoZBezierPath/AtoZBezierPath.h>
+
+#import "ConciseKit.h"
+#import "BaseModel.h"
+#import	"AtoZUmbrella.h"
+#import "AtoZGeometry.h"
+#import "AtoZFunctions.h"
 
 #import "MAKVONotificationCenter.h"
 #import "F.h"
@@ -267,6 +275,7 @@ extern NSString *const AtoZDockSortedUpdated;
 - (void) moveMouseToScreenPoint: (NSPoint) point;
 - (void) handleMouseEvent: (NSEventMask)event inView: (NSView*)view withBlock: (void (^)())block;
 
++ (AZWindowPosition) positionForString:(NSString*)strVal;
 + (NSString*) stringForPosition: (AZWindowPosition) enumVal;
 + (NSString*) stringForType: (id) type;
 

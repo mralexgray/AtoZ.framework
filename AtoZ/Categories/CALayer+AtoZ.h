@@ -153,6 +153,7 @@ extern CATransform3D CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13, CG
 - (NSString*)debugLayerTree;
 - (void) addSublayers:(NSArray*)subLayers;
 
++ (CALayer*)newGlowingSphereLayer;
 @end
 @interface  CATextLayer (AtoZ)
 - (CTFontRef)newFontWithAttributes:(NSDictionary *)attributes;
@@ -162,3 +163,8 @@ extern CATransform3D CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13, CG
 - (void)setupAttributedTextLayerWithFont:(CTFontRef)font;
 
 @end
+
+@interface CALayerNonAnimating : CALayer
+- (id<CAAction>)actionForKey:(NSString *)key;
+@end
+

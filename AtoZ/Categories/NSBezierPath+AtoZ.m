@@ -15,6 +15,15 @@
 
 @implementation NSAffineTransform (UKShearing)
 
++ (NSAffineTransform *)transformRotatingAroundPoint:(NSPoint) p byDegrees:(CGFloat) deg
+{
+    NSAffineTransform * transform = [NSAffineTransform transform];
+    [transform translateXBy: p.x yBy: p.y];
+    [transform rotateByDegrees:deg];
+    [transform translateXBy: -p.x yBy: -p.y];
+    return transform;
+}
+
 -(void)	shearXBy: (CGFloat)xFraction yBy: (CGFloat)yFraction
 {
 	NSAffineTransform*		theTransform = [NSAffineTransform transform];

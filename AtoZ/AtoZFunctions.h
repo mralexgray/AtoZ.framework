@@ -22,6 +22,9 @@
 //static inline CGPoint convertToCGPoint(NSPoint point) {	return *(const CGPoint *)&point;	}
 
 
+#define boardPositionToIndex(pos, boardSize) ((pos).x - 1) + (((pos).y - 1) * boardSize)
+#define indexToBoardPosition(idx, boardSize) (CGPointMake((x) % boardSize, (int)((x) / boardSize) + 1))
+
 
 ///// ### SANDBOX
 NSString *realHomeDirectory();
@@ -117,6 +120,10 @@ CGFloat DegreesToRadians(CGFloat degrees);
 NSNumber* DegreesToNumber(CGFloat degrees);
 NSPoint getCenter(NSView *view);
 
+
+CGPathRef AZRandomPathWithStartingPointInRect(CGPoint firstPoint, NSR inRect);
+
+CGPathRef AZRandomPathInRect(NSR rect);
 
 
 //#pragma once

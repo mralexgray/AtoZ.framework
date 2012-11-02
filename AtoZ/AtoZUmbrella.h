@@ -77,6 +77,7 @@ AZToStringFromTypeAndValue(@encode(typeof(_X_)), &_Y_);})
 #define CP copy
 #define SET setter
 #define GET getter
+#define WK weak
 
 #define setPBCN setPostsBoundsChangedNotifications:YES
 #define setPFCN setPostsFrameChangedNotifications:YES
@@ -169,12 +170,16 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define NSV NSView
 #define NSN NSNumber
 #define NSS NSString
+#define NSCS NSCountedSet
 #define NSA NSArray
 #define NSAC NSArrayController
 #define NSTXTV NSTextView
 #define NSTXTF NSTextField
 #define NSB NSBundle
 #define NSBP NSBezierPath
+#define NSMenuI	NSMenuItem
+#define NSNOT NSNotification
+#define NSIS NSIndexSet
 #define NSAT NSAffineTransform
 #define NSP NSPoint
 #define NSR NSRect
@@ -197,6 +202,7 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define CATRANNY CATransition
 
 #define BLKVIEW BNRBlockView
+#define CALNA CALayerNonAnimating
 #define CAKA CAKeyframeAnimation
 #define CAT3DTR CATransform3DTranslate
 #define CAT3DR CATransform3DRotate
@@ -456,14 +462,14 @@ if (!re) { re = [[[@#__VA_ARGS__ splitByComma] trimmedStrings] set]; } return re
 
 typedef struct { CAConstraintAttribute constraint; CGFloat scale; CGFloat offset; }AZCAConstraint;
 
-typedef enum {
+typedef NS_ENUM(NSUI, AppCat) {
 	Games, Education, Entertainment,
 	Books, Lifestyle, Utilities, Business,
 	Travel, Music, Reference, Sports,
 	Productivity, News, HealthcareFitness,
 	Photography, Finance, Medical, SocialNetworking,
 	Navigation, Weather, Catalogs, FoodDrink, Newsstand
-} 	AppCat;
+};
 
 #define AppCatTypeArray @"Games", @"Education", @"Entertainment", @"Books", @"Lifestyle", @"Utilities", @"Business", @"Travel", @"Music", @"Reference", @"Sports", @"Productivity", @"News", @"Healthcare & Fitness", @"Photography", @"Finance", @"Medical", @"Social Networking", @"Navigation", @"Weather", @"Catalogs", @"Food & Drink", @"Newsstand", nil
 typedef enum {
@@ -492,28 +498,32 @@ typedef enum  {	AZSearchByCategory,AZSearchByColor,AZSearchByName,AZSearchByRece
 typedef enum  {	AZIn,AZOut																} AZSlideState;
 typedef enum  { AZMenuN,AZMenuS,AZMenuE,AZMenuW,AZMenuPositionCount						} AZMenuPosition;
 #ifndef ATOZTOUCH
-typedef enum  {	AZPositionLeft 			= NSMinXEdge, // 0  NSDrawer
+typedef NS_ENUM(NSUI, AZWindowPosition) {
+				AZPositionLeft 			= NSMinXEdge, // 0  NSDrawer
 				AZPositionRight         = NSMaxXEdge, // 2  preferredEdge
 				AZPositionTop           = NSMaxYEdge, // 3  compatibility
 				AZPositionBottom        = NSMinYEdge, // 1  numbering!
-				AZPositionLeftTop       = 4,	AZPositionLeftBottom    = 5,
-				AZPositionRightTop      = 6,	AZPositionRightBottom   = 7,
-				AZPositionTopLeft       = 8,	AZPositionTopRight      = 9,
-				AZPositionBottomLeft    = 10,	AZPositionBottomRight   = 11,
-				AZPositionAutomatic     = 12											} AZWindowPosition;
+				AZPositionTopLeft       = 4,
+				AZPositionBottomLeft    = 5,
+				AZPositionTopRight      = 6,
+				AZPositionBottomRight   = 7,
+				AZPositionAutomatic     = 8
+};// AZWindowPosition;
+
+
 
 // NSVALUE defined, see NSValue+AtoZ.h
-#define AZWindowPositionTypeArray @"Left",@"Bottom",@"Right",@"Top",@"LeftTop",@"LeftBottom",@"RightTop",@"RightBottom",@"TopLeft",@"TopRight",@"BottomLeft",@"Right",@"Automatic",nil
+#define AZWindowPositionTypeArray @"Left",@"Bottom",@"Right",@"Top",@"TopLeft",@"BottomLeft",@"TopRight",@"BottomRight",@"Automatic",nil
 #endif
 
 #define QUAD AZQuadrant
 
-typedef enum 	{
+typedef NS_ENUM(NSUI, AZQuadrant){
 	TopLeft,
 	TopRight,
 	BotRight,
 	BotLeft
-} 	AZQuadrant;
+};
 
 typedef struct {	CGFloat tlX; CGFloat tlY;
 					CGFloat trX; CGFloat trY;

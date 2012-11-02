@@ -12,7 +12,7 @@
  Note that these positions are relative to the point passed to the constructor, 
  e.g. AZPositionBottomRight will put the window below the point and towards the right, 
       AZPositionTop will horizontally center the window above the point, 
-      AZPositionRightTop will put the window to the right and above the point, 
+      AZPositionTopRight will put the window to the right and above the point, 
  and so on.
  
  You can also pass AZPositionAutomatic (or use an initializer which omits the 'onSide:' 

@@ -7,374 +7,405 @@
 #import "AtoZUmbrella.h"
 #import "AZPoint.h"
 #import "AZSize.h"
-
 #import "AZRect.h"
 #import "AZGrid.h"
 #import "AZMatrix.h"
 #import "AZSegmentedRect.h"
 #import "AtoZ.h"
 
-@interface AtoZGeometry:NSObject
-@end
-
-BOOL AZEqualRects(NSR r1, NSR r2);
-
-NSNumber *iNum ( NSInteger   i );
-NSNumber *uNum ( NSUInteger ui );
-NSNumber *fNum ( CGFloat f );
-NSNumber *dNum ( double  d );
-
-CGFloat AZMinEdge ( NSRect r );
-CGFloat AZMaxEdge ( NSRect r );
-CGFloat AZMaxDim ( NSSize sz );
-CGFloat AZMinDim ( NSSize sz );
-
-NSRect AZScreenFrame(void);
-NSSize AZScreenSize(void);
-NSRect AZScreenFrameUnderMenu(void);
-
-FOUNDATION_EXPORT const CGPoint AZAnchorTop;
-FOUNDATION_EXPORT const CGPoint AZAnchorBottom;
-FOUNDATION_EXPORT const CGPoint AZAnchorRight;
-FOUNDATION_EXPORT const CGPoint AZAnchorLeft;
-
-AZWindowPosition AZPositionAtPerimeterInRect(NSRect edgeBox, NSRect outer);
-CGPoint AZAnchorPointForPosition( AZWindowPosition pos);
-NSSize  AZDirectionsOffScreenWithPosition ( NSRect rect, AZWindowPosition position );
-
-AZWindowPosition AZPositionOfRect ( NSRect rect );
-AZOrient deltaDirectionOfPoints ( NSPoint a, NSPoint b );
-
-/**	NSRange from a min and max values even though the names imply that min should be greater than max the order does not matter the range will always start at the lower value and have a size to reach the upper value **/
-
-NSRange AZMakeRange ( NSUInteger min, NSUInteger max );
-
- NSRect nanRectCheck  ( NSRect 	 rect  );
-NSPoint nanPointCheck ( NSPoint  point );
- NSSize nanSizeCheck  ( NSSize   size  );
-     id nanCheck	  ( NSValue* point );
+NSR  nanRectCheck  ( NSR   rect );
+NSP  nanPointCheck ( NSP  point );
+NSSZ nanSizeCheck  ( NSSZ  size );
+id 	 nanCheck	   ( NSV* point );
 
 // Predifined Points, Sizes and Rects
 
 #define AZHalfPoint NSMakePoint ( 0.5, 0.5 )
 #define  AZMaxPoint NSMakePoint ( MAXFLOAT, MAXFLOAT )
-#define  AZHalfSize NSMakeSize ( 0.5, 0.5 )
-#define   AZMaxSize NSMakeSize ( MAXFLOAT, MAXFLOAT )
+#define  AZHalfSize NSMakeSize 	( 0.5, 0.5 )
+#define   AZMaxSize NSMakeSize  ( MAXFLOAT, MAXFLOAT )
 
 #define AZRelationRect NSMakeRect ( 0, 0, 1, 1 )
 
+BOOL AZEqualRects ( NSR r1, NSR r2 );
 
-CGFloat AZPointDistance(CGPoint p1, CGPoint p2);
-CGFloat AZPointAngle(CGPoint p1, CGPoint p2);
+NSNumber *iNum ( NSInteger   i );
+NSNumber *uNum ( NSUInteger ui );
+NSNumber *fNum ( CGF f );
+NSNumber *dNum ( double  d );
 
-CGFloat distanceFromPoint (NSPoint p1,NSPoint p2);
-CGFloat AZDistanceFromPoint (NSPoint p1,NSPoint p2);
-NSPoint AZPointOffset (NSPoint p, NSPoint size);
-NSPoint AZPointOffsetY (NSPoint p, CGFloat distance);
-NSPoint AZPointOffsetX (NSPoint p, CGFloat distance);
+FOUNDATION_EXPORT const CGP AZAnchorTop;
+FOUNDATION_EXPORT const CGP AZAnchorBottom;
+FOUNDATION_EXPORT const CGP AZAnchorRight;
+FOUNDATION_EXPORT const CGP AZAnchorLeft;
 
-int GCD(int a, int b);
-BOOL isWhole(CGFloat fl);
-NSI AZLowestCommonDenominator(int a, int b);
+FOUNDATION_EXPORT const CGP AZAnchorTopLeft;
+FOUNDATION_EXPORT const CGP AZAnchorBottomLeft;
+FOUNDATION_EXPORT const CGP AZAnchorTopRight;
+FOUNDATION_EXPORT const CGP AZAnchorBottomLeft;
 
 
-NSString* AZAspectRatioString(CGFloat ratio);
-CGFloat AZAspectRatioOf(CGFloat width, CGFloat height);
-CGFloat AZAspectRatioForSize(NSSize size);
+
+
+
+extern const CGRect CGRectOne;
+
+//FOUNDATION_EXPORT const CGP AZAnchorTop,
+//							AZAnchorBottom,
+//							AZAnchorRight,
+//							AZAnchorLeft;
+
+
+
+NSP AZTopLeft  ( NSR rect );
+NSP AZTopRight ( NSR rect );
+NSP AZBotLeft  ( NSR rect );
+NSP AZBotRight ( NSR rect );
+
+
+AZPOS AZPositionOfRectInRect ( NSR rect, NSR outer );
+AZPOS AZOutsideEdgeOfRectInRect (NSR rect, NSR outer );
+
+
+AZWindowPosition AZPositionAtPerimeterInRect ( NSR edgeBox, NSR outer );
+CGP AZAnchorPointForPosition( AZWindowPosition pos );
+NSSZ  AZDirectionsOffScreenWithPosition ( NSR rect, AZWindowPosition position );
+
+
+AZOrient deltaDirectionOfPoints ( NSP a, NSP b );
+
+/**	NSRange from a min and max values even though the names imply that min should be greater than max the order does not matter the range will always start at the lower value and have a size to reach the upper value **/
+
+NSRange AZMakeRange ( NSUInteger min, NSUInteger max );
+
+CGF AZPointDistance ( CGP p1, CGP p2 );
+CGF AZPointAngle ( CGP p1, CGP p2 );
+
+CGF distanceFromPoint   ( NSP p1,NSP p2 );
+CGF AZDistanceFromPoint ( NSP p1,NSP p2 );
+
+NSP AZPointOffset  ( NSP p, NSP size );
+NSP AZPointOffsetY ( NSP p, CGF distance );
+NSP AZPointOffsetX ( NSP p, CGF distance );
+
+int GCD ( int a, int b );
+
+BOOL isWhole ( CGF fl );
+
+NSI AZLowestCommonDenominator ( int a, int b );
+
+NSS* AZAspectRatioString ( CGF ratio );
+CGF  AZAspectRatioOf ( CGF width, CGF height );
+CGF  AZAspectRatioForSize ( NSSZ size );
 
 // Simple Length and Area calculus
 
-CGFloat AZPerimeter(NSRect rect);
-CGFloat AZPermineterWithRoundRadius (NSRect rect, CGFloat radius);
+CGF AZPerimeter ( NSR rect );
+CGF AZPermineterWithRoundRadius  ( NSR rect, CGF radius );
 
-CGFloat AZLengthOfPoint(NSPoint pt);
-CGFloat AZAreaOfSize(NSSize size);
-CGFloat AZAreaOfRect(NSRect rect);
+
+NSR  AZScreenFrame ( void );
+NSSZ AZScreenSize  ( void );
+NSR  AZScreenFrameUnderMenu ( void );
+
+CGF AZMinEdge ( NSR r );
+CGF AZMaxEdge ( NSR r );
+CGF AZMaxDim ( NSSZ sz );
+CGF AZMinDim ( NSSZ sz );
+
+
+CGF AZLengthOfPoint ( NSP pt );
+CGF AZAreaOfSize ( NSSZ size );
+CGF AZAreaOfRect ( NSR rect );
 
 // Size -> Point conversion
-NSPoint AZPointFromSize(NSSize size);
+NSP AZPointFromSize ( NSSZ size );
 
-// NSPoint result methods
-NSPoint AZOriginFromMenubarWithX(CGFloat yOffset, CGFloat xOffset);
+// NSP result methods
+NSP AZOriginFromMenubarWithX ( CGF yOffset, CGF xOffset );
 
-// returns the absolute values of a point (pt.x >= 0, pt.y >= 0)
-NSPoint AZAbsPoint(NSPoint point);
+// returns the absolute values of a point  ( pt.x >= 0, pt.y >= 0)
+NSP AZAbsPoint ( NSP point );
 
 // floor, ceil and round simply use those functions on both values of the point
-NSPoint AZFloorPoint(NSPoint point);
-NSPoint AZCeilPoint(NSPoint point);
-NSPoint AZRoundPoint(NSPoint point);
+NSP AZFloorPoint ( NSP point );
+NSP AZCeilPoint ( NSP point );
+NSP AZRoundPoint ( NSP point );
 
 // pt.x = -pt.x, pt.y = -pt.x
-NSPoint AZNegatePoint(NSPoint point);
+NSP AZNegatePoint ( NSP point );
 
 // pt.x = 1 / pt.x, pt.y = 1 / pt.y
-NSPoint AZInvertPoint(NSPoint point);
+NSP AZInvertPoint ( NSP point );
 
 // exchanges both x and y values
-NSPoint AZSwapPoint(NSPoint point);
+NSP AZSwapPoint ( NSP point );
 
 // sum of two points
-NSPoint AZAddPoints(NSPoint one, NSPoint another);
+NSP AZAddPoints ( NSP one, NSP another );
 
 // subtracts the 2nd from the 1st point
-NSPoint AZSubtractPoints(NSPoint origin, NSPoint subtrahend);
+NSP AZSubtractPoints ( NSP origin, NSP subtrahend );
 
 // sums a list of points
-NSPoint AZSumPoints(NSUInteger count, NSPoint points, ...);
+NSP AZSumPoints ( NSUInteger count, NSP points, ... );
 
 // multiplies both x and y with one multiplier
-NSPoint AZMultiplyPoint(NSPoint point, CGFloat multiplier);
+NSP AZMultiplyPoint ( NSP point, CGF multiplier );
 
 // multiplies each value with its corresponding value in another point
-NSPoint AZMultiplyPointByPoint(NSPoint one, NSPoint another);
+NSP AZMultiplyPointByPoint ( NSP one, NSP another );
 
 // multiplies each value with its corresponding value in a size
-NSPoint AZMultiplyPointBySize(NSPoint one, NSSize size);
+NSP AZMultiplyPointBySize ( NSP one, NSSZ size );
 
 // positions a relative {0-1,0-1} point within absolute bounds
-NSPoint AZRelativeToAbsolutePoint(NSPoint relative, NSRect bounds);
+NSP AZRelativeToAbsolutePoint ( NSP relative, NSR bounds );
 
 // calculates the relative {0-1,0-1} point from absolute bounds
-NSPoint AZAbsoluteToRelativePoint(NSPoint absolute, NSRect bounds);
+NSP AZAbsoluteToRelativePoint ( NSP absolute, NSR bounds );
 
-NSPoint AZDividePoint(NSPoint point, CGFloat divisor);
-NSPoint AZDividePointByPoint(NSPoint point, NSPoint divisor);
-NSPoint AZDividePointBySize(NSPoint point, NSSize divisor);
+NSP AZDividePoint ( NSP point, CGF divisor );
+NSP AZDividePointByPoint ( NSP point, NSP divisor );
+NSP AZDividePointBySize ( NSP point, NSSZ divisor );
 
 // moves from an origin towards the destination point
 // at a distance of 1 it will reach the destination
-NSPoint AZMovePoint(NSPoint origin, NSPoint target, CGFloat relativeDistance);
+NSP AZMovePoint ( NSP origin, NSP target, CGF relativeDistance );
 
 // moves from an origin towards the destination point
 // distance on that way is measured in pixels
-NSPoint AZMovePointAbs(NSPoint origin, NSPoint target, CGFloat pixels);
+NSP AZMovePointAbs ( NSP origin, NSP target, CGF pixels );
 
 // returns the center point of a rect
-NSPoint AZCenterOfRect(NSRect rect);
+NSP AZCenterOfRect ( NSR rect );
 
 // returns the center point of a size
-NSPoint AZCenterOfSize(NSSize size);
+NSP AZCenterOfSize ( NSSZ size );
 
 // will return the origin + size value of a rect
-NSPoint AZEndOfRect(NSRect rect);
+NSP AZEndOfRect ( NSR rect );
 
 // will return the average distance of two rects
-NSPoint AZCenterDistanceOfRects(NSRect from, NSRect to);
+NSP AZCenterDistanceOfRects ( NSR from, NSR to );
 
 // will return the shortest possible distance in x and y
-NSPoint AZBorderDistanceOfRects(NSRect from, NSRect to);
+NSP AZBorderDistanceOfRects ( NSR from, NSR to );
 
 // will return the shortes possible distance from point to rect
-NSPoint AZPointDistanceToBorderOfRect(NSPoint point, NSRect rect);
+NSP AZPointDistanceToBorderOfRect ( NSP point, NSR rect );
 
-NSPoint AZNormalizedDistanceOfRects(NSRect from, NSRect to);
-NSPoint AZNormalizedDistanceToCenterOfRect(NSPoint point, NSRect rect);
+NSP AZNormalizedDistanceOfRects ( NSR from, NSR to );
+NSP AZNormalizedDistanceToCenterOfRect ( NSP point, NSR rect );
 
-NSPoint AZPointFromDim(CGFloat val);
-// NSSize result methods
+NSP AZPointFromDim ( CGF val );
+// NSSZ result methods
 // 
 // converts a float to a rect of equal sized sizes of dim;
-NSRect AZRectFromDim(CGFloat dim);
+NSR AZRectFromDim ( CGF dim );
 
-//  Makes Rect 0, 0, boundsX, boundsY  easy syntax AZRectBy(200,233)
-NSRect AZRectBy(CGFloat boundX, CGFloat boundY);
+//  Makes Rect 0, 0, boundsX, boundsY  easy syntax AZRectBy ( 200,233)
+NSR AZRectBy ( CGF boundX, CGF boundY );
 
 
 // converts a float to a size;
-NSSize AZSizeFromDimension(CGFloat dim);
+NSSZ AZSizeFromDimension ( CGF dim );
 
 // converts a point to a size
-NSSize AZSizeFromPoint(NSPoint point);
+NSSZ AZSizeFromPoint ( NSP point );
 
 // ABS on both values of the size
-NSSize AZAbsSize(NSSize size);
+NSSZ AZAbsSize ( NSSZ size );
 
 // Adds the width and height of two sizes
-NSSize AZAddSizes(NSSize one, NSSize another);
+NSSZ AZAddSizes ( NSSZ one, NSSZ another );
 
 // subtracts the subtrahends dimensions from the ones of the size
-NSSize AZSubtractSizes(NSSize size, NSSize subtrahend);
+NSSZ AZSubtractSizes ( NSSZ size, NSSZ subtrahend );
 
 // returns 1 / value on both values of the size
-NSSize AZInvertSize(NSSize size);
+NSSZ AZInvertSize ( NSSZ size );
 
 // will return the ratio of an inner size to an outer size
-NSSize AZRatioOfSizes(NSSize inner, NSSize outer);
+NSSZ AZRatioOfSizes ( NSSZ inner, NSSZ outer );
 
-NSSize AZMultiplySize( NSSize size, CGFloat multiplier);
+NSSZ AZMultiplySize( NSSZ size, CGF multiplier );
 
 // will multiply a size by a single multiplier
-NSSize AZMultiplySizeBy( NSSize size, CGFloat multiplier);
-//NSSize AZMultiplySize(NSSize size, CGFloat multiplier);
+NSSZ AZMultiplySizeBy( NSSZ size, CGF multiplier );
+//NSSZ AZMultiplySize ( NSSZ size, CGF multiplier );
 
 // will multiply a size by another size
-NSSize AZMultiplySizeBySize(NSSize size, NSSize another);
+NSSZ AZMultiplySizeBySize ( NSSZ size, NSSZ another );
 
 // will multiply a size by a point
-NSSize AZMultiplySizeByPoint(NSSize size, NSPoint point);
+NSSZ AZMultiplySizeByPoint ( NSSZ size, NSP point );
 
 // blends one size towards another
 // percentage == 0 -> one
 // percentage == 1 -> another
 // @see AZMovePoint
-NSSize AZBlendSizes(NSSize one, NSSize another, CGFloat percentage);
+NSSZ AZBlendSizes ( NSSZ one, NSSZ another, CGF percentage );
 
-NSSize AZSizeMax(NSSize one, NSSize another);
-NSSize AZSizeMin(NSSize one, NSSize another);
-NSSize AZSizeBound(NSSize preferred, NSSize minSize, NSSize maxSize);
-// NSRect result methods
-NSRect AZZeroHeightBelowMenu(void);
+NSSZ AZSizeMax ( NSSZ one, NSSZ another );
+NSSZ AZSizeMin ( NSSZ one, NSSZ another );
+NSSZ AZSizeBound ( NSSZ preferred, NSSZ minSize, NSSZ maxSize );
+// NSR result methods
+NSR AZZeroHeightBelowMenu ( void );
 
-NSRect AZFlipRectinRect(CGRect local, CGRect dest);
+NSR AZFlipRectinRect ( CGRect local, CGRect dest );
 
-CGFloat AZMenuBarThickness (void);
+CGF AZMenuBarThickness  ( void );
 
-NSRect AZMenuBarFrame(void);
+NSR AZMenuBarFrame ( void );
 
-NSRect AZRectVerticallyOffsetBy(CGRect rect, CGFloat offset);
-NSRect AZRectHorizontallyOffsetBy(CGRect rect, CGFloat offset);
+NSR AZRectVerticallyOffsetBy ( CGRect rect, CGF offset );
+NSR AZRectHorizontallyOffsetBy ( CGRect rect, CGF offset );
 
-NSRect AZMenulessScreenRect(void);
+NSR AZMenulessScreenRect ( void );
 
-NSRect AZMakeRectMaxXUnderMenuBarY(CGFloat distance);
+NSR AZMakeRectMaxXUnderMenuBarY ( CGF distance );
 
-CGFloat AZHeightUnderMenu(void);
-NSRect AZSquareFromLength(CGFloat length);
+CGF AZHeightUnderMenu ( void );
+NSR AZSquareFromLength ( CGF length );
 
 // returns a zero sized rect with the argumented point as origin
-NSRect AZMakeRectFromPoint(NSPoint point);
+NSR AZMakeRectFromPoint ( NSP point );
 
 // returns a zero point origin with the argumented size
-NSRect AZMakeRectFromSize(NSSize size);
+NSR AZMakeRectFromSize ( NSSZ size );
 
 // just another way of defining a rect
-NSRect AZMakeRect(NSPoint point, NSSize size);
+NSR AZMakeRect ( NSP point, NSSZ size );
 
 // creates a square rect around a center point
-NSRect AZMakeSquare(NSPoint center, CGFloat radius);
+NSR AZMakeSquare ( NSP center, CGF radius );
 
-NSRect AZMultiplyRectBySize(NSRect rect, NSSize size);
+NSR AZMultiplyRectBySize ( NSR rect, NSSZ size );
 
 // transforms a relative rect to an absolute within absolute bounds
-NSRect AZRelativeToAbsoluteRect(NSRect relative, NSRect bounds);
+NSR AZRelativeToAbsoluteRect ( NSR relative, NSR bounds );
 
 // transforms an absolute rect to a relative rect within absolute bounds
-NSRect AZAbsoluteToRelativeRect(NSRect absolute, NSRect bounds);
+NSR AZAbsoluteToRelativeRect ( NSR absolute, NSR bounds );
 
-NSRect AZPositionRectOnRect(NSRect inner, NSRect outer, NSPoint position);
+NSR AZPositionRectOnRect ( NSR inner, NSR outer, NSP position );
 
 // moves the origin of the rect
-NSRect AZCenterRectOnPoint(NSRect rect, NSPoint center);
+NSR AZCenterRectOnPoint ( NSR rect, NSP center );
 
 // returns the innter rect with its posiion centeredn on the outer rect
-NSRect AZCenterRectOnRect(NSRect inner, NSRect outer);
+NSR AZCenterRectOnRect ( NSR inner, NSR outer );
 
 // will a square rect with a given center
-NSRect AZSquareAround(NSPoint center, CGFloat distance);
+NSR AZSquareAround ( NSP center, CGF distance );
 
 // blends a rect from one to another
-NSRect AZBlendRects(NSRect from, NSRect to, CGFloat at);
+NSR AZBlendRects ( NSR from, NSR to, CGF at );
 
 // Croped Rects
 
-NSRect AZRectTrimmedOnRight(NSRect rect, CGFloat width);
-NSRect AZRectTrimmedOnBottom(NSRect rect, CGFloat height);
-NSRect AZRectTrimmedOnLeft(NSRect rect, CGFloat width);
-NSRect AZRectTrimmedOnTop(NSRect rect, CGFloat height);
+NSR AZRectTrimmedOnRight ( NSR rect, CGF width );
+NSR AZRectTrimmedOnBottom ( NSR rect, CGF height );
+NSR AZRectTrimmedOnLeft ( NSR rect, CGF width );
+NSR AZRectTrimmedOnTop ( NSR rect, CGF height );
 
-NSRect AZRectExceptWide (NSRect rect, CGFloat wide);
-NSRect AZRectExceptHigh (NSRect rect, CGFloat high);
-NSRect AZRectExceptOriginX (NSRect rect, CGFloat x);
-NSRect AZRectExceptOriginY (NSRect rect, CGFloat y);
+NSR AZRectExceptWide  ( NSR rect, CGF wide );
+NSR AZRectExceptHigh  ( NSR rect, CGF high );
+NSR AZRectExceptOriginX  ( NSR rect, CGF x );
+NSR AZRectExceptOriginY  ( NSR rect, CGF y );
 
 // returns a rect with insets of the same size x and y
-NSRect AZInsetRect(NSRect rect, CGFloat inset);
+NSR AZInsetRect ( NSR rect, CGF inset );
 
 // returns a rect at the left edge of a rect with a given inset width
-NSRect AZLeftEdge(NSRect rect, CGFloat width);
+NSR AZLeftEdge ( NSR rect, CGF width );
 
 // returns a rect at the right edge of a rect with a given inset width
-NSRect AZRightEdge(NSRect rect, CGFloat width);
+NSR AZRightEdge ( NSR rect, CGF width );
 
 // returns a rect at the lower edge of a rect with a given inset width
-NSRect AZLowerEdge(NSRect rect, CGFloat height);
+NSR AZLowerEdge ( NSR rect, CGF height );
 
 // returns a rect at the upper edge of a rect with a given inset width
-NSRect AZUpperEdge(NSRect rect, CGFloat height);
+NSR AZUpperEdge ( NSR rect, CGF height );
 
 // macro to call a border drawing method with a border width
 // this will effectively draw the border but clip the inner rect
 
-// Example: AZInsideClip(NSDrawLightBezel, rect, 2);
+// Example: AZInsideClip ( NSDrawLightBezel, rect, 2 );
 //          Will draw a 2px light beezel around a rect
-#define AZInsideClip(METHOD,RECT,BORDER) \
-  METHOD(RECT, AZLeftEdge( RECT, BORDER)); \
-  METHOD(RECT, AZRightEdge(RECT, BORDER)); \
-  METHOD(RECT, AZUpperEdge(RECT, BORDER)); \
-  METHOD(RECT, AZLowerEdge(RECT, BORDER))
+#define AZInsideClip ( METHOD,RECT,BORDER) \
+  METHOD ( RECT, AZLeftEdge( RECT, BORDER ) ); \
+  METHOD ( RECT, AZRightEdge ( RECT, BORDER ) ); \
+  METHOD ( RECT, AZUpperEdge ( RECT, BORDER ) ); \
+  METHOD ( RECT, AZLowerEdge ( RECT, BORDER ))
 // Comparison methods
-BOOL AZIsPointLeftOfRect(NSPoint point, NSRect rect);
-BOOL AZIsPointRightOfRect(NSPoint point, NSRect rect);
-BOOL AZIsPointAboveRect(NSPoint point, NSRect rect);
-BOOL AZIsPointBelowRect(NSPoint point, NSRect rect);
+BOOL AZIsPointLeftOfRect ( NSP point, NSR rect );
+BOOL AZIsPointRightOfRect ( NSP point, NSR rect );
+BOOL AZIsPointAboveRect ( NSP point, NSR rect );
+BOOL AZIsPointBelowRect ( NSP point, NSR rect );
 
-BOOL AZIsRectLeftOfRect(NSRect rect, NSRect compare);
-BOOL AZIsRectRightOfRect(NSRect rect, NSRect compare);
-BOOL AZIsRectAboveRect(NSRect rect, NSRect compare);
-BOOL AZIsRectBelowRect(NSRect rect, NSRect compare);
+BOOL AZIsRectLeftOfRect ( NSR rect, NSR compare );
+BOOL AZIsRectRightOfRect ( NSR rect, NSR compare );
+BOOL AZIsRectAboveRect ( NSR rect, NSR compare );
+BOOL AZIsRectBelowRect ( NSR rect, NSR compare );
 
-NSRect rectZoom(NSRect rect,float zoom,int quadrant);
-
-
-NSRect AZSquareInRect(NSRect rect);
+NSR rectZoom ( NSR rect,float zoom,int quadrant );
 
 
-NSRect sizeRectInRect(NSRect innerRect,NSRect outerRect,bool expand);
-NSPoint offsetPoint(NSPoint fromPoint, NSPoint toPoint);
-NSRect fitRectInRect(NSRect innerRect,NSRect outerRect,bool expand);
-NSRect centerRectInRect(NSRect rect, NSRect mainRect);
-NSRect rectFromSize(NSSize size);
-//NSRect rectWithProportion(NSRect innerRect,float proportion,bool expand);
+NSR AZSquareInRect ( NSR rect );
 
-NSRect sectionPositioned(NSRect r, AZWindowPosition p);
-int oppositeQuadrant(int quadrant);
-NSRect quadrant(NSRect r, AZQuadrant quad);
 
-CGFloat quadrantsVerticalGutter(NSRect r);
+NSR AZSizeRectInRect ( NSR innerRect,NSR outerRect,bool expand );
+NSP AZOffsetPoint 	 ( NSP fromPoint, NSP toPoint );
+NSR AZFitRectInRect  ( NSR innerRect,NSR outerRect,bool expand );
+NSR AZCenterRectInRect ( NSR rect, NSR mainRect );
+NSR AZRectFromSize ( NSSZ size );
+//NSR rectWithProportion ( NSR innerRect,float proportion,bool expand );
 
-CGFloat quadrantsHorizontalGutter(NSRect r);
+NSR sectionPositioned ( NSR r, AZWindowPosition p );
+int oppositeQuadrant ( int quadrant );
+NSR quadrant ( NSR r, AZQuadrant quad );
 
-NSRect constrainRectToRect(NSRect innerRect, NSRect outerRect);
-NSRect alignRectInRect(NSRect innerRect,NSRect outerRect,int quadrant);
-//NSRect expelRectFromRect(NSRect innerRect, NSRect outerRect,float peek);
-//NSRect expelRectFromRectOnEdge(NSRect innerRect, NSRect outerRect,NSRectEdge edge,float peek);
+CGF quadrantsVerticalGutter ( NSR r );
 
-NSRectEdge touchingEdgeForRectInRect(NSRect innerRect, NSRect outerRect);
-int closestCorner(NSRect innerRect,NSRect outerRect);
-int oppositeQuadrant(int quadrant);
+CGF quadrantsHorizontalGutter ( NSR r );
+
+NSR constrainRectToRect ( NSR innerRect, NSR outerRect );
+NSR alignRectInRect ( NSR innerRect,NSR outerRect,int quadrant );
+//NSR expelRectFromRect ( NSR innerRect, NSR outerRect,float peek );
+//NSR expelRectFromRectOnEdge ( NSR innerRect, NSR outerRect,NSREdge edge,float peek );
+
+CGRectEdge AZEdgeTouchingEdgeForRectInRect ( NSR innerRect, NSR outerRect );
+AZPOS AZClosestCorner ( NSR innerRect,NSR outerRect );
+QUAD AZOppositeQuadrant ( int quadrant );
 //
-NSRect blendRects(NSRect start, NSRect end,float b);
-void logRect(NSRect rect);
+NSR AZBlendRects ( NSR start, NSR end, CGF b );
+void logRect ( NSR rect );
 
 
-NSRect	AZRandomRectinRect(CGRect rect);
-CGPoint AZRandomPointInRect(CGRect rect);
+NSR	AZRandomRectinRect ( CGRect rect );
+CGP AZRandomPointInRect ( CGRect rect );
 
 /** Returns the center point of a CGRect. */
-static inline CGPoint GetCGRectCenter( CGRect rect ) {
-    return CGPointMake(CGRectGetMidX(rect),CGRectGetMidY(rect));
+static inline CGP AZCenter( CGRect rect ) {
+    return CGPointMake ( CGRectGetMidX ( rect ),CGRectGetMidY ( rect ) );
 }
-	// EOF
+// EOF
 
-	//typedef struct _BTFloatRange {
-	//    float value;
-	//    float location;
-	//    float length;
-	//} BTFloatRange;
-	//
-	//
-	//BTFloatRange BTMakeFloatRange(float value,float location,float length);
-	//float BTFloatRangeMod(BTFloatRange range);
-	//float BTFloatRangeUnit(BTFloatRange range);
-	//NSPoint rectOffset(NSRect innerRect,NSRect outerRect,int quadrant);
+//typedef struct _BTFloatRange {
+//    float value;
+//    float location;
+//    float length;
+//} BTFloatRange;
+//
+//
+//BTFloatRange BTMakeFloatRange ( float value,float location,float length );
+//float BTFloatRangeMod ( BTFloatRange range );
+//float BTFloatRangeUnit ( BTFloatRange range );
+//NSP rectOffset ( NSR innerRect,NSR outerRect,int quadrant );
+
+
+@interface AtoZGeometry:NSObject
+@end

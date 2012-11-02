@@ -1491,6 +1491,42 @@ extern CATransform3D CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13, CG
 	[subLayers do:^(id obj) {	[self addSublayer:obj];	}];
 }
 
+
+// ---------------------------------------------------------------------------
+// -generateGlowingSphereLayer
+// ---------------------------------------------------------------------------
+// create a new "sphere" layer and add it to the container layer
+
++ (CALayer*)newGlowingSphereLayer
+{
+    // generate a random size scale for glowing sphere
+    NSUInteger randomSizeInt	 	= (random() % 200 + 50 );
+    CGFloat sizeScale 		 	= (CGFloat)randomSizeInt / 100.0;
+    NSImage* compositeImage  	= [NSImage glowingSphereImageWithScaleFactor:sizeScale coreColor:WHITE glowColor:RANDOMCOLOR];
+//    CGImageRef cgCompositeImage = [compositeImage cgImage];
+
+    // generate a random opacity value with a minimum of 15%
+    NSUInteger randomOpacityInt = (random() % 100 + 15 );
+    CGFloat opacityScale = (CGFloat)randomOpacityInt / 100.0;
+    
+    CALayer* sphereLayer            = [CALayer layer];
+    sphereLayer.name                = @"glowingSphere";
+    sphereLayer.bounds              = CGRectMake ( 0, 0, 20, 20 );
+    sphereLayer.contents            = compositeImage;
+    sphereLayer.contentsGravity     = kCAGravityCenter;
+//    sphereLayer.delegate            = self;    
+    sphereLayer.opacity             = opacityScale;
+  	return sphereLayer;
+    // "movementPath" is a custom key for just this app
+//    [self.containerLayerForSpheres addSublayer:sphereLayer];        
+//    [sphereLayer addAnimation:[self randomPathAnimation] forKey:@"movementPath"];
+
+//    CGImageRelease ( cgCompositeImage );
+}
+
+
+
+
 @end
 
 @implementation CATextLayer (AtoZ)
@@ -1580,3 +1616,12 @@ extern CATransform3D CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13, CG
 }
 
 @end
+
+@implementation CALayerNonAnimating
+- (id<CAAction>)actionForKey:(NSString *)key;
+{
+	// return nil to disable animations on this layer
+	return nil;
+}
+@end
+

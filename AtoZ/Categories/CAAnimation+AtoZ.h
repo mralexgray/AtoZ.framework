@@ -34,6 +34,9 @@ extern void disableCA();
 @end
 
 @interface CAAnimation (AtoZ)
++ (CAAnimation*)randomPathAnimationWithStartingPoint:(CGPoint)firstPoint inFrame:(NSR)rect;
++ (CAAnimation*)randomPathAnimationInFrame:(NSRect) frame;
+
 + (CAKA*)           popInAnimation;
 + (CAAG*)   shrinkAnimationAtPoint: (CGPoint)p;
 + (CAAG*)   blowupAnimationAtPoint: (CGPoint)p;
@@ -46,6 +49,11 @@ extern void disableCA();
 + (CAA*) 	       animationOnPath: (CGPR)path  duration:    (CFTI)d 	  timeOffset: (CFTI)o;
 + (CAA*)    colorAnimationForLayer: (CAL*)layer start:       (NSC*)c1  	  end: (NSC*)c2;
 + (CAA*)   rotateAnimationForLayer: (CAL*)layer start:       (CGF)fl1     end: (CGF)fl1;
+
+
+- (CAAnimation *)rotateAnimationFrom:(NSNumber*)startDegree to:(NSNumber*)endDegrees;
++ (CAAnimation*)rotateAnimationForLayer:(CALayer *)theLayer start:(CGFloat)starting end:(CGFloat)ending;
++ (CAAnimation*)colorAnimationForLayer:(CALayer *)theLayer WithStartingColor:(NSColor*)color1 endColor:(NSColor*)color2;
 
 @property (NATOM, CP) AZCAAnimationCompletionBlock az_completionBlock;
 

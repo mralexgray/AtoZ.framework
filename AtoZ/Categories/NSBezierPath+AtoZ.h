@@ -7,6 +7,8 @@
 
 
 @interface NSAffineTransform (UKShearing)
+
++ (NSAffineTransform *)transformRotatingAroundPoint:(NSPoint) p byDegrees:(CGFloat) deg;
 -(void)	shearXBy: (CGFloat)xFraction yBy: (CGFloat)yFraction;
 @end
 

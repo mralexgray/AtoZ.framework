@@ -149,7 +149,7 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 		[self setValue:[NSValue valueWithRect:[self frame]] forKeyPath:@"dictionary.visibleRect"];
 	}
 		NSRect newViewFrame = [self frame];
-		AZWindowPosition r = AZPositionOfRect([[self window]frame]);
+		AZWindowPosition r = AZPositionOfRectInRect([[self window]frame], AZScreenFrameUnderMenu());
 		NSSize getOut = AZDirectionsOffScreenWithPosition(newViewFrame,r);
 		newViewFrame.size.width  += getOut.width;
 		newViewFrame.size.height += getOut.height;

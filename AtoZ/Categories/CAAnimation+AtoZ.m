@@ -96,6 +96,93 @@ void disableCA(){
 @end
 
 @implementation CAAnimation (AtoZ)
+
++ (CAAnimation*)colorAnimationForLayer:(CALayer *)theLayer WithStartingColor:(NSColor*)color1 endColor:(NSColor*)color2;
+{
+	CABasicAnimation * animation = [CABasicAnimation animationWithKeyPath:@"backgroundColor"];
+	NSDictionary *dic = @{	 	@"fromValue":(id)[color1 CGColor],
+									@"toValue":(id)[color2 CGColor],
+								@"duration":@2,
+								@"removedOnCompletion":@(YES),
+									@"fillMode": kCAFillModeForwards};
+	[animation setValuesForKeysWithDictionary:dic];
+	[theLayer addAnimation:animation forKey:@"color"];    
+	return animation;
+}
+
+//+ (CAAnimation*)rotateAnimationForLayer:(CALayer *)theLayer start:(CGFloat)starting end:(CGFloat)ending {
+//	CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+////    [animation setFromValue:DegreesToNumber(<#CGFloat degrees#>)(previousValue)];
+//    [animation setToValue:DegreesToNumber([slider floatValue])];
+//    
+//    [animation setRemovedOnCompletion:NO];
+//    [animation setFillMode:kCAFillModeForwards];
+//    
+//    previousValue = [slider floatValue];
+//    
+//	return animation;
+//}
+//
+//}
+
+
+- (CAAnimation *)rotateAnimationTo:(CGF)endDegrees
+{
+	CABasicAnimation * animation;
+	animation = [CABasicAnimation 
+                 animationWithKeyPath:@"transform.rotation.z"];
+    
+//    [animation setFromValue:DegreesToNumber(startDegree)];// previousValue)];
+    [animation setToValue:DegreesToNumber(endDegrees)];
+    
+    [animation setRemovedOnCompletion:NO];
+    [animation setFillMode:kCAFillModeForwards];
+    
+//    previousValue = [slider floatValue];
+
+	return animation;
+}
+
+
+// ---------------------------------------------------------------------------
+// -randomPathAnimation
+// ---------------------------------------------------------------------------
+// create a CAAnimation object with result of -newRandomPath as the movement pat
+
++ (CAAnimation*)randomPathAnimationInFrame:(NSRect) frame;
+{
+    return [self randomPathAnimationWithStartingPoint:AZRandomPointInRect(frame) inFrame:frame];
+}
+
+
+// ---------------------------------------------------------------------------
+// -randomPathAnimationWithStartingPoint:
+// ---------------------------------------------------------------------------
+// create a CAAnimation object with result of -newRandomPath as the movement path
+
++ (CAAnimation*)randomPathAnimationWithStartingPoint:(CGPoint)firstPoint inFrame:(NSR)rect
+{
+//    CGPathRef path = AZRandomPathWithStartingPointInRect(firstPoint, rect);//:firstPoint];
+
+    
+    CAKA* animation 			= [CAKA animationWithKeyPath:@"position"];
+    animation.path              = AZRandomPathWithStartingPointInRect(firstPoint, rect);;
+    animation.timingFunction    = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
+    animation.duration          = RAND_FLOAT_VAL(15,32);
+    animation.autoreverses      = YES;
+    animation.repeatCount       = HUGE_VALF;
+    return animation;
+}
+
+
+
+#pragma mark -
+#pragma mark Sphere Layer Generation
+
+
+
+
+
 + (CAKeyframeAnimation *)rotateAnimation{
 
 	CAKeyframeAnimation *rotateAnimation= [CAKeyframeAnimation animationWithKeyPath:@"transform.rotation.z"];
@@ -781,3 +868,23 @@ void disableCA(){
  }
  
  */
+
+
+
+/* alternative style  
+
+  // Setup another animation just to show a different coding style
+    CABasicAnimation *anotherAnimation = [CABasicAnimation animationWithKeyPath:@"position.x"];
+    anotherAnimation.fromValue = @(self.anotherImageView.layer.position.x);
+    anotherAnimation.toValue = @600.0f;
+    anotherAnimation.duration = 2;
+    [anotherAnimation setCompletion:^(BOOL finished) {
+        CABasicAnimation *oneMoreAnimation = [CABasicAnimation animationWithKeyPath:@"position.x"];
+        oneMoreAnimation.fromValue = @600.0f;
+        oneMoreAnimation.toValue = @160.0f;
+        oneMoreAnimation.duration = 1;
+        [self.anotherImageView.layer addAnimation:oneMoreAnimation forKey:@"1"];
+    }];
+    [self.anotherImageView.layer addAnimation:anotherAnimation forKey:@"1"];
+	
+	*/

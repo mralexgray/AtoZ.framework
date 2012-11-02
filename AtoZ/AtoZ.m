@@ -124,7 +124,7 @@ static NSA* cachedI = nil;
 	return  [[NSArray alloc]initWithObjects:AZWindowPositionTypeArray][enumVal];
 }
 // A method to retrieve the int value from the NSArray of NSStrings
--(AZWindowPosition) imageTypeStringToEnum:(NSString*)strVal
++ (AZWindowPosition) positionForString:(NSString*)strVal;
 {
 	return (AZWindowPosition) [[[NSA alloc]initWithObjects:AZWindowPositionTypeArray] indexOfObject:strVal];
 }

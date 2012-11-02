@@ -680,6 +680,54 @@ double frandom(double start, double end)
 	return r;
 }
 
+// ---------------------------------------------------------------------------
+// -newRandomPath
+// ---------------------------------------------------------------------------
+// create a new CGPath with a series of random coordinates
+
+CGPathRef AZRandomPathInRect(NSR rect) {
+    CGPoint point;
+    NSSize size = rect.size;
+    NSInteger x = random() % ((NSInteger)(size.width) + 50);
+    NSInteger y = random() % ((NSInteger)(size.height) + 50);
+    point = CGPointMake( x, y );
+    
+    return AZRandomPathWithStartingPointInRect(point, rect);
+}
+
+// ---------------------------------------------------------------------------
+// -newRandomPathWithStartingPoint:
+// ---------------------------------------------------------------------------
+// create a new CGPath with a series of random coordinates
+
+
+CGPathRef AZRandomPathWithStartingPointInRect(CGPoint firstPoint, NSR inRect)
+{
+
+
+    // create an array of points, with 'firstPoint' at the first index
+    NSUInteger count = 10;
+    CGPoint onePoint;
+    CGPoint allPoints[count];    
+    allPoints[0] = firstPoint;
+
+    // create several CGPoints with random x and y coordinates
+    CGMutablePathRef thePath = CGPathCreateMutable();
+    NSUInteger i;
+    for ( i = 1; i < count; i++)
+    {
+        // allow the coordinates to go slightly out of the bounds of the view (+50)
+        NSInteger x = random() % ((NSInteger)(inRect.size.width) + 50);
+        NSInteger y = random() % ((NSInteger)(inRect.size.height) + 50);
+        onePoint = CGPointMake(x,y);
+        allPoints[i] = onePoint;
+    }
+
+    CGPathAddLines ( thePath, NULL, allPoints, count );     
+    return thePath;
+}
+
+
 //@implementation Slice
 //@end
 

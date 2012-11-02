@@ -2,10 +2,39 @@
 //  AZLassoLayer.m
 //  AtoZ
 
-//  Created by Alex Gray on 8/28/12.
-//  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
+
+
 #import "AZLassoLayer.h"
 #import <QuartzCore/QuartzCore.h>
+
+
+@interface AZLassoLayer ()
+@property (nonatomic, strong) CAShapeLayer *lassoBorder, *lasso;
+@property (nonatomic, assign) CGFloat dynamicStroke;
+@property (nonatomic, strong) NSBezierPath *bPath;
+@end
+
+@implementation AZLassoLayer
+
+- (id)initWithLayer
+{
+	if (!(self = [super init])) return nil;
+	self.lasso  	 = 	[CASHL layer];
+	self.lassoBorder =  [CASHL layer];
+	self.layoutManager = self;
+	return self;
+}
+
++ (AZLassoLayer*)lasso:(CALayer*)layer
+{
+	AZLassoLayer *l = [layer.sublayers filterOne:^BOOL(id object) {
+		return [object isKindOfClass:[AZLassoLayer class]];
+	}] ?: [[self class] layer];
+	
+}
+
+
+
 //@implementation LassoMaster
 //
 //+ (NSMutableArray*) lassos{ 	return [[LassoMaster sharedInstance]lassos];}
@@ -31,25 +60,8 @@
 
 //@end
 
-@implementation AZLassoLayer
 
-+ (AZLassoLayer*)lasso:(CALayer*)layer{
-//	__block BOOL bail = NO;;
-	return [layer.sublayers filterOne:^BOOL(id object) {
 
-//		CALayer *aLayer = (CALayer*)layer;
-		return [object isKindOfClass:[AZLassoLayer class]];
-		//) bail = YES;
-//		[aLayer removeFromSuperlayer];
-	}] ?: ^{
-//		AZLOG($(@"lasso   for %@", StringFromBOOL(bail),layer.debugDescription));
-//	if (bail) return ;
-//	else {
-			AZLassoLayer *new = [AZLassoLayer layer];
-							    [layer addSublayer:new];
-		   				return new;
-	}();
-}
 
 //-(void)removeForLayer:(CALayer*) layer;
 //{
@@ -57,19 +69,7 @@
 //	[self release];// removeFromSuperlayer];
 //
 //}
-- (id)init
-{
-    self = [super init];
-    if (self) {
-	self.lasso  	 = [CAShapeLayer layer];
-	self.lassoBorder =  [CAShapeLayer layer];
-	self.layoutManager = self;
-	self.delegate = self;
-	return self;
-    }
-    return self;
 
-}
 - (void)layoutSublayersOfLayer:(CALayer *)layer
 {
 	self.dynamicStroke 			= .1 * AZMaxDim(self.superlayer.bounds.size);

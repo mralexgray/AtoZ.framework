@@ -154,9 +154,7 @@
 		7B3422CA15A5EF03006AC46C /* AZDockQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B3422C815A5EF03006AC46C /* AZDockQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B375680163B63B8003D52B7 /* BlocksKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B99B96F16394E3A00500715 /* BlocksKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		7B375681163B63B8003D52B7 /* CocoaPuffs.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7B99B97B16394E3B00500715 /* CocoaPuffs.framework */; };
-		7B375682163B63C3003D52B7 /* SNRHUDKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B375674163B62B6003D52B7 /* SNRHUDKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		7B375683163B63DA003D52B7 /* BlocksKit.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7B99B96F16394E3A00500715 /* BlocksKit.framework */; };
-		7B375684163B63E3003D52B7 /* SNRHUDKit.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7B375674163B62B6003D52B7 /* SNRHUDKit.framework */; };
 		7B379C8B15DDBB8A0040A093 /* AZLassoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B379C8A15DDBB8A0040A093 /* AZLassoView.m */; };
 		7B379C8D15DDBBB30040A093 /* AZLassoView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B379C8C15DDBBB30040A093 /* AZLassoView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B379CA815DE0B050040A093 /* AZBackground.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B379CA615DE0B050040A093 /* AZBackground.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1304,13 +1302,6 @@
 			remoteGlobalIDString = 039285AE14CCD40500D02672;
 			remoteInfo = Catalog;
 		};
-		7B37567A163B6352003D52B7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7B37566A163B62B4003D52B7 /* SNRHUDKit.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 0392857C14CCCBF300D02672;
-			remoteInfo = SNRHUDKit;
-		};
 		7B37567C163B6363003D52B7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7BA7D241163945E60073BADC /* CocoaPuffs.xcodeproj */;
@@ -1705,7 +1696,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				7B375684163B63E3003D52B7 /* SNRHUDKit.framework in frameworks copy */,
 				7B375683163B63DA003D52B7 /* BlocksKit.framework in frameworks copy */,
 				7B375681163B63B8003D52B7 /* CocoaPuffs.framework in frameworks copy */,
 				7BB870211638501F0000C242 /* AtoZBezierPath.framework in frameworks copy */,
@@ -3730,7 +3720,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7BB87020163850110000C242 /* AtoZBezierPath.framework in Frameworks */,
-				7B375682163B63C3003D52B7 /* SNRHUDKit.framework in Frameworks */,
 				7B375680163B63B8003D52B7 /* BlocksKit.framework in Frameworks */,
 				7BB86F8716383FF90000C242 /* Rebel.framework in Frameworks */,
 				7BFA3F0B162B8AA0003264A4 /* XPCKit.framework in Frameworks */,
@@ -5856,7 +5845,6 @@
 			dependencies = (
 				7B37567F163B636D003D52B7 /* PBXTargetDependency */,
 				7B37567D163B6363003D52B7 /* PBXTargetDependency */,
-				7B37567B163B6352003D52B7 /* PBXTargetDependency */,
 				7BB8701F163850050000C242 /* PBXTargetDependency */,
 				7BB86F8616383FDC0000C242 /* PBXTargetDependency */,
 				7BCB36B8162D315800E61080 /* PBXTargetDependency */,
@@ -7063,11 +7051,6 @@
 			target = 7B311950159B6D9E002134C4 /* AtoZ */;
 			targetProxy = 7B31B14615E9447400802CD5 /* PBXContainerItemProxy */;
 		};
-		7B37567B163B6352003D52B7 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = SNRHUDKit;
-			targetProxy = 7B37567A163B6352003D52B7 /* PBXContainerItemProxy */;
-		};
 		7B37567D163B6363003D52B7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = CocoaPuffs;
@@ -7336,7 +7319,6 @@
 				GCC_PREPROCESSOR_DEFINITIONS = "DEBUGTALKER=1";
 				GCC_SHORT_ENUMS = YES;
 				GCC_USE_INDIRECT_FUNCTION_CALLS = YES;
-				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_FOUR_CHARACTER_CONSTANTS = YES;
@@ -7413,7 +7395,6 @@
 				GCC_PREPROCESSOR_DEFINITIONS = "DEBUGTALKER=1";
 				GCC_SHORT_ENUMS = YES;
 				GCC_USE_INDIRECT_FUNCTION_CALLS = YES;
-				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_FOUR_CHARACTER_CONSTANTS = YES;

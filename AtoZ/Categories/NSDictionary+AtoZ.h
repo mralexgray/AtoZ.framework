@@ -34,7 +34,17 @@
 -(void)setObject:(id)inValue forKeyPath:(NSString *)inKeyPath;
 @end
 
+
+@interface  NSObject  (BagofKeysValue)
+- (NSBag*) bagWithValuesForKey:(NSString *)key;
+@end
+
+
 @interface NSDictionary (AtoZ)
+
+- (NSA*) recursiveObjectsForKey:(NSString *)key;
+- (id) recursiveObjectForKey:(NSString *)key;
+
 - (id)findDictionaryWithValue:(id)value;
 + (NSDictionary*) dictionaryWithValue:(id)value forKeys:(NSA*)keys;
 - (NSDictionary*) dictionaryWithValue:(id)value forKey:(id)key;

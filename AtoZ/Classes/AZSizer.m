@@ -168,25 +168,51 @@ NSUInteger gcd(NSInteger m, NSUInteger n) {
 	self.positions = [NSMA array];
 	NSLog(@"Quant: %ld.	\nCap: %ld. 	\nRem:%ld  		\nAspect:%@. 	    \nRows: %ld.   \nCols:%ld",
 			_quantity, 	  self.capacity, self.remainder,  self.aspectRatio , _rows, 		_columns );
-	return _rects = _rects ?: ^{		NSUInteger Q = 0;	NSMutableArray *pRects = [NSMutableArray array];
-		if (_orient == AZOrientGrid) {
+	return _rects = _rects ?: ^{
+		return _orient == AZOrientGrid ? ^{
+			NSUInteger Q = 0;
+			NSMutableArray *pRects = [NSMutableArray array];
 			for ( int r = (_rows-1); r >= 0; r--){
 				for ( int c = 0; c < _columns; c++ ) {
 					if (Q < _quantity) {
 
 						[pRects addRect:nanRectCheck((NSRect) { (c * _width), (r *_height), _width, _height })];  Q++;
-		}	}	}	}
-		else if (_orient == AZOrientPerimeter) {
-			NSPoint p = NSZeroPoint; NSInteger r1, r2, c1, c2;		r1 = r2 = c1 = c2 = 1;	_size = self.size;
-			while (Q < _quantity) {
-				if		(r1 < _columns) { [pRects addRect:nanRectCheck( AZMakeRect(p, _size) )];	p.x += _width;  r1++; Q++;}//	[_positions addObject:AZVposi(AZPositionBottom)]; }
-				else if (c1 < _rows) 	{ [pRects addRect:nanRectCheck( AZMakeRect(p, _size) )];	p.y += _height; c1++; Q++;}	//[_positions addObject:AZVposi(AZPositionRight)]; }
-				else if (r2 < _columns)	{ [pRects addRect:nanRectCheck( AZMakeRect(p, _size) )]; 	p.x -= _width;  r2++; Q++;	}//[_positions addObject:AZVposi(AZPositionTop)]; }
-				else  /* (c2 < _rows)*/ { [pRects addRect:nanRectCheck( AZMakeRect(p, _size) )];	p.y -= _height; c2++; Q++;}//	[_positions addObject:AZVposi(AZPositionLeft)]; }
-		}	}
-		return pRects;
-	}().copy;
+			}	}	}
+
+			return pRects;
+		}() : _orient == AZOrientPerimeter ? ^{ return [NSArray arrayWithArrays:@[
+		[[NSArray from:1 to:_columns]nmap:^id(id obj, NSUInteger index) {
+			NSR block = AZRectFromSize(_size);
+			return  AZVrect(AZRectExceptOriginX( block, (index * _width)));
+		}],
+		[[NSArray from:1 to:_rows]nmap:^id(id obj, NSUInteger index) {
+			NSR block = AZRectFromSize(_size);
+			block.origin.x = NSWidth(_outerFrame) - _width;
+			return  AZVrect(AZRectExceptOriginY( block, (index * _height)));
+		}],
+		[[NSArray from:1 to:_columns]nmap:^id(id obj, NSUInteger index) {
+			NSR block = AZRectFromSize(_size);
+			block.origin.y = NSHeight(_outerFrame) - _height;
+			return  AZVrect(AZRectExceptOriginX( block, (NSWidth(_outerFrame) - ((index +1) * _width))));
+		}],
+		[[NSArray from:1 to:_rows] nmap:^id(id obj, NSUInteger index) {
+			NSR block = AZRectFromSize(self.size);
+			return  AZVrect(AZRectExceptOriginY( block, (NSHeight(_outerFrame) - ((index +1) * _height))));
+
+		}]]]; }() :nil;
+	}();
 }
+/*			NSPoint p = NSZeroPoint; NSInteger r1, r2, c1, c2;		r1 = r2 = c1 = c2 = 1;	_size = self.size;
+			while (Q < _quantity + self.remainder) {
+				//row 1
+				if		(r1 < _columns) { [pRects addRect: nanRectCheck( AZMakeRect(p, _size) )];	p.x += _width;  r1++; Q++; }
+				else if (c1 < _rows) 	{ [pRects addRect: nanRectCheck( AZMakeRect(p, _size) )];	p.y += _height; c1++; Q++; }
+				else if (r2 < _columns)	{ [pRects addRect: nanRectCheck( AZMakeRect(p, _size) )]; 	p.x -= _width;  r2++; Q++; }
+				else */ /* (c2 < _rows)*/// { [pRects addRect: nanRectCheck( AZMakeRect(p, _size) )];	p.y -= _height; c2++; Q++; }
+	//	}	}
+//		return pRects;
+//	}().copy;
+
 //NSRect 	e = ([[_s.rects objectAtNormalizedIndex:index] rectValue]);
 
 - (NSUInteger) capacity {	return _orient == AZOrientPerimeter	? (2 * self.columns) + (2 * self.rows) - 4 

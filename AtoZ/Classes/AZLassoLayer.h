@@ -18,9 +18,7 @@
 //@end
 
 @interface AZLassoLayer : CALayer
-+ (instancetype) lasso: (CALayer*)layer;
-@property (nonatomic, strong) CAShapeLayer *lassoBorder, *lasso;
-@property (nonatomic, assign) CGFloat dynamicStroke;
-@property (nonatomic, strong) NSBezierPath *bPath;
++ (AZLassoLayer*) lasso: (CALayer*)layer;
+
 
 @end

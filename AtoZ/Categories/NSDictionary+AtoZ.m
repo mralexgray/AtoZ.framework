@@ -205,7 +205,125 @@
 	return match;
 }
 @end
+
+
+
+@implementation  NSObject  (BagofKeysValue)
+
+//- (NSBag*) bagWithValuesForKey:(NSString *)key
+//{
+//	__block NSBag* newbag = [NSBag new];
+//	if ([self isKindOfClass:[NSDictionary class]]) {
+//		if([self.allKeys containsObject:key]) {  [newbag add:self[key]]; }
+//  		[self.allKeys each:^(NSS* k){
+//			id obj = [self objectForKey:k];
+//			if([obj isKindOfClass:[NSDictionary class]]) {
+//            // we found a child dictionary, let's traverse it
+//            NSDictionary *d = (NSDictionary *)obj;
+//            id child = [d recursiveObjectForKey:key];
+//            if(child) return child;
+//        }
+//	else if([obj isKindOfClass:[NSArray class]]) {
+//            // loop through the NSArray and traverse any dictionaries found
+//            NSArray *a = (NSArray *)obj;
+//            for(id child in a) {
+//                if([child isKindOfClass:[NSDictionary class]]) {
+//                    NSDictionary *d = (NSDictionary *)child;
+//                    id o = [d recursiveObjectForKey:key];
+//                    if(o) return o;
+//                }
+//            }
+//        }
+//    }
+////
+////    // the key was not found in this dictionary or any of it's children
+////    return nil;
+//}
+
+
+@end
+@implementation NSArray (Recurse)
+
+//- (NSA*) recursiveValuesForKey:(NSS*) key
+//{
+// 	NSA* u = [self findDictionaryWithValue:<#(id)#>:^id(id obj) {
+//		if ( [obj isKindOfClass:[NSDictionary class]]) {
+//                if([child isKindOfClass:[NSDictionary class]]) {
+//                    NSDictionary *d = (NSDictionary *)child;
+//                    id o = [d recursiveObjectForKey:key];
+//                    if(o) return o;
+//                }
+//            }
+
+@end
+
 @implementation  NSDictionary (AtoZ)
+
+//- (NSA*) recursiveObjectsForKey:(NSString *)key;
+//{
+//	__block NSMA *bag = [NSMA array];
+//   if([self.allKeys containsObject:key]) {
+//        // this dictionary contains the key, return the value
+//        return [self objectForKey:key];
+//    }
+//     
+//    for(NSString *k in self.allKeys) {
+//        id obj = [self objectForKey:k];
+//        if([obj isKindOfClass:[NSDictionary class]]) {
+//            // we found a child dictionary, let's traverse it
+//            NSDictionary *d = (NSDictionary *)obj;
+//            id child = [d recursiveObjectForKey:key];
+//            if(child) return child;
+//        } else if([obj isKindOfClass:[NSArray class]]) {
+//            // loop through the NSArray and traverse any dictionaries found
+//            NSArray *a = (NSArray *)obj;
+//            for(id child in a) {
+//                if([child isKindOfClass:[NSDictionary class]]) {
+//                    NSDictionary *d = (NSDictionary *)child;
+//                    id o = [d recursiveObjectForKey:key];
+//                    if(o) return o;
+//                }
+//            }
+//        }
+//    }
+//     
+//    // the key was not found in this dictionary or any of it's children
+//    return nil;
+//
+//
+//}
+
+
+- (id) recursiveObjectForKey:(NSString *)key {
+    if([self.allKeys containsObject:key]) {
+        // this dictionary contains the key, return the value
+        return [self objectForKey:key];
+    }
+     
+    for(NSString *k in self.allKeys) {
+        id obj = [self objectForKey:k];
+        if([obj isKindOfClass:[NSDictionary class]]) {
+            // we found a child dictionary, let's traverse it
+            NSDictionary *d = (NSDictionary *)obj;
+            id child = [d recursiveObjectForKey:key];
+            if(child) return child;
+        } else if([obj isKindOfClass:[NSArray class]]) {
+            // loop through the NSArray and traverse any dictionaries found
+            NSArray *a = (NSArray *)obj;
+            for(id child in a) {
+                if([child isKindOfClass:[NSDictionary class]]) {
+                    NSDictionary *d = (NSDictionary *)child;
+                    id o = [d recursiveObjectForKey:key];
+                    if(o) return o;
+                }
+            }
+        }
+    }
+     
+    // the key was not found in this dictionary or any of it's children
+    return nil;
+}
+
 
 - (id)findDictionaryWithValue:(id)value
 {

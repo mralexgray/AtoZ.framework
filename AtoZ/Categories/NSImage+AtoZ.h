@@ -22,8 +22,10 @@ typedef enum {
 @class AZFile;
 @interface NSImage (AtoZ)
 
-@property (readonly, strong) NSC *color;
-@property (readonly, strong) NSA *colors;
++ (NSImage*)glowingSphereImageWithScaleFactor:(CGFloat)scale coreColor:(NSC*)core glowColor:(NSC*)glow;
+
+//@property (readonly, strong) NSC *color;
+//@property (readonly, strong) NSA *colors;
 
 + (NSIMG*)swizzledImageNamed:(NSString *)name;
 
