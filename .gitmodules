@@ -69,3 +69,4 @@
 [submodule "Frameworks/AtoZHUD"]
 	path = Frameworks/AtoZHUD
 	url = https://github.com/mralexgray/BGHUDAppKit.git
+	ignore = dirty
