@@ -70,3 +70,6 @@
 	path = Frameworks/AtoZHUD
 	url = https://github.com/mralexgray/BGHUDAppKit.git
 	ignore = dirty
+[submodule "Frameworks/DrawKit"]
+	path = Frameworks/DrawKit
+	url = https://github.com/mralexgray/DrawKit.git
