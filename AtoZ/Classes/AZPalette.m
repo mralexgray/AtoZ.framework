@@ -10,4 +10,31 @@
 
 @implementation AZPalette
 
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        self.indexed = [NSC randomPalette];
+    }
+    return self;
+}
+
+- (void) setIndexed:(NSA*)indexed
+{
+	_feeder = [NSMA arrayWithArray:indexed.copy];
+	_indexed = indexed;
+}
+
+- (NSC*)nextColor {
+	NSC*c = [[_feeder first]copy];
+	[_feeder firstToLast];
+	return c;
+}
+
+-(NSUI) indexOfColor:(NSC*)color
+{
+	return [_indexed indexOfObject:color];
+}
+
+
 @end

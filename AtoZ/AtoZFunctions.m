@@ -234,6 +234,10 @@ NSString* StringFromCATransform3D(CATransform3D transform) {
 	   kindaPrettyFloat(transform.m44)
 	   ];
 }
+NSI AZNormalizedNumberGreaterThan (NSI number, NSI min){
+	return  number > min ? number : min;
+}
+
 
 NSUInteger normalizedNumberLessThan (id number, NSUInteger max){
 	NSUInteger u= [number integerValue];
@@ -568,6 +572,7 @@ void perceptualCausticColorForColor(CGFloat *inputComponents, CGFloat *outputCom
     [targetColor getComponents:outputComponents];
 }
 
+/*
 void glossInterpolation(void *info, const CGFloat *input, CGFloat *output) {
     GlossParameters *params = (GlossParameters *)info;
     CGFloat progress = *input;
@@ -649,7 +654,7 @@ void DrawGlossGradient(CGContextRef context, NSColor *color, NSRect inRect) {
     CGColorSpaceRelease(colorspace);
     CGFunctionRelease(gradientFunction);
 }
-
+*/
 void PoofAtPoint( NSPoint pt, CGFloat radius){
 	NSShowAnimationEffect(NSAnimationEffectPoof, pt, (CGSize){radius, radius}, nil, 0, nil);
 }

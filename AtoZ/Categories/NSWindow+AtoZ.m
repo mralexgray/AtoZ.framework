@@ -834,7 +834,7 @@ return midpoint;
 		NSNumber*	newLevel = currFadeDict[@"newLevel"];
 		if( newLevel )
 		{
-			NSTimer*        timer = [NSTimer scheduledTimerWithTimeInterval: 0.1				// scheduled since we also want "normal" run loop mode.
+			timer = [NSTimer scheduledTimerWithTimeInterval: 0.1				// scheduled since we also want "normal" run loop mode.
 																	 target: self selector: @selector(fadeInOneStep:)
 																   userInfo: nil repeats: YES];
 			currFadeDict[@"timer"] = timer;

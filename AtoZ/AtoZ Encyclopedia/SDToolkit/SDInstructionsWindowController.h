@@ -19,13 +19,13 @@
 
 @interface SDInstructionsWindowController : SDWindowController {
 	NSMutableArray *imageViews;
-	NSInteger selectedImageIndex;
-	
+
 	IBOutlet NSView *imageViewContainer;
 	IBOutlet NSSegmentedControl *backForwardButton;
 	
-	id <SDInstructionsDelegate> delegate;
+//	id <SDInstructionsDelegate> delegate;
 }
+@property NSInteger selectedImageIndex;
 
 @property (assign) id <SDInstructionsDelegate> delegate;
 

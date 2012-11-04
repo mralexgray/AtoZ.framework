@@ -152,9 +152,7 @@
 		7B31B14F15E9449F00802CD5 /* AtoZ.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7B311951159B6D9E002134C4 /* AtoZ.framework */; };
 		7B3422A315A52A61006AC46C /* AZBaseModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B3422A115A52A61006AC46C /* AZBaseModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B3422CA15A5EF03006AC46C /* AZDockQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B3422C815A5EF03006AC46C /* AZDockQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7B375680163B63B8003D52B7 /* BlocksKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B99B96F16394E3A00500715 /* BlocksKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		7B375681163B63B8003D52B7 /* CocoaPuffs.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7B99B97B16394E3B00500715 /* CocoaPuffs.framework */; };
-		7B375683163B63DA003D52B7 /* BlocksKit.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7B99B96F16394E3A00500715 /* BlocksKit.framework */; };
 		7B379C8B15DDBB8A0040A093 /* AZLassoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B379C8A15DDBB8A0040A093 /* AZLassoView.m */; };
 		7B379C8D15DDBBB30040A093 /* AZLassoView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B379C8C15DDBBB30040A093 /* AZLassoView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B379CA815DE0B050040A093 /* AZBackground.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B379CA615DE0B050040A093 /* AZBackground.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -262,11 +260,9 @@
 		7B662A5C161E3231003D5EE0 /* Short Accent.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A23161E3231003D5EE0 /* Short Accent.caf */; };
 		7B662A5E161E3231003D5EE0 /* Suspense Accents 01.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A25161E3231003D5EE0 /* Suspense Accents 01.caf */; };
 		7B662A86161E3231003D5EE0 /* win.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A4E161E3231003D5EE0 /* win.caf */; };
-		7B662ADB161EE363003D5EE0 /* AZBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B662ADA161EE363003D5EE0 /* AZBaseModel.m */; };
 		7B662ADF161EE384003D5EE0 /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B662ADD161EE384003D5EE0 /* BaseModel.m */; };
 		7B662AE0161EE3E5003D5EE0 /* BaseModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B662ADC161EE384003D5EE0 /* BaseModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B662AE1161F484B003D5EE0 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B82B82215CB66D30026FE8C /* Cocoa.framework */; };
-		7B662AE7162088C7003D5EE0 /* NSObject+AutoCoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B662AE3162088C6003D5EE0 /* NSObject+AutoCoding.m */; };
 		7B662AE9162088C7003D5EE0 /* HRCoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B662AE5162088C7003D5EE0 /* HRCoder.m */; };
 		7B662AEA16208907003D5EE0 /* NSObject+AutoCoding.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B662AE2162088C6003D5EE0 /* NSObject+AutoCoding.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B662AEB16208907003D5EE0 /* HRCoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B662AE4162088C6003D5EE0 /* HRCoder.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -394,8 +390,8 @@
 		7B9D5B6D15ECE47B005D1A76 /* AZQuadLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B9D5B6C15ECE47A005D1A76 /* AZQuadLayer.m */; };
 		7B9D5BAA15ED0E27005D1A76 /* NSFileManager+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B9D5BA815ED0E26005D1A76 /* NSFileManager+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B9D5BAB15ED0E27005D1A76 /* NSFileManager+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B9D5BA915ED0E26005D1A76 /* NSFileManager+AtoZ.m */; };
-		7BA35F9B16449EA700BFEB6B /* NSBezierPath+Editing.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BA35F9916449E9300BFEB6B /* NSBezierPath+Editing.h */; };
-		7BA35F9C16449EB300BFEB6B /* NSBezierPath+Editing.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA35F9A16449E9300BFEB6B /* NSBezierPath+Editing.m */; };
+		7BA35FF01645618400BFEB6B /* StarLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BA35FEE1645618400BFEB6B /* StarLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BA35FF11645618400BFEB6B /* StarLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA35FEF1645618400BFEB6B /* StarLayer.m */; };
 		7BA425B915E7C3C200D2A471 /* AZTrackingWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA425B715E7C3C200D2A471 /* AZTrackingWindow.m */; };
 		7BA425BB15E7E87200D2A471 /* tab.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BA425BA15E7E87200D2A471 /* tab.png */; };
 		7BA7D232163941900073BADC /* CKAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BB8708A1638A0FA0000C242 /* CKAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -410,13 +406,15 @@
 		7BA7D23B1639421A0073BADC /* NSDictionary+ConciseKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BB870921638A0FA0000C242 /* NSDictionary+ConciseKit.m */; };
 		7BA7D23C1639421A0073BADC /* NSString+ConciseKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BB870941638A0FA0000C242 /* NSString+ConciseKit.m */; };
 		7BA7D242163945E60073BADC /* CocoaPuffs.xcodeproj in Resources */ = {isa = PBXBuildFile; fileRef = 7BA7D241163945E60073BADC /* CocoaPuffs.xcodeproj */; };
-		7BA7D244163946080073BADC /* BlocksKit.xcodeproj in Resources */ = {isa = PBXBuildFile; fileRef = 7BA7D243163946080073BADC /* BlocksKit.xcodeproj */; };
 		7BAD6B1115CD5C2E001DE404 /* AZNamedColors.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BAD6B0F15CD5C2E001DE404 /* AZNamedColors.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BAD6B1215CD5C2E001DE404 /* AZNamedColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BAD6B1015CD5C2E001DE404 /* AZNamedColors.m */; };
 		7BAF2F0415E87BB100099C9A /* Growl Registration Ticket.growlRegDict in Resources */ = {isa = PBXBuildFile; fileRef = 7BAF2F0315E87BB100099C9A /* Growl Registration Ticket.growlRegDict */; };
 		7BB0095C16311BB500750FEB /* AZPropellerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BB0095A16311BB500750FEB /* AZPropellerView.m */; };
 		7BB0096016311D7700750FEB /* AZPropellerBadge.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BB0095E16311D7700750FEB /* AZPropellerBadge.png */; };
 		7BB0096116311D7700750FEB /* AZPropellerBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BB0095F16311D7700750FEB /* AZPropellerBar.png */; };
+		7BB304781646BB47006CDC56 /* AZPalette.h in Sources */ = {isa = PBXBuildFile; fileRef = 7BB304761646BB47006CDC56 /* AZPalette.h */; };
+		7BB304791646BB47006CDC56 /* AZPalette.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BB304771646BB47006CDC56 /* AZPalette.m */; };
+		7BB3047A1646BCC9006CDC56 /* AZPalette.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BB304761646BB47006CDC56 /* AZPalette.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BB86F6B1637225C0000C242 /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BB86F6A1637225C0000C242 /* AtoZ.framework */; };
 		7BB86F6D163733B60000C242 /* AZPropellerView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BB0095B16311BB500750FEB /* AZPropellerView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BB86F8716383FF90000C242 /* Rebel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BB86F8216383FCE0000C242 /* Rebel.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -451,6 +449,8 @@
 		7BC0275A160D36A300BAE74D /* AZCalculatorController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC02758160D36A200BAE74D /* AZCalculatorController.m */; };
 		7BC0275D160D36CB00BAE74D /* CalcModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BC0275B160D36CB00BAE74D /* CalcModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BC0275E160D36CB00BAE74D /* CalcModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC0275C160D36CB00BAE74D /* CalcModel.m */; };
+		7BC2DD2416469A9500E73757 /* BlocksKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BC2DD1B16469A8200E73757 /* BlocksKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		7BC2DD2516469AA400E73757 /* BlocksKit.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7BC2DD1B16469A8200E73757 /* BlocksKit.framework */; };
 		7BC3990315E45D2700482937 /* Nexa Bold.otf in fonts Files */ = {isa = PBXBuildFile; fileRef = 7B4E9E3915E365BA00C0581A /* Nexa Bold.otf */; };
 		7BC3990415E45D2700482937 /* Nexa Light.otf in fonts Files */ = {isa = PBXBuildFile; fileRef = 7B4E9E3A15E365BA00C0581A /* Nexa Light.otf */; };
 		7BC3990515E45D2700482937 /* fontawesome.ttf in fonts Files */ = {isa = PBXBuildFile; fileRef = 7B4E9E3715E35B5500C0581A /* fontawesome.ttf */; };
@@ -1311,13 +1311,6 @@
 			remoteGlobalIDString = 0785774B15FF4FD800C28714;
 			remoteInfo = CocoaPuffs;
 		};
-		7B37567E163B636D003D52B7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7BA7D243163946080073BADC /* BlocksKit.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 6CC40A741447BB1400E47595;
-			remoteInfo = "OS X Framework";
-		};
 		7B5ABAB11608D76500530EA7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7BE1F69C15F90298005ED292 /* FunSize.xcodeproj */;
@@ -1388,41 +1381,6 @@
 			remoteGlobalIDString = 053887981523F6CD00CDC1DF;
 			remoteInfo = "PLWeakCompatibility-MacOSX";
 		};
-		7B99B96C16394E3A00500715 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7BA7D243163946080073BADC /* BlocksKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 6C3DBF8D1382F1BA00E6C9AA;
-			remoteInfo = "iOS Library";
-		};
-		7B99B96E16394E3A00500715 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7BA7D243163946080073BADC /* BlocksKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 6CC40A751447BB1400E47595;
-			remoteInfo = "OS X Framework";
-		};
-		7B99B97016394E3A00500715 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7BA7D243163946080073BADC /* BlocksKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 6CC08FCE1385555D00DDEABB;
-			remoteInfo = "OS X Library";
-		};
-		7B99B97216394E3A00500715 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7BA7D243163946080073BADC /* BlocksKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 6CC0900913855CAE00DDEABB;
-			remoteInfo = "Chameleon Library";
-		};
-		7B99B97416394E3A00500715 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7BA7D243163946080073BADC /* BlocksKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 60FF000713C023CB004A1394;
-			remoteInfo = "iOS Tests";
-		};
 		7B99B97A16394E3B00500715 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7BA7D241163945E60073BADC /* CocoaPuffs.xcodeproj */;
@@ -1443,6 +1401,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = 7B311950159B6D9E002134C4;
 			remoteInfo = AtoZ;
+		};
+		7BA35FA516449FDF00BFEB6B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7BA35F9D16449FDE00BFEB6B /* DrawKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9660E6100BEF442B00B6A38C;
+			remoteInfo = DrawKit;
+		};
+		7BA35FA716449FDF00BFEB6B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7BA35F9D16449FDE00BFEB6B /* DrawKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BF2EE49B0F66011D00B8CFFD;
+			remoteInfo = DKUnitTests;
 		};
 		7BB86F8116383FCE0000C242 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1605,6 +1577,48 @@
 			remoteGlobalIDString = E91C437B12985DDD001522E5;
 			remoteInfo = ConciseKitSpecs;
 		};
+		7BC2DD1816469A8200E73757 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7BC2DD0B16469A8100E73757 /* BlocksKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 6C3DBF8D1382F1BA00E6C9AA;
+			remoteInfo = "iOS Library";
+		};
+		7BC2DD1A16469A8200E73757 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7BC2DD0B16469A8100E73757 /* BlocksKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 6CC40A751447BB1400E47595;
+			remoteInfo = "BlocksKit Framework";
+		};
+		7BC2DD1C16469A8200E73757 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7BC2DD0B16469A8100E73757 /* BlocksKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 6CC08FCE1385555D00DDEABB;
+			remoteInfo = "OS X Library";
+		};
+		7BC2DD1E16469A8200E73757 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7BC2DD0B16469A8100E73757 /* BlocksKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 6CC0900913855CAE00DDEABB;
+			remoteInfo = "Chameleon Library";
+		};
+		7BC2DD2016469A8200E73757 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7BC2DD0B16469A8100E73757 /* BlocksKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 60FF000713C023CB004A1394;
+			remoteInfo = "iOS Tests";
+		};
+		7BC2DD2216469A8B00E73757 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7BC2DD0B16469A8100E73757 /* BlocksKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 6CC40A741447BB1400E47595;
+			remoteInfo = "BlocksKit Framework";
+		};
 		7BC69054162BA94100B71602 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7BC69049162BA94000B71602 /* NanoStore.xcodeproj */;
@@ -1698,7 +1712,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				7B375683163B63DA003D52B7 /* BlocksKit.framework in frameworks copy */,
+				7BC2DD2516469AA400E73757 /* BlocksKit.framework in frameworks copy */,
 				7B375681163B63B8003D52B7 /* CocoaPuffs.framework in frameworks copy */,
 				7BB870211638501F0000C242 /* AtoZBezierPath.framework in frameworks copy */,
 				7BB86F881638402A0000C242 /* Rebel.framework in frameworks copy */,
@@ -2818,15 +2832,15 @@
 		7B9D5BA915ED0E26005D1A76 /* NSFileManager+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileManager+AtoZ.m"; sourceTree = "<group>"; };
 		7BA147AB15DCE7A10041BAFE /* iCarousel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iCarousel.h; sourceTree = "<group>"; };
 		7BA147AC15DCE7A10041BAFE /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iCarousel.m; sourceTree = "<group>"; };
-		7BA35F9916449E9300BFEB6B /* NSBezierPath+Editing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSBezierPath+Editing.h"; sourceTree = "<group>"; };
-		7BA35F9A16449E9300BFEB6B /* NSBezierPath+Editing.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSBezierPath+Editing.m"; sourceTree = "<group>"; };
+		7BA35F9D16449FDE00BFEB6B /* DrawKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DrawKit.xcodeproj; path = ../Frameworks/DrawKit/src/DrawKit.xcodeproj; sourceTree = "<group>"; };
+		7BA35FEE1645618400BFEB6B /* StarLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StarLayer.h; sourceTree = "<group>"; };
+		7BA35FEF1645618400BFEB6B /* StarLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StarLayer.m; sourceTree = "<group>"; };
 		7BA425B215E7B52F00D2A471 /* MAAttachedWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MAAttachedWindow.h; path = "../AtoZ Encyclopedia/MAAttachedWindow.h"; sourceTree = "<group>"; };
 		7BA425B315E7B52F00D2A471 /* MAAttachedWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MAAttachedWindow.m; path = "../AtoZ Encyclopedia/MAAttachedWindow.m"; sourceTree = "<group>"; };
 		7BA425B615E7C3C200D2A471 /* AZTrackingWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZTrackingWindow.h; sourceTree = "<group>"; };
 		7BA425B715E7C3C200D2A471 /* AZTrackingWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZTrackingWindow.m; sourceTree = "<group>"; };
 		7BA425BA15E7E87200D2A471 /* tab.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tab.png; path = ../tab.png; sourceTree = "<group>"; };
 		7BA7D241163945E60073BADC /* CocoaPuffs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CocoaPuffs.xcodeproj; path = ../Frameworks/CocoaPuffs/CocoaPuffs.xcodeproj; sourceTree = "<group>"; };
-		7BA7D243163946080073BADC /* BlocksKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BlocksKit.xcodeproj; path = ../Frameworks/BlocksKit/BlocksKit.xcodeproj; sourceTree = "<group>"; };
 		7BAD6B0F15CD5C2E001DE404 /* AZNamedColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZNamedColors.h; sourceTree = "<group>"; };
 		7BAD6B1015CD5C2E001DE404 /* AZNamedColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZNamedColors.m; sourceTree = "<group>"; };
 		7BAF2F0315E87BB100099C9A /* Growl Registration Ticket.growlRegDict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Growl Registration Ticket.growlRegDict"; sourceTree = "<group>"; };
@@ -2834,6 +2848,8 @@
 		7BB0095B16311BB500750FEB /* AZPropellerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = AZPropellerView.h; sourceTree = "<group>"; };
 		7BB0095E16311D7700750FEB /* AZPropellerBadge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AZPropellerBadge.png; sourceTree = "<group>"; };
 		7BB0095F16311D7700750FEB /* AZPropellerBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AZPropellerBar.png; sourceTree = "<group>"; };
+		7BB304761646BB47006CDC56 /* AZPalette.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = AZPalette.h; sourceTree = "<group>"; };
+		7BB304771646BB47006CDC56 /* AZPalette.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZPalette.m; sourceTree = "<group>"; };
 		7BB86F6A1637225C0000C242 /* AtoZ.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AtoZ.framework; path = /Library/Frameworks/AtoZ.framework; sourceTree = "<absolute>"; };
 		7BB86F7716383FCD0000C242 /* Rebel.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Rebel.xcodeproj; path = ../Frameworks/Rebel/Rebel.xcodeproj; sourceTree = "<group>"; };
 		7BB8701116384FF00000C242 /* AtoZBezierPath.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AtoZBezierPath.xcodeproj; path = ../Frameworks/AtoZBezierPath/AtoZBezierPath.xcodeproj; sourceTree = "<group>"; };
@@ -2894,7 +2910,7 @@
 		7BC02758160D36A200BAE74D /* AZCalculatorController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZCalculatorController.m; sourceTree = "<group>"; };
 		7BC0275B160D36CB00BAE74D /* CalcModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = CalcModel.h; sourceTree = "<group>"; };
 		7BC0275C160D36CB00BAE74D /* CalcModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalcModel.m; sourceTree = "<group>"; };
-		7BC141B916255AEF00DE1021 /* CocoaPuffs.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaPuffs.framework; path = "Compiled Frameworks/CocoaPuffs.framework"; sourceTree = "<group>"; };
+		7BC2DD0B16469A8100E73757 /* BlocksKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BlocksKit.xcodeproj; path = ../Frameworks/BlocksKit/BlocksKit.xcodeproj; sourceTree = "<group>"; };
 		7BC69049162BA94000B71602 /* NanoStore.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = NanoStore.xcodeproj; path = ../Frameworks/NanoStore/NanoStore.xcodeproj; sourceTree = "<group>"; };
 		7BC70F0415F4885B009E037A /* accept.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = accept.pdf; sourceTree = "<group>"; };
 		7BC70F0515F4885B009E037A /* adressbook.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = adressbook.pdf; sourceTree = "<group>"; };
@@ -3619,7 +3635,6 @@
 		7BDB8D7B15CB56BA0037A4BF /* UbuntuMono-B.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "UbuntuMono-B.ttf"; path = "Fonts/UbuntuMono-B.ttf"; sourceTree = "<group>"; };
 		7BDDD5E215A3792600A5C222 /* AZStopwatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZStopwatch.h; sourceTree = "<group>"; };
 		7BDDD5E315A3792600A5C222 /* AZStopwatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZStopwatch.m; sourceTree = "<group>"; };
-		7BDF55DE1625668A00041A42 /* BlocksKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BlocksKit.framework; path = "Compiled Frameworks/BlocksKit.framework"; sourceTree = "<group>"; };
 		7BDF56051625A45C00041A42 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		7BDF567A1626B68600041A42 /* AZBorderlessResizeWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = AZBorderlessResizeWindow.h; sourceTree = "<group>"; };
 		7BDF567B1626B68600041A42 /* AZBorderlessResizeWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZBorderlessResizeWindow.m; sourceTree = "<group>"; };
@@ -3723,8 +3738,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BC2DD2416469A9500E73757 /* BlocksKit.framework in Frameworks */,
 				7BB87020163850110000C242 /* AtoZBezierPath.framework in Frameworks */,
-				7B375680163B63B8003D52B7 /* BlocksKit.framework in Frameworks */,
 				7BB86F8716383FF90000C242 /* Rebel.framework in Frameworks */,
 				7BFA3F0B162B8AA0003264A4 /* XPCKit.framework in Frameworks */,
 				7BCB36BA162D31A100E61080 /* Zangetsu.framework in Frameworks */,
@@ -3762,6 +3777,8 @@
 		7B05BB09159C406200409B83 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				7BA35FEE1645618400BFEB6B /* StarLayer.h */,
+				7BA35FEF1645618400BFEB6B /* StarLayer.m */,
 				7BEEBF38162A6E0E004E7954 /* Nu.h */,
 				7BEEBF39162A6E0E004E7954 /* Nu.m */,
 				7B091A3C15A850E500821FFD /* AZButton.h */,
@@ -3795,6 +3812,8 @@
 				7BE6068915A00B8800355236 /* Utility */,
 				7B7D5586163070FC00711D0F /* AZCIFilters.h */,
 				7B7D5587163070FC00711D0F /* AZCIFilters.m */,
+				7BB304761646BB47006CDC56 /* AZPalette.h */,
+				7BB304771646BB47006CDC56 /* AZPalette.m */,
 			);
 			path = Classes;
 			sourceTree = SOURCE_ROOT;
@@ -4023,10 +4042,10 @@
 		7B311953159B6D9E002134C4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7BC2DD0B16469A8100E73757 /* BlocksKit.xcodeproj */,
+				7BA35F9D16449FDE00BFEB6B /* DrawKit.xcodeproj */,
 				7B37566A163B62B4003D52B7 /* SNRHUDKit.xcodeproj */,
 				7BE2A4F31611576E003D6B92 /* Linked Frameworks */,
-				7BDF568E1627695300041A42 /* Frameworks */,
-				7BA7D243163946080073BADC /* BlocksKit.xcodeproj */,
 				7BA7D241163945E60073BADC /* CocoaPuffs.xcodeproj */,
 				7BB870691638A0FA0000C242 /* ConciseKit */,
 				7BB8702D1638A0520000C242 /* Quicksilver.xcodeproj */,
@@ -4035,8 +4054,6 @@
 				7BC69049162BA94000B71602 /* NanoStore.xcodeproj */,
 				7BCB36A5162D313400E61080 /* Zangetsu.xcodeproj */,
 				7BFA3EC5162B4DF0003264A4 /* CleanAndCopyToCompiledFrameWorks.sh */,
-				7BDF55DE1625668A00041A42 /* BlocksKit.framework */,
-				7BC141B916255AEF00DE1021 /* CocoaPuffs.framework */,
 				7B14F2881600383600CBBF7E /* RMKit.framework */,
 				7BE1F69C15F90298005ED292 /* FunSize.xcodeproj */,
 				7B61E90515EAA8340053BACF /* XPCKit.xcodeproj */,
@@ -4221,8 +4238,6 @@
 		7B583063159BDA900039CEED /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				7BA35F9916449E9300BFEB6B /* NSBezierPath+Editing.h */,
-				7BA35F9A16449E9300BFEB6B /* NSBezierPath+Editing.m */,
 				7B9ADD791632B99B0026FA02 /* NSManagedObjectContext+EasyFetch.m */,
 				7B9ADD7A1632B99B0026FA02 /* NSManagedObjectContext+EasyFetch.h */,
 				7BFDF4D8162E07C800B0E149 /* MAKVONotificationCenter.h */,
@@ -4561,23 +4576,20 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		7B99B96416394E3A00500715 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				7B99B96D16394E3A00500715 /* libBlocksKit.a */,
-				7B99B96F16394E3A00500715 /* BlocksKit.framework */,
-				7B99B97116394E3A00500715 /* BlocksKit.dylib */,
-				7B99B97316394E3A00500715 /* BlocksKit_Chameleon.dylib */,
-				7B99B97516394E3A00500715 /* iOS Tests.app */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		7B99B97616394E3B00500715 /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				7B99B97B16394E3B00500715 /* CocoaPuffs.framework */,
 				7B99B97D16394E3B00500715 /* CocoaPuffsTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7BA35F9E16449FDE00BFEB6B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7BA35FA616449FDF00BFEB6B /* DrawKit.framework */,
+				7BA35FA816449FDF00BFEB6B /* DKUnitTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -4732,6 +4744,18 @@
 				7BC02758160D36A200BAE74D /* AZCalculatorController.m */,
 			);
 			name = Calculator;
+			sourceTree = "<group>";
+		};
+		7BC2DD0C16469A8100E73757 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7BC2DD1916469A8200E73757 /* libBlocksKit.a */,
+				7BC2DD1B16469A8200E73757 /* BlocksKit.framework */,
+				7BC2DD1D16469A8200E73757 /* BlocksKit.dylib */,
+				7BC2DD1F16469A8200E73757 /* BlocksKit_Chameleon.dylib */,
+				7BC2DD2116469A8200E73757 /* iOS Tests.app */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		7BC3990B15E461A500482937 /* Components */ = {
@@ -5534,26 +5558,6 @@
 			path = Views;
 			sourceTree = SOURCE_ROOT;
 		};
-		7BDF568E1627695300041A42 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				7BB86F6A1637225C0000C242 /* AtoZ.framework */,
-				7BDF568F1627695400041A42 /* Cocoa.framework */,
-				7BDF56911627695400041A42 /* Other Frameworks */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		7BDF56911627695400041A42 /* Other Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				7BDF56921627695400041A42 /* AppKit.framework */,
-				7BDF56931627695400041A42 /* CoreData.framework */,
-				7BDF56941627695400041A42 /* Foundation.framework */,
-			);
-			name = "Other Frameworks";
-			sourceTree = "<group>";
-		};
 		7BDF56951627695400041A42 /* AtoZTestBed */ = {
 			isa = PBXGroup;
 			children = (
@@ -5606,6 +5610,11 @@
 		7BE2A4F31611576E003D6B92 /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7BB86F6A1637225C0000C242 /* AtoZ.framework */,
+				7BDF568F1627695400041A42 /* Cocoa.framework */,
+				7BDF56921627695400041A42 /* AppKit.framework */,
+				7BDF56931627695400041A42 /* CoreData.framework */,
+				7BDF56941627695400041A42 /* Foundation.framework */,
 				7B049DB116283D1700267DB8 /* Quartz.framework */,
 				7B049DB216283D1700267DB8 /* QuartzCore.framework */,
 				7BDF56051625A45C00041A42 /* AVFoundation.framework */,
@@ -5808,8 +5817,9 @@
 				7B254D40162A9F86006B6AC6 /* AZKVOllection.h in Headers */,
 				7BCEF6441613EEC200EFC74E /* AZHostView.h in Headers */,
 				7BBDB4AD161497DE001B864B /* AZFile.h in Headers */,
+				7BB3047A1646BCC9006CDC56 /* AZPalette.h in Headers */,
 				7B449D9A1616411100AB9335 /* AtoZ.h in Headers */,
-				7BA35F9B16449EA700BFEB6B /* NSBezierPath+Editing.h in Headers */,
+				7BA35FF01645618400BFEB6B /* StarLayer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5850,13 +5860,13 @@
 			buildRules = (
 			);
 			dependencies = (
-				7B37567F163B636D003D52B7 /* PBXTargetDependency */,
+				7BC2DD2316469A8B00E73757 /* PBXTargetDependency */,
+				7B6629F8161DEA20003D5EE0 /* PBXTargetDependency */,
 				7B37567D163B6363003D52B7 /* PBXTargetDependency */,
 				7BB8701F163850050000C242 /* PBXTargetDependency */,
 				7BB86F8616383FDC0000C242 /* PBXTargetDependency */,
 				7BCB36B8162D315800E61080 /* PBXTargetDependency */,
 				7BC69165162C030500B71602 /* PBXTargetDependency */,
-				7B6629F8161DEA20003D5EE0 /* PBXTargetDependency */,
 				7B5ABABA1608DEC700530EA7 /* PBXTargetDependency */,
 				7B5ABABC1608DEC700530EA7 /* PBXTargetDependency */,
 			);
@@ -5984,8 +5994,8 @@
 					ProjectRef = 7BB8701116384FF00000C242 /* AtoZBezierPath.xcodeproj */;
 				},
 				{
-					ProductGroup = 7B99B96416394E3A00500715 /* Products */;
-					ProjectRef = 7BA7D243163946080073BADC /* BlocksKit.xcodeproj */;
+					ProductGroup = 7BC2DD0C16469A8100E73757 /* Products */;
+					ProjectRef = 7BC2DD0B16469A8100E73757 /* BlocksKit.xcodeproj */;
 				},
 				{
 					ProductGroup = 7B99B97616394E3B00500715 /* Products */;
@@ -5994,6 +6004,10 @@
 				{
 					ProductGroup = 7BB8706E1638A0FA0000C242 /* Products */;
 					ProjectRef = 7BB8706D1638A0FA0000C242 /* ConciseKitSpecs.xcodeproj */;
+				},
+				{
+					ProductGroup = 7BA35F9E16449FDE00BFEB6B /* Products */;
+					ProjectRef = 7BA35F9D16449FDE00BFEB6B /* DrawKit.xcodeproj */;
 				},
 				{
 					ProductGroup = 7B5ABAAD1608D76500530EA7 /* Products */;
@@ -6141,41 +6155,6 @@
 			remoteRef = 7B645CA915F5300E00566160 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		7B99B96D16394E3A00500715 /* libBlocksKit.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libBlocksKit.a;
-			remoteRef = 7B99B96C16394E3A00500715 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7B99B96F16394E3A00500715 /* BlocksKit.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = BlocksKit.framework;
-			remoteRef = 7B99B96E16394E3A00500715 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7B99B97116394E3A00500715 /* BlocksKit.dylib */ = {
-			isa = PBXReferenceProxy;
-			fileType = "compiled.mach-o.dylib";
-			path = BlocksKit.dylib;
-			remoteRef = 7B99B97016394E3A00500715 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7B99B97316394E3A00500715 /* BlocksKit_Chameleon.dylib */ = {
-			isa = PBXReferenceProxy;
-			fileType = "compiled.mach-o.dylib";
-			path = BlocksKit_Chameleon.dylib;
-			remoteRef = 7B99B97216394E3A00500715 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7B99B97516394E3A00500715 /* iOS Tests.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = "iOS Tests.app";
-			remoteRef = 7B99B97416394E3A00500715 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		7B99B97B16394E3B00500715 /* CocoaPuffs.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -6188,6 +6167,20 @@
 			fileType = wrapper.cfbundle;
 			path = CocoaPuffsTests.octest;
 			remoteRef = 7B99B97C16394E3B00500715 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7BA35FA616449FDF00BFEB6B /* DrawKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = DrawKit.framework;
+			remoteRef = 7BA35FA516449FDF00BFEB6B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7BA35FA816449FDF00BFEB6B /* DKUnitTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = DKUnitTests.octest;
+			remoteRef = 7BA35FA716449FDF00BFEB6B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		7BB86F8216383FCE0000C242 /* Rebel.framework */ = {
@@ -6335,6 +6328,41 @@
 			fileType = wrapper.application;
 			path = ConciseKitSpecs.app;
 			remoteRef = 7BB8709A1638A0FB0000C242 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7BC2DD1916469A8200E73757 /* libBlocksKit.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libBlocksKit.a;
+			remoteRef = 7BC2DD1816469A8200E73757 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7BC2DD1B16469A8200E73757 /* BlocksKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = BlocksKit.framework;
+			remoteRef = 7BC2DD1A16469A8200E73757 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7BC2DD1D16469A8200E73757 /* BlocksKit.dylib */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.dylib";
+			path = BlocksKit.dylib;
+			remoteRef = 7BC2DD1C16469A8200E73757 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7BC2DD1F16469A8200E73757 /* BlocksKit_Chameleon.dylib */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.dylib";
+			path = BlocksKit_Chameleon.dylib;
+			remoteRef = 7BC2DD1E16469A8200E73757 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7BC2DD2116469A8200E73757 /* iOS Tests.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "iOS Tests.app";
+			remoteRef = 7BC2DD2016469A8200E73757 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		7BC69055162BA94100B71602 /* NanoStore.framework */ = {
@@ -6674,7 +6702,6 @@
 				7B9ADEA41635C51A0026FA02 /* CTBadge_4.pdf in Resources */,
 				7B9ADEA51635C51A0026FA02 /* CTBadge_5.pdf in Resources */,
 				7BA7D242163945E60073BADC /* CocoaPuffs.xcodeproj in Resources */,
-				7BA7D244163946080073BADC /* BlocksKit.xcodeproj in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6815,6 +6842,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BB304791646BB47006CDC56 /* AZPalette.m in Sources */,
 				7BA7D2391639421A0073BADC /* ConciseKit.m in Sources */,
 				7BA7D23A1639421A0073BADC /* NSArray+ConciseKit.m in Sources */,
 				7BA7D23B1639421A0073BADC /* NSDictionary+ConciseKit.m in Sources */,
@@ -6934,9 +6962,7 @@
 				7B095E00161AD78D0076C990 /* AZMenuBarWindow.m in Sources */,
 				7B1822AC162317BD00C19DBB /* NSImage-Tint.m in Sources */,
 				7B22CA83161B321100D17C40 /* AZSound.m in Sources */,
-				7B662ADB161EE363003D5EE0 /* AZBaseModel.m in Sources */,
 				7B662ADF161EE384003D5EE0 /* BaseModel.m in Sources */,
-				7B662AE7162088C7003D5EE0 /* NSObject+AutoCoding.m in Sources */,
 				7B662AE9162088C7003D5EE0 /* HRCoder.m in Sources */,
 				7B254D41162A9F86006B6AC6 /* AZKVOllection.m in Sources */,
 				7B5B2CC8162CA4AF00B454C2 /* AZPrismView.m in Sources */,
@@ -6947,7 +6973,8 @@
 				7B7D558F1630781C00711D0F /* NSError+AtoZ.m in Sources */,
 				7BB0095C16311BB500750FEB /* AZPropellerView.m in Sources */,
 				7B741DA3163AD91300B403B2 /* NSObject+Properties.m in Sources */,
-				7BA35F9C16449EB300BFEB6B /* NSBezierPath+Editing.m in Sources */,
+				7BA35FF11645618400BFEB6B /* StarLayer.m in Sources */,
+				7BB304781646BB47006CDC56 /* AZPalette.h in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7064,11 +7091,6 @@
 			name = CocoaPuffs;
 			targetProxy = 7B37567C163B6363003D52B7 /* PBXContainerItemProxy */;
 		};
-		7B37567F163B636D003D52B7 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "OS X Framework";
-			targetProxy = 7B37567E163B636D003D52B7 /* PBXContainerItemProxy */;
-		};
 		7B5ABABA1608DEC700530EA7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = XPCKit;
@@ -7098,6 +7120,11 @@
 			isa = PBXTargetDependency;
 			name = AtoZBezierPath;
 			targetProxy = 7BB8701E163850050000C242 /* PBXContainerItemProxy */;
+		};
+		7BC2DD2316469A8B00E73757 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "BlocksKit Framework";
+			targetProxy = 7BC2DD2216469A8B00E73757 /* PBXContainerItemProxy */;
 		};
 		7BC69165162C030500B71602 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -7307,13 +7334,14 @@
 		7B31197C159B6D9E002134C4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ANALYZER_OBJC_UNUSED_IVARS = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_EMPTY_BODY = NO;
 				CLANG_WARN_IMPLICIT_SIGN_CONVERSION = NO;
 				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = NO;
-				CLANG_WARN__ARC_BRIDGE_CAST_NONARC = NO;
+				CLANG_WARN__ARC_BRIDGE_CAST_NONARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -7322,16 +7350,20 @@
 				FRAMEWORK_VERSION = A;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AtoZ-Framework.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "DEBUGTALKER=1";
 				GCC_SHORT_ENUMS = YES;
 				GCC_USE_INDIRECT_FUNCTION_CALLS = YES;
-				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_FOUR_CHARACTER_CONSTANTS = YES;
+				GCC_WARN_FOUR_CHARACTER_CONSTANTS = NO;
 				GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = NO;
-				GCC_WARN_SHADOW = YES;
+				GCC_WARN_SHADOW = NO;
+				GCC_WARN_UNUSED_VALUE = YES;
+				GCC_WARN_UNUSED_VARIABLE = NO;
 				INFOPLIST_FILE = "Resources/AtoZ-Info.plist";
 				INSTALL_PATH = "@rpath//Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks @loader_path/Frameworks @executable_path/../ @rpath";
@@ -7353,21 +7385,16 @@
 					PLWeakCompatibility,
 					"-sub_umbrella",
 					FunSize,
-					"-sub_umbrella",
+					"-framework",
 					XPCKit,
-					"-sub_umbrella",
-					CocoaPuffs,
-					"-sub_umbrella",
-					BlocksKit,
-					"-sub_umbrella",
+					"-weak_framework",
 					NanoStore,
-					"-header-pad_max_install_names",
 					"-sub_umbrella",
 					Rebel,
 					"-sub_umbrella",
 					AtoZBezierPath,
 					"-sub_umbrella",
-					SNRHUDKit,
+					BlocksKit,
 				);
 				PRODUCT_NAME = AtoZ;
 				RUN_CLANG_STATIC_ANALYZER = NO;
@@ -7383,13 +7410,14 @@
 		7B31197D159B6D9E002134C4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ANALYZER_OBJC_UNUSED_IVARS = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_EMPTY_BODY = NO;
 				CLANG_WARN_IMPLICIT_SIGN_CONVERSION = NO;
 				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = NO;
-				CLANG_WARN__ARC_BRIDGE_CAST_NONARC = NO;
+				CLANG_WARN__ARC_BRIDGE_CAST_NONARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -7398,16 +7426,20 @@
 				FRAMEWORK_VERSION = A;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AtoZ-Framework.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "DEBUGTALKER=1";
 				GCC_SHORT_ENUMS = YES;
 				GCC_USE_INDIRECT_FUNCTION_CALLS = YES;
-				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_FOUR_CHARACTER_CONSTANTS = YES;
+				GCC_WARN_FOUR_CHARACTER_CONSTANTS = NO;
 				GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = NO;
-				GCC_WARN_SHADOW = YES;
+				GCC_WARN_SHADOW = NO;
+				GCC_WARN_UNUSED_VALUE = YES;
+				GCC_WARN_UNUSED_VARIABLE = NO;
 				INFOPLIST_FILE = "Resources/AtoZ-Info.plist";
 				INSTALL_PATH = "@rpath//Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks @loader_path/Frameworks @executable_path/../ @rpath";
@@ -7429,21 +7461,16 @@
 					PLWeakCompatibility,
 					"-sub_umbrella",
 					FunSize,
-					"-sub_umbrella",
+					"-framework",
 					XPCKit,
-					"-sub_umbrella",
-					CocoaPuffs,
-					"-sub_umbrella",
-					BlocksKit,
-					"-sub_umbrella",
+					"-weak_framework",
 					NanoStore,
-					"-header-pad_max_install_names",
 					"-sub_umbrella",
 					Rebel,
 					"-sub_umbrella",
 					AtoZBezierPath,
 					"-sub_umbrella",
-					SNRHUDKit,
+					BlocksKit,
 				);
 				PRODUCT_NAME = AtoZ;
 				RUN_CLANG_STATIC_ANALYZER = NO;

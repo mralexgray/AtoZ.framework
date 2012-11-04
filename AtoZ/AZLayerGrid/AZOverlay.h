@@ -16,15 +16,6 @@
 /** AZState
  TODO
  */
-enum {
-    AZIdleState,
-    AZCreatingState,
-    AZModifyingState,
-    AZDeletingState,
-	AZOn,
-	AZOff
-};
-typedef NSUInteger AZState;
 
 /** The overlay view.
  

@@ -95,14 +95,14 @@ static NSString *AZObserverTrampolineContext = @"AZObserverTrampolineContext";
     });
 }
 
-- (void)dealloc
-{
-    [self cancelObservation];
-    [task release];
-    [keyPath release];
-    [queue release];
-//    [super dealloc];
-}
+//- (void)dealloc
+//{
+//    [self cancelObservation];
+//    [task release];
+//    [keyPath release];
+//    [queue release];
+////    [super dealloc];
+//}
 
 @end
 
@@ -282,7 +282,7 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary()
 //	} else {
 //		NSLog(@"<%@ %p> %@", [self class], self, NSStringFromSelector(_cmd));
 //	}
-
+	if (areSame(key, @"path")) NSLog(@"warning, path subscrip[t being set");
 //	NSLog(@"CMD: %@ requesting subscript:%@", [NSString stringWithUTF8String:__func__], key);
 	id result = nil;
 //	if ([key isKindOfClass:[NSS class]])
@@ -299,6 +299,9 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary()
 }
 
 - (void)setObject:(id)obj forKeyedSubscript:(id <NSCopying>)key {
+
+	if (areSame(key, @"path")) NSLog(@"warning, path subscrip[t being set");
+
 	__block BOOL wasSet = NO;
 	[(NSS*)key contains:@"."] ? ^{
 		[self canSetValueForKeyPath:(NSS*)key] ? ^{

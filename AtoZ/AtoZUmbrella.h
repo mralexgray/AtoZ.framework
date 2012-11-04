@@ -101,6 +101,8 @@ AZToStringFromTypeAndValue(@encode(typeof(_X_)), &_Y_);})
 
 #define AZFWORKBUNDLE [NSBundle bundleForClass:[AtoZ class]]
 #define  AZMAINBUNDLE [NSBundle mainBundle]
+#define   CAMEDIAEASEOUT [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]
+#define   CAMEDIAEASEIN [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn]
 #define   CAMEDIAEASY [CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionEaseInEaseOut]
 #define   AZWORKSPACE [NSWorkspace sharedWorkspace]
 #define   AZNOTCENTER [NSNotificationCenter defaultCenter]
@@ -146,8 +148,8 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 //	NSString *key = [NSString stringWithFormat:@"IngredientType_%i", _type];
 //	return NSLocalizedString(key, nil);
 //}
-#ifdef __OBJC__
-#endif
+//#ifdef __OBJC__
+//#endif
 
 #define PROPSTRONG (@property (nonatomic,strong) )
 #define PROPASSIGN (@property (nonatomic,assign) )
@@ -158,68 +160,68 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define CGSUPRESSINTERVAL(x) CGEventSourceSetLocalEventsSuppressionInterval(nil,x)
 #define AZPOS AZWindowPosition
 
-#define NSI NSInteger
-#define IBO IBOutlet
-#define NSIMG NSImage
-#define NSIV NSImageView
-#define NSSZ NSSize
 
-//#define ID \(NSObject*\)
-#define NSO NSObject
-#define NSVAL NSValue
-#define NSV NSView
-#define NSN NSNumber
-#define NSS NSString
-#define NSCS NSCountedSet
-#define NSA NSArray
-#define NSAC NSArrayController
-#define NSTXTV NSTextView
-#define NSTXTF NSTextField
-#define NSB NSBundle
-#define NSBP NSBezierPath
-#define NSMenuI	NSMenuItem
-#define NSNOT NSNotification
-#define NSIS NSIndexSet
-#define NSAT NSAffineTransform
-#define NSP NSPoint
-#define NSR NSRect
-#define NSD NSDictionary
-#define NSC NSColor
+
+
+#define BLKVIEW BNRBlockView
+#define CAA CAAnimation
+#define CAAG CAAnimationGroup
+#define CABA CABasicAnimation
+#define CAGA CAGroupAnimation
+#define CAKA CAKeyframeAnimation
 #define CAL CALayer
+#define CALNA CALayerNonAnimating
+#define CASHL CAShapeLayer
+#define CASL CAScrollLayer
+#define CAT CATransaction
+#define CAT3 CATransform3D
+#define CAT3D CATransform3D
+#define CAT3DR CATransform3DRotate
+#define CAT3DTR CATransform3DTranslate
+#define CATL CATextLayer
+#define CATRANNY CATransition
+#define CFTI CFTimeInterval
 #define CGF CGFloat
 #define CGP CGPoint
+#define CGPR CGPathRef
 #define CGR CGRect
 #define CGS CGSize
 #define CIF CIFilter
-#define CAA CAAnimation
-#define CGPR CGPathRef
-#define CFTI CFTimeInterval
-#define CATL CATextLayer
-#define CASL CAScrollLayer
-#define CASHL CAShapeLayer
-#define CABA CABasicAnimation
-#define CAT CATransaction
-#define CATRANNY CATransition
-
-#define BLKVIEW BNRBlockView
-#define CALNA CALayerNonAnimating
-#define CAKA CAKeyframeAnimation
-#define CAT3DTR CATransform3DTranslate
-#define CAT3DR CATransform3DRotate
-#define CAT3D CATransform3D
-#define CAT3 CATransform3D
-#define CAGA CAGroupAnimation
-#define CAAG CAAnimationGroup
-#define NSMA NSMutableArray
-#define NSMSet NSMutableSet
-
-#define NSMS NSMutableString
+#define IBO IBOutlet
+#define NSA NSArray
+#define NSAC NSArrayController
 #define NSAS NSAttributedString
+#define NSAT NSAffineTransform
+#define NSB NSBundle
+#define NSBP NSBezierPath
+#define NSGC NSGraphicsContext
+#define NSC NSColor
+#define NSCS NSCountedSet
+#define NSD NSDictionary
+#define NSI NSInteger
+#define NSIMG NSImage
+#define NSIS NSIndexSet
+#define NSIV NSImageView
+#define NSMA NSMutableArray
 #define NSMAS NSMutableAttributedString
 #define NSMD NSMutableDictionary
+#define NSMenuI	NSMenuItem
+#define NSMS NSMutableString
+#define NSMSet NSMutableSet
+#define NSN NSNumber
+#define NSNOT NSNotification
+#define NSO NSObject
+#define NSP NSPoint
+#define NSR NSRect
+#define NSS NSString
+#define NSSZ NSSize
 #define NSTI NSTimeInterval
+#define NSTXTF NSTextField
+#define NSTXTV NSTextView
 #define NSUI NSUInteger
-
+#define NSV NSView
+#define NSVAL NSValue
+//#define ID \(NSObject*\)
 #define bgC backgroundColor
 #define fgC foregroundColor
 #define arMASK autoresizingMask
@@ -307,6 +309,11 @@ attr1 relativeTo:relName attribute:attr2 scale:scl offset:off]
 // degree to radians
 #define ARAD 0.017453f
 #define DEG2RAD(x) ((x)*ARAD)
+#define P(x,y) CGPointMake(x, y)
+#define R(x,y) CGRectMake(0,0,x, y)
+#define S(w,h) NSMakeSize(w,h)
+
+#define TWOPI (2 * 3.1415926535)
 
 #define RAD2DEG (rad) (rad * 180.0f / M_PI)
 //returns float in range 0 - 1.0f
@@ -421,25 +428,25 @@ attr1 relativeTo:relName attribute:attr2 scale:scl offset:off]
 
 // 64-bit float macros
 
-#ifdef __LP64__
-	#define _CGFloatFabs( n )	fabs( n )
-	#define _CGFloatTrunc( n )	trunc( n )
-	#define _CGFloatLround( n )	roundtol( n )
-	#define _CGFloatFloor( n )	floor( n )
-	#define _CGFloatCeil( n )	ceil( n )
-	#define _CGFloatExp( n )	exp( n )
-	#define _CGFloatSqrt( n )	sqrt( n )
-	#define _CGFloatLog( n )	log( n )
-#else
-	#define _CGFloatFabs( n )	fabsf( n )
-	#define _CGFloatTrunc( n )	truncf( n )
-	#define _CGFloatLround( n )	roundtol((double) n )
-	#define _CGFloatFloor( n )	floorf( n )
-	#define _CGFloatCeil( n )	ceilf( n )
-	#define _CGFloatExp( n )	expf( n )
-	#define _CGFloatSqrt( n )	sqrtf( n )
-	#define _CGFloatLog( n )	logf( n )
-#endif
+//#ifdef __LP64__
+//	#define _CGFloatFabs( n )	fabs( n )
+//	#define _CGFloatTrunc( n )	trunc( n )
+//	#define _CGFloatLround( n )	roundtol( n )
+//	#define _CGFloatFloor( n )	floor( n )
+//	#define _CGFloatCeil( n )	ceil( n )
+//	#define _CGFloatExp( n )	exp( n )
+//	#define _CGFloatSqrt( n )	sqrt( n )
+//	#define _CGFloatLog( n )	log( n )
+//#else
+//	#define _CGFloatFabs( n )	fabsf( n )
+//	#define _CGFloatTrunc( n )	truncf( n )
+//	#define _CGFloatLround( n )	roundtol((double) n )
+//	#define _CGFloatFloor( n )	floorf( n )
+//	#define _CGFloatCeil( n )	ceilf( n )
+//	#define _CGFloatExp( n )	expf( n )
+//	#define _CGFloatSqrt( n )	sqrtf( n )
+//	#define _CGFloatLog( n )	logf( n )
+//#endif
 
 
 
@@ -485,32 +492,32 @@ attr1 relativeTo:relName attribute:attr2 scale:scl offset:off]
 
 #pragma - General Functions
 
-#define NSDICT (...) [NSDictionary dictionaryWithObjectsAndKeys: __VA_ARGS__, nil]
-#define NSARRAY(...) [NSArray arrayWithObjects: __VA_ARGS__, nil]
-#define NSBOOL (_X_) [NSNumber numberWithBool:(_X_)]
+//#define NSDICT (...) [NSDictionary dictionaryWithObjectsAndKeys: __VA_ARGS__, nil]
+//#define NSARRAY(...) [NSArray arrayWithObjects: __VA_ARGS__, nil]
+//#define NSBOOL (_X_) [NSNumber numberWithBool:(_X_)]
 //#define NSSET  (...) [NSSet setWithObjects: __VA_ARGS__, nil]
 
 //#define NSCOLOR       (r,g,b,a) [NSColor colorWithCalibratedRed:r green:g blue:b alpha:a]
 //#define NSDEVICECOLOR (r,g,b,a) [NSColor colorWithDeviceRed:r green:g blue:b alpha:a]
-#define NSCOLORHSB    (h,s,b,a) [NSColor colorWithDeviceHue:h saturation:s brightness:b alpha:a]
+//#define NSCOLORHSB    (h,s,b,a) [NSColor colorWithDeviceHue:h saturation:s brightness:b alpha:a]
 
-#pragma - Log Functions
-
-#ifdef DEBUG
-#	define CWPrintClassAndMethod() NSLog(@"%s%i:\n",__PRETTY_FUNCTION__,__LINE__)
-#	define CWDebugLog(args...) NSLog(@"%s%i: %@",__PRETTY_FUNCTION__,__LINE__,[NSString stringWithFormat:args])
-#else
-#	define CWPrintClassAndMethod() /**/
-#	define CWDebugLog(args...) /**/
-#endif
-
-#define CWLog(args...) NSLog(@"%s%i: %@",__PRETTY_FUNCTION__,__LINE__,[NSString stringWithFormat:args])
-#define CWDebugLocationString() [NSString stringWithFormat:@"%s[%i]",__PRETTY_FUNCTION__,__LINE__]
-
-#define nilease(A) [A release]; A = nil
-
-#define $affectors(A,...) +(NSSet *)keyPathsForValuesAffecting##A { static NSSet *re = nil; \
-if (!re) { re = [[[@#__VA_ARGS__ splitByComma] trimmedStrings] set]; } return re; }
+//#pragma - Log Functions
+//
+//#ifdef DEBUG
+//#	define CWPrintClassAndMethod() NSLog(@"%s%i:\n",__PRETTY_FUNCTION__,__LINE__)
+//#	define CWDebugLog(args...) NSLog(@"%s%i: %@",__PRETTY_FUNCTION__,__LINE__,[NSString stringWithFormat:args])
+//#else
+//#	define CWPrintClassAndMethod() /**/
+//#	define CWDebugLog(args...) /**/
+//#endif
+//
+//#define CWLog(args...) NSLog(@"%s%i: %@",__PRETTY_FUNCTION__,__LINE__,[NSString stringWithFormat:args])
+//#define CWDebugLocationString() [NSString stringWithFormat:@"%s[%i]",__PRETTY_FUNCTION__,__LINE__]
+//
+//#define nilease(A) [A release]; A = nil
+//
+//#define $affectors(A,...) +(NSSet *)keyPathsForValuesAffecting##A { static NSSet *re = nil; \
+//if (!re) { re = [[[@#__VA_ARGS__ splitByComma] trimmedStrings] set]; } return re; }
 
 typedef struct { CAConstraintAttribute constraint; CGFloat scale; CGFloat offset; }AZCAConstraint;
 
@@ -536,20 +543,29 @@ typedef enum {
 	AZOrientHorizontal,
 }	AZOrient;
 
-typedef enum {
+typedef NS_ENUM(NSUI,  	AZInfiteScale) {
 	AZInfiteScale0X,
 	AZInfiteScale1X,
 	AZInfiteScale2X,
 	AZInfiteScale3X,
 	AZInfiteScale10X
-} 	AZInfiteScale;
+};
 
-typedef enum  { LeftOn,LeftOff,TopOn,TopOff,RightOn,RightOff,BottomOn,BottomOff			} AZTrackState;
-typedef enum  {	AZDockSortNatural,AZDockSortColor,AZDockSortPoint,AZDockSortPointNew	} AZDockSort;
+typedef NS_ENUM(NSUI, AZState) {
+	AZIdleState,
+    AZCreatingState,
+    AZModifyingState,
+    AZDeletingState,
+	AZOn,
+	AZOff
+};
+
+typedef NS_ENUM(NSUI, AZTrackState) { LeftOn,LeftOff,TopOn,TopOff,RightOn,RightOff,BottomOn,BottomOff	};
+typedef NS_ENUM(NSUI, AZDockSort)	{	AZDockSortNatural,AZDockSortColor,AZDockSortPoint,AZDockSortPointNew	};
 typedef enum  {	AZSearchByCategory,AZSearchByColor,AZSearchByName,AZSearchByRecent		} AZSearchBy;
-typedef enum  {	AZIn,AZOut																} AZSlideState;
-typedef enum  { AZMenuN,AZMenuS,AZMenuE,AZMenuW,AZMenuPositionCount						} AZMenuPosition;
-#ifndef ATOZTOUCH
+typedef NS_ENUM(NSUI, AZSlideState)	  {	AZIn,AZOut																};
+typedef NS_ENUM(NSUI, AZMenuPosition) { AZMenuN,AZMenuS,AZMenuE,AZMenuW,AZMenuPositionCount						};
+//#ifndef ATOZTOUCH
 typedef NS_ENUM(NSUI, AZWindowPosition) {
 				AZPositionLeft 			= NSMinXEdge, // 0  NSDrawer
 				AZPositionRight         = NSMaxXEdge, // 2  preferredEdge
@@ -562,11 +578,9 @@ typedef NS_ENUM(NSUI, AZWindowPosition) {
 				AZPositionAutomatic     = 8
 };// AZWindowPosition;
 
-
-
 // NSVALUE defined, see NSValue+AtoZ.h
 #define AZWindowPositionTypeArray @"Left",@"Bottom",@"Right",@"Top",@"TopLeft",@"BottomLeft",@"TopRight",@"BottomRight",@"Automatic",nil
-#endif
+//#endif
 
 #define QUAD AZQuadrant
 
@@ -576,6 +590,7 @@ typedef NS_ENUM(NSUI, AZQuadrant){
 	BotRight,
 	BotLeft
 };
+
 
 typedef struct {	CGFloat tlX; CGFloat tlY;
 					CGFloat trX; CGFloat trY;
@@ -618,12 +633,12 @@ void trackMouse();
 	//	[Atom] = @"Atom",
 	//	[RSS] = @"RSS",
 	//};
-typedef enum {
-    IngredientType_text  = 0,
-    IngredientType_audio = 1,
-    IngredientType_video = 2,
-    IngredientType_image = 3
-} IngredientType;
+//typedef enum {
+//    IngredientType_text  = 0,
+//    IngredientType_audio = 1,
+//    IngredientType_video = 2,
+//    IngredientType_image = 3
+//} IngredientType;
 	//write a method like this in class:
 	//+ (NSString*)typeStringForType:(IngredientType)_type {
 	//	NSString *key = [NSString stringWithFormat:@"IngredientType_%i", _type];
@@ -640,15 +655,15 @@ typedef enum {
 	//"IngredientType_3" = "Image";
 	//
 
-typedef struct {
-    CGFloat color[4];
-	CGFloat caustic[4];
-	CGFloat expCoefficient;
-	CGFloat expScale;
-	CGFloat expOffset;
-	CGFloat initialWhite;
-	CGFloat finalWhite;
-} GlossParameters;
+//typedef struct _GlossParameters{
+//    CGFloat color[4];
+//	CGFloat caustic[4];
+//	CGFloat expCoefficient;
+//	CGFloat expScale;
+//	CGFloat expOffset;
+//	CGFloat initialWhite;
+//	CGFloat finalWhite;
+//} GlossParameters;
 
 #define AZBONK @throw \
 [NSException \
@@ -711,33 +726,33 @@ return SC##_sharedInstance; \
 
 	//  ARC Helper ends
 
-#ifndef ah_retain
-#if __has_feature(objc_arc)
-#define ah_retain self
-#define ah_dealloc self
-#define release self
-#define autorelease self
-#else
-#define ah_retain retain
-#define ah_dealloc dealloc
-#define __bridge
-#endif
-#endif
-//  Weak delegate support
-#ifndef ah_weak
-#import <Availability.h>
-#if (__has_feature(objc_arc)) && \
-((defined __IPHONE_OS_VERSION_MIN_REQUIRED && \
-__IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_5_0) || \
-(defined __MAC_OS_X_VERSION_MIN_REQUIRED && \
-__MAC_OS_X_VERSION_MIN_REQUIRED > __MAC_10_7))
-#define ah_weak weak
-#define __ah_weak __weak
-#else
-#define ah_weak unsafe_unretained
-#define __ah_weak __unsafe_unretained
-#endif
-#endif
+//#ifndef ah_retain
+//#if __has_feature(objc_arc)
+//#define ah_retain self
+//#define ah_dealloc self
+//#define release self
+//#define autorelease self
+//#else
+//#define ah_retain retain
+//#define ah_dealloc dealloc
+//#define __bridge
+//#endif
+//#endif
+////  Weak delegate support
+//#ifndef ah_weak
+//#import <Availability.h>
+//#if (__has_feature(objc_arc)) && \
+//((defined __IPHONE_OS_VERSION_MIN_REQUIRED && \
+//__IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_5_0) || \
+//(defined __MAC_OS_X_VERSION_MIN_REQUIRED && \
+//__MAC_OS_X_VERSION_MIN_REQUIRED > __MAC_10_7))
+//#define ah_weak weak
+//#define __ah_weak __weak
+//#else
+//#define ah_weak unsafe_unretained
+//#define __ah_weak __unsafe_unretained
+//#endif
+//#endif
 //  ARC Helper ends
 
 

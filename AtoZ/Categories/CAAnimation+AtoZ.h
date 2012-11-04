@@ -43,7 +43,7 @@ extern void disableCA();
 + (CAA*)            shakeAnimation;
 + (CAA*)       animationForOpacity;
 //+ (CAA*)         animationForScale;
-+ (CAA*)      animationForRotation;
+//+ (CAA*)      animationForRotation;
 //+ (CAA*) flipAnimationWithDuration: (NSTI)aDur;
 + (CAA*)                  flipDown: (NSTI)aDur  scaleFactor: (CGF)scale;
 + (CAA*) 	       animationOnPath: (CGPR)path  duration:    (CFTI)d 	  timeOffset: (CFTI)o;
@@ -51,7 +51,7 @@ extern void disableCA();
 + (CAA*)   rotateAnimationForLayer: (CAL*)layer start:       (CGF)fl1     end: (CGF)fl1;
 
 
-- (CAAnimation *)rotateAnimationFrom:(NSNumber*)startDegree to:(NSNumber*)endDegrees;
+//- (CAAnimation *)rotateAnimationFrom:(NSNumber*)startDegree to:(NSNumber*)endDegrees;
 + (CAAnimation*)rotateAnimationForLayer:(CALayer *)theLayer start:(CGFloat)starting end:(CGFloat)ending;
 + (CAAnimation*)colorAnimationForLayer:(CALayer *)theLayer WithStartingColor:(NSColor*)color1 endColor:(NSColor*)color2;
 

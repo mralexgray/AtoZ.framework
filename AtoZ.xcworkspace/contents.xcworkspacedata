@@ -2,10 +2,10 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:../dev/GistHub/GistHub/GistHub.xcodeproj">
+      location = "container:AtoZ/AtoZ.xcodeproj">
    </FileRef>
    <FileRef
-      location = "container:AtoZ/AtoZ.xcodeproj">
+      location = "group:../dev/GistHub/GistHub/GistHub.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:../git/icarouselmay2012/Examples/Mac Demo/iCarouselMac.xcodeproj">

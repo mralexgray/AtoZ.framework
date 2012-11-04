@@ -6,8 +6,14 @@
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "AtoZ.h"
 
 @interface AZPalette : NSObject
+@property (strong, NATOM) 	NSA *indexed;
+@property (strong, NATOM) 	NSMA *feeder;
+
+
+- (NSC*) nextColor;
+- (NSUI) indexOfColor:(NSC*)color;
 
 @end

@@ -157,7 +157,7 @@ static NSA* cachedI = nil;
 {
 	NSString *myVersion	= [AZFWORKBUNDLE infoDictionary][@"CFBundleShortVersionString"];
 	NSString *buildNum 	= [AZFWORKBUNDLE infoDictionary][(NSString*)kCFBundleVersionKey];
-	LogAndReturn( myVersion ? buildNum ? [NSString stringWithFormat:@"Version: %@ (%@)", myVersion, buildNum]
+	return LogAndReturn( myVersion ? buildNum ? [NSString stringWithFormat:@"Version: %@ (%@)", myVersion, buildNum]
 				 : [NSString stringWithFormat:@"Version: %@", myVersion]
 				 : buildNum  ? [NSString stringWithFormat:@"Version: %@", buildNum]
 				 : nil);
@@ -412,15 +412,15 @@ static NSA* cachedI = nil;
 
 - (void) handleMouseEvent:(NSEventMask)event inView:(NSView*)view withBlock:(void (^)())block {
 	if (self != [AtoZ new]) NSLog(@"uh oh, not a shared I"); // __typeof__(self) *aToZ = [AtoZ sharedInstance];
-	[NSEvent addLocalMonitorForEventsMatchingMask:event handler:^NSEvent *(NSEvent *event) {
+	[NSEvent addLocalMonitorForEventsMatchingMask:event handler:^NSEvent *(NSEvent *ee) {
 		//	if ([event type] == NSMouseMovedMask ) {
-		NSLog(@"Mouse handler checking point for evet:%@.", event);
+		NSLog(@"Mouse handler checking point for evet:%@.", ee);
 		NSPointInRect(view.localPoint, view.frame) ? ^{
 			NSLog(@"oh my god.. point is local to view! Runnnng block");
 			block();
 			//			[[NSThread mainThread] performBlock:block waitUntilDone:YES]; // [NSThread performBlockInBackground:block];
 		}() : nil;
-		return event;
+		return ee;
 	}];
 }
 

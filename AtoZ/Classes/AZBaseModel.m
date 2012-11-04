@@ -58,7 +58,7 @@ static NSMutableDictionary *keyNames = nil, *nillableKeyNames = nil;
 					[self setValue:newV forKey:key];
 	} else {		const char *bar = [key UTF8String];
 
-					[self associateCopyOfValue:object withKey:bar];
+					[self setAssociatedValue:object forKey:key];
 					NSLog(@"asscoiated the value %@, with %@", object, key);
 	}
 }
@@ -107,7 +107,7 @@ static NSMutableDictionary *keyNames = nil, *nillableKeyNames = nil;
 - (id) randomElement 							{ return _backingstore.randomElement; }
 - (NSA*) shuffeled 								{ return _backingstore.shuffeled; 	}
 - (NSA*) randomSubarrayWithSize: (NSUI) size	{
-	return [_backingstore randomSubarrayWithSize: normalizedNumberLessThan(@(size), _backingstore.count)];
+	return [_backingstore randomSubarrayWithSize: AZNormalizedNumberLessThan(@(size), _backingstore.count)];
 }
 - (id)normal:(NSInteger)index					{		if (_backingstore.count == 0)   return nil;
 									else {	while 	  (index < 0)  index += _backingstore.count;

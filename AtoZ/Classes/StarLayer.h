@@ -5,15 +5,15 @@
 //  Copyright (c) 2011 Ian Voyce. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
-#import <AtoZ/AtoZ.h>
-
-#import <QuartzCore/CALayer.h>
+#import "AtoZ.h"
 
 @interface StarLayer : CALayer
 
-@property (ASS, NATOM) AZPOS orient;
--(id)initWithRect:(CGRect)rect;
+@property (STRNG, NATOM) NSC* color, *outlineColor;
+@property (ASS, NATOM) 	AZState spinState;
+
+
+-(void) toggleSpin: (AZState)state;
+-(id) initWithRect: (CGR)rect;
 
 @end

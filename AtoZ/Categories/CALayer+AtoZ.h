@@ -70,13 +70,18 @@ extern CATransform3D CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13, CG
 //											   CGFloat m31, CGFloat m32, CGFloat m33, CGFloat m34,
 //											   CGFloat m41, CGFloat m42, CGFloat m43, CGFloat m44);
 
-#import "AtoZUmbrella.h"
 @interface CALayer (VariadicConstraints)
 - (void)addConstraintsRelSuper:(CAConstraintAttribute)first,...; /* REQUIRES NSNotFound termination */
 //- (void) addConstraintsRelSuper:(CAConstraintAttribute) nilAttributeList, ...;  // This method takes a nil-terminated list of objects.
 @end
 
 @interface CALayer (AtoZ)
+
+- (void)moveToFront;
+
+@property (ASS, NATOM) AZPOS orient;
+//
+- (void)setValue:(id)value      forKeyPath:(NSString *)keyPath        duration:(CFTimeInterval)duration           delay:(CFTimeInterval)delay;
 
 - (BOOL) pixelsHitTest:(CGPoint)p;
 - (BOOL) pixelsIntersectWithRect:(CGRect)rect;
@@ -97,8 +102,9 @@ extern CATransform3D CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13, CG
 
 - (CALayer*) selectionLayerForLayer:(CALayer*)layer;
 - (CATransform3D)makeTransformForAngle:(CGFloat)angle;
-- (id)objectForKeyedSubscript:(NSString *)key;
-- (void)setObject:(id)object forKeyedSubscript:(NSString *)key;
+
+//- (id)objectForKeyedSubscript:(NSString *)key;
+//- (void)setObject:(id)object forKeyedSubscript:(NSString *)key;
 
 - (void)addConstraints:(NSArray*)constraints;
 - (void)orientWithPoint:(CGPoint) point;
@@ -154,6 +160,88 @@ extern CATransform3D CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13, CG
 - (void) addSublayers:(NSArray*)subLayers;
 
 + (CALayer*)newGlowingSphereLayer;
+
+
+
+@end
+@interface CALayer (LTKAdditions)
+
+@property (readwrite, nonatomic, assign) CGPoint frameOrigin;
+@property (readwrite, nonatomic, assign) CGSize frameSize;
+@property (readwrite, nonatomic, assign) CGFloat frameX;
+@property (readwrite, nonatomic, assign) CGFloat frameY;
+@property (readwrite, nonatomic, assign) CGFloat frameWidth;
+@property (readwrite, nonatomic, assign) CGFloat frameHeight;
+@property (readwrite, nonatomic, assign) CGFloat frameMinX;
+@property (readwrite, nonatomic, assign) CGFloat frameMidX;
+@property (readwrite, nonatomic, assign) CGFloat frameMaxX;
+@property (readwrite, nonatomic, assign) CGFloat frameMinY;
+@property (readwrite, nonatomic, assign) CGFloat frameMidY;
+@property (readwrite, nonatomic, assign) CGFloat frameMaxY;
+@property (readwrite, nonatomic, assign) CGPoint frameTopLeftPoint;
+@property (readwrite, nonatomic, assign) CGPoint frameTopMiddlePoint;
+@property (readwrite, nonatomic, assign) CGPoint frameTopRightPoint;
+@property (readwrite, nonatomic, assign) CGPoint frameMiddleRightPoint;
+@property (readwrite, nonatomic, assign) CGPoint frameBottomRightPoint;
+@property (readwrite, nonatomic, assign) CGPoint frameBottomMiddlePoint;
+@property (readwrite, nonatomic, assign) CGPoint frameBottomLeftPoint;
+@property (readwrite, nonatomic, assign) CGPoint frameMiddleLeftPoint;
+@property (readwrite, nonatomic, assign) CGPoint boundsOrigin;
+@property (readwrite, nonatomic, assign) CGSize boundsSize;
+@property (readwrite, nonatomic, assign) CGFloat boundsX;
+@property (readwrite, nonatomic, assign) CGFloat boundsY;
+@property (readwrite, nonatomic, assign) CGFloat boundsWidth;
+@property (readwrite, nonatomic, assign) CGFloat boundsHeight;
+@property (readwrite, nonatomic, assign) CGFloat boundsMinX;
+@property (readwrite, nonatomic, assign) CGFloat boundsMidX;
+@property (readwrite, nonatomic, assign) CGFloat boundsMaxX;
+@property (readwrite, nonatomic, assign) CGFloat boundsMinY;
+@property (readwrite, nonatomic, assign) CGFloat boundsMidY;
+@property (readwrite, nonatomic, assign) CGFloat boundsMaxY;
+@property (readwrite, nonatomic, assign) CGPoint boundsTopLeftPoint;
+@property (readwrite, nonatomic, assign) CGPoint boundsTopMiddlePoint;
+@property (readwrite, nonatomic, assign) CGPoint boundsTopRightPoint;
+@property (readwrite, nonatomic, assign) CGPoint boundsMiddleRightPoint;
+@property (readwrite, nonatomic, assign) CGPoint boundsBottomRightPoint;
+@property (readwrite, nonatomic, assign) CGPoint boundsBottomMiddlePoint;
+@property (readwrite, nonatomic, assign) CGPoint boundsBottomLeftPoint;
+@property (readwrite, nonatomic, assign) CGPoint boundsMiddleLeftPoint;
+@property (readwrite, nonatomic, assign) CGFloat positionX;
+@property (readwrite, nonatomic, assign) CGFloat positionY;
+
++ (id)layerWithFrame:(CGRect)frame;
+- (id)initWithFrame:(CGRect)frame;
+
+- (void)setAnchorPointAndPreserveCurrentFrame:(CGPoint)anchorPoint;
+
++ (CGFloat)smallestWidthInLayers:(NSArray *)layers;
++ (CGFloat)smallestHeightInLayers:(NSArray *)layers;
++ (CGFloat)largestWidthInLayers:(NSArray *)layers;
++ (CGFloat)largestHeightInLayers:(NSArray *)layers;
+
+- (CALayer *)presentationCALayer;
+- (CALayer *)modelCALayer;
+
+- (void)addDefaultFadeTransition;
+- (void)addDefaultMoveInTransitionWithSubtype:(NSString *)subtype;
+- (void)addDefaultPushTransitionWithSubtype:(NSString *)subtype;
+- (void)addDefaultRevealTransitionWithSubtype:(NSString *)subtype;
+- (void)addFadeTransitionWithDuration:(NSTimeInterval)duration;
+- (void)addMoveInTransitionWithSubtype:(NSString *)subtype duration:(NSTimeInterval)duration;
+- (void)addPushTransitionWithSubtype:(NSString *)subtype duration:(NSTimeInterval)duration;
+- (void)addRevealTransitionWithSubtype:(NSString *)subtype duration:(NSTimeInterval)duration;
+
+- (void)addAnimation:(CAAnimation *)animation;
+- (void)addAnimation:(CAAnimation *)animation forKey:(NSString *)key withStopBlock:(void (^)(BOOL finished))stopBlock;
+- (void)addAnimation:(CAAnimation *)animation forKey:(NSString *)key withStartBlock:(void (^)(void))startBlock stopBlock:(void (^)(BOOL finished))stopBlock;
+- (void)replaceAnimationForKey:(NSString *)key withAnimation:(CAAnimation *)animation;
+- (NSArray *)keyedAnimations;
+
+- (NSImage *)renderToImage;
+- (NSImage *)renderToImageWithContextSize:(CGSize)contextSize;
+- (NSImage *)renderToImageWithContextSize:(CGSize)contextSize contextTransform:(CGAffineTransform)contextTransform;
+
+- (void)enableDebugBordersRecursively:(BOOL)recursively;
 @end
 @interface  CATextLayer (AtoZ)
 - (CTFontRef)newFontWithAttributes:(NSDictionary *)attributes;

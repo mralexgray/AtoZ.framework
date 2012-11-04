@@ -15,20 +15,20 @@
 
 - (id) init {
 	if (self = [super initWithWindowNibName:@"InstructionsWindow"]) {
-		imageViews = [[NSMutableArray array] retain];
+		imageViews = [NSMutableArray array];
 	}
 	return self;
 }
 
-- (void) dealloc {
-	[imageViews release];
-	[super dealloc];
-}
+//- (void) dealloc {
+//	[imageViews release];
+//	[super dealloc];
+//}
 
 - (void) windowDidLoad {
 	NSWindow *window = [self window];
 	
-	NSArray *imageNames = [delegate instructionImageNames];
+	NSArray *imageNames = [delegate instructionImageNames] ?: [NSImage systemImages];
 	
 	for (NSString *imageName in imageNames) {
 		NSImage *image = ( [NSImage imageNamed:imageName] ? [NSImage imageNamed:imageName] : [NSImage az_imageNamed:imageName]);
@@ -38,8 +38,8 @@
 //		imageViewFrame.origin = NSMakePoint(1.0, 1.0);
 		imageViewFrame = NSIntegralRect(imageViewFrame);
 		
-		NSImageView *imageView = [[[SDRoundedInstructionsImageView alloc] initWithFrame:imageViewFrame] autorelease];
-		[imageView setImageScaling:NSScaleNone];
+		NSImageView *imageView = [[SDRoundedInstructionsImageView alloc] initWithFrame:imageViewFrame];
+		[imageView setImageScaling:NSScaleProportionally];
 		[imageView setImageAlignment:NSImageAlignCenter];
 		[imageView setImage:image];
 		
@@ -60,7 +60,7 @@
 	[window setTitle:$(@"%@ %@",[window title], [[NSApplication sharedApplication] appName])];
 }
 
-- (int) selectedImageIndexPlusOne {
+- (NSUInteger) selectedImageIndexPlusOne {
 	return selectedImageIndex + 1;
 }
 

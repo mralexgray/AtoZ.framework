@@ -79,13 +79,15 @@
 
 NSString *AZCAAnimationCompletionBlockAssociatedObjectKey = @"AZCAAnimationCompletionBlockAssociatedObjectKey";
 
-void disableCA(){
+//void disableCA(){
+//
+//	[CATransaction flush];
+//	[CATransaction begin];
+//	[CATransaction setValue:(id)kCFBooleanTrue
+//					 forKey:kCATransactionDisableActions];
+//}
 
-	[CATransaction flush];
-	[CATransaction begin];
-	[CATransaction setValue:(id)kCFBooleanTrue
-					 forKey:kCATransactionDisableActions];
-}
+
 @implementation CATransaction (AtoZ)
 + (void)az_performWithDisabledActions:(void(^)(void))block
 {
@@ -189,7 +191,7 @@ void disableCA(){
 	rotateAnimation.values = @[@(0.0), @(M_PI * 2), @(0.0)];
 	rotateAnimation.duration = 0.5f;
 	rotateAnimation.keyTimes = @[@(0), @(.4), @(.5)];
-
+	return  rotateAnimation;
 //	CAKeyframeAnimation *positionAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
 //	positionAnimation.duration = 0.5f;
 //	CGMutablePathRef path = CGPathCreateMutable();
@@ -721,7 +723,7 @@ void disableCA(){
 
 	//	@end
 
-
+/*
 @interface CAAnimationDelegate : NSObject {
 	void (^_completion)(BOOL);
 	void (^_start)();
@@ -820,7 +822,7 @@ void disableCA(){
 }
 
 @end
-
+*/
 /*   example of blocks category below
 
  - (void)runAnimation:(id)unused

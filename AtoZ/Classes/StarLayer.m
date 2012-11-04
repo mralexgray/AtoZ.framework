@@ -1,68 +1,113 @@
 //
 //  Created by Ian Voyce on 02/12/2011.
 //  Copyright (c) 2011 Ian Voyce. All rights reserved.
-//
 
 #import "StarLayer.h"
-#import <QuartzCore/QuartzCore.h>
-
-const CGF TWOPI = (2 * 3.1415926535);
+#import "AtoZ.h"
+//#import <DrawKit/DKDrawKit.h>
 
 @interface StarLayer ()
--(void)setupLayers:(CGRect)rect;
-@property (readonly) CALayer *root;
-@property (strong) 	 CALayer *star, *text;
+@property (RONLY) 		CALayer *root;
+@property (STRNG) 	 	CALayer *star, *text;
 
 @end
 
 @implementation StarLayer
+@dynamic color, outlineColor, spinState;
+
+
+- (id)init {	return [self initWithRect:[self.superlayer bounds]]; }
 
 -(id)initWithRect:(CGRect)rect
 {
 	if (!(self = [super init])) return nil;
 	[self setupLayers:rect];
+	self.delegate = self;
+	[self setNeedsDisplay];
     return self;
 }
 
-+ (BOOL)needsDisplayForKey:(NSString *)key
-{
-	return (areSame(key, @"orient"));
++ (BOOL)needsDisplayForKey:(NSString *)key {
+
+	BOOL result;
+	if ([@[@"orient", @"anchorPoint", @"position", @"rotation",@"color"]containsObject:key]) {
+		result = YES;
+	}
+	else result = [super needsDisplayForKey:key];
+	NSLog(@"does need display for key:%@ : %@", key, StringFromBOOL(result));
+	return result;
 }
+
+- (id < CAAction >)actionForKey:(NSString *)key {
+	if ([self presentationLayer] != nil) {
+		if ([key isEqualToString:@"color"]) {
+			CABasicAnimation *anim = [CABasicAnimation
+									  animationWithKeyPath:@"color"];
+			anim.fromValue = [[self presentationLayer]
+							  valueForKey:@"color"];
+			return anim;
+		}
+	}
+
+	return [super actionForKey:key];
+}
+
+
+
+//+ (BOOL)needsDisplayForKey:(NSString *)key
+//{
+//	BOOL result;
+//    if ([@[@"color", @"outlineColor"] containsObject:key])        result = YES;
+//    else  result = [super needsDisplayForKey:key];
+//	NSLog(@"does need display for key:%@ : %@", key, StringFromBOOL(result));
+//    return result;
+//}
 
 
 -(void)setupLayers:(CGRect)rect
 {
-    _root 			= [CALayer layer];
-    _star 			= [CALayer layer];
-    _text 			= [CALayer layer];
-    _star.delegate 	= self;
-	_text.delegate 	= self;
+    _root 			= [CAL layer];
+	_star 			= [CAL layer];
+	_text 			= [CAL layer];
 	self.delegate 	= self;
-
-
     _root.frame 	= rect;
     _root.arMASK 	= CASIZEABLE;
 	_root.NDOBC 	= YES;
-//	_star.frame 	= AZMakeRectFromSize(rect.size);
-//    [_star setNeedsDisplay];
-
-    CABA *animation = [CABA animationWithKeyPath:@"transform.rotation"];
-    animation.duration		= 8.0;
-    animation.repeatCount	= HUGE_VALF;
-    animation.autoreverses	= NO;
-    animation.fromValue		= @0;
-    animation.toValue		= @(TWOPI);
-
-    [_star addAnimation:animation forKey:@"rotation"];
-    [_root addSublayer:_star];
-
-    _text.frame 		= AZMakeRectFromSize(rect.size);
-    [_text setNeedsDisplay];
-    [_root addSublayer:_text];
-	
+	[@[_star, _text] do:^(CAL *obj){
+		obj.frame		= AZMakeRectFromSize(rect.size);
+	 	obj.delegate	= self;
+		[obj setNeedsDisplay];
+    	[_root addSublayer:obj];
+	}];
+	[self toggleSpin:AZOn];
 	[self addSublayer:_root];
 	[self setNeedsDisplay];
+
 }
+-(void) toggleSpin: (AZState)state
+{
+	if (self.spinState == state) return;
+	if (state == AZOff || ( state == NSNotFound && self.spinState == AZOn)) { [_star removeAllAnimations]; }
+	else {
+		CABA *animation = [CABA animationWithKeyPath:@"transform.rotation"];
+		animation.duration		= 8.0;
+		animation.repeatCount	= HUGE_VALF;
+		animation.autoreverses	= NO;
+		animation.fromValue		= @0;
+		animation.toValue		= @(TWOPI);
+
+		[_star addAnimation:animation forKey:@"rotation"];
+	}
+	self.spinState = state;
+}
+//
+//-(NSC*) color{
+//	return color = color ?: RANDOMCOLOR;
+//}
+////
+//-(NSC*) outlineColor{
+//	return WHITE;
+//}
 
 //-(void)setOrient:(AZWindowPosition)orient
 //{
@@ -80,35 +125,37 @@ const CGF TWOPI = (2 * 3.1415926535);
 //        [(NSMutableSet *)defaultPaths addObject:@"image"];
 //    }
 //    return defaultPaths;
-- (void)drawLayer:(CALayer *)theLayer
-        inContext:(CGContextRef)context 
-{
-        [NSGraphicsContext drawInContext:context flipped:NO actions:^{
+
+- (void) drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx {
+//- (void)drawLayer:(CALayer *)theLayer
+//        inContext:(CGContextRef)context 
+
+        [NSGraphicsContext drawInContext:ctx flipped:NO actions:^{
 
 //		CGContextSaveGState(context);
 //		CGContextSetFillColorWithColor(context, [[NSColor blackColor] CGColor]);
 //		NSFont *font = [NSFont fontWithName:@"Helvetica" size:24.0];
 
-		theLayer == _star ? ^{
-			NSBP *pp = [self starburstInFrame:theLayer.frame withPoints:6];
+		layer == _star ? ^{
+			NSBP *pp = [self starburstInFrame:self.bounds withPoints:6];
 //			pp.lineWidth = 5;
 //			pp.lineJoinStyle =
 			[NSShadow setShadowWithOffset:CGSizeMake(4, 4) blurRadius:4 color:[BLACK alpha:.79]];
-			[WHITE setFill];
+			[self.outlineColor setFill];
 			[pp fill];
 			[NSShadow clearShadow];
-			NSBP *smallP = [pp insetPathBy:6];
-			[RANDOMCOLOR setFill];
+			NSBP *smallP = [pp scaleToSize:AZInsetRect(_star.bounds, 6).size];// insetPathBy:6];
+			[self.color setFill];
 			[smallP fill];
-		}() : theLayer == _text ? ^{
+		}() : layer == _text ? ^{
 
 			NSString *s = [AtoZ stringForPosition:self.orient];
 			NSS*font = [AtoZ randomFontName];
-			[s drawInRect:AZCenteredRect(NSMakeSize(NSWidth(_text.frame),20), theLayer.frame) withFontNamed:font andColor:WHITE];
-		}() : nil;
-//		 theLayer == self ? ^{
+			[s drawInRect:AZCenteredRect(NSMakeSize(NSWidth(_text.frame),20), self.frame) withFontNamed:font andColor:WHITE];
+		}() :
+		 layer == self ? ^{
 			[[NSBP bezierPathWithTriangleInRect:AZCenterRectOnPoint(AZRectFromDim(50), self.anchorPoint) orientation:0]drawWithFill:BLACK andStroke:WHITE];
-//		}() : nil;
+		}() : nil;
 	}];
 
 	//        CGSize sz = [s sizeWithFont:font
@@ -174,4 +221,22 @@ const CGF TWOPI = (2 * 3.1415926535);
 //-(id) valueForUndefinedKey: (NSS*)key
 //{
 //	return [self associatedValueForKey: key];
+//}
+
+
+
+//- (void) drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx {
+//
+//	[NSGraphicsContext drawInContext:ctx flipped:NO actions:^{
+//		NSRectFillWithColor(self.frame, RANDOMCOLOR);
+//	}];
+//	CGContextSetFillColorWithColor(ctx,
+//								   [self.color CGColor]);
+//	CGFloat radius = 100;
+//	CGRect rect;
+//	rect.size = CGSizeMake(radius, radius);
+//	rect.origin.x = (self.bounds.size.width - radius) / 2;
+//	rect.origin.y = (self.bounds.size.height - radius) / 2;
+//	CGContextAddEllipseInRect(ctx, rect);
+//	CGContextFillPath(ctx);
 //}

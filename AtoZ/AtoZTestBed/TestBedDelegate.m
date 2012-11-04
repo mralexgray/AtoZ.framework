@@ -110,7 +110,7 @@ const CGFloat dash[2] = {100, 60};
 				}];
 			[iv.image unlockFocus];
 			iv.identifier = [NSS newUniqueIdentifier];
-			[iv associateValue:AZVrect(_targetView.frame) withKey:[iv.identifier UTF8String]];
+//			[iv associateValue:AZVrect(_targetView.frame) withKey:[iv.identifier UTF8String]];
 			return iv;
 	}();
 	return _picol;
@@ -123,10 +123,11 @@ const CGFloat dash[2] = {100, 60};
 - (BLKVIEW*)blockView
 {	return 	_blockView = _blockView ?:
 	[BLKVIEW viewWithFrame:_targetView.frame opaque:NO drawnUsingBlock: ^(BLKVIEW *view, NSR dirtyRect) {
+
 		view.arMASK = NSSIZEABLE;
 		NSRect topBox = AZUpperEdge(view.frame, 100);
 		NSRect botBox = AZRectTrimmedOnTop(view.frame, 100);
-		NSA*paletteArray = [NSColor randomPalette];
+		NSA  *palette = [NSColor randomPalette];
 
 		[view associate:[NSC linenTintedWithColor:paletteArray.randomElement] with:@"blockC"];
 		NSRectFillWithColor( botBox, [view associatedValueForKey:@"blockC"] );

@@ -110,7 +110,8 @@ extern CGFloat randomComponent(void);
 //	were static
 void glossInterpolation(void *info, const CGFloat *input, CGFloat *output);
 double frandom ( double start, double end );
-NSUI normalizedNumberLessThan (id number, NSUInteger max);
+NSUI AZNormalizedNumberLessThan (id number, NSUInteger max);
+NSI AZNormalizedNumberGreaterThan (NSI number, NSI min);
 
 // usage
 // profile("Long Task", ^{ performLongTask() } );
@@ -134,7 +135,7 @@ CGPathRef AZRandomPathInRect(NSR rect);
 NSString * VTPG_DDToStringFromTypeAndValue(const char * typeCode, void * value);
 
 // WARNING: if NO_LOG_MACROS is #define-ed, than THE ARGUMENT WILL NOT BE EVALUATED
-#ifndef NO_LOG_MACROS
+//#ifndef NO_LOG_MACROS
 
 
 #define LOG_EXPR(_X_) do{\
@@ -148,15 +149,15 @@ NSString * VTPG_DDToStringFromTypeAndValue(const char * typeCode, void * value);
 	}\
 }while(0)
 
-#define LOG_NS(...) NSLog(__VA_ARGS__)
-#define LOG_FUNCTION()	NSLog(@"%s", __func__)
+//#define LOG_NS(...) NSLog(__VA_ARGS__)
+//#define LOG_FUNCTION()	NSLog(@"%s", __func__)
 
-#else /* NO_LOG_MACROS */
+//#else /* NO_LOG_MACROS */
 
-#define LOG_EXPR(_X_)
+//#define LOG_EXPR(_X_)
 #define LOG_NS(...)
 #define LOG_FUNCTION()
-#endif /* NO_LOG_MACROS */
+//#endif /* NO_LOG_MACROS */
 
 
 

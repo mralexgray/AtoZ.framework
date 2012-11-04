@@ -9,6 +9,7 @@
 #import "AtoZGeometry.h"
 #import "AtoZ.h"
 #import <Quartz/Quartz.h>
+//#import <DrawKit/DKDrawKit.h>
 
 @implementation AtoZGeometry
 @end
@@ -873,7 +874,7 @@ CGFloat quadrantsHorizontalGutter(NSR r)
 
 
 NSR alignRectInRect(NSR innerRect, NSR outerRect, int quadrant){
-    NSPoint offset=rectOffset(innerRect,outerRect,quadrant);
+    NSPoint offset= AZRectOffset(innerRect,outerRect,quadrant);
     return NSOffsetRect(innerRect,offset.x,offset.y);
 }
 
@@ -1667,7 +1668,7 @@ NSBezierPath*		RotatedRect( const NSRect r, const CGFloat radians )
 	// turns the rect into a path, rotated about its centre by <radians>
 	
 	NSBezierPath* path = [NSBezierPath bezierPathWithRect:r];
-	return [path rotatedPath:radians];
+	return path;// rotatedPath:radians];
 }
 
 

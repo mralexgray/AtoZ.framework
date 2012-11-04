@@ -43,7 +43,7 @@
 - (void)drawRect:(NSRect)rect {
 
 	if (glossy) {
-		DrawGlossGradient([[NSGraphicsContext currentContext]graphicsPort],self.backgroundColor, [self bounds]);
+//		DrawGlossGradient([[NSGraphicsContext currentContext]graphicsPort],self.backgroundColor, [self bounds]);
 		return;
 	}
 	else if (gradient) {
