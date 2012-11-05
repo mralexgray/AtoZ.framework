@@ -127,22 +127,22 @@ const CGFloat dash[2] = {100, 60};
 		view.arMASK = NSSIZEABLE;
 		NSRect topBox = AZUpperEdge(view.frame, 100);
 		NSRect botBox = AZRectTrimmedOnTop(view.frame, 100);
-		NSA  *palette = [NSColor randomPalette];
+		AZPalette  *palette = [AZPalette new];
 
-		[view associate:[NSC linenTintedWithColor:paletteArray.randomElement] with:@"blockC"];
+		[view associate:[NSC linenTintedWithColor:[palette nextColor]] with:@"blockC"];
 		NSRectFillWithColor( botBox, [view associatedValueForKey:@"blockC"] );
 		NSRectFillWithColor( topBox, [[view associatedValueForKey:@"blockC"] complement]);
 		NSBP *arrow	= [[NSBezierPath bezierPathWithArrow]
 									 scaleToSize: (NSSZ) { quadrantsVerticalGutter(botBox), NSHeight(botBox) }];
 		[arrow setLineWidth:5];
 //		[arrow setLineDash:dash count:20 phase:40];
-		[arrow drawWithFill:paletteArray.randomElement andStroke:paletteArray.randomElement];
+		[arrow drawWithFill:[palette nextColor] andStroke:[palette nextColor]];
 		[arrow drawPointsAndHandles];
 
 		[[NSArray from:0 to:3] eachWithIndex:^(id obj, NSInteger idx) {
 			NSBP *tri = [NSBezierPath bezierPathWithTriangleInRect:
 			  quadrant( botBox, (QUAD)idx ) orientation:(AMTriangleOrientation)idx];
-			[tri drawWithFill:paletteArray.randomElement andStroke:paletteArray.randomElement];
+			[tri drawWithFill:[palette nextColor] andStroke:[palette nextColor]];
 			[tri drawPointsAndHandles];
 
 		}];

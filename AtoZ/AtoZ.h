@@ -33,7 +33,7 @@
 #import <FunSize/FunSize.h>
 //#import <DrawKit/DKDrawKit.h>
 #import <Zangetsu/Zangetsu.h>
-//#import <SNRHUDKit/SNRHUDKit.h>
+#import <SNRHUDKit/SNRHUDKit.h>
 #import <BlocksKit/BlocksKit.h>
 #import <NanoStore/NanoStore.h>
 #import <CocoaPuffs/CocoaPuffs.h>

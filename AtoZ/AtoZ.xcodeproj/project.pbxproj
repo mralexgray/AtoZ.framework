@@ -415,6 +415,8 @@
 		7BB304781646BB47006CDC56 /* AZPalette.h in Sources */ = {isa = PBXBuildFile; fileRef = 7BB304761646BB47006CDC56 /* AZPalette.h */; };
 		7BB304791646BB47006CDC56 /* AZPalette.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BB304771646BB47006CDC56 /* AZPalette.m */; };
 		7BB3047A1646BCC9006CDC56 /* AZPalette.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BB304761646BB47006CDC56 /* AZPalette.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BB5AFB71646CBEE008D50A5 /* SNRHUDKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B375674163B62B6003D52B7 /* SNRHUDKit.framework */; };
+		7BB5AFB81646CBFF008D50A5 /* SNRHUDKit.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7B375674163B62B6003D52B7 /* SNRHUDKit.framework */; };
 		7BB86F6B1637225C0000C242 /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BB86F6A1637225C0000C242 /* AtoZ.framework */; };
 		7BB86F6D163733B60000C242 /* AZPropellerView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BB0095B16311BB500750FEB /* AZPropellerView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BB86F8716383FF90000C242 /* Rebel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BB86F8216383FCE0000C242 /* Rebel.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -1416,6 +1418,13 @@
 			remoteGlobalIDString = BF2EE49B0F66011D00B8CFFD;
 			remoteInfo = DKUnitTests;
 		};
+		7BB5AFB51646CBDF008D50A5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B37566A163B62B4003D52B7 /* SNRHUDKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 0392857C14CCCBF300D02672;
+			remoteInfo = SNRHUDKit;
+		};
 		7BB86F8116383FCE0000C242 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7BB86F7716383FCD0000C242 /* Rebel.xcodeproj */;
@@ -1712,6 +1721,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				7BB5AFB81646CBFF008D50A5 /* SNRHUDKit.framework in frameworks copy */,
 				7BC2DD2516469AA400E73757 /* BlocksKit.framework in frameworks copy */,
 				7B375681163B63B8003D52B7 /* CocoaPuffs.framework in frameworks copy */,
 				7BB870211638501F0000C242 /* AtoZBezierPath.framework in frameworks copy */,
@@ -3738,6 +3748,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BB5AFB71646CBEE008D50A5 /* SNRHUDKit.framework in Frameworks */,
 				7BC2DD2416469A9500E73757 /* BlocksKit.framework in Frameworks */,
 				7BB87020163850110000C242 /* AtoZBezierPath.framework in Frameworks */,
 				7BB86F8716383FF90000C242 /* Rebel.framework in Frameworks */,
@@ -5860,6 +5871,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				7BB5AFB61646CBDF008D50A5 /* PBXTargetDependency */,
 				7BC2DD2316469A8B00E73757 /* PBXTargetDependency */,
 				7B6629F8161DEA20003D5EE0 /* PBXTargetDependency */,
 				7B37567D163B6363003D52B7 /* PBXTargetDependency */,
@@ -7110,6 +7122,11 @@
 			isa = PBXTargetDependency;
 			target = 7B311950159B6D9E002134C4 /* AtoZ */;
 			targetProxy = 7BA32AA715EACE8F0061B2BC /* PBXContainerItemProxy */;
+		};
+		7BB5AFB61646CBDF008D50A5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SNRHUDKit;
+			targetProxy = 7BB5AFB51646CBDF008D50A5 /* PBXContainerItemProxy */;
 		};
 		7BB86F8616383FDC0000C242 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
