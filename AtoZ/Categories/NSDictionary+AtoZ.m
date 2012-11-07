@@ -795,6 +795,8 @@ static void DynamicDictionarySetter(id self, SEL _cmd, id value)
 {
 	return [self integerForKey:key defaultValue:0];
 }
+
+
 - (id)objectForKey:(NSString *)key defaultObject:(id)defaultObject;
 {
 	id value = self[key];

@@ -7,10 +7,6 @@
 //
 
 #import "TestBedDelegate.h"
-#import <Quartz/Quartz.h>
-#import <QuartzCore/QuartzCore.h>
-#import "ConciseKit.h"
-
 @interface NSObject (getLayer)
 - (CAL*)	getLayer;
 + (NSView*) viewInView:(NSView*)view;
@@ -26,6 +22,8 @@
 	return  [(NSView*)self layer] ?: [(NSView*)self setupHostView];//(CAL*)^{ [me setWantsLayer:YES];  me.layer.anchorPoint = (CGP){.5, .5}; [me.layer setAnchorPointRelative:me.center]; return me.layer; }();
 }
 @end
+
+
 const CGFloat dash[2] = {100, 60};
 
 @interface TestBedDelegate ()
@@ -114,8 +112,6 @@ const CGFloat dash[2] = {100, 60};
 			return iv;
 	}();
 	return _picol;
-
-
 }
 
 
@@ -170,7 +166,7 @@ const CGFloat dash[2] = {100, 60};
 	NSWindowController* awc = [[NSWindowController alloc] initWithWindowNibName:@"TestBed"];
 	[[awc window] makeKeyAndOrderFront:nil];
     [[NSApplication sharedApplication] arrangeInFront:nil];
-
+}
 //	NSWindowController* awc = [[NSWindowController alloc] initWithWindowNibName:@"TestBed" owner:self];
 //	[awc showWindow:self];
 //    [[awc window] makeKeyAndOrderFront:nil];
@@ -183,7 +179,6 @@ const CGFloat dash[2] = {100, 60};
 //		{
 //		NSLog(@"Warning! Could not load myNib file.\n");
 //		}
-}
 
 
 - (AZMedallionView*)medallion {
@@ -197,24 +192,18 @@ const CGFloat dash[2] = {100, 60};
 {
 	NSV *newView;
 	NSS* label = [sender segmentLabel];
-	newView = [label isEqualToString:@"prism"] ? [[AZPrismView alloc]initWithFrame:_targetView.frame] :
-				[label isEqualToString:@"azGrid"] ? [[AZGrid alloc]initWithCapacity:23] :
-	[self respondsToSelector:NSSelectorFromString(label)] ? self[[sender segmentLabel]] :nil;
-//		id newV = self[[sender segmentLabel]]; newV[@"hidden"] = @(YES);
-//		if ([_targetView.subviews doesNotContainObject:newV])
-//		[_targetView addSubview:newV];
-//		[self.targetView setAnimations:@{@"subviews":self.transition}];
-	if (newView) {	[[_targetView animator] replaceSubview:_targetView.firstSubview with:newView];
-//			   ? [NASpinSeque animateTo:self[[sender segmentLabel]] inSuperView:_targetView]
-
+	newView =	areSame(label,@"prism" ) ? [[AZPrismView alloc]initWithFrame:_targetView.frame]
+		    :	areSame(label,@"azGrid") ? [[AZGrid alloc]initWithCapacity:23]
+			: 	[self respondsToSelector:NSSelectorFromString(label)] ?	self[[sender segmentLabel]]
+			:	nil;
+	newView ? 	[[_targetView animator] replaceSubview:_targetView.firstSubview with:newView]
+			: 	nil;
 	[[SoundManager sharedManager] prepareToPlayWithSound:[Sound soundNamed:@"unlock"]];
 	[[SoundManager sharedInstance] playSound:[Sound soundNamed:@"unlock"]];
-
-	}
-
 }
+//		id newV = self[[sender segmentLabel]]; newV[@"hidden"] = @(YES); if ([_targetView.subviews doesNotContainObject:newV]) [_targetView addSubview:newV]; [self.targetView setAnimations:@{@"subviews":self.transition}];
+//			   ? [NASpinSeque animateTo:self[[sender segmentLabel]] inSuperView:_targetView]
 //								[self.targetView  swapSubs:self[[sender segmentLabel]]] : nil;	}
-
 //- (void)setDebugLayers:(BNRBlockView*)debugLayers {
 
 
@@ -232,9 +221,8 @@ const CGFloat dash[2] = {100, 60};
 		dL.backgroundColor = cgGREEN;
 		NSView *v = [[NSView alloc]initWithFrame:_targetView.frame];
 		v.arMASK = NSSIZEABLE;
-		v.layer = dL;//[CALayer layer];
-		v.wantsLayer = YES;
-//		[v.layer addSublayer:dL];
+		CAL* lay = [v setupHostView];
+		[lay addSublayer:dL];
 		[[[AZFolder samplerWithCount:4]valueForKeyPath:@"image"] eachWithIndex:^(id obj, NSInteger idx) {
 			NSR framer = quadrant(_targetView.bounds, idx+1);
 			CAL *new = [CALayer layer];
@@ -242,17 +230,18 @@ const CGFloat dash[2] = {100, 60};
 			new.backgroundColor = cgRANDOMCOLOR;//NewLayerWithFrame(framer);
 			new.contents = obj;
 			new.transform = [new makeTransformForAngle:.45];
-//			applyPerspective(new);
-			//			NSUI ii = (NSUI)idx;
-//			NSRect r = quadrant(_targetView.frame, 1);
-//			[new addSublayer:ReturnImageLayer(dL, obj, 1)];
-			[v.layer addSublayer:new];
-//			[v.layer addSublayer:[(NSIMG*)obj imageLayerForRect:quadrant(_targetView.frame, ii+1)]];
+			[lay addSublayer:new];
 		}];
 		return v;
 	}();
-
 }
+//			applyPerspective(new);
+//			NSUI ii = (NSUI)idx;
+//			NSRect r = quadrant(_targetView.frame, 1);
+//			[new addSublayer:ReturnImageLayer(dL, obj, 1)];
+
+//			[v.layer addSublayer:[(NSIMG*)obj imageLayerForRect:quadrant(_targetView.frame, ii+1)]];
+
 ////	AZLOG(_debugLayers);
 //	__block __typeof(self) blockSelf = self;
 //	_debugLayers = [AZBlockView viewWithFrame:_window.frame opaque:NO drawnUsingBlock: ^(AZBlockView *view, NSRect dirtyRect) {
@@ -271,6 +260,7 @@ const CGFloat dash[2] = {100, 60};
 //}
 
 @end
+
 #define SPINS              3.0f
 #define DURATION           2.5f
 #define TRANSITION_OUT_KEY @"transition out"
@@ -364,3 +354,4 @@ const CGFloat dash[2] = {100, 60};
 
 }
 @end
+

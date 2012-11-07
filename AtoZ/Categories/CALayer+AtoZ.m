@@ -847,16 +847,19 @@ static char ORIENT_IDENTIFIER;
 	return transform;
 }
 
-- (id)objectForKeyedSubscript:(NSString *)key
+- (id) objectForKeyedSubscript: (NSS*)key
 {
-	return [self valueForKey:key];
+	return [self valueForKey:key] ?: nil;
 }
 
 - (void)setObject:(id)object forKeyedSubscript:(NSString *)key
 {
-	if (isEmpty(object)) [self setValue:@"" forKey:key];
-	else [self setValue:object forKey:key];
+	if ( [self canSetValueForKey:key]) {
+		if (isEmpty(object)) [self setValue:@"" forKey:key];
+		else  [self setValue:object forKey:key];
+	}
 }
+
 -(void)rotateAroundYAxis:(CGFloat)radians
 {
 	[self vFk:@"animating"] ? ^{ return; }() : ^{ [self setValue:@(YES) forKey:@"animating"];

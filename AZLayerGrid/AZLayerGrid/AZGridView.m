@@ -82,7 +82,7 @@
 							: areSame(objClass, @"file") ? [[(AZFile*)obj image]scaledToMax:512]
 							: [[NSImage systemIcons]randomElement];
 		fileLayer.bounds = AZRectFromDim(100);
-		fileLayer.position = randomPointInRect(self.frame);
+		fileLayer.position = AZRandomPointInRect(self.frame);
 		AZLOG(fileLayer.debugDescription);
 		return fileLayer;
 	}];

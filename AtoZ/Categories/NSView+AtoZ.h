@@ -28,6 +28,9 @@ extern NSView* AZResizeWindowAndContent(NSWindow* window, float dXLeft, float dX
 
 @interface NSView (AtoZ)
 
+- (BOOL)isSubviewOfView:(NSView*) theView;
+- (BOOL)containsSubView:(NSView*) subview;
+
 - (NSP)  getCenterOnFrame;
 - (NSP)  getCenter;
 - (void) setCenter: (NSP)center;

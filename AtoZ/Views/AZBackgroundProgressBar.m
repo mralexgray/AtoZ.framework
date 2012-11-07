@@ -11,10 +11,15 @@ const CGFloat pixelsPerSecond = 60.0;
 const CGFloat framesPerSecond = 30.0;
 
 @implementation AZBackgroundProgressBar
+@synthesize shouldStop, phase, lastUpdate, onDark;
 
 - (id)initWithFrame:(NSRect)frameRect
 {
 	if (self = [super initWithFrame:frameRect]) {
+		NSIMG* i = [[self superview] snapshot];
+		[i openInPreview];
+		NSC* back = [i quantize][0];
+		onDark = [back isDark];
 		shouldStop = NO;
 		[self startAnimation:nil];
 	}	return self;
@@ -41,7 +46,7 @@ const CGFloat framesPerSecond = 30.0;
 		[bp lineToPoint:NSMakePoint( lastX+0.5, rect.size.height+0.5 - h)];
 		lastX += bandWidth * 2 - 1;
 	}
-	[[NSColor colorWithCalibratedWhite:0.0 alpha:0.06] set];
+	[[NSColor colorWithCalibratedWhite:0.0 alpha:onDark ? .5 :0.06] set];
 	[bp fill];
 }
 

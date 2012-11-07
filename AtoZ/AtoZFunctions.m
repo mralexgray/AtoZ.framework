@@ -94,6 +94,9 @@ BOOL areSame(id a, id b) {	return a == b
 		?: NO;
 }
 
+BOOL areSameThenDo(id a, id b, VoidBlock doBlock) {	 BOOL same = areSame(a,b); if (same) doBlock(); return same; }
+
+
 BOOL SameString(const char *a, const char *b) {
 	return [$(@"%s", a) isEqualToString:$(@"%s", b)];
 }
@@ -117,10 +120,16 @@ int (^triple)(int) = ^(int number) {
     return number * 3;
 };
 
-id LogAndReturn(id toLog) {
+id LogStackAndReturn(id toLog) {
 	[NSThread stackTraceAtIndex:2];
 //	AZLOG([NSThread  callStackSymbols]);
 
+	AZLOG($(@"Log+Return: %@", toLog));
+	return toLog;
+};
+
+
+id LogAndReturn(id toLog) {
 	AZLOG($(@"Log+Return: %@", toLog));
 	return toLog;
 };

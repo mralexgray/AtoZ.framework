@@ -77,6 +77,31 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 
 @implementation NSView (AtoZ)
 
+
+- (BOOL)isSubviewOfView:(NSView*) theView
+{
+    __block BOOL isSubView = NO;
+    [[theView subviews] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        if ([self isEqualTo:(NSView*) obj]) {
+            isSubView = YES;
+            *stop = YES;
+        }
+    }];
+    return isSubView;
+}
+- (BOOL)containsSubView:(NSView*) subview
+{
+    __block BOOL containsSubView = NO;
+    [[self subviews] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        if ([subview isEqualTo:(NSView*) obj]) {
+            containsSubView = YES;
+            *stop = YES;
+        }
+    }];
+    return containsSubView;
+}
+
+
 - (void)setCenter:(NSPoint)center
 {
     [self setFrameOrigin:NSMakePoint(floorf(center.x - (NSWidth([self bounds])) / 2),

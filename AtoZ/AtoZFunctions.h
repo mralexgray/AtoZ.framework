@@ -67,6 +67,8 @@ NSString * AZToStringFromTypeAndValue(const char * typeCode, void * value);
 
 BOOL areSame(id a, id b);
 
+BOOL areSameThenDo(id a, id b, VoidBlock doBlock);
+
 //static inline
 //BOOL isEmpty(id thing);
 int (^triple)(int);

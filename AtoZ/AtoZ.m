@@ -225,7 +225,7 @@ static NSA* cachedI = nil;
 + (NSArray *)fonts {
 	static NSArray *internalFonts = nil;
 	__block NSError *err;
-	return internalFonts = internalFonts ?: [[[[AZFILEMANAGER pathsOfContentsOfDirectory:[[AZFWORKBUNDLE resourcePath] stringByAppendingPathComponent:@"/Fonts"]]URLsForPaths] filter: ^BOOL(NSURL* obj) {
+	return internalFonts = internalFonts ?: LogAndReturn( [[[[AZFILEMANAGER pathsOfContentsOfDirectory:[[AZFWORKBUNDLE resourcePath] stringByAppendingPathComponent:@"/Fonts"]]URLsForPaths] filter: ^BOOL(NSURL* obj) {
 		if (obj) {
 			OSStatus status; FSRef fsRef;
 			CFURLGetFSRef((CFURLRef)obj, &fsRef);
@@ -240,9 +240,9 @@ static NSA* cachedI = nil;
 	}] map:^id(NSURL *obj) {
 		//			NSFontManager
 		CFArrayRef fontDescription = CTFontManagerCreateFontDescriptorsFromURL((__bridge CFURLRef)obj);
-		id dict = LogAndReturn( [(NSArray*)CFBridgingRelease(fontDescription) objectAtIndex:0] );
+		id dict = [(NSArray*)CFBridgingRelease(fontDescription) objectAtIndex:0];
 		return [dict objectForKey:@"NSFontNameAttribute"] ?: @"N/A";
-	}];	//		 return [obj.lastPathComponent stringByDeletingPathExtension];
+	}] );	//		 return [obj.lastPathComponent stringByDeletingPathExtension];
 
 }
 #pragma GCC diagnostic warning "-Wdeprecated-declarations"

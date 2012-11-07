@@ -415,8 +415,8 @@
 		7BB304781646BB47006CDC56 /* AZPalette.h in Sources */ = {isa = PBXBuildFile; fileRef = 7BB304761646BB47006CDC56 /* AZPalette.h */; };
 		7BB304791646BB47006CDC56 /* AZPalette.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BB304771646BB47006CDC56 /* AZPalette.m */; };
 		7BB3047A1646BCC9006CDC56 /* AZPalette.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BB304761646BB47006CDC56 /* AZPalette.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7BB5AFB71646CBEE008D50A5 /* SNRHUDKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B375674163B62B6003D52B7 /* SNRHUDKit.framework */; };
-		7BB5AFB81646CBFF008D50A5 /* SNRHUDKit.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7B375674163B62B6003D52B7 /* SNRHUDKit.framework */; };
+		7BB5AFFE16481EB3008D50A5 /* BBMeshView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BB5AFFD16481EB3008D50A5 /* BBMeshView.m */; };
+		7BB5B00016481EF6008D50A5 /* BBMeshView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BB5AFFF16481EC7008D50A5 /* BBMeshView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BB86F6B1637225C0000C242 /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BB86F6A1637225C0000C242 /* AtoZ.framework */; };
 		7BB86F6D163733B60000C242 /* AZPropellerView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BB0095B16311BB500750FEB /* AZPropellerView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BB86F8716383FF90000C242 /* Rebel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BB86F8216383FCE0000C242 /* Rebel.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -1292,20 +1292,6 @@
 			remoteGlobalIDString = 7B311950159B6D9E002134C4;
 			remoteInfo = AtoZ;
 		};
-		7B375673163B62B6003D52B7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7B37566A163B62B4003D52B7 /* SNRHUDKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 0392857D14CCCBF300D02672;
-			remoteInfo = SNRHUDKit;
-		};
-		7B375675163B62B6003D52B7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7B37566A163B62B4003D52B7 /* SNRHUDKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 039285AE14CCD40500D02672;
-			remoteInfo = Catalog;
-		};
 		7B37567C163B6363003D52B7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7BA7D241163945E60073BADC /* CocoaPuffs.xcodeproj */;
@@ -1417,13 +1403,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = BF2EE49B0F66011D00B8CFFD;
 			remoteInfo = DKUnitTests;
-		};
-		7BB5AFB51646CBDF008D50A5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7B37566A163B62B4003D52B7 /* SNRHUDKit.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 0392857C14CCCBF300D02672;
-			remoteInfo = SNRHUDKit;
 		};
 		7BB86F8116383FCE0000C242 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1721,7 +1700,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				7BB5AFB81646CBFF008D50A5 /* SNRHUDKit.framework in frameworks copy */,
 				7BC2DD2516469AA400E73757 /* BlocksKit.framework in frameworks copy */,
 				7B375681163B63B8003D52B7 /* CocoaPuffs.framework in frameworks copy */,
 				7BB870211638501F0000C242 /* AtoZBezierPath.framework in frameworks copy */,
@@ -2538,7 +2516,6 @@
 		7B3422A115A52A61006AC46C /* AZBaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = AZBaseModel.h; sourceTree = "<group>"; };
 		7B3422C815A5EF03006AC46C /* AZDockQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZDockQuery.h; sourceTree = "<group>"; };
 		7B3422C915A5EF03006AC46C /* AZDockQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZDockQuery.m; sourceTree = "<group>"; };
-		7B37566A163B62B4003D52B7 /* SNRHUDKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SNRHUDKit.xcodeproj; path = ../../git/SNRHUDKit/SNRHUDKit.xcodeproj; sourceTree = "<group>"; };
 		7B379C8A15DDBB8A0040A093 /* AZLassoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AZLassoView.m; path = Views/AZLassoView.m; sourceTree = SOURCE_ROOT; };
 		7B379C8C15DDBBB30040A093 /* AZLassoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZLassoView.h; path = Views/AZLassoView.h; sourceTree = SOURCE_ROOT; };
 		7B379CA615DE0B050040A093 /* AZBackground.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZBackground.h; sourceTree = "<group>"; };
@@ -2860,6 +2837,8 @@
 		7BB0095F16311D7700750FEB /* AZPropellerBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AZPropellerBar.png; sourceTree = "<group>"; };
 		7BB304761646BB47006CDC56 /* AZPalette.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = AZPalette.h; sourceTree = "<group>"; };
 		7BB304771646BB47006CDC56 /* AZPalette.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZPalette.m; sourceTree = "<group>"; };
+		7BB5AFFD16481EB3008D50A5 /* BBMeshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBMeshView.m; path = ../../../../../../Users/localadmin/Downloads/BBMeshView.m; sourceTree = "<group>"; };
+		7BB5AFFF16481EC7008D50A5 /* BBMeshView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.objj.h; path = BBMeshView.h; sourceTree = "<group>"; };
 		7BB86F6A1637225C0000C242 /* AtoZ.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AtoZ.framework; path = /Library/Frameworks/AtoZ.framework; sourceTree = "<absolute>"; };
 		7BB86F7716383FCD0000C242 /* Rebel.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Rebel.xcodeproj; path = ../Frameworks/Rebel/Rebel.xcodeproj; sourceTree = "<group>"; };
 		7BB8701116384FF00000C242 /* AtoZBezierPath.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AtoZBezierPath.xcodeproj; path = ../Frameworks/AtoZBezierPath/AtoZBezierPath.xcodeproj; sourceTree = "<group>"; };
@@ -3748,7 +3727,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7BB5AFB71646CBEE008D50A5 /* SNRHUDKit.framework in Frameworks */,
 				7BC2DD2416469A9500E73757 /* BlocksKit.framework in Frameworks */,
 				7BB87020163850110000C242 /* AtoZBezierPath.framework in Frameworks */,
 				7BB86F8716383FF90000C242 /* Rebel.framework in Frameworks */,
@@ -4055,7 +4033,6 @@
 			children = (
 				7BC2DD0B16469A8100E73757 /* BlocksKit.xcodeproj */,
 				7BA35F9D16449FDE00BFEB6B /* DrawKit.xcodeproj */,
-				7B37566A163B62B4003D52B7 /* SNRHUDKit.xcodeproj */,
 				7BE2A4F31611576E003D6B92 /* Linked Frameworks */,
 				7BA7D241163945E60073BADC /* CocoaPuffs.xcodeproj */,
 				7BB870691638A0FA0000C242 /* ConciseKit */,
@@ -4125,15 +4102,6 @@
 				7B31B13715E9441D00802CD5 /* AtoZ Entitlement-Prefix.pch */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		7B37566B163B62B4003D52B7 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				7B375674163B62B6003D52B7 /* SNRHUDKit.framework */,
-				7B375676163B62B6003D52B7 /* Catalog.app */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		7B379CCB15DE566D0040A093 /* SDToolkit */ = {
@@ -4458,6 +4426,8 @@
 		7B6901BB159E0ADB00D0DA47 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				7BB5AFFD16481EB3008D50A5 /* BBMeshView.m */,
+				7BB5AFFF16481EC7008D50A5 /* BBMeshView.h */,
 				7BB0095B16311BB500750FEB /* AZPropellerView.h */,
 				7BB0095A16311BB500750FEB /* AZPropellerView.m */,
 				7B5B2CC5162CA4AF00B454C2 /* AZPrismView.h */,
@@ -5720,6 +5690,7 @@
 				7BEF70261603112800A0300E /* NSBundle+AtoZ.h in Headers */,
 				7B4F01D71609EABF00A79C77 /* NSDictionary+AtoZ.h in Headers */,
 				7B23C36615CE98AF00DD1A9C /* NSLogConsole.h in Headers */,
+				7BB5B00016481EF6008D50A5 /* BBMeshView.h in Headers */,
 				7BE6069515A0E2DD00355236 /* NSString+AtoZ.h in Headers */,
 				7B24E9ED15A176AC00A9D87A /* NSWindow+AtoZ.h in Headers */,
 				7B6901C9159E322300D0DA47 /* AZAXAuthorization.h in Headers */,
@@ -5871,7 +5842,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				7BB5AFB61646CBDF008D50A5 /* PBXTargetDependency */,
 				7BC2DD2316469A8B00E73757 /* PBXTargetDependency */,
 				7B6629F8161DEA20003D5EE0 /* PBXTargetDependency */,
 				7B37567D163B6363003D52B7 /* PBXTargetDependency */,
@@ -6042,10 +6012,6 @@
 					ProjectRef = 7BB86F7716383FCD0000C242 /* Rebel.xcodeproj */;
 				},
 				{
-					ProductGroup = 7B37566B163B62B4003D52B7 /* Products */;
-					ProjectRef = 7B37566A163B62B4003D52B7 /* SNRHUDKit.xcodeproj */;
-				},
-				{
 					ProductGroup = 7B645C9A15F5300E00566160 /* Products */;
 					ProjectRef = 7B61E90515EAA8340053BACF /* XPCKit.xcodeproj */;
 				},
@@ -6102,20 +6068,6 @@
 			fileType = wrapper.cfbundle;
 			path = "PLWeakCompatibility-iOS-Tests.octest";
 			remoteRef = 7B276CDB1616A4320083C29E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7B375674163B62B6003D52B7 /* SNRHUDKit.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = SNRHUDKit.framework;
-			remoteRef = 7B375673163B62B6003D52B7 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7B375676163B62B6003D52B7 /* Catalog.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = Catalog.app;
-			remoteRef = 7B375675163B62B6003D52B7 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		7B5ABAB21608D76500530EA7 /* FunSize.framework */ = {
@@ -6987,6 +6939,7 @@
 				7B741DA3163AD91300B403B2 /* NSObject+Properties.m in Sources */,
 				7BA35FF11645618400BFEB6B /* StarLayer.m in Sources */,
 				7BB304781646BB47006CDC56 /* AZPalette.h in Sources */,
+				7BB5AFFE16481EB3008D50A5 /* BBMeshView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7122,11 +7075,6 @@
 			isa = PBXTargetDependency;
 			target = 7B311950159B6D9E002134C4 /* AtoZ */;
 			targetProxy = 7BA32AA715EACE8F0061B2BC /* PBXContainerItemProxy */;
-		};
-		7BB5AFB61646CBDF008D50A5 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = SNRHUDKit;
-			targetProxy = 7BB5AFB51646CBDF008D50A5 /* PBXContainerItemProxy */;
 		};
 		7BB86F8616383FDC0000C242 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -7383,7 +7331,7 @@
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				INFOPLIST_FILE = "Resources/AtoZ-Info.plist";
 				INSTALL_PATH = "@rpath//Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks @loader_path/Frameworks @executable_path/../ @rpath";
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks @loader_path/Frameworks @executable_path/../ @rpath /Library/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.6.8;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = (
@@ -7459,7 +7407,7 @@
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				INFOPLIST_FILE = "Resources/AtoZ-Info.plist";
 				INSTALL_PATH = "@rpath//Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks @loader_path/Frameworks @executable_path/../ @rpath";
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks @loader_path/Frameworks @executable_path/../ @rpath /Library/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.6.8;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = (
