@@ -73,3 +73,6 @@
 [submodule "Frameworks/DrawKit"]
 	path = Frameworks/DrawKit
 	url = https://github.com/mralexgray/DrawKit.git
+[submodule "Frameworks/AtoZUI"]
+	path = Frameworks/AtoZUI
+	url = https://github.com/mralexgray/AtoZUI.git
