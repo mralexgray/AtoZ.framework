@@ -14,6 +14,7 @@
 {
 	CAL *_host;
 }
-@property (nonatomic, retain) CAL *host;
+
+@property (nonatomic, strong) CAL *host;
 
 @end

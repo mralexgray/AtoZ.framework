@@ -173,6 +173,20 @@ typedef enum {
 - (NSIMG*)scaleToFillSize:(NSSize)targetSize;
 @end
 
+
+@interface NSColor (NSColor_ColorspaceEquality)
+
+- (BOOL)	isEqualToColor:(NSColor*)inColor colorSpace:(NSString*)inColorSpace;
+
+@end
+
+@interface NSColor (NSColor_CSSRGB)
+
++ (NSColor*)	colorWithCSSRGB:(NSString*)rgbString;
+
+@end
+
+
 @interface CIImage (ToNSImage)
 
 - (NSIMG*) toNSImageFromRect:(CGRect)r;

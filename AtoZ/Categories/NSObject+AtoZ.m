@@ -1,12 +1,9 @@
 
-#import <Foundation/Foundation.h>
-#import <objc/runtime.h>
+
 #import "NSObject+AtoZ.h"
-#import "AtoZ.h"
 //#import "Nu.h"
 
 
-#import <objc/runtime.h>
 
 @implementation NSObject (AMAssociatedObjects)
 
@@ -44,8 +41,6 @@
     objc_removeAssociatedObjects(self);
 }
 @end
-#import <dispatch/dispatch.h>
-#import <objc/runtime.h>
 
 @interface AZObserverTrampoline : NSObject
 {
@@ -168,7 +163,6 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary()
     });
 }
 @end
-#import <stdarg.h>
 
 @implementation NSObject (AtoZ)
 
@@ -273,6 +267,7 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary()
     if (defaultBlock && ! match) defaultBlock();
     va_end(list);
 }
+
 
 - (id)objectForKeyedSubscript:(id)key
 {
@@ -504,7 +499,6 @@ static char windowPosition;
 }
 
 
-///////////////////////////////////////////////////////////////////////////////////////////////////
 - (id)performSelector:(SEL)selector withObject:(id)p1 withObject:(id)p2 withObject:(id)p3
 		   withObject:(id)p4 withObject:(id)p5 withObject:(id)p6 withObject:(id)p7 {
 	NSMethodSignature *sig = [self methodSignatureForSelector:selector];
@@ -731,18 +725,6 @@ static const char * getPropertyType(objc_property_t property) {
 	//   ...for Andrew Paul Sardone
 	//- (NSD *)propertiesDictionariate;
 
-- (NSD*)propertiesSans:(NSS*)someKey { return [[self propertiesPlease] filter:^BOOL(id key,id value) { return [key isNotEqualTo:someKey] ? YES : NO; }]; }
-
-- (NSD *)propertiesPlease {	NSMD *props = [NSMD dictionary];	unsigned int outCount, i;
-										objc_property_t *properties = class_copyPropertyList([self class], &outCount);
-	for (i = 0; i < outCount; i++) {	objc_property_t property = properties[i];
-		NSS*propertyName = [[NSString alloc] initWithCString:property_getName(property) encoding:NSUTF8StringEncoding];
-		id propertyValue = [self valueForKey:(NSS*)propertyName];
-		if (propertyValue) props[propertyName] = propertyValue;
-	}
-	free(properties);
-	return props;
-}
 
 - (NSS*)stringFromClass {	return NSStringFromClass( [self class]); }
 

@@ -8,9 +8,9 @@
 - (BOOL)isFlipped;
 @end
 
-@interface NSClipView (InfinityAdditions)
-//- (BOOL)isFlipped;
-@end
+//@interface NSClipView (InfinityAdditions)
+////- (BOOL)isFlipped;
+//@end
 
 @interface AtoZInfinity : NSScrollView // <NSWindowDelegate, AJSiTunesAPIDelegate>
 

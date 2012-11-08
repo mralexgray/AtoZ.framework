@@ -2100,59 +2100,6 @@ static CGFloat hexCharsToFloat(char firstChar, char secondChar)
 }
 
 @end
-@implementation NSColor (NSColor_ColorspaceEquality)
-
-- (BOOL) isEqualToColor:(NSColor*)inColor colorSpace:(NSString*)inColorSpace {
-
-	NSColor *color1 = [self colorUsingColorSpaceName:inColorSpace];
-	NSColor *color2 = [inColor colorUsingColorSpaceName:inColorSpace];
-
-	BOOL equal = color1 && color2 && [color1 isEqual:color2];
-	return equal;
-}
-
-@end
-@implementation NSColor (NSColor_CSSRGB)
-
-+ (NSColor*) colorWithCSSRGB:(NSString*)rgbString {
-	static NSCharacterSet *open = nil; if ( open == nil ) open = [NSCharacterSet characterSetWithCharactersInString:@"("];
-	static NSCharacterSet *close = nil; if ( close == nil ) close = [NSCharacterSet characterSetWithCharactersInString:@")"];
-
-	NSInteger iBegin = [rgbString rangeOfCharacterFromSet:open].location;
-	NSInteger iClose = [rgbString rangeOfCharacterFromSet:close].location;
-
-	if ( iBegin == NSNotFound || iClose == NSNotFound )
-		return nil;
-
-	NSString *rgbSub = [rgbString substringWithRange:NSMakeRange(iBegin+1,iClose-(iBegin+1))];
-	NSArray *components = [rgbSub componentsSeparatedByString:@","];
-
-	if ( [components count] != 3 )
-		return nil;
-
-	NSMutableArray *componentValues = [NSMutableArray arrayWithCapacity:3];
-
-	for ( NSString *aComponent in components ) {
-		NSString *cleanedComponent = [aComponent stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-		if ( [cleanedComponent length] == 0 )
-			continue;
-
-		NSNumber *numericValue = @([cleanedComponent floatValue]);
-		[componentValues addObject:numericValue];
-	}
-
-	if ( [componentValues count] != 3 )
-		return nil;
-
-	NSColor *color = [NSColor colorWithCalibratedRed:[componentValues[0] floatValue]/255.
-											   green:[componentValues[1] floatValue]/255.
-												blue:[componentValues[2] floatValue]/255.
-											   alpha:1.0];
-
-	return color;
-}
-
-@end
 
 
 //  UIColor+Utilities.m

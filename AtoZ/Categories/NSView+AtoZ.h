@@ -28,6 +28,8 @@ extern NSView* AZResizeWindowAndContent(NSWindow* window, float dXLeft, float dX
 
 @interface NSView (AtoZ)
 
+-(void) replaceSubviewWithRandomTransition:(NSView *)oldView with:(NSView *)newView;
+
 - (BOOL)isSubviewOfView:(NSView*) theView;
 - (BOOL)containsSubView:(NSView*) subview;
 

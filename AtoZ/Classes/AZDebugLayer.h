@@ -7,7 +7,15 @@
 //
 
 #import <QuartzCore/QuartzCore.h>
+#import "AtoZ.h"
+
 
 @interface AZDebugLayer : CALayer
-
+@property (nonatomic, retain	) CAShapeLayer *anchorPointLayer, *positionLayer;
 @end
+
+@interface AZDebugLayerView : NSView
+@property (nonatomic, strong) AZDebugLayer *dLayer;
+@property (nonatomic, strong) CAL *root;
+@end
+

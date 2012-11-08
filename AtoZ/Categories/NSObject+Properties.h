@@ -51,6 +51,9 @@
 
 @interface NSObject (AQProperties)
 
+- (NSDictionary*) propertiesPlease;
+- (NSDictionary *)propertiesSans:(NSString*)someKey;
+
 + (BOOL) hasProperties;
 + (BOOL) hasPropertyNamed: (NSString *) name;
 + (BOOL) hasPropertyNamed: (NSString *) name ofType: (const char *) type;	// an @encode() or statictype() type string

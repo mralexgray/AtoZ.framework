@@ -201,6 +201,15 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
  return objc_getAssociatedObject(self, &ANIMATION_IDENTIFER);
 }
 
+-(void) replaceSubviewWithRandomTransition:(NSView *)oldView with:(NSView *)newView
+{
+	BOOL hasLayer = (self.layer == nil);
+	if (!hasLayer) [self setWantsLayer:YES];
+	[self setAnimations:@{@"subviews":[CATransition randomTransition]}];
+	[self replaceSubview:oldView with:newView];
+	if (!hasLayer) [self setWantsLayer:NO];
+}
+
 - (void) swapSubs:(NSView*)view;
 {
 	NSS* firstID = [[self firstSubview]identifier];
@@ -226,39 +235,46 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 //   return [objc_getAssociatedObject(self, &ISANIMATED_KEY) boolValue];
 //}
 
+/*** A "layer backed NSView"
+ 1. can have subviews.  it is a normal view after all
+ 2. it uses a layer as "pixel backing storage", instead of the kind of storage views otherwise use.
+ 3. the backing layer of a NSView cannot have sublayers (there is no support for "layer hierarchies").
+
+ NSView *layerBacked = [NSView new];
+ [layerBacked setWantsLayer:YES];
+
+ A "layer hosting" view
+ 1. cannot have subviews
+ 2. its sole purpose is to "host a layer"
+ 3. the layer it hosts can have sublayers and a very complex layer-tree-hierarchy.
+
+ NSView *layerHosting = [NSView new];
+ CALayer *layer = [CALayer new];
+ [layerHosting setLayer:layer];
+ [layerHosting setWantsLayer:YES];
+*/
+
+
 -(CALayer*) setupHostView {
     CALayer *layer = [CALayer layer]; 
-//    CGColorSpaceRef colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
-//    CGFloat components[4] = {0.0f, 0.0f, 0.0f, 1.0f};
-//    CGColorRef blackColor = CGColorCreate(colorSpace, components);
-	layer.frame = [self bounds];
+//	layer.frame = [self bounds];
 //	layer.position = [self center];
 //	layer.bounds = [self bounds];
-	layer.needsDisplayOnBoundsChange = YES;
-	layer.backgroundColor = cgCLEARCOLOR;
-	layer.autoresizingMask = kCALayerWidthSizable | kCALayerHeightSizable;
+//	layer.needsDisplayOnBoundsChange = YES;
+//	layer.backgroundColor = cgRANDOMCOLOR;
+//	layer.autoresizingMask = kCALayerWidthSizable | kCALayerHeightSizable;
 	[self setLayer:layer];
     [self setWantsLayer:YES];
-	NSLog(@"setup hosting layer:%@", layer.debugDescription);
+	NSLog(@"setup hosting layer:%@ in view: %@.  do not addsubviews to this view.  go crazy with layers.", layer.debugDescription, self);
 	return layer;
-//    CGColorRelease(blackColor);
-//    CGColorSpaceRelease(colorSpace);
 }
 - (NSView *)firstSubview
 {
-	if ([self.subviews count] == 0) {
-		return nil;
-	}
-	
-	return (NSView *)(self.subviews)[0];
+	return [self.subviews count] == 0 ? nil: self.subviews[0];
 }
 
 - (NSView *)lastSubview {
-	if (self.subviews.count == 0) {
-		return nil;
-	}
-	
-	return (NSView *)(self.subviews)[self.subviews.count - 1];
+	return self.subviews.count == 0 ? nil : [self.subviews lastObject];
 }
 
 - (void)setLastSubview:(NSView *)view {

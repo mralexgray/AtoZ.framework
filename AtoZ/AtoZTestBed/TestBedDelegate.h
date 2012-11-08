@@ -25,6 +25,7 @@
 @property (ASS) IBOutlet NSSegmentedControl *segments;
 @property (ASS) IBOutlet NSView 			*targetView;
 
+@property (STRNG, NATOM) AtoZGridViewAuto	*autoGrid;
 @property (STRNG, NATOM) AZHostView			*hostView;
 @property (STRNG, NATOM) AZGrid				*azGrid;
 @property (STRNG, NATOM) NASpinSeque 		*seque;
@@ -33,7 +34,7 @@
 
 @property (STRNG, NATOM) AZMedallionView *medallion;
 @property (STRNG, NATOM) BLKVIEW	   	 	*blockView;
-@property (STRNG, NATOM) NSV		 			*debugLayers;
+@property (STRNG, NATOM) AZDebugLayerView  	*debugLayers;
 @property (STRNG, NATOM) NSIV	 			*badges,
 											*imageNamed,
 											*picol;

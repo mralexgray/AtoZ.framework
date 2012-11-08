@@ -12,11 +12,11 @@
 @implementation InfiniteDocumentView
 @end
 
-@implementation NSClipView (InfinityAdditions)
-- (BOOL)isFlipped {
-	return ([[self documentView] isKindOfClass:[InfiniteDocumentView class]] ? YES : NO);
-}
-@end
+//@implementation NSClipView (InfinityAdditions)
+//- (BOOL)isFlipped {
+//	return ([[self documentView] isKindOfClass:[InfiniteDocumentView class]] ? YES : NO);
+//}
+//@end
 @implementation InfiniteImageView
 - (BOOL)isFlipped {
 	return YES;

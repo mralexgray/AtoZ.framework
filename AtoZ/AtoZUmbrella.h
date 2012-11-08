@@ -258,6 +258,10 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define  AZVsize(s) [NSValue valueWithSize:          s]
 #define   AZV3d(t) [NSValue valueWithCATransform3D: t]
 
+#define kContentTitleKey @"itemTitle"
+#define kContentImageKey @"itemImage"
+#define kItemSizeSliderPositionKey @"ItemSizeSliderPosition"
+
 
 #define CATransform3DPerspective(t, x, y) (CATransform3DConcat(t, CATransform3DMake(1, 0, 0, x, 0, 1, 0, y, 0, 0, 1, 0, 0, 0, 0, 1)))
 #define CATransform3DMakePerspective(x, y) (CATransform3DPerspective(CATransform3DIdentity, x, y))

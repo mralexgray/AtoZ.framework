@@ -29,18 +29,19 @@
 //#import <RMKit/RMKit.h>
 
 #import <Rebel/Rebel.h>
-#import <XPCKit/XPCKit.h>
+//#import <XPCKit/XPCKit.h>
 #import <FunSize/FunSize.h>
 //#import <DrawKit/DKDrawKit.h>
-#import <Zangetsu/Zangetsu.h>
+//#import <Zangetsu/Zangetsu.h>
 //#import <SNRHUDKit/SNRHUDKit.h>
 #import <BlocksKit/BlocksKit.h>
-#import <NanoStore/NanoStore.h>
+//#import <NanoStore/NanoStore.h>
 #import <CocoaPuffs/CocoaPuffs.h>
 #import <AtoZBezierPath/AtoZBezierPath.h>
+#import <AtoZUI/AtoZUI.h>
+
 
 #import "F.h"
-
 #import "ConciseKit.h"
 #import "BaseModel.h"
 #import	"AtoZUmbrella.h"
@@ -74,14 +75,11 @@
 
 #import "AZTalker.h"
 
-#import "AtoZFunctions.h"
-//#import "AZGeometry.h"
+
 #import "SynthesizeSingleton.h"
 #import "iCarousel.h"
 //#import "azCarousel.h"
 
-#import "ConciseKit.h"
-#import "BaseModel.h"
 #import "CTGradient.h"
 #import "AZApplePrivate.h"
 #import "RuntimeReporter.h"
@@ -91,10 +89,6 @@
 
 #import "AZPalette.h"
 
-#import	"AtoZUmbrella.h"
-#import "AtoZGeometry.h"
-//#import "AZGeometry.h"
-#import "AtoZFunctions.h"
 //	#import "AZObject.h"
 //	#import "AZFile.h"
 //	#import "AtoZModels.h"
@@ -218,7 +212,7 @@
 // COREDATA
 #import "AZImageToDataTransformer.h"
 
-static NSEventMask AZMouseActive = (NSMouseMovedMask | NSMouseExitedMask |NSMouseEnteredMask);
+//static NSEventMask AZMouseActive = (NSMouseMovedMask | NSMouseExitedMask |NSMouseEnteredMask);
 //static NSEventMask AZMouseButton = NS | NSMouseExitedMask |NSMouseEnteredMask;
 
 CGFloat ScreenWidess();

@@ -40,22 +40,35 @@ const CGFloat dash[2] = {100, 60};
 	[AtoZ sharedInstance];
 //	[self loadSecondNib:nil];
 	[self.segments 	 setAction:@selector(setView:) withTarget:self];
-	[_targetView setupHostView];
-//	CATRANNY *transition = [[CATRANNY alloc]initWithProperties:@{@"type":kCATransitionPush, @"subtype":kCATransitionFromLeft}];
-
-	CATransition *transition = [CATransition animation];
-	[transition setType:	kCATransitionMoveIn];
-	[transition setSubtype:	kCATransitionFromLeft];
-	// Specify an explicit duration for the transition.
-    [transition setDuration:1.0];
-    // Associate the CATransition we've just built with the "subviews" key for this SlideshowView instance, so that when we swap ImageView instances in our -transitionToImage: method below (via -replaceSubview:with:).
-    [_targetView setAnimations:[NSDictionary dictionaryWithObject:transition forKey:@"subviews"]];
-
+//	[_targetView setWantsLayer:YES];
+//	[_targetView.layer setMasksToBounds:YES];
+	//	CATRANNY *transition = [[CATRANNY alloc]initWithProperties:@{@"type":kCATransitionPush, @"subtype":kCATransitionFromLeft}];
+	
 	[self.targetView 	swapSubs:self.debugLayers];
 	[self addObserverForKeyPath:@"self.targetView.subviews" task:^(id obj, NSDictionary *change) {
 		AZLOG(@"subviews changed");
 	}];
 }
+
+- (void) setView:(id)sender
+{
+	NSV *newView;
+	NSS* label = [sender segmentLabel];
+
+	newView =	areSame(label, @"prism" ) ? [[AZPrismView alloc]initWithFrame:_targetView.frame]
+			:	areSame(label, @"azGrid") ? [[AZGrid alloc]initWithCapacity:23]
+	: 	[self respondsToSelector:NSSelectorFromString(label)] ?	self[[sender segmentLabel]]
+	:	nil;
+	[_targetView setAnimations:@{@"subviews":[CATransition randomTransition]}];
+	if (newView) {
+	 	NSView* removal = _targetView.firstSubview;
+		[[_targetView animator] replaceSubview:removal with:newView];
+		[removal removeFromSuperview];
+		[[SoundManager sharedManager] prepareToPlayWithSound:[Sound soundNamed:@"unlock"]];
+		[[SoundManager sharedInstance] playSound:[Sound soundNamed:@"unlock"]];
+	}
+}
+
 
 -(NSImageView*) baseImageView {
 	NSImageView *v = [[NSImageView alloc]initWithFrame:_targetView.frame];
@@ -115,6 +128,11 @@ const CGFloat dash[2] = {100, 60};
 }
 
 
+
+- (AtoZGridViewAuto*) autoGrid
+{
+	return _autoGrid = _autoGrid ?: [[AtoZGridViewAuto alloc]initWithArray:[NSIMG systemIcons]];// inView:_targetView];
+}
 
 - (BLKVIEW*)blockView
 {	return 	_blockView = _blockView ?:
@@ -188,19 +206,6 @@ const CGFloat dash[2] = {100, 60};
 		return n;  }();
 }
 
-- (void) setView:(id)sender
-{
-	NSV *newView;
-	NSS* label = [sender segmentLabel];
-	newView =	areSame(label,@"prism" ) ? [[AZPrismView alloc]initWithFrame:_targetView.frame]
-		    :	areSame(label,@"azGrid") ? [[AZGrid alloc]initWithCapacity:23]
-			: 	[self respondsToSelector:NSSelectorFromString(label)] ?	self[[sender segmentLabel]]
-			:	nil;
-	newView ? 	[[_targetView animator] replaceSubview:_targetView.firstSubview with:newView]
-			: 	nil;
-	[[SoundManager sharedManager] prepareToPlayWithSound:[Sound soundNamed:@"unlock"]];
-	[[SoundManager sharedInstance] playSound:[Sound soundNamed:@"unlock"]];
-}
 //		id newV = self[[sender segmentLabel]]; newV[@"hidden"] = @(YES); if ([_targetView.subviews doesNotContainObject:newV]) [_targetView addSubview:newV]; [self.targetView setAnimations:@{@"subviews":self.transition}];
 //			   ? [NASpinSeque animateTo:self[[sender segmentLabel]] inSuperView:_targetView]
 //								[self.targetView  swapSubs:self[[sender segmentLabel]]] : nil;	}
@@ -215,9 +220,15 @@ const CGFloat dash[2] = {100, 60};
 	}();
 }
 
--(NSView*)debugLayers {
-	return 	_debugLayers = _debugLayers ?: (NSView*)^{
-		AZDebugLayer *dL = [AZDebugLayer layer];
+-(AZDebugLayerView*)debugLayers {
+	return 	_debugLayers = _debugLayers ?: (AZDebugLayerView*)^{
+
+
+		AZDebugLayerView *dL = [[AZDebugLayerView alloc]initWithFrame:_targetView.frame];
+		dL.arMASK = NSSIZEABLE;
+		return dL;
+	}();
+/*
 		dL.backgroundColor = cgGREEN;
 		NSView *v = [[NSView alloc]initWithFrame:_targetView.frame];
 		v.arMASK = NSSIZEABLE;
@@ -234,6 +245,7 @@ const CGFloat dash[2] = {100, 60};
 		}];
 		return v;
 	}();
+	*/
 }
 //			applyPerspective(new);
 //			NSUI ii = (NSUI)idx;

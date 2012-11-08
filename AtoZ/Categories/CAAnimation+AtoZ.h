@@ -68,6 +68,7 @@ extern void disableCA();
 
 @interface CATransition (AtoZ)
 
++ (CATransition*) randomTransition;
 + (NSA*)transitionsFor:(id)targetView;
 
 @end

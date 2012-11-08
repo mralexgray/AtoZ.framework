@@ -12,8 +12,20 @@
 #import "AtoZUmbrella.h"
 #import <objc/runtime.h>
 
+
 @implementation CATransition (AtoZ)
 
++ (CATransition*) randomTransition
+{
+	static NSArray *AZTransitionTypes = nil;
+	static NSArray *AZTransitionSubtypes = nil;
+	AZTransitionTypes = AZTransitionTypes ?: @[ kCATransitionFade, kCATransitionMoveIn, kCATransitionPush, kCATransitionReveal];
+	AZTransitionSubtypes = AZTransitionSubtypes ?: @[kCATransitionFromRight, kCATransitionFromLeft, kCATransitionFromTop, kCATransitionFromBottom];
+	CATransition *t = [CATransition animation];
+	t.type  = [AZTransitionTypes randomElement];
+	t.subtype = [AZTransitionSubtypes randomElement];
+	return t;
+}
 
 + (NSA*)transitionsFor:(id)targetView
 {

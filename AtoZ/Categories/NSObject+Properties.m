@@ -42,6 +42,21 @@
 
 @implementation NSObject (AQProperties)
 
+
+- (NSD*)propertiesSans:(NSS*)someKey { return [[self propertiesPlease] filter:^BOOL(id key,id value) { return [key isNotEqualTo:someKey] ? YES : NO; }]; }
+
+- (NSD *)propertiesPlease {	NSMD *props = [NSMD dictionary];	unsigned int outCount, i;
+	objc_property_t *properties = class_copyPropertyList([self class], &outCount);
+	for (i = 0; i < outCount; i++) {	objc_property_t property = properties[i];
+		NSS*propertyName = [[NSString alloc] initWithCString:property_getName(property) encoding:NSUTF8StringEncoding];
+		id propertyValue = [self valueForKey:(NSS*)propertyName];
+		if (propertyValue) props[propertyName] = propertyValue;
+	}
+	free(properties);
+	return props;
+}
+
+
 + (BOOL) hasProperties
 {
 	unsigned int count = 0;

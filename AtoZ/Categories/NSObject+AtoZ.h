@@ -5,9 +5,10 @@
 //  Created by Alex Gray on 7/1/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 #import <Foundation/Foundation.h>
-
-#import "AtoZ.h"
 #import <objc/runtime.h>
+#import <dispatch/dispatch.h>
+#import <stdarg.h>
+#import "AtoZ.h"
 
 
 //Here’s how you’d store a value with a strong reference:
@@ -153,8 +154,7 @@ BOOL respondsToString(id obj,NSS* string);
 - (IBAction)performActionFromSegmentLabel:(id)sender;
 //- (BOOL) respondsToSelector:	(SEL) aSelector;
 
-- (NSDictionary*) propertiesPlease;
-- (NSDictionary *)propertiesSans:(NSString*)someKey;
+
 
 + (NSDictionary*) classPropsFor:	(Class) klass;
 //- (NSArray*) methodDumpForClass:	(NSString*) Class;

@@ -12,7 +12,7 @@
 @synthesize hue=_hue;
 
 -(void)didChangeValueForKey:(NSString *)key {
-	NSLog(@"Object chaged:%@   val:%@",key, self[key]);
+//	NSLog(@"Object chaged:%@   val:%@",key, self[key]);
 	[key isEqualToString:@"path"] ? ^{}()
 								  : NSLog(@"no action taken.");
 }
