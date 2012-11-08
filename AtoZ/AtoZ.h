@@ -38,7 +38,8 @@
 //#import <NanoStore/NanoStore.h>
 #import <CocoaPuffs/CocoaPuffs.h>
 #import <AtoZBezierPath/AtoZBezierPath.h>
-#import <AtoZUI/AtoZUI.h>
+//#import <AtoZUI/AtoZUI.h>
+#import <AtoZAppKit/BGHUDAppKit.h>
 
 
 #import "F.h"
@@ -105,6 +106,9 @@
 /*  xcode shortcuts
   @property (nonatomic, assign) <\#type\#> <\#name\#>;
 */
+#import "AtoZGridView.h"
+#import "AtoZGridViewProtocols.h"
+#import "AtoZColorWell.h"
 
 #import "AZCalculatorController.h"
 

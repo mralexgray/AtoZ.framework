@@ -28,6 +28,7 @@ NSUInteger gcd(NSInteger m, NSUInteger n) {
 
 //@synthesize width,height,rows,columns, aspectRatio, screen, remainder;
 
+
 +(instancetype) withRows:(NSUInteger)rows columns:(NSUInteger)columns remainder:(NSInteger)rem forRect:(NSRect)screen {
 	Candidate *u = [[self class] instance];
 	u.remainder = rem;
@@ -62,7 +63,6 @@ NSUInteger gcd(NSInteger m, NSUInteger n) {
 @property (RDWRT)  CGFloat 	width;
 @property (RDWRT)  CGFloat		height;
 @property (NATOM, RDWRT) NSSize		size;
-@property (NATOM, RDWRT) NSRect		outerFrame;
 
 @property  (retain, nonatomic) NSMutableArray *candidates;
 @end
@@ -92,6 +92,16 @@ NSUInteger gcd(NSInteger m, NSUInteger n) {
 + (AZSizer*) forQuantity:(NSUInteger)aNumber inRect:(NSRect)aFrame {
 	return [[AZSizer alloc]initWithQuantity:aNumber inRect:aFrame];
 
+}
+
++ (AZSizer*) forObjects:  (NSA*)objects  withFrame:(NSR)aFrame arranged:(AZOrient)arr
+{
+	AZSizer *sassy = arr == AZOrientGrid ? [[self class] forQuantity:objects.count inRect:aFrame] :
+					 arr == AZOrientPerimeter ? [[self class] forQuantity:objects.count aroundRect:aFrame] : nil;
+	if (!sassy) return nil;
+	sassy.objects = objects;
+	sassy.orient = arr;
+	return sassy;
 }
 
 - (id) initWithQuantity:(NSUInteger)aNumber inRect:(NSRect)aFrame {
@@ -164,11 +174,19 @@ NSUInteger gcd(NSInteger m, NSUInteger n) {
 											    : 	$(@"%0.1f : 1", (float)(_size.width/_size.height));
 }
 
+//- (void) updateFrame:(NSRect)rect
+//{
+//	AZSizer *s = [AZSizer forQuantity:self.quantity inRect:rect];
+//	self.positions = s.positions.copy;
+//	[s.rects eachWithIndex:^(id obj, NSInteger idx) {
+//		[self setValue:obj forKey rects[idx] rectValue];
+//	}]
+//}
+
 - (NSArray*) rects {
-	self.positions = [NSMA array];
-	NSLog(@"Quant: %ld.	\nCap: %ld. 	\nRem:%ld  		\nAspect:%@. 	    \nRows: %ld.   \nCols:%ld",
-			_quantity, 	  self.capacity, self.remainder,  self.aspectRatio , _rows, 		_columns );
+	if (!_positions) self.positions = [NSMA array];
 	return _rects = _rects ?: ^{
+//		NSLog(@"Quant: %ld.	Cap: %ld. Rem:%ld Aspect:%@. Rows: %ld.  Cols:%ld", _quantity, self.capacity, self.remainder, self.aspectRatio , _rows, _columns );
 		return _orient == AZOrientGrid ? ^{
 			NSUInteger Q = 0;
 			NSMutableArray *pRects = [NSMutableArray array];
@@ -178,26 +196,25 @@ NSUInteger gcd(NSInteger m, NSUInteger n) {
 
 						[pRects addRect:nanRectCheck((NSRect) { (c * _width), (r *_height), _width, _height })];  Q++;
 			}	}	}
-
 			return pRects;
 		}() : _orient == AZOrientPerimeter ? ^{ return [NSArray arrayWithArrays:@[
-		[[NSArray from:1 to:_columns]nmap:^id(id obj, NSUInteger index) {
-			NSR block = AZRectFromSize(_size);
-			return  AZVrect(AZRectExceptOriginX( block, (index * _width)));
-		}],
-		[[NSArray from:1 to:_rows]nmap:^id(id obj, NSUInteger index) {
-			NSR block = AZRectFromSize(_size);
-			block.origin.x = NSWidth(_outerFrame) - _width;
-			return  AZVrect(AZRectExceptOriginY( block, (index * _height)));
-		}],
-		[[NSArray from:1 to:_columns]nmap:^id(id obj, NSUInteger index) {
-			NSR block = AZRectFromSize(_size);
-			block.origin.y = NSHeight(_outerFrame) - _height;
-			return  AZVrect(AZRectExceptOriginX( block, (NSWidth(_outerFrame) - ((index +1) * _width))));
-		}],
-		[[NSArray from:1 to:_rows] nmap:^id(id obj, NSUInteger index) {
-			NSR block = AZRectFromSize(self.size);
-			return  AZVrect(AZRectExceptOriginY( block, (NSHeight(_outerFrame) - ((index +1) * _height))));
+			[[NSArray from:1 to:_columns]nmap:^id(id obj, NSUInteger index) {
+				NSR block = AZRectFromSize(_size);
+				return  AZVrect(AZRectExceptOriginX( block, (index * _width)));
+			}],
+			[[NSArray from:1 to:_rows]nmap:^id(id obj, NSUInteger index) {
+				NSR block = AZRectFromSize(_size);
+				block.origin.x = NSWidth(_outerFrame) - _width;
+				return  AZVrect(AZRectExceptOriginY( block, (index * _height)));
+			}],
+			[[NSArray from:1 to:_columns]nmap:^id(id obj, NSUInteger index) {
+				NSR block = AZRectFromSize(_size);
+				block.origin.y = NSHeight(_outerFrame) - _height;
+				return  AZVrect(AZRectExceptOriginX( block, (NSWidth(_outerFrame) - ((index +1) * _width))));
+			}],
+			[[NSArray from:1 to:_rows] nmap:^id(id obj, NSUInteger index) {
+				NSR block = AZRectFromSize(self.size);
+				return  AZVrect(AZRectExceptOriginY( block, (NSHeight(_outerFrame) - ((index +1) * _height))));
 
 		}]]]; }() :nil;
 	}();
@@ -217,6 +234,13 @@ NSUInteger gcd(NSInteger m, NSUInteger n) {
 
 - (NSUInteger) capacity {	return _orient == AZOrientPerimeter	? (2 * self.columns) + (2 * self.rows) - 4 
 														 		:	/*_orient == AZOrientGrid */  		self.rows * self.columns;
+}
+
+- (NSValue*) rectForPoint:(NSP) point {
+
+	return [self.rects filterOne:^BOOL(id object) {
+		return NSPointInRect(point, [object rectValue]);
+	}] ?: nil;
 }
 
 - (NSInteger) remainder { return self.capacity - _quantity; }

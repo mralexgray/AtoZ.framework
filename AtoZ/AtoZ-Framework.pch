@@ -56,7 +56,8 @@
 //#import <NanoStore/NanoStore.h>
 #import <CocoaPuffs/CocoaPuffs.h>
 #import <AtoZBezierPath/AtoZBezierPath.h>
-#import <AtoZUI/AtoZUI.h>
+//#import <AtoZUI/AtoZUI.h>
+#import <AtoZAppKit/BGHUDAppKit.h>
 
 #import "ConciseKit.h"
 #import "BaseModel.h"
@@ -65,7 +66,7 @@
 #import "AtoZGeometry.h"
 #import "AtoZFunctions.h"
 
-
+//#import "AZSizer.h"
 
 
 //	#import "AZObject.h"
