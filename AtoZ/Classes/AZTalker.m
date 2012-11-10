@@ -25,7 +25,7 @@
 	self.talker.delegate = self;
 }
 
-+(NSArray*) dicksonisms {
++(NSA*) dicksonisms {
 	static NSA* dicks = nil;
 	return dicks = dicks ? dicks : @[
 

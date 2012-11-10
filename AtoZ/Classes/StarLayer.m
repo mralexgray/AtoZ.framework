@@ -21,8 +21,21 @@
 -(id)initWithRect:(CGRect)rect
 {
 	if (!(self = [super init])) return nil;
-	[self setupLayers:rect];
-	self.delegate = self;
+	_root 			= [CAL layer];
+	_star 			= [CAL layer];
+	_text 			= [CAL layer];
+	_root.delegate 	= self;
+    _root.frame 	= rect;
+    _root.arMASK 	= CASIZEABLE;
+	_root.NDOBC 	= YES;
+	[@[_star, _text] do:^(CAL *obj){
+		obj.frame		= AZMakeRectFromSize(rect.size);
+	 	obj.delegate	= self;
+		[obj setNeedsDisplay];
+    	[_root addSublayer:obj];
+	}];
+	[self toggleSpin:AZOn];
+	[self addSublayer:_root];
 	[self setNeedsDisplay];
     return self;
 }
@@ -64,26 +77,6 @@
 //}
 
 
--(void)setupLayers:(CGRect)rect
-{
-    _root 			= [CAL layer];
-	_star 			= [CAL layer];
-	_text 			= [CAL layer];
-	self.delegate 	= self;
-    _root.frame 	= rect;
-    _root.arMASK 	= CASIZEABLE;
-	_root.NDOBC 	= YES;
-	[@[_star, _text] do:^(CAL *obj){
-		obj.frame		= AZMakeRectFromSize(rect.size);
-	 	obj.delegate	= self;
-		[obj setNeedsDisplay];
-    	[_root addSublayer:obj];
-	}];
-	[self toggleSpin:AZOn];
-	[self addSublayer:_root];
-	[self setNeedsDisplay];
-
-}
 -(void) toggleSpin: (AZState)state
 {
 	if (self.spinState == state) return;

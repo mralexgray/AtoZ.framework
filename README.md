@@ -16,6 +16,18 @@ AZPermineterWithRoundRadius([self frame],self.radius);
 
 }
 
+
+LAYERS FOR DUMDUMS
+
+
+- (void)animationDidStop:(CAAnimation *)theAnimation finished:(BOOL)flag
+
+
+- (id)init { if (!(self = [super init])) return nil; self.delegate = self; [self setNeedsDisplay]; return self; }
+
+
+
+
 # ConciseKit
 
 A set of Objective-C additions and macros that lets you to write code more quickly.

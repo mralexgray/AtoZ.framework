@@ -17,8 +17,6 @@
 			<string>NSMenuItem</string>
 			<string>NSPopUpButton</string>
 			<string>NSPopUpButtonCell</string>
-			<string>NSSegmentedCell</string>
-			<string>NSSegmentedControl</string>
 			<string>NSTextField</string>
 			<string>NSTextFieldCell</string>
 			<string>NSView</string>
@@ -1300,6 +1298,9 @@
 			<object class="NSCustomObject" id="976324537">
 				<string key="NSClassName">TestBedDelegate</string>
 			</object>
+			<object class="NSViewController" id="43444959">
+				<string key="NSNibName">AZGeneralViewController</string>
+			</object>
 			<object class="NSWindowTemplate" id="405224730">
 				<int key="NSWindowStyleMask">15</int>
 				<int key="NSWindowBacking">2</int>
@@ -1314,129 +1315,28 @@
 					<reference key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<array class="NSMutableArray" key="NSSubviews">
-						<object class="NSCustomView" id="880922189">
-							<reference key="NSNextResponder" ref="1064455210"/>
-							<int key="NSvFlags">266</int>
-							<array class="NSMutableArray" key="NSSubviews">
-								<object class="NSSegmentedControl" id="1061104900">
-									<reference key="NSNextResponder" ref="880922189"/>
-									<int key="NSvFlags">266</int>
-									<string key="NSFrame">{{4, 12}, {814, 24}}</string>
-									<reference key="NSSuperview" ref="880922189"/>
-									<reference key="NSWindow"/>
-									<reference key="NSNextKeyView" ref="155232093"/>
-									<string key="NSReuseIdentifierKey">_NS:9</string>
-									<bool key="NSEnabled">YES</bool>
-									<object class="NSSegmentedCell" key="NSCell" id="97480108">
-										<int key="NSCellFlags">67633152</int>
-										<int key="NSCellFlags2">0</int>
-										<object class="NSFont" key="NSSupport">
-											<string key="NSName">LucidaGrande</string>
-											<double key="NSSize">13</double>
-											<int key="NSfFlags">1044</int>
-										</object>
-										<string key="NSCellIdentifier">_NS:9</string>
-										<reference key="NSControlView" ref="1061104900"/>
-										<array class="NSMutableArray" key="NSSegmentImages">
-											<object class="NSSegmentItem">
-												<double key="NSSegmentItemWidth">125</double>
-												<object class="NSCustomResource" key="NSSegmentItemImage">
-													<string key="NSClassName">NSImage</string>
-													<string key="NSResourceName">umbrella</string>
-												</object>
-												<string key="NSSegmentItemLabel">debugLayers</string>
-												<bool key="NSSegmentItemSelected">YES</bool>
-												<int key="NSSegmentItemImageScaling">0</int>
-											</object>
-											<object class="NSSegmentItem">
-												<double key="NSSegmentItemWidth">75</double>
-												<string key="NSSegmentItemLabel">instantApp</string>
-												<int key="NSSegmentItemTag">1</int>
-												<int key="NSSegmentItemImageScaling">0</int>
-											</object>
-											<object class="NSSegmentItem">
-												<double key="NSSegmentItemWidth">103</double>
-												<object class="NSCustomResource" key="NSSegmentItemImage">
-													<string key="NSClassName">NSImage</string>
-													<string key="NSResourceName">Frameworks/AtoZ/Resources/3.pdf</string>
-												</object>
-												<string key="NSSegmentItemLabel">hostView</string>
-												<int key="NSSegmentItemImageScaling">0</int>
-											</object>
-											<object class="NSSegmentItem">
-												<double key="NSSegmentItemWidth">70</double>
-												<string key="NSSegmentItemLabel">blockView</string>
-												<int key="NSSegmentItemImageScaling">0</int>
-											</object>
-											<object class="NSSegmentItem">
-												<double key="NSSegmentItemWidth">86</double>
-												<string key="NSSegmentItemLabel">imageNamed</string>
-												<int key="NSSegmentItemImageScaling">0</int>
-											</object>
-											<object class="NSSegmentItem">
-												<double key="NSSegmentItemWidth">69</double>
-												<string key="NSSegmentItemLabel">medallion</string>
-												<int key="NSSegmentItemImageScaling">0</int>
-											</object>
-											<object class="NSSegmentItem">
-												<double key="NSSegmentItemWidth">55</double>
-												<string key="NSSegmentItemLabel">badges</string>
-												<int key="NSSegmentItemImageScaling">0</int>
-											</object>
-											<object class="NSSegmentItem">
-												<double key="NSSegmentItemWidth">42</double>
-												<string key="NSSegmentItemLabel">picol</string>
-												<int key="NSSegmentItemImageScaling">0</int>
-											</object>
-											<object class="NSSegmentItem">
-												<double key="NSSegmentItemWidth">51</double>
-												<string key="NSSegmentItemLabel">azGrid</string>
-												<int key="NSSegmentItemImageScaling">0</int>
-											</object>
-											<object class="NSSegmentItem">
-												<double key="NSSegmentItemWidth">47</double>
-												<string key="NSSegmentItemLabel">prism</string>
-												<int key="NSSegmentItemImageScaling">0</int>
-											</object>
-											<object class="NSSegmentItem">
-												<string key="NSSegmentItemLabel">autoGrid</string>
-												<int key="NSSegmentItemImageScaling">0</int>
-											</object>
-										</array>
-										<int key="NSSegmentStyle">1</int>
-									</object>
-									<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
-								</object>
-							</array>
-							<string key="NSFrame">{{0, 263}, {880, 53}}</string>
-							<reference key="NSSuperview" ref="1064455210"/>
-							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="1061104900"/>
-							<string key="NSReuseIdentifierKey">_NS:9</string>
-							<string key="NSClassName">AZBackgroundProgressBar</string>
-						</object>
 						<object class="NSPopUpButton" id="1029877624">
 							<reference key="NSNextResponder" ref="1064455210"/>
-							<int key="NSvFlags">256</int>
-							<string key="NSFrame">{{621, 321}, {243, 22}}</string>
+							<int key="NSvFlags">265</int>
+							<string key="NSFrame">{{621, 317}, {243, 30}}</string>
 							<reference key="NSSuperview" ref="1064455210"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="880922189"/>
+							<reference key="NSNextKeyView"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSPopUpButtonCell" key="NSCell" id="503904254">
-								<int key="NSCellFlags">-2076180416</int>
-								<int key="NSCellFlags2">133120</int>
-								<object class="NSFont" key="NSSupport" id="26">
+								<int key="NSCellFlags">-2080374720</int>
+								<int key="NSCellFlags2">2048</int>
+								<object class="NSFont" key="NSSupport">
 									<string key="NSName">LucidaGrande</string>
-									<double key="NSSize">11</double>
-									<int key="NSfFlags">3100</int>
+									<double key="NSSize">13</double>
+									<int key="NSfFlags">1044</int>
 								</object>
 								<reference key="NSControlView" ref="1029877624"/>
-								<int key="NSButtonFlags">109199360</int>
-								<int key="NSButtonFlags2">1</int>
+								<int key="NSButtonFlags">-2038284288</int>
+								<int key="NSButtonFlags2">66</int>
 								<object class="NSFont" key="NSAlternateImage">
 									<string key="NSName">LucidaGrande</string>
-									<double key="NSSize">11</double>
+									<double key="NSSize">13</double>
 									<int key="NSfFlags">16</int>
 								</object>
 								<string key="NSAlternateContents"/>
@@ -1445,13 +1345,17 @@
 								</object>
 								<int key="NSPeriodicDelay">400</int>
 								<int key="NSPeriodicInterval">75</int>
-								<object class="NSMenuItem" key="NSMenuItem" id="373269462">
+								<object class="NSMenuItem" key="NSMenuItem" id="703325444">
 									<reference key="NSMenu" ref="261012257"/>
-									<string key="NSTitle">item</string>
-									<string key="NSKeyEquiv"/>
+									<string key="NSTitle">Colors</string>
+									<string type="base64-UTF8" key="NSKeyEquiv">CQ</string>
 									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<int key="NSState">1</int>
+									<object class="NSCustomResource" key="NSImage">
+										<string key="NSClassName">NSImage</string>
+										<string key="NSResourceName">sun</string>
+									</object>
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="502551668"/>
 									<string key="NSAction">_popUpItemAction:</string>
@@ -1463,20 +1367,35 @@
 										<characters key="NS.bytes">OtherViews</characters>
 									</object>
 									<array class="NSMutableArray" key="NSMenuItems">
-										<reference ref="373269462"/>
+										<object class="NSMenuItem" id="373269462">
+											<reference key="NSMenu" ref="261012257"/>
+											<string key="NSTitle">Geometry</string>
+											<string type="base64-UTF8" key="NSKeyEquiv">CQ</string>
+											<int key="NSKeyEquivModMask">1048576</int>
+											<int key="NSMnemonicLoc">2147483647</int>
+											<object class="NSCustomResource" key="NSImage">
+												<string key="NSClassName">NSImage</string>
+												<string key="NSResourceName">rdf_document</string>
+											</object>
+											<reference key="NSOnImage" ref="35465992"/>
+											<reference key="NSMixedImage" ref="502551668"/>
+											<string key="NSAction">_popUpItemAction:</string>
+											<reference key="NSTarget" ref="503904254"/>
+										</object>
+										<reference ref="703325444"/>
 									</array>
 								</object>
+								<int key="NSSelectedIndex">1</int>
 								<int key="NSPreferredEdge">3</int>
 								<bool key="NSUsesItemFromMenu">YES</bool>
 								<bool key="NSAltersState">YES</bool>
-								<int key="NSArrowPosition">1</int>
 							</object>
 							<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						</object>
 						<object class="NSTextField" id="694317034">
 							<reference key="NSNextResponder" ref="1064455210"/>
 							<int key="NSvFlags">256</int>
-							<string key="NSFrame">{{544, 326}, {75, 14}}</string>
+							<string key="NSFrame">{{576, 326}, {43, 14}}</string>
 							<reference key="NSSuperview" ref="1064455210"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="1029877624"/>
@@ -1484,8 +1403,12 @@
 							<object class="NSTextFieldCell" key="NSCell" id="810441979">
 								<int key="NSCellFlags">67108864</int>
 								<int key="NSCellFlags2">71303168</int>
-								<string type="base64-UTF8" key="NSContents">VHJhbnNpdGlvbnM6Cg</string>
-								<reference key="NSSupport" ref="26"/>
+								<string key="NSContents">Section</string>
+								<object class="NSFont" key="NSSupport">
+									<string key="NSName">LucidaGrande</string>
+									<double key="NSSize">11</double>
+									<int key="NSfFlags">3100</int>
+								</object>
 								<reference key="NSControlView" ref="694317034"/>
 								<object class="NSColor" key="NSBackgroundColor">
 									<int key="NSColorSpace">6</int>
@@ -1508,13 +1431,12 @@
 							</object>
 							<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						</object>
-						<object class="NSCustomView" id="155232093">
+						<object class="NSCustomView" id="955696996">
 							<reference key="NSNextResponder" ref="1064455210"/>
 							<int key="NSvFlags">274</int>
-							<string key="NSFrame">{{0, -1}, {880, 267}}</string>
+							<string key="NSFrameSize">{880, 312}</string>
 							<reference key="NSSuperview" ref="1064455210"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<string key="NSClassName">NSView</string>
 						</object>
@@ -1530,7 +1452,9 @@
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<bool key="NSWindowIsRestorable">YES</bool>
 			</object>
-			<object class="NSViewController" id="512265544"/>
+			<object class="NSViewController" id="512265544">
+				<string key="NSNibName">AZGeneralViewController</string>
+			</object>
 		</array>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
 			<array class="NSMutableArray" key="connectionRecords">
@@ -2168,14 +2092,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">targetView</string>
-						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="155232093"/>
-					</object>
-					<int key="connectionID">553</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
 						<string key="label">geoVC</string>
 						<reference key="source" ref="976324537"/>
 						<reference key="destination" ref="512265544"/>
@@ -2184,19 +2100,27 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">segments</string>
-						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="1061104900"/>
-					</object>
-					<int key="connectionID">554</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
 						<string key="label">window</string>
 						<reference key="source" ref="976324537"/>
 						<reference key="destination" ref="405224730"/>
 					</object>
 					<int key="connectionID">564</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">mainView</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="955696996"/>
+					</object>
+					<int key="connectionID">567</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">genVC</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="43444959"/>
+					</object>
+					<int key="connectionID">569</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -3191,43 +3115,16 @@
 						<int key="objectID">548</int>
 						<reference key="object" ref="1064455210"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="155232093"/>
-							<reference ref="880922189"/>
 							<reference ref="1029877624"/>
 							<reference ref="694317034"/>
+							<reference ref="955696996"/>
 						</array>
 						<reference key="parent" ref="405224730"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">549</int>
-						<reference key="object" ref="880922189"/>
-						<array class="NSMutableArray" key="children">
-							<reference ref="1061104900"/>
-						</array>
-						<reference key="parent" ref="1064455210"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">551</int>
-						<reference key="object" ref="155232093"/>
-						<reference key="parent" ref="1064455210"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">556</int>
 						<reference key="object" ref="512265544"/>
 						<reference key="parent" ref="0"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">550</int>
-						<reference key="object" ref="1061104900"/>
-						<array class="NSMutableArray" key="children">
-							<reference ref="97480108"/>
-						</array>
-						<reference key="parent" ref="880922189"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">552</int>
-						<reference key="object" ref="97480108"/>
-						<reference key="parent" ref="1061104900"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">558</int>
@@ -3263,6 +3160,7 @@
 						<reference key="object" ref="261012257"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="373269462"/>
+							<reference ref="703325444"/>
 						</array>
 						<reference key="parent" ref="503904254"/>
 					</object>
@@ -3270,6 +3168,21 @@
 						<int key="objectID">563</int>
 						<reference key="object" ref="373269462"/>
 						<reference key="parent" ref="261012257"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">565</int>
+						<reference key="object" ref="703325444"/>
+						<reference key="parent" ref="261012257"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">566</int>
+						<reference key="object" ref="955696996"/>
+						<reference key="parent" ref="1064455210"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">568</int>
+						<reference key="object" ref="43444959"/>
+						<reference key="parent" ref="0"/>
 					</object>
 				</array>
 			</object>
@@ -3415,12 +3328,6 @@
 				<string key="547.IBWindowTemplateEditedContentRect">{{380, 496}, {480, 360}}</string>
 				<boolean value="YES" key="547.NSWindowTemplate.visibleAtLaunch"/>
 				<string key="548.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="549.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="550.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="551.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="552.CustomClassName">SNRHUDSegmentedCell</string>
-				<integer value="10" key="552.IBNSSegmentedControlInspectorSelectedSegmentMetadataKey"/>
-				<string key="552.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="556.CustomClassName">AZGeometryViewController</string>
 				<string key="556.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="558.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -3430,6 +3337,10 @@
 				<string key="561.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="562.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="563.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="565.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="566.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="568.CustomClassName">AZGeneralViewController</string>
+				<string key="568.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="57.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="58.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="72.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -3448,30 +3359,30 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">564</int>
+			<int key="maxID">569</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
 				<object class="IBPartialClassDescription">
-					<string key="className">AZBackgroundProgressBar</string>
-					<string key="superclassName">NSView</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="startAnimation:">id</string>
-						<string key="stopAnimation:">id</string>
+					<string key="className">AZGeneralViewController</string>
+					<string key="superclassName">NSViewController</string>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="segments">NSSegmentedControl</string>
+						<string key="targetView">NSView</string>
 					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="startAnimation:">
-							<string key="name">startAnimation:</string>
-							<string key="candidateClassName">id</string>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="segments">
+							<string key="name">segments</string>
+							<string key="candidateClassName">NSSegmentedControl</string>
 						</object>
-						<object class="IBActionInfo" key="stopAnimation:">
-							<string key="name">stopAnimation:</string>
-							<string key="candidateClassName">id</string>
+						<object class="IBToOneOutletInfo" key="targetView">
+							<string key="name">targetView</string>
+							<string key="candidateClassName">NSView</string>
 						</object>
 					</dictionary>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/AZBackgroundProgressBar.h</string>
+						<string key="minorKey">./Classes/AZGeneralViewController.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -4402,140 +4313,6 @@
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
-					<string key="className">GHTestViewController</string>
-					<string key="superclassName">NSViewController</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="copy:">id</string>
-						<string key="openExceptionFilename:">id</string>
-						<string key="rerunTest:">id</string>
-						<string key="runTests:">id</string>
-						<string key="toggleDetails:">id</string>
-						<string key="updateMode:">id</string>
-						<string key="updateSearchFilter:">id</string>
-						<string key="updateTextSegment:">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="copy:">
-							<string key="name">copy:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="openExceptionFilename:">
-							<string key="name">openExceptionFilename:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="rerunTest:">
-							<string key="name">rerunTest:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="runTests:">
-							<string key="name">runTests:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="toggleDetails:">
-							<string key="name">toggleDetails:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="updateMode:">
-							<string key="name">updateMode:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="updateSearchFilter:">
-							<string key="name">updateSearchFilter:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="updateTextSegment:">
-							<string key="name">updateTextSegment:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="_detailsToggleButton">NSButton</string>
-						<string key="_detailsView">NSView</string>
-						<string key="_outlineView">NSOutlineView</string>
-						<string key="_searchField">NSSearchField</string>
-						<string key="_segmentedControl">NSSegmentedControl</string>
-						<string key="_splitView">NSSplitView</string>
-						<string key="_statusView">NSView</string>
-						<string key="_textSegmentedControl">NSSegmentedControl</string>
-						<string key="_textView">NSTextView</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="_detailsToggleButton">
-							<string key="name">_detailsToggleButton</string>
-							<string key="candidateClassName">NSButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="_detailsView">
-							<string key="name">_detailsView</string>
-							<string key="candidateClassName">NSView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="_outlineView">
-							<string key="name">_outlineView</string>
-							<string key="candidateClassName">NSOutlineView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="_searchField">
-							<string key="name">_searchField</string>
-							<string key="candidateClassName">NSSearchField</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="_segmentedControl">
-							<string key="name">_segmentedControl</string>
-							<string key="candidateClassName">NSSegmentedControl</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="_splitView">
-							<string key="name">_splitView</string>
-							<string key="candidateClassName">NSSplitView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="_statusView">
-							<string key="name">_statusView</string>
-							<string key="candidateClassName">NSView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="_textSegmentedControl">
-							<string key="name">_textSegmentedControl</string>
-							<string key="candidateClassName">NSSegmentedControl</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="_textView">
-							<string key="name">_textView</string>
-							<string key="candidateClassName">NSTextView</string>
-						</object>
-					</dictionary>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/GHTestViewController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">GHTestWindowController</string>
-					<string key="superclassName">NSWindowController</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="copy:">id</string>
-						<string key="runTests:">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="copy:">
-							<string key="name">copy:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="runTests:">
-							<string key="name">runTests:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</dictionary>
-					<object class="NSMutableDictionary" key="outlets">
-						<string key="NS.key.0">viewController</string>
-						<string key="NS.object.0">GHTestViewController</string>
-					</object>
-					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<string key="NS.key.0">viewController</string>
-						<object class="IBToOneOutletInfo" key="NS.object.0">
-							<string key="name">viewController</string>
-							<string key="candidateClassName">GHTestViewController</string>
-						</object>
-					</object>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/GHTestWindowController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
 					<string key="className">NSApplication</string>
 					<object class="NSMutableDictionary" key="actions">
 						<string key="NS.key.0">relaunch:</string>
@@ -4559,6 +4336,7 @@
 						<string key="increment:">id</string>
 						<string key="performActionFromSegmentLabel:">id</string>
 						<string key="setFromSegmentLabel:">id</string>
+						<string key="showMethodsInFrameWork:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="increment:">
@@ -4571,6 +4349,10 @@
 						</object>
 						<object class="IBActionInfo" key="setFromSegmentLabel:">
 							<string key="name">setFromSegmentLabel:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="showMethodsInFrameWork:">
+							<string key="name">showMethodsInFrameWork:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 					</dictionary>
@@ -4966,23 +4748,34 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">TestBedDelegate</string>
 					<string key="superclassName">NSObject</string>
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">loadSecondNib:</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">loadSecondNib:</string>
+						<object class="IBActionInfo" key="NS.object.0">
+							<string key="name">loadSecondNib:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</object>
 					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="genVC">AZGeneralViewController</string>
 						<string key="geoVC">AZGeometryViewController</string>
-						<string key="segments">NSSegmentedControl</string>
-						<string key="targetView">NSView</string>
+						<string key="mainView">NSView</string>
 						<string key="window">NSWindow</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="genVC">
+							<string key="name">genVC</string>
+							<string key="candidateClassName">AZGeneralViewController</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="geoVC">
 							<string key="name">geoVC</string>
 							<string key="candidateClassName">AZGeometryViewController</string>
 						</object>
-						<object class="IBToOneOutletInfo" key="segments">
-							<string key="name">segments</string>
-							<string key="candidateClassName">NSSegmentedControl</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="targetView">
-							<string key="name">targetView</string>
+						<object class="IBToOneOutletInfo" key="mainView">
+							<string key="name">mainView</string>
 							<string key="candidateClassName">NSView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="window">
@@ -5006,10 +4799,10 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="Frameworks/AtoZ/Resources/3.pdf">{128, 128}</string>
 			<string key="NSMenuCheckmark">{11, 11}</string>
 			<string key="NSMenuMixedState">{10, 3}</string>
-			<string key="umbrella">{32, 32}</string>
+			<string key="rdf_document">{32, 32}</string>
+			<string key="sun">{32, 32}</string>
 		</dictionary>
 	</data>
 </archive>

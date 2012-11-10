@@ -21,7 +21,7 @@
 
 @interface NSWindow (AtoZ)
 
-+ (NSArray*) allWindows;
++ (NSA*) allWindows;
 - (CALayer*)veilLayer;
 - (CALayer*)veilLayerForView: (NSView*)view;
 
@@ -44,14 +44,14 @@
 */
 + (void) cascadeWindow:(NSWindow*)inWindow;
 
-+ (NSArray*) visibleWindows:(BOOL)ordered;
++ (NSA*) visibleWindows:(BOOL)ordered;
 
-//+ (NSArray*)visibleWindows:(BOOL)ordered delegateClass:(Class)delegateClass;
+//+ (NSA*)visibleWindows:(BOOL)ordered delegateClass:(Class)delegateClass;
 //- (NSWindow*)topWindowWithDelegateClass:(Class)class;
 //+ (BOOL)isAnyWindowVisibleWithDelegateClass:(Class)class;
 
 + (BOOL) isAnyWindowVisible;
-+ (NSArray*) miniaturizedWindows;
++ (NSA*) miniaturizedWindows;
 
 - (void) setFloating:(BOOL)set;
 - (BOOL) isFloating;

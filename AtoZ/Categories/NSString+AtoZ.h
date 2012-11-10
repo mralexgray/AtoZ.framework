@@ -75,10 +75,10 @@
 - (BOOL)contains:(NSString*) aString;
 
 /*** Returns YES when this string contains ANY of the strings defined in the array */
-- (BOOL)containsAnyOf:(NSArray*) array;
+- (BOOL)containsAnyOf:(NSA*) array;
 
 /*** Returns YES when this string contains ALL of the strings defined in the array */
-- (BOOL)containsAllOf:(NSArray*) array;
+- (BOOL)containsAllOf:(NSA*) array;
 
 /*** Returns YES when this string starts with aString, just a synonym for hasPrefix */
 - (BOOL)startsWith:(NSString*) aString;
@@ -121,7 +121,7 @@
  * separated by whitespaces */
 @property (RONLY) NSSet *wordSet;
 
-- (NSArray*) trimmedComponentsSeparatedByString:(NSString*) delimiter;
+- (NSA*) trimmedComponentsSeparatedByString:(NSString*) delimiter;
 
 @property (RONLY) NSArray *decolonize;
 @property (RONLY) NSArray *splitByComma;
@@ -131,7 +131,7 @@
 // The difference between the splitBy and splitAt groups is
 // that splitAt will return an array containing one or two elements
 
-- (NSArray*) splitAt:(NSString*) delimiter;
+- (NSA*) splitAt:(NSString*) delimiter;
 - (BOOL)splitAt:(NSString*) delimiter 
            head:(NSString **)head 
            tail:(NSString **)tail;
@@ -380,11 +380,11 @@ extern int gNSStringGeometricsTypesetterBehavior ;
 - (NSString*) urlEscapedString;  // Uses UTF-8 encoding and also escapes characters that can confuse the parameter string part of the URL
 - (NSString*) unescapeURLString;  // Uses UTF-8 encoding
 - (NSString*) extractFirstSentence;
-- (NSArray*) extractAllSentences;
+- (NSA*) extractAllSentences;
 - (NSIndexSet*) extractSentenceIndices;
 - (NSString*) stripParenthesis;  // Remove all parenthesis and their content
 - (BOOL) containsString:(NSString*)string;
-- (NSArray*) extractAllWords;
+- (NSA*) extractAllWords;
 - (NSRange) rangeOfWordAtLocation:(NSUInteger)location;
 - (NSRange) rangeOfNextWordFromLocation:(NSUInteger)location;
 - (NSString*) stringByDeletingPrefix:(NSString*)prefix;
@@ -403,5 +403,11 @@ extern int gNSStringGeometricsTypesetterBehavior ;
 @interface NSString (AQPropertyKVC)
 
 - (NSString *) propertyStyleString;
+
+@end
+
+@interface NSString (SGSAdditions)
+
+- (NSString*) truncatedToWidth: (CGFloat) width withAttributes: (NSD*) attributes;
 
 @end

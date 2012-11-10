@@ -11,7 +11,7 @@
 @protocol SDPreferencesDelegate
 
 - (BOOL) showsPreferencesToolbar;
-- (NSArray*) preferencePaneControllerClasses;
+- (NSA*) preferencePaneControllerClasses;
 
 @end
 
@@ -40,7 +40,7 @@
 
 @property (assign) id <SDPreferencesDelegate> delegate;
 
-- (NSArray*) toolbarItemIdentifiers;
+- (NSA*) toolbarItemIdentifiers;
 
 - (void) selectPreferencePaneWithIdentifier:(NSString*)identifier animate:(BOOL)animate;
 

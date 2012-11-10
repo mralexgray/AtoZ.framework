@@ -74,7 +74,7 @@
 	[instructionWindowController showWindow:self];
 }
 
-- (NSArray*) instructionImageNames {
+- (NSA*) instructionImageNames {
 	return nil;
 }
 
@@ -95,7 +95,7 @@
 	return NO;
 }
 
-- (NSArray*) preferencePaneControllerClasses {
+- (NSA*) preferencePaneControllerClasses {
 	return nil;
 }
 

@@ -16,7 +16,7 @@ extern void _LSCopyAllApplicationURLs(NSArray**);
 	return [super sharedInstance]; 
 }
 
-+ (NSArray*) registeredApps {
++ (NSA*) registeredApps {
 	NSArray *urls;
 	_LSCopyAllApplicationURLs(&urls);
 	return urls;

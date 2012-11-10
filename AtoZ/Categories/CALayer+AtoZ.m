@@ -143,10 +143,11 @@ CALayer* AddBloom( CALayer *layer) {
 	return layer;
 }
 CALayer* AddShadow( CALayer *layer) {
-	layer.shadowOffset 		= (CGSize){ 0, 3 };
-	layer.shadowRadius 		= 5.0;
+	layer.shadowOffset 		= (CGSize){ .02 * layer.boundsWidth, -.05 *layer.boundsHeight };
+	layer.shadowRadius 		= .06 * layer.boundsWidth;
 	layer.shadowColor	 	= cgBLACK;
-	layer.shadowOpacity 	= 0.8;
+	layer.shadowOpacity 	= 1;
+
 	return layer;
 }
 
@@ -1137,7 +1138,7 @@ static char ORIENT_IDENTIFIER;
     [self addAnimation:pulseAnimation forKey:@"pulseAnimation"];
 }
 
-- (void)addAnimations:(NSArray*)anims forKeys:(NSArray *)keys;
+- (void)addAnimations:(NSA*)anims forKeys:(NSArray *)keys;
 {
 	[anims enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 		[self addAnimation:obj forKey:keys[idx]];
@@ -1375,7 +1376,7 @@ static char ORIENT_IDENTIFIER;
 		self.superlayer.layoutManager = l;
 	}
 }
-- (void)addConstraints:(NSArray*)constraints{
+- (void)addConstraints:(NSA*)constraints{
 	[self _ensureSuperHasLayoutManager];
 	[constraints do:^(id obj) {
 		[self addConstraint:obj];
@@ -1522,7 +1523,7 @@ static char ORIENT_IDENTIFIER;
 	return str;
 }
 
-- (void) addSublayers:(NSArray*)subLayers;
+- (void) addSublayers:(NSA*)subLayers;
 {
 	[subLayers do:^(id obj) {	[self addSublayer:obj];	}];
 }

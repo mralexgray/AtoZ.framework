@@ -11,7 +11,7 @@
 
 @class AZGridView;
 @interface AtoZGridViewAuto : NSView <AtoZGridViewDataSource, AtoZGridViewDelegate>
--(id)initWithArray:(NSArray*)array;// inView:(NSView*)view;
+-(id)initWithArray:(NSA*)array;// inView:(NSView*)view;
 @property (nonatomic, assign) NSSize itemSize;
 @property (weak) NSView* view;
 @property (strong, nonatomic) NSScrollView *scrollView;
@@ -137,6 +137,7 @@ __unused static NSString *kAtoZGridViewItemClearSelectionNotification;
 
 #pragma mark - Item Default Content
 /** @name Item Default Content */
+@property (strong, nonatomic) NSColor 	*itemColor;
 @property (strong) IBOutlet NSImage 	*itemImage;
 @property (strong) IBOutlet NSString 	*itemTitle;
 @property (assign) 			NSInteger 	index;

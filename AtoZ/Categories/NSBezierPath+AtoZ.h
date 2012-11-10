@@ -155,3 +155,20 @@ typedef enum {
 - (NSPoint) drawPathElement:(int) n withPreviousPoint: (NSPoint) previous;
 - (NSPoint) drawPathElement:(int) n  withPreviousPoint: (NSPoint) previous inColor: (NSColor*) pointColor withHandlesInColor: (NSColor*) handleColor;
 @end
+
+@interface NSBezierPath (RoundRects)
+
++(void)			fillRoundRectInRect:(NSR)rect radius:(CGFloat) radius;
++(void)			strokeRoundRectInRect:(NSR)rect radius:(CGFloat) radius;
++(NSBezierPath*)		  bezierPathWithRoundRectInRect:(NSR)rect radius:(CGFloat) radius;
+NSP  UKCenterOfRect( NSR rect );
+NSP  UKTopCenterOfRect( NSR rect );
+NSP  UKTopLeftOfRect( NSR rect );
+NSP  UKTopRightOfRect( NSR rect );
+NSP  UKLeftCenterOfRect( NSR rect );
+NSP  UKBottomCenterOfRect( NSR rect );
+NSP  UKBottomLeftOfRect( NSR rect );
+NSP  UKBottomRightOfRect( NSR rect );
+NSP  UKRightCenterOfRect( NSR rect );
+
+@end

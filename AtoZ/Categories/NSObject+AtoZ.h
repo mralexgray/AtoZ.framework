@@ -123,7 +123,7 @@ typedef void (^caseBlock)();
 @end
 
 @interface NSObject (SubclassEnumeration)
-+(NSArray*) subclasses;
++(NSA*) subclasses;
 @end
 
 @interface NSObject (AG)
@@ -157,8 +157,8 @@ BOOL respondsToString(id obj,NSS* string);
 
 
 + (NSDictionary*) classPropsFor:	(Class) klass;
-//- (NSArray*) methodDumpForClass:	(NSString*) Class;
-+ (NSArray*) classMethods;
+//- (NSA*) methodDumpForClass:	(NSString*) Class;
++ (NSA*) classMethods;
 
 - (NSString*) stringFromClass;
 
@@ -184,7 +184,8 @@ BOOL respondsToString(id obj,NSS* string);
 		   calling:(SEL)selector;
 
 - (void) stopObserving:	(NSObject*) object forName:	(NSString*) notificationName;
-- (void) performSelectorWithoutWarnings:(SEL) aSelector withObject:(id)obj;
+- (id) performSelectorWithoutWarnings:(SEL) aSelector withObject:(id)obj;
+- (id) performSelectorWithoutWarnings:(SEL)aSelector withObject:(id)obj withObject:(id)obj2;
 - (void) performSelector:	(SEL) aSelector afterDelay:	(NSTimeInterval) seconds;
 - (void) addObserver:	(NSObject*) observer forKeyPath:	(NSString*) keyPath;
 - (void) addObserver:	(NSObject*) observer 
@@ -196,7 +197,7 @@ BOOL respondsToString(id obj,NSS* string);
 - (void) didChangeValueForKeys:	(id<NSFastEnumeration>) keys;
 #pragma PropertyArray
 - (NSDictionary*) dictionaryWithValuesForKeys;
-- (NSArray*)  allKeys;
+- (NSA*)  allKeys;
 
 /** Example:
 	MyObject *obj = [[MyObject alloc] init];

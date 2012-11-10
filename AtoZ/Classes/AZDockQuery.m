@@ -8,12 +8,12 @@
 
 @implementation AZDockQuery
 	//@synthesize dock;
-	//+ (NSArray*) dock:(AZDock*)dock {
+	//+ (NSA*) dock:(AZDock*)dock {
 	//	return [[AZDockQuery sharedInstance] dock: dock];
 	//}
 
 	//- (NSArray *) dock:(AZDock*)dock {
-- (NSArray*)dock{
+- (NSA*)dock{
 	if (!_dock)  {
 		__block AZDock *dockItems = [AZDock sharedInstance];
 

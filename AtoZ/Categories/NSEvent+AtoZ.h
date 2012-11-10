@@ -8,6 +8,14 @@
 
 #import <Cocoa/Cocoa.h>
 
+
+
+@interface NSTextField (TargetAction)
+
+- (void) setAction:(SEL)method withTarget:(id)object;
+
+@end
+
 @interface NSControl (AtoZ)
 
 - (void) setAction:(SEL)method withTarget:(id)object;

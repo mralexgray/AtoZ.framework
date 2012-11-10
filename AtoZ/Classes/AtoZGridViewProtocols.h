@@ -36,7 +36,7 @@
 @optional
 - (NSUInteger)numberOfSectionsInGridView:(AtoZGridView*) gridView;
 - (NSString*) gridView:(AtoZGridView*) gridView titleForHeaderInSection:(NSInteger)section;
-- (NSArray*) sectionIndexTitlesForGridView:(AtoZGridView*) gridView;
+- (NSA*) sectionIndexTitlesForGridView:(AtoZGridView*) gridView;
 
 @end
 

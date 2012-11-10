@@ -45,7 +45,7 @@ extern NSView* AZResizeWindowAndContent(NSWindow* window, float dXLeft, float dX
 
 - (CALayer*) setupHostView;
 
-- (NSArray*) allSubviews;
+- (NSA*) allSubviews;
 - (NSView*)	 firstSubview;
 - (NSView*)	 lastSubview;
 - (void)	 removeAllSubviews;

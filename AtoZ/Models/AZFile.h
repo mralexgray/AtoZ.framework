@@ -32,11 +32,11 @@
 + (id) appFolder;
 + (id) samplerWithCount:(NSUInteger)items;
 // + (id) samplerWithBetween:(NSUInteger)minItems andMax:(NSUInteger)items;
-+ (id) instanceWithFiles:(NSArray*)files;
-+ (id) instanceWithPaths:(NSArray*)strings;
++ (id) instanceWithFiles:(NSA*)files;
++ (id) instanceWithPaths:(NSA*)strings;
 
-//- (NSArray*)filesMatchingFilter: (NSString *)filte
-//- (NSArray*)filesWithCategory: (AppCat)cat;
+//- (NSA*)filesMatchingFilter: (NSString *)filte
+//- (NSA*)filesWithCategory: (AppCat)cat;
 @end
 @interface AZDockApp : BaseModel
 
@@ -63,7 +63,7 @@
 
 + (instancetype) instanceWithObject:(NSDictionary*)dic;
 + (instancetype) colorWithColor:(NSColor*)color andDictionary:(NSDictionary*)dic;
-- (NSArray*) az_colorsForImage:(NSImage*)image;
+- (NSA*) az_colorsForImage:(NSImage*)image;
 + (instancetype) instanceWithColor:(NSColor*)color count:(NSUI)c total:(NSUI) totes;
 
 @end

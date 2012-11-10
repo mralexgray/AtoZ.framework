@@ -160,7 +160,7 @@ NSUInteger gcd(NSInteger m, NSUInteger n) {
 							   : nanSizeCheck( (NSSize) { _outerFrame.size.width / _columns,
 											_outerFrame.size.height / _rows} ) ;
 }
-+ (NSArray*) rectsForQuantity:(NSUInteger)aNumber inRect:(NSRect)aFrame {
++ (NSA*) rectsForQuantity:(NSUInteger)aNumber inRect:(NSRect)aFrame {
 	aNumber = aNumber > 0 ? aNumber : 1;
 	AZSizer *sizer = [AZSizer forQuantity:aNumber inRect:aFrame];
 	return [sizer rects];
@@ -183,7 +183,7 @@ NSUInteger gcd(NSInteger m, NSUInteger n) {
 //	}]
 //}
 
-- (NSArray*) rects {
+- (NSA*) rects {
 	if (!_positions) self.positions = [NSMA array];
 	return _rects = _rects ?: ^{
 //		NSLog(@"Quant: %ld.	Cap: %ld. Rem:%ld Aspect:%@. Rows: %ld.  Cols:%ld", _quantity, self.capacity, self.remainder, self.aspectRatio , _rows, _columns );
@@ -344,7 +344,7 @@ NSUInteger gcd(NSInteger m, NSUInteger n) {
 ////    }
 //	return;// layer;
 //}
-//- (NSArray*)boxes {
+//- (NSA*)boxes {
 //	NSMutableArray *boxArray = [NSMutableArray array];
 //	for ( int r = (rows.intValue-1); r >= 0; r--){
 //		for ( int c = 0; c < columns.intValue; c++ ) {

@@ -141,7 +141,7 @@ extern NSString *const AZBaseModelSharedInstanceUpdatedNotification;
 - (void) eachWithIndex:(VoidIteratorArrayWithIndexBlock) block;
 - (NSMA*) map:(MapArrayBlock) block;
 - (NSMA*) nmap:(id (^)(id obj, NSUInteger index))block;
-- (NSArray*) filter:(BoolArrayBlock) block;
+- (NSA*) filter:(BoolArrayBlock) block;
 - (NSString*) saveInstanceInAppSupp;
 + (instancetype) instanceWithID:(NSString*)uniqueID;
 	// NSCODING extras

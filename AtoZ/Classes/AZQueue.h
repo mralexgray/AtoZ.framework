@@ -12,7 +12,7 @@
 // Add the element to the back of the queue
 -(void)enqueue:(id)element;
 // Remove all elements
--(void)enqueueElementsFromArray:(NSArray*)arr;
+-(void)enqueueElementsFromArray:(NSA*)arr;
 -(void)enqueueElementsFromQueue:(AZQueue*)queue;
 -(void)clear;
 

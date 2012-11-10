@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 @interface NSArray (UsefulStuff)
 
-- (NSArray*) reversedArray;
+- (NSA*) reversedArray;
 
 - (id) firstObject;
 

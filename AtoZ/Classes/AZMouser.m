@@ -198,7 +198,7 @@ void dragTo ( CGPoint dest ) {
 }
 
 
-- (NSArray*) coaxPointsForPoints:(CGPoint)point to:(CGPoint)dest {
+- (NSA*) coaxPointsForPoints:(CGPoint)point to:(CGPoint)dest {
 	float dist = AZDistanceFromPoint(point, dest);
 	float large = [self largeValue];
 	switch (self.orientation) {
@@ -221,7 +221,7 @@ void dragTo ( CGPoint dest ) {
 	}
 }
 
-- (NSArray*) arcPointsBetween:(CGPoint)a and:(CGPoint)b
+- (NSA*) arcPointsBetween:(CGPoint)a and:(CGPoint)b
 {
 	float distance = distanceFromPoint(a,b);
 	float radius = 25;
@@ -462,7 +462,7 @@ void AZPostMouseEvent(CGMouseButton button, CGEventType type, const CGPoint poin
 	if (theEvent) CFRelease(theEvent);
 }
 
-void AZLeftClick(const CGPoint point)  {
+void AZLeftClick( CGP point)  {
 	AZPostMouseEvent(kCGMouseButtonLeft, kCGEventMouseMoved, point);
 	NSLog(@"Click!");
 	AZPostMouseEvent(kCGMouseButtonLeft, kCGEventLeftMouseDown, point);

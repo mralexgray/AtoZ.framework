@@ -554,13 +554,13 @@ NSParagraphStyleAttributeName:	textStyle};
 {
     /// inform the delegate
     [self gridView:self didClickItemAtIndex:selectedItemIndex inSection:0];
-    CNLog(@"handleSingleClick for item at index: %lu", selectedItemIndex);
+    NSLog(@"handleSingleClick for item at index: %lu", selectedItemIndex);
 }
 - (void) handleDoubleClickForItemAtIndex:(NSUInteger)selectedItemIndex
 {
     /// inform the delegate
     [self gridView:self didDoubleClickItemAtIndex:selectedItemIndex inSection:0];
-    CNLog(@"handleDoubleClick for item at index: %lu", selectedItemIndex);
+    NSLog(@"handleDoubleClick for item at index: %lu", selectedItemIndex);
 }
 - (void) drawSelectionFrameForMousePointerAtLocation:(NSPoint)location
 {
@@ -713,7 +713,7 @@ NSParagraphStyleAttributeName:	textStyle};
 }
 - (void) keyDown:(NSEvent*) theEvent
 {
-    CNLog(@"keyDown");
+    AZLOG(@"keyDown");
     switch ([theEvent keyCode]) {
         case 53: {  // escape
             self.abortSelection = YES;
@@ -809,7 +809,7 @@ NSParagraphStyleAttributeName:	textStyle};
     }
     return nil;
 }
-- (NSArray*) sectionIndexTitlesForGridView:(AtoZGridView*) gridView
+- (NSA*) sectionIndexTitlesForGridView:(AtoZGridView*) gridView
 {
     if ([self.dataSource respondsToSelector:_cmd]) {
         return [self.dataSource sectionIndexTitlesForGridView:gridView];
@@ -975,7 +975,7 @@ NSParagraphStyleAttributeName:	textStyle};
     NSBezierPath *contentRectPath = [NSBezierPath bezierPathWithRoundedRect:contentRect
                                                                     xRadius:self.grid.itemBorderRadius //self.currentLayout.itemBorderRadius
                                                                     yRadius:self.grid.itemBorderRadius];//self.currentLayout.itemBorderRadius];
-    [self.grid.itemBackgroundColor setFill];//currentLayout.itemBackgroundColor setFill];
+    [self.itemColor ?: self.grid.itemBackgroundColor setFill];//currentLayout.itemBackgroundColor setFill];
     [contentRectPath fill];
 	if (self.isSelected) [self.grid.itemBackgroundSelectionColor setFill];
 	[contentRectPath fill];
@@ -1074,7 +1074,8 @@ NSParagraphStyleAttributeName:	textStyle};
 	self.arMASK 		= NSSIZEABLE;
 	self.autoresizesSubviews = YES;
 	_array 				= [array map:^id(id obj) {
-		return @{ kContentImageKey: obj, kContentTitleKey: [obj valueForKey:@"name"] ?: @"N/A"};
+		return @{ kContentImageKey: obj, kContentTitleKey: [obj valueForKey:@"name"] ?: @"N/A",
+		kContentColorKey: [(NSIMG*)obj quantize][0]};
 	}];
 //	_view 				= view;
 	_grid 				= [[AtoZGridView alloc]initWithFrame:NSZeroRect];
@@ -1142,6 +1143,7 @@ NSParagraphStyleAttributeName:	textStyle};
     NSDictionary *contentDict = self.array[index];
 	item.itemTitle = contentDict[kContentTitleKey];
     item.itemImage = contentDict[kContentImageKey];
+	item.itemColor = contentDict[kContentColorKey];
     return item;
 }
 

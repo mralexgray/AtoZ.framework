@@ -44,6 +44,9 @@ extern
  	This can be useful for constants that you want to use within a single implementation file, but won't need elsewhere
 **/
 
+#define nAZColorWellChanged @"AtoZColorWellChangedColors"
+
+
 //NS_INLINE void _AZSimpleLog(const char *file, int lineNumber, const char *funcName, NSString *format,...);
 NS_INLINE void _AZSimpleLog( const char *file, int lineNumber, const char *funcName, NSString *format, ... )
 {
@@ -193,6 +196,7 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define NSAS NSAttributedString
 #define NSAT NSAffineTransform
 #define NSB NSBundle
+#define NSBUTT NSButton
 #define NSBP NSBezierPath
 #define NSGC NSGraphicsContext
 #define NSC NSColor
@@ -212,7 +216,11 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define NSNOT NSNotification
 #define NSO NSObject
 #define NSP NSPoint
+#define NSPInRect NSPointInRect
+
+#define NSPUBUTT NSPopUpButton
 #define NSR NSRect
+#define NSRFill NSRectFill
 #define NSS NSString
 #define NSSZ NSSize
 #define NSTI NSTimeInterval
@@ -221,6 +229,8 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define NSUI NSUInteger
 #define NSV NSView
 #define NSVAL NSValue
+#define NSTABV NSTabView
+#define NSTBAR NSToolbar
 //#define ID \(NSObject*\)
 #define bgC backgroundColor
 #define fgC foregroundColor
@@ -259,6 +269,7 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define   AZV3d(t) [NSValue valueWithCATransform3D: t]
 
 #define kContentTitleKey @"itemTitle"
+#define kContentColorKey @"itemColor"
 #define kContentImageKey @"itemImage"
 #define kItemSizeSliderPositionKey @"ItemSizeSliderPosition"
 

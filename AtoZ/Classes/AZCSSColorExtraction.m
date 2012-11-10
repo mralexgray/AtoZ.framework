@@ -10,7 +10,7 @@
 #import <AtoZ/AtoZ.h>
 
 @implementation AZCSSColorExtraction
-//- (NSArray*)quantize:(NSString*)imagePath{
+//- (NSA*)quantize:(NSString*)imagePath{
 - (id)init
 {
     self = [super init];
@@ -22,7 +22,7 @@
     }
     return self;
 }
-- (NSArray*)colorsInStyleSheet:(NSString*)text{
+- (NSA*)colorsInStyleSheet:(NSString*)text{
 }
 //
 //	# |color| will be an array of 5 elements (5 regex groups)

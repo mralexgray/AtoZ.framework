@@ -59,7 +59,7 @@
 @implementation NSImage (Merge)
 
 
-+ (NSImage*)imageByTilingImages:(NSArray*)images
++ (NSImage*)imageByTilingImages:(NSA*)images
 					   spacingX:(CGFloat)spacingX
 					   spacingY:(CGFloat)spacingY
 					 vertically:(BOOL)vertically {

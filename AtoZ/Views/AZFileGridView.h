@@ -15,7 +15,7 @@
 @class AZSizer, GridLayoutManager;
 @interface AZFileGridView : NSView
 
-- (id)initWithFrame:(NSRect)frame andFiles:(NSArray*)files;
+- (id)initWithFrame:(NSRect)frame andFiles:(NSA*)files;
 
 @property (nonatomic, retain) AZSizer *sizer;
 @property (nonatomic, retain) NSMutableArray *layers;

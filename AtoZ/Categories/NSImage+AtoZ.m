@@ -206,19 +206,19 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 	return [[NSImage alloc]initWithCGImage:CGWindowListCreateImage(CGRectInfinite, kCGWindowListOptionOnScreenOnly, kCGNullWindowID, kCGWindowImageDefault) size:AZScreenSize()];
 }
 
-+ (NSArray*) frameworkImagePaths {
++ (NSA*) frameworkImagePaths {
 	return ( [NSArray arrayWithArrays:@[
 									[AZFWORKBUNDLE pathsForResourcesOfType:@"pdf" inDirectory:@""],
 									[AZFWORKBUNDLE pathsForResourcesOfType:@"png" inDirectory:@""],
 									[AZFWORKBUNDLE pathsForResourcesOfType:@"icns" inDirectory:@""]]]);
-//	(NSArray*)LogAndReturn
+//	(NSA*)LogAndReturn
 }
 
-+ (NSArray*) frameworkImageNames
++ (NSA*) frameworkImageNames
 {
 	return [[[NSImage frameworkImagePaths]mapSelector:@selector(lastPathComponent)]mapSelector:@selector(stringByDeletingPathExtension)];
 }
-+ (NSArray*) frameworkImages;{
++ (NSA*) frameworkImages;{
 	//; error:nil] filter:^BOOL(id object) { return [(NSString*)object contains:@".icn"] ? YES : NO;
 	//	return [f arrayUsingBlock:^id(id obj) {	return [base stringByAppendingPathComponent:obj]; }];
 	return [[[NSImage frameworkImagePaths] arrayUsingBlock:^id(id obj) {
@@ -227,10 +227,10 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 	}] filter:^BOOL(id object) { return [object isKindOfClass:[NSIMG class]]; }];
 }
 
-+(NSArray*) systemIcons{	static NSArray *_systemIcons;
++(NSA*) systemIcons{	static NSArray *_systemIcons;
 	return _systemIcons = _systemIcons != nil
 	? _systemIcons // This will only be true the first time the method is called...
-	: (NSArray*)^{
+	: (NSA*)^{
 		NSString *base = @"/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/";
 		return[[[[AZFILEMANAGER contentsOfDirectoryAtPath:base error:nil] filter:^BOOL(id object) {
 			return [(NSString*)object contains:@".icn"] ? YES : NO;
@@ -243,7 +243,7 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 	}();
 }
 
-	//+ (NSArray*) iconStrings {
+	//+ (NSA*) iconStrings {
 
 	//	NSBundle *aBundle = [NSBundle bundleForClass: [DummyClass class]];
 	//	return [aBundle pathsForResourcesOfType:@"pdf" inDirectory:@"picol"];
@@ -262,7 +262,7 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 		//	return i;
 }
 
-+ (NSArray*) iconsColoredWithColor:(NSColor*)color;
++ (NSA*) iconsColoredWithColor:(NSColor*)color;
 {
 }
 
@@ -270,12 +270,12 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 	static NSS* pFPath = nil;
 	return pFPath = [[AtoZ resources] stringByAppendingPathComponent:@"picol/"];
 }
-+(NSArray*)picolStrings {
++(NSA*)picolStrings {
 
 	return [NSFileManager filesInFolder:[[self class]picolFolderPath]];
 }
 
-+ (NSArray*) icons {
++ (NSA*) icons {
 
 	return 	[[[NSImage picolStrings] map:^id(id obj) {
 
@@ -302,7 +302,7 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 												: [NSImage az_imageNamed:@"missing.png"];
 }
 
-+ (NSArray*) randomImages:(NSUI)number{
++ (NSA*) randomImages:(NSUI)number{
 	NSArray *images = [NSArray arrayWithArrays:@[[NSImage icons], [NSImage systemIcons], [NSImage frameworkImages]]];
 	return [images.shuffeled randomSubarrayWithSize:number];
 
@@ -385,7 +385,7 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 }
 
 
-+ (void) drawInQuadrants:(NSArray*)images inRect:(NSRect)frame {  __block int indy = 1;
++ (void) drawInQuadrants:(NSA*)images inRect:(NSRect)frame {  __block int indy = 1;
 	[images do:^(id obj){ [(NSImage*)obj drawInRect: alignRectInRect(AZRectFromDim(frame.size.width/2),frame,indy)]; indy++;  }];
 }
 
@@ -907,7 +907,7 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 	return newImage;
 }
 
-- (NSArray*) quantize {
+- (NSA*) quantize {
 	self.size = NSMakeSize(32, 32);
 	NSBitmapImageRep *imageRep = [self bitmap];
 	[imageRep bitmapImageRepByConvertingToColorSpace:[NSColorSpace deviceRGBColorSpace]	renderingIntent:NSColorRenderingIntentDefault];
@@ -1719,7 +1719,7 @@ rightDone:
 //	return rendered;
 //}
 
-+ (NSArray*) systemImages {
++ (NSA*) systemImages {
 	static NSArray *_systemImages;
 	return _systemImages = _systemImages != nil
 					     ? _systemImages // This will only be true the first time the method is called...
@@ -2645,7 +2645,7 @@ CGImageRef CopyImageAndAddAlphaChannel(CGImageRef sourceImage) {
 //}
 //@end
 
-/*+ (NSArray*) picolStrings {		static NSArray *_picolSrtrings;
+/*+ (NSA*) picolStrings {		static NSArray *_picolSrtrings;
 								if (_picolSrtrings == nil)	{ // This will only be true the first time the method is called...
 
 _picolSrtrings = [@[@"xml_document.pdf", @"xml.pdf", @"zoom_in.pdf", @"zoom_out.pdf", @"website.pdf", @"video_edit.pdf", @"video_information.pdf", @"video_pause.pdf", @"video_remove.pdf", @"video_run.pdf", @"video_security.pdf", @"video_settings.pdf", @"video_stop.pdf", @"video_up.pdf", @"video.pdf", @"view.pdf", @"viewer_image.pdf", @"viewer_text.pdf", @"viewer_video.pdf", @"video_add.pdf", @"video_cancel.pdf", @"video_down.pdf", @"user_full_add.pdf", @"user_full_edit.pdf", @"user_full_information.pdf", @"user_full_remove.pdf", @"user_full_security.pdf", @"user_full_settings.pdf", @"user_full.pdf", @"user_half_add.pdf", @"user_half_edit.pdf", @"user_half_information.pdf", @"user_half_remove.pdf", @"user_half_security.pdf", @"user_half_settings.pdf", @"user_half.pdf", @"user_profile_edit.pdf", @"user_profile.pdf", @"video_accept.pdf", @"server_information.pdf", @"server_remove.pdf", @"server_run.pdf", @"server_security.pdf", @"server_settings.pdf", @"server_stop.pdf", @"server.pdf", @"settings.pdf", @"shopping_cart.pdf", @"sitemap.pdf", @"size_both_accept.pdf", @"size_both_add.pdf", @"size_both_cancel.pdf", @"size_both_edit.pdf", @"size_both_remove.pdf", @"size_both_security.pdf", @"size_both_settings.pdf", @"size_both.pdf", @"size_height_accept.pdf", @"size_height_add.pdf", @"size_height_cancel.pdf", @"size_height_edit.pdf", @"size_height_remove.pdf", @"size_height_security.pdf", @"size_height_settings.pdf", @"size_height.pdf", @"size_width_accept.pdf", @"size_width_add.pdf", @"size_width_cancel.pdf", @"size_width_edit.pdf", @"size_width_remove.pdf", @"size_width_security.pdf", @"size_width_settings.pdf", @"size_width.pdf", @"social_network.pdf", @"source_code.pdf", @"speaker_louder.pdf", @"speaker_off.pdf", @"speaker_silent.pdf", @"star_outline.pdf", @"star.pdf", @"statistics.pdf", @"synchronize.pdf", @"tab_add.pdf", @"tab_cancel.pdf", @"tab.pdf", @"target.pdf", @"terminal_computer.pdf", @"text_align_center.pdf", @"text_align_full.pdf", @"text_align_left.pdf", @"text_align_right.pdf", @"text_bold.pdf", @"text_italic.pdf", @"text_strikethrough.pdf", @"text.pdf", @"transportation_bus.pdf", @"transportation_car.pdf", @"transportation_plane.pdf", @"transportation_ship.pdf", @"transportation_train.pdf", @"trash_full.pdf", @"trash.pdf", @"upload_accept.pdf", @"upload_cancel.pdf", @"upload_pause.pdf", @"upload_run.pdf", @"upload_security.pdf", @"upload_settings.pdf", @"upload_stop.pdf", @"upload.pdf", @"user_close_add.pdf", @"user_close_edit.pdf", @"user_close_information.pdf", @"user_close_remove.pdf", @"user_close_security.pdf", @"user_close_settings.pdf", @"user_close.pdf", @"mailbox_incoming.pdf", @"mailbox_outgoing.pdf", @"mailbox_settings.pdf", @"mailbox.pdf", @"mainframe.pdf", @"mashup.pdf", @"mobile_phone.pdf", @"move.pdf", @"music_accept.pdf", @"music_add.pdf", @"music_cancel.pdf", @"music_edit.pdf", @"music_eject.pdf", @"music_information.pdf", @"music_pause.pdf", @"music_remove.pdf", @"music_run.pdf", @"music_security.pdf", @"music_settings.pdf", @"music_stop.pdf", @"music.pdf", @"network_intranet.pdf", @"network_protocol.pdf", @"network_sans_add.pdf", @"network_sans_edit.pdf", @"network_sans_remove.pdf", @"network_sans_security.pdf", @"network_sans.pdf", @"network_wireless_add.pdf", @"network_wireless_edit.pdf", @"network_wireless_security.pdf", @"network_wireless.pdf", @"news.pdf", @"notes_accept.pdf", @"notes_add.pdf", @"notes_cancel.pdf", @"notes_down.pdf", @"notes_edit.pdf", @"notes_remove.pdf", @"notes_settings.pdf", @"notes_up.pdf", @"notes.pdf", @"ontology.pdf", @"owl_dl_document.pdf", @"owl_dl.pdf", @"owl_full_document.pdf", @"owl_full.pdf", @"owl_lite_document.pdf", @"owl_lite.pdf", @"paragraph.pdf", @"paste.pdf", @"path.pdf", @"pda.pdf", @"phone_home.pdf", @"phone_off.pdf", @"phone_on.pdf", @"plus.pdf", @"printer_add.pdf", @"printer_cancel.pdf", @"printer_information.pdf", @"printer_pause.pdf", @"printer_remove.pdf", @"printer_run.pdf", @"printer_settings.pdf", @"printer_stop.pdf", @"printer.pdf", @"questionmark.pdf", @"rdf_document.pdf", @"rdf.pdf", @"recent_changes.pdf", @"refresh.pdf", @"relevance.pdf", @"remix.pdf", @"satellite_ground.pdf", @"satellite.pdf", @"screen_4to3.pdf", @"screen_16to9.pdf", @"script.pdf", @"search.pdf", @"security_closed.pdf", @"security_open.pdf", @"semantic_web.pdf", @"server_accept.pdf", @"server_add.pdf", @"server_cancel.pdf", @"server_edit.pdf", @"server_eject.pdf", @"edit.pdf", @"equal.pdf", @"filepath.pdf", @"filter_settings.pdf", @"filter.pdf", @"firewall_pause.pdf", @"firewall_run.pdf", @"firewall_settings.pdf", @"firewall_stop.pdf", @"firewall.pdf", @"flash_off.pdf", @"flash.pdf", @"floppy_disk.pdf", @"folder_downloads.pdf", @"folder_image.pdf", @"folder_music.pdf", @"folder_sans_accept.pdf", @"folder_sans_add.pdf", @"folder_sans_cancel.pdf", @"folder_sans_down.pdf", @"folder_sans_edit.pdf", @"folder_sans_information.pdf", @"folder_sans_remove.pdf", @"folder_sans_run.pdf", @"folder_sans_security.pdf", @"folder_sans_settings.pdf", @"folder_sans_up.pdf", @"folder_sans.pdf", @"folder_text.pdf", @"folder_video.pdf", @"fullscreen_cancel.pdf", @"fullscreen.pdf", @"globe.pdf", @"group_full_add.pdf", @"group_full_edit.pdf", @"group_full_remove.pdf", @"group_full_security.pdf", @"group_full.pdf", @"group_half_add.pdf", @"group_half_edit.pdf", @"group_half_remove.pdf", @"group_half_security.pdf", @"group_half.pdf", @"harddisk_sans_eject.pdf", @"harddisk_sans_security.pdf", @"harddisk_sans_settings.pdf", @"harddisk_sans.pdf", @"hierarchy.pdf", @"home.pdf", @"image_accept.pdf", @"image_add.pdf", @"image_cancel.pdf", @"image_edit.pdf", @"image_pause.pdf", @"image_remove.pdf", @"image_run.pdf", @"image_security.pdf", @"image_settings.pdf", @"image.pdf", @"imprint.pdf", @"information.pdf", @"internet.pdf", @"keyboard.pdf", @"label_add.pdf", @"label_edit.pdf", @"label_remove.pdf", @"label_security.pdf", @"label.pdf", @"light_off.pdf", @"light.pdf", @"link_add.pdf", @"link_edit.pdf", @"link_remove.pdf", @"link.pdf", @"list_numbered.pdf", @"list.pdf", @"mail_accept.pdf", @"mail_add.pdf", @"mail_cancel.pdf", @"mail_edit.pdf", @"mail_fwd.pdf", @"mail_remove.pdf", @"mail_run.pdf", @"mail_security.pdf", @"mail.pdf", @"mailbox_down.pdf", @"mailbox_eject.pdf", @"document_sans_run.pdf", @"document_sans_security.pdf", @"document_sans_settings.pdf", @"document_sans_up.pdf", @"document_sans.pdf", @"document_text_accept.pdf", @"document_text_add.pdf", @"document_text_cancel.pdf", @"document_text_down.pdf", @"document_text_edit.pdf", @"document_text_information.pdf", @"document_text_remove.pdf", @"document_text_run.pdf", @"document_text_security.pdf", @"document_text_settings.pdf", @"document_text_up.pdf", @"document_text.pdf", @"document_video_accept.pdf", @"document_video_add.pdf", @"document_video_cancel.pdf", @"document_video_down.pdf", @"document_video_edit.pdf", @"document_video_information.pdf", @"document_video_remove.pdf", @"document_video_run.pdf", @"document_video_security.pdf", @"document_video_settings.pdf", @"document_video_up.pdf", @"document_video.pdf", @"donate.pdf", @"download_accept.pdf", @"download_cancel.pdf", @"download_information.pdf", @"download_pause.pdf", @"download_run.pdf", @"download_security.pdf", @"download_settings.pdf", @"download_stop.pdf", @"download.pdf", @"dropbox.pdf", @"document_sans_down.pdf", @"document_sans_edit.pdf", @"document_sans_information.pdf", @"document_sans_remove.pdf", @"document_image_add.pdf", @"document_image_cancel.pdf", @"document_image_down.pdf", @"document_image_edit.pdf", @"document_image_information.pdf", @"document_image_remove.pdf", @"document_image_run.pdf", @"document_image_security.pdf", @"document_image_settings.pdf", @"document_image_up.pdf", @"document_image.pdf", @"document_music_accept.pdf", @"document_music_add.pdf", @"document_music_cancel.pdf", @"document_music_down.pdf", @"document_music_edit.pdf", @"document_music_information.pdf", @"document_music_remove.pdf", @"document_music_run.pdf", @"document_music_security.pdf", @"document_music_settings.pdf", @"document_music_up.pdf", @"document_music.pdf", @"document_sans_accept.pdf", @"document_sans_add.pdf", @"document_sans_cancel.pdf", @"category_edit.pdf", @"category_remove.pdf", @"category_settings.pdf", @"category.pdf", @"cd_eject.pdf", @"cd_pause.pdf", @"cd_run.pdf", @"cd_security.pdf", @"cd_stop.pdf", @"cd_write.pdf", @"cd.pdf", @"chat_pause.pdf", @"chat_run.pdf", @"chat_security.pdf", @"chat_settings.pdf", @"chat_stop.pdf", @"chat.pdf", @"clock_mini.pdf", @"clock.pdf", @"combine.pdf", @"comment_accept.pdf", @"comment_add.pdf", @"comment_cancel.pdf", @"comment_edit.pdf", @"comment_remove.pdf", @"comment_settings.pdf", @"comment.pdf", @"computer_accept.pdf", @"computer_add.pdf", @"computer_cancel.pdf", @"computer_remove.pdf", @"computer_settings.pdf", @"computer.pdf", @"controls_chapter_next.pdf", @"controls_chapter_previous.pdf", @"controls_eject.pdf", @"controls_fast_forward.pdf", @"controls_pause.pdf", @"controls_play_back.pdf", @"controls_play.pdf", @"controls_rewind.pdf", @"controls_stop.pdf", @"cooler.pdf", @"copy.pdf", @"cut.pdf", @"data_privacy.pdf", @"database_add.pdf", @"database_edit.pdf", @"database_information.pdf", @"database_remove.pdf", @"database_run.pdf", @"database_security.pdf", @"database.pdf", @"document_image_accept.pdf", @"book_audio_pause.pdf", @"book_audio_remove.pdf", @"book_audio_run.pdf", @"book_audio_security.pdf", @"book_audio_settings.pdf", @"book_audio_stop.pdf", @"book_audio.pdf", @"book_image_add.pdf", @"book_image_information.pdf", @"book_image_pause.pdf", @"book_image_remove.pdf", @"book_image_run.pdf", @"book_image_security.pdf", @"book_image_settings.pdf", @"book_image_stop.pdf", @"book_image.pdf", @"book_sans_add.pdf", @"book_sans_down.pdf", @"book_sans_information.pdf", @"book_sans_remove.pdf", @"book_sans_run.pdf", @"book_sans_security.pdf", @"book_sans_up.pdf", @"book_sans.pdf", @"book_text_add.pdf", @"book_text_down.pdf", @"book_text_information.pdf", @"book_text_remove.pdf", @"book_text_run.pdf", @"book_text_security.pdf", @"book_text_settings.pdf", @"book_text_stop.pdf", @"book_text_up.pdf", @"book_text.pdf", @"bookmark_settings.pdf", @"bookmark.pdf", @"brightness_brighten.pdf", @"brightness_darken.pdf", @"browser_window_add.pdf", @"browser_window_cancel.pdf", @"browser_window_remove.pdf", @"browser_window_security.pdf", @"browser_window_settings.pdf", @"browser_window.pdf", @"buy.pdf", @"calculator.pdf", @"calendar.pdf", @"cancel.pdf", @"category_add.pdf", @"accept.pdf", @"adressbook.pdf", @"agent.pdf", @"api.pdf", @"application.pdf", @"arrow_full_down.pdf", @"arrow_full_left.pdf", @"arrow_full_lowerleft.pdf", @"arrow_full_lowerright.pdf", @"arrow_full_right.pdf", @"arrow_full_up.pdf", @"arrow_full_upperleft.pdf", @"arrow_full_upperright.pdf", @"arrow_sans_down.pdf", @"arrow_sans_left.pdf", @"arrow_sans_lowerleft.pdf", @"arrow_sans_lowerright.pdf", @"arrow_sans_right.pdf", @"arrow_sans_up.pdf", @"arrow_sans_upperleft.pdf", @"arrow_sans_upperright.pdf", @"attachment_add.pdf", @"attachment_down.pdf", @"attachment.pdf", @"avatar_edit.pdf", @"avatar_information.pdf", @"avatar.pdf", @"backup_pause.pdf", @"backup_run.pdf", @"backup_settings.pdf", @"backup_stop.pdf", @"backup.pdf", @"badge_accept.pdf", @"badge_cancel.pdf", @"badge_down.pdf", @"badge_edit.pdf", @"badge_eject.pdf", @"badge_information.pdf", @"badge_minus.pdf", @"badge_pause.pdf", @"badge_plus.pdf", @"badge_run.pdf", @"badge_security.pdf", @"badge_settings.pdf", @"badge_stop.pdf", @"badge_up.pdf", @"battery_1.pdf", @"battery_2.pdf", @"battery_3.pdf", @"battery_4.pdf", @"battery_empty.pdf", @"battery_full.pdf", @"battery_plugged.pdf", @"book_audio_add.pdf", @"book_audio_eject.pdf", @"book_audio_information.pdf"]

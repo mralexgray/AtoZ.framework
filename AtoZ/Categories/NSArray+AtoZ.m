@@ -65,7 +65,7 @@
 	}];
 }
 
-+ (NSArray*) arrayFromPlist:(NSString*)path {
++ (NSA*) arrayFromPlist:(NSString*)path {
 
 	return [NSPropertyListSerialization propertyListFromData:
 		   [NSData dataWithContentsOfFile:path] mutabilityOption:NSPropertyListImmutable
@@ -708,14 +708,14 @@ static NSInteger comparatorForSortingUsingArray(id object1, id object2, void *co
 	return [self filteredArrayUsingPredicate:p];
 }
 
--(NSArray*) uniqueObjects {
+-(NSA*) uniqueObjects {
     NSSet *set = [[NSSet alloc] initWithArray: self];
     NSArray *vals = [set allObjects];
     return vals;
 }
  
  
--(NSArray*) uniqueObjectsSortedUsingSelector: (SEL)comparator {
+-(NSA*) uniqueObjectsSortedUsingSelector: (SEL)comparator {
     NSSet *set = 
         [[NSSet alloc] initWithArray: self];
     NSArray *vals = 
@@ -877,9 +877,9 @@ static NSInteger comparatorForSortingUsingArray(id object1, id object2, void *co
 @end
 
 @implementation NSArray(ListComprehensions) // Create a new array with a block applied to each index to create a new element 
-+ (NSArray*)arrayWithBlock:(id(^)(int index))block range:(NSRange)range { id array = [NSMutableArray array]; for (int i=range.location; i<range.location+range.length; i++) [array addObject:block(i)]; return	array; } // The same with a condition 
++ (NSA*)arrayWithBlock:(id(^)(int index))block range:(NSRange)range { id array = [NSMutableArray array]; for (int i=range.location; i<range.location+range.length; i++) [array addObject:block(i)]; return	array; } // The same with a condition 
 
-+ (NSArray*)arrayWithBlock:(id(^)(int index))block range:(NSRange)range if:(BOOL(^)(int index))blockTest { id array = [NSMutableArray array]; for (int i=range.location; i<range.location+range.length; i++) if (blockTest(i))	 [array addObject:block(i)]; return	array; } 
++ (NSA*)arrayWithBlock:(id(^)(int index))block range:(NSRange)range if:(BOOL(^)(int index))blockTest { id array = [NSMutableArray array]; for (int i=range.location; i<range.location+range.length; i++) if (blockTest(i))	 [array addObject:block(i)]; return	array; } 
 
 -(NSR)rectAtIndex:(NSUInteger)index{
 	return nanRectCheck([[self normal:index]rectValue]);

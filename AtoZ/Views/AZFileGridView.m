@@ -349,7 +349,7 @@
 	//	[self doLayout];
 	//}
 
-- (id)initWithFrame:(NSRect)frame andFiles:(NSArray*)files
+- (id)initWithFrame:(NSRect)frame andFiles:(NSA*)files
 {
 	self = [super initWithFrame:frame];
 	if (self) {

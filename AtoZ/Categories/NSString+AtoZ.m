@@ -231,7 +231,7 @@
 	}	return NO;
 }
 
-- (BOOL)containsAllOf:(NSArray*) array {
+- (BOOL)containsAllOf:(NSA*) array {
 	for (id v in array) {		NSString *s = [v description];
 		if ([v isKindOfClass:[NSString class]]) s = (NSString *)v;
 		if (![self contains:s])	return NO;
@@ -778,6 +778,35 @@ static NSString *SillyStringImplementation(id self, SEL _cmd, ...)
         return ( result );
 
     return ( [result stringByAppendingString: [self substringFromIndex: 1]] );
+}
+
+@end
+
+
+@implementation NSString (SGSAdditions)
+
+- (NSString*) truncatedToWidth: (CGFloat) width withAttributes: (NSD*) attributes
+{
+	NSString*	fixedString		= self;
+	NSString*	currentString	= self;
+	NSSize		stringSize		= [currentString sizeWithAttributes: attributes];
+	if (stringSize.width > width)
+	{
+		NSInteger i = [self length];
+		while ([currentString sizeWithAttributes: attributes].width > width)
+		{
+			if (i > 0) {
+			currentString = [[self substringToIndex: i] stringByAppendingString: @"..."];
+			i--;
+			}
+			else
+			{
+				currentString = @"";	break;
+			}
+		}
+		fixedString = currentString;
+	}
+	return fixedString;
 }
 
 @end

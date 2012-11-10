@@ -2,6 +2,8 @@
 #import "AtoZColorWell.h"
 #import "AtoZ.h"
 
+
+
 @interface AtoZColorWell()
 - (void) colorPickerDidChoseRemoveColor:(id)sender;
 - (void) updateColorFromColorPicker:(id)sender;
@@ -107,12 +109,15 @@ NSForegroundColorAttributeName:[NSColor blackColor]};
     // #warning we don't necessarily want to do this, instead send our target/action?
     [[NSColorPanel sharedColorPanel] setColor:[_colorPicker color]];
     self.color = [_colorPicker color];
+	[AZNOTCENTER postNotificationNameOnMainThread:nAZColorWellChanged object:[_colorPicker color]];
+
 }
 
 - (void) colorPickerDidChoseRemoveColor:(id)sender
 {
     if ( !self.removeColorTarget || !self.removeColorTarget ) return;
-    [self.removeColorTarget performSelector:self.removeColorAction withObject:self];
+//	if ( [self respondsToSelector:self.removeColorAction])
+// 	   [self.removeColorTarget performSelectorWithoutWarnings:self.removeColorAction withObject:self];
 }
 
 - (void)mouseDown:(NSEvent *)theEvent
@@ -227,7 +232,7 @@ NSForegroundColorAttributeName:[NSColor blackColor]};
 
     // update the remove color option and target/action
     _colorPicker.canRemoveColor = self.canRemoveColor;
-    _colorPicker.removeColorAction = @selector(colorPickerDidChoseRemoveColor:);
+//    _colorPicker.removeColorAction = @selector(colorPickerDidChoseRemoveColor:);
     _colorPicker.removeColorTarget = self;
 }
 @end
@@ -559,9 +564,9 @@ static NSArray * SPColorPickerDefaultColorsInCSSRGB(void) {
         if ( [self.selectionIndex firstIndex] > 0 )
             // Send the action set on the actualMenuItem to the target set on the actualMenuItem, and make come from the actualMenuItem.
             [self.target performSelector:self.action withObject:self];
-        else if ( self.canRemoveColor )
+//        else if ( self.canRemoveColor )
             // separate action for remove color
-            [self.removeColorTarget performSelector:self.removeColorAction withObject:self];
+//            [self.removeColorTarget performSelectorWithoutWarnings:self.removeColorAction withObject:self];
     }
 
     // dismiss the menu being tracked

@@ -14,15 +14,16 @@
 
 + (NSColor*) linen;
 + (NSColor*) linenTintedWithColor: (NSColor*) color;
++ (NSColor*) leatherTintedWithColor:(NSColor*)color;
 
 + (NSColor*) checkerboardWithFirstColor: (NSColor*) firstColor secondColor: (NSColor*) secondColor
 															   squareWidth: (CGFloat)width;
-+ (NSArray*) colorNames;
++ (NSA*) colorNames;
 + (NSColor*) colorNamed:(NSString*)string;
 
 - (BOOL)	 isBoring;
 - (BOOL)	 isExciting;
-+ (NSArray*) boringColors;
++ (NSA*) boringColors;
 - (NSString*) 	nameOfColor;
 - (NSString*) 	crayonName;
 - (NSColor*) 	closestWebColor;
@@ -31,14 +32,14 @@
 
 - (CGColorRef)	cgColor;
 
-+ (NSArray*)	fengshui;
-+ (NSArray*)	colorsInFrameworkListNamed:(NSString*)name;
-+ (NSArray*)	colorListsInFramework;
-+ (NSArray*)	colorLists;
-+ (NSArray*)	allColors;
-+ (NSArray*)	randomPalette;
-+ (NSArray*)	systemColors;
-+ (NSArray*)	systemColorNames;
++ (NSA*)	fengshui;
++ (NSA*)	colorsInFrameworkListNamed:(NSString*)name;
++ (NSA*)	colorListsInFramework;
++ (NSA*)	colorLists;
++ (NSA*)	allColors;
++ (NSA*)	randomPalette;
++ (NSA*)	systemColors;
++ (NSA*)	systemColorNames;
 
 + (NSColor*)	randomColor;
 + (NSColor*)	randomOpaqueColor;
@@ -105,7 +106,7 @@
 @end
 
 @interface NSArray (THColorConversion)
-- (NSArray*)colorValues;
+- (NSA*)colorValues;
 @end
 
 @interface NSCoder (AGCoder)	 //(TDBindings)
@@ -195,13 +196,13 @@
 @interface NSColor (Utilities)
 
 // The Calvetica specific colors.
-+ (NSArray*)calveticaPalette;
++ (NSA*)calveticaPalette;
 
 // Determines which color in the Calvetica palette most closely matches the recipient color.
 - (NSColor*)closestColorInCalveticaPalette;
 
 // Determines which color in the array of colors most closely matches recipient color.
-- (NSColor*)closestColorInPalette:(NSArray*)palette;
+- (NSColor*)closestColorInPalette:(NSA*)palette;
 
 // Converts the recipient UIColor to the L*a*b* color space.
 - (float*)colorToLab;
@@ -532,7 +533,7 @@
 
 //@implementation NSColor (AIColorAdditions_ObjectColor)
 
-//+ (NSString*)representedColorForObject: (id)anObject withValidColors: (NSArray*)validColors;
+//+ (NSString*)representedColorForObject: (id)anObject withValidColors: (NSA*)validColors;
 
 //@end
 //@implementation NSColor (NSColor_ColorspaceEquality)

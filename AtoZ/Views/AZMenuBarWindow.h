@@ -9,12 +9,30 @@
 #import <Cocoa/Cocoa.h>
 #import "AtoZ.h"
 
+
+//@interface  Drawer : NSWindow
+//@property (weak) NSView*leverView;
+//@property (nonatomic,retain) NSView *bar;
+//@property (nonatomic, strong) CAL *root;
+//-(void) registerLevers:(NSView*)leverView;
+//@end
+
+
+@interface  NSWindow (BorderlessInit)
+-(void) bordlerlessInit;
+@end
+
 @interface AZMenuBarWindow : NSWindow
 {
-@private
+//@private
 	long wid;
 	void * fid;
+//	NSHashTable *_clickViews;
 }
 
-@property (nonatomic,retain) AZSimpleView *bar;
+//- (void)addClickView:(AZSimpleView *)aView;
+//@property (nonatomic, retain) Drawer *drawer;
+@property (weak) AZSimpleView *hoveredView;
+@property (nonatomic,retain) NSView *bar, *drawerView;
+
 @end

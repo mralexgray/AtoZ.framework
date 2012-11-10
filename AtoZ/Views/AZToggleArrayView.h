@@ -34,7 +34,7 @@ USAGE;
 
 -(NSUInteger) toggleCountforView:(AZToggleArrayView*) view	{	return 4;	}
 
- - (NSArray*)itemsForToggleView:(AZToggleArrayView *)view {
+ - (NSA*)itemsForToggleView:(AZToggleArrayView *)view {
  //	return 	@[///	[view itemTextLayerWithName:@"Sort:" ],
  //	[view itemLayerWithName:	@"Orient" relativeTo:@"superlayer" index:0],
  //	[view itemLayerWithName:	@"Top" relativeTo:@"Orient" 	index:1]	];
@@ -86,7 +86,7 @@ extern NSString *const AZToggleState;
 @protocol AZToggleArrayViewDelegate <NSObject>
 @required
 
-- (NSArray*)  questionsForToggleView: (AZToggleArrayView *) view;
+- (NSA*)  questionsForToggleView: (AZToggleArrayView *) view;
 /* 	return 	@[@"Sort Alphabetically?", @"Sort By Color?" , @"Sort like Dock", @"Sort by \"Category\"?", @"Show extra app info?" ]; */
 
 @optional
@@ -104,14 +104,14 @@ extern NSString *const AZToggleState;
 - (AZWindowPosition) positionForQuestion: (NSString*) question;
 //- (AZWindowPosition) defaultLabelPosition;
 
-- (NSArray*) itemsForToggleView: (AZToggleArrayView*) view;
+- (NSA*) itemsForToggleView: (AZToggleArrayView*) view;
 
 /*	return 	@[	[view itemTextLayerWithName:@"Sort:" ],
 				[view itemLayerWithName:	@"Color" relativeTo:@"superlayer" index:0],
  				[view itemLayerWithName:	@"A-Z" relativeTo:@"Color" 	index:1]	]; 		*/
 
 
-//- (NSArray*) itemsForToggleView: (AZToggleArrayView*) view positioned: (AZWindowPosition) position;
+//- (NSA*) itemsForToggleView: (AZToggleArrayView*) view positioned: (AZWindowPosition) position;
 - (void)toggleStateDidChangeTo: (BOOL) state InToggleViewArray: (AZToggleArrayView*) view WithName:(NSString *)name;
 
 @end

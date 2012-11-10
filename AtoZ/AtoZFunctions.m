@@ -7,6 +7,9 @@
 //
 
 #import "AtoZFunctions.h"
+#include <netdb.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
 
 //static inline BOOL isEmpty(id thing);
 //	return	thing == nil
@@ -62,6 +65,18 @@ BOOL powerBox(){
 	BOOL ok = [bookmarkedURL startAccessingSecurityScopedResource];
 	NSLog(@"Accessed ok: %d %@", ok, [bookmarkedURL relativePath]);
 	return ok;
+}
+
+NSS* WANIP(void) {
+	return $(@"%s", GetPrivateIP());
+}
+
+char *GetPrivateIP(void) {
+	struct hostent *h;
+	char hostname[100];
+	gethostname(hostname, 99);
+	if ((h=gethostbyname(hostname)) == NULL) { perror("Error: "); return "(Error locating Private IP Address)"; }
+	return inet_ntoa(*((struct in_addr *)h->h_addr));
 }
 
 

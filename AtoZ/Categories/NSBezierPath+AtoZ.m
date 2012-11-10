@@ -957,3 +957,120 @@ static void CGPathCallback(void *info, const CGPathElement *element)
 }
 
 @end
+
+@implementation NSBezierPath (RoundRects)
+
++(void)			fillRoundRectInRect:(NSR)rect radius:(CGFloat) radius
+{
+	NSBezierPath*	p = [self bezierPathWithRoundRectInRect: rect radius: radius];
+	[p fill];
+}
+
+
++(void)			strokeRoundRectInRect:(NSR)rect radius:(CGFloat) radius
+{
+	NSBezierPath*	p = [self bezierPathWithRoundRectInRect: rect radius: radius];
+	[p stroke];
+}
+
+
+
+// -----------------------------------------------------------------------------
+//		bezierPathWithRoundRectInRect:radius:
+//				  This method adds the traditional Macintosh rounded-rectangle to
+//				  NSBezierPath's repertoire.
+//
+//		REVISIONS:
+//				  2004-02-04		witness Created.
+// -----------------------------------------------------------------------------
+
++(NSBezierPath*)		  bezierPathWithRoundRectInRect:(NSR)rect radius:(CGFloat) radius
+{
+	// Make sure radius doesn't exceed a maximum size to avoid artifacts:
+	if( radius >= (rect.size.height /2) )
+		radius = truncf(rect.size.height /2) -1;
+	if( radius >= (rect.size.width /2) )
+		radius = truncf(rect.size.width /2) -1;
+
+	// Make sure silly values simply lead to un-rounded corners:
+	if( radius <= 0 )
+		return [self bezierPathWithRect: rect];
+
+	// Now draw our rectangle:
+	NSR						innerRect = NSInsetRect( rect, radius, radius );		  // Make rect with corners being centers of the corner circles.
+	NSBezierPath	 *path = [self bezierPath];
+
+	[path moveToPoint: NSMakePoint(rect.origin.x,rect.origin.y +radius)];
+
+	// Bottom left (origin):
+	[path appendBezierPathWithArcWithCenter: UKBottomLeftOfRect(innerRect)
+									 radius: radius startAngle: 180.0 endAngle: 270.0 ];
+	[path relativeLineToPoint: NSMakePoint(NSWidth(innerRect), 0.0) ];				  // Bottom edge.
+
+	// Bottom right:
+	[path appendBezierPathWithArcWithCenter: UKBottomRightOfRect(innerRect)
+									 radius: radius startAngle: 270.0 endAngle: 360.0 ];
+	[path relativeLineToPoint: NSMakePoint(0.0, NSHeight(innerRect)) ];				 // Right edge.
+
+	// Top right:
+	[path appendBezierPathWithArcWithCenter: UKTopRightOfRect(innerRect)
+									 radius: radius startAngle: 0.0  endAngle: 90.0 ];
+	[path relativeLineToPoint: NSMakePoint( -NSWidth(innerRect), 0.0) ];	 // Top edge.
+
+	// Top left:
+	[path appendBezierPathWithArcWithCenter: UKTopLeftOfRect(innerRect)
+									 radius: radius startAngle: 90.0  endAngle: 180.0 ];
+
+	[path closePath];	// Implicitly causes left edge.
+
+	return path;
+}
+
+
+NSP  UKCenterOfRect( NSR rect )
+{
+	return NSMakePoint( NSMidX(rect), NSMidY(rect) );
+}
+
+NSP  UKTopCenterOfRect( NSR rect )
+{
+	return NSMakePoint( NSMidX(rect), NSMaxY(rect) );
+}
+
+NSP  UKTopLeftOfRect( NSR rect )
+{
+	return NSMakePoint( NSMinX(rect),NSMaxY(rect) );
+}
+
+NSP  UKTopRightOfRect( NSR rect )
+{
+	return NSMakePoint( NSMaxX(rect), NSMaxY(rect) );
+}
+
+NSP  UKLeftCenterOfRect( NSR rect )
+{
+	return NSMakePoint( NSMinX(rect), NSMidY(rect) );
+}
+
+NSP  UKBottomCenterOfRect( NSR rect )
+{
+	return NSMakePoint( NSMidX(rect), NSMinY(rect) );
+}
+
+NSP  UKBottomLeftOfRect( NSR rect )
+{
+	return rect.origin;
+}
+
+NSP  UKBottomRightOfRect( NSR rect )
+{
+	return NSMakePoint( NSMaxX(rect), NSMinY(rect) );
+}
+
+NSP  UKRightCenterOfRect( NSR rect )
+{
+	return NSMakePoint( NSMaxX(rect), NSMidY(rect) );
+}
+
+
+@end

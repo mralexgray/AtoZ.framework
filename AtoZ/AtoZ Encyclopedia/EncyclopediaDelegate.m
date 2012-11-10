@@ -221,7 +221,7 @@
 	[self loadNotes];
 }
 
-- (NSArray*) instructionImageNames {
+- (NSA*) instructionImageNames {
 	return [NSImage frameworkImages];//@[ @"mrgray.logo.png", @"1.pdf", @"2.pdf", @"3.pdf" ];
 }
 
@@ -229,7 +229,7 @@
 	return YES;
 }
 
-- (NSArray*) preferencePaneControllerClasses {
+- (NSA*) preferencePaneControllerClasses {
 	return @[[SDGeneralPrefPane class]];
 }
 - (void)toggleWindowInWindow:(id)window atPoint:(NSPoint) buttonPoint

@@ -27,7 +27,7 @@
 
 - (NSA*) URLsForPaths;
 - (void) logEach;
-+ (NSArray*) arrayFromPlist:(NSString*)path;
++ (NSA*) arrayFromPlist:(NSString*)path;
 - (void) saveToPlistAtPath:(NSString*)path;
 
 - (NSString*) stringWithEnum: (NSUInteger) anEnum;
@@ -198,9 +198,9 @@
 
 -(NSArray *)filteredArrayUsingBlock:
 (BOOL (^)(id evaluatedObject, NSDictionary *bindings))block;
--(NSArray*) uniqueObjects;
+-(NSA*) uniqueObjects;
 
--(NSArray*) uniqueObjectsSortedUsingSelector: (SEL)comparator;
+-(NSA*) uniqueObjectsSortedUsingSelector: (SEL)comparator;
 
 -(id)firstObject;
 
@@ -223,10 +223,10 @@
 
 @interface NSArray(ListComprehensions) 
 // Create a new array with a block applied to each index to create a new element 
-+ (NSArray*)arrayWithBlock:(id(^)(int index))block range:(NSRange)range;
++ (NSA*)arrayWithBlock:(id(^)(int index))block range:(NSRange)range;
 
 // The same with a condition 
-+ (NSArray*)arrayWithBlock:(id(^)(int index))block range:(NSRange)range if:(BOOL(^)(int index))blockTest;
++ (NSA*)arrayWithBlock:(id(^)(int index))block range:(NSRange)range if:(BOOL(^)(int index))blockTest;
 
 -(NSR)rectAtIndex:(NSUInteger)index;
 @end

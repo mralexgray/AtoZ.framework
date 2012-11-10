@@ -52,7 +52,7 @@
 		//	} upYesDownNo:YES];
 		//	if (!menuWindowIsShowing) {
 }
-	//-(void) slideWindows:(NSArray*)windies upYesDownNo:(BOOL)direction {
+	//-(void) slideWindows:(NSA*)windies upYesDownNo:(BOOL)direction {
 	//	if (direction)
 	//		 [windies each:^(id obj, NSUInteger index, BOOL *stop) {
 	//			[[]
@@ -68,7 +68,7 @@
 	//}
 
 
-- (NSArray*)questionsForToggleView:(AZToggleArrayView *) view{
+- (NSA*)questionsForToggleView:(AZToggleArrayView *) view{
 	return 	@[@"Sort Alphabetically?", @"Sort By Color?" , @"Sort like Dock", @"Sort by \"Category\"?", @"Show extra app info?" ];
 
 }
@@ -381,7 +381,7 @@
 	[self loadNotes];
 }
 
-- (NSArray*) instructionImageNames {
+- (NSA*) instructionImageNames {
 	return @[@"1.pdf", @"2.pdf", @"3.pdf"];
 }
 
@@ -389,7 +389,7 @@
 	return YES;
 }
 
-- (NSArray*) preferencePaneControllerClasses {
+- (NSA*) preferencePaneControllerClasses {
 	return @[[SDGeneralPrefPane class]];
 }
 

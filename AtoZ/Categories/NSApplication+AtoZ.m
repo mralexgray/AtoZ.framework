@@ -266,7 +266,7 @@ static void _ScanSentence(NSScanner* scanner) {
 	return self;
 }
 
-- (NSArray*) extractAllSentences {
+- (NSA*) extractAllSentences {
 	NSMutableArray* array = [NSMutableArray array];
 	NSScanner* scanner = [[NSScanner alloc] initWithString:self];
 	scanner.charactersToBeSkipped = nil;
@@ -348,7 +348,7 @@ static void _ScanSentence(NSScanner* scanner) {
 	return range.location != NSNotFound;
 }
 
-- (NSArray*) extractAllWords {
+- (NSA*) extractAllWords {
 	NSCharacterSet* characterSet = _GetCachedCharacterSet(kCharacterSet_WordBoundaries);
 	if (self.length) {
 		NSMutableArray* array = [NSMutableArray array];

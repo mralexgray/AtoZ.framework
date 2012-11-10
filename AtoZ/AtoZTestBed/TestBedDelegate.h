@@ -8,6 +8,8 @@
 #import <Quartz/Quartz.h>
 #import <AtoZ/AtoZ.h>
 #import "AZGeometryViewController.h"
+#import "AZGeneralViewController.h"
+
 //#import <AtoZUI/AtoZUI.h>
 
 
@@ -22,23 +24,17 @@
 
 @interface TestBedDelegate : NSObject <NSApplicationDelegate>
 
-@property (ASS) IBOutlet AZGeometryViewController *geoVC;
+@property (NATOM, STRNG)  AZGeometryViewController *geoVC;
+@property (NATOM, STRNG)  AZGeneralViewController *genVC;
+
+
 @property (ASS) IBOutlet NSWindow 		  	*window;
-@property (ASS) IBOutlet NSSegmentedControl *segments;
-@property (ASS) IBOutlet NSView 			*targetView;
+@property (ASS) IBOutlet NSView				*mainView;
 
-@property (STRNG, NATOM) AtoZGridViewAuto	*autoGrid;
-@property (STRNG, NATOM) AZHostView			*hostView;
-@property (STRNG, NATOM) AZGrid				*azGrid;
-@property (STRNG, NATOM) NASpinSeque 		*seque;
-@property (STRNG, NATOM) AZPrismView 		*prism;
+
 @property (STRNG, NATOM) AtoZ 				*propeller;
+@property (STRNG, NATOM) NASpinSeque 		*seque;
+@property (STRNG, NATOM) AZMenuBarWindow 		*mbWindow;
 
-@property (STRNG, NATOM) AZMedallionView *medallion;
-@property (STRNG, NATOM) BLKVIEW	   	 	*blockView;
-@property (STRNG, NATOM) AZDebugLayerView  	*debugLayers;
-@property (STRNG, NATOM) NSIV	 			*badges,
-											*imageNamed,
-											*picol;
 
 @end

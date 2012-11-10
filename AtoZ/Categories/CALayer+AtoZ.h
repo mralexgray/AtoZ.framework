@@ -106,7 +106,7 @@ extern CATransform3D CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13, CG
 //- (id)objectForKeyedSubscript:(NSString *)key;
 //- (void)setObject:(id)object forKeyedSubscript:(NSString *)key;
 
-- (void)addConstraints:(NSArray*)constraints;
+- (void)addConstraints:(NSA*)constraints;
 - (void)orientWithPoint:(CGPoint) point;
 - (void)orientWithX: (CGFloat)x andY: (CGFloat)y;
 - (void)orientOnEvent: (NSEvent*)event;
@@ -132,10 +132,12 @@ extern CATransform3D CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13, CG
 - (void)fadeIn;
 - (void)animateToColor:(NSColor*)color;
 
-- (void)addAnimations:(NSArray*)anims forKeys:(NSArray *)keys;
+- (void)addAnimations:(NSA*)anims forKeys:(NSArray *)keys;
 
 + (CALayer *) withName:(NSString*)name   inFrame:(NSRect)rect
 			   colored:(NSColor*)color withBorder:(CGFloat)width colored:(NSColor*) borderColor;
+
+-(void)rotateAroundYAxis:(CGFloat)radians;
 
 - (CATransform3D)makeTransformForAngle:(CGFloat)angle from:(CATransform3D)start;
 - (BOOL)containsOpaquePoint:(CGPoint)p;
@@ -157,7 +159,7 @@ extern CATransform3D CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13, CG
 
 -(void)debugAppendToLayerTree:(NSMutableString*)treeStr indention:(NSString*)indentStr;
 - (NSString*)debugLayerTree;
-- (void) addSublayers:(NSArray*)subLayers;
+- (void) addSublayers:(NSA*)subLayers;
 
 + (CALayer*)newGlowingSphereLayer;
 

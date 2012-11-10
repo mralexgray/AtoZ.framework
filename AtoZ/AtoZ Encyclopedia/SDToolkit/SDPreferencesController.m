@@ -82,7 +82,7 @@
 	}
 }
 
-- (NSArray*) toolbarItemIdentifiers {
+- (NSA*) toolbarItemIdentifiers {
 	return [toolbarItems valueForKey:@"itemIdentifier"];
 }
 

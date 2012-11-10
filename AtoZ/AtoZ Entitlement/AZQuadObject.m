@@ -70,7 +70,7 @@ static const NSString *didScroll = @"scrollOffset";
 		obj.bounceDistance = 20;
 		obj.wantsLayer 	= YES;
 		[obj.window orderFrontRegardless];
-		[NSEvent addGlobalMonitorForEventsMatchingMask:  AZMouseActive handler:^(NSEvent *e) {
+		[NSEvent addGlobalMonitorForEventsMatchingMask: NSMouseMovedMask handler:^(NSEvent *e) {
 			if ( NSMouseInRect( mouseLoc(), w.triggerFrame, NO)) {  [NSApp activateIgnoringOtherApps:YES];
 				[_quads az_each:^(id obj, NSUI index, BOOL *stop) {	[obj orderFrontRegardless]; }];
 			}
@@ -1042,7 +1042,7 @@ static const NSString *didScroll = @"scrollOffset";
  //	[v setNeedsDisplay:YES];
  */
 /*
- - (NSArray*) allItems {
+ - (NSA*) allItems {
  //	__block	NSMutableArray *i = [NSMutableArray array];
  //	[_quads az_each:^(id obj, NSUInteger index, BOOL *stop) {
  //		[i addObjectsFromArray:obj];
@@ -1053,7 +1053,7 @@ static const NSString *didScroll = @"scrollOffset";
  //	i.copy;
  }
 
- -(NSArray*)itemsinQuad:(AZQuad)quadrant;{
+ -(NSA*)itemsinQuad:(AZQuad)quadrant;{
  NSUInteger ct = [self itemsInQuad:quadrant];
  NSUInteger first = [self _firstIndexInQuad:quadrant];
  NSUInteger firstadjusted = first + _externalZeroIndex;
@@ -1069,7 +1069,7 @@ static const NSString *didScroll = @"scrollOffset";
  -(NSRange) forQuad:(AZQuad) quadrant {
 
  }
- -(void)insertItems:(NSArray*)items{
+ -(void)insertItems:(NSA*)items{
 
 
  }
@@ -1099,7 +1099,7 @@ static const NSString *didScroll = @"scrollOffset";
  -(void)removeItem:(id)item;{
 
  }
- -(void)removeItems:(NSArray*)items;{
+ -(void)removeItems:(NSA*)items;{
 
  }
 

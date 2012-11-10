@@ -30,13 +30,13 @@
 	[self makeBadges];
 }
 
-- (NSArray*)itemsForToggleView:(AZToggleArrayView *)view {
+- (NSA*)itemsForToggleView:(AZToggleArrayView *)view {
 
 	return 	@[/*	[view itemTextLayerWithName:@"Sort:" ],*/
 				[view itemLayerWithName:	@"Color" relativeTo:@"superlayer" index:0],
 				[view itemLayerWithName:	@"A-Z" relativeTo:@"Color" 	index:1]	];
 }
-- (NSArray*)questionsForToggleView:(AZToggleArrayView *) view{
+- (NSA*)questionsForToggleView:(AZToggleArrayView *) view{
 	return 	@[@"Sort Alphabetically?", @"Sort By Color?" , @"Sort like Dock", @"Sort by \"Category\"?", @"Show extra app info?" ];
 
 }

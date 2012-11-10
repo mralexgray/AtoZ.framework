@@ -38,9 +38,9 @@
 
 // must implement in subclass!
 
-- (NSArray*) instructionImageNames;
+- (NSA*) instructionImageNames;
 
 - (BOOL) showsPreferencesToolbar;
-- (NSArray*) preferencePaneControllerClasses;
+- (NSA*) preferencePaneControllerClasses;
 
 @end

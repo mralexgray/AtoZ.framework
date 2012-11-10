@@ -13,10 +13,10 @@ NSString *NSBundleFolder(void);
 
 @interface NSFileManager (AtoZ)
 
-- (NSArray*) pathsOfContentsOfDirectory:(NSString*) directory;
+- (NSA*) pathsOfContentsOfDirectory:(NSString*) directory;
 
 
-- (NSArray*) arrayWithFilesMatchingPattern: (NSString*) pattern inDirectory: (NSString*) directory;
+- (NSA*) arrayWithFilesMatchingPattern: (NSString*) pattern inDirectory: (NSString*) directory;
 
 + (NSString *) pathForItemNamed: (NSString *) fname inFolder: (NSString *) path;
 + (NSString *) pathForDocumentNamed: (NSString *) fname;
@@ -69,10 +69,20 @@ NSString *NSBundleFolder(void);
 - (BOOL) setExtendedAttributeData:(NSData*)data withName:(NSString*)name forFileAtPath:(NSString*)path;
 - (BOOL) setExtendedAttributeString:(NSString*)string withName:(NSString*)name forFileAtPath:(NSString*)path;  // Uses UTF8 encoding
 - (BOOL) removeItemAtPathIfExists:(NSString*)path;
-- (NSArray*) directoriesInDirectoryAtPath:(NSString*)path includeInvisible:(BOOL)invisible;
-- (NSArray*) filesInDirectoryAtPath:(NSString*)path includeInvisible:(BOOL)invisible includeSymlinks:(BOOL)symlinks;
+- (NSA*) directoriesInDirectoryAtPath:(NSString*)path includeInvisible:(BOOL)invisible;
+- (NSA*) filesInDirectoryAtPath:(NSString*)path includeInvisible:(BOOL)invisible includeSymlinks:(BOOL)symlinks;
 #if TARGET_OS_IPHONE
 - (void) setDoNotBackupAttributeAtPath:(NSString*)path;  // Has no effect prior to iOS 5.0.1
 #endif
+@end
+
+
+/* ----- NSFileManager Additons : Interface ----- */
+
+@interface NSFileManager (SGSAdditions)
+
+- (void) createPath: (NSString*) filePath;
+- (NSString*) uniqueFilePath: (NSString*) filePath;
+
 @end
 

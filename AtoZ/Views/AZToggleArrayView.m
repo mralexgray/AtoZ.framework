@@ -177,7 +177,7 @@ NSString *const AZToggleState	= @"AZToggleState";
 //
 //	}
 
-//	- (NSArray*)itemsForToggleView:(AZToggleArrayView *)view {
+//	- (NSA*)itemsForToggleView:(AZToggleArrayView *)view {
 //		return 	@[												/*	[view itemTextLayerWithName:@"Sort:" ],*/
 //		[view itemLayerWithName:	@"Color" relativeTo:@"superlayer" index:0],
 //		[view itemLayerWithName:	@"A-Z" relativeTo:@"Color" 	index:1]	];			}

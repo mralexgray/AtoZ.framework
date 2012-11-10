@@ -42,10 +42,10 @@
 //@property (nonatomic, strong) AZSizer *szr;
 //- (id) 		 	objectAtIndex: 	 (NSUInteger)	index 			inQuad:(AZWindowPosition)quadrant;
 //- (NSUInteger) 	itemsInQuad:		 (AZWindowPosition)		quadrant;
-//- (NSArray*) 	contentsOfQuad:  (AZWindowPosition)		quadrant;
+//- (NSA*) 	contentsOfQuad:  (AZWindowPosition)		quadrant;
 //- (void) 	 	insertItem:	 	 (id)			item;
-//- (void) 	 	insertItems:	 	 (NSArray*)	items;
+//- (void) 	 	insertItems:	 	 (NSA*)	items;
 //- (NSRange)		ofQuad:			 (AZWindowPosition)quadrant;
 
 //- (void) removeItem:(id)item;
-//- (void) removeItems:(NSArray*)items;
+//- (void) removeItems:(NSA*)items;

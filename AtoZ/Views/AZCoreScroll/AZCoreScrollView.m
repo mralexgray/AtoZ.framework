@@ -189,7 +189,7 @@
 	[_bodyLayer moveSelection:dx];
 }
 
-- (void)debugLayers:(NSArray*)layers {
+- (void)debugLayers:(NSA*)layers {
 
 	[layers enumerateObjectsUsingBlock:^(CALayer* obj, NSUInteger idx, BOOL *stop) {
 		obj.borderWidth = 4;
@@ -216,7 +216,7 @@
 	//- (void)moveSelection:(NSInteger)dx;
 	//@end
 
-	//- (void) debugLayers:(NSArray*)layers{
+	//- (void) debugLayers:(NSA*)layers{
 		/*	1=open, 0=closed  */				//if (0)	 [[NSLogConsole sharedConsole] open];
 	//	[layers enumerateObjectsUsingBlock:^(CALayer* obj, NSUInteger idx, BOOL *stop) {
 	//		obj.borderColor = cgRANDOMCOLOR;

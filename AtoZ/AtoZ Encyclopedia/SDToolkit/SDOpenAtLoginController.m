@@ -26,7 +26,7 @@
 	}
 	else {
 		UInt32 seed;
-		NSArray *sharedFileListArray = [(NSArray*)LSSharedFileListCopySnapshot(sharedFileList, &seed) autorelease];
+		NSArray *sharedFileListArray = [(NSA*)LSSharedFileListCopySnapshot(sharedFileList, &seed) autorelease];
 		for (id item in sharedFileListArray) {
 			LSSharedFileListItemRef sharedFileItem = (__bridge LSSharedFileListItemRef)item;
 			CFURLRef url = NULL;
@@ -47,7 +47,7 @@
 
 - (BOOL) opensAtLogin {
 	UInt32 seed;
-	NSArray *sharedFileListArray = [(NSArray*)LSSharedFileListCopySnapshot(sharedFileList, &seed) autorelease];
+	NSArray *sharedFileListArray = [(NSA*)LSSharedFileListCopySnapshot(sharedFileList, &seed) autorelease];
 	for (id item in sharedFileListArray) {
 		CFURLRef url = NULL;
 		if (LSSharedFileListItemResolve((__bridge LSSharedFileListItemRef)item, 0, &url, NULL) == noErr) {

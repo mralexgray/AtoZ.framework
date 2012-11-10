@@ -144,6 +144,8 @@
 #import "NSView+AtoZ.h"
 #import "NSValue+AtoZ.h"
 #import "NSWindow+AtoZ.h"
+#import "NSUserDefaults+Subscript.h"
+
 //#import "NSUserDefaults+AtoZ.h"
 #import "NSObject-Utilities.h"
 
@@ -177,6 +179,10 @@
 #import "AZWindowExtend.h"
 #import "NSWindow_Flipr.h"
 #import "AZBorderlessResizeWindow.h"
+#import "AZMenuBarWindow.h"
+#import "AZAttachedWindow.h"
+
+
 
 //CoreScroll
 #import "AZCoreScrollView.h"
@@ -216,7 +222,7 @@
 // COREDATA
 #import "AZImageToDataTransformer.h"
 
-//static NSEventMask AZMouseActive = (NSMouseMovedMask | NSMouseExitedMask |NSMouseEnteredMask);
+//static NSEventMask AZMouseActive = NSMouseMovedMask | NSMouseExitedMask |NSMouseEnteredMask);
 //static NSEventMask AZMouseButton = NS | NSMouseExitedMask |NSMouseEnteredMask;
 
 CGFloat ScreenWidess();
@@ -250,7 +256,7 @@ extern NSString *const AtoZDockSortedUpdated;
 + (void) playSound:(id)number;
 + (void) playRandomSound;
 
-+ (NSArray*)fonts;
++ (NSA*)fonts;
 
 @property (NATOM, STRNG) NSA* fonts;
 @property (NATOM, STRNG) NSA* cachedImages;
@@ -261,16 +267,16 @@ extern NSString *const AtoZDockSortedUpdated;
 
 + (NSS*) randomFontName;
 
-+ (NSArray*) dock;
-+ (NSArray*) dockSorted;
-//+ (NSArray*) currentScope;
-//+ (NSArray*) fengShui;
-+ (NSArray*) runningApps;
-+ (NSArray*) runningAppsAsStrings;
-//+ (NSArray*) appFolder;
-//+ (NSArray*) appCategories;
-//+ (NSArray*) appFolderSorted;
-//+ (NSArray*) appFolderSamplerWith: (NSUInteger) apps;
++ (NSA*) dock;
++ (NSA*) dockSorted;
+//+ (NSA*) currentScope;
+//+ (NSA*) fengShui;
++ (NSA*) runningApps;
++ (NSA*) runningAppsAsStrings;
+//+ (NSA*) appFolder;
+//+ (NSA*) appCategories;
+//+ (NSA*) appFolderSorted;
+//+ (NSA*) appFolderSamplerWith: (NSUInteger) apps;
 + (NSString*) resources;
 + (void) trackIt;
 
@@ -291,7 +297,7 @@ extern NSString *const AtoZDockSortedUpdated;
 + (NSBundle*) bundle;
 + (NSString*) resources;
 + (NSString*) stringForType:(id)type;
-+ (NSArray*) appCategories;
++ (NSA*) appCategories;
 
 @property (nonatomic, retain) NSBundle *bundle;
 

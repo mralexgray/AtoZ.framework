@@ -140,7 +140,7 @@
 @end
 
 @implementation NSWindow (AtoZ)
-+(NSArray*) allWindows {
++(NSA*) allWindows {
 	return (__bridge_transfer id)CGWindowListCopyWindowInfo(kCGWindowListOptionAll, kCGNullWindowID);
 }	
 
@@ -287,7 +287,7 @@ return midpoint;
 @end
 
 @interface NSApplication (Undocumented)
-- (NSArray*)_orderedWindowsWithPanels:(BOOL)panels;
+- (NSA*)_orderedWindowsWithPanels:(BOOL)panels;
 @end
 
 @implementation NSWindow (Utilities)
@@ -363,12 +363,12 @@ return midpoint;
 	return nil;
 }
 
-+ (NSArray*)visibleWindows:(BOOL)ordered;
++ (NSA*)visibleWindows:(BOOL)ordered;
 {
 	return [self visibleWindows:ordered delegateClass:nil];
 }
 
-+ (NSArray*)visibleWindows:(BOOL)ordered delegateClass:(Class)delegateClass;
++ (NSA*)visibleWindows:(BOOL)ordered delegateClass:(Class)delegateClass;
 {
 	NSArray* windows;
     NSMutableArray* visibles = [NSMutableArray array];
@@ -410,7 +410,7 @@ return midpoint;
     return visibles;	
 }
 
-+ (NSArray*)miniaturizedWindows;
++ (NSA*)miniaturizedWindows;
 {
     NSArray* windows;
     NSMutableArray* minaturized = [NSMutableArray array];

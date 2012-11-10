@@ -47,7 +47,7 @@
 				  : [NSImage az_imageNamed:@"missing.png"];
 }
 -(NSA*) colors 	{
-	return _colors = _colors ? _colors : (NSArray*)^{
+	return _colors = _colors ? _colors : (NSA*)^{
 		[AZStopwatch start:$(@"%@.colorquant", _name)];
 		@autoreleasepool {
 			NSArray *raw = [self.image quantize];
@@ -136,7 +136,7 @@
 + (instancetype)instanceWithPath:(NSString *)path {	return [[[self class] alloc]initWithObject:path]; }
 
 /*
--(NSArray*) colors {
+-(NSA*) colors {
 	[AZStopwatch start:$(@"%@.colorquant", self.name)];
 //	if (_colors) return  _colors;
 	@autoreleasepool {
@@ -288,13 +288,13 @@
 	return [AZFolder instanceWithPaths:[[self appFolderPaths] randomSubarrayWithSize:items]];
 }
 //+ (id) samplerWithBetween:(NSUInteger)minItems andMax:(NSUInteger)items;
-//+ (id) instanceWithFiles:(NSArray*)files;
-//+ (id) instanceWithPaths:(NSArray*)strings;
-//+ (id) instanceWithPath:(NSArray*)strings;
+//+ (id) instanceWithFiles:(NSA*)files;
+//+ (id) instanceWithPaths:(NSA*)strings;
+//+ (id) instanceWithPath:(NSA*)strings;
 
-+ (id) instanceWithFiles:(NSArray*)files {	return  [[AZFolder alloc]initWithArray:files];	}
++ (id) instanceWithFiles:(NSA*)files {	return  [[AZFolder alloc]initWithArray:files];	}
 
-+ (id) instanceWithPaths:(NSArray*)paths {	return [[AZFolder alloc]initWithArray:paths];	}
++ (id) instanceWithPaths:(NSA*)paths {	return [[AZFolder alloc]initWithArray:paths];	}
 
 - (id) initWithArray:(NSArray *)array
 {
@@ -307,7 +307,7 @@
 
 - (NSArray *)files {	return self.backingstore;  }
 
-- (NSArray*) appFolderPaths {
+- (NSA*) appFolderPaths {
 	[AZStopwatch start:@"appPaths"];
 	NSMA *paths = [NSMA array];
 	ApplicationsInDirectory(@"/Applications", paths);
@@ -400,7 +400,7 @@
 	return [AZFolder instanceWithPaths:[applications randomSubarrayWithSize:(items - minItems)]];
 }
 
-	//+ (id) instanc:(NSArray*)items {
+	//+ (id) instanc:(NSA*)items {
 	//	return  [AZFolder instanceWithPaths:items];
 	//	if ([items[0]  isKindOfClass:[AZFile class]])
 	//		 ? [[self class]instanceWithFiles:items]
@@ -444,7 +444,7 @@
 
 //- (void) setUp {		[[AZDockQuery instance] dock: self];}
 
-	//- (NSArray*) dockSorted {		[[self.dock sortedWithKey:@"hue" ascending:YES]
+	//- (NSA*) dockSorted {		[[self.dock sortedWithKey:@"hue" ascending:YES]
 	//											arrayUsingIndexedBlock:^id(AZDockItem* obj, NSUInteger idx) {
 	//		obj.spotNew = idx;
 	//		obj.dockPointNew = [_dock[idx][@"dockPoint"]pointValue];
@@ -674,7 +674,7 @@ static NSOperationQueue *AZSharedOperationQueue() {
 	//-(CGFloat) hueComponent {	return [color_ hueComponent];		 		}
 
 /*
--(NSArray*) colorsForImage:(NSImage*)image {
+-(NSA*) colorsForImage:(NSImage*)image {
 
 	@autoreleasepool {
 

@@ -34,7 +34,7 @@
     [array addObject:element];
 }
 
--(void)enqueueElementsFromArray:(NSArray*)arr 
+-(void)enqueueElementsFromArray:(NSA*)arr 
 {
     [array addObjectsFromArray:arr];
 }

@@ -9,7 +9,7 @@
 #import "NSArray+UsefulStuff.h"
 @implementation NSArray (UsefulStuff)
 
-- (NSArray*) reversedArray {
+- (NSA*) reversedArray {
 	return [[self reverseObjectEnumerator] allObjects];
 }
 

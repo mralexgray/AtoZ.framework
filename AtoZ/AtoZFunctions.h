@@ -29,6 +29,8 @@
 ///// ### SANDBOX
 NSString *realHomeDirectory();
 BOOL powerBox();
+char *GetPrivateIP(void);
+NSString *WANIP(void);
 
 
 OSStatus HotKeyHandler(EventHandlerCallRef nextHandler, EventRef theEvent, void *userData);
@@ -73,7 +75,7 @@ BOOL areSameThenDo(id a, id b, VoidBlock doBlock);
 //BOOL isEmpty(id thing);
 int (^triple)(int);
 
-//USAGE: .... return (NSArray*)logAndReturn( [NSArray arrayWithArrays:@[blah,blahb]] );
+//USAGE: .... return (NSA*)logAndReturn( [NSArray arrayWithArrays:@[blah,blahb]] );
 //id (^logAndReturn)(id); //= ^(id toLog) { AZLOG(toLog); return toLog; };
 id LogAndReturn(id toLog); //= ^(id toLog) { AZLOG(toLog); return toLog; };
 

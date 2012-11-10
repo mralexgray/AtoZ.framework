@@ -11,7 +11,7 @@
 
 @protocol SDInstructionsDelegate
 
-- (NSArray*) instructionImageNames;
+- (NSA*) instructionImageNames;
 
 @end
 
@@ -29,7 +29,7 @@
 
 @property (assign) id <SDInstructionsDelegate> delegate;
 
-- (int) selectedImageIndexPlusOne;
+- (NSUI) selectedImageIndexPlusOne;
 
 - (IBAction) navigateFromArrowsButton:(NSSegmentedControl*)sender;
 - (IBAction) closeWindow:(id)sender;

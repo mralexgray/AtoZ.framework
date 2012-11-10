@@ -228,6 +228,10 @@ static ColorNameRec sColorTable[] = {
 + (NSColor*) linenTintedWithColor:(NSColor*)color {
 	return [NSColor colorWithPatternImage:[[NSImage az_imageNamed:@"linen.png"]tintedWithColor:color]];
 }
++ (NSColor*) leatherTintedWithColor:(NSColor*)color {
+	return [NSColor colorWithPatternImage:[[NSImage imageNamed:@"perforated_white_leather"]tintedWithColor:color]];
+}
+
 
 + (NSColor*)checkerboardWithFirstColor: (NSColor*)firstColor secondColor: (NSColor*)secondColor squareWidth: (CGFloat)width
 {
@@ -354,7 +358,7 @@ static NSColor *ColorWithCSSString(NSString *str) {
 
 	return ColorWithUnsignedLong(sColorTable[idx].value, NO);
 }
-+ (NSArray*) boringColors{
++ (NSA*) boringColors{
 	return  $array( @"White", @"Whitesmoke", @"Whitesmoke",@"Gainsboro", @"LightGrey", @"Silver", @"DarkGray", @"Gray", @"DimGray", @"Black", @"Translucent", @"MistyRose", @"Snow", @"SeaShell", @"Linen", @"Cornsilk", @"OldLace", @"FloralWhite", @"Ivory", @"HoneyDew", @"MintCream", @"Azure", @"AliceBlue", @"GhostWhite", @"LavenderBlush", @"mercury", @"Slver", @"Magnesium", @"Tin", @"Aluminum");
 }
 
@@ -822,7 +826,7 @@ static NSColor *ColorWithCSSString(NSString *str) {
 	}];
 
 }
-+(NSArray*) randomPalette {
++(NSA*) randomPalette {
 
 		return [NSColor colorsInFrameworkListNamed:[[[NSColor colorListsInFramework]randomElement] valueForKey:@"name"]];
 }

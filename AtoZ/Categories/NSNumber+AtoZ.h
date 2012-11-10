@@ -19,9 +19,9 @@
 - (NSNumber*) negate;
 - (NSNumber*) transpose;
 
-- (NSArray*) times:(id (^)(void))block;
+- (NSA*) times:(id (^)(void))block;
 
-- (NSArray*) to:(NSNumber*) to;
-- (NSArray*) to:(NSNumber*) to by:(NSNumber*) by;
+- (NSA*) to:(NSNumber*) to;
+- (NSA*) to:(NSNumber*) to by:(NSNumber*) by;
 
 @end

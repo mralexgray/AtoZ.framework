@@ -692,7 +692,7 @@ CHANGE_DECLARATION(SEL)
 	[key release];
 }
 
--(void)KVO_notifying_change_insertKey:(NSArray*)objects atIndexes:(NSIndexSet*)indexes {
+-(void)KVO_notifying_change_insertKey:(NSA*)objects atIndexes:(NSIndexSet*)indexes {
 	const char* origName = sel_getName(_cmd);
     
 	size_t selLen=strlen(origName);

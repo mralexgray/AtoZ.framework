@@ -1,5 +1,17 @@
 
 #import "AtoZ.h"
+
+
+void AZPostMouseEvent(CGMouseButton button, CGEventType type, const CGPoint point);
+void AZLeftClick(const CGPoint point);
+void AZDragBetwixt(const CGPoint a, const CGPoint b);
+void AZDragBetwixtOnFancyPath(const CGPoint a, const CGPoint b);
+void AZClick(const CGPoint point);
+void AZRightClick(const CGPoint point);
+void AZDoubleClick(CGPoint point);
+
+
+
 /* pathForArc : Adds an arc (a segment of an oval) fitting inside a rectangle to the path.
 
 context : The CG context to render to.
@@ -34,7 +46,7 @@ enum {
 void processCommand(const char *cmd);
 
 //void print_msg(const char *msg);
-CGPoint mouseLoc();
+CGPoint mouseLoc(void);
 void warpTo ( CGPoint dest );
 void moveVia( int x, int y );
 void moveTo ( CGPoint dest );

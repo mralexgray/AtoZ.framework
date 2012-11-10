@@ -33,14 +33,14 @@ NSString *NSDCIMFolder()
 }
 @implementation NSFileManager (AtoZ)
 
-- (NSArray*) pathsOfContentsOfDirectory:(NSString*) directory;
+- (NSA*) pathsOfContentsOfDirectory:(NSString*) directory;
 {
 	NSArray*files = [AZFILEMANAGER contentsOfDirectoryAtPath:directory error:nil];
 	return [files map:^id(id obj) {		return [directory stringByAppendingPathComponent:obj];}];
 }
 #pragma Globbing
 
-- (NSArray*) arrayWithFilesMatchingPattern: (NSString*) pattern inDirectory: (NSString*) directory {
+- (NSA*) arrayWithFilesMatchingPattern: (NSString*) pattern inDirectory: (NSString*) directory {
 
     NSMutableArray* files = [NSMutableArray array];
     glob_t gt;
@@ -428,7 +428,7 @@ static void _appendPropertiesOfTreeAtURL(NSFileManager *self, NSMutableString *s
 #include <sys/types.h>
 #include <dirent.h>
 
-- (NSArray*) _itemsInDirectoryAtPath:(NSString*)path invisible:(BOOL)invisible type1:(mode_t)type1 type2:(mode_t)type2 {
+- (NSA*) _itemsInDirectoryAtPath:(NSString*)path invisible:(BOOL)invisible type1:(mode_t)type1 type2:(mode_t)type2 {
 	NSMutableArray* array = nil;
 	const char* systemPath = [path fileSystemRepresentation];
 	DIR* directory;
@@ -470,11 +470,11 @@ static void _appendPropertiesOfTreeAtURL(NSFileManager *self, NSMutableString *s
 	return array;
 }
 
-- (NSArray*) directoriesInDirectoryAtPath:(NSString*)path includeInvisible:(BOOL)invisible {
+- (NSA*) directoriesInDirectoryAtPath:(NSString*)path includeInvisible:(BOOL)invisible {
 	return [self _itemsInDirectoryAtPath:path invisible:invisible type1:S_IFDIR type2:0];
 }
 
-- (NSArray*) filesInDirectoryAtPath:(NSString*)path includeInvisible:(BOOL)invisible includeSymlinks:(BOOL)symlinks {
+- (NSA*) filesInDirectoryAtPath:(NSString*)path includeInvisible:(BOOL)invisible includeSymlinks:(BOOL)symlinks {
 	return [self _itemsInDirectoryAtPath:path invisible:invisible type1:S_IFREG type2:(symlinks ? S_IFLNK : 0)];
 }
 
@@ -490,5 +490,67 @@ static void _appendPropertiesOfTreeAtURL(NSFileManager *self, NSMutableString *s
 }
 
 #endif
+
+@end
+
+
+
+/* ----- NSFileManager Additons : Implementation ----- */
+
+@implementation NSFileManager (SGSAdditions)
+
+- (void) createPath: (NSString*) filePath
+{
+	if(![self fileExistsAtPath: filePath])
+	{
+		NSMutableString*	currentPath		= [NSMutableString string];
+		NSArray*			pathComponents	= [[filePath stringByExpandingTildeInPath] pathComponents];
+		for(int i = 0; i < [pathComponents count]; i++)
+		{
+			if(i == 1 || i == 0)
+			{
+				[currentPath appendString: pathComponents[i]];
+			}
+			else
+			{
+				[currentPath appendString: [NSString stringWithFormat: @"/%@", pathComponents[i]]];
+			}
+
+			if(![self fileExistsAtPath: currentPath])
+			{
+				[self createDirectoryAtPath: currentPath withIntermediateDirectories:YES attributes:nil error:nil];
+				[[NSWorkspace sharedWorkspace] noteFileSystemChanged:currentPath];
+			}
+		}
+	}
+}
+
+- (NSString*) uniqueFilePath: (NSString*) filePath
+{
+	if(![self fileExistsAtPath: filePath])
+	{
+		return filePath;
+	}
+
+	NSString*	returnPath		= nil;
+	NSString*	fileName		= [filePath stringByDeletingPathExtension];
+	NSString*	fileExtension	= [filePath pathExtension];
+	for(int i = 1; i < 999; i++)
+	{
+		returnPath = [NSString stringWithFormat: @"%@-%i.%@", fileName, i, fileExtension];
+
+		if(![self fileExistsAtPath: returnPath])
+		{
+			break;
+		}
+	}
+
+	if([self fileExistsAtPath: returnPath])
+	{
+		returnPath = nil;
+	}
+
+	return returnPath;
+}
 
 @end

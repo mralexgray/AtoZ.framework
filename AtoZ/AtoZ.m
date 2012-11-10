@@ -166,14 +166,14 @@ static NSA* cachedI = nil;
 + (NSBundle*) bundle {	return [NSBundle bundleForClass:[self class]]; }
 
 + (NSString*) resources { return [[NSBundle bundleForClass: [self class]] resourcePath]; }
-+ (NSArray*) dock {
-	return (NSArray*)[AZDock sharedInstance];
++ (NSA*) dock {
+	return (NSA*)[AZDock sharedInstance];
 }
-//+ (NSArray*) currentScope { 	return [AZFolder sharedInstance].items; }
-+ (NSArray*) dockSorted { 	return [AZFolder samplerWithCount:20];} // sharedInstance].dockSorted; }
-//+ (NSArray*) appCategories {	return [AZAppFolder sharedInstance].appCategories; }
+//+ (NSA*) currentScope { 	return [AZFolder sharedInstance].items; }
++ (NSA*) dockSorted { 	return [AZFolder samplerWithCount:20];} // sharedInstance].dockSorted; }
+//+ (NSA*) appCategories {	return [AZAppFolder sharedInstance].appCategories; }
 
-+ (NSArray*) appCategories {		static NSArray *cats;  return cats = cats ? cats :
++ (NSA*) appCategories {		static NSArray *cats;  return cats = cats ? cats :
 	@[	@"Games", @"Education", @"Entertainment", @"Books", @"Lifestyle", @"Utilities", @"Business", @"Travel", @"Music", @"Reference", @"Sports", @"Productivity", @"News", @"Healthcare & Fitness", @"Photography", @"Finance", @"Medical", @"Social Networking", @"Navigation", @"Weather", @"Catalogs", @"Food & Drink", @"Newsstand" ];
 }
 
@@ -240,7 +240,7 @@ static NSA* cachedI = nil;
 	}] map:^id(NSURL *obj) {
 		//			NSFontManager
 		CFArrayRef fontDescription = CTFontManagerCreateFontDescriptorsFromURL((__bridge CFURLRef)obj);
-		id dict = [(NSArray*)CFBridgingRelease(fontDescription) objectAtIndex:0];
+		id dict = [(NSA*)CFBridgingRelease(fontDescription) objectAtIndex:0];
 		return [dict objectForKey:@"NSFontNameAttribute"] ?: @"N/A";
 	}] );	//		 return [obj.lastPathComponent stringByDeletingPathExtension];
 
@@ -313,7 +313,7 @@ static NSA* cachedI = nil;
  */
 //}/
 
-//- (NSArray*) dockSorted {
+//- (NSA*) dockSorted {
 
 //	self.sortOrder = AZDockSortColor;
 ////	[NSThread performBlockInBackground:^{
@@ -367,7 +367,7 @@ static NSA* cachedI = nil;
 //+ (void)performBlockInBackground:(void (^)())block {
 //	[NSThread performSelectorInBackground:@selector(az_runBlock:) withObject:[block copy]];
 //	//}
-//+ (NSArray*) appFolderSorted {
+//+ (NSA*) appFolderSorted {
 //	return [AZAppFolder sharedInstance].sorted;
 //		//		[AZFiles sharedInstance].appFolderSorted = [AZFiles.sharedInstance.appFolder sortedWithKey:@"hue" ascending:YES].reversed.mutableCopy;
 //		//	return  [AZFiles sharedInstance].appFolderSorted;
@@ -375,7 +375,7 @@ static NSA* cachedI = nil;
 //
 //
 //
-//+ (NSArray*) appFolder {
+//+ (NSA*) appFolder {
 //
 //		//	[AZStopwatch start:@"appFolder"];
 //		//	if (! [AtoZ sharedInstance].appFolder ) {
@@ -388,13 +388,13 @@ static NSA* cachedI = nil;
 //		//	NSLog(@"%@", [[AtoZ sharedInstance] codableKeys]);
 //		//	[[AtoZ sharedInstance] writeToFile:@"/Users/localadmin/Desktop/poop.plist" atomically:NO];
 //
-//	return (NSArray*)[AZAppFolder sharedInstance];
+//	return (NSA*)[AZAppFolder sharedInstance];
 //}
 
-//+ (NSArray*) appFolderSamplerWith:(NSUInteger)apps {
+//+ (NSA*) appFolderSamplerWith:(NSUInteger)apps {
 //
 //	[AZStopwatch start:@"appFolderSampler"];
-//	return (NSArray*)[AZFolder appFolderSamplerWith:apps andMax:apps];
+//	return (NSA*)[AZFolder appFolderSamplerWith:apps andMax:apps];
 //	[AZStopwatch stop:@"appFolderSampler"];
 //}
 
@@ -440,10 +440,10 @@ static NSA* cachedI = nil;
 //    [super encodeWithCoder:coder];
 //    [coder encodeObject:@"uncodable" forKey:@"uncodableProperty"];
 //}
-//+ (NSArray*) fengshui {
+//+ (NSA*) fengshui {
 //	return [[self class] fengShui];
 //}
-//+ (NSArray*) fengShui {
+//+ (NSA*) fengShui {
 //	return [[NSColor fengshui].reversed arrayUsingBlock:^id(id obj) {
 //		AZFile *t = [AZFile instance];
 //		t.color = obj;
@@ -457,14 +457,14 @@ static NSA* cachedI = nil;
 //    while (path = [searchPathEnum nextObject]) ApplicationsInDirectory(path, applications);
 //    return ([applications count]) ? applications : nil;
 //}
-+ (NSArray*) runningApps {
++ (NSA*) runningApps {
 
 	return [[[self class] runningAppsAsStrings] arrayUsingBlock:^id(id obj) {
 		return [AZFile instanceWithPath:obj];
 	}];
 }
 
-+ (NSArray*) runningAppsAsStrings {
++ (NSA*) runningAppsAsStrings {
 
 	return [[[[[[[NSWorkspace sharedWorkspace] runningApplications] filter:^BOOL(NSRunningApplication *obj) {
 		return 	obj.activationPolicy == NSApplicationActivationPolicyProhibited ? 	NO : YES;

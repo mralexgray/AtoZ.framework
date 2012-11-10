@@ -50,7 +50,7 @@
 	
 	// to make it appear right away in the window
 	[self willChangeValueForKey:@"selectedImageIndexPlusOne"];
-	selectedImageIndex = 0;
+	_selectedImageIndex = 0;
 	[self didChangeValueForKey:@"selectedImageIndexPlusOne"];
 	
 	[imageViewContainer setWantsLayer:YES];
@@ -61,31 +61,31 @@
 }
 
 - (NSUInteger) selectedImageIndexPlusOne {
-	return selectedImageIndex + 1;
+	return (NSUI)(_selectedImageIndex + 1);
 }
 
 - (void) navigateInDirection:(NSNumber*)dir {
-	NSInteger oldSelectedImage = selectedImageIndex;
+	NSInteger oldSelectedImage = _selectedImageIndex;
 	
 	[self willChangeValueForKey:@"selectedImageIndexPlusOne"];
 	
-	selectedImageIndex += [dir intValue];
+	_selectedImageIndex += [dir intValue];
 	
-	if (selectedImageIndex < 0)
-		selectedImageIndex = 0;
-	else if (selectedImageIndex == [imageViews count])
-		selectedImageIndex = [imageViews count] - 1;
+	if (_selectedImageIndex < 0)
+		_selectedImageIndex = 0;
+	else if (_selectedImageIndex == [imageViews count])
+		_selectedImageIndex = [imageViews count] - 1;
 	
 	[self didChangeValueForKey:@"selectedImageIndexPlusOne"];
 	
-	[backForwardButton setEnabled:(selectedImageIndex > 0) forSegment:0];
-	[backForwardButton setEnabled:(selectedImageIndex < [imageViews count] - 1) forSegment:1];
+	[backForwardButton setEnabled:(_selectedImageIndex > 0) forSegment:0];
+	[backForwardButton setEnabled:(_selectedImageIndex < [imageViews count] - 1) forSegment:1];
 	
-	if (selectedImageIndex == oldSelectedImage)
+	if (_selectedImageIndex == oldSelectedImage)
 		return;
 	
 	NSView *oldSubview = [[imageViewContainer subviews] lastObject];
-	NSView *newSubview = imageViews[selectedImageIndex];
+	NSView *newSubview = imageViews[_selectedImageIndex];
 	
 	[[imageViewContainer animator] replaceSubview:oldSubview
 											 with:newSubview];

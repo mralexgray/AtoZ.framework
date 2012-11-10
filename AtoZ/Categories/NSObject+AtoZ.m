@@ -297,6 +297,7 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary()
 
 //	if (areSame(key, @"path")) NSLog(@"warning, path subscrip[t being set");
 
+	if ( areSame(obj, [self valueForKey:obj] )) { AZLOG(@"Theyre already the same, doing nothing!") return;}
 	__block BOOL wasSet = NO;
 	[(NSS*)key contains:@"."] ? ^{
 		[self canSetValueForKeyPath:(NSS*)key] ? ^{
@@ -664,7 +665,7 @@ static const char * getPropertyType(objc_property_t property) {
 }
 
 /*
- - (NSArray*) methodDumpForClass:(Class)klass {
+ - (NSA*) methodDumpForClass:(Class)klass {
 
  int numClasses;
  Class *classes = NULL;
@@ -709,7 +710,7 @@ static const char * getPropertyType(objc_property_t property) {
  }
  */
 
-+ (NSArray*)classMethods {
++ (NSA*)classMethods {
 	const char* className = class_getName([self class]);
 	int unsigned numMethods;
 	NSMA *ii = [NSMA array];
@@ -784,12 +785,22 @@ static const char * getPropertyType(objc_property_t property) {
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 	[nc removeObserver:self name:notificationName object:object];
 }
-- (void) performSelectorWithoutWarnings:(SEL)aSelector withObject:(id)obj{
+- (id) performSelectorWithoutWarnings:(SEL)aSelector withObject:(id)obj{
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-	[self performSelector:aSelector withObject:obj];
+	return (id)[self performSelector:aSelector withObject:obj];
 #pragma clang diagnostic pop
 }
+
+- (id) performSelectorWithoutWarnings:(SEL)aSelector withObject:(id)obj withObject:(id)obj2 {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+	return	(id)[self performSelector:aSelector withObject:obj withObject:obj2];
+#pragma clang diagnostic pop
+}
+
+
+
 
 -(void)performSelector:(SEL)aSelector afterDelay:(NSTimeInterval)seconds
 {
