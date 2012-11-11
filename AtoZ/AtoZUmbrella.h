@@ -177,7 +177,10 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define CALNH CALayerNoHit
 #define CASLNH CAShapeLayerNoHit
 #define CASHL CAShapeLayer
-#define CASL CAScrollLayer
+#define CASCRLL CAScrollLayer
+//#define CASHL CAShapeLayer
+#define CASL CAShapeLayer
+
 #define CAT CATransaction
 #define CAT3 CATransform3D
 #define CAT3D CATransform3D

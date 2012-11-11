@@ -28,7 +28,20 @@
 @property (nonatomic, assign) BOOL fontsRegistered;
 @end
 
+@interface AToZFuntion	: BaseModel
+@property (strong, NATOM) NSS* name;
+@property (strong, NATOM) NSIMG* icon;
+@end
+
 @implementation AtoZ
+@synthesize fonts, fontsRegistered, basicFunctions;
+
+
+- (NSA*) basicFunctions
+{
+	return @[@"Maps", @"Browser", @"Contacts", @"Mail", @"Gists", @"Settings"];
+}
+
 
 
 //@synthesize sManager;
@@ -69,12 +82,10 @@ static NSA* cachedI = nil;
 
 - (void) setUp
 {
-
 	[AZStopwatch named:@"Welcome to AtoZ.framework." block:^{
-		//		[AZFWORKBUNDLE cacheNamedImages];
+//		[AZFWORKBUNDLE cacheNamedImages];
 //		_cachedImages = cachedI;
-		_fonts = [AtoZ fonts];
-
+		self.fonts = [AtoZ fonts];
 		Sound *rando = [Sound randomSound];
 		[[SoundManager sharedManager] prepareToPlayWithSound:rando];
 		[[SoundManager sharedManager] playSound:rando];
@@ -82,31 +93,21 @@ static NSA* cachedI = nil;
 	}];
 }
 
-
 + (NSFont*) font:(NSS*)family size:(CGF)size
 {
 	if (![AtoZ hasSharedInstance]) [AtoZ sharedInstance];
-	NSS * font = [[AtoZ fonts] filterOne:^BOOL(id object) {
-		return [(NSS*) object contains:family];
-	}];
+	NSS * font = [[AtoZ fonts] filterOne:^BOOL(id object) {	return [(NSS*) object contains:family];	}];
 	return font ? [NSFont fontWithName:font size:size] : nil;
 }
-+ (NSS*) randomFontName;
-{
-	return [AtoZ fonts].randomElement;
-}
++ (NSS*) randomFontName; {	return [AtoZ fonts].randomElement;	}
 
 - (void)registerHotKeys
 {
-	EventHotKeyRef 	hotKeyRef;
-	EventTypeSpec 	eventType;
-	EventHotKeyID 	hotKeyID;
-
+	EventHotKeyRef 	hotKeyRef; 		EventTypeSpec 	eventType;		EventHotKeyID 	hotKeyID;
 	eventType.eventClass  = kEventClassKeyboard;
 	eventType.eventKind   = kEventHotKeyPressed;
 	hotKeyID.signature 	  = 'htk1';
 	hotKeyID.id			  = 1;
-
 	InstallApplicationEventHandler(&HotKeyHandler, 1, &eventType, NULL, NULL);
 	// Cmd+Ctrl+Space to toggle visibility.
 	RegisterEventHotKey(49, cmdKey+controlKey, hotKeyID, GetApplicationEventTarget(), 0, &hotKeyRef);
@@ -116,9 +117,7 @@ static NSA* cachedI = nil;
 
 + (void) playRandomSound {	[[SoundManager sharedManager] playSound:[Sound randomSound] looping:NO]; }
 
-//[AtoZ playSound:@1];
-
-+ (void)playSound:(id)number
++ (void)playSound:(id)number   //[AtoZ playSound:@1];
 {
 	NSA *sounds = @[@"welcome.wav", @"bling"];
 	NSS *select = number ? [sounds filterOne:^BOOL(id object) { return [(NSString*)object contains:number] ? YES : NO; }] : sounds[0];
@@ -127,22 +126,16 @@ static NSA* cachedI = nil;
 }
 
 + (void)setSoundVolume:(NSUInteger)outtaHundred { [SoundManager sharedManager].soundVolume = outtaHundred / 100.0; }
+
 // Place inside the @implementation block - A method to convert an enum to string
-+ (NSString*) stringForPosition:(AZWindowPosition)enumVal
-{
-	return  [[NSArray alloc]initWithObjects:AZWindowPositionTypeArray][enumVal];
-}
++ (NSS*) stringForPosition:(AZPOS)enumVal	{	return  [[NSA alloc]initWithObjects:AZWindowPositionTypeArray] [enumVal]; }
+
 // A method to retrieve the int value from the NSArray of NSStrings
-+ (AZWindowPosition) positionForString:(NSString*)strVal;
-{
-	return (AZWindowPosition) [[[NSA alloc]initWithObjects:AZWindowPositionTypeArray] indexOfObject:strVal];
-}
++ (AZPOS) positionForString:(NSS*)strVal;	{	return (AZPOS) [[[NSA alloc]initWithObjects:AZWindowPositionTypeArray] indexOfObject:strVal]; }
 
 + (NSString*)stringForType:(id)type
 {
-	Class i = [type class];
-	NSLog(@"String: %@   Class:%@", NSStringFromClass(i), i);
-	//	[type autoDescribe:type];
+	Class i = [type class];	NSLog(@"String: %@   Class:%@", NSStringFromClass(i), i);		//	[type autoDescribe:type];
 	NSString *key = [NSString stringWithFormat:@"AZOrient_%@", NSStringFromClass([type class])];
 	return NSLocalizedString(key, nil);
 }

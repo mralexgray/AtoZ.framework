@@ -1321,7 +1321,7 @@
 							<string key="NSFrame">{{621, 317}, {243, 30}}</string>
 							<reference key="NSSuperview" ref="1064455210"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
+							<reference key="NSNextKeyView" ref="955696996"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSPopUpButtonCell" key="NSCell" id="503904254">
 								<int key="NSCellFlags">-2080374720</int>
@@ -1434,9 +1434,22 @@
 						<object class="NSCustomView" id="955696996">
 							<reference key="NSNextResponder" ref="1064455210"/>
 							<int key="NSvFlags">274</int>
+							<array class="NSMutableArray" key="NSSubviews">
+								<object class="NSCustomView" id="483521803">
+									<reference key="NSNextResponder" ref="955696996"/>
+									<int key="NSvFlags">274</int>
+									<string key="NSFrameSize">{880, 312}</string>
+									<reference key="NSSuperview" ref="955696996"/>
+									<reference key="NSWindow"/>
+									<reference key="NSNextKeyView"/>
+									<string key="NSReuseIdentifierKey">_NS:9</string>
+									<string key="NSClassName">AZFoamView</string>
+								</object>
+							</array>
 							<string key="NSFrameSize">{880, 312}</string>
 							<reference key="NSSuperview" ref="1064455210"/>
 							<reference key="NSWindow"/>
+							<reference key="NSNextKeyView" ref="483521803"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<string key="NSClassName">NSView</string>
 						</object>
@@ -3177,12 +3190,20 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">566</int>
 						<reference key="object" ref="955696996"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="483521803"/>
+						</array>
 						<reference key="parent" ref="1064455210"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">568</int>
 						<reference key="object" ref="43444959"/>
 						<reference key="parent" ref="0"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">570</int>
+						<reference key="object" ref="483521803"/>
+						<reference key="parent" ref="955696996"/>
 					</object>
 				</array>
 			</object>
@@ -3342,6 +3363,7 @@
 				<string key="568.CustomClassName">AZGeneralViewController</string>
 				<string key="568.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="57.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="570.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="58.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="72.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="73.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -3359,16 +3381,25 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">569</int>
+			<int key="maxID">570</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<object class="IBPartialClassDescription">
+					<string key="className">AZFoamView</string>
+					<string key="superclassName">NSView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/AZFoamView.h</string>
+					</object>
+				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">AZGeneralViewController</string>
 					<string key="superclassName">NSViewController</string>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="segments">NSSegmentedControl</string>
 						<string key="targetView">NSView</string>
+						<string key="view">NSView</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
 						<object class="IBToOneOutletInfo" key="segments">
@@ -3377,6 +3408,10 @@
 						</object>
 						<object class="IBToOneOutletInfo" key="targetView">
 							<string key="name">targetView</string>
+							<string key="candidateClassName">NSView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="view">
+							<string key="name">view</string>
 							<string key="candidateClassName">NSView</string>
 						</object>
 					</dictionary>
@@ -4313,6 +4348,140 @@
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
+					<string key="className">GHTestViewController</string>
+					<string key="superclassName">NSViewController</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="copy:">id</string>
+						<string key="openExceptionFilename:">id</string>
+						<string key="rerunTest:">id</string>
+						<string key="runTests:">id</string>
+						<string key="toggleDetails:">id</string>
+						<string key="updateMode:">id</string>
+						<string key="updateSearchFilter:">id</string>
+						<string key="updateTextSegment:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="copy:">
+							<string key="name">copy:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="openExceptionFilename:">
+							<string key="name">openExceptionFilename:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="rerunTest:">
+							<string key="name">rerunTest:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="runTests:">
+							<string key="name">runTests:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="toggleDetails:">
+							<string key="name">toggleDetails:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="updateMode:">
+							<string key="name">updateMode:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="updateSearchFilter:">
+							<string key="name">updateSearchFilter:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="updateTextSegment:">
+							<string key="name">updateTextSegment:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="_detailsToggleButton">NSButton</string>
+						<string key="_detailsView">NSView</string>
+						<string key="_outlineView">NSOutlineView</string>
+						<string key="_searchField">NSSearchField</string>
+						<string key="_segmentedControl">NSSegmentedControl</string>
+						<string key="_splitView">NSSplitView</string>
+						<string key="_statusView">NSView</string>
+						<string key="_textSegmentedControl">NSSegmentedControl</string>
+						<string key="_textView">NSTextView</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="_detailsToggleButton">
+							<string key="name">_detailsToggleButton</string>
+							<string key="candidateClassName">NSButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="_detailsView">
+							<string key="name">_detailsView</string>
+							<string key="candidateClassName">NSView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="_outlineView">
+							<string key="name">_outlineView</string>
+							<string key="candidateClassName">NSOutlineView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="_searchField">
+							<string key="name">_searchField</string>
+							<string key="candidateClassName">NSSearchField</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="_segmentedControl">
+							<string key="name">_segmentedControl</string>
+							<string key="candidateClassName">NSSegmentedControl</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="_splitView">
+							<string key="name">_splitView</string>
+							<string key="candidateClassName">NSSplitView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="_statusView">
+							<string key="name">_statusView</string>
+							<string key="candidateClassName">NSView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="_textSegmentedControl">
+							<string key="name">_textSegmentedControl</string>
+							<string key="candidateClassName">NSSegmentedControl</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="_textView">
+							<string key="name">_textView</string>
+							<string key="candidateClassName">NSTextView</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/GHTestViewController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">GHTestWindowController</string>
+					<string key="superclassName">NSWindowController</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="copy:">id</string>
+						<string key="runTests:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="copy:">
+							<string key="name">copy:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="runTests:">
+							<string key="name">runTests:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
+					<object class="NSMutableDictionary" key="outlets">
+						<string key="NS.key.0">viewController</string>
+						<string key="NS.object.0">GHTestViewController</string>
+					</object>
+					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<string key="NS.key.0">viewController</string>
+						<object class="IBToOneOutletInfo" key="NS.object.0">
+							<string key="name">viewController</string>
+							<string key="candidateClassName">GHTestViewController</string>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/GHTestWindowController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
 					<string key="className">NSApplication</string>
 					<object class="NSMutableDictionary" key="actions">
 						<string key="NS.key.0">relaunch:</string>
@@ -4336,7 +4505,6 @@
 						<string key="increment:">id</string>
 						<string key="performActionFromSegmentLabel:">id</string>
 						<string key="setFromSegmentLabel:">id</string>
-						<string key="showMethodsInFrameWork:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="increment:">
@@ -4349,10 +4517,6 @@
 						</object>
 						<object class="IBActionInfo" key="setFromSegmentLabel:">
 							<string key="name">setFromSegmentLabel:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="showMethodsInFrameWork:">
-							<string key="name">showMethodsInFrameWork:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 					</dictionary>
@@ -4748,32 +4912,11 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">TestBedDelegate</string>
 					<string key="superclassName">NSObject</string>
-					<object class="NSMutableDictionary" key="actions">
-						<string key="NS.key.0">loadSecondNib:</string>
-						<string key="NS.object.0">id</string>
-					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">loadSecondNib:</string>
-						<object class="IBActionInfo" key="NS.object.0">
-							<string key="name">loadSecondNib:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</object>
 					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="genVC">AZGeneralViewController</string>
-						<string key="geoVC">AZGeometryViewController</string>
 						<string key="mainView">NSView</string>
 						<string key="window">NSWindow</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="genVC">
-							<string key="name">genVC</string>
-							<string key="candidateClassName">AZGeneralViewController</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="geoVC">
-							<string key="name">geoVC</string>
-							<string key="candidateClassName">AZGeometryViewController</string>
-						</object>
 						<object class="IBToOneOutletInfo" key="mainView">
 							<string key="name">mainView</string>
 							<string key="candidateClassName">NSView</string>

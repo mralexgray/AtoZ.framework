@@ -33,7 +33,8 @@
 //#import <XPCKit/XPCKit.h>
 #import <FunSize/FunSize.h>
 #import <DrawKit/DKDrawKit.h>
-//#import <Zangetsu/Zangetsu.h>
+#import <MapKit/MapKit.h>
+#import <Zangetsu/Zangetsu.h>
 //#import <SNRHUDKit/SNRHUDKit.h>
 #import <BlocksKit/BlocksKit.h>
 //#import <NanoStore/NanoStore.h>
@@ -245,6 +246,8 @@ extern NSString *const AtoZDockSortedUpdated;
 
 @class NSLogConsole;
 @interface AtoZ : BaseModel
+
+@property (NATOM, STRNG) NSA *basicFunctions;
 
 #ifdef GROWL_ENABLED
 <GrowlApplicationBridgeDelegate>

@@ -143,10 +143,13 @@ CALayer* AddBloom( CALayer *layer) {
 	return layer;
 }
 CALayer* AddShadow( CALayer *layer) {
-	layer.shadowOffset 		= (CGSize){ .02 * layer.boundsWidth, -.05 *layer.boundsHeight };
-	layer.shadowRadius 		= .06 * layer.boundsWidth;
+
+	AZLOG(layer.debugDescription);
+	CGFloat base = NSEqualRects(layer.bounds, NSZeroRect) ? 50 : layer.boundsWidth;
+	layer.shadowOffset 		= (CGSize){ .1 * base, -.1 *base };
+	layer.shadowRadius 		= .2 * base;
 	layer.shadowColor	 	= cgBLACK;
-	layer.shadowOpacity 	= 1;
+	layer.shadowOpacity 	= .8;
 
 	return layer;
 }

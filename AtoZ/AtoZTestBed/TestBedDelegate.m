@@ -39,12 +39,13 @@ const CGFloat dash[2] = {100, 60};
 
 -(void) awakeFromNib {
 
-	_genVC = [[AZGeneralViewController alloc]initWithNibName:@"AZGeneralViewController" bundle:nil];
-//	[_mainView setAnimations:@{@"subviews":[CATransition randomTransition]}
-	[_mainView addSubview:[_genVC view]];
-	[[_genVC view] setFrame:_mainView.frame];
+	self.genVC = [[AZGeneralViewController alloc]initWithNibName:@"AZGeneralViewController" bundle:nil];
+	[_mainView addSubview:_genVC.view];
+	[_genVC.view setFrame:_mainView.frame];
+//	[_mbWindow makeKeyAndOrderFront:self];
 
-	_mbWindow = [AZMenuBarWindow new];
+
+	self.mbWindow = [AZMenuBarWindow new];
 	[_mbWindow makeKeyAndOrderFront:self];
 
 }

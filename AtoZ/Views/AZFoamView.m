@@ -21,40 +21,42 @@ static inline double radians (double degrees) { return degrees * M_PI/180; }
 }
 - (void) drawRect:(NSRect)rect {
 
-    NSGraphicsContext *nsGraphicsContext    = [NSGraphicsContext currentContext];
-    CGContextRef context = (CGContextRef) [nsGraphicsContext graphicsPort];
+	CGContextRef context = (CGContextRef) [AZGRAPHICSCTX graphicsPort];
 
-    float patternX = 24.0;
-    float patternY = 24.0;
-    int repeatX = ceil(rect.size.width / patternX);
-    int repeatY = ceil(rect.size.height / patternY);
+	[NSGraphicsContext drawInContext:context flipped:NO actions:^{
+		float patternX = 24.0;
+		float patternY = 24.0;
+		int repeatX = ceil(rect.size.width / patternX);
+		int repeatY = ceil(rect.size.height / patternY);
 
-    CGColorRef bgColor = [NSColor colorWithDeviceHue:0 saturation:0 brightness:0.15 alpha:1.0].CGColor;
-    CGContextSetFillColorWithColor(context, bgColor);
-    CGContextFillRect(context, rect);
+		CGColorRef bgColor = [NSColor colorWithDeviceHue:0 saturation:0 brightness:0.15 alpha:1.0]
+		.CGColor;
+		CGContextSetFillColorWithColor(context, bgColor);
+		CGContextFillRect(context, rect);
 
-    for(int i = 0; i < repeatX; ++i) {
+		for(int i = 0; i < repeatX; ++i) {
 
-        for(int j = 0; j < repeatY; ++j) {
+			for(int j = 0; j < repeatY; ++j) {
 
-            float originX = rect.origin.x + (i * patternX);
-            float originY = rect.origin.y + (j * patternY);
+				float originX = rect.origin.x + (i * patternX);
+				float originY = rect.origin.y + (j * patternY);
 
-            CGColorRef dotColor = [NSColor colorWithDeviceHue:0 saturation:0 brightness:0.07 alpha:1.0].CGColor;
-            CGColorRef shadowColor = [NSColor colorWithDeviceRed:1 green:1 blue:1 alpha:0.1].CGColor;
+				CGColorRef dotColor = [NSColor colorWithDeviceHue:0 saturation:0 brightness:0.07 alpha:1.0].CGColor;
+				CGColorRef shadowColor = [NSColor colorWithDeviceRed:1 green:1 blue:1 alpha:0.1].CGColor;
 
-            CGContextSetFillColorWithColor(context, dotColor);
-            CGContextSetShadowWithColor(context, CGSizeMake(0, 1), 1, shadowColor);
+				CGContextSetFillColorWithColor(context, dotColor);
+				CGContextSetShadowWithColor(context, CGSizeMake(0, 1), 1, shadowColor);
 
-            CGContextAddArc(context, originX + 3, originY + 3, 4, 0, radians(360), 0);
-            CGContextFillPath(context);
+				CGContextAddArc(context, originX + 3, originY + 3, 4, 0, radians(360), 0);
+				CGContextFillPath(context);
 
-            CGContextAddArc(context, originX + 16, originY + 16, 4, 0, radians(360), 0);
-            CGContextFillPath(context);
+				CGContextAddArc(context, originX + 16, originY + 16, 4, 0, radians(360), 0);
+				CGContextFillPath(context);
 
-        }
+			}
 
-    }
+		}
+		}];
 
 }
 
