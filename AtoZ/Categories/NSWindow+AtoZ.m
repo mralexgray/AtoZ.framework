@@ -729,24 +729,28 @@ return midpoint;
 //		}
 //}
 
-- (void) extendVerticallyBy:(int) amount { // extends the window vertically by the amount (which can be negative).
+- (void) extendVerticallyBy:(CGF) amount { // extends the window vertically by the amount (which can be negative).
 	
 	//This doesn't disturb the positioning orsize of any of the views, whatever their autosizing parameters are set to.
-	NSView	 *cv = [self contentView];	NSView	 *view;
-	NSEnumerator	*iter = [[cv subviews] objectEnumerator]; 
-	NSRect	 fr; NSPoint	 fro;
-	[cv setAutoresizesSubviews:NO]; 	[self disableFlushWindow];
-	while( view = [iter nextObject]) {
-		fro = [view frame].origin;
-		fro.y += amount;
-		[view setFrameOrigin:fro];
-	}
+	NSView	 *cv = [self contentView];
+//	[cv setAutoresizesSubviews:NO];
+//	[self disableFlushWindow];
+	NSR fr = cv.frame;
+	fr.size.height += amount;
+	cv.frame = fr;
+//	[cv.subviews each:^(NSView *view) {
+//		NSRect	 fr; NSPoint	 fro;
+//		fro = [view frame].origin;
+//		fro.y += amount;
+//		[view setFrameOrigin:fro];
+//	}
 	fr = [self frame];
-	fr.size.height += amount; fr.origin.y -= amount;
+	fr.size.height += amount;
+//	fr.origin.y -= amount;
 	[self setFrame:fr display:YES];
-	[self enableFlushWindow];
-	[cv setAutoresizesSubviews:YES]; 
-	
+//	[self enableFlushWindow];
+//	[cv setAutoresizesSubviews:YES];
+
 }
 
 //This is the core of it - it just extends or shrinks the window's bottom edge by the given amount, leaving all the current subviews undisturbed. It could probably most usefully be a catego

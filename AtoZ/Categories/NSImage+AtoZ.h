@@ -144,6 +144,8 @@ typedef enum {
 
 - (NSIMG*) addReflection:(CGFloat)percentage;
 
+- (NSIMG*) etched;
+- (NSIMG*) alpha:(CGF)fraction;
 - (void)drawEtchedInRect:(NSRect)rect;
 - (NSIMG*) maskedWithColor:(NSC *)color;
 
@@ -173,18 +175,6 @@ typedef enum {
 - (NSIMG*)scaleToFillSize:(NSSize)targetSize;
 @end
 
-
-@interface NSColor (NSColor_ColorspaceEquality)
-
-- (BOOL)	isEqualToColor:(NSColor*)inColor colorSpace:(NSString*)inColorSpace;
-
-@end
-
-@interface NSColor (NSColor_CSSRGB)
-
-+ (NSColor*)	colorWithCSSRGB:(NSString*)rgbString;
-
-@end
 
 
 @interface CIImage (ToNSImage)

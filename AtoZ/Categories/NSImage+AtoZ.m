@@ -62,7 +62,7 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 // ---------------------------------------------------------------------------
 // create a new "sphere" layer and add it to the container layer
 
-+ (NSImage*)glowingSphereImageWithScaleFactor:(CGFloat)scale coreColor:(NSC*)core glowColor:(NSC*)glow
++ (NSImage*)glowingSphereImageWithScaleFactor:(CGF)scale coreColor:(NSC*)core glowColor:(NSC*)glow
 {
     if ( scale > 10.0 || scale < 0.5 ) {
         NSLog(@"%@: larger than 10.0 or less than 0.5 scale. returning nil.", NSStringFromSelector(_cmd));
@@ -72,9 +72,9 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
     // the image is two parts: a core sphere and a blur.
     // the blurred image is larger, and the final image
     // must be large enough to contain it.
-    NSSize sphereCoreSize = NSMakeSize(5*scale,5*scale);    
-    NSSize sphereBlurSize = NSMakeSize(10*scale,10*scale);
-    NSSize finalImageSize = NSMakeSize(sphereBlurSize.width*2,sphereBlurSize.width*2);
+    NSSZ sphereCoreSize = NSMakeSize(5*scale,5*scale);    
+    NSSZ sphereBlurSize = NSMakeSize(10*scale,10*scale);
+    NSSZ finalImageSize = NSMakeSize(sphereBlurSize.width*2,sphereBlurSize.width*2);
     NSRect finalImageRect;
     finalImageRect.origin = NSZeroPoint;
     finalImageRect.size   = finalImageSize;
@@ -83,7 +83,7 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
     NSRect sphereCoreRect;
     sphereCoreRect.origin = NSZeroPoint;
     sphereCoreRect.size = sphereCoreSize;
-    CGFloat sphereCoreOffset = (finalImageSize.width - sphereCoreSize.width) * 0.5;
+    CGF sphereCoreOffset = (finalImageSize.width - sphereCoreSize.width) * 0.5;
     
     // create the "core sphere" image
     NSImage* solidCircle = [[NSImage alloc] initWithSize:sphereCoreSize];
@@ -297,7 +297,7 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 
 + (NSImage*) forFile:(AZFile*)file;
 {
-	NSSize theSize = AZSizeFromDimension(512);
+	NSSZ theSize = AZSizeFromDimension(512);
 	return [AZWORKSPACE iconForFile:file.path] 	? [[AZWORKSPACE iconForFile:file.path]imageScaledToFitSize:theSize]
 												: [NSImage az_imageNamed:@"missing.png"];
 }
@@ -337,7 +337,7 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 	NSC* contraster = stroke ?: [color contrastingForegroundColor];
 	NSC* variant 	= [contraster isDark] ? contraster.brighter.brighter : contraster.darker.darker;
 	
-	NSSZ shadowOff 	= NSMakeSize((inset/6),-(inset/6));
+	NSSZ  shadowOff 	= NSMakeSize((inset/6),-(inset/6));
 	NSBP *centerBP	= [NSBP bezierPathWithOvalInRect:centerRect];
 	NSBP *outerBP	= [NSBP bezierPathWithOvalInRect:outerRect];
 	NSShadow *innerShadow = [NSShadow shadowWithOffset:AZMultiplySize(shadowOff, .5) blurRadius:inset/4 color: color.darker.darker.darker];
@@ -411,7 +411,7 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 
 - (NSSize)proportionalSizeForTargetSize:(NSSize)targetSize
 {
-    NSSize imageSize = [self size];
+    NSSZ imageSize = [self size];
     float width  = imageSize.width;
     float height = imageSize.height;
 
@@ -510,14 +510,14 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 
 		// settings for shadow
     float shadowRadius = 4.0;
-    NSSize shadowTargetSize = targetSize;
+    NSSZ shadowTargetSize = targetSize;
     if ( shouldAddShadow )
     {
         shadowTargetSize.width  -= (shadowRadius * 2);
         shadowTargetSize.height -= (shadowRadius * 2);
     }
 
-    NSSize imageSize = [sourceImage size];
+    NSSZ imageSize = [sourceImage size];
     float width  = imageSize.width;
     float height = imageSize.height;
 
@@ -663,7 +663,7 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 	if ( shouldAddSheen )
 	{
 		NSRect sheenRect = NSInsetRect(thumbnailRect,7,7);
-		CGFloat originalHeight = sheenRect.size.height;
+		CGF originalHeight = sheenRect.size.height;
 		sheenRect.size.height = originalHeight * 0.75;
 		sheenRect.origin.y += originalHeight * 0.25;
 
@@ -779,7 +779,7 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 
 - (NSImage *)scaleImageToFillSize:(NSSize)targetSize
 {
-	NSSize sourceSize = self.size;
+	NSSZ sourceSize = self.size;
 	NSRect sourceRect, destinationRect; sourceRect = destinationRect = NSZeroRect;
 	sourceRect = sourceSize.height > sourceSize.width
 	?	AZMakeRect((NSPoint){ 0.0,	round((sourceSize.height - sourceSize.width) / 2)}, sourceSize)
@@ -798,8 +798,8 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 	return [self coloredWithColor:inColor composite:NSCompositeDestinationIn];
 }
 - (NSImage*)  coloredWithColor:(NSColor*)inColor composite:(NSCompositingOperation)comp{
-	static CGFloat kGradientShadowLevel = 0.25;
-	static CGFloat kGradientAngle = 270.0;
+	static CGF kGradientShadowLevel = 0.25;
+	static CGF kGradientAngle = 270.0;
 	if ( inColor ) {
 		BOOL avoidGradient = NO;// ( [self state] == NSOnState );
 		NSRect targetRect = NSMakeRect(0,0,self.size.width, self.size.height);		
@@ -864,7 +864,7 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 
 + (NSImage *) prettyGradientImage
 {
-	NSSize gradientSize = AZSizeFromDimension(256);
+	NSSZ gradientSize = AZSizeFromDimension(256);
 	NSImage 
     *newImage = [[self alloc] initWithSize:gradientSize];  // In this case, the pixel dimensions match the image size.
 	
@@ -932,7 +932,7 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 //	NSImage *quantized = self.copy;
 //	[self setSize:NSMakeSize(32, 32)];
 	//	[anImage setSize:NSMakeSize(32, 32)];
-//    NSSize size = [self size];
+//    NSSZ size = [self size];
 //    NSRect iconRect = NSMakeRect(0, 0, size.width, size.height);
 //    [self lockFocus];
 //	NSBitmapImageRep *imageRep = [self bitmap];
@@ -996,7 +996,7 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 	[AZStopwatch named:@"openQuantizedChart" block:^{
 
 		NSA* swatches = [images map:^id(id obj) {	return  [obj generateQuantizedSwatch]; }];
-		NSSize single = [(NSIMG*)swatches[0] size];
+		NSSZ single = [(NSIMG*)swatches[0] size];
 		NSRect chartRect = [AZSizer rectForQuantity:swatches.count ofSize:single withColumns:4];
 		//AZMakeRectFromSize((NSSize){ single.width*4, swatches.count/4 *single.height });
 		AZSizer *s = [AZSizer forQuantity:swatches.count inRect:chartRect];
@@ -1088,7 +1088,7 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 - (NSImage *) tintedWithColor:(NSColor *)tint 
 {
 	if (tint != nil) {
-		NSSize size = [self size];
+		NSSZ size = [self size];
 		NSRect bounds = { NSZeroPoint, size };
 		NSImage *tintedImage = [[NSImage alloc] initWithSize:size];
 		
@@ -1129,7 +1129,7 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 
 - (NSImage *) filteredMonochromeEdge
 {
-		NSSize size = [self size];
+		NSSZ size = [self size];
 		NSRect bounds = { NSZeroPoint, size };
 		NSImage *tintedImage = [[NSImage alloc] initWithSize:size];
 		CIImage *filterPreviewImage = [self  toCIImage];
@@ -1158,7 +1158,7 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 }
 - (NSBitmapImageRep*) bitmap {
 	// returns a 32-bit bitmap rep of the receiver, whatever its original format. The image rep is not added to the image.
-	NSSize size = [self size];
+	NSSZ size = [self size];
 	int rowBytes = ((int)(ceil(size.width)) * 4 + 0x0000000F) & ~0x0000000F; // 16-byte aligned
 	int bps=8, spp=4, bpp=bps*spp;
 	
@@ -1217,8 +1217,8 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
  I have not yet tested this with a non-square image.
  */
 
-- (NSImage*)imageRotatedByDegrees:(CGFloat)degrees {
-	NSSize rotatedSize = NSMakeSize(self.size.height, self.size.width) ;
+- (NSImage*)imageRotatedByDegrees:(CGF)degrees {
+	NSSZ rotatedSize = NSMakeSize(self.size.height, self.size.width) ;
 	NSImage* rotatedImage = [[NSImage alloc] initWithSize:rotatedSize] ;
 	
     NSAffineTransform* transform = [NSAffineTransform transform] ;
@@ -1252,7 +1252,7 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 	
 	if ([sourceImage isValid])
 	{
-		NSSize imageSize = [self sizeLargestRepresentation];
+		NSSZ imageSize = [self sizeLargestRepresentation];
 		
 		if (imageSize.width  <= targetSize.width &&
 			imageSize.height <= targetSize.height)
@@ -1306,7 +1306,7 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 	
 	if ([sourceImage isValid])
 	{
-		NSSize imageSize = [self sizeLargestRepresentation];
+		NSSZ imageSize = [self sizeLargestRepresentation];
 		
 		if (imageSize.width  <= targetSize.width &&
 			imageSize.height <= targetSize.height)
@@ -1443,7 +1443,7 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 	return [self imageToFitSize:size method:AGImageResizeCrop];
 }
 
-- (NSImage *)scaledToMax:(CGFloat)f {
+- (NSImage *)scaledToMax:(CGF)f {
 	return [self imageScaledToFitSize: AZSizeFromDimension(f)];
 }
 
@@ -1509,9 +1509,9 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 if (angle == 0 || ![self isValid])
 return self;
 
-NSSize beforeSize = [self size];
+NSSZ beforeSize = [self size];
 
-NSSize afterSize = (angle == 90 || angle == -90) ? NSMakeSize(beforeSize.height, beforeSize.width) : beforeSize;
+NSSZ afterSize = (angle == 90 || angle == -90) ? NSMakeSize(beforeSize.height, beforeSize.width) : beforeSize;
 
 NSAffineTransform* trans = [NSAffineTransform transform];
 [trans translateXBy:afterSize.width * 0.5 yBy:afterSize.height * 0.5];
@@ -1532,7 +1532,7 @@ return [newImage autorelease];
 {
 	if (angle != 90 && angle != 270)	return self;
 	
-	NSImage *existingImage = self;		NSSize existingSize;
+	NSImage *existingImage = self;		NSSZ existingSize;
 	
 	/**  Get the size of the original image in its raw bitmap format.  The bestRepresentationForDevice: nil tells the NSImage to just give us the raw image instead of it's wacky DPI-translated version.   */
 	//	 NSBitmapImageRep = [existingImage bitmap];
@@ -1541,7 +1541,7 @@ return [newImage autorelease];
 														      context:[NSGraphicsContext currentContext] hints:nil] pixelsWide];
 	existingSize.height = [[existingImage bestRepresentationForRect:AZMakeRectFromSize(existingSize)
 															  context:[NSGraphicsContext currentContext] hints:nil] pixelsHigh];
-	NSSize newSize = NSMakeSize(existingSize.height, existingSize.width);
+	NSSZ newSize = NSMakeSize(existingSize.height, existingSize.width);
 	NSImage *rotatedImage = [[NSImage alloc] initWithSize:newSize];
 	[rotatedImage lockFocus];
 	
@@ -1578,17 +1578,17 @@ return [newImage autorelease];
 - (NSRect) proportionalRectForTargetRect:(NSRect)targetRect {
 	// if the sizes are the same, we're already done.
 	if ( NSEqualSizes(self.size, targetRect.size) ) return targetRect;
-	NSSize imageSize = self.size; CGFloat soureWidth = imageSize.width; CGFloat sourceHeight = imageSize.height;
+	NSSZ imageSize = self.size; CGF soureWidth = imageSize.width; CGF sourceHeight = imageSize.height;
 	// figure out the difference in size for each side, and use
 	// the larger adjustment for both edges (maintains aspect ratio).
-	CGFloat widthAdjust = targetRect.size.width / soureWidth; 
-	CGFloat heightAdjust = targetRect.size.height / sourceHeight; CGFloat scaleFactor = 1.0;
+	CGF widthAdjust = targetRect.size.width / soureWidth; 
+	CGF heightAdjust = targetRect.size.height / sourceHeight; CGF scaleFactor = 1.0;
 	if ( widthAdjust < heightAdjust )		scaleFactor = widthAdjust;
 	else								scaleFactor = heightAdjust;
 	// resize both edges by the same amount.
-	CGFloat finalWidth = soureWidth * scaleFactor;
-	CGFloat finalHeight = sourceHeight * scaleFactor;
-	NSSize finalSize = NSMakeSize ( finalWidth, finalHeight );
+	CGF finalWidth = soureWidth * scaleFactor;
+	CGF finalHeight = sourceHeight * scaleFactor;
+	NSSZ finalSize = NSMakeSize ( finalWidth, finalHeight );
 	// actual rect we'll use for the image. 
 	NSRect finalRect;
 	finalRect.size = finalSize;
@@ -1787,7 +1787,7 @@ rightDone:
 	
 }
 
-- (NSImage*) addReflection:(CGFloat)percentage
+- (NSImage*) addReflection:(CGF)percentage
 {
 	NSAssert(percentage > 0 && percentage <= 1.0, @"Please use percentage between 0 and 1");
 	CGRect offscreenFrame = CGRectMake(0, 0, self.size.width, self.size.height*(1.0+percentage));
@@ -1838,7 +1838,7 @@ rightDone:
 //	NSImage* newImage = nil;
 ////#if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5
 //	NSBitmapImageRep*    newRep = [[NSBitmapImageRep alloc]initWithCGImage:image];
-//	NSSize imageSize;
+//	NSSZ imageSize;
 //	// Get the image dimensions.
 //	imageSize.height = CGImageGetHeight(image);
 //	imageSize.width = CGImageGetWidth(image);
@@ -1861,34 +1861,53 @@ rightDone:
 //	return newImage;
 //}
 
+- (NSIMG*) etched
+{
+	NSIMG* etched = [[NSImage alloc]initWithSize:self.size];
+	[etched lockFocus];
+	[self drawEtchedInRect:AZRectFromSize(self.size)];
+	[etched unlockFocus];
+	return etched;
+}
+
+- (NSIMG*) alpha:(CGF)fraction
+{
+	NSIMG* alpha = [[NSImage alloc]initWithSize:self.size];
+	[alpha lockFocus];
+	[self drawInRect:AZRectFromSize(self.size) fraction:fraction];
+	[alpha unlockFocus];
+	return alpha;
+}
+
+
 - (void)drawEtchedInRect:(NSRect)rect
 {
-    NSSize size = rect.size;
-    CGFloat dropShadowOffsetY = size.width <= 64.0 ? -1.0 : -2.0;
-    CGFloat innerShadowBlurRadius = size.width <= 32.0 ? 1.0 : 4.0;
-	
+	NSSize size = rect.size;
+    CGFloat dropShadowOffsetY = -size.width /64;//<= 64.0 ? -1.0 : -2.0;
+    CGFloat innerShadowBlurRadius = size.width /32;//<= 3 2.0 ? 1.0 : 4.0;
+
     CGContextRef c = [[NSGraphicsContext currentContext] graphicsPort];
-	
+
     //save the current graphics state
     CGContextSaveGState(c);
-	
+
     //Create mask image:
     NSRect maskRect = rect;
     CGImageRef maskImage = [self CGImageForProposedRect:&maskRect context:[NSGraphicsContext currentContext] hints:nil];
-	
+
     //Draw image and white drop shadow:
     CGContextSetShadowWithColor(c, CGSizeMake(0, dropShadowOffsetY), 0, CGColorGetConstantColor(kCGColorWhite));
     [self drawInRect:maskRect fromRect:NSMakeRect(0, 0, self.size.width, self.size.height) operation:NSCompositeSourceOver fraction:1.0];
-	
+
     //Clip drawing to mask:
     CGContextClipToMask(c, NSRectToCGRect(maskRect), maskImage);
-	
+
     //Draw gradient:
-    NSGradient *gradient = [[NSGradient alloc] initWithStartingColor:[NSColor colorWithDeviceWhite:0.5 alpha:1.0]
-														 endingColor:[NSColor colorWithDeviceWhite:0.25 alpha:1.0]];
+    NSGradient *gradient = [[[NSGradient alloc] initWithStartingColor:[NSColor colorWithDeviceWhite:0.5 alpha:1.0]
+                                                          endingColor:[NSColor colorWithDeviceWhite:0.25 alpha:1.0]] autorelease];
     [gradient drawInRect:maskRect angle:90.0];
     CGContextSetShadowWithColor(c, CGSizeMake(0, -1), innerShadowBlurRadius, CGColorGetConstantColor(kCGColorBlack));
-	
+
     //Draw inner shadow with inverted mask:
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGContextRef maskContext = CGBitmapContextCreate(NULL, CGImageGetWidth(maskImage), CGImageGetHeight(maskImage), 8, CGImageGetWidth(maskImage) * 4, colorSpace, kCGImageAlphaPremultipliedLast);
@@ -1901,10 +1920,12 @@ rightDone:
     CGContextDrawImage(c, maskRect, invertedMaskImage);
     CGImageRelease(invertedMaskImage);
     CGContextRelease(maskContext);
-	
+
     //restore the graphics state
     CGContextRestoreGState(c);
 }
+
+
 
 
 CGContextRef MyCreateBitmapContext (int pixelsWide, int pixelsHigh)
@@ -2050,8 +2071,8 @@ CGContextRef MyCreateBitmapContext (int pixelsWide, int pixelsHigh)
 		  lockAspectRatio:(BOOL)lock // pass YES if you want to lock aspect ratio
    lockAspectRatioByWidth:(BOOL)flag // pass YES to lock aspect ratio by width or passing NO to lock by height
 {
-	NSSize oldSize = [sourceImage size];
-	CGFloat ratio = oldSize.width / oldSize.height;
+	NSSZ oldSize = [sourceImage size];
+	CGF ratio = oldSize.width / oldSize.height;
 	// if new size is equal to or larger than the original image, we won't resize it
 	if (size.height >= oldSize.height || size.width >= oldSize.width) 
 		return sourceImage;
@@ -2143,7 +2164,7 @@ CGContextRef MyCreateBitmapContext (int pixelsWide, int pixelsHigh)
 }
 
 - (NSImage *)scaleToFillSize:(NSSize)targetSize {
-	NSSize sourceSize = self.size;	
+	NSSZ sourceSize = self.size;	
 	NSRect sourceRect = NSZeroRect;
 	if (sourceSize.height > sourceSize.width) {
 		sourceRect = NSMakeRect(0.0, 
@@ -2168,59 +2189,6 @@ CGContextRef MyCreateBitmapContext (int pixelsWide, int pixelsHigh)
 }
 @end
 
-@implementation NSColor (NSColor_ColorspaceEquality)
-
-- (BOOL) isEqualToColor:(NSColor*)inColor colorSpace:(NSString*)inColorSpace {
-
-	NSColor *color1 = [self colorUsingColorSpaceName:inColorSpace];
-	NSColor *color2 = [inColor colorUsingColorSpaceName:inColorSpace];
-
-	BOOL equal = color1 && color2 && [color1 isEqual:color2];
-	return equal;
-}
-
-@end
-@implementation NSColor (NSColor_CSSRGB)
-
-+ (NSColor*) colorWithCSSRGB:(NSString*)rgbString {
-	static NSCharacterSet *open = nil; if ( open == nil ) open = [NSCharacterSet characterSetWithCharactersInString:@"("];
-	static NSCharacterSet *close = nil; if ( close == nil ) close = [NSCharacterSet characterSetWithCharactersInString:@")"];
-
-	NSInteger iBegin = [rgbString rangeOfCharacterFromSet:open].location;
-	NSInteger iClose = [rgbString rangeOfCharacterFromSet:close].location;
-
-	if ( iBegin == NSNotFound || iClose == NSNotFound )
-		return nil;
-
-	NSString *rgbSub = [rgbString substringWithRange:NSMakeRange(iBegin+1,iClose-(iBegin+1))];
-	NSArray *components = [rgbSub componentsSeparatedByString:@","];
-
-	if ( [components count] != 3 )
-		return nil;
-
-	NSMutableArray *componentValues = [NSMutableArray arrayWithCapacity:3];
-
-	for ( NSString *aComponent in components ) {
-		NSString *cleanedComponent = [aComponent stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-		if ( [cleanedComponent length] == 0 )
-			continue;
-
-		NSNumber *numericValue = @([cleanedComponent floatValue]);
-		[componentValues addObject:numericValue];
-	}
-
-	if ( [componentValues count] != 3 )
-		return nil;
-
-	NSColor *color = [NSColor colorWithCalibratedRed:[componentValues[0] floatValue]/255.
-											   green:[componentValues[1] floatValue]/255.
-												blue:[componentValues[2] floatValue]/255.
-											   alpha:1.0];
-
-	return color;
-}
-
-@end
 
 @implementation CIImage (ToNSImage)
 //While we're at it, let's get the conversion back to NSImage out of the way. Here's a similar category method on CIImage. Well, two actually: one that assumes you want the whole extent of the image; the other to grab just a particular rectangle:
@@ -2270,7 +2238,7 @@ CGContextRef MyCreateBitmapContext (int pixelsWide, int pixelsHigh)
 
 - (NSBitmapImageRep*) bitmap {
 	// returns a 32-bit bitmap rep of the receiver, whatever its original format. The image rep is not added to the image.
-	NSSize size = [self size];
+	NSSZ size = [self size];
 	int rowBytes = ((int)(ceil(size.width)) * 4 + 0x0000000F) & ~0x0000000F; // 16-byte aligned
 	int bps=8, spp=4, bpp=bps*spp;
 	

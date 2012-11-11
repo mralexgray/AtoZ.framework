@@ -174,6 +174,8 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define CAKA CAKeyframeAnimation
 #define CAL CALayer
 #define CALNA CALayerNonAnimating
+#define CALNH CALayerNoHit
+#define CASLNH CAShapeLayerNoHit
 #define CASHL CAShapeLayer
 #define CASL CAScrollLayer
 #define CAT CATransaction
@@ -235,6 +237,9 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define bgC backgroundColor
 #define fgC foregroundColor
 #define arMASK autoresizingMask
+#define mTB masksToBounds
+#define cRadius cornerRadius
+#define aPoint anchorPoint
 #define NDOBC needsDisplayOnBoundsChange
 #define nDoBC needsDisplayOnBoundsChange
 #define CASIZEABLE kCALayerWidthSizable | kCALayerHeightSizable

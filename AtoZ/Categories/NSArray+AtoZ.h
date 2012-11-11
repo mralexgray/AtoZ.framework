@@ -23,6 +23,9 @@
 
 @interface NSArray (AtoZ)
 
+
+- (NSA*) withMaxItems:(NSUI) items;
+
 - (void) setStringsToNilOnbehalfOf:(id)entity;
 
 - (NSA*) URLsForPaths;

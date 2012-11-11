@@ -32,6 +32,15 @@
 
 //- (void)addClickView:(AZSimpleView *)aView;
 //@property (nonatomic, retain) Drawer *drawer;
+
+@property (NATOM, ASS) NSI unitOffset;
+@property (NATOM, ASS) CGF unit;
+@property (NATOM, ASS) NSP scrollPoint, dragStart, dragDiff;
+@property (NATOM, ASS) NSR perfectRect;
+
+
+@property (nonatomic,retain) NSMD *spots;
+@property (nonatomic,retain) CAL *scrollLayer;
 @property (weak) AZSimpleView *hoveredView;
 @property (nonatomic,retain) NSView *bar, *drawerView;
 

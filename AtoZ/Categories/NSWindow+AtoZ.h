@@ -84,7 +84,7 @@
 - (void) slideUp;
 - (void) slideDown;
 
-- (void) extendVerticallyBy: (int) amount;
+- (void) extendVerticallyBy: (CGF) amount;
 /*
 + (NSWindow*) borderlessWindowWithContentRect: (NSRect)aRect;
 */

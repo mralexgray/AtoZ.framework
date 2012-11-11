@@ -46,6 +46,11 @@
 @implementation NSArray (AtoZ)
 @dynamic trimmedStrings;
 
+- (NSA*) withMaxItems:(NSUI) items;
+{
+	return self.count <= items ? self : [self subarrayToIndex:items];
+}
+
 - (void) setStringsToNilOnbehalfOf:(id)entity;
 {
 	[self each:^(id obj) { [entity setValue:nil forKey:obj]; }];

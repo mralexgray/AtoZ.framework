@@ -82,6 +82,15 @@ static NSA* cachedI = nil;
 	}];
 }
 
+
++ (NSFont*) font:(NSS*)family size:(CGF)size
+{
+	if (![AtoZ hasSharedInstance]) [AtoZ sharedInstance];
+	NSS * font = [[AtoZ fonts] filterOne:^BOOL(id object) {
+		return [(NSS*) object contains:family];
+	}];
+	return font ? [NSFont fontWithName:font size:size] : nil;
+}
 + (NSS*) randomFontName;
 {
 	return [AtoZ fonts].randomElement;

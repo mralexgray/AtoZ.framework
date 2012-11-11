@@ -234,7 +234,7 @@ CATextLayer* AddTextLayer( CALayer *superlayer,
 	label.bounds 	= bounds;// nanRectCheck(  CGRectMake(0, font.descender, bounds.size.width, height - font.descender));
     label.position 	= nanPointCheck(AZCenterOfRect(superlayer.bounds));//CGPointMake(bounds.origin.x,y+font.descender));
 //    label.anchorPoint = (CGPoint) { .5,.5 };
-    label.autoresizingMask = kCALayerWidthSizable | kCALayerHeightSizable;// align;
+//    label.autoresizingMask = kCALayerWidthSizable | kCALayerHeightSizable;// align;
 	[superlayer addSublayer: label];
     return label;
 }
@@ -1178,6 +1178,13 @@ static char ORIENT_IDENTIFIER;
 
 }
 
++ (instancetype) layerNamed:(NSS*)name;
+
+{
+	id a = [[self class] layer];
+	a[@"name"] = name;
+	return a;
+}
 + (CALayer *) withName:(NSString*)name   inFrame:(NSRect)rect
 			   colored:(NSColor*)color withBorder:(CGFloat)width colored:(NSColor*) borderColor;
 {
@@ -2344,9 +2351,15 @@ NSTimeInterval const LTKDefaultTransitionDuration = 0.25;
 
 - (void)enableDebugBordersRecursively:(BOOL)recursively
 {
-	self.borderWidth = 1.0f;
-	self.borderColor = cgRANDOMCOLOR;
-	if (recursively) for (CALayer *sublayer in self.sublayers) [sublayer enableDebugBordersRecursively:YES];
+	AZDebugLayer *d = [[AZDebugLayer alloc]initWithLayer:self];
+
+//	CAShapeLayerNoHit *border = [CAShapeLayerNoHit layer];
+	[self addSublayer:d];
+//	self.borderWidth = 1.0f;
+//	self.borderColor = cgRANDOMCOLOR;
+	if (recursively) for (CALayer *sublayer in self.sublayers) {
+		if (!areSame(sublayer.name, @"debugShape")) [sublayer enableDebugBordersRecursively:YES];
+	}
 }
 
 @end
@@ -2448,4 +2461,33 @@ NSTimeInterval const LTKDefaultTransitionDuration = 0.25;
 	return nil;
 }
 @end
+
+
+
+@implementation CAScrollLayer (CAScrollLayer_Extensions)
+
+- (void)scrollBy:(CGPoint)inDelta
+{
+	const CGRect theVisibleRect = self.visibleRect;
+	const CGPoint theNewScrollLocation = { .x = CGRectGetMinX(theVisibleRect) + inDelta.x, .y = CGRectGetMinY(theVisibleRect) + inDelta.y };
+	[self scrollToPoint:theNewScrollLocation];
+}
+
+- (void)scrollCenterToPoint:(CGPoint)inPoint;
+{
+	const CGRect theBounds = self.bounds;
+	const CGPoint theCenter = {
+		.x = CGRectGetMidX(theBounds),
+		.y = CGRectGetMidY(theBounds),
+	};
+	const CGPoint theNewPoint = {
+		.x = inPoint.x - theCenter.x,
+		.y = inPoint.y - theCenter.y,
+	};
+
+	[self scrollToPoint:theNewPoint];
+}
+
+@end
+
 

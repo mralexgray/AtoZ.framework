@@ -78,3 +78,9 @@
 	path = Frameworks/AtoZUI
 	url = https://github.com/mralexgray/AtoZUI.git
 	ignore = dirty
+[submodule "Frameworks/CocoaLumberjack"]
+	path = Frameworks/CocoaLumberjack
+	url = https://github.com/robbiehanson/CocoaLumberjack.git
+[submodule "Frameworks/MapKit"]
+	path = Frameworks/MapKit
+	url = https://github.com/mralexgray/MacMapKit.git

@@ -49,7 +49,7 @@
 #import <Rebel/Rebel.h>
 //#import <XPCKit/XPCKit.h>
 #import <FunSize/FunSize.h>
-//#import <DrawKit/DKDrawKit.h>
+#import <DrawKit/DKDrawKit.h>
 //#import <Zangetsu/Zangetsu.h>
 //#import <SNRHUDKit/SNRHUDKit.h>
 #import <BlocksKit/BlocksKit.h>
@@ -58,6 +58,7 @@
 #import <AtoZBezierPath/AtoZBezierPath.h>
 //#import <AtoZUI/AtoZUI.h>
 #import <AtoZAppKit/BGHUDAppKit.h>
+#import <Lumberjack/Lumberjack.h>
 
 #import "ConciseKit.h"
 #import "BaseModel.h"

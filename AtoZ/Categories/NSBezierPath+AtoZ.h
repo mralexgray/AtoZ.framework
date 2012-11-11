@@ -29,6 +29,10 @@ typedef enum {
 
 @interface NSBezierPath (AtoZ)
 
+- (NSBP*)scaledToSize:(NSSZ)size;
+- (NSBP*)scaledToFrame:(NSR)rect;
+
+
 + (NSBP*)bezierPathWithSpringWithCoils:(NSUI)numCoils inFrame:(NSR)bounds;
 
 + (NSBezierPath *)bezierPathWithPlateInRect:(NSRect)rect;

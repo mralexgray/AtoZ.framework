@@ -23,6 +23,7 @@
 #import <Foundation/Foundation.h>
 #import <AudioToolbox/AudioToolbox.h>
 #import <ApplicationServices/ApplicationServices.h>
+#import <Lumberjack/Lumberjack.h>
 
 #define EXCLUDE_STUB_PROTOTYPES 1
 #import <PLWeakCompatibility/PLWeakCompatibilityStubs.h>
@@ -31,7 +32,7 @@
 #import <Rebel/Rebel.h>
 //#import <XPCKit/XPCKit.h>
 #import <FunSize/FunSize.h>
-//#import <DrawKit/DKDrawKit.h>
+#import <DrawKit/DKDrawKit.h>
 //#import <Zangetsu/Zangetsu.h>
 //#import <SNRHUDKit/SNRHUDKit.h>
 #import <BlocksKit/BlocksKit.h>
@@ -257,6 +258,7 @@ extern NSString *const AtoZDockSortedUpdated;
 + (void) playRandomSound;
 
 + (NSA*)fonts;
++ (NSFont*) font:(NSS*)family size:(CGF)size;
 
 @property (NATOM, STRNG) NSA* fonts;
 @property (NATOM, STRNG) NSA* cachedImages;

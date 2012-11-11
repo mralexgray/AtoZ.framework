@@ -256,7 +256,7 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 
 
 -(CALayer*) setupHostView {
-    CALayer *layer = [CALayer layer]; 
+    CALayer *layer = [CALayer layerNamed:@"root"];
 //	layer.frame = [self bounds];
 //	layer.position = [self center];
 //	layer.bounds = [self bounds];

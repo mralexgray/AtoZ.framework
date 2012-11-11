@@ -563,7 +563,7 @@ static NSArray * SPColorPickerDefaultColorsInCSSRGB(void) {
 
         if ( [self.selectionIndex firstIndex] > 0 )
             // Send the action set on the actualMenuItem to the target set on the actualMenuItem, and make come from the actualMenuItem.
-            [self.target performSelector:self.action withObject:self];
+            [self.target performSelectorWithoutWarnings:self.action withObject:self];
 //        else if ( self.canRemoveColor )
             // separate action for remove color
 //            [self.removeColorTarget performSelectorWithoutWarnings:self.removeColorAction withObject:self];

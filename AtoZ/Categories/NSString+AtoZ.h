@@ -29,6 +29,9 @@
 + (NSString*) randomWords:(NSInteger)number;
 + (NSString*) randomSentences:(NSInteger)number;
 
+- (NSSZ) sizeWithFont:(NSFont*)font;
+- (NSSZ) sizeWithFont:(NSFont*)font margin:(NSSZ)size;
+
 //@property (RONLY) NSColor *colorValue;
 
 - (void) drawInRect:(NSRect)r withFontNamed:(NSS*)fontName andColor:(NSColor*)color;

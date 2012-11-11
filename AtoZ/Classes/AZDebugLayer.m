@@ -21,6 +21,7 @@
 
 }
 
+
 - (void) awakeFromNib
 {
 	self.root	= [self setupHostView];
@@ -38,9 +39,11 @@
 		});
 		return e;
 	}];
+
+	__block id blockself = self;
 	[_dLayer addObserverForKeyPaths:@[@"anchorPoint", @"position"] task:^(id obj, NSDictionary *change) {
 		NSLog(@"observed object: %@  change:%@", obj, change);
-		NSP newPos = [self unNormalizedPoint:_dLayer.anchorPoint inRect:_dLayer.bounds];
+		NSP newPos = [blockself unNormalizedPoint:_dLayer.anchorPoint inRect:_dLayer.bounds];
 		NSLog(@"newpos = %@", AZString(newPos));
 		_dLayer.anchorPointLayer.position = newPos;
 		//			[_anchorPointLayer setNeedsDisplay];
@@ -59,34 +62,76 @@
 
 
 @implementation AZDebugLayer
-- (id)init
-{
-    self = [super init];
-    if (self) {
-		self.anchorPointLayer 	= [CASL layer];
-		self.positionLayer 		= [CASL layer];
 
-		_anchorPointLayer.bgC 			= cgRED;
-		_anchorPointLayer.cornerRadius 	= 10;
-		_anchorPointLayer.bounds 		= AZRectFromDim(50);
-        _anchorPointLayer.delegate = self;
-		[self addSublayer:_anchorPointLayer];
-		[_anchorPointLayer setNeedsDisplay];
-    }
-    return self;
+
+//- (void) didChangeValueForKey:(NSString *)key {
+//
+//	NSLog(@"did change value for key: %@", key);
+//}
+
+- (id)initWithLayer:(id)layer
+{
+	if (!(self = [super init])) return nil;
+
+//	NSLog(@"event: %@", event);
+	self.fillColor = cgCLEARCOLOR;
+	CGPathRef ref = [[NSBezierPath bezierPathWithRect:[layer bounds]]newQuartzPath];
+	[self setPath:ref];
+	CGColorRef col = cgRANDOMCOLOR;
+	[self setStrokeColor:col];
+	[self setLineDashPattern:@[ @(10), @(5)]];
+	[self setLineWidth:3];
+	[self addConstraintsSuperSize];
+	self.name = @"debugShape";
+	self.zPosition = 1000000;
+	NSS* aName = [(CAL*)layer name];
+	if (aName) {
+
+		NSFont *font 		= [AtoZ font:@"mono" size:12];
+		CATextLayer *t 		= AddTextLayer(self, aName, [AtoZ font:@"Ubuntu" size:12], 0);
+		t.backgroundColor 	= self.strokeColor;
+		t.foregroundColor   = [[[NSColor colorWithCGColor:self.strokeColor]contrastingForegroundColor]CGColor];
+		t.anchorPoint	 	= AZAnchorBottomLeft;
+		[t addConstraintsRelSuper:kCAConstraintMinY, kCAConstraintMinX, NSNotFound];
+		t.bounds = AZMakeRect(NSZeroPoint, [aName sizeWithFont:font margin:NSMakeSize(4, 3)]);
+	}
+	return self;
+//	[super actionForKey:event];
 }
+
+-(BOOL) containsPoint:(CGPoint)p { return NO; };
+//- (id)init
+//{
+//	if (!(self = [super init])) return nil;
+//
+//	self.name = @"debugShape";
+//	self.fillColor = cgCLEARCOLOR;
+
+//		self.anchorPointLayer 	= [CASL layer];
+//		self.positionLayer 		= [CASL layer];
+//
+//		_anchorPointLayer.bgC 			= cgRED;
+//		_anchorPointLayer.cornerRadius 	= 10;
+//		_anchorPointLayer.bounds 		= AZRectFromDim(50);
+//        _anchorPointLayer.delegate = self;
+//		[self addSublayer:_anchorPointLayer];
+//		[_anchorPointLayer setNeedsDisplay];
+//    return self;
+//}
 //- (void) setAnchorPoint:(CGPoint)anchorPoint {
 //	anchorPoint = anchorPoint;
 //	_anchorPointLayer.position 		= [self unNormalizedPoint:self.anchorPoint inRect:[self bounds]];
 //	[_anchorPointLayer setNeedsDisplay];
 //}
 
-- (void) drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx {
 
-	if ( areSame(layer, _anchorPointLayer) ) {
-		[@"a" drawInRect:layer.frame withFontNamed:[[AtoZ fonts]first] andColor:WHITE];
-	}
 
-}
+//- (void) drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx {
+//
+//	if ( areSame(layer, _anchorPointLayer) ) {
+//		[@"a" drawInRect:layer.frame withFontNamed:[[AtoZ fonts]first] andColor:WHITE];
+//	}
+//
+//}
 
 @end

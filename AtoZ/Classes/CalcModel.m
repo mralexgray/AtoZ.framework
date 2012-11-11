@@ -50,6 +50,8 @@
 		case subtractOperator:
 			accumulatorValue = transientValue - accumulatorValue;
 			break;
+		case clearOperator:
+		break;
 	}
 	restartText = !restartText;
 	transientValue = 0.0;

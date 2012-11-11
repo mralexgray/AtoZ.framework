@@ -41,6 +41,33 @@
 @end
 @implementation NSBezierPath (AtoZ)
 
+
+- (NSBP*)scaledToSize:(NSSZ)size;
+{
+	return [self scaledToFrame:AZRectFromSize(size)];
+}
+
+- (NSBP*)scaledToFrame:(NSR)rect;
+{
+	NSAT *transform = [[NSAffineTransform alloc] init];
+	CGF   ratio 	= 1.0;
+
+	// get the ratio
+	ratio = MIN( rect.size.width  / self.bounds.size.width,
+				 rect.size.height / self.bounds.size.height );
+
+	// scale by ratio
+	[transform scaleBy:ratio];
+
+	// move the pat to (0,0)
+	[transform translateXBy: -self.bounds.origin.x yBy:-self.bounds.origin.y];
+
+	// set the transform
+	[self transformUsingAffineTransform:transform];
+
+}
+
+
 + (NSBP*)bezierPathWithSpringWithCoils:(NSUI)numCoils inFrame:(NSR)bounds;
 {
 
@@ -386,55 +413,36 @@
 // This method works only in OS X v10.2 and later.
 - (CGPathRef)quartzPath
 {
-    int i, numElements;
-
     // Need to begin a path here.
-    CGPathRef           immutablePath = NULL;
+    __block CGPathRef           immutablePath = NULL;
+
+	__block CGMutablePathRef    path = CGPathCreateMutable();
+	__block BOOL                didClosePath = YES;
 
     // Then draw the path elements.
-    numElements = [self elementCount];
+    NSI numElements = [self elementCount];
     if (numElements > 0)
     {
-        CGMutablePathRef    path = CGPathCreateMutable();
-        NSPoint             points[3];
-        BOOL                didClosePath = YES;
+		[[NSA from:0 to:numElements-1] eachWithIndex:^(id obj, NSInteger idx) {
 
-        for (i = 0; i < numElements; i++)
-        {
-            switch ([self elementAtIndex:i associatedPoints:points])
-            {
-                case NSMoveToBezierPathElement:
-                    CGPathMoveToPoint(path, NULL, points[0].x, points[0].y);
-                    break;
+			CGP pnts[3], *pPtr;
+			pPtr = pnts;
 
-                case NSLineToBezierPathElement:
-                    CGPathAddLineToPoint(path, NULL, points[0].x, points[0].y);
-                    didClosePath = NO;
-                    break;
+			NSBezierPathElement e = [self elementAtIndex:idx associatedPoints:pnts];
+			e == NSMoveToBezierPathElement	? 		CGPathMoveToPoint(		path, NULL, pnts[0].x, pnts[0].y) 		:
+			e == NSLineToBezierPathElement	? ^{	CGPathAddLineToPoint(	path, NULL, pPtr[0].x, pPtr[0].y);
+													didClosePath = NO; 											}() :
+			e == NSCurveToBezierPathElement	? ^{	CGPathAddCurveToPoint(path, NULL, pPtr[0].x, pPtr[0].y,
+																					  pPtr[1].x, pPtr[1].y,
+																					  pPtr[2].x, pPtr[2].y);
+													didClosePath = NO;											}()	:
 
-                case NSCurveToBezierPathElement:
-                    CGPathAddCurveToPoint(path, NULL, points[0].x, points[0].y,
-										  points[1].x, points[1].y,
-										  points[2].x, points[2].y);
-                    didClosePath = NO;
-                    break;
-
-                case NSClosePathBezierPathElement:
-                    CGPathCloseSubpath(path);
-                    didClosePath = YES;
-                    break;
-            }
-        }
-
-        // Be sure the path is closed or Quartz may not do valid hit detection.
-        if (!didClosePath)
-            CGPathCloseSubpath(path);
-
-        immutablePath = CGPathCreateCopy(path);
-        CGPathRelease(path);
-    }
-
-    return immutablePath;
+			e == NSClosePathBezierPathElement ? ^{	CGPathCloseSubpath(path); didClosePath = YES;				}() : nil;
+			// Be sure the path is closed or Quartz may not do valid hit detection.
+			didClosePath ?: CGPathCloseSubpath(path);
+    	}];
+	}
+    return CGPathCreateCopy(path);
 }
 
 //#define MCBEZIER_USE_PRIVATE_FUNCTION

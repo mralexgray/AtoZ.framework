@@ -134,6 +134,8 @@ extern CATransform3D CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13, CG
 
 - (void)addAnimations:(NSA*)anims forKeys:(NSArray *)keys;
 
++ (instancetype) layerNamed:(NSS*)name;
+
 + (CALayer *) withName:(NSString*)name   inFrame:(NSRect)rect
 			   colored:(NSColor*)color withBorder:(CGFloat)width colored:(NSColor*) borderColor;
 
@@ -256,5 +258,11 @@ extern CATransform3D CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13, CG
 
 @interface CALayerNonAnimating : CALayer
 - (id<CAAction>)actionForKey:(NSString *)key;
+@end
+
+
+@interface CAScrollLayer (CAScrollLayer_Extensions)
+- (void)scrollBy:(CGPoint)inDelta;
+- (void)scrollCenterToPoint:(CGPoint)inPoint;
 @end
 

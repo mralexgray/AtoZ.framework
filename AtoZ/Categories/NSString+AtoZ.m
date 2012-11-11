@@ -140,6 +140,22 @@
 	 [self drawInRect:r withFontNamed:font.fontName andColor:color];
 }
 
+
+- (NSSZ) sizeWithFont:(NSFont*)font margin:(NSSZ)size;
+{
+	NSSZ sz = [self sizeWithFont:font];
+	sz.width += 2 * size.width;
+	sz.height += 2 * size.height;
+	return sz;
+
+}
+- (NSSZ) sizeWithFont:(NSFont*)font;
+{
+	NSD *attrs = [NSD dictionaryWithObjectsAndKeys: font,NSFontAttributeName, nil];
+	NSAttributedString *s =[[NSAttributedString alloc]initWithString:self attributes:attrs];
+	return [s  size];
+}
+
 - (void) drawInRect:(NSRect)r withFontNamed:(NSS*)fontName andColor:(NSColor*)color {
 
 	NSMutableParagraphStyle *paraAttr = [[NSMutableParagraphStyle defaultParagraphStyle ] mutableCopy];

@@ -148,7 +148,7 @@ typedef struct AZTriPair {	AZTri uno;	AZTri duo;  				}AZTriPair;
 			//		return e;
 	}];
 
-	NSLog(@"im awake.  position: %@. origin:%f.0x%f.0 size:%f.0x%f.0", $(@"%ud",_position), self.frame.origin.x, self.frame.origin.y,self.frame.size.width, self.frame.size.height);
+	NSLog(@"im awake.  position: %@. origin:%f.0x%f.0 size:%f.0x%f.0", AZString(_position), self.frame.origin.x, self.frame.origin.y,self.frame.size.width, self.frame.size.height);
 }
 -(void) slideIn {
 	NSRect o = self.outFrame;

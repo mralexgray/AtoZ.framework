@@ -1187,10 +1187,14 @@
 		7BEF70271603112800A0300E /* NSBundle+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BEF70251603112800A0300E /* NSBundle+AtoZ.m */; };
 		7BF0571C15EB33F3003A2A7A /* AZSpinnerLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF0571A15EB33F2003A2A7A /* AZSpinnerLayer.m */; };
 		7BF0571D15EB33F3003A2A7A /* AZSpinnerLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BF0571B15EB33F3003A2A7A /* AZSpinnerLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BF26177164EDAE40057EB88 /* Lumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF26172164EDAB00057EB88 /* Lumberjack.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		7BF26178164EDAFD0057EB88 /* Lumberjack.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7BF26172164EDAB00057EB88 /* Lumberjack.framework */; };
+		7BF2617B164EEC050057EB88 /* DrawKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BA35FA616449FDF00BFEB6B /* DrawKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		7BF2617C164EEC120057EB88 /* DrawKit.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7BA35FA616449FDF00BFEB6B /* DrawKit.framework */; };
+		7BF2617D164F2B260057EB88 /* AtoZFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BF9854915FEBDB100D47192 /* AtoZFunctions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BF93E3615FEF8F400211769 /* GHUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B28546215FEF0840077960A /* GHUnit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		7BF9854C15FEBDB200D47192 /* AtoZFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF9854A15FEBDB200D47192 /* AtoZFunctions.m */; };
 		7BF9855015FEBDF900D47192 /* NSBag.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF9854E15FEBDF900D47192 /* NSBag.m */; };
-		7BF9855115FEBEAE00D47192 /* AtoZFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BF9854915FEBDB100D47192 /* AtoZFunctions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BF9855215FEBEB300D47192 /* NSBag.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BF9854D15FEBDF900D47192 /* NSBag.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BF9E79C159E8F5000B5482D /* NSArray+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BF9E79A159E8F5000B5482D /* NSArray+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BF9E79D159E8F5000B5482D /* NSArray+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF9E79B159E8F5000B5482D /* NSArray+AtoZ.m */; };
@@ -1629,6 +1633,34 @@
 			remoteGlobalIDString = 7B311950159B6D9E002134C4;
 			remoteInfo = AtoZ;
 		};
+		7BF26171164EDAB00057EB88 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7BF26168164EDAB00057EB88 /* Lumberjack.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DCB3185114EB418E001CFBEE;
+			remoteInfo = Lumberjack;
+		};
+		7BF26173164EDAB00057EB88 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7BF26168164EDAB00057EB88 /* Lumberjack.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DCB318CA14ED6C3B001CFBEE;
+			remoteInfo = FmwkTest;
+		};
+		7BF26175164EDAD80057EB88 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7BF26168164EDAB00057EB88 /* Lumberjack.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = DCB3185014EB418E001CFBEE;
+			remoteInfo = Lumberjack;
+		};
+		7BF26179164EEBF90057EB88 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7BA35F9D16449FDE00BFEB6B /* DrawKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
+			remoteInfo = DrawKit;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -1638,6 +1670,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				7BF2617C164EEC120057EB88 /* DrawKit.framework in frameworks copy */,
+				7BF26178164EDAFD0057EB88 /* Lumberjack.framework in frameworks copy */,
 				7B7EDA14164B974600D8C6C6 /* AtoZAppKit.framework in frameworks copy */,
 				7BC2DD2516469AA400E73757 /* BlocksKit.framework in frameworks copy */,
 				7B375681163B63B8003D52B7 /* CocoaPuffs.framework in frameworks copy */,
@@ -2545,8 +2579,8 @@
 		7B449C661616084C00AB9335 /* NSUserDefaults+Subscript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSUserDefaults+Subscript.h"; path = "NSUserDefaults-Subscript/NSUserDefaults+Subscript.h"; sourceTree = "<group>"; };
 		7B449C671616084C00AB9335 /* NSUserDefaults+Subscript.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSUserDefaults+Subscript.m"; path = "NSUserDefaults-Subscript/NSUserDefaults+Subscript.m"; sourceTree = "<group>"; };
 		7B449C6D1616136500AB9335 /* NSObject-Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = "NSObject-Utilities.h"; sourceTree = "<group>"; };
-		7B449C6E1616136500AB9335 /* NSObject-Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject-Utilities.m"; sourceTree = "<group>"; };
-		7B449D9B16164B5200AB9335 /* AtoZ-Framework.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "AtoZ-Framework.pch"; path = "../AtoZ-Framework.pch"; sourceTree = "<group>"; };
+		7B449C6E1616136500AB9335 /* NSObject-Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "NSObject-Utilities.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		7B449D9B16164B5200AB9335 /* AtoZ-Framework.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AtoZ-Framework.pch"; sourceTree = "<group>"; };
 		7B45C5EB1625051D00737335 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7B475B1215ED65450002137E /* bullseye.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bullseye.png; sourceTree = "<group>"; };
 		7B495F7715C076C7002DC694 /* RGB.clr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = RGB.clr; path = ../RGB.clr; sourceTree = "<group>"; };
@@ -2555,7 +2589,7 @@
 		7B4E9E3715E35B5500C0581A /* fontawesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = fontawesome.ttf; path = Fonts/fontawesome.ttf; sourceTree = "<group>"; };
 		7B4E9E3915E365BA00C0581A /* Nexa Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Nexa Bold.otf"; path = "Fonts/Nexa Bold.otf"; sourceTree = "<group>"; };
 		7B4E9E3A15E365BA00C0581A /* Nexa Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Nexa Light.otf"; path = "Fonts/Nexa Light.otf"; sourceTree = "<group>"; };
-		7B4F01D21609E97700A79C77 /* NSDictionary+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = "NSDictionary+AtoZ.h"; sourceTree = "<group>"; };
+		7B4F01D21609E97700A79C77 /* NSDictionary+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; lineEnding = 0; path = "NSDictionary+AtoZ.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		7B4F01D31609E97700A79C77 /* NSDictionary+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+AtoZ.m"; sourceTree = "<group>"; };
 		7B4F022C160A4DEA00A79C77 /* AZCoreScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = AZCoreScrollView.h; path = AZCoreScroll/AZCoreScrollView.h; sourceTree = "<group>"; };
 		7B4F022D160A4DEA00A79C77 /* AZCoreScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AZCoreScrollView.m; path = AZCoreScroll/AZCoreScrollView.m; sourceTree = "<group>"; };
@@ -2689,7 +2723,7 @@
 		7B7D5587163070FC00711D0F /* AZCIFilters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZCIFilters.m; sourceTree = "<group>"; };
 		7B7D558A163072A200711D0F /* AZIrisOpenFilter.cikernel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AZIrisOpenFilter.cikernel; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
 		7B7D558C1630781B00711D0F /* NSError+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = "NSError+AtoZ.h"; sourceTree = "<group>"; };
-		7B7D558D1630781B00711D0F /* NSError+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+AtoZ.m"; sourceTree = "<group>"; };
+		7B7D558D1630781B00711D0F /* NSError+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "NSError+AtoZ.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7B7D55A2163093C400711D0F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		7B7DC2BC1618DDC600F3F367 /* NSValue+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = "NSValue+AtoZ.h"; sourceTree = "<group>"; };
 		7B7DC2BD1618DDC700F3F367 /* NSValue+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSValue+AtoZ.m"; sourceTree = "<group>"; };
@@ -2766,7 +2800,7 @@
 		7B9D5BA815ED0E26005D1A76 /* NSFileManager+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSFileManager+AtoZ.h"; sourceTree = "<group>"; };
 		7B9D5BA915ED0E26005D1A76 /* NSFileManager+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileManager+AtoZ.m"; sourceTree = "<group>"; };
 		7BA147AB15DCE7A10041BAFE /* iCarousel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iCarousel.h; sourceTree = "<group>"; };
-		7BA147AC15DCE7A10041BAFE /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iCarousel.m; sourceTree = "<group>"; };
+		7BA147AC15DCE7A10041BAFE /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = iCarousel.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7BA35F9D16449FDE00BFEB6B /* DrawKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DrawKit.xcodeproj; path = ../Frameworks/DrawKit/src/DrawKit.xcodeproj; sourceTree = "<group>"; };
 		7BA35FEE1645618400BFEB6B /* StarLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StarLayer.h; sourceTree = "<group>"; };
 		7BA35FEF1645618400BFEB6B /* StarLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StarLayer.m; sourceTree = "<group>"; };
@@ -3605,7 +3639,8 @@
 		7BEF70251603112800A0300E /* NSBundle+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+AtoZ.m"; sourceTree = "<group>"; };
 		7BF0571A15EB33F2003A2A7A /* AZSpinnerLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZSpinnerLayer.m; sourceTree = "<group>"; };
 		7BF0571B15EB33F3003A2A7A /* AZSpinnerLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZSpinnerLayer.h; sourceTree = "<group>"; };
-		7BF9854915FEBDB100D47192 /* AtoZFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; lineEnding = 0; path = AtoZFunctions.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		7BF26168164EDAB00057EB88 /* Lumberjack.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Lumberjack.xcodeproj; path = ../Frameworks/CocoaLumberjack/Xcode/LumberjackFramework/Desktop/Lumberjack.xcodeproj; sourceTree = "<group>"; };
+		7BF9854915FEBDB100D47192 /* AtoZFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = AtoZFunctions.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		7BF9854A15FEBDB200D47192 /* AtoZFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AtoZFunctions.m; sourceTree = SOURCE_ROOT; };
 		7BF9854D15FEBDF900D47192 /* NSBag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = NSBag.h; sourceTree = "<group>"; };
 		7BF9854E15FEBDF900D47192 /* NSBag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSBag.m; sourceTree = "<group>"; };
@@ -3663,6 +3698,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7B7EDA12164B972300D8C6C6 /* AtoZAppKit.framework in Frameworks */,
+				7BF26177164EDAE40057EB88 /* Lumberjack.framework in Frameworks */,
 				7BB87020163850110000C242 /* AtoZBezierPath.framework in Frameworks */,
 				7BB86F8716383FF90000C242 /* Rebel.framework in Frameworks */,
 				7BFA3F0C162B8ABA003264A4 /* PLWeakCompatibility.framework in Frameworks */,
@@ -3672,6 +3708,7 @@
 				7B23C36815CE9AB800DD1A9C /* WebKit.framework in Frameworks */,
 				7B23C33F15CE268B00DD1A9C /* Carbon.framework in Frameworks */,
 				7BBD987F15AF7A2400943FC1 /* ApplicationServices.framework in Frameworks */,
+				7BF2617B164EEC050057EB88 /* DrawKit.framework in Frameworks */,
 				7B23C33E15CE267400DD1A9C /* Quartz.framework in Frameworks */,
 				7BBD987E15AF7A2400943FC1 /* Security.framework in Frameworks */,
 				7BBD988015AF7A2400943FC1 /* AppKit.framework in Frameworks */,
@@ -3931,19 +3968,20 @@
 			isa = PBXGroup;
 			children = (
 				7B43D25E164C09A300AC4D26 /* AtoZ.framework */,
-				7B583066159BDAF40039CEED /* AtoZ-Prefix.pch */,
 				7B311961159B6D9E002134C4 /* AtoZ.h */,
 				7B311962159B6D9E002134C4 /* AtoZ.m */,
-				7BF9854915FEBDB100D47192 /* AtoZFunctions.h */,
-				7BF9854A15FEBDB200D47192 /* AtoZFunctions.m */,
+				7B6901D7159E3AC600D0DA47 /* AtoZUmbrella.h */,
 				7BD908BC162F5557000DE2BB /* AtoZGeometry.h */,
 				7BD908BE162F580E000DE2BB /* AtoZGeometry.m */,
-				7B6901D7159E3AC600D0DA47 /* AtoZUmbrella.h */,
+				7BF9854915FEBDB100D47192 /* AtoZFunctions.h */,
+				7BF9854A15FEBDB200D47192 /* AtoZFunctions.m */,
+				7B449D9B16164B5200AB9335 /* AtoZ-Framework.pch */,
 				7B583063159BDA900039CEED /* Categories */,
 				7B05BB09159C406200409B83 /* Classes */,
 				7B59C8281600D346009DAFCA /* Models */,
 				7B583064159BDAA50039CEED /* Resources */,
 				7B6901BB159E0ADB00D0DA47 /* Views */,
+				7B7EA4AC16026ACA0027D180 /* WIndows */,
 				7B39615B15F04FD70065813F /* AtoZTouch */,
 				7B82B82815CB66D30026FE8C /* AtoZ Encyclopedia */,
 				7B31B12F15E9441D00802CD5 /* AtoZ Entitlement */,
@@ -3970,6 +4008,7 @@
 		7B311953159B6D9E002134C4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7BF26168164EDAB00057EB88 /* Lumberjack.xcodeproj */,
 				7B7EDA07164B970A00D8C6C6 /* AtoZAppKit.xcodeproj */,
 				7BC2DD0B16469A8100E73757 /* BlocksKit.xcodeproj */,
 				7BA35F9D16449FDE00BFEB6B /* DrawKit.xcodeproj */,
@@ -4225,7 +4264,7 @@
 		7B583064159BDAA50039CEED /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				7B449D9B16164B5200AB9335 /* AtoZ-Framework.pch */,
+				7B583066159BDAF40039CEED /* AtoZ-Prefix.pch */,
 				7B9ADE9E1635C51A0026FA02 /* CTBadge_1.pdf */,
 				7B9ADE9F1635C51A0026FA02 /* CTBadge_3.pdf */,
 				7B9ADEA01635C51A0026FA02 /* CTBadge_4.pdf */,
@@ -4376,7 +4415,6 @@
 				7BCEF6431613EEC200EFC74E /* AZHostView.h */,
 				7B6D95ED15FA954100972A69 /* XLDragDropView.h */,
 				7B6D95EE15FA954100972A69 /* XLDragDropView.m */,
-				7B7EA4AC16026ACA0027D180 /* WIndows */,
 				7B12475915EB91E000523869 /* AZBackgroundProgressBar.h */,
 				7B12475A15EB91E000523869 /* AZBackgroundProgressBar.m */,
 				7B92137215C56F4600862F9D /* AZSimpleView.h */,
@@ -4447,6 +4485,7 @@
 				7B7C27FC15C32B39007DD569 /* TransparentWindow.m */,
 			);
 			name = WIndows;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		7B7EDA08164B970A00D8C6C6 /* Products */ = {
@@ -5610,6 +5649,15 @@
 			path = Classes;
 			sourceTree = SOURCE_ROOT;
 		};
+		7BF26169164EDAB00057EB88 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7BF26172164EDAB00057EB88 /* Lumberjack.framework */,
+				7BF26174164EDAB00057EB88 /* FmwkTest.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -5624,6 +5672,7 @@
 				7BDF4201164B2A5B008B3240 /* AZDebugLayer.h in Headers */,
 				7B741DA2163AD91300B403B2 /* NSObject+Properties.h in Headers */,
 				7B095E01161AD7E50076C990 /* AZMenuBarWindow.h in Headers */,
+				7BF2617D164F2B260057EB88 /* AtoZFunctions.h in Headers */,
 				7B662AE0161EE3E5003D5EE0 /* BaseModel.h in Headers */,
 				7B5B2CD7162CD12500B454C2 /* AZImageToDataTransformer.h in Headers */,
 				7B3422A315A52A61006AC46C /* AZBaseModel.h in Headers */,
@@ -5683,7 +5732,6 @@
 				7B4A8FEF15AB267D00463B91 /* AZSourceList.h in Headers */,
 				7B78528A15ACA7AB008BAD3C /* AZBoxMagic.h in Headers */,
 				7B7852C315ACEDA3008BAD3C /* AZBoxLayer.h in Headers */,
-				7BF9855115FEBEAE00D47192 /* AtoZFunctions.h in Headers */,
 				7B96424315C15818001A0B0F /* NSWindow_Flipr.h in Headers */,
 				7BBD96EE15AD38F300943FC1 /* AZApplePrivate.h in Headers */,
 				7BBD96FB15AD529A00943FC1 /* AZOverlay.h in Headers */,
@@ -5797,6 +5845,8 @@
 			buildRules = (
 			);
 			dependencies = (
+				7BF2617A164EEBF90057EB88 /* PBXTargetDependency */,
+				7BF26176164EDAD80057EB88 /* PBXTargetDependency */,
 				7B7EDA11164B971600D8C6C6 /* PBXTargetDependency */,
 				7BC2DD2316469A8B00E73757 /* PBXTargetDependency */,
 				7B6629F8161DEA20003D5EE0 /* PBXTargetDependency */,
@@ -5931,6 +5981,10 @@
 				{
 					ProductGroup = 7B5ABAAD1608D76500530EA7 /* Products */;
 					ProjectRef = 7BE1F69C15F90298005ED292 /* FunSize.xcodeproj */;
+				},
+				{
+					ProductGroup = 7BF26169164EDAB00057EB88 /* Products */;
+					ProjectRef = 7BF26168164EDAB00057EB88 /* Lumberjack.xcodeproj */;
 				},
 				{
 					ProductGroup = 7BC6904A162BA94000B71602 /* Products */;
@@ -6325,6 +6379,20 @@
 			fileType = wrapper.cfbundle;
 			path = ZangetsuTouchTests.octest;
 			remoteRef = 7BCB36B5162D313500E61080 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7BF26172164EDAB00057EB88 /* Lumberjack.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Lumberjack.framework;
+			remoteRef = 7BF26171164EDAB00057EB88 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7BF26174164EDAB00057EB88 /* FmwkTest.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = FmwkTest.app;
+			remoteRef = 7BF26173164EDAB00057EB88 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -6949,6 +7017,16 @@
 			target = 7B311950159B6D9E002134C4 /* AtoZ */;
 			targetProxy = 7BDF55E41625722B00041A42 /* PBXContainerItemProxy */;
 		};
+		7BF26176164EDAD80057EB88 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Lumberjack;
+			targetProxy = 7BF26175164EDAD80057EB88 /* PBXContainerItemProxy */;
+		};
+		7BF2617A164EEBF90057EB88 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = DrawKit;
+			targetProxy = 7BF26179164EEBF90057EB88 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -7193,6 +7271,10 @@
 					BlocksKit,
 					"-sub_umbrella",
 					AtoZAppKit,
+					"-sub_umbrella",
+					Lumberjack,
+					"-sub_umbrella",
+					DrawKit,
 				);
 				PRODUCT_NAME = AtoZ;
 				RUN_CLANG_STATIC_ANALYZER = NO;
@@ -7264,6 +7346,10 @@
 					BlocksKit,
 					"-sub_umbrella",
 					AtoZAppKit,
+					"-sub_umbrella",
+					Lumberjack,
+					"-sub_umbrella",
+					DrawKit,
 				);
 				PRODUCT_NAME = AtoZ;
 				RUN_CLANG_STATIC_ANALYZER = NO;
