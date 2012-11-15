@@ -1132,8 +1132,8 @@
 		7B091A3D15A850E500821FFD /* AZButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZButton.m; sourceTree = "<group>"; };
 		7B091A4315A887B500821FFD /* AZTalker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZTalker.h; sourceTree = "<group>"; };
 		7B091A4415A887B500821FFD /* AZTalker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZTalker.m; sourceTree = "<group>"; };
-		7B095DFD161AD78D0076C990 /* AZMenuBarWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = AZMenuBarWindow.h; sourceTree = "<group>"; };
-		7B095DFE161AD78D0076C990 /* AZMenuBarWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZMenuBarWindow.m; sourceTree = "<group>"; };
+		7B095DFD161AD78D0076C990 /* AZMenuBarWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZMenuBarWindow.h; path = Views/AZMenuBarWindow.h; sourceTree = "<group>"; };
+		7B095DFE161AD78D0076C990 /* AZMenuBarWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AZMenuBarWindow.m; path = Views/AZMenuBarWindow.m; sourceTree = "<group>"; };
 		7B0B7A4315A22C0D006B5062 /* NSImage+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = "NSImage+AtoZ.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		7B0B7A4415A22C0D006B5062 /* NSImage+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "NSImage+AtoZ.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7B0B7A7A15A3553F006B5062 /* AZIndeterminateIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZIndeterminateIndicator.h; sourceTree = "<group>"; };
@@ -2103,6 +2103,8 @@
 				7BD908BE162F580E000DE2BB /* AtoZGeometry.m */,
 				7BF9854915FEBDB100D47192 /* AtoZFunctions.h */,
 				7BF9854A15FEBDB200D47192 /* AtoZFunctions.m */,
+				7B095DFD161AD78D0076C990 /* AZMenuBarWindow.h */,
+				7B095DFE161AD78D0076C990 /* AZMenuBarWindow.m */,
 				7B449D9B16164B5200AB9335 /* AtoZ-Framework.pch */,
 				7B583063159BDA900039CEED /* Categories */,
 				7B05BB09159C406200409B83 /* Classes */,
@@ -2603,8 +2605,6 @@
 			children = (
 				7BE606ED15A118B400355236 /* AZAttachedWindow.h */,
 				7BE606EE15A118B400355236 /* AZAttachedWindow.m */,
-				7B095DFD161AD78D0076C990 /* AZMenuBarWindow.h */,
-				7B095DFE161AD78D0076C990 /* AZMenuBarWindow.m */,
 				7BA425B615E7C3C200D2A471 /* AZTrackingWindow.h */,
 				7BA425B715E7C3C200D2A471 /* AZTrackingWindow.m */,
 				7BA425B215E7B52F00D2A471 /* MAAttachedWindow.h */,

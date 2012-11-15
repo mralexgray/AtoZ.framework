@@ -25,8 +25,8 @@
 @interface AZMenuBarWindow : NSWindow
 {
 //@private
-	long wid;
-	void * fid;
+//	long wid;
+//	void * fid;
 //	NSHashTable *_clickViews;
 }
 
