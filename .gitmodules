@@ -84,3 +84,6 @@
 [submodule "Frameworks/MapKit"]
 	path = Frameworks/MapKit
 	url = https://github.com/mralexgray/MacMapKit.git
+[submodule "AtoZWebkit"]
+	path = AtoZWebkit
+	url = https://github.com/mralexgray/AtoZWebkit.git
