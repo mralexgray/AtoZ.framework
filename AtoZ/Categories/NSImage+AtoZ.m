@@ -243,6 +243,17 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 	}();
 }
 
++ (NSA*) monoIcons {
+	NSString *pdfPath = [AZFWORKBUNDLE
+						 pathForResource:@"PicolSingulario" ofType:@"pdf"];
+	NSURL *pdfUrl = [NSURL fileURLWithPath:pdfPath];
+	PDFDocument *myPDF = [[PDFDocument alloc]initWithURL:pdfUrl];
+	return [[NSArray from: 0 to:[myPDF pageCount]-1] nmap:^id(id obj, NSUInteger index) {
+		NSIMG* d = [[NSIMG alloc]initWithSize:AZSizeFromDimension(512)];
+		[d addRepresentation:[NSPDFImageRep imageRepWithData:[[myPDF pageAtIndex:index]dataRepresentation]]];
+		return d;
+	}];
+}
 	//+ (NSA*) iconStrings {
 
 	//	NSBundle *aBundle = [NSBundle bundleForClass: [DummyClass class]];

@@ -45,6 +45,8 @@ typedef enum {
 + (NSA*) icons;
 + (NSA*) systemIcons;
 
++ (NSA*) monoIcons;
+
 + (NSIMG*) randomIcon;
 + (NSIMG*) forFile:(AZFile*)file;
 
