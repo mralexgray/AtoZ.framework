@@ -90,3 +90,6 @@
 	path = AtoZWebkit
 	url = https://github.com/mralexgray/AtoZWebkit.git
 	ignore = dirty
+[submodule "ContactFlow"]
+	path = ContactFlow
+	url = https://github.com/mralexgray/ContactFlow.git
