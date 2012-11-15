@@ -1,21 +1,42 @@
-#import "AZMenuBarWindow.h"
 
-@interface AZMenuBarWindowTab : CALayer
-@end
-@implementation  AZMenuBarWindowTab
-+ (id < CAAction >)defaultActionForKey:(NSString *)aKey {
-    if ([aKey isEqualToString:@"contents"]) {
-        CATransition* tr = [CATransition animation];
-        tr.type = kCATransitionPush;
-        tr.subtype = kCATransitionFromLeft;
-        return tr;
-    }
-    return [super defaultActionForKey: aKey];
+#import "AZSemiResponderWindow.h"
+#import "AtoZ.h"
+
+
+
+
+AZRange AZMakeRange 	  ( NSI min,  NSI max  	   ) { return (AZRange) {min, max }; 				   }
+NSUI    AZIndexInRange 	  (	NSI fake, AZRange rng  ) { return fake - rng.min;           			   }
+NSI   	AZNextSpotInRange (	NSI spot, AZRange rng  ) { return spot + 1 > rng.max ? rng.min : spot + 1; }
+NSI   	AZPrevSpotInRange (	NSI spot, AZRange rng  ) { return spot - 1 < rng.min ? rng.max : spot - 1; }
+NSUI    AZSizeOfRange 	  ( AZRange rng            ) { return rng.max - rng.min;					   }
+
+
+//Then, if I want to run animation completion code after a CAAnimation finishes, I set myself as the delegate of the animation, and add a block of code to the animation using setValue:forKey:
+//animationCompletionBlock theBlock = ^void(void)
+//{
+//	//Code to execute after the animation completes goes here
+//};
+//[theAnimation setValue: theBlock forKey: kAnimationCompletionBlock]
+//Then, I implement an animationDidStop:finished: method, that checks for a block at the specified key and executes it if found:
+/*
+- (void)animationDidStop:(CAAnimation *)theAnimation finished:(BOOL)flag
+{
+	animationCompletionBlock theBlock = theAnimation[kAnimationCompletionBlock];
+	theBlock ? theBlock() : nil;
 }
+
+
+@end
+*/
+
+
+@interface AZDynamicTabLayer : CALayer
++ (id<CAAction>)defaultActionForKey:(NSString *)event;
 @end
 
-@implementation AZMenuBarWindow
-@synthesize perfectRect, unit, dragStart, dragDiff;
+
+@implementation AZSemiResponderWindow
 
 - (id) init { if (!(self = [self initWithContentRect:AZScreenFrameUnderMenu() styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO] )) return nil;
 
@@ -36,10 +57,10 @@
 
 	NSArray *r 			= [[NSColor randomPalette]withMaxItems:30];
 	self.unit			= ScreenWidess() / r.count;
-	self.perfectRect 	= AZRectBy(unit, AZScreenFrameUnderMenu().size.height);
-
+//	self.perfectRect 	= AZRectBy(unit, AZScreenFrameUnderMenu().size.height);
+/*
 	_scrollLayer.sublayers 	= [[NSArray from:-1 to:r.count] nmap:^id(id obj, NSUInteger index) {
-		AZMenuBarWindowTab *root  		 	= [AZMenuBarWindowTab layerNamed:$(@"%@",obj)];
+		AZSemiResponderWindowTab *root  		 	= [AZSemiResponderWindowTab layerNamed:$(@"%@",obj)];
 		//		root[@"hovered"] 	= @(NO);
 		CAL *tab 		 	= [CAL layerNamed:@"tab"];
 		tab.doubleSided		= YES;
@@ -47,22 +68,22 @@
 		[@[root, tab, ribbon] eachWithIndex:^(id z, NSInteger idx) { ((CAL*)z).zPosition = (idx *1000 * [obj intValue]); }];
 		tab.sublayers   = @[ribbon];
 		root.sublayers 	= @[tab];
-		/* ! */	root.anchorPoint 	= AZAnchorTop;
-		/* ! */	root.delegate 		= self;
-		/* ! */	ribbon.delegate	 	= self;
-		/* ! */	[ribbon setNeedsDisplay];
+*/		/* ! */	//root.anchorPoint 	= AZAnchorTop;
+		/* ! *///	root.delegate 		= self;
+		/* ! */	//ribbon.delegate	 	= self;
+		/* ! *///	[ribbon setNeedsDisplay];
 
-		[@[tab,ribbon] each:^(CAL* obj) { [obj addConstraintsSuperSize];  AddShadow(obj);	obj.cRadius = .19 * perfectRect.size.width;}];
-		tab.	bgC	 		= cgWHITE;
-		ribbon.	bgC	 		= [[NSColor leatherTintedWithColor:[r normal:[obj integerValue]]] CGColor];
-		[tab addConstraints:		@[	AZConstRelSuperScaleOff(kCAConstraintWidth,  .9, 1 ),
-		 AZConstRelSuperScaleOff(kCAConstraintMaxY,  1.2, 0 )]];
-		[ribbon addConstraints:	@[	AZConstRelSuperScaleOff(kCAConstraintWidth,  .9, 0 ),
-		 AZConstRelSuperScaleOff(kCAConstraintMinY,  1  , 7 )]];
-		return root;
-	}];
-	[_scrollLayer enableDebugBordersRecursively:YES];
-	[self makeKeyAndOrderFront:nil];
+//		[@[tab,ribbon] each:^(CAL* obj) { [obj addConstraintsSuperSize];  AddShadow(obj);	obj.cRadius = .19 * perfectRect.size.width;}];
+//		tab.	bgC	 		= cgWHITE;
+//		ribbon.	bgC	 		= [[NSColor leatherTintedWithColor:[r normal:[obj integerValue]]] CGColor];
+//		[tab addConstraints:		@[	AZConstRelSuperScaleOff(kCAConstraintWidth,  .9, 1 ),
+//		 AZConstRelSuperScaleOff(kCAConstraintMaxY,  1.2, 0 )]];
+//		[ribbon addConstraints:	@[	AZConstRelSuperScaleOff(kCAConstraintWidth,  .9, 0 ),
+//		 AZConstRelSuperScaleOff(kCAConstraintMinY,  1  , 7 )]];
+//		return root;
+//	}];
+//	[_scrollLayer enableDebugBordersRecursively:YES];
+//	[self makeKeyAndOrderFront:nil];
 	return self;
 }
 
@@ -70,13 +91,13 @@
 	NSLog(@"The ani: %@ stopped with flag %@", theAnimation, AZString(flag));
 }
 
-
+/*
 - (void) layoutSublayersOfLayer:(CALayer *)layer
 {
 	AZLOG($(@"layoing out subs of : %@", layer));
 	if (layer == _scrollLayer) [layer.sublayers eachWithIndex:^(CAL* obj, NSInteger idx) {	obj.frame =
 		[@[@"scroll", @"drawer"] containsObject: [obj name]] ? obj.frame :
-		(NSR){ (idx-1) * unit + _scrollPoint.x, AZHeightUnderMenu() - unit/1.7	, unit, unit }; }];
+//		(NSR){ (idx-1) * unit + _scrollPoint.x, AZHeightUnderMenu() - unit/1.7	, unit, unit }; }];
 }
 
 - (id<CAAction>)actionForLayer:(CALayer *)layer forKey:(NSString *)event;
@@ -106,7 +127,7 @@
 {
 	AZLOG($(@"d in c for %@", layer.debugDescription));
 	if ( areSame(layer.name, @"ribbon")) {
-		AZMenuBarWindowTab *t = (AZMenuBarWindowTab*)[layer superlayerOfClass:[AZMenuBarWindowTab class]];
+//		AZSemiResponderWindowTab *t = (AZSemiResponderWindowTab*)[layer superlayerOfClass:[AZSemiResponderWindowTab class]];
 		if ([t boolForKey:@"clicked"] || [t boolForKey:@"hovered"]){ NSRectFillWithColor(layer.frame, BLACK); return; }
 		else [NSGraphicsContext drawInContext:ctx flipped:NO actions:^{
 			NSR bottomSquare = AZLowerEdge(layer.bounds, layer.boundsWidth);
@@ -116,6 +137,7 @@
 		}];
 	}
 }
+*/
 - (void)sendEvent:(NSEvent *)theEvent
 {
 	static CAL *tab = nil;
@@ -126,17 +148,17 @@
 		tab = [[(NSV*)self.contentView layer] hitTest:theEvent.locationInWindow];
 		tab = areSame(tab.name, @"tab") ? tab.superlayer : [[tab sublayerWithName:@"tab"] superlayer];					}():nil;
 	[theEvent type] == NSLeftMouseDown 	? 	^{	tab ? ^{
-		dragDiff = AZSubtractPoints(theEvent.locationInWindow, tab.position);
-		dragStart = theEvent.locationInWindow;
+//		dragDiff = AZSubtractPoints(theEvent.locationInWindow, tab.position);
+//		dragStart = theEvent.locationInWindow;
 		[tab setBool:YES forKey:@"clicked"];
 		//			AZLOG($(@"winner: %@", tab.debugDescription));
 	}():nil;
 	}():nil;
 	[theEvent type] == NSLeftMouseDragged  ? ^{
-		NSP newp = (NSP) {theEvent.locationInWindow.x, dragStart.y};
-		newp = AZSubtractPoints(newp,dragDiff);
-		NSLog(@"dragstart: %@   setting newp: %@ on %@", AZString(dragStart), AZString(newp), tab.debugDescription);
-		[CATransaction immediately:^{ [tab setPosition:newp]; }];
+//		NSP newp = (NSP) {theEvent.locationInWindow.x, dragStart.y};
+//		newp = AZSubtractPoints(newp,dragDiff);
+//		NSLog(@"dragstart: %@   setting newp: %@ on %@", AZString(dragStart), AZString(newp), tab.debugDescription);
+//		[CATransaction immediately:^{ [tab setPosition:newp]; }];
 	}():nil;
 
 	[theEvent type] == NSMouseMoved ? ^{
@@ -145,15 +167,15 @@
 
 	if (([theEvent type] == NSScrollWheel) && theEvent.deltaX ) {
 
-		self.scrollPoint = AZPointOffsetX(_scrollPoint, theEvent.deltaX);
-		if (ABS(_scrollPoint.x) >= unit) {
-			[CATransaction immediately:^{
-
-				BOOL neg = _scrollPoint.x < 0;
-				CALayer *mover =  neg ?  [_scrollLayer.sublayers firstObject] : [_scrollLayer.sublayers lastObject];
-				neg ? [_scrollLayer addSublayer:mover] : [_scrollLayer insertSublayer:mover	atIndex:0];
-				self.scrollPoint = NSZeroPoint;
-			}];
+//		self.scrollPoint = AZPointOffsetX(_scrollPoint, theEvent.deltaX);
+//		if (ABS(_scrollPoint.x) >= unit) {
+//			[CATransaction immediately:^{
+//
+//				BOOL neg = _scrollPoint.x < 0;
+//				CALayer *mover =  neg ?  [_scrollLayer.sublayers firstObject] : [_scrollLayer.sublayers lastObject];
+//				neg ? [_scrollLayer addSublayer:mover] : [_scrollLayer insertSublayer:mover	atIndex:0];
+//				self.scrollPoint = NSZeroPoint;
+//			}];
 		}
 		[_scrollLayer setNeedsLayout];
 
@@ -180,7 +202,7 @@
 	//				obj.frame = nw;
 	//				[obj.sublayers  each:^(CAL *l) { [l setNeedsDisplay]; }];
 	//			}];
-}
+//}
 // ^{		[self setIgnoresMouseEvents:YES];
 //			AZLeftClick(mouseLoc());
 //			[self setIgnoresMouseEvents:NO];
@@ -267,7 +289,7 @@
 //				NSR newF = AZRectFromSize(perfectRect.size);
 //				newF.origin.x = neg ? ScreenWidess() + unit : -unit;
 //				v.position = AZCenterOfRect(newF);
-//				neg ? [self.scrollLayer addSublayer:v] : [self.scrollLayer insertSublayer:v atIndex:0];
+//				neg ? [self.scrollLayer addSublayer:v] : [self.s \crollLayer insertSublayer:v atIndex:0];
 //				[self addTabConstraintsToTab:v];
 
 //				[v setNeedsDisplay];
@@ -710,7 +732,7 @@
 }
 
 @end
-@interface AZDrawerWindow : AZMenuBarWindow
+@interface AZDrawerWindow : AZSemiResponderWindow
 @end
 @implementation AZDrawerWindow
 - (id) init { if (!(self = [self initWithContentRect:AZScreenFrameUnderMenu() styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO] )) return nil;

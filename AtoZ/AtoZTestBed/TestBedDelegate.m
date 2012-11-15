@@ -40,12 +40,13 @@ const CGFloat dash[2] = {100, 60};
 -(void) awakeFromNib {
 
 	self.genVC = [[AZGeneralViewController alloc]initWithNibName:@"AZGeneralViewController" bundle:nil];
-	[_mainView addSubview:_genVC.view];
-	[_genVC.view setFrame:_mainView.frame];
-//	[_mbWindow makeKeyAndOrderFront:self];
+	[_mainView addSubview: _genVC.view];
+	_genVC.view.frame	= [_mainView frame];
+
+	[_mbWindow makeKeyAndOrderFront:self];
 
 
-	self.mbWindow = [AZMenuBarWindow new];
+	self.mbWindow = [AZSemiResponderWindow new];
 	[_mbWindow makeKeyAndOrderFront:self];
 
 }

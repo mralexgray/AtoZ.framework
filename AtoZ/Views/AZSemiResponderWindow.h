@@ -18,20 +18,31 @@
 //@end
 
 
+typedef struct _AZRange {	NSI min;	NSI max;	} AZRange;
+
+FOUNDATION_EXPORT AZRange   AZMakeRange ( 		NSI min,  NSI max      );
+FOUNDATION_EXPORT NSUI      AZIndexInRange (	NSI fake, AZRange rng  );
+FOUNDATION_EXPORT NSI   	AZNextSpotInRange (	NSI spot, AZRange rng  );
+FOUNDATION_EXPORT NSI   	AZPrevSpotInRange (	NSI spot, AZRange rng  );
+FOUNDATION_EXPORT NSUI      AZSizeOfRange ( 	AZRange rng            );
+
+
+
+
+//I just came up with an even better way to do completion code for CAAnimations:
+typedef void (^animationCompletionBlock)(void);
+//And a key that I use to add a block to an animation:
+#define kAnimationCompletionBlock @"animationCompletionBlock"
+//typedef void (^animationCompletionBlock)(void);
+
+//typedef void (^eventActionBlock (NSEvent*event));
+
 @interface  NSWindow (BorderlessInit)
 -(void) bordlerlessInit;
 @end
 
-@interface AZMenuBarWindow : NSWindow
-{
-//@private
-//	long wid;
-//	void * fid;
-//	NSHashTable *_clickViews;
-}
+@interface AZSemiResponderWindow : NSWindow
 
-//- (void)addClickView:(AZSimpleView *)aView;
-//@property (nonatomic, retain) Drawer *drawer;
 
 @property (NATOM, ASS) NSI unitOffset;
 @property (NATOM, ASS) CGF unit;

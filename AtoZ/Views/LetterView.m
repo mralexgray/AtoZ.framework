@@ -11,22 +11,19 @@
 	theLetter = @"Hi.";
 	extraInfo = @"Hello there little person! Touch letters and hear sounds!";
 	
-	CALayer *mainLayer = [CALayer layer];
-	mainLayer.name = @"mainLayer";
-	mainLayer.frame = NSRectToCGRect(self.frame);
-	mainLayer.delegate = self;
+	CALayer *mainLayer		= [CALayer layerNamed:@"mainLayer"];
+	mainLayer.delegate 		= self;
 	mainLayer.layoutManager = self;
-	[self setLayer:mainLayer];
-	[self setWantsLayer:YES];
+	self.layer 				= mainLayer;
+	self.wantsLayer			= YES;
 	// call drawing delegate to make background
 	[mainLayer setNeedsDisplay];
 	
-	letterLayer = [CATextLayer layer];
-	letterLayer.name = @"letterLayer";
+	letterLayer 			= [CATextLayer layerNamed:@"letterLayer"];
 	letterLayer.anchorPoint = CGPointMake(0.5, 0.5);
-	letterLayer.string = theLetter;
-	letterLayer.font = @"Arial Rounded MT Bold";
-	letterLayer.fontSize = mainLayer.frame.size.height/1.5;
+	letterLayer.string 		= theLetter;
+//	letterLayer.font 		= (id)@"Arial Rounded MT Bold";
+	letterLayer.fontSize 	= mainLayer.frame.size.height/1.5;
 	letterLayer.alignmentMode = kCAAlignmentCenter;
 	letterLayer.shadowOpacity = 0.75;
 	letterLayer.shadowOffset = CGSizeMake(2, -2);
@@ -36,7 +33,7 @@
 	extraLayer.name = @"extraLayer";
 	extraLayer.anchorPoint = CGPointMake(0.0, 0.0);
 	extraLayer.string = extraInfo;
-	extraLayer.font = @"Arial Rounded MT Bold";
+//	extraLayer.font = @"Arial Rounded MT Bold";
 	extraLayer.fontSize = mainLayer.frame.size.height/50.0;
 	extraLayer.alignmentMode = kCAAlignmentLeft;
 	[mainLayer addSublayer:extraLayer];
@@ -56,11 +53,6 @@
 - (void)dealloc
 {
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSViewFrameDidChangeNotification object:self];
-	[letterLayer release];
-	[theLetter release];
-	[extraLayer release];
-	[extraInfo release];
-	[super dealloc];
 }
 
 # pragma mark -
@@ -71,23 +63,22 @@
 	// DEBUG
 	// NSLog(@"Drawing layer: %@", layer.name);
 	
-	[NSGraphicsContext saveGraphicsState];
-	[NSGraphicsContext setCurrentContext:[NSGraphicsContext graphicsContextWithGraphicsPort:cgContext flipped:NO]];
-	
+	[NSGraphicsContext drawInContext:cgContext flipped:NO actions:^{
+
 	// NSRect theRect = NSRectFromCGRect(CGContextGetClipBoundingBox(cgContext));
 	
 	if ( [layer.name isEqualToString:@"mainLayer"] )
 	{
 		// draw a basic gradient for the view background
-		float r = (float)(random() % 100) * 0.01;
-		float g = (float)(random() % 100) * 0.01;
-		float b = (float)(random() % 100) * 0.01;
+//		float r = (float)(random() % 100) * 0.01;
+//		float g = (float)(random() % 100) * 0.01;
+//		float b = (float)(random() % 100) * 0.01;
 		NSColor *gradientBottom = [NSColor colorWithCalibratedWhite:0.10 alpha:1.0];
-		NSColor *gradientTop = [NSColor colorWithCalibratedRed:r green:g blue:b alpha:1.0];
+		NSColor *gradientTop = 	  RANDOMCOLOR;//[NSColor colorWithCalibratedRed:r green:g blue:b alpha:1.0];
 		
 		NSGradient *gradient = [[NSGradient alloc] initWithStartingColor:gradientBottom endingColor:gradientTop];
 		[gradient drawInRect:self.bounds angle:90.0];
-		[gradient release];
+//		[gradient release];
 	}
 	else
 	{
@@ -95,7 +86,7 @@
         [super drawLayer:layer inContext:cgContext];
 	}
 	
-	[NSGraphicsContext restoreGraphicsState];
+}];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -136,21 +127,21 @@
 	CGRect tempBounds;
 	
 	// layout letterLayer
-	tempLayer = [[layer sublayers] objectAtIndex:0];
-	tempBounds = tempLayer.bounds;
-	tempLayer.fontSize = [self layer].bounds.size.height/1.5;
+	tempLayer	 		= layer.sublayers[0];
+	tempBounds 			= tempLayer.bounds;
+	tempLayer.fontSize 	= self.layer.boundsHeight / 1.5;
 	// set the width of the layer to the width of the window so that letters are never cut off by accident
-	tempBounds.size = CGSizeMake([self bounds].size.width, [tempLayer preferredFrameSize].height);
-	tempLayer.bounds = tempBounds;
-	tempLayer.position = CGPointMake(NSMidX([self bounds]), NSMidY([self bounds]));
+	tempBounds.size 	= CGSizeMake(self.bounds.size.width, [tempLayer preferredFrameSize].height);
+	tempLayer.bounds 	= tempBounds;
+	tempLayer.position 	= self.center;
 	
 	// layout extraLayer
-	tempLayer = [[layer sublayers] objectAtIndex:1];
-	tempBounds = tempLayer.bounds;
-	tempLayer.fontSize = [self layer].bounds.size.height/50.0;
-	tempBounds.size = [tempLayer preferredFrameSize];
-	tempLayer.bounds = tempBounds;
-	tempLayer.position = CGPointMake(10.0, 10.0);
+	tempLayer 			= layer.sublayers[1];
+	tempBounds 			= tempLayer.bounds;
+	tempLayer.fontSize 	= [self layer].bounds.size.height/50.0;
+	tempBounds.size 	= [tempLayer preferredFrameSize];
+	tempLayer.bounds 	= tempBounds;
+	tempLayer.position 	= CGPointMake(10.0, 10.0);
 }
 
 @end

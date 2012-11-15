@@ -8,4 +8,7 @@
 
 @interface AZFoamView : NSView
 
+@property (ASS, NATOM) CGF density;
+
+
 @end

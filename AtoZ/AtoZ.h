@@ -171,6 +171,7 @@
 #import "AZCSSColors.h"
 #import "AZSound.h"
 #import "Transition.h"
+#import "LetterView.h"
 
 	//Controls
 #import "AZToggleArrayView.h"
@@ -181,7 +182,7 @@
 #import "AZWindowExtend.h"
 #import "NSWindow_Flipr.h"
 #import "AZBorderlessResizeWindow.h"
-#import "AZMenuBarWindow.h"
+#import "AZSemiResponderWindow.h"
 #import "AZAttachedWindow.h"
 
 

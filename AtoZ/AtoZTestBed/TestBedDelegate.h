@@ -34,7 +34,7 @@
 
 @property (STRNG, NATOM) AtoZ 				*propeller;
 @property (STRNG, NATOM) NASpinSeque 		*seque;
-@property (STRNG, NATOM) AZMenuBarWindow 		*mbWindow;
+@property (STRNG, NATOM) AZSemiResponderWindow 		*mbWindow;
 
 
 @end

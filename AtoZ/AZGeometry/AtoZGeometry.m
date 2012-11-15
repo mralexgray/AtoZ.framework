@@ -90,11 +90,11 @@ NSNumber *dNum(double d) {
   return @(d);
 }
 
-NSRange AZMakeRange(NSUInteger min, NSUInteger max) {
-  NSUInteger loc = MIN(min, max);
-  NSUInteger len = MAX(min, max) - loc;
-  return NSMakeRange(loc, len);
-}
+//NSRange AZMakeRange(NSUInteger min, NSUInteger max) {
+//  NSUInteger loc = MIN(min, max);
+//  NSUInteger len = MAX(min, max) - loc;
+//  return NSMakeRange(loc, len);
+//}
 
 NSR nanRectCheck(NSR rect) {
 		rect.origin = nanPointCheck(rect.origin);

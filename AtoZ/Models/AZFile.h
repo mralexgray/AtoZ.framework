@@ -1,24 +1,31 @@
+
+
 #import "AtoZ.h"
 #import "AtoZUmbrella.h"
+
+
 @interface AZFile : BaseModel  // Base abstract class that wraps a file system URL
 
-@property (NATOM, STRNG, RONLY) NSS		*name, 		*calulatedBundleID;
-@property (NATOM, STRNG, RONLY) NSC		*labelColor;
-@property (NATOM, STRNG, RONLY) NSIMG  	*image;
-@property (NATOM, ASS, RONLY) NSUI	labelNumber;
-@property (NATOM, ASS, RONLY) CGF	  	hue;
-@property (NATOM, ASS, RONLY) BOOL		hasLabel;
 
-@property (nonatomic, strong) 	NSS 	*path,*itemKind;
-@property (nonatomic, strong) 	NSC		*color, *customColor;
-@property (nonatomic, readonly) NSA  	*colors;
-@property (nonatomic, assign)	AZWindowPosition		position;
+@property (NATOM, STRNG	) NSS 	*path,		*itemKind;
+@property (NATOM, STRNG	) NSC	*color, 	*customColor;
+@property (NATOM, RONLY	) NSA  	*colors;
+@property (NATOM, ASS  	) AZPOS  position;
 
-+ (id) forAppNamed: 	  (NSS*)appName;
-+ (id) instanceWithPath:  (NSS*) path;
-+ (id) instanceWithImage: (NSIMG*)  image;
-+ (id) instanceWithColor: (NSC*)  color;
-- (void) setActualLabelColor: (NSColor*) aColor;
++ (id) forAppNamed: 	      (NSS*)   appName;
++ (id) instanceWithPath:      (NSS*)   path;
++ (id) instanceWithImage:     (NSIMG*) image;
++ (id) instanceWithColor:     (NSC*)   color;
+- (void) setActualLabelColor: (NSC*)   aColor;
+
+@property (RONLY) NSS	*name,		*calulatedBundleID;
+@property (RONLY) NSC	*labelColor;
+@property (RONLY) NSIMG *image;
+@property (RONLY) NSUI	 labelNumber;
+@property (RONLY) CGF	 hue;
+@property (RONLY) BOOL	 hasLabel;
+
+
 @end
 
 // Concrete subclass of ATDesktopEntity that loads children from a folder
@@ -26,7 +33,7 @@
 
 @interface AZFolder : NSArray //AZFile
 @property (RONLY) NSUI count;
-//	@property(nonatomic, readonly) NSMutableArray *children;
+//	@property(NATOM, readonly) NSMutableArray *children;
 //	@property (RONLY) NSUI capacity;
 - (id) initWithArray:(NSArray *)array;
 + (id) appFolder;
@@ -42,24 +49,24 @@
 
 + (instancetype)instanceWithPath:(NSString *)path;
 
-@property (nonatomic, assign) 	CGPoint		dockPoint;
-@property (nonatomic, assign) 	CGPoint		dockPointNew;
-@property (nonatomic, assign) 	NSUInteger	spot;
-@property (nonatomic, assign) 	NSUInteger 	spotNew;
+@property (NATOM, assign) 	CGPoint		dockPoint;
+@property (NATOM, assign) 	CGPoint		dockPointNew;
+@property (NATOM, assign) 	NSUInteger	spot;
+@property (NATOM, assign) 	NSUInteger 	spotNew;
 @property (RONLY)			BOOL		isRunning;
 @end
 
 @interface AZDock : BaseModel
 @property (RONLY) NSArray *dock;
 @property (RONLY) NSArray *dockSorted;
-@property (nonatomic, assign) AZDockSort sortOrder;
+@property (NATOM, assign) AZDockSort sortOrder;
 @end
 
 @interface AZColor : BaseModel
-@property (nonatomic, readonly) CGFloat 	brightness, saturation, hue, hueComponent, percent;
-@property (nonatomic, assign)	NSUInteger 	total, count;
-@property (nonatomic, strong)	NSString 	*name;
-@property (nonatomic, strong)	NSColor	 	*color;
+@property (NATOM, readonly) CGFloat 	brightness, saturation, hue, hueComponent, percent;
+@property (NATOM, assign)	NSUInteger 	total, count;
+@property (NATOM, STRNG)	NSString 	*name;
+@property (NATOM, STRNG)	NSColor	 	*color;
 
 + (instancetype) instanceWithObject:(NSDictionary*)dic;
 + (instancetype) colorWithColor:(NSColor*)color andDictionary:(NSDictionary*)dic;
@@ -75,10 +82,10 @@
 //@property (retain) NSColor *fillColor;
 //@property (copy) NSString *fillColorName;
 //
-//@property (strong, readwrite) NSString *title;
+//@property (STRNG, readwrite) NSString *title;
 //
 //// Access to the image. This property can be observed to find out when it changes and is fully loaded.
-//@property (strong) NSImage *image;
+//@property (STRNG) NSImage *image;
 //@property (readonly, retain) NSImage *thumbnailImage;
 //
 //	// Asynchronously loads the image (if not already loaded). A KVO notification is sent out when the image is loaded.
@@ -127,6 +134,6 @@ extern NSString *const ATEntityPropertyNamedThumbnailImage;
 
 	//	@property (weak)	id itunesDescription;
 	//	@property (weak)	id itunesResults;
-	//	@property (nonatomic, strong)	AJSiTunesResult *itunesInfo;
-	//	@property (nonatomic, strong)  	NSImage	 * 	icon;
+	//	@property (NATOM, STRNG)	AJSiTunesResult *itunesInfo;
+	//	@property (NATOM, STRNG)  	NSImage	 * 	icon;
 

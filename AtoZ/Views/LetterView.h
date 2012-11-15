@@ -1,16 +1,10 @@
 #import <Cocoa/Cocoa.h>
 #import <QuartzCore/QuartzCore.h>
+#import "AtoZ.h"
 
-@interface LetterView : NSView {
-	CATextLayer *letterLayer;
-	NSString *theLetter;
-	CATextLayer *extraLayer;
-	NSString *extraInfo;
-}
+@interface LetterView : NSView
 
-@property (retain) CATextLayer *letterLayer;
-@property (copy) NSString *theLetter;
-@property (retain) CATextLayer *extraLayer;
-@property (copy) NSString *extraInfo;
+@property (STRNG) 	CATXTL 	*letterLayer, 	*extraLayer;
+@property (CP) 		NSS 	*theLetter, 	*extraInfo;
 
 @end

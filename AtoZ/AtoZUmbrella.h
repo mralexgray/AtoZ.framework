@@ -186,7 +186,9 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define CAT3D CATransform3D
 #define CAT3DR CATransform3DRotate
 #define CAT3DTR CATransform3DTranslate
-#define CATL CATextLayer
+#define CATL CATrandformLayer
+#define CATXTL CATextLayer
+
 #define CATRANNY CATransition
 #define CFTI CFTimeInterval
 #define CGF CGFloat

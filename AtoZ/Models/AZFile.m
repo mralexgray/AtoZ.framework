@@ -16,21 +16,24 @@
 	[key isEqualToString:@"path"] ? ^{}()
 								  : NSLog(@"no action taken.");
 }
--(id) init {self = self ? self : [super init]; [self addObserver:self forKeyPaths:@[@"path",@"name",@"color",@"image"]]; return self; }
+
+
+//-(id) init {
+//	if (!(self = [super init])) return nil;
+
+// [self addObserver:self forKeyPaths:@[@"path",@"name",@"color",@"image"]]; return self; }
+
 -(id) initWithObject:(id)object {	self = [self init];
 	[object isKindOfClass:[NSString class]] ? ^{ self.path 	= object; }() 	:
-	[object isKindOfClass:[NSImage class]]  ? ^{ _image = object; }() 	:
-	[object isKindOfClass:[NSColor class]]  ? ^{ _color = object; }() 	: nil;
+	[object isKindOfClass:[NSImage class]]  ? ^{ _image 		= object; }() 	:
+	[object isKindOfClass:[NSColor class]]  ? ^{ _color 		= object; }() 	: nil;
 	return self;
 }
-- (NSString *)itemDisplayName {
-	return self.name;
-}
+- (NSString *)itemDisplayName { return self.name;  }
 
 - (NSString *)itemKind {
 	return _itemKind = _itemKind ?: [_path hasSuffix:@"app"] ? @"Application" : @"Folder";
 }
-
 
 -(NSS*) name	{
 	return _name = _name ? _name :
@@ -39,30 +42,33 @@
 				  _color ? [_color nameOfColor] :
 				  _image ? [_image name] : @"N/A";
 }
+
 -(NSIMG*) image {
 	NSSize theSize = AZSizeFromDimension(512);
 	return _image = _image ? _image
 				  : [AZWORKSPACE iconForFile:_path] ? [[AZWORKSPACE iconForFile:_path]imageScaledToFitSize:theSize]
-				  :	_color ? [[NSImage az_imageNamed:@"missing.png"]tintedWithColor: _color]
-				  : [NSImage az_imageNamed:@"missing.png"];
+				  :	_color ? [[NSImage imageNamed:@"missing.png"]tintedWithColor: _color]
+				  : [NSImage imageNamed:@"missing.png"];
 }
+
 -(NSA*) colors 	{
-	return _colors = _colors ? _colors : (NSA*)^{
-		[AZStopwatch start:$(@"%@.colorquant", _name)];
-		@autoreleasepool {
+	return _colors = _colors ?: ^{
+//		[AZStopwatch start:$(@"%@.colorquant", _name)];
+//		@autoreleasepool {
 			NSArray *raw = [self.image quantize];
 			NSBag *allBag = [NSBag bagWithObjects:raw]; // put all colors in a bag //[raw do:^(id obj) { [allBag add:obj];}];
 			NSBag *rawBag = [NSBag bag];
-			NSUI total = 0;
+			NSUI total    = 0;
 			NSArray *filtered = [raw filter:^BOOL(NSColor* aColor) {
 				return [allBag occurrencesOf:aColor] > ( .0005 * [raw count]) && [aColor isExciting] ? YES : NO;
 			}];
 			return [[filtered map:^id(id obj) {
 				return [AZColor instanceWithColor:obj count:[rawBag occurrencesOf:obj] total:filtered.count];
 			}] sortedWithKey:@"count" ascending:NO];
-		}
+//		}
 	}();
 }
+
 -(NSC*) color 	{	return _color = _color ? _color : [self.colors normal:0][@"color"]; }
 
 - (BOOL) isRunning {

@@ -918,21 +918,24 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 	return newImage;
 }
 
-- (NSA*) quantize {
-	self.size = NSMakeSize(32, 32);
-	NSBitmapImageRep *imageRep = [self bitmap];
+- (NSA*) quantize
+{
+	self.size 					= NSMakeSize(32, 32);
+	NSBitmapImageRep *imageRep 	= [self bitmap];
 	[imageRep bitmapImageRepByConvertingToColorSpace:[NSColorSpace deviceRGBColorSpace]	renderingIntent:NSColorRenderingIntentDefault];
-	NSMA *catcher =  [NSMA array];	NSBag *satchel = [NSBag bag];
-	NSInteger width, height; 	height = width = 32;	// 	[imageRep pixelsWide]; NSInteger height 	= 	[imageRep pixelsHigh];
+
+	NSMA *catcher 				= [NSMA array];
+	NSBag *satchel 				= [NSBag bag];
+	NSI width, height;	 height = width = 32;				// 	[imageRep pixelsWide]; NSInteger height 	= 	[imageRep pixelsHigh];
 	for (int i = 0; i < width; i++) {
 		for (int j = 0; j < height; j++) {  				//	[self setColor:AGColorFromNSColor([imageRep colorAtX:i y:j])
-			NSColor *thisPx = [imageRep colorAtX:i y:j];
+			NSColor *thisPx 			= 	    [imageRep colorAtX:i y:j];
 			[thisPx alphaComponent] == 0 ?: [satchel add:thisPx];
 		}
 	}
-	int counter = ( [[satchel objects]count] < 10 ? [[satchel objects]count] : 10 );
+	int counter = ( [satchel objects].count < 10 ? [satchel objects].count : 10 );
 	for (int j = 0; j < counter; j++) {
-		for (int s = 0; s < [satchel occurrencesOf:[satchel objects][j]]; s++)
+		for (int s = 0; s < [satchel occurrencesOf:[satchel objects] [j]]; s++)
 			[catcher addObject:[satchel objects][j]];
 	}
 	//	}];

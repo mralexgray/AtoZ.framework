@@ -76,7 +76,7 @@ AZOrient deltaDirectionOfPoints ( NSP a, NSP b );
 
 /**	NSRange from a min and max values even though the names imply that min should be greater than max the order does not matter the range will always start at the lower value and have a size to reach the upper value **/
 
-NSRange AZMakeRange ( NSUInteger min, NSUInteger max );
+//NSRange AZMakeRange ( NSUInteger min, NSUInteger max );
 
 CGF AZPointDistance ( CGP p1, CGP p2 );
 CGF AZPointAngle ( CGP p1, CGP p2 );

@@ -21,15 +21,9 @@
 
 @implementation LayerCell
 
-+ (BOOL)needsDisplayForKey:(NSString *)key {
-	if ([key isEqualToString:@"radius"]
-		|| [key isEqualToString:@"strokeWidth"]) {
-        return YES;
-    }
-	else {
-        return [super needsDisplayForKey:key];
-    }
-}
+//+ (BOOL)needsDisplayForKey:(NSString *)key {
+//	return [key isEqualToString:@"radius"]	|| [key isEqualToString:@"strokeWidth"] ? [super needsDisplayForKey:key];
+//}
 //- (id)initWithLayer:(id)layer {
 //
 //	if (self = [super initWithLayer:layer]) {
@@ -68,16 +62,19 @@
 {
 	NSA*rects  = _ss.rects;
 	self.contentLayer.sublayers = [_content nmap:^id(id obj, NSUInteger index) {
-		NSS* objClass 		= [obj isKindOfClass:[NSImage class]] ? @"img" 	:
-		[obj isKindOfClass:[AZFile  class]] ? @"file" : @"else";
+		NSS* objClass 		= [obj isKindOfClass:[NSImage class]] ? @"img"
+							: [obj isKindOfClass:[AZFile  class]] ? @"file" : @"else";
+
 		CALayer *fileLayer 	= [CALayer layer];
 		fileLayer.name		= obj[@"name"] ?: $(@"%ld", index);
-//		fileLayer.arMASK	=  CASIZEABLE;
-		fileLayer.bgC 		= areSame(objClass, @"img")  ? [[obj quantize][0]CGColor]
-							: areSame(objClass, @"file") ? obj[@"color"] ? [[(AZFile*)obj color]CGColor]
-														 : ^{ 	NSColor*q = [obj[@"image"] quantize][0];
-																return  q ? [q CGColor] : cgRANDOMCOLOR; }()
-							: cgRANDOMCOLOR;
+
+		if ( areSame(objClass, @"img") ) fileLayer.bgC = ((NSC*)[obj quantize][0]).CGColor;
+
+		if ( areSame(objClass, @"file")) fileLayer.bgC =  obj[@"color"] ? ((AZFile*)obj).color.CGColor
+														 : [[obj[@"image"] quantize][0]CGColor ];
+
+														 // ?: cgRANDOMCOLOR;
+								
 		fileLayer.contents 	= areSame(objClass, @"img")  ? obj
 							: areSame(objClass, @"file") ? [[(AZFile*)obj image]scaledToMax:512]
 							: [[NSImage systemIcons]randomElement];
@@ -127,10 +124,6 @@
 - (void) viewDidEndLiveResize {	[_contentLayer setNeedsLayout];	}
 
 
-- (void)setSs:(AZSizer *)ss {  AZLOG(@"SetSizer Called");
-	_ss = [AZSizer forQuantity:_content.count inRect:_root.frame];
-	[_contentLayer setNeedsLayout];
-}
 
 - (void) layoutSublayersOfLayer:(CALayer *)layer {
 
@@ -141,7 +134,7 @@
 //	int columns =  10;//r.origin.y;
 //	int rows 	= 10;  //r.origin.x;
 //	NSSize s 	= NSMakeSize(40, 40);//r.size.width, r.size.height);
-//	_ss = self.ss;
+	_ss = [AZSizer forQuantity:_content.count inRect:_root.frame];
 
 
 	[_contentLayer.sublayers enumerateObjectsUsingBlock:^(CALayer* obj, NSUInteger idx, BOOL *stop) {
