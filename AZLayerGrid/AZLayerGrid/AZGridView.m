@@ -87,21 +87,18 @@
 -(void) awakeFromNib
 {
 	__block __typeof(self) selfish = self;
+	self.postsBoundsChangedNotifications = YES;
 	[self addObserverForKeyPaths:@[@"content" ] task:^(id obj, NSD *change) { [selfish setContentSubLayers];}];//
 	[self addObserverForKeyPaths:@[@"contentLayer",NSViewBoundsDidChangeNotification ] task:^(id obj, NSD *change) { [selfish setSs:nil];	}];
 //	[self addObserverForKeyPaths:@[@"ss"] task:^(id obj, NSD *change) { AZLOG(@"notified SS changed");	 [selfish.contentLayer setNeedsLayout]; }];
 //	[AZNOTCENTER addObserver:self forKeyPaths:@[@"content"]];
 //	[self addObserver:self forKeyPath:@"content" options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:NULL];
-	self.postsBoundsChangedNotifications = YES;
-	self.root 				= [self setupHostView];
-	self.contentLayer 		= [[CALayer alloc]init];
-	[@[_root, _contentLayer] eachWithIndex:^(id obj, NSInteger idx) {
-		obj[@"autoresizingMask"] = @(CASIZEABLE);
-//		obj[@"backgroundColor"] = idx ? (id)cgRED   : (id) cgBLACK;
-		obj[@"borderColor"] 		= idx ? (id)cgWHITE : (id) cgGREEN;
-		obj[@"name"] 			= idx ? @"root" 	: @"content";
- 	}];
-	[@[_contentLayer, _root ] do:^(id obj) { }];
+	self.root 				= [self setupHostViewNamed:@"root"];
+	self.contentLayer 		= [CALayer      layerNamed:@"content"];
+	[@[_root, _contentLayer] eachWithIndex: ^(id obj, NSInteger idx) {
+		obj[@"arMask"] 		= @(CASIZEABLE);
+		obj[@"borderColor"] = idx ? (id)cgWHITE : (id) cgGREEN;
+	}];
 //	_contentLayer.nDoBC				= YES;
 //	_contentLayer.layoutManager = self;
 //	_contentLayer.delegate 	= self;

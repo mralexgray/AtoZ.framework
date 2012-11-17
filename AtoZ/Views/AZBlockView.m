@@ -30,17 +30,35 @@
 //- (BOOL)isOpaque {
 //	return opaque;
 //}
+
+
+@implementation NSImage (AtoZDrawBlock)
++ (NSImage*)imageWithSize:(NSSZ)size drawnUsingBlock:(NSImageDrawer)drawBlock;
+{
+	NSImage *newer = [[NSImage alloc]initWithSize:size];
+//	[newer setAssociatedValue:drawBlock forKey:@"dBlock"];
+	[newer lockFocus];
+//	if ([newer associatedValueForKey:@"dBlock"]) {
+//		NSImageDrawer d = [newer associatedValueForKey:@"dBlock"];
+//		d();
+//	}
+	drawBlock();
+	[newer unlockFocus];
+	return newer;
+}
+
+@end
+
+
 @implementation BNRBlockView
 @synthesize drawBlock, opaque;
 
-+ (BNRBlockView*) viewWithFrame: (NSRect)frame  opaque: (BOOL)opaque
-				drawnUsingBlock:(BNRBlockViewDrawer)theDrawBlock
-{
-//	__typeof__(self)
++ (BNRBlockView*) viewWithFrame: (NSRect)frame  opaque: (BOOL)opaque drawnUsingBlock:(BNRBlockViewDrawer)theDrawBlock
+{	//	__typeof__(self)
 	BNRBlockView *view = [[BNRBlockView alloc] initWithFrame:frame];
 	[view setDrawBlock:theDrawBlock];
 	[view setOpaque:opaque];
-	return view;// autorelease];
+	return view;
 }
 
 - (void)drawRect:(NSRect)dirtyRect { if (drawBlock) drawBlock(self, dirtyRect); }
@@ -48,6 +66,8 @@
 - (BOOL)isOpaque { 	return opaque;	}
 
 @end
+
+
 @implementation AZBlockView
 @synthesize drawBlock, opaque;
 + (AZBlockView*)  viewWithFrame:(NSRect)frame  opaque:(BOOL)opaque
@@ -59,19 +79,9 @@
 //	return view;// autorelease];
 }
 
-//- (void)dealloc
-//{
-//	[drawBlock release];
-//	[super dealloc];
-//}
 
-- (void)drawRect:(NSRect)dirtyRect {
-	if (drawBlock)
-		drawBlock(self, dirtyRect);
-}
+- (void)drawRect:(NSRect)dirtyRect {	if (drawBlock)		drawBlock(self, dirtyRect); }
 
-- (BOOL)isOpaque {
-	return opaque;
-}
+- (BOOL)isOpaque {	return opaque; }
 
 @end

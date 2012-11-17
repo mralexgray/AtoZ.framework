@@ -20,3 +20,11 @@
 - (void)	 changeFontSize:	 	(CGFloat) delta;
 
 @end
+
+
+
+@interface NSSegmentedControl (FitTextNice)
+
+- (void)fitTextNice ;
+
+@end

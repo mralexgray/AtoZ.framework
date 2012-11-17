@@ -164,7 +164,8 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define AZPOS AZWindowPosition
 
 
-
+#define AZGView AtoZGridView
+#define AZGVItem AtoZGridViewItem
 
 #define BLKVIEW BNRBlockView
 #define CAA CAAnimation
@@ -199,6 +200,7 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define CIF CIFilter
 #define IBO IBOutlet
 #define NSA NSArray
+#define NSAPP NSApplication
 #define NSAC NSArrayController
 #define NSAS NSAttributedString
 #define NSAT NSAffineTransform
@@ -209,6 +211,7 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define NSC NSColor
 #define NSCS NSCountedSet
 #define NSD NSDictionary
+#define NSE NSEvent
 #define NSI NSInteger
 #define NSIMG NSImage
 #define NSIS NSIndexSet
@@ -219,6 +222,7 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define NSMenuI	NSMenuItem
 #define NSMS NSMutableString
 #define NSMSet NSMutableSet
+#define NSMIS NSMutableIndexSet
 #define NSN NSNumber
 #define NSNOT NSNotification
 #define NSO NSObject
@@ -230,6 +234,7 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define NSRFill NSRectFill
 #define NSS NSString
 #define NSSZ NSSize
+#define NST NSTimer
 #define NSTI NSTimeInterval
 #define NSTXTF NSTextField
 #define NSTXTV NSTextView
@@ -238,6 +243,8 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define NSVAL NSValue
 #define NSTABV NSTabView
 #define NSTBAR NSToolbar
+#define NSW NSWindow
+
 //#define ID \(NSObject*\)
 #define bgC backgroundColor
 #define fgC foregroundColor

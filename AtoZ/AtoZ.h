@@ -261,6 +261,7 @@ extern NSString *const AtoZDockSortedUpdated;
 + (void) playSound:(id)number;
 + (void) playRandomSound;
 
++ (NSFont*) controlFont;
 + (NSA*)fonts;
 + (NSFont*) font:(NSS*)family size:(CGF)size;
 

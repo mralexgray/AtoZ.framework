@@ -8,9 +8,24 @@
 
 - (void)awakeFromNib
 {
+	[self setup];
+}
+
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        [self setup];
+    }
+    return self;
+}
+
+-(void) setup;
+{
+
 	theLetter = @"Hi.";
 	extraInfo = @"Hello there little person! Touch letters and hear sounds!";
-	
+	self.wantsLayer = YES;
 	CALayer *mainLayer		= [CALayer layerNamed:@"mainLayer"];
 	mainLayer.delegate 		= self;
 	mainLayer.layoutManager = self;
@@ -61,12 +76,12 @@
 - (void)drawLayer:(CALayer *)layer inContext:(CGContextRef)cgContext
 {
 	// DEBUG
-	// NSLog(@"Drawing layer: %@", layer.name);
-	
-	[NSGraphicsContext drawInContext:cgContext flipped:NO actions:^{
+	 NSLog(@"Drawing layer: %@", layer.name);
 
-	// NSRect theRect = NSRectFromCGRect(CGContextGetClipBoundingBox(cgContext));
-	
+//	[NSGraphicsContext drawInContext:cgContext flipped:NO actions:^{
+
+ NSRect theRect = NSRectFromCGRect(CGContextGetClipBoundingBox(cgContext));
+
 	if ( [layer.name isEqualToString:@"mainLayer"] )
 	{
 		// draw a basic gradient for the view background
@@ -78,15 +93,16 @@
 		
 		NSGradient *gradient = [[NSGradient alloc] initWithStartingColor:gradientBottom endingColor:gradientTop];
 		[gradient drawInRect:self.bounds angle:90.0];
-//		[gradient release];
+		[gradient release];
 	}
+
 	else
 	{
+//	}];
 		// draw all other layers normally
         [super drawLayer:layer inContext:cgContext];
 	}
-	
-}];
+
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context

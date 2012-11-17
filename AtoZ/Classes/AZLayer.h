@@ -9,7 +9,10 @@
 #import "AtoZ.h"
 #import <QuartzCore/QuartzCore.h>
 
-@interface AZLayer : CATransformLayer
+@interface AZLayer : CAL
+
++ (BOOL)needsDisplayForKey:(NSString *)key;
+- (id) initWithLayer: (id) layer;
 
 //+ (AZLayer*)withFrame:(NSRect)frame forObject:(id)file atIndex:(NSUInteger)index;
 //

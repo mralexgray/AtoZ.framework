@@ -9,49 +9,53 @@
 #import "TestBedDelegate.h"
 
 
-@interface NSObject (getLayer)
-- (CAL*)	getLayer;
-+ (NSView*) viewInView:(NSView*)view;
-@end
-@implementation NSObject (getLayer)
-+ (NSView*)viewInView:(NSView*)view;
-{
-	NSView* v = [[NSView alloc]initWithFrame:[view frame]];
-	[view addSubview:v positioned:NSWindowAbove relativeTo:view.lastSubview];
-	return v;
-}
-- (CAL*)getLayer { //__block NSView* me = (NSView*)self;
-	return  [(NSView*)self layer] ?: [(NSView*)self setupHostView];//(CAL*)^{ [me setWantsLayer:YES];  me.layer.anchorPoint = (CGP){.5, .5}; [me.layer setAnchorPointRelative:me.center]; return me.layer; }();
-}
-@end
-
-
-const CGFloat dash[2] = {100, 60};
-
 @interface TestBedDelegate ()
-@property (nonatomic, retain) CATransition *transition;
-@property (nonatomic, retain) NSA *transitions;
-
+@property (STRNG) CATransition *transition;
+@property (STRNG) NSA *transitions;
 @end
 
 @implementation TestBedDelegate
+@synthesize holdOntoViews;
 
+-(void) awakeFromNib
+{
+	[AtoZ sharedInstance];
+	self.window.delegate = self;
+	self.genVC = [[AZGeneralViewController  alloc]initWithNibName:@"AZGeneralViewController"  bundle:nil];
+	self.geoVC = [[AZGeometryViewController alloc]initWithNibName:@"AZGeometryViewController" bundle:nil];
+	self.uiVC  = [[AZUIViewController       alloc]initWithNibName:@"AZUIViewController"       bundle:nil];
 
--(void) awakeFromNib {
-
-	self.genVC = [[AZGeneralViewController alloc]initWithNibName:@"AZGeneralViewController" bundle:nil];
-	[_mainView addSubview: _genVC.view];
-	_genVC.view.frame	= [_mainView frame];
-
-	[_mbWindow makeKeyAndOrderFront:self];
-
-
-	self.mbWindow = [AZSemiResponderWindow new];
-	[_mbWindow makeKeyAndOrderFront:self];
+	self.fileGrid = [[AZFileGridView alloc]initWithFrame: [_mainView bounds]];
+	self.vcs 	= @{  @"General" : _genVC.view, @"Geometry": _geoVC.view, @"fileGridView" : _fileGrid, @"UI" : _uiVC.view }.mutableCopy;
+	[[_vcs allValues] each:^( NSV* view) {
+			view.frame  = [_mainView bounds];
+			view.arMASK = NSSIZEABLE;
+			view.hidden = YES;
+			[_mainView addSubview:view];
+	}];
+		
+	[_fileGrid setHidden:NO];
+	[_mainView addSubview:_fileGrid];
+//	self.genVC = [[AZGeneralViewController alloc]initWithNibName:@"AZGeneralViewController" bundle:nil];
+//	[_mainView addSubview: _genVC.view];
+//	_genVC.view.frame	= [_mainView frame];
+//
+//	[_mbWindow makeKeyAndOrderFront:self];
+//
+//
+//	self.mbWindow = [AZSemiResponderWindow new];
+//	[_mbWindow makeKeyAndOrderFront:self];
 
 }
+-(IBAction)setViewFromPopUp:(id)sender
+{
+	[[_activeView animator]setHidden:YES];
+	_activeView = _vcs[[sender titleOfSelectedItem]];
 
-
+	[_mainView addSubview:_activeView positioned:NSWindowAbove relativeTo:_mainView];
+	[_activeView setHidden:NO];
+	[_activeView setNeedsDisplay:YES];
+}
 //-(CATransition*)transition
 //{
 //    // Construct a new CATransition that describes the transition effect we want.
@@ -64,7 +68,9 @@ const CGFloat dash[2] = {100, 60};
 //		transition.subtype	= @[ kCATransitionFromRight, kCATransitionFromLeft, kCATransitionFromTop, kCATransitionFromBottom].randomElement;
 //		transition.duration	= 1.0;	  return transition; }();
 //}
-
+- (void) windowDidEndLiveResize:(NSNotification *)notification {
+	[[_mainView subviews] each:^(id obj) { [[obj animator] setFrame:[_mainView bounds]]; }];
+}
 
 - (IBAction)loadSecondNib:(id)sender
 {
@@ -118,6 +124,27 @@ const CGFloat dash[2] = {100, 60};
 
 @end
 
+
+@interface NSObject (getLayer)
+- (CAL*)	getLayer;
++ (NSView*) viewInView:(NSView*)view;
+@end
+@implementation NSObject (getLayer)
++ (NSView*)viewInView:(NSView*)view;
+{
+	NSView* v = [[NSView alloc]initWithFrame:[view frame]];
+	[view addSubview:v positioned:NSWindowAbove relativeTo:view.lastSubview];
+	return v;
+}
+- (CAL*)getLayer { //__block NSView* me = (NSView*)self;
+	return  [(NSView*)self layer] ?: [(NSView*)self setupHostView];//(CAL*)^{ [me setWantsLayer:YES];  me.layer.anchorPoint = (CGP){.5, .5}; [me.layer setAnchorPointRelative:me.center]; return me.layer; }();
+}
+@end
+
+
+const CGFloat dash[2] = {100, 60};
+
+
 #define SPINS              3.0f
 #define DURATION           2.5f
 #define TRANSITION_OUT_KEY @"transition out"
@@ -129,14 +156,14 @@ const CGFloat dash[2] = {100, 60};
 + (id)animateTo:(id)v inSuperView:(id)sV
 {
     NASpinSeque *n = [NASpinSeque new];// = [super init];
-//    if (self) {
+	//    if (self) {
 
-		n.sV = sV ?: [[[NSApplication sharedApplication]mainWindow]contentView];
-		n.v1 = [sV subviews][0] ?: [NSObject viewInView:sV];
-		n.v2 = v;
-//		[[NSThread mainThread]performBlock:^{
-			[n perform];
-//		} waitUntilDone:YES];
+	n.sV = sV ?: [[[NSApplication sharedApplication]mainWindow]contentView];
+	n.v1 = [sV subviews][0] ?: [NSObject viewInView:sV];
+	n.v2 = v;
+	//		[[NSThread mainThread]performBlock:^{
+	[n perform];
+	//		} waitUntilDone:YES];
 	return n;
 }
 - (void)perform{
@@ -162,7 +189,7 @@ const CGFloat dash[2] = {100, 60};
 	self.l1 = [_v1 getLayer];
 	_l1.frame = _sV.bounds;
 	_l1.anchorPoint = (CGPoint){.5,.5};
-//	_l1.frame  = [_sV bounds];//anchorPoint = NSMakePoint(.5,.5);
+	//	_l1.frame  = [_sV bounds];//anchorPoint = NSMakePoint(.5,.5);
     [_l1 addAnimation:transitionOut forKey:TRANSITION_OUT_KEY];
 }
 
@@ -174,14 +201,14 @@ const CGFloat dash[2] = {100, 60};
 		[_sV subviewsBlockSkippingSelf:^(id view) {
 			[view setHidden:YES];
 		}];
-//		[self.v2 setHidden:YES];
+		//		[self.v2 setHidden:YES];
 		if ([_sV.subviews doesNotContainObject:_v2]) [_sV addSubview:_v2];
 		[_v2 setFrame:_sV.bounds];
-//		[_v2 setNeedsDisplay:YES];
+		//		[_v2 setNeedsDisplay:YES];
 		self.l2 =[_v2 getLayer];
 
 		_l2.frame = [_sV bounds];
-//		_l2.frame = [self.sV bounds];//NSMakePoint(.5,.5);
+		//		_l2.frame = [self.sV bounds];//NSMakePoint(.5,.5);
 		_l2.anchorPoint = (CGPoint){.5,.5};
 		CABA *rotation = [CABA animationWithKeyPath:@"transform.rotation"];
         rotation.fromValue = @0.0;
@@ -197,8 +224,8 @@ const CGFloat dash[2] = {100, 60};
         transitionIn.delegate   = self;
         [transitionIn setValue:TRANSITION_IN_KEY forKey:TRANSITION_IDENT];
 
-//        [self.l1 presentModalViewController:self.destinationViewController animated:NO];
-//		[self.v2 fadeIn];
+		//        [self.l1 presentModalViewController:self.destinationViewController animated:NO];
+		//		[self.v2 fadeIn];
 		[self.l2 addAnimation:transitionIn forKey:TRANSITION_IN_KEY];
 
 		return;//destinationLayer
@@ -215,80 +242,79 @@ const CGFloat dash[2] = {100, 60};
 }
 
 /*
-- (IBAction)changeViewController:(id)sender
-{
-	
-	if ([myCurrentViewController view] != nil)
-		[[myCurrentViewController view] removeFromSuperview];	// remove the current view
+ - (IBAction)changeViewController:(id)sender
+ {
 
-	if (myCurrentViewController != nil)
-		[myCurrentViewController release];		// remove the current view controller
+ if ([myCurrentViewController view] != nil)
+ [[myCurrentViewController view] removeFromSuperview];	// remove the current view
 
-	switch (whichViewTag)
-	{
-		case 0:	// swap in the "CustomImageViewController - NSImageView"
-		{
-			CustomImageViewController* imageViewController =
-			[[CustomImageViewController alloc] initWithNibName:kViewTitle bundle:nil];
-			if (imageViewController != nil)
-			{
+ if (myCurrentViewController != nil)
+ [myCurrentViewController release];		// remove the current view controller
 
-				myCurrentViewController = imageViewController;	// keep track of the current view controller
-				[myCurrentViewController setTitle:kViewTitle];
-			}
-			break;
-		}
+ switch (whichViewTag)
+ {
+ case 0:	// swap in the "CustomImageViewController - NSImageView"
+ {
+ CustomImageViewController* imageViewController =
+ [[CustomImageViewController alloc] initWithNibName:kViewTitle bundle:nil];
+ if (imageViewController != nil)
+ {
 
-		case 1:	// swap in the "CustomTableViewController - NSTableView"
-		{
-			CustomTableViewController* tableViewController =
-			[[CustomTableViewController alloc] initWithNibName:kTableTitle bundle:nil];
-			if (tableViewController != nil)
-			{
-				myCurrentViewController = tableViewController;	// keep track of the current view controller
-				[myCurrentViewController setTitle:kTableTitle];
-			}
-			break;
-		}
+ myCurrentViewController = imageViewController;	// keep track of the current view controller
+ [myCurrentViewController setTitle:kViewTitle];
+ }
+ break;
+ }
 
-		case 2:	// swap in the "CustomVideoViewController - QTMovieView"
-		{
-			CustomVideoViewController* videoViewController =
-			[[CustomVideoViewController alloc] initWithNibName:kVideoTitle bundle:nil];
-			if (videoViewController != nil)
-			{
-				myCurrentViewController = videoViewController;	// keep track of the current view controller
-				[myCurrentViewController setTitle:kVideoTitle];
-			}
-			break;
-		}
+ case 1:	// swap in the "CustomTableViewController - NSTableView"
+ {
+ CustomTableViewController* tableViewController =
+ [[CustomTableViewController alloc] initWithNibName:kTableTitle bundle:nil];
+ if (tableViewController != nil)
+ {
+ myCurrentViewController = tableViewController;	// keep track of the current view controller
+ [myCurrentViewController setTitle:kTableTitle];
+ }
+ break;
+ }
 
-		case 3:	// swap in the "NSViewController - Quartz Composer iSight Camera"
-		{
-			NSViewController* cameraViewController =
-			[[NSViewController alloc] initWithNibName:kCameraTitle bundle:nil];
-			if (cameraViewController != nil)
-			{
-				myCurrentViewController = cameraViewController;	// keep track of the current view controller
-				[myCurrentViewController setTitle:kCameraTitle];
-			}
-			break;
-		}
-	}
+ case 2:	// swap in the "CustomVideoViewController - QTMovieView"
+ {
+ CustomVideoViewController* videoViewController =
+ [[CustomVideoViewController alloc] initWithNibName:kVideoTitle bundle:nil];
+ if (videoViewController != nil)
+ {
+ myCurrentViewController = videoViewController;	// keep track of the current view controller
+ [myCurrentViewController setTitle:kVideoTitle];
+ }
+ break;
+ }
 
-	// embed the current view to our host view
-	[myTargetView addSubview: [myCurrentViewController view]];
+ case 3:	// swap in the "NSViewController - Quartz Composer iSight Camera"
+ {
+ NSViewController* cameraViewController =
+ [[NSViewController alloc] initWithNibName:kCameraTitle bundle:nil];
+ if (cameraViewController != nil)
+ {
+ myCurrentViewController = cameraViewController;	// keep track of the current view controller
+ [myCurrentViewController setTitle:kCameraTitle];
+ }
+ break;
+ }
+ }
 
-	// make sure we automatically resize the controller's view to the current window size
-	[[myCurrentViewController view] setFrame: [myTargetView bounds]];
+ // embed the current view to our host view
+ [myTargetView addSubview: [myCurrentViewController view]];
 
-	// set the view controller's represented object to the number of subviews in that controller
-	// (our NSTextField's value binding will reflect this value)
-	[myCurrentViewController setRepresentedObject: [NSNumber numberWithUnsignedInt: [[[myCurrentViewController view] subviews] count]]];
+ // make sure we automatically resize the controller's view to the current window size
+ [[myCurrentViewController view] setFrame: [myTargetView bounds]];
 
-	[self didChangeValueForKey:@"viewController"];	// this will trigger the NSTextField's value binding to change
-}
-*/
+ // set the view controller's represented object to the number of subviews in that controller
+ // (our NSTextField's value binding will reflect this value)
+ [myCurrentViewController setRepresentedObject: [NSNumber numberWithUnsignedInt: [[[myCurrentViewController view] subviews] count]]];
+
+ [self didChangeValueForKey:@"viewController"];	// this will trigger the NSTextField's value binding to change
+ }
+ */
 
 @end
-

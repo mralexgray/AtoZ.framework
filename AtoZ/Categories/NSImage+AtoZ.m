@@ -40,6 +40,120 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 //    return imageRef;
 //}
 
+@implementation NSImage (Merge)
+
++ (NSImage*)imageByTilingImages:(NSArray*)images
+					   spacingX:(CGFloat)spacingX
+					   spacingY:(CGFloat)spacingY
+					 vertically:(BOOL)vertically {
+	CGFloat mergedWidth = 0.0 ;
+	CGFloat mergedHeight = 0.0 ;
+	if (vertically) {
+		images = [images reversed] ;
+	}
+	for (NSImage* image in images) {
+		NSSize size = [image size] ;
+		if (vertically) {
+			mergedWidth = MAX(mergedWidth, size.width) ;
+			mergedHeight += size.height ;
+			mergedHeight += spacingY ;
+		}
+		else {
+			mergedWidth += size.width ;
+			mergedWidth += spacingX ;
+			mergedHeight = MAX(mergedHeight, size.height) ;
+		}
+	}
+	// Add the outer margins for the single-image dimension
+	// (The multi-image dimension has already had it added in the loop)
+	if (vertically) 		// Add left and right margins
+		mergedWidth += 2 * spacingX ;
+
+	else	// Add top and bottom margins
+		mergedHeight += 2 * spacingY ;
+
+	NSSize mergedSize = NSMakeSize(mergedWidth, mergedHeight) ;
+	NSImage* mergedImage = [[NSImage alloc] initWithSize:mergedSize] ;
+	[mergedImage lockFocus] ;
+
+	// Draw the images into the mergedImage
+	CGFloat x = spacingX ;
+	CGFloat y = spacingY ;
+	for (NSImage* image in images) {
+		[image drawAtPoint:NSMakePoint(x, y)
+				  fromRect:NSZeroRect
+				 operation:NSCompositeSourceOver
+				  fraction:1.0] ;
+		if (vertically) {
+			y += [image size].height ;
+			y += spacingY ;
+		}
+		else {
+			x += [image size].width ;
+			x += spacingX ;
+		}
+	}
+	[mergedImage unlockFocus] ;
+	return mergedImage;
+}
+
+- (NSImage*)imageBorderedWithInset:(CGFloat)inset {
+	NSImage* image = [[NSImage alloc] initWithSize:[self size]] ;
+
+	[image lockFocus] ;
+
+	[self drawAtPoint:NSZeroPoint
+			 fromRect:NSZeroRect
+			operation:NSCompositeCopy
+			 fraction:1.0] ;
+
+    NSBezierPath* path = [NSBezierPath bezierPath] ;
+
+	//[[NSColor colorWithCalibratedWhite:0.0 alpha:0.7] set] ;
+	[[NSColor grayColor] setStroke] ;
+	[path setLineWidth:inset] ;
+	// Start at left
+	[path moveToPoint:NSMakePoint(inset/2, inset/2)] ;
+	// Move to the right
+	[path relativeLineToPoint:NSMakePoint(self.size.width - (2.5)*inset, 0)] ;
+	// Move up
+	[path relativeLineToPoint:NSMakePoint(0, self.size.height - inset)] ;
+	// Move left
+	[path relativeLineToPoint:NSMakePoint(-self.size.width + (2.5)*inset, 0)] ;
+	// Finish
+	[path closePath] ;
+	[path stroke] ;
+	[image unlockFocus] ;
+	return image ;
+}
+
+- (NSImage*)imageBorderedWithOutset:(CGFloat)outset {
+	NSSize newSize = NSMakeSize([self size].width + 2*outset, [self size].height + 2*outset) ;
+	NSImage* image = [[NSImage alloc] initWithSize:newSize] ;
+	[image lockFocus] ;
+	[self drawAtPoint:NSMakePoint(outset, outset)
+			 fromRect:NSZeroRect
+			operation:NSCompositeCopy
+			 fraction:1.0] ;
+    NSBezierPath* path = [NSBezierPath bezierPath] ;
+	//[[NSColor colorWithCalibratedWhite:0.0 alpha:0.7] set] ;
+	[[NSColor grayColor] setStroke] ;
+	[path setLineWidth:2.0] ;
+	// Start at left
+	[path moveToPoint:NSMakePoint(1.0, 1.0)] ;
+	// Move to the right
+	[path relativeLineToPoint:NSMakePoint(newSize.width - 2.0, 0)] ;
+	// Move up
+	[path relativeLineToPoint:NSMakePoint(0, newSize.height - 2.0)] ;
+	// Move left
+	[path relativeLineToPoint:NSMakePoint(-newSize.width + 2.0, 0)] ;
+	// Finish
+	[path closePath] ;
+	[path stroke] ;
+	[image unlockFocus] ;
+	return image ;
+}
+@end
 
 @interface DummyClass : NSObject
 @end
@@ -987,6 +1101,14 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 	[u unlockFocus];
 	return u;
 }
+
++ (NSIMG*) svg2png:(NSString*)inFile out:(NSString*)optionalOutFile;
+{	NSS* p = optionalOutFile ?: $(@"/tmp/atoztempimage.%@.png",[NSString newUniqueIdentifier]);
+	NSTask *job = [NSTask launchedTaskWithLaunchPath:@"/usr/local/bin/svg2png" arguments:@[inFile, p]];
+	[job waitUntilExit];
+	return [[NSIMG alloc]initWithContentsOfFile:p];
+}
+
 
 - (void) openInPreview;
 {		NSS* p = $(@"/tmp/atoztempimage.%@.png",[NSString newUniqueIdentifier]);
@@ -2844,4 +2966,24 @@ CGImageRef CreateCGImageFromData(NSData* data)
 - (id)   objectForKeyedSubscript:(NSS*)key {						   return [self valueForKey:key];			 }
 - (void) setObject:(id)object forKeyedSubscript:(NSS*)key {	isEmpty(object) ? [self setValue:@"" forKey:key]
 	: [self setValue:object forKey:key];	 }
+@end
+
+
+@implementation NSImageView (AtoZ)
+
++(NSIV*)imageViewWithImage:(NSIMG*)img
+{
+	NSImageView *i = [[NSImageView alloc]initWithFrame:AZRectFromDim(100)];
+	i.autoresizesSubviews = YES;
+	i.arMASK = NSSIZEABLE;
+	i.image = img;
+	i.imageScaling = NSImageScaleProportionallyUpOrDown;
+	return i;
+}
++(void) addImageViewWithImage:(NSIMG*)img toView:(NSV*)v;
+{
+	NSIV *u = [self imageViewWithImage:img];
+	[u setFrame:v.bounds];
+	[v addSubview:u];
+}
 @end

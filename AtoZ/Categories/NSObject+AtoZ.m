@@ -166,6 +166,21 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary()
 
 @implementation NSObject (AtoZ)
 
+
+- (id) performString:(NSS*)string;
+{
+	return [self performSelectorWithoutWarnings:NSSelectorFromString(string) withObject:nil];
+}
+
+
+
+- (id) performString:(NSS*)string withObject:(id) obj;
+{
+	return [self performSelectorWithoutWarnings:NSSelectorFromString(string) withObject:obj];
+
+}
+
+
 + (NSArray *) instanceMethods
 {
     NSMutableArray *array = [NSMutableArray array];

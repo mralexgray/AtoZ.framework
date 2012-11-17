@@ -7,53 +7,52 @@
 //
 
 #import "AZGeneralViewController.h"
+#import "TestBedDelegate.h"
 
 @interface AZGeneralViewController ()
 
 @end
-
 @implementation AZGeneralViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        // Initialization code here.
+    }
 
-
-//-(void) awakeFromNib {
-
-	[AtoZ sharedInstance];
-	//	[self loadSecondNib:nil];
-	[self.segments 	 setAction:@selector(setView:) withTarget:self];
-	//	[_targetView setWantsLayer:YES];
-	//	[_targetView.layer setMasksToBounds:YES];
-	//	CATRANNY *transition = [[CATRANNY alloc]initWithProperties:@{@"type":kCATransitionPush, @"subtype":kCATransitionFromLeft}];
-
-	[self.targetView 	swapSubs:self.debugLayers];
-	[self addObserverForKeyPath:@"self.targetView.subviews" task:^(id obj, NSDictionary *change) {
-		AZLOG(@"subviews changed");
-	}];
-	}
-	return  self;
+    return self;
 }
 
-- (void) setView:(id)sender
-{
-	NSV *newView;
-	NSS* label = [sender segmentLabel];
 
-	newView =	areSame(label, @"prism" ) ? [[AZPrismView alloc]initWithFrame:_targetView.frame]
-	:	areSame(label, @"azGrid") ? [[AZGrid alloc]initWithCapacity:23]
-	: 	[self respondsToSelector:NSSelectorFromString(label)] ?	self[[sender segmentLabel]]
-	:	nil;
-	[_targetView setAnimations:@{@"subviews":[CATransition randomTransition]}];
-	if (newView) {
-	 	NSView* removal = _targetView.firstSubview;
-		[[_targetView animator] replaceSubview:removal with:newView];
-		[removal removeFromSuperview];
+-(void) awakeFromNib {
+	[self.segments setFont:[AtoZ controlFont]];
+//	[_segments fitTextNice];
+	[self.segments 	 setAction:@selector(poopOnSegment:) withTarget:self];
+//	[self.targetView swapSubs:self.debugLayers];
+	[self.view.layer setStyle:@{@"sublayers":[CATransition randomTransition]}];
+//	[self.targetView
+//	[ setAnimations:@{@"subviews":[CATransition randomTransition]}];
+	[self addObserverForKeyPath:@"targetView" task:^(id obj, NSDictionary *change) {
+		AZLOG(@"subviews changed");
+	}];
+}
+
+- (void) poopOnSegment:(id)sender	{	NSS* label = [sender segmentLabel];  NSV *newView
+
+	=	areSame(label, @"prism" ) 	  ? 	[[AZPrismView alloc]initWithFrame:_targetView.frame]
+	:	areSame(label, @"azGrid") 	  ? 	[[AZGrid alloc]initWithCapacity:23]
+	: 	[self respondsToString:label] ?		self[[sender segmentLabel]]
+	:	nil;				 !newView ?: ^{
+
+		[[_targetView animator] replaceSubview:_targetView.firstSubview with:newView];
 		[[SoundManager sharedManager] prepareToPlayWithSound:[Sound soundNamed:@"unlock"]];
 		[[SoundManager sharedInstance] playSound:[Sound soundNamed:@"unlock"]];
-	}
+	}();
+
+	TestBedDelegate *d = (TestBedDelegate*)[[NSApplication sharedApplication]delegate];
+	self.pBar.primaryColor = RANDOMCOLOR;
+
 }
 
 
@@ -64,16 +63,17 @@
 	v.image = [[NSImage alloc]initWithSize:_targetView.frame.size];
 	return v;
 }
--(NSImageView*)badges {
-
-	_badges = [self baseImageView];
+-(NSImageView*)badges
+{
+	if (_badges) return  _badges;
+	NSImageView* someBadges =   [self baseImageView];
 	AZSizer *s = [AZSizer forQuantity:10 inRect:_targetView.frame];
-	[_badges.image lockFocus];
+	[someBadges.image lockFocus];
 	[s.rects eachWithIndex:^(id obj, NSInteger idx) {
 		[[NSImage badgeForRect:AZMakeRectFromSize(s.size) withColor:RANDOMCOLOR  stroked:nil withString:$(@"%ld", idx)]drawInRect:[obj rectValue]];
 	}];
-	[_badges.image unlockFocus];
-	return _badges;
+	[someBadges.image unlockFocus];
+	_badges = [self holdEm] ? someBadges : nil;	 return someBadges;
 }
 
 -(NSImageView*)imageNamed {
@@ -93,16 +93,38 @@
 
 
 }
--(NSImageView*)picol {
+
+- (LetterView*) letterView {
+	return _letterView = [[LetterView alloc]initWithFrame:_targetView.frame];
+}
+
+- (BOOL) holdEm
+{
+	TestBedDelegate* aD = (TestBedDelegate*)[[NSApplication sharedApplication] delegate];
+	return [[aD holdOntoViews] state] == NSOnState;// ? YES : NO;
+}
+
+- (AtoZGridViewAuto*) picol
+{
+	NSA *p = [[NSC randomPalette]withMinItems:300];
+	p = [p map:^id(id obj) { return [NSIMG swatchWithColor:obj size:AZSizeFromDimension(200)]; }];
+//	 [NSIMG monoIcons];   LOG_EXPR(p);
+
+	return _picol = _picol ?: [[AtoZGridViewAuto alloc]initWithArray:p];
+}
+
+-(NSImageView*)picolOld {
+
+
 
 	if (_picol) {	NSR old = [[_picol associatedValueForKey:_picol.identifier]rectValue]; logRect(old); logRect(_targetView.frame);
 		if (NSEqualRects(_targetView.frame, old)) return  _picol;
 	}
 	else _picol = ^{NSIV *iv  	= [self baseImageView];
-		AZSizer *s	= [AZSizer forQuantity:[NSIMG icons].count inRect:_targetView.frame];
+		AZSizer *s	= [AZSizer forQuantity:[NSIMG monoIcons].count inRect:_targetView.frame];
 		NSA* rects 	= s.rects.copy;
 		[iv.image lockFocus];
-		[[NSIMG icons] eachWithIndex:^(id obj, NSInteger idx) {
+		[[NSIMG monoIcons] eachWithIndex:^(id obj, NSInteger idx) {
 			[obj drawInRect:[[rects normal: idx]rectValue] fraction:1];
 			// badgeForRect:AZMakeRectFromSize(s.size) withColor:RANDOMCOLOR  stroked:nil withString:$(@"%ld", idx)]drawInRect:[obj rectValue]];
 		}];

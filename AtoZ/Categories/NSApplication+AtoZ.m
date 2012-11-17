@@ -764,3 +764,38 @@ static NSDateFormatter* _GetDateFormatter(NSString* format, NSString* identifier
 }
 
 @end
+
+@implementation NSWorkspace (AppleShoulda)
+
++ (NSString*)appNameForBundleIdentifier:(NSString*)bundleIdentifier {
+	NSWorkspace* workspace = [self sharedWorkspace] ;
+	NSString* path = [workspace absolutePathForAppBundleWithIdentifier:bundleIdentifier] ;
+	NSBundle* bundle = [NSBundle bundleWithPath:path] ;
+	NSString* appName = [bundle objectForInfoDictionaryKey:@"CFBundleName"] ;
+
+	// Added in BookMacster version 1.3.22
+	if (bundle) {
+		if ([appName length] == 0) {
+			NSLog(@"Warning 562-0981.  No CFBundleName in %@", bundleIdentifier) ;
+			appName = [bundle objectForInfoDictionaryKey:@"CFBundleExecutable"] ;
+			if ([appName length] == 0) {
+				NSLog(@"Warning 562-0982.  No CFBundleExecutable in %@", bundleIdentifier) ;
+				appName = [bundleIdentifier lastPathComponent] ;
+			}
+		}
+	}
+
+	return appName ;
+}
+
++ (NSString*)bundleIdentifierForAppName:(NSString*)appName  {
+	NSWorkspace* workspace = [self sharedWorkspace] ;
+	NSString* path = [workspace fullPathForApplication:appName] ;
+	NSBundle* bundle = [NSBundle bundleWithPath:path] ;
+	NSString* bundleIdentifier = [bundle bundleIdentifier] ;
+	return bundleIdentifier ;
+}
+
+
+
+@end

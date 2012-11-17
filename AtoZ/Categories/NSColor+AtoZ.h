@@ -541,8 +541,3 @@
 //- (BOOL)	isEqualToColor:(NSColor*)inColor colorSpace:(NSString*)inColorSpace ;
 
 //@end
-//@implementation NSColor (NSColor_CSSRGB)
-
-//+ (NSColor*)	colorWithCSSRGB:(NSString*)rgbString;
-
-//@end

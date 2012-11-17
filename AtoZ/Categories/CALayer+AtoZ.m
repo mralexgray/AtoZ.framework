@@ -638,7 +638,7 @@ static char ORIENT_IDENTIFIER;
 
 - (void)blinkLayerWithColor:(NSColor*)color {
     CABasicAnimation * blinkAnimation = [CABasicAnimation animationWithKeyPath:@"backgroundColor"];
-    [blinkAnimation setDuration:0.4];
+    [blinkAnimation setDuration:0.2];
     [blinkAnimation setAutoreverses:YES];
     [blinkAnimation setFromValue:(id)self.backgroundColor];
     [blinkAnimation setToValue:(id)color.CGColor];
@@ -1645,6 +1645,12 @@ NSTimeInterval const LTKDefaultTransitionDuration = 0.25;
 #pragma mark -
 
 @implementation CALayer (LTKAdditions)
+
+
+- (CAL*) permaPresentation
+{
+ 	return  [self.presentationLayer isKindOfClass:[CAL class]] ? self.presentationLayer : self;
+}
 
 #pragma mark - Property Accessors
 

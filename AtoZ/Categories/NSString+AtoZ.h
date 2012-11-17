@@ -7,6 +7,9 @@
 
 @interface NSString (AtoZ)
 
++ (NSString*)clipboard ;
+- (void)copyToClipboard ;
+
 - (unichar)lastCharacter;
 - (NSString*)substringToLastCharacter;
 //- (NSString*)decodeAllPercentEscapes;

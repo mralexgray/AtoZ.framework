@@ -43,8 +43,8 @@ NSUI    AZSizeOfRange 	  ( AZRange rng            ) { return rng.max - rng.min;	
 	self.scrollPoint = NSZeroPoint;
 	self.unitOffset  = 1;
 
-	self.backgroundColor 	= CLEAR; 	self.level = NSScreenSaverWindowLevel;	// CGWindowLevelForKey(kCGCursorWindowLevelKey)];
-	self.hidesOnDeactivate  = YES;		self.acceptsMouseMovedEvents  = YES;   self.opaque = NO;
+	self.backgroundColor 	= [RED alpha:.2]; 	self.level = NSNormalWindowLevel - 2;	// CGWindowLevelForKey(kCGCursorWindowLevelKey)];
+	self.hidesOnDeactivate  = YES;		self.acceptsMouseMovedEvents  =NO;   self.opaque = NO;
 	self.collectionBehavior	= NSWindowCollectionBehaviorCanJoinAllSpaces | NSWindowCollectionBehaviorStationary;
 	self.scrollLayer	 	= [CAL  layerNamed:@"scroll"		];
 	((NSV*)self.contentView).layer		= _scrollLayer;
@@ -138,6 +138,7 @@ NSUI    AZSizeOfRange 	  ( AZRange rng            ) { return rng.max - rng.min;	
 	}
 }
 */
+/*
 - (void)sendEvent:(NSEvent *)theEvent
 {
 	static CAL *tab = nil;
@@ -317,7 +318,7 @@ NSUI    AZSizeOfRange 	  ( AZRange rng            ) { return rng.max - rng.min;	
 //		}];
 //	}
 
-
+*/
 
 
 //		NSPoint aPoint = [_bar convertPoint:[theEvent locationInWindow] toView:nil];

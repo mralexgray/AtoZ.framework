@@ -254,6 +254,11 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
  [layerHosting setWantsLayer:YES];
 */
 
+-(CALayer*) setupHostViewNamed:(NSS*)name {
+	CAL *i = [self setupHostView];
+	i.name = name;
+	return i;
+}
 
 -(CALayer*) setupHostView {
     CALayer *layer = [CALayer layerNamed:@"root"];
@@ -714,6 +719,19 @@ NSView* AZResizeWindowAndContent(NSWindow* window, float dXLeft, float dXRight, 
 }
 
 @end
+
+@implementation NSTableView (Scrolling)
+
+- (void)scrollRowToTop:(NSInteger)row {
+	if ((row != NSNotFound) && (row >=0)) {
+		CGFloat rowPitch = [self rowHeight] + [self intercellSpacing].height ;
+		CGFloat y = row * rowPitch ;
+		[self scrollPoint:NSMakePoint(0, y)] ;
+	}
+}
+
+@end
+
 
 @implementation NSView (findSubview)
 

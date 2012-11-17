@@ -64,7 +64,7 @@
 
 	// set the transform
 	[self transformUsingAffineTransform:transform];
-
+	return self;
 }
 
 

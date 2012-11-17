@@ -44,6 +44,8 @@ extern NSView* AZResizeWindowAndContent(NSWindow* window, float dXLeft, float dX
 - (void) centerOriginInRect:(NSRect) aRect;
 
 - (CALayer*) setupHostView;
+- (CALayer*) setupHostViewNamed:(NSS*)name;
+
 
 - (NSA*) allSubviews;
 - (NSView*)	 firstSubview;
@@ -169,6 +171,14 @@ extern NSView* AZResizeWindowAndContent(NSWindow* window, float dXLeft, float dX
  */
 - (void)sizeHeightToFit ;
 @end
+
+@interface NSTableView (Scrolling)
+
+- (void)scrollRowToTop:(NSInteger)row ;
+
+@end
+
+
 @interface NSView (findSubview)
 
 - (NSArray *)subviewsOfKind:(Class)kind withTag:(NSInteger)tag;

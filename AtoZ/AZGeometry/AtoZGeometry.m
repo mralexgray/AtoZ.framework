@@ -56,7 +56,7 @@ CGP AZAnchorPointForPosition( AZPOS pos){
 NSR	AZRandomRectinRect(CGRect rect){
 
 	NSR r = AZRectFromDim(RAND_FLOAT_VAL(0, AZMinDim(rect.size)));
-	r.origin = AZRandomPointInRect(AZRectFromDim(AZMinDim(rect.size) - r.size.width));
+	r.origin = AZRandomPointInRect(AZRectBy(rect.size.width-r.size.width,rect.size.height-r.size.height));
 	return r;
 }
 

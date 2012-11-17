@@ -48,6 +48,11 @@ typedef void (^AZBlockTask)(id obj, NSDictionary *change);
 - (void)removeObserverWithBlockToken:(AZBlockToken *)token;
 @end
 @interface NSObject (AtoZ)
+
+
+- (id) performString:(NSS*)string;
+- (id) performString:(NSS*)string withObject:(id) obj;
+
 - (NSArray *) instanceMethods;
 - (NSArray *) instanceMethodNames;
 + (NSArray *) instanceMethods;

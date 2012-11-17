@@ -9,14 +9,75 @@
 #import "AZLayer.h"
 
 @implementation AZLayer
-@synthesize orient, front, back, iconL, labelL, index, string, image, stringToDraw, font, flipped, hovered, selected;
 
 + (id)defaultValueForKey:(NSString *)key	{
 
-	return 	[key isEqualToString:@"masksToBounds"	] ? @YES
-		:	[key isEqualToString:@"doubleSided"		] ? @NO
+	return 	[key isEqualToString:@"masksToBounds"	] ? @(YES)
+		:	[key isEqualToString:@"doubleSided"		] ? @(NO)
 		: 	[super defaultValueForKey:key];
 }
+
+-(id<CAAction>)actionForKey:(NSString *)event
+{
+	return [@[@"content", @"color"]containsObject:event] ? [self _makeAnimationForSomeKey:event]
+	: [super actionForKey:event];
+}
+
+- (id)initWithLayer:(id)layer
+{
+	if(! (self = [super initWithLayer:layer])) return nil;
+	[self setWithDictionary:[layer propertiesPlease]];
+	return self;
+}
+
++ (BOOL)needsDisplayForKey:(NSString *)key {
+	if ([key isEqualToString:@"startAngle"] || [key isEqualToString:@"endAngle"]) {
+		return YES;
+	}
+
+	return [super needsDisplayForKey:key];
+}
+
+
+
+-(CABA*)_makeAnimationForSomeKey: (NSS*)key
+{
+	return [CABA propertyAnimation: @{	@"keyPath"			: key,
+										@"fromValue"			: self.permaPresentation[key],
+										@"timingFunction" 	: CAMEDIAEASEOUT,
+										@"duration"			: @3 }];
+}
+
+
+-(void)drawInContext:(CGContextRef)ctx {
+/*
+	// Create the path
+	CGPoint center = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
+	CGFloat radius = MIN(center.x, center.y);
+
+	CGContextBeginPath(ctx);
+	CGContextMoveToPoint(ctx, center.x, center.y);
+
+	CGPoint p1 = CGPointMake(center.x + radius * cosf(self.startAngle), center.y + radius * sinf(self.startAngle));
+	CGContextAddLineToPoint(ctx, p1.x, p1.y);
+
+	int clockwise = self.startAngle > self.endAngle;
+	CGContextAddArc(ctx, center.x, center.y, radius, self.startAngle, self.endAngle, clockwise);
+
+	//	CGContextAddLineToPoint(ctx, center.x, center.y);
+
+	CGContextClosePath(ctx);
+
+	// Color it
+	CGContextSetFillColorWithColor(ctx, self.fillColor.CGColor);
+	CGContextSetStrokeColorWithColor(ctx, self.strokeColor.CGColor);
+	CGContextSetLineWidth(ctx, self.strokeWidth);
+
+	CGContextDrawPath(ctx, kCGPathFillStroke);
+*/
+}
+@end
+
 
 /*
 - (void)drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx {
@@ -60,4 +121,3 @@
  //	[_iconL addConstraintsSuperSizeScaled:.4];
  }
 */
-@end

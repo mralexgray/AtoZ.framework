@@ -24,6 +24,17 @@ typedef void (^AZCAAnimationCompletionBlock)();
 //	[CATransaction setValue:@(YES) forKey:kCATransactionDisableActions];
 //}
 
+
+@interface CAAnimation (BlocksAddition)
+
+@property (nonatomic, copy) void (^completion)(BOOL finished);
+@property (nonatomic, copy) void (^start)(void);
+
+- (void)setCompletion:(void (^)(BOOL finished))completion; // Forces auto-complete of setCompletion: to add the name 'finished' in the block parameter
+
+@end
+
+
 extern void disableCA();
 @interface CAKeyframeAnimation (JumpingAndShaking)
 
@@ -34,6 +45,9 @@ extern void disableCA();
 @end
 
 @interface CAAnimation (AtoZ)
+
++ (instancetype) propertyAnimation: (NSD*) dict;
+
 + (CAAnimation*)randomPathAnimationWithStartingPoint:(CGPoint)firstPoint inFrame:(NSR)rect;
 + (CAAnimation*)randomPathAnimationInFrame:(NSRect) frame;
 

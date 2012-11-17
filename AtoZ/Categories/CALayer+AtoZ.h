@@ -170,6 +170,9 @@ extern CATransform3D CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13, CG
 @end
 @interface CALayer (LTKAdditions)
 
+@property (readonly, nonatomic) CAL* permaPresentation;
+
+
 @property (readwrite, nonatomic, assign) CGPoint frameOrigin;
 @property (readwrite, nonatomic, assign) CGSize frameSize;
 @property (readwrite, nonatomic, assign) CGFloat frameX;

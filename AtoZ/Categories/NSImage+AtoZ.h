@@ -19,6 +19,35 @@ typedef enum {
 	AGImageResizeCropEnd,
 	AGImageResizeScale
 } 	AGImageResizingMethod;
+
+
+
+@interface NSImage (Merge)
+
+/*!
+ @brief    Returns an image constructed by tiling a given array
+ of images side-by-side or top-to-bottom.
+
+ @param    spacingX  Spacing which will be applied horizontally between
+ images, and at the left and right borders.
+ @param    spacingY  Spacing which will be applied vertitally between
+ images, and at the bottom and top borders.
+ @param    vertically  YES to tile the given images from top
+ to bottom, starting with the first image in the array at the top.
+ NO to tile the given images from left to right, starting with
+ the first image in the array at the left.
+ */
++ (NSImage*)imageByTilingImages:(NSArray*)images
+					   spacingX:(CGFloat)spacingY
+					   spacingY:(CGFloat)spacingY
+					 vertically:(BOOL)vertically ;
+
+- (NSImage*)imageBorderedWithInset:(CGFloat)inset ;
+
+- (NSImage*)imageBorderedWithOutset:(CGFloat)outset ;
+
+@end
+
 @class AZFile;
 @interface NSImage (AtoZ)
 
@@ -81,6 +110,7 @@ typedef enum {
 - (NSA*) quantize;
 + (NSIMG*) desktopImage;
 - (void) openInPreview;
++ (NSIMG*) svg2png:(NSString*)inFile out:(NSString*)optionalOutFile;
 - (void) openQuantizedSwatch;
 - (NSIMG*) generateQuantizedSwatch;
 + (void) openQuantizeChartFor:(NSA*)images;
@@ -258,6 +288,15 @@ typedef enum {
 - (id)objectForKeyedSubscript:(NSString *)key;
 - (void)setObject:(id)object forKeyedSubscript:(NSString *)key;
 @end
+
+
+
 @interface CIFilter (WithDefaults)
 + (CIFilter*) filterWithDefaultsNamed: (NSString*) name;
+@end
+
+
+@interface NSImageView (AtoZ)
++(NSIV*)imageViewWithImage:(NSIMG*)img ;
++(void) addImageViewWithImage:(NSIMG*)img toView:(NSV*)v;
 @end

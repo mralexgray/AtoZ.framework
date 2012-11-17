@@ -41,6 +41,12 @@ typedef void(^AZBlockViewDrawer)(AZBlockView *view, NSRect dirtyRect);
 
 */
 
+typedef void(^NSImageDrawer)(void);
+@interface NSImage (AtoZDrawBlock)
++ (NSImage*)imageWithSize:(NSSZ)size drawnUsingBlock:(NSImageDrawer)drawBlock;
+@end
+
+
 @class BNRBlockView;
 typedef void(^BNRBlockViewDrawer)(BNRBlockView *view, NSRect dirtyRect);
 @interface BNRBlockView : NSView

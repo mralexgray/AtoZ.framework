@@ -35,8 +35,8 @@ NSString *NSDCIMFolder()
 
 - (NSA*) pathsOfContentsOfDirectory:(NSString*) directory;
 {
-	NSArray*files = [AZFILEMANAGER contentsOfDirectoryAtPath:directory error:nil];
-	return [files map:^id(id obj) {		return [directory stringByAppendingPathComponent:obj];}];
+	NSArray*files = [AZFILEMANAGER contentsOfDirectoryAtPath:[[directory stringByExpandingTildeInPath] stringByResolvingSymlinksInPath] error:nil];
+	return [files map:^id(id obj) {		return [[[directory stringByAppendingPathComponent:obj]stringByExpandingTildeInPath]stringByResolvingSymlinksInPath];}];
 }
 #pragma Globbing
 

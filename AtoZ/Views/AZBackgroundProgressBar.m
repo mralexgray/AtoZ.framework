@@ -16,22 +16,39 @@ const CGFloat framesPerSecond = 30.0;
 - (id)initWithFrame:(NSRect)frameRect
 {
 	if (self = [super initWithFrame:frameRect]) {
-		NSIMG* i = [[self superview] snapshot];
-		[i openInPreview];
-		NSC* back = [i quantize][0];
-		onDark = [back isDark];
 		shouldStop = NO;
+		[self reactToBackdrop];
 		[self startAnimation:nil];
 	}	return self;
 }
+- (void) awakeFromNib
+{
+	shouldStop = NO;
+	[self reactToBackdrop];
+	[self startAnimation:nil];
+}
+
+- (void) reactToBackdrop {
+
+	self.highContrast = YES;
+//	NSIMG* i = [[self superview] snapshot];
+//	[i openInPreview];
+//	NSC* back = [i quantize][0];
+//	onDark = [back isDark];
+//	NSLog(@"analysing backdrop with image:%@   color:%@   isDark: %@", i, back, onDark);
+}
 
 - (BOOL)isFlipped { return YES;  }
+
+- (NSC*) primaryColor { return _primaryColor ?: [NSColor colorWithCalibratedWhite:0.0 alpha:onDark ? .5 :0.06]; }
 
 - (void)drawRect:(NSRect)dirtyRect
 {
 	//	if (shouldStop)
 	//		return;
 	NSRect rect = [self bounds];
+	if (_highContrast) { NSRectFillWithColor(self.bounds,GRAY9); self.primaryColor = GRAY1; }
+
 	NSBezierPath *bp = [NSBezierPath bezierPath];
 	NSInteger numX = ceil(rect.size.width / 25.0);
 	CGFloat bandWidth = 20;
@@ -46,7 +63,7 @@ const CGFloat framesPerSecond = 30.0;
 		[bp lineToPoint:NSMakePoint( lastX+0.5, rect.size.height+0.5 - h)];
 		lastX += bandWidth * 2 - 1;
 	}
-	[[NSColor colorWithCalibratedWhite:0.0 alpha:onDark ? .5 :0.06] set];
+	[self.primaryColor set];
 	[bp fill];
 }
 
