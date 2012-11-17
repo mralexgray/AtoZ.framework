@@ -93,3 +93,4 @@
 [submodule "ContactFlow"]
 	path = ContactFlow
 	url = https://github.com/mralexgray/ContactFlow.git
+	ignore = dirty
