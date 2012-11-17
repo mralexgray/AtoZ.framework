@@ -50,7 +50,7 @@
 		[[SoundManager sharedInstance] playSound:[Sound soundNamed:@"unlock"]];
 	}();
 
-	TestBedDelegate *d = (TestBedDelegate*)[[NSApplication sharedApplication]delegate];
+//	TestBedDelegate *d = (TestBedDelegate*)[[NSApplication sharedApplication]delegate];
 	self.pBar.primaryColor = RANDOMCOLOR;
 
 }

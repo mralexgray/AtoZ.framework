@@ -18,6 +18,13 @@
 //	|| NO;
 //}
 
+AZRange AZMakeRange 	  ( NSI min,  NSI max  	   ) { return (AZRange) {min, max }; 				   }
+NSUI    AZIndexInRange 	  (	NSI fake, AZRange rng  ) { return fake - rng.min;           			   }
+NSI   	AZNextSpotInRange (	NSI spot, AZRange rng  ) { return spot + 1 > rng.max ? rng.min : spot + 1; }
+NSI   	AZPrevSpotInRange (	NSI spot, AZRange rng  ) { return spot - 1 < rng.min ? rng.max : spot - 1; }
+NSUI    AZSizeOfRange 	  ( AZRange rng            ) { return rng.max - rng.min;					   }
+
+
 
 
 //// SANDBOX

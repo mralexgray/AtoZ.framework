@@ -10,13 +10,18 @@
 
 
 
+
 @interface NSTextField (TargetAction)
 
 - (void) setAction:(SEL)method withTarget:(id)object;
 
 @end
 
+typedef void(^NSControlActionBlock)(id inSender);
+
 @interface NSControl (AtoZ)
+
+@property (readwrite, nonatomic, copy) NSControlActionBlock actionBlock;
 
 - (void) setAction:(SEL)method withTarget:(id)object;
 

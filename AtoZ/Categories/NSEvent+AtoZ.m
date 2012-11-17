@@ -18,8 +18,28 @@
 
 @end
 
+#include <objc/runtime.h>
+
+static NSString *NSCONTROLBLOCKACTIONKEY = @"com.mrgray.NSControl.block";
 
 @implementation NSControl (AtoZ)
+@dynamic actionBlock;
+
+- (NSControlActionBlock)actionBlock
+{
+//	NSControlActionBlock theBlock =
+	return (NSControlActionBlock)[self associatedValueForKey:NSCONTROLBLOCKACTIONKEY];
+//	return(theBlock);
+}
+
+- (void)setActionBlock:(NSControlActionBlock)inBlock
+{
+	self.target = self;
+	self.action = @selector(callAssociatedBlock:);
+	[self setAssociatedValue:inBlock forKey: NSCONTROLBLOCKACTIONKEY policy:OBJC_ASSOCIATION_COPY];
+}
+
+- (void)callAssociatedBlock:(id)inSender { self.actionBlock(inSender); }
 
 - (void) setAction:(SEL)method withTarget:(id)object;
 {

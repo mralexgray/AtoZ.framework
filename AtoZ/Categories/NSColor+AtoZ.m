@@ -1980,39 +1980,38 @@ scanFailed:
 
 @implementation NSColor (NSColor_CSSRGB)
 
-+ (NSColor*) colorWithCSSRGB:(NSString*)rgbString {
-    static NSCharacterSet *open = nil; if ( open == nil ) open = [NSCharacterSet characterSetWithCharactersInString:@"("];//retain];
-    static NSCharacterSet *close = nil; if ( close == nil ) close = [NSCharacterSet characterSetWithCharactersInString:@")"];//retain];
++ (NSColor*) colorWithCSSRGB:(NSString*)rgbString
+{
+    static NSCharacterSet *open  = nil;  open = open  ?: [NSCharacterSet characterSetWithCharactersInString:@"("];//retain];
+    static NSCharacterSet *close = nil; close = close ?: [NSCharacterSet characterSetWithCharactersInString:@")"];//retain];
 
-    NSI iBegin = [rgbString rangeOfCharacterFromSet:open].location;
-    NSI iClose = [rgbString rangeOfCharacterFromSet:close].location;
+    NSI iBegin 		= [rgbString rangeOfCharacterFromSet:open].location;
+    NSI iClose 		= [rgbString rangeOfCharacterFromSet:close].location;
     if ( iBegin == NSNotFound || iClose == NSNotFound )  return nil;
-    NSS *rgbSub = [rgbString substringWithRange:NSMakeRange(iBegin+1,iClose-(iBegin+1))];
-    NSA *components = [rgbSub componentsSeparatedByString:@","];
+    NSS *rgbSub 	= [rgbString substringWithRange:NSMakeRange(iBegin+1,iClose-(iBegin+1))];
+    NSA *components = [rgbSub 	 componentsSeparatedByString:@","];
     if ( [components count] != 3 )  return nil;
 
-   NSA* componentValues = [[[components filter:^BOOL(NSS *aComponent ) {
-		return <#expression#>[aComponent stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-        if ( [cleanedComponent length] == 0 )
-            continue;
-
-        NSNumber *numericValue = [NSNumber numberWithFloat:[cleanedComponent floatValue]];
-        [componentValues addObject:numericValue];
-    }
-
-    if ( [componentValues count] != 3 )
-        return nil;
-
-    NSColor *color = [NSColor colorWithCalibratedRed:[[componentValues objectAtIndex:0] floatValue]/255.
-											   green:[[componentValues objectAtIndex:1] floatValue]/255.
-												blue:[[componentValues objectAtIndex:2] floatValue]/255.
-											   alpha:1.0];
-
-    return color;
+	NSA* componentValues = [components cw_mapArray:^id(NSS* aComponent) {
+        NSString *cleanedComponent = [aComponent stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+		return [cleanedComponent length] == 0 ? nil : @([cleanedComponent floatValue]);
+	}];
+    return  [componentValues count] != 3 ? nil : [NSC colorWithCalibratedRed: [componentValues[0]fV] / 255.
+																	   green: [componentValues[1]fV] / 255.
+																		blue: [componentValues[2]fV] / 255. alpha:1];
 }
 
 @end
 
+@implementation NSColor (NSColor_ColorspaceEquality)
+
+- (BOOL) isEqualToColor:(NSC*)inColor colorSpace:(NSS*)inColorSpace
+{
+	return  [self colorUsingColorSpaceName:inColorSpace] &&      [inColor colorUsingColorSpaceName:inColorSpace]
+		&& [[self colorUsingColorSpaceName:inColorSpace] isEqual:[inColor colorUsingColorSpaceName:inColorSpace]];
+}
+
+@end
 
 //@implementation NSColor (AIColorAdditions_HTMLSVGCSSColors)
 

@@ -7,8 +7,12 @@
 //
 
 #import "AtoZ.h"
+#import "MArray.h"
 
-@interface AZPalette : NSObject
+@interface AZPalette : MArray
+
++ (AZP*) randomPalette;
+
 @property (strong, NATOM) 	NSA *indexed;
 @property (strong, NATOM) 	NSMA *feeder;
 

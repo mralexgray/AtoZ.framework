@@ -536,8 +536,3 @@
 //+ (NSString*)representedColorForObject: (id)anObject withValidColors: (NSA*)validColors;
 
 //@end
-//@implementation NSColor (NSColor_ColorspaceEquality)
-
-//- (BOOL)	isEqualToColor:(NSColor*)inColor colorSpace:(NSString*)inColorSpace ;
-
-//@end

@@ -5,77 +5,75 @@
 //  Created by Alex Gray on 10/8/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 //
+const NSString* zkeyP  = @"keyPath";
+const NSString* zdurA  = @"duration";
+const NSString* zfromV = @"fromValue";
+const NSString* ztimeF = @"timingFunction";
 
 #import "AZLayer.h"
 
 @implementation AZLayer
+- (id)initWithLayer:(id)layer	{	if(!(self = [super initWithLayer:layer])) return nil;
+										[self setWithDictionary:[layer propertiesPlease]];
+	return self;
+}
 
-+ (id)defaultValueForKey:(NSString *)key	{
++ (instancetype) layerAtIndex:(NSI)idx inRange:(RNG)rng unit:(CGF)unit
+{
+	AZLayer *z = [[self class]layer];	z.index = idx; 	z.range = rng;	z.unit  = unit;	 return z;
+}
 
-	return 	[key isEqualToString:@"masksToBounds"	] ? @(YES)
-		:	[key isEqualToString:@"doubleSided"		] ? @(NO)
-		: 	[super defaultValueForKey:key];
+
++ (id)defaultValueForKey:(NSString *)key
+{
+	static NSD* vals = nil;	vals = vals ?: @{ 	@"masksToBounds"	: @(YES),
+												@"doubleSided"		: @(NO)		};
+
+	return [vals.allKeys containsObject:key] ? vals[key] : [super defaultValueForKey:key];
 }
 
 -(id<CAAction>)actionForKey:(NSString *)event
 {
 	return [@[@"content", @"color"]containsObject:event] ? [self _makeAnimationForSomeKey:event]
-	: [super actionForKey:event];
+													     : [super actionForKey:event];
 }
 
-- (id)initWithLayer:(id)layer
+
++ (BOOL)needsDisplayForKey:(NSString *)key
 {
-	if(! (self = [super initWithLayer:layer])) return nil;
-	[self setWithDictionary:[layer propertiesPlease]];
-	return self;
+	return [@[@"startAngle", @"endAngle"] containsObject:key] ?: [super needsDisplayForKey:key];
 }
-
-+ (BOOL)needsDisplayForKey:(NSString *)key {
-	if ([key isEqualToString:@"startAngle"] || [key isEqualToString:@"endAngle"]) {
-		return YES;
-	}
-
-	return [super needsDisplayForKey:key];
-}
-
-
 
 -(CABA*)_makeAnimationForSomeKey: (NSS*)key
 {
-	return [CABA propertyAnimation: @{	@"keyPath"			: key,
-										@"fromValue"			: self.permaPresentation[key],
-										@"timingFunction" 	: CAMEDIAEASEOUT,
-										@"duration"			: @3 }];
+	return [CABA propertyAnimation: @{	zkeyP	: key,
+										zdurA 	: @3,
+										zfromV	: self.permaPresentation[key],
+										ztimeF 	: CAMEDIAEASEOUT}];
+
 }
 
 
--(void)drawInContext:(CGContextRef)ctx {
+-(void)drawInContext:(CGContextRef)ctx {	}
 /*
 	// Create the path
 	CGPoint center = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
 	CGFloat radius = MIN(center.x, center.y);
-
 	CGContextBeginPath(ctx);
 	CGContextMoveToPoint(ctx, center.x, center.y);
-
 	CGPoint p1 = CGPointMake(center.x + radius * cosf(self.startAngle), center.y + radius * sinf(self.startAngle));
 	CGContextAddLineToPoint(ctx, p1.x, p1.y);
-
 	int clockwise = self.startAngle > self.endAngle;
 	CGContextAddArc(ctx, center.x, center.y, radius, self.startAngle, self.endAngle, clockwise);
-
 	//	CGContextAddLineToPoint(ctx, center.x, center.y);
-
 	CGContextClosePath(ctx);
-
 	// Color it
 	CGContextSetFillColorWithColor(ctx, self.fillColor.CGColor);
 	CGContextSetStrokeColorWithColor(ctx, self.strokeColor.CGColor);
 	CGContextSetLineWidth(ctx, self.strokeWidth);
-
 	CGContextDrawPath(ctx, kCGPathFillStroke);
 */
-}
+
 @end
 
 

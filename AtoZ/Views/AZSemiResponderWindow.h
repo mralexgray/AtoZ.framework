@@ -18,14 +18,6 @@
 //@end
 
 
-typedef struct _AZRange {	NSI min;	NSI max;	} AZRange;
-
-FOUNDATION_EXPORT AZRange   AZMakeRange ( 		NSI min,  NSI max      );
-FOUNDATION_EXPORT NSUI      AZIndexInRange (	NSI fake, AZRange rng  );
-FOUNDATION_EXPORT NSI   	AZNextSpotInRange (	NSI spot, AZRange rng  );
-FOUNDATION_EXPORT NSI   	AZPrevSpotInRange (	NSI spot, AZRange rng  );
-FOUNDATION_EXPORT NSUI      AZSizeOfRange ( 	AZRange rng            );
-
 
 
 
@@ -41,18 +33,32 @@ typedef void (^animationCompletionBlock)(void);
 -(void) bordlerlessInit;
 @end
 
+@protocol  AZSemiResponder
+@optional
+-(void) windowEvent:(NSEvent*)event;
+@end
+
 @interface AZSemiResponderWindow : NSWindow
 
+//@property (NATOM, STRNG) BLKVIEW *contentBlock;
+
+@property (NATOM, STRNG) CAL *hit, *content, *root;
+@property (NATOM, ASS)   NSR inactiveRect;
+@property (NATOM, ASS)  NSP  scrollPoint, dragStart, dragDiff;
+@property (NATOM, ASS)  BOOL dragging, noHit;
+
+@property (ASS)  id <AZSemiResponder> semiResponder;
 
 @property (NATOM, ASS) NSI unitOffset;
 @property (NATOM, ASS) CGF unit;
-@property (NATOM, ASS) NSP scrollPoint, dragStart, dragDiff;
-@property (NATOM, ASS) NSR perfectRect;
-
-
-@property (nonatomic,retain) NSMD *spots;
-@property (nonatomic,retain) CAL *scrollLayer;
-@property (weak) AZSimpleView *hoveredView;
-@property (nonatomic,retain) NSView *bar, *drawerView;
-
 @end
+
+
+//@property (NATOM, ASS) NSR perfectRect;
+
+
+//@property (nonatomic,retain) NSMD *spots;
+//@property (nonatomic,retain) CAL *scrollLayer;
+//@property (nonatomic,retain) NSView *bar, *drawerView;
+
+

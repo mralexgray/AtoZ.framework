@@ -14,6 +14,7 @@
 
 #import "AtoZ.h"
 
+
 @class AZBlockView;
 // Declare the AZBlockViewDrawer block type:
 typedef void(^AZBlockViewDrawer)(AZBlockView *view, NSRect dirtyRect);
@@ -40,6 +41,8 @@ typedef void(^AZBlockViewDrawer)(AZBlockView *view, NSRect dirtyRect);
 }
 
 */
+
+
 
 typedef void(^NSImageDrawer)(void);
 @interface NSImage (AtoZDrawBlock)

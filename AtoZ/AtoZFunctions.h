@@ -25,6 +25,15 @@
 #define boardPositionToIndex(pos, boardSize) ((pos).x - 1) + (((pos).y - 1) * boardSize)
 #define indexToBoardPosition(idx, boardSize) (CGPointMake((x) % boardSize, (int)((x) / boardSize) + 1))
 
+typedef struct _AZRange {	NSI min;	NSI max;	} AZRange;
+
+FOUNDATION_EXPORT AZRange   AZMakeRange ( 		NSI min,  NSI max      );
+FOUNDATION_EXPORT NSUI      AZIndexInRange (	NSI fake, AZRange rng  );
+FOUNDATION_EXPORT NSI   	AZNextSpotInRange (	NSI spot, AZRange rng  );
+FOUNDATION_EXPORT NSI   	AZPrevSpotInRange (	NSI spot, AZRange rng  );
+FOUNDATION_EXPORT NSUI      AZSizeOfRange ( 	AZRange rng            );
+
+
 
 ///// ### SANDBOX
 NSString *realHomeDirectory();

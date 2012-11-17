@@ -498,6 +498,8 @@
 		7BEF70271603112800A0300E /* NSBundle+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BEF70251603112800A0300E /* NSBundle+AtoZ.m */; };
 		7BF0571C15EB33F3003A2A7A /* AZSpinnerLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF0571A15EB33F2003A2A7A /* AZSpinnerLayer.m */; };
 		7BF0571D15EB33F3003A2A7A /* AZSpinnerLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BF0571B15EB33F3003A2A7A /* AZSpinnerLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BF09CD21657DE95008218DD /* MArray.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BF09CD01657DE95008218DD /* MArray.h */; };
+		7BF09CD31657DE95008218DD /* MArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF09CD11657DE95008218DD /* MArray.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7BF26177164EDAE40057EB88 /* Lumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF26172164EDAB00057EB88 /* Lumberjack.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		7BF26178164EDAFD0057EB88 /* Lumberjack.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7BF26172164EDAB00057EB88 /* Lumberjack.framework */; };
 		7BF2617B164EEC050057EB88 /* DrawKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BA35FA616449FDF00BFEB6B /* DrawKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -1167,8 +1169,8 @@
 		7B1528F515F49DCD00027191 /* RGB.clr */ = {isa = PBXFileReference; lastKnownFileType = text; path = RGB.clr; sourceTree = "<group>"; };
 		7B1822A91623176E00C19DBB /* NSImage-Tint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.objj.h; path = "NSImage-Tint.h"; sourceTree = "<group>"; };
 		7B1822AA1623176F00C19DBB /* NSImage-Tint.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSImage-Tint.m"; sourceTree = "<group>"; };
-		7B1822CC16238F1700C19DBB /* AZLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.objj.h; path = AZLayer.h; sourceTree = "<group>"; };
-		7B1822CD16238F1700C19DBB /* AZLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AZLayer.m; sourceTree = "<group>"; };
+		7B1822CC16238F1700C19DBB /* AZLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AZLayer.h; path = Classes/AZLayer.h; sourceTree = "<group>"; };
+		7B1822CD16238F1700C19DBB /* AZLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AZLayer.m; path = Classes/AZLayer.m; sourceTree = "<group>"; };
 		7B184ED015FC943E00696360 /* AZCSSColorExtraction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = AZCSSColorExtraction.h; sourceTree = "<group>"; };
 		7B184ED115FC943E00696360 /* AZCSSColorExtraction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZCSSColorExtraction.m; sourceTree = "<group>"; };
 		7B184EDF15FCA4F400696360 /* mrgray.logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = mrgray.logo.png; path = ../mrgray.logo.png; sourceTree = "<group>"; };
@@ -1758,6 +1760,8 @@
 		7BEF70251603112800A0300E /* NSBundle+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+AtoZ.m"; sourceTree = "<group>"; };
 		7BF0571A15EB33F2003A2A7A /* AZSpinnerLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZSpinnerLayer.m; sourceTree = "<group>"; };
 		7BF0571B15EB33F3003A2A7A /* AZSpinnerLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZSpinnerLayer.h; sourceTree = "<group>"; };
+		7BF09CD01657DE95008218DD /* MArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = MArray.h; path = Models/MArray.h; sourceTree = SOURCE_ROOT; };
+		7BF09CD11657DE95008218DD /* MArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MArray.m; path = Models/MArray.m; sourceTree = SOURCE_ROOT; };
 		7BF26168164EDAB00057EB88 /* Lumberjack.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Lumberjack.xcodeproj; path = ../Frameworks/CocoaLumberjack/Xcode/LumberjackFramework/Desktop/Lumberjack.xcodeproj; sourceTree = "<group>"; };
 		7BF9854915FEBDB100D47192 /* AtoZFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = AtoZFunctions.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		7BF9854A15FEBDB200D47192 /* AtoZFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AtoZFunctions.m; sourceTree = SOURCE_ROOT; };
@@ -1881,8 +1885,6 @@
 				7B9D5B7315ECE85F005D1A76 /* AZLassoLayer.m */,
 				7B379C8C15DDBBB30040A093 /* AZLassoView.h */,
 				7B379C8A15DDBB8A0040A093 /* AZLassoView.m */,
-				7B1822CC16238F1700C19DBB /* AZLayer.h */,
-				7B1822CD16238F1700C19DBB /* AZLayer.m */,
 				7B112A9A15D45B10002C97E8 /* AZObject.h */,
 				7B112A9B15D45B10002C97E8 /* AZObject.m */,
 				7BF9E7D5159F0A0500B5482D /* AZPopupWindow.h */,
@@ -2097,6 +2099,8 @@
 				7BF9854A15FEBDB200D47192 /* AtoZFunctions.m */,
 				7B095DFD161AD78D0076C990 /* AZSemiResponderWindow.h */,
 				7B095DFE161AD78D0076C990 /* AZSemiResponderWindow.m */,
+				7B1822CC16238F1700C19DBB /* AZLayer.h */,
+				7B1822CD16238F1700C19DBB /* AZLayer.m */,
 				7B449D9B16164B5200AB9335 /* AtoZ-Framework.pch */,
 				7B583063159BDA900039CEED /* Categories */,
 				7B05BB09159C406200409B83 /* Classes */,
@@ -2415,6 +2419,8 @@
 		7B59C8281600D346009DAFCA /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				7BF09CD01657DE95008218DD /* MArray.h */,
+				7BF09CD11657DE95008218DD /* MArray.m */,
 				7B71E72B16127CDF0015F4E4 /* Transition.h */,
 				7B71E725161268190015F4E4 /* CTGradient.h */,
 				7B71E726161268190015F4E4 /* CTGradient.m */,
@@ -3239,6 +3245,7 @@
 				7BDF41F1164AFD3F008B3240 /* NSObject+AtoZ.h in Headers */,
 				7BB3047A1646BCC9006CDC56 /* AZPalette.h in Headers */,
 				7BA35FF01645618400BFEB6B /* StarLayer.h in Headers */,
+				7BF09CD21657DE95008218DD /* MArray.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4177,6 +4184,7 @@
 				7BA35FF11645618400BFEB6B /* StarLayer.m in Sources */,
 				7BB5AFFE16481EB3008D50A5 /* BBMeshView.m in Sources */,
 				7B5180761654EE7400C7A28B /* LetterView.m in Sources */,
+				7BF09CD31657DE95008218DD /* MArray.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4524,12 +4532,12 @@
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				FRAMEWORK_VERSION = A;
-				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "AtoZ-Framework.pch";
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "./AtoZ-Framework.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "DEBUGTALKER=1";
 				GCC_SHORT_ENUMS = YES;
 				GCC_USE_INDIRECT_FUNCTION_CALLS = NO;
@@ -4550,6 +4558,8 @@
 					"-fobjc-runtime-has-weak",
 				);
 				OTHER_LDFLAGS = (
+					"-undefined",
+					dynamic_lookup,
 					"-ObjC",
 					"-all_load",
 					"-sub_library",
@@ -4603,12 +4613,12 @@
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				FRAMEWORK_VERSION = A;
-				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "AtoZ-Framework.pch";
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "./AtoZ-Framework.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "DEBUGTALKER=1";
 				GCC_SHORT_ENUMS = YES;
 				GCC_USE_INDIRECT_FUNCTION_CALLS = NO;
@@ -4629,6 +4639,8 @@
 					"-fobjc-runtime-has-weak",
 				);
 				OTHER_LDFLAGS = (
+					"-undefined",
+					dynamic_lookup,
 					"-ObjC",
 					"-all_load",
 					"-sub_library",

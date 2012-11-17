@@ -41,9 +41,9 @@
 @property (NATOM, STRNG) NSMD* vcs;
 
 
-@property (STRNG, NATOM) AtoZ 				*propeller;
-@property (STRNG, NATOM) NASpinSeque 		*seque;
-@property (STRNG, NATOM) AZSemiResponderWindow 		*mbWindow;
+@property (STRNG, NATOM) AtoZ 					*propeller;
+@property (STRNG, NATOM) NASpinSeque 			*seque;
+@property (STRNG, NATOM) AZSemiResponderWindow	*semiWindow;
 
 
 - (IBAction) setViewFromPopUp:(id)sender;

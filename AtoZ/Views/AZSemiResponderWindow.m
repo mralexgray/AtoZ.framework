@@ -5,12 +5,6 @@
 
 
 
-AZRange AZMakeRange 	  ( NSI min,  NSI max  	   ) { return (AZRange) {min, max }; 				   }
-NSUI    AZIndexInRange 	  (	NSI fake, AZRange rng  ) { return fake - rng.min;           			   }
-NSI   	AZNextSpotInRange (	NSI spot, AZRange rng  ) { return spot + 1 > rng.max ? rng.min : spot + 1; }
-NSI   	AZPrevSpotInRange (	NSI spot, AZRange rng  ) { return spot - 1 < rng.min ? rng.max : spot - 1; }
-NSUI    AZSizeOfRange 	  ( AZRange rng            ) { return rng.max - rng.min;					   }
-
 
 //Then, if I want to run animation completion code after a CAAnimation finishes, I set myself as the delegate of the animation, and add a block of code to the animation using setValue:forKey:
 //animationCompletionBlock theBlock = ^void(void)
@@ -31,32 +25,148 @@ NSUI    AZSizeOfRange 	  ( AZRange rng            ) { return rng.max - rng.min;	
 */
 
 
-@interface AZDynamicTabLayer : CALayer
+@interface AZDynamicTabLayer : CALayer <AZSemiResponder>
+
+@property (STRNG, NATOM) AZPalette 				*palette;
+@property (STRNG, NATOM) OrderedDictionary 		*tabs;
+@property (STRNG, NATOM) AZSemiResponderWindow  *window;
+@property (STRNG, NATOM) AZSizer 				*sizer;
+@property (ASS,   NATOM) RNG 				     range;
+@property (ASS,   NATOM) AZOrient				 orient;
+
+
 + (id<CAAction>)defaultActionForKey:(NSString *)event;
+
 @end
 
+@implementation AZDynamicTabLayer
+
+-(id) init
+{
+	if (!(self = [super init])) return nil;
+	self.palette 	= [AZPalette 			 new];
+	self.tabs  		= [OrderedDictionary     new];
+	self.window		= [AZSemiResponderWindow new];
+	self.sublayers  = [_palette col
+	return self;
+}
+
+
+@end
+#define WINCOLS NSWindowCollectionBehaviorCanJoinAllSpaces | NSWindowCollectionBehaviorStationary
 
 @implementation AZSemiResponderWindow
 
 - (id) init { if (!(self = [self initWithContentRect:AZScreenFrameUnderMenu() styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO] )) return nil;
 
-	self.scrollPoint = NSZeroPoint;
-	self.unitOffset  = 1;
+//	self.inactiveRect = AZScaleRect(self.frame, .5);
+	self.scrollPoint  = NSZeroPoint;
+	self.unitOffset   = 1;
 
-	self.backgroundColor 	= [RED alpha:.2]; 	self.level = NSNormalWindowLevel - 2;	// CGWindowLevelForKey(kCGCursorWindowLevelKey)];
-	self.hidesOnDeactivate  = YES;		self.acceptsMouseMovedEvents  =NO;   self.opaque = NO;
-	self.collectionBehavior	= NSWindowCollectionBehaviorCanJoinAllSpaces | NSWindowCollectionBehaviorStationary;
-	self.scrollLayer	 	= [CAL  layerNamed:@"scroll"		];
-	((NSV*)self.contentView).layer		= _scrollLayer;
-	((NSV*)self.contentView).wantsLayer	= YES;
-	_scrollLayer.layoutManager = self;
-	_scrollLayer.arMASK 	= CASIZEABLE;
-	CAT3D subT 			= CATransform3DIdentity;
-	subT.m34 			= 1.0 / -2000;
-	_scrollLayer.sublayerTransform = subT;
+	self.opaque 					= NO;
+	self.level 					 	= NSNormalWindowLevel;	// CGWindowLevelForKey(kCGCursorWindowLevelKey)];
+	self.backgroundColor 			= CLEAR;//[RED alpha:.2];
+	self.hidesOnDeactivate  			= NO;
+	self.collectionBehavior			= WINCOLS;
 
-	NSArray *r 			= [[NSColor randomPalette]withMaxItems:30];
-	self.unit			= ScreenWidess() / r.count;
+	self.ignoresMouseEvents 			= YES;
+	self.acceptsMouseMovedEvents  	= YES;
+	self.inactiveRect 				= NSInsetRect(self.frame, 100, 100);
+
+
+	[self.contentView addSubview:	[BLKVIEW viewWithFrame:_inactiveRect opaque:NO drawnUsingBlock:^(BNRBlockView *view, NSRect dirtyRect) {
+		static NSC *c = nil;  c = c ?: RANDOMCOLOR;
+//		int opts = (NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways);
+//		NSTA *tarea = [[NSTA alloc] initWithRect:view.bounds options:opts owner:self userInfo:nil];//		[view setWantsLayer:YES];
+//		[view addTrackingArea:tarea];
+//		[CATransaction immediately:^{ [[view layer] setOpacity:0.0]; }];
+		[[c alpha:.4]set];
+		[NSBezierPath fillRect:dirtyRect];
+	}]];
+//	AZCenteredRect(AZMultiplySize(self.frame.size, .5), [self frame])
+//	([[self contentView] bounds], 100)
+//	opaque:NO drawnUsingBlock:^(BLKVIEW *view, NSRect dirtyRect) {
+//		[NSEVENTLOCALMASK:NSMouseEnteredMask handler:^NSEvent *(NSEvent *e) {
+//			NSLog(@"Enttry!: %@", AZString(e.locationInWindow)); return e;
+//		}];
+//		view.wantsLayer = YES;
+//		view.layer.backgroundColor = cgORANGE;
+//		NSRectFillWithColor(dirtyRect, [BLUE alpha:.2]);
+//	}]];
+//	self.root = [(NSV*)[self contentView] setupHostView];
+//	self.content = [CAL layerNamed:@"content"];
+//	_root.sublayers = @[_content];
+//	_content.bounds = AZRectFromDim(400);
+//	_content.bgC = cgRED;
+	return self;
+}
+
+- (BOOL) acceptsFirstResponder {	return YES; 	}
+
+- (void)sendEvent:(NSE*)e
+{
+	NSP where = [self.contentView convertPoint:e.locationInWindow toView:nil];
+	_noHit = NSPointInRect(where, _inactiveRect);
+	switch (e.type) {
+		case NSLeftMouseDown: {
+			if (_semiResponder) if (respondsToString(_semiResponder, @"windowEvent:")) [_semiResponder windowEvent:e];
+			if (_noHit) {
+				[self setIgnoresMouseEvents:YES];
+				AZLeftClick(mouseLoc());
+			NSLog(@"mousedown:%@  noHit?:%@",AZString(where), StringFromBOOL(_noHit));
+			if (_noHit) {
+				LOG_EXPR(_noHit);
+				// Don't let our events block local hardware events
+//				CGSetLocalEventsFilterDuringSupressionState(kCGEventFilterMaskPermitAllEvents,kCGEventSupressionStateSupressionInterval);
+//				CGSetLocalEventsFilterDuringSupressionState(kCGEventFilterMaskPermitAllEvents,kCGEventSupressionStateRemoteMouseDrag);
+			}
+
+//		_hit = [[(NSV*)self.contentView layer] hitTest:theEvent.locationInWindow];
+//		_hit == _content ? ^{
+//			NSLog(@"leftdown pt:%@  hit:%@", AZString(theEvent.locationInWindow), _hit.debugDescription);
+//			_dragDiff = AZSubtractPoints(theEvent.locationInWindow, _hit.position);
+//			_dragStart = theEvent.locationInWindow;
+//		}():^{
+//			self.ignoresMouseEvents =YES;
+//			AZLeftClick(mouseLoc());
+//			self.ignoresMouseEvents = NO;
+////		tab = areSame(tab.name, @"tab") ? tab.superlayer : [[tab sublayerWithName:@"tab"] superlayer];
+//		}();
+			break;
+		}
+		case NSLeftMouseUp: {
+			if (_noHit) {
+//				CGPostMouseEvent(mouseLoc(), FALSE, 1,FALSE);
+				[self performBlock:^{ self.ignoresMouseEvents = NO; } afterDelay:.1];
+			}
+			break;
+		}
+		case NSMouseEntered:
+		case NSMouseExited:
+			NSLog(@"mouse entered or exited!");
+			break;
+		default:
+			break;
+	}
+	//	[theEvent type] == NSLeftMouseDown || [NSEvent modifierFlags] != NSCommandKeyMask ? ^{   }():nil;
+//	[theEvent type] == (NSMouseMoved || NSLeftMouseDown/* && !NSLeftMouseDragged)*/) ? ^{
+//		AZLOG(@"moved, clicked, but not dragged");
+//	}():nil;
+
+//	NSLog(@"sendevent says: %@", theEvent);
+	[super sendEvent:e];
+}
+//	self.root	 			= [self.contentView setupHostView];
+//	((NSV*)self.contentView).layer		= _scrollLayer;
+//	((NSV*)self.contentView).wantsLayer	= YES;
+//	_scrollLayer.layoutManager = self;
+//	_scrollLayer.arMASK 	= CASIZEABLE;
+//	CAT3D subT 			= CATransform3DIdentity;
+//	subT.m34 			= 1.0 / -2000;
+//	_scrollLayer.sublayerTransform = subT;
+//
+//	NSArray *r 			= [[NSColor randomPalette]withMaxItems:30];
+//	self.unit			= ScreenWidess() / r.count;
 //	self.perfectRect 	= AZRectBy(unit, AZScreenFrameUnderMenu().size.height);
 /*
 	_scrollLayer.sublayers 	= [[NSArray from:-1 to:r.count] nmap:^id(id obj, NSUInteger index) {
@@ -84,8 +194,8 @@ NSUI    AZSizeOfRange 	  ( AZRange rng            ) { return rng.max - rng.min;	
 //	}];
 //	[_scrollLayer enableDebugBordersRecursively:YES];
 //	[self makeKeyAndOrderFront:nil];
-	return self;
-}
+
+
 
 - (void)animationDidStop:(CAAnimation *)theAnimation finished:(BOOL)flag {
 	NSLog(@"The ani: %@ stopped with flag %@", theAnimation, AZString(flag));
@@ -141,20 +251,6 @@ NSUI    AZSizeOfRange 	  ( AZRange rng            ) { return rng.max - rng.min;	
 /*
 - (void)sendEvent:(NSEvent *)theEvent
 {
-	static CAL *tab = nil;
-	//	[theEvent type] == NSLeftMouseDown || [NSEvent modifierFlags] != NSCommandKeyMask ? ^{   }():nil;
-	[theEvent type] == NSMouseMoved 		||	[theEvent type] == NSLeftMouseDown  	||
-	[theEvent type] != NSLeftMouseDragged ? ^{
-
-		tab = [[(NSV*)self.contentView layer] hitTest:theEvent.locationInWindow];
-		tab = areSame(tab.name, @"tab") ? tab.superlayer : [[tab sublayerWithName:@"tab"] superlayer];					}():nil;
-	[theEvent type] == NSLeftMouseDown 	? 	^{	tab ? ^{
-//		dragDiff = AZSubtractPoints(theEvent.locationInWindow, tab.position);
-//		dragStart = theEvent.locationInWindow;
-		[tab setBool:YES forKey:@"clicked"];
-		//			AZLOG($(@"winner: %@", tab.debugDescription));
-	}():nil;
-	}():nil;
 	[theEvent type] == NSLeftMouseDragged  ? ^{
 //		NSP newp = (NSP) {theEvent.locationInWindow.x, dragStart.y};
 //		newp = AZSubtractPoints(newp,dragDiff);

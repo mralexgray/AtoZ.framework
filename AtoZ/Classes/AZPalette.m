@@ -7,16 +7,25 @@
 //
 
 #import "AZPalette.h"
+#import "MArray.h"
+
+
+static 	NSUI internalIndex = 0;
 
 @implementation AZPalette
 
-- (id)init
+//- (id) init
+//{
+//	if(!(self=[super initWithCapacity:500])) return nil;
+//  	internalIndex = 0;
+////        self.indexed = [NSC randomPalette];
+//    return self;
+//}
+
+
++ (AZP*) randomPalette
 {
-    self = [super init];
-    if (self) {
-        self.indexed = [NSC randomPalette];
-    }
-    return self;
+	return  [AZP arrayWithArray:[NSC randomPalette]];
 }
 
 - (void) setIndexed:(NSA*)indexed
@@ -26,8 +35,10 @@
 }
 
 - (NSC*)nextColor {
-	NSC*c = [[_feeder first]copy];
-	[_feeder firstToLast];
+
+	NSC *c = (NSC*)self[internalIndex];
+	internalIndex = internalIndex < self.count -1 ? internalIndex +1 : 0;
+//	[_feeder firstToLast];
 	return c;
 }
 

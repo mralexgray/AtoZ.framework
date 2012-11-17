@@ -166,6 +166,7 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 
 #define AZGView AtoZGridView
 #define AZGVItem AtoZGridViewItem
+#define AZP AZPalette
 
 #define BLKVIEW BNRBlockView
 #define CAA CAAnimation
@@ -235,6 +236,7 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define NSS NSString
 #define NSSZ NSSize
 #define NST NSTimer
+#define NSTA NSTrackingArea
 #define NSTI NSTimeInterval
 #define NSTXTF NSTextField
 #define NSTXTV NSTextView
@@ -244,6 +246,8 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define NSTABV NSTabView
 #define NSTBAR NSToolbar
 #define NSW NSWindow
+
+#define RNG AZRange
 
 //#define ID \(NSObject*\)
 #define bgC backgroundColor
@@ -520,6 +524,15 @@ attr1 relativeTo:relName attribute:attr2 scale:scl offset:off]
 #define logprop(a) NSLog(@"%@", [a propertiesPlease])
 //#define logobj(a) id logit = a \	     NSLog(@"%@", a)
 #define desc(a) NSLog(@"%@", [a description])
+
+
+#define SuppressPerformSelectorLeakWarning(Stuff) \
+do { \
+_Pragma("clang diagnostic push") \
+_Pragma("clang diagnostic ignored \"-Warc-performSelector-leaks\"") \
+Stuff; \
+_Pragma("clang diagnostic pop") \
+} while (0)
 
 
 #pragma - General Functions

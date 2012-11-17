@@ -801,16 +801,19 @@ static const char * getPropertyType(objc_property_t property) {
 	[nc removeObserver:self name:notificationName object:object];
 }
 - (id) performSelectorWithoutWarnings:(SEL)aSelector withObject:(id)obj{
+
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-	return (id)[self performSelector:aSelector withObject:obj];
+//	return (id)
+	[self performSelector:aSelector withObject:obj];
 #pragma clang diagnostic pop
 }
 
 - (id) performSelectorWithoutWarnings:(SEL)aSelector withObject:(id)obj withObject:(id)obj2 {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-	return	(id)[self performSelector:aSelector withObject:obj withObject:obj2];
+//	return	(id)
+	[self performSelector:aSelector withObject:obj withObject:obj2];
 #pragma clang diagnostic pop
 }
 

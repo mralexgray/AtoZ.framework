@@ -32,6 +32,7 @@
 //}
 
 
+
 @implementation NSImage (AtoZDrawBlock)
 + (NSImage*)imageWithSize:(NSSZ)size drawnUsingBlock:(NSImageDrawer)drawBlock;
 {

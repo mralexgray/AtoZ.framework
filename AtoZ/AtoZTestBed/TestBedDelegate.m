@@ -20,6 +20,9 @@
 -(void) awakeFromNib
 {
 	[AtoZ sharedInstance];
+
+	[((BGHUDView*)self.window.contentView).theme bind:@"baseColor" toObject:_colorWell withKeyPath:@"color" options:nil];
+
 	self.window.delegate = self;
 	self.genVC = [[AZGeneralViewController  alloc]initWithNibName:@"AZGeneralViewController"  bundle:nil];
 	self.geoVC = [[AZGeometryViewController alloc]initWithNibName:@"AZGeometryViewController" bundle:nil];
@@ -36,15 +39,18 @@
 		
 	[_fileGrid setHidden:NO];
 	[_mainView addSubview:_fileGrid];
+
+	holdOntoViews.actionBlock = ^(id inSender){
+		_semiWindow = [AZSemiResponderWindow new];
+		[_semiWindow makeKeyAndOrderFront:self];
+	};
 //	self.genVC = [[AZGeneralViewController alloc]initWithNibName:@"AZGeneralViewController" bundle:nil];
 //	[_mainView addSubview: _genVC.view];
 //	_genVC.view.frame	= [_mainView frame];
 //
-//	[_mbWindow makeKeyAndOrderFront:self];
 //
 //
-//	self.mbWindow = [AZSemiResponderWindow new];
-//	[_mbWindow makeKeyAndOrderFront:self];
+
 
 }
 -(IBAction)setViewFromPopUp:(id)sender

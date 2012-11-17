@@ -102,7 +102,7 @@ static NSA* cachedI = nil;
 + (NSS*) randomFontName; {	return [AtoZ fonts].randomElement;	}
 
 + (NSFont*) controlFont {
-	return [self font:@"Ubuntu Mono Bold" size:16];
+	return [self font:@"UbuntuTitling" size:16];
 }
 
 - (void)registerHotKeys
