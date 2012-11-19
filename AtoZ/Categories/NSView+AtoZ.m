@@ -76,6 +76,14 @@ static NSString *ANIMATION_IDENTIFER = @"animation";
 static char const * const ISANIMATED_KEY = "ObjectRep";
 
 @implementation NSView (AtoZ)
+// setup 3d transform
+- (void) setZDistance: (NSUInteger) zDistance
+{
+	CATransform3D aTransform = CATransform3DIdentity;
+	aTransform.m34 = -1.0 / zDistance;
+	if (!self.layer) [self setupHostView];
+	self.layer.sublayerTransform = aTransform;
+}
 
 - (CGP)layerPoint:(NSEvent*)event;
 {

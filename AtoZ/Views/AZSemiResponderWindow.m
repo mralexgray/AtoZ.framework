@@ -1,19 +1,5 @@
 
 #import "AZSemiResponderWindow.h"
-#import "AtoZ.h"
-
-//Then, if I want to run animation completion code after a CAAnimation finishes, I set myself as the delegate of the animation, and add a block of code to the animation using setValue:forKey:
-//	animationCompletionBlock theBlock = ^void(void)	{	//Code to execute after the animation completes goes here		};
-
-//	[theAnimation setValue: theBlock forKey: kAnimationCompletionBlock]
-
-//	Then, I implement an animationDidStop:finished: method, that checks for a block at the specified key and executes it if found:
-
-/*	 - (void)animationDidStop:(CAAnimation *)theAnimation finished:(BOOL)flag	 {
-	 animationCompletionBlock theBlock = theAnimation[kAnimationCompletionBlock];
-	 theBlock ? theBlock() : nil;	 }
-*/
-#define WINCOLS NSWindowCollectionBehaviorCanJoinAllSpaces | NSWindowCollectionBehaviorStationary
 
 @implementation AZSemiResponderWindow
 
@@ -21,14 +7,14 @@
 
 	self.scrollPoint  = NSZeroPoint;
 	self.unitOffset   = 1;
-	[self setWi
-	self.opaque 					= NO;
-	self.level 					 	= NSNormalWindowLevel;	// CGWindowLevelForKey(kCGCursorWindowLevelKey)];
-	self.backgroundColor 			= CLEAR;//[RED alpha:.2];
-	self.hidesOnDeactivate  			= NO;
-	self.collectionBehavior			= WINCOLS;
-	self.ignoresMouseEvents 			= NO;
-	self.acceptsMouseMovedEvents  	= YES;
+	[self setWithDictionary:@{@"opaque":@(NO), @"level":@(NSNormalWindowLevel), @"backgroundColor":CLEAR, @"hidesOnDeactivate":@(NO), @"ignoresMouseEvents":@(NO),@"collectionBehavior": @(WINCOLS), @"acceptsMouseMovedEvents":@(YES)}];
+//	self.opaque 					= NO;
+//	self.level 					 	= NSNormalWindowLevel;	// CGWindowLevelForKey(kCGCursorWindowLevelKey)];
+//	self.backgroundColor 			= CLEAR;//[RED alpha:.2];
+//	self.hidesOnDeactivate  			= NO;
+//	self.collectionBehavior			= WINCOLS;
+//	self.ignoresMouseEvents 			= NO;
+//	self.acceptsMouseMovedEvents  	= YES;
 	self.inactiveRect 				= NSInsetRect(self.frame, 100, 100);
 
 	[self.contentView addSubview:	[BLKVIEW viewWithFrame:_inactiveRect opaque:NO drawnUsingBlock:^(BNRBlockView *view, NSRect dirtyRect) {
@@ -60,7 +46,7 @@
 	//	_root.sublayers = @[_content];
 	//	_content.bounds = AZRectFromDim(400);
 	//	_content.bgC = cgRED;
-	return self;
+	return LogAndReturn(self);
 }
 
 - (void)animationDidStop:(CAAnimation *)theAnimation finished:(BOOL)flag {
@@ -956,3 +942,16 @@
 	//}
 	//@end
 	
+
+
+	 //Then, if I want to run animation completion code after a CAAnimation finishes, I set myself as the delegate of the animation, and add a block of code to the animation using setValue:forKey:
+	 //	animationCompletionBlock theBlock = ^void(void)	{	//Code to execute after the animation completes goes here		};
+
+	 //	[theAnimation setValue: theBlock forKey: kAnimationCompletionBlock]
+
+	 //	Then, I implement an animationDidStop:finished: method, that checks for a block at the specified key and executes it if found:
+
+	/*	 - (void)animationDidStop:(CAAnimation *)theAnimation finished:(BOOL)flag	 {
+	 animationCompletionBlock theBlock = theAnimation[kAnimationCompletionBlock];
+	 theBlock ? theBlock() : nil;	 }
+	 */

@@ -30,6 +30,9 @@ typedef void (^viewFrameDidChangeBlock)(void);
 
 @interface NSView (AtoZ)
 
+// setup 3d transform
+- (void) setZDistance: (NSUInteger) zDistance;
+
 - (CGP)layerPoint:(NSEvent*)event;
 - (CGP)layerPoint:(NSEvent*)event toLayer:(CAL*)layer;
 

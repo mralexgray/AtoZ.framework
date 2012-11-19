@@ -166,6 +166,10 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary()
 
 @implementation NSObject (AtoZ)
 
+- (void) bindArrayKeyPath:(NSS*)array toController:(NSArrayController*)controller
+{
+	[self bind:array toObject:controller withKeyPath:@"arrangedObjects" options:nil];
+}
 
 - (id) performString:(NSS*)string;
 {
@@ -631,6 +635,20 @@ BOOL respondsTo(id obj, SEL selector){
 }
 
 
+- (IBAction)performActionFromLabel:(id)sender;
+{
+	NSS *stringSel, *setter;
+	if ([sender isKindOfClass:[NSPopUpButton class]]) stringSel = [sender titleOfSelectedItem];
+	else if ([sender isKindOfClass:[NSButton class]]) stringSel = [sender title];
+	else if ([sender respondsToSelector:@selector(label)]) stringSel = [sender label];
+	setter = $(@"set%@:",[stringSel uppercaseString]);
+	if ([self respondsToString:stringSel]){
+		[self performSelectorSafely:NSSelectorFromString(stringSel)];
+	}
+	else if ([self respondsToString:setter]){
+		[self performSelectorWithoutWarnings:NSSelectorFromString(setter) withObject:nil];
+	}
+}
 - (IBAction)performActionFromSegmentLabel:(id)sender;
 {
 	BOOL isSegmented = [sender isKindOfClass:[NSSegmentedControl class]];

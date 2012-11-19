@@ -756,6 +756,8 @@ return midpoint;
 //This is the core of it - it just extends or shrinks the window's bottom edge by the given amount, leaving all the current subviews undisturbed. It could probably most usefully be a catego
 @end
 
+static NSMutableDictionary*     pendingFades = nil;
+
 @implementation NSWindow (UKFade)
 
 -(void)     fadeInWithDuration: (NSTimeInterval)duration

@@ -1,6 +1,7 @@
 
 #import "AtoZ.h"
 
+#define WINCOLS NSWindowCollectionBehaviorCanJoinAllSpaces | NSWindowCollectionBehaviorStationary
 //I just came up with an even better way to do completion code for CAAnimations:
 typedef void (^animationCompletionBlock)(void);
 // key to add a block to an animation:
@@ -38,27 +39,17 @@ typedef void (^animationCompletionBlock)(void);
 @property (ASS,   NATOM) CGF						 offset;
 @property (STRNG, NATOM) NSBP 					*scrollPath;
 
-
 + (id<CAAction>)defaultActionForKey:(NSS*)event;
 
 @end
 
 //@property (NATOM, STRNG) BLKVIEW *contentBlock;
-
 //@property (NATOM, ASS) NSR perfectRect;
-
 //@property (STRNG, NATOM) AZSemiResponderWindow  *window;
 
 //@property (nonatomic,retain) NSMD *spots;
 //@property (nonatomic,retain) CAL *scrollLayer;
 //@property (nonatomic,retain) NSView *bar, *drawerView;
-
-
-
-
-
-
-
 
 //@interface  Drawer : NSWindow
 //@property (weak) NSView*leverView;
@@ -66,10 +57,6 @@ typedef void (^animationCompletionBlock)(void);
 //@property (nonatomic, strong) CAL *root;
 //-(void) registerLevers:(NSView*)leverView;
 //@end
-
-
-
-
 
 //typedef void (^animationCompletionBlock)(void);
 //typedef void (^eventActionBlock (NSEvent*event));

@@ -80,9 +80,11 @@
 
 - (NSA*) withMinItems:(NSUI) items;
 {
-	return ( self.count > items) ? self :
-	[NSA arrayWithArrays:@[self, [[NSA from:0 to:items - self.count] nmap:^id(id obj, NSUInteger index) {
-		return [self normal:self.count + index]; }]]];
+	if ( self.count > items) return self;
+	NSMA *upgrade = [NSMA array];
+	for (int i = 0; i<items; i++)		[upgrade addObject:[[self normal:i]copy]];
+	NSLog(@"grew array from %ld to %ld", self.count, upgrade.count);
+	return upgrade.copy;
 }
 
 - (NSA*) withMaxItems:(NSUI) items;

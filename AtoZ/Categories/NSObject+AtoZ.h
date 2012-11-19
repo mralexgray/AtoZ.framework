@@ -49,6 +49,7 @@ typedef void (^AZBlockTask)(id obj, NSDictionary *change);
 @end
 @interface NSObject (AtoZ)
 
+- (void) bindArrayKeyPath:(NSS*)array toController:(NSArrayController*)controller;
 
 - (id) performString:(NSS*)string;
 - (id) performString:(NSS*)string withObject:(id) obj;
@@ -160,6 +161,9 @@ BOOL respondsToString(id obj,NSS* string);
 - (IBAction)increment:(id)sender;
 - (IBAction)setFromSegmentLabel:(id)sender;
 - (IBAction)performActionFromSegmentLabel:(id)sender;
+
+- (IBAction)performActionFromLabel:(id)sender;
+
 //- (BOOL) respondsToSelector:	(SEL) aSelector;
 
 
