@@ -413,7 +413,9 @@
 // This method works only in OS X v10.2 and later.
 - (CGPathRef)quartzPath
 {
-    // Need to begin a path here.
+
+	return [self newQuartzPath];
+/*    // Need to begin a path here.
     __block CGPathRef           immutablePath = NULL;
 
 	__block CGMutablePathRef    path = CGPathCreateMutable();
@@ -443,6 +445,7 @@
     	}];
 	}
     return CGPathCreateCopy(path);
+*/
 }
 
 //#define MCBEZIER_USE_PRIVATE_FUNCTION

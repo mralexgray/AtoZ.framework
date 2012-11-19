@@ -860,20 +860,24 @@ static void DynamicDictionarySetter(id self, SEL _cmd, id value)
 
 @implementation NSArray (Subdictionaries)
 
-//- (NSBag*) ojectsInSubdictionariesForKey:(id)key {
+//- (NSBag*) ojectsInSubdictionariesForKey:(id)key
+//{
+//	__block NSBag* objects = [NSBag bag];
+//	[self eac
+//		id object = [subdictionary objectForKey:key] ;
+//		if (object) {
+//			[objects addObject:object] ;	}
+//		else if (defaultObject) { 	[objects addObject:defaultObject] ; }
+//	}
+//	return objects ;
+//}
 //	__block NSBag* objects = [NSBag bag];
 //	[self each:^(id obj) {
 //		if ([obj isKindOfClass:[NSDictionary class]]){
 //			[(NSD*)obj objectsInSubdictionariesForKey:key withBag:objects]
-//
-//
 //		id object = [obj objectForKey:key] ;
 //		if (object) [objects add:object];
-//	}];
-////		else if (defaultObject) {
-////			[objects add:defaultObject] ;
-////		}
-////	}
+//	}];	//		else if (defaultObject) {		[objects add:defaultObject] ;	}	}
 //	return objects ;
 //}
 @end

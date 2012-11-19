@@ -857,6 +857,30 @@ static const char * getPropertyType(objc_property_t property) {
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 	[nc removeObserver:self name:notificationName object:object];
 }
+
+
+-(id) performSelectorSafely:(SEL)aSelector;
+{
+    NSParameterAssert ( aSelector != NULL );
+    NSParameterAssert ( [self respondsToSelector:aSelector] );
+    NSMethodSignature* methodSig = [self methodSignatureForSelector:aSelector];
+    if ( methodSig == nil ) return nil;
+    const char* retType = [methodSig methodReturnType];
+    if(strcmp(retType, @encode(id)) == 0 || strcmp(retType, @encode(void)) == 0) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+        return [self performSelector:aSelector];
+#pragma clang diagnostic pop
+    } else {
+        NSLog(@"-[%@ performSelector:@selector(%@)] shouldn't be used. The selector doesn't return an object or void", [self className], NSStringFromSelector(aSelector));
+        return nil;
+    }
+}
+
+
+- (id) performSelectorWithoutWarnings:(SEL)aSelector {	return  [self performSelectorSafely:aSelector]; }
+
+
 - (id) performSelectorWithoutWarnings:(SEL)aSelector withObject:(id)obj{
 
 #pragma clang diagnostic push

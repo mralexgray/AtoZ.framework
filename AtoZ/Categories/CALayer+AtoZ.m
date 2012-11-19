@@ -9,9 +9,6 @@
 #import "AtoZUmbrella.h"
 #import "AtoZFunctions.h"
 
-@interface CAShapeLayer (Lassos)
-- (void) redrawPath;
-@end
 @implementation CAShapeLayer (Lassos)
 - (void) redrawPath {
 	CALayer *selected = [self valueForKey:@"mommy"];
@@ -1029,7 +1026,7 @@ static char ORIENT_IDENTIFIER;
 									CATransform3DMakeRotation(x, 0, 1, 0),
 									CATransform3DMakeRotation( y, 1, 0, 0) );
 	transform.m34		= 1.0 / -450;
-	self.superlayer.sublayerTransform		= transform;
+	self.sublayerTransform		= transform;
 }
 
 //- (void)orientOnEvent: (NSEvent*)event;

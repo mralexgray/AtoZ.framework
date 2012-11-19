@@ -15,58 +15,49 @@
 @end
 
 @implementation TestBedDelegate
-@synthesize holdOntoViews;
+@synthesize holdOntoViews, activeView, semiLog;
+@synthesize window, genVC, geoVC, uiVC, fileGrid, vcs, mainView, semiWindow, colorWell;
 
--(void) awakeFromNib
+- (void) awakeFromNib
 {
-	[AtoZ sharedInstance];
+	[AtoZ sharedInstance];		window.delegate = self;
 
-	[((BGHUDView*)self.window.contentView).theme bind:@"baseColor" toObject:_colorWell withKeyPath:@"color" options:nil];
+	[((BGHUDView*)window.contentView).theme bind:@"baseColor" toObject:colorWell withKeyPath:@"color" options:nil];
 
-	self.window.delegate = self;
-	self.genVC = [[AZGeneralViewController  alloc]initWithNibName:@"AZGeneralViewController"  bundle:nil];
-	self.geoVC = [[AZGeometryViewController alloc]initWithNibName:@"AZGeometryViewController" bundle:nil];
-	self.uiVC  = [[AZUIViewController       alloc]initWithNibName:@"AZUIViewController"       bundle:nil];
+	genVC 		= [[AZGeneralViewController  alloc] initWithNibName: @"AZGeneralViewController"  bundle:nil];
+	geoVC 		= [[AZGeometryViewController alloc] initWithNibName: @"AZGeometryViewController" bundle:nil];
+	uiVC  		= [[AZUIViewController       alloc] initWithNibName: @"AZUIViewController"       bundle:nil];
+	fileGrid 	= [[AZFileGridView 			 alloc]   initWithFrame: mainView.bounds];
 
-	self.fileGrid = [[AZFileGridView alloc]initWithFrame: [_mainView bounds]];
-	self.vcs 	= @{  @"General" : _genVC.view, @"Geometry": _geoVC.view, @"fileGridView" : _fileGrid, @"UI" : _uiVC.view }.mutableCopy;
-	[[_vcs allValues] each:^( NSV* view) {
-			view.frame  = [_mainView bounds];
-			view.arMASK = NSSIZEABLE;
-			view.hidden = YES;
-			[_mainView addSubview:view];
+	vcs 		= @{  @"General" : genVC.view, @"Geometry": geoVC.view, @"fileGridView" : fileGrid, @"UI" : uiVC.view }.mutableCopy;
+
+	[vcs.allValues each:^( NSV* view) {
+		view.frame  = [mainView bounds];		view.arMASK = NSSIZEABLE;
+		view.hidden = YES;						[mainView addSubview:view];
 	}];
 		
-	[_fileGrid setHidden:NO];
-	[_mainView addSubview:_fileGrid];
+	[fileGrid setHidden:NO];
 
-	holdOntoViews.actionBlock = ^(id inSender){
-		_semiWindow = [AZSemiResponderWindow new];
-		_semiWindow.semiResponder = self;
-		[_semiWindow makeKeyAndOrderFront:self];
+	holdOntoViews.actionBlock = ^(id inSender){		semiWindow = [AZSemiResponderWindow new];
+		semiWindow.semiResponder = self;		    [semiWindow   makeKeyAndOrderFront:self];
 	};
+
 //	self.genVC = [[AZGeneralViewController alloc]initWithNibName:@"AZGeneralViewController" bundle:nil];
 //	[_mainView addSubview: _genVC.view];
 //	_genVC.view.frame	= [_mainView frame];
-//
-//
-//
-
-
 }
 
--(void) logString:(NSS*)s {
-	self.semiLog = s;
-}
+- (void) logString:(NSS*)s { 	self.semiLog = s; }
 
--(IBAction)setViewFromPopUp:(id)sender
+- (IBAction)setViewFromPopUp:(id)sender
 {
-	[[_activeView animator]setHidden:YES];
-	_activeView = _vcs[[sender titleOfSelectedItem]];
 
-	[_mainView addSubview:_activeView positioned:NSWindowAbove relativeTo:_mainView];
-	[_activeView setHidden:NO];
-	[_activeView setNeedsDisplay:YES];
+	[[mainView animator]swapSubs:vcs[[sender titleOfSelectedItem]]];
+//	[[activeView animator] setHidden:YES];
+//	activeView = vcs[[sender titleOfSelectedItem]];
+//	[mainView addSubview:activeView positioned:NSWindowAbove relativeTo:mainView];
+//	[activeView setHidden:NO];
+//	[_activeView setNeedsDisplay:YES];
 }
 //-(CATransition*)transition
 //{
@@ -80,16 +71,17 @@
 //		transition.subtype	= @[ kCATransitionFromRight, kCATransitionFromLeft, kCATransitionFromTop, kCATransitionFromBottom].randomElement;
 //		transition.duration	= 1.0;	  return transition; }();
 //}
-- (void) windowDidEndLiveResize:(NSNotification *)notification {
-	[[_mainView subviews] each:^(id obj) { [[obj animator] setFrame:[_mainView bounds]]; }];
+- (void) windowDidEndLiveResize:(NSNotification *)notification
+{
+	[mainView.subviews each:^(NSV* obj) { [[obj animator] setFrame:mainView.bounds]; }];
 }
 
-- (IBAction)loadSecondNib:(id)sender
-{
-	NSWindowController* awc = [[NSWindowController alloc] initWithWindowNibName:@"TestBed"];
-	[[awc window] makeKeyAndOrderFront:nil];
-    [[NSApplication sharedApplication] arrangeInFront:nil];
-}
+//- (IBAction)loadSecondNib:(id)sender
+//{
+//	NSWindowController* awc = [[NSWindowController alloc] initWithWindowNibName:@"TestBed"];
+//	[[awc window] makeKeyAndOrderFront:nil];
+//    [[NSApplication sharedApplication] arrangeInFront:nil];
+//}
 //	NSWindowController* awc = [[NSWindowController alloc] initWithWindowNibName:@"TestBed" owner:self];
 //	[awc showWindow:self];
 //    [[awc window] makeKeyAndOrderFront:nil];

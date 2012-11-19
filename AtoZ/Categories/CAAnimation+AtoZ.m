@@ -199,7 +199,8 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey = @"AZCAAnimationCompl
 
 + (CABA*) animationWithKeyPath: (NSS*)path andDuration:(NSTI)interval;
 {
-	id<CAAction> a = [CABasicAnimation animationWithKeyPath:path];
+//	id<CAAction>
+	CABA* a = [CABasicAnimation animationWithKeyPath:path];
 	((CABasicAnimation*)a).duration = interval;
 	return a;
 }
@@ -212,7 +213,7 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey = @"AZCAAnimationCompl
 }
 
 
-+ (CAAnimation*)colorAnimationForLayer:(CALayer *)theLayer WithStartingColor:(NSColor*)color1 endColor:(NSColor*)color2;
++ (CAAnimation*)colorAnimationForLayer:(CALayer *)theLayer WithStartingColor:(NSColor *)color1 endColor:(NSColor *)color2
 {
 	CABasicAnimation * animation = [CABasicAnimation animationWithKeyPath:@"backgroundColor"];
 	NSDictionary *dic = @{	 	@"fromValue":(id)[color1 CGColor],

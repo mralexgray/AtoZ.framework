@@ -28,7 +28,6 @@ typedef void (^animationCompletionBlock)(void);
 -(void) windowEvent:(NSEvent*)event;
 @end
 
-
 @interface AZDynamicTabLayer : CAL <AZSemiResponder>
 
 @property (STRNG, NATOM) NSA 					*palette;

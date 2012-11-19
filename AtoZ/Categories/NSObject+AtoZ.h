@@ -193,6 +193,10 @@ BOOL respondsToString(id obj,NSS* string);
 		   calling:(SEL)selector;
 
 - (void) stopObserving:	(NSObject*) object forName:	(NSString*) notificationName;
+
+- (id) performSelectorSafely:(SEL)aSelector;
+- (id) performSelectorWithoutWarnings:(SEL)aSelector;
+
 - (id) performSelectorWithoutWarnings:(SEL) aSelector withObject:(id)obj;
 - (id) performSelectorWithoutWarnings:(SEL)aSelector withObject:(id)obj withObject:(id)obj2;
 - (void) performSelector:	(SEL) aSelector afterDelay:	(NSTimeInterval) seconds;

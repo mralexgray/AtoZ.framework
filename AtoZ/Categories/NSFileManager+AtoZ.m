@@ -6,6 +6,12 @@
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 #import "NSFileManager+AtoZ.h"
 #include <glob.h>
+#import <sys/xattr.h>
+#import <sys/sysctl.h>
+#import <unistd.h>
+#import <dirent.h>
+#import <sys/stat.h>
+
 
 NSString *NSDocumentsFolder()
 {

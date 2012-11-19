@@ -26,19 +26,19 @@
 
 @interface TestBedDelegate : NSObject <NSApplicationDelegate, NSWindowDelegate, AZSemiResponder>
 
-@property (weak) IBOutlet AtoZColorWell *colorWell;
+@property (weak) IBOutlet AtoZColorWell 			*colorWell;
 
-@property (weak) IBOutlet NSBUTT *holdOntoViews;
-@property (NATOM, STRNG)  AZFileGridView *fileGrid;
+@property (weak) IBOutlet NSBUTT 					*holdOntoViews;
+@property (NATOM, STRNG)  AZFileGridView 			*fileGrid;
 
 @property (NATOM, STRNG)  AZGeometryViewController *geoVC;
 @property (NATOM, STRNG)  AZGeneralViewController  *genVC;
 @property (NATOM, STRNG)  AZUIViewController		*uiVC;
 
-@property (ASS) IBOutlet NSW *window;
-@property (ASS) IBOutlet id	 mainView;
-@property (weak) 		 id  activeView;
-@property (NATOM, STRNG) NSMD* vcs;
+@property (ASS) IBOutlet NSW 					*window;
+@property (ASS) IBOutlet NSV						*mainView;
+@property (weak) 		 id  					activeView;
+@property (NATOM, STRNG) NSMD					*vcs;
 
 
 @property (STRNG, NATOM) AtoZ 					*propeller;

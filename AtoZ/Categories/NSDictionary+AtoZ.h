@@ -42,7 +42,7 @@
 
 @interface NSDictionary (AtoZ)
 
-- (NSA*) recursiveObjectsForKey:(NSString *)key;
+//- (NSA*) recursiveObjectsForKey:(NSString *)key;
 - (id) recursiveObjectForKey:(NSString *)key;
 
 - (id)findDictionaryWithValue:(id)value;
@@ -109,11 +109,11 @@
 
 - (NSMutableDictionary *)deepMutableCopy NS_RETURNS_RETAINED;
 
-- (NSArray *)copyKeys;
-- (NSMutableArray *)mutableCopyKeys;
-
-- (NSSet *)copyKeySet;
-- (NSMutableSet *)mutableCopyKeySet;
+//- (NSArray *)copyKeys;
+//- (NSMutableArray *)mutableCopyKeys;
+//
+//- (NSSet *)copyKeySet;
+//- (NSMutableSet *)mutableCopyKeySet;
 
 @end
 
@@ -131,10 +131,10 @@
 
 @end
 
-@interface NSArray (Subdictionaries)
-- (NSBag*) ojectsInSubdictionariesForKey:(NSS*)key;
-
-@end
+//@interface NSArray (Subdictionaries)
+//- (NSBag*) objectsInSubdictionariesForKey:(NSS*)key;
+//
+//@end
 
 @interface NSDictionary (Subdictionaries)
 

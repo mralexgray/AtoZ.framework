@@ -70,7 +70,7 @@ typedef enum {
 + (NSIMG*) screenShot;
 - (NSIMG*) coloredWithColor:(NSC*)inColor composite:(NSCompositingOperation)comp;
 
-+ (NSA*) iconsTintedWith:(NSC*)color;
+//+ (NSA*) iconsTintedWith:(NSC*)color;
 + (NSA*) icons;
 + (NSA*) systemIcons;
 
@@ -85,7 +85,7 @@ typedef enum {
 + (NSA*) frameworkImages;
 
 + (NSA*) picolStrings;
-+ (NSA*) iconStrings;
+//+ (NSA*) iconStrings;
 
 - (NSIMG*) scaledToMax:(CGFloat)f;
 - (void) draw;

@@ -21,7 +21,7 @@
 - (void) cacheNamedImages;
 - (NSArray *)recursivePathsForResourcesOfType:(NSString *)type inDirectory:(NSString *)directoryPath;
 - (NSS *)recursiveSearchForPathOfResourceNamed:(NSString *)name;
-+ (NSMutableArray *)systemFrameworks;
+//+ (NSMutableArray *)systemFrameworks;
 
 /*!
  @brief    Returns the path to the application's icon file, derived

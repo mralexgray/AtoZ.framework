@@ -62,7 +62,7 @@ extern void disableCA();
 //+ (CAA*) flipAnimationWithDuration: (NSTI)aDur;
 + (CAA*)                  flipDown: (NSTI)aDur  scaleFactor: (CGF)scale;
 + (CAA*) 	       animationOnPath: (CGPR)path  duration:    (CFTI)d 	  timeOffset: (CFTI)o;
-+ (CAA*)    colorAnimationForLayer: (CAL*)layer start:       (NSC*)c1  	  end: (NSC*)c2;
+//+ (CAA*)    colorAnimationForLayer: (CAL*)layer start:       (NSC*)c1  	  end: (NSC*)c2;
 + (CAA*)   rotateAnimationForLayer: (CAL*)layer start:       (CGF)fl1     end: (CGF)fl1;
 
 

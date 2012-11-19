@@ -10,43 +10,48 @@
 #import <CoreText/CoreText.h>
 #import "AtoZ.h"
 
-	void prepareContext(CGContextRef ctx);
 
-	extern void applyPerspective (CALayer* layer);
+@interface CAShapeLayer (Lassos)
+- (void) redrawPath;
+@end
+
+void prepareContext(CGContextRef ctx);
+
+extern void applyPerspective (CALayer* layer);
 //	extern CATransform3D perspective();
 
 /** Moves a layer from one superlayer to another, without changing its position onscreen. */
-	extern void ChangeSuperlayer( CALayer *layer, CALayer *newSuperlayer, int index );
+extern void ChangeSuperlayer( CALayer *layer, CALayer *newSuperlayer, int index );
 /** Removes a layer from its superlayer without any fade-out animation. */
-	extern void RemoveImmediately( CALayer *layer );
+extern void RemoveImmediately( CALayer *layer );
 
-	extern CALayer* AddPulsatingBloom( CALayer *layer);
-	extern CALayer* AddShadow ( CALayer *layer);
-	extern CALayer* AddBloom  ( CALayer *layer);
+extern CALayer* AddPulsatingBloom( CALayer *layer);
+extern CALayer* AddShadow ( CALayer *layer);
+extern CALayer* AddBloom  ( CALayer *layer);
 
 /** Convenience for creating, adding,a nd returning a relatively nice CALayer. */
-	extern CALayer* NewLayerInLayer( CALayer *superlayer );
-	extern CALayer* NewLayerWithFrame( NSRect rect );
+extern CALayer* NewLayerInLayer( CALayer *superlayer );
+extern CALayer* NewLayerWithFrame( NSRect rect );
 
 /** Convenience for creating a CATextLayer. */
-	extern CATextLayer* AddTextLayer  ( CALayer *superlayer, NSString *text, NSFont* font, enum CAAutoresizingMask align );
-	extern CATextLayer* AddLabelLayer ( CALayer *superlayer, NSString *text, NSFont* font );
-	extern CATextLayer* AddLabel ( 	    CALayer *superlayer, NSString *text );
+extern CATextLayer* AddTextLayer  ( CALayer *superlayer, NSString *text, NSFont* font, enum CAAutoresizingMask align );
+extern CATextLayer* AddLabelLayer ( CALayer *superlayer, NSString *text, NSFont* font );
+extern CATextLayer* AddLabel ( 	    CALayer *superlayer, NSString *text );
 
-	extern CALayer* ReturnImageLayer( CALayer *superlayer, NSImage *image, CGFloat scale);
-	extern CATextLayer* AddLabelLayer( CALayer *superlayer, NSString *text, NSFont* font );
+extern CALayer* ReturnImageLayer( CALayer *superlayer, NSImage *image, CGFloat scale);
+extern CATextLayer* AddLabelLayer( CALayer *superlayer, NSString *text, NSFont* font );
 
 /** Loads an image or pattern file into a CGImage or CGPattern. If the name begins with "/", it's interpreted as an absolute filesystem path. Otherwise, it's the name of a resource that's looked up in the app bundle. The image must exist, or an assertion-failure exception will be raised! Loaded images/patterns are cached in memory, so subsequent calls with the same name are very fast. */
-	extern CGImageRef GetCGImageNamed ( NSString *name );
-	extern CGColorRef GetCGPatternNamed (      NSString *name );
+extern CGImageRef GetCGImageNamed ( NSString *name );
+extern CGColorRef GetCGPatternNamed (      NSString *name );
 /** Loads image data from the pasteboard into a CGImage. */
-	extern CGImageRef GetCGImageFromPasteboard ( NSPasteboard *pb );
+extern CGImageRef GetCGImageFromPasteboard ( NSPasteboard *pb );
 /** Creates a CGPattern from a CGImage. */
-	extern CGPatternRef CreateImagePattern ( CGImageRef image );
+extern CGPatternRef CreateImagePattern ( CGImageRef image );
 /** Creates a CGColor that draws the given CGImage as a pattern. */
-	extern CGColorRef CreatePatternColor ( CGImageRef image );
+extern CGColorRef CreatePatternColor ( CGImageRef image );
 /** Returns the alpha value of a single pixel in a CGImage, scaled to a particular size. */
-	float GetPixelAlpha ( CGImageRef image, CGSize imageSize, CGPoint pt );
+float GetPixelAlpha ( CGImageRef image, CGSize imageSize, CGPoint pt );
 
 /**
 As with the distort transform, the x and y values adjust intensity. I have included a CATransform3DMake method as there are no built in CATransform3D methods to create a transform by passing in 16 values (mimicking the CGAffineTransformMake method).
@@ -83,9 +88,6 @@ extern CATransform3D CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13, CG
 //
 - (void)setValue:(id)value      forKeyPath:(NSString *)keyPath        duration:(CFTimeInterval)duration           delay:(CFTimeInterval)delay;
 
-- (BOOL) pixelsHitTest:(CGPoint)p;
-- (BOOL) pixelsIntersectWithRect:(CGRect)rect;
-
 
 -(void) animateXThenYToFrame:(NSR)toRect duration:(NSUI)time;
 
@@ -98,7 +100,7 @@ extern CATransform3D CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13, CG
 - (void) toggleLasso:(BOOL)state;
 
 - (id) lassoLayerForLayer:(CALayer*)layer;
-- (void) redrawPath;
+
 
 - (CALayer*) selectionLayerForLayer:(CALayer*)layer;
 - (CATransform3D)makeTransformForAngle:(CGFloat)angle;
@@ -109,13 +111,13 @@ extern CATransform3D CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13, CG
 - (void)addConstraints:(NSA*)constraints;
 - (void)orientWithPoint:(CGPoint) point;
 - (void)orientWithX: (CGFloat)x andY: (CGFloat)y;
-- (void)orientOnEvent: (NSEvent*)event;
+//- (void)orientOnEvent: (NSEvent*)event;
 
 - (void) setAnchorPointRelative: (CGPoint) anchorPoint;
 - (void) setAnchorPoint: (CGPoint) anchorPoint inRect:(NSRect)rect;
 - (void) setAnchorPoint: (CGPoint) anchorPoint inView: (NSView *) view;
-- (void) flipHorizontally;
-- (void) flipVertically;
+//- (void) flipHorizontally;
+//- (void) flipVertically;
 - (void) flipBackAtEdge:	(AZWindowPosition)position;
 - (void) flipForwardAtEdge: (AZWindowPosition)position;
 

@@ -31,7 +31,7 @@
 @end
 
 
-@interface NSImage (Merge)
+@interface NSImage (ImageMerge)
 
 /*!
  @brief    Returns an image constructed by tiling a given array

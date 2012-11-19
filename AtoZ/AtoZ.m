@@ -221,9 +221,9 @@ static NSA* cachedI = nil;
 	[NSThread performBlockInBackground:^{		trackMouse();		}];
 }
 
-+ (NSFont*) fontWithSize:(CGFloat)fontSize {
-	return 	[[AtoZ sharedInstance] registerFonts:fontSize];
-}
+//+ (NSFont*) fontWithSize:(CGFloat)fontSize {
+//	return 	[AtoZ  registerFonts:fontSize];
+//}
 
 + (void) initialize {
 }

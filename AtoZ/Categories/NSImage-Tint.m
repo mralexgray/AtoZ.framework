@@ -56,7 +56,7 @@
 @end
 
 
-@implementation NSImage (Merge)
+@implementation NSImage (ImageMerge)
 
 
 + (NSImage*)imageByTilingImages:(NSA*)images

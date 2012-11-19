@@ -86,7 +86,6 @@
 		7B22CA83161B321100D17C40 /* AZSound.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B22CA81161B321100D17C40 /* AZSound.m */; };
 		7B22CA84161B33E600D17C40 /* AZSound.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B22CA80161B321100D17C40 /* AZSound.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B22CA86161B358700D17C40 /* welcome.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7B22CA85161B358700D17C40 /* welcome.wav */; };
-		7B230AC015EED2CF007A680D /* azCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B8F4C0615EEB38C00571612 /* azCarousel.m */; };
 		7B230AC315EEDBD5007A680D /* AZQuadCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B230AC215EEDBD5007A680D /* AZQuadCell.m */; };
 		7B230AC615EEEF4D007A680D /* ButtonController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B230AC515EEEF4D007A680D /* ButtonController.m */; };
 		7B23C32315CDFBC100DD1A9C /* NSURL+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B23C32115CDFBC100DD1A9C /* NSURL+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -382,7 +381,6 @@
 		7B9D5B6D15ECE47B005D1A76 /* AZQuadLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B9D5B6C15ECE47A005D1A76 /* AZQuadLayer.m */; };
 		7B9D5BAA15ED0E27005D1A76 /* NSFileManager+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B9D5BA815ED0E26005D1A76 /* NSFileManager+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B9D5BAB15ED0E27005D1A76 /* NSFileManager+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B9D5BA915ED0E26005D1A76 /* NSFileManager+AtoZ.m */; };
-		7B9DFE1F1657490E00A47B6F /* AZUIViewController.h in Sources */ = {isa = PBXBuildFile; fileRef = 7B9DFE1C1657490D00A47B6F /* AZUIViewController.h */; };
 		7B9DFE201657490E00A47B6F /* AZUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B9DFE1D1657490D00A47B6F /* AZUIViewController.m */; };
 		7B9DFE211657490E00A47B6F /* AZUIViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DFE1E1657490E00A47B6F /* AZUIViewController.xib */; };
 		7BA35FF01645618400BFEB6B /* StarLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BA35FEE1645618400BFEB6B /* StarLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -3875,7 +3873,6 @@
 				7B12475C15EB91E000523869 /* AZBackgroundProgressBar.m in Sources */,
 				7BEF70271603112800A0300E /* NSBundle+AtoZ.m in Sources */,
 				7B9D5BAB15ED0E27005D1A76 /* NSFileManager+AtoZ.m in Sources */,
-				7B230AC015EED2CF007A680D /* azCarousel.m in Sources */,
 				7B0F8AA615F1CE6C00BB3CE7 /* AZSegmentedRect.m in Sources */,
 				7B0F8B0D15F2F07000BB3CE7 /* F.m in Sources */,
 				7B0F8B0F15F2F07000BB3CE7 /* NSArray+F.m in Sources */,
@@ -3998,7 +3995,6 @@
 				7BDF56A31627695500041A42 /* TestBedDelegate.m in Sources */,
 				7BB87026163853030000C242 /* AZGeometryViewController.m in Sources */,
 				7B43D270164C201800AC4D26 /* AZGeneralViewController.m in Sources */,
-				7B9DFE1F1657490E00A47B6F /* AZUIViewController.h in Sources */,
 				7B9DFE201657490E00A47B6F /* AZUIViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
