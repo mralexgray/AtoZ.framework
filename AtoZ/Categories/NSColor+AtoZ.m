@@ -575,6 +575,24 @@ static NSColor *ColorWithCSSString(NSString *str) {
 	int red = rand() % 255;	int green = rand() % 255;	int blue = rand() % 255;
 	return [NSColor colorWithCalibratedRed:red/255.0 green:green/255.0 blue:blue/255.0 alpha:1.0];
 }
+
++ (NSC*)randomLightColor {
+	NSC *c = RANDOMCOLOR;
+	return [c colorWithBrightnessMultiplier:.9];
+}
+
++ (NSC*)randomBrightColor {
+	NSC *c = RANDOMCOLOR;
+	while ( !c.isBright ) c = RANDOMCOLOR;
+	return c;
+}
+
++ (NSC*)randomDarkColor {
+	NSC *c = RANDOMCOLOR;
+	while ( !c.isDark ) c = RANDOMCOLOR;
+	return c;
+}
+
 /*
  NSColor: Instantiate from Web-like Hex RRGGBB string
  Original Source: <http://cocoa.karelia.com/Foundation_Categories/NSColor__Instantiat.m>

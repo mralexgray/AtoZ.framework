@@ -186,7 +186,7 @@ NSUInteger gcd(NSInteger m, NSUInteger n) {
 - (NSA*) rects {
 	if (!_positions) self.positions = [NSMA array];
 	return _rects = _rects ?: ^{
-//		NSLog(@"Quant: %ld.	Cap: %ld. Rem:%ld Aspect:%@. Rows: %ld.  Cols:%ld", _quantity, self.capacity, self.remainder, self.aspectRatio , _rows, _columns );
+		NSLog(@"Quant: %ld.	Cap: %ld. Rem:%ld Aspect:%@. Rows: %ld.  Cols:%ld", _quantity, self.capacity, self.remainder, self.aspectRatio , _rows, _columns );
 		return _orient == AZOrientGrid ? ^{
 			NSUInteger Q = 0;
 			NSMutableArray *pRects = [NSMutableArray array];

@@ -170,7 +170,7 @@ extern CATransform3D CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13, CG
 @end
 @interface CALayer (LTKAdditions)
 
-@property (readonly, nonatomic) CAL* permaPresentation;
+@property (readonly) CAL* permaPresentation;
 
 
 @property (readwrite, nonatomic, assign) CGPoint frameOrigin;
@@ -267,5 +267,17 @@ extern CATransform3D CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13, CG
 @interface CAScrollLayer (CAScrollLayer_Extensions)
 - (void)scrollBy:(CGPoint)inDelta;
 - (void)scrollCenterToPoint:(CGPoint)inPoint;
+@end
+
+typedef void(^MPRenderASCIIBlock)(NSString* art);
+
+@interface CALayer (MPPixelHitTesting)
+
+- (BOOL) pixelsHitTest:(CGPoint)p;
+- (BOOL) pixelsIntersectWithRect:(CGRect)rect;
+
+- (void) setRenderASCIIBlock:(MPRenderASCIIBlock)block;
+- (MPRenderASCIIBlock) renderASCIIBlock;
+
 @end
 

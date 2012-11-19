@@ -53,9 +53,10 @@ typedef void (^AZBlockTask)(id obj, NSDictionary *change);
 - (id) performString:(NSS*)string;
 - (id) performString:(NSS*)string withObject:(id) obj;
 
-- (NSArray *) instanceMethods;
-- (NSArray *) instanceMethodNames;
-+ (NSArray *) instanceMethods;
+- (NSS*) instanceMethods;
+- (NSA*) instanceMethodArray;
+- (NSA*) instanceMethodNames;
++ (NSA*) instanceMethods;
 
 /* USAGE:
 -(void)mouseDown:(NSEvent*)theEvent {
@@ -106,6 +107,8 @@ typedef void (^caseBlock)();
 //+ (NSString*)  autoDescribeWithClassType:	(Class) classType;
 
 + (NSString*)  autoDescribe;
+- (NSString*)  autoDescribe;
+
 
 - (void) setWindowPosition:	(AZWindowPosition) pos;
 - (AZWindowPosition) windowPosition;
@@ -164,6 +167,7 @@ BOOL respondsToString(id obj,NSS* string);
 + (NSDictionary*) classPropsFor:	(Class) klass;
 //- (NSA*) methodDumpForClass:	(NSString*) Class;
 + (NSA*) classMethods;
+- (NSS*) methods;
 
 - (NSString*) stringFromClass;
 
@@ -288,5 +292,20 @@ free(p);
 - (void) setPropertiesWithDictionary:(NSD*)dictionary;
 - (BOOL) canSetValueForKey:	   (NSString*) key;
 - (BOOL) canSetValueForKeyPath: (NSString*) keyPath;
+
+@end
+
+
+@interface NSObject (AutoCoding) <NSCoding, NSCopying>
+
+//coding
+
+- (NSArray *)codableKeys;
+- (NSArray *)uncodableKeys;
+
+//loading / saving
+
++ (instancetype)objectWithContentsOfFile:(NSString *)path;
+- (void)writeToFile:(NSString *)filePath atomically:(BOOL)useAuxiliaryFile;
 
 @end

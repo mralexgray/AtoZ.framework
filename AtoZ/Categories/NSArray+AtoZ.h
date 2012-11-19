@@ -23,6 +23,10 @@
 
 @interface NSArray (AtoZ)
 
+- (NSA*) alphabetize;
+
+- (NSS*) formatAsListWithPadding:(NSUI)characters;
+
 - (NSCountedSet*)countedSet ;
 
 /*!

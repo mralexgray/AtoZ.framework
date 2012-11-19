@@ -46,7 +46,8 @@ extern void disableCA();
 
 @interface CAAnimation (AtoZ)
 
-+ (instancetype) propertyAnimation: (NSD*) dict;
++ (CABA*) animationWithKeyPath: (NSS*)path andDuration:(NSTI)interval;
++ (CABA*) propertyAnimation: (NSD*) dict;
 
 + (CAAnimation*)randomPathAnimationWithStartingPoint:(CGPoint)firstPoint inFrame:(NSR)rect;
 + (CAAnimation*)randomPathAnimationInFrame:(NSRect) frame;

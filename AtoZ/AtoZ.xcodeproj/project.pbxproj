@@ -100,6 +100,7 @@
 		7B23C36815CE9AB800DD1A9C /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B23C36715CE9AB800DD1A9C /* WebKit.framework */; };
 		7B23C37B15CF2E8200DD1A9C /* 2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7B23C37A15CF2E8200DD1A9C /* 2.jpg */; };
 		7B23C37D15CF318500DD1A9C /* missingdial.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B23C37C15CF318500DD1A9C /* missingdial.png */; };
+		7B23EE591659962700334BF8 /* CocoaPuffs.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7B99B97B16394E3B00500715 /* CocoaPuffs.framework */; };
 		7B24E97915A1299700A9D87A /* NSView+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B24E97715A1299700A9D87A /* NSView+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B24E97A15A1299700A9D87A /* NSView+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B24E97815A1299700A9D87A /* NSView+AtoZ.m */; };
 		7B24E98E15A12D2100A9D87A /* AZGrid.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B24E97F15A12D2100A9D87A /* AZGrid.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -127,7 +128,7 @@
 		7B31B14F15E9449F00802CD5 /* AtoZ.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7B311951159B6D9E002134C4 /* AtoZ.framework */; };
 		7B3422A315A52A61006AC46C /* AZBaseModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B3422A115A52A61006AC46C /* AZBaseModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B3422CA15A5EF03006AC46C /* AZDockQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B3422C815A5EF03006AC46C /* AZDockQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7B375681163B63B8003D52B7 /* CocoaPuffs.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7B99B97B16394E3B00500715 /* CocoaPuffs.framework */; };
+		7B375681163B63B8003D52B7 /* CocoaPuffs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B99B97B16394E3B00500715 /* CocoaPuffs.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		7B379C8B15DDBB8A0040A093 /* AZLassoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B379C8A15DDBB8A0040A093 /* AZLassoView.m */; };
 		7B379C8D15DDBBB30040A093 /* AZLassoView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B379C8C15DDBBB30040A093 /* AZLassoView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B379CA815DE0B050040A093 /* AZBackground.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B379CA615DE0B050040A093 /* AZBackground.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -405,7 +406,6 @@
 		7BB0095C16311BB500750FEB /* AZPropellerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BB0095A16311BB500750FEB /* AZPropellerView.m */; };
 		7BB0096016311D7700750FEB /* AZPropellerBadge.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BB0095E16311D7700750FEB /* AZPropellerBadge.png */; };
 		7BB0096116311D7700750FEB /* AZPropellerBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BB0095F16311D7700750FEB /* AZPropellerBar.png */; };
-		7BB304791646BB47006CDC56 /* AZPalette.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BB304771646BB47006CDC56 /* AZPalette.m */; };
 		7BB3047A1646BCC9006CDC56 /* AZPalette.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BB304761646BB47006CDC56 /* AZPalette.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BB5AFFE16481EB3008D50A5 /* BBMeshView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BB5AFFD16481EB3008D50A5 /* BBMeshView.m */; };
 		7BB5B00016481EF6008D50A5 /* BBMeshView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BB5AFFF16481EC7008D50A5 /* BBMeshView.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -454,6 +454,7 @@
 		7BC859C515A8C0F400582632 /* AZSizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BC859C315A8C0F400582632 /* AZSizer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BC859CA15A8C56700582632 /* NSNumber+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BC859C815A8C56700582632 /* NSNumber+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BC859CB15A8C56700582632 /* NSNumber+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC859C915A8C56700582632 /* NSNumber+AtoZ.m */; };
+		7BC874161657E77800E6E91E /* AZPalette.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BB304771646BB47006CDC56 /* AZPalette.m */; };
 		7BC8EEB115DE77ED00630FC0 /* statusimage.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BC8EEAD15DE77ED00630FC0 /* statusimage.png */; };
 		7BC8EEB215DE77ED00630FC0 /* statusimage_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BC8EEAE15DE77ED00630FC0 /* statusimage_pressed.png */; };
 		7BC8EEB315DE77ED00630FC0 /* closebox.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BC8EEAF15DE77ED00630FC0 /* closebox.png */; };
@@ -498,8 +499,6 @@
 		7BEF70271603112800A0300E /* NSBundle+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BEF70251603112800A0300E /* NSBundle+AtoZ.m */; };
 		7BF0571C15EB33F3003A2A7A /* AZSpinnerLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF0571A15EB33F2003A2A7A /* AZSpinnerLayer.m */; };
 		7BF0571D15EB33F3003A2A7A /* AZSpinnerLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BF0571B15EB33F3003A2A7A /* AZSpinnerLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7BF09CD21657DE95008218DD /* MArray.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BF09CD01657DE95008218DD /* MArray.h */; };
-		7BF09CD31657DE95008218DD /* MArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF09CD11657DE95008218DD /* MArray.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7BF26177164EDAE40057EB88 /* Lumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF26172164EDAB00057EB88 /* Lumberjack.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		7BF26178164EDAFD0057EB88 /* Lumberjack.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7BF26172164EDAB00057EB88 /* Lumberjack.framework */; };
 		7BF2617B164EEC050057EB88 /* DrawKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BA35FA616449FDF00BFEB6B /* DrawKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -757,118 +756,6 @@
 			remoteGlobalIDString = 7BB86FE016384C490000C242;
 			remoteInfo = AtoZBezierPath;
 		};
-		7BB870491638A0550000C242 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7BB8702D1638A0520000C242 /* Quicksilver.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8D1107320486CEB800E47090;
-			remoteInfo = Quicksilver;
-		};
-		7BB8704B1638A0550000C242 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7BB8702D1638A0520000C242 /* Quicksilver.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = E1E5F9AF07B1FCFC0044D6EF;
-			remoteInfo = "QuickStep Foundation";
-		};
-		7BB8704D1638A0550000C242 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7BB8702D1638A0520000C242 /* Quicksilver.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = E1E5F9C307B1FD100044D6EF;
-			remoteInfo = "QuickStep Effects";
-		};
-		7BB8704F1638A0550000C242 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7BB8702D1638A0520000C242 /* Quicksilver.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = E103F1600647200700447FE0;
-			remoteInfo = "QuickStep Core";
-		};
-		7BB870511638A0550000C242 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7BB8702D1638A0520000C242 /* Quicksilver.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = E1B5F31206573C2900FCFBE2;
-			remoteInfo = "QuickStep Interface";
-		};
-		7BB870531638A0550000C242 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7BB8702D1638A0520000C242 /* Quicksilver.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 7F0BD5DD07B52EA8003F3DC3;
-			remoteInfo = "Core Support";
-		};
-		7BB870551638A0550000C242 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7BB8702D1638A0520000C242 /* Quicksilver.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4D002D021311465B009040B7;
-			remoteInfo = "Bezel Interface";
-		};
-		7BB870571638A0550000C242 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7BB8702D1638A0520000C242 /* Quicksilver.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4D002D61131148C2009040B7;
-			remoteInfo = "Finder Module";
-		};
-		7BB870591638A0550000C242 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7BB8702D1638A0520000C242 /* Quicksilver.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4D002D88131149A3009040B7;
-			remoteInfo = "Primer Interface";
-		};
-		7BB8705B1638A0550000C242 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7BB8702D1638A0520000C242 /* Quicksilver.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4D002DAD13114A2E009040B7;
-			remoteInfo = "HotKey Triggers";
-		};
-		7BB8705D1638A0550000C242 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7BB8702D1638A0520000C242 /* Quicksilver.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 7F9703D009AFEE8700E9EA77;
-			remoteInfo = QSDroplet;
-		};
-		7BB8705F1638A0550000C242 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7BB8702D1638A0520000C242 /* Quicksilver.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 66448D9614F42790000FA2E2;
-			remoteInfo = QSFoundationTests;
-		};
-		7BB870611638A0550000C242 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7BB8702D1638A0520000C242 /* Quicksilver.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 666E45EE150225EA0034E60A;
-			remoteInfo = QSCoreTests;
-		};
-		7BB870631638A0550000C242 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7BB8702D1638A0520000C242 /* Quicksilver.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 66D11C6415022A75002EE6E5;
-			remoteInfo = QSEffectsTests;
-		};
-		7BB870651638A0550000C242 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7BB8702D1638A0520000C242 /* Quicksilver.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 66D11C8B15022B08002EE6E5;
-			remoteInfo = QSInterfaceTests;
-		};
-		7BB870671638A0550000C242 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7BB8702D1638A0520000C242 /* Quicksilver.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 66D11CB415022C82002EE6E5;
-			remoteInfo = QuicksilverTests;
-		};
 		7BB8709A1638A0FB0000C242 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7BB8706D1638A0FA0000C242 /* ConciseKitSpecs.xcodeproj */;
@@ -1018,13 +905,13 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				7B23EE591659962700334BF8 /* CocoaPuffs.framework in frameworks copy */,
 				7B95C918164FC9850046F487 /* Zangetsu.framework in frameworks copy */,
 				7B95C914164FC9200046F487 /* MapKit.framework in frameworks copy */,
 				7BF2617C164EEC120057EB88 /* DrawKit.framework in frameworks copy */,
 				7BF26178164EDAFD0057EB88 /* Lumberjack.framework in frameworks copy */,
 				7B7EDA14164B974600D8C6C6 /* AtoZAppKit.framework in frameworks copy */,
 				7BC2DD2516469AA400E73757 /* BlocksKit.framework in frameworks copy */,
-				7B375681163B63B8003D52B7 /* CocoaPuffs.framework in frameworks copy */,
 				7BB870211638501F0000C242 /* AtoZBezierPath.framework in frameworks copy */,
 				7BB86F881638402A0000C242 /* Rebel.framework in frameworks copy */,
 				7B5ABAC71608E26800530EA7 /* FunSize.framework in frameworks copy */,
@@ -1644,7 +1531,6 @@
 		7BB87022163853030000C242 /* AZGeometryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = AZGeometryViewController.h; sourceTree = "<group>"; };
 		7BB87023163853030000C242 /* AZGeometryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZGeometryViewController.m; sourceTree = "<group>"; };
 		7BB87024163853030000C242 /* AZGeometryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AZGeometryViewController.xib; sourceTree = "<group>"; };
-		7BB8702D1638A0520000C242 /* Quicksilver.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Quicksilver.xcodeproj; path = ../Frameworks/QuickSilver/Quicksilver/Quicksilver.xcodeproj; sourceTree = "<group>"; };
 		7BB8706A1638A0FA0000C242 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		7BB8706B1638A0FA0000C242 /* ConciseKit.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = ConciseKit.podspec; sourceTree = "<group>"; };
 		7BB8706D1638A0FA0000C242 /* ConciseKitSpecs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = ConciseKitSpecs.xcodeproj; sourceTree = "<group>"; };
@@ -1760,8 +1646,6 @@
 		7BEF70251603112800A0300E /* NSBundle+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+AtoZ.m"; sourceTree = "<group>"; };
 		7BF0571A15EB33F2003A2A7A /* AZSpinnerLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZSpinnerLayer.m; sourceTree = "<group>"; };
 		7BF0571B15EB33F3003A2A7A /* AZSpinnerLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZSpinnerLayer.h; sourceTree = "<group>"; };
-		7BF09CD01657DE95008218DD /* MArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = MArray.h; path = Models/MArray.h; sourceTree = SOURCE_ROOT; };
-		7BF09CD11657DE95008218DD /* MArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MArray.m; path = Models/MArray.m; sourceTree = SOURCE_ROOT; };
 		7BF26168164EDAB00057EB88 /* Lumberjack.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Lumberjack.xcodeproj; path = ../Frameworks/CocoaLumberjack/Xcode/LumberjackFramework/Desktop/Lumberjack.xcodeproj; sourceTree = "<group>"; };
 		7BF9854915FEBDB100D47192 /* AtoZFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = AtoZFunctions.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		7BF9854A15FEBDB200D47192 /* AtoZFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AtoZFunctions.m; sourceTree = SOURCE_ROOT; };
@@ -1820,6 +1704,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BBD988215AF7A2400943FC1 /* QuartzCore.framework in Frameworks */,
 				7B7EDA12164B972300D8C6C6 /* AtoZAppKit.framework in Frameworks */,
 				7B95C917164FC96D0046F487 /* Zangetsu.framework in Frameworks */,
 				7BF26177164EDAE40057EB88 /* Lumberjack.framework in Frameworks */,
@@ -1840,7 +1725,7 @@
 				7BBD988115AF7A2400943FC1 /* Foundation.framework in Frameworks */,
 				7BDF56061625A45C00041A42 /* AVFoundation.framework in Frameworks */,
 				7B662AE1161F484B003D5EE0 /* Cocoa.framework in Frameworks */,
-				7BBD988215AF7A2400943FC1 /* QuartzCore.framework in Frameworks */,
+				7B375681163B63B8003D52B7 /* CocoaPuffs.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2142,7 +2027,6 @@
 				7BE2A4F31611576E003D6B92 /* Linked Frameworks */,
 				7BA7D241163945E60073BADC /* CocoaPuffs.xcodeproj */,
 				7BB870691638A0FA0000C242 /* ConciseKit */,
-				7BB8702D1638A0520000C242 /* Quicksilver.xcodeproj */,
 				7BB8701116384FF00000C242 /* AtoZBezierPath.xcodeproj */,
 				7BB86F7716383FCD0000C242 /* Rebel.xcodeproj */,
 				7BC69049162BA94000B71602 /* NanoStore.xcodeproj */,
@@ -2419,8 +2303,6 @@
 		7B59C8281600D346009DAFCA /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				7BF09CD01657DE95008218DD /* MArray.h */,
-				7BF09CD11657DE95008218DD /* MArray.m */,
 				7B71E72B16127CDF0015F4E4 /* Transition.h */,
 				7B71E725161268190015F4E4 /* CTGradient.h */,
 				7B71E726161268190015F4E4 /* CTGradient.m */,
@@ -2714,29 +2596,6 @@
 			children = (
 				7BB8701B16384FF20000C242 /* VectorBoolean.app */,
 				7BB8701D16384FF20000C242 /* AtoZBezierPath.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		7BB8702E1638A0520000C242 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				7BB8704A1638A0550000C242 /* Quicksilver.app */,
-				7BB8704C1638A0550000C242 /* QSFoundation.framework */,
-				7BB8704E1638A0550000C242 /* QSEffects.framework */,
-				7BB870501638A0550000C242 /* QSCore.framework */,
-				7BB870521638A0550000C242 /* QSInterface.framework */,
-				7BB870541638A0550000C242 /* Core Support.qsplugin */,
-				7BB870561638A0550000C242 /* Bezel Interface.qsplugin */,
-				7BB870581638A0550000C242 /* Finder Module.qsplugin */,
-				7BB8705A1638A0550000C242 /* Primer Interface.qsplugin */,
-				7BB8705C1638A0550000C242 /* HotKey Triggers.qsplugin */,
-				7BB8705E1638A0550000C242 /* QSDroplet.app */,
-				7BB870601638A0550000C242 /* QSFoundationTests.octest */,
-				7BB870621638A0550000C242 /* QSCoreTests.octest */,
-				7BB870641638A0550000C242 /* QSEffectsTests.octest */,
-				7BB870661638A0550000C242 /* QSInterfaceTests.octest */,
-				7BB870681638A0550000C242 /* QuicksilverTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -3245,7 +3104,6 @@
 				7BDF41F1164AFD3F008B3240 /* NSObject+AtoZ.h in Headers */,
 				7BB3047A1646BCC9006CDC56 /* AZPalette.h in Headers */,
 				7BA35FF01645618400BFEB6B /* StarLayer.h in Headers */,
-				7BF09CD21657DE95008218DD /* MArray.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3440,10 +3298,6 @@
 					ProjectRef = 7B0236B315E08BD90070FE12 /* PLWeakCompatibility.xcodeproj */;
 				},
 				{
-					ProductGroup = 7BB8702E1638A0520000C242 /* Products */;
-					ProjectRef = 7BB8702D1638A0520000C242 /* Quicksilver.xcodeproj */;
-				},
-				{
 					ProductGroup = 7BB86F7816383FCD0000C242 /* Products */;
 					ProjectRef = 7BB86F7716383FCD0000C242 /* Rebel.xcodeproj */;
 				},
@@ -3635,118 +3489,6 @@
 			fileType = wrapper.framework;
 			path = AtoZBezierPath.framework;
 			remoteRef = 7BB8701C16384FF20000C242 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7BB8704A1638A0550000C242 /* Quicksilver.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = Quicksilver.app;
-			remoteRef = 7BB870491638A0550000C242 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7BB8704C1638A0550000C242 /* QSFoundation.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = QSFoundation.framework;
-			remoteRef = 7BB8704B1638A0550000C242 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7BB8704E1638A0550000C242 /* QSEffects.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = QSEffects.framework;
-			remoteRef = 7BB8704D1638A0550000C242 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7BB870501638A0550000C242 /* QSCore.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = QSCore.framework;
-			remoteRef = 7BB8704F1638A0550000C242 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7BB870521638A0550000C242 /* QSInterface.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = QSInterface.framework;
-			remoteRef = 7BB870511638A0550000C242 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7BB870541638A0550000C242 /* Core Support.qsplugin */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "Core Support.qsplugin";
-			remoteRef = 7BB870531638A0550000C242 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7BB870561638A0550000C242 /* Bezel Interface.qsplugin */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "Bezel Interface.qsplugin";
-			remoteRef = 7BB870551638A0550000C242 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7BB870581638A0550000C242 /* Finder Module.qsplugin */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "Finder Module.qsplugin";
-			remoteRef = 7BB870571638A0550000C242 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7BB8705A1638A0550000C242 /* Primer Interface.qsplugin */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "Primer Interface.qsplugin";
-			remoteRef = 7BB870591638A0550000C242 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7BB8705C1638A0550000C242 /* HotKey Triggers.qsplugin */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "HotKey Triggers.qsplugin";
-			remoteRef = 7BB8705B1638A0550000C242 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7BB8705E1638A0550000C242 /* QSDroplet.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = QSDroplet.app;
-			remoteRef = 7BB8705D1638A0550000C242 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7BB870601638A0550000C242 /* QSFoundationTests.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = QSFoundationTests.octest;
-			remoteRef = 7BB8705F1638A0550000C242 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7BB870621638A0550000C242 /* QSCoreTests.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = QSCoreTests.octest;
-			remoteRef = 7BB870611638A0550000C242 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7BB870641638A0550000C242 /* QSEffectsTests.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = QSEffectsTests.octest;
-			remoteRef = 7BB870631638A0550000C242 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7BB870661638A0550000C242 /* QSInterfaceTests.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = QSInterfaceTests.octest;
-			remoteRef = 7BB870651638A0550000C242 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7BB870681638A0550000C242 /* QuicksilverTests.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = QuicksilverTests.octest;
-			remoteRef = 7BB870671638A0550000C242 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		7BB8709B1638A0FB0000C242 /* ConciseKitSpecs.app */ = {
@@ -4049,7 +3791,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7BDF41F2164AFD53008B3240 /* NSObject+AtoZ.m in Sources */,
-				7BB304791646BB47006CDC56 /* AZPalette.m in Sources */,
 				7BA7D2391639421A0073BADC /* ConciseKit.m in Sources */,
 				7BA7D23A1639421A0073BADC /* NSArray+ConciseKit.m in Sources */,
 				7BA7D23B1639421A0073BADC /* NSDictionary+ConciseKit.m in Sources */,
@@ -4184,7 +3925,7 @@
 				7BA35FF11645618400BFEB6B /* StarLayer.m in Sources */,
 				7BB5AFFE16481EB3008D50A5 /* BBMeshView.m in Sources */,
 				7B5180761654EE7400C7A28B /* LetterView.m in Sources */,
-				7BF09CD31657DE95008218DD /* MArray.m in Sources */,
+				7BC874161657E77800E6E91E /* AZPalette.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4518,7 +4259,7 @@
 		7B31197C159B6D9E002134C4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ANALYZER_OBJC_UNUSED_IVARS = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -4528,16 +4269,17 @@
 				CLANG_WARN__ARC_BRIDGE_CAST_NONARC = NO;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
+				DSTROOT = build;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				FRAMEWORK_VERSION = A;
-				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREFIX_HEADER = "./AtoZ-Framework.pch";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "AtoZ-Framework.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "DEBUGTALKER=1";
 				GCC_SHORT_ENUMS = YES;
 				GCC_USE_INDIRECT_FUNCTION_CALLS = NO;
@@ -4558,8 +4300,6 @@
 					"-fobjc-runtime-has-weak",
 				);
 				OTHER_LDFLAGS = (
-					"-undefined",
-					dynamic_lookup,
 					"-ObjC",
 					"-all_load",
 					"-sub_library",
@@ -4584,6 +4324,8 @@
 					Zangetsu,
 					"-sub_umbrella",
 					MapKit,
+					"-sub_umbrella",
+					CocoaPuffs,
 				);
 				PRODUCT_NAME = AtoZ;
 				RUN_CLANG_STATIC_ANALYZER = NO;
@@ -4599,7 +4341,7 @@
 		7B31197D159B6D9E002134C4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ANALYZER_OBJC_UNUSED_IVARS = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -4609,16 +4351,17 @@
 				CLANG_WARN__ARC_BRIDGE_CAST_NONARC = NO;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
+				DSTROOT = build;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				FRAMEWORK_VERSION = A;
-				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREFIX_HEADER = "./AtoZ-Framework.pch";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "AtoZ-Framework.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "DEBUGTALKER=1";
 				GCC_SHORT_ENUMS = YES;
 				GCC_USE_INDIRECT_FUNCTION_CALLS = NO;
@@ -4639,8 +4382,6 @@
 					"-fobjc-runtime-has-weak",
 				);
 				OTHER_LDFLAGS = (
-					"-undefined",
-					dynamic_lookup,
 					"-ObjC",
 					"-all_load",
 					"-sub_library",
@@ -4665,6 +4406,8 @@
 					Zangetsu,
 					"-sub_umbrella",
 					MapKit,
+					"-sub_umbrella",
+					CocoaPuffs,
 				);
 				PRODUCT_NAME = AtoZ;
 				RUN_CLANG_STATIC_ANALYZER = NO;

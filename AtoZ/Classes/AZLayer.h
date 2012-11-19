@@ -11,10 +11,10 @@
 
 @interface AZLayer : CAL
 
-+ (BOOL)needsDisplayForKey:(NSString *)key;
-+ (instancetype) layerAtIndex:(NSI)idx inRange:(RNG)rng unit:(CGF)unit;
++ (BOOL)     needsDisplayForKey: (NSS*) key;
++ (AZLayer*) layerAtIndex: (NSI)idx inRange:(RNG)rng withFrame:(CGR)frame;
 
-- (id) initWithLayer: (id) layer;
+//- (id) initWithLayer: (id) layer;
 
 //+ (AZLayer*)withFrame:(NSRect)frame forObject:(id)file atIndex:(NSUInteger)index;
 //- (void)orientWithX: (CGFloat)x andY: (CGFloat)y;
@@ -24,8 +24,8 @@
 @property (NATOM, ASS) RNG 		range;
 @property (NATOM, ASS) NSI 		index;
 
-@property (NATOM, ASS) CGF		offset,
-								unit;
+@property (NATOM, ASS) CGF		offset;
+//								unit;
 
 @property (NATOM, ASS) BOOL 	    flipped,
 								hovered,

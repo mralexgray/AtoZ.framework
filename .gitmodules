@@ -94,3 +94,7 @@
 	path = ContactFlow
 	url = https://github.com/mralexgray/ContactFlow.git
 	ignore = dirty
+[submodule "Frameworks/SVGKit"]
+	path = Frameworks/SVGKit
+	url = https://github.com/mralexgray/SVGKit.git
+	ignore = dirty

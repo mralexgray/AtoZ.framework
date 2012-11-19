@@ -46,22 +46,22 @@ static const BOOL __MArrayPrint=NO;
 	return self;
 }
 
--(void)release
-{
-	if(__MArrayPrint)
-		NSLog(@"-release %d",[[self proxiedObject] retainCount]);
-	if([[self proxiedObject] retainCount]-1==0)
-	{
-		if(__MArrayPrint)
-			NSLog(@"final release for %@",self);
-		[[self proxiedObject] release];
-		[self dealloc];
-	}
-	else
-	{
-		[[self proxiedObject] release];
-	}
-}
+//-(void)release
+//{
+//	if(__MArrayPrint)
+//		NSLog(@"-release %d",[[self proxiedObject] retainCount]);
+//	if([[self proxiedObject] retainCount]-1==0)
+//	{
+//		if(__MArrayPrint)
+//			NSLog(@"final release for %@",self);
+//		[[self proxiedObject] release];
+//		[self dealloc];
+//	}
+//	else
+//	{
+//		[[self proxiedObject] release];
+//	}
+//}
 
 //[[MArray alloc] init]
 -(void)forwardInvocation:(NSInvocation*)invocation
@@ -82,7 +82,7 @@ static const BOOL __MArrayPrint=NO;
 		[invocation invokeWithTarget:newProxiedObject];
 		[invocation getReturnValue:&newProxiedObject];
 		[self setProxiedObject:newProxiedObject];
-		[invocation setReturnValue:&self];
+		[invocation setReturnValue:&newProxiedObject] ;//]&self];
 	}
 	else
 	{
@@ -116,12 +116,12 @@ static const BOOL __MArrayPrint=NO;
 
 #pragma mark NSObject protocol conformance
 //I need to implement these to nuke compiler warnings- otherwise the forwarding would be fine
--(id)autorelease
-{
-//	[[self proxiedObject] autorelease];
-	[NSAutoreleasePool addObject:self];
-	return self;
-}
+//-(id)autorelease
+//{
+////	[[self proxiedObject] autorelease];
+//	[NSAutoreleasePool addObject:self];
+//	return self;
+//}
 
 -(Class)class
 {
@@ -149,7 +149,7 @@ static const BOOL __MArrayPrint=NO;
 	return [self description];
 }
 
--(unsigned)hash
+-(NSUI)hash
 {
 	return [[self proxiedObject] hash];
 }
@@ -198,15 +198,15 @@ static const BOOL __MArrayPrint=NO;
 	return [[self proxiedObject] respondsToSelector:selector];
 }
 
--(id)retain
-{
-	return [[self proxiedObject] retain];
-}
-
--(unsigned)retainCount
-{
-	return [[self proxiedObject] retainCount];
-}
+//-(id)retain
+//{
+//	return [[self proxiedObject] retain];
+//}
+//
+//-(NSUInteger)retainCount
+//{
+//	return [[self proxiedObject] retainCount];
+//}
 
 -(id)self
 {
@@ -280,7 +280,7 @@ static const BOOL __MArrayPrint=NO;
 		{
 			//just insert the string
 			[tempArray addObject:[string copy]];
-			[[tempArray lastObject] release];
+//			[[tempArray lastObject] release];
 		}
 	}
 	[self addObjectsFromArray:tempArray];

@@ -26,7 +26,14 @@ extern NSView* AZResizeWindowAndContent(NSWindow* window, float dXLeft, float dX
 
 @end
 
+typedef void (^viewFrameDidChangeBlock)(void);
+
 @interface NSView (AtoZ)
+
+- (CGP)layerPoint:(NSEvent*)event;
+- (CGP)layerPoint:(NSEvent*)event toLayer:(CAL*)layer;
+
+- (void) observeFrameChangeUsingBlock:(void(^)(void))block;
 
 -(void) replaceSubviewWithRandomTransition:(NSView *)oldView with:(NSView *)newView;
 

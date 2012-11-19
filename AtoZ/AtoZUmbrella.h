@@ -200,6 +200,8 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define CGS CGSize
 #define CIF CIFilter
 #define IBO IBOutlet
+#define ID3D CATransform3DIdentity
+
 #define NSA NSArray
 #define NSAPP NSApplication
 #define NSAC NSArrayController

@@ -217,7 +217,8 @@ CNItemPoint CNMakeItemPoint(NSUI aColumn, NSUI aRow) {
 - (void) refreshGridViewAnimated:(BOOL)animated
 {
 //    NSR scrollRect = [self frame]; scrollRect.size.width = scrollRect.size.width; scrollRect.size.height = [self allOverRowsInGridView] * self.itemSize.height;
-    [super setFrame: AZRectExceptHigh(self.frame, [self allOverRowsInGridView] * self.itemSize.height)];
+	NSR nfrme = AZRectExceptHigh([self frame], ( [self allOverRowsInGridView] * self.itemSize.height) );
+	[super setFrame:nfrme];
     [self updateReuseableItems];
     [self updateVisibleItems];
     [self arrangeGridViewItemsAnimated:animated];
@@ -440,7 +441,7 @@ CNItemPoint CNMakeItemPoint(NSUI aColumn, NSUI aRow) {
 - (void) reloadData
 {
     self.numberOfItems = [self gridView:self numberOfItemsInSection:0];
-    [[self.keyedVisibleItems  	allValues] do:^(id obj) { [(AZGVItem*)obj removeFromSuperview]; }];
+    [[[self keyedVisibleItems] allValues] do:^(id obj) { [(AZGVItem*)obj removeFromSuperview]; }];
     [self.keyedVisibleItems		removeAllObjects];
     [self.reuseableItems		removeAllObjects];
     [self refreshGridViewAnimated:YES];

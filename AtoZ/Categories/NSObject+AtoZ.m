@@ -74,12 +74,12 @@ static NSString *AZObserverTrampolineContext = @"AZObserverTrampolineContext";
 - (void)observeValueForKeyPath:(NSString *)aKeyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if (context == (__bridge const void*)AZObserverTrampolineContext)
-		{
+	{
         if (queue)
             [queue addOperationWithBlock:^{ task(object, change); }];
         else
             task(object, change);
-		}
+	}
 }
 
 - (void)cancelObservation
@@ -132,11 +132,11 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary()
     dispatch_sync(AZObserverMutationQueueCreatingIfNecessary(), ^{
         NSMutableDictionary *dict = objc_getAssociatedObject(self, (__bridge const void *)(AZObserverMapKey));
         if (!dict)
-			{
+		{
             dict = [[NSMutableDictionary alloc] init];
             objc_setAssociatedObject(self, (__bridge const void *)(AZObserverMapKey), dict, OBJC_ASSOCIATION_RETAIN);
             [dict release];
-			}
+		}
         AZObserverTrampoline *trampoline = [[AZObserverTrampoline alloc] initObservingObject:self keyPath:keyPath onQueue:queue task:task];
         dict[token] = trampoline;
         [trampoline release];
@@ -150,10 +150,10 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary()
         NSMutableDictionary *observationDictionary = objc_getAssociatedObject(self, (__bridge const void *)(AZObserverMapKey));
         AZObserverTrampoline *trampoline = observationDictionary[token];
         if (!trampoline)
-			{
+		{
             NSLog(@"[NSObject(AZBlockObservation) removeObserverWithBlockToken]: Ignoring attempt to remove non-existent observer on %@ for token %@.", self, token);
             return;
-			}
+		}
         [trampoline cancelObservation];
         [observationDictionary removeObjectForKey:token];
 
@@ -188,25 +188,32 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary()
     Method *method_list = class_copyMethodList([self class], &method_count);
     int i;
     for (i = 0; i < method_count; i++) {
-//        [array addObject:[[[NuMethod alloc] initWithMethod:method_list[i]] autorelease]];
+		//        [array addObject:[[[NuMethod alloc] initWithMethod:method_list[i]] autorelease]];
     }
     free(method_list);
     [array sortUsingSelector:@selector(compare:)];
     return array;
 }
-- (NSArray *) instanceMethods
+- (NSArray *) instanceMethodArray
 {
-    NSMutableArray *array = [NSMutableArray array];
-    unsigned int method_count;
-    Method *method_list = class_copyMethodList([self class], &method_count);
-    int i;
-    for (i = 0; i < method_count; i++) {
-//        [array addObject:[[[NuMethod alloc] initWithMethod:method_list[i]] autorelease]];
-    }
-    free(method_list);
-    [array sortUsingSelector:@selector(compare:)];
-    return array;
+	Class clazz = [self class];
+	u_int count;
+	Method* methods = class_copyMethodList(clazz, &count);
+	NSMutableArray* methodArray = [NSMutableArray arrayWithCapacity:count];
+	for (int i = 0; i < count ; i++)
+	{
+		SEL selector = method_getName(methods[i]);
+		const char* methodName = sel_getName(selector);
+		[methodArray addObject:[NSString  stringWithCString:methodName encoding:NSUTF8StringEncoding]];
+	}
+	free(methods);
+	return  methodArray;
 }
+- (NSS*) instanceMethods
+{
+	return [[self instanceMethodArray]formatAsListWithPadding:30];
+}
+
 
 
 /*! Get an array containing the names of the instance methods of a class. */
@@ -240,7 +247,7 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary()
 				value = [transformer reverseTransformedValue:value];
 			} else {
 				NSLog(@"WARNING: binding \"%@\" has value transformer, but it doesn't allow reverse transformations in %s", binding, __PRETTY_FUNCTION__);
-	}}}
+			}}}
 	id boundObject = [bindingInfo objectForKey:NSObservedObjectKey];
 	if(!boundObject || boundObject == [NSNull null]){
 		NSLog(@"ERROR: NSObservedObjectKey was nil for binding \"%@\" in %s", binding, __PRETTY_FUNCTION__);
@@ -256,11 +263,18 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary()
 
 -(void) setWithDictionary:(NSD*)dic;
 {
-	[[dic allKeys] each:^(id obj) {
-		NSString *j = $(@"set%@", [obj capitalizedString]);
-		SEL setter = @selector(j);
-		[self performSelectorWithoutWarnings:setter withObject:dic[obj]];
-	}];
+	NSCoder *aDecoder = [NSCoder new];
+	for (NSString *key in [dic codableKeys])
+    {
+        id object = [aDecoder decodeObjectForKey:key];
+        [self setValue:object forKey:key];
+    }
+
+	//	[[dic allKeys] each:^(id obj) {
+	//		NSString *j = $(@"set%@:", [obj capitalizedString]);
+	//		if ([self respondsToString:j] )
+	//			[self performSelectorWithoutWarnings:NSSelectorFromString(j) withObject:[dic[obj]copy]];
+	//	}];
 
 }
 +(void)switchOn:(id<NSObject>)obj cases:casesList, ...
@@ -286,22 +300,22 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary()
 
 - (id)objectForKeyedSubscript:(id)key
 {
-//	NSArray *syms = [NSThread  callStackSymbols];
-//	if ([syms count] > 1) {
-//		NSLog(@"<%@ %p> %@ - caller: %@ ", [self class], self, NSStringFromSelector(_cmd),[syms objectAtIndex:1]);
-//	} else {
-//		NSLog(@"<%@ %p> %@", [self class], self, NSStringFromSelector(_cmd));
-//	}
-//	if (areSame(key, @"path")) NSLog(@"warning, path subscrip[t being set");
-//	NSLog(@"CMD: %@ requesting subscript:%@", [NSString stringWithUTF8String:__func__], key);
+	//	NSArray *syms = [NSThread  callStackSymbols];
+	//	if ([syms count] > 1) {
+	//		NSLog(@"<%@ %p> %@ - caller: %@ ", [self class], self, NSStringFromSelector(_cmd),[syms objectAtIndex:1]);
+	//	} else {
+	//		NSLog(@"<%@ %p> %@", [self class], self, NSStringFromSelector(_cmd));
+	//	}
+	//	if (areSame(key, @"path")) NSLog(@"warning, path subscrip[t being set");
+	//	NSLog(@"CMD: %@ requesting subscript:%@", [NSString stringWithUTF8String:__func__], key);
 	id result = nil;
-//	if ([key isKindOfClass:[NSS class]])
-		result = [self respondsToString:key] ? [self valueForKey:key] : nil;
-		if (!result)
+	//	if ([key isKindOfClass:[NSS class]])
+	result = [self respondsToString:key] ? [self valueForKey:key] : nil;
+	if (!result)
 		result = [self respondsToSelector:@selector(valueForKeyPath:)] ? [self valueForKeyPath:key] : nil;
-		if (!result)
+	if (!result)
 		result = [self respondsToSelector:@selector(objectForKey:)] ? [(id)self objectForKey:key] : nil;
-		if (!result)
+	if (!result)
 		result = [self respondsToSelector:@selector(objectForKeyPath:)] ? [(id)self objectForKeyPath:key] : nil;
 
 	if (!result) NSLog(@"%@ cannot coerce value for keyedSubstring: %@", self, key);
@@ -310,7 +324,7 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary()
 
 - (void)setObject:(id)obj forKeyedSubscript:(id <NSCopying>)key {
 
-//	if (areSame(key, @"path")) NSLog(@"warning, path subscrip[t being set");
+	//	if (areSame(key, @"path")) NSLog(@"warning, path subscrip[t being set");
 
 	if ( areSame(obj, [self valueForKey:obj] )) { AZLOG(@"Theyre already the same, doing nothing!") return;}
 	__block BOOL wasSet = NO;
@@ -318,14 +332,14 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary()
 		[self canSetValueForKeyPath:(NSS*)key] ? ^{
 			NSLog(@"Setting Value: %@ forKeyPath:%@", obj, key);
 			[self setValue:obj forKeyPath:(NSS*)key];
-//			NSLog(@"New val: %@.", self[key]);
+			//			NSLog(@"New val: %@.", self[key]);
 			wasSet = [self [key] isEqualTo:obj];
 		}() : ^{  NSLog(@"Cannot set object:%@ for (dot)keypath:\"%@\" via subscript... \"%@\" does not respond. Current val:%@.",obj, key, self, self[key]);}();
 	}() : [self canSetValueForKey:(NSS*)key] ? ^{
-//			NSLog(@"Setting Value: %@ forKey:%@", obj, key);
-			[self setValue:obj forKey:(NSS*)key];
-			wasSet = [self[key] isEqualTo:obj];
-//			NSLog(@"New val: %@.", self[key]);
+		//			NSLog(@"Setting Value: %@ forKey:%@", obj, key);
+		[self setValue:obj forKey:(NSS*)key];
+		wasSet = [self[key] isEqualTo:obj];
+		//			NSLog(@"New val: %@.", self[key]);
 	}() : ^{  NSLog(@"Cannot set object:%@ for key:\"%@\" via subscript... \"%@\" does not respond. Current val:%@.",obj, key, self, self[key]);
 	}();
 	wasSet ?: NSLog(@"subscrpipt key:%@ NOT set, despite edfforts", key);
@@ -362,7 +376,7 @@ static char windowPosition;
         const char *propName 	= property_getName(prop);
         NSS*propNameStr 	= @(propName);
         if(propName) { id value = [self valueForKey:propNameStr];
-					   [propPrint appendString:[NSString stringWithFormat:@"%@=%@ ; ", propNameStr, value]]; }
+			[propPrint appendString:[NSString stringWithFormat:@"%@=%@ ; ", propNameStr, value]]; }
 	}
     free(propList);
 	// Now see if we need to map any superclasses as well.
@@ -374,8 +388,47 @@ static char windowPosition;
     return propPrint;
 }
 
-- (NSS*) autoDescribe { return [$(@"%@:%p:: ", [self class], self) stringByAppendingString:
-											   [self autoDescribeWithClassType:[self class]]]; }
++ (NSString*)  autoDescribe;
+{ return [$(@"%@:%p:: ", [self class], self) stringByAppendingString:
+		  [self autoDescribeWithClassType:[self class]]]; }
+
+- (NSS*) autoDescribe
+{
+	Class clazz = [self class];
+	u_int count;
+
+	Ivar* ivars = class_copyIvarList(clazz, &count);
+	NSMutableArray* ivarArray = [NSMutableArray arrayWithCapacity:count];
+	for (int i = 0; i < count ; i++)
+	{
+		const char* ivarName = ivar_getName(ivars[i]);
+		[ivarArray addObject:[NSString  stringWithCString:ivarName encoding:NSUTF8StringEncoding]];
+	}
+	free(ivars);
+
+	objc_property_t* properties = class_copyPropertyList(clazz, &count);
+	NSMutableArray* propertyArray = [NSMutableArray arrayWithCapacity:count];
+	for (int i = 0; i < count ; i++)
+	{
+		const char* propertyName = property_getName(properties[i]);
+		[propertyArray addObject:[NSString  stringWithCString:propertyName encoding:NSUTF8StringEncoding]];
+	}
+	free(properties);
+
+	Method* methods = class_copyMethodList(clazz, &count);
+	NSMutableArray* methodArray = [NSMutableArray arrayWithCapacity:count];
+	for (int i = 0; i < count ; i++)
+	{
+		SEL selector = method_getName(methods[i]);
+		const char* methodName = sel_getName(selector);
+		[methodArray addObject:[NSString  stringWithCString:methodName encoding:NSUTF8StringEncoding]];
+	}
+	free(methods);
+	NSLog(@"%@", 	@{ @"ivars" : [ivarArray formatAsListWithPadding:30], @"properties":
+		  [propertyArray formatAsListWithPadding:30], @"methods":
+		  [methodArray formatAsListWithPadding:30]});
+}
+
 @end
 
 @implementation NSObject (SubclassEnumeration)
@@ -545,25 +598,25 @@ static char windowPosition;
 
 - (IBAction)showMethodsInFrameWork:(id)sender {
 
-//	[NSTask launchedTaskWithLaunchPath:@"/usr/bin/say" arguments:@[s]];
+	//	[NSTask launchedTaskWithLaunchPath:@"/usr/bin/say" arguments:@[s]];
 
-		//	BOOL isSelected;	NSS*label;
-//	BOOL isSegmented = [sender isKindOfClass:[NSSegmentedControl class]];
-//		//	if (isSegmented) {
-//	NSInteger selectedSegment = [sender selectedSegment];
-//		//		 = [sender isSelectedForSegment:selectedSegment];
-//	label = [sender labelForSegment:selectedSegment];
-//	BOOL *optionPtr = &isSelected;
-//		//	} else
-//		//		label = [sender label];
-//	SEL fabricated = NSSelectorFromString($(@"set%@:", label));
-//	[[sender delegate] performSelector:fabricated withValue:optionPtr];
-		//	[[AZTalker sharedInstance] say:$(@"%@ is %@ selected", string, isSelected ? @"" : @"NOT")];
+	//	BOOL isSelected;	NSS*label;
+	//	BOOL isSegmented = [sender isKindOfClass:[NSSegmentedControl class]];
+	//		//	if (isSegmented) {
+	//	NSInteger selectedSegment = [sender selectedSegment];
+	//		//		 = [sender isSelectedForSegment:selectedSegment];
+	//	label = [sender labelForSegment:selectedSegment];
+	//	BOOL *optionPtr = &isSelected;
+	//		//	} else
+	//		//		label = [sender label];
+	//	SEL fabricated = NSSelectorFromString($(@"set%@:", label));
+	//	[[sender delegate] performSelector:fabricated withValue:optionPtr];
+	//	[[AZTalker sharedInstance] say:$(@"%@ is %@ selected", string, isSelected ? @"" : @"NOT")];
 }
 
 - (NSS*)segmentLabel {
 	return    [self isKindOfClass:[NSSegmentedControl class]]
-			? [(NSSegmentedControl*)self labelForSegment:[(NSSegmentedControl*)self selectedSegment]] : nil;
+	? [(NSSegmentedControl*)self labelForSegment:[(NSSegmentedControl*)self selectedSegment]] : nil;
 }
 
 BOOL respondsToString(id obj,NSS* string){
@@ -601,7 +654,7 @@ BOOL respondsTo(id obj, SEL selector){
 		NSInteger selectedSegment = [sender selectedSegment];
 		label = [sender labelForSegment:selectedSegment];
 		BOOL *optionPtr = &isSelected;
-		
+
 		NSI prop = [self integerForKey:label];
 		NSI newVal = (prop+1);
 		[self setValue:[NSVAL value:(const void*)newVal withObjCType:[self typeOfPropertyNamed:label]] forKey:label];
@@ -614,15 +667,15 @@ BOOL respondsTo(id obj, SEL selector){
 
 	BOOL isSelected;	NSS*label;
 	BOOL isSegmented = [sender isKindOfClass:[NSSegmentedControl class]];
-		//	if (isSegmented) {
+	//	if (isSegmented) {
 	NSInteger selectedSegment = [sender selectedSegment];
-		//		 = [sender isSelectedForSegment:selectedSegment];
+	//		 = [sender isSelectedForSegment:selectedSegment];
 	label = [sender labelForSegment:selectedSegment];
 	BOOL *optionPtr = &isSelected;
 
 	SEL fabricated = NSSelectorFromString($(@"set%@:", label));
 	[[sender delegate] performSelector:fabricated withValue:optionPtr];
-		//	[[AZTalker sharedInstance] say:$(@"%@ is %@ selected", string, isSelected ? @"" : @"NOT")];
+	//	[[AZTalker sharedInstance] say:$(@"%@ is %@ selected", string, isSelected ? @"" : @"NOT")];
 }
 //- (void)performActionFromLabel:(id)sender {
 //
@@ -638,10 +691,10 @@ BOOL respondsTo(id obj, SEL selector){
 //	[[sender delegate] performSelector:fabricated withValue:optionPtr];
 //	//	[[AZTalker sharedInstance] say:$(@"%@ is %@ selected", string, isSelected ? @"" : @"NOT")];
 //}
-	//- (BOOL) respondsToSelector: (SEL) aSelector {
-	//    NSLog (@"%s", (char *) aSelector);
-	//    return ([super respondsToSelector: aSelector]);
-	//} // respondsToSelector
+//- (BOOL) respondsToSelector: (SEL) aSelector {
+//    NSLog (@"%s", (char *) aSelector);
+//    return ([super respondsToSelector: aSelector]);
+//} // respondsToSelector
 
 static const char * getPropertyType(objc_property_t property) {
 	const char *attributes = property_getAttributes(property);
@@ -650,12 +703,12 @@ static const char * getPropertyType(objc_property_t property) {
 	strcpy(buffer, attributes);
 	char *state = buffer, *attribute;
 	while ((attribute = strsep(&state, ",")) != NULL) {
-//	If you want a list of what will be returned for these primitives, search online for "objective-c" "Property Attribute Description Examples" apple docs list plenty of examples of what you get for int "i", long "l", unsigned "I", struct, etc.
-			// it's a C primitive type:
+		//	If you want a list of what will be returned for these primitives, search online for "objective-c" "Property Attribute Description Examples" apple docs list plenty of examples of what you get for int "i", long "l", unsigned "I", struct, etc.
+		// it's a C primitive type:
 		return attribute[0] == 'T' && attribute[1] != '@' ? (const char *)[[NSData dataWithBytes:(attribute + 1) length:strlen(attribute) - 1] bytes]
-			// it's an ObjC id type:
+		// it's an ObjC id type:
 		: attribute[0] == 'T' && attribute[1] == '@' && strlen(attribute) == 2  ? "id"
-			// it's another ObjC object type:
+		// it's another ObjC object type:
 		: attribute[0] == 'T' && attribute[1] == '@' ? (const char *)[[NSData dataWithBytes:(attribute + 3) length:strlen(attribute) - 4] bytes]
 		: "";
 	}
@@ -725,6 +778,10 @@ static const char * getPropertyType(objc_property_t property) {
  }
  */
 
+- (NSS*) methods {
+	return [[[self class] classMethods]formatAsListWithPadding:30];
+}
+
 + (NSA*)classMethods {
 	const char* className = class_getName([self class]);
 	int unsigned numMethods;
@@ -732,14 +789,14 @@ static const char * getPropertyType(objc_property_t property) {
 	Method *methods = class_copyMethodList(objc_getMetaClass(className), &numMethods);
 	for (int i = 0; i < numMethods; i++) {
 		[ii addObject:NSStringFromSelector(method_getName(methods[i]))];
-//	    NSLog(@"%@", NSStringFromSelector(method_getName(methods[i])));
+		//	    NSLog(@"%@", NSStringFromSelector(method_getName(methods[i])));
 	}
 	return ii.copy;
-}	
+}
 
-	// aps suffix to avoid namespace collsion
-	//   ...for Andrew Paul Sardone
-	//- (NSD *)propertiesDictionariate;
+// aps suffix to avoid namespace collsion
+//   ...for Andrew Paul Sardone
+//- (NSD *)propertiesDictionariate;
 
 
 - (NSS*)stringFromClass {	return NSStringFromClass( [self class]); }
@@ -761,7 +818,7 @@ static const char * getPropertyType(objc_property_t property) {
 	[nc postNotificationName:notificationName object:self userInfo:context];
 }
 -(id)observeObject:(NSS*)notificationName
-	  usingBlock:(void (^)(NSNotification *))block
+		usingBlock:(void (^)(NSNotification *))block
 {
 	return [AZNOTCENTER addObserverForName:notificationName
 									object:self
@@ -772,9 +829,9 @@ static const char * getPropertyType(objc_property_t property) {
 	  usingBlock:(void (^)(NSNotification *))block
 {
 	return [AZNOTCENTER addObserverForName:notificationName
-						   object:self
-							queue:nil
-					   usingBlock:block];
+									object:self
+									 queue:nil
+								usingBlock:block];
 }
 
 -(void)observeObject:(NSObject *)object
@@ -804,7 +861,7 @@ static const char * getPropertyType(objc_property_t property) {
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-//	return (id)
+	//	return (id)
 	[self performSelector:aSelector withObject:obj];
 #pragma clang diagnostic pop
 }
@@ -812,7 +869,7 @@ static const char * getPropertyType(objc_property_t property) {
 - (id) performSelectorWithoutWarnings:(SEL)aSelector withObject:(id)obj withObject:(id)obj2 {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-//	return	(id)
+	//	return	(id)
 	[self performSelector:aSelector withObject:obj withObject:obj2];
 #pragma clang diagnostic pop
 }
@@ -867,7 +924,7 @@ static const char * getPropertyType(objc_property_t property) {
 }
 
 - (void)setClass:(Class)aClass {	NSAssert( class_getInstanceSize([self class]) == class_getInstanceSize(aClass),
-			 									@"Classes must be the same size to swizzle.");
+											 @"Classes must be the same size to swizzle.");
 	object_setClass(self, aClass);
 }
 
@@ -879,22 +936,22 @@ static const char * getPropertyType(objc_property_t property) {
 + (id)customClassWithProperties:(NSD *)properties { return [[[self alloc] initWithProperties:properties] autorelease];}
 
 - (id)initWithProperties:(NSD *)properties {
-//	if ([self isKindOfClass:[CALayer class]]) {
-//		if ([[properties allKeys]containsObject:@"frame"]){
-//			self[@"frame"] = [properties rectForKey:@"frame"] {
-//			[self setValuesForKeysWithDictionary:[properties dictionaryWithoutKey:@"frame"]];
-//		}
-//	}
-//
-//	}
+	//	if ([self isKindOfClass:[CALayer class]]) {
+	//		if ([[properties allKeys]containsObject:@"frame"]){
+	//			self[@"frame"] = [properties rectForKey:@"frame"] {
+	//			[self setValuesForKeysWithDictionary:[properties dictionaryWithoutKey:@"frame"]];
+	//		}
+	//	}
+	//
+	//	}
 	if ([[properties allKeys]containsObject:@"frame"]){
 		if (self = [(NSView*)self initWithFrame:[properties rectForKey:@"frame"]]) {
 			[self setValuesForKeysWithDictionary:[properties dictionaryWithoutKey:@"frame"]];
 		}
 	}
-//	if ([self isKindOfClass:[NSView class]])
-//	if (self = [self init])
-//else
+	//	if ([self isKindOfClass:[NSView class]])
+	//	if (self = [self init])
+	//else
 	else if (self = [self init]) {
 		[self setValuesForKeysWithDictionary:properties];
 	}
@@ -970,13 +1027,145 @@ static const char * getPropertyType(objc_property_t property) {
 - (BOOL)canSetValueForKeyPath:(NSString *)keyPath
 {
     NSRange delimeterRange = [keyPath rangeOfCharacterFromSet:
-							 [NSCharacterSet characterSetWithCharactersInString: @"."]];
+							  [NSCharacterSet characterSetWithCharactersInString: @"."]];
     if (delimeterRange.location == NSNotFound) return [self canSetValueForKey:keyPath];
 
     NSString *first	= [keyPath substringToIndex:	delimeterRange.location		];
     NSString *rest 	= [keyPath substringFromIndex: (delimeterRange.location + 1)];
 
     return [self canSetValueForKey:first] ? [[self valueForKey:first] canSetValueForKeyPath:rest] : NO;
+}
+
+@end
+
+
+
+@implementation NSObject (AutoCoding)
+
++ (instancetype)objectWithContentsOfFile:(NSString *)filePath
+{
+    //load the file
+    NSData *data = [NSData dataWithContentsOfFile:filePath];
+
+    //attempt to deserialise data as a plist
+    id object = nil;
+    if (data)
+    {
+        NSPropertyListFormat format;
+        if ([NSPropertyListSerialization respondsToSelector:@selector(propertyListWithData:options:format:error:)])
+        {
+            object = [NSPropertyListSerialization propertyListWithData:data options:NSPropertyListImmutable format:&format error:NULL];
+        }
+        else
+        {
+            object = [NSPropertyListSerialization propertyListFromData:data mutabilityOption:NSPropertyListImmutable format:&format errorDescription:NULL];
+        }
+
+		//success?
+		if (object)
+		{
+			//check if object is an NSCoded unarchive
+			if ([object respondsToSelector:@selector(objectForKey:)] && [object objectForKey:@"$archiver"])
+			{
+				object = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+			}
+		}
+		else
+		{
+			//return raw data
+			object = data;
+		}
+    }
+
+	//return object
+	return object;
+}
+
+- (void)writeToFile:(NSString *)filePath atomically:(BOOL)useAuxiliaryFile
+{
+    //note: NSData, NSDictionary and NSArray already implement this method
+    //and do not save using NSCoding, however the objectWithContentsOfFile
+    //method will correctly recover these objects anyway
+
+    //archive object
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self];
+    [data writeToFile:filePath atomically:useAuxiliaryFile];
+}
+
+- (NSArray *)codableKeys
+{
+    NSMutableArray *array = [NSMutableArray array];
+    Class class = [self class];
+    while (class != [NSObject class])
+    {
+        unsigned int count;
+        objc_property_t *properties = class_copyPropertyList(class, &count);
+        for (int i = 0; i < count; i++)
+        {
+            objc_property_t property = properties[i];
+            const char *attributes = property_getAttributes(property);
+            NSString *encoding = [NSString stringWithCString:attributes encoding:NSUTF8StringEncoding];
+            if (![[encoding componentsSeparatedByString:@","] containsObject:@"R"])
+            {
+                //omit read-only properties
+                const char *name = property_getName(property);
+                NSString *key = [NSString stringWithCString:name encoding:NSUTF8StringEncoding];
+                [array addObject:key];
+            }
+        }
+        free(properties);
+        class = [class superclass];
+    }
+    [array removeObjectsInArray:[self uncodableKeys]];
+    return array;
+}
+
+- (NSArray *)uncodableKeys
+{
+    return nil;
+}
+
+- (void)setNilValueForKey:(NSString *)key
+{
+    //don't throw exception
+}
+
+- (void)setWithCoder:(NSCoder *)aDecoder
+{
+    for (NSString *key in [self codableKeys])
+    {
+        id object = [aDecoder decodeObjectForKey:key];
+        [self setValue:object forKey:key];
+    }
+}
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder
+{
+    if ((self = [self init]))
+    {
+        [self setWithCoder:aDecoder];
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder
+{
+    for (NSString *key in [self codableKeys])
+    {
+        id object = [self valueForKey:key];
+        [aCoder encodeObject:object forKey:key];
+    }
+}
+
+- (instancetype)copyWithZone:(NSZone *)zone
+{
+    NSObject *copy = [[[self class] allocWithZone:zone] init];
+    for (NSString *key in [self codableKeys])
+    {
+        id object = [self valueForKey:key];
+        [copy setValue:object forKey:key];
+    }
+    return copy;
 }
 
 @end

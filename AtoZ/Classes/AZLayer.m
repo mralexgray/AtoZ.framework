@@ -13,21 +13,30 @@ const NSString* ztimeF = @"timingFunction";
 #import "AZLayer.h"
 
 @implementation AZLayer
+@dynamic hovered, selected, flipped;
+
 - (id)initWithLayer:(id)layer	{	if(!(self = [super initWithLayer:layer])) return nil;
-										[self setWithDictionary:[layer propertiesPlease]];
+										[[layer propertyNames]each:^(id obj) {
+											[self setValue:layer[obj] forKey:obj];
+										}];
+									self.backgroundColor = cgRANDOMCOLOR;
+									[self setNeedsDisplay];
 	return self;
 }
 
-+ (instancetype) layerAtIndex:(NSI)idx inRange:(RNG)rng unit:(CGF)unit
++ (AZLayer*) layerAtIndex: (NSI)idx inRange:(RNG)rng withFrame:(CGR)frame
 {
-	AZLayer *z = [[self class]layer];	z.index = idx; 	z.range = rng;	z.unit  = unit;	 return z;
+	AZLayer *z = [[self class]layer];	z.index = idx; 	z.range = rng; z.frame = frame; 	 return z;
 }
 
 
 + (id)defaultValueForKey:(NSString *)key
 {
 	static NSD* vals = nil;	vals = vals ?: @{ 	@"masksToBounds"	: @(YES),
-												@"doubleSided"		: @(NO)		};
+												@"doubleSided"		: @(NO),
+												@"hovered"			: @(NO),
+												@"selected"			: @(NO),
+												@"flipped"			: @(NO)	};
 
 	return [vals.allKeys containsObject:key] ? vals[key] : [super defaultValueForKey:key];
 }
@@ -35,13 +44,19 @@ const NSString* ztimeF = @"timingFunction";
 -(id<CAAction>)actionForKey:(NSString *)event
 {
 	return [@[@"content", @"color"]containsObject:event] ? [self _makeAnimationForSomeKey:event]
-													     : [super actionForKey:event];
-}
+		   /*	[@[@"hovered"]containsObject:event] 		 ? ^{
 
+
+		   }()*/
+													     : [super actionForKey:event];
+
+//	= [CABA animationWithKeyPath:@"transform"];
+
+}
 
 + (BOOL)needsDisplayForKey:(NSString *)key
 {
-	return [@[@"startAngle", @"endAngle"] containsObject:key] ?: [super needsDisplayForKey:key];
+	return [@[@"offset", @"position"] containsObject:key] ?: [super needsDisplayForKey:key];
 }
 
 -(CABA*)_makeAnimationForSomeKey: (NSS*)key

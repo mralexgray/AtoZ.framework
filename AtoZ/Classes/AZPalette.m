@@ -7,7 +7,7 @@
 //
 
 #import "AZPalette.h"
-#import "MArray.h"
+//#import "MArray.h"
 
 
 static 	NSUI internalIndex = 0;

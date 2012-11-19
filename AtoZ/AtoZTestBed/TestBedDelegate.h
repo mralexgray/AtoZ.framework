@@ -24,7 +24,7 @@
 @end
 
 
-@interface TestBedDelegate : NSObject <NSApplicationDelegate, NSWindowDelegate>
+@interface TestBedDelegate : NSObject <NSApplicationDelegate, NSWindowDelegate, AZSemiResponder>
 
 @property (weak) IBOutlet AtoZColorWell *colorWell;
 
@@ -44,6 +44,8 @@
 @property (STRNG, NATOM) AtoZ 					*propeller;
 @property (STRNG, NATOM) NASpinSeque 			*seque;
 @property (STRNG, NATOM) AZSemiResponderWindow	*semiWindow;
+
+@property (STRNG, NATOM) NSS	 *semiLog;
 
 
 - (IBAction) setViewFromPopUp:(id)sender;

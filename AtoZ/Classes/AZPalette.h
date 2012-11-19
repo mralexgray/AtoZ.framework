@@ -6,10 +6,12 @@
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 //
 
-#import "AtoZ.h"
-#import "MArray.h"
+#import <Foundation/Foundation.h>
+//#import "MArray.h"
 
-@interface AZPalette : MArray
+#import "AtoZ.h"
+
+@interface AZPalette : NSArray
 
 + (AZP*) randomPalette;
 

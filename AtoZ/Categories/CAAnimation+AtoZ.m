@@ -98,11 +98,6 @@
 
 @implementation CATransition (AtoZ)
 
-+ (instancetype) propertyAnimation:(NSD*)dict {
-	id newA = [[self class] animation];
-	[newA setWithDictionary:dict];
-	return newA;
-}
 
 
 
@@ -201,6 +196,21 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey = @"AZCAAnimationCompl
 @end
 
 @implementation CAAnimation (AtoZ)
+
++ (CABA*) animationWithKeyPath: (NSS*)path andDuration:(NSTI)interval;
+{
+	id<CAAction> a = [CABasicAnimation animationWithKeyPath:path];
+	((CABasicAnimation*)a).duration = interval;
+	return a;
+}
+
++ (CABA*) propertyAnimation:(NSD*)dict
+{
+	CABA* newA = [dict hasKey:@"keyPath"] ? [CABA animationWithKeyPath:dict[@"keyPath"]] : [CABA animation];
+	[dict hasKey:@"keyPath"] ?  [newA setWithDictionary:[dict dictionaryWithoutKey:@"keyPath"]] : [newA setWithDictionary:dict];
+	return newA;
+}
+
 
 + (CAAnimation*)colorAnimationForLayer:(CALayer *)theLayer WithStartingColor:(NSColor*)color1 endColor:(NSColor*)color2;
 {

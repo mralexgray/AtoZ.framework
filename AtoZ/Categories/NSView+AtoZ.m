@@ -77,7 +77,22 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 
 @implementation NSView (AtoZ)
 
+- (CGP)layerPoint:(NSEvent*)event;
+{
+	return [self convertPointToLayer:[self convertPoint:event.locationInWindow fromView:nil]];
+}
+- (CGP)layerPoint:(NSEvent*)event toLayer:(CAL*)layer;
+{
+	return [self.layer convertPoint:[self layerPoint:event] toLayer:layer];
+}
 
+- (void) observeFrameChangeUsingBlock:(void(^)(void))block
+{
+	self.postsBoundsChangedNotifications = YES;
+	[self observeName:NSViewFrameDidChangeNotification usingBlock:^(NSNotification *n) {
+		block();
+	}];
+}
 - (BOOL)isSubviewOfView:(NSView*) theView
 {
     __block BOOL isSubView = NO;

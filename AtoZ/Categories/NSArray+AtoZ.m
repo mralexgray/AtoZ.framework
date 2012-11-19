@@ -46,6 +46,16 @@
 @implementation NSArray (AtoZ)
 
 
+- (NSS*) formatAsListWithPadding:(NSUI)characters;
+{
+	return /*$(@"\n%@",*/ [[[self alphabetize] map:^id(id obj) {
+		return [obj stringByPaddingToLength:characters withString:@" " startingAtIndex:0]; }]
+		componentsJoinedByString:@" "];// );
+}
+
+- (NSA*) alphabetize {
+	return [self.mutableCopy sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+}
 - (NSCountedSet*)countedSet {
 	return [[NSCountedSet alloc] initWithArray:self] ;
 }

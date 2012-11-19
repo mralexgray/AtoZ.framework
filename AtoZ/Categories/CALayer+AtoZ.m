@@ -860,8 +860,10 @@ static char ORIENT_IDENTIFIER;
 {
 	if ( [self canSetValueForKey:key]) {
 		if (isEmpty(object)) [self setValue:@"" forKey:key];
-		else  [self setValue:object forKey:key];
-	}
+		else{
+		[self setValue:object forKey:key];
+		NSLog(@"setValue: %@ for layer's key: %@", object, key)
+	}}
 }
 
 -(void)rotateAroundYAxis:(CGFloat)radians
@@ -1011,13 +1013,23 @@ static char ORIENT_IDENTIFIER;
 	[self orientWithX:point.x andY:point.y];
 }
 
+
+//CATransform3D t =
+//CATransform3DConcat(
+//					CATransform3DMakeRotation(x, 0, 1, 0),
+//					CATransform3DMakeRotation( y, 1, 0, 0));
+//t 		= [self hasPropertyForKVCKey:@"sublayerTransform"] ? CATransform3DConcat(self.sublayerTransform, t) : t;
+//t.m34	= [self hasPropertyForKVCKey:@"sublayerTransform.m34"] ? self.sublayerTransform.m34 : 1.0 / -450;
+//
+//self.sublayerTransform = t;
+
 - (void)orientWithX: (CGFloat)x andY: (CGFloat)y
 {
 	CATransform3D transform	 = CATransform3DConcat(
 									CATransform3DMakeRotation(x, 0, 1, 0),
 									CATransform3DMakeRotation( y, 1, 0, 0) );
 	transform.m34		= 1.0 / -450;
-	self.sublayerTransform		= transform;
+	self.superlayer.sublayerTransform		= transform;
 }
 
 //- (void)orientOnEvent: (NSEvent*)event;
@@ -1647,9 +1659,13 @@ NSTimeInterval const LTKDefaultTransitionDuration = 0.25;
 @implementation CALayer (LTKAdditions)
 
 
+//-(CAL*) hitEvent:(NSEvent*) forClass
+@dynamic permaPresentation;
+
 - (CAL*) permaPresentation
 {
- 	return  [self.presentationLayer isKindOfClass:[CAL class]] ? self.presentationLayer : self;
+	if (!self.presentationLayer) NSLog(@"no presenta para: %@", self);
+	return self.presentationLayer && [self.presentationLayer isKindOfClass:[CAL class]] ? self.presentationLayer : self;
 }
 
 #pragma mark - Property Accessors
@@ -2500,3 +2516,126 @@ NSTimeInterval const LTKDefaultTransitionDuration = 0.25;
 @end
 
 
+
+static const char *kRenderAsciiBlockKey = "-";
+
+@implementation CALayer (MPPixelHitTesting)
+
+- (void) setRenderASCIIBlock:(MPRenderASCIIBlock)block
+{
+    objc_setAssociatedObject(self, kRenderAsciiBlockKey, block, OBJC_ASSOCIATION_COPY);
+}
+
+- (MPRenderASCIIBlock) renderASCIIBlock
+{
+    return objc_getAssociatedObject(self, kRenderAsciiBlockKey);
+}
+
+- (BOOL) pixelsIntersectWithRect:(CGRect)rect
+{
+    CGRect bounds = CGRectIntersection(self.pixelsHitTestRect, rect);
+
+    // If our pixel bounds do not intersect with the rect then we have nothing to test!
+    if (CGRectIsNull(bounds))
+        return NO;
+
+
+    // For pretty ascii art uncomment this line
+    MPRenderASCIIBlock renderBlock = self.renderASCIIBlock;
+    if (renderBlock)
+        bounds = self.pixelsHitTestRect;
+
+    uint64_t width  = ceil(bounds.size.width);
+    uint64_t height = ceil(bounds.size.height);
+    uint64_t count  = width * height;
+    uint64_t hit    = 0;
+
+    // We render directly into our result if it takes only 1 byte.
+    uint8_t *buf = (count == 1)? &hit : calloc(count, 1);
+
+    CGContextRef theMask = CGBitmapContextCreate(buf, width, height, 8, width, NULL, kCGImageAlphaOnly);
+
+    if (theMask) {
+
+        // Translate so that our bounds origin is at 0,0 in our buffer
+        CGContextTranslateCTM(theMask, -bounds.origin.x, -bounds.origin.y);
+
+        // By adding a blurry shadow we make it easier to click on little things
+        CGContextSetShadow(theMask, CGSizeMake(0, 0.0f), 2.0f);
+
+        // We can now render the presentatinLayer
+        [self.presentationLayer renderInContext:theMask];
+
+        // CAShapeLayers don't renderInContext so we need a workaround
+        if ([self isKindOfClass:[CAShapeLayer class]])
+            [self renderShapeLayer:(CAShapeLayer*)self inContext:theMask];
+
+        // Additional code for rendering the ascii art.
+        // Requires the CocoaPuffs framework at https://github.com/macprog-guy/CocoaPuffs
+        if (renderBlock)
+            renderBlock([[NSData dataWithBytesNoCopy:buf length:count freeWhenDone:NO] asciiArtOfWidth:(int)width andHeight:(int)height]);
+
+        // Check the more complicated case where we are looking at a larger rect
+        if (count > 1) {
+            for (int i=0;  i<count && !hit;  i++)
+                hit += buf[i];
+            free(buf);
+        }
+
+        CGContextRelease(theMask);
+    }
+
+    return (hit != 0);
+
+}
+
+- (void) renderShapeLayer:(CAShapeLayer*)layer inContext:(CGContextRef)context
+{
+    if (layer.path) {
+
+        // TODO: still incomplete. Should finish implementation.
+        CGColorRef whiteColor = CGColorGetConstantColor(kCGColorWhite);
+        CGColorRef clearColor = CGColorGetConstantColor(kCGColorClear);
+
+        CGContextAddPath(context, layer.path);
+        CGContextSetLineWidth(context, layer.lineWidth);
+
+        CGLineCap cap = kCGLineCapButt;
+        if ([layer.lineCap isEqualToString:kCALineCapRound])
+            cap = kCGLineCapRound;  // COV_NF_LINE
+        else if ([layer.lineCap isEqualToString:kCALineCapSquare])
+            cap = kCGLineCapSquare; // COV_NF_LINE
+
+        CGLineJoin join = kCGLineJoinMiter;
+        if ([layer.lineJoin isEqualToString:kCALineJoinBevel])
+            join = kCGLineJoinBevel; // COV_NF_LINE
+        else if ([layer.lineJoin isEqualToString:kCALineJoinRound])
+            join = kCGLineJoinRound; // COV_NF_LINE
+
+        CGContextSetLineCap(context, cap);
+        CGContextSetLineJoin(context, join);
+
+        if (layer.fillColor && !CGColorEqualToColor(layer.fillColor, clearColor)) {
+            CGContextSetFillColorWithColor(context, whiteColor);
+            CGContextFillPath(context);
+        }
+
+        if (layer.strokeColor && !CGColorEqualToColor(layer.strokeColor, clearColor)) {
+            CGContextSetStrokeColorWithColor(context, whiteColor);
+            CGContextStrokePath(context);
+        }
+    }
+}
+
+
+- (BOOL) pixelsHitTest:(CGPoint)p
+{
+    return [self pixelsIntersectWithRect:CGRectMake(p.x-0.5, p.y-0.5, 1, 1)];
+}
+
+- (CGRect) pixelsHitTestRect
+{
+    return CGRectInset(self.bounds,-3,-3);
+}
+
+@end

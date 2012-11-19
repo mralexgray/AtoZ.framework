@@ -9,25 +9,25 @@
 //#import "AGFoundation.h"
 
 @interface NSColor (AtoZ)
-- (NSColor*) alpha:(CGFloat)floater;
-- (NSColor*) inverted;
+- (NSC*) alpha:(CGFloat)floater;
+- (NSC*) inverted;
 
-+ (NSColor*) linen;
-+ (NSColor*) linenTintedWithColor: (NSColor*) color;
-+ (NSColor*) leatherTintedWithColor:(NSColor*)color;
++ (NSC*) linen;
++ (NSC*) linenTintedWithColor: (NSC*) color;
++ (NSC*) leatherTintedWithColor:(NSC*)color;
 
-+ (NSColor*) checkerboardWithFirstColor: (NSColor*) firstColor secondColor: (NSColor*) secondColor
++ (NSC*) checkerboardWithFirstColor: (NSC*) firstColor secondColor: (NSC*) secondColor
 															   squareWidth: (CGFloat)width;
 + (NSA*) colorNames;
-+ (NSColor*) colorNamed:(NSString*)string;
++ (NSC*) colorNamed:(NSString*)string;
 
 - (BOOL)	 isBoring;
 - (BOOL)	 isExciting;
 + (NSA*) boringColors;
 - (NSString*) 	nameOfColor;
 - (NSString*) 	crayonName;
-- (NSColor*) 	closestWebColor;
-- (NSColor*)	closestNamedColor;
+- (NSC*) 	closestWebColor;
+- (NSC*)	closestNamedColor;
 //- (NSDictionary*)	closestColor;  //name, list, and color
 
 - (CGColorRef)	cgColor;
@@ -41,17 +41,20 @@
 + (NSA*)	systemColors;
 + (NSA*)	systemColorNames;
 
-+ (NSColor*)	randomColor;
-+ (NSColor*)	randomOpaqueColor;
-+ (NSColor*)	colorFromHexRGB: (NSString*) inColorString;
-//+ (NSColor*)	colorWithHTMLString:(NSString*)	hexString;
++ (NSC*)	randomLightColor;
++ (NSC*)	randomBrightColor;
++ (NSC*)	randomDarkColor;
++ (NSC*)	randomColor;
++ (NSC*)	randomOpaqueColor;
++ (NSC*)	colorFromHexRGB: (NSString*) inColorString;
+//+ (NSC*)	colorWithHTMLString:(NSString*)	hexString;
 
-//+ (NSColor*)	colorWithCGColor: (CGColorRef) aColor;
-+ (NSColor*)	crayonColorNamed: (NSString*) key;
+//+ (NSC*)	colorWithCGColor: (CGColorRef) aColor;
++ (NSC*)	crayonColorNamed: (NSString*) key;
 
-//+ (NSColor*)	colorWithName:(NSString*)colorName;
-//+ (NSColor*)	colorFromString: 	(NSString*)	string;
-//+ (NSColor*)	colorFromHexString: (NSString*)	hexString;
+//+ (NSC*)	colorWithName:(NSString*)colorName;
+//+ (NSC*)	colorFromString: 	(NSString*)	string;
+//+ (NSC*)	colorFromHexString: (NSString*)	hexString;
 - (NSString*)	toHex;
 
 @property (RONLY) NSColor *deviceRGBColor;
@@ -72,7 +75,7 @@
 @property (RONLY) NSColor *redshift;
 @property (RONLY) NSColor *blueshift;
 
--(NSColor*)blend:(NSColor*)other;
+-(NSC*)blend:(NSC*)other;
 
 @property (RONLY) NSColor *whitened;
 @property (RONLY) NSColor *blackened;
@@ -87,8 +90,8 @@
 @property (RONLY) NSColor *translucent;
 @property (RONLY) NSColor *watermark;
 
--(NSColor*)rgbDistanceToColor:(NSColor*)color;
--(NSColor*)hsbDistanceToColor:(NSColor*)color;
+-(NSC*)rgbDistanceToColor:(NSC*)color;
+-(NSC*)hsbDistanceToColor:(NSC*)color;
 @property (RONLY)	CGFloat rgbWeight;
 @property (RONLY)	CGFloat hsbWeight;
 
@@ -100,9 +103,9 @@
 @end
 
 @interface NSString (THColorConversion)
-- (NSColor*)	colorValue;
+- (NSC*)	colorValue;
 - (NSData*)	 colorData;
-+ (NSColor*)	colorFromData:(NSData*)theData;
++ (NSC*)	colorFromData:(NSData*)theData;
 @end
 
 @interface NSArray (THColorConversion)
@@ -116,12 +119,12 @@
 @end
 @interface NSColor (NSColor_ColorspaceEquality)
 
-- (BOOL)	isEqualToColor:(NSColor*)inColor colorSpace:(NSString*)inColorSpace;
+- (BOOL)	isEqualToColor:(NSC*)inColor colorSpace:(NSString*)inColorSpace;
 
 @end
 @interface NSColor (NSColor_CSSRGB)
 
-+ (NSColor*)	colorWithCSSRGB:(NSString*)rgbString;
++ (NSC*)	colorWithCSSRGB:(NSString*)rgbString;
 
 @end
 
@@ -131,7 +134,7 @@
 //Linearly adjust a color
 #define cap(x)	{ if (x < 0)	{x = 0;} else if (x > 1)	{x = 1;} }
 
-- (NSColor*)adjustHue:(CGFloat)dHue saturation:(CGFloat)dSat brightness:(CGFloat)dBrit;
+- (NSC*)adjustHue:(CGFloat)dHue saturation:(CGFloat)dSat brightness:(CGFloat)dBrit;
 
 @end
 #define CV_PALETTE_1 [NSColor colorWithDeviceRed:.9372 green:.6313 blue:.5019 alpha:1]
@@ -199,10 +202,10 @@
 + (NSA*)calveticaPalette;
 
 // Determines which color in the Calvetica palette most closely matches the recipient color.
-- (NSColor*)closestColorInCalveticaPalette;
+- (NSC*)closestColorInCalveticaPalette;
 
 // Determines which color in the array of colors most closely matches recipient color.
-- (NSColor*)closestColorInPalette:(NSA*)palette;
+- (NSC*)closestColorInPalette:(NSA*)palette;
 
 // Converts the recipient UIColor to the L*a*b* color space.
 - (float*)colorToLab;
@@ -219,7 +222,7 @@
 
 @interface NSColorList (AtoZ)
 
-- (NSColor*)	randomColor;
+- (NSC*)	randomColor;
 + (id)	colorListWithFileName:(NSString*)fileName inBundle:(NSBundle*)aBundle;
 + (id)	colorListWithFileName:(NSString*)	fileName inBundleForClass:(Class)	aClass;
 + (id)	colorListInFrameworkWithFileName:(NSString*)	fileName;
@@ -294,7 +297,7 @@
 
 //@implementation NSString (AIColorAdditions_RepresentingColors)
 
-//- (NSColor*)representedColor
+//- (NSC*)representedColor
 //{
 //    CGFloat	r = 255, g = 255, b = 255;
 //    CGFloat	a = 255;
@@ -330,7 +333,7 @@
 //	return nil;
 //}
 
-//- (NSColor*)representedColorWithAlpha:(CGFloat)alpha
+//- (NSC*)representedColorWithAlpha:(CGFloat)alpha
 //{
 //	//this is the same as above, but the alpha component is overridden.
 
@@ -364,14 +367,14 @@
 
 //@implementation NSColor (AIColorAdditions_RandomColor)
 
-//+ (NSColor*)randomColor
+//+ (NSC*)randomColor
 //{
 //	return [NSColor colorWithCalibratedRed:(arc4random()	% 65536)	/ 65536.0f
 //	                                 green:(arc4random()	% 65536)	/ 65536.0f
 //	                                  blue:(arc4random()	% 65536)	/ 65536.0f
 //	                                 alpha:1.0f];
 //}
-//+ (NSColor*)randomColorWithAlpha
+//+ (NSC*)randomColorWithAlpha
 //{
 //	return [NSColor colorWithCalibratedRed:(arc4random()	% 65536)	/ 65536.0f
 //	                                 green:(arc4random()	% 65536)	/ 65536.0f
@@ -419,7 +422,7 @@
 //	return hexValue;
 //}
 ///*
-//+ (id)colorWithHTMLString:(NSString*)str defaultColor:(NSColor*)defaultColor
+//+ (id)colorWithHTMLString:(NSString*)str defaultColor:(NSC*)defaultColor
 //{
 //	if (!str)	return defaultColor;
 

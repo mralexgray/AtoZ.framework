@@ -42,6 +42,7 @@
 
 	holdOntoViews.actionBlock = ^(id inSender){
 		_semiWindow = [AZSemiResponderWindow new];
+		_semiWindow.semiResponder = self;
 		[_semiWindow makeKeyAndOrderFront:self];
 	};
 //	self.genVC = [[AZGeneralViewController alloc]initWithNibName:@"AZGeneralViewController" bundle:nil];
@@ -53,6 +54,11 @@
 
 
 }
+
+-(void) logString:(NSS*)s {
+	self.semiLog = s;
+}
+
 -(IBAction)setViewFromPopUp:(id)sender
 {
 	[[_activeView animator]setHidden:YES];

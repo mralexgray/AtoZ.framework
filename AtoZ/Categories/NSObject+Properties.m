@@ -45,12 +45,21 @@
 
 - (NSD*)propertiesSans:(NSS*)someKey { return [[self propertiesPlease] filter:^BOOL(id key,id value) { return [key isNotEqualTo:someKey] ? YES : NO; }]; }
 
-- (NSD *)propertiesPlease {	NSMD *props = [NSMD dictionary];	unsigned int outCount, i;
+- (NSD *)propertiesPlease {
+	NSMD *props = [NSMD dictionary];
+	unsigned outCount, i;
 	objc_property_t *properties = class_copyPropertyList([self class], &outCount);
-	for (i = 0; i < outCount; i++) {	objc_property_t property = properties[i];
-		NSS*propertyName = [[NSString alloc] initWithCString:property_getName(property) encoding:NSUTF8StringEncoding];
-		id propertyValue = [self valueForKey:(NSS*)propertyName];
-		if (propertyValue) props[propertyName] = propertyValue;
+	for (i = 0; i < outCount; i++) {
+		objc_property_t property = properties[i];
+
+		NSS *propertyName = [[NSS alloc] initWithCString:property_getName(property) encoding:NSUTF8StringEncoding];
+		if (propertyName) {
+			if ( [self hasPropertyForKVCKey:propertyName] && [self respondsToString:propertyName]) {
+				id propertyValue = [self valueForKey:propertyName];
+				if (propertyValue) props[propertyName] = propertyValue;
+			}
+			NSLog(@"Responds:%@ to:%@", StringFromBOOL([self respondsToString:propertyName]), propertyName);
+		}
 	}
 	free(properties);
 	return props;
@@ -174,9 +183,11 @@
 	NSMutableArray * list = [NSMutableArray array];
 	
 	for ( i = 0; i < count; i++ )
-		[list addObject: [NSString stringWithUTF8String: property_getName(properties[i])]];
-	
-	return ( [[list copy] autorelease] );
+		[list addObject:[NSS stringWithUTF8String:property_getName(properties[i])]];
+	return [[[list alphabetize] copy] autorelease];
+}
+- (NSS*) properties {
+	return [[self propertyNames]formatAsListWithPadding:30];
 }
 
 - (BOOL) hasProperties
