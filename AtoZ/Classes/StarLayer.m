@@ -16,29 +16,29 @@
 @dynamic color, outlineColor, spinState;
 
 
-- (id)init {	return [self initWithRect:[self.superlayer bounds]]; }
+- (id)init {	return [self initWithFrame:[self.superlayer bounds]]; }
 
--(id)initWithRect:(CGRect)rect
-{
-	if (!(self = [super init])) return nil;
-	_root 			= [CAL layer];
-	_star 			= [CAL layer];
-	_text 			= [CAL layer];
-	_root.delegate 	= self;
-    _root.frame 	= rect;
-    _root.arMASK 	= CASIZEABLE;
-	_root.NDOBC 	= YES;
-	[@[_star, _text] do:^(CAL *obj){
-		obj.frame		= AZMakeRectFromSize(rect.size);
-	 	obj.delegate	= self;
-		[obj setNeedsDisplay];
-    	[_root addSublayer:obj];
-	}];
-	[self toggleSpin:AZOn];
-	[self addSublayer:_root];
-	[self setNeedsDisplay];
-    return self;
-}
+//-(id)initWithRect:(CGRect)rect
+//{
+//	if (!(self = [super init])) return nil;
+//	_root 			= [CAL layer];
+//	_star 			= [CAL layer];
+//	_text 			= [CAL layer];
+//	_root.delegate 	= self;
+//    _root.frame 	= rect;
+//    _root.arMASK 	= CASIZEABLE;
+//	_root.NDOBC 	= YES;
+//	[@[_star, _text] do:^(CAL *obj){
+//		obj.frame		= AZMakeRectFromSize(rect.size);
+//	 	obj.delegate	= self;
+//		[obj setNeedsDisplay];
+//    	[_root addSublayer:obj];
+//	}];
+//	[self toggleSpin:AZOn];
+//	[self addSublayer:_root];
+//	[self setNeedsDisplay];
+//    return self;
+//}
 
 + (BOOL)needsDisplayForKey:(NSString *)key {
 

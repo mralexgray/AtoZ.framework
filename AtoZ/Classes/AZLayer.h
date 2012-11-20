@@ -10,6 +10,19 @@
 #import <QuartzCore/QuartzCore.h>
 
 @interface AZLayer : CAL
+{
+@private
+    NSMutableArray *_activeContentAnimations;
+    NSTimer *_updateTimer;
+}
+
++ (NSSet *)keyPathsForValuesAffectingContent;
+
+- (BOOL)isContentAnimation:(CAAnimation *)anim;
+- (CABasicAnimation *)basicAnimationForKey:(NSString *)key;
+- (id <CAAction>)actionForContents;
+
+#define CurrentAnimationValue(field) ({ __typeof__(self) p = (id)self.presentationLayer; p.field; })
 
 + (BOOL)     needsDisplayForKey: (NSS*) key;
 + (AZLayer*) layerAtIndex: (NSI)idx inRange:(RNG)rng withFrame:(CGR)frame;

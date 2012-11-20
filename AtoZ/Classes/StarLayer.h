@@ -14,6 +14,6 @@
 
 
 -(void) toggleSpin: (AZState)state;
--(id) initWithRect: (CGR)rect;
+//-(id) initWithRect: (CGR)rect;
 
 @end

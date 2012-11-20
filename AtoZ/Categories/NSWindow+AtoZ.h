@@ -88,6 +88,9 @@
 /*
 + (NSWindow*) borderlessWindowWithContentRect: (NSRect)aRect;
 */
+
+- (void)setIgnoresEventsButAcceptsMoved;
+
 @end
 
 //@interface NSWindow (UndocumentedRoutines)

@@ -252,6 +252,7 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define RNG AZRange
 
 //#define ID \(NSObject*\)
+#define lMGR layoutManager
 #define bgC backgroundColor
 #define fgC foregroundColor
 #define arMASK autoresizingMask

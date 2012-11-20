@@ -752,6 +752,10 @@ return midpoint;
 //	[cv setAutoresizesSubviews:YES];
 
 }
+-(void) setIgnoresEventsButAcceptsMoved {
+	[self setIgnoresMouseEvents: YES];
+	[self setAcceptsMouseMovedEvents: YES];
+}
 
 //This is the core of it - it just extends or shrinks the window's bottom edge by the given amount, leaving all the current subviews undisturbed. It could probably most usefully be a catego
 @end

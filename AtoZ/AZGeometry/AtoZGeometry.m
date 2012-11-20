@@ -184,6 +184,25 @@ NSString* AZAspectRatioString(CGFloat ratio)
 
 // CGFloat aspectRatio = ( rect.width / rect.height );
 //}
+
+CGP AZAnchorPointAtOffsetAlongPerimeterOfRect(CGF offset, NSR r)
+{
+	NSSZ sz = r.size; NSP anchor; CGF offsetOnSide;
+	if 		( sz.width > offset ) 					anchor = (NSP) { offset, 				   			     0};
+	else if ( sz.width + sz.height > offset ) 		anchor = (NSP) { sz.width, 			     offset - sz.width};
+	else if ( AZPerimeter(r) - sz.height > offset ) anchor = (NSP) { ABS( sz.width - (offset - sz.width - sz.height)),  sz.height};
+	else 											anchor = (NSP) { 0,				   AZPerimeter(r) - offset};
+	return anchor;
+//	CG totes = AZPerimeter (r);  //  for example 60 ... 10 x 20 box
+//	CGF cross = offset / totes;  //  offset of 10.   .16;
+//	CGF xRat  = r.size.width / (totes/2);
+//	CGF yRat  = ( 1 - (2*xRat)) / 2;;
+//	CGF bott  = cross < ;
+//	CGF right = cross < r.size.width + r.size.height / totes;
+//	CGF top   = intersect < totes - r.size.height;
+}
+
+
 CGFloat AZPerimeter (NSR rect) {
 	return ( (2* rect.size.width) + (2 * rect.size.height) );
 }

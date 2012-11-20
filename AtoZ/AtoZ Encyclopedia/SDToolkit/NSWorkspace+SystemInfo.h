@@ -15,3 +15,11 @@
 + (NSString*) systemVersion;
 
 @end
+@interface NSWorkspace (JAAdditions)
+- (void)openURLInBackground:(NSURL *)url;
+- (void)openURLsInBackground:(NSArray *)urls;
+- (void)openURLs:(NSArray *)urls;
+
+- (NSString *)applicationSupportDirectory;
+- (NSString *)preferencesDirectory;
+@end

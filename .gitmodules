@@ -98,3 +98,6 @@
 	path = Frameworks/SVGKit
 	url = https://github.com/mralexgray/SVGKit.git
 	ignore = dirty
+[submodule "Frameworks/SDToolKit"]
+	path = Frameworks/SDToolKit
+	url = https://github.com/mralexgray/SDToolkit.git

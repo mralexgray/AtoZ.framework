@@ -82,8 +82,12 @@ extern CATransform3D CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13, CG
 
 @interface CALayer (AtoZ)
 
+-(id)initWithFrame:(CGRect)rect;
+
 - (void)moveToFront;
 
+@property (strong, nonatomic) CAL *root;
+@property (strong, nonatomic) CATXTL *text;
 @property (ASS, NATOM) AZPOS orient;
 //
 - (void)setValue:(id)value      forKeyPath:(NSString *)keyPath        duration:(CFTimeInterval)duration           delay:(CFTimeInterval)delay;

@@ -485,9 +485,37 @@ extern CATransform3D CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13, CG
 @end
 
 static char ORIENT_IDENTIFIER;
+static char ROOT_IDENTIFIER;
+static char TEXT_IDENTIFIER;
+
 
 #define kCALayerLabel @"CALayerLabel"
 @implementation CALayer (AtoZ)
+
+
+-(id)initWithFrame:(CGRect)rect  //from starlayer;
+{
+	if (!(self = [super init])) return nil;
+	self.root 			= [CAL layer];
+
+	self.text 			= [CAL layer];
+	self.root.delegate 	= self;
+    self.root.frame 	= rect;
+    self.root.arMASK 	= CASIZEABLE;
+	self.root.NDOBC 	= YES;
+//		_star 			= [CAL layer];
+//	[@[_star, _text] do:^(CAL *obj){
+//		obj.frame		= AZMakeRectFromSize(rect.size);
+//	 	obj.delegate	= self;
+//		[obj setNeedsDisplay];
+//    	[_root addSublayer:obj];
+//	}];
+//	[self toggleSpin:AZOn];
+	[self addSublayer:self.root];
+	[self setNeedsDisplay];
+    return self;
+}
+
 
 - (void)moveToFront {
     [self removeFromSuperlayer];
@@ -509,7 +537,24 @@ static char ORIENT_IDENTIFIER;
 	}];
 }
 
-@dynamic orient;
+
+@dynamic root, text, orient;
+
+-(void)setText: (CATXTL*)text {
+    objc_setAssociatedObject(self, &TEXT_IDENTIFIER,text, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+	self.text ? [self replaceSublayer:self.text with:text] : [self addSublayer:text];
+	[self setNeedsLayout];	[self setNeedsDisplay];
+}
+
+-(CATXTL*)text{ return (CATXTL*)objc_getAssociatedObject(self, &TEXT_IDENTIFIER);}
+
+-(void)setRoot:(CALayer *)root {
+    objc_setAssociatedObject(self, &ROOT_IDENTIFIER,root, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+	self.root ? [self replaceSublayer:self.root with:root] : [self addSublayer:root];
+	[self setNeedsLayout];	[self setNeedsDisplay];
+}
+
+-(CAL*)root { return (CAL*)objc_getAssociatedObject(self, &ROOT_IDENTIFIER);}
 
 
 -(void)setOrient : (AZPOS)orient {

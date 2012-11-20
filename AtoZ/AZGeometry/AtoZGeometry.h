@@ -103,6 +103,8 @@ CGF  AZAspectRatioForSize ( NSSZ size );
 CGF AZPerimeter ( NSR rect );
 CGF AZPermineterWithRoundRadius  ( NSR rect, CGF radius );
 
+CGP AZAnchorPointAtOffsetAlongPerimeterOfRect(CGF offset, NSR r);
+
 
 NSR  AZScreenFrame ( void );
 NSSZ AZScreenSize  ( void );
