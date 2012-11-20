@@ -71,6 +71,9 @@
 #import "AtoZGeometry.h"
 #import "AtoZFunctions.h"
 
+#import "SDToolkit.h"
+#import "AZWeakCollections.h"
+
 //#import "AZSizer.h"
 
 

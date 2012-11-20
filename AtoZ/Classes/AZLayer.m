@@ -19,7 +19,7 @@ const NSString* ztimeF = @"timingFunction";
 @interface AZLayer ()/*Private*/
 
 
-- (void)_updateTimerFired:(NSTimer *)timer;
+//- (void)_updateTimerFired:(NSTimer *)timer;
 @end
 
 
@@ -55,6 +55,24 @@ static CFHashCode _hashString(const void *value)
 
 
 @implementation AZLayer
++ (id)defaultValueForKey:(NSString *)key  // ESSENTIAL
+
+{
+	static NSD* vals = nil;	vals = vals ?: @{
+//												@"masksToBounds"	: @(YES),
+												@"doubleSided"		: @(NO),
+												@"hovered"			: @(NO),
+												@"selected"			: @(NO),
+//												@"flipped"			: @(NO),
+												@"borderWidth"		: @4,
+												@"borderColor"		: (id)cgRED	};
+
+	return [vals.allKeys containsObject:key] ? vals[key] : [super defaultValueForKey:key];
+}
+
+@end
+
+/*
 @dynamic hovered, selected, flipped;
 
 - (id)initWithLayer:(id)layer	{	if(!(self = [super initWithLayer:layer])) return nil;
@@ -73,18 +91,6 @@ static CFHashCode _hashString(const void *value)
 }
 
 
-+ (id)defaultValueForKey:(NSString *)key  // ESSENTIAL
-{
-	static NSD* vals = nil;	vals = vals ?: @{ 	@"masksToBounds"	: @(YES),
-												@"doubleSided"		: @(NO),
-												@"hovered"			: @(NO),
-												@"selected"			: @(NO),
-												@"flipped"			: @(NO),
-												@"borderWidth"		: @4,
-												@"borderColor"		: (id)cgRED	};
-
-	return [vals.allKeys containsObject:key] ? vals[key] : [super defaultValueForKey:key];
-}
 
 //-(id<CAAction>)actionForKey:(NSString *)event {
 - (void)runActionForKey:(NSString *)event object:(id)anObject arguments:(NSDictionary *)dict {
@@ -261,6 +267,7 @@ static CFHashCode _hashString(const void *value)
     [self setNeedsDisplay];
 }
 
+*/
 
 /*
 	// Create the path
@@ -281,7 +288,7 @@ static CFHashCode _hashString(const void *value)
 	CGContextDrawPath(ctx, kCGPathFillStroke);
 */
 
-@end
+
 
 
 /*

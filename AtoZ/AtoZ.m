@@ -132,7 +132,10 @@ static NSA* cachedI = nil;
 + (void)setSoundVolume:(NSUInteger)outtaHundred { [SoundManager sharedManager].soundVolume = outtaHundred / 100.0; }
 
 // Place inside the @implementation block - A method to convert an enum to string
-+ (NSS*) stringForPosition:(AZPOS)enumVal	{	return  [[NSA alloc]initWithObjects:AZWindowPositionTypeArray] [enumVal]; }
++ (NSS*) stringForPosition:(AZPOS)enumVal	{
+	static NSArray *enumVals = nil;  if (!enumVals) enumVals = [[NSA alloc]initWithObjects:AZWindowPositionTypeArray];
+	return enumVals.count >= enumVal ? enumVals[enumVal] : @"outside of range for Positions";
+}
 
 // A method to retrieve the int value from the NSArray of NSStrings
 + (AZPOS) positionForString:(NSS*)strVal;	{	return (AZPOS) [[[NSA alloc]initWithObjects:AZWindowPositionTypeArray] indexOfObject:strVal]; }

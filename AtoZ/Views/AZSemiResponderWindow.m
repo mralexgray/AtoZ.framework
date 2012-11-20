@@ -63,7 +63,7 @@
 			if (_semiResponder)
 				if (respondsToString(_semiResponder, @"windowEvent:")) [_semiResponder windowEvent:e];
 			if (_hit) {
-				_hit.selected = YES;
+				[_hit setBool: YES forKey:@"selecte"];
 				[self setIgnoresMouseEvents:NO];
 				NSLog(@"ay cuuucarracha  %@", _hit.debugDescription);
 			} else {

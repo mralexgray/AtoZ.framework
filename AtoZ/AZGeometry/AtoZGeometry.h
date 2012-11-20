@@ -57,22 +57,12 @@ extern const CGRect CGRectOne;
 
 
 
-NSP AZTopLeft  ( NSR rect );
-NSP AZTopRight ( NSR rect );
+NSP AZTopLeftPoint  ( NSR rect );
+NSP AZTopRightPoint ( NSR rect );
 NSP AZBotLeft  ( NSR rect );
 NSP AZBotRight ( NSR rect );
 
 
-AZPOS AZPositionOfRectInRect ( NSR rect, NSR outer );
-AZPOS AZOutsideEdgeOfRectInRect (NSR rect, NSR outer );
-
-
-AZWindowPosition AZPositionAtPerimeterInRect ( NSR edgeBox, NSR outer );
-CGP AZAnchorPointForPosition( AZWindowPosition pos );
-NSSZ  AZDirectionsOffScreenWithPosition ( NSR rect, AZWindowPosition position );
-
-
-AZOrient deltaDirectionOfPoints ( NSP a, NSP b );
 
 /**	NSRange from a min and max values even though the names imply that min should be greater than max the order does not matter the range will always start at the lower value and have a size to reach the upper value **/
 
@@ -103,7 +93,26 @@ CGF  AZAspectRatioForSize ( NSSZ size );
 CGF AZPerimeter ( NSR rect );
 CGF AZPermineterWithRoundRadius  ( NSR rect, CGF radius );
 
-CGP AZAnchorPointAtOffsetAlongPerimeterOfRect(CGF offset, NSR r);
+
+AZPOS AZPositionOpposite(AZPOS position);
+
+AZPOS AZPositionOfEdgeAtOffsetAlongPerimeterOfRect(CGF offset, NSR r);
+
+CGP   AZPointAtOffsetAlongPerimeterOfRect(CGF offset, NSR r);  //from bottom left going counterclockwise
+
+AZPOS AZPositionOfRectPinnedToOutisdeOfRect(NSR box, NSR innerBox  );
+
+
+AZPOS AZPositionOfRectInRect ( NSR rect, NSR outer );
+AZPOS AZOutsideEdgeOfRectInRect (NSR rect, NSR outer );
+
+
+AZPOS AZPositionAtPerimeterInRect ( NSR edgeBox, NSR outer );
+CGP	  AZAnchorPointForPosition( AZWindowPosition pos );
+NSSZ  AZDirectionsOffScreenWithPosition ( NSR rect, AZWindowPosition position );
+
+
+AZOrient deltaDirectionOfPoints ( NSP a, NSP b );
 
 
 NSR  AZScreenFrame ( void );

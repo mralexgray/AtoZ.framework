@@ -106,3 +106,6 @@
 	path = DeskLabels
 	url = https://github.com/mralexgray/DeskLabels.git
 	ignore = dirty
+[submodule "AtoZ/Classes/CPAccelerationTimer"]
+	path = AtoZ/Classes/CPAccelerationTimer
+	url = https://github.com/mralexgray/CPAccelerationTimer.git

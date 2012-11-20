@@ -10,7 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 @interface AZLayer : CAL
-{
+/*{
 @private
     NSMutableArray *_activeContentAnimations;
     NSTimer *_updateTimer;
@@ -54,5 +54,5 @@
 //
 //@property (retain, nonatomic) NSString*			stringToDraw;
 //@property (retain, nonatomic) NSFont*			font;
-
+*/
 @end

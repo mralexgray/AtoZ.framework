@@ -222,6 +222,8 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define NSMA NSMutableArray
 #define NSMAS NSMutableAttributedString
 #define NSMD NSMutableDictionary
+#define NSM NSMenu
+#define NSMI NSMenuItem
 #define NSMenuI	NSMenuItem
 #define NSMS NSMutableString
 #define NSMSet NSMutableSet
@@ -236,6 +238,7 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define NSR NSRect
 #define NSRFill NSRectFill
 #define NSS NSString
+#define NSSI NSStatusItem
 #define NSSZ NSSize
 #define NST NSTimer
 #define NSTA NSTrackingArea

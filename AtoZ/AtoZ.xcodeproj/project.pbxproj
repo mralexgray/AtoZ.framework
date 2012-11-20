@@ -406,6 +406,8 @@
 		7BA36C3D165BB2060077A065 /* SDToolkit.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BA36C0F165BB2050077A065 /* SDToolkit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BA36C3E165BB2060077A065 /* SDWindowController.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BA36C10165BB2050077A065 /* SDWindowController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BA36C3F165BB2060077A065 /* SDWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA36C11165BB2050077A065 /* SDWindowController.m */; };
+		7BA36CFC165BF58E0077A065 /* AZWeakCollections.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA36CFA165BF58D0077A065 /* AZWeakCollections.m */; };
+		7BA36CFD165BF6B10077A065 /* AZWeakCollections.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BA36CF9165BF58D0077A065 /* AZWeakCollections.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BA425B915E7C3C200D2A471 /* AZTrackingWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA425B715E7C3C200D2A471 /* AZTrackingWindow.m */; };
 		7BA425BB15E7E87200D2A471 /* tab.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BA425BA15E7E87200D2A471 /* tab.png */; };
 		7BA7D232163941900073BADC /* CKAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BB8708A1638A0FA0000C242 /* CKAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -732,13 +734,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = BF2EE49B0F66011D00B8CFFD;
 			remoteInfo = DKUnitTests;
-		};
-		7BA36C48165BB5880077A065 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7BA36C40165BB5860077A065 /* DeskLabels.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8D1107320486CEB800E47090;
-			remoteInfo = DeskLabels;
 		};
 		7BB86F8116383FCE0000C242 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1532,7 +1527,8 @@
 		7BA36C0F165BB2050077A065 /* SDToolkit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = SDToolkit.h; sourceTree = "<group>"; };
 		7BA36C10165BB2050077A065 /* SDWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = SDWindowController.h; sourceTree = "<group>"; };
 		7BA36C11165BB2050077A065 /* SDWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDWindowController.m; sourceTree = "<group>"; };
-		7BA36C40165BB5860077A065 /* DeskLabels.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DeskLabels.xcodeproj; path = ../DeskLabels/DeskLabels.xcodeproj; sourceTree = "<group>"; };
+		7BA36CF9165BF58D0077A065 /* AZWeakCollections.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = AZWeakCollections.h; sourceTree = "<group>"; };
+		7BA36CFA165BF58D0077A065 /* AZWeakCollections.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZWeakCollections.m; sourceTree = "<group>"; };
 		7BA425B215E7B52F00D2A471 /* MAAttachedWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MAAttachedWindow.h; path = "../AtoZ Encyclopedia/MAAttachedWindow.h"; sourceTree = "<group>"; };
 		7BA425B315E7B52F00D2A471 /* MAAttachedWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MAAttachedWindow.m; path = "../AtoZ Encyclopedia/MAAttachedWindow.m"; sourceTree = "<group>"; };
 		7BA425B615E7C3C200D2A471 /* AZTrackingWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZTrackingWindow.h; sourceTree = "<group>"; };
@@ -1806,6 +1802,8 @@
 				7B7D5587163070FC00711D0F /* AZCIFilters.m */,
 				7BB304761646BB47006CDC56 /* AZPalette.h */,
 				7BB304771646BB47006CDC56 /* AZPalette.m */,
+				7BA36CF9165BF58D0077A065 /* AZWeakCollections.h */,
+				7BA36CFA165BF58D0077A065 /* AZWeakCollections.m */,
 			);
 			path = Classes;
 			sourceTree = SOURCE_ROOT;
@@ -1995,7 +1993,6 @@
 		7B311945159B6D9E002134C4 = {
 			isa = PBXGroup;
 			children = (
-				7BA36C40165BB5860077A065 /* DeskLabels.xcodeproj */,
 				7B311961159B6D9E002134C4 /* AtoZ.h */,
 				7B311962159B6D9E002134C4 /* AtoZ.m */,
 				7B6901D7159E3AC600D0DA47 /* AtoZUmbrella.h */,
@@ -2615,14 +2612,6 @@
 			path = ../Frameworks/SDToolKit;
 			sourceTree = "<group>";
 		};
-		7BA36C41165BB5860077A065 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				7BA36C49165BB5880077A065 /* DeskLabels.app */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		7BB86F7816383FCD0000C242 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -3017,6 +3006,7 @@
 				7B5B2CD7162CD12500B454C2 /* AZImageToDataTransformer.h in Headers */,
 				7B3422A315A52A61006AC46C /* AZBaseModel.h in Headers */,
 				7B5B2CCA162CA4D900B454C2 /* AZPrismView.h in Headers */,
+				7BA36CFD165BF6B10077A065 /* AZWeakCollections.h in Headers */,
 				7BD908BD162F556B000DE2BB /* AtoZGeometry.h in Headers */,
 				7B71E736161290E60015F4E4 /* Transition.h in Headers */,
 				7B449C6C1616087D00AB9335 /* NSUserDefaults+Subscript.h in Headers */,
@@ -3338,10 +3328,6 @@
 					ProjectRef = 7BB8706D1638A0FA0000C242 /* ConciseKitSpecs.xcodeproj */;
 				},
 				{
-					ProductGroup = 7BA36C41165BB5860077A065 /* Products */;
-					ProjectRef = 7BA36C40165BB5860077A065 /* DeskLabels.xcodeproj */;
-				},
-				{
 					ProductGroup = 7BA35F9E16449FDE00BFEB6B /* Products */;
 					ProjectRef = 7BA35F9D16449FDE00BFEB6B /* DrawKit.xcodeproj */;
 				},
@@ -3529,13 +3515,6 @@
 			fileType = wrapper.cfbundle;
 			path = DKUnitTests.octest;
 			remoteRef = 7BA35FA716449FDF00BFEB6B /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7BA36C49165BB5880077A065 /* DeskLabels.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = DeskLabels.app;
-			remoteRef = 7BA36C48165BB5880077A065 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		7BB86F8216383FCE0000C242 /* Rebel.framework */ = {
@@ -4019,6 +3998,7 @@
 				7BA36C39165BB2060077A065 /* SDPreferencesController.m in Sources */,
 				7BA36C3B165BB2060077A065 /* SDRoundedInstructionsImageView.m in Sources */,
 				7BA36C3F165BB2060077A065 /* SDWindowController.m in Sources */,
+				7BA36CFC165BF58E0077A065 /* AZWeakCollections.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

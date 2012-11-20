@@ -557,10 +557,14 @@ static char TEXT_IDENTIFIER;
 -(CAL*)root { return (CAL*)objc_getAssociatedObject(self, &ROOT_IDENTIFIER);}
 
 
--(void)setOrient : (AZPOS)orient {
+-(void)setOrient : (AZPOS)orient
+{
     objc_setAssociatedObject(self, &ORIENT_IDENTIFIER, @(orient), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-	[self setAnchorPoint:AZAnchorPointForPosition(orient)];
-	[self setNeedsLayout];
+	if ( [self hasPropertyForKVCKey:@"anchorPoint"] ) {
+		CGP newA = AZAnchorPointForPosition(orient);
+		if ( ! NSEqualPoints(newA, self.anchorPoint) )	[self setAnchorPoint:newA];
+	}
+//	[self setNeedsLayout];
 	[self setNeedsDisplay];
 }
 
@@ -1702,7 +1706,7 @@ NSTimeInterval const LTKDefaultTransitionDuration = 0.25;
 
 
 //-(CAL*) hitEvent:(NSEvent*) forClass
-@dynamic permaPresentation;
+//@dynamic permaPresentation;
 
 - (CAL*) permaPresentation
 {

@@ -51,6 +51,9 @@
 #import	"AtoZUmbrella.h"
 #import "AtoZGeometry.h"
 #import "AtoZFunctions.h"
+#import "SDToolkit.h"
+#import "AZWeakCollections.h"
+
 
 #import "MAKVONotificationCenter.h"
 #import "NSBag.h"

@@ -185,7 +185,31 @@ NSString* AZAspectRatioString(CGFloat ratio)
 // CGFloat aspectRatio = ( rect.width / rect.height );
 //}
 
-CGP AZAnchorPointAtOffsetAlongPerimeterOfRect(CGF offset, NSR r)
+AZPOS AZPositionOpposite(AZPOS position){
+
+	switch (position) {
+		case AZPositionBottom:		return AZPositionTop;			break;
+		case AZPositionTop:			return AZPositionBottom;		break;
+		case AZPositionLeft:			return AZPositionRight;			break;
+		case AZPositionRight:		return AZPositionLeft;			break;
+		case AZPositionBottomLeft:	return AZPositionTopRight;		break;
+		case AZPositionTopLeft:		return AZPositionBottomRight;	break;
+		case AZPositionBottomRight:	return AZPositionTopLeft;		break;
+		case AZPositionTopRight:	return AZPositionBottomLeft;	break;
+		default:					return 99;						break;
+	}
+}
+
+AZPOS AZPositionOfEdgeAtOffsetAlongPerimeterOfRect(CGF offset, NSR r) {
+
+	NSSZ sz = r.size; AZPOS anchor;
+	if 		( sz.width > offset ) 					anchor = AZPositionBottom;
+	else if ( sz.width + sz.height > offset ) 		anchor = AZPositionBottomRight;
+	else if ( AZPerimeter(r) - sz.height > offset ) anchor = AZPositionTop;
+	else 											anchor = AZPositionLeft;
+	return anchor;
+}
+CGP AZPointAtOffsetAlongPerimeterOfRect(CGF offset, NSR r)
 {
 	NSSZ sz = r.size; NSP anchor; CGF offsetOnSide;
 	if 		( sz.width > offset ) 					anchor = (NSP) { offset, 				   			     0};
@@ -533,6 +557,13 @@ NSSize AZAddSizes(NSSize one, NSSize another) {
   return NSMakeSize(one.width + another.width, 
                     one.height + another.height);
 }
+
+NSSZ AZSubtractSizes ( NSSZ size, NSSZ subtrahend ){
+	return NSMakeSize( size.width - subtrahend.width,
+					   size.height - subtrahend.height);
+
+}
+
 
 NSSize AZInvertSize(NSSize size) {
   return NSMakeSize(1 / size.width, 1 / size.height);
@@ -1008,10 +1039,10 @@ static float AZDistanceFromOrigin(NSPoint point){
     return hypot(point.x, point.y);
 }
 
-NSP AZTopLeft  ( NSR rect ){	 return (NSP){rect.origin.x,rect.origin.y+NSHeight(rect)}; }
-NSP AZTopRight ( NSR rect ){ return (NSP){NSWidth(rect)  + rect.origin.x, NSHeight(rect) + rect.origin.y}; }
-NSP AZBotLeft  ( NSR rect ){ return rect.origin; }
-NSP AZBotRight ( NSR rect ){ return (NSP){rect.origin.x + NSWidth(rect), rect.origin.y}; }
+NSP AZTopLeftPoint  ( NSR rect ){	 return (NSP){rect.origin.x,rect.origin.y+NSHeight(rect)}; }
+NSP AZTopRightPoint( NSR rect ){ return (NSP){NSWidth(rect)  + rect.origin.x, NSHeight(rect) + rect.origin.y}; }
+NSP AZBotLeftPoint  ( NSR rect ){ return rect.origin; }
+NSP AZBotRightPoint ( NSR rect ){ return (NSP){rect.origin.x + NSWidth(rect), rect.origin.y}; }
 
 //AZPOS AZClosestCorner(NSR innerRect,NSR outerRect){
 //	CGF bl, br, tl, tr;
@@ -1039,13 +1070,42 @@ AZOrient deltaDirectionOfPoints(NSPoint a, NSPoint b){
 AZPOS AZPositionOfRectInRect(NSR rect, NSR outer ) {
 
 	return NSEqualPoints( rect.origin, outer.origin) 			? AZPositionBottomLeft 	:
-		   NSEqualPoints( AZTopLeft(rect), AZTopLeft(outer)) ||
+		   NSEqualPoints( AZTopLeftPoint(rect), AZTopLeftPoint(outer)) ||
 		   (rect.origin.x == outer.origin.x && (rect.origin.y +NSHeight(rect) ) == NSHeight(outer))
 		   	? AZPositionTopLeft		:
-		   NSEqualPoints( AZTopRight(rect), AZTopRight(outer))	? AZPositionTopRight	:
-		   NSEqualPoints( AZBotRight(rect), AZBotRight(outer))	? AZPositionBottomRight :
+		   NSEqualPoints( AZTopRightPoint(rect), AZTopRightPoint(outer))	? AZPositionTopRight	:
+		   NSEqualPoints( AZBotRightPoint(rect), AZBotRightPoint(outer))	? AZPositionBottomRight :
 		  ^{ return AZOutsideEdgeOfRectInRect(rect, outer); }();
 }
+
+AZPOS AZPositionOfRectPinnedToOutisdeOfRect(NSR box, NSR innerBox  )
+{
+	NSR tIn  = AZRectFromSize(innerBox.size);
+	box.origin.y -= innerBox.origin.y;
+	box.origin.x -= innerBox.origin.x;
+	NSLog(@"Testing attached: %@.. inner: %@", AZStringFromRect(box), AZStringFromRect(tIn));
+	AZPOS winner; NSSZ bS, iS; bS = box.size; iS = tIn.size;
+	winner = box.origin.x == -bS.width		? AZPositionRight
+	       : box.origin.y == iS.height	  	? AZPositionBottom
+		   : box.origin.x == iS.width		? AZPositionLeft
+	       : box.origin.y == 0      		? AZPositionTop : 97;
+	// + bS.width == innerBox.origin.x     	? AZPositionLeft
+//		   : box.origin.y  == innerBox.origin.y + iS.height	  	? AZPositionBottom
+//		   : box.origin.x  == innerBox.origin.y + iS.width		? AZPositionRight
+//		   : box.origin.y + bS.height == innerBox.origin.y		? AZPositionTop : 97;
+	return winner;// AZPositionTop : winner;
+}
+
+
+//	  , outer.origin) 			? AZPositionBottomLeft 	:
+//	NSEqualPoints( AZTopLeft(rect), AZTopLeft(outer)) ||
+//	(rect.origin.x == outer.origin.x && (rect.origin.y +NSHeight(rect) ) == NSHeight(outer))
+//	? AZPositionTopLeft		:
+//	NSEqualPoints( AZTopRightPoint(rect), AZTopRightPoint(outer))	? AZPositionTopRight	:
+//	NSEqualPoints( AZBotRightPoint(rect), AZBotRightPoint(outer))	? AZPositionBottomRight :
+//	^{ return AZOutsideEdgeOfRectInRect(rect, outer); }();
+
+
 
 AZPOS AZOutsideEdgeOfRectInRect (NSR rect, NSR outer ) {
 	NSPoint myCenter = AZCenterOfRect(rect);
