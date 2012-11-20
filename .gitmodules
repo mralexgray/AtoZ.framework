@@ -101,3 +101,6 @@
 [submodule "Frameworks/SDToolKit"]
 	path = Frameworks/SDToolKit
 	url = https://github.com/mralexgray/SDToolkit.git
+[submodule "DeskLabels"]
+	path = DeskLabels
+	url = https://github.com/mralexgray/DeskLabels.git
