@@ -493,6 +493,25 @@ static char TEXT_IDENTIFIER;
 @implementation CALayer (AtoZ)
 
 
+-(void) toggleSpin: (AZState)state
+{
+	AZState exist = [self unsignedIntegerForKey:@"spinState"];
+	if (exist == state) return;
+	if (state == AZOff || ( state == NSNotFound && exist == AZOn)) { [self removeAllAnimations]; }
+	else {
+		CABA *animation = [CABA animationWithKeyPath:@"transform.rotation"];
+		animation.duration		= 8.0;
+		animation.repeatCount	= HUGE_VALF;
+		animation.autoreverses	= NO;
+		animation.fromValue		= @0;
+		animation.toValue		= @(TWOPI);
+
+		[self addAnimation:animation forKey:@"rotation"];
+	}
+	[self setUnsignedInteger:state forKey:@"spinState"];
+}
+
+
 -(id)initWithFrame:(CGRect)rect  //from starlayer;
 {
 	if (!(self = [super init])) return nil;
@@ -564,8 +583,11 @@ static char TEXT_IDENTIFIER;
 		CGP newA = AZAnchorPointForPosition(orient);
 		if ( ! NSEqualPoints(newA, self.anchorPoint) )	[self setAnchorPoint:newA];
 	}
-//	[self setNeedsLayout];
-	[self setNeedsDisplay];
+
+	[self sublayersBlock:^(CALayer *layer) {
+		[layer setNeedsDisplay];
+		[layer setNeedsLayout];
+	}];
 }
 
 -(AZPOS)orient{
@@ -1136,20 +1158,20 @@ static char TEXT_IDENTIFIER;
     self.transform =  CATransform3DRotate(transform, 180 * M_PI/180, -1, 0, 0);
 }
 
-- (CATransform3D) flipAnimationPositioned:(AZWindowPosition)pos {
++ (CATransform3D) flipAnimationPositioned:(AZPOS)pos {
 	CGPoint dir = (CGPoint) {   pos == AZPositionTop || pos ==AZPositionBottom ? 1 : 0,
 								pos == AZPositionTop || pos ==AZPositionBottom ? 0 : 1 };
 	return CATransform3DMakeRotation(DEG2RAD(180), dir.x, dir.y, 0.0f);
 }
 
 - (void) flipForward:(BOOL)forward  atPosition:(AZWindowPosition)pos {
-	![self[@"flipped"]boolValue] ? ^{
+	![self[@"flipped"]boolValue] || ![self hasPropertyForKVCKey:@"orient"] ? ^{
 //		[self setAnchorPointRelative:self.position];
 		[self setAnchorPoint:AZAnchorPointForPosition(pos)
 					  inRect:self.bounds];
 //		CATransform3D orig = CATransform3DIsIdentity(self.transform) ? CATransform3DIdentity : self.transform;
 		self[@"savedTransform"] = AZV3d(self.transform);//AZV3d(orig);
-		self[@"flippedTransform"] = AZV3d([self flipAnimationPositioned:pos]);
+		self[@"flippedTransform"] = AZV3d([CAL flipAnimationPositioned:pos]);
 		self[@"flipped"] = @NO;
 	}():nil;
 	CATransform3D savedOrig = [self[@"savedTransform"]	CATransform3DValue];

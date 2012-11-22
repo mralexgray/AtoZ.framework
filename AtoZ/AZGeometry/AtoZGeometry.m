@@ -204,7 +204,7 @@ AZPOS AZPositionOfEdgeAtOffsetAlongPerimeterOfRect(CGF offset, NSR r) {
 
 	NSSZ sz = r.size; AZPOS anchor;
 	if 		( sz.width > offset ) 					anchor = AZPositionBottom;
-	else if ( sz.width + sz.height > offset ) 		anchor = AZPositionBottomRight;
+	else if ( sz.width + sz.height > offset ) 		anchor = AZPositionRight;
 	else if ( AZPerimeter(r) - sz.height > offset ) anchor = AZPositionTop;
 	else 											anchor = AZPositionLeft;
 	return anchor;
@@ -767,6 +767,12 @@ NSR AZRectTrimmedOnTop(NSR rect, CGFloat height) {
 	return NSMakeRect(	rect.origin.x, 					rect.origin.y,
 						rect.size.width,  				(rect.size.height - height)	);
 }
+
+NSSZ AZSizeExceptWide  ( NSSZ sz, CGF wide ) {	return NSMakeSize(wide, sz.height); }
+NSSZ AZSizeExceptHigh  ( NSSZ sz, CGF high ) {  return NSMakeSize(sz.width, high);  }
+
+
+
 NSR AZRectExceptWide(NSR rect, CGFloat wide) {
 	return NSMakeRect(	rect.origin.x, 	rect.origin.y, wide, rect.size.height);
 }

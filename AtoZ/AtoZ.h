@@ -177,6 +177,8 @@
 #import "Transition.h"
 #import "LetterView.h"
 
+#import "CPAccelerationTimer.h"
+
 	//Controls
 #import "AZToggleArrayView.h"
 #import "AZDarkButtonCell.h"

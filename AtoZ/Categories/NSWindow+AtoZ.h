@@ -21,6 +21,19 @@
 
 @interface NSWindow (AtoZ)
 
+
+@property (weak) CAL *layer;
+- (void) setLayer: (CAL*) layer;
+
+// Size
+@property (nonatomic, assign) CGF width;
+@property (nonatomic, assign) CGF height;
+@property (nonatomic, assign) NSSZ size;
+
+- (void) setWidth: (CGF) t;
+- (void) setHeight: (CGF) t;
+- (void) setSize: (NSSZ) size;
+
 + (NSA*) allWindows;
 - (CALayer*)veilLayer;
 - (CALayer*)veilLayerForView: (NSView*)view;

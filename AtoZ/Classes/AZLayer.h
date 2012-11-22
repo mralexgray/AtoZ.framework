@@ -9,7 +9,15 @@
 #import "AtoZ.h"
 #import <QuartzCore/QuartzCore.h>
 
+
+#define AZTL AZTLayer
+#define AZL  AZLayer
+
+
 @interface AZLayer : CAL
+@property (nonatomic, retain) CATransformLayer *tLayer;
+@end
+
 /*{
 @private
     NSMutableArray *_activeContentAnimations;
@@ -55,4 +63,3 @@
 //@property (retain, nonatomic) NSString*			stringToDraw;
 //@property (retain, nonatomic) NSFont*			font;
 */
-@end

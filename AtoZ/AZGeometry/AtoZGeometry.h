@@ -308,6 +308,8 @@ NSR AZCenterRectOnPoint ( NSR rect, NSP center );
 // returns the innter rect with its posiion centeredn on the outer rect
 NSR AZCenterRectOnRect ( NSR inner, NSR outer );
 
+NSR AZConstrainRectToRect(NSR innerRect, NSR outerRect);
+
 // will a square rect with a given center
 NSR AZSquareAround ( NSP center, CGF distance );
 
@@ -320,6 +322,9 @@ NSR AZRectTrimmedOnRight ( NSR rect, CGF width );
 NSR AZRectTrimmedOnBottom ( NSR rect, CGF height );
 NSR AZRectTrimmedOnLeft ( NSR rect, CGF width );
 NSR AZRectTrimmedOnTop ( NSR rect, CGF height );
+
+NSSZ AZSizeExceptWide  ( NSSZ sz, CGF wide );
+NSSZ AZSizeExceptHigh  ( NSSZ sz, CGF high );
 
 NSR AZRectExceptWide  ( NSR rect, CGF wide );
 NSR AZRectExceptHigh  ( NSR rect, CGF high );

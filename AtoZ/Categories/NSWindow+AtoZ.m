@@ -140,6 +140,47 @@
 @end
 
 @implementation NSWindow (AtoZ)
+
+- (CAL *)layer
+{
+	return [self.contentView layer];
+}
+- (void) setLayer: (CAL*) layer
+{
+	[self.contentView setLayer:layer];
+}
+
+
+- (CGF)width {	return [self frame].size.width ;		}
+
+- (CGF)height {	return [self frame].size.height ;	}
+
+- (void)setWidth:(CGF)t {
+	NSRect frame = [self frame] ;
+	frame.size.width = t ;
+	[self setFrame:frame display:YES animate:YES] ;
+}
+
+- (void)setHeight:(CGF)t
+{
+	NSRect frame = [self frame] ;
+	frame.size.height = t ;
+	[self setFrame:frame display:YES animate:YES] ;
+}
+
+- (NSSize)size
+{
+	return self.frame.size;
+}
+
+- (void)setSize:(NSSize)size {
+	NSRect frame = [self frame] ;
+	frame.size.width = size.width ;
+	frame.size.height = size.height ;
+	[self setFrame:frame display:YES animate:YES] ;
+}
+
+
 +(NSA*) allWindows {
 	return (__bridge_transfer id)CGWindowListCopyWindowInfo(kCGWindowListOptionAll, kCGNullWindowID);
 }	

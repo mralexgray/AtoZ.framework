@@ -23,6 +23,8 @@
 
 @interface NSArray (AtoZ)
 
+
+
 - (NSA*) alphabetize;
 
 - (NSS*) formatAsListWithPadding:(NSUI)characters;
@@ -43,6 +45,8 @@
 - (void) setStringsToNilOnbehalfOf:(id)entity;
 
 - (NSA*) URLsForPaths;
+- (void) logEachPropertiesPlease;
+- (void) logEachProperties;
 - (void) logEach;
 + (NSA*) arrayFromPlist:(NSString*)path;
 - (void) saveToPlistAtPath:(NSString*)path;

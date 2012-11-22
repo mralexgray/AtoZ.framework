@@ -101,14 +101,16 @@
 	return [self map:^id(id obj) { return [NSURL fileURLWithPath:obj]; }];
 }
 
+- (void) logEachPropertiesPlease;{	[self eachWithIndex:^(id obj, NSInteger idx) {		NSLog(@"%@", [obj propertiesPlease]); }]; }
 
+- (void) logEachProperties
+{
+	[self eachWithIndex:^(id obj, NSInteger idx) {		NSLog(@"%@", [obj properties]); }];
+}
 
 - (void) logEach;
 {
-
-	[self eachWithIndex:^(id obj, NSInteger idx) {
-		NSLog(@"Index %ld: %@",idx, obj);;
-	}];
+	[self eachWithIndex:^(id obj, NSInteger idx) {		NSLog(@"Index %ld: %@",idx, obj);  }];
 }
 
 + (NSA*) arrayFromPlist:(NSString*)path {

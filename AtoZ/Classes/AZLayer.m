@@ -15,7 +15,6 @@ const NSString* ztimeF = @"timingFunction";
 
 #import "AZLayer.h"
 
-//
 @interface AZLayer ()/*Private*/
 
 
@@ -55,6 +54,19 @@ static CFHashCode _hashString(const void *value)
 
 
 @implementation AZLayer
+
+- (id)init
+{
+	if (!(self = [super init])) return nil;
+//	self.layoutManager = AZLAYOUTMGR;
+//	_tLayer = [CATransformLayer layer];
+//	_tLayer.frame = self.bounds;
+//	[self addSublayer:_tLayer];
+//	[_tLayer addConstraintsSuperSize];
+	applyPerspective(self);
+	return self;
+}
+
 + (id)defaultValueForKey:(NSString *)key  // ESSENTIAL
 
 {

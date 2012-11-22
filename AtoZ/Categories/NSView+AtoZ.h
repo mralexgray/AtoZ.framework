@@ -126,8 +126,8 @@ typedef void (^viewFrameDidChangeBlock)(void);
 // Size
 @property (nonatomic, assign) float width;
 @property (nonatomic, assign) float height;
-//- (void) setWidth: (float) t;
-//- (void) setHeight: (float) t;
+- (void) setWidth: (float) t;
+- (void) setHeight: (float) t;
 - (void) setSize: (NSSize) size;
 
 // Incrememental Changes

@@ -108,6 +108,7 @@ AZToStringFromTypeAndValue(@encode(typeof(_X_)), &_Y_);})
 #define   CAMEDIAEASEIN [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn]
 #define   CAMEDIAEASY [CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionEaseInEaseOut]
 #define   AZWORKSPACE [NSWorkspace sharedWorkspace]
+#define    AZUSERDEFS [NSUserDefaults standardUserDefaults]
 #define   AZNOTCENTER [NSNotificationCenter defaultCenter]
 #define AZFILEMANAGER [NSFileManager defaultManager]
 #define AZGRAPHICSCTX [NSGraphicsContext currentContext]
@@ -188,7 +189,7 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define CAT3D CATransform3D
 #define CAT3DR CATransform3DRotate
 #define CAT3DTR CATransform3DTranslate
-#define CATL CATrandformLayer
+#define CATL CATransformLayer
 #define CATXTL CATextLayer
 
 #define CATRANNY CATransition
@@ -200,6 +201,7 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define CGS CGSize
 #define CIF CIFilter
 #define IBO IBOutlet
+#define IBA IBAction
 #define ID3D CATransform3DIdentity
 
 #define NSA NSArray

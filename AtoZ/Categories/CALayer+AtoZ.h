@@ -82,6 +82,8 @@ extern CATransform3D CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13, CG
 
 @interface CALayer (AtoZ)
 
+-(void) toggleSpin: (AZState)state;
+
 -(id)initWithFrame:(CGRect)rect;
 
 - (void)moveToFront;
@@ -125,7 +127,7 @@ extern CATransform3D CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13, CG
 - (void) flipBackAtEdge:	(AZWindowPosition)position;
 - (void) flipForwardAtEdge: (AZWindowPosition)position;
 
-- (CATransform3D) flipAnimationPositioned:(AZWindowPosition)pos;
++ (CATransform3D) flipAnimationPositioned:(AZPOS)pos;
 
 - (void) flipOver;
 - (void) flipBack;
