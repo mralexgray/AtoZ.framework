@@ -109,3 +109,6 @@
 [submodule "AtoZ/Classes/CPAccelerationTimer"]
 	path = AtoZ/Classes/CPAccelerationTimer
 	url = https://github.com/mralexgray/CPAccelerationTimer.git
+[submodule "Frameworks/PXListView"]
+	path = Frameworks/PXListView
+	url = https://github.com/mralexgray/PXListView.git

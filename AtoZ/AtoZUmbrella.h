@@ -273,10 +273,15 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 
 #define removedOnC removedOnCompletion
 
+#define pBCN postsBoundsChangedNotifications
+#define pFCN postsFrameChangedNotifications
+
 #define vFk valueForKey
 #define pV pointValue
 #define rV rectValue
 #define fV floatValue
+
+#define performDelegateSelector(sel) if ([delegate respondsToSelector:sel]) { [delegate performSelector:sel]; }
 
 #define AZBindSelector(observer,sel,keypath,obj) [AZNOTCENTER addObserver:observer selector:sel name:keypath object:obj]
 
