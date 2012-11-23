@@ -357,16 +357,21 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 	}();
 }
 
++ (NSIMG*)randomMonoIcon {
+	return [[self monoIcons]randomElement];
+}
+
 + (NSA*) monoIcons {
-	NSString *pdfPath = [AZFWORKBUNDLE
-						 pathForResource:@"PicolSingulario" ofType:@"pdf"];
-	NSURL *pdfUrl = [NSURL fileURLWithPath:pdfPath];
-	PDFDocument *myPDF = [[PDFDocument alloc]initWithURL:pdfUrl];
-	return [[NSArray from: 0 to:[myPDF pageCount]-1] nmap:^id(id obj, NSUInteger index) {
-		NSIMG* d = [[NSIMG alloc]initWithSize:AZSizeFromDimension(512)];
-		[d addRepresentation:[NSPDFImageRep imageRepWithData:[[myPDF pageAtIndex:index]dataRepresentation]]];
-		return d;
-	}];
+	static NSA *monos = nil;
+	return monos = monos ?: ^{
+		PDFDocument *myPDF = [[PDFDocument alloc]initWithURL:[NSURL fileURLWithPath:[AZFWORKBUNDLE pathForResource:@"PicolSingulario" ofType:@"pdf"]]];
+		return [[NSArray from: 0 to:[myPDF pageCount]-1] nmap:^id(id obj, NSUInteger index) {
+			NSIMG* d = [[NSIMG alloc]initWithSize:AZSizeFromDimension(512)];
+			d.name = [@(index) stringValue];
+			[d addRepresentation:[NSPDFImageRep imageRepWithData:[[myPDF pageAtIndex:index]dataRepresentation]]];
+			return d;
+		}];
+	}();
 }
 	//+ (NSA*) iconStrings {
 

@@ -74,6 +74,7 @@ typedef enum {
 + (NSA*) icons;
 + (NSA*) systemIcons;
 
++ (NSIMG*)randomMonoIcon;
 + (NSA*) monoIcons;
 
 + (NSIMG*) randomIcon;

@@ -176,6 +176,7 @@
 #import "AZSound.h"
 #import "Transition.h"
 #import "LetterView.h"
+//#import "NSObject+AutoMagicCoding.h"
 
 #import "CPAccelerationTimer.h"
 
@@ -279,6 +280,7 @@ extern NSString *const AtoZDockSortedUpdated;
 
 
 + (NSS*) randomFontName;
++ (void) plistToXML: (NSS*) path;
 
 + (NSA*) dock;
 + (NSA*) dockSorted;

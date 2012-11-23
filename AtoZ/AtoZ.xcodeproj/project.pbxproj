@@ -118,6 +118,8 @@
 		7B24E9EE15A176AC00A9D87A /* NSWindow+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B24E9EC15A176AB00A9D87A /* NSWindow+AtoZ.m */; };
 		7B254D40162A9F86006B6AC6 /* AZKVOllection.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B254D3E162A9F86006B6AC6 /* AZKVOllection.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B254D41162A9F86006B6AC6 /* AZKVOllection.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B254D3F162A9F86006B6AC6 /* AZKVOllection.m */; };
+		7B2E2427165E7C46009BE6C8 /* NSObject+AutoMagicCoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2E2426165E7C3F009BE6C8 /* NSObject+AutoMagicCoding.m */; };
+		7B2E2429165E7C72009BE6C8 /* NSObject+AutoMagicCoding.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B2E2425165E7C3F009BE6C8 /* NSObject+AutoMagicCoding.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B311963159B6D9E002134C4 /* AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B311962159B6D9E002134C4 /* AtoZ.m */; };
 		7B31B13415E9441D00802CD5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7B31B13215E9441D00802CD5 /* InfoPlist.strings */; };
 		7B31B13615E9441D00802CD5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B31B13515E9441D00802CD5 /* main.m */; };
@@ -1185,6 +1187,8 @@
 		7B28542C15FEEBA90077960A /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
 		7B28542D15FEEBA90077960A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7B28546215FEF0840077960A /* GHUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GHUnit.framework; path = "../../git/gh-unit/Project-MacOSX/build/Release/GHUnit.framework"; sourceTree = SOURCE_ROOT; };
+		7B2E2425165E7C3F009BE6C8 /* NSObject+AutoMagicCoding.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.objj.h; path = "NSObject+AutoMagicCoding.h"; sourceTree = "<group>"; };
+		7B2E2426165E7C3F009BE6C8 /* NSObject+AutoMagicCoding.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+AutoMagicCoding.m"; sourceTree = "<group>"; };
 		7B311951159B6D9E002134C4 /* AtoZ.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AtoZ.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B311957159B6D9E002134C4 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		7B311959159B6D9E002134C4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -1771,6 +1775,8 @@
 		7B05BB09159C406200409B83 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				7B2E2425165E7C3F009BE6C8 /* NSObject+AutoMagicCoding.h */,
+				7B2E2426165E7C3F009BE6C8 /* NSObject+AutoMagicCoding.m */,
 				7BA35FEE1645618400BFEB6B /* StarLayer.h */,
 				7BA35FEF1645618400BFEB6B /* StarLayer.m */,
 				7BEEBF38162A6E0E004E7954 /* Nu.h */,
@@ -3005,6 +3011,7 @@
 				7B8EEDAE164BEE0200710841 /* AtoZColorWell.h in Headers */,
 				7B5180771654EE8500C7A28B /* LetterView.h in Headers */,
 				7B8EEDB1164BEE0D00710841 /* AtoZGridViewProtocols.h in Headers */,
+				7B2E2429165E7C72009BE6C8 /* NSObject+AutoMagicCoding.h in Headers */,
 				7BDF4201164B2A5B008B3240 /* AZDebugLayer.h in Headers */,
 				7B741DA2163AD91300B403B2 /* NSObject+Properties.h in Headers */,
 				7BF2617D164F2B260057EB88 /* AtoZFunctions.h in Headers */,
@@ -4007,6 +4014,7 @@
 				7BA36C3F165BB2060077A065 /* SDWindowController.m in Sources */,
 				7BA36CFC165BF58E0077A065 /* AZWeakCollections.m in Sources */,
 				7BA36D10165C3E6E0077A065 /* CPAccelerationTimer.m in Sources */,
+				7B2E2427165E7C46009BE6C8 /* NSObject+AutoMagicCoding.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

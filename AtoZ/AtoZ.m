@@ -190,6 +190,11 @@ static NSA* cachedI = nil;
 	return [[[self propertiesPlease] valueForKey:@"description"] componentsJoinedByString:@""];
 }
 
++ (void) plistToXML: (NSS*) path
+{
+
+	[NSTask launchedTaskWithLaunchPath:@"/usr/bin/plutil" arguments:@[@"-convert", @"xml1", path]];
+}
 
 //{//	__weak AZSimpleView *e;
 //}

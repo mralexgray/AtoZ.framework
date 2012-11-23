@@ -572,6 +572,23 @@ _Pragma("clang diagnostic pop") \
 //#define $affectors(A,...) +(NSSet *)keyPathsForValuesAffecting##A { static NSSet *re = nil; \
 //if (!re) { re = [[[@#__VA_ARGS__ splitByComma] trimmedStrings] set]; } return re; }
 
+
+typedef NS_ENUM(NSUI,  	OSCornerType) {
+	//typedef NS_NSENUM( OSCornerTypes {
+	OSTopLeftCorner = 1,
+	OSBottomLeftCorner = 2,
+	OSTopRightCorner = 4,
+	OSBottomRightCorner = 8
+};// OSCornerType;
+
+typedef enum {
+	AMTriangleUp = 0,
+	AMTriangleDown,
+	AMTriangleLeft,
+	AMTriangleRight
+} AMTriangleOrientation;
+
+
 typedef struct { CAConstraintAttribute constraint; CGFloat scale; CGFloat offset; }AZCAConstraint;
 
 typedef NS_ENUM(NSUI, AppCat) {

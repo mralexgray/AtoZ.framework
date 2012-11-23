@@ -73,6 +73,7 @@
 
 #import "SDToolkit.h"
 #import "AZWeakCollections.h"
+//#import "NSObject+AutoMagicCoding.h"
 
 //#import "AZSizer.h"
 

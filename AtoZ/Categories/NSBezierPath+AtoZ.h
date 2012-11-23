@@ -3,7 +3,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import <AppKit/AppKit.h>
-
+#import "AtoZ.h"
 
 
 @interface NSAffineTransform (UKShearing)
@@ -12,20 +12,7 @@
 -(void)	shearXBy: (CGFloat)xFraction yBy: (CGFloat)yFraction;
 @end
 
-typedef enum _OSCornerTypes
-{
-	OSTopLeftCorner = 1,
-	OSBottomLeftCorner = 2,
-	OSTopRightCorner = 4,
-	OSBottomRightCorner = 8
-} OSCornerType;
 
-typedef enum {
-	AMTriangleUp = 0,
-	AMTriangleDown,
-	AMTriangleLeft,
-	AMTriangleRight
-} AMTriangleOrientation;
 
 @interface NSBezierPath (AtoZ)
 
