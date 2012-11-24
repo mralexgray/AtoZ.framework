@@ -16,7 +16,7 @@
 	ignore = dirty
 [submodule "AtoZ/Classes/Lorem-Ipsum"]
 	path = AtoZ/Classes/Lorem-Ipsum
-	url = git://github.com/dav/Objective-C-Lorem-Ipsum-Generator.git
+	url = https://github.com/dav/Objective-C-Lorem-Ipsum-Generator.git
 	ignore = dirty
 [submodule "Frameworks/NanoStore"]
 	path = Frameworks/NanoStore
@@ -24,7 +24,7 @@
 	ignore = dirty
 [submodule "AtoZ/Categories/NSScreen-PointConversion"]
 	path = AtoZ/Categories/NSScreen-PointConversion
-	url = git://github.com/oscardelben/NSScreen-PointConversion.git
+	url = https://github.com/oscardelben/NSScreen-PointConversion.git
 	ignore = dirty
 [submodule "Frameworks/PLWeakCompatibility"]
 	path = Frameworks/PLWeakCompatibility
@@ -109,6 +109,8 @@
 [submodule "AtoZ/Classes/CPAccelerationTimer"]
 	path = AtoZ/Classes/CPAccelerationTimer
 	url = https://github.com/mralexgray/CPAccelerationTimer.git
+	ignore = dirty
 [submodule "Frameworks/PXListView"]
 	path = Frameworks/PXListView
 	url = https://github.com/mralexgray/PXListView.git
+	ignore = dirty
