@@ -135,16 +135,18 @@
 
 + (NSColor*) colorFromData:(NSData*)theData {	return  [NSUnarchiver unarchiveObjectWithData:theData];}
 
-- (void)drawCenteredInRect:(CGRect)rect withFont:(NSFont *)font
-{
-    CGSize size = CGSizeMake(20.0f, 400.0f); // [self sizeWithAttributes: //sizeWithFont:font];
-    CGRect textBounds = (CGRect) { rect.origin.x + (rect.size.width - size.width) / 2,
-                                   rect.origin.y + (rect.size.height - size.height) / 2,
-                                   size.width, size.height };
-    [self drawCenteredInRect:textBounds withFont:font.fontName];
-}
+//- (void)drawCenteredInRect:(CGRect)rect withFontNamed:(NSFont *)font
+//{
+//    CGSize size = CGSizeMake(20.0f, 400.0f); // [self sizeWithAttributes: //sizeWithFont:font];
+//    CGRect textBounds = [self rectWithFont:[]
+//
+//	(CGRect) { rect.origin.x + (rect.size.width - size.width) / 2,
+//                                   rect.origin.y + (rect.size.height - size.height) / 2,
+//                                   size.width, size.height };
+//    [self drawCenteredInRect:textBounds withFont:font.fontName];
+//}
 
-- (void)drawCenteredInFrame:(NSRect)frame withFont:(NSString *)font {
+- (void)drawCenteredInFrame:(NSRect)frame withFont:(NSF*)font {
 //	NSView *view = framer;
 //    NSSize size = view.frame.size;// WithFont:font;
 //    NSAttributedString *string = [[NSAttributedString alloc] initWithString:self attributes:@{font:NSFontAttributeName} ];
@@ -174,19 +176,32 @@
 	return [s  size];
 }
 
+
+- (CGF) widthWithFont:(NSF*)font
+{
+	return [self sizeWithFont:font margin:NSMakeSize(font.pointSize/2,font.pointSize/2)].width;
+}
+- (NSR) frameWithFont:(NSF*)font
+{
+	return AZRectFromSize( [self sizeWithFont:font margin:NSMakeSize(font.pointSize/2, font.pointSize/2)] );
+}
+
+
 - (void) drawInRect:(NSRect)r withFontNamed:(NSS*)fontName andColor:(NSColor*)color {
 
 	NSMutableParagraphStyle *paraAttr = [[NSMutableParagraphStyle defaultParagraphStyle ] mutableCopy];
     [paraAttr setAlignment:NSCenterTextAlignment];
     [paraAttr setLineBreakMode:NSLineBreakByTruncatingTail];
 
-
 	CGFloat points = [self pointSizeForFrame:r withFont:fontName];
-    NSDictionary *attrsDictionary = @{	NSFontAttributeName				: [NSFont fontWithName:fontName size:points],
+	NSF* fnt = [NSFont fontWithName:fontName size:points];
+	fnt = fnt ?: [AtoZ font:fontName size:points];
+
+    NSDictionary *attrsDictionary = @{	NSFontAttributeName				: fnt,
 									 	NSForegroundColorAttributeName	: color,
 									 	NSParagraphStyleAttributeName	: paraAttr};
 
-    NSAttributedString *drawingString = [[NSAttributedString alloc]  initWithString:self attributes:attrsDictionary];
+    NSAS *drawingString = [[NSAS alloc]  initWithString:self attributes:attrsDictionary];
 	[drawingString drawInRect:r];
 
 }
@@ -507,10 +522,6 @@
 //aMutableParagraphStyle = [[myTextView typingAttributes]
 //						  objectForKey:@"NSParagraphStyle"];
 
-- (CGFloat) widthWithFont:(NSFont *)font {
-	NSDictionary *attributes = @{NSFontAttributeName: font};
-	return [[[NSAttributedString alloc] initWithString:self attributes:attributes] size].width;
-}
 
 -(NSString*) truncatedForRect:(NSRect)frame withFont:(NSFont*)font
 {

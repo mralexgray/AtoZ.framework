@@ -37,6 +37,11 @@ typedef enum {
  NO to tile the given images from left to right, starting with
  the first image in the array at the left.
  */
+
+
++ (NSImage*)contactSheetWith:(NSArray*)images sized:(NSSZ)size spaced:(NSSZ)spacing columns:(NSUI)cols;
++ (NSImage*)contactSheetWith:(NSArray*)images sized:(NSSZ)size spaced:(NSSZ)spacing columns:(NSUI)cols withName:(BOOL)name;
+
 + (NSImage*)imageByTilingImages:(NSArray*)images
 					   spacingX:(CGFloat)spacingY
 					   spacingY:(CGFloat)spacingY
@@ -74,6 +79,7 @@ typedef enum {
 + (NSA*) icons;
 + (NSA*) systemIcons;
 
++ (NSIMG*)monoIconNamed:(NSS*)name;
 + (NSIMG*)randomMonoIcon;
 + (NSA*) monoIcons;
 

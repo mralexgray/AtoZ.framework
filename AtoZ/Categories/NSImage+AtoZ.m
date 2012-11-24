@@ -42,6 +42,36 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 
 @implementation NSImage (Merge)
 
++ (NSImage*)contactSheetWith:(NSArray*)images sized:(NSSZ)size spaced:(NSSZ)spacing columns:(NSUI)cols withName:(BOOL)name;
+{
+	__block NSIMG *contact;
+	[AZStopwatch named:$(@"ContactSheetWith%ldImages",images.count) block:^{
+		NSSZ sizeAndPhoto = AZAddSizes(spacing, size);
+		sizeAndPhoto.height += name ? 18 : 0;
+		AZSizer *s = [AZSizer forQuantity:images.count  ofSize:sizeAndPhoto  withColumns:10];
+		NSA *rects = s.rects.copy;
+		contact = [[NSIMG alloc]initWithSize:s.outerFrame.size];
+		[contact lockFocus];
+		[images eachWithIndex:^(NSIMG* obj, NSInteger idx) {
+			NSR theR = [[rects normal:idx]rectValue];
+			[[obj scaledToMax:AZMaxDim(size) ] drawCenteredinRect:theR operation:NSCompositeSourceOver fraction:1];
+			if (name) {
+				NSR nameRect = AZOffsetRect(AZRectFromDim(AZMinDim(theR.size)*.1), theR.origin);
+				NSRectFillWithColor(nameRect, RED);
+				[obj.name drawInRect:nameRect withFontNamed:@"Ubuntu Mono Bold" andColor:WHITE];//:nameRect /*NSMakeRect(2, 2, sizeAndPhoto.width - 4, 14)*/ withFont:font andColor:WHITE];
+			}
+		}];
+		[contact unlockFocus];
+	}];
+	return  contact;
+}
+
+
++ (NSImage*)contactSheetWith:(NSArray*)images sized:(NSSZ)size spaced:(NSSZ)spacing columns:(NSUI)cols;
+{
+	return [self contactSheetWith:images sized:size spaced:spacing columns:cols withName:NO];
+}
+
 + (NSImage*)imageByTilingImages:(NSArray*)images
 					   spacingX:(CGFloat)spacingX
 					   spacingY:(CGFloat)spacingY
@@ -356,6 +386,8 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 			   }];
 	}();
 }
+
++ (NSIMG*)monoIconNamed:(NSS*)name { return [[self monoIcons]filterOne:^BOOL(NSIMG*icon) { return areSame(icon.name, name); }]; }
 
 + (NSIMG*)randomMonoIcon {
 	return [[self monoIcons]randomElement];

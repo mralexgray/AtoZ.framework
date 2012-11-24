@@ -10,8 +10,7 @@
 
 //Model this after NSTableView
 
-#pragma mark -
-#pragma mark Overlay View
+#pragma mark - Overlay View
 
 /** AZState
  TODO
@@ -288,8 +287,7 @@ extern NSString *AZOverlayViewOverlayDidMoveNotification;
 extern NSString *AZOverlayViewOverlayDidResizeNotification;
 extern NSString *AZOverlayViewOverlayDidDeleteNotification;
 
-#pragma mark -
-#pragma mark Overlay Data Source
+#pragma mark - Overlay Data Source
 
 /** An informal protocol.
  
@@ -324,8 +322,7 @@ extern NSString *AZOverlayViewOverlayDidDeleteNotification;
 
 @end 
 
-#pragma mark -
-#pragma mark Overlay Delegate
+#pragma mark - Overlay Delegate
 
 /** An informal protocol.
  

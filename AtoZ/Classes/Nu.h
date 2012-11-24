@@ -20,8 +20,7 @@
 #import <objc/objc.h>
 #import <objc/runtime.h>
 
-#pragma mark -
-#pragma mark Symbol Table
+#pragma mark - Symbol Table
 
 /*!
  @class NuSymbol
@@ -77,8 +76,7 @@
 - (void) removeSymbol:(NuSymbol *) symbol;
 @end
 
-#pragma mark -
-#pragma mark List Representation
+#pragma mark - List Representation
 
 /*!
  @class NuCell
@@ -161,8 +159,7 @@
 
 @end
 
-#pragma mark -
-#pragma mark Parsing
+#pragma mark - Parsing
 
 /*!
  @class NuStack
@@ -222,8 +219,7 @@
 
 @end
 
-#pragma mark -
-#pragma mark Callables: Functions, Macros, Operators
+#pragma mark - Callables: Functions, Macros, Operators
 
 /*!
  @class NuBlock
@@ -385,8 +381,7 @@
 
 @end
 
-#pragma mark -
-#pragma mark Bridging C
+#pragma mark - Bridging C
 
 /*!
  @class NuBridgedFunction
@@ -486,8 +481,7 @@
 @end
 #endif //__BLOCKS__
 
-#pragma mark -
-#pragma mark Wrapping access to items and objects in memory
+#pragma mark - Wrapping access to items and objects in memory
 
 /*!
  @class NuPointer
@@ -546,8 +540,7 @@
 - (void) retainReferencedObject;
 @end
 
-#pragma mark -
-#pragma mark Interacting with the Objective-C Runtime
+#pragma mark - Interacting with the Objective-C Runtime
 
 /*!
  @class NuMethod
@@ -688,8 +681,7 @@
 @end
 #endif
 
-#pragma mark -
-#pragma mark Error Handling
+#pragma mark - Error Handling
 
 /*!
  @class NuException
@@ -734,8 +726,7 @@
 
 @end
 
-#pragma mark -
-#pragma mark Mixins
+#pragma mark - Mixins
 
 /*!
  @class NuEnumerable
@@ -767,8 +758,7 @@
 
 @end
 
-#pragma mark -
-#pragma mark Class Extensions
+#pragma mark - Class Extensions
 
 /*!
  @category NSObject(Nu)
@@ -1103,8 +1093,7 @@
 + (int) fileExistsNamed:(NSString *) filename;
 @end
 
-#pragma mark -
-#pragma mark Regular Expressions
+#pragma mark - Regular Expressions
 
 // Let's make NSRegularExpression and NSTextCheckingResult look like our previous classes, NuRegex and NuRegexMatch
 
@@ -1185,8 +1174,7 @@
 
 @end
 
-#pragma mark -
-#pragma mark Profiler (Experimental)
+#pragma mark - Profiler (Experimental)
 
 @interface NuProfiler : NSObject
 
@@ -1194,8 +1182,7 @@
 
 @end
 
-#pragma mark -
-#pragma mark Utilities (Optional, may disappear)
+#pragma mark - Utilities (Optional, may disappear)
 
 /*!
  @class NuMath
@@ -1231,8 +1218,7 @@
 + (void) srandom:(unsigned long) seed;
 @end
 
-#pragma mark -
-#pragma mark Top Level Interface
+#pragma mark - Top Level Interface
 
 // call this from main() to run the Nu shell.
 int NuMain(int argc, const char *argv[]);

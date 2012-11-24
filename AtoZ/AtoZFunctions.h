@@ -139,6 +139,7 @@ CGPathRef AZRandomPathWithStartingPointInRect(CGPoint firstPoint, NSR inRect);
 
 CGPathRef AZRandomPathInRect(NSR rect);
 
+NSS* serialNumber(void);
 
 //#pragma once
 // Copyright (c) 2008-2010, Vincent Gable.

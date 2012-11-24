@@ -20,7 +20,7 @@
       location = "group:AZLayerGrid/AZLayerGrid.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:../git/StackInbox/StackInbox.xcodeproj">
+      location = "container:../git/StackInbox/StackInbox.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:AtoZWebkit/DeskBrowse.xcodeproj">

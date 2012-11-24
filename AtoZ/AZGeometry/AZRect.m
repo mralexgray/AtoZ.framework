@@ -95,8 +95,7 @@
   return NO;
 }
 
-#pragma mark -
-#pragma mark Instance Methods
+#pragma mark - Instance Methods
 
 -(id)init {
   if ((self = super.init)) {

@@ -148,8 +148,7 @@ static BOOL loadingFromResourceFile = NO;
 
 // sharedInstance
 
-#pragma mark -
-#pragma mark Singleton behaviour
+#pragma mark - Singleton behaviour
 static NSMutableDictionary *sharedInstances = nil;
 + (void)setSharedInstance:(AZObject *)instance
 {

@@ -125,8 +125,7 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
 @synthesize animationDisableCount = _animationDisableCount;
 @synthesize centerItemWhenSelected = _centerItemWhenSelected;
 
-#pragma mark -
-#pragma mark Initialisation
+#pragma mark - Initialisation
 
 - (void)setUp
 {
@@ -324,8 +323,7 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
         [CATransaction setDisableActions:YES];
     }
 }
-#pragma mark -
-#pragma mark View management
+#pragma mark - View management
 
 - (NSArray *)indexesForVisibleItems
 {
@@ -412,8 +410,7 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
     }
     self.itemViews = newItemViews;
 }
-#pragma mark -
-#pragma mark View layout
+#pragma mark - View layout
 
 - (CGFloat)alphaForItemWithOffset:(CGFloat)offset
 {
@@ -1127,8 +1124,7 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
 		//update views
     [self didScroll];
 }
-#pragma mark -
-#pragma mark View queing
+#pragma mark - View queing
 
 - (void)queueItemView:(UIView *)view
 {
@@ -1165,8 +1161,7 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
     }
     return [view autorelease];
 }
-#pragma mark -
-#pragma mark View loading
+#pragma mark - View loading
 
 - (UIView *)loadViewAtIndex:(NSInteger)index withContainerView:(UIView *)containerView
 {
@@ -1341,8 +1336,7 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
         [self scrollToItemAtIndex:0 animated:(_numberOfPlaceholders > 0)];
     }
 }
-#pragma mark -
-#pragma mark Scrolling
+#pragma mark - Scrolling
 
 //- (NSInteger)clampedIndex:(NSInteger)index
 //{
@@ -1646,8 +1640,7 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
     }
 }
 
-#pragma mark -
-#pragma mark Animation
+#pragma mark - Animation
 
 - (void)startAnimation	{    if (!_timer)
 
@@ -1902,8 +1895,7 @@ _timer = [NSTimer scheduledTimerWithTimeInterval:1.0/60.0	target:self		selector:
 //    _previousItemIndex = currentIndex;
 //}
 #ifdef ICAROUSEL_IOS
-#pragma mark -
-#pragma mark Gestures and taps
+#pragma mark - Gestures and taps
 
 - (NSInteger)viewOrSuperviewIndex:(UIView *)view
 {
@@ -2085,8 +2077,7 @@ _timer = [NSTimer scheduledTimerWithTimeInterval:1.0/60.0	target:self		selector:
 }
 
 #else
-#pragma mark -
-#pragma mark Mouse control
+#pragma mark - Mouse control
 
 - (void)mouseDown:(NSEvent *)theEvent
 {
@@ -2264,8 +2255,7 @@ _timer = [NSTimer scheduledTimerWithTimeInterval:1.0/60.0	target:self		selector:
         }
     }
 }
-#pragma mark -
-#pragma mark Keyboard control
+#pragma mark - Keyboard control
 
 - (BOOL)acceptsFirstResponder
 {

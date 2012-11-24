@@ -229,6 +229,12 @@
 
 #import "AZVeil.h"
 
+#import "PXListView.h"
+#import "PXListViewCell.h"
+#import "PXListDocumentView.h"
+#import "AZFavIconManager.h"
+
+
 // COREDATA
 #import "AZImageToDataTransformer.h"
 

@@ -21,8 +21,7 @@
 @implementation MondoSwitch
 
 @synthesize on, target, action;
-#pragma mark -
-#pragma mark init methods
+#pragma mark - init methods
 
 // Coder methods are necessary so that everything draws nicely
 // in interface builder.
@@ -138,8 +137,7 @@
 	[path stroke];
 }
 
-#pragma mark -
-#pragma mark propertyMethods
+#pragma mark - propertyMethods
 
 -(void)setOn:(BOOL)newState {
 	[self setOn:newState animated:YES];
@@ -152,8 +150,7 @@
 	[buttonLayer setOn:newState animated:animated];
 }
 
-#pragma mark -
-#pragma mark mouse methods
+#pragma mark - mouse methods
 
 - (void) mouseDown: (NSEvent *) event {
 

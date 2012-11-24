@@ -112,15 +112,13 @@
 	return number != nil ? [number integerValue] : 0;
 }
 
-#pragma mark -
-#pragma mark CAScrollLayer Methods
+#pragma mark - CAScrollLayer Methods
 
 - (void)scrollToPoint:(CGPoint)thePoint {
 	[super scrollToPoint:thePoint];
 	[_contentController scrollPositionChanged:thePoint.x];
 }
-#pragma mark -
-#pragma mark SFScrollerContent Protocol Methods
+#pragma mark - SFScrollerContent Protocol Methods
 - (CGFloat)contentWidth {
 	return [ self.layoutManager preferredSizeOfLayer:self].width;
 }

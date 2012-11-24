@@ -237,8 +237,7 @@ NSString * const AZSLDeleteKeyPressedOnRowsNotification = @"AZSourceListDeleteKe
 	
 //	[super dealloc];
 }
-#pragma mark -
-#pragma mark Custom Accessors
+#pragma mark - Custom Accessors
 
 - (void)setDelegate:(id<AZSourceListDelegate>)aDelegate
 {
@@ -284,8 +283,7 @@ NSString * const AZSLDeleteKeyPressedOnRowsNotification = @"AZSourceListDeleteKe
 	}
 }
 
-#pragma mark -
-#pragma mark Data Management
+#pragma mark - Data Management
 
 - (void)reloadData
 {
@@ -393,8 +391,7 @@ NSString * const AZSLDeleteKeyPressedOnRowsNotification = @"AZSourceListDeleteKe
 	return NSNotFound;
 }
 
-#pragma mark -
-#pragma mark Selection Handling
+#pragma mark - Selection Handling
 
 - (void)selectRowIndexes:(NSIndexSet*)indexes byExtendingSelection:(BOOL)extend
 {
@@ -429,8 +426,7 @@ NSString * const AZSLDeleteKeyPressedOnRowsNotification = @"AZSourceListDeleteKe
 	free(selectedIndexes);
 }
 
-#pragma mark -
-#pragma mark Layout
+#pragma mark - Layout
 
 - (NSRect)frameOfOutlineCellAtRow:(NSInteger)row
 {	
@@ -711,8 +707,7 @@ NSString * const AZSLDeleteKeyPressedOnRowsNotification = @"AZSourceListDeleteKe
 	//	[badgeAttrString release];
 }
 
-#pragma mark -
-#pragma mark Keyboard Handling
+#pragma mark - Keyboard Handling
 
 - (void)keyDown:(NSEvent *)theEvent
 {
@@ -765,8 +760,7 @@ NSString * const AZSLDeleteKeyPressedOnRowsNotification = @"AZSourceListDeleteKe
 	[super keyDown:theEvent];
 }
 
-#pragma mark -
-#pragma mark Menu Handling
+#pragma mark - Menu Handling
 - (NSMenu *)menuForEvent:(NSEvent *)theEvent
 {
 	NSMenu * m = nil;
@@ -782,8 +776,7 @@ NSString * const AZSLDeleteKeyPressedOnRowsNotification = @"AZSourceListDeleteKe
 	return m;
 }
 
-#pragma mark -
-#pragma mark NSOutlineView Data Source methods
+#pragma mark - NSOutlineView Data Source methods
 
 - (NSInteger)outlineView:(NSOutlineView *)outlineView numberOfChildrenOfItem:(id)item
 {	
@@ -875,8 +868,7 @@ NSString * const AZSLDeleteKeyPressedOnRowsNotification = @"AZSourceListDeleteKe
 	
 	return nil;
 }
-#pragma mark -
-#pragma mark NSOutlineView Delegate methods
+#pragma mark - NSOutlineView Delegate methods
 
 - (BOOL)outlineView:(NSOutlineView *)outlineView shouldExpandItem:(id)item
 {
@@ -991,8 +983,7 @@ NSString * const AZSLDeleteKeyPressedOnRowsNotification = @"AZSourceListDeleteKe
 	return [self isGroupItem:item];
 }
 
-#pragma mark -
-#pragma mark Notification handling
+#pragma mark - Notification handling
 
 /* Notification wrappers */
 - (void)outlineViewSelectionIsChanging:(NSNotification *)notification
@@ -1054,8 +1045,7 @@ NSString * const AZSLDeleteKeyPressedOnRowsNotification = @"AZSourceListDeleteKe
 @synthesize badgeValue;
 @synthesize children;
 
-#pragma mark -
-#pragma mark Init/Dealloc/Finalize
+#pragma mark - Init/Dealloc/Finalize
 
 - (id)init
 {
@@ -1083,8 +1073,7 @@ NSString * const AZSLDeleteKeyPressedOnRowsNotification = @"AZSourceListDeleteKe
 	return item;
 }
 
-#pragma mark -
-#pragma mark Custom Accessors
+#pragma mark - Custom Accessors
 
 - (BOOL)hasBadge
 {
@@ -1101,8 +1090,7 @@ NSString * const AZSLDeleteKeyPressedOnRowsNotification = @"AZSourceListDeleteKe
 	return icon!=nil;
 }
 
-#pragma mark -
-#pragma mark Custom Accessors
+#pragma mark - Custom Accessors
 
 - (NSString *)description
 {

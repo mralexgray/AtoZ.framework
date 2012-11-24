@@ -414,8 +414,7 @@ float GetPixelAlpha( CGImageRef image, CGSize imageSize, CGPoint pt )
                        image);
     return sPixel[0] / 255.0;
 }
-#pragma mark -
-#pragma mark PATTERNS:
+#pragma mark - PATTERNS:
 // callback for CreateImagePattern.
 static void drawPatternImage (void *info, CGContextRef ctx)
 {

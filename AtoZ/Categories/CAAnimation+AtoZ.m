@@ -292,8 +292,7 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey = @"AZCAAnimationCompl
 
 
 
-#pragma mark -
-#pragma mark Sphere Layer Generation
+#pragma mark - Sphere Layer Generation
 
 
 

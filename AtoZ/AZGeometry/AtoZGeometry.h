@@ -326,6 +326,13 @@ NSR AZRectTrimmedOnTop ( NSR rect, CGF height );
 NSSZ AZSizeExceptWide  ( NSSZ sz, CGF wide );
 NSSZ AZSizeExceptHigh  ( NSSZ sz, CGF high );
 
+NSR AZRectExtendedOnLeft(NSR rect, CGFloat amount);
+NSR AZRectExtendedOnBottom(NSR rect, CGFloat amount);
+NSR AZRectExtendedOnTop(NSR rect, CGFloat amount);
+NSR AZRectExtendedOnRight(NSR rect, CGFloat amount);
+
+
+
 NSR AZRectExceptWide  ( NSR rect, CGF wide );
 NSR AZRectExceptHigh  ( NSR rect, CGF high );
 NSR AZRectExceptOriginX  ( NSR rect, CGF x );
@@ -424,6 +431,7 @@ static inline CGP AZCenter( CGRect rect ) {
 NSP AZRectOffset ( NSR innerRect, NSR outerRect, QUAD quadrant );
 
 
+NSRect AZOffsetRect(NSR rect, NSP offset);
 
 NSRect				NSRectFromTwoPoints( const NSPoint a, const NSPoint b );
 NSRect				NSRectCentredOnPoint( const NSPoint p, const NSSize size );

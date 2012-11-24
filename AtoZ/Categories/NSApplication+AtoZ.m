@@ -767,6 +767,50 @@ static NSDateFormatter* _GetDateFormatter(NSString* format, NSString* identifier
 
 @implementation NSWorkspace (AppleShoulda)
 
+
+//- (NSString*) appName {
+//	if (SDInfoPlistValueForKey(@"CFBundleName"))
+//		return SDInfoPlistValueForKey(@"CFBundleName");
+//	else
+//		return [[[NSFileManager defaultManager] displayNameAtPath:[[NSBundle mainBundle] bundlePath]] stringByDeletingPathExtension];
+//}
+
+//- (NSString*) appDisplayName {
+//	if (SDInfoPlistValueForKey(@"CFBundleDisplayName"))
+//		return SDInfoPlistValueForKey(@"CFBundleDisplayName");
+//	else
+//		return [NSApp appName];
+//}
+//
+//- (NSString*) appVersion {
+//	return SDInfoPlistValueForKey(@"CFBundleVersion");
+//}
+
+- (NSString*) appSupportSubdirectory {
+	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
+	NSString *appSupportFolder = [paths firstObject];
+	NSString *appSupportSubdirectory = [appSupportFolder stringByAppendingPathComponent:APP_NAME];//[NSApp appDisplayName]];
+
+	NSError *error = nil;
+	[[NSFileManager defaultManager] createDirectoryAtPath:appSupportSubdirectory withIntermediateDirectories:YES attributes:nil error:&error];
+	if (error) {
+		[NSException raise:@"SDCannotCreateDir"
+					format:@"Cannot create folder [%@]", appSupportSubdirectory];
+		return nil;
+	}
+
+	return appSupportSubdirectory;
+}
+
+- (void) registerDefaultsFromMainBundleFile:(NSString*)defaultsFilename {
+	NSString *plistPath = [[NSBundle mainBundle] pathForResource:[defaultsFilename stringByDeletingPathExtension]
+														  ofType:[defaultsFilename pathExtension]];
+
+	NSDictionary *initialValues = [NSDictionary dictionaryWithContentsOfFile:plistPath];
+	[[NSUserDefaults standardUserDefaults] registerDefaults:initialValues];
+}
+
+
 + (NSString*)appNameForBundleIdentifier:(NSString*)bundleIdentifier {
 	NSWorkspace* workspace = [self sharedWorkspace] ;
 	NSString* path = [workspace absolutePathForAppBundleWithIdentifier:bundleIdentifier] ;
@@ -797,5 +841,23 @@ static NSDateFormatter* _GetDateFormatter(NSString* format, NSString* identifier
 }
 
 
+
+@end
+
+
+@implementation NSWorkspace (SystemInfo)
+
++ (NSString*) systemVersion {
+    SInt32 versionMajor, versionMinor, versionBugFix;
+
+	OSErr maj = Gestalt(gestaltSystemVersionMajor, &versionMajor);
+	OSErr min = Gestalt(gestaltSystemVersionMinor, &versionMinor);
+	OSErr bug = Gestalt(gestaltSystemVersionBugFix, &versionBugFix);
+
+	if (maj != noErr || min != noErr || bug != noErr)
+		return nil;
+
+    return NSSTRINGF(@"%d.%d.%d", versionMajor, versionMinor, versionBugFix);
+}
 
 @end

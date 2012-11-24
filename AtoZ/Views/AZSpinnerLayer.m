@@ -25,8 +25,7 @@
 @implementation AZSpinnerLayer
 
 //------------------------------------------------------------------------------
-#pragma mark -
-#pragma mark Init, Dealloc, etc
+#pragma mark - Init, Dealloc, etc
 //------------------------------------------------------------------------------
 
 - (id)init
@@ -52,8 +51,7 @@
 //    [super dealloc];
 }
 //------------------------------------------------------------------------------
-#pragma mark -
-#pragma mark Overrides
+#pragma mark - Overrides
 //------------------------------------------------------------------------------
 
 - (void)setBounds:(CGRect)newBounds
@@ -78,8 +76,7 @@
     [CATransaction commit];
 }
 //------------------------------------------------------------------------------
-#pragma mark -
-#pragma mark Animation
+#pragma mark - Animation
 //------------------------------------------------------------------------------
 
 - (void)advancePosition
@@ -148,8 +145,7 @@
     [self setNeedsDisplay];
 }
 //------------------------------------------------------------------------------
-#pragma mark -
-#pragma mark Properties and Accessors
+#pragma mark - Properties and Accessors
 //------------------------------------------------------------------------------
 
 @synthesize isRunning = _isRunning;
@@ -189,8 +185,7 @@
     }
 }
 //------------------------------------------------------------------------------
-#pragma mark -
-#pragma mark Helper Methods
+#pragma mark - Helper Methods
 //------------------------------------------------------------------------------
 
 - (void)createFinLayers
@@ -259,8 +254,7 @@
 
 @end
 //------------------------------------------------------------------------------
-#pragma mark -
-#pragma mark Helper Functions
+#pragma mark - Helper Functions
 //------------------------------------------------------------------------------
 
 /// Note: This returns a CGColorRef that the caller needs to release.

@@ -74,8 +74,7 @@
 	[self scrollContentResized];
 }
 
-#pragma mark -
-#pragma mark Slider Methods
+#pragma mark - Slider Methods
 // Where newWidth is a number between 0.0 and 1.0 representing
 // the percentage...
 - (void)setSliderWidth:(CGFloat)widthPercentage {
@@ -267,8 +266,7 @@
 	[self addMask:maskImage toLayer:layer];
 
 }
-#pragma mark -
-#pragma mark Arrow Helper Methods
+#pragma mark - Arrow Helper Methods
 - (void) createLeftArrow {
 	float minX = 0;
 	float minY = 0;
@@ -423,8 +421,7 @@
 	//[maskImage autorelease];
 	return maskImage;
 }
-#pragma mark -
-#pragma mark General Helper Methods
+#pragma mark - General Helper Methods
 - (NSImage*) createGlassImageForSize:(NSSize)size {
 	NSBezierPath* glassEffect = [NSBezierPath bezierPath];
 /*
@@ -505,8 +502,7 @@
 
 }
 
-#pragma mark -
-#pragma mark Event Methods
+#pragma mark - Event Methods
 
 - (void)startMouseDownTimer {
 	[mouseDownTimer invalidate];
@@ -651,8 +647,7 @@
 	_mouseOverSelectedInput = NO;
 }
 
-#pragma mark -
-#pragma mark SFScrollerContentController Methods
+#pragma mark - SFScrollerContentController Methods
 - (BOOL)isRepositioning {
 	return _inputMode != SFNoInput;
 }

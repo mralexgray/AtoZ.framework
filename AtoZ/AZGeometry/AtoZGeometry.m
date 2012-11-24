@@ -772,6 +772,28 @@ NSSZ AZSizeExceptWide  ( NSSZ sz, CGF wide ) {	return NSMakeSize(wide, sz.height
 NSSZ AZSizeExceptHigh  ( NSSZ sz, CGF high ) {  return NSMakeSize(sz.width, high);  }
 
 
+NSR AZRectExtendedOnLeft(NSR rect, CGFloat amount) {
+	NSR newRect = rect;
+	rect.origin.x -= amount;
+	rect.size.width += amount;
+	return newRect;
+}
+NSR AZRectExtendedOnBottom(NSR rect, CGFloat amount) {
+	NSR newRect = rect;
+	rect.origin.x -= amount;
+	rect.size.height += amount;
+	return newRect;
+}
+NSR AZRectExtendedOnTop(NSR rect, CGFloat amount) {
+	NSR newRect = rect;
+	rect.size.height += amount;
+	return newRect;
+}
+NSR AZRectExtendedOnRight(NSR rect, CGFloat amount) {
+	NSR newRect = rect;
+	rect.size.width += amount;
+	return newRect;
+}
 
 NSR AZRectExceptWide(NSR rect, CGFloat wide) {
 	return NSMakeRect(	rect.origin.x, 	rect.origin.y, wide, rect.size.height);
@@ -890,6 +912,14 @@ int oppositeQuadrant(int quadrant){
     return quadrant;
 }
 */
+
+NSRect AZOffsetRect(NSR rect, NSP offset)
+{
+	rect.origin.x += offset.x;
+	rect.origin.y += offset.y;
+	return rect;
+}
+
 NSPoint AZRectOffset(NSR innerRect,NSR outerRect, QUAD quadrant){
     if (quadrant )
         return NSMakePoint((quadrant == 2 || quadrant == 1) ? NSMaxX(outerRect)-NSMaxX(innerRect) : NSMinX(outerRect)-NSMinX(innerRect),
@@ -1794,8 +1824,7 @@ NSAffineTransform*	RotationTransform( const CGFloat angle, const NSPoint cp )
 }
 
 
-#pragma mark -
-#pragma mark bezier curve utils
+#pragma mark - bezier curve utils
 
 static NSPoint*		ConvertToBezierForm( const NSPoint inp, const NSPoint bez[4] );
 static NSInteger			FindRoots( NSPoint* w, NSInteger degree, double* t, NSInteger depth );

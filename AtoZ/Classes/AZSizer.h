@@ -1,43 +1,35 @@
 
-//  AZSizer.h
-//  AtoZ
 
-//  Created by Alex Gray on 7/7/12.
-//  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 #import "AtoZ.h"
 #import "AtoZUmbrella.h"
 
-extern NSUInteger gcd(NSInteger m, NSUInteger n);
-
+extern NSUInteger gcd(NSI m, NSUI n);
 
 @interface AZSizer : BaseModel 
 
-+ (AZSizer*) forObjects:  (NSA*)objects  withFrame:(NSR)aFrame arranged:(AZOrient)arr;
-+ (instancetype) forQuantity: (NSUI)aNumber aroundRect:(NSR)aFrame;
-+ (instancetype) forQuantity: (NSUI)aNumber     inRect:(NSR)aFrame;
-+ (NSRect) structForQuantity: (NSUI)aNumber     inRect:(NSR)aFrame;
-+ (NSRect)   rectForQuantity: (NSUI)q 	        ofSize:(NSSize)s  	withColumns:(NSUI)c;
++ (AZSizer*)  forQuantity:(NSUI)q            ofSize:(NSSZ)s  withColumns:(NSUI)c;
++ (AZSizer*)   forObjects: (NSA*)objects  withFrame:(NSR)aFrame arranged:(AZOrient)arr;
++ (AZSizer*)  forQuantity: (NSUI)aNumber aroundRect:(NSR)aFrame;
++ (AZSizer*)  forQuantity: (NSUI)aNumber     inRect:(NSR)aFrame;
++ (NSR) structForQuantity: (NSUI)aNumber     inRect:(NSR)aFrame;
++ (NSR)   rectForQuantity: (NSUI)q 	         ofSize:(NSSize)s  	withColumns:(NSUI)c;
+- (NSR)      rectForPoint: (NSP)point;
 
-//+ (NSSize) gridFor:(int)someitems inRect:(NSRect)aframe;
-//- (void) constrainLayersInLayer:(CALayer*)layer;
+@property (NATOM, ASS)   AZOrient		orient;
+@property (NATOM, ASS)   NSR		outerFrame;
 
-@property (NATOM, ASS) AZOrient		orient;
+@property (RONLY) 		 NSUI	rows, 		columns,		capacity;
+@property (RONLY) 		 NSI	remainder;
+@property (RONLY) 		 CGF 	width, 		height;
+@property (NATOM, RONLY) NSSZ	size;
+@property (RONLY) 		 NSA 	*paths, 	*boxes;
+@property (RONLY) 		 NSS	*aspectRatio;
 
-@property (NATOM, RDWRT) NSRect		outerFrame;
-
-@property (RONLY) 		 NSUInteger	 	rows, 		columns,		capacity;
-@property (RONLY) 		 NSInteger		remainder;
-@property (RONLY) 		 CGFloat 		width, 		height;
-@property (NATOM, RONLY) NSSize			size;
-@property (RONLY) 		 NSArray 		*paths, 	*boxes;
-@property (RONLY) 		 NSS			*aspectRatio;
-
-@property (weak) NSA* objects;
-@property (NATOM, ASS) 	NSUInteger 	quantity;
+@property (weak) 		NSA		*objects;
+@property (NATOM, ASS) 	NSUI 	quantity;
 @property (NATOM, CP) 	NSA 	*rects;
 @property (NATOM, CP) 	NSMA 	*positions;
 
-- (NSValue*) rectForPoint:(NSP) point;
-//- (void) updateFrame:(NSRect)rect;
+
 @end
 

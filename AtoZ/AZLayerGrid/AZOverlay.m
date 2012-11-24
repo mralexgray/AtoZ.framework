@@ -8,8 +8,7 @@
 #import "AZOverlay.h"
 //#import "AtoZ.h"
 
-#pragma mark -
-#pragma mark Helper class extension
+#pragma mark - Helper class extension
 
 enum {
     AZNoCorner = -1,
@@ -45,8 +44,7 @@ typedef NSUInteger AZCorner;
 
 @end
 
-#pragma mark -
-#pragma mark Implementation
+#pragma mark - Implementation
 
 @implementation AZOverlayView {
     __weak id __AZ_overlayDelegate;

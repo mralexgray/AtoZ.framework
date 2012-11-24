@@ -199,6 +199,7 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define CGPR CGPathRef
 #define CGR CGRect
 #define CGS CGSize
+#define CGSZ CGSize
 #define CIF CIFilter
 #define IBO IBOutlet
 #define IBA IBAction
@@ -217,6 +218,7 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define NSCS NSCountedSet
 #define NSD NSDictionary
 #define NSE NSEvent
+#define NSF NSFont
 #define NSI NSInteger
 #define NSIMG NSImage
 #define NSIS NSIndexSet
@@ -238,6 +240,8 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 
 #define NSPUBUTT NSPopUpButton
 #define NSR NSRect
+#define NSRNG NSRange
+
 #define NSRFill NSRectFill
 #define NSS NSString
 #define NSSI NSStatusItem
@@ -282,6 +286,8 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define fV floatValue
 
 #define performDelegateSelector(sel) if ([delegate respondsToSelector:sel]) { [delegate performSelector:sel]; }
+#define performBlockIfDelegateRespondsToSelector(block, sel) if ([delegate respondsToSelector:sel]) { block(); }
+
 
 #define AZBindSelector(observer,sel,keypath,obj) [AZNOTCENTER addObserver:observer selector:sel name:keypath object:obj]
 
@@ -475,6 +481,22 @@ attr1 relativeTo:relName attribute:attr2 scale:scl offset:off]
 #define RESTORE_GRAPHICS_CONTEXT		} @finally { [NSGraphicsContext restoreGraphicsState]; }
 
 
+
+#ifndef DSFavIcon_UINSImage_h
+#define DSFavIcon_UINSImage_h
+
+#if TARGET_OS_IPHONE
+#import <UIKit/UIKit.h>
+#define UINSImage   UIImage
+#define UINSScreen  UIScreen
+#else
+#import <Cocoa/Cocoa.h>
+#define UINSImage   NSImage
+#define UINSScreen  NSScreen
+#endif
+
+#endif
+
 // 64-bit float macros
 
 //#ifdef __LP64__
@@ -576,6 +598,13 @@ _Pragma("clang diagnostic pop") \
 //
 //#define $affectors(A,...) +(NSSet *)keyPathsForValuesAffecting##A { static NSSet *re = nil; \
 //if (!re) { re = [[[@#__VA_ARGS__ splitByComma] trimmedStrings] set]; } return re; }
+
+typedef NS_ENUM(NSUInteger, PXListViewDropHighlight) {
+	PXListViewDropNowhere,
+	PXListViewDropOn,
+	PXListViewDropAbove,
+	PXListViewDropBelow
+};
 
 
 typedef NS_ENUM(NSUI,  	OSCornerType) {

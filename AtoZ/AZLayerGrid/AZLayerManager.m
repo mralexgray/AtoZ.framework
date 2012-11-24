@@ -91,8 +91,7 @@ BOOL layerIsGridCell( CALayer* layer ) { return [layer isKindOfClass: [GridCell 
 - (CGColorRef) animateColor                { return _animateColor; }
 - (void) setAnimateColor:(CGColorRef)color { [self _setColor:&_animateColor withNewColor:color]; }
 
-#pragma mark -
-#pragma mark GEOMETRY:
+#pragma mark - GEOMETRY:
 - (GridCell*) cellAtRow:(unsigned)row column:(unsigned)col
 {
     if ( row < _nRows && col < _nColumns ) {
@@ -151,8 +150,7 @@ BOOL layerIsGridCell( CALayer* layer ) { return [layer isKindOfClass: [GridCell 
     _cells[index] = [NSNull null];
     [self setNeedsDisplay];
 }
-#pragma mark -
-#pragma mark DRAWING:
+#pragma mark - DRAWING:
 - (void) drawCellsInContext:(CGContextRef)ctx
 {
     // Subroutine of -drawInContext:. Draws all the cells, with or without a fill.

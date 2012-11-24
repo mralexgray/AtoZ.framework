@@ -285,8 +285,7 @@
 {
     [_carousel removeItemAtIndex:_carousel.currentItemIndex animated:YES];
 }
-#pragma mark -
-#pragma mark iCarousel methods
+#pragma mark - iCarousel methods
 
 - (NSUInteger)numberOfItemsInCarousel:(iCarousel *)carousel
 {

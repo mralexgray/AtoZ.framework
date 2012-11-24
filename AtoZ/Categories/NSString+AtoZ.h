@@ -7,115 +7,99 @@
 
 @interface NSString (AtoZ)
 
-+ (NSString*)clipboard ;
-- (void)copyToClipboard ;
++ (NSS*) clipboard ;
+- (void) copyToClipboard ;
 
-- (unichar)lastCharacter;
-- (NSString*)substringToLastCharacter;
-//- (NSString*)decodeAllPercentEscapes;
-- (NSString*)decodeAllAmpersandEscapes;
-- (NSNumber*)numberValue;
-- (void) copyFileAtPathTo:(NSString*)path;
+- (unichar) lastCharacter;
+- (NSS*) substringToLastCharacter;
+//- (NSS*)decodeAllPercentEscapes;
+- (NSS*) decodeAllAmpersandEscapes;
+- (NSN*) numberValue;
+- (void) copyFileAtPathTo: (NSS*)path;
 
-- (CGFloat)pointSizeForFrame:(NSRect)frame withFont:(NSString *)fontName;
-+ (CGFloat)pointSizeForFrame:(NSRect)frame withFont:(NSString *)fontName forString:(NSString*)string;
+- (CGF) pointSizeForFrame: (NSR)frame  withFont: (NSS*)fontName;
++ (CGF) pointSizeForFrame: (NSR)frame  withFont: (NSS*)fontName   forString: (NSS*)string;
 
-- (NSString*) stringByReplacingAllOccurancesOfString:(NSString*) search withString:(NSString*) replacement;
-- (NSString*) urlEncoded;
-- (NSString*) urlDecoded;
-- (unichar)lastCharacter;
+- (NSS*) stringByReplacingAllOccurancesOfString: (NSS*) search withString: (NSS*) replacement;
+- (NSS*) urlEncoded;
+- (NSS*) urlDecoded;
 
-- (NSString*) firstLetter;
-+ (NSString*) newUniqueIdentifier;
-+ (NSString*) randomAppPath;
+- (NSS*) firstLetter;
++ (NSS*) newUniqueIdentifier;
++ (NSS*) randomAppPath;
 
-+ (NSString*) randomWords:(NSInteger)number;
-+ (NSString*) randomSentences:(NSInteger)number;
++ (NSS*) randomWords:     (NSI)number;
++ (NSS*) randomSentences: (NSI)number;
+- (NSSZ) sizeWithFont: (NSFont*)font;
+- (NSSZ) sizeWithFont: (NSFont*)font  margin: (NSSZ)size;
 
-- (NSSZ) sizeWithFont:(NSFont*)font;
-- (NSSZ) sizeWithFont:(NSFont*)font margin:(NSSZ)size;
+- (CGF)  widthWithFont:    (NSF*)font;
+- (NSR)  frameWithFont:	 (NSF*)font;
 
-//@property (RONLY) NSColor *colorValue;
 
-- (void) drawInRect:(NSRect)r withFontNamed:(NSS*)fontName andColor:(NSColor*)color;
+//@property (RONLY) NSC *colorValue;
+- (void) drawInRect: (NSR)r  withFontNamed: (NSS*)fontName andColor: (NSC*)color;
 // new way
-- (void) drawInRect:(NSRect)r withFont:(NSFont*)font andColor:(NSColor*)color;
+- (void) drawInRect: (NSR)r  withFont: (NSFont*)font       andColor: (NSC*)color;
 
-- (void) drawCenteredInRect:(NSRect)rect withFont:(NSString*) font;
+- (void) drawCenteredInRect: (NSR)rect withFontNamed: (NSS*) font;
+
+- (void) drawCenteredInRect: (NSR)rect withFont: (NSS*) font;
+
+
 /*** Returns the string cleaned from leading and trailing whitespaces */
-@property (RONLY) NSString *trim;
-
+@property (RONLY) NSS *trim;
 /*** Returns the reverse version of the string */
-@property (RONLY) NSString *reversed;
-
+@property (RONLY) NSS *reversed;
 /*** Returns the substring after the first character in this string */
-@property (RONLY) NSString *shifted;
-
+@property (RONLY) NSS *shifted;
 /*** Returns the substring not containing the last character of this string */
-@property (RONLY) NSString *popped;
-
+@property (RONLY) NSS *popped;
 /*** Combination of shifted and popped, removes the first and last character */
-@property (RONLY) NSString *chopped;
-
+@property (RONLY) NSS *chopped;
 /*** Returns a CamelCase Version of this string */
-@property (RONLY) NSString *camelized;
-
-@property (RONLY) NSString *hyphonized;
-
-@property (RONLY) NSString *underscored;
-
+@property (RONLY) NSS *camelized;
+@property (RONLY) NSS *hyphonized;
+@property (RONLY) NSS *underscored;
 /*** Returns YES if this string is nil or contains nothing but whitespaces */
 @property (RONLY) BOOL isEmpty;
-
 /*** Counts occurrences of a given string */
-- (NSUInteger)count:(NSString*) aString;
-
+- (NSUI)count: (NSS*) aString;
 /*** Cunts occurrences of a given string with sone compare options */
-- (NSUInteger)count:(NSString*) aString options:(NSStringCompareOptions)flags;
-
+- (NSUI)count: (NSS*) aString options: (NSStringCompareOptions)flags;
 /*** Counts the whitespace chars that prefix this string */
-@property (RONLY) NSUInteger indentationLevel;
-
+@property (RONLY) NSUI indentationLevel;
 /*** Returns YES when aString is part of the this string.
  * nil and @"" are never part of any compared string */
-- (BOOL)contains:(NSString*) aString;
-
+- (BOOL)contains: (NSS*) aString;
 /*** Returns YES when this string contains ANY of the strings defined in the array */
-- (BOOL)containsAnyOf:(NSA*) array;
-
+- (BOOL)containsAnyOf: (NSA*) array;
 /*** Returns YES when this string contains ALL of the strings defined in the array */
-- (BOOL)containsAllOf:(NSA*) array;
-
+- (BOOL)containsAllOf: (NSA*) array;
 /*** Returns YES when this string starts with aString, just a synonym for hasPrefix */
-- (BOOL)startsWith:(NSString*) aString;
+- (BOOL)startsWith: (NSS*) aString;
 
 /*** Returns YES when this string ends with aString, just a synonym for hasSuffix */
-- (BOOL)endsWith:(NSString*) aString;
+- (BOOL)endsWith: (NSS*) aString;
 
 /*** Returns YES when this string has both given prefix and suffix */
-- (BOOL)hasPrefix:(NSString*) prefix andSuffix:(NSString*) suffix;
+- (BOOL)hasPrefix: (NSS*) prefix andSuffix: (NSS*) suffix;
 
 /*** Will return the substring between prefix and suffix.
  * If either prefix or suffix cannot be matched nil will be returned */
-- (NSString*) substringBetweenPrefix:(NSString*) prefix 
-                           andSuffix:(NSString*) suffix;
+- (NSS*) substringBetweenPrefix: (NSS*) prefix  andSuffix: (NSS*) suffix;
 
-/*** Oldscool indexOf, if you do not want to handle NSRange objects
- * will return -1 instead of NSNotFound */
-- (NSInteger)indexOf:(NSString*) aString;
-- (NSInteger)indexOf:(NSString*) aString 
-		  afterIndex:(NSInteger)index;
+/*** Oldscool indexOf, if you do not want to handle NSRange objects will return -1 instead of NSNotFound */
+- (NSI)indexOf: (NSS*) aString;
+- (NSI)indexOf: (NSS*) aString  afterIndex: (NSI)index;
 
-/*** Oldscool lastIndexOf, if you do not want to handle NSRange objects
- * will return -1 instead of NSNotFound */
-- (NSInteger)lastIndexOf:(NSString*) aString;
+/*** Oldscool lastIndexOf, if you do not want to handle NSRange objects will return -1 instead of NSNotFound */
+- (NSI)lastIndexOf: (NSS*) aString;
 
-/*** Returns the first NSRange of any matching substring in this string
- * that is part of the strings set */
-- (NSRange)rangeOfAny:(NSSet*) strings;
+/*** Returns the first NSRange of any matching substring in this string that is part of the strings set */
+- (NSRange)rangeOfAny: (NSSet*) strings;
 
-/*** Returns this string splitted by lines.
- * Shortcut for componentsSeperatedByString:@"\n" */
+/*** Returns this string splitted by lines. * Shortcut for componentsSeperatedByString:@"\n" */
 @property (RONLY) NSArray *lines;
 
 /*** Returns this string splitted by whitespaces.
@@ -127,63 +111,56 @@
  * separated by whitespaces */
 @property (RONLY) NSSet *wordSet;
 
-- (NSA*) trimmedComponentsSeparatedByString:(NSString*) delimiter;
+- (NSA*) trimmedComponentsSeparatedByString: (NSS*) delimiter;
 
 @property (RONLY) NSArray *decolonize;
 @property (RONLY) NSArray *splitByComma;
 
-- (NSString*) substringBefore:(NSString*) delimiter;
-- (NSString*) substringAfter:(NSString*) delimiter;
+- (NSS*) substringBefore: (NSS*) delimiter;
+- (NSS*) substringAfter: (NSS*) delimiter;
 // The difference between the splitBy and splitAt groups is
 // that splitAt will return an array containing one or two elements
 
-- (NSA*) splitAt:(NSString*) delimiter;
-- (BOOL)splitAt:(NSString*) delimiter 
-           head:(NSString **)head 
-           tail:(NSString **)tail;
+- (NSA*) splitAt: (NSS*) delimiter;
+- (BOOL) splitAt: (NSS*) delimiter  head: (NSS**)head  tail: (NSS**)tail;
 
 // excuse the pun, but it divides the string into a head and body word, trimmed
 @property (RONLY) NSArray *decapitate;
 // TBD whether they belong here or elsewhere
 
-@property (RONLY) NSPoint pointValue;
-@property (RONLY) NSUInteger minutesValue;
-@property (RONLY) NSUInteger secondsValue;
+@property (RONLY) NSP  pointValue;
+@property (RONLY) NSUI minutesValue;
+@property (RONLY) NSUI secondsValue;
 
 @property (RONLY) NSURL *url;
 @property (RONLY) NSURL *fileURL;
 
-@property (RONLY) NSString *ucfirst;
-@property (RONLY) NSString *lcfirst;
+@property (RONLY) NSS	*ucfirst;
+@property (RONLY) NSS	*lcfirst;
 
-+ (id)	stringWithData:(NSData*) data encoding:(NSStringEncoding)encoding;
-+ (NSString*) stringWithCGFloat:(CGFloat)f maxDigits:(NSUInteger)numDigits;
-- (NSAttributedString*) attributedWithSize:(NSUInteger)size andColor:(NSColor*)color;
--(NSMutableAttributedString *) attributedParagraphWithSpacing:(float)spacing;
-- (CGFloat) widthWithFont:(NSFont *)font;
--(NSString*) truncatedForRect:(NSRect)frame withFont:(NSFont*)font;
++ (id)	   stringWithData: (NSData*) data  encoding: (NSStringEncoding)encoding;
++ (NSS*)   stringWithCGF: (CGF)f         maxDigits: (NSUI)numDigits;
+- (NSAS*)  attributedWithSize: (NSUI)size andColor: (NSC*)color;
+- (NSMAS*) attributedParagraphWithSpacing: (float)spacing;
+- (NSS*)   truncatedForRect: (NSR)frame withFont: (NSFont*)font;
 
 @end
 // Truncate a string by inserting an ellipsis ("..."). truncateMode can be NSLineBreakByTruncatingHead, NSLineBreakByTruncatingMiddle or NSLineBreakByTruncatingTail.
-NSString*   StringByTruncatingStringWithAttributesForWidth( NSString* s,
-                                                                NSDictionary* attrs,
-                                                                float wid,
-                                                                NSLineBreakMode truncateMode );
+NSS*   StringByTruncatingStringWithAttributesForWidth( NSS* s, NSD* attrs, float wid, NSLineBreakMode truncateMode );
 
 @interface NSMutableString (AtoZ)
 
-- (NSString*) shift;
-- (NSString*) pop;
+- (NSS*) shift;
+- (NSS*) pop;
 
-- (BOOL)removePrefix:(NSString*) prefix;
-- (BOOL)removeSuffix:(NSString*) suffix;
-- (BOOL)removePrefix:(NSString*) prefix andSuffix:(NSString*) suffix;
+- (BOOL) removePrefix: (NSS*) prefix;
+- (BOOL) removeSuffix: (NSS*) suffix;
+- (BOOL) removePrefix: (NSS*) prefix andSuffix: (NSS*) suffix;
 
-- (NSMutableString*) camelize;
-- (NSMutableString*) hyphonize;
-- (NSMutableString*) underscorize;
-- (NSMutableString*) replaceAll:(NSString*) needle 
-                     withString:(NSString*) replacement;
+- (NSMS*) camelize;
+- (NSMS*) hyphonize;
+- (NSMS*) underscorize;
+- (NSMS*) replaceAll: (NSS*) needle  withString: (NSS*) replacement;
 
 @end
 @interface NSString (RuntimeReporting)
@@ -323,31 +300,31 @@ extern int gNSStringGeometricsTypesetterBehavior ;
 @interface NSAttributedString (Geometrics)
 
 // Measuring Attributed Strings
-- (NSSize)sizeForWidth:(float)width
-				height:(float)height ;
-- (float)heightForWidth:(float)width ;
-- (float)widthForHeight:(float)height ;
+- (NSSize)sizeForWidth: (float)width
+				height: (float)height ;
+- (float)heightForWidth: (float)width ;
+- (float)widthForHeight: (float)height ;
 
 @end
 
 @interface NSString (Geometrics)
 
 // Measuring a String With Attributes
-- (NSSize)sizeForWidth:(float)width		height:(float)height 	attributes:(NSDictionary*)attributes ;
+- (NSSize)sizeForWidth: (float)width		height: (float)height 	attributes: (NSD*)attributes ;
 
-- (float)heightForWidth:(float)width	attributes:(NSDictionary*)attributes ;
-- (float)widthForHeight:(float)height	attributes:(NSDictionary*)attributes ;
+- (float)heightForWidth: (float)width	attributes: (NSD*)attributes ;
+- (float)widthForHeight: (float)height	attributes: (NSD*)attributes ;
 
 // Measuring a String with a constant Font
-//- (NSSize)sizeInSize:(NSSize)size 	  font:(NSFont*)font;
+//- (NSSize)sizeInSize: (NSSize)size 	  font: (NSFont*)font;
 
-- (NSSize)sizeForWidth: (float)width  height:(float)height font:(NSFont*)font;
-- (float)heightForWidth:(float)width  font:(NSFont*)font;
-- (float)widthForHeight:(float)height font:(NSFont*)font;
+- (NSSize)sizeForWidth: (float)width  height: (float)height font: (NSFont*)font;
+- (float)heightForWidth: (float)width  font: (NSFont*)font;
+- (float)widthForHeight: (float)height font: (NSFont*)font;
 
 @end
 
-//  NSLog(@"%@", [@"Hello" : @", " : [NSColor redColor] : @"World!" : @"  " : [NSNumber numberWithInt:42]]);
+//  NSLog(@"%@", [@"Hello" : @", " : [NSC redColor] : @"World!" : @"  " : [NSNumber numberWithInt:42]]);
 @interface NSString (JASillyString)
 
 -:a;
@@ -382,22 +359,23 @@ extern int gNSStringGeometricsTypesetterBehavior ;
 
 
 @interface NSString (Extensions)
-- (BOOL) hasCaseInsensitivePrefix:(NSString*)prefix;
-- (NSString*) urlEscapedString;  // Uses UTF-8 encoding and also escapes characters that can confuse the parameter string part of the URL
-- (NSString*) unescapeURLString;  // Uses UTF-8 encoding
-- (NSString*) extractFirstSentence;
-- (NSA*) extractAllSentences;
-- (NSIndexSet*) extractSentenceIndices;
-- (NSString*) stripParenthesis;  // Remove all parenthesis and their content
-- (BOOL) containsString:(NSString*)string;
-- (NSA*) extractAllWords;
-- (NSRange) rangeOfWordAtLocation:(NSUInteger)location;
-- (NSRange) rangeOfNextWordFromLocation:(NSUInteger)location;
-- (NSString*) stringByDeletingPrefix:(NSString*)prefix;
-- (NSString*) stringByDeletingSuffix:(NSString*)suffix;
-- (NSString*) stringByReplacingPrefix:(NSString*)prefix withString:(NSString*)string;
-- (NSString*) stringByReplacingSuffix:(NSString*)suffix withString:(NSString*)string;
-- (BOOL) isIntegerNumber;
+
+- (BOOL)  hasCaseInsensitivePrefix:    	(NSS*)prefix;
+- (NSS*)  urlEscapedString;  			// Uses UTF-8 encoding and also escapes characters that can confuse the parameter string part of the URL
+- (NSS*)  unescapeURLString;  			// Uses UTF-8 encoding
+- (NSS*)  extractFirstSentence;
+- (NSA*)  extractAllSentences;
+- (NSIS*) extractSentenceIndices;
+- (NSS*)  stripParenthesis;  			// Remove all parenthesis and their content
+- (BOOL)  containsString: 		       	(NSS*)string;
+- (NSA*)  extractAllWords;
+- (NSRNG) rangeOfWordAtLocation:   	   	(NSUI)location;
+- (NSRNG) rangeOfNextWordFromLocation: 	(NSUI)location;
+- (NSS*)  stringByDeletingPrefix: 	   	(NSS*)prefix;
+- (NSS*)  stringByDeletingSuffix: 	   	(NSS*)suffix;
+- (NSS*)  stringByReplacingPrefix: 	   	(NSS*)prefix withString: (NSS*)string;
+- (NSS*)  stringByReplacingSuffix: 	   	(NSS*)suffix withString: (NSS*)string;
+- (BOOL)  isIntegerNumber;
 @end
 
 @interface NSMutableString (Extensions)
@@ -405,15 +383,12 @@ extern int gNSStringGeometricsTypesetterBehavior ;
 @end
 
 // Utility function to convert KVC values into property-style values
-
 @interface NSString (AQPropertyKVC)
-
-- (NSString *) propertyStyleString;
-
+- (NSS*) propertyStyleString;
 @end
 
 @interface NSString (SGSAdditions)
 
-- (NSString*) truncatedToWidth: (CGFloat) width withAttributes: (NSD*) attributes;
+- (NSS*) truncatedToWidth: (CGF) width withAttributes: (NSD*) attributes;
 
 @end

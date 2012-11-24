@@ -266,8 +266,7 @@ NSString *NSDCIMFolder()
 //    return YES;
 //}
 
-#pragma mark -
-#pragma mark Changing file access/update timestamps.
+#pragma mark - Changing file access/update timestamps.
 
 - (BOOL)touchItemAtURL:(NSURL *)url error:(NSError **)outError;
 {
@@ -277,8 +276,7 @@ NSString *NSDCIMFolder()
     return rc;
 }
 
-#pragma mark -
-#pragma mark Debugging
+#pragma mark - Debugging
 
 #ifdef DEBUG
 

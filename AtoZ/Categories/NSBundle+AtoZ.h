@@ -10,6 +10,7 @@
 
 @interface NSBundle (AtoZ)
 
++ (NSBundle*) frameworkBundleNamed:(NSS*)name;
 + (NSS*) appSuppFolder;
 + (NSS*) appSuppDir;
 + (NSS*) applicationSupportFolder;

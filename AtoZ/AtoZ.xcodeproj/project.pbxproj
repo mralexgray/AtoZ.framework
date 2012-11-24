@@ -118,8 +118,12 @@
 		7B24E9EE15A176AC00A9D87A /* NSWindow+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B24E9EC15A176AB00A9D87A /* NSWindow+AtoZ.m */; };
 		7B254D40162A9F86006B6AC6 /* AZKVOllection.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B254D3E162A9F86006B6AC6 /* AZKVOllection.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B254D41162A9F86006B6AC6 /* AZKVOllection.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B254D3F162A9F86006B6AC6 /* AZKVOllection.m */; };
-		7B2E2427165E7C46009BE6C8 /* NSObject+AutoMagicCoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2E2426165E7C3F009BE6C8 /* NSObject+AutoMagicCoding.m */; };
-		7B2E2429165E7C72009BE6C8 /* NSObject+AutoMagicCoding.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B2E2425165E7C3F009BE6C8 /* NSObject+AutoMagicCoding.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B2E25A6165F3162009BE6C8 /* PXListDocumentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2E259B165F3148009BE6C8 /* PXListDocumentView.m */; };
+		7B2E25A9165F3162009BE6C8 /* PXListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2E25A2165F3148009BE6C8 /* PXListViewCell.m */; };
+		7B2E25AB165F3192009BE6C8 /* PXListDocumentView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B2E259A165F3148009BE6C8 /* PXListDocumentView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B2E25AD165F3432009BE6C8 /* PXListViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B2E25A1165F3148009BE6C8 /* PXListViewCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B2E25AF165F3D6A009BE6C8 /* PXListView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B2E259C165F3148009BE6C8 /* PXListView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B2E25B0165F3F51009BE6C8 /* PXListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2E259D165F3148009BE6C8 /* PXListView.m */; };
 		7B311963159B6D9E002134C4 /* AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B311962159B6D9E002134C4 /* AtoZ.m */; };
 		7B31B13415E9441D00802CD5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7B31B13215E9441D00802CD5 /* InfoPlist.strings */; };
 		7B31B13615E9441D00802CD5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B31B13515E9441D00802CD5 /* main.m */; };
@@ -162,6 +166,9 @@
 		7B43D301164C6A0C00AC4D26 /* perforated_white_leather_@2X.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B43D2FF164C6A0B00AC4D26 /* perforated_white_leather_@2X.png */; };
 		7B43D302164C6A0C00AC4D26 /* perforated_white_leather.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B43D300164C6A0C00AC4D26 /* perforated_white_leather.png */; };
 		7B43D309164C8D0B00AC4D26 /* black.minimal.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7B43D308164C8D0B00AC4D26 /* black.minimal.jpg */; };
+		7B448ABD165F6AE100988DBC /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B448ABC165F6AE100988DBC /* CoreFoundation.framework */; };
+		7B448AE7165F84B200988DBC /* AZFavIconManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B448AE5165F84B200988DBC /* AZFavIconManager.m */; };
+		7B448AE8165F84D300988DBC /* AZFavIconManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B448AE4165F84B200988DBC /* AZFavIconManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B449C6A1616084C00AB9335 /* NSUserDefaults+Subscript.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B449C671616084C00AB9335 /* NSUserDefaults+Subscript.m */; };
 		7B449C6C1616087D00AB9335 /* NSUserDefaults+Subscript.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B449C661616084C00AB9335 /* NSUserDefaults+Subscript.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B449C701616136500AB9335 /* NSObject-Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B449C6E1616136500AB9335 /* NSObject-Utilities.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -364,8 +371,6 @@
 		7BA35FF01645618400BFEB6B /* StarLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BA35FEE1645618400BFEB6B /* StarLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BA35FF11645618400BFEB6B /* StarLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA35FEF1645618400BFEB6B /* StarLayer.m */; };
 		7BA36C13165BB2050077A065 /* InstructionsWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BA36BE5165BB2050077A065 /* InstructionsWindow.xib */; };
-		7BA36C14165BB2050077A065 /* NSApplication+AppInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BA36BE6165BB2050077A065 /* NSApplication+AppInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7BA36C15165BB2050077A065 /* NSApplication+AppInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA36BE7165BB2050077A065 /* NSApplication+AppInfo.m */; };
 		7BA36C16165BB2050077A065 /* NSArray+UsefulStuff.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BA36BE8165BB2050077A065 /* NSArray+UsefulStuff.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BA36C17165BB2050077A065 /* NSArray+UsefulStuff.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA36BE9165BB2050077A065 /* NSArray+UsefulStuff.m */; };
 		7BA36C18165BB2050077A065 /* NSManagedObject+SDAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BA36BEA165BB2050077A065 /* NSManagedObject+SDAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -378,8 +383,6 @@
 		7BA36C1F165BB2050077A065 /* NSString+UUID.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA36BF1165BB2050077A065 /* NSString+UUID.m */; };
 		7BA36C20165BB2060077A065 /* NSWindow+Geometry.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BA36BF2165BB2050077A065 /* NSWindow+Geometry.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BA36C21165BB2060077A065 /* NSWindow+Geometry.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA36BF3165BB2050077A065 /* NSWindow+Geometry.m */; };
-		7BA36C22165BB2060077A065 /* NSWorkspace+SystemInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BA36BF4165BB2050077A065 /* NSWorkspace+SystemInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7BA36C23165BB2060077A065 /* NSWorkspace+SystemInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA36BF5165BB2050077A065 /* NSWorkspace+SystemInfo.m */; };
 		7BA36C24165BB2060077A065 /* PreferencesWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BA36BF6165BB2050077A065 /* PreferencesWindow.xib */; };
 		7BA36C25165BB2060077A065 /* SDCommonAppDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BA36BF7165BB2050077A065 /* SDCommonAppDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BA36C26165BB2060077A065 /* SDCommonAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA36BF8165BB2050077A065 /* SDCommonAppDelegate.m */; };
@@ -1187,8 +1190,12 @@
 		7B28542C15FEEBA90077960A /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
 		7B28542D15FEEBA90077960A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7B28546215FEF0840077960A /* GHUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GHUnit.framework; path = "../../git/gh-unit/Project-MacOSX/build/Release/GHUnit.framework"; sourceTree = SOURCE_ROOT; };
-		7B2E2425165E7C3F009BE6C8 /* NSObject+AutoMagicCoding.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.objj.h; path = "NSObject+AutoMagicCoding.h"; sourceTree = "<group>"; };
-		7B2E2426165E7C3F009BE6C8 /* NSObject+AutoMagicCoding.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+AutoMagicCoding.m"; sourceTree = "<group>"; };
+		7B2E259A165F3148009BE6C8 /* PXListDocumentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.objj.h; name = PXListDocumentView.h; path = ../../Frameworks/PXListView/Classes/PXListDocumentView.h; sourceTree = "<group>"; };
+		7B2E259B165F3148009BE6C8 /* PXListDocumentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = PXListDocumentView.m; path = ../../Frameworks/PXListView/Classes/PXListDocumentView.m; sourceTree = "<group>"; };
+		7B2E259C165F3148009BE6C8 /* PXListView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.objj.h; name = PXListView.h; path = ../../Frameworks/PXListView/Classes/PXListView.h; sourceTree = "<group>"; };
+		7B2E259D165F3148009BE6C8 /* PXListView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = PXListView.m; path = ../../Frameworks/PXListView/Classes/PXListView.m; sourceTree = "<group>"; };
+		7B2E25A1165F3148009BE6C8 /* PXListViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.objj.h; name = PXListViewCell.h; path = ../../Frameworks/PXListView/Classes/PXListViewCell.h; sourceTree = "<group>"; };
+		7B2E25A2165F3148009BE6C8 /* PXListViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = PXListViewCell.m; path = ../../Frameworks/PXListView/Classes/PXListViewCell.m; sourceTree = "<group>"; };
 		7B311951159B6D9E002134C4 /* AtoZ.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AtoZ.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B311957159B6D9E002134C4 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		7B311959159B6D9E002134C4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -1254,6 +1261,9 @@
 		7B43D2FF164C6A0B00AC4D26 /* perforated_white_leather_@2X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "perforated_white_leather_@2X.png"; sourceTree = "<group>"; };
 		7B43D300164C6A0C00AC4D26 /* perforated_white_leather.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = perforated_white_leather.png; sourceTree = "<group>"; };
 		7B43D308164C8D0B00AC4D26 /* black.minimal.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = black.minimal.jpg; sourceTree = "<group>"; };
+		7B448ABC165F6AE100988DBC /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		7B448AE4165F84B200988DBC /* AZFavIconManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = AZFavIconManager.h; sourceTree = "<group>"; };
+		7B448AE5165F84B200988DBC /* AZFavIconManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZFavIconManager.m; sourceTree = "<group>"; };
 		7B449C661616084C00AB9335 /* NSUserDefaults+Subscript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSUserDefaults+Subscript.h"; path = "NSUserDefaults-Subscript/NSUserDefaults+Subscript.h"; sourceTree = "<group>"; };
 		7B449C671616084C00AB9335 /* NSUserDefaults+Subscript.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSUserDefaults+Subscript.m"; path = "NSUserDefaults-Subscript/NSUserDefaults+Subscript.m"; sourceTree = "<group>"; };
 		7B449C6D1616136500AB9335 /* NSObject-Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = "NSObject-Utilities.h"; sourceTree = "<group>"; };
@@ -1489,8 +1499,6 @@
 		7BA35FEE1645618400BFEB6B /* StarLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StarLayer.h; sourceTree = "<group>"; };
 		7BA35FEF1645618400BFEB6B /* StarLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StarLayer.m; sourceTree = "<group>"; };
 		7BA36BE5165BB2050077A065 /* InstructionsWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InstructionsWindow.xib; sourceTree = "<group>"; };
-		7BA36BE6165BB2050077A065 /* NSApplication+AppInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = "NSApplication+AppInfo.h"; sourceTree = "<group>"; };
-		7BA36BE7165BB2050077A065 /* NSApplication+AppInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSApplication+AppInfo.m"; sourceTree = "<group>"; };
 		7BA36BE8165BB2050077A065 /* NSArray+UsefulStuff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = "NSArray+UsefulStuff.h"; sourceTree = "<group>"; };
 		7BA36BE9165BB2050077A065 /* NSArray+UsefulStuff.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+UsefulStuff.m"; sourceTree = "<group>"; };
 		7BA36BEA165BB2050077A065 /* NSManagedObject+SDAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = "NSManagedObject+SDAdditions.h"; sourceTree = "<group>"; };
@@ -1503,8 +1511,6 @@
 		7BA36BF1165BB2050077A065 /* NSString+UUID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+UUID.m"; sourceTree = "<group>"; };
 		7BA36BF2165BB2050077A065 /* NSWindow+Geometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = "NSWindow+Geometry.h"; sourceTree = "<group>"; };
 		7BA36BF3165BB2050077A065 /* NSWindow+Geometry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSWindow+Geometry.m"; sourceTree = "<group>"; };
-		7BA36BF4165BB2050077A065 /* NSWorkspace+SystemInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = "NSWorkspace+SystemInfo.h"; sourceTree = "<group>"; };
-		7BA36BF5165BB2050077A065 /* NSWorkspace+SystemInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSWorkspace+SystemInfo.m"; sourceTree = "<group>"; };
 		7BA36BF6165BB2050077A065 /* PreferencesWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferencesWindow.xib; sourceTree = "<group>"; };
 		7BA36BF7165BB2050077A065 /* SDCommonAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = SDCommonAppDelegate.h; sourceTree = "<group>"; };
 		7BA36BF8165BB2050077A065 /* SDCommonAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDCommonAppDelegate.m; sourceTree = "<group>"; };
@@ -1732,6 +1738,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B448ABD165F6AE100988DBC /* CoreFoundation.framework in Frameworks */,
 				7BBD988215AF7A2400943FC1 /* QuartzCore.framework in Frameworks */,
 				7B7EDA12164B972300D8C6C6 /* AtoZAppKit.framework in Frameworks */,
 				7B95C917164FC96D0046F487 /* Zangetsu.framework in Frameworks */,
@@ -1775,8 +1782,8 @@
 		7B05BB09159C406200409B83 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				7B2E2425165E7C3F009BE6C8 /* NSObject+AutoMagicCoding.h */,
-				7B2E2426165E7C3F009BE6C8 /* NSObject+AutoMagicCoding.m */,
+				7B448AE4165F84B200988DBC /* AZFavIconManager.h */,
+				7B448AE5165F84B200988DBC /* AZFavIconManager.m */,
 				7BA35FEE1645618400BFEB6B /* StarLayer.h */,
 				7BA35FEF1645618400BFEB6B /* StarLayer.m */,
 				7BEEBF38162A6E0E004E7954 /* Nu.h */,
@@ -2000,6 +2007,19 @@
 			path = ../../../git/BlocksKit/Tests;
 			sourceTree = "<group>";
 		};
+		7B2E2599165F30DC009BE6C8 /* PXList */ = {
+			isa = PBXGroup;
+			children = (
+				7B2E259A165F3148009BE6C8 /* PXListDocumentView.h */,
+				7B2E259B165F3148009BE6C8 /* PXListDocumentView.m */,
+				7B2E259C165F3148009BE6C8 /* PXListView.h */,
+				7B2E259D165F3148009BE6C8 /* PXListView.m */,
+				7B2E25A1165F3148009BE6C8 /* PXListViewCell.h */,
+				7B2E25A2165F3148009BE6C8 /* PXListViewCell.m */,
+			);
+			name = PXList;
+			sourceTree = "<group>";
+		};
 		7B311945159B6D9E002134C4 = {
 			isa = PBXGroup;
 			children = (
@@ -2046,6 +2066,7 @@
 		7B311953159B6D9E002134C4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7B448ABC165F6AE100988DBC /* CoreFoundation.framework */,
 				7B95C900164FC8D10046F487 /* MapKit.xcodeproj */,
 				7BF26168164EDAB00057EB88 /* Lumberjack.xcodeproj */,
 				7B7EDA07164B970A00D8C6C6 /* AtoZAppKit.xcodeproj */,
@@ -2408,6 +2429,7 @@
 				7BC3990B15E461A500482937 /* Components */,
 				7B5180741654EE1600C7A28B /* LetterView.h */,
 				7B5180751654EE1600C7A28B /* LetterView.m */,
+				7B2E2599165F30DC009BE6C8 /* PXList */,
 			);
 			path = Views;
 			sourceTree = SOURCE_ROOT;
@@ -2573,8 +2595,6 @@
 			isa = PBXGroup;
 			children = (
 				7BA36BE5165BB2050077A065 /* InstructionsWindow.xib */,
-				7BA36BE6165BB2050077A065 /* NSApplication+AppInfo.h */,
-				7BA36BE7165BB2050077A065 /* NSApplication+AppInfo.m */,
 				7BA36BE8165BB2050077A065 /* NSArray+UsefulStuff.h */,
 				7BA36BE9165BB2050077A065 /* NSArray+UsefulStuff.m */,
 				7BA36BEA165BB2050077A065 /* NSManagedObject+SDAdditions.h */,
@@ -2587,8 +2607,6 @@
 				7BA36BF1165BB2050077A065 /* NSString+UUID.m */,
 				7BA36BF2165BB2050077A065 /* NSWindow+Geometry.h */,
 				7BA36BF3165BB2050077A065 /* NSWindow+Geometry.m */,
-				7BA36BF4165BB2050077A065 /* NSWorkspace+SystemInfo.h */,
-				7BA36BF5165BB2050077A065 /* NSWorkspace+SystemInfo.m */,
 				7BA36BF6165BB2050077A065 /* PreferencesWindow.xib */,
 				7BA36BF7165BB2050077A065 /* SDCommonAppDelegate.h */,
 				7BA36BF8165BB2050077A065 /* SDCommonAppDelegate.m */,
@@ -3005,18 +3023,20 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B448AE8165F84D300988DBC /* AZFavIconManager.h in Headers */,
 				7B73E51216399F9100B38779 /* iCarousel.h in Headers */,
 				7B095E01161AD7E50076C990 /* AZSemiResponderWindow.h in Headers */,
 				7BBD48E1164BF16B00CDEBB9 /* AtoZGridView.h in Headers */,
 				7B8EEDAE164BEE0200710841 /* AtoZColorWell.h in Headers */,
 				7B5180771654EE8500C7A28B /* LetterView.h in Headers */,
 				7B8EEDB1164BEE0D00710841 /* AtoZGridViewProtocols.h in Headers */,
-				7B2E2429165E7C72009BE6C8 /* NSObject+AutoMagicCoding.h in Headers */,
 				7BDF4201164B2A5B008B3240 /* AZDebugLayer.h in Headers */,
 				7B741DA2163AD91300B403B2 /* NSObject+Properties.h in Headers */,
 				7BF2617D164F2B260057EB88 /* AtoZFunctions.h in Headers */,
 				7B662AE0161EE3E5003D5EE0 /* BaseModel.h in Headers */,
 				7B5B2CD7162CD12500B454C2 /* AZImageToDataTransformer.h in Headers */,
+				7B2E25AB165F3192009BE6C8 /* PXListDocumentView.h in Headers */,
+				7B2E25AD165F3432009BE6C8 /* PXListViewCell.h in Headers */,
 				7B3422A315A52A61006AC46C /* AZBaseModel.h in Headers */,
 				7B5B2CCA162CA4D900B454C2 /* AZPrismView.h in Headers */,
 				7BA36CFD165BF6B10077A065 /* AZWeakCollections.h in Headers */,
@@ -3082,6 +3102,7 @@
 				7BBD991215B0648A00943FC1 /* CAAnimation+AtoZ.h in Headers */,
 				7BBD991715B0688400943FC1 /* CALayer+AtoZ.h in Headers */,
 				7B7C27FD15C32B39007DD569 /* RoundedView.h in Headers */,
+				7B2E25AF165F3D6A009BE6C8 /* PXListView.h in Headers */,
 				7B7C27FF15C32B39007DD569 /* TransparentWindow.h in Headers */,
 				7B385DEE15C3B49E00A28686 /* AZFoamView.h in Headers */,
 				7B728DF815C472D8004F6723 /* NSNotificationCenter+AtoZ.h in Headers */,
@@ -3148,14 +3169,12 @@
 				7B449D9A1616411100AB9335 /* AtoZ.h in Headers */,
 				7BDF41F1164AFD3F008B3240 /* NSObject+AtoZ.h in Headers */,
 				7BB3047A1646BCC9006CDC56 /* AZPalette.h in Headers */,
-				7BA36C14165BB2050077A065 /* NSApplication+AppInfo.h in Headers */,
 				7BA36C16165BB2050077A065 /* NSArray+UsefulStuff.h in Headers */,
 				7BA36C18165BB2050077A065 /* NSManagedObject+SDAdditions.h in Headers */,
 				7BA36C1A165BB2050077A065 /* NSString+PathAdditions.h in Headers */,
 				7BA36C1C165BB2050077A065 /* NSString+URLAdditions.h in Headers */,
 				7BA36C1E165BB2050077A065 /* NSString+UUID.h in Headers */,
 				7BA36C20165BB2060077A065 /* NSWindow+Geometry.h in Headers */,
-				7BA36C22165BB2060077A065 /* NSWorkspace+SystemInfo.h in Headers */,
 				7BA36C25165BB2060077A065 /* SDCommonAppDelegate.h in Headers */,
 				7BA36C27165BB2060077A065 /* SDDefines.h in Headers */,
 				7BA36C28165BB2060077A065 /* SDFoundation.h in Headers */,
@@ -3992,14 +4011,12 @@
 				7BB5AFFE16481EB3008D50A5 /* BBMeshView.m in Sources */,
 				7B5180761654EE7400C7A28B /* LetterView.m in Sources */,
 				7BC874161657E77800E6E91E /* AZPalette.m in Sources */,
-				7BA36C15165BB2050077A065 /* NSApplication+AppInfo.m in Sources */,
 				7BA36C17165BB2050077A065 /* NSArray+UsefulStuff.m in Sources */,
 				7BA36C19165BB2050077A065 /* NSManagedObject+SDAdditions.m in Sources */,
 				7BA36C1B165BB2050077A065 /* NSString+PathAdditions.m in Sources */,
 				7BA36C1D165BB2050077A065 /* NSString+URLAdditions.m in Sources */,
 				7BA36C1F165BB2050077A065 /* NSString+UUID.m in Sources */,
 				7BA36C21165BB2060077A065 /* NSWindow+Geometry.m in Sources */,
-				7BA36C23165BB2060077A065 /* NSWorkspace+SystemInfo.m in Sources */,
 				7BA36C26165BB2060077A065 /* SDCommonAppDelegate.m in Sources */,
 				7BA36C29165BB2060077A065 /* SDFoundation.m in Sources */,
 				7BA36C2B165BB2060077A065 /* SDInsetDividerView.m in Sources */,
@@ -4014,7 +4031,10 @@
 				7BA36C3F165BB2060077A065 /* SDWindowController.m in Sources */,
 				7BA36CFC165BF58E0077A065 /* AZWeakCollections.m in Sources */,
 				7BA36D10165C3E6E0077A065 /* CPAccelerationTimer.m in Sources */,
-				7B2E2427165E7C46009BE6C8 /* NSObject+AutoMagicCoding.m in Sources */,
+				7B2E25A6165F3162009BE6C8 /* PXListDocumentView.m in Sources */,
+				7B2E25A9165F3162009BE6C8 /* PXListViewCell.m in Sources */,
+				7B2E25B0165F3F51009BE6C8 /* PXListView.m in Sources */,
+				7B448AE7165F84B200988DBC /* AZFavIconManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4393,6 +4413,8 @@
 					MapKit,
 					"-sub_umbrella",
 					CocoaPuffs,
+					"-framework",
+					IOKit,
 				);
 				PRODUCT_NAME = AtoZ;
 				RUN_CLANG_STATIC_ANALYZER = NO;
@@ -4475,6 +4497,8 @@
 					MapKit,
 					"-sub_umbrella",
 					CocoaPuffs,
+					"-framework",
+					IOKit,
 				);
 				PRODUCT_NAME = AtoZ;
 				RUN_CLANG_STATIC_ANALYZER = NO;

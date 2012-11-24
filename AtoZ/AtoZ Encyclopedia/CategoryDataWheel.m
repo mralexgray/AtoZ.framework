@@ -36,11 +36,9 @@
 //    [super dealloc];
 //}
 
-#pragma mark -
-#pragma mark View lifecycle
+#pragma mark - View lifecycle
 
-#pragma mark -
-#pragma mark iCarousel methods
+#pragma mark - iCarousel methods
 
 - (NSUInteger)numberOfItemsInCarousel:(iCarousel *)carousel
 {

@@ -19,8 +19,7 @@ static const CGFloat cornerRadius = 5.0;
 
 @synthesize on=_on;
 
-#pragma mark -
-#pragma mark init methods
+#pragma mark - init methods
 
 - (id) init {
 	self =  [super init];
@@ -49,8 +48,7 @@ static const CGFloat cornerRadius = 5.0;
 //  [super dealloc];
 }
 
-#pragma mark -
-#pragma mark mouse events
+#pragma mark - mouse events
 
 -(void)mouseDown:(CGPoint)point {
   _currentEventState = CGRectContainsPoint ( theSwitch.frame, point )  
@@ -76,8 +74,7 @@ static const CGFloat cornerRadius = 5.0;
   
 }
 
-#pragma mark -
-#pragma mark propertyMethods
+#pragma mark - propertyMethods
 -(void)setOn:(BOOL)on {
   if (_on == on ) { return; }
   _on = on;

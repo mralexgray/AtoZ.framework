@@ -47,8 +47,7 @@
 	_carrie.iconStyle = RAND_INT_VAL(1, 3);
 	[_carrie.carousel reloadData];
 }
-#pragma mark -
-#pragma mark Source List Data Source Methods
+#pragma mark - Source List Data Source Methods
 
 - (NSUInteger)sourceList:(AZSourceList*)sourceList numberOfChildrenOfItem:(id)item
 {
@@ -147,8 +146,7 @@
 	return nil;
 }
 
-#pragma mark -
-#pragma mark Source List Delegate Methods
+#pragma mark - Source List Delegate Methods
 
 - (BOOL)sourceList:(AZSourceList*)aSourceList isGroupAlwaysExpanded:(id)group
 {

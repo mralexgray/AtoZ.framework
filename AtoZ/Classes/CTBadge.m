@@ -56,8 +56,7 @@ const float CTSmallLabelSize = 11.;
   
   return newInstance;
   }
-#pragma mark -
-#pragma mark Appearance
+#pragma mark - Appearance
 - (void)setBadgeColor:(NSColor *)theColor;
   {
   
@@ -77,8 +76,7 @@ const float CTSmallLabelSize = 11.;
   {
   return labelColor;
   }
-#pragma mark -
-#pragma mark Drawing
+#pragma mark - Drawing
 - (NSImage *)smallBadgeForValue:(unsigned)value		//does drawing in it's own special way
   {
   return [self badgeOfSize:CTSmallBadgeSize forString:[self stringForValue:value]];
@@ -224,8 +222,7 @@ const float CTSmallLabelSize = 11.;
   {
   [self badgeApplicationDockIconWithString:[self stringForValue:value] insetX:dx y:dy];
   }
-#pragma mark -
-#pragma mark Misc.
+#pragma mark - Misc.
 - (NSGradient *)badgeGradient
   {
   NSGradient *aGradient = [[NSGradient alloc] initWithColorsAndLocations:[self badgeColor], 0.0, 

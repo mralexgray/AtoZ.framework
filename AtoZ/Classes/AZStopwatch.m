@@ -4,8 +4,7 @@
 #import "AZStopwatch.h"
 
 // +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -   
-#pragma mark -
-#pragma mark MMStopwatch
+#pragma mark - MMStopwatch
 #pragma mark -
 // +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  - 
 // =================[ PRIVATE ]==================================
@@ -82,8 +81,7 @@
 }
 
 // +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  
-#pragma mark -
-#pragma mark SINGLETON PATTERN
+#pragma mark - SINGLETON PATTERN
 #pragma mark -
 // +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  
 - (id)init {
@@ -118,8 +116,7 @@ static id _sharedSingleton		= nil;
 
 
 // +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -   
-#pragma mark -
-#pragma mark MMStopwatchItemARC
+#pragma mark - MMStopwatchItemARC
 #pragma mark -
 // +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  
 // =================[ PRIVATE ]==================================

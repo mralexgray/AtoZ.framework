@@ -10,6 +10,11 @@
 
 @implementation NSBundle (AtoZ)
 
++ (NSBundle*) frameworkBundleNamed:(NSS*)name {
+	NSS* str = [[NSBundle bundleWithPath:[[NSBundle mainBundle] privateFrameworksPath]]pathForResource:name ofType:@"framework"];
+	return [NSBundle bundleWithPath:str];
+//	AZLOG(fw);
+}
 /**	Returns the support folder for the application, used to store the Core Data	store file.  This code uses a folder named "ArtGallery" for
  the content, either in the NSApplicationSupportDirectory location or (if the former cannot be found), the system's temporary directory. */
 

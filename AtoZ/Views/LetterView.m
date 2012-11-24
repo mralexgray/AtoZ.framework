@@ -132,8 +132,7 @@
 	[letterLayer layoutSublayers];
 }
 
-#pragma mark -
-#pragma mark CALayoutManager Protocol Methods
+#pragma mark - CALayoutManager Protocol Methods
 
 - (void)layoutSublayersOfLayer:(CALayer *)layer
 {

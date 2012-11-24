@@ -167,8 +167,7 @@
 - (void)scrollWheel:(NSEvent *)theEvent {
 	[_scrollerLayer moveSlider:-[theEvent deltaX] ];
 }
-#pragma mark -
-#pragma mark Listener Methods
+#pragma mark - Listener Methods
 
 - (void) appNoLongerActive:(NSNotification*)notification {
 	[CATransaction setValue:@0.0f forKey:@"animationDuration"];
@@ -182,8 +181,7 @@
 	[_bodyLayer setOpacity:1.0];
 }
 
-#pragma mark -
-#pragma mark private methods
+#pragma mark - private methods
 
 - (void)moveSelection:(NSInteger)dx {
 	[_bodyLayer moveSelection:dx];

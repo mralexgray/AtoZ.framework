@@ -78,6 +78,13 @@ extern NSString *const kShowDockIconUserDefaultsKey;
  */
 @interface NSWorkspace (AppleShoulda)
 
+//- (NSString*) appName;
+//- (NSString*) appDisplayName;
+//- (NSString*) appVersion;
+- (NSString*) appSupportSubdirectory;
+
+- (void) registerDefaultsFromMainBundleFile:(NSString*)defaultsFilename;
+
 + (NSString*)appNameForBundleIdentifier:(NSString*)bundleIdentifier ;
 
 + (NSString*)bundleIdentifierForAppName:(NSString*)appName ;
@@ -85,3 +92,8 @@ extern NSString *const kShowDockIconUserDefaultsKey;
 
 @end
 
+@interface NSWorkspace (SystemInfo)
+
++ (NSString*) systemVersion;
+
+@end

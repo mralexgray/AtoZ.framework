@@ -1,56 +1,47 @@
 
-//  AZSizer.m
-//  AtoZ
-
-//  Created by Alex Gray on 7/7/12.
-//  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 #import "AZSizer.h"
 
-NSUInteger gcd(NSInteger m, NSUInteger n) {
-	int t, r;
-	if (m < n) { t = m; m = n; n = t; } r = m % n; //MSLog(@"remainder for %i is %i", n, r);
-	if (r == 0) return n; else return gcd(n, r);
+NSUI gcd (NSI m, NSUI n) { NSI t, r;
+	if (m < n) { t = m; m = n; n = t; }
+	r = m % n;
+	//MSLog(@"remainder for %i is %i", n, r);
+	return r == 0 ? n : gcd(n, r);
 }
 
 @interface Candidate : BaseModel
-+(instancetype) withRows:(NSUInteger)rows columns:(NSUInteger)columns remainder:(NSInteger)rem forRect:(NSRect)screen ;
-@property (assign) float width;
-@property (assign) float height;
-@property (assign) int rows;
-@property (assign) int columns;
-@property (assign) float aspectRatio;
-@property (assign) NSRect screen;
-@property (assign) int remainder;
--(id) initWithDictionary:(NSDictionary *)d;
+
++ (Candidate*) withRows:(NSUI)rows columns:(NSUI)columns remainder:(NSI)rem forRect:(NSR)frame ;
+- (id) initWithDictionary:(NSD*)d;
+
+@property (assign) CGF width, height, aspectRatio;
+@property (assign) NSUI rows, columns, remainder;
+@property (assign) NSR frame;
 @end
 
 @implementation Candidate
 
-//@synthesize width,height,rows,columns, aspectRatio, screen, remainder;
-
-
-+(instancetype) withRows:(NSUInteger)rows columns:(NSUInteger)columns remainder:(NSInteger)rem forRect:(NSRect)screen {
-	Candidate *u = [[self class] instance];
-	u.remainder = rem;
-	u.rows 		= rows;
-	u.columns 	= columns;
-	u.screen 	= screen;
-	u.width 	= ( screen.size.width  / (float)columns );
-	u.height 	= (screen.size.height / (float)rows );
-	u.aspectRatio = ( u.width / u.height );
++(Candidate*) withRows:(NSUI)rows columns:(NSUI)columns remainder:(NSI)rem forRect:(NSR)frame
+{
+	Candidate *u 	= [[self class] instance];
+	u.remainder 	= rem;
+	u.rows 			= rows;
+	u.columns 		= columns;
+	u.frame 		= frame;
+	u.width 		= ( frame.size.width   / (float) columns );
+	u.height 		= ( frame.size.height  / (float) rows    );
+	u.aspectRatio 	= ( u.width / u.height );
 	return u;
 }
 
--(id) initWithDictionary:(NSDictionary *)d{
-	self = [Candidate instance];
-	//	if ([d valueForKey:@"width"]) 	self.width 	= [[d valueForKey:@"width"]floatValue];
-	//	if ([d valueForKey:@"height"]) 	self.height	= [[d valueForKey:@"height"]floatValue];
-	self.remainder = ( [d valueForKey:@"remainder"] ? [[d valueForKey:@"remainder"]intValue] : 0);
-	self.rows = [[d valueForKey:@"rows"]intValue];
-	self.columns = [[d valueForKey:@"columns"]intValue];
-	self.screen = NSRectFromString([d valueForKey:@"screen"]);
-	self.width = ( _screen.size.width  / (float)_columns );
-	self.height = (_screen.size.height / (float)_rows );
+-(id) initWithDictionary:(NSD*)d
+{
+	self 			 = [Candidate instance];
+	self.remainder 	 = [d integerForKey:       @"remainder" defaultValue:0];
+	self.rows 		 = [d unsignedIntegerForKey:    @"rows"];
+	self.columns 	 = [d unsignedIntegerForKey: @"columns"];
+	self.frame	 	 = [d rectForKey:			  @"screen"];
+	self.width 		 = ( _frame.size.width  / (CGF) _columns  );
+	self.height 	 = ( _frame.size.height / (CGF) _rows 	  );
 	self.aspectRatio = ( _width / _height );
 	return self;
 }
@@ -58,40 +49,47 @@ NSUInteger gcd(NSInteger m, NSUInteger n) {
 @end
 
 @interface AZSizer ()
-@property (RDWRT)  NSUInteger	rows;
-@property (RDWRT)  NSUInteger	columns;
-@property (RDWRT)  CGFloat 	width;
-@property (RDWRT)  CGFloat		height;
-@property (NATOM, RDWRT) NSSize		size;
-
-@property  (retain, nonatomic) NSMutableArray *candidates;
+@property (RDWRT)  NSUI	       rows,  columns;
+@property (RDWRT)  CGF		   width, height;
+@property (NATOM, RDWRT) NSSZ  size;
+@property (NATOM, STRNG) NSMA *candidates;
 @end
 
 @implementation AZSizer
-//@synthesize candidates = _candidates, remainder, width, quantity, rows, columns, height, paths;
-//@synthesize boxes;
 
-//- (void) simplerItemsPerRow {
-//	rows = $int(ceil(sqrt(self.quantity)));
-//}
-+ (NSRect) rectForQuantity:(NSUInteger)q ofSize:(NSSize)s withColumns:(NSUInteger)c;
++ (AZSizer*) forQuantity:(NSUI)q ofSize:(NSSZ)s withColumns:(NSUI)c
 {
-	CGFloat width, height;
+	AZSizer *sizer = [AZSizer instance];
+	sizer.outerFrame 	= [AZSizer rectForQuantity:q ofSize:s withColumns:c];
+	sizer.orient		= AZOrientGrid;
+	sizer.size 			= s;
+	sizer.quantity 		= q;
+	sizer.columns		= c;
+	sizer.rows 			= ceil(q/c);
+	if (( q % c) != 0) sizer.rows++;
+	sizer.width 		= s.width;
+	sizer.height  		= s.height;
+	return sizer;
+}
+
++ (NSR) rectForQuantity:(NSUI)q ofSize:(NSSZ)s withColumns:(NSUI)c;
+{
+	CGF width, height;
 	width = c * s.width;
 	int rows = q % c == 0 ? q / c : ceil( q / c);
 	height = rows * s.width;
-	return (NSRect){0,0,width, height};
+	return (NSR){0,0,width, height};
 }
 
-+ (NSRect) structForQuantity:(NSUInteger)aNumber inRect:(NSRect)aFrame {
++ (NSR) structForQuantity:(NSUI)aNumber inRect:(NSR)aFrame
+{
 	AZSizer *r = [[AZSizer alloc]initWithQuantity:aNumber inRect:aFrame];
-	NSRect rect = NSMakeRect( r.rows, r.columns,r.width,r.height );
-	return rect;
+	return NSMakeRect( r.rows, r.columns, r.width, r.height );
 }
 
-+ (AZSizer*) forQuantity:(NSUInteger)aNumber inRect:(NSRect)aFrame {
++ (AZSizer*) forQuantity:(NSUI)aNumber inRect:(NSR)aFrame
+{
 	return [[AZSizer alloc]initWithQuantity:aNumber inRect:aFrame];
-
 }
 
 + (AZSizer*) forObjects:  (NSA*)objects  withFrame:(NSR)aFrame arranged:(AZOrient)arr
@@ -104,115 +102,95 @@ NSUInteger gcd(NSInteger m, NSUInteger n) {
 	return sassy;
 }
 
-- (id) initWithQuantity:(NSUInteger)aNumber inRect:(NSRect)aFrame {
-	self = [super init]; 
-	if (self) {
-		_size = NSZeroSize;
+- (id) initWithQuantity:(NSUI)aNumber inRect:(NSR)aFrame
+{
+	if (!(self = [super init])) return nil;
+	_orient			= AZOrientGrid;
+	_size 			= NSZeroSize;
+	_outerFrame 	= aFrame;
+	_candidates 	= [NSMA array];
+	_quantity 		= aNumber;
+	__block int smallR, rem, runnerUp, rUpItems, x;
+	x	 			= (aNumber < 2 ? 2 : aNumber);
+	smallR 			= 0;
+	[[NSA from:2 to:ceil(sqrt(x))+ 4] eachWithIndex:^(id obj, NSInteger idx) {
+		int _rowCand 	= [obj intValue];
+		int xx 			= gcd( x, _rowCand );
+		float items 	= (float) x / _rowCand;
+		rem 			= ( _rowCand + ( x % _rowCand ) ) % _rowCand;
+		int itemsnow 	= floor(items);
+		smallR 			= rem;
+		runnerUp 		= _rowCand;
+		rUpItems 		= itemsnow;
+		NSUI rowsAccountingForRemainder =  rem != 0 ? (NSUI)(runnerUp + 1) : (NSUI)runnerUp;
+		[_candidates addObject:[Candidate withRows:rowsAccountingForRemainder columns:rUpItems remainder:smallR forRect:aFrame]];
+	}];
 
-		self.outerFrame = aFrame;
-		self.candidates = [NSMutableArray array];
-		self.quantity = aNumber;
-		__block int smallR = 0, rem, runnerUp, rUpItems, x;
-		x = (aNumber < 2 ? 2 : aNumber);
-//		for( NSNumber *rowTry in list ) {
-		[[@2 to:$int((ceil(sqrt(x)))+4)] az_each:^(NSNumber* rowTry, NSUInteger index, BOOL *stop) {
-
-			int xx, itemsnow;
-			int _rowCandidate = [rowTry intValue];
-			float items;
-			xx 	= gcd(x, _rowCandidate);
-			items = (float)x / _rowCandidate;
-			rem = ( _rowCandidate + ( x % _rowCandidate ) ) % _rowCandidate;
-			itemsnow = floor(items);
-			smallR = rem;			runnerUp = _rowCandidate;			rUpItems = itemsnow;
-			NSUInteger rowsAccountingForRemainder =  rem != 0 ? (NSUInteger)(runnerUp + 1) : (NSUInteger)runnerUp;
-			[_candidates addObject:[Candidate withRows:rowsAccountingForRemainder columns:rUpItems remainder:smallR forRect:aFrame]];
-
-//			  [[Candidate alloc]initWithDictionary:	@{
-//										@"columns"	:	$int(rUpItems),
-//										@"rows"		:	rowsAccountingForRemainder,
-//										@"remainder":	$int(smallR),
-//										@"screen"	:	NSStringFromRect(aFrame)	}]];
-
-		}];
-
-		float distanceFromOne = 99.9;
-		Candidate *winner;
-		for (Candidate *c in _candidates) {
-			float distance = (c.aspectRatio < 1 ? (1.0 - c.aspectRatio) : (c.aspectRatio - 1.0));
-			if (distance < distanceFromOne) {
-				winner = c;
-				distanceFromOne = distance;
-			}
-		}
-		self.orient 	= AZOrientGrid;
-		self.columns	= winner.columns;
-		self.rows 		= winner.rows;
-		self.width 		= winner.width;
-		self.height  	= winner.height;
-//		self.remainder 	= winner.remainder;
-		//	NSLog(@"Items:%ld Rows:%@ Columns:%@ Remainder: %@ Size: %ix%i", self.quantity, rows, columns, remainder, width.intValue, height.intValue);
+	float distanceFromOne = 99.9;
+	Candidate *winner;
+	for (Candidate *c in _candidates) {
+		float distance = (c.aspectRatio < 1 ? (1.0 - c.aspectRatio) : (c.aspectRatio - 1.0));
+		if (distance < distanceFromOne) {	winner = c;	distanceFromOne = distance;	}
 	}
+	_columns	= winner.columns;
+	_rows 		= winner.rows;
+	_width 		= winner.width;
+	_height  	= winner.height;
 	return self;
 }
 
-- (NSSize) size { return _size = _width ? nanSizeCheck( (NSSize){ _width, _height })
-							   : nanSizeCheck( (NSSize) { _outerFrame.size.width / _columns,
-											_outerFrame.size.height / _rows} ) ;
+- (NSSZ) size
+{
+	return _size = _width ? nanSizeCheck( (NSSZ) { _width, _height } )
+						  : nanSizeCheck( (NSSZ) { _outerFrame.size.width / _columns,
+											       _outerFrame.size.height / _rows}   );
 }
-+ (NSA*) rectsForQuantity:(NSUInteger)aNumber inRect:(NSRect)aFrame {
-	aNumber = aNumber > 0 ? aNumber : 1;
-	AZSizer *sizer = [AZSizer forQuantity:aNumber inRect:aFrame];
-	return [sizer rects];
++ (NSA*) rectsForQuantity:(NSUI)aNumber inRect:(NSR)aFrame
+{
+	return [[AZSizer forQuantity:aNumber > 0 ? aNumber : 1 inRect:aFrame]rects].copy;
 }
 
 -(NSString*) 	aspectRatio
 {
 //	NSInteger i = gcd((int)self.size.width, (int)self.size.height);
-	return	self.size.height == self.size.width	?	@"** 1 : 1 **" :
-					_size.height > _size.width  ?	$(@"1 : %0.1f", (float)(_size.height/_size.width))
-											    : 	$(@"%0.1f : 1", (float)(_size.width/_size.height));
+	return	_size.height == _size.width  ?	@"** 1 : 1 **" :
+			_size.height >  _size.width  ?	$(@"1 : %0.1f", (float)(_size.height/_size.width))
+										 : 	$(@"%0.1f : 1", (float)(_size.width/_size.height));
 }
 
-//- (void) updateFrame:(NSRect)rect
-//{
-//	AZSizer *s = [AZSizer forQuantity:self.quantity inRect:rect];
-//	self.positions = s.positions.copy;
-//	[s.rects eachWithIndex:^(id obj, NSInteger idx) {
-//		[self setValue:obj forKey rects[idx] rectValue];
-//	}]
-//}
-
-- (NSA*) rects {
+- (NSA*) rects
+{
 	if (!_positions) self.positions = [NSMA array];
-	return _rects = _rects ?: ^{
+	return _rects = _rects ?:
+	^{
 		NSLog(@"Quant: %ld.	Cap: %ld. Rem:%ld Aspect:%@. Rows: %ld.  Cols:%ld", _quantity, self.capacity, self.remainder, self.aspectRatio , _rows, _columns );
-		return _orient == AZOrientGrid ? ^{
-			NSUInteger Q = 0;
-			NSMutableArray *pRects = [NSMutableArray array];
+		return _orient == AZOrientGrid ?
+		^{
+			NSUI Q = 0;
+			NSMA *pRects = [NSMA array];
 			for ( int r = (_rows-1); r >= 0; r--){
 				for ( int c = 0; c < _columns; c++ ) {
 					if (Q < _quantity) {
-
-						[pRects addRect:nanRectCheck((NSRect) { (c * _width), (r *_height), _width, _height })];  Q++;
+						[pRects addRect:nanRectCheck((NSR) { (c * _width), (r *_height), _width, _height })];  Q++;
 			}	}	}
 			return pRects;
-		}() : _orient == AZOrientPerimeter ? ^{ return [NSArray arrayWithArrays:@[
-			[[NSArray from:1 to:_columns]nmap:^id(id obj, NSUInteger index) {
+		}()
+	 : _orient == AZOrientPerimeter ? ^{ return [NSArray arrayWithArrays:@[
+			[[NSArray from:1 to:_columns]nmap:^id(id obj, NSUI index) {
 				NSR block = AZRectFromSize(_size);
 				return  AZVrect(AZRectExceptOriginX( block, (index * _width)));
 			}],
-			[[NSArray from:1 to:_rows]nmap:^id(id obj, NSUInteger index) {
+			[[NSArray from:1 to:_rows]nmap:^id(id obj, NSUI index) {
 				NSR block = AZRectFromSize(_size);
 				block.origin.x = NSWidth(_outerFrame) - _width;
 				return  AZVrect(AZRectExceptOriginY( block, (index * _height)));
 			}],
-			[[NSArray from:1 to:_columns]nmap:^id(id obj, NSUInteger index) {
+			[[NSArray from:1 to:_columns]nmap:^id(id obj, NSUI index) {
 				NSR block = AZRectFromSize(_size);
 				block.origin.y = NSHeight(_outerFrame) - _height;
 				return  AZVrect(AZRectExceptOriginX( block, (NSWidth(_outerFrame) - ((index +1) * _width))));
 			}],
-			[[NSArray from:1 to:_rows] nmap:^id(id obj, NSUInteger index) {
+			[[NSArray from:1 to:_rows] nmap:^id(id obj, NSUI index) {
 				NSR block = AZRectFromSize(self.size);
 				return  AZVrect(AZRectExceptOriginY( block, (NSHeight(_outerFrame) - ((index +1) * _height))));
 
@@ -230,25 +208,26 @@ NSUInteger gcd(NSInteger m, NSUInteger n) {
 //		return pRects;
 //	}().copy;
 
-//NSRect 	e = ([[_s.rects objectAtNormalizedIndex:index] rectValue]);
+//NSR 	e = ([[_s.rects objectAtNormalizedIndex:index] rectValue]);
 
-- (NSUInteger) capacity {	return _orient == AZOrientPerimeter	? (2 * self.columns) + (2 * self.rows) - 4 
-														 		:	/*_orient == AZOrientGrid */  		self.rows * self.columns;
+- (NSUI) capacity
+{	return _orient == AZOrientPerimeter	? (2 * self.columns) + (2 * self.rows) - 4
+		/* _orient == AZOrientGrid */	:  self.rows * self.columns;
 }
 
-- (NSValue*) rectForPoint:(NSP) point {
-
-	return [self.rects filterOne:^BOOL(id object) {
-		return NSPointInRect(point, [object rectValue]);
-	}] ?: nil;
+- (NSR) rectForPoint:(NSP) point
+{
+	NSValue* rect = [self.rects filterOne:^BOOL(id object) { return NSPointInRect(point, [object rectValue]); }];
+	return rect ? [rect rectValue] : NSZeroRect;
 }
 
 - (NSInteger) remainder { return self.capacity - _quantity; }
 
-+ (AZSizer*) forQuantity:(NSUInteger)aNumber aroundRect:(NSRect)aFrame {
-	aNumber = aNumber > 0 ? aNumber : 1;
-	NSRect normalFrame = nanRectCheck(aFrame);
-	CGFloat percentHigh = normalFrame.size.height/ (normalFrame.size.height + normalFrame.size.width);
++ (AZSizer*) forQuantity:(NSUI)aNumber aroundRect:(NSR)aFrame
+{
+	aNumber 			= aNumber > 0 ? aNumber : 1;
+	NSR normalFrame = nanRectCheck(aFrame);
+	CGF percentHigh = normalFrame.size.height/ (normalFrame.size.height + normalFrame.size.width);
  	AZSizer* totalBoc 	= [[AZSizer alloc]init];
 	totalBoc.orient 	= AZOrientPerimeter;
 	totalBoc.quantity 	= aNumber;
@@ -261,8 +240,23 @@ NSUInteger gcd(NSInteger m, NSUInteger n) {
 	totalBoc.height 	= (normalFrame.size.height / totalBoc.rows);
 	return  totalBoc;
 }
+
+
+@end
+
+
+//- (void) updateFrame:(NSR)rect
+//{
+//	AZSizer *s = [AZSizer forQuantity:self.quantity inRect:rect];
+//	self.positions = s.positions.copy;
+//	[s.rects eachWithIndex:^(id obj, NSInteger idx) {
+//		[self setValue:obj forKey rects[idx] rectValue];
+//	}]
+//}
+
+
 //	NSMutableArray *privateRects = [NSMutableArray array];
-//	NSPoint p = NSZeroPoint; NSUInteger r1, r2, c1, c2;
+//	NSPoint p = NSZeroPoint; NSUI r1, r2, c1, c2;
 //	r1 = r2 = totalBoc.columns - 1;
 //	c1 = c2 = totalBoc.rows - 1;
 //	while (r1 > 1) {
@@ -291,18 +285,18 @@ NSUInteger gcd(NSInteger m, NSUInteger n) {
 //
 //		 (_rows-1); r >= 0; r--){
 //
-//	NSUInteger x = i % numberOfColumns;
-//	NSUInteger y = i / numberOfColumns;
+//	NSUI x = i % numberOfColumns;
+//	NSUI y = i / numberOfColumns;
 //	drawingRect.origin.x = (spaceForEachFile * x) + marginLeft;
 
-//	NSUInteger rc, cc;  rc, cc = 1;
+//	NSUI rc, cc;  rc, cc = 1;
 //	for ( int t = 0;  t < 4; t++)
 //		for ( int c = 0; c < _columns; c++ ) {
 //			[privateRects addObject:[NSValue valueWithRect:NSMakeRect((c * _width), (r *_height), _width, _height)]];
 //		}
 
 /*
-- (id) initWithQuantity:(NSUInteger)aNumber aroundRect:(NSRect)aFrame {
+- (id) initWithQuantity:(NSUI)aNumber aroundRect:(NSR)aFrame {
 	self = [super init];
 	if (self) {
 
@@ -310,10 +304,10 @@ NSUInteger gcd(NSInteger m, NSUInteger n) {
 		self.outerFrame = aFrame;
 		self.candidates = [NSMutableArray array];
 		self.quantity = aNumber;
-		CGFloat perimeter = AZPerimeter(aFrame);
-		CGFloat outerUnit = perimeter / (float)_quantity;
-		NSRect interior = NSInsetRect(_outerFrame, outerUnit/2, outerUnit/2);
-		CGFloat innerUnit = AZPerimeter(interior) / (float)_quantity;
+		CGF perimeter = AZPerimeter(aFrame);
+		CGF outerUnit = perimeter / (float)_quantity;
+		NSR interior = NSInsetRect(_outerFrame, outerUnit/2, outerUnit/2);
+		CGF innerUnit = AZPerimeter(interior) / (float)_quantity;
 		self.width = self.height = innerUnit;
 		self.rows = floor(interior.size.height / innerUnit);
 		self.columns = floor(interior.size.width / innerUnit);
@@ -323,20 +317,20 @@ NSUInteger gcd(NSInteger m, NSUInteger n) {
 */
 //-(void) constrainLayersInLayer:(CALayer*)layer {
 //	NSLog(@"constraining");
-//	NSUInteger index = 0;
-//	for (NSUInteger r = 0; r < _rows; r++) {
-//		for (NSUInteger c = 0; c < _columns; c++) {
+//	NSUI index = 0;
+//	for (NSUI r = 0; r < _rows; r++) {
+//		for (NSUI c = 0; c < _columns; c++) {
 //	//		if ([layer sublayers].count > index) {
 //            CALayer *cell = [[layer sublayers]objectAtIndex:index];
 //			cell.frame = AZMakeRectFromSize(self.size);
 //            cell.name = [NSString stringWithFormat:@"%ld@%ld", c, r];
 //            cell.constraints = @[
-//				AZConstRelSuperScaleOff(kCAConstraintWidth, (1.0/ (CGFloat)_columns), 0),
-//				AZConstRelSuperScaleOff(kCAConstraintHeight,  (1.0 / (CGFloat)_rows), 0),
+//				AZConstRelSuperScaleOff(kCAConstraintWidth, (1.0/ (CGF)_columns), 0),
+//				AZConstRelSuperScaleOff(kCAConstraintHeight,  (1.0 / (CGF)_rows), 0),
 //				AZConstAttrRelNameAttrScaleOff(	kCAConstraintMinX, @"superlayer",
-//											    kCAConstraintMaxX, (c / (CGFloat)_columns), 0),
+//											    kCAConstraintMaxX, (c / (CGF)_columns), 0),
 //				AZConstAttrRelNameAttrScaleOff( kCAConstraintMinY, @"superlayer",
-//												kCAConstraintMaxY, (r / (CGFloat)_rows), 0)
+//												kCAConstraintMaxY, (r / (CGF)_rows), 0)
 //			];
 //			index++;
 //			}
@@ -366,7 +360,7 @@ NSUInteger gcd(NSInteger m, NSUInteger n) {
 //	return _paths;
 //}
 
-//+ (NSSize) gridFor:(int)someitems inRect:(NSRect)aframe {
+//+ (NSSZ) gridFor:(int)someitems inRect:(NSR)aframe {
 
 //	AGIdealSizer *a = [[AGIdealSizer alloc]initWithQuantity:someitems forRect:NSStringFromRect(aframe)];
 //	return NSMakeSize(a.rows.intValue,a.columns.intValue);
@@ -376,16 +370,14 @@ NSUInteger gcd(NSInteger m, NSUInteger n) {
 //+ (AGIdealSizer*) sharedInstance {
 //	return [super sharedInstance];
 //}
-
-@end
-/**+ (id)forQuantity:(int)numItems forRect:(NSRect)frame{
+/**+ (id)forQuantity:(int)numItems forRect:(NSR)frame{
  //	int rows = ceil(sqrt(numItems));
  //	__block int smallR = 0, rem, runnerUp, rUpItems;
  __block float distanceFromOne = 99.9;
  numItems = (numItems < 2 ? 2 : numItems);
  NSArray *list = [$int(2) to:$int((ceil(sqrt(x)))+4)];
  [list enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:
- ^(id obj, NSUInteger idx, BOOL *stop) {
+ ^(id obj, NSUI idx, BOOL *stop) {
  int _rowCandidate = [obj intValue];
  //		 int xx, itemsnow; 	float items;
  //		 xx 	= gcd(numItems, _rows);
@@ -422,7 +414,7 @@ NSUInteger gcd(NSInteger m, NSUInteger n) {
  //		return;
  //	}
  
- + (NSSize) gridFor:(int)someitems inRect:(NSRect)aframe {
+ + (NSSZ) gridFor:(int)someitems inRect:(NSR)aframe {
  AZIdealSizer *a = [AGIdealSizer fo  :someitems forRect:NSStringFromRect(aframe)];
  return NSMakeSize(a.rows.intValue,a.columns.intValue);
  
