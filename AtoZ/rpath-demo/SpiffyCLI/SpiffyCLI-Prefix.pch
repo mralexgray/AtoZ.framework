@@ -1,7 +1,0 @@
-//
-// Prefix header for all source files of the 'SpiffyCLI' target in the 'SpiffyCLI' project
-//
-
-#ifdef __OBJC__
-	#import <Foundation/Foundation.h>
-#endif

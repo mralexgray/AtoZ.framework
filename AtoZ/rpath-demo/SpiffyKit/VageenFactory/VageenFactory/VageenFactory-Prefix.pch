@@ -1,7 +1,0 @@
-//
-// Prefix header for all source files of the 'VageenFactory' target in the 'VageenFactory' project
-//
-
-#ifdef __OBJC__
-	#import <Cocoa/Cocoa.h>
-#endif
