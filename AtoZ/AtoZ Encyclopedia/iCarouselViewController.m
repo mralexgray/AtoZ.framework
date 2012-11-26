@@ -23,18 +23,18 @@
 @synthesize scalar; //items
 	//- (id)initWithWindow:(NSWindow *)window
 	//{
-	//    if ((self = [super ini initWithWindow:window]))
-	//    {
-	//        //set up data
-	//        wrap = YES;
-	////        self.items = [AtoZ dock];
+	//	if ((self = [super ini initWithWindow:window]))
+	//	{
+	//		//set up data
+	//		wrap = YES;
+	////		self.items = [AtoZ dock];
 	//		scalar = 1;
-	////        for (int i = 0; i < 1000; i++)
-	////        {
-	////            [items addObject:[NSNumber numberWithInt:i]];
-	////        }
-	//    }
-	//    return self;
+	////		for (int i = 0; i < 1000; i++)
+	////		{
+	////			[items addObject:[NSNumber numberWithInt:i]];
+	////		}
+	//	}
+	//	return self;
 	//}
 
 - (void)awakeFromNib
@@ -46,13 +46,13 @@
 
 		// Create our container layer
 		//	starfieldLayer = [CALayer layer];
-		//        //set up data
+		//		//set up data
 	wrap = YES;
-		////        self.items = [AtoZ dock];
+		////		self.items = [AtoZ dock];
 	scalar = 1;
 
 		//configure carousel
-		//    _carousel.type = iCarouselTypeLinear;
+		//	_carousel.type = iCarouselTypeLinear;
 		//		[[_carousel allSubviews] each:^(id obj, NSUInteger index, BOOL *stop) {
 		//			[obj trackFullView];
 		//		}];
@@ -105,7 +105,7 @@
 	[_carousel reloadData];
 		//	self.items = [AtoZ dockSorted];
 		//	carousel.vertical = YES;
-		//    [self.window makeFirstResponder:_carousel];
+		//	[self.window makeFirstResponder:_carousel];
 
 		//	[NSEvent addGlobalMonitorForEventsMatchingMask:NSScrollWheelMask handler:^(NSEvent *e) {
 		//		NSInteger delt = floor(e.scrollingDeltaX + e.scrollingDeltaY);
@@ -220,8 +220,8 @@
 	_carousel.delegate = nil;
 	_carousel.dataSource = nil;
 
-		//    [self.carousel release];
-		//    [super dealloc];
+		//	[self.carousel release];
+		//	[super dealloc];
 }
 
 -(void)setSize:(float)size {
@@ -249,12 +249,12 @@
 /*- (IBAction)switchCarouselType:(id)sender
 {
 		//restore view opacities to normal
-    for (NSView *view in _carousel.visibleItemViews)
-    {
-        view.layer.opacity = 1.0;
-    }
+	for (NSView *view in _carousel.visibleItemViews)
+	{
+		view.layer.opacity = 1.0;
+	}
 
-    self.carousel.type = (iCarouselType)[sender tag];
+	self.carousel.type = (iCarouselType)[sender tag];
 }
 */
 - (void) setType:(iCarouselType)type {
@@ -265,39 +265,39 @@
 }
 - (IBAction)toggleVertical:(id)sender
 {
-    self.carousel.vertical = !_carousel.vertical;
-//    [sender setState:_carousel.vertical? NSOnState: NSOffState];
+	self.carousel.vertical = !_carousel.vertical;
+//	[sender setState:_carousel.vertical? NSOnState: NSOffState];
 }
 
 - (IBAction)toggleWrap:(id)sender
 {
-    wrap = !wrap;
-//    [sender setState:wrap? NSOnState: NSOffState];
-    [_carousel reloadData];
+	wrap = !wrap;
+//	[sender setState:wrap? NSOnState: NSOffState];
+	[_carousel reloadData];
 }
 
 - (IBAction)insertItem:(id)sender
 {
-    [_carousel insertItemAtIndex:_carousel.currentItemIndex animated:YES];
+	[_carousel insertItemAtIndex:_carousel.currentItemIndex animated:YES];
 }
 
 - (IBAction)removeItem:(id)sender
 {
-    [_carousel removeItemAtIndex:_carousel.currentItemIndex animated:YES];
+	[_carousel removeItemAtIndex:_carousel.currentItemIndex animated:YES];
 }
 #pragma mark - iCarousel methods
 
 - (NSUInteger)numberOfItemsInCarousel:(iCarousel *)carousel
 {
-    NSUInteger c = [[AtoZ dockSorted] count];
+	NSUInteger c = [[AtoZ dockSorted] count];
 //	NSLog(@"number of ites in carousel (docksorted class  %ld", c);
 	return c;
 }
 
 - (NSView *)carousel:(iCarousel *)carousel viewForItemAtIndex:(NSUInteger)index reusingView:(NSView *)view {
 if (!view) {
-		//    NSTextField *label = nil;
-	if (view == nil)     //create new view if no view is available for recycling
+		//	NSTextField *label = nil;
+	if (view == nil)	 //create new view if no view is available for recycling
 	{
 		AZFile* f = [[AtoZ dockSorted]objectAtIndex:index];   NSColor *c = f.color;
 		if (!c) { 		NSLog(@"no colore! reload! (idx:%ld)",index); [carousel reloadData]; }
@@ -376,14 +376,14 @@ if (!view) {
 				break;
 			}
 		}
-			//        label = [[[NSTextField alloc] init] autorelease];
-			//        [label setBackgroundColor:[NSColor clearColor]];
-			//        [label setBordered:NO];
-			//        [label setSelectable:NO];
-			//        [label setAlignment:NSCenterTextAlignment];
-			//        [label setFont:[NSFont fontWithName:[[label font] fontName] size:10]];
-			//        label.tag = 1;
-			//        [view addSubview:label];
+			//		label = [[[NSTextField alloc] init] autorelease];
+			//		[label setBackgroundColor:[NSColor clearColor]];
+			//		[label setBordered:NO];
+			//		[label setSelectable:NO];
+			//		[label setAlignment:NSCenterTextAlignment];
+			//		[label setFont:[NSFont fontWithName:[[label font] fontName] size:10]];
+			//		label.tag = 1;
+			//		[view addSubview:label];
 
 		AZLassoView *b = [[AZLassoView alloc]initWithFrame:AZUpperEdge(view.frame, 200)];
 		[view addSubview:b];
@@ -401,9 +401,9 @@ if (!view) {
 		//you'll get weird issues with carousel item content appearing
 		//in the wrong place in the carousel
 		//	[label setStringValue:(NSString*)[[AtoZ dockSorted][index] valueForKey:@"name"]];//]firstLetter]];//[NSString stringWithFormat:@"%lu", index]];
-		//    [label sizeToFit];
-		//    [label setFrameOrigin:NSMakePoint((view.bounds.size.width - label.frame.size.width)/2.0,
-		//                                      (view.bounds.size.height - label.frame.size.height)/2.0)];
+		//	[label sizeToFit];
+		//	[label setFrameOrigin:NSMakePoint((view.bounds.size.width - label.frame.size.width)/2.0,
+		//									  (view.bounds.size.height - label.frame.size.height)/2.0)];
 		//	NSRect exist = view.frame;
 		//	exist.size.width = [self carouselItemWidth:carousel];
 		//	view.frame = exist;
@@ -462,23 +462,23 @@ if (!view) {
 {
 		//set correct view size
 		//because the background image on the views makes them too large
-    return _carousel.itemWidth;// size;// _scalar * 30;//[[self window]frame].size.width/([[AtoZ dockSorted] count]/self.scalar);// 200.0f;
+	return _carousel.itemWidth;// size;// _scalar * 30;//[[self window]frame].size.width/([[AtoZ dockSorted] count]/self.scalar);// 200.0f;
 }
 
 	//- (CATransform3D)carousel:(iCarousel *)_carousel itemTransformForOffset:(CGFloat)offset baseTransform:(CATransform3D)transform
 	//{
-	//    //implement 'flip3D' style carousel
-	//    transform = CATransform3DRotate(transform, M_PI / 8.0f, 0.0f, 1.0f, 0.0f);
-	//    return CATransform3DTranslate(transform, 0.0f, 0.0f, offset * _carousel.itemWidth);
+	//	//implement 'flip3D' style carousel
+	//	transform = CATransform3DRotate(transform, M_PI / 8.0f, 0.0f, 1.0f, 0.0f);
+	//	return CATransform3DTranslate(transform, 0.0f, 0.0f, offset * _carousel.itemWidth);
 	//}
 
 - (CGFloat)carousel:(iCarousel *)_carousel valueForOption:(iCarouselOption)option withDefault:(CGFloat)value
 {
 		//customize carousel display
-    switch (option)
-    {
+	switch (option)
+	{
 
-//        case 	iCarouselOptionVisibleItems:
+//		case 	iCarouselOptionVisibleItems:
 //			return 	[self ];
 			//		This is the maximum number of item views (including placeholders) that should be visible in the carousel at once. Half of this number of views will be displayed to either side of the currently selected item index. Views beyond that will not be loaded until they are scrolled into view. This allows for the carousel to contain a very large number of items without adversely affecting performance. iCarousel chooses a suitable default value based on the carousel type, however you may wish to override that value using this property (e.g. if you have implemented a custom carousel type).
 
@@ -495,12 +495,12 @@ if (!view) {
 			return 	YES;//RAND_BOOL();
 						//		boolean indicating whether the carousel should wrap when it scrolls to the end. Return YES if you want the carousel to wrap around when it reaches the end, and NO if you want it to stop. Generally, circular carousel types will wrap by default and linear ones won't. Don't worry that the return type is a floating point value - any value other than 0.0 will be treated as YES.*/
 
-        case 	iCarouselOptionSpacing:
+		case 	iCarouselOptionSpacing:
 			return 1;//	RAND_FLOAT_VAL(0, 2*self.carousel.itemWidth);//.space;
 					 // 		The spacing between  item views. This value is multiplied by the item width (or height, if the carousel is vertical) to get the total space between each item, so a value of 1.0 (the default) means no space between views (unless the views already include padding, as they do in many of the example projects).
 					 // 	Reduce item spacing to compensate for drop shadow and reflection around views
 
-        case	iCarouselOptionShowBackfaces:
+		case	iCarouselOptionShowBackfaces:
 			return  YES;
 				//		For some carousel types, e.g. iCarouselTypeCylinder, the rear side of some views can be seen (iCarouselTypeInvertedCylinder now hides the back faces by default). If you wish to hide the backward-facing views you can return NO for this option. To override the default back-face hiding for the iCarouselTypeInvertedCylinder, you can return YES. This option may also be useful for custom carousel transforms that cause the back face of views to be displayed.*/
 
@@ -521,9 +521,9 @@ if (!view) {
 			return 	value;
 				//		The tilt applied to the non-centered items in the CoverFlow, CoverFlow2 and TimeMachine carousel types. This value should be in the range 0.0 to 1.0.
 
-        case iCarouselOptionFadeMax:
+		case iCarouselOptionFadeMax:
 				//			if (self.carousel.type == iCarouselTypeCustom)
-				//		return 	1.0f;                 //set opacity based on distance from camera
+				//		return 	1.0f;				 //set opacity based on distance from camera
 			return 	value;
 		case	iCarouselOptionFadeMin:
 			return 	value;
@@ -534,6 +534,6 @@ if (!view) {
 		default:
 			return 	value;
 			
-    }
+	}
 }
 @end

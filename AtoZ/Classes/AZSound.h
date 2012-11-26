@@ -31,16 +31,16 @@ typedef void (^SoundCompletionHandler)(BOOL didFinish);
 //{
 //@private
 //
-//    CGFloat baseVolume;
-//    CGFloat startVolume;
-//    CGFloat targetVolume;
-//    NSTimeInterval fadeTime;
-//    NSTimeInterval fadeStart;
-//    NSTimer *timer;
-//    Sound *selfReference;
-//    NSURL *url;
-//    SM_SOUND *sound;
-//    SoundCompletionHandler completionHandler;
+//	CGFloat baseVolume;
+//	CGFloat startVolume;
+//	CGFloat targetVolume;
+//	NSTimeInterval fadeTime;
+//	NSTimeInterval fadeStart;
+//	NSTimer *timer;
+//	Sound *selfReference;
+//	NSURL *url;
+//	SM_SOUND *sound;
+//	SoundCompletionHandler completionHandler;
 //}
 //#endif
 
@@ -73,13 +73,13 @@ typedef void (^SoundCompletionHandler)(BOOL didFinish);
 //{
 //@private
 //
-//    Sound *currentMusic;
-//    NSMutableArray *currentSounds;
-//    BOOL allowsBackgroundMusic;
-//    CGFloat soundVolume;
-//    CGFloat musicVolume;
-//    NSTimeInterval soundFadeDuration;
-//    NSTimeInterval musicFadeDuration;
+//	Sound *currentMusic;
+//	NSMutableArray *currentSounds;
+//	BOOL allowsBackgroundMusic;
+//	CGFloat soundVolume;
+//	CGFloat musicVolume;
+//	NSTimeInterval soundFadeDuration;
+//	NSTimeInterval musicFadeDuration;
 //}
 //#endif
 

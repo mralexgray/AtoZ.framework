@@ -10,12 +10,12 @@
 @implementation NSString (URLAdditions)
 
 - (NSString*) stringByURLEncodingString {
-    NSString *result = (NSString *)CFURLCreateStringByAddingPercentEscapes(NULL,
+	NSString *result = (NSString *)CFURLCreateStringByAddingPercentEscapes(NULL,
 																		   (CFStringRef)self,
 																		   NULL,
 																		   (CFStringRef)@";/?:@&=$+{}<>,",
 																		   kCFStringEncodingUTF8);
-    return [result autorelease];
+	return [result autorelease];
 }
 
 @end

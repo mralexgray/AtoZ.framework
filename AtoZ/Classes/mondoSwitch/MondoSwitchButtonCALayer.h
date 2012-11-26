@@ -18,12 +18,12 @@ typedef enum {
 @interface MondoSwitchButtonCALayer : CALayer {
 
   @private
-    CALayer* theSwitch;  
-    MondoSwitchEventType _currentEventState;  
-    CGImageRef notClickedImgRef, clickedImgRef;  
-    CGPoint _mouseDownPointForCurrentEvent;
+	CALayer* theSwitch;  
+	MondoSwitchEventType _currentEventState;  
+	CGImageRef notClickedImgRef, clickedImgRef;  
+	CGPoint _mouseDownPointForCurrentEvent;
   
-    BOOL _on;
+	BOOL _on;
 }
 
 @property(nonatomic, getter=isOn) BOOL on;

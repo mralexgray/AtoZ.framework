@@ -103,7 +103,7 @@ static NSInteger snapshotNumber;
 //
 //	size_t num_locations = 3;
 //	CGFloat locations[3] = { 0.0, 0.7, 1.0 };
-//	CGFloat components[12] = {	0.0, 0.0, 0.0, 1.0,      0.5, 0.7, 1.0, 1.0,	1.0, 1.0, 1.0, 1.0 };
+//	CGFloat components[12] = {	0.0, 0.0, 0.0, 1.0,	  0.5, 0.7, 1.0, 1.0,	1.0, 1.0, 1.0, 1.0 };
 //	CGColorSpaceRef colorspace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
 //	backgroundGradient = CGGradientCreateWithColorComponents(colorspace, components, locations, num_locations);
 //	CGSize b = self.bounds.size;

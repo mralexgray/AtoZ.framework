@@ -20,8 +20,8 @@
 
 /*{
 @private
-    NSMutableArray *_activeContentAnimations;
-    NSTimer *_updateTimer;
+	NSMutableArray *_activeContentAnimations;
+	NSTimer *_updateTimer;
 }
 
 + (NSSet *)keyPathsForValuesAffectingContent;
@@ -32,7 +32,7 @@
 
 #define CurrentAnimationValue(field) ({ __typeof__(self) p = (id)self.presentationLayer; p.field; })
 
-+ (BOOL)     needsDisplayForKey: (NSS*) key;
++ (BOOL)	 needsDisplayForKey: (NSS*) key;
 + (AZLayer*) layerAtIndex: (NSI)idx inRange:(RNG)rng withFrame:(CGR)frame;
 
 //- (id) initWithLayer: (id) layer;
@@ -48,7 +48,7 @@
 @property (NATOM, ASS) CGF		offset;
 //								unit;
 
-@property (NATOM, ASS) BOOL 	    flipped,
+@property (NATOM, ASS) BOOL 		flipped,
 								hovered,
 								selected;
 

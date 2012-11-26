@@ -55,7 +55,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 		id val=[obj valueForKey:key];
 		if(!val){
 			val=[NSNull null];
-        }
+		}
 		[array addObject:val];
 	}
 	return array;
@@ -91,7 +91,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 	 new NSArray whose elements correspond to the results of invoking
 	 valueForKeyPath on each element of this array.
 	 */
-    NSMutableArray *array=[NSMutableArray array];
+	NSMutableArray *array=[NSMutableArray array];
 
 	id en=[self objectEnumerator];
 	id obj;

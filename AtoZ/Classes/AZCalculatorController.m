@@ -14,7 +14,7 @@
 @synthesize labelValue;
 
 + (AZCalculatorController *)sharedCalc{
-    static AZCalculatorController *_sharedCalc = nil;
+	static AZCalculatorController *_sharedCalc = nil;
 	if(!_sharedCalc){
 		_sharedCalc = [[self alloc] initWithWindowNibName:[self nibName]];
 	}
@@ -37,13 +37,13 @@
 
 - (id)init
 {
-    self = [super initWithWindowNibName: @"Calculator"];
-    if (self) {
+	self = [super initWithWindowNibName: @"Calculator"];
+	if (self) {
 //		self.window = [[NSWindow alloc] initWithWindowNibName: @"Calculator"];
 		[self showWindow:self.window];
 		self.calc = [[CalcModel alloc] init];
 	}
-    return self;
+	return self;
 }
 //- (id)init {
 //	calc = [[CalcModel alloc] init];

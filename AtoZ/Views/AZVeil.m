@@ -116,7 +116,7 @@
 	NSLog(@"Should collapse subview for double-click on divider at index %ld requested", (long)dividerIndex);
 	NSLog(@"Double-clicked!");
 	NSLog(@"\tFrame for subview: %@\n", NSStringFromRect(subview.frame));
-    return NO;
+	return NO;
 }
 
 - (CGFloat)splitView:(NSSplitView *)splitView constrainSplitPosition:(CGFloat)proposedPosition ofSubviewAt:(NSInteger)index
@@ -276,8 +276,8 @@
 
 //	NSRect frame = AZMenulessScreenRect();
 //	rect.origin.x += frame.origin.x;
-//    rect.origin.y += frame.origin.y;
-//    return rect;
+//	rect.origin.y += frame.origin.y;
+//	return rect;
 
 //	_view.image = [NSImage imageFromCGImageRef:
 //		CGWindowListCreateImage(  AZFlipRectinRect(AZMenulessScreenRect(), (CGRect) { 0,22,ScreenWidess(), ScreenHighness()}),
@@ -311,19 +311,19 @@
 
 + (NSImage*) screenCacheImageForView:(NSView*)aView
 {
-    NSRect originRect = [aView convertRect:[aView bounds] toView:[[aView window] contentView]];
+	NSRect originRect = [aView convertRect:[aView bounds] toView:[[aView window] contentView]];
 
-    NSRect rect = originRect;
-    rect.origin.y = 0;
-    rect.origin.x += [aView window].frame.origin.x;
-    rect.origin.y += [[aView window] screen].frame.size.height - [aView window].frame.origin.y - [aView window].frame.size.height;
-    rect.origin.y += [aView window].frame.size.height - originRect.origin.y - originRect.size.height;
+	NSRect rect = originRect;
+	rect.origin.y = 0;
+	rect.origin.x += [aView window].frame.origin.x;
+	rect.origin.y += [[aView window] screen].frame.size.height - [aView window].frame.origin.y - [aView window].frame.size.height;
+	rect.origin.y += [aView window].frame.size.height - originRect.origin.y - originRect.size.height;
 
-    CGImageRef cgimg = CGWindowListCreateImage(rect,
+	CGImageRef cgimg = CGWindowListCreateImage(rect,
 											   kCGWindowListOptionIncludingWindow,
 											   (CGWindowID)[[aView window] windowNumber],
 											   kCGWindowImageDefault);
-    return [[NSImage alloc] initWithCGImage:cgimg size:[aView bounds].size];
+	return [[NSImage alloc] initWithCGImage:cgimg size:[aView bounds].size];
 }
 	//	NSThread *e;
 	//	[self performSelector:@selector(defineRects) onThread:e withObject:nil waitUntilDone:YES];
@@ -345,7 +345,7 @@
 
 	//	return [NSImage imageFromCGImageRef:CGWindowListCreateImage( 	AZFlipRectinRect(AZMakeRectMaxXUnderMenuBarY( ScreenHighness() - 22 ), AZScreenFrame()), thisWindow, kCGWindowListOptionOnScreenBelowWindow | kCGWindowImageNominalResolution)];
 
-	//	    AZFlipRectinRect(AZMakeRectMaxXUnderMenuBarY( ScreenHighness() - 22 ), AZScreenFrame()),  thisWindow, kCGWindowListOptionOnScreenBelowWindow, kCGWindowImageNominalResolution)];
+	//		AZFlipRectinRect(AZMakeRectMaxXUnderMenuBarY( ScreenHighness() - 22 ), AZScreenFrame()),  thisWindow, kCGWindowListOptionOnScreenBelowWindow, kCGWindowImageNominalResolution)];
 	//AZMenulessScreenRect(), [_leveler windowNumber],
 
 	//		CGWindowListCreateImage( AZFlipRectinRect( AZMenulessScreenRect(), AZScreenFrame()), windy,

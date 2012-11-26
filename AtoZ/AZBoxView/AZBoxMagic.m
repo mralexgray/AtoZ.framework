@@ -24,7 +24,7 @@
 	
 			filingCabinet = [NSMutableArray array];		
 	}
-    return self;
+	return self;
 }
 
 - (void)drawRect:(NSRect)dirtyRect
@@ -59,19 +59,19 @@
 }
 	
 //	[missingIndicies enumerateIndexesUsingBlock:^(NSUInteger index, BOOL *stop){
-//        AZBox *cell = [[self dataSource] collectionView:self cellForIndex:index];
-//        if(!cell)
-//            return;
-//        if([selection containsIndex:index])
-//            [cell setSelected:YES];
-//        [cell setIndex:index];
-//        [cell setFrame:[self rectForCellAtIndex:index]];
+//		AZBox *cell = [[self dataSource] collectionView:self cellForIndex:index];
+//		if(!cell)
+//			return;
+//		if([selection containsIndex:index])
+//			[cell setSelected:YES];
+//		[cell setIndex:index];
+//		[cell setFrame:[self rectForCellAtIndex:index]];
 //		//		[cell setHidden:YES];
-//        [self addSubview:cell];
+//		[self addSubview:cell];
 //		//		[cell fadeIn];
 //		//		[self per performSelector:@selector(fadeIn) afterDelay:index*.01];
-//        [visibleCells setObject:cell forKey:[NSNumber numberWithUnsignedInteger:index]];
-//    }];
+//		[visibleCells setObject:cell forKey:[NSNumber numberWithUnsignedInteger:index]];
+//	}];
 //}
 
 	

@@ -24,9 +24,9 @@
 
 FOUNDATION_EXPORT NSString *const reuseIdentifier;
 typedef enum {
-    AtoZGridViewItemVisibleContentNothing         = 0,
-    AtoZGridViewItemVisibleContentImage           = 1 << 0,
-    AtoZGridViewItemVisibleContentTitle           = 1 << 1,
+	AtoZGridViewItemVisibleContentNothing		 = 0,
+	AtoZGridViewItemVisibleContentImage		   = 1 << 0,
+	AtoZGridViewItemVisibleContentTitle		   = 1 << 1,
 } AtoZGridViewItemVisibleContent;
 
 @class AtoZGridViewItem;
@@ -54,8 +54,8 @@ typedef enum {
 /**	Property for setting the elasticity of the enclosing `NSScrollView`.
  This property will be set and overwrite the values from Interface Builder. There is no horizontal-vertical distinction.
  The default value is `YES`.
- @param     YES Elasticity is on.
- @param     NO Elasticity is off. */
+ @param	 YES Elasticity is on.
+ @param	 NO Elasticity is off. */
 @property (nonatomic, assign) BOOL scrollElasticity;
 /**	Property for setting the grid view item size. */
 @property (nonatomic, assign) NSSize itemSize;

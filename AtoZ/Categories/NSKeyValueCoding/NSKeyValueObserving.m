@@ -80,7 +80,7 @@ static inline NSMapTable *masterObservationInfo(){
    static NSMapTable *observationInfos=NULL;
 
    if(observationInfos==NULL)
-    observationInfos=NSCreateMapTable(NSNonOwnedPointerMapKeyCallBacks,NSNonOwnedPointerMapValueCallBacks,0);
+	observationInfos=NSCreateMapTable(NSNonOwnedPointerMapKeyCallBacks,NSNonOwnedPointerMapValueCallBacks,0);
 
    return observationInfos;
 }
@@ -101,9 +101,9 @@ static inline NSMapTable *masterObservationInfo(){
    pthread_mutex_lock(&masterObservationLock);
 
    if(info==NULL)
-    NSMapRemove(masterObservationInfo(),self);
+	NSMapRemove(masterObservationInfo(),self);
    else
-    NSMapInsert(masterObservationInfo(),self,info);
+	NSMapInsert(masterObservationInfo(),self,info);
 
    pthread_mutex_unlock(&masterObservationLock);
 }
@@ -124,9 +124,9 @@ static inline NSMapTable *masterObservationInfo(){
    pthread_mutex_lock(&masterObservationLock);
 
    if(info==NULL)
-    NSMapRemove(masterObservationInfo(),self);
+	NSMapRemove(masterObservationInfo(),self);
    else
-    NSMapInsert(masterObservationInfo(),self,info);
+	NSMapInsert(masterObservationInfo(),self,info);
 
    pthread_mutex_unlock(&masterObservationLock);
 }
@@ -142,8 +142,8 @@ static void addKeyObserver(NSKeyObserver *keyObserver){
 
 
    if(observationInfo==nil){
-    observationInfo=[[NSKVOInfoPerObject allocWithZone:NULL] init];
-    [object setObservationInfo:observationInfo];
+	observationInfo=[[NSKVOInfoPerObject allocWithZone:NULL] init];
+	[object setObservationInfo:observationInfo];
    }
 
    [observationInfo addKeyObserver:keyObserver];
@@ -153,33 +153,33 @@ static void removeKeyObserver(NSKeyObserver *keyObserver){
 //	NSKeyValueDebugLog(kNSKeyValueDebugLevel3,@"removeKeyObserver:%@",keyObserver);
 
    if(keyObserver==nil)
-    return;
+	return;
 
    [keyObserver invalidate];
 
-   id                  object=[keyObserver object];
+   id				  object=[keyObserver object];
    NSKVOInfoPerObject *observationInfo=[object observationInfo];
 
    [observationInfo removeKeyObserver:keyObserver];
 
    if([observationInfo isEmpty]){
-    [object setObservationInfo:NULL];
-    [observationInfo release];
+	[object setObservationInfo:NULL];
+	[observationInfo release];
    }
 }
 
 static NSKeyObserver *keyObserverForObserverAndKeyPath(id object,id observer,NSString *path){
    NSKVOInfoPerObject *observationInfo=[object observationInfo];
-   NSString           *restOfPath;
-   NSString           *key=_NSKVOSplitKeyPath(path,&restOfPath);
+   NSString		   *restOfPath;
+   NSString		   *key=_NSKVOSplitKeyPath(path,&restOfPath);
 
    NSArray *observers=[observationInfo keyObserversForKey:key];
 
    for(NSKeyObserver *check in observers){
-    NSKeyPathObserver *keyPathObserver=[check keyPathObserver];
+	NSKeyPathObserver *keyPathObserver=[check keyPathObserver];
 
-    if([keyPathObserver observer]==observer && [[keyPathObserver keyPath] isEqualToString:path])
-     return check;
+	if([keyPathObserver observer]==observer && [[keyPathObserver keyPath] isEqualToString:path])
+	 return check;
    }
 
    return nil;
@@ -189,21 +189,21 @@ static NSKeyObserver *keyObserverForObserverAndKeyPath(id object,id observer,NSS
 static NSKeyObserver *addKeyPathObserverToObject(id object,NSString *path,NSKeyPathObserver *keyPathObserver);
 
 static NSArray *addKeyPathObserverToDependantPaths(id object,NSSet *dependentPaths,NSKeyPathObserver *keyPathObserver){
-    NSMutableArray *result=[NSMutableArray array];
+	NSMutableArray *result=[NSMutableArray array];
 
-    for(NSString *path in dependentPaths){
+	for(NSString *path in dependentPaths){
 		// Recursively walk the keypath setting up key/keyPath observer pairs for each dependentPath.
 		 NSKeyObserver *check=addKeyPathObserverToObject(object,path,keyPathObserver);
 
 		 if(check!=nil)
 		  [result addObject:check];
-    }
+	}
 
-    return result;
+	return result;
 }
 
 static void addKeyObserverDependantsAndRestOfPath(NSKeyObserver *keyObserver){
-   id        object=[keyObserver object];
+   id		object=[keyObserver object];
    NSString *key=[keyObserver key];
    NSString *restOfPath=[keyObserver restOfPath];
    NSKeyPathObserver *keyPathObserver=[keyObserver keyPathObserver];
@@ -223,14 +223,14 @@ static void addKeyObserverDependantsAndRestOfPath(NSKeyObserver *keyObserver){
 
 static NSKeyObserver *addKeyPathObserverToObject(id object,NSString *path,NSKeyPathObserver *keyPathObserver){
    if(object==nil)
-    return nil;
+	return nil;
 
    NSString *restOfPath;
    NSString *key=_NSKVOSplitKeyPath(path,&restOfPath);
 
    if([key hasPrefix:@"@"]){
-    NSUnimplementedFunction();
-     // FIXME: operator, ignore?
+	NSUnimplementedFunction();
+	 // FIXME: operator, ignore?
    }
 
    NSKeyObserver *keyObserver=[[[NSKeyObserver alloc] initWithObject:object key:key keyPathObserver:keyPathObserver restOfPath:restOfPath] autorelease];
@@ -250,7 +250,7 @@ static NSKeyObserver *addKeyPathObserverToObject(id object,NSString *path,NSKeyP
  * 1. Creates a keyPathObserver to track the designated keypath for self
  * 2. Creates a keyObserver for the first key in the path and connects it to the freshly created keyPathObserver
  * 3. Creates keyObserver and keyPathObservers for all dependent keys and the rest of the key path (which for the keyPath recursively calls this set of
- *       operations - but using the current value of the key in the keypath as the root object)
+ *	   operations - but using the current value of the key in the keypath as the root object)
  * 4. Adds the keyObserver to the object - which means
  * 4.1 Swizzles object into a KVO capable class (if it's not already)
  * 4.2 Creates and sets a NSKVOInfoPerObject (if one is not available already) onto the object
@@ -266,11 +266,11 @@ static NSKeyObserver *addKeyPathObserverToObject(id object,NSString *path,NSKeyP
    addKeyPathObserverToObject(self,keyPath,keyPathObserver);
 
    if(options&NSKeyValueObservingOptionInitial){
-    NSUnimplementedMethod();
+	NSUnimplementedMethod();
 #if 0
 // this is wrong, should generate a clean notification
-    [self willChangeValueForKey:key];
-    [self didChangeValueForKey:key];
+	[self willChangeValueForKey:key];
+	[self didChangeValueForKey:key];
 #endif
    }
 	NSKeyValueDebugLog(NSKeyValueDebugLogLevel, @"self: %@ added keyPathObserver: %@ for observer: %@ keyPath: %@", self, keyPathObserver, observer, keyPath);
@@ -285,7 +285,7 @@ static void pruneRestOfPathAndDependantObservers(NSKeyObserver *keyObserver){
    [keyObserver setRestOfPathObserver:nil];
 
    for(NSKeyObserver *dep in [keyObserver dependantKeyObservers])
-    pruneKeyObserver(dep);
+	pruneKeyObserver(dep);
 
    [keyObserver setDependantKeyObservers:nil];
 }
@@ -323,53 +323,53 @@ static void willChangeValueForKey(id object,NSString *key,NSDictionary *changeIn
 	}
 // Cocoa does notifications in this order, last to first
    while(--count>=0){
-    NSKeyObserver *keyObserver=[keyObserversArray objectAtIndex:count];
+	NSKeyObserver *keyObserver=[keyObserversArray objectAtIndex:count];
 
 	   if(![keyObserver isValid]) {
 		   NSKeyValueDebugLog(NSKeyValueDebugLogLevel, @"skipping invalid keyObserver: %@", keyObserver);
 		   continue;
 	   }
 
-    NSKeyPathObserver *keyPathObserver=[keyObserver keyPathObserver];
-    NSKeyValueObservingOptions observingOptions=[keyPathObserver options];
+	NSKeyPathObserver *keyPathObserver=[keyObserver keyPathObserver];
+	NSKeyValueObservingOptions observingOptions=[keyPathObserver options];
 
 	   if([keyPathObserver willChangeAlreadyChanging]) {
 		   NSKeyValueDebugLog(NSKeyValueDebugLogLevel, @"skipping keyObserver: %@ as already changing", keyObserver);
 		   continue;
 	   }
 
-    id                   rootObject=[keyPathObserver object];
-    id                   rootObserver=[keyPathObserver observer];
-    NSString            *rootKeyPath=[keyPathObserver keyPath];
-    //unused
-    //void                *rootContext=[keyPathObserver context];
-    NSMutableDictionary *changeDictionary=[keyPathObserver changeDictionaryWithInfo:changeInfo];
+	id				   rootObject=[keyPathObserver object];
+	id				   rootObserver=[keyPathObserver observer];
+	NSString			*rootKeyPath=[keyPathObserver keyPath];
+	//unused
+	//void				*rootContext=[keyPathObserver context];
+	NSMutableDictionary *changeDictionary=[keyPathObserver changeDictionaryWithInfo:changeInfo];
 
-    if(observingOptions&NSKeyValueObservingOptionOld && ![changeDictionary objectForKey:NSKeyValueChangeOldKey]){
-     NSIndexSet *idxs=[changeInfo objectForKey:NSKeyValueChangeIndexesKey];
+	if(observingOptions&NSKeyValueObservingOptionOld && ![changeDictionary objectForKey:NSKeyValueChangeOldKey]){
+	 NSIndexSet *idxs=[changeInfo objectForKey:NSKeyValueChangeIndexesKey];
 
-     if(idxs==nil)
-      [changeDictionary setValue:[rootObject valueForKeyPath:rootKeyPath] forKey:NSKeyValueChangeOldKey];
-     else {
+	 if(idxs==nil)
+	  [changeDictionary setValue:[rootObject valueForKeyPath:rootKeyPath] forKey:NSKeyValueChangeOldKey];
+	 else {
 // FIXME: this is wrong, the type of change will depend on the position in the key path
-      int type=[[changeDictionary objectForKey:NSKeyValueChangeKindKey] intValue];
+	  int type=[[changeDictionary objectForKey:NSKeyValueChangeKindKey] intValue];
 
-      // for to-many relationships, oldvalue is only sensible for replace and remove
-      if(type == NSKeyValueChangeReplacement || type == NSKeyValueChangeRemoval)
-       [changeDictionary setValue:[[object mutableArrayValueForKeyPath:rootKeyPath] objectsAtIndexes:idxs] forKey:NSKeyValueChangeOldKey];
-     }
-    }
+	  // for to-many relationships, oldvalue is only sensible for replace and remove
+	  if(type == NSKeyValueChangeReplacement || type == NSKeyValueChangeRemoval)
+	   [changeDictionary setValue:[[object mutableArrayValueForKeyPath:rootKeyPath] objectsAtIndexes:idxs] forKey:NSKeyValueChangeOldKey];
+	 }
+	}
 
-    if(observingOptions&NSKeyValueObservingOptionPrior) {
-     [changeDictionary setObject:[NSNumber numberWithBool:YES] forKey:NSKeyValueChangeNotificationIsPriorKey];
+	if(observingOptions&NSKeyValueObservingOptionPrior) {
+	 [changeDictionary setObject:[NSNumber numberWithBool:YES] forKey:NSKeyValueChangeNotificationIsPriorKey];
 
 	 NSKeyValueDebugLog(NSKeyValueDebugLogLevel, @"informing observer: %@ prior to change: %@ inKeyPath: %@", rootObserver, changeDictionary, rootKeyPath);
-     [rootObserver observeValueForKeyPath:rootKeyPath ofObject:rootObject change:changeDictionary context:[keyPathObserver context]];
+	 [rootObserver observeValueForKeyPath:rootKeyPath ofObject:rootObject change:changeDictionary context:[keyPathObserver context]];
 
-     [changeDictionary removeObjectForKey:NSKeyValueChangeNotificationIsPriorKey];
-    }
+	 [changeDictionary removeObjectForKey:NSKeyValueChangeNotificationIsPriorKey];
+	}
 
-    pruneRestOfPathAndDependantObservers(keyObserver);
+	pruneRestOfPathAndDependantObservers(keyObserver);
    }
 }
 
@@ -387,7 +387,7 @@ static void willChangeValueForKey(id object,NSString *key,NSDictionary *changeIn
 -(void)willChangeValueForKey:(NSString *)key {
 	NSMutableDictionary *changeInfo=[[NSMutableDictionary allocWithZone:NULL] init];
 	[changeInfo setObject:[NSNumber numberWithInt:NSKeyValueChangeSetting] forKey:NSKeyValueChangeKindKey];
-    willChangeValueForKey(self,key,changeInfo);
+	willChangeValueForKey(self,key,changeInfo);
 	[changeInfo release];
 }
 
@@ -397,46 +397,46 @@ static void willChangeValueForKey(id object,NSString *key,NSDictionary *changeIn
 	[changeInfo setObject:[NSNumber numberWithUnsignedInteger:change] forKey:NSKeyValueChangeKindKey];
 	[changeInfo setObject:indexes forKey:NSKeyValueChangeIndexesKey];
 
-    willChangeValueForKey(self,key,changeInfo);
+	willChangeValueForKey(self,key,changeInfo);
 
 	[changeInfo release];
 }
 
 -(void)willChangeValueForKey:(NSString *)key withSetMutation:(NSKeyValueSetMutationKind)mutation usingObjects:(NSSet*)objects {
-    NSMutableSet* changeSet;
-    NSMutableDictionary* changeInfo=[[NSMutableDictionary allocWithZone:NULL] init];
-    
-    switch (mutation) {
-        case NSKeyValueUnionSetMutation:
-            changeSet = [objects mutableCopy];
-            [changeSet minusSet:[self valueForKey:key]];
-            [changeInfo setValue:changeSet forKey:NSKeyValueChangeNewKey];
-            [changeInfo setValue:[NSSet set] forKey:NSKeyValueChangeOldKey];
-            [changeSet release];
-            break;
-        case NSKeyValueMinusSetMutation:
-            changeSet = [objects mutableCopy];
-            [changeSet intersectSet:[self valueForKey:key]];
-            [changeInfo setValue:changeSet forKey:NSKeyValueChangeOldKey];
-            [changeInfo setValue:[NSSet set] forKey:NSKeyValueChangeNewKey];
-            [changeSet release];
-            break;
-        case NSKeyValueIntersectSetMutation:
-            changeSet = [[self valueForKey:key] mutableCopy];
-            [changeSet minusSet:objects];
-            [changeInfo setValue:changeSet forKey:NSKeyValueChangeOldKey];
-            [changeInfo setValue:[NSSet set] forKey:NSKeyValueChangeNewKey];
-            [changeSet release];
-            break;
-        case NSKeyValueSetSetMutation:
-            [changeInfo setValue:[self valueForKey:key] forKey:NSKeyValueChangeOldKey];
-            [changeInfo setValue:objects forKey:NSKeyValueChangeNewKey];
-            break;
-    }
-    
-    willChangeValueForKey(self,key,changeInfo);
-    
-    [changeInfo release];
+	NSMutableSet* changeSet;
+	NSMutableDictionary* changeInfo=[[NSMutableDictionary allocWithZone:NULL] init];
+	
+	switch (mutation) {
+		case NSKeyValueUnionSetMutation:
+			changeSet = [objects mutableCopy];
+			[changeSet minusSet:[self valueForKey:key]];
+			[changeInfo setValue:changeSet forKey:NSKeyValueChangeNewKey];
+			[changeInfo setValue:[NSSet set] forKey:NSKeyValueChangeOldKey];
+			[changeSet release];
+			break;
+		case NSKeyValueMinusSetMutation:
+			changeSet = [objects mutableCopy];
+			[changeSet intersectSet:[self valueForKey:key]];
+			[changeInfo setValue:changeSet forKey:NSKeyValueChangeOldKey];
+			[changeInfo setValue:[NSSet set] forKey:NSKeyValueChangeNewKey];
+			[changeSet release];
+			break;
+		case NSKeyValueIntersectSetMutation:
+			changeSet = [[self valueForKey:key] mutableCopy];
+			[changeSet minusSet:objects];
+			[changeInfo setValue:changeSet forKey:NSKeyValueChangeOldKey];
+			[changeInfo setValue:[NSSet set] forKey:NSKeyValueChangeNewKey];
+			[changeSet release];
+			break;
+		case NSKeyValueSetSetMutation:
+			[changeInfo setValue:[self valueForKey:key] forKey:NSKeyValueChangeOldKey];
+			[changeInfo setValue:objects forKey:NSKeyValueChangeNewKey];
+			break;
+	}
+	
+	willChangeValueForKey(self,key,changeInfo);
+	
+	[changeInfo release];
 }
 
 static void didChangeValueForKey(id object,NSString *key)  {
@@ -457,47 +457,47 @@ static void didChangeValueForKey(id object,NSString *key)  {
 
 // Cocoa does notifications in this order, last to first
    while(--count>=0){
-    NSKeyObserver *keyObserver=[keyObserversArray objectAtIndex:count];
+	NSKeyObserver *keyObserver=[keyObserversArray objectAtIndex:count];
 
 	   if(![keyObserver isValid]) {
 		   NSKeyValueDebugLog(NSKeyValueDebugLogLevel, @"skipping invalid keyObserver: %@", keyObserver);
 		   continue;
 	   }
 
-    NSKeyPathObserver   *keyPathObserver=[keyObserver keyPathObserver];
-    NSKeyValueObservingOptions observerOptions=[keyPathObserver options];
+	NSKeyPathObserver   *keyPathObserver=[keyObserver keyPathObserver];
+	NSKeyValueObservingOptions observerOptions=[keyPathObserver options];
 
 	   if([keyPathObserver didChangeAlreadyChanging]) {
 		NSKeyValueDebugLog(NSKeyValueDebugLogLevel, @"skipping keyObserver: %@ as already changing", keyObserver);
 	   continue;
    }
 
-    id                   rootObject=[keyPathObserver object];
-    id                   rootObserver=[keyPathObserver observer];
-    NSString            *rootKeyPath=[keyPathObserver keyPath];
-    //unused
-    //void                *rootContext=[keyPathObserver context];
-    NSMutableDictionary *changeDictionary=[keyPathObserver changeDictionary];
+	id				   rootObject=[keyPathObserver object];
+	id				   rootObserver=[keyPathObserver observer];
+	NSString			*rootKeyPath=[keyPathObserver keyPath];
+	//unused
+	//void				*rootContext=[keyPathObserver context];
+	NSMutableDictionary *changeDictionary=[keyPathObserver changeDictionary];
 
-    if(observerOptions&NSKeyValueObservingOptionNew && ![changeDictionary objectForKey:NSKeyValueChangeNewKey]){
-     NSIndexSet *idxs=[changeDictionary objectForKey:NSKeyValueChangeIndexesKey];
+	if(observerOptions&NSKeyValueObservingOptionNew && ![changeDictionary objectForKey:NSKeyValueChangeNewKey]){
+	 NSIndexSet *idxs=[changeDictionary objectForKey:NSKeyValueChangeIndexesKey];
 
-     if(idxs==nil)
-      [changeDictionary setValue:[rootObject valueForKeyPath:rootKeyPath] forKey:NSKeyValueChangeNewKey];
-     else {
-      int type=[[changeDictionary objectForKey:NSKeyValueChangeKindKey] intValue];
+	 if(idxs==nil)
+	  [changeDictionary setValue:[rootObject valueForKeyPath:rootKeyPath] forKey:NSKeyValueChangeNewKey];
+	 else {
+	  int type=[[changeDictionary objectForKey:NSKeyValueChangeKindKey] intValue];
 				// for to-many relationships, newvalue is only sensible for replace and insert
 
-      if(type==NSKeyValueChangeReplacement || type==NSKeyValueChangeInsertion)
-       [changeDictionary setValue:[[rootObject mutableArrayValueForKeyPath:rootKeyPath] objectsAtIndexes:idxs] forKey:NSKeyValueChangeNewKey];
-      }
-    }
+	  if(type==NSKeyValueChangeReplacement || type==NSKeyValueChangeInsertion)
+	   [changeDictionary setValue:[[rootObject mutableArrayValueForKeyPath:rootKeyPath] objectsAtIndexes:idxs] forKey:NSKeyValueChangeNewKey];
+	  }
+	}
 
-    addKeyObserverDependantsAndRestOfPath(keyObserver);
+	addKeyObserverDependantsAndRestOfPath(keyObserver);
 
 	   NSKeyValueDebugLog(NSKeyValueDebugLogLevel, @"informing observer: %@ after change: %@ inKeyPath: %@", rootObserver, changeDictionary, rootKeyPath);
-    [rootObserver observeValueForKeyPath:rootKeyPath ofObject:rootObject change:changeDictionary context:[keyPathObserver context]];
-    [keyPathObserver clearChangeDictionary];
+	[rootObserver observeValueForKeyPath:rootKeyPath ofObject:rootObject change:changeDictionary context:[keyPathObserver context]];
+	[keyPathObserver clearChangeDictionary];
    }
 }
 
@@ -510,32 +510,32 @@ static void didChangeValueForKey(id object,NSString *key)  {
 }
 
 -(void)didChangeValueForKey:(NSString *)key withSetMutation:(NSKeyValueSetMutationKind)mutation usingObjects:(NSSet*)objects {
-    didChangeValueForKey(self,key);
+	didChangeValueForKey(self,key);
 }
 
 +(void)setKeys:(NSArray *)keys triggerChangeNotificationsForDependentKey:(NSString *)dependentKey {
    NSKVOInfoPerObject* observationInfo=[self observationInfo];
 
    if(!observationInfo) {
-    observationInfo=[[NSKVOInfoPerObject allocWithZone:NULL] init];
-    [self setObservationInfo:observationInfo];
+	observationInfo=[[NSKVOInfoPerObject allocWithZone:NULL] init];
+	[self setObservationInfo:observationInfo];
    }
 
    NSMutableDictionary *dependencies=[observationInfo objectForKey:_KVO_DependentKeysTriggeringChangeNotification];
    if(!dependencies){
-    dependencies=[NSMutableDictionary dictionary];
-    [observationInfo setObject:dependencies forKey:_KVO_DependentKeysTriggeringChangeNotification];
+	dependencies=[NSMutableDictionary dictionary];
+	[observationInfo setObject:dependencies forKey:_KVO_DependentKeysTriggeringChangeNotification];
    }
 
    for(id key in keys){
-    NSMutableSet* allDependencies=[dependencies objectForKey:key];
+	NSMutableSet* allDependencies=[dependencies objectForKey:key];
 
-    if(!allDependencies){
-     allDependencies=[NSMutableSet new];
-     [dependencies setObject:allDependencies forKey:key];
-     [allDependencies release];
-    }
-    [allDependencies addObject:dependentKey];
+	if(!allDependencies){
+	 allDependencies=[NSMutableSet new];
+	 [dependencies setObject:allDependencies forKey:key];
+	 [allDependencies release];
+	}
+	[allDependencies addObject:dependentKey];
    }
 }
 
@@ -549,26 +549,26 @@ static SEL selectorForKeyPathsForValuesAffecting(NSString *key){
    strcpy(buffer,prefix);
    strcat(buffer,keyCString);
 
-   SEL       result=sel_getUid(buffer);
+   SEL	   result=sel_getUid(buffer);
 
    return result;
 }
 
 +(NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
-   SEL       sel=selectorForKeyPathsForValuesAffecting(key);
-   NSSet    *result=nil;
+   SEL	   sel=selectorForKeyPathsForValuesAffecting(key);
+   NSSet	*result=nil;
 
    if([self respondsToSelector:sel])
-    result=[self performSelector:sel];
+	result=[self performSelector:sel];
    else {
-    NSKVOInfoPerObject *observationInfo=[self observationInfo];
-    NSDictionary *keyPathsByKey=[observationInfo objectForKey:_KVO_KeyPathsForValuesAffectingValueForKey];
+	NSKVOInfoPerObject *observationInfo=[self observationInfo];
+	NSDictionary *keyPathsByKey=[observationInfo objectForKey:_KVO_KeyPathsForValuesAffectingValueForKey];
 
-    if(keyPathsByKey==nil){
-     keyPathsByKey=[self _KVO_buildDependencyUnion];
-    }
+	if(keyPathsByKey==nil){
+	 keyPathsByKey=[self _KVO_buildDependencyUnion];
+	}
 
-    result=[keyPathsByKey objectForKey:key];
+	result=[keyPathsByKey objectForKey:key];
    }
 
    return result;
@@ -694,17 +694,17 @@ CHANGE_DECLARATION(SEL)
 
 -(void)KVO_notifying_change_insertKey:(NSA*)objects atIndexes:(NSIndexSet*)indexes {
 	const char* origName = sel_getName(_cmd);
-    
+	
 	size_t selLen=strlen(origName);
 	char *sel=__builtin_alloca(selLen+1);
 	strcpy(sel, origName);
 	sel[selLen-1]='\0';
 	sel+=strlen("insert");
 	sel[strlen(sel)-strlen(":atIndexes:")+1]='\0';
-    
+	
 	sel[0]=tolower(sel[0]);
 	NSString *key=[[NSString allocWithZone:NULL] initWithCString:sel];
-    
+	
 	[self willChange:NSKeyValueChangeInsertion valuesAtIndexes:indexes forKey:key];
 	typedef id (*sender)(id obj, SEL selector, NSArray* value, NSIndexSet* indexes);
 	sender implementation=(sender)[[self superclass] instanceMethodForSelector:_cmd];
@@ -714,86 +714,86 @@ CHANGE_DECLARATION(SEL)
 }
 
 -(void)KVO_notifying_change_addKeyObject:(id)object {
-    const char* origName = sel_getName(_cmd);
-    
+	const char* origName = sel_getName(_cmd);
+	
 	size_t selLen=strlen(origName);
 	char *sel=__builtin_alloca(selLen+1);
 	strcpy(sel, origName);
 	sel[selLen-1]='\0';
 	sel+=strlen("add");
 	sel[strlen(sel)-strlen("Object:")+1]='\0';
-    
+	
 	sel[0]=tolower(sel[0]);
 	NSString *key=[[NSString allocWithZone:NULL] initWithCString:sel];
-    
-    [self willChangeValueForKey:key withSetMutation:NSKeyValueUnionSetMutation usingObjects:[NSSet setWithObject:object]];
+	
+	[self willChangeValueForKey:key withSetMutation:NSKeyValueUnionSetMutation usingObjects:[NSSet setWithObject:object]];
 	typedef id (*sender)(id obj, SEL selector, id object);
 	sender implementation=(sender)[[self superclass] instanceMethodForSelector:_cmd];
 	(void)*implementation(self, _cmd, object);
-    [self didChangeValueForKey:key withSetMutation:NSKeyValueUnionSetMutation usingObjects:[NSSet setWithObject:object]];
+	[self didChangeValueForKey:key withSetMutation:NSKeyValueUnionSetMutation usingObjects:[NSSet setWithObject:object]];
 	[key release];
 }
 
 -(void)KVO_notifying_change_addKey:(NSSet*)objects {
-    const char* origName = sel_getName(_cmd);
-    
+	const char* origName = sel_getName(_cmd);
+	
 	size_t selLen=strlen(origName);
 	char *sel=__builtin_alloca(selLen+1);
 	strcpy(sel, origName);
 	sel[selLen-1]='\0';
 	sel+=strlen("add");
 	sel[strlen(sel)-strlen(":")+1]='\0';
-    
+	
 	sel[0]=tolower(sel[0]);
 	NSString *key=[[NSString allocWithZone:NULL] initWithCString:sel];
-    
-    [self willChangeValueForKey:key withSetMutation:NSKeyValueUnionSetMutation usingObjects:objects];
+	
+	[self willChangeValueForKey:key withSetMutation:NSKeyValueUnionSetMutation usingObjects:objects];
 	typedef id (*sender)(id obj, SEL selector, NSSet* objects);
 	sender implementation=(sender)[[self superclass] instanceMethodForSelector:_cmd];
 	(void)*implementation(self, _cmd, objects);
-    [self didChangeValueForKey:key withSetMutation:NSKeyValueUnionSetMutation usingObjects:objects];
+	[self didChangeValueForKey:key withSetMutation:NSKeyValueUnionSetMutation usingObjects:objects];
 	[key release];
 }
 
 -(void)KVO_notifying_change_removeKeyObject:(id)object {
-    const char* origName = sel_getName(_cmd);
-    
+	const char* origName = sel_getName(_cmd);
+	
 	size_t selLen=strlen(origName);
 	char *sel=__builtin_alloca(selLen+1);
 	strcpy(sel, origName);
 	sel[selLen-1]='\0';
 	sel+=strlen("remove");
 	sel[strlen(sel)-strlen("Object:")+1]='\0';
-    
+	
 	sel[0]=tolower(sel[0]);
 	NSString *key=[[NSString allocWithZone:NULL] initWithCString:sel];
-    
-    [self willChangeValueForKey:key withSetMutation:NSKeyValueMinusSetMutation usingObjects:[NSSet setWithObject:object]];
+	
+	[self willChangeValueForKey:key withSetMutation:NSKeyValueMinusSetMutation usingObjects:[NSSet setWithObject:object]];
 	typedef id (*sender)(id obj, SEL selector, id object);
 	sender implementation=(sender)[[self superclass] instanceMethodForSelector:_cmd];
 	(void)*implementation(self, _cmd, object);
-    [self didChangeValueForKey:key withSetMutation:NSKeyValueMinusSetMutation usingObjects:[NSSet setWithObject:object]];
+	[self didChangeValueForKey:key withSetMutation:NSKeyValueMinusSetMutation usingObjects:[NSSet setWithObject:object]];
 	[key release];
 }
 
 -(void)KVO_notifying_change_removeKey:(NSSet*)objects {
-    const char* origName = sel_getName(_cmd);
-    
+	const char* origName = sel_getName(_cmd);
+	
 	size_t selLen=strlen(origName);
 	char *sel=__builtin_alloca(selLen+1);
 	strcpy(sel, origName);
 	sel[selLen-1]='\0';
 	sel+=strlen("remove");
 	sel[strlen(sel)-strlen(":")+1]='\0';
-    
+	
 	sel[0]=tolower(sel[0]);
 	NSString *key=[[NSString allocWithZone:NULL] initWithCString:sel];
-    
-    [self willChangeValueForKey:key withSetMutation:NSKeyValueMinusSetMutation usingObjects:objects];
+	
+	[self willChangeValueForKey:key withSetMutation:NSKeyValueMinusSetMutation usingObjects:objects];
 	typedef id (*sender)(id obj, SEL selector, NSSet* objects);
 	sender implementation=(sender)[[self superclass] instanceMethodForSelector:_cmd];
 	(void)*implementation(self, _cmd, objects);
-    [self didChangeValueForKey:key withSetMutation:NSKeyValueMinusSetMutation usingObjects:objects];
+	[self didChangeValueForKey:key withSetMutation:NSKeyValueMinusSetMutation usingObjects:objects];
 	[key release];
 }
 
@@ -824,7 +824,7 @@ CHANGE_DECLARATION(SEL)
 	sel[selLen-1]='\0';
 	sel+=strlen("remove");
 	sel[strlen(sel)-strlen("AtIndexes:")+1]='\0';
-    
+	
 	sel[0]=tolower(sel[0]);
 	NSString *key=[[NSString allocWithZone:NULL] initWithCString:sel];
 	[self willChange:NSKeyValueChangeRemoval valuesAtIndexes:indexes forKey:key];
@@ -873,8 +873,8 @@ CHANGE_DECLARATION(SEL)
    NSKVOInfoPerObject *observationInfo=[self observationInfo];
 
    if(!observationInfo) {
-    observationInfo=[[NSKVOInfoPerObject allocWithZone:NULL] init];
-    [self setObservationInfo:observationInfo];
+	observationInfo=[[NSKVOInfoPerObject allocWithZone:NULL] init];
+	[self setObservationInfo:observationInfo];
    }
 
 	NSMutableDictionary *keyPathsByKey=[[NSMutableDictionary alloc] init];
@@ -897,9 +897,9 @@ CHANGE_DECLARATION(SEL)
 		class=[class superclass];
 	}
 	[observationInfo setObject:keyPathsByKey forKey:_KVO_KeyPathsForValuesAffectingValueForKey];
-    [keyPathsByKey release];
+	[keyPathsByKey release];
 
-    return keyPathsByKey;
+	return keyPathsByKey;
 }
 
 
@@ -909,72 +909,72 @@ CHANGE_DECLARATION(SEL)
 	NSString* className=[self className];
 	if([className hasPrefix:@"KVONotifying_"])
 		return; // this class is already swizzled
-    pthread_mutex_lock(&kvoLock);
+	pthread_mutex_lock(&kvoLock);
 	isa=[self _KVO_swizzledClass];
-    pthread_mutex_unlock(&kvoLock);
+	pthread_mutex_unlock(&kvoLock);
 }
 
 static BOOL methodIsAutoNotifyingSetter(Class class,const char *methodCString){
    size_t cStringLength=strlen(methodCString),keyCStringLength=0;
    char   keyCString[cStringLength+1];
    enum {
-    STATE_START,
-    STATE_UNDERSCORE,
-    STATE_S,
-    STATE_E,
-    STATE_T,
-    STATE_UNTILCOLON,
+	STATE_START,
+	STATE_UNDERSCORE,
+	STATE_S,
+	STATE_E,
+	STATE_T,
+	STATE_UNTILCOLON,
    } state=STATE_START;
 
    for(;*methodCString!='\0';methodCString++){
 
-    switch(state){
+	switch(state){
 
-     case STATE_START:
-      if(*methodCString=='s')
-       state=STATE_S;
-      else if(*methodCString=='_')
-       state=STATE_UNDERSCORE;
-      else
-       return NO;
-      break;
+	 case STATE_START:
+	  if(*methodCString=='s')
+	   state=STATE_S;
+	  else if(*methodCString=='_')
+	   state=STATE_UNDERSCORE;
+	  else
+	   return NO;
+	  break;
 
-     case STATE_UNDERSCORE:
-      if(*methodCString=='s')
-       state=STATE_S;
-      else
-       return NO;
-      break;
+	 case STATE_UNDERSCORE:
+	  if(*methodCString=='s')
+	   state=STATE_S;
+	  else
+	   return NO;
+	  break;
 
-     case STATE_S:
-      if(*methodCString=='e')
-       state=STATE_E;
-      else
-       return NO;
-      break;
+	 case STATE_S:
+	  if(*methodCString=='e')
+	   state=STATE_E;
+	  else
+	   return NO;
+	  break;
 
-     case STATE_E:
-      if(*methodCString=='t')
-       state=STATE_T;
-      else
-       return NO;
-      break;
+	 case STATE_E:
+	  if(*methodCString=='t')
+	   state=STATE_T;
+	  else
+	   return NO;
+	  break;
 
-     case STATE_T:
-      if(*methodCString==':')
-       return NO;
-      keyCString[keyCStringLength++]=tolower(*methodCString);
-      state=STATE_UNTILCOLON;
-      break;
+	 case STATE_T:
+	  if(*methodCString==':')
+	   return NO;
+	  keyCString[keyCStringLength++]=tolower(*methodCString);
+	  state=STATE_UNTILCOLON;
+	  break;
 
-     case STATE_UNTILCOLON:
-      if(*methodCString!=':')
-       keyCString[keyCStringLength++]=*methodCString;
-      break;
-    }
+	 case STATE_UNTILCOLON:
+	  if(*methodCString!=':')
+	   keyCString[keyCStringLength++]=*methodCString;
+	  break;
+	}
    }
    if(keyCStringLength==0)
-    return NO;
+	return NO;
 
    NSString *keyName=[[NSString alloc] initWithCString:keyCString length:keyCStringLength];
 
@@ -987,146 +987,146 @@ static BOOL methodIsAutoNotifyingSetter(Class class,const char *methodCString){
 
 - (Class)_KVO_swizzledClass
 {
-    // find swizzled class
-    const char *swizzledName = [[NSString stringWithFormat:@"KVONotifying_%@", [self className]] cString];
-    Class swizzledClass = objc_lookUpClass(swizzledName);
+	// find swizzled class
+	const char *swizzledName = [[NSString stringWithFormat:@"KVONotifying_%@", [self className]] cString];
+	Class swizzledClass = objc_lookUpClass(swizzledName);
 
-    if (swizzledClass) {
-        return swizzledClass;
-    }
+	if (swizzledClass) {
+		return swizzledClass;
+	}
 
-    // swizzled class doesn't exist; create
-    swizzledClass = objc_allocateClassPair(isa, swizzledName, 0);
-    if(!swizzledClass) {
-        [NSException raise:@"NSClassCreationException" format:@"couldn't swizzle class %@ for KVO", [self className]];
-    }
+	// swizzled class doesn't exist; create
+	swizzledClass = objc_allocateClassPair(isa, swizzledName, 0);
+	if(!swizzledClass) {
+		[NSException raise:@"NSClassCreationException" format:@"couldn't swizzle class %@ for KVO", [self className]];
+	}
 
-    // add KVO-Observing methods
-    // override className so it returns the original class name
-    Method className = class_getInstanceMethod([self class], @selector(_KVO_className));
-    Method class = class_getInstanceMethod([self class], @selector(_KVO_class));
-    Method classForCoder = class_getInstanceMethod([self class], @selector(_KVO_classForCoder));
-    IMP classNameImp = method_getImplementation(className);
-    IMP classImp = method_getImplementation(class);
-    IMP classForCoderImp = method_getImplementation(classForCoder);
-    const char *classNameTypes = method_getTypeEncoding(className);
-    const char *classTypes = method_getTypeEncoding(class);
-    const char *classForCoderTypes = method_getTypeEncoding(classForCoder);
+	// add KVO-Observing methods
+	// override className so it returns the original class name
+	Method className = class_getInstanceMethod([self class], @selector(_KVO_className));
+	Method class = class_getInstanceMethod([self class], @selector(_KVO_class));
+	Method classForCoder = class_getInstanceMethod([self class], @selector(_KVO_classForCoder));
+	IMP classNameImp = method_getImplementation(className);
+	IMP classImp = method_getImplementation(class);
+	IMP classForCoderImp = method_getImplementation(classForCoder);
+	const char *classNameTypes = method_getTypeEncoding(className);
+	const char *classTypes = method_getTypeEncoding(class);
+	const char *classForCoderTypes = method_getTypeEncoding(classForCoder);
 
-    class_addMethod(swizzledClass, @selector(className), classNameImp, classNameTypes);
-    class_addMethod(swizzledClass, @selector(class), classImp, classTypes);
-    class_addMethod(swizzledClass, @selector(classForCoder), classForCoderImp, classForCoderTypes);
+	class_addMethod(swizzledClass, @selector(className), classNameImp, classNameTypes);
+	class_addMethod(swizzledClass, @selector(class), classImp, classTypes);
+	class_addMethod(swizzledClass, @selector(classForCoder), classForCoderImp, classForCoderTypes);
 
-    Class currentClass = isa;
+	Class currentClass = isa;
 
-    for (; currentClass && class_getSuperclass(currentClass) != currentClass; currentClass = class_getSuperclass(currentClass)) {
-        unsigned int count;
-        Method *methods = class_copyMethodList(currentClass, &count);
-        NSAutoreleasePool *pool = [NSAutoreleasePool new];
-        for (int i = 0; i < count; ++i) {
-            Method method = methods[i];
-            SEL sel = method_getName(method);
-            const char *methodCString = sel_getName(sel);
-            NSUInteger numberOfArguments = method_getNumberOfArguments(method);
-            SEL kvoSelector = 0;
+	for (; currentClass && class_getSuperclass(currentClass) != currentClass; currentClass = class_getSuperclass(currentClass)) {
+		unsigned int count;
+		Method *methods = class_copyMethodList(currentClass, &count);
+		NSAutoreleasePool *pool = [NSAutoreleasePool new];
+		for (int i = 0; i < count; ++i) {
+			Method method = methods[i];
+			SEL sel = method_getName(method);
+			const char *methodCString = sel_getName(sel);
+			NSUInteger numberOfArguments = method_getNumberOfArguments(method);
+			SEL kvoSelector = 0;
 
-            // current method is a setter?
-            if (numberOfArguments == 3 && methodIsAutoNotifyingSetter([self class], methodCString)) {
-                NSMethodSignature *signature = [self methodSignatureForSelector:sel];
-                const char *firstParameterType = [signature getArgumentTypeAtIndex:2];
-                const char *returnType = [signature methodReturnType];
+			// current method is a setter?
+			if (numberOfArguments == 3 && methodIsAutoNotifyingSetter([self class], methodCString)) {
+				NSMethodSignature *signature = [self methodSignatureForSelector:sel];
+				const char *firstParameterType = [signature getArgumentTypeAtIndex:2];
+				const char *returnType = [signature methodReturnType];
 
-                char *cleanFirstParameterType = __builtin_alloca(strlen(firstParameterType) + 1);
-                [self _demangleTypeEncoding:firstParameterType to:cleanFirstParameterType];
+				char *cleanFirstParameterType = __builtin_alloca(strlen(firstParameterType) + 1);
+				[self _demangleTypeEncoding:firstParameterType to:cleanFirstParameterType];
 
-                /* check for correct type: either perfect match
-                or primitive signed type matching unsigned type
-                (i.e. tolower(@encode(unsigned long)[0])==@encode(long)[0])
-                */
-                #define CHECK_AND_ASSIGN(a) \
-                        if (!strcmp(cleanFirstParameterType, @encode(a)) || \
-                                (strlen(@encode(a)) == 1 && \
-                                strlen(cleanFirstParameterType) == 1 && \
-                                tolower(cleanFirstParameterType[0]) == @encode(a)[0])) { \
-                            kvoSelector = @selector(CHANGE_SELECTOR(a)); \
-                        }
-                // FIX: add more types
-                CHECK_AND_ASSIGN(id);
-                CHECK_AND_ASSIGN(float);
-                CHECK_AND_ASSIGN(double);
-                CHECK_AND_ASSIGN(int);
-                CHECK_AND_ASSIGN(NSSize);
-                CHECK_AND_ASSIGN(NSPoint);
-                CHECK_AND_ASSIGN(NSRect);
-                CHECK_AND_ASSIGN(NSRange);
-                CHECK_AND_ASSIGN(char);
-                CHECK_AND_ASSIGN(long);
-                CHECK_AND_ASSIGN(SEL);
-                #undef CHECK_AND_ASSIGN
+				/* check for correct type: either perfect match
+				or primitive signed type matching unsigned type
+				(i.e. tolower(@encode(unsigned long)[0])==@encode(long)[0])
+				*/
+				#define CHECK_AND_ASSIGN(a) \
+						if (!strcmp(cleanFirstParameterType, @encode(a)) || \
+								(strlen(@encode(a)) == 1 && \
+								strlen(cleanFirstParameterType) == 1 && \
+								tolower(cleanFirstParameterType[0]) == @encode(a)[0])) { \
+							kvoSelector = @selector(CHANGE_SELECTOR(a)); \
+						}
+				// FIX: add more types
+				CHECK_AND_ASSIGN(id);
+				CHECK_AND_ASSIGN(float);
+				CHECK_AND_ASSIGN(double);
+				CHECK_AND_ASSIGN(int);
+				CHECK_AND_ASSIGN(NSSize);
+				CHECK_AND_ASSIGN(NSPoint);
+				CHECK_AND_ASSIGN(NSRect);
+				CHECK_AND_ASSIGN(NSRange);
+				CHECK_AND_ASSIGN(char);
+				CHECK_AND_ASSIGN(long);
+				CHECK_AND_ASSIGN(SEL);
+				#undef CHECK_AND_ASSIGN
 
-                if (kvoSelector == 0 && NSDebugEnabled) {
-                    NSLog(@"NSDebugEnabled type %s not defined in %s:%i (selector %s on class %@)", cleanFirstParameterType, __FILE__, __LINE__, methodCString, [self className]);
-                }
-                if (returnType[0] != _C_VOID) {
-                    kvoSelector = 0;
-                }
-            }
+				if (kvoSelector == 0 && NSDebugEnabled) {
+					NSLog(@"NSDebugEnabled type %s not defined in %s:%i (selector %s on class %@)", cleanFirstParameterType, __FILE__, __LINE__, methodCString, [self className]);
+				}
+				if (returnType[0] != _C_VOID) {
+					kvoSelector = 0;
+				}
+			}
 
-            // long selectors
-            if (kvoSelector == 0) {
-                NSString *methodName = NSStringFromSelector(sel);
-                if (numberOfArguments == 4 && [methodName _KVC_isSetterForSelectorNameStartingWith:@"insertObject:in" endingWith:@"AtIndex:"]) {
-                    kvoSelector = @selector(KVO_notifying_change_insertObject:inKeyAtIndex:);
-                } else if (numberOfArguments == 3 && [methodName _KVC_isSetterForSelectorNameStartingWith:@"removeObjectFrom" endingWith:@"AtIndex:"]) {
-                    kvoSelector = @selector(KVO_notifying_change_removeObjectFromKeyAtIndex:);
-                } else if (numberOfArguments == 4 && [methodName _KVC_isSetterForSelectorNameStartingWith:@"replaceObjectIn" endingWith:@"AtIndex:withObject:"]) {
-                    kvoSelector = @selector(KVO_notifying_change_replaceObjectInKeyAtIndex:withObject:);
-                } else if (numberOfArguments == 4 && [methodName _KVC_isSetterForSelectorNameStartingWith:@"insert" endingWith:@":atIndexes:"]) {
-                    kvoSelector = @selector(KVO_notifying_change_insertKey:atIndexes:);
-                } else if (numberOfArguments == 3 && [methodName _KVC_isSetterForSelectorNameStartingWith:@"remove" endingWith:@"AtIndexes:"]) {
-                    kvoSelector = @selector(KVO_notifying_change_removeKeyAtIndexes:);
-                } else if (numberOfArguments == 3 && [methodName _KVC_isSetterForSelectorNameStartingWith:@"remove" endingWith:@"Object:"]) {
-                    kvoSelector = @selector(KVO_notifying_change_removeKeyObject:);
-                } else if (numberOfArguments == 3 && [methodName _KVC_isSetterForSelectorNameStartingWith:@"add" endingWith:@"Object:"]) {
-                    kvoSelector = @selector(KVO_notifying_change_addKeyObject:);
-                } else if (numberOfArguments == 3 && [methodName _KVC_isSetterForSelectorNameStartingWith:@"remove" endingWith:@":"]) {
-                    kvoSelector = @selector(KVO_notifying_change_removeKey:);
-                } else if (numberOfArguments == 3 && [methodName _KVC_isSetterForSelectorNameStartingWith:@"add" endingWith:@":"]) {
-                    kvoSelector = @selector(KVO_notifying_change_addKey:);
-                }
-            }
+			// long selectors
+			if (kvoSelector == 0) {
+				NSString *methodName = NSStringFromSelector(sel);
+				if (numberOfArguments == 4 && [methodName _KVC_isSetterForSelectorNameStartingWith:@"insertObject:in" endingWith:@"AtIndex:"]) {
+					kvoSelector = @selector(KVO_notifying_change_insertObject:inKeyAtIndex:);
+				} else if (numberOfArguments == 3 && [methodName _KVC_isSetterForSelectorNameStartingWith:@"removeObjectFrom" endingWith:@"AtIndex:"]) {
+					kvoSelector = @selector(KVO_notifying_change_removeObjectFromKeyAtIndex:);
+				} else if (numberOfArguments == 4 && [methodName _KVC_isSetterForSelectorNameStartingWith:@"replaceObjectIn" endingWith:@"AtIndex:withObject:"]) {
+					kvoSelector = @selector(KVO_notifying_change_replaceObjectInKeyAtIndex:withObject:);
+				} else if (numberOfArguments == 4 && [methodName _KVC_isSetterForSelectorNameStartingWith:@"insert" endingWith:@":atIndexes:"]) {
+					kvoSelector = @selector(KVO_notifying_change_insertKey:atIndexes:);
+				} else if (numberOfArguments == 3 && [methodName _KVC_isSetterForSelectorNameStartingWith:@"remove" endingWith:@"AtIndexes:"]) {
+					kvoSelector = @selector(KVO_notifying_change_removeKeyAtIndexes:);
+				} else if (numberOfArguments == 3 && [methodName _KVC_isSetterForSelectorNameStartingWith:@"remove" endingWith:@"Object:"]) {
+					kvoSelector = @selector(KVO_notifying_change_removeKeyObject:);
+				} else if (numberOfArguments == 3 && [methodName _KVC_isSetterForSelectorNameStartingWith:@"add" endingWith:@"Object:"]) {
+					kvoSelector = @selector(KVO_notifying_change_addKeyObject:);
+				} else if (numberOfArguments == 3 && [methodName _KVC_isSetterForSelectorNameStartingWith:@"remove" endingWith:@":"]) {
+					kvoSelector = @selector(KVO_notifying_change_removeKey:);
+				} else if (numberOfArguments == 3 && [methodName _KVC_isSetterForSelectorNameStartingWith:@"add" endingWith:@":"]) {
+					kvoSelector = @selector(KVO_notifying_change_addKey:);
+				}
+			}
 
-            // these are swizzled so e.g. subclasses of NSMutableDictionary get change notifications in setObject:forKey:
-            if (strcmp(methodCString,"setObject:forKey:") == 0) {
-                kvoSelector = @selector(KVO_notifying_change_setObject:forKey:);
-            } else if (strcmp(methodCString,"removeObjectForKey:") == 0) {
-                kvoSelector = @selector(KVO_notifying_change_removeObjectForKey:);
-            }
+			// these are swizzled so e.g. subclasses of NSMutableDictionary get change notifications in setObject:forKey:
+			if (strcmp(methodCString,"setObject:forKey:") == 0) {
+				kvoSelector = @selector(KVO_notifying_change_setObject:forKey:);
+			} else if (strcmp(methodCString,"removeObjectForKey:") == 0) {
+				kvoSelector = @selector(KVO_notifying_change_removeObjectForKey:);
+			}
 
-            // there's a suitable selector for us
-            if (kvoSelector != 0) {
-                const char *types = method_getTypeEncoding(method);
+			// there's a suitable selector for us
+			if (kvoSelector != 0) {
+				const char *types = method_getTypeEncoding(method);
 
-                class_addMethod(swizzledClass, sel, [self methodForSelector:kvoSelector], types);
-                //NSLog(@"replaced method %s by %@ in class %@", methodNameCString, NSStringFromSelector(newMethod->method_name), [self className]);
-            }
-        }
-        [pool release];
-        if (methods != NULL) {
-            free(methods);
-        }
-    }
+				class_addMethod(swizzledClass, sel, [self methodForSelector:kvoSelector], types);
+				//NSLog(@"replaced method %s by %@ in class %@", methodNameCString, NSStringFromSelector(newMethod->method_name), [self className]);
+			}
+		}
+		[pool release];
+		if (methods != NULL) {
+			free(methods);
+		}
+	}
 
-    objc_registerClassPair(swizzledClass);
+	objc_registerClassPair(swizzledClass);
 
-    // done
-    return swizzledClass;
+	// done
+	return swizzledClass;
 }
 
 
 + (BOOL)automaticallyNotifiesObserversForKey:(NSString *)key; {
    if([key isEqualToString:@"observationInfo"]) {
-    return NO;
+	return NO;
    }
 
    return YES;

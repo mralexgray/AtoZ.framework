@@ -28,19 +28,19 @@
 + (NSS*) newUniqueIdentifier;
 + (NSS*) randomAppPath;
 
-+ (NSS*) randomWords:     (NSI)number;
++ (NSS*) randomWords:	 (NSI)number;
 + (NSS*) randomSentences: (NSI)number;
 - (NSSZ) sizeWithFont: (NSFont*)font;
 - (NSSZ) sizeWithFont: (NSFont*)font  margin: (NSSZ)size;
 
-- (CGF)  widthWithFont:    (NSF*)font;
+- (CGF)  widthWithFont:	(NSF*)font;
 - (NSR)  frameWithFont:	 (NSF*)font;
 
 
 //@property (RONLY) NSC *colorValue;
 - (void) drawInRect: (NSR)r  withFontNamed: (NSS*)fontName andColor: (NSC*)color;
 // new way
-- (void) drawInRect: (NSR)r  withFont: (NSFont*)font       andColor: (NSC*)color;
+- (void) drawInRect: (NSR)r  withFont: (NSFont*)font	   andColor: (NSC*)color;
 
 - (void) drawCenteredInRect: (NSR)rect withFontNamed: (NSS*) font;
 
@@ -139,7 +139,7 @@
 @property (RONLY) NSS	*lcfirst;
 
 + (id)	   stringWithData: (NSData*) data  encoding: (NSStringEncoding)encoding;
-+ (NSS*)   stringWithCGF: (CGF)f         maxDigits: (NSUI)numDigits;
+//+ (NSS*)   stringWithCGF: (CGF)f		 maxDigits: (NSUI)numDigits;
 - (NSAS*)  attributedWithSize: (NSUI)size andColor: (NSC*)color;
 - (NSMAS*) attributedParagraphWithSpacing: (float)spacing;
 - (NSS*)   truncatedForRect: (NSR)frame withFont: (NSFont*)font;
@@ -162,7 +162,9 @@ NSS*   StringByTruncatingStringWithAttributesForWidth( NSS* s, NSD* attrs, float
 - (NSMS*) underscorize;
 - (NSMS*) replaceAll: (NSS*) needle  withString: (NSS*) replacement;
 
+
 @end
+
 @interface NSString (RuntimeReporting)
 
 - (BOOL) hasSubclasses;
@@ -299,6 +301,8 @@ extern int gNSStringGeometricsTypesetterBehavior ;
 
 @interface NSAttributedString (Geometrics)
 
+- (void)drawCenteredVerticallyInRect:(NSRect)rect;
+
 // Measuring Attributed Strings
 - (NSSize)sizeForWidth: (float)width
 				height: (float)height ;
@@ -360,14 +364,14 @@ extern int gNSStringGeometricsTypesetterBehavior ;
 
 @interface NSString (Extensions)
 
-- (BOOL)  hasCaseInsensitivePrefix:    	(NSS*)prefix;
+- (BOOL)  hasCaseInsensitivePrefix:		(NSS*)prefix;
 - (NSS*)  urlEscapedString;  			// Uses UTF-8 encoding and also escapes characters that can confuse the parameter string part of the URL
 - (NSS*)  unescapeURLString;  			// Uses UTF-8 encoding
 - (NSS*)  extractFirstSentence;
 - (NSA*)  extractAllSentences;
 - (NSIS*) extractSentenceIndices;
 - (NSS*)  stripParenthesis;  			// Remove all parenthesis and their content
-- (BOOL)  containsString: 		       	(NSS*)string;
+- (BOOL)  containsString: 			   	(NSS*)string;
 - (NSA*)  extractAllWords;
 - (NSRNG) rangeOfWordAtLocation:   	   	(NSUI)location;
 - (NSRNG) rangeOfNextWordFromLocation: 	(NSUI)location;

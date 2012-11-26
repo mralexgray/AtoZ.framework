@@ -3,13 +3,13 @@
 @class NSKeyPathObserver,NSArray;
 
 @interface NSKeyObserver : NSObject {
-   id                 _object;
-   NSString          *_key;
+   id				 _object;
+   NSString		  *_key;
    NSKeyPathObserver *_keyPathObserver;
-   NSString          *_branchPath;
-   NSKeyObserver     *_branchObserver;
-   NSArray           *_dependantKeyObservers;
-   BOOL               _isValid;
+   NSString		  *_branchPath;
+   NSKeyObserver	 *_branchObserver;
+   NSArray		   *_dependantKeyObservers;
+   BOOL			   _isValid;
 }
 
 -initWithObject:object key:(NSString *)key keyPathObserver:(NSKeyPathObserver *)keyPathObserver restOfPath:(NSString *)restOfPath;

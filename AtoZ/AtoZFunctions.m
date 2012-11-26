@@ -13,6 +13,24 @@
 #import <CoreFoundation/CoreFoundation.h>
 
 
+@implementation NSDate (AtoZ)
++ (NSS*)dayOfWeek
+{
+	return [[NSDate date] descriptionWithCalendarFormat:@"%A" timeZone:nil locale:[AZUSERDEFS dictionaryRepresentation]];
+}
+@end
+
+@implementation NSObject (KVONotifyBlock)
+- (void)setValueForKey:(NSString*)key andNotifyInBlock:(updateKVCKeyBlock)block;
+{
+	[self willChangeValueForKey:key];
+	block();
+	[self didChangeValueForKey:key];
+}
+@end
+
+
+
 //static inline BOOL isEmpty(id thing);
 //	return	thing == nil
 //	|| ([thing respondsToSelector:@selector(length)] && [(NSData *)thing length] == 0)
@@ -21,10 +39,10 @@
 //}
 
 AZRange AZMakeRange 	  ( NSI min,  NSI max  	   ) { return (AZRange) {min, max }; 				   }
-NSUI    AZIndexInRange 	  (	NSI fake, AZRange rng  ) { return fake - rng.min;           			   }
+NSUI	AZIndexInRange 	  (	NSI fake, AZRange rng  ) { return fake - rng.min;		   			   }
 NSI   	AZNextSpotInRange (	NSI spot, AZRange rng  ) { return spot + 1 > rng.max ? rng.min : spot + 1; }
 NSI   	AZPrevSpotInRange (	NSI spot, AZRange rng  ) { return spot - 1 < rng.min ? rng.max : spot - 1; }
-NSUI    AZSizeOfRange 	  ( AZRange rng            ) { return rng.max - rng.min;					   }
+NSUI	AZSizeOfRange 	  ( AZRange rng			) { return rng.max - rng.min;					   }
 
 
 
@@ -93,7 +111,7 @@ OSStatus HotKeyHandler(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 {
 	NSLog(@"HotKeyHandler theEvent:%@ ", theEvent );
 	[AtoZ playRandomSound];
-    return noErr;
+	return noErr;
 }
 
 
@@ -107,14 +125,14 @@ CIFilter* CIFilterDefaultNamed(NSString* name){
 BOOL isEmpty(id thing) {			return thing == nil
 	?: [thing isKindOfClass:[NSNull class]]
 	?: [thing respondsToString:@"length"] && ![(NSData*)thing length]
-	?: [thing respondsToString:@"count" ] && ![(NSA*)thing     count]
+	?: [thing respondsToString:@"count" ] && ![(NSA*)thing	 count]
 	?: NO;
 }
 
 BOOL areSame(id a, id b) {	return a == b
 		?: [a isKindOfClass:[NSS class]] && [b isKindOfClass:[NSS class]] && [a isEqualToString:b]
 //		?: [thing respondsToString:@"length"] && ![(NSData*)thing length]
-//		?: [thing respondsToString:@"count" ] && ![(NSA*)thing     count]
+//		?: [thing respondsToString:@"count" ] && ![(NSA*)thing	 count]
 		?: NO;
 }
 
@@ -127,7 +145,7 @@ BOOL SameString(const char *a, const char *b) {
 
 NSString * AZToStringFromTypeAndValue(const char * typeCode, void * value)
 {
-    return 	SameString( typeCode, @encode(   NSP)) ?  NSStringFromPoint( *( NSPoint			 *)value)
+	return 	SameString( typeCode, @encode(   NSP)) ?  NSStringFromPoint( *( NSPoint			 *)value)
 	:		SameString( typeCode, @encode( NSRNG)) ?  NSStringFromRange( *( NSRNG		 	 *)value)
 	:		SameString( typeCode, @encode(  NSSZ)) ?  NSStringFromSize ( *( NSSize		 	 *)value)
 	:		SameString( typeCode, @encode(   NSR)) ?  AZStringFromRect ( *( NSRect 			 *)value)
@@ -142,7 +160,7 @@ NSString* bitString(NSUInteger mask){	NSString *str = @""; // Prepend "0" or "1"
 }
 
 int (^triple)(int) = ^(int number) {
-    return number * 3;
+	return number * 3;
 };
 
 id LogStackAndReturn(id toLog) {
@@ -194,8 +212,8 @@ void NSRectFillWithColor (NSRect rect, NSColor* color){
 
 NSPoint getCenter(NSView *view)
 {
-    return NSMakePoint(floorf(view.bounds.origin.x + (view.bounds.size.width / 2)),
-                       floorf(view.bounds.origin.y + (view.bounds.size.height / 2)));
+	return NSMakePoint(floorf(view.bounds.origin.x + (view.bounds.size.width / 2)),
+					   floorf(view.bounds.origin.y + (view.bounds.size.height / 2)));
 }
 
 //void _AZSimpleLog(const char *file, int lineNumber, const char *funcName, NSString *format,...){
@@ -214,40 +232,40 @@ NSPoint getCenter(NSView *view)
 
 //void drawLines(BOOL horizontal, CGFloat from, CGFloat to, CGFloat step, NSRect bounds) {
 //{
-//    for (CGFloat i = from; i <= to; i += step) {
-//        NSRect rect;
-//        if (horizontal) rect = NSMakeRect (bounds.origin.x - x + i, bounds.origin.y + bounds.size.height - 1 + y - HEIGHT, 1, HEIGHT + 1);
-//         else rect = NSMakeRect(bounds.origin.x - x, bounds.origin.y + bounds.size.height - 1 + y - i, WIDTH + 1, 1);
+//	for (CGFloat i = from; i <= to; i += step) {
+//		NSRect rect;
+//		if (horizontal) rect = NSMakeRect (bounds.origin.x - x + i, bounds.origin.y + bounds.size.height - 1 + y - HEIGHT, 1, HEIGHT + 1);
+//		 else rect = NSMakeRect(bounds.origin.x - x, bounds.origin.y + bounds.size.height - 1 + y - i, WIDTH + 1, 1);
 //
 //		NSString *string = [NSString stringWithFormat:@"%i",(int) (i/STEP)];
-//			//    	NSRect bounds = self.bounds;
-//    	[string drawAtPoint:AGCenterOfRect(bounds) withAttributes:nil];
+//			//		NSRect bounds = self.bounds;
+//		[string drawAtPoint:AGCenterOfRect(bounds) withAttributes:nil];
 //		 // NSMakePoint(10, bounds.origin.y + bounds.size.height - 20)
 //		[NSBezierPath setDefaultLineWidth:5];
 //		[NSBezierPath set
 //		[RANDOMCOLOR set];
 //		[NSBezierPath strokeRect:rect];
 //		[NSBezierPath fillRect:rect];
-//    }
+//	}
 //}
 
 extern CGFloat randomComponent(void) {
-    return (CGFloat)(random() / (CGFloat)INT_MAX);
+	return (CGFloat)(random() / (CGFloat)INT_MAX);
 }
 
 NSString* prettyFloat(CGFloat f) {
-    if (f == 0) { return @"0"; } else if (f == 1) { return @"1";
-    } else { return [NSString stringWithFormat:@"%.1f", f]; }
+	if (f == 0) { return @"0"; } else if (f == 1) { return @"1";
+	} else { return [NSString stringWithFormat:@"%.1f", f]; }
 }
 NSString* kindaPrettyFloat(CGFloat f) {
-    if (f == 0) { return @"0"; } else if (f == 1) { return @"1";
-    } else { return [NSString stringWithFormat:@"%.3f", f]; }
+	if (f == 0) { return @"0"; } else if (f == 1) { return @"1";
+	} else { return [NSString stringWithFormat:@"%.3f", f]; }
 }
 
 NSString* StringFromCATransform3D(CATransform3D transform) {
 		// format: [1 0 0 0; 0 1 0 0; 0 0 1 0; 0 0 0 1]
 
-    return CATransform3DIsIdentity(transform)
+	return CATransform3DIsIdentity(transform)
 	? @"CATransform3DIdentity"
 	: [NSString stringWithFormat:@"[\n%@\t%@\t%@\t%@;\n%@\t%@\t%@\t%@;\n%@\t%@\t%@\t%@;\n%@\t%@\t%@\t%@]",
 	   kindaPrettyFloat(transform.m11),
@@ -314,28 +332,28 @@ extern void ApplicationsInDirectory(NSString *searchPath, NSMutableArray *applic
 	__block BOOL isDir;
 	[[AZFILEMANAGER contentsOfDirectoryAtPath:searchPath error:nil]az_each:^(id obj, NSUInteger index, BOOL *stop) {
 		[AZFILEMANAGER changeCurrentDirectoryPath:searchPath];
-        if ([AZFILEMANAGER fileExistsAtPath:obj isDirectory:&isDir] && isDir) {
-            NSString *fullpath = [searchPath stringByAppendingPathComponent:obj];
-            if ([[obj pathExtension] isEqualToString:@"app"])
+		if ([AZFILEMANAGER fileExistsAtPath:obj isDirectory:&isDir] && isDir) {
+			NSString *fullpath = [searchPath stringByAppendingPathComponent:obj];
+			if ([[obj pathExtension] isEqualToString:@"app"])
 					[applications addObject:fullpath];
-            else ApplicationsInDirectory(fullpath, applications);
-        }
-    }];
+			else ApplicationsInDirectory(fullpath, applications);
+		}
+	}];
 }
 
 //	BOOL isDir;
-//    NSFileManager *manager = [NSFileManager defaultManager];
-//    NSArray *files = [manager contentsOfDirectoryAtPath:searchPath error:nil];
+//	NSFileManager *manager = [NSFileManager defaultManager];
+//	NSArray *files = [manager contentsOfDirectoryAtPath:searchPath error:nil];
 //
-//    NSEnumerator *fileEnum = [files objectEnumerator]; NSString *file;
-//    while (file = [fileEnum nextObject]) {
-//        [manager changeCurrentDirectoryPath:searchPath];
-//        if ([manager fileExistsAtPath:file isDirectory:&isDir] && isDir) {
-//            NSString *fullpath = [searchPath stringByAppendingPathComponent:file];
-//            if ([[file pathExtension] isEqualToString:@"app"]) [applications addObject:fullpath];
-//            else ApplicationsInDirectory(fullpath, applications);
-//        }
-//    }
+//	NSEnumerator *fileEnum = [files objectEnumerator]; NSString *file;
+//	while (file = [fileEnum nextObject]) {
+//		[manager changeCurrentDirectoryPath:searchPath];
+//		if ([manager fileExistsAtPath:file isDirectory:&isDir] && isDir) {
+//			NSString *fullpath = [searchPath stringByAppendingPathComponent:file];
+//			if ([[file pathExtension] isEqualToString:@"app"]) [applications addObject:fullpath];
+//			else ApplicationsInDirectory(fullpath, applications);
+//		}
+//	}
 //}
 //void WithAutoreleasePool(BasicBlock block) {
 //	@autoreleasepool {
@@ -353,12 +371,12 @@ BOOL isPathAccessible(NSString *path, SandBox mode) {
 static CGEventRef myEventTapCallback (	CGEventTapProxy proxy,	CGEventType type,	CGEventRef event,	void * refcon ) {
 
 		// If we would get different kind of events, we can distinguish them by the variable "type", but we know we only get mouse moved events
-    CGPoint mouseLocation = CGEventGetLocation(event);
-    printf(	"Mouse is at x/y: %u/%u\n",(unsigned int)mouseLocation.x,  (unsigned int)mouseLocation.y );
+	CGPoint mouseLocation = CGEventGetLocation(event);
+	printf(	"Mouse is at x/y: %u/%u\n",(unsigned int)mouseLocation.x,  (unsigned int)mouseLocation.y );
 	[[ NSNotificationCenter defaultCenter] postNotificationName:@"mouseMoved" object:nil];
 
 		// Pass on the event, we must not modify it anyway, we are a listener
-    return event;
+	return event;
 }
 
 void trackMouse() {		CGEventMask emask;	CFMachPortRef myEvTap;	CFRunLoopSourceRef evTapRLSrc;
@@ -370,7 +388,7 @@ void trackMouse() {		CGEventMask emask;	CFMachPortRef myEvTap;	CFRunLoopSourceRe
 									emask,	&myEventTapCallback, NULL);  		// We need no extra data in the callback
 	evTapRLSrc = CFMachPortCreateRunLoopSource( kCFAllocatorDefault, myEvTap, 0 );	// Create a RunLoop Source for it
 	CFRunLoopAddSource(	CFRunLoopGetCurrent(), evTapRLSrc, kCFRunLoopDefaultMode );	// Add the source to the current RunLoop
-	CFRunLoopRun();																    // Keep the RunLoop running forever
+	CFRunLoopRun();																	// Keep the RunLoop running forever
 }
 
 
@@ -379,9 +397,9 @@ void trackMouse() {		CGEventMask emask;	CFMachPortRef myEvTap;	CFRunLoopSourceRe
 //based off http://www.dribin.org/dave/blog/archives/2008/09/22/convert_to_nsstring/
 //
 static BOOL TypeCodeIsCharArray(const char *typeCode){
-    size_t len = strlen(typeCode);
-    if(len <= 2)
-        return NO;
+	size_t len = strlen(typeCode);
+	if(len <= 2)
+		return NO;
 	size_t lastCharOffset = len - 1;
 	size_t secondToLastCharOffset = lastCharOffset - 1 ;
 
@@ -450,7 +468,7 @@ return [NSString stringWithFormat:(formatString), (*(typeToMatch*)value)]
 #if __has_feature(objc_arc)
 	IF_TYPE_MATCHES_INTERPRET_WITH_FORMAT(__unsafe_unretained id,@"%@");
 #else /* not __has_feature(objc_arc) */
-    IF_TYPE_MATCHES_INTERPRET_WITH_FORMAT(id,@"%@");
+	IF_TYPE_MATCHES_INTERPRET_WITH_FORMAT(id,@"%@");
 #endif
 	IF_TYPE_MATCHES_INTERPRET_WITH_FORMAT(short,@"%hi");
 	IF_TYPE_MATCHES_INTERPRET_WITH_FORMAT(unsigned short,@"%hu");
@@ -592,29 +610,29 @@ NSS* serialNumber(void) {
 //void _AZLog(const char *file, int lineNumber, const char *funcName, NSString *format,...);
 //
 //void QuietLog (const char *file, int lineNumber, const char *funcName, NSString *format, ...) {
-//    if (format == nil) {
-//        printf("nil\n");
-//        return;
-//    }
+//	if (format == nil) {
+//		printf("nil\n");
+//		return;
+//	}
 //		// Get a reference to the arguments that follow the format parameter
-//    va_list argList;
-//    va_start(argList, format);
+//	va_list argList;
+//	va_start(argList, format);
 //		// Perform format string argument substitution, reinstate %% escapes, then print
-//    NSString *s = [[[NSString alloc] initWithFormat:format arguments:argList]stringByReplacingAllOccurancesOfString:@"fff" withString:@"%.1f"];
+//	NSString *s = [[[NSString alloc] initWithFormat:format arguments:argList]stringByReplacingAllOccurancesOfString:@"fff" withString:@"%.1f"];
 //		//for float the format specifier is %f and we can restrict it to print only two decimal place value by %.2f
-//    printf("%s\n", [[s stringByReplacingOccurrencesOfString:@"%%" withString:@"%%%%"] UTF8String]);
-//    [s release];
-//    va_end(argList);
+//	printf("%s\n", [[s stringByReplacingOccurrencesOfString:@"%%" withString:@"%%%%"] UTF8String]);
+//	[s release];
+//	va_end(argList);
 //}
 
 //void QuietLog (NSString *format, ...) { if (format == nil) { printf("nil\n"); return; }
 //	// Get a reference to the arguments that follow the format parameter
-//    va_list argList;  va_start(argList, format);
+//	va_list argList;  va_start(argList, format);
 //	// Perform format string argument substitution, reinstate %% escapes, then print
-//    NSString *s = [[NSString alloc] initWithFormat:format arguments:argList];
-//    printf("%s\n", [[s stringByReplacingOccurrencesOfString:@"%%" withString:@"%%%%"] UTF8String]);
-//    [s release];
-//    va_end(argList);
+//	NSString *s = [[NSString alloc] initWithFormat:format arguments:argList];
+//	printf("%s\n", [[s stringByReplacingOccurrencesOfString:@"%%" withString:@"%%%%"] UTF8String]);
+//	[s release];
+//	va_end(argList);
 //}
 
 // NSLog() writes out entirely too much stuff.  Most of the time I'm  not interested in the program name, process ID, and current time down to the subsecond level.
@@ -648,87 +666,87 @@ static void HackNSLog(void){
 //	fprintf (stderr, "*** %s ***\n", [message UTF8String]); 	va_end  (argList);
 //} // QuietLog
 void perceptualCausticColorForColor(CGFloat *inputComponents, CGFloat *outputComponents) {
-    const CGFloat CAUSTIC_FRACTION = 0.60;
-    const CGFloat COSINE_ANGLE_SCALE = 1.4;
-    const CGFloat MIN_RED_THRESHOLD = 0.95;
-    const CGFloat MAX_BLUE_THRESHOLD = 0.7;
-    const CGFloat GRAYSCALE_CAUSTIC_SATURATION = 0.2;
+	const CGFloat CAUSTIC_FRACTION = 0.60;
+	const CGFloat COSINE_ANGLE_SCALE = 1.4;
+	const CGFloat MIN_RED_THRESHOLD = 0.95;
+	const CGFloat MAX_BLUE_THRESHOLD = 0.7;
+	const CGFloat GRAYSCALE_CAUSTIC_SATURATION = 0.2;
 
-    NSColor *source = [NSColor colorWithCalibratedRed:inputComponents[0] green:inputComponents[1] blue:inputComponents[2]	 alpha:inputComponents[3]];
+	NSColor *source = [NSColor colorWithCalibratedRed:inputComponents[0] green:inputComponents[1] blue:inputComponents[2]	 alpha:inputComponents[3]];
 
-    CGFloat hue_, saturation_, brightness_, alpha_, targetHue, targetSaturation, targetBrightness;
-    [source getHue:&hue_ saturation:&saturation_ brightness:&brightness_ alpha:&alpha_];
-    [[NSColor yellowColor] getHue:&targetHue saturation:&targetSaturation brightness:&targetBrightness alpha:&alpha_];
-    if (saturation_ < 1e-3) {        hue_ = targetHue;        saturation_ = GRAYSCALE_CAUSTIC_SATURATION;	}
-    if (hue_ > MIN_RED_THRESHOLD)        hue_ -= 1.0;
-    else if (hue_ > MAX_BLUE_THRESHOLD)
-        [[NSColor magentaColor] getHue:&targetHue saturation:&targetSaturation brightness:&targetBrightness alpha:&alpha_];
-    float scaledCaustic = CAUSTIC_FRACTION * 0.5 * (1.0 + cos(COSINE_ANGLE_SCALE * M_PI * (hue_ - targetHue)));
-    NSColor *targetColor =
+	CGFloat hue_, saturation_, brightness_, alpha_, targetHue, targetSaturation, targetBrightness;
+	[source getHue:&hue_ saturation:&saturation_ brightness:&brightness_ alpha:&alpha_];
+	[[NSColor yellowColor] getHue:&targetHue saturation:&targetSaturation brightness:&targetBrightness alpha:&alpha_];
+	if (saturation_ < 1e-3) {		hue_ = targetHue;		saturation_ = GRAYSCALE_CAUSTIC_SATURATION;	}
+	if (hue_ > MIN_RED_THRESHOLD)		hue_ -= 1.0;
+	else if (hue_ > MAX_BLUE_THRESHOLD)
+		[[NSColor magentaColor] getHue:&targetHue saturation:&targetSaturation brightness:&targetBrightness alpha:&alpha_];
+	float scaledCaustic = CAUSTIC_FRACTION * 0.5 * (1.0 + cos(COSINE_ANGLE_SCALE * M_PI * (hue_ - targetHue)));
+	NSColor *targetColor =
 	[NSColor	 colorWithCalibratedHue:hue_ * (1.0 - scaledCaustic) + targetHue * scaledCaustic saturation:saturation_
 						  brightness:brightness_ * (1.0 - scaledCaustic) + targetBrightness * scaledCaustic	 alpha:inputComponents[3]];
-    [targetColor getComponents:outputComponents];
+	[targetColor getComponents:outputComponents];
 }
 
 /*
 void glossInterpolation(void *info, const CGFloat *input, CGFloat *output) {
-    GlossParameters *params = (GlossParameters *)info;
-    CGFloat progress = *input;
-    if (progress < 0.5)	{
-        progress = progress * 2.0;
-        progress =
+	GlossParameters *params = (GlossParameters *)info;
+	CGFloat progress = *input;
+	if (progress < 0.5)	{
+		progress = progress * 2.0;
+		progress =
 		1.0 - params->expScale * (expf(progress * -params->expCoefficient) - params->expOffset);
-        CGFloat currentWhite = progress * (params->finalWhite - params->initialWhite) + params->initialWhite;
-        output[0] = params->color[0] * (1.0 - currentWhite) + currentWhite;
-        output[1] = params->color[1] * (1.0 - currentWhite) + currentWhite;
-        output[2] = params->color[2] * (1.0 - currentWhite) + currentWhite;
-        output[3] = params->color[3] * (1.0 - currentWhite) + currentWhite;
+		CGFloat currentWhite = progress * (params->finalWhite - params->initialWhite) + params->initialWhite;
+		output[0] = params->color[0] * (1.0 - currentWhite) + currentWhite;
+		output[1] = params->color[1] * (1.0 - currentWhite) + currentWhite;
+		output[2] = params->color[2] * (1.0 - currentWhite) + currentWhite;
+		output[3] = params->color[3] * (1.0 - currentWhite) + currentWhite;
 	} else {
-        progress = (progress - 0.5) * 2.0;
-        progress = params->expScale *
+		progress = (progress - 0.5) * 2.0;
+		progress = params->expScale *
 		(expf((1.0 - progress) * -params->expCoefficient) - params->expOffset);
-        output[0] = params->color[0] * (1.0 - progress) + params->caustic[0] * progress;
-        output[1] = params->color[1] * (1.0 - progress) + params->caustic[1] * progress;
-        output[2] = params->color[2] * (1.0 - progress) + params->caustic[2] * progress;
-        output[3] = params->color[3] * (1.0 - progress) + params->caustic[3] * progress;
+		output[0] = params->color[0] * (1.0 - progress) + params->caustic[0] * progress;
+		output[1] = params->color[1] * (1.0 - progress) + params->caustic[1] * progress;
+		output[2] = params->color[2] * (1.0 - progress) + params->caustic[2] * progress;
+		output[3] = params->color[3] * (1.0 - progress) + params->caustic[3] * progress;
 	}
 }
 
 CGFloat perceptualGlossFractionForColor(CGFloat *inputComponents)
 {
-    const CGFloat REFLECTION_SCALE_NUMBER = 0.2;
-    const CGFloat NTSC_RED_FRACTION = 0.299;
-    const CGFloat NTSC_GREEN_FRACTION = 0.587;
-    const CGFloat NTSC_BLUE_FRACTION = 0.114;
+	const CGFloat REFLECTION_SCALE_NUMBER = 0.2;
+	const CGFloat NTSC_RED_FRACTION = 0.299;
+	const CGFloat NTSC_GREEN_FRACTION = 0.587;
+	const CGFloat NTSC_BLUE_FRACTION = 0.114;
 
-    CGFloat glossScale =
+	CGFloat glossScale =
 	NTSC_RED_FRACTION * inputComponents[0] +
 	NTSC_GREEN_FRACTION * inputComponents[1] +
 	NTSC_BLUE_FRACTION * inputComponents[2];
-    glossScale = pow(glossScale, REFLECTION_SCALE_NUMBER);
-    return glossScale;
+	glossScale = pow(glossScale, REFLECTION_SCALE_NUMBER);
+	return glossScale;
 }
 void DrawGlossGradient(CGContextRef context, NSColor *color, NSRect inRect) {
-    const CGFloat EXP_COEFFICIENT = 1.2;
-    const CGFloat REFLECTION_MAX = 0.60;
-    const CGFloat REFLECTION_MIN = 0.20;
-    GlossParameters params;
-    params.expCoefficient = EXP_COEFFICIENT;
-    params.expOffset = expf(-params.expCoefficient);
-    params.expScale = 1.0 / (1.0 - params.expOffset);
+	const CGFloat EXP_COEFFICIENT = 1.2;
+	const CGFloat REFLECTION_MAX = 0.60;
+	const CGFloat REFLECTION_MIN = 0.20;
+	GlossParameters params;
+	params.expCoefficient = EXP_COEFFICIENT;
+	params.expOffset = expf(-params.expCoefficient);
+	params.expScale = 1.0 / (1.0 - params.expOffset);
 
-    NSColor *source =	[color colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
-    [source getComponents:params.color];
-    if ([source numberOfComponents] == 3)
-        params.color[3] = 1.0;
-    perceptualCausticColorForColor(params.color, params.caustic);
-    CGFloat glossScale = perceptualGlossFractionForColor(params.color);
-    params.initialWhite = glossScale * REFLECTION_MAX;
-    params.finalWhite = glossScale * REFLECTION_MIN;
-    static const CGFloat input_value_range[2] = {0, 1};
-    static const CGFloat output_value_ranges[8] = {0, 1, 0, 1, 0, 1, 0, 1};
-    CGFunctionCallbacks callbacks = {0, glossInterpolation, NULL};
-    CGFunctionRef gradientFunction = CGFunctionCreate(
+	NSColor *source =	[color colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
+	[source getComponents:params.color];
+	if ([source numberOfComponents] == 3)
+		params.color[3] = 1.0;
+	perceptualCausticColorForColor(params.color, params.caustic);
+	CGFloat glossScale = perceptualGlossFractionForColor(params.color);
+	params.initialWhite = glossScale * REFLECTION_MAX;
+	params.finalWhite = glossScale * REFLECTION_MIN;
+	static const CGFloat input_value_range[2] = {0, 1};
+	static const CGFloat output_value_ranges[8] = {0, 1, 0, 1, 0, 1, 0, 1};
+	CGFunctionCallbacks callbacks = {0, glossInterpolation, NULL};
+	CGFunctionRef gradientFunction = CGFunctionCreate(
 													  (void *)&params,
 													  1, // number of input values to the callback
 													  input_value_range,
@@ -736,21 +754,21 @@ void DrawGlossGradient(CGContextRef context, NSColor *color, NSRect inRect) {
 													  output_value_ranges,
 													  &callbacks);
 
-    CGPoint startPoint = CGPointMake(NSMinX(inRect), NSMaxY(inRect));
-    CGPoint endPoint = CGPointMake(NSMinX(inRect), NSMinY(inRect));
+	CGPoint startPoint = CGPointMake(NSMinX(inRect), NSMaxY(inRect));
+	CGPoint endPoint = CGPointMake(NSMinX(inRect), NSMinY(inRect));
 
-    CGColorSpaceRef colorspace = CGColorSpaceCreateDeviceRGB();
-    CGShadingRef shading = CGShadingCreateAxial(colorspace, startPoint,
+	CGColorSpaceRef colorspace = CGColorSpaceCreateDeviceRGB();
+	CGShadingRef shading = CGShadingCreateAxial(colorspace, startPoint,
 												endPoint, gradientFunction, FALSE, FALSE);
 
-    CGContextSaveGState(context);
-    CGContextClipToRect(context, NSRectToCGRect(inRect));
-    CGContextDrawShading(context, shading);
-    CGContextRestoreGState(context);
+	CGContextSaveGState(context);
+	CGContextClipToRect(context, NSRectToCGRect(inRect));
+	CGContextDrawShading(context, shading);
+	CGContextRestoreGState(context);
 
-    CGShadingRelease(shading);
-    CGColorSpaceRelease(colorspace);
-    CGFunctionRelease(gradientFunction);
+	CGShadingRelease(shading);
+	CGColorSpaceRelease(colorspace);
+	CGFunctionRelease(gradientFunction);
 }
 */
 void PoofAtPoint( NSPoint pt, CGFloat radius){
@@ -759,11 +777,11 @@ void PoofAtPoint( NSPoint pt, CGFloat radius){
 
 
 extern void DrawLabelAtCenterPoint(NSString* string, NSPoint center) {
-		//    NSString *labelString = [NSString stringWithFormat:@"%ld", (long)dimension];
-    NSDictionary *attributes = $map([NSFont systemFontOfSize:[NSFont systemFontSizeForControlSize:NSRegularControlSize]], NSFontAttributeName, BLACK, NSForegroundColorAttributeName, WHITE, NSBackgroundColorAttributeName);
-    NSSize labelSize = [string sizeWithAttributes:attributes];
-    NSRect labelRect = NSMakeRect(center.x - 0.5 * labelSize.width, center.y - 0.5 * labelSize.height, labelSize.width, labelSize.height);
-    [string drawInRect:labelRect withAttributes:attributes];
+		//	NSString *labelString = [NSString stringWithFormat:@"%ld", (long)dimension];
+	NSDictionary *attributes = $map([NSFont systemFontOfSize:[NSFont systemFontSizeForControlSize:NSRegularControlSize]], NSFontAttributeName, BLACK, NSForegroundColorAttributeName, WHITE, NSBackgroundColorAttributeName);
+	NSSize labelSize = [string sizeWithAttributes:attributes];
+	NSRect labelRect = NSMakeRect(center.x - 0.5 * labelSize.width, center.y - 0.5 * labelSize.height, labelSize.width, labelSize.height);
+	[string drawInRect:labelRect withAttributes:attributes];
 }
 #import <CoreServices/CoreServices.h>
 #import <stdlib.h>
@@ -789,13 +807,13 @@ double frandom(double start, double end)
 // create a new CGPath with a series of random coordinates
 
 CGPathRef AZRandomPathInRect(NSR rect) {
-    CGPoint point;
-    NSSize size = rect.size;
-    NSInteger x = random() % ((NSInteger)(size.width) + 50);
-    NSInteger y = random() % ((NSInteger)(size.height) + 50);
-    point = CGPointMake( x, y );
-    
-    return AZRandomPathWithStartingPointInRect(point, rect);
+	CGPoint point;
+	NSSize size = rect.size;
+	NSInteger x = random() % ((NSInteger)(size.width) + 50);
+	NSInteger y = random() % ((NSInteger)(size.height) + 50);
+	point = CGPointMake( x, y );
+	
+	return AZRandomPathWithStartingPointInRect(point, rect);
 }
 
 // ---------------------------------------------------------------------------
@@ -808,26 +826,26 @@ CGPathRef AZRandomPathWithStartingPointInRect(CGPoint firstPoint, NSR inRect)
 {
 
 
-    // create an array of points, with 'firstPoint' at the first index
-    NSUInteger count = 10;
-    CGPoint onePoint;
-    CGPoint allPoints[count];    
-    allPoints[0] = firstPoint;
+	// create an array of points, with 'firstPoint' at the first index
+	NSUInteger count = 10;
+	CGPoint onePoint;
+	CGPoint allPoints[count];	
+	allPoints[0] = firstPoint;
 
-    // create several CGPoints with random x and y coordinates
-    CGMutablePathRef thePath = CGPathCreateMutable();
-    NSUInteger i;
-    for ( i = 1; i < count; i++)
-    {
-        // allow the coordinates to go slightly out of the bounds of the view (+50)
-        NSInteger x = random() % ((NSInteger)(inRect.size.width) + 50);
-        NSInteger y = random() % ((NSInteger)(inRect.size.height) + 50);
-        onePoint = CGPointMake(x,y);
-        allPoints[i] = onePoint;
-    }
+	// create several CGPoints with random x and y coordinates
+	CGMutablePathRef thePath = CGPathCreateMutable();
+	NSUInteger i;
+	for ( i = 1; i < count; i++)
+	{
+		// allow the coordinates to go slightly out of the bounds of the view (+50)
+		NSInteger x = random() % ((NSInteger)(inRect.size.width) + 50);
+		NSInteger y = random() % ((NSInteger)(inRect.size.height) + 50);
+		onePoint = CGPointMake(x,y);
+		allPoints[i] = onePoint;
+	}
 
-    CGPathAddLines ( thePath, NULL, allPoints, count );     
-    return thePath;
+	CGPathAddLines ( thePath, NULL, allPoints, count );	 
+	return thePath;
 }
 
 
@@ -838,40 +856,40 @@ CGPathRef AZRandomPathWithStartingPointInRect(CGPoint firstPoint, NSR inRect)
 //
 //- (Slice *): (NSInteger)length
 //{
-//    Slice *slice = [[Slice alloc] init];
-//    [slice setStart: [self integerValue]];
-//    [slice setLength: length];
-//    return slice;
+//	Slice *slice = [[Slice alloc] init];
+//	[slice setStart: [self integerValue]];
+//	[slice setLength: length];
+//	return slice;
 //}
 //
 //@end
 
 //@implementation NSArray (slicing)
 //- (id)objectForKeyedSubscript: (id)subscript		{	Slice *slice = subscript;
-//    return [self subarrayWithRange: NSMakeRange([slice start], [slice length])];
+//	return [self subarrayWithRange: NSMakeRange([slice start], [slice length])];
 //}
 //@end
 /*
 int main(int argc, char **argv)
 {	@autoreleasepool
-    {	NSMutableArray *array = [NSMutableArray array];
-        for(int i = 0; i < 100; i++)
-            [array addObject: @(i * i)];
+	{	NSMutableArray *array = [NSMutableArray array];
+		for(int i = 0; i < 100; i++)
+			[array addObject: @(i * i)];
 
-        NSArray *sliced = array[[@5:8]];
-        NSLog(@"%@", sliced);
-    }
+		NSArray *sliced = array[[@5:8]];
+		NSLog(@"%@", sliced);
+	}
 }
 */
 	// 2012-07-09 17:15:12.705 a.out[84967:707] (
-	//     25,
-	//     36,
-	//     49,
-	//     64,
-	//     81,
-	//     100,
-	//     121,
-	//     144
+	//	 25,
+	//	 36,
+	//	 49,
+	//	 64,
+	//	 81,
+	//	 100,
+	//	 121,
+	//	 144
 	// )
 
 
@@ -984,9 +1002,9 @@ int main(int argc, char **argv)
 	// Please see http://code.google.com/p/google-toolbox-for-mac/wiki/DevLogNAssert
 	// for a little more background on the usage of these macros.
 
-	//    _GTMDevLog           log some error/problem in debug builds
-	//    _GTMDevAssert        assert if conditon isn't met w/in a method/function
-	//                           in all builds.
+	//	_GTMDevLog		   log some error/problem in debug builds
+	//	_GTMDevAssert		assert if conditon isn't met w/in a method/function
+	//						   in all builds.
 
 	// To replace this system, just provide different macro definitions in your
 	// prefix header.  Remember, any implementation you provide *must* be thread
@@ -1007,15 +1025,15 @@ int main(int argc, char **argv)
 	// we directly invoke the NSAssert handler so we can pass on the varargs
 	// (NSAssert doesn't have a macro we can use that takes varargs)
 #if !defined(NS_BLOCK_ASSERTIONS)
-#define _GTMDevAssert(condition, ...)                                       \
-do {                                                                      \
-if (!(condition)) {                                                     \
-[[NSAssertionHandler currentHandler]                                  \
+#define _GTMDevAssert(condition, ...)									   \
+do {																	  \
+if (!(condition)) {													 \
+[[NSAssertionHandler currentHandler]								  \
 handleFailureInFunction:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] \
 file:[NSString stringWithUTF8String:__FILE__]  \
-lineNumber:__LINE__                                  \
-description:__VA_ARGS__];                             \
-}                                                                       \
+lineNumber:__LINE__								  \
+description:__VA_ARGS__];							 \
+}																	   \
 } while(0)
 #else // !defined(NS_BLOCK_ASSERTIONS)
 #define _GTMDevAssert(condition, ...) do { } while (0)
@@ -1108,8 +1126,8 @@ typedef unsigned long NSUInteger;
 typedef int NSInteger;
 typedef unsigned int NSUInteger;
 #endif
-#define NSIntegerMax    LONG_MAX
-#define NSIntegerMin    LONG_MIN
+#define NSIntegerMax	LONG_MAX
+#define NSIntegerMin	LONG_MIN
 #define NSUIntegerMax   ULONG_MAX
 #define NSINTEGER_DEFINED 1
 #endif  // NSINTEGER_DEFINED
@@ -1133,7 +1151,7 @@ typedef float CGFloat;
 
 	// Some support for advanced clang static analysis functionality
 	// See http://clang-analyzer.llvm.org/annotations.html
-#ifndef __has_feature      // Optional.
+#ifndef __has_feature	  // Optional.
 #define __has_feature(x) 0 // Compatibility with non-clang compilers.
 #endif
 
@@ -1204,7 +1222,7 @@ typedef float CGFloat;
 
 	// Some support for advanced clang static analysis functionality
 	// See http://clang-analyzer.llvm.org/annotations.html
-#ifndef __has_feature      // Optional.
+#ifndef __has_feature	  // Optional.
 #define __has_feature(x) 0 // Compatibility with non-clang compilers.
 #endif
 
@@ -1358,16 +1376,16 @@ OBJC_EXPORT void method_exchangeImplementations(Method m1, Method m2);
 OBJC_EXPORT IMP method_getImplementation(Method method);
 OBJC_EXPORT IMP method_setImplementation(Method method, IMP imp);
 OBJC_EXPORT struct objc_method_description protocol_getMethodDescription(Protocol *p,
-                                                                         SEL aSel,
-                                                                         BOOL isRequiredMethod,
-                                                                         BOOL isInstanceMethod);
+																		 SEL aSel,
+																		 BOOL isRequiredMethod,
+																		 BOOL isInstanceMethod);
 OBJC_EXPORT BOOL sel_isEqual(SEL lhs, SEL rhs);
 
 */
 
 int max(int x, int y)
 {
-    return x > y ? x : y;
+	return x > y ? x : y;
 }
 
 	// Released by Drew McCormack into the pubic domain (2010).
@@ -1488,9 +1506,9 @@ void method_exchangeImplementations(Method m1, Method m2) {
 }
 
 struct objc_method_description protocol_getMethodDescription(Protocol *p,
-                                                             SEL aSel,
-                                                             BOOL isRequiredMethod,
-                                                             BOOL isInstanceMethod) {
+															 SEL aSel,
+															 BOOL isRequiredMethod,
+															 BOOL isInstanceMethod) {
 	struct objc_method_description *descPtr = NULL;
 		// No such thing as required in ObjC1.
 	if (isInstanceMethod) {
@@ -1529,23 +1547,23 @@ CGFloat ScreenHighness 	(){
 
 	//  usage  		profile("Long Task", ^{ performLongTask() } );
 void profile (const char *name, void (^work) (void)) {
-    struct timeval start, end;
-    gettimeofday (&start, NULL);
-    work();
-    gettimeofday (&end, NULL);
+	struct timeval start, end;
+	gettimeofday (&start, NULL);
+	work();
+	gettimeofday (&end, NULL);
 
-    double fstart = (start.tv_sec * 1000000.0 + start.tv_usec) / 1000000.0;
-    double fend = (end.tv_sec * 1000000.0 + end.tv_usec) / 1000000.0;
+	double fstart = (start.tv_sec * 1000000.0 + start.tv_usec) / 1000000.0;
+	double fend = (end.tv_sec * 1000000.0 + end.tv_usec) / 1000000.0;
 
-    printf("%s took %f seconds", name, fend - fstart);
+	printf("%s took %f seconds", name, fend - fstart);
 }
 
 CGFloat DegreesToRadians(CGFloat degrees) {
-    return degrees * M_PI / 180;
+	return degrees * M_PI / 180;
 }
 NSNumber* DegreesToNumber(CGFloat degrees) {
-    return [NSNumber numberWithFloat:
-            DegreesToRadians(degrees)];
+	return [NSNumber numberWithFloat:
+			DegreesToRadians(degrees)];
 }
 
 /*
@@ -1739,9 +1757,9 @@ NSNumber* DegreesToNumber(CGFloat degrees) {
  // Please see http://code.google.com/p/google-toolbox-for-mac/wiki/DevLogNAssert
  // for a little more background on the usage of these macros.
 
- //    _GTMDevLog           log some error/problem in debug builds
- //    _GTMDevAssert        assert if conditon isn't met w/in a method/function
- //                           in all builds.
+ //	_GTMDevLog		   log some error/problem in debug builds
+ //	_GTMDevAssert		assert if conditon isn't met w/in a method/function
+ //						   in all builds.
 
  // To replace this system, just provide different macro definitions in your
  // prefix header.  Remember, any implementation you provide *must* be thread
@@ -1762,15 +1780,15 @@ NSNumber* DegreesToNumber(CGFloat degrees) {
  // we directly invoke the NSAssert handler so we can pass on the varargs
  // (NSAssert doesn't have a macro we can use that takes varargs)
  #if !defined(NS_BLOCK_ASSERTIONS)
- #define _GTMDevAssert(condition, ...)                                       \
- do {                                                                      \
- if (!(condition)) {                                                     \
- [[NSAssertionHandler currentHandler]                                  \
+ #define _GTMDevAssert(condition, ...)									   \
+ do {																	  \
+ if (!(condition)) {													 \
+ [[NSAssertionHandler currentHandler]								  \
  handleFailureInFunction:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] \
  file:[NSString stringWithUTF8String:__FILE__]  \
- lineNumber:__LINE__                                  \
- description:__VA_ARGS__];                             \
- }                                                                       \
+ lineNumber:__LINE__								  \
+ description:__VA_ARGS__];							 \
+ }																	   \
  } while(0)
  #else // !defined(NS_BLOCK_ASSERTIONS)
  #define _GTMDevAssert(condition, ...) do { } while (0)
@@ -1863,8 +1881,8 @@ NSNumber* DegreesToNumber(CGFloat degrees) {
  typedef int NSInteger;
  typedef unsigned int NSUInteger;
  #endif
- #define NSIntegerMax    LONG_MAX
- #define NSIntegerMin    LONG_MIN
+ #define NSIntegerMax	LONG_MAX
+ #define NSIntegerMin	LONG_MIN
  #define NSUIntegerMax   ULONG_MAX
  #define NSINTEGER_DEFINED 1
  #endif  // NSINTEGER_DEFINED
@@ -1884,88 +1902,88 @@ NSNumber* DegreesToNumber(CGFloat degrees) {
 // Creates a vertical grayscale gradient of the specified size and returns a CGImage
 CGImageRef CreateGradientImage(int pixelsWide, int pixelsHigh)
 {
-    CGImageRef theCGImage = NULL;
+	CGImageRef theCGImage = NULL;
 
-    // Create a grayscale color space
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceGray();
+	// Create a grayscale color space
+	CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceGray();
 
-    // Create the bitmap context to draw into
-    CGContextRef gradientContext = CGBitmapContextCreate(NULL, pixelsWide, pixelsHigh, 8, 0, colorSpace, kCGImageAlphaNone);
+	// Create the bitmap context to draw into
+	CGContextRef gradientContext = CGBitmapContextCreate(NULL, pixelsWide, pixelsHigh, 8, 0, colorSpace, kCGImageAlphaNone);
 
-    // Define start and end color stops (alpha values required even though not used in the gradient)
-    CGFloat colors[] = {0.0, 1.0, 1.0, 1.0};
-    CGPoint gradientStartPoint = CGPointZero;
-    CGPoint gradientEndPoint = CGPointMake(0, pixelsHigh);
+	// Define start and end color stops (alpha values required even though not used in the gradient)
+	CGFloat colors[] = {0.0, 1.0, 1.0, 1.0};
+	CGPoint gradientStartPoint = CGPointZero;
+	CGPoint gradientEndPoint = CGPointMake(0, pixelsHigh);
 
-    // Draw the gradient
-    CGGradientRef grayScaleGradient = CGGradientCreateWithColorComponents(colorSpace, colors, NULL, 2);
-    CGContextDrawLinearGradient(gradientContext,
-                                grayScaleGradient,
-                                gradientStartPoint,
-                                gradientEndPoint,
-                                kCGGradientDrawsAfterEndLocation);
+	// Draw the gradient
+	CGGradientRef grayScaleGradient = CGGradientCreateWithColorComponents(colorSpace, colors, NULL, 2);
+	CGContextDrawLinearGradient(gradientContext,
+								grayScaleGradient,
+								gradientStartPoint,
+								gradientEndPoint,
+								kCGGradientDrawsAfterEndLocation);
 
-    // Create the image from the context
-    theCGImage = CGBitmapContextCreateImage(gradientContext);
+	// Create the image from the context
+	theCGImage = CGBitmapContextCreateImage(gradientContext);
 
-    // Clean up
-    CGGradientRelease(grayScaleGradient);
-    CGContextRelease(gradientContext);
-    CGColorSpaceRelease(colorSpace);
+	// Clean up
+	CGGradientRelease(grayScaleGradient);
+	CGContextRelease(gradientContext);
+	CGColorSpaceRelease(colorSpace);
 
-    // Return the CGImageRef containing the gradient (with refcount = 1)
-    return theCGImage;
+	// Return the CGImageRef containing the gradient (with refcount = 1)
+	return theCGImage;
 }
 
 
 NSImage *reflectedView(NSView*view){
 // Creates an autoreleased reflected image of the contents of the main view
-    // Calculate the size of the reflection in devices units - supports hires displays
-    CGFloat displayScale = 1.0f;
+	// Calculate the size of the reflection in devices units - supports hires displays
+	CGFloat displayScale = 1.0f;
 
-    CGSize deviceReflectionSize = view.bounds.size;
-    deviceReflectionSize.width *= displayScale;
-    deviceReflectionSize.height *= displayScale;
+	CGSize deviceReflectionSize = view.bounds.size;
+	deviceReflectionSize.width *= displayScale;
+	deviceReflectionSize.height *= displayScale;
 
-    // Create the bitmap context to draw into
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    CGContextRef ctx = CGBitmapContextCreate(NULL,
-                                             deviceReflectionSize.width,
-                                             deviceReflectionSize.height,
-                                             8,
-                                             0,
-                                             colorSpace,
-                                             // Optimal BGRA format for the device:
-                                             (kCGBitmapByteOrder32Little | kCGImageAlphaPremultipliedFirst));
-    CGColorSpaceRelease(colorSpace);
+	// Create the bitmap context to draw into
+	CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+	CGContextRef ctx = CGBitmapContextCreate(NULL,
+											 deviceReflectionSize.width,
+											 deviceReflectionSize.height,
+											 8,
+											 0,
+											 colorSpace,
+											 // Optimal BGRA format for the device:
+											 (kCGBitmapByteOrder32Little | kCGImageAlphaPremultipliedFirst));
+	CGColorSpaceRelease(colorSpace);
 
-    if (!ctx)
+	if (!ctx)
 		{
-        return nil;
+		return nil;
 		}
 
-    // Create a 1 pixel-wide gradient (will be stretched by CGContextClipToMask)
-    CGImageRef gradientImage = CreateGradientImage(1, deviceReflectionSize.height);
+	// Create a 1 pixel-wide gradient (will be stretched by CGContextClipToMask)
+	CGImageRef gradientImage = CreateGradientImage(1, deviceReflectionSize.height);
 
 	// Use the gradient image as a mask
-    CGContextClipToMask(ctx, CGRectMake(0.0f, 0.0f, deviceReflectionSize.width, deviceReflectionSize.height), gradientImage);
-    CGImageRelease(gradientImage);
+	CGContextClipToMask(ctx, CGRectMake(0.0f, 0.0f, deviceReflectionSize.width, deviceReflectionSize.height), gradientImage);
+	CGImageRelease(gradientImage);
 
-    // Translate origin to position reflection correctly. Reflection will be flipped automatically because of differences between
-    // Quartz2D coordinate system and CALayer coordinate system.
+	// Translate origin to position reflection correctly. Reflection will be flipped automatically because of differences between
+	// Quartz2D coordinate system and CALayer coordinate system.
 	CGContextTranslateCTM(ctx, 0.0, -view.bounds.size.height * displayScale + deviceReflectionSize.height);
-    CGContextScaleCTM(ctx, displayScale, displayScale);
+	CGContextScaleCTM(ctx, displayScale, displayScale);
 
-    // Render into the reflection context. Rendering is wrapped in a transparency layer otherwise sublayers
-    // will be rendered individually using the gradient mask and hidden layers will show through
+	// Render into the reflection context. Rendering is wrapped in a transparency layer otherwise sublayers
+	// will be rendered individually using the gradient mask and hidden layers will show through
 	CGContextBeginTransparencyLayer(ctx, NULL);
-    [view.layer renderInContext:ctx];
-    CGContextEndTransparencyLayer(ctx);
+	[view.layer renderInContext:ctx];
+	CGContextEndTransparencyLayer(ctx);
 
-    // Create the reflection image from the context
+	// Create the reflection image from the context
 	CGImageRef reflectionCGImage = CGBitmapContextCreateImage(ctx);
 //	NSSize ww = [reflectionCGImage
-    NSImage *reflectionImage = [NSImage imageFromCGImageRef:reflectionCGImage];// alloc]initWithCGImage:reflectionCGImage];
+	NSImage *reflectionImage = [NSImage imageFromCGImageRef:reflectionCGImage];// alloc]initWithCGImage:reflectionCGImage];
 	CGContextRelease(ctx);
 	CGImageRelease(reflectionCGImage);
 

@@ -53,9 +53,9 @@
 
 -(NSMutableDictionary *)changeDictionaryWithInfo:(NSDictionary *)info {
    if(_changeDictionary==nil)
-    _changeDictionary=[[NSMutableDictionary alloc] init];
+	_changeDictionary=[[NSMutableDictionary alloc] init];
    else
-    [_changeDictionary removeAllObjects];
+	[_changeDictionary removeAllObjects];
    
    [_changeDictionary addEntriesFromDictionary:info];
    

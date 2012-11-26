@@ -90,8 +90,8 @@ NSString *const NSUndefinedKeyException = @"NSUnknownKeyException";
 			return [NSNumber numberWithUnsignedLongLong:*(unsigned long long*)value];
 		default:
 // FIX #warning some wrapping types unimplemented
-            [NSException raise:NSInvalidArgumentException format:@"FIXME: wrap value of type %s unimplemented for get", type];
-            return nil;
+			[NSException raise:NSInvalidArgumentException format:@"FIXME: wrap value of type %s unimplemented for get", type];
+			return nil;
 	}
 }
 
@@ -116,15 +116,15 @@ NSString *const NSUndefinedKeyException = @"NSUnknownKeyException";
 		case '#':
 			shouldRetain = NO; // no need to retain classes
 		case '@':
-//         if(shouldRetain) {
-//            if((*(id*)buffer)!=value) {
-//               [(*(id*)buffer) release];
-//               *(id*)buffer = [value retain];
-//            }
-//         }
-//         else {
-//            *(id*)buffer = value;
-//         }
+//		 if(shouldRetain) {
+//			if((*(id*)buffer)!=value) {
+//			   [(*(id*)buffer) release];
+//			   *(id*)buffer = [value retain];
+//			}
+//		 }
+//		 else {
+//			*(id*)buffer = value;
+//		 }
 
 			return YES;
 		case 'i':
@@ -147,16 +147,16 @@ NSString *const NSUndefinedKeyException = @"NSUnknownKeyException";
 			*(unsigned char*)buffer = [value unsignedCharValue];
 			return YES;
 
-        case 'q':
-            *(long long*)buffer = [value longLongValue];
-            return YES;
+		case 'q':
+			*(long long*)buffer = [value longLongValue];
+			return YES;
 
-        case 'Q':
-            *(unsigned long long*)buffer = [value unsignedLongLongValue];
-            return YES;
+		case 'Q':
+			*(unsigned long long*)buffer = [value unsignedLongLongValue];
+			return YES;
 		default:
 // FIX #warning some wrapping types unimplemented
-            [NSException raise:NSInvalidArgumentException format:@"FIXME: wrap value of type %s unimplemented for set", type];
+			[NSException raise:NSInvalidArgumentException format:@"FIXME: wrap value of type %s unimplemented for set", type];
 			return NO;
 	}
 }
@@ -199,7 +199,7 @@ NSString *const NSUndefinedKeyException = @"NSUnknownKeyException";
 
 		NSGetSizeAndAlignment(type, &size, &align);
 		void *buffer=__builtin_alloca(size);
-      memset(buffer, 0, size);
+	  memset(buffer, 0, size);
 		[self _setValue:value toBuffer:buffer ofType:type shouldRetain:NO];
 
 		[inv setArgument:buffer atIndex:2];
@@ -216,86 +216,86 @@ NSString *const NSUndefinedKeyException = @"NSUnknownKeyException";
 
 - (id)valueForKey: (NSString*)key
 {
-    if (!key) {
-        id value = [self valueForUndefinedKey:nil];
-        return value;
-    }
+	if (!key) {
+		id value = [self valueForUndefinedKey:nil];
+		return value;
+	}
 
-    const char *keyCString = [key cString];
-    SEL sel = sel_getUid(keyCString);
+	const char *keyCString = [key cString];
+	SEL sel = sel_getUid(keyCString);
 
-    // FIXME: getKey, _getKey, isKey, _isKey are missing
+	// FIXME: getKey, _getKey, isKey, _isKey are missing
 
-    if ([self respondsToSelector:sel]) {
-        id value = [self _wrapReturnValueForSelector:sel];
-        return value;
-    }
+	if ([self respondsToSelector:sel]) {
+		id value = [self _wrapReturnValueForSelector:sel];
+		return value;
+	}
 
-    size_t keyCStringLength = strlen(keyCString);
-    char *selBuffer = __builtin_alloca(keyCStringLength + 5);
+	size_t keyCStringLength = strlen(keyCString);
+	char *selBuffer = __builtin_alloca(keyCStringLength + 5);
 
-    char *keyname = __builtin_alloca(keyCStringLength + 1);
-    strcpy(keyname, keyCString);
+	char *keyname = __builtin_alloca(keyCStringLength + 1);
+	strcpy(keyname, keyCString);
 
-    #define TRY_FORMAT(format)\
-            sprintf(selBuffer, format, keyname);\
-            sel = sel_getUid(selBuffer);\
-            if ([self respondsToSelector:sel]) {\
-                id value = [self _wrapReturnValueForSelector:sel];\
-                return value;\
-            }
-    TRY_FORMAT("_%s");
-    keyname[0] = toupper(keyname[0]);
-    TRY_FORMAT("is%s");
-    TRY_FORMAT("_is%s");
-//    TRY_FORMAT("get%s");
-//    TRY_FORMAT("_get%s");
-    #undef TRY_FORMAT
+	#define TRY_FORMAT(format)\
+			sprintf(selBuffer, format, keyname);\
+			sel = sel_getUid(selBuffer);\
+			if ([self respondsToSelector:sel]) {\
+				id value = [self _wrapReturnValueForSelector:sel];\
+				return value;\
+			}
+	TRY_FORMAT("_%s");
+	keyname[0] = toupper(keyname[0]);
+	TRY_FORMAT("is%s");
+	TRY_FORMAT("_is%s");
+//	TRY_FORMAT("get%s");
+//	TRY_FORMAT("_get%s");
+	#undef TRY_FORMAT
 
-    if ([isa accessInstanceVariablesDirectly]) {
-        sprintf(selBuffer, "_%s", keyCString);
-        sel = sel_getUid(selBuffer);
+	if ([isa accessInstanceVariablesDirectly]) {
+		sprintf(selBuffer, "_%s", keyCString);
+		sel = sel_getUid(selBuffer);
 
-        if ([self respondsToSelector:sel]) {
-            id value = [self _wrapReturnValueForSelector:sel];
-            return value;
-        }
+		if ([self respondsToSelector:sel]) {
+			id value = [self _wrapReturnValueForSelector:sel];
+			return value;
+		}
 
 
-        Ivar ivar = class_getInstanceVariable(isa, selBuffer);
-        if (!ivar) {
-            ivar = class_getInstanceVariable(isa, keyCString);
-        }
+		Ivar ivar = class_getInstanceVariable(isa, selBuffer);
+		if (!ivar) {
+			ivar = class_getInstanceVariable(isa, keyCString);
+		}
 
-        if (ivar) {
-            id value = [self _wrapValue:(void*)self + ivar_getOffset(ivar) ofType:ivar_getTypeEncoding(ivar)];
-            return value;
-        }
+		if (ivar) {
+			id value = [self _wrapValue:(void*)self + ivar_getOffset(ivar) ofType:ivar_getTypeEncoding(ivar)];
+			return value;
+		}
 
-    }
+	}
 
-    id value = [self valueForUndefinedKey:key];
-    return value;
+	id value = [self valueForUndefinedKey:key];
+	return value;
 }
 
 
 -(void)setValue:(id)value forKey:(NSString *)key
 {
-    NSUInteger cStringLength = [key length];
-    char keyCString[cStringLength + 1];
-    char uppercaseKeyCString[cStringLength + 1];
-    char check[cStringLength + 10]; // needs to accomodate key and set/_set: stuff
+	NSUInteger cStringLength = [key length];
+	char keyCString[cStringLength + 1];
+	char uppercaseKeyCString[cStringLength + 1];
+	char check[cStringLength + 10]; // needs to accomodate key and set/_set: stuff
 
-    [key getCString:keyCString];
-    strcpy(uppercaseKeyCString, keyCString);
-    uppercaseKeyCString[0] = toupper(uppercaseKeyCString[0]);
+	[key getCString:keyCString];
+	strcpy(uppercaseKeyCString, keyCString);
+	uppercaseKeyCString[0] = toupper(uppercaseKeyCString[0]);
 
-    strcpy(check,"set"); strcat(check, uppercaseKeyCString); strcat(check, ":");
+	strcpy(check,"set"); strcat(check, uppercaseKeyCString); strcat(check, ":");
 
-    SEL sel = sel_getUid(check);
-    if([self respondsToSelector:sel]) {
-        return [self _setValue:value withSelector:sel fromKey:key];
-    }
+	SEL sel = sel_getUid(check);
+	if([self respondsToSelector:sel]) {
+		return [self _setValue:value withSelector:sel fromKey:key];
+	}
 
 	BOOL shouldNotify=[isa automaticallyNotifiesObserversForKey:key] && [self _hasObserverForKey: key] ;
 	if (shouldNotify == YES) {
@@ -303,49 +303,49 @@ NSString *const NSUndefinedKeyException = @"NSUnknownKeyException";
 	if([isa accessInstanceVariablesDirectly])
 	{
 
-        if ([self respondsToSelector:sel]) {
-            return [self _setValue:value withSelector:sel fromKey:key];
-        }
+		if ([self respondsToSelector:sel]) {
+			return [self _setValue:value withSelector:sel fromKey:key];
+		}
 
-        strcpy(check, "_"); strcat(check, keyCString);
-        Ivar ivar = class_getInstanceVariable(isa, check);
-        if (!ivar) {
-            strcpy(check,"_is"); strcat(check, uppercaseKeyCString);
-            ivar = class_getInstanceVariable(isa, check);
-        }
-        if (!ivar) {
-            ivar = class_getInstanceVariable(isa, keyCString);
-        }
-        if (!ivar) {
-            strcpy(check, "is"); strcat(check, uppercaseKeyCString);
-            ivar = class_getInstanceVariable(isa, check);
-        }
+		strcpy(check, "_"); strcat(check, keyCString);
+		Ivar ivar = class_getInstanceVariable(isa, check);
+		if (!ivar) {
+			strcpy(check,"_is"); strcat(check, uppercaseKeyCString);
+			ivar = class_getInstanceVariable(isa, check);
+		}
+		if (!ivar) {
+			ivar = class_getInstanceVariable(isa, keyCString);
+		}
+		if (!ivar) {
+			strcpy(check, "is"); strcat(check, uppercaseKeyCString);
+			ivar = class_getInstanceVariable(isa, check);
+		}
 
-        if (ivar) {
-            if (shouldNotify) {
-                [self willChangeValueForKey:key];
-            }
-            // if value is nil and ivar is not an object type
-            if (!value && ivar_getTypeEncoding(ivar)[0] != '@') {
-                [self setNilValueForKey:key];
-            } else {
-                [self _setValue:value toBuffer:(void*)self + ivar_getOffset(ivar) ofType:ivar_getTypeEncoding(ivar) shouldRetain:YES];
-            }
-            if (shouldNotify) {
-                [self didChangeValueForKey:key];
-            }
-            return;
-        }
-    }
+		if (ivar) {
+			if (shouldNotify) {
+				[self willChangeValueForKey:key];
+			}
+			// if value is nil and ivar is not an object type
+			if (!value && ivar_getTypeEncoding(ivar)[0] != '@') {
+				[self setNilValueForKey:key];
+			} else {
+				[self _setValue:value toBuffer:(void*)self + ivar_getOffset(ivar) ofType:ivar_getTypeEncoding(ivar) shouldRetain:YES];
+			}
+			if (shouldNotify) {
+				[self didChangeValueForKey:key];
+			}
+			return;
+		}
+	}
 
-    // Path of last resort - but still assume we're letting people know about changes
-    if (shouldNotify) {
-        [self willChangeValueForKey:key];
-    }
-    [self setValue:value forUndefinedKey:key];
-    if (shouldNotify) {
-        [self didChangeValueForKey:key];
-    }
+	// Path of last resort - but still assume we're letting people know about changes
+	if (shouldNotify) {
+		[self willChangeValueForKey:key];
+	}
+	[self setValue:value forUndefinedKey:key];
+	if (shouldNotify) {
+		[self didChangeValueForKey:key];
+	}
 }
 
 

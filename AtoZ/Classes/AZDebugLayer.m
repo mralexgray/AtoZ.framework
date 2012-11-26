@@ -54,7 +54,7 @@
 
 - (BOOL)acceptsFirstResponder;
 {
-    return YES;
+	return YES;
 }
 
 @end
@@ -113,10 +113,10 @@
 //		_anchorPointLayer.bgC 			= cgRED;
 //		_anchorPointLayer.cornerRadius 	= 10;
 //		_anchorPointLayer.bounds 		= AZRectFromDim(50);
-//        _anchorPointLayer.delegate = self;
+//		_anchorPointLayer.delegate = self;
 //		[self addSublayer:_anchorPointLayer];
 //		[_anchorPointLayer setNeedsDisplay];
-//    return self;
+//	return self;
 //}
 //- (void) setAnchorPoint:(CGPoint)anchorPoint {
 //	anchorPoint = anchorPoint;

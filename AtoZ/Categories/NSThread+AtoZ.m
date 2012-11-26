@@ -38,7 +38,7 @@
 @implementation NSThread (BlocksAdditions)
 + (void)performBlockInBackground:(void (^)())block {
 	[NSThread performSelectorInBackground:@selector(runBlock:)
-	                           withObject:[[block copy] autorelease]];
+							   withObject:[[block copy] autorelease]];
 }
 - (void)performBlockOnMainThread:(void (^)())block {
 	[[NSThread mainThread] performBlock:block];
@@ -49,9 +49,9 @@
 - (void)performBlock:(void (^)())block{
 
 	if ([[NSThread currentThread] isEqual:self])
-        block();
+		block();
 	else
-        [self performBlock:block waitUntilDone:NO];
+		[self performBlock:block waitUntilDone:NO];
 }
 - (void)performBlock:(void (^)())block waitUntilDone:(BOOL)wait{
 
@@ -64,7 +64,7 @@
 
 	[self performSelector:@selector(performBlock:)
 			   withObject:[[block copy] autorelease]
-               afterDelay:delay];
+			   afterDelay:delay];
 }
 
 @end
@@ -77,7 +77,7 @@
 
 + (void)performAZBlockInBackground:(void (^)())block{
 	[NSThread performSelectorInBackground:@selector(runAZBlock:)
-                               withObject:[block copy]]; //autorelease]];
+							   withObject:[block copy]]; //autorelease]];
 }
 
 + (void)runAZBlock:(void (^)())block{
@@ -86,9 +86,9 @@
 - (void)performAZBlock:(void (^)())block{
 
 	if ([[NSThread currentThread] isEqual:self])
-        block();
+		block();
 	else
-        [self performAZBlock:block waitUntilDone:NO];
+		[self performAZBlock:block waitUntilDone:NO];
 }
 - (void)performAZBlock:(void (^)())block waitUntilDone:(BOOL)wait{
 
@@ -102,7 +102,7 @@
 
 	[self performSelector:@selector(performAZBlock:)
 			   withObject:[block copy]// autorelease]
-               afterDelay:delay];
+			   afterDelay:delay];
 }
 @end
 */

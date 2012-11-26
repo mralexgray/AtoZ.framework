@@ -28,25 +28,25 @@ extern NSString *const kShowDockIconUserDefaultsKey;
 @interface NSDate (Extensions)
 + (NSDate*) dateWithYear:(NSUInteger)year month:(NSUInteger)month day:(NSUInteger)day;
 + (NSDate*) dateWithYear:(NSUInteger)year
-                   month:(NSUInteger)month
-                     day:(NSUInteger)day
-                    hour:(NSUInteger)hour
-                  minute:(NSUInteger)minute
-                  second:(NSUInteger)second;  // All numbers are 1 based
+				   month:(NSUInteger)month
+					 day:(NSUInteger)day
+					hour:(NSUInteger)hour
+				  minute:(NSUInteger)minute
+				  second:(NSUInteger)second;  // All numbers are 1 based
 + (NSDate*) dateWithDaysSinceReferenceDate:(NSInteger)days;
 + (NSDate*) dateWithString:(NSString*)string cachedFormat:(NSString*)format;  // Uses current locale and timezone
 + (NSDate*) dateWithString:(NSString*)string cachedFormat:(NSString*)format localIdentifier:(NSString*)identifier;  // Uses current timezone
 + (NSDate*) dateWithString:(NSString*)string
-              cachedFormat:(NSString*)format
-           localIdentifier:(NSString*)identifier  // Pass nil for current locale
-                  timeZone:(NSTimeZone*)timeZone;  // Pass nil for current timezone
+			  cachedFormat:(NSString*)format
+		   localIdentifier:(NSString*)identifier  // Pass nil for current locale
+				  timeZone:(NSTimeZone*)timeZone;  // Pass nil for current timezone
 - (void) getYear:(NSUInteger*)year month:(NSUInteger*)month day:(NSUInteger*)day;
 - (void) getYear:(NSUInteger*)year
-           month:(NSUInteger*)month
-             day:(NSUInteger*)day
-            hour:(NSUInteger*)hour
-          minute:(NSUInteger*)minute
-          second:(NSUInteger*)second;  // All numbers are 1 based
+		   month:(NSUInteger*)month
+			 day:(NSUInteger*)day
+			hour:(NSUInteger*)hour
+		  minute:(NSUInteger*)minute
+		  second:(NSUInteger*)second;  // All numbers are 1 based
 - (NSDate*) dateRoundedToMidnight;
 - (NSUInteger) daySinceBeginningOfTheYear;
 - (NSInteger) daysSinceReferenceDate;
@@ -74,7 +74,7 @@ extern NSString *const kShowDockIconUserDefaultsKey;
 
 
 /*!
- @brief    Methods which Apple should have provided in NSWorkspace
+ @brief	Methods which Apple should have provided in NSWorkspace
  */
 @interface NSWorkspace (AppleShoulda)
 

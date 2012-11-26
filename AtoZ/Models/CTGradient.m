@@ -111,7 +111,7 @@ void resolveHSV(float *color1, float *color2);
   
   while(count != 0)
 	{
-    CTGradientElement newElement;
+	CTGradientElement newElement;
 	
 	[coder decodeValueOfObjCType:@encode(float) at:&(newElement.red)];
 	[coder decodeValueOfObjCType:@encode(float) at:&(newElement.green)];
@@ -401,7 +401,7 @@ void resolveHSV(float *color1, float *color2);
   color2.blue  = 1.00;
   color2.alpha = 1.00;
   color2.position = 1.0;
-    
+	
   [newInstance addElement:&color1];
   [newInstance addElement:&color2];
   
@@ -597,7 +597,7 @@ void resolveHSV(float *color1, float *color2);
   
   return [NSColor colorWithCalibratedRed:components[0]
 								   green:components[1]
-								    blue:components[2]
+									blue:components[2]
 								   alpha:components[3]];
   }
 #pragma mark -
@@ -622,7 +622,7 @@ void resolveHSV(float *color1, float *color2);
   else if(angle == 90)	//same as above
   	{
   	startPoint = CGPointMake(NSMinX(rect), NSMinY(rect));	//bottom of rect
-  	endPoint   = CGPointMake(NSMinX(rect), NSMaxY(rect));	//top    of rect
+  	endPoint   = CGPointMake(NSMinX(rect), NSMaxY(rect));	//top	of rect
   	}
   else						//ok, we'll do the calculations now 
   	{
@@ -715,7 +715,7 @@ void resolveHSV(float *color1, float *color2);
 	  CGContextClipToRect (currentContext , *(CGRect *)&rect);
 	  CGContextDrawShading(currentContext , myCGShading);		//This is where the action happens
 	  
-	  CGShadingRelease    (myCGShading);
+	  CGShadingRelease	(myCGShading);
 	  CGColorSpaceRelease (colorspace);
   CGContextRestoreGState(currentContext);
   }
@@ -742,7 +742,7 @@ void resolveHSV(float *color1, float *color2);
   //replace the current CoreGraphics Function with new one
   if(gradientFunction != NULL)
 	  CGFunctionRelease(gradientFunction);
-    
+	
   CGFunctionCallbacks evaluationCallbackInfo = {0 , evaluationFunction, NULL};	//Version, evaluator function, cleanup function
   
   static const CGF input_value_range   [2] = { 0.0, 1.0 };						//range  for the evaluator input
@@ -914,9 +914,9 @@ void linearEvaluation (void *info, const float *in, float *out)
   	}
   //if we don't have another color then make next color the same color
   if(color2 == nil)
-    {
+	{
 	color2 = color1;
-    }
+	}
   
   //----------FailSafe settings----------
   //color1->red   = 1; color2->red   = 0;
@@ -979,7 +979,7 @@ void chromaticEvaluation(void *info, const float *in, float *out)
   
   float c1[4];
   float c2[4];
-    
+	
   //make sure first color and second color are on other sides of position
   while(color2 != nil && color2->position < position)
   	{
@@ -988,9 +988,9 @@ void chromaticEvaluation(void *info, const float *in, float *out)
   	}
   //if we don't have another color then make next color the same color
   if(color2 == nil)
-    {
+	{
 	color2 = color1;
-    }
+	}
   
   
   c1[0] = color1->red; 
@@ -1035,7 +1035,7 @@ void chromaticEvaluation(void *info, const float *in, float *out)
   	out[2] = (c2[2] - c1[2])*position + c1[2];
   	out[3] = (c2[3] - c1[3])*position + c1[3];
   	}
-    
+	
   transformHSV_RGB(out);
   
   //if(position > -1 && out[0] == out[1] && out[1] == out[2]  && out[0]==0)
@@ -1050,7 +1050,7 @@ void chromaticEvaluation(void *info, const float *in, float *out)
 //	which is equivalent to 180¼ mod 360¼
 void inverseChromaticEvaluation(void *info, const float *in, float *out)
   {
-    float position = *in;
+	float position = *in;
   
   if(*(CTGradientElement **)info == nil)	//if elementList is empty return clear color
 	{
@@ -1064,7 +1064,7 @@ void inverseChromaticEvaluation(void *info, const float *in, float *out)
   
   float c1[4];
   float c2[4];
-      
+	  
   //make sure first color and second color are on other sides of position
   while(color2 != nil && color2->position < position)
   	{
@@ -1073,9 +1073,9 @@ void inverseChromaticEvaluation(void *info, const float *in, float *out)
   	}
   //if we don't have another color then make next color the same color
   if(color2 == nil)
-    {
+	{
 	color2 = color1;
-    }
+	}
 
   c1[0] = color1->red; 
   c1[1] = color1->green;
@@ -1119,7 +1119,7 @@ void inverseChromaticEvaluation(void *info, const float *in, float *out)
   	out[2] = (c2[2] - c1[2])*position + c1[2];
   	out[3] = (c2[3] - c1[3])*position + c1[3];
   	}
-    
+	
   transformHSV_RGB(out);
   }
 
@@ -1134,7 +1134,7 @@ void transformRGB_HSV(float *components) //H,S,B -> R,G,B
 		  B = components[2];
 	
 	float MAX = R > G ? (R > B ? R : B) : (G > B ? G : B),
-	      MIN = R < G ? (R < B ? R : B) : (G < B ? G : B);
+		  MIN = R < G ? (R < B ? R : B) : (G < B ? G : B);
 	
 	if(MAX == MIN)
 		H = NAN;

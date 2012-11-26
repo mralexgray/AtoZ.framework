@@ -16,8 +16,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 	if([self hasPrefix:start] && [self hasSuffix:end])
 	{
 		NSString* keyName=[self substringWithRange:NSMakeRange([start length], [self length]-[end length]-[start length])];
-      if(![keyName length])
-         return NO;
+	  if(![keyName length])
+		 return NO;
 
 		return YES;
 	}
@@ -34,13 +34,13 @@ NSString *_NSKVOSplitKeyPath(NSString *path,NSString **restOfPath){
    [path getCharacters:buffer];
    
    for(dot=0;dot<length;dot++)
-    if(buffer[dot]=='.')
-     break;
+	if(buffer[dot]=='.')
+	 break;
    
    if(dot<length)
-    *restOfPath=[NSString stringWithCharacters:buffer+dot+1 length:length-(dot+1)];
+	*restOfPath=[NSString stringWithCharacters:buffer+dot+1 length:length-(dot+1)];
    else
-    *restOfPath=nil;   
+	*restOfPath=nil;   
 
 // we must always lowercase
    buffer[0]=tolower(buffer[0]);

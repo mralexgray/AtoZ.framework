@@ -11,11 +11,11 @@
 @protocol DragDropViewDelegate;
 
 @interface XLDragDropView : NSView <NSDraggingDestination> {
-    NSString *_normalBackgroundImageName, *_highlightedBackgroundImageName, *_acceptedBackgroundImageName;
-    NSImage *_normalBackgroundImage, *_highlightedBackgroundImage, *_acceptedBackgroundImage, *_currentBackgroundImage;
-    NSString *_filePath;
-    NSArray *_desiredSuffixes;
-    BOOL _isFileReady;
+	NSString *_normalBackgroundImageName, *_highlightedBackgroundImageName, *_acceptedBackgroundImageName;
+	NSImage *_normalBackgroundImage, *_highlightedBackgroundImage, *_acceptedBackgroundImage, *_currentBackgroundImage;
+	NSString *_filePath;
+	NSArray *_desiredSuffixes;
+	BOOL _isFileReady;
 }
 
 @property (nonatomic, unsafe_unretained) IBOutlet id <DragDropViewDelegate> delegate;

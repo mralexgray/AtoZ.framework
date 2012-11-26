@@ -8,7 +8,7 @@ static const NSString *start = @"echo '\
 	[NSApp setActivationPolicy:NSApplicationActivationPolicyRegular]; \
 	id menubar = [[NSMenu new] autorelease];\
 	id appMenuItem = [[NSMenuItem new] autorelease];\
-	[menubar addItem:appMenuItem];    [NSApp setMainMenu:menubar];\
+	[menubar addItem:appMenuItem];	[NSApp setMainMenu:menubar];\
 	id appMenu = [[NSMenu new] autorelease];\
 	id appName = [[NSProcessInfo processInfo] processName];\
 	id quitMenuItem = [[[NSMenuItem alloc] initWithTitle: $(@\"Quit %@\",appname) action:@selector(terminate:) keyEquivalent:@\"q\"] autorelease];\
@@ -25,11 +25,11 @@ return 0;}' | gcc -framework Cocoa -x objective-c -o MinimalistCocoaApp - ; ./Mi
 
 - (id)init
 {
-    self = [super init];
-    if (self) {
-        [NSTask launchedTaskWithLaunchPath:@"/bin/sh" arguments:@[start]];
-    }
-    return self;
+	self = [super init];
+	if (self) {
+		[NSTask launchedTaskWithLaunchPath:@"/bin/sh" arguments:@[start]];
+	}
+	return self;
 }
 
 @end

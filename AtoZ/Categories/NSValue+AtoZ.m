@@ -10,11 +10,11 @@
 @implementation NSValue (AZWindowPosition)
 + (id)valueWithPosition:(AZWindowPosition)pos;
 {
-    return [NSValue value:&pos withObjCType:@encode(AZWindowPosition)];
+	return [NSValue value:&pos withObjCType:@encode(AZWindowPosition)];
 }
 - (AZWindowPosition)positionValue;
 {
-    AZWindowPosition pos; [self getValue:&pos]; return pos;
+	AZWindowPosition pos; [self getValue:&pos]; return pos;
 }
 @end
 
@@ -36,11 +36,11 @@ typedef struct _Pair Pair;
 @implementation NSValue (Pair)
 + (id)valueWithPair:(Pair)pair
 {
-    return [NSValue value:&pair withObjCType:@encode(Pair)];
+	return [NSValue value:&pair withObjCType:@encode(Pair)];
 }
 - (Pair)pairValue
 {
-    Pair pair; [self getValue:&pair]; return pair;
+	Pair pair; [self getValue:&pair]; return pair;
 }
 @end
 

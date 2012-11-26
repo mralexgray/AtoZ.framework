@@ -28,46 +28,46 @@ static char const * const ObjectRepKey = "ObjectRep";
 @dynamic objectRep;
 
 - (id)objectRep {
-    return objc_getAssociatedObject(self, ObjectRepKey);
+	return objc_getAssociatedObject(self, ObjectRepKey);
 }
 
 - (void)setObjectRep:(id)newObjectRep {
-    objc_setAssociatedObject(self, ObjectRepKey, newObjectRep, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+	objc_setAssociatedObject(self, ObjectRepKey, newObjectRep, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 - (NSImage*) captureFrame
 {
 
-    NSRect originRect = [[self window] convertRectToScreen:[self bounds]]; // toView:[[self window] contentView]];
+	NSRect originRect = [[self window] convertRectToScreen:[self bounds]]; // toView:[[self window] contentView]];
 
-    NSRect rect = originRect;
-    rect.origin.y = 0;
-    rect.origin.x += [self window].frame.origin.x;
-    rect.origin.y += [[self window] screen].frame.size.height - [self window].frame.origin.y - [self window].frame.size.height;
-    rect.origin.y += [self window].frame.size.height - originRect.origin.y - originRect.size.height;
+	NSRect rect = originRect;
+	rect.origin.y = 0;
+	rect.origin.x += [self window].frame.origin.x;
+	rect.origin.y += [[self window] screen].frame.size.height - [self window].frame.origin.y - [self window].frame.size.height;
+	rect.origin.y += [self window].frame.size.height - originRect.origin.y - originRect.size.height;
 
-    CGImageRef cgimg = CGWindowListCreateImage(rect,
+	CGImageRef cgimg = CGWindowListCreateImage(rect,
 											   kCGWindowListOptionIncludingWindow,
 											   (CGWindowID)[[self window] windowNumber],
 											   kCGWindowImageDefault);
-    return [[NSImage alloc] initWithCGImage:cgimg size:[self bounds].size];
+	return [[NSImage alloc] initWithCGImage:cgimg size:[self bounds].size];
 }
 - (NSView *)viewWithObjectRep:(id)object {
-    // Raise an exception if object is nil
-    if (object == nil) {
-        [NSException raise:NSInternalInconsistencyException format:@"Argument to -viewWithObjectTag: must not be nil"];
-    }
+	// Raise an exception if object is nil
+	if (object == nil) {
+		[NSException raise:NSInternalInconsistencyException format:@"Argument to -viewWithObjectTag: must not be nil"];
+	}
 	
-    // Recursively search the view hierarchy for the specified objectTag
-    if ([self.objectRep isEqual:object]) {
-        return self;
-    }
-    for (NSView *subview in self.subviews) {
-        NSView *resultView = [subview viewWithObjectRep:object];
-        if (resultView != nil) {
-            return resultView;
-        }
-    }
-    return nil;
+	// Recursively search the view hierarchy for the specified objectTag
+	if ([self.objectRep isEqual:object]) {
+		return self;
+	}
+	for (NSView *subview in self.subviews) {
+		NSView *resultView = [subview viewWithObjectRep:object];
+		if (resultView != nil) {
+			return resultView;
+		}
+	}
+	return nil;
 }
 
 @end
@@ -103,42 +103,42 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 }
 - (BOOL)isSubviewOfView:(NSView*) theView
 {
-    __block BOOL isSubView = NO;
-    [[theView subviews] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        if ([self isEqualTo:(NSView*) obj]) {
-            isSubView = YES;
-            *stop = YES;
-        }
-    }];
-    return isSubView;
+	__block BOOL isSubView = NO;
+	[[theView subviews] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+		if ([self isEqualTo:(NSView*) obj]) {
+			isSubView = YES;
+			*stop = YES;
+		}
+	}];
+	return isSubView;
 }
 - (BOOL)containsSubView:(NSView*) subview
 {
-    __block BOOL containsSubView = NO;
-    [[self subviews] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        if ([subview isEqualTo:(NSView*) obj]) {
-            containsSubView = YES;
-            *stop = YES;
-        }
-    }];
-    return containsSubView;
+	__block BOOL containsSubView = NO;
+	[[self subviews] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+		if ([subview isEqualTo:(NSView*) obj]) {
+			containsSubView = YES;
+			*stop = YES;
+		}
+	}];
+	return containsSubView;
 }
 
 
 - (void)setCenter:(NSPoint)center
 {
-    [self setFrameOrigin:NSMakePoint(floorf(center.x - (NSWidth([self bounds])) / 2),
-                                     floorf(center.y - (NSHeight([self bounds])) / 2))];
+	[self setFrameOrigin:NSMakePoint(floorf(center.x - (NSWidth([self bounds])) / 2),
+									 floorf(center.y - (NSHeight([self bounds])) / 2))];
 }
 - (NSPoint)getCenter
 {
-    return NSMakePoint(floorf(self.bounds.origin.x + (self.bounds.size.width / 2)),
-                       floorf(self.bounds.origin.y + (self.bounds.size.height / 2)));
+	return NSMakePoint(floorf(self.bounds.origin.x + (self.bounds.size.width / 2)),
+					   floorf(self.bounds.origin.y + (self.bounds.size.height / 2)));
 }
 - (NSPoint)getCenterOnFrame
 {
-    return NSMakePoint(floorf(self.frame.origin.x + (self.frame.size.width / 2)),
-                       floorf(self.frame.origin.y + (self.frame.size.height / 2)));
+	return NSMakePoint(floorf(self.frame.origin.x + (self.frame.size.width / 2)),
+					   floorf(self.frame.origin.y + (self.frame.size.height / 2)));
 }
 
 - (void) maximize{
@@ -153,8 +153,8 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 - (NSRect) centerRect:(NSRect) aRect onPoint:(NSPoint) aPoint
 {
 	float
-    height = NSHeight(aRect),
-    width = NSWidth(aRect);
+	height = NSHeight(aRect),
+	width = NSWidth(aRect);
 
 	return NSMakeRect(aPoint.x-(width/2.0), aPoint.y - (height/2.0), width, height);
 }
@@ -209,15 +209,15 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 }
 
 - (NSArray *)allSubviews {
-    NSMutableArray *allSubviews = [NSMutableArray arrayWithObject:self];
-    NSArray *subviews = [self subviews];
-    for (NSView *view in subviews) {
-        [allSubviews addObjectsFromArray:[view allSubviews]];
-    }
-    return [allSubviews copy];
+	NSMutableArray *allSubviews = [NSMutableArray arrayWithObject:self];
+	NSArray *subviews = [self subviews];
+	for (NSView *view in subviews) {
+		[allSubviews addObjectsFromArray:[view allSubviews]];
+	}
+	return [allSubviews copy];
 }
 -(void)setAnimationIdentifer:(NSString *)newAnimationIdentifer{
-    objc_setAssociatedObject(self, &ANIMATION_IDENTIFER, newAnimationIdentifer, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+	objc_setAssociatedObject(self, &ANIMATION_IDENTIFER, newAnimationIdentifer, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 -(NSString*)animationIdentifer{
@@ -251,7 +251,7 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 }
 
 //-(void)setCenter:(NSPoint)center {
-//    objc_setAssociatedObject(self, &ISANIMATED_KEY, NSPoiu numberWithBool:animated], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+//	objc_setAssociatedObject(self, &ISANIMATED_KEY, NSPoiu numberWithBool:animated], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 //}
 
 //-(NSPoint)center {
@@ -284,7 +284,7 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 }
 
 -(CALayer*) setupHostView {
-    CALayer *layer = [CALayer layerNamed:@"root"];
+	CALayer *layer = [CALayer layerNamed:@"root"];
 //	layer.frame = [self bounds];
 //	layer.position = [self center];
 //	layer.bounds = [self bounds];
@@ -292,7 +292,7 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 //	layer.backgroundColor = cgRANDOMCOLOR;
 //	layer.autoresizingMask = kCALayerWidthSizable | kCALayerHeightSizable;
 	[self setLayer:layer];
-    [self setWantsLayer:YES];
+	[self setWantsLayer:YES];
 	NSLog(@"setup hosting layer:%@ in view: %@.  do not addsubviews to this view.  go crazy with layers.", layer.debugDescription, self);
 	return layer;
 }
@@ -312,11 +312,11 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 //Remove all the subviews from a view
 - (void)removeAllSubviews;
 {
-    NSEnumerator* enumerator = [[self subviews] reverseObjectEnumerator];
-    NSView* view;
-    
-    while (view = [enumerator nextObject])
-        [view removeFromSuperviewWithoutNeedingDisplay];
+	NSEnumerator* enumerator = [[self subviews] reverseObjectEnumerator];
+	NSView* view;
+	
+	while (view = [enumerator nextObject])
+		[view removeFromSuperviewWithoutNeedingDisplay];
 }
 
 //NSArray 	*subviews;  int		loop;
@@ -327,9 +327,9 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 -(NSTrackingArea *)trackFullView {
 	NSTrackingAreaOptions options =
 	NSTrackingMouseEnteredAndExited
-    | NSTrackingMouseMoved
-    | NSTrackingActiveInKeyWindow
-    | NSTrackingInVisibleRect ;
+	| NSTrackingMouseMoved
+	| NSTrackingActiveInKeyWindow
+	| NSTrackingInVisibleRect ;
 	NSTrackingArea *area = [[NSTrackingArea alloc] initWithRect:NSMakeRect(0, 0, 0, 0)
 			   options:options
 				 owner:self
@@ -343,11 +343,11 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 }
 
 -(NSTrackingArea *)trackAreaWithRect:(NSRect)rect
-                            userInfo:(NSDictionary *)context
+							userInfo:(NSDictionary *)context
 {
 	NSTrackingAreaOptions options = NSTrackingMouseEnteredAndExited
-    | NSTrackingMouseMoved
-    | NSTrackingActiveInKeyWindow;
+	| NSTrackingMouseMoved
+	| NSTrackingActiveInKeyWindow;
 	NSTrackingArea *area = [[NSTrackingArea alloc] initWithRect:rect
 			   options:options
 				 owner:self
@@ -479,13 +479,13 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 }
 
 + (void)animateWithDuration:(NSTimeInterval)duration 
-                  animation:(void (^)(void))animationBlock
+				  animation:(void (^)(void))animationBlock
 {
   [self animateWithDuration:duration animation:animationBlock completion:nil];
 }
 + (void)animateWithDuration:(NSTimeInterval)duration 
-                  animation:(void (^)(void))animationBlock
-                 completion:(void (^)(void))completionBlock
+				  animation:(void (^)(void))animationBlock
+				 completion:(void (^)(void))completionBlock
 {
   [NSAnimationContext beginGrouping];
   [[NSAnimationContext currentContext] setDuration:duration];
@@ -494,8 +494,8 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 
   if(completionBlock)
   {
-    id completionBlockCopy = [completionBlock copy];
-    [self performSelector:@selector(runEndBlock:) withObject:completionBlockCopy afterDelay:duration];
+	id completionBlockCopy = [completionBlock copy];
+	[self performSelector:@selector(runEndBlock:) withObject:completionBlockCopy afterDelay:duration];
   }
 }
 + (void)runEndBlock:(void (^)(void))completionBlock
@@ -759,37 +759,37 @@ NSView* AZResizeWindowAndContent(NSWindow* window, float dXLeft, float dXRight, 
 @implementation NSView (findSubview)
 
 - (NSArray *)findSubviewsOfKind:(Class)kind withTag:(NSInteger)tag inView:(NSView*)v {
-    NSMutableArray *array = [NSMutableArray array];
+	NSMutableArray *array = [NSMutableArray array];
 
-    if(kind==nil || [v isKindOfClass:kind]) {
-        if(tag==NSNotFound || v.tag==tag) {
-            [array addObject:v];
-        }
-    }
+	if(kind==nil || [v isKindOfClass:kind]) {
+		if(tag==NSNotFound || v.tag==tag) {
+			[array addObject:v];
+		}
+	}
 
-    for (id subview in v.subviews) {
-        NSArray *vChild = [self findSubviewsOfKind:kind withTag:tag inView:subview];
-        [array addObjectsFromArray:vChild];
-    }
+	for (id subview in v.subviews) {
+		NSArray *vChild = [self findSubviewsOfKind:kind withTag:tag inView:subview];
+		[array addObjectsFromArray:vChild];
+	}
 
-    return array;
+	return array;
 }
 
 #pragma mark -
 
 - (NSArray *)subviewsOfKind:(Class)kind withTag:(NSInteger)tag {
-    return [self findSubviewsOfKind:kind withTag:tag inView:self];
+	return [self findSubviewsOfKind:kind withTag:tag inView:self];
 }
 
 - (NSArray *)subviewsOfKind:(Class)kind {
-    return [self findSubviewsOfKind:kind withTag:NSNotFound inView:self];
+	return [self findSubviewsOfKind:kind withTag:NSNotFound inView:self];
 }
 
 - (NSView *)firstSubviewOfKind:(Class)kind withTag:(NSInteger)tag {
-    return [self findSubviewsOfKind:kind withTag:tag inView:self][0];
+	return [self findSubviewsOfKind:kind withTag:tag inView:self][0];
 }
 
 - (NSView *)firstSubviewOfKind:(Class)kind {
-    return [self firstSubviewOfKind:kind withTag:NSNotFound];
+	return [self firstSubviewOfKind:kind withTag:NSNotFound];
 }
 @end

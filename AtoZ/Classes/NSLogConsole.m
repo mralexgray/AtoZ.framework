@@ -254,9 +254,9 @@ void	NSLogPostLog(char* file, int line)
 // Open source file in XCode at correct line number
 //
 - (void)webView:(WebView *)webView decidePolicyForNavigationAction:(NSDictionary *)actionInformation
-                                                           request:(NSURLRequest *)request
-                                                             frame:(WebFrame *)frame
-                                                  decisionListener:(id<WebPolicyDecisionListener>)listener
+														   request:(NSURLRequest *)request
+															 frame:(WebFrame *)frame
+												  decisionListener:(id<WebPolicyDecisionListener>)listener
 {
 	// Get path, formed by AbsolutePathOnDisk(space)LineNumber
 	NSString* pathAndLineNumber = [[request URL] path];

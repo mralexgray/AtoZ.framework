@@ -149,10 +149,10 @@ NSString *const AZToggleState	= @"AZToggleState";
 	_containerLayer = [CALayer layer];
 	_containerLayer.name = @"container";
 	_containerLayer.backgroundColor =  GRAY3.cgColor;											// CGColorCreateGenericRGB(0.,0.,0.,1.);
-	_containerLayer.borderColor     = kGBDebugLayerBorderColor;
-	_containerLayer.borderWidth     = kGBDebugLayerBorderWidth;
+	_containerLayer.borderColor	 = kGBDebugLayerBorderColor;
+	_containerLayer.borderWidth	 = kGBDebugLayerBorderWidth;
 	_containerLayer.layoutManager   = [CAConstraintLayoutManager layoutManager];
-	_containerLayer.constraints     = @[	AZConstRelSuper(kCAConstraintMidX),
+	_containerLayer.constraints	 = @[	AZConstRelSuper(kCAConstraintMidX),
 											AZConstRelSuperScaleOff(kCAConstraintWidth, 1, 0), 		//-20f
 											AZConstRelSuper(kCAConstraintMidY),
 											AZConstRelSuperScaleOff(kCAConstraintHeight, 1, 0) ];  	//-20.0f
@@ -189,7 +189,7 @@ NSString *const AZToggleState	= @"AZToggleState";
 			NSString* label = response[AZToggleLabel] ? response[AZToggleLabel] : @"";
 			NSString* rel = i == 0
 						  ? @"superlayer"
-			              : lastRelative;
+						  : lastRelative;
 						  //[[_delegate toggleForView:self atIndex:i-1] valueForKey:AZToggleRel];
 			NSString *on = response[AZToggleOn] ? response[AZToggleOn] : @"ON";
 			NSString *off = response[AZToggleOff] ? response[AZToggleOff] : @"OFF";
@@ -220,7 +220,7 @@ NSString *const AZToggleState	= @"AZToggleState";
 //												  state:YES
 //												  index:1]];
 
-			NSString* rel = (index == 0 ? @"superlayer" : yesno[index-1]);
+//			NSString* rel = (index == 0 ? @"superlayer" : yesno[index-1]);
 			[_containerLayer addSublayer:obj];
 		}];
 	} else {
@@ -539,8 +539,8 @@ NSString *const AZToggleState	= @"AZToggleState";
 	offTextLayer.alignmentMode 		= kCAAlignmentCenter;
 	offTextLayer.truncationMode 	= kCATruncationEnd;
 	offTextLayer.foregroundColor 	= GRAY1.CGColor;// CGColorCreateGenericRGB(0.2f, 0.2f, 0.2f, 1.0f);
-	offTextLayer.shadowColor 		= CGColorCreateGenericRGB(1.0f, 1.0f, 1.0f, 1.0f);
-	offTextLayer.shadowOffset 		= CGSizeMake(0.0f, 0.0f);
+	offTextLayer.shadowColor 		= cgBLACK;
+	offTextLayer.shadowOffset 		= (CGSize){0, 0};
 	offTextLayer.shadowRadius 		= 1.0f;
 	offTextLayer.shadowOpacity 		= 0.9f;
 	offTextLayer .constraints		=   @[	AZConstRelSuper(kCAConstraintMidX),AZConstRelSuper(kCAConstraintMidY) ];

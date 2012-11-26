@@ -13,11 +13,11 @@
 
 - (id)init
 {
-    self = [super init];
-    if (self) {
-        [self setup];
-    }
-    return self;
+	self = [super init];
+	if (self) {
+		[self setup];
+	}
+	return self;
 }
 
 -(void) setup;
@@ -100,7 +100,7 @@
 	{
 //	}];
 		// draw all other layers normally
-        [super drawLayer:layer inContext:cgContext];
+		[super drawLayer:layer inContext:cgContext];
 	}
 
 }

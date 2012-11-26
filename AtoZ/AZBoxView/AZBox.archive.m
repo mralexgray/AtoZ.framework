@@ -31,9 +31,9 @@
 }
 - (float) halfwayWithInset:(float)inset {
 	return (   NSMaxY( NSInsetRect([self bounds], inset, inset) ) 
-		     + NSMaxX( NSInsetRect([self bounds], inset, inset) ) 
-		     - ( 2 * self.radius) 
-		     + (.5 * (pi * ( 2 * self.radius))) );
+			 + NSMaxX( NSInsetRect([self bounds], inset, inset) ) 
+			 - ( 2 * self.radius) 
+			 + (.5 * (pi * ( 2 * self.radius))) );
 }
 
 - (NSBezierPath*) pathWithInset:(float)inset {
@@ -72,47 +72,47 @@
 
 - (void)drawRect:(NSRect)dirtyRect
 {
-	//    BOOL outer = NO;
-//    BOOL background = YES;
-//    BOOL stroke = NO;
-//    BOOL innerStroke = NO;
+	//	BOOL outer = NO;
+//	BOOL background = YES;
+//	BOOL stroke = NO;
+//	BOOL innerStroke = NO;
 
-//    NSRect frame = [self bounds];
-	//    if(outer) {
-	//        NSBezierPath *outerClip = [NSBezierPath bezierPathWithRoundedRect:frame xRadius:_radius yRadius:_radius];
-	//        [outerClip setClip];
-	//        NSGradient *outerGradient = [[NSGradient alloc] initWithColorsAndLocations: [NSColor colorWithDeviceWhite:0.20f alpha:1.0f], 0.0f,  [NSColor colorWithDeviceWhite:0.21f alpha:1.0f], 1.0f,  nil];
-	//        [outerGradient drawInRect:[outerClip bounds] angle:90.0f]; }
+//	NSRect frame = [self bounds];
+	//	if(outer) {
+	//		NSBezierPath *outerClip = [NSBezierPath bezierPathWithRoundedRect:frame xRadius:_radius yRadius:_radius];
+	//		[outerClip setClip];
+	//		NSGradient *outerGradient = [[NSGradient alloc] initWithColorsAndLocations: [NSColor colorWithDeviceWhite:0.20f alpha:1.0f], 0.0f,  [NSColor colorWithDeviceWhite:0.21f alpha:1.0f], 1.0f,  nil];
+	//		[outerGradient drawInRect:[outerClip bounds] angle:90.0f]; }
 	NSBezierPath *standard = [self pathWithInset:2];
 	[standard setLineWidth:self.dynamicStroke];
 //	[NSGraphicsContext saveGraphicsState];
-//    if(background) {
+//	if(background) {
 //		[[NSColor colorWithCalibratedWhite:0.9 alpha:1.0] set];
 //		[standard fill];
 //		[NSShadow clearShadow];
 //	}
 	if (gradient)
 		[NSShadow setShadowWithOffset:NSMakeSize(10,-8) blurRadius:10 color:BLACK];
-        [gradient drawInBezierPath:standard angle:270];
+		[gradient drawInBezierPath:standard angle:270];
 		[NSShadow clearShadow];
-//    if(stroke) {
-//        [[NSColor colorWithDeviceWhite:0.12f alpha:1.0f] setStroke];
-//        [[NSBezierPath bezierPathWithRoundedRect:NSInsetRect([self bounds], 1.5f, 1.5f) xRadius:self.radius yRadius:self.radius] stroke];
-//    }
-//    if(innerStroke) {
-//        [[NSColor colorWithDeviceWhite:1.0f alpha:0.1f] setStroke];
-//        [[NSBezierPath bezierPathWithRoundedRect:NSInsetRect([self bounds], 2.5f, 2.5f) xRadius:self.radius yRadius:self.radius] stroke];
-//    }
+//	if(stroke) {
+//		[[NSColor colorWithDeviceWhite:0.12f alpha:1.0f] setStroke];
+//		[[NSBezierPath bezierPathWithRoundedRect:NSInsetRect([self bounds], 1.5f, 1.5f) xRadius:self.radius yRadius:self.radius] stroke];
+//	}
+//	if(innerStroke) {
+//		[[NSColor colorWithDeviceWhite:1.0f alpha:0.1f] setStroke];
+//		[[NSBezierPath bezierPathWithRoundedRect:NSInsetRect([self bounds], 2.5f, 2.5f) xRadius:self.radius yRadius:self.radius] stroke];
+//	}
 	if(hovered_) {
 ///	[NSGraphicsContext saveGraphicsState];
-//        [[NSBezierPath bezierPathWithRoundedRect:NSInsetRect([self frame], 2.0f, 2.0f) xRadius:radius yRadius:radius] 
+//		[[NSBezierPath bezierPathWithRoundedRect:NSInsetRect([self frame], 2.0f, 2.0f) xRadius:radius yRadius:radius] 
 //		[self.path setClip];
 //		[[NSColor colorWithCalibratedWhite:0.0f alpha:0.35] set];
-//        [standard fill];
+//		[standard fill];
 		[standard fillGradientFrom:[BLACK colorWithAlphaComponent:.5] to:[BLACK colorWithAlphaComponent:.1] angle:90];
 //		NSRectFillUsingOperation([self bounds], NSCompositeSourceOver);
 //[NSGraphicsContext restoreGraphicsState];
-    }
+	}
 	
 //	NSRect inRect = [self bounds];
 //	NSRect srcRect = NSZeroRect;
@@ -133,7 +133,7 @@
 		//		NSRect insidef = NSInsetRect(frame, 2.5f, 2.5f);
 //		[selectionColor set];
 //		NSRect insidef = [self bounds];//[self bounds];
-									   //        NSBezierPath *path = [NSBezierPath bezierPathWithRect:insidef];
+									   //		NSBezierPath *path = [NSBezierPath bezierPathWithRect:insidef];
 //		NSBezierPath *inside = [NSBezierPath bezierPathWithRoundedRect:insidef xRadius:radius yRadius:radius];
 //		[inside setLineWidth:self.dynamicStroke];
 		[standard setLineJoinStyle:NSBevelLineJoinStyle];
@@ -149,21 +149,21 @@
 		[standard strokeInside];
 		// strokeInsideWithinRect:insidef];
 		
-		//        [path setLineWidth:4.0];
-		//        [path stroke];
+		//		[path setLineWidth:4.0];
+		//		[path stroke];
 		//		[NSGraphicsContext restoreGraphicsState];
 	}
 //	[NSGraphicsContext restoreGraphicsState];
 	if (!tv) tv = self.tv;
 	[self addSubview:tv];
 	//	}
-	//    [NSGraphicsContext restoreGraphicsState];
+	//	[NSGraphicsContext restoreGraphicsState];
 }
 
 
 //- (void)setImage:(NSImage *)image {
-//    _image = image;
-//    [self setNeedsDisplay:YES];
+//	_image = image;
+//	[self setNeedsDisplay:YES];
 //}
 
 - (void)setSelected:(BOOL)state
@@ -191,8 +191,8 @@
 	//		}
 	//	}		
 	
-	//    selected = state;	
-	//    [self setNeedsDisplay:YES];
+	//	selected = state;	
+	//	[self setNeedsDisplay:YES];
 }
 
 - (void)setHovered:(BOOL)hovered
@@ -204,34 +204,34 @@
 
 - (void)prepareForReuse
 {
-//    _selected = NO;
-//    self.drawSelection = YES;
+//	_selected = NO;
+//	self.drawSelection = YES;
 	self.hovered = NO;
-//    _image = nil;
+//	_image = nil;
 }
 
 //- (id)initWithFrame:(NSRect)frame {
-//    if (self = [super initWithFrame:frame]) {
-////        self.multiplier = 1; //AZCenterOfRect([self frame]);
-//							 //        self.radius = 
-//							 //        self.color = [NSColor redColor];
-//							 //        [self addObserver:self forKeyPath:@"color" options:NSKeyValueObservingOptionOld context:DotViewUndoAndRedisplay];
-//							 //        [self addObserver:self forKeyPath:@"radius" options:NSKeyValueObservingOptionOld context:DotViewUndoAndRedisplay];
-//							 //        [self addObserver:self forKeyPath:@"center" options:NSKeyValueObservingOptionOld context:DotViewUndoAndRedisplay];
+//	if (self = [super initWithFrame:frame]) {
+////		self.multiplier = 1; //AZCenterOfRect([self frame]);
+//							 //		self.radius = 
+//							 //		self.color = [NSColor redColor];
+//							 //		[self addObserver:self forKeyPath:@"color" options:NSKeyValueObservingOptionOld context:DotViewUndoAndRedisplay];
+//							 //		[self addObserver:self forKeyPath:@"radius" options:NSKeyValueObservingOptionOld context:DotViewUndoAndRedisplay];
+//							 //		[self addObserver:self forKeyPath:@"center" options:NSKeyValueObservingOptionOld context:DotViewUndoAndRedisplay];
 //		[[self superview] addObserver:self forKeyPath:@"desiredNumberOfColumns" options:NSKeyValueObservingOptionOld context:nil];
-//        [self addObserver:self forKeyPath:@"multiplier" options:NSKeyValueObservingOptionOld context:nil];
-//    }
-//    return self;
+//		[self addObserver:self forKeyPath:@"multiplier" options:NSKeyValueObservingOptionOld context:nil];
+//	}
+//	return self;
 //}
 
 //- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 //	//	if (context == DotViewUndoAndRedisplay) {
-//	//        NSUndoManager *undoManager = [[self window] undoManager];
-//	//        if ([keyPath isEqual:@"center"]) [[undoManager prepareWithInvocationTarget:self] setCenter:[[change objectForKey:NSKeyValueChangeOldKey] pointValue]];
-//	//        else if ([keyPath isEqual:@"radius"]) [[undoManager prepareWithInvocationTarget:self] setRadius:[[change objectForKey:NSKeyValueChangeOldKey] doubleValue]];
-//	//        else if ([keyPath isEqual:@"color"]) [undoManager registerUndoWithTarget:self selector:@selector(setColor:) object:[change objectForKey:NSKeyValueChangeOldKey]];
+//	//		NSUndoManager *undoManager = [[self window] undoManager];
+//	//		if ([keyPath isEqual:@"center"]) [[undoManager prepareWithInvocationTarget:self] setCenter:[[change objectForKey:NSKeyValueChangeOldKey] pointValue]];
+//	//		else if ([keyPath isEqual:@"radius"]) [[undoManager prepareWithInvocationTarget:self] setRadius:[[change objectForKey:NSKeyValueChangeOldKey] doubleValue]];
+//	//		else if ([keyPath isEqual:@"color"]) [undoManager registerUndoWithTarget:self selector:@selector(setColor:) object:[change objectForKey:NSKeyValueChangeOldKey]];
 //	//		[self setNeedsDisplay:YES];
-//	//    }
+//	//	}
 ////	if ([keyPath isEqual:@"multiplier"]) {
 ////		NSRect bounding = [self frame];
 //		//		[[AtoZ sharedInstance] say: NSStringFromRect(bounding)];		
@@ -246,11 +246,11 @@
 
 - (id)initWithReuseIdentifier:(NSString *)anIdentifier
 {
-    if((self = [super initWithFrame:NSZeroRect]))
-    {
-        cellIdentifier = anIdentifier;
-//        selectionColor  = [NSColor whiteColor];
-//        drawSelection   = YES;
+	if((self = [super initWithFrame:NSZeroRect]))
+	{
+		cellIdentifier = anIdentifier;
+//		selectionColor  = [NSColor whiteColor];
+//		drawSelection   = YES;
 //		color_ = RANDOMCOLOR;
 		hovered_ = NO;
 		selected_ = NO;
@@ -260,8 +260,8 @@
 		mPhase = 0;
 		radius_ = 5;
 //		composite = NSCompositeSourceOver;
-    }
-    return self;
+	}
+	return self;
 }
 
 - (void)setRepresentedObject:(id)aRepresentedObject {
@@ -338,7 +338,7 @@
 //- (void) drawRect:(NSRect)dirtyRect {
 
 
-//								//        NSBezierPath *path = [NSBezierPath bezierPathWithRect:insidef];
+//								//		NSBezierPath *path = [NSBezierPath bezierPathWithRect:insidef];
 //	_all = ( NSMaxY([self bounds]) + NSMaxX([self bounds])  - (2* radius) + (.5* (pi *(2*radius))) );
 //	//			[(color.isDark ? color.brighter : color.darker) set];
 //	[BLACK set];
@@ -403,37 +403,37 @@
 //	NSImage *cache = [[NSImage alloc]initWithSize:[self bounds].size];
 //	[NSGraphicsContext saveGraphicsState];
 //	[cache lockFocus];
-////    BOOL outer = NO;
-//    BOOL background = YES;
-//    BOOL stroke = NO;
-//    BOOL innerStroke = NO;
-//    NSRect frame = [self bounds];
-////    if(outer) {
-////        NSBezierPath *outerClip = [NSBezierPath bezierPathWithRoundedRect:frame xRadius:_radius yRadius:_radius];
-////        [outerClip setClip];
-////        NSGradient *outerGradient = [[NSGradient alloc] initWithColorsAndLocations:
-////                                     [NSColor colorWithDeviceWhite:0.20f alpha:1.0f], 0.0f, 
-////                                     [NSColor colorWithDeviceWhite:0.21f alpha:1.0f], 1.0f, nil];
-////        [outerGradient drawInRect:[outerClip bounds] angle:90.0f];
-////    }
-//    if(background) {
-//        NSBezierPath *backgroundPath = [NSBezierPath bezierPathWithRoundedRect:NSInsetRect(frame, 2.0f, 2.0f) xRadius:radius yRadius:radius];
+////	BOOL outer = NO;
+//	BOOL background = YES;
+//	BOOL stroke = NO;
+//	BOOL innerStroke = NO;
+//	NSRect frame = [self bounds];
+////	if(outer) {
+////		NSBezierPath *outerClip = [NSBezierPath bezierPathWithRoundedRect:frame xRadius:_radius yRadius:_radius];
+////		[outerClip setClip];
+////		NSGradient *outerGradient = [[NSGradient alloc] initWithColorsAndLocations:
+////									 [NSColor colorWithDeviceWhite:0.20f alpha:1.0f], 0.0f, 
+////									 [NSColor colorWithDeviceWhite:0.21f alpha:1.0f], 1.0f, nil];
+////		[outerGradient drawInRect:[outerClip bounds] angle:90.0f];
+////	}
+//	if(background) {
+//		NSBezierPath *backgroundPath = [NSBezierPath bezierPathWithRoundedRect:NSInsetRect(frame, 2.0f, 2.0f) xRadius:radius yRadius:radius];
 ////		[NSShadow setShadowWithOffset:NSMakeSize(0, -8 * .5) blurRadius:12 * .5
 ////								color:[NSColor colorWithCalibratedWhite:0 alpha:0.75]];
 ////		[[NSColor colorWithCalibratedWhite:0.9 alpha:1.0] set];
 ////		[backgroundPath fill];
 ////		[NSShadow clearShadow];
 ////		[backgroundPath setClip];	
-//        [gradient drawInRect:[backgroundPath bounds] angle:270];
-//    }
-//    if(stroke) {
-//        [[NSColor colorWithDeviceWhite:0.12f alpha:1.0f] setStroke];
-//        [[NSBezierPath bezierPathWithRoundedRect:NSInsetRect(frame, 1.5f, 1.5f) xRadius:radius yRadius:radius] stroke];
-//    }
-//    if(innerStroke) {
-//        [[NSColor colorWithDeviceWhite:1.0f alpha:0.1f] setStroke];
-//        [[NSBezierPath bezierPathWithRoundedRect:NSInsetRect(frame, 2.5f, 2.5f) xRadius:radius yRadius:radius] stroke];
-//    }
+//		[gradient drawInRect:[backgroundPath bounds] angle:270];
+//	}
+//	if(stroke) {
+//		[[NSColor colorWithDeviceWhite:0.12f alpha:1.0f] setStroke];
+//		[[NSBezierPath bezierPathWithRoundedRect:NSInsetRect(frame, 1.5f, 1.5f) xRadius:radius yRadius:radius] stroke];
+//	}
+//	if(innerStroke) {
+//		[[NSColor colorWithDeviceWhite:1.0f alpha:0.1f] setStroke];
+//		[[NSBezierPath bezierPathWithRoundedRect:NSInsetRect(frame, 2.5f, 2.5f) xRadius:radius yRadius:radius] stroke];
+//	}
 ////	NSLog(@"representedObject: %@", [representedObject propertiesPlease] );
 ////	[CLEAR set];
 
@@ -458,19 +458,19 @@
 //	NSRect frame = [self bounds];
 //	[imageCache drawCenteredinRect:[self bounds] operation:NSCompositeCopy fraction:1];
 //	if(hovering) {
-//        [[NSBezierPath bezierPathWithRoundedRect:NSInsetRect(frame, 2.0f, 2.0f) xRadius:radius yRadius:radius] setClip];
-//        [[NSColor colorWithCalibratedWhite:0.0f alpha:0.35] setFill];
-//        NSRectFillUsingOperation(frame, NSCompositeSourceAtop);
-//    }
+//		[[NSBezierPath bezierPathWithRoundedRect:NSInsetRect(frame, 2.0f, 2.0f) xRadius:radius yRadius:radius] setClip];
+//		[[NSColor colorWithCalibratedWhite:0.0f alpha:0.35] setFill];
+//		NSRectFillUsingOperation(frame, NSCompositeSourceAtop);
+//	}
 //		//		[NSGraphicsContext saveGraphicsState];
 //		//		NSRect insidef = NSInsetRect(frame, 2.5f, 2.5f);
 ////		[selectionColor set];
-//		//        [path setLineWidth:4.0];
-//		//        [path stroke];
+//		//		[path setLineWidth:4.0];
+//		//		[path stroke];
 //		//		[NSGraphicsContext restoreGraphicsState];
 ////	}
 //	//	}
-//	//    [NSGraphicsContext restoreGraphicsState];
+//	//	[NSGraphicsContext restoreGraphicsState];
 //}
 //		
 ////	NSRect inRect = [self bounds];
@@ -503,15 +503,15 @@
 ////	drawAtPoint:NSZeroPoint fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1];
 
 ////	[render 
-////	        [render drawInRect:drawnRect fromRect:srcRect operation:NSCompositeSourceAtop fraction:1.0];
-//        
+////			[render drawInRect:drawnRect fromRect:srcRect operation:NSCompositeSourceAtop fraction:1.0];
+//		
 ////	}
 //	
 
 
 ////- (void)setImage:(NSImage *)animage {
-////    image = animage;
-////    [self setNeedsDisplay:YES];
+////	image = animage;
+////	[self setNeedsDisplay:YES];
 ////}
 
 //-(void) setRepresentedObject:(id)arepresentedObject {
@@ -542,8 +542,8 @@
 //	//		}
 //	//	}		
 //	
-//	//    selected = state;	
-//	//    [self setNeedsDisplay:YES];
+//	//	selected = state;	
+//	//	[self setNeedsDisplay:YES];
 //}
 
 //- (void)setHovering:(BOOL)state
@@ -555,40 +555,40 @@
 
 //- (void)prepareForReuse
 //{
-////    self.selected = NO;
-////    self.drawSelection = YES;
+////	self.selected = NO;
+////	self.drawSelection = YES;
 ////	self.hovering = NO;
-////    self.image = nil;
+////	self.image = nil;
 //}
 
 //- (id)initWithFrame:(NSRect)frame {
-//    if (self = [super initWithFrame:frame]) {
-//        self.multiplier = 1; //AZCenterOfRect([self frame]);
+//	if (self = [super initWithFrame:frame]) {
+//		self.multiplier = 1; //AZCenterOfRect([self frame]);
 //		
 //		self.drawsIconMaskOnly = YES;
 //		[self addObserver:self forKeyPath:@"drawsIconMaskOnly" options:nil context:nil];
 //		self.drawsAlphaSymbol = NO;
 //		[self addObserver:self forKeyPath:@"drawsAlphaSymbol" options:nil context:nil];
 
-////        self.radius = 
-////        self.color = [NSColor redColor];
-////        [self addObserver:self forKeyPath:@"color" options:NSKeyValueObservingOptionOld context:DotViewUndoAndRedisplay];
-////        [self addObserver:self forKeyPath:@"radius" options:NSKeyValueObservingOptionOld context:DotViewUndoAndRedisplay];
-////        [self addObserver:self forKeyPath:@"center" options:NSKeyValueObservingOptionOld context:DotViewUndoAndRedisplay];
+////		self.radius = 
+////		self.color = [NSColor redColor];
+////		[self addObserver:self forKeyPath:@"color" options:NSKeyValueObservingOptionOld context:DotViewUndoAndRedisplay];
+////		[self addObserver:self forKeyPath:@"radius" options:NSKeyValueObservingOptionOld context:DotViewUndoAndRedisplay];
+////		[self addObserver:self forKeyPath:@"center" options:NSKeyValueObservingOptionOld context:DotViewUndoAndRedisplay];
 //		[[self superview] addObserver:self forKeyPath:@"desiredNumberOfColumns" options:NSKeyValueObservingOptionOld context:nil];
-//        [self addObserver:self forKeyPath:@"multiplier" options:NSKeyValueObservingOptionOld context:nil];
-//    }
-//    return self;
+//		[self addObserver:self forKeyPath:@"multiplier" options:NSKeyValueObservingOptionOld context:nil];
+//	}
+//	return self;
 //}
 
 //- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 ////	if (context == DotViewUndoAndRedisplay) {
-////        NSUndoManager *undoManager = [[self window] undoManager];
-////        if ([keyPath isEqual:@"center"]) [[undoManager prepareWithInvocationTarget:self] setCenter:[[change objectForKey:NSKeyValueChangeOldKey] pointValue]];
-////        else if ([keyPath isEqual:@"radius"]) [[undoManager prepareWithInvocationTarget:self] setRadius:[[change objectForKey:NSKeyValueChangeOldKey] doubleValue]];
-////        else if ([keyPath isEqual:@"color"]) [undoManager registerUndoWithTarget:self selector:@selector(setColor:) object:[change objectForKey:NSKeyValueChangeOldKey]];
+////		NSUndoManager *undoManager = [[self window] undoManager];
+////		if ([keyPath isEqual:@"center"]) [[undoManager prepareWithInvocationTarget:self] setCenter:[[change objectForKey:NSKeyValueChangeOldKey] pointValue]];
+////		else if ([keyPath isEqual:@"radius"]) [[undoManager prepareWithInvocationTarget:self] setRadius:[[change objectForKey:NSKeyValueChangeOldKey] doubleValue]];
+////		else if ([keyPath isEqual:@"color"]) [undoManager registerUndoWithTarget:self selector:@selector(setColor:) object:[change objectForKey:NSKeyValueChangeOldKey]];
 ////		[self setNeedsDisplay:YES];
-////    }
+////	}
 //	if ([keyPath isEqual:@"multiplier"]) {
 //		NSRect bounding = [self frame];
 ////		[[AtoZ sharedInstance] say: NSStringFromRect(bounding)];		
@@ -603,11 +603,11 @@
 
 //- (id)initWithReuseIdentifier:(NSString *)anIdentifier
 //{
-//    if((self = [super initWithFrame:NSZeroRect]))
-//    {
-//        cellIdentifier = anIdentifier;
-//        selectionColor  = [NSColor whiteColor];
-//        drawSelection   = YES;
+//	if((self = [super initWithFrame:NSZeroRect]))
+//	{
+//		cellIdentifier = anIdentifier;
+//		selectionColor  = [NSColor whiteColor];
+//		drawSelection   = YES;
 //		mPhase = 0;
 //		radius = 5;
 //		composite = NSCompositeSourceOver;
@@ -624,9 +624,9 @@
 ////			color = [representedObject valueForKeyPath:@"dictionary.color"];
 //		
 
-//    }
-//    
-//    return self;
+//	}
+//	
+//	return self;
 //}
 
 
@@ -674,8 +674,8 @@
 
 
 //- (id)initWithFrame:(NSRect)frame {
-//    self = [super initWithFrame:frame];
-//    if (self) {
+//	self = [super initWithFrame:frame];
+//	if (self) {
 //	
 //		_composite = NSCompositeSourceOver;
 //		_radius = 5;
@@ -684,7 +684,7 @@
 //		_path = [self apath];
 //		_mPhase = 0;
 //		_interval = .05;
-//    }
+//	}
 //	return self;
 //}
 //-(void) awakeFromNib {	[self updateTrackingAreas]; }
@@ -724,10 +724,10 @@
 ////	[NSShadow setShadowWithOffset:NSMakeSize(10,10) blurRadius:11 color:BLACK];
 ////	[[self backgroundColor] set];
 //	NSGraphicsContext *ctx = [NSGraphicsContext currentContext];
-//    
-//    
-//        
-////        NSGradient *backgroundGradient = [[NSGradient alloc] initWithColorsAndLocations:
+//	
+//	
+//		
+////		NSGradient *backgroundGradient = [[NSGradient alloc] initWithColorsAndLocations:
 ////			[NSColor colorWithDeviceWhite:0.17f alpha:1.0f], 0.0f, 
 ////			[NSColor colorWithDeviceWhite:0.20f alpha:1.0f], 0.12f, 
 ////			[NSColor colorWithDeviceWhite:0.27f alpha:1.0f], 0.5f, 
@@ -735,7 +735,7 @@
 ////			[NSColor colorWithDeviceWhite:0.42f alpha:1.0f], 0.98f, 
 ////			[NSColor colorWithDeviceWhite:0.50f alpha:1.0f], 1.0f, 
 ////			nil];
-//        
+//		
 
 ////	[[self path] fill];
 ////	[_gradient drawInBezierPath:_path angle:270];
@@ -762,10 +762,10 @@
 
 
 //- (void)mouseEntered:(NSEvent *)theEvent {
-////    wasAcceptingMouseEvents = [[self window] acceptsMouseMovedEvents];
-////    [[self window] setAcceptsMouseMovedEvents:YES];
-////    [[self window] makeFirstResponder:self];
-////    NSPoint eyeCenter = [self convertPoint:[theEvent locationInWindow] fromView:nil];
+////	wasAcceptingMouseEvents = [[self window] acceptsMouseMovedEvents];
+////	[[self window] setAcceptsMouseMovedEvents:YES];
+////	[[self window] makeFirstResponder:self];
+////	NSPoint eyeCenter = [self convertPoint:[theEvent locationInWindow] fromView:nil];
 //	NSLog(@"mouse entered %@", NSStringFromRect([self frame]));
 //	_hovered = YES;
 //	[self setNeedsDisplay:YES];
@@ -775,17 +775,17 @@
 ////}
 //- (void)mouseMoved:(NSEvent *)theEvent {
 ////	[self rotateByAngle:5];
-////    NSPoint eyeCenter = [self convertPoint:[theEvent locationInWindow] fromView:nil];
-////    eyeBox = NSMakeRect((eyeCenter.x-10.0), (eyeCenter.y-10.0), 20.0, 20.0);
-////    [self setNeedsDisplayInRect:eyeBox];
-////    [self setNeedsDisplay:YES];
+////	NSPoint eyeCenter = [self convertPoint:[theEvent locationInWindow] fromView:nil];
+////	eyeBox = NSMakeRect((eyeCenter.x-10.0), (eyeCenter.y-10.0), 20.0, 20.0);
+////	[self setNeedsDisplayInRect:eyeBox];
+////	[self setNeedsDisplay:YES];
 ////	NSLog(@"mouse moved in %ld", [self tag]);
 //}
 
 //- (void)mouseExited:(NSEvent *)theEvent {
 //	NSLog(@"mouse exited %ld", [self tag]);
 
-////    [[self window] setAcceptsMouseMovedEvents:wasAcceptingMouseEvents];
+////	[[self window] setAcceptsMouseMovedEvents:wasAcceptingMouseEvents];
 //	_hovered =	NO;
 //	[self setNeedsDisplay:YES];
 //}

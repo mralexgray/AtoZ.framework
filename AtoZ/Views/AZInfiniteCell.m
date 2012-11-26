@@ -161,12 +161,12 @@
 
 - (id)initWithFrame:(NSRect)frame
 {
-    self = [super initWithFrame:frame];
-    if (self) {
+	self = [super initWithFrame:frame];
+	if (self) {
 	NSLog(@"nibawakening, not. init");
 	self.autoresizingMask =  NSViewHeightSizable;
-    }
-    return self;
+	}
+	return self;
 }
 
 - (void) updateTrackingAreas {
@@ -195,13 +195,13 @@
 
 - (id)copyWithZone:(NSZone *)zone;
 {
-    return self;// retain];
+	return self;// retain];
 }
 
 - (void) encodeWithCoder:(NSCoder *)aCoder {
-    [aCoder encodeObject:backgroundColor forKey:@"backgroundColor"];
-    [aCoder encodeObject:uniqueID forKey:@"uniqueID"];
-    [aCoder encodeObject:file forKey:@"file"];
+	[aCoder encodeObject:backgroundColor forKey:@"backgroundColor"];
+	[aCoder encodeObject:uniqueID forKey:@"uniqueID"];
+	[aCoder encodeObject:file forKey:@"file"];
 	//	[aCoder encodeObject:image forKey:@"image"];	[aCoder encodeObject:atv forKey:@"atv"];		[aCoder encodeBool:hasText forKey:@"hasText"];
 }
 
@@ -227,7 +227,7 @@
  backgroundColor.darker.darker,		 1,nil]; */
 //	NSBezierPath *p =[NSBezierPath bezierPathWithRoundedRect:[self bounds] cornerRadius:5 inCorners:OSBottomRightCorner];
 //angle:270];
-//    NSRectFill(rect);
+//	NSRectFill(rect);
 /*	if (image) {
  NSRect r = self.bounds;
  float max = (r.size.width > r.size.height ? r.size.height : r.size.width) * .8;
@@ -375,12 +375,12 @@
 
 //- (void)updateTrackingAreas
 //{
-//    if(!NSIntersectsRect([self frame], [[self superview] visibleRect]))
-//    {
-//        return;
-//    }
+//	if(!NSIntersectsRect([self frame], [[self superview] visibleRect]))
+//	{
+//		return;
+//	}
 
-//    // ...
+//	// ...
 //}
 //- (void) makeTextView {
 

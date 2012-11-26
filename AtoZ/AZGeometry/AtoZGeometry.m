@@ -23,7 +23,7 @@ const CGP AZAnchorRight		  = (CGP) {  1,.5 };
 const CGP AZAnchorLeft 		  = (CGP) {  0,.5 };
 const CGP AZAnchorTopLeft	  = (CGP) { .5,.5 };  //  0, 1 };
 const CGP AZAnchorBottomLeft  = (CGP) { .5,.5 };  // 0, 0 };
-const CGP AZAnchorTopRight    = (CGP) { .5,.5 };  // 1, 1 };
+const CGP AZAnchorTopRight	= (CGP) { .5,.5 };  // 1, 1 };
 const CGP AZAnchorBottomRight = (CGP) { .5,.5 };  //1, 0 };
 
 
@@ -35,14 +35,14 @@ AZPOS AZPositionAtPerimeterInRect(NSR edgeBox, NSR outer)
 				  ? AZOrientVertical : AZOrientHorizontal;
 	AZPOS p;
 	if ( vORh == AZOrientHorizontal ) p = edgeBox.origin.y == 0 ? AZPositionBottom : AZPositionTop;
-	else 				              p = edgeBox.origin.x == 0 ? AZPositionLeft : AZPositionRight;
+	else 							  p = edgeBox.origin.x == 0 ? AZPositionLeft : AZPositionRight;
 	return p;
 }
 
 CGP AZAnchorPointForPosition( AZPOS pos){
 
 	return pos == AZPositionLeft  		? AZAnchorLeft
-		 : pos == AZPositionTop    		? AZAnchorTop
+		 : pos == AZPositionTop			? AZAnchorTop
 		 : pos == AZPositionBottom 		? AZAnchorBottom
 		 : pos == AZPositionRight  		? AZAnchorRight
 		 : pos == AZPositionTopLeft		? AZAnchorTopLeft
@@ -155,7 +155,7 @@ BOOL isWhole(CGFloat fl) {
 }
 
 int GCD(int a, int b) {
-    while (a != 0 && b != 0)	 if (a > b) a %= b; else  b %= a;
+	while (a != 0 && b != 0)	 if (a > b) a %= b; else  b %= a;
 	return a == 0 ? b : a;
 }
 
@@ -212,8 +212,8 @@ AZPOS AZPositionOfEdgeAtOffsetAlongPerimeterOfRect(CGF offset, NSR r) {
 CGP AZPointAtOffsetAlongPerimeterOfRect(CGF offset, NSR r)
 {
 	NSSZ sz = r.size; NSP anchor; CGF offsetOnSide;
-	if 		( sz.width > offset ) 					anchor = (NSP) { offset, 				   			     0};
-	else if ( sz.width + sz.height > offset ) 		anchor = (NSP) { sz.width, 			     offset - sz.width};
+	if 		( sz.width > offset ) 					anchor = (NSP) { offset, 				   				 0};
+	else if ( sz.width + sz.height > offset ) 		anchor = (NSP) { sz.width, 				 offset - sz.width};
 	else if ( AZPerimeter(r) - sz.height > offset ) anchor = (NSP) { ABS( sz.width - (offset - sz.width - sz.height)),  sz.height};
 	else 											anchor = (NSP) { 0,				   AZPerimeter(r) - offset};
 	return anchor;
@@ -333,9 +333,9 @@ NSPoint AZSumPoints(NSUInteger count, NSPoint point, ...) {
   va_start(pts, point);
   
   for (int i = 0; i < count; i++) {
-    NSPoint pt = va_arg(pts, NSPoint);
-    re.x += pt.x;
-    re.y += pt.y;
+	NSPoint pt = va_arg(pts, NSPoint);
+	re.x += pt.x;
+	re.y += pt.y;
   }
   
   va_end(pts);
@@ -357,14 +357,14 @@ NSPoint AZMultiplyPointBySize(NSPoint one, NSSize size) {
 
 NSPoint AZRelativeToAbsolutePoint(NSPoint relative, NSR bounds) {
   return NSMakePoint(relative.x * bounds.size.width  + bounds.origin.x,
-                     relative.y * bounds.size.height + bounds.origin.y
-                     );
+					 relative.y * bounds.size.height + bounds.origin.y
+					 );
 }
 
 NSPoint AZAbsoluteToRelativePoint(NSPoint absolute, NSR bounds) {
   return NSMakePoint((absolute.x - bounds.origin.x) / bounds.size.width, 
-                     (absolute.y - bounds.origin.y) / bounds.size.height
-                     );
+					 (absolute.y - bounds.origin.y) / bounds.size.height
+					 );
 }
 
 NSPoint AZDividePoint(NSPoint point, CGFloat divisor) {
@@ -393,13 +393,13 @@ NSPoint AZMovePointAbs(NSPoint origin, NSPoint target, CGFloat pixels) {
   // normalize that by x to recieve the x2y-ratio
   // but wait, if x is 0 already it can not be normalized
   if (delta.x == 0) {
-    // in this case check whether y is empty too
-    if (delta.y == 0) {
-      // cannot move anywhere
-      return origin;
-    }
-    return NSMakePoint(origin.x, 
-                       origin.y + pixels * (delta.y > 0 ? 1.0 : -1.0));
+	// in this case check whether y is empty too
+	if (delta.y == 0) {
+	  // cannot move anywhere
+	  return origin;
+	}
+	return NSMakePoint(origin.x, 
+					   origin.y + pixels * (delta.y > 0 ? 1.0 : -1.0));
   }
   // now, grab the normalized way
   CGFloat ratio = delta.y / delta.x;
@@ -412,40 +412,40 @@ NSPoint AZMovePointAbs(NSPoint origin, NSPoint target, CGFloat pixels) {
 NSPoint AZCenterOfRect(NSR rect) {
   // simple math, just the center of the rect
   return NSMakePoint(rect.origin.x + rect.size.width  * 0.5, 
-                     rect.origin.y + rect.size.height * 0.5);
+					 rect.origin.y + rect.size.height * 0.5);
 }
 
 NSPoint AZCenterOfSize(NSSize size) {
   return NSMakePoint(size.width  * 0.5, 
-                     size.height * 0.5);
+					 size.height * 0.5);
 }
 
 NSPoint AZEndOfRect(NSR rect) {
   return NSMakePoint(rect.origin.x + rect.size.width,
-                     rect.origin.y + rect.size.height);
+					 rect.origin.y + rect.size.height);
 }
 /*
  *   +-------+
- *   |       |   
+ *   |	   |   
  *   |   a   |   +-------+
- *   |       |   |       |
+ *   |	   |   |	   |
  *   +-------+   |   b   |
- *               |       |
- *               +-------+
+ *			   |	   |
+ *			   +-------+
  */
 NSPoint AZCenterDistanceOfRects(NSR a, NSR b) {
   return AZSubtractPoints(AZCenterOfRect(a),
-                          AZCenterOfRect(b));
+						  AZCenterOfRect(b));
 }
 
 NSPoint AZBorderDistanceOfRects(NSR a, NSR b) {
   // 
   // +------------ left
   // |
-  // |     +------ right  
-  // v     v
+  // |	 +------ right  
+  // v	 v
   // +-----+ <---- top
-  // |     |
+  // |	 |
   // +-----+ <---- bottom
   //
   
@@ -463,26 +463,26 @@ NSPoint AZBorderDistanceOfRects(NSR a, NSR b) {
 
   // left / right check
   if (ea.x < ob.x) {
-    // [a] [b] --- a left of b
-    // positive re.x
-    re.x = ob.x - ea.x;
+	// [a] [b] --- a left of b
+	// positive re.x
+	re.x = ob.x - ea.x;
   } else if (oa.x > eb.x) {
-    // [b] [a] --- a right of b
-    // negative re.x
-    re.x = eb.x - oa.x;
+	// [b] [a] --- a right of b
+	// negative re.x
+	re.x = eb.x - oa.x;
   }
   
   // top / bottom check
   if (ea.y < ob.y) {
-    // [a] --- a above b
-    // [b]
-    // positive re.y
-    re.y = ob.y - ea.y;
+	// [a] --- a above b
+	// [b]
+	// positive re.y
+	re.y = ob.y - ea.y;
   } else if (oa.y > eb.y) {
-    // [b] --- a below b
-    // [a]
-    // negative re.y
-    re.y = eb.y - oa.y;
+	// [b] --- a below b
+	// [a]
+	// negative re.y
+	re.y = eb.y - oa.y;
   }
   
   return re;
@@ -491,7 +491,7 @@ NSPoint AZBorderDistanceOfRects(NSR a, NSR b) {
 NSPoint AZNormalizedDistanceOfRects(NSR from, NSR to) {
   NSSize mul = AZInvertSize(AZBlendSizes(from.size, to.size, 0.5));
   NSPoint re = AZCenterDistanceOfRects(to, from);
-          re = AZMultiplyPointBySize(re, mul);
+		  re = AZMultiplyPointBySize(re, mul);
 
   return re;
 }
@@ -499,8 +499,8 @@ NSPoint AZNormalizedDistanceOfRects(NSR from, NSR to) {
 NSPoint AZNormalizedDistanceToCenterOfRect(NSPoint point, NSR rect) {
   NSPoint center = AZCenterOfRect(rect);
   NSPoint half   = AZMultiplyPoint(AZPointFromSize(rect.size), 0.5);
-  NSPoint re     = AZSubtractPoints(point, center);
-          re     = AZMultiplyPointByPoint(re, half);
+  NSPoint re	 = AZSubtractPoints(point, center);
+		  re	 = AZMultiplyPointByPoint(re, half);
   
   return re;
 }
@@ -512,15 +512,15 @@ NSPoint AZPointDistanceToBorderOfRect(NSPoint point, NSR rect) {
   NSPoint e = AZEndOfRect(rect);
   
   if (point.x < o.x) {
-    re.x = point.x - re.x;
+	re.x = point.x - re.x;
   } else if (point.x > e.x) {
-    re.x = e.x - point.x;
+	re.x = e.x - point.x;
   }
   
   if (point.y < o.y) {
-    re.y = point.y - re.y;
+	re.y = point.y - re.y;
   } else if (point.y > e.y) {
-    re.y = e.y - point.y;
+	re.y = e.y - point.y;
   }
 
   return re;
@@ -555,7 +555,7 @@ NSSize AZAbsSize(NSSize size) {
 
 NSSize AZAddSizes(NSSize one, NSSize another) {
   return NSMakeSize(one.width + another.width, 
-                    one.height + another.height);
+					one.height + another.height);
 }
 
 NSSZ AZSubtractSizes ( NSSZ size, NSSZ subtrahend ){
@@ -571,7 +571,7 @@ NSSize AZInvertSize(NSSize size) {
 
 NSSize AZRatioOfSizes(NSSize inner, NSSize outer) {
   return NSMakeSize (inner.width / outer.width,
-                    inner.height / outer.height);
+					inner.height / outer.height);
 }
 
 NSSize AZMultiplySize( NSSize size, CGFloat multiplier) {
@@ -580,12 +580,12 @@ NSSize AZMultiplySize( NSSize size, CGFloat multiplier) {
 
 NSSize AZMultiplySizeBySize(NSSize size, NSSize another) {
   return NSMakeSize(size.width * another.width, 
-                    size.height * another.height);
+					size.height * another.height);
 }
 
 NSSize AZMultiplySizeByPoint(NSSize size, NSPoint point) {
   return NSMakeSize(size.width * point.x, 
-                    size.height * point.y);
+					size.height * point.y);
 }
 
 NSSize AZBlendSizes(NSSize one, NSSize another, CGFloat p) {
@@ -594,17 +594,17 @@ NSSize AZBlendSizes(NSSize one, NSSize another, CGFloat p) {
   way.height = another.height - one.height;
   
   return NSMakeSize(one.width + p * way.width, 
-                    one.height + p * way.height);
+					one.height + p * way.height);
 }
 
 NSSize AZSizeMax(NSSize one, NSSize another) {
   return NSMakeSize(MAX(one.width, another.width),
-                    MAX(one.height, another.height));
+					MAX(one.height, another.height));
 }
 
 NSSize AZSizeMin(NSSize one, NSSize another) {
   return NSMakeSize(MIN(one.width, another.width),
-                    MIN(one.height, another.height));
+					MIN(one.height, another.height));
   
 }
 
@@ -682,48 +682,48 @@ NSR AZMakeRect(NSPoint point, NSSize size) {
 
 NSR AZMakeSquare(NSPoint center, CGFloat radius) {
   return NSMakeRect(center.x - radius, 
-                    center.y - radius, 
-                    2 * radius, 
-                    2 * radius);
+					center.y - radius, 
+					2 * radius, 
+					2 * radius);
 }
 NSR AZMultiplyRectBySize(NSR rect, NSSize size) {
-  return NSMakeRect(rect.origin.x    * size.width,
-                    rect.origin.y    * size.height,
-                    rect.size.width  * size.width,
-                    rect.size.height * size.height
-                    );
+  return NSMakeRect(rect.origin.x	* size.width,
+					rect.origin.y	* size.height,
+					rect.size.width  * size.width,
+					rect.size.height * size.height
+					);
 }
 
 NSR AZRelativeToAbsoluteRect(NSR relative, NSR bounds) {
-  return NSMakeRect(relative.origin.x    * bounds.size.width  + bounds.origin.x,
-                    relative.origin.y    * bounds.size.height + bounds.origin.y,
-                    relative.size.width  * bounds.size.width,
-                    relative.size.height * bounds.size.height
-                    );
+  return NSMakeRect(relative.origin.x	* bounds.size.width  + bounds.origin.x,
+					relative.origin.y	* bounds.size.height + bounds.origin.y,
+					relative.size.width  * bounds.size.width,
+					relative.size.height * bounds.size.height
+					);
 }
 
 NSR AZAbsoluteToRelativeRect(NSR a, NSR b) {
   return NSMakeRect((a.origin.x - b.origin.x) / b.size.width,
-                    (a.origin.y - b.origin.y) / b.size.height,
-                    a.size.width  / b.size.width,
-                    a.size.height / b.size.height
-                    );
+					(a.origin.y - b.origin.y) / b.size.height,
+					a.size.width  / b.size.width,
+					a.size.height / b.size.height
+					);
 }
 NSR AZPositionRectOnRect(NSR inner, NSR outer, NSPoint position) {
   return NSMakeRect(outer.origin.x 
-                    + (outer.size.width - inner.size.width) * position.x, 
-                    outer.origin.y 
-                    + (outer.size.height - inner.size.height) * position.y, 
-                    inner.size.width, 
-                    inner.size.height
-                    );
+					+ (outer.size.width - inner.size.width) * position.x, 
+					outer.origin.y 
+					+ (outer.size.height - inner.size.height) * position.y, 
+					inner.size.width, 
+					inner.size.height
+					);
 }
 
 NSR AZCenterRectOnPoint(NSR rect, NSPoint center) {
   return NSMakeRect(center.x - rect.size.width  / 2, 
-                    center.y - rect.size.height / 2, 
-                    rect.size.width, 
-                    rect.size.height);
+					center.y - rect.size.height / 2, 
+					rect.size.width, 
+					rect.size.height);
 }
 
 NSR AZCenterRectOnRect(NSR inner, NSR outer) {
@@ -732,18 +732,18 @@ NSR AZCenterRectOnRect(NSR inner, NSR outer) {
 
 NSR AZSquareAround(NSPoint center, CGFloat distance) {
   return NSMakeRect(center.x - distance, 
-                    center.y - distance, 
-                    2 * distance, 
-                    2 * distance
-                    );
+					center.y - distance, 
+					2 * distance, 
+					2 * distance
+					);
 }
 
 NSR AZBlendRects(NSR from, NSR to, CGFloat p) {
   NSR re;
 
   CGFloat q = 1 - p;
-  re.origin.x    = from.origin.x    * q + to.origin.x    * p;
-  re.origin.y    = from.origin.y    * q + to.origin.y    * p;
+  re.origin.x	= from.origin.x	* q + to.origin.x	* p;
+  re.origin.y	= from.origin.y	* q + to.origin.y	* p;
   re.size.width  = from.size.width  * q + to.size.width  * p;
   re.size.height = from.size.height * q + to.size.height * p;
 
@@ -818,30 +818,30 @@ NSR AZInsetRect(NSR rect, CGFloat inset){
 
 NSR AZLeftEdge(NSR rect, CGFloat width) {
   return NSMakeRect(rect.origin.x, 
-                    rect.origin.y, 
-                    width, 
-                    rect.size.height);
+					rect.origin.y, 
+					width, 
+					rect.size.height);
 }
 
 NSR AZRightEdge(NSR rect, CGFloat width) {
   return NSMakeRect(rect.origin.x + rect.size.width - width, 
-                    rect.origin.y, 
-                    width, 
-                    rect.size.height);
+					rect.origin.y, 
+					width, 
+					rect.size.height);
 }
 
 NSR AZLowerEdge(NSR rect, CGFloat height) {
   return NSMakeRect(rect.origin.x, 
-                    rect.origin.y, 
-                    rect.size.width, 
-                    height);
+					rect.origin.y, 
+					rect.size.width, 
+					height);
 }
 
 NSR AZUpperEdge(NSR rect, CGFloat height) {
   return NSMakeRect(rect.origin.x, 
-                    rect.origin.y + rect.size.height - height, 
-                    rect.size.width, 
-                    height);
+					rect.origin.y + rect.size.height - height, 
+					rect.size.width, 
+					height);
 }
 
 //
@@ -887,29 +887,29 @@ BOOL AZIsRectBelowRect(NSR rect, NSR compare) {
 #import "math.h"
 
 //BTFloatRange BTMakeFloatRange(float value,float location,float length){
-//    BTFloatRange fRange;
-//    fRange.value=value;
-//    fRange.location=location;
-//    fRange.length=length;
-//    return fRange;
+//	BTFloatRange fRange;
+//	fRange.value=value;
+//	fRange.location=location;
+//	fRange.length=length;
+//	return fRange;
 //}
 //float BTFloatRangeMod(BTFloatRange range){
-//    return fmod(range.value-range.location,range.length)+range.location;
+//	return fmod(range.value-range.location,range.length)+range.location;
 //}
 //
 //float BTFloatRangeUnit(BTFloatRange range){
-//    return (range.value-range.location)/range.length;
+//	return (range.value-range.location)/range.length;
 //}
 
 NSPoint AZOffsetPoint(NSPoint fromPoint, NSPoint toPoint){
-    return NSMakePoint(toPoint.x-fromPoint.x,toPoint.y-fromPoint.y);
+	return NSMakePoint(toPoint.x-fromPoint.x,toPoint.y-fromPoint.y);
 }
 /*
 int oppositeQuadrant(int quadrant){
-    quadrant=quadrant+2;
-    quadrant%=4;
-    if (!quadrant)quadrant=4;
-    return quadrant;
+	quadrant=quadrant+2;
+	quadrant%=4;
+	if (!quadrant)quadrant=4;
+	return quadrant;
 }
 */
 
@@ -921,16 +921,16 @@ NSRect AZOffsetRect(NSR rect, NSP offset)
 }
 
 NSPoint AZRectOffset(NSR innerRect,NSR outerRect, QUAD quadrant){
-    if (quadrant )
-        return NSMakePoint((quadrant == 2 || quadrant == 1) ? NSMaxX(outerRect)-NSMaxX(innerRect) : NSMinX(outerRect)-NSMinX(innerRect),
-                           (quadrant == 3 || quadrant == 2) ? NSMaxY(outerRect)-NSMaxY(innerRect) : NSMinY(outerRect)-NSMinY(innerRect));
-    return NSMakePoint( NSMidX(outerRect)-NSMidX(innerRect), NSMidY(outerRect)-NSMidY(innerRect) ); //Center Rects
+	if (quadrant )
+		return NSMakePoint((quadrant == 2 || quadrant == 1) ? NSMaxX(outerRect)-NSMaxX(innerRect) : NSMinX(outerRect)-NSMinX(innerRect),
+						   (quadrant == 3 || quadrant == 2) ? NSMaxY(outerRect)-NSMaxY(innerRect) : NSMinY(outerRect)-NSMinY(innerRect));
+	return NSMakePoint( NSMidX(outerRect)-NSMidX(innerRect), NSMidY(outerRect)-NSMidY(innerRect) ); //Center Rects
 }
 
 int oppositeQuadrant(int quadrant){
-    quadrant = quadrant + 2;
-    quadrant%=3;
-    return !quadrant ? 3 : quadrant;
+	quadrant = quadrant + 2;
+	quadrant%=3;
+	return !quadrant ? 3 : quadrant;
 }
 
 //NSR sectionPositioned(NSR r, AZPOS p){
@@ -960,38 +960,38 @@ CGFloat quadrantsHorizontalGutter(NSR r)
 
 
 NSR alignRectInRect(NSR innerRect, NSR outerRect, int quadrant){
-    NSPoint offset= AZRectOffset(innerRect,outerRect,quadrant);
-    return NSOffsetRect(innerRect,offset.x,offset.y);
+	NSPoint offset= AZRectOffset(innerRect,outerRect,quadrant);
+	return NSOffsetRect(innerRect,offset.x,offset.y);
 }
 
 
 NSR rectZoom(NSR rect,float zoom,int quadrant){
-    NSSize newSize=NSMakeSize(NSWidth(rect)*zoom,NSHeight(rect)*zoom);
-    NSR newRect=rect;
-    newRect.size=newSize;
-    return newRect;
+	NSSize newSize=NSMakeSize(NSWidth(rect)*zoom,NSHeight(rect)*zoom);
+	NSR newRect=rect;
+	newRect.size=newSize;
+	return newRect;
 }
 NSR AZSizeRectInRect(NSR innerRect,NSR outerRect,bool expand){
-    float proportion=NSWidth(innerRect)/NSHeight(innerRect);
-    NSR xRect=NSMakeRect(0,0,outerRect.size.width,outerRect.size.width/proportion);
-    NSR yRect=NSMakeRect(0,0,outerRect.size.height*proportion,outerRect.size.height);
-    NSR newRect;
-    if (expand) newRect = NSUnionRect(xRect,yRect);
-    else newRect = NSIntersectionRect(xRect,yRect);
-    return newRect;
+	float proportion=NSWidth(innerRect)/NSHeight(innerRect);
+	NSR xRect=NSMakeRect(0,0,outerRect.size.width,outerRect.size.width/proportion);
+	NSR yRect=NSMakeRect(0,0,outerRect.size.height*proportion,outerRect.size.height);
+	NSR newRect;
+	if (expand) newRect = NSUnionRect(xRect,yRect);
+	else newRect = NSIntersectionRect(xRect,yRect);
+	return newRect;
 }
 
 NSR AZFitRectInRect(NSR innerRect,NSR outerRect,bool expand){
-    return AZCenterRectInRect(AZSizeRectInRect(innerRect,outerRect,expand),outerRect);
+	return AZCenterRectInRect(AZSizeRectInRect(innerRect,outerRect,expand),outerRect);
 }
 /*
 NSR rectWithProportion(NSR innerRect,float proportion,bool expand){
-    NSR xRect=NSMakeRect(0,0,innerRect.size.width,innerRect.size.width/proportion);
-    NSR yRect=NSMakeRect(0,0,innerRect.size.height*proportion,innerRect.size.height);
-    NSR newRect;
-    if (expand) newRect = NSUnionRect(xRect,yRect);
-    else newRect = NSIntersectionRect(xRect,yRect);
-    return newRect;
+	NSR xRect=NSMakeRect(0,0,innerRect.size.width,innerRect.size.width/proportion);
+	NSR yRect=NSMakeRect(0,0,innerRect.size.height*proportion,innerRect.size.height);
+	NSR newRect;
+	if (expand) newRect = NSUnionRect(xRect,yRect);
+	else newRect = NSIntersectionRect(xRect,yRect);
+	return newRect;
 }
 */
 
@@ -1000,79 +1000,79 @@ NSR AZSquareInRect(NSR rect) {
 }
 
 NSR AZCenterRectInRect(NSR rect, NSR mainRect){
-    return NSOffsetRect(rect,NSMidX(mainRect)-NSMidX(rect),NSMidY(mainRect)-NSMidY(rect));
+	return NSOffsetRect(rect,NSMidX(mainRect)-NSMidX(rect),NSMidY(mainRect)-NSMidY(rect));
 }
 
 NSR AZConstrainRectToRect(NSR innerRect, NSR outerRect){
-    NSPoint offset=NSZeroPoint;
-    if (NSMaxX(innerRect) > NSMaxX(outerRect))
-        offset.x+= NSMaxX(outerRect) - NSMaxX(innerRect);
-    if (NSMaxY(innerRect) > NSMaxY(outerRect))
-        offset.y+= NSMaxY(outerRect) - NSMaxY(innerRect);
-    if (NSMinX(innerRect) < NSMinX(outerRect))
-        offset.x+= NSMinX(outerRect) - NSMinX(innerRect);
-    if (NSMinY(innerRect) < NSMinY(outerRect))
-        offset.y+= NSMinY(outerRect) - NSMinY(innerRect);
-    return NSOffsetRect(innerRect,offset.x,offset.y);
+	NSPoint offset=NSZeroPoint;
+	if (NSMaxX(innerRect) > NSMaxX(outerRect))
+		offset.x+= NSMaxX(outerRect) - NSMaxX(innerRect);
+	if (NSMaxY(innerRect) > NSMaxY(outerRect))
+		offset.y+= NSMaxY(outerRect) - NSMaxY(innerRect);
+	if (NSMinX(innerRect) < NSMinX(outerRect))
+		offset.x+= NSMinX(outerRect) - NSMinX(innerRect);
+	if (NSMinY(innerRect) < NSMinY(outerRect))
+		offset.y+= NSMinY(outerRect) - NSMinY(innerRect);
+	return NSOffsetRect(innerRect,offset.x,offset.y);
 }
 /*
 NSR expelRectFromRect(NSR innerRect, NSR outerRect,float peek){
-    NSPoint offset=NSZeroPoint;
-    
-    float leftDistance=NSMaxX(innerRect) - NSMinX(outerRect);
-    float rightDistance=NSMaxX(outerRect)-NSMinX(innerRect);
-    float topDistance=NSMaxY(outerRect)-NSMinY(innerRect);
-    float bottomDistance=NSMaxY(innerRect) - NSMinY(outerRect);
-    float minDistance=MIN(MIN(MIN(leftDistance,rightDistance),topDistance),bottomDistance);
-    
-    if (minDistance==leftDistance)
-        offset.x-=leftDistance-peek;
-    else if (minDistance==rightDistance)
-        offset.x+=rightDistance-peek;
-    else if (minDistance==topDistance)
-        offset.y+=topDistance-peek;
-    else if (minDistance==bottomDistance)
-        offset.y-=bottomDistance-peek;
-    
-    return NSOffsetRect(innerRect,offset.x,offset.y);
+	NSPoint offset=NSZeroPoint;
+	
+	float leftDistance=NSMaxX(innerRect) - NSMinX(outerRect);
+	float rightDistance=NSMaxX(outerRect)-NSMinX(innerRect);
+	float topDistance=NSMaxY(outerRect)-NSMinY(innerRect);
+	float bottomDistance=NSMaxY(innerRect) - NSMinY(outerRect);
+	float minDistance=MIN(MIN(MIN(leftDistance,rightDistance),topDistance),bottomDistance);
+	
+	if (minDistance==leftDistance)
+		offset.x-=leftDistance-peek;
+	else if (minDistance==rightDistance)
+		offset.x+=rightDistance-peek;
+	else if (minDistance==topDistance)
+		offset.y+=topDistance-peek;
+	else if (minDistance==bottomDistance)
+		offset.y-=bottomDistance-peek;
+	
+	return NSOffsetRect(innerRect,offset.x,offset.y);
 }
 
 NSR expelRectFromRectOnEdge(NSR innerRect, NSR outerRect,NSREdge edge,float peek){
-    NSPoint offset=NSZeroPoint;
-    
-    switch(edge){
-        case NSMaxXEdge:
-            
-            offset.x+=NSMaxX(outerRect)-NSMinX(innerRect)-peek;
-            break;
-        case NSMinXEdge:
-            offset.x-=NSMaxX(innerRect) - NSMinX(outerRect) - peek;
-            break;
-        case NSMaxYEdge:
-            offset.y+=NSMaxY(outerRect)-NSMinY(innerRect)-peek;
-            break;
-        case NSMinYEdge:
-            offset.y-=NSMaxY(innerRect) - NSMinY(outerRect)-peek;
-            break;
-    }
+	NSPoint offset=NSZeroPoint;
+	
+	switch(edge){
+		case NSMaxXEdge:
+			
+			offset.x+=NSMaxX(outerRect)-NSMinX(innerRect)-peek;
+			break;
+		case NSMinXEdge:
+			offset.x-=NSMaxX(innerRect) - NSMinX(outerRect) - peek;
+			break;
+		case NSMaxYEdge:
+			offset.y+=NSMaxY(outerRect)-NSMinY(innerRect)-peek;
+			break;
+		case NSMinYEdge:
+			offset.y-=NSMaxY(innerRect) - NSMinY(outerRect)-peek;
+			break;
+	}
 
-    return NSOffsetRect(innerRect,offset.x,offset.y);
+	return NSOffsetRect(innerRect,offset.x,offset.y);
 }
 */
 CGRectEdge AZEdgeTouchingEdgeForRectInRect( NSR innerRect, NSR outerRect ){
-    
-    return 	NSMaxX(innerRect)  >= NSMaxX(outerRect) ? NSMaxXEdge :
+	
+	return 	NSMaxX(innerRect)  >= NSMaxX(outerRect) ? NSMaxXEdge :
 			NSMinX(innerRect)  <= NSMinX(outerRect) ? NSMinXEdge :
-    		NSMaxY(innerRect)  >= NSMaxY(outerRect) ? NSMaxYEdge :
+			NSMaxY(innerRect)  >= NSMaxY(outerRect) ? NSMaxYEdge :
 			NSMinY(innerRect)  <= NSMinY(outerRect) ? NSMinYEdge : -1;
 }
 
 NSR AZRectFromSize(NSSize size){
-    return NSMakeRect(0,0,size.width,size.height);
+	return NSMakeRect(0,0,size.width,size.height);
 }
 
 static float AZDistanceFromOrigin(NSPoint point){
-    return hypot(point.x, point.y);
+	return hypot(point.x, point.y);
 }
 
 NSP AZTopLeftPoint  ( NSR rect ){	 return (NSP){rect.origin.x,rect.origin.y+NSHeight(rect)}; }
@@ -1082,13 +1082,13 @@ NSP AZBotRightPoint ( NSR rect ){ return (NSP){rect.origin.x + NSWidth(rect), re
 
 //AZPOS AZClosestCorner(NSR innerRect,NSR outerRect){
 //	CGF bl, br, tl, tr;
-//	NSP blP, brP, tlP, trP;        float distance = AZDistanceFromOrigin(rectOffset(innerRect,outerRect,i));
-//        if (distance < bestDistance || bestDistance<0){
-//            bestDistance=distance;
-//            closestCorner=i;
-//        }
-//    }
-//    return closestCorner;
+//	NSP blP, brP, tlP, trP;		float distance = AZDistanceFromOrigin(rectOffset(innerRect,outerRect,i));
+//		if (distance < bestDistance || bestDistance<0){
+//			bestDistance=distance;
+//			closestCorner=i;
+//		}
+//	}
+//	return closestCorner;
 //}
 
  
@@ -1122,10 +1122,10 @@ AZPOS AZPositionOfRectPinnedToOutisdeOfRect(NSR box, NSR innerBox  )
 	NSLog(@"Testing attached: %@.. inner: %@", AZStringFromRect(box), AZStringFromRect(tIn));
 	AZPOS winner; NSSZ bS, iS; bS = box.size; iS = tIn.size;
 	winner = box.origin.x == -bS.width		? AZPositionRight
-	       : box.origin.y == iS.height	  	? AZPositionBottom
+		   : box.origin.y == iS.height	  	? AZPositionBottom
 		   : box.origin.x == iS.width		? AZPositionLeft
-	       : box.origin.y == 0      		? AZPositionTop : 97;
-	// + bS.width == innerBox.origin.x     	? AZPositionLeft
+		   : box.origin.y == 0	  		? AZPositionTop : 97;
+	// + bS.width == innerBox.origin.x	 	? AZPositionLeft
 //		   : box.origin.y  == innerBox.origin.y + iS.height	  	? AZPositionBottom
 //		   : box.origin.x  == innerBox.origin.y + iS.width		? AZPositionRight
 //		   : box.origin.y + bS.height == innerBox.origin.y		? AZPositionTop : 97;
@@ -1844,77 +1844,77 @@ static double		ComputeXIntercept( NSPoint* v, NSInteger degree);
  *  ConvertToBezierForm :
  *		Given a point and a Bezier curve, generate a 5th-degree
  *		Bezier-format equation whose solution finds the point on the
- *      curve nearest the user-defined point.
+ *	  curve nearest the user-defined point.
  */
 static NSPoint*		ConvertToBezierForm( const NSPoint inp, const NSPoint bez[4] )
 {
-    NSInteger				i, j, k, m, n, ub, lb;	
-    NSInteger				row, column;		// Table indices
-    NSPoint			c[4];				// V(i)'s - P
-    NSPoint			d[3];				// V(i+1) - V(i)
-    NSPoint*		w;					// Ctl pts of 5th-degree curve
-    double			cdTable[3][4];		// Dot product of c, d
-    
+	NSInteger				i, j, k, m, n, ub, lb;	
+	NSInteger				row, column;		// Table indices
+	NSPoint			c[4];				// V(i)'s - P
+	NSPoint			d[3];				// V(i+1) - V(i)
+	NSPoint*		w;					// Ctl pts of 5th-degree curve
+	double			cdTable[3][4];		// Dot product of c, d
+	
 	static double z[3][4] = {	/* Precomputed "z" for cubics	*/
 	{1.0, 0.6, 0.3, 0.1},
 	{0.4, 0.6, 0.6, 0.4},
 	{0.1, 0.3, 0.6, 1.0},
-    };
+	};
 
 
-    /*Determine the c's -- these are vectors created by subtracting*/
-    /* point P from each of the control points				*/
-    for (i = 0; i <= 3; i++)
+	/*Determine the c's -- these are vectors created by subtracting*/
+	/* point P from each of the control points				*/
+	for (i = 0; i <= 3; i++)
 	{
 		c[i] = DiffPoint( bez[i], inp );
-    }
+	}
 	
-    /* Determine the d's -- these are vectors created by subtracting*/
-    /* each control point from the next					*/
-    for (i = 0; i < 3; i++)
+	/* Determine the d's -- these are vectors created by subtracting*/
+	/* each control point from the next					*/
+	for (i = 0; i < 3; i++)
 	{ 
 		d[i].x = ( bez[ i + 1 ].x - bez[i].x ) * 3.0;
 		d[i].y = ( bez[ i + 1 ].y - bez[i].y ) * 3.0;
-    }
+	}
 
-    /* Create the c,d table -- this is a table of dot products of the */
-    /* c's and d's							*/
-    
+	/* Create the c,d table -- this is a table of dot products of the */
+	/* c's and d's							*/
+	
 	for ( row = 0; row < 3; row++ )
 	{
 		for (column = 0; column <= 3; column++)
 		{
-	    	cdTable[row][column] = DotProduct( d[row], c[column] );
+			cdTable[row][column] = DotProduct( d[row], c[column] );
 		}
-    }
+	}
 
-    /* Now, apply the z's to the dot products, on the skew diagonal*/
-    /* Also, set up the x-values, making these "points"		*/
-    
+	/* Now, apply the z's to the dot products, on the skew diagonal*/
+	/* Also, set up the x-values, making these "points"		*/
+	
 	w = (NSPoint*)	malloc(6 * sizeof(NSPoint));
-    
+	
 	for (i = 0; i <= 5; i++)
 	{
 		w[i].y = 0.0;
 		w[i].x = (double)(i) / 5;
-    }
+	}
 
-    n = 3;
-    m = 2;
+	n = 3;
+	m = 2;
 	
-    for (k = 0; k <= n + m; k++)
+	for (k = 0; k <= n + m; k++)
 	{
 		lb = MAX(0, k - m);
 		ub = MIN(k, n);
 		
 		for (i = lb; i <= ub; i++)
 		{
-	    	j = k - i;
-	    	w[i+j].y += cdTable[j][i] * z[j][i];
+			j = k - i;
+			w[i+j].y += cdTable[j][i] * z[j][i];
 		}
-    }
+	}
 
-    return w;
+	return w;
 }
 
 
@@ -1926,14 +1926,14 @@ static NSPoint*		ConvertToBezierForm( const NSPoint inp, const NSPoint bez[4] )
  */
 static NSInteger FindRoots( NSPoint* w, NSInteger degree, double* t, NSInteger depth )
 {  
-    NSInteger			i;
-    NSPoint 	Left[6], Right[6];	// control polygons
-    NSInteger			left_count,	 right_count;
-    double		left_t[6], right_t[6];
+	NSInteger			i;
+	NSPoint 	Left[6], Right[6];	// control polygons
+	NSInteger			left_count,	 right_count;
+	double		left_t[6], right_t[6];
 
-    switch ( CrossingCount( w, degree ))
+	switch ( CrossingCount( w, degree ))
 	{
-       	default:
+	   	default:
 			break;
 			
 		case 0:	// No solutions here
@@ -1942,7 +1942,7 @@ static NSInteger FindRoots( NSPoint* w, NSInteger degree, double* t, NSInteger d
 		case 1:	// Unique solution
 			// Stop recursion when the tree is deep enough
 			// if deep enough, return 1 solution at midpoint
-	    
+		
 			if (depth >= MAXDEPTH)
 			{
 				t[0] = ( w[0].x + w[5].x) / 2.0;
@@ -1957,26 +1957,26 @@ static NSInteger FindRoots( NSPoint* w, NSInteger degree, double* t, NSInteger d
 			break;
 	}
 
-    // Otherwise, solve recursively after
-    // subdividing control polygon
+	// Otherwise, solve recursively after
+	// subdividing control polygon
 	
-    Bezier( w, degree, 0.5, Left, Right );
-    left_count  = FindRoots( Left,  degree, left_t, depth+1 );
-    right_count = FindRoots( Right, degree, right_t, depth+1 );
+	Bezier( w, degree, 0.5, Left, Right );
+	left_count  = FindRoots( Left,  degree, left_t, depth+1 );
+	right_count = FindRoots( Right, degree, right_t, depth+1 );
 
-    // Gather solutions together
-    for (i = 0; i < left_count; i++)
+	// Gather solutions together
+	for (i = 0; i < left_count; i++)
 	{
-        t[i] = left_t[i];
-    }
-    for (i = 0; i < right_count; i++)
+		t[i] = left_t[i];
+	}
+	for (i = 0; i < right_count; i++)
 	{
  		t[i+left_count] = right_t[i];
-    }
+	}
 
-    // Send back total number of solutions
+	// Send back total number of solutions
 	
-    return (left_count + right_count);
+	return (left_count + right_count);
 }
 
 
@@ -1988,12 +1988,12 @@ static NSInteger FindRoots( NSPoint* w, NSInteger degree, double* t, NSInteger d
  */
 static NSInteger CrossingCount( NSPoint* v, NSInteger degree )
 {
-    NSInteger 	i;	
-    NSInteger 	n_crossings = 0;	/*  Number of zero-crossings	*/
-    NSInteger		sign, old_sign;		/*  Sign of coefficients	*/
+	NSInteger 	i;	
+	NSInteger 	n_crossings = 0;	/*  Number of zero-crossings	*/
+	NSInteger		sign, old_sign;		/*  Sign of coefficients	*/
 
-    old_sign = SGN( v[0].y );
-    
+	old_sign = SGN( v[0].y );
+	
 	for ( i = 1; i <= degree; i++ )
 	{
 		sign = SGN( v[i].y );
@@ -2001,8 +2001,8 @@ static NSInteger CrossingCount( NSPoint* v, NSInteger degree )
 		if (sign != old_sign)
 			n_crossings++;
 		old_sign = sign;
-    }
-    return n_crossings;
+	}
+	return n_crossings;
 }
 
 
@@ -2014,26 +2014,26 @@ static NSInteger CrossingCount( NSPoint* v, NSInteger degree )
  */
 static NSInteger ControlPolygonFlatEnough( NSPoint* v, NSInteger degree )
 {
-    NSInteger			i;					// Index variable
-    double*		distance;			// Distances from pts to line
-    double		max_distance_above;	// maximum of these
-    double		max_distance_below;
-    double		error;				// Precision of root
-    double		intercept_1,
+	NSInteger			i;					// Index variable
+	double*		distance;			// Distances from pts to line
+	double		max_distance_above;	// maximum of these
+	double		max_distance_below;
+	double		error;				// Precision of root
+	double		intercept_1,
 				intercept_2,
 				left_intercept,
 				right_intercept;
-    double		a, b, c;			// Coefficients of implicit
+	double		a, b, c;			// Coefficients of implicit
 									// eqn for line from V[0]-V[deg]
 
-    /* Find the  perpendicular distance		*/
-    /* from each interior control point to 	*/
-    /* line connecting V[0] and V[degree]	*/
-    distance = (double*) malloc((NSUInteger)(degree + 1) * sizeof(double));
+	/* Find the  perpendicular distance		*/
+	/* from each interior control point to 	*/
+	/* line connecting V[0] and V[degree]	*/
+	distance = (double*) malloc((NSUInteger)(degree + 1) * sizeof(double));
 	double	abSquared;
 
 	/* Derive the implicit equation for line connecting first */
-    /*  and last control points */
+	/*  and last control points */
 	
 	a = v[0].y - v[degree].y;
 	b = v[degree].x - v[0].x;
@@ -2055,21 +2055,21 @@ static NSInteger ControlPolygonFlatEnough( NSPoint* v, NSInteger degree )
 		}
 	}
 
-    /* Find the largest distance	*/
-    max_distance_above = 0.0;
-    max_distance_below = 0.0;
-    for (i = 1; i < degree; i++)
+	/* Find the largest distance	*/
+	max_distance_above = 0.0;
+	max_distance_below = 0.0;
+	for (i = 1; i < degree; i++)
 	{
 		if (distance[i] < 0.0)
 		{
-	    	max_distance_below = MIN(max_distance_below, distance[i]);
+			max_distance_below = MIN(max_distance_below, distance[i]);
 		}
 		if (distance[i] > 0.0)
 		{
-	    	max_distance_above = MAX(max_distance_above, distance[i]);
+			max_distance_above = MAX(max_distance_above, distance[i]);
 		}
-    }
-    free((char *)distance);
+	}
+	free((char *)distance);
 
 	double	det, dInv;
 	double	a1, b1, c1, a2, b2, c2;
@@ -2099,19 +2099,19 @@ static NSInteger ControlPolygonFlatEnough( NSPoint* v, NSInteger degree )
 	
 	intercept_2 = (b1 * c2 - b2 * c1) * dInv;
 
-    /* Compute intercepts of bounding box	*/
-    left_intercept = MIN(intercept_1, intercept_2);
-    right_intercept = MAX(intercept_1, intercept_2);
+	/* Compute intercepts of bounding box	*/
+	left_intercept = MIN(intercept_1, intercept_2);
+	right_intercept = MAX(intercept_1, intercept_2);
 
-    error = 0.5 * (right_intercept - left_intercept);    
-    if (error < EPSILON)
+	error = 0.5 * (right_intercept - left_intercept);	
+	if (error < EPSILON)
 	{
 		return 1;
-    }
-    else
+	}
+	else
 	{
 		return 0;
-    }
+	}
 }
 
 
@@ -2124,25 +2124,25 @@ static NSInteger ControlPolygonFlatEnough( NSPoint* v, NSInteger degree )
 
 static double ComputeXIntercept( NSPoint* v, NSInteger degree)
 {
-    double	XLK, YLK, XNM, YNM, XMK, YMK;
-    double	det, detInv;
-    double	S;
-    double	X;
+	double	XLK, YLK, XNM, YNM, XMK, YMK;
+	double	det, detInv;
+	double	S;
+	double	X;
 
-    XLK = 1.0;
-    YLK = 0.0;
-    XNM = v[degree].x - v[0].x;
-    YNM = v[degree].y - v[0].y;
-    XMK = v[0].x;
-    YMK = v[0].y;
+	XLK = 1.0;
+	YLK = 0.0;
+	XNM = v[degree].x - v[0].x;
+	YNM = v[degree].y - v[0].y;
+	XMK = v[0].x;
+	YMK = v[0].y;
 
-    det = XNM*YLK - YNM*XLK;
-    detInv = 1.0/det;
+	det = XNM*YLK - YNM*XLK;
+	detInv = 1.0/det;
 
-    S = (XNM*YMK - YNM*XMK) * detInv;
-    X = XLK * S;
+	S = (XNM*YMK - YNM*XMK) * detInv;
+	X = XLK * S;
 
-    return X;
+	return X;
 }
 
 
@@ -2157,21 +2157,21 @@ static double ComputeXIntercept( NSPoint* v, NSInteger degree)
 
 NSPoint		NearestPointOnCurve( const NSPoint inp, const NSPoint bez[4], double* tValue )
 {
-    NSPoint*	w;						// Ctl pts for 5th-degree eqn
-    double		t_candidate[5];			// Possible roots    
-    NSInteger			n_solutions;			// Number of roots found
-    double		t;						// Parameter value of closest pt
+	NSPoint*	w;						// Ctl pts for 5th-degree eqn
+	double		t_candidate[5];			// Possible roots	
+	NSInteger			n_solutions;			// Number of roots found
+	double		t;						// Parameter value of closest pt
 
-    // Convert problem to 5th-degree Bezier form
-    
+	// Convert problem to 5th-degree Bezier form
+	
 	w = ConvertToBezierForm( inp, bez );
 
-    // Find all possible roots of 5th-degree equation
-    
+	// Find all possible roots of 5th-degree equation
+	
 	n_solutions = FindRoots( w, 5, t_candidate, 0 );
-    free((char*) w);
+	free((char*) w);
 
-    // Compare distances of P to all candidates, and to t=0, and t=1
+	// Compare distances of P to all candidates, and to t=0, and t=1
 
 	double		dist, new_dist;
 	NSPoint 	p;
@@ -2204,9 +2204,9 @@ NSPoint		NearestPointOnCurve( const NSPoint inp, const NSPoint bez[4], double* t
 		t = 1.0;
 	}
  
-    /*  Return the point on the curve at parameter value t */
-//    LogEvent_(kInfoEvent, @"t : %4.12f", t);
-    
+	/*  Return the point on the curve at parameter value t */
+//	LogEvent_(kInfoEvent, @"t : %4.12f", t);
+	
 	if ( tValue )
 		*tValue = t;
 		
@@ -2217,48 +2217,48 @@ NSPoint		NearestPointOnCurve( const NSPoint inp, const NSPoint bez[4], double* t
 /*
  *  Bezier : 
  *	Evaluate a Bezier curve at a particular parameter value
- *      Fill in control points for resulting sub-curves if "Left" and
+ *	  Fill in control points for resulting sub-curves if "Left" and
  *	"Right" are non-null.
  * 
  */
 NSPoint		Bezier( const NSPoint* v, const NSInteger degree, const double t, NSPoint* Left, NSPoint* Right )
 {
-    NSInteger			i, j;		/* Index variables	*/
-    NSPoint 	Vtemp[6][6];
+	NSInteger			i, j;		/* Index variables	*/
+	NSPoint 	Vtemp[6][6];
 
 
-    /* Copy control points	*/
-    for (j =0; j <= degree; j++)
+	/* Copy control points	*/
+	for (j =0; j <= degree; j++)
 	{
 		Vtemp[0][j] = v[j];
-    }
+	}
 
-    /* Triangle computation	*/
-    for (i = 1; i <= degree; i++)
+	/* Triangle computation	*/
+	for (i = 1; i <= degree; i++)
 	{	
 		for (j =0 ; j <= degree - i; j++)
 		{
-	    	Vtemp[i][j].x = (1.0 - t) * Vtemp[i-1][j].x + t * Vtemp[i-1][j+1].x;
-	    	Vtemp[i][j].y = (1.0 - t) * Vtemp[i-1][j].y + t * Vtemp[i-1][j+1].y;
+			Vtemp[i][j].x = (1.0 - t) * Vtemp[i-1][j].x + t * Vtemp[i-1][j+1].x;
+			Vtemp[i][j].y = (1.0 - t) * Vtemp[i-1][j].y + t * Vtemp[i-1][j+1].y;
 		}
-    }
-    
-    if ( Left )
+	}
+	
+	if ( Left )
 	{
 		for (j = 0; j <= degree; j++)
 		{
-	    	Left[j]  = Vtemp[j][0];
+			Left[j]  = Vtemp[j][0];
 		}
-    }
-    if ( Right)
+	}
+	if ( Right)
 	{
 		for (j = 0; j <= degree; j++)
 		{
-	    	Right[j] = Vtemp[degree-j][j];
+			Right[j] = Vtemp[degree-j][j];
 		}
-    }
+	}
 
-    return (Vtemp[degree][0]);
+	return (Vtemp[degree][0]);
 }
 
 

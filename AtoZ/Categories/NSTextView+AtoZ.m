@@ -32,9 +32,9 @@
 
 - (IBAction)increaseFontSize:(id)sender
 {
-    NSTextStorage *textStorage = [self textStorage];
-    [textStorage beginEditing];
-    [textStorage enumerateAttributesInRange: NSMakeRange(0, [textStorage length])
+	NSTextStorage *textStorage = [self textStorage];
+	[textStorage beginEditing];
+	[textStorage enumerateAttributesInRange: NSMakeRange(0, [textStorage length])
 									options: 0
 								 usingBlock: ^(NSDictionary *attributesDictionary,
 											   NSRange range,
@@ -42,52 +42,52 @@
 	{
 #pragma unused(stop)
 	NSFont *font = attributesDictionary[NSFontAttributeName];
-         if (font) {
-             [textStorage removeAttribute:NSFontAttributeName range:range];
-             font = [[NSFontManager sharedFontManager] convertFont:font toSize:[font pointSize] + 1];
-             [textStorage addAttribute:NSFontAttributeName value:font range:range];
-         }
-     }];
-    [textStorage endEditing];
-    [self didChangeText];
+		 if (font) {
+			 [textStorage removeAttribute:NSFontAttributeName range:range];
+			 font = [[NSFontManager sharedFontManager] convertFont:font toSize:[font pointSize] + 1];
+			 [textStorage addAttribute:NSFontAttributeName value:font range:range];
+		 }
+	 }];
+	[textStorage endEditing];
+	[self didChangeText];
 
 }
 
 - (void)changeFontSize:(CGFloat)delta;
 {
-    NSFontManager * fontManager = [NSFontManager sharedFontManager];
-    NSTextStorage * textStorage = [self textStorage];
-    [textStorage beginEditing];
-    [textStorage enumerateAttribute:NSFontAttributeName
-                            inRange:NSMakeRange(0, [textStorage length])
-                            options:0
-                         usingBlock:^(id value,
-                                      NSRange range,
-                                      BOOL * stop)
-     {
-         NSFont * font = value;
-         font = [fontManager convertFont:font
-                                  toSize:[font pointSize] + delta];
-         if (font != nil) {
-             [textStorage removeAttribute:NSFontAttributeName
-                                    range:range];
-             [textStorage addAttribute:NSFontAttributeName
-                                 value:font
-                                 range:range];
-         }
-     }];
-    [textStorage endEditing];
-    [self didChangeText];
+	NSFontManager * fontManager = [NSFontManager sharedFontManager];
+	NSTextStorage * textStorage = [self textStorage];
+	[textStorage beginEditing];
+	[textStorage enumerateAttribute:NSFontAttributeName
+							inRange:NSMakeRange(0, [textStorage length])
+							options:0
+						 usingBlock:^(id value,
+									  NSRange range,
+									  BOOL * stop)
+	 {
+		 NSFont * font = value;
+		 font = [fontManager convertFont:font
+								  toSize:[font pointSize] + delta];
+		 if (font != nil) {
+			 [textStorage removeAttribute:NSFontAttributeName
+									range:range];
+			 [textStorage addAttribute:NSFontAttributeName
+								 value:font
+								 range:range];
+		 }
+	 }];
+	[textStorage endEditing];
+	[self didChangeText];
 }
 
 -  (IBAction)decrementFontSize:(id)sender;
 {
-    [self changeFontSize:-1.0];
+	[self changeFontSize:-1.0];
 }
 
 -  (IBAction)incrementFontSize:(id)sender;
 {
-    [self changeFontSize:1.0];
+	[self changeFontSize:1.0];
 }
 
 @end
@@ -122,7 +122,7 @@
 			forSegment:i] ;
 	}
 
-    [textWidths release] ;
+	[textWidths release] ;
 }
 
 @end

@@ -69,10 +69,10 @@
 /*
 @class Cell;
 @interface MineField : NSObject {
-    NSMutableArray *cells; // grid of cells
-    int numMines;          // total number of mines
-    int numExposedCells;   // num of cells exposed
-    BOOL kablooey;         // mine field detonated
+	NSMutableArray *cells; // grid of cells
+	int numMines;		  // total number of mines
+	int numExposedCells;   // num of cells exposed
+	BOOL kablooey;		 // mine field detonated
 }
 
 @property(readonly) int numMines;
@@ -90,10 +90,10 @@
 
 @end
 @interface Cell : NSObject {
-    BOOL hasMine; // cell has a mine
-    BOOL exposed;   // cell has been exposed (may or may not have mine)
-    BOOL marked;    // cell marked as having a mine (perhaps incorrectly)
-    char numSurroundingMines;  // number of mines in 8 neighbors
+	BOOL hasMine; // cell has a mine
+	BOOL exposed;   // cell has been exposed (may or may not have mine)
+	BOOL marked;	// cell marked as having a mine (perhaps incorrectly)
+	char numSurroundingMines;  // number of mines in 8 neighbors
 }
 
 @property(readwrite) BOOL hasMine;

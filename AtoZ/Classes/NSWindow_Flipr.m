@@ -58,7 +58,7 @@
 	NSRect originalRect;			// this rect covers the initial and final windows.
 	NSWindow* initialWindow;
 	NSWindow* finalWindow;
-    CIImage* finalImage;			// this is the rendered image of the final window.
+	CIImage* finalImage;			// this is the rendered image of the final window.
 	CIFilter* transitionFilter;
 	NSShadow* shadow;
 	FliprAnimation* animation;

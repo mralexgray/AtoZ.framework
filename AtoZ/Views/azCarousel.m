@@ -8,7 +8,7 @@
 #define DECELERATE_THRESHOLD 0.1f
 #define SCROLL_SPEED_THRESHOLD 4.0f		//	2.0f
 #define SCROLL_DISTANCE_THRESHOLD 0.1f
-#define DECELERATION_MULTIPLIER 20.0f       //5.0f   		//	30.0f
+#define DECELERATION_MULTIPLIER 20.0f	   //5.0f   		//	30.0f
 
 #ifdef ICAROUSEL_MACOS
 #define MAX_VISIBLE_ITEMS 500 //50
@@ -80,7 +80,7 @@
 @dynamic startOffset, 		numberOfPlaceholdersToShow,		previousTranslation,		toggleTime;
 - (AZTrackingWindow*) hostWindow {	return  (AZTrackingWindow*)[self window]; }
 
-	//- (id)initWithFrame:(NSRect)frame {     if ((self = [super initWithFrame:frame])) {
+	//- (id)initWithFrame:(NSRect)frame {	 if ((self = [super initWithFrame:frame])) {
 
 -(void) additionalSetUp {
 	/*		[NSEvent addGlobalMonitorForEventsMatchingMask:NSMouseMovedMask handler:^(NSEvent *e) {
@@ -105,23 +105,23 @@
 - (void)scrollWheel:(NSEvent *)theEvent {
 		//	NSLog(@"EXTENDED!");
 		//	[s]didDrag = YES;
-		//    if (self.scrollEnabled)
-		//    {
-		//        if (!self.isDragging)
-		//        {
-		//            self.dragging = YES;
-		//            if ([self.delegate respondsToSelector:@selector(carouselWillBeginDragging:)])
-		//            {
-		//                [self.delegate carouselWillBeginDragging:self];
-		//            }
-		//        }
-		//        self.scrolling = NO;
-		//        self.decelerating = NO;
+		//	if (self.scrollEnabled)
+		//	{
+		//		if (!self.isDragging)
+		//		{
+		//			self.dragging = YES;
+		//			if ([self.delegate respondsToSelector:@selector(carouselWillBeginDragging:)])
+		//			{
+		//				[self.delegate carouselWillBeginDragging:self];
+		//			}
+		//		}
+		//		self.scrolling = NO;
+		//		self.decelerating = NO;
 
 //	AZWindowPosition d = [self hostWindow].position;
 
 	CGFloat translation = (self.vertical) ? [theEvent deltaY]	: [theEvent deltaX];
-		//        translation	 = d == AZPositionBottom ? translation	:
+		//		translation	 = d == AZPositionBottom ? translation	:
 		//					   d == AZPositionLeft   ? translation	: -translation;
 	CGFloat factor = 1.f;
 	if (!self.wrapEnabled && self.bounces)
@@ -140,33 +140,33 @@
 
 - (void)didScroll
 {
-    if (self.wrapEnabled || !self.bounces)
-    {
-        self.scrollOffset = [self clampedOffset:self.scrollOffset];
-    }
-    else
-    {
-        CGFloat min = -self.bounceDistance;
-        CGFloat max = fmaxf(self.numberOfItems - 1, 0.0f) + self.bounceDistance;
-        if (self.scrollOffset < min)
-        {
-            self.scrollOffset = min;
-            self.startVelocity = 0.0f;
-        }
-        else if (self.scrollOffset > max)
-        {
-            self.scrollOffset = max;
-            self.startVelocity = 0.0f;
-        }
-    }
+	if (self.wrapEnabled || !self.bounces)
+	{
+		self.scrollOffset = [self clampedOffset:self.scrollOffset];
+	}
+	else
+	{
+		CGFloat min = -self.bounceDistance;
+		CGFloat max = fmaxf(self.numberOfItems - 1, 0.0f) + self.bounceDistance;
+		if (self.scrollOffset < min)
+		{
+			self.scrollOffset = min;
+			self.startVelocity = 0.0f;
+		}
+		else if (self.scrollOffset > max)
+		{
+			self.scrollOffset = max;
+			self.startVelocity = 0.0f;
+		}
+	}
 
 		//check if index has changed
-    NSInteger currentIndex = roundf(self.scrollOffset);
-    NSInteger difference = [self minScrollDistanceFromIndex:self.previousItemIndex toIndex:currentIndex];
-    if (difference)
-    {
-        self.toggleTime = CACurrentMediaTime();
-        self.toggle = fmaxf(-1.0f, fminf(1.0f, -(CGFloat)difference));
+	NSInteger currentIndex = roundf(self.scrollOffset);
+	NSInteger difference = [self minScrollDistanceFromIndex:self.previousItemIndex toIndex:currentIndex];
+	if (difference)
+	{
+		self.toggleTime = CACurrentMediaTime();
+		self.toggle = fmaxf(-1.0f, fminf(1.0f, -(CGFloat)difference));
 
 #ifdef ICAROUSEL_MACOS
 			//		AZTrackingWindow* w = (NSWindow*)[self window];
@@ -174,100 +174,100 @@
 			//		translation = d == AZPositionBottom ? NEG(translation)
 			//				:	  d == AZPositionLeft 	? NEG(translation) :  translation;
 
-        if (self.vertical)					//invert toggle
-            self.toggle = -self.toggle;
+		if (self.vertical)					//invert toggle
+			self.toggle = -self.toggle;
 #endif
-        [self startAnimation];
-    }
+		[self startAnimation];
+	}
 
-    [self loadUnloadViews];
-    [self transformItemViews];
+	[self loadUnloadViews];
+	[self transformItemViews];
 
-    if ([self.delegate respondsToSelector:@selector(carouselDidScroll:)])
-    {
-        [self enableAnimation];        [self.delegate carouselDidScroll:self];
-        [self disableAnimation];
-    }
+	if ([self.delegate respondsToSelector:@selector(carouselDidScroll:)])
+	{
+		[self enableAnimation];		[self.delegate carouselDidScroll:self];
+		[self disableAnimation];
+	}
 
 		//notify delegate of change index
-    if ([self clampedIndex:self.previousItemIndex] != self.currentItemIndex &&
-        [self.delegate respondsToSelector:@selector(carouselCurrentItemIndexDidChange:)])
-    {
-        [self enableAnimation];        [self.delegate carouselCurrentItemIndexDidChange:self];
-        [self disableAnimation];
-    }
+	if ([self clampedIndex:self.previousItemIndex] != self.currentItemIndex &&
+		[self.delegate respondsToSelector:@selector(carouselCurrentItemIndexDidChange:)])
+	{
+		[self enableAnimation];		[self.delegate carouselCurrentItemIndexDidChange:self];
+		[self disableAnimation];
+	}
 				//DEPRECATED	// if ([self clampedIndex:self.previousItemIndex] != self.currentItemIndex &&
 								//	[self.delegate respondsToSelector:@selector(carouselCurrentItemIndexUpdated:)])
-								//        [(id<iCarouselDeprecated>)self.delegate carouselCurrentItemIndexUpdated:self];
+								//		[(id<iCarouselDeprecated>)self.delegate carouselCurrentItemIndexUpdated:self];
 	//update previous index
-    self.previousItemIndex = currentIndex;
+	self.previousItemIndex = currentIndex;
 }
 - (CGFloat)offsetForItemAtIndex:(NSInteger)index
 {
 		//calculate relative position
-    CGFloat offset = index - self.scrollOffset;
-    if (self.wrapEnabled)
-    {
-        if (offset > self.numberOfItems/2)  //larger than ghjalf the view
-        {
-            offset -= self.numberOfItems;
-        }
-        else if (offset < -self.numberOfItems/2)
-        {
-            offset += self.numberOfItems;
-        }
-    }
+	CGFloat offset = index - self.scrollOffset;
+	if (self.wrapEnabled)
+	{
+		if (offset > self.numberOfItems/2)  //larger than ghjalf the view
+		{
+			offset -= self.numberOfItems;
+		}
+		else if (offset < -self.numberOfItems/2)
+		{
+			offset += self.numberOfItems;
+		}
+	}
 
 		//handle special case for one item
-    if (self.numberOfItems + self.numberOfPlaceholdersToShow == 1)
-    {
-        offset = 0.0f;
-    }
+	if (self.numberOfItems + self.numberOfPlaceholdersToShow == 1)
+	{
+		offset = 0.0f;
+	}
 
 #ifdef ICAROUSEL_MACOS
 
-    if (self.vertical)
-    {
+	if (self.vertical)
+	{
 			//invert transform
-        offset = -offset;
-    }
+		offset = -offset;
+	}
 
 #endif
 
-    return offset;
+	return offset;
 }
 
 - (NSInteger)clampedIndex:(NSInteger)index
 {
-    if (self.wrapEnabled)
-    {
-        if (self.numberOfItems == 0)
-        {
-            return 0;
-        }
-        return index - floorf((CGFloat)index / (CGFloat)self.numberOfItems) * self.numberOfItems;
-    }
-    else
-    {
-        return MIN(MAX(index, 0), self.numberOfItems - 1);
-    }
+	if (self.wrapEnabled)
+	{
+		if (self.numberOfItems == 0)
+		{
+			return 0;
+		}
+		return index - floorf((CGFloat)index / (CGFloat)self.numberOfItems) * self.numberOfItems;
+	}
+	else
+	{
+		return MIN(MAX(index, 0), self.numberOfItems - 1);
+	}
 }
 
 - (CGFloat)clampedOffset:(CGFloat)offset
 {
-	if (self.wrapEnabled)	//    if (_wrapEnabled)
-    {
-        return self.numberOfItems? (offset - floorf(offset / (CGFloat)self.numberOfItems) * self.numberOfItems): 0.0f;
-    }
-    else
-    {
-        return fminf(fmaxf(0.0f, offset), (CGFloat)self.numberOfItems - 1.0f);
-    }
+	if (self.wrapEnabled)	//	if (_wrapEnabled)
+	{
+		return self.numberOfItems? (offset - floorf(offset / (CGFloat)self.numberOfItems) * self.numberOfItems): 0.0f;
+	}
+	else
+	{
+		return fminf(fmaxf(0.0f, offset), (CGFloat)self.numberOfItems - 1.0f);
+	}
 }
 
 - (NSInteger)currentItemIndex
 {
-    return [self clampedIndex:roundf(self.scrollOffset)];
+	return [self clampedIndex:roundf(self.scrollOffset)];
 }
 
 @end
@@ -276,131 +276,131 @@
 	//{
 	//
 	//
-	//    if (self.wrapEnabled || !self.bounces){
-	//        self.scrollOffset = - [self clampedOffset:self.scrollOffset];
-	//    }    else    {
-	//        CGFloat min = - self.bounceDistance;
-	//        CGFloat max = fmaxf(self.numberOfItems - 1, 0.0f) + self.bounceDistance;
+	//	if (self.wrapEnabled || !self.bounces){
+	//		self.scrollOffset = - [self clampedOffset:self.scrollOffset];
+	//	}	else	{
+	//		CGFloat min = - self.bounceDistance;
+	//		CGFloat max = fmaxf(self.numberOfItems - 1, 0.0f) + self.bounceDistance;
 	//
 	////		CGFloat off;
 	////
-	//        if (self.scrollOffset < min)
-	//        {
+	//		if (self.scrollOffset < min)
+	//		{
 	////			off = min;
-	//			    self.scrollOffset = min;
-	//            self.startVelocity = 0.0f;
-	//        }
-	//        else if (self.scrollOffset > max)
-	//        {
+	//				self.scrollOffset = min;
+	//			self.startVelocity = 0.0f;
+	//		}
+	//		else if (self.scrollOffset > max)
+	//		{
 	////			off = max;
-	//            self.scrollOffset = max;
-	//            self.startVelocity = 0.0f;
-	//        }
-	//    }
+	//			self.scrollOffset = max;
+	//			self.startVelocity = 0.0f;
+	//		}
+	//	}
 	//
 	//
 	//		//check if index has changed
-	//    NSInteger currentIndex = roundf(self.scrollOffset);
-	//    NSInteger difference = [self minScrollDistanceFromIndex:self.previousItemIndex toIndex:currentIndex];
+	//	NSInteger currentIndex = roundf(self.scrollOffset);
+	//	NSInteger difference = [self minScrollDistanceFromIndex:self.previousItemIndex toIndex:currentIndex];
 	////
 	////	if (off >= 0.0f) {
 	/////	NSLog(@"offset reported as  %f.  min %f  max  %ff.   " ,off, min, max);
 	//	}
-	//    if (difference)
-	//    {
-	//        self.toggleTime = CACurrentMediaTime();
-	////        self.toggle =
+	//	if (difference)
+	//	{
+	//		self.toggleTime = CACurrentMediaTime();
+	////		self.toggle =
 	////		float dd = fmaxf(-1.0f, fminf(1.0f, -(CGFloat)difference));
 	////		self.toggle =  d == AZPositionBottom ? NEG(dd)
 	////					:  d == AZPositionLeft 	 ? NEG(dd) :  dd;
 	//
 	////#ifdef ICAROUSELself.MACOS
 	//
-	////        if (self.vertical)
-	////        { NSLog(@"carousel: %ld thinks it is vertical.", currentIndex);//[self propertiesPlease]);
+	////		if (self.vertical)
+	////		{ NSLog(@"carousel: %ld thinks it is vertical.", currentIndex);//[self propertiesPlease]);
 	//				//invert toggle
-	////            self.toggle = -self.toggle;
-	////        }
+	////			self.toggle = -self.toggle;
+	////		}
 	//
 	////#endif
 	//
-	//        [self startAnimation];
-	//    }
+	//		[self startAnimation];
+	//	}
 	//
-	//    [self loadUnloadViews];
-	//    [self transformItemViews];
+	//	[self loadUnloadViews];
+	//	[self transformItemViews];
 	//
-	//    if ([self.delegate respondsToSelector:@selector(carouselDidScroll:)])
-	//    {
-	//        [self enableAnimation];
-	//        [self.delegate carouselDidScroll:self];
-	//        [self disableAnimation];
-	//    }
+	//	if ([self.delegate respondsToSelector:@selector(carouselDidScroll:)])
+	//	{
+	//		[self enableAnimation];
+	//		[self.delegate carouselDidScroll:self];
+	//		[self disableAnimation];
+	//	}
 	//
 	//		//notify delegate of change index
-	//    if ([self clampedIndex:self.previousItemIndex] != self.currentItemIndex &&
-	//        [self.delegate respondsToSelector:@selector(carouselCurrentItemIndexDidChange:)])
-	//    {
-	//        [self enableAnimation];
-	//        [self.delegate carouselCurrentItemIndexDidChange:self];
-	//        [self disableAnimation];
-	//    }
+	//	if ([self clampedIndex:self.previousItemIndex] != self.currentItemIndex &&
+	//		[self.delegate respondsToSelector:@selector(carouselCurrentItemIndexDidChange:)])
+	//	{
+	//		[self enableAnimation];
+	//		[self.delegate carouselCurrentItemIndexDidChange:self];
+	//		[self disableAnimation];
+	//	}
 	//
 	////		//DEPRECATED
-	////    if ([self clampedIndex:self.previousItemIndex] != self.currentItemIndex &&
-	////        [self.delegate respondsToSelector:@selector(carouselCurrentItemIndexUpdated:)])
-	////    {
-	////        [(id<iCarouselDeprecated>)self.delegate carouselCurrentItemIndexUpdated:self];
-	////    }
+	////	if ([self clampedIndex:self.previousItemIndex] != self.currentItemIndex &&
+	////		[self.delegate respondsToSelector:@selector(carouselCurrentItemIndexUpdated:)])
+	////	{
+	////		[(id<iCarouselDeprecated>)self.delegate carouselCurrentItemIndexUpdated:self];
+	////	}
 	//
 	//		//update previous index
-	//    self.previousItemIndex = currentIndex;
+	//	self.previousItemIndex = currentIndex;
 	//}
 	//
 
 	//- (CGFloat)offsetForItemAtIndex:(NSInteger)index
 	//{
 	//		//calculate relative position
-	//    CGFloat offset = index - self.scrollOffset;
-	////    if (_wrapEnabled)
-	////    {
-	//        if (offset > self.numberOfItems/2)  //larger than ghjalf the view
-	//        {
-	//            offset -= self.numberOfItems;
-	//        }
-	//        else if (offset < -self.numberOfItems/2)
-	//        {
-	//            offset += self.numberOfItems;
-	//        }
-	////    }
+	//	CGFloat offset = index - self.scrollOffset;
+	////	if (_wrapEnabled)
+	////	{
+	//		if (offset > self.numberOfItems/2)  //larger than ghjalf the view
+	//		{
+	//			offset -= self.numberOfItems;
+	//		}
+	//		else if (offset < -self.numberOfItems/2)
+	//		{
+	//			offset += self.numberOfItems;
+	//		}
+	////	}
 	//									//handle special case for one item
-	//    if (self.numberOfItems + self.numberOfPlaceholdersToShow == 1)		offset = 0.0f;
+	//	if (self.numberOfItems + self.numberOfPlaceholdersToShow == 1)		offset = 0.0f;
 	//
-	//    if (self.vertical)			//invert transform
-	//        offset = -offset;
+	//	if (self.vertical)			//invert transform
+	//		offset = -offset;
 	//
-	//    return offset;
+	//	return offset;
 	//}
 	//
 	//- (NSInteger)clampedIndex:(NSInteger)index
 	//{
-	//    if (self.wrapEnabled)
-	//	    {        if (self.numberOfItems == 0)	        {            return 0;  }
-	//        return index - floorf((CGFloat)index / (CGFloat)self.numberOfItems) * self.numberOfItems;
-	//    }
-	//    else
-	//        return MIN(MAX(index, 0), self.numberOfItems - 1);
+	//	if (self.wrapEnabled)
+	//		{		if (self.numberOfItems == 0)			{			return 0;  }
+	//		return index - floorf((CGFloat)index / (CGFloat)self.numberOfItems) * self.numberOfItems;
+	//	}
+	//	else
+	//		return MIN(MAX(index, 0), self.numberOfItems - 1);
 	//}
 	//
 	//- (CGFloat)clampedOffset:(CGFloat)offset
 	//{
-	//    if (self.wrapEnabled)
-	//        return self.numberOfItems? (offset - floorf(offset / (CGFloat)self.numberOfItems) * self.numberOfItems): 0.0f;
-	//    else
-	//        return fminf(fmaxf(0.0f, offset), (CGFloat)self.numberOfItems - 1.0f);
+	//	if (self.wrapEnabled)
+	//		return self.numberOfItems? (offset - floorf(offset / (CGFloat)self.numberOfItems) * self.numberOfItems): 0.0f;
+	//	else
+	//		return fminf(fmaxf(0.0f, offset), (CGFloat)self.numberOfItems - 1.0f);
 	//}
 	//
-	//- (NSInteger)currentItemIndex {    return [self clampedIndex:roundf(self.scrollOffset)];	}
+	//- (NSInteger)currentItemIndex {	return [self clampedIndex:roundf(self.scrollOffset)];	}
 	//
 	//
 

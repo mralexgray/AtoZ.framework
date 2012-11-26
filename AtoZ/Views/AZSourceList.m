@@ -193,14 +193,14 @@ NSString * const AZSLDeleteKeyPressedOnRowsNotification = @"AZSourceListDeleteKe
 //	[NSColor colorWithCalibratedWhite:0 alpha:1], 1,nil
 //	 ];
 	[g drawInRect:clipRect angle:0];
-//    [gradient drawInRect:clipRect angle:90];
+//	[gradient drawInRect:clipRect angle:90];
 }
 #pragma mark - Setup/Teardown
 
 - (id)initWithCoder:(NSCoder*)decoder
 {	
 	if(self=[super initWithCoder:decoder]) {
-        [self AZSL_setup];
+		[self AZSL_setup];
 	}
 	
 	return self;
@@ -208,22 +208,22 @@ NSString * const AZSLDeleteKeyPressedOnRowsNotification = @"AZSourceListDeleteKe
 
 - (id)initWithFrame:(NSRect)frameRect
 {
-    if((self = [super initWithFrame:frameRect])) {
-        [self AZSL_setup];
-    }
-    
-    return self;
+	if((self = [super initWithFrame:frameRect])) {
+		[self AZSL_setup];
+	}
+	
+	return self;
 }
 
 - (void)AZSL_setup
 {
-    [self setDelegate:(id<AZSourceListDelegate>)[super delegate]];
-    [super setDelegate:self];
-    
-    [self setDataSource:(id<AZSourceListDataSource>)[super dataSource]];
-    [super setDataSource:self];
-    
-    _iconSize = NSMakeSize(16,16);
+	[self setDelegate:(id<AZSourceListDelegate>)[super delegate]];
+	[super setDelegate:self];
+	
+	[self setDataSource:(id<AZSourceListDataSource>)[super dataSource]];
+	[super setDataSource:self];
+	
+	_iconSize = NSMakeSize(16,16);
 }
 
 - (void)dealloc
@@ -434,14 +434,14 @@ NSString * const AZSLDeleteKeyPressedOnRowsNotification = @"AZSourceListDeleteKe
 	if([self isGroupAlwaysExpanded:[self itemAtRow:row]]) {
 		return NSZeroRect;
 	}
-    
-    NSRect frame = [super frameOfOutlineCellAtRow:row];
-    
-    if([self levelForRow:row] > 0) {
-        frame.origin.x = [self levelForRow:row] * [self indentationPerLevel];
-    }
-    
-    return frame;
+	
+	NSRect frame = [super frameOfOutlineCellAtRow:row];
+	
+	if([self levelForRow:row] > 0) {
+		frame.origin.x = [self levelForRow:row] * [self indentationPerLevel];
+	}
+	
+	return frame;
 }
 - (NSRect)frameOfCellAtColumn:(NSInteger)column row:(NSInteger)row
 {
@@ -506,8 +506,8 @@ NSString * const AZSLDeleteKeyPressedOnRowsNotification = @"AZSourceListDeleteKe
 }
 
 - (void)viewDidMoveToSuperview {
-    //If set to YES, this will cause display issues in Lion where the right part of the outline view is cut off
-    [self setAutoresizesOutlineColumn:NO];
+	//If set to YES, this will cause display issues in Lion where the right part of the outline view is cut off
+	[self setAutoresizesOutlineColumn:NO];
 }
 
 #pragma mark - Drawing
@@ -522,8 +522,8 @@ NSString * const AZSLDeleteKeyPressedOnRowsNotification = @"AZSourceListDeleteKe
 		NSLog(@"inside gridrect");
 	[[NSColor lightGrayColor] set];
 	for (   i = columnRange.location ;
-         i < NSMaxRange(columnRange) ;
-         i++ )
+		 i < NSMaxRange(columnRange) ;
+		 i++ )
 	{
 		NSRect colRect = [self rectOfColumn:i];
 		int rightEdge
@@ -587,21 +587,21 @@ NSString * const AZSLDeleteKeyPressedOnRowsNotification = @"AZSourceListDeleteKe
 											  actualIconSize.height);
 					}
 					
-                    //Use 10.6 NSImage drawing if we can
-//                    if([icon respondsToSelector:@selector(drawInRect:fromRect:operation:fraction:respectFlipped:hints:)]) {
-                        [icon drawInRect:iconRect
-                                fromRect:NSZeroRect
-                               operation: NSCompositeSourceOver
-                                fraction:1
-                          respectFlipped:YES hints:nil];
-//                    }
-                   /* else {
-                        [icon setFlipped:[self isFlipped]];
-                        [icon drawInRect:iconRect
-                                fromRect:NSZeroRect
-                               operation:NSCompositeSourceOver
-                                fraction:1];
-                    }*/
+					//Use 10.6 NSImage drawing if we can
+//					if([icon respondsToSelector:@selector(drawInRect:fromRect:operation:fraction:respectFlipped:hints:)]) {
+						[icon drawInRect:iconRect
+								fromRect:NSZeroRect
+							   operation: NSCompositeSourceOver
+								fraction:1
+						  respectFlipped:YES hints:nil];
+//					}
+				   /* else {
+						[icon setFlipped:[self isFlipped]];
+						[icon drawInRect:iconRect
+								fromRect:NSZeroRect
+							   operation:NSCompositeSourceOver
+								fraction:1];
+					}*/
 				}
 			}
 		}

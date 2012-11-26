@@ -48,7 +48,7 @@ static NSMutableDictionary *keyNames = nil, *nillableKeyNames = nil;
 - (id) objectAtIndexedSubscript: (NSInteger) index  // todelete if (index < 0) index = _backingstore.count + index;
 {
 	!_usesBackingStore ? ^{ AZLOG(@"warning! no backing store!"); return nil; }() : nil;
-    return _backingstore[index < 0 ? _backingstore.count + index : index];
+	return _backingstore[index < 0 ? _backingstore.count + index : index];
 }
 - (void) setObject:(id)object forKeyedSubscript: (NSString*)key {
 	NSString *stringer = $(@"set%@", [key capitalizedString]);
@@ -65,13 +65,13 @@ static NSMutableDictionary *keyNames = nil, *nillableKeyNames = nil;
 //You can do the exact same calculation in setObject:atIndexedSubscript: and call it a day. But for fun, and to make the mutating method a little more interesting, the array will use a null-fill when setting a value far off the end of the collection (where “far” is more than one index). IN regular Cocoa, setting a value exactly one index past the end of an NSMutArr will extend it and anything farther throws an exception. BNRNegativeArray will fill in intervening indexes with [NSNull null].
 
 - (void) setObject: (id) thing  atIndexedSubscript: (NSInteger) index {
-    !_usesBackingStore ? ^{ 	AZLOG(@"warning.. no backing store. Makibng");
+	!_usesBackingStore ? ^{ 	AZLOG(@"warning.. no backing store. Makibng");
 								_backingstore = self.backingstore;
 	}() :  ^{
  		NSI fixedIndex; if (index < 0) fixedIndex = _backingstore.count + index;
 		// Mutable array only allows setting the first-empty-index, like  -insertObject:atIndex:.  Any past that throws a range exception.  So let's be different and fill in intervening spaces w/ [NSNull null]
 		NSInteger toAdd 				  = fixedIndex - _backingstore.count;;
-		for (int i = 0; i < toAdd; i++)	    [_backingstore addObject: [NSNull null]];
+		for (int i = 0; i < toAdd; i++)		[_backingstore addObject: [NSNull null]];
 		fixedIndex >= _backingstore.count ? [_backingstore addObject: thing]
 										  : [_backingstore replaceObjectAtIndex: fixedIndex  withObject: thing];  }();
 }
@@ -123,9 +123,9 @@ static NSMutableDictionary *keyNames = nil, *nillableKeyNames = nil;
 }
 - (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(id __unsafe_unretained []) stackbuf count:(NSUInteger)len {
 //- (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(__unsafe_unretained id [])buffer count:(NSUInteger)len {
-    return [_backingstore countByEnumeratingWithState:state objects:stackbuf count:len];
+	return [_backingstore countByEnumeratingWithState:state objects:stackbuf count:len];
 }
-//    return _usesBackingStore ? [_backingstore countByEnumeratingWithState:state objects:buffer count:len] : 0;
+//	return _usesBackingStore ? [_backingstore countByEnumeratingWithState:state objects:buffer count:len] : 0;
 
 - (NSUInteger)count { 						return _usesBackingStore ? _backingstore.count : 0; }
 - (id)objectAtIndex:(NSUInteger)index; {	return _usesBackingStore ? [_backingstore normal:index] : nil; }
@@ -148,35 +148,35 @@ static NSMutableDictionary *keyNames = nil, *nillableKeyNames = nil;
 #pragma mark - Private utility methods
 + (NSString *)resourceFilePath:(NSString *)path
 {		//check if the path is a full path or not
-    return [path isAbsolutePath] ? path : [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:path];
+	return [path isAbsolutePath] ? path : [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:path];
 }
 + (NSString *)resourceFilePath
 {
-    return [self resourceFilePath:[self resourceFile]];
+	return [self resourceFilePath:[self resourceFile]];
 }
 + (NSString *)saveFilePath:(NSString *)path
 {
 		//check if the path is a full path or not
-    if (![path isAbsolutePath]) {
+	if (![path isAbsolutePath]) {
 			//get the path to the application support folder
-        NSString *folder = [NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES) lastObject];
+		NSString *folder = [NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES) lastObject];
 #ifndef __IPHONE_OS_VERSION_MAX_ALLOWED
 		//append application name on Mac OS
-        NSString *identifier = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleNameKey];
-        folder = [folder stringByAppendingPathComponent:identifier];
+		NSString *identifier = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleNameKey];
+		folder = [folder stringByAppendingPathComponent:identifier];
 #endif
 			//create the folder if it doesn't exist
-        if (![[NSFileManager defaultManager] fileExistsAtPath:folder])
+		if (![[NSFileManager defaultManager] fileExistsAtPath:folder])
 			{
-            [[NSFileManager defaultManager] createDirectoryAtPath:folder
-                                      withIntermediateDirectories:YES
-                                                       attributes:nil
-                                                            error:NULL];
+			[[NSFileManager defaultManager] createDirectoryAtPath:folder
+									  withIntermediateDirectories:YES
+													   attributes:nil
+															error:NULL];
 			}
 
-        return [folder stringByAppendingPathComponent:path];
+		return [folder stringByAppendingPathComponent:path];
 		}
-    return path;
+	return path;
 }
 + (NSString *)saveFilePath
 { return [self saveFilePath:[self saveFile]]; }
@@ -187,45 +187,45 @@ static NSMutableDictionary *sharedInstances = nil;
 
 + (void)setSharedInstance:(AZBaseModel *)instance
 {
-    if (![instance isKindOfClass:self]) [NSException raise:NSGenericException format:@"setSharedInstance: instance class does not match"];
-    sharedInstances = sharedInstances ?: [[NSMD alloc] init];
-    id oldInstance = sharedInstances[NSStringFromClass(self)];
-    sharedInstances[NSStringFromClass(self)] = instance;
-    if (oldInstance) [AZNOTCENTER postNotificationName:BaseModelSharedInstanceUpdatedNotification object:oldInstance];
+	if (![instance isKindOfClass:self]) [NSException raise:NSGenericException format:@"setSharedInstance: instance class does not match"];
+	sharedInstances = sharedInstances ?: [[NSMD alloc] init];
+	id oldInstance = sharedInstances[NSStringFromClass(self)];
+	sharedInstances[NSStringFromClass(self)] = instance;
+	if (oldInstance) [AZNOTCENTER postNotificationName:BaseModelSharedInstanceUpdatedNotification object:oldInstance];
 }
 + (BOOL)hasSharedInstance
 { return sharedInstances[NSStringFromClass(self)] != nil; }
 + (instancetype)sharedInstance
 {
-    sharedInstances = sharedInstances ?: [[NSMutableDictionary alloc] init];
-    id instance = sharedInstances[NSStringFromClass(self)];
-    if (instance == nil)	{
+	sharedInstances = sharedInstances ?: [[NSMutableDictionary alloc] init];
+	id instance = sharedInstances[NSStringFromClass(self)];
+	if (instance == nil)	{
 		[self reloadSharedInstance];	//load or create instance
 		instance = sharedInstances[NSStringFromClass(self)];		//get loaded instance
 	}
-    return instance;
+	return instance;
 }
 + (void)reloadSharedInstance
 {
-    id instance = nil;
+	id instance = nil;
 	//try loading previously saved version
-    instance = [self instanceWithContentsOfFile:[self saveFilePath]];
-    if (instance == nil) instance = [self instance];			//construct a new instance
-    [self setSharedInstance:instance];		//set singleton
+	instance = [self instanceWithContentsOfFile:[self saveFilePath]];
+	if (instance == nil) instance = [self instance];			//construct a new instance
+	[self setSharedInstance:instance];		//set singleton
 }
 + (NSString *)resourceFile
 {
 		//used for every instance
-    return [NSStringFromClass(self) stringByAppendingPathExtension:@"plist"];
+	return [NSStringFromClass(self) stringByAppendingPathExtension:@"plist"];
 }
 + (NSString *)saveFile { return [NSStringFromClass(self) stringByAppendingPathExtension:@"plist"]; //used to save shared (singleton) instance
 }
 - (BOOL)useHRCoderIfAvailable { return YES; }
 - (void)save
 {
-    if (sharedInstances[NSStringFromClass([self class])] == self)
-        [self writeToFile:[[self class] saveFilePath] atomically:YES];//shared (singleton) instance
-    else [NSException raise:NSGenericException format:@"Unable to save object, save method not implemented"]; //no save implementation
+	if (sharedInstances[NSStringFromClass([self class])] == self)
+		[self writeToFile:[[self class] saveFilePath] atomically:YES];//shared (singleton) instance
+	else [NSException raise:NSGenericException format:@"Unable to save object, save method not implemented"]; //no save implementation
 }
 
 #pragma mark - Default constructors
@@ -233,88 +233,88 @@ static NSMutableDictionary *sharedInstances = nil;
 {
 		//override this
 }
-+ (instancetype)instance {    return AH_AUTORELEASE([[self alloc] init]); }
++ (instancetype)instance {	return AH_AUTORELEASE([[self alloc] init]); }
 
 static BOOL loadingFromResourceFile = NO;
 - (instancetype)init
 {
 	_usesBackingStore = NO;
-    @synchronized ([BaseModel class])
-    {
+	@synchronized ([BaseModel class])
+	{
 	if (!loadingFromResourceFile)
-        {
-            //attempt to load from resource file
+		{
+			//attempt to load from resource file
 		loadingFromResourceFile = YES;
 		id object = [[[self class] alloc] initWithContentsOfFile:[[self class] resourceFilePath]];
 		loadingFromResourceFile = NO;
 		if (object)
-            {
+			{
 			AH_RELEASE(self);
 			self = object;
 			return self;
-            }
-        }
+			}
+		}
 	if ((self = [super init]))
-        {
+		{
 
 #ifdef DEBUG
 		if ([self class] == [BaseModel class])
-            {
+			{
 			[NSException raise:NSGenericException format:@"BaseModel class is abstract and should be subclassed rather than instantiated directly"];
-            }
+			}
 #endif
 		[self setUp];
-        }
+		}
 	return self;
-    }
+	}
 }
 + (instancetype)instanceWithObject:(id)object
 {
 		//return nil if object is nil
-    return object? AH_AUTORELEASE([[self alloc] initWithObject:object]): nil;
+	return object? AH_AUTORELEASE([[self alloc] initWithObject:object]): nil;
 }
 - (NSString *)setterNameForClass:(Class)class
 {
 		//get class name
-    NSString *className = NSStringFromClass(class);
+	NSString *className = NSStringFromClass(class);
 
 		//strip NS prefix
-    if ([className hasPrefix:@"NS"])
+	if ([className hasPrefix:@"NS"])
 		{
-        className = [className substringFromIndex:2];
+		className = [className substringFromIndex:2];
 		}
 
 		//return setter name
-    return [NSString stringWithFormat:@"setWith%@:", className];
+	return [NSString stringWithFormat:@"setWith%@:", className];
 }
 - (instancetype)initWithObject:(id)object
 {
-    if ((self = [self init]))
+	if ((self = [self init]))
 		{
-        Class class = [object class];
-        while (true)
+		Class class = [object class];
+		while (true)
 			{
-            SEL setter = NSSelectorFromString([self setterNameForClass:class]);
-            if ([self respondsToSelector:setter])
+			SEL setter = NSSelectorFromString([self setterNameForClass:class]);
+			if ([self respondsToSelector:setter])
 				{
-                objc_msgSend(self, setter, object);
-                return self;
+				objc_msgSend(self, setter, object);
+				return self;
 				}
-            if ([class superclass] == [NSObject class]) break;
-            class = [class superclass];
+			if ([class superclass] == [NSObject class]) break;
+			class = [class superclass];
 			}
-        [NSException raise:NSGenericException
-                    format:@"%@ not implemented", [self setterNameForClass:class]];
+		[NSException raise:NSGenericException
+					format:@"%@ not implemented", [self setterNameForClass:class]];
 		}
-    return self;
+	return self;
 }
 + (NSArray *)instancesWithArray:(NSArray *)array
 {
 	return [array map:^id(id obj) { return [self instanceWithObject:obj]; }];
 }
-+ (instancetype)instanceWithCoder:(NSCoder *)decoder     //return nil if coder is nil
++ (instancetype)instanceWithCoder:(NSCoder *)decoder	 //return nil if coder is nil
 {
-    return decoder ? AH_AUTORELEASE([[self alloc] initWithCoder:decoder]) : nil;
+	return decoder ? AH_AUTORELEASE([[self alloc] initWithCoder:decoder]) : nil;
 }
 - (instancetype)initWithCoder:(NSCoder *)decoder
 {
@@ -329,7 +329,7 @@ static BOOL loadingFromResourceFile = NO;
 	else {
 
 			//([self respondsToSelector:@selector(enumerateIvarsUsingBlock:)]) {
-			//    	if (self = [super init]) {
+			//		if (self = [super init]) {
 			//			[self enumerateIvarsUsingBlock:^(Ivar var, NSString *name, BOOL *cancel) {
 			//				[self setValue:[decoder decodeObjectForKey:name] forKey:name];
 			//			}];
@@ -346,105 +346,105 @@ static BOOL loadingFromResourceFile = NO;
 + (instancetype)instanceWithContentsOfFile:(NSString *)filePath
 {
 		//check if the path is a full path or not
-    NSString *path = filePath;
-    if (![path isAbsolutePath])
+	NSString *path = filePath;
+	if (![path isAbsolutePath])
 		{
 			//try resources
-        path = [self resourceFilePath:filePath];
-        if (![[NSFileManager defaultManager] fileExistsAtPath:path])
+		path = [self resourceFilePath:filePath];
+		if (![[NSFileManager defaultManager] fileExistsAtPath:path])
 			{
 				//try application support
-            path = [self saveFilePath:filePath];
+			path = [self saveFilePath:filePath];
 			}
 		}
-    return AH_AUTORELEASE([[self alloc] initWithContentsOfFile:path]);
+	return AH_AUTORELEASE([[self alloc] initWithContentsOfFile:path]);
 }
 - (instancetype)initWithContentsOfFile:(NSString *)filePath
 {
-    static NSCache *cachedResourceFiles = nil;
-    if (cachedResourceFiles == nil)        cachedResourceFiles = [[NSCache alloc] init];
+	static NSCache *cachedResourceFiles = nil;
+	if (cachedResourceFiles == nil)		cachedResourceFiles = [[NSCache alloc] init];
 
 		//check cache for existing instance
 		//only cache files inside the main bundle as they are immutable
-    BOOL isResourceFile = [filePath hasPrefix:[[NSBundle mainBundle] bundlePath]];
-    if (isResourceFile)
+	BOOL isResourceFile = [filePath hasPrefix:[[NSBundle mainBundle] bundlePath]];
+	if (isResourceFile)
 		{
-        id object = cachedResourceFiles[filePath];
-        if (object)
+		id object = cachedResourceFiles[filePath];
+		if (object)
 			{
-            AH_RELEASE(self);
-            return ((self = (object == [NSNull null])? nil: AH_RETAIN(object)));
+			AH_RELEASE(self);
+			return ((self = (object == [NSNull null])? nil: AH_RETAIN(object)));
 			}
 		}
 		//load the file
-    NSData *data = [NSData dataWithContentsOfFile:filePath];
+	NSData *data = [NSData dataWithContentsOfFile:filePath];
 		//attempt to deserialise data as a plist
-    id object = nil;
-    if (data) {
-        NSPropertyListFormat format;
-        NSPropertyListReadOptions options = NSPropertyListMutableContainersAndLeaves;
-        object = [NSPropertyListSerialization propertyListWithData:data options:options format:&format error:NULL];
-    }
-	if (object)	{    //success?
+	id object = nil;
+	if (data) {
+		NSPropertyListFormat format;
+		NSPropertyListReadOptions options = NSPropertyListMutableContainersAndLeaves;
+		object = [NSPropertyListSerialization propertyListWithData:data options:options format:&format error:NULL];
+	}
+	if (object)	{	//success?
 					 //check if object is an NSCoded archive
-        if ([object respondsToSelector:@selector(objectForKey:)])	{
-            if (object[@"$archiver"])    object = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-            else {
-                Class coderClass = NSClassFromString(@"HRCoder");
-                NSString *classNameKey = [coderClass valueForKey:@"classNameKey"];
-                if (object[classNameKey])
-                    object = objc_msgSend(coderClass, @selector(unarchiveObjectWithPlist:), object);
+		if ([object respondsToSelector:@selector(objectForKey:)])	{
+			if (object[@"$archiver"])	object = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+			else {
+				Class coderClass = NSClassFromString(@"HRCoder");
+				NSString *classNameKey = [coderClass valueForKey:@"classNameKey"];
+				if (object[classNameKey])
+					object = objc_msgSend(coderClass, @selector(unarchiveObjectWithPlist:), object);
 			}
-            if ([object isKindOfClass:[self class]]) {
+			if ([object isKindOfClass:[self class]]) {
 				AH_RELEASE(self); //return object
-                return ((self = AH_RETAIN(object)));
-            }
-        }
-        if (isResourceFile)
+				return ((self = AH_RETAIN(object)));
+			}
+		}
+		if (isResourceFile)
 			{
 				//cache for next time
-            cachedResourceFiles[filePath] = object;
+			cachedResourceFiles[filePath] = object;
 			}
 
 			//load with object
-        return ((self = [self initWithObject:object]));
-    }
+		return ((self = [self initWithObject:object]));
+	}
 	else if (isResourceFile)   //store null for non-existent files to improve performance next time
-        cachedResourceFiles[filePath] = [NSNull null];
+		cachedResourceFiles[filePath] = [NSNull null];
 		//failed to load
-    AH_RELEASE(self);
-    return ((self = nil));
+	AH_RELEASE(self);
+	return ((self = nil));
 }
 - (void)writeToFile:(NSString *)path atomically:(BOOL)atomically
 {
-    NSData *data = nil;  Class coderClass = NSClassFromString(@"HRCoder");
-    if (coderClass && [self useHRCoderIfAvailable]) {
-        id plist = objc_msgSend(coderClass, @selector(archivedPlistWithRootObject:), self);
-        NSPropertyListFormat format = NSPropertyListBinaryFormat_v1_0;
-        data = [NSPropertyListSerialization dataWithPropertyList:plist format:format options:0 error:NULL];
+	NSData *data = nil;  Class coderClass = NSClassFromString(@"HRCoder");
+	if (coderClass && [self useHRCoderIfAvailable]) {
+		id plist = objc_msgSend(coderClass, @selector(archivedPlistWithRootObject:), self);
+		NSPropertyListFormat format = NSPropertyListBinaryFormat_v1_0;
+		data = [NSPropertyListSerialization dataWithPropertyList:plist format:format options:0 error:NULL];
 	} else
-        data = [NSKeyedArchiver archivedDataWithRootObject:self];
-    [data writeToFile:[[self class] saveFilePath:path] atomically:YES];
+		data = [NSKeyedArchiver archivedDataWithRootObject:self];
+	[data writeToFile:[[self class] saveFilePath:path] atomically:YES];
 }
 
 #pragma mark - Unique identifier generation
 + (NSString *)newUniqueIdentifier	{ CFUUIDRef uuid = CFUUIDCreate(NULL); CFStringRef idt = CFUUIDCreateString(NULL, uuid);
-													   CFRelease(uuid);    return AH_RETAIN(CFBridgingRelease(idt));
+													   CFRelease(uuid);	return AH_RETAIN(CFBridgingRelease(idt));
 }	//#ifdef BASEMODEL_ENABLE_UNIQUE_ID
 @synthesize uniqueID = _uniqueID;
 - (NSString *)uniqueID
 {
-    return _uniqueID  = !_uniqueID
+	return _uniqueID  = !_uniqueID
 					  ? [[self class] newUniqueIdentifier]
 					  : _uniqueID;
 }
 - (void)dealloc
 {
-    AH_RELEASE(_uniqueID);
+	AH_RELEASE(_uniqueID);
 		//	[self enumerateIvarsUsingBlock:^(Ivar var, NSString *name, BOOL *cancel) {
 		//		if (ivar_getTypeEncoding(var)[0] == _C_ID) [self setValue:nil forKey:name];
 		//	}];
-		//    for (NSString *name in [self nillableKeys])
+		//	for (NSString *name in [self nillableKeys])
 		//		[self setValue:nil forKey:name];
 	AH_SUPER_DEALLOC;
 }
@@ -579,8 +579,8 @@ static BOOL loadingFromResourceFile = NO;
 	//
 	//	// NSCoder implementation, for unarchiving
 	//- (id) initWithCoder:(NSCoder *)aDecoder {
-	//    self = [super init];
-	//    if (self) {
+	//	self = [super init];
+	//	if (self) {
 	//		for (NSString *name in [self allKeys])
 	//			[self setValue:[aDecoder decodeObjectForKey:name] forKey:name];
 	//	}
@@ -687,19 +687,19 @@ static BOOL loadingFromResourceFile = NO;
 
 + (id)retrieve:(NSString *)key
 {
-    return [NSKeyedUnarchiver unarchiveObjectWithFile:$(@"%@/%@.archive",
+	return [NSKeyedUnarchiver unarchiveObjectWithFile:$(@"%@/%@.archive",
 		NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0], key)];
 }
 
 + (BOOL)persist:(id)object key:(NSString *)key
 {
-    return [NSKeyedArchiver archiveRootObject:object toFile: $(@"%@/%@.archive",
+	return [NSKeyedArchiver archiveRootObject:object toFile: $(@"%@/%@.archive",
 		NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0], key)];
 }
 
 + (BOOL)delete:(NSString *)key
 {
-    return [AZFILEMANAGER removeItemAtPath: $(@"%@/%@.archive",
+	return [AZFILEMANAGER removeItemAtPath: $(@"%@/%@.archive",
 		NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0], key) error:NULL];
 }
 
@@ -708,7 +708,7 @@ static BOOL loadingFromResourceFile = NO;
 	__block BOOL stop;
 	[[AZFILEMANAGER contentsOfDirectoryAtPath:NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0] error:NULL] az_each:^(id obj, NSUInteger index, BOOL *stop) {
 		*stop = [AZFILEMANAGER removeItemAtPath:obj error:NULL];
-    }];
+	}];
 	return stop;
 }
 

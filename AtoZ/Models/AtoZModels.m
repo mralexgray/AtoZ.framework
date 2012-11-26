@@ -26,14 +26,14 @@
 	return [[self alloc]initWithSize:sz];
 }
 - (id)initWithSize:(NSSize)sz {
-    if (self = [super init]) {
-        width  = sz.width;
-        height = sz.height;
-    }
-    return self;
+	if (self = [super init]) {
+		width  = sz.width;
+		height = sz.height;
+	}
+	return self;
 }
 
 - (NSSize)sizeValue {
-    return NSMakeSize(width, height);
+	return NSMakeSize(width, height);
 }
 @end

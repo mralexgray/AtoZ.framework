@@ -23,8 +23,8 @@
 	return self;
 }
 //- (id)initWithFrame:(NSRect)frame controller:(AZEncyclopediaDelegate*)ctrlr {
-//    if (self = [super initWithFrame:frame]) {
-//        controller = ctrlr; // deliberately weak reference.
+//	if (self = [super initWithFrame:frame]) {
+//		controller = ctrlr; // deliberately weak reference.
 //		_clicked = NO;
 ////		_indicator = [[NSControl alloc]initWithFrame:NSInsetRect([self frame], 3, 3)];
 ////		AZIndeterminateIndicator *cell = [[AZIndeterminateIndicator alloc]init];
@@ -33,18 +33,18 @@
 ////		[self addSubview:_indicator];
 ////		[cell setSpinning:YES];
 //
-//    }
-//    return self;
+//	}
+//	return self;
 //}
 //- (void)dealloc
 //{
-//    controller = nil;
+//	controller = nil;
 //}
 - (void)drawRect:(NSRect)rect {
 
 //	[self.color set];
 //	[[NSBezierPath  bezierPathWithOvalInRect: AZMakeSquare([self center], NSMaxY([self bounds])*.8)] fill];
-    // Draw background if appropriate.
+	// Draw background if appropriate.
 	NSColor *now = (self.file ? self.file.color : RANDOMCOLOR );
 	if (!_clicked) {
 		NSBezierPath *frame = [NSBezierPath bezierPathWithRect:[self frame]];
@@ -53,9 +53,9 @@
 		NSColor *rando = now.darker.darker;// [[RANDOMCOLOR colorWithAlphaComponent:.5]darker];
 		NSBezierPath *frame = [NSBezierPath bezierPathWithRect:[self frame]];
 		[frame fillGradientFrom:rando.brighter to:rando.darker angle:270];
-//        [[NSColor selectedMenuItemColor] set];
-//        NSRectFill(rect);
-    }
+//		[[NSColor selectedMenuItemColor] set];
+//		NSRectFill(rect);
+	}
 //	[[[[[NSImage systemImages]randomElement]
 
 //	[[[self.file.image imageScaledToFitSize:AZScaleRect([self bounds], .6).size]coloredWithColor:WHITE]drawCenteredinRect:[self frame] operation:NSCompositeSourceOver fraction:1];
@@ -90,19 +90,19 @@
 - (void)mouseDown:(NSEvent *)event
 {
 	NSRect frame = [[self window] frame];
-    NSPoint pt = NSMakePoint(NSMidX(frame), NSMinY(frame));
+	NSPoint pt = NSMakePoint(NSMidX(frame), NSMinY(frame));
 
-    if (!_clicked) {
+	if (!_clicked) {
 //		[[self menu]popUpMenuPositioningItem:[self menu] atLocation:NSZeroPoint inView:self ];// [self center] inView:self];
 
 		[delegate statusView:self isActive:YES];
 //		[controller toggleAttachedWindowAtPoint:pt];
 		_clicked = YES;
 	}
-	else {    _clicked = NO;
+	else {	_clicked = NO;
 	[delegate statusView:self isActive:NO]; }
 //	[controller toggleAttachedWindowAtPoint:pt]; }
-    [self setNeedsDisplay:YES];
+	[self setNeedsDisplay:YES];
 }
 
 - (void)activeAppDidChange:(NSNotification *)notification {

@@ -53,7 +53,7 @@ void moveTo ( CGPoint dest );
 void dragTo ( CGPoint dest );
 //
 //
-//void mouseUp(    int btn, int clickType);
+//void mouseUp(	int btn, int clickType);
 //void mouseDow(   int btn, int clickType);
 //void mouseUpDown(int btn, int clickType);
 

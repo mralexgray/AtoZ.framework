@@ -38,8 +38,8 @@ typedef  enum {
 @end
 
 //{
-////    __weak iCarousel *_carousel;
-////    BOOL wrap;
-////    NSMutableArray *_items;
+////	__weak iCarousel *_carousel;
+////	BOOL wrap;
+////	NSMutableArray *_items;
 ////	__unsafe_unretained NSForm *form;
 //}

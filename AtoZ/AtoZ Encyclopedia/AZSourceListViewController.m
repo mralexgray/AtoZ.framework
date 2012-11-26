@@ -20,10 +20,10 @@
 @implementation AZSourceListViewController
 //@synthesize tv = _tv, sourceList= _sourceList;
 //- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
-//    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-//    if (self) {
+//	self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+//	if (self) {
 //		[self makeBadges];
-//    }    return self;
+//	}	return self;
 //}
 
 - (void) awakeFromNib {

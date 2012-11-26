@@ -9,11 +9,12 @@
 #import "NSArray+AtoZ.h"
 #import "RuntimeReporter.h"
 
-#define kMaxFontSize    10000
+#define kMaxFontSize	10000
 
 @implementation NSString (AtoZ)
 
-+ (NSString*)clipboard {
++ (NSString*)clipboard
+{
 	NSPasteboard* pasteboard = [NSPasteboard generalPasteboard] ;
 	NSArray* supportedTypes = [NSArray arrayWithObject:NSStringPboardType] ;
 	NSString* type = [pasteboard availableTypeFromArray:supportedTypes] ;
@@ -32,11 +33,11 @@
 
 
 - (unichar)lastCharacter {
-    return [self characterAtIndex:([self length] - 1)];
+	return [self characterAtIndex:([self length] - 1)];
 }
 
 - (NSString*)substringToLastCharacter {
-    return [self substringToIndex:([self length] - 1)];
+	return [self substringToIndex:([self length] - 1)];
 }
 
 /*
@@ -51,10 +52,10 @@
  }*/
 
 - (NSString*)decodeAllAmpersandEscapes {
-    return [self stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
+	return [self stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
 }
 - (NSNumber*)numberValue {
-    return [[[NSNumberFormatter alloc] init] numberFromString:self];
+	return [[[NSNumberFormatter alloc] init] numberFromString:self];
 }
 - (void) copyFileAtPathTo:(NSString*)path
 {
@@ -71,19 +72,19 @@
 
 + (CGFloat)pointSizeForFrame:(NSRect)frame withFont:(NSString *)fontName forString:(NSString*)string;
 {
-    NSFont * displayFont = nil;
-    NSSize stringSize = NSZeroSize;
-    NSUInteger fontLoop = 0;
+	NSFont * displayFont = nil;
+	NSSize stringSize = NSZeroSize;
+	NSUInteger fontLoop = 0;
 	NSMutableDictionary * fontAttributes = [[NSMutableDictionary alloc] init];
-    if (frame.size.width == 0.0 && frame.size.height == 0.0) return 0.0;
-    for (fontLoop = 1; fontLoop <= kMaxFontSize; fontLoop++) {
-        displayFont = [[NSFontManager sharedFontManager] convertWeight:YES ofFont:[NSFont fontWithName:fontName size:fontLoop]];
-        fontAttributes[NSFontAttributeName] = displayFont;
-        stringSize = [string sizeWithAttributes:fontAttributes];
-        if ( (stringSize.width > frame.size.width) || (stringSize.height > frame.size.height) )	break;
-    }
-    [fontAttributes release], fontAttributes = nil;
-    return (CGFloat)fontLoop - 1.0;
+	if (frame.size.width == 0.0 && frame.size.height == 0.0) return 0.0;
+	for (fontLoop = 1; fontLoop <= kMaxFontSize; fontLoop++) {
+		displayFont = [[NSFontManager sharedFontManager] convertWeight:YES ofFont:[NSFont fontWithName:fontName size:fontLoop]];
+		fontAttributes[NSFontAttributeName] = displayFont;
+		stringSize = [string sizeWithAttributes:fontAttributes];
+		if ( (stringSize.width > frame.size.width) || (stringSize.height > frame.size.height) )	break;
+	}
+	[fontAttributes release], fontAttributes = nil;
+	return (CGFloat)fontLoop - 1.0;
 }
 
 
@@ -96,8 +97,8 @@
 - (NSString*)urlEncoded { 	// Encode all the reserved characters, per RFC 3986
 //	CFStringRef escaped =
 //	return (__bridge NSString *) CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
-//                                            (CFStringRef)self, NULL,
-//                                            (CFStringRef)@"!*'();:@&=+$,/?%#[]",kCFStringEncodingUTF8);
+//											(CFStringRef)self, NULL,
+//											(CFStringRef)@"!*'();:@&=+$,/?%#[]",kCFStringEncodingUTF8);
 //@"~!@#$%^&*():{}\"€!*’();:@&=+$,/?%#[]",
 	return (__bridge_transfer NSString*) CFURLCreateStringByAddingPercentEscapes(	NULL, (CFStringRef)self, NULL,
 				(CFStringRef)@"!*'();:@&=+$,/?%#[]", kCFStringEncodingUTF8 );
@@ -113,8 +114,8 @@
 
 + (NSString *)newUniqueIdentifier
 {
-    CFUUIDRef uuid = CFUUIDCreate(NULL);    CFStringRef identifier = CFUUIDCreateString(NULL, uuid);
-    CFRelease(uuid);						return AZ_RETAIN(CFBridgingRelease(identifier));
+	CFUUIDRef uuid = CFUUIDCreate(NULL);	CFStringRef identifier = CFUUIDCreateString(NULL, uuid);
+	CFRelease(uuid);						return AZ_RETAIN(CFBridgingRelease(identifier));
 }
 + (NSString *)randomAppPath
 {
@@ -137,23 +138,29 @@
 
 //- (void)drawCenteredInRect:(CGRect)rect withFontNamed:(NSFont *)font
 //{
-//    CGSize size = CGSizeMake(20.0f, 400.0f); // [self sizeWithAttributes: //sizeWithFont:font];
-//    CGRect textBounds = [self rectWithFont:[]
+//	CGSize size = CGSizeMake(20.0f, 400.0f); // [self sizeWithAttributes: //sizeWithFont:font];
+//	CGRect textBounds = [self rectWithFont:[]
 //
 //	(CGRect) { rect.origin.x + (rect.size.width - size.width) / 2,
-//                                   rect.origin.y + (rect.size.height - size.height) / 2,
-//                                   size.width, size.height };
-//    [self drawCenteredInRect:textBounds withFont:font.fontName];
+//								   rect.origin.y + (rect.size.height - size.height) / 2,
+//								   size.width, size.height };
+//	[self drawCenteredInRect:textBounds withFont:font.fontName];
 //}
 
-- (void)drawCenteredInFrame:(NSRect)frame withFont:(NSF*)font {
+//- (void) drawCenteredInRect: (NSR)rect withFontNamed: (NSS*) font;
+
+- (void) drawCenteredInRect: (NSR)rect withFont: (NSS*) font
+{
+
+
+//- (void)drawCenteredInFrame:(NSRect)frame withFont:(NSF*)font {
 //	NSView *view = framer;
-//    NSSize size = view.frame.size;// WithFont:font;
-//    NSAttributedString *string = [[NSAttributedString alloc] initWithString:self attributes:@{font:NSFontAttributeName} ];
-//    CGRect textBounds = CGRectMake(rect.origin.x + (rect.size.width - size.width) / 2,
-//                                   rect.origin.y + (rect.size.height - size.height) / 2,
-//                                   size.width, size.height);
-    [self drawInRect:frame withFontNamed:font andColor:WHITE];//@{font:NSFontNameAttribute }];
+//	NSSize size = view.frame.size;// WithFont:font;
+	NSAttributedString *string = [[NSAttributedString alloc] initWithString:self attributes:@{font:NSFontAttributeName} ];
+//	CGRect textBounds = CGRectMake(rect.origin.x + (rect.size.width - size.width) / 2,
+//								   rect.origin.y + (rect.size.height - size.height) / 2,
+//								   size.width, size.height);
+	[string drawCenteredVerticallyInRect:rect];// withFontNamed:font.fontName andColor:WHITE];//@{font:NSFontNameAttribute }];
 }
 
 - (void) drawInRect:(NSRect)r withFont:(NSFont*)font andColor:(NSColor*)color {
@@ -187,23 +194,20 @@
 }
 
 
-- (void) drawInRect:(NSRect)r withFontNamed:(NSS*)fontName andColor:(NSColor*)color {
+- (void) drawInRect:(NSRect)r withFontNamed:(NSS*)fontName andColor:(NSColor*)color
+{
+	NSMPS *paraAttr = [[NSMPS defaultParagraphStyle ] mutableCopy];
+	[paraAttr setAlignment:NSCenterTextAlignment];
+	[paraAttr setLineBreakMode:NSLineBreakByTruncatingTail];
 
-	NSMutableParagraphStyle *paraAttr = [[NSMutableParagraphStyle defaultParagraphStyle ] mutableCopy];
-    [paraAttr setAlignment:NSCenterTextAlignment];
-    [paraAttr setLineBreakMode:NSLineBreakByTruncatingTail];
+	CGFloat points 	= [self pointSizeForFrame:r withFont:fontName];
+	NSF* fnt 		= [NSFont fontWithName:fontName size:points] ?: [AtoZ font:fontName size:points] ?: [NSFont fontWithName:@"Helvetica" size:points];
 
-	CGFloat points = [self pointSizeForFrame:r withFont:fontName];
-	NSF* fnt = [NSFont fontWithName:fontName size:points];
-	fnt = fnt ?: [AtoZ font:fontName size:points];
 
-    NSDictionary *attrsDictionary = @{	NSFontAttributeName				: fnt,
-									 	NSForegroundColorAttributeName	: color,
-									 	NSParagraphStyleAttributeName	: paraAttr};
-
-    NSAS *drawingString = [[NSAS alloc]  initWithString:self attributes:attrsDictionary];
+	NSAS *drawingString = [[NSAS alloc]  initWithString:self attributes:@{	NSFontAttributeName				: fnt,
+																			NSForegroundColorAttributeName	: color,
+																			NSParagraphStyleAttributeName	: paraAttr}];
 	[drawingString drawInRect:r];
-
 }
 //		NSMutableParagraphStyle *paraStyle = [[NSMutableParagraphStyle alloc] init];
 ////		[paraStyle setParagraphStyle:	[NSParagraphStyle defaultParagraphStyle]];
@@ -226,7 +230,7 @@
 //	[style release];
 //}
 
-- (NSString*)trim {    return [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]; }
+- (NSString*)trim {	return [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]; }
 
 - (NSString *)shifted {	return [self substringFromIndex:1]; }
 
@@ -441,7 +445,7 @@
 	//42.123400 <-Assuming numDigits = 6.
 	//^-----^   <-Returns this substring. (Trailing zeroes are deleted.)
 	//42.000000
-	//^^        <-Returns this substring (everything before the decimal point) for a whole number.
+	//^^		<-Returns this substring (everything before the decimal point) for a whole number.
 	NSString *format = numDigits ? [NSString stringWithFormat:@"%%.%luf", numDigits] : @"%f";
 	NSString *str = [NSString stringWithFormat:format, (double)f];
 	NSUInteger i = [str length];
@@ -490,7 +494,7 @@
 //	[aMutableParagraphStyle setHeadIndent:25.0];
 //	[aMutableParagraphStyle setTailIndent:-45.0];
 	// setTailIndent: if negative, offset from right margin (right margin mark does
-	//      NOT appear); if positive, offset from left margin (margin mark DOES appear)
+	//	  NOT appear); if positive, offset from left margin (margin mark DOES appear)
 //	[aMutableParagraphStyle setFirstLineHeadIndent:65.0];
 	[aMutableParagraphStyle	setLineBreakMode:NSLineBreakByWordWrapping];
 	/*
@@ -527,28 +531,28 @@
 {
 	NSLineBreakMode	truncateMode = NSLineBreakByTruncatingMiddle;
 	CGFloat	txSize = [self widthWithFont:font];
-    if( txSize <= frame.size.width ) 	return self;    // Don't do anything if it fits.
+	if( txSize <= frame.size.width ) 	return self;	// Don't do anything if it fits.
 	NSMutableString*	currString = [NSMutableString string];
-	NSRange     rangeToCut = { 0, 0 };
-//    if( truncateMode == NSLineBreakByTruncatingTail )     	{	rangeToCut.location = [s length] -1; 	rangeToCut.length = 1; }
-//    else if( truncateMode == NSLineBreakByTruncatingHead )  {  rangeToCut.location = 0;        			rangeToCut.length = 1; }
-//    else {  // NSLineBreakByTruncatingMiddle
+	NSRange	 rangeToCut = { 0, 0 };
+//	if( truncateMode == NSLineBreakByTruncatingTail )	 	{	rangeToCut.location = [s length] -1; 	rangeToCut.length = 1; }
+//	else if( truncateMode == NSLineBreakByTruncatingHead )  {  rangeToCut.location = 0;					rangeToCut.length = 1; }
+//	else {  // NSLineBreakByTruncatingMiddle
 	rangeToCut.location = [self length] / 2;
 	rangeToCut.length = 1;
 	//  }
 
 	while( txSize > frame.size.width )	{
 		if( truncateMode != NSLineBreakByTruncatingHead && rangeToCut.location <= 1 )	return @"...";
-        [currString setString: self];
-        [currString replaceCharactersInRange: rangeToCut withString: @"..."];
+		[currString setString: self];
+		[currString replaceCharactersInRange: rangeToCut withString: @"..."];
 		txSize = [currString widthWithFont:font];		rangeToCut.length++;
-//        if( truncateMode == NSLineBreakByTruncatingHead )	;   // No need to fix location, stays at start.
-//        else if( truncateMode == NSLineBreakByTruncatingTail )
-//            rangeToCut.location--;  // Fix location so range that's one longer still lies inside our string at end.
-//        else
-		if( (rangeToCut.length & 1) != 1 )     // even? NSLineBreakByTruncatingMiddle
-            rangeToCut.location--;  // Move location left every other time, so it grows to right and left and stays centered.
-        if( rangeToCut.location <= 0 || (rangeToCut.location +rangeToCut.length) > [self length] )		return @"...";
+//		if( truncateMode == NSLineBreakByTruncatingHead )	;   // No need to fix location, stays at start.
+//		else if( truncateMode == NSLineBreakByTruncatingTail )
+//			rangeToCut.location--;  // Fix location so range that's one longer still lies inside our string at end.
+//		else
+		if( (rangeToCut.length & 1) != 1 )	 // even? NSLineBreakByTruncatingMiddle
+			rangeToCut.location--;  // Move location left every other time, so it grows to right and left and stays centered.
+		if( rangeToCut.location <= 0 || (rangeToCut.location +rangeToCut.length) > [self length] )		return @"...";
 	}
 	return currString;
 }
@@ -567,28 +571,30 @@
 NSString*   StringByTruncatingStringWithAttributesForWidth( NSString* s, NSDictionary* attrs, float wid, NSLineBreakMode truncateMode )
 {
 	NSSize				txSize = [s sizeWithAttributes: attrs];
-    if( txSize.width <= wid ) 	return s;    // Don't do anything if it fits.
-	NSMutableString*	currString = [NSMutableString string];								NSRange     rangeToCut = { 0, 0 };
-    if( truncateMode == NSLineBreakByTruncatingTail )     	{	rangeToCut.location = [s length] -1; 	rangeToCut.length = 1; }
-    else if( truncateMode == NSLineBreakByTruncatingHead )  {  rangeToCut.location = 0;        			rangeToCut.length = 1; }
-    else {	rangeToCut.location = [s length] / 2;		rangeToCut.length = 1;  } // NSLineBreakByTruncatingMiddle
+	if( txSize.width <= wid ) 	return s;	// Don't do anything if it fits.
+	NSMutableString*	currString = [NSMutableString string];								NSRange	 rangeToCut = { 0, 0 };
+	if( truncateMode == NSLineBreakByTruncatingTail )	 	{	rangeToCut.location = [s length] -1; 	rangeToCut.length = 1; }
+	else if( truncateMode == NSLineBreakByTruncatingHead )  {  rangeToCut.location = 0;					rangeToCut.length = 1; }
+	else {	rangeToCut.location = [s length] / 2;		rangeToCut.length = 1;  } // NSLineBreakByTruncatingMiddle
 
 	while( txSize.width > wid )	{
 		if( truncateMode != NSLineBreakByTruncatingHead && rangeToCut.location <= 1 )	return @"...";
-        [currString setString: s];
-        [currString replaceCharactersInRange: rangeToCut withString: @"..."];
+		[currString setString: s];
+		[currString replaceCharactersInRange: rangeToCut withString: @"..."];
 		txSize = [currString sizeWithAttributes: attrs];		rangeToCut.length++;
-        if( truncateMode == NSLineBreakByTruncatingHead )	;   // No need to fix location, stays at start.
-        else if( truncateMode == NSLineBreakByTruncatingTail )
-            rangeToCut.location--;  // Fix location so range that's one longer still lies inside our string at end.
-        else if( (rangeToCut.length & 1) != 1 )     // even? NSLineBreakByTruncatingMiddle
-            rangeToCut.location--;  // Move location left every other time, so it grows to right and left and stays centered.
-        if( rangeToCut.location <= 0 || (rangeToCut.location +rangeToCut.length) > [s length] )		return @"...";
+		if( truncateMode == NSLineBreakByTruncatingHead )	;   // No need to fix location, stays at start.
+		else if( truncateMode == NSLineBreakByTruncatingTail )
+			rangeToCut.location--;  // Fix location so range that's one longer still lies inside our string at end.
+		else if( (rangeToCut.length & 1) != 1 )	 // even? NSLineBreakByTruncatingMiddle
+			rangeToCut.location--;  // Move location left every other time, so it grows to right and left and stays centered.
+		if( rangeToCut.location <= 0 || (rangeToCut.location +rangeToCut.length) > [s length] )		return @"...";
 	}
 	return currString;
 }
 
 @implementation NSMutableString (AtoZ)
+
+
 
 - (NSString *)shift
 {
@@ -697,33 +703,94 @@ int gNSStringGeometricsTypesetterBehavior = NSTypesetterLatestBehavior ;
 
 @implementation NSAttributedString (Geometrics)
 
-#pragma mark Measure Attributed String
 
-- (NSSize)sizeForWidth:(float)width height:(float)height		{	NSSize answer = NSZeroSize ;
+- (NSSize)sizeForWidth:(float)width height:(float)height
+{
+	NSInteger typesetterBehavior = NSTypesetterLatestBehavior;
 
-	//	Checking for empty string is necessary since Layout Manager will give the nominal height of one line if length is 0.
-	if ([self length] > 0) { 			  //	Our API specifies 0.0 for an empty string.
-		NSTextContainer *textContainer 	= [[NSTextContainer alloc] initWithContainerSize:(NSSize) { width, height }];
-		NSTextStorage *textStorage 		= [[NSTextStorage 	alloc] initWithAttributedString:self];
+	NSSize answer = NSZeroSize;
+
+	if ([self length] > 0) {
+		// Checking for empty string is necessary since Layout Manager will give the nominal
+		// height of one line if length is 0.  Our API specifies 0.0 for an empty string.
+		NSSize size = NSMakeSize(width, height);
+
+		NSTextContainer *textContainer 	= [[NSTextContainer alloc] initWithContainerSize:size];
+		NSTextStorage	 *textStorage	= [[NSTextStorage alloc] initWithAttributedString:self];
 		NSLayoutManager *layoutManager 	= [[NSLayoutManager alloc] init];
 
-		[layoutManager 	addTextContainer:textContainer];	 [textStorage 	addLayoutManager:layoutManager];
-		[layoutManager 	setHyphenationFactor:0.0];
-		if (gNSStringGeometricsTypesetterBehavior != NSTypesetterLatestBehavior)
-			[layoutManager setTypesetterBehavior:gNSStringGeometricsTypesetterBehavior];
-		[layoutManager glyphRangeForTextContainer:textContainer];  // NSLayoutManager is lazy,we need the following kludge to force layout:
-		answer = [layoutManager usedRectForTextContainer:textContainer].size ;
-		gNSStringGeometricsTypesetterBehavior = NSTypesetterLatestBehavior ;		// In case changed , set typesetterBehavior to default.
-	}	return answer ;
+		[layoutManager addTextContainer:textContainer];
+		[textStorage   addLayoutManager:layoutManager];
+		[layoutManager       setHyphenationFactor:0.0];
+
+		if (typesetterBehavior != NSTypesetterLatestBehavior) [layoutManager setTypesetterBehavior:typesetterBehavior];
+
+		// NSLayoutManager is lazy, so we need the following kludge to force layout:
+		[layoutManager glyphRangeForTextContainer:textContainer];
+		answer = [layoutManager usedRectForTextContainer:textContainer].size;
+		// Adjust if there is extra height for the cursor
+		NSSize extraLineSize = [layoutManager extraLineFragmentRect].size;
+
+		if (extraLineSize.height > 0)  answer.height -= extraLineSize.height;
+
+		// In case we changed it above, set typesetterBehavior back
+		// to the default value.
+//		typesetterBehavior = NSTypesetterLatestBehavior;
+	}
+
+	return answer;
 }
 
-- (float)heightForWidth:(float)width {		return [self sizeForWidth:width	height:FLT_MAX].height ;  }
+- (float)heightForWidth:(float)width
+{
+	return [self sizeForWidth:width height:FLT_MAX].height;
+}
 
-- (float)widthForHeight:(float)height {		return [self sizeForWidth:FLT_MAX	height:height].width ;	}
+- (float)widthForHeight:(float)height
+{
+	return [self sizeForWidth:FLT_MAX height:height].width;
+}
 
+- (void)drawCenteredVerticallyInRect:(NSRect)rect
+{
+	float strHeight = [self heightForWidth:rect.size.width];
+	float orgY = (rect.origin.y) + (rect.size.height / 2) - (strHeight / 2);
+
+	NSRect newRect = NSMakeRect(rect.origin.x, orgY, rect.size.width, strHeight);
+
+	[self drawInRect:newRect];
+}
+
+
+#pragma mark Measure Attributed String
+
+//- (NSSize)sizeForWidth:(float)width height:(float)height		{	NSSize answer = NSZeroSize ;
+//
+//	//	Checking for empty string is necessary since Layout Manager will give the nominal height of one line if length is 0.
+//	if ([self length] > 0) { 			  //	Our API specifies 0.0 for an empty string.
+//		NSTextContainer *textContainer 	= [[NSTextContainer alloc] initWithContainerSize:(NSSize) { width, height }];
+//		NSTextStorage *textStorage 		= [[NSTextStorage 	alloc] initWithAttributedString:self];
+//		NSLayoutManager *layoutManager 	= [[NSLayoutManager alloc] init];
+//
+//		[layoutManager 	addTextContainer:textContainer];	 [textStorage 	addLayoutManager:layoutManager];
+//		[layoutManager 	setHyphenationFactor:0.0];
+//		if (gNSStringGeometricsTypesetterBehavior != NSTypesetterLatestBehavior)
+//			[layoutManager setTypesetterBehavior:gNSStringGeometricsTypesetterBehavior];
+//		[layoutManager glyphRangeForTextContainer:textContainer];  // NSLayoutManager is lazy,we need the following kludge to force layout:
+//		answer = [layoutManager usedRectForTextContainer:textContainer].size ;
+//		gNSStringGeometricsTypesetterBehavior = NSTypesetterLatestBehavior ;		// In case changed , set typesetterBehavior to default.
+//	}	return answer ;
+//}
+//
+//- (float)heightForWidth:(float)width {		return [self sizeForWidth:width	height:FLT_MAX].height ;  }
+//
+//- (float)widthForHeight:(float)height {		return [self sizeForWidth:FLT_MAX	height:height].width ;	}
+//
 @end
 
 @implementation NSString (Geometrics)
+
+
 
 #pragma mark Given String with Attributes
 
@@ -818,11 +885,11 @@ static NSString *SillyStringImplementation(id self, SEL _cmd, ...)
 
 - (NSString *) propertyStyleString
 {
-    NSString * result = [[self substringToIndex: 1] lowercaseString];
-    if ( [self length] == 1 )
-        return ( result );
+	NSString * result = [[self substringToIndex: 1] lowercaseString];
+	if ( [self length] == 1 )
+		return ( result );
 
-    return ( [result stringByAppendingString: [self substringFromIndex: 1]] );
+	return ( [result stringByAppendingString: [self substringFromIndex: 1]] );
 }
 
 @end

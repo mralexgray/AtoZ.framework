@@ -20,7 +20,7 @@
 
 // Sizing note:
 // The Time Machine Switch on 10.6.2 has a sizing of 93px wide and 27px height.
-//                                   the internal switch is 40px wide or 
+//								   the internal switch is 40px wide or 
 
 @class MondoSwitchButtonCALayer;
 
@@ -29,12 +29,12 @@
   NSGradient *_bgGradient;
   
   @private
-    MondoSwitchButtonCALayer *buttonLayer;
-    CALayer *mainLayer;
-    BOOL on;
+	MondoSwitchButtonCALayer *buttonLayer;
+	CALayer *mainLayer;
+	BOOL on;
   
-    id target;
-    SEL action; 
+	id target;
+	SEL action; 
 }
 
 @property(nonatomic, getter=isOn) BOOL on;

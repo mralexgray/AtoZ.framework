@@ -86,14 +86,14 @@
 @protocol AZSourceListDelegate <NSObject>
 @optional
 //Extra methods
-- (BOOL)sourceList:    (AZSourceList*)aSourceList isGroupAlwaysExpanded:(id)group;
+- (BOOL)sourceList:	(AZSourceList*)aSourceList isGroupAlwaysExpanded:(id)group;
 - (NSMenu*)sourceList: (AZSourceList*)aSourceList menuForEvent:(NSEvent*)theEvent item:(id)item;
 
 //Basically NSOutlineViewDelegate wrapper methods
 - (NSIS*)sourceList:(AZSourceList*)aSourceList selectionIndexesForProposedSelection:(NSIS*)proposedSelectionIndexes;
 
 - (BOOL)sourceList: (AZSourceList*)aSourceList shouldSelectItem:  (id)item;
-- (BOOL)sourceList: (AZSourceList*)aSourceList shouldEditItem:    (id)item;
+- (BOOL)sourceList: (AZSourceList*)aSourceList shouldEditItem:	(id)item;
 - (BOOL)sourceList: (AZSourceList*)aSourceList shouldExpandItem:  (id)item;
 - (BOOL)sourceList: (AZSourceList*)aSourceList shouldCollapseItem:(id)item;
 - (BOOL)sourceList: (AZSourceList*)aSourceList shouldTrackCell:   (NSCell*)cell forItem:(id)item;
@@ -114,7 +114,7 @@
 
 //Item expanding/collapsing
 - (void)sourceListItemWillExpand:   (NSNOT*) notification;
-- (void)sourceListItemDidExpand:    (NSNOT*) notification;
+- (void)sourceListItemDidExpand:	(NSNOT*) notification;
 - (void)sourceListItemWillCollapse: (NSNOT*) notification;
 - (void)sourceListItemDidCollapse:  (NSNOT*) notification;
 

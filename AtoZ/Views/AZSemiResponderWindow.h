@@ -20,7 +20,7 @@ typedef void (^animationCompletionBlock)(void);
 @property (ASS,   NATOM) CGF  unit;
 
 @property (weak) id <AZSemiResponder> 		semiResponder;
-@property (weak) AZLayer                    *hit;
+@property (weak) AZLayer					*hit;
 @end
 
 @protocol  AZSemiResponder
@@ -34,7 +34,7 @@ typedef void (^animationCompletionBlock)(void);
 @property (STRNG, NATOM) NSA 					*palette;
 @property (STRNG, NATOM) OrderedDictionary 		*tabs;
 @property (STRNG, NATOM) AZSizer 				*sizer;
-@property (ASS,   NATOM) RNG 				     range;
+@property (ASS,   NATOM) RNG 					 range;
 @property (ASS,   NATOM) AZOrient				 orient;
 @property (ASS,   NATOM) CGF						 offset;
 @property (STRNG, NATOM) NSBP 					*scrollPath;

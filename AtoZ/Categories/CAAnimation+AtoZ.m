@@ -33,24 +33,24 @@
 	if (!(self = [super init])) return nil;
 	self.completion = nil;
 	self.start = nil;
-    return self;
+	return self;
 }
 
 - (void)dealloc
 {
-    self.completion = nil;
-    self.start = nil;
-//    [super dealloc];
+	self.completion = nil;
+	self.start = nil;
+//	[super dealloc];
 }
 
 - (void)animationDidStart:(CAAnimation *)anim
 {
-    if (self.start != nil) self.start();
+	if (self.start != nil) self.start();
 }
 
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
 {
-    if (self.completion != nil)        self.completion(flag);
+	if (self.completion != nil)		self.completion(flag);
 }
 
 @end
@@ -60,36 +60,36 @@
 
 - (void)setCompletion:(void (^)(BOOL))completion
 {
-    if ([self.delegate isKindOfClass:[CAAnimationDelegate class]])
-        ((CAAnimationDelegate *)self.delegate).completion = completion;
-    else {
-        CAAnimationDelegate *delegate = [[CAAnimationDelegate alloc] init];
-        delegate.completion = completion;
-        self.delegate = delegate;
-    }
+	if ([self.delegate isKindOfClass:[CAAnimationDelegate class]])
+		((CAAnimationDelegate *)self.delegate).completion = completion;
+	else {
+		CAAnimationDelegate *delegate = [[CAAnimationDelegate alloc] init];
+		delegate.completion = completion;
+		self.delegate = delegate;
+	}
 }
 
 - (void (^)(BOOL))completion
 {
-    return [self.delegate isKindOfClass:[CAAnimationDelegate class]]? ((CAAnimationDelegate *)self.delegate).completion: nil;
+	return [self.delegate isKindOfClass:[CAAnimationDelegate class]]? ((CAAnimationDelegate *)self.delegate).completion: nil;
 }
 
 - (void)setStart:(void (^)(void))start
 {
-    if ([self.delegate isKindOfClass:[CAAnimationDelegate class]])
-        ((CAAnimationDelegate *)self.delegate).start = start;
+	if ([self.delegate isKindOfClass:[CAAnimationDelegate class]])
+		((CAAnimationDelegate *)self.delegate).start = start;
 
-    else {
-        CAAnimationDelegate *delegate = [[CAAnimationDelegate alloc] init];
-        delegate.start = start;
-        self.delegate = delegate;
+	else {
+		CAAnimationDelegate *delegate = [[CAAnimationDelegate alloc] init];
+		delegate.start = start;
+		self.delegate = delegate;
 
-    }
+	}
 }
 
 - (void (^)(void))start
 {
-    return [self.delegate isKindOfClass:[CAAnimationDelegate class]]? ((CAAnimationDelegate *)self.delegate).start: nil;
+	return [self.delegate isKindOfClass:[CAAnimationDelegate class]]? ((CAAnimationDelegate *)self.delegate).start: nil;
 }
 
 @end
@@ -189,7 +189,7 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey = @"AZCAAnimationCompl
 @implementation CATransaction (AtoZ)
 + (void)az_performWithDisabledActions:(void(^)(void))block
 {
-	if    ([self disableActions])	     block();
+	if	([self disableActions])		 block();
 	else { [self setDisableActions:YES]; block(); [self setDisableActions:NO]; }
 }
 
@@ -222,20 +222,20 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey = @"AZCAAnimationCompl
 								@"removedOnCompletion":@(YES),
 									@"fillMode": kCAFillModeForwards};
 	[animation setValuesForKeysWithDictionary:dic];
-	[theLayer addAnimation:animation forKey:@"color"];    
+	[theLayer addAnimation:animation forKey:@"color"];	
 	return animation;
 }
 
 //+ (CAAnimation*)rotateAnimationForLayer:(CALayer *)theLayer start:(CGFloat)starting end:(CGFloat)ending {
 //	CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
-////    [animation setFromValue:DegreesToNumber(<#CGFloat degrees#>)(previousValue)];
-//    [animation setToValue:DegreesToNumber([slider floatValue])];
-//    
-//    [animation setRemovedOnCompletion:NO];
-//    [animation setFillMode:kCAFillModeForwards];
-//    
-//    previousValue = [slider floatValue];
-//    
+////	[animation setFromValue:DegreesToNumber(<#CGFloat degrees#>)(previousValue)];
+//	[animation setToValue:DegreesToNumber([slider floatValue])];
+//	
+//	[animation setRemovedOnCompletion:NO];
+//	[animation setFillMode:kCAFillModeForwards];
+//	
+//	previousValue = [slider floatValue];
+//	
 //	return animation;
 //}
 //
@@ -246,15 +246,15 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey = @"AZCAAnimationCompl
 {
 	CABasicAnimation * animation;
 	animation = [CABasicAnimation 
-                 animationWithKeyPath:@"transform.rotation.z"];
-    
-//    [animation setFromValue:DegreesToNumber(startDegree)];// previousValue)];
-    [animation setToValue:DegreesToNumber(endDegrees)];
-    
-    [animation setRemovedOnCompletion:NO];
-    [animation setFillMode:kCAFillModeForwards];
-    
-//    previousValue = [slider floatValue];
+				 animationWithKeyPath:@"transform.rotation.z"];
+	
+//	[animation setFromValue:DegreesToNumber(startDegree)];// previousValue)];
+	[animation setToValue:DegreesToNumber(endDegrees)];
+	
+	[animation setRemovedOnCompletion:NO];
+	[animation setFillMode:kCAFillModeForwards];
+	
+//	previousValue = [slider floatValue];
 
 	return animation;
 }
@@ -267,7 +267,7 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey = @"AZCAAnimationCompl
 
 + (CAAnimation*)randomPathAnimationInFrame:(NSRect) frame;
 {
-    return [self randomPathAnimationWithStartingPoint:AZRandomPointInRect(frame) inFrame:frame];
+	return [self randomPathAnimationWithStartingPoint:AZRandomPointInRect(frame) inFrame:frame];
 }
 
 
@@ -278,16 +278,16 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey = @"AZCAAnimationCompl
 
 + (CAAnimation*)randomPathAnimationWithStartingPoint:(CGPoint)firstPoint inFrame:(NSR)rect
 {
-//    CGPathRef path = AZRandomPathWithStartingPointInRect(firstPoint, rect);//:firstPoint];
+//	CGPathRef path = AZRandomPathWithStartingPointInRect(firstPoint, rect);//:firstPoint];
 
-    
-    CAKA* animation 			= [CAKA animationWithKeyPath:@"position"];
-    animation.path              = AZRandomPathWithStartingPointInRect(firstPoint, rect);;
-    animation.timingFunction    = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
-    animation.duration          = RAND_FLOAT_VAL(15,32);
-    animation.autoreverses      = YES;
-    animation.repeatCount       = HUGE_VALF;
-    return animation;
+	
+	CAKA* animation 			= [CAKA animationWithKeyPath:@"position"];
+	animation.path			  = AZRandomPathWithStartingPointInRect(firstPoint, rect);;
+	animation.timingFunction	= [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
+	animation.duration		  = RAND_FLOAT_VAL(15,32);
+	animation.autoreverses	  = YES;
+	animation.repeatCount	   = HUGE_VALF;
+	return animation;
 }
 
 
@@ -326,42 +326,42 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey = @"AZCAAnimationCompl
 
 + (CAAnimationGroup *)blowupAnimationAtPoint:(CGPoint)p
 {
-    CAKeyframeAnimation *positionAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
-    positionAnimation.values = @[AZVpoint(p)];
-    positionAnimation.keyTimes = @[@.3f];
+	CAKeyframeAnimation *positionAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
+	positionAnimation.values = @[AZVpoint(p)];
+	positionAnimation.keyTimes = @[@.3f];
 
-    CABasicAnimation *scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform"];
-    scaleAnimation.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeScale(3, 3, 1)];
+	CABasicAnimation *scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform"];
+	scaleAnimation.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeScale(3, 3, 1)];
 
-    CABasicAnimation *opacityAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-    opacityAnimation.toValue  = @0.0f;
+	CABasicAnimation *opacityAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+	opacityAnimation.toValue  = @0.0f;
 
-    CAAnimationGroup *animationgroup = [CAAnimationGroup animation];
-    animationgroup.animations = @[positionAnimation, scaleAnimation, opacityAnimation];
-    animationgroup.duration = 0.3f;
-    animationgroup.fillMode = kCAFillModeForwards;
+	CAAnimationGroup *animationgroup = [CAAnimationGroup animation];
+	animationgroup.animations = @[positionAnimation, scaleAnimation, opacityAnimation];
+	animationgroup.duration = 0.3f;
+	animationgroup.fillMode = kCAFillModeForwards;
 
-    return animationgroup;
+	return animationgroup;
 }
 
 + (CAAnimationGroup *)shrinkAnimationAtPoint:(CGPoint)p
 {
-    CAKeyframeAnimation *positionAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
-    positionAnimation.values = @[AZVpoint(p)];
-    positionAnimation.keyTimes = @[@.3f];
+	CAKeyframeAnimation *positionAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
+	positionAnimation.values = @[AZVpoint(p)];
+	positionAnimation.keyTimes = @[@.3f];
 
-    CABasicAnimation *scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform"];
-    scaleAnimation.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeScale(.01, .01, 1)];
+	CABasicAnimation *scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform"];
+	scaleAnimation.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeScale(.01, .01, 1)];
 
-    CABasicAnimation *opacityAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-    opacityAnimation.toValue  = @0.0f;
+	CABasicAnimation *opacityAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+	opacityAnimation.toValue  = @0.0f;
 
-    CAAnimationGroup *animationgroup = [CAAnimationGroup animation];
-    animationgroup.animations = @[positionAnimation, scaleAnimation, opacityAnimation];
-    animationgroup.duration = 0.3f;
-    animationgroup.fillMode = kCAFillModeForwards;
+	CAAnimationGroup *animationgroup = [CAAnimationGroup animation];
+	animationgroup.animations = @[positionAnimation, scaleAnimation, opacityAnimation];
+	animationgroup.duration = 0.3f;
+	animationgroup.fillMode = kCAFillModeForwards;
 
-    return animationgroup;
+	return animationgroup;
 }
 
 
@@ -371,7 +371,7 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey = @"AZCAAnimationCompl
 	animation.path = p;
 	animation.duration = d;
 	animation.timeOffset = o;
-    animation.repeatCount = 1;
+	animation.repeatCount = 1;
 	animation.removedOnCompletion = NO;
 	return animation;
 }
@@ -420,24 +420,24 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey = @"AZCAAnimationCompl
 {
 	CAKeyframeAnimation * animation;
 	animation = [CAKeyframeAnimation
-                 animationWithKeyPath:@"transform.rotation.z"];
-    [animation setDuration:0.3];
-    [animation setRepeatCount:10000];
+				 animationWithKeyPath:@"transform.rotation.z"];
+	[animation setDuration:0.3];
+	[animation setRepeatCount:10000];
 
 		// Try to get the animation to begin to start with a small offset
 		// that will make it shake out of sync with other layers.
-    srand([[NSDate date] timeIntervalSince1970]);
-    float rand = (float)random();
-    [animation setBeginTime:
+	srand([[NSDate date] timeIntervalSince1970]);
+	float rand = (float)random();
+	[animation setBeginTime:
 	 CACurrentMediaTime() + rand * .0000000001];
 
 	NSMutableArray *values = [NSMutableArray array];
 		// Turn right
-    [values addObject:DegreesToNumber(-2)];
+	[values addObject:DegreesToNumber(-2)];
 		// Turn left
-    [values addObject:DegreesToNumber(2)];
+	[values addObject:DegreesToNumber(2)];
 		// Turn right
-    [values addObject:DegreesToNumber(-2)];
+	[values addObject:DegreesToNumber(-2)];
 		// Set the values for the animation
 	[animation setValues:values];
 
@@ -461,15 +461,15 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey = @"AZCAAnimationCompl
 	//{
 	//	CABasicAnimation * animation;
 	//	animation = [CABasicAnimation
-	//                 animationWithKeyPath:@"transform.rotation.z"];
+	//				 animationWithKeyPath:@"transform.rotation.z"];
 	//
-	//    [animation setFromValue:NSValue DegreesToNumber(startDegree.floatValue)];// previousValue)];
-	//    [animation setToValue:DegreesToNumber(endDegrees.floatValue)];
+	//	[animation setFromValue:NSValue DegreesToNumber(startDegree.floatValue)];// previousValue)];
+	//	[animation setToValue:DegreesToNumber(endDegrees.floatValue)];
 	//
-	//    [animation setRemovedOnCompletion:NO];
-	//    [animation setFillMode:kCAFillModeForwards];
+	//	[animation setRemovedOnCompletion:NO];
+	//	[animation setFillMode:kCAFillModeForwards];
 	//
-	//    previousValue = [slider floatValue];
+	//	previousValue = [slider floatValue];
 	//
 	//	return animation;
 	//}
@@ -486,74 +486,74 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey = @"AZCAAnimationCompl
 
 +(CAAnimation *)flipAnimationWithDuration:(NSTimeInterval)aDuration forLayerBeginningOnTop:(BOOL)beginsOnTop scaleFactor:(CGFloat)scaleFactor {
 		// Rotating halfway (pi radians) around the Y axis gives the appearance of flipping
-    CABasicAnimation *flipAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.y"];
-    CGFloat startValue = beginsOnTop ? 0.0f : M_PI;
-    CGFloat endValue = beginsOnTop ? -M_PI : 0.0f;
-    flipAnimation.fromValue = @(startValue);
-    flipAnimation.toValue = @(endValue);
+	CABasicAnimation *flipAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.y"];
+	CGFloat startValue = beginsOnTop ? 0.0f : M_PI;
+	CGFloat endValue = beginsOnTop ? -M_PI : 0.0f;
+	flipAnimation.fromValue = @(startValue);
+	flipAnimation.toValue = @(endValue);
 
 		// Shrinking the view makes it seem to move away from us, for a more natural effect
 		// Can also grow the view to make it move out of the screen
-    CABasicAnimation *shrinkAnimation = nil;
-    if ( scaleFactor != 1.0f ) {
-        shrinkAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
-        shrinkAnimation.toValue = [NSNumber numberWithFloat:scaleFactor];
+	CABasicAnimation *shrinkAnimation = nil;
+	if ( scaleFactor != 1.0f ) {
+		shrinkAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+		shrinkAnimation.toValue = [NSNumber numberWithFloat:scaleFactor];
 
 			// We only have to animate the shrink in one direction, then use autoreverse to "grow"
-        shrinkAnimation.duration = aDuration * 0.5;
-        shrinkAnimation.autoreverses = YES;
-    }
+		shrinkAnimation.duration = aDuration * 0.5;
+		shrinkAnimation.autoreverses = YES;
+	}
 
 		// Combine the flipping and shrinking into one smooth animation
-    CAAnimationGroup *animationGroup = [CAAnimationGroup animation];
-    animationGroup.animations = @[flipAnimation, shrinkAnimation];
+	CAAnimationGroup *animationGroup = [CAAnimationGroup animation];
+	animationGroup.animations = @[flipAnimation, shrinkAnimation];
 
 		// As the edge gets closer to us, it appears to move faster. Simulate this in 2D with an easing function
-    animationGroup.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    animationGroup.duration = aDuration;
+	animationGroup.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+	animationGroup.duration = aDuration;
 
 		// Hold the view in the state reached by the animation until we can fix it, or else we get an annoying flicker
-    animationGroup.fillMode = kCAFillModeForwards;
-    animationGroup.removedOnCompletion = NO;
+	animationGroup.fillMode = kCAFillModeForwards;
+	animationGroup.removedOnCompletion = NO;
 
-    return animationGroup;
+	return animationGroup;
 }
 
 
 +(CAAnimation *)flipDown:(NSTimeInterval)aDuration scaleFactor:(CGFloat)scaleFactor {
 
 		// Rotating halfway (pi radians) around the Y axis gives the appearance of flipping
-    CABasicAnimation *flipAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.y"];
-    CGFloat startValue =  /*beginsOnTop ? 0.0f :*/ M_PI;
-    CGFloat endValue =  /*beginsOnTop-M_PI :*/ 0.0f;
-    flipAnimation.fromValue = @(startValue);
-    flipAnimation.toValue = @(endValue);
+	CABasicAnimation *flipAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.y"];
+	CGFloat startValue =  /*beginsOnTop ? 0.0f :*/ M_PI;
+	CGFloat endValue =  /*beginsOnTop-M_PI :*/ 0.0f;
+	flipAnimation.fromValue = @(startValue);
+	flipAnimation.toValue = @(endValue);
 
 		// Shrinking the view makes it seem to move away from us, for a more natural effect
 		// Can also grow the view to make it move out of the screen
-    CABasicAnimation *shrinkAnimation = nil;
-    if ( scaleFactor != 1.0f ) {
-        shrinkAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
-        shrinkAnimation.toValue = [NSNumber numberWithFloat:scaleFactor];
+	CABasicAnimation *shrinkAnimation = nil;
+	if ( scaleFactor != 1.0f ) {
+		shrinkAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+		shrinkAnimation.toValue = [NSNumber numberWithFloat:scaleFactor];
 
 			// We only have to animate the shrink in one direction, then use autoreverse to "grow"
-        shrinkAnimation.duration = aDuration * 0.5;
-        shrinkAnimation.autoreverses = YES;
-    }
+		shrinkAnimation.duration = aDuration * 0.5;
+		shrinkAnimation.autoreverses = YES;
+	}
 
 		// Combine the flipping and shrinking into one smooth animation
-    CAAnimationGroup *animationGroup = [CAAnimationGroup animation];
-    animationGroup.animations = @[flipAnimation, shrinkAnimation];
+	CAAnimationGroup *animationGroup = [CAAnimationGroup animation];
+	animationGroup.animations = @[flipAnimation, shrinkAnimation];
 
 		// As the edge gets closer to us, it appears to move faster. Simulate this in 2D with an easing function
-    animationGroup.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    animationGroup.duration = aDuration;
+	animationGroup.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+	animationGroup.duration = aDuration;
 
 		// Hold the view in the state reached by the animation until we can fix it, or else we get an annoying flicker
-    animationGroup.fillMode = kCAFillModeForwards;
-    animationGroup.removedOnCompletion = NO;
+	animationGroup.fillMode = kCAFillModeForwards;
+	animationGroup.removedOnCompletion = NO;
 
-    return animationGroup;
+	return animationGroup;
 	
 }
 
@@ -564,17 +564,17 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey = @"AZCAAnimationCompl
 	static int 	numberOfShakes = 3;
 	static float durationOfShake = .4;
 	static float vigourOfShake = 0.2f;
-    CAKeyframeAnimation *shakeAnimation = [CAKeyframeAnimation animation];
-    CGMutablePathRef shakePath = CGPathCreateMutable();
-    CGPathMoveToPoint(shakePath, NULL, NSMinX(frame), NSMinY(frame));
+	CAKeyframeAnimation *shakeAnimation = [CAKeyframeAnimation animation];
+	CGMutablePathRef shakePath = CGPathCreateMutable();
+	CGPathMoveToPoint(shakePath, NULL, NSMinX(frame), NSMinY(frame));
 	for (int index = 0; index < numberOfShakes; ++index)		{
 		CGPathAddLineToPoint(shakePath, NULL, NSMinX(frame) - frame.size.width * vigourOfShake, NSMinY(frame));
 		CGPathAddLineToPoint(shakePath, NULL, NSMinX(frame) + frame.size.width * vigourOfShake, NSMinY(frame));
 	}
-    CGPathCloseSubpath(shakePath);
-    shakeAnimation.path = shakePath;
-    shakeAnimation.duration = durationOfShake;
-    return shakeAnimation;
+	CGPathCloseSubpath(shakePath);
+	shakeAnimation.path = shakePath;
+	shakeAnimation.duration = durationOfShake;
+	return shakeAnimation;
 }
 + (CAKeyframeAnimation *)jumpAnimation
 {
@@ -711,9 +711,9 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey = @"AZCAAnimationCompl
 	//
 	//- (CAKeyframeAnimation *)slideOut:(NSRect)frame oriented: (AZOrient)orientation{
 	//
-	//    CAKeyframeAnimation *slideout = [CAKeyframeAnimation animation];
+	//	CAKeyframeAnimation *slideout = [CAKeyframeAnimation animation];
 	//
-	//    CGMutablePathRef slidePath = CGPathCreateMutable();
+	//	CGMutablePathRef slidePath = CGPathCreateMutable();
 	//	CGFloat xFin, yFin;  CGPoint go;
 	//
 	//	switch (orientation) {
@@ -868,7 +868,7 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey = @"AZCAAnimationCompl
 {
 	self.completion = nil;
 	self.start = nil;
-		//    [super dealloc];
+		//	[super dealloc];
 }
 
 - (void)animationDidStart:(CAAnimation *)anim
@@ -989,17 +989,17 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey = @"AZCAAnimationCompl
 /* alternative style  
 
   // Setup another animation just to show a different coding style
-    CABasicAnimation *anotherAnimation = [CABasicAnimation animationWithKeyPath:@"position.x"];
-    anotherAnimation.fromValue = @(self.anotherImageView.layer.position.x);
-    anotherAnimation.toValue = @600.0f;
-    anotherAnimation.duration = 2;
-    [anotherAnimation setCompletion:^(BOOL finished) {
-        CABasicAnimation *oneMoreAnimation = [CABasicAnimation animationWithKeyPath:@"position.x"];
-        oneMoreAnimation.fromValue = @600.0f;
-        oneMoreAnimation.toValue = @160.0f;
-        oneMoreAnimation.duration = 1;
-        [self.anotherImageView.layer addAnimation:oneMoreAnimation forKey:@"1"];
-    }];
-    [self.anotherImageView.layer addAnimation:anotherAnimation forKey:@"1"];
+	CABasicAnimation *anotherAnimation = [CABasicAnimation animationWithKeyPath:@"position.x"];
+	anotherAnimation.fromValue = @(self.anotherImageView.layer.position.x);
+	anotherAnimation.toValue = @600.0f;
+	anotherAnimation.duration = 2;
+	[anotherAnimation setCompletion:^(BOOL finished) {
+		CABasicAnimation *oneMoreAnimation = [CABasicAnimation animationWithKeyPath:@"position.x"];
+		oneMoreAnimation.fromValue = @600.0f;
+		oneMoreAnimation.toValue = @160.0f;
+		oneMoreAnimation.duration = 1;
+		[self.anotherImageView.layer addAnimation:oneMoreAnimation forKey:@"1"];
+	}];
+	[self.anotherImageView.layer addAnimation:anotherAnimation forKey:@"1"];
 	
 	*/

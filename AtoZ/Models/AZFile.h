@@ -12,10 +12,10 @@
 @property (NATOM, RONLY	) NSA  	*colors;
 @property (NATOM, ASS  	) AZPOS  position;
 
-+ (id) forAppNamed: 	      (NSS*)   appName;
-+ (id) instanceWithPath:      (NSS*)   path;
-+ (id) instanceWithImage:     (NSIMG*) image;
-+ (id) instanceWithColor:     (NSC*)   color;
++ (id) forAppNamed: 		  (NSS*)   appName;
++ (id) instanceWithPath:	  (NSS*)   path;
++ (id) instanceWithImage:	 (NSIMG*) image;
++ (id) instanceWithColor:	 (NSC*)   color;
 - (void) setActualLabelColor: (NSC*)   aColor;
 
 @property (RONLY) NSS	*name,		*calulatedBundleID;
@@ -102,12 +102,12 @@
 	//	// Concrete subclass of ATDesktopEntity that adds support for loading an image at the given URL and stores a fillColor property
 	//@interface ATDesktopImageEntity : ATDesktopEntity {
 	//@private
-	//    BOOL _imageLoading;
-	//    NSString *_title;
-	//    NSImage *_image;
-	//    NSImage *_thumbnailImage;
-	//    NSColor *_fillColor;
-	//    NSString *_fillColorName;
+	//	BOOL _imageLoading;
+	//	NSString *_title;
+	//	NSImage *_image;
+	//	NSImage *_thumbnailImage;
+	//	NSColor *_fillColor;
+	//	NSString *_fillColorName;
 	//}
 	//
 	//@property (retain) NSColor *fillColor;

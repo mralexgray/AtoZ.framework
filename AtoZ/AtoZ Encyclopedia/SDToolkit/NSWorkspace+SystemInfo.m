@@ -10,7 +10,7 @@
 @implementation NSWorkspace (SystemInfo)
 
 + (NSString*) systemVersion {
-    SInt32 versionMajor, versionMinor, versionBugFix;
+	SInt32 versionMajor, versionMinor, versionBugFix;
 	
 	OSErr maj = Gestalt(gestaltSystemVersionMajor, &versionMajor);
 	OSErr min = Gestalt(gestaltSystemVersionMinor, &versionMinor);
@@ -19,7 +19,7 @@
 	if (maj != noErr || min != noErr || bug != noErr)
 		return nil;
 	
-    return $(@"%d.%d.%d", versionMajor, versionMinor, versionBugFix);
+	return $(@"%d.%d.%d", versionMajor, versionMinor, versionBugFix);
 }
 
 @end
@@ -55,11 +55,11 @@
 }
 
 - (NSString *)preferencesDirectory {
-    FSRef desktopFolderRef;
+	FSRef desktopFolderRef;
 
-    FSFindFolder(kUserDomain, kPreferencesFolderType, kDontCreateFolder, &desktopFolderRef);
-    CFURLRef url = CFURLCreateFromFSRef(kCFAllocatorSystemDefault, &desktopFolderRef);
-    CFMakeCollectable(url);
+	FSFindFolder(kUserDomain, kPreferencesFolderType, kDontCreateFolder, &desktopFolderRef);
+	CFURLRef url = CFURLCreateFromFSRef(kCFAllocatorSystemDefault, &desktopFolderRef);
+	CFMakeCollectable(url);
 
 	return (NSString *) CFMakeCollectable(CFURLCopyFileSystemPath(url, kCFURLPOSIXPathStyle));
 }

@@ -58,7 +58,7 @@ static char AZNotificationHelperMagicContext;
 - (void) observeValueForKeyPath:(NSString *)keyPath 	ofObject:(id)object
 						 change:(NSDictionary *)change 	 context:(void *)context
 {
-    context == &AZNotificationHelperMagicContext
+	context == &AZNotificationHelperMagicContext
 	// we only ever sign up for one notification per object, so if we got here then we *know* that the key path and object are what we want
 	? ((void (*)(id, SEL, NSS *, id, NSD *, id))objc_msgSend)(_observer, _selector,keyPath, object, change, _userInfo)
 	: [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
@@ -75,29 +75,29 @@ static char AZNotificationHelperMagicContext;
 //+ (id) defaultCenter {
 //	static AZNotificationCenter *center = nil;
 //
-//    //- check sharedInstance existenz
-//    while (!center) {
-//        //- create a temporary instance of the singleton
-//        id temp = [super allocWithZone:NSDefaultMallocZone()];
-//        //- The OSAtomicCompareAndSwapPtrBarrier function provided on Mac OS X
-//        //- checks whether sharedInstance is NULL and only actually sets it to temp to it if it is.
-//        //- This uses hardware support to really, literally only perform the swap once and tell whether it happened.
-//        if(OSAtomicCompareAndSwapPtrBarrier(0x0, (__bridge void *)temp, (void*)&center)) {
-//            //- compute singleton initialize
+//	//- check sharedInstance existenz
+//	while (!center) {
+//		//- create a temporary instance of the singleton
+//		id temp = [super allocWithZone:NSDefaultMallocZone()];
+//		//- The OSAtomicCompareAndSwapPtrBarrier function provided on Mac OS X
+//		//- checks whether sharedInstance is NULL and only actually sets it to temp to it if it is.
+//		//- This uses hardware support to really, literally only perform the swap once and tell whether it happened.
+//		if(OSAtomicCompareAndSwapPtrBarrier(0x0, (__bridge void *)temp, (void*)&center)) {
+//			//- compute singleton initialize
 //			AZNotificationCenter *center = [[self alloc]init];
-//        }
-//        else {
-//            //- if the swap didn't take place, delete the temporary instance
-//            temp = nil;
-//        }
-//    }
-//    //- return computed sharedInstance
-//    return center;
+//		}
+//		else {
+//			//- if the swap didn't take place, delete the temporary instance
+//			temp = nil;
+//		}
+//	}
+//	//- return computed sharedInstance
+//	return center;
 //}
 
 + (id)defaultCenter
 {
-	return [self instance];
+	return [self sharedInstance];
 }
 		// do a bit of clever atomic setting to make this thread safe
 		// if two threads try to set simultaneously, one will fail

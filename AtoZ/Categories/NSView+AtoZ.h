@@ -70,7 +70,7 @@ typedef void (^viewFrameDidChangeBlock)(void);
 -(NSTrackingArea *)trackFullView;
 -(NSTrackingArea *)trackAreaWithRect:(NSRect)rect;
 -(NSTrackingArea *)trackAreaWithRect:(NSRect)rect 
-                            userInfo:(NSDictionary *)context;
+							userInfo:(NSDictionary *)context;
 
 // - (NSPoint) centerOfFrame;
 // @property (assign) NSPoint center;
@@ -94,10 +94,10 @@ typedef void (^viewFrameDidChangeBlock)(void);
 + (void)setDefaultAnimationCurve:(NSAnimationCurve)curve;
 
 + (void)animateWithDuration:(NSTimeInterval)duration 
-                  animation:(void (^)(void))animationBlock;
+				  animation:(void (^)(void))animationBlock;
 + (void)animateWithDuration:(NSTimeInterval)duration 
-                  animation:(void (^)(void))animationBlock
-                 completion:(void (^)(void))completionBlock;
+				  animation:(void (^)(void))animationBlock
+				 completion:(void (^)(void))completionBlock;
 
 + (void)runEndBlock:(void (^)(void))completionBlock;
 
@@ -140,7 +140,7 @@ typedef void (^viewFrameDidChangeBlock)(void);
 - (void)deltaW:(float)dW ;
 - (void)deltaH:(float)dH ;
 /*!
- @brief    Resizes the height of the receiver to fit its current content.
+ @brief	Resizes the height of the receiver to fit its current content.
 
  @details  The default implementation works properly if the receiver is
  an NSTextField or NSTextView.&nbsp; For any other subclass, all it does
@@ -152,7 +152,7 @@ typedef void (^viewFrameDidChangeBlock)(void);
  this method into subclass methods, as I have done with NSTableView
  in SSLabelledList.m
 
- @param    allowShrinking  If YES, the method always resizes the
+ @param	allowShrinking  If YES, the method always resizes the
  receiver's height to fit the current content.&nbsp; If NO, and if the
  height required by the receiver's current content is smaller than
  the receiver's current height, the receiver's height is not resized.&nbsp;
@@ -162,17 +162,17 @@ typedef void (^viewFrameDidChangeBlock)(void);
 - (void)sizeHeightToFitAllowShrinking:(BOOL)allowShrinking ;
 
 /*!
- @brief    Compares the left edge of the receiver with the left
+ @brief	Compares the left edge of the receiver with the left
  edge of a other view.
 
- @param    otherView
+ @param	otherView
  @result   NSOrderedAscending if the other view's left edge is
  to the right of the receiver, etc.
  */
 - (NSComparisonResult)compareLeftEdges:(NSView*)otherView ;
 
 /*!
- @brief    Based on the "lowest" subview among the receiver's subview,
+ @brief	Based on the "lowest" subview among the receiver's subview,
  i.e. the one with the smallest frame.origin.y, sizes the receiver
  to fit it.
 

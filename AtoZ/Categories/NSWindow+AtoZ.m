@@ -19,31 +19,31 @@
 
 - (void)animateToFrame:(NSRect)frameRect duration:(NSTimeInterval)duration
 {
-    NSViewAnimation     *animation;
+	NSViewAnimation	 *animation;
 
-    animation = [[NSViewAnimation alloc] initWithViewAnimations:
+	animation = [[NSViewAnimation alloc] initWithViewAnimations:
 				 @[@{NSViewAnimationTargetKey: self,
 										   NSViewAnimationEndFrameKey: [NSValue valueWithRect:frameRect]}]];
 
-    [animation setDuration:duration];
-    [animation setAnimationBlockingMode:NSAnimationBlocking];
-    [animation setAnimationCurve:NSAnimationLinear];
-    [animation startAnimation];
+	[animation setDuration:duration];
+	[animation setAnimationBlockingMode:NSAnimationBlocking];
+	[animation setAnimationCurve:NSAnimationLinear];
+	[animation startAnimation];
 
-    [animation release];
+	[animation release];
 }
 
 - (NSWindow *)_createZoomWindowWithRect:(NSRect)rect
 {
-    NSWindow        *zoomWindow;
-    NSImageView     *imageView;
-    NSImage         *image;
-    NSRect          frame;
-    BOOL            isOneShot;
+	NSWindow		*zoomWindow;
+	NSImageView	 *imageView;
+	NSImage		 *image;
+	NSRect		  frame;
+	BOOL			isOneShot;
 
-    frame = [self frame];
+	frame = [self frame];
 
-    isOneShot = [self isOneShot];
+	isOneShot = [self isOneShot];
 	if (isOneShot)
 	{
 		[self setOneShot:NO];
@@ -57,60 +57,60 @@
 			// visible flicker.
 		alpha = [self alphaValue];
 		[self setAlphaValue:0.0];
-        [self orderBack:self];
-        [self orderOut:self];
+		[self orderBack:self];
+		[self orderOut:self];
 		[self setAlphaValue:alpha];
 	}
 
-    image = [[NSImage alloc] initWithSize:frame.size];
-    [image lockFocus];
+	image = [[NSImage alloc] initWithSize:frame.size];
+	[image lockFocus];
 		// Grab the window's pixels
-    NSCopyBits([self gState], NSMakeRect(0.0, 0.0, frame.size.width, frame.size.height), NSZeroPoint);
-    [image unlockFocus];
+	NSCopyBits([self gState], NSMakeRect(0.0, 0.0, frame.size.width, frame.size.height), NSZeroPoint);
+	[image unlockFocus];
 	[image setDataRetained:YES];
 	[image setCacheMode:NSImageCacheNever];
 
-    zoomWindow = [[NSWindow alloc] initWithContentRect:rect styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO];
-    [zoomWindow setBackgroundColor:[NSColor colorWithDeviceWhite:0.0 alpha:0.0]];
-    [zoomWindow setHasShadow:[self hasShadow]];
+	zoomWindow = [[NSWindow alloc] initWithContentRect:rect styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO];
+	[zoomWindow setBackgroundColor:[NSColor colorWithDeviceWhite:0.0 alpha:0.0]];
+	[zoomWindow setHasShadow:[self hasShadow]];
 	[zoomWindow setLevel:[self level]];
-    [zoomWindow setOpaque:NO];
-    [zoomWindow setReleasedWhenClosed:YES];
-    [zoomWindow useOptimizedDrawing:YES];
+	[zoomWindow setOpaque:NO];
+	[zoomWindow setReleasedWhenClosed:YES];
+	[zoomWindow useOptimizedDrawing:YES];
 
-    imageView = [[NSImageView alloc] initWithFrame:[zoomWindow contentRectForFrameRect:frame]];
-    [imageView setImage:image];
-    [imageView setImageFrameStyle:NSImageFrameNone];
-    [imageView setImageScaling:NSScaleToFit];
-    [imageView setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
+	imageView = [[NSImageView alloc] initWithFrame:[zoomWindow contentRectForFrameRect:frame]];
+	[imageView setImage:image];
+	[imageView setImageFrameStyle:NSImageFrameNone];
+	[imageView setImageScaling:NSScaleToFit];
+	[imageView setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
 
-    [zoomWindow setContentView:imageView];
-    [image release];
-    [imageView release];
+	[zoomWindow setContentView:imageView];
+	[image release];
+	[imageView release];
 
 		// Reset one shot flag
-    [self setOneShot:isOneShot];
+	[self setOneShot:isOneShot];
 
-    return zoomWindow;
+	return zoomWindow;
 }
 
 - (void)zoomOnFromRect:(NSRect)startRect
 {
-    NSRect              frame;
-    NSWindow            *zoomWindow;
+	NSRect			  frame;
+	NSWindow			*zoomWindow;
 
-    if ([self isVisible])
-    {
-        return;
-    }
+	if ([self isVisible])
+	{
+		return;
+	}
 
-    frame = [self frame];
+	frame = [self frame];
 
-    zoomWindow = [self _createZoomWindowWithRect:startRect];
+	zoomWindow = [self _createZoomWindowWithRect:startRect];
 
 	[zoomWindow orderFront:self];
 
-    [zoomWindow animateToFrame:frame duration:[zoomWindow animationResizeTime:frame] * 0.4];
+	[zoomWindow animateToFrame:frame duration:[zoomWindow animationResizeTime:frame] * 0.4];
 
 	[self makeKeyAndOrderFront:self];
 	[zoomWindow close];
@@ -118,22 +118,22 @@
 
 - (void)zoomOffToRect:(NSRect)endRect
 {
-    NSRect              frame;
-    NSWindow            *zoomWindow;
+	NSRect			  frame;
+	NSWindow			*zoomWindow;
 
-    frame = [self frame];
+	frame = [self frame];
 
-    if (![self isVisible])
-    {
-        return;
-    }
+	if (![self isVisible])
+	{
+		return;
+	}
 
-    zoomWindow = [self _createZoomWindowWithRect:frame];
+	zoomWindow = [self _createZoomWindowWithRect:frame];
 
 	[zoomWindow orderFront:self];
-    [self orderOut:self];
+	[self orderOut:self];
 
-    [zoomWindow animateToFrame:endRect duration:[zoomWindow animationResizeTime:endRect] * 0.4];
+	[zoomWindow animateToFrame:endRect duration:[zoomWindow animationResizeTime:endRect] * 0.4];
 
 	[zoomWindow close];
 }
@@ -195,12 +195,12 @@
 	lace.frame = [view bounds];
 	lace.borderWidth = 10; lace.borderColor = cgRANDOMCOLOR;
 
-	CGContextRef    context = NULL;		CGColorSpaceRef colorSpace;
+	CGContextRef	context = NULL;		CGColorSpaceRef colorSpace;
 	int bitmapByteCount;				int bitmapBytesPerRow;
 	int pixelsHigh = (int)[[view layer] bounds].size.height;
 	int pixelsWide = (int)[[view layer] bounds].size.width;
 
-	bitmapBytesPerRow   = (pixelsWide * 4);			bitmapByteCount     = (bitmapBytesPerRow * pixelsHigh);
+	bitmapBytesPerRow   = (pixelsWide * 4);			bitmapByteCount	 = (bitmapBytesPerRow * pixelsHigh);
 
 	colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
 
@@ -231,7 +231,7 @@
 -(NSPoint)midpoint {
 NSRect frame = [self frame];
 NSPoint midpoint = NSMakePoint(frame.origin.x + (frame.size.width/2),
-                               frame.origin.y + (frame.size.height/2));
+							   frame.origin.y + (frame.size.height/2));
 return midpoint;
 }
 
@@ -317,7 +317,7 @@ return midpoint;
 	NSWindow *new = [[NSWindow alloc] initWithContentRect:aRect styleMask: NSBorderlessWindowMask
 												  backing: NSBackingStoreBuffered	 defer: NO];
 	[new setBackgroundColor: [NSColor clearColor]];							[new setOpaque:NO];
-    return new;
+	return new;
 }
 
 @end
@@ -335,63 +335,63 @@ return midpoint;
 
 + (void)cascadeWindow:(NSWindow*)inWindow;
 {
-    // find the topmost window with the same class
-    NSEnumerator *enumerator = [[self visibleWindows:YES] objectEnumerator];
-    NSWindow* window;
-    
-    while (window = [enumerator nextObject])
-    {
-        // class must match exactly, but don't cascade it off itself
-        if (window != inWindow)
-        {
-            if ([window isMemberOfClass:[inWindow class]] && [[window delegate] isMemberOfClass:[[inWindow delegate] class]])
-            {
-                // cascade new window off this window we found
-                NSRect windowFrame = [window frame];
-                NSPoint topLeftPoint = NSMakePoint(windowFrame.origin.x, NSMaxY(windowFrame));
-                NSPoint cascadedPoint;
-                
-                cascadedPoint = [inWindow cascadeTopLeftFromPoint:topLeftPoint];
-                windowFrame.origin = NSMakePoint(cascadedPoint.x, cascadedPoint.y - NSHeight(windowFrame));
-                
-                [inWindow setFrame:windowFrame display:NO];
-                break;
-            }
-        }
-    }
+	// find the topmost window with the same class
+	NSEnumerator *enumerator = [[self visibleWindows:YES] objectEnumerator];
+	NSWindow* window;
+	
+	while (window = [enumerator nextObject])
+	{
+		// class must match exactly, but don't cascade it off itself
+		if (window != inWindow)
+		{
+			if ([window isMemberOfClass:[inWindow class]] && [[window delegate] isMemberOfClass:[[inWindow delegate] class]])
+			{
+				// cascade new window off this window we found
+				NSRect windowFrame = [window frame];
+				NSPoint topLeftPoint = NSMakePoint(windowFrame.origin.x, NSMaxY(windowFrame));
+				NSPoint cascadedPoint;
+				
+				cascadedPoint = [inWindow cascadeTopLeftFromPoint:topLeftPoint];
+				windowFrame.origin = NSMakePoint(cascadedPoint.x, cascadedPoint.y - NSHeight(windowFrame));
+				
+				[inWindow setFrame:windowFrame display:NO];
+				break;
+			}
+		}
+	}
 }
 
 + (BOOL)isAnyWindowVisibleWithDelegateClass:(Class)class;
 {
-    NSArray* windows = [self visibleWindows:NO];
-    NSWindow* window;
-    
-    for (window in windows)
-    {
-        
-        id delegate = [window delegate];
-        
-        if ([delegate isKindOfClass:class])
-            return YES;
-    }
-    
-    return NO;    
+	NSArray* windows = [self visibleWindows:NO];
+	NSWindow* window;
+	
+	for (window in windows)
+	{
+		
+		id delegate = [window delegate];
+		
+		if ([delegate isKindOfClass:class])
+			return YES;
+	}
+	
+	return NO;	
 }
 
 + (BOOL)isAnyWindowVisible;
 {
-    NSArray* windows = [self visibleWindows:NO];
-    NSWindow* window;
-    
-    for (window in windows)
-    {
-        
-        // this should elliminate drawers and floating windows
-        if ([window styleMask] & (NSTitledWindowMask | NSClosableWindowMask))
-            return YES;
-    }
-    
-    return NO;
+	NSArray* windows = [self visibleWindows:NO];
+	NSWindow* window;
+	
+	for (window in windows)
+	{
+		
+		// this should elliminate drawers and floating windows
+		if ([window styleMask] & (NSTitledWindowMask | NSClosableWindowMask))
+			return YES;
+	}
+	
+	return NO;
 }
 
 - (NSWindow*)topWindowWithDelegateClass:(Class)class;
@@ -412,28 +412,28 @@ return midpoint;
 + (NSA*)visibleWindows:(BOOL)ordered delegateClass:(Class)delegateClass;
 {
 	NSArray* windows;
-    NSMutableArray* visibles = [NSMutableArray array];
-    
+	NSMutableArray* visibles = [NSMutableArray array];
+	
 	if (ordered)
 		windows = [NSApp _orderedWindowsWithPanels:YES];
 	else
 		windows = [NSApp windows];
-    
-    if (windows && [windows count])
-    {
-        NSWindow* window;
+	
+	if (windows && [windows count])
+	{
+		NSWindow* window;
 		BOOL visible;
 		BOOL appHidden = [NSApp isHidden];
-        
-        for (window in windows)
-        {
-            
+		
+		for (window in windows)
+		{
+			
 			// hack: if app is hidden, all windows are not visible
 			visible = [window isVisible];
 			if (!visible && appHidden)
 				visible = YES;
 			
-            if ([window canBecomeKeyWindow] && visible)  
+			if ([window canBecomeKeyWindow] && visible)  
 			{
 				// filter by delegates class if not nil
 				if (delegateClass)
@@ -445,56 +445,56 @@ return midpoint;
 				if (window)
 					[visibles addObject:window];
 			}
-        }
-    }
-    
-    return visibles;	
+		}
+	}
+	
+	return visibles;	
 }
 
 + (NSA*)miniaturizedWindows;
 {
-    NSArray* windows;
-    NSMutableArray* minaturized = [NSMutableArray array];
-    
-    windows = [NSApp windows];
-    
-    if (windows && [windows count])
-    {
-        NSWindow* window;
-        
-        for (window in windows)
-        {
-            
-            if ([window canBecomeKeyWindow] && [window isMiniaturized])
-            {
-                // this should elliminate drawers and floating windows
-                if ([window styleMask] & (NSTitledWindowMask | NSClosableWindowMask))
-                    [minaturized addObject:window];
-            }
-        }
-    }
-    
-    return minaturized;
+	NSArray* windows;
+	NSMutableArray* minaturized = [NSMutableArray array];
+	
+	windows = [NSApp windows];
+	
+	if (windows && [windows count])
+	{
+		NSWindow* window;
+		
+		for (window in windows)
+		{
+			
+			if ([window canBecomeKeyWindow] && [window isMiniaturized])
+			{
+				// this should elliminate drawers and floating windows
+				if ([window styleMask] & (NSTitledWindowMask | NSClosableWindowMask))
+					[minaturized addObject:window];
+			}
+		}
+	}
+	
+	return minaturized;
 }
 
 - (void)setFloating:(BOOL)set;
 {
-    if (set)
-        [self setLevel:NSFloatingWindowLevel];
-    else
-        [self setLevel:NSNormalWindowLevel];
+	if (set)
+		[self setLevel:NSFloatingWindowLevel];
+	else
+		[self setLevel:NSNormalWindowLevel];
 }
 
 - (BOOL)isFloating;
 {
-    return ([self level] == NSFloatingWindowLevel);
+	return ([self level] == NSFloatingWindowLevel);
 }
 
 - (BOOL)isMetallic;
 {
 	// under 10.5 drawers don't adopt the styleMask, must check parent
 	NSWindow* win = [self parentWindowIfDrawerWindow];
-    return NSTexturedBackgroundWindowMaskSet([win styleMask]);
+	return NSTexturedBackgroundWindowMaskSet([win styleMask]);
 }
 
 - (BOOL)isBorderless;
@@ -590,50 +590,50 @@ return midpoint;
 
 + (BOOL)windowRectIsOnScreen:(NSRect)windowRect;
 {	
-    // make sure window is visible
-    NSEnumerator* enumerator = [[NSScreen screens] objectEnumerator];
+	// make sure window is visible
+	NSEnumerator* enumerator = [[NSScreen screens] objectEnumerator];
 	NSScreen *screen;
 	
-    while (screen = [enumerator nextObject])
-    {
-        if (NSIntersectsRect(windowRect, [screen frame]))
+	while (screen = [enumerator nextObject])
+	{
+		if (NSIntersectsRect(windowRect, [screen frame]))
 		{
 			// someone reported that a detacted monitor was keeping windows off screen?  Didn't verify
 			// not sure if this hack works since I can't test it, but seems reasonable
 			if (!NSIsEmptyRect([screen visibleFrame]))
 				return YES;
 		}
-    }
+	}
 	
-    return NO;
+	return NO;
 }
 
 // NSCopying protocol
 // added to be compatible with the beginSheet hack in NTApplication.m taken from OmniAppKit
 - (id)copyWithZone:(NSZone *)zone;
 {
-    return self;// retain];
+	return self;// retain];
 }
 
 - (void)fadeIn {
-    [self setAlphaValue:0.f];
-    [self makeKeyAndOrderFront:nil];
-    [NSAnimationContext beginGrouping];
-    [[NSAnimationContext currentContext] setDuration:.6];
-    [[self animator] setAlphaValue:1.f];
-    [NSAnimationContext endGrouping];
+	[self setAlphaValue:0.f];
+	[self makeKeyAndOrderFront:nil];
+	[NSAnimationContext beginGrouping];
+	[[NSAnimationContext currentContext] setDuration:.6];
+	[[self animator] setAlphaValue:1.f];
+	[NSAnimationContext endGrouping];
 }
 
 - (void)fadeOut {
-    [NSAnimationContext beginGrouping];
-    [[NSAnimationContext currentContext] setDuration:.6];
-    __block __unsafe_unretained NSWindow *bself = self;
+	[NSAnimationContext beginGrouping];
+	[[NSAnimationContext currentContext] setDuration:.6];
+	__block __unsafe_unretained NSWindow *bself = self;
 	[[NSAnimationContext currentContext] setCompletionHandler:^{
-        [bself orderOut:nil];
-        [bself setAlphaValue:1.f];
-    }];
-    [[self animator] setAlphaValue:0.f];
-    [NSAnimationContext endGrouping];
+		[bself orderOut:nil];
+		[bself setAlphaValue:1.f];
+	}];
+	[[self animator] setAlphaValue:0.f];
+	[NSAnimationContext endGrouping];
 }
 
 - (void) slideTo:(NSString*)rect {
@@ -659,7 +659,7 @@ return midpoint;
 //		}
 //	}];
 //	[[self animator] setContentSize:frame.size display:YES animate:YES];
-//    [NSAnimationContext endGrouping];
+//	[NSAnimationContext endGrouping];
 
 //}
 
@@ -677,7 +677,7 @@ return midpoint;
 }*/
 /*- (void)slideDown {
 	//	if ([[self contentView] isHidden]) [[self main] setHidden:YES];
-    NSRect firstViewFrame = [[self contentView] frame];
+	NSRect firstViewFrame = [[self contentView] frame];
 	NSRect screen =  [[NSScreen mainScreen]frame];
 	firstViewFrame.origin.y = screen.size.height - 22;
 	firstViewFrame.origin.x = 0;
@@ -689,21 +689,21 @@ return midpoint;
 		[NSValue valueWithRect:destinationRect], NSViewAnimationEndFrameKey))];
 	[theAnim setAnimationCurve:NSAnimationEaseInOut];
 	[theAnim setDuration:.4];
-    [theAnim startAnimation];
+	[theAnim startAnimation];
 //	[self makeKeyAndOrderFront:self];
 	//	NSRect newViewFrame = firstViewFrame;
-	//    newViewFrame.origin.y -= self.frame.size.height;
-	//    newViewFrame.origin.y -= 22;
+	//	newViewFrame.origin.y -= self.frame.size.height;
+	//	newViewFrame.origin.y -= 22;
 	//						  forKey:NSViewAnimationEndFrameKey];
-//    [theAnim setAnimationCurve:NSAnimationEaseInOut];
+//	[theAnim setAnimationCurve:NSAnimationEaseInOut];
 //	[theAnim setDuration:.4];
 //	[theAnim setDelegate:self]; 
 	
-	//    [NSAnimationContext beginGrouping];
-	//    [[NSAnimationContext currentContext] setDuration:.6];
+	//	[NSAnimationContext beginGrouping];
+	//	[[NSAnimationContext currentContext] setDuration:.6];
 	//	NSPoint down = NSMakePoint(self.frame.origin.x, self.frame.origin.y - self.frame.size.height);
-	//    [[self animator] setFrameOrigin:down];
-	//    [NSAnimationContext endGrouping];
+	//	[[self animator] setFrameOrigin:down];
+	//	[NSAnimationContext endGrouping];
 }
 */
 - (void)slideDown {
@@ -724,7 +724,7 @@ return midpoint;
 - (void)slideUp {
 
 	NSRect newViewFrame = [self frame];
-    newViewFrame.origin.y += [self frame].size.height;
+	newViewFrame.origin.y += [self frame].size.height;
 	newViewFrame.size.height = 0;
 
 	CABasicAnimation *framer = [CABasicAnimation animationWithKeyPath:@"frame"];
@@ -739,19 +739,19 @@ return midpoint;
 //		[NSValue valueWithRect:firstViewFrame], NSViewAnimationStartFrameKey,
 //		[NSValue valueWithRect:newViewFrame], NSViewAnimationEndFrameKey))];
 //	[theAnim setValue:self forKeyPath:@"dictionary.slideUpNowFoldUpWindow"];
-//    [theAnim setDuration:.3];
+//	[theAnim setDuration:.3];
 //	[theAnim setDelegate:self];
-//    [theAnim startAnimation];
+//	[theAnim startAnimation];
 
 	
-	//    [self makeKeyAndOrderFront:self];
-	//    [NSAnimationContext beginGrouping];
-	//    __block __unsafe_unretained NSWindow *bself = self;
+	//	[self makeKeyAndOrderFront:self];
+	//	[NSAnimationContext beginGrouping];
+	//	__block __unsafe_unretained NSWindow *bself = self;
 	//
-	//    [[NSAnimationContext currentContext] setDuration:.6];
+	//	[[NSAnimationContext currentContext] setDuration:.6];
 	//	NSPoint up = NSMakePoint(self.frame.origin.x, self.frame.origin.y + self.frame.size.height);
-	//    [[self animator] setFrameOrigin:up];
-	//    [NSAnimationContext endGrouping];
+	//	[[self animator] setFrameOrigin:up];
+	//	[NSAnimationContext endGrouping];
 }
 
 - (void)animationDidEnd:(NSAnimation*)theAnimation {
@@ -766,7 +766,7 @@ return midpoint;
 }
 //- (void)animation:(NSAnimation *)animation didReachProgressMark:(NSAnimationProgress)progress
 //{
-//    if ([animation valueForKeyPath:@"dictionary.preSlideUpExtendView"] == theAnim)
+//	if ([animation valueForKeyPath:@"dictionary.preSlideUpExtendView"] == theAnim)
 //		}
 //}
 
@@ -801,84 +801,84 @@ return midpoint;
 //This is the core of it - it just extends or shrinks the window's bottom edge by the given amount, leaving all the current subviews undisturbed. It could probably most usefully be a catego
 @end
 
-static NSMutableDictionary*     pendingFades = nil;
+static NSMutableDictionary*	 pendingFades = nil;
 
 @implementation NSWindow (UKFade)
 
--(void)     fadeInWithDuration: (NSTimeInterval)duration
+-(void)	 fadeInWithDuration: (NSTimeInterval)duration
 {
-    if( !pendingFades )
-        pendingFades = [[NSMutableDictionary alloc] init];
+	if( !pendingFades )
+		pendingFades = [[NSMutableDictionary alloc] init];
 
-    NSString*       key = [NSString stringWithFormat: @"%@", self];
-    NSDictionary*   fade = pendingFades[key];
+	NSString*	   key = [NSString stringWithFormat: @"%@", self];
+	NSDictionary*   fade = pendingFades[key];
 
-    if( fade )      // Currently fading that window? Abort that fade:
-        [fade[@"timer"] invalidate];  // No need to remove from pendingFades, we'll replace it in a moment.
+	if( fade )	  // Currently fading that window? Abort that fade:
+		[fade[@"timer"] invalidate];  // No need to remove from pendingFades, we'll replace it in a moment.
 
-    [self setAlphaValue: 0];
-    [self orderFront: nil];
+	[self setAlphaValue: 0];
+	[self orderFront: nil];
 
-    NSTimeInterval  interval = duration / 0.1;
-    float           stepSize = 1 / interval;
-    NSTimer*        timer = [NSTimer scheduledTimerWithTimeInterval: 0.1				// scheduled since we also want "normal" run loop mode.
+	NSTimeInterval  interval = duration / 0.1;
+	float		   stepSize = 1 / interval;
+	NSTimer*		timer = [NSTimer scheduledTimerWithTimeInterval: 0.1				// scheduled since we also want "normal" run loop mode.
 															 target: self selector: @selector(fadeInOneStep:)
 														   userInfo: nil repeats: YES];
-    [[NSRunLoop currentRunLoop] addTimer: timer forMode: NSModalPanelRunLoopMode];
-    [[NSRunLoop currentRunLoop] addTimer: timer forMode: NSEventTrackingRunLoopMode];
-    pendingFades[key] = [NSMutableDictionary dictionaryWithObjectsAndKeys: timer, @"timer",
+	[[NSRunLoop currentRunLoop] addTimer: timer forMode: NSModalPanelRunLoopMode];
+	[[NSRunLoop currentRunLoop] addTimer: timer forMode: NSEventTrackingRunLoopMode];
+	pendingFades[key] = [NSMutableDictionary dictionaryWithObjectsAndKeys: timer, @"timer",
 							  @(stepSize), @"stepSize",
-							  nil];    // Releases of any old fades.
+							  nil];	// Releases of any old fades.
 }
 -(void) fadeInOneStep: (NSTimer*)timer
 {
-    NSString*   key = [NSString stringWithFormat: @"%@", self];
-    float       newAlpha = [self alphaValue] + [pendingFades[key][@"stepSize"] floatValue];
+	NSString*   key = [NSString stringWithFormat: @"%@", self];
+	float	   newAlpha = [self alphaValue] + [pendingFades[key][@"stepSize"] floatValue];
 
-    if( newAlpha >= 1.0 )
-    {
-        newAlpha = 1;
-        [timer invalidate];
-        [pendingFades removeObjectForKey: key];
-    }
+	if( newAlpha >= 1.0 )
+	{
+		newAlpha = 1;
+		[timer invalidate];
+		[pendingFades removeObjectForKey: key];
+	}
 
-    //NSLog(@"Fading in: %f", newAlpha);		// DEBUG ONLY!
-    [self setAlphaValue: newAlpha];
+	//NSLog(@"Fading in: %f", newAlpha);		// DEBUG ONLY!
+	[self setAlphaValue: newAlpha];
 }
--(void)     fadeOutWithDuration: (NSTimeInterval)duration
+-(void)	 fadeOutWithDuration: (NSTimeInterval)duration
 {
-    if( !pendingFades )
-        pendingFades = [[NSMutableDictionary alloc] init];
+	if( !pendingFades )
+		pendingFades = [[NSMutableDictionary alloc] init];
 
-    NSString*       key = [NSString stringWithFormat: @"%@", self];
-    NSDictionary*   fade = pendingFades[key];
+	NSString*	   key = [NSString stringWithFormat: @"%@", self];
+	NSDictionary*   fade = pendingFades[key];
 
-    if( fade )      // Currently fading that window? Abort that fade:
-        [fade[@"timer"] invalidate];  // No need to remove from pendingFades, we'll replace it in a moment.
+	if( fade )	  // Currently fading that window? Abort that fade:
+		[fade[@"timer"] invalidate];  // No need to remove from pendingFades, we'll replace it in a moment.
 
-    [self setAlphaValue: 1.0];
+	[self setAlphaValue: 1.0];
 
-    NSTimeInterval  interval = duration / 0.1;
-    float           stepSize = 1 / interval;
-    NSTimer*        timer = [NSTimer scheduledTimerWithTimeInterval: 0.1				// scheduled since we also want "normal" run loop mode.
+	NSTimeInterval  interval = duration / 0.1;
+	float		   stepSize = 1 / interval;
+	NSTimer*		timer = [NSTimer scheduledTimerWithTimeInterval: 0.1				// scheduled since we also want "normal" run loop mode.
 															 target: self selector: @selector(fadeOutOneStep:)
 														   userInfo: nil repeats: YES];
-    pendingFades[key] = [NSMutableDictionary dictionaryWithObjectsAndKeys: timer, @"timer",
+	pendingFades[key] = [NSMutableDictionary dictionaryWithObjectsAndKeys: timer, @"timer",
 							  @(stepSize), @"stepSize",
-							  nil];    // Releases of any old fades.
-    [[NSRunLoop currentRunLoop] addTimer: timer forMode: NSModalPanelRunLoopMode];
-    [[NSRunLoop currentRunLoop] addTimer: timer forMode: NSEventTrackingRunLoopMode];
+							  nil];	// Releases of any old fades.
+	[[NSRunLoop currentRunLoop] addTimer: timer forMode: NSModalPanelRunLoopMode];
+	[[NSRunLoop currentRunLoop] addTimer: timer forMode: NSEventTrackingRunLoopMode];
 }
 
 -(void) fadeOutOneStep: (NSTimer*)timer
 {
-    NSString*				key = [NSString stringWithFormat: @"%@", self];
+	NSString*				key = [NSString stringWithFormat: @"%@", self];
 	NSMutableDictionary*	currFadeDict = pendingFades[key];//retain] autorelease];	// Make sure it doesn't go away in case we're cross-fading layers.
-    float					newAlpha = [self alphaValue] - [currFadeDict[@"stepSize"] floatValue];
+	float					newAlpha = [self alphaValue] - [currFadeDict[@"stepSize"] floatValue];
 
-    if( newAlpha <= 0 )
-    {
-        [timer invalidate];
+	if( newAlpha <= 0 )
+	{
+		[timer invalidate];
 
 		[pendingFades removeObjectForKey: key];
 
@@ -900,38 +900,38 @@ static NSMutableDictionary*     pendingFades = nil;
 		}
 		else
 		{
-			newAlpha = 1;           // Make opaque again so non-fading showing of window doesn't look unsuccessful.
+			newAlpha = 1;		   // Make opaque again so non-fading showing of window doesn't look unsuccessful.
 			[self orderOut: nil];   // Hide so setAlphaValue below doesn't cause window to fade out, then pop in again.
 		}
-    }
+	}
 
 	//NSLog(@"Fading out: %f", newAlpha);		// DEBUG ONLY!
 	[self setAlphaValue: newAlpha];
 }
 -(void)	fadeToLevel: (int)lev withDuration: (NSTimeInterval)duration
 {
-    if( !pendingFades )
-        pendingFades = [[NSMutableDictionary alloc] init];
+	if( !pendingFades )
+		pendingFades = [[NSMutableDictionary alloc] init];
 
-    NSString*       key = [NSString stringWithFormat: @"%@", self];
-    NSDictionary*   fade = pendingFades[key];
+	NSString*	   key = [NSString stringWithFormat: @"%@", self];
+	NSDictionary*   fade = pendingFades[key];
 
-    if( fade )      // Currently fading that window? Abort that fade:
-        [fade[@"timer"] invalidate];  // No need to remove from pendingFades, we'll replace it in a moment.
+	if( fade )	  // Currently fading that window? Abort that fade:
+		[fade[@"timer"] invalidate];  // No need to remove from pendingFades, we'll replace it in a moment.
 
-    [self setAlphaValue: 1.0];
+	[self setAlphaValue: 1.0];
 
-    NSTimeInterval  interval = (duration /2) / 0.1;
-    float           stepSize = 1 / interval;
-    NSTimer*        timer = [NSTimer scheduledTimerWithTimeInterval: 0.1				// scheduled since we also want "normal" run loop mode.
+	NSTimeInterval  interval = (duration /2) / 0.1;
+	float		   stepSize = 1 / interval;
+	NSTimer*		timer = [NSTimer scheduledTimerWithTimeInterval: 0.1				// scheduled since we also want "normal" run loop mode.
 															 target: self selector: @selector(fadeOutOneStep:)
 														   userInfo: nil repeats: YES];
-    pendingFades[key] = [NSMutableDictionary dictionaryWithObjectsAndKeys: timer, @"timer",
+	pendingFades[key] = [NSMutableDictionary dictionaryWithObjectsAndKeys: timer, @"timer",
 							  @(stepSize), @"stepSize",
 							  @(lev), @"newLevel",
-							  nil];    // Releases of any old fades.
-    [[NSRunLoop currentRunLoop] addTimer: timer forMode: NSModalPanelRunLoopMode];
-    [[NSRunLoop currentRunLoop] addTimer: timer forMode: NSEventTrackingRunLoopMode];
+							  nil];	// Releases of any old fades.
+	[[NSRunLoop currentRunLoop] addTimer: timer forMode: NSModalPanelRunLoopMode];
+	[[NSRunLoop currentRunLoop] addTimer: timer forMode: NSEventTrackingRunLoopMode];
 }
 @end
 

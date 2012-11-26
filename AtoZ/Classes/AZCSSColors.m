@@ -22,9 +22,9 @@ static AZCSSColors *instance = nil;
 +(AZCSSColors *)webNamedColors {
   
   @synchronized(self) {
-    if (!instance) {
-      instance = [[self alloc] init];
-    }
+	if (!instance) {
+	  instance = [[self alloc] init];
+	}
   }
 
   return instance;
@@ -32,12 +32,12 @@ static AZCSSColors *instance = nil;
 
 - (void)_initColors {
   if ([self.allKeys count] > 0) {
-    return;
+	return;
   }
 
 #define _COLOR(V,N) \
   [self setColor:[@"#" stringByAppendingString:@#V].colorValue \
-          forKey:@#N]
+		  forKey:@#N]
   
   _COLOR(FFFFFF00, Transparent);
   
@@ -187,17 +187,17 @@ static AZCSSColors *instance = nil;
 
 - (id)init {
   if (instance != nil) {
-    [NSException 
-     raise:NSInternalInconsistencyException
-     format:@"[%@ %@] cannot be called; use +[%@ %@] instead",
-       [self className], 
-       NSStringFromSelector(_cmd), 
-       [self className],
-       NSStringFromSelector(@selector(instance))
-     ];
+	[NSException 
+	 raise:NSInternalInconsistencyException
+	 format:@"[%@ %@] cannot be called; use +[%@ %@] instead",
+	   [self className], 
+	   NSStringFromSelector(_cmd), 
+	   [self className],
+	   NSStringFromSelector(@selector(instance))
+	 ];
   } else if ((self = [super init])) {
-    instance = self;
-    [self _initColors];
+	instance = self;
+	[self _initColors];
   }
   return instance;
 }
@@ -228,8 +228,8 @@ static AZCSSColors *instance = nil;
 
 +(NSString *)nameOfColor:(NSColor *)color savingDistance:(NSColor **)distance {
   if (!color) {
-    // failsave return
-    return nil;
+	// failsave return
+	return nil;
   }
   
   NSColorList *list = [self webNamedColors];
@@ -241,23 +241,23 @@ static AZCSSColors *instance = nil;
   CGFloat mdv = 1.0;
   
   for (NSString *key in [list allKeys]) {
-    NSColor *c = [list colorWithKey:key];
-    NSColor *cd = [c hsbDistanceToColor:color];
-    CGFloat dv = cd.hsbWeight;
-    
-    if (dv < mdv) {
-      mdv = dv;
-      mdc = cd;
-      re = key;
+	NSColor *c = [list colorWithKey:key];
+	NSColor *cd = [c hsbDistanceToColor:color];
+	CGFloat dv = cd.hsbWeight;
+	
+	if (dv < mdv) {
+	  mdv = dv;
+	  mdc = cd;
+	  re = key;
 
-      if (dv == 0) {
-        break;
-      }
-    }
+	  if (dv == 0) {
+		break;
+	  }
+	}
   }
   
   if (distance) {
-    *distance = mdc; 
+	*distance = mdc; 
   }
   
   return re;

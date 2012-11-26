@@ -19,7 +19,7 @@
 
 - (id)initWithFrame:(NSRect)frame
 {
-    if (!(self = [super initWithFrame:frame])) return nil;
+	if (!(self = [super initWithFrame:frame])) return nil;
 	self.root	= [self setupHostView];
 //	self.root.delegate = self;
 //	[self.root setNeedsDisplay];
@@ -377,7 +377,7 @@
 ///////		obj.frame = [[_sizer.rects objectAtIndex:idx]rectValue];
 //
 ////		CATransform3D rot = [self makeTransformForAngle:270];
-////      imageLayer.transform = rot;
+////	  imageLayer.transform = rot;
 ////		box.identifier = $(@"%ldx%ld", rowindex, columnindex);
 ////	}];
 ////	}
@@ -443,12 +443,12 @@
 //
 ////- (id) init
 ////{
-////    self = [super init];
-////    if (self != nil)
-////    {
-//////        self.layoutManager = self;
-////    }
-////    return self;
+////	self = [super init];
+////	if (self != nil)
+////	{
+//////		self.layoutManager = self;
+////	}
+////	return self;
 ////}
 //
 //- (void) setSizer:(AZSizer *)sizer
@@ -458,21 +458,21 @@
 //}
 //- (void) layoutSublayersOfLayer:(CALayer*)layer
 //{
-//	//    CGFloat contentsHeight = self.contentsHeight;
-//	//    CGFloat stateWidth = self.bounds.size.width - contentsHeight;
-//	//    CGFloat stateDrawExtra = self.thumbLayer.cornerRadius / 2.0f;
+//	//	CGFloat contentsHeight = self.contentsHeight;
+//	//	CGFloat stateWidth = self.bounds.size.width - contentsHeight;
+//	//	CGFloat stateDrawExtra = self.thumbLayer.cornerRadius / 2.0f;
 //	//
-//	//    CGFloat left = self.toggleState ? 0.0f : -stateWidth;
-//	//    CGFloat middle = self.bounds.size.height / 2.0f;
+//	//	CGFloat left = self.toggleState ? 0.0f : -stateWidth;
+//	//	CGFloat middle = self.bounds.size.height / 2.0f;
 //	//
-//	//    self.onBackLayer.bounds = CGRectMake(0.0f, 0.0f, stateWidth + stateDrawExtra, contentsHeight);
-//	//    self.onBackLayer.position = CGPointMake(left, middle);
-//	//    left += stateWidth;
-//	//    self.thumbLayer.bounds = CGRectMake(0.0f, 0.0f, contentsHeight, contentsHeight);
-//	//    self.thumbLayer.position = CGPointMake(left, middle);
-//	//    left += contentsHeight - stateDrawExtra;
-//	//    self.offBackLayer.bounds = CGRectMake(0.0f, 0.0f, stateWidth + stateDrawExtra, contentsHeight);
-//	//    self.offBackLayer.position = CGPointMake(left, middle);
+//	//	self.onBackLayer.bounds = CGRectMake(0.0f, 0.0f, stateWidth + stateDrawExtra, contentsHeight);
+//	//	self.onBackLayer.position = CGPointMake(left, middle);
+//	//	left += stateWidth;
+//	//	self.thumbLayer.bounds = CGRectMake(0.0f, 0.0f, contentsHeight, contentsHeight);
+//	//	self.thumbLayer.position = CGPointMake(left, middle);
+//	//	left += contentsHeight - stateDrawExtra;
+//	//	self.offBackLayer.bounds = CGRectMake(0.0f, 0.0f, stateWidth + stateDrawExtra, contentsHeight);
+//	//	self.offBackLayer.position = CGPointMake(left, middle);
 //	//}
 //	//
 //	/*	NSLog(@"constraining with sizer %@", _sizer.propertiesPlease);

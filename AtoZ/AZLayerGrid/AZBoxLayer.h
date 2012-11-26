@@ -10,11 +10,11 @@
 #import <QuartzCore/QuartzCore.h>
 
 @interface AZBoxLayer : CALayer {
-//    NSString *imagePath;
-    NSString *title;
-    CALayer *closeLayer;
-    CATextLayer *text;
-    CALayer *imageLayer;
+//	NSString *imagePath;
+	NSString *title;
+	CALayer *closeLayer;
+	CATextLayer *text;
+	CALayer *imageLayer;
 }
 
 @property(retain)NSImage *image;

@@ -59,11 +59,11 @@
 - (void)mouseMoved:(NSEvent*)theEvent {
 
 //	[self setFloatValue:[self floatValue] - [theEvent deltaY]];
-//    NSDictionary *bindingInfo = [self infoForBinding: NSValueBinding];
-//    NSObject *boundObject = [bindingInfo valueForKey:NSObservedObjectKey];
-//    NSString *keyPath = [bindingInfo valueForKey:NSObservedKeyPathKey];
-//    [boundObject setValue:[NSNumber numberWithFloat:[self floatValue]]
-//               forKeyPath:keyPath];
+//	NSDictionary *bindingInfo = [self infoForBinding: NSValueBinding];
+//	NSObject *boundObject = [bindingInfo valueForKey:NSObservedObjectKey];
+//	NSString *keyPath = [bindingInfo valueForKey:NSObservedKeyPathKey];
+//	[boundObject setValue:[NSNumber numberWithFloat:[self floatValue]]
+//			   forKeyPath:keyPath];
 	NSPoint point = [NSEvent mouseLocation];
 	NSString *infoText = [[NSString alloc] initWithFormat:@"x:%.2f\ny:%.2f", point.x, point.y];
 	[_coordinates setStringValue:infoText];

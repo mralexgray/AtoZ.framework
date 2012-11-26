@@ -218,14 +218,14 @@
 //	CIImage *image = [CIImage imageWithCGImage:[[NSImage randomIcon] cgImageRef]];
 //
 //	CIFilter * colorFilter = [CIFilter filterWithName:@"CIColorControls"];
-//    [colorFilter setDefaults];
-//    [colorFilter setValue:image forKey:@"inputImage"];
+//	[colorFilter setDefaults];
+//	[colorFilter setValue:image forKey:@"inputImage"];
 //		// apply an affine transform to the iamge to scale it to one quarter of its size
 //	CIFilter *scaleFilter = [CIFilter filterWithName:@"CIAffineTransform"];
-//    NSAffineTransform *transform = [NSAffineTransform transform];
-//    [transform scaleBy: 1.0 / 4];
-//    [scaleFilter setValue:transform forKey:@"inputTransform"];
-//    [scaleFilter setValue:[colorFilter valueForKey:@"outputImage"] forKey:@"inputImage"];
+//	NSAffineTransform *transform = [NSAffineTransform transform];
+//	[transform scaleBy: 1.0 / 4];
+//	[scaleFilter setValue:transform forKey:@"inputTransform"];
+//	[scaleFilter setValue:[colorFilter valueForKey:@"outputImage"] forKey:@"inputImage"];
 //	CIFilter *lensFilter = [CIFilter filterWithName: @"LensFilter"];
 //	[lensFilter setDefaults];
 //	[lensFilter setValue:[scaleFilter valueForKey:@"outputImage"] forKey:@"inputImage"];

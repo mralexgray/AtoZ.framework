@@ -32,7 +32,7 @@
 - (NSCountedSet*)countedSet ;
 
 /*!
- @brief    Returns an array of NSNumbers whose -integerValues
+ @brief	Returns an array of NSNumbers whose -integerValues
  span a given range, each value being one more than the previous
  value.
  */
@@ -97,9 +97,9 @@
  */
 - (void)makeObjectsPerformSelector:(SEL)selector withObject:(id)p1 withObject:(id)p2;
 - (void)makeObjectsPerformSelector: (SEL)selector
-                        withObject: (id)p1
-                        withObject: (id)p2
-                        withObject: (id)p3;
+						withObject: (id)p1
+						withObject: (id)p2
+						withObject: (id)p3;
 
 /**
  * @return nil or an object that matches value with isEqual:
@@ -297,19 +297,19 @@
 
 
 /*!
- @brief     Methods for showing arrays as formatted strings
+ @brief	 Methods for showing arrays as formatted strings
  */
 @interface NSArray (Stringing)
 
 /*!
- @brief    Lists items in the receiver in a list with newlines
+ @brief	Lists items in the receiver in a list with newlines
  between adjacent items.
 
- @param    key  The key for which the value will be extracted
+ @param	key  The key for which the value will be extracted
  and inserted into the list for each item, or nil to use the
  default key of 'description'.
 
- @param    bullet  A string which, if not nil, will be prepended
+ @param	bullet  A string which, if not nil, will be prepended
  to each line in the output.  You'll probably want this string to
  end in one or two space characters.
  */
@@ -317,13 +317,13 @@
 									 bullet:(NSString*)bullet ;
 
 /*!
- @brief    Invokes listValuesOnePerLineForKeyPath:bullet: with
+ @brief	Invokes listValuesOnePerLineForKeyPath:bullet: with
  bullet = nil
  */
 - (NSString*)listValuesOnePerLineForKeyPath:(NSString*)key ;
 
 /*!
- @brief    Returns a comma-separated list of the responses to
+ @brief	Returns a comma-separated list of the responses to
  each item in the receiver to a given key.
 
  @details  If the receiver is empty, returns an empty string.&nbsp;
@@ -340,13 +340,13 @@
 
  Note that if you are using truncateTo, you probably don't
  want to give a conjunction and vice versa.
- @param    key  The key for which the value will be extracted
+ @param	key  The key for which the value will be extracted
  and inserted into the list for each item, or nil to use the
  default key of 'description'.
- @param    conjunction  If non-nil, and there are more than two
+ @param	conjunction  If non-nil, and there are more than two
  items, inserts this word before the last item.  Typically this
  is a localized "&", "and" or "or"
- @param    truncateTo  The maximum number of items desired in
+ @param	truncateTo  The maximum number of items desired in
  the returned list.&nbsp;  If the number of items in the receiver
  exceeds this parameter, another comma and an ellipsis will
  be appended to the end.&nbsp;  For convenience, a value of 0
@@ -357,7 +357,7 @@
 				   truncateTo:(NSInteger)truncateTo ;
 
 /*!
- @brief    Invokes -[self listValuesForKey:@"name" parameters
+ @brief	Invokes -[self listValuesForKey:@"name" parameters
  conjunction=nil and truncateTo=0]
  */
 - (NSString*)listNames ;

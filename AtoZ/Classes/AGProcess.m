@@ -842,10 +842,10 @@ AGGetMachTaskEvents(task_t task, int *faults, int *pageins, int *cow_faults, int
 	NSMutableArray *siblings = [NSMutableArray array];
 	int i, count = [all count], ppid = [self parentProcessIdentifier];
 	for (i = 0; i < count; i++) {
-        AGProcess *p = all[i];
+		AGProcess *p = all[i];
 		if ([p parentProcessIdentifier] == ppid && [p processIdentifier] != process)
 			[siblings addObject:p];
-    }
+	}
 	return siblings;
 }
 

@@ -7,6 +7,15 @@
 #include <sys/types.h>
 #include <pwd.h>
 
+
+@interface NSDate (AtoZ)
++ (NSS*)dayOfWeek;
+@end
+typedef void (^updateKVCKeyBlock)();
+@interface NSObject (KVONotifyBlock)
+- (void)setValueForKey:(NSString*)key andNotifyInBlock:(updateKVCKeyBlock)block;
+@end
+
 //#import "AtoZ.h"
 //PUT IN PRECOMP #define NSLog(args...) _AZSimpleLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args);
 
@@ -27,11 +36,11 @@
 
 typedef struct _AZRange {	NSI min;	NSI max;	} AZRange;
 
-FOUNDATION_EXPORT AZRange   AZMakeRange ( 		NSI min,  NSI max      );
-FOUNDATION_EXPORT NSUI      AZIndexInRange (	NSI fake, AZRange rng  );
+FOUNDATION_EXPORT AZRange   AZMakeRange ( 		NSI min,  NSI max	  );
+FOUNDATION_EXPORT NSUI	  AZIndexInRange (	NSI fake, AZRange rng  );
 FOUNDATION_EXPORT NSI   	AZNextSpotInRange (	NSI spot, AZRange rng  );
 FOUNDATION_EXPORT NSI   	AZPrevSpotInRange (	NSI spot, AZRange rng  );
-FOUNDATION_EXPORT NSUI      AZSizeOfRange ( 	AZRange rng            );
+FOUNDATION_EXPORT NSUI	  AZSizeOfRange ( 	AZRange rng			);
 
 
 
@@ -88,7 +97,7 @@ int (^triple)(int);
 //id (^logAndReturn)(id); //= ^(id toLog) { AZLOG(toLog); return toLog; };
 id LogAndReturn(id toLog); //= ^(id toLog) { AZLOG(toLog); return toLog; };
 
-//void (^now)(void) = ^ {    NSDate *date = [NSDate date]; NSLog(@"The date and time is %@", date); };
+//void (^now)(void) = ^ {	NSDate *date = [NSDate date]; NSLog(@"The date and time is %@", date); };
 
 //BOOL IsEmpty(id obj);
 
@@ -258,7 +267,7 @@ static void PrintUsageAndQuit(void) __attribute__((noreturn));
  ***/
 
 ///	NSArray *result = MAP(objects, [obj performSelector: NSSelectorFromString(EACH(selectorNames))
-///                                        withObject: EACH(firstArguments)
+///										withObject: EACH(firstArguments)
 ///										withObject: EACH(secondArguments)];
 
 /*** The EACH macro works by creating and tracking an NSEnumerator internally. It lazily creates the enumerator on the first use, and then uses nextObject at each call. Thus if your arrays are not the same length, it will begin to return nil, watch out.

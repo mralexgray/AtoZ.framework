@@ -4,7 +4,7 @@
 @class NSMutableDictionary,NSMutableArray,NSArray,NSKeyObserver;
 
 @interface NSKVOInfoPerObject : NSObject {
-   pthread_mutex_t      _lock;
+   pthread_mutex_t	  _lock;
    NSMutableDictionary *_dictionary;
 }
 

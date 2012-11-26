@@ -9,7 +9,7 @@
 
 @interface TransparentWindow : NSWindow
 {
-    NSPoint initialLocation;
+	NSPoint initialLocation;
 	BOOL flipRight;
 	double duration;
 	NSWindow *mAnimationWindow;// окна, создаваемые для анимации

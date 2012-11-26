@@ -10,7 +10,7 @@
 
 //@interface LassoMaster : AZSingleton
 //@property (nonatomic, retain) NSMutableArray *lassos;
-//+ (void)add:    (id) obj;
+//+ (void)add:	(id) obj;
 //+ (void)remove: (id) obj;
 ////- (id)objectForKeyedSubscript:(NSString *)key;
 //+ (NSMutableArray*) lassos;

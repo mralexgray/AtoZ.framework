@@ -232,34 +232,34 @@
 
 //- (NSString*)hexString
 //{
-//    CGFloat 	red,green,blue;
-//    char	hexString[7];
-//    NSInteger		tempNum;
-//    NSColor	*convertedColor;
+//	CGFloat 	red,green,blue;
+//	char	hexString[7];
+//	NSInteger		tempNum;
+//	NSColor	*convertedColor;
 
-//    convertedColor = [self colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
-//    [convertedColor getRed:&red green:&green blue:&blue alpha:NULL];
+//	convertedColor = [self colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
+//	[convertedColor getRed:&red green:&green blue:&blue alpha:NULL];
 
-//    tempNum = (red * 255.0f);
-//    hexString[0] = intToHex(tempNum / 16);
-//    hexString[1] = intToHex(tempNum % 16);
+//	tempNum = (red * 255.0f);
+//	hexString[0] = intToHex(tempNum / 16);
+//	hexString[1] = intToHex(tempNum % 16);
 
-//    tempNum = (green * 255.0f);
-//    hexString[2] = intToHex(tempNum / 16);
-//    hexString[3] = intToHex(tempNum % 16);
+//	tempNum = (green * 255.0f);
+//	hexString[2] = intToHex(tempNum / 16);
+//	hexString[3] = intToHex(tempNum % 16);
 
-//    tempNum = (blue * 255.0f);
-//    hexString[4] = intToHex(tempNum / 16);
-//    hexString[5] = intToHex(tempNum % 16);
-//    hexString[6] = '\0';
+//	tempNum = (blue * 255.0f);
+//	hexString[4] = intToHex(tempNum / 16);
+//	hexString[5] = intToHex(tempNum % 16);
+//	hexString[6] = '\0';
 
-//    return [NSString stringWithUTF8String:hexString];
+//	return [NSString stringWithUTF8String:hexString];
 //}
 
 ////String representation: R,G,B[,A].
 //- (NSString*)stringRepresentation
 //{
-//    NSColor	*tempColor = [self colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
+//	NSColor	*tempColor = [self colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
 //	CGFloat alphaComponent = [tempColor alphaComponent];
 
 //	if (alphaComponent == 1.0)	{
@@ -287,7 +287,7 @@
 ////			[NSString stringWithCGFloat:[rgb redComponent]   * 255.0f maxDigits:6],
 ////			[NSString stringWithCGFloat:[rgb greenComponent] * 255.0f maxDigits:6],
 ////			[NSString stringWithCGFloat:[rgb blueComponent]  * 255.0f maxDigits:6],
-////			[NSString stringWithCGFloat:alpha                         maxDigits:6]];
+////			[NSString stringWithCGFloat:alpha						 maxDigits:6]];
 ////	} else {
 ////		return [@"#" stringByAppendingString:[self hexString]];
 ////	}
@@ -299,8 +299,8 @@
 
 //- (NSC*)representedColor
 //{
-//    CGFloat	r = 255, g = 255, b = 255;
-//    CGFloat	a = 255;
+//	CGFloat	r = 255, g = 255, b = 255;
+//	CGFloat	a = 255;
 
 //	const char *selfUTF8 = [self UTF8String];
 
@@ -310,12 +310,12 @@
 //	r = (CGFloat)strtoul(selfUTF8, (char **)&selfUTF8, /*base*/ 10);
 
 //	if(*selfUTF8 == ',')	++selfUTF8;
-//	else                 goto scanFailed;
+//	else				 goto scanFailed;
 
 //	if (!isdigit(*selfUTF8))	goto scanFailed;
 //	g = (CGFloat)strtoul(selfUTF8, (char **)&selfUTF8, /*base*/ 10);
 //	if(*selfUTF8 == ',')	++selfUTF8;
-//	else                 goto scanFailed;
+//	else				 goto scanFailed;
 
 //	if (!isdigit(*selfUTF8))	goto scanFailed;
 //	b = (CGFloat)strtoul(selfUTF8, (char **)&selfUTF8, /*base*/ 10);
@@ -328,7 +328,7 @@
 //		goto scanFailed;
 //	}
 
-//    return [NSColor colorWithCalibratedRed:(r/255)	green:(g/255)	blue:(b/255)	alpha:(a/255)] ;
+//	return [NSColor colorWithCalibratedRed:(r/255)	green:(g/255)	blue:(b/255)	alpha:(a/255)] ;
 //scanFailed:
 //	return nil;
 //}
@@ -358,7 +358,7 @@
 //	if (!isdigit(*selfUTF8))	goto scanFailed;
 //	b = strtoul(selfUTF8, (char **)&selfUTF8, /*base*/ 10);
 
-//    return [NSColor colorWithCalibratedRed:(r/255)	green:(g/255)	blue:(b/255)	alpha:alpha];
+//	return [NSColor colorWithCalibratedRed:(r/255)	green:(g/255)	blue:(b/255)	alpha:alpha];
 //scanFailed:
 //	return nil;
 //}
@@ -370,16 +370,16 @@
 //+ (NSC*)randomColor
 //{
 //	return [NSColor colorWithCalibratedRed:(arc4random()	% 65536)	/ 65536.0f
-//	                                 green:(arc4random()	% 65536)	/ 65536.0f
-//	                                  blue:(arc4random()	% 65536)	/ 65536.0f
-//	                                 alpha:1.0f];
+//									 green:(arc4random()	% 65536)	/ 65536.0f
+//									  blue:(arc4random()	% 65536)	/ 65536.0f
+//									 alpha:1.0f];
 //}
 //+ (NSC*)randomColorWithAlpha
 //{
 //	return [NSColor colorWithCalibratedRed:(arc4random()	% 65536)	/ 65536.0f
-//	                                 green:(arc4random()	% 65536)	/ 65536.0f
-//	                                  blue:(arc4random()	% 65536)	/ 65536.0f
-//	                                 alpha:(arc4random()	% 65536)	/ 65536.0f];
+//									 green:(arc4random()	% 65536)	/ 65536.0f
+//									  blue:(arc4random()	% 65536)	/ 65536.0f
+//									 alpha:(arc4random()	% 65536)	/ 65536.0f];
 //}
 
 //@end

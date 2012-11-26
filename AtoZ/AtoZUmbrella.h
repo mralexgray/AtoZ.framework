@@ -108,7 +108,7 @@ AZToStringFromTypeAndValue(@encode(typeof(_X_)), &_Y_);})
 #define   CAMEDIAEASEIN [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn]
 #define   CAMEDIAEASY [CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionEaseInEaseOut]
 #define   AZWORKSPACE [NSWorkspace sharedWorkspace]
-#define    AZUSERDEFS [NSUserDefaults standardUserDefaults]
+#define	AZUSERDEFS [NSUserDefaults standardUserDefaults]
 #define   AZNOTCENTER [NSNotificationCenter defaultCenter]
 #define AZFILEMANAGER [NSFileManager defaultManager]
 #define AZGRAPHICSCTX [NSGraphicsContext currentContext]
@@ -232,9 +232,11 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define NSMS NSMutableString
 #define NSMSet NSMutableSet
 #define NSMIS NSMutableIndexSet
+#define NSMPS NSMutableParagraphStyle
 #define NSN NSNumber
 #define NSNOT NSNotification
 #define NSO NSObject
+#define NSOQ NSOperationQueue
 #define NSP NSPoint
 #define NSPInRect NSPointInRect
 
@@ -302,10 +304,10 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 
 #define AZContentBounds [[[self window]contentView]bounds]
 
-#define  AZVposi(p) [NSValue valueWithPosition:      p]
-#define AZVpoint(p) [NSValue valueWithPoint:         p]
-#define  AZVrect(r) [NSValue valueWithRect:          r]
-#define  AZVsize(s) [NSValue valueWithSize:          s]
+#define  AZVposi(p) [NSValue valueWithPosition:	  p]
+#define AZVpoint(p) [NSValue valueWithPoint:		 p]
+#define  AZVrect(r) [NSValue valueWithRect:		  r]
+#define  AZVsize(s) [NSValue valueWithSize:		  s]
 #define   AZV3d(t) [NSValue valueWithCATransform3D: t]
 
 #define kContentTitleKey @"itemTitle"
@@ -351,6 +353,9 @@ attr1 relativeTo:relName attribute:attr2 scale:scl offset:off]
 #define rand() (arc4random() % ((unsigned)RAND_MAX + 1))
 
 #define NEG(a) -a
+//#define MAX(a, b) ((a) > (b) ? (a) : (b))
+//#define MIN(a, b) ((a) < (b) ? (a) : (b))
+
 
 #define AZLOG(a) NSLog(@"%@", a)
 
@@ -358,8 +363,8 @@ attr1 relativeTo:relName attribute:attr2 scale:scl offset:off]
 
 #define StringFromBOOL(b) (b?@"YES":@"NO")
 
-//#define YESNO ( b )          ( (b) ? @"YES" : @"NO" )
-//#define YESNO ( b )    b ? @"YES" : @"NO"
+//#define YESNO ( b )		  ( (b) ? @"YES" : @"NO" )
+//#define YESNO ( b )	b ? @"YES" : @"NO"
 
 // degree to radians
 #define ARAD 0.017453f
@@ -421,7 +426,7 @@ attr1 relativeTo:relName attribute:attr2 scale:scl offset:off]
 #define kBlackColor 	[[NSColor  blackColor]	CGColor]
 #define kWhiteColor 	[[NSColor  whiteColor]	CGColor]
 #define kHighlightColor [[NSColor randomColor]  CGColor]
-#define kRedColor   	[[NSColor    redColor]  CGColor]
+#define kRedColor   	[[NSColor	redColor]  CGColor]
 #define kLightBlueColor [[NSColor   blueColor]	CGColor]
 
 #define kTranslucentGrayColor CGColorCreate( kCGColorSpaceGenericGray, {0.0, 0.5, 1.0})
@@ -444,7 +449,7 @@ attr1 relativeTo:relName attribute:attr2 scale:scl offset:off]
 #define RAND_FLOAT_VAL(a,b)		(((((float)arc4random()) * ((b)-(a))) / RAND_UINT_MAX) + (a))
 
 // note: Random doubles will contain more precision than floats, but will NOT utilize the
-//        full precision of the double. They are still limited to the 32-bit precision of arc4random
+//		full precision of the double. They are still limited to the 32-bit precision of arc4random
 // RAND_DOUBLE() double between 0 and 1 (including 0 and 1)
 // RAND_DOUBLE_VAL(a,b) double between a and b (including a and b)
 #define RAND_DOUBLE()			(((double)arc4random()) / RAND_UINT_MAX)
@@ -521,18 +526,18 @@ attr1 relativeTo:relName attribute:attr2 scale:scl offset:off]
 
 
 
-#define $point(A)       	[NSValue valueWithPoint:A]
-#define $points(A,B)       	[NSValue valueWithPoint:CGPointMake(A,B)]
-#define $rect(A,B,C,D)    	[NSValue valueWithRect:CGRectMake(A,B,C,D)]
+#define $point(A)	   	[NSValue valueWithPoint:A]
+#define $points(A,B)	   	[NSValue valueWithPoint:CGPointMake(A,B)]
+#define $rect(A,B,C,D)		[NSValue valueWithRect:CGRectMake(A,B,C,D)]
 
 #define ptmake(A,B)			CGPointMake(A,B)
-#define $(...)        		((NSString *)[NSString stringWithFormat:__VA_ARGS__,nil])
+#define $(...)				((NSString *)[NSString stringWithFormat:__VA_ARGS__,nil])
 #define $array(...)  		((NSArray *)[NSArray arrayWithObjects:__VA_ARGS__,nil])
-#define $set(...)    	 	((NSSet *)[NSSet setWithObjects:__VA_ARGS__,nil])
-#define $map(...)     		((NSDictionary *)[NSDictionary dictionaryWithObjectsAndKeys:__VA_ARGS__,nil])
-#define $int(A)       		[NSNumber numberWithInt:(A)]
-#define $ints(...)    		[NSArray arrayWithInts:__VA_ARGS__,NSNotFound]
-#define $float(A)     		[NSNumber numberWithFloat:(A)]
+#define $set(...)		 	((NSSet *)[NSSet setWithObjects:__VA_ARGS__,nil])
+#define $map(...)	 		((NSDictionary *)[NSDictionary dictionaryWithObjectsAndKeys:__VA_ARGS__,nil])
+#define $int(A)	   		[NSNumber numberWithInt:(A)]
+#define $ints(...)			[NSArray arrayWithInts:__VA_ARGS__,NSNotFound]
+#define $float(A)	 		[NSNumber numberWithFloat:(A)]
 #define $doubles(...) 		[NSArray arrayWithDoubles:__VA_ARGS__,MAXFLOAT]
 #define $words(...)   		[[@#__VA_ARGS__ splitByComma] trimmedStrings]
 //#define $concat(A,...) { A = [A arrayByAddingObjectsFromArray:((NSArray *)[NSArray arrayWithObjects:__VA_ARGS__,nil])]; }
@@ -557,7 +562,7 @@ attr1 relativeTo:relName attribute:attr2 scale:scl offset:off]
 //condition ? result_if_true : result_if_false
 #define LogProps(a) NSLog(@"%@", a.propertiesPlease)
 #define logprop(a) NSLog(@"%@", [a propertiesPlease])
-//#define logobj(a) id logit = a \	     NSLog(@"%@", a)
+//#define logobj(a) id logit = a \		 NSLog(@"%@", a)
 #define desc(a) NSLog(@"%@", [a description])
 
 
@@ -577,9 +582,9 @@ _Pragma("clang diagnostic pop") \
 //#define NSBOOL (_X_) [NSNumber numberWithBool:(_X_)]
 //#define NSSET  (...) [NSSet setWithObjects: __VA_ARGS__, nil]
 
-//#define NSCOLOR       (r,g,b,a) [NSColor colorWithCalibratedRed:r green:g blue:b alpha:a]
+//#define NSCOLOR	   (r,g,b,a) [NSColor colorWithCalibratedRed:r green:g blue:b alpha:a]
 //#define NSDEVICECOLOR (r,g,b,a) [NSColor colorWithDeviceRed:r green:g blue:b alpha:a]
-//#define NSCOLORHSB    (h,s,b,a) [NSColor colorWithDeviceHue:h saturation:s brightness:b alpha:a]
+//#define NSCOLORHSB	(h,s,b,a) [NSColor colorWithDeviceHue:h saturation:s brightness:b alpha:a]
 
 //#pragma - Log Functions
 //
@@ -657,9 +662,9 @@ typedef NS_ENUM(NSUI,  	AZInfiteScale) {
 
 typedef NS_ENUM(NSUI, AZState) {
 	AZIdleState,
-    AZCreatingState,
-    AZModifyingState,
-    AZDeletingState,
+	AZCreatingState,
+	AZModifyingState,
+	AZDeletingState,
 	AZOn,
 	AZOff
 };
@@ -672,14 +677,14 @@ typedef NS_ENUM(NSUI, AZMenuPosition) { AZMenuN,AZMenuS,AZMenuE,AZMenuW,AZMenuPo
 //#ifndef ATOZTOUCH
 typedef NS_ENUM(NSUI, AZWindowPosition) {
 				AZPositionLeft 			= NSMinXEdge, // 0  NSDrawer
-				AZPositionRight         = NSMaxXEdge, // 2  preferredEdge
-				AZPositionTop           = NSMaxYEdge, // 3  compatibility
-				AZPositionBottom        = NSMinYEdge, // 1  numbering!
-				AZPositionTopLeft       = 4,
-				AZPositionBottomLeft    = 5,
-				AZPositionTopRight      = 6,
+				AZPositionRight		 = NSMaxXEdge, // 2  preferredEdge
+				AZPositionTop		   = NSMaxYEdge, // 3  compatibility
+				AZPositionBottom		= NSMinYEdge, // 1  numbering!
+				AZPositionTopLeft	   = 4,
+				AZPositionBottomLeft	= 5,
+				AZPositionTopRight	  = 6,
 				AZPositionBottomRight   = 7,
-				AZPositionAutomatic     = 8
+				AZPositionAutomatic	 = 8
 };// AZWindowPosition;
 
 // NSVALUE defined, see NSValue+AtoZ.h
@@ -721,7 +726,7 @@ BOOL isPathAccessible(NSString *path, SandBox mode);
 void trackMouse();
 // In a header file
 //typedef enum {
-//	JSON = 0,         // explicitly indicate starting index
+//	JSON = 0,		 // explicitly indicate starting index
 //	XML,
 //	Atom,
 //	RSS,
@@ -738,10 +743,10 @@ void trackMouse();
 	//	[RSS] = @"RSS",
 	//};
 //typedef enum {
-//    IngredientType_text  = 0,
-//    IngredientType_audio = 1,
-//    IngredientType_video = 2,
-//    IngredientType_image = 3
+//	IngredientType_text  = 0,
+//	IngredientType_audio = 1,
+//	IngredientType_video = 2,
+//	IngredientType_image = 3
 //} IngredientType;
 	//write a method like this in class:
 	//+ (NSString*)typeStringForType:(IngredientType)_type {
@@ -760,7 +765,7 @@ void trackMouse();
 	//
 
 //typedef struct _GlossParameters{
-//    CGFloat color[4];
+//	CGFloat color[4];
 //	CGFloat caustic[4];
 //	CGFloat expCoefficient;
 //	CGFloat expScale;
@@ -828,20 +833,7 @@ return SC##_sharedInstance; \
 #endif
 #endif
 
-	//  ARC Helper ends
 
-//#ifndef ah_retain
-//#if __has_feature(objc_arc)
-//#define ah_retain self
-//#define ah_dealloc self
-//#define release self
-//#define autorelease self
-//#else
-//#define ah_retain retain
-//#define ah_dealloc dealloc
-//#define __bridge
-//#endif
-//#endif
 ////  Weak delegate support
 //#ifndef ah_weak
 //#import <Availability.h>

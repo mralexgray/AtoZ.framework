@@ -50,7 +50,7 @@ static inline NSRect AZScaleRect(NSRect frame, CGFloat factor) {
 	//AZMultiplySize( frame.size,  factor);
 
 	// NOTE: frame.origin.x -= (frame.size.width - prevSize.width) / 2;
-	//       frame.origin.y -= (frame.size.height - prevSize.height) / 2;
+	//	   frame.origin.y -= (frame.size.height - prevSize.height) / 2;
 	newFrame.origin.x += (prevSize.width - newFrame.size.width) / 2;
 	newFrame.origin.y += (prevSize.height - newFrame.size.height) / 2;
 
@@ -66,18 +66,18 @@ static inline NSRect AZScaleRect(NSRect frame, CGFloat factor) {
 +(AZRect *)rectOf:(id)object;
 +(AZRect *)rectWithRect:(NSRect)rect;
 +(AZRect *)rectWithOrigin:(NSPoint)origin 
-                  andSize:(NSSize)size;
+				  andSize:(NSSize)size;
 +(AZRect *)rectWithX:(CGFloat)x 
-                andY:(CGFloat)y 
-               width:(CGFloat)width 
-              height:(CGFloat)height;
+				andY:(CGFloat)y 
+			   width:(CGFloat)width 
+			  height:(CGFloat)height;
 
 +(BOOL)maybeRect:(id)object;
 
 -(id)initWithRect:(NSRect)rect;
 -(id)initWithSize:(NSSize)size;
 -(id)initFromPoint:(NSPoint)ptOne 
-           toPoint:(NSPoint)ptTwo;
+		   toPoint:(NSPoint)ptTwo;
 - (id) initWithFrame:(NSR)frame inFrame:(NSR)superframe;
 
 @property (assign)   CGPoint anchor, position;

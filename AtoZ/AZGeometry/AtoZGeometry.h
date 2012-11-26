@@ -357,7 +357,7 @@ NSR AZUpperEdge ( NSR rect, CGF height );
 // this will effectively draw the border but clip the inner rect
 
 // Example: AZInsideClip ( NSDrawLightBezel, rect, 2 );
-//          Will draw a 2px light beezel around a rect
+//		  Will draw a 2px light beezel around a rect
 #define AZInsideClip ( METHOD,RECT,BORDER) \
   METHOD ( RECT, AZLeftEdge( RECT, BORDER ) ); \
   METHOD ( RECT, AZRightEdge ( RECT, BORDER ) ); \
@@ -413,14 +413,14 @@ CGP AZRandomPointInRect ( CGRect rect );
 
 /** Returns the center point of a CGRect. */
 static inline CGP AZCenter( CGRect rect ) {
-    return CGPointMake ( CGRectGetMidX ( rect ),CGRectGetMidY ( rect ) );
+	return CGPointMake ( CGRectGetMidX ( rect ),CGRectGetMidY ( rect ) );
 }
 // EOF
 
 //typedef struct _BTFloatRange {
-//    float value;
-//    float location;
-//    float length;
+//	float value;
+//	float location;
+//	float length;
 //} BTFloatRange;
 //
 //

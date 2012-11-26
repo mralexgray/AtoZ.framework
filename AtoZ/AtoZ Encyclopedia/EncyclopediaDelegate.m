@@ -236,7 +236,7 @@
 {
 
 	// Attach/detach window
-    if (!_attachedWindow) {
+	if (!_attachedWindow) {
 		self.attachedWindow = [[AZAttachedWindow alloc] initWithView:_view
 													 attachedToPoint:_attachPoint
 															inWindow:nil
@@ -244,16 +244,16 @@
 														  atDistance:0];
 		[_attachedWindow setHidesOnDeactivate:NO];
 		//[_attachedWindow setBorderColor:BLACK];
-//        [textField setTextColor:WHITE];
-//        [_attachedWindow setBackgroundColor:RED];
-//        [attachedWindow setViewMargin:[viewMarginSlider floatValue]];
-//        [attachedWindow setBorderWidth:[borderWidthSlider floatValue]];
-//        [attachedWindow setCornerRadius:[cornerRadiusSlider floatValue]];
-//        [attachedWindow setHasArrow:([hasArrowCheckbox state] == NSOnState)];
-//        [attachedWindow setDrawsRoundCornerBesideArrow:
+//		[textField setTextColor:WHITE];
+//		[_attachedWindow setBackgroundColor:RED];
+//		[attachedWindow setViewMargin:[viewMarginSlider floatValue]];
+//		[attachedWindow setBorderWidth:[borderWidthSlider floatValue]];
+//		[attachedWindow setCornerRadius:[cornerRadiusSlider floatValue]];
+//		[attachedWindow setHasArrow:([hasArrowCheckbox state] == NSOnState)];
+//		[attachedWindow setDrawsRoundCornerBesideArrow:
 //		 ([drawRoundCornerBesideArrowCheckbox state] == NSOnState)];
-//        [attachedWindow setArrowBaseWidth:[arrowBaseWidthSlider floatValue]];
-//        [attachedWindow setArrowHeight:[arrowHeightSlider
+//		[attachedWindow setArrowBaseWidth:[arrowBaseWidthSlider floatValue]];
+//		[attachedWindow setArrowHeight:[arrowHeightSlider
 
 //		[_mainWindow addChildWindow:_attachedWindow ordered:NSWindowAbove];
 		[_attachedWindow setAlphaValue:0.0];
@@ -263,12 +263,12 @@
 		[[_attachedWindow animator] setAlphaValue:1.0];
 		[NSAnimationContext endGrouping];
 
-    } else {
-        [_mainWindow removeChildWindow:_attachedWindow];
-        [_attachedWindow orderOut:self];
-        [_attachedWindow release];
-        _attachedWindow = nil;
-    }
+	} else {
+		[_mainWindow removeChildWindow:_attachedWindow];
+		[_attachedWindow orderOut:self];
+		[_attachedWindow release];
+		_attachedWindow = nil;
+	}
 }
 //-(void)trackerDidReceiveEvent:(NSEvent*)event inRect:(NSRect)theRect {
 

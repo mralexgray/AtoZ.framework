@@ -81,7 +81,7 @@
 		sender.anchorPoint 	= self.superlayer.anchorPoint;
 		sender.bounds 		= NSInsetRect(layer.bounds, _dynamicStroke, _dynamicStroke);
 		sender.fillColor 	= cgCLEARCOLOR;
-		sender.lineWidth    = half;
+		sender.lineWidth	= half;
 		sender.lineJoin		= kCALineJoinRound;
 		sender.path			= [_bPath.copy quartzPath];
 	}];

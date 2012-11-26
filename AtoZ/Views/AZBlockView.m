@@ -10,8 +10,8 @@
 //@implementation AZBlockView
 //@synthesize drawBlock, opaque;
 //+ (AZBlockView *)viewWithFrame:(NSRect)frame 
-//                         opaque:(BOOL)opaque
-//                drawnUsingBlock:(AZBlockViewDrawer)theDrawBlock
+//						 opaque:(BOOL)opaque
+//				drawnUsingBlock:(AZBlockViewDrawer)theDrawBlock
 //{
 ////	__block __typeof__(self)
 //	AZBlockView *view = [[AZBlockView alloc] initWithFrame:frame];

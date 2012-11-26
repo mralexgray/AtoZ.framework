@@ -52,18 +52,18 @@ extern void disableCA();
 + (CAAnimation*)randomPathAnimationWithStartingPoint:(CGPoint)firstPoint inFrame:(NSR)rect;
 + (CAAnimation*)randomPathAnimationInFrame:(NSRect) frame;
 
-+ (CAKA*)           popInAnimation;
++ (CAKA*)		   popInAnimation;
 + (CAAG*)   shrinkAnimationAtPoint: (CGPoint)p;
 + (CAAG*)   blowupAnimationAtPoint: (CGPoint)p;
-+ (CAA*)            shakeAnimation;
-+ (CAA*)       animationForOpacity;
-//+ (CAA*)         animationForScale;
-//+ (CAA*)      animationForRotation;
++ (CAA*)			shakeAnimation;
++ (CAA*)	   animationForOpacity;
+//+ (CAA*)		 animationForScale;
+//+ (CAA*)	  animationForRotation;
 //+ (CAA*) flipAnimationWithDuration: (NSTI)aDur;
-+ (CAA*)                  flipDown: (NSTI)aDur  scaleFactor: (CGF)scale;
-+ (CAA*) 	       animationOnPath: (CGPR)path  duration:    (CFTI)d 	  timeOffset: (CFTI)o;
-//+ (CAA*)    colorAnimationForLayer: (CAL*)layer start:       (NSC*)c1  	  end: (NSC*)c2;
-+ (CAA*)   rotateAnimationForLayer: (CAL*)layer start:       (CGF)fl1     end: (CGF)fl1;
++ (CAA*)				  flipDown: (NSTI)aDur  scaleFactor: (CGF)scale;
++ (CAA*) 		   animationOnPath: (CGPR)path  duration:	(CFTI)d 	  timeOffset: (CFTI)o;
+//+ (CAA*)	colorAnimationForLayer: (CAL*)layer start:	   (NSC*)c1  	  end: (NSC*)c2;
++ (CAA*)   rotateAnimationForLayer: (CAL*)layer start:	   (CGF)fl1	 end: (CGF)fl1;
 
 
 //- (CAAnimation *)rotateAnimationFrom:(NSNumber*)startDegree to:(NSNumber*)endDegrees;

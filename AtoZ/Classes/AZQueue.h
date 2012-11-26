@@ -4,7 +4,7 @@
 #import <Foundation/Foundation.h>
 
 @interface AZQueue : NSObject {
-    NSMutableArray* array;
+	NSMutableArray* array;
 }
 
 // Removes and returns the element at the front of the queue

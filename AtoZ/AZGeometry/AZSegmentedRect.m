@@ -25,8 +25,8 @@
 }
 
 +(AZSegmentedRect *)rectWithRect:(NSRect)rect
-                           width:(NSUInteger)wv
-                          height:(NSUInteger)hv
+						   width:(NSUInteger)wv
+						  height:(NSUInteger)hv
 {
 	AZSegmentedRect *re = [[AZSegmentedRect alloc] initWithRect:rect];
 	re.horizontalSegments = wv;
@@ -111,7 +111,7 @@
 	return [self pointOfSegmentAtX:pt.x y:pt.y];
 }
 -(NSPoint)pointOfSegmentAtX:(NSUInteger)vx
-                          y:(NSUInteger)vy
+						  y:(NSUInteger)vy
 {
 	NSSize size = self.segmentSize;
 	return NSMakePoint(x + ((CGFloat)vx) * size.width,
@@ -123,7 +123,7 @@
 	return [self rectOfSegmentAtX:pt.x y:pt.y];
 }
 -(NSRect)rectOfSegmentAtX:(NSUInteger)vx
-                        y:(NSUInteger)vy
+						y:(NSUInteger)vy
 {
 	NSSize size = self.segmentSize;
 	return NSMakeRect(x + ((CGFloat)vx) * size.width,
@@ -140,7 +140,7 @@
 	return [self segmentAtX:pt.x y:pt.y];
 }
 -(AZRect *)segmentAtX:(NSUInteger)vx
-                    y:(NSUInteger)vy
+					y:(NSUInteger)vy
 {
 	return [AZRect rectWithRect:[self rectOfSegmentAtX:vx y:vy]];
 }
@@ -185,7 +185,7 @@
 	return [AZSegmentedRect rectWithRect:self.rect cubicSize:size];
 }
 -(AZSegmentedRect *)segmentedRectWithWidth:(NSUInteger)wv
-                                    height:(NSUInteger)hv
+									height:(NSUInteger)hv
 {
 	return [AZSegmentedRect rectWithRect:self.rect width:hv height:wv];
 }
@@ -193,7 +193,7 @@
 @implementation NSBezierPath (AZSegmentedRect)
 
 -(id)traverseSegments:(NSString *)segmentDefinition
-               inRect:(AZSegmentedRect *)segmentedRect
+			   inRect:(AZSegmentedRect *)segmentedRect
 {
 		// traversion ops:
 		// 0 moveTo
@@ -281,9 +281,9 @@
 			[self lineToPoint:points[0]];
 		} else if (op == 2) {
 				//NSLog(@"curve to %@ with %@ and %@",
-				//      NSStringFromPoint(points[0]),
-				//      NSStringFromPoint(points[1]),
-				//      NSStringFromPoint(points[2]));
+				//	  NSStringFromPoint(points[0]),
+				//	  NSStringFromPoint(points[1]),
+				//	  NSStringFromPoint(points[2]));
 			[self curveToPoint:points[0]
 				 controlPoint1:points[1]
 				 controlPoint2:points[2]];

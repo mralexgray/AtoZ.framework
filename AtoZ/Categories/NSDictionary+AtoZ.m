@@ -21,16 +21,16 @@
 
 - (void)setColor:(NSColor *)aColor forKey:(NSString *)aKey
 {
-    NSData *theData=[NSArchiver archivedDataWithRootObject:aColor];
-    self[aKey] = theData;
+	NSData *theData=[NSArchiver archivedDataWithRootObject:aColor];
+	self[aKey] = theData;
 }
 
 - (NSColor *)colorForKey:(NSString *)aKey
 {
-    NSColor *theColor = nil;
-    NSData *theData = self[aKey];
-    if (theData != nil) theColor=(NSColor *)[NSUnarchiver unarchiveObjectWithData:theData];
-    return theColor;
+	NSColor *theColor = nil;
+	NSData *theData = self[aKey];
+	if (theData != nil) theColor=(NSColor *)[NSUnarchiver unarchiveObjectWithData:theData];
+	return theColor;
 }
 
 @end
@@ -196,8 +196,8 @@
 
 - (id)findDictionaryWithValue:(id)value
 {
-    __block id match = nil;
-    [self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+	__block id match = nil;
+	[self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 		match = [obj isKindOfClass:[NSArray class]] ? [self findDictionaryWithValue:value]
 		: [obj isKindOfClass:[NSDictionary class]]  ? [(NSD*)obj findDictionaryWithValue:value] : nil;
 		*stop = (match!=nil);
@@ -218,26 +218,26 @@
 //  		[self.allKeys each:^(NSS* k){
 //			id obj = [self objectForKey:k];
 //			if([obj isKindOfClass:[NSDictionary class]]) {
-//            // we found a child dictionary, let's traverse it
-//            NSDictionary *d = (NSDictionary *)obj;
-//            id child = [d recursiveObjectForKey:key];
-//            if(child) return child;
-//        }
+//			// we found a child dictionary, let's traverse it
+//			NSDictionary *d = (NSDictionary *)obj;
+//			id child = [d recursiveObjectForKey:key];
+//			if(child) return child;
+//		}
 //	else if([obj isKindOfClass:[NSArray class]]) {
-//            // loop through the NSArray and traverse any dictionaries found
-//            NSArray *a = (NSArray *)obj;
-//            for(id child in a) {
-//                if([child isKindOfClass:[NSDictionary class]]) {
-//                    NSDictionary *d = (NSDictionary *)child;
-//                    id o = [d recursiveObjectForKey:key];
-//                    if(o) return o;
-//                }
-//            }
-//        }
-//    }
+//			// loop through the NSArray and traverse any dictionaries found
+//			NSArray *a = (NSArray *)obj;
+//			for(id child in a) {
+//				if([child isKindOfClass:[NSDictionary class]]) {
+//					NSDictionary *d = (NSDictionary *)child;
+//					id o = [d recursiveObjectForKey:key];
+//					if(o) return o;
+//				}
+//			}
+//		}
+//	}
 ////
-////    // the key was not found in this dictionary or any of it's children
-////    return nil;
+////	// the key was not found in this dictionary or any of it's children
+////	return nil;
 //}
 
 
@@ -248,12 +248,12 @@
 //{
 // 	NSA* u = [self findDictionaryWithValue:<#(id)#>:^id(id obj) {
 //		if ( [obj isKindOfClass:[NSDictionary class]]) {
-//                if([child isKindOfClass:[NSDictionary class]]) {
-//                    NSDictionary *d = (NSDictionary *)child;
-//                    id o = [d recursiveObjectForKey:key];
-//                    if(o) return o;
-//                }
-//            }
+//				if([child isKindOfClass:[NSDictionary class]]) {
+//					NSDictionary *d = (NSDictionary *)child;
+//					id o = [d recursiveObjectForKey:key];
+//					if(o) return o;
+//				}
+//			}
 
 @end
 
@@ -263,65 +263,65 @@
 //{
 //	__block NSMA *bag = [NSMA array];
 //   if([self.allKeys containsObject:key]) {
-//        // this dictionary contains the key, return the value
-//        return [self objectForKey:key];
-//    }
-//     
-//    for(NSString *k in self.allKeys) {
-//        id obj = [self objectForKey:k];
-//        if([obj isKindOfClass:[NSDictionary class]]) {
-//            // we found a child dictionary, let's traverse it
-//            NSDictionary *d = (NSDictionary *)obj;
-//            id child = [d recursiveObjectForKey:key];
-//            if(child) return child;
-//        } else if([obj isKindOfClass:[NSArray class]]) {
-//            // loop through the NSArray and traverse any dictionaries found
-//            NSArray *a = (NSArray *)obj;
-//            for(id child in a) {
-//                if([child isKindOfClass:[NSDictionary class]]) {
-//                    NSDictionary *d = (NSDictionary *)child;
-//                    id o = [d recursiveObjectForKey:key];
-//                    if(o) return o;
-//                }
-//            }
-//        }
-//    }
-//     
-//    // the key was not found in this dictionary or any of it's children
-//    return nil;
+//		// this dictionary contains the key, return the value
+//		return [self objectForKey:key];
+//	}
+//	 
+//	for(NSString *k in self.allKeys) {
+//		id obj = [self objectForKey:k];
+//		if([obj isKindOfClass:[NSDictionary class]]) {
+//			// we found a child dictionary, let's traverse it
+//			NSDictionary *d = (NSDictionary *)obj;
+//			id child = [d recursiveObjectForKey:key];
+//			if(child) return child;
+//		} else if([obj isKindOfClass:[NSArray class]]) {
+//			// loop through the NSArray and traverse any dictionaries found
+//			NSArray *a = (NSArray *)obj;
+//			for(id child in a) {
+//				if([child isKindOfClass:[NSDictionary class]]) {
+//					NSDictionary *d = (NSDictionary *)child;
+//					id o = [d recursiveObjectForKey:key];
+//					if(o) return o;
+//				}
+//			}
+//		}
+//	}
+//	 
+//	// the key was not found in this dictionary or any of it's children
+//	return nil;
 //
 //
 //}
 
 
 - (id) recursiveObjectForKey:(NSString *)key {
-    if([self.allKeys containsObject:key]) {
-        // this dictionary contains the key, return the value
-        return [self objectForKey:key];
-    }
-     
-    for(NSString *k in self.allKeys) {
-        id obj = [self objectForKey:k];
-        if([obj isKindOfClass:[NSDictionary class]]) {
-            // we found a child dictionary, let's traverse it
-            NSDictionary *d = (NSDictionary *)obj;
-            id child = [d recursiveObjectForKey:key];
-            if(child) return child;
-        } else if([obj isKindOfClass:[NSArray class]]) {
-            // loop through the NSArray and traverse any dictionaries found
-            NSArray *a = (NSArray *)obj;
-            for(id child in a) {
-                if([child isKindOfClass:[NSDictionary class]]) {
-                    NSDictionary *d = (NSDictionary *)child;
-                    id o = [d recursiveObjectForKey:key];
-                    if(o) return o;
-                }
-            }
-        }
-    }
-     
-    // the key was not found in this dictionary or any of it's children
-    return nil;
+	if([self.allKeys containsObject:key]) {
+		// this dictionary contains the key, return the value
+		return [self objectForKey:key];
+	}
+	 
+	for(NSString *k in self.allKeys) {
+		id obj = [self objectForKey:k];
+		if([obj isKindOfClass:[NSDictionary class]]) {
+			// we found a child dictionary, let's traverse it
+			NSDictionary *d = (NSDictionary *)obj;
+			id child = [d recursiveObjectForKey:key];
+			if(child) return child;
+		} else if([obj isKindOfClass:[NSArray class]]) {
+			// loop through the NSArray and traverse any dictionaries found
+			NSArray *a = (NSArray *)obj;
+			for(id child in a) {
+				if([child isKindOfClass:[NSDictionary class]]) {
+					NSDictionary *d = (NSDictionary *)child;
+					id o = [d recursiveObjectForKey:key];
+					if(o) return o;
+				}
+			}
+		}
+	}
+	 
+	// the key was not found in this dictionary or any of it's children
+	return nil;
 }
 
 
@@ -331,7 +331,7 @@
 	[self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
 		match = [obj isEqual:value] ? self
 			  :	[obj isKindOfClass:[NSArray class]] ? [obj findDictionaryWithValue:value]
-			  : [obj isKindOfClass:[self class]]    ? [obj findDictionaryWithValue:value] : nil;
+			  : [obj isKindOfClass:[self class]]	? [obj findDictionaryWithValue:value] : nil;
 		*stop = (match!=nil);
 	}];
 	return match;
@@ -399,11 +399,11 @@
 #endif
 static NSString *PropertyNameFromSetter(NSString *setterName)
 {
-	setterName = [setterName substringFromIndex:3];                // Remove "set"
+	setterName = [setterName substringFromIndex:3];				// Remove "set"
 	NSString *firstChar = [[setterName substringToIndex:1] lowercaseString];
 	NSString *tail = [setterName substringFromIndex:1];
-	tail = [tail substringToIndex:[tail length] - 1];        // Remove ":"
-	return [firstChar stringByAppendingString:tail];        // Convert first char to lowercase.
+	tail = [tail substringToIndex:[tail length] - 1];		// Remove ":"
+	return [firstChar stringByAppendingString:tail];		// Convert first char to lowercase.
 }
 static id DynamicDictionaryGetter(id self, SEL _cmd)
 {
@@ -538,79 +538,79 @@ static void DynamicDictionarySetter(id self, SEL _cmd, id value)
 /*" Returns an object which is a shallow copy of the receiver except that the key-value pairs from aDictionary are included (overriding existing key-value associations if they existed). "*/
 
 //struct dictByAddingContext {
-//    id *keys;
-//    id *values;
-//    NSUInteger kvPairsUsed;
-//    BOOL differs;
-//    CFDictionaryRef older, newer;
+//	id *keys;
+//	id *values;
+//	NSUInteger kvPairsUsed;
+//	BOOL differs;
+//	CFDictionaryRef older, newer;
 //};
 
 //static void copyWithOverride(const void *aKey, const void *aValue, void *_context)
 //{
-//    struct dictByAddingContext *context = _context;
-//    NSUInteger used = context->kvPairsUsed;
+//	struct dictByAddingContext *context = _context;
+//	NSUInteger used = context->kvPairsUsed;
 //
-//    const void *otherValue = CFDictionaryGetValue(context->newer, aKey);
-//    if (otherValue && otherValue != aValue) {
-//        context->values[used] = (id)otherValue;
-//        context->differs = YES;
-//    } else {
-//        context->values[used] = (id)aValue;
-//    }
-//    context->keys[used] = (id)aKey;
-//    context->kvPairsUsed = used+1;
+//	const void *otherValue = CFDictionaryGetValue(context->newer, aKey);
+//	if (otherValue && otherValue != aValue) {
+//		context->values[used] = (id)otherValue;
+//		context->differs = YES;
+//	} else {
+//		context->values[used] = (id)aValue;
+//	}
+//	context->keys[used] = (id)aKey;
+//	context->kvPairsUsed = used+1;
 //}
 
 //static void copyNewItems(const void *aKey, const void *aValue, void *_context)
 //{
-//    struct dictByAddingContext *context = _context;
+//	struct dictByAddingContext *context = _context;
 //
-//    if(CFDictionaryContainsKey(context->older, aKey)) {
+//	if(CFDictionaryContainsKey(context->older, aKey)) {
 //			// Value will already have been chaecked by copyWithOverride().
-//    } else {
-//        NSUInteger used = context->kvPairsUsed;
-//        context->keys[used] = (id)aKey;
-//        context->values[used] = (id)aValue;
-//        context->differs = YES;
-//        context->kvPairsUsed = used+1;
-//    }
+//	} else {
+//		NSUInteger used = context->kvPairsUsed;
+//		context->keys[used] = (id)aKey;
+//		context->values[used] = (id)aValue;
+//		context->differs = YES;
+//		context->kvPairsUsed = used+1;
+//	}
 //}
 
 //- (NSDictionary *)dictionaryByAddingObjectsFromDictionary:(NSDictionary *)otherDictionary;
 //{
-//    struct dictByAddingContext context;
+//	struct dictByAddingContext context;
 //
-//    if (!otherDictionary)
-//        goto nochange_noalloc;
+//	if (!otherDictionary)
+//		goto nochange_noalloc;
 //
-//    NSUInteger myKeyCount = [self count];
-//    NSUInteger otherKeyCount = [otherDictionary count];
+//	NSUInteger myKeyCount = [self count];
+//	NSUInteger otherKeyCount = [otherDictionary count];
 //
-//    if (!otherKeyCount)
-//        goto nochange_noalloc;
+//	if (!otherKeyCount)
+//		goto nochange_noalloc;
 //
-//    context.keys = calloc(myKeyCount+otherKeyCount, sizeof(*(context.keys)));
-//    context.values = calloc(myKeyCount+otherKeyCount, sizeof(*(context.values)));
-//    context.kvPairsUsed = 0;
-//    context.differs = NO;
-//    context.older = (CFDictionaryRef)self;
-//    context.newer = (CFDictionaryRef)otherDictionary;
+//	context.keys = calloc(myKeyCount+otherKeyCount, sizeof(*(context.keys)));
+//	context.values = calloc(myKeyCount+otherKeyCount, sizeof(*(context.values)));
+//	context.kvPairsUsed = 0;
+//	context.differs = NO;
+//	context.older = (CFDictionaryRef)self;
+//	context.newer = (CFDictionaryRef)otherDictionary;
 //
-//    CFDictionaryApplyFunction((CFDictionaryRef)self, copyWithOverride, &context);
-//    CFDictionaryApplyFunction((CFDictionaryRef)otherDictionary, copyNewItems, &context);
-//    if (!context.differs)
-//        goto nochange;
+//	CFDictionaryApplyFunction((CFDictionaryRef)self, copyWithOverride, &context);
+//	CFDictionaryApplyFunction((CFDictionaryRef)otherDictionary, copyNewItems, &context);
+//	if (!context.differs)
+//		goto nochange;
 //
-//    NSDictionary *newDictionary = [NSDictionary dictionaryWithObjects:context.values forKeys:context.keys count:context.kvPairsUsed];
-//    free(context.keys);
-//    free(context.values);
-//    return newDictionary;
+//	NSDictionary *newDictionary = [NSDictionary dictionaryWithObjects:context.values forKeys:context.keys count:context.kvPairsUsed];
+//	free(context.keys);
+//	free(context.values);
+//	return newDictionary;
 //
 //nochange:
-//    free(context.keys);
-//    free(context.values);
+//	free(context.keys);
+//	free(context.values);
 //nochange_noalloc:
-//    return [NSDictionary dictionaryWithDictionary:self];
+//	return [NSDictionary dictionaryWithDictionary:self];
 //}
 
 - (NSString *)keyForObjectEqualTo:(id)anObject;
@@ -1127,14 +1127,14 @@ NSString *DescriptionForObject(NSObject *object, id locale, NSUInteger indent)
 	NSUInteger i, count = level;
 	for (i = 0; i < count; i++)
 	{
-		[indentString appendFormat:@"    "];
+		[indentString appendFormat:@"	"];
 	}
 
 	NSMutableString *description = [NSMutableString string];
 	[description appendFormat:@"%@{\n", indentString];
 	for (NSObject *key in self)
 	{
-		[description appendFormat:@"%@    %@ = %@;\n",
+		[description appendFormat:@"%@	%@ = %@;\n",
 		 indentString,
 		 DescriptionForObject(key, locale, level),
 		 DescriptionForObject([self objectForKey:key], locale, level)];

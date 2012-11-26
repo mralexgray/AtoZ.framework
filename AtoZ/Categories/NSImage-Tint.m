@@ -129,7 +129,7 @@
 			operation:NSCompositeCopy
 			 fraction:1.0] ;
 
-    NSBezierPath* path = [NSBezierPath bezierPath] ;
+	NSBezierPath* path = [NSBezierPath bezierPath] ;
 
 	//[[NSColor colorWithCalibratedWhite:0.0 alpha:0.7] set] ;
 	[[NSColor grayColor] setStroke] ;
@@ -167,7 +167,7 @@
 			operation:NSCompositeCopy
 			 fraction:1.0] ;
 
-    NSBezierPath* path = [NSBezierPath bezierPath] ;
+	NSBezierPath* path = [NSBezierPath bezierPath] ;
 
 	//[[NSColor colorWithCalibratedWhite:0.0 alpha:0.7] set] ;
 	[[NSColor grayColor] setStroke] ;
@@ -204,129 +204,129 @@
 @implementation NSImage(BBlock)
 
 + (NSCache *)drawingCache{
-    static NSCache *cache = nil;
-    static dispatch_once_t predicate;
-    dispatch_once(&predicate, ^{
-        cache = [[NSCache alloc] init];
-    });
-    return cache;
+	static NSCache *cache = nil;
+	static dispatch_once_t predicate;
+	dispatch_once(&predicate, ^{
+		cache = [[NSCache alloc] init];
+	});
+	return cache;
 }
 
 + (NSImage *)imageForSize:(NSSize)size withDrawingBlock:(void(^)())drawingBlock{
-    if(size.width <= 0 || size.width <= 0){
-        return nil;
-    }
+	if(size.width <= 0 || size.width <= 0){
+		return nil;
+	}
 
-    NSImage *image = [[NSImage alloc] initWithSize:size];
-    [image lockFocus];
-    drawingBlock();
-    [image unlockFocus];
+	NSImage *image = [[NSImage alloc] initWithSize:size];
+	[image lockFocus];
+	drawingBlock();
+	[image unlockFocus];
 #if !__has_feature(objc_arc)
-    return [image autorelease];
+	return [image autorelease];
 #else
-    return image;
+	return image;
 #endif
 }
 
 + (NSImage *)imageWithIdentifier:(NSString *)identifier forSize:(NSSize)size andDrawingBlock:(void(^)())drawingBlock{
-    NSImage *image = [[[self class] drawingCache] objectForKey:identifier];
-    if(image == nil){
-        image = [[self class] imageForSize:size withDrawingBlock:drawingBlock];
-        [[[self class] drawingCache] setObject:image forKey:identifier];
-    }
-    return image;
+	NSImage *image = [[[self class] drawingCache] objectForKey:identifier];
+	if(image == nil){
+		image = [[self class] imageForSize:size withDrawingBlock:drawingBlock];
+		[[[self class] drawingCache] setObject:image forKey:identifier];
+	}
+	return image;
 }
 
 @end
 CGFloat const TBITintMatrixGrayscale[] = {
-    0.3, 0.59, 0.11,
-    0.3, 0.59, 0.11,
-    0.3, 0.59, 0.11
+	0.3, 0.59, 0.11,
+	0.3, 0.59, 0.11,
+	0.3, 0.59, 0.11
 };
 
 CGFloat const TBITintMatrixSepia[] = {
-    0.393, 0.769, 0.189,
-    0.349, 0.686, 0.168,
-    0.272, 0.534, 0.131
+	0.393, 0.769, 0.189,
+	0.349, 0.686, 0.168,
+	0.272, 0.534, 0.131
 };
 
 CGFloat const TBITintMatrixBluetone[] = {
-    0.272, 0.534, 0.131,
-    0.349, 0.686, 0.168,
-    0.393, 0.769, 0.189
+	0.272, 0.534, 0.131,
+	0.349, 0.686, 0.168,
+	0.393, 0.769, 0.189
 };
 
 void
 tint_pixel_rgb (unsigned char *bitmapData, int red_index, const CGFloat *matrix)
 {
-    int green_index = red_index + 1;
-    int blue_index = red_index + 2;
-    
-    CGFloat red = bitmapData[red_index];
-    CGFloat green = bitmapData[green_index] ;
-    CGFloat blue = bitmapData[blue_index];
-    
-    bitmapData[red_index] = MIN (red * matrix[0] + green * matrix[1] + blue * matrix[2], 255.0f); // red
-    bitmapData[green_index] = MIN (red * matrix[3] + green * matrix[4] + blue * matrix[5], 255.0f); // green
-    bitmapData[blue_index] = MIN (red * matrix[6] + green * matrix[7] + blue * matrix[8], 255.0f); // blue    
+	int green_index = red_index + 1;
+	int blue_index = red_index + 2;
+	
+	CGFloat red = bitmapData[red_index];
+	CGFloat green = bitmapData[green_index] ;
+	CGFloat blue = bitmapData[blue_index];
+	
+	bitmapData[red_index] = MIN (red * matrix[0] + green * matrix[1] + blue * matrix[2], 255.0f); // red
+	bitmapData[green_index] = MIN (red * matrix[3] + green * matrix[4] + blue * matrix[5], 255.0f); // green
+	bitmapData[blue_index] = MIN (red * matrix[6] + green * matrix[7] + blue * matrix[8], 255.0f); // blue	
 }
 
 @implementation NSImage (Tint)
 
 - (NSImage *)tintWithMatrix:(const CGFloat *)matrix;
 {
-    NSBitmapImageRep *bitmap = [[NSBitmapImageRep alloc] initWithData:[self TIFFRepresentation]];
-    
-    NSSize imageSize = [bitmap size];
-    
-    int pixels = imageSize.height * [bitmap bytesPerRow];
-    unsigned char *bitmapData = [bitmap bitmapData];
-    int samplesPerPixel = [bitmap samplesPerPixel];
-    
-    NSDate *start = [NSDate date];
+	NSBitmapImageRep *bitmap = [[NSBitmapImageRep alloc] initWithData:[self TIFFRepresentation]];
+	
+	NSSize imageSize = [bitmap size];
+	
+	int pixels = imageSize.height * [bitmap bytesPerRow];
+	unsigned char *bitmapData = [bitmap bitmapData];
+	int samplesPerPixel = [bitmap samplesPerPixel];
+	
+	NSDate *start = [NSDate date];
 
 #if __MAC_OS_X_VERSION_MIN_REQUIRED >= 1060 // libdispatch is only available on Mac OS X 10.6 or later.
-    int stride = [bitmap bytesPerRow] / samplesPerPixel;
-    dispatch_apply(pixels / samplesPerPixel / stride,
-                   dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),
-                   ^(size_t i){
-                       size_t j = i * samplesPerPixel * stride;
-                       size_t jStop = j + samplesPerPixel * stride;
-                       
-                       do {
-                           tint_pixel_rgb(bitmapData, j, matrix);
-                           
-                           j += samplesPerPixel;
-                       } while (j < jStop);
-                   });
+	int stride = [bitmap bytesPerRow] / samplesPerPixel;
+	dispatch_apply(pixels / samplesPerPixel / stride,
+				   dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),
+				   ^(size_t i){
+					   size_t j = i * samplesPerPixel * stride;
+					   size_t jStop = j + samplesPerPixel * stride;
+					   
+					   do {
+						   tint_pixel_rgb(bitmapData, j, matrix);
+						   
+						   j += samplesPerPixel;
+					   } while (j < jStop);
+				   });
 #else
-    for (int i = 0; i < pixels; i = i + samplesPerPixel) {
-        tint_pixel_rgb(bitmapData, i, matrix);
-    }
+	for (int i = 0; i < pixels; i = i + samplesPerPixel) {
+		tint_pixel_rgb(bitmapData, i, matrix);
+	}
 #endif
 
-    NSImage *image = [[NSImage alloc] initWithSize:[bitmap size]];
-    [image addRepresentation:bitmap];
-        
-    NSTimeInterval elapsedSeconds = -[start timeIntervalSinceNow];
-    NSLog(@"Elapsed time: %.2f ms", elapsedSeconds * 1000);
-    
-    return image;
+	NSImage *image = [[NSImage alloc] initWithSize:[bitmap size]];
+	[image addRepresentation:bitmap];
+		
+	NSTimeInterval elapsedSeconds = -[start timeIntervalSinceNow];
+	NSLog(@"Elapsed time: %.2f ms", elapsedSeconds * 1000);
+	
+	return image;
 }
 
 - (NSImage *)grayscaleImage
 {
-    return [self tintWithMatrix:TBITintMatrixGrayscale];
+	return [self tintWithMatrix:TBITintMatrixGrayscale];
 }
 
 - (NSImage *)sepiaImage
 {
-    return [self tintWithMatrix:TBITintMatrixSepia];
+	return [self tintWithMatrix:TBITintMatrixSepia];
 }
 
 - (NSImage *)bluetoneImage
 {
-    return [self tintWithMatrix:TBITintMatrixBluetone];
+	return [self tintWithMatrix:TBITintMatrixBluetone];
 }
 
 @end

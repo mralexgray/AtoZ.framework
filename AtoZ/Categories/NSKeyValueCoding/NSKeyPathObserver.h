@@ -4,14 +4,14 @@
 @class NSMutableDictionary;
 
 @interface NSKeyPathObserver : NSObject {
-   id                         _object;
-   id                         _observer;
-   NSString                  *_keyPath;
+   id						 _object;
+   id						 _observer;
+   NSString				  *_keyPath;
    NSKeyValueObservingOptions _options;
-   void                      *_context;
+   void					  *_context;
    
-   NSInteger                  _willChangeCount;
-   NSMutableDictionary       *_changeDictionary;
+   NSInteger				  _willChangeCount;
+   NSMutableDictionary	   *_changeDictionary;
 }
 
 -initWithObject:object observer:observer keyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options context:(void *)context;

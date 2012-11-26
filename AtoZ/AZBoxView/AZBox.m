@@ -22,17 +22,17 @@
 			representedObject = representedObject_;
 
 - (id)initWithFrame:(NSRect)frame representing:(id)object atIndex:(NSUInteger)anIndex {
-    if ((self = [super initWithFrame:frame] )) {
-        [self defaults];
+	if ((self = [super initWithFrame:frame] )) {
+		[self defaults];
 		close = [[NSButton alloc]initWithFrame:NSMakeRect(0,0,10,10)];
 		[close setButtonType:NSRegularSquareBezelStyle];
 		[close setAction:@selector(removeFromSuperview)];
 		[close setTarget:self];
 		[self addSubview:close];
-        self.representedObject = object;
-        self.index = anIndex;
-    }
-    return self;
+		self.representedObject = object;
+		self.index = anIndex;
+	}
+	return self;
 }
 - (void) defaults {
 	self.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
@@ -56,11 +56,11 @@
 }
 
 - (id)initWithReuseIdentifier:(NSString *)anIdentifier {
-    if((self = [super initWithFrame:NSZeroRect]))     {
-    	[self defaults];
+	if((self = [super initWithFrame:NSZeroRect]))	 {
+		[self defaults];
 		cellIdentifier = anIdentifier;
 	}
-    return self;
+	return self;
 }
 
 - (void)setRepresentedObject:(id)representedObject {
@@ -99,13 +99,13 @@
 }
 - (id)initWithFrame:(NSRect)frame
 {
-    self = [super initWithFrame:frame];
-    if (self) {
+	self = [super initWithFrame:frame];
+	if (self) {
 		tArea = [[NSTrackingArea alloc] initWithRect:[self frame]
 			options:[self trackoptions] owner:self userInfo:nil];
 		[self addTrackingArea:tArea];
-    }
-    return self;
+	}
+	return self;
 }
 
 - (NSTrackingAreaOptions) trackoptions {
@@ -155,10 +155,10 @@
 - (void)drawRect:(NSRect)dirtyRect
 {
 //	[NSGraphicsContext saveGraphicsState];
-	//        NSBezierPath *outerClip = [NSBezierPath bezierPathWithRoundedRect:frame xRadius:_radius yRadius:_radius];
-	//        [outerClip setClip];
-	//        NSGradient *outerGradient = [[NSGradient alloc] initWithColorsAndLocations: [NSColor colorWithDeviceWhite:0.20f alpha:1.0f], 0.0f,  [NSColor colorWithDeviceWhite:0.21f alpha:1.0f], 1.0f,  nil];
-	//        [outerGradient drawInRect:[outerClip bounds] angle:90.0f]; }
+	//		NSBezierPath *outerClip = [NSBezierPath bezierPathWithRoundedRect:frame xRadius:_radius yRadius:_radius];
+	//		[outerClip setClip];
+	//		NSGradient *outerGradient = [[NSGradient alloc] initWithColorsAndLocations: [NSColor colorWithDeviceWhite:0.20f alpha:1.0f], 0.0f,  [NSColor colorWithDeviceWhite:0.21f alpha:1.0f], 1.0f,  nil];
+	//		[outerGradient drawInRect:[outerClip bounds] angle:90.0f]; }
 	standard = [self pathWithInset:self.inset];
 //	if ( standard ) {
 //	[standard setLineWidth:0];
@@ -192,10 +192,10 @@
 		[image setSize: NSMakeSize(smallest, smallest)];
 		[image compositeToPoint:AZCenterOfRect([self bounds]) operation:NSCompositeSourceOver]; //  NSMakePoint(halfW/2+self.inset,halfH/2+self.inset)
 	}
-	//        [[NSColor colorWithDeviceWhite:0.12f alpha:1.0f] setStroke];
-//        [[NSBezierPath bezierPathWithRoundedRect:NSInsetRect([self bounds], 1.5f, 1.5f) xRadius:self.radius yRadius:self.radius] stroke];
-//        [[NSColor colorWithDeviceWhite:1.0f alpha:0.1f] setStroke];
-//        [[NSBezierPath bezierPathWithRoundedRect:NSInsetRect([self bounds], 2.5f, 2.5f) xRadius:self.radius yRadius:self.radius] stroke];
+	//		[[NSColor colorWithDeviceWhite:0.12f alpha:1.0f] setStroke];
+//		[[NSBezierPath bezierPathWithRoundedRect:NSInsetRect([self bounds], 1.5f, 1.5f) xRadius:self.radius yRadius:self.radius] stroke];
+//		[[NSColor colorWithDeviceWhite:1.0f alpha:0.1f] setStroke];
+//		[[NSBezierPath bezierPathWithRoundedRect:NSInsetRect([self bounds], 2.5f, 2.5f) xRadius:self.radius yRadius:self.radius] stroke];
 	if(hovered_) {
 //		[standard setClip];
 		[[WHITE colorWithAlphaComponent:.3] set];
@@ -270,10 +270,10 @@
 }
 
 - (void)prepareForReuse {
-    self.selected = NO;
-//    self.drawSelection = YES;
+	self.selected = NO;
+//	self.drawSelection = YES;
 //	hovered_ = NO;
-//    _image = nil;
+//	_image = nil;
 }
 
 //-(void) viewDidEndLiveResize {
@@ -282,18 +282,18 @@
 //	}// else [self dynamicStuff];
 //}
 
-//        [self addObserver:self forKeyPath:@"color" options:NSKeyValueObservingOptionOld context:DotViewUndoAndRedisplay];
-//        [self addObserver:self forKeyPath:@"radius" options:NSKeyValueObservingOptionOld context:DotViewUndoAndRedisplay];
-//        [self addObserver:self forKeyPath:@"center" options:NSKeyValueObservingOptionOld context:DotViewUndoAndRedisplay];
+//		[self addObserver:self forKeyPath:@"color" options:NSKeyValueObservingOptionOld context:DotViewUndoAndRedisplay];
+//		[self addObserver:self forKeyPath:@"radius" options:NSKeyValueObservingOptionOld context:DotViewUndoAndRedisplay];
+//		[self addObserver:self forKeyPath:@"center" options:NSKeyValueObservingOptionOld context:DotViewUndoAndRedisplay];
 //		[[self superview] addObserver:self forKeyPath:@"desiredNumberOfColumns" options:NSKeyValueObservingOptionOld context:nil];
-//        [self addObserver:self forKeyPath:@"multiplier" options:NSKeyValueObservingOptionOld context:nil];
-//    }
+//		[self addObserver:self forKeyPath:@"multiplier" options:NSKeyValueObservingOptionOld context:nil];
+//	}
 //- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 //	if (context == DotViewUndoAndRedisplay) {
-//        NSUndoManager *undoManager = [[self window] undoManager];
-//        if ([keyPath isEqual:@"center"]) [[undoManager prepareWithInvocationTarget:self] setCenter:[[change objectForKey:NSKeyValueChangeOldKey] pointValue]];
-//        else if ([keyPath isEqual:@"radius"]) [[undoManager prepareWithInvocationTarget:self] setRadius:[[change objectForKey:NSKeyValueChangeOldKey] doubleValue]];
-//        else if ([keyPath isEqual:@"color"]) [undoManager registerUndoWithTarget:self selector:@selector(setColor:) object:[change objectForKey:NSKeyValueChangeOldKey]];
+//		NSUndoManager *undoManager = [[self window] undoManager];
+//		if ([keyPath isEqual:@"center"]) [[undoManager prepareWithInvocationTarget:self] setCenter:[[change objectForKey:NSKeyValueChangeOldKey] pointValue]];
+//		else if ([keyPath isEqual:@"radius"]) [[undoManager prepareWithInvocationTarget:self] setRadius:[[change objectForKey:NSKeyValueChangeOldKey] doubleValue]];
+//		else if ([keyPath isEqual:@"color"]) [undoManager registerUndoWithTarget:self selector:@selector(setColor:) object:[change objectForKey:NSKeyValueChangeOldKey]];
 //	if ([keyPath isEqual:@"multiplier"]) {
 //	if ([keyPath isEqual:@"desiredNumberOfColumns"]) {
 //	[[undoManager prepareWithInvocationTarget:self] setCenter:[[change objectForKey:NSKeyValueChangeOldKey] pointValue]];

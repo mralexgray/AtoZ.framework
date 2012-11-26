@@ -58,7 +58,7 @@
 			NSArray *raw = [self.image quantize];
 			NSBag *allBag = [NSBag bagWithObjects:raw]; // put all colors in a bag //[raw do:^(id obj) { [allBag add:obj];}];
 			NSBag *rawBag = [NSBag bag];
-			NSUI total    = 0;
+			NSUI total	= 0;
 			NSArray *filtered = [raw filter:^BOOL(NSColor* aColor) {
 				return [allBag occurrencesOf:aColor] > ( .0005 * [raw count]) && [aColor isExciting] ? YES : NO;
 			}];
@@ -216,7 +216,7 @@
 	NSURL* fileURL = [NSURL fileURLWithPath:self.path];
 	[fileURL setResourceValue:aLabelNumber forKey:NSURLLabelNumberKey error:&error];
 	if (error) NSLog(@"Problem setting label (#) for %@", self.name);
-    return;
+	return;
 }
 + (instancetype) forAppNamed:(NSString*)appName  {
 	return [[[AtoZ dock] valueForKeyPath:@"name"]  filterOne:^BOOL(id object) {
@@ -256,8 +256,8 @@
 @implementation AZFolder
 - (NSUI) count { 						return self.backingstore.count; 	}
 //- (id)   initWithCapacity: (NSUI) capacity 	{	return [super init]; }
-- (id)   objectAtIndex:    (NSUI) index 	{	return self.backingstore[index]; 	}
-- (void) addObject:    (id) anObject {
+- (id)   objectAtIndex:	(NSUI) index 	{	return self.backingstore[index]; 	}
+- (void) addObject:	(id) anObject {
 	[self.backingstore addObject:anObject];
 }
 - (void) insertObject: (id) anObject  atIndex:(NSUI)index	{
@@ -337,20 +337,20 @@
 
 - (NSMutableArray *)songs
 {
-    if (_songs == nil) // Check if we've already populated our array.
+	if (_songs == nil) // Check if we've already populated our array.
 		{
-        NSArray *songDicts = [NSArray arrayWithContentsOfFile:@"Songs.plist"]; // Retrieve the property list from the file system and store as an array.
+		NSArray *songDicts = [NSArray arrayWithContentsOfFile:@"Songs.plist"]; // Retrieve the property list from the file system and store as an array.
 
-        _songs = [[NSMutableArray alloc] initWithCapacity:[songDicts count]]; // Initialize our synthesized property.
+		_songs = [[NSMutableArray alloc] initWithCapacity:[songDicts count]]; // Initialize our synthesized property.
 
 			// Fast enumeration //
-        for (NSDictionary *currDict in songDicts) // Execute the following code for each NSDictionary in the property list.
+		for (NSDictionary *currDict in songDicts) // Execute the following code for each NSDictionary in the property list.
 			{
-            Song *song = [Song songWithDictionary:currDict]; // Use KVC to set the Song object's properties.
-            [_songs addObject:song]; // Add the song to the array of songs.
+			Song *song = [Song songWithDictionary:currDict]; // Use KVC to set the Song object's properties.
+			[_songs addObject:song]; // Add the song to the array of songs.
 			}
 		}
-    return _songs; // Return the array of Song objects.
+	return _songs; // Return the array of Song objects.
 }
 
 #pragma mark - Filtering
@@ -361,11 +361,11 @@
 	return [self.files filteredArrayUsingPredicate:
 			[NSPredicate predicateWithFormat:@"name CONTAINS[cd] %@ OR artist.name CONTAINS[cd] %@", filter, filter]];
 */
-/**    NSMutableArray *searchResults = [NSMutableArray array];
-    if ([filter length] !=0) {
-        [searchResults addObjectsFromArray:[self.files filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name CONTAINS[cd] %@ OR artist.name CONTAINS[cd] %@", filter, filter]]];
+/**	NSMutableArray *searchResults = [NSMutableArray array];
+	if ([filter length] !=0) {
+		[searchResults addObjectsFromArray:[self.files filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name CONTAINS[cd] %@ OR artist.name CONTAINS[cd] %@", filter, filter]]];
 		}
-    return searchResults;
+	return searchResults;
 }
 
 */
@@ -385,15 +385,15 @@
 - (NSArray *)filesWithCategory:(AppCat)cat;
 //- (NSMutableArray *)songsWithRatingGreaterThanOrEqualTo:(int)rating
 {
-    NSMutableArray *songsArray = [NSMutableArray array];
-    for (Song *song in self.songs)
+	NSMutableArray *songsArray = [NSMutableArray array];
+	for (Song *song in self.songs)
 		{
-        if ([song.rating intValue] >= rating)
+		if ([song.rating intValue] >= rating)
 			{
-            [songsArray addObject:song];
+			[songsArray addObject:song];
 			}
 		}
-    return songsArray;
+	return songsArray;
 }
 - (NSUInteger)count{	return self.files.count; }
 + (AZFolder*) samplerWithCount:(NSUInteger)items;
@@ -431,8 +431,8 @@
 	//- (void)setObject:(id)object atIndexedSubscript:(NSUInteger)index;
 	//{
 	//	index < self.items.count   ?  object
-	//	      ?  [self.items replaceObjectAtIndex:index withObject:object]
-	//	      :  [self.items removeObjectAtIndex:index]
+	//		  ?  [self.items replaceObjectAtIndex:index withObject:object]
+	//		  :  [self.items removeObjectAtIndex:index]
 	//		  :  [self.items addObject:object];
 	//}
 
@@ -476,8 +476,8 @@
 @end
 
 static NSOperationQueue *AZSharedOperationQueue() {
-    static NSOperationQueue *_AZSharedOperationQueue = nil;
-    return _AZSharedOperationQueue == nil ? (NSOperationQueue*) ^{		_AZSharedOperationQueue = [NSOperationQueue new];
+	static NSOperationQueue *_AZSharedOperationQueue = nil;
+	return _AZSharedOperationQueue == nil ? (NSOperationQueue*) ^{		_AZSharedOperationQueue = [NSOperationQueue new];
 		// 	Limit concurrency for demo. NSOperationQueueDefaultMaxConcurrentOperationCount creates more threads, as appropriate
 		[_AZSharedOperationQueue setMaxConcurrentOperationCount:2];		return _AZSharedOperationQueue;
 	}() : _AZSharedOperationQueue;
@@ -500,101 +500,101 @@ static NSOperationQueue *AZSharedOperationQueue() {
 //}
 //
 //- (id)initWithFile:(AZFile*)file {
-//    self = [self image];
-//    @synchronized (self) {
-//        if (self.representations[0] == nil && !self.loading) {
-//            self.loading = YES;
+//	self = [self image];
+//	@synchronized (self) {
+//		if (self.representations[0] == nil && !self.loading) {
+//			self.loading = YES;
 //			// We would have to keep track of the block with an NSBlockOperation, if we wanted to later support cancelling operations that have scrolled offscreen and are no longer needed. That will be left as an exercise to the user.
-//            [AZSharedOperationQueue() addOperationWithBlock:^(void) {
-//                self = [[NSImage alloc] initWithContentsOfURL:self.fileURL];
-//                if (image != nil) {
-//                    NSImage *thumbnailImage = ATThumbnailImageFromImage(image);
+//			[AZSharedOperationQueue() addOperationWithBlock:^(void) {
+//				self = [[NSImage alloc] initWithContentsOfURL:self.fileURL];
+//				if (image != nil) {
+//					NSImage *thumbnailImage = ATThumbnailImageFromImage(image);
 //						// We synchronize access to the image/imageLoading pair of variables
-//                    @synchronized (self) {
-//                        self.loading = NO;
-//                        self = image;
-//                        self.thumbnailImage = thumbnailImage;
-//                    }
-//                    [image release];
-//                } else {
-//                    @synchronized (self) {
-//                        self.image = [NSImage imageNamed:NSImageNameTrashFull];
-//                    }
-//                }
-//            }];
-//        }
-//    }
+//					@synchronized (self) {
+//						self.loading = NO;
+//						self = image;
+//						self.thumbnailImage = thumbnailImage;
+//					}
+//					[image release];
+//				} else {
+//					@synchronized (self) {
+//						self.image = [NSImage imageNamed:NSImageNameTrashFull];
+//					}
+//				}
+//			}];
+//		}
+//	}
 //
 //	// Initialize our color to specific given color for testing purposes
 //	self.objectRep = file;
 
 //	self.color = self.colors[0];
 //	static NSInteger lastColorIndex = 0;
-//    NSColorList *colorList = [NSColorList colorListNamed:@"Crayons"];
-//    NSArray *keys = [colorList allKeys];
-//    if (lastColorIndex >= keys.count) {
-//        lastColorIndex = 0;
-//    }
-//    _fillColorName = [[keys objectAtIndex:lastColorIndex++] retain];
-//    _fillColor = [[colorList colorWithKey:_fillColorName] retain];
-//    self.title = [super title];
-//    return self;
+//	NSColorList *colorList = [NSColorList colorListNamed:@"Crayons"];
+//	NSArray *keys = [colorList allKeys];
+//	if (lastColorIndex >= keys.count) {
+//		lastColorIndex = 0;
+//	}
+//	_fillColorName = [[keys objectAtIndex:lastColorIndex++] retain];
+//	_fillColor = [[colorList colorWithKey:_fillColorName] retain];
+//	self.title = [super title];
+//	return self;
 //}
 
 //static NSImage *ATThumbnailImageFromImage(NSImage *image) {
-//    NSSize imageSize = [image size];
-//    CGFloat imageAspectRatio = imageSize.width / imageSize.height;
+//	NSSize imageSize = [image size];
+//	CGFloat imageAspectRatio = imageSize.width / imageSize.height;
 //		// Create a thumbnail image from this image (this part of the slow operation)
-//    NSSize thumbnailSize = NSMakeSize(THUMBNAIL_HEIGHT * imageAspectRatio, THUMBNAIL_HEIGHT);
-//    NSImage *thumbnailImage = [[NSImage alloc] initWithSize:thumbnailSize];
-//    [thumbnailImage lockFocus];
-//    [image drawInRect:NSMakeRect(0, 0, thumbnailSize.width, thumbnailSize.height) fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
-//    [thumbnailImage unlockFocus];
+//	NSSize thumbnailSize = NSMakeSize(THUMBNAIL_HEIGHT * imageAspectRatio, THUMBNAIL_HEIGHT);
+//	NSImage *thumbnailImage = [[NSImage alloc] initWithSize:thumbnailSize];
+//	[thumbnailImage lockFocus];
+//	[image drawInRect:NSMakeRect(0, 0, thumbnailSize.width, thumbnailSize.height) fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+//	[thumbnailImage unlockFocus];
 
 #if DEMO_MODE
 		// We delay things with an explicit sleep to get things slower for the demo!
-    usleep(250000);
+	usleep(250000);
 #endif
 
-//    return [thumbnailImage autorelease];
+//	return [thumbnailImage autorelease];
 //}
 
 	// Lazily load the thumbnail image when requested
 //- (NSImage *)thumbnailImage {
-//    if (self.image != nil && _thumbnailImage == nil) {
+//	if (self.image != nil && _thumbnailImage == nil) {
 //			// Generate the thumbnail right now, synchronously
-//        _thumbnailImage = [ATThumbnailImageFromImage(self.image) retain];
-//    } else if (self.image == nil && !self.imageLoading) {
+//		_thumbnailImage = [ATThumbnailImageFromImage(self.image) retain];
+//	} else if (self.image == nil && !self.imageLoading) {
 //			// Load the image lazily
-//        [self loadImage];
-//    }
-//    return _thumbnailImage;
+//		[self loadImage];
+//	}
+//	return _thumbnailImage;
 //}
 //
 //- (void)loadImage {
-//    @synchronized (self) {
-//        if (self.image == nil && !self.imageLoading) {
-//            self.imageLoading = YES;
+//	@synchronized (self) {
+//		if (self.image == nil && !self.imageLoading) {
+//			self.imageLoading = YES;
 //				// We would have to keep track of the block with an NSBlockOperation, if we wanted to later support cancelling operations that have scrolled offscreen and are no longer needed. That will be left as an exercise to the user.
-//            [ATSharedOperationQueue() addOperationWithBlock:^(void) {
-//                NSImage *image = [[NSImage alloc] initWithContentsOfURL:self.fileURL];
-//                if (image != nil) {
-//                    NSImage *thumbnailImage = ATThumbnailImageFromImage(image);
+//			[ATSharedOperationQueue() addOperationWithBlock:^(void) {
+//				NSImage *image = [[NSImage alloc] initWithContentsOfURL:self.fileURL];
+//				if (image != nil) {
+//					NSImage *thumbnailImage = ATThumbnailImageFromImage(image);
 //						// We synchronize access to the image/imageLoading pair of variables
-//                    @synchronized (self) {
-//                        self.imageLoading = NO;
-//                        self.image = image;
-//                        self.thumbnailImage = thumbnailImage;
-//                    }
-//                    [image release];
-//                } else {
-//                    @synchronized (self) {
-//                        self.image = [NSImage imageNamed:NSImageNameTrashFull];
-//                    }
-//                }
-//            }];
-//        }
-//    }
+//					@synchronized (self) {
+//						self.imageLoading = NO;
+//						self.image = image;
+//						self.thumbnailImage = thumbnailImage;
+//					}
+//					[image release];
+//				} else {
+//					@synchronized (self) {
+//						self.image = [NSImage imageNamed:NSImageNameTrashFull];
+//					}
+//				}
+//			}];
+//		}
+//	}
 //}
 
 @end
@@ -602,47 +602,47 @@ static NSOperationQueue *AZSharedOperationQueue() {
 //@implementation ATDesktopFolderEntity
 //
 //- (void)dealloc {
-//    [_children release];
-//    [super dealloc];
+//	[_children release];
+//	[super dealloc];
 //}
 //
 //@dynamic children;
 //
 //- (NSMutableArray *)children {
-//    NSMutableArray *result = nil;
+//	NSMutableArray *result = nil;
 //		// This property is declared as atomic. We use @synchronized to ensure that promise is kept
-//    @synchronized(self) {
+//	@synchronized(self) {
 //			// It would be nice if this was asycnhronous to avoid any stalls while we look at the file system. A mechanism similar to how the ATDesktopImageEntity loads images could be used here
-//        if (_children == nil && self.fileURL != nil) {
-//            NSError *error = nil;
+//		if (_children == nil && self.fileURL != nil) {
+//			NSError *error = nil;
 //				// Grab the URLs for the folder and wrap them in our entity objects
-//            NSArray *urls = [[NSFileManager defaultManager] contentsOfDirectoryAtURL:self.fileURL includingPropertiesForKeys:[NSArray arrayWithObjects:NSURLLocalizedNameKey, nil] options:NSDirectoryEnumerationSkipsHiddenFiles | NSDirectoryEnumerationSkipsSubdirectoryDescendants error:&error];
-//            NSMutableArray *newChildren = [[NSMutableArray alloc] initWithCapacity:urls.count];
-//            for (NSURL *url in urls) {
+//			NSArray *urls = [[NSFileManager defaultManager] contentsOfDirectoryAtURL:self.fileURL includingPropertiesForKeys:[NSArray arrayWithObjects:NSURLLocalizedNameKey, nil] options:NSDirectoryEnumerationSkipsHiddenFiles | NSDirectoryEnumerationSkipsSubdirectoryDescendants error:&error];
+//			NSMutableArray *newChildren = [[NSMutableArray alloc] initWithCapacity:urls.count];
+//			for (NSURL *url in urls) {
 //					// We create folder items or image items, and ignore everything else; all based on the UTI we get from the URL
-//                NSString *typeIdentifier;
-//                if ([url getResourceValue:&typeIdentifier forKey:NSURLTypeIdentifierKey error:NULL]) {
-//                    ATDesktopEntity *entity = [ATDesktopEntity entityForURL:url];
-//                    if (entity) {
-//                        [newChildren addObject:entity];
-//                    }
-//                }
-//            }
-//            _children = newChildren;
-//        }
-//        result = [[_children retain] autorelease];
-//    }
-//    return result;
+//				NSString *typeIdentifier;
+//				if ([url getResourceValue:&typeIdentifier forKey:NSURLTypeIdentifierKey error:NULL]) {
+//					ATDesktopEntity *entity = [ATDesktopEntity entityForURL:url];
+//					if (entity) {
+//						[newChildren addObject:entity];
+//					}
+//				}
+//			}
+//			_children = newChildren;
+//		}
+//		result = [[_children retain] autorelease];
+//	}
+//	return result;
 //}
 //
 //- (void)setChildren:(NSMutableArray *)value {
 //		// This property is declared as atomic. We use @synchronized to ensure that promise is kept
-//    @synchronized(self) {
-//        if (_children != value) {
-//            [_children release];
-//            _children = [value retain];
-//        }
-//    }
+//	@synchronized(self) {
+//		if (_children != value) {
+//			[_children release];
+//			_children = [value retain];
+//		}
+//	}
 //}
 //
 //@end
@@ -668,8 +668,8 @@ static NSOperationQueue *AZSharedOperationQueue() {
 
 + (instancetype) instanceWithObject: (NSDictionary *)dic {	if (!dic[@"color"])  return nil;
 	AZColor *color = [[self class] instanceWithColor:dic[@"color"]];
-	color.name 	  =  dic [@"name"]    ?  dic [@"name"]    			   : @"";
-	color.count   =  dic [@"count"]   ? [dic [@"count"] intValue]      : 0;
+	color.name 	  =  dic [@"name"]	?  dic [@"name"]				   : @"";
+	color.count   =  dic [@"count"]   ? [dic [@"count"] intValue]	  : 0;
 	color.total   =  dic [@"percent"] ? ( color.count / [dic [@"percent"] floatValue] ) : 1;
 		//	percent =dic [@"percent"] ? [dic [@"percent"] floatValue]  : 0;
 	return color;

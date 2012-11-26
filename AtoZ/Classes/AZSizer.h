@@ -7,13 +7,13 @@ extern NSUInteger gcd(NSI m, NSUI n);
 
 @interface AZSizer : BaseModel 
 
-+ (AZSizer*)  forQuantity:(NSUI)q            ofSize:(NSSZ)s  withColumns:(NSUI)c;
++ (AZSizer*)  forQuantity:(NSUI)q			ofSize:(NSSZ)s  withColumns:(NSUI)c;
 + (AZSizer*)   forObjects: (NSA*)objects  withFrame:(NSR)aFrame arranged:(AZOrient)arr;
 + (AZSizer*)  forQuantity: (NSUI)aNumber aroundRect:(NSR)aFrame;
-+ (AZSizer*)  forQuantity: (NSUI)aNumber     inRect:(NSR)aFrame;
-+ (NSR) structForQuantity: (NSUI)aNumber     inRect:(NSR)aFrame;
-+ (NSR)   rectForQuantity: (NSUI)q 	         ofSize:(NSSize)s  	withColumns:(NSUI)c;
-- (NSR)      rectForPoint: (NSP)point;
++ (AZSizer*)  forQuantity: (NSUI)aNumber	 inRect:(NSR)aFrame;
++ (NSR) structForQuantity: (NSUI)aNumber	 inRect:(NSR)aFrame;
++ (NSR)   rectForQuantity: (NSUI)q 			 ofSize:(NSSize)s  	withColumns:(NSUI)c;
+- (NSR)	  rectForPoint: (NSP)point;
 
 @property (NATOM, ASS)   AZOrient		orient;
 @property (NATOM, ASS)   NSR		outerFrame;

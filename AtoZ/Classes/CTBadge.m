@@ -132,20 +132,20 @@ const float CTSmallLabelSize = 11.;
   
   float shadowOpacity,
 		shadowOffset,
-        shadowBlurRadius;
+		shadowBlurRadius;
   
   int angle;
   
   if(size <= CTSmallBadgeSize)
 	{
-	shadowOpacity    = .6;
-	shadowOffset     = floorf(1*scaleFactor);
+	shadowOpacity	= .6;
+	shadowOffset	 = floorf(1*scaleFactor);
 	shadowBlurRadius = ceilf(1*scaleFactor);
 	}
   else
 	{
-	shadowOpacity    = .8;
-	shadowOffset     = ceilf(1*scaleFactor);
+	shadowOpacity	= .8;
+	shadowOffset	 = ceilf(1*scaleFactor);
 	shadowBlurRadius = ceilf(2*scaleFactor);
 	}
   
@@ -202,7 +202,7 @@ const float CTSmallLabelSize = 11.;
 
 - (void)badgeApplicationDockIconWithString:(NSString *)string insetX:(float)dx y:(float)dy;
   {
-  NSImage *appIcon      = [NSImage imageNamed:@"NSApplicationIcon"];
+  NSImage *appIcon	  = [NSImage imageNamed:@"NSApplicationIcon"];
   NSImage *badgeOverlay = [self badgeOverlayImageForString:string insetX:dx y:dy];
   
   //Put the appIcon underneath the badgeOverlay
@@ -248,7 +248,7 @@ const float CTSmallLabelSize = 11.;
   
   //Label stuff
   if([label length] >= 6)	//replace with summarized string - ellipses at end and a zero-width space to trick us into using the 5-wide badge
-    label = [NSString stringWithFormat:@"%@%@", [label substringToIndex:3], @"\xe2\x80\xa6\xe2\x80\x8b"];
+	label = [NSString stringWithFormat:@"%@%@", [label substringToIndex:3], @"\xe2\x80\xa6\xe2\x80\x8b"];
   
   NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:label attributes:attributes];
   

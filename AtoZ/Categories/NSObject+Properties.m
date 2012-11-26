@@ -96,10 +96,10 @@
 
 + (BOOL) hasPropertyForKVCKey: (NSString *) key
 {
-    if ( [self hasPropertyNamed: key] )
-        return ( YES );
+	if ( [self hasPropertyNamed: key] )
+		return ( YES );
 
-    return ( [self hasPropertyNamed: [key propertyStyleString]] );
+	return ( [self hasPropertyNamed: [key propertyStyleString]] );
 }
 
 + (const char *) typeOfPropertyNamed: (NSString *) name
@@ -207,7 +207,7 @@
 
 - (BOOL) hasPropertyForKVCKey: (NSString *) key
 {
-    return ( [[self class] hasPropertyForKVCKey: key] );
+	return ( [[self class] hasPropertyForKVCKey: key] );
 }
 
 - (const char *) typeOfPropertyNamed: (NSString *) name

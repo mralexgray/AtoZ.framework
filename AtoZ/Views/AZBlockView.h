@@ -23,8 +23,8 @@ typedef void(^AZBlockViewDrawer)(AZBlockView *view, NSRect dirtyRect);
 	BOOL opaque;
 }
 + (AZBlockView *)viewWithFrame:(NSRect)frame
-                         opaque:(BOOL)opaque
-                drawnUsingBlock:(AZBlockViewDrawer)drawBlock;
+						 opaque:(BOOL)opaque
+				drawnUsingBlock:(AZBlockViewDrawer)drawBlock;
 @property (NATOM, CP) AZBlockViewDrawer drawBlock;
 @property (nonatomic, assign) BOOL opaque;
 @end
@@ -59,7 +59,7 @@ typedef void(^BNRBlockViewDrawer)(BNRBlockView *view, NSRect dirtyRect);
 }
 
 + (BNRBlockView *)viewWithFrame:(NSRect)frame  opaque:(BOOL)opaque
-                drawnUsingBlock:(BNRBlockViewDrawer)drawBlock;
+				drawnUsingBlock:(BNRBlockViewDrawer)drawBlock;
 
 @property (NATOM, CP) BNRBlockViewDrawer drawBlock;
 @property (nonatomic, assign) BOOL opaque;

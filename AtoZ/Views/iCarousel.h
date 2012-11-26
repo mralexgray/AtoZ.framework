@@ -45,18 +45,18 @@
 	//  https://gist.github.com/1563325
 	//
 
-#ifndef ah_retain
-#if				__has_feature(objc_arc)
-#define ah_retain self
-#define ah_dealloc self
-#define release self
-#define autorelease self
-#else
-#define ah_retain retain
-#define ah_dealloc dealloc
-#define				__bridge
-#endif
-#endif
+//#ifndef ah_retain
+//#if				__has_feature(objc_arc)
+//#define ah_retain self
+//#define ah_dealloc self
+//#define release self
+//#define autorelease self
+//#else
+//#define ah_retain retain
+//#define ah_dealloc dealloc
+//#define				__bridge
+//#endif
+//#endif
 
 	//  Weak delegate support
 
@@ -94,35 +94,35 @@ typedef NSView UIView;
 #endif
 typedef enum
 {
-    iCarouselTypeLinear = 0,
-    iCarouselTypeRotary,
-    iCarouselTypeInvertedRotary,
-    iCarouselTypeCylinder,
-    iCarouselTypeInvertedCylinder,
-    iCarouselTypeWheel,
-    iCarouselTypeInvertedWheel,
-    iCarouselTypeCoverFlow,
-    iCarouselTypeCoverFlow2,
-    iCarouselTypeTimeMachine,
-    iCarouselTypeInvertedTimeMachine,
-    iCarouselTypeCustom
+	iCarouselTypeLinear = 0,
+	iCarouselTypeRotary,
+	iCarouselTypeInvertedRotary,
+	iCarouselTypeCylinder,
+	iCarouselTypeInvertedCylinder,
+	iCarouselTypeWheel,
+	iCarouselTypeInvertedWheel,
+	iCarouselTypeCoverFlow,
+	iCarouselTypeCoverFlow2,
+	iCarouselTypeTimeMachine,
+	iCarouselTypeInvertedTimeMachine,
+	iCarouselTypeCustom
 }
 iCarouselType;
 typedef enum
 {
-    iCarouselOptionWrap = 0,
-    iCarouselOptionShowBackfaces,
-    iCarouselOptionOffsetMultiplier,
-    iCarouselOptionVisibleItems,
-    iCarouselOptionCount,
-    iCarouselOptionArc,
+	iCarouselOptionWrap = 0,
+	iCarouselOptionShowBackfaces,
+	iCarouselOptionOffsetMultiplier,
+	iCarouselOptionVisibleItems,
+	iCarouselOptionCount,
+	iCarouselOptionArc,
 	iCarouselOptionAngle,
-    iCarouselOptionRadius,
-    iCarouselOptionTilt,
-    iCarouselOptionSpacing,
-    iCarouselOptionFadeMin,
-    iCarouselOptionFadeMax,
-    iCarouselOptionFadeRange
+	iCarouselOptionRadius,
+	iCarouselOptionTilt,
+	iCarouselOptionSpacing,
+	iCarouselOptionFadeMin,
+	iCarouselOptionFadeMax,
+	iCarouselOptionFadeRange
 }
 iCarouselOption;
 
@@ -145,49 +145,49 @@ typedef enum{
 {
 @private
 
-    id<iCarouselDelegate>	__ah_weak	_delegate;
-    id<iCarouselDataSource>	__ah_weak	_dataSource;
-    NSMutableDictionary *				_itemViews;
-    NSMutableSet *		_itemViewPool;
-    NSMutableSet *		_placeholderViewPool;
-    NSInteger			_previousItemIndex;
-    iCarouselType		_type;
-    CGFloat				_perspective;
-    NSInteger			_numberOfItems;
-    NSInteger			_numberOfPlaceholders;
+	id<iCarouselDelegate>	__ah_weak	_delegate;
+	id<iCarouselDataSource>	__ah_weak	_dataSource;
+	NSMutableDictionary *				_itemViews;
+	NSMutableSet *		_itemViewPool;
+	NSMutableSet *		_placeholderViewPool;
+	NSInteger			_previousItemIndex;
+	iCarouselType		_type;
+	CGFloat				_perspective;
+	NSInteger			_numberOfItems;
+	NSInteger			_numberOfPlaceholders;
 	NSInteger			_numberOfPlaceholdersToShow;
-    NSInteger			_numberOfVisibleItems;
-    UIView *			_contentView;
-    CGFloat				_itemWidth;
-    CGFloat				_scrollOffset;
-    CGFloat				_offsetMultiplier;
-    CGFloat				_startVelocity;
-    NSTimer				__unsafe_unretained *_timer;
-    BOOL				_decelerating;
-    BOOL				_scrollEnabled;
-    CGFloat				_decelerationRate;
-    BOOL				_bounces;
-    CGSize				_contentOffset;
-    CGSize				_viewpointOffset;
-    CGFloat				_startOffset;
-    CGFloat				_endOffset;
-    NSTimeInterval		_scrollDuration;
-    NSTimeInterval 		_startTime;
-    BOOL				_scrolling;
-    CGFloat				_previousTranslation;
+	NSInteger			_numberOfVisibleItems;
+	UIView *			_contentView;
+	CGFloat				_itemWidth;
+	CGFloat				_scrollOffset;
+	CGFloat				_offsetMultiplier;
+	CGFloat				_startVelocity;
+	NSTimer				__unsafe_unretained *_timer;
+	BOOL				_decelerating;
+	BOOL				_scrollEnabled;
+	CGFloat				_decelerationRate;
+	BOOL				_bounces;
+	CGSize				_contentOffset;
+	CGSize				_viewpointOffset;
+	CGFloat				_startOffset;
+	CGFloat				_endOffset;
+	NSTimeInterval		_scrollDuration;
+	NSTimeInterval 		_startTime;
+	BOOL				_scrolling;
+	CGFloat				_previousTranslation;
 	BOOL				_centerItemWhenSelected;
 	BOOL				_wrapEnabled;
 	BOOL				_dragging;
-    BOOL				_didDrag;
-    CGFloat				_scrollSpeed;
-    CGFloat				_bounceDistance;
-    NSTimeInterval		_toggleTime;
-    CGFloat				_toggle;
-    BOOL				_stopAtItemBoundary;
-    BOOL				_scrollToItemBoundary;
+	BOOL				_didDrag;
+	CGFloat				_scrollSpeed;
+	CGFloat				_bounceDistance;
+	NSTimeInterval		_toggleTime;
+	CGFloat				_toggle;
+	BOOL				_stopAtItemBoundary;
+	BOOL				_scrollToItemBoundary;
 	BOOL				_vertical;
-    BOOL				_ignorePerpendicularSwipes;
-    NSInteger			_animationDisableCount;
+	BOOL				_ignorePerpendicularSwipes;
+	NSInteger			_animationDisableCount;
 
 }
 #endif
@@ -270,7 +270,7 @@ typedef enum{
 - (void) carouselDidEndDecelerating: (iCarousel*) carousel;
 
 - (BOOL) carousel: (iCarousel*) carousel shouldSelectItemAtIndex: (NSInteger)index;
-- (void) carousel: (iCarousel*) carousel    didSelectItemAtIndex: (NSInteger)index;
+- (void) carousel: (iCarousel*) carousel	didSelectItemAtIndex: (NSInteger)index;
 
 //ALEX
 - (void)carousel: (iCarousel*) carousel shouldHoverItemAtIndex: (NSInteger)index;

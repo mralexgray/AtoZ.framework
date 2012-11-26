@@ -93,29 +93,29 @@ void dragTo ( CGPoint dest ) {
 	mouseEvent  ( 1, MOUSE_UP, SINGLE_CLICK);
 }
 
-//nullEvent                     = 0,
-//mouseDown                     = 1,
-//mouseUp                       = 2,
-//keyDown                       = 3,
-//keyUp                         = 4,
-//autoKey                       = 5,
-//updateEvt                     = 6,
-//diskEvt                       = 7,    /* Not sent in Carbon. See kEventClassVolume in CarbonEvents.h*/
-//activateEvt                   = 8,
-//osEvt                         = 15,
-//kHighLevelEvent               = 23									/* MOUSE CLICKING */
+//nullEvent					 = 0,
+//mouseDown					 = 1,
+//mouseUp					   = 2,
+//keyDown					   = 3,
+//keyUp						 = 4,
+//autoKey					   = 5,
+//updateEvt					 = 6,
+//diskEvt					   = 7,	/* Not sent in Carbon. See kEventClassVolume in CarbonEvents.h*/
+//activateEvt				   = 8,
+//osEvt						 = 15,
+//kHighLevelEvent			   = 23									/* MOUSE CLICKING */
 
 //void mouseDown(   EventKind btn,  EventMask clickType ) 		{
 //	mouseEvent(btn, MOUSE_DOWN, clickType);
 //}
 
-//void mouseDownUp(    EventKind btn,  EventMask clickType){ //int btn,  int clickType ) 		{
+//void mouseDownUp(	EventKind btn,  EventMask clickType){ //int btn,  int clickType ) 		{
 //	mouseDown(btn, clickType);
 //	usleep(400000);
 //	mouseUp(btn, clickType);
 //}
 
-//void mouseUp(	     EventKind btn,  EventMask clickType){//int btn,  int clickType ) 		{
+//void mouseUp(		 EventKind btn,  EventMask clickType){//int btn,  int clickType ) 		{
 //	mouseEvent(btn, MOUSE_UP, clickType);
 //}
 @interface AZMouser ()
@@ -308,8 +308,8 @@ void mouseEvent(int btn, int btnState, int clickType) {
 	CGEventType mouseType = mouseEventType(btn, btnState);
 
 	CGMouseButton mb = (btn == LEFT_MOUSE) ?
-    kCGMouseButtonLeft :
-    (btn == RIGHT_MOUSE) ?
+	kCGMouseButtonLeft :
+	(btn == RIGHT_MOUSE) ?
 	kCGMouseButtonRight :
 	kCGMouseButtonCenter;
 
@@ -510,10 +510,10 @@ void AZDragBetwixtOnFancyPath(const CGPoint a, const CGPoint b) {
 		//	[path lineToPoint:ControlPt2];
 }
 void AZClick(const CGPoint point)  {
-    AZPostMouseEvent(kCGMouseButtonLeft, kCGEventMouseMoved, point);
-    NSLog(@"Click!");
-    AZPostMouseEvent(kCGMouseButtonLeft, kCGEventLeftMouseDown, point);
-    AZPostMouseEvent(kCGMouseButtonLeft, kCGEventLeftMouseUp, point);
+	AZPostMouseEvent(kCGMouseButtonLeft, kCGEventMouseMoved, point);
+	NSLog(@"Click!");
+	AZPostMouseEvent(kCGMouseButtonLeft, kCGEventLeftMouseDown, point);
+	AZPostMouseEvent(kCGMouseButtonLeft, kCGEventLeftMouseUp, point);
 }
 
 void AZRightClick(const CGPoint point)
@@ -525,20 +525,20 @@ void AZRightClick(const CGPoint point)
 }
 
 void AZDoubleClick(CGPoint point) {
-    CGEventRef theEvent = CGEventCreateMouseEvent(NULL, kCGEventLeftMouseDown, point, kCGMouseButtonLeft);
-    CGEventSetIntegerValueField
+	CGEventRef theEvent = CGEventCreateMouseEvent(NULL, kCGEventLeftMouseDown, point, kCGMouseButtonLeft);
+	CGEventSetIntegerValueField
 	(theEvent, kCGMouseEventClickState, 2);
-    CGEventPost(kCGHIDEventTap, theEvent);  
-    CGEventSetType(theEvent, kCGEventLeftMouseUp);  
-    CGEventPost(kCGHIDEventTap, theEvent);  
-    CGEventSetType(theEvent, kCGEventLeftMouseDown);  
-    CGEventPost(kCGHIDEventTap, theEvent);  
-    CGEventSetType(theEvent, kCGEventLeftMouseUp); 
-    CGEventPost(kCGHIDEventTap, theEvent); 
-    CFRelease(theEvent); 
+	CGEventPost(kCGHIDEventTap, theEvent);  
+	CGEventSetType(theEvent, kCGEventLeftMouseUp);  
+	CGEventPost(kCGHIDEventTap, theEvent);  
+	CGEventSetType(theEvent, kCGEventLeftMouseDown);  
+	CGEventPost(kCGHIDEventTap, theEvent);  
+	CGEventSetType(theEvent, kCGEventLeftMouseUp); 
+	CGEventPost(kCGHIDEventTap, theEvent); 
+	CFRelease(theEvent); 
 }
 	//void DragTo(const CGPoint where) {
-	////    PostMouseEvent(kCGMouseButtonLeft, kCGEventLeftMouseDown, point);
+	////	PostMouseEvent(kCGMouseButtonLeft, kCGEventLeftMouseDown, point);
 	////	Click(a);
 	//	PostMouseEvent(kCGEventLeftMouseDragged, kCGMouseButtonLeft, where);
 	//}
@@ -553,10 +553,10 @@ void AZDoubleClick(CGPoint point) {
  CGEventPost (kCGHIDEventTap, mouseUpEv );
  
  CGEventRef CGEventCreateMouseEvent(
- CGEventSourceRef source,        // The event source may be taken from another event, or may be NULL.
- CGEventType mouseType,          // `mouseType' should be one of the mouse event types.
- CGPoint mouseCursorPosition,    // `mouseCursorPosition'  should be the position of the mouse cursor in global coordinates.
- CGMouseButton mouseButton);     // `mouseButton' should be the button that's changing state;
+ CGEventSourceRef source,		// The event source may be taken from another event, or may be NULL.
+ CGEventType mouseType,		  // `mouseType' should be one of the mouse event types.
+ CGPoint mouseCursorPosition,	// `mouseCursorPosition'  should be the position of the mouse cursor in global coordinates.
+ CGMouseButton mouseButton);	 // `mouseButton' should be the button that's changing state;
  // `mouseButton'  is ignored unless `mouseType' is one of
  // `kCGEventOtherMouseDown', `kCGEventOtherMouseDragged', or `kCGEventOtherMouseUp'.
  //Mouse button 0 is the primary button on the mouse. Mouse button 1 is the secondary mouse button (right). Mouse button 2 is the center button, and the remaining buttons are in USB device order.
@@ -573,7 +573,7 @@ void AZDoubleClick(CGPoint point) {
 //@synthesize indicatorImage;
 /* This routine is called at app launch time when this class is unpacked from the nib.*/
 /*- (void)awakeFromNib {
-    self.indicatorImage = [NSImage az_imageNamed:@"circle2.tif"];
+	self.indicatorImage = [NSImage az_imageNamed:@"circle2.tif"];
 	[[self window] setHasShadow:NO];
 	[self setFrameSize:indicatorImage.size];
 }*/
@@ -582,8 +582,8 @@ void AZDoubleClick(CGPoint point) {
 /*
 - (void)drawRect:(NSRect)rect {
 		// Clear the drawing rect.
-    [[NSColor clearColor] set];
-    NSRectFill([self frame]);
+	[[NSColor clearColor] set];
+	NSRectFill([self frame]);
 		// A boolean tracks the previous shape of the window. If the shape changes, it's necessary for the
 	[indicatorImage compositeToPoint:NSZeroPoint operation:NSCompositeSourceOver];
 }
@@ -592,24 +592,24 @@ void AZDoubleClick(CGPoint point) {
 @synthesize initialLocation, indicatorView;
 - (id)init
 {
-    self = [super init];
-    if (self) {
+	self = [super init];
+	if (self) {
 		
-    }
-    return self;
+	}
+	return self;
 }*/
 /* In Interface Builder, the class for the window is set to this subclass. Overriding the initializer provides a mechanism for controlling how objects of this class are created. */
 /*
 - (id)initWithContentRect:(NSRect)contentRect styleMask:(NSUInteger)aStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)flag
 {
 		// Using NSBorderlessWindowMask results in a window without a title bar.
-    self = [super initWithContentRect:contentRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO];
-    if (self != nil)
+	self = [super initWithContentRect:contentRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO];
+	if (self != nil)
 		{
 			// Start with no transparency for all drawing into the window
-        [self setAlphaValue:1.0];
+		[self setAlphaValue:1.0];
 			// Turn off opacity so that the parts of the window that are not drawn into are transparent.
-        [self setOpaque:NO];
+		[self setOpaque:NO];
 		[self setIgnoresMouseEvents:YES];
 		[self setLevel:NSScreenSaverWindowLevel];
 		NSSize size;
@@ -618,7 +618,7 @@ void AZDoubleClick(CGPoint point) {
 		[self setContentSize:size];
 		[self setAlphaValue:0.0f];
 		}
-    return self;
+	return self;
 }
 - (void) awakeFromNib { [self setIsVisible:NO]; }
 
@@ -630,10 +630,10 @@ void AZDoubleClick(CGPoint point) {
 */
 /*
  - (void)from:(NSPoint)xy to:(NSPoint)zw {
- // CGPostMouseEvent( CGPoint        mouseCursorPosition,
- //                   boolean_t      updateMouseCursorPosition,
- //                   CGButtonCount  buttonCount,
- //                   boolean_t      mouseButtonDown, ... )
+ // CGPostMouseEvent( CGPoint		mouseCursorPosition,
+ //				   boolean_t	  updateMouseCursorPosition,
+ //				   CGButtonCount  buttonCount,
+ //				   boolean_t	  mouseButtonDown, ... )
  CGEventRef ourEvent = CGEventCreate(NULL);
  CGPoint ourLoc = CGEventGetLocation(ourEvent);
  //	[args setObject:[NSNumber numberWithInteger:temp] forKey:@"x"];
@@ -843,38 +843,38 @@ void print_msg(const char *msg) {
 #define CMD_STRING_MAXLEN 256
 void pathForArc(CGContextRef context, CGRect r, int startAngle, int arcAngle)
 {
-    float start, end;
-    CGAffineTransform matrix;
+	float start, end;
+	CGAffineTransform matrix;
 
-    // Save the context's state because we are going to scale it
-    CGContextSaveGState(context);
+	// Save the context's state because we are going to scale it
+	CGContextSaveGState(context);
 
-    // Create a transform to scale the context so that a radius of 1 maps to the bounds
-    // of the rectangle, and transform the origin of the context to the center of
-    // the bounding rectangle.
-    matrix = CGAffineTransformMake(r.size.width/2, 0,
-                                   0, r.size.height/2,
-                                   r.origin.x + r.size.width/2,
-                                   r.origin.y + r.size.height/2);
+	// Create a transform to scale the context so that a radius of 1 maps to the bounds
+	// of the rectangle, and transform the origin of the context to the center of
+	// the bounding rectangle.
+	matrix = CGAffineTransformMake(r.size.width/2, 0,
+								   0, r.size.height/2,
+								   r.origin.x + r.size.width/2,
+								   r.origin.y + r.size.height/2);
 
-    // Apply the transform to the context
-    CGContextConcatCTM(context, matrix);
+	// Apply the transform to the context
+	CGContextConcatCTM(context, matrix);
 
-    // Calculate the start and ending angles
-    if (arcAngle > 0) {
-        start = (90 - startAngle - arcAngle) * M_PI / 180;
-        end = (90 - startAngle) * M_PI / 180;
-    } else {
-        start = (90 - startAngle) * M_PI / 180;
-        end = (90 - startAngle - arcAngle) * M_PI / 180;
-    }
+	// Calculate the start and ending angles
+	if (arcAngle > 0) {
+		start = (90 - startAngle - arcAngle) * M_PI / 180;
+		end = (90 - startAngle) * M_PI / 180;
+	} else {
+		start = (90 - startAngle) * M_PI / 180;
+		end = (90 - startAngle - arcAngle) * M_PI / 180;
+	}
 
-    // Add the Arc to the path
-    CGContextAddArc(context, 0, 0, 1, start, end, false);
+	// Add the Arc to the path
+	CGContextAddArc(context, 0, 0, 1, start, end, false);
 
-    // Restore the context's state. This removes the translation and scaling
-    // but leaves the path, since the path is not part of the graphics state.
-    CGContextRestoreGState(context);
+	// Restore the context's state. This removes the translation and scaling
+	// but leaves the path, since the path is not part of the graphics state.
+	CGContextRestoreGState(context);
 }
 //void mouseWarp(	int posX, int posY ) 		{
 //	CGPoint dest = { .x = posX, .y = posY };

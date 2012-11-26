@@ -14,7 +14,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 {
 	if ((self = [super init]));
 
-    proxyObject = object;// retain];
+	proxyObject = object;// retain];
 	key = theKey ;//retain];
 	id ukey=[key capitalizedString];
 

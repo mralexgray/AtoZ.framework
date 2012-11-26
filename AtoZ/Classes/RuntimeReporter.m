@@ -99,7 +99,7 @@ NSMutableData *rawClassPointers;
 		}
 	names = [names sortedArrayUsingSelector:@selector(compare:)];
 	[[self  cache] setValue:names forKey:(aClass ? NSStringFromClass(aClass) : ROOT_CLASSES_KEY)];
-	return names;    
+	return names;	
 	}
 
 + (BOOL) classHasSubclasses:(Class) aClass 
@@ -116,7 +116,7 @@ NSMutableData *rawClassPointers;
 		if (class_getSuperclass(thisClass) == aClass)
 			return YES;
 		}
-	return NO;    
+	return NO;	
 	}
 
 + (int) numberOfSubclassesOfClass:(Class) aClass { return 0; }

@@ -13,15 +13,15 @@
 
 @synthesize nsBitmapImageRepObj, cgFloatRed, cgFloatRedUpdate, nsTimerRef;
 
-- (id)initWithFrame:(NSRect)frame {    self = [super initWithFrame:frame]; if (self) {
+- (id)initWithFrame:(NSRect)frame {	self = [super initWithFrame:frame]; if (self) {
 	self.postsBoundsChangedNotifications = YES;
 	[NSEvent addLocalMonitorForEventsMatchingMask:(int)NSViewBoundsDidChangeNotification handler:^NSEvent *(NSEvent *e){ [self setNeedsDisplay:YES]; return e; }];
 	nsBitmapImageRepObj = [[NSBitmapImageRep alloc]	initWithBitmapDataPlanes:NULL
 																  pixelsWide:self.width   pixelsHigh:self.height
-															   bitsPerSample:8        samplesPerPixel:3
-																	hasAlpha:NO		         isPlanar:NO
+															   bitsPerSample:8		samplesPerPixel:3
+																	hasAlpha:NO				 isPlanar:NO
 													 		  colorSpaceName:@"NSCalibratedRGBColorSpace"
-													  			 bytesPerRow:0	    	bitsPerPixel:0];
+													  			 bytesPerRow:0			bitsPerPixel:0];
 
 	cgFloatRed = 1.0;	cgFloatRedUpdate = 0.02; 	[self startAnimation:self];	}   return self;
 }

@@ -10,4 +10,6 @@
 
 @interface WebView (AtoZ)
 
+- (void) makeMobile;
+
 @end

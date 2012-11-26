@@ -14,7 +14,7 @@
 
 +(NSString *)nameOfColor:(NSColor *)color;
 +(NSString *)nameOfColor:(NSColor *)color 
-          savingDistance:(NSColor **)distance;
+		  savingDistance:(NSColor **)distance;
 
 @end
 

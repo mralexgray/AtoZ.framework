@@ -27,7 +27,7 @@
 	}]];
 	self.content = [self.contentView setupHostView];
 	//	_content.backgroundColor = cgRED;
-	self.tabs    = [AZDynamicTabLayer layer];
+	self.tabs	= [AZDynamicTabLayer layer];
 	[_content addSublayer:_tabs];
 	[_tabs setNeedsLayout];
 	//	AZCenteredRect(AZMultiplySize(self.frame.size, .5), [self frame])
@@ -123,7 +123,7 @@
 	[self addObserver:self forKeyPath:@"offset"options:0 context:NULL];
 
 	self.palette 		= [[NSC randomPalette]withMinItems:RAND_INT_VAL(24, 56)];
-	self.tabs  			= [OrderedDictionary     new];
+	self.tabs  			= [OrderedDictionary	 new];
 	//	self.layoutManager 	= self;
 
 	NSSZ unitSize 		= self.sizer.size;
@@ -137,12 +137,12 @@
 		z.name			= $(@"%ld", index);
 
 		CAKeyframeAnimation *anim 			= [CAKA animationWithKeyPath:@"position"];
-		anim.path 			= [_scrollPath newQuartzPath];//[[self scrollPath]quartzPath];
+		anim.path 			= [_scrollPath quartzPath];//[[self scrollPath]quartzPath];
 		anim.calculationMode	 =  kCAAnimationPaced;// kCAAnimationDiscrete;
 		anim.rotationMode 	= kCAAnimationRotateAuto;  //kCAAnimationRotateAutoReverse;
 		anim.repeatCount 	= HUGE_VALF;
 		//		anim.duration 		= 8.0;
-		anim.timeOffset     = (index / _palette.count) *8;
+		anim.timeOffset	 = (index / _palette.count) *8;
 		anim.beginTime 		= 0;//index;//(index / _palette.count) *8;
 		[z addAnimation:anim forKey:@"race"];
 		z.bgC = [obj CGColor];
@@ -160,16 +160,16 @@
 
 -(id<CAAction>) animationForTabOnPathForOffset:(CGF)offset
 {
-	//    CABasicAnimation *pathAnimation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
-	//    pathAnimation.duration 	= 10.0;
-	//    pathAnimation.fromValue = [NSNumber numberWithFloat:0.0f];
-	//    pathAnimation.toValue 	= [NSNumber numberWithFloat:1.0f];
-	//    [self.pathLayer addAnimation:pathAnimation forKey:@"strokeEnd"];
-    CAKeyframeAnimation *penAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
-    penAnimation.duration 	= 2.0;
-    penAnimation.path 		= [[self scrollPath]newQuartzPath];;
-    penAnimation.calculationMode = kCAAnimationPaced;
-    penAnimation.delegate 	= self;
+	//	CABasicAnimation *pathAnimation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
+	//	pathAnimation.duration 	= 10.0;
+	//	pathAnimation.fromValue = [NSNumber numberWithFloat:0.0f];
+	//	pathAnimation.toValue 	= [NSNumber numberWithFloat:1.0f];
+	//	[self.pathLayer addAnimation:pathAnimation forKey:@"strokeEnd"];
+	CAKeyframeAnimation *penAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
+	penAnimation.duration 	= 2.0;
+	penAnimation.path 		= [[self scrollPath]quartzPath];;
+	penAnimation.calculationMode = kCAAnimationPaced;
+	penAnimation.delegate 	= self;
    	return  penAnimation;
 }
 
@@ -181,58 +181,58 @@
 	//	 return [key isEqualToString: @"position"] ?
 	//	 ^{
 	//		CGP oldP  = layer.position;													CGP newP  = [[CATransaction valueForKey: @"newP"] pointValue];
-	//        CGF d 	  = sqrt(pow(oldP.x - newP.x, 2) + pow(oldP.y - newP.y, 2));		CGF r 	  = d / 3.0;
-	//        CGF theta = atan2(newP.y - oldP.y, newP.x - oldP.x);						CGF wag   = 10 * M_PI / 180.0;
-	//        CGP p1 	  = (CGP) { oldP.x + r *     cos ( theta + wag ), 	oldP.y + r * sin 	 ( theta + wag )};
-	//        CGP p2 	  = (CGP) { oldP.x + r * 2 * cos ( theta - wag ), 	oldP.y + r * 2 * sin ( theta - wag )};
+	//		CGF d 	  = sqrt(pow(oldP.x - newP.x, 2) + pow(oldP.y - newP.y, 2));		CGF r 	  = d / 3.0;
+	//		CGF theta = atan2(newP.y - oldP.y, newP.x - oldP.x);						CGF wag   = 10 * M_PI / 180.0;
+	//		CGP p1 	  = (CGP) { oldP.x + r *	 cos ( theta + wag ), 	oldP.y + r * sin 	 ( theta + wag )};
+	//		CGP p2 	  = (CGP) { oldP.x + r * 2 * cos ( theta - wag ), 	oldP.y + r * 2 * sin ( theta - wag )};
 	//
-	//        CAKA* anim  = [CAKeyframeAnimation animation];  anim.values = @[ AZVpoint(oldP), AZVpoint(p1), AZVpoint(p2), AZVpoint(newP)];	anim.calculationMode = kCAAnimationCubic;
+	//		CAKA* anim  = [CAKeyframeAnimation animation];  anim.values = @[ AZVpoint(oldP), AZVpoint(p1), AZVpoint(p2), AZVpoint(newP)];	anim.calculationMode = kCAAnimationCubic;
 	//	return anim;
-	//    }():
+	//	}():
 	//	return
 	[key isEqualToString:kCAOnOrderOut] ?
 	^{
-        CABA* anim1 	= [CABA animationWithKeyPath:@"opacity"];
-        CABA* anim2 	= [CABA animationWithKeyPath:@"transform"];
+		CABA* anim1 	= [CABA animationWithKeyPath:@"opacity"];
+		CABA* anim2 	= [CABA animationWithKeyPath:@"transform"];
 
 		anim1.fromValue = @0;  anim1.toValue 	= @1;//(layer.opacity);
 		anim2.toValue 	= AZV3d( CATransform3DScale(layer.transform, 2, 2, 1.0));	anim2.autoreverses 	= NO;  /*YES*/		anim2.duration 		= 3;
 
 		CAAG* group = [CAAG animation];		group.animations = @[ anim1, anim2 ];	group.duration = 0.2;
 		return group;
-    }():[key isEqualToString:@"opacity"] ?
+	}():[key isEqualToString:@"opacity"] ?
 	^{
 		return [CATransaction valueForKey:@"byebye"] ?
 		^{
-            CABA* anim1 	=  [CABasicAnimation animationWithKeyPath:@"opacity"];
-            anim1.fromValue 	= @(layer.opacity);
-            anim1.toValue 	= @0;
-            CABA* anim2 	= [CABA animationWithKeyPath:@"transform"];
-            anim2.toValue 	= AZV3d( CATransform3DScale(layer.transform, 0.1, 0.1, 1.0));
-            CAAG* group 	= [CAAG animation];
-            group.animations = @[ anim1, anim2 ];
-            group.duration = 0.2;
-            return group;
-        }(): nil;
-    }():nil;
+			CABA* anim1 	=  [CABasicAnimation animationWithKeyPath:@"opacity"];
+			anim1.fromValue 	= @(layer.opacity);
+			anim1.toValue 	= @0;
+			CABA* anim2 	= [CABA animationWithKeyPath:@"transform"];
+			anim2.toValue 	= AZV3d( CATransform3DScale(layer.transform, 0.1, 0.1, 1.0));
+			CAAG* group 	= [CAAG animation];
+			group.animations = @[ anim1, anim2 ];
+			group.duration = 0.2;
+			return group;
+		}(): nil;
+	}():nil;
 
-    // Set up an animation delegate when we are removing a layer so we can remove it from the view hierarchy when it is done
-    if ( [layer valueForKey:@"toRemove"] )
-    {
-        CABA *animation = [CABA animation];
-        if ( [key isEqualToString:@"bounds"] ) animation.delegate = self;
-        return animation;
-    }
+	// Set up an animation delegate when we are removing a layer so we can remove it from the view hierarchy when it is done
+	if ( [layer valueForKey:@"toRemove"] )
+	{
+		CABA *animation = [CABA animation];
+		if ( [key isEqualToString:@"bounds"] ) animation.delegate = self;
+		return animation;
+	}
 
-    return nil;
+	return nil;
 }
 
 #pragma mark - CAAnimationDelegate
 
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
 {
-    // Remove any sublayers marked for removal
-	//    for ( CALayer *layer in self.sublayers ) [[layer valueForKey:@"toRemove"] boolValue]  ?: [layer removeFromSuperlayer];
+	// Remove any sublayers marked for removal
+	//	for ( CALayer *layer in self.sublayers ) [[layer valueForKey:@"toRemove"] boolValue]  ?: [layer removeFromSuperlayer];
 }
 
 // works.  just need to observe
@@ -263,7 +263,7 @@
 //	if ( [@[self]doesNotContainObject:layer] ) {
 //		__block id theA 		 			= [CABA animationWithKeyPath:@"transform"];
 //		__block CATransform3D transform;
-//		transform     = [layer.permaPresentation[@"transform"]CATransform3DValue]  ;//CATransform3DValue] : [layer transform];
+//		transform	 = [layer.permaPresentation[@"transform"]CATransform3DValue]  ;//CATransform3DValue] : [layer transform];
 //		//																		: CATransform3DIdentity;
 //		((CABA*)theA).removedOnCompletion 	= NO;
 //		((CABA*)theA).fillMode 				= kCAFillModeForwards;
@@ -426,7 +426,7 @@
  //		AZV3d(CATransform3DConcat(transform, CATransform3DMakeTranslation(0, [layer[@"hovered"]boolValue] ? 200 : -200, 0)))
  //CATransform3DRotate(transform, DEG2RAD(2*M_PI), 0, 1, 0); //180 * M_PI/180
 
- //    if ([key isEqualToString:@"clicked"]) {
+ //	if ([key isEqualToString:@"clicked"]) {
  //		CATransform3D transform = CATransform3DMakeRotation(M_PI, 0.0f,1.0f, 0.0f);
  //		CABA *flip  = [CABA animationWithKeyPath:@"poop"];
  //		CATransform3D transform = CATransform3DIdentity;
@@ -561,7 +561,7 @@
 //	self.acceptsMouseMovedEvents 	= YES;
 //	self.movableByWindowBackground  = YES;
 //	self.level 					 	= NSScreenSaverWindowLevel;//CGWindowLevelForKey(kCGCursorWindowLevelKey)];
-//	self.collectionBehavior	     	= NSWindowCollectionBehaviorCanJoinAllSpaces |
+//	self.collectionBehavior		 	= NSWindowCollectionBehaviorCanJoinAllSpaces |
 //	NSWindowCollectionBehaviorStationary;
 //}
 //@end
@@ -610,21 +610,21 @@
 //			return d;
 //		}];
 
-//        [self setLevel:kCGStatusWindowLevel + 1];
-//      if ( [self respondsToSelector:@selector(toggleFullScreen:)] ) {
-//            [self setCollectionBehavior:NSWindowCollectionBehaviorCanJoinAllSpaces |
-//             NSWindowCollectionBehaviorTransient];
+//		[self setLevel:kCGStatusWindowLevel + 1];
+//	  if ( [self respondsToSelector:@selector(toggleFullScreen:)] ) {
+//			[self setCollectionBehavior:NSWindowCollectionBehaviorCanJoinAllSpaces |
+//			 NSWindowCollectionBehaviorTransient];
 //   	} else {
 
 //- (void)setFilter:(NSString *)filterName{
-//    if ( fid ){	CGSRemoveWindowFilter( cid, wid, fid );	CGSReleaseCIFilter( cid, fid );	}
-//    if ( filterName ) {	CGError error = CGSNewCIFilterByName( cid, (CFStringRef)filterName, &fid );
-//        if ( error == noErr ) 		{	CGSAddWindowFilter( cid, wid, fid, 0x00003001 );
+//	if ( fid ){	CGSRemoveWindowFilter( cid, wid, fid );	CGSReleaseCIFilter( cid, fid );	}
+//	if ( filterName ) {	CGError error = CGSNewCIFilterByName( cid, (CFStringRef)filterName, &fid );
+//		if ( error == noErr ) 		{	CGSAddWindowFilter( cid, wid, fid, 0x00003001 );
 //}	}	}
 //
 //-(void)setFilterValues:(NSDictionary *)filterValues{
-//    if ( !fid ) {	return;		}
-//    CGSSetCIFilterValuesFromDictionary( cid, fid, (CFDictionaryRef)filterValues );
+//	if ( !fid ) {	return;		}
+//	CGSSetCIFilterValuesFromDictionary( cid, fid, (CFDictionaryRef)filterValues );
 //}
 
 

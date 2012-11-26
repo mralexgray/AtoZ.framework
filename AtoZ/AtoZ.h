@@ -28,6 +28,7 @@
 #define EXCLUDE_STUB_PROTOTYPES 1
 #import <PLWeakCompatibility/PLWeakCompatibilityStubs.h>
 //#import <RMKit/RMKit.h>
+#import "BaseModel.h"
 
 #import <Rebel/Rebel.h>
 //#import <XPCKit/XPCKit.h>
@@ -47,7 +48,6 @@
 #import "F.h"
 //#import "MArray.h"
 #import "ConciseKit.h"
-#import "BaseModel.h"
 #import	"AtoZUmbrella.h"
 #import "AtoZGeometry.h"
 #import "AtoZFunctions.h"
@@ -67,7 +67,7 @@
 @interface AZSingleton : NSObject
 +(id) instance;
 +(id) sharedInstance; //alias for instance
-+(id) singleton;      //alias for instance
++(id) singleton;	  //alias for instance
 @end
 
 #import "NotificationCenterSpy.h"
@@ -119,6 +119,7 @@
 #import "AZCalculatorController.h"
 
 #import "AZLayer.h"
+#import "AZASIMGV.h"
 
 #import "AZSizer.h"
 #import "AZMouser.h"
@@ -167,7 +168,7 @@
 #import "AZQueue.h"
 #import "AZDockQuery.h"
 #import "AZAXAuthorization.h"
-#import "AZNotificationCenter.h"
+//#import "AZNotificationCenter.h"
 #import "NSLogConsole.h"
 #import "AZLaunchServices.h"
 #import "AZLassoView.h"
@@ -200,6 +201,8 @@
 #import "AZTimeLineLayout.h"
 #import "AZScrollPaneLayer.h"
 #import "AZScrollerLayer.h"
+#import "WebView+AtoZ.h"
+
 
 // Views
 #import "AZPrismView.h"
@@ -397,10 +400,10 @@ extern NSString *const AtoZDockSortedUpdated;
 
 @interface NSViewFlipperController : NSObject {
 	NSView *hostView, *frontView, *backView;
-    NSView *topView, *bottomView;
-    CALayer *topLayer, *bottomLayer;
-    BOOL isFlipped;
-    NSTimeInterval duration;
+	NSView *topView, *bottomView;
+	CALayer *topLayer, *bottomLayer;
+	BOOL isFlipped;
+	NSTimeInterval duration;
 }
 @property (RONLY) BOOL isFlipped;
 @property NSTimeInterval duration;
@@ -423,7 +426,7 @@ extern NSString *const AtoZDockSortedUpdated;
 #define XCODE_COLORS_ESCAPE @"\033["
 #define XCODE_COLORS_RESET_FG  XCODE_COLORS_ESCAPE @"fg;" // Clear any foreground color
 														  //#define XCODE_COLORS_RESET_BG  XCODE_COLORS_ESCAPE @"bg;" // Clear any background color
-#define XCODE_COLORS_RESET     XCODE_COLORS_ESCAPE @";"   // Clear any foreground or background color
+#define XCODE_COLORS_RESET	 XCODE_COLORS_ESCAPE @";"   // Clear any foreground or background color
 
 
 @interface CAConstraint (brevity)

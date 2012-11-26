@@ -25,11 +25,11 @@ static NotificationCenterSpy *sharedInstance = nil;
 		sharedInstance = [[self alloc] init];
 	});
 	
-    return sharedInstance;
+	return sharedInstance;
 }
 
-+ (void)toggleSpyingAllNotifications {    
-    [[self sharedNotificationCenterSpy] toggleSpyingAllNotifications];
++ (void)toggleSpyingAllNotifications {	
+	[[self sharedNotificationCenterSpy] toggleSpyingAllNotifications];
 }
 
 - (void)toggleSpyingAllNotifications {

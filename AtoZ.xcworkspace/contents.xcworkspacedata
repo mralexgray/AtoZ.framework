@@ -2,13 +2,19 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "container:AtoZ/AtoZ.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "container:../git/StackInbox/StackInbox.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:AtoZWebkit/DeskBrowse.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:ContactFlow/ContactsFlow.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:AtoZ/../DeskLabels/DeskLabels.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "container:AtoZ/AtoZ.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:../dev/GistHub/GistHub/GistHub.xcodeproj">
@@ -18,11 +24,5 @@
    </FileRef>
    <FileRef
       location = "group:AZLayerGrid/AZLayerGrid.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "container:../git/StackInbox/StackInbox.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:AtoZWebkit/DeskBrowse.xcodeproj">
    </FileRef>
 </Workspace>

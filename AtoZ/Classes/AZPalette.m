@@ -18,8 +18,8 @@ static 	NSUI internalIndex = 0;
 //{
 //	if(!(self=[super initWithCapacity:500])) return nil;
 //  	internalIndex = 0;
-////        self.indexed = [NSC randomPalette];
-//    return self;
+////		self.indexed = [NSC randomPalette];
+//	return self;
 //}
 
 

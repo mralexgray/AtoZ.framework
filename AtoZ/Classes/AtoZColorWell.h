@@ -40,8 +40,8 @@
  // the logic for actually doing so is not yet implemented
 
  //	self.colorWell.removeColorAction = @selector(removeColorSelection:);
- //    self.colorWell.removeColorTarget = self;
- //    self.colorWell.canRemoveColor = YES;
+ //	self.colorWell.removeColorTarget = self;
+ //	self.colorWell.canRemoveColor = YES;
  }
 
  - (void) updateColorWell:(NSNotification*)aNotification
@@ -89,16 +89,16 @@
 
 @interface AtoZColorWell : NSColorWell <NSMenuDelegate> {
 @private
-    NSString *title;
-    BOOL canRemoveColor;
+	NSString *title;
+	BOOL canRemoveColor;
 
 	NSBorderType borderType;
 
-    SEL removeColorAction;
-    id __unsafe_unretained removeColorTarget;
+	SEL removeColorAction;
+	id __unsafe_unretained removeColorTarget;
 
-    NSMenu *_colorPickerMenu;
-    AtoZColorPicker *_colorPicker;
+	NSMenu *_colorPickerMenu;
+	AtoZColorPicker *_colorPicker;
 }
 
 @property(readwrite,copy) NSString *title;
@@ -127,19 +127,19 @@
 
 @interface HighlightingView : NSView {
 @private
-    BOOL _highlighted;
+	BOOL _highlighted;
 }
 @property (nonatomic,assign, getter=isHighlighted) BOOL highlighted;
 @end
 
 @interface AtoZColorWellMenuView : NSView {
 @private
-    HighlightingView *__unsafe_unretained showColorsView;
-    AtoZColorPicker *__unsafe_unretained colorPickerView;
-    AtoZColorWell *__unsafe_unretained colorWell; // don't care for the coupling
+	HighlightingView *__unsafe_unretained showColorsView;
+	AtoZColorPicker *__unsafe_unretained colorPickerView;
+	AtoZColorWell *__unsafe_unretained colorWell; // don't care for the coupling
 
-    NSTrackingArea *_colorPickerTrackingArea;
-    NSTrackingArea *_highlightTrackingArea;
+	NSTrackingArea *_colorPickerTrackingArea;
+	NSTrackingArea *_highlightTrackingArea;
 }
 
 @property(unsafe_unretained) HighlightingView *showColorsView;

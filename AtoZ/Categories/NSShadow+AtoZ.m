@@ -39,7 +39,7 @@ return self;
 
 + (void)clearShadow
 {
-    NSShadow *aShadow = [[self alloc] init];
-    [aShadow set];
+	NSShadow *aShadow = [[self alloc] init];
+	[aShadow set];
 }
 @end

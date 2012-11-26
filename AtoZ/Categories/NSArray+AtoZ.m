@@ -15,19 +15,19 @@
 
 - (NSString*) stringWithEnum: (NSUInteger) enumVal
 {
-    return self[enumVal];
+	return self[enumVal];
 }
 
 - (NSUInteger) enumFromString: (NSString*) strVal default: (NSUInteger) def
 {
-    NSUInteger n = [self indexOfObject:strVal];
-    if(n == NSNotFound) n = def;
-    return n;
+	NSUInteger n = [self indexOfObject:strVal];
+	if(n == NSNotFound) n = def;
+	return n;
 }
 
 - (NSUInteger) enumFromString: (NSString*) strVal
 {
-    return [self enumFromString:strVal default:0];
+	return [self enumFromString:strVal default:0];
 }
 
 @end
@@ -117,7 +117,7 @@
 
 	return [NSPropertyListSerialization propertyListFromData:
 		   [NSData dataWithContentsOfFile:path] mutabilityOption:NSPropertyListImmutable
-													      format:nil errorDescription:nil];
+														  format:nil errorDescription:nil];
 }
 - (void) saveToPlistAtPath:(NSString*)path{
 
@@ -142,14 +142,14 @@
 	}
 	return array;
 }
-- (NSString*) stringWithEnum: (NSUInteger) anEnum; {    return self[anEnum];	}
+- (NSString*) stringWithEnum: (NSUInteger) anEnum; {	return self[anEnum];	}
 
 - (NSUInteger) enumFromString: (NSString*) aString default: (NSUInteger) def;
 {
-    NSUInteger n = [self indexOfObject:aString];	check( n != NSNotFound ); if ( n == NSNotFound )  n = def;	return n;
+	NSUInteger n = [self indexOfObject:aString];	check( n != NSNotFound ); if ( n == NSNotFound )  n = def;	return n;
 }
 
-- (NSUInteger) enumFromString: (NSString*) aString;	{    return [self enumFromString:aString default:0];	}
+- (NSUInteger) enumFromString: (NSString*) aString;	{	return [self enumFromString:aString default:0];	}
 
 - (NSArray *)colorValues {
 	return [self arrayUsingBlock:^id(id obj) {
@@ -160,39 +160,39 @@
 - (NSArray *)arrayUsingIndexedBlock:(id (^)(id obj, NSUInteger idx))block {
 
    NSMutableArray *result = [NSMutableArray arrayWithCapacity:[self count]];
-    [self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        [result addObject:block(obj, idx)];
-    }];
-    return result;
+	[self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+		[result addObject:block(obj, idx)];
+	}];
+	return result;
 }
 
 // NSArray *sortedArray = [theArray sortedWithKey:@"theKey" ascending:YES];
 - (NSArray *)sortedWithKey:(NSString *)theKey ascending:(BOOL)ascending {
-    return [self sortedArrayUsingDescriptors:@[[[NSSortDescriptor alloc] initWithKey:theKey ascending:ascending]]];
+	return [self sortedArrayUsingDescriptors:@[[[NSSortDescriptor alloc] initWithKey:theKey ascending:ascending]]];
 }
 static NSInteger comparatorForSortingUsingArray(id object1, id object2, void *context)
 {
-    // Use NSArray's -indexOfObject:anObject rather than its "identical" form,
-    // -indexOfObjectIdenticalTo:anObject. Note that converting object to index
-    // answers an unsigned integer. A value of NSNotFound indicates, well, not
-    // found! And, since this value equals -1 and therefore the maximum possible
-    // unsigned integer, objects not found come last in the sorting order. Also
-    // note, if the two objects have the same index, their values are compared
-    // as normal.
-    NSUInteger index1 = [(__bridge NSArray *)context indexOfObject:object1];
-    NSUInteger index2 = [(__bridge NSArray *)context indexOfObject:object2];
-    if (index1 < index2)
-        return NSOrderedAscending;
-    // else
-    if (index1 > index2)
-        return NSOrderedDescending;
-    // else
-    return [object1 compare:object2];
+	// Use NSArray's -indexOfObject:anObject rather than its "identical" form,
+	// -indexOfObjectIdenticalTo:anObject. Note that converting object to index
+	// answers an unsigned integer. A value of NSNotFound indicates, well, not
+	// found! And, since this value equals -1 and therefore the maximum possible
+	// unsigned integer, objects not found come last in the sorting order. Also
+	// note, if the two objects have the same index, their values are compared
+	// as normal.
+	NSUInteger index1 = [(__bridge NSArray *)context indexOfObject:object1];
+	NSUInteger index2 = [(__bridge NSArray *)context indexOfObject:object2];
+	if (index1 < index2)
+		return NSOrderedAscending;
+	// else
+	if (index1 > index2)
+		return NSOrderedDescending;
+	// else
+	return [object1 compare:object2];
 }
 
 //- (NSArray *)sortedArrayUsingArray:(NSArray *)otherArray
 //{	NSArray *array = [
-//    return [self sortedArrayUsingFunction:comparatorForSortingUsingArray context:otherArray];
+//	return [self sortedArrayUsingFunction:comparatorForSortingUsingArray context:otherArray];
 //}
 
 // an array of NSNumbers with Integer values, NSNotFound is the terminator
@@ -336,9 +336,9 @@ static NSInteger comparatorForSortingUsingArray(id object1, id object2, void *co
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)makeObjectsPerformSelector: (SEL)selector
-                        withObject: (id)p1
-                        withObject: (id)p2
-                        withObject: (id)p3 {
+						withObject: (id)p1
+						withObject: (id)p2
+						withObject: (id)p3 {
 	for (id delegate in self) {
 		[delegate performSelector:selector withObject:p1 withObject:p2 withObject:p3];
 	}
@@ -709,7 +709,7 @@ static NSInteger comparatorForSortingUsingArray(id object1, id object2, void *co
 }
 -(BOOL)doesNotContainObjects:(id<NSFastEnumeration>)enumerable {
    for (id x in enumerable) {
-     if ([self containsObject:x]) return NO; // exists, abort!
+	 if ([self containsObject:x]) return NO; // exists, abort!
    }
    return YES;   // it ain't in there, return TRUE;
 }
@@ -757,18 +757,18 @@ static NSInteger comparatorForSortingUsingArray(id object1, id object2, void *co
 }
 
 -(NSA*) uniqueObjects {
-    NSSet *set = [[NSSet alloc] initWithArray: self];
-    NSArray *vals = [set allObjects];
-    return vals;
+	NSSet *set = [[NSSet alloc] initWithArray: self];
+	NSArray *vals = [set allObjects];
+	return vals;
 }
  
  
 -(NSA*) uniqueObjectsSortedUsingSelector: (SEL)comparator {
-    NSSet *set = 
-        [[NSSet alloc] initWithArray: self];
-    NSArray *vals = 
-        [[set allObjects] sortedArrayUsingSelector: comparator];
-    return vals;
+	NSSet *set = 
+		[[NSSet alloc] initWithArray: self];
+	NSArray *vals = 
+		[[set allObjects] sortedArrayUsingSelector: comparator];
+	return vals;
 }
  
  
@@ -817,21 +817,21 @@ static NSInteger comparatorForSortingUsingArray(id object1, id object2, void *co
 - (void) az_eachConcurrentlyWithBlock:(void (^)(NSInteger index, id obj, BOOL * stop))block
 {
 	//make sure we get a unique queue identifier
-    dispatch_group_t group = dispatch_group_create();
+	dispatch_group_t group = dispatch_group_create();
 	dispatch_queue_t queue = dispatch_queue_create([[NSString stringWithFormat:@"%@%@", @"com.AGFoundation.NSArray_", [NSString newUniqueIdentifier]] UTF8String], DISPATCH_QUEUE_CONCURRENT);
-    __block BOOL _stop = NO;
-    NSInteger idx = 0;
+	__block BOOL _stop = NO;
+	NSInteger idx = 0;
 
-    for (id object in self) {
-        if (_stop) { break; }
-        dispatch_group_async(group, queue, ^{
+	for (id object in self) {
+		if (_stop) { break; }
+		dispatch_group_async(group, queue, ^{
 			block (idx,object, &_stop);
 		});
-        idx++;
-    }
+		idx++;
+	}
 
-    dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
-    dispatch_release(group);
+	dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
+	dispatch_release(group);
 	dispatch_release(queue);
 }
 
@@ -848,7 +848,7 @@ static NSInteger comparatorForSortingUsingArray(id object1, id object2, void *co
 			*stop = YES;
 		}
 	}];	
-    return foundObject;
+	return foundObject;
 }
 
 /**
@@ -866,13 +866,13 @@ static NSInteger comparatorForSortingUsingArray(id object1, id object2, void *co
  */
 - (NSArray *)findAllWithBlock:(BOOL (^)(id obj))block
 {
-    NSMutableArray * results = [[NSMutableArray alloc] init];
+	NSMutableArray * results = [[NSMutableArray alloc] init];
 	[self az_each:^(id obj, NSUInteger index, BOOL *stop) {
 		if (block(obj)) {
 			[results addObject:obj];
 		}
 	}];
-    return results;
+	return results;
 }
 
 #if !(TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
@@ -887,13 +887,13 @@ static NSInteger comparatorForSortingUsingArray(id object1, id object2, void *co
  */
 - (NSHashTable *) findAllIntoWeakRefsWithBlock:(BOOL (^)(id))block
 {
-    NSHashTable * results = [NSHashTable hashTableWithWeakObjects];
-    [self az_each:^(id obj, NSUInteger index, BOOL *stop) {
+	NSHashTable * results = [NSHashTable hashTableWithWeakObjects];
+	[self az_each:^(id obj, NSUInteger index, BOOL *stop) {
 		if (block(obj)) {
 			[results addObject:obj];
 		}
 	}];
-    return results;
+	return results;
 }
 
 #endif
@@ -910,14 +910,14 @@ static NSInteger comparatorForSortingUsingArray(id object1, id object2, void *co
  */
 - (NSArray *) mapArray:(id (^)(id obj))block
 {
-    NSMutableArray * cwArray = [[NSMutableArray alloc] init];
+	NSMutableArray * cwArray = [[NSMutableArray alloc] init];
 	[self az_each:^(id obj, NSUInteger index, BOOL *stop) {
 		id rObj = block(obj);
-        if (rObj) {
-            [cwArray addObject:rObj];
-        }
+		if (rObj) {
+			[cwArray addObject:rObj];
+		}
 	}];
-    return cwArray;
+	return cwArray;
 }
 
  
@@ -958,13 +958,13 @@ return self.lastObject;
 }
 
 - (void) firstToLast {
-    if ( self.count == 0) return; //there is no object to move, return
+	if ( self.count == 0) return; //there is no object to move, return
 	int toIndex = self.count - 1; //toIndex too large, assume a move to end
 	[self moveObjectAtIndex:0 toIndex:toIndex];
 }
 
 - (void) lastToFirst {
-    if ( self.count == 0) return; //there is no object to move, return
+	if ( self.count == 0) return; //there is no object to move, return
 
 	[self moveObjectAtIndex:self.count-1 toIndex:0];
 }
@@ -1003,11 +1003,11 @@ return self.lastObject;
 }
 //- (id)pop
 //{
-//    // nil if [self count] == 0
-//    id lastObject = [[[self lastObject] retain] autorelease];
-//    if (lastObject)
-//        [self removeLastObject];
-//    return lastObject;
+//	// nil if [self count] == 0
+//	id lastObject = [[[self lastObject] retain] autorelease];
+//	if (lastObject)
+//		[self removeLastObject];
+//	return lastObject;
 //}
 
 - (void)push:(id)obj
@@ -1040,51 +1040,51 @@ return self.lastObject;
 }
 
 - (void) moveObjectAtIndex:(NSUInteger)fromIndex toIndex:(NSUInteger)toIndex{
-    if (fromIndex == toIndex) return;
-    if (fromIndex >= self.count) return; //there is no object to move, return
-    if (toIndex >= self.count) toIndex = self.count - 1; //toIndex too large, assume a move to end
-    id movingObject = self[fromIndex];
+	if (fromIndex == toIndex) return;
+	if (fromIndex >= self.count) return; //there is no object to move, return
+	if (toIndex >= self.count) toIndex = self.count - 1; //toIndex too large, assume a move to end
+	id movingObject = self[fromIndex];
 	
-    if (fromIndex < toIndex){
-        for (int i = fromIndex; i <= toIndex; i++){
-            self[i] = (i == toIndex) ? movingObject : self[i + 1];
-        }
-    } else {
-        id cObject;
-        id prevObject;
-        for (int i = toIndex; i <= fromIndex; i++){
-            cObject = self[i];
-            self[i] = (i == toIndex) ? movingObject : prevObject;
-            prevObject = cObject;
-        }
-    }
+	if (fromIndex < toIndex){
+		for (int i = fromIndex; i <= toIndex; i++){
+			self[i] = (i == toIndex) ? movingObject : self[i + 1];
+		}
+	} else {
+		id cObject;
+		id prevObject;
+		for (int i = toIndex; i <= fromIndex; i++){
+			cObject = self[i];
+			self[i] = (i == toIndex) ? movingObject : prevObject;
+			prevObject = cObject;
+		}
+	}
 }
 //Also, a small bonus to further increase functionality, if you're performing operations on the items moved (like updating a db or something), the following code has been very useful to me:
 
 - (void) moveObjectAtIndex:(NSUInteger)fromIndex toIndex:(NSUInteger)toIndex withBlock:(void (^)(id, NSUInteger))block{
-    if (fromIndex == toIndex) return;
-    if (fromIndex >= self.count) return; //there is no object to move, return
-    if (toIndex >= self.count) toIndex = self.count - 1; //toIndex too large, assume a move to end
-    id movingObject = self[fromIndex];
-    id replacementObject;
+	if (fromIndex == toIndex) return;
+	if (fromIndex >= self.count) return; //there is no object to move, return
+	if (toIndex >= self.count) toIndex = self.count - 1; //toIndex too large, assume a move to end
+	id movingObject = self[fromIndex];
+	id replacementObject;
 	
-    if (fromIndex < toIndex){
-        for (int i = fromIndex; i <= toIndex; i++){
-            replacementObject = (i == toIndex) ? movingObject : self[i + 1];
-            self[i] = replacementObject;
-            if (block) block(replacementObject, i);
-        }
-    } else {
-        id cObject;
-        id prevObject;
-        for (int i = toIndex; i <= fromIndex; i++){
-            cObject = self[i];
-            replacementObject = (i == toIndex) ? movingObject : prevObject;
-            self[i] = replacementObject;
-            prevObject = cObject;
-            if (block) block(replacementObject, i);
-        }
-    }
+	if (fromIndex < toIndex){
+		for (int i = fromIndex; i <= toIndex; i++){
+			replacementObject = (i == toIndex) ? movingObject : self[i + 1];
+			self[i] = replacementObject;
+			if (block) block(replacementObject, i);
+		}
+	} else {
+		id cObject;
+		id prevObject;
+		for (int i = toIndex; i <= fromIndex; i++){
+			cObject = self[i];
+			replacementObject = (i == toIndex) ? movingObject : prevObject;
+			self[i] = replacementObject;
+			prevObject = cObject;
+			if (block) block(replacementObject, i);
+		}
+	}
 }
 
 @end

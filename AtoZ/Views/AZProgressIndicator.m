@@ -231,9 +231,9 @@
 	if ([self window]) {
 		[self makeIndeterminatePole];
 		if (usesThreadedAnimation) {
-            _animationThread = [[NSThread alloc] initWithTarget:self selector:@selector(animateInBackgroundThread) object:nil];
-            [_animationThread start];
-        } else {
+			_animationThread = [[NSThread alloc] initWithTarget:self selector:@selector(animateInBackgroundThread) object:nil];
+			[_animationThread start];
+		} else {
 			_timer = [NSTimer scheduledTimerWithTimeInterval:.05
 												   target:self
 												 selector:@selector(drawIndeterminate:)
@@ -245,12 +245,12 @@
 }
 - (void)stopAnimation:(id)sender {
 	if (_animationThread) {
-        // we were using threaded animation
+		// we were using threaded animation
 		[_animationThread cancel];
 		if (![_animationThread isFinished]) {
 			[[NSRunLoop currentRunLoop] runMode:NSModalPanelRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.05]];
 		}
-        _animationThread = nil;
+		_animationThread = nil;
 	} else if (isIndeterminate) {
 		[_timer invalidate];
 		_animationStarted = NO;
@@ -276,7 +276,7 @@
 			NSLog(@"doing something in another thread");
 			_step++; [self setNeedsDisplay:YES];
 		} while (![[NSThread currentThread] isCancelled]); 
-    
+	
 	}
 }
 - (void)setFrame:(NSRect)frameRect {

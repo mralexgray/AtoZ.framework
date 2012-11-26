@@ -11,8 +11,8 @@
 
 - (id)initInWindow:(AZTrackingWindow*)window withObject:(id)thing atIndex:(NSUInteger)index
 {
-    self = [super initWithFrame:NSZeroRect];
-    if (self) {
+	self = [super initWithFrame:NSZeroRect];
+	if (self) {
 //		[self setupHostView];
 		self.wantsLayer = YES;
 		NSSize trkrSize		= [[window contentView] bounds].size;
@@ -49,9 +49,9 @@
 //, [(NSColor*)[view valueForKey:@"backgroundColor"] nameOfColor])];
 //		view.frame = AZMakeRectFromSize(dim);
 
-    }
+	}
 
-    return self;
+	return self;
 }
 
 - (CGFloat) dynamicStroke {

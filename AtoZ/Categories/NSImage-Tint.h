@@ -10,7 +10,7 @@
 @interface NSImage (Transform)
 
 /*!
- @brief    Rotates an image around its center by a given
+ @brief	Rotates an image around its center by a given
  angle in degrees and returns the new image.
 
  @details  The width and height of the returned image are,
@@ -34,14 +34,14 @@
 @interface NSImage (ImageMerge)
 
 /*!
- @brief    Returns an image constructed by tiling a given array
+ @brief	Returns an image constructed by tiling a given array
  of images side-by-side or top-to-bottom.
 
- @param    spacingX  Spacing which will be applied horizontally between
+ @param	spacingX  Spacing which will be applied horizontally between
  images, and at the left and right borders.
- @param    spacingY  Spacing which will be applied vertitally between
+ @param	spacingY  Spacing which will be applied vertitally between
  images, and at the bottom and top borders.
- @param    vertically  YES to tile the given images from top
+ @param	vertically  YES to tile the given images from top
  to bottom, starting with the first image in the array at the top.
  NO to tile the given images from left to right, starting with
  the first image in the array at the left.

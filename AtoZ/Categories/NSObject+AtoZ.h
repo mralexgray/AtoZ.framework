@@ -8,7 +8,6 @@
 #import <objc/runtime.h>
 #import <dispatch/dispatch.h>
 #import <stdarg.h>
-#import "AtoZ.h"
 
 
 //Here’s how you’d store a value with a strong reference:
@@ -32,7 +31,7 @@
 - (void)removeAllAssociatedValues;
 
 @end
-//- (void)registerObservation{    [observee addObserverForKeyPath:@"someValue" task:^(id obj, NSDictionary *change) {
+//- (void)registerObservation{	[observee addObserverForKeyPath:@"someValue" task:^(id obj, NSDictionary *change) {
 //								   NSLog(@"someValue changed: %@", change);  }]; }
 typedef NSString AZBlockToken;
 typedef void (^AZBlockTask)(id obj, NSDictionary *change);
@@ -44,7 +43,7 @@ typedef void (^AZBlockTask)(id obj, NSDictionary *change);
 - (NSA*)addObserverForKeyPaths:(NSA*)keyPaths task:(AZBlockTask)task;
 //@interface NSObject (AMBlockObservation)
 - (AZBlockToken *)addObserverForKeyPath:(NSString *)keyPath task:(AZBlockTask)task;
-- (AZBlockToken *)addObserverForKeyPath:(NSString *)keyPath onQueue:(NSOperationQueue *)queue task:(AZBlockTask)task;
+- (AZBlockToken *)addObserverForKeyPath:(NSString *)keyPath onQueue:(NSOQ*)queue task:(AZBlockTask)task;
 - (void)removeObserverWithBlockToken:(AZBlockToken *)token;
 @end
 @interface NSObject (AtoZ)
@@ -61,9 +60,9 @@ typedef void (^AZBlockTask)(id obj, NSDictionary *change);
 
 /* USAGE:
 -(void)mouseDown:(NSEvent*)theEvent {
-    NSColor* newColor = //mouse down changes the color somehow (view-driven change)
-    self.color = newColor;
-    [self propagateValue:newColor forBinding:@"color"];  } */
+	NSColor* newColor = //mouse down changes the color somehow (view-driven change)
+	self.color = newColor;
+	[self propagateValue:newColor forBinding:@"color"];  } */
 
 -(void) propagateValue:(id)value forBinding:(NSString*)binding;
 
@@ -71,8 +70,8 @@ typedef void (^AZBlockTask)(id obj, NSDictionary *change);
 
 /*
 [WSLObjectSwitch switchOn:<id object> defaultBlock:^{ NSLog (@"Dee Fault"); }
-                    cases:	@"sausage", ^{ NSLog (@"Hello, sweetie."); },
-							@"test",    ^{ NSLog (@"A test"); }, nil];
+					cases:	@"sausage", ^{ NSLog (@"Hello, sweetie."); },
+							@"test",	^{ NSLog (@"A test"); }, nil];
 */
 
 typedef void (^caseBlock)();
@@ -80,16 +79,16 @@ typedef void (^caseBlock)();
 
 +(void)switchOn:(id<NSObject>)obj
    defaultBlock:(caseBlock)defaultBlock
-          cases:casesList, ...;
+		  cases:casesList, ...;
 
 /*
 	// To add array style subscripting:
 - (void)setObject:(id)obj atIndexedSubscript:(NSUInteger)idx; // setter
-- (id)objectAtIndexedSubscript:(NSUInteger)idx;               // getter
+- (id)objectAtIndexedSubscript:(NSUInteger)idx;			   // getter
 */
 	// To add dictionary style subscripting
 - (void)setObject:(id)obj forKeyedSubscript:(id <NSCopying>)key; // setter
-- (id)objectForKeyedSubscript:(id)key;                           // getter
+- (id)objectForKeyedSubscript:(id)key;						   // getter
 
 - (void)performBlock:(void (^)(void))block afterDelay:(NSTimeInterval)delay;
 - (void)fireBlockAfterDelay:(void (^)(void))block;
@@ -99,10 +98,10 @@ typedef void (^caseBlock)();
 //}
 //+(void)immediately:(void (^)())block
 //{
-//    [self begin];
-//    [self setDisableActions:YES];
-//    block();
-//    [self commit];
+//	[self begin];
+//	[self setDisableActions:YES];
+//	block();
+//	[self commit];
 //}
 	// Finds all properties of an object, and prints each one out as part of a string describing the class.
 //+ (NSString*)  autoDescribeWithClassType:	(Class) classType;
@@ -123,8 +122,8 @@ typedef void (^caseBlock)();
 
 	That even works great with the Interface Builder and User Defined Runtime Attributes.
 
-	Key Path                   Type                     Value
-	dictionary.attributeName   String(or other Type)    attributeValue
+	Key Path				   Type					 Value
+	dictionary.attributeName   String(or other Type)	attributeValue
 */
 - (NSMutableDictionary*) getDictionary;
 
@@ -187,11 +186,11 @@ BOOL respondsToString(id obj,NSS* string);
 - (void) fire:	(NSString*) notificationName userInfo:	(NSDictionary*) userInfo;
 
 - (id) observeName:	(NSString*) notificationName 
-      usingBlock:	(void (^) (NSNotification*) ) block;
+	  usingBlock:	(void (^) (NSNotification*) ) block;
 
 - (void) observeObject:	(NSObject*) object
-             forName:	(NSString*) notificationName
-             calling:	(SEL) selector;
+			 forName:	(NSString*) notificationName
+			 calling:	(SEL) selector;
 
 -(void)observeName:(NSString *)notificationName
 		   calling:(SEL)selector;
@@ -206,9 +205,9 @@ BOOL respondsToString(id obj,NSS* string);
 - (void) performSelector:	(SEL) aSelector afterDelay:	(NSTimeInterval) seconds;
 - (void) addObserver:	(NSObject*) observer forKeyPath:	(NSString*) keyPath;
 - (void) addObserver:	(NSObject*) observer 
-       forKeyPaths:	(id<NSFastEnumeration>) keyPaths;
+	   forKeyPaths:	(id<NSFastEnumeration>) keyPaths;
 - (void) removeObserver:	(NSObject*) observer 
-          forKeyPaths:	(id<NSFastEnumeration>) keyPaths;
+		  forKeyPaths:	(id<NSFastEnumeration>) keyPaths;
 
 - (void) willChangeValueForKeys:	(id<NSFastEnumeration>) keys;
 - (void) didChangeValueForKeys:	(id<NSFastEnumeration>) keys;
@@ -248,7 +247,7 @@ BOOL respondsToString(id obj,NSS* string);
 //Here are some examples. First of all, let’s just assume we have a class with the following methods:
 
 //	- (void)doSomethingWithFloat:(float)f;  // Example 1
-//	- (int)addOne:(int)i;                   // Example 2
+//	- (int)addOne:(int)i;				   // Example 2
 
 // Example 1
 //	float value = 7.2661; // Create a float
@@ -266,7 +265,7 @@ BOOL respondsToString(id obj,NSS* string);
 /*  Things get a little more complicated when dealing with methods that return objects, as opposed to primitives or structs. For primitives, our performSelector:withValue: returns a pointer to the method’s return value (i.e. a primitive). However, when the underlying method returns an object, it’s actually returning a pointer to the object. So that means that when our code runs, it ends up returning a pointer to a pointer to the object (i.e. a void **), which you need to handle appropriately. If that wasn’t tricky enough, if you’re using ARC, you also need to bridge the void * pointer to bring it into Objective-C land.	*/
 
 //	Here are some examples. Let’s assume you have a class with the following methods:
-//	- (NSObject *)objectIfTrue:(BOOL)b;     // Example 3
+//	- (NSObject *)objectIfTrue:(BOOL)b;	 // Example 3
 //	- (NSString *)strWithView:(UIView *)v;  // Example 4
 //	Notice how both methods return objects (well, technically, pointers to objects, which is important!). We can now use performSelector:withValue: as follows:
 /*
@@ -304,16 +303,20 @@ free(p);
 @end
 
 
+//  AutoCoding.h
+//  Version 1.2.1
+
 @interface NSObject (AutoCoding) <NSCoding, NSCopying>
 
 //coding
 
 - (NSArray *)codableKeys;
 - (NSArray *)uncodableKeys;
+- (void)setWithCoder:(NSCoder *)aDecoder;
 
 //loading / saving
 
 + (instancetype)objectWithContentsOfFile:(NSString *)path;
-- (void)writeToFile:(NSString *)filePath atomically:(BOOL)useAuxiliaryFile;
+- (BOOL)writeToFile:(NSString *)filePath atomically:(BOOL)useAuxiliaryFile;
 
 @end

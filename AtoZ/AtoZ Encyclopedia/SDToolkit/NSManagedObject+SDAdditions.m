@@ -12,7 +12,7 @@
 #define SD_THROW_IF_ERROR if (error) \
 	@throw [NSException exceptionWithName:[error localizedDescription] \
 								   reason:[error localizedFailureReason] \
-							     userInfo:[NSDictionary dictionaryWithObject:error forKey:@"error"]];
+								 userInfo:[NSDictionary dictionaryWithObject:error forKey:@"error"]];
 
 @implementation NSManagedObject (SDAdditions)
 

@@ -5,13 +5,13 @@
 @class CIImage;
 
 typedef enum {
-    AnimatingTabViewCopyMachineTransitionStyle = 0,
-    AnimatingTabViewDissolveTransitionStyle,
-    AnimatingTabViewFlashTransitionStyle,
-    AnimatingTabViewModTransitionStyle,
-    AnimatingTabViewPageCurlTransitionStyle,
-    AnimatingTabViewRippleTransitionStyle,
-    AnimatingTabViewSwipeTransitionStyle,
+	AnimatingTabViewCopyMachineTransitionStyle = 0,
+	AnimatingTabViewDissolveTransitionStyle,
+	AnimatingTabViewFlashTransitionStyle,
+	AnimatingTabViewModTransitionStyle,
+	AnimatingTabViewPageCurlTransitionStyle,
+	AnimatingTabViewRippleTransitionStyle,
+	AnimatingTabViewSwipeTransitionStyle,
 	AnimatingTabViewFlipTransitionStyle,  
 	AnimatingTabViewCubeTransitionStyle, 
 	AnimatingTabViewZoomDissolveTransitionStyle
@@ -23,8 +23,8 @@ typedef enum {
 @property (nonatomic, assign) CGFloat 		  direction;	 // +1 = left, -1=right
 @property (nonatomic, assign) NSTimeInterval  transitionDuration;
 
-@property (nonatomic, retain) CIImage		 *finalImage, 		*initialImage,      *inputShadingImage;
-@property (nonatomic, retain) CIFilter       *transitionFilter, *transitionFilter2;
+@property (nonatomic, retain) CIImage		 *finalImage, 		*initialImage,	  *inputShadingImage;
+@property (nonatomic, retain) CIFilter	   *transitionFilter, *transitionFilter2;
 
 @property (nonatomic, assign) BOOL			   chaining;
 @property (nonatomic, retain) NSAnimation	  *animation;

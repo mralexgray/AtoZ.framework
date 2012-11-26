@@ -8,7 +8,7 @@
 
 #define ONE_THIRD  (1.0f/3.0f)
 #define TWO_THIRDS (2.0f/3.0f)
-#define ONE_HALF    0.5f
+#define ONE_HALF	0.5f
 
 #define DEFAULT_SHAFT_WIDTH ONE_THIRD
 #define DEFAULT_SHAFT_LENGTH_MULTI 1.0f
@@ -17,11 +17,11 @@
 
 + (NSAffineTransform *)transformRotatingAroundPoint:(NSPoint) p byDegrees:(CGFloat) deg
 {
-    NSAffineTransform * transform = [NSAffineTransform transform];
-    [transform translateXBy: p.x yBy: p.y];
-    [transform rotateByDegrees:deg];
-    [transform translateXBy: -p.x yBy: -p.y];
-    return transform;
+	NSAffineTransform * transform = [NSAffineTransform transform];
+	[transform translateXBy: p.x yBy: p.y];
+	[transform rotateByDegrees:deg];
+	[transform translateXBy: -p.x yBy: -p.y];
+	return transform;
 }
 
 -(void)	shearXBy: (CGFloat)xFraction yBy: (CGFloat)yFraction
@@ -250,108 +250,108 @@
 
 + (NSBezierPath *)bezierPathWithLeftRoundedRect:(NSRect)rect radius:(CGFloat)radius
 {
-    // Make sure radius doesn't exceed a maximum size to avoid artifacts:
-    radius = fmin(radius, fmin(0.5f * NSHeight(rect), NSWidth(rect)));
-    
-    // Make sure silly values simply lead to un-rounded corners:
-    if( radius <= 0 )
-        return [self bezierPathWithRect:rect];
-    
-    NSRect ignored, innerRect;
-    NSDivideRect(NSInsetRect(rect, 0.0, radius), &ignored, &innerRect, radius, NSMinXEdge); // Make rect with corners being centers of the corner circles.
-    NSBezierPath *path = [self bezierPath];
-    
-    // Now draw our rectangle:
-    [path moveToPoint: NSMakePoint(NSMaxX(rect), NSMinY(rect))];
-    
-    // Right edge:
-    [path lineToPoint:NSMakePoint(NSMaxX(rect), NSMaxY(rect))];
-    // Top edge and top left:
-    [path appendBezierPathWithArcWithCenter:NSMakePoint(NSMinX(innerRect), NSMaxY(innerRect)) radius:radius startAngle:90.0  endAngle:180.0];
-    // Left edge and bottom left:
-    [path appendBezierPathWithArcWithCenter:NSMakePoint(NSMinX(innerRect), NSMinY(innerRect)) radius:radius startAngle:180.0  endAngle:270.0 ];
-    // Bottom edge:
-    [path closePath];
-    
-    return path;
+	// Make sure radius doesn't exceed a maximum size to avoid artifacts:
+	radius = fmin(radius, fmin(0.5f * NSHeight(rect), NSWidth(rect)));
+	
+	// Make sure silly values simply lead to un-rounded corners:
+	if( radius <= 0 )
+		return [self bezierPathWithRect:rect];
+	
+	NSRect ignored, innerRect;
+	NSDivideRect(NSInsetRect(rect, 0.0, radius), &ignored, &innerRect, radius, NSMinXEdge); // Make rect with corners being centers of the corner circles.
+	NSBezierPath *path = [self bezierPath];
+	
+	// Now draw our rectangle:
+	[path moveToPoint: NSMakePoint(NSMaxX(rect), NSMinY(rect))];
+	
+	// Right edge:
+	[path lineToPoint:NSMakePoint(NSMaxX(rect), NSMaxY(rect))];
+	// Top edge and top left:
+	[path appendBezierPathWithArcWithCenter:NSMakePoint(NSMinX(innerRect), NSMaxY(innerRect)) radius:radius startAngle:90.0  endAngle:180.0];
+	// Left edge and bottom left:
+	[path appendBezierPathWithArcWithCenter:NSMakePoint(NSMinX(innerRect), NSMinY(innerRect)) radius:radius startAngle:180.0  endAngle:270.0 ];
+	// Bottom edge:
+	[path closePath];
+	
+	return path;
 }
 
 + (NSBezierPath *)bezierPathWithRightRoundedRect:(NSRect)rect radius:(CGFloat)radius
 {
-    // Make sure radius doesn't exceed a maximum size to avoid artifacts:
-    radius = fmin(radius, fmin(0.5f * NSHeight(rect), NSWidth(rect)));
-    
-    // Make sure silly values simply lead to un-rounded corners:
-    if( radius <= 0 )
-        return [self bezierPathWithRect:rect];
-    
-    NSRect ignored, innerRect;
-    NSDivideRect(NSInsetRect(rect, 0.0, radius), &ignored, &innerRect, radius, NSMaxXEdge); // Make rect with corners being centers of the corner circles.
-    NSBezierPath *path = [self bezierPath];
-    
-    // Now draw our rectangle:
-    [path moveToPoint: NSMakePoint(NSMinX(rect), NSMaxY(rect))];
-    
-    // Left edge:
-    [path lineToPoint:NSMakePoint(NSMinX(rect), NSMinY(rect))];
-    // Bottom edge and bottom right:
-    [path appendBezierPathWithArcWithCenter:NSMakePoint(NSMaxX(innerRect), NSMinY(innerRect)) radius:radius startAngle:270.0 endAngle:360.0];
-    // Right edge and top right:
-    [path appendBezierPathWithArcWithCenter:NSMakePoint(NSMaxX(innerRect), NSMaxY(innerRect)) radius:radius startAngle:0.0  endAngle:90.0 ];
-    // Top edge:
-    [path closePath];
-    
-    return path;
+	// Make sure radius doesn't exceed a maximum size to avoid artifacts:
+	radius = fmin(radius, fmin(0.5f * NSHeight(rect), NSWidth(rect)));
+	
+	// Make sure silly values simply lead to un-rounded corners:
+	if( radius <= 0 )
+		return [self bezierPathWithRect:rect];
+	
+	NSRect ignored, innerRect;
+	NSDivideRect(NSInsetRect(rect, 0.0, radius), &ignored, &innerRect, radius, NSMaxXEdge); // Make rect with corners being centers of the corner circles.
+	NSBezierPath *path = [self bezierPath];
+	
+	// Now draw our rectangle:
+	[path moveToPoint: NSMakePoint(NSMinX(rect), NSMaxY(rect))];
+	
+	// Left edge:
+	[path lineToPoint:NSMakePoint(NSMinX(rect), NSMinY(rect))];
+	// Bottom edge and bottom right:
+	[path appendBezierPathWithArcWithCenter:NSMakePoint(NSMaxX(innerRect), NSMinY(innerRect)) radius:radius startAngle:270.0 endAngle:360.0];
+	// Right edge and top right:
+	[path appendBezierPathWithArcWithCenter:NSMakePoint(NSMaxX(innerRect), NSMaxY(innerRect)) radius:radius startAngle:0.0  endAngle:90.0 ];
+	// Top edge:
+	[path closePath];
+	
+	return path;
 }
 
 - (NSArray *)dashPattern {
-    NSInteger i, count = 0;
-    NSMutableArray *array = [NSMutableArray array];
-    [self getLineDash:NULL count:&count phase:NULL];
-    if (count > 0) {
-        CGFloat pattern[count];
-        [self getLineDash:pattern count:&count phase:NULL];
-        for (i = 0; i < count; i++)
-            [array addObject:@(pattern[i])];
-    }
-    return array;
+	NSInteger i, count = 0;
+	NSMutableArray *array = [NSMutableArray array];
+	[self getLineDash:NULL count:&count phase:NULL];
+	if (count > 0) {
+		CGFloat pattern[count];
+		[self getLineDash:pattern count:&count phase:NULL];
+		for (i = 0; i < count; i++)
+			[array addObject:@(pattern[i])];
+	}
+	return array;
 }
 
 - (void)setDashPattern:(NSArray *)newPattern {
-    NSInteger i, count = [newPattern count];
-    CGFloat pattern[count];
-    for (i = 0; i< count; i++)
-        pattern[i] = [newPattern[i] doubleValue];
-    [self setLineDash:pattern count:count phase:0];
+	NSInteger i, count = [newPattern count];
+	CGFloat pattern[count];
+	for (i = 0; i< count; i++)
+		pattern[i] = [newPattern[i] doubleValue];
+	[self setLineDash:pattern count:count phase:0];
 }
 
 - (NSPoint)associatedPointForElementAtIndex:(NSUInteger)anIndex {
-    NSPoint points[3];
-    if (NSCurveToBezierPathElement == [self elementAtIndex:anIndex associatedPoints:points])
-        return points[2];
-    else
-        return points[0];
+	NSPoint points[3];
+	if (NSCurveToBezierPathElement == [self elementAtIndex:anIndex associatedPoints:points])
+		return points[2];
+	else
+		return points[0];
 }
 
 - (NSRect)nonEmptyBounds {
-    NSRect bounds = [self bounds];
-    if (NSIsEmptyRect(bounds) && [self elementCount]) {
-        NSPoint point, minPoint = NSZeroPoint, maxPoint = NSZeroPoint;
-        NSUInteger i, count = [self elementCount];
-        for (i = 0; i < count; i++) {
-            point = [self associatedPointForElementAtIndex:i];
-            if (i == 0) {
-                minPoint = maxPoint = point;
-            } else {
-                minPoint.x = fmin(minPoint.x, point.x);
-                minPoint.y = fmin(minPoint.y, point.y);
-                maxPoint.x = fmax(maxPoint.x, point.x);
-                maxPoint.y = fmax(maxPoint.y, point.y);
-            }
-        }
-        bounds = NSMakeRect(minPoint.x - 0.1, minPoint.y - 0.1, maxPoint.x - minPoint.x + 0.2, maxPoint.y - minPoint.y + 0.2);
-    }
-    return bounds;
+	NSRect bounds = [self bounds];
+	if (NSIsEmptyRect(bounds) && [self elementCount]) {
+		NSPoint point, minPoint = NSZeroPoint, maxPoint = NSZeroPoint;
+		NSUInteger i, count = [self elementCount];
+		for (i = 0; i < count; i++) {
+			point = [self associatedPointForElementAtIndex:i];
+			if (i == 0) {
+				minPoint = maxPoint = point;
+			} else {
+				minPoint.x = fmin(minPoint.x, point.x);
+				minPoint.y = fmin(minPoint.y, point.y);
+				maxPoint.x = fmax(maxPoint.x, point.x);
+				maxPoint.y = fmax(maxPoint.y, point.y);
+			}
+		}
+		bounds = NSMakeRect(minPoint.x - 0.1, minPoint.y - 0.1, maxPoint.x - minPoint.x + 0.2, maxPoint.y - minPoint.y + 0.2);
+	}
+	return bounds;
 }
 
 + (NSBezierPath *)bezierPathWithRoundedRect:(NSRect)aRect cornerRadius:(CGFloat)radius inCorners:(OSCornerType)corners
@@ -415,16 +415,16 @@
 {
 
 	return [self newQuartzPath];
-/*    // Need to begin a path here.
-    __block CGPathRef           immutablePath = NULL;
+/*	// Need to begin a path here.
+	__block CGPathRef		   immutablePath = NULL;
 
-	__block CGMutablePathRef    path = CGPathCreateMutable();
-	__block BOOL                didClosePath = YES;
+	__block CGMutablePathRef	path = CGPathCreateMutable();
+	__block BOOL				didClosePath = YES;
 
-    // Then draw the path elements.
-    NSI numElements = [self elementCount];
-    if (numElements > 0)
-    {
+	// Then draw the path elements.
+	NSI numElements = [self elementCount];
+	if (numElements > 0)
+	{
 		[[NSA from:0 to:numElements-1] eachWithIndex:^(id obj, NSInteger idx) {
 
 			CGP pnts[3], *pPtr;
@@ -442,9 +442,9 @@
 			e == NSClosePathBezierPathElement ? ^{	CGPathCloseSubpath(path); didClosePath = YES;				}() : nil;
 			// Be sure the path is closed or Quartz may not do valid hit detection.
 			didClosePath ?: CGPathCloseSubpath(path);
-    	}];
+		}];
 	}
-    return CGPathCreateCopy(path);
+	return CGPathCreateCopy(path);
 */
 }
 
@@ -650,61 +650,61 @@ static void CGPathCallback(void *info, const CGPathElement *element)
 // Credit for the next two methods goes to Matt Gemmell
 - (void)strokeInside
 {
-    /* Stroke within path using no additional clipping rectangle. */
-    [self strokeInsideWithinRect:NSZeroRect];
+	/* Stroke within path using no additional clipping rectangle. */
+	[self strokeInsideWithinRect:NSZeroRect];
 }
 
 - (void)strokeInsideWithinRect:(NSRect)clipRect
 {
-//    NSGraphicsContext *thisContext = [NSGraphicsContext currentContext];
-    float lineWidth = [self lineWidth];
-    
-    /* Save the current graphics context. */
-    [NSGraphicsContext saveGraphicsState];
-    
-    /* Double the stroke width, since -stroke centers strokes on paths. */
-    [self setLineWidth:(lineWidth * 2.0)];
-    
-    /* Clip drawing to this path; draw nothing outwith the path. */
-    [self addClip];
-    
-    /* Further clip drawing to clipRect, usually the view's frame. */
-    if (clipRect.size.width > 0.0 && clipRect.size.height > 0.0) {
-        [NSBezierPath clipRect:clipRect];
-    }
-    
-    /* Stroke the path. */
-    [self stroke];
-    
-    /* Restore the previous graphics context. */
-    [NSGraphicsContext restoreGraphicsState];
-    [self setLineWidth:lineWidth];
+//	NSGraphicsContext *thisContext = [NSGraphicsContext currentContext];
+	float lineWidth = [self lineWidth];
+	
+	/* Save the current graphics context. */
+	[NSGraphicsContext saveGraphicsState];
+	
+	/* Double the stroke width, since -stroke centers strokes on paths. */
+	[self setLineWidth:(lineWidth * 2.0)];
+	
+	/* Clip drawing to this path; draw nothing outwith the path. */
+	[self addClip];
+	
+	/* Further clip drawing to clipRect, usually the view's frame. */
+	if (clipRect.size.width > 0.0 && clipRect.size.height > 0.0) {
+		[NSBezierPath clipRect:clipRect];
+	}
+	
+	/* Stroke the path. */
+	[self stroke];
+	
+	/* Restore the previous graphics context. */
+	[NSGraphicsContext restoreGraphicsState];
+	[self setLineWidth:lineWidth];
 }
 
 +(NSBezierPath*) bezierPathWithCappedBoxInRect: (NSRect)rect
 {
-    NSBezierPath* bezierPath = [NSBezierPath bezierPath];
-    float cornerSize = rect.size.height / 2;
+	NSBezierPath* bezierPath = [NSBezierPath bezierPath];
+	float cornerSize = rect.size.height / 2;
 		// Corners:
-    NSPoint leftTop 	= NSMakePoint(NSMinX(rect) + cornerSize, NSMaxY(rect));
-    NSPoint rightTop 	= NSMakePoint(NSMaxX(rect) - cornerSize, NSMaxY(rect));
-    NSPoint rightBottom = NSMakePoint(NSMaxX(rect) - cornerSize, NSMinY(rect));
-    NSPoint leftBottom 	= NSMakePoint(NSMinX(rect) + cornerSize, NSMinY(rect));
+	NSPoint leftTop 	= NSMakePoint(NSMinX(rect) + cornerSize, NSMaxY(rect));
+	NSPoint rightTop 	= NSMakePoint(NSMaxX(rect) - cornerSize, NSMaxY(rect));
+	NSPoint rightBottom = NSMakePoint(NSMaxX(rect) - cornerSize, NSMinY(rect));
+	NSPoint leftBottom 	= NSMakePoint(NSMinX(rect) + cornerSize, NSMinY(rect));
 		// Create our capped box:
 		// Top edge:
-    [bezierPath moveToPoint:leftTop];
-    [bezierPath lineToPoint:rightTop];
+	[bezierPath moveToPoint:leftTop];
+	[bezierPath lineToPoint:rightTop];
 		// Right cap:
-    [bezierPath appendBezierPathWithArcWithCenter:NSMakePoint(rightTop.x,(NSMaxY(rect)+NSMinY(rect))/2)
+	[bezierPath appendBezierPathWithArcWithCenter:NSMakePoint(rightTop.x,(NSMaxY(rect)+NSMinY(rect))/2)
 										   radius:cornerSize startAngle:90 endAngle:-90 clockwise:YES];
 		// Bottom edge:
-    [bezierPath lineToPoint: rightBottom];
-    [bezierPath lineToPoint: leftBottom];
+	[bezierPath lineToPoint: rightBottom];
+	[bezierPath lineToPoint: leftBottom];
 		// Left cap:
-    [bezierPath appendBezierPathWithArcWithCenter:NSMakePoint(leftTop.x,(NSMaxY(rect)+NSMinY(rect))/2)
+	[bezierPath appendBezierPathWithArcWithCenter:NSMakePoint(leftTop.x,(NSMaxY(rect)+NSMinY(rect))/2)
 										   radius:cornerSize startAngle:-90 endAngle:90 clockwise:YES];
-    [bezierPath closePath]; // Just to be safe.
-    return bezierPath;
+	[bezierPath closePath]; // Just to be safe.
+	return bezierPath;
 }
 #pragma mark Rounded rectangles
 
@@ -727,64 +727,64 @@ static void CGPathCallback(void *info, const CGPathElement *element)
 
 + (NSBezierPath *)bezierPathWithRoundedTopCorners:(NSRect)rect radius:(CGFloat)radius
 {
-    NSBezierPath	*path = [NSBezierPath bezierPath];
-    NSPoint 		topLeft, topRight, bottomLeft, bottomRight;
+	NSBezierPath	*path = [NSBezierPath bezierPath];
+	NSPoint 		topLeft, topRight, bottomLeft, bottomRight;
 
-    topLeft = NSMakePoint(rect.origin.x, rect.origin.y);
-    topRight = NSMakePoint(rect.origin.x + rect.size.width, rect.origin.y);
-    bottomLeft = NSMakePoint(rect.origin.x, rect.origin.y + rect.size.height);
-    bottomRight = NSMakePoint(rect.origin.x + rect.size.width, rect.origin.y + rect.size.height);
+	topLeft = NSMakePoint(rect.origin.x, rect.origin.y);
+	topRight = NSMakePoint(rect.origin.x + rect.size.width, rect.origin.y);
+	bottomLeft = NSMakePoint(rect.origin.x, rect.origin.y + rect.size.height);
+	bottomRight = NSMakePoint(rect.origin.x + rect.size.width, rect.origin.y + rect.size.height);
 
 	[path moveToPoint:NSMakePoint(bottomLeft.x, bottomLeft.y)];
 	[path lineToPoint:NSMakePoint(topLeft.x, topLeft.y + radius)];
 
-    [path appendBezierPathWithArcWithCenter:NSMakePoint(topLeft.x + radius, topLeft.y + radius)
-                                     radius:radius
-                                 startAngle:180
-                                   endAngle:270
-                                  clockwise:NO];
-    [path lineToPoint:NSMakePoint(topRight.x - radius, topRight.y)];
+	[path appendBezierPathWithArcWithCenter:NSMakePoint(topLeft.x + radius, topLeft.y + radius)
+									 radius:radius
+								 startAngle:180
+								   endAngle:270
+								  clockwise:NO];
+	[path lineToPoint:NSMakePoint(topRight.x - radius, topRight.y)];
 
-    [path appendBezierPathWithArcWithCenter:NSMakePoint(topRight.x - radius, topRight.y + radius)
-                                     radius:radius
-                                 startAngle:270
-                                   endAngle:0
-                                  clockwise:NO];
-    [path lineToPoint:NSMakePoint(bottomRight.x, bottomRight.y)];
+	[path appendBezierPathWithArcWithCenter:NSMakePoint(topRight.x - radius, topRight.y + radius)
+									 radius:radius
+								 startAngle:270
+								   endAngle:0
+								  clockwise:NO];
+	[path lineToPoint:NSMakePoint(bottomRight.x, bottomRight.y)];
 	[path closePath];
 
-    return path;
+	return path;
 }
 
 + (NSBezierPath *)bezierPathWithRoundedBottomCorners:(NSRect)rect radius:(CGFloat)radius
 {
-    NSBezierPath	*path = [NSBezierPath bezierPath];
-    NSPoint 		topLeft, topRight, bottomLeft, bottomRight;
+	NSBezierPath	*path = [NSBezierPath bezierPath];
+	NSPoint 		topLeft, topRight, bottomLeft, bottomRight;
 
-    topLeft = NSMakePoint(rect.origin.x, rect.origin.y);
-    topRight = NSMakePoint(rect.origin.x + rect.size.width, rect.origin.y);
-    bottomLeft = NSMakePoint(rect.origin.x, rect.origin.y + rect.size.height);
-    bottomRight = NSMakePoint(rect.origin.x + rect.size.width, rect.origin.y + rect.size.height);
+	topLeft = NSMakePoint(rect.origin.x, rect.origin.y);
+	topRight = NSMakePoint(rect.origin.x + rect.size.width, rect.origin.y);
+	bottomLeft = NSMakePoint(rect.origin.x, rect.origin.y + rect.size.height);
+	bottomRight = NSMakePoint(rect.origin.x + rect.size.width, rect.origin.y + rect.size.height);
 
 	[path moveToPoint:NSMakePoint(topRight.x, topRight.y)];
 	[path lineToPoint:NSMakePoint(bottomRight.x, bottomRight.y - radius)];
 
-    [path appendBezierPathWithArcWithCenter:NSMakePoint(bottomRight.x - radius, bottomRight.y - radius)
-                                     radius:radius
-                                 startAngle:0
-                                   endAngle:90
-                                  clockwise:NO];
-    [path lineToPoint:NSMakePoint(bottomLeft.x + radius, bottomLeft.y)];
+	[path appendBezierPathWithArcWithCenter:NSMakePoint(bottomRight.x - radius, bottomRight.y - radius)
+									 radius:radius
+								 startAngle:0
+								   endAngle:90
+								  clockwise:NO];
+	[path lineToPoint:NSMakePoint(bottomLeft.x + radius, bottomLeft.y)];
 
-    [path appendBezierPathWithArcWithCenter:NSMakePoint(bottomLeft.x + radius, bottomLeft.y - radius)
-                                     radius:radius
-                                 startAngle:90
-                                   endAngle:180
-                                  clockwise:NO];
-    [path lineToPoint:NSMakePoint(topLeft.x, topLeft.y)];
+	[path appendBezierPathWithArcWithCenter:NSMakePoint(bottomLeft.x + radius, bottomLeft.y - radius)
+									 radius:radius
+								 startAngle:90
+								   endAngle:180
+								  clockwise:NO];
+	[path lineToPoint:NSMakePoint(topLeft.x, topLeft.y)];
 	[path closePath];
 
-    return path;
+	return path;
 }
 
 #pragma mark Arrows
@@ -794,9 +794,9 @@ static void CGPathCallback(void *info, const CGPathElement *element)
 
 	/*   5
 	 *  / \
-	 * /   \    1-7 = points
+	 * /   \	1-7 = points
 	 *6-7 3-4   the point of the triangle is 100% from the bottom.
-	 *    |     the back edge of the triangle is 50% * shaftLengthMulti from the bottom.
+	 *	|	 the back edge of the triangle is 50% * shaftLengthMulti from the bottom.
 	 *  1-2
 	 */
 
@@ -826,15 +826,15 @@ static void CGPathCallback(void *info, const CGPathElement *element)
 
 + (NSBezierPath *)bezierPathWithArrowWithShaftLengthMultiplier:(CGFloat)shaftLengthMulti {
 	return [self bezierPathWithArrowWithShaftLengthMultiplier:shaftLengthMulti
-	                                               shaftWidth:DEFAULT_SHAFT_WIDTH];
+												   shaftWidth:DEFAULT_SHAFT_WIDTH];
 }
 + (NSBezierPath *)bezierPathWithArrowWithShaftWidth:(CGFloat)shaftWidth {
 	return [self bezierPathWithArrowWithShaftLengthMultiplier:DEFAULT_SHAFT_LENGTH_MULTI
-	                                               shaftWidth:shaftWidth];
+												   shaftWidth:shaftWidth];
 }
 + (NSBezierPath *)bezierPathWithArrow {
 	return [self bezierPathWithArrowWithShaftLengthMultiplier:DEFAULT_SHAFT_LENGTH_MULTI
-	                                               shaftWidth:DEFAULT_SHAFT_WIDTH];
+												   shaftWidth:DEFAULT_SHAFT_WIDTH];
 }
 
 #pragma mark Nifty things
@@ -845,7 +845,7 @@ static void CGPathCallback(void *info, const CGPathElement *element)
 
 	//adapted from http://developer.apple.com/documentation/Carbon/Conceptual/QuickDrawToQuartz2D/tq_other/chapter_3_section_2.html
 	[transform translateXBy: 1.0f yBy: 0.0f];
-	[transform     scaleXBy:-1.0f yBy: 1.0f];
+	[transform	 scaleXBy:-1.0f yBy: 1.0f];
 
 	[self transformUsingAffineTransform:transform];
 	return self;
@@ -855,7 +855,7 @@ static void CGPathCallback(void *info, const CGPathElement *element)
 
 	//http://developer.apple.com/documentation/Carbon/Conceptual/QuickDrawToQuartz2D/tq_other/chapter_3_section_2.html
 	[transform translateXBy: 0.0f yBy: 1.0f];
-	[transform     scaleXBy: 1.0f yBy:-1.0f];
+	[transform	 scaleXBy: 1.0f yBy:-1.0f];
 
 	[self transformUsingAffineTransform:transform];
 	return self;

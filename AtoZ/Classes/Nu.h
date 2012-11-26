@@ -1264,10 +1264,10 @@ id _nudata(const void *bytes, int length);
 
 @interface NuMarkupOperator : NuOperator
 {
-    NSString *tag;
-    NSString *prefix;
-    id contents;
-    BOOL empty;
+	NSString *tag;
+	NSString *prefix;
+	id contents;
+	BOOL empty;
 }
 
 + (id) operatorWithTag:(NSString *) _tag;

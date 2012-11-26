@@ -48,8 +48,8 @@
 ///  Extract a CGPathRef from a NSBezierPath.
 //  Args: 
 //  Returns:
-//    Converted autoreleased CGPathRef. 
-//    nil if failure.
+//	Converted autoreleased CGPathRef. 
+//	nil if failure.
 
 - (NSBezierPath *)pathWithStrokeWidth:(CGFloat)strokeWidth;
 
@@ -73,13 +73,13 @@
 #pragma mark Arrows
 
 /* default metrics of the arrow (as returned by +bezierPathWithArrow):
- *    ^
+ *	^
  *   / \
  *  /   \
  * /_   _\ ___
- *   | |    | shaft length multiplier:
- *   | |    | 1.0
- *   | |    | equals shaft length:
+ *   | |	| shaft length multiplier:
+ *   | |	| 1.0
+ *   | |	| equals shaft length:
  *   |_|   _|_0.5
  *
  *   default shaft width: 1/3

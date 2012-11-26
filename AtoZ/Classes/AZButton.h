@@ -23,5 +23,5 @@ typedef void (^AZButtonCallback)();
 
 /// Set both the **enter* and **exit** callback blocks.
 - (void)setInCallback:(AZButtonCallback)inBlock
-       andOutCallback:(AZButtonCallback)outBlock;
+	   andOutCallback:(AZButtonCallback)outBlock;
 @end

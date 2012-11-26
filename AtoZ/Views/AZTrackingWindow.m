@@ -66,15 +66,15 @@ typedef struct AZTriPair {	AZTri uno;	AZTri duo;  				}AZTriPair;
 
 - (NSRect) triggerFrame {	   _visibleFrame = self.visibleFrame;
 															  if (!_triggerWidth) self.triggerWidth = 6;
-														    return _triggerFrame =
+															return _triggerFrame =
 	self.position == AZPositionLeft  ? AZLeftEdge ( _visibleFrame, _triggerWidth)
-  :	    _position == AZPositionTop	 ? AZUpperEdge( _visibleFrame, _triggerWidth)
-  :     _position == AZPositionRight ? AZRightEdge( _visibleFrame, _triggerWidth)
-  :	                                   AZLowerEdge( _visibleFrame, _triggerWidth);
+  :		_position == AZPositionTop	 ? AZUpperEdge( _visibleFrame, _triggerWidth)
+  :	 _position == AZPositionRight ? AZRightEdge( _visibleFrame, _triggerWidth)
+  :									   AZLowerEdge( _visibleFrame, _triggerWidth);
 }
 - (NSRect) visibleFrame { 		 return _visibleFrame =
 
-	_position == AZPositionLeft  ? AZRectTrimmedOnTop(    AZLeftEdge  ( _workingFrame, _intrusion), _intrusion)
+	_position == AZPositionLeft  ? AZRectTrimmedOnTop(	AZLeftEdge  ( _workingFrame, _intrusion), _intrusion)
   :	_position == AZPositionTop   ? AZRectTrimmedOnRight(  AZUpperEdge ( _workingFrame, _intrusion), _intrusion)
 	//	AZRectTrimmedOnRight( AZMakeRectMaxXUnderMenuBarY (self.intrusion), self.intrusion)
   :	_position == AZPositionRight ?	AZRectTrimmedOnBottom( AZRightEdge( _workingFrame, _intrusion), _intrusion)
@@ -430,8 +430,8 @@ typedef struct AZTriPair {	AZTri uno;	AZTri duo;  				}AZTriPair;
 }
 
 - (id)initWithFrame:(NSRect)frame {
-    self = [super initWithFrame:frame];
-    if (self) {
+	self = [super initWithFrame:frame];
+	if (self) {
 		[self setupHostView];
 		self.autoresizingMask  = NSViewWidthSizable | NSViewHeightSizable;
 		self.postsBoundsChangedNotifications = YES;
@@ -444,8 +444,8 @@ typedef struct AZTriPair {	AZTri uno;	AZTri duo;  				}AZTriPair;
 		[[NSRunLoop currentRunLoop] addTimer: timer forMode: NSDefaultRunLoopMode];
 		[[NSRunLoop currentRunLoop] addTimer: timer forMode: NSEventTrackingRunLoopMode];
 			//		[self setWantsLayer:YES];
-    }
-    return self;
+	}
+	return self;
 }
 
 - (void) viewWillDraw{

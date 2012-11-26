@@ -25,7 +25,7 @@
 + (void) stopwatch:(NSString*)name timing:(void (^)())block
 {
 	[AZStopwatch start:name];
-    block();
+	block();
 	[AZStopwatch stop: name];
 }
 
@@ -85,11 +85,11 @@
 #pragma mark -
 // +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  
 - (id)init {
-    self = [super init];
-    if (self) {
-        items = [[NSMutableDictionary alloc] init];
-    }
-    return self;
+	self = [super init];
+	if (self) {
+		items = [[NSMutableDictionary alloc] init];
+	}
+	return self;
 }
 static id _sharedSingleton		= nil;
 + (id) sharedInstance {
@@ -100,7 +100,7 @@ static id _sharedSingleton		= nil;
 	
 	// THREAD SAFTEY
 	@synchronized(self) {
-		if (    !    _sharedSingleton) {
+		if (	!	_sharedSingleton) {
 			_sharedSingleton		= [[self alloc] init];
 		}
 	}

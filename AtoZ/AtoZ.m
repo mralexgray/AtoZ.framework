@@ -46,8 +46,8 @@
 
 //@synthesize sManager;
 //- (id)init {
-//    self = [super init];
-//    if (self) {
+//	self = [super init];
+//	if (self) {
 
 static NSA* cachedI = nil;
 
@@ -125,7 +125,7 @@ static NSA* cachedI = nil;
 {
 	NSA *sounds = @[@"welcome.wav", @"bling"];
 	NSS *select = number ? [sounds filterOne:^BOOL(id object) { return [(NSString*)object contains:number] ? YES : NO; }] : sounds[0];
-	NSS *song   = select ? select : sounds[0];                           NSLog(@"Playing song: %@", song);
+	NSS *song   = select ? select : sounds[0];						   NSLog(@"Playing song: %@", song);
 	[[SoundManager sharedManager]  playSound:song looping:NO];
 }
 
@@ -170,7 +170,7 @@ static NSA* cachedI = nil;
 				 : [NSString stringWithFormat:@"Version: %@", myVersion]
 				 : buildNum  ? [NSString stringWithFormat:@"Version: %@", buildNum]
 				 : nil);
-	//    AZLOG(versText); return versText;
+	//	AZLOG(versText); return versText;
 }
 + (NSBundle*) bundle {	return [NSBundle bundleForClass:[self class]]; }
 
@@ -298,13 +298,13 @@ static NSA* cachedI = nil;
 												cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
 	NSData *responseData = [NSURLConnection sendSynchronousRequest:theRequest returningResponse:nil error:&err];
 	if (!responseData) NSLog(@"Connection Error: %@", [err localizedDescription]);
-	//    NSError *error;
+	//	NSError *error;
 	return  [NSJSONSerialization JSONObjectWithData:responseData options:0 error:&err];
-	//    if (err) {
-	//        NSAlert *alert = [NSAlert alertWithMessageText:@"Error parsing JSON" defaultButton:@"Damn that sucks" alternateButton:nil otherButton:nil informativeTextWithFormat:@"Check your JSON"];
-	//        [alert beginSheetModalForWindow:[[NSApplication sharedApplication]mainWindow] modalDelegate:nil didEndSelector:nil contextInfo:nil];
-	//        return;
-	//    }
+	//	if (err) {
+	//		NSAlert *alert = [NSAlert alertWithMessageText:@"Error parsing JSON" defaultButton:@"Damn that sucks" alternateButton:nil otherButton:nil informativeTextWithFormat:@"Check your JSON"];
+	//		[alert beginSheetModalForWindow:[[NSApplication sharedApplication]mainWindow] modalDelegate:nil didEndSelector:nil contextInfo:nil];
+	//		return;
+	//	}
 	//	return value;
 }
 
@@ -372,10 +372,10 @@ static NSA* cachedI = nil;
 //}
 //- (void)performBlock:(void (^)())block waitUntilDone:(BOOL)wait {
 //	NSThread *newThread = [NSThread new];
-//    [NSThread performSelector:@selector(az_runBlock:)
-//                     onThread:newThread
-//                   withObject:[block copy]
-//                waitUntilDone:wait];
+//	[NSThread performSelector:@selector(az_runBlock:)
+//					 onThread:newThread
+//				   withObject:[block copy]
+//				waitUntilDone:wait];
 //}
 //+ (void)az_runBlock:(void (^)())block { block(); }
 //+ (void)performBlockInBackground:(void (^)())block {
@@ -440,19 +440,19 @@ static NSA* cachedI = nil;
 
 //- (NSArray *)uncodableKeys
 //{
-//    return [[AtoZ sharedInstance] uncodableKeys];
+//	return [[AtoZ sharedInstance] uncodableKeys];
 //	//[NSArray arrayWithObject:@"uncodableProperty"];
 //}
 
 //- (void)setWithCoder:(NSCoder *)coder
 //{
-//    [super setWithCoder:coder];
-////    self. = DECODE_VALUE([coder decodeObjectForKey:@"uncodableProperty"];
+//	[super setWithCoder:coder];
+////	self. = DECODE_VALUE([coder decodeObjectForKey:@"uncodableProperty"];
 //}
 
 //- (void)encodeWithCoder:(NSCoder *)coder	{
-//    [super encodeWithCoder:coder];
-//    [coder encodeObject:@"uncodable" forKey:@"uncodableProperty"];
+//	[super encodeWithCoder:coder];
+//	[coder encodeObject:@"uncodable" forKey:@"uncodableProperty"];
 //}
 //+ (NSA*) fengshui {
 //	return [[self class] fengShui];
@@ -466,10 +466,10 @@ static NSA* cachedI = nil;
 //		//		dummy];		t.color = (NSColor*)obj; t.spot = 22;	return t;	}];
 //}
 //NSArray *AllApplications(NSArray *searchPaths) {
-//    NSMutableArray *applications = [NSMutableArray array];
-//    NSEnumerator *searchPathEnum = [searchPaths objectEnumerator]; NSString *path;
-//    while (path = [searchPathEnum nextObject]) ApplicationsInDirectory(path, applications);
-//    return ([applications count]) ? applications : nil;
+//	NSMutableArray *applications = [NSMutableArray array];
+//	NSEnumerator *searchPathEnum = [searchPaths objectEnumerator]; NSString *path;
+//	while (path = [searchPathEnum nextObject]) ApplicationsInDirectory(path, applications);
+//	return ([applications count]) ? applications : nil;
 //}
 + (NSA*) runningApps {
 
@@ -494,7 +494,7 @@ static NSA* cachedI = nil;
 	}];
 }
 static void soundCompleted(SystemSoundID soundFileObject, void *clientData) {
-	if (soundFileObject != kSystemSoundID_UserPreferredAlert)     // Clean up.
+	if (soundFileObject != kSystemSoundID_UserPreferredAlert)	 // Clean up.
 		AudioServicesDisposeSystemSoundID(soundFileObject);
 }
 
@@ -505,7 +505,7 @@ static void soundCompleted(SystemSoundID soundFileObject, void *clientData) {
 	NSString *soundName = (NSString *)[apsDictionary valueForKey:(id)@"sound"];
 	if (soundName != nil) {
 		SystemSoundID soundFileObject   = kSystemSoundID_UserPreferredAlert;
-		CFURLRef soundFileURLRef        = NULL;
+		CFURLRef soundFileURLRef		= NULL;
 		if ([soundName compare:@"default"] != NSOrderedSame) {
 			// Get the main bundle for the app.
 			CFBundleRef mainBundle = CFBundleGetMainBundle();

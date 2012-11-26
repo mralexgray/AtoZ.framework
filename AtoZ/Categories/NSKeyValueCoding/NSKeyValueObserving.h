@@ -34,11 +34,11 @@ enum {
 typedef NSUInteger NSKeyValueChange;
 
 enum {
-    NSKeyValueUnionSetMutation = 1,
-    NSKeyValueMinusSetMutation = 2,
-    NSKeyValueIntersectSetMutation = 3,
-    NSKeyValueSetSetMutation = 4
-    
+	NSKeyValueUnionSetMutation = 1,
+	NSKeyValueMinusSetMutation = 2,
+	NSKeyValueIntersectSetMutation = 3,
+	NSKeyValueSetSetMutation = 4
+	
 };
 typedef NSUInteger NSKeyValueSetMutationKind;
 

@@ -4,9 +4,9 @@
 @interface NSManagedObjectContext (EasyFetch)
 
 - (NSSet *)fetchObjectsForEntityName:(NSString *)newEntityName
-                       withPredicate:(id)stringOrPredicate, ...;
+					   withPredicate:(id)stringOrPredicate, ...;
 
 - (NSManagedObject*)copyObject:(NSManagedObject*)object
-                        parent:(NSString*)parentEntity;
+						parent:(NSString*)parentEntity;
 
 @end

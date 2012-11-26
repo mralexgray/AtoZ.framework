@@ -30,9 +30,9 @@ static const CGFloat cornerRadius = 5.0;
   self.bounds = CGRectMake(00, 00, 20, 20);
   
   [self addConstraint:AZConstraint(kCAConstraintMinY, @"superlayer")];
-  [self addConstraint:AZConstraint(kCAConstraintMinX, @"superlayer")];    
+  [self addConstraint:AZConstraint(kCAConstraintMinX, @"superlayer")];	
   [self addConstraint:AZConstraint(kCAConstraintWidth, @"superlayer")];
-  [self addConstraint:AZConstraint(kCAConstraintHeight, @"superlayer")];    
+  [self addConstraint:AZConstraint(kCAConstraintHeight, @"superlayer")];	
 
   [self setLayoutManager:[CAConstraintLayoutManager layoutManager]];
   
@@ -52,24 +52,24 @@ static const CGFloat cornerRadius = 5.0;
 
 -(void)mouseDown:(CGPoint)point {
   _currentEventState = CGRectContainsPoint ( theSwitch.frame, point )  
-                       ? PPcanDragSwitch : PPstandardMouseDown;
+					   ? PPcanDragSwitch : PPstandardMouseDown;
 
   if (_currentEventState == PPcanDragSwitch) {
-    [theSwitch setContents:(__bridge_transfer id)clickedImgRef];
+	[theSwitch setContents:(__bridge_transfer id)clickedImgRef];
   }
   
   _mouseDownPointForCurrentEvent = point;
 }
 
 -(void)mouseUp:(CGPoint)point {
-    [self switchSide];
-    [theSwitch setContents:(__bridge_transfer id)notClickedImgRef];
+	[self switchSide];
+	[theSwitch setContents:(__bridge_transfer id)notClickedImgRef];
 }
 -(void)mouseDragged:(CGPoint)point {
   
   if (_currentEventState == PPdragOccurred ||  _currentEventState == PPcanDragSwitch) {
-    _currentEventState = PPdragOccurred;
-    [self moveSwitch:point];    
+	_currentEventState = PPdragOccurred;
+	[self moveSwitch:point];	
   }
   
 }
@@ -83,12 +83,12 @@ static const CGFloat cornerRadius = 5.0;
 
 - (void)setOn:(BOOL)on animated:(BOOL)animated {
   if (!animated) {
-    [CATransaction begin];
-    [CATransaction setValue:@0.0f forKey:kCATransactionAnimationDuration];
+	[CATransaction begin];
+	[CATransaction setValue:@0.0f forKey:kCATransactionAnimationDuration];
   }
-  [self setOn:on];    
+  [self setOn:on];	
   if (!animated) {
-    [CATransaction commit];
+	[CATransaction commit];
   }  
 }
 
@@ -106,18 +106,18 @@ static const CGFloat cornerRadius = 5.0;
   
   // Sizing --
   // The Time Machine Switch on 10.6.2 has a sizing of 93px wide and 27px height.
-  //                                   the internal switch is 40px wide or 
+  //								   the internal switch is 40px wide or 
   theSwitch.frame = CGRectMake(0, 0, self.frame.size.height * (1 + 40/27), self.frame.size.height);
   
   [theSwitch addConstraint:AZConstraint(kCAConstraintMinY, @"superlayer")];
-  [theSwitch addConstraint:AZConstraint(kCAConstraintHeight, @"superlayer")];    
+  [theSwitch addConstraint:AZConstraint(kCAConstraintHeight, @"superlayer")];	
 
   
   
   [self addSublayer:theSwitch];
   
   NSBezierPath* path = [NSBezierPath bezierPathWithRoundedRect:NSRectFromCGRect(theSwitch.frame) 
-                                                       xRadius:cornerRadius yRadius:cornerRadius];
+													   xRadius:cornerRadius yRadius:cornerRadius];
   
   notClickedImgRef = [self switchImageForPath:path topColor:notClickedTopColor bottomColor:notClickedBotColor];
   clickedImgRef = [self switchImageForPath:path topColor:clickedTopColor bottomColor:clickedBotColor];
@@ -129,18 +129,18 @@ static const CGFloat cornerRadius = 5.0;
 - (void) switchSide {
   CGRect newFrame = theSwitch.frame;
   CGFloat superWidth = CGRectGetWidth(self.frame);
-    
+	
   if (_currentEventState == PPdragOccurred) {
-    CGFloat centre = CGRectGetWidth(self.frame) / 2;
-    CGFloat buttonCentre = CGRectGetWidth(theSwitch.frame) / 2 + theSwitch.frame.origin.x;
-    self.on = buttonCentre > centre ? YES : NO;
+	CGFloat centre = CGRectGetWidth(self.frame) / 2;
+	CGFloat buttonCentre = CGRectGetWidth(theSwitch.frame) / 2 + theSwitch.frame.origin.x;
+	self.on = buttonCentre > centre ? YES : NO;
   } else {
-    self.on = theSwitch.frame.origin.x == 0;
+	self.on = theSwitch.frame.origin.x == 0;
   }
-    
+	
   newFrame.origin.x = self.on ? superWidth - CGRectGetWidth(newFrame) : 0;
   
-  theSwitch.frame = newFrame;    
+  theSwitch.frame = newFrame;	
   _currentEventState = PPNoEvent;  
 }
 
@@ -148,12 +148,12 @@ static const CGFloat cornerRadius = 5.0;
   
   // if delta negative and already to far left exit...
   if(dx < 0 && theSwitch.frame.origin.x <= 0 ) {
-    return NO;
+	return NO;
   }
   
   // if delta positive and already to far right exit...
   if (dx > 0 && theSwitch.frame.origin.x >= CGRectGetWidth(self.frame) - CGRectGetWidth(theSwitch.frame)) {
-    return NO;
+	return NO;
   }
 
   return YES;
@@ -173,10 +173,10 @@ static const CGFloat cornerRadius = 5.0;
   CGFloat maxX = CGRectGetWidth(self.frame) - CGRectGetWidth(theSwitch.frame);
   
   if (newX < 0) {
-    newX = 0;
+	newX = 0;
   } 
   if (newX > maxX) {
-    newX = maxX;
+	newX = maxX;
   }
   
   newFrame.origin.x = newX;
@@ -184,8 +184,8 @@ static const CGFloat cornerRadius = 5.0;
   // Slider tracking should be immediate
   [CATransaction begin];
   {
-    [CATransaction setValue:@0.0f forKey:kCATransactionAnimationDuration];
-    theSwitch.frame = newFrame;  
+	[CATransaction setValue:@0.0f forKey:kCATransactionAnimationDuration];
+	theSwitch.frame = newFrame;  
   }
   [CATransaction commit];
   
@@ -194,15 +194,15 @@ static const CGFloat cornerRadius = 5.0;
 
 - (CGImageRef)switchImageForPath:(NSBezierPath*)path topColor:(CGFloat)topColor  bottomColor:(CGFloat)bottomColor {  
   
-  NSColor* gradientTop    = [NSColor colorWithCalibratedWhite:topColor alpha:1.0];
+  NSColor* gradientTop	= [NSColor colorWithCalibratedWhite:topColor alpha:1.0];
   NSColor* gradientBottom = [NSColor colorWithCalibratedWhite:bottomColor alpha:1.0];
   NSGradient *bgGradient = [[NSGradient alloc] initWithStartingColor:gradientBottom
-                                                         endingColor:gradientTop];
+														 endingColor:gradientTop];
 
   NSImage* buttonImage = [[NSImage alloc] initWithSize:[path bounds].size];
   [buttonImage lockFocus];
   {
-    [bgGradient drawInBezierPath:path angle:90.0];
+	[bgGradient drawInBezierPath:path angle:90.0];
   }
   [buttonImage unlockFocus];
   

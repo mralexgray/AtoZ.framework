@@ -27,25 +27,25 @@ BOOL layerIsGridCell( CALayer* layer );
  */
 @interface Grid : CALayer
 {
-    unsigned        _nRows, _nColumns;
-    CGSize          _spacing;
-    CGColorRef      _lineColor;
-    CGColorRef      _highlightColor;
-    CGColorRef      _animateColor;
-    CGPoint         _cellOffset;
-    NSMutableArray* _cells; // Really a 2D array, in row-major order.
+	unsigned		_nRows, _nColumns;
+	CGSize		  _spacing;
+	CGColorRef	  _lineColor;
+	CGColorRef	  _highlightColor;
+	CGColorRef	  _animateColor;
+	CGPoint		 _cellOffset;
+	NSMutableArray* _cells; // Really a 2D array, in row-major order.
 }
 
 /** Initializes a new Grid with the given dimensions and cell size, and position in superview.
  Note that a new Grid has no cells! Either call -addAllCells, or -addCellAtRow:column:. */
 - (id) initWithRows:(unsigned)nRows columns:(unsigned)nColumns
-            spacing:(CGSize)spacing position:(CGPoint)pos
-         cellOffset:(CGPoint)cellOffset
-    backgroundColor:(CGColorRef)backgroundColor;
+			spacing:(CGSize)spacing position:(CGPoint)pos
+		 cellOffset:(CGPoint)cellOffset
+	backgroundColor:(CGColorRef)backgroundColor;
 
-@property (RONLY) unsigned rows, columns;    // Dimensions of the grid
-@property (RONLY) CGSize spacing;            // x,y spacing of GridCells
-@property CGColorRef lineColor;      // Cell background color, line color (or nil)
+@property (RONLY) unsigned rows, columns;	// Dimensions of the grid
+@property (RONLY) CGSize spacing;			// x,y spacing of GridCells
+@property CGColorRef lineColor;	  // Cell background color, line color (or nil)
 @property CGColorRef highlightColor;
 @property CGColorRef animateColor;
 
@@ -68,16 +68,16 @@ BOOL layerIsGridCell( CALayer* layer );
 /** A single cell in a grid (customized for Xiangqi). */
 @interface GridCell : CALayer
 {
-    BOOL     _highlighted;
-    BOOL     _animated;
-    Grid*    _grid;
-    unsigned _row, _column;
-    BOOL     dotted;
-    BOOL     cross;
+	BOOL	 _highlighted;
+	BOOL	 _animated;
+	Grid*	_grid;
+	unsigned _row, _column;
+	BOOL	 dotted;
+	BOOL	 cross;
 }
 
 - (id) initWithGrid:(Grid*)grid row:(unsigned)row column:(unsigned)col
-              frame:(CGRect)frame;
+			  frame:(CGRect)frame;
 
 @property (nonatomic, setter=setHighlighted:) BOOL highlighted;
 @property (nonatomic, setter=setAnimated:) BOOL animated;

@@ -249,23 +249,23 @@
 
 	//- (void)toggleAttachedWindowAtPoint:(NSPoint)pt {
 	//	[NSApp activateIgnoringOtherApps:YES];
-	//    if (!attachedWindow) {
-	//        attachedWindow = [[AZAttachedWindow alloc] initWithView:rootView
-	//                                                attachedToPoint:pt
-	//                                                       inWindow:nil
-	//                                                         onSide:AZPositionBottom
-	//                                                     atDistance:5.0];
-	////        [textField setTextColor:[attachedWindow borderColor]];
-	////        [textField setStringValue:@"Your text goes here..."];
+	//	if (!attachedWindow) {
+	//		attachedWindow = [[AZAttachedWindow alloc] initWithView:rootView
+	//												attachedToPoint:pt
+	//													   inWindow:nil
+	//														 onSide:AZPositionBottom
+	//													 atDistance:5.0];
+	////		[textField setTextColor:[attachedWindow borderColor]];
+	////		[textField setStringValue:@"Your text goes here..."];
 	//		menuWindowIsShowing = NO;
 	//			//	[attachedWindow makeKeyAndOrderFront:self];
-	//    }
+	//	}
 	////	if (![attachedWindow isAnimating]) {
 	//	(menuWindowIsShowing ? [attachedWindow slideUp] : [attachedWindow slideDown]);
 	//	menuWindowIsShowing =! menuWindowIsShowing;
 	//}
-	//        [attachedWindow orderOut:self];
-	//        attachedWindow = nil;
+	//		[attachedWindow orderOut:self];
+	//		attachedWindow = nil;
 
 	//	statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength];
 	//	[statusItem setImage:[NSImage systemImages].randomElement];
@@ -603,7 +603,7 @@
 
  -(void) cells {
 
- //    NSRect f = _window.contentView.frame;
+ //	NSRect f = _window.contentView.frame;
  //	AZSizer *sizer = [AZSizer forQuantity:[AtoZ dockSorted] inRect:f];
 
  NSRect tiny = NSInsetRect(_window.frame,200, 199);
@@ -665,7 +665,7 @@
  if ( ! ((columnindex + 1) <= columns) ) { columnindex = 0; rowindex++; }
 
  //		CATransform3D rot = [[_window contentView] makeTransformForAngle:270];
- //      imageLayer.transform = rot;
+ //	  imageLayer.transform = rot;
  //		box.identifier = $(@"%ldx%ld", rowindex, columnindex);
  }
  }
@@ -685,22 +685,22 @@
  //		[layer1 setFrame:CGRectMake(kMargin, 0.0, kIconWidth, kCompositeIconHeight)];
  //	}
  //
- //    layer1 = [[[IconLayer alloc] initWithImagePath:iconPath1 title:@"Desktop"] retain];
- //    [layer1 setFrame:CGRectMake(kMargin, 0.0, kIconWidth, kCompositeIconHeight)];
+ //	layer1 = [[[IconLayer alloc] initWithImagePath:iconPath1 title:@"Desktop"] retain];
+ //	[layer1 setFrame:CGRectMake(kMargin, 0.0, kIconWidth, kCompositeIconHeight)];
  //
- //    layer2 = [[[IconLayer alloc] initWithImagePath:iconPath2 title:@"Firewire Drive"] retain];
- //    [layer2 setFrame:CGRectMake(kMargin, kIconWidth + kMargin, kIconWidth, kCompositeIconHeight)];
+ //	layer2 = [[[IconLayer alloc] initWithImagePath:iconPath2 title:@"Firewire Drive"] retain];
+ //	[layer2 setFrame:CGRectMake(kMargin, kIconWidth + kMargin, kIconWidth, kCompositeIconHeight)];
  //
- //    layer3 = [[[IconLayer alloc] initWithImagePath:iconPath3 title:@"Pictures"] retain];
- //    [layer3 setFrame:CGRectMake(kCompositeIconHeight + kMargin, 0.0, 128, kCompositeIconHeight)];
+ //	layer3 = [[[IconLayer alloc] initWithImagePath:iconPath3 title:@"Pictures"] retain];
+ //	[layer3 setFrame:CGRectMake(kCompositeIconHeight + kMargin, 0.0, 128, kCompositeIconHeight)];
  //
- //    layer4 = [[[IconLayer alloc] initWithImagePath:iconPath4 title:@"Computer"] retain];
- //    [layer4 setFrame:CGRectMake(kCompositeIconHeight + kMargin, kIconWidth + kMargin, kIconWidth, kCompositeIconHeight)];
+ //	layer4 = [[[IconLayer alloc] initWithImagePath:iconPath4 title:@"Computer"] retain];
+ //	[layer4 setFrame:CGRectMake(kCompositeIconHeight + kMargin, kIconWidth + kMargin, kIconWidth, kCompositeIconHeight)];
  //
- //    [root insertSublayer:layer1 atIndex:0];
- //    [root insertSublayer:layer2 atIndex:0];
- //    [root insertSublayer:layer3 atIndex:0];
- //    [root insertSublayer:layer4 atIndex:0];
+ //	[root insertSublayer:layer1 atIndex:0];
+ //	[root insertSublayer:layer2 atIndex:0];
+ //	[root insertSublayer:layer3 atIndex:0];
+ //	[root insertSublayer:layer4 atIndex:0];
 
  }
 
@@ -709,10 +709,10 @@
  for (AZBoxLayer *obj in [root sublayers] )
  [obj toggleShake];
 
- //    [layer1 toggleShake];
- //    [layer2 toggleShake];
- //    [layer3 toggleShake];
- //    [layer4 toggleShake];
+ //	[layer1 toggleShake];
+ //	[layer2 toggleShake];
+ //	[layer3 toggleShake];
+ //	[layer4 toggleShake];
  }
  @end
 
@@ -807,7 +807,7 @@
  //  -1 => "BOOM" (new exposed cell contained mine).
  //  0 to 8 => cell safely exposed, number of neighboring mines returned
  //  When 0 returned, its neighbors are (recursively) exposed
- //        controller should rescan grid for exposed cells
+ //		controller should rescan grid for exposed cells
  //
  -(int)exposeCellAtRow:(int)r Col:(int)c {
  if (kablooey) return -2;

@@ -26,7 +26,7 @@
 USAGE;
 -(NSDictionary*) toggleForView:(AZToggleArrayView*)view atIndex:(NSUInteger)index;
 {
-	return 	index == 0 ? @{ AZToggleLabel : @"Grid"}    :
+	return 	index == 0 ? @{ AZToggleLabel : @"Grid"}	:
 	index == 1 ? @{ AZToggleLabel : @"Fiesta", AZToggleOn : @"FoN", AZToggleOff : @"FoFF"}  :
 	index == 2 ? @{ AZToggleLabel : @"Fiesta"}  :
 	@{ AZToggleLabel : @"Fiesta"}	;
@@ -67,7 +67,7 @@ extern NSString *const AZToggleState;
 										state:(BOOL)state				 index:(NSUInteger)index
 							  labelPositioned:(AZWindowPosition)position;
 - (CALayer*) 				  itemLayerWithName:(NSString*)name 	relativeTo:(NSString*)relative
-							  			 onText:(NSString*)onText      offText:(NSString*)offText
+							  			 onText:(NSString*)onText	  offText:(NSString*)offText
 							   			  state:(BOOL)state 			 index:(NSUInteger)index;
 - (AZToggleControlLayer*) toggleLayerWithOnText:(NSString*)onText		offText:(NSString*)offText
 																   initialState:(BOOL)state;
@@ -133,8 +133,8 @@ extern NSString *const AZToggleState;
 	CALayer (root)
 	|
 	+--> CALayer (onback)
-	|    |
-	|    +--> CATextLayer (text)
+	|	|
+	|	+--> CATextLayer (text)
 	|
 	+--> CALayer (thumb)
 	|

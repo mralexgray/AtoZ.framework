@@ -13,14 +13,14 @@
 //- (NSA*)quantize:(NSString*)imagePath{
 - (id)init
 {
-    self = [super init];
-    if (self) {
+	self = [super init];
+	if (self) {
 
 	NSImage *i = [[NSImage systemImages]randomElement];
 	NSLog(@"colors  %@", [i quantize]);
 	
-    }
-    return self;
+	}
+	return self;
 }
 - (NSA*)colorsInStyleSheet:(NSString*)text{
 }

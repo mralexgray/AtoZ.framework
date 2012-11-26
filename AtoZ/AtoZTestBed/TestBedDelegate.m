@@ -26,7 +26,7 @@
 
 	genVC 		= [[AZGeneralViewController  alloc] initWithNibName: @"AZGeneralViewController"  bundle:nil];
 	geoVC 		= [[AZGeometryViewController alloc] initWithNibName: @"AZGeometryViewController" bundle:nil];
-	uiVC  		= [[AZUIViewController       alloc] initWithNibName: @"AZUIViewController"       bundle:nil];
+	uiVC  		= [[AZUIViewController	   alloc] initWithNibName: @"AZUIViewController"	   bundle:nil];
 	fileGrid 	= [[AZFileGridView 			 alloc]   initWithFrame: mainView.bounds];
 
 	vcs 		= @{  @"General" : genVC.view, @"Geometry": geoVC.view, @"fileGridView" : fileGrid, @"UI" : uiVC.view }.mutableCopy;
@@ -39,7 +39,7 @@
 	[fileGrid setHidden:NO];
 
 	holdOntoViews.actionBlock = ^(id inSender){		semiWindow = [AZSemiResponderWindow new];
-		semiWindow.semiResponder = self;		    [semiWindow   makeKeyAndOrderFront:self];
+		semiWindow.semiResponder = self;			[semiWindow   makeKeyAndOrderFront:self];
 	};
 
 //	self.genVC = [[AZGeneralViewController alloc]initWithNibName:@"AZGeneralViewController" bundle:nil];
@@ -61,8 +61,8 @@
 }
 //-(CATransition*)transition
 //{
-//    // Construct a new CATransition that describes the transition effect we want.
-//    CATransition *transition = [CATransition animation];
+//	// Construct a new CATransition that describes the transition effect we want.
+//	CATransition *transition = [CATransition animation];
 //	// We want to build a CIFilter-based CATransition.  When CATransition's "filter" is set, "type" and "subtype" properties are ignored.
 //	CATransition* tranny = [CATransition transitionsFor:_targetView].randomElement; 		NSLog(@"New tranny: %@", tranny);
 //	return [tranny isKindOfClass:[CIFilter class]] 	? 	   ^{
@@ -80,12 +80,12 @@
 //{
 //	NSWindowController* awc = [[NSWindowController alloc] initWithWindowNibName:@"TestBed"];
 //	[[awc window] makeKeyAndOrderFront:nil];
-//    [[NSApplication sharedApplication] arrangeInFront:nil];
+//	[[NSApplication sharedApplication] arrangeInFront:nil];
 //}
 //	NSWindowController* awc = [[NSWindowController alloc] initWithWindowNibName:@"TestBed" owner:self];
 //	[awc showWindow:self];
-//    [[awc window] makeKeyAndOrderFront:nil];
-//    [[NSApplication sharedApplication] arrangeInFront:nil];
+//	[[awc window] makeKeyAndOrderFront:nil];
+//	[[NSApplication sharedApplication] arrangeInFront:nil];
 //
 //	// Load with NSBundle
 //	NSLog(@"Loading NIB …");
@@ -149,8 +149,8 @@
 const CGFloat dash[2] = {100, 60};
 
 
-#define SPINS              3.0f
-#define DURATION           2.5f
+#define SPINS			  3.0f
+#define DURATION		   2.5f
 #define TRANSITION_OUT_KEY @"transition out"
 #define TRANSITION_IN_KEY  @"transition in"
 #define TRANSITION_IDENT   @"transition type"
@@ -159,8 +159,8 @@ const CGFloat dash[2] = {100, 60};
 
 + (id)animateTo:(id)v inSuperView:(id)sV
 {
-    NASpinSeque *n = [NASpinSeque new];// = [super init];
-	//    if (self) {
+	NASpinSeque *n = [NASpinSeque new];// = [super init];
+	//	if (self) {
 
 	n.sV = sV ?: [[[NSApplication sharedApplication]mainWindow]contentView];
 	n.v1 = [sV subviews][0] ?: [NSObject viewInView:sV];
@@ -172,36 +172,36 @@ const CGFloat dash[2] = {100, 60};
 }
 - (void)perform{
 	CABA *rotation = [CABA animationWithKeyPath:@"transform.rotation"];
-    rotation.fromValue = @0.0;
-    rotation.toValue   = @(M_PI * SPINS);
+	rotation.fromValue = @0.0;
+	rotation.toValue   = @(M_PI * SPINS);
 
-    CABA *scaleDown = [CABA animationWithKeyPath:@"transform.scale"];
-    scaleDown.fromValue = @1.0;
-    scaleDown.toValue   = @0.0;
+	CABA *scaleDown = [CABA animationWithKeyPath:@"transform.scale"];
+	scaleDown.fromValue = @1.0;
+	scaleDown.toValue   = @0.0;
 
-    CABA *fadeOut = [CABA animationWithKeyPath:@"opacity"];
-    fadeOut.fromValue = @1.0;
-    fadeOut.toValue   = @0.0;
+	CABA *fadeOut = [CABA animationWithKeyPath:@"opacity"];
+	fadeOut.fromValue = @1.0;
+	fadeOut.toValue   = @0.0;
 
-    CAAG *transitionOut = [CAAG animation];
-    transitionOut.animations          = @[rotation, scaleDown, fadeOut];
-    transitionOut.duration            = DURATION;
-    transitionOut.delegate            = self;
-    transitionOut.removedOnCompletion = NO;
-    transitionOut.fillMode            = kCAFillModeForwards;
-    [transitionOut setValue:TRANSITION_OUT_KEY forKey:TRANSITION_IDENT];
+	CAAG *transitionOut = [CAAG animation];
+	transitionOut.animations		  = @[rotation, scaleDown, fadeOut];
+	transitionOut.duration			= DURATION;
+	transitionOut.delegate			= self;
+	transitionOut.removedOnCompletion = NO;
+	transitionOut.fillMode			= kCAFillModeForwards;
+	[transitionOut setValue:TRANSITION_OUT_KEY forKey:TRANSITION_IDENT];
 	self.l1 = [_v1 getLayer];
 	_l1.frame = _sV.bounds;
 	_l1.anchorPoint = (CGPoint){.5,.5};
 	//	_l1.frame  = [_sV bounds];//anchorPoint = NSMakePoint(.5,.5);
-    [_l1 addAnimation:transitionOut forKey:TRANSITION_OUT_KEY];
+	[_l1 addAnimation:transitionOut forKey:TRANSITION_OUT_KEY];
 }
 
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
 
-    NSString *type = [anim valueForKey:TRANSITION_IDENT];
+	NSString *type = [anim valueForKey:TRANSITION_IDENT];
 
-    if ([type isEqualToString:TRANSITION_OUT_KEY]) {
+	if ([type isEqualToString:TRANSITION_OUT_KEY]) {
 		[_sV subviewsBlockSkippingSelf:^(id view) {
 			[view setHidden:YES];
 		}];
@@ -215,30 +215,30 @@ const CGFloat dash[2] = {100, 60};
 		//		_l2.frame = [self.sV bounds];//NSMakePoint(.5,.5);
 		_l2.anchorPoint = (CGPoint){.5,.5};
 		CABA *rotation = [CABA animationWithKeyPath:@"transform.rotation"];
-        rotation.fromValue = @0.0;
-        rotation.toValue   = @(M_PI * SPINS);
+		rotation.fromValue = @0.0;
+		rotation.toValue   = @(M_PI * SPINS);
 
-        CABA *scaleUp = [CABA animationWithKeyPath:@"transform.scale"];
-        scaleUp.fromValue = @0.0;
-        scaleUp.toValue   = @1.0;
+		CABA *scaleUp = [CABA animationWithKeyPath:@"transform.scale"];
+		scaleUp.fromValue = @0.0;
+		scaleUp.toValue   = @1.0;
 
-        CAAG *transitionIn = [CAAG animation];
-        transitionIn.animations = [NSArray arrayWithObjects:rotation, scaleUp, nil];
-        transitionIn.duration   = DURATION;
-        transitionIn.delegate   = self;
-        [transitionIn setValue:TRANSITION_IN_KEY forKey:TRANSITION_IDENT];
+		CAAG *transitionIn = [CAAG animation];
+		transitionIn.animations = [NSArray arrayWithObjects:rotation, scaleUp, nil];
+		transitionIn.duration   = DURATION;
+		transitionIn.delegate   = self;
+		[transitionIn setValue:TRANSITION_IN_KEY forKey:TRANSITION_IDENT];
 
-		//        [self.l1 presentModalViewController:self.destinationViewController animated:NO];
+		//		[self.l1 presentModalViewController:self.destinationViewController animated:NO];
 		//		[self.v2 fadeIn];
 		[self.l2 addAnimation:transitionIn forKey:TRANSITION_IN_KEY];
 
 		return;//destinationLayer
-    }
+	}
 
-    if ([type isEqualToString:TRANSITION_IN_KEY]) {
+	if ([type isEqualToString:TRANSITION_IN_KEY]) {
 		[self.v1 removeFromSuperview];
-        [self.l1 removeAnimationForKey:TRANSITION_OUT_KEY];
-    }
+		[self.l1 removeAnimationForKey:TRANSITION_OUT_KEY];
+	}
 
 
 

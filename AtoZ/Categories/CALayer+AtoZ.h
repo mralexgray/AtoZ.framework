@@ -36,14 +36,14 @@ extern CALayer* NewLayerWithFrame( NSRect rect );
 /** Convenience for creating a CATextLayer. */
 extern CATextLayer* AddTextLayer  ( CALayer *superlayer, NSString *text, NSFont* font, enum CAAutoresizingMask align );
 extern CATextLayer* AddLabelLayer ( CALayer *superlayer, NSString *text, NSFont* font );
-extern CATextLayer* AddLabel ( 	    CALayer *superlayer, NSString *text );
+extern CATextLayer* AddLabel ( 		CALayer *superlayer, NSString *text );
 
 extern CALayer* ReturnImageLayer( CALayer *superlayer, NSImage *image, CGFloat scale);
 extern CATextLayer* AddLabelLayer( CALayer *superlayer, NSString *text, NSFont* font );
 
 /** Loads an image or pattern file into a CGImage or CGPattern. If the name begins with "/", it's interpreted as an absolute filesystem path. Otherwise, it's the name of a resource that's looked up in the app bundle. The image must exist, or an assertion-failure exception will be raised! Loaded images/patterns are cached in memory, so subsequent calls with the same name are very fast. */
 extern CGImageRef GetCGImageNamed ( NSString *name );
-extern CGColorRef GetCGPatternNamed (      NSString *name );
+extern CGColorRef GetCGPatternNamed (	  NSString *name );
 /** Loads image data from the pasteboard into a CGImage. */
 extern CGImageRef GetCGImageFromPasteboard ( NSPasteboard *pb );
 /** Creates a CGPattern from a CGImage. */
@@ -92,7 +92,7 @@ extern CATransform3D CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13, CG
 @property (strong, nonatomic) CATXTL *text;
 @property (ASS, NATOM) AZPOS orient;
 //
-- (void)setValue:(id)value      forKeyPath:(NSString *)keyPath        duration:(CFTimeInterval)duration           delay:(CFTimeInterval)delay;
+- (void)setValue:(id)value	  forKeyPath:(NSString *)keyPath		duration:(CFTimeInterval)duration		   delay:(CFTimeInterval)delay;
 
 
 -(void) animateXThenYToFrame:(NSR)toRect duration:(NSUI)time;

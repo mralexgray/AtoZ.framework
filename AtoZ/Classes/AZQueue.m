@@ -11,18 +11,18 @@
 
 -(id)init
 {
-    if ( (self = [super init]) ) {
-        array = [[NSMutableArray alloc] init];
-    }
-    
-    return self;
+	if ( (self = [super init]) ) {
+		array = [[NSMutableArray alloc] init];
+	}
+	
+	return self;
 }
 
 -(id)dequeue 
 {
-    if ([array count] > 0) {
+	if ([array count] > 0) {
 		id object = [self peek];
-        [array removeObjectAtIndex:0];
+		[array removeObjectAtIndex:0];
 		return object;
 	}
 	
@@ -31,42 +31,42 @@
 
 -(void)enqueue:(id)element
 {
-    [array addObject:element];
+	[array addObject:element];
 }
 
 -(void)enqueueElementsFromArray:(NSA*)arr 
 {
-    [array addObjectsFromArray:arr];
+	[array addObjectsFromArray:arr];
 }
 
 -(void)enqueueElementsFromQueue:(AZQueue*)queue
 {
-    while (![queue isEmpty]) {
-        [self enqueue:[queue dequeue]];
-    }
+	while (![queue isEmpty]) {
+		[self enqueue:[queue dequeue]];
+	}
 }
 
 -(id)peek 
 {
-    if ([array count] > 0)
-        return array[0];
+	if ([array count] > 0)
+		return array[0];
 	
-    return nil;
+	return nil;
 }
 
 -(NSInteger)size 
 {
-    return [array count];
+	return [array count];
 }
 
 -(BOOL)isEmpty 
 {
-    return [array count] == 0;
+	return [array count] == 0;
 }
 
 -(void)clear 
 {
-    [array removeAllObjects];
+	[array removeAllObjects];
 }
 
 @end

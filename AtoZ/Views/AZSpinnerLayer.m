@@ -30,25 +30,25 @@
 
 - (id)init
 {
-    self = [super init];
-    if (self) {
-        _position = 0;
-        _numFins = 12;
-        _fadeDownOpacity = 0.0f;
-        _isRunning = NO;
-        self.color = [NSColor blackColor];
-        [self setBounds:CGRectMake(0.0f, 0.0f, 10.0f, 10.0f)];
-        [self createFinLayers];
-    }
-    return self;
+	self = [super init];
+	if (self) {
+		_position = 0;
+		_numFins = 12;
+		_fadeDownOpacity = 0.0f;
+		_isRunning = NO;
+		self.color = [NSColor blackColor];
+		[self setBounds:CGRectMake(0.0f, 0.0f, 10.0f, 10.0f)];
+		[self createFinLayers];
+	}
+	return self;
 }
 
 - (void)dealloc
 {
-    self.color = nil;
-    [self removeFinLayers];
+	self.color = nil;
+	[self removeFinLayers];
 
-//    [super dealloc];
+//	[super dealloc];
 }
 //------------------------------------------------------------------------------
 #pragma mark - Overrides
@@ -56,24 +56,24 @@
 
 - (void)setBounds:(CGRect)newBounds
 {
-    [super setBounds:newBounds];
+	[super setBounds:newBounds];
 
-    // Resize the fins
-    CGRect finBounds = [self finBoundsForCurrentBounds];
-    CGPoint finAnchorPoint = [self finAnchorPointForCurrentBounds];
-    CGPoint finPosition = CGPointMake([self bounds].size.width/2, [self bounds].size.height/2);
-    CGFloat finCornerRadius = finBounds.size.width/2;
+	// Resize the fins
+	CGRect finBounds = [self finBoundsForCurrentBounds];
+	CGPoint finAnchorPoint = [self finAnchorPointForCurrentBounds];
+	CGPoint finPosition = CGPointMake([self bounds].size.width/2, [self bounds].size.height/2);
+	CGFloat finCornerRadius = finBounds.size.width/2;
 
-    // do the resizing all at once, immediately
-    [CATransaction begin];
-    [CATransaction setValue:@YES forKey:kCATransactionDisableActions];
-    for (CALayer *fin in _finLayers) {
-        fin.bounds = finBounds;
-        fin.anchorPoint = finAnchorPoint;
-        fin.position = finPosition;
-        fin.cornerRadius = finCornerRadius;
-    }
-    [CATransaction commit];
+	// do the resizing all at once, immediately
+	[CATransaction begin];
+	[CATransaction setValue:@YES forKey:kCATransactionDisableActions];
+	for (CALayer *fin in _finLayers) {
+		fin.bounds = finBounds;
+		fin.anchorPoint = finAnchorPoint;
+		fin.position = finPosition;
+		fin.cornerRadius = finCornerRadius;
+	}
+	[CATransaction commit];
 }
 //------------------------------------------------------------------------------
 #pragma mark - Animation
@@ -81,68 +81,68 @@
 
 - (void)advancePosition
 {
-    _position++;
-    if (_position >= _numFins) {
-        _position = 0;
-    }
+	_position++;
+	if (_position >= _numFins) {
+		_position = 0;
+	}
 
-    CALayer *fin = (CALayer *)_finLayers[_position];
+	CALayer *fin = (CALayer *)_finLayers[_position];
 
-    // Set the next fin to full opacity, but do it immediately, without any animation
-    [CATransaction begin];
-    [CATransaction setValue:@YES forKey:kCATransactionDisableActions];
-    fin.opacity = 1.0;
-    [CATransaction commit];
+	// Set the next fin to full opacity, but do it immediately, without any animation
+	[CATransaction begin];
+	[CATransaction setValue:@YES forKey:kCATransactionDisableActions];
+	fin.opacity = 1.0;
+	[CATransaction commit];
 
-    // Tell that fin to animate its opacity to transparent.
-    fin.opacity = _fadeDownOpacity;
+	// Tell that fin to animate its opacity to transparent.
+	fin.opacity = _fadeDownOpacity;
 
-    [self setNeedsDisplay];
+	[self setNeedsDisplay];
 }
 
 - (void)setupAnimTimer
 {
-    // Just to be safe kill any existing timer.
-    [self disposeAnimTimer];
+	// Just to be safe kill any existing timer.
+	[self disposeAnimTimer];
 
-    // Why animate if not visible?  viewDidMoveToWindow will re-call this method when needed.
-    _animationTimer = [NSTimer timerWithTimeInterval:(NSTimeInterval)0.05
-                                               target:self
-                                             selector:@selector(advancePosition)
-                                             userInfo:nil
-                                              repeats:YES];
+	// Why animate if not visible?  viewDidMoveToWindow will re-call this method when needed.
+	_animationTimer = [NSTimer timerWithTimeInterval:(NSTimeInterval)0.05
+											   target:self
+											 selector:@selector(advancePosition)
+											 userInfo:nil
+											  repeats:YES];
 
-    [_animationTimer setFireDate:[NSDate date]];
-    [[NSRunLoop currentRunLoop] addTimer:_animationTimer forMode:NSRunLoopCommonModes];
-    [[NSRunLoop currentRunLoop] addTimer:_animationTimer forMode:NSDefaultRunLoopMode];
-    [[NSRunLoop currentRunLoop] addTimer:_animationTimer forMode:NSEventTrackingRunLoopMode];
+	[_animationTimer setFireDate:[NSDate date]];
+	[[NSRunLoop currentRunLoop] addTimer:_animationTimer forMode:NSRunLoopCommonModes];
+	[[NSRunLoop currentRunLoop] addTimer:_animationTimer forMode:NSDefaultRunLoopMode];
+	[[NSRunLoop currentRunLoop] addTimer:_animationTimer forMode:NSEventTrackingRunLoopMode];
 }
 
 - (void)disposeAnimTimer
 {
-    [_animationTimer invalidate];
-//    [_animationTimer release];
-    _animationTimer = nil;
+	[_animationTimer invalidate];
+//	[_animationTimer release];
+	_animationTimer = nil;
 }
 
 - (void)startProgressAnimation
 {
-    self.hidden = NO;
-    _isRunning = YES;
-    _position = _numFins - 1;
-    
-    [self setNeedsDisplay];
+	self.hidden = NO;
+	_isRunning = YES;
+	_position = _numFins - 1;
+	
+	[self setNeedsDisplay];
 
-    [self setupAnimTimer];
+	[self setupAnimTimer];
 }
 
 - (void)stopProgressAnimation
 {
-    _isRunning = NO;
+	_isRunning = NO;
 
-    [self disposeAnimTimer];
+	[self disposeAnimTimer];
 
-    [self setNeedsDisplay];
+	[self setNeedsDisplay];
 }
 //------------------------------------------------------------------------------
 #pragma mark - Properties and Accessors
@@ -153,36 +153,36 @@
 // Can't use @synthesize because we need to convert NSColor <-> CGColor
 - (NSColor *)color
 {
-    // Need to convert from CGColor to NSColor
-    return  NSColorFromCGColorRef(_foreColor);
+	// Need to convert from CGColor to NSColor
+	return  NSColorFromCGColorRef(_foreColor);
 }
 - (void)setColor:(NSColor *)newColor
 {
-    // Need to convert from NSColor to CGColor
-    CGColorRef cgColor = CGColorCreateFromNSColor(newColor);
+	// Need to convert from NSColor to CGColor
+	CGColorRef cgColor = CGColorCreateFromNSColor(newColor);
 
-    if (nil != _foreColor) {
-        CGColorRelease(_foreColor);
-    }
-    _foreColor = cgColor;
+	if (nil != _foreColor) {
+		CGColorRelease(_foreColor);
+	}
+	_foreColor = cgColor;
 
-    // Update do all of the fins to this new color, at once, immediately
-    [CATransaction begin];
-    [CATransaction setValue:@YES forKey:kCATransactionDisableActions];
-    for (CALayer *fin in _finLayers) {
-        fin.backgroundColor = cgColor;
-    }
-    [CATransaction commit];
+	// Update do all of the fins to this new color, at once, immediately
+	[CATransaction begin];
+	[CATransaction setValue:@YES forKey:kCATransactionDisableActions];
+	for (CALayer *fin in _finLayers) {
+		fin.backgroundColor = cgColor;
+	}
+	[CATransaction commit];
 }
 
 - (void)toggleProgressAnimation
 {
-    if (_isRunning) {
-        [self stopProgressAnimation];
-    }
-    else {
-        [self startProgressAnimation];
-    }
+	if (_isRunning) {
+		[self stopProgressAnimation];
+	}
+	else {
+		[self startProgressAnimation];
+	}
 }
 //------------------------------------------------------------------------------
 #pragma mark - Helper Methods
@@ -190,66 +190,66 @@
 
 - (void)createFinLayers
 {
-    [self removeFinLayers];
+	[self removeFinLayers];
 
-    // Create new fin layers
-    _finLayers = [[NSMutableArray alloc] initWithCapacity:_numFins];
+	// Create new fin layers
+	_finLayers = [[NSMutableArray alloc] initWithCapacity:_numFins];
 
-    CGRect finBounds = [self finBoundsForCurrentBounds];
-    CGPoint finAnchorPoint = [self finAnchorPointForCurrentBounds];
-    CGPoint finPosition = CGPointMake([self bounds].size.width/2, [self bounds].size.height/2);
-    CGFloat finCornerRadius = finBounds.size.width/2;
+	CGRect finBounds = [self finBoundsForCurrentBounds];
+	CGPoint finAnchorPoint = [self finAnchorPointForCurrentBounds];
+	CGPoint finPosition = CGPointMake([self bounds].size.width/2, [self bounds].size.height/2);
+	CGFloat finCornerRadius = finBounds.size.width/2;
 
-    for (NSUInteger i=0; i<_numFins; i++) {
-        CALayer *newFin = [CALayer layer];
+	for (NSUInteger i=0; i<_numFins; i++) {
+		CALayer *newFin = [CALayer layer];
 
-        newFin.bounds = finBounds;
-        newFin.anchorPoint = finAnchorPoint;
-        newFin.position = finPosition;
-        newFin.transform = CATransform3DMakeRotation(i*(-6.282185/_numFins), 0.0, 0.0, 1.0);
-        newFin.cornerRadius = finCornerRadius;
-        newFin.backgroundColor = _foreColor;
+		newFin.bounds = finBounds;
+		newFin.anchorPoint = finAnchorPoint;
+		newFin.position = finPosition;
+		newFin.transform = CATransform3DMakeRotation(i*(-6.282185/_numFins), 0.0, 0.0, 1.0);
+		newFin.cornerRadius = finCornerRadius;
+		newFin.backgroundColor = _foreColor;
 
-        // Set the fin's initial opacity
-        [CATransaction begin];
-        [CATransaction setValue:@YES forKey:kCATransactionDisableActions];
-        newFin.opacity = _fadeDownOpacity;
-        [CATransaction commit];
+		// Set the fin's initial opacity
+		[CATransaction begin];
+		[CATransaction setValue:@YES forKey:kCATransactionDisableActions];
+		newFin.opacity = _fadeDownOpacity;
+		[CATransaction commit];
 
-        // set the fin's fade-out time (for when it's animating)
-        CABasicAnimation *anim = [CABasicAnimation animation];
-        anim.duration = 0.7f;
-        NSDictionary* actions = @{@"opacity": anim};
-        [newFin setActions:actions];
+		// set the fin's fade-out time (for when it's animating)
+		CABasicAnimation *anim = [CABasicAnimation animation];
+		anim.duration = 0.7f;
+		NSDictionary* actions = @{@"opacity": anim};
+		[newFin setActions:actions];
 
-        [self addSublayer: newFin];
-        [_finLayers addObject:newFin];
-    }
+		[self addSublayer: newFin];
+		[_finLayers addObject:newFin];
+	}
 }
 
 - (void)removeFinLayers
 {
-    for (CALayer *finLayer in _finLayers) {
-        [finLayer removeFromSuperlayer];
-    }
-//    [_finLayers release];
+	for (CALayer *finLayer in _finLayers) {
+		[finLayer removeFromSuperlayer];
+	}
+//	[_finLayers release];
 }
 
 - (CGRect)finBoundsForCurrentBounds
 {
-    CGSize size = [self bounds].size;
-    CGFloat minSide = size.width > size.height ? size.height : size.width;
-    CGFloat width = minSide * 0.095f;
-    CGFloat height = minSide * 0.30f;
-    return CGRectMake(0,0,width,height);
+	CGSize size = [self bounds].size;
+	CGFloat minSide = size.width > size.height ? size.height : size.width;
+	CGFloat width = minSide * 0.095f;
+	CGFloat height = minSide * 0.30f;
+	return CGRectMake(0,0,width,height);
 }
 
 - (CGPoint)finAnchorPointForCurrentBounds
 {
-    CGSize size = [self bounds].size;
-    CGFloat minSide = size.width > size.height ? size.height : size.width;
-    CGFloat height = minSide * 0.30f;
-    return CGPointMake(0.5, -0.9*(minSide-height)/minSide);
+	CGSize size = [self bounds].size;
+	CGFloat minSide = size.width > size.height ? size.height : size.width;
+	CGFloat height = minSide * 0.30f;
+	return CGPointMake(0.5, -0.9*(minSide-height)/minSide);
 }
 
 @end
@@ -268,21 +268,21 @@ CGColorRef CGColorCreateFromNSColor(NSColor *nscolor)
 #else
 #define yrkspil_float_t float
 #endif
-    yrkspil_float_t components[4];
-    NSColor *deviceColor = [nscolor colorUsingColorSpaceName: NSDeviceRGBColorSpace];
-    [deviceColor getRed: &components[0] green: &components[1] blue: &components[2] alpha: &components[3]];
+	yrkspil_float_t components[4];
+	NSColor *deviceColor = [nscolor colorUsingColorSpaceName: NSDeviceRGBColorSpace];
+	[deviceColor getRed: &components[0] green: &components[1] blue: &components[2] alpha: &components[3]];
 
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    CGColorRef cgcolor = CGColorCreate(colorSpace, components);
-    CGColorSpaceRelease(colorSpace);
+	CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+	CGColorRef cgcolor = CGColorCreate(colorSpace, components);
+	CGColorSpaceRelease(colorSpace);
 
-    return cgcolor;
+	return cgcolor;
 #undef yrkspil_float_t
 }
 NSColor *NSColorFromCGColorRef(CGColorRef cgcolor)
 {
-    NSColorSpace *colorSpace = [NSColorSpace deviceRGBColorSpace];
-    return [NSColor colorWithColorSpace:colorSpace
-                             components:CGColorGetComponents(cgcolor)
-                                  count:CGColorGetNumberOfComponents(cgcolor)];
+	NSColorSpace *colorSpace = [NSColorSpace deviceRGBColorSpace];
+	return [NSColor colorWithColorSpace:colorSpace
+							 components:CGColorGetComponents(cgcolor)
+								  count:CGColorGetNumberOfComponents(cgcolor)];
 }

@@ -11,7 +11,7 @@
 
 @implementation WeakReferenceObject
 //{
-//    __weak id baseObject;
+//	__weak id baseObject;
 //}
 
 @synthesize baseObject;
@@ -20,85 +20,85 @@
 {
 	if (!(self = [super init])) return nil;
 	baseObject = anObject;
-    return self;
+	return self;
 }
 
 + (WeakReferenceObject *)weakReferenceObjectWithObject:(id)anObject {
-    return [[self alloc] initWithObject:anObject];
+	return [[self alloc] initWithObject:anObject];
 }
 
 - (NSString *)debugDescription {
-    return [NSString stringWithFormat:@"%@ - %@", [super debugDescription], [baseObject debugDescription]];
+	return [NSString stringWithFormat:@"%@ - %@", [super debugDescription], [baseObject debugDescription]];
 }
 
-- (NSString *)description {    return [baseObject description];		}
+- (NSString *)description {	return [baseObject description];		}
 
-- (id)forwardingTargetForSelector:(SEL)aSelector {    return baseObject;	}
+- (id)forwardingTargetForSelector:(SEL)aSelector {	return baseObject;	}
 
-- (NSUInteger)hash {    return [baseObject hash];	}
+- (NSUInteger)hash {	return [baseObject hash];	}
 
 - (BOOL)isEqual:(id)anObject
 {
-    BOOL result = [baseObject isEqual:anObject];
+	BOOL result = [baseObject isEqual:anObject];
 
-    return result ?: [anObject isKindOfClass:[self class]] ? [baseObject isEqual:[(WeakReferenceObject *)anObject baseObject]] : result;
+	return result ?: [anObject isKindOfClass:[self class]] ? [baseObject isEqual:[(WeakReferenceObject *)anObject baseObject]] : result;
 }
 
 @end
 
 
 @implementation WeakMutableArray {
-    NSMutableArray *array;
+	NSMutableArray *array;
 }
 
 - (id)initWithObjects:(const id [])objects count:(NSUInteger)cnt {
-    self = [super init];
-    if (self) {
-        array = [[NSMutableArray alloc] initWithCapacity:cnt];
+	self = [super init];
+	if (self) {
+		array = [[NSMutableArray alloc] initWithCapacity:cnt];
 
-        if (objects) {
-            for (int i = 0; i < cnt; i++) {
-                [array addObject:[WeakReferenceObject weakReferenceObjectWithObject:objects[i]]];
-            }
-        }
-    }
-    return self;
+		if (objects) {
+			for (int i = 0; i < cnt; i++) {
+				[array addObject:[WeakReferenceObject weakReferenceObjectWithObject:objects[i]]];
+			}
+		}
+	}
+	return self;
 }
 
 - (id)initWithCapacity:(NSUInteger)numItems {
-    return [self initWithObjects:NULL count:numItems];
+	return [self initWithObjects:NULL count:numItems];
 }
 
 - (id)init {
-    return [self initWithObjects:NULL count:0];
+	return [self initWithObjects:NULL count:0];
 }
 
 - (NSUInteger)count {
-    return array.count;
+	return array.count;
 }
 
 - (id)objectAtIndex:(NSUInteger)index {
-    return [(WeakReferenceObject *)[array objectAtIndex:index] baseObject];
+	return [(WeakReferenceObject *)[array objectAtIndex:index] baseObject];
 }
 
 - (void)insertObject:(id)anObject atIndex:(NSUInteger)index {
-    [array insertObject:[WeakReferenceObject weakReferenceObjectWithObject:anObject] atIndex:index];
+	[array insertObject:[WeakReferenceObject weakReferenceObjectWithObject:anObject] atIndex:index];
 }
 
 - (void)addObject:(id)anObject {
-    [array addObject:[WeakReferenceObject weakReferenceObjectWithObject:anObject]];
+	[array addObject:[WeakReferenceObject weakReferenceObjectWithObject:anObject]];
 }
 
 - (void)removeObjectAtIndex:(NSUInteger)index {
-    [array removeObjectAtIndex:index];
+	[array removeObjectAtIndex:index];
 }
 
 - (void)removeLastObject {
-    [array removeLastObject];
+	[array removeLastObject];
 }
 
 - (void)replaceObjectAtIndex:(NSUInteger)index withObject:(id)anObject {
-    [array replaceObjectAtIndex:index withObject:[WeakReferenceObject weakReferenceObjectWithObject:anObject]];
+	[array replaceObjectAtIndex:index withObject:[WeakReferenceObject weakReferenceObjectWithObject:anObject]];
 }
 
 @end
@@ -106,17 +106,17 @@
 
 
 @implementation WeakMutableSet {
-    NSMutableSet *set;
+	NSMutableSet *set;
 }
 
 - (id)initWithObjects:(const __autoreleasing id *)objects count:(NSUInteger)cnt {
-    self = [super init];
-    if (self) {
-        set = [[NSMutableSet alloc] initWithCapacity:cnt];
+	self = [super init];
+	if (self) {
+		set = [[NSMutableSet alloc] initWithCapacity:cnt];
 
-        if (objects) {
-            for (int i = 0; i < cnt; i++) {
-                [set addObject:[WeakReferenceObject weakReferenceObjectWithObject:objects[i]]];
+		if (objects) {
+			for (int i = 0; i < cnt; i++) {
+				[set addObject:[WeakReferenceObject weakReferenceObjectWithObject:objects[i]]];
 			}
 		}
 	}

@@ -29,36 +29,36 @@ NSString *const kShowDockIconUserDefaultsKey = @"ShowDockIcon";
 @implementation NSApplication (AtoZ)
 
 + (id)infoValueForKey:(NSString *)key {
-    if ([[NSBundle mainBundle] localizedInfoDictionary][key]) {
-        return [[NSBundle mainBundle] localizedInfoDictionary][key];
-    }
+	if ([[NSBundle mainBundle] localizedInfoDictionary][key]) {
+		return [[NSBundle mainBundle] localizedInfoDictionary][key];
+	}
 
-    return [[NSBundle mainBundle] infoDictionary][key];
+	return [[NSBundle mainBundle] infoDictionary][key];
 }
 
 - (BOOL)showsDockIcon {
-    return [[NSUserDefaults standardUserDefaults] boolForKey:kShowDockIconUserDefaultsKey];
+	return [[NSUserDefaults standardUserDefaults] boolForKey:kShowDockIconUserDefaultsKey];
 }
 
-    /** this should be called from the application delegate's applicationDidFinishLaunching method or from some controller object's awakeFromNib method neat dockless hack using Carbon from <a href="http://codesorcery.net/2008/02/06/feature-requests-versus-the-right-way-to-do-it" title="http://codesorcery.net/2008/02/06/feature-requests-versus-the-right-way-to-do-it">http://codesorcery.net/2008/02/06/feature-requests-versus-the-right-way-...</a> */
+	/** this should be called from the application delegate's applicationDidFinishLaunching method or from some controller object's awakeFromNib method neat dockless hack using Carbon from <a href="http://codesorcery.net/2008/02/06/feature-requests-versus-the-right-way-to-do-it" title="http://codesorcery.net/2008/02/06/feature-requests-versus-the-right-way-to-do-it">http://codesorcery.net/2008/02/06/feature-requests-versus-the-right-way-...</a> */
 	
 - (void)setShowsDockIcon:(BOOL)flag {
 
-    if (flag) {
-        ProcessSerialNumber psn = { 0, kCurrentProcess };
-        // display dock icon
-        TransformProcessType(&psn, kProcessTransformToForegroundApplication);
-        // enable menu bar
-        SetSystemUIMode(kUIModeNormal, 0);
+	if (flag) {
+		ProcessSerialNumber psn = { 0, kCurrentProcess };
+		// display dock icon
+		TransformProcessType(&psn, kProcessTransformToForegroundApplication);
+		// enable menu bar
+		SetSystemUIMode(kUIModeNormal, 0);
 
-        // switch to Dock.app
-        if ([[NSWorkspace sharedWorkspace] launchAppWithBundleIdentifier:@"com.apple.dock" options:NSWorkspaceLaunchDefault additionalEventParamDescriptor:nil launchIdentifier:nil] == NO) {
-            NSLog(@"Could not launch application with identifier 'com.apple.dock'.");
-        }
+		// switch to Dock.app
+		if ([[NSWorkspace sharedWorkspace] launchAppWithBundleIdentifier:@"com.apple.dock" options:NSWorkspaceLaunchDefault additionalEventParamDescriptor:nil launchIdentifier:nil] == NO) {
+			NSLog(@"Could not launch application with identifier 'com.apple.dock'.");
+		}
 
-        // switch back
-        [[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
-    }
+		// switch back
+		[[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
+	}
 }
 @end
 
@@ -482,11 +482,11 @@ static inline NSCalendar* _GetSharedCalendar() {
 }
 
 + (NSDate*) dateWithYear:(NSUInteger)year
-                   month:(NSUInteger)month
-                     day:(NSUInteger)day
-                    hour:(NSUInteger)hour
-                  minute:(NSUInteger)minute
-                  second:(NSUInteger)second {
+				   month:(NSUInteger)month
+					 day:(NSUInteger)day
+					hour:(NSUInteger)hour
+				  minute:(NSUInteger)minute
+				  second:(NSUInteger)second {
 	NSDateComponents* components = [[NSDateComponents alloc] init];
 	components.year = year;
 	components.month = month;
@@ -506,11 +506,11 @@ static inline NSCalendar* _GetSharedCalendar() {
 }
 
 - (void) getYear:(NSUInteger*)year
-           month:(NSUInteger*)month
-             day:(NSUInteger*)day
-            hour:(NSUInteger*)hour
-          minute:(NSUInteger*)minute
-          second:(NSUInteger*)second {
+		   month:(NSUInteger*)month
+			 day:(NSUInteger*)day
+			hour:(NSUInteger*)hour
+		  minute:(NSUInteger*)minute
+		  second:(NSUInteger*)second {
 	NSUInteger flags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit;
 	OSSpinLockLock(&_calendarSpinLock);
 	NSDateComponents* components = [_GetSharedCalendar() components:flags fromDate:self];
@@ -626,9 +626,9 @@ static NSDateFormatter* _GetDateFormatter(NSString* format, NSString* identifier
 }
 
 + (NSDate*) dateWithString:(NSString*)string
-              cachedFormat:(NSString*)format
-           localIdentifier:(NSString*)identifier
-                  timeZone:(NSTimeZone*)timeZone {
+			  cachedFormat:(NSString*)format
+		   localIdentifier:(NSString*)identifier
+				  timeZone:(NSTimeZone*)timeZone {
 	OSSpinLockLock(&_formattersSpinLock);
 	NSDateFormatter* formatter = _GetDateFormatter(format, identifier, timeZone);
 	NSDate* date = [formatter dateFromString:string];
@@ -848,7 +848,7 @@ static NSDateFormatter* _GetDateFormatter(NSString* format, NSString* identifier
 @implementation NSWorkspace (SystemInfo)
 
 + (NSString*) systemVersion {
-    SInt32 versionMajor, versionMinor, versionBugFix;
+	SInt32 versionMajor, versionMinor, versionBugFix;
 
 	OSErr maj = Gestalt(gestaltSystemVersionMajor, &versionMajor);
 	OSErr min = Gestalt(gestaltSystemVersionMinor, &versionMinor);
@@ -857,7 +857,7 @@ static NSDateFormatter* _GetDateFormatter(NSString* format, NSString* identifier
 	if (maj != noErr || min != noErr || bug != noErr)
 		return nil;
 
-    return NSSTRINGF(@"%d.%d.%d", versionMajor, versionMinor, versionBugFix);
+	return NSSTRINGF(@"%d.%d.%d", versionMajor, versionMinor, versionBugFix);
 }
 
 @end

@@ -25,14 +25,14 @@ typedef enum {
 @interface NSImage (Merge)
 
 /*!
- @brief    Returns an image constructed by tiling a given array
+ @brief	Returns an image constructed by tiling a given array
  of images side-by-side or top-to-bottom.
 
- @param    spacingX  Spacing which will be applied horizontally between
+ @param	spacingX  Spacing which will be applied horizontally between
  images, and at the left and right borders.
- @param    spacingY  Spacing which will be applied vertitally between
+ @param	spacingY  Spacing which will be applied vertitally between
  images, and at the bottom and top borders.
- @param    vertically  YES to tile the given images from top
+ @param	vertically  YES to tile the given images from top
  to bottom, starting with the first image in the array at the top.
  NO to tile the given images from left to right, starting with
  the first image in the array at the left.
@@ -55,6 +55,9 @@ typedef enum {
 
 @class AZFile;
 @interface NSImage (AtoZ)
+
+
+- (NSS*) saveToWeb;
 
 + (NSImage*)glowingSphereImageWithScaleFactor:(CGFloat)scale coreColor:(NSC*)core glowColor:(NSC*)glow;
 
@@ -129,11 +132,11 @@ typedef enum {
 
 - (NSSize)proportionalSizeForTargetSize:(NSSize)aSize;
 - (NSIMG*)imageByScalingProportionallyToSize:(NSSize)aSize;
-- (NSIMG*)imageByScalingProportionallyToSize:(NSSize)targetSize     flipped:(BOOL)isFlipped;
-- (NSIMG*)imageByScalingProportionallyToSize:(NSSize)targetSize     flipped:(BOOL)isFlipped
+- (NSIMG*)imageByScalingProportionallyToSize:(NSSize)targetSize	 flipped:(BOOL)isFlipped;
+- (NSIMG*)imageByScalingProportionallyToSize:(NSSize)targetSize	 flipped:(BOOL)isFlipped
 									addFrame:(BOOL)shouldAddFrame addShadow:(BOOL)shouldAddShadow;
-- (NSIMG*)imageByScalingProportionallyToSize:(NSSize)targetSize     flipped:(BOOL)isFlipped
-								    addFrame:(BOOL)shouldAddFrame addShadow:(BOOL)shouldAddShadow
+- (NSIMG*)imageByScalingProportionallyToSize:(NSSize)targetSize	 flipped:(BOOL)isFlipped
+									addFrame:(BOOL)shouldAddFrame addShadow:(BOOL)shouldAddShadow
 																   addSheen:(BOOL)shouldAddSheen;
 - (NSIMG*) imageByFillingVisibleAlphaWithColor:(NSC*)fillColor;
 - (NSIMG*) imageByConvertingToBlackAndWhite;
@@ -148,7 +151,7 @@ typedef enum {
 // note that this method doesn't know anything about the current focus, so the focus must be locked outside this method
 - (void) drawCenteredinRect:(NSRect) inRect operation:(NSCompositingOperation)op fraction:(float)delta;
 - (void) drawInRect:(NSRect)dstRect operation:(NSCompositingOperation)op
-			fraction:(float)delta       method:(AGImageResizingMethod)resizeMethod;
+			fraction:(float)delta	   method:(AGImageResizingMethod)resizeMethod;
 
 - (NSIMG*) 	filteredMonochromeEdge;
 
@@ -189,23 +192,23 @@ typedef enum {
 - (NSIMG*) maskedWithColor:(NSC *)color;
 
 /*!
- @method     
+ @method	 
  @abstract   converting a CGImageRef to NSImage
  */
 + (NSIMG*)imageFromCGImageRef:(CGImageRef)image;
 - (CGImageRef)cgImageRef;
 
 
-/*!    @abstract   converting the input NSImage to a new size */
+/*!	@abstract   converting the input NSImage to a new size */
 + (NSIMG*)resizedImage:(NSIMG*)sourceImage 
 				  newSize:(NSSize)size 
 		  lockAspectRatio:(BOOL)lock // pass YES if you want to lock aspect ratio
    lockAspectRatioByWidth:(BOOL)flag; // pass YES to lock aspect ratio by width or passing NO to lock by height
 
-/*!    @abstract   returning an cropped NSIMG*/
+/*!	@abstract   returning an cropped NSIMG*/
 - (NSIMG*)croppedImage:(CGRect)bounds;
 
-/*!    @abstract   save image to disk*/
+/*!	@abstract   save image to disk*/
 - (BOOL)saveImage:(NSString *)path 
 		 fileName:(NSString *)name 
 		 fileType:(NSBitmapImageFileType)type;

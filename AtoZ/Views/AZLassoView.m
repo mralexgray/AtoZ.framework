@@ -21,9 +21,9 @@
 
 - (id)initWithFrame:(NSRect)frame
 {
-    self = [super initWithFrame:frame];
-    if (self) {
-        self.uniqueID = [NSString newUniqueIdentifier];
+	self = [super initWithFrame:frame];
+	if (self) {
+		self.uniqueID = [NSString newUniqueIdentifier];
 
 		_hovered = NO;
 		_selected = NO;
@@ -31,8 +31,8 @@
 		_inset = 0;
 		_nooseMode = NO;
 //		[self updateTrackingAreas];
-    }
-    return self;
+	}
+	return self;
 }
 - (void)handleAntAnimationTimer:(NSTimer*)timer {
 	mPhase = (mPhase < [self halfwayWithInset] ? mPhase + [self halfwayWithInset]/128 : 0);

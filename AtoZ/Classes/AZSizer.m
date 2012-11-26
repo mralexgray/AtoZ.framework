@@ -28,7 +28,7 @@ NSUI gcd (NSI m, NSUI n) { NSI t, r;
 	u.columns 		= columns;
 	u.frame 		= frame;
 	u.width 		= ( frame.size.width   / (float) columns );
-	u.height 		= ( frame.size.height  / (float) rows    );
+	u.height 		= ( frame.size.height  / (float) rows	);
 	u.aspectRatio 	= ( u.width / u.height );
 	return u;
 }
@@ -36,8 +36,8 @@ NSUI gcd (NSI m, NSUI n) { NSI t, r;
 -(id) initWithDictionary:(NSD*)d
 {
 	self 			 = [Candidate instance];
-	self.remainder 	 = [d integerForKey:       @"remainder" defaultValue:0];
-	self.rows 		 = [d unsignedIntegerForKey:    @"rows"];
+	self.remainder 	 = [d integerForKey:	   @"remainder" defaultValue:0];
+	self.rows 		 = [d unsignedIntegerForKey:	@"rows"];
 	self.columns 	 = [d unsignedIntegerForKey: @"columns"];
 	self.frame	 	 = [d rectForKey:			  @"screen"];
 	self.width 		 = ( _frame.size.width  / (CGF) _columns  );
@@ -49,7 +49,7 @@ NSUI gcd (NSI m, NSUI n) { NSI t, r;
 @end
 
 @interface AZSizer ()
-@property (RDWRT)  NSUI	       rows,  columns;
+@property (RDWRT)  NSUI		   rows,  columns;
 @property (RDWRT)  CGF		   width, height;
 @property (NATOM, RDWRT) NSSZ  size;
 @property (NATOM, STRNG) NSMA *candidates;
@@ -143,7 +143,7 @@ NSUI gcd (NSI m, NSUI n) { NSI t, r;
 {
 	return _size = _width ? nanSizeCheck( (NSSZ) { _width, _height } )
 						  : nanSizeCheck( (NSSZ) { _outerFrame.size.width / _columns,
-											       _outerFrame.size.height / _rows}   );
+												   _outerFrame.size.height / _rows}   );
 }
 + (NSA*) rectsForQuantity:(NSUI)aNumber inRect:(NSR)aFrame
 {
@@ -321,21 +321,21 @@ NSUI gcd (NSI m, NSUI n) { NSI t, r;
 //	for (NSUI r = 0; r < _rows; r++) {
 //		for (NSUI c = 0; c < _columns; c++) {
 //	//		if ([layer sublayers].count > index) {
-//            CALayer *cell = [[layer sublayers]objectAtIndex:index];
+//			CALayer *cell = [[layer sublayers]objectAtIndex:index];
 //			cell.frame = AZMakeRectFromSize(self.size);
-//            cell.name = [NSString stringWithFormat:@"%ld@%ld", c, r];
-//            cell.constraints = @[
+//			cell.name = [NSString stringWithFormat:@"%ld@%ld", c, r];
+//			cell.constraints = @[
 //				AZConstRelSuperScaleOff(kCAConstraintWidth, (1.0/ (CGF)_columns), 0),
 //				AZConstRelSuperScaleOff(kCAConstraintHeight,  (1.0 / (CGF)_rows), 0),
 //				AZConstAttrRelNameAttrScaleOff(	kCAConstraintMinX, @"superlayer",
-//											    kCAConstraintMaxX, (c / (CGF)_columns), 0),
+//												kCAConstraintMaxX, (c / (CGF)_columns), 0),
 //				AZConstAttrRelNameAttrScaleOff( kCAConstraintMinY, @"superlayer",
 //												kCAConstraintMaxY, (r / (CGF)_rows), 0)
 //			];
 //			index++;
 //			}
-//        }
-////    }
+//		}
+////	}
 //	return;// layer;
 //}
 //- (NSA*)boxes {

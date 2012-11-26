@@ -8,7 +8,7 @@ NSString *const AZMenuPositionName[AZMenuPositionCount] = {
 	[AZMenuW] = @"menu_W",
 };
 
-AZQuadCarousel * refToSelf;  //int cCallback()//{	//    [refToSelf someMethod:someArg];//}
+AZQuadCarousel * refToSelf;  //int cCallback()//{	//	[refToSelf someMethod:someArg];//}
 
 //void wLog(NSString* log) { 	[refToSelf setWindowLog:log]; }
 
@@ -84,7 +84,7 @@ static const NSString *didScroll = @"scrollOffset";
 			//			/* (NSStringFromPoint(  AZPointDistanceToBorderOfRect(mouseLoc(), AZScreenFrame())));  */
 			//		[obj addObserver:self forKeyPath:@"dragging" options:0 context:NULL];
 			//@{ @"id" : obj.identifier }
-			//						    addObserver:self forKeyPath:$(@"%@.scrollOffset", obj.identifier)];
+			//							addObserver:self forKeyPath:$(@"%@.scrollOffset", obj.identifier)];
 
 			//		[self observeObject:obj.scrollOffset forName:$(@"scrollOffset", obj.identifier) calling:@selector(scrollOffsetChanged)];
 
@@ -157,7 +157,7 @@ static const NSString *didScroll = @"scrollOffset";
 
 	 [(NSTextView*)view setFont:[NSFont fontWithName:@"Ubuntu Mono Bold" size:_fontSize]];
 	 [(NSTextView*)view setTextColor: [[(NSTextView*)view backgroundColor] contrastingForegroundColor]];
-	 }   // else//        label = (NSTextView*)[view viewWithTag:1];
+	 }   // else//		label = (NSTextView*)[view viewWithTag:1];
 	 [(NSTextView*)view setString: $(@"%@", [[self.items objectAtIndex:index] stringValue])];
 	 //, [(NSColor*)[view valueForKey:@"backgroundColor"] nameOfColor])];
 	 view.frame = AZMakeRectFromSize(dim);  */
@@ -180,7 +180,7 @@ static const NSString *didScroll = @"scrollOffset";
 		//	//] [_items objectAtIndex:reg] atIndex:reg]
 
 		//view.needsDisplay = YES;
-		//    return view;
+		//	return view;
 }
 /*
  - (NSView *)carousel:(iCarousel *)carousel placeholderViewAtIndex:(NSUInteger)index reusingView:(NSView *)view
@@ -190,7 +190,7 @@ static const NSString *didScroll = @"scrollOffset";
  view = [[NSTextView alloc] initWithFrame:AZRectFromDim(_intrusion)];
  [(NSTextView*)view setBackgroundColor: BLACK ];
  [(NSTextView*)view setTextColor:WHITE];
- }    else        label = (NSTextView*)[view viewWithTag:1];
+ }	else		label = (NSTextView*)[view viewWithTag:1];
  [(NSTextView*)view setString: $(@"%ld", index)];
  return view;
  }
@@ -235,7 +235,7 @@ static const NSString *didScroll = @"scrollOffset";
 	[u addAnimation:dashAnimation forKey:@"linePhase"];
 	NSRect windowrect = [v.layer convertRect:v.layer.frame fromLayer:nil];// convertRect:v.frame fromView:nil];
 //	CGPoint where = [v convertPoint:v.frame.origin fromView:v.superview];// loc;// convertPoint:v.layer.origin locationInWindow fromView: nil]]);
-//    where = [_gameboard convertPoint: where fromLayer:			 self.layer];
+//	where = [_gameboard convertPoint: where fromLayer:			 self.layer];
 	self.windowLog = $(@"Vlayer frame = %@", NSStringFromRect(windowrect));
 	CGFloat inset = AZMaxDim(v.frame.size);
 	AZTrackingWindow *e = [AZTrackingWindow oriented:v.position intruding:2*inset inRect:v.layer.frame];
@@ -394,41 +394,41 @@ static const NSString *didScroll = @"scrollOffset";
 		CGFloat lenn = AZPerimeter(indentR);
 		NSBezierPath *movePath = [NSBezierPath bezierPathWithRect:indentR];
 			//the control point is now set to centre of the filled screen. Change this to make the path different.
-			// CGPoint ctlPoint       = CGPointMake(0.0, 0.5);
-		CGPoint ctlPoint       = CGPointMake(1024/2, 768/2);
+			// CGPoint ctlPoint	   = CGPointMake(0.0, 0.5);
+		CGPoint ctlPoint	   = CGPointMake(1024/2, 768/2);
 			// This is the starting point of the animation. This should ideally be a function of the frame of the view to be animated. Hardcoded here.
 			// Set here to get the accurate point..
 		[movePath moveToPoint:indentR.origin];
 			//The anchor point is going to end up here at the end of the animation.
 			//		[movePath   addQuadCurveToPoint:CGPointMake(1024/2, 768/2) controlPoint:ctlPoint];
 		CAKeyframeAnimation *moveAnim = [CAKeyframeAnimation animationWithKeyPath:@"path"];
-		moveAnim.path                = [movePath quartzPath];
+		moveAnim.path				= [movePath quartzPath];
 		moveAnim.removedOnCompletion = YES;
 			// Setup rotation animation
 		CABasicAnimation* rotateAnimation = [CABasicAnimation animationWithKeyPath:@"rotation"];
 			//start from 180 degrees (done in 1st line)
-		CATransform3D fromTransform       = CATransform3DMakeRotation( DEG2RAD(180),0,1,0);
+		CATransform3D fromTransform	   = CATransform3DMakeRotation( DEG2RAD(180),0,1,0);
 			//		myRotationAngle(180), 0, 1, 0);
 			//come back to 0 degrees
-		CATransform3D toTransform         = CATransform3DMakeRotation(DEG2RAD(0), 0, 1, 0);
+		CATransform3D toTransform		 = CATransform3DMakeRotation(DEG2RAD(0), 0, 1, 0);
 			//		myRotationAngle(0), 0, 1, 0);
 			//This is done to get some perspective.
 			//		CATransform3D persp1 = CATransform3DIdentity;
 			//		persp1.m34 = 1.0 / -3000;
 			//		fromTransform = CATransform3DConcat(fromTransform, persp1);
 			//		toTransform = CATransform3DConcat(toTransform,persp1);
-		rotateAnimation.toValue             = [NSValue valueWithCATransform3D:toTransform];
-		rotateAnimation.fromValue           = [NSValue valueWithCATransform3D:fromTransform];
-			//rotateAnimation.duration            = 2;
-		rotateAnimation.fillMode            = kCAFillModeForwards;
+		rotateAnimation.toValue			 = [NSValue valueWithCATransform3D:toTransform];
+		rotateAnimation.fromValue		   = [NSValue valueWithCATransform3D:fromTransform];
+			//rotateAnimation.duration			= 2;
+		rotateAnimation.fillMode			= kCAFillModeForwards;
 		rotateAnimation.removedOnCompletion = NO;
 			// Setup and add all animations to the group
 		CAAnimationGroup *group = [CAAnimationGroup animation];
 		[group setAnimations:@[moveAnim,rotateAnimation]];
-		group.fillMode            = kCAFillModeForwards;
+		group.fillMode			= kCAFillModeForwards;
 		group.removedOnCompletion = NO;
-		group.duration            = 0.7f;
-		group.delegate            = self;
+		group.duration			= 0.7f;
+		group.delegate			= self;
 			//		[group setValue:currentView forKey:kGroupAnimation];
 			//		[currentView.layer addAnimation:group forKey:kLayerAnimation];	}
 		CAKeyframeAnimation *pathAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
@@ -597,34 +597,34 @@ static const NSString *didScroll = @"scrollOffset";
 }
 
 	//		//implement 'flip3D' style carousel
-	//    transform = CATransform3DRotate(transform, M_PI / 8.0f, 0.0f, 1.0f, 0.0f);
-	//    return CATransform3DTranslate(transform, 0.0f, 0.0f, offset * _carousel.itemWidth);
+	//	transform = CATransform3DRotate(transform, M_PI / 8.0f, 0.0f, 1.0f, 0.0f);
+	//	return CATransform3DTranslate(transform, 0.0f, 0.0f, offset * _carousel.itemWidth);
 	//}
 
 	//- (CGFloat)carousel:(iCarousel *)someCarousel valueForOption:(iCarouselOption)option withDefault:(CGFloat)value {
 	////	NSString *unique 	= someCarousel.identifier;
 	////	BOOL vertical  		= someCarousel.vertical;
 
-	//    switch (option)
-	//    {
+	//	switch (option)
+	//	{
 	////		case 	iCarouselOptionWrap:
 	////			return 	YES;
 	////		case 	iCarouselOptionVisibleItems: {
 	//////			NSUInteger s = _carousel.currentItemIndex.
 	////			return 466;//value;// _items.count;// [(AZTrackingWindow*)someCarousel.window capacity];
 	////		}//floor(_carousel.frame.size.height / _intrusion) \
-	//					        : floor(_carousel.frame.size.width  / _intrusion);
+	//							: floor(_carousel.frame.size.width  / _intrusion);
 
 	////		This is the maximum number of item views (including placeholders) that should be visible in the carousel at once. Half of this number of views will be displayed to either side of the currently selected item index. Views beyond that will not be loaded until they are scrolled into view. This allows for the carousel to contain a very large number of items without adversely affecting performance. iCarousel chooses a suitable default value based on the carousel type, however you may wish to override that value using this property (e.g. if you have implemented a custom carousel type).
 
-	////        case iCarouselOptionWrap:
-	////            return value;/// return YES;
-	////        case iCarouselOptionSpacing:
+	////		case iCarouselOptionWrap:
+	////			return value;/// return YES;
+	////		case iCarouselOptionSpacing:
 	////
-	////            return value;// * 1.05f;
-	//        default:
-	//            return value;
-	//    }
+	////			return value;// * 1.05f;
+	//		default:
+	//			return value;
+	//	}
 	//}
 	//	[_menu_N setValuesForKeysWithDictionary:@ { @"windowPosition" : @(AZPositionTop),
 	//		@"vertical" : @(NO)} ];
@@ -641,27 +641,27 @@ static const NSString *didScroll = @"scrollOffset";
 						change:(NSDictionary *)change
 					   context:(void *)context {
 
-		//    if ([keyPath isEqual:@"scrollOffset"]) {
+		//	if ([keyPath isEqual:@"scrollOffset"]) {
 	NSLog(@"notified...  KP:%@ ", keyPath);
 	NSLog(@" obhj: %@::", object);
-		//        [openingBalanceInspectorField setObjectValue:
+		//		[openingBalanceInspectorField setObjectValue:
 		//		 [change objectForKey:NSKeyValueChangeNewKey]];
-		//    }
-    /*
-     Be sure to call the superclass's implementation *if it implements it*.
-     NSObject does not implement the method.
-     */
-		//    [super observeValueForKeyPath:keyPath
-		//                         ofObject:object
-		//                           change:change
+		//	}
+	/*
+	 Be sure to call the superclass's implementation *if it implements it*.
+	 NSObject does not implement the method.
+	 */
+		//	[super observeValueForKeyPath:keyPath
+		//						 ofObject:object
+		//						   change:change
 		//						  context:context];
 }
 
 	//	if (context == DotViewUndoAndRedisplay) {
-	//        NSUndoManager *undoManager = [[self window] undoManager];
-	//        if ([keyPath isEqual:@"center"]) [[undoManager prepareWithInvocationTarget:self] setCenter:[[change objectForKey:NSKeyValueChangeOldKey] pointValue]];
-	//        else if ([keyPath isEqual:@"radius"]) [[undoManager prepareWithInvocationTarget:self] setRadius:[[change objectForKey:NSKeyValueChangeOldKey] doubleValue]];
-	//        else if ([keyPath isEqual:@"color"]) [undoManager registerUndoWithTarget:self selector:@selector(setColor:) object:[change objectForKey:NSKeyValueChangeOldKey]];
+	//		NSUndoManager *undoManager = [[self window] undoManager];
+	//		if ([keyPath isEqual:@"center"]) [[undoManager prepareWithInvocationTarget:self] setCenter:[[change objectForKey:NSKeyValueChangeOldKey] pointValue]];
+	//		else if ([keyPath isEqual:@"radius"]) [[undoManager prepareWithInvocationTarget:self] setRadius:[[change objectForKey:NSKeyValueChangeOldKey] doubleValue]];
+	//		else if ([keyPath isEqual:@"color"]) [undoManager registerUndoWithTarget:self selector:@selector(setColor:) object:[change objectForKey:NSKeyValueChangeOldKey]];
 	//	if ([keyPath isEqual:@"multiplier"]) {
 	//	if ([keyPath isEqual:@"desiredNumberOfColumns"]) {
 	//	[[undoManager prepareWithInvocationTarget:self] setCenter:[[change objectForKey:NSKeyValueChangeOldKey] pointValue]];
@@ -739,25 +739,25 @@ static const NSString *didScroll = @"scrollOffset";
 	//		//create new view if no view is available for recycling
 	//	if (view == nil)	{
 	//		NSImage *image = [NSImage az_imageNamed:@"2.pdf"];
-	//       	view = [[[NSImageView alloc] initWithFrame:NSMakeRect(0,0,image.size.width,image.size.height)] autorelease];
-	//        [(NSImageView *)view setImage:image];
-	//        [(NSImageView *)view setImageScaling:NSImageScaleAxesIndependently];
-	//        label = [[[NSTextField alloc] init] autorelease];
-	//        [label setBackgroundColor:[NSColor clearColor]];
-	//        [label setBordered:NO];
-	//        [label setSelectable:NO];
-	//        [label setAlignment:NSCenterTextAlignment];
-	//        [label setFont:[NSFont fontWithName:[[label font] fontName] size:50]];
-	//        label.tag = 1;
-	//        [view addSubview:label];
+	//	   	view = [[[NSImageView alloc] initWithFrame:NSMakeRect(0,0,image.size.width,image.size.height)] autorelease];
+	//		[(NSImageView *)view setImage:image];
+	//		[(NSImageView *)view setImageScaling:NSImageScaleAxesIndependently];
+	//		label = [[[NSTextField alloc] init] autorelease];
+	//		[label setBackgroundColor:[NSColor clearColor]];
+	//		[label setBordered:NO];
+	//		[label setSelectable:NO];
+	//		[label setAlignment:NSCenterTextAlignment];
+	//		[label setFont:[NSFont fontWithName:[[label font] fontName] size:50]];
+	//		label.tag = 1;
+	//		[view addSubview:label];
 	//	}	else				//get a reference to the label in the recycled view
 	//		label = (NSTextField *)[view viewWithTag:1];
 	//		//set item label   			remember to always set any properties of your carousel item views outside of the `if (view == nil) {...}` check otherwise you'll get weird issues with carousel item content appearing  in the wrong place in the carousel
 	//	[label setStringValue:(index == 0)? @"[": @"]"];
-	//    [label sizeToFit];
-	//    [label setFrameOrigin:(NSPoint){(view.bounds.size.width - label.frame.size.width)/2.0,	((view.bounds.size.height - label.frame.size.height)/2.0)}];
+	//	[label sizeToFit];
+	//	[label setFrameOrigin:(NSPoint){(view.bounds.size.width - label.frame.size.width)/2.0,	((view.bounds.size.height - label.frame.size.height)/2.0)}];
 
-	//    return view;
+	//	return view;
 	//}
 
 
@@ -768,30 +768,30 @@ static const NSString *didScroll = @"scrollOffset";
 	//}
 
 	//- (void)carouselDidScroll:(iCarousel *)carousel {
-	////    if (carousel == carousel)
-	////    {
+	////	if (carousel == carousel)
+	////	{
 	//			//adjust perspective for inner carousels
 	//			//every time the outer carousel is moved
 	//			//for 2D carousel styles this wouldn't be neccesary
-	//        for (iCarousel *subCarousel in _carousel.visibleItemViews)
-	//        {
-	//            NSInteger index = subCarousel.tag;
-	//            CGFloat offset = [_carousel offsetForItemAtIndex:index];
-	//            subCarousel.viewpointOffset = CGSizeMake(-offset * _carousel.itemWidth, 0.0f);
-	//            subCarousel.contentOffset = CGSizeMake(-offset * _carousel.itemWidth, 0.0f);
-	//        }
-	//    }
-	//    else if (SYNCHRONIZE_CAROUSELS)
-	//    {
+	//		for (iCarousel *subCarousel in _carousel.visibleItemViews)
+	//		{
+	//			NSInteger index = subCarousel.tag;
+	//			CGFloat offset = [_carousel offsetForItemAtIndex:index];
+	//			subCarousel.viewpointOffset = CGSizeMake(-offset * _carousel.itemWidth, 0.0f);
+	//			subCarousel.contentOffset = CGSizeMake(-offset * _carousel.itemWidth, 0.0f);
+	//		}
+	//	}
+	//	else if (SYNCHRONIZE_CAROUSELS)
+	//	{
 	//			//synchronise inner carousel scroll offsets each time any
 	//			//of the inner carousels is moved - if you don't want this
 	//			//you can turn it off, but then you'd need to keep track of
 	//			//the scroll state for each carousel when they are loaded/unloaded
-	//        for (iCarousel *subCarousel in _carousel.visibleItemViews)
-	//        {
-	//            subCarousel.scrollOffset = carousel.scrollOffset;
-	//        }
-	//    }
+	//		for (iCarousel *subCarousel in _carousel.visibleItemViews)
+	//		{
+	//			subCarousel.scrollOffset = carousel.scrollOffset;
+	//		}
+	//	}
 	//}
 
 - (void) setTilt:(NSUInteger)tilt {
@@ -838,7 +838,7 @@ static const NSString *didScroll = @"scrollOffset";
 
 		case 	iCarouselOptionFadeMax:				return 	value;		case	iCarouselOptionFadeMin:				return 	value;
 		case	iCarouselOptionFadeRange:			return 	value;
-				// These three options control the fading out of carousel item views based on their offset from the currently centered item. FadeMin is the minimum negative offset an item view can reach before it begins to fade. FadeMax is the maximum positive offset a view can reach before if begins to fade. FadeRange is the distance the item can move between the point at which it begins to fade and the point at which it becomes completely invisible.   		//	if (self.carousel.type == iCarouselTypeCustom)	return1.0f;                 //set opacity based on distance from camera
+				// These three options control the fading out of carousel item views based on their offset from the currently centered item. FadeMin is the minimum negative offset an item view can reach before it begins to fade. FadeMax is the maximum positive offset a view can reach before if begins to fade. FadeRange is the distance the item can move between the point at which it begins to fade and the point at which it becomes completely invisible.   		//	if (self.carousel.type == iCarouselTypeCustom)	return1.0f;				 //set opacity based on distance from camera
 
 		default:									return 	value;
 	}
@@ -848,7 +848,7 @@ static const NSString *didScroll = @"scrollOffset";
 
 /*		//	if (!view) {
  _iconStyle = RAND_INT_VAL(1, 3);
- if (view == nil)     //create new view if no view is available for recycling
+ if (view == nil)	 //create new view if no view is available for recycling
  {
  AZFile* f = [[AtoZ fengShui]objectAtIndex:index];   NSColor *c = f.color;
  if (!c) c = [[NSColor fengshui] objectAtIndex:index]; // { 		NSLog(@"no colore! reload! (idx:%ld)",index); [carousel reloadData]; }
@@ -954,7 +954,7 @@ static const NSString *didScroll = @"scrollOffset";
  [label setAlignment:NSCenterTextAlignment];
  [label setFont:[NSFont fontWithName:[[label font] fontName] size:50]];
  label.tag = 1;
- [view addSubview:label];    */
+ [view addSubview:label];	*/
 
 /*	else
  {

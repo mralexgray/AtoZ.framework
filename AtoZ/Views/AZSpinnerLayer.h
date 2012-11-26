@@ -8,15 +8,15 @@
 #import <Cocoa/Cocoa.h>
 #import <QuartzCore/QuartzCore.h>
 @interface AZSpinnerLayer : CALayer {
-    BOOL _isRunning;
-    NSTimer *_animationTimer;
-    NSUInteger _position;
+	BOOL _isRunning;
+	NSTimer *_animationTimer;
+	NSUInteger _position;
 
-    CGColorRef _foreColor;
-    CGFloat _fadeDownOpacity;
+	CGColorRef _foreColor;
+	CGFloat _fadeDownOpacity;
 
-    NSUInteger _numFins;
-    NSMutableArray *_finLayers;
+	NSUInteger _numFins;
+	NSMutableArray *_finLayers;
 }
 
 - (void)toggleProgressAnimation;

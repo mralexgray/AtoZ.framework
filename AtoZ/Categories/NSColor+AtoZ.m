@@ -23,34 +23,34 @@ typedef struct {
 //Convert hex to an int
 int hexToInt(char hex)
 {
-    if (hex >= '0' && hex <= '9') {
-        return (hex - '0');
-    } else if (hex >= 'a' && hex <= 'f') {
-        return (hex - 'a' + 10);
-    } else if (hex >= 'A' && hex <= 'F') {
-        return (hex - 'A' + 10);
-    } else {
-        return -1;
-    }
+	if (hex >= '0' && hex <= '9') {
+		return (hex - '0');
+	} else if (hex >= 'a' && hex <= 'f') {
+		return (hex - 'a' + 10);
+	} else if (hex >= 'A' && hex <= 'F') {
+		return (hex - 'A' + 10);
+	} else {
+		return -1;
+	}
 }
 
 //Convert int to a hex
 char intToHex(NSInteger digit)
 {
-    if (digit > 9) {
+	if (digit > 9) {
 		if (digit <= 0xf) {
 			return ('a' + digit - 10);
 		}
-    } else if (digit >= 0) {
-        return ('0' + digit);
-    }
+	} else if (digit >= 0) {
+		return ('0' + digit);
+	}
 
 	return '\0'; //NUL
 }
 CGFloat LuminanceFromRGBComponents(const CGFloat *rgb)
 {
-    // 0.3086 + 0.6094 + 0.0820 = 1.0
-    return 0.3086f*rgb[0] + 0.6094f*rgb[1] + 0.0820f*rgb[2];
+	// 0.3086 + 0.6094 + 0.0820 = 1.0
+	return 0.3086f*rgb[0] + 0.6094f*rgb[1] + 0.0820f*rgb[2];
 }
 static ColorNameRec sColorTable[] = {
 	{ 0xf0f8ff, "aliceblue" },
@@ -217,7 +217,7 @@ static ColorNameRec sColorTable[] = {
 						  NSCalibratedRGBColorSpace];
 	CGFloat hue = [original hueComponent];
 	if (hue >= 0.5) { hue -= 0.5; } else { hue += 0.5; }
-    return [NSColor colorWithCalibratedHue:hue
+	return [NSColor colorWithCalibratedHue:hue
 								saturation:[original saturationComponent]
 								brightness:(1.0 - [original brightnessComponent])
 									 alpha:[original alphaComponent]];
@@ -548,12 +548,12 @@ static NSColor *ColorWithCSSString(NSString *str) {
  [tempMutableArray addObject:[[Color alloc] initWithColorName:@"Yellow Orange" HexCode:@"#FFAE42" Red:255 Green:174 Blue:66]];
 
  */
-//+ (NSColor *) BLUE {    static NSColor*  BLUE = nil;	if( BLUE == nil )
+//+ (NSColor *) BLUE {	static NSColor*  BLUE = nil;	if( BLUE == nil )
 //	BLUE = [NSColor colorWithDeviceRed:0.253 green:0.478 blue:0.761 alpha:1.000];
 //	return BLUE;
 //}
 
-//+ (NSColor *) ORANGE {    static NSColor*  ORANGE = nil;	if( ORANGE == nil )
+//+ (NSColor *) ORANGE {	static NSColor*  ORANGE = nil;	if( ORANGE == nil )
 //	ORANGE = [NSColor colorWithDeviceRed:0.864 green:0.498 blue:0.191 alpha:1.000];
 //	return ORANGE;
 //}
@@ -563,7 +563,7 @@ static NSColor *ColorWithCSSString(NSString *str) {
 //	if( RANDOM == nil )
 //		}
 
-+ (NSColor *) MAUVE {    static NSColor*  MAUVE = nil;	if( MAUVE == nil )
++ (NSColor *) MAUVE {	static NSColor*  MAUVE = nil;	if( MAUVE == nil )
 	MAUVE = [NSColor colorWithDeviceRed:0.712 green:0.570 blue:0.570 alpha:1.000];
 	return MAUVE;
 }
@@ -638,38 +638,38 @@ static NSColor *ColorWithCSSString(NSString *str) {
 // NSString *hexColor = [color hexColor]
 
 + (NSColor *) colorWithHex:(NSString *)hexColor {
-    // Remove the hash if it exists
-    hexColor = [hexColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
-    int length = (int)[hexColor length];
-    bool triple = (length == 3);
-    NSMutableArray *rgb = [[NSMutableArray alloc] init];
-    // Make sure the string is three or six characters long
-    if (triple || length == 6) {
-        CFIndex i = 0;        UniChar character = 0;        NSString *segment = @"";        CFStringInlineBuffer buffer;
-        CFStringInitInlineBuffer((__bridge CFStringRef)hexColor, &buffer, CFRangeMake(0, length));
-        while ((character = CFStringGetCharacterFromInlineBuffer(&buffer, i)) != 0 ) {
-            if (triple) segment = [segment stringByAppendingFormat:@"%c%c", character, character];
-            else segment = [segment stringByAppendingFormat:@"%c", character];
-            if ((int)[segment length] == 2) {
-                NSScanner *scanner = [[NSScanner alloc] initWithString:segment];
-                unsigned number;
-                while([scanner scanHexInt:&number]){
-                    [rgb addObject:@((float)(number / (float)255))];
-                }
-                segment = @"";
-            }
-            i++;
-        }
-        // Pad the array out (for cases where we're given invalid input)
-        while ([rgb count] != 3) [rgb addObject:@0.0f];
+	// Remove the hash if it exists
+	hexColor = [hexColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
+	int length = (int)[hexColor length];
+	bool triple = (length == 3);
+	NSMutableArray *rgb = [[NSMutableArray alloc] init];
+	// Make sure the string is three or six characters long
+	if (triple || length == 6) {
+		CFIndex i = 0;		UniChar character = 0;		NSString *segment = @"";		CFStringInlineBuffer buffer;
+		CFStringInitInlineBuffer((__bridge CFStringRef)hexColor, &buffer, CFRangeMake(0, length));
+		while ((character = CFStringGetCharacterFromInlineBuffer(&buffer, i)) != 0 ) {
+			if (triple) segment = [segment stringByAppendingFormat:@"%c%c", character, character];
+			else segment = [segment stringByAppendingFormat:@"%c", character];
+			if ((int)[segment length] == 2) {
+				NSScanner *scanner = [[NSScanner alloc] initWithString:segment];
+				unsigned number;
+				while([scanner scanHexInt:&number]){
+					[rgb addObject:@((float)(number / (float)255))];
+				}
+				segment = @"";
+			}
+			i++;
+		}
+		// Pad the array out (for cases where we're given invalid input)
+		while ([rgb count] != 3) [rgb addObject:@0.0f];
 
-        return [NSColor colorWithCalibratedRed:[rgb[0] floatValue]   green:[rgb[1] floatValue]    blue:[rgb[2] floatValue]   alpha:1];
-    }
-    else {
-        NSException* invalidHexException = [NSException exceptionWithName:@"InvalidHexException"                       reason:@"Hex color not three or six characters excluding hash"                     userInfo:nil];
-        @throw invalidHexException;
+		return [NSColor colorWithCalibratedRed:[rgb[0] floatValue]   green:[rgb[1] floatValue]	blue:[rgb[2] floatValue]   alpha:1];
+	}
+	else {
+		NSException* invalidHexException = [NSException exceptionWithName:@"InvalidHexException"					   reason:@"Hex color not three or six characters excluding hash"					 userInfo:nil];
+		@throw invalidHexException;
 
-    }
+	}
 
 }
 
@@ -1648,23 +1648,23 @@ static NSMutableDictionary *RGBColorValues = nil;
  {
  if (!RGBColorValues) {
  RGBColorValues = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
- [NSColor colorWithHTMLString:@"#000"],    @"black",
+ [NSColor colorWithHTMLString:@"#000"],	@"black",
  [NSColor colorWithHTMLString:@"#c0c0c0"], @"silver",
  [NSColor colorWithHTMLString:@"#808080"], @"gray",
  [NSColor colorWithHTMLString:@"#808080"], @"grey",
- [NSColor colorWithHTMLString:@"#fff"],    @"white",
+ [NSColor colorWithHTMLString:@"#fff"],	@"white",
  [NSColor colorWithHTMLString:@"#800000"], @"maroon",
- [NSColor colorWithHTMLString:@"#f00"],    @"red",
+ [NSColor colorWithHTMLString:@"#f00"],	@"red",
  [NSColor colorWithHTMLString:@"#800080"], @"purple",
- [NSColor colorWithHTMLString:@"#f0f"],    @"fuchsia",
+ [NSColor colorWithHTMLString:@"#f0f"],	@"fuchsia",
  [NSColor colorWithHTMLString:@"#008000"], @"green",
- [NSColor colorWithHTMLString:@"#0f0"],    @"lime",
+ [NSColor colorWithHTMLString:@"#0f0"],	@"lime",
  [NSColor colorWithHTMLString:@"#808000"], @"olive",
- [NSColor colorWithHTMLString:@"#ff0"],    @"yellow",
+ [NSColor colorWithHTMLString:@"#ff0"],	@"yellow",
  [NSColor colorWithHTMLString:@"#000080"], @"navy",
- [NSColor colorWithHTMLString:@"#00f"],    @"blue",
+ [NSColor colorWithHTMLString:@"#00f"],	@"blue",
  [NSColor colorWithHTMLString:@"#008080"], @"teal",
- [NSColor colorWithHTMLString:@"#0ff"],    @"aqua",
+ [NSColor colorWithHTMLString:@"#0ff"],	@"aqua",
  nil];
  NSArray *paths = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:defaultRGBTxtLocation1 error:NULL];
  for (NSString *middlePath in paths) {
@@ -1856,7 +1856,7 @@ static NSMutableDictionary *RGBColorValues = nil;
 //			[NSString stringWithCGFloat:[rgb redComponent]   * 255.0f maxDigits:6],
 //			[NSString stringWithCGFloat:[rgb greenComponent] * 255.0f maxDigits:6],
 //			[NSString stringWithCGFloat:[rgb blueComponent]  * 255.0f maxDigits:6],
-//			[NSString stringWithCGFloat:alpha                         maxDigits:6]];
+//			[NSString stringWithCGFloat:alpha						 maxDigits:6]];
 //	} else {
 //		return [@"#" stringByAppendingString:[self hexString]];
 //	}
@@ -1879,12 +1879,12 @@ static NSMutableDictionary *RGBColorValues = nil;
 	r = (CGFloat)strtoul(selfUTF8, (char **)&selfUTF8, /*base*/ 10);
 
 	if(*selfUTF8 == ',') ++selfUTF8;
-	else                 goto scanFailed;
+	else				 goto scanFailed;
 
 	if (!isdigit(*selfUTF8)) goto scanFailed;
 	g = (CGFloat)strtoul(selfUTF8, (char **)&selfUTF8, /*base*/ 10);
 	if(*selfUTF8 == ',') ++selfUTF8;
-	else                 goto scanFailed;
+	else				 goto scanFailed;
 
 	if (!isdigit(*selfUTF8)) goto scanFailed;
 	b = (CGFloat)strtoul(selfUTF8, (char **)&selfUTF8, /*base*/ 10);
@@ -2000,21 +2000,21 @@ scanFailed:
 
 + (NSColor*) colorWithCSSRGB:(NSString*)rgbString
 {
-    static NSCharacterSet *open  = nil;  open = open  ?: [NSCharacterSet characterSetWithCharactersInString:@"("];//retain];
-    static NSCharacterSet *close = nil; close = close ?: [NSCharacterSet characterSetWithCharactersInString:@")"];//retain];
+	static NSCharacterSet *open  = nil;  open = open  ?: [NSCharacterSet characterSetWithCharactersInString:@"("];//retain];
+	static NSCharacterSet *close = nil; close = close ?: [NSCharacterSet characterSetWithCharactersInString:@")"];//retain];
 
-    NSI iBegin 		= [rgbString rangeOfCharacterFromSet:open].location;
-    NSI iClose 		= [rgbString rangeOfCharacterFromSet:close].location;
-    if ( iBegin == NSNotFound || iClose == NSNotFound )  return nil;
-    NSS *rgbSub 	= [rgbString substringWithRange:NSMakeRange(iBegin+1,iClose-(iBegin+1))];
-    NSA *components = [rgbSub 	 componentsSeparatedByString:@","];
-    if ( [components count] != 3 )  return nil;
+	NSI iBegin 		= [rgbString rangeOfCharacterFromSet:open].location;
+	NSI iClose 		= [rgbString rangeOfCharacterFromSet:close].location;
+	if ( iBegin == NSNotFound || iClose == NSNotFound )  return nil;
+	NSS *rgbSub 	= [rgbString substringWithRange:NSMakeRange(iBegin+1,iClose-(iBegin+1))];
+	NSA *components = [rgbSub 	 componentsSeparatedByString:@","];
+	if ( [components count] != 3 )  return nil;
 
 	NSA* componentValues = [components cw_mapArray:^id(NSS* aComponent) {
-        NSString *cleanedComponent = [aComponent stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+		NSString *cleanedComponent = [aComponent stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
 		return [cleanedComponent length] == 0 ? nil : @([cleanedComponent floatValue]);
 	}];
-    return  [componentValues count] != 3 ? nil : [NSC colorWithCalibratedRed: [componentValues[0]fV] / 255.
+	return  [componentValues count] != 3 ? nil : [NSC colorWithCalibratedRed: [componentValues[0]fV] / 255.
 																	   green: [componentValues[1]fV] / 255.
 																		blue: [componentValues[2]fV] / 255. alpha:1];
 }
@@ -2025,7 +2025,7 @@ scanFailed:
 
 - (BOOL) isEqualToColor:(NSC*)inColor colorSpace:(NSS*)inColorSpace
 {
-	return  [self colorUsingColorSpaceName:inColorSpace] &&      [inColor colorUsingColorSpaceName:inColorSpace]
+	return  [self colorUsingColorSpaceName:inColorSpace] &&	  [inColor colorUsingColorSpaceName:inColorSpace]
 		&& [[self colorUsingColorSpaceName:inColorSpace] isEqual:[inColor colorUsingColorSpaceName:inColorSpace]];
 }
 

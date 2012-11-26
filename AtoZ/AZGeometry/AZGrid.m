@@ -20,16 +20,16 @@
 }
 -(id)init {
   if ((self = [super init])) {
-    [self _init];
-    array = [[NSMutableArray alloc] init];
+	[self _init];
+	array = [[NSMutableArray alloc] init];
   }
   return self;
 }
 
 -(id)initWithCapacity:(NSUInteger)numItems {
   if ((self = [super init])) {
-    [self _init];
-    array = [[NSMutableArray alloc] initWithCapacity:numItems];
+	[self _init];
+	array = [[NSMutableArray alloc] initWithCapacity:numItems];
   }
   return self;
 }
@@ -48,9 +48,9 @@
 
 -(void)setStyle:(NSUInteger)v {
   if (v > 2) {
-    self->style = 0;
+	self->style = 0;
   } else {
-    self->style = v;
+	self->style = v;
   }
 }
 
@@ -60,7 +60,7 @@
 
 -(void)setOrder:(NSUInteger)o {
   if (o <= 1) {
-    self->order = o;
+	self->order = o;
   }
 }
 
@@ -96,15 +96,15 @@
   NSSize s = NSMakeSize(0, 0);
   
   if (style == AZGridStyleHorizontal) {
-    s.width = ceil(self.count / parallels);
-    s.height = parallels;
+	s.width = ceil(self.count / parallels);
+	s.height = parallels;
   } else if (style == AZGridStyleVertical) {
-    s.width = parallels;
-    s.height = ceil(self.count / parallels);
+	s.width = parallels;
+	s.height = ceil(self.count / parallels);
   } else /* AZGridStyleCompact */ {
-    float d = ceil(sqrt(self.count));
-    s.width = d;
-    s.height = d;
+	float d = ceil(sqrt(self.count));
+	s.width = d;
+	s.height = d;
   }
   
   return [AZSize sizeWithSize:s];
@@ -128,20 +128,20 @@
 
 -(AZPoint *)pointAtIndex:(NSUInteger)index {
   if (self.count == 0) {
-    return nil;
+	return nil;
   }
   
   AZSize *s = self.size;
   CGFloat x, y;
   
   if (order == AZGridColumnMajorOrder) {
-    // column major order
-    x = floor(index / s.height);
-    y = index % (int)s.height;
+	// column major order
+	x = floor(index / s.height);
+	y = index % (int)s.height;
   } else {
-    // row major order
-    x = index % (int)s.width;
-    y = floor(index / s.width);
+	// row major order
+	x = index % (int)s.width;
+	y = floor(index / s.width);
   }
   
   return [AZPoint pointWithPoint:NSMakePoint(x, y)];
@@ -149,7 +149,7 @@
 
 -(NSNumber *)indexAtPoint:(NSPoint)point {
   if (self.count == 0) {
-    return nil;
+	return nil;
   }
   
   AZSize *s = self.size;
@@ -157,15 +157,15 @@
   NSInteger y = floor(point.y);
 
   if (x < 0 || x >= s.width || y < 0 || y >= s.height) {
-    return nil;
+	return nil;
   }
   
   if (order == AZGridRowMajorOrder) {
-    // left to right -> top to bottom
-    return [NSNumber numberWithUnsignedInt:point.y * s.width + point.x];
+	// left to right -> top to bottom
+	return [NSNumber numberWithUnsignedInt:point.y * s.width + point.x];
   } else if (order == AZGridColumnMajorOrder) {
-    // top to bottom -> left to right
-    return [NSNumber numberWithUnsignedInt:point.x * s.height + point.y];
+	// top to bottom -> left to right
+	return [NSNumber numberWithUnsignedInt:point.x * s.height + point.y];
   }
   
   return nil;
@@ -174,7 +174,7 @@
 -(id)objectAtPoint:(NSPoint)point {
   NSNumber *index = [self indexAtPoint:point];
   if (index == nil) {
-    return nil;
+	return nil;
   }
   
   return [self objectAtIndex:index.unsignedIntValue];;
@@ -183,10 +183,10 @@
 -(NSString *)description {
   AZSize *s = self.size;
   return [NSString stringWithFormat:@"%@(%.f, %.f; %ld)",
-          self.className,
-          s.width,
-          s.height,
-          self.count];
+		  self.className,
+		  s.width,
+		  s.height,
+		  self.count];
 }
 
 @end

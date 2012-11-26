@@ -28,16 +28,16 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 //
 //CGImageRef CreateCGImageFromData(NSData* data)
 //{
-//    CGImageRef        imageRef = NULL;
-//    CGImageSourceRef  sourceRef;
+//	CGImageRef		imageRef = NULL;
+//	CGImageSourceRef  sourceRef;
 //
-//    sourceRef = CGImageSourceCreateWithData((__bridge CFDataRef)data, NULL);
-//    if(sourceRef) {
-//        imageRef = CGImageSourceCreateImageAtIndex(sourceRef, 0, NULL);
-//        CFRelease(sourceRef);
-//    }
+//	sourceRef = CGImageSourceCreateWithData((__bridge CFDataRef)data, NULL);
+//	if(sourceRef) {
+//		imageRef = CGImageSourceCreateImageAtIndex(sourceRef, 0, NULL);
+//		CFRelease(sourceRef);
+//	}
 //
-//    return imageRef;
+//	return imageRef;
 //}
 
 @implementation NSImage (Merge)
@@ -137,7 +137,7 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 			operation:NSCompositeCopy
 			 fraction:1.0] ;
 
-    NSBezierPath* path = [NSBezierPath bezierPath] ;
+	NSBezierPath* path = [NSBezierPath bezierPath] ;
 
 	//[[NSColor colorWithCalibratedWhite:0.0 alpha:0.7] set] ;
 	[[NSColor grayColor] setStroke] ;
@@ -165,7 +165,7 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 			 fromRect:NSZeroRect
 			operation:NSCompositeCopy
 			 fraction:1.0] ;
-    NSBezierPath* path = [NSBezierPath bezierPath] ;
+	NSBezierPath* path = [NSBezierPath bezierPath] ;
 	//[[NSColor colorWithCalibratedWhite:0.0 alpha:0.7] set] ;
 	[[NSColor grayColor] setStroke] ;
 	[path setLineWidth:2.0] ;
@@ -208,82 +208,82 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 
 + (NSImage*)glowingSphereImageWithScaleFactor:(CGF)scale coreColor:(NSC*)core glowColor:(NSC*)glow
 {
-    if ( scale > 10.0 || scale < 0.5 ) {
-        NSLog(@"%@: larger than 10.0 or less than 0.5 scale. returning nil.", NSStringFromSelector(_cmd));
-        return nil;        
-    }
-    
-    // the image is two parts: a core sphere and a blur.
-    // the blurred image is larger, and the final image
-    // must be large enough to contain it.
-    NSSZ sphereCoreSize = NSMakeSize(5*scale,5*scale);    
-    NSSZ sphereBlurSize = NSMakeSize(10*scale,10*scale);
-    NSSZ finalImageSize = NSMakeSize(sphereBlurSize.width*2,sphereBlurSize.width*2);
-    NSRect finalImageRect;
-    finalImageRect.origin = NSZeroPoint;
-    finalImageRect.size   = finalImageSize;
+	if ( scale > 10.0 || scale < 0.5 ) {
+		NSLog(@"%@: larger than 10.0 or less than 0.5 scale. returning nil.", NSStringFromSelector(_cmd));
+		return nil;		
+	}
+	
+	// the image is two parts: a core sphere and a blur.
+	// the blurred image is larger, and the final image
+	// must be large enough to contain it.
+	NSSZ sphereCoreSize = NSMakeSize(5*scale,5*scale);	
+	NSSZ sphereBlurSize = NSMakeSize(10*scale,10*scale);
+	NSSZ finalImageSize = NSMakeSize(sphereBlurSize.width*2,sphereBlurSize.width*2);
+	NSRect finalImageRect;
+	finalImageRect.origin = NSZeroPoint;
+	finalImageRect.size   = finalImageSize;
 
-    // define a drawing rect for the core of the sphere
-    NSRect sphereCoreRect;
-    sphereCoreRect.origin = NSZeroPoint;
-    sphereCoreRect.size = sphereCoreSize;
-    CGF sphereCoreOffset = (finalImageSize.width - sphereCoreSize.width) * 0.5;
-    
-    // create the "core sphere" image
-    NSImage* solidCircle = [[NSImage alloc] initWithSize:sphereCoreSize];
-    [solidCircle lockFocus];
-        [core setFill];
-        [[NSBezierPath bezierPathWithOvalInRect:sphereCoreRect] fill];
-    [solidCircle unlockFocus];
-    
-    // define a drawing rect for the sphere blur
-    NSRect sphereBlurRect;
-    sphereBlurRect.origin.x = (finalImageSize.width - sphereBlurSize.width) * 0.5;
-    sphereBlurRect.origin.y = (finalImageSize.width - sphereBlurSize.width) * 0.5;
-    sphereBlurRect.size = sphereBlurSize;
+	// define a drawing rect for the core of the sphere
+	NSRect sphereCoreRect;
+	sphereCoreRect.origin = NSZeroPoint;
+	sphereCoreRect.size = sphereCoreSize;
+	CGF sphereCoreOffset = (finalImageSize.width - sphereCoreSize.width) * 0.5;
+	
+	// create the "core sphere" image
+	NSImage* solidCircle = [[NSImage alloc] initWithSize:sphereCoreSize];
+	[solidCircle lockFocus];
+		[core setFill];
+		[[NSBezierPath bezierPathWithOvalInRect:sphereCoreRect] fill];
+	[solidCircle unlockFocus];
+	
+	// define a drawing rect for the sphere blur
+	NSRect sphereBlurRect;
+	sphereBlurRect.origin.x = (finalImageSize.width - sphereBlurSize.width) * 0.5;
+	sphereBlurRect.origin.y = (finalImageSize.width - sphereBlurSize.width) * 0.5;
+	sphereBlurRect.size = sphereBlurSize;
 
-    // create the "sphere blur" image (not yet blurred)
-    NSImage* blurImage = [[NSImage alloc] initWithSize:finalImageSize];
-    [blurImage lockFocus];
-        [glow setFill];
-        [[NSBezierPath bezierPathWithOvalInRect:sphereBlurRect] fill];
-    [blurImage unlockFocus];
-    
-    // convert the "sphere blur" image to a CIImage for processing
-    NSData* dataForBlurImage = [blurImage TIFFRepresentation];
-    CIImage* ciBlurImage = [CIImage imageWithData:dataForBlurImage];
+	// create the "sphere blur" image (not yet blurred)
+	NSImage* blurImage = [[NSImage alloc] initWithSize:finalImageSize];
+	[blurImage lockFocus];
+		[glow setFill];
+		[[NSBezierPath bezierPathWithOvalInRect:sphereBlurRect] fill];
+	[blurImage unlockFocus];
+	
+	// convert the "sphere blur" image to a CIImage for processing
+	NSData* dataForBlurImage = [blurImage TIFFRepresentation];
+	CIImage* ciBlurImage = [CIImage imageWithData:dataForBlurImage];
 
-    // apply the blur using CIGaussianBlur
-    CIFilter* filter = [CIFilter filterWithName:@"CIGaussianBlur"];
-    [filter setDefaults];
-    NSNumber* inputRadius = [NSNumber numberWithFloat:3.0];
-    [filter setValue:inputRadius forKey:@"inputRadius"];
-    [filter setValue:ciBlurImage forKey:@"inputImage"];
-    CIImage* ciBlurredImage = [filter valueForKey:@"outputImage"];
-    ciBlurredImage = [ciBlurredImage imageByCroppingToRect:NSRectToCGRect(finalImageRect)];
+	// apply the blur using CIGaussianBlur
+	CIFilter* filter = [CIFilter filterWithName:@"CIGaussianBlur"];
+	[filter setDefaults];
+	NSNumber* inputRadius = [NSNumber numberWithFloat:3.0];
+	[filter setValue:inputRadius forKey:@"inputRadius"];
+	[filter setValue:ciBlurImage forKey:@"inputImage"];
+	CIImage* ciBlurredImage = [filter valueForKey:@"outputImage"];
+	ciBlurredImage = [ciBlurredImage imageByCroppingToRect:NSRectToCGRect(finalImageRect)];
 
-    // draw the final image
-    NSImage* compositeImage = [[NSImage alloc] initWithSize:finalImageSize];
-    [compositeImage lockFocus];    
-    
-        // draw glow first
-        [ciBlurredImage drawInRect:finalImageRect
-                          fromRect:finalImageRect
-                         operation:NSCompositeSourceOver
-                          fraction:0.7];
-                          
-        // now draw solid sphere on top
-        [solidCircle drawInRect:NSOffsetRect(sphereCoreRect,sphereCoreOffset,sphereCoreOffset)
-                       fromRect:sphereCoreRect
-                      operation:NSCompositeSourceOver
-                       fraction:1.0];
-                        
-    [compositeImage unlockFocus];
-    
-//    [solidCircle release];
-//    [blurImage release];
+	// draw the final image
+	NSImage* compositeImage = [[NSImage alloc] initWithSize:finalImageSize];
+	[compositeImage lockFocus];	
+	
+		// draw glow first
+		[ciBlurredImage drawInRect:finalImageRect
+						  fromRect:finalImageRect
+						 operation:NSCompositeSourceOver
+						  fraction:0.7];
+						  
+		// now draw solid sphere on top
+		[solidCircle drawInRect:NSOffsetRect(sphereCoreRect,sphereCoreOffset,sphereCoreOffset)
+					   fromRect:sphereCoreRect
+					  operation:NSCompositeSourceOver
+					   fraction:1.0];
+						
+	[compositeImage unlockFocus];
+	
+//	[solidCircle release];
+//	[blurImage release];
 
-    return compositeImage;// autorelease];
+	return compositeImage;// autorelease];
 }
 
 
@@ -504,7 +504,7 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 	NSBP *outerBP	= [NSBP bezierPathWithOvalInRect:outerRect];
 	NSShadow *innerShadow = [NSShadow shadowWithOffset:AZMultiplySize(shadowOff, .5) blurRadius:inset/4 color: color.darker.darker.darker];
 
-	NSIMG *badge    = [[self alloc]initWithSize:frame.size];
+	NSIMG *badge	= [[self alloc]initWithSize:frame.size];
 	[badge 		lockFocus];
 	[NSShadow	setShadowWithOffset:shadowOff blurRadius: inset/4 color: [BLACK alpha:.75]];
 	[outerBP 	fill];
@@ -560,8 +560,8 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 									sourceImage.size.height*fraction};
 	[reflection lockFocus];
 	CTGradient *fade = [CTGradient gradientWithBeginningColor:
-     						[NSColor colorWithCalibratedWhite:1.0 alpha:0.5]
-											      endingColor:[NSColor clearColor]];
+	 						[NSColor colorWithCalibratedWhite:1.0 alpha:0.5]
+												  endingColor:[NSColor clearColor]];
 	[fade fillRect:reflectionRect angle:90.0];
 	[sourceImage drawAtPoint:(NSPoint){0,0}
 					fromRect:reflectionRect
@@ -573,12 +573,12 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 
 - (NSSize)proportionalSizeForTargetSize:(NSSize)targetSize
 {
-    NSSZ imageSize = [self size];
-    float width  = imageSize.width;
-    float height = imageSize.height;
+	NSSZ imageSize = [self size];
+	float width  = imageSize.width;
+	float height = imageSize.height;
 
-    float targetWidth  = targetSize.width;
-    float targetHeight = targetSize.height;
+	float targetWidth  = targetSize.width;
+	float targetHeight = targetSize.height;
 
 		// scaleFactor will be the fraction that we'll
 		// use to adjust the size. For example, if we shrink
@@ -591,100 +591,100 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 		// the image actually is drawn at, once we take into
 		// account the idea of maintaining proportions
 
-    float scaleFactor  = 0.0;
-    float scaledWidth  = targetWidth;
-    float scaledHeight = targetHeight;
+	float scaleFactor  = 0.0;
+	float scaledWidth  = targetWidth;
+	float scaledHeight = targetHeight;
 
 		// since not all images are square, we want to scale
 		// proportionately. To do this, we find the longest
 		// edge and use that as a guide.
 
-    if ( NSEqualSizes( imageSize, targetSize ) == NO )
-    {
+	if ( NSEqualSizes( imageSize, targetSize ) == NO )
+	{
 			// use the longeset edge as a guide. if the
 			// image is wider than tall, we'll figure out
 			// the scale factor by dividing it by the
 			// intended width. Otherwise, we'll use the
 			// height.
 
-        float widthFactor;
-        float heightFactor;
+		float widthFactor;
+		float heightFactor;
 
 		widthFactor  = targetWidth / width;
 		heightFactor = targetHeight / height;
 
-        if ( widthFactor < heightFactor )
-            scaleFactor = widthFactor;
-        else
-            scaleFactor = heightFactor;
+		if ( widthFactor < heightFactor )
+			scaleFactor = widthFactor;
+		else
+			scaleFactor = heightFactor;
 
 			// ex: 500 * 0.5 = 250 (newWidth)
 
-        scaledWidth  = width  * scaleFactor;
-        scaledHeight = height * scaleFactor;
-    }
+		scaledWidth  = width  * scaleFactor;
+		scaledHeight = height * scaleFactor;
+	}
 
 	return NSMakeSize(scaledWidth,scaledHeight);
 }
 
 - (NSImage*)imageByScalingProportionallyToSize:(NSSize)targetSize
 {
-    return [self imageByScalingProportionallyToSize:targetSize
-                                            flipped:NO];
+	return [self imageByScalingProportionallyToSize:targetSize
+											flipped:NO];
 }
 
 - (NSImage*)imageByScalingProportionallyToSize:(NSSize)targetSize
-                                       flipped:(BOOL)isFlipped
+									   flipped:(BOOL)isFlipped
 {
-    return [self imageByScalingProportionallyToSize:targetSize
-                                            flipped:isFlipped
-                                           addFrame:NO
-                                          addShadow:NO];
+	return [self imageByScalingProportionallyToSize:targetSize
+											flipped:isFlipped
+										   addFrame:NO
+										  addShadow:NO];
 }
 
 - (NSImage*)imageByScalingProportionallyToSize:(NSSize)targetSize
-                                       flipped:(BOOL)isFlipped
-                                      addFrame:(BOOL)shouldAddFrame
-                                     addShadow:(BOOL)shouldAddShadow
+									   flipped:(BOOL)isFlipped
+									  addFrame:(BOOL)shouldAddFrame
+									 addShadow:(BOOL)shouldAddShadow
 {
-    return [self imageByScalingProportionallyToSize:targetSize
-                                            flipped:isFlipped
-                                           addFrame:NO
-                                          addShadow:NO
-                                           addSheen:YES];
+	return [self imageByScalingProportionallyToSize:targetSize
+											flipped:isFlipped
+										   addFrame:NO
+										  addShadow:NO
+										   addSheen:YES];
 }
 
 - (NSImage*)imageByScalingProportionallyToSize:(NSSize)targetSize
-                                       flipped:(BOOL)isFlipped
-                                      addFrame:(BOOL)shouldAddFrame
-                                     addShadow:(BOOL)shouldAddShadow
-                                      addSheen:(BOOL)shouldAddSheen
+									   flipped:(BOOL)isFlipped
+									  addFrame:(BOOL)shouldAddFrame
+									 addShadow:(BOOL)shouldAddShadow
+									  addSheen:(BOOL)shouldAddSheen
 {
-    NSImage* sourceImage = self;
+	NSImage* sourceImage = self;
 
 	NSImageRep* rep = [sourceImage bestRepresentationForSize:targetSize];
 	NSInteger pixelsWide = [rep pixelsWide];
 	NSInteger pixelsHigh = [rep pixelsHigh];
 	[sourceImage setSize:NSMakeSize(pixelsWide,pixelsHigh)];
 
-    NSImage* newImage = nil;
-    if ([sourceImage isValid] == NO) return nil;
+	NSImage* newImage = nil;
+	if ([sourceImage isValid] == NO) return nil;
 
 		// settings for shadow
-    float shadowRadius = 4.0;
-    NSSZ shadowTargetSize = targetSize;
-    if ( shouldAddShadow )
-    {
-        shadowTargetSize.width  -= (shadowRadius * 2);
-        shadowTargetSize.height -= (shadowRadius * 2);
-    }
+	float shadowRadius = 4.0;
+	NSSZ shadowTargetSize = targetSize;
+	if ( shouldAddShadow )
+	{
+		shadowTargetSize.width  -= (shadowRadius * 2);
+		shadowTargetSize.height -= (shadowRadius * 2);
+	}
 
-    NSSZ imageSize = [sourceImage size];
-    float width  = imageSize.width;
-    float height = imageSize.height;
+	NSSZ imageSize = [sourceImage size];
+	float width  = imageSize.width;
+	float height = imageSize.height;
 
-    float targetWidth  = targetSize.width;
-    float targetHeight = targetSize.height;
+	float targetWidth  = targetSize.width;
+	float targetHeight = targetSize.height;
 
 		// scaleFactor will be the fraction that we'll
 		// use to adjust the size. For example, if we shrink
@@ -697,61 +697,61 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 		// the image actually is drawn at, once we take into
 		// account the idea of maintaining proportions
 
-    float scaleFactor  = 0.0;
-    float scaledWidth  = targetWidth;
-    float scaledHeight = targetHeight;
+	float scaleFactor  = 0.0;
+	float scaledWidth  = targetWidth;
+	float scaledHeight = targetHeight;
 
-    NSPoint thumbnailPoint = NSMakePoint(0,0);
+	NSPoint thumbnailPoint = NSMakePoint(0,0);
 
 		// since not all images are square, we want to scale
 		// proportionately. To do this, we find the longest
 		// edge and use that as a guide.
 
-    if ( NSEqualSizes( imageSize, targetSize ) == NO )
-    {
+	if ( NSEqualSizes( imageSize, targetSize ) == NO )
+	{
 			// use the longeset edge as a guide. if the
 			// image is wider than tall, we'll figure out
 			// the scale factor by dividing it by the
 			// intended width. Otherwise, we'll use the
 			// height.
 
-        float widthFactor;
-        float heightFactor;
+		float widthFactor;
+		float heightFactor;
 
-        if ( shouldAddShadow ) {
-            widthFactor  = shadowTargetSize.width / width;
-            heightFactor = shadowTargetSize.height / height;
-        } else {
-            widthFactor  = targetWidth / width;
-            heightFactor = targetHeight / height;
-        }
+		if ( shouldAddShadow ) {
+			widthFactor  = shadowTargetSize.width / width;
+			heightFactor = shadowTargetSize.height / height;
+		} else {
+			widthFactor  = targetWidth / width;
+			heightFactor = targetHeight / height;
+		}
 
-        if ( widthFactor < heightFactor )
-            scaleFactor = widthFactor;
-        else
-            scaleFactor = heightFactor;
+		if ( widthFactor < heightFactor )
+			scaleFactor = widthFactor;
+		else
+			scaleFactor = heightFactor;
 
 			// ex: 500 * 0.5 = 250 (newWidth)
 
-        scaledWidth  = width  * scaleFactor;
-        scaledHeight = height * scaleFactor;
+		scaledWidth  = width  * scaleFactor;
+		scaledHeight = height * scaleFactor;
 
 			// center the thumbnail in the frame. if
 			// wider than tall, we need to adjust the
 			// vertical drawing point (y axis)
 
-        if ( widthFactor < heightFactor )
-            thumbnailPoint.y = (targetHeight - scaledHeight) * 0.5;
+		if ( widthFactor < heightFactor )
+			thumbnailPoint.y = (targetHeight - scaledHeight) * 0.5;
 
-        else if ( widthFactor > heightFactor )
-            thumbnailPoint.x = (targetWidth - scaledWidth) * 0.5;
+		else if ( widthFactor > heightFactor )
+			thumbnailPoint.x = (targetWidth - scaledWidth) * 0.5;
 
-    }
+	}
 
 		// create a new image to draw into
-    newImage = [[NSImage alloc] initWithSize:targetSize];
-    [newImage setCacheMode:NSImageCacheNever];
-    [newImage setFlipped:isFlipped];
+	newImage = [[NSImage alloc] initWithSize:targetSize];
+	[newImage setCacheMode:NSImageCacheNever];
+	[newImage setFlipped:isFlipped];
 
 		// once focus is locked, all drawing goes into this NSImage instance
 		// directly, not to the screen. It also receives its own graphics
@@ -761,26 +761,26 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 		// You only want to draw to the screen in the main thread, but
 		// drawing to an offscreen image is (apparently) okay.
 
-    [newImage lockFocus];
+	[newImage lockFocus];
 
 	[[NSGraphicsContext currentContext] setImageInterpolation:NSImageInterpolationHigh];
 
-        // create the properly-scaled rect
+		// create the properly-scaled rect
 	NSRect thumbnailRect;
 	thumbnailRect.origin = thumbnailPoint;
 	thumbnailRect.size.width = scaledWidth;
 	thumbnailRect.size.height = scaledHeight;
 
-        // add shadow below the image?
+		// add shadow below the image?
 	if ( shouldAddShadow )
 	{
-            // we need to adjust the y coordinate to make sure
-            // the image ends up in the right place in a flipped
-            // coordinate system.
+			// we need to adjust the y coordinate to make sure
+			// the image ends up in the right place in a flipped
+			// coordinate system.
 		if ( isFlipped && height > width )
 			thumbnailRect.origin.y += (shadowRadius * 2);
 
-            // draw the shadow where the image will be
+			// draw the shadow where the image will be
 		NSShadow* shadow = [[NSShadow alloc] init];
 		[shadow setShadowColor:[NSColor colorWithCalibratedWhite:0.0 alpha:0.5]];
 		if (isFlipped)
@@ -796,23 +796,23 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 		[shadow release];
 	}
 
-        // draw the actual image
+		// draw the actual image
 	[sourceImage drawInRect: thumbnailRect
 				   fromRect: NSZeroRect
 				  operation: NSCompositeSourceOver
 				   fraction: 1.0];
 
-        // add a frame above the image content?
+		// add a frame above the image content?
 	if ( shouldAddFrame )
 	{
-            // draw the larger internal frame
+			// draw the larger internal frame
 		NSRect insetFrameRect = NSInsetRect(thumbnailRect,3,3);
 		NSBezierPath* insetFrame = [NSBezierPath bezierPathWithRect:insetFrameRect];
 		[insetFrame setLineWidth:6.0];
 		[[NSColor whiteColor] set];
 		[insetFrame stroke];
 
-            // draw the external bounding frame with no anti-aliasing
+			// draw the external bounding frame with no anti-aliasing
 		[[NSColor colorWithCalibratedWhite:0.60 alpha:1.0] set];
 		NSBezierPath* outsetFrame = [NSBezierPath bezierPathWithRect:thumbnailRect];
 		[NSGraphicsContext saveGraphicsState];
@@ -854,52 +854,52 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 
 	}
 
-    [newImage unlockFocus];
-    return [newImage autorelease];
+	[newImage unlockFocus];
+	return [newImage autorelease];
 }
 
 - (NSImage*)imageByFillingVisibleAlphaWithColor:(NSColor*)fillColor
 {
 		// convert source image to CIImage
-//    NSData* sourceImageData = [self TIFFRepresentation];
-    CIImage* imageToFill = [self toCIImage];// [CIImage imageWithData:sourceImageData];
+//	NSData* sourceImageData = [self TIFFRepresentation];
+	CIImage* imageToFill = [self toCIImage];// [CIImage imageWithData:sourceImageData];
 
 		// create CIFalseColor filter
-    CIColor* color = [[CIColor alloc] initWithColor:fillColor];
-    CIFilter* filter = [CIFilter filterWithName:@"CIFalseColor"];
-    [filter setValue:imageToFill forKey:@"inputImage"];
-    [filter setValue:color forKey:@"inputColor0"];
-    [filter setValue:color forKey:@"inputColor1"];
+	CIColor* color = [[CIColor alloc] initWithColor:fillColor];
+	CIFilter* filter = [CIFilter filterWithName:@"CIFalseColor"];
+	[filter setValue:imageToFill forKey:@"inputImage"];
+	[filter setValue:color forKey:@"inputColor0"];
+	[filter setValue:color forKey:@"inputColor1"];
 
 		// get resulting image and add as a NSCIImageRep
-    CIImage* compositedImage = [filter valueForKey:@"outputImage"];
-    NSImage* finalImage = [[NSImage alloc] initWithSize:self.size];
-    NSCIImageRep* ciImageRep = [NSCIImageRep imageRepWithCIImage:compositedImage];
-    [finalImage addRepresentation:ciImageRep];
+	CIImage* compositedImage = [filter valueForKey:@"outputImage"];
+	NSImage* finalImage = [[NSImage alloc] initWithSize:self.size];
+	NSCIImageRep* ciImageRep = [NSCIImageRep imageRepWithCIImage:compositedImage];
+	[finalImage addRepresentation:ciImageRep];
 
-    return finalImage;
+	return finalImage;
 }
 
 - (NSImage*)imageByConvertingToBlackAndWhite
 {
 		// convert source image to CIImage
-    NSData* sourceImageData = [self TIFFRepresentation];
-    CIImage* imageToFill = [CIImage imageWithData:sourceImageData];
+	NSData* sourceImageData = [self TIFFRepresentation];
+	CIImage* imageToFill = [CIImage imageWithData:sourceImageData];
 
 		// create CIColorMonochrome filter
-    CIColor* color = [[CIColor alloc] initWithColor:[NSColor whiteColor]];
-    CIFilter* filter = [CIFilter filterWithName:@"CIColorMonochrome"];
-    [filter setValue:imageToFill forKey:@"inputImage"];
-    [filter setValue:color forKey:@"inputColor"];
-    [filter setValue:@1.0f forKey:@"inputIntensity"];
+	CIColor* color = [[CIColor alloc] initWithColor:[NSColor whiteColor]];
+	CIFilter* filter = [CIFilter filterWithName:@"CIColorMonochrome"];
+	[filter setValue:imageToFill forKey:@"inputImage"];
+	[filter setValue:color forKey:@"inputColor"];
+	[filter setValue:@1.0f forKey:@"inputIntensity"];
 
 		// get resulting image and add as a NSCIImageRep
-    CIImage* compositedImage = [filter valueForKey:@"outputImage"];
-    NSImage* finalImage = [[NSImage alloc] initWithSize:self.size];
-    NSCIImageRep* ciImageRep = [NSCIImageRep imageRepWithCIImage:compositedImage];
-    [finalImage addRepresentation:ciImageRep];
+	CIImage* compositedImage = [filter valueForKey:@"outputImage"];
+	NSImage* finalImage = [[NSImage alloc] initWithSize:self.size];
+	NSCIImageRep* ciImageRep = [NSCIImageRep imageRepWithCIImage:compositedImage];
+	[finalImage addRepresentation:ciImageRep];
 
-    return finalImage;
+	return finalImage;
 }
 
 // this creates an image from the entire 'visible' rectangle of a view
@@ -1006,18 +1006,18 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 
 + (NSImage*)swatchWithColor:(NSColor*)color size:(NSSize)size
 {
-    NSImage *image = [[NSImage alloc] initWithSize:size];
-    [image lockFocus];
-    [color drawSwatchInRect:NSMakeRect(0, 0, size.width, size.height)];
-    [image unlockFocus];
+	NSImage *image = [[NSImage alloc] initWithSize:size];
+	[image lockFocus];
+	[color drawSwatchInRect:NSMakeRect(0, 0, size.width, size.height)];
+	[image unlockFocus];
 	return image;
 }
 
 + (NSImage *)swatchWithGradientColor:(NSColor *)color size:(NSSize)size {
 	NSImage *image = [[NSImage alloc] initWithSize:size];
-    [image lockFocus];
+	[image lockFocus];
 	NSGradient * fade = [[NSGradient alloc] initWithStartingColor:color.brighter endingColor:color.darker.darker];
-    [fade drawInRect:NSMakeRect(0, 0, size.width, size.height) angle:270];
+	[fade drawInRect:NSMakeRect(0, 0, size.width, size.height) angle:270];
 	[image unlockFocus];
 	return image;
 }
@@ -1028,14 +1028,14 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 {
 	NSSZ gradientSize = AZSizeFromDimension(256);
 	NSImage 
-    *newImage = [[self alloc] initWithSize:gradientSize];  // In this case, the pixel dimensions match the image size.
+	*newImage = [[self alloc] initWithSize:gradientSize];  // In this case, the pixel dimensions match the image size.
 	
 	int
-    pixelsWide = gradientSize.width,
-    pixelsHigh = gradientSize.height;    
-    
+	pixelsWide = gradientSize.width,
+	pixelsHigh = gradientSize.height;	
+	
 	NSBitmapImageRep *bitmapRep = 
-    [[NSBitmapImageRep alloc] 
+	[[NSBitmapImageRep alloc] 
 	 initWithBitmapDataPlanes: nil  // Nil pointer makes the kit allocate the pixel buffer for us.
 	 pixelsWide: pixelsWide  // The compiler will convert these to integers, but I just wanted to  make it quite explicit
 	 pixelsHigh: pixelsHigh //
@@ -1044,16 +1044,16 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 	 hasAlpha: YES
 	 isPlanar: NO  // The math can be simpler with planar images, but performance suffers..
 	 colorSpaceName: NSCalibratedRGBColorSpace  // A calibrated color space gets us ColorSync for free.
-	 bytesPerRow: 0     // Passing zero means "you figure it out."
+	 bytesPerRow: 0	 // Passing zero means "you figure it out."
 	 bitsPerPixel: 32];  // This must agree with bitsPerSample and samplesPerPixel.
 	
 	unsigned char 
-    *imageBytes = [bitmapRep bitmapData];  // -bitmapData returns a void*, not an NSData object ;-)
+	*imageBytes = [bitmapRep bitmapData];  // -bitmapData returns a void*, not an NSData object ;-)
 	
 	int row = pixelsHigh;
 	
 	while(row--)
-    {
+	{
 		int col = pixelsWide;
 		while(col--) 
 		{
@@ -1064,7 +1064,7 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 			imageBytes[pixelIndex + blue] = rint(fmod(distance(NSMakePoint((255-col)/1.5,(255-row)/1.5)),255.0));  // blue
 			imageBytes[pixelIndex + alpha] = 255;  // Not doing anything tricky with the Alpha value here...
 		}
-    }
+	}
 	[newImage addRepresentation:bitmapRep];
 	return newImage;
 }
@@ -1080,7 +1080,7 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 	NSI width, height;	 height = width = 32;				// 	[imageRep pixelsWide]; NSInteger height 	= 	[imageRep pixelsHigh];
 	for (int i = 0; i < width; i++) {
 		for (int j = 0; j < height; j++) {  				//	[self setColor:AGColorFromNSColor([imageRep colorAtX:i y:j])
-			NSColor *thisPx 			= 	    [imageRep colorAtX:i y:j];
+			NSColor *thisPx 			= 		[imageRep colorAtX:i y:j];
 			[thisPx alphaComponent] == 0 ?: [satchel add:thisPx];
 		}
 	}
@@ -1097,12 +1097,12 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 //	NSImage *quantized = self.copy;
 //	[self setSize:NSMakeSize(32, 32)];
 	//	[anImage setSize:NSMakeSize(32, 32)];
-//    NSSZ size = [self size];
-//    NSRect iconRect = NSMakeRect(0, 0, size.width, size.height);
-//    [self lockFocus];
+//	NSSZ size = [self size];
+//	NSRect iconRect = NSMakeRect(0, 0, size.width, size.height);
+//	[self lockFocus];
 //	NSBitmapImageRep *imageRep = [self bitmap];
-//    NSBitmapImageRep *imageRep = [[NSBitmapImageRep alloc] initWithFocusedViewRect:iconRect];
-//    [self unlockFocus];
+//	NSBitmapImageRep *imageRep = [[NSBitmapImageRep alloc] initWithFocusedViewRect:iconRect];
+//	[self unlockFocus];
 	//	[nSImage imageNamed:NSImageNameHomeTemplate
 	//	NSImage *image = [[NSImage alloc] initWithData:[rep representationUsingType:NSPNGFileType properties:nil]];
 	//	NSBitmapImageRep *imageRep = (NSBitmapImageRep*)[[image representations] objectAtIndex:0];
@@ -1146,6 +1146,16 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 	return [[NSIMG alloc]initWithContentsOfFile:p];
 }
 
+
+
+- (NSS*) saveToWeb;
+{
+	NSS *localFix = @"/mg/";
+	NSS* p = $(@"atoz/%@.png",self.name);
+	NSS* websave = LogAndReturn($(@"%@%@", localFix, p));
+	[self saveAs:websave];
+	return LogAndReturn($(@"http://mrgray.com/%@",p));
+}
 
 - (void) openInPreview;
 {		NSS* p = $(@"/tmp/atoztempimage.%@.png",[NSString newUniqueIdentifier]);
@@ -1275,7 +1285,7 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 		CIFilter *monochromeFilter = [CIFilter filterWithName:@"CIColorMonochrome"];
 		CIImage *baseImage = [CIImage imageWithData:[self TIFFRepresentation]];
 		
-		[monochromeFilter setValue:baseImage forKey:@"inputImage"];             
+		[monochromeFilter setValue:baseImage forKey:@"inputImage"];			 
 		[monochromeFilter setValue:[CIColor colorWithRed:0.75 green:0.75 blue:0.75] forKey:@"inputColor"];
 		[monochromeFilter setValue:@1.0f forKey:@"inputIntensity"];
 		
@@ -1313,8 +1323,8 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 							  nil];
 
 		CIFilter *masktoalpha = [CIFilter filterWithName:@"CIMaskToAlpha"];
-        [masktoalpha setValue:filterPreviewImage forKey:@"inputImage"];
-        filterPreviewImage = [masktoalpha valueForKey:@"outputImage"];
+		[masktoalpha setValue:filterPreviewImage forKey:@"inputImage"];
+		filterPreviewImage = [masktoalpha valueForKey:@"outputImage"];
 
 		[filterPreviewImage drawAtPoint:NSZeroPoint
 						fromRect:bounds
@@ -1381,7 +1391,7 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 	//	return img;
 }
 /*!
- @brief    Rotates an image around its center by a given
+ @brief	Rotates an image around its center by a given
  angle in degrees and returns the new image.
  
  @details  The width and height of the returned image are,
@@ -1394,28 +1404,28 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 	NSSZ rotatedSize = NSMakeSize(self.size.height, self.size.width) ;
 	NSImage* rotatedImage = [[NSImage alloc] initWithSize:rotatedSize] ;
 	
-    NSAffineTransform* transform = [NSAffineTransform transform] ;
+	NSAffineTransform* transform = [NSAffineTransform transform] ;
 	
-    // In order to avoid clipping the image, translate
-    // the coordinate system to its center
-    [transform translateXBy:+self.size.width/2
-                        yBy:+self.size.height/2] ;
-    // then rotate
-    [transform rotateByDegrees:degrees] ;
-    // Then translate the origin system back to
-    // the bottom left
-    [transform translateXBy:-rotatedSize.width/2
-                        yBy:-rotatedSize.height/2] ;
+	// In order to avoid clipping the image, translate
+	// the coordinate system to its center
+	[transform translateXBy:+self.size.width/2
+						yBy:+self.size.height/2] ;
+	// then rotate
+	[transform rotateByDegrees:degrees] ;
+	// Then translate the origin system back to
+	// the bottom left
+	[transform translateXBy:-rotatedSize.width/2
+						yBy:-rotatedSize.height/2] ;
 	
-    [rotatedImage lockFocus] ;
-    [transform concat] ;
-    [self drawAtPoint:NSMakePoint(0,0)
-             fromRect:NSZeroRect
-            operation:NSCompositeCopy
-             fraction:1.0] ;
-    [rotatedImage unlockFocus] ;
+	[rotatedImage lockFocus] ;
+	[transform concat] ;
+	[self drawAtPoint:NSMakePoint(0,0)
+			 fromRect:NSZeroRect
+			operation:NSCompositeCopy
+			 fraction:1.0] ;
+	[rotatedImage unlockFocus] ;
 	
-    return rotatedImage;
+	return rotatedImage;
 }
 
 - (NSImage*)imageByScalingProportionallyToSize:(NSSize)targetSize background:(NSColor*)bk
@@ -1452,7 +1462,7 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 		newImage = [[NSImage alloc] initWithSize:NSMakeSize(scaledWidth, scaledHeight)];
 		
 		NSRect thumbnailRect;
-		thumbnailRect.origin      = NSMakePoint(0,0);
+		thumbnailRect.origin	  = NSMakePoint(0,0);
 		thumbnailRect.size.width  = scaledWidth;
 		thumbnailRect.size.height = scaledHeight;		
 		
@@ -1509,7 +1519,7 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 		[[NSGraphicsContext currentContext] setImageInterpolation:NSImageInterpolationHigh];
 		
 		NSRect thumbnailRect;
-		thumbnailRect.origin      = NSMakePoint(0,0);
+		thumbnailRect.origin	  = NSMakePoint(0,0);
 		thumbnailRect.size.width  = scaledWidth;
 		thumbnailRect.size.height = scaledHeight;
 		
@@ -1711,7 +1721,7 @@ return [newImage autorelease];
 	//	 NSBitmapImageRep = [existingImage bitmap];
 
 	existingSize.width = 	[[existingImage bestRepresentationForRect:AZMakeRectFromSize(existingSize)
-														      context:[NSGraphicsContext currentContext] hints:nil] pixelsWide];
+															  context:[NSGraphicsContext currentContext] hints:nil] pixelsWide];
 	existingSize.height = [[existingImage bestRepresentationForRect:AZMakeRectFromSize(existingSize)
 															  context:[NSGraphicsContext currentContext] hints:nil] pixelsHigh];
 	NSSZ newSize = NSMakeSize(existingSize.height, existingSize.width);
@@ -1895,7 +1905,7 @@ rightDone:
 + (NSA*) systemImages {
 	static NSArray *_systemImages;
 	return _systemImages = _systemImages != nil
-					     ? _systemImages // This will only be true the first time the method is called...
+						 ? _systemImages // This will only be true the first time the method is called...
 						 : @[
 				  [NSImage imageNamed:NSImageNameQuickLookTemplate],
 				  [NSImage imageNamed:NSImageNameBluetoothTemplate], 
@@ -1986,10 +1996,10 @@ rightDone:
 	CGRect fadeFrame = CGRectMake(0, 0, self.size.width, offscreen.size.height - self.size.height);
 	[fade drawInRect:fadeFrame angle:270.0];	
 	
-    NSAffineTransform* transform = [NSAffineTransform transform];
-    [transform translateXBy:0.0 yBy:fadeFrame.size.height];
-    [transform scaleXBy:1.0 yBy:-1.0];
-    [transform concat];
+	NSAffineTransform* transform = [NSAffineTransform transform];
+	[transform translateXBy:0.0 yBy:fadeFrame.size.height];
+	[transform scaleXBy:1.0 yBy:-1.0];
+	[transform concat];
 	
 	// Draw the image over the gradient -> becomes reflection
 	[self drawAtPoint:NSMakePoint(0, 0) fromRect:CGRectMake(0, 0, self.size.width, self.size.height) operation:NSCompositeSourceIn fraction:1.0];
@@ -2010,7 +2020,7 @@ rightDone:
 //+ (NSImage*)imageFromCGImageRef:(CGImageRef)image {
 //	NSImage* newImage = nil;
 ////#if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5
-//	NSBitmapImageRep*    newRep = [[NSBitmapImageRep alloc]initWithCGImage:image];
+//	NSBitmapImageRep*	newRep = [[NSBitmapImageRep alloc]initWithCGImage:image];
 //	NSSZ imageSize;
 //	// Get the image dimensions.
 //	imageSize.height = CGImageGetHeight(image);
@@ -2056,46 +2066,46 @@ rightDone:
 - (void)drawEtchedInRect:(NSRect)rect
 {
 	NSSize size = rect.size;
-    CGFloat dropShadowOffsetY = -size.width /64;//<= 64.0 ? -1.0 : -2.0;
-    CGFloat innerShadowBlurRadius = size.width /32;//<= 3 2.0 ? 1.0 : 4.0;
+	CGFloat dropShadowOffsetY = -size.width /64;//<= 64.0 ? -1.0 : -2.0;
+	CGFloat innerShadowBlurRadius = size.width /32;//<= 3 2.0 ? 1.0 : 4.0;
 
-    CGContextRef c = [[NSGraphicsContext currentContext] graphicsPort];
+	CGContextRef c = [[NSGraphicsContext currentContext] graphicsPort];
 
-    //save the current graphics state
-    CGContextSaveGState(c);
+	//save the current graphics state
+	CGContextSaveGState(c);
 
-    //Create mask image:
-    NSRect maskRect = rect;
-    CGImageRef maskImage = [self CGImageForProposedRect:&maskRect context:[NSGraphicsContext currentContext] hints:nil];
+	//Create mask image:
+	NSRect maskRect = rect;
+	CGImageRef maskImage = [self CGImageForProposedRect:&maskRect context:[NSGraphicsContext currentContext] hints:nil];
 
-    //Draw image and white drop shadow:
-    CGContextSetShadowWithColor(c, CGSizeMake(0, dropShadowOffsetY), 0, CGColorGetConstantColor(kCGColorWhite));
-    [self drawInRect:maskRect fromRect:NSMakeRect(0, 0, self.size.width, self.size.height) operation:NSCompositeSourceOver fraction:1.0];
+	//Draw image and white drop shadow:
+	CGContextSetShadowWithColor(c, CGSizeMake(0, dropShadowOffsetY), 0, CGColorGetConstantColor(kCGColorWhite));
+	[self drawInRect:maskRect fromRect:NSMakeRect(0, 0, self.size.width, self.size.height) operation:NSCompositeSourceOver fraction:1.0];
 
-    //Clip drawing to mask:
-    CGContextClipToMask(c, NSRectToCGRect(maskRect), maskImage);
+	//Clip drawing to mask:
+	CGContextClipToMask(c, NSRectToCGRect(maskRect), maskImage);
 
-    //Draw gradient:
-    NSGradient *gradient = [[[NSGradient alloc] initWithStartingColor:[NSColor colorWithDeviceWhite:0.5 alpha:1.0]
-                                                          endingColor:[NSColor colorWithDeviceWhite:0.25 alpha:1.0]] autorelease];
-    [gradient drawInRect:maskRect angle:90.0];
-    CGContextSetShadowWithColor(c, CGSizeMake(0, -1), innerShadowBlurRadius, CGColorGetConstantColor(kCGColorBlack));
+	//Draw gradient:
+	NSGradient *gradient = [[[NSGradient alloc] initWithStartingColor:[NSColor colorWithDeviceWhite:0.5 alpha:1.0]
+														  endingColor:[NSColor colorWithDeviceWhite:0.25 alpha:1.0]] autorelease];
+	[gradient drawInRect:maskRect angle:90.0];
+	CGContextSetShadowWithColor(c, CGSizeMake(0, -1), innerShadowBlurRadius, CGColorGetConstantColor(kCGColorBlack));
 
-    //Draw inner shadow with inverted mask:
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    CGContextRef maskContext = CGBitmapContextCreate(NULL, CGImageGetWidth(maskImage), CGImageGetHeight(maskImage), 8, CGImageGetWidth(maskImage) * 4, colorSpace, kCGImageAlphaPremultipliedLast);
-    CGColorSpaceRelease(colorSpace);
-    CGContextSetBlendMode(maskContext, kCGBlendModeXOR);
-    CGContextDrawImage(maskContext, maskRect, maskImage);
-    CGContextSetRGBFillColor(maskContext, 1.0, 1.0, 1.0, 1.0);
-    CGContextFillRect(maskContext, maskRect);
-    CGImageRef invertedMaskImage = CGBitmapContextCreateImage(maskContext);
-    CGContextDrawImage(c, maskRect, invertedMaskImage);
-    CGImageRelease(invertedMaskImage);
-    CGContextRelease(maskContext);
+	//Draw inner shadow with inverted mask:
+	CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+	CGContextRef maskContext = CGBitmapContextCreate(NULL, CGImageGetWidth(maskImage), CGImageGetHeight(maskImage), 8, CGImageGetWidth(maskImage) * 4, colorSpace, kCGImageAlphaPremultipliedLast);
+	CGColorSpaceRelease(colorSpace);
+	CGContextSetBlendMode(maskContext, kCGBlendModeXOR);
+	CGContextDrawImage(maskContext, maskRect, maskImage);
+	CGContextSetRGBFillColor(maskContext, 1.0, 1.0, 1.0, 1.0);
+	CGContextFillRect(maskContext, maskRect);
+	CGImageRef invertedMaskImage = CGBitmapContextCreateImage(maskContext);
+	CGContextDrawImage(c, maskRect, invertedMaskImage);
+	CGImageRelease(invertedMaskImage);
+	CGContextRelease(maskContext);
 
-    //restore the graphics state
-    CGContextRestoreGState(c);
+	//restore the graphics state
+	CGContextRestoreGState(c);
 }
 
 
@@ -2143,17 +2153,17 @@ CGContextRef MyCreateBitmapContext (int pixelsWide, int pixelsHigh)
 {
 	NSImage *image = self;
 	CGRect rect = CGRectMake(0, 0, image.size.width, image.size.height);
-    CGContextRef c = MyCreateBitmapContext(image.size.width, image.size.height);
+	CGContextRef c = MyCreateBitmapContext(image.size.width, image.size.height);
  	[image drawInRect:rect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
  	CGContextSetFillColorWithColor(c, [color CGColor]);
 	CGContextSetBlendMode(c, kCGBlendModeSourceAtop);
 	CGContextFillRect(c, rect);
-    CGImageRef ciImage =  CGBitmapContextCreateImage(c);
-    CGContextDrawImage(c, rect, ciImage);
+	CGImageRef ciImage =  CGBitmapContextCreateImage(c);
+	CGContextDrawImage(c, rect, ciImage);
 	NSImage *newImage= [[NSImage alloc] initWithCGImage:ciImage size:image.size];
 	CGContextRelease(c);
-    CGImageRelease(ciImage);
-    return newImage;
+	CGImageRelease(ciImage);
+	return newImage;
 }
 
 #pragma mark CGImage to NSImage and vice versa
@@ -2161,16 +2171,16 @@ CGContextRef MyCreateBitmapContext (int pixelsWide, int pixelsHigh)
 + (NSImage*)imageFromCGImageRef:(CGImageRef)image {
 	// #if MAC_OS_X_VERSION_MIN_REQUIRED > MAC_OS_X_VERSION_10_5
 	// This is 10.6 only
-    NSImage *newImage = [[NSImage alloc] initWithCGImage:image 
+	NSImage *newImage = [[NSImage alloc] initWithCGImage:image 
 													size:NSZeroSize]; 
 	
-    return newImage;
+	return newImage;
 }
 
 - (CGImageRef)cgImageRef {
 	NSData *imageData = [self TIFFRepresentation];
-    CGImageRef imageRef;
-    
+	CGImageRef imageRef;
+	
 	if(imageData) {
 		// #if MAC_OS_X_VERSION_MIN_REQUIRED > MAC_OS_X_VERSION_10_5  THIS MEANS 10.6
 		imageRef = [self CGImageForProposedRect:NULL context:nil hints:nil]; //10.6
@@ -2205,37 +2215,37 @@ CGContextRef MyCreateBitmapContext (int pixelsWide, int pixelsHigh)
 
 + (NSImage *)imageWithPreviewOfFileAtPath:(NSString *)path ofSize:(NSSize)size asIcon:(BOOL)icon {
 	NSURL *fileURL = [NSURL fileURLWithPath:path];
-    if (!path || !fileURL) return nil;
-    NSDictionary *dict = @{(NSString *)kQLThumbnailOptionIconModeKey: @(icon)};
-    CGImageRef ref = QLThumbnailImageCreate(kCFAllocatorDefault, 
-                                            (__bridge CFURLRef)fileURL, 
-                                            CGSizeMake(size.width, size.height),
-                                            (__bridge CFDictionaryRef)dict);
-    
-    if (ref != NULL) {
-        // Take advantage of NSBitmapImageRep's -initWithCGImage: initializer, new in Leopard,
-        // which is a lot more efficient than copying pixel data into a brand new NSImage.
-        // Thanks to Troy Stephens @ Apple for pointing this new method out to me.
-        NSBitmapImageRep *bitmapImageRep = [[NSBitmapImageRep alloc] initWithCGImage:ref];
-        NSImage *newImage = nil;
-        if (bitmapImageRep) {
-            newImage = [[NSImage alloc] initWithSize:[bitmapImageRep size]];
-            [newImage addRepresentation:bitmapImageRep];
-            if (newImage) {				CFRelease(ref);
-                return newImage;
-            }
-        }
-        CFRelease(ref);
-    } else {
-        // If we couldn't get a Quick Look preview, fall back on the file's Finder icon.
-        NSImage *icon = [[NSWorkspace sharedWorkspace] iconForFile:path];
-        if (icon) {
-            [icon setSize:size];
-        }
-        return icon;
-    }
+	if (!path || !fileURL) return nil;
+	NSDictionary *dict = @{(NSString *)kQLThumbnailOptionIconModeKey: @(icon)};
+	CGImageRef ref = QLThumbnailImageCreate(kCFAllocatorDefault, 
+											(__bridge CFURLRef)fileURL, 
+											CGSizeMake(size.width, size.height),
+											(__bridge CFDictionaryRef)dict);
 	
-    return nil;
+	if (ref != NULL) {
+		// Take advantage of NSBitmapImageRep's -initWithCGImage: initializer, new in Leopard,
+		// which is a lot more efficient than copying pixel data into a brand new NSImage.
+		// Thanks to Troy Stephens @ Apple for pointing this new method out to me.
+		NSBitmapImageRep *bitmapImageRep = [[NSBitmapImageRep alloc] initWithCGImage:ref];
+		NSImage *newImage = nil;
+		if (bitmapImageRep) {
+			newImage = [[NSImage alloc] initWithSize:[bitmapImageRep size]];
+			[newImage addRepresentation:bitmapImageRep];
+			if (newImage) {				CFRelease(ref);
+				return newImage;
+			}
+		}
+		CFRelease(ref);
+	} else {
+		// If we couldn't get a Quick Look preview, fall back on the file's Finder icon.
+		NSImage *icon = [[NSWorkspace sharedWorkspace] iconForFile:path];
+		if (icon) {
+			[icon setSize:size];
+		}
+		return icon;
+	}
+	
+	return nil;
 }
 
 #pragma mark Resizing Image
@@ -2275,11 +2285,11 @@ CGContextRef MyCreateBitmapContext (int pixelsWide, int pixelsHigh)
 - (NSImage *)croppedImage:(CGRect)bounds
 {
 	[self lockFocus];
-    CGImageRef imageRef = CGImageCreateWithImageInRect([self cgImageRef], bounds);
+	CGImageRef imageRef = CGImageCreateWithImageInRect([self cgImageRef], bounds);
 	NSImage *croppedImage = [NSImage imageFromCGImageRef:imageRef];
-    CGImageRelease(imageRef);
+	CGImageRelease(imageRef);
 	[self unlockFocus];
-    return croppedImage;
+	return croppedImage;
 }
 
 #pragma mark Save Image
@@ -2539,11 +2549,11 @@ CGContextRef MyCreateBitmapContext (int pixelsWide, int pixelsHigh)
 	if ([bestRep respondsToSelector:@selector(CGImage)]) {
 		CGImageRef imageRef = [bestRep CGImage];
 		
-		CGColorSpaceRef cspace        = CGColorSpaceCreateDeviceRGB();    
-		CGContextRef    smallContext        = CGBitmapContextCreate(NULL,
+		CGColorSpaceRef cspace		= CGColorSpaceCreateDeviceRGB();	
+		CGContextRef	smallContext		= CGBitmapContextCreate(NULL,
 																	newSize.width,
 																	newSize.height,
-																	8,            // bits per component
+																	8,			// bits per component
 																	newSize.width * 4, // bytes per pixel
 																	cspace,
 																	kCGBitmapByteOrder32Host | kCGImageAlphaPremultipliedLast);
@@ -2553,12 +2563,12 @@ CGContextRef MyCreateBitmapContext (int pixelsWide, int pixelsHigh)
 		
 		NSRect drawRect = AZFitRectInRect(AZRectFromSize([bestRep size]), AZRectFromSize(newSize), NO);
 		
-        CGContextDrawImage(smallContext, NSRectToCGRect(drawRect), imageRef);
+		CGContextDrawImage(smallContext, NSRectToCGRect(drawRect), imageRef);
 		
 		CGImageRef smallImage = CGBitmapContextCreateImage(smallContext);
 		if (smallImage) {
 			NSBitmapImageRep *cgRep = [[NSBitmapImageRep alloc] initWithCGImage:smallImage];
-			[self addRepresentation:cgRep];      
+			[self addRepresentation:cgRep];	  
 		}
 		CGImageRelease(smallImage);
 		CGContextRelease(smallContext);
@@ -2570,42 +2580,42 @@ CGContextRef MyCreateBitmapContext (int pixelsWide, int pixelsHigh)
 	
 	//
 	//  {
-	//    NSDate *date = [NSDate date];
-	//    NSData *data = [(NSBitmapImageRep *)bestRep TIFFRepresentation];
-	//    
-	//    CGDataProviderRef provider = CGDataProviderCreateWithCFData((CFDataRef)data);  
-	//    CGImageSourceRef isrc = CGImageSourceCreateWithDataProvider (provider, NULL);
-	//    CGDataProviderRelease( provider );
-	//    
-	//    NSDictionary* thumbOpts = [NSDictionary dictionaryWithObjectsAndKeys:
-	//                               (id)kCFBooleanTrue, (id)kCGImageSourceCreateThumbnailWithTransform,
-	//                               (id)kCFBooleanTrue, (id)kCGImageSourceCreateThumbnailFromImageIfAbsent,
-	//                               [NSNumber numberWithInt:newSize.width], (id)kCGImageSourceThumbnailMaxPixelSize,
-	//                               nil];
-	//    CGImageRef thumbnail = CGImageSourceCreateThumbnailAtIndex (isrc, 0, (CFDictionaryRef)thumbOpts);
-	//    if (isrc) CFRelease(isrc);
-	//    
-	//    NSBitmapImageRep *cgRep = [[[NSBitmapImageRep alloc] initWithCGImage:thumbnail] autorelease];
-	//    CGImageRelease(thumbnail);
-	//    NSLog(@"time1 %f", -[date timeIntervalSinceNow]);
+	//	NSDate *date = [NSDate date];
+	//	NSData *data = [(NSBitmapImageRep *)bestRep TIFFRepresentation];
+	//	
+	//	CGDataProviderRef provider = CGDataProviderCreateWithCFData((CFDataRef)data);  
+	//	CGImageSourceRef isrc = CGImageSourceCreateWithDataProvider (provider, NULL);
+	//	CGDataProviderRelease( provider );
+	//	
+	//	NSDictionary* thumbOpts = [NSDictionary dictionaryWithObjectsAndKeys:
+	//							   (id)kCFBooleanTrue, (id)kCGImageSourceCreateThumbnailWithTransform,
+	//							   (id)kCFBooleanTrue, (id)kCGImageSourceCreateThumbnailFromImageIfAbsent,
+	//							   [NSNumber numberWithInt:newSize.width], (id)kCGImageSourceThumbnailMaxPixelSize,
+	//							   nil];
+	//	CGImageRef thumbnail = CGImageSourceCreateThumbnailAtIndex (isrc, 0, (CFDictionaryRef)thumbOpts);
+	//	if (isrc) CFRelease(isrc);
+	//	
+	//	NSBitmapImageRep *cgRep = [[[NSBitmapImageRep alloc] initWithCGImage:thumbnail] autorelease];
+	//	CGImageRelease(thumbnail);
+	//	NSLog(@"time1 %f", -[date timeIntervalSinceNow]);
 	//  }
 	//
 	//  
 	//
 	//  
 	//  {
-	//    NSDate *date = [NSDate date];
-	//    NSImage* scaledImage = [[[NSImage alloc] initWithSize:newSize] autorelease];
-	//    [scaledImage lockFocus];
-	//    NSGraphicsContext *graphicsContext = [NSGraphicsContext currentContext];
-	//    [graphicsContext setImageInterpolation:NSImageInterpolationHigh];
-	//    [graphicsContext setShouldAntialias:YES];
-	//    NSRect drawRect = fitRectInRect(rectFromSize([bestRep size]), rectFromSize(newSize), NO);
-	//    [bestRep drawInRect:drawRect];
-	//    NSBitmapImageRep* nsRep = [[[NSBitmapImageRep alloc] initWithFocusedViewRect:NSMakeRect(0, 0, newSize.width, newSize.height)] autorelease];
-	//    [scaledImage unlockFocus];
-	//    
-	//    NSLog(@"time3 %f", -[date timeIntervalSinceNow]);
+	//	NSDate *date = [NSDate date];
+	//	NSImage* scaledImage = [[[NSImage alloc] initWithSize:newSize] autorelease];
+	//	[scaledImage lockFocus];
+	//	NSGraphicsContext *graphicsContext = [NSGraphicsContext currentContext];
+	//	[graphicsContext setImageInterpolation:NSImageInterpolationHigh];
+	//	[graphicsContext setShouldAntialias:YES];
+	//	NSRect drawRect = fitRectInRect(rectFromSize([bestRep size]), rectFromSize(newSize), NO);
+	//	[bestRep drawInRect:drawRect];
+	//	NSBitmapImageRep* nsRep = [[[NSBitmapImageRep alloc] initWithFocusedViewRect:NSMakeRect(0, 0, newSize.width, newSize.height)] autorelease];
+	//	[scaledImage unlockFocus];
+	//	
+	//	NSLog(@"time3 %f", -[date timeIntervalSinceNow]);
 	//  }
 	//  [self addRepresentation:rep];
 	
@@ -2779,8 +2789,8 @@ CGImageRef CopyImageAndAddAlphaChannel(CGImageRef sourceImage) {
 
 //+ (NSBitmapImageRep *)bitmapRepWithScreenShotInRect:(NSRect)cocoaRect
 //{
-//    NSImage *image = [NSImage imageWithScreenShotInRect: cocoaRect];
-//    // convert it to a bitmap rep and return
+//	NSImage *image = [NSImage imageWithScreenShotInRect: cocoaRect];
+//	// convert it to a bitmap rep and return
 ////	return [NSBitmapIm/ageRep bitmapRepFromNSImage:
 //	return [image bitmap];
 //}
@@ -2803,50 +2813,50 @@ _picolSrtrings = [@[@"xml_document.pdf", @"xml.pdf", @"zoom_in.pdf", @"zoom_out.
 /*
 + (NSImage *) captureScreenImageWithFrame: (NSRect) frame
 {
-    // Fetch a graphics port of the screen
+	// Fetch a graphics port of the screen
 
-    CGrafPtr screenPort = CreateNewPort ();
-    Rect screenRect;
-    GetPortBounds (screenPort, &screenRect);
+	CGrafPtr screenPort = CreateNewPort ();
+	Rect screenRect;
+	GetPortBounds (screenPort, &screenRect);
 
-    // Make a temporary window as a receptacle
+	// Make a temporary window as a receptacle
 
-    NSWindow *grabWindow = [[NSWindow alloc] initWithContentRect: frame
+	NSWindow *grabWindow = [[NSWindow alloc] initWithContentRect: frame
 													   styleMask: NSBorderlessWindowMask
 														 backing: NSBackingStoreRetained
 														   defer: NO
 														  screen: nil];
-    CGrafPtr windowPort = GetWindowPort ([grabWindow windowRef]);
-    Rect windowRect;
-    GetPortBounds (windowPort, &windowRect);
-    SetPort (windowPort);
+	CGrafPtr windowPort = GetWindowPort ([grabWindow windowRef]);
+	Rect windowRect;
+	GetPortBounds (windowPort, &windowRect);
+	SetPort (windowPort);
 
-    // Copy the screen to the temporary window
+	// Copy the screen to the temporary window
 
-    CopyBits (GetPortBitMapForCopyBits(screenPort),
-              GetPortBitMapForCopyBits(windowPort),
-              &screenRect,
-              &windowRect,
-              srcCopy,
-              NULL);
+	CopyBits (GetPortBitMapForCopyBits(screenPort),
+			  GetPortBitMapForCopyBits(windowPort),
+			  &screenRect,
+			  &windowRect,
+			  srcCopy,
+			  NULL);
 
-    // Get the contents of the temporary window into an NSImage
+	// Get the contents of the temporary window into an NSImage
 
-    NSView *grabContentView = [grabWindow contentView];
+	NSView *grabContentView = [grabWindow contentView];
 
-    [grabContentView lockFocus];
-    NSBitmapImageRep *screenRep;
-    screenRep = [[NSBitmapImageRep alloc] initWithFocusedViewRect: frame];
-    [grabContentView unlockFocus];
+	[grabContentView lockFocus];
+	NSBitmapImageRep *screenRep;
+	screenRep = [[NSBitmapImageRep alloc] initWithFocusedViewRect: frame];
+	[grabContentView unlockFocus];
 
-    NSImage *screenImage = [[NSImage alloc] initWithSize: frame.size];
-    [screenImage addRepresentation: screenRep];
+	NSImage *screenImage = [[NSImage alloc] initWithSize: frame.size];
+	[screenImage addRepresentation: screenRep];
 
-    // Clean up
-    [grabWindow close];
-    DisposePort(screenPort);
+	// Clean up
+	[grabWindow close];
+	DisposePort(screenPort);
 
-    return (screenImage);
+	return (screenImage);
 
 } // captureScreenImageWithFrame
 
@@ -2875,34 +2885,34 @@ _picolSrtrings = [@[@"xml_document.pdf", @"xml.pdf", @"zoom_in.pdf", @"zoom_out.
 */
 /*
 + (NSImage*)imageWithBitmapRep: (NSBitmapImageRep*)rep {
-    NSImage *image = nil;
-    if(!rep) return image;
+	NSImage *image = nil;
+	if(!rep) return image;
 
-    image = [[NSImage alloc] init];
-    [image addRepresentation: rep];
+	image = [[NSImage alloc] init];
+	[image addRepresentation: rep];
 
-    return image;// autorelease];
+	return image;// autorelease];
 }
 
 + (NSImage*)imageWithCGContextCaptureWindow: (int)wid {
 
-    // get window bounds
-    CGRect windowRect;
-    CGSGetWindowBounds(_CGSDefaultConnection(), wid, &windowRect);
-    windowRect.origin = CGPointZero;
+	// get window bounds
+	CGRect windowRect;
+	CGSGetWindowBounds(_CGSDefaultConnection(), wid, &windowRect);
+	windowRect.origin = CGPointZero;
 
-    // create an NSImage fo the window, cutting off the titlebar
-    NSImage *image = [[NSImage alloc] initWithSize: NSMakeSize(windowRect.size.width, windowRect.size.height - 22)];
-    [image lockFocus];  // lock focus on the image for drawing
+	// create an NSImage fo the window, cutting off the titlebar
+	NSImage *image = [[NSImage alloc] initWithSize: NSMakeSize(windowRect.size.width, windowRect.size.height - 22)];
+	[image lockFocus];  // lock focus on the image for drawing
 
-    // copy the contents of the window to the graphic context
-    CGContextCopyWindowCaptureContentsToRect([[NSGraphicsContext currentContext] graphicsPort],
-                                             windowRect,
-                                             _CGSDefaultConnection(),
-                                             wid,
-                                             0);
-    [image unlockFocus];
-    return image;// autorelease];
+	// copy the contents of the window to the graphic context
+	CGContextCopyWindowCaptureContentsToRect([[NSGraphicsContext currentContext] graphicsPort],
+											 windowRect,
+											 _CGSDefaultConnection(),
+											 wid,
+											 0);
+	[image unlockFocus];
+	return image;// autorelease];
 }
 
 + (NSImage *)imageWithScreenShotInRect:(NSRect)cocoaRect {
@@ -2936,12 +2946,12 @@ _picolSrtrings = [@[@"xml_document.pdf", @"xml.pdf", @"zoom_in.pdf", @"zoom_out.
 	// Create an image with the PICT representation
 	NSImage *image = [[NSImage alloc] initWithSize: [pictImageRep size]];
 	[image addRepresentation: pictImageRep];
-    return image;// autorelease];
+	return image;// autorelease];
 }
 */
 + (NSImage* ) imageBelowWindow: (NSWindow *) window {
 
-    // Get the CGWindowID of supplied window
+	// Get the CGWindowID of supplied window
 	CGWindowID windowID = [window windowNumber];
 
 	// Get window's rect in flipped screen coordinates
@@ -2970,16 +2980,16 @@ _picolSrtrings = [@[@"xml_document.pdf", @"xml.pdf", @"zoom_in.pdf", @"zoom_out.
 
 CGImageRef CreateCGImageFromData(NSData* data)
 {
-    CGImageRef        imageRef = NULL;
-    CGImageSourceRef  sourceRef;
+	CGImageRef		imageRef = NULL;
+	CGImageSourceRef  sourceRef;
 
-    sourceRef = CGImageSourceCreateWithData((__bridge CFDataRef)data, NULL);
-    if(sourceRef) {
-        imageRef = CGImageSourceCreateImageAtIndex(sourceRef, 0, NULL);
-        CFRelease(sourceRef);
-    }
+	sourceRef = CGImageSourceCreateWithData((__bridge CFDataRef)data, NULL);
+	if(sourceRef) {
+		imageRef = CGImageSourceCreateImageAtIndex(sourceRef, 0, NULL);
+		CFRelease(sourceRef);
+	}
 
-    return imageRef;
+	return imageRef;
 }
 
 //	CIFilter *matrix = (CIPerspectiveMatrix){  w*.1, h*.8,	 w*.7, h , w*.1, 0,	 w*.7, h/2};
@@ -2991,7 +3001,7 @@ CGImageRef CreateCGImageFromData(NSData* data)
 	CIImage* cImg = [self toCIImage];//  [[CIImage alloc] initWithCGImage: screenie];
 	CIFilter *filter = [CIFilter filterWithName: @"CIPerspectiveTransform"];
 	[filter setDefaults];
-	[filter setValue:cImg forKey: @"inputImage"];  //    CGImageRelease(screenie);
+	[filter setValue:cImg forKey: @"inputImage"];  //	CGImageRelease(screenie);
 	filter [ @"inputTopLeft" ] 	  = [CIVector vectorWithX:matrix.tlX  Y:matrix.tlY];
 	filter [ @"inputTopRight" ]   = [CIVector vectorWithX:matrix.trX  Y:matrix.trY];
 	filter [ @"inputBottomLeft" ] = [CIVector vectorWithX:matrix.blX Y: matrix.blY];

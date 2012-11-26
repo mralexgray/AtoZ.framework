@@ -14,36 +14,37 @@
 @implementation AZSize
 
 +(AZSize *)size {
-  return [[AZSize alloc] init];
+	AZSize *s = [[AZSize alloc] init];
+	return s;
 }
 
 +(AZSize *)sizeOf:(id)object {
   AZSize *re = [[AZSize alloc] initWithWidth:0 height:0];
   
   if (object == nil) {
-    return re;
+	return re;
   }
   
   if ([object isKindOfClass:[NSNumber class]]) {
-    NSNumber *n = (NSNumber *)object;
-    re.width  = n.floatValue;
-    re.height = n.floatValue;
+	NSNumber *n = (NSNumber *)object;
+	re.width  = n.floatValue;
+	re.height = n.floatValue;
   } else if ([object isKindOfClass:[AZPoint class]]) {
-    AZPoint *pt = (AZPoint *)object;
-    re.width  = pt.x;
-    re.height = pt.y;
+	AZPoint *pt = (AZPoint *)object;
+	re.width  = pt.x;
+	re.height = pt.y;
   } else if ([object isKindOfClass:[AZSize class]]) {
-    AZSize *s = (AZSize *)object;
-    re.width  = s.width;
-    re.height = s.height;
+	AZSize *s = (AZSize *)object;
+	re.width  = s.width;
+	re.height = s.height;
   } else if ([object isKindOfClass:[NSView class]]) {
-    NSView *v = (NSView *)object;
-    re.width = v.frame.size.width;
-    re.height = v.frame.size.height;
+	NSView *v = (NSView *)object;
+	re.width = v.frame.size.width;
+	re.height = v.frame.size.height;
   } else if ([object isKindOfClass:[CALayer class]]) {
-    CALayer *l = (CALayer *)object;
-    re.width = l.frame.size.width;
-    re.height = l.frame.size.height;
+	CALayer *l = (CALayer *)object;
+	re.width = l.frame.size.width;
+	re.height = l.frame.size.height;
   }
   
   return re;
@@ -59,17 +60,17 @@
 
 +(BOOL)maybeSize:(id)object {
   if (object == nil) {
-    return NO;
+	return NO;
   }
   
   NSArray *allowedClasses = 
-    @[[NSNumber class], [AZPoint class], [AZSize class], [AZRect class],
-     [NSView class], [CALayer class]];
+	@[[NSNumber class], [AZPoint class], [AZSize class], [AZRect class],
+	 [NSView class], [CALayer class]];
   
   for (id clazz in allowedClasses) {
-    if ([object isKindOfClass:clazz]) {
-      return YES;
-    }
+	if ([object isKindOfClass:clazz]) {
+	  return YES;
+	}
   }
   
   return NO;
@@ -85,8 +86,8 @@
 
 -(id)initWithWidth:(CGFloat)w height:(CGFloat)h {
   if ((self = [super init])) {
-    width = w;
-    height = h;
+	width = w;
+	height = h;
   }
   
   return self;
@@ -121,7 +122,7 @@
 
 -(id)growBy:(id)factor {
   if (factor == nil) {
-    return self;
+	return self;
   }
   
   AZSize *size = [AZSize sizeOf:factor];
@@ -141,7 +142,7 @@
 
 -(id)multipyBy:(id)factor {
   if (factor == nil) {
-    return self;
+	return self;
   }
   
   AZSize *f = [AZSize sizeOf:factor];
@@ -175,7 +176,7 @@
 
 -(id)divideBy:(id)factor {
   if (factor == nil) {
-    return self;
+	return self;
   }
   
   AZSize *f = [AZSize sizeOf:factor];
@@ -231,7 +232,7 @@
 
 -(NSString *)description {
   return [NSString stringWithFormat:@"%@(%4.f x %4.f)",
-          self.className, width, height];
+		  self.className, width, height];
 }
 
 @end

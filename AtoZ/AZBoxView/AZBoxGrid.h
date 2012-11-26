@@ -5,29 +5,29 @@
 
 /**  USAGE
 - (NSUInteger)numberOfCellsInCollectionView:(AZBoxGrid *)view {
-    return [content count];
+	return [content count];
 }
 - (AZBox *)collectionView:(AZBoxGrid *)view cellForIndex:(NSUInteger)index
 {
-    AZBox *cell = [view dequeueReusableCellWithIdentifier:@"cell"];
+	AZBox *cell = [view dequeueReusableCellWithIdentifier:@"cell"];
 	if(!cell)
-        cell = [[AZBox alloc] initWithReuseIdentifier:@"cell"];
+		cell = [[AZBox alloc] initWithReuseIdentifier:@"cell"];
 		[cell setImage:[content objectAtIndex:index]];
-    return cell;
+	return cell;
 }
 - (void)collectionView:(AZBoxGrid *)_collectionView didSelectCellAtIndex:(NSUInteger)index {
-    NSLog(@"Selected cell at index: %u", (unsigned int)index);
-    NSLog(@"Position: %@", NSStringFromPoint([_collectionView positionOfCellAtIndex:index]));
+	NSLog(@"Selected cell at index: %u", (unsigned int)index);
+	NSLog(@"Position: %@", NSStringFromPoint([_collectionView positionOfCellAtIndex:index]));
 }
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-    content = [[NSMutableArray alloc] init];
-    for(int i=0; i<1000; i++) // This creates 59000 elements!    {
+	content = [[NSMutableArray alloc] init];
+	for(int i=0; i<1000; i++) // This creates 59000 elements!	{
 		[[[[NSWorkspace sharedWorkspace] runningApplications]valueForKeyPath:@"icon"]  enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 			[content addObject:obj];
 		}];
 	}
 	[collectionView reloadData];
-    [collectionView setCellSize:NSMakeSize(64.0, 64.0)];
+	[collectionView setCellSize:NSMakeSize(64.0, 64.0)];
 	[collectionView setAllowsMultipleSelection:YES];
 } */
 
@@ -57,22 +57,22 @@
 
 @interface AZBoxGrid : NSView {
 @public
-    BOOL allowsSelection, allowsMultipleSelection;
+	BOOL allowsSelection, allowsMultipleSelection;
 @private
-    id <AZBoxGridDataSource> __unsafe_unretained dataSource;
-    id <AZBoxGridDelegate> __unsafe_unretained delegate;
-//    NSUInteger desiredNumberOfColumns, desiredNumberOfRows;
+	id <AZBoxGridDataSource> __unsafe_unretained dataSource;
+	id <AZBoxGridDelegate> __unsafe_unretained delegate;
+//	NSUInteger desiredNumberOfColumns, desiredNumberOfRows;
 
-    NSUInteger numberOfColumns, numberOfRows;
-    NSUInteger numberOfCells;
-//    NSSize cellSize;
+	NSUInteger numberOfColumns, numberOfRows;
+	NSUInteger numberOfCells;
+//	NSSize cellSize;
 	NSUInteger lastHoverCellIndex;
-    NSMutableDictionary *reusableCellQueues;
-    NSMutableDictionary *visibleCells;
-    NSMutableIndexSet *selection;
-    NSTimeInterval lastSelection, lastDoubleClick;
-    BOOL unselectOnMouseUp;
-    BOOL updatingData, calledReloadData;
+	NSMutableDictionary *reusableCellQueues;
+	NSMutableDictionary *visibleCells;
+	NSMutableIndexSet *selection;
+	NSTimeInterval lastSelection, lastDoubleClick;
+	BOOL unselectOnMouseUp;
+	BOOL updatingData, calledReloadData;
 }
 @property (NATOM, ASS) BOOL magicSizing;
 @property (NATOM, ASS) float boxInset;

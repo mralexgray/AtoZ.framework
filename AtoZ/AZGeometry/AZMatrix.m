@@ -11,9 +11,9 @@
 
 -(id)init {
   if ((self = super.init)) {
-    data = [[NSMutableArray alloc] init];
-    height = 0;
-    width = 0;
+	data = [[NSMutableArray alloc] init];
+	height = 0;
+	width = 0;
   }
   
   return self;
@@ -23,11 +23,11 @@
 -(void)setHeight:(NSUInteger)hv {
   // this is easy, just extend or crop the array
   if (hv == height) {
-    // NADA
-    return;
+	// NADA
+	return;
   }
   if (hv > height) {
-    // FIXME hier weiterschreiben
+	// FIXME hier weiterschreiben
   }
 }
 
@@ -37,10 +37,10 @@
 
 -(id)objectAtX:(NSUInteger)x y:(NSUInteger)y {
   if (x > width || y > height) {
-    [NSException raise:@"AZMatrixIndexOutOfBounds" 
-                format:@"Matrix index (%ld, %ld) out of bounds (%ld, %ld)",
-     x,y,width,height];
-    return nil;
+	[NSException raise:@"AZMatrixIndexOutOfBounds" 
+				format:@"Matrix index (%ld, %ld) out of bounds (%ld, %ld)",
+	 x,y,width,height];
+	return nil;
   }
   return data[(y * width + x)];
 }

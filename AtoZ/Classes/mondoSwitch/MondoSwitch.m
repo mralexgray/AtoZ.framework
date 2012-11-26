@@ -46,7 +46,7 @@
 	if( !_bgGradient) {
 		// Create a basic gradient for the background
 		NSColor* gradientBottom = [NSColor colorWithCalibratedWhite:0.72 alpha:1.0];
-		NSColor* gradientTop    = [NSColor colorWithCalibratedWhite:0.46 alpha:1.0];
+		NSColor* gradientTop	= [NSColor colorWithCalibratedWhite:0.46 alpha:1.0];
 
 		_bgGradient = [[NSGradient alloc] initWithStartingColor:gradientBottom
 													endingColor:gradientTop];
@@ -86,10 +86,10 @@
 	// resizes as necessary.
 	CALayer *contentContainer = [CALayer layer];
 	contentContainer.name = @"contentContainer";
-	contentContainer.bounds           = mainLayer.bounds;
-	contentContainer.delegate         = self;
-	contentContainer.anchorPoint      = CGPointMake(0.5,0.5);
-	contentContainer.position         = CGPointMake( midX, midY );
+	contentContainer.bounds		   = mainLayer.bounds;
+	contentContainer.delegate		 = self;
+	contentContainer.anchorPoint	  = CGPointMake(0.5,0.5);
+	contentContainer.position		 = CGPointMake( midX, midY );
 	contentContainer.autoresizingMask = kCALayerWidthSizable | kCALayerHeightSizable;
 	[contentContainer setLayoutManager:[CAConstraintLayoutManager layoutManager]];
 	[self.layer addSublayer:contentContainer];

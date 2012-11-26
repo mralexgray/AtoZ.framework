@@ -50,11 +50,11 @@
 }
 - (NSTimeInterval)transitionDuration
 {
-    return transitionDuration;
+	return transitionDuration;
 }
 - (void)setTransitionDuration:(NSTimeInterval)aTransitionDuration
 {
-    transitionDuration = aTransitionDuration;
+	transitionDuration = aTransitionDuration;
 }
 /* Utility:
  * Capture a view into a CoreImage of rect size
@@ -75,7 +75,7 @@
 	size_t byteSize = bytesPerRow * rect.size.height;
 
 	CGColorSpaceRef colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB); 
-    void * bitmapData = malloc(byteSize); 
+	void * bitmapData = malloc(byteSize); 
 	//bzero(bitmapData, byteSize); //only necessary if drawBackground doesn't cover entire image
 	
 	CGContextRef cg = CGBitmapContextCreate(bitmapData,
@@ -142,94 +142,94 @@
 	self.chaining = NO;
 	NSRect rect = [delegate bounds];
 	switch (self.style) {
-        case AnimatingTabViewCopyMachineTransitionStyle:
-            transitionFilter = [CIFilter filterWithName:@"CICopyMachineTransition"];
-            [transitionFilter setDefaults];
-            [transitionFilter setValue:[CIVector vectorWithX:rect.origin.x Y:rect.origin.y Z:rect.size.width W:rect.size.height] forKey:@"inputExtent"];
-            [transitionFilter setValue:initialImage forKey:@"inputImage"];
-			[transitionFilter setValue:finalImage forKey:@"inputTargetImage"];
-            break;
-
-       case AnimatingTabViewDissolveTransitionStyle:
-            transitionFilter = [CIFilter filterWithName:@"CIDissolveTransition"];
-            [transitionFilter setDefaults];
-            [transitionFilter setValue:initialImage forKey:@"inputImage"];
-			[transitionFilter setValue:finalImage forKey:@"inputTargetImage"];
-            break;
-
-        case AnimatingTabViewFlashTransitionStyle:
-            transitionFilter = [CIFilter filterWithName:@"CIFlashTransition"];
-            [transitionFilter setDefaults];
-            [transitionFilter setValue:[CIVector vectorWithX:NSMidX(rect) Y:NSMidY(rect)] forKey:@"inputCenter"];
-            [transitionFilter setValue:[CIVector vectorWithX:rect.origin.x Y:rect.origin.y Z:rect.size.width W:rect.size.height] forKey:@"inputExtent"];
-            [transitionFilter setValue:initialImage forKey:@"inputImage"];
-			[transitionFilter setValue:finalImage forKey:@"inputTargetImage"];
-            break;
-
-        case AnimatingTabViewModTransitionStyle:
-            transitionFilter = [CIFilter filterWithName:@"CIModTransition"];
-            [transitionFilter setDefaults];
-            [transitionFilter setValue:[CIVector vectorWithX:NSMidX(rect) Y:NSMidY(rect)] forKey:@"inputCenter"];
-            [transitionFilter setValue:initialImage forKey:@"inputImage"];
-			[transitionFilter setValue:finalImage forKey:@"inputTargetImage"];
-            break;
-
-        case AnimatingTabViewPageCurlTransitionStyle:
-            transitionFilter = [CIFilter filterWithName:@"CIPageCurlTransition"];
-            [transitionFilter setDefaults];
-            [transitionFilter setValue:[NSNumber numberWithFloat:-M_PI_4] forKey:@"inputAngle"];
-            [transitionFilter setValue:initialImage forKey:@"inputBacksideImage"];
-            [transitionFilter setValue:inputShadingImage forKey:@"inputShadingImage"];
-            [transitionFilter setValue:[CIVector vectorWithX:rect.origin.x Y:rect.origin.y Z:rect.size.width W:rect.size.height] forKey:@"inputExtent"];
+		case AnimatingTabViewCopyMachineTransitionStyle:
+			transitionFilter = [CIFilter filterWithName:@"CICopyMachineTransition"];
+			[transitionFilter setDefaults];
+			[transitionFilter setValue:[CIVector vectorWithX:rect.origin.x Y:rect.origin.y Z:rect.size.width W:rect.size.height] forKey:@"inputExtent"];
 			[transitionFilter setValue:initialImage forKey:@"inputImage"];
 			[transitionFilter setValue:finalImage forKey:@"inputTargetImage"];
-            break;
+			break;
 
-        case AnimatingTabViewSwipeTransitionStyle:
-            transitionFilter = [CIFilter filterWithName:@"CISwipeTransition"];
-            [transitionFilter setDefaults];
+	   case AnimatingTabViewDissolveTransitionStyle:
+			transitionFilter = [CIFilter filterWithName:@"CIDissolveTransition"];
+			[transitionFilter setDefaults];
+			[transitionFilter setValue:initialImage forKey:@"inputImage"];
+			[transitionFilter setValue:finalImage forKey:@"inputTargetImage"];
+			break;
+
+		case AnimatingTabViewFlashTransitionStyle:
+			transitionFilter = [CIFilter filterWithName:@"CIFlashTransition"];
+			[transitionFilter setDefaults];
+			[transitionFilter setValue:[CIVector vectorWithX:NSMidX(rect) Y:NSMidY(rect)] forKey:@"inputCenter"];
+			[transitionFilter setValue:[CIVector vectorWithX:rect.origin.x Y:rect.origin.y Z:rect.size.width W:rect.size.height] forKey:@"inputExtent"];
+			[transitionFilter setValue:initialImage forKey:@"inputImage"];
+			[transitionFilter setValue:finalImage forKey:@"inputTargetImage"];
+			break;
+
+		case AnimatingTabViewModTransitionStyle:
+			transitionFilter = [CIFilter filterWithName:@"CIModTransition"];
+			[transitionFilter setDefaults];
+			[transitionFilter setValue:[CIVector vectorWithX:NSMidX(rect) Y:NSMidY(rect)] forKey:@"inputCenter"];
+			[transitionFilter setValue:initialImage forKey:@"inputImage"];
+			[transitionFilter setValue:finalImage forKey:@"inputTargetImage"];
+			break;
+
+		case AnimatingTabViewPageCurlTransitionStyle:
+			transitionFilter = [CIFilter filterWithName:@"CIPageCurlTransition"];
+			[transitionFilter setDefaults];
+			[transitionFilter setValue:[NSNumber numberWithFloat:-M_PI_4] forKey:@"inputAngle"];
+			[transitionFilter setValue:initialImage forKey:@"inputBacksideImage"];
+			[transitionFilter setValue:inputShadingImage forKey:@"inputShadingImage"];
+			[transitionFilter setValue:[CIVector vectorWithX:rect.origin.x Y:rect.origin.y Z:rect.size.width W:rect.size.height] forKey:@"inputExtent"];
+			[transitionFilter setValue:initialImage forKey:@"inputImage"];
+			[transitionFilter setValue:finalImage forKey:@"inputTargetImage"];
+			break;
+
+		case AnimatingTabViewSwipeTransitionStyle:
+			transitionFilter = [CIFilter filterWithName:@"CISwipeTransition"];
+			[transitionFilter setDefaults];
 			[transitionFilter setValue:initialImage forKey:@"inputImage"];
 			[transitionFilter setValue:finalImage forKey:@"inputTargetImage"];
 			break;
 
 		case AnimatingTabViewFlipTransitionStyle:
 			transitionFilter = [CIFilter filterWithName:@"CIPerspectiveTransform"];
-            [transitionFilter setDefaults];
+			[transitionFilter setDefaults];
 			[transitionFilter setValue:initialImage forKey:@"inputImage"];
 			break;
 			
 		case AnimatingTabViewCubeTransitionStyle:
 			transitionFilter = [CIFilter filterWithName:@"CIPerspectiveTransform"];
-            [transitionFilter setDefaults];
+			[transitionFilter setDefaults];
 			[transitionFilter setValue:initialImage forKey:@"inputImage"];
 			
 			transitionFilter2 = [CIFilter filterWithName:@"CIPerspectiveTransform"];
-            [transitionFilter2 setDefaults];
+			[transitionFilter2 setDefaults];
 			[transitionFilter2 setValue:finalImage forKey:@"inputImage"];
 			break;
 			
 		case AnimatingTabViewZoomDissolveTransitionStyle:
 			transitionFilter = [CIFilter filterWithName:@"CIZoomBlur"];
-            [transitionFilter setDefaults];
+			[transitionFilter setDefaults];
 			[transitionFilter setValue:[CIVector vectorWithX:NSMidX(rect) Y:NSMidY(rect)] forKey:@"inputCenter"];
 			[transitionFilter setValue:initialImage forKey:@"inputImage"];
 			
 			transitionFilter2 = [CIFilter filterWithName:@"CIDissolveTransition"];
-            [transitionFilter2 setDefaults];
+			[transitionFilter2 setDefaults];
 			[transitionFilter2 setValue:finalImage forKey:@"inputTargetImage"];
 			self.chaining = YES;
 			break;
 			
-        case AnimatingTabViewRippleTransitionStyle:
-            transitionFilter = [CIFilter filterWithName:@"CIRippleTransition"];
-            [transitionFilter setDefaults];
-            [transitionFilter setValue:[CIVector vectorWithX:NSMidX(rect) Y:NSMidY(rect)] forKey:@"inputCenter"];
-            [transitionFilter setValue:[CIVector vectorWithX:rect.origin.x Y:rect.origin.y Z:rect.size.width W:rect.size.height] forKey:@"inputExtent"];
-            [transitionFilter setValue:inputShadingImage forKey:@"inputShadingImage"];
+		case AnimatingTabViewRippleTransitionStyle:
+			transitionFilter = [CIFilter filterWithName:@"CIRippleTransition"];
+			[transitionFilter setDefaults];
+			[transitionFilter setValue:[CIVector vectorWithX:NSMidX(rect) Y:NSMidY(rect)] forKey:@"inputCenter"];
+			[transitionFilter setValue:[CIVector vectorWithX:rect.origin.x Y:rect.origin.y Z:rect.size.width W:rect.size.height] forKey:@"inputExtent"];
+			[transitionFilter setValue:inputShadingImage forKey:@"inputShadingImage"];
 			[transitionFilter setValue:initialImage forKey:@"inputImage"];
 			[transitionFilter setValue:finalImage forKey:@"inputTargetImage"];
-            break;		
-    }
+			break;		
+	}
 	
 	if(transitionFilter!=nil) 
 	{
@@ -388,10 +388,10 @@
 
 	// Override NSAnimation's -setCurrentProgress: method, and use it as our point to hook in and advance our Core Image transition effect to the next time slice.
 - (void)setCurrentProgress:(NSAnimationProgress)progress {
-    // First, invoke super's implementation, so that the NSAnimation will remember the proposed progress value and hand it back to us when we ask for it in AnimatingTabView's -drawRect: method.
-    [super setCurrentProgress:progress];
+	// First, invoke super's implementation, so that the NSAnimation will remember the proposed progress value and hand it back to us when we ask for it in AnimatingTabView's -drawRect: method.
+	[super setCurrentProgress:progress];
 
-    // Now ask the AnimatingTabView (which set itself as our delegate) to display.  Sending a -display message differs from sending -setNeedsDisplay: or -setNeedsDisplayInRect: in that it demands an immediate, syncrhonous redraw of the view.  Most of the time, it's preferrable to send a -setNeedsDisplay... message, which gives AppKit the opportunity to coalesce potentially numerous display requests and update the window efficiently when it's convenient.  But for a syncrhonously executing animation, it's appropriate to use -display.
+	// Now ask the AnimatingTabView (which set itself as our delegate) to display.  Sending a -display message differs from sending -setNeedsDisplay: or -setNeedsDisplayInRect: in that it demands an immediate, syncrhonous redraw of the view.  Most of the time, it's preferrable to send a -setNeedsDisplay... message, which gives AppKit the opportunity to coalesce potentially numerous display requests and update the window efficiently when it's convenient.  But for a syncrhonously executing animation, it's appropriate to use -display.
 	[(NSView*)self.delegate display];
 }
 @end

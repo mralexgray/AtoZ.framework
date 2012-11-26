@@ -13,11 +13,11 @@ static inline double radians (double degrees) { return degrees * M_PI/180; }
 
 - (id)initWithFrame:(NSRect)frame
 {
-    self = [super initWithFrame:frame];
-    if (self) {
+	self = [super initWithFrame:frame];
+	if (self) {
 
-    }
-    return self;
+	}
+	return self;
 }
 
 - (void) awakeFromNib
@@ -30,16 +30,16 @@ static inline double radians (double degrees) { return degrees * M_PI/180; }
 void MyDrawColoredPattern (void *info, CGContextRef context) {
 
 	NSColor *dot = [NSC colorWithDeviceHue:0 saturation:0 brightness:0.07 alpha:1.0];
-    NSC* shadowColor = [NSColor colorWithDeviceRed:1 green:1 blue:1 alpha:0.1];
+	NSC* shadowColor = [NSColor colorWithDeviceRed:1 green:1 blue:1 alpha:0.1];
 
-    CGContextSetFillColorWithColor(context, [dot CGColor]);
-    CGContextSetShadowWithColor(context, CGSizeMake(0, 1), 1, [shadowColor CGColor]);
+	CGContextSetFillColorWithColor(context, [dot CGColor]);
+	CGContextSetShadowWithColor(context, CGSizeMake(0, 1), 1, [shadowColor CGColor]);
 
-    CGContextAddArc(context, 3, 3, 4, 0, radians(360), 0);
-    CGContextFillPath(context);
+	CGContextAddArc(context, 3, 3, 4, 0, radians(360), 0);
+	CGContextFillPath(context);
 
-    CGContextAddArc(context, 16, 16, 4, 0, radians(360), 0);
-    CGContextFillPath(context);
+	CGContextAddArc(context, 16, 16, 4, 0, radians(360), 0);
+	CGContextFillPath(context);
 
 }
 

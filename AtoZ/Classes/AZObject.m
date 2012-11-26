@@ -18,7 +18,7 @@ NSString *const AZObjectSharedInstanceUpdatedNotification = @"AZObjectSharedInst
 
 + (instancetype)instance
 {
-    return AH_AUTORELEASE([[self alloc] init]);
+	return AH_AUTORELEASE([[self alloc] init]);
 }
 
 static BOOL loadingFromResourceFile = NO;
@@ -26,50 +26,50 @@ static BOOL loadingFromResourceFile = NO;
 + (instancetype)instanceWithObject:(id)object
 {
 		//return nil if object is nil
-    return object? AH_AUTORELEASE([[self alloc] initWithObject:object]): nil;
+	return object? AH_AUTORELEASE([[self alloc] initWithObject:object]): nil;
 }
 - (NSString *)setterNameForClass:(Class)class
 {
 		//get class name
-    NSString *className = NSStringFromClass(class);
+	NSString *className = NSStringFromClass(class);
 
 		//strip NS prefix
-    if ([className hasPrefix:@"NS"])
+	if ([className hasPrefix:@"NS"])
 		{
-        className = [className substringFromIndex:2];
+		className = [className substringFromIndex:2];
 		}
 
 		//return setter name
-    return [NSString stringWithFormat:@"setWith%@:", className];
+	return [NSString stringWithFormat:@"setWith%@:", className];
 }
 - (instancetype)initWithObject:(id)object
 {
-    if ((self = [self init]))
+	if ((self = [self init]))
 		{
-        Class class = [object class];
-        while (true)
+		Class class = [object class];
+		while (true)
 			{
-            SEL setter = NSSelectorFromString([self setterNameForClass:class]);
-            if ([self respondsToSelector:setter])
+			SEL setter = NSSelectorFromString([self setterNameForClass:class]);
+			if ([self respondsToSelector:setter])
 				{
-                objc_msgSend(self, setter, object);
-                return self;
+				objc_msgSend(self, setter, object);
+				return self;
 				}
-            if ([class superclass] == [NSObject class]) break;
-            class = [class superclass];
+			if ([class superclass] == [NSObject class]) break;
+			class = [class superclass];
 			}
-        [NSException raise:NSGenericException
-                    format:@"%@ not implemented", [self setterNameForClass:class]];
+		[NSException raise:NSGenericException
+					format:@"%@ not implemented", [self setterNameForClass:class]];
 		}
-    return self;
+	return self;
 }
 + (NSArray *)instancesWithArray:(NSArray *)array
 {
 	return [array map:^id(id obj) { return [self instanceWithObject:obj]; }];
 }
-+ (instancetype)instanceWithCoder:(NSCoder *)decoder     //return nil if coder is nil
++ (instancetype)instanceWithCoder:(NSCoder *)decoder	 //return nil if coder is nil
 {
-    return decoder ? AH_AUTORELEASE([[self alloc] initWithCoder:decoder]) : nil;
+	return decoder ? AH_AUTORELEASE([[self alloc] initWithCoder:decoder]) : nil;
 }
 //- (instancetype)initWithCoder:(NSCoder *)decoder
 //{
@@ -84,7 +84,7 @@ static BOOL loadingFromResourceFile = NO;
 //	else {
 
 			//([self respondsToSelector:@selector(enumerateIvarsUsingBlock:)]) {
-			//    	if (self = [super init]) {
+			//		if (self = [super init]) {
 			//			[self enumerateIvarsUsingBlock:^(Ivar var, NSString *name, BOOL *cancel) {
 			//				[self setValue:[decoder decodeObjectForKey:name] forKey:name];
 			//			}];
@@ -152,52 +152,52 @@ static BOOL loadingFromResourceFile = NO;
 static NSMutableDictionary *sharedInstances = nil;
 + (void)setSharedInstance:(AZObject *)instance
 {
-    if (![instance isKindOfClass:self])
+	if (![instance isKindOfClass:self])
 		{
-        [NSException raise:NSGenericException format:@"setSharedInstance: instance class does not match"];
+		[NSException raise:NSGenericException format:@"setSharedInstance: instance class does not match"];
 		}
-    sharedInstances = sharedInstances ?: [[NSMutableDictionary alloc] init];
-    id oldInstance = sharedInstances[NSStringFromClass(self)];
-    sharedInstances[NSStringFromClass(self)] = instance;
-    if (oldInstance)
+	sharedInstances = sharedInstances ?: [[NSMutableDictionary alloc] init];
+	id oldInstance = sharedInstances[NSStringFromClass(self)];
+	sharedInstances[NSStringFromClass(self)] = instance;
+	if (oldInstance)
 		{
-        [[NSNotificationCenter defaultCenter] postNotificationName:AZObjectSharedInstanceUpdatedNotification object:oldInstance];
+		[[NSNotificationCenter defaultCenter] postNotificationName:AZObjectSharedInstanceUpdatedNotification object:oldInstance];
 		}
 }
 + (BOOL)hasSharedInstance
 {
-    return sharedInstances[NSStringFromClass(self)] != nil;
+	return sharedInstances[NSStringFromClass(self)] != nil;
 }
 + (instancetype)sharedInstance
 {
-    sharedInstances = sharedInstances ?: [[NSMutableDictionary alloc] init];
-    id instance = sharedInstances[NSStringFromClass(self)];
-    if (instance == nil)
+	sharedInstances = sharedInstances ?: [[NSMutableDictionary alloc] init];
+	id instance = sharedInstances[NSStringFromClass(self)];
+	if (instance == nil)
 		{
 			//load or create instance
-        [self reloadSharedInstance];
+		[self reloadSharedInstance];
 
 			//get loaded instance
-        instance = sharedInstances[NSStringFromClass(self)];
+		instance = sharedInstances[NSStringFromClass(self)];
 		}
-    return instance;
+	return instance;
 }
 + (void)reloadSharedInstance
 {
-    id instance = nil;
+	id instance = nil;
 	instance = [[[self class]alloc]init];
 	//set singleton
-    [self setSharedInstance:instance];
+	[self setSharedInstance:instance];
 }
 + (NSString *)resourceFile
 {
 		//used for every instance
-    return [NSStringFromClass(self) stringByAppendingPathExtension:@"plist"];
+	return [NSStringFromClass(self) stringByAppendingPathExtension:@"plist"];
 }
 + (NSString *)saveFile
 {
 		//used to save shared (singleton) instance
-    return [NSStringFromClass(self) stringByAppendingPathExtension:@"plist"];
+	return [NSStringFromClass(self) stringByAppendingPathExtension:@"plist"];
 }
 //	returns our the singleton instance that will be used for global observing
 //+ (AZObject*)sharedInstance
@@ -258,8 +258,8 @@ static NSMutableDictionary *keyNames = nil, *nillableKeyNames = nil;
 
 // NSCoder implementation, for unarchiving
 - (id) initWithCoder:(NSCoder *)aDecoder {
-    self = [super init];
-    if (self) {
+	self = [super init];
+	if (self) {
 		for (NSString *name in [self allKeys]) [self setValue:[aDecoder decodeObjectForKey:name] forKey:name];
 	}
 	return self;
@@ -382,12 +382,12 @@ static NSMutableDictionary *keyNames = nil, *nillableKeyNames = nil;
 #pragma mark -Unique identifier generation
 + (NSString *)newUniqueIdentifier
 {
-    CFUUIDRef uuid = CFUUIDCreate(NULL);
-    CFStringRef identifier = CFUUIDCreateString(NULL, uuid);
-    CFRelease(uuid);
-    return AH_RETAIN(CFBridgingRelease(identifier));
+	CFUUIDRef uuid = CFUUIDCreate(NULL);
+	CFStringRef identifier = CFUUIDCreateString(NULL, uuid);
+	CFRelease(uuid);
+	return AH_RETAIN(CFBridgingRelease(identifier));
 }
 
-- (NSString *)uniqueID {    return _uniqueID  = _uniqueID ? _uniqueID :[[self class] newUniqueIdentifier]; }
+- (NSString *)uniqueID {	return _uniqueID  = _uniqueID ? _uniqueID :[[self class] newUniqueIdentifier]; }
 
 @end

@@ -34,24 +34,24 @@
 }
 
 -(void)addKeyObserver:(NSKeyObserver *)keyObserver {
-   NSString       *key=[keyObserver key];
+   NSString	   *key=[keyObserver key];
    NSMutableArray *observers=[_dictionary objectForKey:key];
    
    if(observers==nil){
-    observers=[NSMutableArray array];
-    [_dictionary setObject:observers forKey:key];
+	observers=[NSMutableArray array];
+	[_dictionary setObject:observers forKey:key];
    }
    
    [observers addObject:keyObserver];
 }
 
 -(void)removeKeyObserver:(NSKeyObserver *)keyObserver {
-	NSString       *key=[keyObserver key];// retain] autorelease];  // do the retain/autorelease dance, because we just might release the key out from under us when the keyObserver is deallocated.
+	NSString	   *key=[keyObserver key];// retain] autorelease];  // do the retain/autorelease dance, because we just might release the key out from under us when the keyObserver is deallocated.
    NSMutableArray *observers=[_dictionary objectForKey:key];
    
    [observers removeObjectIdenticalTo:keyObserver];
    if([observers count]==0)
-    [_dictionary removeObjectForKey:key];
+	[_dictionary removeObjectForKey:key];
 }
 
 - (NSString *)description

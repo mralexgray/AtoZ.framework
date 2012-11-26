@@ -25,9 +25,9 @@
 
 + (NSString *)appSuppDir {
 
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
-    NSString *basePath = ([paths count] > 0) ? paths[0] : NSTemporaryDirectory();
-    return [basePath stringByAppendingPathComponent:[[NSBundle bundleForClass:[AtoZ class]] bundleIdentifier]];
+	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
+	NSString *basePath = ([paths count] > 0) ? paths[0] : NSTemporaryDirectory();
+	return [basePath stringByAppendingPathComponent:[[NSBundle bundleForClass:[AtoZ class]] bundleIdentifier]];
 }
 + (NSString*) appSuppFolder {
 	return [[self class] applicationSupportFolder];
@@ -44,13 +44,13 @@
 	return  [appDirectory path];
 }
 //	//build path
-//    NSArray *supports = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
-//    NSString *dir = supports[0];
-//    [[NSFileManager defaultManager] createDirectoryAtPath:dir withIntermediateDirectories:NO attributes:nil error:nil];
-//    NSString *file = [dir stringByAppendingPathComponent:identifier];
+//	NSArray *supports = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
+//	NSString *dir = supports[0];
+//	[[NSFileManager defaultManager] createDirectoryAtPath:dir withIntermediateDirectories:NO attributes:nil error:nil];
+//	NSString *file = [dir stringByAppendingPathComponent:identifier];
 //
 //		//open plist
-//    NSMutableDictionary *plist = [NSPropertyListSerialization propertyListFromData:[NSData dataWithContentsOfFile:file]
+//	NSMutableDictionary *plist = [NSPropertyListSerialization propertyListFromData:[NSData dataWithContentsOfFile:file]
 //
 //
 //
@@ -68,18 +68,18 @@
 - (NSArray *)frameworkClasses;
 {
 
-    NSMutableArray *array = [NSMutableArray array];
-//    int numberOfClasses = objc_getClassList(NULL, 0);
-//    Class *classes = calloc(sizeof(Class), numberOfClasses);
-//    numberOfClasses = objc_getClassList(classes, numberOfClasses);
-//    for (int i = 0; i < numberOfClasses; ++i) {
-//        Class c = classes[i];
-//        if ([NSBundle bundleForClass:c] == self) {
-//            [array addObject:c];
-//        }
-//    }
-//    free(classes);
-    return array;
+	NSMutableArray *array = [NSMutableArray array];
+//	int numberOfClasses = objc_getClassList(NULL, 0);
+//	Class *classes = calloc(sizeof(Class), numberOfClasses);
+//	numberOfClasses = objc_getClassList(classes, numberOfClasses);
+//	for (int i = 0; i < numberOfClasses; ++i) {
+//		Class c = classes[i];
+//		if ([NSBundle bundleForClass:c] == self) {
+//			[array addObject:c];
+//		}
+//	}
+//	free(classes);
+	return array;
 }
 
 - (NSS *)recursiveSearchForPathOfResourceNamed:(NSString *)name;
@@ -99,15 +99,15 @@
 
 - (NSArray *)recursivePathsForResourcesOfType:(NSString *)type inDirectory:(NSString *)directoryPath{
 
-    NSMutableArray *filePaths = [NSMutableArray new];  // Enumerators are recursive
-    NSDirectoryEnumerator *enumerator = [[NSFileManager defaultManager] enumeratorAtPath:directoryPath];
-    NSString *filePath;
-    while ((filePath = [enumerator nextObject]) != nil){
-        // If we have the right type of file, add it to the list Make sure to prepend the directory path
-        if([[filePath pathExtension] isEqualToString:type])
-            [filePaths addObject:[directoryPath stringByAppendingString:filePath]];
+	NSMutableArray *filePaths = [NSMutableArray new];  // Enumerators are recursive
+	NSDirectoryEnumerator *enumerator = [[NSFileManager defaultManager] enumeratorAtPath:directoryPath];
+	NSString *filePath;
+	while ((filePath = [enumerator nextObject]) != nil){
+		// If we have the right type of file, add it to the list Make sure to prepend the directory path
+		if([[filePath pathExtension] isEqualToString:type])
+			[filePaths addObject:[directoryPath stringByAppendingString:filePath]];
 	}
-    return filePaths;
+	return filePaths;
 }
 
 - (NSA*) cacheImages;
@@ -130,10 +130,10 @@
 - (void) cacheNamedImages;
 {
 	NSCountedSet *typesCounter = [NSCountedSet new];
-    NSArray *types = [NSImage imageFileTypes];
-    NSEnumerator *e = [types objectEnumerator];
-    NSString *type;
-    while ((type = [e nextObject]) != nil) {
+	NSArray *types = [NSImage imageFileTypes];
+	NSEnumerator *e = [types objectEnumerator];
+	NSString *type;
+	while ((type = [e nextObject]) != nil) {
 		NSArray *files = [self recursivePathsForResourcesOfType:type inDirectory:[self resourcePath]];
 		NSEnumerator *e2 = [files objectEnumerator];
 		NSString *imagepath;
@@ -148,7 +148,7 @@
 			}
 			if (image) [typesCounter addObject:type];
 		}
-    }
+	}
 	LOG_EXPR(typesCounter);
 }
 
@@ -158,50 +158,50 @@ NSString *ext = @"framework";
 
 //+ (NSMutableArray *)systemFrameworks;
 //{
-//    NSArray *librarySearchPaths;
-//    NSEnumerator *searchPathEnum;
-//    NSString *currPath;
-//    NSMutableArray *bundleSearchPaths = [NSMutableArray array];
-//    NSMutableArray *allBundles = [NSMutableArray array];
+//	NSArray *librarySearchPaths;
+//	NSEnumerator *searchPathEnum;
+//	NSString *currPath;
+//	NSMutableArray *bundleSearchPaths = [NSMutableArray array];
+//	NSMutableArray *allBundles = [NSMutableArray array];
 // 
-//    librarySearchPaths = NSSearchPathForDirectoriesInDomains(
-//        NSLibraryDirectory, NSAllDomainsMask - NSSystemDomainMask, YES);
+//	librarySearchPaths = NSSearchPathForDirectoriesInDomains(
+//		NSLibraryDirectory, NSAllDomainsMask - NSSystemDomainMask, YES);
 // 
-//    searchPathEnum = [librarySearchPaths objectEnumerator];
-//    while(currPath = [searchPathEnum nextObject])
+//	searchPathEnum = [librarySearchPaths objectEnumerator];
+//	while(currPath = [searchPathEnum nextObject])
 //	  if([[currBundlePath pathExtension] isEqualToString:ext])
 //			{
 //			 [allBundles addObject:[currPath
 //					   stringByAppendingPathComponent:currBundlePath]];
 //			}
-//	   //    {
-////        [bundleSearchPaths addObject:
-////            [currPath stringByAppendingPathComponent:appSupportSubpath]];
-////    }
-////    [bundleSearchPaths addObject:
-////        [[NSBundle mainBundle] builtInPlugInsPath]];
+//	   //	{
+////		[bundleSearchPaths addObject:
+////			[currPath stringByAppendingPathComponent:appSupportSubpath]];
+////	}
+////	[bundleSearchPaths addObject:
+////		[[NSBundle mainBundle] builtInPlugInsPath]];
 //
-////    searchPathEnum = [bundleSearchPaths objectEnumerator];
-////    while(currPath = [searchPathEnum nextObject])
-////    {
-//        NSDirectoryEnumerator *bundleEnum;
-//        NSString *currBundlePath;
-//        bundleEnum = [[NSFileManager defaultManager]
-//            enumeratorAtPath:currPath];
-//        if(bundleEnum)
-//        {
-//            while(currBundlePath = [bundleEnum nextObject])
-//            {
-//                if([[currBundlePath pathExtension] isEqualToString:ext])
-//                {
-//                 [allBundles addObject:[currPath
-//                           stringByAppendingPathComponent:currBundlePath]];
-//                }
-//            }
-//        }
-//    }
+////	searchPathEnum = [bundleSearchPaths objectEnumerator];
+////	while(currPath = [searchPathEnum nextObject])
+////	{
+//		NSDirectoryEnumerator *bundleEnum;
+//		NSString *currBundlePath;
+//		bundleEnum = [[NSFileManager defaultManager]
+//			enumeratorAtPath:currPath];
+//		if(bundleEnum)
+//		{
+//			while(currBundlePath = [bundleEnum nextObject])
+//			{
+//				if([[currBundlePath pathExtension] isEqualToString:ext])
+//				{
+//				 [allBundles addObject:[currPath
+//						   stringByAppendingPathComponent:currBundlePath]];
+//				}
+//			}
+//		}
+//	}
 // 
-//    return allBundles;
+//	return allBundles;
 //}
 //
 

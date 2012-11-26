@@ -60,12 +60,12 @@
 }
 	//- (id)initWithFrame:(NSRect)frame
 	//{
-	//    self = [super initWithFrame:frame];
-	//    if (self) {
+	//	self = [super initWithFrame:frame];
+	//	if (self) {
 	//
-	//	    }
+	//		}
 	//
-	//    return self;
+	//	return self;
 	//}
 
 - (void) drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx
@@ -218,7 +218,7 @@
 - (CALayer*) hitTestPoint: (NSPoint)locationInWindow offset: (CGPoint*)outOffset
 { // I copied this from other sources, I didn't create them
 	CGPoint where = NSPointToCGPoint([self convertPoint: locationInWindow fromView: nil]);
-    where = [self.layer convertPoint: where fromLayer: self.layer];
+	where = [self.layer convertPoint: where fromLayer: self.layer];
 	CALayer *layer = [self.layer hitTest: where];
 	if ( layer != self.layer ){
 		CGPoint bitPos = [self.layer convertPoint: layer.position
@@ -232,7 +232,7 @@
 }
 
 	//CGRect SKTRectFromPoints(NSPoint point1, CGPoint point2) { // I copied this from other sources, I didn't create them
-	//    return NSRectToCGRect(NSMakeRect(((point1.x <= point2.x) ? point1.x : point2.x),
+	//	return NSRectToCGRect(NSMakeRect(((point1.x <= point2.x) ? point1.x : point2.x),
 	//									 ((point1.y <= point2.y) ? point1.y : point2.y),
 	//									 ((point1.x <= point2.x) ? point2.x - point1.x : point1.x - point2.x),
 	//									 ((point1.y <= point2.y) ? point2.y - point1.y : point1.y - point2.y)));
@@ -260,11 +260,11 @@
  */
 - (void)mouseDown:(NSEvent *)theEvent{
 		// Getting clicked point.
-    NSPoint mousePointInView = [self convertPoint:theEvent.locationInWindow fromView:nil];
-    mousePointInView = [self.layer convertPoint:mousePointInView toLayer:self.layer];
-    mouseDownPoint = mousePointInView;
+	NSPoint mousePointInView = [self convertPoint:theEvent.locationInWindow fromView:nil];
+	mousePointInView = [self.layer convertPoint:mousePointInView toLayer:self.layer];
+	mouseDownPoint = mousePointInView;
 		// Checking if a tab was clicked.
-    self.clickedLayer = [self.layer hitTest:mousePointInView];
+	self.clickedLayer = [self.layer hitTest:mousePointInView];
 
 		//	//		previouslyDraggedLayer = draggingLayer;
 		//	CALayer *draggingLayer = [self.layer hitTestPoint: dragStartPos offset:nil];// &dragOffset]; // this tells me what i'm clicking on, if anything
@@ -308,9 +308,9 @@
 		//		previouslyDraggedLayer.borderWidth = 0;
 		//
 		//		[CATransaction flush]; // standard "don't animate what I'm about to do stuff
-		//        [CATransaction begin];
-		//        [CATransaction setValue:(id)kCFBooleanTrue
-		//                         forKey:kCATransactionDisableActions];
+		//		[CATransaction begin];
+		//		[CATransaction setValue:(id)kCFBooleanTrue
+		//						 forKey:kCATransactionDisableActions];
 		//
 		//		dragRectangle.backgroundColor = CGColorCreateGenericRGB(.7,.8,.9,.5); // as close as I can come to Apple's colors
 		//		dragRectangle.borderWidth = 1;

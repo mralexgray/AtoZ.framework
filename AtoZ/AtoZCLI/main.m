@@ -14,8 +14,8 @@ void cliDefaults(){
 	NSUserDefaults *defaults = [[NSUserDefaults alloc] init];
 //	NSUInteger counter = [defaults[@"counter"]unsignedIntegerValue] +1;
 
-//    [defaults setPersistentDomain:[NSDictionary dictionaryWithObject:@(counter) forKey:@"counter"] forName:@"com.mralexgray.atozCLI"];
-//    [defaults synchronize];
+//	[defaults setPersistentDomain:[NSDictionary dictionaryWithObject:@(counter) forKey:@"counter"] forName:@"com.mralexgray.atozCLI"];
+//	[defaults synchronize];
 //	NSLog(@"welcome the the CLI.  We've launched %ld times!", counter);
 }
 //#import <RMKit/RMKit.h>
@@ -66,12 +66,12 @@ void TestStopwatchBlock (NSString* name) {
 	self.layer.sublayers = @[_lay];
 }
 -(void)drawRect:(NSRect)rect {
-    [[NSColor blueColor] set];
-    NSRectFill( [self bounds] );
+	[[NSColor blueColor] set];
+	NSRectFill( [self bounds] );
 }
 
 -(void)windowWillClose:(NSNotification *)note {
-    [[NSApplication sharedApplication] terminate:self];
+	[[NSApplication sharedApplication] terminate:self];
 }
 
 - (void) mouseDown:(NSEvent*)ev
@@ -155,7 +155,7 @@ int main(int argc, const char * argv[])
 		NSBag *b = [s ojectsInSubdictionariesForKey:@"language"];
 		AZLOG(b);
 	}
-    return 0;
+	return 0;
 }
 
 /**
