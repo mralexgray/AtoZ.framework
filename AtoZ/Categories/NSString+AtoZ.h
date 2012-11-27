@@ -7,6 +7,8 @@
 
 @interface NSString (AtoZ)
 
+- (NSString*)stripHtml;
+
 + (NSS*) clipboard ;
 - (void) copyToClipboard ;
 

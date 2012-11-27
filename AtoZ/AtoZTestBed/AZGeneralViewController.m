@@ -16,11 +16,7 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-	self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-	if (self) {
-		// Initialization code here.
-	}
-
+	if (!( self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) return nil;
 	return self;
 }
 
@@ -30,22 +26,27 @@
 //	[_segments fitTextNice];
 	[self.segments 	 setAction:@selector(poopOnSegment:) withTarget:self];
 //	[self.targetView swapSubs:self.debugLayers];
-	[self.view.layer setStyle:@{@"sublayers":[CATransition randomTransition]}];
+//	[self.view.layer setStyle:@{@"sublayers":[CATransition randomTransition]}];
 //	[self.targetView
 //	[ setAnimations:@{@"subviews":[CATransition randomTransition]}];
-	[self addObserverForKeyPath:@"targetView" task:^(id obj, NSDictionary *change) {
-		AZLOG(@"subviews changed");
-	}];
+//	[self addObserverForKeyPath:@"targetView" task:^(id obj, NSDictionary *change) {
+//		AZLOG(@"subviews changed");
+//	}];
 }
 
-- (void) poopOnSegment:(id)sender	{	NSS* label = [sender segmentLabel];  NSV *newView
-
-	=	areSame(label, @"prism" ) 	  ? 	[[AZPrismView alloc]initWithFrame:_targetView.frame]
+- (void) poopOnSegment:(id)sender
+{
+	NSS* label		= [sender segmentLabel];  NSLog(@"looking for label cinderlla view: %@", label);
+	NSV *newView	=	areSame(label, @"prism" ) 	  ? 	[[AZPrismView alloc]initWithFrame:_targetView.frame]
 	:	areSame(label, @"azGrid") 	  ? 	[[AZGrid alloc]initWithCapacity:23]
 	: 	[self respondsToString:label] ?		self[[sender segmentLabel]]
 	:	nil;				 !newView ?: ^{
 
-		[[_targetView animator] replaceSubview:_targetView.firstSubview with:newView];
+
+		[_targetView removeAllSubviews]; [_targetView addSubview:newView];
+		[newView setFrame:_targetView.bounds];
+//		replaceSubview:_targetView.firstSubview with:newView];
+//		[[_targetView animator] replaceSubview:_targetView.firstSubview with:newView];
 		[[SoundManager sharedManager] prepareToPlayWithSound:[Sound soundNamed:@"unlock"]];
 		[[SoundManager sharedInstance] playSound:[Sound soundNamed:@"unlock"]];
 	}();
@@ -113,27 +114,38 @@
 	return _picol = _picol ?: [[AtoZGridViewAuto alloc]initWithArray:p];
 }
 
--(NSImageView*)picolOld {
+-(NSSV*)contactSheet {
 
 
+//	if (_picol) {	NSR old = [[_picol associatedValueForKey:_picol.identifier]rectValue]; logRect(old); logRect(_targetView.frame);
+//		if (NSEqualRects(_targetView.frame, old)) return  _picol;
+//	}	else _picol = ^{
 
-	if (_picol) {	NSR old = [[_picol associatedValueForKey:_picol.identifier]rectValue]; logRect(old); logRect(_targetView.frame);
-		if (NSEqualRects(_targetView.frame, old)) return  _picol;
-	}
-	else _picol = ^{NSIV *iv  	= [self baseImageView];
-		AZSizer *s	= [AZSizer forQuantity:[NSIMG monoIcons].count inRect:_targetView.frame];
-		NSA* rects 	= s.rects.copy;
-		[iv.image lockFocus];
-		[[NSIMG monoIcons] eachWithIndex:^(id obj, NSInteger idx) {
-			[obj drawInRect:[[rects normal: idx]rectValue] fraction:1];
-			// badgeForRect:AZMakeRectFromSize(s.size) withColor:RANDOMCOLOR  stroked:nil withString:$(@"%ld", idx)]drawInRect:[obj rectValue]];
-		}];
-		[iv.image unlockFocus];
-		iv.identifier = [NSS newUniqueIdentifier];
-		//			[iv associateValue:AZVrect(_targetView.frame) withKey:[iv.identifier UTF8String]];
-		return iv;
+	return _contactSheet = ^{
+
+
+		NSSV *sv 	= [[NSSV alloc]initWithFrame:_targetView.bounds];
+ 		sv.autoresizingMask = NSSIZEABLE;
+
+		NSIV *iv  	= [self baseImageView];
+		NSIMG* i	= [NSImage contactSheetWith:[NSIMG monoIcons] sized:AZSizeFromDimension((_targetView.width/10)-10) spaced:AZSizeFromDimension(5) columns:10 withName: YES];
+		iv.iamge 	= i;
+		iv.frame 	= AZRectFromSize(i.size);
+		sv.documentView = iv;
+		return sv;
 	}();
-	return _picol;
+//
+//		AZSizer *s	= [AZSizer forQuantity:[NSIMG monoIcons].count inRect:_targetView.frame];
+//		NSA* rects 	= s.rects.copy;
+//		[iv.image lockFocus];
+//		[[NSIMG monoIcons] eachWithIndex:^(id obj, NSInteger idx) {
+//			[obj drawInRect:[[rects normal: idx]rectValue] fraction:1];
+//			// badgeForRect:AZMakeRectFromSize(s.size) withColor:RANDOMCOLOR  stroked:nil withString:$(@"%ld", idx)]drawInRect:[obj rectValue]];
+//		}];
+//		[iv.image unlockFocus];
+//		iv.identifier = [NSS newUniqueIdentifier];
+		//			[iv associateValue:AZVrect(_targetView.frame) withKey:[iv.identifier UTF8String]];
+//		return iv;
 }
 
 
@@ -150,7 +162,7 @@
 		view.arMASK = NSSIZEABLE;
 		NSRect topBox = AZUpperEdge(view.frame, 100);
 		NSRect botBox = AZRectTrimmedOnTop(view.frame, 100);
-		AZPalette  *palette = [AZPalette new];
+//		AZPalette  *palette = [AZPalette new];
 
 		[view associate:[NSC linenTintedWithColor:[palette nextColor]] with:@"blockC"];
 		NSRectFillWithColor( botBox, [view associatedValueForKey:@"blockC"] );

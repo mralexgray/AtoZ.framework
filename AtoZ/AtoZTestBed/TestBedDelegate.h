@@ -24,7 +24,7 @@
 @end
 
 
-@interface TestBedDelegate : NSObject <NSApplicationDelegate, NSWindowDelegate, AZSemiResponder>
+@interface TestBedDelegate : NSObject <NSApplicationDelegate, NSWindowDelegate>//, AZSemiResponder>
 
 @property (weak) IBOutlet AtoZColorWell 			*colorWell;
 
@@ -37,13 +37,13 @@
 
 @property (ASS) IBOutlet NSW 					*window;
 @property (ASS) IBOutlet NSV						*mainView;
-@property (weak) 		 id  					activeView;
-@property (NATOM, STRNG) NSMD					*vcs;
+//@property (weak) 		 id  					activeView;
+@property (NATOM, STRNG) WeakMutableArray		*vcs;
 
 
 @property (STRNG, NATOM) AtoZ 					*propeller;
-@property (STRNG, NATOM) NASpinSeque 			*seque;
-@property (STRNG, NATOM) AZSemiResponderWindow	*semiWindow;
+//@property (STRNG, NATOM) NASpinSeque 			*seque;
+//@property (STRNG, NATOM) AZSemiResponderWindow	*semiWindow;
 
 @property (STRNG, NATOM) NSS	 *semiLog;
 

@@ -239,7 +239,7 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define NSOQ NSOperationQueue
 #define NSP NSPoint
 #define NSPInRect NSPointInRect
-
+#define NSPI NSProgressIndicator
 #define NSPUBUTT NSPopUpButton
 #define NSR NSRect
 #define NSRNG NSRange
@@ -249,13 +249,19 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define NSSI NSStatusItem
 #define NSSZ NSSize
 #define NST NSTimer
+#define NSSV NSScrollView
+
 #define NSTA NSTrackingArea
 #define NSTI NSTimeInterval
 #define NSTXTF NSTextField
 #define NSTXTV NSTextView
 #define NSUI NSUInteger
+#define NSURLREQ NSURLRequest
+#define NSURLRES NSURLResponse
 #define NSV NSView
 #define NSVAL NSValue
+#define NSVT NSValueTransformer
+
 #define NSTABV NSTabView
 #define NSTBAR NSToolbar
 #define NSW NSWindow

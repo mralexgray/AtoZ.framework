@@ -16,6 +16,13 @@ typedef void (^updateKVCKeyBlock)();
 - (void)setValueForKey:(NSString*)key andNotifyInBlock:(updateKVCKeyBlock)block;
 @end
 
+////must Initialize the value transformers used throughout the application bindings
+//+ (void)initialize{ [NSVT setValueTransformer:[BoolToImageTransformer new] forName:@"BoolToImageTransformer"];	}
+@interface BoolToImageTransformer : NSValueTransformer
+@end
+
+
+
 //#import "AtoZ.h"
 //PUT IN PRECOMP #define NSLog(args...) _AZSimpleLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args);
 
@@ -50,6 +57,8 @@ BOOL powerBox();
 char *GetPrivateIP(void);
 NSString *WANIP(void);
 
+
+NSString *googleSearchFor(NSString* string);
 
 OSStatus HotKeyHandler(EventHandlerCallRef nextHandler, EventRef theEvent, void *userData);
 

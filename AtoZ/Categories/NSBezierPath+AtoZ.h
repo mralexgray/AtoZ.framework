@@ -57,6 +57,9 @@
 - (void)fillWithInnerShadow:(NSShadow *)shadow;
 - (void)drawBlurWithColor:(NSColor *)color radius:(CGFloat)radius;
 
+
+- (void)fillWithColor:(NSC*)color;
+
 - (void)strokeInside;
 - (void)strokeInsideWithinRect:(NSRect)clipRect;
 

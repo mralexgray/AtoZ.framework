@@ -23,7 +23,7 @@
 
 @interface NSArray (AtoZ)
 
-
+- (id) nextObject;
 
 - (NSA*) alphabetize;
 

@@ -29,7 +29,7 @@
 - (id)associatedValueForKey:(NSString *)key;
 - (void)removeAssociatedValueForKey:(NSString *)key;
 - (void)removeAllAssociatedValues;
-
+- (BOOL)hasAssociatedValueForKey:(NSS*)string;
 @end
 //- (void)registerObservation{	[observee addObserverForKeyPath:@"someValue" task:^(id obj, NSDictionary *change) {
 //								   NSLog(@"someValue changed: %@", change);  }]; }
@@ -303,20 +303,3 @@ free(p);
 @end
 
 
-//  AutoCoding.h
-//  Version 1.2.1
-
-@interface NSObject (AutoCoding) <NSCoding, NSCopying>
-
-//coding
-
-- (NSArray *)codableKeys;
-- (NSArray *)uncodableKeys;
-- (void)setWithCoder:(NSCoder *)aDecoder;
-
-//loading / saving
-
-+ (instancetype)objectWithContentsOfFile:(NSString *)path;
-- (BOOL)writeToFile:(NSString *)filePath atomically:(BOOL)useAuxiliaryFile;
-
-@end

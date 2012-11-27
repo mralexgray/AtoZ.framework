@@ -15,32 +15,39 @@
 @end
 
 @implementation TestBedDelegate
-@synthesize holdOntoViews, activeView, semiLog;
-@synthesize window, genVC, geoVC, uiVC, fileGrid, vcs, mainView, semiWindow, colorWell;
+@synthesize holdOntoViews;//, activeView, semiLog, semiWindow;
+@synthesize window, genVC, geoVC, uiVC, fileGrid, vcs, mainView, colorWell;
 
 - (void) awakeFromNib
 {
-	[AtoZ sharedInstance];		window.delegate = self;
+//	[AtoZ sharedInstance];
+	window.delegate = self;
 
 	[((BGHUDView*)window.contentView).theme bind:@"baseColor" toObject:colorWell withKeyPath:@"color" options:nil];
 
+	vcs 		= [WeakMutableArray new];
+
 	genVC 		= [[AZGeneralViewController  alloc] initWithNibName: @"AZGeneralViewController"  bundle:nil];
+	[vcs addObject:genVC.view];
 	geoVC 		= [[AZGeometryViewController alloc] initWithNibName: @"AZGeometryViewController" bundle:nil];
-	uiVC  		= [[AZUIViewController	   alloc] initWithNibName: @"AZUIViewController"	   bundle:nil];
+	[vcs addObject:geoVC.view];
+	uiVC  		= [[AZUIViewController	     alloc] initWithNibName: @"AZUIViewController"	     bundle:nil];
+	[vcs addObject:uiVC.view];
 	fileGrid 	= [[AZFileGridView 			 alloc]   initWithFrame: mainView.bounds];
+	[vcs addObject:fileGrid];
 
-	vcs 		= @{  @"General" : genVC.view, @"Geometry": geoVC.view, @"fileGridView" : fileGrid, @"UI" : uiVC.view }.mutableCopy;
+//	 @{  @"General" : genVC.view, @"Geometry": geoVC.view, @"fileGridView" : fileGrid, @"UI" : uiVC.view }.mutableCopy;
 
-	[vcs.allValues each:^( NSV* view) {
-		view.frame  = [mainView bounds];		view.arMASK = NSSIZEABLE;
-		view.hidden = YES;						[mainView addSubview:view];
-	}];
-		
-	[fileGrid setHidden:NO];
+//	for ( NSV* view in vcs) {
+//		view.frame  = [mainView bounds];		view.arMASK = NSSIZEABLE;
+//		view.hidden = YES;						[mainView addSubview:view];
+//	}
 
-	holdOntoViews.actionBlock = ^(id inSender){		semiWindow = [AZSemiResponderWindow new];
-		semiWindow.semiResponder = self;			[semiWindow   makeKeyAndOrderFront:self];
-	};
+//	[fileGrid setHidden:NO];
+
+//	holdOntoViews.actionBlock = ^(id inSender){		semiWindow = [AZSemiResponderWindow new];
+//		semiWindow.semiResponder = self;			[semiWindow   makeKeyAndOrderFront:self];
+//	};
 
 //	self.genVC = [[AZGeneralViewController alloc]initWithNibName:@"AZGeneralViewController" bundle:nil];
 //	[_mainView addSubview: _genVC.view];
@@ -51,8 +58,13 @@
 
 - (IBAction)setViewFromPopUp:(id)sender
 {
+	NSView* view = areSame([sender titleOfSelectedItem], @"General") ? genVC.view : nil;
 
-	[[mainView animator]swapSubs:vcs[[sender titleOfSelectedItem]]];
+	view.frame  = mainView.bounds;		view.arMASK = NSSIZEABLE;
+//	view.hidden = YES;
+	[mainView removeAllSubviews];
+	[mainView addSubview:view];
+//	[[mainView animator]swapSubs:newView];
 //	[[activeView animator] setHidden:YES];
 //	activeView = vcs[[sender titleOfSelectedItem]];
 //	[mainView addSubview:activeView positioned:NSWindowAbove relativeTo:mainView];

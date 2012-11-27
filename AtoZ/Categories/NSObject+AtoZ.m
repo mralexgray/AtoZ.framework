@@ -1,6 +1,8 @@
 
 #import "AtoZ.h"
 #import "NSObject+AtoZ.h"
+#import "AutoCoding.h"
+
 //#import "Nu.h"
 
 @implementation NSObject (AMAssociatedObjects)
@@ -24,6 +26,8 @@
 - (void)removeAssociatedValueForKey: (NSS*) key { 	objc_setAssociatedObject(self, (__bridge const void *)(key), nil, OBJC_ASSOCIATION_ASSIGN); }
 
 - (void)removeAllAssociatedValues { 	objc_removeAssociatedObjects(self); }
+
+- (BOOL)hasAssociatedValueForKey:(NSS*)string {  return [self associatedValueForKey:string] != nil; }
 
 @end
 
@@ -1033,127 +1037,4 @@ static const char * getPropertyType(objc_property_t property) {
 
 @end
 
-@implementation NSObject (AutoCoding)
 
-+ (instancetype)objectWithContentsOfFile: (NSS*)filePath
-{
-    NSData *data = [NSData dataWithContentsOfFile:filePath];    //load the file
-    id object = nil;     //attempt to deserialise data as a plist
-    if (data)	{
-        NSPropertyListFormat format;
-        object = [NSPropertyListSerialization respondsToSelector:@selector(propertyListWithData:options:format:error:)]
-			   ? [NSPropertyListSerialization propertyListWithData:data options:NSPropertyListImmutable format:&format error:NULL]
-			   : [NSPropertyListSerialization propertyListFromData:data mutabilityOption:NSPropertyListImmutable format:&format errorDescription:NULL];
-
-		object = object ? [object respondsToSelector:@selector(objectForKey:)] && [object objectForKey:@"$archiver"] 		//success?
-					    ? [NSKeyedUnarchiver unarchiveObjectWithData:data] //check if object is an NSCoded unarchive
-						: object
-			   : data; 																										//return raw data
-    }
-	return object;	//return object
-}
-
-- (BOOL)writeToFile: (NSS*)filePath atomically: (BOOL)useAuxiliaryFile
-{
-    //	note: NSData, NSDictionary and NSArray already implement this method and do not save using NSCoding,
-	//	however the objectWithContentsOfFile method will correctly recover these objects anyway
-    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self]; //archive object
-    return [data writeToFile:filePath atomically:useAuxiliaryFile];
-}
-
-- (NSA*)codableKeys
-{
-    @synchronized([NSObject class])
-    {
-        static NSMutableDictionary *keysByClass = nil;
-        keysByClass = keysByClass ?: [[NSMutableDictionary alloc] init];
-        Class class = [self class];
-        NSS *className = NSStringFromClass(class);
-        NSMA *codableKeys = [keysByClass objectForKey:className];
-        if (codableKeys == nil)
-        {
-            codableKeys 	= [NSMA array];
-            while (class   != [NSObject class])
-            {
-                unsigned int propertyCount;
-                objc_property_t *properties = class_copyPropertyList(class, &propertyCount);
-                for (int i = 0; i < propertyCount; i++)
-                {
-                    //get property
-                    objc_property_t property = properties[i];
-                    const char *propertyName = property_getName(property);
-                    NSS *key = [NSS stringWithCString:propertyName encoding:NSUTF8StringEncoding];
-
-                    //check if read-only
-                    BOOL readonly = NO;
-                    const char *attributes = property_getAttributes(property);
-                    NSS *encoding = [NSS stringWithCString:attributes encoding:NSUTF8StringEncoding];
-                    if ([[encoding componentsSeparatedByString:@","] containsObject:@"R"])
-                    {
-                        readonly = YES;
-                        //see if there is a backing ivar with a KVC-compliant name
-                        NSRange iVarRange = [encoding rangeOfString:@",V"];
-                        if (iVarRange.location != NSNotFound)
-                        {
-                            NSS *iVarName = [encoding substringFromIndex:iVarRange.location + 2];
-                            if ([iVarName isEqualToString:key] || [iVarName isEqualToString:[@"_" stringByAppendingString:key]])
-                                //setValue:forKey: will still work
-                                readonly = NO;
-                        }
-                    }
-                    if (!readonly)   [codableKeys addObject:key];                        //exclude read-only properties
-                }
-                free(properties);
-                class = [class superclass];
-            }
-            [keysByClass setObject:codableKeys forKey:className];
-        }
-
-        NSA* uncodableKeys = [self uncodableKeys];
-        return [codableKeys filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
-            return ![uncodableKeys containsObject:evaluatedObject];
-        }]];
-    }
-}
-
-- (NSA*)uncodableKeys
-{
-    return nil;
-}
-
-- (void)setWithCoder: (NSCoder *)aDecoder
-{
-    @synchronized(self)
-    {
-		[[self codableKeys] do:^(NSS *key) {
-			id object = [aDecoder decodeObjectForKey:key];
-            if (object) [self setValue:object forKey:key];
-        }];
-    }
-}
-
-- (instancetype)initWithCoder: (NSCoder *)aDecoder
-{
-    [self setWithCoder:aDecoder];
-    return self;
-}
-
-- (void)encodeWithCoder: (NSCoder *)aCoder
-{
-	[[self codableKeys] do:^(NSS *key) {
-        id object = [self valueForKey:key];
-        [aCoder encodeObject:object forKey:key];
-    }];
-}
-
-- (instancetype)copyWithZone: (NSZone *)zone
-{
-    __block NSObject *copy = [[[self class] allocWithZone:zone] init];
-    [[self codableKeys] do:^(NSS *key){
-		id object = [self 			 valueForKey:key];
-        if (object) [copy setValue:object forKey:key];
-    }];
-    return copy;
-}
-
-@end

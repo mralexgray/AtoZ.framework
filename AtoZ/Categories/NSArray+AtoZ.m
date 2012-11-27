@@ -46,6 +46,14 @@
 @implementation NSArray (AtoZ)
 
 
+- (id) nextObject;
+{
+	static NSS* intIDX = nil;  intIDX = intIDX ?: @"internalIndexNextObject";
+	NSUI intIndex =	[self hasAssociatedValueForKey:intIDX] == YES ? [[self associatedValueForKey:intIDX]unsignedIntegerValue] : 0;
+	[self setAssociatedValue:@(intIndex+1) forKey:intIDX policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
+	return [self normal:intIndex];
+}
+
 - (NSS*) formatAsListWithPadding:(NSUI)characters;
 {
 	return /*$(@"\n%@",*/ [[[self alphabetize] map:^id(id obj) {

@@ -42,6 +42,8 @@
 //  ARC Helper ends
 
 
+#import "AutoCoding.h"
+#import "HRCoder.h"
 #import "BaseModel.h"
 #import <objc/message.h>
 #import <objc/runtime.h>

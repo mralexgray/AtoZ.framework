@@ -29,6 +29,14 @@
 }
 @end
 
+@implementation BoolToImageTransformer
+
++ (Class) transformedValueClass 	 { 	return [NSImage class]; 	}
++ (BOOL) allowsReverseTransformation { 	return YES; 					}
+- (id) transformedValue: (id)value 	 {	return [value boolValue] ? [NSImage imageNamed:NSImageNameStatusAvailable] : ![value boolValue] ? [NSImage imageNamed:NSImageNameStatusUnavailable] : nil; }
+
+@end
+
 
 
 //static inline BOOL isEmpty(id thing);
@@ -93,6 +101,34 @@ BOOL powerBox(){
 	NSLog(@"Accessed ok: %d %@", ok, [bookmarkedURL relativePath]);
 	return ok;
 }
+NSString *googleSearchFor(NSString* string){
+	static NSS* wan = nil;
+	if (!wan) wan = WANIP();
+	// query holds the search term
+	NSS* theQuery = [string stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+	NSS *Q = $(@"%@%@", $(@"https://ajax.googleapis.com/ajax/services/search/web?v=1.0&rsz=1&userip=%@&q=",wan), theQuery);
+//	LOG_EXPR(Q);
+	NSURL *url = [NSURL URLWithString:Q];
+	// Create a request object using the URL.
+	NSURLREQ *request = [NSURLREQ requestWithURL:url];
+	// Prepare for the response back from the server
+	NSHTTPURLResponse *response = nil;		NSError *error = nil;
+	[[NSThread mainThread]performBlock:^{
+
+	} waitUntilDone:YES];
+//	[NSURLConnection sendAsynchronousRequest:request queue: completionHandler]
+	NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+	NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONWritingPrettyPrinted error:&error];
+	if (error) NSLog(@"error: %@", error);
+	id valueD = [dictionary recursiveObjectForKey:@"content"];
+	if ( [valueD isKindOfClass:[NSString class]]) return [(NSS*)valueD stripHtml];
+	else return nil;//  valueD[@"content"];
+//	NSLog(@"result: %@", content);
+//	return content;
+}
+
+
+
 
 NSS* WANIP(void) {
 	return $(@"%s", GetPrivateIP());

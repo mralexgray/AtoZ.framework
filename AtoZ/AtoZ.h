@@ -28,6 +28,8 @@
 #define EXCLUDE_STUB_PROTOTYPES 1
 #import <PLWeakCompatibility/PLWeakCompatibilityStubs.h>
 //#import <RMKit/RMKit.h>
+#import "AutoCoding.h"
+#import "HRCoder.h"
 #import "BaseModel.h"
 
 #import <Rebel/Rebel.h>
@@ -85,7 +87,7 @@
 
 #import "SynthesizeSingleton.h"
 #import "iCarousel.h"
-//#import "azCarousel.h"
+//#impo   rt "azCarousel.h"
 
 #import "CTGradient.h"
 #import "AZApplePrivate.h"
@@ -177,8 +179,6 @@
 #import "AZSound.h"
 #import "Transition.h"
 #import "LetterView.h"
-//#import "NSObject+AutoMagicCoding.h"
-
 #import "CPAccelerationTimer.h"
 
 	//Controls

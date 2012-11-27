@@ -601,6 +601,13 @@ static void CGPathCallback(void *info, const CGPathElement *element)
 
 	[NSGraphicsContext restoreGraphicsState];
 }
+
+- (void)fillWithColor:(NSC*)color
+{
+	[color set];
+	[self fill];
+}
+
 - (void)fillWithInnerShadow:(NSShadow *)shadow
 {
 	[NSGraphicsContext state:^{	NSSize offset, originalOffset;

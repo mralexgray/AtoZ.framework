@@ -565,7 +565,8 @@ NSString * const AZSLDeleteKeyPressedOnRowsNotification = @"AZSourceListDeleteKe
 
 			NSSize iconSize = [self iconSize];
 			NSRect iconRect = NSMakeRect(NSMinX(cellFrame)-iconSize.width-ICON_SPACING,
-										 NSMidY(cellFrame)-(iconSize.width/2.0f),
+										 NSMidY(cellFrame)-(iconSize.height/2.0f),
+//										 NSMidY(cellFrame)-(iconSize.width/2.0f),
 										 iconSize.width,
 										 iconSize.height);
 			
