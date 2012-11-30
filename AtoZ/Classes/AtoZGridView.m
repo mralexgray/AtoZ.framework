@@ -13,15 +13,11 @@ NSString *const reuseIdentifier = @"AtoZGridViewItem";
 @interface CNSelectionFrameView : NSView
 @end
 
-#pragma mark AZGView
-const int CNSingleClick = 1;
-const int CNDoubleClick = 2;
-const int CNTrippleClick = 3;
+const int CNSingleClick	 	= 1;
+const int CNDoubleClick 	= 2;
+const int CNTrippleClick	= 3;
 
-struct CNItemPoint {
-	NSUI column;
-	NSUI row;
-};
+struct CNItemPoint {	NSUI column;	NSUI row;	};
 
 typedef struct CNItemPoint CNItemPoint;
 
@@ -33,34 +29,33 @@ CNItemPoint CNMakeItemPoint(NSUI aColumn, NSUI aRow) {
 }
 
 @interface AZGView ()
-@property (strong) NSMD *keyedVisibleItems;
-@property (strong) NSMD *reuseableItems;
-@property (strong) NSMD *selectedItems;
-@property (strong) NSMD *selectedItemsBySelectionFrame;
-@property (strong) NSTrackingArea *gridViewTrackingArea;
-@property (assign) BOOL isInitialCall;
-@property (assign) NSInteger lastHoveredIndex;
-@property (assign) NSInteger lastSelectedIndex;
-@property (assign) NSInteger numberOfItems;
-@property (strong) NSMutableArray *clickEvents;
-@property (strong) NSTimer *clickTimer;
+
+@property (strong) NSMD 	*keyedVisibleItems, *reuseableItems, *selectedItems, *selectedItemsBySelectionFrame;
+@property (strong) NSTA 	*gridViewTrackingArea;
+@property (strong) NSMA 	*clickEvents;
+@property (strong) NSTimer 	*clickTimer;
+
 @property (strong) CNSelectionFrameView *selectionFrameView;
-@property (assign) CGPoint selectionFrameInitialPoint;
-@property (assign) BOOL abortSelection;
-- (void) setupDefaults;
-- (void) updateVisibleRect;
-- (void) refreshGridViewAnimated:(BOOL)animated;
-- (void) updateReuseableItems;
-- (void) updateVisibleItems;
-- (NSIndexSet*) indexesForVisibleItems;
-- (void) arrangeGridViewItemsAnimated:(BOOL)animated;
-- (NSRange) currentRange;
-- (NSRect) rectForItemAtIndex:(NSUI)index;
-- (NSUI) columnsInGridView;
-- (NSUI) allOverRowsInGridView;
-- (NSUI) visibleRowsInGridView;
-- (NSRect) clippedRect;
-- (NSUI) indexForItemAtLocation:(NSPoint)location;
+
+@property (assign) CGP 	selectionFrameInitialPoint;
+@property (assign) BOOL isInitialCall, 		abortSelection;
+@property (assign) NSI 	lastHoveredIndex, 	lastSelectedIndex,	numberOfItems;
+
+- (void)  setupDefaults;
+- (void)  updateVisibleRect;
+- (void)  updateReuseableItems;
+- (void)  updateVisibleItems;
+- (NSIS*) indexesForVisibleItems;
+- (void)  refreshGridViewAnimated:		(BOOL)animated;
+- (void)  arrangeGridViewItemsAnimated:	(BOOL)animated;
+- (NSR)   rectForItemAtIndex:		(NSUI)index;
+- (NSUI)  indexForItemAtLocation:	(NSP)location;
+- (NSRNG) currentRange;
+- (NSUI)  columnsInGridView;
+- (NSUI)  allOverRowsInGridView;
+- (NSUI)  visibleRowsInGridView;
+- (NSR)   clippedRect;
+
 - (CNItemPoint) locationForItemAtIndex:(NSUI)itemIndex;
 - (void) selectItemAtIndex:(NSUI)selectedItemIndex usingModifierFlags:(NSUI)modifierFlags;
 - (void) handleClicks:(NSTimer*) theTimer;
@@ -86,22 +81,22 @@ CNItemPoint CNMakeItemPoint(NSUI aColumn, NSUI aRow) {
 #pragma mark - Initialization
 - (id)init
 {
-	if (!(self = [super init])) return nil;
+	if (self != super.init ) return nil;
 	[self setupDefaults];
-	_delegate = nil;
+	_delegate 	= nil;
 	_dataSource = nil;
 	return self;
 }
-
 
 - (id)initWithFrame:(NSRect)frame
 {
-	if (!(self = [super initWithFrame:frame])) return nil;
+    if (self != [super initWithFrame:frame]) return nil;
 	[self setupDefaults];
-	_delegate = nil;
+	_delegate 	= nil;
 	_dataSource = nil;
 	return self;
 }
+
 - (id)initWithCoder:(NSCoder*) aDecoder
 {
 	if (!(self = [super initWithCoder:aDecoder])) return nil;
@@ -123,16 +118,16 @@ CNItemPoint CNMakeItemPoint(NSUI aColumn, NSUI aRow) {
 
 	_visibleContentMask	 = (AtoZGridViewItemVisibleContentImage | AtoZGridViewItemVisibleContentTitle);
 	/// title text font attributes
-	NSShadow *textShadow	= [[NSShadow alloc] init];
-	[textShadow setShadowColor: [self itemTitleShadowColor]];
-	[textShadow setShadowBlurRadius:2];
-	[textShadow setShadowOffset: NSMakeSize(.5, -1)];
-	NSMutableParagraphStyle *textStyle = [[NSMutableParagraphStyle defaultParagraphStyle] mutableCopy];
-	[textStyle setAlignment: NSCenterTextAlignment];
-	_itemTitleTextAttributes = @{	NSFontAttributeName:				[NSFont fontWithName:@"Helvetica" size:12],
-									NSShadowAttributeName:			textShadow,
-									NSForegroundColorAttributeName:	[self itemTitleColor],
-									NSParagraphStyleAttributeName:	textStyle};
+	NSShadow *textShadow		= NSShadow.new;
+	textShadow.shadowColor		= self.itemTitleShadowColor;
+	textShadow.shadowBlurRadius	= 2;
+	textShadow.shadowOffset		= NSMakeSize(.5, -1);
+	NSMutableParagraphStyle *textStyle = NSMutableParagraphStyle.defaultParagraphStyle.mutableCopy;
+	textStyle.alignment	 		= NSCenterTextAlignment;
+	_itemTitleTextAttributes    = @{	NSFontAttributeName			  	: [AtoZ font:@"Ubuntu" size:16],
+										NSShadowAttributeName			: textShadow,
+										NSForegroundColorAttributeName	: self.itemTitleColor,
+										NSParagraphStyleAttributeName	: textStyle};
 
 	//	CATiledLayer *laya = [CATiledLayer layer];
 	//	laya.frame = self.window.frame;
@@ -144,16 +139,11 @@ CNItemPoint CNMakeItemPoint(NSUI aColumn, NSUI aRow) {
 	_keyedVisibleItems	= [NSMD new]; _reuseableItems = [NSMD new]; _selectedItems = [NSMD new]; _selectedItemsBySelectionFrame	= [NSMD new];
 	/// public properties
 	_gridViewTitle 		= nil;
-	_scrollElasticity 	= YES;
 	_itemSize 			= (NSSZ) {96,96};// [AZGVItem defaultItemSize];
-	_allowsSelection 	= YES;
 	_allowsMultipleSelection = NO;
-	_useSelectionRing 	= YES;
-	_useHover 			= YES;
-	_isInitialCall 		= YES;
-	_lastHoveredIndex 	= NSNotFound;
-	_lastSelectedIndex 	= NSNotFound;
-	_clickEvents 		= [NSMA array];
+	_useSelectionRing 	= _allowsSelection   = 	_scrollElasticity =  _useHover = _isInitialCall = YES;
+	_lastHoveredIndex 	= _lastSelectedIndex = NSNotFound;
+	_clickEvents 		= NSMA.new;
 	_clickTimer 		= nil;
 	_selectionFrameView = nil;
 	_selectionFrameInitialPoint = CGPointZero;
@@ -162,9 +152,9 @@ CNItemPoint CNMakeItemPoint(NSUI aColumn, NSUI aRow) {
 	//	[self updateSubviewsWithTransition:@"CIRippleTransition"];
 	//	self.enclosingScrollView.drawsBackground 	= YES;
 	//	self.enclosingScrollView.backgroundColor = [NSC redColor];
-	NSClipView *clipView 						= self.enclosingScrollView.contentView;
-	clipView.postsBoundsChangedNotifications	= YES;
-	[AZNOTCENTER addObserver:self selector:@selector(updateVisibleRect) name:NSViewBoundsDidChangeNotification object:clipView];
+//	NSClipView *clipView 						= self.enclosingScrollView.contentView;
+//	clipView.postsBoundsChangedNotifications	= YES;
+//	[AZNOTCENTER addObserver:self selector:@selector(updateVisibleRect) name:NSViewBoundsDidChangeNotification object:clipView];
 }
 
 //- (void) awakeFromNib
@@ -178,7 +168,7 @@ CNItemPoint CNMakeItemPoint(NSUI aColumn, NSUI aRow) {
 {
 	_itemSize = itemSize;
 	_selectionRingLineWidth =  _itemBorderRadius = .05 * _itemSize.width;//kDefaultSelectionRingLineWidth;
-	_contentInset		   = 						.1 * _itemSize.width;//kDefaultContentInset;   //kDefaultItemBorderRadius;
+	_contentInset		   	= 						.1 * _itemSize.width;//kDefaultContentInset;   //kDefaultItemBorderRadius;
 	[self refreshGridViewAnimated:YES];
 }
 - (void) setScrollElasticity:(BOOL)scrollElasticity
@@ -189,77 +179,71 @@ CNItemPoint CNMakeItemPoint(NSUI aColumn, NSUI aRow) {
 	_scrollElasticity = scrollElasticity;
 }
 
-- (void) drawRect:(NSRect)dirtyRect { 	NSRectFillWithColor(self.bounds, self.backgroundColor);  }
+- (void) drawRect:(NSR)dirtyRect { 	NSRectFillWithColor(self.bounds, self.backgroundColor);  }
 
 - (void) setAllowsMultipleSelection:(BOOL)allowsMultipleSelection
 {
 	_allowsMultipleSelection = allowsMultipleSelection;
+
 	if (self.selectedItems.count > 1 && !allowsMultipleSelection) {
-		NSArray *indexes = [self.selectedItems allKeys];
-		[indexes enumerateObjectsUsingBlock:^(id obj, NSUI idx, BOOL *stop) {
-			AZGVItem *item = (self.selectedItems)[(NSNumber*) obj];
+		[self.selectedItems.allKeys each:^(id obj) {
+			AZGVItem *item 	= self.selectedItems[obj];
 			item.isSelected = NO;
-			[self.selectedItems removeObjectForKey:(NSNumber*) obj];
+			[self.selectedItems removeObjectForKey:obj];
 		}];
 		[self updateVisibleRect];
 	}
 }
 
-
-
 #pragma mark - Private Helper
 - (void) updateVisibleRect
 {
-	[self updateReuseableItems];
-	[self updateVisibleItems];
-	[self arrangeGridViewItemsAnimated:NO];
+	[self updateReuseableItems]; 	[self updateVisibleItems];		[self arrangeGridViewItemsAnimated:NO];
 }
+
 - (void) refreshGridViewAnimated:(BOOL)animated
 {
 //	NSR scrollRect = [self frame]; scrollRect.size.width = scrollRect.size.width; scrollRect.size.height = [self allOverRowsInGridView] * self.itemSize.height;
-	NSR nfrme = AZRectExceptHigh([self frame], ( [self allOverRowsInGridView] * self.itemSize.height) );
-	[super setFrame:nfrme];
-	[self updateReuseableItems];
-	[self updateVisibleItems];
-	[self arrangeGridViewItemsAnimated:animated];
+	super.frame = AZRectExceptHigh(self.frame, self.allOverRowsInGridView * self.itemSize.height );
+	[self updateReuseableItems];	[self updateVisibleItems];	[self arrangeGridViewItemsAnimated:animated];
 }
+
 - (void) updateReuseableItems
 {
-	NSRange currentRange = [self currentRange];
-	[[self.keyedVisibleItems allValues] enumerateObjectsUsingBlock:^(id obj, NSUI idx, BOOL *stop) {
-		AZGVItem *item = (AZGVItem*) obj;
-		if (!NSLocationInRange(item.index, currentRange) && item.isReuseable) {
+	NSRange currentRange = self.currentRange;
+	[self.keyedVisibleItems.allValues eachWithIndex:^(AZGVItem *item, NSInteger idx) {
+		if (!NSLocationInRange ( item.index, currentRange ) && item.isReuseable) {
 			[self.keyedVisibleItems removeObjectForKey:@(item.index)];
-			[item removeFromSuperview];
-			[item prepareForReuse];
-			NSMutableSet *reuseQueue = (self.reuseableItems)[item.reuseIdentifier] ?: [NSMutableSet set];
+			[item removeFromSuperview];	  	   [item prepareForReuse];
+			NSMSet *reuseQueue = self.reuseableItems[item.reuseIdentifier] ?: NSMutableSet.set;
 			[reuseQueue addObject:item];
-			(self.reuseableItems)[item.reuseIdentifier] = reuseQueue;
+			self.reuseableItems[item.reuseIdentifier] = reuseQueue;
 		}
 	}];
 }
 - (void) updateVisibleItems
 {
-	NSMIS *visibleItemIndexes = [NSMIS indexSetWithIndexesInRange:[self currentRange]]; //  NSRange currentRange =
-	[visibleItemIndexes removeIndexes:[self indexesForVisibleItems]];
+	NSMIS *visibleItemIndexes = [NSMIS indexSetWithIndexesInRange:self.currentRange]; //  NSRange currentRange =
+	[visibleItemIndexes removeIndexes:self.indexesForVisibleItems];
 	/// update all visible items
 	[visibleItemIndexes enumerateIndexesUsingBlock:^(NSUI idx, BOOL *stop) {
 		AZGVItem *item = [self gridView:self itemAtIndex:idx inSection:0];
-		if (item) { item.index = idx;
+		if (item) {
+			item.index = idx;
 			if (self.isInitialCall) {
-				[item setAlphaValue:0.0];
-				[item setFrame:[self rectForItemAtIndex:idx]];
+				item.alphaValue	= 0;
+				item.frame		= [self rectForItemAtIndex:idx];
 			}
-			(self.keyedVisibleItems)[@(item.index)] = item;
-			[[self animator ]addSubview:item];
+			self.keyedVisibleItems[@(item.index)] = item;
+			[self.animator addSubview:item];
 		}
 	}];
 }
 - (NSIndexSet*) indexesForVisibleItems
 {
-	__block NSMIS *indexesForVisibleItems = [NSMIS new];
-	[self.keyedVisibleItems enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-		[indexesForVisibleItems addIndex:[(AZGVItem*) obj index]];
+	__block NSMIS *indexesForVisibleItems = NSMIS.new;
+	[self.keyedVisibleItems enumerateKeysAndObjectsUsingBlock:^(id key, AZGVItem* obj, BOOL *stop) {
+		[indexesForVisibleItems addIndex:obj.index];
 	}];
 	return indexesForVisibleItems;
 }
@@ -267,7 +251,7 @@ CNItemPoint CNMakeItemPoint(NSUI aColumn, NSUI aRow) {
 
 - (void)updateSubviewsWithTransition:(NSString *)transition
 {
-	NSRect		rect = [self bounds];
+	NSRect		rect = self.bounds;
 	CIFilter	*transitionFilter = nil;
 	// Use Core Animation's four built-in CATransition types, or an appropriately instantiated and configured Core Image CIFilter.
 	transitionFilter = [CIFilter filterWithName:transition];  [transitionFilter setDefaults];
@@ -940,8 +924,7 @@ CNItemPoint CNMakeItemPoint(NSUI aColumn, NSUI aRow) {
 	//	_currentLayout = isSelected ? _selectionLayout : _standardLayout;
 	[self setNeedsDisplay:YES];
 }
-- (BOOL)isReuseable
-{
+- (BOOL)isReuseable{
 	return _isSelected ? NO : YES;
 }
 
@@ -952,97 +935,139 @@ CNItemPoint CNMakeItemPoint(NSUI aColumn, NSUI aRow) {
 @class AZSizer;
 @implementation  AtoZGridViewAuto
 
--(void) viewDidMoveToSuperview {
-	[@[self, _scrollView, _grid] do:^(id obj) {
-		[(NSV*)obj setFrame:self.superview.bounds];
-	}];
+- (NSUI) countOfItems {       return [self.items count];}
+- (id)   objectInItemsAtIndex: (NSUI)index { return self.items[index]; }
+- (void) insertObject:(id)obj inItemsAtIndex: (NSUI)index { self.items[index] = obj; }
+- (void) removeObjectFromItemsAtIndex: 		  (NSUI)index { [self.items removeObjectAtIndex:index]; }
+- (void) replaceObjectInItemsAtIndex:  		  (NSUI)index withObject:(id)obj { [self.items replaceObjectAtIndex:index withObject:obj]; }
+
+- (void) awakeFromNib {
+	if (!_items) self.items = NSMA.new;
+//	[self addObserver:self keyPath:@"items" options:(NSKeyValueChangeInsertion|NSKeyValueChangeReplacement) block:^(MAKVONotification *notification) {
+//		NSLog(@"autogrid kvo notified of item insertion.  reloading");
+//		[self.grid reloadData];
+//	}];
+
 }
-
--(id) initWithArray:(NSArray *)array  // inView:(NSView *)view
+- (void) viewDidMoveToSuperview
 {
-	if (!(self = [super initWithFrame:NSZeroRect])) return nil;
-	self.arMASK 		= NSSIZEABLE;
-	self.autoresizesSubviews = YES;
-	self.enclosingScrollView.arMASK = NSSIZEABLE;
-	self.enclosingScrollView.autoresizesSubviews = YES;
-
-	_array 				= [array map:^id(id obj) {
-		return @{ kContentImageKey: obj, kContentTitleKey: [obj valueForKey:@"name"] ?: @"N/A",
-		kContentColorKey: [(NSIMG*)obj quantize][0]};
-	}];
-//	_view 				= view;
-	_grid 				= [[AZGView alloc]initWithFrame:NSZeroRect];
-	_grid.delegate 		= self;
-	_grid.dataSource 	= self;
-	_scrollView 		= [[NSScrollView alloc] initWithFrame:NSZeroRect];
-
-	// configure the scroll view
-	[_scrollView setBorderType:NSNoBorder];
-	[_scrollView setHasVerticalScroller:YES];
-
-	// embed your custom view in the scroll view
-	[_scrollView setDocumentView:_grid];
-	[self addSubview:_scrollView];
-	// set the scroll view as the content view of your window
-//	[view addSubview:self];
-	_grid.scrollElasticity = NO;
-	[self setItemSize:(NSSize){65,65}];
-	__block AZGView *grid = _grid;
-	[NSEVENTLOCALMASK: NSLeftMouseUpMask | NSScrollWheelMask | NSEventMaskGesture | NSEventMaskMagnify handler:^NSEvent *(NSEvent *e) {
-
-		if ([e type] == NSEventTypeMagnify ) {
-
-			NSSize size = _itemSize;
-			size = AZMultiplySize(size, e.magnification);
-
-			self.itemSize = size;
-		}
-		if ( e.type == NSLeftMouseUp && [e clickCount] == 3 ) {
-//			grid.itemSize = [AZSizer forQuantity:_array.count inRect:self.bounds].size;
-//			NSSize s = _grid.itemSize;
-//			s.width += 10;
-//			s.height += 10;
-//			_grid.itemSize = s;
-//			[grid reloadData];
-//		AZSizer *sizer = [AZSizer forQuantity: _array.count aroundRect:_grid.enclosingScrollView.contentView.frame];
-//		AZLOG(sizer.propertiesPlease);
-//		_grid.itemSize = sizer.size;
-		}
-		if (e.type == NSScrollWheelMask && ABS(e.deltaX) > 10) {
-			AZLOG(e);
-			NSSize s = _grid.itemSize;
-			s.height = s.width = .5 * e.deltaX;
-		}
+	NSLog(@"Autogrid did move to superV. self:%@ items:%@", AZString(self.frame), self.items);
+	[@[self, self.scrollView, self.grid] do:^(id obj) { [obj setFrame:self.superview.bounds]; }];
+	[self.grid reloadData];
+	[NSEVENTLOCALMASK : NSScrollWheelMask handler:^NSEvent *(NSEvent *e) {
+		AZLOG(e);
+		NSSZ dSize = AZSizeFromDimension(e.deltaX);
+		self.grid.itemSize = e.deltaX > 0 ? AZAddSizes(self.grid.itemSize,dSize)
+										  : AZSubtractSizes(self.grid.itemSize, dSize);
 		return e;
 	}];
-	return self;
+//	if (_items.count != 0) [_grid reloadData];
 }
 
--(void) setItemSize:(NSSize)itemSize
-{
-	_itemSize = itemSize;
-	self.grid.itemSize = _itemSize;
-	[self.grid reloadData];
+- (NSSV*) scrollView {
+	return _scrollView = _scrollView ?: ^{
+		self.scrollView					= [NSSV.alloc initWithFrame:self.bounds];
+		_scrollView.bgC					= [NSC leatherTintedWithColor:RANDOMCOLOR];
+//		_scrollView.autoresizesSubviews = YES;
+		_scrollView.arMASK 				= NSSIZEABLE;
+		_scrollView.borderType 			= NSNoBorder;
+//		_scrollView.hasVerticalScroller	= YES;
+		_scrollView.documentView		= self.grid;
+		[self addSubview:_scrollView];
+		return _scrollView;
+	}();
 }
+
+- (void) setItems:(NSMA*)items
+{
+	_items = [items map:^id(NSO* obj) {
+		return @{ 	kContentImageKey: obj.imageValue ?: [NSIMG imageNamed:@"missing"],
+					kContentTitleKey: [obj respondsToString:@"name"] ? [obj valueForKey:@"name"] : @"N/A",
+					kContentColorKey: obj.colorValue  };
+				}].mutableCopy;
+}
+
+- (AZGV*)grid
+{
+	return _grid = _grid ?: ^{
+		self.grid 				= [AZGView.alloc initWithFrame:self.bounds];
+		_grid.arMASK    		= NSSIZEABLE;
+//		_grid.delegate 			= self;
+		_grid.dataSource 		= self;
+		_grid.scrollElasticity 	= NO;
+		_grid.allowsMultipleSelection = YES;
+		_grid.itemSize 			= (NSSize){65,65};
+		return _grid;
+	}();
+}
+-(id) initWithFrame:(NSR)frame andArray:(NSArray *)array  // inView:(NSView *)view
+{
+	if (!(self = [super initWithFrame:frame])) return nil;
+	self.autoresizesSubviews = YES;
+	self.arMASK 		= NSSIZEABLE;
+	self.items  		= array.mutableCopy;
+
+	return self;
+}
+//- (BOOL)acceptsFirstResponder {	return YES; }
+
+//- (void) scrollWheel:(NSEvent *)theEvent
+//{
+//		AZLOG(theEvent);
+//		self.grid.itemSize = AZAddSizes(self.grid.itemSize, AZSizeFromDimension(theEvent.deltaX));
+//		[[self nextResponder] scrollWheel:theEvent];
+//}
+
+//	[NSEVENTLOCALMASK: NSLeftMouseUpMask | NSScrollWheelMask | NSEventMaskGesture | NSEventMaskMagnify handler:^NSEvent *(NSEvent *e) {
+//
+//		if ([e type] == NSEventTypeMagnify ) {
+//
+//			NSSize size = _grid.itemSize;
+//			size = AZMultiplySize(size, e.magnification);
+//
+//			self.grid.itemSize = size;
+//		}
+//		if ( e.type == NSLeftMouseUp && [e clickCount] == 3 ) {
+//			//			grid.itemSize = [AZSizer forQuantity:_array.count inRect:self.bounds].size;
+//			//			NSSize s = _grid.itemSize;
+//			//			s.width += 10;
+//			//			s.height += 10;
+//			//			_grid.itemSize = s;
+//			//			[grid reloadData];
+//			//		AZSizer *sizer = [AZSizer forQuantity: _array.count aroundRect:_grid.enclosingScrollView.contentView.frame];
+//			//		AZLOG(sizer.propertiesPlease);
+//			//		_grid.itemSize = sizer.size;
+//		}
+//		}
+//		return e;
+//	}];
+
+//-(void) setItemSize:(NSSize)itemSize
+//{
+//	_itemSize = itemSize;
+//	self.grid.itemSize = _itemSize;
+//	[self.grid reloadData];
+//}
 
 - (NSUI)gridView:(AZGView*) gridView numberOfItemsInSection:(NSInteger)section
 {
-	NSLog(@"gris view items reported as %ld", self.array.count);
-	return self.array.count;
+	NSLog(@"gris view items reported as %ld", self.items.count);
+	return self.items.count;
 }
-- (AZGVItem*) gridView:(AZGView*) gridView itemAtIndex:(NSInteger)index inSection:(NSInteger)section
+- (AZGVItem*) gridView:(AZGView*) gridView itemAtIndex:(NSI)index inSection:(NSI)section
 {
+	if (self.items.count == 0) return nil;
+	AZGVItem *item  = 	[gridView dequeueReusableItemWithIdentifier:reuseIdentifier] ?:
+//	if (item) { NSLog(@"did dequeue index: %lu item: %@", index, item);
 
-	AZGVItem *item = 	[gridView dequeueReusableItemWithIdentifier:reuseIdentifier];
-	if (item) { NSLog(@"did dequeue index: %lu item: %@", index, item);
-	} else {
-		item =	[[AZGVItem alloc] initInGrid:_grid reuseIdentifier:reuseIdentifier];
-		NSLog(@"did create item for index: %lu", index);
-	}
-	NSDictionary *contentDict = self.array[index];
-	item.itemTitle = contentDict[kContentTitleKey];
-	item.itemImage = contentDict[kContentImageKey];
-	item.itemColor = contentDict[kContentColorKey];
+		[AZGVItem.alloc initInGrid:_grid reuseIdentifier:reuseIdentifier];
+//		NSLog(@"did create item for index: %lu", index);
+//	}
+	NSDictionary *contentDict = self.items[index];
+	item.itemTitle = contentDict[kContentTitleKey] ELSENULL;
+	item.itemImage = contentDict[kContentImageKey] ELSENULL;
+	item.itemColor = contentDict[kContentColorKey] ELSENULL;
+	NSLog(@"Returning cell for index: %ld, cell:%@", index, item.propertiesPlease);
 	return item;
 }
 

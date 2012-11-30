@@ -1,32 +1,17 @@
 //
 //  PCProgressCirlceView.m
 //  ProgressBar
-//
 //  Created by Patrick Chamelo on 8/26/12.
-//  Copyright (c) 2012 Patrick Chamelo. All rights reserved.
-//
 
-
-
-
-
-#import "AZPropellerView.h"
-#import <QuartzCore/QuartzCore.h>
 #import "Atoz.h"
+#import "AZPropellerView.h"
 
 @interface AZPropellerView()
-
 @property (NATOM, ASS) NSIMG* badge;
-
 - (CAAnimation*)rotateAnimation;
-
 @end
 
 @implementation AZPropellerView
-
-
-@synthesize progressImage = _progressImage;
-@synthesize badgeView = _badgeView;
 
 - (NSIMG*) badge {
 
@@ -40,12 +25,10 @@
 }
 - (id)initWithFrame:(NSRect)frame andColor:(NSColor*)color
 {
-   if ((self = [super initWithFrame:frame]))
-	{
-		self.color = color;
-
-		// create the NSImage view
-		self.badgeView = [[NSImageView alloc] initWithFrame:frame];//NSMakeRect(0, 0,
+    if (self != [super initWithFrame:frame]) return nil;
+	self.color = color;
+	// create the NSImage view
+	self.badgeView = [[NSImageView alloc] initWithFrame:frame];//NSMakeRect(0, 0,
 																	//   badge.size.width,
 																	  // badge.size.height)];
 		
@@ -83,8 +66,7 @@
 
 		// spin
 		[self spin];
-	}
-	
+
 	return self;
 }
 

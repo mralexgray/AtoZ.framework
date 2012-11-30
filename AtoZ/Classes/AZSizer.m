@@ -115,7 +115,7 @@ NSUI gcd (NSI m, NSUI n) { NSI t, r;
 	smallR 			= 0;
 	[[NSA from:2 to:ceil(sqrt(x))+ 4] eachWithIndex:^(id obj, NSInteger idx) {
 		int _rowCand 	= [obj intValue];
-		int xx 			= gcd( x, _rowCand );
+//		int xx 			= gcd( x, _rowCand );
 		float items 	= (float) x / _rowCand;
 		rem 			= ( _rowCand + ( x % _rowCand ) ) % _rowCand;
 		int itemsnow 	= floor(items);

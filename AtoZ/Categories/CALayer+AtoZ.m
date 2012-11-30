@@ -225,7 +225,7 @@ CATextLayer* AddTextLayer( CALayer *superlayer,
 
 //	CGFloat inset 	= superlayer.borderWidth + 3;
 	CGRect  bounds 	= nanRectCheck(superlayer.bounds);// CGRectInset(superlayer.bounds, inset, inset));
-	CGFloat height 	= font.ascender;
+//	CGFloat height 	= font.ascender;
 //	CGFloat y 		= bounds.origin.y;
 //	if		( align & kCALayerHeightSizable )	y += (bounds.size.height-height)/2.0;
 //	else if	( align & kCALayerMinYMargin 	)	y += bounds.size.height - height;
@@ -1350,7 +1350,8 @@ static char TEXT_IDENTIFIER;
 	int pixelsHigh = (int)[[view layer] bounds].size.height;
 	int pixelsWide = (int)[[view layer] bounds].size.width;
 
-	bitmapBytesPerRow   = (pixelsWide * 4);			bitmapByteCount	 = (bitmapBytesPerRow * pixelsHigh);
+	bitmapBytesPerRow   = (pixelsWide * 4);
+//	bitmapByteCount	 = (bitmapBytesPerRow * pixelsHigh);
 
 	colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
 

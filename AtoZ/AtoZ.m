@@ -85,24 +85,24 @@ static NSA* cachedI = nil;
 	[AZStopwatch named:@"Welcome to AtoZ.framework." block:^{
 //		[AZFWORKBUNDLE cacheNamedImages];
 //		_cachedImages = cachedI;
-		self.fonts = [AtoZ fonts];
+		fonts = self.fonts;
 		Sound *rando = [Sound randomSound];
 		[[SoundManager sharedManager] prepareToPlayWithSound:rando];
 		[[SoundManager sharedManager] playSound:rando];
-		[self registerHotKeys];
+//		[self registerHotKeys];
 	}];
 }
 
 + (NSFont*) font:(NSS*)family size:(CGF)size
 {
-	if (![AtoZ hasSharedInstance]) [AtoZ sharedInstance];
-	NSS * font = [[AtoZ fonts] filterOne:^BOOL(id object) {	return [(NSS*) object contains:family];	}];
+
+	NSS * font = [AtoZ.sharedInstance.fonts filterOne:^BOOL(NSS* object) {	return [object.lowercaseString contains:family.lowercaseString]; }];
 	return font ? [NSFont fontWithName:font size:size] : nil;
 }
-+ (NSS*) randomFontName; {	return [AtoZ fonts].randomElement;	}
++ (NSS*) randomFontName; {	return AtoZ.sharedInstance.fonts.randomElement;	}
 
 + (NSFont*) controlFont {
-	return [self font:@"UbuntuTitling" size:16];
+	return [self font:@"UbuntuTitling" size:18];
 }
 
 - (void)registerHotKeys
@@ -117,11 +117,11 @@ static NSA* cachedI = nil;
 	RegisterEventHotKey(49, cmdKey+controlKey, hotKeyID, GetApplicationEventTarget(), 0, &hotKeyRef);
 }
 
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification  { [self registerHotKeys]; }
+//- (void)applicationDidFinishLaunching:(NSNotification *)aNotification  { [self registerHotKeys]; }
 
 + (void) playRandomSound {	[[SoundManager sharedManager] playSound:[Sound randomSound] looping:NO]; }
 
-+ (void)playSound:(id)number   //[AtoZ playSound:@1];
++ (void)playSound:(id)number   //[ playSound:@1];
 {
 	NSA *sounds = @[@"welcome.wav", @"bling"];
 	NSS *select = number ? [sounds filterOne:^BOOL(id object) { return [(NSString*)object contains:number] ? YES : NO; }] : sounds[0];
@@ -185,6 +185,10 @@ static NSA* cachedI = nil;
 + (NSA*) appCategories {		static NSArray *cats;  return cats = cats ? cats :
 	@[	@"Games", @"Education", @"Entertainment", @"Books", @"Lifestyle", @"Utilities", @"Business", @"Travel", @"Music", @"Reference", @"Sports", @"Productivity", @"News", @"Healthcare & Fitness", @"Photography", @"Finance", @"Medical", @"Social Networking", @"Navigation", @"Weather", @"Catalogs", @"Food & Drink", @"Newsstand" ];
 }
++ (NSA*) macPortsCategories {		static NSArray *mPortsCats;  return mPortsCats = mPortsCats ? mPortsCats :
+	@[@"amusements", @"aqua", @"archivers", @"audio", @"benchmarks", @"biology", @"blinkenlights", @"cad", @"chat", @"chinese", @"comms", @"compression", @"cross", @"crypt", @"crypto", @"database", @"databases", @"devel", @"editor", @"editors", @"education", @"electronics", @"emacs", @"emulators", @"erlang", @"fonts", @"framework", @"fuse", @"games", @"genealogy", @"gis", @"gnome", @"gnustep", @"graphics", @"groovy", @"gtk", @"haskell", @"html", @"ipv6", @"irc", @"japanese", @"java", @"kde", @"kde3", @"kde4", @"lang", @"lua", @"macports", @"mail", @"mercurial", @"ml", @"mono", @"multimedia", @"mww", @"net", @"network", @"news", @"ocaml", @"office", @"palm", @"parallel", @"pdf", @"perl", @"php", @"pim", @"print", @"python", @"rox", @"ruby", @"russian", @"scheme", @"science", @"security", @"shells", @"shibboleth", @"spelling", @"squeak", @"sysutils", @"tcl", @"tex", @"text", @"textproc", @"tk", @"unicode", @"vnc", @"win32", @"wsn", @"www", @"x11", @"x11-font", @"x11-wm", @"xfce", @"xml", @"yorick", @"zope"];
+}
+
 
 - (NSS*) description {
 	return [[[self propertiesPlease] valueForKey:@"description"] componentsJoinedByString:@""];
@@ -236,27 +240,25 @@ static NSA* cachedI = nil;
 + (void) initialize {
 }
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-+ (NSArray *)fonts {
-	static NSArray *internalFonts = nil;
-	__block NSError *err;
-	return internalFonts = internalFonts ?: LogAndReturn( [[[[AZFILEMANAGER pathsOfContentsOfDirectory:[[AZFWORKBUNDLE resourcePath] stringByAppendingPathComponent:@"/Fonts"]]URLsForPaths] filter: ^BOOL(NSURL* obj) {
-		if (obj) {
-			OSStatus status; FSRef fsRef;
-			CFURLGetFSRef((CFURLRef)obj, &fsRef);
-			status = ATSFontActivateFromFileReference(&fsRef, kATSFontContextLocal, kATSFontFormatUnspecified,
-													  NULL, kATSOptionFlagsDefault, NULL);
+
++ (NSArray *)fonts { return AtoZ.sharedInstance.fonts; }
+- (NSArray *)fonts
+{
+	return fonts = fonts ?:
+	[[[[AZFILEMANAGER pathsOfContentsOfDirectory:[AZFWRESOURCES withPath:@"/Fonts"]]URLsForPaths] filter: ^BOOL(NSURL* obj) {
+		return obj ? ^{
+			FSRef fsRef;	  CFURLGetFSRef( (CFURLRef)obj, &fsRef );  NSError *err;
+			OSStatus status = ATSFontActivateFromFileReference(&fsRef, kATSFontContextLocal, kATSFontFormatUnspecified, NULL, kATSOptionFlagsDefault, NULL);
 			return  status != noErr  ? ^ {
 				NSError *error = [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:nil];
 				AZLOG($(@"Error: %@\nFailed to acivate font at %@!", error, obj));
 				return  NO;
-			}() : YES;		//		else { 			 AZLOG($( @"Successfully acivated font %@!", [obj lastPathComponent])); }
-		} else return NO;
+			}() : YES;
+		}() 	: NO;
 	}] map:^id(NSURL *obj) {
-		//			NSFontManager
-		CFArrayRef fontDescription = CTFontManagerCreateFontDescriptorsFromURL((__bridge CFURLRef)obj);
-		id dict = [(NSA*)CFBridgingRelease(fontDescription) objectAtIndex:0];
-		return [dict objectForKey:@"NSFontNameAttribute"] ?: @"N/A";
-	}] );	//		 return [obj.lastPathComponent stringByDeletingPathExtension];
+		CFArrayRef desc = CTFontManagerCreateFontDescriptorsFromURL((__bridge CFURLRef)obj);
+		return [((NSA*)CFBridgingRelease(desc))[0] objectForKey:@"NSFontNameAttribute"] ?: @"N/A";
+	}];
 
 }
 #pragma GCC diagnostic warning "-Wdeprecated-declarations"

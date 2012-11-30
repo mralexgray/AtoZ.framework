@@ -38,6 +38,7 @@
 	mPhase = (mPhase < [self halfwayWithInset] ? mPhase + [self halfwayWithInset]/128 : 0);
 	[self setNeedsDisplayInRect:NSInsetRect([self bounds], self.inset, self.inset)];
 }
+
 //- (float) dynamicStroke {
 //	//	NSBezierPath *bez = [self pathWithInset:self.inset];
 //	//	if (bez.bounds) {
@@ -81,12 +82,10 @@
 
 - (void)drawRect:(NSRect)dirtyRect
 {
-	standard =[NSBezierPath bezierPathWithRect: [self bounds]];// cornerRadius:0];
-	NSColor *now = [file.color isExciting] ? file.color : self.backgroundColor;
-	[standard fillGradientFrom:now.darker.darker.darker to:now.brighter.brighter angle:270];
-	[file.image drawInRect:[self bounds]];
-//	[backgroundColor set];
-//	NSRectFill([self frame]);
+	standard = [NSBP bezierPathWithRect:self.bounds];
+	NSC *now = file.color.isExciting ? file.color : self.backgroundColor;
+	[standard   fillGradientFrom:now.darker.darker.darker to:now.brighter.brighter angle:270];
+	[file.image drawInRect:self.bounds];
 
 //	standard = [self pathWithInset:self.inset];
 //	[NSShadow setShadowWithOffset:NSMakeSize(3,-3) blurRadius:self.inset color:BLACK];
@@ -112,7 +111,7 @@
 		[image compositeToPoint:AZCenterOfRect([self bounds]) operation:NSCompositeSourceOver];
 	}
 */
-	[standard setLineWidth: AZMinDim(self.bounds.size)*.04];
+	standard.lineWidth = AZMinDim( self.size ) * .04;
 	[standard setLineJoinStyle:NSBevelLineJoinStyle];
 	[standard setLineCapStyle:NSButtLineCapStyle];//NSSquareLineCapStyle];//NSRoundLineCapStyle];//
 	if(hovered)

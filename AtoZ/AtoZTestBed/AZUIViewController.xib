@@ -3,12 +3,12 @@
 	<data>
 		<int key="IBDocument.SystemTarget">1070</int>
 		<string key="IBDocument.SystemVersion">12C60</string>
-		<string key="IBDocument.InterfaceBuilderVersion">2843</string>
+		<string key="IBDocument.InterfaceBuilderVersion">2844</string>
 		<string key="IBDocument.AppKitVersion">1187.34</string>
 		<string key="IBDocument.HIToolboxVersion">625.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">2843</string>
+			<string key="NS.object.0">2844</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>NSButton</string>
@@ -36,6 +36,8 @@
 			<string>NSTableHeaderView</string>
 			<string>NSTableView</string>
 			<string>NSTextFieldCell</string>
+			<string>NSTokenField</string>
+			<string>NSTokenFieldCell</string>
 			<string>NSView</string>
 		</array>
 		<array key="IBDocument.PluginDependencies">
@@ -64,13 +66,14 @@
 						<int key="NSvFlags">18</int>
 						<string key="NSFrame">{{13, 31}, {444, 233}}</string>
 						<reference key="NSSuperview" ref="629347925"/>
-						<reference key="NSNextKeyView" ref="398707937"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="659394897"/>
 						<string key="NSReuseIdentifierKey">_NS:452</string>
 						<array class="NSMutableArray" key="NSTabViewItems">
 							<object class="NSTabViewItem" id="276523653">
 								<string key="NSIdentifier">1</string>
 								<object class="NSView" key="NSView" id="398707937">
-									<reference key="NSNextResponder" ref="915372080"/>
+									<nil key="NSNextResponder"/>
 									<int key="NSvFlags">256</int>
 									<array class="NSMutableArray" key="NSSubviews">
 										<object class="NSSegmentedControl" id="586546477">
@@ -279,7 +282,7 @@
 												<reference key="NSControlView" ref="146809893"/>
 												<bool key="NSDrawsBackground">YES</bool>
 												<int key="NSTextBezelStyle">1</int>
-												<object class="NSColor" key="NSBackgroundColor">
+												<object class="NSColor" key="NSBackgroundColor" id="437986863">
 													<int key="NSColorSpace">6</int>
 													<string key="NSCatalogName">System</string>
 													<string key="NSColorName">textBackgroundColor</string>
@@ -352,7 +355,6 @@
 										</object>
 									</array>
 									<string key="NSFrame">{{10, 33}, {424, 187}}</string>
-									<reference key="NSSuperview" ref="915372080"/>
 									<reference key="NSNextKeyView" ref="586546477"/>
 									<string key="NSReuseIdentifierKey">_NS:454</string>
 								</object>
@@ -387,7 +389,7 @@
 															<int key="NSvFlags">256</int>
 															<string key="NSFrameSize">{422, 169}</string>
 															<reference key="NSSuperview" ref="916230914"/>
-															<reference key="NSNextKeyView" ref="653552243"/>
+															<reference key="NSNextKeyView" ref="816884543"/>
 															<string key="NSReuseIdentifierKey">_NS:13</string>
 															<bool key="NSEnabled">YES</bool>
 															<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
@@ -554,7 +556,7 @@
 											</array>
 											<string key="NSFrameSize">{424, 187}</string>
 											<reference key="NSSuperview" ref="433844883"/>
-											<reference key="NSNextKeyView" ref="916230914"/>
+											<reference key="NSNextKeyView" ref="653552243"/>
 											<string key="NSReuseIdentifierKey">_NS:9</string>
 											<int key="NSsFlags">133682</int>
 											<reference key="NSVScroller" ref="644281378"/>
@@ -670,7 +672,7 @@
 															<int key="NSvFlags">256</int>
 															<string key="NSFrameSize">{422, 169}</string>
 															<reference key="NSSuperview" ref="1023903687"/>
-															<reference key="NSNextKeyView" ref="889606284"/>
+															<reference key="NSNextKeyView" ref="993804399"/>
 															<string key="NSReuseIdentifierKey">_NS:13</string>
 															<bool key="NSEnabled">YES</bool>
 															<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
@@ -791,7 +793,7 @@
 													<int key="NSvFlags">-2147483392</int>
 													<string key="NSFrame">{{1, 119}, {223, 15}}</string>
 													<reference key="NSSuperview" ref="644455127"/>
-													<reference key="NSNextKeyView" ref="915372080"/>
+													<reference key="NSNextKeyView" ref="808829326"/>
 													<string key="NSReuseIdentifierKey">_NS:60</string>
 													<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 													<int key="NSsFlags">1</int>
@@ -816,7 +818,7 @@
 											</array>
 											<string key="NSFrameSize">{424, 187}</string>
 											<reference key="NSSuperview" ref="288767365"/>
-											<reference key="NSNextKeyView" ref="1023903687"/>
+											<reference key="NSNextKeyView" ref="889606284"/>
 											<string key="NSReuseIdentifierKey">_NS:9</string>
 											<int key="NSsFlags">133682</int>
 											<reference key="NSVScroller" ref="993804399"/>
@@ -854,7 +856,7 @@
 															<int key="NSvFlags">274</int>
 															<string key="NSFrameSize">{424, 187}</string>
 															<reference key="NSSuperview" ref="625937057"/>
-															<reference key="NSNextKeyView" ref="915372080"/>
+															<reference key="NSNextKeyView" ref="808829326"/>
 															<string key="NSReuseIdentifierKey">_NS:13</string>
 														</object>
 													</array>
@@ -913,14 +915,60 @@
 								<reference key="NSColor" ref="157086031"/>
 								<reference key="NSTabView" ref="915372080"/>
 							</object>
+							<object class="NSTabViewItem" id="607547537">
+								<object class="NSView" key="NSView" id="659394897">
+									<reference key="NSNextResponder" ref="915372080"/>
+									<int key="NSvFlags">256</int>
+									<array class="NSMutableArray" key="NSSubviews">
+										<object class="NSTokenField" id="108732977">
+											<reference key="NSNextResponder" ref="659394897"/>
+											<int key="NSvFlags">274</int>
+											<set class="NSMutableSet" key="NSDragTypes">
+												<string>NSStringPboardType</string>
+											</set>
+											<string key="NSFrame">{{17, 68}, {390, 116}}</string>
+											<reference key="NSSuperview" ref="659394897"/>
+											<reference key="NSWindow"/>
+											<string key="NSReuseIdentifierKey">_NS:9</string>
+											<bool key="NSEnabled">YES</bool>
+											<object class="NSTokenFieldCell" key="NSCell" id="927951224">
+												<int key="NSCellFlags">341835776</int>
+												<int key="NSCellFlags2">0</int>
+												<object class="NSFont" key="NSSupport">
+													<string key="NSName">LucidaGrande</string>
+													<double key="NSSize">12</double>
+													<int key="NSfFlags">16</int>
+												</object>
+												<string key="NSCellIdentifier">_NS:9</string>
+												<reference key="NSControlView" ref="108732977"/>
+												<bool key="NSDrawsBackground">YES</bool>
+												<reference key="NSBackgroundColor" ref="437986863"/>
+												<reference key="NSTextColor" ref="378633922"/>
+												<reference key="NSDelegate" ref="108732977"/>
+												<double key="NSCompletionDelay">0.0</double>
+												<int key="NSTokenStyle">0</int>
+											</object>
+											<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
+											<int key="NSTokenFieldVersion">2</int>
+										</object>
+									</array>
+									<string key="NSFrame">{{10, 33}, {424, 187}}</string>
+									<reference key="NSSuperview" ref="915372080"/>
+									<reference key="NSWindow"/>
+									<reference key="NSNextKeyView" ref="808829326"/>
+								</object>
+								<string key="NSLabel">Token</string>
+								<reference key="NSColor" ref="157086031"/>
+								<reference key="NSTabView" ref="915372080"/>
+							</object>
 						</array>
-						<reference key="NSSelectedTabViewItem" ref="276523653"/>
+						<reference key="NSSelectedTabViewItem" ref="607547537"/>
 						<reference key="NSFont" ref="258808643"/>
 						<int key="NSTvFlags">0</int>
 						<bool key="NSAllowTruncatedLabels">YES</bool>
 						<bool key="NSDrawsBackground">YES</bool>
 						<array class="NSMutableArray" key="NSSubviews">
-							<reference ref="398707937"/>
+							<reference ref="659394897"/>
 						</array>
 					</object>
 					<object class="NSSlider" id="176402596">
@@ -928,6 +976,7 @@
 						<int key="NSvFlags">289</int>
 						<string key="NSFrame">{{250, 15}, {200, 18}}</string>
 						<reference key="NSSuperview" ref="629347925"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:779</string>
 						<bool key="NSEnabled">YES</bool>
@@ -953,6 +1002,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{17, 14}, {149, 18}}</string>
 						<reference key="NSSuperview" ref="629347925"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="929256509"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
@@ -984,6 +1034,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{169, 13}, {58, 18}}</string>
 						<reference key="NSSuperview" ref="629347925"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="176402596"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
@@ -1008,6 +1059,7 @@
 				</array>
 				<string key="NSFrameSize">{470, 270}</string>
 				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="915372080"/>
 				<string key="NSReuseIdentifierKey">_NS:2906</string>
 			</object>
@@ -1209,6 +1261,7 @@
 							<reference ref="984902413"/>
 							<reference ref="40868922"/>
 							<reference ref="276523653"/>
+							<reference ref="607547537"/>
 						</array>
 						<reference key="parent" ref="629347925"/>
 					</object>
@@ -1601,6 +1654,35 @@
 						<reference key="object" ref="349874800"/>
 						<reference key="parent" ref="0"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">130</int>
+						<reference key="object" ref="607547537"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="659394897"/>
+						</array>
+						<reference key="parent" ref="915372080"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">131</int>
+						<reference key="object" ref="659394897"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="108732977"/>
+						</array>
+						<reference key="parent" ref="607547537"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">132</int>
+						<reference key="object" ref="108732977"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="927951224"/>
+						</array>
+						<reference key="parent" ref="659394897"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">133</int>
+						<reference key="object" ref="927951224"/>
+						<reference key="parent" ref="108732977"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -1616,6 +1698,11 @@
 				<string key="127.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="13.CustomClassName">BGHUDBox</string>
 				<string key="13.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="130.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="131.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="132.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="133.CustomClassName">BGHUDTokenFieldCell</string>
+				<string key="133.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="14.CustomClassName">AtoZColorWell</string>
 				<string key="14.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="15.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1710,9 +1797,259 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">129</int>
+			<int key="maxID">133</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes"/>
+		<object class="IBClassDescriber" key="IBDocument.Classes">
+			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<object class="IBPartialClassDescription">
+					<string key="className">AZUIViewController</string>
+					<string key="superclassName">NSViewController</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="doSegmentStuff:">id</string>
+						<string key="itemSizeSliderAction:">id</string>
+						<string key="setViewColor:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="doSegmentStuff:">
+							<string key="name">doSegmentStuff:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="itemSizeSliderAction:">
+							<string key="name">itemSizeSliderAction:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="setViewColor:">
+							<string key="name">setViewColor:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="bar">BGHUDProgressIndicator</string>
+						<string key="colorWell">AtoZColorWell</string>
+						<string key="gridView">AtoZGridView</string>
+						<string key="itemSizeSlider">NSSlider</string>
+						<string key="spinner">BGHUDProgressIndicator</string>
+						<string key="tabView">BGHUDTabView</string>
+						<string key="windowView">BGHUDView</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="bar">
+							<string key="name">bar</string>
+							<string key="candidateClassName">BGHUDProgressIndicator</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="colorWell">
+							<string key="name">colorWell</string>
+							<string key="candidateClassName">AtoZColorWell</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="gridView">
+							<string key="name">gridView</string>
+							<string key="candidateClassName">AtoZGridView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="itemSizeSlider">
+							<string key="name">itemSizeSlider</string>
+							<string key="candidateClassName">NSSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="spinner">
+							<string key="name">spinner</string>
+							<string key="candidateClassName">BGHUDProgressIndicator</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="tabView">
+							<string key="name">tabView</string>
+							<string key="candidateClassName">BGHUDTabView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="windowView">
+							<string key="name">windowView</string>
+							<string key="candidateClassName">BGHUDView</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/AZUIViewController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">AtoZColorWell</string>
+					<string key="superclassName">NSColorWell</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/AtoZColorWell.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">AtoZGridView</string>
+					<string key="superclassName">NSView</string>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="dataSource">id</string>
+						<string key="delegate">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="dataSource">
+							<string key="name">dataSource</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="delegate">
+							<string key="name">delegate</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/AtoZGridView.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">BGHUDBox</string>
+					<string key="superclassName">NSBox</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/BGHUDBox.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">BGHUDButtonCell</string>
+					<string key="superclassName">NSButtonCell</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/BGHUDButtonCell.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">BGHUDComboBoxCell</string>
+					<string key="superclassName">NSComboBoxCell</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/BGHUDComboBoxCell.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">BGHUDPopUpButtonCell</string>
+					<string key="superclassName">NSPopUpButtonCell</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/BGHUDPopUpButtonCell.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">BGHUDProgressIndicator</string>
+					<string key="superclassName">NSProgressIndicator</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/BGHUDProgressIndicator.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">BGHUDScrollView</string>
+					<string key="superclassName">NSScrollView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/BGHUDScrollView.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">BGHUDScroller</string>
+					<string key="superclassName">NSScroller</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/BGHUDScroller.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">BGHUDSearchFieldCell</string>
+					<string key="superclassName">NSSearchFieldCell</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/BGHUDSearchFieldCell.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">BGHUDSegmentedCell</string>
+					<string key="superclassName">NSSegmentedCell</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/BGHUDSegmentedCell.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">BGHUDSliderCell</string>
+					<string key="superclassName">NSSliderCell</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/BGHUDSliderCell.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">BGHUDTabView</string>
+					<string key="superclassName">NSTabView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/BGHUDTabView.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">BGHUDTabViewItem</string>
+					<string key="superclassName">NSTabViewItem</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/BGHUDTabViewItem.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">BGHUDTableView</string>
+					<string key="superclassName">NSTableView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/BGHUDTableView.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">BGHUDTokenFieldCell</string>
+					<string key="superclassName">NSTokenFieldCell</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/BGHUDTokenFieldCell.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">BGHUDView</string>
+					<string key="superclassName">NSView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/BGHUDView.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">NSObject</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="increment:">id</string>
+						<string key="performActionFromLabel:">id</string>
+						<string key="performActionFromSegmentLabel:">id</string>
+						<string key="setFromSegmentLabel:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="increment:">
+							<string key="name">increment:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="performActionFromLabel:">
+							<string key="name">performActionFromLabel:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="performActionFromSegmentLabel:">
+							<string key="name">performActionFromSegmentLabel:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="setFromSegmentLabel:">
+							<string key="name">setFromSegmentLabel:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/NSObject.h</string>
+					</object>
+				</object>
+			</array>
+		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaFramework</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencies">

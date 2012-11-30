@@ -2,14 +2,8 @@
 //  NSArray+AtoZ.m
 //  AtoZ
 
-//  Created by Alex Gray on 6/29/12.
-//  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-
-#import <Foundation/Foundation.h>
-#import "AtoZ.h"
-
 #import "NSArray+AtoZ.h"
-#import "HRCoder.h"
+
 
 @implementation NSArray (EnumExtensions)
 
@@ -49,7 +43,7 @@
 - (id) nextObject;
 {
 	static NSS* intIDX = nil;  intIDX = intIDX ?: @"internalIndexNextObject";
-	NSUI intIndex =	[self hasAssociatedValueForKey:intIDX] == YES ? [[self associatedValueForKey:intIDX]unsignedIntegerValue] : 0;
+	NSUI intIndex =	[self hasAssociatedValueForKey:intIDX] ? [[self associatedValueForKey:intIDX]unsignedIntegerValue] : 0;
 	[self setAssociatedValue:@(intIndex+1) forKey:intIDX policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
 	return [self normal:intIndex];
 }

@@ -6,9 +6,8 @@
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 #import <Cocoa/Cocoa.h>
 #import "AtoZ.h"
-//#import "AtoZUmbrella.h"
-//#import "AtoZFunctions.h"
-//#import "AZFile.h"
+
+
 static inline int get_bit(unsigned char *arr, unsigned long bit_num);
 CGImageRef 		  CreateCGImageFromData( NSData* data );
 float 			  distance( NSPoint aPoint ); // Just one function to declare...
@@ -38,6 +37,7 @@ typedef enum {
  the first image in the array at the left.
  */
 
++ (NSImage*)contactSheetWith:(NSArray*)images inFrame:(NSR)rect columns:(NSUI)cols;
 
 + (NSImage*)contactSheetWith:(NSArray*)images sized:(NSSZ)size spaced:(NSSZ)spacing columns:(NSUI)cols;
 + (NSImage*)contactSheetWith:(NSArray*)images sized:(NSSZ)size spaced:(NSSZ)spacing columns:(NSUI)cols withName:(BOOL)name;
@@ -89,6 +89,13 @@ typedef enum {
 + (NSIMG*) randomIcon;
 + (NSIMG*) forFile:(AZFile*)file;
 
+- (NSIMG*) initWithSize:(NSSZ)size named:(NSS*)name;
++ (NSIMG*) imageWithSize:(NSSZ)size named:(NSS*)name;
+- (NSIMG*) initWithFile:(NSS*)file named:(NSS*)name;
++ (NSIMG*) imageWithFile:(NSS*)file named:(NSS*)name;
+
+
++ (NSIMG*) systemIconNamed:(NSS*)name;
 + (NSIMG*) frameworkImageNamed:(NSS*)string;
 + (NSA*) frameworkImageNames;
 + (NSA*) frameworkImagePaths;
@@ -104,8 +111,11 @@ typedef enum {
 - (CAL*) imageLayerForRect:(NSR)rect;
 - (void) drawinQuadrant: (QUAD)quad inRect:(NSR)rect;
 + (void) drawInQuadrants:(NSA*)images inRect:(NSRect)frame;
++ (NSIMG*) imagesInQuadrants:(NSA*)images inRect:(NSR)frame;
 
-+ (NSIMG*)reflectedImage:(NSIMG*)sourceImage amountReflected:(float)fraction;
+- (NSImage *) reflected:(float)amountFraction;
++ (NSIMG*) reflectedImage:(NSIMG*)sourceImage amountReflected:(float)fraction;
+
 - (NSIMG*) coloredWithColor:	  	(NSC*) inColor;
 - (NSIMG*) coloredWithColor:		(NSC*) inColor	composite:(NSCompositingOperation)comp;
 + (NSIMG*) az_imageNamed:	  (NSS*) name;
@@ -310,3 +320,21 @@ typedef enum {
 +(NSIV*)imageViewWithImage:(NSIMG*)img ;
 +(void) addImageViewWithImage:(NSIMG*)img toView:(NSV*)v;
 @end
+
+/* A shared operation que that is used to generate thumbnails in the background. */
+NSOperationQueue *AZSharedOperationQueue();
+
+/*	Abstract: A category on NSImage to create a thumbnail sized NSImage from an image URL.
+ 	Version: 1.0 */
+
+@interface NSImage (ImageThumbnailExtensions)
+
+/* 	Create an NSImage from with the contents of the url of the specified width.
+ 	The height of the resulting NSImage maintains the proportions in source.
+ 	NSImage loads image data from files lazily.
+ 	This method forces the file to be read to create a small sized version.
+ 	This can be a useful thing to do as a background operation.	*/
++ (id)thumbnailImageWithContentsOfURL:(NSURL *)url width:(CGFloat)width;
+
+@end
+

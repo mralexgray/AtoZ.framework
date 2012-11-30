@@ -14,6 +14,11 @@
 - (AZWindowPosition) positionValue;
 @end
 
+@interface NSValue (AZInstallationStatus)
++ (id)valueWithInstallStatus: (AZInstallationStatus) status;
+- (AZInstallationStatus) installStatusValue;
+@end
+
 
 @interface NSData (NSDataExtension)
 

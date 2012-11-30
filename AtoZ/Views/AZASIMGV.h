@@ -10,18 +10,16 @@
 
 @interface AZASIMGV : NSImageView
 
-@property (readonly) BOOL isLoadingImage;
-@property (readonly) BOOL userDidCancel;
-@property (readonly) BOOL didFailLoadingImage;
+@property (readonly) BOOL isLoadingImage, userDidCancel, didFailLoadingImage;
 
 @property (nonatomic, strong) NSString *URL;
 //@property (nonatomic, strong) NSURL* properURL;
 
 
 
-@property (readwrite) NSString *toolTipWhileLoading;
-@property (readwrite) NSString *toolTipWhenFinished;
-@property (readwrite) NSString *toolTipWhenFinishedWithError;
+@property (NATOM, STRNG) NSString *toolTipWhileLoading;
+@property (NATOM, STRNG) NSString *toolTipWhenFinished;
+@property (NATOM, STRNG) NSString *toolTipWhenFinishedWithError;
 
 
 //Loads an image from the web

@@ -202,7 +202,7 @@
 	contentRect.origin = (_window) ? [_window convertBaseToScreen:_point] : _point;
 	float arrowInset = [self _arrowInset];
 	float halfWidth = contentRect.size.width / 2.0;
-	float halfHeight = contentRect.size.height / 2.0;
+//	float halfHeight = contentRect.size.height / 2.0;
 	switch (_side) {
 		case AZPositionTopLeft:
 			contentRect.origin.x -= contentRect.size.width - arrowInset;

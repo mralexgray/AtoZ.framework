@@ -1,6 +1,5 @@
 
 #import "AtoZColorWell.h"
-#import "AtoZ.h"
 
 
 
@@ -11,8 +10,8 @@
 @end
 
 @implementation AtoZColorWell
-@synthesize title, canRemoveColor, borderType;
-@synthesize removeColorAction, removeColorTarget;
+@synthesize title, /*canRemoveColor,*/ borderType;
+//@synthesize removeColorAction, removeColorTarget;
 
 - (id)initWithFrame:(NSRect)frameRect
 {
@@ -97,14 +96,14 @@
 	[AZNOTCENTER postNotificationNameOnMainThread:nAZColorWellChanged object:[_colorPicker color]];
 
 }
-
+/*
 - (void) colorPickerDidChoseRemoveColor:(id)sender
 {
 	if ((!self.removeColorTarget) || (!self.removeColorTarget)) return;
 	if ([self respondsToSelector:self.removeColorAction])
  	   [self.removeColorTarget performSelectorWithoutWarnings:self.removeColorAction withObject:self];
 }
-
+*/
 - (void)mouseDown:(NSEvent *)theEvent
 {
 	// when the menu is already popped and I double-click outside it, the menu disappears but then I receive a mouseDown event again, so check where the mouse down occurred.
@@ -190,9 +189,9 @@
 	[_colorPicker pushCurrentSelection];
 
 	// update the remove color option and target/action
-	_colorPicker.canRemoveColor = self.canRemoveColor;
+//	_colorPicker.canRemoveColor = self.canRemoveColor;
 //	_colorPicker.removeColorAction = @selector(colorPickerDidChoseRemoveColor:);
-	_colorPicker.removeColorTarget = self;
+//	_colorPicker.removeColorTarget = self;
 }
 @end
 
@@ -300,7 +299,7 @@ static NSArray * SPColorPickerDefaultColorsInCSSRGB(void) {
 }
 @interface AtoZColorPicker()
 @property (nonatomic, strong) NSMutableArray *trackingAreas;
-@property (nonatomic, strong)NSIndexSet *originalSelection;
+@property (nonatomic, strong) NSIndexSet *originalSelection;
 - (NSRect) frameForAreaAtRow:(NSInteger)rowIndex column:(NSInteger)columnIndex;
 - (NSTrackingArea*) trackingAreaForIndex:(NSInteger)index;
 - (NSColor*) selectionColorForAreaColor:(NSColor*)aColor;
@@ -308,7 +307,7 @@ static NSArray * SPColorPickerDefaultColorsInCSSRGB(void) {
 @end
 
 @implementation AtoZColorPicker
-@synthesize colors, canRemoveColor, selectionIndex, target, action, removeColorAction, removeColorTarget;
+@synthesize colors, /*canRemoveColor,*/ selectionIndex, target, action;//, removeColorAction, removeColorTarget;
 
 - (id)initWithFrame:(NSRect)frame
 {
@@ -317,7 +316,7 @@ static NSArray * SPColorPickerDefaultColorsInCSSRGB(void) {
 	if (!(self = [super initWithFrame:frame])) return nil;
 	_trackingAreas 		= [NSMA array];
 	selectionIndex = [NSIndexSet indexSetWithIndex:22];
-	canRemoveColor = NO;
+//	canRemoveColor = NO;
 	colors = [SPColorPickerDefaultColorsInCSSRGB() cw_mapArray:^id(NSString *cssColor) {
 		return [NSColor colorWithCSSRGB:cssColor] ?: nil;
 	}] ?: colors;
@@ -364,8 +363,8 @@ static NSArray * SPColorPickerDefaultColorsInCSSRGB(void) {
 	// no color option: enabled or disabled
 	// strike it out faded or full
 	NSRect area = [self frameForAreaAtRow:0 column:0];
-	NSColor *strikeColor = [NSColor colorWithCalibratedRed:1. green:0. blue:0.
-													 alpha:(self.canRemoveColor?1.:.5)];
+	NSColor *strikeColor = [NSColor colorWithCalibratedRed:1. green:0. blue:0. alpha:1];//
+//													 alpha:(self.canRemoveColor?1.:.5)];
 	NSBezierPath *line = [NSBezierPath bezierPath];
 	[line moveToPoint:NSMakePoint(NSMaxX(area),NSMinY(area))];
 	[line lineToPoint:NSMakePoint(NSMinX(area),NSMaxY(area))];
@@ -377,7 +376,7 @@ static NSArray * SPColorPickerDefaultColorsInCSSRGB(void) {
 	NSFrameRect(paddedBds);
 	// selection
 	// do not draw at 0 index if canRemoveColor = NO
-	if ( [self.selectionIndex count] == 1 && ( [self.selectionIndex firstIndex] > 0 || self.canRemoveColor == YES ) ) {
+/*	if ( [self.selectionIndex count] == 1 && ( [self.selectionIndex firstIndex] > 0 || self.canRemoveColor == YES ) ) {
 		NSInteger index = [self.selectionIndex firstIndex];
 		NSInteger col 	= floor(index / 12);
 		NSInteger row 	= floor(index % 12);
@@ -391,6 +390,7 @@ static NSArray * SPColorPickerDefaultColorsInCSSRGB(void) {
 		[path setLineWidth:2.];
 		[path stroke];
 	}
+*/
 }
 
 - (NSColor*) selectionColorForAreaColor:(NSColor*)aColor
@@ -507,10 +507,10 @@ static NSArray * SPColorPickerDefaultColorsInCSSRGB(void) {
 				SuppressPerformSelectorLeakWarning([self.target performSelector:self.action withObject:self]);
 //				WithoutWarnings:];
 		}
-		else if ( self.canRemoveColor )
+//		else if ( self.canRemoveColor )
 			// separate action for remove color
-			if ([self.removeColorTarget respondsToSelector:self.removeColorAction])
-				SuppressPerformSelectorLeakWarning([self.removeColorTarget performSelector:self.removeColorAction withObject:self]);
+//			if ([self.removeColorTarget respondsToSelector:self.removeColorAction])
+//				SuppressPerformSelectorLeakWarning([self.removeColorTarget performSelector:self.removeColorAction withObject:self]);
 	}
 
 	// dismiss the menu being tracked

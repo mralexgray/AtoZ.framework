@@ -10,31 +10,31 @@
 
 
 @interface TestBedDelegate ()
-@property (STRNG) CATransition *transition;
-@property (STRNG) NSA *transitions;
+//@property (STRNG) CATransition *transition;
+//@property (STRNG) NSA *transitions;
 @end
 
 @implementation TestBedDelegate
-@synthesize holdOntoViews;//, activeView, semiLog, semiWindow;
-@synthesize window, genVC, geoVC, uiVC, fileGrid, vcs, mainView, colorWell;
+//@synthesize holdOntoViews;//, activeView, semiLog, semiWindow;
+@synthesize window, genVC, uiVC, colorVC, mainView, colorWell;//, geoVC, , fileGrid, vcs, , colorWell;
 
 - (void) awakeFromNib
 {
 //	[AtoZ sharedInstance];
-	window.delegate = self;
+//	window.delegate = self;
 
-	[((BGHUDView*)window.contentView).theme bind:@"baseColor" toObject:colorWell withKeyPath:@"color" options:nil];
+//	[((BGHUDView*)window.contentView).theme bind:@"baseColor" toObject:colorWell withKeyPath:@"color" options:nil];
 
-	vcs 		= [WeakMutableArray new];
+//	vcs 		= [WeakMutableArray new];
 
-	genVC 		= [[AZGeneralViewController  alloc] initWithNibName: @"AZGeneralViewController"  bundle:nil];
-	[vcs addObject:genVC.view];
-	geoVC 		= [[AZGeometryViewController alloc] initWithNibName: @"AZGeometryViewController" bundle:nil];
-	[vcs addObject:geoVC.view];
-	uiVC  		= [[AZUIViewController	     alloc] initWithNibName: @"AZUIViewController"	     bundle:nil];
-	[vcs addObject:uiVC.view];
-	fileGrid 	= [[AZFileGridView 			 alloc]   initWithFrame: mainView.bounds];
-	[vcs addObject:fileGrid];
+//	genVC 		= [[AZGeneralViewController  alloc] initWithNibName: @"AZGeneralViewController"  bundle:nil];
+//	[vcs addObject:genVC.view];
+//	geoVC 		= [[AZGeometryViewController alloc] initWithNibName: @"AZGeometryViewController" bundle:nil];
+//	[vcs addObject:geoVC.view];
+//	uiVC  		= [[AZUIViewController	     alloc] initWithNibName: @"AZUIViewController"	     bundle:nil];
+//	[vcs addObject:uiVC.view];
+//	fileGrid 	= [[AZFileGridView 			 alloc]   initWithFrame: mainView.bounds];
+//	[vcs addObject:fileGrid];
 
 //	 @{  @"General" : genVC.view, @"Geometry": geoVC.view, @"fileGridView" : fileGrid, @"UI" : uiVC.view }.mutableCopy;
 
@@ -54,16 +54,27 @@
 //	_genVC.view.frame	= [_mainView frame];
 }
 
-- (void) logString:(NSS*)s { 	self.semiLog = s; }
+//- (void) logString:(NSS*)s { 	self.semiLog = s; }
 
 - (IBAction)setViewFromPopUp:(id)sender
 {
-	NSView* view = areSame([sender titleOfSelectedItem], @"General") ? genVC.view : nil;
-
-	view.frame  = mainView.bounds;		view.arMASK = NSSIZEABLE;
-//	view.hidden = YES;
-	[mainView removeAllSubviews];
-	[mainView addSubview:view];
+//	[[mainView allSubviews]makeObjectsPerformSelector:@selector(fadeOut)];
+//	[mainView removeAllSubviews];
+	NSS *selecto = [sender titleOfSelectedItem];
+	id view = areSame(selecto, @"General") ? genVC.view :
+				   areSame(selecto, @"UI") ? uiVC.view :
+					areSame(selecto, @"Colors") ? colorVC.view : nil;
+	if (view) {
+		NSLog(@"selecto:%@  view:%@", selecto.debugDescription, view);
+		if (mainView.subviews.count != 0) {
+			[[mainView.subviews first] fadeOut];
+			[mainView removeAllSubviews];
+	}
+		mainView.subviews = @[view];
+		[view setFrame:mainView.bounds];
+//		[(NSV*)view setAutoresizingMask: NSSIZEABLE];
+		[view setNeedsDisplay: YES];
+	}
 //	[[mainView animator]swapSubs:newView];
 //	[[activeView animator] setHidden:YES];
 //	activeView = vcs[[sender titleOfSelectedItem]];
@@ -83,10 +94,12 @@
 //		transition.subtype	= @[ kCATransitionFromRight, kCATransitionFromLeft, kCATransitionFromTop, kCATransitionFromBottom].randomElement;
 //		transition.duration	= 1.0;	  return transition; }();
 //}
-- (void) windowDidEndLiveResize:(NSNotification *)notification
-{
-	[mainView.subviews each:^(NSV* obj) { [[obj animator] setFrame:mainView.bounds]; }];
-}
+
+
+//- (void) windowDidEndLiveResize:(NSNotification *)notification
+//{
+//	[mainView.subviews each:^(NSV* obj) { [[obj animator] setFrame:mainView.bounds]; }];
+//}
 
 //- (IBAction)loadSecondNib:(id)sender
 //{
@@ -140,23 +153,23 @@
 
 @end
 
-
-@interface NSObject (getLayer)
-- (CAL*)	getLayer;
-+ (NSView*) viewInView:(NSView*)view;
-@end
-@implementation NSObject (getLayer)
-+ (NSView*)viewInView:(NSView*)view;
-{
-	NSView* v = [[NSView alloc]initWithFrame:[view frame]];
-	[view addSubview:v positioned:NSWindowAbove relativeTo:view.lastSubview];
-	return v;
-}
-- (CAL*)getLayer { //__block NSView* me = (NSView*)self;
-	return  [(NSView*)self layer] ?: [(NSView*)self setupHostView];//(CAL*)^{ [me setWantsLayer:YES];  me.layer.anchorPoint = (CGP){.5, .5}; [me.layer setAnchorPointRelative:me.center]; return me.layer; }();
-}
-@end
-
+//
+//@interface NSObject (getLayer)
+//- (CAL*)	getLayer;
+//+ (NSView*) viewInView:(NSView*)view;
+//@end
+//@implementation NSObject (getLayer)
+//+ (NSView*)viewInView:(NSView*)view;
+//{
+//	NSView* v = [[NSView alloc]initWithFrame:[view frame]];
+//	[view addSubview:v positioned:NSWindowAbove relativeTo:view.lastSubview];
+//	return v;
+//}
+//- (CAL*)getLayer { //__block NSView* me = (NSView*)self;
+//	return  [(NSView*)self layer] ?: [(NSView*)self setupHostView];//(CAL*)^{ [me setWantsLayer:YES];  me.layer.anchorPoint = (CGP){.5, .5}; [me.layer setAnchorPointRelative:me.center]; return me.layer; }();
+//}
+//@end
+/*
 
 const CGFloat dash[2] = {100, 60};
 
@@ -256,6 +269,7 @@ const CGFloat dash[2] = {100, 60};
 
 
 }
+*/
 
 /*
  - (IBAction)changeViewController:(id)sender
@@ -331,6 +345,6 @@ const CGFloat dash[2] = {100, 60};
 
  [self didChangeValueForKey:@"viewController"];	// this will trigger the NSTextField's value binding to change
  }
- */
 
 @end
+*/

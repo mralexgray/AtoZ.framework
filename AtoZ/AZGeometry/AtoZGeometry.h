@@ -390,6 +390,7 @@ NSR AZRectFromSize ( NSSZ size );
 NSR sectionPositioned ( NSR r, AZWindowPosition p );
 int oppositeQuadrant ( int quadrant );
 NSR quadrant ( NSR r, AZQuadrant quad );
+NSR AZRectOfQuadInRect(NSR originalRect, AZQuadrant quad); //alias for quadrant
 
 CGF quadrantsVerticalGutter ( NSR r );
 
@@ -428,7 +429,7 @@ static inline CGP AZCenter( CGRect rect ) {
 //float BTFloatRangeMod ( BTFloatRange range );
 //float BTFloatRangeUnit ( BTFloatRange range );
 
-NSP AZRectOffset ( NSR innerRect, NSR outerRect, QUAD quadrant );
+//NSP AZRectOffset ( NSR innerRect, NSR outerRect, QUAD quadrant );
 
 
 NSRect AZOffsetRect(NSR rect, NSP offset);

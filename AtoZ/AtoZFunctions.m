@@ -13,6 +13,54 @@
 #import <CoreFoundation/CoreFoundation.h>
 
 
+
+@implementation AZToggleClickTableCell
+
+- (id) target 	{ return self; 					  }
+
+- (SEL) action	{ return @selector(tickPriority); }
+
+- (void) tickPriority
+{
+	NSUInteger val = [[self objectValue]unsignedIntegerValue];
+//	((TodoItem*)[TodoList sharedInstance].items[[(NSTableView*)[self controlView]selectedRow]]).priority = @( val < 8 ? val + 1 : 0 );
+}
+
+- (void)drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView
+{
+	[[NSColor darkGrayColor]set]; NSRectFill(cellFrame);
+	NSString	*string = ((NSNumber*)self.objectValue).stringValue;
+	NSDictionary *attrs = @{ NSFontAttributeName : [NSFont fontWithName:@"Lucida Grande Bold" size: cellFrame.size.height - 10], NSForegroundColorAttributeName : [NSColor whiteColor] };
+	NSSize stringSize 	= [string sizeWithAttributes:attrs];
+ 	[string drawInRect: (NSRect) { NSMidX(cellFrame) - stringSize.width / 2, cellFrame.origin.y + 3, stringSize.width, stringSize.height } withAttributes:attrs];
+}
+
+@end
+
+
+@implementation AZColorTableCell
+- (void)drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView
+{
+	[(NSColor*)self.objectValue set];	NSRectFill(cellFrame);
+	if (self.isHighlighted)
+	{
+		[RED set];
+		NSBP *i = [NSBP bezierPathWithRect:cellFrame];
+			      [i setLineWidth:5];
+				  [i strokeInsideWithinRect:cellFrame];
+	}
+}
+@end
+
+
+@implementation NSTableView (CustomDataCell)
+
+- (void) setColumnWithIdentifier:(NSS*)identifier toClass:(Class)actionCellClass;
+{
+	((NSTableColumn*)self.tableColumns[[self columnWithIdentifier:identifier]]).dataCell = actionCellClass.new;
+}
+@end
+
 @implementation NSDate (AtoZ)
 + (NSS*)dayOfWeek
 {
@@ -34,6 +82,32 @@
 + (Class) transformedValueClass 	 { 	return [NSImage class]; 	}
 + (BOOL) allowsReverseTransformation { 	return YES; 					}
 - (id) transformedValue: (id)value 	 {	return [value boolValue] ? [NSImage imageNamed:NSImageNameStatusAvailable] : ![value boolValue] ? [NSImage imageNamed:NSImageNameStatusUnavailable] : nil; }
+
+@end
+
+
+@implementation AZInstallationStatusToImageTransformer
+
++ (Class) transformedValueClass 	 { 	return [NSImage class]; 	}
++ (BOOL) allowsReverseTransformation { 	return YES; 					}
+- (id) transformedValue: (id)value 	 {	AZInstallationStatus st = [value installStatusValue];
+	return st == ( AZNeedsUpdate | AZInstalledNeedsUpdate ) ? [NSIMG systemIconNamed:@"Sync"] :
+		   st ==   AZNotInstalled 							? [NSIMG systemIconNamed:@"unsupported"] :
+		   st ==   AZInstalled 	 							? [NSIMG systemIconNamed:@"toolbardown"] :
+															  [NSIMG systemIconNamed:@"userunknown"] ;
+}
+
+@end
+
+@implementation  NSColor (compare)
+
+- (NSComparisonResult)compare:(NSC*)otherColor {
+	// comparing the same type of animal, so sort by name
+	//	if ([self kindOfAnimal] == [otherAnimal kindOfAnimal]) return [[self name] caseInsensitiveCompare:[otherAnimal name]];
+	// we're comparing by kind of animal now. they will be sorted by the order in which you declared the types in your enum // (Dogs first, then Cats, Birds, Fish, etc)
+	//	return [[NSNumber numberWithInt:[self kindOfAnimal]] compare:[[[NSNumber]] numberWithInt:[otherAnimal kindOfAnimal]]]; }
+	return [@(self.hueComponent) compare:@(otherColor.hueComponent)];
+}
 
 @end
 
@@ -101,7 +175,7 @@ BOOL powerBox(){
 	NSLog(@"Accessed ok: %d %@", ok, [bookmarkedURL relativePath]);
 	return ok;
 }
-NSString *googleSearchFor(NSString* string){
+NSString *googleSearchFor(NSS* string){
 	static NSS* wan = nil;
 	if (!wan) wan = WANIP();
 	// query holds the search term
@@ -195,9 +269,9 @@ NSString* bitString(NSUInteger mask){	NSString *str = @""; // Prepend "0" or "1"
 	return str;
 }
 
-int (^triple)(int) = ^(int number) {
-	return number * 3;
-};
+//int triple(int) = ^(int number) {
+//	return number * 3;
+//};
 
 id LogStackAndReturn(id toLog) {
 	[NSThread stackTraceAtIndex:2];

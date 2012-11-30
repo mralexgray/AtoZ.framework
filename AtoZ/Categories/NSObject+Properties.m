@@ -45,24 +45,26 @@
 
 - (NSD*)propertiesSans:(NSS*)someKey { return [[self propertiesPlease] filter:^BOOL(id key,id value) { return [key isNotEqualTo:someKey] ? YES : NO; }]; }
 
-- (NSD *)propertiesPlease {
-	NSMD *props = [NSMD dictionary];
+- (NSD *)propertiesPlease
+{
+	NSMD *props = NSMD.new;
 	unsigned outCount, i;
-	objc_property_t *properties = class_copyPropertyList([self class], &outCount);
+	objc_property_t *properties = class_copyPropertyList(self.class, &outCount);
 	for (i = 0; i < outCount; i++) {
 		objc_property_t property = properties[i];
 
-		NSS *propertyName = [[NSS alloc] initWithCString:property_getName(property) encoding:NSUTF8StringEncoding];
+		NSS *propertyName = [NSS.alloc initWithUTF8String:property_getName(property)];
 		if (propertyName) {
-			if ( [self hasPropertyForKVCKey:propertyName] && [self respondsToString:propertyName]) {
+//			if ( [self hasPropertyForKVCKey:propertyName] &&
+			if ([self respondsToString:propertyName]) {
 				id propertyValue = [self valueForKey:propertyName];
-				if (propertyValue) props[propertyName] = propertyValue;
+				if (propertyValue) props[propertyName] = [propertyValue copy];
 			}
-			NSLog(@"Responds:%@ to:%@", StringFromBOOL([self respondsToString:propertyName]), propertyName);
-		}
+
+		}else NSLog(@"Responds:%@ to:%@", StringFromBOOL([self respondsToString:propertyName]), propertyName);
 	}
 	free(properties);
-	return props;
+	return props.copy;
 }
 
 

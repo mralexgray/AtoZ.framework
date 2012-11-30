@@ -62,17 +62,20 @@
  }
 
  */
+
+#import "AtoZ.h"
+
 @interface AtoZColorPicker : NSView
 
 @property(readwrite,copy) NSArray *colors;
 @property(readwrite,copy) NSIndexSet *selectionIndex;
-@property(readwrite) BOOL canRemoveColor;
+//@property(readwrite) BOOL canRemoveColor;
 
 @property(readwrite) SEL action;
 @property(readwrite,unsafe_unretained) id target;
 
-@property(readwrite) SEL removeColorAction;
-@property(readwrite,unsafe_unretained) id removeColorTarget;
+//@property(readwrite) SEL removeColorAction;
+//@property(readwrite,unsafe_unretained) id removeColorTarget;
 
 + (NSSize) proposedFrameSizeForAreaDimension:(CGFloat)dimension;
 
@@ -87,29 +90,33 @@
 @end
 
 
-@interface AtoZColorWell : NSColorWell <NSMenuDelegate> {
-@private
-	NSString *title;
-	BOOL canRemoveColor;
+@interface AtoZColorWell : NSColorWell <NSMenuDelegate>
+//{
+//@private
+//	NSString *title;
+//	BOOL canRemoveColor;
+//
+//	NSBorderType borderType;
+//
+//	SEL removeColorAction;
+//	id __unsafe_unretained removeColorTarget;
+//
+//	NSMenu *_colorPickerMenu;
+//	AtoZColorPicker *_colorPicker;
+//}
 
-	NSBorderType borderType;
-
-	SEL removeColorAction;
-	id __unsafe_unretained removeColorTarget;
-
-	NSMenu *_colorPickerMenu;
-	AtoZColorPicker *_colorPicker;
-}
+@property (nonatomic, retain) NSMenu *colorPickerMenu;
+@property (nonatomic, retain) AtoZColorPicker *colorPicker;
 
 @property(readwrite,copy) NSString *title;
-@property(readwrite) BOOL canRemoveColor;
+//@property(readwrite) BOOL canRemoveColor;
 
 @property(readwrite) NSBorderType borderType;
 
 // suported borderType values: NSNoBorder / NSLineBorder / NSBezelBorder
 
-@property(readwrite) SEL removeColorAction;
-@property(readwrite,unsafe_unretained) id removeColorTarget;
+//@property(readwrite) SEL removeColorAction;
+//@property(readwrite,unsafe_unretained) id removeColorTarget;
 
 - (void)drawTitleInside:(NSRect)insideRect;
 - (void)drawWellInside:(NSRect)insideRect;
@@ -125,22 +132,25 @@
 //
 
 
-@interface HighlightingView : NSView {
-@private
-	BOOL _highlighted;
-}
+@interface HighlightingView : NSView
+//{
+//@private
+//	BOOL _highlighted;
+
 @property (nonatomic,assign, getter=isHighlighted) BOOL highlighted;
 @end
 
-@interface AtoZColorWellMenuView : NSView {
-@private
-	HighlightingView *__unsafe_unretained showColorsView;
-	AtoZColorPicker *__unsafe_unretained colorPickerView;
-	AtoZColorWell *__unsafe_unretained colorWell; // don't care for the coupling
-
-	NSTrackingArea *_colorPickerTrackingArea;
-	NSTrackingArea *_highlightTrackingArea;
-}
+@interface AtoZColorWellMenuView : NSView
+//{
+//@private
+//	HighlightingView *__unsafe_unretained showColorsView;
+//	AtoZColorPicker *__unsafe_unretained colorPickerView;
+//	AtoZColorWell *__unsafe_unretained colorWell; // don't care for the coupling
+//
+//	NSTrackingArea *_colorPickerTrackingArea;
+//	NSTrackingArea *_highlightTrackingArea;
+//}
+@property(unsafe_unretained) NSTrackingArea *colorPickerTrackingArea, *highlightTrackingArea;
 
 @property(unsafe_unretained) HighlightingView *showColorsView;
 @property(unsafe_unretained) AtoZColorPicker *colorPickerView;

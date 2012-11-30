@@ -30,5 +30,7 @@
 
 @interface NSURL (AtoZ)
 
+//	Uses LaunchServices and UTIs to detect if a given file path is an image file.
+- (BOOL)isImageFile;
 @end
 

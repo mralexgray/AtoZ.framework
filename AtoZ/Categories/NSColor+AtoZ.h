@@ -9,6 +9,8 @@
 //#import "AGFoundation.h"
 
 @interface NSColor (AtoZ)
+
+
 - (NSC*) alpha:(CGFloat)floater;
 - (NSC*) inverted;
 
@@ -99,6 +101,8 @@
 @property (RONLY)	BOOL isRedish;
 @property (RONLY)	BOOL isGreenish;
 @property (RONLY)	BOOL isYellowish;
+@property (RONLY)	BOOL isBasicallyWhite;
+@property (RONLY)	BOOL isBasicallyBlack;
 
 @end
 

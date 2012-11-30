@@ -9,8 +9,10 @@
 
 - (NSString*)stripHtml;
 
-+ (NSS*) clipboard ;
-- (void) copyToClipboard ;
++ (NSS*) clipboard;
+- (void) copyToClipboard;
+
+- (NSS*)withPath:(NSS*)path;
 
 - (unichar) lastCharacter;
 - (NSS*) substringToLastCharacter;
@@ -44,9 +46,9 @@
 // new way
 - (void) drawInRect: (NSR)r  withFont: (NSFont*)font	   andColor: (NSC*)color;
 
-- (void) drawCenteredInRect: (NSR)rect withFontNamed: (NSS*) font;
+//- (void) drawCenteredInRect: (NSR)rect withFontNamed: (NSS*) font;
 
-- (void) drawCenteredInRect: (NSR)rect withFont: (NSS*) font;
+- (void) drawCenteredInRect: (NSR)rect withFont: (NSF*) font;
 
 
 /*** Returns the string cleaned from leading and trailing whitespaces */
@@ -142,9 +144,11 @@
 
 + (id)	   stringWithData: (NSData*) data  encoding: (NSStringEncoding)encoding;
 //+ (NSS*)   stringWithCGF: (CGF)f		 maxDigits: (NSUI)numDigits;
-- (NSAS*)  attributedWithSize: (NSUI)size andColor: (NSC*)color;
-- (NSMAS*) attributedParagraphWithSpacing: (float)spacing;
-- (NSS*)   truncatedForRect: (NSR)frame withFont: (NSFont*)font;
+//- (NSAS*) attributedWithSize: (NSUI)size andColor: (NSC*)color;
+- (NSAS*) attributedWithFont:(NSF*)font andColor:(NSC*)color;
+- (NSMAS*) attributedParagraphWithSpacing: (CGF)spacing;
+- (NSS*)   truncatedForRect: (NSR)frame withFont: (NSF*)font;
+//-(NSMutableAttributedString *) attributedParagraphWithSpacing:(CGF)spacing
 
 @end
 // Truncate a string by inserting an ellipsis ("..."). truncateMode can be NSLineBreakByTruncatingHead, NSLineBreakByTruncatingMiddle or NSLineBreakByTruncatingTail.

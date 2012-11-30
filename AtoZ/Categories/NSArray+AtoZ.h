@@ -2,13 +2,8 @@
 //  NSArray+AtoZ.h
 //  AtoZ
 
-//  Created by Alex Gray on 6/29/12.
-//  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-#import <Foundation/Foundation.h>
 #import "AtoZ.h"
 
-//#import "NSString+AG.h"
-//#import "NSMutableArray+AG.h"
 @interface NSArray (EnumExtensions)
 
 - (NSString*) stringWithEnum: (NSUInteger) enumVal;

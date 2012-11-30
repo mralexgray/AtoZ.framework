@@ -30,6 +30,7 @@
 - (void)removeAssociatedValueForKey:(NSString *)key;
 - (void)removeAllAssociatedValues;
 - (BOOL)hasAssociatedValueForKey:(NSS*)string;
+
 @end
 //- (void)registerObservation{	[observee addObserverForKeyPath:@"someValue" task:^(id obj, NSDictionary *change) {
 //								   NSLog(@"someValue changed: %@", change);  }]; }
@@ -302,4 +303,9 @@ free(p);
 
 @end
 
+@interface NSObject (ImageVsColor)
 
+- (NSC*)colorValue;
+- (NSIMG*)imageValue;
+
+@end

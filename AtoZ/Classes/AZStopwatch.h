@@ -21,18 +21,13 @@
 + (void) print:(NSString *)name;
 @end
 @interface AZStopwatchItem : NSObject
-//{
-//@private
-//	NSString *name;
-//	NSDate *started;
-//	NSDate *stopped;
-//}
+//
 @property (nonatomic, strong) NSString *name;
-@property (nonatomic, strong) NSDate *started;
-@property (nonatomic, strong) NSDate *stopped;
+@property (nonatomic, strong) NSDate *started, *stopped;
+
 + (AZStopwatchItem *) itemWithName:(NSString *)name;
 - (void) stop;
-- (NSTimeInterval) runtime;
+- (NSTI) runtime;
 - (double) runtimeMills;
 @end
 

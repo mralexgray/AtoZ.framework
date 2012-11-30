@@ -5,8 +5,7 @@
 //  Created by Alex Gray on 9/19/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 //
-#import <Foundation/Foundation.h>
-#import <objc/runtime.h>
+
 #import "NSDictionary+AtoZ.h"
 
 @implementation NSMutableDictionary (AtoZ)
@@ -208,7 +207,7 @@
 
 
 
-@implementation  NSObject  (BagofKeysValue)
+//@implementation  NSObject  (BagofKeysValue)
 
 //- (NSBag*) bagWithValuesForKey:(NSString *)key
 //{
@@ -241,21 +240,21 @@
 //}
 
 
-@end
-@implementation NSArray (Recurse)
-
-//- (NSA*) recursiveValuesForKey:(NSS*) key
-//{
-// 	NSA* u = [self findDictionaryWithValue:<#(id)#>:^id(id obj) {
-//		if ( [obj isKindOfClass:[NSDictionary class]]) {
-//				if([child isKindOfClass:[NSDictionary class]]) {
-//					NSDictionary *d = (NSDictionary *)child;
-//					id o = [d recursiveObjectForKey:key];
-//					if(o) return o;
-//				}
-//			}
-
-@end
+//@end
+//@implementation NSArray (Recurse)
+//
+////- (NSA*) recursiveValuesForKey:(NSS*) key
+////{
+//// 	NSA* u = [self findDictionaryWithValue:<#(id)#>:^id(id obj) {
+////		if ( [obj isKindOfClass:[NSDictionary class]]) {
+////				if([child isKindOfClass:[NSDictionary class]]) {
+////					NSDictionary *d = (NSDictionary *)child;
+////					id o = [d recursiveObjectForKey:key];
+////					if(o) return o;
+////				}
+////			}
+//
+//@end
 
 @implementation  NSDictionary (AtoZ)
 
@@ -266,7 +265,7 @@
 //		// this dictionary contains the key, return the value
 //		return [self objectForKey:key];
 //	}
-//	 
+//
 //	for(NSString *k in self.allKeys) {
 //		id obj = [self objectForKey:k];
 //		if([obj isKindOfClass:[NSDictionary class]]) {
@@ -286,7 +285,7 @@
 //			}
 //		}
 //	}
-//	 
+//
 //	// the key was not found in this dictionary or any of it's children
 //	return nil;
 //
@@ -299,7 +298,7 @@
 		// this dictionary contains the key, return the value
 		return [self objectForKey:key];
 	}
-	 
+
 	for(NSString *k in self.allKeys) {
 		id obj = [self objectForKey:k];
 		if([obj isKindOfClass:[NSDictionary class]]) {
@@ -319,7 +318,7 @@
 			}
 		}
 	}
-	 
+
 	// the key was not found in this dictionary or any of it's children
 	return nil;
 }
@@ -330,8 +329,8 @@
 	__block id match = nil;
 	[self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
 		match = [obj isEqual:value] ? self
-			  :	[obj isKindOfClass:[NSArray class]] ? [obj findDictionaryWithValue:value]
-			  : [obj isKindOfClass:[self class]]	? [obj findDictionaryWithValue:value] : nil;
+		:	[obj isKindOfClass:[NSArray class]] ? [obj findDictionaryWithValue:value]
+		: [obj isKindOfClass:[self class]]	? [obj findDictionaryWithValue:value] : nil;
 		*stop = (match!=nil);
 	}];
 	return match;
@@ -414,13 +413,13 @@ static void DynamicDictionarySetter(id self, SEL _cmd, id value)
 	NSString *key = PropertyNameFromSetter(NSStringFromSelector(_cmd));
 
 	if (value == nil)
-		{
+	{
 		[self removeObjectForKey:key];
-		}
+	}
 	else
-		{
+	{
 		self[key] = value;
-		}
+	}
 }
 @implementation NSDictionary (DynamicAccessors)
 
@@ -429,14 +428,14 @@ static void DynamicDictionarySetter(id self, SEL _cmd, id value)
 	NSString *selStr = NSStringFromSelector(sel);
 	// Only handle selectors with no colon.
 	if ([selStr rangeOfString:@":"].location == NSNotFound)
-		{
+	{
 		LOG(@"Generating dynamic accessor -%@", selStr);
 		return class_addMethod(self, sel, (IMP)DynamicDictionaryGetter, @encode(id(*)(id, SEL)));
-		}
+	}
 	else
-		{
+	{
 		return [super resolveInstanceMethod:sel];
-		}
+	}
 }
 
 @end
@@ -465,14 +464,14 @@ static void DynamicDictionarySetter(id self, SEL _cmd, id value)
 		[selStr hasSuffix:@":"] &&
 		[selStr rangeOfString:@":" options:0 range:NSMakeRange(0, [selStr length] - 1)].location == NSNotFound &&
 		[selStr length] >= 6)
-		{
+	{
 		LOG(@"Generating dynamic accessor -%@ for property \"%@\"", selStr, PropertyNameFromSetter(selStr));
 		return class_addMethod(self, sel, (IMP)DynamicDictionarySetter, @encode(id(*)(id, SEL, id)));
-		}
+	}
 	else
-		{
+	{
 		return [super resolveInstanceMethod:sel];
-		}
+	}
 }
 
 @end

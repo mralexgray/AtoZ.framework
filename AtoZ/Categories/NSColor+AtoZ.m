@@ -718,10 +718,10 @@ static NSColor *ColorWithCSSString(NSString *str) {
 	NSColor *thisColor = [self colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
 	CGFloat bestDistance = FLT_MAX;
 
-	NSColorList *colors = [NSColorList colorListInFrameworkWithFileName:@"RGB.clr"];
+//	NSColorList *colors = [NSColorList colorListInFrameworkWithFileName:@"RGB.clr"];
 
 	NSColorList *safe =  [NSColorList colorListNamed:@"Web Safe Colors"];
-	NSColorList *crayons = [NSColorList colorListNamed:@"Crayons"];
+//	NSColorList *crayons = [NSColorList colorListNamed:@"Crayons"];
 
 	NSArray *avail = $array( safe);
 	//	NSColorList *bestList = nil;
@@ -1255,7 +1255,7 @@ static NSColor *ColorWithCSSString(NSString *str) {
 			if (colorDistance < bestDistance) {
 				//				bestList = list;
 				bestDistance = colorDistance;
-				bestColor = thatColor;
+//				bestColor = thatColor;
 				bestKey = key; }
 		}
 	}

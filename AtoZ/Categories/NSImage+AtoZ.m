@@ -9,6 +9,10 @@
 #import <Quartz/Quartz.h>
 #import <QuickLook/QuickLook.h>
 
+
+static NSS *_systemIconsFolder = nil;
+static NSA *_systemIcons = nil;
+
 static inline int get_bit(unsigned char *arr, unsigned long bit_num) {
 	return ( arr[(bit_num/8)] & (1 << (bit_num%8)) );
 }
@@ -42,13 +46,38 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 
 @implementation NSImage (Merge)
 
+
++ (NSImage*)contactSheetWith:(NSArray*)images inFrame:(NSR)rect columns:(NSUI)cols;
+{
+
+	NSSZ iSize = AZSizeFromDimension(rect.size.width/cols);
+	AZSizer *s = [AZSizer forQuantity:images.count  ofSize:iSize  withColumns:cols];
+	NSA *rects = s.rects.copy;
+	NSIMG *contact = [[NSIMG alloc]initWithSize:NSMakeSize(s.rows*s.width, s.columns*s.height)];
+	[contact lockFocus];
+	[images eachWithIndex:^(NSIMG* obj, NSInteger idx) {
+		NSR theR = [[rects normal:idx]rectValue];
+		[[obj scaledToMax:AZMaxDim(iSize)] drawCenteredinRect:theR operation:NSCompositeSourceOver fraction:1];
+		if (obj.name) {
+//			NSAS* string = [[obj.name truncatedForRect:nameRect withFont:f] attributedWithSize:AZMinDim(theR.size)*.1 andColor:WHITE];
+//			nameRect = AZRectExceptWide(nameRect, theR.size.width < nameRect.size.width ? theR.size.width : nameRect.size.width);
+//			nameRect = AZOffsetRect(nameRect, theR.origin);
+//			NSRectFillWithColor(nameRect, RED);
+//			NSR nameRect = [obj.name frameWithFont:f];
+			NSF * f = [AtoZ font:@"UbuntuTitling-Bold" size:AZMinDim(theR.size)*.1];
+//			[string drawCenteredVerticallyInRect:nameRect];//:@"UbuntuTitling-Bold"];//:nameRect /*NSMakeRect(2, 2, sizeAndPhoto.width - 4, 14)*/ withFont:font andColor:WHITE];
+		}
+	}];
+	[contact unlockFocus];
+	return contact;
+}
 + (NSImage*)contactSheetWith:(NSArray*)images sized:(NSSZ)size spaced:(NSSZ)spacing columns:(NSUI)cols withName:(BOOL)name;
 {
 	__block NSIMG *contact;
 	[AZStopwatch named:$(@"ContactSheetWith%ldImages",images.count) block:^{
 		NSSZ sizeAndPhoto = AZAddSizes(spacing, size);
 		sizeAndPhoto.height += name ? 18 : 0;
-		AZSizer *s = [AZSizer forQuantity:images.count  ofSize:sizeAndPhoto  withColumns:10];
+		AZSizer *s = [AZSizer forQuantity:images.count  ofSize:sizeAndPhoto  withColumns:cols];
 		NSA *rects = s.rects.copy;
 		contact = [[NSIMG alloc]initWithSize:s.outerFrame.size];
 		[contact lockFocus];
@@ -56,7 +85,7 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 			NSR theR = [[rects normal:idx]rectValue];
 			[[obj scaledToMax:AZMaxDim(size) ] drawCenteredinRect:theR operation:NSCompositeSourceOver fraction:1];
 			if (name) {
-				NSR nameRect = AZOffsetRect(AZRectFromDim(AZMinDim(theR.size)*.1), theR.origin);
+				NSR nameRect = AZOffsetRect(AZRectFromDim(AZMinDim(theR.size)*.25), theR.origin);
 				NSRectFillWithColor(nameRect, RED);
 				[obj.name drawInRect:nameRect withFontNamed:@"Ubuntu Mono Bold" andColor:WHITE];//:nameRect /*NSMakeRect(2, 2, sizeAndPhoto.width - 4, 14)*/ withFont:font andColor:WHITE];
 			}
@@ -312,7 +341,7 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 	NSS *path, *ext;
 	NSBundle *bundle;
 	NSEnumerator *e;
-	NSArray *fileTypes = [NSImageRep imageFileTypes];
+//	NSArray *fileTypes = [NSImageRep imageFileTypes];
 
 	// locate in specific bundle (e.g. a loaded bundle) and then in AppKit.framework
 	path = [AZFWORKBUNDLE recursiveSearchForPathOfResourceNamed:name];
@@ -350,57 +379,58 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 	return [[NSImage alloc]initWithCGImage:CGWindowListCreateImage(CGRectInfinite, kCGWindowListOptionOnScreenOnly, kCGNullWindowID, kCGWindowImageDefault) size:AZScreenSize()];
 }
 
-+ (NSA*) frameworkImagePaths {
-	return ( [NSArray arrayWithArrays:@[
-									[AZFWORKBUNDLE pathsForResourcesOfType:@"pdf" inDirectory:@""],
-									[AZFWORKBUNDLE pathsForResourcesOfType:@"png" inDirectory:@""],
-									[AZFWORKBUNDLE pathsForResourcesOfType:@"icns" inDirectory:@""]]]);
-//	(NSA*)LogAndReturn
++ (NSA*) frameworkImagePaths
+{
+	static NSA* frameworkImagePaths_ = nil;	return frameworkImagePaths_ = frameworkImagePaths_ =
+	[NSA arrayWithArrays:[@[@"pdf", @"png", @"icns"] map:^id(NSS* obj) { return [AZFWORKBUNDLE pathsForResourcesOfType:obj inDirectory:@""]; }]];
 }
 
 + (NSA*) frameworkImageNames
 {
-	return [[[NSImage frameworkImagePaths]mapSelector:@selector(lastPathComponent)]mapSelector:@selector(stringByDeletingPathExtension)];
+	static NSA* frameworkImageNames_ = nil;	return frameworkImageNames_ = frameworkImageNames_ =
+	 [[NSIMG.frameworkImagePaths mapSelector:@selector(lastPathComponent)]mapSelector:@selector(stringByDeletingPathExtension)];
 }
 + (NSA*) frameworkImages;{
 	//; error:nil] filter:^BOOL(id object) { return [(NSString*)object contains:@".icn"] ? YES : NO;
 	//	return [f arrayUsingBlock:^id(id obj) {	return [base stringByAppendingPathComponent:obj]; }];
-	return [[[NSImage frameworkImagePaths] arrayUsingBlock:^id(id obj) {
-
-		return [[NSIMG alloc]initWithContentsOfFile:obj];
+	return [[NSIMG.frameworkImagePaths nmap:^id(id obj, NSUInteger index) {
+		return [NSIMG imageWithFile:obj named:NSIMG.frameworkImageNames[index]];
 	}] filter:^BOOL(id object) { return [object isKindOfClass:[NSIMG class]]; }];
 }
 
-+(NSA*) systemIcons{	static NSArray *_systemIcons;
-	return _systemIcons = _systemIcons != nil
-	? _systemIcons // This will only be true the first time the method is called...
-	: (NSA*)^{
-		NSString *base = @"/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/";
-		return[[[[AZFILEMANAGER contentsOfDirectoryAtPath:base error:nil] filter:^BOOL(id object) {
-			return [(NSString*)object contains:@".icn"] ? YES : NO;
-		}] arrayUsingBlock:^id(id obj) {
-			return [[NSImage alloc] initWithContentsOfFile:[base stringByAppendingPathComponent:(NSString*)obj]];
-		}]
-			   filter:^BOOL(id object) {
-				   return [object isKindOfClass:[NSImage class]] ? YES : NO;
-			   }];
++ (NSIMG*) imageWithFile:(NSS*)file named:(NSS*)name { 	return [[self alloc] initWithFile:file named:name]; 	}
+
+- (NSIMG*) initWithFile:(NSS*)file named:(NSS*)name  {	NSIMG* i = [[NSIMG alloc]initWithContentsOfFile:file]; 	i.name = name;	return i;	}
+
++ (NSIMG*) imageWithSize:(NSSZ)size named:(NSS*)name {	return [[self alloc] initWithSize:size named:name];	}
+
+- (NSIMG*) initWithSize:(NSSZ)size named:(NSS*)name  {	NSIMG* i = [[NSIMG alloc]initWithSize:size]; i.name = name; return i; }
+
++ (NSA*) systemIcons
+{
+			_systemIconsFolder 	= _systemIconsFolder ?: @"/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/";
+	return _systemIcons 		= _systemIcons 		 ?: ^{ // This will only be true the first time the method is called...
+		return[[[NSIMG systemIconNames_] arrayUsingBlock:^id(id obj) {
+			return [NSIMG imageWithFile:[_systemIconsFolder stringByAppendingPathComponent:(NSString*)obj] named:[obj stringByDeletingPathExtension]];
+		}] filter:^BOOL(id object) {  return [object isKindOfClass:[NSImage class]]; }];
 	}();
 }
 
-+ (NSIMG*)monoIconNamed:(NSS*)name { return [[self monoIcons]filterOne:^BOOL(NSIMG*icon) { return areSame(icon.name, name); }]; }
-
-+ (NSIMG*)randomMonoIcon {
-	return [[self monoIcons]randomElement];
++ (NSA*) systemIconNames_ {
+	static NSA *theNamesOfSystemIcons_ = nil;
+	return 	    theNamesOfSystemIcons_ = theNamesOfSystemIcons_ ?: [[AZFILEMANAGER contentsOfDirectoryAtPath:_systemIconsFolder error:nil] filter:^BOOL(id object) { return [(NSString*)object contains:@".icn"];  }];
 }
++ (NSIMG*)monoIconNamed:(NSS*)name { return [self.monoIcons filterOne:^BOOL(NSIMG*icon) { return areSame(icon.name, name); }]; }
+
++ (NSIMG*)randomMonoIcon {			 return [self.monoIcons randomElement]; }
 
 + (NSA*) monoIcons {
 	static NSA *monos = nil;
 	return monos = monos ?: ^{
 		PDFDocument *myPDF = [[PDFDocument alloc]initWithURL:[NSURL fileURLWithPath:[AZFWORKBUNDLE pathForResource:@"PicolSingulario" ofType:@"pdf"]]];
 		return [[NSArray from: 0 to:[myPDF pageCount]-1] nmap:^id(id obj, NSUInteger index) {
-			NSIMG* d = [[NSIMG alloc]initWithSize:AZSizeFromDimension(512)];
-			d.name = [@(index) stringValue];
-			[d addRepresentation:[NSPDFImageRep imageRepWithData:[[myPDF pageAtIndex:index]dataRepresentation]]];
+			NSIMG* d = [NSIMG imageWithSize:AZSizeFromDimension(512) named:[@(index) stringValue]];
+			[d addRepresentation:[NSPDFImageRep imageRepWithData:[myPDF pageAtIndex:index].dataRepresentation]];
 			return d;
 		}];
 	}();
@@ -411,50 +441,30 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 	//	return [aBundle pathsForResourcesOfType:@"pdf" inDirectory:@"picol"];
 	//	NSLog(@"%@", imagePaths);
 	//}
+
++ (NSIMG*) systemIconNamed:(NSS*)name {
+	return [self.systemIcons filterOne:^BOOL(NSIMG* o) { return [o.name.lowercaseString contains:name.lowercaseString]; }];
+}
 +(NSImage*) frameworkImageNamed:(NSS*)string {
 
 	return [NSImage imageWithFileName:string inBundle:AZFWORKBUNDLE];
 //	[self frameworkImagePaths]filterOne:^BOOL(id object) {
 //	return [object endsWith:string];
 }
-+(NSImage*) randomIcon {
-	NSString *ia = [[self class]picolStrings].randomElement;
-	return [NSImage az_imageNamed:ia];
-		//	NSLog(@"rando: %@", i);
-		//	return i;
-}
++(NSImage*) randomIcon { 	return [NSImage az_imageNamed:self.picolStrings.randomElement]; }
 
-+ (NSA*) iconsColoredWithColor:(NSColor*)color;
++ (NSA*) iconsColoredWithColor:(NSColor*)color;	{ }
+
++(NSA*)picolStrings
 {
-}
-
-+(NSS*)picolFolderPath{
-	static NSS* pFPath = nil;
-	return pFPath = [[AtoZ resources] stringByAppendingPathComponent:@"picol/"];
-}
-+(NSA*)picolStrings {
-
-	return [NSFileManager filesInFolder:[[self class]picolFolderPath]];
+	static NSA* picolStrings_ = nil;
+	return picolStrings_ = picolStrings_ ?: [NSFileManager filesInFolder:[AZFWRESOURCES withPath:@"picol/"]];
 }
 
 + (NSA*) icons {
-
-	return 	[[[NSImage picolStrings] map:^id(id obj) {
-
-		NSImage *u =[[NSImage alloc]initWithContentsOfFile:[[self picolFolderPath]stringByAppendingPathComponent:obj]];
-		u.name = [obj stringByDeletingPathExtension];
-		return u;
-	}]filter:^BOOL(id object) {
-		return [object isKindOfClass:[NSImage class]] && !isEmpty(object);
-	}];
-
-		//	return  [[[self class] picolStrings] map:^id(id obj) {
-		//		NSImage *i = [NSImage az_imageNamed:obj];
-		//		NSLog(@"loading %@  aka %@", [obj lastPathComponent], i);
-		//		return i;
-		//	}];
-		//	 filter:^BOOL(id obj) {	return obj ? YES:  NO;	}];
-	
+	return [NSA arrayWithArrays:@[[self monoIcons], [self systemIcons]]];
+//	return 	[[[NSImage picolStrings] map:^id(id obj) {		NSImage *u =[[NSImage alloc]initWithContentsOfFile:[[self picolFolderPath]stringByAppendingPathComponent:obj]];		u.name = [obj stringByDeletingPathExtension]; return u;	}]filter:^BOOL(id object) {		return [object isKindOfClass:[NSImage class]] && !isEmpty(object); }];
+//	return  [[[self class] picolStrings] map:^id(id obj) {		NSImage *i = [NSImage az_imageNamed:obj];		NSLog(@"loading %@  aka %@", [obj lastPathComponent], i);		return i;	}];	 filter:^BOOL(id obj) {	return obj ? YES:  NO;	}];
 }
 
 + (NSImage*) forFile:(AZFile*)file;
@@ -464,91 +474,76 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 												: [NSImage az_imageNamed:@"missing.png"];
 }
 
-+ (NSA*) randomImages:(NSUI)number{
-	NSArray *images = [NSArray arrayWithArrays:@[[NSImage icons], [NSImage systemIcons], [NSImage frameworkImages]]];
-	return [images.shuffeled randomSubarrayWithSize:number];
-
-}
-
-
-
-+(NSImage*) blackBadgeForRect:(NSRect)frame{
-
-	return [[self class] badgeForRect:frame withColor:BLACK];
-}
-
-+ (NSIMG*) badgeForRect:(NSR)frame withColor:(NSC*)color
++ (NSA*) randomImages:(NSUI)number
 {
-	return [self badgeForRect:frame withColor:color stroked:nil];
+	return [[NSA arrayWithArrays:@[self.icons, self.frameworkImages]] randomSubarrayWithSize:number];
 }
 
-+ (NSIMG*) badgeForRect:(NSR)frame withColor:(NSC*)color stroked:(NSC*) stroke
++ (NSIMG*) blackBadgeForRect:(NSR)frame {	return [self badgeForRect:frame withColor:BLACK];	}
+
++ (NSIMG*) badgeForRect:(NSR)frame withColor:(NSC*)color {	return [self badgeForRect:frame withColor:color stroked:nil]; }
+
++ (NSIMG*) badgeForRect:(NSR)frame withColor:(NSC*)color stroked:(NSC*) stroke { return [self badgeForRect:frame withColor:color stroked:stroke withString:nil]; }
+
++ (NSIMG*) badgeForRect:(NSR)frame withColor:(NSC*)color stroked:(NSC*) stroke withString:(NSS*)string
 {
-	return [self badgeForRect:frame withColor:color stroked:stroke withString:nil];
-}
+	[AtoZ hasSharedInstance] ? nil : [AtoZ sharedInstance];
 
-+ (NSIMG*) badgeForRect:(NSR)frame withColor:(NSC*)color stroked:(NSC*) stroke withString:(NSS*)string {
-	if (![AtoZ hasSharedInstance]) [AtoZ sharedInstance];
+	CGF inset 		= AZMinDim 			 ( frame.size ) * .1;
+	NSR outerRect	= AZCenterRectOnRect ( AZRectFromDim ( (AZMinDim(frame.size)-inset)), frame );	//AZSquareInRect( 	  NSInsetRect( newFrame, inset, inset ));
+	NSR centerRect 	= NSInsetRect 		 ( outerRect, inset/2, inset/2 );
 
-	CGF inset 		= .1 * AZMinDim( frame.size );
+	NSC* contraster = stroke 			 ?: color.contrastingForegroundColor;
+	NSC* variant 	= contraster.isDark  ?  contraster.brighter.brighter : contraster.darker.darker;
 	
-	NSR outerRect	= AZCenterRectOnRect(AZRectFromDim((AZMinDim(frame.size)-inset)), frame);
-//AZSquareInRect( 	  NSInsetRect( newFrame, inset, inset ));
-	NSR centerRect 	= NSInsetRect( outerRect, inset/2, inset/2 );
-
-	NSC* contraster = stroke ?: [color contrastingForegroundColor];
-	NSC* variant 	= [contraster isDark] ? contraster.brighter.brighter : contraster.darker.darker;
-	
-	NSSZ  shadowOff 	= NSMakeSize((inset/6),-(inset/6));
+	NSSZ  shadowOff = NSMakeSize ( inset / 6, - inset / 6 );
 	NSBP *centerBP	= [NSBP bezierPathWithOvalInRect:centerRect];
-	NSBP *outerBP	= [NSBP bezierPathWithOvalInRect:outerRect];
+	NSBP *outerBP	= [NSBP bezierPathWithOvalInRect: outerRect];
 	NSShadow *innerShadow = [NSShadow shadowWithOffset:AZMultiplySize(shadowOff, .5) blurRadius:inset/4 color: color.darker.darker.darker];
 
-	NSIMG *badge	= [[self alloc]initWithSize:frame.size];
-	[badge 		lockFocus];
-	[NSShadow	setShadowWithOffset:shadowOff blurRadius: inset/4 color: [BLACK alpha:.75]];
-	[outerBP 	fill];
-	[NSShadow	clearShadow];
-	[outerBP	fillGradientFrom:variant				 to:contraster 			angle:90];
-	[centerBP	fillGradientFrom:color.brighter.brighter to:color.darker.darker angle:270];
+	NSIMG *badge	= [self imageWithSize:frame.size named:string];
+	[badge lockFocus];
+		[NSSHDW		setShadowWithOffset:shadowOff blurRadius: inset/4 color: [BLACK alpha:.75]];
+		[outerBP 	fill];
+		[NSSHDW		clearShadow];
+		[outerBP	fillGradientFrom:variant				 to:contraster 			angle:90];
+		[centerBP	fillGradientFrom:color.brighter.brighter to:color.darker.darker angle:270];
 
-	[CLEAR set];
-	[centerBP 	fillWithInnerShadow:innerShadow];
-	!string ?: ^{
-		[innerShadow set];
-		[string drawInRect:AZInsetRect(centerRect, inset) withFontNamed:@"PrintBold" andColor:contraster];
-		/*Ubuntu Mono Bold"*//*Nexa Bold" Ivolkswagen DemiBold"*/
-	}();
+		[CLEAR set];
+		[centerBP 	fillWithInnerShadow:innerShadow];
+		!string ?: ^{
+			[innerShadow set];
+			[string drawInRect:AZInsetRect(centerRect, inset) withFontNamed:@"PrintBold" andColor:contraster];
+			/*Ubuntu Mono Bold"*//*Nexa Bold" Ivolkswagen DemiBold"*/
+		}();
 	[badge unlockFocus];
 	return badge;
 
 }
 
-- (void) drawAtPoint:(NSP)point inRect:(NSR)rect{
-	[self drawAtPoint:point fromRect:rect operation:NSCompositeSourceOver fraction:1];
-}
+- (void) drawAtPoint:(NSP)point inRect:(NSR)rect{	[self drawAtPoint:point fromRect:rect operation:NSCompositeSourceOver fraction:1]; }
 
-- (void) drawAtPoint:(NSP)point;
+- (void) drawAtPoint:(NSP)point; {	[self drawAtPoint:point fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1]; 		   }
+
+- (void) draw {	[self drawAtPoint:NSZeroPoint fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1];					       }
+
+- (CAL*) imageLayerForRect:(NSR)rect; {	return ReturnImageLayer( NewLayerWithFrame(rect), self, 1);	}
+
+
++ (NSIMG*) imagesInQuadrants:(NSA*)images inRect:(NSR)frame { return [self imageWithSize:frame.size drawnUsingBlock:^{	[self drawInQuadrants:images inRect:frame];	}]; }
+
+- (void) drawinQuadrant: (QUAD)quad inRect:(NSR)rect; {	[self drawInRect: quadrant(rect, quad)]; } // alignRectInRect(AZRectFromDim(rect.size.width/2),rect,quad)]; }
+
++ (void) drawInQuadrants:(NSA*)images inRect:(NSR)frame
 {
-	[self drawAtPoint:point fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1];
+	[[images subarrayToIndex:4]eachWithIndex:^(NSIMG* obj, NSI idx) { [obj drawInRect:quadrant(frame, idx)]; }];
 }
 
-- (void) draw{
-	[self drawAtPoint:NSZeroPoint fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1];
-}
+/*alignRectInRect( AZRectFromDim( frame.size.width/2 ), frame, (QUAD)idx); NSRectFillWithColor(thisQ, RANDOMCOLOR); */
 
-- (CAL*) imageLayerForRect:(NSR)rect;{
-	CALayer *s = NewLayerWithFrame(rect);
-	return ReturnImageLayer(s, self, 1);
-}
-- (void) drawinQuadrant: (QUAD)quad inRect:(NSR)rect;
+- (NSImage *) reflected:(float)amountFraction
 {
-	[self drawInRect: alignRectInRect(AZRectFromDim(rect.size.width/2),rect,quad)];
-}
-
-
-+ (void) drawInQuadrants:(NSA*)images inRect:(NSRect)frame {  __block int indy = 1;
-	[images do:^(id obj){ [(NSImage*)obj drawInRect: alignRectInRect(AZRectFromDim(frame.size.width/2),frame,indy)]; indy++;  }];
+	return [self.class reflectedImage:self amountReflected:amountFraction];
 }
 
 + (NSImage *)reflectedImage:(NSImage *)sourceImage amountReflected:(float)fraction
@@ -1903,70 +1898,12 @@ rightDone:
 //}
 
 + (NSA*) systemImages {
-	static NSArray *_systemImages;
-	return _systemImages = _systemImages != nil
-						 ? _systemImages // This will only be true the first time the method is called...
-						 : @[
-				  [NSImage imageNamed:NSImageNameQuickLookTemplate],
-				  [NSImage imageNamed:NSImageNameBluetoothTemplate], 
-				  [NSImage imageNamed:NSImageNameIChatTheaterTemplate], 
-				  [NSImage imageNamed:NSImageNameSlideshowTemplate], 
-				  [NSImage imageNamed:NSImageNameActionTemplate],
-				  [NSImage imageNamed:NSImageNameSmartBadgeTemplate], 
-				  [NSImage imageNamed:NSImageNameIconViewTemplate], 
-				  [NSImage imageNamed:NSImageNameListViewTemplate], 
-				  [NSImage imageNamed:NSImageNameColumnViewTemplate], 
-				  [NSImage imageNamed:NSImageNameFlowViewTemplate], 
-				  [NSImage imageNamed:NSImageNamePathTemplate], 
-				  [NSImage imageNamed:NSImageNameInvalidDataFreestandingTemplate], 
-				  [NSImage imageNamed:NSImageNameLockLockedTemplate], 
-				  [NSImage imageNamed:NSImageNameLockUnlockedTemplate], 
-				  [NSImage imageNamed:NSImageNameGoRightTemplate],
-				  [NSImage imageNamed:NSImageNameGoLeftTemplate],
-				  [NSImage imageNamed:NSImageNameRightFacingTriangleTemplate], 
-				  [NSImage imageNamed:NSImageNameLeftFacingTriangleTemplate], 
-				  [NSImage imageNamed:NSImageNameAddTemplate], 
-				  [NSImage imageNamed:NSImageNameRemoveTemplate], 
-				  [NSImage imageNamed:NSImageNameRevealFreestandingTemplate], 
-				  [NSImage imageNamed:NSImageNameFollowLinkFreestandingTemplate], 
-				  [NSImage imageNamed:NSImageNameEnterFullScreenTemplate], 
-				  [NSImage imageNamed:NSImageNameExitFullScreenTemplate], 
-				  [NSImage imageNamed:NSImageNameStopProgressTemplate], 
-				  [NSImage imageNamed:NSImageNameStopProgressFreestandingTemplate], 
-				  [NSImage imageNamed:NSImageNameRefreshTemplate], 
-				  [NSImage imageNamed:NSImageNameRefreshFreestandingTemplate], 
-				  [NSImage imageNamed:NSImageNameBonjour], 
-				  [NSImage imageNamed:NSImageNameComputer], 
-				  [NSImage imageNamed:NSImageNameFolderBurnable], 
-				  [NSImage imageNamed:NSImageNameFolderSmart], 
-				  [NSImage imageNamed:NSImageNameFolder], 
-				  [NSImage imageNamed:NSImageNameNetwork], 
-				  [NSImage imageNamed:NSImageNameDotMac], 
-				  [NSImage imageNamed:NSImageNameMobileMe], 
-				  [NSImage imageNamed:NSImageNameMultipleDocuments], 
-				  [NSImage imageNamed:NSImageNameUserAccounts], 
-				  [NSImage imageNamed:NSImageNamePreferencesGeneral], 
-				  [NSImage imageNamed:NSImageNameAdvanced], 
-				  [NSImage imageNamed:NSImageNameInfo], 
-				  [NSImage imageNamed:NSImageNameFontPanel], 
-				  [NSImage imageNamed:NSImageNameColorPanel], 
-				  [NSImage imageNamed:NSImageNameUser], 
-				  [NSImage imageNamed:NSImageNameUserGroup], 
-				  [NSImage imageNamed:NSImageNameEveryone],
-				  [NSImage imageNamed:NSImageNameUserGuest], 
-				  [NSImage imageNamed:NSImageNameMenuOnStateTemplate], 
-				  [NSImage imageNamed:NSImageNameMenuMixedStateTemplate], 
-				  [NSImage imageNamed:NSImageNameApplicationIcon], 
-				  [NSImage imageNamed:NSImageNameTrashEmpty], 
-				  [NSImage imageNamed:NSImageNameTrashFull], 
-				  [NSImage imageNamed:NSImageNameHomeTemplate], 
-				  [NSImage imageNamed:NSImageNameBookmarksTemplate], 
-				  [NSImage imageNamed:NSImageNameCaution], 
-				  [NSImage imageNamed:NSImageNameStatusAvailable], 
-				  [NSImage imageNamed:NSImageNameStatusPartiallyAvailable], 
-				  [NSImage imageNamed:NSImageNameStatusUnavailable], 
-				  [NSImage imageNamed:NSImageNameStatusNone]
-								  ];
+	static NSArray *_systemImages = nil;
+	return _systemImages = _systemImages  // This will only be true the first time the method is called...
+						 ?: [@[NSImageNameQuickLookTemplate, NSImageNameBluetoothTemplate , NSImageNameIChatTheaterTemplate , NSImageNameSlideshowTemplate , NSImageNameActionTemplate, NSImageNameSmartBadgeTemplate , NSImageNameIconViewTemplate , NSImageNameListViewTemplate , NSImageNameColumnViewTemplate , NSImageNameFlowViewTemplate , NSImageNamePathTemplate , NSImageNameInvalidDataFreestandingTemplate , NSImageNameLockLockedTemplate , NSImageNameLockUnlockedTemplate , NSImageNameGoRightTemplate, NSImageNameGoLeftTemplate, NSImageNameRightFacingTriangleTemplate , NSImageNameLeftFacingTriangleTemplate , NSImageNameAddTemplate , NSImageNameRemoveTemplate , NSImageNameRevealFreestandingTemplate , NSImageNameFollowLinkFreestandingTemplate , NSImageNameEnterFullScreenTemplate , NSImageNameExitFullScreenTemplate , NSImageNameStopProgressTemplate , NSImageNameStopProgressFreestandingTemplate , NSImageNameRefreshTemplate , NSImageNameRefreshFreestandingTemplate , NSImageNameBonjour , NSImageNameComputer , NSImageNameFolderBurnable , NSImageNameFolderSmart , NSImageNameFolder , NSImageNameNetwork , NSImageNameDotMac , NSImageNameMobileMe , NSImageNameMultipleDocuments , NSImageNameUserAccounts , NSImageNamePreferencesGeneral , NSImageNameAdvanced , NSImageNameInfo , NSImageNameFontPanel , NSImageNameColorPanel , NSImageNameUser , NSImageNameUserGroup , NSImageNameEveryone, NSImageNameUserGuest , NSImageNameMenuOnStateTemplate , NSImageNameMenuMixedStateTemplate , NSImageNameApplicationIcon , NSImageNameTrashEmpty , NSImageNameTrashFull , NSImageNameHomeTemplate , NSImageNameBookmarksTemplate , NSImageNameCaution , NSImageNameStatusAvailable , NSImageNameStatusPartiallyAvailable , NSImageNameStatusUnavailable , NSImageNameStatusNone, @"NSDefaultApplicationIcon", @"NSDeadKeyMenuImage", @"NSGrayResizeCorner", @"NSHelpCursor", @"NSMysteryDocument", @"NSMultipleFiles", @"NSOpacitySlider", @"NSUtilityInactivePattern", @"NSUtilityKeyPattern",	@"SpellingDot", @"NSTriangleNormalRight", @"NSTrianglePressedRight", @"NSTriangleNormalDown", @"NSTrianglePressedDown"]
+								cw_mapArray:^id(id object) {
+									return [NSIMG imageNamed:object] ?: nil;
+								}];
 	
 }
 
@@ -3034,3 +2971,55 @@ CGImageRef CreateCGImageFromData(NSData* data)
 	[v addSubview:u];
 }
 @end
+
+
+@implementation NSImage (NSImageThumbnailExtensions)
+
+/* Create an NSImage from with the contents of the url of the specified width. The height of the resulting NSImage maintains the proportions in source.
+ */
++ (id) thumbnailImageWithContentsOfURL:(NSURL*)url width:(CGF)width {
+    NSImage *thumbnailImage = nil;
+    NSImage *image = [[NSImage alloc] initWithContentsOfURL:url];
+    if (image != nil) {
+        NSSize imageSize = [image size];
+        CGFloat imageAspectRatio = imageSize.width / imageSize.height;
+        // Create a thumbnail image from this image (this part of the slow operation)
+        NSSize thumbnailSize = NSMakeSize(width, width * imageAspectRatio);
+        thumbnailImage = [[NSImage alloc] initWithSize:thumbnailSize];
+
+        [thumbnailImage lockFocus];
+        [image drawInRect:NSMakeRect(0, 0, thumbnailSize.width, thumbnailSize.height) fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+        [thumbnailImage unlockFocus];
+
+        /* In general, the accessibility description is a localized description of the image.  In this app, and in the Desktop & Screen Saver preference pane, the name of the desktop picture file is what is used as the localized description in the user interface, and so it is appropriate to use the file name in this case.
+
+		 When an accessibility description is set on an image, the description is automatically reported to accessibility when that image is displayed in image views/cells, buttons/button cells, segmented controls, etc.  In this case the description is set programatically.  For images retrieved by name, using +imageNamed:, you can use a strings file named AccessibilityImageDescriptions.strings, which uses the names of the images as keys and the description as the string value, to automatically provide accessibility descriptions for named images in your application.
+		 */
+        NSString *imageName = [[url lastPathComponent] stringByDeletingPathExtension];
+        [thumbnailImage setAccessibilityDescription:imageName];
+
+		//        [thumbnailImage autorelease];
+		//        [image release];
+    }
+
+    /* This is a sample code feature that delays the creation of the thumbnail for demonstration purposes only.
+	 Hold down the control key to extend thumnail creation by 2 seconds.
+	 */
+    if ([NSEvent modifierFlags] & NSControlKeyMask) {
+        usleep(2000000);
+    }
+
+    return thumbnailImage;
+}
+
+@end
+
+/* A shared operation que that is used to generate thumbnails in the background. */
+NSOperationQueue *AZSharedOperationQueue() {
+    static NSOperationQueue *_AZImageSharedOperationQueue = nil;
+    if (_AZImageSharedOperationQueue == nil) {
+        _AZImageSharedOperationQueue = NSOperationQueue.new;
+		[_AZImageSharedOperationQueue setMaxConcurrentOperationCount:NSOperationQueueDefaultMaxConcurrentOperationCount];
+    }
+    return _AZImageSharedOperationQueue;
+}

@@ -64,6 +64,8 @@
 #import "NSNumber+F.h"
 #import "NSDictionary+F.h"
 
+#import "AZHTTPURLProtocol.h"
+
 #import "BlocksAdditions.h"
 
 @interface AZSingleton : NSObject
@@ -78,12 +80,10 @@
 
 #import "AtoZUmbrella.h"
 #import "AtoZGeometry.h"
-
-//#import "AZModelObject.h"
+#import "NSArray+AtoZ.h"
 
 
 #import "AZTalker.h"
-
 
 #import "SynthesizeSingleton.h"
 #import "iCarousel.h"
@@ -96,7 +96,7 @@
 #import "AZBackgroundProgressBar.h"
 #import "AZStopwatch.h"
 
-#import "AZPalette.h"
+//#import "AZPalette.h"
 
 //	#import "AZObject.h"
 //	#import "AZFile.h"
@@ -134,7 +134,8 @@
 #import "CAAnimation+AtoZ.h"
 #import "CALayer+AtoZ.h"
 #import "NSApplication+AtoZ.h"
-#import "NSArray+AtoZ.h"
+#import "NSURL+AtoZ.h"
+
 #import "NSBezierPath+AtoZ.h"
 #import "NSBundle+AtoZ.h"
 #import "NSColor+AtoZ.h"
@@ -322,6 +323,8 @@ extern NSString *const AtoZDockSortedUpdated;
 + (NSString*) resources;
 + (NSString*) stringForType:(id)type;
 + (NSA*) appCategories;
++ (NSA*) macPortsCategories;
+
 
 @property (nonatomic, retain) NSBundle *bundle;
 

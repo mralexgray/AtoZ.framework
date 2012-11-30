@@ -1,30 +1,23 @@
 //
 //  AZGeneralViewController.m
-//  AtoZ
-//
-//  Created by Alex Gray on 11/8/12.
-//  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-//
 
 #import "AZGeneralViewController.h"
 #import "TestBedDelegate.h"
 
-@interface AZGeneralViewController ()
-
-@end
 @implementation AZGeneralViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-	if (!( self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) return nil;
-	return self;
+	if (self != [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) return nil;		return self;
 }
 
-
--(void) awakeFromNib {
-	[self.segments setFont:[AtoZ controlFont]];
-//	[_segments fitTextNice];
+-(void) awakeFromNib
+{
+//	[self.segments setFont:[AtoZ controlFont]];		//	[_segments fitTextNice];
 	[self.segments 	 setAction:@selector(poopOnSegment:) withTarget:self];
+	_targetView.wantsLayer 	    = YES;
+	self.targetView.layer.style = @{ @"sublayers": CATransition.randomTransition };
+
 //	[self.targetView swapSubs:self.debugLayers];
 //	[self.view.layer setStyle:@{@"sublayers":[CATransition randomTransition]}];
 //	[self.targetView
@@ -36,23 +29,22 @@
 
 - (void) poopOnSegment:(id)sender
 {
-	NSS* label		= [sender segmentLabel];  NSLog(@"looking for label cinderlla view: %@", label);
-	NSV *newView	=	areSame(label, @"prism" ) 	  ? 	[[AZPrismView alloc]initWithFrame:_targetView.frame]
-	:	areSame(label, @"azGrid") 	  ? 	[[AZGrid alloc]initWithCapacity:23]
-	: 	[self respondsToString:label] ?		self[[sender segmentLabel]]
-	:	nil;				 !newView ?: ^{
-
-
-		[_targetView removeAllSubviews]; [_targetView addSubview:newView];
-		[newView setFrame:_targetView.bounds];
-//		replaceSubview:_targetView.firstSubview with:newView];
-//		[[_targetView animator] replaceSubview:_targetView.firstSubview with:newView];
+	NSS* label	= [sender segmentLabel];  NSLog(@"looking for label cinderlla view: %@", label);
+	id newView	=	areSame(label, @"prism" ) 	  ? [AZPrismView.alloc initWithFrame:_targetView.frame]
+				:	areSame(label, @"azGrid") 	  ? [AZGrid.alloc initWithCapacity:23]
+				: 	[self respondsToString:label] ?	self[[sender segmentLabel]]
+				:	nil;
+	!newView ?: ^{
+		if (_targetView.subviews.count !=0)	[_targetView removeAllSubviews];
+		[_targetView addSubview:newView];
+		[newView setFrame:_targetView.bounds]; 			//replaceSubview:_targetView.firstSubview with:newView];
+														//		[[_targetView animator] replaceSubview:_targetView.firstSubview with:newView];
 		[[SoundManager sharedManager] prepareToPlayWithSound:[Sound soundNamed:@"unlock"]];
 		[[SoundManager sharedInstance] playSound:[Sound soundNamed:@"unlock"]];
 	}();
 
 //	TestBedDelegate *d = (TestBedDelegate*)[[NSApplication sharedApplication]delegate];
-	self.pBar.primaryColor = RANDOMCOLOR;
+//	self.pBar.primaryColor = RANDOMCOLOR;
 
 }
 
@@ -91,13 +83,9 @@
 		//		[base addObserverForKeyPath: task:<#^(id obj, NSDictionary *change)task#>
 		return base;
 	}();
-
-
 }
 
-- (LetterView*) letterView {
-	return _letterView = [[LetterView alloc]initWithFrame:_targetView.frame];
-}
+- (LetterView*) letterView { return _letterView = [[LetterView alloc]initWithFrame:_targetView.frame]; }
 
 - (BOOL) holdEm
 {
@@ -105,13 +93,14 @@
 	return [[aD holdOntoViews] state] == NSOnState;// ? YES : NO;
 }
 
+- (AtoZGridViewAuto*) autoGrid
+{
+	return _autoGrid = _autoGrid ?: [AtoZGridViewAuto.alloc initWithFrame:_targetView.bounds andArray:NSIMG.systemIcons];// inView:_targetView];
+}
+
 - (AtoZGridViewAuto*) picol
 {
-	NSA *p = [[NSC randomPalette]withMinItems:300];
-	p = [p map:^id(id obj) { return [NSIMG swatchWithColor:obj size:AZSizeFromDimension(200)]; }];
-//	 [NSIMG monoIcons];   LOG_EXPR(p);
-
-	return _picol = _picol ?: [[AtoZGridViewAuto alloc]initWithArray:p];
+	return _picol = _picol ?: [AtoZGridViewAuto.alloc initWithFrame:_targetView.bounds andArray:NSC.randomPalette];
 }
 
 -(NSSV*)contactSheet {
@@ -127,10 +116,10 @@
 		NSSV *sv 	= [[NSSV alloc]initWithFrame:_targetView.bounds];
  		sv.autoresizingMask = NSSIZEABLE;
 
-		NSIV *iv  	= [self baseImageView];
-		NSIMG* i	= [NSImage contactSheetWith:[NSIMG monoIcons] sized:AZSizeFromDimension((_targetView.width/10)-10) spaced:AZSizeFromDimension(5) columns:10 withName: YES];
-		iv.iamge 	= i;
-		iv.frame 	= AZRectFromSize(i.size);
+		NSIMG* i	= [NSImage contactSheetWith:[NSIMG monoIcons] inFrame:_targetView.bounds columns:12];
+		NSIV *iv  	= [[NSIV alloc]initWithFrame:AZRectFromSize(i.size)];
+		iv.image 	= i;
+		sv.hasVerticalScroller = YES;
 		sv.documentView = iv;
 		return sv;
 	}();
@@ -150,34 +139,31 @@
 
 
 
-- (AtoZGridViewAuto*) autoGrid
-{
-	return _autoGrid = _autoGrid ?: [[AtoZGridViewAuto alloc]initWithArray:[NSIMG systemIcons]];// inView:_targetView];
-}
 
 - (BLKVIEW*)blockView
-{	return 	_blockView = _blockView ?:
+{
+	return 	_blockView = _blockView ?:
 	[BLKVIEW viewWithFrame:_targetView.frame opaque:NO drawnUsingBlock: ^(BLKVIEW *view, NSR dirtyRect) {
 
 		view.arMASK = NSSIZEABLE;
 		NSRect topBox = AZUpperEdge(view.frame, 100);
 		NSRect botBox = AZRectTrimmedOnTop(view.frame, 100);
-//		AZPalette  *palette = [AZPalette new];
+		NSA* palette = [NSC randomPalette];
 
-		[view associate:[NSC linenTintedWithColor:[palette nextColor]] with:@"blockC"];
+		[view associate:[NSC linenTintedWithColor:[palette nextObject]] with:@"blockC"];
 		NSRectFillWithColor( botBox, [view associatedValueForKey:@"blockC"] );
 		NSRectFillWithColor( topBox, [[view associatedValueForKey:@"blockC"] complement]);
 		NSBP *arrow	= [[NSBezierPath bezierPathWithArrow]
 					   scaleToSize: (NSSZ) { quadrantsVerticalGutter(botBox), NSHeight(botBox) }];
 		[arrow setLineWidth:5];
 		//		[arrow setLineDash:dash count:20 phase:40];
-		[arrow drawWithFill:[palette nextColor] andStroke:[palette nextColor]];
+		[arrow drawWithFill:[palette nextObject] andStroke:[palette nextObject]];
 		[arrow drawPointsAndHandles];
 
 		[[NSArray from:0 to:3] eachWithIndex:^(id obj, NSInteger idx) {
 			NSBP *tri = [NSBezierPath bezierPathWithTriangleInRect:
 						 quadrant( botBox, (QUAD)idx ) orientation:(AMTriangleOrientation)idx];
-			[tri drawWithFill:[palette nextColor] andStroke:[palette nextColor]];
+			[tri drawWithFill:[palette nextObject] andStroke:[palette nextObject]];
 			[tri drawPointsAndHandles];
 
 		}];

@@ -530,21 +530,21 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 
 @end
 
-void AZMoveView(NSView* view, float dX, float dY) {
+void AZMoveView(NSView* view, CGF dX, CGF dY) {
 	NSRect frame = [view frame] ;
 	frame.origin.x += dX ;
 	frame.origin.y += dY ;
 	[view setFrame:frame] ;
 }
 
-void AZResizeView(NSView* view, float dX, float dY) {
+void AZResizeView(NSView* view, CGF dX, CGF dY) {
 	NSRect frame = [view frame] ;
 	frame.size.width += dX ;
 	frame.size.height += dY ;
 	[view setFrame:frame] ;
 }
 
-void AZResizeViewMovingSubviews(NSView* view, float dXLeft, float dXRight, float dYTop, float dYBottom) {
+void AZResizeViewMovingSubviews(NSView* view, CGF dXLeft, CGF dXRight, CGF dYTop, CGF dYBottom) {
 	AZResizeView(view, dXLeft + dXRight, dYTop + dYBottom) ;
 
 	NSArray* subviews = [view subviews] ;
@@ -569,7 +569,7 @@ void AZResizeViewMovingSubviews(NSView* view, float dXLeft, float dXRight, float
 	[view display] ;
 }
 
-NSView* AZResizeWindowAndContent(NSWindow* window, float dXLeft, float dXRight, float dYTop, float dYBottom, BOOL moveSubviews) {
+NSView* AZResizeWindowAndContent(NSWindow* window, CGF dXLeft, CGF dXRight, CGF dYTop, CGF dYBottom, BOOL moveSubviews) {
 	NSView* view = [window contentView] ;
 	if (moveSubviews)
 		AZResizeViewMovingSubviews(view, dXLeft, dXRight, dYTop, dYBottom) ;
@@ -587,89 +587,88 @@ NSView* AZResizeWindowAndContent(NSWindow* window, float dXLeft, float dXRight, 
 
 @implementation NSView (Layout)
 
-- (float)leftEdge {	return [self frame].origin.x ;	}
+- (CGF)leftEdge {	return [self frame].origin.x ;	}
 
-- (float)rightEdge {	return [self frame].origin.x + [self width] ;	}
+- (CGF)rightEdge {	return [self frame].origin.x + [self width] ;	}
 
-- (float)centerX {	return ([self frame].origin.x + [self width]/2) ;	}
+- (CGF)centerX {	return ([self frame].origin.x + [self width]/2) ;	}
 
-- (void)setLeftEdge:(float)t {	NSRect frame = [self frame] ;	frame.origin.x = t ;	[self setFrame:frame] ;	}
+- (void)setLeftEdge:(CGF)t {	NSRect frame = [self frame] ;	frame.origin.x = t ;	[self setFrame:frame] ;	}
 
-- (void)setRightEdge:(float)t {	NSRect frame = [self frame] ;	frame.origin.x = t - [self width] ;	[self setFrame:frame];	}
+- (void)setRightEdge:(CGF)t {	NSRect frame = [self frame] ;	frame.origin.x = t - [self width] ;	[self setFrame:frame];	}
 
-- (void)setCenterX:(float)t {	float center = [self centerX] ;	float adjustment = t - center ;
+- (void)setCenterX:(CGF)t {	float center = [self centerX] ;	float adjustment = t - center ;
 	NSRect frame = [self frame] ;	frame.origin.x += adjustment ;	[self setFrame:frame];
 }
 
-- (float)bottom {	return [self frame].origin.y ;	}
+- (CGF)bottom {	return [self frame].origin.y ;	}
 
-- (float)top {		return [self frame].origin.y + [self height] ;	}
+- (CGF)top {		return [self frame].origin.y + [self height] ;	}
 
-- (float)centerY {	return ([self frame].origin.y + [self height]/2) ;}
+- (CGF)centerY {	return ([self frame].origin.y + [self height]/2) ;}
 
-- (void)setBottom:(float)t {	NSRect frame = [self frame] ;	frame.origin.y = t ;	[self setFrame:frame] ;	}
+- (void)setBottom:(CGF)t {	NSRect frame = [self frame] ;	frame.origin.y = t ;	[self setFrame:frame] ;	}
 
-- (void)setTop:(float)t {	NSRect frame = [self frame] ;	frame.origin.y = t - [self height] ;	[self setFrame:frame] ;	}
+- (void)setTop:(CGF)t {	NSRect frame = [self frame] ;	frame.origin.y = t - [self height] ;	[self setFrame:frame] ;	}
 
-- (void)setCenterY:(float)t {		float center = [self centerY] ;		float adjustment = t - center ;
+- (void)setCenterY:(CGF)t {		float center = [self centerY] ;		float adjustment = t - center ;
 	NSRect frame = [self frame] ;	frame.origin.y += adjustment ;		[self setFrame:frame] ;
 }
 
-- (float)width {	return [self frame].size.width ;		}
+- (CGF)width {	return [self frame].size.width ;		}
 
-- (float)height {	return [self frame].size.height ;	}
+- (CGF)height {	return [self frame].size.height ;	}
 
-- (void)setWidth:(float)t {
+- (void)setWidth:(CGF)t {
 	NSRect frame = [self frame] ;
 	frame.size.width = t ;
 	[self setFrame:frame] ;
 }
 
-- (void)setHeight:(float)t {
-	NSRect frame = [self frame] ;
-	frame.size.height = t ;
-	[self setFrame:frame] ;
-}
+- (void)setHeight:(CGF)t 	{ 	self.frame = AZRectExceptHigh(self.frame, t); }
 
-- (void)setSize:(NSSize)size {
-	NSRect frame = [self frame] ;
-	frame.size.width = size.width ;
+- (NSSize)size 				{	return  self.bounds.size; }
+
+- (void)setSize:(NSSize)size
+{
+	NSR frame = self.frame ;
+	frame.size.width  = size.width ;
 	frame.size.height = size.height ;
-	[self setFrame:frame] ;
+	self.frame = frame;
 }
 
-- (void)deltaX:(float)dX
-		deltaW:(float)dW {
+- (void)deltaX:(CGF)dX
+		deltaW:(CGF)dW {
 	NSRect frame = [self frame] ;
 	frame.origin.x += dX ;
 	frame.size.width += dW ;
 	[self setFrame:frame] ;
 }
 
-- (void)deltaY:(float)dY
-		deltaH:(float)dH {
+- (void)deltaY:(CGF)dY
+		deltaH:(CGF)dH {
 	NSRect frame = [self frame] ;
 	frame.origin.y += dY ;
 	frame.size.height += dH ;
 	[self setFrame:frame] ;
 }
 
-- (void)deltaX:(float)dX {
+- (void)deltaX:(CGF)dX {
 	[self deltaX:dX
 		  deltaW:0.0] ;
 }
 
-- (void)deltaY:(float)dY {
+- (void)deltaY:(CGF)dY {
 	[self deltaY:dY
 		  deltaH:0.0] ;
 }
 
-- (void)deltaW:(float)dW {
+- (void)deltaW:(CGF)dW {
 	[self deltaX:0.0
 		  deltaW:dW] ;
 }
 
-- (void)deltaH:(float)dH {
+- (void)deltaH:(CGF)dH {
 	[self deltaY:0.0
 		  deltaH:dH] ;
 }

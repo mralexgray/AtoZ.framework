@@ -475,13 +475,14 @@
 @property (readwrite) BOOL loading;
 @end
 
-static NSOperationQueue *AZSharedOperationQueue() {
-	static NSOperationQueue *_AZSharedOperationQueue = nil;
-	return _AZSharedOperationQueue == nil ? (NSOperationQueue*) ^{		_AZSharedOperationQueue = [NSOperationQueue new];
-		// 	Limit concurrency for demo. NSOperationQueueDefaultMaxConcurrentOperationCount creates more threads, as appropriate
-		[_AZSharedOperationQueue setMaxConcurrentOperationCount:2];		return _AZSharedOperationQueue;
-	}() : _AZSharedOperationQueue;
-}
+//  decalred in nsimage + atoz
+//static NSOperationQueue *AZSharedOperationQueue() {
+//	static NSOperationQueue *_AZSharedOperationQueue = nil;
+//	return _AZSharedOperationQueue == nil ? (NSOperationQueue*) ^{		_AZSharedOperationQueue = [NSOperationQueue new];
+//		// 	Limit concurrency for demo. NSOperationQueueDefaultMaxConcurrentOperationCount creates more threads, as appropriate
+//		[_AZSharedOperationQueue setMaxConcurrentOperationCount:2];		return _AZSharedOperationQueue;
+//	}() : _AZSharedOperationQueue;
+//}
 
 @implementation AZImage
 //

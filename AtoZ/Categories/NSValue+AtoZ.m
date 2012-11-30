@@ -18,6 +18,19 @@
 }
 @end
 
+
+@implementation NSValue (AZInstallationStatus)
+
++ (id)valueWithInstallStatus: (AZInstallationStatus) status;
+{
+	return [NSValue value:&status withObjCType:@encode(AZInstallationStatus)];
+}
+- (AZInstallationStatus) installStatusValue;
+{
+	AZInstallationStatus status; [self getValue:&status]; return status;
+
+}@end
+
 @implementation NSValue (AtoZAutoBox)
 
 @end

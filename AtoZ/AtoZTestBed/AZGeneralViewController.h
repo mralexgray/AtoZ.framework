@@ -10,20 +10,20 @@
 
 @interface AZGeneralViewController : NSViewController
 
-@property (STRNG, NATOM) IBOutlet AZBackgroundProgressBar *pBar;
-@property (STRNG, NATOM) IBOutlet NSSegmentedControl *segments;
-@property (STRNG, NATOM) IBOutlet NSView 			*targetView;
+@property (NATOM) IBOutlet AZBackgroundProgressBar *pBar;
+@property (NATOM) IBOutlet NSSegmentedControl *segments;
+@property (NATOM) IBOutlet NSView 			*targetView;
 
-@property (STRNG, NATOM) AZMedallionView *medallion;
-@property (STRNG, NATOM) BLKVIEW	   	 	*blockView;
-@property (STRNG, NATOM) AZDebugLayerView  	*debugLayers;
-@property (STRNG, NATOM) NSIV	 			*badges, *imageNamed;
-@property (STRNG, NATOM) NSSV 				*contactSheet;
-@property (STRNG, NATOM) AtoZGridViewAuto   *picol;
-@property (STRNG, NATOM) AtoZGridViewAuto	*autoGrid;
-@property (STRNG, NATOM) AZHostView			*hostView;
-@property (STRNG, NATOM) AZGrid				*azGrid;
-@property (STRNG, NATOM) AZPrismView 		*prism;
-@property (STRNG, NATOM) LetterView			*letterView;
+@property (NATOM) AZMedallionView 	*medallion;
+@property (NATOM) BLKVIEW	   	 		*blockView;
+@property (NATOM) AZDebugLayerView  	*debugLayers;
+@property (NATOM) NSIV	 			*badges, *imageNamed;
+@property (NATOM) NSSV 				*contactSheet;
+@property (NATOM) AtoZGridViewAuto   	*picol;
+@property (NATOM) AtoZGridViewAuto	*autoGrid;
+@property (NATOM) AZHostView			*hostView;
+@property (NATOM) AZGrid				*azGrid;
+@property (NATOM) AZPrismView 			*prism;
+@property (NATOM) LetterView			*letterView;
 
 @end

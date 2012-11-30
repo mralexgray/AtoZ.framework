@@ -920,10 +920,10 @@ NSRect AZOffsetRect(NSR rect, NSP offset)
 	return rect;
 }
 
-NSPoint AZRectOffset(NSR innerRect,NSR outerRect, QUAD quadrant){
-	if (quadrant )
-		return NSMakePoint((quadrant == 2 || quadrant == 1) ? NSMaxX(outerRect)-NSMaxX(innerRect) : NSMinX(outerRect)-NSMinX(innerRect),
-						   (quadrant == 3 || quadrant == 2) ? NSMaxY(outerRect)-NSMaxY(innerRect) : NSMinY(outerRect)-NSMinY(innerRect));
+NSPoint AZOffsetOfRects(NSR innerRect,NSR outerRect){ //, QUAD quadrant){
+//	if (quadrant )
+//		return NSMakePoint((quadrant == 2 || quadrant == 1) ? NSMaxX(outerRect)-NSMaxX(innerRect) : NSMinX(outerRect)-NSMinX(innerRect),
+//						   (quadrant == 3 || quadrant == 2) ? NSMaxY(outerRect)-NSMaxY(innerRect) : NSMinY(outerRect)-NSMinY(innerRect));
 	return NSMakePoint( NSMidX(outerRect)-NSMidX(innerRect), NSMidY(outerRect)-NSMidY(innerRect) ); //Center Rects
 }
 
@@ -942,8 +942,19 @@ int oppositeQuadrant(int quadrant){
 //
 //	return quadrant(r, (NSUInteger)quadrant);
 //}
-NSR quadrant(NSR r, AZQuadrant quad) {
-	return alignRectInRect (AZRectFromDim(AZMinEdge(r)/2),r, quad);
+
+NSR AZRectOfQuadInRect(NSR originalRect, AZQuadrant quad) { return quadrant(originalRect, quad); }
+
+NSR quadrant(NSR r, AZQuadrant quad)
+{
+	NSSZ half = AZMultiplySize(r.size, .5);
+	NSR newR  = AZRectBy(half.width, half.height);
+	NSP p 	  = quad == AZTopLeftQuad  ? (NSP) { 0, 			 half.height }
+			  : quad == AZTopRightQuad ? (NSP) { half.width, half.height }
+			  : quad == AZBotRightQuad ? (NSP) { half.width,           0 }
+			  :	NSZeroPoint;
+			 
+	return AZOffsetRect(newR, p);
 }
 
 CGFloat quadrantsVerticalGutter(NSR r)
@@ -959,10 +970,11 @@ CGFloat quadrantsHorizontalGutter(NSR r)
 }
 
 
-NSR alignRectInRect(NSR innerRect, NSR outerRect, int quadrant){
-	NSPoint offset= AZRectOffset(innerRect,outerRect,quadrant);
-	return NSOffsetRect(innerRect,offset.x,offset.y);
-}
+//NSR alignRectInRect(NSR innerRect, NSR outerRect, int quadrant)
+//{
+////	NSPoint offset= AZRectOffset(innerRect,outerRect,quadrant);
+//	return NSOffsetRect(innerRect,offset.x,offset.y);
+//}
 
 
 NSR rectZoom(NSR rect,float zoom,int quadrant){

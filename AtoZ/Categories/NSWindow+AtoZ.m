@@ -528,13 +528,7 @@ return midpoint;
 - (BOOL)dimControlsKey;
 {
 	// if key window is a menu, just call plain dimControls
-	if ([self keyWindowIsMenu])
-		return [self dimControls];
-	
-	if ([self isFloating])
-		return NO;
-	
-	return ![[self parentWindowIfDrawerWindow] isKeyWindow];
+	return[self keyWindowIsMenu] ? [self dimControls] : [self isFloating] ? NO : ![[self parentWindowIfDrawerWindow] isKeyWindow];
 }
 
 - (BOOL)keyWindowIsMenu;

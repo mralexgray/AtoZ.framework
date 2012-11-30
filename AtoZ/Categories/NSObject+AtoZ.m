@@ -237,19 +237,15 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary(void) {
 
 -(void) setWithDictionary: (NSD*)dic;
 {
-	NSCoder *aDecoder = [NSCoder new];
-	for (NSS *key in [dic codableKeys])
-	{
-		id object = [aDecoder decodeObjectForKey:key];
-		[self setValue:object forKey:key];
-	}
-
+	NSA* limitedD 	  = [dic.codableKeys filter:^BOOL(id object) { return [self canSetValueForKey:object];}];
+	NSCoder *aDecoder = NSCoder.new;
+//	for (NSS *key in [dic codableKeys]) {
+	[limitedD do:^(NSS *key) {		[self setValue:[aDecoder decodeObjectForKey:key] forKey:key]; }];
 	//	[[dic allKeys] each:^(id obj) {
 	//		NSS *j = $(@"set%@:", [obj capitalizedString]);
 	//		if ([self respondsToString:j] )
 	//			[self performSelectorWithoutWarnings:NSSelectorFromString(j) withObject:[dic[obj]copy]];
 	//	}];
-
 }
 +(void)switchOn: (id<NSObject>)obj cases:casesList, ...
 {
@@ -274,6 +270,8 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary(void) {
 
 - (id)objectForKeyedSubscript: (id)key
 {
+
+	return  [self hasPropertyForKVCKey:key] ? [self valueForKey:key] : nil;
 	//	NSArray *syms = [NSThread  callStackSymbols];
 	//	if ([syms count] > 1) {
 	//		NSLog(@"<%@ %p> %@ - caller: %@ ", [self class], self, NSStringFromSelector(_cmd),[syms objectAtIndex:1]);
@@ -282,7 +280,7 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary(void) {
 	//	}
 	//	if (areSame(key, @"path")) NSLog(@"warning, path subscrip[t being set");
 	//	NSLog(@"CMD: %@ requesting subscript:%@", [NSS stringWithUTF8String:__func__], key);
-	id result = nil;
+/**	id result = nil;
 	//	if ([key isKindOfClass:[NSS class]])
 	result = [self respondsToString:key] ? [self valueForKey:key] : nil;
 	if (!result)
@@ -291,31 +289,32 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary(void) {
 		result = [self respondsToSelector:@selector(objectForKey:)] ? [(id)self objectForKey:key] : nil;
 	if (!result)
 		result = [self respondsToSelector:@selector(objectForKeyPath:)] ? [(id)self objectForKeyPath:key] : nil;
-
-	if (!result) NSLog(@"%@ cannot coerce value for keyedSubstring: %@", self, key);
+	if (!result)
+		result = [self respondsToSelector:@selector(valueForKey:)] ? [self valueForKey:key] : nil;
+	if (!result) result = [self valueForKey:key];
+	if (!result) NSLog(@"Cannot coerce value from: %@ for keyedSubstring: %@", self.propertiesPlease, key);
 	return result;
+*/
 }
 
-- (void)setObject: (id)obj forKeyedSubscript: (id <NSCopying>)key {
-
-	//	if (areSame(key, @"path")) NSLog(@"warning, path subscrip[t being set");
-
-	if ( areSame(obj, [self valueForKey:obj] )) { AZLOG(@"Theyre already the same, doing nothing!") return;}
+- (void)setObject: (id)obj forKeyedSubscript: (id <NSCopying>)key
+{
+	if ( areSame(obj, [self valueForKey:(id)key] )) { AZLOG(@"Theyre already the same, doing nothing!") return;}
 	__block BOOL wasSet = NO;
-	[(NSS*)key contains:@"."] ? ^{
-		[self canSetValueForKeyPath: (NSS*)key] ? ^{
-			NSLog(@"Setting Value: %@ forKeyPath:%@", obj, key);
-			[self setValue:obj forKeyPath: (NSS*)key];
-			//			NSLog(@"New val: %@.", self[key]);
-			wasSet = [self [key] isEqualTo:obj];
-		}() : ^{  NSLog(@"Cannot set object:%@ for (dot)keypath:\"%@\" via subscript... \"%@\" does not respond. Current val:%@.",obj, key, self, self[key]);}();
-	}() : [self canSetValueForKey: (NSS*)key] ? ^{
+	[self canSetValueForKey: (id)key] ? ^{
 		//			NSLog(@"Setting Value: %@ forKey:%@", obj, key);
-		[self setValue:obj forKey: (NSS*)key];
+		[self setValue:obj forKey:(id)key];
 		wasSet = [self[key] isEqualTo:obj];
 		//			NSLog(@"New val: %@.", self[key]);
-	}() : ^{  NSLog(@"Cannot set object:%@ for key:\"%@\" via subscript... \"%@\" does not respond. Current val:%@.",obj, key, self, self[key]);
-	}();
+	}() :  NSLog(@"Cannot set object:%@ for key:\"%@\" via subscript... \"%@\" does not respond. Current val:%@.",obj, key, self, self[key]);
+	[self canSetValueForKeyPath: (NSS*)key] ? ^{
+		NSLog(@"Setting Value: %@ forKeyPath:%@", obj, key);
+		[self setValue:obj forKeyPath: (NSS*)key];
+			//			NSLog(@"New val: %@.", self[key]);
+		wasSet = [[self valueForKeyPath:(NSS*)key]isEqualTo:obj];
+	}() : ^{  NSLog(@"Cannot set object:%@ for (dot)keypath:\"%@\" via subscript... \"%@\" does not respond. Current val:%@.",obj, key, self, self[key]);}();
+//	}() :
+//	}();
 	wasSet ?: NSLog(@"subscrpipt key:%@ NOT set, despite edfforts", key);
 
 }
@@ -363,29 +362,28 @@ static char windowPosition;
 }
 
 + (NSS*)  autoDescribe;
-{ return [$(@"%@:%p:: ", [self class], self) stringByAppendingString:
+{ return [$(@"%@:%p:: ", self.class, self) stringByAppendingString:
 		  [self autoDescribeWithClassType:[self class]]]; }
 
 - (NSS*) autoDescribe
 {
-	Class clazz = [self class];
+	Class clazz 	= self.class;
 	u_int count;
-
-	Ivar* ivars = class_copyIvarList(clazz, &count);
+	Ivar* ivars 	= class_copyIvarList(clazz, &count);
 	NSMA *ivarArray = [NSMA arrayWithCapacity:count];
 	for (int i = 0; i < count ; i++)
 	{
 		const char* ivarName = ivar_getName(ivars[i]);
-		[ivarArray addObject:[NSS  stringWithCString:ivarName encoding:NSUTF8StringEncoding]];
+		[ivarArray addObject:[NSS stringWithUTF8String:ivarName]];
 	}
 	free(ivars);
 
 	objc_property_t* properties = class_copyPropertyList(clazz, &count);
-	NSMA *propertyArray = [NSMA arrayWithCapacity:count];
+	NSMA *propertyArray = NSMA.new;
 	for (int i = 0; i < count ; i++)
 	{
 		const char* propertyName = property_getName(properties[i]);
-		[propertyArray addObject:[NSS  stringWithCString:propertyName encoding:NSUTF8StringEncoding]];
+		[propertyArray addObject:[NSS stringWithUTF8String:propertyName]];
 	}
 	free(properties);
 
@@ -395,12 +393,12 @@ static char windowPosition;
 	{
 		SEL selector = method_getName(methods[i]);
 		const char* methodName = sel_getName(selector);
-		[methodArray addObject:[NSS  stringWithCString:methodName encoding:NSUTF8StringEncoding]];
+		[methodArray addObject:[NSS  stringWithUTF8String:methodName]];
 	}
 	free(methods);
-	NSLog(@"%@", 	@{ @"ivars" : [ivarArray formatAsListWithPadding:30], @"properties":
-		  [propertyArray formatAsListWithPadding:30], @"methods":
-		  [methodArray formatAsListWithPadding:30]});
+	NSLog(@"%@", 	@{ 	@"ivars" 		: [ivarArray formatAsListWithPadding:30],
+						@"properties"	: [propertyArray formatAsListWithPadding:30],
+						@"methods"		: [methodArray formatAsListWithPadding:30]});
 }
 
 @end
@@ -417,23 +415,20 @@ static char windowPosition;
 		NSAssert (classes != NULL, @"Memory Allocation Failed in [Content +subclasses].");
 		(void) objc_getClassList(classes, count);
 	}
-
 	if (classes) {
 		for (int i=0; i<count; i++) {
 			Class myClass		= classes[i];
 			Class superClass		= class_getSuperclass(myClass);
 			if (superClass == self) [subClasses addObject:myClass];
 		}
-
 		free(classes);
 	}
-
 	return subClasses;
 }
 @end
 
 @implementation NSObject (AG)
-///////////////////////////////////////////////////////////////////////////////////////////////////
+
 - (id)performSelector: (SEL)selector withObject: (id)p1 withObject: (id)p2 withObject: (id)p3 {
 	NSMethodSignature *sig = [self methodSignatureForSelector:selector];
 	if (sig) {
@@ -444,22 +439,17 @@ static char windowPosition;
 		[invo setArgument:&p2 atIndex:3];
 		[invo setArgument:&p3 atIndex:4];
 		[invo invoke];
-		if (sig.methodReturnLength) {
-			id anObject;
-			[invo getReturnValue:&anObject];
-			return anObject;
-		} else {
-			return nil;
-		}
-	} else {
-		return nil;
-	}
+		if (sig.methodReturnLength) {	id anObject;
+										[invo getReturnValue:&anObject];
+										return anObject;
+		} else	return nil;
+	} else 		return nil;
 }
 
 
-///////////////////////////////////////////////////////////////////////////////////////////////////
-- (id)performSelector: (SEL)selector withObject: (id)p1 withObject: (id)p2 withObject: (id)p3
-		   withObject: (id)p4 {
+
+- (id)performSelector: (SEL)selector withObject: (id)p1 withObject: (id)p2 withObject: (id)p3  withObject: (id)p4
+{
 	NSMethodSignature *sig = [self methodSignatureForSelector:selector];
 	if (sig) {
 		NSInvocation* invo = [NSInvocation invocationWithMethodSignature:sig];
@@ -470,20 +460,13 @@ static char windowPosition;
 		[invo setArgument:&p3 atIndex:4];
 		[invo setArgument:&p4 atIndex:5];
 		[invo invoke];
-		if (sig.methodReturnLength) {
-			id anObject;
-			[invo getReturnValue:&anObject];
-			return anObject;
-		} else {
-			return nil;
-		}
-	} else {
-		return nil;
-	}
+		if (sig.methodReturnLength) {	id anObject;
+										[invo getReturnValue:&anObject];
+										return anObject;
+		} else	return nil;
+	} else	return nil;
 }
 
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
 - (id)performSelector: (SEL)selector withObject: (id)p1 withObject: (id)p2 withObject: (id)p3
 		   withObject: (id)p4 withObject: (id)p5 {
 	NSMethodSignature *sig = [self methodSignatureForSelector:selector];
@@ -557,12 +540,8 @@ static char windowPosition;
 			id anObject;
 			[invo getReturnValue:&anObject];
 			return anObject;
-		} else {
-			return nil;
-		}
-	} else {
-		return nil;
-	}
+		} else 	return nil;
+	} else	return nil;
 }
 
 
@@ -573,7 +552,7 @@ static char windowPosition;
 	//	BOOL isSelected;	NSS*label;
 	//	BOOL isSegmented = [sender isKindOfClass:[NSSegmentedControl class]];
 	//		//	if (isSegmented) {
-	//	NSInteger selectedSegment = [sender selectedSegment];
+	//	NSI selectedSegment = [sender selectedSegment];
 	//		//		 = [sender isSelectedForSegment:selectedSegment];
 	//	label = [sender labelForSegment:selectedSegment];
 	//	BOOL *optionPtr = &isSelected;
@@ -584,22 +563,24 @@ static char windowPosition;
 	//	[[AZTalker sharedInstance] say:$(@"%@ is %@ selected", string, isSelected ? @"" : @"NOT")];
 }
 
-- (NSS*)segmentLabel {
+- (NSS*)segmentLabel
+{
 	return	[self isKindOfClass:[NSSegmentedControl class]]
 	? [(NSSegmentedControl*)self labelForSegment:[(NSSegmentedControl*)self selectedSegment]] : nil;
 }
 
-BOOL respondsToString(id obj,NSS* string){
+BOOL respondsToString ( id obj, NSS* string) {
 	return [obj respondsToString:string];
 }
 
 BOOL respondsTo(id obj, SEL selector){
 	return [obj respondsToSelector:selector];
 }
-- (BOOL) respondsToString: (NSS*)string{
+
+- (BOOL) respondsToString: (NSS*)string
+{
 	return [self respondsToSelector:NSSelectorFromString(string)];
 }
-
 
 - (IBAction)performActionFromLabel: (id)sender;
 {
@@ -608,25 +589,18 @@ BOOL respondsTo(id obj, SEL selector){
 	else if ([sender isKindOfClass:[NSButton class]]) stringSel = [sender title];
 	else if ([sender respondsToSelector:@selector(label)]) stringSel = [sender label];
 	setter = $(@"set%@:",[stringSel uppercaseString]);
-	if ([self respondsToString:stringSel]){
-		[self performSelectorSafely:NSSelectorFromString(stringSel)];
-	}
-	else if ([self respondsToString:setter]){
-		[self performSelectorWithoutWarnings:NSSelectorFromString(setter) withObject:nil];
-	}
+	if ([self respondsToString:stringSel])  [self performSelectorSafely:NSSelectorFromString(stringSel)];
+	else if ([self respondsToString:setter])  [self performSelectorWithoutWarnings:NSSelectorFromString(setter) withObject:nil];
 }
 - (IBAction)performActionFromSegmentLabel: (id)sender;
 {
 	BOOL isSegmented = [sender isKindOfClass:[NSSegmentedControl class]];
 	if (isSegmented) {
 		BOOL isSelected;	NSS*label;
-		NSInteger selectedSegment = [sender selectedSegment];
-		label = [sender labelForSegment:selectedSegment];
-//		BOOL *optionPtr = &isSelected;
-		if ([self respondsToString:label]){
-			SEL fabricated = NSSelectorFromString(label);
-			[self performSelector:fabricated withValue:nil];
-		}
+		NSI selectedSegment = [sender selectedSegment];
+		label = [sender labelForSegment:selectedSegment];	//		BOOL *optionPtr = &isSelected;
+		if ([self respondsToString:label])
+			[self performSelector:NSSelectorFromString(label) withValue:nil];
 	}
 }
 
@@ -635,7 +609,7 @@ BOOL respondsTo(id obj, SEL selector){
 	BOOL isSegmented = [sender isKindOfClass:[NSSegmentedControl class]];
 	if (isSegmented) {
 		BOOL isSelected;	NSS*label;
-		NSInteger selectedSegment = [sender selectedSegment];
+		NSI selectedSegment = [sender selectedSegment];
 		label = [sender labelForSegment:selectedSegment];
 //		BOOL *optionPtr = &isSelected;
 
@@ -652,7 +626,7 @@ BOOL respondsTo(id obj, SEL selector){
 	BOOL isSelected;	NSS*label;
 	BOOL isSegmented = [sender isKindOfClass:[NSSegmentedControl class]];
 	if (isSegmented) {
-		NSInteger selectedSegment = [sender selectedSegment];
+		NSI selectedSegment = [sender selectedSegment];
 		//		 = [sender isSelectedForSegment:selectedSegment];
 		label = [sender labelForSegment:selectedSegment];
 		BOOL *optionPtr = &isSelected;
@@ -666,7 +640,7 @@ BOOL respondsTo(id obj, SEL selector){
 //
 //	BOOL isSelected;	NSS*label;
 //	BOOL isButton = [sender isKindOfClass:[NSButton class]];
-//	NSInteger buttonState = [sender state];
+//	NSI buttonState = [sender state];
 //	//		 = [sender isSelectedForSegment:selectedSegment];
 //	label = [sender label];
 //	BOOL *optionPtr = &buttonState;
@@ -785,63 +759,43 @@ static const char * getPropertyType(objc_property_t property) {
 //- (NSD *)propertiesDictionariate;
 
 
-- (NSS*)stringFromClass {	return NSStringFromClass( [self class]); }
+- (NSS*) stringFromClass {	return NSStringFromClass( [self class]); }
 
-- (void)setIntValue: (NSInteger)i forKey: (NSS*)key { [self setValue:[NSNumber numberWithInt:i] forKey:key]; }
+- (void) setIntValue: (NSI)i forKey: (NSS*)key { [self setValue:[NSNumber numberWithInt:i] forKey:key]; }
 
--(void)setIntValue: (NSInteger)i forKeyPath: (NSS*)keyPath { [self setValue:[NSNumber numberWithInt:i] forKeyPath:keyPath]; }
+- (void) setIntValue: (NSI)i forKeyPath: (NSS*)keyPath { [self setValue:[NSNumber numberWithInt:i] forKeyPath:keyPath]; }
 
--(void)setFloatValue: (CGFloat)f forKey: (NSS*)key {[self setValue:[NSNumber numberWithFloat:f] forKey:key]; }
+- (void) setFloatValue: (CGF)f forKey: (NSS*)key {[self setValue:[NSNumber numberWithFloat:f] forKey:key]; }
 
--(void)setFloatValue: (CGFloat)f forKeyPath: (NSS*)keyPath {	[self setValue:[NSNumber numberWithFloat:f] forKeyPath:keyPath]; }
+- (void) setFloatValue: (CGF)f forKeyPath: (NSS*)keyPath {	[self setValue:[NSNumber numberWithFloat:f] forKeyPath:keyPath]; }
 
--(BOOL)isEqualToAnyOf: (id<NSFastEnumeration>)enumerable {	for (id o in enumerable) { if ([self isEqual:o]) return YES; } return NO; }
+- (BOOL) isEqualToAnyOf: (id<NSFastEnumeration>)enumerable {	for (id o in enumerable) { if ([self isEqual:o]) return YES; } return NO; }
 
--(void)fire: (NSS*)notificationName { [AZNOTCENTER postNotificationName:notificationName object:self]; }
+- (void) fire: (NSS*)notificationName { [AZNOTCENTER postNotificationName:notificationName object:self]; }
 
--(void)fire: (NSS*)notificationName userInfo: (NSD *)context {
-	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-	[nc postNotificationName:notificationName object:self userInfo:context];
-}
--(id)observeObject: (NSS*)notificationName
-		usingBlock: (void (^)(NSNotification *))block
+- (void) fire: (NSS*)notificationName userInfo: (NSD *)context	{	[AZNOTCENTER postNotificationName:notificationName object:self userInfo:context];	}
+
+- (id) observeObject: (NSS*)notificationName usingBlock: (void (^)(NSNOT*))block
 {
-	return [AZNOTCENTER addObserverForName:notificationName
-									object:self
-									 queue:nil
-								usingBlock:block];
-}
--(id)observeName: (NSS*)notificationName
-	  usingBlock: (void (^)(NSNotification *))block
-{
-	return [AZNOTCENTER addObserverForName:notificationName
-									object:self
-									 queue:nil
-								usingBlock:block];
+	return [AZNOTCENTER addObserverForName:notificationName	object:self queue:nil usingBlock:block];
 }
 
--(void)observeObject: (NSObject *)object
-			 forName: (NSS*)notificationName
-			 calling: (SEL)selector
+- (id) observeName: (NSS*)notificationName  usingBlock: (void (^)(NSNOT*))block
 {
-	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-	[nc addObserver:self
-		   selector:selector
-			   name:notificationName
-			 object:object];
+	return [AZNOTCENTER addObserverForName:notificationName	object:self queue:nil usingBlock:block];
 }
--(void)observeName: (NSS*)notificationName
-		   calling: (SEL)selector
+
+-(void) observeObject: (NSObject *)object forName: (NSS*)notificationName calling: (SEL)selector
 {
-	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-	[nc addObserver:self
-		   selector:selector
-			   name:notificationName
-			 object:nil];
+	[AZNOTCENTER addObserver:self selector:selector name:notificationName object:object];
 }
--(void)stopObserving: (NSObject *)object forName: (NSS*)notificationName {
-	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-	[nc removeObserver:self name:notificationName object:object];
+-(void)observeName: (NSS*)notificationName  calling: (SEL)selector
+{
+	[AZNOTCENTER addObserver:self selector:selector  name:notificationName object:nil];
+}
+-(void)stopObserving: (NSObject *)object forName: (NSS*)notificationName
+{
+	[AZNOTCENTER removeObserver:self name:notificationName object:object];
 }
 
 
@@ -908,21 +862,18 @@ static const char * getPropertyType(objc_property_t property) {
 	}
 }
 
--(void)removeObserver: (NSObject *)observer
-		  forKeyPaths: (id<NSFastEnumeration>)keyPaths
+-(void)removeObserver: (NSObject *)observer  forKeyPaths: (id<NSFastEnumeration>)keyPaths
 {
-	for (NSS*keyPath in keyPaths) {
-		[self removeObserver:observer forKeyPath:keyPath];
-	}
+	for (NSS*keyPath in keyPaths) { 	[self removeObserver:observer forKeyPath:keyPath]; }
 }
 
--(void)willChangeValueForKeys: (id<NSFastEnumeration>)keys {	for (id key in keys) [self willChangeValueForKey:key];  }
+-(void) willChangeValueForKeys: (id<NSFastEnumeration>)keys {	for (id key in keys) [self willChangeValueForKey:key];  }
 
--(void)didChangeValueForKeys: (id<NSFastEnumeration>)keys { for (id key in keys)		[self didChangeValueForKey:key]; }
+-(void) didChangeValueForKeys: (id<NSFastEnumeration>)keys { for (id key in keys)		[self didChangeValueForKey:key]; }
 
 - (NSD*) dictionaryWithValuesForKeys { return [self dictionaryWithValuesForKeys:[self allKeys]]; }
 
-- (NSA*) allKeys {	Class clazz = [self class];	 u_int count;
+- (NSA*) allKeys {	Class clazz = self.class;	 u_int count;
 	objc_property_t* properties 	= class_copyPropertyList(clazz, &count);
 	NSMA* propertyArray = [NSMA arrayWithCapacity:count];
 	for (int i = 0; i < count ; i++) {
@@ -930,7 +881,7 @@ static const char * getPropertyType(objc_property_t property) {
 		[propertyArray addObject:@(propertyName)];
 	}
 	free(properties);
-	return [NSArray arrayWithArray:propertyArray];
+	return propertyArray.copy;
 }
 
 - (void)setClass: (Class)aClass {	NSAssert( class_getInstanceSize([self class]) == class_getInstanceSize(aClass),
@@ -991,7 +942,12 @@ static const char * getPropertyType(objc_property_t property) {
 
 @implementation NSD (PropertyMap)
 
-- (void)mapPropertiesToObject: (id)instance	{ [[self allKeys] do:^(NSS* propertyKey) { [instance setValue:self[propertyKey]	forKey:propertyKey]; }]; }
+- (void)mapPropertiesToObject: (id)instance
+{
+	[[instance class].codableKeys do:^(NSS* propertyKey) {
+		[instance canSetValueForKey:propertyKey] ? [instance setValue:self[propertyKey]	forKey:propertyKey] : nil;
+	}];
+}
 
 @end
 
@@ -1038,3 +994,19 @@ static const char * getPropertyType(objc_property_t property) {
 @end
 
 
+@implementation  NSObject (ImageVsColor)
+
+- (NSC*)colorValue
+{
+	return 	[self isKindOfClass:NSIMG.class] ? ((NSIMG*)self).quantize[0] :
+		 	[self isKindOfClass:NSC.class] ? self :
+			[self respondsToString:@"color"] ? [self valueForKey:@"color"] : [NSNull null];
+}
+- (NSIMG*)imageValue;
+{
+	return 	[self isKindOfClass:NSIMG.class] ? self :
+			[self isKindOfClass:NSC.class] ? [NSIMG swatchWithColor:(NSC*)self size:AZSizeFromDimension(256)] :
+			[self respondsToString:@"image"] ? [self valueForKey:@"image"] : [NSNull null];
+}
+
+@end

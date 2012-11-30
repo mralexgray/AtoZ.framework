@@ -11,7 +11,9 @@
 @interface NSDate (AtoZ)
 + (NSS*)dayOfWeek;
 @end
+
 typedef void (^updateKVCKeyBlock)();
+
 @interface NSObject (KVONotifyBlock)
 - (void)setValueForKey:(NSString*)key andNotifyInBlock:(updateKVCKeyBlock)block;
 @end
@@ -20,8 +22,26 @@ typedef void (^updateKVCKeyBlock)();
 //+ (void)initialize{ [NSVT setValueTransformer:[BoolToImageTransformer new] forName:@"BoolToImageTransformer"];	}
 @interface BoolToImageTransformer : NSValueTransformer
 @end
+@interface AZInstallationStatusToImageTransformer : NSValueTransformer
+@property (nonatomic, assign) NSSZ *size;
+@end
+
+@interface AZColorTableCell : NSActionCell
+@end
+
+@interface NSTableView (CustomDataCell)
+- (void) setColumnWithIdentifier:(NSS*)identifier toClass:(Class)actionCellClass;
+@end
+typedef void(^AZActionCellBlock)(id objVal);
+
+@interface AZToggleClickTableCell : NSActionCell
+@property (nonatomic, assign) AZActionCellBlock actionBlock;
+@end
 
 
+@interface  NSColor (compare)
+- (NSComparisonResult)compare:(NSColor*)otherColor;
+@end
 
 //#import "AtoZ.h"
 //PUT IN PRECOMP #define NSLog(args...) _AZSimpleLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args);
@@ -100,7 +120,7 @@ BOOL areSameThenDo(id a, id b, VoidBlock doBlock);
 
 //static inline
 //BOOL isEmpty(id thing);
-int (^triple)(int);
+//typedef int (^triple)(int number);
 
 //USAGE: .... return (NSA*)logAndReturn( [NSArray arrayWithArrays:@[blah,blahb]] );
 //id (^logAndReturn)(id); //= ^(id toLog) { AZLOG(toLog); return toLog; };

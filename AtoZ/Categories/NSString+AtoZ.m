@@ -35,6 +35,12 @@
 
 @implementation NSString (AtoZ)
 
+
+- (NSS*)withPath:(NSS*)path;
+{
+	return [self stringByAppendingPathComponent:path];
+}
+
 - (NSString*)stripHtml {
     // take this string obj and wrap it in a root element to ensure only a single root element exists
     NSString* string = [NSString stringWithFormat:@"<root>%@</root>", self];
@@ -202,14 +208,14 @@
 
 //- (void) drawCenteredInRect: (NSR)rect withFontNamed: (NSS*) font;
 
-- (void) drawCenteredInRect: (NSR)rect withFont: (NSS*) font
+- (void) drawCenteredInRect: (NSR)rect withFont: (NSF*) font
 {
 
 
 //- (void)drawCenteredInFrame:(NSRect)frame withFont:(NSF*)font {
 //	NSView *view = framer;
 //	NSSize size = view.frame.size;// WithFont:font;
-	NSAttributedString *string = [[NSAttributedString alloc] initWithString:self attributes:@{font:NSFontAttributeName} ];
+	NSAttributedString *string = [[NSAttributedString alloc] initWithString:self attributes:@{font:NSFontAttributeName,NSFontSizeAttribute: @(font.pointSize)} ];
 //	CGRect textBounds = CGRectMake(rect.origin.x + (rect.size.width - size.width) / 2,
 //								   rect.origin.y + (rect.size.height - size.height) / 2,
 //								   size.width, size.height);
@@ -513,16 +519,16 @@
 	return [str substringToIndex:i];
 }
 
-- (NSAttributedString*) attributedWithSize:(NSUInteger)size andColor:(NSColor*)color {
+- (NSAttributedString*) attributedWithFont:(NSF*)font andColor:(NSC*)color {
 	return [[NSAttributedString alloc] initWithString:self attributes:@{
-				NSFontAttributeName : [NSFont fontWithName:@"Ubuntu Mono Bold" size:size],
-						NSForegroundColorAttributeName :	 color}];
+				NSFontAttributeName : font,
+	NSForegroundColorAttributeName  : color}];
 
 }
 
 //This method creates an NSMutableAttributedString, using an NSString and an NSMutableParagraphStyle.
 
--(NSMutableAttributedString *) attributedParagraphWithSpacing:(float)spacing
+-(NSMutableAttributedString *) attributedParagraphWithSpacing:(CGF)spacing
 {
 	NSMutableParagraphStyle *aMutableParagraphStyle;
 	NSMutableAttributedString   *attString;
@@ -646,6 +652,7 @@ NSString*   StringByTruncatingStringWithAttributesForWidth( NSString* s, NSDicti
 }
 
 @implementation NSMutableString (AtoZ)
+
 
 
 

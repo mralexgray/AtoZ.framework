@@ -103,6 +103,7 @@ AZToStringFromTypeAndValue(@encode(typeof(_X_)), &_Y_);})
 #define kHIDE 	@"hide"
 
 #define AZFWORKBUNDLE [NSBundle bundleForClass:[AtoZ class]]
+#define AZFWRESOURCES [AZFWORKBUNDLE resourcePath]
 #define  AZMAINBUNDLE [NSBundle mainBundle]
 #define   CAMEDIAEASEOUT [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]
 #define   CAMEDIAEASEIN [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn]
@@ -164,10 +165,11 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define CGSUPRESSINTERVAL(x) CGEventSourceSetLocalEventsSuppressionInterval(nil,x)
 #define AZPOS AZWindowPosition
 
-
+#define ELSENULL ?: [NSNull null]
 #define AZGView AtoZGridView
 #define AZGVItem AtoZGridViewItem
 #define AZP AZPalette
+#define AZIS AZInstallationStatus
 
 #define BLKVIEW BNRBlockView
 #define CAA CAAnimation
@@ -247,18 +249,23 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define NSRFill NSRectFill
 #define NSS NSString
 #define NSSI NSStatusItem
+#define NSSHDW NSShadow
 #define NSSZ NSSize
 #define NST NSTimer
 #define NSSV NSScrollView
 
 #define NSTA NSTrackingArea
 #define NSTI NSTimeInterval
+#define NSTV NSTableView
+#define NSTC NSTableColumn
 #define NSTXTF NSTextField
 #define NSTXTV NSTextView
 #define NSUI NSUInteger
 #define NSURLREQ NSURLRequest
 #define NSURLRES NSURLResponse
 #define NSV NSView
+#define NSVC NSViewController
+#define NSWC NSWindowController
 #define NSVAL NSValue
 #define NSVT NSValueTransformer
 
@@ -310,6 +317,7 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 
 #define AZContentBounds [[[self window]contentView]bounds]
 
+#define  AZVinstall(p) [NSValue valueWithInstallStatus:	  p]
 #define  AZVposi(p) [NSValue valueWithPosition:	  p]
 #define AZVpoint(p) [NSValue valueWithPoint:		 p]
 #define  AZVrect(r) [NSValue valueWithRect:		  r]
@@ -536,7 +544,8 @@ attr1 relativeTo:relName attribute:attr2 scale:scl offset:off]
 #define $points(A,B)	   	[NSValue valueWithPoint:CGPointMake(A,B)]
 #define $rect(A,B,C,D)		[NSValue valueWithRect:CGRectMake(A,B,C,D)]
 
-#define ptmake(A,B)			CGPointMake(A,B)
+#define ptmake(A,B)			CGPointMake(A,B)stringByAppendingPathComponent
+
 #define $(...)				((NSString *)[NSString stringWithFormat:__VA_ARGS__,nil])
 #define $array(...)  		((NSArray *)[NSArray arrayWithObjects:__VA_ARGS__,nil])
 #define $set(...)		 	((NSSet *)[NSSet setWithObjects:__VA_ARGS__,nil])
@@ -609,6 +618,19 @@ _Pragma("clang diagnostic pop") \
 //
 //#define $affectors(A,...) +(NSSet *)keyPathsForValuesAffecting##A { static NSSet *re = nil; \
 //if (!re) { re = [[[@#__VA_ARGS__ splitByComma] trimmedStrings] set]; } return re; }
+
+
+typedef NS_OPTIONS(NSUInteger, AZInstallationStatus) {
+	AZNotInstalled			= 0,
+    AZInstalled				= 1 << 0,
+    AZNeedsUpdate			= 1 << 1,
+	//    UIViewAutoresizingFlexibleRightMargin  = 1 << 2,
+	//    UIViewAutoresizingFlexibleTopMargin    = 1 << 3,
+	//    UIViewAutoresizingFlexibleHeight       = 1 << 4,
+	//    UIViewAutoresizingFlexibleBottomMargin = 1 << 5,
+	AZInstalledNeedsUpdate 	= AZInstalled|AZNeedsUpdate
+};
+
 
 typedef NS_ENUM(NSUInteger, PXListViewDropHighlight) {
 	PXListViewDropNowhere,
@@ -700,10 +722,10 @@ typedef NS_ENUM(NSUI, AZWindowPosition) {
 #define QUAD AZQuadrant
 
 typedef NS_ENUM(NSUI, AZQuadrant){
-	TopLeft,
-	TopRight,
-	BotRight,
-	BotLeft
+	AZTopLeftQuad = 0,
+	AZTopRightQuad,
+	AZBotRightQuad,
+	AZBotLeftQuad
 };
 
 
