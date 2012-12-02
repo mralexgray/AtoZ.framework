@@ -450,8 +450,7 @@ static void DynamicDictionarySetter(id self, SEL _cmd, id value)
  NSMD *dict = [NSMD dictionary];
  dict.stringProp = @"This is a string";
  dict.numberProp = @42;
-
- */
+	*/
 
 @implementation NSMutableDictionary (DynamicAccessors)
 

@@ -456,8 +456,7 @@ if (!view) {
  (view.bounds.size.height - label.frame.size.height)/2.0)];
 
  return view;
- }
- */
+ }	*/
 - (CGFloat)carouselItemWidth:(iCarousel *)carousel
 {
 		//set correct view size

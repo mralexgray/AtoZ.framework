@@ -13,8 +13,7 @@
  distributed under the License is distributed on an "AS IS" BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
- limitations under the License.
- */
+ limitations under the License.	*/
 
 #import <Foundation/Foundation.h>
 #import <objc/objc.h>
@@ -31,8 +30,7 @@
  Symbols ending in a colon (':') are considered "labels" which evaluate to themselves without error,
  and when a label is found at the head of the list,
  the list is considered to be a special type of list called a property list (no relation to ObjC plists).
- Each member of a property list is evaluated and the resulting list is returned with no further evaluation.
- */
+ Each member of a property list is evaluated and the resulting list is returned with no further evaluation.	*/
 @interface NuSymbol : NSObject <NSCoding, NSCopying>
 
 /*! Get the global value of a symbol. */
@@ -60,8 +58,7 @@
  @class NuSymbolTable
  @abstract The Nu symbol table class.
  @discussion Instances of NuSymbolTable manage collections of NuSymbol objects.
- By default, one NuSymbolTable object is shared by all NuParser objects and execution contexts in a process.
- */
+ By default, one NuSymbolTable object is shared by all NuParser objects and execution contexts in a process.	*/
 @interface NuSymbolTable : NSObject
 
 /*! Get the shared NuSymbolTable object. */
@@ -89,8 +86,7 @@
  which includes other NuCells.  Typically, the car of a NuCell points to a member of a list and
  its cdr points to another NuCell that is the head of the remainder of the list.
  The cdr of the last element in a list is nil.
- In Nu, nil is represented with the <code>[NSNull null]</code> object.
- */
+ In Nu, nil is represented with the <code>[NSNull null]</code> object.	*/
 @interface NuCell : NSObject <NSCoding>
 
 /*! Create a new cell with a specifed car and cdr. */
@@ -148,8 +144,7 @@
  @abstract A cell with annotated comments.
  @discussion To simplify programmatic analysis of Nu code,
  the Nu parser can optionally attach the comments preceding a list element to an instance of this subclass of NuCell.
- Comments can then be parsed with Nu code, typically to produce documentation.
- */
+ Comments can then be parsed with Nu code, typically to produce documentation.	*/
 @interface NuCellWithComments : NuCell
 
 /*! Get a string containing the comments that preceded a list element. */
@@ -164,8 +159,7 @@
 /*!
  @class NuStack
  @abstract A stack class.
- @discussion A simple stack class used by the Nu parser.
- */
+ @discussion A simple stack class used by the Nu parser.	*/
 @interface NuStack : NSObject
 
 /*! Push an object onto the stack. */
@@ -180,8 +174,7 @@
 /*!
  @class NuParser
  @abstract A Nu language parser.
- @discussion Instances of this class are used to parse and evaluate Nu source text.
- */
+ @discussion Instances of this class are used to parse and evaluate Nu source text.	*/
 @interface NuParser : NSObject
 
 /*! Get the symbol table used by a parser. */
@@ -189,8 +182,7 @@
 /*! Get the top-level evaluation context that a parser uses for evaluation. */
 - (NSMutableDictionary *) context;
 /*! Parse Nu source into an expression, returning the NuCell at the top of the resulting expression.
- Since parsing may produce multiple expressions, the top-level NuCell is a Nu <b>progn</b> operator.
- */
+ Since parsing may produce multiple expressions, the top-level NuCell is a Nu <b>progn</b> operator.	*/
 - (id) parse:(NSString *)string;
 /*! Call -parse: while specifying the name of the source file for the string to be parsed. */
 - (id) parse:(NSString *)string asIfFromFilename:(const char *) filename;
@@ -204,8 +196,7 @@
 - (void) setValue:(id)value forKey:(NSString *)string;
 /*! Returns true if the parser is currently parsing an incomplete Nu expression.
  Presumably the rest of the expression will be passed in with a future
- invocation of the parse: method.
- */
+ invocation of the parse: method.	*/
 - (BOOL) incomplete;
 /*! Reset the parse set after an error */
 - (void) reset;
@@ -244,8 +235,7 @@
  use blocks to create new method implementations.
  When a block is called as a method implementation, its context includes the symbols
  <b>self</b> and <b>super</b>. This allows method implementations to send messages to
- the owning object and its superclass.
- */
+ the owning object and its superclass.	*/
 @interface NuBlock : NSObject
 
 /*! Create a block.  Requires a list of parameters, the code to be executed, and an execution context. */
@@ -290,8 +280,7 @@
  name conflicts, any names in a macro body that begin with a double
  underscore ("__") are replaced with automatically-generated symbols
  that are guaranteed to be unique. In Lisp terminology, these generated
- symbols are called "gensyms".
- */
+ symbols are called "gensyms".	*/
 @interface NuMacro_0 : NSObject
 
 /*! Construct a macro. */
@@ -340,8 +329,7 @@
  
  (macro-0 inc! (set (unquote (car margs)) (+ (unquote (car margs)) 1)))
  
- (macro inc! (n) `(set ,n (+ ,n 1)))
- */
+ (macro inc! (n) `(set ,n (+ ,n 1)))	*/
 @interface NuMacro_1 : NuMacro_0
 
 /*! Construct a macro. */
@@ -366,17 +354,14 @@
  in a Nu symbol table.  An operator is evaluated with a call to
  its evalWithArguments:context: method.
  When they implement functions, operators evaluate their arguments,
- but many special forms exist that evaluate their arguments zero or multiple times.
- */
+ but many special forms exist that evaluate their arguments zero or multiple times.	*/
 @interface NuOperator : NSObject
 
 /*! Evaluate an operator with a list of arguments and an execution context.
- This method calls callWithArguments:context: and should not be overridden.
- */
+ This method calls callWithArguments:context: and should not be overridden.	*/
 - (id) evalWithArguments:(id) cdr context:(NSMutableDictionary *) context;
 /*! Call an operator with a list of arguments and an execution context.
- This method should be overridden by implementations of new operators.
- */
+ This method should be overridden by implementations of new operators.	*/
 - (id) callWithArguments:(id) cdr context:(NSMutableDictionary *) context;
 
 @end
@@ -413,25 +398,21 @@
  
  The signature string used to create a NuBridgedFunction must be a valid Objective-C type signature.
  In the future, convenience methods may be added to make those signatures easier to generate.
- But in practice, this has not been much of a problem.
- */
+ But in practice, this has not been much of a problem.	*/
 @interface NuBridgedFunction : NuOperator
 
 /*! Create a wrapper for a C function with the specified name and signature.
  The function is looked up using the <b>dlsym()</b> function and the wrapper is
  constructed using libFFI. If the result of this method is assigned to a
- symbol, that symbol may be used as the name of the bridged function.
- */
+ symbol, that symbol may be used as the name of the bridged function.	*/
 + (NuBridgedFunction *) functionWithName:(NSString *)name signature:(NSString *)signature;
 /*! Initialize a wrapper for a C function with the specified name and signature.
  The function is looked up using the <b>dlsym()</b> function and the wrapper is
  constructed using libFFI. If the result of this method is assigned to a
- symbol, that symbol may be used as the name of the bridged function.
- */
+ symbol, that symbol may be used as the name of the bridged function.	*/
 - (NuBridgedFunction *) initWithName:(NSString *)name signature:(NSString *)signature;
 /*! Evaluate a bridged function with the specified arguments and context.
- Arguments must be in a Nu list.
- */
+ Arguments must be in a Nu list.	*/
 - (id) evalWithArguments:(id)arguments context:(NSMutableDictionary *)context;
 @end
 
@@ -439,13 +420,11 @@
  @class NuBridgedConstant
  @abstract The Nu wrapper for imported C constants.
  @discussion This class can be used to import constants defined in C code.
- The signature string used to import a constant must be a valid Objective-C type signature.
- */
+ The signature string used to import a constant must be a valid Objective-C type signature.	*/
 @interface NuBridgedConstant : NSObject {}
 /*! Look up the value of a constant with specified name and type.
  The function is looked up using the <b>dlsym()</b> function.
- The returned value is of the type specified by the signature argument.
- */
+ The returned value is of the type specified by the signature argument.	*/
 + (id) constantWithName:(NSString *) name signature:(NSString *) signature;
 
 @end
@@ -456,26 +435,21 @@
  @abstract Generates a C block that wraps a nu block
  @discussion This class makes a C block that wraps a nu block using a supplied
  Objective-C-style function signature. This works by copying a dummy c block and
- then writing over its function pointer with a libFFI-generated closure function.
- */
+ then writing over its function pointer with a libFFI-generated closure function.	*/
 @interface NuBridgedBlock : NSObject
 
 /*! Returns a C block that wraps the supplied nu block using the supplied
- Objective-C-style function signature.
- */
+ Objective-C-style function signature.	*/
 +(id)cBlockWithNuBlock:(NuBlock*)nb signature:(NSString*)sig;
 
 /*! Initializes a NuBridgedBlock object using a NuBlock and an Objective-C-style
- function signature. A C block is generated during the initialization.
- */
+ function signature. A C block is generated during the initialization.	*/
 -(id)initWithNuBlock:(NuBlock*)nb signature:(NSString*)sig;
 
-/*! Returns the NuBlock associated with the NuBridgedBlock object.
- */
+/*! Returns the NuBlock associated with the NuBridgedBlock object.	*/
 -(NuBlock*)nuBlock;
 
-/*! Returns the C block generated by the NuBridgedBlock object.
- */
+/*! Returns the C block generated by the NuBridgedBlock object.	*/
 -(id)cBlock;
 
 @end
@@ -486,8 +460,7 @@
 /*!
  @class NuPointer
  @abstract The Nu pointer wrapper.
- @discussion The NuPointer class provides a wrapper for pointers to arbitrary locations in memory.
- */
+ @discussion The NuPointer class provides a wrapper for pointers to arbitrary locations in memory.	*/
 @interface NuPointer : NSObject
 
 /*! Get the value of the pointer. Don't call this from Nu. */
@@ -522,8 +495,7 @@
  &nbsp;&nbsp;&nbsp;&nbsp;(NSLog "error: #{((perror value) localizedDescription)}"))<br/>
  &nbsp;&nbsp;result)
  </code>
- </div>
- */
+ </div>	*/
 @interface NuReference : NSObject
 
 /*! Get the value of the referenced object. */
@@ -533,8 +505,7 @@
 /*! Set the pointer for a reference.  Used by the bridge to create NuReference objects from pointers.  Don't call this from Nu. */
 - (void) setPointer:(id *) pointer;
 /*! Get a pointer to the referenced object. Used by the bridge to Objective-C to convert NuReference objects to pointers.
- Don't call this from Nu.
- */
+ Don't call this from Nu.	*/
 - (id *) pointerToReferencedObject;
 /*! Retain the referenced object. Used by the bridge to Objective-C to retain values returned by reference. */
 - (void) retainReferencedObject;
@@ -546,8 +517,7 @@
  @class NuMethod
  @abstract A Nu wrapper for method representations in the Objective-C runtime.
  @discussion NuMethod provides an object wrapper for methods that are represented in the Objective-C runtime.
- NuMethod objects are used in the Nu language to manipulate Objective-C methods.
- */
+ NuMethod objects are used in the Nu language to manipulate Objective-C methods.	*/
 @interface NuMethod : NSObject
 
 /*! Initialize a NuMethod for a given Objective-C method (used from Objective-C) */
@@ -574,8 +544,7 @@
  @class NuClass
  @abstract A Nu wrapper for class representations in the Objective-C runtime.
  @discussion NuClass provides an object wrapper for classes that are represented in the Objective-C runtime.
- NuClass objects are used in the Nu language to manipulate and extend Objective-C classes.
- */
+ NuClass objects are used in the Nu language to manipulate and extend Objective-C classes.	*/
 @interface NuClass : NSObject
 
 /*! Create a class wrapper for the specified class (used from Objective-C). */
@@ -632,8 +601,7 @@
  Each time a Nu implementation of a method is called,
  a NuSuper instance is created and inserted into the method's execution context with the name "super".
  This allows method implementations to send messages to superclass implementations.
- Typically, there is no need to directly interact with this class from Nu.
- */
+ Typically, there is no need to directly interact with this class from Nu.	*/
 @interface NuSuper : NSObject
 
 /*! Create a NuSuper proxy for an object with a specified class.
@@ -655,8 +623,7 @@
 /*!
  @class NuProperty
  @abstract Wrapper for Objective-C properties.
- @discussion Preliminary and incomplete.
- */
+ @discussion Preliminary and incomplete.	*/
 @interface NuProperty : NSObject
 
 /*! Create a property wrapper for the specified property (used from Objective-C). */
@@ -670,8 +637,7 @@
 /*!
  @class NuBridgeSupport
  @abstract A reader for Apple's BridgeSupport files.
- @discussion Methods of this class are used to read Apple's BridgeSupport files.
- */
+ @discussion Methods of this class are used to read Apple's BridgeSupport files.	*/
 @interface NuBridgeSupport : NSObject 
 /*! Import a dynamic library at the specified path. */
 + (void)importLibrary:(NSString *) libraryPath;
@@ -688,8 +654,7 @@
  @abstract When something goes wrong in Nu.
  @discussion A Nu Exception is a subclass of NSException, representing
  errors during execution of Nu code. It has the ability to store trace information.
- This information gets added during unwinding the stack by the NuCells.
- */
+ This information gets added during unwinding the stack by the NuCells.	*/
 @interface NuException : NSException
 
 + (void)setDefaultExceptionHandler;
@@ -735,8 +700,7 @@
  It is designed to be mixed into a class using the include method that Nu adds to NSObject.
  The receiving class must have an objectEnumerator method that returns an NSEnumerator.
  Some methods in this class take a callable object as an argument; callable objects are those
- that have evalWithArguments:context: defined.
- */
+ that have evalWithArguments:context: defined.	*/
 @interface NuEnumerable : NSObject
 
 /*! Iterate over each member of a collection, evaluating the provided callable item for each member. */
@@ -750,8 +714,7 @@
 - (id) find:(NuBlock *) block;
 /*! Iterate over each member of a collection, applying the provided block to each member, and returning an array of the results. */
 - (NSArray *) map:(id) callable;
-/*! Iterate over each member of a collection, using the provided callable to combine members into a single return value.
- */
+/*! Iterate over each member of a collection, using the provided callable to combine members into a single return value.	*/
 - (id) reduce:(id) callable from:(id) initial;
 /*! Iterate over each member of a collection, applying the provided selector to each member, and returning an array of the results. */
 - (NSArray *) mapSelector:(SEL) selector;
@@ -762,15 +725,13 @@
 
 /*!
  @category NSObject(Nu)
- @abstract NSObject extensions for Nu programming.
- */
+ @abstract NSObject extensions for Nu programming.	*/
 @interface NSObject(Nu)
 /*! Returns true.  In Nu, virtually all Objective-C classes are considered atoms. */
 - (bool) atom;
 /*!
  Evaluation operator.  The Nu default is for an Objective-C object to evaluate to itself,
- but certain subclasses (such as NuSymbol and NSString) behave differently.
- */
+ but certain subclasses (such as NuSymbol and NSString) behave differently.	*/
 - (id) evalWithContext:(NSMutableDictionary *) context;
 /*! Gets the value of a specified instance variable. */
 - (id) valueForIvar:(NSString *) name;
@@ -849,8 +810,7 @@
 /*!
  @category NSNull(Nu)
  @abstract NSNull extensions for Nu programming.
- @discussion In Nu, nil is represented by <code>[NSNull null]</code>.
- */
+ @discussion In Nu, nil is represented by <code>[NSNull null]</code>.	*/
 @interface NSNull(Nu)
 /*! Returns false.  In Nu, nil is not an atom. */
 - (bool) atom;
@@ -864,8 +824,7 @@
 
 /*!
  @category NSArray(Nu)
- @abstract NSArray extensions for Nu programming.
- */
+ @abstract NSArray extensions for Nu programming.	*/
 @interface NSArray(Nu)
 /*! Creates an array that contains the contents of a specified list. */
 + (NSArray *) arrayWithList:(id) list;
@@ -891,8 +850,7 @@
 
 /*!
  @category NSMutableArray(Nu)
- @abstract NSMutableArray extensions for Nu programming.
- */
+ @abstract NSMutableArray extensions for Nu programming.	*/
 @interface NSMutableArray(Nu)
 /*! Add the objects from the specified list to the array. */
 - (void) addObjectsFromList:(id)list;
@@ -906,8 +864,7 @@
 
 /*!
  @category NSDictionary(Nu)
- @abstract NSDictionary extensions for Nu programming.
- */
+ @abstract NSDictionary extensions for Nu programming.	*/
 @interface NSDictionary(Nu)
 /*! Creates a dictionary that contains the contents of a specified list.
  The list should be a sequence of interleaved keys and values.  */
@@ -921,8 +878,7 @@
  @abstract NSMutableDictionary extensions for Nu programming.
  @discussion In Nu, NSMutableDictionaries are used to represent evaluation contexts.
  Context keys are NuSymbols, and the associated objects are the symbols'
- assigned values.
- */
+ assigned values.	*/
 @interface NSMutableDictionary(Nu)
 /*! Looks up the value associated with a key in the current context.
  If no value is found, looks in the context's parent, continuing
@@ -935,8 +891,7 @@
 
 /*!
  @category NSSet(Nu)
- @abstract NSSet extensions for Nu programming.
- */
+ @abstract NSSet extensions for Nu programming.	*/
 @interface NSSet(Nu)
 /*! Creates a set that contains the contents of a specified list. */
 + (NSSet *) setWithList:(id) list;
@@ -946,8 +901,7 @@
 
 /*!
  @category NSMutableSet(Nu)
- @abstract NSSet extensions for Nu programming.
- */
+ @abstract NSSet extensions for Nu programming.	*/
 @interface NSMutableSet(Nu)
 /*! Add an object to a set, automatically converting nil into [NSNull null]. */
 - (void) addPossiblyNullObject:(id)anObject;
@@ -955,34 +909,29 @@
 
 /*!
  @category NSNumber(Nu)
- @abstract NSNumber extensions for Nu programming.
- */
+ @abstract NSNumber extensions for Nu programming.	*/
 @interface NSNumber(Nu)
 /*!
  Iterate a number of times corresponding to the message receiver.
  On each iteration, evaluate the given block after passing in the iteration count.
- Iteration counts begin at zero and end at n-1.
- */
+ Iteration counts begin at zero and end at n-1.	*/
 - (id) times:(id) block;
 /*!
  Iterate from the current value up to a specified limit.
  On each iteration, evaluate the given block after passing in the index.
- Indices begin at the receiver's value and end at the specified number.
- */
+ Indices begin at the receiver's value and end at the specified number.	*/
 - (id) upTo:(id) number do:(id) block;
 /*!
  Iterate from the current value down to a specified limit.
  On each iteration, evaluate the given block after passing in the index.
- Indices begin at the receiver's value and end at the specified number.
- */
+ Indices begin at the receiver's value and end at the specified number.	*/
 - (id) downTo:(id) number do:(id) block;
 @end
 
 /*!
  @category NSData(Nu)
  @abstract NSData extensions for Nu programming.
- @discussion NSData extensions for Nu programming.
- */
+ @discussion NSData extensions for Nu programming.	*/
 @interface NSData(Nu)
 
 #if !TARGET_OS_IPHONE
@@ -1004,15 +953,13 @@
 /*!
  @category NSString(Nu)
  @abstract NSString extensions for Nu programming.
- @discussion NSString extensions for Nu programming.
- */
+ @discussion NSString extensions for Nu programming.	*/
 @interface NSString(Nu)
 /*! Get string consisting of a single carriage return character. */
 + (id) carriageReturn;
 /*!
  Evaluation operator.  In Nu, strings may contain embedded Nu expressions that are evaluated when this method is called.
- Expressions are wrapped in #{...} where the ellipses correspond to a Nu expression.
- */
+ Expressions are wrapped in #{...} where the ellipses correspond to a Nu expression.	*/
 - (id) evalWithContext:(NSMutableDictionary *) context;
 
 #if !TARGET_OS_IPHONE
@@ -1051,8 +998,7 @@
 
 /*!
  @category NSMutableString(Nu)
- @abstract NSMutableString extensions for Nu programming.
- */
+ @abstract NSMutableString extensions for Nu programming.	*/
 @interface NSMutableString(Nu)
 /*! Append a specified character to a string. */
 - (void) appendCharacter:(unichar) c;
@@ -1060,8 +1006,7 @@
 
 /*!
  @category NSMethodSignature(Nu)
- @abstract NSMethodSignature extensions for Nu programming.
- */
+ @abstract NSMethodSignature extensions for Nu programming.	*/
 @interface NSMethodSignature (Nu)
 /*! Get the type string for a method signature. */
 - (NSString *) typeString;
@@ -1069,8 +1014,7 @@
 
 /*!
  @category NSBundle(Nu)
- @abstract NSBundle extensions for Nu programming.
- */
+ @abstract NSBundle extensions for Nu programming.	*/
 @interface NSBundle (Nu)
 /*! Get or load a framework by name. */
 + (NSBundle *) frameworkWithName:(NSString *) frameworkName;
@@ -1080,8 +1024,7 @@
 
 /*!
  @category NSFileManager(Nu)
- @abstract NSFileManager extensions for Nu programming.
- */
+ @abstract NSFileManager extensions for Nu programming.	*/
 @interface NSFileManager (Nu)
 /*! Get the creation time for a file. */
 + (id) creationTimeForFileNamed:(NSString *) filename;
@@ -1187,8 +1130,7 @@
 /*!
  @class NuMath
  @abstract A utility class that provides Nu access to common mathematical functions.
- @discussion The NuMath class provides a few common mathematical functions as class methods.
- */
+ @discussion The NuMath class provides a few common mathematical functions as class methods.	*/
 @interface NuMath : NSObject
 /*! Get the square root of a number. */
 + (double) sqrt: (double) x;
@@ -1230,21 +1172,17 @@ void NuInit(void);
  @class Nu
  @abstract An Objective-C class that provides access to a Nu parser.
  @discussion This class provides a simple interface that allows Objective-C code to run code written in Nu.
- It is intended for use in Objective-C programs that include Nu as a framework.
- */
+ It is intended for use in Objective-C programs that include Nu as a framework.	*/
 @interface Nu : NSObject
 /*!
- Get a Nu parser with its own context.
- */
+ Get a Nu parser with its own context.	*/
 + (NuParser *) parser;
 /*!
- Get a common parser. This allows a context to be shared throughout an app.
- */
+ Get a common parser. This allows a context to be shared throughout an app.	*/
 + (NuParser *) sharedParser;
 /*!
  Load a Nu source file from a bundle with the specified identifier.
- Used by bundle (aka framework) initializers.
- */
+ Used by bundle (aka framework) initializers.	*/
 + (BOOL) loadNuFile:(NSString *) fileName fromBundleWithIdentifier:(NSString *) bundleIdentifier withContext:(NSMutableDictionary *) context;
 @end
 

@@ -369,8 +369,7 @@
  //		self.autoresizingMask = NSViewHeightSizable | NSViewWidthSizable;
  uniqueID = [NSString newUniqueIdentifier];
  //		self.itunesApi = [[AJSiTunesAPI alloc] init];
- //		self.itunesApi.delegate = self;
- */
+ //		self.itunesApi.delegate = self;	*/
 
 //- (void)updateTrackingAreas
 //{

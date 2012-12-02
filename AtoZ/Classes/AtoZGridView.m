@@ -316,28 +316,28 @@ CNItemPoint CNMakeItemPoint(NSUI aColumn, NSUI aRow) {
 	if (self.isInitialCall && self.keyedVisibleItems.count > 0) {
 		self.isInitialCall = NO;
 		animated = YES;
-		[NSAnimationContext beginGrouping];
-		[[NSAnimationContext currentContext] setDuration:(animated ? 1 : 0.0)];
+//		[NSAnimationContext beginGrouping];
+//		[[NSAnimationContext currentContext] setDuration:(animated ? 1 : 0.0)];
+		[NSAnimationContext runAnimationBlock:^{
+			[self.keyedVisibleItems enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+				CATransition *animation = [CATransition animation];
+				[animation setType:kCATransitionMoveIn];
+				[[(AZGVItem*)obj layer] addAnimation:animation forKey:@"isSelected"];
+				[[(AZGVItem*) obj animator] setAlphaValue:1.0];
+			}];
 
-		[self.keyedVisibleItems enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-			CATransition *animation = [CATransition animation];
-			[animation setType:kCATransitionMoveIn];
-			[[(AZGVItem*)obj layer] addAnimation:animation forKey:@"isSelected"];
-			[[(AZGVItem*) obj animator] setAlphaValue:1.0];
-		}];
-		[NSAnimationContext endGrouping];
+		} completionHandler:nil duration:animated ? 1 : 0 eased:CAMEDIAEASY];
+//		[NSAnimationContext endGrouping];
 	}
-	else if (_keyedVisibleItems.count > 0) {
-		[NSAnimationContext beginGrouping];
-		[[NSAnimationContext currentContext] setDuration:(animated ? 1 : 0.0)];
-		[[NSAnimationContext currentContext] setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]];
-		[self.keyedVisibleItems enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-			NSR newRect = [self rectForItemAtIndex:[(AZGVItem*) obj index]];
-			[[(AZGVItem*) obj animator] setFrame:newRect];
-		}];
-		[NSAnimationContext endGrouping];
-	}
+	else if (_keyedVisibleItems.count > 0)
+		[NSAnimationContext runAnimationBlock:^{
+			[self.keyedVisibleItems enumerateKeysAndObjectsUsingBlock:^(id key, AZGVItem* obj, BOOL *stop) {
+				[obj.animator setFrame:[self rectForItemAtIndex:obj.index]];
+			}];
+		} completionHandler:nil duration:animated ? 1 : 0 eased:CAMEDIAEASEOUT];
+//		NSAnimationContext.currentContext.duration = animated ? 1 : 0;	NSAnimationContext.currentContext.timingFunction = CAMEDIAEASEOUT;
 }
+
 - (NSRange)currentRange
 {
 	NSR clippedRect	= [self clippedRect];
@@ -365,11 +365,11 @@ CNItemPoint CNMakeItemPoint(NSUI aColumn, NSUI aRow) {
 	return columns < 1 ? 1 : columns;
 }
 
-- (NSUI)allOverRowsInGridView	{	return ceilf((float)self.numberOfItems / [self columnsInGridView]);	}
+- (NSUI) allOverRowsInGridView	{	return ceilf(self.numberOfItems / self.columnsInGridView);	}
 
-- (NSUI)visibleRowsInGridView	{	return ceilf((float)NSHeight([self clippedRect]) / self.itemSize.height);	}
+- (NSUI) visibleRowsInGridView	{	return ceilf(NSHeight(self.clippedRect) / self.itemSize.height);	}
 
-- (NSRect)clippedRect 			{   return [[[self enclosingScrollView] contentView] bounds];  }
+- (NSR) clippedRect 			{   return [self.enclosingScrollView.contentView bounds];  }
 
 - (NSUI)  indexForItemAtLocation:(NSP)location
 {
@@ -390,20 +390,20 @@ CNItemPoint CNMakeItemPoint(NSUI aColumn, NSUI aRow) {
 }
 
 #pragma mark - NSView Methods
-- (BOOL)isFlipped { return YES; }
+- (BOOL) isFlipped { return YES; }
 
-- (void) setFrame:(NSRect)frameRect
+- (void) setFrame:(NSR)frameRect
 {
-	[super setFrame:frameRect];
+	super.frame = frameRect;
 	[self refreshGridViewAnimated: self.frame.size.width != frameRect.size.width ];
-	[[self enclosingScrollView] setNeedsDisplay:YES];
+	self.enclosingScrollView.needsDisplay = YES;
 }
 - (void) updateTrackingAreas
 {
 	if (_gridViewTrackingArea) [self removeTrackingArea:_gridViewTrackingArea];
 	self.gridViewTrackingArea = nil;
 	self.gridViewTrackingArea =
-	[[NSTrackingArea alloc] initWithRect:self.frame options:NSTrackingMouseMoved | NSTrackingActiveInKeyWindow owner:self userInfo:nil];
+	[NSTA.alloc initWithRect:self.frame options:NSTrackingMouseMoved | NSTrackingActiveInKeyWindow owner:self userInfo:nil];
 	[self addTrackingArea:_gridViewTrackingArea];
 }
 
@@ -411,12 +411,14 @@ CNItemPoint CNMakeItemPoint(NSUI aColumn, NSUI aRow) {
 #pragma mark - Creating GridView Items
 - (id)dequeueReusableItemWithIdentifier:(NSString*) identifier
 {
-	AZGVItem *reusableItem = nil;
-	NSMutableSet *reuseQueue = (self.reuseableItems)[identifier];
-	if (reuseQueue != nil && reuseQueue.count > 0) {
-		reusableItem = [reuseQueue anyObject];
+	AZGVItem *reusableItem 	= nil;
+	NSMSet   *reuseQueue	= self.reuseableItems[identifier];
+
+	if (reuseQueue != nil && reuseQueue.count > 0)
+	{
+		reusableItem = reuseQueue.anyObject;
 		[reuseQueue removeObject:reusableItem];
-		(self.reuseableItems)[identifier] = reuseQueue;
+		self.reuseableItems[identifier] = reuseQueue;
 	}
 	return reusableItem;
 }
@@ -424,30 +426,30 @@ CNItemPoint CNMakeItemPoint(NSUI aColumn, NSUI aRow) {
 #pragma mark - Reloading GridView Data
 - (void) reloadData
 {
-	self.numberOfItems = [self gridView:self numberOfItemsInSection:0];
-	[[[self keyedVisibleItems] allValues] do:^(id obj) { [(AZGVItem*)obj removeFromSuperview]; }];
+	 self.numberOfItems 	              = [self gridView:self numberOfItemsInSection:0];
+	[self.keyedVisibleItems.allValues do:^(AZGVItem *obj) { [obj removeFromSuperview]; }];
 	[self.keyedVisibleItems		removeAllObjects];
 	[self.reuseableItems		removeAllObjects];
 	[self refreshGridViewAnimated:YES];
 }
 
 #pragma mark - Selection Handling
+
 - (void) scrollToGridViewItem:(AZGVItem*) gridViewItem animated:(BOOL)animated  			{}
 - (void) scrollToGridViewItemAtIndexPath:(NSIndexPath*) indexPath animated:(BOOL)animated 	{}
-
 - (void) selectItemAtIndex:(NSUI)selectedItemIndex usingModifierFlags:(NSUI)modifierFlags
 {
 	AZGVItem *gridViewItem = nil;
 	if (self.lastSelectedIndex != NSNotFound && self.lastSelectedIndex != selectedItemIndex) {
 		/// inform the delegate
 		[self gridView:self willDeselectItemAtIndex:self.lastSelectedIndex inSection:0];
-		gridViewItem = (self.keyedVisibleItems)[@(self.lastSelectedIndex)];
+		gridViewItem 			= self.keyedVisibleItems[@(self.lastSelectedIndex)];
 		gridViewItem.isSelected = NO;
 		[self.selectedItems removeObjectForKey:@(gridViewItem.index)];
 		/// inform the delegate
 		[self gridView:self didDeselectItemAtIndex:self.lastSelectedIndex inSection:0];
 	}
-	gridViewItem = (self.keyedVisibleItems)[@(selectedItemIndex)];
+	gridViewItem = self.keyedVisibleItems[@(selectedItemIndex)];
 	if (gridViewItem) {
 		/// inform the delegate
 		[self gridView:self willSelectItemAtIndex:selectedItemIndex inSection:0];
@@ -461,23 +463,23 @@ CNItemPoint CNMakeItemPoint(NSUI aColumn, NSUI aRow) {
 - (void) handleClicks:(NSTimer*) theTimer
 {
 	NSUI clickCount = [self.clickEvents count];
-	clickCount == CNSingleClick ?  [self handleSingleClickForItemAtIndex:[self indexForItemAtLocation:[[self.clickEvents lastObject]locationInWindow]]]
+	clickCount == CNSingleClick ?  [self handleSingleClickForItemAtIndex:[self indexForItemAtLocation:[self.clickEvents.lastObject locationInWindow]]]
   : clickCount == CNDoubleClick ? ^{
-		NSUI indexClick1 = [self indexForItemAtLocation:[(self.clickEvents)[0] locationInWindow]];
-		NSUI indexClick2 = [self indexForItemAtLocation:[(self.clickEvents)[1] locationInWindow]];
-		if (indexClick1 == indexClick2)		[self handleDoubleClickForItemAtIndex:indexClick1];
-		else {								[self handleSingleClickForItemAtIndex:indexClick1];
-											[self handleSingleClickForItemAtIndex:indexClick2];
+		NSUI indexClick1 = [self indexForItemAtLocation:[self.clickEvents[0] locationInWindow]];
+		NSUI indexClick2 = [self indexForItemAtLocation:[self.clickEvents[1] locationInWindow]];
+		if (indexClick1 == indexClick2)		 [self handleDoubleClickForItemAtIndex:indexClick1];
+		else {								 [self handleSingleClickForItemAtIndex:indexClick1];
+											 [self handleSingleClickForItemAtIndex:indexClick2];
 }}():clickCount == CNTrippleClick ? ^{
-		NSUI indexClick1 = [self indexForItemAtLocation:[(self.clickEvents)[0] locationInWindow]];
-		NSUI indexClick2 = [self indexForItemAtLocation:[(self.clickEvents)[1] locationInWindow]];
-		NSUI indexClick3 = [self indexForItemAtLocation:[(self.clickEvents)[2] locationInWindow]];
-		if (indexClick1 == indexClick2 == indexClick3) 	 [self handleDoubleClickForItemAtIndex:indexClick1];
-		else if ((indexClick1 == indexClick2) && (indexClick1 != indexClick3)) {
+		NSUI indexClick1 = [self indexForItemAtLocation:[self.clickEvents[0] locationInWindow]];
+		NSUI indexClick2 = [self indexForItemAtLocation:[self.clickEvents[1] locationInWindow]];
+		NSUI indexClick3 = [self indexForItemAtLocation:[self.clickEvents[2] locationInWindow]];
+		if (indexClick1 == indexClick2 == indexClick3) 	[self handleDoubleClickForItemAtIndex:indexClick1];
+		else if (indexClick1 == indexClick2 && indexClick1 != indexClick3) {
 			[self handleDoubleClickForItemAtIndex:indexClick1];
 			[self handleSingleClickForItemAtIndex:indexClick3];
 		}
-		else if ((indexClick1 != indexClick2) && (indexClick2 == indexClick3)) {
+		else if (indexClick1 != indexClick2 && indexClick2 == indexClick3) {
 			[self handleSingleClickForItemAtIndex:indexClick1];
 			[self handleDoubleClickForItemAtIndex:indexClick3];
 		}
@@ -535,41 +537,101 @@ CNItemPoint CNMakeItemPoint(NSUI aColumn, NSUI aRow) {
 	CNItemPoint topLeftItemPoint = [self locationForItemAtIndex:topLeftItemIndex];
 	CNItemPoint bottomRightItemPoint = [self locationForItemAtIndex:bottomRightItemIndex];
 	/// handle all "by selection frame" selected items beeing now outside
-	/// the selection frame
-	[[self indexesForVisibleItems] enumerateIndexesUsingBlock:^(NSUI idx, BOOL *stop) {
-		AZGVItem *item = (self.selectedItemsBySelectionFrame)[[NSNumber numberWithInteger:idx]];
+    /// the selection frame
+    [[self indexesForVisibleItems] enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+        AZGVItem *selectedItem = [self.selectedItems objectForKey:[NSNumber numberWithInteger:idx]];
+        AZGVItem *selectionFrameItem = [self.selectedItemsBySelectionFrame objectForKey:[NSNumber numberWithInteger:idx]];
+        if (selectionFrameItem) {
+            CNItemPoint itemPoint = [self locationForItemAtIndex:selectionFrameItem.index];
+
+            /// handle all 'out of selection frame range' items
+            if ((itemPoint.row < topLeftItemPoint.row)              ||  /// top edge out of range
+                (itemPoint.column > bottomRightItemPoint.column)    ||  /// right edge out of range
+                (itemPoint.row > bottomRightItemPoint.row)          ||  /// bottom edge out of range
+                (itemPoint.column < topLeftItemPoint.column))           /// left edge out of range
+            {
+                /// ok. before we deselect this item, lets take a look into our `keyedVisibleItems`
+                /// if it there is selected too. If it so, keep it untouched!
+
+                /// so, the current item wasn't selected, we can restore its old state (to unselected)
+                if (![selectionFrameItem isEqual:selectedItem]) {
+                    selectionFrameItem.isSelected = NO;
+                    [self.selectedItemsBySelectionFrame removeObjectForKey:[NSNumber numberWithInteger:selectionFrameItem.index]];
+                }
+
+                /// the current item already was selected, so reselect it.
+                else {
+                    selectionFrameItem.isSelected = YES;
+                    [self.selectedItemsBySelectionFrame setObject:selectionFrameItem forKey:[NSNumber numberWithInteger:selectionFrameItem.index]];
+                }
+            }
+        }
+    }];
+
+    /// update all items that needs to be selected
+    NSUI columnsInGridView = [self columnsInGridView];
+    for (NSUI row = topLeftItemPoint.row; row <= bottomRightItemPoint.row; row++) {
+        for (NSUI col = topLeftItemPoint.column; col <= bottomRightItemPoint.column; col++) {
+            NSUI itemIndex = ((row -1) * columnsInGridView + col) -1;
+            AZGVItem *selectedItem = [self.selectedItems objectForKey:[NSNumber numberWithInteger:itemIndex]];
+            AZGVItem *itemToSelect = [self.keyedVisibleItems objectForKey:[NSNumber numberWithInteger:itemIndex]];
+            [self.selectedItemsBySelectionFrame setObject:itemToSelect forKey:[NSNumber numberWithInteger:itemToSelect.index]];
+            if (modifierFlags & NSCommandKeyMask) {
+                itemToSelect.isSelected = ([itemToSelect isEqual:selectedItem] ? NO : YES);
+            } else {
+                itemToSelect.isSelected = YES;
+            }
+        }
+    }
+	
+/**	/// handle all "by selection frame" selected items beeing now outside the selection frame
+	[self.indexesForVisibleItems enumerateIndexesUsingBlock:^(NSUI idx, BOOL *stop) {
+		AZGVItem *item = self.selectedItemsBySelectionFrame[[NSNumber numberWithInt:idx]];
 		if (item) {
 			CNItemPoint itemPoint = [self locationForItemAtIndex:item.index];
-			if ((itemPoint.row < topLeftItemPoint.row)			  ||  /// top edge out of range
-				(itemPoint.column > bottomRightItemPoint.column)	||  /// right edge out of range
-				(itemPoint.row > bottomRightItemPoint.row)		  ||  /// bottom edge out of range
-				(itemPoint.column < topLeftItemPoint.column))		   /// left edge out of range
+			if ( itemPoint.row    < topLeftItemPoint.row		||  /// top edge out of range
+				 itemPoint.column > bottomRightItemPoint.column	||  /// right edge out of range
+				 itemPoint.row 	  > bottomRightItemPoint.row	||  /// bottom edge out of range
+				 itemPoint.column < topLeftItemPoint.column )	    /// left edge out of range
 			{
 				/// ok. before we deselect this item, lets take a look into our `keyedVisibleItems`
-				/// if it there is selected too. If it so, keep it untouched!
-				item.isSelected = NO;
-				[self.selectedItemsBySelectionFrame removeObjectForKey:@(item.index)];
+                /// if it there is selected too. If it so, keep it untouched!
+
+                /// so, the current item wasn't selected, we can restore its old state (to unselected)
+                if (![selectionFrameItem isEqual:selectedItem]) {
+                    selectionFrameItem.selected = NO;
+                    [selectedItemsBySelectionFrame removeObjectForKey:[NSNumber numberWithInteger:selectionFrameItem.index]];
+                }
+
+                /// the current item already was selected, so reselect it.
+                else {
+                    selectionFrameItem.selected = YES;
+                    [selectedItemsBySelectionFrame setObject:selectionFrameItem forKey:[NSNumber numberWithInteger:selectionFrameItem.index]];
+                }
+
+//				/// ok. before we deselect this item, lets take a look into our `keyedVisibleItems`
+//				/// if it there is selected too. If it so, keep it untouched!
+//				item.isSelected = NO;
+//				[self.selectedItemsBySelectionFrame removeObjectForKey:@(item.index)];
 			}
 		}
 	}];
+	*/
 	/// update all items that needs to be selected
-	NSUI columnsInGridView = [self columnsInGridView];
-	for (NSUI row = topLeftItemPoint.row; row <= bottomRightItemPoint.row; row++) {
-		for (NSUI col = topLeftItemPoint.column; col <= bottomRightItemPoint.column; col++) {
-			NSUI itemIndex = ((row -1) * columnsInGridView + col) -1;
-			AZGVItem *item = (self.keyedVisibleItems)[[NSNumber numberWithInteger:itemIndex]];
-			if (modifierFlags & NSCommandKeyMask) {
-				item.isSelected = (item.isSelected ? NO : YES);
-			} else {
-				item.isSelected = YES;
-			}
-			(self.selectedItemsBySelectionFrame)[@(item.index)] = item;
-		}
-	}
+//	NSUI columnsInGridView = self.columnsInGridView;
+//	for (NSUI row = topLeftItemPoint.row; row <= bottomRightItemPoint.row; row++) {
+//		for (NSUI col = topLeftItemPoint.column; col <= bottomRightItemPoint.column; col++) {
+//			NSUI itemIndex = ((row -1) * columnsInGridView + col) -1;
+//			AZGVItem *item = self.keyedVisibleItems[@(itemIndex)];
+//			if (modifierFlags & NSCommandKeyMask)
+//				item.isSelected = (item.isSelected ? NO : YES) ?: YES;
+//			(self.selectedItemsBySelectionFrame)[@(item.index)] = item;
+//		}
+//	}
 }
 
 #pragma mark - Managing the Content
-- (NSUI)numberOfVisibleItems  {	return _keyedVisibleItems.count;	}
+- (NSUI) numberOfVisibleItems  {	return _keyedVisibleItems.count;	}
 
 - (void) removeItem:(AZGVItem*) theItem{}
 - (void) removeItemAtIndex:(NSUI)index{}
@@ -581,19 +643,18 @@ CNItemPoint CNMakeItemPoint(NSUI aColumn, NSUI aRow) {
 
 - (void) mouseMoved:(NSE*) theEvent
 {
-	if (!self.useHover)		return;
+	if (!self.useHover)				 return;
 	NSUI hoverItemIndex 		   = [self indexForItemAtLocation:theEvent.locationInWindow];
 	if (hoverItemIndex 			  != NSNotFound || hoverItemIndex != self.lastHoveredIndex) {
 		AZGVItem *gvItem   = nil;
 		if (self.lastHoveredIndex != NSNotFound) {   /// unhover the last hovered item  + inform the delegate
 			[self gridView:self willUnhovertemAtIndex:self.lastHoveredIndex inSection:0];
-			gvItem 				   = (self.keyedVisibleItems)[@(self.lastHoveredIndex)];
+			gvItem 				   = self.keyedVisibleItems[@(self.lastHoveredIndex)];
 			gvItem.isHovered 	   = NO;
-		}
-		/// inform the delegate
+		}									 		 /// inform the delegate
 		[self gridView:self willHovertemAtIndex:hoverItemIndex inSection:0];
-		self.lastHoveredIndex	  = hoverItemIndex;
-		gvItem 		   			   = (self.keyedVisibleItems)[[NSNumber numberWithInteger:hoverItemIndex]];
+		self.lastHoveredIndex	   = hoverItemIndex;
+		gvItem 		   			   = self.keyedVisibleItems[@(hoverItemIndex)];
 		gvItem.isHovered 		   = YES;
 	}
 }
@@ -602,21 +663,21 @@ CNItemPoint CNMakeItemPoint(NSUI aColumn, NSUI aRow) {
 	if (!self.allowsMultipleSelection) return;
 	[NSCursor pointingHandCursor];
 	if (!self.abortSelection) {
-		[self drawSelectionFrameForMousePointerAtLocation:[self convertPoint:theEvent.locationInWindow fromView:nil]];
+		[self drawSelectionFrameForMousePointerAtLocation: [self convertPoint:theEvent.locationInWindow fromView:nil]];
 		[self selectItemsCoveredBySelectionFrame:self.selectionFrameView.frame usingModifierFlags:theEvent.modifierFlags];
 	}
 }
 - (void) mouseUp:(NSE*) theEvent
 {
 	[NSCursor arrowCursor];	/// remove selection frame
-	[[self.selectionFrameView 	animator] setAlphaValue:0];
-	  self.selectionFrameView 	= nil;
-	  self.abortSelection 		= NO;
-	[ self.selectedItems 		addEntriesFromDictionary:self.selectedItemsBySelectionFrame];
-	[ self.selectedItemsBySelectionFrame removeAllObjects];
-	[ self.clickEvents 			addObject:theEvent];
-	  self.clickTimer 			= nil;
-	  self.clickTimer 			= [NST scheduledTimerWithTimeInterval:[NSE doubleClickInterval] target:self selector:@selector(handleClicks:) userInfo:nil repeats:NO];
+	[self.selectionFrameView.animator setAlphaValue:0];
+	 self.selectionFrameView 	= nil;
+	 self.abortSelection 		= NO;
+	[self.selectedItems 		addEntriesFromDictionary:self.selectedItemsBySelectionFrame];
+	[self.selectedItemsBySelectionFrame removeAllObjects];
+	[self.clickEvents 			addObject:theEvent];
+	 self.clickTimer 			= nil;
+	 self.clickTimer 			= [NST scheduledTimerWithTimeInterval:NSE.doubleClickInterval target:self selector:@selector(handleClicks:) userInfo:nil repeats:NO];
 }
 - (void) mouseDown:(NSEvent*) theEvent
 {
@@ -698,27 +759,27 @@ CNItemPoint CNMakeItemPoint(NSUI aColumn, NSUI aRow) {
 #pragma mark - AZGView Item Default Colors
 - (NSC*) itemBackgroundColor
 {
-	return _itemBackgroundColor ?: [NSC colorWithCalibratedWhite:0.238 alpha:1.000];
+	return _itemBackgroundColor ?: GRAY2;///[NSC colorWithCalibratedWhite:0.238 alpha:1.000];
 }
 - (NSC*) itemBackgroundHoverColor
 {
-	return /* _itemBackgroundHoverColor ?:*/ [NSC redColor];
+	return _itemBackgroundHoverColor ?: GREEN;
 }
 - (NSC*) itemBackgroundSelectionColor
 {
-	return _itemBackgroundSelectionColor ?: [NSC colorWithCalibratedWhite:0.172 alpha:1.000];
+	return _itemBackgroundSelectionColor ?: GRAY5;//[NSC colorWithCalibratedWhite:0.172 alpha:1.000];
 }
 - (NSC*) itemSelectionRingColor
 {
-	return _itemSelectionRingColor ?: [NSC colorWithCalibratedWhite:0.740 alpha:1.000];
+	return _itemSelectionRingColor ?: WHITE;//[NSC colorWithCalibratedWhite:0.740 alpha:1.000];
 }
 - (NSC*) itemTitleColor
 {
-	return _itemTitleColor ?: [NSC colorWithDeviceRed:0.969 green:0.994 blue:0.994 alpha:1.000];
+	return _itemTitleColor ?: GRAY9;//[NSC colorWithDeviceRed:0.969 green:0.994 blue:0.994 alpha:1.000];
 }
 - (NSC*) itemTitleShadowColor
 {
-	return _itemTitleShadowColor ?: [NSC colorWithDeviceWhite:0.011 alpha:0.930];
+	return _itemTitleShadowColor ?: BLACK;//[NSC colorWithDeviceWhite:0.011 alpha:0.930];
 }
 - (NSC*) selectionFrameColor
 {
@@ -726,7 +787,7 @@ CNItemPoint CNMakeItemPoint(NSUI aColumn, NSUI aRow) {
 }
 - (NSC*) backgroundColor
 {
-	return _backgroundColor ?: [NSC colorWithCalibratedWhite:0.137 alpha:1.000];
+	return _backgroundColor ?: GRAY8;//[NSC colorWithCalibratedWhite:0.137 alpha:1.000];
 }
 
 
@@ -739,22 +800,38 @@ CNItemPoint CNMakeItemPoint(NSUI aColumn, NSUI aRow) {
 
 @end
 
+static CGF mPhase = 0;
 
 #pragma mark - CNSelectionFrameView
-@implementation CNSelectionFrameView
+@implementation CNSelectionFrameView { NSTimer *timer; }
+
 - (void) drawRect:(NSRect)rect
 {
+	
 	NSR dirtyRect = NSMakeRect(0.5, 0.5, floorf(NSWidth(self.bounds))-1, floorf(NSHeight(self.bounds))-1);
+
 	NSBP *selectionFramePath = [NSBP bezierPathWithRoundedRect:dirtyRect xRadius:0 yRadius:0];
-	[[[NSC lightGrayColor] colorWithAlphaComponent:0.42] setFill];
-	[selectionFramePath fill];
-	[[NSC whiteColor] set];
-	[selectionFramePath setLineWidth:2];
-	[selectionFramePath stroke];
+	[selectionFramePath fillWithColor:[GRAY4 alpha:0.42]];
+	[selectionFramePath strokeWithColor:WHITE andWidth:8 inside:dirtyRect];
+	DKStrokeDash *d = DKStrokeDash.defaultDash;//;equallySpacedDashToFitSize:dirtyRect.size dashLength:40];
+//	[d setScalesToLineWidth:YES];//setPhase:phase];
+	[d setPhase:mPhase];
+	[d applyToPath:selectionFramePath];
+	[selectionFramePath strokeWithColor:BLACK andWidth:8 inside:dirtyRect];
+	mPhase += 5;
+//	timer = [NSTimer scheduledTimerWithTimeInterval:.1 target:self selector:@selector(aniHandler:) userInfo:nil repeats:YES];
+	timer =	[NSTimer timerWithTimeInterval:.5 block:^(NSTimeInterval time) { [self display];/*:YES];*/ AZLOG(@"NSTIMER!");	} repeats:NO];
 }
 - (BOOL)isFlipped
 {
 	return YES;
+}
+
+- (void)aniHandler:(NSTimer*)timer {
+
+	CGF halfwayWithInset = AZPermineterWithRoundRadius( self.frame,/*radiuus*/ 0 );
+	mPhase = mPhase < halfwayWithInset ? mPhase + halfwayWithInset / 128 : 0;
+	[self setNeedsDisplayInRect:NSInsetRect(self.bounds, 8, 8)];
 }
 @end
 
@@ -951,14 +1028,14 @@ CNItemPoint CNMakeItemPoint(NSUI aColumn, NSUI aRow) {
 }
 - (void) viewDidMoveToSuperview
 {
-	NSLog(@"Autogrid did move to superV. self:%@ items:%@", AZString(self.frame), self.items);
-	[@[self, self.scrollView, self.grid] do:^(id obj) { [obj setFrame:self.superview.bounds]; }];
-	[self.grid reloadData];
+	NSR superF = self.superview.bounds;
+//	NSLog(@"Autogrid did move to superV. self:%@ items:%@", AZString(self.frame), self.items);
+	[@[self, self.scrollView, self.grid] do:^(NSV* obj) { if (! NSEqualSizes(obj.size, superF.size)) obj.frame = superF; }];
+	!_items ?: [self.grid reloadData];
 	[NSEVENTLOCALMASK : NSScrollWheelMask handler:^NSEvent *(NSEvent *e) {
-		AZLOG(e);
-		NSSZ dSize = AZSizeFromDimension(e.deltaX);
-		self.grid.itemSize = e.deltaX > 0 ? AZAddSizes(self.grid.itemSize,dSize)
-										  : AZSubtractSizes(self.grid.itemSize, dSize);
+//		AZLOG(e);
+		self.grid.itemSize = AZAddSizes(_grid.itemSize, AZSizeFromDimension(e.deltaX));
+		[self.nextResponder scrollWheel:e];
 		return e;
 	}];
 //	if (_items.count != 0) [_grid reloadData];
@@ -1064,10 +1141,10 @@ CNItemPoint CNMakeItemPoint(NSUI aColumn, NSUI aRow) {
 //		NSLog(@"did create item for index: %lu", index);
 //	}
 	NSDictionary *contentDict = self.items[index];
-	item.itemTitle = contentDict[kContentTitleKey] ELSENULL;
-	item.itemImage = contentDict[kContentImageKey] ELSENULL;
-	item.itemColor = contentDict[kContentColorKey] ELSENULL;
-	NSLog(@"Returning cell for index: %ld, cell:%@", index, item.propertiesPlease);
+	item.itemTitle = contentDict [kContentTitleKey] ELSENULL;
+	item.itemImage = contentDict [kContentImageKey] ELSENULL;
+	item.itemColor = contentDict [kContentColorKey] ELSENULL;
+//	NSLog(@"Returning cell for index: %ld, cell:%@", index, item.propertiesPlease);
 	return item;
 }
 

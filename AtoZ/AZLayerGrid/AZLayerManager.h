@@ -23,8 +23,7 @@ BOOL layerIsGridCell( CALayer* layer );
 // ----------------------------------------------------------------------------
 
 /** Regular geometric grids of GridCells that Bits can be placed on.
- *  (customized for Xiangqi).
- */
+ *  (customized for Xiangqi).	*/
 @interface Grid : CALayer
 {
 	unsigned		_nRows, _nColumns;

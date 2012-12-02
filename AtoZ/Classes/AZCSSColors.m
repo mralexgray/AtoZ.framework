@@ -205,8 +205,7 @@ static AZCSSColors *instance = nil;
 /* These probably do nothing in
  a GC app.  Keeps singleton
  as an actual singleton in a
- non CG app
- */
+ non CG app	*/
 //- (NSUInteger)retainCount {
 //  return NSUIntegerMax;
 //}

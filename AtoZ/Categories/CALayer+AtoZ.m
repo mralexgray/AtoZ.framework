@@ -60,8 +60,7 @@ CATransform3D CATransform3DInvert (			CATransform3D t		);
 
 /*
  File: QuartzUtils.m
- Abstract: Assorted CoreGraphics / Core Animation utility functions.
- */
+ Abstract: Assorted CoreGraphics / Core Animation utility functions.	*/
 
 void prepareContext(CGContextRef ctx) {
 	NSGraphicsContext *nsGraphicsContext = [NSGraphicsContext graphicsContextWithGraphicsPort:ctx flipped:NO];

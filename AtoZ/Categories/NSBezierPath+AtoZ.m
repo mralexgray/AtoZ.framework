@@ -607,6 +607,21 @@ static void CGPathCallback(void *info, const CGPathElement *element)
 	[color set];
 	[self fill];
 }
+- (void)strokeWithColor:(NSC*)color andWidth:(CGF)width inside:(NSR)frame {
+	[self setLineWidth:width];
+	[color setStroke];
+	[self strokeInsideWithinRect:frame];
+}
+
+- (void)strokeWithColor:(NSC*)color andWidth:(CGF)width {
+	[self setLineWidth:width];
+	[self strokeWithColor:color];
+}
+- (void)strokeWithColor:(NSC*)color
+{
+	[color set];
+	[self stroke];
+}
 
 - (void)fillWithInnerShadow:(NSShadow *)shadow
 {

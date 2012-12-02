@@ -24,8 +24,7 @@
  [img drawAtPoint...];
  --
  David Duncan
- Apple DTS Animation and Printing
- */
+ Apple DTS Animation and Printing	*/
 - (NSImage*)imageRotatedByDegrees:(CGFloat)degrees ;
 
 @end
@@ -44,8 +43,7 @@
  @param	vertically  YES to tile the given images from top
  to bottom, starting with the first image in the array at the top.
  NO to tile the given images from left to right, starting with
- the first image in the array at the left.
- */
+ the first image in the array at the left.	*/
 + (NSImage*)imageByTilingImages:(NSA*)images
 					   spacingX:(CGFloat)spacingY
 					   spacingY:(CGFloat)spacingY

@@ -264,9 +264,7 @@ static NSInteger comparatorForSortingUsingArray(id object1, id object2, void *co
 	return re;
 }
 
-/**
- * Additions.
- */
+/**	Additions.	*/
 //@implementation NSArray (TTCategory)
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -774,10 +772,8 @@ static NSInteger comparatorForSortingUsingArray(id object1, id object2, void *co
 }
  
  
- /**
- * Convenience Method to return the first object in
- * a NSArray
- */
+ /**	Convenience Method to return the first object in
+ * a NSArray	*/
 - (id) firstObject
 {
 	return ( [self count] > 0 ) ? self[0] : nil;
@@ -797,8 +793,7 @@ static NSInteger comparatorForSortingUsingArray(id object1, id object2, void *co
  
  @param obj (Block Parameter) this is the object in the array currently being enumerated over
  @param index (Block Parameter) this is the index of obj in the array
- @param stop (Block Parameter) set this to YES to stop enumeration, otherwise there is no need to use this
- */
+ @param stop (Block Parameter) set this to YES to stop enumeration, otherwise there is no need to use this	*/
 - (void) az_each:(void (^)(id obj, NSUInteger index, BOOL *stop))block
 {
 	[self enumerateObjectsUsingBlock:block];
@@ -814,8 +809,7 @@ static NSInteger comparatorForSortingUsingArray(id object1, id object2, void *co
  
  @param index (Block Parameter) the position of the object in the array
  @param obj (Block Parameter) the object being enumerated over
- @param stop (Block Parameter) if you need to stop the enumeration set this to YES otherwise do nothing
- */
+ @param stop (Block Parameter) if you need to stop the enumeration set this to YES otherwise do nothing	*/
 - (void) az_eachConcurrentlyWithBlock:(void (^)(NSInteger index, id obj, BOOL * stop))block
 {
 	//make sure we get a unique queue identifier
@@ -837,10 +831,8 @@ static NSInteger comparatorForSortingUsingArray(id object1, id object2, void *co
 	dispatch_release(queue);
 }
 
-/**
- * Finds the first instance of the object that you indicate
- * via a block (returning a bool) you are looking for
- */
+/**	Finds the first instance of the object that you indicate
+ * via a block (returning a bool) you are looking for	*/
 - (id) findWithBlock:(BOOL (^)(id obj))block
 {
 	__block id foundObject = nil;
@@ -853,19 +845,15 @@ static NSInteger comparatorForSortingUsingArray(id object1, id object2, void *co
 	return foundObject;
 }
 
-/**
- * Exactly like findWithBlock except it returns a BOOL
- */
+/**	Exactly like findWithBlock except it returns a BOOL	*/
 - (BOOL) isObjectInArrayWithBlock:(BOOL (^)(id obj))block
 {
 	return ( [self findWithBlock:block] ) ? YES : NO;
 }
 
-/**
- * Like find but instead of returning the first object
+/**	Like find but instead of returning the first object
  * that passes the test it returns all objects passing the
- * bool block test
- */
+ * bool block test	*/
 - (NSArray *)findAllWithBlock:(BOOL (^)(id obj))block
 {
 	NSMutableArray * results = [[NSMutableArray alloc] init];
@@ -879,14 +867,12 @@ static NSInteger comparatorForSortingUsingArray(id object1, id object2, void *co
 
 #if !(TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
 
-/**
- * experimental method
+/**	experimental method
  * like find but instead uses NSHashTable to store weak pointers to
  * all objects passing the test of the bool block
  *
  * I don't particularly like this name but given objc's naming
- * structure this is as good as I can do for now
- */
+ * structure this is as good as I can do for now	*/
 - (NSHashTable *) findAllIntoWeakRefsWithBlock:(BOOL (^)(id))block
 {
 	NSHashTable * results = [NSHashTable hashTableWithWeakObjects];
@@ -900,16 +886,14 @@ static NSInteger comparatorForSortingUsingArray(id object1, id object2, void *co
 
 #endif
 
-/**
- * mapArray basically maps an array by enumerating
+/**	mapArray basically maps an array by enumerating
  * over the array to be mapped and executes the block while
  * passing in the object to map. You simply need to either
  * (1) return the object to be mapped in the new array or
  * (2) return nil if you don't want to map the passed in object
  *
  * @param block a block in which you return an object to be mapped to a new array or nil to not map it
- * @return a new mapped array
- */
+ * @return a new mapped array	*/
 - (NSArray *) mapArray:(id (^)(id obj))block
 {
 	NSMutableArray * cwArray = [[NSMutableArray alloc] init];

@@ -60,6 +60,9 @@
 
 - (void)fillWithColor:(NSC*)color;
 
+- (void)strokeWithColor:(NSC*)color andWidth:(CGF)width inside:(NSR)frame;
+- (void)strokeWithColor:(NSC*)color andWidth:(CGF)width;
+- (void)strokeWithColor:(NSC*)color;
 - (void)strokeInside;
 - (void)strokeInsideWithinRect:(NSRect)clipRect;
 
@@ -88,8 +91,7 @@
  *   default shaft width: 1/3
  * the bounds of this arrow are { { 0, 0 }, { 1, 1 } }.
  *
- * the other three methods allow you to override either or both of these metrics.
- */
+ * the other three methods allow you to override either or both of these metrics.	*/
 + (NSBezierPath *)bezierPathWithArrowWithShaftLengthMultiplier:(CGFloat)shaftLengthMulti shaftWidth:(CGFloat)shaftWidth;
 + (NSBezierPath *)bezierPathWithArrowWithShaftLengthMultiplier:(CGFloat)shaftLengthMulti;
 + (NSBezierPath *)bezierPathWithArrowWithShaftWidth:(CGFloat)shaftWidth;
@@ -133,8 +135,7 @@
  Call it after stroking the path to get the full picture.
 
  The remaining methods allow finer control of the colour usage and are
- helper methods for doing the drawing.
- */
+ helper methods for doing the drawing.	*/
 @interface NSBezierPath (ESPoints)
 
 - (void) drawPointsAndHandles;

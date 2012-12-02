@@ -25,6 +25,7 @@ id 	 nanCheck	   ( NSV* point );
 #define  AZHalfSize NSMakeSize 	( 0.5, 0.5 )
 #define   AZMaxSize NSMakeSize  ( MAXFLOAT, MAXFLOAT )
 
+
 #define AZRelationRect NSMakeRect ( 0, 0, 1, 1 )
 
 BOOL AZEqualRects ( NSR r1, NSR r2 );

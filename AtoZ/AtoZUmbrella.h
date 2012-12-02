@@ -215,6 +215,7 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define NSB NSBundle
 #define NSBUTT NSButton
 #define NSBP NSBezierPath
+#define NSDE NSDirectoryEnumerator
 #define NSGC NSGraphicsContext
 #define NSC NSColor
 #define NSCS NSCountedSet
@@ -367,6 +368,8 @@ attr1 relativeTo:relName attribute:attr2 scale:scl offset:off]
 #define rand() (arc4random() % ((unsigned)RAND_MAX + 1))
 
 #define NEG(a) -a
+#define HALF(a) (a / 2.0)
+
 //#define MAX(a, b) ((a) > (b) ? (a) : (b))
 //#define MIN(a, b) ((a) < (b) ? (a) : (b))
 

@@ -981,8 +981,7 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey = @"AZCAAnimationCompl
  [self.imageView.layer setValue:angleR forKey:@"transform.rotation.z"];
  [self.imageView.layer addAnimation:animation forKey:@"0"];
  }
- 
- */
+ 	*/
 
 
 

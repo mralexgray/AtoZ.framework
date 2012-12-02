@@ -379,8 +379,7 @@
  return [[songsArray copy] autorelease];
 
  Other classes that consume our class are only privy to the information we give them in our header file,
- so those classes can continue to assume that we're returning an NSArray.
- */
+ so those classes can continue to assume that we're returning an NSArray.	*/
 /*
 - (NSArray *)filesWithCategory:(AppCat)cat;
 //- (NSMutableArray *)songsWithRatingGreaterThanOrEqualTo:(int)rating

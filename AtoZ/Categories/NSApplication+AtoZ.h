@@ -74,8 +74,7 @@ extern NSString *const kShowDockIconUserDefaultsKey;
 
 
 /*!
- @brief	Methods which Apple should have provided in NSWorkspace
- */
+ @brief	Methods which Apple should have provided in NSWorkspace	*/
 @interface NSWorkspace (AppleShoulda)
 
 //- (NSString*) appName;

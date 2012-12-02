@@ -34,8 +34,7 @@ typedef enum {
  @param	vertically  YES to tile the given images from top
  to bottom, starting with the first image in the array at the top.
  NO to tile the given images from left to right, starting with
- the first image in the array at the left.
- */
+ the first image in the array at the left.	*/
 
 + (NSImage*)contactSheetWith:(NSArray*)images inFrame:(NSR)rect columns:(NSUI)cols;
 
@@ -56,6 +55,7 @@ typedef enum {
 @class AZFile;
 @interface NSImage (AtoZ)
 
++ imageWithData:(NSData*)data;
 
 - (NSS*) saveToWeb;
 
@@ -203,8 +203,7 @@ typedef enum {
 
 /*!
  @method	 
- @abstract   converting a CGImageRef to NSImage
- */
+ @abstract   converting a CGImageRef to NSImage	*/
 + (NSIMG*)imageFromCGImageRef:(CGImageRef)image;
 - (CGImageRef)cgImageRef;
 

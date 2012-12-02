@@ -734,8 +734,7 @@ static const char * getPropertyType(objc_property_t property) {
 
  //	return rtn;
  return [rtn filteredArrayUsingPredicate:predicate];
- }
- */
+ }	*/
 
 - (NSS*) methods {
 	return [[[self class] classMethods]formatAsListWithPadding:30];

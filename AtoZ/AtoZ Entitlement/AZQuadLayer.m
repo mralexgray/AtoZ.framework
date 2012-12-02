@@ -256,8 +256,7 @@
  deltaX = (point.x - dragStart.x)/200;
  deltaY = -(point.y - dragStart.y)/200;
  [self orientWithX:(angleX+deltaX) andY:(angleY+deltaY)];
- }
- */
+ }	*/
 - (void)mouseDown:(NSEvent *)theEvent{
 		// Getting clicked point.
 	NSPoint mousePointInView = [self convertPoint:theEvent.locationInWindow fromView:nil];

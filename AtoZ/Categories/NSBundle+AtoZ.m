@@ -29,19 +29,24 @@
 	NSString *basePath = ([paths count] > 0) ? paths[0] : NSTemporaryDirectory();
 	return [basePath stringByAppendingPathComponent:[[NSBundle bundleForClass:[AtoZ class]] bundleIdentifier]];
 }
-+ (NSString*) appSuppFolder {
-	return [[self class] applicationSupportFolder];
++ (NSS*) appSuppFolder
+{
+	return [self applicationSupportFolder];
 }
-+ (NSString*) applicationSupportFolder {
-	//Create App directory if not exists:
-	NSFileManager* fileManager = [NSFileManager new];
-	NSString* bundleID = [[NSBundle bundleForClass:[AtoZ class]] bundleIdentifier];
-	NSArray* urlPaths = [fileManager URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask];
-	NSURL* appDirectory = [urlPaths[0] URLByAppendingPathComponent:bundleID isDirectory:YES];
-	if (![fileManager fileExistsAtPath:[appDirectory path]]) {
-		[fileManager createDirectoryAtURL:appDirectory withIntermediateDirectories:NO attributes:nil error:nil];
-	}
-	return  [appDirectory path];
++ (NSS*) applicationSupportFolder
+{
+	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
+	NSString *applicationSupportDirectory = [paths objectAtIndex:0];
+
+	NSString *appName = [NSB.mainBundle objectForInfoDictionaryKey:(NSS*)kCFBundleNameKey]
+					  ?: [[NSBundle bundleForClass:AtoZ.class] objectForInfoDictionaryKey:(NSS*)kCFBundleNameKey];
+	NSString *applicationsubPath = [applicationSupportDirectory withPath:appName];//Create App directory if not exists:
+//	NSString* bundleID = [[NSBundle bundleForClass:[AtoZ class]] bundleIdentifier];
+//	NSArray* urlPaths = [AZFILEMANAGER URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask];
+//	NSURL* appDirectory = [urlPaths[0] URLByAppendingPathComponent:[NSB.mainBundle objectForInfoDictionaryKey:(NSString *)kCFBundleNameKey] isDirectory:YES];
+	if (![AZFILEMANAGER fileExistsAtPath:applicationsubPath])
+		[AZFILEMANAGER createDirectoryAtPath:applicationsubPath withIntermediateDirectories:NO attributes:nil error:nil];
+	return  applicationsubPath;
 }
 //	//build path
 //	NSArray *supports = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);

@@ -58,8 +58,7 @@
 }
 /* Utility:
  * Capture a view into a CoreImage of rect size
- *   I know it's horrible, but at least it is only called twice when starting the transition
- */
+ *   I know it's horrible, but at least it is only called twice when starting the transition	*/
 - (CIImage *)createCoreImage:(NSView *)view {
 	NSRect rect = [delegate bounds];
 
@@ -257,8 +256,7 @@
  * Using a CIPerspectiveTransform filter
  *   Render a billboard bounded by (+/- width, +/- height)
  *   At 3D coordinates (px1,pz1, +/- height) (px2,pz2, +/- height) 
- *   On a visual plane at distance dist
- */
+ *   On a visual plane at distance dist	*/
 + (void)updatePerspectiveFilter:(CIFilter*)filter
 	px1:(float)px1 pz1:(float)pz1 
 	px2:(float)px2 pz2:(float)pz2

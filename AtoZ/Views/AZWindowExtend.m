@@ -152,8 +152,7 @@ static CGEventRef AUWE_OnMouseMovedFactory (
  add a click view
  
  click view must be a sub view of the NSWindow contentView
- 
- */
+ 	*/
 - (void)addClickView:(NSView *)aView
 {
 	if ([aView isDescendantOf:[self contentView]] && [aView respondsToSelector:@selector(subviewClicked:)]) {

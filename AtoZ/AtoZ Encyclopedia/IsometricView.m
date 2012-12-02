@@ -111,8 +111,7 @@
  We then set a new position, scale, or orientation to interpolate from.
  To do this, we use kCATransactionAnimationDuration with a value of 0 to force Core Animation to set our new value NOW.
  Finally, we reset transform to identity and opacity to 1.0 : this is where the transition happens.
-
- */
+	*/
 - (IBAction)appearWithRotation:(id)sender
 {
 	// Hide layers

@@ -123,8 +123,7 @@
 
  @details  Returns nil if there is more than one member with
  the highest count (a "tie").&nbsp;  Also returns nil if
- the receiver is empty.
- */
+ the receiver is empty.	*/
 - (id)winner  ;
 
 @end
@@ -150,8 +149,7 @@
  @param	defaultObject  An object which will be added to the
  result, one for each subdictionary in the receiver which has
  no object for the given key, or nil if you do not want any object
- added for missing objects.
- */
+ added for missing objects.	*/
 
 - (NSCountedSet*)objectsInSubdictionariesForKey:(id)key
 								  defaultObject:(id)defaultObject;
@@ -178,8 +176,7 @@
  value is overwritten with the new value
  @param	key  The key to be mutated.  May be nil; this method
  simply returns a copy of the receiver.
- @result   The new dictionary
- */
+ @result   The new dictionary	*/
 - (NSDictionary*)dictionaryBySettingValue:(id)value
 								   forKey:(id)key ;
 
@@ -194,8 +191,7 @@
  @param	otherDic  The other dictionary from which entries
  will be copied.  May be nil or empty; in these cases the
  result is simply a copy of the receiver.
- @result   The new dictionary
- */
+ @result   The new dictionary	*/
 - (NSDictionary*)dictionaryByAddingEntriesFromDictionary:(NSDictionary*)otherDic ;
 
 /*!
@@ -207,8 +203,7 @@
  @param	otherDic  The other dictionary from which entries
  will be copied.  May be nil or empty; in these cases the
  result is simply a copy of the receiver.
- @result   The new dictionary
- */
+ @result   The new dictionary	*/
 - (NSDictionary*)dictionaryByAppendingEntriesFromDictionary:(NSDictionary*)otherDic ;
 
 /*!

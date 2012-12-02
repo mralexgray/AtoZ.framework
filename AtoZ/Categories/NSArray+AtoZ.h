@@ -29,8 +29,7 @@
 /*!
  @brief	Returns an array of NSNumbers whose -integerValues
  span a given range, each value being one more than the previous
- value.
- */
+ value.	*/
 + (NSArray*)arrayWithRange:(NSRange)range ;
 
 - (NSA*) withMinItems:(NSUI) items;
@@ -75,40 +74,30 @@
 - (NSArray *)arrayWithKey:(NSString *)keyPath;
 
 
-/**
- * Calls performSelector on all objects that can receive the selector in the array.
+/**	Calls performSelector on all objects that can receive the selector in the array.
  * Makes an iterable copy of the array, making it possible for the selector to modify
  * the array. Contrast this with makeObjectsPerformSelector which does not allow side effects of
- * modifying the array.
- */
+ * modifying the array.	*/
 - (void)perform:(SEL)selector;
 - (void)perform:(SEL)selector withObject:(id)p1;
 - (void)perform:(SEL)selector withObject:(id)p1 withObject:(id)p2;
 - (void)perform:(SEL)selector withObject:(id)p1 withObject:(id)p2 withObject:(id)p3;
 
-/**
- * Extensions to makeObjectsPerformSelector to provide support for more than one object
- * parameter.
- */
+/**	Extensions to makeObjectsPerformSelector to provide support for more than one object
+ * parameter.	*/
 - (void)makeObjectsPerformSelector:(SEL)selector withObject:(id)p1 withObject:(id)p2;
 - (void)makeObjectsPerformSelector: (SEL)selector
 						withObject: (id)p1
 						withObject: (id)p2
 						withObject: (id)p3;
 
-/**
- * @return nil or an object that matches value with isEqual:
- */
+/**	@return nil or an object that matches value with isEqual:	*/
 - (id)objectWithValue:(id)value forKey:(id)key;
 
-/**
- * @return the first object with the given class.
- */
+/**	@return the first object with the given class.	*/
 - (id)objectWithClass:(Class)cls;
 
-/**
- * @param selector Required format: - (NSNumber*)method:(id)object;
- */
+/**	@param selector Required format: - (NSNumber*)method:(id)object;	*/
 - (BOOL)containsObject:(id)object withSelector:(SEL)selector;
 
 
@@ -292,8 +281,7 @@
 
 
 /*!
- @brief	 Methods for showing arrays as formatted strings
- */
+ @brief	 Methods for showing arrays as formatted strings	*/
 @interface NSArray (Stringing)
 
 /*!
@@ -306,15 +294,13 @@
 
  @param	bullet  A string which, if not nil, will be prepended
  to each line in the output.  You'll probably want this string to
- end in one or two space characters.
- */
+ end in one or two space characters.	*/
 - (NSString*)listValuesOnePerLineForKeyPath:(NSString*)key
 									 bullet:(NSString*)bullet ;
 
 /*!
  @brief	Invokes listValuesOnePerLineForKeyPath:bullet: with
- bullet = nil
- */
+ bullet = nil	*/
 - (NSString*)listValuesOnePerLineForKeyPath:(NSString*)key ;
 
 /*!
@@ -345,16 +331,14 @@
  the returned list.&nbsp;  If the number of items in the receiver
  exceeds this parameter, another comma and an ellipsis will
  be appended to the end.&nbsp;  For convenience, a value of 0
- is interpreted to mean NSIntegerMax.
- */
+ is interpreted to mean NSIntegerMax.	*/
 - (NSString*)listValuesForKey:(NSString*)key
 				  conjunction:(NSString*)conjunction
 				   truncateTo:(NSInteger)truncateTo ;
 
 /*!
  @brief	Invokes -[self listValuesForKey:@"name" parameters
- conjunction=nil and truncateTo=0]
- */
+ conjunction=nil and truncateTo=0]	*/
 - (NSString*)listNames ;
 
 @end

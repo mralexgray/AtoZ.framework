@@ -19,8 +19,7 @@
  object. Inside of our NSURLProtocol we can access this data.
  In this example, we store a reference to our WRLD object in the dictionary inside
  of our WRLD method and then we call a method on our WRLD object from inside of our
- startLoading method on our NSURLProtocol object.
- */
+ startLoading method on our NSURLProtocol object.	*/
 @interface NSURLRequest (SpecialProtocol)
 - (NSDictionary *)specialVars;
 @end

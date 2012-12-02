@@ -230,6 +230,12 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 
 @implementation NSImage (AtoZ)
 
+
++ imageWithData:(NSData*)data;
+{
+	return [NSImage.alloc initWithData:data];
+}
+
 // ---------------------------------------------------------------------------
 // -glowingSphereImageWithScaleFactor:
 // ---------------------------------------------------------------------------
@@ -1392,8 +1398,7 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
  @details  The width and height of the returned image are,
  respectively, the height and width of the receiver.
  
- I have not yet tested this with a non-square image.
- */
+ I have not yet tested this with a non-square image.	*/
 
 - (NSImage*)imageRotatedByDegrees:(CGF)degrees {
 	NSSZ rotatedSize = NSMakeSize(self.size.height, self.size.width) ;
@@ -2975,8 +2980,7 @@ CGImageRef CreateCGImageFromData(NSData* data)
 
 @implementation NSImage (NSImageThumbnailExtensions)
 
-/* Create an NSImage from with the contents of the url of the specified width. The height of the resulting NSImage maintains the proportions in source.
- */
+/* Create an NSImage from with the contents of the url of the specified width. The height of the resulting NSImage maintains the proportions in source.	*/
 + (id) thumbnailImageWithContentsOfURL:(NSURL*)url width:(CGF)width {
     NSImage *thumbnailImage = nil;
     NSImage *image = [[NSImage alloc] initWithContentsOfURL:url];

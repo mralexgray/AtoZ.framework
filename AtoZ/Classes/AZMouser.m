@@ -372,11 +372,9 @@ void toKey(CGKeyCode kc, CGEventFlags flags, bool upOrDown) {
  * iGetKey
  *--------------*/
 
-/**
- * initAscii2KeyCodeTable initializes the ascii to key code
+/**	initAscii2KeyCodeTable initializes the ascii to key code
  * look up table using the currently active KCHR resource. This
- * routine calls GetResource so it cannot be called at interrupt time.
- */
+ * routine calls GetResource so it cannot be called at interrupt time.	*/
 
  /*
 static OSStatus InitAscii2KeyCodeTable(Ascii2KeyCodeTable* ttable) {
@@ -416,12 +414,10 @@ static OSStatus InitAscii2KeyCodeTable(Ascii2KeyCodeTable* ttable) {
 	return noErr;
 }
 */
-/**
- * asciiToKeyCode looks up the ascii character in the key
+/**	asciiToKeyCode looks up the ascii character in the key
  * code look up table and returns the virtual key code for that
  * letter. If there is no virtual key code for that letter, then
- * the value -1 will be returned.
- */
+ * the value -1 will be returned.	*/
 /*static short AsciiToKeyCode(Ascii2KeyCodeTable* ttable, short asciiCode) {
 	if (asciiCode >= 0 && asciiCode <= 255) {
 		return ttable->transtable[asciiCode];
@@ -567,8 +563,7 @@ void AZDoubleClick(CGPoint point) {
  //kCGEventRightMouseUp
  //kCGEventMouseMoved
  //kCGEventLeftMouseDragged
- //kCGEventRightMouseDragged
- */
+ //kCGEventRightMouseDragged	*/
 //@implementation AZMouserIndicator
 //@synthesize indicatorImage;
 /* This routine is called at app launch time when this class is unpacked from the nib.*/
@@ -577,8 +572,7 @@ void AZDoubleClick(CGPoint point) {
 	[[self window] setHasShadow:NO];
 	[self setFrameSize:indicatorImage.size];
 }*/
-/*	When it's time to draw, this routine is called. This view is inside the window, the window's opaqueness has been turned off, and the window's styleMask has been set to NSBorderlessWindowMask on creation, so this view draws the all the visible content. The first two lines below fill the view with "clear" color, so that any images drawn also define the custom shape of the window.  Furthermore, if the window's alphaValue is less than 1.0, drawing will use transparency.
- */
+/*	When it's time to draw, this routine is called. This view is inside the window, the window's opaqueness has been turned off, and the window's styleMask has been set to NSBorderlessWindowMask on creation, so this view draws the all the visible content. The first two lines below fill the view with "clear" color, so that any images drawn also define the custom shape of the window.  Furthermore, if the window's alphaValue is less than 1.0, drawing will use transparency.	*/
 /*
 - (void)drawRect:(NSRect)rect {
 		// Clear the drawing rect.
@@ -657,8 +651,7 @@ void AZDoubleClick(CGPoint point) {
  usleep(100000);
  // Possible sleep routines
  //sleep(2);
- }
- */
+ }	*/
 //@end
 
 /*

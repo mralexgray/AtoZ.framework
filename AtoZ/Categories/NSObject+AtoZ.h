@@ -137,9 +137,7 @@ typedef void (^caseBlock)();
 
 @interface NSObject (AG)
 
-/**
- * Additional performSelector signatures that support up to 7 arguments.
- */
+/**	Additional performSelector signatures that support up to 7 arguments.	*/
 - (id)performSelector:(SEL)selector withObject:(id)p1 withObject:(id)p2 withObject:(id)p3;
 - (id)performSelector:(SEL)selector withObject:(id)p1 withObject:(id)p2 withObject:(id)p3
 		   withObject:(id)p4;

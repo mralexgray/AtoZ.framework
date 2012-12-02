@@ -546,8 +546,7 @@ static NSColor *ColorWithCSSString(NSString *str) {
  [tempMutableArray addObject:[[Color alloc] initWithColorName:@"Yellow" HexCode:@"#FCE883" Red:252 Green:232 Blue:131]];
  [tempMutableArray addObject:[[Color alloc] initWithColorName:@"Yellow Green" HexCode:@"#C5E384" Red:197 Green:227 Blue:132]];
  [tempMutableArray addObject:[[Color alloc] initWithColorName:@"Yellow Orange" HexCode:@"#FFAE42" Red:255 Green:174 Blue:66]];
-
- */
+	*/
 //+ (NSColor *) BLUE {	static NSColor*  BLUE = nil;	if( BLUE == nil )
 //	BLUE = [NSColor colorWithDeviceRed:0.253 green:0.478 blue:0.761 alpha:1.000];
 //	return BLUE;
@@ -596,8 +595,7 @@ static NSColor *ColorWithCSSString(NSString *str) {
 /*
  NSColor: Instantiate from Web-like Hex RRGGBB string
  Original Source: <http://cocoa.karelia.com/Foundation_Categories/NSColor__Instantiat.m>
- (See copyright notice at <http://cocoa.karelia.com>)
- */
+ (See copyright notice at <http://cocoa.karelia.com>)	*/
 
 + (NSColor *) colorFromHexRGB:(NSString *) inColorString {
 	NSString *cleansedstring = [inColorString stringByReplacingOccurrencesOfString:@"#" withString:@""];
@@ -1638,8 +1636,7 @@ static NSMutableDictionary *RGBColorValues = nil;
  end:
 
  return result;
- }
- */
+ }	*/
 //@end
 
 //@implementation NSColor (AIColorAdditions_RGBTxtFiles)
@@ -1988,12 +1985,10 @@ scanFailed:
  CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
  ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
  DAMAGE.
-
- */
+	*/
 
 /*
- For non-attribution licensing options refer to http://phildow.net/licensing/
- */
+ For non-attribution licensing options refer to http://phildow.net/licensing/	*/
 
 
 @implementation NSColor (NSColor_CSSRGB)
@@ -2043,8 +2038,7 @@ scanFailed:
  *
  * @param firstChar The first hex character
  * @param secondChar The second hex character, or 0x0 if only one character is to be used
- * @result The float value. Returns 0 as a bailout value if firstChar or secondChar are not valid hexadecimal characters ([0-9]|[A-F]|[a-f]). Also returns 0 if firstChar and secondChar equal 0.
- */
+ * @result The float value. Returns 0 as a bailout value if firstChar or secondChar are not valid hexadecimal characters ([0-9]|[A-F]|[a-f]). Also returns 0 if firstChar and secondChar equal 0.	*/
 
  /*
 static CGFloat hexCharsToFloat(char firstChar, char secondChar)

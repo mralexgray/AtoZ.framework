@@ -431,8 +431,7 @@ NSPoint AZEndOfRect(NSR rect) {
  *   |	   |   |	   |
  *   +-------+   |   b   |
  *			   |	   |
- *			   +-------+
- */
+ *			   +-------+	*/
 NSPoint AZCenterDistanceOfRects(NSR a, NSR b) {
   return AZSubtractPoints(AZCenterOfRect(a),
 						  AZCenterOfRect(b));
@@ -1856,8 +1855,7 @@ static double		ComputeXIntercept( NSPoint* v, NSInteger degree);
  *  ConvertToBezierForm :
  *		Given a point and a Bezier curve, generate a 5th-degree
  *		Bezier-format equation whose solution finds the point on the
- *	  curve nearest the user-defined point.
- */
+ *	  curve nearest the user-defined point.	*/
 static NSPoint*		ConvertToBezierForm( const NSPoint inp, const NSPoint bez[4] )
 {
 	NSInteger				i, j, k, m, n, ub, lb;	
@@ -1934,8 +1932,7 @@ static NSPoint*		ConvertToBezierForm( const NSPoint inp, const NSPoint bez[4] )
  *  FindRoots :
  *	Given a 5th-degree equation in Bernstein-Bezier form, find
  *	all of the roots in the interval [0, 1].  Return the number
- *	of roots found.
- */
+ *	of roots found.	*/
 static NSInteger FindRoots( NSPoint* w, NSInteger degree, double* t, NSInteger depth )
 {  
 	NSInteger			i;
@@ -1996,8 +1993,7 @@ static NSInteger FindRoots( NSPoint* w, NSInteger degree, double* t, NSInteger d
  * CrossingCount :
  *	Count the number of times a Bezier control polygon 
  *	crosses the 0-axis. This number is >= the number of roots.
- *
- */
+ *	*/
 static NSInteger CrossingCount( NSPoint* v, NSInteger degree )
 {
 	NSInteger 	i;	
@@ -2022,8 +2018,7 @@ static NSInteger CrossingCount( NSPoint* v, NSInteger degree )
  *  ControlPolygonFlatEnough :
  *	Check if the control polygon of a Bezier curve is flat enough
  *	for recursive subdivision to bottom out.
- *
- */
+ *	*/
 static NSInteger ControlPolygonFlatEnough( NSPoint* v, NSInteger degree )
 {
 	NSInteger			i;					// Index variable
@@ -2131,8 +2126,7 @@ static NSInteger ControlPolygonFlatEnough( NSPoint* v, NSInteger degree )
  *  ComputeXIntercept :
  *	Compute intersection of chord from first control point to last
  *  	with 0-axis.
- * 
- */
+ * 	*/
 
 static double ComputeXIntercept( NSPoint* v, NSInteger degree)
 {
@@ -2164,8 +2158,7 @@ static double ComputeXIntercept( NSPoint* v, NSInteger degree)
  *  	Compute the parameter value of the point on a Bezier
  *		curve segment closest to some arbtitrary, user-input point.
  *		Return the point on the curve at that parameter value.
- *
- */
+ *	*/
 
 NSPoint		NearestPointOnCurve( const NSPoint inp, const NSPoint bez[4], double* tValue )
 {
@@ -2231,8 +2224,7 @@ NSPoint		NearestPointOnCurve( const NSPoint inp, const NSPoint bez[4], double* t
  *	Evaluate a Bezier curve at a particular parameter value
  *	  Fill in control points for resulting sub-curves if "Left" and
  *	"Right" are non-null.
- * 
- */
+ * 	*/
 NSPoint		Bezier( const NSPoint* v, const NSInteger degree, const double t, NSPoint* Left, NSPoint* Right )
 {
 	NSInteger			i, j;		/* Index variables	*/

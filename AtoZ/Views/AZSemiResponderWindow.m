@@ -297,8 +297,7 @@
  CALNH *ribbon  		= [CALNH layerNamed:@"ribbon"];
  [@[root, tab, ribbon] eachWithIndex:^(id z, NSInteger idx) { ((CAL*)z).zPosition = (idx *1000 * [obj intValue]); }];
  tab.sublayers   = @[ribbon];
- root.sublayers 	= @[tab];
- */		/* ! */	//root.anchorPoint 	= AZAnchorTop;
+ root.sublayers 	= @[tab];	*/		/* ! */	//root.anchorPoint 	= AZAnchorTop;
 /* ! *///	root.delegate 		= self;
 /* ! */	//ribbon.delegate	 	= self;
 /* ! *///	[ribbon setNeedsDisplay];
@@ -342,8 +341,7 @@
  //AZCenterRectOnPoint(AZRectFromDim(.7*layer.boundsWidth), (NSPoint) {NSMidX(layer.bounds), layer.boundsWidth})];//// fraction:1];// operation:NSCompositeSourceOver fraction:1];
  }];
  }
- }
- */
+ }	*/
 /*
  - (void)sendEvent:(NSEvent *)theEvent
  {
@@ -509,8 +507,7 @@
  //			else [obj setFrame:f];
  //		}];
  //	}
-
- */
+	*/
 
 
 //		NSPoint aPoint = [_bar convertPoint:[theEvent locationInWindow] toView:nil];
@@ -634,8 +631,7 @@
  add a click view
 
  click view must be a sub view of the NSWindow contentView
-
- */
+	*/
 
 //- (void)addClickView:(AZSimpleView *)aView
 //{
@@ -958,5 +954,4 @@
 
 /*	 - (void)animationDidStop:(CAAnimation *)theAnimation finished:(BOOL)flag	 {
  animationCompletionBlock theBlock = theAnimation[kAnimationCompletionBlock];
- theBlock ? theBlock() : nil;	 }
- */
+ theBlock ? theBlock() : nil;	 }	*/

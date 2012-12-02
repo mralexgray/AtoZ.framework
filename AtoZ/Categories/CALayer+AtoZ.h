@@ -62,8 +62,7 @@ For those that have never seen the CATransform3D struct before, you must apply t
  	The first is how much you want it to skew on the X axis (horizontally), and the second for the Y axis (vertically)
 
 	Yes, but what are the units ? (radians … ?)
-	The value goes directly into the transform, if you want to make it radians, or any other type of unit you will need to put some math in there
- */
+	The value goes directly into the transform, if you want to make it radians, or any other type of unit you will need to put some math in there	*/
 extern CATransform3D CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13, CGFloat m14,
 				  CGFloat m21, CGFloat m22, CGFloat m23, CGFloat m24,
 				  CGFloat m31, CGFloat m32, CGFloat m33, CGFloat m34,

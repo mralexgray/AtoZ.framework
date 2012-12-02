@@ -792,3 +792,48 @@ NSView* AZResizeWindowAndContent(NSWindow* window, CGF dXLeft, CGF dXRight, CGF 
 	return [self firstSubviewOfKind:kind withTag:NSNotFound];
 }
 @end
+
+
+void NSAnimationContextRunAnimationBlock( dispatch_block_t group, dispatch_block_t completionHandler, NSTimeInterval time )
+{
+    [NSAnimationContext runAnimationBlock:group
+                        completionHandler:completionHandler
+                                 duration:time];
+}
+@implementation NSAnimationContext (AtoZ)
+
++ (void)runAnimationBlock:(dispatch_block_t)group	completionHandler:(dispatch_block_t)completionHandler
+				 duration:(NSTimeInterval)time		eased:(CAMediaTimingFunction*)timing;
+{
+		// run animation
+		[NSAnimationContext beginGrouping];
+	    	NSAnimationContext.currentContext.duration = time;
+			NSAnimationContext.currentContext.timingFunction = timing;
+				group();
+		[NSAnimationContext endGrouping];
+
+		if (completionHandler)
+		{// block delay
+			dispatch_time_t popTime = dispatch_time( DISPATCH_TIME_NOW, (double)time * NSEC_PER_SEC);
+			 dispatch_after( popTime, dispatch_get_main_queue(), completionHandler );
+		}
+}
+
++ (void)runAnimationBlock:(dispatch_block_t)group
+        completionHandler:(dispatch_block_t)completionHandler
+                 duration:(NSTimeInterval)time
+{
+    // run animation
+
+    [NSAnimationContext beginGrouping];
+	    [[NSAnimationContext currentContext] setDuration:time];
+    	group();
+    [NSAnimationContext endGrouping];
+
+	if (completionHandler) {
+		// block delay
+		dispatch_time_t popTime = dispatch_time( DISPATCH_TIME_NOW, (double)time * NSEC_PER_SEC);
+		dispatch_after( popTime, dispatch_get_main_queue(), completionHandler );
+	}
+}
+@end

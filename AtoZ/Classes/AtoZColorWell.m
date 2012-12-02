@@ -208,8 +208,7 @@
 		NSRectFillUsingOperation(dirtyRect, NSCompositeSourceOver);
 	}
 }
-/* Custom highlighted property setter because when the property changes we need to redraw and update the containing text fields.
- */
+/* Custom highlighted property setter because when the property changes we need to redraw and update the containing text fields.	*/
 - (void)setHighlighted:(BOOL)highlighted {
 	_highlighted = _highlighted == highlighted ? _highlighted : ^{
 		// Inform each contained text field what type of background they will be displayed on. This is how the txt field knows when to draw white text instead of black text.

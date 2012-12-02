@@ -172,3 +172,15 @@ typedef void (^viewFrameDidChangeBlock)(void);
 - (NSV*)firstSubviewOfKind: (Class)kind;
 
 @end
+
+//typedef void (^NSAnimationContextRunAnimationBlock)( dispatch_block_t group, dispatch_block_t completionHandler, NSTimeInterval time );
+
+@interface NSAnimationContext (AtoZ)
+
++ (void)runAnimationBlock:(dispatch_block_t)group	completionHandler:(dispatch_block_t)completionHandler
+				 duration:(NSTimeInterval)time		eased:(CAMediaTimingFunction*)timing;
+
++ (void)runAnimationBlock:(dispatch_block_t)group	completionHandler:(dispatch_block_t)completionHandler
+				 duration:(NSTimeInterval)time;
+
+@end

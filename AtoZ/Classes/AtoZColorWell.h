@@ -60,8 +60,7 @@
  // do something here like remove NSBackgroundColorAttributeName from an
  // attributed string
  }
-
- */
+	*/
 
 #import "AtoZ.h"
 

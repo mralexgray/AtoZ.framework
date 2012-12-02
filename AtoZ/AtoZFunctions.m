@@ -1695,8 +1695,7 @@ NSNumber* DegreesToNumber(CGFloat degrees) {
  // Defined on 10.6 and above.
  #ifndef CF_FORMAT_FUNCTION
  #define CF_FORMAT_FUNCTION(F,A)
- #endif
- */
+ #endif	*/
 
 #ifndef GTM_NONNULL
 #define GTM_NONNULL(x) __attribute__((nonnull(x)))
@@ -2003,8 +2002,7 @@ NSNumber* DegreesToNumber(CGFloat degrees) {
  typedef double CGFloat;
  #define CGFLOAT_MIN DBL_MIN
  #define CGFLOAT_MAX DBL_MAX
- #define CGFLOAT_IS_DOUBLE 1
- */
+ #define CGFLOAT_IS_DOUBLE 1	*/
 
 
 // MARK: Helper functions

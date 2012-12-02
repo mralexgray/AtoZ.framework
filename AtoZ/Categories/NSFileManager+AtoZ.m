@@ -68,8 +68,7 @@ NSString *NSDCIMFolder()
 /*
  Erica Sadun, http://ericasadun.com
  iPhone Developer's Cookbook, 3.0 Edition
- BSD License, Use at your own risk
- */
+ BSD License, Use at your own risk	*/
 
 + (NSString *) pathForItemNamed: (NSString *) fname inFolder: (NSString *) path
 {

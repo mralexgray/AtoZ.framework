@@ -274,8 +274,7 @@ return midpoint;
 }
 
 /*
- * @brief Set content size with animation
- */
+ * @brief Set content size with animation	*/
 - (void)setContentSize:(NSSize)aSize display:(BOOL)displayFlag animate:(BOOL)animateFlag
 {
 	NSRect  frame = [self frame];

@@ -24,6 +24,40 @@
 @implementation AZDummy
 @end
 
+static char CONVERTTOXML_KEY;
+
+@implementation BaseModel (AtoZ)
+@dynamic convertToXML;
+-(void)setConvertToXML:(BOOL)convertToXML
+{
+	objc_setAssociatedObject(self, &CONVERTTOXML_KEY, @(convertToXML), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+- (BOOL) convertToXML
+{
+	if ([self respondsToSelector:@selector(convertToXML)]) return self.convertToXML;
+	return	[self hasAssociatedValueForKey:[NSString stringWithUTF8String:&CONVERTTOXML_KEY]]
+			? [objc_getAssociatedObject(self, &CONVERTTOXML_KEY) boolValue] : NO;
+}
++ (void) load {	[$ swizzleMethod:@selector(save) with:@selector(swizzleSave) in:[BaseModel class]]; }
+
+- (void)swizzleSave
+{
+	NSLog(@"swizzlin!");
+	[self swizzleSave];
+	if (self.convertToXML) {
+		NSS* saveP = [self.class saveFilePath];
+		NSLog(@"converting to XML: %@", saveP);
+		if ([AZFILEMANAGER fileExistsAtPath:saveP])
+			[AtoZ plistToXML:saveP];
+	}
+}
+
++ (NSS*)saveFilePath {
+	return [NSB.applicationSupportFolder withPath:self.saveFile];
+}
+@end
+
+
 @interface AtoZ ()
 @property (nonatomic, assign) BOOL fontsRegistered;
 @end
@@ -325,8 +359,7 @@ static NSA* cachedI = nil;
  }];
  return dock;
  //		}waitUntilDone:YES];
- //	return _dock;
- */
+ //	return _dock;	*/
 //}/
 
 //- (NSA*) dockSorted {
@@ -363,8 +396,7 @@ static NSA* cachedI = nil;
  }
  - (void)setObject:(id)newValue forKeyedSubscription:(NSString *)key {
  [self setObject:newValue forKey:key];
- }
- */
+ }	*/
 
 //- (void)performBlock:(void (^)())block {
 //	if ([[NSThread currentThread] isEqual:[self curr])

@@ -194,8 +194,7 @@ static const NSString *didScroll = @"scrollOffset";
  [(NSTextView*)view setString: $(@"%ld", index)];
  return view;
  }
-
- */
+	*/
 /*
  -(NSUInteger)visibleItems {
  __block	NSUInteger i = 0;
@@ -732,8 +731,7 @@ static const NSString *didScroll = @"scrollOffset";
  }
  NSLog(@"returning: %@", NSStringFromRect([view frame]));
  return view;
- }
- */
+ }	*/
 	//	NSTextField *label = nil;
 
 	//		//create new view if no view is available for recycling
@@ -936,8 +934,7 @@ static const NSString *didScroll = @"scrollOffset";
  }
  [view setNeedsDisplay:YES];
  return view;
-
- */
+	*/
 	//}
 	//don't do anything specific to the index within
 	//this `if (view == nil) {...}` statement because the view will be
@@ -970,8 +967,7 @@ static const NSString *didScroll = @"scrollOffset";
  [label setStringValue:[NSString stringWithFormat:@"%lu", index]];
  [label sizeToFit];
  [label setFrameOrigin:NSMakePoint((view.bounds.size.width - label.frame.size.width)/2.0,
- (view.bounds.size.height - label.frame.size.height)/2.0)];
- */
+ (view.bounds.size.height - label.frame.size.height)/2.0)];	*/
 
 
 	//	u.backgroundColor = cgCLEARCOLOR;
@@ -1039,8 +1035,7 @@ static const NSString *didScroll = @"scrollOffset";
  //	[v addSubview:b];
  //	[b setSelected:YES];
  //	[b setHovered:YES];
- //	[v setNeedsDisplay:YES];
- */
+ //	[v setNeedsDisplay:YES];	*/
 /*
  - (NSA*) allItems {
  //	__block	NSMutableArray *i = [NSMutableArray array];
@@ -1111,8 +1106,7 @@ static const NSString *didScroll = @"scrollOffset";
 
  NSMutableArray *q = [self quadForType:quadrant];
  return  [q objectAtIndex:index];
- }
- */
+ }	*/
 
 /*	self.window = [[NSWindow alloc]initWithContentRect:
  NSInsetRect([[NSScreen mainScreen]frame],200,200) styleMask:NSTitledWindowMask backing:NSBackingStoreBuffered  defer:NO];
@@ -1130,6 +1124,5 @@ static const NSString *didScroll = @"scrollOffset";
  [self.carousel setDataSource : self];
  [self.carousel setWantsLayer:YES];
  //add carousel to view
- [[self.window contentView] addSubview:self.carousel];
- */
+ [[self.window contentView] addSubview:self.carousel];	*/
 @end

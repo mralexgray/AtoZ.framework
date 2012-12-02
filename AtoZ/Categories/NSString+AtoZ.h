@@ -301,8 +301,7 @@ NSS*   StringByTruncatingStringWithAttributesForWidth( NSS* s, NSD* attrs, float
  Thanks very much to Steve Nygard for taking the project one night,
  recognizing the importance of the line fragment padding and hyphenation
  factor, and the idea of generalizing to support NSAttributedString.
-
- */
+	*/
 extern int gNSStringGeometricsTypesetterBehavior ;
 
 @interface NSAttributedString (Geometrics)

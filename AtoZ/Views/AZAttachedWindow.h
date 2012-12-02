@@ -28,8 +28,7 @@
 	 attempt to stay within its parent window's frame if it can.
  
  (c) The algorithm isn't perfect. :) If in doubt, do your own calculations and then 
-	 explicitly request that the window attach itself to a particular side.
- */
+	 explicitly request that the window attach itself to a particular side.	*/
 
 @interface AZAttachedWindow : NSWindow {
 	 @private
@@ -72,8 +71,7 @@
 			Default: AZPositionAutomatic.
  
  distance   How far from the specified point this window should be.
-			Default: 0.
- */
+			Default: 0.	*/
 
 - (AZAttachedWindow *)initWithView:(NSView *)view		   // designated initializer
 				   attachedToPoint:(NSPoint)point 
@@ -136,8 +134,7 @@
  4. Note that to retrieve the background color of the window, you should use the 
 	-windowBackgroundColor method, instead of -backgroundColor. This is because we draw 
 	the entire background of the window (rounded path, arrow, etc) in an NSColor pattern 
-	image, and set it as the backgroundColor of the window.
- */
+	image, and set it as the backgroundColor of the window.	*/
 @property (nonatomic, assign) AZSlideState pos;
 
 @end
