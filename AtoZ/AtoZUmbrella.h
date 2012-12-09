@@ -165,6 +165,10 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define CGSUPRESSINTERVAL(x) CGEventSourceSetLocalEventsSuppressionInterval(nil,x)
 #define AZPOS AZWindowPosition
 
+#define AZSSOQ AZSharedSingleOperationQueue()
+#define AZSOQ AZSharedOperationQueue()
+
+#define AZNULL [NSNull null]
 #define ELSENULL ?: [NSNull null]
 #define AZGView AtoZGridView
 #define AZGVItem AtoZGridViewItem
@@ -222,7 +226,10 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define NSD NSDictionary
 #define NSE NSEvent
 #define NSF NSFont
+#define NSG NSGradient
+
 #define NSI NSInteger
+#define NSIP NSIndexPath
 #define NSIMG NSImage
 #define NSIS NSIndexSet
 #define NSIV NSImageView
@@ -291,6 +298,10 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 
 #define NSSIZEABLE NSViewHeightSizable | NSViewWidthSizable
 
+#define sepByCharsInSet componentsSeparatedByCharactersInSet
+#define sepByString componentsSeparatedByString
+#define sansLast arrayByRemovingLastObject
+
 #define removedOnC removedOnCompletion
 
 #define pBCN postsBoundsChangedNotifications
@@ -300,6 +311,9 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define pV pointValue
 #define rV rectValue
 #define fV floatValue
+
+#define loM layoutManager
+
 
 #define performDelegateSelector(sel) if ([delegate respondsToSelector:sel]) { [delegate performSelector:sel]; }
 #define performBlockIfDelegateRespondsToSelector(block, sel) if ([delegate respondsToSelector:sel]) { block(); }

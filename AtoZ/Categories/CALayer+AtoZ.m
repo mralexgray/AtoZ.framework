@@ -119,12 +119,8 @@ void ChangeSuperlayer( CALayer *layer, CALayer *newSuperlayer, int index )
 }
 void RemoveImmediately( CALayer *layer )
 {
-	[CATransaction flush];
-	[CATransaction begin];
-	[CATransaction setValue:(id)kCFBooleanTrue
-					 forKey:kCATransactionDisableActions];
-	[layer removeFromSuperlayer];
-	[CATransaction commit];
+	[CATransaction immediately:^{	[layer removeFromSuperlayer]; }];
+
 }
 CALayer* AddBloom( CALayer *layer) {
 	// create the filter and set its default values
@@ -490,6 +486,10 @@ static char TEXT_IDENTIFIER;
 #define kCALayerLabel @"CALayerLabel"
 @implementation CALayer (AtoZ)
 
+
+- (void) addSublayerImmediately:(CAL*)sub	{	[CATransaction immediately:^{	[self addSublayer:sub];	}];	}
+- (void) addSublayersImmediately:(NSA*)subArray {	[CATransaction immediately:^{	[self addSublayers:subArray];	}];	}
+- (void) insertSublayerImmediately:(CAL*)sub atIndex:(NSUI)idx {	[CATransaction immediately:^{	[self insertSublayer:sub atIndex:idx];	}];	}
 
 -(void) toggleSpin: (AZState)state
 {
@@ -1736,6 +1736,12 @@ NSTimeInterval const LTKDefaultTransitionDuration = 0.25;
 }
 
 #pragma mark - Property Accessors
+
+- (BOOL)selected 			{ return [self boolForKey:@"selected" defaultValue:NO]; }
+- (void)setSelected:(BOOL)s { 		 [self setBool:s forKey:@"selected"]; 			}
+
+- (BOOL)hovered 			{ return [self boolForKey:@"hovered" defaultValue:NO]; 	}
+- (void)setHovered:(BOOL)h	{		 [self setBool:h forKey:@"hovered"]; 			}
 
 - (CGPoint)frameOrigin
 {

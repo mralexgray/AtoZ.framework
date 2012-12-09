@@ -1,0 +1,3508 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>a2ps</key>
+	<string>An any-to-PostScript filter</string>
+	<key>a52dec</key>
+	<string>Library for decoding ATSC A/52 streams (AKA 'AC-3')</string>
+	<key>aacgain</key>
+	<string></string>
+	<key>aalib</key>
+	<string>Portable ASCII art graphics library</string>
+	<key>aamath</key>
+	<string></string>
+	<key>aardvark_shell_utils</key>
+	<string></string>
+	<key>abcde</key>
+	<string>ABCDE: A Better CD Encoder</string>
+	<key>abfind</key>
+	<string></string>
+	<key>abiword</key>
+	<string></string>
+	<key>abnfgen</key>
+	<string></string>
+	<key>abook</key>
+	<string>Address book with mutt support</string>
+	<key>abuse</key>
+	<string></string>
+	<key>ace</key>
+	<string></string>
+	<key>ack</key>
+	<string></string>
+	<key>activemq</key>
+	<string></string>
+	<key>adamem</key>
+	<string></string>
+	<key>adns</key>
+	<string></string>
+	<key>adobe-air-sdk</key>
+	<string></string>
+	<key>adplug</key>
+	<string></string>
+	<key>advancecomp</key>
+	<string>Recompression utilities for .PNG, .MNG, .ZIP and .GZ files</string>
+	<key>aescrypt</key>
+	<string>A program for encryption/decryption</string>
+	<key>aespipe</key>
+	<string></string>
+	<key>afflib</key>
+	<string>The Advanced Forensic Format</string>
+	<key>afsctool</key>
+	<string>Utility for manipulating HFS+ compressed files</string>
+	<key>aften</key>
+	<string></string>
+	<key>aget</key>
+	<string>Multithreaded HTTP download accelerator</string>
+	<key>aggregate</key>
+	<string></string>
+	<key>agrep</key>
+	<string></string>
+	<key>aimage</key>
+	<string></string>
+	<key>aircrack-ng</key>
+	<string>Next-generation aircrack with lots of new features</string>
+	<key>akonadi</key>
+	<string>A personal information management storage service</string>
+	<key>aldo</key>
+	<string></string>
+	<key>algol68g</key>
+	<string></string>
+	<key>allegro</key>
+	<string>Game programming library for C/C++ developers</string>
+	<key>alpine</key>
+	<string>A program for Internet news and email</string>
+	<key>amap</key>
+	<string></string>
+	<key>android-ndk</key>
+	<string></string>
+	<key>android-sdk</key>
+	<string></string>
+	<key>angband</key>
+	<string>A rogue-like dungeon exploration game (curses-based)</string>
+	<key>ansifilter</key>
+	<string></string>
+	<key>antiword</key>
+	<string>Utility to read Word (.doc) files</string>
+	<key>antlr</key>
+	<string>ANTLR: ANother Tool for Language Recognition</string>
+	<key>anttweakbar</key>
+	<string></string>
+	<key>aoeui</key>
+	<string></string>
+	<key>apachetop</key>
+	<string>Top-like display of Apache log</string>
+	<key>apc</key>
+	<string></string>
+	<key>apg</key>
+	<string>A tool set for random password generation</string>
+	<key>apgdiff</key>
+	<string></string>
+	<key>apiextractor</key>
+	<string></string>
+	<key>aplus</key>
+	<string></string>
+	<key>app-engine-java-sdk</key>
+	<string></string>
+	<key>apparix</key>
+	<string></string>
+	<key>appswitch</key>
+	<string></string>
+	<key>aqbanking</key>
+	<string>A generic online banking interface</string>
+	<key>aqua-less</key>
+	<string></string>
+	<key>arabica</key>
+	<string>XML toolkit written in C++</string>
+	<key>argp-standalone</key>
+	<string>Standalone version of arguments parsing functions from GLIBC</string>
+	<key>aria2</key>
+	<string>Download with resuming and segmented downloading</string>
+	<key>arm</key>
+	<string></string>
+	<key>arp-sk</key>
+	<string></string>
+	<key>arping</key>
+	<string>Utility that checks whether MAC addresses are already taken on a LAN</string>
+	<key>arpoison</key>
+	<string></string>
+	<key>arss</key>
+	<string></string>
+	<key>ascii</key>
+	<string></string>
+	<key>asciidoc</key>
+	<string>Formatter/translator for text files to numerous formats</string>
+	<key>asciitex</key>
+	<string></string>
+	<key>asn1c</key>
+	<string></string>
+	<key>aspell</key>
+	<string>Spell checker with better logic than ispell</string>
+	<key>asterisk</key>
+	<string>PBX and telephony toolkit</string>
+	<key>astyle</key>
+	<string>Source code beautifier for C, C++, C#, and Java</string>
+	<key>asymptote</key>
+	<string>A vector graphics language</string>
+	<key>aterm</key>
+	<string></string>
+	<key>atf</key>
+	<string>ATF: Automated Testing Framework</string>
+	<key>atk</key>
+	<string>GNOME accessibility toolkit</string>
+	<key>atlassian-plugin-sdk</key>
+	<string></string>
+	<key>atomicparsley</key>
+	<string>MPEG-4 command line tool</string>
+	<key>atool</key>
+	<string>An archival front-end</string>
+	<key>attica</key>
+	<string>Qt library for Open Collaboration Services API 1.4</string>
+	<key>auctex</key>
+	<string></string>
+	<key>audiofile</key>
+	<string></string>
+	<key>augeas</key>
+	<string></string>
+	<key>authexec</key>
+	<string></string>
+	<key>auto-scaling</key>
+	<string></string>
+	<key>autobench</key>
+	<string>Automatic webserver benchmark tool</string>
+	<key>autoconf-archive</key>
+	<string>Collection of over 500 reusable autoconf macros</string>
+	<key>autogen</key>
+	<string></string>
+	<key>autojump</key>
+	<string></string>
+	<key>automoc4</key>
+	<string></string>
+	<key>autopsy</key>
+	<string></string>
+	<key>autossh</key>
+	<string></string>
+	<key>autotrace</key>
+	<string>Convert bitmap to vector graphics</string>
+	<key>avanor</key>
+	<string></string>
+	<key>aview</key>
+	<string></string>
+	<key>avra</key>
+	<string></string>
+	<key>avrdude</key>
+	<string>An Atmel AVR MCU programmer</string>
+	<key>avro-c</key>
+	<string></string>
+	<key>aws-cfn-tools</key>
+	<string></string>
+	<key>aws-elasticache</key>
+	<string></string>
+	<key>aws-iam-tools</key>
+	<string></string>
+	<key>axel</key>
+	<string>A light UNIX download accelerator</string>
+	<key>bagit</key>
+	<string></string>
+	<key>balance</key>
+	<string></string>
+	<key>bali-phy</key>
+	<string>Bayesian Alignment and Phylogeny estimation</string>
+	<key>bap</key>
+	<string></string>
+	<key>bar</key>
+	<string></string>
+	<key>base64</key>
+	<string></string>
+	<key>bash</key>
+	<string>Bash (Bourne-again SHell) is a UNIX command interpreter</string>
+	<key>bash-completion</key>
+	<string>Programmable bash completion</string>
+	<key>bashish</key>
+	<string></string>
+	<key>bashreduce</key>
+	<string></string>
+	<key>bazaar</key>
+	<string>Human-friendly source code management (or 'version control')</string>
+	<key>bbcolors</key>
+	<string>Saves and loads color schemes for BBEdit and TextWrangler</string>
+	<key>bbcp</key>
+	<string></string>
+	<key>bchunk</key>
+	<string>Convert CD images from .bin/.cue to .iso/.cdr</string>
+	<key>bcpp</key>
+	<string>C(++) beautifier</string>
+	<key>bcrypt</key>
+	<string></string>
+	<key>bcwipe</key>
+	<string>Securely erase data from magnetic and solid-state memory</string>
+	<key>bdw-gc</key>
+	<string></string>
+	<key>beanstalk</key>
+	<string></string>
+	<key>bedtools</key>
+	<string></string>
+	<key>beecrypt</key>
+	<string></string>
+	<key>berkeley-db</key>
+	<string></string>
+	<key>bib-tool</key>
+	<string></string>
+	<key>bibtex2html</key>
+	<string>BibTeX to HTML converter</string>
+	<key>bibutils</key>
+	<string>Bibliography conversion utilities</string>
+	<key>bigloo</key>
+	<string>Bigloo is a fast implementation of Scheme</string>
+	<key>binutils</key>
+	<string>FSF Binutils for native development</string>
+	<key>bitlbee</key>
+	<string>An IRC to other chat networks gateway</string>
+	<key>blahtexml</key>
+	<string></string>
+	<key>blast</key>
+	<string></string>
+	<key>blitz</key>
+	<string>C++ class library for scientific computing</string>
+	<key>bmon</key>
+	<string>An interface bandwidth monitor</string>
+	<key>bonnie</key>
+	<string>Disk I/O benchmark utility</string>
+	<key>boost</key>
+	<string>Collection of portable C++ source libraries</string>
+	<key>boost-jam</key>
+	<string></string>
+	<key>botan</key>
+	<string>Cryptographic algorithms and formats library in C++</string>
+	<key>bowtie</key>
+	<string></string>
+	<key>box2d</key>
+	<string></string>
+	<key>boxes</key>
+	<string>Draw boxes around text</string>
+	<key>brew-gem</key>
+	<string></string>
+	<key>brew-pip</key>
+	<string></string>
+	<key>browser</key>
+	<string></string>
+	<key>bsdiff</key>
+	<string>Generates and apply patches to binary files</string>
+	<key>bsdsfv</key>
+	<string></string>
+	<key>btparse</key>
+	<string></string>
+	<key>btpd</key>
+	<string></string>
+	<key>bulk_extractor</key>
+	<string></string>
+	<key>bullet</key>
+	<string></string>
+	<key>bvi</key>
+	<string>A vi-like binary file (hex) editor</string>
+	<key>bwa</key>
+	<string></string>
+	<key>bwm-ng</key>
+	<string>A small and simple bandwidth monitor</string>
+	<key>byobu</key>
+	<string></string>
+	<key>c-ares</key>
+	<string>Asynchronous DNS library</string>
+	<key>c-kermit</key>
+	<string></string>
+	<key>c10t</key>
+	<string></string>
+	<key>cabal-install</key>
+	<string></string>
+	<key>cabextract</key>
+	<string>Extract files from Microsoft cabinet files</string>
+	<key>cadaver</key>
+	<string>Command line client for DAV</string>
+	<key>cairo</key>
+	<string>A vector graphics library with cross-device output support</string>
+	<key>cairomm</key>
+	<string>Cairo is a vector graphics library with cross-device output support</string>
+	<key>cake</key>
+	<string></string>
+	<key>calc</key>
+	<string>Arbitrary precision calculator</string>
+	<key>calcurse</key>
+	<string>Text-based personal organizer</string>
+	<key>camlp5</key>
+	<string>Camlp5 is a preprocessor-pretty-printer of OCaml</string>
+	<key>cantera</key>
+	<string></string>
+	<key>cassandra</key>
+	<string>Highly scalable, eventually consistent, distributed key-value store</string>
+	<key>cast</key>
+	<string></string>
+	<key>catdoc</key>
+	<string>Convert Word/Excel documents to ASCII or TeX</string>
+	<key>ccache</key>
+	<string>Object-file caching compiler wrapper</string>
+	<key>ccd2iso</key>
+	<string>Convert CloneCD images to ISO images</string>
+	<key>cclive</key>
+	<string>A command line video extraction utility</string>
+	<key>ccrypt</key>
+	<string>Encrypt and decrypt files and streams</string>
+	<key>cd-discid</key>
+	<string>Read CD and get CDDB discid information</string>
+	<key>cdargs</key>
+	<string>Bookmarks for the shell</string>
+	<key>cdb</key>
+	<string>A fast, reliable, simple package for constant databases</string>
+	<key>cdecl</key>
+	<string></string>
+	<key>cdf</key>
+	<string>Custom color schemes and human-friendly capacity bars for your terminal</string>
+	<key>cdparanoia</key>
+	<string>An audio extraction tool for sampling CDs</string>
+	<key>cdrdao</key>
+	<string></string>
+	<key>cdrtools</key>
+	<string>ISO 9660 filesystem and CD creation tools</string>
+	<key>celt</key>
+	<string></string>
+	<key>center-im</key>
+	<string></string>
+	<key>cfengine</key>
+	<string></string>
+	<key>cfitsio</key>
+	<string>C access to FITS data files with optional Fortran wrappers</string>
+	<key>cflow</key>
+	<string>Generate call graphs from C code</string>
+	<key>cgal</key>
+	<string>CGAL: Computational Geometry Algorithm Library</string>
+	<key>cgdb</key>
+	<string></string>
+	<key>chcase</key>
+	<string></string>
+	<key>check</key>
+	<string>C unit testing framework</string>
+	<key>cheops</key>
+	<string>CHEss OPponent Simulator</string>
+	<key>cherokee</key>
+	<string>Cherokee web server</string>
+	<key>chibi-scheme</key>
+	<string></string>
+	<key>chicken</key>
+	<string>Compiler for the Scheme programming language</string>
+	<key>chipmunk</key>
+	<string>Fast and lightweight 2D rigid body physics library in C</string>
+	<key>chktex</key>
+	<string></string>
+	<key>chmlib</key>
+	<string>Library for dealing with Microsoft ITSS/CHM files</string>
+	<key>chmox</key>
+	<string>Read CHM documents on your Mac</string>
+	<key>chocolate-doom</key>
+	<string></string>
+	<key>chromedriver</key>
+	<string></string>
+	<key>chuck</key>
+	<string></string>
+	<key>cimg</key>
+	<string></string>
+	<key>cksfv</key>
+	<string>Simple file verification utility</string>
+	<key>clamav</key>
+	<string>Anti-virus software</string>
+	<key>class-dump</key>
+	<string>Utility for examining the Objective-C segment of Mach-O files</string>
+	<key>classads</key>
+	<string></string>
+	<key>clay</key>
+	<string></string>
+	<key>clean</key>
+	<string></string>
+	<key>clisp</key>
+	<string></string>
+	<key>cliweather</key>
+	<string></string>
+	<key>cln</key>
+	<string>CLN: Class Library for Numbers</string>
+	<key>cloc</key>
+	<string></string>
+	<key>clojure</key>
+	<string>The Clojure programming language</string>
+	<key>clojure-contrib</key>
+	<string>The Clojure programming language (contrib)</string>
+	<key>closure-compiler</key>
+	<string></string>
+	<key>cloud-watch</key>
+	<string></string>
+	<key>cloudbees-sdk</key>
+	<string></string>
+	<key>clozure-cl</key>
+	<string></string>
+	<key>clucene</key>
+	<string>C++ port of Lucene: high-performance, full-featured text search engine</string>
+	<key>clustal-w</key>
+	<string></string>
+	<key>clusterit</key>
+	<string>Tools for running tasks on many machines</string>
+	<key>clutter</key>
+	<string>A generic high-level canvas library</string>
+	<key>cmake</key>
+	<string>Cross-platform make</string>
+	<key>cmatrix</key>
+	<string>Console Matrix</string>
+	<key>cmigemo</key>
+	<string></string>
+	<key>cminpack</key>
+	<string></string>
+	<key>cmockery</key>
+	<string>Unit testing and mocking library for C</string>
+	<key>cmu-pocketsphinx</key>
+	<string></string>
+	<key>cmu-sphinxbase</key>
+	<string></string>
+	<key>cmucl</key>
+	<string></string>
+	<key>cmus</key>
+	<string>A ncurses based music player</string>
+	<key>cocot</key>
+	<string></string>
+	<key>coda-cli</key>
+	<string></string>
+	<key>coffee-script</key>
+	<string></string>
+	<key>collectd</key>
+	<string></string>
+	<key>colloquypush</key>
+	<string></string>
+	<key>color-code</key>
+	<string></string>
+	<key>colordiff</key>
+	<string>Color-highlighted diff(1) output</string>
+	<key>colormake</key>
+	<string></string>
+	<key>colorsvn</key>
+	<string></string>
+	<key>colortail</key>
+	<string></string>
+	<key>confuse</key>
+	<string></string>
+	<key>connect</key>
+	<string></string>
+	<key>contacts</key>
+	<string>Command line tool to access Mac OS X's Address Book</string>
+	<key>convmv</key>
+	<string></string>
+	<key>coq</key>
+	<string></string>
+	<key>coreutils</key>
+	<string>GNU File, Shell, and Text utilities</string>
+	<key>corkscrew</key>
+	<string>Tunnel SSH through HTTP proxies</string>
+	<key>cortex</key>
+	<string></string>
+	<key>couchdb</key>
+	<string>CouchDB is a document database server</string>
+	<key>couchdb-lucene</key>
+	<string></string>
+	<key>cowpatty</key>
+	<string></string>
+	<key>cowsay</key>
+	<string>Configurable talking characters in ASCII art</string>
+	<key>cpanminus</key>
+	<string></string>
+	<key>cpansearch</key>
+	<string></string>
+	<key>cpmtools</key>
+	<string></string>
+	<key>cppcheck</key>
+	<string>Static analysis of C and C++ code</string>
+	<key>cppdom</key>
+	<string></string>
+	<key>cpptest</key>
+	<string></string>
+	<key>cppunit</key>
+	<string>Unit testing framework for C++</string>
+	<key>cpputest</key>
+	<string></string>
+	<key>cracklib</key>
+	<string>A proactive password-sanity library</string>
+	<key>cracklib-words</key>
+	<string>Wordlists for cracklib</string>
+	<key>cronolog</key>
+	<string>Web log rotation</string>
+	<key>cryptopp</key>
+	<string></string>
+	<key>cscope</key>
+	<string>Tool for browsing source code</string>
+	<key>csmith</key>
+	<string></string>
+	<key>cssembed</key>
+	<string></string>
+	<key>csshx</key>
+	<string>Cluster ssh tool for Terminal.app</string>
+	<key>csstidy</key>
+	<string></string>
+	<key>csv-fix</key>
+	<string></string>
+	<key>ctags</key>
+	<string>Reimplementation of ctags(1)</string>
+	<key>ctail</key>
+	<string></string>
+	<key>ctorrent</key>
+	<string>BitTorrent command line client</string>
+	<key>cuetools</key>
+	<string>Utilities for .cue and .toc files</string>
+	<key>cufflinks</key>
+	<string></string>
+	<key>cunit</key>
+	<string></string>
+	<key>cups-pdf</key>
+	<string>Print-to-PDF feature through CUPS</string>
+	<key>curl</key>
+	<string></string>
+	<key>curlpp</key>
+	<string></string>
+	<key>cuty_capt</key>
+	<string></string>
+	<key>cvs2svn</key>
+	<string>Tool for converting from CVS to Subversion</string>
+	<key>cvsps</key>
+	<string>Create patchset information from CVS</string>
+	<key>cvsync</key>
+	<string></string>
+	<key>d-bus</key>
+	<string></string>
+	<key>daemonize</key>
+	<string></string>
+	<key>daemontools</key>
+	<string>Collection of tools for managing UNIX services</string>
+	<key>daq</key>
+	<string></string>
+	<key>dar</key>
+	<string></string>
+	<key>darkice</key>
+	<string></string>
+	<key>darwinbuild</key>
+	<string>Tools for building sources released by Apple</string>
+	<key>dash</key>
+	<string>POSIX-compliant descendant of NetBSD's ash (the Almquist SHell)</string>
+	<key>dbslayer</key>
+	<string></string>
+	<key>dbus-glib</key>
+	<string></string>
+	<key>dc3dd</key>
+	<string></string>
+	<key>dcal</key>
+	<string></string>
+	<key>dcfldd</key>
+	<string></string>
+	<key>dcled</key>
+	<string></string>
+	<key>dcmtk</key>
+	<string></string>
+	<key>dcraw</key>
+	<string>Digital camera RAW photo decoding software supporting hundreds of cameras</string>
+	<key>ddate</key>
+	<string></string>
+	<key>ddclient</key>
+	<string>Update dynamic DNS entries</string>
+	<key>ddd</key>
+	<string></string>
+	<key>ddrescue</key>
+	<string>GNU data recovery tool</string>
+	<key>deja-gnu</key>
+	<string></string>
+	<key>despotify</key>
+	<string>Spotify client</string>
+	<key>detox</key>
+	<string></string>
+	<key>devil</key>
+	<string></string>
+	<key>devtodo</key>
+	<string>Command line task lists</string>
+	<key>dfu-programmer</key>
+	<string></string>
+	<key>dfu-util</key>
+	<string></string>
+	<key>dia</key>
+	<string>A diagram program</string>
+	<key>dialog</key>
+	<string></string>
+	<key>dict</key>
+	<string>Dictionary Server Protocol (RFC2229) client</string>
+	<key>diction</key>
+	<string>GNU diction and style</string>
+	<key>diffpdf</key>
+	<string></string>
+	<key>dirac</key>
+	<string>General-purpose video codec aimed at a range of resolutions</string>
+	<key>dircproxy</key>
+	<string>IRC proxy server (AKA 'bouncer')</string>
+	<key>direnv</key>
+	<string></string>
+	<key>dirmngr</key>
+	<string></string>
+	<key>disco</key>
+	<string></string>
+	<key>discount</key>
+	<string></string>
+	<key>disktype</key>
+	<string></string>
+	<key>ditaa</key>
+	<string></string>
+	<key>djbdns</key>
+	<string>D.J. Bernstein's DNS tools</string>
+	<key>djmount</key>
+	<string></string>
+	<key>djview4</key>
+	<string></string>
+	<key>djvulibre</key>
+	<string></string>
+	<key>dmd</key>
+	<string></string>
+	<key>dmenu</key>
+	<string></string>
+	<key>dns2tcp</key>
+	<string>TCP over DNS tunnel</string>
+	<key>dnsmap</key>
+	<string></string>
+	<key>dnsmasq</key>
+	<string>Lightweight DNS forwarder and DHCP server</string>
+	<key>dnstracer</key>
+	<string>Trace a chain of DNS servers to the source</string>
+	<key>docbook</key>
+	<string></string>
+	<key>docbook2x</key>
+	<string>Convert DocBook to UNIX manpages and GNU TeXinfo</string>
+	<key>dos2unix</key>
+	<string>Convert text between DOS, Unix, and Mac formats</string>
+	<key>dosbox</key>
+	<string>DOS emulator featuring 386 realmode, filesystem, XMS, EMS</string>
+	<key>dotless</key>
+	<string></string>
+	<key>dotwrp</key>
+	<string></string>
+	<key>doublecpp</key>
+	<string></string>
+	<key>doubledown</key>
+	<string></string>
+	<key>dovecot</key>
+	<string>Secure, fast IMAP/POP3 server</string>
+	<key>doxygen</key>
+	<string>Generate documentation for several programming languages</string>
+	<key>doxymacs</key>
+	<string></string>
+	<key>drizzle</key>
+	<string></string>
+	<key>drush</key>
+	<string>The DRUpal SHell</string>
+	<key>dsh</key>
+	<string></string>
+	<key>dtach</key>
+	<string>Emulates the detach feature of screen</string>
+	<key>dterm</key>
+	<string></string>
+	<key>duff</key>
+	<string>Quickly find duplicates in a set of files on the command-line</string>
+	<key>duplicity</key>
+	<string>Bandwidth-efficient encrypted backup</string>
+	<key>duply</key>
+	<string></string>
+	<key>dvd+rw-tools</key>
+	<string></string>
+	<key>dvdauthor</key>
+	<string>Simple toolset to help author a DVD</string>
+	<key>dvdbackup</key>
+	<string></string>
+	<key>dvdrtools</key>
+	<string>Fork of cdrtools DVD writer support</string>
+	<key>dvtm</key>
+	<string>Dynamic Virtual Terminal Manager</string>
+	<key>dwarf</key>
+	<string></string>
+	<key>dwarf-fortress</key>
+	<string></string>
+	<key>dwdiff</key>
+	<string>diff that operates at the word level</string>
+	<key>dwm</key>
+	<string></string>
+	<key>dxflib</key>
+	<string></string>
+	<key>dzen2</key>
+	<string></string>
+	<key>e2fsprogs</key>
+	<string>Utilities for the ext2, ext3, and ext4 filesystems</string>
+	<key>easy-tag</key>
+	<string></string>
+	<key>ec2-ami-tools</key>
+	<string></string>
+	<key>ec2-api-tools</key>
+	<string></string>
+	<key>ecasound</key>
+	<string></string>
+	<key>echoprint-codegen</key>
+	<string></string>
+	<key>ecl</key>
+	<string>ECL: Embeddable Common Lisp</string>
+	<key>edelta</key>
+	<string>EDelta is a fast XDelta-style binary differ</string>
+	<key>ee</key>
+	<string>Easy to use text editor</string>
+	<key>eigen</key>
+	<string>C++ template library for linear algebra</string>
+	<key>ejabberd</key>
+	<string>An XMPP application server</string>
+	<key>ekg2</key>
+	<string></string>
+	<key>elasticsearch</key>
+	<string></string>
+	<key>elb-tools</key>
+	<string></string>
+	<key>elinks</key>
+	<string>Text mode web browser</string>
+	<key>emacs</key>
+	<string>The GNU Emacs text editor</string>
+	<key>emboss</key>
+	<string>Molecular biology software analysis package</string>
+	<key>enca</key>
+	<string></string>
+	<key>encfs</key>
+	<string>Encrypted pass-through FUSE filesystem</string>
+	<key>enchant</key>
+	<string>Spellchecker wrapping library</string>
+	<key>enet</key>
+	<string></string>
+	<key>epsilon</key>
+	<string></string>
+	<key>epstool</key>
+	<string></string>
+	<key>erlang</key>
+	<string>The Erlang Programming Language</string>
+	<key>erviz</key>
+	<string></string>
+	<key>esniper</key>
+	<string>A simple, lightweight tool for sniping eBay auctions</string>
+	<key>esound</key>
+	<string></string>
+	<key>etl</key>
+	<string>ETL: Extensible Template Library</string>
+	<key>ettercap-ng</key>
+	<string>Multipurpose switched LAN sniffer/interceptor/logger</string>
+	<key>eventlog</key>
+	<string>Replacement for syslog API providing structure to messages</string>
+	<key>exif</key>
+	<string>Read, write, modify, and display EXIF data on the command line</string>
+	<key>exiftags</key>
+	<string></string>
+	<key>exiftool</key>
+	<string></string>
+	<key>exim</key>
+	<string>Complete replacement for sendmail</string>
+	<key>exiv2</key>
+	<string>EXIF and IPTC metadata manipulation library and tools</string>
+	<key>exodriver</key>
+	<string></string>
+	<key>exonerate</key>
+	<string></string>
+	<key>expat</key>
+	<string>XML 1.0 parser written in C</string>
+	<key>exult</key>
+	<string></string>
+	<key>eye-d3</key>
+	<string></string>
+	<key>faac</key>
+	<string>ISO AAC audio encoder</string>
+	<key>faad2</key>
+	<string>Fastest ISO AAC audio decoder</string>
+	<key>fabricate</key>
+	<string></string>
+	<key>factor</key>
+	<string></string>
+	<key>falcon</key>
+	<string></string>
+	<key>fann</key>
+	<string></string>
+	<key>fantom</key>
+	<string></string>
+	<key>fast-statistical-alignment</key>
+	<string></string>
+	<key>fastri</key>
+	<string></string>
+	<key>fbida</key>
+	<string></string>
+	<key>fcrackzip</key>
+	<string></string>
+	<key>fdupes</key>
+	<string></string>
+	<key>feh</key>
+	<string></string>
+	<key>fex</key>
+	<string></string>
+	<key>ffmpeg</key>
+	<string>Plays, records, converts, and streams audio and video</string>
+	<key>ffmpeg-php</key>
+	<string></string>
+	<key>ffmpegthumbnailer</key>
+	<string></string>
+	<key>fftw</key>
+	<string>Fast C routines to compute the Discrete Fourier Transform</string>
+	<key>figlet</key>
+	<string>banner-like program prints strings as ASCII art</string>
+	<key>finch</key>
+	<string></string>
+	<key>findutils</key>
+	<string>Collection of GNU find, xargs, and locate</string>
+	<key>fio</key>
+	<string></string>
+	<key>fire</key>
+	<string></string>
+	<key>fish</key>
+	<string>User-friendly command line shell for UNIX-like operating systems</string>
+	<key>fits</key>
+	<string></string>
+	<key>fiwalk</key>
+	<string></string>
+	<key>flac</key>
+	<string>FLAC: Free Lossless Audio Codec</string>
+	<key>flann</key>
+	<string></string>
+	<key>flare</key>
+	<string></string>
+	<key>flasm</key>
+	<string>Flash command-line assembler and disassembler</string>
+	<key>fleet-db</key>
+	<string></string>
+	<key>flip</key>
+	<string>Convert text file line endings</string>
+	<key>fltk</key>
+	<string>Fast Light Tool Kit</string>
+	<key>fluid-synth</key>
+	<string></string>
+	<key>flume</key>
+	<string></string>
+	<key>flusspferd</key>
+	<string>Javascript bindings for C++</string>
+	<key>fluxus</key>
+	<string></string>
+	<key>flvstreamer</key>
+	<string></string>
+	<key>flvtool++</key>
+	<string></string>
+	<key>fmdiff</key>
+	<string></string>
+	<key>fondu</key>
+	<string>Tools to convert between different font formats</string>
+	<key>fontconfig</key>
+	<string>XML-based font configuration API for X Windows</string>
+	<key>fontforge</key>
+	<string>Outline and bitmap font editor/converter for many formats</string>
+	<key>fop</key>
+	<string>XSL-FO print formatter for making PDF or PS documents</string>
+	<key>foremost</key>
+	<string>Console program to recover files based on their headers and footers</string>
+	<key>fortress</key>
+	<string></string>
+	<key>fortune</key>
+	<string>Infamous electronic fortune-cookie generator</string>
+	<key>fossil</key>
+	<string></string>
+	<key>fourstore</key>
+	<string></string>
+	<key>fox</key>
+	<string></string>
+	<key>fping</key>
+	<string>A scriptable ping program to check if multiple hosts are up</string>
+	<key>freealut</key>
+	<string></string>
+	<key>freeimage</key>
+	<string>Library for FreeImage, a dependency-free graphics library</string>
+	<key>freeradius-server</key>
+	<string></string>
+	<key>freetds</key>
+	<string>Libraries to talk to Microsoft SQL Server and Sybase databases</string>
+	<key>fribidi</key>
+	<string>Implementation of the Unicode BiDi algorithm</string>
+	<key>frink</key>
+	<string></string>
+	<key>frobtads</key>
+	<string>FrobTADS is a new version of TADS for UNIX</string>
+	<key>frotz</key>
+	<string>An interpreter for Infocom Z-Code games</string>
+	<key>fsh</key>
+	<string>Fast remote command execution</string>
+	<key>ftgl</key>
+	<string>Freetype / OpenGL bridge</string>
+	<key>ftimes</key>
+	<string></string>
+	<key>ftjam</key>
+	<string></string>
+	<key>fuego</key>
+	<string></string>
+	<key>fuse4x</key>
+	<string></string>
+	<key>fuse4x-kext</key>
+	<string></string>
+	<key>gaffitter</key>
+	<string></string>
+	<key>gambit-scheme</key>
+	<string></string>
+	<key>ganglia</key>
+	<string>Ganglia monitoring client</string>
+	<key>gant</key>
+	<string>A Groovy-based tool for scripting ant</string>
+	<key>garmintools</key>
+	<string></string>
+	<key>gauche</key>
+	<string></string>
+	<key>gawk</key>
+	<string>The GNU awk utility</string>
+	<key>gcal</key>
+	<string></string>
+	<key>gccxml</key>
+	<string>Generate XML descriptions of C++ code</string>
+	<key>gd</key>
+	<string></string>
+	<key>gdal</key>
+	<string>GDAL: Geospatial Data Abstraction Library</string>
+	<key>gdal-grass</key>
+	<string></string>
+	<key>gdbm</key>
+	<string>The GNU database manager</string>
+	<key>gdk-pixbuf</key>
+	<string></string>
+	<key>geany</key>
+	<string>Fast, lightweight GTK+ IDE</string>
+	<key>gearman</key>
+	<string></string>
+	<key>gecode</key>
+	<string></string>
+	<key>geeqie</key>
+	<string></string>
+	<key>generatorrunner</key>
+	<string></string>
+	<key>gengetopt</key>
+	<string></string>
+	<key>geoip</key>
+	<string></string>
+	<key>geomview</key>
+	<string></string>
+	<key>geos</key>
+	<string>GEOS Geometry Engine</string>
+	<key>gerbv</key>
+	<string></string>
+	<key>gerrit-tools</key>
+	<string></string>
+	<key>getmail</key>
+	<string>Extensible mail retrieval system with POP3, IMAP4, SSL support</string>
+	<key>gettext</key>
+	<string>GNU internationalization (i18n) and localization (l10n) library</string>
+	<key>gflags</key>
+	<string></string>
+	<key>gforth</key>
+	<string>Fast, portable implementation of the ANS Forth language</string>
+	<key>gfortran</key>
+	<string></string>
+	<key>ggobi</key>
+	<string></string>
+	<key>ghc</key>
+	<string>The Glorious Glasgow Haskell Compilation System</string>
+	<key>ghostscript</key>
+	<string>Interpreter for PostScript and PDF</string>
+	<key>giblib</key>
+	<string></string>
+	<key>giflib</key>
+	<string>GIF library using patented LZW algorithm</string>
+	<key>gifsicle</key>
+	<string>GIF image/animation creator/editor</string>
+	<key>ginac</key>
+	<string>GiNaC is Not a Computer algebra system</string>
+	<key>gist</key>
+	<string></string>
+	<key>git</key>
+	<string></string>
+	<key>git-cola</key>
+	<string></string>
+	<key>git-extras</key>
+	<string></string>
+	<key>git-flow</key>
+	<string></string>
+	<key>git-hg</key>
+	<string></string>
+	<key>git-multipush</key>
+	<string></string>
+	<key>git-sh</key>
+	<string></string>
+	<key>git-ssh</key>
+	<string></string>
+	<key>git-subtree</key>
+	<string></string>
+	<key>git-svn-abandon</key>
+	<string></string>
+	<key>git-url-sub</key>
+	<string></string>
+	<key>git-utils</key>
+	<string></string>
+	<key>giter8</key>
+	<string></string>
+	<key>glade</key>
+	<string></string>
+	<key>glassfish</key>
+	<string></string>
+	<key>gle</key>
+	<string></string>
+	<key>glew</key>
+	<string>OpenGL Extension Wrangler Library</string>
+	<key>glfw</key>
+	<string></string>
+	<key>glib</key>
+	<string></string>
+	<key>glibmm</key>
+	<string>C++ interface to glib</string>
+	<key>global</key>
+	<string>Source code tag system</string>
+	<key>glog</key>
+	<string></string>
+	<key>gloox</key>
+	<string>C++ Jabber/XMPP library taking care of the low-level protocol</string>
+	<key>glpk</key>
+	<string>GNU Linear Programming Kit</string>
+	<key>gmediaserver</key>
+	<string></string>
+	<key>gmime</key>
+	<string>MIME mail utilities</string>
+	<key>gmock</key>
+	<string>Google C++ Mocking Framework</string>
+	<key>gmp</key>
+	<string>GNU multiple precision arithmetic library</string>
+	<key>gmtl</key>
+	<string>A lightweight math library</string>
+	<key>gnome-common</key>
+	<string>Files that should be in pretty much every GNOME application</string>
+	<key>gnu-barcode</key>
+	<string></string>
+	<key>gnu-chess</key>
+	<string></string>
+	<key>gnu-getopt</key>
+	<string></string>
+	<key>gnu-go</key>
+	<string></string>
+	<key>gnu-indent</key>
+	<string></string>
+	<key>gnu-prolog</key>
+	<string></string>
+	<key>gnu-sed</key>
+	<string></string>
+	<key>gnu-shogi</key>
+	<string></string>
+	<key>gnu-smalltalk</key>
+	<string></string>
+	<key>gnu-tar</key>
+	<string></string>
+	<key>gnu-time</key>
+	<string></string>
+	<key>gnu-typist</key>
+	<string></string>
+	<key>gnu-units</key>
+	<string></string>
+	<key>gnupg</key>
+	<string>GNU Pretty Good Privacy (PGP) package</string>
+	<key>gnuplot</key>
+	<string>Command-driven, interactive function plotting</string>
+	<key>gnutls</key>
+	<string>GNU Transport Layer Security (TLS) Library</string>
+	<key>go</key>
+	<string></string>
+	<key>go-gui</key>
+	<string></string>
+	<key>goaccess</key>
+	<string></string>
+	<key>gocr</key>
+	<string>Optical Character Recognition (OCR), converts images back to text</string>
+	<key>google-app-engine</key>
+	<string></string>
+	<key>google-perftools</key>
+	<string>Fast, multi-threaded malloc() and performance analysis tools</string>
+	<key>google-sparsehash</key>
+	<string>An extremely memory-efficient hash_map implementation</string>
+	<key>gosu</key>
+	<string></string>
+	<key>gource</key>
+	<string>Version Control Visualization Tool</string>
+	<key>gpac</key>
+	<string></string>
+	<key>gpg-agent</key>
+	<string>GPG key agent</string>
+	<key>gpgme</key>
+	<string>Library for easy acces to GnuPG</string>
+	<key>gphoto2</key>
+	<string>Command line interface to libgphoto2</string>
+	<key>gplcver</key>
+	<string>Pragmatic C Software GPL Cver 2001</string>
+	<key>gpsbabel</key>
+	<string>GPSBabel converts/uploads GPS waypoints, tracks, and routes</string>
+	<key>gpsim</key>
+	<string></string>
+	<key>gptsync</key>
+	<string></string>
+	<key>gputils</key>
+	<string>GNU PIC Utilities</string>
+	<key>gqlplus</key>
+	<string></string>
+	<key>gqview</key>
+	<string>GQview image browser</string>
+	<key>gradle</key>
+	<string>Build system based on the Groovy language</string>
+	<key>grads</key>
+	<string></string>
+	<key>grails</key>
+	<string>Web application framework for the Groovy language</string>
+	<key>graphicsmagick</key>
+	<string>Image processing tools collection</string>
+	<key>graphviz</key>
+	<string>Graph visualization software from AT&amp;T and Bell Labs</string>
+	<key>grass</key>
+	<string></string>
+	<key>grc</key>
+	<string>GeneRic Colouriser, for colourising logfiles and command output</string>
+	<key>greg</key>
+	<string></string>
+	<key>grepcidr</key>
+	<string></string>
+	<key>gromacs</key>
+	<string></string>
+	<key>groonga</key>
+	<string></string>
+	<key>groovy</key>
+	<string>Groovy: a Java-based scripting language</string>
+	<key>groovyserv</key>
+	<string></string>
+	<key>growlme</key>
+	<string></string>
+	<key>growlnotify</key>
+	<string></string>
+	<key>gsl</key>
+	<string>Numerical library for C and C++</string>
+	<key>gst-ffmpeg</key>
+	<string>A set of plug-ins for GStreamer</string>
+	<key>gst-plugins-bad</key>
+	<string></string>
+	<key>gst-plugins-base</key>
+	<string>A set of plug-ins for GStreamer</string>
+	<key>gst-plugins-good</key>
+	<string>A set of plug-ins for GStreamer (under the LGPL)</string>
+	<key>gst-plugins-ugly</key>
+	<string></string>
+	<key>gst-rtsp</key>
+	<string></string>
+	<key>gstreamer</key>
+	<string>GStreamer is a development framework for multimedia applications</string>
+	<key>gsutil</key>
+	<string></string>
+	<key>gtest</key>
+	<string></string>
+	<key>gtk+</key>
+	<string>GUI toolkit</string>
+	<key>gtk-gnutella</key>
+	<string>GTK-based Gnutella client</string>
+	<key>gtkglext</key>
+	<string></string>
+	<key>gtkmm</key>
+	<string></string>
+	<key>gtksourceview</key>
+	<string></string>
+	<key>gtkwave</key>
+	<string></string>
+	<key>gts</key>
+	<string></string>
+	<key>guile</key>
+	<string>GUILE: GNU's Ubiquitous Intelligent Language for Extension</string>
+	<key>guilt</key>
+	<string></string>
+	<key>gv</key>
+	<string></string>
+	<key>gwenhywfar</key>
+	<string>A utility library required by aqbanking and related software</string>
+	<key>gwyddion</key>
+	<string></string>
+	<key>hadoop</key>
+	<string></string>
+	<key>haproxy</key>
+	<string>The reliable, high performance TCP/HTTP load balancer</string>
+	<key>haskell-platform</key>
+	<string>Meta port for the Haskell platform</string>
+	<key>hatari</key>
+	<string>Atari ST/STe/STfm emulator</string>
+	<key>haxe</key>
+	<string></string>
+	<key>hbase</key>
+	<string></string>
+	<key>hdf5</key>
+	<string>HDF5 general purpose library and file format for storing scientific data</string>
+	<key>help2man</key>
+	<string>Automatically generate simple man pages</string>
+	<key>hercules</key>
+	<string></string>
+	<key>hevea</key>
+	<string>A complete, fast LaTeX to HTML translator</string>
+	<key>hfsutils</key>
+	<string></string>
+	<key>hicolor-icon-theme</key>
+	<string></string>
+	<key>highlight</key>
+	<string>Convert source code to formatted text with syntax highlighting</string>
+	<key>hilite</key>
+	<string></string>
+	<key>hiredis</key>
+	<string></string>
+	<key>hive</key>
+	<string></string>
+	<key>hllib</key>
+	<string></string>
+	<key>homebank</key>
+	<string></string>
+	<key>hornetq</key>
+	<string></string>
+	<key>hostdb</key>
+	<string></string>
+	<key>hping</key>
+	<string></string>
+	<key>html-xml-utils</key>
+	<string>Simple utilties for manipulating HTML and XML files</string>
+	<key>html2text</key>
+	<string></string>
+	<key>htmlcompressor</key>
+	<string></string>
+	<key>htmlcxx</key>
+	<string></string>
+	<key>htmldoc</key>
+	<string>Convert HTML to PDF or PostScript</string>
+	<key>htop</key>
+	<string>An interactive process viewer</string>
+	<key>httperf</key>
+	<string>Tool for measuring webserver performance</string>
+	<key>httping</key>
+	<string>Ping-like tool for HTTP requests</string>
+	<key>httpry</key>
+	<string></string>
+	<key>httptunnel</key>
+	<string></string>
+	<key>httrack</key>
+	<string>Website copier/offline browser</string>
+	<key>hub</key>
+	<string></string>
+	<key>hugs98</key>
+	<string></string>
+	<key>hunspell</key>
+	<string>Spell checker and morphological analyzer</string>
+	<key>hydra</key>
+	<string>Very fast network logon cracker which supports many services</string>
+	<key>ical-buddy</key>
+	<string></string>
+	<key>icarus-verilog</key>
+	<string></string>
+	<key>icecast</key>
+	<string>Streaming MP3 audio server</string>
+	<key>icon</key>
+	<string></string>
+	<key>icoutils</key>
+	<string></string>
+	<key>icu4c</key>
+	<string></string>
+	<key>id3lib</key>
+	<string>ID3 tag manipulation</string>
+	<key>id3tool</key>
+	<string>ID3 editing tool</string>
+	<key>id3v2</key>
+	<string>ID3v2 editing tool</string>
+	<key>idcomments</key>
+	<string></string>
+	<key>idnits</key>
+	<string>Looks for problems in internet draft formatting</string>
+	<key>idutils</key>
+	<string></string>
+	<key>ifstat</key>
+	<string>Tool to report network interface bandwidth</string>
+	<key>iftop</key>
+	<string>Display an interface's bandwidth usage</string>
+	<key>ifuse</key>
+	<string></string>
+	<key>igraph</key>
+	<string>High performance graph library for C</string>
+	<key>ii</key>
+	<string>Minimalist FIFO and filesystem-based IRC client</string>
+	<key>ike-scan</key>
+	<string></string>
+	<key>ilmbase</key>
+	<string>OpenEXR ILM Base libraries</string>
+	<key>imagemagick</key>
+	<string>Tools and libraries to manipulate images in many formats</string>
+	<key>imagesnap</key>
+	<string></string>
+	<key>imagick</key>
+	<string></string>
+	<key>imake</key>
+	<string></string>
+	<key>imapfilter</key>
+	<string>IMAP message processor/filter</string>
+	<key>imlib2</key>
+	<string>Image loading and rendering library</string>
+	<key>inform6</key>
+	<string></string>
+	<key>innotop</key>
+	<string></string>
+	<key>intltool</key>
+	<string>A string tool</string>
+	<key>io</key>
+	<string>A small prototype-based programming language</string>
+	<key>iodine</key>
+	<string></string>
+	<key>ioke</key>
+	<string></string>
+	<key>ios-sim</key>
+	<string></string>
+	<key>ipcalc</key>
+	<string>Calculates various network masks etc. from given ip-address</string>
+	<key>iperf</key>
+	<string>A tool to measure maximum TCP and UDP bandwidth</string>
+	<key>iphotoexport</key>
+	<string></string>
+	<key>ipmitool</key>
+	<string></string>
+	<key>ipopt</key>
+	<string></string>
+	<key>ipv6calc</key>
+	<string></string>
+	<key>ircii</key>
+	<string>An IRC and ICB client</string>
+	<key>irssi</key>
+	<string>Modular IRC client</string>
+	<key>isc-dhcp</key>
+	<string></string>
+	<key>iso-codes</key>
+	<string></string>
+	<key>isync</key>
+	<string>Synchronize a maildir with an IMAP server</string>
+	<key>jack</key>
+	<string>Jack Audio Connection Kit (JACK)</string>
+	<key>jags</key>
+	<string></string>
+	<key>jailkit</key>
+	<string>Utilities to create limited user accounts in a chroot jail</string>
+	<key>jam</key>
+	<string>A make-like build tool</string>
+	<key>jansson</key>
+	<string></string>
+	<key>jasper</key>
+	<string>Library for manipulating JPEG-2000 images</string>
+	<key>jbig2enc</key>
+	<string></string>
+	<key>jed</key>
+	<string>JED is a powerful editor for programmers</string>
+	<key>jemalloc</key>
+	<string></string>
+	<key>jenkins</key>
+	<string></string>
+	<key>jerm</key>
+	<string></string>
+	<key>jetty</key>
+	<string></string>
+	<key>jhead</key>
+	<string>Program for extracting Digicam setting info from EXIF JPEG headers</string>
+	<key>jmeter</key>
+	<string></string>
+	<key>jnethack</key>
+	<string></string>
+	<key>joe</key>
+	<string>Joe's Own Editor (JOE)</string>
+	<key>john</key>
+	<string>Featureful UNIX password cracker</string>
+	<key>jpeg</key>
+	<string>JPEG image manipulation library</string>
+	<key>jpegoptim</key>
+	<string></string>
+	<key>jruby</key>
+	<string>Ruby implemention in pure Java</string>
+	<key>jsawk</key>
+	<string></string>
+	<key>jscoverage</key>
+	<string></string>
+	<key>jsdoc-toolkit</key>
+	<string></string>
+	<key>jsl</key>
+	<string></string>
+	<key>jslint4java</key>
+	<string></string>
+	<key>jsmin</key>
+	<string></string>
+	<key>json-c</key>
+	<string>A JSON parser</string>
+	<key>json-glib</key>
+	<string></string>
+	<key>jsonpp</key>
+	<string></string>
+	<key>jstalk</key>
+	<string></string>
+	<key>jsvc</key>
+	<string></string>
+	<key>judy</key>
+	<string></string>
+	<key>jwhois</key>
+	<string></string>
+	<key>jython</key>
+	<string>Python implementation in pure Java</string>
+	<key>kde-phonon</key>
+	<string></string>
+	<key>kdebase-runtime</key>
+	<string></string>
+	<key>kdelibs</key>
+	<string></string>
+	<key>kdepimlibs</key>
+	<string></string>
+	<key>kdiff3</key>
+	<string></string>
+	<key>kelbt</key>
+	<string></string>
+	<key>kes</key>
+	<string></string>
+	<key>keychain</key>
+	<string>A user-friendly front-end to ssh-agent(1)</string>
+	<key>kismet</key>
+	<string>Wireless network detector and sniffer</string>
+	<key>kite</key>
+	<string></string>
+	<key>kiwi</key>
+	<string>Framework for Python applications with GUIs</string>
+	<key>knock</key>
+	<string></string>
+	<key>ktoblzcheck</key>
+	<string>Library to check bank account numbers and bank codes</string>
+	<key>kumofs</key>
+	<string>Scalable, highly available distributed key-value store</string>
+	<key>kyoto-cabinet</key>
+	<string></string>
+	<key>kyoto-tycoon</key>
+	<string></string>
+	<key>lablgtk</key>
+	<string></string>
+	<key>lame</key>
+	<string>Lame Aint an MP3 Encoder (LAME)</string>
+	<key>languagetool</key>
+	<string></string>
+	<key>lasi</key>
+	<string></string>
+	<key>lastfm_fplib</key>
+	<string></string>
+	<key>lastfmfpclient</key>
+	<string></string>
+	<key>latex2rtf</key>
+	<string>Translate LaTeX to RTF</string>
+	<key>launch</key>
+	<string>A command-line launcher for Mac OS X in the spirit of `open'</string>
+	<key>lbdb</key>
+	<string></string>
+	<key>lcdf-typetools</key>
+	<string></string>
+	<key>lcov</key>
+	<string>Graphical front-end for GCC's coverage testing tool (gcov)</string>
+	<key>ldapvi</key>
+	<string>Using ldapvi you can update LDAP entries with a text editor</string>
+	<key>ldid</key>
+	<string></string>
+	<key>ldns</key>
+	<string>DNS library in C</string>
+	<key>le</key>
+	<string></string>
+	<key>leafnode</key>
+	<string>Leafnode is a store and forward NNTP proxy</string>
+	<key>ledger</key>
+	<string>A command-line, double-entry accounting tool</string>
+	<key>ledit</key>
+	<string>A line editor for interactive commands</string>
+	<key>leiningen</key>
+	<string>A build tool for Clojure designed to not set your hair on fire</string>
+	<key>lemon</key>
+	<string>An LALR(1) parser generator like yacc or bison</string>
+	<key>leptonica</key>
+	<string>Leptonica is a image processing and image analysis library</string>
+	<key>lesspipe</key>
+	<string>An input filter for the pager less</string>
+	<key>lesstif</key>
+	<string>Open source implementation of OSF/Motif</string>
+	<key>lft</key>
+	<string>Layer Four Traceroute (LFT), an advanced traceroute tool</string>
+	<key>lftp</key>
+	<string>Sophisticated file transfer program</string>
+	<key>lha</key>
+	<string>Utility for creating and opening lzh archives</string>
+	<key>libagg</key>
+	<string></string>
+	<key>libao</key>
+	<string>A Cross-platform Audio Library</string>
+	<key>libart</key>
+	<string></string>
+	<key>libass</key>
+	<string></string>
+	<key>libassuan</key>
+	<string>Assuan IPC Library</string>
+	<key>libbinio</key>
+	<string></string>
+	<key>libbs2b</key>
+	<string></string>
+	<key>libcaca</key>
+	<string>Colour ASCII Art library</string>
+	<key>libcddb</key>
+	<string>A CDDB server access library</string>
+	<key>libcdio</key>
+	<string>Compact Disc Input and Control Library</string>
+	<key>libcmph</key>
+	<string></string>
+	<key>libconfig</key>
+	<string>Configuration file processing library</string>
+	<key>libcroco</key>
+	<string>CSS parsing and manipulation toolkit for GNOME</string>
+	<key>libcue</key>
+	<string></string>
+	<key>libdaemon</key>
+	<string>C library that eases writing UNIX daemons</string>
+	<key>libdap</key>
+	<string></string>
+	<key>libdbusmenu-qt</key>
+	<string></string>
+	<key>libdca</key>
+	<string>libdca is a free library for decoding DTS Coherent Acoustics streams</string>
+	<key>libdlna</key>
+	<string>An implementation of DLNA standards</string>
+	<key>libdmtx</key>
+	<string>Data Matrix library</string>
+	<key>libdnet</key>
+	<string>Portable low-level networking library</string>
+	<key>libdrizzle</key>
+	<string>Drizzle client and protocol library</string>
+	<key>libdshconfig</key>
+	<string></string>
+	<key>libdsk</key>
+	<string></string>
+	<key>libdv</key>
+	<string>Quasar DV codec (libdv): software codec for DV video encoding format</string>
+	<key>libdvbpsi</key>
+	<string>Library to decode/generate MPEG TS and DVB PSI tables</string>
+	<key>libdvdcss</key>
+	<string></string>
+	<key>libdvdread</key>
+	<string>Simple foundation for reading DVD-video images</string>
+	<key>libebml</key>
+	<string>EBML (Extensible Binary Meta Language): sort of a sbinary version of XML</string>
+	<key>libechonest</key>
+	<string></string>
+	<key>libelf</key>
+	<string>ELF object file access library</string>
+	<key>libemu</key>
+	<string></string>
+	<key>libev</key>
+	<string>Asynchronous event library</string>
+	<key>libevent</key>
+	<string>Asynchronous event library</string>
+	<key>libewf</key>
+	<string>Library for support of the Expert Witness Compression Format</string>
+	<key>libexif</key>
+	<string>EXIF parsing library</string>
+	<key>libexosip</key>
+	<string></string>
+	<key>libffi</key>
+	<string>libffi provides a high level api to various calling conventions</string>
+	<key>libfishsound</key>
+	<string></string>
+	<key>libfixbuf</key>
+	<string></string>
+	<key>libftdi</key>
+	<string>Library to talk to FTDI chips</string>
+	<key>libgadu</key>
+	<string></string>
+	<key>libgarmin</key>
+	<string></string>
+	<key>libgcrypt</key>
+	<string>Crypto library</string>
+	<key>libgda</key>
+	<string></string>
+	<key>libgdiplus</key>
+	<string>Open Source implementation of the GDI+ API</string>
+	<key>libgee</key>
+	<string>Collection library providing GObject-based interfaces</string>
+	<key>libgeotiff</key>
+	<string>Library and tools for dealing with GeoTIFF</string>
+	<key>libgit2</key>
+	<string></string>
+	<key>libglade</key>
+	<string></string>
+	<key>libgpg-error</key>
+	<string>Common error values for all GnuPG components</string>
+	<key>libgphoto2</key>
+	<string>Gphoto2 digital camera library</string>
+	<key>libgsasl</key>
+	<string></string>
+	<key>libgsf</key>
+	<string>I/O abstraction library for dealing with file formats</string>
+	<key>libgtop</key>
+	<string>Library for portably obtaining information about processes</string>
+	<key>libharu</key>
+	<string></string>
+	<key>libhid</key>
+	<string></string>
+	<key>libical</key>
+	<string>Implementation of iCalendar protocols and data formats</string>
+	<key>libicns</key>
+	<string></string>
+	<key>libiconv</key>
+	<string></string>
+	<key>libid3tag</key>
+	<string>ID3 tag manipulation library</string>
+	<key>libident</key>
+	<string>Ident protocol library</string>
+	<key>libidl</key>
+	<string>libIDL is a library for creating CORBA IDL files</string>
+	<key>libidn</key>
+	<string>International domain name library</string>
+	<key>libimobiledevice</key>
+	<string></string>
+	<key>libiptcdata</key>
+	<string></string>
+	<key>libkml</key>
+	<string>Library to parse, generate and operate on KML</string>
+	<key>libksba</key>
+	<string>X.509 and CMS library</string>
+	<key>liblas</key>
+	<string></string>
+	<key>liblastfm</key>
+	<string>Libraries for Last.fm site services</string>
+	<key>liblo</key>
+	<string>Lightweight Open Sound Control implementation</string>
+	<key>liblockfile</key>
+	<string></string>
+	<key>liblqr</key>
+	<string></string>
+	<key>liblunar</key>
+	<string></string>
+	<key>libmagic</key>
+	<string></string>
+	<key>libmatroska</key>
+	<string>Extensible, open standard container format for audio/video</string>
+	<key>libmemcached</key>
+	<string>A C and C++ client library to the memcached server</string>
+	<key>libmicrohttpd</key>
+	<string>Light HTTP/1.1 server library</string>
+	<key>libmikmod</key>
+	<string>Portable sound library</string>
+	<key>libming</key>
+	<string></string>
+	<key>libmms</key>
+	<string>Library for parsing mms:// and mmsh:// network streams</string>
+	<key>libmpc</key>
+	<string>C library for the arithmetic of high precision complex numbers</string>
+	<key>libmpd</key>
+	<string>Higher level access to MPD functions</string>
+	<key>libmpdclient</key>
+	<string>Library for MPD in the C, C++, and Objective-C languages</string>
+	<key>libmpeg2</key>
+	<string>Library to decode mpeg-2 and mpeg-1 video streams</string>
+	<key>libmpq</key>
+	<string></string>
+	<key>libmtp</key>
+	<string>An implementation of Microsoft's Media Transfer Protocol (MTP)</string>
+	<key>libmusicbrainz</key>
+	<string>MusicBrainz Client Library</string>
+	<key>libnet</key>
+	<string>A C library for creating IP packets</string>
+	<key>libnfc</key>
+	<string></string>
+	<key>libnids</key>
+	<string></string>
+	<key>libogg</key>
+	<string>Ogg Bitstream Library</string>
+	<key>liboil</key>
+	<string>Library of simple functions that are optimized for various CPUs</string>
+	<key>libopennet</key>
+	<string>open_net(), similar to open()</string>
+	<key>libopenspotify</key>
+	<string></string>
+	<key>liboping</key>
+	<string></string>
+	<key>libosip</key>
+	<string></string>
+	<key>libotr</key>
+	<string>Off-The-Record (OTR) messaging library</string>
+	<key>libpano</key>
+	<string></string>
+	<key>libpar2</key>
+	<string></string>
+	<key>libplist</key>
+	<string>Library for working with Apple Binary- and XML-Property Lists</string>
+	<key>libpng</key>
+	<string>Library for manipulating PNG images</string>
+	<key>libpst</key>
+	<string></string>
+	<key>libpurple</key>
+	<string></string>
+	<key>libpuzzle</key>
+	<string></string>
+	<key>libquicktime</key>
+	<string>Library for reading and writing quicktime files</string>
+	<key>librasterlite</key>
+	<string></string>
+	<key>libredwg</key>
+	<string></string>
+	<key>librets</key>
+	<string></string>
+	<key>librsvg</key>
+	<string></string>
+	<key>librsync</key>
+	<string>Library that implements the rsync remote-delta algorithm</string>
+	<key>libsamplerate</key>
+	<string>Library for performing sample rate conversion of audio data</string>
+	<key>libsgml</key>
+	<string>SGML parsing library</string>
+	<key>libshout</key>
+	<string>Data and connectivity library for the icecast server</string>
+	<key>libsigc++</key>
+	<string></string>
+	<key>libsigsegv</key>
+	<string>Library for handling page faults in user mode</string>
+	<key>libsmi</key>
+	<string>Library to Access SMI MIB Information</string>
+	<key>libsndfile</key>
+	<string>A C library for reading and writing files containing sampled sound</string>
+	<key>libspatialite</key>
+	<string></string>
+	<key>libspotify</key>
+	<string></string>
+	<key>libssh2</key>
+	<string>Library implementing the SSH2 protocol</string>
+	<key>libsvg</key>
+	<string>SVG rendering library using cairo</string>
+	<key>libsvg-cairo</key>
+	<string>SVG rendering library using cairo</string>
+	<key>libtasn1</key>
+	<string>ASN.1 structure parser library</string>
+	<key>libtecla</key>
+	<string></string>
+	<key>libtiff</key>
+	<string></string>
+	<key>libtorrent</key>
+	<string>BitTorrent library</string>
+	<key>libtrace</key>
+	<string></string>
+	<key>libunique</key>
+	<string></string>
+	<key>libunistring</key>
+	<string></string>
+	<key>libupnp</key>
+	<string>Portable UPnP development kit</string>
+	<key>libusb</key>
+	<string>Library for USB device access</string>
+	<key>libusb-compat</key>
+	<string>Library for USB device access</string>
+	<key>libutf</key>
+	<string></string>
+	<key>libvirt</key>
+	<string></string>
+	<key>libvorbis</key>
+	<string>The Vorbis General Audio Compression Codec</string>
+	<key>libvpx</key>
+	<string>VP8 video codec</string>
+	<key>libwbxml</key>
+	<string></string>
+	<key>libwmf</key>
+	<string>Library for converting WMF (Window Metafile Format) files</string>
+	<key>libwpd</key>
+	<string>General purpose library for reading WordPerfect files</string>
+	<key>libwpg</key>
+	<string>Library for reading and parsing Word Perfect Graphics format</string>
+	<key>libwps</key>
+	<string></string>
+	<key>libxdiff</key>
+	<string></string>
+	<key>libxml++</key>
+	<string>C++ wrapper for libxml</string>
+	<key>libxml2</key>
+	<string>GNOME XML library</string>
+	<key>libxmlsec1</key>
+	<string></string>
+	<key>libxslt</key>
+	<string></string>
+	<key>libxspf</key>
+	<string></string>
+	<key>libyaml</key>
+	<string>A YAML Parser</string>
+	<key>libyubikey</key>
+	<string></string>
+	<key>libzip</key>
+	<string></string>
+	<key>libzzip</key>
+	<string>Library providing read access on ZIP-archives</string>
+	<key>lightning</key>
+	<string>Generates assembly language code at run-time</string>
+	<key>lighttpd</key>
+	<string>Secure, fast, compliant, and flexible web-server</string>
+	<key>lilypond</key>
+	<string>An automated engraving system for typesetting sheet music</string>
+	<key>linklint</key>
+	<string></string>
+	<key>links</key>
+	<string>Lynx-like WWW browser that supports tables, menus, etc</string>
+	<key>liquibase</key>
+	<string></string>
+	<key>litmus</key>
+	<string>WebDAV server protocol compliance test suite</string>
+	<key>little-cms</key>
+	<string></string>
+	<key>llvm</key>
+	<string>llvm is a next generation compiler infrastructure</string>
+	<key>lmutil</key>
+	<string></string>
+	<key>lockrun</key>
+	<string></string>
+	<key>log4cplus</key>
+	<string></string>
+	<key>log4cpp</key>
+	<string>Configurable logging for C++</string>
+	<key>log4cxx</key>
+	<string></string>
+	<key>log4shib</key>
+	<string>Configurable logging for C++, fork of log4cpp</string>
+	<key>logrotate</key>
+	<string>Rotates, compresses, and mails system logs</string>
+	<key>logstalgia</key>
+	<string></string>
+	<key>lolcode</key>
+	<string></string>
+	<key>lorem</key>
+	<string></string>
+	<key>loudmouth</key>
+	<string>A lightweight C library for the Jabber protocol</string>
+	<key>lout</key>
+	<string>Text formatting like TeX, but simpler</string>
+	<key>lpc21isp</key>
+	<string></string>
+	<key>lrzip</key>
+	<string></string>
+	<key>lrzsz</key>
+	<string></string>
+	<key>lsdvd</key>
+	<string></string>
+	<key>lsof</key>
+	<string></string>
+	<key>lua</key>
+	<string>Powerful, lightweight programming language</string>
+	<key>luajit</key>
+	<string></string>
+	<key>luarocks</key>
+	<string>Manager for rocks (Lua extensions)</string>
+	<key>lv</key>
+	<string>Powerful multi-lingual file viewer/grep</string>
+	<key>lxsplit</key>
+	<string></string>
+	<key>lynx</key>
+	<string>Text-based web browser</string>
+	<key>lysp</key>
+	<string></string>
+	<key>lzip</key>
+	<string>Compression program based on LZMA similar to gzip or bzip2</string>
+	<key>lzlib</key>
+	<string></string>
+	<key>lzma</key>
+	<string>High compression ratio archiver</string>
+	<key>lzo</key>
+	<string>Real-time data compression library</string>
+	<key>lzop</key>
+	<string>Fast file compressor</string>
+	<key>maatkit</key>
+	<string></string>
+	<key>mac-robber</key>
+	<string></string>
+	<key>macvim</key>
+	<string>MacVim is a GUI version of vim for Mac OS X</string>
+	<key>mad</key>
+	<string></string>
+	<key>madplay</key>
+	<string>MPEG Audio Decoder</string>
+	<key>mafft</key>
+	<string></string>
+	<key>magit</key>
+	<string></string>
+	<key>mailtomutt</key>
+	<string>Handles mailto URLs and hands them off to the Mutt MUA</string>
+	<key>mairix</key>
+	<string>Email index and search tool</string>
+	<key>makensis</key>
+	<string></string>
+	<key>malbolge</key>
+	<string></string>
+	<key>man2html</key>
+	<string>Convert nroff man pages to HTML</string>
+	<key>mapnik</key>
+	<string></string>
+	<key>mapserver</key>
+	<string></string>
+	<key>mariadb</key>
+	<string></string>
+	<key>markdown</key>
+	<string></string>
+	<key>mathomatic</key>
+	<string>Small, portable symbolic math program</string>
+	<key>maven</key>
+	<string>Java-based project management and building</string>
+	<key>maven-shell</key>
+	<string></string>
+	<key>mawk</key>
+	<string>mawk is an interpreter for the AWK Programming Language</string>
+	<key>maxima</key>
+	<string>The Maxima computer algebra system</string>
+	<key>mcabber</key>
+	<string>Console Jabber client</string>
+	<key>mcl</key>
+	<string>A cluster algorithm for graphs</string>
+	<key>mcpp</key>
+	<string></string>
+	<key>mcrypt</key>
+	<string>A replacement for the old crypt package and crypt(1) command</string>
+	<key>md5deep</key>
+	<string>Recursively compute digests on files/directories</string>
+	<key>md5sha1sum</key>
+	<string>Hash utilites</string>
+	<key>mdbtools</key>
+	<string>Tools to facilitate the use of Microsoft Access databases</string>
+	<key>mdf2iso</key>
+	<string>Tool to convert MDF (Alcohol 120% images) images to ISO images</string>
+	<key>mecab</key>
+	<string>MeCab is a yet another part-of-speech and morphological analyzer</string>
+	<key>mecab-ipadic</key>
+	<string></string>
+	<key>media-info</key>
+	<string></string>
+	<key>mediatomb</key>
+	<string>Open source (GPL) UPnP MediaServer</string>
+	<key>mednafen</key>
+	<string>Fast, compatible emulator for many video game systems</string>
+	<key>memcache-php</key>
+	<string></string>
+	<key>memcache-top</key>
+	<string></string>
+	<key>memcached</key>
+	<string>A high performance, distributed memory object caching system</string>
+	<key>memcached-php</key>
+	<string></string>
+	<key>memcachedb</key>
+	<string></string>
+	<key>memcacheq</key>
+	<string></string>
+	<key>memtester</key>
+	<string></string>
+	<key>metalua</key>
+	<string></string>
+	<key>metapixel</key>
+	<string></string>
+	<key>metaproxy</key>
+	<string>Z39.50 proxy and router utilizing Yaz toolkit</string>
+	<key>metasploit</key>
+	<string></string>
+	<key>metis</key>
+	<string>A package for unstructured graph partitioning</string>
+	<key>mftrace</key>
+	<string>Trace TeX bitmap font to PFA, PFB, or TTF font</string>
+	<key>mg</key>
+	<string>Small Emacs-like editor</string>
+	<key>mhash</key>
+	<string>Provides easy access strong hashes</string>
+	<key>midgard2</key>
+	<string></string>
+	<key>midgard2-php</key>
+	<string></string>
+	<key>midnight-commander</key>
+	<string></string>
+	<key>migreazy</key>
+	<string></string>
+	<key>mikmod</key>
+	<string></string>
+	<key>minbif</key>
+	<string></string>
+	<key>minc</key>
+	<string></string>
+	<key>minicom</key>
+	<string>Menu-driven communications program</string>
+	<key>minised</key>
+	<string></string>
+	<key>mit-scheme</key>
+	<string></string>
+	<key>mkclean</key>
+	<string></string>
+	<key>mkcue</key>
+	<string></string>
+	<key>mktorrent</key>
+	<string>Simple command line utility to create BitTorrent metainfo files</string>
+	<key>mkvalidator</key>
+	<string></string>
+	<key>mkvtoolnix</key>
+	<string>Matroska media files manipulation tools</string>
+	<key>mldonkey</key>
+	<string>OCaml/GTK client for the eDonkey P2P network</string>
+	<key>mlton</key>
+	<string></string>
+	<key>mmv</key>
+	<string>Move/Copy/Append/Link multiple files</string>
+	<key>mod_python</key>
+	<string>Apache2 module to embed Python within the server</string>
+	<key>mod_wsgi</key>
+	<string>Python WSGI adapter module for Apache</string>
+	<key>mogenerator</key>
+	<string></string>
+	<key>mongo-php</key>
+	<string></string>
+	<key>mongodb</key>
+	<string>A high-performance, schema-free, document-oriented database</string>
+	<key>mongoose</key>
+	<string></string>
+	<key>mongrel2</key>
+	<string></string>
+	<key>monit</key>
+	<string>Manage and monitor processes, files, directories, and devices</string>
+	<key>monotone</key>
+	<string>A distributed version control system (DVCS)</string>
+	<key>montage</key>
+	<string></string>
+	<key>moreutils</key>
+	<string>A collection of the UNIX tools that nobody wrote 30 years ago</string>
+	<key>mosh</key>
+	<string></string>
+	<key>mosml</key>
+	<string></string>
+	<key>mosquitto</key>
+	<string></string>
+	<key>most</key>
+	<string>Powerful paging program</string>
+	<key>mp3check</key>
+	<string></string>
+	<key>mp3gain</key>
+	<string></string>
+	<key>mp3val</key>
+	<string></string>
+	<key>mp3wrap</key>
+	<string></string>
+	<key>mp4v2</key>
+	<string>Read, create, and modify MP4 files</string>
+	<key>mpack</key>
+	<string>MIME mail packing and unpacking</string>
+	<key>mpc</key>
+	<string>A command line music player client for MPD</string>
+	<key>mpd</key>
+	<string>Music Player Daemon</string>
+	<key>mpdas</key>
+	<string></string>
+	<key>mpdscribble</key>
+	<string></string>
+	<key>mpfr</key>
+	<string>C library for multiple-precision floating-point computations</string>
+	<key>mpg123</key>
+	<string>Fast MP3 player for Linux and UNIX</string>
+	<key>mpg321</key>
+	<string></string>
+	<key>mpgtx</key>
+	<string></string>
+	<key>mplayer</key>
+	<string>The UNIX movie player</string>
+	<key>mpop</key>
+	<string>Small and fast POP3 client</string>
+	<key>mpsolve</key>
+	<string></string>
+	<key>mr</key>
+	<string></string>
+	<key>mrtg</key>
+	<string></string>
+	<key>mscgen</key>
+	<string>Message Sequence Chart image GEnerator</string>
+	<key>msgpack</key>
+	<string>Library for a binary-based efficient data interchange format</string>
+	<key>msmtp</key>
+	<string>SMTP client that can be used as an SMTP plugin for Mutt</string>
+	<key>mt-daapd</key>
+	<string>Emulate an iTunes server with this multi-threaded DAAP server</string>
+	<key>mtr</key>
+	<string>'traceroute' and 'ping' in a single tool</string>
+	<key>mu</key>
+	<string></string>
+	<key>multimarkdown</key>
+	<string></string>
+	<key>multitail</key>
+	<string>Tail multiple files in one terminal simultaneously</string>
+	<key>muparser</key>
+	<string></string>
+	<key>muscle</key>
+	<string></string>
+	<key>mutt</key>
+	<string>A mongrel of mail user agents (part elm, pine, mush, mh, etc.)</string>
+	<key>muttprofile</key>
+	<string></string>
+	<key>mysql</key>
+	<string></string>
+	<key>mysql++</key>
+	<string></string>
+	<key>mysql-connector-c</key>
+	<string></string>
+	<key>mysql-connector-c++</key>
+	<string></string>
+	<key>mysql-proxy</key>
+	<string>Proxy for MySQL-Server</string>
+	<key>mysqlreport</key>
+	<string></string>
+	<key>mytop</key>
+	<string></string>
+	<key>mz-scheme</key>
+	<string></string>
+	<key>n2n</key>
+	<string>A layer 2 P2P VPN</string>
+	<key>nailgun</key>
+	<string></string>
+	<key>narwhal</key>
+	<string></string>
+	<key>nasm</key>
+	<string>Netwide Assembler (NASM) is an 80x86 assembler</string>
+	<key>naturaldocs</key>
+	<string></string>
+	<key>nazghul</key>
+	<string></string>
+	<key>ncdu</key>
+	<string>NCurses Disk Usage</string>
+	<key>ncftp</key>
+	<string>FTP client with an advanced user interface</string>
+	<key>ncmpc</key>
+	<string>Curses Music Player Daemon (MPD) client</string>
+	<key>ncmpcpp</key>
+	<string></string>
+	<key>ncrack</key>
+	<string></string>
+	<key>ncursesw</key>
+	<string>Emulation of curses in System V Release 4.0</string>
+	<key>ncview</key>
+	<string></string>
+	<key>neko</key>
+	<string></string>
+	<key>neo4j</key>
+	<string></string>
+	<key>neon</key>
+	<string>An HTTP and WebDAV client library with a C interface</string>
+	<key>nesc</key>
+	<string></string>
+	<key>net-nuclear</key>
+	<string></string>
+	<key>net-snmp</key>
+	<string></string>
+	<key>netcat</key>
+	<string>Utility for managing network connections</string>
+	<key>netcdf</key>
+	<string>Libraries for array-oriented scientific data</string>
+	<key>nethack</key>
+	<string>Classic dungeon adventure game</string>
+	<key>netpbm</key>
+	<string>Image manipulation</string>
+	<key>netris</key>
+	<string></string>
+	<key>netsed</key>
+	<string></string>
+	<key>nettle</key>
+	<string></string>
+	<key>newlisp</key>
+	<string></string>
+	<key>nginx</key>
+	<string>HTTP(S) server, HTTP(S) reverse proxy, and IMAP/POP3 proxy server</string>
+	<key>ngircd</key>
+	<string>Next generation IRC daemon</string>
+	<key>ngrep</key>
+	<string>Network grep</string>
+	<key>ngspice</key>
+	<string></string>
+	<key>nickle</key>
+	<string></string>
+	<key>nimrod</key>
+	<string></string>
+	<key>ninja</key>
+	<string></string>
+	<key>nkf</key>
+	<string>Network Kanji code conversion Filter (NKF)</string>
+	<key>nload</key>
+	<string></string>
+	<key>nmap</key>
+	<string>Port scanning utility for large networks</string>
+	<key>node</key>
+	<string></string>
+	<key>notmuch</key>
+	<string></string>
+	<key>noweb</key>
+	<string></string>
+	<key>nrg2iso</key>
+	<string></string>
+	<key>nspr</key>
+	<string>Platform-neutral API for system-level and libc-like functions</string>
+	<key>ntfs-3g</key>
+	<string></string>
+	<key>nu</key>
+	<string>An interpreted, object-oriented, Lisp-like programming language (written in Objective-C)</string>
+	<key>nvi</key>
+	<string></string>
+	<key>nylon</key>
+	<string></string>
+	<key>nzbget</key>
+	<string></string>
+	<key>o-make</key>
+	<string></string>
+	<key>objective-caml</key>
+	<string></string>
+	<key>ocrad</key>
+	<string>An optical character recognition (OCR) program</string>
+	<key>octave</key>
+	<string></string>
+	<key>ode</key>
+	<string>Library for simulating articulated rigid body dynamics</string>
+	<key>odt2txt</key>
+	<string>Converts OpenOffice.org ODF text documents to plain text files</string>
+	<key>offline-imap</key>
+	<string></string>
+	<key>oggz</key>
+	<string></string>
+	<key>ogmtools</key>
+	<string>OGG media streams manipulation tools</string>
+	<key>ohcount</key>
+	<string>A source code line counter</string>
+	<key>omega</key>
+	<string>An interpreted, functional language with expressive types</string>
+	<key>oniguruma</key>
+	<string>A regular expressions library</string>
+	<key>oorexx</key>
+	<string>Open Object Rexx is an interpreter for the Rexx language</string>
+	<key>open-mesh</key>
+	<string></string>
+	<key>open-mpi</key>
+	<string></string>
+	<key>open-ocd</key>
+	<string></string>
+	<key>open-sg</key>
+	<string></string>
+	<key>open-sp</key>
+	<string></string>
+	<key>open-tyrian</key>
+	<string></string>
+	<key>open-vcdiff</key>
+	<string></string>
+	<key>openconnect</key>
+	<string></string>
+	<key>opencore-amr</key>
+	<string></string>
+	<key>opencv</key>
+	<string>Intel(R) Open Source Computer Vision Library</string>
+	<key>openexr</key>
+	<string>OpenEXR Graphics Library</string>
+	<key>openfst</key>
+	<string></string>
+	<key>openimageio</key>
+	<string></string>
+	<key>openjpeg</key>
+	<string>Library for JPEG-2000 image manipulation</string>
+	<key>openldap</key>
+	<string>OpenLDAP Software</string>
+	<key>openmeeg</key>
+	<string></string>
+	<key>opensaml</key>
+	<string>OpenSAML 2 library for C++</string>
+	<key>openslp</key>
+	<string></string>
+	<key>openssl</key>
+	<string>OpenSSL SSL/TLS cryptography library</string>
+	<key>opentracker</key>
+	<string></string>
+	<key>openttd</key>
+	<string></string>
+	<key>openvpn</key>
+	<string>Easy-to-use, robust, and highly configurable VPN</string>
+	<key>optipng</key>
+	<string>PNG file optimizer</string>
+	<key>orc</key>
+	<string>Oil Runtime Compiler (ORC)</string>
+	<key>orderly</key>
+	<string></string>
+	<key>orpie</key>
+	<string></string>
+	<key>ortp</key>
+	<string></string>
+	<key>osm2pgsql</key>
+	<string></string>
+	<key>osmosis</key>
+	<string></string>
+	<key>ossp-uuid</key>
+	<string>ISO-C API and CLI for generating Universally Unique Identifiers</string>
+	<key>otx</key>
+	<string>otool's bastard son</string>
+	<key>owfs</key>
+	<string></string>
+	<key>oxygen-icons</key>
+	<string>Oxygen icon theme</string>
+	<key>p0f</key>
+	<string>Versatile passive OS fingerprinting, masquerade detection tool</string>
+	<key>p7zip</key>
+	<string>7-Zip implementation</string>
+	<key>paml</key>
+	<string></string>
+	<key>pango</key>
+	<string>Framework for the layout and rendering of i18n text</string>
+	<key>pangomm</key>
+	<string>C++ interface to Pango</string>
+	<key>paperkey</key>
+	<string></string>
+	<key>par</key>
+	<string>Paragraph reflow for email</string>
+	<key>par2</key>
+	<string>Parchive: Parity Archive Volume Set for data recovery</string>
+	<key>parallel</key>
+	<string>GNU parallel shell command parallelization utility</string>
+	<key>pari</key>
+	<string></string>
+	<key>parmetis</key>
+	<string></string>
+	<key>parrot</key>
+	<string>Open source virtual machine (for Perl6, et al.)</string>
+	<key>parsley</key>
+	<string></string>
+	<key>patchutils</key>
+	<string>A small collection of programs that operate on patch files</string>
+	<key>pax-construct</key>
+	<string></string>
+	<key>pbc</key>
+	<string></string>
+	<key>pbc-sig</key>
+	<string></string>
+	<key>pbrt</key>
+	<string></string>
+	<key>pbzip2</key>
+	<string>Parallel bzip2</string>
+	<key>pcre</key>
+	<string>Perl Compatible Regular Expressions (PCRE) Library</string>
+	<key>pcre++</key>
+	<string>C++ wrapper for the Perl Compatible Regular Expressions (PCRE) Library</string>
+	<key>pdf2svg</key>
+	<string>PDF to SVG converter</string>
+	<key>pdfcrack</key>
+	<string></string>
+	<key>pdfjam</key>
+	<string></string>
+	<key>pdflib-lite</key>
+	<string></string>
+	<key>pdftohtml</key>
+	<string>PDF to HTML converter (based on xpdf)</string>
+	<key>pdnsd</key>
+	<string>Proxy DNS server with permanent caching</string>
+	<key>pdsh</key>
+	<string></string>
+	<key>peg</key>
+	<string></string>
+	<key>perceptualdiff</key>
+	<string></string>
+	<key>percona-server</key>
+	<string></string>
+	<key>perforce</key>
+	<string>Fast source code management (SCM) system</string>
+	<key>perforce-server</key>
+	<string></string>
+	<key>pg_top</key>
+	<string></string>
+	<key>pgbouncer</key>
+	<string></string>
+	<key>pgpool-ii</key>
+	<string>PostgreSQL connection pool server</string>
+	<key>pgtap</key>
+	<string></string>
+	<key>phantomjs</key>
+	<string></string>
+	<key>phash</key>
+	<string></string>
+	<key>phoronix-test-suite</key>
+	<string></string>
+	<key>physfs</key>
+	<string></string>
+	<key>pianobar</key>
+	<string>Console-based pandora.com player</string>
+	<key>picoc</key>
+	<string></string>
+	<key>picocom</key>
+	<string>Minimal dump-terminal emulation program</string>
+	<key>pidof</key>
+	<string></string>
+	<key>pig</key>
+	<string></string>
+	<key>pigz</key>
+	<string>Parallel gzip</string>
+	<key>pil</key>
+	<string></string>
+	<key>pincaster</key>
+	<string></string>
+	<key>pinentry</key>
+	<string>Passphrase entry dialog utilizing the Assuan protocol</string>
+	<key>pioneers</key>
+	<string></string>
+	<key>pit</key>
+	<string></string>
+	<key>pixman</key>
+	<string></string>
+	<key>pkg-config</key>
+	<string></string>
+	<key>platypus</key>
+	<string>Program for creating application wrappers around scripts</string>
+	<key>play</key>
+	<string>A Java web framework that focuses on developer productivity</string>
+	<key>playdar</key>
+	<string></string>
+	<key>plink</key>
+	<string></string>
+	<key>plotutils</key>
+	<string></string>
+	<key>plowshare</key>
+	<string></string>
+	<key>plt-racket</key>
+	<string></string>
+	<key>plustache</key>
+	<string></string>
+	<key>plzip</key>
+	<string></string>
+	<key>pms</key>
+	<string></string>
+	<key>png2ico</key>
+	<string>Converts PNG files to Windows icon resource files</string>
+	<key>pngcheck</key>
+	<string></string>
+	<key>pngcrush</key>
+	<string>Optimizer for PNG files</string>
+	<key>pngnq</key>
+	<string></string>
+	<key>pngrewrite</key>
+	<string></string>
+	<key>pngwriter</key>
+	<string></string>
+	<key>poco</key>
+	<string>POCO C++ Libraries</string>
+	<key>polipo</key>
+	<string>Small, fast web caching proxy</string>
+	<key>polyml</key>
+	<string>AStandard ML implementation</string>
+	<key>poppler</key>
+	<string>A PDF rendering library (based on the xpdf-3.0 code base)</string>
+	<key>popt</key>
+	<string>A getopt(3) like library with a number of enhancements</string>
+	<key>portaudio</key>
+	<string>Cross-platform library for audio I/O</string>
+	<key>portmidi</key>
+	<string>Cross-platform library for real-time MIDI I/O</string>
+	<key>pos</key>
+	<string></string>
+	<key>postgis</key>
+	<string>Adds support for geographic objects to PostgreSQL</string>
+	<key>postgresql</key>
+	<string></string>
+	<key>postmark</key>
+	<string></string>
+	<key>potrace</key>
+	<string>Convert bitmaps to vector graphics</string>
+	<key>pound</key>
+	<string>A reverse proxy, load balancer, and HTTPS front-end for web servers</string>
+	<key>povray</key>
+	<string>Persistence Of Vision RAYtracer (POVRAY)</string>
+	<key>pow</key>
+	<string></string>
+	<key>ppl</key>
+	<string>A modern C++ library with numerical abstractions</string>
+	<key>premake</key>
+	<string>Premake is a build script generator</string>
+	<key>primer3</key>
+	<string></string>
+	<key>privoxy</key>
+	<string>Advanced filtering web proxy</string>
+	<key>proctools</key>
+	<string>pgrep, pkill, and pfind for OpenBSD and Darwin (Mac OS X)</string>
+	<key>prodigal</key>
+	<string></string>
+	<key>proguard</key>
+	<string></string>
+	<key>proj</key>
+	<string>PROJ.4 - Cartographic Projections Library</string>
+	<key>protobuf</key>
+	<string></string>
+	<key>protobuf-c</key>
+	<string>Pure C code generator and runtime libraries for protocol buffers</string>
+	<key>proxytunnel</key>
+	<string></string>
+	<key>psgrep</key>
+	<string></string>
+	<key>pstoedit</key>
+	<string></string>
+	<key>pstree</key>
+	<string>Show the ps command's output as a tree</string>
+	<key>pth</key>
+	<string>GNU Portable THreads</string>
+	<key>ptunnel</key>
+	<string>Tunnel over ICMP</string>
+	<key>puf</key>
+	<string></string>
+	<key>pure</key>
+	<string>A functional programming language based on term rewriting</string>
+	<key>putty</key>
+	<string>An implementation of Telnet and SSH, with an xterm terminal emulator</string>
+	<key>pv</key>
+	<string>Monitor data's progress through a pipe</string>
+	<key>pwgen</key>
+	<string>A password generator</string>
+	<key>pwnat</key>
+	<string></string>
+	<key>pwsafe</key>
+	<string>Manage encrypted password databases</string>
+	<key>pypy</key>
+	<string>Implementation of Python in Python</string>
+	<key>pyqt</key>
+	<string></string>
+	<key>pyside</key>
+	<string></string>
+	<key>pyside-tools</key>
+	<string></string>
+	<key>python</key>
+	<string></string>
+	<key>python3</key>
+	<string></string>
+	<key>qca</key>
+	<string>Qt Cryptographic Architecture (QCA)</string>
+	<key>qd</key>
+	<string></string>
+	<key>qdbm</key>
+	<string>QDBM is a library of routines for managing a database</string>
+	<key>qemu</key>
+	<string>x86 and PowerPC Emulator</string>
+	<key>qfits</key>
+	<string></string>
+	<key>qhull</key>
+	<string></string>
+	<key>qimageblitz</key>
+	<string>Graphical effects library for KDE4</string>
+	<key>qjson</key>
+	<string>Map JSON to QVariant objects</string>
+	<key>qpdf</key>
+	<string></string>
+	<key>qprint</key>
+	<string></string>
+	<key>qrencode</key>
+	<string>QR Code generation</string>
+	<key>qrupdate</key>
+	<string></string>
+	<key>qt</key>
+	<string></string>
+	<key>qt-mobility</key>
+	<string></string>
+	<key>quantlib</key>
+	<string></string>
+	<key>quassel</key>
+	<string></string>
+	<key>quicktree</key>
+	<string></string>
+	<key>quilt</key>
+	<string></string>
+	<key>quvi</key>
+	<string>Command line tool for parsing video download URLs</string>
+	<key>qwt</key>
+	<string>Qt Widgets for Technical Applications (v5.1)</string>
+	<key>r</key>
+	<string>GNU S, an interpreted programming language for statistical computing</string>
+	<key>rabbitmq</key>
+	<string></string>
+	<key>radare2</key>
+	<string></string>
+	<key>ragel</key>
+	<string>ragel is a state machine compiler</string>
+	<key>rakudo-star</key>
+	<string></string>
+	<key>ranger</key>
+	<string>File browser</string>
+	<key>raptor</key>
+	<string>RDF parser toolkit</string>
+	<key>rasqal</key>
+	<string>RDF query library</string>
+	<key>rats</key>
+	<string>Rough Auditing Tool for Security (RATS)</string>
+	<key>rbenv</key>
+	<string></string>
+	<key>rbenv-gemset</key>
+	<string></string>
+	<key>rdesktop</key>
+	<string>Client for Windows Terminal Server</string>
+	<key>rdiff-backup</key>
+	<string>Backs up one directory to another, over networks if desired</string>
+	<key>rds-command-line-tools</key>
+	<string></string>
+	<key>re2</key>
+	<string></string>
+	<key>re2c</key>
+	<string>Tool for generating C-based recognizers from regular expressions</string>
+	<key>readline</key>
+	<string>Library for command line editing</string>
+	<key>readpst</key>
+	<string></string>
+	<key>rebar</key>
+	<string></string>
+	<key>recode</key>
+	<string>Convert character set (charsets)</string>
+	<key>recutils</key>
+	<string></string>
+	<key>redis</key>
+	<string>A persistent key-value database, with built-in net interface</string>
+	<key>redis-tools</key>
+	<string></string>
+	<key>redland</key>
+	<string>RDF Library</string>
+	<key>redo</key>
+	<string></string>
+	<key>regina-rexx</key>
+	<string></string>
+	<key>remind</key>
+	<string>A sophisticated calendar and alarm</string>
+	<key>rename</key>
+	<string></string>
+	<key>renameutils</key>
+	<string>Tools designed to make renaming files faster and less cumbersome</string>
+	<key>repl</key>
+	<string></string>
+	<key>repl-completion</key>
+	<string></string>
+	<key>repo</key>
+	<string></string>
+	<key>reposurgeon</key>
+	<string></string>
+	<key>resty</key>
+	<string></string>
+	<key>rfcdiff</key>
+	<string>Compare RFC Internet Draft versions</string>
+	<key>rfcmarkup</key>
+	<string></string>
+	<key>rfcstrip</key>
+	<string></string>
+	<key>rhino</key>
+	<string></string>
+	<key>riak</key>
+	<string></string>
+	<key>riak-search</key>
+	<string></string>
+	<key>rinetd</key>
+	<string></string>
+	<key>ringojs</key>
+	<string></string>
+	<key>ripmime</key>
+	<string></string>
+	<key>rlog</key>
+	<string>Flexible message logging facility for C++</string>
+	<key>rlwrap</key>
+	<string>A readline wrapper</string>
+	<key>rmcast</key>
+	<string></string>
+	<key>rmtrash</key>
+	<string>Move files to OS X's Trash from the command line</string>
+	<key>rnv</key>
+	<string></string>
+	<key>robodoc</key>
+	<string></string>
+	<key>robotfindskitten</key>
+	<string></string>
+	<key>rock</key>
+	<string></string>
+	<key>rogue</key>
+	<string>Rogue is a popular dungeon exploring adventure game</string>
+	<key>rpg</key>
+	<string></string>
+	<key>rpl</key>
+	<string>Text replacement utility</string>
+	<key>rpm2cpio</key>
+	<string></string>
+	<key>rrdtool</key>
+	<string>Round Robin Database</string>
+	<key>rsnapshot</key>
+	<string>Filesystem snapshot utility (based on rsync)</string>
+	<key>rsync</key>
+	<string>Tool that provides fast incremental file transfer</string>
+	<key>rsyslog</key>
+	<string></string>
+	<key>rt-audio</key>
+	<string></string>
+	<key>rtmpdump</key>
+	<string>A tool for downloading RTMP streaming media</string>
+	<key>rtorrent</key>
+	<string>Console-based BitTorrent client</string>
+	<key>rubber</key>
+	<string>Automated building of LaTeX documents</string>
+	<key>rubinius</key>
+	<string></string>
+	<key>ruby</key>
+	<string>Powerful, clean, object-oriented scripting language</string>
+	<key>ruby-build</key>
+	<string></string>
+	<key>ruby-enterprise-edition</key>
+	<string></string>
+	<key>ruby-odbc</key>
+	<string></string>
+	<key>runcocoa</key>
+	<string></string>
+	<key>runit</key>
+	<string>Collection of tools for managing UNIX services</string>
+	<key>rush</key>
+	<string></string>
+	<key>rxvt-unicode</key>
+	<string>Unicode-aware rxvt clone</string>
+	<key>rzip</key>
+	<string>File compression (like gzip or bzip2), but with better compression ratios</string>
+	<key>s-lang</key>
+	<string></string>
+	<key>s3-backer</key>
+	<string></string>
+	<key>s3cmd</key>
+	<string>Command line tool for the Amazon S3 service</string>
+	<key>s3fs</key>
+	<string></string>
+	<key>s3sync</key>
+	<string></string>
+	<key>saga-cpp</key>
+	<string></string>
+	<key>salt</key>
+	<string></string>
+	<key>samtools</key>
+	<string></string>
+	<key>sane-backends</key>
+	<string>Backends for scanner access</string>
+	<key>sary</key>
+	<string></string>
+	<key>saxon</key>
+	<string></string>
+	<key>sbcl</key>
+	<string>The Steel Bank Common Lisp system</string>
+	<key>sbt</key>
+	<string>Simple Build Tool: designed for simple building for Scala projects</string>
+	<key>sc68</key>
+	<string></string>
+	<key>scala</key>
+	<string>The Scala programming language</string>
+	<key>scalate</key>
+	<string></string>
+	<key>scamper</key>
+	<string></string>
+	<key>scantailor</key>
+	<string></string>
+	<key>scheme48</key>
+	<string>Scheme byte-code interpreter</string>
+	<key>schroedinger</key>
+	<string>High-speed implementation of the Dirac codec in C</string>
+	<key>scons</key>
+	<string>A superior alternative to the classic 'make' that we all know and love</string>
+	<key>scotch</key>
+	<string></string>
+	<key>scrollkeeper</key>
+	<string></string>
+	<key>scrotwm</key>
+	<string></string>
+	<key>scrub</key>
+	<string></string>
+	<key>scrypt</key>
+	<string></string>
+	<key>scsh</key>
+	<string>SCheme SHell</string>
+	<key>scummvm</key>
+	<string>Cross-platform interpreter for several adventure engines</string>
+	<key>sdcc</key>
+	<string>ANSI C compiler for Intel 8051, Maxim 80DS390, Zilog Z80</string>
+	<key>sdelta3</key>
+	<string></string>
+	<key>sdf</key>
+	<string></string>
+	<key>sdl</key>
+	<string></string>
+	<key>sdl_gfx</key>
+	<string></string>
+	<key>sdl_image</key>
+	<string></string>
+	<key>sdl_mixer</key>
+	<string></string>
+	<key>sdl_net</key>
+	<string></string>
+	<key>sdl_sound</key>
+	<string></string>
+	<key>sdl_ttf</key>
+	<string></string>
+	<key>sedna</key>
+	<string></string>
+	<key>sersniff</key>
+	<string></string>
+	<key>sgrep</key>
+	<string>Structured grep (SGREP) is a tool for searching SGML, XML, and HTML</string>
+	<key>shakespeare</key>
+	<string></string>
+	<key>shapelib</key>
+	<string></string>
+	<key>shaper-probe</key>
+	<string></string>
+	<key>shared-desktop-ontologies</key>
+	<string>OSCAF ontologies and reference code development</string>
+	<key>shared-mime-info</key>
+	<string>Database of common MIME types</string>
+	<key>shark</key>
+	<string></string>
+	<key>shell.fm</key>
+	<string></string>
+	<key>shiboken</key>
+	<string></string>
+	<key>shmux</key>
+	<string></string>
+	<key>shntool</key>
+	<string></string>
+	<key>shocco</key>
+	<string></string>
+	<key>shorten</key>
+	<string>Fast waveform compression</string>
+	<key>shtool</key>
+	<string></string>
+	<key>sic</key>
+	<string>Fast, small, and simple IRC client</string>
+	<key>sickbeard</key>
+	<string></string>
+	<key>siege</key>
+	<string>HTTP regression testing and benchmarking utility</string>
+	<key>sigar</key>
+	<string></string>
+	<key>silk</key>
+	<string></string>
+	<key>simh</key>
+	<string>Portable, multi-system simulator</string>
+	<key>since</key>
+	<string></string>
+	<key>sip</key>
+	<string></string>
+	<key>sipcalc</key>
+	<string></string>
+	<key>sipp</key>
+	<string></string>
+	<key>sipsak</key>
+	<string></string>
+	<key>sitecopy</key>
+	<string>Website maintenance utility</string>
+	<key>ski</key>
+	<string>ASCII downhill skiing game</string>
+	<key>skim</key>
+	<string></string>
+	<key>skipfish</key>
+	<string>Web application security scanner</string>
+	<key>sl</key>
+	<string>The infamous sl command</string>
+	<key>slashem</key>
+	<string></string>
+	<key>sleepnow</key>
+	<string>Put your Mac to sleep from the command line</string>
+	<key>sleepwatcher</key>
+	<string>Monitors sleep, wakeup, and idleness of a Mac</string>
+	<key>sleuthkit</key>
+	<string>Forensic toolkit</string>
+	<key>sloccount</key>
+	<string>Count lines of code in many languages</string>
+	<key>slrn</key>
+	<string>Powerful console-based newsreader</string>
+	<key>smake</key>
+	<string>Portable make program with automake features</string>
+	<key>smartmontools</key>
+	<string>SMART hard drive monitoring</string>
+	<key>smartypants</key>
+	<string></string>
+	<key>smlnj</key>
+	<string>Standard ML of New Jersey</string>
+	<key>smpeg</key>
+	<string>General-purpose MPEG video/audio player and library</string>
+	<key>snappy</key>
+	<string></string>
+	<key>snobol4</key>
+	<string>SNOBOL4 programming language</string>
+	<key>snort</key>
+	<string></string>
+	<key>sntop</key>
+	<string></string>
+	<key>socat</key>
+	<string>netcat on steroids</string>
+	<key>solr</key>
+	<string></string>
+	<key>solr-php</key>
+	<string></string>
+	<key>soprano</key>
+	<string>Qt-based RDF framework</string>
+	<key>sound-touch</key>
+	<string></string>
+	<key>source-highlight</key>
+	<string>Source-code syntax highlighter</string>
+	<key>sox</key>
+	<string>SOund eXchange: universal sound sample translator</string>
+	<key>sparse</key>
+	<string></string>
+	<key>spatialindex</key>
+	<string>A general framework for developing spatial indices</string>
+	<key>spatialite-tools</key>
+	<string></string>
+	<key>spawn-fcgi</key>
+	<string>Spawn fast-CGI processes</string>
+	<key>speex</key>
+	<string>Audio codec designed for speech</string>
+	<key>sphinx</key>
+	<string>Sphinx is a full-text search engine</string>
+	<key>spidermonkey</key>
+	<string>JavaScript-C Engine</string>
+	<key>spim</key>
+	<string>An assembly language MIPS R2000/R3000 simulator</string>
+	<key>spin</key>
+	<string>Spin model checker</string>
+	<key>spiped</key>
+	<string></string>
+	<key>splint</key>
+	<string>Secure Programming Lint</string>
+	<key>spring-roo</key>
+	<string></string>
+	<key>sproxy</key>
+	<string></string>
+	<key>sqlite</key>
+	<string></string>
+	<key>sqsh</key>
+	<string>A Sybase Shell</string>
+	<key>squid</key>
+	<string>Advanced proxy caching server for HTTP, HTTPS, FTP, and Gopher</string>
+	<key>squirrel</key>
+	<string>A high level, imperative, object-oriented programming (OOP) language</string>
+	<key>ssdeep</key>
+	<string></string>
+	<key>ssed</key>
+	<string></string>
+	<key>ssh-copy-id</key>
+	<string></string>
+	<key>sshfs</key>
+	<string></string>
+	<key>sshguard</key>
+	<string></string>
+	<key>sshuttle</key>
+	<string></string>
+	<key>ssldump</key>
+	<string>SSLv3/TLS network protocol analyzer</string>
+	<key>ssss</key>
+	<string></string>
+	<key>stanford-parser</key>
+	<string></string>
+	<key>star</key>
+	<string></string>
+	<key>staticrouted</key>
+	<string></string>
+	<key>stgit</key>
+	<string>Push/pop utility built on top of Git</string>
+	<key>stklos</key>
+	<string></string>
+	<key>stone-soup</key>
+	<string></string>
+	<key>stow</key>
+	<string></string>
+	<key>stp</key>
+	<string>STP (Simple Theorem Provider)</string>
+	<key>strategoxt</key>
+	<string></string>
+	<key>streamripper</key>
+	<string>Separate tracks via Shoutcasts title-streaming</string>
+	<key>stress</key>
+	<string></string>
+	<key>strigi</key>
+	<string>Fastest and smallest desktop searching program</string>
+	<key>stunnel</key>
+	<string>SSL tunneling program</string>
+	<key>style-check</key>
+	<string></string>
+	<key>sub2srt</key>
+	<string></string>
+	<key>sublercli</key>
+	<string></string>
+	<key>subversion</key>
+	<string>A version control system designed to be a better CVS</string>
+	<key>suite-sparse</key>
+	<string></string>
+	<key>sundials</key>
+	<string></string>
+	<key>surfraw</key>
+	<string>Shell Users' Revolutionary Front Rage Against the Web</string>
+	<key>svdlibc</key>
+	<string>SVDLIBC is a C library to perform singular value decomposition</string>
+	<key>svg2pdf</key>
+	<string>Renders SVG images to a PDF file (using cairo)</string>
+	<key>svg2png</key>
+	<string></string>
+	<key>swfmill</key>
+	<string></string>
+	<key>swftools</key>
+	<string>SWF manipulation and generation tools</string>
+	<key>swi-prolog</key>
+	<string>SWI-Prolog compiler plus extra packages (stable version)</string>
+	<key>swig</key>
+	<string></string>
+	<key>swish-e</key>
+	<string>System for indexing collections of web pages</string>
+	<key>syck</key>
+	<string>An extension for reading and writing YAML</string>
+	<key>symphony</key>
+	<string></string>
+	<key>synergy</key>
+	<string>Client/server for sharing a single mouse and keyboard</string>
+	<key>synfig</key>
+	<string>Command line renderer</string>
+	<key>synfigstudio</key>
+	<string></string>
+	<key>syslog-ng</key>
+	<string>Configurable syslog replacement</string>
+	<key>szip</key>
+	<string>An implementation of the extended-Rice lossless compression algorithm</string>
+	<key>szl</key>
+	<string></string>
+	<key>t1utils</key>
+	<string>Command line tools for dealing with Type 1 fonts</string>
+	<key>tabbed</key>
+	<string></string>
+	<key>tabix</key>
+	<string></string>
+	<key>taglib</key>
+	<string>Audio metadata library</string>
+	<key>talk-filters</key>
+	<string></string>
+	<key>talloc</key>
+	<string></string>
+	<key>tarsnap</key>
+	<string></string>
+	<key>task</key>
+	<string></string>
+	<key>tbb</key>
+	<string>Offers a rich and complete approach to parallelism in C++</string>
+	<key>tcpflow</key>
+	<string>TCP flow recorder</string>
+	<key>tcping</key>
+	<string></string>
+	<key>tcpreplay</key>
+	<string></string>
+	<key>tcpstat</key>
+	<string></string>
+	<key>tcptrace</key>
+	<string></string>
+	<key>tcptraceroute</key>
+	<string></string>
+	<key>tcptrack</key>
+	<string></string>
+	<key>teapot</key>
+	<string></string>
+	<key>term</key>
+	<string></string>
+	<key>tesseract</key>
+	<string>OCR (Optical Character Recognition) engine</string>
+	<key>testdisk</key>
+	<string>TestDisk is a powerful free data recovery utility</string>
+	<key>texinfo</key>
+	<string>TeXinfo is the official documentation format of the GNU project</string>
+	<key>theora</key>
+	<string></string>
+	<key>thrift</key>
+	<string></string>
+	<key>thrulay</key>
+	<string></string>
+	<key>tidyp</key>
+	<string></string>
+	<key>tiff2png</key>
+	<string></string>
+	<key>tig</key>
+	<string>A text interface for Git repositories</string>
+	<key>tiger-vnc</key>
+	<string></string>
+	<key>timbl</key>
+	<string></string>
+	<key>timedog</key>
+	<string></string>
+	<key>tin</key>
+	<string>A threaded, NNTP-, and spool-based UseNet newsreader</string>
+	<key>tinc</key>
+	<string>Virtual Private Network (VPN) tool</string>
+	<key>tintin</key>
+	<string></string>
+	<key>tiny-fugue</key>
+	<string></string>
+	<key>tinyproxy</key>
+	<string>Fast, lightweight HTTP proxy</string>
+	<key>titlecase</key>
+	<string></string>
+	<key>tivodecode</key>
+	<string>Convert .tivo to .mpeg</string>
+	<key>tmpreaper</key>
+	<string></string>
+	<key>tmux</key>
+	<string>A terminal multiplexer</string>
+	<key>tnef</key>
+	<string>Microsoft MS-TNEF attachment unpacker</string>
+	<key>todo-txt</key>
+	<string></string>
+	<key>tofrodos</key>
+	<string></string>
+	<key>toilet</key>
+	<string>Colour-based alternative to figlet (using libcaca)</string>
+	<key>tokyo-cabinet</key>
+	<string></string>
+	<key>tokyo-dystopia</key>
+	<string></string>
+	<key>tokyo-tyrant</key>
+	<string></string>
+	<key>tomcat</key>
+	<string></string>
+	<key>topgit</key>
+	<string></string>
+	<key>tophat</key>
+	<string></string>
+	<key>tor</key>
+	<string>Anonymizing overlay network for TCP</string>
+	<key>trafshow</key>
+	<string>Continuous network traffic display</string>
+	<key>transcode</key>
+	<string></string>
+	<key>transmission</key>
+	<string></string>
+	<key>tre</key>
+	<string>Lightweight, POSIX-compliant regular expression (regex) library</string>
+	<key>tree</key>
+	<string>Display directories as trees (with optional color/HTML output)</string>
+	<key>treeline</key>
+	<string>Advanced outliner and personal information manager</string>
+	<key>triangle</key>
+	<string></string>
+	<key>tsung</key>
+	<string>Load test tool for HTTP, PostgreSQL, Jabber, and others</string>
+	<key>ttf2eot</key>
+	<string></string>
+	<key>ttf2pt1</key>
+	<string></string>
+	<key>tth</key>
+	<string></string>
+	<key>ttyrec</key>
+	<string></string>
+	<key>ttytter</key>
+	<string>Twitter command line client</string>
+	<key>two-lame</key>
+	<string></string>
+	<key>txt2tags</key>
+	<string></string>
+	<key>typespeed</key>
+	<string></string>
+	<key>uade</key>
+	<string></string>
+	<key>ucl</key>
+	<string>Data compression library with small memory footprint</string>
+	<key>udis86</key>
+	<string></string>
+	<key>udns</key>
+	<string></string>
+	<key>udunits</key>
+	<string>Unidata unit conversion libraray</string>
+	<key>uemacs</key>
+	<string></string>
+	<key>ufraw</key>
+	<string>Unidentified Flying Raw (UFRaw)</string>
+	<key>uggconv</key>
+	<string></string>
+	<key>uif2iso</key>
+	<string>Converts UIF images to ISO images</string>
+	<key>uim</key>
+	<string></string>
+	<key>unafold</key>
+	<string></string>
+	<key>unbound</key>
+	<string></string>
+	<key>uncrustify</key>
+	<string>Source code beautifier</string>
+	<key>unfs3</key>
+	<string></string>
+	<key>ungif</key>
+	<string></string>
+	<key>unifdef</key>
+	<string></string>
+	<key>unison</key>
+	<string>Unison file synchronizer</string>
+	<key>unittest</key>
+	<string></string>
+	<key>unix2dos</key>
+	<string>Convert text from UNIX to DOS</string>
+	<key>unixodbc</key>
+	<string>ODBC 3 connectivity for UNIX</string>
+	<key>unp</key>
+	<string></string>
+	<key>unpaper</key>
+	<string>Post-processing for scanned/photocopied books</string>
+	<key>unrar</key>
+	<string>Extract, view, and test RAR archives</string>
+	<key>unrtf</key>
+	<string></string>
+	<key>unshield</key>
+	<string>Extract files from InstallShield cabinet files</string>
+	<key>unyaffs</key>
+	<string></string>
+	<key>uptimed</key>
+	<string></string>
+	<key>upx</key>
+	<string>Compress/expand executable files</string>
+	<key>uriparser</key>
+	<string>A URI parsing library (strictly RFC 3986 compliant)</string>
+	<key>urlview</key>
+	<string>URL extractor/launcher</string>
+	<key>usbmuxd</key>
+	<string></string>
+	<key>ushare</key>
+	<string>A UPnP (TM) A/V and DLNA Media Server</string>
+	<key>ut-cache</key>
+	<string></string>
+	<key>uwsgi</key>
+	<string></string>
+	<key>v8</key>
+	<string></string>
+	<key>v8cgi</key>
+	<string></string>
+	<key>vala</key>
+	<string>Compiler for the GObject type system</string>
+	<key>valgrind</key>
+	<string>Powerful memory debugger</string>
+	<key>varnish</key>
+	<string>High-performance HTTP accelerator</string>
+	<key>vbindiff</key>
+	<string>Visual Binary Diff</string>
+	<key>vcdimager</key>
+	<string>(Super) video CD authoring solution</string>
+	<key>vcodex</key>
+	<string></string>
+	<key>vcprompt</key>
+	<string></string>
+	<key>vde</key>
+	<string></string>
+	<key>velvet</key>
+	<string></string>
+	<key>vice</key>
+	<string></string>
+	<key>vilistextum</key>
+	<string></string>
+	<key>vim</key>
+	<string>Vi "workalike" with many additional features</string>
+	<key>vimeo-downloader</key>
+	<string></string>
+	<key>vimpager</key>
+	<string></string>
+	<key>vip</key>
+	<string></string>
+	<key>vips</key>
+	<string>Image processing library</string>
+	<key>virtuoso</key>
+	<string>High-performance object-relational SQL database</string>
+	<key>visualboyadvance</key>
+	<string>Emulator for Gameboy and Gameboy Advance systems</string>
+	<key>vmalloc</key>
+	<string></string>
+	<key>vnstat</key>
+	<string></string>
+	<key>vobcopy</key>
+	<string>Copy DVD .vob files to hard disk</string>
+	<key>voldemort</key>
+	<string></string>
+	<key>vorbis-tools</key>
+	<string>The Ogg Vorbis CODEC tools</string>
+	<key>vorbisgain</key>
+	<string></string>
+	<key>vpnc</key>
+	<string>Cisco VPN concentrator client</string>
+	<key>vrpn</key>
+	<string></string>
+	<key>vsftpd</key>
+	<string>Secure FTP server for UNIX</string>
+	<key>vte</key>
+	<string></string>
+	<key>vtk</key>
+	<string></string>
+	<key>w3m</key>
+	<string>Pager/text based browser</string>
+	<key>wakeonlan</key>
+	<string>Sends magic packets to wake up network-devices</string>
+	<key>watch</key>
+	<string>Executes a program periodically, showing output fullscreen</string>
+	<key>wavpack</key>
+	<string>Hybrid lossless audio compression</string>
+	<key>wdiff</key>
+	<string>Display word differences between text files</string>
+	<key>webalizer</key>
+	<string>Fast web server log file analysis</string>
+	<key>webfs</key>
+	<string>Simple HTTP server for purely static content</string>
+	<key>webkit2png</key>
+	<string></string>
+	<key>webp</key>
+	<string></string>
+	<key>weechat</key>
+	<string>Fast, light, extensible IRC client</string>
+	<key>wget</key>
+	<string>Internet file retriever</string>
+	<key>when</key>
+	<string></string>
+	<key>whohas</key>
+	<string></string>
+	<key>wiggle</key>
+	<string></string>
+	<key>willgit</key>
+	<string></string>
+	<key>wine</key>
+	<string>Wine Is Not an Emulator</string>
+	<key>winetricks</key>
+	<string>Download and install various redistributable runtime libraries</string>
+	<key>wireshark</key>
+	<string>Graphical network analyzer and capture tool</string>
+	<key>wkhtmltopdf</key>
+	<string></string>
+	<key>wla-dx</key>
+	<string></string>
+	<key>wol</key>
+	<string></string>
+	<key>woof</key>
+	<string></string>
+	<key>wordnet</key>
+	<string>Lexical database for the English language</string>
+	<key>wps2odt</key>
+	<string></string>
+	<key>wrangler</key>
+	<string></string>
+	<key>writerperfect</key>
+	<string></string>
+	<key>wtf</key>
+	<string>Translate common Internet acronyms</string>
+	<key>wv</key>
+	<string></string>
+	<key>wwwoffle</key>
+	<string></string>
+	<key>wxmac</key>
+	<string></string>
+	<key>wyrd</key>
+	<string>An ncurses-based front-end for remind</string>
+	<key>x264</key>
+	<string>Free H.264/AVC encoder</string>
+	<key>x3270</key>
+	<string></string>
+	<key>xa</key>
+	<string></string>
+	<key>xapian</key>
+	<string></string>
+	<key>xar</key>
+	<string>The eXtensible ARchiver (XAR)</string>
+	<key>xaric</key>
+	<string></string>
+	<key>xastir</key>
+	<string></string>
+	<key>xaw3d</key>
+	<string></string>
+	<key>xcache</key>
+	<string></string>
+	<key>xchat</key>
+	<string>GTK+ IRC client</string>
+	<key>xdebug</key>
+	<string></string>
+	<key>xdelta</key>
+	<string>Binary diff, differential compression tools, VCDIFF delta compression</string>
+	<key>xerces-c</key>
+	<string></string>
+	<key>xml-coreutils</key>
+	<string></string>
+	<key>xml-security-c</key>
+	<string>XML Signing and Encryption for C++</string>
+	<key>xml-tooling-c</key>
+	<string></string>
+	<key>xml2rfc</key>
+	<string>Formats RFC documents from XML source</string>
+	<key>xmlformat</key>
+	<string>Formatter for XML documents</string>
+	<key>xmlrpc-c</key>
+	<string>Lightweight RPC library (based on XML and HTTP)</string>
+	<key>xmlstarlet</key>
+	<string>XML command line utilities</string>
+	<key>xmlto</key>
+	<string>Convert XML to another format (based on XSL or other tools)</string>
+	<key>xmltoman</key>
+	<string></string>
+	<key>xmoto</key>
+	<string></string>
+	<key>xmp</key>
+	<string></string>
+	<key>xpdf</key>
+	<string>A viewer for PDF files</string>
+	<key>xqilla</key>
+	<string></string>
+	<key>xspin</key>
+	<string></string>
+	<key>xspringies</key>
+	<string>A mass and spring simulation system</string>
+	<key>xsw</key>
+	<string></string>
+	<key>xu4</key>
+	<string></string>
+	<key>xvid</key>
+	<string>High-performance, high-quality MPEG-4 video library</string>
+	<key>xz</key>
+	<string></string>
+	<key>yaf</key>
+	<string></string>
+	<key>yajl</key>
+	<string>Yet Another JSON Library</string>
+	<key>yamdi</key>
+	<string></string>
+	<key>yaml-cpp</key>
+	<string></string>
+	<key>yara</key>
+	<string></string>
+	<key>yarp</key>
+	<string></string>
+	<key>yasm</key>
+	<string>A modular BSD reimplementation of NASM</string>
+	<key>yaws</key>
+	<string>Webserver for dynamic content (written in Erlang)</string>
+	<key>yaz</key>
+	<string>Toolkit for Z39.50/SRW/SRU clients/servers</string>
+	<key>yazpp</key>
+	<string>C++ API for the Yaz toolkit</string>
+	<key>yconalyzer</key>
+	<string></string>
+	<key>yeti</key>
+	<string></string>
+	<key>ykclient</key>
+	<string></string>
+	<key>ykpers</key>
+	<string></string>
+	<key>youtube-dl</key>
+	<string></string>
+	<key>yuicompressor</key>
+	<string></string>
+	<key>z</key>
+	<string></string>
+	<key>zbar</key>
+	<string></string>
+	<key>zdelta</key>
+	<string></string>
+	<key>zebra</key>
+	<string>Information management system</string>
+	<key>zeromq</key>
+	<string>High-performance, asynchronous messaging library</string>
+	<key>zile</key>
+	<string>Zile Is Lossy Emacs (ZILE)</string>
+	<key>zint</key>
+	<string></string>
+	<key>znc</key>
+	<string></string>
+	<key>zookeeper</key>
+	<string></string>
+	<key>zsh</key>
+	<string>Zsh is a UNIX command interpreter (shell)</string>
+	<key>zsync</key>
+	<string>File transfer program</string>
+	<key>zzuf</key>
+	<string>zzuf is a transparent application input fuzzer</string>
+</dict>
+</plist>

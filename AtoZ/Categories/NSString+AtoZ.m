@@ -8,8 +8,50 @@
 #import "NSColor+AtoZ.h"
 #import "NSArray+AtoZ.h"
 #import "RuntimeReporter.h"
+#import "AtoZ.h"
+#import <CommonCrypto/CommonDigest.h>
 
 #define kMaxFontSize	10000
+
+
+
+@implementation NSString (MD5)
+
+- (NSString *)MD5String
+{
+
+	const char *cStr = [self UTF8String];
+    unsigned char result[16];
+    CC_MD5( cStr, strlen(cStr), result ); // This is the md5 call
+    return [NSString stringWithFormat:
+			@"%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
+			result[0], result[1], result[2], result[3],
+			result[4], result[5], result[6], result[7],
+			result[8], result[9], result[10], result[11],
+			result[12], result[13], result[14], result[15]
+			];
+}
+//	struct MD5Context ctx;
+//	const unsigned char *utf8str = (unsigned char *)[self UTF8String];
+//	unsigned char digest[16];
+//	int i;
+//	unsigned char *md5str;
+//	NSString *ret = nil;
+//	// Make MD5 hash in hex-string form.
+//	MD5Init(&ctx);
+//	MD5Update(&ctx, utf8str, strlen(utf8str));
+//	MD5Final(digest, &ctx);
+//
+//	md5str = malloc(33); // 2 * 16 + 1 for null
+//
+//	for(i = 0; i < 16; i++) 	sprintf(&md5str[i * 2], "%02x", digest[i]);
+//	md5str[32] = '\0';
+//	ret = [NSString stringWithUTF8String:md5str];
+//	free(md5str);
+//	return ret;
+//}
+
+@end
 
 
 //  Copyright 2011 Leigh McCulloch. Released under the MIT license.
@@ -25,7 +67,7 @@
 - (id)init
 {
 	if (!(self = [super init])) return nil;
-	strings = [[NSMutableArray alloc] init];
+	strings = NSMA.new;
     return self;
 }
 - (void)dealloc	{    [strings release];	}
@@ -34,6 +76,50 @@
 @end
 
 @implementation NSString (AtoZ)
+
+
+- (NSS*)wikiDescription;
+{
+	NSString *searchString = $(@"http://lookup.dbpedia.org/api/search.asmx/KeywordSearch?QueryString=%@&MaxHits=1",self);
+	//	@"https://www.google.com/search?client=safari&rls=en&q=%@&ie=UTF-8&oe=UTF-8", );
+
+	NSString *wikiPage = [NSString stringWithContentsOfURL:[NSURL URLWithString:searchString]
+													encoding:NSUTF8StringEncoding //NSASCIIStringEncoding
+													   error:nil];
+	//	NSMS* outp = [NSMS new];
+	return [wikiPage parseXMLTag:@"Description"];
+}
+
+
+- (NSS*)parseXMLTag:(NSS*)tag;
+{
+	return [self substringBetweenPrefix:$(@"<%@>",tag) andSuffix:$(@"</%@>",tag)];
+}
+//
+//	NSScanner *theScanner;
+//	NSString *text = nil;
+//	NSS* html = self.copy;
+//
+//	theScanner = [NSScanner scannerWithString:html];
+//	while ([theScanner isAtEnd] == NO) {
+//
+//		// find start of tag
+//		[theScanner scanUpToString:$(@"<%@>",tag) intoString:NULL] ;
+//		// find end of tag
+//		[theScanner scanUpToString:@">" intoString:&text] ;
+//
+//		// replace the found tag with a space
+//		//(you can filter multi-spaces out later if you wish)
+//		html = [html stringByReplacingOccurrencesOfString:
+//				[ NSString stringWithFormat:@"%@>", text]
+//											   withString:@" "];
+//
+//	} // while //
+//
+//	// trim off whitespace
+//	return trim ? [html stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] : html;
+//
+//}
 
 
 - (NSS*)withPath:(NSS*)path;

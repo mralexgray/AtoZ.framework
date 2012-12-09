@@ -13,6 +13,16 @@
 //#import <NanoStore/NSFNanoGlobals.h>
 //#import <Growl/Growl.h>
 //#import "Nu.h"
+#import <Availability.h>
+
+#if __IPHONE_OS_VERSION_MIN_REQUIRED
+#import <SystemConfiguration/SystemConfiguration.h>
+#import <MobileCoreServices/MobileCoreServices.h>
+#else
+#import <SystemConfiguration/SystemConfiguration.h>
+#import <CoreServices/CoreServices.h>
+#endif
+
 #import <xpc/xpc.h>
 #import <Cocoa/Cocoa.h>
 #import <objc/runtime.h>
@@ -23,28 +33,43 @@
 #import <Foundation/Foundation.h>
 #import <AudioToolbox/AudioToolbox.h>
 #import <ApplicationServices/ApplicationServices.h>
-#import <Lumberjack/Lumberjack.h>
+//#import <Lumberjack/Lumberjack.h>
 
-#define EXCLUDE_STUB_PROTOTYPES 1
-#import <PLWeakCompatibility/PLWeakCompatibilityStubs.h>
+////#define EXCLUDE_STUB_PROTOTYPES 1
+////#import <PLWeakCompatibility/PLWeakCompatibilityStubs.h>
 //#import <RMKit/RMKit.h>
 #import "AutoCoding.h"
 #import "HRCoder.h"
 #import "BaseModel.h"
 
-#import <Rebel/Rebel.h>
+////#import <Rebel/Rebel.h>
 //#import <XPCKit/XPCKit.h>
+////#import <FunSize/FunSize.h>
+////#import <DrawKit/DKDrawKit.h>
+////#import <MapKit/MapKit.h>
+////#import <Zangetsu/Zangetsu.h>
+//#import <SNRHUDKit/SNRHUDKit.h>
+////#import <BlocksKit/BlocksKit.h>
+//#import <NanoStore/NanoStore.h>
+////#import <CocoaPuffs/CocoaPuffs.h>
+////#import <AtoZBezierPath/AtoZBezierPath.h>
+//#import <AtoZUI/AtoZUI.h>
+////#import <AtoZAppKit/BGHUDAppKit.h>
+
+
+#define EXCLUDE_STUB_PROTOTYPES 1
+#import <PLWeakCompatibility/PLWeakCompatibilityStubs.h>
+#import <Rebel/Rebel.h>
 #import <FunSize/FunSize.h>
 #import <DrawKit/DKDrawKit.h>
 #import <MapKit/MapKit.h>
+
 #import <Zangetsu/Zangetsu.h>
-//#import <SNRHUDKit/SNRHUDKit.h>
 #import <BlocksKit/BlocksKit.h>
-//#import <NanoStore/NanoStore.h>
 #import <CocoaPuffs/CocoaPuffs.h>
 #import <AtoZBezierPath/AtoZBezierPath.h>
-//#import <AtoZUI/AtoZUI.h>
 #import <AtoZAppKit/BGHUDAppKit.h>
+#import <Lumberjack/Lumberjack.h>
 
 
 #import "F.h"
@@ -77,6 +102,7 @@
 #import "NotificationCenterSpy.h"
 #import "TransparentWindow.h"
 #import "LoremIpsum.h"
+#import "AFNetworking.h"
 
 #import "AtoZUmbrella.h"
 #import "AtoZGeometry.h"
@@ -163,6 +189,7 @@
 //#import "AZToggleView.h"
 
 //Classes
+#import "AZHomeBrew.h"
 #import "AZDebugLayer.h"
 #import "AZInstantApp.h"
 #import "AddressBookImageLoader.h"
@@ -205,6 +232,9 @@
 #import "AZScrollerLayer.h"
 #import "WebView+AtoZ.h"
 
+#import "AtoZWebSnapper.h"
+#import "AZURLSnapshot.h"
+
 
 // Views
 #import "AZPrismView.h"
@@ -245,6 +275,12 @@
 
 //static NSEventMask AZMouseActive = NSMouseMovedMask | NSMouseExitedMask |NSMouseEnteredMask);
 //static NSEventMask AZMouseButton = NS | NSMouseExitedMask |NSMouseEnteredMask;
+
+
+/* A shared operation que that is used to generate thumbnails in the background. */
+extern NSOperationQueue *AZSharedOperationQueue(void);
+extern NSOperationQueue *AZSharedSingleOperationQueue(void);
+
 
 CGFloat ScreenWidess();
 CGFloat ScreenHighness();
@@ -358,7 +394,8 @@ extern NSString *const AtoZDockSortedUpdated;
 @end
 
 @interface BaseModel (AtoZ)
-@property (NATOM,ASS) BOOL convertToXML;
+@property (NATOM,  CP) NSString *uniqueID;
+@property (NATOM, ASS) BOOL convertToXML;
 + (NSS*)saveFilePath;
 @end
 

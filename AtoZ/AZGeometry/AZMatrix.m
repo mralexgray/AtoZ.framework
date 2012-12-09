@@ -11,7 +11,7 @@
 
 -(id)init {
   if ((self = super.init)) {
-	data = [[NSMutableArray alloc] init];
+	data = NSMA.new;
 	height = 0;
 	width = 0;
   }

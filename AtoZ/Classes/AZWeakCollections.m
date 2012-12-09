@@ -47,15 +47,31 @@
 @end
 
 
+@implementation  NSArray (WeakMutableFilter)
+
+-(WeakMutableArray*)weakFilterMap:(id (^)(id obj))block
+{
+	WeakMutableArray *weakling = WeakMutableArray.new;
+	[self cw_each:^(id obj, NSUInteger index, BOOL *stop) {
+		id rObj = block(obj);
+        if (rObj) {
+			WeakReferenceObject *weakO = [WeakReferenceObject weakReferenceObjectWithObject:rObj];
+            [weakling addObject:weakO];
+        }
+	}];
+    return weakling;
+}
+@end
 @implementation WeakMutableArray {
 	NSMutableArray *array;
 }
+
+
 
 - (id)initWithObjects:(const id [])objects count:(NSUInteger)cnt {
 	self = [super init];
 	if (self) {
 		array = [[NSMutableArray alloc] initWithCapacity:cnt];
-
 		if (objects) {
 			for (int i = 0; i < cnt; i++) {
 				[array addObject:[WeakReferenceObject weakReferenceObjectWithObject:objects[i]]];

@@ -41,10 +41,6 @@
 
 //  ARC Helper ends
 
-
-
-
-
 #ifdef __OBJC__
 
 //static inline BOOL isEmpty(id thing);
@@ -52,6 +48,16 @@
 //				 ?: [thing respondsToSelector:@selector(count) ] && [ (NSA*)thing count ]
 //					NO;
 //}
+
+#import <Availability.h>
+
+#if __IPHONE_OS_VERSION_MIN_REQUIRED
+#import <SystemConfiguration/SystemConfiguration.h>
+#import <MobileCoreServices/MobileCoreServices.h>
+#else
+#import <SystemConfiguration/SystemConfiguration.h>
+#import <CoreServices/CoreServices.h>
+#endif
 
 #import <xpc/xpc.h>
 #import <Cocoa/Cocoa.h>
@@ -71,32 +77,36 @@
 
 #define EXCLUDE_STUB_PROTOTYPES 1
 #import <PLWeakCompatibility/PLWeakCompatibilityStubs.h>
+#import <Rebel/Rebel.h>
+#import <FunSize/FunSize.h>
+#import <DrawKit/DKDrawKit.h>
+#import <MapKit/MapKit.h>
+
+#import <Zangetsu/Zangetsu.h>
+#import <BlocksKit/BlocksKit.h>
+#import <CocoaPuffs/CocoaPuffs.h>
+#import <AtoZBezierPath/AtoZBezierPath.h>
+#import <AtoZAppKit/BGHUDAppKit.h>
+#import <Lumberjack/Lumberjack.h>
+
+//#import <XPCKit/XPCKit.h>
+//#import <SNRHUDKit/SNRHUDKit.h>
+//#import <NanoStore/NanoStore.h>
+//#import <AtoZUI/AtoZUI.h>
 
 #import "HRCoder.h"
 #import "AutoCoding.h"
 #import "BaseModel.h"
 
 
-#import <Rebel/Rebel.h>
-//#import <XPCKit/XPCKit.h>
-#import <FunSize/FunSize.h>
-#import <DrawKit/DKDrawKit.h>
-#import <MapKit/MapKit.h>
-
-#import <Zangetsu/Zangetsu.h>
-//#import <SNRHUDKit/SNRHUDKit.h>
-#import <BlocksKit/BlocksKit.h>
-//#import <NanoStore/NanoStore.h>
-#import <CocoaPuffs/CocoaPuffs.h>
-#import <AtoZBezierPath/AtoZBezierPath.h>
-//#import <AtoZUI/AtoZUI.h>
-#import <AtoZAppKit/BGHUDAppKit.h>
-#import <Lumberjack/Lumberjack.h>
 
 #import "ConciseKit.h"
 #import "BaseModel.h"
 #import "F.h"
+#import "HTMLParser.h"
+#import "HTMLNode.h"
 
+#import "AFNetworking.h"
 
 #import	"AtoZUmbrella.h"
 #import "AtoZGeometry.h"
@@ -104,16 +114,15 @@
 
 #import "SDToolkit.h"
 #import "AZWeakCollections.h"
+
+#endif
+
 //#import "NSObject+AutoMagicCoding.h"
-
 //#import "AZSizer.h"
-
-
-//	#import "AZObject.h"
-//	#import "AZFile.h"
+//#import "AZObject.h"
+//#import "AZFile.h"
 //#import "AZGeometry.h"
 //#import "Nu.h"
-
 
 //#define NSLog(__VA_ARGS__) NSLog(@"[%s:%d]: %@", __FILE__, __LINE__, [NSString stringWithFormat:__VA_ARGS__])
 //	#define NSLog(args...) QuietLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args)
@@ -151,6 +160,3 @@
 
 
 //#endif
-
-#endif
-

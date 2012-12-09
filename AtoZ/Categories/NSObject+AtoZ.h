@@ -49,6 +49,7 @@ typedef void (^AZBlockTask)(id obj, NSDictionary *change);
 @end
 @interface NSObject (AtoZ)
 
+
 - (void) bindArrayKeyPath:(NSS*)array toController:(NSArrayController*)controller;
 
 - (id) performString:(NSS*)string;

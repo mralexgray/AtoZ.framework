@@ -106,7 +106,7 @@
 	}
 
 	CGFloat totalTextWidth = 0.0 ;
-	NSMutableArray* textWidths = [[NSMutableArray alloc] init] ;
+	NSMutableArray* textWidths = NSMA.new ;
 	for (i=0; i<N; i++) {
 		CGFloat textWidth = [[self labelForSegment:i] widthForHeight:CGFLOAT_MAX
 																font:[self font]] ;

@@ -14,7 +14,7 @@ typedef void (^AZCAAnimationCompletionBlock)();
 
 ////typedef void (^disableCA) {
 //- (NSArray *)setPropertiesWithCADisabled:(BOOL (^)(id obj))block		{
-//		NSMutableArray * results = [[NSMutableArray alloc] init];
+//		NSMutableArray * results = NSMA.new;
 //		[self each:^(id obj, NSUInteger index, BOOL *stop) {
 //			if (block(obj))		[results addObject:obj];
 //		}];

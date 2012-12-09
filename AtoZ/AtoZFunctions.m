@@ -13,6 +13,20 @@
 #import <CoreFoundation/CoreFoundation.h>
 
 
+@implementation NSObject (AZLayerDelegate)
+- (BOOL) boolForKey:(NSS*)key defaultValue:(BOOL)defaultValue;	{
+	id value = [self valueForKey:key];
+	return [value isKindOfClass:NSString.class] || [value isKindOfClass:NSNumber.class] ? [value boolValue] : defaultValue;
+}
+- (BOOL)boolForKey:(NSString *)key;	{ return [self boolForKey:key defaultValue:YES]; }
+
+- (void) toggleBoolForKey: (NSS*)key	{	[self setBool:![self boolForKey:key defaultValue:NO] forKey:key]; 	} //[NSN numberWithBool:![self boolForKey:key defaultValue:YES]]
+- (void) layerWasClicked:  (CAL*)layer	{	[layer toggleBoolForKey:@"clicked"]; [layer setNeedsDisplay]; }
+@end
+@implementation CALayer (WasClicked)
+- (void) wasClicked	{	[self toggleBoolForKey:@"clicked"];  [self setNeedsDisplay]; }
+@end
+
 
 @implementation AZToggleClickTableCell
 
@@ -37,6 +51,17 @@
 
 @end
 
+@implementation AZInstallStatusCell
+
+- (void)drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView
+{
+	NSRectFillWithColor(cellFrame, GREEN);
+//	return st ==  (AZNeedsUpdate | AZInstalledNeedsUpdate)  ? [NSIMG systemIconNamed:@"Sync"] :
+//	st ==   AZNotInstalled 							? [NSIMG systemIconNamed:@"unsupported"] :
+//	st ==   AZInstalled 	 							? [NSIMG systemIconNamed:@"toolbardown"] :
+//	[NSIMG systemIconNamed:@"userunknown"] ;
+}
+@end
 
 @implementation AZColorTableCell
 - (void)drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView
@@ -87,15 +112,43 @@
 
 
 @implementation AZInstallationStatusToImageTransformer
-
-+ (Class) transformedValueClass 	 { 	return [NSImage class]; 	}
-+ (BOOL) allowsReverseTransformation { 	return YES; 					}
-- (id) transformedValue: (id)value 	 {	AZInstallationStatus st = [value installStatusValue];
-	return st == ( AZNeedsUpdate | AZInstalledNeedsUpdate ) ? [NSIMG systemIconNamed:@"Sync"] :
-		   st ==   AZNotInstalled 							? [NSIMG systemIconNamed:@"unsupported"] :
-		   st ==   AZInstalled 	 							? [NSIMG systemIconNamed:@"toolbardown"] :
-															  [NSIMG systemIconNamed:@"userunknown"] ;
+static NSIMG *installed, *notInstalled, *needsUpdate, *installedNeedsUpdate;
++ (void) initialize
+{
+	needsUpdate 			= [NSIMG systemIconNamed:@"Sync"];
+	notInstalled   			= [NSIMG systemIconNamed:@"unsupported"];
+	installed 				= [NSIMG systemIconNamed:@"toolbardown"];
+	installedNeedsUpdate	= [NSIMG systemIconNamed:@"userunknown"];
 }
+
++ (Class) transformedValueClass 	 { 	return NSImage.class; 	}
++ (BOOL) allowsReverseTransformation { 	return YES; 				}
+- (id) transformedValue: (id)value
+{
+	AZInstallationStatus st = [value unsignedIntegerValue];
+	return 	st ==  AZNeedsUpdate 		? needsUpdate :
+			st ==  AZNotInstalled 		? notInstalled :
+			st ==  AZInstalled 	 		? installed :
+										  installedNeedsUpdate;
+}
+-(id)reverseTransformedValue:(id)value
+{
+	return 	[value isEqualTo:needsUpdate] 	? @(AZNeedsUpdate) 	:
+			[value isEqualTo:notInstalled]	? @(AZNotInstalled)	:
+			[value isEqualTo:installed]		? @(AZInstalled)	:
+											  @(AZInstalledNeedsUpdate);
+}
+
+//-(id)transformedValue:(id)value
+//{
+//    CSQuality quality = [value intValue];
+//    if (quality == kQualityBest) return @"Best";
+//    else if (quality == kQualityWorst) return @"Worst";
+//    return nil;
+//}
+//-(id) reverseTransformedValue:(id)value {
+//	
+//}
 
 @end
 

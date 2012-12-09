@@ -2011,7 +2011,7 @@ rightDone:
 	CGFloat dropShadowOffsetY = -size.width /64;//<= 64.0 ? -1.0 : -2.0;
 	CGFloat innerShadowBlurRadius = size.width /32;//<= 3 2.0 ? 1.0 : 4.0;
 
-	CGContextRef c = [[NSGraphicsContext currentContext] graphicsPort];
+	CGContextRef c = [NSGraphicsContext.currentContext graphicsPort];
 
 	//save the current graphics state
 	CGContextSaveGState(c);
@@ -2028,8 +2028,7 @@ rightDone:
 	CGContextClipToMask(c, NSRectToCGRect(maskRect), maskImage);
 
 	//Draw gradient:
-	NSGradient *gradient = [[[NSGradient alloc] initWithStartingColor:[NSColor colorWithDeviceWhite:0.5 alpha:1.0]
-														  endingColor:[NSColor colorWithDeviceWhite:0.25 alpha:1.0]] autorelease];
+	NSGradient *gradient = [[NSG.alloc initWithStartingColor:GRAY5  endingColor:GRAY2] autorelease];
 	[gradient drawInRect:maskRect angle:90.0];
 	CGContextSetShadowWithColor(c, CGSizeMake(0, -1), innerShadowBlurRadius, CGColorGetConstantColor(kCGColorBlack));
 
@@ -2981,7 +2980,8 @@ CGImageRef CreateCGImageFromData(NSData* data)
 @implementation NSImage (NSImageThumbnailExtensions)
 
 /* Create an NSImage from with the contents of the url of the specified width. The height of the resulting NSImage maintains the proportions in source.	*/
-+ (id) thumbnailImageWithContentsOfURL:(NSURL*)url width:(CGF)width {
++ (id) thumbnailImageWithContentsOfURL:(NSURL*)url width:(CGF)width
+{
     NSImage *thumbnailImage = nil;
     NSImage *image = [[NSImage alloc] initWithContentsOfURL:url];
     if (image != nil) {
@@ -3017,13 +3017,3 @@ CGImageRef CreateCGImageFromData(NSData* data)
 }
 
 @end
-
-/* A shared operation que that is used to generate thumbnails in the background. */
-NSOperationQueue *AZSharedOperationQueue() {
-    static NSOperationQueue *_AZImageSharedOperationQueue = nil;
-    if (_AZImageSharedOperationQueue == nil) {
-        _AZImageSharedOperationQueue = NSOperationQueue.new;
-		[_AZImageSharedOperationQueue setMaxConcurrentOperationCount:NSOperationQueueDefaultMaxConcurrentOperationCount];
-    }
-    return _AZImageSharedOperationQueue;
-}

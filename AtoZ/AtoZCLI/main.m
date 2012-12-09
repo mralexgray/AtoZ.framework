@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <AtoZ/AtoZ.h>
 
-
+/*
 void cliDefaults(){
 	NSUserDefaults *defaults = [[NSUserDefaults alloc] init];
 //	NSUInteger counter = [defaults[@"counter"]unsignedIntegerValue] +1;
@@ -79,7 +79,7 @@ void TestStopwatchBlock (NSString* name) {
 	//	[_lay animateOverAndUpFrom:_lay.position to:AZCenterOfRect(quadrant(self.bounds, 3)) duration:5];
 }
 @end
-
+*/
 int main(int argc, const char * argv[])
 {
 
@@ -101,13 +101,20 @@ int main(int argc, const char * argv[])
 		[app run];
 	} */
 		[AZStopwatch stopwatch:@"Runtime" timing:^{
-			AZLOG([CWPathUtilities applicationSupportFolder]);
+			AZLOG([NSB applicationSupportFolder]);
+//			AZLOG([CWPathUtilities applicationSupportFolder]);
 			//		NSLog(@"TEST start");
-			AZFile *f = [AZFile instanceWithPath:@"/Applications/Safari.app"];
-			AZLOG([AZFILEMANAGER attributesOfItemAtPath:f.path error:nil]);
-			
+//			AZFile *f = [AZFile instanceWithPath:@"/Applications/Safari.app"];
+//			AZLOG([AZFILEMANAGER attributesOfItemAtPath:f.path error:nil]);
+
 		}];
 		AZLOG([[AtoZ sharedInstance]instanceMethodNames]);
+
+
+	}
+	return 0;
+}
+
 
 //	TestStopwatchBlock(@"testTheWatch");
 //		NSArray *u = [NSArray arrayWithArrays: @[@[@"array1", @[@"array1level2"]],@[@"array2", @"array2item2"], @[@"array3"]]];
@@ -115,48 +122,45 @@ int main(int argc, const char * argv[])
 //		AZLOG([NSArray classMethods]);
 
 //		AZLOG([NSColor allColors]);
-	//	[NSThread performBlock:^{
-	//		[AZTalker say:StringFromBOOL([AZDock conformsToProtocol:@protocol(NSCopying)])];
-	//	} afterDelay:2];
-	//	[AZTalker say:StringFromBOOL([AZDock conformsToProtocol:@protocol(NSFileManagerDelegate)])];
-	//	[AZTalker say:StringFromBOOL([AZDock conformsToProtocol:@protocol(NSFastEnumeration)])];
+//	[NSThread performBlock:^{
+//		[AZTalker say:StringFromBOOL([AZDock conformsToProtocol:@protocol(NSCopying)])];
+//	} afterDelay:2];
+//	[AZTalker say:StringFromBOOL([AZDock conformsToProtocol:@protocol(NSFileManagerDelegate)])];
+//	[AZTalker say:StringFromBOOL([AZDock conformsToProtocol:@protocol(NSFastEnumeration)])];
 //		AZLOG([AZAppFolder sharedInstance]);
 //		AZLOG([AZFile forAppNamed:@"/Applications/Safari.app"]);
 
-	//	AZLOG([NSColor colorsInFrameworkListNamed:@"OrigamiMice"]);
+//	AZLOG([NSColor colorsInFrameworkListNamed:@"OrigamiMice"]);
 
-	//	NSImage *web = [NSImage imageFromWebPageAtURL:[NSURL URLWithString:@"http://google.com"] encoding:NSUTF8StringEncoding];
-	//	AZLOG(web);
-	//	[paddy quantize];
-					//		[[AZColor sharedInstance] colorsForImage:[NSImage az_imageNamed:@"mrgray.logo.png"]]);
-	//	AZFile *s = [AZFile	instanceWithImage:[NSImage randomIcon]];
-	//	AZLOG(s.propertiesPlease);
-	//	[s.image saveAs:@"/Users/localadmin/Desktop/poops.png"];
+//	NSImage *web = [NSImage imageFromWebPageAtURL:[NSURL URLWithString:@"http://google.com"] encoding:NSUTF8StringEncoding];
+//	AZLOG(web);
+//	[paddy quantize];
+//		[[AZColor sharedInstance] colorsForImage:[NSImage az_imageNamed:@"mrgray.logo.png"]]);
+//	AZFile *s = [AZFile	instanceWithImage:[NSImage randomIcon]];
+//	AZLOG(s.propertiesPlease);
+//	[s.image saveAs:@"/Users/localadmin/Desktop/poops.png"];
 
-	//	AZFile* dum = [AZFile dummy];
-	//	AZLOG(dum.propertiesPlease);
-	//	[dum.image saveAs:@"/Users/localadmin/Desktop/poop.png"];
-	//
-	//	AZFile* ss = [AZFile instanceWithColor:RANDOMCOLOR];
-	//	AZLOG(ss.propertiesPlease);
-	//	[ss.image saveAs:@"/Users/localadmin/Desktop/poopss.png"];
-	//
-	//	AZTalker *welcome = [AZTalker new];
-	//	[welcome say:@"welcome"];
-	//
-	//	[[AZTalker sharedInstance]say:@"huge vgaenn"];
-	//
-	//
-	//	CGPoint a = AZAnchorPointForPosition( AZPositionLeft);
-	//
-	//	NSLog(@"%@", NSStringFromPoint(a));
+//	AZFile* dum = [AZFile dummy];
+//	AZLOG(dum.propertiesPlease);
+//	[dum.image saveAs:@"/Users/localadmin/Desktop/poop.png"];
+//
+//	AZFile* ss = [AZFile instanceWithColor:RANDOMCOLOR];
+//	AZLOG(ss.propertiesPlease);
+//	[ss.image saveAs:@"/Users/localadmin/Desktop/poopss.png"];
+//
+//	AZTalker *welcome = [AZTalker new];
+//	[welcome say:@"welcome"];
+//
+//	[[AZTalker sharedInstance]say:@"huge vgaenn"];
+//
+//
+//	CGPoint a = AZAnchorPointForPosition( AZPositionLeft);
+//
+//	NSLog(@"%@", NSStringFromPoint(a));
 
-		NSA* s  = [NSA arrayWithContentsOfFile:@"/Users/localadmin/Desktop/gists.plist"];
-		NSBag *b = [s ojectsInSubdictionariesForKey:@"language"];
-		AZLOG(b);
-	}
-	return 0;
-}
+//		NSA* s  = [NSA arrayWithContentsOfFile:@"/Users/localadmin/Desktop/gists.plist"];
+//		NSBag *b = [s ojectsInSubdictionariesForKey:@"language"];
+//		AZLOG(b);
 
 /**
 

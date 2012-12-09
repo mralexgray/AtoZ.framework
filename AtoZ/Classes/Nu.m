@@ -234,7 +234,7 @@ static bool nu_valueIsTrue(id value)
 
 - (void) setArgc:(int) argc argv:(const char *[])argv startingAtIndex:(int) start
 {
-	arguments = [[NSMutableArray alloc] init];
+	arguments = NSMA.new;
 	int i;
 	for (i = start; i < argc; i++) {
 		[arguments addObject:[NSString stringWithCString:argv[i] encoding:NSUTF8StringEncoding]];
@@ -3936,7 +3936,7 @@ static BOOL NuException_verboseExceptionReporting = NO;
 - (id)initWithName:(NSString *)name reason:(NSString *)reason userInfo:(NSDictionary *)userInfo
 {
 	self = [super initWithName:name reason:reason userInfo:userInfo];
-	stackTrace = [[NSMutableArray alloc] init];
+	stackTrace = NSMA.new;
 	return self;
 }
 
@@ -6237,7 +6237,7 @@ static void nu_markEndOfObjCTypeString(char *type, size_t len)
 	// This seems like a bottleneck, and it also lacks flexibility.
 	// Replacing explicit string building with the selector cache reduced runtimes by around 20%.
 	// Methods with variadic arguments (NSArray arrayWithObjects:...) are not supported.
-	NSMutableArray *args = [[NSMutableArray alloc] init];
+	NSMutableArray *args = NSMA.new;
 	id cursor = cdr;
 	SEL sel = 0;
 	id nextSymbol = [cursor car];
@@ -6289,7 +6289,7 @@ static void nu_markEndOfObjCTypeString(char *type, size_t len)
 	if (m) {
 		// We have a method that matches the selector.
 		// First, evaluate the arguments.
-		NSMutableArray *argValues = [[NSMutableArray alloc] init];
+		NSMutableArray *argValues = NSMA.new;
 		NSUInteger i;
 		NSUInteger imax = [args count];
 		for (i = 0; i < imax; i++) {
@@ -9351,7 +9351,7 @@ static id regexWithString(NSString *string)
 		// create top-level context
 		context = [[NSMutableDictionary alloc] init];
 		
-		readerMacroStack = [[NSMutableArray alloc] init];
+		readerMacroStack = NSMA.new;
 		
 		[context setPossiblyNullObject:self forKey:[symbolTable symbolWithString:@"_parser"]];
 		[context setPossiblyNullObject:symbolTable forKey:SYMBOLS_KEY];
@@ -10627,7 +10627,7 @@ static NuProfiler *defaultProfiler = nil;
 - (id) init
 {
 	if ((self = [super init])) {
-		storage = [[NSMutableArray alloc] init];
+		storage = NSMA.new;
 	}
 	return self;
 }
@@ -10713,7 +10713,7 @@ static NuProfiler *defaultProfiler = nil;
 	//NSLog(@"messaging super with %@", [cdr stringValue]);
 	// But when they're at the head of a list, the list is converted to a message and sent to the object
 	
-	NSMutableArray *args = [[NSMutableArray alloc] init];
+	NSMutableArray *args = NSMA.new;
 	id cursor = cdr;
 	id selector = [cursor car];
 	NSMutableString *selectorString = [NSMutableString stringWithString:[selector stringValue]];

@@ -20,7 +20,7 @@
 	NSLog(@"Position: %@", NSStringFromPoint([_collectionView positionOfCellAtIndex:index]));
 }
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-	content = [[NSMutableArray alloc] init];
+	content = NSMA.new;
 	for(int i=0; i<1000; i++) // This creates 59000 elements!	{
 		[[[[NSWorkspace sharedWorkspace] runningApplications]valueForKeyPath:@"icon"]  enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 			[content addObject:obj];

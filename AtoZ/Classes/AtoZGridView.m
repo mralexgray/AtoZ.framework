@@ -1,6 +1,8 @@
 
 #import "AtoZGridView.h"
-#import "AtoZ.h"
+#import <DrawKit/DKDrawKit.h>
+
+#import <DrawKit/DKStrokeDash.h>
 
 
 NSString *const reuseIdentifier = @"AtoZGridViewItem";
@@ -813,10 +815,10 @@ static CGF mPhase = 0;
 	NSBP *selectionFramePath = [NSBP bezierPathWithRoundedRect:dirtyRect xRadius:0 yRadius:0];
 	[selectionFramePath fillWithColor:[GRAY4 alpha:0.42]];
 	[selectionFramePath strokeWithColor:WHITE andWidth:8 inside:dirtyRect];
-	DKStrokeDash *d = DKStrokeDash.defaultDash;//;equallySpacedDashToFitSize:dirtyRect.size dashLength:40];
-//	[d setScalesToLineWidth:YES];//setPhase:phase];
-	[d setPhase:mPhase];
-	[d applyToPath:selectionFramePath];
+//	DKStrokeDash *d = DKStrokeDash.defaultDash;//;equallySpacedDashToFitSize:dirtyRect.size dashLength:40];
+////	[d setScalesToLineWidth:YES];//setPhase:phase];
+//	[d setPhase:mPhase];
+//	[d applyToPath:selectionFramePath];
 	[selectionFramePath strokeWithColor:BLACK andWidth:8 inside:dirtyRect];
 	mPhase += 5;
 //	timer = [NSTimer scheduledTimerWithTimeInterval:.1 target:self selector:@selector(aniHandler:) userInfo:nil repeats:YES];
@@ -1012,19 +1014,22 @@ static CGF mPhase = 0;
 @class AZSizer;
 @implementation  AtoZGridViewAuto
 
-- (NSUI) countOfItems {       return [self.items count];}
-- (id)   objectInItemsAtIndex: (NSUI)index { return self.items[index]; }
-- (void) insertObject:(id)obj inItemsAtIndex: (NSUI)index { self.items[index] = obj; }
-- (void) removeObjectFromItemsAtIndex: 		  (NSUI)index { [self.items removeObjectAtIndex:index]; }
-- (void) replaceObjectInItemsAtIndex:  		  (NSUI)index withObject:(id)obj { [self.items replaceObjectAtIndex:index withObject:obj]; }
+- (NSUI) countOfItems 												 {  return self.items.count;							   }
+- (id)   objectInItemsAtIndex: (NSUI)index 							 {  return self.items[index]; 							   }
+- (void) insertObject:(id)obj inItemsAtIndex: (NSUI)index 			 {  self.items[index] = obj; 							   }
+- (void) removeObjectFromItemsAtIndex: (NSUI)index 					 { [self.items removeObjectAtIndex:index]; 				   }
+- (void) replaceObjectInItemsAtIndex: (NSUI)index withObject:(id)obj { [self.items replaceObjectAtIndex:index withObject:obj]; }
 
 - (void) awakeFromNib {
 	if (!_items) self.items = NSMA.new;
 //	[self addObserver:self keyPath:@"items" options:(NSKeyValueChangeInsertion|NSKeyValueChangeReplacement) block:^(MAKVONotification *notification) {
 //		NSLog(@"autogrid kvo notified of item insertion.  reloading");
-//		[self.grid reloadData];
-//	}];
-
+//		[self.grid reloadData];	}];
+}
+-(void) scrollWheel:(NSE*)e
+{
+	self.grid.itemSize = AZAddSizes(_grid.itemSize, AZSizeFromDimension(e.deltaX));
+	[self.nextResponder scrollWheel:e];
 }
 - (void) viewDidMoveToSuperview
 {
@@ -1032,23 +1037,15 @@ static CGF mPhase = 0;
 //	NSLog(@"Autogrid did move to superV. self:%@ items:%@", AZString(self.frame), self.items);
 	[@[self, self.scrollView, self.grid] do:^(NSV* obj) { if (! NSEqualSizes(obj.size, superF.size)) obj.frame = superF; }];
 	!_items ?: [self.grid reloadData];
-	[NSEVENTLOCALMASK : NSScrollWheelMask handler:^NSEvent *(NSEvent *e) {
-//		AZLOG(e);
-		self.grid.itemSize = AZAddSizes(_grid.itemSize, AZSizeFromDimension(e.deltaX));
-		[self.nextResponder scrollWheel:e];
-		return e;
-	}];
 //	if (_items.count != 0) [_grid reloadData];
 }
 
 - (NSSV*) scrollView {
-	return _scrollView = _scrollView ?: ^{
+	return _scrollView ?: ^{
 		self.scrollView					= [NSSV.alloc initWithFrame:self.bounds];
 		_scrollView.bgC					= [NSC leatherTintedWithColor:RANDOMCOLOR];
-//		_scrollView.autoresizesSubviews = YES;
 		_scrollView.arMASK 				= NSSIZEABLE;
 		_scrollView.borderType 			= NSNoBorder;
-//		_scrollView.hasVerticalScroller	= YES;
 		_scrollView.documentView		= self.grid;
 		[self addSubview:_scrollView];
 		return _scrollView;
@@ -1057,16 +1054,17 @@ static CGF mPhase = 0;
 
 - (void) setItems:(NSMA*)items
 {
-	_items = [items map:^id(NSO* obj) {
-		return @{ 	kContentImageKey: obj.imageValue ?: [NSIMG imageNamed:@"missing"],
+	_items = [items cw_mapArray:^id(NSO* obj) {
+
+		return 	@{ 	kContentImageKey: obj.imageValue ?: [NSIMG imageNamed:@"missing"] ELSENULL,
 					kContentTitleKey: [obj respondsToString:@"name"] ? [obj valueForKey:@"name"] : @"N/A",
-					kContentColorKey: obj.colorValue  };
-				}].mutableCopy;
+					kContentColorKey: obj.colorValue ELSENULL } ?: nil;
+	}].mutableCopy;
 }
 
 - (AZGV*)grid
 {
-	return _grid = _grid ?: ^{
+	return _grid ?: ^{
 		self.grid 				= [AZGView.alloc initWithFrame:self.bounds];
 		_grid.arMASK    		= NSSIZEABLE;
 //		_grid.delegate 			= self;
@@ -1079,11 +1077,10 @@ static CGF mPhase = 0;
 }
 -(id) initWithFrame:(NSR)frame andArray:(NSArray *)array  // inView:(NSView *)view
 {
-	if (!(self = [super initWithFrame:frame])) return nil;
+    if (self != [super initWithFrame:frame]) return nil;
 	self.autoresizesSubviews = YES;
 	self.arMASK 		= NSSIZEABLE;
-	self.items  		= array.mutableCopy;
-
+	self.items = array.mutableCopy;
 	return self;
 }
 //- (BOOL)acceptsFirstResponder {	return YES; }

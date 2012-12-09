@@ -5,8 +5,16 @@
 #import <Foundation/Foundation.h>
 #import "AtoZ.h"
 
+@interface NSString (MD5)
+- (NSString *)MD5String;
+@end
+
+
 @interface NSString (AtoZ)
 
+- (NSS*)wikiDescription;
+
+- (NSS*)parseXMLTag:(NSS*)tag;
 - (NSString*)stripHtml;
 
 + (NSS*) clipboard;

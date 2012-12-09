@@ -7,19 +7,19 @@
 
 @implementation NSArray (EnumExtensions)
 
-- (NSString*) stringWithEnum: (NSUInteger) enumVal
+- (NSS*) stringWithEnum: (NSUInteger) enumVal
 {
 	return self[enumVal];
 }
 
-- (NSUInteger) enumFromString: (NSString*) strVal default: (NSUInteger) def
+- (NSUInteger) enumFromString: (NSS*) strVal default: (NSUInteger) def
 {
-	NSUInteger n = [self indexOfObject:strVal];
+	NSUI n = [self indexOfObject:strVal];
 	if(n == NSNotFound) n = def;
 	return n;
 }
 
-- (NSUInteger) enumFromString: (NSString*) strVal
+- (NSUInteger) enumFromString: (NSS*) strVal
 {
 	return [self enumFromString:strVal default:0];
 }
@@ -38,6 +38,12 @@
 @end
 
 @implementation NSArray (AtoZ)
+
+
++ (NSA*) from:(NSI)from to:(NSI)to;
+{
+	return [self.class arrayFrom:from To:to];
+}
 
 
 - (id) nextObject;
@@ -65,7 +71,7 @@
 
 + (NSArray*)arrayWithRange:(NSRange)range {
 	NSMutableArray* array = [[NSMutableArray alloc] initWithCapacity:range.length] ;
-	NSInteger i ;
+	NSI i ;
 	for (i=range.location; i<(range.location + range.length); i++) {
 		[array addObject:[NSNumber numberWithInteger:i]] ;
 	}
@@ -103,39 +109,39 @@
 	return [self map:^id(id obj) { return [NSURL fileURLWithPath:obj]; }];
 }
 
-- (void) logEachPropertiesPlease;{	[self eachWithIndex:^(id obj, NSInteger idx) {		NSLog(@"%@", [obj propertiesPlease]); }]; }
+- (void) logEachPropertiesPlease;{	[self eachWithIndex:^(id obj, NSI idx) {		NSLog(@"%@", [obj propertiesPlease]); }]; }
 
 - (void) logEachProperties
 {
-	[self eachWithIndex:^(id obj, NSInteger idx) {		NSLog(@"%@", [obj properties]); }];
+	[self eachWithIndex:^(id obj, NSI idx) {		NSLog(@"%@", [obj properties]); }];
 }
 
 - (void) logEach;
 {
-	[self eachWithIndex:^(id obj, NSInteger idx) {		NSLog(@"Index %ld: %@",idx, obj);  }];
+	[self eachWithIndex:^(id obj, NSI idx) {		NSLog(@"Index %ld: %@",idx, obj);  }];
 }
 
-+ (NSA*) arrayFromPlist:(NSString*)path {
++ (NSA*) arrayFromPlist:(NSS*)path {
 
 	return [NSPropertyListSerialization propertyListFromData:
 		   [NSData dataWithContentsOfFile:path] mutabilityOption:NSPropertyListImmutable
 														  format:nil errorDescription:nil];
 }
-- (void) saveToPlistAtPath:(NSString*)path{
+- (void) saveToPlistAtPath:(NSS*)path{
 
 	[HRCoder archiveRootObject:self toFile:path];
 	[NSTask launchedTaskWithLaunchPath:@"/usr/bin/plutil" arguments:@[@"-convert", @"xml1", path]];
 }
-- (NSArray *)arrayWithEach{
+- (NSA*)arrayWithEach{
 	return	[NSArray arrayWithArrays:self];
 }
 
-+ (NSArray *)arrayWithArrays:(NSArray *)arrays
++ (NSA*)arrayWithArrays:(NSA*)arrays
 {
 	return [[[self mutableArrayWithArrays:arrays] copy] autorelease];
 }
 
-+ (NSMutableArray *)mutableArrayWithArrays:(NSArray *)arrays
++ (NSMutableArray *)mutableArrayWithArrays:(NSA*)arrays
 {
 	NSMutableArray *array = [NSMutableArray arrayWithCapacity:0];
 	for (NSArray *a in arrays)
@@ -144,35 +150,35 @@
 	}
 	return array;
 }
-- (NSString*) stringWithEnum: (NSUInteger) anEnum; {	return self[anEnum];	}
+- (NSS*) stringWithEnum: (NSUInteger) anEnum; {	return self[anEnum];	}
 
-- (NSUInteger) enumFromString: (NSString*) aString default: (NSUInteger) def;
+- (NSUInteger) enumFromString: (NSS*) aString default: (NSUInteger) def;
 {
-	NSUInteger n = [self indexOfObject:aString];	check( n != NSNotFound ); if ( n == NSNotFound )  n = def;	return n;
+	NSUI n = [self indexOfObject:aString];	check( n != NSNotFound ); if ( n == NSNotFound )  n = def;	return n;
 }
 
-- (NSUInteger) enumFromString: (NSString*) aString;	{	return [self enumFromString:aString default:0];	}
+- (NSUInteger) enumFromString: (NSS*) aString;	{	return [self enumFromString:aString default:0];	}
 
-- (NSArray *)colorValues {
+- (NSA*)colorValues {
 	return [self arrayUsingBlock:^id(id obj) {
 		return [obj colorValue];
 	}];
 //	[self arrayPerformingSelector:@selector(colorValue)];
 }
-- (NSArray *)arrayUsingIndexedBlock:(id (^)(id obj, NSUInteger idx))block {
+- (NSA*)arrayUsingIndexedBlock:(id (^)(id obj, NSUI idx))block {
 
    NSMutableArray *result = [NSMutableArray arrayWithCapacity:[self count]];
-	[self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+	[self enumerateObjectsUsingBlock:^(id obj, NSUI idx, BOOL *stop) {
 		[result addObject:block(obj, idx)];
 	}];
 	return result;
 }
 
 // NSArray *sortedArray = [theArray sortedWithKey:@"theKey" ascending:YES];
-- (NSArray *)sortedWithKey:(NSString *)theKey ascending:(BOOL)ascending {
+- (NSA*)sortedWithKey:(NSS*)theKey ascending:(BOOL)ascending {
 	return [self sortedArrayUsingDescriptors:@[[[NSSortDescriptor alloc] initWithKey:theKey ascending:ascending]]];
 }
-static NSInteger comparatorForSortingUsingArray(id object1, id object2, void *context)
+static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 {
 	// Use NSArray's -indexOfObject:anObject rather than its "identical" form,
 	// -indexOfObjectIdenticalTo:anObject. Note that converting object to index
@@ -181,8 +187,8 @@ static NSInteger comparatorForSortingUsingArray(id object1, id object2, void *co
 	// unsigned integer, objects not found come last in the sorting order. Also
 	// note, if the two objects have the same index, their values are compared
 	// as normal.
-	NSUInteger index1 = [(__bridge NSArray *)context indexOfObject:object1];
-	NSUInteger index2 = [(__bridge NSArray *)context indexOfObject:object2];
+	NSUI index1 = [(__bridge NSArray *)context indexOfObject:object1];
+	NSUI index2 = [(__bridge NSArray *)context indexOfObject:object2];
 	if (index1 < index2)
 		return NSOrderedAscending;
 	// else
@@ -192,20 +198,20 @@ static NSInteger comparatorForSortingUsingArray(id object1, id object2, void *co
 	return [object1 compare:object2];
 }
 
-//- (NSArray *)sortedArrayUsingArray:(NSArray *)otherArray
+//- (NSA*)sortedArrayUsingArray:(NSA*)otherArray
 //{	NSArray *array = [
 //	return [self sortedArrayUsingFunction:comparatorForSortingUsingArray context:otherArray];
 //}
 
 // an array of NSNumbers with Integer values, NSNotFound is the terminator
-+ (NSArray *)arrayWithInts:(NSInteger)i,... {
++ (NSA*)arrayWithInts:(NSInteger)i,... {
 	NSMutableArray *re = NSMutableArray.array;
 	
 	[re addObject:[NSNumber numberWithInt:i]];
 	
 	va_list args;
 	va_start(args, i);
-	NSInteger v;
+	NSI v;
 	while ((v = va_arg(args, NSInteger)) != NSNotFound) {
 		[re addObject:[NSNumber numberWithInt:v]];
 	}
@@ -215,7 +221,7 @@ static NSInteger comparatorForSortingUsingArray(id object1, id object2, void *co
 }
 
 // an array of NSNUmbers with double values, MAXFLOAT is the terminator
-+ (NSArray *)arrayWithDoubles:(double)f,... {
++ (NSA*)arrayWithDoubles:(double)f,... {
 	NSMutableArray *re = NSMutableArray.array;
 	
 	[re addObject:@(f)];
@@ -236,24 +242,24 @@ static NSInteger comparatorForSortingUsingArray(id object1, id object2, void *co
 	return [NSSet setWithArray:self];
 }
 
-- (NSArray *)shifted {
+- (NSA*)shifted {
 	NSMutableArray *re = [self mutableCopy];
 	[re removeFirstObject];
 	return re;
 }
 
-- (NSArray *)popped {
+- (NSA*)popped {
 	NSMutableArray *re = [self mutableCopy];
 	[re removeLastObject];
 	return re;
 }
 
-- (NSArray *)reversed {
+- (NSA*)reversed {
 	return [[self mutableCopy] az_reverse];
 }
 
 // array evaluating the keyPath
-- (NSArray *)arrayWithKey:(NSString *)keyPath {
+- (NSA*)arrayWithKey:(NSS*)keyPath {
 	NSMutableArray *re = [NSMutableArray arrayWithCapacity:self.count];
 	for (id o in self) {
 		id v = [o valueForKeyPath:keyPath];
@@ -383,11 +389,11 @@ static NSInteger comparatorForSortingUsingArray(id object1, id object2, void *co
 
 
 
-- (NSArray *)arrayUsingBlock:(id (^)(id obj))block {
+- (NSA*)arrayUsingBlock:(id (^)(id obj))block {
 	return [self map:block];
 }
 
-- (NSArray *)map:(id (^)(id obj))block {
+- (NSA*)map:(id (^)(id obj))block {
 	NSMutableArray *re = [NSMutableArray arrayWithCapacity:self.count];
 	for (id o in self) {
 		id v = block(o);
@@ -396,7 +402,7 @@ static NSInteger comparatorForSortingUsingArray(id object1, id object2, void *co
 	return re;
 }
 
-- (NSArray *)nmap:(id (^)(id obj, NSUInteger index))block {
+- (NSA*)nmap:(id (^)(id obj, NSUI index))block {
 	NSMutableArray *re = [NSMutableArray arrayWithCapacity:self.count];
 	for (int i = 0; i < self.count; i++) {
 		id v, o = self[i];
@@ -405,111 +411,65 @@ static NSInteger comparatorForSortingUsingArray(id object1, id object2, void *co
 	return re;
 }
 
-- (id)reduce:(id (^)(id a, id b))block {
-	if (!self.count) {
-		return nil;
-	}
-	
+- (id)reduce:(id (^)(id a, id b))block
+{
+	if (!self.count) return nil;
 	id re = self.first;
-	
-	for (int i = 1; i < self.count; i++) {
-		re = block(re, self[i]);
-	}
-	
+	for (int i = 1; i < self.count; i++)		re = block(re, self[i]);
 	return re;
 }
 
-- (NSArray *)arrayWithoutObject:(id)object {
-	return [self arrayWithoutSet:[NSSet setWithObject:object]];
-}
+- (NSA*)arrayWithoutObject:(id)object {	return [self arrayWithoutSet:NSSET(object)]; }
 
-- (NSArray *)arrayWithoutObjects:(id)object,... {
+- (NSA*)arrayWithoutObjects:(id)object,...
+{
 	NSSet *s = NSSet.set;
-	
 	va_list args;
 	va_start(args, object);
 	id o = nil;
-	while ((o = va_arg(args,id)) != nil) {
-		s = [s setByAddingObject:o];
-	}
+	while ((o = va_arg(args,id)) != nil) 	s = [s setByAddingObject:o];
 	va_end(args);
-	
-	NSArray *re = [self arrayWithoutSet:s];
-	
+	NSA *re = [self arrayWithoutSet:s];
 	return re;
 }
 
-- (NSArray *)arrayWithoutArray:(NSArray *)value {
-	return [self arrayWithoutSet:value.set];
-}
+- (NSA*)arrayWithoutArray:(NSA*)value {	return [self arrayWithoutSet:value.set]; }
 
-- (NSArray *)arrayWithoutSet:(NSSet *)values {
+- (NSA*)arrayWithoutSet:(NSSet *)values
+{
 	NSArray *re = NSArray.array;
-	
-	for (id o in self) {
-		if (![values containsObject:o]) {
-			re = [re arrayByAddingObject:o];
-		}
-	}
-	
+	for (id o in self)	if (![values containsObject:o])  re = [re arrayByAddingObject:o];
 	return re;
 }
 
-- (NSArray *)filter:(BOOL (^)(id object))block {
-	return [self filteredArrayUsingBlock:^(id o, NSDictionary *d) {
-		return (BOOL) block(o);
-	}];
-}
+- (NSA*)filter:(BOOL(^)(id object))blk {	return [self filteredArrayUsingBlock:^(id o, NSD *d) { return (BOOL) blk(o); }]; }
 
-- (id)filterOne:(BOOL (^)(id object))block {
+- (id)filterOne:(BOOL(^)(id object))blk
+{
 	__block id re = nil;
-	
-	[self enumerateObjectsUsingBlock:^(id o, NSUInteger i, BOOL *stop) {
-		if (block(o)) {
-			*stop = YES;
-			re = o;
-		}
+	[self enumerateObjectsUsingBlock:^(id o, NSUI i, BOOL *stop) {
+		if (blk(o)) {	*stop = YES;	re = o;	}
 	}];
-	
 	return re;
 }
 
-- (BOOL)allKindOfClass:(Class)aClass {
-	for (id o in self) {
-		if (![o isKindOfClass:aClass]) {
-			return NO;
-		}
-	}
-	
-	return YES;
+- (BOOL)allKindOfClass:(Class)aClass {	for (id o in self) if (![o isKindOfClass:aClass]) return NO; return YES;  }
+
+- (NSA*)elementsOfClass:(Class)aClass
+{
+	return [self cw_mapArray:^id(id o) { return [o isKindOfClass:aClass] ? o : nil; }];
 }
 
-- (NSArray *)elementsOfClass:(Class)aClass {
-	NSMutableArray *re = NSMutableArray.array;
-	
-	for (id o in self) {
-		if ([o isKindOfClass:aClass]) {
-			[re addObject:o];
-		}
-	}
-	
-	return re;
-}
+- (NSA*)numbers {	return [self elementsOfClass:NSNumber.class]; }
 
-- (NSArray *)numbers {
-	return [self elementsOfClass:NSNumber.class];
-}
+- (NSA*)strings {	return [self elementsOfClass:NSString.class]; }
 
-- (NSArray *)strings {
-	return [self elementsOfClass:NSString.class];
-}
-
-//- (NSArray *)trimmedStrings {
+//- (NSA*)trimmedStrings {
 //	NSMutableArray *re = NSMutableArray.array;
 //	
 //	for (id o in self) {
 //		if ([o isKindOfClass:NSString.class]) {
-//			NSString *s = [o trim];
+//			NSS*s = [o trim];
 //			if (!s.isEmpty) {
 //				[re addObject:s];
 //			}
@@ -519,122 +479,60 @@ static NSInteger comparatorForSortingUsingArray(id object1, id object2, void *co
 //	return re;
 //}
 // accessing
-- (id)objectAtIndex:(NSUInteger)index fallback:(id)fallback {
-	if (self.count <= index) {
-		return fallback;
-	}
-	
-	@try {
-		id re = self[index];
-		return !re ? fallback : re;
-	}
-	@catch (NSException *e) {
-		return fallback;
-	}
-}
-
-- (id)objectOrNilAtIndex:(NSUInteger)index {
-	if (self.count <= index) {
-		return nil;
-	}
-	
-	return self[index];
-}
-- (id)first {
-	return [self objectOrNilAtIndex:0];
-}
-
-- (id)second { 
-	return [self objectOrNilAtIndex:1]; 
-}
-
-- (id)thrid {
-	return [self objectOrNilAtIndex:2];
-}
-
-- (id)fourth {
-	return [self objectOrNilAtIndex:3];
-}
-
-- (id)fifth {
-	return [self objectOrNilAtIndex:4];
-}
-
-- (id)sixth {
-	return [self objectOrNilAtIndex:5];
-}
-
-- (NSArray *)subarrayFromIndex:(NSInteger)start
+- (id)objectAtIndex:(NSUI)index fallback:(id)fallback
 {
-	return [self subarrayFromIndex:start toIndex:(self.count - 1)];
+	if (self.count <= index) 						return fallback;
+	@try 					{ id re = self[index];	return !re ? fallback : re; }
+	@catch (NSException *e) {						return fallback; 			}
 }
 
-- (NSArray *)subarrayToIndex:(NSInteger)end
-{
-	return [self subarrayFromIndex:0 toIndex:end];
-}
+- (id)objectOrNilAtIndex:(NSUI)index {	return self.count <= index ? nil : self[index]; }
 
-- (NSArray *)subarrayFromIndex:(NSInteger)start toIndex:(NSInteger)end
+- (id) first	{ return [self objectOrNilAtIndex:0]; }
+- (id) second	{ return [self objectOrNilAtIndex:1]; }
+- (id) thrid	{ return [self objectOrNilAtIndex:2]; }
+- (id) fourth 	{ return [self objectOrNilAtIndex:3]; }
+- (id) fifth 	{ return [self objectOrNilAtIndex:4]; }
+- (id) sixth	{ return [self objectOrNilAtIndex:5]; }
+
+- (NSA*)subarrayFromIndex:(NSI)start {	return [self subarrayFromIndex:start toIndex:(self.count - 1)]; }
+
+- (NSA*)subarrayToIndex:(NSI)end	 {	return [self subarrayFromIndex:0 toIndex:end];	}
+
+- (NSA*)subarrayFromIndex:(NSInteger)start toIndex:(NSInteger)end
 {
-	NSInteger from = start;
-	while (from < 0) {
-		from += self.count;
-	}
-	if (from > self.count) {
-		return nil;
-	}
-	NSInteger to = end;
-	while (to < 0) {
-		to += self.count;
-	}
-	
+	NSI from = start;
+	while (from < 0) from += self.count;
+	if (from > self.count)	return nil;
+
+	NSI to = end;
+	while (to < 0) 	   to += self.count;
 	if (from >= to) {
-		// this behaviour is somewhat different
-		// it will return anything from this array except the passed range
-		NSArray *re = @[];
-		
-		if (from > 0) {
-			re = [self subarrayWithRange:NSMakeRange(0, from - 1)];
-		}
+	// this behaviour is somewhat different it will return anything from this array except the passed range
+		NSA *re = @[];
+		if (from > 0)	re = [self subarrayWithRange:(NSRNG){0, from - 1}];
 		if (to < self.count) {
-			if (re != nil) {
-				re = [re arrayByAddingObjectsFromArray:[self subarrayWithRange:NSMakeRange(to - 1, self.count - 1)]];
-			}
+			if (re != nil) re = [re arrayByAddingObjectsFromArray:[self subarrayWithRange: (NSRNG) {to - 1, self.count - 1}]];
 		}
-		
 		return re;
 	}
-	
-	return [self subarrayWithRange:NSMakeRange(from, to)];
+	return [self subarrayWithRange:(NSRNG){from, to}];
 }
 
-- (id)randomElement {
-	if (!self.count) {
-		return nil;
-	}
-	NSUInteger index = arc4random() % self.count;
-	
-	return self[index];
-}
+- (id)randomElement { return !self.count ? nil : self[ arc4random() % self.count ];   }
 
-- (NSArray *)shuffeled {
-	if (self.count < 2) {
-		return self;
-	}
-	
-	return ((NSMutableArray *) self.mutableCopy).shuffle;
-}
+- (NSA*)shuffeled {	return self.count < 2 ? self : ((NSMA*)self.mutableCopy).shuffle; }
 
-- (NSArray *)randomSubarrayWithSize:(NSUInteger)size {
+- (NSA*)randomSubarrayWithSize:(NSUInteger)size {
 	if (self.count == 0) {
 		return @[];
 	}
 	
-	NSUInteger capacity = MIN(size, self.count);
+	NSUI capacity = MIN(size, self.count);
 	NSMutableArray *re = [NSMutableArray arrayWithCapacity:capacity];
 	
 	while (re.count < capacity) {
-		NSUInteger index = random() % (self.count - re.count);
+		NSUI index = random() % (self.count - re.count);
 		id e = self[index];
 		while ([re containsObject:e]) {
 			e = self[++index];
@@ -659,8 +557,8 @@ static NSInteger comparatorForSortingUsingArray(id object1, id object2, void *co
 	return self[index % self.count];
 }
 
-- (NSInteger)sumIntWithKey:(NSString *)keyPath {
-	NSInteger re = 0;
+- (NSInteger)sumIntWithKey:(NSS*)keyPath {
+	NSI re = 0;
 	for (id v in self) {
 		id k = v;
 		if (keyPath != nil) {
@@ -674,8 +572,8 @@ static NSInteger comparatorForSortingUsingArray(id object1, id object2, void *co
 	return re;
 }
 
-- (CGFloat)sumFloatWithKey:(NSString *)keyPath {
-	CGFloat re = 0;
+- (CGF)sumFloatWithKey:(NSS*)keyPath {
+	CGF re = 0;
 	for (id v in self) {
 		id k = v;
 		if (keyPath != nil) {
@@ -722,11 +620,11 @@ static NSInteger comparatorForSortingUsingArray(id object1, id object2, void *co
 	return nil;
 }
 
--(void)setAndExecuteEnumeratorBlock:(void (^)(id obj, NSUInteger idx, BOOL *stop))block {
+-(void)setAndExecuteEnumeratorBlock:(void (^)(id obj, NSUI idx, BOOL *stop))block {
 	[self enumerateObjectsUsingBlock:block];
 }
 
--(NSArray *)objectsWithFormat:(NSString *)format, ... {
+-(NSA*)objectsWithFormat:(NSS*)format, ... {
 	va_list args;
 	va_start(args, format);
 	NSPredicate *p = [NSPredicate predicateWithFormat:format arguments:args];
@@ -735,7 +633,7 @@ static NSInteger comparatorForSortingUsingArray(id object1, id object2, void *co
 	return [self filteredArrayUsingPredicate:p];
 }
 
--(id)firstObjectWithFormat:(NSString *)format, ... {
+-(id)firstObjectWithFormat:(NSS*)format, ... {
 	va_list args;
 	va_start(args, format);
 	NSPredicate *p = [NSPredicate predicateWithFormat:format arguments:args];
@@ -750,7 +648,7 @@ static NSInteger comparatorForSortingUsingArray(id object1, id object2, void *co
 	return nil;
 }
 
--(NSArray *)filteredArrayUsingBlock: (BOOL (^)(id evaluatedObject, NSDictionary *bindings))block
+-(NSA*)filteredArrayUsingBlock: (BOOL (^)(id evaluatedObject, NSDictionary *bindings))block
 {
 	NSPredicate *p = [NSPredicate predicateWithBlock:block];
 	return [self filteredArrayUsingPredicate:p];
@@ -774,10 +672,8 @@ static NSInteger comparatorForSortingUsingArray(id object1, id object2, void *co
  
  /**	Convenience Method to return the first object in
  * a NSArray	*/
-- (id) firstObject
-{
-	return ( [self count] > 0 ) ? self[0] : nil;
-}
+- (id) firstObject  {	return self.count > 0 ? self[0] : nil;	}
+- (id) last 		{	return self.lastObject; } //return self.count > 0 ? self[self.count - 1] : nil;	}
 
  
  /**
@@ -794,7 +690,7 @@ static NSInteger comparatorForSortingUsingArray(id object1, id object2, void *co
  @param obj (Block Parameter) this is the object in the array currently being enumerated over
  @param index (Block Parameter) this is the index of obj in the array
  @param stop (Block Parameter) set this to YES to stop enumeration, otherwise there is no need to use this	*/
-- (void) az_each:(void (^)(id obj, NSUInteger index, BOOL *stop))block
+- (void) az_each:(void (^)(id obj, NSUI index, BOOL *stop))block
 {
 	[self enumerateObjectsUsingBlock:block];
 }
@@ -810,19 +706,16 @@ static NSInteger comparatorForSortingUsingArray(id object1, id object2, void *co
  @param index (Block Parameter) the position of the object in the array
  @param obj (Block Parameter) the object being enumerated over
  @param stop (Block Parameter) if you need to stop the enumeration set this to YES otherwise do nothing	*/
-- (void) az_eachConcurrentlyWithBlock:(void (^)(NSInteger index, id obj, BOOL * stop))block
+- (void) az_eachConcurrentlyWithBlock:(void (^)(NSI index, id obj, BOOL * stop))block
 {
 	//make sure we get a unique queue identifier
 	dispatch_group_t group = dispatch_group_create();
 	dispatch_queue_t queue = dispatch_queue_create([[NSString stringWithFormat:@"%@%@", @"com.AGFoundation.NSArray_", [NSString newUniqueIdentifier]] UTF8String], DISPATCH_QUEUE_CONCURRENT);
 	__block BOOL _stop = NO;
-	NSInteger idx = 0;
-
+	NSI idx = 0;
 	for (id object in self) {
 		if (_stop) { break; }
-		dispatch_group_async(group, queue, ^{
-			block (idx,object, &_stop);
-		});
+		dispatch_group_async(group, queue, ^{  block (idx,object, &_stop);	});
 		idx++;
 	}
 
@@ -836,7 +729,7 @@ static NSInteger comparatorForSortingUsingArray(id object1, id object2, void *co
 - (id) findWithBlock:(BOOL (^)(id obj))block
 {
 	__block id foundObject = nil;
-	[self enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id object, NSUInteger idx, BOOL *stop) {
+	[self enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id object, NSUI idx, BOOL *stop) {
 		if (block(object)) {
 			foundObject = object;
 			*stop = YES;
@@ -854,10 +747,10 @@ static NSInteger comparatorForSortingUsingArray(id object1, id object2, void *co
 /**	Like find but instead of returning the first object
  * that passes the test it returns all objects passing the
  * bool block test	*/
-- (NSArray *)findAllWithBlock:(BOOL (^)(id obj))block
+- (NSA*)findAllWithBlock:(BOOL (^)(id obj))block
 {
-	NSMutableArray * results = [[NSMutableArray alloc] init];
-	[self az_each:^(id obj, NSUInteger index, BOOL *stop) {
+	NSMA* results = NSMA.new;
+	[self az_each:^(id obj, NSUI index, BOOL *stop) {
 		if (block(obj)) {
 			[results addObject:obj];
 		}
@@ -876,10 +769,8 @@ static NSInteger comparatorForSortingUsingArray(id object1, id object2, void *co
 - (NSHashTable *) findAllIntoWeakRefsWithBlock:(BOOL (^)(id))block
 {
 	NSHashTable * results = [NSHashTable hashTableWithWeakObjects];
-	[self az_each:^(id obj, NSUInteger index, BOOL *stop) {
-		if (block(obj)) {
-			[results addObject:obj];
-		}
+	[self az_each:^(id obj, NSUI index, BOOL *stop) {
+		if (block(obj))	[results addObject:obj];
 	}];
 	return results;
 }
@@ -894,44 +785,53 @@ static NSInteger comparatorForSortingUsingArray(id object1, id object2, void *co
  *
  * @param block a block in which you return an object to be mapped to a new array or nil to not map it
  * @return a new mapped array	*/
-- (NSArray *) mapArray:(id (^)(id obj))block
+- (NSA*) mapArray:(id (^)(id obj))block
 {
-	NSMutableArray * cwArray = [[NSMutableArray alloc] init];
-	[self az_each:^(id obj, NSUInteger index, BOOL *stop) {
+	NSMA * cwArray = NSMA.new;
+	[self az_each:^(id obj, NSUI index, BOOL *stop) {
 		id rObj = block(obj);
-		if (rObj) {
-			[cwArray addObject:rObj];
-		}
+		if (rObj) 	[cwArray addObject:rObj];
 	}];
 	return cwArray;
 }
 
- 
- 
 @end
 
 @implementation NSArray(ListComprehensions) // Create a new array with a block applied to each index to create a new element 
-+ (NSA*)arrayWithBlock:(id(^)(int index))block range:(NSRange)range { id array = [NSMutableArray array]; for (int i=range.location; i<range.location+range.length; i++) [array addObject:block(i)]; return	array; } // The same with a condition 
++ (NSA*)arrayWithBlock:(id(^)(int index))block range:(NSRNG)range { id array = NSMA.new; for (int i=range.location; i<range.location+range.length; i++) [array addObject:block(i)]; return	array; } // The same with a condition
 
-+ (NSA*)arrayWithBlock:(id(^)(int index))block range:(NSRange)range if:(BOOL(^)(int index))blockTest { id array = [NSMutableArray array]; for (int i=range.location; i<range.location+range.length; i++) if (blockTest(i))	 [array addObject:block(i)]; return	array; } 
++ (NSA*)arrayWithBlock:(id(^)(int index))block range:(NSRNG)range if:(BOOL(^)(int index))blockTest { id array = NSMA.new; for (int i=range.location; i<range.location+range.length; i++) if (blockTest(i))	 [array addObject:block(i)]; return	array; }
 
--(NSR)rectAtIndex:(NSUInteger)index{
+-(NSR) rectAtIndex:(NSUI)index{
 	return nanRectCheck([[self normal:index]rectValue]);
 }
 @end
+
+@implementation NSMutableArray (WeakReferences)
+
++ (id) mutableArrayUsingWeakReferences
+{
+    return [self mutableArrayUsingWeakReferencesWithCapacity:0];
+}
+
++ (id)mutableArrayUsingWeakReferencesWithCapacity:(NSUI)capacity
+{
+    CFArrayCallBacks callbacks = {0, NULL, NULL, CFCopyDescription, CFEqual};
+    // We create a weak reference array
+    return (__bridge NSMA*)(CFArrayCreateMutable(0, capacity, &callbacks));
+}
+@end
+
+
 @implementation NSMutableArray (AG)
-- (void) addPoint:(NSPoint)point {
-	[self addObject:[NSValue valueWithPoint:point]];
-}
-- (void) addRect:(NSRect)rect {
-	[self addObject:[NSValue valueWithRect:rect]];
-}
 
--(id)last {
-return self.lastObject;
-}
+- (void) addPoint:(NSPoint)point {	[self addObject:AZVpoint(point)];	}
+- (void) addRect:(NSRect)rect {		[self addObject:AZVrect(rect)];		}
 
--(void)setLast:(id)anObject {
+-(id) last {	return self.lastObject; }
+
+-(void) setLast:(id)anObject
+{
 	if (anObject) {
 		[self willChangeValueForKey:@"last"];
 		[self addObject:anObject];
@@ -939,95 +839,82 @@ return self.lastObject;
 	}
 }
 
--(id)first {
-	return [super first];
-}
+-(id) first {	return [super first];	}
 
-- (void) firstToLast {
+- (void) firstToLast
+{
 	if ( self.count == 0) return; //there is no object to move, return
 	int toIndex = self.count - 1; //toIndex too large, assume a move to end
 	[self moveObjectAtIndex:0 toIndex:toIndex];
 }
 
-- (void) lastToFirst {
+- (void) lastToFirst
+{
 	if ( self.count == 0) return; //there is no object to move, return
-
 	[self moveObjectAtIndex:self.count-1 toIndex:0];
 }
 
--(void)setFirst:(id)anObject {
-	if (anObject == nil) {
-		return;
-	}
+-(void)setFirst:(id)anObject
+{
+	if (anObject == nil)	return;
 	[self willChangeValueForKey:@"first"];
 	[self insertObject:anObject atIndex:0];
 	[self didChangeValueForKey:@"first"];
 }
 
-- (void)removeFirstObject {
-	[self shift];
-}
+- (void) removeFirstObject { [self shift]; }
 
--(id)shift {
-	if (self.count == 0) {
-		return nil;
-	}
-	
+- (id) shift
+{
+	if (self.count == 0) return nil;	
 	id re = self.first;
 	[self removeObjectAtIndex:0];
 	return re;
 }
 
--(id)pop {
-	if (self.count == 0) {
-		return nil;
-	}
-	
+-(id)pop
+{
+	if (self.count == 0) return nil;
 	id o = self.lastObject;
 	[self removeLastObject];
 	return o;
 }
-//- (id)pop
-//{
-//	// nil if [self count] == 0
-//	id lastObject = [[[self lastObject] retain] autorelease];
-//	if (lastObject)
-//		[self removeLastObject];
-//	return lastObject;
-//}
 
-- (void)push:(id)obj
-{
-	[self addObject: obj];
-}
--(NSMutableArray *)sort {
+- (void) shove: (id) object { [self insertObject:object atIndex:0]; }
+
+- (id) peek {	return self.lastObject;	}
+
+- (void) push: (id)obj	{	[self addObject: obj];	}
+
+- (NSMA *)sort {
 	[self sortUsingSelector:@selector(compare:)];
 	return self;
 }
 
--(NSMutableArray *)az_reverse {
+-(NSMA*) az_reverse {
 	@synchronized (self) {
-		for (NSUInteger i = 0; i < floor(self.count / 2); i++) {
+		for (NSUI i = 0; i < floor(self.count / 2); i++) {
 			[self exchangeObjectAtIndex:i withObjectAtIndex:(self.count - i - 1)];
 		}
 	}
 	return self;
 }
 
--(NSMutableArray *)shuffle {
+-(NSMA*)shuffle
+{
 	@synchronized (self) {
-		for (NSUInteger i = 0; i < self.count; i++) {
-			NSUInteger one = random() % self.count;
-			NSUInteger two = random() % self.count;
+		for (NSUI i = 0; i < self.count; i++) {
+			NSUI one = random() % self.count;
+			NSUI two = random() % self.count;
 			[self exchangeObjectAtIndex:one withObjectAtIndex:two];
 		}
 	}
 	return self;
 }
 
-- (void) moveObjectAtIndex:(NSUInteger)fromIndex toIndex:(NSUInteger)toIndex{
-	if (fromIndex == toIndex) return;
-	if (fromIndex >= self.count) return; //there is no object to move, return
+- (void) moveObjectAtIndex:(NSUI)fromIndex toIndex:(NSUI)toIndex
+{
+	if (fromIndex == toIndex || fromIndex >= self.count) return; //there is no object to move, return
 	if (toIndex >= self.count) toIndex = self.count - 1; //toIndex too large, assume a move to end
 	id movingObject = self[fromIndex];
 	
@@ -1080,103 +967,62 @@ return self.lastObject;
 
 @implementation NSArray (Stringing)
 
-- (NSString*)listValuesOnePerLineForKeyPath:(NSString*)keyPath
-									 bullet:(NSString*)bullet {
-	NSInteger nItems = [self count] ;
-	if (!keyPath) {
-		keyPath = @"description" ;
-	}
-	if (!bullet) {
-		bullet = @"" ;
-	}
-
-	NSMutableString* string = [[NSMutableString alloc] init] ;
-	NSInteger i ;
+- (NSS*)listValuesOnePerLineForKeyPath:(NSS*)keyPath bullet:(NSS*)bullet
+{
+	NSI nItems = self.count;
+	if (!keyPath) 	keyPath = @"description";
+	if (!bullet) 	bullet = @"";
+	NSMS* string = NSMS.new;
+	NSI i;
 	for (i=0; i<nItems; i++) {
-		NSString* value = [[self objectAtIndex:i] valueForKeyPath:keyPath] ;
+		NSS* value = [self[i] valueForKeyPath:keyPath];
 		if (value) {
-			if ((i>0)) {
-				[string appendString:@"\n"] ;
-			}
-			[string appendFormat:
-			 @"%@%@",
-			 bullet,
-			 value] ;
+			if (( i > 0 )) [string appendString:@"\n"];
+			[string appendFormat: @"%@%@", bullet, value];
 		}
 	}
-
-	NSString* output = [string copy] ;
+	NSS* output = string.copy;
 	[string release] ;
 	return [output autorelease] ;
 }
 
-- (NSString*)listValuesOnePerLineForKeyPath:(NSString*)keyPath {
-	return [self listValuesOnePerLineForKeyPath:keyPath
-										 bullet:nil] ;
-}
+- (NSS*)listValuesOnePerLineForKeyPath:(NSS*)keyPath {	return [self listValuesOnePerLineForKeyPath:keyPath	bullet:nil] ; }
 
-- (NSString*)listValuesForKey:(NSString*)key
-				  conjunction:(NSString*)conjunction
-				   truncateTo:(NSInteger)truncateTo {
-	NSArray* array ;
+- (NSS*)listValuesForKey:(NSS*)key conjunction:(NSS*)conjunction truncateTo:(NSI)truncateTo
+{
+	NSA* array;
 	BOOL ellipsize = NO ;
 	if ((truncateTo > 0) && (truncateTo < [self count])) {
 		array = [self subarrayWithRange:NSMakeRange(0, truncateTo)] ;
 		ellipsize = YES ;
 	}
-	else {
-		array = self ;
-	}
+	else array = self ;
 
-	NSInteger nItems = [array count] ;
-	NSMutableString* string = [[NSMutableString alloc] init] ;
-	NSInteger i ;
-	for (i=0; i<nItems; i++) {
-		id object = [array objectAtIndex:i] ;
-		NSString* value = nil ;
-
-		if ([object respondsToSelector:NSSelectorFromString(key)]) {
-			value = [object valueForKey:key] ;
-		}
-		else {
-			value = [object description] ;
-		}
-
-		if (![value isKindOfClass:[NSString class]]) {
-			continue ;
-		}
-
-		if ([value length] == 0) {
-			continue ;
-		}
+	NSI nItems 	 = array.count;
+	NSMS* string = NSMS.new;
+	NSI i;
+	for ( i = 0; i < nItems; i++ ) {
+		id object 	= array[i];
+		NSS* value  = [object respondsToSelector:NSSelectorFromString(key)]
+					? [object valueForKey:key]
+					: [object description];
+		if (![value isKindOfClass:NSS.class] || value.length == 0)	continue ;
 
 		if ((i==(nItems-1)) && (nItems>1) && conjunction) {
-			[string appendString:@" "] ;
-			if (conjunction) {
-				[string appendString:conjunction] ;
-			}
-			[string appendString:@" "] ;
+			[string appendString:@" "];
+			if (conjunction) [string appendString:conjunction];
+			[string appendString:@" "];
 		}
-		else if ((i>0)) {
-			[string appendString:@", "] ;
-		}
-
-		[string appendString:value] ;
+		else if ((i>0))	[string appendString:@", "];
+		[string appendString:value];
 	}
 
-	if (ellipsize) {
-		[string appendFormat:@", %C", (unsigned short)0x2026] ;
-	}
-
-	NSString* output = [string copy] ;
+	if (ellipsize) [string appendFormat:@", %C", (unsigned short)0x2026] ;
+	NSS* output = string.copy;
 	[string release] ;
 	return [output autorelease] ;
 }
 
-- (NSString*)listNames {
-	return [self listValuesForKey:@"name"
-					  conjunction:nil
-					   truncateTo:0] ;
-}
+- (NSS*)listNames {	return [self listValuesForKey:@"name" conjunction:nil truncateTo:0]; }
 
 @end

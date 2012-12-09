@@ -160,7 +160,7 @@ typedef  id (^AZMappingBlock)(id obj);
 	if ( !all_doc_types) {
 		return nil;
 	}
-	NSMutableArray *value = [[NSMutableArray alloc] init];
+	NSMutableArray *value = NSMA.new;
 	[all_doc_types enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 		[value addObjectsFromArray: obj[@"CFBundleTypeExtensions"]];
 	}];

@@ -742,6 +742,19 @@ NSView* AZResizeWindowAndContent(NSWindow* window, CGF dXLeft, CGF dXRight, CGF 
 
 @end
 
+@implementation  NSScrollView (Notifications)
+
+- (void) performBlockOnScroll:(void (^)(void))block
+{
+	[self setPostsBoundsChangedNotifications:YES];
+
+	[AZNOTCENTER addObserver:self keyPath:NSViewBoundsDidChangeNotification options:0 block:^(MAKVONotification *notification) {
+		block();
+	}];
+//	addObserver:self selector:@selector(boundsDidChange:) name:NSViewBoundsDidChangeNotification object:contentView];
+}
+@end
+
 @implementation NSTableView (Scrolling)
 
 - (void)scrollRowToTop:(NSInteger)row {

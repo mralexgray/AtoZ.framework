@@ -158,6 +158,10 @@ typedef void (^viewFrameDidChangeBlock)(void);
 
 @end
 
+@interface NSScrollView (Notifications)
+- (void) performBlockOnScroll:(void (^)(void))block;
+@end
+
 @interface NSTableView (Scrolling)
 - (void)scrollRowToTop:(NSI)row ;
 @end

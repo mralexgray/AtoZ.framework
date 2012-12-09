@@ -267,7 +267,7 @@ static ColorNameRec sColorTable[] = {
 	static NSArray *sAllNames = nil;
 	if (!sAllNames) {
 		int count = sizeof(sColorTable) / sizeof(sColorTable[0]);
-		NSMutableArray *names = [[NSMutableArray alloc] init];
+		NSMutableArray *names = NSMA.new;
 		ColorNameRec *rec = sColorTable;
 
 		for (int i = 0; i < count; ++i, ++rec)
@@ -640,7 +640,7 @@ static NSColor *ColorWithCSSString(NSString *str) {
 	hexColor = [hexColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
 	int length = (int)[hexColor length];
 	bool triple = (length == 3);
-	NSMutableArray *rgb = [[NSMutableArray alloc] init];
+	NSMutableArray *rgb = NSMA.new;
 	// Make sure the string is three or six characters long
 	if (triple || length == 6) {
 		CFIndex i = 0;		UniChar character = 0;		NSString *segment = @"";		CFStringInlineBuffer buffer;

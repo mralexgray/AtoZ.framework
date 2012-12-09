@@ -17,6 +17,12 @@ const CGFloat framesPerSecond = 10.0;
 //The time interval from the reference date when the progress bar was last phased. Used to update phase
 //@property (NATOM, ASS) NSTimeInterval lastUpdate;
 //@end
+@interface AZBackgroundProgressBar ()
+@property (nonatomic, retain) NSBP *bp;
+@property (NATOM) BOOL shouldAnimate;
+@property (NATOM, ASS) CGFloat phase;
+@end
+
 
 @implementation AZBackgroundProgressBar
 //@synthesize shouldStop, phase, lastUpdate, onDark;
@@ -24,6 +30,7 @@ const CGFloat framesPerSecond = 10.0;
 - (id)initWithFrame:(NSRect)frame {
 
 	if (!(self = [super initWithFrame:frame])) return nil;
+	_shouldAnimate = YES;
 	[NSThread detachNewThreadSelector:@selector(animate:) toTarget:self withObject:nil];
     return self;
 }
@@ -49,12 +56,24 @@ const CGFloat framesPerSecond = 10.0;
 	[_bp fill];
 }
 
+- (void) startProgressAnimation;
+
+{
+	BOOL wasAlready = _shouldAnimate;
+	self.shouldAnimate = YES;
+	if (!wasAlready)
+		[NSThread detachNewThreadSelector:@selector(animate:) toTarget:self withObject:nil];
+}
+- (void) stopProgressAnimation;
+{
+	self.shouldAnimate = NO;
+}
 - (void)animate:(id)anObject
 {
 	@autoreleasepool {
 
 		// animate
-		while (YES) {
+		while (_shouldAnimate) {
 			[self stepAnimation:nil];
 			[self setNeedsDisplay:YES];
 			[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.04]];

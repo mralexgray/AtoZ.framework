@@ -4,6 +4,8 @@
 //  Created by cocoa:naut on 06.10.12.
 //  Copyright (c) 2012 cocoa:naut. All rights reserved.
 
+#import "AtoZ.h"
+
 #pragma mark Managing selection
 /** @name Managing selection */
 
@@ -40,12 +42,12 @@
 @class 	AtoZGridView;
 @interface AtoZGridViewAuto : NSView <AtoZGridViewDataSource>//, AtoZGridViewDelegate>
 
-
 @property (NATOM, STRNG) NSSV 	*scrollView;
-@property (NATOM, STRNG) NSMA	*items;
 @property (NATOM, STRNG) AZGV 	*grid;
+@property (NATOM, STRNG) NSMA	*items;
 
-- (id) initWithFrame:(NSR)frame andArray:(NSArray *)array;
+- (id) 	 initWithFrame:(NSR)frame andArray:(NSArray *)array;
+
 - (NSUI) countOfItems;
 - (id)   objectInItemsAtIndex: (NSUI)index;
 - (void) insertObject:(id)obj inItemsAtIndex: (NSUI)index;

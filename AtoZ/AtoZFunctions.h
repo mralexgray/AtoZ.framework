@@ -8,6 +8,19 @@
 #include <pwd.h>
 
 
+
+@interface NSObject (AZLayerDelegate)
+- (BOOL) boolForKey:	   (NSS*)key defaultValue:(BOOL)defaultValue;
+- (BOOL) boolForKey:	   (NSS*)key;
+- (void) toggleBoolForKey: (NSS*)key;
+- (void) layerWasClicked:  (CAL*)layer;
+@end
+
+@interface CALayer (WasClicked)
+- (void) wasClicked;
+@end
+
+
 @interface NSDate (AtoZ)
 + (NSS*)dayOfWeek;
 @end
@@ -27,6 +40,9 @@ typedef void (^updateKVCKeyBlock)();
 @end
 
 @interface AZColorTableCell : NSActionCell
+@end
+
+@interface  AZInstallStatusCell : NSActionCell
 @end
 
 @interface NSTableView (CustomDataCell)

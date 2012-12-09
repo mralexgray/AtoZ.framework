@@ -18,6 +18,8 @@
 
 @interface NSArray (AtoZ)
 
++ (NSArray *) from:(NSI)from to:(NSI)to;
+
 - (id) nextObject;
 
 - (NSA*) alphabetize;
@@ -180,6 +182,9 @@
 @property (RONLY) id fifth;
 @property (RONLY) id sixth;
 
+
+@property (RONLY) id last;
+
 - (NSInteger)sumIntWithKey:(NSString *)keyPath;
 - (CGFloat)sumFloatWithKey:(NSString *)keyPath;
 
@@ -236,15 +241,16 @@
 -(NSR)rectAtIndex:(NSUInteger)index;
 @end
 
+@interface  NSMutableArray (WeakReferences)
++ (id)mutableArrayUsingWeakReferences;
++ (id)mutableArrayUsingWeakReferencesWithCapacity:(NSUInteger)capacity;
+@end
 
 @interface NSMutableArray (AG)
 
 - (void) addPoint:(NSPoint)point;
 - (void) addRect:(NSRect)rect;
 
-// sugar properties
-@property (retain) id last;
-@property (retain) id first;
 - (void) firstToLast;
 
 - (void) lastToFirst;
@@ -257,11 +263,25 @@
 // if no elements are present, nil will be returned
 -(id)shift;
 
-// removes and returns the last object in the array
-// if no elements are present, nil will be returned
--(id)pop;
+// insert at index: 0
+- (void) shove: (id) object;
 
-- (void)push:(id)obj;
+/** Helper method for adding the given object to the end of the receiver.
+ 	Internally the method sends the receiver `addObject:`, but using this method makes usage of array as stack more obvious.
+ 	@param object The object to push to the end of the receiver.	*/
+- (void)push:(id)object;
+
+/** Helper method to removing the last object from the receiver. removes and returns the last object in the array
+	Internally the method sends the receiver `removeLastObject` and returns the removed object.
+	@return Returns the object removed from the receiver.
+	@exception if no elements are present, nil will be returned   FALSE: NSException Raised if the receiver is an empty array.	*/
+- (id)pop;
+
+/**	Helper method for looking at the last object in the receiver.
+ 	Internally, the method sends the receiver `lastObject` message and returns the result. If the receiver is an empty array, `nil` is returned.
+ 	@return Returns the last object in the receiver.	 */
+- (id)peek;
+
 
 // shortcut for the default sortUsingSelector:@selector(compare:)
 -(NSMutableArray *)sort;

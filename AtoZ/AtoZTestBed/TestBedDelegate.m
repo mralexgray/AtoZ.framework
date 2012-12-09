@@ -1,12 +1,114 @@
-//
-//  AZAppDelegate.m
-//  AtoZTestBed
-//
-//  Created by Alex Gray on 10/11/12.
-//  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-//
 
 #import "TestBedDelegate.h"
+
+#define VRT AZOrientVertical
+#define HRZ AZOrientHorizontal
+#define ScrollFixTypeArray @"LayerInsertFront",@"LayerInsertEnd",@"LayerRemoveFront",@"LayerRemoveEnd",@"LayerStateOK",@"LayerStateUnset",nil
+NSS* stringForScrollFix(ScrollFix val) { return [NSArray.alloc initWithObjects:ScrollFixTypeArray][val]; }
+
+@implementation CAScrollView
+@synthesize 	layerQueue, 		hostlayer, 	hostView, 	scrollLayer, 	fixState, 	orientation = oreo;
+
+- (IBAction) toggleOrientation:(id)sender { self.orientation = ((NSBUTT*)sender).state == NSOnState ? VRT : HRZ; }
+
+- (void) layoutSublayersOfLayer: (CAL*)layer
+{
+	[CATransaction immediately:^{				  __block CGF off = _offset;
+		[scrollLayer.sublayers each:^(CAL* obj) {	obj.frameMinX = oreo == VRT ? 0 : off;
+													obj.frameMinY = oreo == VRT ? off : 0;
+							   off += oreo == VRT ? obj.boundsHeight : obj.boundsWidth;		}]; }];
+}
+
+- (CGF) sublayerSpan { return ((NSN*)[scrollLayer.sublayers reduce:^id(NSN*memo,CAL*cur) { return @(memo.floatValue + oreo == VRT ? cur.boundsHeight : cur.boundsWidth); } withInitialMemo:@0]).floatValue; }
+- (CGF) sublayerOrig { return [scrollLayer.sublayers.first floatForKey: oreo == VRT ? @"frameMinY"    : @"frameMinX"  ]; }
+- (CGF) lastLaySpan  { return [scrollLayer.sublayers.last  floatForKey: oreo == VRT ? @"boundsHeight" : @"boundsWidth"]; }
+- (CGF) firstLaySpan { return [scrollLayer.sublayers.first floatForKey: oreo == VRT ? @"boundsHeight" : @"boundsWidth"]; }
+- (CGF) lastLayOrig  { return [scrollLayer.sublayers.last  floatForKey: oreo == VRT ? @"frameMinY"    : @"frameMinX"  ]; }
+- (CGF) superBounds  { return oreo == VRT ?  scrollLayer.boundsHeight : scrollLayer.boundsWidth; 					}
+
+- (void) setFixState:(ScrollFix)fix	{	fixState = LayerStateUnset;  fixState =
+
+	self.sublayerOrig 	> 0 					 && layerQueue.count > 0 	? LayerInsertFront 	:
+	self.lastLayOrig 	< self.superBounds 		 && layerQueue.count > 0	? LayerInsertEnd	:
+	self.sublayerOrig 	< NEG(self.firstLaySpan) && scrollLayer.sublayers 	? LayerRemoveFront	:
+	self.lastLayOrig 	> self.superBounds		 && scrollLayer.sublayers	? LayerRemoveEnd	: LayerStateOK;
+
+	fixState == LayerInsertFront 	? ^{	CAL *newFirst = layerQueue.shift;
+											[scrollLayer insertSublayerImmediately:newFirst atIndex:0];
+											_offset = oreo == VRT ? -newFirst.boundsHeight : -newFirst.boundsWidth;
+									}():
+	fixState == LayerRemoveFront 	? ^{	[layerQueue shove: scrollLayer.sublayers.first];
+											RemoveImmediately( scrollLayer.sublayers.first );
+											_offset = 0;
+									}():
+	fixState == LayerRemoveEnd    	? ^{	[layerQueue addObject:scrollLayer.sublayers.last];
+											RemoveImmediately( scrollLayer.sublayers.last );
+									}():
+	fixState == LayerInsertEnd		? 		[scrollLayer addSublayerImmediately:layerQueue.pop] : nil;
+
+	[scrollLayer setNeedsLayout];
+}
+- (BOOL) acceptsFirstResponder { return YES; }
+- (void) scrollWheel:(NSE*)e	 {	self.offset += oreo == VRT ? e.deltaY : e.deltaX;		}
+- (void) mouseMoved: (NSE*)e
+{
+	CAL* u = [scrollLayer hitTest:[self convertPoint:e.locationInWindow fromView:nil]];
+	if (_focusedLayer) {
+		 _focusedLayer.hovered = NO;
+		 [_focusedLayer setNeedsDisplay];
+	}
+	self.focusedLayer = u;
+	_focusedLayer.hovered = YES;
+	[_focusedLayer setNeedsDisplay];
+}
+- (void) awakeFromNib
+{
+	self.window.acceptsMouseMovedEvents = YES;
+	[self.window makeFirstResponder: self];
+
+	oreo         		= HRZ;
+	fixState			= LayerStateUnset;
+	hostlayer 			= [hostView setupHostView];
+	scrollLayer 		= [CAL layerWithFrame:hostView.bounds];
+	scrollLayer.arMASK 	= CASIZEABLE;
+	hostlayer.sublayers = @[scrollLayer];
+	scrollLayer.loM 	= self;
+	[self observeFrameChangeUsingBlock:^{ [self setFixState:LayerStateUnset]; }];
+	[self addObserver:self keyPath:@[@"offset",@"orientation",@"layerQueue"] selector:@selector(setFixState:) userInfo:nil options:NSKeyValueObservingOptionNew];
+}
+
+@end
+
+
+
+//self.sublayerOrig + self.sublayerSpan  < self.superBounds  - self.lastLaySpan
+// || offset < NEG(self.firstLayerSpan))
+//__block CGF spanner = 0;	[scrollLayer.sublayers each:^(CAL* cur) {  spanner += oreo == VRT ? cur.boundsHeight : cur.boundsWidth; }]; return spanner;	}
+
+//		NSLog(@"fix:%@ superbounds:%0.0f off: %0.0f origin: %0.0f  span:%0.0f  first:%0.0f  last:%0.0f", stringForScrollFix(fixState), self.superBounds, _offset, self.sublayerOrig, self.sublayerSpan, self.firstLaySpan, self.lastLaySpan );
+//	fixState == LayerStateOK  		? [scrollLayer setNeedsLayout] : nil;
+//	if (fixState != LayerStateOK)
+//	if (fixState != LayerStateOK  && tries < 4) [self fixLayerState];
+
+//	NSLog(@"layer:%@", scrollLayer.debugLayerTree);
+//			obj.frame = AZMakeRect( (NSP){ oreo == VRT ? 0 : off, oreo == VRT ? off : 0 }, obj.boundsSize );
+//	_offset = 0;
+//	if (fixState != LayerStateOK)	self.fixState;
+//	[self fixLayerState];	// offset = 0;// [scrollLayer.sublayers each:^(CAL* obj) {	if (oreo == VRT) obj.frameMinY += offset; else obj.frameMinX += offset; }]; }]; if (_sublayerOrigin == 1) offset = 0;
+//- (void) setOffset:(CGF)o 			{ if ( offset 	   != o) { offset		= o; [scrollLayer setNeedsLayout]; }	 } //[scrollLayer performSelectorOnMainThread:@selector(setNeedsLayout) withObject:nil waitUntilDone:YES]; } }// [self fixLayerState]; } }
+//- (void) setOrientation:(AZOrient)o	{ if ( oreo        != o) { oreo      	= o; [scrollLayer setNeedsLayout]; }	 }
+//- (void) setLayerQueue:(NSMA*)q		{ if ( layerQueue  != q) { layerQueue 	= q; [self 		   fixLayerState]; }	 }
+
+//+ (NSSet*) keyPathsForValuesAffectingFixState { return [NSSet setWithObjects:@"layerQueue", @"offset", nil]; }
+
+//	if (oreo == VRT) 	newFirst.frameMinY =  _sublayerOrigin - newFirst.boundsHeight; else 	newFirst.frameMinX =  _sublayerOrigin - newFirst.boundsWidth;
+//	if (oreo == VRT)	newFirst.frameMinY = _sublayerOrigin + _sublayerSpan;	else	newFirst.frameMinX = _sublayerOrigin + _sublayerSpan;
+//- (void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+//{
+//	if (areSame(keyPath, @"") ) [scrollLayer setNeedsLayout];
+//	else [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+//}
+
 
 
 @interface TestBedDelegate ()
@@ -14,12 +116,22 @@
 //@property (STRNG) NSA *transitions;
 @end
 
+
+// Constants used by the Scroll layer to setup its contents and to scroll.
+#define kScrollContentRect CGRectMake(  0.0,   0.0, 3000.0, 300.0)
+
+
 @implementation TestBedDelegate
 //@synthesize holdOntoViews;//, activeView, semiLog, semiWindow;
 @synthesize window, genVC, uiVC, colorVC, mainView, colorWell;//, geoVC, , fileGrid, vcs, , colorWell;
 
 - (void) awakeFromNib
 {
+	[self createScrollLayer];
+
+	[mainView observeFrameChangeUsingBlock:^{
+//		[_scrollLayer.sublayers[0] setNeedsDisplay];
+	}];
 //	[AtoZ sharedInstance];
 //	window.delegate = self;
 
@@ -75,6 +187,10 @@
 //		[(NSV*)view setAutoresizingMask: NSSIZEABLE];
 		[view setNeedsDisplay: YES];
 	}
+	if ( areSame(@"CAScrollLayer", selecto))
+	{
+		[self createScrollLayer];
+	}
 //	[[mainView animator]swapSubs:newView];
 //	[[activeView animator] setHidden:YES];
 //	activeView = vcs[[sender titleOfSelectedItem]];
@@ -82,6 +198,101 @@
 //	[activeView setHidden:NO];
 //	[_activeView setNeedsDisplay:YES];
 }
+
+
+- (void) createScrollLayer
+{
+	if (mainView.subviews.count != 0) {
+		[[mainView.subviews first] fadeOut];
+		[mainView removeAllSubviews];
+	}
+
+	[mainView addSubview:_scrollTest];
+	[_scrollTest setFrame:mainView.bounds];
+
+	_scrollTest.layerQueue = 	[[NSA from:0 to:10] nmap:^id(id obj, NSUI idx) {
+
+		CAL *l = [CAL layerNamed:[obj stringValue]];
+		l.frame = AZRectBy(200,200);
+		NSC *c = RANDOMCOLOR;//];// [NSC checkerboardWithFirstColor:BLACK secondColor:WHITE squareWidth:10* [obj intValue]+1];///[obj intValue] % 2 == 0 ? RANDOMCOLOR : ];
+		l.bgC = c.brighter.cgColor;
+		l.opacity 		= .8;
+		l.borderColor = c.darker.cgColor;
+		l.borderWidth = 5;
+		l.delegate = self;
+		[l setNeedsDisplay];
+		return l;
+	}].mutableCopy;
+
+}
+
+- (void)drawLayer:(CAL*)layer inContext:(CGContextRef)ctx
+{
+//	NSLog(@"drawLinCTX called on: %@...  vageen?:%@", layer, StringFromBOOL([layer boolForKey:@"clicked"]));
+	[NSGraphicsContext drawInContext:ctx flipped:NO actions:^{
+		!layer.hovered ?: NSRectFillWithColor(layer.bounds, [NSC checkerboardWithFirstColor:BLACK secondColor:CLEAR squareWidth:20]);
+		[NSSHDW setShadowWithOffset:(NSSZ){5,-3} blurRadius:7 color:BLACK];
+		[layer.name drawInRect:layer.bounds withFontNamed:@"Helvetica" andColor: WHITE];
+	}];
+
+}
+	// A scroll layer by itself is rather uninteresting
+	// so we'll create a regular layer to provide content.
+//	self.scrollLayerContent = [CALayer layer];
+//	_scrollLayerContent.frame = kScrollContentRect;
+//	NSIMG *pony = [NSIMG imageFromURL:@"http://apod.nasa.gov/apod/image/1001/almosttrees_mro_big.jpg"];//:NSImageNameDotMac];
+//	LOG_EXPR(pony);
+//	scrollLayerContent.contents = pony;
+
+//	CGColorRef ref = [[NSC colorWithPatternImage:pony] CGColor];
+//	scrollLayerContent.bgC = ref;
+	
+//	_scrollLayer = [CAScrollLayer layer];
+//	_scrollLayer.arMASK = CASIZEABLE;
+//	_scrollLayerContent.delegate = self;
+//	_scrollLayerContent.needsDisplayOnBoundsChange = YES;
+//	_scrollLayer.frame = mainView.bounds;
+//	_scrollLayer.arMASK = CASIZEABLE;
+	// Since its handy, we'll use the same content as our basic CALayer example
+	// This also shows that you can use the same delegate for multiple layers :)
+//	scrollLayerContent.delegate = delegateCALayer;
+
+	// Layers start life validated (unlike views).
+	// We request that the layer have its contents drawn so that it can display something.
+//	[_scrollLayerContent setNeedsDisplay];
+
+	// We set a frame for this layer. Sublayers coordinates are always in terms of the
+	// parent layer's bounds.
+//	scrollLayerContent.frame = mainView.bounds;
+
+	// Now we add the configured layer to the scroll layer.
+//	[_scrollLayer addSublayer:_scrollLayerContent];
+
+//	[l addSublayer:_scrollLayer];
+	//.layer = exampleCAScrollLayer;
+
+//}
+//- (NSS*)visiRect {
+//	NSR vR = _scrollLayerContent.visibleRect;
+//	return AZStringFromRect(vR);
+//}
+//
+//-(void) drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx
+//{
+//	[NSGraphicsContext drawInContext:ctx flipped:NO actions:^{
+//		[[NSA from:0 to:10] eachWithIndex:^(id obj, NSInteger idx) {
+//			NSR r = (NSR){idx* 300, 0, 300, 300};
+//			NSRectFillWithColor(r, RANDOMCOLOR);
+//		}];
+//
+//		
+//		[self.visiRect drawInRect:AZMakeRect(_scrollLayerContent.visibleRect.origin, NSMakeSize(200, 50)) withFontNamed:@"Helvetica" andColor:WHITE];
+//	}];
+//}
+// Creates a rect that is a fraction of the original rect
+
+
+
 //-(CATransition*)transition
 //{
 //	// Construct a new CATransition that describes the transition effect we want.

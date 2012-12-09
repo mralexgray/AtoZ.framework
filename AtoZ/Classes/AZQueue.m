@@ -12,7 +12,7 @@
 -(id)init
 {
 	if ( (self = [super init]) ) {
-		array = [[NSMutableArray alloc] init];
+		array = NSMA.new;
 	}
 	
 	return self;

@@ -5,10 +5,11 @@
 @interface AZBackgroundProgressBar : NSView
 
 //@property (NATOM, ASS) BOOL shouldStop, onDark, highContrast;
-@property (nonatomic, retain) NSBP *bp;
-@property (NATOM, ASS) CGFloat phase;
 
 @property (nonatomic, retain) NSC *primaryColor;
+
+- (void) startProgressAnimation;
+- (void) stopProgressAnimation;
 //, *secondaryColor;
 
 //- (IBAction)startAnimation:(id)sender;

@@ -226,7 +226,7 @@ static CFHashCode _hashString(const void *value)
 			_updateTimer = [NSTimer scheduledTimerWithTimeInterval:1/60.0 target:self selector:@selector(_updateTimerFired:) userInfo:nil repeats:YES];
 
 		if (!_activeContentAnimations)
-			_activeContentAnimations = [[NSMutableArray alloc] init];
+			_activeContentAnimations = NSMA.new;
 		[_activeContentAnimations addObject:anim];
 	}
 }

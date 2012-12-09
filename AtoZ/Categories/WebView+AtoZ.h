@@ -12,4 +12,7 @@
 
 - (void) makeMobile;
 
+- (NSImage *)snapshot;
+
+
 @end

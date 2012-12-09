@@ -8,28 +8,26 @@
 
 #import <Foundation/Foundation.h>
 
-
 @interface WeakMutableArray : NSMutableArray
 @end
 
 @interface WeakReferenceObject : NSObject
-
 @property (weak, nonatomic, readonly) id baseObject;
-
 - (id)initWithObject:(id)anObject;
 + (WeakReferenceObject *)weakReferenceObjectWithObject:(id)anObject;
-
 @end
 
 //For the WeakMutableSet to be complete we need a new WeakSetEnumerator that skips objects that are no more valid:
 
 @interface WeakSetEnumerator : NSEnumerator
-
-
 - (id)initWithSet:(NSSet *)set;
-
 @end
 
 @interface WeakMutableSet : NSMutableSet
 -(id) firstObject;
+@end
+
+
+@interface NSArray (WeakMutableFilter)
+-(WeakMutableArray*)weakFilterMap:(id (^)(id obj))block;
 @end

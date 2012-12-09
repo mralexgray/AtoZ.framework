@@ -21,7 +21,7 @@
 -(id)init {
   if ((self = [super init])) {
 	[self _init];
-	array = [[NSMutableArray alloc] init];
+	array = NSMA.new;
   }
   return self;
 }

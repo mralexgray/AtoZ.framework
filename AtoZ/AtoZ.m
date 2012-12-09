@@ -11,6 +11,30 @@
 #import <objc/runtime.h>
 
 
+/* A shared operation que that is used to generate thumbnails in the background. */
+NSOperationQueue *AZSharedOperationQueue()
+{
+    static NSOperationQueue *_AZGeneralOperationQueue = nil;
+    return _AZGeneralOperationQueue ?: ^{
+        _AZGeneralOperationQueue = NSOperationQueue.new;
+		_AZGeneralOperationQueue.maxConcurrentOperationCount = NSOperationQueueDefaultMaxConcurrentOperationCount;
+		return _AZGeneralOperationQueue;
+	}();
+}
+
+
+/* A shared operation que that is used to generate thumbnails in the background. */
+NSOperationQueue *AZSharedSingleOperationQueue()
+{
+    static NSOperationQueue *_AZSingleOperationQueue = nil;
+    return _AZSingleOperationQueue  ?: ^{
+        _AZSingleOperationQueue = NSOperationQueue.new;
+		_AZSingleOperationQueue.maxConcurrentOperationCount = 1;
+		return _AZSingleOperationQueue;
+	}();
+}
+
+
 @implementation CALayerNoHit
 - (BOOL)containsPoint:(CGPoint)p {	return FALSE; }
 @end
@@ -26,8 +50,26 @@
 
 static char CONVERTTOXML_KEY;
 
+
 @implementation BaseModel (AtoZ)
 @dynamic convertToXML;
+@dynamic uniqueID;
+
+
+- (NSString *)uniqueID
+{
+	NSS* u =  [self associatedValueForKey:@"uniqueid"];
+	if (!u) {
+		u = [self.class newUniqueIdentifier];
+		[self setUniqueID:u];
+	}
+	return u;
+}
+-(void)setUniqueID:(NSString *)uniqueID
+{
+	[self setAssociatedValue:uniqueID forKey:@"uniqueid" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
+}
+
 -(void)setConvertToXML:(BOOL)convertToXML
 {
 	objc_setAssociatedObject(self, &CONVERTTOXML_KEY, @(convertToXML), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -695,7 +737,7 @@ static void soundCompleted(SystemSoundID soundFileObject, void *clientData) {
 
 //- (void)setUp {
 
-//	//	appArray = [[NSMutableArray alloc] init];
+//	//	appArray = NSMA.new;
 //	//	NSArray *ws =	 [[[NSWorkspace sharedWorkspace] launchedApplications] valueForKeyPath:@"NSApplicationPath"];
 //	//	int k = 0;
 //	//	for (NSString *path in ws) 	{

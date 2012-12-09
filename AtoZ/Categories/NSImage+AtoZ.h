@@ -55,7 +55,7 @@ typedef enum {
 @class AZFile;
 @interface NSImage (AtoZ)
 
-+ imageWithData:(NSData*)data;
++ (NSIMG*)imageWithData:(NSData*)data;
 
 - (NSS*) saveToWeb;
 
@@ -76,7 +76,6 @@ typedef enum {
 + (NSA*) randomImages:(NSUI)number;
 + (NSA*) systemImages;
 + (NSIMG*) screenShot;
-- (NSIMG*) coloredWithColor:(NSC*)inColor composite:(NSCompositingOperation)comp;
 
 //+ (NSA*) iconsTintedWith:(NSC*)color;
 + (NSA*) icons;
@@ -319,9 +318,6 @@ typedef enum {
 +(NSIV*)imageViewWithImage:(NSIMG*)img ;
 +(void) addImageViewWithImage:(NSIMG*)img toView:(NSV*)v;
 @end
-
-/* A shared operation que that is used to generate thumbnails in the background. */
-NSOperationQueue *AZSharedOperationQueue();
 
 /*	Abstract: A category on NSImage to create a thumbnail sized NSImage from an image URL.
  	Version: 1.0 */

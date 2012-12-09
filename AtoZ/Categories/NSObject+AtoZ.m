@@ -98,18 +98,18 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary(void) {
 
 - (AZBlockToken *)addObserverForKeyPath: (NSS*)keyPath onQueue: (NSOQ*)queue task: (AZBlockTask)task
 {
-	AZBlockToken *token = [[NSProcessInfo processInfo] globallyUniqueString];
+	AZBlockToken *token = [NSProcessInfo.processInfo globallyUniqueString];
 	dispatch_sync(AZObserverMutationQueueCreatingIfNecessary(), ^{
 		NSMutableDictionary *dict = objc_getAssociatedObject(self, (__bridge const void *)(AZObserverMapKey));
 		if (!dict)
 		{
-			dict = [[NSMutableDictionary alloc] init];
+			dict = NSMD.new;
 			objc_setAssociatedObject(self, (__bridge const void *)(AZObserverMapKey), dict, OBJC_ASSOCIATION_RETAIN);
-			[dict release];
+//			[dict release];
 		}
-		AZObserverTrampoline *trampoline = [[AZObserverTrampoline alloc] initObservingObject:self keyPath:keyPath onQueue:queue task:task];
+		AZObserverTrampoline *trampoline = [AZObserverTrampoline.alloc initObservingObject:self keyPath:keyPath onQueue:queue task:task];
 		dict[token] = trampoline;
-		[trampoline release];
+//		[trampoline release];
 	});
 	return token;
 }
@@ -135,6 +135,8 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary(void) {
 @end
 
 @implementation NSObject (AtoZ)
+
+
 
 - (void) bindArrayKeyPath: (NSS*)array toController: (NSArrayController*)controller
 {
@@ -997,15 +999,15 @@ static const char * getPropertyType(objc_property_t property) {
 
 - (NSC*)colorValue
 {
-	return 	[self isKindOfClass:NSIMG.class] ? ((NSIMG*)self).quantize[0] :
-		 	[self isKindOfClass:NSC.class] ? self :
-			[self respondsToString:@"color"] ? [self valueForKey:@"color"] : [NSNull null];
+	if ([self isKindOfClass:NSC.class]) return (NSC*)self;
+	NSC *c = [self isKindOfClass:NSIMG.class] ? ((NSIMG*)self).quantize[0] : nil;
+	return c ?: [self respondsToString:@"color"] ? [self valueForKey:@"color"] : nil;
 }
 - (NSIMG*)imageValue;
 {
-	return 	[self isKindOfClass:NSIMG.class] ? self :
-			[self isKindOfClass:NSC.class] ? [NSIMG swatchWithColor:(NSC*)self size:AZSizeFromDimension(256)] :
-			[self respondsToString:@"image"] ? [self valueForKey:@"image"] : [NSNull null];
+	if ([self isKindOfClass:NSIMG.class]) return (NSIMG*)self;
+	NSIMG *i = [self isKindOfClass:NSC.class] ? [NSIMG swatchWithColor:(NSC*)self size:AZSizeFromDimension(256)] : nil;
+	return  i ?: [self respondsToString:@"image"] ? [self valueForKey:@"image"] : nil;
 }
 
 @end

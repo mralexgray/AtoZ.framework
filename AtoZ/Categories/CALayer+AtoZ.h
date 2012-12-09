@@ -81,7 +81,12 @@ extern CATransform3D CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13, CG
 
 @interface CALayer (AtoZ)
 
--(void) toggleSpin: (AZState)state;
+- (void) addSublayerImmediately:(CAL*)sub;
+- (void) addSublayersImmediately:(NSA*)subArray;
+- (void) insertSublayerImmediately:(CAL*)sub atIndex:(NSUI)idx;
+
+
+- (void) toggleSpin: (AZState)state;
 
 -(id)initWithFrame:(CGRect)rect;
 
@@ -179,6 +184,8 @@ extern CATransform3D CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13, CG
 
 @property (weak, readonly) CAL* permaPresentation;
 
+@property (readwrite, nonatomic, assign) BOOL hovered;
+@property (readwrite, nonatomic, assign) BOOL selected;
 
 @property (readwrite, nonatomic, assign) CGPoint frameOrigin;
 @property (readwrite, nonatomic, assign) CGSize frameSize;
