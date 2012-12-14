@@ -109,7 +109,7 @@ static CIKernel *sIrisFilterKernel = nil;
 +(void) initialize
 {
 	[CIFilter registerFilterName: @"AZIrisOpenFilter"
-					 constructor: self
+					 constructor: (id)self
 				 classAttributes: @{	kCIAttributeFilterDisplayName: @"Iris Open Effect",
 									   kCIAttributeFilterCategories:@[kCICategoryTransition]}];
 }

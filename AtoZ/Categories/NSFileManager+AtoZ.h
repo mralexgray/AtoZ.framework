@@ -28,8 +28,8 @@ NSString *NSBundleFolder(void);
 
 + (NSArray *) filesInFolder: (NSString *) path;
 
-+ (NSImage *) imageNamed: (NSString *) aName;
-+ (NSImage *) imageFromURLString: (NSString *) urlstring;
+//+ (NSImage *) imageNamed: (NSString *) aName;
+//+ (NSImage *) imageFromURLString: (NSString *) urlstring;
 
 @end
 

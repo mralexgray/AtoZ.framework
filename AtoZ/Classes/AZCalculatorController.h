@@ -15,15 +15,15 @@
 //	IBOutlet NSWindow *window;
 
 }
-+ (AZCalculatorController *)shareCalc;
++ (AZCalculatorController *)sharedCalc;
 + (NSString *)nibName;
 
 - (IBAction)add:(id)sender;
-- (IBAction)subtract:(id)sender;
-- (IBAction)multiply:(id)sender;
-- (IBAction)divide:(id)sender;
-- (IBAction)calculate:(id)sender;
-- (IBAction)clear:(id)sender;
+//- (IBAction)subtract:(id)sender;
+//- (IBAction)multiply:(id)sender;
+//- (IBAction)divide:(id)sender;
+//- (IBAction)calculate:(id)sender;
+//- (IBAction)clear:(id)sender;
 - (IBAction)getValue:(id)sender;
 - (void)setLabel;
 @property (assign) IBOutlet NSTextField *label;

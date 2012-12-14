@@ -58,19 +58,17 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 	[images eachWithIndex:^(NSIMG* obj, NSInteger idx) {
 		NSR theR = [[rects normal:idx]rectValue];
 		[[obj scaledToMax:AZMaxDim(iSize)] drawCenteredinRect:theR operation:NSCompositeSourceOver fraction:1];
-		if (obj.name) {
+//		if (obj.name) NSF * f = [AtoZ font:@"UbuntuTitling-Bold" size:AZMinDim(theR.size)*.1];
+	}];
+	[contact unlockFocus];
+	return contact;
+}
 //			NSAS* string = [[obj.name truncatedForRect:nameRect withFont:f] attributedWithSize:AZMinDim(theR.size)*.1 andColor:WHITE];
 //			nameRect = AZRectExceptWide(nameRect, theR.size.width < nameRect.size.width ? theR.size.width : nameRect.size.width);
 //			nameRect = AZOffsetRect(nameRect, theR.origin);
 //			NSRectFillWithColor(nameRect, RED);
 //			NSR nameRect = [obj.name frameWithFont:f];
-			NSF * f = [AtoZ font:@"UbuntuTitling-Bold" size:AZMinDim(theR.size)*.1];
 //			[string drawCenteredVerticallyInRect:nameRect];//:@"UbuntuTitling-Bold"];//:nameRect /*NSMakeRect(2, 2, sizeAndPhoto.width - 4, 14)*/ withFont:font andColor:WHITE];
-		}
-	}];
-	[contact unlockFocus];
-	return contact;
-}
 + (NSImage*)contactSheetWith:(NSArray*)images sized:(NSSZ)size spaced:(NSSZ)spacing columns:(NSUI)cols withName:(BOOL)name;
 {
 	__block NSIMG *contact;
@@ -228,8 +226,35 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 
 @end
 
+NSData* PNGRepresentation(NSIMG *image) {
+#if TARGET_OS_IPHONE
+	return UIImagePNGRepresentation(image);
+#else
+	NSBitmapImageRep *bitmapRep;
+	[image lockFocus];
+ 	bitmapRep = [NSBitmapImageRep.alloc initWithFocusedViewRect:NSMakeRect(0, 0, image.size.width, image.size.height)];
+	[image unlockFocus];
+	return [bitmapRep representationUsingType:NSPNGFileType properties:Nil];
+#endif
+}
+
 @implementation NSImage (AtoZ)
 
++ (NSIMG*)faviconForDomain:(NSS*)domainAsString
+{
+	static NSA* iconLocs = nil;
+	iconLocs = iconLocs ?: @[@"/touch-icon-114x114.png", @"/touch-icon-72x72.png", @"/touch-icon-iphone.png", @"/favicon.ico"];
+
+	NSS* theUrl = [domainAsString startsWith:@"http://"] ? domainAsString : $(@"http://%@",domainAsString);
+	__block NSIMG *theIcon;
+	[iconLocs enumerateObjectsUsingBlock:^(NSS* obj, NSUInteger idx, BOOL *stop) {
+
+		NSURL *u = [NSURL URLWithString:obj relativeToURL:[NSURL URLWithString:theUrl]];
+		NSIMG *maybeImg = [NSImage.alloc initWithContentsOfURL:u];
+		if (maybeImg) {  theIcon = maybeImg; theIcon.name = $(@"%@.%@", domainAsString, [[obj substringAfter:@"/"]stringByDeletingPathExtension]); *stop = YES; }
+	}];
+	return theIcon ?: [[NSIMG imageNamed:@"missing"]scaledToMax:64];
+}
 
 + imageWithData:(NSData*)data;
 {
@@ -322,9 +347,9 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 }
 
 
-+ (void) load {
-	[$ swizzleClassMethod:@selector(imageNamed:) with:@selector(swizzledImageNamed:) in:[NSIMG class]];
-}
+//+ (void) load {
+//	[$ swizzleClassMethod:@selector(imageNamed:) with:@selector(swizzledImageNamed:) in:[NSIMG class]];
+//}
 
 
 + (NSIMG*)swizzledImageNamed:(NSString *)name {
@@ -1159,7 +1184,7 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 }
 
 - (void) openInPreview;
-{		NSS* p = $(@"/tmp/atoztempimage.%@.png",[NSString newUniqueIdentifier]);
+{		NSS* p = [AtoZ tempFilePathWithExtension:@"png"];
 		[self saveAs:p];
 		[NSTask launchedTaskWithLaunchPath:@"/usr/bin/open" arguments:@[@"-a", @"Preview", p]];
 
@@ -1632,9 +1657,14 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 
 - (NSImage *)imageScaledToFitSize:(NSSize)size
 {
-	[self setScalesWhenResized:YES];
-	[self setSize: size];
-	return self;
+	NSIMG *scaled = [NSIMG.alloc initWithSize:size];
+	[scaled lockFocus];
+	[self drawInRect:AZRectFromSize(size) fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1];
+//	[self setScalesWhenResized:YES];
+//	[self setSize: size];
+	[scaled unlockFocus];
+	scaled.name  = self.name  ?: @"scaled image";
+	return scaled;
 }
 
 - (NSImageRep*)smallestRepresentation

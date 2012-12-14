@@ -18,4 +18,6 @@
 
 + (void)toggleSpyingAllNotifications;
 
++ (void)toggleSpyingAllNotificationsIgnoring:(NSA*)notes ignoreOverlyVerbose:(BOOL)ignore;
+
 @end

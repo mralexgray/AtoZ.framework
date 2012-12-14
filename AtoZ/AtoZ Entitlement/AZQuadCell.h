@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 #import <Cocoa/Cocoa.h>
 
-typedef enum AZQuadCellModel {
+typedef NS_ENUM(NSUI, AZQuadCellModel) {
 								AZQuadCellSingleLetter 	= 0x01, // 00000001
 								AZQuadCellIconOnly 		= 0x02, // 00000010
 								AZQuadCellIndex  		= 0x04, // 00000100

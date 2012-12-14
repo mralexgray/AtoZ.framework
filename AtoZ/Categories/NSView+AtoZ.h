@@ -3,6 +3,10 @@
 //  AtoZ
 
 #import <objc/objc.h>
+#import "AtoZUmbrella.h"
+#import "AtoZ.h"
+#import "CALayer+AtoZ.h"
+#import <QuartzCore/QuartzCore.h>
 
 typedef NS_ENUM(NSI, AZViewAnimationType) {
 	AZViewAnimationTypeJiggle = 0,
@@ -46,6 +50,7 @@ typedef void (^viewFrameDidChangeBlock)(void);
 - (void) centerOriginInRect: (NSR)aRect;
 
 - (CAL*) setupHostView;
+- (CALayerNoHit*) setupHostViewNoHit;
 - (CAL*) setupHostViewNamed:(NSS*)name;
 
 

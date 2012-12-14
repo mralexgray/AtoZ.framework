@@ -6,18 +6,20 @@
 
 #import "AtoZ.h"
 
+#if TARGET_OS_IPHONE
+#define NSImage UIImage
+#endif
 
-extern CGFloat screenScale(void);
-extern CGSize sizeInPixels(UINSImage *image);
+extern CGSize sizeInPixels(NSIMG *image);
 
 
 @class  AZFavIconCache;
 /** DSFavIconManager is a complete solution for managing Favicons.*/
 @interface AZFavIconManager : NSObject
 /** Returns the shared singleton. */
-+ (AZFavIconManager *) sharedInstance;
++ (AZFavIconManager*) sharedInstance;
 /** Placeholder image for favicons. Defaults to [UIImage imageNamed:@"favicon"]. */
-@property (NATOM, STRNG) UINSImage *placehoder;
+@property (NATOM, STRNG) NSImage *placehoder;
 /** The DSFavIconCache instance used by the current manager. Defaults to [DSFavIconCache sharedCache] */
 @property (NATOM, STRNG) AZFavIconCache *cache;
 
@@ -29,7 +31,7 @@ extern CGSize sizeInPixels(UINSImage *image);
 /** Returns the image for an icon if it has already been downloaded.
  @param url   The URL for which the icon is requested.
  @return	  The icon or nil if the icon is not available in the cache.  */
-- (UINSImage*)cachedIconForURL:(NSURL *)url;
+- (NSImage*)cachedIconForURL:(NSURL *)url;
 
 /** Returns the image for an icon. If the icon has already been downloaded it is returned immediately.
 		UIImageView *imageView;
@@ -41,8 +43,8 @@ extern CGSize sizeInPixels(UINSImage *image);
  @param downloadHandler   A handler to be called when and only if an icon is downloaded.
 						  This handler is always called in the dispatch queue associated with the application’s main thread.
  @return				  The icon if it is already available, otherwise the placeholder image is returned.  */
-- (UINSImage*)iconForURL:(NSURL *)url downloadHandler:(void (^)(UINSImage *icon))downloadHandler;
-+ (UINSImage*)iconForURL:(NSURL *)url downloadHandler:(void (^)(UINSImage *icon))downloadHandler;
+- (NSImage*)iconForURL:(NSURL *)url downloadHandler:(void (^)(NSIMG *icon))downloadHandler;
++ (NSImage*)AZFavIconManager:(NSURL *)url downloadHandler:(void (^)(NSIMG *icon))downloadHandler;
 
 /** Cancels all the pending queues. */
 - (void)cancelRequests;
@@ -53,19 +55,18 @@ extern CGSize sizeInPixels(UINSImage *image);
 
 @end
 
-typedef void (^DSFavIconOperationCompletionBlock)(UINSImage *icon);
-typedef BOOL (^DSFavIconOperationAcceptanceBlock)(UINSImage *icon);
+typedef void (^DSFavIconOperationCompletionBlock)(NSIMG *icon);
+typedef BOOL (^DSFavIconOperationAcceptanceBlock)(NSIMG *icon);
 typedef BOOL (^DSFavIconOperationPreflightBlock)(NSURL *url);
 
 extern NSString *const kDSFavIconOperationDidStartNetworkActivity;
 extern NSString *const kDSFavIconOperationDidEndNetworkActivity;
-extern NSData *UINSImagePNGRepresentation(UINSImage *image);
 
 @interface AZFavIconOperation : NSOperation
 
-@property (nonatomic, strong) NSURL *url;
-@property (strong, nonatomic) NSArray *defaultNames;
-@property (strong, nonatomic) NSString *relationshipsRegex;
+@property (NATOM, STRNG) NSURL *url;
+@property (NATOM, STRNG) NSArray *defaultNames;
+@property (NATOM, STRNG) NSString *relationshipsRegex;
 @property (nonatomic, copy) DSFavIconOperationCompletionBlock completion;
 @property (nonatomic, copy) DSFavIconOperationAcceptanceBlock acceptanceBlock;
 @property (nonatomic, copy) DSFavIconOperationPreflightBlock  preFlightBlock;
@@ -79,9 +80,9 @@ extern NSData *UINSImagePNGRepresentation(UINSImage *image);
 
 @interface AZFavIconCache : NSCache
 
-+ (AZFavIconCache *)sharedCache;
-- (UINSImage *)imageForKey:(NSString *)key;
-- (void)setImage:(UINSImage *)image forKey:(NSString *)key;
++ (AZFavIconCache*) sharedCache;
+- (NSIMG*) imageForKey:(NSString *)key;
+- (void)setImage:(NSIMG *)image forKey:(NSString *)key;
 - (void)removeAllObjects;//  builklt-in method
 
 @property (nonatomic, retain) NSString *cacheDirectory;

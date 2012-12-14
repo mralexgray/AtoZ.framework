@@ -33,3 +33,13 @@
 - (BOOL)isImageFile;
 @end
 
+@interface NSURL (Extensions)
+- (NSDictionary*) parseQueryParameters:(BOOL)unescape;
+@end
+
+@interface NSMutableURLRequest (Extensions)
++ (NSData*) HTTPBodyWithMultipartBoundary:(NSString*)boundary formArguments:(NSDictionary*)arguments;  // Pass file attachments as dictionaries containing kMultipartFileKey_xxx keys
+- (void) setHTTPBodyWithMultipartFormArguments:(NSDictionary*)arguments;
+@end
+
+

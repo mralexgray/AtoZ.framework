@@ -50,6 +50,8 @@
 
 @interface NSObject (AQProperties)
 
++ (NSD*)classPropertiesAndTypes;
+
 - (NSDictionary*) propertiesPlease;
 - (NSDictionary *)propertiesSans:(NSString*)someKey;
 

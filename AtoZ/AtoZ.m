@@ -35,15 +35,6 @@ NSOperationQueue *AZSharedSingleOperationQueue()
 }
 
 
-@implementation CALayerNoHit
-- (BOOL)containsPoint:(CGPoint)p {	return FALSE; }
-@end
-@implementation CAShapeLayerNoHit
-- (BOOL)containsPoint:(CGPoint)p {	return FALSE; }
-@end
-@implementation CATextLayerNoHit
-- (BOOL)containsPoint:(CGPoint)p {	return FALSE; }
-@end
 
 @implementation AZDummy
 @end
@@ -118,7 +109,11 @@ static char CONVERTTOXML_KEY;
 	return @[@"Maps", @"Browser", @"Contacts", @"Mail", @"Gists", @"Settings"];
 }
 
++ (NSS*) tempFilePathWithExtension:(NSS*)extension
+{
+	return $(@"/tmp/atoztempfile.%@.%@", NSS.newUniqueIdentifier, extension);
 
+}
 
 //@synthesize sManager;
 //- (id)init {

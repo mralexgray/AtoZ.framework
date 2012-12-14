@@ -25,7 +25,7 @@ static PreferencesController *kController = nil;
 
 + (PreferencesController *)controller {
 	if (!kController)
-		[[PreferencesController alloc] initWithWindowNibName:@"Preferences"];
+		kController = [PreferencesController.alloc initWithWindowNibName:@"Preferences"];
 	
 	return kController;
 }

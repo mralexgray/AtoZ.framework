@@ -4,7 +4,7 @@
 
 
 @interface AtoZColorWell()
-- (void) colorPickerDidChoseRemoveColor:(id)sender;
+//- (void) colorPickerDidChoseRemoveColor:(id)sender;
 - (void) updateColorFromColorPicker:(id)sender;
 - (void) setUpColorPickerMenu;
 @end

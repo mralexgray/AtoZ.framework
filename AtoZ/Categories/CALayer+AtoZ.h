@@ -81,6 +81,13 @@ extern CATransform3D CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13, CG
 
 @interface CALayer (AtoZ)
 
+
+- (id) copyLayer;
+
+- (CAL*) hitTestSubs:(CGPoint)point;
+
+- (void) addSublayer:(CAL*)layer named:(NSS*)name;
+
 - (void) addSublayerImmediately:(CAL*)sub;
 - (void) addSublayersImmediately:(NSA*)subArray;
 - (void) insertSublayerImmediately:(CAL*)sub atIndex:(NSUI)idx;
@@ -182,7 +189,7 @@ extern CATransform3D CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13, CG
 @end
 @interface CALayer (LTKAdditions)
 
-@property (weak, readonly) CAL* permaPresentation;
+- (CALayer*) permaPresentation;
 
 @property (readwrite, nonatomic, assign) BOOL hovered;
 @property (readwrite, nonatomic, assign) BOOL selected;

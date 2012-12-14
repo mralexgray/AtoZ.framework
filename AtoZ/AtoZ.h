@@ -23,6 +23,20 @@
 #import <CoreServices/CoreServices.h>
 #endif
 
+#import <TargetConditionals.h>
+#if TARGET_OS_IPHONE
+#import <MobileCoreServices/MobileCoreServices.h>
+#import <sys/xattr.h>
+#else
+#import <CoreServices/CoreServices.h>
+#endif
+#import <libkern/OSAtomic.h>
+#import <sys/xattr.h>
+#import <sys/sysctl.h>
+#import <unistd.h>
+#import <dirent.h>
+#import <sys/stat.h>
+
 #import <xpc/xpc.h>
 #import <Cocoa/Cocoa.h>
 #import <objc/runtime.h>
@@ -38,9 +52,6 @@
 ////#define EXCLUDE_STUB_PROTOTYPES 1
 ////#import <PLWeakCompatibility/PLWeakCompatibilityStubs.h>
 //#import <RMKit/RMKit.h>
-#import "AutoCoding.h"
-#import "HRCoder.h"
-#import "BaseModel.h"
 
 ////#import <Rebel/Rebel.h>
 //#import <XPCKit/XPCKit.h>
@@ -69,8 +80,11 @@
 #import <CocoaPuffs/CocoaPuffs.h>
 #import <AtoZBezierPath/AtoZBezierPath.h>
 #import <AtoZAppKit/BGHUDAppKit.h>
-#import <Lumberjack/Lumberjack.h>
+//#import <Lumberjack/Lumberjack.h>
 
+#import "AutoCoding.h"
+#import "HRCoder.h"
+#import "BaseModel.h"
 
 #import "F.h"
 //#import "MArray.h"
@@ -109,10 +123,18 @@
 #import "NSArray+AtoZ.h"
 
 
+
+//   CORE
+
+#import "CAScrollView.h"
+
+
+// END CORE
+
 #import "AZTalker.h"
 
 #import "SynthesizeSingleton.h"
-#import "iCarousel.h"
+//#import "iCarousel.h"
 //#impo   rt "azCarousel.h"
 
 #import "CTGradient.h"
@@ -155,7 +177,8 @@
 #import "AZSimpleView.h"
 
 	// Categories
-#import "NSManagedObjectContext+EasyFetch.h"
+#import "NSDate+AtoZ.h"
+//#import "NSManagedObjectContext+EasyFetch.h"
 #import "NSEvent+AtoZ.h"
 #import "CAAnimation+AtoZ.h"
 #import "CALayer+AtoZ.h"
@@ -182,8 +205,12 @@
 #import "NSWindow+AtoZ.h"
 #import "NSUserDefaults+Subscript.h"
 
+
+#import "NSTableView+AtoZ.h"
+#import "NSIndexSet+AtoZ.h"
+
 //#import "NSUserDefaults+AtoZ.h"
-#import "NSObject-Utilities.h"
+//#import "NSObject-Utilities.h"
 
 //#import "MondoSwitch.h"
 //#import "AZToggleView.h"
@@ -253,10 +280,7 @@
 #import "AZBoxMagic.h"
 #import "AZInfiniteCell.h"
 #import "AZSourceList.h"
-#import "AZBoxLayer.h"
-#import "AZOverlay.h"
 #import "AtoZInfinity.h"
-#import "AZFileGridView.h"
 #import "NSTextView+AtoZ.h"
 #import "AZPropellerView.h"
 #import "StarLayer.h"
@@ -272,6 +296,13 @@
 
 // COREDATA
 #import "AZImageToDataTransformer.h"
+
+
+// UNUSED
+//#import "AZFileGridView.h"
+//#import "AZBoxLayer.h"
+//#import "AZOverlay.h"
+
 
 //static NSEventMask AZMouseActive = NSMouseMovedMask | NSMouseExitedMask |NSMouseEnteredMask);
 //static NSEventMask AZMouseButton = NS | NSMouseExitedMask |NSMouseEnteredMask;
@@ -325,6 +356,7 @@ extern NSString *const AtoZDockSortedUpdated;
 //+(void) testSizzle;
 //+(void) testSizzleReplacement;
 
++ (NSS*) tempFilePathWithExtension:(NSS*)extension;
 
 + (NSS*) randomFontName;
 + (void) plistToXML: (NSS*) path;
@@ -462,12 +494,8 @@ extern NSString *const AtoZDockSortedUpdated;
 @interface  NSWindow (Borderless)
 + (NSWindow*) borderlessWindowWithContentRect: (NSRect)aRect;
 @end
-@interface CALayerNoHit : CALayer
-@end
-@interface CAShapeLayerNoHit : CAShapeLayer
-@end
-@interface CATextLayerNoHit : CATextLayer
-@end
+
+
 #define XCODE_COLORS 0
 #define XCODE_COLORS_ESCAPE @"\033["
 #define XCODE_COLORS_RESET_FG  XCODE_COLORS_ESCAPE @"fg;" // Clear any foreground color

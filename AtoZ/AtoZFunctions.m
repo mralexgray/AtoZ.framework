@@ -13,6 +13,17 @@
 #import <CoreFoundation/CoreFoundation.h>
 
 
+@implementation CALayerNoHit
+- (BOOL)containsPoint:(CGPoint)p {	return FALSE; }
+@end
+@implementation CAShapeLayerNoHit
+- (BOOL)containsPoint:(CGPoint)p {	return FALSE; }
+@end
+@implementation CATextLayerNoHit
+- (BOOL)containsPoint:(CGPoint)p {	return FALSE; }
+@end
+
+
 @implementation NSObject (AZLayerDelegate)
 - (BOOL) boolForKey:(NSS*)key defaultValue:(BOOL)defaultValue;	{
 	id value = [self valueForKey:key];
@@ -83,13 +94,6 @@
 - (void) setColumnWithIdentifier:(NSS*)identifier toClass:(Class)actionCellClass;
 {
 	((NSTableColumn*)self.tableColumns[[self columnWithIdentifier:identifier]]).dataCell = actionCellClass.new;
-}
-@end
-
-@implementation NSDate (AtoZ)
-+ (NSS*)dayOfWeek
-{
-	return [[NSDate date] descriptionWithCalendarFormat:@"%A" timeZone:nil locale:[AZUSERDEFS dictionaryRepresentation]];
 }
 @end
 
@@ -270,6 +274,53 @@ char *GetPrivateIP(void) {
 }
 
 
+
+NSCharacterSet* _GetCachedCharacterSet(CharacterSet set) {
+	static NSCharacterSet* cache[kNumCharacterSets] = {0};
+	if (cache[set] == nil) {
+		OSSpinLockLock(&_staticSpinLock);
+		if (cache[set] == nil) {
+			switch (set) {
+				case kCharacterSet_Newline:
+					cache[set] = NSCharacterSet.newlineCharacterSet;
+					break;
+				case kCharacterSet_WhitespaceAndNewline:
+					cache[set] = NSCharacterSet.whitespaceAndNewlineCharacterSet;
+					break;
+				case kCharacterSet_WhitespaceAndNewline_Inverted:
+					cache[set] = [NSCharacterSet.whitespaceAndNewlineCharacterSet invertedSet];
+					break;
+				case kCharacterSet_UppercaseLetters:
+					cache[set] = NSCharacterSet.uppercaseLetterCharacterSet;
+					break;
+				case kCharacterSet_DecimalDigits_Inverted:
+					cache[set] = [NSCharacterSet.decimalDigitCharacterSet invertedSet];
+					break;
+				case kCharacterSet_WordBoundaries:
+					cache[set] = [[NSMutableCharacterSet alloc] init];
+					[(NSMutableCharacterSet*)cache[set] formUnionWithCharacterSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+					[(NSMutableCharacterSet*)cache[set] formUnionWithCharacterSet:[NSCharacterSet punctuationCharacterSet]];
+					[(NSMutableCharacterSet*)cache[set] removeCharactersInString:@"-"];
+					break;
+				case kCharacterSet_SentenceBoundaries:
+					cache[set] = [[NSMutableCharacterSet alloc] init];
+					[(NSMutableCharacterSet*)cache[set] addCharactersInString:@".?!"];
+					break;
+				case kCharacterSet_SentenceBoundariesAndNewlineCharacter:
+					cache[set] = [[NSMutableCharacterSet alloc] init];
+					[(NSMutableCharacterSet*)cache[set] formUnionWithCharacterSet:[NSCharacterSet newlineCharacterSet]];
+					[(NSMutableCharacterSet*)cache[set] addCharactersInString:@".?!"];
+					break;
+				case kNumCharacterSets:
+					break;
+			}
+		}
+		OSSpinLockUnlock(&_staticSpinLock);
+	}
+	return cache[set];
+}
+
+
 OSStatus HotKeyHandler(EventHandlerCallRef nextHandler, EventRef theEvent, void *userData)
 {
 	NSLog(@"HotKeyHandler theEvent:%@ ", theEvent );
@@ -282,6 +333,15 @@ CIFilter* CIFilterDefaultNamed(NSString* name){
 	CIFilter *x = [CIFilter filterWithName:name];
 	[x setDefaults];
 	return x;
+}
+
+
+CGFloat AZDeviceScreenScale(void) {
+#if TARGET_OS_IPHONE
+	return [UIScreen mainScreen].scale;
+#else
+	return NSScreen.mainScreen.backingScaleFactor;
+#endif
 }
 
 // Check if the "thing" pass'd is empty
@@ -339,6 +399,13 @@ id LogAndReturn(id toLog) {
 	AZLOG($(@"Log+Return: %@", toLog));
 	return toLog;
 };
+
+id LogAndReturnWithCaller(id toLog, SEL caller) {
+	AZLOG($(@"Caller:%@  Log+Return: %@", NSStringFromSelector(caller), toLog));
+	return toLog;
+};
+
+
 
 //id LogKeyAndReturn(id toLog, NSString key) {
 //	AZLOG([toLog valueForKey:<#(NSString *)#>);
@@ -1312,6 +1379,8 @@ typedef float CGFloat;
 #endif // CGFLOAT_DEFINED
 #endif  // MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5
 
+
+/*
 	// Some support for advanced clang static analysis functionality
 	// See http://clang-analyzer.llvm.org/annotations.html
 #ifndef __has_feature	  // Optional.
@@ -1373,6 +1442,7 @@ typedef float CGFloat;
 #define NS_CONSUMES_SELF
 #endif
 #endif
+*/
 //#else /* !defined(__LP64__) || !__LP64__ */
 //typedef float CGFloat;
 //#define CGFLOAT_MIN FLT_MIN
@@ -1383,6 +1453,7 @@ typedef float CGFloat;
 //#endif // CGFLOAT_DEFINED
 //#endif  // MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5
 
+/*
 	// Some support for advanced clang static analysis functionality
 	// See http://clang-analyzer.llvm.org/annotations.html
 #ifndef __has_feature	  // Optional.
@@ -1464,6 +1535,8 @@ typedef float CGFloat;
 #ifndef CF_FORMAT_FUNCTION
 #define CF_FORMAT_FUNCTION(F,A)
 #endif
+
+*/
 /*
 #ifndef GTM_NONNULL
 #define GTM_NONNULL(x) __attribute__((nonnull(x)))

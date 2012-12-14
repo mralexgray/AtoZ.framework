@@ -264,7 +264,7 @@ static const NSString *didScroll = @"scrollOffset";
 		return [object.identifier isEqualToString:sliderID] ? YES : NO;
 	}];
 
-	[slider performSelector:slider.slideState == AZOut ? @selector(slideIn) : @selector(slideOut)];
+	[slider cw_ARCPerformSelector:slider.slideState == AZOut ? @selector(slideIn) : @selector(slideOut)];
 }
 - (IBAction)toggleQuadFlip:(id)sender {
 

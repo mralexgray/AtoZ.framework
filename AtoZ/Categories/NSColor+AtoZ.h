@@ -101,8 +101,9 @@
 @property (RONLY)	BOOL isRedish;
 @property (RONLY)	BOOL isGreenish;
 @property (RONLY)	BOOL isYellowish;
-@property (RONLY)	BOOL isBasicallyWhite;
-@property (RONLY)	BOOL isBasicallyBlack;
+
+//@property (RONLY)	BOOL isBasicallyWhite;
+//@property (RONLY)	BOOL isBasicallyBlack;
 
 @end
 
@@ -141,6 +142,8 @@
 - (NSC*)adjustHue:(CGFloat)dHue saturation:(CGFloat)dSat brightness:(CGFloat)dBrit;
 
 @end
+
+
 #define CV_PALETTE_1 [NSColor colorWithDeviceRed:.9372 green:.6313 blue:.5019 alpha:1]
 #define CV_PALETTE_2 [NSColor colorWithDeviceRed:.8980 green:.4588 blue:.3098 alpha:1]
 #define CV_PALETTE_3 [NSColor colorWithDeviceRed:.8353 green:.1215 blue:0 alpha:1]

@@ -41,7 +41,7 @@
 
 - (void)drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView {
 	NSRectEdge sides[] = {NSMinYEdge, NSMaxXEdge, NSMaxYEdge, NSMinXEdge, NSMinYEdge, NSMaxXEdge, NSMaxYEdge, NSMinXEdge};
-	float grays[] = {0.95, 0.9, 0.6, 0.9, 0.4, 0.4, 0.4, 0.4};
+	const CGF grays[] = {0.95, 0.9, 0.6, 0.9, 0.4, 0.4, 0.4, 0.4};
 	NSRect rect = NSDrawTiledRects(cellFrame, cellFrame, sides, grays, 8);
 	[[NSColor colorWithCalibratedWhite:0.95 alpha:1.0] set];
 	NSRectFill(rect);

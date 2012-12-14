@@ -7,6 +7,7 @@
 #import "NSString+AtoZ.h"
 #import "NSColor+AtoZ.h"
 #import "NSArray+AtoZ.h"
+#import "AtoZFunctions.h"
 #import "RuntimeReporter.h"
 #import "AtoZ.h"
 #import <CommonCrypto/CommonDigest.h>
@@ -839,9 +840,9 @@ NSString*   StringByTruncatingStringWithAttributesForWidth( NSString* s, NSDicti
 }
 
 // KVC compliance stuff: This was needed for NSTreeController.  Not needed for the iPhone version.
-- (void) setSubclassNames:(NSArray *) names { NSLog(@"Can't set subclass names!"); }
-- (id) valueForUndefinedKey:(NSString *) key { return self; }
-- (void) setValue:(id)value forUndefinedKey:(NSString *)key { NSLog(@"unknown key:%@", key); }
+//- (void) setSubclassNames:(NSArray *) names { NSLog(@"Can't set subclass names!"); }
+//- (id) valueForUndefinedKey:(NSString *) key { return self; }
+//- (void) setValue:(id)value forUndefinedKey:(NSString *)key { NSLog(@"unknown key:%@", key); }
 
 @end
 
@@ -1065,6 +1066,312 @@ static NSString *SillyStringImplementation(id self, SEL _cmd, ...)
 		fixedString = currentString;
 	}
 	return fixedString;
+}
+
+@end
+
+@implementation NSString (Extensions)
+
+- (BOOL) hasCaseInsensitivePrefix:(NSString*)prefix {
+	NSRange range = [self rangeOfString:prefix options:(NSCaseInsensitiveSearch | NSAnchoredSearch)];
+	return range.location != NSNotFound;
+}
+
+- (NSString*) urlEscapedString {
+	return [(__bridge NSString*)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)self, NULL, CFSTR(":@/?&=+"),
+														kCFStringEncodingUTF8) autorelease];
+}
+
+- (NSString*) unescapeURLString {
+	return [(__bridge NSString*)CFURLCreateStringByReplacingPercentEscapesUsingEncoding(kCFAllocatorDefault, (CFStringRef)self, CFSTR(""),
+																		kCFStringEncodingUTF8) autorelease];
+}
+
+static NSArray* _SpecialAbreviations() {
+	static NSArray* array = nil;
+	if (array == nil) {
+		OSSpinLockLock(&_staticSpinLock);
+		if (array == nil) {
+			array = [[NSArray alloc] initWithObjects:@"vs", @"st", nil];
+		}
+		OSSpinLockUnlock(&_staticSpinLock);
+	}
+	return array;
+}
+
+// http://www.attivio.com/blog/57-unified-information-access/263-doing-things-with-words-part-two-sentence-boundary-detection.html
+static void _ScanSentence(NSScanner* scanner) {
+	NSUInteger initialLocation = scanner.scanLocation;
+	while (1) {
+		// Find next sentence boundary (return if at end)
+		[scanner scanUpToCharactersFromSet:_GetCachedCharacterSet(kCharacterSet_SentenceBoundariesAndNewlineCharacter) intoString:NULL];
+		if ([scanner isAtEnd]) {
+			break;
+		}
+		NSUInteger boundaryLocation = scanner.scanLocation;
+
+		// Skip sentence boundary (return if boundary is a newline or if at end)
+		if (![scanner scanCharactersFromSet:_GetCachedCharacterSet(kCharacterSet_SentenceBoundaries) intoString:NULL]) {
+			break;
+		}
+		if ([scanner isAtEnd]) {
+			break;
+		}
+
+		// Make sure sentence boundary is followed by whitespace or newline
+		NSRange range = [scanner.string rangeOfCharacterFromSet:_GetCachedCharacterSet(kCharacterSet_WhitespaceAndNewline)
+														options:NSAnchoredSearch
+														  range:NSMakeRange(scanner.scanLocation, 1)];
+		if (range.location == NSNotFound) {
+			continue;
+		}
+
+		// Extract previous token
+		range = [scanner.string rangeOfCharacterFromSet:_GetCachedCharacterSet(kCharacterSet_WhitespaceAndNewline)
+												options:NSBackwardsSearch
+												  range:NSMakeRange(initialLocation, boundaryLocation - initialLocation)];
+		if (range.location == NSNotFound) {
+			continue;
+		}
+		range = NSMakeRange(range.location + 1, boundaryLocation - range.location - 1);
+
+		// Make sure previous token is a not special abreviation
+		BOOL match = NO;
+		for (NSString* abreviation in _SpecialAbreviations()) {
+			if (abreviation.length == range.length) {
+				NSRange temp = [scanner.string rangeOfString:abreviation options:(NSAnchoredSearch | NSCaseInsensitiveSearch) range:range];
+				if (temp.location != NSNotFound) {
+					match = YES;
+					break;
+				}
+			}
+		}
+		if (match) {
+			continue;
+		}
+
+		// Make sure previous token does not contain a period or is more than 4 characters long or is followed by an uppercase letter
+		NSRange subrange = [scanner.string rangeOfString:@"." options:0 range:range];
+		if ((subrange.location != NSNotFound) && (range.length < 4)) {
+			subrange = [scanner.string rangeOfCharacterFromSet:_GetCachedCharacterSet(kCharacterSet_WhitespaceAndNewline_Inverted)
+													   options:0
+														 range:NSMakeRange(scanner.scanLocation,
+																		   scanner.string.length - scanner.scanLocation)];
+			subrange = [scanner.string rangeOfCharacterFromSet:_GetCachedCharacterSet(kCharacterSet_UppercaseLetters)
+													   options:NSAnchoredSearch
+														 range:NSMakeRange(subrange.location != NSNotFound ?
+																		   subrange.location : scanner.scanLocation, 1)];
+			if (subrange.location == NSNotFound) {
+				continue;
+			}
+		}
+
+		// We have found a sentence
+		break;
+	}
+}
+
+- (NSString*) extractFirstSentence {
+	NSScanner* scanner = [[NSScanner alloc] initWithString:self];
+	scanner.charactersToBeSkipped = nil;
+	_ScanSentence(scanner);
+	NSString* newSelf = [self substringToIndex:scanner.scanLocation];
+	return newSelf;
+}
+
+- (NSA*) extractAllSentences {
+	NSMutableArray* array = [NSMutableArray array];
+	NSScanner* scanner = [[NSScanner alloc] initWithString:self];
+	scanner.charactersToBeSkipped = nil;
+	while (1) {
+		[scanner scanCharactersFromSet:_GetCachedCharacterSet(kCharacterSet_WhitespaceAndNewline) intoString:NULL];
+		if ([scanner isAtEnd]) {
+			break;
+		}
+		NSUInteger location = scanner.scanLocation;
+		_ScanSentence(scanner);
+		if (scanner.scanLocation > location) {
+			[array addObject:[self substringWithRange:NSMakeRange(location, scanner.scanLocation - location)]];
+		}
+	}
+	[scanner release];
+	return array;
+}
+
+- (NSIndexSet*) extractSentenceIndices {
+	NSMutableIndexSet* set = [NSMutableIndexSet indexSet];
+	NSScanner* scanner = [[NSScanner alloc] initWithString:self];
+	scanner.charactersToBeSkipped = nil;
+	while (1) {
+		NSUInteger location = scanner.scanLocation;
+		_ScanSentence(scanner);
+		if (scanner.scanLocation > location) {
+			[set addIndex:location];
+		}
+		[scanner scanCharactersFromSet:_GetCachedCharacterSet(kCharacterSet_WhitespaceAndNewline) intoString:NULL];
+		if ([scanner isAtEnd]) {
+			break;
+		}
+	}
+	[scanner release];
+	return set;
+}
+
+- (NSString*) stripParenthesis {
+	NSMutableString* string = [NSMutableString string];
+	NSRange range = NSMakeRange(0, self.length);
+	while (range.length) {
+		// Find location of start of parenthesis or end of string otherwise
+		NSRange subrange = [self rangeOfString:@"(" options:0 range:range];
+		if (subrange.location == NSNotFound) {
+			subrange.location = range.location + range.length;
+		} else {
+			// Adjust the location to contain whitespace preceding the parenthesis
+			NSRange subrange2 = [self rangeOfCharacterFromSet:_GetCachedCharacterSet(kCharacterSet_WhitespaceAndNewline_Inverted)
+													  options:NSBackwardsSearch
+														range:NSMakeRange(range.location, subrange.location - range.location)];
+			if (subrange2.location + 1 < subrange.location) {
+				subrange.length += subrange.location - subrange2.location - 1;
+				subrange.location = subrange2.location + 1;
+			}
+		}
+
+		// Copy characters until location
+		[string appendString:[self substringWithRange:NSMakeRange(range.location, subrange.location - range.location)]];
+		range.length -= subrange.location - range.location;
+		range.location = subrange.location;
+
+		// Skip characters from location to end of parenthesis or end of string otherwise
+		if (range.length) {
+			subrange = [self rangeOfString:@")" options:0 range:range];
+			if (subrange.location == NSNotFound) {
+				subrange.location = range.location + range.length;
+			} else {
+				subrange.location += 1;
+			}
+			range.length -= subrange.location - range.location;
+			range.location = subrange.location;
+		}
+	}
+	return string;
+}
+
+- (BOOL) containsString:(NSString*)string {
+	NSRange range = [self rangeOfString:string];
+	return range.location != NSNotFound;
+}
+
+- (NSA*) extractAllWords {
+	NSCharacterSet* characterSet = _GetCachedCharacterSet(kCharacterSet_WordBoundaries);
+	if (self.length) {
+		NSMutableArray* array = [NSMutableArray array];
+		NSScanner* scanner = [[NSScanner alloc] initWithString:self];
+		scanner.charactersToBeSkipped = nil;
+		while (1) {
+			[scanner scanCharactersFromSet:characterSet intoString:NULL];
+			NSString* string;
+			if (![scanner scanUpToCharactersFromSet:characterSet intoString:&string]) {
+				break;
+			}
+			[array addObject:string];
+		}
+		[scanner release];
+		return array;
+	}
+	return nil;
+}
+
+- (NSRange) rangeOfWordAtLocation:(NSUInteger)location {
+	NSCharacterSet* characterSet = _GetCachedCharacterSet(kCharacterSet_WordBoundaries);
+	if (![characterSet characterIsMember:[self characterAtIndex:location]]) {
+		NSRange start = [self rangeOfCharacterFromSet:characterSet options:NSBackwardsSearch range:NSMakeRange(0, location)];
+		if (start.location == NSNotFound) {
+			start.location = 0;
+		} else {
+			start.location = start.location + 1;
+		}
+		NSRange end = [self rangeOfCharacterFromSet:characterSet options:0 range:NSMakeRange(location + 1, self.length - location - 1)];
+		if (end.location == NSNotFound) {
+			end.location = self.length;
+		}
+		return NSMakeRange(start.location, end.location - start.location);
+	}
+	return NSMakeRange(NSNotFound, 0);
+}
+
+- (NSRange) rangeOfNextWordFromLocation:(NSUInteger)location {
+	NSCharacterSet* characterSet = _GetCachedCharacterSet(kCharacterSet_WordBoundaries);
+	if ([characterSet characterIsMember:[self characterAtIndex:location]]) {
+		NSRange start = [self rangeOfCharacterFromSet:[characterSet invertedSet] options:0 range:NSMakeRange(location,
+																											 self.length - location)];
+		if (start.location != NSNotFound) {
+			NSRange end = [self rangeOfCharacterFromSet:characterSet options:0 range:NSMakeRange(start.location,
+																								 self.length - start.location)];
+			if (end.location == NSNotFound) {
+				end.location = self.length;
+			}
+			return NSMakeRange(start.location, end.location - start.location);
+		}
+	}
+	return NSMakeRange(NSNotFound, 0);
+}
+
+- (NSString*) stringByDeletingPrefix:(NSString*)prefix {
+	if ([self hasPrefix:prefix]) {
+		return [self substringFromIndex:prefix.length];
+	}
+	return self;
+}
+
+- (NSString*) stringByDeletingSuffix:(NSString*)suffix {
+	if ([self hasSuffix:suffix]) {
+		return [self substringToIndex:(self.length - suffix.length)];
+	}
+	return self;
+}
+
+- (NSString*) stringByReplacingPrefix:(NSString*)prefix withString:(NSString*)string {
+	if ([self hasPrefix:prefix]) {
+		return [string stringByAppendingString:[self substringFromIndex:prefix.length]];
+	}
+	return self;
+}
+
+- (NSString*) stringByReplacingSuffix:(NSString*)suffix withString:(NSString*)string {
+	if ([self hasSuffix:suffix]) {
+		return [[self substringToIndex:(self.length - suffix.length)] stringByAppendingString:string];
+	}
+	return self;
+}
+
+- (BOOL) isIntegerNumber {
+	NSRange range = NSMakeRange(0, self.length);
+	if (range.length) {
+		unichar character = [self characterAtIndex:0];
+		if ((character == '+') || (character == '-')) {
+			range.location = 1;
+			range.length -= 1;
+		}
+		range = [self rangeOfCharacterFromSet:_GetCachedCharacterSet(kCharacterSet_DecimalDigits_Inverted) options:0 range:range];
+		return range.location == NSNotFound;
+	}
+	return NO;
+}
+
+@end
+
+@implementation NSMutableString (Extensions)
+
+- (void) trimWhitespaceAndNewlineCharacters {
+	NSRange range = [self rangeOfCharacterFromSet:_GetCachedCharacterSet(kCharacterSet_WhitespaceAndNewline_Inverted)];
+	if ((range.location != NSNotFound) && (range.location > 0)) {
+		[self deleteCharactersInRange:NSMakeRange(0, range.location)];
+	}
+	range = [self rangeOfCharacterFromSet:_GetCachedCharacterSet(kCharacterSet_WhitespaceAndNewline_Inverted)
+								  options:NSBackwardsSearch];
+	if ((range.location != NSNotFound) && (range.location < self.length - 1)) {
+		[self deleteCharactersInRange:NSMakeRange(range.location, self.length - range.location)];
+	}
 }
 
 @end

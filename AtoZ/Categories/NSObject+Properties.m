@@ -41,7 +41,133 @@
 
 @implementation NSObject (AQProperties)
 
+static const char * getPropertyType(objc_property_t property) {
+    const char *attributes = property_getAttributes(property);
+    printf("attributes=%s\n", attributes);
+    char buffer[1 + strlen(attributes)];
+    strcpy(buffer, attributes);
+    char *state = buffer, *attribute;
+    while ((attribute = strsep(&state, ",")) != NULL) {
+        if (attribute[0] == 'T' && attribute[1] != '@') {
+            // it's a C primitive type:
+            /*
+			 if you want a list of what will be returned for these primitives, search online for
+			 "objective-c" "Property Attribute Description Examples"
+			 apple docs list plenty of examples of what you get for int "i", long "l", unsigned "I", struct, etc.
+			 */
+            return (const char *)[[NSData dataWithBytes:(attribute + 1) length:strlen(attribute) - 1] bytes];
+        }
+        else if (attribute[0] == 'T' && attribute[1] == '@' && strlen(attribute) == 2) {
+            // it's an ObjC id type:
+            return "id";
+        }
+        else if (attribute[0] == 'T' && attribute[1] == '@') {
+            // it's another ObjC object type:
+            return (const char *)[[NSData dataWithBytes:(attribute + 3) length:strlen(attribute) - 4] bytes];
+        }
+    }
+    return "";
+}
 
+
++ (NSDictionary *)classPropsFor:(Class)klass
+{
+    if (klass == NULL) {
+        return nil;
+    }
+
+    NSMutableDictionary *results = [[[NSMutableDictionary alloc] init] autorelease];
+
+    unsigned int outCount, i;
+    objc_property_t *properties = class_copyPropertyList(klass, &outCount);
+    for (i = 0; i < outCount; i++) {
+        objc_property_t property = properties[i];
+        const char *propName = property_getName(property);
+        if(propName) {
+            const char *propType = getPropertyType(property);
+            NSString *propertyName = [NSString stringWithUTF8String:propName];
+            NSString *propertyType = [NSString stringWithUTF8String:propType];
+            [results setObject:propertyType forKey:propertyName];
+        }
+    }
+    free(properties);
+
+    // returning a copy here to make sure the dictionary is immutable
+    return [NSDictionary dictionaryWithDictionary:results];
+}
+
+
+
+/*
+ * @returns A string describing the type of the property
+ */
+
++ (NSString *)propertyTypeStringOfProperty:(objc_property_t) property {
+    const char *attr = property_getAttributes(property);
+    NSString *const attributes = [NSString stringWithCString:attr encoding:NSUTF8StringEncoding];
+
+    NSRange const typeRangeStart = [attributes rangeOfString:@"T@\""];  // start of type string
+    if (typeRangeStart.location != NSNotFound) {
+        NSString *const typeStringWithQuote = [attributes substringFromIndex:typeRangeStart.location + typeRangeStart.length];
+        NSRange const typeRangeEnd = [typeStringWithQuote rangeOfString:@"\""]; // end of type string
+        if (typeRangeEnd.location != NSNotFound) {
+            NSString *const typeString = [typeStringWithQuote substringToIndex:typeRangeEnd.location];
+            return typeString;
+        }
+    }
+    return nil;
+}
+
+/**
+ * @returns (NSString) Dictionary of property name --> type
+ */
++ (NSD*)classObjectPropertiesAndTypes {
+
+//+ (NSDictionary *)propertyTypeDictionaryOfClass:(Class)klass {
+    NSMD *propertyMap = NSMD.new;
+    unsigned int outCount, i;
+    objc_property_t *properties = class_copyPropertyList(self.class, &outCount);
+    for(i = 0; i < outCount; i++) {
+        objc_property_t property = properties[i];
+        const char *propName = property_getName(property);
+        if(propName) {
+            NSS *propertyName = [NSS stringWithUTF8String:propName];
+            NSS *propertyType = [self propertyTypeStringOfProperty:property];
+            [propertyMap setValue:propertyType forKey:propertyName];
+        }
+    }
+    free(properties);
+    return propertyMap;
+}
+
++ (NSD*)classPropertiesAndTypes {
+
+
+	unsigned int i, count = 0;
+	objc_property_t * properties = class_copyPropertyList( self, &count );
+	if ( count == 0 ) {	free( properties );	return nil;	}
+
+	NSMD * list = NSMD.new;
+
+	for ( i = 0; i < count; i++ ) {
+		NSS*name = [NSS stringWithUTF8String:property_getName(properties[i])];
+		NSS *nsClass = [self propertyTypeStringOfProperty:properties[i]];
+		if (!nsClass) {
+			const char * whatever = property_getTypeString(properties[i]);
+			nsClass = whatever ? [NSS stringWithUTF8String:whatever] : nil;
+		}
+		if (nsClass) [list setValue:nsClass forKey:name];
+	}
+	return list;
+//
+//	NSA* propN = self.propertyNames;
+//	return [propN mapToDictionaryKeys:^id(NSS* object) {
+//		NSS* typeName = [self.class ]
+//		//[object UTF8String];
+//		return propFromname ? [NSS stringWithUTF8String:propFromname] : nil;
+//
+//	}];
+}
 - (NSD*)propertiesSans:(NSS*)someKey { return [[self propertiesPlease] filter:^BOOL(id key,id value) { return [key isNotEqualTo:someKey] ? YES : NO; }]; }
 
 - (NSD *)propertiesPlease
@@ -54,7 +180,7 @@
 
 		NSS *propertyName = [NSS.alloc initWithUTF8String:property_getName(property)];
 		if (propertyName) {
-//			if ( [self hasPropertyForKVCKey:propertyName] &&
+			//			if ( [self hasPropertyForKVCKey:propertyName] &&
 			if ([self respondsToString:propertyName]) {
 				id propertyValue = [self valueForKey:propertyName];
 				if (propertyValue) props[propertyName] = [propertyValue copy];
@@ -65,6 +191,52 @@
 	free(properties);
 	return props.copy;
 }
+
+//- (NSD *)propertiesPlease
+//{
+//	return  [self.codableKeys mapToDictionaryKeys:^id(id object) {
+//		return [self valueForKey:object];
+//	}];
+
+//	NSA* propN = self.propertyNames;
+//	NSLog(@"trying to get props: %@", propN)
+////	NSA *hasV = [propN cw_mapArray:^id(id object) {
+////		return [self valueForKey:object] ? object : nil;
+////	}];
+////	NSLog(@"hasV: %@", hasV)
+//	NSA * responds = [propN cw_mapArray:^id(NSS* select) {
+//		return [self respondsToSelector:NSSelectorFromString(select)] ? select : nil;
+//	}];
+//	NSLog(@"responds: %@", responds)
+//	return [responds mapToDictionaryKeys:^id(NSS*props) {
+//		return [self performSelectorSafely:NSSelectorFromString(props)];
+//	}];
+//	}][self.class propertyTypeDictionaryOfClass:self.class];
+//	return  [[props.allKeys cw_mapArray:^id(id object) {
+//		return [self respondsToString:object] ? object : nil;
+//	}] mapToDictionaryKeys:^id(NSS* propName) {
+//		return [self valueForKey:propName];
+//	}];
+
+//	NSMD *props = NSMD.new;
+//	unsigned outCount, i;
+//	objc_property_t *properties = class_copyPropertyList(self.class, &outCount);
+//	for (i = 0; i < outCount; i++) {
+//		objc_property_t property = properties[i];
+//
+//		NSS *propertyName = [NSS.alloc initWithUTF8String:property_getName(property)];
+//		if (propertyName) {
+////			if ( [self hasPropertyForKVCKey:propertyName] &&
+//			if ([self respondsToString:propertyName]) {
+//				id propertyValue = [self valueForKey:propertyName];
+//				if (propertyValue) props[propertyName] = [propertyValue respondsToString:@"copy"] ? [propertyValue copy] : propertyValue;
+//			}
+//
+//		}else NSLog(@"Responds:%@ to:%@", StringFromBOOL([self respondsToString:propertyName]), propertyName);
+//	}
+//	free(properties);
+//	return props;
+//}
 
 
 + (BOOL) hasProperties

@@ -58,10 +58,10 @@ extern NSString * const kAZWebSnapperUseGMTKey;
 @property (STRNG, NATOM) NSMA				*webHistory;
 
 
-- (void)takeURLFromBrowser: (NSS*) name;
+//- (void)takeURLFromBrowser: (NSS*) name;
 - (void)takeScreenshot;
 
-- (void)fetchUsingString: (NSS*) string minSize:(NSSize)minSize cropSize:(NSSize)cropSize;
+//- (void)fetchUsingString: (NSS*) string minSize:(NSSize)minSize cropSize:(NSSize)cropSize;
 
 - (NSString *)filenameWithFormat: (NSS*) format;
 - (void)saveAsPNG: (NSS*)filename fullSize:(BOOL)saveFullSize thumbnailScale:(float)thumbnailScale thumbnailSuffix: (NSS*) thumbnailSuffix;
@@ -70,11 +70,11 @@ extern NSString * const kAZWebSnapperUseGMTKey;
 - (void)saveAsPDF: (NSS*) filename;
 - (NSBitmapImageRep *)bitmapThumbnailWithScale:(float)scale;
 
-- (void)validateInputSchemeForControl:(NSControl *)control;
+//- (void)validateInputSchemeForControl:(NSControl *)control;
 
-- (void)warnOfMalformedPaparazziURL:(NSURL *)url;
+//- (void)warnOfMalformedPaparazziURL:(NSURL *)url;
 
-- (void)addURLToHistory:(NSURL *)url;
+//- (void)addURLToHistory:(NSURL *)url;
 
 
 

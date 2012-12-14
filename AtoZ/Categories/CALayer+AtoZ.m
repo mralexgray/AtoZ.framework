@@ -486,6 +486,23 @@ static char TEXT_IDENTIFIER;
 #define kCALayerLabel @"CALayerLabel"
 @implementation CALayer (AtoZ)
 
+- (CAL*) hitTestSubs:(CGPoint)point
+{
+	CAL* l = [self hitTest:point];
+	return l == self ? nil : l;
+}
+
+- (id) copyLayer
+{
+	id newOne = [self.class.alloc init];
+	NSD* newD = [self.modelLayer propertiesPlease];
+	NSLog(@"copying layer with props: %@", newD);
+	[newOne setPropertiesWithDictionary:newD];
+	return newOne;
+}
+
+
+- (void) addSublayer:(CAL*)layer named:(NSS*)name { layer.name = name; [self addSublayer:layer]; }
 
 - (void) addSublayerImmediately:(CAL*)sub	{	[CATransaction immediately:^{	[self addSublayer:sub];	}];	}
 - (void) addSublayersImmediately:(NSA*)subArray {	[CATransaction immediately:^{	[self addSublayers:subArray];	}];	}
@@ -1736,12 +1753,13 @@ NSTimeInterval const LTKDefaultTransitionDuration = 0.25;
 }
 
 #pragma mark - Property Accessors
+//@synthesize selected, hovered;
 
-- (BOOL)selected 			{ return [self boolForKey:@"selected" defaultValue:NO]; }
-- (void)setSelected:(BOOL)s { 		 [self setBool:s forKey:@"selected"]; 			}
+- (BOOL)selected 			{ return [self valueForKey:@"_selected_"] ? [[self valueForKey:@"_selected_"]boolValue] : NO; } //return [self boolForKey:@"selected" defaultValue:NO]; }
+- (void)setSelected:(BOOL)s { 		 [self setValue:@(s) forKey:@"_selected_"]; 			}
 
-- (BOOL)hovered 			{ return [self boolForKey:@"hovered" defaultValue:NO]; 	}
-- (void)setHovered:(BOOL)h	{		 [self setBool:h forKey:@"hovered"]; 			}
+- (BOOL)hovered 			{ return [self valueForKey:@"_hovered_"] ? [[self valueForKey:@"_hovered_"]boolValue] : NO; }
+- (void)setHovered:(BOOL)h	{		 [self setValue:@(h) forKey:@"_hovered_"]; 			}
 
 - (CGPoint)frameOrigin
 {

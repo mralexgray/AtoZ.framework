@@ -1,84 +1,6 @@
 
 #import "TestBedDelegate.h"
 
-#define VRT AZOrientVertical
-#define HRZ AZOrientHorizontal
-#define ScrollFixTypeArray @"LayerInsertFront",@"LayerInsertEnd",@"LayerRemoveFront",@"LayerRemoveEnd",@"LayerStateOK",@"LayerStateUnset",nil
-NSS* stringForScrollFix(ScrollFix val) { return [NSArray.alloc initWithObjects:ScrollFixTypeArray][val]; }
-
-@implementation CAScrollView
-@synthesize 	layerQueue, 		hostlayer, 	hostView, 	scrollLayer, 	fixState, 	orientation = oreo;
-
-- (IBAction) toggleOrientation:(id)sender { self.orientation = ((NSBUTT*)sender).state == NSOnState ? VRT : HRZ; }
-
-- (void) layoutSublayersOfLayer: (CAL*)layer
-{
-	[CATransaction immediately:^{				  __block CGF off = _offset;
-		[scrollLayer.sublayers each:^(CAL* obj) {	obj.frameMinX = oreo == VRT ? 0 : off;
-													obj.frameMinY = oreo == VRT ? off : 0;
-							   off += oreo == VRT ? obj.boundsHeight : obj.boundsWidth;		}]; }];
-}
-
-- (CGF) sublayerSpan { return ((NSN*)[scrollLayer.sublayers reduce:^id(NSN*memo,CAL*cur) { return @(memo.floatValue + oreo == VRT ? cur.boundsHeight : cur.boundsWidth); } withInitialMemo:@0]).floatValue; }
-- (CGF) sublayerOrig { return [scrollLayer.sublayers.first floatForKey: oreo == VRT ? @"frameMinY"    : @"frameMinX"  ]; }
-- (CGF) lastLaySpan  { return [scrollLayer.sublayers.last  floatForKey: oreo == VRT ? @"boundsHeight" : @"boundsWidth"]; }
-- (CGF) firstLaySpan { return [scrollLayer.sublayers.first floatForKey: oreo == VRT ? @"boundsHeight" : @"boundsWidth"]; }
-- (CGF) lastLayOrig  { return [scrollLayer.sublayers.last  floatForKey: oreo == VRT ? @"frameMinY"    : @"frameMinX"  ]; }
-- (CGF) superBounds  { return oreo == VRT ?  scrollLayer.boundsHeight : scrollLayer.boundsWidth; 					}
-
-- (void) setFixState:(ScrollFix)fix	{	fixState = LayerStateUnset;  fixState =
-
-	self.sublayerOrig 	> 0 					 && layerQueue.count > 0 	? LayerInsertFront 	:
-	self.lastLayOrig 	< self.superBounds 		 && layerQueue.count > 0	? LayerInsertEnd	:
-	self.sublayerOrig 	< NEG(self.firstLaySpan) && scrollLayer.sublayers 	? LayerRemoveFront	:
-	self.lastLayOrig 	> self.superBounds		 && scrollLayer.sublayers	? LayerRemoveEnd	: LayerStateOK;
-
-	fixState == LayerInsertFront 	? ^{	CAL *newFirst = layerQueue.shift;
-											[scrollLayer insertSublayerImmediately:newFirst atIndex:0];
-											_offset = oreo == VRT ? -newFirst.boundsHeight : -newFirst.boundsWidth;
-									}():
-	fixState == LayerRemoveFront 	? ^{	[layerQueue shove: scrollLayer.sublayers.first];
-											RemoveImmediately( scrollLayer.sublayers.first );
-											_offset = 0;
-									}():
-	fixState == LayerRemoveEnd    	? ^{	[layerQueue addObject:scrollLayer.sublayers.last];
-											RemoveImmediately( scrollLayer.sublayers.last );
-									}():
-	fixState == LayerInsertEnd		? 		[scrollLayer addSublayerImmediately:layerQueue.pop] : nil;
-
-	[scrollLayer setNeedsLayout];
-}
-- (BOOL) acceptsFirstResponder { return YES; }
-- (void) scrollWheel:(NSE*)e	 {	self.offset += oreo == VRT ? e.deltaY : e.deltaX;		}
-- (void) mouseMoved: (NSE*)e
-{
-	CAL* u = [scrollLayer hitTest:[self convertPoint:e.locationInWindow fromView:nil]];
-	if (_focusedLayer) {
-		 _focusedLayer.hovered = NO;
-		 [_focusedLayer setNeedsDisplay];
-	}
-	self.focusedLayer = u;
-	_focusedLayer.hovered = YES;
-	[_focusedLayer setNeedsDisplay];
-}
-- (void) awakeFromNib
-{
-	self.window.acceptsMouseMovedEvents = YES;
-	[self.window makeFirstResponder: self];
-
-	oreo         		= HRZ;
-	fixState			= LayerStateUnset;
-	hostlayer 			= [hostView setupHostView];
-	scrollLayer 		= [CAL layerWithFrame:hostView.bounds];
-	scrollLayer.arMASK 	= CASIZEABLE;
-	hostlayer.sublayers = @[scrollLayer];
-	scrollLayer.loM 	= self;
-	[self observeFrameChangeUsingBlock:^{ [self setFixState:LayerStateUnset]; }];
-	[self addObserver:self keyPath:@[@"offset",@"orientation",@"layerQueue"] selector:@selector(setFixState:) userInfo:nil options:NSKeyValueObservingOptionNew];
-}
-
-@end
-
 
 
 //self.sublayerOrig + self.sublayerSpan  < self.superBounds  - self.lastLaySpan
@@ -127,11 +49,10 @@ NSS* stringForScrollFix(ScrollFix val) { return [NSArray.alloc initWithObjects:S
 
 - (void) awakeFromNib
 {
+	[self.window setAcceptsMouseMovedEvents:YES];
+	[self.window makeFirstResponder:mainView];
 	[self createScrollLayer];
-
-	[mainView observeFrameChangeUsingBlock:^{
-//		[_scrollLayer.sublayers[0] setNeedsDisplay];
-	}];
+//	[NotificationCenterSpy toggleSpyingAllNotificationsIgnoring:nil ignoreOverlyVerbose:YES];
 //	[AtoZ sharedInstance];
 //	window.delegate = self;
 
@@ -179,13 +100,13 @@ NSS* stringForScrollFix(ScrollFix val) { return [NSArray.alloc initWithObjects:S
 	if (view) {
 		NSLog(@"selecto:%@  view:%@", selecto.debugDescription, view);
 		if (mainView.subviews.count != 0) {
-			[[mainView.subviews first] fadeOut];
-			[mainView removeAllSubviews];
+			[mainView.subviews.first fadeOut];
+//			[mainView removeAllSubviews];
 	}
 		mainView.subviews = @[view];
 		[view setFrame:mainView.bounds];
 //		[(NSV*)view setAutoresizingMask: NSSIZEABLE];
-		[view setNeedsDisplay: YES];
+		[view fadeIn];
 	}
 	if ( areSame(@"CAScrollLayer", selecto))
 	{
@@ -202,23 +123,28 @@ NSS* stringForScrollFix(ScrollFix val) { return [NSArray.alloc initWithObjects:S
 
 - (void) createScrollLayer
 {
-	if (mainView.subviews.count != 0) {
-		[[mainView.subviews first] fadeOut];
-		[mainView removeAllSubviews];
+	if (mainView.subviews.count > 0) {
+		[mainView.subviews.first fadeOut];
+//		[mainView.subviews[0] removeFromSuperview];
 	}
+	if ([mainView.subviews doesNotContainObject:_scrollTestHost])		[mainView addSubview:_scrollTestHost];
+	[_scrollTestHost setFrame:mainView.frame];
+	_scrollTestHost.arMASK = NSSIZEABLE;
+//	[_scrollTestHost fadeIn];
+//	[_scrollTestHost setFrame:mainView.bounds];
+	[self reZhuzhScrollLayer:nil];
+}
 
-	[mainView addSubview:_scrollTest];
-	[_scrollTest setFrame:mainView.bounds];
+- (IBAction)reZhuzhScrollLayer:(id)sender
+{
+	_scrollTest.hoverStyle = Lasso;
+	_scrollTest.selectedStyle = DarkenOthers;
+	_scrollTest.layerQueue = 	[[NSC randomPalette] nmap:^id(NSC* c, NSUI idx) {
 
-	_scrollTest.layerQueue = 	[[NSA from:0 to:10] nmap:^id(id obj, NSUI idx) {
-
-		CAL *l = [CAL layerNamed:[obj stringValue]];
-		l.frame = AZRectBy(200,200);
-		NSC *c = RANDOMCOLOR;//];// [NSC checkerboardWithFirstColor:BLACK secondColor:WHITE squareWidth:10* [obj intValue]+1];///[obj intValue] % 2 == 0 ? RANDOMCOLOR : ];
+		CAL *l = [CAL layerNamed:[@(idx) stringValue]];
+		l.frame = AZRectBy(100,100);
 		l.bgC = c.brighter.cgColor;
-		l.opacity 		= .8;
 		l.borderColor = c.darker.cgColor;
-		l.borderWidth = 5;
 		l.delegate = self;
 		[l setNeedsDisplay];
 		return l;
@@ -230,9 +156,17 @@ NSS* stringForScrollFix(ScrollFix val) { return [NSArray.alloc initWithObjects:S
 {
 //	NSLog(@"drawLinCTX called on: %@...  vageen?:%@", layer, StringFromBOOL([layer boolForKey:@"clicked"]));
 	[NSGraphicsContext drawInContext:ctx flipped:NO actions:^{
-		!layer.hovered ?: NSRectFillWithColor(layer.bounds, [NSC checkerboardWithFirstColor:BLACK secondColor:CLEAR squareWidth:20]);
-		[NSSHDW setShadowWithOffset:(NSSZ){5,-3} blurRadius:7 color:BLACK];
-		[layer.name drawInRect:layer.bounds withFontNamed:@"Helvetica" andColor: WHITE];
+//		!layer.hovered ?: ^{
+//			NSRectFillWithColor(layer.bounds, [NSC checkerboardWithFirstColor:BLACK secondColor:CLEAR squareWidth:20]);
+//			NSBP *b = [NSBP bezierPathWithRect:layer.bounds];
+//			[b fillWithInnerShadow:[NSSHDW shadowWithColor:BLACK offset:NSMakeSize(4, -4) radius:10]];
+//		}();
+//		[NSSHDW setShadowWithOffset:(NSSZ){5,-3} blurRadius:7 color:BLACK];
+		NSIMG * icon;
+		if ( [layer hasAssociatedValueForKey:@"icon"] ) icon = [layer associatedValueForKey:@"icon"];
+		else { icon = [[NSIMG randomMonoIcon]etched]; [layer setAssociatedValue:icon forKey:@"icon" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC]; }
+		[icon drawCenteredinRect:NSInsetRect(layer.bounds, 0, 10) operation:NSCompositePlusDarker fraction:1];
+//		[layer.name drawInRect:layer.bounds withFontNamed:@"Helvetica" andColor: WHITE];
 	}];
 
 }

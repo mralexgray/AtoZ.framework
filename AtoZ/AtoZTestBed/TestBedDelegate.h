@@ -3,21 +3,7 @@
 #import "AZUIViewController.h"
 #import "AZColorViewController.h"
 
-typedef NS_ENUM (NSUI, ScrollFix)	{	LayerInsertFront,	LayerInsertEnd,
-										LayerRemoveFront,	LayerRemoveEnd,
-										LayerStateOK	,		LayerStateUnset		};
-@interface 	  CAScrollView : NSView
 
-@property IBOutlet 		 NSV		*hostView;
-@property (NATOM, STRNG) NSMA 		*layerQueue;
-@property (NATOM, STRNG) CAL 		*scrollLayer, *hostlayer, *focusedLayer;
-@property (NATOM)  		 CGF 		offset;
-@property (RONLY)  		 CGF 		firstLaySpan, sublayerOrig, sublayerSpan, lastLaySpan, superBounds, lastLayOrig, fixLayerState;
-@property (NATOM)  		 AZOrient	orientation;
-@property (NATOM)		 ScrollFix	fixState;
-
--(IBAction)toggleOrientation:(id)sender;
-@end
 
 
 
@@ -34,19 +20,20 @@ typedef NS_ENUM (NSUI, ScrollFix)	{	LayerInsertFront,	LayerInsertEnd,
 
 @interface TestBedDelegate : NSObject <NSApplicationDelegate, NSWindowDelegate> //, AZSemiResponder>
 
-@property (weak) IBOutlet AtoZColorWell 			*colorWell;
+@property (STRNG) IBOutlet AtoZColorWell 			*colorWell;
 
-@property (weak) IBOutlet NSBUTT 					*holdOntoViews;
+@property (STRNG) IBOutlet NSBUTT 					*holdOntoViews;
 //@property (NATOM, STRNG)  AZFileGridView 			*fileGrid;
 
 //@property (weak) IBOutlet  AZGeometryViewController *geoVC;
-@property (weak) IBOutlet  AZGeneralViewController  *genVC;
-@property (weak) IBOutlet  AZUIViewController		*uiVC;
-@property (weak) IBOutlet  AZColorViewController	*colorVC;
+@property (STRNG) IBOutlet  AZGeneralViewController  *genVC;
+@property (STRNG) IBOutlet  AZUIViewController		*uiVC;
+@property (STRNG) IBOutlet  AZColorViewController	*colorVC;
 
-@property (weak) IBOutlet NSW 					*window;
-@property (weak) IBOutlet NSV						*mainView;
-@property (weak) IBOutlet CAScrollView			*scrollTest;
+@property (STRNG) IBOutlet NSW 					*window;
+@property (STRNG) IBOutlet NSV						*mainView;
+@property (STRNG) IBOutlet NSView				*scrollTestHost;
+@property (STRNG) IBOutlet CAScrollView			*scrollTest;
 
 //@property (weak) IBOutlet NSView	*scrollTest;
 //@property (weak) IBOutlet CAScrollView 	*scrollTestLayerView;
@@ -67,6 +54,7 @@ typedef NS_ENUM (NSUI, ScrollFix)	{	LayerInsertFront,	LayerInsertEnd,
 
 
 - (IBAction) setViewFromPopUp:(id)sender;
+- (IBAction) reZhuzhScrollLayer:(id)sender;
 
 @end
 

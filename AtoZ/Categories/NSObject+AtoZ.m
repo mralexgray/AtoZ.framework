@@ -4,16 +4,16 @@
 #import "AutoCoding.h"
 
 //#import "Nu.h"
-
-@implementation NSObject (AMAssociatedObjects)
-
-- (void)associate: (id)value with: (void*)key {			objc_setAssociatedObject(self, key, value, OBJC_ASSOCIATION_RETAIN); }
-
-- (void)weaklyAssociate: (id)value with: (void*)key {	objc_setAssociatedObject(self, key, value, OBJC_ASSOCIATION_ASSIGN); }
-
-- (id)associatedValueFor: (void*)key {			 return objc_getAssociatedObject(self, key);								 }
-
-@end
+//
+//@implementation NSObject (AMAssociatedObjects)
+//
+//- (void)associate: (id)value with: (void*)key {			objc_setAssociatedObject(self, key, value, OBJC_ASSOCIATION_RETAIN); }
+//
+//- (void)weaklyAssociate: (id)value with: (void*)key {	objc_setAssociatedObject(self, key, value, OBJC_ASSOCIATION_ASSIGN); }
+//
+//- (id)associatedValueFor: (void*)key {			 return objc_getAssociatedObject(self, key);								 }
+//
+//@end
 
 @implementation NSObject (AssociatedValues)
 
@@ -117,7 +117,7 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary(void) {
 - (void)removeObserverWithBlockToken: (AZBlockToken *)token
 {
 	dispatch_sync(AZObserverMutationQueueCreatingIfNecessary(), ^{
-		NSMutableDictionary *observationDictionary = objc_getAssociatedObject(self, (__bridge const void *)(AZObserverMapKey));
+		NSMD *observationDictionary = objc_getAssociatedObject(self, (__bridge const void *)(AZObserverMapKey));
 		AZObserverTrampoline *trampoline = observationDictionary[token];
 		if (!trampoline)
 		{
@@ -126,7 +126,6 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary(void) {
 		}
 		[trampoline cancelObservation];
 		[observationDictionary removeObjectForKey:token];
-
 		// Due to a bug in the obj-c runtime, this dictionary does not get cleaned up on release when running without GC.
 		if ([observationDictionary count] == 0)
 			objc_setAssociatedObject(self, (__bridge const void *)(AZObserverMapKey), nil, OBJC_ASSOCIATION_RETAIN);
@@ -135,8 +134,6 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary(void) {
 @end
 
 @implementation NSObject (AtoZ)
-
-
 
 - (void) bindArrayKeyPath: (NSS*)array toController: (NSArrayController*)controller
 {
@@ -148,18 +145,14 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary(void) {
 	return [self performSelectorWithoutWarnings:NSSelectorFromString(string) withObject:nil];
 }
 
-
-
 - (id) performString: (NSS*)string withObject: (id) obj;
 {
 	return [self performSelectorWithoutWarnings:NSSelectorFromString(string) withObject:obj];
-
 }
-
 
 + (NSA*) instanceMethods
 {
-	NSMA *array = [NSMA array];
+	NSMA *array = NSMA.new;
 	unsigned int method_count;
 	Method *method_list = class_copyMethodList([self class], &method_count);
 	int i;
@@ -172,15 +165,15 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary(void) {
 }
 - (NSA*) instanceMethodArray
 {
-	Class clazz = [self class];
+	Class clazz = self.class;
 	u_int count;
 	Method* methods = class_copyMethodList(clazz, &count);
-	NSMA *methodArray = [NSMA arrayWithCapacity:count];
+	NSMA *methodArray = NSMA.new;
 	for (int i = 0; i < count ; i++)
 	{
 		SEL selector = method_getName(methods[i]);
 		const char* methodName = sel_getName(selector);
-		[methodArray addObject:[NSS  stringWithCString:methodName encoding:NSUTF8StringEncoding]];
+		[methodArray addObject:[NSS stringWithCString:methodName encoding:NSUTF8StringEncoding]];
 	}
 	free(methods);
 	return  methodArray;
@@ -190,16 +183,12 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary(void) {
 	return [[self instanceMethodArray]formatAsListWithPadding:30];
 }
 
-
-
 /*! Get an array containing the names of the instance methods of a class. */
 - (NSA*) instanceMethodNames
 {
 	id methods = [self instanceMethods];
 	return [methods mapSelector:@selector(name)];
 }
-
-
 
 -(void) propagateValue: (id)value forBinding: (NSS*)binding;
 {
@@ -269,7 +258,7 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary(void) {
 	va_end(list);
 }
 
-
+/*
 - (id)objectForKeyedSubscript: (id)key
 {
 
@@ -282,6 +271,7 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary(void) {
 	//	}
 	//	if (areSame(key, @"path")) NSLog(@"warning, path subscrip[t being set");
 	//	NSLog(@"CMD: %@ requesting subscript:%@", [NSS stringWithUTF8String:__func__], key);
+*/
 /**	id result = nil;
 	//	if ([key isKindOfClass:[NSS class]])
 	result = [self respondsToString:key] ? [self valueForKey:key] : nil;
@@ -297,7 +287,8 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary(void) {
 	if (!result) NSLog(@"Cannot coerce value from: %@ for keyedSubstring: %@", self.propertiesPlease, key);
 	return result;
 */
-}
+
+//}
 
 - (void)setObject: (id)obj forKeyedSubscript: (id <NSCopying>)key
 {
@@ -323,7 +314,7 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary(void) {
 
 - (void)performBlock: (void (^)(void))block afterDelay: (NSTimeInterval)delay
 {
-	block = [[block copy] autorelease];
+//	block = [[block copy] autorelease];
 	[self performSelector:@selector(fireBlockAfterDelay:) withObject:block afterDelay:delay];
 }
 
@@ -331,9 +322,10 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary(void) {
 - (NSMD*) getDictionary
 {
 	if (objc_getAssociatedObject( self, @"dictionary" ) == nil)
-		objc_setAssociatedObject( self, @"dictionary", [NSMD dictionary], OBJC_ASSOCIATION_RETAIN);
+		objc_setAssociatedObject( self, @"dictionary", NSMD.new, OBJC_ASSOCIATION_RETAIN);
 	return (NSMD *)objc_getAssociatedObject( self, @"dictionary" );
 }
+
 static char windowPosition;
 
 - (void) setWindowPosition: (AZWindowPosition)pos { objc_setAssociatedObject( self, &windowPosition, @(pos), OBJC_ASSOCIATION_RETAIN ); }
@@ -345,11 +337,11 @@ static char windowPosition;
 {
 	unsigned int count;
 	objc_property_t *propList 	= class_copyPropertyList(classType, &count);
-	NSMutableString *propPrint 	= [NSMutableString string];
+	NSMS *propPrint 	= NSMS.new;
 	for ( int i = 0; i < count; i++ ) {
 		objc_property_t prop 	= propList[i];
 		const char *propName 	= property_getName(prop);
-		NSS*propNameStr 	= @(propName);
+		NSS	*propNameStr 	= @(propName);
 		if(propName) { id value = [self valueForKey:propNameStr];
 			[propPrint appendString:[NSS stringWithFormat:@"%@=%@ ; ", propNameStr, value]]; }
 	}
@@ -363,23 +355,23 @@ static char windowPosition;
 	return propPrint;
 }
 
-+ (NSS*)  autoDescribe;
-{ return [$(@"%@:%p:: ", self.class, self) stringByAppendingString:
-		  [self autoDescribeWithClassType:[self class]]]; }
++ (NSS*) autoDescribe
+{
+	return $(@"%@:%p::%@", self.class, self, [self autoDescribeWithClassType:[self class]]);
+}
 
 - (NSS*) autoDescribe
 {
 	Class clazz 	= self.class;
 	u_int count;
 	Ivar* ivars 	= class_copyIvarList(clazz, &count);
-	NSMA *ivarArray = [NSMA arrayWithCapacity:count];
+	NSMA *ivarArray = NSMA.new;
 	for (int i = 0; i < count ; i++)
 	{
 		const char* ivarName = ivar_getName(ivars[i]);
 		[ivarArray addObject:[NSS stringWithUTF8String:ivarName]];
 	}
 	free(ivars);
-
 	objc_property_t* properties = class_copyPropertyList(clazz, &count);
 	NSMA *propertyArray = NSMA.new;
 	for (int i = 0; i < count ; i++)
@@ -390,12 +382,12 @@ static char windowPosition;
 	free(properties);
 
 	Method* methods = class_copyMethodList(clazz, &count);
-	NSMA *methodArray = [NSMA arrayWithCapacity:count];
+	NSMA *methodArray = NSMA.new;
 	for (int i = 0; i < count ; i++)
 	{
 		SEL selector = method_getName(methods[i]);
 		const char* methodName = sel_getName(selector);
-		[methodArray addObject:[NSS  stringWithUTF8String:methodName]];
+		[methodArray addObject:[NSS stringWithUTF8String:methodName]];
 	}
 	free(methods);
 	NSLog(@"%@", 	@{ 	@"ivars" 		: [ivarArray formatAsListWithPadding:30],
@@ -409,7 +401,7 @@ static char windowPosition;
 
 +(NSA*)subclasses
 {
-	NSMA *subClasses 	= [NSMA array];
+	NSMA *subClasses 	= NSMA.new;
 	Class	*classes	= nil;
 	int		count		= objc_getClassList(NULL, 0);
 	if (count) {
@@ -431,7 +423,8 @@ static char windowPosition;
 
 @implementation NSObject (AG)
 
-- (id)performSelector: (SEL)selector withObject: (id)p1 withObject: (id)p2 withObject: (id)p3 {
+- (id)performSelector: (SEL)selector withObject: (id)p1 withObject: (id)p2 withObject: (id)p3
+{
 	NSMethodSignature *sig = [self methodSignatureForSelector:selector];
 	if (sig) {
 		NSInvocation* invo = [NSInvocation invocationWithMethodSignature:sig];
@@ -447,8 +440,6 @@ static char windowPosition;
 		} else	return nil;
 	} else 		return nil;
 }
-
-
 
 - (id)performSelector: (SEL)selector withObject: (id)p1 withObject: (id)p2 withObject: (id)p3  withObject: (id)p4
 {
@@ -494,8 +485,6 @@ static char windowPosition;
 	}
 }
 
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
 - (id)performSelector: (SEL)selector withObject: (id)p1 withObject: (id)p2 withObject: (id)p3
 		   withObject: (id)p4 withObject: (id)p5 withObject: (id)p6 {
 	NSMethodSignature *sig = [self methodSignatureForSelector:selector];
@@ -522,9 +511,9 @@ static char windowPosition;
 	}
 }
 
-
 - (id)performSelector: (SEL)selector withObject: (id)p1 withObject: (id)p2 withObject: (id)p3
-		   withObject: (id)p4 withObject: (id)p5 withObject: (id)p6 withObject: (id)p7 {
+		   withObject: (id)p4 withObject: (id)p5 withObject: (id)p6 withObject: (id)p7
+{
 	NSMethodSignature *sig = [self methodSignatureForSelector:selector];
 	if (sig) {
 		NSInvocation* invo = [NSInvocation invocationWithMethodSignature:sig];
@@ -547,7 +536,7 @@ static char windowPosition;
 }
 
 
-- (IBAction)showMethodsInFrameWork: (id)sender {
+//- (IBAction)showMethodsInFrameWork: (id)sender {
 
 	//	[NSTask launchedTaskWithLaunchPath:@"/usr/bin/say" arguments:@[s]];
 
@@ -563,7 +552,7 @@ static char windowPosition;
 	//	SEL fabricated = NSSelectorFromString($(@"set%@:", label));
 	//	[[sender delegate] performSelector:fabricated withValue:optionPtr];
 	//	[[AZTalker sharedInstance] say:$(@"%@ is %@ selected", string, isSelected ? @"" : @"NOT")];
-}
+//}
 
 - (NSS*)segmentLabel
 {
@@ -760,15 +749,11 @@ static const char * getPropertyType(objc_property_t property) {
 //- (NSD *)propertiesDictionariate;
 
 
-- (NSS*) stringFromClass {	return NSStringFromClass( [self class]); }
-
-- (void) setIntValue: (NSI)i forKey: (NSS*)key { [self setValue:[NSNumber numberWithInt:i] forKey:key]; }
-
-- (void) setIntValue: (NSI)i forKeyPath: (NSS*)keyPath { [self setValue:[NSNumber numberWithInt:i] forKeyPath:keyPath]; }
-
-- (void) setFloatValue: (CGF)f forKey: (NSS*)key {[self setValue:[NSNumber numberWithFloat:f] forKey:key]; }
-
-- (void) setFloatValue: (CGF)f forKeyPath: (NSS*)keyPath {	[self setValue:[NSNumber numberWithFloat:f] forKeyPath:keyPath]; }
+- (NSS*) stringFromClass {	return NSStringFromClass(self.class); }
+- (void) setIntValue:   (NSI)i forKey: 	   (NSS*)key 	 { [self setValue:[NSNumber numberWithInt:i] forKey:key]; }
+- (void) setIntValue:   (NSI)i forKeyPath: (NSS*)keyPath { [self setValue:[NSNumber numberWithInt:i] forKeyPath:keyPath]; }
+- (void) setFloatValue: (CGF)f forKey:     (NSS*)key 	 { [self setValue:[NSNumber numberWithFloat:f] forKey:key]; }
+- (void) setFloatValue: (CGF)f forKeyPath: (NSS*)keyPath { [self setValue:[NSNumber numberWithFloat:f] forKeyPath:keyPath]; }
 
 - (BOOL) isEqualToAnyOf: (id<NSFastEnumeration>)enumerable {	for (id o in enumerable) { if ([self isEqual:o]) return YES; } return NO; }
 
@@ -780,12 +765,10 @@ static const char * getPropertyType(objc_property_t property) {
 {
 	return [AZNOTCENTER addObserverForName:notificationName	object:self queue:nil usingBlock:block];
 }
-
 - (id) observeName: (NSS*)notificationName  usingBlock: (void (^)(NSNOT*))block
 {
 	return [AZNOTCENTER addObserverForName:notificationName	object:self queue:nil usingBlock:block];
 }
-
 -(void) observeObject: (NSObject *)object forName: (NSS*)notificationName calling: (SEL)selector
 {
 	[AZNOTCENTER addObserver:self selector:selector name:notificationName object:object];
@@ -798,7 +781,6 @@ static const char * getPropertyType(objc_property_t property) {
 {
 	[AZNOTCENTER removeObserver:self name:notificationName object:object];
 }
-
 
 -(id) performSelectorSafely: (SEL)aSelector;
 {
@@ -818,35 +800,29 @@ static const char * getPropertyType(objc_property_t property) {
 	}
 }
 
-
 - (id) performSelectorWithoutWarnings: (SEL)aSelector {	return  [self performSelectorSafely:aSelector]; }
 
-
-- (id) performSelectorWithoutWarnings: (SEL)aSelector withObject: (id)obj{
-
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+- (id) performSelectorWithoutWarnings: (SEL)aSelector withObject: (id)obj
+{
+	#pragma clang diagnostic push
+	#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 	//	return (id)
 	[self performSelector:aSelector withObject:obj];
-#pragma clang diagnostic pop
+	#pragma clang diagnostic pop
 }
 
 - (id) performSelectorWithoutWarnings: (SEL)aSelector withObject: (id)obj withObject: (id)obj2 {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+	#pragma clang diagnostic push
+	#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 	//	return	(id)
 	[self performSelector:aSelector withObject:obj withObject:obj2];
-#pragma clang diagnostic pop
+	#pragma clang diagnostic pop
 }
-
-
-
 
 -(void)performSelector: (SEL)aSelector afterDelay: (NSTimeInterval)seconds
 {
 	[self performSelector:aSelector withObject:nil afterDelay:seconds];
 }
-
 -(void)observeKeyPath: (NSS*)keyPath
 {
 	[self addObserver:self forKeyPath:keyPath options:NSKeyValueObservingOptionOld|NSKeyValueObservingOptionNew context:nil];
@@ -855,12 +831,9 @@ static const char * getPropertyType(objc_property_t property) {
 {
 	[self addObserver:observer forKeyPath:keyPath options:NSKeyValueObservingOptionOld|NSKeyValueObservingOptionNew context:nil];
 }
-
 -(void)addObserver: (NSObject *)observer forKeyPaths: (id<NSFastEnumeration>)keyPaths
 {
-	for (NSS*keyPath in keyPaths) {
-		[self addObserver:observer forKeyPath:keyPath];
-	}
+	for (NSS*keyPath in keyPaths) [self addObserver:observer forKeyPath:keyPath];
 }
 
 -(void)removeObserver: (NSObject *)observer  forKeyPaths: (id<NSFastEnumeration>)keyPaths
@@ -868,13 +841,15 @@ static const char * getPropertyType(objc_property_t property) {
 	for (NSS*keyPath in keyPaths) { 	[self removeObserver:observer forKeyPath:keyPath]; }
 }
 
--(void) willChangeValueForKeys: (id<NSFastEnumeration>)keys {	for (id key in keys) [self willChangeValueForKey:key];  }
+-(void) willChangeValueForKeys: (id<NSFastEnumeration>)keys { for (id key in keys) [self willChangeValueForKey:key];  }
 
--(void) didChangeValueForKeys: (id<NSFastEnumeration>)keys { for (id key in keys)		[self didChangeValueForKey:key]; }
+-(void) didChangeValueForKeys:  (id<NSFastEnumeration>)keys { for (id key in keys) [self didChangeValueForKey:key]; }
 
-- (NSD*) dictionaryWithValuesForKeys { return [self dictionaryWithValuesForKeys:[self allKeys]]; }
+-(NSD*) dictionaryWithValuesForKeys { return [self dictionaryWithValuesForKeys:[self allKeys]]; }
 
-- (NSA*) allKeys {	Class clazz = self.class;	 u_int count;
+-(NSA*) allKeys
+{
+	Class clazz = self.class;	 u_int count;
 	objc_property_t* properties 	= class_copyPropertyList(clazz, &count);
 	NSMA* propertyArray = [NSMA arrayWithCapacity:count];
 	for (int i = 0; i < count ; i++) {
@@ -885,14 +860,13 @@ static const char * getPropertyType(objc_property_t property) {
 	return propertyArray.copy;
 }
 
-- (void)setClass: (Class)aClass {	NSAssert( class_getInstanceSize([self class]) == class_getInstanceSize(aClass),
-											 @"Classes must be the same size to swizzle.");
+- (void)setClass: (Class)aClass
+{
+	NSAssert( class_getInstanceSize([self class]) == class_getInstanceSize(aClass),	@"Classes must be the same size to swizzle.");
 	object_setClass(self, aClass);
 }
 
-+(id)newFromDictionary: (NSD*)dic {
-	return [[self class] customClassWithProperties:dic];
-}
++(id)newFromDictionary: (NSD*)dic {	return [self.class customClassWithProperties:dic];	}
 
 //	In your custom class
 + (id)customClassWithProperties: (NSD *)properties { return [[[self alloc] initWithProperties:properties] autorelease];}
@@ -1009,5 +983,94 @@ static const char * getPropertyType(objc_property_t property) {
 	NSIMG *i = [self isKindOfClass:NSC.class] ? [NSIMG swatchWithColor:(NSC*)self size:AZSizeFromDimension(256)] : nil;
 	return  i ?: [self respondsToString:@"image"] ? [self valueForKey:@"image"] : nil;
 }
+
+@end
+
+#import <ApplicationServices/ApplicationServices.h>
+
+@implementation NSObject (NoodlePerformWhenIdle)
+
+// Heard somewhere that this prototype may be missing in some cases so adding it here just in case.
+CG_EXTERN CFTimeInterval CGEventSourceSecondsSinceLastEventType( CGEventSourceStateID source, CGEventType eventType )  AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+// Semi-private method. Used by the public methods
+- (void)performSelector:(SEL)aSelector withObject:(id)anArgument afterSystemIdleTime:(NSTimeInterval)delay withinTimeLimit:(NSTimeInterval)maxTime startTime:(NSTimeInterval)startTime
+{
+	CFTimeInterval	idleTime;
+	NSTimeInterval	timeSinceInitialCall;
+
+    timeSinceInitialCall = [NSDate timeIntervalSinceReferenceDate] - startTime;
+
+	if (maxTime > 0)
+	{
+		if (timeSinceInitialCall >= maxTime)
+		{
+			[self performSelectorWithoutWarnings:aSelector withObject:anArgument];
+			return;
+		}
+	}
+
+	idleTime = CGEventSourceSecondsSinceLastEventType(kCGEventSourceStateHIDSystemState, kCGAnyInputEventType);
+	if (idleTime < delay)
+	{
+		NSTimeInterval		fireTime;
+		NSMethodSignature	*signature;
+		NSInvocation		*invocation;
+
+		signature = [self methodSignatureForSelector:@selector(performSelector:withObject:afterSystemIdleTime:withinTimeLimit:startTime:)];
+		invocation = [NSInvocation invocationWithMethodSignature:signature];
+		[invocation setSelector:@selector(performSelector:withObject:afterSystemIdleTime:withinTimeLimit:startTime:)];
+		[invocation setTarget:self];
+		[invocation setArgument:&aSelector atIndex:2];
+		[invocation setArgument:&anArgument atIndex:3];
+		[invocation setArgument:&delay atIndex:4];
+		[invocation setArgument:&maxTime atIndex:5];
+		[invocation setArgument:&startTime atIndex:6];
+
+		fireTime = delay - idleTime;
+		if (maxTime > 0)
+		{
+			fireTime = MIN(fireTime, maxTime - timeSinceInitialCall);
+		}
+
+		// Not idle for long enough. Set a timer and check back later
+		[NSTimer scheduledTimerWithTimeInterval:fireTime invocation:invocation repeats:NO];
+	}
+	else
+	{
+		[self performSelectorWithoutWarnings:aSelector withObject:anArgument];
+	}
+}
+
+
+- (void)performSelector:(SEL)aSelector withObject:(id)anArgument afterSystemIdleTime:(NSTimeInterval)delay
+{
+	[self performSelector:aSelector withObject:anArgument afterSystemIdleTime:delay withinTimeLimit:-1];
+}
+
+
+- (void)performSelector:(SEL)aSelector withObject:(id)anArgument afterSystemIdleTime:(NSTimeInterval)delay withinTimeLimit:(NSTimeInterval)maxTime
+{
+	SInt32	version;
+
+	// NOTE: Even though CGEventSourceSecondsSinceLastEventType exists on Tiger,
+	// it appears to hang on some Tiger systems. For now, only enabling for Leopard or later.
+	if ((Gestalt(gestaltSystemVersion, &version) == noErr) && (version >= 0x1050))
+	{
+		NSTimeInterval		startTime;
+
+		startTime = [NSDate timeIntervalSinceReferenceDate];
+
+		[self performSelector:aSelector withObject:anArgument afterSystemIdleTime:delay withinTimeLimit:maxTime startTime:startTime];
+	}
+	else
+	{
+		// For pre-10.5, just call it after a delay. Change this if you want to throw an exception
+		// instead.
+		[self performSelector:aSelector withObject:anArgument afterDelay:delay];
+	}
+}
+
 
 @end

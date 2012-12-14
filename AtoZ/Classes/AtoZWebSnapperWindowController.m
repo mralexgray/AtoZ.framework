@@ -214,7 +214,8 @@ static AtoZWebSnapperWindowController *kController = nil;
 
 		NSString *fileType = [[fileFormatPopUp selectedItem] title];
 		float quality = [qualitySlider floatValue];
-		NSString *filename = [sheet filename];
+		NSURL *fileURL = [sheet URL];
+		NSString *filename = [fileURL lastPathComponent];
 		
 		BOOL saveImage = [saveImageSwitch state] == NSOnState;
 		float thumbnailScale = 0.0;
@@ -309,7 +310,7 @@ static AtoZWebSnapperWindowController *kController = nil;
 			[saveThumbnailSwitch setEnabled:YES];
 			[saveImageSwitch setEnabled:YES];
 		} else if ([fileType isEqualToString:@"PDF"]) {
-			[savePanel setRequiredFileType:@"pdf"];
+			[savePanel setAllowedFileTypes:@[@"pdf"]];
 			[qualitySlider setEnabled:NO];
 			
 			[saveThumbnailSwitch setEnabled:NO];

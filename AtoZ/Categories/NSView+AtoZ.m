@@ -282,6 +282,13 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 	i.name = name;
 	return i;
 }
+-(CALNH*) setupHostViewNoHit {
+	CALNH *layer = [CALNH layerNamed:@"root"];
+	[self setLayer:layer];
+	[self setWantsLayer:YES];
+	NSLog(@"setup NOHIT hosting layer:%@ in view: %@.  do not addsubviews to this view.  go crazy with layers.", layer.debugDescription, self);
+	return layer;
+}
 
 -(CALayer*) setupHostView {
 	CALayer *layer = [CALayer layerNamed:@"root"];

@@ -1,11 +1,5 @@
 
-//  AZQuadLayer.m
-//  AtoZ
-
-//  Created by Alex Gray on 8/28/12.
-//  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 #import "AZQuadLayer.h"
-#import <AtoZ/AtoZ.h>
 
 @interface  AZQuadLayerView ()
 @property (nonatomic, retain) CALayer *root;
@@ -14,15 +8,11 @@
 @end
 
 @implementation AZQuadLayerView
-
 {
 	BOOL		draggedDuringThisClick;
 	CGPoint		dragStart;
-
-	float		angleX, angleY;
-	float		deltaX, deltaY;
+	float		angleX, angleY, deltaX, deltaY;
 }
-//@synthesize root, lassoLayer, contentLayer, selectionLayer, lasstSelectedLayer, clickedLayer;
 
 -(void) awakeFromNib {
 

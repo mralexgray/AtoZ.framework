@@ -12,8 +12,8 @@
 
 @end
 @interface  NSArray (NSTableDataSource)
-- (id) tableView:(NSTableView*)aTableView objectValueForTableColumn:(NSTableColumn*)aTableColumn row:(int)rowIndex;
-- (int) numberOfRowsInTableView:(NSTableView *)aTableView;
+- (id) tableView:(NSTableView*)aTableView objectValueForTableColumn:(NSTableColumn*)aTableColumn row:(NSI)rowIndex;
+- (NSI) numberOfRowsInTableView:(NSTableView *)aTableView;
 @end
 
 @interface NSArray (AtoZ)
@@ -241,7 +241,11 @@
 -(NSR)rectAtIndex:(NSUInteger)index;
 @end
 
-@interface  NSMutableArray (WeakReferences)
+@interface NSArray (WeakReferences)
+- (NSMA*)weakReferences;
+@end
+
+@interface NSMutableArray (WeakReferences)
 + (id)mutableArrayUsingWeakReferences;
 + (id)mutableArrayUsingWeakReferencesWithCapacity:(NSUInteger)capacity;
 @end

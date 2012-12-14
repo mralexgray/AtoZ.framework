@@ -8,6 +8,13 @@
 #include <pwd.h>
 
 
+@interface CALayerNoHit : CALayer
+@end
+@interface CAShapeLayerNoHit : CAShapeLayer
+@end
+@interface CATextLayerNoHit : CATextLayer
+@end
+
 
 @interface NSObject (AZLayerDelegate)
 - (BOOL) boolForKey:	   (NSS*)key defaultValue:(BOOL)defaultValue;
@@ -20,10 +27,6 @@
 - (void) wasClicked;
 @end
 
-
-@interface NSDate (AtoZ)
-+ (NSS*)dayOfWeek;
-@end
 
 typedef void (^updateKVCKeyBlock)();
 
@@ -94,6 +97,8 @@ char *GetPrivateIP(void);
 NSString *WANIP(void);
 
 
+FOUNDATION_EXPORT NSCharacterSet* _GetCachedCharacterSet(CharacterSet set);
+
 NSString *googleSearchFor(NSString* string);
 
 OSStatus HotKeyHandler(EventHandlerCallRef nextHandler, EventRef theEvent, void *userData);
@@ -128,6 +133,8 @@ static inline BOOL NSRangeContainsRange(NSRange range1, NSRange range2) {
 	return NO;
 }
 
+CGFloat AZDeviceScreenScale(void);
+
 NSString * AZToStringFromTypeAndValue(const char * typeCode, void * value);
 
 BOOL areSame(id a, id b);
@@ -141,6 +148,8 @@ BOOL areSameThenDo(id a, id b, VoidBlock doBlock);
 //USAGE: .... return (NSA*)logAndReturn( [NSArray arrayWithArrays:@[blah,blahb]] );
 //id (^logAndReturn)(id); //= ^(id toLog) { AZLOG(toLog); return toLog; };
 id LogAndReturn(id toLog); //= ^(id toLog) { AZLOG(toLog); return toLog; };
+id LogAndReturnWithCaller(id toLog, SEL caller);
+
 
 //void (^now)(void) = ^ {	NSDate *date = [NSDate date]; NSLog(@"The date and time is %@", date); };
 

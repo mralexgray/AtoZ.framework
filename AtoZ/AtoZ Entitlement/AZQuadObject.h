@@ -1,34 +1,28 @@
 
-//  AZ4PartObject.h
-//  AtoZ
-
-//  Created by Alex Gray on 8/27/12.
-//  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-#import <Foundation/Foundation.h>
-#import <AtoZ/AtoZ.h>
 #import "AZEntitlementDelegate.h"
 #import "AZQuadCell.h"
 
 @interface AZQuadCarousel : NSObject <iCarouselDataSource, iCarouselDelegate, NSWindowDelegate>
 
-@property (NATOM, ASS) iCarouselType cType;
-@property (nonatomic, assign) CGFloat fontSize,intrusion;;
-@property (nonatomic, assign) NSUInteger iconStyle, selectedIndex, tilt;
+@property (NATOM) iCarouselType cType;
+@property (NATOM) CGF 	fontSize,	intrusion;;
+@property (NATOM) NSUI 	iconStyle, 	selectedIndex, 	tilt;
+@property (NATOM) Option option;
+@property (UNSFE) id refToSelf;
 
-@property (nonatomic, strong) IBOutlet NSMutableArray *items;
-@property (nonatomic, retain) AZSegmentedRect *seg;
-@property (nonatomic, assign) Option option;
+@property (NATOM, STRNG) IBOutlet NSMutableArray *items;
+@property (NATOM, STRNG) AZSegmentedRect *seg;
 
 - (IBAction) toggleQuadFlip: (id)sender;
 - (IBAction) toggleQuad:	 (id)sender;
-- (IBAction) setVeils:		 (id)sender;
 - (IBAction) setType:		 (id)sender;
-
-@property (weak) id refToSelf;
 
 -(void) advance;
 -(void) rewind;
+
 @end
+
+//- (IBAction) setVeils:		 (id)sender;
 //@property (nonatomic, strong) IBOutlet NSArray *southWest;
 //@property (nonatomic, strong) IBOutlet NSArray *northEast;
 //@property (nonatomic, assign) iCarouselType type;

@@ -80,7 +80,7 @@ extern NSString *const AZToggleState;
 @property (RONLY) CALayer* containerLayer;
 @property (RONLY) CALayer* rootLayer;
 @property (nonatomic, strong) NSArray *questions;
-@property (nonatomic, ah_weak) IBOutlet id<AZToggleArrayViewDelegate> delegate;
+@property (nonatomic, UNSFE) IBOutlet id<AZToggleArrayViewDelegate> delegate;
 @end
 
 @protocol AZToggleArrayViewDelegate <NSObject>

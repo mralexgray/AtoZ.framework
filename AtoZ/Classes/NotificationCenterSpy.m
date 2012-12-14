@@ -10,6 +10,8 @@ static NotificationCenterSpy *sharedInstance = nil;
 
 @interface NotificationCenterSpy ()
 
+@property (NATOM, STRNG) NSA *ignoredNotes, *defaultIgnores;
+
 @property (nonatomic, assign, getter=isSpying) BOOL spying;
 - (void)toggleSpyingAllNotifications;
 
@@ -28,10 +30,18 @@ static NotificationCenterSpy *sharedInstance = nil;
 	return sharedInstance;
 }
 
-+ (void)toggleSpyingAllNotifications {	
+- (NSA*) defaultIgnores { return _defaultIgnores = _defaultIgnores ?: @[@"NSApplicationWillUpdateNotification", @"NSWindowDidUpdateNotification", @"NSApplicationDidUpdateNotification"]; }
+
++ (void)toggleSpyingAllNotifications {
 	[[self sharedNotificationCenterSpy] toggleSpyingAllNotifications];
 }
 
++ (void)toggleSpyingAllNotificationsIgnoring:(NSA*)notes ignoreOverlyVerbose:(BOOL)ignore
+{
+	NSA * combined = notes ? [NSA arrayWithArrays:@[notes,self.sharedNotificationCenterSpy.defaultIgnores]] : self.sharedNotificationCenterSpy.defaultIgnores;
+	self.sharedNotificationCenterSpy.ignoredNotes = ignore ? combined : notes;
+	[[self sharedNotificationCenterSpy] toggleSpyingAllNotifications];
+}
 - (void)toggleSpyingAllNotifications {
 	
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
@@ -45,8 +55,9 @@ static NotificationCenterSpy *sharedInstance = nil;
 	}
 }
 
-- (void)receivedNotification:(NSNotification *)notification {
-	NSLog(@"Received notification: %@", [notification name]);
+- (void)receivedNotification:(NSNotification *)notification
+{
+	if ( [self.ignoredNotes doesNotContainObject:[notification name]] )	NSLog(@"SPIED: %@", [notification name]);
 	//NSLog(@"Received notification: %@ from object: %@", [notification name], [notification object]);
 }
 

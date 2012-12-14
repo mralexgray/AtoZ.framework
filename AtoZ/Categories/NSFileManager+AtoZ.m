@@ -189,81 +189,81 @@ NSString *NSDCIMFolder()
 	return [self createPathComponents:[pathComponents subarrayWithRange:(NSRange){0, componentCount-1}] attributes:attributes error:outError];
 }
 
-//- (BOOL)createPathComponents:(NSArray *)components attributes:(NSDictionary *)attributes error:(NSError **)outError
-//{
-//	if ([attributes count] == 0)
-//		attributes = nil;
-//
-//	NSUInteger dirCount = [components count];
-//	NSMutableArray *trimmedPaths = [[NSMutableArray alloc] initWithCapacity:dirCount];
-//
-//	[trimmedPaths autorelease];
-//
-//	NSString *finalPath = [NSString pathWithComponents:components];
-//
-//	NSMutableArray *trim = [[NSMutableArray alloc] initWithArray:components];
-//	NSError *error = nil;
-//	for (NSUInteger trimCount = 0; trimCount < dirCount && !error; trimCount ++) {
-//		struct stat statbuf;
-//
-//		OBINVARIANT([trim count] == (dirCount - trimCount));
-//		NSString *trimmedPath = [NSString pathWithComponents:trim];
-//		const char *path = [trimmedPath fileSystemRepresentation];
-//		if (stat(path, &statbuf)) {
-//			int err = errno;
-//			if (err == ENOENT) {
-//				[trimmedPaths addObject:trimmedPath];
-//				[trim removeLastObject];
-//					// continue
-//			} else {
+- (BOOL)createPathComponents:(NSArray *)components attributes:(NSDictionary *)attributes error:(NSError **)outError
+{
+	if ([attributes count] == 0)
+		attributes = nil;
+
+	NSUInteger dirCount = [components count];
+	NSMutableArray *trimmedPaths = [[NSMutableArray alloc] initWithCapacity:dirCount];
+
+	[trimmedPaths autorelease];
+
+	NSString *finalPath = [NSString pathWithComponents:components];
+
+	NSMutableArray *trim = [[NSMutableArray alloc] initWithArray:components];
+	NSError *error = nil;
+	for (NSUInteger trimCount = 0; trimCount < dirCount && !error; trimCount ++) {
+		struct stat statbuf;
+
+		OBINVARIANT([trim count] == (dirCount - trimCount));
+		NSString *trimmedPath = [NSString pathWithComponents:trim];
+		const char *path = [trimmedPath fileSystemRepresentation];
+		if (stat(path, &statbuf)) {
+			int err = errno;
+			if (err == ENOENT) {
+				[trimmedPaths addObject:trimmedPath];
+				[trim removeLastObject];
+					// continue
+			} else {
 //				OBErrorWithErrnoObjectsAndKeys(&error, err, "stat", trimmedPath,
 //											   NSLocalizedStringFromTableInBundle(@"Could not create directory", @"OmniFoundation", OMNI_BUNDLE, @"Error message when stat() fails when trying to create a directory tree"),
 //											   finalPath, NSFilePathErrorKey, nil);
-//
-//			}
-//		} else if ((statbuf.st_mode & S_IFMT) != S_IFDIR) {
+
+			}
+		} else if ((statbuf.st_mode & S_IFMT) != S_IFDIR) {
 //			OBErrorWithErrnoObjectsAndKeys(&error, ENOTDIR, "mkdir", trimmedPath,
 //										   NSLocalizedStringFromTableInBundle(@"Could not create directory", @"OmniFoundation", OMNI_BUNDLE, @"Error message when mkdir() will fail because there's a file in the way"),
 //										   finalPath, NSFilePathErrorKey, nil);
-//		} else {
-//			break;
-//		}
-//	}
-//	[trim release];
-//
-//	if (error) {
-//		if (outError)
-//			*outError = error;
-//		return NO;
-//	}
-//
-//	mode_t mode;
-//	mode = 0777; // umask typically does the right thing
-//	if (attributes && [attributes objectForKey:NSFilePosixPermissions]) {
-//		mode = [attributes unsignedIntForKey:NSFilePosixPermissions];
-//		if ([attributes count] == 1)
-//			attributes = nil;
-//	}
-//
-//	while ([trimmedPaths count]) {
-//		NSString *pathString = [trimmedPaths lastObject];
-//		const char *path = [pathString fileSystemRepresentation];
-//		if (mkdir(path, mode) != 0) {
-//			int err = errno;
+		} else {
+			break;
+		}
+	}
+	[trim release];
+
+	if (error) {
+		if (outError)
+			*outError = error;
+		return NO;
+	}
+
+	mode_t mode;
+	mode = 0777; // umask typically does the right thing
+	if (attributes && [attributes objectForKey:NSFilePosixPermissions]) {
+		mode = [attributes unsignedIntForKey:NSFilePosixPermissions];
+		if ([attributes count] == 1)
+			attributes = nil;
+	}
+
+	while ([trimmedPaths count]) {
+		NSString *pathString = [trimmedPaths lastObject];
+		const char *path = [pathString fileSystemRepresentation];
+		if (mkdir(path, mode) != 0) {
+			int err = errno;
 //			OBErrorWithErrnoObjectsAndKeys(outError, err, "mkdir", pathString,
 //										   NSLocalizedStringFromTableInBundle(@"Could not create directory", @"OmniFoundation", OMNI_BUNDLE, @"Error message when mkdir() fails"),
 //										   finalPath, NSFilePathErrorKey, nil);
-//			return NO;
-//		}
-//
-//		if (attributes)
-//			[self setAttributes:attributes ofItemAtPath:pathString error:NULL];
-//
-//		[trimmedPaths removeLastObject];
-//	}
-//
-//	return YES;
-//}
+			return NO;
+		}
+
+		if (attributes)
+			[self setAttributes:attributes ofItemAtPath:pathString error:NULL];
+
+		[trimmedPaths removeLastObject];
+	}
+
+	return YES;
+}
 
 #pragma mark - Changing file access/update timestamps.
 

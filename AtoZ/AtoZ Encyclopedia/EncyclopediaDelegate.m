@@ -3,7 +3,7 @@
 //  DeskNotation
 //  Created by Steven Degutis on 6/27/09.
 #import "EncyclopediaDelegate.h"
-#import "SDNoteWindowController.h"
+//#import "SDNoteWindowController.h"
 #import "SDGeneralPrefPane.h"
 #import <AtoZ/AtoZ.h>
 
@@ -104,8 +104,8 @@
 	[s eachWithIndex:^(id obj, NSInteger idx) { NSLog(@"%@", [obj propertiesPlease]); }];
 	
 	NSRect r = [[_mainWindow contentView] frame];
-	AZFileGridView *g = [[AZFileGridView alloc]initWithFrame:r andFiles:s];
-	[[_mainWindow contentView] addSubview:g];
+//	AZFileGridView *g = [[AZFileGridView alloc]initWithFrame:r andFiles:s];
+//	[[_mainWindow contentView] addSubview:g];
 
 //	[_mainWindow makeKeyAndOrderFront:nil];
 //	trackMouse();
@@ -165,6 +165,7 @@
 
 //	[self createNoteWithDictionary:@{@"title":@"welcome to your app", @"frame": NSStringFromRect( NSMakeRect(1347, 669,404, 77))}];
 }
+/*
 - (void) saveNotes {
 	NSMutableArray *array = [NSMutableArray array];
 
@@ -173,7 +174,7 @@
 
 	[SDDefaults setObject:array forKey:@"notes"];
 }
-
+*/
 // validate menu items
 
 - (BOOL) validateMenuItem:(NSMenuItem *)menuItem {
@@ -186,7 +187,7 @@
 }
 
 // adding and creating notes
-
+/*
 - (void) createNoteWithDictionary:(NSDictionary*)dictionary {
 	SDNoteWindowController *controller = [[SDNoteWindowController alloc] initWithDictionary:dictionary];// autorelease];
 	[self.noteControllers addObject:controller];
@@ -203,8 +204,9 @@
 	[self loadNotes];
 }
 
-- (IBAction) removeAllNotes:(id)sender {
-	NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+- (IBAction) removeAllNotes:(id)sender
+{
+	NSAlert *alert = [NSAlert.alloc init];
 
 	[alert setMessageText:@"Remove all desktop labels?"];
 	[alert setInformativeText:@"This operation cannot be undone. Seriously."];
@@ -224,7 +226,7 @@
 - (NSA*) instructionImageNames {
 	return [NSImage frameworkImages];//@[ @"mrgray.logo.png", @"1.pdf", @"2.pdf", @"3.pdf" ];
 }
-
+*/
 - (BOOL) showsPreferencesToolbar {
 	return YES;
 }
@@ -266,7 +268,7 @@
 	} else {
 		[_mainWindow removeChildWindow:_attachedWindow];
 		[_attachedWindow orderOut:self];
-		[_attachedWindow release];
+//		[_attachedWindow release];
 		_attachedWindow = nil;
 	}
 }

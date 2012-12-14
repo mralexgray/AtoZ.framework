@@ -203,6 +203,7 @@ static ColorNameRec sColorTable[] = {
 	{ 0xffff00, "yellow" },
 	{ 0x9acd32, "yellowgreen" },
 };
+
 @implementation NSColor (AtoZ)
 
 - (NSColor*) alpha:(CGFloat)floater

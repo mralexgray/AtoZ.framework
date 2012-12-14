@@ -156,11 +156,12 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 //#ifdef __OBJC__
 //#endif
 
-#define PROPSTRONG (@property (nonatomic,strong) )
-#define PROPASSIGN (@property (nonatomic,assign) )
+//#define PROPSTRONG (@property (nonatomic,strong) )
+//#define PROPASSIGN (@property (nonatomic,assign) )
 
-#define STRONG ((nonatomic,strong) )
-#define ASSIGN ((nonatomic,assign) )
+#define UNSFE unsafe_unretained
+//#define STRONG ((nonatomic,strong) )
+//#define ASSIGN ((nonatomic,assign) )
 
 #define CGSUPRESSINTERVAL(x) CGEventSourceSetLocalEventsSuppressionInterval(nil,x)
 #define AZPOS AZWindowPosition
@@ -567,7 +568,7 @@ attr1 relativeTo:relName attribute:attr2 scale:scl offset:off]
 #define $array(...)  		((NSArray *)[NSArray arrayWithObjects:__VA_ARGS__,nil])
 #define $set(...)		 	((NSSet *)[NSSet setWithObjects:__VA_ARGS__,nil])
 #define $map(...)	 		((NSDictionary *)[NSDictionary dictionaryWithObjectsAndKeys:__VA_ARGS__,nil])
-#define $int(A)	   		[NSNumber numberWithInt:(A)]
+#define $int(A)	   			@(A) // [NSNumber numberWithInt:(A)]
 #define $ints(...)			[NSArray arrayWithInts:__VA_ARGS__,NSNotFound]
 #define $float(A)	 		[NSNumber numberWithFloat:(A)]
 #define $doubles(...) 		[NSArray arrayWithDoubles:__VA_ARGS__,MAXFLOAT]
@@ -576,11 +577,11 @@ attr1 relativeTo:relName attribute:attr2 scale:scl offset:off]
 // s stringByReplacingOccurrencesOfString:@"fff	" withString:@"%%%%"] )
 //#define AZLOG(log,...) NSLog(@"%@", [log s stringByReplacingOccurrencesOfString:@"fff	" withString:@"%%%%"] )
 
-#ifdef DEBUG
-#   define DLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
-#else
-#   define DLog(...)
-#endif
+//#ifdef DEBUG
+//#   define DLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+//#else
+//#   define DLog(...)
+//#endif
 //#define NSLog(args...) _AZSimpleLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args);
 
 //#define NSLog(args...) _AZLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args);
@@ -637,6 +638,24 @@ _Pragma("clang diagnostic pop") \
 //if (!re) { re = [[[@#__VA_ARGS__ splitByComma] trimmedStrings] set]; } return re; }
 
 
+//NSDATE NSSTRING ETC
+static OSSpinLock _calendarSpinLock = 0;
+static OSSpinLock _formattersSpinLock = 0;
+static OSSpinLock _staticSpinLock = 0;
+
+typedef NS_ENUM(NSUI, CharacterSet) {
+	kCharacterSet_Newline = 0,
+	kCharacterSet_WhitespaceAndNewline,
+	kCharacterSet_WhitespaceAndNewline_Inverted,
+	kCharacterSet_UppercaseLetters,
+	kCharacterSet_DecimalDigits_Inverted,
+	kCharacterSet_WordBoundaries,
+	kCharacterSet_SentenceBoundaries,
+	kCharacterSet_SentenceBoundariesAndNewlineCharacter,
+	kNumCharacterSets
+};
+
+
 typedef NS_OPTIONS(NSUInteger, AZInstallationStatus) {
 	AZNotInstalled			= 0,
     AZInstalled				= 1 << 0,
@@ -671,6 +690,26 @@ typedef enum {
 	AMTriangleLeft,
 	AMTriangleRight
 } AMTriangleOrientation;
+
+
+
+//CASCROLLVIEW
+
+typedef NS_ENUM (NSUI, ScrollFix)	{	LayerInsertFront,	LayerInsertEnd,	LayerCopyInsertEnd,
+										LayerRemoveFront,	LayerRemoveEnd,
+										LayerStateOK	,	LayerStateUnset		};
+
+typedef NS_ENUM (NSUI, StateStyle)	{	Lasso,			InnerShadow,
+										DarkenOthers,	None				};
+
+
+#define VRT AZOrientVertical
+#define HRZ AZOrientHorizontal
+#define ScrollFixTypeArray @"LayerInsertFront",@"LayerInsertEnd",@"LayerCopyInsertEnd",@"LayerRemoveFront",@"LayerRemoveEnd",@"LayerStateOK",@"LayerStateUnset",nil
+
+NS_INLINE NSS* stringForScrollFix(ScrollFix val) { return [NSArray.alloc initWithObjects:ScrollFixTypeArray][val]; }
+
+
 
 
 typedef struct { CAConstraintAttribute constraint; CGFloat scale; CGFloat offset; }AZCAConstraint;
@@ -897,16 +936,16 @@ return SC##_sharedInstance; \
 //  ARC Helper ends
 
 
-#define AZRelease(value) \
-if ( value ) { \
+//#define AZRelease(value) \
+//if ( value ) { \
 //[value release]; \
-value = nil; \
-}
+//value = nil; \
+//}
 
-#define AZAssign(oldValue,newValue) \
+//#define AZAssign(oldValue,newValue) \
 //[ newValue retain ]; \
-AZRelease (oldValue); \
-oldValue = newValue;
+//AZRelease (oldValue); \
+//oldValue = newValue;
 
 #define foreach(B,A) A.andExecuteEnumeratorBlock = \
 ^(B, NSUInteger A##Index, BOOL *A##StopBlock)
@@ -914,3 +953,80 @@ oldValue = newValue;
 	//#define foreach(A,B,C) \
 	//A.andExecuteEnumeratorBlock = \
 	//  ^(B, NSUInteger C, BOOL *A##StopBlock)
+
+
+
+
+#ifndef _OmniBase_assertions_h_
+#define _OmniBase_assertions_h_
+
+//#import <OmniBase/FrameworkDefines.h>
+#import <objc/objc.h>
+
+//#if defined(DEBUG) || defined(OMNI_FORCE_ASSERTIONS)
+//#define OMNI_ASSERTIONS_ON
+//#endif
+
+// This allows you to turn off assertions when debugging
+//#if defined(OMNI_FORCE_ASSERTIONS_OFF)
+#undef OMNI_ASSERTIONS_ON
+//#warning Forcing assertions off!
+//#endif
+
+
+// Make sure that we don't accidentally use the ASSERT macro instead of OBASSERT
+#ifdef ASSERT
+#undef ASSERT
+#endif
+
+typedef void (*OBAssertionFailureHandler)(const char *type, const char *expression, const char *file, unsigned int lineNumber);
+
+#if defined(OMNI_ASSERTIONS_ON)
+
+OmniBase_EXTERN void OBSetAssertionFailureHandler(OBAssertionFailureHandler handler);
+
+OmniBase_EXTERN void OBAssertFailed(const char *type, const char *expression, const char *file, unsigned int lineNumber);
+
+
+#define OBPRECONDITION(expression)                                            \
+do {                                                                        \
+if (!(expression))                                                      \
+OBAssertFailed("PRECONDITION", #expression, __FILE__, __LINE__);    \
+} while (NO)
+
+#define OBPOSTCONDITION(expression)                                           \
+do {                                                                        \
+if (!(expression))                                                      \
+OBAssertFailed("POSTCONDITION", #expression, __FILE__, __LINE__);   \
+} while (NO)
+
+#define OBINVARIANT(expression)                                               \
+do {                                                                        \
+if (!(expression))                                                      \
+OBAssertFailed("INVARIANT", #expression, __FILE__, __LINE__);       \
+} while (NO)
+
+#define OBASSERT(expression)                                                  \
+do {                                                                        \
+if (!(expression))                                                      \
+OBAssertFailed("ASSERT", #expression, __FILE__, __LINE__);          \
+} while (NO)
+
+#define OBASSERT_NOT_REACHED(reason)                                        \
+do {                                                                        \
+OBAssertFailed("NOTREACHED", reason, __FILE__, __LINE__);              \
+} while (NO)
+
+
+#else	// else insert blank lines into the code
+
+#define OBPRECONDITION(expression)
+#define OBPOSTCONDITION(expression)
+#define OBINVARIANT(expression)
+#define OBASSERT(expression)
+#define OBASSERT_NOT_REACHED(reason)
+
+#endif
+
+
+#endif // _OmniBase_assertions_h_

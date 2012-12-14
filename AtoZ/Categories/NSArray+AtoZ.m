@@ -27,13 +27,13 @@
 @end
 @implementation NSArray (NSTableDataSource)
 
-- (id) tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex
+- (id) tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(NSI)rowIndex
 {
 	id obj = self[rowIndex]; if (obj == nil)		return nil;
 	if (![obj isKindOfClass:[NSDictionary class]])		return obj;
 	return ((NSDictionary *)obj)[[aTableColumn identifier]];
 }
-- (int) numberOfRowsInTableView:(NSTableView *)aTableView { 	return [self count];  }
+- (NSI) numberOfRowsInTableView:(NSTableView *)aTableView { 	return [self count];  }
 
 @end
 
@@ -807,21 +807,34 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 }
 @end
 
+
+@implementation NSArray (WeakReferences)
+- (NSMA*)weakReferences
+{
+	NSMA* u = [NSMA new];
+	[self each:^(id obj) { [ u addObject:[NSValue valueWithNonretainedObject:obj]]; }];
+	return u;
+}
+
+
+@end
+
 @implementation NSMutableArray (WeakReferences)
 
-+ (id) mutableArrayUsingWeakReferences
++ (id)mutableArrayUsingWeakReferences
 {
     return [self mutableArrayUsingWeakReferencesWithCapacity:0];
 }
-
 + (id)mutableArrayUsingWeakReferencesWithCapacity:(NSUI)capacity
 {
+    // The two NULLs are for the CFArrayRetainCallBack and CFArrayReleaseCallBack methods.  Since they are
+    // NULL no retain or releases sill be done.
     CFArrayCallBacks callbacks = {0, NULL, NULL, CFCopyDescription, CFEqual};
     // We create a weak reference array
-    return (__bridge NSMA*)(CFArrayCreateMutable(0, capacity, &callbacks));
+    return (__bridge id)(CFArrayCreateMutable(0, capacity, &callbacks));
 }
-@end
 
+@end
 
 @implementation NSMutableArray (AG)
 

@@ -17,11 +17,11 @@
 
 //key can be any void *; it doesn’t have to implement NSCopying. See objc/runtime.h for the other memory management flags.
 
-@interface NSObject (AMAssociatedObjects)
-- (void)associate:(id)value with:(void *)key; // Strong reference
-- (void)weaklyAssociate:(id)value with:(void *)key;
-- (id)associatedValueFor:(void *)key;
-@end
+//@interface NSObject (AMAssociatedObjects)
+//- (void)associate:(id)value with:(void *)key; // Strong reference
+//- (void)weaklyAssociate:(id)value with:(void *)key;
+//- (id)associatedValueFor:(void *)key;
+//@end
 
 @interface NSObject (AssociatedValues)
 - (void)setAssociatedValue:(id)value forKey:(NSString *)key;
@@ -89,7 +89,7 @@ typedef void (^caseBlock)();
 - (id)objectAtIndexedSubscript:(NSUInteger)idx;			   // getter
 */
 	// To add dictionary style subscripting
-- (void)setObject:(id)obj forKeyedSubscript:(id <NSCopying>)key; // setter
+//- (void)setObject:(id)obj forKeyedSubscript:(id <NSCopying>)key; // setter
 - (id)objectForKeyedSubscript:(id)key;						   // getter
 
 - (void)performBlock:(void (^)(void))block afterDelay:(NSTimeInterval)delay;
@@ -217,7 +217,7 @@ BOOL respondsToString(id obj,NSS* string);
 
 /** Example:
 	MyObject *obj = [[MyObject alloc] init];
-	obj.a = @"Hello A";  //setting some values to attrtypedef <#existing#> <#new#>;ibutes
+	obj.a = @"Hello A";  //setting some values to attrtypedef existing new;ibutes
 	obj.b = @"Hello B";
 
 	//dictionaryWithValuesForKeys requires keys in NSArray. You can now
@@ -234,7 +234,7 @@ BOOL respondsToString(id obj,NSS* string);
 // In your custom class
 + (id) customClassWithProperties:	(NSDictionary*) properties;
 - (id) initWithProperties:	(NSDictionary*) properties;
-+(id)newFromDictionary:(NSD*)dic;
++ (id) newFromDictionary:(NSD*)dic;
 @end
 
 
@@ -306,5 +306,13 @@ free(p);
 
 - (NSC*)colorValue;
 - (NSIMG*)imageValue;
+
+@end
+
+@interface NSObject (NoodlePerformWhenIdle)
+
+- (void)performSelector:(SEL)aSelector withObject:(id)anArgument afterSystemIdleTime:(NSTimeInterval)delay;
+
+- (void)performSelector:(SEL)aSelector withObject:(id)anArgument afterSystemIdleTime:(NSTimeInterval)delay withinTimeLimit:(NSTimeInterval)maxTime;
 
 @end
