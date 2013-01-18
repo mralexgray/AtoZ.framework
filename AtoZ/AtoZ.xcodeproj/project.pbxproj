@@ -668,6 +668,20 @@
 			remoteGlobalIDString = 0785774B15FF4FD800C28714;
 			remoteInfo = CocoaPuffs;
 		};
+		7B3C162116A9FC9F00311A44 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7BC2DD0B16469A8100E73757 /* BlocksKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 6CF22C95161EAFB8002FD317;
+			remoteInfo = "OS X Tests";
+		};
+		7B3C162316A9FC9F00311A44 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7BC2DD0B16469A8100E73757 /* BlocksKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0005D5DE161FDF23007DD837;
+			remoteInfo = "iOS Tests App";
+		};
 		7B5ABAB11608D76500530EA7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7BE1F69C15F90298005ED292 /* FunSize.xcodeproj */;
@@ -884,20 +898,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = 6CC40A751447BB1400E47595;
 			remoteInfo = "BlocksKit Framework";
-		};
-		7BC2DD1C16469A8200E73757 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7BC2DD0B16469A8100E73757 /* BlocksKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 6CC08FCE1385555D00DDEABB;
-			remoteInfo = "OS X Library";
-		};
-		7BC2DD1E16469A8200E73757 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7BC2DD0B16469A8100E73757 /* BlocksKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 6CC0900913855CAE00DDEABB;
-			remoteInfo = "Chameleon Library";
 		};
 		7BC2DD2016469A8200E73757 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -3112,9 +3112,9 @@
 			children = (
 				7BC2DD1916469A8200E73757 /* libBlocksKit.a */,
 				7BC2DD1B16469A8200E73757 /* BlocksKit.framework */,
-				7BC2DD1D16469A8200E73757 /* BlocksKit.dylib */,
-				7BC2DD1F16469A8200E73757 /* BlocksKit_Chameleon.dylib */,
 				7BC2DD2116469A8200E73757 /* iOS Tests.app */,
+				7B3C162216A9FC9F00311A44 /* OS X Tests.octest */,
+				7B3C162416A9FC9F00311A44 /* iOS Tests App.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -3878,6 +3878,20 @@
 			remoteRef = 7B276CDB1616A4320083C29E /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		7B3C162216A9FC9F00311A44 /* OS X Tests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "OS X Tests.octest";
+			remoteRef = 7B3C162116A9FC9F00311A44 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7B3C162416A9FC9F00311A44 /* iOS Tests App.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "iOS Tests App.app";
+			remoteRef = 7B3C162316A9FC9F00311A44 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		7B5ABAB21608D76500530EA7 /* FunSize.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -4032,24 +4046,10 @@
 			remoteRef = 7BC2DD1A16469A8200E73757 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		7BC2DD1D16469A8200E73757 /* BlocksKit.dylib */ = {
-			isa = PBXReferenceProxy;
-			fileType = "compiled.mach-o.dylib";
-			path = BlocksKit.dylib;
-			remoteRef = 7BC2DD1C16469A8200E73757 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7BC2DD1F16469A8200E73757 /* BlocksKit_Chameleon.dylib */ = {
-			isa = PBXReferenceProxy;
-			fileType = "compiled.mach-o.dylib";
-			path = BlocksKit_Chameleon.dylib;
-			remoteRef = 7BC2DD1E16469A8200E73757 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		7BC2DD2116469A8200E73757 /* iOS Tests.app */ = {
 			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = "iOS Tests.app";
+			fileType = wrapper.cfbundle;
+			path = "iOS Tests.octest";
 			remoteRef = 7BC2DD2016469A8200E73757 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
