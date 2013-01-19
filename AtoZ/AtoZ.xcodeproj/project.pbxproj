@@ -3112,7 +3112,7 @@
 			children = (
 				7BC2DD1916469A8200E73757 /* libBlocksKit.a */,
 				7BC2DD1B16469A8200E73757 /* BlocksKit.framework */,
-				7BC2DD2116469A8200E73757 /* iOS Tests.app */,
+				7BC2DD2116469A8200E73757 /* iOS Tests.octest */,
 				7B3C162216A9FC9F00311A44 /* OS X Tests.octest */,
 				7B3C162416A9FC9F00311A44 /* iOS Tests App.app */,
 			);
@@ -3713,9 +3713,9 @@
 			productReference = 7BBCB9E51671018100681F2B /* AZUmbrellaTestBed.app */;
 			productType = "com.apple.product-type.application";
 		};
-		7BDF568B1627695300041A42 /* AtoZTestBed */ = {
+		7BDF568B1627695300041A42 /* AtoZTestBed∞ */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7BDF56A71627695500041A42 /* Build configuration list for PBXNativeTarget "AtoZTestBed" */;
+			buildConfigurationList = 7BDF56A71627695500041A42 /* Build configuration list for PBXNativeTarget "AtoZTestBed∞" */;
 			buildPhases = (
 				7BDF56891627695300041A42 /* Frameworks */,
 				7BDF56881627695300041A42 /* Sources */,
@@ -3726,7 +3726,7 @@
 			dependencies = (
 				7B8364731665863D00C3A311 /* PBXTargetDependency */,
 			);
-			name = AtoZTestBed;
+			name = "AtoZTestBed∞";
 			productName = AtoZTestBed;
 			productReference = 7BDF568C1627695300041A42 /* AtoZTestBed.app */;
 			productType = "com.apple.product-type.application";
@@ -3821,7 +3821,7 @@
 				7B31B12515E9441D00802CD5 /* AtoZ Entitlement */,
 				7B39615815F04FD70065813F /* AtoZTouch */,
 				7B184EE415FCA98600696360 /* AtoZCLI */,
-				7BDF568B1627695300041A42 /* AtoZTestBed */,
+				7BDF568B1627695300041A42 /* AtoZTestBed∞ */,
 				7BB51EA0166D0BDE0051F2FA /* AZCLI */,
 				7BBCB9E41671018100681F2B /* AZUmbrellaTestBed */,
 			);
@@ -4046,7 +4046,7 @@
 			remoteRef = 7BC2DD1A16469A8200E73757 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		7BC2DD2116469A8200E73757 /* iOS Tests.app */ = {
+		7BC2DD2116469A8200E73757 /* iOS Tests.octest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = "iOS Tests.octest";
@@ -5473,7 +5473,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7BDF56A71627695500041A42 /* Build configuration list for PBXNativeTarget "AtoZTestBed" */ = {
+		7BDF56A71627695500041A42 /* Build configuration list for PBXNativeTarget "AtoZTestBed∞" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7BDF56A81627695500041A42 /* Debug */,

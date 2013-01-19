@@ -72,7 +72,7 @@
 #import <PLWeakCompatibility/PLWeakCompatibilityStubs.h>
 #import <Rebel/Rebel.h>
 #import <FunSize/FunSize.h>
-#import <DrawKit/DKDrawKit.h>
+//#import <DrawKit/DKDrawKit.h>
 #import <MapKit/MapKit.h>
 
 #import <Zangetsu/Zangetsu.h>

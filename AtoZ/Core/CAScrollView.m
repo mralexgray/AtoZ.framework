@@ -159,7 +159,7 @@
 	wht.strokeColor		= cgWHITE;
 
 	blk.lineDashPattern	= @[ @(15), @(15) ];
-	blk.path = wht.path	= [NSBP bezierPathWithRect:NSInsetRect( layer.bounds, dynamicStroke/2, dynamicStroke/2)].newQuartzPath;
+	blk.path = wht.path	= [NSBP bezierPathWithRect:NSInsetRect( layer.bounds, dynamicStroke/2, dynamicStroke/2)].quartzPath;
 	CABA *dashAnimation = [CABA animationWithKeyPath:@"lineDashPhase"];
 	dashAnimation.fromValue		= @0;
 	dashAnimation.toValue		= @30;

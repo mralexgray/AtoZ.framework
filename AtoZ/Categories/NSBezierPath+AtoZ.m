@@ -28,12 +28,12 @@
 {
 	NSAffineTransform*		theTransform = [NSAffineTransform transform];
 	NSAffineTransformStruct	transformStruct = { 0 };
-	
+
 	transformStruct.m11 = 1.0;
 	transformStruct.m12 = yFraction;
 	transformStruct.m21 = xFraction;
 	transformStruct.m22 = 1.0;
-	
+
 	[theTransform setTransformStruct: transformStruct];
 	[self prependTransform: theTransform];
 }
@@ -54,7 +54,7 @@
 
 	// get the ratio
 	ratio = MIN( rect.size.width  / self.bounds.size.width,
-				 rect.size.height / self.bounds.size.height );
+				rect.size.height / self.bounds.size.height );
 
 	// scale by ratio
 	[transform scaleBy:ratio];
@@ -72,26 +72,26 @@
 {
 
 	CGPoint o = (CGP){bounds.origin.x + bounds.size.width * .75, bounds.origin.y + bounds.size.height};
-	
-	CGMutablePathRef path = CGPathCreateMutable();
-		CGPathMoveToPoint(path, NULL, o.x, o.y);
 
-		int springWidth = bounds.size.width  / 2;
-		float coilHeight = bounds.size.height / numCoils;
-		float coilUnit = coilHeight / 4;
-		CGPoint p6;
-		int i = 0;
-		for	(; i < numCoils; i++) {
-			CGPoint p1  = CGPointMake(o.x,					o.y - coilUnit*3);
-			CGPoint p2  = CGPointMake(o.x - springWidth,	o.y - coilUnit*3);
-			CGPoint p3  = CGPointMake(o.x - springWidth,	o.y - coilUnit*2);
-			CGPoint p4  = CGPointMake(o.x - springWidth,	o.y - coilUnit*1);
-			CGPoint p5  = CGPointMake(o.x,					o.y);
-			p6  = CGPointMake(o.x,					o.y - coilHeight);
-			CGPathAddCurveToPoint(path, NULL, p1.x, p1.y, p2.x, p2.y, p3.x, p3.y);
-			CGPathAddCurveToPoint(path, NULL, p4.x, p4.y, p5.x, p5.y, p6.x, p6.y);
-			o.y -= coilHeight;
-		}
+	CGMutablePathRef path = CGPathCreateMutable();
+	CGPathMoveToPoint(path, NULL, o.x, o.y);
+
+	int springWidth = bounds.size.width  / 2;
+	float coilHeight = bounds.size.height / numCoils;
+	float coilUnit = coilHeight / 4;
+	CGPoint p6;
+	int i = 0;
+	for	(; i < numCoils; i++) {
+		CGPoint p1  = CGPointMake(o.x,					o.y - coilUnit*3);
+		CGPoint p2  = CGPointMake(o.x - springWidth,	o.y - coilUnit*3);
+		CGPoint p3  = CGPointMake(o.x - springWidth,	o.y - coilUnit*2);
+		CGPoint p4  = CGPointMake(o.x - springWidth,	o.y - coilUnit*1);
+		CGPoint p5  = CGPointMake(o.x,					o.y);
+		p6  = CGPointMake(o.x,					o.y - coilHeight);
+		CGPathAddCurveToPoint(path, NULL, p1.x, p1.y, p2.x, p2.y, p3.x, p3.y);
+		CGPathAddCurveToPoint(path, NULL, p4.x, p4.y, p5.x, p5.y, p6.x, p6.y);
+		o.y -= coilHeight;
+	}
 	return [NSBezierPath bezierPathWithCGPath:path];
 }
 
@@ -156,34 +156,34 @@
 	switch (orientation)	{
 		case AMTriangleUp:
 		{
-		a = NSMakePoint(NSMinX(aRect), NSMinY(aRect));
-		b = NSMakePoint((NSMinX(aRect) + NSMaxX(aRect)) / 2, NSMaxY(aRect));
-		c = NSMakePoint(NSMaxX(aRect), NSMinY(aRect));
-		break;
+			a = NSMakePoint(NSMinX(aRect), NSMinY(aRect));
+			b = NSMakePoint((NSMinX(aRect) + NSMaxX(aRect)) / 2, NSMaxY(aRect));
+			c = NSMakePoint(NSMaxX(aRect), NSMinY(aRect));
+			break;
 		}
 
 		case AMTriangleDown:
 		{
-		a = NSMakePoint(NSMinX(aRect), NSMaxY(aRect));
-		c = NSMakePoint(NSMaxX(aRect), NSMaxY(aRect));
-		b = NSMakePoint((NSMinX(aRect) + NSMaxX(aRect)) / 2, NSMinY(aRect));
-		break;
+			a = NSMakePoint(NSMinX(aRect), NSMaxY(aRect));
+			c = NSMakePoint(NSMaxX(aRect), NSMaxY(aRect));
+			b = NSMakePoint((NSMinX(aRect) + NSMaxX(aRect)) / 2, NSMinY(aRect));
+			break;
 		}
 
 		case AMTriangleLeft:
 		{
-		a = NSMakePoint(NSMaxX(aRect), NSMaxY(aRect));
-		b = NSMakePoint(NSMaxX(aRect), NSMinY(aRect));
-		c = NSMakePoint(NSMinX(aRect), (NSMinY(aRect) + NSMaxY(aRect)) / 2);
-		break;
+			a = NSMakePoint(NSMaxX(aRect), NSMaxY(aRect));
+			b = NSMakePoint(NSMaxX(aRect), NSMinY(aRect));
+			c = NSMakePoint(NSMinX(aRect), (NSMinY(aRect) + NSMaxY(aRect)) / 2);
+			break;
 		}
 
 		default : // case AMTriangleRight:
 		{
-		a = NSMakePoint(NSMinX(aRect), NSMinY(aRect));
-		b = NSMakePoint(NSMinX(aRect), NSMaxY(aRect));
-		c = NSMakePoint(NSMaxX(aRect), (NSMinY(aRect) + NSMaxY(aRect)) / 2);
-		break;
+			a = NSMakePoint(NSMinX(aRect), NSMinY(aRect));
+			b = NSMakePoint(NSMinX(aRect), NSMaxY(aRect));
+			c = NSMakePoint(NSMaxX(aRect), (NSMinY(aRect) + NSMaxY(aRect)) / 2);
+			break;
 		}
 	}
 
@@ -206,64 +206,64 @@
 
 
 	NSGradient *fillGradient = [[NSGradient alloc] initWithStartingColor:inStartColor endingColor:inEndColor];
-	
+
 	[fillGradient drawInBezierPath:self angle:inAngle];
 	/*
-	
-	CIImage*	coreimage;
-	inStartColor = [inStartColor colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
-	inEndColor 	 = [inEndColor colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
-	
-	CIColor* startColor = [CIColor colorWithRed:[inStartColor redComponent] green:[inStartColor greenComponent] blue:[inStartColor blueComponent] alpha:[inStartColor alphaComponent]];
-	CIColor* endColor = [CIColor colorWithRed:[inEndColor redComponent] green:[inEndColor greenComponent] blue:[inEndColor blueComponent] alpha:[inEndColor alphaComponent]];
-	
-	CIFilter* filter;
-	
-	filter = [CIFilter filterWithName:@"CILinearGradient"];
-	[filter setValue:startColor forKey:@"inputColor0"];
-	[filter setValue:endColor forKey:@"inputColor1"];
-	
-	CIVector* startVector;
-	CIVector* endVector;
-	
-	startVector = [CIVector vectorWithX:0.0 Y:0.0];
-	endVector = [CIVector vectorWithX:0.0 Y:[self bounds].size.height];
-	
-	[filter setValue:startVector forKey:@"inputPoint0"];
-	[filter setValue:endVector forKey:@"inputPoint1"];
-	
-	coreimage = [filter valueForKey:@"outputImage"];
-	
-	[[NSGraphicsContext currentContext] saveGraphicsState];
-	
-	CIContext* context;
-	
-	context = [[NSGraphicsContext currentContext] CIContext];
-	
-	[self setClip];
-	
-	[context drawImage:coreimage atPoint:CGPointZero fromRect:CGRectMake( 0.0, 0.0, [self bounds].size.width + 100.0, [self bounds].size.height + 100.0 )];
-	
-	[[NSGraphicsContext currentContext] restoreGraphicsState];
-	*/
+
+	 CIImage*	coreimage;
+	 inStartColor = [inStartColor colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
+	 inEndColor 	 = [inEndColor colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
+
+	 CIColor* startColor = [CIColor colorWithRed:[inStartColor redComponent] green:[inStartColor greenComponent] blue:[inStartColor blueComponent] alpha:[inStartColor alphaComponent]];
+	 CIColor* endColor = [CIColor colorWithRed:[inEndColor redComponent] green:[inEndColor greenComponent] blue:[inEndColor blueComponent] alpha:[inEndColor alphaComponent]];
+
+	 CIFilter* filter;
+
+	 filter = [CIFilter filterWithName:@"CILinearGradient"];
+	 [filter setValue:startColor forKey:@"inputColor0"];
+	 [filter setValue:endColor forKey:@"inputColor1"];
+
+	 CIVector* startVector;
+	 CIVector* endVector;
+
+	 startVector = [CIVector vectorWithX:0.0 Y:0.0];
+	 endVector = [CIVector vectorWithX:0.0 Y:[self bounds].size.height];
+
+	 [filter setValue:startVector forKey:@"inputPoint0"];
+	 [filter setValue:endVector forKey:@"inputPoint1"];
+
+	 coreimage = [filter valueForKey:@"outputImage"];
+
+	 [[NSGraphicsContext currentContext] saveGraphicsState];
+
+	 CIContext* context;
+
+	 context = [[NSGraphicsContext currentContext] CIContext];
+
+	 [self setClip];
+
+	 [context drawImage:coreimage atPoint:CGPointZero fromRect:CGRectMake( 0.0, 0.0, [self bounds].size.width + 100.0, [self bounds].size.height + 100.0 )];
+
+	 [[NSGraphicsContext currentContext] restoreGraphicsState];
+	 */
 }
 
 + (NSBezierPath *)bezierPathWithLeftRoundedRect:(NSRect)rect radius:(CGFloat)radius
 {
 	// Make sure radius doesn't exceed a maximum size to avoid artifacts:
 	radius = fmin(radius, fmin(0.5f * NSHeight(rect), NSWidth(rect)));
-	
+
 	// Make sure silly values simply lead to un-rounded corners:
 	if( radius <= 0 )
 		return [self bezierPathWithRect:rect];
-	
+
 	NSRect ignored, innerRect;
 	NSDivideRect(NSInsetRect(rect, 0.0, radius), &ignored, &innerRect, radius, NSMinXEdge); // Make rect with corners being centers of the corner circles.
 	NSBezierPath *path = [self bezierPath];
-	
+
 	// Now draw our rectangle:
 	[path moveToPoint: NSMakePoint(NSMaxX(rect), NSMinY(rect))];
-	
+
 	// Right edge:
 	[path lineToPoint:NSMakePoint(NSMaxX(rect), NSMaxY(rect))];
 	// Top edge and top left:
@@ -272,7 +272,7 @@
 	[path appendBezierPathWithArcWithCenter:NSMakePoint(NSMinX(innerRect), NSMinY(innerRect)) radius:radius startAngle:180.0  endAngle:270.0 ];
 	// Bottom edge:
 	[path closePath];
-	
+
 	return path;
 }
 
@@ -280,18 +280,18 @@
 {
 	// Make sure radius doesn't exceed a maximum size to avoid artifacts:
 	radius = fmin(radius, fmin(0.5f * NSHeight(rect), NSWidth(rect)));
-	
+
 	// Make sure silly values simply lead to un-rounded corners:
 	if( radius <= 0 )
 		return [self bezierPathWithRect:rect];
-	
+
 	NSRect ignored, innerRect;
 	NSDivideRect(NSInsetRect(rect, 0.0, radius), &ignored, &innerRect, radius, NSMaxXEdge); // Make rect with corners being centers of the corner circles.
 	NSBezierPath *path = [self bezierPath];
-	
+
 	// Now draw our rectangle:
 	[path moveToPoint: NSMakePoint(NSMinX(rect), NSMaxY(rect))];
-	
+
 	// Left edge:
 	[path lineToPoint:NSMakePoint(NSMinX(rect), NSMinY(rect))];
 	// Bottom edge and bottom right:
@@ -300,7 +300,7 @@
 	[path appendBezierPathWithArcWithCenter:NSMakePoint(NSMaxX(innerRect), NSMaxY(innerRect)) radius:radius startAngle:0.0  endAngle:90.0 ];
 	// Top edge:
 	[path closePath];
-	
+
 	return path;
 }
 
@@ -359,7 +359,7 @@
 	NSBezierPath* path = [self bezierPath];
 	radius = MIN(radius, 0.5f * MIN(NSWidth(aRect), NSHeight(aRect)));
 	NSRect rect = NSInsetRect(aRect, radius, radius);
-	
+
 	if (corners & OSBottomLeftCorner)
 	{
 		[path appendBezierPathWithArcWithCenter:NSMakePoint(NSMinX(rect), NSMinY(rect)) radius:radius startAngle:180.0 endAngle:270.0];
@@ -369,7 +369,7 @@
 		NSPoint cornerPoint = NSMakePoint(NSMinX(aRect), NSMinY(aRect));
 		[path appendBezierPathWithPoints:&cornerPoint count:1];
 	}
-	
+
 	if (corners & OSBottomRightCorner)
 	{
 		[path appendBezierPathWithArcWithCenter:NSMakePoint(NSMaxX(rect), NSMinY(rect)) radius:radius startAngle:270.0 endAngle:360.0];
@@ -379,7 +379,7 @@
 		NSPoint cornerPoint = NSMakePoint(NSMaxX(aRect), NSMinY(aRect));
 		[path appendBezierPathWithPoints:&cornerPoint count:1];
 	}
-	
+
 	if (corners & OSTopRightCorner)
 	{
 		[path appendBezierPathWithArcWithCenter:NSMakePoint(NSMaxX(rect), NSMaxY(rect)) radius:radius startAngle:  0.0 endAngle: 90.0];
@@ -389,7 +389,7 @@
 		NSPoint cornerPoint = NSMakePoint(NSMaxX(aRect), NSMaxY(aRect));
 		[path appendBezierPathWithPoints:&cornerPoint count:1];
 	}
-	
+
 	if (corners & OSTopLeftCorner)
 	{
 		[path appendBezierPathWithArcWithCenter:NSMakePoint(NSMinX(rect), NSMaxY(rect)) radius:radius startAngle: 90.0 endAngle:180.0];
@@ -399,9 +399,9 @@
 		NSPoint cornerPoint = NSMakePoint(NSMinX(aRect), NSMaxY(aRect));
 		[path appendBezierPathWithPoints:&cornerPoint count:1];
 	}
-	
+
 	[path closePath];
-	return path;	
+	return path;
 }
 
 + (NSBezierPath *)bezierPathWithRoundedRect:(NSRect)aRect cornerRadius:(CGFloat)radius
@@ -413,40 +413,89 @@
 // This method works only in OS X v10.2 and later.
 - (CGPathRef)quartzPath
 {
+	int i, numElements;
 
-	return [self newQuartzPath];
-/*	// Need to begin a path here.
-	__block CGPathRef		   immutablePath = NULL;
-
-	__block CGMutablePathRef	path = CGPathCreateMutable();
-	__block BOOL				didClosePath = YES;
+	// Need to begin a path here.
+	CGPathRef           immutablePath = NULL;
 
 	// Then draw the path elements.
-	NSI numElements = [self elementCount];
+	numElements = [self elementCount];
 	if (numElements > 0)
 	{
-		[[NSA from:0 to:numElements-1] eachWithIndex:^(id obj, NSInteger idx) {
+		CGMutablePathRef    path = CGPathCreateMutable();
+		NSPoint             points[3];
+		BOOL                didClosePath = YES;
 
-			CGP pnts[3], *pPtr;
-			pPtr = pnts;
+		for (i = 0; i < numElements; i++)
+		{
+			switch ([self elementAtIndex:i associatedPoints:points])
+			{
+				case NSMoveToBezierPathElement:
+					CGPathMoveToPoint(path, NULL, points[0].x, points[0].y);
+					break;
 
-			NSBezierPathElement e = [self elementAtIndex:idx associatedPoints:pnts];
-			e == NSMoveToBezierPathElement	? 		CGPathMoveToPoint(		path, NULL, pnts[0].x, pnts[0].y) 		:
-			e == NSLineToBezierPathElement	? ^{	CGPathAddLineToPoint(	path, NULL, pPtr[0].x, pPtr[0].y);
-													didClosePath = NO; 											}() :
-			e == NSCurveToBezierPathElement	? ^{	CGPathAddCurveToPoint(path, NULL, pPtr[0].x, pPtr[0].y,
-																					  pPtr[1].x, pPtr[1].y,
-																					  pPtr[2].x, pPtr[2].y);
-													didClosePath = NO;											}()	:
+				case NSLineToBezierPathElement:
+					CGPathAddLineToPoint(path, NULL, points[0].x, points[0].y);
+					didClosePath = NO;
+					break;
 
-			e == NSClosePathBezierPathElement ? ^{	CGPathCloseSubpath(path); didClosePath = YES;				}() : nil;
-			// Be sure the path is closed or Quartz may not do valid hit detection.
-			didClosePath ?: CGPathCloseSubpath(path);
-		}];
+				case NSCurveToBezierPathElement:
+					CGPathAddCurveToPoint(path, NULL, points[0].x, points[0].y,
+										  points[1].x, points[1].y,
+										  points[2].x, points[2].y);
+					didClosePath = NO;
+					break;
+
+				case NSClosePathBezierPathElement:
+					CGPathCloseSubpath(path);
+					didClosePath = YES;
+					break;
+			}
+		}
+
+		// Be sure the path is closed or Quartz may not do valid hit detection.
+		if (!didClosePath)
+			CGPathCloseSubpath(path);
+
+		immutablePath = CGPathCreateCopy(path);
+		CGPathRelease(path);
 	}
-	return CGPathCreateCopy(path);
-*/
+
+	return immutablePath;
 }
+//	return [self newQuartzPath];
+/*	// Need to begin a path here.
+ __block CGPathRef		   immutablePath = NULL;
+
+ __block CGMutablePathRef	path = CGPathCreateMutable();
+ __block BOOL				didClosePath = YES;
+
+ // Then draw the path elements.
+ NSI numElements = [self elementCount];
+ if (numElements > 0)
+ {
+ [[NSA from:0 to:numElements-1] eachWithIndex:^(id obj, NSInteger idx) {
+
+ CGP pnts[3], *pPtr;
+ pPtr = pnts;
+
+ NSBezierPathElement e = [self elementAtIndex:idx associatedPoints:pnts];
+ e == NSMoveToBezierPathElement	? 		CGPathMoveToPoint(		path, NULL, pnts[0].x, pnts[0].y) 		:
+ e == NSLineToBezierPathElement	? ^{	CGPathAddLineToPoint(	path, NULL, pPtr[0].x, pPtr[0].y);
+ didClosePath = NO; 											}() :
+ e == NSCurveToBezierPathElement	? ^{	CGPathAddCurveToPoint(path, NULL, pPtr[0].x, pPtr[0].y,
+ pPtr[1].x, pPtr[1].y,
+ pPtr[2].x, pPtr[2].y);
+ didClosePath = NO;											}()	:
+
+ e == NSClosePathBezierPathElement ? ^{	CGPathCloseSubpath(path); didClosePath = YES;				}() : nil;
+ // Be sure the path is closed or Quartz may not do valid hit detection.
+ didClosePath ?: CGPathCloseSubpath(path);
+ }];
+ }
+ return CGPathCreateCopy(path);
+ */
+
 
 //#define MCBEZIER_USE_PRIVATE_FUNCTION
 
@@ -458,7 +507,7 @@ static void CGPathCallback(void *info, const CGPathElement *element)
 {
 	NSBezierPath *path = (__bridge NSBezierPath*) info;
 	CGPoint *points = element->points;
-	
+
 	switch (element->type) {
 		case kCGPathElementMoveToPoint:
 		{
@@ -494,7 +543,7 @@ static void CGPathCallback(void *info, const CGPathElement *element)
 {
 	NSBezierPath *path = [NSBezierPath bezierPath];
 	CGPathApply(pathRef,(__bridge void*)path, CGPathCallback);
-	
+
 	return path;
 }
 
@@ -503,41 +552,41 @@ static void CGPathCallback(void *info, const CGPathElement *element)
 {
 	return  [self quartzPath];
 
-/*	CGMutablePathRef thePath = CGPathCreateMutable();
-	if (!thePath) return nil;
-	
-	unsigned int elementCount = [self elementCount];
-	
-	// The maximum number of points is 3 for a NSCurveToBezierPathElement.
-	// (controlPoint1, controlPoint2, and endPoint)
-	NSPoint controlPoints[3];
-	
-	for (unsigned int i = 0; i < elementCount; i++) {
-		switch ([self elementAtIndex:i associatedPoints:controlPoints]) {
-			case NSMoveToBezierPathElement:
-				CGPathMoveToPoint(thePath, &CGAffineTransformIdentity, 
-								  controlPoints[0].x, controlPoints[0].y);
-				break;
-			case NSLineToBezierPathElement:
-				CGPathAddLineToPoint(thePath, &CGAffineTransformIdentity, 
-									 controlPoints[0].x, controlPoints[0].y);
-				break;
-			case NSCurveToBezierPathElement:
-				CGPathAddCurveToPoint(thePath, &CGAffineTransformIdentity, 
-									  controlPoints[0].x, controlPoints[0].y,
-									  controlPoints[1].x, controlPoints[1].y,
-									  controlPoints[2].x, controlPoints[2].y);
-				break;
-			case NSClosePathBezierPathElement:
-				CGPathCloseSubpath(thePath);
-				break;
-			default:
-				NSLog(@"Unknown element at [NSBezierPath (GTMBezierPathCGPathAdditions) cgPath]");
-				break;
-		};
-	}
-	return thePath;
-	*/
+	/*	CGMutablePathRef thePath = CGPathCreateMutable();
+	 if (!thePath) return nil;
+
+	 unsigned int elementCount = [self elementCount];
+
+	 // The maximum number of points is 3 for a NSCurveToBezierPathElement.
+	 // (controlPoint1, controlPoint2, and endPoint)
+	 NSPoint controlPoints[3];
+
+	 for (unsigned int i = 0; i < elementCount; i++) {
+	 switch ([self elementAtIndex:i associatedPoints:controlPoints]) {
+	 case NSMoveToBezierPathElement:
+	 CGPathMoveToPoint(thePath, &CGAffineTransformIdentity,
+	 controlPoints[0].x, controlPoints[0].y);
+	 break;
+	 case NSLineToBezierPathElement:
+	 CGPathAddLineToPoint(thePath, &CGAffineTransformIdentity,
+	 controlPoints[0].x, controlPoints[0].y);
+	 break;
+	 case NSCurveToBezierPathElement:
+	 CGPathAddCurveToPoint(thePath, &CGAffineTransformIdentity,
+	 controlPoints[0].x, controlPoints[0].y,
+	 controlPoints[1].x, controlPoints[1].y,
+	 controlPoints[2].x, controlPoints[2].y);
+	 break;
+	 case NSClosePathBezierPathElement:
+	 CGPathCloseSubpath(thePath);
+	 break;
+	 default:
+	 NSLog(@"Unknown element at [NSBezierPath (GTMBezierPathCGPathAdditions) cgPath]");
+	 break;
+	 };
+	 }
+	 return thePath;
+	 */
 }
 
 - (NSBezierPath *)pathWithStrokeWidth:(CGFloat)strokeWidth
@@ -547,9 +596,9 @@ static void CGPathCallback(void *info, const CGPathElement *element)
 	CGContextRef context = [[NSGraphicsContext currentContext] graphicsPort];
 	CGPathRef pathRef = [path cgPath];
 	[path release];
-	
+
 	CGContextSaveGState(context);
-		
+
 	CGContextBeginPath(context);
 	CGContextAddPath(context, pathRef);
 	CGContextSetLineWidth(context, strokeWidth);
@@ -557,12 +606,12 @@ static void CGPathCallback(void *info, const CGPathElement *element)
 	CGPathRef strokedPathRef = CGContextCopyPath(context);
 	CGContextBeginPath(context);
 	NSBezierPath *strokedPath = [NSBezierPath bezierPathWithCGPath:strokedPathRef];
-	
+
 	CGContextRestoreGState(context);
-	
+
 	CFRelease(pathRef);
 	CFRelease(strokedPathRef);
-	
+
 	return strokedPath;
 #else
 	return nil;
@@ -633,7 +682,7 @@ static void CGPathCallback(void *info, const CGPathElement *element)
 		shadow.shadowOffset = offset;
 		NSAffineTransform *transform = [NSAT transform];
 		[AZCURRENTCTX isFlipped] 	? [transform translateXBy:0 yBy:bounds.size.height]
-									: [transform translateXBy:0 yBy:-bounds.size.height];
+		: [transform translateXBy:0 yBy:-bounds.size.height];
 		NSBP *drawingPath = AZBezPath(bounds);
 		[drawingPath setWindingRule:NSEvenOddWindingRule];
 		[drawingPath appendBezierPath:self];
@@ -658,16 +707,16 @@ static void CGPathCallback(void *info, const CGPathElement *element)
 	else
 		[transform translateXBy:0 yBy:-bounds.size.height];
 	[path transformUsingAffineTransform:transform];
-	
+
 	[NSGraphicsContext saveGraphicsState];
-	
+
 	[shadow set];
 	[[NSColor blackColor] set];
 	NSRectClip(bounds);
 	[path fill];
-	
+
 	[NSGraphicsContext restoreGraphicsState];
-	
+
 }
 // Credit for the next two methods goes to Matt Gemmell
 - (void)strokeInside
@@ -678,26 +727,26 @@ static void CGPathCallback(void *info, const CGPathElement *element)
 
 - (void)strokeInsideWithinRect:(NSRect)clipRect
 {
-//	NSGraphicsContext *thisContext = [NSGraphicsContext currentContext];
+	//	NSGraphicsContext *thisContext = [NSGraphicsContext currentContext];
 	float lineWidth = [self lineWidth];
-	
+
 	/* Save the current graphics context. */
 	[NSGraphicsContext saveGraphicsState];
-	
+
 	/* Double the stroke width, since -stroke centers strokes on paths. */
 	[self setLineWidth:(lineWidth * 2.0)];
-	
+
 	/* Clip drawing to this path; draw nothing outwith the path. */
 	[self addClip];
-	
+
 	/* Further clip drawing to clipRect, usually the view's frame. */
 	if (clipRect.size.width > 0.0 && clipRect.size.height > 0.0) {
 		[NSBezierPath clipRect:clipRect];
 	}
-	
+
 	/* Stroke the path. */
 	[self stroke];
-	
+
 	/* Restore the previous graphics context. */
 	[NSGraphicsContext restoreGraphicsState];
 	[self setLineWidth:lineWidth];
@@ -707,22 +756,22 @@ static void CGPathCallback(void *info, const CGPathElement *element)
 {
 	NSBezierPath* bezierPath = [NSBezierPath bezierPath];
 	float cornerSize = rect.size.height / 2;
-		// Corners:
+	// Corners:
 	NSPoint leftTop 	= NSMakePoint(NSMinX(rect) + cornerSize, NSMaxY(rect));
 	NSPoint rightTop 	= NSMakePoint(NSMaxX(rect) - cornerSize, NSMaxY(rect));
 	NSPoint rightBottom = NSMakePoint(NSMaxX(rect) - cornerSize, NSMinY(rect));
 	NSPoint leftBottom 	= NSMakePoint(NSMinX(rect) + cornerSize, NSMinY(rect));
-		// Create our capped box:
-		// Top edge:
+	// Create our capped box:
+	// Top edge:
 	[bezierPath moveToPoint:leftTop];
 	[bezierPath lineToPoint:rightTop];
-		// Right cap:
+	// Right cap:
 	[bezierPath appendBezierPathWithArcWithCenter:NSMakePoint(rightTop.x,(NSMaxY(rect)+NSMinY(rect))/2)
 										   radius:cornerSize startAngle:90 endAngle:-90 clockwise:YES];
-		// Bottom edge:
+	// Bottom edge:
 	[bezierPath lineToPoint: rightBottom];
 	[bezierPath lineToPoint: leftBottom];
-		// Left cap:
+	// Left cap:
 	[bezierPath appendBezierPathWithArcWithCenter:NSMakePoint(leftTop.x,(NSMaxY(rect)+NSMinY(rect))/2)
 										   radius:cornerSize startAngle:-90 endAngle:90 clockwise:YES];
 	[bezierPath closePath]; // Just to be safe.
@@ -824,23 +873,23 @@ static void CGPathCallback(void *info, const CGPathElement *element)
 
 	const CGFloat shaftLength = ONE_HALF * shaftLengthMulti;
 	const CGFloat shaftEndY = -(shaftLength - ONE_HALF); //the end of the arrow shaft (points 1-2).
-														 //wing width = the distance between 6 and 7 and 3 and 4.
+	//wing width = the distance between 6 and 7 and 3 and 4.
 	const CGFloat wingWidth = (1.0f - shaftWidth) * 0.5f;
 
 	//start with the bottom vertex.
 	[arrowPath moveToPoint:NSMakePoint(wingWidth,  shaftEndY)]; //1
 	[arrowPath relativeLineToPoint:NSMakePoint(shaftWidth, 0.0f)]; //2
-																   //up to the inner right corner.
+	//up to the inner right corner.
 	[arrowPath relativeLineToPoint:NSMakePoint(0.0f, shaftLength)]; //3
-																	//far right.
+	//far right.
 	[arrowPath relativeLineToPoint:NSMakePoint(wingWidth,  0.0f)]; //4
-																   //top center - the point of the arrow.
+	//top center - the point of the arrow.
 	[arrowPath lineToPoint:NSMakePoint(ONE_HALF,  1.0f)]; //5
-														  //far left.
+	//far left.
 	[arrowPath lineToPoint:NSMakePoint(0.0f,  ONE_HALF)]; //6
-														  //inner left corner.
+	//inner left corner.
 	[arrowPath relativeLineToPoint:NSMakePoint(wingWidth,  0.0f)]; //7
-																   //to the finish line! yay!
+	//to the finish line! yay!
 	[arrowPath closePath];
 
 	return arrowPath;

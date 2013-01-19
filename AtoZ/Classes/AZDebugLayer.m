@@ -75,7 +75,7 @@
 
 //	NSLog(@"event: %@", event);
 	self.fillColor = cgCLEARCOLOR;
-	CGPathRef ref = [[NSBezierPath bezierPathWithRect:[layer bounds]]newQuartzPath];
+	CGPathRef ref = [[NSBezierPath bezierPathWithRect:[layer bounds]]quartzPath];
 	[self setPath:ref];
 	CGColorRef col = cgRANDOMCOLOR;
 	[self setStrokeColor:col];

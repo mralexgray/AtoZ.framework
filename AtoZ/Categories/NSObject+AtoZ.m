@@ -330,7 +330,7 @@ static char windowPosition;
 
 - (void) setWindowPosition: (AZWindowPosition)pos { objc_setAssociatedObject( self, &windowPosition, @(pos), OBJC_ASSOCIATION_RETAIN ); }
 
-- (AZWindowPosition) windowPosition { return [objc_getAssociatedObject( self, &windowPosition ) intValue]; }
+- (AZWindowPosition) windowPosition { return [objc_getAssociatedObject( self, &windowPosition ) integerValue]; }
 
 // 	Finds all properties of an object, and prints each one out as part of a string describing the class.
 - (NSS*) autoDescribeWithClassType: (Class)classType

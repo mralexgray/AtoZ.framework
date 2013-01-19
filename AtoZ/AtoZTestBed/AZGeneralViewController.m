@@ -150,7 +150,7 @@
 		NSRect botBox = AZRectTrimmedOnTop(view.frame, 100);
 		NSA* palette = [NSC randomPalette];
 
-		[view associate:[NSC linenTintedWithColor:[palette nextObject]] with:@"blockC"];
+		[view setAssociatedValue:[NSC linenTintedWithColor:[palette nextObject]] forKey:@"blockC" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
 		NSRectFillWithColor( botBox, [view associatedValueForKey:@"blockC"] );
 		NSRectFillWithColor( topBox, [[view associatedValueForKey:@"blockC"] complement]);
 		NSBP *arrow	= [[NSBezierPath bezierPathWithArrow]
