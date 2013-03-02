@@ -1,3 +1,6 @@
+git
+dev
+AtoZ.framework
 .idea/
 *User Data
 Documentation
@@ -32,3 +35,6 @@ AtoZ/AtoZ Entitlement/AtoZ.xcdatamodeld/.xccurrentversion
 AtoZ/Resources/picol*
 /Sparkle
 Locked*
+Frameworks/PXListView
+
+AtoZ/Classes/CPAccelerationTimer

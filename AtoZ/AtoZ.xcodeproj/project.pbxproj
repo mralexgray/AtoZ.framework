@@ -1824,7 +1824,7 @@
 		7BDF567B1626B68600041A42 /* AZBorderlessResizeWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZBorderlessResizeWindow.m; sourceTree = "<group>"; };
 		7BDF56841627672600041A42 /* AZDebugLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = AZDebugLayer.h; sourceTree = "<group>"; };
 		7BDF56851627672600041A42 /* AZDebugLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZDebugLayer.m; sourceTree = "<group>"; };
-		7BDF568C1627695300041A42 /* AtoZTestBed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AtoZTestBed.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7BDF568C1627695300041A42 /* AtoZTestBed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = AtoZTestBed.app; path = "AtoZTestBed∞.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BDF56971627695500041A42 /* AtoZTestBed-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AtoZTestBed-Info.plist"; sourceTree = "<group>"; };
 		7BDF56991627695500041A42 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7BDF569B1627695500041A42 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
