@@ -12,7 +12,10 @@
 
 - (void) makeMobile;
 
+- (void) loadFileAtPath:(NSS*)path;
+
 - (NSImage *)snapshot;
 
+-(void)appendTagToBody:(NSString *)tagName InnerHTML:(NSString *)innerHTML;
 
 @end

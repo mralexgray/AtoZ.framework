@@ -104,16 +104,36 @@ NSString *NSDCIMFolder()
 	return results;
 }
 
++ (NSArray *) pathsForItemsInFolder:(NSString *)path withExtension: (NSString *) ext
+{
+	NSError *error = nil;
+	return [[AZFILEMANAGER contentsOfDirectoryAtPath:path error:&error] filter:^BOOL(NSS* object) {
+		return [path.pathExtension isEqual:ext];
+	}];
+}
+
 	// Case insensitive compare, with deep enumeration
 + (NSArray *) pathsForItemsMatchingExtension: (NSString *) ext inFolder: (NSString *) path
 {
+//	NSString *file;
+//	NSMutableArray *results = [NSMutableArray array];
+//	NSDirectoryEnumerator *dirEnum = [[NSFileManager defaultManager] enumeratorAtPath:path];
+//	while (file = [dirEnum nextObject])
+//		if ([[file pathExtension] caseInsensitiveCompare:ext] == NSOrderedSame)
+//			[results addObject:[path stringByAppendingPathComponent:file]];
+//	return results;
+
 	NSString *file;
-	NSMutableArray *results = [NSMutableArray array];
+	NSMA *results = NSMA.new;
 	NSDirectoryEnumerator *dirEnum = [[NSFileManager defaultManager] enumeratorAtPath:path];
-	while (file = [dirEnum nextObject])
+
+	while (file = [dirEnum nextObject]) {
+	
 		if ([[file pathExtension] caseInsensitiveCompare:ext] == NSOrderedSame)
 			[results addObject:[path stringByAppendingPathComponent:file]];
+	}
 	return results;
+
 }
 
 + (NSArray *) pathsForDocumentsMatchingExtension: (NSString *) ext

@@ -133,7 +133,7 @@ extern NSData *PNGRepresentation(NSIMG *image);
 - (NSA*) quantize;
 + (NSIMG*) desktopImage;
 - (void) openInPreview;
-- (void) openInPreview;
+- (NSS*) asTempFile;
 
 + (NSIMG*) svg2png:(NSString*)inFile out:(NSString*)optionalOutFile;
 - (void) openQuantizedSwatch;

@@ -236,6 +236,8 @@
 #import "Transition.h"
 #import "LetterView.h"
 //#import "CPAccelerationTimer.h"
+#import "StandardPaths.h"
+
 
 	//Controls
 #import "AZToggleArrayView.h"

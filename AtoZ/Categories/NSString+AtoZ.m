@@ -79,6 +79,24 @@
 @implementation NSString (AtoZ)
 
 
++(NSA*) dicksonisms {
+	static NSA* dicks = nil;
+	return dicks = dicks ? dicks : @[
+
+								  @"When I was 10 years old - I wore this dress; I just keep getting it altered.",
+		  @"See? I still fit into my 10-year-old clothing.",
+		  @"Look at that! Oh, is that me on the wall? I drew it myself - with chalk!",
+		  @"I can't move, but boy, can I ever pose!",
+		  @"I wish there was a close up on my face.. there it is! <<sighing>> Wow, looking better and better all the time.",
+		  @"That's a - beret - it's from Europe.",
+		  @"I really shouldn't be doing this; but I'm going to have an ad for IKEA right now.",
+		  @"This is a complete IKEA closet.  The bed is underneath my pants.",
+		  @"If you have a look - you can see that everything fits - into this particle board.   You just paint it white.. pull it out... oh gold and silver! (those are my two signature colors.)"];
+}
+
++ (NSS*) dicksonBible { return  @"When do I look at the camera?  When do I look? <gasp> Hi, what a surprise that you're here.  Welcome... to my bathroom.  My fingers are.. fused together. My thumb was broken... in.. an... acting.. accident..  I can't wait to show you more of my face. Look at my face. 	There's my face, there's my face!  That's not my body... but this is my.. FACE. Here are four looks. I have four different emotions - they may seem the same.. oh there's my high school grad picture.. and my picture from Woolworth's!I like to stare blankly into space.  <<chuckle>> that's something I do. When I was 10 years old - I wore this dress; I just keep getting it altered.  See? I still fit into my 10-year-old clothing. Look at that! Oh, is that me on the wall? I drew it myself - with chalk!  I can't move, but boy, can I ever pose!  I wish there was a close up on my face.. there it is! <<sighing>> Wow, looking better and better all the time. That's a - beret - it's from Europe.  I really shouldn't be doing this; but I'm going to have an ad for IKEA right now.  This is a complete IKEA closet.  The bed is underneath my pants. If you have a look - you can see that everything fits - into this particle board.   You just paint it white.. pull it out... oh gold and silver! (those are my two signature colors.)	What are legs good for? They're not good for pants.. they're good for sitting!   It's after Labor Day and I am wearing white. This is a very comfortable pose. This is how all the models do it. This is called boobies.		And this is another picture of my FACE. I liked putting Vaseline on the lens; it erases all lines that one may have on their face.  It's a fashion face; a face full of fashion.	I eat so much fowl - I shit feathers!It's winter - so I wear pantyhose with my open-toed sandals.I hope I never get arrested for not leaving a premises which is no longer mine!	I still I look like a teenager, don't I?  Well, thankfully my herpes is in remission, right now.  Look, no blisters, not one!  Just a cold sore!  Oh, that's herpes.  Oh, It's back.	I like to fill my breasts with photos of myself; one's bigger than the other...  because my hair is - greater on one side.  This is live video footage of me.I don't blink; that's a huge part of fashion. Breathe in my eye - just some air, nothing.  I do not blink.  Not at all.  Good for me!		Here's what happens when I go down on my knees. I'm bending down right now, and I'm on my knees. There, I'm on my knees right now. I can really stay on my knees a very long time - huge part of fashion.		The look this season is clothes that don't fit correctly. These pants are way too tight, not my size. This top is completely not my size.  Isn't it fashion?!		This top doesn't fit at all <<awkward chuckle>>		These boots don't fit.  I wonder if belts fit?  No, the belt does not fit either.  <<sigh>>		Oh, these boots fit, but the purse is the wrong size (I got this from Pic-N-Save)  I'll tell you.. their Halloween collection.. not a lot to be desired... <<creepy sigh>>		This is an oversized top. These are my breasts. I have two of them.  I even 'out' my breasts on my own; it's still the same Wol-Co. photo from earlier.  I just cropped it to make it larger.. oh I cropped it again... I'm really, really good with scissors. I'll tell you that much.		Here's what I wear too bed. It's, it's like a trap - a spider trap. I get them into my bu'drow... and then I, I eat their head off.  They're absolutely delicious!		I always wanted to be on dynasty... but here's two things: and nipple and a tertiary nipple.  I have two nipples. Uh, My tummy does not have any support right now - that's just me.  And white shoes.. It's before - and after Labor Day.		I wanted to show you this necklace.  I'm wearing a gold necklace - umm, with diamonds - I wear it every single shot - every single one.  Watch this...  Prest-o Change-o!  Let's go up a little bit.. Let me get on my knees - I'm going down.  Look what's there! It's a heart diamond necklace! If you see on my left- umm right-hand side..  That's My kitty cat - I named it Chester.. and I.. he was absolutely delicious.		And and I'm also part of aChipapeantribe...  I thought I looked very.. native.. North American in this. Uh, I like to bring out my culture, my taste... oh, uh, when you open your legs, ladies - watch the Seaguls...  Sometimes they come a-flock and - they're your friends, too!  I.. could... make a hat out of most of them.		Let's open the microwave and see what I've made. Enjoy some popcorn - absolutely yumms. Yes, I do eat solid foods. But I have four microwaves stacked on top of each other for when company comes over. My door is always welcome to you.   For Halloween I'm going to dress up as.. a Hooker!  Won't that be fun!? Look at all the choices that I have!  Oh, the kids just love it.ABCDEF..GHIJKL.. M..N..OPQRS.. oh what's next, I can't remember what's next, UVWX.Y.Z! I wish I was Jacqueline Smith.. but I'm not... so here's my face double..   Okay - I like to put makeup over my makeup.. and then tattoo my makeup on. I got it from Pic-N-Save. I'm already tattooed, but you can never have enough, you know, can you?  awkakwaka.		My schedule is free so I'm available for donkey shows.. for grand openings.. for sales...  I'm good at telemarketing - and flourishes - watch the hand. So - you know, for Halloween this is how we're going to look. Some people use it as a daily look.  It's Halloween everday in my house - every single day!Welcome, Sorry I'm late... I gave myself a camel toe - and not the Dorothy Hamill kind."; }
+
+
 - (NSS*)wikiDescription;
 {
 	NSString *searchString = $(@"http://lookup.dbpedia.org/api/search.asmx/KeywordSearch?QueryString=%@&MaxHits=1",self);
@@ -123,10 +141,10 @@
 //}
 
 
-- (NSS*)withPath:(NSS*)path;
-{
-	return [self stringByAppendingPathComponent:path];
-}
+- (NSS*)withPath:(NSS*)path {	return [self stringByAppendingPathComponent:path]; }
+
+- (NSS*)withExt:(NSS*)ext; {		return [self stringByAppendingPathExtension:ext]; }
+
 
 - (NSString*)stripHtml {
     // take this string obj and wrap it in a root element to ensure only a single root element exists
@@ -701,6 +719,162 @@
 		if( rangeToCut.location <= 0 || (rangeToCut.location +rangeToCut.length) > [self length] )		return @"...";
 	}
 	return currString;
+}
+
+
+// Method based on code obtained from:
+// http://www.thinkmac.co.uk/blog/2005/05/removing-entities-from-html-in-cocoa.html
+//
+
+- (NSString *)decodeHTMLCharacterEntities {
+    if ([self rangeOfString:@"&"].location == NSNotFound) {
+        return self;
+    } else {
+        NSMutableString *escaped = [NSMutableString stringWithString:self];
+        NSArray *codes = [NSArray arrayWithObjects:
+                          @"&nbsp;", @"&iexcl;", @"&cent;", @"&pound;", @"&curren;", @"&yen;", @"&brvbar;",
+                          @"&sect;", @"&uml;", @"&copy;", @"&ordf;", @"&laquo;", @"&not;", @"&shy;", @"&reg;",
+                          @"&macr;", @"&deg;", @"&plusmn;", @"&sup2;", @"&sup3;", @"&acute;", @"&micro;",
+                          @"&para;", @"&middot;", @"&cedil;", @"&sup1;", @"&ordm;", @"&raquo;", @"&frac14;",
+                          @"&frac12;", @"&frac34;", @"&iquest;", @"&Agrave;", @"&Aacute;", @"&Acirc;",
+                          @"&Atilde;", @"&Auml;", @"&Aring;", @"&AElig;", @"&Ccedil;", @"&Egrave;",
+                          @"&Eacute;", @"&Ecirc;", @"&Euml;", @"&Igrave;", @"&Iacute;", @"&Icirc;", @"&Iuml;",
+                          @"&ETH;", @"&Ntilde;", @"&Ograve;", @"&Oacute;", @"&Ocirc;", @"&Otilde;", @"&Ouml;",
+                          @"&times;", @"&Oslash;", @"&Ugrave;", @"&Uacute;", @"&Ucirc;", @"&Uuml;", @"&Yacute;",
+                          @"&THORN;", @"&szlig;", @"&agrave;", @"&aacute;", @"&acirc;", @"&atilde;", @"&auml;",
+                          @"&aring;", @"&aelig;", @"&ccedil;", @"&egrave;", @"&eacute;", @"&ecirc;", @"&euml;",
+                          @"&igrave;", @"&iacute;", @"&icirc;", @"&iuml;", @"&eth;", @"&ntilde;", @"&ograve;",
+                          @"&oacute;", @"&ocirc;", @"&otilde;", @"&ouml;", @"&divide;", @"&oslash;", @"&ugrave;",
+                          @"&uacute;", @"&ucirc;", @"&uuml;", @"&yacute;", @"&thorn;", @"&yuml;", nil];
+
+        NSUInteger i, count = [codes count];
+
+        // Html
+        for (i = 0; i < count; i++) {
+            NSRange range = [self rangeOfString:[codes objectAtIndex:i]];
+            if (range.location != NSNotFound) {
+                [escaped replaceOccurrencesOfString:[codes objectAtIndex:i]
+                                         withString:[NSString stringWithFormat:@"%lu", 160 + i]
+                                            options:NSLiteralSearch
+                                              range:NSMakeRange(0, [escaped length])];
+            }
+        }
+
+        // The following five are not in the 160+ range
+
+        // @"&amp;"
+        NSRange range = [self rangeOfString:@"&amp;"];
+        if (range.location != NSNotFound) {
+            [escaped replaceOccurrencesOfString:@"&amp;"
+                                     withString:[NSString stringWithFormat:@"%d", 38]
+                                        options:NSLiteralSearch
+                                          range:NSMakeRange(0, [escaped length])];
+        }
+
+        // @"&lt;"
+        range = [self rangeOfString:@"&lt;"];
+        if (range.location != NSNotFound) {
+            [escaped replaceOccurrencesOfString:@"&lt;"
+                                     withString:[NSString stringWithFormat:@"%d", 60]
+                                        options:NSLiteralSearch
+                                          range:NSMakeRange(0, [escaped length])];
+        }
+
+        // @"&gt;"
+        range = [self rangeOfString:@"&gt;"];
+        if (range.location != NSNotFound) {
+            [escaped replaceOccurrencesOfString:@"&gt;"
+                                     withString:[NSString stringWithFormat:@"%d", 62]
+                                        options:NSLiteralSearch
+                                          range:NSMakeRange(0, [escaped length])];
+        }
+
+        // @"&apos;"
+        range = [self rangeOfString:@"&apos;"];
+        if (range.location != NSNotFound) {
+            [escaped replaceOccurrencesOfString:@"&apos;"
+                                     withString:[NSString stringWithFormat:@"%C", 39]
+                                        options:NSLiteralSearch
+                                          range:NSMakeRange(0, [escaped length])];
+        }
+
+        // @"&quot;"
+        range = [self rangeOfString:@"&quot;"];
+        if (range.location != NSNotFound) {
+            [escaped replaceOccurrencesOfString:@"&quot;"
+                                     withString:[NSString stringWithFormat:@"%d", 34]
+                                        options:NSLiteralSearch
+                                          range:NSMakeRange(0, [escaped length])];
+        }
+
+        // Decimal & Hex
+        NSRange start, finish, searchRange = NSMakeRange(0, [escaped length]);
+        i = 0;
+
+        while (i < [escaped length]) {
+            start = [escaped rangeOfString:@"&#"
+                                   options:NSCaseInsensitiveSearch
+                                     range:searchRange];
+
+            finish = [escaped rangeOfString:@";"
+                                    options:NSCaseInsensitiveSearch
+                                      range:searchRange];
+
+            if (start.location != NSNotFound && finish.location != NSNotFound &&
+                finish.location > start.location) {
+                NSRange entityRange = NSMakeRange(start.location, (finish.location - start.location) + 1);
+                NSString *entity = [escaped substringWithRange:entityRange];
+                NSString *value = [entity substringWithRange:NSMakeRange(2, [entity length] - 2)];
+
+                [escaped deleteCharactersInRange:entityRange];
+
+                if ([value hasPrefix:@"x"]) {
+                    unsigned tempInt = 0;
+                    NSScanner *scanner = [NSScanner scannerWithString:[value substringFromIndex:1]];
+                    [scanner scanHexInt:&tempInt];
+                    [escaped insertString:[NSString stringWithFormat:@"%C", tempInt] atIndex:entityRange.location];
+                } else {
+                    [escaped insertString:[NSString stringWithFormat:@"%C", [value intValue]] atIndex:entityRange.location];
+                } i = start.location;
+            } else { i++; }
+            searchRange = NSMakeRange(i, [escaped length] - i);
+        }
+
+        return escaped;    // Note this is autoreleased
+    }
+}
+
+- (NSString *)encodeHTMLCharacterEntities {
+    NSMutableString *encoded = [NSMutableString stringWithString:self];
+
+    // @"&amp;"
+    NSRange range = [self rangeOfString:@"&"];
+    if (range.location != NSNotFound) {
+        [encoded replaceOccurrencesOfString:@"&"
+                                 withString:@"&amp;"
+                                    options:NSLiteralSearch
+                                      range:NSMakeRange(0, [encoded length])];
+    }
+
+    // @"&lt;"
+    range = [self rangeOfString:@"<"];
+    if (range.location != NSNotFound) {
+        [encoded replaceOccurrencesOfString:@"<"
+                                 withString:@"&lt;"
+                                    options:NSLiteralSearch
+                                      range:NSMakeRange(0, [encoded length])];
+    }
+
+    // @"&gt;"
+    range = [self rangeOfString:@">"];
+    if (range.location != NSNotFound) {
+        [encoded replaceOccurrencesOfString:@">"
+                                 withString:@"&gt;"
+                                    options:NSLiteralSearch
+                                      range:NSMakeRange(0, [encoded length])];
+    }
+	
+    return encoded;
 }
 
 @end

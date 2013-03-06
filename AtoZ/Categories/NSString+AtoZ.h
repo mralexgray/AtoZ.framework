@@ -12,6 +12,12 @@
 
 @interface NSString (AtoZ)
 
++ (NSA*) dicksonisms;
++ (NSS*) dicksonBible;
+
+- (NSString *)decodeHTMLCharacterEntities;
+- (NSString *)encodeHTMLCharacterEntities;
+
 - (NSS*)wikiDescription;
 
 - (NSS*)parseXMLTag:(NSS*)tag;
@@ -21,6 +27,7 @@
 - (void) copyToClipboard;
 
 - (NSS*)withPath:(NSS*)path;
+- (NSS*)withExt:(NSS*)ext;
 
 - (unichar) lastCharacter;
 - (NSS*) substringToLastCharacter;

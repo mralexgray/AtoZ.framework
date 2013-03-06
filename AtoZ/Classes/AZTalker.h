@@ -14,7 +14,6 @@
 
 @property (strong, nonatomic) NSSpeechSynthesizer *talker;
 
-+(NSA*) dicksonisms;
 -(void) say:(NSString*)thing;
 +(void) say:(NSString*)thing;
 +(void) randomDicksonism;

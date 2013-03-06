@@ -273,6 +273,7 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define NSTXTV NSTextView
 #define NSUI NSUInteger
 
+#define NSMURLREQ 	NSMutableURLRequest
 #define NSURLREQ NSURLRequest
 #define NSURLRES NSURLResponse
 #define NSV NSView
@@ -568,7 +569,7 @@ attr1 relativeTo:relName attribute:attr2 scale:scl offset:off]
 #define ptmake(A,B)			CGPointMake(A,B)stringByAppendingPathComponent
 
 #define $URL(A)				((NSURL *)[NSURL URLWithString:A])
-#define $SEL(A)				(SEL)NSSelectorFromString(A)
+#define $SEL(A)				NSSelectorFromString(A)
 
 #define $(...)				((NSString *)[NSString stringWithFormat:__VA_ARGS__,nil])
 #define $array(...)  		((NSArray *)[NSArray arrayWithObjects:__VA_ARGS__,nil])

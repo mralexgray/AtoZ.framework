@@ -22,6 +22,9 @@ NSString *NSBundleFolder(void);
 + (NSString *) pathForDocumentNamed: (NSString *) fname;
 + (NSString *) pathForBundleDocumentNamed: (NSString *) fname;
 
+//non-resursive
++ (NSArray *) pathsForItemsInFolder:(NSString *)path withExtension: (NSString *) ext;
+//recursive
 + (NSArray *) pathsForItemsMatchingExtension: (NSString *) ext inFolder: (NSString *) path;
 + (NSArray *) pathsForDocumentsMatchingExtension: (NSString *) ext;
 + (NSArray *) pathsForBundleDocumentsMatchingExtension: (NSString *) ext;

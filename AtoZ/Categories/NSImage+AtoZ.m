@@ -1183,6 +1183,13 @@ NSData* PNGRepresentation(NSIMG *image) {
 	return LogAndReturn($(@"http://mrgray.com/%@",p));
 }
 
+- (NSS*) asTempFile
+{
+	NSS* p = [AtoZ tempFilePathWithExtension:@"png"];
+	[self saveAs:p];
+	return p;
+}
+
 - (void) openInPreview;
 {		NSS* p = [AtoZ tempFilePathWithExtension:@"png"];
 		[self saveAs:p];

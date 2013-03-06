@@ -416,6 +416,7 @@ id LogAndReturnWithCaller(id toLog, SEL caller) {
 //	AZLOG(toLog); return toLog;
 //};
 
+
 NSString* stringForPosition(AZWindowPosition enumVal)
 {
 	return  [[NSArray alloc]initWithObjects:AZWindowPositionTypeArray][enumVal];
