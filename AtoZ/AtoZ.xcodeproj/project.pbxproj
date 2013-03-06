@@ -414,8 +414,6 @@
 		7BA36C3F165BB2060077A065 /* SDWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA36C11165BB2050077A065 /* SDWindowController.m */; };
 		7BA36CFC165BF58E0077A065 /* AZWeakCollections.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA36CFA165BF58D0077A065 /* AZWeakCollections.m */; };
 		7BA36CFD165BF6B10077A065 /* AZWeakCollections.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BA36CF9165BF58D0077A065 /* AZWeakCollections.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7BA36D10165C3E6E0077A065 /* CPAccelerationTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA36D0A165C3E6E0077A065 /* CPAccelerationTimer.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		7BA36D18165C406C0077A065 /* CPAccelerationTimer.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BA36D09165C3E6E0077A065 /* CPAccelerationTimer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BA425B915E7C3C200D2A471 /* AZTrackingWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA425B715E7C3C200D2A471 /* AZTrackingWindow.m */; };
 		7BA425BB15E7E87200D2A471 /* tab.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BA425BA15E7E87200D2A471 /* tab.png */; };
 		7BA7D232163941900073BADC /* CKAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BB8708A1638A0FA0000C242 /* CKAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -3438,7 +3436,6 @@
 				7B22CA84161B33E600D17C40 /* AZSound.h in Headers */,
 				7B6901B8159E09D800D0DA47 /* NSApplication+AtoZ.h in Headers */,
 				7B4F0247160A4E9A00A79C77 /* AZTimeLineLayout.h in Headers */,
-				7BA36D18165C406C0077A065 /* CPAccelerationTimer.h in Headers */,
 				7BEF70261603112800A0300E /* NSBundle+AtoZ.h in Headers */,
 				7B4F01D71609EABF00A79C77 /* NSDictionary+AtoZ.h in Headers */,
 				7B23C36615CE98AF00DD1A9C /* NSLogConsole.h in Headers */,
@@ -4470,7 +4467,6 @@
 				7BA36C3B165BB2060077A065 /* SDRoundedInstructionsImageView.m in Sources */,
 				7BA36C3F165BB2060077A065 /* SDWindowController.m in Sources */,
 				7BA36CFC165BF58E0077A065 /* AZWeakCollections.m in Sources */,
-				7BA36D10165C3E6E0077A065 /* CPAccelerationTimer.m in Sources */,
 				7B2E25A6165F3162009BE6C8 /* PXListDocumentView.m in Sources */,
 				7B2E25A9165F3162009BE6C8 /* PXListViewCell.m in Sources */,
 				7B2E25B0165F3F51009BE6C8 /* PXListView.m in Sources */,

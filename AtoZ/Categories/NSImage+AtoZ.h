@@ -51,6 +51,7 @@ typedef enum {
 - (NSImage*)imageBorderedWithOutset:(CGFloat)outset ;
 
 @end
+
 extern NSData *PNGRepresentation(NSIMG *image);
 
 @class AZFile;
@@ -132,6 +133,8 @@ extern NSData *PNGRepresentation(NSIMG *image);
 - (NSA*) quantize;
 + (NSIMG*) desktopImage;
 - (void) openInPreview;
+- (void) openInPreview;
+
 + (NSIMG*) svg2png:(NSString*)inFile out:(NSString*)optionalOutFile;
 - (void) openQuantizedSwatch;
 - (NSIMG*) generateQuantizedSwatch;

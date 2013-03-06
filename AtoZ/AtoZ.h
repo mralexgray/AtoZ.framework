@@ -235,7 +235,7 @@
 #import "AZSound.h"
 #import "Transition.h"
 #import "LetterView.h"
-#import "CPAccelerationTimer.h"
+//#import "CPAccelerationTimer.h"
 
 	//Controls
 #import "AZToggleArrayView.h"

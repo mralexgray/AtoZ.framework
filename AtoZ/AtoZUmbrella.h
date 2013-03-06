@@ -220,6 +220,8 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define NSB NSBundle
 #define NSBUTT NSButton
 #define NSBP NSBezierPath
+#define NSBIR NSBitmapImageRep
+
 #define NSDE NSDirectoryEnumerator
 #define NSGC NSGraphicsContext
 #define NSC NSColor
@@ -270,6 +272,7 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define NSTXTF NSTextField
 #define NSTXTV NSTextView
 #define NSUI NSUInteger
+
 #define NSURLREQ NSURLRequest
 #define NSURLRES NSURLResponse
 #define NSV NSView
@@ -563,6 +566,9 @@ attr1 relativeTo:relName attribute:attr2 scale:scl offset:off]
 #define $rect(A,B,C,D)		[NSValue valueWithRect:CGRectMake(A,B,C,D)]
 
 #define ptmake(A,B)			CGPointMake(A,B)stringByAppendingPathComponent
+
+#define $URL(A)				((NSURL *)[NSURL URLWithString:A])
+#define $SEL(A)				(SEL)NSSelectorFromString(A)
 
 #define $(...)				((NSString *)[NSString stringWithFormat:__VA_ARGS__,nil])
 #define $array(...)  		((NSArray *)[NSArray arrayWithObjects:__VA_ARGS__,nil])
