@@ -139,8 +139,8 @@
 
 - (void) mouseEntered:(NSEvent *)theEvent {
 	self.hovered = YES;
-	if ([[NSApp delegate] respondsToSelector:@selector(simpleHovered:)])
-		[[NSApp delegate] performSelector:@selector(simpleHovered:) withObject:self];
+//	if ([[NSApp delegate] respondsToSelector:@selector(simpleHovered:)])
+//		[[NSApp delegate] performSelector:@selector(simpleHovered:) withObject:self];
 	NSLog(@"do I, bar for %@, listen to Mentered?", file.name);
 	[[self nextResponder] mouseMoved:theEvent];
 

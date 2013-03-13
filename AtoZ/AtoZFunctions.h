@@ -27,8 +27,7 @@
 //#undef SYNTHESIZE_CONSTS
 
 
-
-typedef (^PythonBlock)(NSS* path, NSS*inDir, NSA* args, NSS*, anENV, NSS *pyPATH);
+typedef (^PythonBlock)(NSS* path, NSS*inDir, NSA* args, NSS* anENV, NSS *pyPATH);
 
 FOUNDATION_EXPORT 	void pyRunWithArgsInDirPythonPath(NSS* script, NSA *args, NSS*working, NSS* pyPATH);
 FOUNDATION_EXPORT 	void pyRunWithArgsInDir(NSS* script, NSA *args, NSS*working);

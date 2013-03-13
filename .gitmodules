@@ -118,3 +118,6 @@
 	path = Frameworks/AFNetworking
 	url = https://github.com/mralexgray/AFNetworking.git
 	ignore = dirty
+[submodule "AtoZ/Classes/StandardPaths"]
+	path = AtoZ/Classes/StandardPaths
+	url = https://github.com/nicklockwood/StandardPaths.git

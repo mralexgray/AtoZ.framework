@@ -69,8 +69,8 @@
 @property (NATOM, STRNG)	NSColor	 	*color;
 
 + (instancetype) instanceWithObject:(NSDictionary*)dic;
-+ (instancetype) colorWithColor:(NSColor*)color andDictionary:(NSDictionary*)dic;
-- (NSA*) az_colorsForImage:(NSImage*)image;
+//+ (instancetype) colorWithColor:(NSColor*)color andDictionary:(NSDictionary*)dic;
+//- (NSA*) az_colorsForImage:(NSImage*)image;
 + (instancetype) instanceWithColor:(NSColor*)color count:(NSUI)c total:(NSUI) totes;
 
 @end

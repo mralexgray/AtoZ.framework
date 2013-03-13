@@ -20,6 +20,7 @@
 @interface AZBoxGrid ()
 - (void)updateLayout;
 @end
+
 @class MyScrollView;
 @implementation AZBoxGrid
 @synthesize cellSize, desiredNumberOfColumns, desiredNumberOfRows;

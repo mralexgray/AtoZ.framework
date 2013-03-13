@@ -11,7 +11,6 @@
 #import "AtoZ.h"
 
 @class AZPoint, AZSize,  AZRect;
-
 @interface AZSegmentedRect : AZRect {	NSPoint segments;			BOOL emptyBorder;
   										NSSize minimumSegmentSize;	NSSize maximumSegmentSize;
 }
