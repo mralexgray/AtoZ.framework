@@ -1,0 +1,29 @@
+
+
+
+// This file defines additional configuration options that are appropriate only for a framework. This should be set at the target level for each projec configuration.
+
+// Whether to strip out code that isn't called from anywhere
+DEAD_CODE_STRIPPING = NO
+
+// Whether function calls should be position-dependent (should always be
+// disabled for library code)
+GCC_DYNAMIC_NO_PIC = NO
+
+// Enables and requires the framework to be included in an application bundle
+// (inside the "Frameworks" folder)
+LD_DYLIB_INSTALL_NAME = @executable_path/../Frameworks/$(PRODUCT_NAME).$(WRAPPER_EXTENSION)/$(PRODUCT_NAME)
+
+
+// Import common settings specific to Mac OS X				#include "Mac-Base.xcconfig"
+// This file defines additional configuration options that are appropriate only for Mac OS X. This file is not standalone -- it is meant to be included into
+// a configuration file for a specific type of target.
+
+// The base SDK to use (if no version is specified, the latest version is assumed)
+SDKROOT = macosx
+// Supported SDK platforms
+SUPPORTED_PLATFORMS = macosx
+// Supported architectures
+VALID_ARCHS = i386 x86_64
+
+

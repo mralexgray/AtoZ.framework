@@ -4,9 +4,9 @@
 @interface 	  CAScrollView : NSView
 
 @property (NATOM, STRNG) 	NSMA 		*layerQueue;
-@property (NATOM, UNSFE) 	CAL 		*hoveredLayer, *selectedLayer;
-@property (NATOM)  		 	AZOrient	orientation;
-@property 					StateStyle 	hoverStyle, selectedStyle;
+@property (NATOM, STRNG) 	CAL 		*hoveredLayer, *selectedLayer;
+@property (NATOM, ASS)  	AZOrient		oreo;
+@property (NATOM, ASS)		StateStyle 	hoverStyle, selectedStyle;
 
 - (IBAction)toggleOrientation:(id)sender;
 

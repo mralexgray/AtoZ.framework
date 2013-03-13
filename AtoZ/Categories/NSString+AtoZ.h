@@ -12,6 +12,8 @@
 
 @interface NSString (AtoZ)
 
++ (NSS*) stringFromArray:(NSA*)a;
+
 - (NSString *)JSONRepresentation;
 
 + (NSA*) dicksonisms;

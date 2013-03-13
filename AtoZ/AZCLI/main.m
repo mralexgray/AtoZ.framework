@@ -8,54 +8,25 @@
 
 #import <Foundation/Foundation.h>
 #import <AtoZ/AtoZ.h>
-//- (NSMA*)needUpdate
-//{
-//	return _needUpdate = _needUpdate ?:
-//		[_installed each:^(id obj) {
-//
-//		[[CWTask.alloc initWithExecutable:BREWPATH      andArguments:@[@"list"] atDirectory:nil]
-//						launchTaskOnQueue:AZSSOQ withCompletionBlock:^(NSS *outP, NSError*e){
-//			self.installed = [[outP componentsSeparatedByString:@"\n"]arrayByRemovingLastObject].mutableCopy;
-//		}];
-//	}
-//	return _installed;
-//}
-
-//@end
 
 int main(int argc, const char * argv[])
 {
 	NSRunLoop   * runLoop;
-	AZHomeBrew     * main; // replace with desired class
+//	AZHomeBrew     * main; // replace with desired class
 
 	@autoreleasepool
 	{
 		// create run loop
 		runLoop = NSRunLoop.currentRunLoop;
-		main    = AZHomeBrew.instance; // replace with init method
-		[main.available logEachPropertiesPlease];
-		[main.outdated logEachPropertiesPlease];
+//		main    = AZHomeBrew.instance; // replace with init method
 
 
-
-		NSS* avaiNamesOutput = [[CWTask.alloc initWithExecutable:@"/usr/local/bin/brew" andArguments:@[@"search"] atDirectory:nil] launchTask:nil];
-		NSLog(@"availnames: %@", avaiNamesOutput);
-		
-
-		[main addObserver:runLoop keyPath:@"installed" options:NSKeyValueObservingOptionNew block:^(MAKVONotification *notification) {
-			// kick off object, if required
-			[main.installed logEachPropertiesPlease];
-			main.exitCode = !main.installed ? 99 : 0;
-//			main.shouldExit = YES;
-		}];
-		[main addObserver:runLoop keyPath:@"outdated" options:NSKeyValueObservingOptionNew block:^(MAKVONotification *notification) {
-			NSLog(@"out:%@", main.outdated);
-		}];
 		// enter run loop
-		while((!(main.shouldExit)) && (([runLoop runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:2]])));
+//		while((!(main.shouldExit)) && (([runLoop runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:2]])));
 
-	};
-	return(main.exitCode);
+	AZRUNFOREVER;
+	}
+	return 0;//(main.exitCode);
 }
 /**
 

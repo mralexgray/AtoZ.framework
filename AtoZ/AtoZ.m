@@ -43,7 +43,11 @@ NSOperationQueue *AZSharedSingleOperationQueue()
 
 @implementation AZDummy
 
-- (id)init {	if (self != super.init ) return nil; 	_sharedQ= NSOQ.new; _sharedQ.maxConcurrentOperationCount = NSOperationQueueDefaultMaxConcurrentOperationCount;  _sharedSQ = NSOQ.new; _sharedSQ.maxConcurrentOperationCount = 1; return self; }
+- (id)init
+{
+	self = [super init];
+	if (self) {
+			_sharedQ= NSOQ.new; _sharedQ.maxConcurrentOperationCount = NSOperationQueueDefaultMaxConcurrentOperationCount;  _sharedSQ = NSOQ.new; _sharedSQ.maxConcurrentOperationCount = 1; } return self; }
 
 + (AZDummy*)sharedInstance	{ static AZDummy *sharedInstance = nil;    static dispatch_once_t isDispatched; dispatch_once(&isDispatched, ^	{  sharedInstance = AZDummy.new;	}); return sharedInstance; }
 
@@ -398,7 +402,7 @@ static NSA* cachedI = nil;
 //#pragma GCC diagnostic warning "-Wdeprecated-declarations"
 + (NSJSONSerialization*) jsonReuest:(NSString*)url {
 	AtoZ *me = [[self class] sharedInstance];
-	return  [me jsonReuest:url];
+	return  [me jsonRequest:url];
 }
 
 + (NSUserDefaults *)defs {
@@ -408,8 +412,9 @@ static NSA* cachedI = nil;
 
 	NSLog(@"selectot triggered!  by notificixation, even!");
 }
++ (NSJSONSerialization*) jsonRequest: (NSString*) url { return [self.sharedInstance jsonRequest:url]; }
 
-- (NSJSONSerialization*) jsonReuest:(NSString*)url {
+- (NSJSONSerialization*) jsonRequest:(NSString*)url {
 	NSError *err;
 	NSURLRequest *theRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:url]
 												cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
@@ -647,6 +652,19 @@ static void soundCompleted(SystemSoundID soundFileObject, void *clientData) {
 @end
 @implementation AtoZ (MiscFunctions)
 
++(void) say:(NSString *)thing {
+ 	// for (NSString *voice in
+// 	NSArray *voices = [NSSpeechSynthesizer availableVoices];
+// 	NSUInteger randomIndex = arc4random() % [voices count];
+// 	NSString *voice = [voices objectAtIndex:randomIndex];
+		AZTalker *u = AZTalker.new;  [u say:thing];
+// 	[u setVoice: voice ];
+// 	[u startSpeakingString: thing];
+// 	printf("Speaking as %s\n", [voice UTF8String]);
+// 	while ([speaker isSpeaking]) { usleep(40); }
+}
+
+
 + (CGFloat)clamp:(CGFloat)value from:(CGFloat)minimum to:(CGFloat)maximum {
 	return value = value < minimum 	 ? minimum : value > maximum ? value = maximum : value;
 }
@@ -784,16 +802,6 @@ static void soundCompleted(SystemSoundID soundFileObject, void *clientData) {
 //	//		[app setIndex:k];  k++;
 //	//		[appArray addObject:app];
 //	//	}
-//}
-//-(void) say:(NSString *)thing {
-// 	// for (NSString *voice in
-// 	NSArray *voices = [NSSpeechSynthesizer availableVoices];
-// 	NSUInteger randomIndex = arc4random() % [voices count];
-// 	NSString *voice = [voices objectAtIndex:randomIndex];
-// 	[speaker setVoice: voice ];
-// 	[speaker startSpeakingString: thing];
-// 	printf("Speaking as %s\n", [voice UTF8String]);
-// 	while ([speaker isSpeaking]) { usleep(40); }
 //}
 
 //@end

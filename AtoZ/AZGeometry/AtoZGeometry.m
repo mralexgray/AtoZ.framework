@@ -843,6 +843,57 @@ NSR AZUpperEdge(NSR rect, CGFloat height) {
 					height);
 }
 
+
+NSR AZRectFlippedOnEdge(NSRect r, AZPOS position) {
+	return  position == AZPositionTop 		? 	AZRectExceptOriginY(r, r.size.height)
+	:		position == AZPositionRight		?	AZRectExceptOriginX(r, r.size.width )
+	:		position == AZPositionBottom	?	AZRectExceptOriginY(r, -r.size.height)
+	:											AZRectExceptOriginX(r, -r.size.width );
+}
+
+
+NSR AZRectOutsideRectOnEdge(NSRect center, NSRect outer, AZPOS position) {
+	return  position == AZPositionTop 		? 	AZRectExceptOriginY(outer, center.size.height)
+	:		position == AZPositionRight		?	AZRectExceptOriginX(outer, center.size.width )
+	:		position == AZPositionBottom	?	AZRectExceptOriginY(outer, -outer.size.height)
+	:											AZRectExceptOriginX(outer, -outer.size.width );
+}
+
+
+FOUNDATION_EXPORT BOOL  AZPointIsInInsetRects    ( NSP point, NSRect outside, NSSZ inset ) {
+	AZInsetRects e =  AZMakeInsideRects(outside, inset);
+	return  NSPointInRect(point, e.top) 	?:
+			NSPointInRect(point, e.right) 	?:
+			NSPointInRect(point, e.bottom) 	?:
+			NSPointInRect(point, e.left) 	?:	NO;
+}
+
+//AZPOS AZPositionOnOutsideEdgeOfRect(NSP point, NSRect rect, NSSZ size) {
+AZPOS AZPosOfPointInInsetRects ( NSP point, NSRect outside, NSSZ inset ) {
+	AZInsetRects e =  AZMakeInsideRects(outside, inset);
+	return  NSPointInRect(point, e.top) 	? AZPositionTop	 	:
+			NSPointInRect(point, e.right) 	? AZPositionRight  	:
+			NSPointInRect(point, e.bottom) 	? AZPositionBottom 	:
+			NSPointInRect(point, e.left) 	? AZPositionLeft 	:	AZPositionAutomatic;
+}
+
+NSR AZInsetRectInPosition ( NSRect outside, NSSZ inset, AZPOS pos ) {
+	BOOL scaleX = pos ==  AZPositionBottom || pos == AZPositionTop ? NO: YES;
+	CGR  scaled = scaleX ? AZRectExceptWide(outside, inset.width)
+						 : AZRectExceptHigh(outside, inset.height);
+	scaled.origin.y += pos == AZPositionTop   ? outside.size.height - inset.height : 0;
+	scaled.origin.x += pos == AZPositionRight ? outside.size.width  - inset.width : 0;
+	return scaled;
+}
+
+//AZOutsideEdges AZOutsideEdgesSized(NSRect rect, NSSZ size) {
+//
+//		return (AZOutsideEdges) { AZUpperEdge(rect, size.height),
+//								  AZRightEdge(rect, size.width ),
+//								  AZLowerEdge(rect, size.height),
+//								  AZLeftEdge (rect, size.width ) 	};
+//}
+
 //
 // Comparison Methods
 //

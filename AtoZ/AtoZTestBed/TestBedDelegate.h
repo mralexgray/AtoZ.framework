@@ -2,20 +2,7 @@
 #import "AZGeneralViewController.h"
 #import "AZUIViewController.h"
 #import "AZColorViewController.h"
-
-
-
-
-
-//-(IBAction)scrollLowerRight:(id)sender;
-//-(IBAction)scrollRight:(id)sender;
-//-(IBAction)scrollUp:(id)sender;
-//-(IBAction)scrollDown:(id)sender;
-//-(IBAction)scrollLeft:(id)sender;
-//-(IBAction)scrollUpperLeft:(id)sender;
-//-(IBAction)scrollUpperRight:(id)sender;
-//-(IBAction)scrollLowerLeft:(id)sender;
-//extern NSS* stringForScrollFix(ScrollFix val);
+#import "AZFacebookBrowserView.h"
 
 
 @interface TestBedDelegate : NSObject <NSApplicationDelegate, NSWindowDelegate> //, AZSemiResponder>
@@ -29,12 +16,17 @@
 @property (STRNG) IBOutlet  AZGeneralViewController  *genVC;
 @property (STRNG) IBOutlet  AZUIViewController		*uiVC;
 @property (STRNG) IBOutlet  AZColorViewController	*colorVC;
+@property (STRNG) IBOutlet  AZFacebookBrowserView	*fbV;
 
 @property (STRNG) IBOutlet NSW 					*window;
 @property (STRNG) IBOutlet NSV						*mainView;
 @property (STRNG) IBOutlet NSView				*scrollTestHost;
 @property (STRNG) IBOutlet CAScrollView			*scrollTest;
 
+- (IBAction) setViewFromPopUp:(id)sender;
+- (IBAction) reZhuzhScrollLayer:(id)sender;
+
+@end
 //@property (weak) IBOutlet NSView	*scrollTest;
 //@property (weak) IBOutlet CAScrollView 	*scrollTestLayerView;
 //@property (nonatomic, strong) CAScrollLayer *scrollLayer;
@@ -53,10 +45,7 @@
 //@property (STRNG, NATOM) NSS	 *semiLog;
 
 
-- (IBAction) setViewFromPopUp:(id)sender;
-- (IBAction) reZhuzhScrollLayer:(id)sender;
 
-@end
 
 //#import <AtoZUI/AtoZUI.h>
 
@@ -69,3 +58,17 @@
 //+ (id)animateTo:(id)v1 inSuperView:(id)sV;
 //
 //@end
+
+
+
+
+
+//-(IBAction)scrollLowerRight:(id)sender;
+//-(IBAction)scrollRight:(id)sender;
+//-(IBAction)scrollUp:(id)sender;
+//-(IBAction)scrollDown:(id)sender;
+//-(IBAction)scrollLeft:(id)sender;
+//-(IBAction)scrollUpperLeft:(id)sender;
+//-(IBAction)scrollUpperRight:(id)sender;
+//-(IBAction)scrollLowerLeft:(id)sender;
+//extern NSS* stringForScrollFix(ScrollFix val);

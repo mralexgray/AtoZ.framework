@@ -79,6 +79,8 @@
 #import <FunSize/FunSize.h>
 //#import <DrawKit/DKDrawKit.h>
 #import <MapKit/MapKit.h>
+#import <PhFacebook/PhFacebook.h>
+
 #import <Zangetsu/Zangetsu.h>
 #import <BlocksKit/BlocksKit.h>
 #import <CocoaPuffs/CocoaPuffs.h>
@@ -218,7 +220,7 @@
 #import "NSIndexSet+AtoZ.h"
 
 //#import "NSUserDefaults+AtoZ.h"
-//#import "NSObject-Utilities.h"
+#import "NSObject-Utilities.h"
 
 //#import "MondoSwitch.h"
 //#import "AZToggleView.h"
@@ -237,7 +239,7 @@
 #import "AZHostView.h"
 #import "AZSegmentedRect.h"
 #import "AZQueue.h"
-#import "AZDockQuery.h"
+//#import "AZDockQuery.h"
 #import "AZAXAuthorization.h"
 //#import "AZNotificationCenter.h"
 #import "NSLogConsole.h"
@@ -264,6 +266,7 @@
 #import "AZSemiResponderWindow.h"
 #import "AZAttachedWindow.h"
 
+#import "JNWAnimatableWindow.h"
 
 
 //CoreScroll
@@ -371,7 +374,6 @@ extern NSString *const AtoZDockSortedUpdated;
 
 + (void) playSound:(id)number;
 + (void) playRandomSound;
-
 + (NSFont*) controlFont;
 + (NSA*)fonts;
 + (NSFont*) font:(NSS*)family size:(CGF)size;
@@ -411,8 +413,8 @@ extern NSString *const AtoZDockSortedUpdated;
 //+ (NSFont*) fontWithSize: (CGFloat) fontSize;
 //- (NSFont*) registerFonts:(CGFloat)size;
 
-- (NSJSONSerialization*) jsonReuest: (NSString*) url;
-+ (NSJSONSerialization*) jsonReuest: (NSString*) url;
+- (NSJSONSerialization*) jsonRequest: (NSString*) url;
++ (NSJSONSerialization*) jsonRequest: (NSString*) url;
 + (NSString *) version;
 + (NSBundle*) bundle;
 + (NSString*) resources;
@@ -435,6 +437,8 @@ extern NSString *const AtoZDockSortedUpdated;
 @end
 
 @interface AtoZ (MiscFunctions)
+
++(void) say:(NSString *)thing;
 
 + (CGFloat)clamp:(CGFloat)value from:(CGFloat)minimum to:(CGFloat)maximum;
 + (CGFloat)scaleForSize:(CGSize)size inRect:(CGRect)rect;

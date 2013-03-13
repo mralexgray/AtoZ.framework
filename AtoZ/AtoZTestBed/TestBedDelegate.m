@@ -96,9 +96,10 @@
 	NSS *selecto = [sender titleOfSelectedItem];
 	id view = areSame(selecto, @"General") ? genVC.view :
 				   areSame(selecto, @"UI") ? uiVC.view :
-					areSame(selecto, @"Colors") ? colorVC.view : nil;
+					areSame(selecto, @"Colors") ? colorVC.view :
+						areSame(selecto, @"Facebook") ? _fbV.view : nil;
 	if (view) {
-		NSLog(@"selecto:%@  view:%@", selecto.debugDescription, view);
+		NSLog(@"selecto:%@  view:%@", [selecto debugDescription],[view subviews]);
 		if (mainView.subviews.count != 0) {
 			[mainView.subviews.first fadeOut];
 //			[mainView removeAllSubviews];
@@ -123,15 +124,10 @@
 
 - (void) createScrollLayer
 {
-	if (mainView.subviews.count > 0) {
-		[mainView.subviews.first fadeOut];
-//		[mainView.subviews[0] removeFromSuperview];
-	}
+	if ( mainView.subviews.count > 0) [mainView.subviews.first fadeOut];		//		[mainView.subviews[0] removeFromSuperview];
 	if ([mainView.subviews doesNotContainObject:_scrollTestHost])		[mainView addSubview:_scrollTestHost];
 	[_scrollTestHost setFrame:mainView.frame];
-	_scrollTestHost.arMASK = NSSIZEABLE;
-//	[_scrollTestHost fadeIn];
-//	[_scrollTestHost setFrame:mainView.bounds];
+	 _scrollTestHost.arMASK = NSSIZEABLE;			//	[_scrollTestHost fadeIn];  [_scrollTestHost setFrame:mainView.bounds];
 	[self reZhuzhScrollLayer:nil];
 }
 
@@ -142,12 +138,16 @@
 	_scrollTest.layerQueue =
  	[[NSC randomPalette] nmap:^id(NSC* c, NSUI idx) {
 
-		CAL *l = [CAL layerNamed:[@(idx) stringValue]];
-		l.frame = AZRectBy(100,200);
+		CAL *l = [CAL layerNamed:$(@"%ld",idx)];
+		l.bounds = AZRectBy(40,40);
 		l.bgC = c.brighter.cgColor;
+//		l.loM = AZLAYOUTMGR;
+//		l.constraints = @[AZConstAttrRelNameAttrScaleOff(kCAConstraintWidth, @"superlayer", kCAConstraintHeight, 1, 0), AZConstRelSuper(kCAConstraintHeight)];
+//		l.arMASK = CASIZEABLE;
+//		[l addConstraintsRelSuper: kCAConstraintMidY];//kCAConstraintHeight, kCAConstraintMaxY, kCAConstraintMidY, kCAConstraintMinY, nil];
 //		l.borderColor = c.darker.cgColor;
-//		l.delegate = self;
-//		[l setNeedsDisplay];
+		l.delegate = self;
+		[l setNeedsDisplay];
 		return l;
 	}].mutableCopy;
 
@@ -156,6 +156,7 @@
 - (void)drawLayer:(CAL*)layer inContext:(CGContextRef)ctx
 {
 //	NSLog(@"drawLinCTX called on: %@...  vageen?:%@", layer, StringFromBOOL([layer boolForKey:@"clicked"]));
+
 	[NSGraphicsContext drawInContext:ctx flipped:NO actions:^{
 //		!layer.hovered ?: ^{
 //			NSRectFillWithColor(layer.bounds, [NSC checkerboardWithFirstColor:BLACK secondColor:CLEAR squareWidth:20]);
@@ -163,10 +164,10 @@
 //			[b fillWithInnerShadow:[NSSHDW shadowWithColor:BLACK offset:NSMakeSize(4, -4) radius:10]];
 //		}();
 //		[NSSHDW setShadowWithOffset:(NSSZ){5,-3} blurRadius:7 color:BLACK];
-		NSIMG * icon;
+		NSIMG * icon;// = [NSIMG randomMonoIcon];
 		if ( [layer hasAssociatedValueForKey:@"icon"] ) icon = [layer associatedValueForKey:@"icon"];
 		else { icon = [[NSIMG randomMonoIcon]etched]; [layer setAssociatedValue:icon forKey:@"icon" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC]; }
-		[icon drawCenteredinRect:NSInsetRect(layer.bounds, 0, 10) operation:NSCompositePlusDarker fraction:1];
+		[icon drawInRect:AZMakeSquare((NSP){NSMidX(layer.bounds), (.5 * layer.boundsWidth)}, .5 * layer.boundsWidth) fraction:1];//:[NSInsetRect(layer.bounds, 0, 10) fraction:1];// operation:NSCompositePlusDarker fraction:1];
 //		[layer.name drawInRect:layer.bounds withFontNamed:@"Helvetica" andColor: WHITE];
 	}];
 

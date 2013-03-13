@@ -124,6 +124,10 @@
 	return jsonString;
 }
 
++ (NSS*) stringFromArray:(NSA*)a; { return  [a reduce:@"" withBlock:^id(id sum, id obj) {
+		return [sum stringByAppendingString:$(@" %@",obj)];
+	}];
+}
 
 + (NSA*) dicksonisms {		static NSA* dicks = nil;		return dicks = dicks ? dicks : @[
 		 @"When I was 10 years old - I wore this dress; I just keep getting it altered.",  @"See? I still fit into my 10-year-old clothing.", @"Look at that! Oh, is that me on the wall? I drew it myself - with chalk!",

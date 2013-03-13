@@ -268,6 +268,8 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define ISANARRAY isKindOfClass:NSArray.class
 #define ISADICTorARRAY isKindOfAnyClass:NSAorDCLASS
 
+#define NSSCLASS NSString.class
+
 #define NSAPP NSApplication
 #define NSAC NSArrayController
 #define NSAS NSAttributedString
@@ -345,6 +347,8 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define NSTABV NSTabView
 #define NSTBAR NSToolbar
 #define NSW NSWindow
+
+#define NSWINDOWINIT (id)initWithContentRect:(NSRect)contentRect styleMask:(NSUInteger)aStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)flag {      if (self != [super  initWithContentRect:contentRect styleMask:aStyle backing:bufferingType   defer:flag]) return nil;
 
 #define RNG AZRange
 

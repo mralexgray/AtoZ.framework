@@ -334,25 +334,53 @@ NSR AZRectExtendedOnRight(NSR rect, CGFloat amount);
 
 
 
-NSR AZRectExceptWide  ( NSR rect, CGF wide );
-NSR AZRectExceptHigh  ( NSR rect, CGF high );
-NSR AZRectExceptOriginX  ( NSR rect, CGF x );
-NSR AZRectExceptOriginY  ( NSR rect, CGF y );
+FOUNDATION_EXPORT NSR AZRectExceptWide  ( NSR rect, CGF wide );
+FOUNDATION_EXPORT NSR AZRectExceptHigh  ( NSR rect, CGF high );
+FOUNDATION_EXPORT NSR AZRectExceptOriginX  ( NSR rect, CGF x );
+FOUNDATION_EXPORT NSR AZRectExceptOriginY  ( NSR rect, CGF y );
 
 // returns a rect with insets of the same size x and y
-NSR AZInsetRect ( NSR rect, CGF inset );
+FOUNDATION_EXPORT NSR AZInsetRect ( NSR rect, CGF inset );
 
 // returns a rect at the left edge of a rect with a given inset width
-NSR AZLeftEdge ( NSR rect, CGF width );
+FOUNDATION_EXPORT NSR AZLeftEdge ( NSR rect, CGF width );
 
 // returns a rect at the right edge of a rect with a given inset width
-NSR AZRightEdge ( NSR rect, CGF width );
+FOUNDATION_EXPORT NSR AZRightEdge ( NSR rect, CGF width );
 
 // returns a rect at the lower edge of a rect with a given inset width
-NSR AZLowerEdge ( NSR rect, CGF height );
+FOUNDATION_EXPORT NSR AZLowerEdge ( NSR rect, CGF height );
 
 // returns a rect at the upper edge of a rect with a given inset width
-NSR AZUpperEdge ( NSR rect, CGF height );
+FOUNDATION_EXPORT NSR AZUpperEdge ( NSR rect, CGF height );
+
+
+
+typedef struct AZInsetRects {
+	NSRect top;
+	NSRect right;
+	NSRect bottom;
+	NSRect left;
+} AZInsetRects;
+
+NSR AZRectOutsideRectOnEdge(NSRect center, NSRect outer, AZPOS position);
+NSR AZRectFlippedOnEdge(NSRect r, AZPOS position);
+
+FOUNDATION_EXPORT NSR AZInsetRectInPosition ( NSRect outside, NSSZ inset, AZPOS pos );
+
+FOUNDATION_EXPORT AZPOS AZPosOfPointInInsetRects ( NSP point, NSRect outside, NSSZ inset );
+FOUNDATION_EXPORT BOOL  AZPointIsInInsetRects    ( NSP point, NSRect outside, NSSZ inset );
+
+static inline AZInsetRects AZMakeInsideRects(NSRect rect, NSSize inset) {
+
+   AZInsetRects rects = { AZUpperEdge( rect, inset.height ), AZRightEdge( rect, inset.width  ),
+						  AZLowerEdge( rect, inset.height ), AZLeftEdge ( rect, inset.width  ) };
+	return rects;
+}
+
+//FOUNDATION_EXPORT AZOutsideEdges AZOutsideEdgesSized(NSRect rect, NSSZ size);
+
+//BOOL AZPointInOutsideEdgeOfRect(NSP point, NSRect rect, NSSZ size);
 
 // macro to call a border drawing method with a border width
 // this will effectively draw the border but clip the inner rect

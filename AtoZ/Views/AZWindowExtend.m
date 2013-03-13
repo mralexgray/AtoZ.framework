@@ -15,7 +15,7 @@
 - (void)awakeFromNib
 {
 	NSPoint point = [NSEvent mouseLocation];
-	NSString *infoText = [[NSString alloc] initWithFormat:@"x:%.2f\ny:%.2f", point.x, point.y];
+//	NSString *infoText = [[NSString alloc] initWithFormat:@"x:%.2f\ny:%.2f", point.x, point.y];
 
 //	[infoTextField bind
 //	 options:]
@@ -155,7 +155,7 @@ static CGEventRef AUWE_OnMouseMovedFactory (
  	*/
 - (void)addClickView:(NSView *)aView
 {
-	if ([aView isDescendantOf:[self contentView]] && [aView respondsToSelector:@selector(subviewClicked:)]) {
+	if ([aView isDescendantOf:[self contentView]]) {// && [aView respondsToSelector:@selector(subviewClicked:)]) {
 		
 		// _clickViews will maintain a weak ref to aView so we don't need to remove it
 		[self.eventViews addObject:aView];
@@ -172,7 +172,7 @@ static CGEventRef AUWE_OnMouseMovedFactory (
 		if (deepView) {
 			for (NSView *aClickView in _eventViews) {
 				if ([deepView isDescendantOf:aClickView]) {
-					[(id)aClickView perform:@selector(subviewClicked:) withObject:deepView];
+//					[(id)aClickView perform:@selector(subviewClicked:) withObject:deepView];
 					break;
 				}
 			}

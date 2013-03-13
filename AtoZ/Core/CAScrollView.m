@@ -2,58 +2,72 @@
 #import "CAScrollView.h"
 
 @interface CAScrollView ()
-@property (UNSFE, RONLY)	NSA		*allLayers;
+@property (RONLY)	NSA		*allLayers;
 @property (NATOM, STRNG) 	NSA 	*shroudedLayers;
 @property (NATOM, STRNG) 	CAL 	*scrollLayer;
 @property (NATOM, STRNG) 	CALNH 	*hostlayer;
 @property (NATOM, ASS)		CGF 	offset;
 @property (RONLY)  		 	CGF 	firstLaySpan, sublayerOrig, sublayerSpan, lastLaySpan, superBounds, lastLayOrig;
-@property (NATOM)			BOOL 	needsLayout;
+@property (NATOM, ASS)	BOOL 	needsLayout;
 @end
 
 @implementation CAScrollView
-@synthesize 	layerQueue, 		hostlayer, 	scrollLayer, 	orientation = oreo, needsLayout, offset = _offset;
+@synthesize 		layerQueue, 		hostlayer, 	scrollLayer, 	oreo, needsLayout;
 
 - (void) awakeFromNib
 {
-	oreo         		= HRZ;
-	_selectedStyle 		= _hoverStyle = None;
-	hostlayer 			= (CALNH*) [[self setupHostViewNoHit]  named:@"hostLayer"];
-	scrollLayer 		= [[CAL layerWithFrame:self.bounds]  named:@"scrollLayer"];
-	scrollLayer.arMASK 	= CASIZEABLE;
+	oreo        				= HRZ;
+	_selectedStyle 			= _hoverStyle = None;
+	hostlayer 					= (CALNH*)[[[self setupHostViewNoHit] named:@"hostLayer"  ]colored:GREEN];
+	scrollLayer 				= [[[CAL  layerWithFrame:hostlayer.bounds] named:@"scrollLayer"]colored:RED];
+//	scrollLayer.arMASK = CASIZEABLE;
 	hostlayer.sublayers = @[scrollLayer];
 	scrollLayer.loM 	= self;
 //	[self observeFrameChangeUsingBlock:^{ [self setFixState:LayerStateUnset]; }];
 //	[self addObserver:self keyPath:@[@"offset",@"orientation",@"layerQueue"] selector:@selector(fixState	) userInfo:nil options:NSKeyValueObservingOptionNew];
 }
+- (void) viewDidEndLiveResize {
+	[CATransaction immediately:^{
+		[@[hostlayer, scrollLayer] each:^(CAL* obj) {
+//			[obj setPosition:AZCenterOfRect(self.bounds)];
+//																								[obj setAnchorPoint:(CGP){.5,.5}];
+																								[obj setBounds:self.bounds];
+		}]; //[scrollLayer sublayersBlock:^(CALayer *layer) { [layer setBoundsHeight:self.height]; }];
+	}];
+}
 
 - (void)setLayerQueue:(NSMA*)lQ
 {
-	if (scrollLayer.sublayers.count > 0) [scrollLayer.sublayers makeObjectsPerformSelector:@selector(removeFromSuperlayer)];
-	layerQueue = lQ;
+	if (scrollLayer.sublayers.count > 0) [
+		scrollLayer.sublayers makeObjectsPerformSelector:@selector(removeFromSuperlayer)];
+		layerQueue = nil;
+
+	layerQueue = lQ.mutableCopy;
 	__block CGF scrollWide = 0;  [lQ each:^(CAL*l) {  scrollWide += oreo == VRT ? l.boundsHeight : l.boundsWidth; }];
 	NSI i = 0;
-	while ( scrollWide < self.superBounds ) { CAL* l = [[layerQueue normal:i] copyLayer]; [layerQueue addObject:l]; i++; scrollWide += oreo == VRT ? l.boundsHeight : l.boundsWidth; }
-	NSLog(@"layers purged.. fixeing %ld in queue", lQ.count);
+	while ( scrollWide < self.superBounds ) {
+		CAL* l = [[layerQueue normal:i] copyLayer];
+		[layerQueue addObject:l]; i++; scrollWide += oreo == VRT ? l.boundsHeight : l.boundsWidth; }
+//	NSLog(@"layers purged.. fixeing %ld in queue", lQ.count);
 	[self fixStateRecursively:YES];
 }
 
 - (void) viewDidMoveToSuperview
 {
-	self.window.acceptsMouseMovedEvents = YES;
-	[self.window makeFirstResponder: self];
+//	self.window.acceptsMouseMovedEvents = YES;
+//	[self.window makeFirstResponder: self];
 	[self setFrame:self.superview.bounds];
-	[self setNeedsDisplay:YES];
+//	[self setNeedsDisplay:YES];
 }
 
 - (void) layoutSublayersOfLayer: (CAL*)layer
 {
-	[CATransaction immediately:^{
-		__block CGF off = _offset;
+	[CATransaction immediately:^{	__block CGF off = _offset;
 		[scrollLayer.sublayers each:^(CAL* obj) {
 			obj.frameMinX = oreo == VRT ? 0 : off;
 			obj.frameMinY = oreo == VRT ? off : 0;
 			off += oreo == VRT ? obj.boundsHeight : obj.boundsWidth;
+			obj.boundsHeight = obj.superlayer.boundsHeight;
 		}];
 	}];
 }
@@ -91,13 +105,16 @@
 - (void) fixLayerState:(ScrollFix)state { NSLog(@"reason:  %@", stringForScrollFix(state));
 
 	state == LayerInsertFront 	? ^{	CAL *newFirst = layerQueue.shift;
-										[scrollLayer insertSublayerImmediately:newFirst atIndex:0];
+//		[scrollLayer insertSublayer:newFirst atIndex:0];
+		[scrollLayer insertSublayerImmediately:newFirst atIndex:0];
 										_offset = oreo == VRT ? -newFirst.boundsHeight : -newFirst.boundsWidth;	}():
 	state == LayerRemoveFront 	? ^{	[layerQueue shove: scrollLayer.sublayers.first];
-										RemoveImmediately( scrollLayer.sublayers.first );
+//		[scrollLayer.sublayers.first removeFromSuperlayer];
+		RemoveImmediately( scrollLayer.sublayers.first );
 										_offset = 0;																}():
 	state == LayerRemoveEnd    	? ^{	[layerQueue addObject:scrollLayer.sublayers.last];
-										RemoveImmediately( scrollLayer.sublayers.last );						}():
+//						[scrollLayer.sublayers.last  removeFromSuperlayer];						}():
+				RemoveImmediately( scrollLayer.sublayers.last );						}():
 	state == LayerInsertEnd		? 		layerQueue.count != 0 ? [scrollLayer addSublayerImmediately:layerQueue.pop] : nil:
 	state == LayerCopyInsertEnd ? ^{ 	  }() : nil;
 	//map:^id(CAL*l){ return [l copyLayer]; }]].mutableCopy;  }() : nil;
@@ -105,7 +122,7 @@
 }
 
 - (BOOL) acceptsFirstResponder 	{ 	return YES;		}
-- (void) scrollWheel:(NSE*)e	{	self.offset += oreo == VRT ? e.deltaY : e.deltaX;	[self fixStateRecursively:NO]; }
+- (void) scrollWheel:(NSE*)e	{	self.offset += (oreo == VRT ? e.deltaY : e.deltaX) * 3 ;	[self fixStateRecursively:NO]; }
 - (void) mouseUp:    (NSE*)e	{	CAL* i = [scrollLayer hitTestSubs:[self convertPoint:e.locationInWindow fromView:nil]]; if (i) self.selectedLayer 	= i; }
 - (void) mouseMoved: (NSE*)e 	{	self.hoveredLayer = [scrollLayer hitTestSubs:[self convertPoint:e.locationInWindow fromView:nil]] ?: nil; }
 
@@ -131,7 +148,7 @@
 //	[_hoveredLayer addSublayer:];
 }
 
-- (IBAction) toggleOrientation:(id)sender { self.orientation = ((NSBUTT*)sender).state == NSOnState ? VRT : HRZ; }
+- (IBAction) toggleOreo:(id)sender { self.oreo = ((NSBUTT*)sender).state == NSOnState ? VRT : HRZ; }
 
 - (void) setShroudedLayers:(NSA*)actuallyAllLayersExcept
 {

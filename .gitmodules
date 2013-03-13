@@ -121,3 +121,9 @@
 [submodule "AtoZ/Classes/StandardPaths"]
 	path = AtoZ/Classes/StandardPaths
 	url = https://github.com/nicklockwood/StandardPaths.git
+[submodule "Frameworks/PhFacebook"]
+	path = Frameworks/PhFacebook
+	url = https://github.com/mralexgray/PhFacebook.git
+[submodule "Frameworks/RoutingHTTPServerFramework"]
+	path = Frameworks/RoutingHTTPServerFramework
+	url = https://github.com/mralexgray/RoutingHTTPServerFramework.git

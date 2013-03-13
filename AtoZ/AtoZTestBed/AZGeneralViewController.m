@@ -39,8 +39,8 @@
 		[_targetView addSubview:newView];
 		[newView setFrame:_targetView.bounds]; 			//replaceSubview:_targetView.firstSubview with:newView];
 														//		[[_targetView animator] replaceSubview:_targetView.firstSubview with:newView];
-		[[SoundManager sharedManager] prepareToPlayWithSound:[Sound soundNamed:@"unlock"]];
-		[[SoundManager sharedInstance] playSound:[Sound soundNamed:@"unlock"]];
+//		[[SoundManager sharedManager] prepareToPlayWithSound:[Sound soundNamed:@"unlock"]];
+//		[[SoundManager sharedInstance] playSound:[Sound soundNamed:@"unlock"]];
 	}();
 
 //	TestBedDelegate *d = (TestBedDelegate*)[[NSApplication sharedApplication]delegate];
