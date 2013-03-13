@@ -18,6 +18,9 @@
 
 @interface NSArray (AtoZ)
 
+
+- (int) createArgv:(char***)argv;
+
 + (NSArray *) from:(NSI)from to:(NSI)to;
 
 - (id) nextObject;
@@ -33,6 +36,11 @@
  span a given range, each value being one more than the previous
  value.	*/
 + (NSArray*)arrayWithRange:(NSRange)range ;
+
+
+- (NSA*) withMinRandomItems:(NSUI) items;
+- (NSA*) withMaxRandomItems:(NSUI) items;
+
 
 - (NSA*) withMinItems:(NSUI) items;
 

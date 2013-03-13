@@ -13,6 +13,8 @@
 @property (nonatomic, strong) NSImageView *progressImage;
 @property (nonatomic, strong) NSImageView *badgeView;
 
+- (id)initWithFrame:(NSRect)frame andColor:(NSColor*)color;
+
 - (void) toggle;
 - (void) spin;
 - (void) stop;

@@ -81,6 +81,10 @@ extern CATransform3D CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13, CG
 
 @interface CALayer (AtoZ)
 
+- (CAL*) named:(NSS*)name;
+- (CAL*) colored:(NSColor*)color;
+- (CAL*) withFrame:(NSR)frame;
+- (CAL*) withConstraints:(NSA*)constraints;
 
 - (id) copyLayer;
 

@@ -56,7 +56,7 @@
 //	[AtoZ sharedInstance];
 //	window.delegate = self;
 
-//	[((BGHUDView*)window.contentView).theme bind:@"baseColor" toObject:colorWell withKeyPath:@"color" options:nil];
+	[((BGHUDView*)window.contentView).theme bind:@"baseColor" toObject:colorWell withKeyPath:@"color" options:nil];
 
 //	vcs 		= [WeakMutableArray new];
 
@@ -139,14 +139,15 @@
 {
 	_scrollTest.hoverStyle = Lasso;
 	_scrollTest.selectedStyle = DarkenOthers;
-	_scrollTest.layerQueue = 	[[NSC randomPalette] nmap:^id(NSC* c, NSUI idx) {
+	_scrollTest.layerQueue =
+ 	[[NSC randomPalette] nmap:^id(NSC* c, NSUI idx) {
 
 		CAL *l = [CAL layerNamed:[@(idx) stringValue]];
-		l.frame = AZRectBy(100,100);
+		l.frame = AZRectBy(100,200);
 		l.bgC = c.brighter.cgColor;
-		l.borderColor = c.darker.cgColor;
-		l.delegate = self;
-		[l setNeedsDisplay];
+//		l.borderColor = c.darker.cgColor;
+//		l.delegate = self;
+//		[l setNeedsDisplay];
 		return l;
 	}].mutableCopy;
 

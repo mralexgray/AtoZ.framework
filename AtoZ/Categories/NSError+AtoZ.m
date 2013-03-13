@@ -40,7 +40,7 @@ static id _mapUserInfoValueToPlistValue(const void *value)
 		CFSetApplyFunction((CFSetRef)valueObject, _addMappedUserInfoValueToArray, (__bridge void *)(mapped));
 		return mapped;
 	}
-	if ([valueObject isKindOfClass:[NSDictionary class]]) {
+	if ([valueObject ISADICT]) {
 		NSMutableDictionary *mapped = [NSMutableDictionary dictionary];
 		CFDictionaryApplyFunction((CFDictionaryRef)valueObject, _addMapppedUserInfoValueToDictionary, (__bridge void *)(mapped));
 		return mapped;

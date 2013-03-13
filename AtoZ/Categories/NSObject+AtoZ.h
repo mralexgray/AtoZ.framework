@@ -76,6 +76,8 @@ typedef void (^AZBlockTask)(id obj, NSDictionary *change);
 							@"test",	^{ NSLog (@"A test"); }, nil];
 */
 
+-(BOOL) isKindOfAnyClass:(NSA*)classes;
+
 typedef void (^caseBlock)();
 +(void)switchOn:(id<NSObject>)obj cases:casesList, ...;
 

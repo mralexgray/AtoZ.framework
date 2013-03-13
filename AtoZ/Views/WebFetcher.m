@@ -30,6 +30,7 @@
 @interface WebFetcher ()
 @property(nonatomic, strong, readwrite) NSURLConnection *connection;
 @property(nonatomic, strong, readwrite) NSMutableData *webData;
+@property(nonatomic, assign) NSUI _htmlStatus;
 
 @end
 
@@ -44,7 +45,7 @@
 @synthesize error;
 @synthesize errorMessage;
 @synthesize request;
-@synthesize htmlStatus;
+@synthesize htmlStatus = _htmlStatus;
 #ifndef NDEBUG
 @synthesize forceFailure;
 #endif
@@ -118,13 +119,12 @@
 #ifndef NDEBUG
 	if([[self class] printDebugging]) NSLog(@"Connection:cancelled!");
 #endif
-
 		return;
 	}
-
 	// cast the response to NSHTTPURLResponse so we can look for 404 etc  
-	NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response; 
-	htmlStatus = [httpResponse statusCode];	// if >= 400 might want to take special action
+	NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse*) response;
+
+	_htmlStatus = [httpResponse valueForKey:@"statusCode"]; // statusCode];	// if >= 400 might want to take special action
 
 	responseLength = response.expectedContentLength == NSURLResponseUnknownLength ? 1024 : (NSUInteger)response.expectedContentLength;
 

@@ -26,6 +26,8 @@ extern NSV* AZResizeWindowAndContent	( NSW* window, 	CGF dXLeft, CGF dXRight, CG
 typedef void (^viewFrameDidChangeBlock)(void);
 
 @interface NSView (AtoZ)
+
+- (NSV*) autosizeable;
 // setup 3d transform
 - (void) setZDistance: (NSUI) zDistance;
 

@@ -486,19 +486,30 @@ static char TEXT_IDENTIFIER;
 #define kCALayerLabel @"CALayerLabel"
 @implementation CALayer (AtoZ)
 
+
+- (CAL*) colored:(NSColor*)color {  self.bgC = [color CGColor];  return self; }
+
+- (CAL*) named:(NSS*)name {  self.name = name;  return self; }
+
+- (CAL*) withFrame:(NSR)frame { self.frame = frame; return self; }
+
+- (CAL*) withConstraints:(NSA*)constraints { [self addConstraints:constraints]; return  self; }
+
+
 - (CAL*) hitTestSubs:(CGPoint)point
 {
-	CAL* l = [self hitTest:point];
-	return l == self ? nil : l;
+	return [self.sublayers filterOne:^BOOL(CAL* object) {
+		return [object hitTest:point];
+	}];
 }
 
 - (id) copyLayer
 {
-	id newOne = [self.class.alloc init];
-	NSD* newD = [self.modelLayer propertiesPlease];
-	NSLog(@"copying layer with props: %@", newD);
-	[newOne setPropertiesWithDictionary:newD];
-	return newOne;
+//	id newOne = [self.class.alloc init];
+//	NSD* newD =
+//	NSLog(@"copying layer with props: %@", newD);
+	return [self.class.alloc initWithProperties:[self.modelLayer propertiesPlease]];// setPropertiesWithDictionary:newD];
+//	return newOne;
 }
 
 

@@ -660,7 +660,7 @@ static BOOL loadingFromResourceFile = NO;
 //				else [description appendString:[child description]];
 //			}();
 //		}();
-//		else if ([object isKindOfClass:[NSDictionary class]]) {
+//		else if ([object ISADICT]) {
 //			[description appendFormat:@"%@ =", name];
 //			for (id key in object) {
 //				[self writeLineBreakToString:description withTabs:indent];

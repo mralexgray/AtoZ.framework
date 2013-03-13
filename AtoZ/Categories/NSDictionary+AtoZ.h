@@ -12,7 +12,6 @@
 
 - (void)setColor:(NSColor *)aColor forKey:(NSString *)aKey;
 - (NSColor *)colorForKey:(NSString *)aKey;
-
 - (BOOL)setObjectOrNull:(id)anObject forKey:(id)aKey;
 @end
 
@@ -21,17 +20,13 @@
 @interface NSDictionary (objectForKeyList)
 - (id)objectForKeyList:(id)key, ...;
 @end
-
-
 //	syntax of path similar to Java: record.array[N].item
 //	items are separated by . and array indices in []
 //	example: a.b[N][M].c.d
-
 @interface  NSMutableDictionary (GetObjectForKeyPath)
 - (id)objectForKeyPath:(NSString *)inKeyPath;
 -(void)setObject:(id)inValue forKeyPath:(NSString *)inKeyPath;
 @end
-
 
 @interface  NSObject  (BagofKeysValue)
 - (NSBag*) bagWithValuesForKey:(NSString *)key;
@@ -116,36 +111,29 @@
 @end
 
 @interface NSCountedSet (Votes)
-
 /*!
  @brief	Returns the member of the receiver which has the
  highest count
-
  @details  Returns nil if there is more than one member with
  the highest count (a "tie").&nbsp;  Also returns nil if
  the receiver is empty.	*/
 - (id)winner  ;
-
 @end
 
 //@interface NSArray (Subdictionaries)
 //- (NSBag*) objectsInSubdictionariesForKey:(NSS*)key;
-//
 //@end
 
 @interface NSDictionary (Subdictionaries)
-
 /*!
  @brief	Assuming that the receiver's objects are also
  dictionaries (subdictionaries), returns a counted set of all
  the different values for a given key in all the subdictionaries.
-
  @details  The count of each item in the returned set is equal
  to the number of subdictionaries which had an equal item as
  the object for the given key.&nbsp; If none of the
  subdictionaries have an object for the given key and no
  defaultObject is given, returns an empty set.
-
  @param	defaultObject  An object which will be added to the
  result, one for each subdictionary in the receiver which has
  no object for the given key, or nil if you do not want any object
@@ -153,14 +141,8 @@
 
 - (NSCountedSet*)objectsInSubdictionariesForKey:(id)key
 								  defaultObject:(id)defaultObject;
-
 @end
-
-
-
-
 @interface NSDictionary (SimpleMutations)
-
 /*!
  @brief	Returns a new dictionary, equal to the receiver
  except with a single key/value pair updated or removed.
@@ -227,24 +209,70 @@
 
 @end
 
-
-
-
-
-
 @interface NSDictionary (subdictionaryWithKeys)
-
 - (NSDictionary*)subdictionaryWithKeys:(NSArray*)keys ;
-
-
 @end
 
-
 @interface OrderedDictionary : NSMutableDictionary
-
 - (void)insertObject:(id)anObject forKey:(id)aKey atIndex:(NSUInteger)anIndex;
 - (id)keyAtIndex:(NSUInteger)anIndex;
 - (NSEnumerator *)reverseKeyEnumerator;
+@end
+
+
+extern NSString *jsonIndentString;
+extern const int jsonDoNotIndent;
+
+@interface NSDictionary (BSJSONAdditions)
+
++ (NSDictionary *)dictionaryWithJSONString:(NSString *)jsonString;
+- (NSString *)jsonStringValue;
 
 @end
 
+
+@interface NSDictionary (PrivateBSJSONAdditions)
+
+- (NSString *)jsonStringValueWithIndentLevel:(int)level;
+- (NSString *)jsonStringForValue:(id)value withIndentLevel:(int)level;
+- (NSString *)jsonStringForArray:(NSArray *)array withIndentLevel:(int)level;
+- (NSString *)jsonStringForString:(NSString *)string;
+- (NSString *)jsonIndentStringForLevel:(int)level;
+
+@end
+
+
+
+extern NSString *jsonObjectStartString;
+extern NSString *jsonObjectEndString;
+extern NSString *jsonArrayStartString;
+extern NSString *jsonArrayEndString;
+extern NSString *jsonKeyValueSeparatorString;
+extern NSString *jsonValueSeparatorString;
+extern NSString *jsonStringDelimiterString;
+extern NSString *jsonStringEscapedDoubleQuoteString;
+extern NSString *jsonStringEscapedSlashString;
+extern NSString *jsonTrueString;
+extern NSString *jsonFalseString;
+extern NSString *jsonNullString;
+
+
+@interface NSScanner (PrivateBSJSONAdditions)
+
+- (BOOL)scanJSONObject:(NSDictionary **)dictionary;
+- (BOOL)scanJSONArray:(NSArray **)array;
+- (BOOL)scanJSONString:(NSString **)string;
+- (BOOL)scanJSONValue:(id *)value;
+- (BOOL)scanJSONNumber:(NSNumber **)number;
+
+- (BOOL)scanJSONWhiteSpace;
+- (BOOL)scanJSONKeyValueSeparator;
+- (BOOL)scanJSONValueSeparator;
+- (BOOL)scanJSONObjectStartString;
+- (BOOL)scanJSONObjectEndString;
+- (BOOL)scanJSONArrayStartString;
+- (BOOL)scanJSONArrayEndString;
+- (BOOL)scanJSONArrayEndString;
+- (BOOL)scanJSONStringDelimiterString;
+
+@end

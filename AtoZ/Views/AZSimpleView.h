@@ -13,9 +13,12 @@
 @property (assign) BOOL gradient;
 @property (assign) BOOL checkerboard;
 @property (nonatomic, strong) NSColor *backgroundColor;
+
++(instancetype)withFrame:(NSRect)frame color:(NSC*)c;
 @end
 @interface AZSimpleGridView : NSView
 @property (NATOM, ASS) NSSize dimensions;
 @property (nonatomic, retain)  CALayer *grid;
 @property (NATOM, ASS) NSUInteger rows, columns;
+
 @end

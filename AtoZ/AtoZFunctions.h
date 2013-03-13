@@ -1,12 +1,44 @@
 //  AtoZFunctions.h
 
-#import "AtoZ.h"
+//#import "AtoZ.h"
 #import "AtoZUmbrella.h"
 #import <objc/message.h>
 #import <sys/time.h>
 #include <sys/types.h>
 #include <pwd.h>
 
+// StringConsts.h
+#ifdef SYNTHESIZE_CONSTS
+# define STR_CONST(name, value) NSString* const name = @ value
+#else
+# define STR_CONST(name, value) extern NSString* const name
+#endif
+
+//The in my .h/.m pair where I want to define the constant I do the following:
+// myfile.h
+//#import <StringConsts.h>
+
+//STR_CONST(MyConst, "Lorem Ipsum");
+//STR_CONST(MyOtherConst, "Hello world");
+
+// myfile.m
+//#define SYNTHESIZE_CONSTS
+//#import "myfile.h"
+//#undef SYNTHESIZE_CONSTS
+
+
+
+typedef (^PythonBlock)(NSS* path, NSS*inDir, NSA* args, NSS*, anENV, NSS *pyPATH);
+
+FOUNDATION_EXPORT 	void pyRunWithArgsInDirPythonPath(NSS* script, NSA *args, NSS*working, NSS* pyPATH);
+FOUNDATION_EXPORT 	void pyRunWithArgsInDir(NSS* script, NSA *args, NSS*working);
+FOUNDATION_EXPORT 	void pyRunWithArgs(NSS* script, NSA *args);
+FOUNDATION_EXPORT 	void runPythonAtPathWithArgs(NSS* path, NSA *array);
+FOUNDATION_EXPORT	char** cArrayFromNSArray ( NSArray* array );
+
+
+void monitorTask(NSTask* task);
+NSTask* launchMonitorAndReturnTask(NSTask* t);
 
 @interface CALayerNoHit : CALayer
 @end
@@ -192,6 +224,8 @@ NSI AZNormalizedNumberGreaterThan (NSI number, NSI min);
 // usage
 // profile("Long Task", ^{ performLongTask() } );
 void profile (const char *name, void (^work) (void));
+
+
 
 CGFloat DegreesToRadians(CGFloat degrees);
 NSNumber* DegreesToNumber(CGFloat degrees);

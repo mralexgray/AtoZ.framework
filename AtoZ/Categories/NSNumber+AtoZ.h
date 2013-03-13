@@ -25,3 +25,27 @@
 - (NSA*) to:(NSNumber*) to by:(NSNumber*) by;
 
 @end
+
+@interface NSNumber (Description)
+
+/*
+ *  @brief Returns a string that describes the value of the number. This keeps type information.
+ *  @return A string that describes the value of the number.
+ */
+- (NSString *)typeFormedDescription;
+
+@end
+
+
+/*!
+ *  @brief NSNumber description method extension
+ */
+@interface NSDecimalNumber (Description)
+
+/*
+ *  @brief Returns a string that describes the value of the number. This keeps type information.
+ *  @return A string that describes the value of the number.
+ */
+- (NSString *)typeFormedDescription;
+
+@end

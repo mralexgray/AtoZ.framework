@@ -11,6 +11,117 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #import <CoreFoundation/CoreFoundation.h>
+#import "AtoZ.h"
+#import <Python/Python.h>
+
+
+void pyRunWithArgsInDir(NSS* script, NSA *args, NSS*working){
+	pyRunWithArgsInDirPythonPath(script, args, working, nil);
+}
+
+void runPythonAtPathWithArgs(NSS* path, NSA *array) { pyRunWithArgs(path, array); }
+
+void pyRunWithArgs(NSS* script, NSA *args){
+
+	pyRunWithArgsInDirPythonPath(script, args, nil, nil);
+}
+
+void pyRunWithArgsInDirPythonPath(NSS* _spriptP, NSA *_optArgs, NSS*working, NSS* pyPATH) {
+
+	if (!Py_IsInitialized()) {	NSLog(@"initializing Python"); Py_Initialize(); }
+
+		NSLog(@"args:  $@,  script:  %@", _optArgs, _spriptP);
+//		static dispatch_once_t opoo;
+//		dispatch_once(&opoo, ^{
+//		Py_Initialize();
+
+//		[[NSThread mainThread]performBlock:^{
+	setenv("PYTHONPATH", [@"$PYTHONPATH:/mg/siprtmp/p2p-sip/src/app:/mg/siprtmp/p2p-sip/external:/mg/siprtmp/p2p-sip/src:/mg/siprtmp:." UTF8String], 1);
+	NSLog(@"PYTHONPATH: %@", [NSS stringWithCString: getenv("PYTHONPATH") encoding:NSUTF8StringEncoding]);
+			NSArray *args = _optArgs ? [@[_spriptP] arrayByAddingObjectsFromArray:_optArgs] : @[_spriptP];
+			char **cargs;
+			int x = [args createArgv:&cargs];//cArrayFromNSArray(array);	////{ "weather.py", "10011" };
+			PySys_SetArgv(args.count,cargs); //argc, (char **)argv);
+
+//			PyObject* PyFileObject = PyFile_FromString((char*)_spriptP.UTF8String, "r");
+			PyRun_SimpleFile(PyFile_AsFile(PyFile_FromString((char*)_spriptP.UTF8String, "r")), _spriptP.UTF8String);//lastPathComponent.UTF8String);
+//		}waitUntilDone:NO];
+//	});
+//	}
+
+//	[AZSOQ addOperation:[PYO inDir:working withPath:script pythonPATH:pyPATH optArgs:argA]];
+}
+
+//char* cArrayFromNSArray ( NSArray* array ){
+//   int i;
+//   int count = array.count + 1;
+//   char *cargs = (char*) malloc( count * sizeof(char*));
+////   char *cargs = (char*) malloc(sizeof(char*) * (count + 1));
+//   for(i = 0; i < count - 1; i++) {        //cargs is a pointer to 4 pointers to char
+//	  NSString *s      = array[i];     //get a NSString
+//	  char *cstr = [s cStringUsingEncoding:NSUTF8StringEncoding];// UTF8String; //get cstring
+////	  int          len = strlen(cstr); //get its length
+////	  char  *cstr_copy = (char*) malloc(sizeof(char) * (len + 1));//allocate memory, + 1 for ending '\0'
+////	  strcpy(cstr_copy, cstr);         //make a copy
+//	  cargs[i] = &cstr; //cstr_copy;            //put the point in cargs
+//  }
+//  cargs[count] = NULL;
+//  return cargs;
+//}
+
+//char** cArrayFromNSArray ( NSArray* array ){
+//   int i, count = array.count;
+//   char *cargs = (char*) malloc(sizeof(char*) * (count + 1));
+//   for(i = 0; i < count; i++) {        //cargs is a pointer to 4 pointers to char
+//	  NSString *s      = array[i];     //get a NSString
+//	  const char *cstr = s.UTF8String; //get cstring
+//	  int          len = strlen(cstr); //get its length
+//	  char  *cstr_copy = (char*) malloc(sizeof(char) * (len + 1));//allocate memory, + 1 for ending '\0'
+//	  strcpy(cstr_copy, cstr);         //make a copy
+//	  cargs[i] = cstr_copy;            //put the point in cargs
+//  }
+//  cargs[i] = NULL;
+//  return cargs;
+//}
+
+
+
+
+//	NSString *path= @"/Volumes/2T/ServiceData/git/VideoIO/VideoIO/weather.py";
+//	NSString *path= @"/cgi/hostname.py";
+//	NSString *path= @"/cgi/repeater.py";
+	//";
+//   NSString *py = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+////	NSLog(@"content: %@", py);
+//	PyRun_SimpleString([py UTF8String]);
+
+
+
+
+//		const char** args[array.count] =
+//		size_t t;
+//		strnlen(t,&cargs);
+//		cargs[array.count +1] = NULL;
+//	int argc;		char * argv[3];
+//    argv[0] = (char*)path.lastPathComponent.UTF8String;
+//    argv[1] = "10011";//"-m";
+//    argv[2] = "/tmp/targets.list";
+//    Py_SetProgramName(argv[0]);
+////    Py_Initialize();
+//    PySys_SetArgv(argc, argv);
+//	[NSThread.mainThread performBlock:^{
+//		NSLog(@"Hello");
+//	} waitUntilDone:YES];
+//	} afterDelay:]
+//    const char *mainFilePathPtr = [path UTF8String];
+//    FILE *mainFile = fopen(mainFilePathPtr, "r");
+//	NSLog(@"running simple file... %s", mainFilePathPtr);
+//    int result = PyRun_SimpleFile(mainFile, (char *)[[path lastPathComponent] UTF8String]);
+//	Py_Finalize();
+
+//        [NSException raise: NSInternalInconsistencyException format:
+
+
 
 
 @implementation CALayerNoHit
@@ -168,7 +279,21 @@ static NSIMG *installed, *notInstalled, *needsUpdate, *installedNeedsUpdate;
 
 @end
 
+void monitorTask(NSTask* task) {
 
+	NSData   *epipe = [[task.standardError fileHandleForReading] readDataToEndOfFile];
+	char	*buffer;
+	if ([epipe length] > 0)	{		buffer = calloc([epipe length]+1, sizeof(char));
+									[epipe getBytes:buffer length:[epipe length]];
+									LogAndReturn(@(buffer));
+	}
+	NSData   *spipe      = [[task.standardOutput fileHandleForReading] readDataToEndOfFile];
+	buffer = calloc([spipe length]+1, sizeof(char));
+	[spipe getBytes:buffer length:[spipe length]];
+	NSLog(@"%@", @(buffer));
+}
+
+NSTask* launchMonitorAndReturnTask(NSTask* t) { [t launch]; monitorTask(t);  return t; }
 
 //static inline BOOL isEmpty(id thing);
 //	return	thing == nil
@@ -1794,6 +1919,9 @@ void profile (const char *name, void (^work) (void)) {
 
 	printf("%s took %f seconds", name, fend - fstart);
 }
+
+
+
 
 CGFloat DegreesToRadians(CGFloat degrees) {
 	return degrees * M_PI / 180;

@@ -2,13 +2,13 @@
 #import "CAScrollView.h"
 
 @interface CAScrollView ()
-@property (UNSFE, RONLY)	NSA			*allLayers;
-@property (NATOM, STRNG) 	NSA 		*shroudedLayers;
-@property (NATOM, STRNG) 	CAL 		*scrollLayer;
-@property (NATOM, STRNG) 	CALNH 		*hostlayer;
-@property 	  				CGF 		offset;
-@property (RONLY)  		 	CGF 		firstLaySpan, sublayerOrig, sublayerSpan, lastLaySpan, superBounds, lastLayOrig;
-@property (NATOM)			BOOL 		needsLayout;
+@property (UNSFE, RONLY)	NSA		*allLayers;
+@property (NATOM, STRNG) 	NSA 	*shroudedLayers;
+@property (NATOM, STRNG) 	CAL 	*scrollLayer;
+@property (NATOM, STRNG) 	CALNH 	*hostlayer;
+@property (NATOM, ASS)		CGF 	offset;
+@property (RONLY)  		 	CGF 	firstLaySpan, sublayerOrig, sublayerSpan, lastLaySpan, superBounds, lastLayOrig;
+@property (NATOM)			BOOL 	needsLayout;
 @end
 
 @implementation CAScrollView
@@ -16,12 +16,10 @@
 
 - (void) awakeFromNib
 {
-	_selectedStyle = _hoverStyle = None;
 	oreo         		= HRZ;
-	hostlayer 			= [self setupHostViewNoHit];
-	hostlayer.name		= @"hostLayer";
-	scrollLayer 		= [CAL layerWithFrame:self.bounds];
-	scrollLayer.name	= @"scrollLayer";
+	_selectedStyle 		= _hoverStyle = None;
+	hostlayer 			= (CALNH*) [[self setupHostViewNoHit]  named:@"hostLayer"];
+	scrollLayer 		= [[CAL layerWithFrame:self.bounds]  named:@"scrollLayer"];
 	scrollLayer.arMASK 	= CASIZEABLE;
 	hostlayer.sublayers = @[scrollLayer];
 	scrollLayer.loM 	= self;
@@ -36,6 +34,7 @@
 	__block CGF scrollWide = 0;  [lQ each:^(CAL*l) {  scrollWide += oreo == VRT ? l.boundsHeight : l.boundsWidth; }];
 	NSI i = 0;
 	while ( scrollWide < self.superBounds ) { CAL* l = [[layerQueue normal:i] copyLayer]; [layerQueue addObject:l]; i++; scrollWide += oreo == VRT ? l.boundsHeight : l.boundsWidth; }
+	NSLog(@"layers purged.. fixeing %ld in queue", lQ.count);
 	[self fixStateRecursively:YES];
 }
 
@@ -43,6 +42,8 @@
 {
 	self.window.acceptsMouseMovedEvents = YES;
 	[self.window makeFirstResponder: self];
+	[self setFrame:self.superview.bounds];
+	[self setNeedsDisplay:YES];
 }
 
 - (void) layoutSublayersOfLayer: (CAL*)layer
@@ -97,7 +98,7 @@
 										_offset = 0;																}():
 	state == LayerRemoveEnd    	? ^{	[layerQueue addObject:scrollLayer.sublayers.last];
 										RemoveImmediately( scrollLayer.sublayers.last );						}():
-	state == LayerInsertEnd		? 		[scrollLayer addSublayerImmediately:layerQueue.pop] :
+	state == LayerInsertEnd		? 		layerQueue.count != 0 ? [scrollLayer addSublayerImmediately:layerQueue.pop] : nil:
 	state == LayerCopyInsertEnd ? ^{ 	  }() : nil;
 	//map:^id(CAL*l){ return [l copyLayer]; }]].mutableCopy;  }() : nil;
 
@@ -110,7 +111,7 @@
 
 - (void) setHoveredLayer:(CAL*)hoveredLayer
 {
-	AZLOG(hoveredLayer.debugLayerTree);
+//	AZLOG(hoveredLayer.debugLayerTree);
 	if (hoveredLayer == _hoveredLayer) return;
 	!_hoveredLayer ?: ^{			_hoveredLayer.hovered = NO;	 	[_hoveredLayer setNeedsDisplay]; }();
 	_hoveredLayer = hoveredLayer;	if (hoveredLayer) { _hoveredLayer.hovered = YES;	[_hoveredLayer setNeedsDisplay]; }
@@ -126,9 +127,8 @@
 		_selectedStyle == Lasso 		? [self lasso:_selectedLayer dymamicStroke:.05] 	: nil;
 	}();
 
-//		CAL* l = _hoverStyle == Lasso ? [self lassoLayerWithFrame:_hoveredLayer.bounds dymamicStroke:.03] :
-//		
-//		[_hoveredLayer addSublayer:];
+//	CAL* l = _hoverStyle == Lasso ? [self lassoLayerWithFrame:_hoveredLayer.bounds dymamicStroke:.03] :
+//	[_hoveredLayer addSublayer:];
 }
 
 - (IBAction) toggleOrientation:(id)sender { self.orientation = ((NSBUTT*)sender).state == NSOnState ? VRT : HRZ; }
@@ -168,4 +168,5 @@
 	[blk addAnimation:dashAnimation forKey:@"linePhase"];
 	[layer addSublayer:root];
 }
+
 @end

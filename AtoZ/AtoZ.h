@@ -1,3 +1,7 @@
+
+//#pragma GCC diagnostic ignored "-Wformat-security"
+
+
 //#import "Nu.h"
 //#import <NanoStore/NSFNanoObjectProtocol.h>
 //#import <NanoStore/NSFNanoObject.h>
@@ -42,6 +46,7 @@
 #import <objc/runtime.h>
 #import <Quartz/Quartz.h>
 #import <Carbon/Carbon.h>
+#import <Python/Python.h>
 #import <AppKit/AppKit.h>
 #import <QuartzCore/QuartzCore.h>
 #import <Foundation/Foundation.h>
@@ -74,7 +79,6 @@
 #import <FunSize/FunSize.h>
 //#import <DrawKit/DKDrawKit.h>
 #import <MapKit/MapKit.h>
-
 #import <Zangetsu/Zangetsu.h>
 #import <BlocksKit/BlocksKit.h>
 #import <CocoaPuffs/CocoaPuffs.h>
@@ -95,7 +99,6 @@
 #import "SDToolkit.h"
 #import "AZWeakCollections.h"
 
-
 #import "MAKVONotificationCenter.h"
 #import "NSBag.h"
 #import	"BaseModel.h"
@@ -104,8 +107,10 @@
 #import "NSDictionary+F.h"
 
 #import "AZHTTPURLProtocol.h"
-
 #import "BlocksAdditions.h"
+
+
+#import "PythonOperation.h"
 
 @interface AZSingleton : NSObject
 +(id) instance;
@@ -127,7 +132,8 @@
 //   CORE
 
 #import "CAScrollView.h"
-
+#import "AssetCollection.h"
+#import "GoogleTTS.h"
 
 // END CORE
 
@@ -178,6 +184,8 @@
 
 	// Categories
 #import "NSDate+AtoZ.h"
+#import "NSTask+OneLineTasksWithOutput.h"
+
 //#import "NSManagedObjectContext+EasyFetch.h"
 #import "NSEvent+AtoZ.h"
 #import "CAAnimation+AtoZ.h"
@@ -215,6 +223,11 @@
 //#import "MondoSwitch.h"
 //#import "AZToggleView.h"
 
+
+//MODEL
+
+#import "JsonElement.h"
+
 //Classes
 #import "AZHomeBrew.h"
 #import "AZDebugLayer.h"
@@ -235,7 +248,7 @@
 #import "AZSound.h"
 #import "Transition.h"
 #import "LetterView.h"
-//#import "CPAccelerationTimer.h"
+#import "CPAccelerationTimer.h"
 #import "StandardPaths.h"
 
 
@@ -281,12 +294,12 @@
 #import "AZBoxGrid.h"
 #import "AZBoxMagic.h"
 #import "AZInfiniteCell.h"
-#import "AZSourceList.h"
 #import "AtoZInfinity.h"
 #import "NSTextView+AtoZ.h"
 #import "AZPropellerView.h"
 #import "StarLayer.h"
 #import "BBMeshView.h"
+#import "AZSourceList.h"
 
 #import "AZVeil.h"
 
@@ -329,11 +342,22 @@ extern NSString *const AtoZDockSortedUpdated;
 - (void) dockItemDidUpdateValues:(NSNotification*)info;
 @end
 
+#import "OperationsRunner.h"
+
 @interface AZDummy : NSObject
++ (instancetype) sharedInstance;
+//- (void)addOperation:(NSOperation*)op;
+@property (NATOM, STRNG) NSOperationQueue *sharedQ, *sharedSQ;
 @end
 
 @class NSLogConsole;
 @interface AtoZ : BaseModel
+
+
+@property (assign) IBOutlet NSTextView *stdOutView;
+@property (nonatomic, strong) NSColor* logColor;
+
+- (void) appendToStdOutView:(NSString*)text;
 
 @property (NATOM, STRNG) NSA *basicFunctions;
 

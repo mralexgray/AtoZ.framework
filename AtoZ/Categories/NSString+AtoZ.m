@@ -69,7 +69,7 @@
 {
 	if (!(self = [super init])) return nil;
 	strings = NSMA.new;
-    return self;
+	return self;
 }
 - (void)dealloc	{    [strings release];	}
 - (void)parser:(NSXMLParser*)parser foundCharacters:(NSString*)string {	    [strings addObject:string];	}
@@ -78,42 +78,74 @@
 
 @implementation NSString (AtoZ)
 
+- (NSString *)JSONRepresentation
+{
+	__block NSMutableString *jsonString =@"\"".mutableCopy;
+	
+	// Build the result one character at a time, inserting escaped characters as necessary
+	[[NSArray from:0 to:self.length] eachWithIndex:^(id obj, NSInteger i) {
 
-+(NSA*) dicksonisms {
-	static NSA* dicks = nil;
-	return dicks = dicks ? dicks : @[
-
-								  @"When I was 10 years old - I wore this dress; I just keep getting it altered.",
-		  @"See? I still fit into my 10-year-old clothing.",
-		  @"Look at that! Oh, is that me on the wall? I drew it myself - with chalk!",
-		  @"I can't move, but boy, can I ever pose!",
-		  @"I wish there was a close up on my face.. there it is! <<sighing>> Wow, looking better and better all the time.",
-		  @"That's a - beret - it's from Europe.",
-		  @"I really shouldn't be doing this; but I'm going to have an ad for IKEA right now.",
-		  @"This is a complete IKEA closet.  The bed is underneath my pants.",
-		  @"If you have a look - you can see that everything fits - into this particle board.   You just paint it white.. pull it out... oh gold and silver! (those are my two signature colors.)"];
+		unichar nextChar = [self characterAtIndex:i];
+		switch (nextChar) {
+			case '\"':
+				[jsonString appendString:@"\\\""];
+				break;
+			case '\\':
+				[jsonString appendString:@"\\n"];
+				break;
+			case '/':
+				[jsonString appendString:@"\\/"];
+				break;
+			case '\b':
+				[jsonString appendString:@"\\b"];
+				break;
+			case '\f':
+				[jsonString appendString:@"\\f"];
+				break;
+			case '\n':
+				[jsonString appendString:@"\\n"];
+				break;
+			case '\r':
+				[jsonString appendString:@"\\r"];
+				break;
+			case '\t':
+				[jsonString appendString:@"\\t"];
+				break;
+			// note: maybe encode unicode characters? Spec allows raw unicode.
+			default:
+				if (nextChar < 32) // all ctrl chars must be escaped
+					[jsonString appendString:[NSString stringWithFormat:@"\\u%04x", nextChar]];
+				else
+					[jsonString appendString:[NSString stringWithCharacters:&nextChar length:1]];
+				break;
+		}
+	}];
+	[jsonString appendString:@"\""];
+	return jsonString;
 }
 
-+ (NSS*) dicksonBible { return  @"When do I look at the camera?  When do I look? <gasp> Hi, what a surprise that you're here.  Welcome... to my bathroom.  My fingers are.. fused together. My thumb was broken... in.. an... acting.. accident..  I can't wait to show you more of my face. Look at my face. 	There's my face, there's my face!  That's not my body... but this is my.. FACE. Here are four looks. I have four different emotions - they may seem the same.. oh there's my high school grad picture.. and my picture from Woolworth's!I like to stare blankly into space.  <<chuckle>> that's something I do. When I was 10 years old - I wore this dress; I just keep getting it altered.  See? I still fit into my 10-year-old clothing. Look at that! Oh, is that me on the wall? I drew it myself - with chalk!  I can't move, but boy, can I ever pose!  I wish there was a close up on my face.. there it is! <<sighing>> Wow, looking better and better all the time. That's a - beret - it's from Europe.  I really shouldn't be doing this; but I'm going to have an ad for IKEA right now.  This is a complete IKEA closet.  The bed is underneath my pants. If you have a look - you can see that everything fits - into this particle board.   You just paint it white.. pull it out... oh gold and silver! (those are my two signature colors.)	What are legs good for? They're not good for pants.. they're good for sitting!   It's after Labor Day and I am wearing white. This is a very comfortable pose. This is how all the models do it. This is called boobies.		And this is another picture of my FACE. I liked putting Vaseline on the lens; it erases all lines that one may have on their face.  It's a fashion face; a face full of fashion.	I eat so much fowl - I shit feathers!It's winter - so I wear pantyhose with my open-toed sandals.I hope I never get arrested for not leaving a premises which is no longer mine!	I still I look like a teenager, don't I?  Well, thankfully my herpes is in remission, right now.  Look, no blisters, not one!  Just a cold sore!  Oh, that's herpes.  Oh, It's back.	I like to fill my breasts with photos of myself; one's bigger than the other...  because my hair is - greater on one side.  This is live video footage of me.I don't blink; that's a huge part of fashion. Breathe in my eye - just some air, nothing.  I do not blink.  Not at all.  Good for me!		Here's what happens when I go down on my knees. I'm bending down right now, and I'm on my knees. There, I'm on my knees right now. I can really stay on my knees a very long time - huge part of fashion.		The look this season is clothes that don't fit correctly. These pants are way too tight, not my size. This top is completely not my size.  Isn't it fashion?!		This top doesn't fit at all <<awkward chuckle>>		These boots don't fit.  I wonder if belts fit?  No, the belt does not fit either.  <<sigh>>		Oh, these boots fit, but the purse is the wrong size (I got this from Pic-N-Save)  I'll tell you.. their Halloween collection.. not a lot to be desired... <<creepy sigh>>		This is an oversized top. These are my breasts. I have two of them.  I even 'out' my breasts on my own; it's still the same Wol-Co. photo from earlier.  I just cropped it to make it larger.. oh I cropped it again... I'm really, really good with scissors. I'll tell you that much.		Here's what I wear too bed. It's, it's like a trap - a spider trap. I get them into my bu'drow... and then I, I eat their head off.  They're absolutely delicious!		I always wanted to be on dynasty... but here's two things: and nipple and a tertiary nipple.  I have two nipples. Uh, My tummy does not have any support right now - that's just me.  And white shoes.. It's before - and after Labor Day.		I wanted to show you this necklace.  I'm wearing a gold necklace - umm, with diamonds - I wear it every single shot - every single one.  Watch this...  Prest-o Change-o!  Let's go up a little bit.. Let me get on my knees - I'm going down.  Look what's there! It's a heart diamond necklace! If you see on my left- umm right-hand side..  That's My kitty cat - I named it Chester.. and I.. he was absolutely delicious.		And and I'm also part of aChipapeantribe...  I thought I looked very.. native.. North American in this. Uh, I like to bring out my culture, my taste... oh, uh, when you open your legs, ladies - watch the Seaguls...  Sometimes they come a-flock and - they're your friends, too!  I.. could... make a hat out of most of them.		Let's open the microwave and see what I've made. Enjoy some popcorn - absolutely yumms. Yes, I do eat solid foods. But I have four microwaves stacked on top of each other for when company comes over. My door is always welcome to you.   For Halloween I'm going to dress up as.. a Hooker!  Won't that be fun!? Look at all the choices that I have!  Oh, the kids just love it.ABCDEF..GHIJKL.. M..N..OPQRS.. oh what's next, I can't remember what's next, UVWX.Y.Z! I wish I was Jacqueline Smith.. but I'm not... so here's my face double..   Okay - I like to put makeup over my makeup.. and then tattoo my makeup on. I got it from Pic-N-Save. I'm already tattooed, but you can never have enough, you know, can you?  awkakwaka.		My schedule is free so I'm available for donkey shows.. for grand openings.. for sales...  I'm good at telemarketing - and flourishes - watch the hand. So - you know, for Halloween this is how we're going to look. Some people use it as a daily look.  It's Halloween everday in my house - every single day!Welcome, Sorry I'm late... I gave myself a camel toe - and not the Dorothy Hamill kind."; }
 
++ (NSA*) dicksonisms {		static NSA* dicks = nil;		return dicks = dicks ? dicks : @[
+		 @"When I was 10 years old - I wore this dress; I just keep getting it altered.",  @"See? I still fit into my 10-year-old clothing.", @"Look at that! Oh, is that me on the wall? I drew it myself - with chalk!",
+		  @"I can't move, but boy, can I ever pose!", @"I wish there was a close up on my face.. there it is! <<sighing>> Wow, looking better and better all the time.",
+		  @"That's a - beret - it's from Europe.", @"I really shouldn't be doing this; but I'm going to have an ad for IKEA right now.",
+		  @"This is a complete IKEA closet.  The bed is underneath my pants.", @"If you have a look - you can see that everything fits - into this particle board.   You just paint it white.. pull it out... oh gold and silver! (those are my two signature colors.)"];
+}
++ (NSS*) dicksonBible { return  @"When do I look at the camera?  When do I look? <gasp> Hi, what a surprise that you're here.  Welcome... to my bathroom.  My fingers are.. fused together. My thumb was broken... in.. an... acting.. accident..  I can't wait to show you more of my face. Look at my face. 	There's my face, there's my face!  That's not my body... but this is my.. FACE. Here are four looks. I have four different emotions - they may seem the same.. oh there's my high school grad picture.. and my picture from Woolworth's!I like to stare blankly into space.  <<chuckle>> that's something I do. When I was 10 years old - I wore this dress; I just keep getting it altered.  See? I still fit into my 10-year-old clothing. Look at that! Oh, is that me on the wall? I drew it myself - with chalk!  I can't move, but boy, can I ever pose!  I wish there was a close up on my face.. there it is! <<sighing>> Wow, looking better and better all the time. That's a - beret - it's from Europe.  I really shouldn't be doing this; but I'm going to have an ad for IKEA right now.  This is a complete IKEA closet.  The bed is underneath my pants. If you have a look - you can see that everything fits - into this particle board.   You just paint it white.. pull it out... oh gold and silver! (those are my two signature colors.)	What are legs good for? They're not good for pants.. they're good for sitting!   It's after Labor Day and I am wearing white. This is a very comfortable pose. This is how all the models do it. This is called boobies.		And this is another picture of my FACE. I liked putting Vaseline on the lens; it erases all lines that one may have on their face.  It's a fashion face; a face full of fashion.	I eat so much fowl - I shit feathers!It's winter - so I wear pantyhose with my open-toed sandals.I hope I never get arrested for not leaving a premises which is no longer mine!	I still I look like a teenager, don't I?  Well, thankfully my herpes is in remission, right now.  Look, no blisters, not one!  Just a cold sore!  Oh, that's herpes.  Oh, It's back.	I like to fill my breasts with photos of myself; one's bigger than the other...  because my hair is - greater on one side.  This is live video footage of me.I don't blink; that's a huge part of fashion. Breathe in my eye - just some air, nothing.  I do not blink.  Not at all.  Good for me!		Here's what happens when I go down on my knees. I'm bending down right now, and I'm on my knees. There, I'm on my knees right now. I can really stay on my knees a very long time - huge part of fashion.		The look this season is clothes that don't fit correctly. These pants are way too tight, not my size. This top is completely not my size.  Isn't it fashion?!		This top doesn't fit at all <<awkward chuckle>>		These boots don't fit.  I wonder if belts fit?  No, the belt does not fit either.  <<sigh>>		Oh, these boots fit, but the purse is the wrong size (I got this from Pic-N-Save)  I'll tell you.. their Halloween collection.. not a lot to be desired... <<creepy sigh>>		This is an oversized top. These are my breasts. I have two of them.  I even 'out' my breasts on my own; it's still the same Wol-Co. photo from earlier.  I just cropped it to make it larger.. oh I cropped it again... I'm really, really good with scissors. I'll tell you that much.		Here's what I wear too bed. It's, it's like a trap - a spider trap. I get them into my bu'drow... and then I, I eat their head off.  They're absolutely delicious!		I always wanted to be on dynasty... but here's two things: and nipple and a tertiary nipple.  I have two nipples. Uh, My tummy does not have any support right now - that's just me.  And white shoes.. It's before - and after Labor Day.		I wanted to show you this necklace.  I'm wearing a gold necklace - umm, with diamonds - I wear it every single shot - every single one.  Watch this...  Prest-o Change-o!  Let's go up a little bit.. Let me get on my knees - I'm going down.  Look what's there! It's a heart diamond necklace! If you see on my left- umm right-hand side..  That's My kitty cat - I named it Chester.. and I.. he was absolutely delicious.		And and I'm also part of aChipapeantribe...  I thought I looked very.. native.. North American in this. Uh, I like to bring out my culture, my taste... oh, uh, when you open your legs, ladies - watch the Seaguls...  Sometimes they come a-flock and - they're your friends, too!  I.. could... make a hat out of most of them.		Let's open the microwave and see what I've made. Enjoy some popcorn - absolutely yumms. Yes, I do eat solid foods. But I have four microwaves stacked on top of each other for when company comes over. My door is always welcome to you.   For Halloween I'm going to dress up as.. a Hooker!  Won't that be fun!? Look at all the choices that I have!  Oh, the kids just love it.ABCDEF..GHIJKL.. M..N..OPQRS.. oh what's next, I can't remember what's next, UVWX.Y.Z! I wish I was Jacqueline Smith.. but I'm not... so here's my face double..   Okay - I like to put makeup over my makeup.. and then tattoo my makeup on. I got it from Pic-N-Save. I'm already tattooed, but you can never have enough, you know, can you?  awkakwaka.		My schedule is free so I'm available for donkey shows.. for grand openings.. for sales...  I'm good at telemarketing - and flourishes - watch the hand. So - you know, for Halloween this is how we're going to look. Some people use it as a daily look.  It's Halloween everday in my house - every single day!Welcome, Sorry I'm late... I gave myself a camel toe - and not the Dorothy Hamill kind."; }
 
 - (NSS*)wikiDescription;
 {
 	NSString *searchString = $(@"http://lookup.dbpedia.org/api/search.asmx/KeywordSearch?QueryString=%@&MaxHits=1",self);
 	//	@"https://www.google.com/search?client=safari&rls=en&q=%@&ie=UTF-8&oe=UTF-8", );
-
 	NSString *wikiPage = [NSString stringWithContentsOfURL:[NSURL URLWithString:searchString]
 													encoding:NSUTF8StringEncoding //NSASCIIStringEncoding
 													   error:nil];
-	//	NSMS* outp = [NSMS new];
 	return [wikiPage parseXMLTag:@"Description"];
 }
 
 
-- (NSS*)parseXMLTag:(NSS*)tag;
-{
-	return [self substringBetweenPrefix:$(@"<%@>",tag) andSuffix:$(@"</%@>",tag)];
-}
+- (NSS*) parseXMLTag:(NSS*)tag;	{	return [self substringBetweenPrefix:$(@"<%@>", tag) andSuffix:$(@"</%@>",tag)]; }
+
 //
 //	NSScanner *theScanner;
 //	NSString *text = nil;
@@ -132,46 +164,32 @@
 //		html = [html stringByReplacingOccurrencesOfString:
 //				[ NSString stringWithFormat:@"%@>", text]
 //											   withString:@" "];
-//
 //	} // while //
 //
 //	// trim off whitespace
 //	return trim ? [html stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] : html;
-//
 //}
 
-
-- (NSS*)withPath:(NSS*)path {	return [self stringByAppendingPathComponent:path]; }
-
-- (NSS*)withExt:(NSS*)ext; {		return [self stringByAppendingPathExtension:ext]; }
+- (NSS*)withPath:(NSS*)path { return [self stringByAppendingPathComponent:path]; }
+- (NSS*)withExt: (NSS*)ext; { return [self stringByAppendingPathExtension:ext];  }
 
 
 - (NSString*)stripHtml {
     // take this string obj and wrap it in a root element to ensure only a single root element exists
-    NSString* string = [NSString stringWithFormat:@"<root>%@</root>", self];
-
+    NSString* string = (@"<root>%@</root>", self);
     // add the string to the xml parser
     NSStringEncoding encoding = string.fastestEncoding;
     NSData* data = [string dataUsingEncoding:encoding];
     NSXMLParser* parser = [[NSXMLParser alloc] initWithData:data];
-
     // parse the content keeping track of any chars found outside tags (this will be the stripped content)
-    NSString_stripHtml_XMLParsee* parsee = [[NSString_stripHtml_XMLParsee alloc] init];
-    parser.delegate = parsee;
-    [parser parse];
-
-    // log any errors encountered while parsing
-    //NSError * error = nil;
-    //if((error = [parser parserError])) {
-    //    NSLog(@"This is a warning only. There was an error parsing the string to strip HTML. This error may be because the string did not contain valid XML, however the result will likely have been decoded correctly anyway.: %@", error);
-    //}
-
+    NSString_stripHtml_XMLParsee* parsee = NSString_stripHtml_XMLParsee.new;
+    parser.delegate = parsee;		[parser parse];
+	NSError * error = nil;    // log any errors encountered while parsing
+    if((error = [parser parserError])) { NSLog(@"This is a warning only. There was an error parsing the string to strip HTML. This error may be because the string did not contain valid XML, however the result will likely have been decoded correctly anyway.: %@", error);    }
     // any chars found while parsing are the stripped content
     NSString* strippedString = [parsee getCharsFound];
-
     // clean up
-    [parser release];
-    [parsee release];
+    [parser release];    [parsee release];
 
     // get the raw text out of the parsee after parsing, and return it
     return strippedString;
@@ -482,7 +500,7 @@
 	if (index < 0 && -index < self.length)	lookupRange.location = self.length + index;
 	else {
 		if (index > self.length) {
-			NSString *reason = [NSString stringWithFormat: @"LookupIndex %ld is not within range: Expected 0-%ld", index, 	self.length];
+			NSString *reason = $( @"LookupIndex %ld is not within range: Expected 0-%ld", index, 	self.length);
 			@throw [NSException exceptionWithName:@"ArrayIndexOutOfBoundsExceptions" reason:reason	 userInfo:nil];
 		}
 		lookupRange.location = index;
@@ -592,13 +610,13 @@
 - (NSString *)ucfirst
 {
 	NSString *head = [[self substringToIndex:1] uppercaseString];	NSString *tail = [self substringFromIndex:1];
-	return [NSString stringWithFormat:@"%@%@", head, tail];
+	return $(@"%@%@", head, tail);
 }
 
 - (NSString *)lcfirst {
 	NSString *head = [[self substringToIndex:1] lowercaseString];
 	NSString *tail = [self substringFromIndex:1];
-	return [NSString stringWithFormat:@"%@%@", head, tail];
+	return $(@"%@%@", head, tail);
 }
 
 + (id)stringWithData:(NSData *)data encoding:(NSStringEncoding)encoding {	return [[self alloc] initWithData:data encoding:encoding]; }
@@ -610,8 +628,8 @@
 	//^-----^   <-Returns this substring. (Trailing zeroes are deleted.)
 	//42.000000
 	//^^		<-Returns this substring (everything before the decimal point) for a whole number.
-	NSString *format = numDigits ? [NSString stringWithFormat:@"%%.%luf", numDigits] : @"%f";
-	NSString *str = [NSString stringWithFormat:format, (double)f];
+	NSString *format = numDigits ? $(@"%%.%luf", numDigits) : @"%f";
+	NSString *str = $(format, (double)f);
 	NSUInteger i = [str length];
 	while (i-- > 0) {
 		if ([str characterAtIndex:i] != '0') {
@@ -754,7 +772,7 @@
             NSRange range = [self rangeOfString:[codes objectAtIndex:i]];
             if (range.location != NSNotFound) {
                 [escaped replaceOccurrencesOfString:[codes objectAtIndex:i]
-                                         withString:[NSString stringWithFormat:@"%lu", 160 + i]
+                                         withString:$(@"%lu", 160 + i)
                                             options:NSLiteralSearch
                                               range:NSMakeRange(0, [escaped length])];
             }
@@ -766,7 +784,7 @@
         NSRange range = [self rangeOfString:@"&amp;"];
         if (range.location != NSNotFound) {
             [escaped replaceOccurrencesOfString:@"&amp;"
-                                     withString:[NSString stringWithFormat:@"%d", 38]
+                                     withString:$(@"%d", 38)
                                         options:NSLiteralSearch
                                           range:NSMakeRange(0, [escaped length])];
         }
@@ -775,7 +793,7 @@
         range = [self rangeOfString:@"&lt;"];
         if (range.location != NSNotFound) {
             [escaped replaceOccurrencesOfString:@"&lt;"
-                                     withString:[NSString stringWithFormat:@"%d", 60]
+                                     withString:$(@"%d", 60)
                                         options:NSLiteralSearch
                                           range:NSMakeRange(0, [escaped length])];
         }
@@ -784,7 +802,7 @@
         range = [self rangeOfString:@"&gt;"];
         if (range.location != NSNotFound) {
             [escaped replaceOccurrencesOfString:@"&gt;"
-                                     withString:[NSString stringWithFormat:@"%d", 62]
+                                     withString:$(@"%d", 62)
                                         options:NSLiteralSearch
                                           range:NSMakeRange(0, [escaped length])];
         }
@@ -793,7 +811,7 @@
         range = [self rangeOfString:@"&apos;"];
         if (range.location != NSNotFound) {
             [escaped replaceOccurrencesOfString:@"&apos;"
-                                     withString:[NSString stringWithFormat:@"%C", 39]
+                                     withString:$(@"%i", 39)
                                         options:NSLiteralSearch
                                           range:NSMakeRange(0, [escaped length])];
         }
@@ -832,9 +850,9 @@
                     unsigned tempInt = 0;
                     NSScanner *scanner = [NSScanner scannerWithString:[value substringFromIndex:1]];
                     [scanner scanHexInt:&tempInt];
-                    [escaped insertString:[NSString stringWithFormat:@"%C", tempInt] atIndex:entityRange.location];
+                    [escaped insertString:$(@"%i", tempInt) atIndex:entityRange.location];
                 } else {
-                    [escaped insertString:[NSString stringWithFormat:@"%C", [value intValue]] atIndex:entityRange.location];
+                    [escaped insertString:$(@"%i", [value intValue]) atIndex:entityRange.location];
                 } i = start.location;
             } else { i++; }
             searchRange = NSMakeRange(i, [escaped length] - i);
@@ -1546,6 +1564,194 @@ static void _ScanSentence(NSScanner* scanner) {
 	if ((range.location != NSNotFound) && (range.location < self.length - 1)) {
 		[self deleteCharactersInRange:NSMakeRange(range.location, self.length - range.location)];
 	}
+}
+
+@end
+
+@implementation NSString (Creations)
+
+- (id)initWithInteger:(NSInteger)value {
+    #ifdef __LP64__
+        #define __NSINTEGER_FORMAT @"%ld"
+    #else
+        #define __NSINTEGER_FORMAT @"%d"
+    #endif
+    return [self initWithFormat:__NSINTEGER_FORMAT, value];
+    #undef __NSINTEGER_FORMAT
+}
+
++ (id)stringWithInteger:(NSInteger)value {
+    return [[[self alloc] initWithInteger:value] autorelease];
+}
+
++ (NSString *)stringWithFormat:(NSString *)format arguments:(va_list)argList {
+    return [[[self alloc] initWithFormat:format arguments:argList] autorelease];
+}
+
++ (NSString *)stringWithData:(NSData *)data encoding:(NSStringEncoding)encoding {
+    return [[[self alloc] initWithData:data encoding:encoding] autorelease];
+}
+
+- (id)initWithConcatnatingStrings:(NSString *)first, ... {
+    NSMutableArray *array = [NSMutableArray array];
+    va_list args;
+    va_start(args, first);
+    for (NSString *component = first; component != nil; component = va_arg(args, NSString *)) {
+        [array addObject:component];
+    }
+    va_end(args);
+    // OMG... what's the best?
+    return [self initWithString:[array componentsJoinedByString:@""]];
+}
+
++ (id)stringWithConcatnatingStrings:(NSString *)first, ... {
+    NSMutableArray *array = [NSMutableArray array];
+    va_list args;
+    va_start(args, first);
+    for (NSString *component = first; component != nil; component = va_arg(args, NSString *)) {
+        [array addObject:component];
+    }
+    va_end(args);
+    return [array componentsJoinedByString:@""];
+}
+
+@end
+
+
+@implementation NSString (Shortcuts)
+
+- (BOOL)hasSubstring:(NSString *)aString {
+    return [self rangeOfString:aString].location != NSNotFound;
+}
+
+// slow! proof of concept
+- (NSString *)format:(id)first, ... {
+    NSUInteger len = self.length;
+    NSUInteger index = 0;
+    BOOL passed = NO;
+    do {
+        unichar chr = [self characterAtIndex:index];
+        if (chr == '%') {
+            if (passed) {
+                if ([self characterAtIndex:index - 1] == '%') {
+                    passed = NO;
+                } else {
+                    break;
+                }
+            } else {
+                passed = YES;
+            }
+        }
+        index += 1;
+    } while (index < len);
+
+    if (index == len) {
+        return [NSString stringWithFormat:self, first];
+    } else {
+        va_list args;
+        va_start(args, first);
+        NSString *result = [[NSString stringWithFormat:[self substringToIndex:index], first] stringByAppendingString:[NSString stringWithFormat:[self substringFromIndex:index] arguments:args]];
+        va_end(args);
+        return result;
+    }
+}
+
+- (NSString *)format0:(id)dummy, ... {
+    va_list args;
+    va_start(args, dummy);
+    NSString *result = [NSString stringWithFormat:self arguments:args];
+    va_end(args);
+    return result;
+}
+
+- (NSRange)range {
+    return NSRangeFromString(self);
+}
+
+- (NSString *)substringFromIndex:(NSUInteger)from length:(NSUInteger)length {
+    return [self substringWithRange:NSMakeRange(from, length)];
+}
+
+- (NSString *)substringFromIndex:(NSUInteger)from toIndex:(NSUInteger)to {
+    return [self substringWithRange:NSMakeRange(from, to - from)];
+}
+
+@end
+
+
+@implementation NSString (NSUTF8StringEncoding)
+
++ (NSString *)stringWithUTF8Data:(NSData *)data {
+    return [[[self alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
+}
+
+- (NSString *) stringByAddingPercentEscapesUsingUTF8Encoding {
+    return [self stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+}
+
+- (NSString *) stringByReplacingPercentEscapesUsingUTF8Encoding {
+    return [self stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+}
+
+- (NSData *) dataUsingUTF8Encoding {
+    return [self dataUsingEncoding:NSUTF8StringEncoding];
+}
+
+@end
+
+
+@implementation NSString (Evaluation)
+
+- (NSInteger)integerValueBase:(NSInteger)radix {
+    NSInteger result = 0;
+    for ( NSUInteger i=0; i < [self length]; i++ ) {
+        result *= radix;
+        unichar digit = [self characterAtIndex:i];
+        if ( '0' <= digit && digit <= '9' )
+            digit -= '0';
+        else if ( 'a' <= digit && digit < 'a'-10+radix )
+            digit -= 'a'-10;
+        else if ( 'A' <= digit && digit < 'A'-10+radix )
+            digit -= 'A'-10;
+        else {
+            break;
+        }
+        result += digit;
+    }
+    return result;
+}
+
+- (NSInteger)hexadecimalValue {
+    return [self integerValueBase:16];
+}
+
+@end
+
+
+@implementation NSMutableString (Shortcuts)
+
+- (id)initWithConcatnatingStrings:(NSString *)first, ... {
+    self = [self initWithString:first];
+    if (self != nil) {
+        va_list args;
+        va_start(args, first);
+        for (NSString *component = va_arg(args, NSString *); component != nil; component = va_arg(args, NSString *)) {
+            [self appendString:component];
+        }
+        va_end(args);
+    }
+    return self;
+}
+
++ (id)stringWithConcatnatingStrings:(NSString *)first, ... {
+    NSMutableString *aString = [self stringWithString:first];
+    va_list args;
+    va_start(args, first);
+    for (NSString *component = va_arg(args, NSString *); component != nil; component = va_arg(args, NSString *)) {
+        [aString appendString:component];
+    }
+    va_end(args);
+    return aString;
 }
 
 @end

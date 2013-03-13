@@ -8,11 +8,11 @@
 #import <Cocoa/Cocoa.h>
 typedef void (^BasicBlock)(void);
 
-void RunInBackground(BasicBlock block);
-void RunOnMainThread(BOOL wait, BasicBlock block);
+void RunInBackground			  		     (BasicBlock block);
+void RunOnMainThread			  (BOOL wait, BasicBlock block);
 void RunOnThread(NSThread *thread, BOOL wait, BasicBlock block);
-void RunAfterDelay(NSTimeInterval delay, BasicBlock block);
-void WithAutoreleasePool(BasicBlock block);
+void RunAfterDelay	   (NSTimeInterval delay, BasicBlock block);
+void WithAutoreleasePool					 (BasicBlock block);
 /*
 	RunInBackground(^{
 		WithAutoreleasePool(^{

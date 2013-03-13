@@ -1,3 +1,11 @@
+
+
+
+
+
+
+
+
 /**	const
 
  	extern NSString * const MyConstant;
@@ -47,14 +55,29 @@ extern
 #define nAZColorWellChanged @"AtoZColorWellChangedColors"
 
 
+#import "NSTextView+AtoZ.h"
+
 //NS_INLINE void _AZSimpleLog(const char *file, int lineNumber, const char *funcName, NSString *format,...);
 NS_INLINE void _AZSimpleLog( const char *file, int lineNumber, const char *funcName, NSString *format, ... )
 {
 	va_list   argList;
 	va_start (argList, format);
-	NSString *path  = [[NSString stringWithUTF8String:file] lastPathComponent];
-	NSString *message = [[NSString alloc] initWithFormat:format arguments:argList];
-	fprintf ( stderr, "[%s]:%i %s \n", [path UTF8String], lineNumber, [message UTF8String] );
+	NSString *path  	= [[NSString stringWithUTF8String:file]lastPathComponent];
+	NSString *message 	= [NSString.alloc initWithFormat:format arguments:argList];
+	NSString *toLog 	= [NSString stringWithFormat:@"[%s]:%i %s \n", [path UTF8String], lineNumber, [message UTF8String]];
+
+	/**
+	if ( [[NSApplication sharedApplication] delegate] ) {
+		id appD = [[NSApplication sharedApplication] delegate];
+//		fprintf ( stderr, "%s", [[appD description]UTF8String] );
+		if ( [(NSObject*)appD respondsToSelector:NSSelectorFromString(@"stdOutView")]) {
+			NSTextView *tv 	= ((NSTextView*)[appD valueForKey:@"stdOutView"]);
+			if (tv) [tv autoScrollText:toLog];
+		}
+	}
+	*/
+	// $(@"%s: %@", __PRETTY_FUNCTION__, [NSString stringWithFormat: args])	]
+	fprintf ( stderr, "%s", [toLog UTF8String]);//[%s]:%i %s \n", [path UTF8String], lineNumber, [message UTF8String] );
 	va_end  (argList);
 	//	const char *threadName = [[[NSThread currentThread] name] UTF8String];
 }
@@ -104,18 +127,26 @@ AZToStringFromTypeAndValue(@encode(typeof(_X_)), &_Y_);})
 
 #define AZFWORKBUNDLE [NSBundle bundleForClass:[AtoZ class]]
 #define AZFWRESOURCES [AZFWORKBUNDLE resourcePath]
-#define  AZMAINBUNDLE [NSBundle mainBundle]
+
+#define  AZAPPBUNDLE [NSBundle mainBundle]
+#define  AZAPPRESOURCES [[NSBundle mainBundle]resourcePath]
+
 #define   CAMEDIAEASEOUT [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]
 #define   CAMEDIAEASEIN [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn]
 #define   CAMEDIAEASY [CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionEaseInEaseOut]
 #define   AZWORKSPACE [NSWorkspace sharedWorkspace]
 #define	AZUSERDEFS [NSUserDefaults standardUserDefaults]
+#define	AZUSERDEFSCTR [NSUserDefaultsController sharedUserDefaultsController]
 #define   AZNOTCENTER [NSNotificationCenter defaultCenter]
 #define AZFILEMANAGER [NSFileManager defaultManager]
 #define AZGRAPHICSCTX [NSGraphicsContext currentContext]
 #define AZCURRENTCTX AZGRAPHICSCTX
 #define  AZQTZCONTEXT [[NSGraphicsContext currentContext] graphicsPort]
 #define   AZSHAREDAPP [NSApplication sharedApplication]
+#define   AZWEBPREFS [WebPreferences standardPreferences]
+
+
+#define AZPROCINFO [NSProcessInfo processInfo]
 
 #define DCHECK(__CONDITION__)
 //#define check(x)		if (!(x)) return 0;
@@ -156,6 +187,17 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 //#ifdef __OBJC__
 //#endif
 
+//typedef ((NSTask*)(^launchMonitorReturnTask) NSTask* task);
+//typedef (^TaskBlock);
+
+//#define AZLAUNCHMONITORRETURNTASK(A) ((NSTask*)(^launchMonitorReturnTask)(A))
+
+
+// ^{ [A launch]; monitorTask(A); return A; }()
+
+#define AZNEWPIPE NSPipe.pipe
+#define AZNEWMUTEA NSMutableArray.array
+#define AZNEWMUTED NSMutableDictionary.new
 //#define PROPSTRONG (@property (nonatomic,strong) )
 //#define PROPASSIGN (@property (nonatomic,assign) )
 
@@ -212,7 +254,20 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define IBA IBAction
 #define ID3D CATransform3DIdentity
 
+#define AZRUNFOREVER [NSRunLoop.currentRunLoop runMode:NSDefaultRunLoopMode beforeDate:NSDate.distantFuture]
+
+
+#define JSCREF JSContextRef
+#define CGWL CGWindowLevel
+
 #define NSA NSArray
+#define NSACLASS NSArray.class
+#define NSAorDCLASS @[NSArray.class, NSDictionary.class]
+
+#define ISADICT isKindOfClass:NSDictionary.class
+#define ISANARRAY isKindOfClass:NSArray.class
+#define ISADICTorARRAY isKindOfAnyClass:NSAorDCLASS
+
 #define NSAPP NSApplication
 #define NSAC NSArrayController
 #define NSAS NSAttributedString
@@ -221,12 +276,15 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define NSBUTT NSButton
 #define NSBP NSBezierPath
 #define NSBIR NSBitmapImageRep
+#define NSBLO NSBlockOperation
+
 
 #define NSDE NSDirectoryEnumerator
 #define NSGC NSGraphicsContext
 #define NSC NSColor
 #define NSCS NSCountedSet
 #define NSD NSDictionary
+#define NSDCLASS NSDictionary.class
 #define NSE NSEvent
 #define NSF NSFont
 #define NSG NSGradient
@@ -250,6 +308,8 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define NSNOT NSNotification
 #define NSO NSObject
 #define NSOQ NSOperationQueue
+#define NSOP NSOperation
+
 #define NSP NSPoint
 #define NSPInRect NSPointInRect
 #define NSPI NSProgressIndicator
@@ -315,7 +375,7 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define vFk valueForKey
 #define pV pointValue
 #define rV rectValue
-#define fV floatValue
+//#define fV floatValue
 
 #define loM layoutManager
 
@@ -571,6 +631,7 @@ attr1 relativeTo:relName attribute:attr2 scale:scl offset:off]
 #define $URL(A)				((NSURL *)[NSURL URLWithString:A])
 #define $SEL(A)				NSSelectorFromString(A)
 
+//#define $#(A)				((NSString *)[NSString string
 #define $(...)				((NSString *)[NSString stringWithFormat:__VA_ARGS__,nil])
 #define $array(...)  		((NSArray *)[NSArray arrayWithObjects:__VA_ARGS__,nil])
 #define $set(...)		 	((NSSet *)[NSSet setWithObjects:__VA_ARGS__,nil])

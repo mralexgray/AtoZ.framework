@@ -33,7 +33,7 @@ typedef NSRange (*htmlProcessor)(NSData *arg, const char *classMatch);
 @property (nonatomic, strong, readonly) NSURLConnection *connection;
 @property (nonatomic, strong, readonly) NSMutableData *webData;
 @property (nonatomic, strong) NSMutableURLRequest *request;	// superclass might want to fiddle with it
-@property (nonatomic, assign) NSUInteger htmlStatus;
+@property (nonatomic, assign) NSUI htmlStatus;
 #ifndef NDEBUG
 @property (nonatomic, assign) BOOL forceFailure;	// testing
 #endif

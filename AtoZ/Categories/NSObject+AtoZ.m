@@ -258,7 +258,7 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary(void) {
 	va_end(list);
 }
 
-/*
+
 - (id)objectForKeyedSubscript: (id)key
 {
 
@@ -271,7 +271,7 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary(void) {
 	//	}
 	//	if (areSame(key, @"path")) NSLog(@"warning, path subscrip[t being set");
 	//	NSLog(@"CMD: %@ requesting subscript:%@", [NSS stringWithUTF8String:__func__], key);
-*/
+
 /**	id result = nil;
 	//	if ([key isKindOfClass:[NSS class]])
 	result = [self respondsToString:key] ? [self valueForKey:key] : nil;
@@ -285,10 +285,15 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary(void) {
 		result = [self respondsToSelector:@selector(valueForKey:)] ? [self valueForKey:key] : nil;
 	if (!result) result = [self valueForKey:key];
 	if (!result) NSLog(@"Cannot coerce value from: %@ for keyedSubstring: %@", self.propertiesPlease, key);
-	return result;
-*/
+	return result; */
+}
 
-//}
+-(BOOL) isKindOfAnyClass:(NSA*)classes;
+{
+	return [classes filterOne:^BOOL(Class object) {
+		return  [self isKindOfClass:object];
+	}];
+}
 
 - (void)setObject: (id)obj forKeyedSubscript: (id <NSCopying>)key
 {

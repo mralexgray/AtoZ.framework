@@ -14,6 +14,9 @@
 
 */
 
+
+
+
 @interface SourceListItem : NSObject
 
 @property (WK) 	  id 	objectRep;
@@ -32,6 +35,13 @@
 
 @end
 
+
+@class JsonResource;
+@interface JSONListItem : SourceListItem
+
++ (id)itemWithTitle:(NSString*)aTitle identifier:(NSString*)anIdentifier fromJson:(JsonResource*)anIcon;
+
+@end
 
 @protocol AZSourceListDelegate, AZSourceListDataSource;
 @interface AZSourceList: NSOutlineView <NSOutlineViewDelegate, NSOutlineViewDataSource>

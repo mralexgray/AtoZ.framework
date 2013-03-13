@@ -30,7 +30,7 @@ static NSColor *highlightColor;
 }
 
 -(void)setObjectValue:(id)obj {
-    if (![obj isKindOfClass:[NSDictionary class]])
+    if (![obj ISADICT])
         return;
 //    [self setCategory:[obj valueForKey:@"category"]];
     [self setFavorite:[obj valueForKey:@"favorite"]];

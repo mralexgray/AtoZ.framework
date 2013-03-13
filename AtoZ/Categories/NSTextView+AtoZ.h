@@ -12,6 +12,8 @@
 
 @interface NSTextView (AtoZ)
 
+-(void) autoScrollText:(NSString*) text;
+
 + (AZTextViewResponder*)  textViewForFrame:(NSRect)frame withString:(NSAttributedString*)s;
 
 - (IBAction) decrementFontSize: (id) sender;

@@ -13,10 +13,10 @@
 
 -(void) awakeFromNib
 {
-//	[self.segments setFont:[AtoZ controlFont]];		//	[_segments fitTextNice];
-	[self.segments 	 setAction:@selector(poopOnSegment:) withTarget:self];
+	[self.segments setFont:[AtoZ controlFont]];		//	[_segments fitTextNice];
+	[self.segments 	 setAction:@selector(changeViewFromDropdown:) withTarget:self];
 	_targetView.wantsLayer 	    = YES;
-	self.targetView.layer.style = @{ @"sublayers": CATransition.randomTransition };
+//	self.targetView.layer.style = @{ @"sublayers": CATransition.randomTransition };
 
 //	[self.targetView swapSubs:self.debugLayers];
 //	[self.view.layer setStyle:@{@"sublayers":[CATransition randomTransition]}];
@@ -27,7 +27,7 @@
 //	}];
 }
 
-- (void) poopOnSegment:(id)sender
+- (void) changeViewFromDropdown:(id)sender
 {
 	NSS* label	= [sender segmentLabel];  NSLog(@"looking for label cinderlla view: %@", label);
 	id newView	=	areSame(label, @"prism" ) 	  ? [AZPrismView.alloc initWithFrame:_targetView.frame]

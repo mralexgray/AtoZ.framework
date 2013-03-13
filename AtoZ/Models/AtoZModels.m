@@ -9,6 +9,28 @@
 #import "AtoZModels.h"
 #import "AtoZFunctions.h"
 
+
+NSString *TagsDefaultsKey = @"tags";
+
+@implementation Tweet
+@synthesize screenNameString, createdAtDate, createdAtString, tweetTextString;
+
+- (id)initWithJSON:(NSDictionary *)JSONObject;
+{
+	if (self != super.init ) return nil;
+	self.screenNameString 			= 					  JSONObject [@"from_user"];
+	NSDateFormatter *dateFormatter 	= [NSDateFormatter.alloc 	 initWithProperties:
+									@{ 	@"dateFormat" : @"EEE, d LLL yyyy HH:mm:ss Z",
+										@"timeStyle"  : @(NSDateFormatterShortStyle),
+										@"dateStyle"  : 	@(NSDateFormatterShortStyle),
+										@"doesRelativeDateFormatting": 	  @(YES) }];
+	self.createdAtDate 	 = [dateFormatter dateFromString:JSONObject[@"created_at"]];
+	self.createdAtString = [dateFormatter stringFromDate:    	self.createdAtDate];
+	self.tweetTextString = 										JSONObject[@"text"];
+    return self;
+}
+
+@end
 	//
 	//@dynamic  appCategories;// = _appCategories,
 	//@dynamic  sortOrder;// = _sortOrder,

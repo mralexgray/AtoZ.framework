@@ -13,12 +13,37 @@
 }
 @end
 @implementation NSTextView (AtoZ)
+
+
+
+
+-(void) autoScrollText:(NSString*) text;
+{
+	static	NSColor *c = nil;  c = c ?: RANDOMCOLOR;
+	static	NSDictionary *dict = nil;
+
+	dict = dict ?: @{ @"NSFontAttributeName" : AtoZ.controlFont,
+				   @"NSForegroundColorAttributeName" : c };
+
+	NSAttributedString *string = [NSAttributedString.alloc initWithString: text attributes: dict];
+	// Get the length of the textview contents
+	NSRange theEnd				= NSMakeRange([self.string length], 0);
+	theEnd.location	   			+= text.length;
+	// Smart Scrolling
+	if (NSMaxY(self.visibleRect) == NSMaxY(self.bounds)) {
+		// Append string to textview and scroll to bottom
+		[self.textStorage appendAttributedString:string];
+		[self scrollRangeToVisible:theEnd];
+	} else	// Append string to textview
+		[self.textStorage appendAttributedString:string];
+}
+
 + (AZTextViewResponder*)  textViewForFrame:(NSRect)frame withString:(NSAttributedString*)s {
 
 	NSMutableParagraphStyle *style = [[NSParagraphStyle defaultParagraphStyle]mutableCopy];//
-		// alloc] init];
-		//	[theStyle setLineSpacing:[s enumerateAttributesInRange:[s length] options:nil usingBlock:^(NSDictionary *attrs, NSRange range, BOOL *stop) {
-		//	}]  floor((int)(.8 * s.font.pointSize)];
+	// alloc] init];
+	//	[theStyle setLineSpacing:[s enumerateAttributesInRange:[s length] options:nil usingBlock:^(NSDictionary *attrs, NSRange range, BOOL *stop) {
+	//	}]  floor((int)(.8 * s.font.pointSize)];
 	AZTextViewResponder *anAtv = [[AZTextViewResponder alloc]initWithFrame:frame];
 	anAtv.selectable					= NO;
 	anAtv.defaultParagraphStyle	   		= style;
@@ -26,7 +51,7 @@
 	anAtv.textStorage.attributedString 	= s;
 	style.lineSpacing = (anAtv.textStorage.font.pointSize * .8);
 	anAtv.defaultParagraphStyle	   		= style;
-//	[anAtv textStorage].foregroundColor = [NSColor blackColor]];
+	//	[anAtv textStorage].foregroundColor = [NSColor blackColor]];
 	return  anAtv;
 }
 
@@ -39,9 +64,9 @@
 								 usingBlock: ^(NSDictionary *attributesDictionary,
 											   NSRange range,
 											   BOOL *stop)
-	{
+	 {
 #pragma unused(stop)
-	NSFont *font = attributesDictionary[NSFontAttributeName];
+		 NSFont *font = attributesDictionary[NSFontAttributeName];
 		 if (font) {
 			 [textStorage removeAttribute:NSFontAttributeName range:range];
 			 font = [[NSFontManager sharedFontManager] convertFont:font toSize:[font pointSize] + 1];

@@ -8,9 +8,8 @@
 //  GC-enabled code revised by Stefan Vogt http://byteproject.net
 //
 
-#import "AZSourceList.h"
-
 #import "AtoZ.h"
+#import "AZSourceList.h"
 
 //Layout constants
 #define MIN_BADGE_WIDTH							22.0		//The minimum badge width for each item (default 22.0)

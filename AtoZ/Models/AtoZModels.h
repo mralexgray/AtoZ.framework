@@ -9,8 +9,17 @@
 //#import "AtoZFunctions.h"
 //#import "AtoZUmbrella.h"
 #import "AZObject.h"
-#import "AtoZModels.h"
 #import <Cocoa/Cocoa.h>
+
+
+
+extern NSString *TagsDefaultsKey;
+@interface Tweet : NSObject
+@property (nonatomic, strong) NSDate    *createdAtDate;
+@property (nonatomic, strong) NSString  *screenNameString, *createdAtString, *tweetTextString;
+- (id)initWithJSON:(NSDictionary *)JSONObject;
+@end
+
 
 @interface SizeObj : NSObject
 @property (readwrite) CGFloat width, height;

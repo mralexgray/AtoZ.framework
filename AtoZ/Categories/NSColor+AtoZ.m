@@ -808,7 +808,8 @@ static NSColor *ColorWithCSSString(NSString *str) {
 		return [[(NSColorList *)object name] isEqualToString:name] ? YES : NO;
 	}];
 	return [[theList allKeys]arrayUsingBlock:^id(id obj) {
-		return [theList colorWithKey:obj];
+		return [[theList colorWithKey:obj] colorUsingColorSpaceName:NSDeviceRGBColorSpace];
+;
 	}];
 }
 

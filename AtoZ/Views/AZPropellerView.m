@@ -7,6 +7,7 @@
 #import "AZPropellerView.h"
 
 @interface AZPropellerView()
+@property (ASS) BOOL isSpinning;
 @property (NATOM, ASS) NSIMG* badge;
 - (CAAnimation*)rotateAnimation;
 @end
@@ -18,15 +19,14 @@
 	NSIMG* b = [NSImage imageNamed:@"AZPropellerBadge"];
 	return _badge = _color ? [b tintedWithColor:_color] : b;
 }
+- (NSColor*) color { return  _color =  _color ?: RANDOMCOLOR; }
 
-- (id)initWithFrame:(NSRect)frame
-{
-	return [self initWithFrame:frame andColor:RANDOMCOLOR];
-}
+- (void) awakeFromNib { [self initWithFrame:self.frame andColor:self.color]; }
+
 - (id)initWithFrame:(NSRect)frame andColor:(NSColor*)color
 {
     if (self != [super initWithFrame:frame]) return nil;
-	self.color = color;
+
 	// create the NSImage view
 	self.badgeView = [[NSImageView alloc] initWithFrame:frame];//NSMakeRect(0, 0,
 																	//   badge.size.width,
@@ -71,15 +71,12 @@
 }
 
 
-// -----------------------
-#pragma mark - Spinning
-// -----------------------
+
 - (void)spin
 {
 	// ensure the acnhor point is the center
 	// so it animates with respect to the center
 	self.progressImage.layer.anchorPoint = CGPointMake(0.5, 0.5);
-	
 	// add the animation to the layer
 	[self.progressImage.layer addAnimation:[self rotateAnimation] forKey:@"rotate"];
 }
@@ -91,6 +88,9 @@
 	[self.progressImage.layer removeAllAnimations];
 }
 
+//+ (NSSet*) keyPathsForValuesAffectingIsSpinning { return $SET( @")
+
+- (void)toggle { _isSpinning ? [self stop] : [self spin]; _isSpinning = !_isSpinning;	}
 
 // -----------------------
 #pragma mark - Rotate Animation

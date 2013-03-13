@@ -14,6 +14,12 @@
 //	return NO;
 //}
 
++(instancetype)withFrame:(NSRect)frame color:(NSC*)c;
+{
+	AZSimpleView *u = [AZSimpleView.alloc initWithFrame:frame];
+	u.backgroundColor = c;
+	return u;
+}
 - (id)initWithFrame:(NSRect)frame
 {
  	if (self = [super initWithFrame:frame]) {

@@ -11,7 +11,7 @@
 #import "AZGrid.h"
 #import "AZMatrix.h"
 #import "AZSegmentedRect.h"
-#import "AtoZ.h"
+
 
 NSR  nanRectCheck  ( NSR   rect );
 NSP  nanPointCheck ( NSP  point );

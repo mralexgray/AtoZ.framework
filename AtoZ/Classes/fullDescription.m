@@ -160,7 +160,7 @@ static NSString *collectionDescription(id collection)
 		}
 		isArray = YES;
 	}
-	else if ([collection isKindOfClass:[NSDictionary class]])
+	else if ([collection ISADICT])
 	{
 		markerStart = @"{";
 		markerEnd   = @"}";

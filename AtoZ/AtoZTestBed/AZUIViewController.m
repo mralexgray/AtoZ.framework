@@ -54,7 +54,7 @@
 }
 - (IBAction)setViewColor:(id)sender
 {
-//	[((BGHUDView*)self.windowView).theme setBaseColor:[sender color]];
+	[(BGTheme*)(BGHUDView*)self.windowView.theme setBaseColor:[sender color]];
 //	self.windowView.needsDisplay = YES;
 //	[((BGHUDView*)[[[self view]window]contentView]).theme setBaseColor:self.colorWell.color];
 //	[[[[self view ]window] contentView]setNeedsDisplay:YES];
@@ -64,7 +64,7 @@
 
 - (void) awakeFromNib //:(NSNotification*) aNotification
 {
-//	[self.windowView.theme bind:@"baseColor" toObject:_colorWell withKeyPath:@"color" options:nil];
+	[((BGHUDView*)self.windowView) bind:@"baseColor" toObject:_colorWell withKeyPath:@"color" options:nil];
 
 	// Insert code here to initialize your application
 	NSLog(@"Done with initialization");

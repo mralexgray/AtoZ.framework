@@ -9,34 +9,59 @@
 #import "AtoZUmbrella.h"
 #import "AtoZModels.h"
 #import <objc/runtime.h>
-
+#import "OperationsRunner.h"
 
 /* A shared operation que that is used to generate thumbnails in the background. */
 NSOperationQueue *AZSharedOperationQueue()
 {
-    static NSOperationQueue *_AZGeneralOperationQueue = nil;
-    return _AZGeneralOperationQueue ?: ^{
-        _AZGeneralOperationQueue = NSOperationQueue.new;
-		_AZGeneralOperationQueue.maxConcurrentOperationCount = NSOperationQueueDefaultMaxConcurrentOperationCount;
-		return _AZGeneralOperationQueue;
-	}();
+	return AZDummy.sharedInstance.sharedQ;
+
+//    static NSOperationQueue *_AZGeneralOperationQueue = nil;
+//    return _AZGeneralOperationQueue ?: ^{
+//        _AZGeneralOperationQueue = NSOperationQueue.new;
+//		_AZGeneralOperationQueue.maxConcurrentOperationCount = NSOperationQueueDefaultMaxConcurrentOperationCount;
+//		return _AZGeneralOperationQueue;
+//	}();
 }
 
 
 /* A shared operation que that is used to generate thumbnails in the background. */
 NSOperationQueue *AZSharedSingleOperationQueue()
 {
-    static NSOperationQueue *_AZSingleOperationQueue = nil;
-    return _AZSingleOperationQueue  ?: ^{
-        _AZSingleOperationQueue = NSOperationQueue.new;
-		_AZSingleOperationQueue.maxConcurrentOperationCount = 1;
-		return _AZSingleOperationQueue;
-	}();
+	return AZDummy.sharedInstance.sharedSQ;
+//    static NSOperationQueue *_AZSingleOperationQueue = nil;
+//    return _AZSingleOperationQueue  ?: ^{
+//        _AZSingleOperationQueue = NSOperationQueue.new;
+//		_AZSingleOperationQueue.maxConcurrentOperationCount = 1;
+//		return _AZSingleOperationQueue;
+//	}();
 }
 
-
+//
+//@interface AZDummy () <OperationsRunnerProtocol>
+//@end
 
 @implementation AZDummy
+
+- (id)init {	if (self != super.init ) return nil; 	_sharedQ= NSOQ.new; _sharedQ.maxConcurrentOperationCount = NSOperationQueueDefaultMaxConcurrentOperationCount;  _sharedSQ = NSOQ.new; _sharedSQ.maxConcurrentOperationCount = 1; return self; }
+
++ (AZDummy*)sharedInstance	{ static AZDummy *sharedInstance = nil;    static dispatch_once_t isDispatched; dispatch_once(&isDispatched, ^	{  sharedInstance = AZDummy.new;	}); return sharedInstance; }
+
+//// 4) Add this method to the implementation file
+//- (id)forwardingTargetForSelector:(SEL)sel
+//{
+//	if(
+//		sel == @selector(runOperation:withMsg:)	|| sel == @selector(operationsSet)			||
+//		sel == @selector(operationsCount)		|| sel == @selector(cancelOperations)		||
+//		sel == @selector(enumerateOperations:)
+//	) {
+//		if(!operationsRunner) {	// Object only created if needed
+//			operationsRunner = [[OperationsRunner alloc] initWithDelegate:self];
+//		}	return operationsRunner;
+//	} else {	return [super forwardingTargetForSelector:sel];
+//	}
+//}
+
 @end
 
 static char CONVERTTOXML_KEY;
@@ -104,6 +129,9 @@ static char CONVERTTOXML_KEY;
 @synthesize fonts, fontsRegistered, basicFunctions;
 
 
+
+
+
 - (NSA*) basicFunctions
 {
 	return @[@"Maps", @"Browser", @"Contacts", @"Mail", @"Gists", @"Settings"];
@@ -162,6 +190,22 @@ static NSA* cachedI = nil;
 		[[SoundManager sharedManager] playSound:rando];
 //		[self registerHotKeys];
 	}];
+}
+- (NSColor*) logColor {  return _logColor = _logColor ?: RANDOMCOLOR; }
+
+- (void) appendToStdOutView:(NSString*)text
+{
+	NSAttributedString *string = [text attributedWithFont:AtoZ.controlFont andColor:self.logColor];
+	// Get the length of the textview contents
+	NSRange theEnd				= NSMakeRange([_stdOutView.string length], 0);
+	theEnd.location	   			+= text.length;
+	// Smart Scrolling
+	if (NSMaxY(_stdOutView.visibleRect) == NSMaxY(_stdOutView.bounds)) {
+		// Append string to textview and scroll to bottom
+		[[_stdOutView textStorage] appendAttributedString:string];
+		[_stdOutView scrollRangeToVisible:theEnd];
+	} else	// Append string to textview
+		[[_stdOutView textStorage] appendAttributedString:string];
 }
 
 + (NSFont*) font:(NSS*)family size:(CGF)size

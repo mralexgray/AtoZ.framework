@@ -76,6 +76,11 @@ static NSString *ANIMATION_IDENTIFER = @"animation";
 static char const * const ISANIMATED_KEY = "ObjectRep";
 
 @implementation NSView (AtoZ)
+
+
+- (NSV*) autosizeable { self.arMASK = NSSIZEABLE; return self; }
+
+
 // setup 3d transform
 - (void) setZDistance: (NSUInteger) zDistance
 {

@@ -14,19 +14,14 @@
 
 #import "NSTask+OneLineTasksWithOutput.h"
 
-@interface TaskOutputReader :NSObject
-{
-	NSMutableData *standardOutput;
-	NSMutableData *standardError;
-	BOOL taskComplete;
-	BOOL outputClosed;
-	BOOL errorClosed;
-	NSTask *task;
-}
+@interface TaskOutputReader :	NSObject
+@property (NATOM, STRNG) 	NSMutableData *standardOutput, *standardError;
+@property (NATOM, ASS) 		BOOL taskComplete, outputClosed, errorClosed;
+@property (NATOM, STRNG)	NSTask *task;
 @end
 
 @implementation TaskOutputReader
-
+@synthesize  task, taskComplete, outputClosed, errorClosed, standardError, standardOutput;
 //
 // initWithTask:
 //
@@ -43,24 +38,24 @@
 	self = [super init];
 	if (self != nil)
 	{
-		task = [aTask retain];
-		standardOutput = [[NSMutableData alloc] init];
-		standardError = [[NSMutableData alloc] init];
-		
+		task = aTask;
+		standardOutput 	= NSMutableData.data;
+		standardError 	= NSMutableData.data;
+
 		NSFileHandle *standardOutputFile = [[aTask standardOutput] fileHandleForReading];
 		NSFileHandle *standardErrorFile = [[aTask standardError] fileHandleForReading];
 		
-		[[NSNotificationCenter defaultCenter]
+		[AZNOTCENTER
 			addObserver:self
 			selector:@selector(standardOutNotification:)
 			name:NSFileHandleDataAvailableNotification
 			object:standardOutputFile];
-		[[NSNotificationCenter defaultCenter]
+		[AZNOTCENTER
 			addObserver:self
 			selector:@selector(standardErrorNotification:)
 			name:NSFileHandleDataAvailableNotification
 			object:standardErrorFile];
-		[[NSNotificationCenter defaultCenter]
+		[AZNOTCENTER
 			addObserver:self
 			selector:@selector(terminatedNotification:)
 			name:NSTaskDidTerminateNotification
@@ -77,14 +72,14 @@
 //
 // Releases instance memory.
 //
-- (void)dealloc
-{
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	[standardOutput release];
-	[standardError release];
-	[task release];
-	[super dealloc];
-}
+//- (void)dealloc
+//{
+//	[[NSNotificationCenter defaultCenter] removeObserver:self];
+//	[standardOutput release];
+//	[standardError release];
+//	[task release];
+//	[super dealloc];
+//}
 
 //
 // standardOutputData

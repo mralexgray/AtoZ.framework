@@ -146,7 +146,7 @@ static NSMutableDictionary *keyNames = nil, *nillableKeyNames = nil;
 					[description appendString:[child description]];
 			}
 		}
-		else if ([object isKindOfClass:[NSDictionary class]]) {
+		else if ([object ISADICT]) {
 			
 			[description appendFormat:@"%@ =", name];
 			

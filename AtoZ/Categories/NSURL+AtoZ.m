@@ -86,7 +86,7 @@
 	for (NSString* key in arguments) {
 		[body appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
 		id value = [arguments objectForKey:key];
-		if ([value isKindOfClass:[NSDictionary class]]) {
+		if ([value ISADICT]) {
 			NSString* disposition = [NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"%@\"\r\n",
 									 key, [value objectForKey:kMultipartFileKey_FileName]];  // TODO: Properly encode filename
 			[body appendData:[disposition dataUsingEncoding:NSUTF8StringEncoding]];

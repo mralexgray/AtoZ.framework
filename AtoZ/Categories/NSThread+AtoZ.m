@@ -36,6 +36,7 @@
 
 
 @implementation NSThread (BlocksAdditions)
+
 + (void)performBlockInBackground:(void (^)())block {
 	[NSThread performSelectorInBackground:@selector(runBlock:)
 							   withObject:[[block copy] autorelease]];
@@ -46,6 +47,7 @@
 + (void)runBlock:(void (^)())block{
 	block();
 }
+
 - (void)performBlock:(void (^)())block{
 
 	if ([[NSThread currentThread] isEqual:self])
@@ -53,6 +55,8 @@
 	else
 		[self performBlock:block waitUntilDone:NO];
 }
+
+
 - (void)performBlock:(void (^)())block waitUntilDone:(BOOL)wait{
 
 	[NSThread performSelector:@selector(runBlock:)

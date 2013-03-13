@@ -30,7 +30,7 @@
 - (id) tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(NSI)rowIndex
 {
 	id obj = self[rowIndex]; if (obj == nil)		return nil;
-	if (![obj isKindOfClass:[NSDictionary class]])		return obj;
+	if (![obj ISADICT])		return obj;
 	return ((NSDictionary *)obj)[[aTableColumn identifier]];
 }
 - (NSI) numberOfRowsInTableView:(NSTableView *)aTableView { 	return [self count];  }
@@ -38,6 +38,46 @@
 @end
 
 @implementation NSArray (AtoZ)
+- ( int )createArgv: ( char *** )argv
+{
+    char			**av;
+    int				i, ac = 0, actotal;
+    
+    if ( self == nil || [ self count ] == 0 ) {
+        *argv = NULL;
+        return( 0 );
+    }
+    
+    actotal = [ self count ];
+    
+    if (( av = ( char ** )malloc( sizeof( char * ) * actotal )) == NULL ) {
+        NSLog( @"malloc: %s", strerror( errno ));
+        exit( 2 );
+    }
+    
+    for ( i = 0; i < [ self count ]; i++ ) {
+        av[ i ] = ( char * )[[ self objectAtIndex: i ] UTF8String ];
+        ac++;
+        
+        if ( ac >= actotal ) {
+            if (( av = ( char ** )realloc( av, sizeof( char * ) * ( actotal + 10 ))) == NULL ) {
+                NSLog( @"realloc: %s", strerror( errno ));
+                exit( 2 );
+            }
+            actotal += 10;
+        }
+    }
+    if ( ac >= actotal ) {
+        if (( av = ( char ** )realloc( av, sizeof( char * ) * ( actotal + 10 ))) == NULL ) {
+            NSLog( @"realloc: %s", strerror( errno ));
+            exit( 2 );
+        }
+        actotal += 10;
+    }
+	av[ i ] = NULL;
+    *argv = av;
+    return( ac );
+}
 
 
 + (NSA*) from:(NSI)from to:(NSI)to;
@@ -94,6 +134,18 @@
 	NSLog(@"grew array from %ld to %ld", self.count, upgrade.count);
 	return upgrade.copy;
 }
+
+
+- (NSA*) withMinRandomItems:(NSUI) items
+{
+	return  [self.shuffeled withMinItems:items];
+}
+
+- (NSA*) withMaxRandomItems:(NSUI) items;
+{
+	return self.count <= items ? self : [self.shuffeled subarrayToIndex:items];
+}
+
 
 - (NSA*) withMaxItems:(NSUI) items;
 {
