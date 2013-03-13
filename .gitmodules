@@ -117,3 +117,4 @@
 [submodule "Frameworks/AFNetworking"]
 	path = Frameworks/AFNetworking
 	url = https://github.com/mralexgray/AFNetworking.git
+	ignore = dirty
