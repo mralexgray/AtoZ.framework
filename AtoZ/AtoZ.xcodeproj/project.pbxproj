@@ -125,8 +125,6 @@
 		7B24E9A615A13A4100A9D87A /* NSBezierPath+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B24E9A415A13A4000A9D87A /* NSBezierPath+AtoZ.m */; };
 		7B24E9ED15A176AC00A9D87A /* NSWindow+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B24E9EB15A176AB00A9D87A /* NSWindow+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B24E9EE15A176AC00A9D87A /* NSWindow+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B24E9EC15A176AB00A9D87A /* NSWindow+AtoZ.m */; };
-		7B2D753916F14B710054C5F2 /* RoutingHTTPServer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B2D753116F14A950054C5F2 /* RoutingHTTPServer.framework */; };
-		7B2D753B16F14B8E0054C5F2 /* RoutingHTTPServer.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7B2D753116F14A950054C5F2 /* RoutingHTTPServer.framework */; };
 		7B2D754116F14FE90054C5F2 /* AZHTTPRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2D754016F14FE90054C5F2 /* AZHTTPRouter.m */; };
 		7B2D754416F153FB0054C5F2 /* AZFacebookConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2D754316F153FB0054C5F2 /* AZFacebookConnection.m */; };
 		7B2D754716F15BB60054C5F2 /* Bootstrap.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B2D754516F15BB50054C5F2 /* Bootstrap.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -144,6 +142,8 @@
 		7B31B14015E9441D00802CD5 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B31B13E15E9441D00802CD5 /* MainMenu.xib */; };
 		7B31B14415E9442A00802CD5 /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B311951159B6D9E002134C4 /* AtoZ.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		7B31B14F15E9449F00802CD5 /* AtoZ.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7B311951159B6D9E002134C4 /* AtoZ.framework */; };
+		7B37776616F16E2B0083CBB5 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B37776516F16E2A0083CBB5 /* WebKit.framework */; };
+		7B37776716F16EB60083CBB5 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B0E4BD3166901D000CA1684 /* Cocoa.framework */; };
 		7B379C8B15DDBB8A0040A093 /* AZLassoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B379C8A15DDBB8A0040A093 /* AZLassoView.m */; };
 		7B379C8D15DDBBB30040A093 /* AZLassoView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B379C8C15DDBBB30040A093 /* AZLassoView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B379CA815DE0B050040A093 /* AZBackground.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B379CA615DE0B050040A093 /* AZBackground.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -334,7 +334,6 @@
 		7B82B82F15CB66D30026FE8C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B82B82E15CB66D30026FE8C /* main.m */; };
 		7B82B83915CB66D30026FE8C /* ControlPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B82B83715CB66D30026FE8C /* ControlPanel.xib */; };
 		7B8558E915B2CBAF0005F558 /* circle2.tif in Resources */ = {isa = PBXBuildFile; fileRef = 7B8558E815B2CBAF0005F558 /* circle2.tif */; };
-		7B8870011670E01A00C94BFC /* Lumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF26172164EDAB00057EB88 /* Lumberjack.framework */; };
 		7B8870021670E01A00C94BFC /* AtoZAppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B7EDA0F164B970B00D8C6C6 /* AtoZAppKit.framework */; };
 		7B8870031670E01A00C94BFC /* BlocksKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BC2DD1B16469A8200E73757 /* BlocksKit.framework */; };
 		7B8870051670E01A00C94BFC /* CocoaPuffs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B99B97B16394E3B00500715 /* CocoaPuffs.framework */; };
@@ -495,7 +494,6 @@
 		7BBCB9FE1671018100681F2B /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BBCB9FC1671018100681F2B /* MainMenu.xib */; };
 		7BBCBA041671019000681F2B /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B311951159B6D9E002134C4 /* AtoZ.framework */; };
 		7BBCBA06167101B600681F2B /* AtoZ.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7B311951159B6D9E002134C4 /* AtoZ.framework */; };
-		7BBCBA081671030A00681F2B /* Lumberjack.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7BF26172164EDAB00057EB88 /* Lumberjack.framework */; };
 		7BBCBA091671030A00681F2B /* AtoZAppKit.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7B7EDA0F164B970B00D8C6C6 /* AtoZAppKit.framework */; };
 		7BBCBA0A1671030A00681F2B /* BlocksKit.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7BC2DD1B16469A8200E73757 /* BlocksKit.framework */; };
 		7BBCBA0C1671030A00681F2B /* CocoaPuffs.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7B99B97B16394E3B00500715 /* CocoaPuffs.framework */; };
@@ -685,41 +683,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = 0573A9641526484200D0D884;
 			remoteInfo = "PLWeakCompatibility-iOS-Tests";
-		};
-		7B2D752E16F14A950054C5F2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7B2D752516F14A910054C5F2 /* RoutingHTTPServer.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 270B11901628E5A8005A82FA;
-			remoteInfo = RoutingHTTPServerStaticIOS;
-		};
-		7B2D753016F14A950054C5F2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7B2D752516F14A910054C5F2 /* RoutingHTTPServer.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 270B11B21628E676005A82FA;
-			remoteInfo = RoutingHTTPServerOSX;
-		};
-		7B2D753216F14A950054C5F2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7B2D752516F14A910054C5F2 /* RoutingHTTPServer.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D5FE3604163AF8F40090BB94;
-			remoteInfo = RoutingHTTPServerIOSTests;
-		};
-		7B2D753416F14A950054C5F2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7B2D752516F14A910054C5F2 /* RoutingHTTPServer.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D5FE361D163AF8FE0090BB94;
-			remoteInfo = RoutingHTTPServerOSXTests;
-		};
-		7B2D753716F14B5C0054C5F2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7B2D752516F14A910054C5F2 /* RoutingHTTPServer.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 270B11B11628E676005A82FA;
-			remoteInfo = RoutingHTTPServerOSX;
 		};
 		7B31B14615E9447400802CD5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1085,13 +1048,6 @@
 			remoteGlobalIDString = DCB318CA14ED6C3B001CFBEE;
 			remoteInfo = FmwkTest;
 		};
-		7BF26175164EDAD80057EB88 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7BF26168164EDAB00057EB88 /* Lumberjack.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = DCB3185014EB418E001CFBEE;
-			remoteInfo = Lumberjack;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -1101,10 +1057,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				7B2D753B16F14B8E0054C5F2 /* RoutingHTTPServer.framework in frameworks copy */,
 				7B95C8AE16F089E200480BB1 /* PhFacebook.framework in frameworks copy */,
 				7B8D462A16F003CC00224316 /* MapKit.framework in frameworks copy */,
-				7BBCBA081671030A00681F2B /* Lumberjack.framework in frameworks copy */,
 				7BBCBA091671030A00681F2B /* AtoZAppKit.framework in frameworks copy */,
 				7BBCBA0A1671030A00681F2B /* BlocksKit.framework in frameworks copy */,
 				7BBCBA0C1671030A00681F2B /* CocoaPuffs.framework in frameworks copy */,
@@ -1392,7 +1346,6 @@
 		7B28542D15FEEBA90077960A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7B28546215FEF0840077960A /* GHUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GHUnit.framework; path = "../../git/gh-unit/Project-MacOSX/build/Release/GHUnit.framework"; sourceTree = SOURCE_ROOT; };
 		7B2D752416F119550054C5F2 /* main.bak */ = {isa = PBXFileReference; lastKnownFileType = text; path = main.bak; sourceTree = "<group>"; };
-		7B2D752516F14A910054C5F2 /* RoutingHTTPServer.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RoutingHTTPServer.xcodeproj; path = ../Frameworks/RoutingHTTPServerFramework/RoutingHTTPServer.xcodeproj; sourceTree = "<group>"; };
 		7B2D753F16F14FE90054C5F2 /* AZHTTPRouter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZHTTPRouter.h; sourceTree = "<group>"; };
 		7B2D754016F14FE90054C5F2 /* AZHTTPRouter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZHTTPRouter.m; sourceTree = "<group>"; };
 		7B2D754216F153FB0054C5F2 /* AZFacebookConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZFacebookConnection.h; sourceTree = "<group>"; };
@@ -1426,6 +1379,7 @@
 		7B3422A115A52A61006AC46C /* AZBaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = AZBaseModel.h; sourceTree = "<group>"; };
 		7B3422C815A5EF03006AC46C /* AZDockQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZDockQuery.h; sourceTree = "<group>"; };
 		7B3422C915A5EF03006AC46C /* AZDockQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZDockQuery.m; sourceTree = "<group>"; };
+		7B37776516F16E2A0083CBB5 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = ../../../../../System/Library/Frameworks/WebKit.framework; sourceTree = "<group>"; };
 		7B379C8A15DDBB8A0040A093 /* AZLassoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AZLassoView.m; path = Views/AZLassoView.m; sourceTree = SOURCE_ROOT; };
 		7B379C8C15DDBBB30040A093 /* AZLassoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZLassoView.h; path = Views/AZLassoView.h; sourceTree = SOURCE_ROOT; };
 		7B379CA615DE0B050040A093 /* AZBackground.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZBackground.h; sourceTree = "<group>"; };
@@ -2077,6 +2031,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B37776716F16EB60083CBB5 /* Cocoa.framework in Frameworks */,
+				7B37776616F16E2B0083CBB5 /* WebKit.framework in Frameworks */,
 				7BBCB99D1670F88200681F2B /* AtoZ.framework in Frameworks */,
 				7BB51EA4166D0BDE0051F2FA /* Foundation.framework in Frameworks */,
 			);
@@ -2100,7 +2056,6 @@
 				7B8D462916F003BE00224316 /* MapKit.framework in Frameworks */,
 				7BBCBAFA16714EA300681F2B /* libxml2.2.dylib in Frameworks */,
 				7BBCBACB16713D4200681F2B /* libcommonCrypto.dylib in Frameworks */,
-				7B8870011670E01A00C94BFC /* Lumberjack.framework in Frameworks */,
 				7B8870021670E01A00C94BFC /* AtoZAppKit.framework in Frameworks */,
 				7B8870031670E01A00C94BFC /* BlocksKit.framework in Frameworks */,
 				7B95C8AD16F089C000480BB1 /* PhFacebook.framework in Frameworks */,
@@ -2118,7 +2073,6 @@
 				7B23C33E15CE267400DD1A9C /* Quartz.framework in Frameworks */,
 				7BBD988215AF7A2400943FC1 /* QuartzCore.framework in Frameworks */,
 				7BBD987E15AF7A2400943FC1 /* Security.framework in Frameworks */,
-				7B2D753916F14B710054C5F2 /* RoutingHTTPServer.framework in Frameworks */,
 				7BDF56061625A45C00041A42 /* AVFoundation.framework in Frameworks */,
 				7B662AE1161F484B003D5EE0 /* Cocoa.framework in Frameworks */,
 			);
@@ -2390,17 +2344,6 @@
 			path = ../../../git/BlocksKit/Tests;
 			sourceTree = "<group>";
 		};
-		7B2D752616F14A910054C5F2 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				7B2D752F16F14A950054C5F2 /* libRoutingHTTPServer.a */,
-				7B2D753116F14A950054C5F2 /* RoutingHTTPServer.framework */,
-				7B2D753316F14A950054C5F2 /* RoutingHTTPServerIOSTests.octest */,
-				7B2D753516F14A950054C5F2 /* RoutingHTTPServerOSXTests.octest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		7B2E2599165F30DC009BE6C8 /* PXList */ = {
 			isa = PBXGroup;
 			children = (
@@ -2417,6 +2360,7 @@
 		7B311945159B6D9E002134C4 = {
 			isa = PBXGroup;
 			children = (
+				7B37776516F16E2A0083CBB5 /* WebKit.framework */,
 				7BDF56951627695400041A42 /* AtoZTestBed */,
 				7B6BEDD91674B42E00829B8A /* Core */,
 				7B59C8281600D346009DAFCA /* Models */,
@@ -2454,7 +2398,6 @@
 		7B311953159B6D9E002134C4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				7B2D752516F14A910054C5F2 /* RoutingHTTPServer.xcodeproj */,
 				7B95C8A216F0899100480BB1 /* PhFacebook.xcodeproj */,
 				7BCE7F4B166BC1A900C40B5E /* AFNetworking */,
 				7BB870691638A0FA0000C242 /* ConciseKit */,
@@ -3955,11 +3898,9 @@
 			buildRules = (
 			);
 			dependencies = (
-				7B2D753816F14B5C0054C5F2 /* PBXTargetDependency */,
 				7B95C8AC16F089A100480BB1 /* PBXTargetDependency */,
 				7B8D462816F0039100224316 /* PBXTargetDependency */,
 				7B95C916164FC9630046F487 /* PBXTargetDependency */,
-				7BF26176164EDAD80057EB88 /* PBXTargetDependency */,
 				7B7EDA11164B971600D8C6C6 /* PBXTargetDependency */,
 				7BC2DD2316469A8B00E73757 /* PBXTargetDependency */,
 				7B6629F8161DEA20003D5EE0 /* PBXTargetDependency */,
@@ -4164,10 +4105,6 @@
 					ProjectRef = 7BB86F7716383FCD0000C242 /* Rebel.xcodeproj */;
 				},
 				{
-					ProductGroup = 7B2D752616F14A910054C5F2 /* Products */;
-					ProjectRef = 7B2D752516F14A910054C5F2 /* RoutingHTTPServer.xcodeproj */;
-				},
-				{
 					ProductGroup = 7B645C9A15F5300E00566160 /* Products */;
 					ProjectRef = 7B61E90515EAA8340053BACF /* XPCKit.xcodeproj */;
 				},
@@ -4238,34 +4175,6 @@
 			fileType = wrapper.cfbundle;
 			path = "PLWeakCompatibility-iOS-Tests.octest";
 			remoteRef = 7B276CDB1616A4320083C29E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7B2D752F16F14A950054C5F2 /* libRoutingHTTPServer.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRoutingHTTPServer.a;
-			remoteRef = 7B2D752E16F14A950054C5F2 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7B2D753116F14A950054C5F2 /* RoutingHTTPServer.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = RoutingHTTPServer.framework;
-			remoteRef = 7B2D753016F14A950054C5F2 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7B2D753316F14A950054C5F2 /* RoutingHTTPServerIOSTests.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = RoutingHTTPServerIOSTests.octest;
-			remoteRef = 7B2D753216F14A950054C5F2 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7B2D753516F14A950054C5F2 /* RoutingHTTPServerOSXTests.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = RoutingHTTPServerOSXTests.octest;
-			remoteRef = 7B2D753416F14A950054C5F2 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		7B3C162216A9FC9F00311A44 /* OS X Tests.octest */ = {
@@ -5014,11 +4923,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		7B2D753816F14B5C0054C5F2 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = RoutingHTTPServerOSX;
-			targetProxy = 7B2D753716F14B5C0054C5F2 /* PBXContainerItemProxy */;
-		};
 		7B31B14715E9447400802CD5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 7B311950159B6D9E002134C4 /* AtoZ */;
@@ -5083,11 +4987,6 @@
 			isa = PBXTargetDependency;
 			name = "BlocksKit Framework";
 			targetProxy = 7BC2DD2216469A8B00E73757 /* PBXContainerItemProxy */;
-		};
-		7BF26176164EDAD80057EB88 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = Lumberjack;
-			targetProxy = 7BF26175164EDAD80057EB88 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -5418,8 +5317,6 @@
 					PhFacebook,
 					"-sub_umbrella",
 					RoutingHTTPServer,
-					"-sub_umbrella",
-					KSHTMLWriter,
 				);
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				PRODUCT_NAME = AtoZ;
@@ -5512,8 +5409,6 @@
 					PhFacebook,
 					"-sub_umbrella",
 					RoutingHTTPServer,
-					"-sub_umbrella",
-					KSHTMLWriter,
 				);
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				PRODUCT_NAME = AtoZ;

@@ -8,8 +8,12 @@
 
 #import <AtoZ/AtoZ.h>
 
+#define ALWAYS_SHOW_UI 0
+
 @interface AZFacebookConnection : BaseModel
 
 @property (strong, nonatomic) PhFacebook *fb;
+@property (strong, nonatomic) NSImage *pic;
+
 
 @end

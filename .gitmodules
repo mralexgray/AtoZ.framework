@@ -124,6 +124,3 @@
 [submodule "Frameworks/PhFacebook"]
 	path = Frameworks/PhFacebook
 	url = https://github.com/mralexgray/PhFacebook.git
-[submodule "Frameworks/RoutingHTTPServerFramework"]
-	path = Frameworks/RoutingHTTPServerFramework
-	url = https://github.com/mralexgray/RoutingHTTPServerFramework.git

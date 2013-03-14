@@ -81,6 +81,26 @@ __MAC_OS_X_VERSION_MIN_REQUIRED >				__MAC_10_7))
 //					NO;
 //}
 
+// StringConsts.h
+//#ifdef SYNTHESIZE_CONSTS
+//# define STR_CONST(name, value) NSString* const name = @ value
+//#else
+//# define STR_CONST(name, value) extern NSString* const name
+//#endif
+
+//The in my .h/.m pair where I want to define the constant I do the following:
+// myfile.h
+//#import <StringConsts.h>
+
+//STR_CONST(MyConst, "Lorem Ipsum");
+//STR_CONST(MyOtherConst, "Hello world");
+
+// myfile.m
+//#define SYNTHESIZE_CONSTS
+//#import "myfile.h"
+//#undef SYNTHESIZE_CONSTS
+
+
 #import <Availability.h>
 
 #if __IPHONE_OS_VERSION_MIN_REQUIRED

@@ -147,6 +147,7 @@ AZToStringFromTypeAndValue(@encode(typeof(_X_)), &_Y_);})
 
 
 #define AZPROCINFO [NSProcessInfo processInfo]
+#define AZPROCNAME [NSProcessInfo.processInfo processName]
 
 #define DCHECK(__CONDITION__)
 //#define check(x)		if (!(x)) return 0;
