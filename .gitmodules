@@ -121,18 +121,24 @@
 [submodule "AtoZ/Classes/StandardPaths"]
 	path = AtoZ/Classes/StandardPaths
 	url = https://github.com/nicklockwood/StandardPaths.git
+	ignore = dirty
 [submodule "Frameworks/PhFacebook"]
 	path = Frameworks/PhFacebook
 	url = https://github.com/mralexgray/PhFacebook.git
+	ignore = dirty
 [submodule "Frameworks/CocoaHTTPServer"]
 	path = Frameworks/CocoaHTTPServer
 	url = https://github.com/mralexgray/CocoaHTTPServer.git
+	ignore = dirty
 [submodule "Frameworks/RoutingHTTPServer"]
 	path = Frameworks/RoutingHTTPServer
 	url = https://github.com/mralexgray/RoutingHTTPServer.git
+	ignore = dirty
 [submodule "Frameworks/KSHTMLWriter"]
 	path = Frameworks/KSHTMLWriter
 	url = https://github.com/mralexgray/KSHTMLWriter.git
+	ignore = dirty
 [submodule "AtoZ/Models/StackAPI"]
 	path = AtoZ/Models/StackAPI
 	url = https://github.com/mralexgray/StackInbox.git
+	ignore = dirty
