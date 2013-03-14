@@ -8,30 +8,31 @@
 
 #import <Foundation/Foundation.h>
 #import <AtoZ/AtoZ.h>
+#import "AZHTTPRouter.h"
+#import "AZFacebookConnection.h"
 
-
-
-
+static AZFacebookConnection *fb 	= nil;
 
 
 int main(int argc, const char * argv[])
 {
-	NSRunLoop   * runLoop;
-//	AZHomeBrew     * main; // replace with desired class
+	NSRunLoop   		*runLoop;
+	AZHTTPRouter	 	*main;		  								//	replace with desired class
 
 	@autoreleasepool
 	{
-		// create run loop
-		runLoop = NSRunLoop.currentRunLoop;
-//		main    = AZHomeBrew.instance; // replace with init method
-
-
-		// enter run loop
-//		while((!(main.shouldExit)) && (([runLoop runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:2]])));
-
+		runLoop = NSRunLoop.currentRunLoop; 		// create run loop
+		main    = AZHTTPRouter.new; 						// replace with init method
+																						// enter run loop
+//		while ( main && [runLoop runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:2]] );
 	AZRUNFOREVER;
+	{
+
+
+
+
 	}
-	return 0;//(main.exitCode);
+	return 0;	// (main.exitCode);
 }
 /**
 

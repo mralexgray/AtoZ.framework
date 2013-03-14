@@ -128,6 +128,9 @@
 		7B2D753916F14B710054C5F2 /* RoutingHTTPServer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B2D753116F14A950054C5F2 /* RoutingHTTPServer.framework */; };
 		7B2D753B16F14B8E0054C5F2 /* RoutingHTTPServer.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7B2D753116F14A950054C5F2 /* RoutingHTTPServer.framework */; };
 		7B2D754116F14FE90054C5F2 /* AZHTTPRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2D754016F14FE90054C5F2 /* AZHTTPRouter.m */; };
+		7B2D754416F153FB0054C5F2 /* AZFacebookConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2D754316F153FB0054C5F2 /* AZFacebookConnection.m */; };
+		7B2D754716F15BB60054C5F2 /* Bootstrap.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B2D754516F15BB50054C5F2 /* Bootstrap.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B2D754816F15BB60054C5F2 /* Bootstrap.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2D754616F15BB50054C5F2 /* Bootstrap.m */; };
 		7B2E25A6165F3162009BE6C8 /* PXListDocumentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2E259B165F3148009BE6C8 /* PXListDocumentView.m */; };
 		7B2E25A9165F3162009BE6C8 /* PXListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2E25A2165F3148009BE6C8 /* PXListViewCell.m */; };
 		7B2E25AB165F3192009BE6C8 /* PXListDocumentView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B2E259A165F3148009BE6C8 /* PXListDocumentView.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1392,6 +1395,10 @@
 		7B2D752516F14A910054C5F2 /* RoutingHTTPServer.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RoutingHTTPServer.xcodeproj; path = ../Frameworks/RoutingHTTPServerFramework/RoutingHTTPServer.xcodeproj; sourceTree = "<group>"; };
 		7B2D753F16F14FE90054C5F2 /* AZHTTPRouter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZHTTPRouter.h; sourceTree = "<group>"; };
 		7B2D754016F14FE90054C5F2 /* AZHTTPRouter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZHTTPRouter.m; sourceTree = "<group>"; };
+		7B2D754216F153FB0054C5F2 /* AZFacebookConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZFacebookConnection.h; sourceTree = "<group>"; };
+		7B2D754316F153FB0054C5F2 /* AZFacebookConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZFacebookConnection.m; sourceTree = "<group>"; };
+		7B2D754516F15BB50054C5F2 /* Bootstrap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Bootstrap.h; path = Models/Bootstrap.h; sourceTree = SOURCE_ROOT; };
+		7B2D754616F15BB50054C5F2 /* Bootstrap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Bootstrap.m; path = Models/Bootstrap.m; sourceTree = SOURCE_ROOT; };
 		7B2E259A165F3148009BE6C8 /* PXListDocumentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.objj.h; name = PXListDocumentView.h; path = ../../Frameworks/PXListView/Classes/PXListDocumentView.h; sourceTree = "<group>"; };
 		7B2E259B165F3148009BE6C8 /* PXListDocumentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = PXListDocumentView.m; path = ../../Frameworks/PXListView/Classes/PXListDocumentView.m; sourceTree = "<group>"; };
 		7B2E259C165F3148009BE6C8 /* PXListView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.objj.h; name = PXListView.h; path = ../../Frameworks/PXListView/Classes/PXListView.h; sourceTree = "<group>"; };
@@ -2715,6 +2722,8 @@
 		7B59C8281600D346009DAFCA /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				7B2D754516F15BB50054C5F2 /* Bootstrap.h */,
+				7B2D754616F15BB50054C5F2 /* Bootstrap.m */,
 				7BB1766216EFBF7300E341CC /* JsonElement.h */,
 				7BB1766116EFBF7300E341CC /* JsonElement.m */,
 				7B9AC20A16EC965200F8763C /* MediaServer.h */,
@@ -3238,6 +3247,8 @@
 				7BB51EA8166D0BDE0051F2FA /* Supporting Files */,
 				7B2D753F16F14FE90054C5F2 /* AZHTTPRouter.h */,
 				7B2D754016F14FE90054C5F2 /* AZHTTPRouter.m */,
+				7B2D754216F153FB0054C5F2 /* AZFacebookConnection.h */,
+				7B2D754316F153FB0054C5F2 /* AZFacebookConnection.m */,
 			);
 			path = AZCLI;
 			sourceTree = "<group>";
@@ -3905,6 +3916,7 @@
 				7BB1766416EFBF7300E341CC /* JsonElement.h in Headers */,
 				7B95C88716F04DAC00480BB1 /* JNWAnimatableWindow.h in Headers */,
 				7B95C88D16F0760E00480BB1 /* NSObject-Utilities.h in Headers */,
+				7B2D754716F15BB60054C5F2 /* Bootstrap.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4921,6 +4933,7 @@
 				7BB1766316EFBF7300E341CC /* JsonElement.m in Sources */,
 				7B95C88816F04DAC00480BB1 /* JNWAnimatableWindow.m in Sources */,
 				7B95C88E16F0762100480BB1 /* NSObject-Utilities.m in Sources */,
+				7B2D754816F15BB60054C5F2 /* Bootstrap.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4970,6 +4983,7 @@
 			files = (
 				7BB51EA7166D0BDE0051F2FA /* main.m in Sources */,
 				7B2D754116F14FE90054C5F2 /* AZHTTPRouter.m in Sources */,
+				7B2D754416F153FB0054C5F2 /* AZFacebookConnection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5357,7 +5371,7 @@
 					"$(inherited)",
 					"\"$(SDKROOT)/usr/lib/system\"",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = (
 					"-Xclang",
@@ -5404,6 +5418,8 @@
 					PhFacebook,
 					"-sub_umbrella",
 					RoutingHTTPServer,
+					"-sub_umbrella",
+					KSHTMLWriter,
 				);
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				PRODUCT_NAME = AtoZ;
@@ -5449,7 +5465,7 @@
 					"$(inherited)",
 					"\"$(SDKROOT)/usr/lib/system\"",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = (
 					"-Xclang",
@@ -5496,6 +5512,8 @@
 					PhFacebook,
 					"-sub_umbrella",
 					RoutingHTTPServer,
+					"-sub_umbrella",
+					KSHTMLWriter,
 				);
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				PRODUCT_NAME = AtoZ;

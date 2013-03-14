@@ -10,5 +10,11 @@
 
 @interface AZHTTPRouter : RoutingHTTPServer
 
+@property (NATOM, STRNG) AssetCollection *assets;
 
+@end
+
+@interface Shortcut : NSObject
+@property (STRNG, NATOM) NSS* uri, *syntax;
+- (id) initWithURI:(NSS*)uri syntax:(NSS*)syntax;
 @end

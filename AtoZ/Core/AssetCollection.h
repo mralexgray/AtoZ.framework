@@ -1,7 +1,4 @@
 
-typedef NS_ENUM(NSUI, AssetType){ JS, CSS, HTML, PHP, BASH,	ObjC, TXT,	UNKNOWN = 99 };
-extern NSString * const assetStringValue[];
-extern NSString * const assetTagName[];
 
 @interface NSString (AssetType)
 - (NSS*) wrapInHTML;

@@ -373,6 +373,9 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 
 #define removedOnC removedOnCompletion
 
+
+
+
 #define pBCN postsBoundsChangedNotifications
 #define pFCN postsFrameChangedNotifications
 
@@ -380,8 +383,14 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define pV pointValue
 #define rV rectValue
 //#define fV floatValue
-
 #define loM layoutManager
+
+
+#define REQ RouteRequest
+#define RES RouteResponse
+#define $SHORT(A,B) [Shortcut.alloc initWithURI:A syntax:B]
+#define	vLOG(A)	[((AppDelegate*)[NSApp sharedApplication].delegate).textOutField appendToStdOutView:A] // $(@"%s: %@", __PRETTY_FUNCTION__, [NSString stringWithFormat: args])]
+
 
 
 #define performDelegateSelector(sel) if ([delegate respondsToSelector:sel]) { [delegate performSelector:sel]; }
@@ -708,6 +717,11 @@ _Pragma("clang diagnostic pop") \
 //
 //#define $affectors(A,...) +(NSSet *)keyPathsForValuesAffecting##A { static NSSet *re = nil; \
 //if (!re) { re = [[[@#__VA_ARGS__ splitByComma] trimmedStrings] set]; } return re; }
+
+
+typedef NS_ENUM(NSUI, AssetType){ JS, CSS, HTML, PHP, BASH,	ObjC, TXT,	UNKNOWN = 99 };
+extern NSString * const assetStringValue[];
+extern NSString * const assetTagName[];
 
 
 //NSDATE NSSTRING ETC
