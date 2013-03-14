@@ -124,3 +124,6 @@
 [submodule "Frameworks/PhFacebook"]
 	path = Frameworks/PhFacebook
 	url = https://github.com/mralexgray/PhFacebook.git
+[submodule "Frameworks/CocoaHTTPServer"]
+	path = Frameworks/CocoaHTTPServer
+	url = https://github.com/mralexgray/CocoaHTTPServer.git
