@@ -11,11 +11,10 @@
 #import "AZHTTPRouter.h"
 #import "AZFacebookConnection.h"
 
-NSW * win() { NSW* w = [NSW.alloc initWithContentRect:AZRectFromDim(300) styleMask:NSResizableWindowMask backing:NSBackingStoreBuffered defer:NO];
-							 w.contentView								 	= [	AZSimpleView withFrame:w.frame color:LINEN];
-							[w setMovableByWindowBackground: 	YES];
-	return w;
-}
+NSW * win() { NSW* 	w = [NSW.alloc initWithContentRect:AZRectFromDim(300) styleMask:NSResizableWindowMask backing:NSBackingStoreBuffered defer:NO];
+							 			w.contentView		= [	AZSimpleView withFrame:w.frame color:LINEN  ];
+									[	w setMovableByWindowBackground: 	YES ];								return w;	}
+
 
 int main(int c, const char* v [] ) { @autoreleasepool {	NSApplication.sharedApplication;
 
@@ -30,16 +29,18 @@ int main(int c, const char* v [] ) { @autoreleasepool {	NSApplication.sharedAppl
 	WebView *z = 				[WebView.alloc initWithFrame:				AZRectFromDim(200)];
 	NSW			*w = win();
 											[w 				 cascadeTopLeftFromPoint: AZPointFromDim(40)];
-											[w 						makeKeyAndOrderFront:	 nil];
+
 											[w.contentView 				 setSubviews: @[z]];
 											[NSApp   activateIgnoringOtherApps:	 YES];
+											[w 						makeKeyAndOrderFront:	 nil];
 
 	AZHTTPRouter	 *r = AZHTTPRouter.new;
-	[r start];
-	AZFacebookConnection	 *f =	AZFacebookConnection.sharedInstance;
-	[NSApp 															 run];
-		return 0;// (main.exitCode)
-}	}
+											r.documentRoot = @"/www";									[r start];
+
+	AZFacebookConnection	*f =	AZFacebookConnection.sharedInstance;
+
+[NSApp run]; 	return 0;  }	}     // (main.exitCode)
+
 
 //	NSRunLoop   		* runLoop;
 //	AZHTTPRouter		* main; // replace with desired class

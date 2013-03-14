@@ -133,3 +133,6 @@
 [submodule "Frameworks/KSHTMLWriter"]
 	path = Frameworks/KSHTMLWriter
 	url = https://github.com/mralexgray/KSHTMLWriter.git
+[submodule "AtoZ/Models/StackAPI"]
+	path = AtoZ/Models/StackAPI
+	url = https://github.com/mralexgray/StackInbox.git

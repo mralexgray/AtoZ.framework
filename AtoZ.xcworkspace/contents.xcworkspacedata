@@ -5,9 +5,6 @@
       location = "container:AtoZ/AtoZ.xcodeproj">
    </FileRef>
    <FileRef
-      location = "container:../git/StackInbox/StackInbox.xcodeproj">
-   </FileRef>
-   <FileRef
       location = "group:AtoZWebkit/DeskBrowse.xcodeproj">
    </FileRef>
    <FileRef

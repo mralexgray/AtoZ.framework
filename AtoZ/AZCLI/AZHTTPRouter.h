@@ -1,11 +1,6 @@
-//
-//  AZHTTPRouter.h
-//  AtoZ
-//
-//  Created by Alex Gray on 3/13/13.
-//  Copyright (c) 2013 mrgray.com, inc. All rights reserved.
-//
 
+
+#import "RoutingHTTPServer.h"
 
 @interface AZHTTPRouter : RoutingHTTPServer
 
@@ -20,9 +15,9 @@
 @end
 
 @interface Shortcut : NSObject
-@property (STRNG, NATOM) NSS* uri, *syntax;
+
+@property (STRNG, NATOM) 	NSS	*uri,*syntax;
+
 - (id) initWithURI:(NSS*)uri syntax:(NSS*)syntax;
-
-
 
 @end

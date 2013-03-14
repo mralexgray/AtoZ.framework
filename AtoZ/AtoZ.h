@@ -52,7 +52,7 @@
 #import <Foundation/Foundation.h>
 #import <AudioToolbox/AudioToolbox.h>
 #import <ApplicationServices/ApplicationServices.h>
-//#import <Lumberjack/Lumberjack.h>
+#import <Lumberjack/Lumberjack.h>
 
 ////#define EXCLUDE_STUB_PROTOTYPES 1
 ////#import <PLWeakCompatibility/PLWeakCompatibilityStubs.h>
@@ -80,6 +80,9 @@
 //#import <DrawKit/DKDrawKit.h>
 #import <MapKit/MapKit.h>
 #import <PhFacebook/PhFacebook.h>
+
+//#import <KSHTMLWriterFramework/KS>
+
 
 #import <Zangetsu/Zangetsu.h>
 #import <BlocksKit/BlocksKit.h>
