@@ -127,3 +127,9 @@
 [submodule "Frameworks/CocoaHTTPServer"]
 	path = Frameworks/CocoaHTTPServer
 	url = https://github.com/mralexgray/CocoaHTTPServer.git
+[submodule "Frameworks/RoutingHTTPServer"]
+	path = Frameworks/RoutingHTTPServer
+	url = https://github.com/mralexgray/RoutingHTTPServer.git
+[submodule "Frameworks/KSHTMLWriter"]
+	path = Frameworks/KSHTMLWriter
+	url = https://github.com/mralexgray/KSHTMLWriter.git
