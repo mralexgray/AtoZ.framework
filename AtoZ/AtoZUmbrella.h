@@ -55,7 +55,6 @@ extern
 #define nAZColorWellChanged @"AtoZColorWellChangedColors"
 
 
-#import "NSTextView+AtoZ.h"
 
 //NS_INLINE void _AZSimpleLog(const char *file, int lineNumber, const char *funcName, NSString *format,...);
 NS_INLINE void _AZSimpleLog( const char *file, int lineNumber, const char *funcName, NSString *format, ... )

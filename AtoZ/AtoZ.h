@@ -1,4 +1,6 @@
 
+//#import "/a2z/Frameworks/BaseModel/BaseModel/BaseModel.h"
+
 //#pragma GCC diagnostic ignored "-Wformat-security"
 
 
@@ -81,6 +83,7 @@
 #import <MapKit/MapKit.h>
 #import <PhFacebook/PhFacebook.h>
 
+
 //#import <KSHTMLWriterFramework/KS>
 
 
@@ -91,9 +94,9 @@
 #import <AtoZAppKit/BGHUDAppKit.h>
 //#import <Lumberjack/Lumberjack.h>
 
+#import <AtoZ/BaseModel.h>
 #import "AutoCoding.h"
 #import "HRCoder.h"
-#import "BaseModel.h"
 
 #import "F.h"
 //#import "MArray.h"
@@ -406,7 +409,6 @@ extern NSString *const AtoZDockSortedUpdated;
 //+ (NSA*) appCategories;
 //+ (NSA*) appFolderSorted;
 //+ (NSA*) appFolderSamplerWith: (NSUInteger) apps;
-+ (NSString*) resources;
 + (void) trackIt;
 
 - (NSPoint) convertToScreenFromLocalPoint: (NSPoint) point relativeToView: (NSView*) view;
@@ -415,7 +417,8 @@ extern NSString *const AtoZDockSortedUpdated;
 
 + (AZWindowPosition) positionForString:(NSString*)strVal;
 + (NSString*) stringForPosition: (AZWindowPosition) enumVal;
-+ (NSString*) stringForType: (id) type;
++ (NSString*) stringForType:(id)type;
+
 
 //+ (NSFont*) fontWithSize: (CGFloat) fontSize;
 //- (NSFont*) registerFonts:(CGFloat)size;
@@ -425,7 +428,6 @@ extern NSString *const AtoZDockSortedUpdated;
 + (NSString *) version;
 + (NSBundle*) bundle;
 + (NSString*) resources;
-+ (NSString*) stringForType:(id)type;
 + (NSA*) appCategories;
 + (NSA*) macPortsCategories;
 

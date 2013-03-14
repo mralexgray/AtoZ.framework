@@ -63,13 +63,12 @@ extern void disableCA();
 + (CAA*)				  flipDown: (NSTI)aDur  scaleFactor: (CGF)scale;
 + (CAA*) 		   animationOnPath: (CGPR)path  duration:	(CFTI)d 	  timeOffset: (CFTI)o;
 //+ (CAA*)	colorAnimationForLayer: (CAL*)layer start:	   (NSC*)c1  	  end: (NSC*)c2;
-+ (CAA*)   rotateAnimationForLayer: (CAL*)layer start:	   (CGF)fl1	 end: (CGF)fl1;
++ (CAA*) rotateAnimationForLayer: (CAL*)layer start:	   (CGF)fl1	 end: (CGF)fl1;
++ (CAA*) colorAnimationForLayer:(CALayer *)theLayer WithStartingColor:(NSColor*)color1 endColor:(NSColor*)color2;
 
 
 //- (CAAnimation *)rotateAnimationFrom:(NSNumber*)startDegree to:(NSNumber*)endDegrees;
-+ (CAAnimation*)rotateAnimationForLayer:(CALayer *)theLayer start:(CGFloat)starting end:(CGFloat)ending;
-+ (CAAnimation*)colorAnimationForLayer:(CALayer *)theLayer WithStartingColor:(NSColor*)color1 endColor:(NSColor*)color2;
-
+//+ (CAAnimation*)rotateAnimationForLayer:(CALayer *)theLayer start:(CGFloat)starting end:(CGFloat)ending;
 @property (NATOM, CP) AZCAAnimationCompletionBlock az_completionBlock;
 
 @end

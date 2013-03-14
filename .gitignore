@@ -6,8 +6,8 @@ AtoZ.framework
 *User Data
 Documentation
 .gitignore
-AtoZ.xcworkspace/xcuserdata/*
-AtoZ/Resources/Frameworks/*
+# AtoZ.xcworkspace/xcuserdata/*
+# AtoZ/Resources/Frameworks/*
 AtoZ/AtoZiTunes.framework
 Frameworks/Cocotron
 # Xcode

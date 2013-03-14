@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		7B1C8F3115E4B07500C30618 /* WindyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B1C8F2F15E4B07500C30618 /* WindyController.m */; };
 		7B1C8F3215E4B07500C30618 /* WindyController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B1C8F3015E4B07500C30618 /* WindyController.xib */; };
-		7B527D2E1628D61100A2DC62 /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B527D2D1628D61100A2DC62 /* AtoZ.framework */; };
-		7B527D2F1628D61800A2DC62 /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B527D2D1628D61100A2DC62 /* AtoZ.framework */; };
 		7B73D8EE15E4328900D2671A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B85597515B9EA280005F558 /* QuartzCore.framework */; };
 		7B85595715B9E8510005F558 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B85595615B9E8510005F558 /* Cocoa.framework */; };
 		7B85596115B9E8510005F558 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7B85595F15B9E8510005F558 /* InfoPlist.strings */; };
@@ -30,7 +28,6 @@
 		7B1C8F2E15E4B07500C30618 /* WindyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WindyController.h; sourceTree = "<group>"; };
 		7B1C8F2F15E4B07500C30618 /* WindyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WindyController.m; sourceTree = "<group>"; };
 		7B1C8F3015E4B07500C30618 /* WindyController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WindyController.xib; sourceTree = "<group>"; };
-		7B527D2D1628D61100A2DC62 /* AtoZ.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AtoZ.framework; path = "../../../../../Users/localadmin/Library/Developer/Xcode/DerivedData/AtoZ-hfqteqfcvjfinlajqwkydsqyzpiz/Build/Products/Debug/AtoZ.framework"; sourceTree = "<group>"; };
 		7B85595215B9E8510005F558 /* AZLayerGrid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AZLayerGrid.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B85595615B9E8510005F558 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		7B85595915B9E8510005F558 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -62,7 +59,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7B527D2E1628D61100A2DC62 /* AtoZ.framework in Frameworks */,
 				7B73D8EE15E4328900D2671A /* QuartzCore.framework in Frameworks */,
 				7B85595715B9E8510005F558 /* Cocoa.framework in Frameworks */,
 			);
@@ -74,7 +70,6 @@
 			files = (
 				7BECAEEC15BF0E7A00557357 /* Cocoa.framework in Frameworks */,
 				7BECAF0315BF0EF300557357 /* QuartzCore.framework in Frameworks */,
-				7B527D2F1628D61800A2DC62 /* AtoZ.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,7 +79,6 @@
 		7B85594715B9E8510005F558 = {
 			isa = PBXGroup;
 			children = (
-				7B527D2D1628D61100A2DC62 /* AtoZ.framework */,
 				7B85595C15B9E8510005F558 /* AZLayerGrid */,
 				7BECAEED15BF0E7A00557357 /* AZView */,
 				7B85595315B9E8510005F558 /* Products */,
