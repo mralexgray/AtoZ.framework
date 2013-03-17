@@ -143,16 +143,16 @@ __MAC_OS_X_VERSION_MIN_REQUIRED >				__MAC_10_7))
 
 //#define EXCLUDE_STUB_PROTOTYPES 1
 //#import <PLWeakCompatibility/PLWeakCompatibilityStubs.h>
-//#import <Rebel/Rebel.h>
-//#import <FunSize/FunSize.h>
+#import <Rebel/Rebel.h>
+#import <FunSize/FunSize.h>
 //#import <DrawKit/DKDrawKit.h>
 //#import <MapKit/MapKit.h>
 //
 //#import <Zangetsu/Zangetsu.h>
-//#import <BlocksKit/BlocksKit.h>
-//#import <CocoaPuffs/CocoaPuffs.h>
-//#import <AtoZBezierPath/AtoZBezierPath.h>
-//#import <AtoZAppKit/BGHUDAppKit.h>
+#import <BlocksKit/BlocksKit.h>
+#import <CocoaPuffs/CocoaPuffs.h>
+#import <AtoZBezierPath/AtoZBezierPath.h>
+#import <AtoZAppKit/BGHUDAppKit.h>
 //#import <Lumberjack/Lumberjack.h>
 
 //#import <XPCKit/XPCKit.h>
@@ -160,12 +160,13 @@ __MAC_OS_X_VERSION_MIN_REQUIRED >				__MAC_10_7))
 //#import <NanoStore/NanoStore.h>
 //#import <AtoZUI/AtoZUI.h>
 
-#import "BaseModel.h"
-#import "AutoCoding.h"
-#import "HRCoder.h"
+#import <libatoz.h>
+//#import "BaseModel.h"
+//#import "AutoCoding.h"
+//#import "HRCoder.h"
 
 
-#import	"AtoZUmbrella.h"
+#import "AtoZUmbrella.h"
 #import "AtoZGeometry.h"
 #import "AtoZFunctions.h"
 

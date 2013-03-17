@@ -1,0 +1,11 @@
+//
+// Prefix header for all source files of the 'DockBox' target in the 'DockBox' project
+//
+
+#ifdef __OBJC__
+	#import <Cocoa/Cocoa.h>
+	#import <AtoZ/AtoZ.h>
+	#import <QuartzCore/QuartzCore.h>
+	#import <WebKit/WebKit.h>
+	
+#endif

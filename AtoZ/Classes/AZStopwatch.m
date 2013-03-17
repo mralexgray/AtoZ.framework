@@ -77,7 +77,7 @@
 	}
 	
 	[self remove:name];
-	items[name] = [AZStopwatchItem itemWithName:name];
+	items[name] = [AZStopwatchItem named:name];
 }
 
 // +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  
@@ -129,7 +129,7 @@ static id _sharedSingleton		= nil;
 @synthesize name;
 @synthesize started;
 @synthesize stopped;
-+ (AZStopwatchItem *) itemWithName:(NSString *)name {
++ (AZStopwatchItem *) named:(NSString *)name {
 	AZStopwatchItem *item	= [[AZStopwatchItem alloc] init];
 	item.name				= name;
 	item.started			= [NSDate date];

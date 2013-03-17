@@ -11,6 +11,22 @@
 #import <objc/runtime.h>
 #import "OperationsRunner.h"
 
+
+
+@implementation NSObject (AZFunctional)
+-(id)processByPerformingFilterBlocks:(NSArray *)filterBlocks
+{
+	__block id blockSelf = self;
+	[filterBlocks enumerateObjectsUsingBlock:^( id (^block)(id,NSUInteger idx, BOOL*) , NSUInteger idx, BOOL *stop) {
+		blockSelf = block(blockSelf, idx, stop);
+	}];
+
+	return blockSelf;
+}
+@end
+
+
+
 /* A shared operation que that is used to generate thumbnails in the background. */
 NSOperationQueue *AZSharedOperationQueue()
 {
@@ -147,12 +163,14 @@ static char CONVERTTOXML_KEY;
 
 }
 
+#import "AtoZUmbrella.h"
+
 //@synthesize sManager;
 //- (id)init {
 //	self = [super init];
 //	if (self) {
-
-static NSA* cachedI = nil;
+//
+//	static NSA* cachedI = nil;
 
 //	AZLOG($(	@"AZImage! Name: %@.. SEL:%@", name, NSStringFromSelector(_cmd)));
 //	NSIMG *i;  // =  [NSIMG  new];//imageNamed:name];
@@ -170,15 +188,15 @@ static NSA* cachedI = nil;
 //	return/ i;
 //}
 
-//+(void) testSizzle {
-//	AZLOG(@"The original, non -siizled");
-//	AZLOG(NSStringFromSelector(_cmd));
-//}
-//+(void) testSizzleReplacement {
-//	AZLOG(@"Totally swizzed OUT ***************************");
-//	[self testSizzleReplacement];
-//	AZLOG(NSStringFromSelector(_cmd));
-//}
++(void) testSizzle {
+	AZLOG(@"The original, non -siizled");
+	AZLOG(NSStringFromSelector(_cmd));
+}
++(void) testSizzleReplacement {
+	AZLOG(@"Totally swizzed OUT ***************************");
+	[self testSizzleReplacement];
+	AZLOG(NSStringFromSelector(_cmd));
+}
 //	[[AtoZ class] testSizzle];
 //	[$ swizzleClassMethod:@selector(testSizzle) in:[AtoZ class] with:@selector(testSizzleReplacement) in:[AtoZ class]];
 //	[[AtoZ class] testSizzle];
@@ -189,9 +207,9 @@ static NSA* cachedI = nil;
 //		[AZFWORKBUNDLE cacheNamedImages];
 //		_cachedImages = cachedI;
 		fonts = self.fonts;
-		Sound *rando = [Sound randomSound];
-		[[SoundManager sharedManager] prepareToPlayWithSound:rando];
-		[[SoundManager sharedManager] playSound:rando];
+//		Sound *rando = [Sound randomSound];
+//		[[SoundManager sharedManager] prepareToPlayWithSound:rando];
+//		[[SoundManager sharedManager] playSound:rando];
 //		[self registerHotKeys];
 	}];
 }

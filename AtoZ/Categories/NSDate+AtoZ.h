@@ -17,6 +17,10 @@
 + (NSTimeZone*) GMTTimeZone;
 @end
 
+@interface NSDate (SI)
++(NSString *)highestSignificantComponentStringFromDate:(NSDate *)date toDate:(NSDate *)toDate;
+@end
+
 
 
 

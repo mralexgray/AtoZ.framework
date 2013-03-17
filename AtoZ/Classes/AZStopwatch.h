@@ -25,7 +25,7 @@
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSDate *started, *stopped;
 
-+ (AZStopwatchItem *) itemWithName:(NSString *)name;
++ (AZStopwatchItem *) named:(NSString *)name;
 - (void) stop;
 - (NSTI) runtime;
 - (double) runtimeMills;

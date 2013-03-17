@@ -347,9 +347,9 @@ NSData* PNGRepresentation(NSIMG *image) {
 }
 
 
-//+ (void) load {
-//	[$ swizzleClassMethod:@selector(imageNamed:) with:@selector(swizzledImageNamed:) in:[NSIMG class]];
-//}
++ (void) load {
+	[$ swizzleClassMethod:@selector(imageNamed:) with:@selector(swizzledImageNamed:) in:[NSIMG class]];
+}
 
 
 + (NSIMG*)swizzledImageNamed:(NSString *)name {

@@ -2,7 +2,16 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:libatoz/libatoz.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "container:AtoZ/AtoZ.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:MailCore/Examples/OSX/InboxLister/../../../MailCore.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:MailCore/Examples/OSX/InboxLister/InboxLister.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:AtoZWebkit/DeskBrowse.xcodeproj">

@@ -54,7 +54,7 @@
 #import <Foundation/Foundation.h>
 #import <AudioToolbox/AudioToolbox.h>
 #import <ApplicationServices/ApplicationServices.h>
-#import <Lumberjack/Lumberjack.h>
+//#import <Lumberjack/Lumberjack.h>
 
 ////#define EXCLUDE_STUB_PROTOTYPES 1
 ////#import <PLWeakCompatibility/PLWeakCompatibilityStubs.h>
@@ -109,7 +109,7 @@
 
 #import "MAKVONotificationCenter.h"
 #import "NSBag.h"
-#import	"BaseModel.h"
+//#import	"BaseModel.h"
 #import "NSArray+F.h"
 #import "NSNumber+F.h"
 #import "NSDictionary+F.h"
@@ -140,12 +140,29 @@
 
 #import "Bootstrap.h"
 
+#import "AssetCollection.h"
+#import "AZHTTPRouter.h"
+#import "AZFacebookConnection.h"
+
+#import "GCDAsyncSocket.h"
+#import "HTTPServer.h"
+#import "HTTPConnection.h"
+#import "HTTPMessage.h"
+#import "HTTPResponse.h"
+#import "HTTPAuthenticationRequest.h"
+#import "DDNumber.h"
+#import "DDRange.h"
+#import "DDData.h"
+#import "HTTPFileResponse.h"
+#import "HTTPAsyncFileResponse.h"
+#import "WebSocket.h"
+#import "HTTPLogging.h"
 
 //   CORE
 
 #import "CAScrollView.h"
 #import "AssetCollection.h"
-#import "GoogleTTS.h"
+#import "AZSpeechRecognition.h"
 
 // END CORE
 
@@ -172,6 +189,27 @@
 //	#import "AtoZModels.h"
 //#import "AtoZ.h"
 //	#import "AZTalker.h"
+
+// STACK
+
+
+#import <Foundation/Foundation.h>
+#import "SIConstants.h"
+
+#import "SIAppCookieJar.h"
+#import "NSHTTPCookie+Testing.h"
+
+//#import "CKSingleton.h"
+
+#import "SIWindow.h"
+#import "SIInboxDownloader.h"
+#import "ASIHTTPRequest.h"
+#import "JSONKit.h"
+#import "SIInboxModel.h"
+#import "DSURLDataSource.h"
+
+#import "SIAuthController.h"
+#import "SIViewControllers.h"
 
 
 
@@ -332,6 +370,42 @@
 //#import "AZOverlay.h"
 
 
+
+/*  http://stackoverflow.com/questions/4224495/using-an-nsstring-in-a-switch-statement
+ You can use it as
+
+ FilterBlock fb1 = ^id(id element, NSUInteger idx, BOOL *stop){ if ([element isEqualToString:@"YES"]) { NSLog(@"You did it");  *stop = YES;} return element;};
+ FilterBlock fb2 = ^id(id element, NSUInteger idx, BOOL *stop){ if ([element isEqualToString:@"NO"] ) { NSLog(@"Nope");        *stop = YES;} return element;};
+
+ NSArray *filter = @[ fb1, fb2 ];
+ NSArray *inputArray = @[@"NO",@"YES"];
+
+ [inputArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+ [obj processByPerformingFilterBlocks:filter];
+ }];
+ but you can also do more complicated stuff, like aplied chianed calculations:
+
+ FilterBlock b1 = ^id(id element,NSUInteger idx, BOOL *stop) {return [NSNumber numberWithInteger:[(NSNumber *)element integerValue] *2 ];};
+ FilterBlock b2 = ^id(NSNumber* element,NSUInteger idx, BOOL *stop) {
+ *stop = YES;
+ return [NSNumber numberWithInteger:[element integerValue]*[element integerValue]];
+ };
+ FilterBlock b3 = ^id(NSNumber* element, NSUInteger idx,BOOL *stop) {return [NSNumber numberWithInteger:[element integerValue]*[element integerValue]];};
+
+ NSArray *filterBlocks = @[b1,b2, b3, b3, b3];
+ NSNumber *numberTwo = [NSNumber numberWithInteger:2];
+ NSNumber *numberTwoResult = [numberTwo processByPerformingFilterBlocks:filterBlocks];
+ NSLog(@"%@ %@", numberTwo, numberTwoResult);
+ */
+
+typedef id(^FilterBlock)(id element,NSUInteger idx, BOOL *stop);
+
+@interface NSObject (AZFunctional)
+-(id)processByPerformingFilterBlocks:(NSArray *)filterBlocks;
+@end
+
+
+
 //static NSEventMask AZMouseActive = NSMouseMovedMask | NSMouseExitedMask |NSMouseEnteredMask);
 //static NSEventMask AZMouseButton = NS | NSMouseExitedMask |NSMouseEnteredMask;
 
@@ -378,7 +452,7 @@ extern NSString *const AtoZDockSortedUpdated;
 <GrowlApplicationBridgeDelegate>
 #endif
 
-//+ (NSIMG*)imageNamed:(NSString *)name;
++ (NSIMG*)imageNamed:(NSString *)name;
 
 //@property (NATOM, STRNG) SoundManager *sManager;
 

@@ -29,6 +29,40 @@
 
 
 
+@implementation NSDate (SI)
++(NSS *)highestSignificantComponentStringFromDate:(NSDate *)date toDate:(NSDate *)toDate {
+
+	NSDateComponents *components = [[NSCalendar currentCalendar] components:NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit |NSSecondCalendarUnit
+																																 fromDate:date
+																																	 toDate:toDate
+																																	options:0];
+	if ([components year] != 0) {
+		return [NSString stringWithFormat:@"%liy", (long)components.year];
+	}
+	if ([components month] != 0) {
+		return [NSString stringWithFormat:@"%lim", (long)components.month];
+	}
+	if ([components day] != 0) {
+		if ([components hour] > 12) {
+			return [NSString stringWithFormat:@"%lid", components.day + 1];
+		} else {
+			return [NSString stringWithFormat:@"%lid", (long)components.day];
+		}
+	}
+	if ([components  hour] != 0) {
+		return [NSString stringWithFormat:@"%lih", (long)components.hour];
+	}
+	if ([components minute] != 0) {
+		return [NSString stringWithFormat:@"%lim", (long)components.minute];
+	}
+	if ([components second] != 0) {
+		return [NSString stringWithFormat:@"%lis", (long)components.second];
+	}
+	return @"0s";
+}
+@end
+
+
 
 @implementation NSDate (AtoZ)
 

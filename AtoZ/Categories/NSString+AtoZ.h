@@ -16,7 +16,10 @@
 
 - (NSString *)JSONRepresentation;
 
++ (NSS*) dicksonParagraphWith:(NSUI)sentences;
++ (NSA*) dicksonPhrases;
 + (NSA*) dicksonisms;
++ (NSS*) randomDicksonism;
 + (NSS*) dicksonBible;
 
 - (NSString *)decodeHTMLCharacterEntities;

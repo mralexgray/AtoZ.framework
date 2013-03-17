@@ -1,95 +1,11 @@
-
-
-
-
-
-
-
-
-/**	const
-
- 	extern NSString * const MyConstant;
- 	
-	You'll see this in header files. It tells the compiler that the variable MyConstant exists and can be used in your implementation files.	More likely than not, the variable is set something like:
-
-	NSString * const MyConstant = @"foo";
- 	The value can't be changed. If you want a global that can be changed, then drop the const from the declaration.
- 	The position of the const keyword relative to the type identifier doesn't matter
-		const NSString *MyConstant = @"foo";  ===  NSString const *MyConstant = @"foo";
-	You can also legally declare both the pointer and the referenced value const, for maximum constness:
- 		const NSString * const MyConstant = @"foo";
-extern
-
-	Allows you to declare a variable in one compilation unit, and let the compiler know that you've defined that variable in a separate compilation unit. You would generally use this only for global values and constants.
-
- 	A compilation unit is a single .m file, as well as all the .h files it includes. At build time the compiler compiles each .m file into a separate .o file, and then the linker hooks them all together into a single binary. Usually the way one compilation unit knows about identifiers (such as a class name) declared in another compilation unit is by importing a header file. But, in the case of globals, they are often not part of a class's public interface, so they're frequently declared and defined in a .m file.
-	
- 	If compilation unit A declares a global in a .m file:
-
-		#import "A.h"
-		NSString *someGlobalValue;
-
-	and compilation unit B wants to use that global:
-
-		#import "B.h"
-		extern NSString *someGlobalValue;
-
-		@implementation B
-		- (void)someFunc {  
-			NSString *localValue = [self getSomeValue];
-			[localValue isEqualToString:someGlobalValue] ? ^{ ... }() : ^{ ... }();
-		}
-
-	unit B has to somehow tell the compiler to use the variable declared by unit A. It can't import the .m file where the declaration occurs, so it uses extern to tell the compiler that the variable exists elsewhere.
-	Note that if unit A and unit B both have this line at the top level of the file:
-
-		NSString *someGlobalValue;
-	
- 	then you have two compilation units declaring the same global variable, and the linker will fail with a duplicate symbol error. If you want to have a variable like this that exists only inside a compilation unit, and is invisible to any other compilation units (even if they use extern), you can use the static keyword:
-
-		static NSString * const someFileLevelConstant = @"wibble";
-
- 	This can be useful for constants that you want to use within a single implementation file, but won't need elsewhere
-**/
-
-#define nAZColorWellChanged @"AtoZColorWellChangedColors"
-
-
-
-//NS_INLINE void _AZSimpleLog(const char *file, int lineNumber, const char *funcName, NSString *format,...);
-NS_INLINE void _AZSimpleLog( const char *file, int lineNumber, const char *funcName, NSString *format, ... )
-{
-	va_list   argList;
-	va_start (argList, format);
-	NSString *path  	= [[NSString stringWithUTF8String:file]lastPathComponent];
-	NSString *message 	= [NSString.alloc initWithFormat:format arguments:argList];
-	NSString *toLog 	= [NSString stringWithFormat:@"[%s]:%i %s \n", [path UTF8String], lineNumber, [message UTF8String]];
-
-	/**
-	if ( [[NSApplication sharedApplication] delegate] ) {
-		id appD = [[NSApplication sharedApplication] delegate];
-//		fprintf ( stderr, "%s", [[appD description]UTF8String] );
-		if ( [(NSObject*)appD respondsToSelector:NSSelectorFromString(@"stdOutView")]) {
-			NSTextView *tv 	= ((NSTextView*)[appD valueForKey:@"stdOutView"]);
-			if (tv) [tv autoScrollText:toLog];
-		}
-	}
-	*/
-	// $(@"%s: %@", __PRETTY_FUNCTION__, [NSString stringWithFormat: args])	]
-	fprintf ( stderr, "%s", [toLog UTF8String]);//[%s]:%i %s \n", [path UTF8String], lineNumber, [message UTF8String] );
-	va_end  (argList);
-	//	const char *threadName = [[[NSThread currentThread] name] UTF8String];
-}
-
-
 #define NSLog(args...) _AZSimpleLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args);
 
 
 #define LOCALIZED_STRING(key) [[NSBundle bundleForClass:[AtoZ class]]localizedStringForKey:(key) value:@"" table:nil]
 /* You cannot take the address of a return value like that, only a variable. Thus, you’d have to put the result in a temporary variable:
-The way to get around this problem is use another GCC extension allowing statements in expressions. Thus, the macro creates a temporary variable, _Y_, with the same type of _X_ (again using typeof) and passes the address of this temporary to the function.
+ The way to get around this problem is use another GCC extension allowing statements in expressions. Thus, the macro creates a temporary variable, _Y_, with the same type of _X_ (again using typeof) and passes the address of this temporary to the function.
  http://www.dribin.org/dave/blog/archives/2008/09/22/convert_to_nsstring/
-*/
+ */
 #define AZString(_X_) ({typeof(_X_) _Y_ = (_X_);\
 AZToStringFromTypeAndValue(@encode(typeof(_X_)), &_Y_);})
 
@@ -227,6 +143,7 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define CAL CALayer
 #define CALNA CALayerNonAnimating
 #define CALNH CALayerNoHit
+#define CAMTF CAMediaTimingFunction
 #define CASLNH CAShapeLayerNoHit
 #define CASHL CAShapeLayer
 #define CASCRLL CAScrollLayer
@@ -256,6 +173,8 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 
 #define AZRUNFOREVER [NSRunLoop.currentRunLoop runMode:NSDefaultRunLoopMode beforeDate:NSDate.distantFuture]
 
+#define CGRGB CGColorCreateGenericRGB
+#define CGCREF CGColorRef
 
 #define JSCREF JSContextRef
 #define CGWL CGWindowLevel
@@ -349,6 +268,9 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define NSW NSWindow
 
 #define NSWINDOWINIT (id)initWithContentRect:(NSRect)contentRect styleMask:(NSUInteger)aStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)flag {      if (self != [super  initWithContentRect:contentRect styleMask:aStyle backing:bufferingType   defer:flag]) return nil;
+#define AZWINDOWINIT NSWINDOWINIT
+
+#define AZBORDLESSWINDOWINIT(A) [NSWindow.alloc initWithContentRect:A styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO] // screen:self.screen];
 
 #define RNG AZRange
 
@@ -382,7 +304,7 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define vFk valueForKey
 #define pV pointValue
 #define rV rectValue
-//#define fV floatValue
+#define fV floatValue
 #define loM layoutManager
 
 
@@ -431,7 +353,7 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 
 #define CATIMENOW CACurrentMediaTime()
 
-	//#define CACcWA CAConstraint constraintWithAttribute
+//#define CACcWA CAConstraint constraintWithAttribute
 
 #define AZConstraint(attr,rel) [CAConstraint constraintWithAttribute \
 :attr relativeTo:rel attribute:attr]
@@ -537,6 +459,9 @@ attr1 relativeTo:relName attribute:attr2 scale:scl offset:off]
 #define kHighlightColor [[NSColor randomColor]  CGColor]
 #define kRedColor   	[[NSColor	redColor]  CGColor]
 #define kLightBlueColor [[NSColor   blueColor]	CGColor]
+
+#define CGSHADOW(A) CGColorCreate( kCGColorSpaceGenericGray, {0.0, 0.0, A})
+#define CGPATH(A)	CGPathCreateWithRect(R)
 
 #define kTranslucentGrayColor CGColorCreate( kCGColorSpaceGenericGray, {0.0, 0.5, 1.0})
 #define kTranslucentLightGrayColor cgGREY
@@ -718,6 +643,193 @@ _Pragma("clang diagnostic pop") \
 //#define $affectors(A,...) +(NSSet *)keyPathsForValuesAffecting##A { static NSSet *re = nil; \
 //if (!re) { re = [[[@#__VA_ARGS__ splitByComma] trimmedStrings] set]; } return re; }
 
+#import <QuartzCore/QuartzCore.h>
+
+
+
+
+
+
+
+typedef struct AZCAConstraint { CAConstraintAttribute constraint;
+											CGFloat scale;
+											CGFloat offset;
+};
+
+
+typedef NS_ENUM(NSUI, AppCat) {
+	Games, Education, Entertainment,
+	Books, Lifestyle, Utilities, Business,
+	Travel, Music, Reference, Sports,
+	Productivity, News, HealthcareFitness,
+	Photography, Finance, Medical, SocialNetworking,
+	Navigation, Weather, Catalogs, FoodDrink, Newsstand
+};
+
+#define AppCatTypeArray @"Games", @"Education", @"Entertainment", @"Books", @"Lifestyle", @"Utilities", @"Business", @"Travel", @"Music", @"Reference", @"Sports", @"Productivity", @"News", @"Healthcare & Fitness", @"Photography", @"Finance", @"Medical", @"Social Networking", @"Navigation", @"Weather", @"Catalogs", @"Food & Drink", @"Newsstand", nil
+typedef enum {
+	AZOrientTop,
+	AZOrientLeft,
+	AZOrientBottom,
+	AZOrientRight,
+	AZOrientGrid,
+	AZOrientPerimeter,
+	AZOrientFiesta,
+	AZOrientVertical,
+	AZOrientHorizontal,
+}	AZOrient;
+
+typedef NS_ENUM(NSUI,  	AZInfiteScale) {
+	AZInfiteScale0X,
+	AZInfiteScale1X,
+	AZInfiteScale2X,
+	AZInfiteScale3X,
+	AZInfiteScale10X
+};
+
+typedef NS_ENUM(NSUI, AZState) {
+	AZIdleState,
+	AZCreatingState,
+	AZModifyingState,
+	AZDeletingState,
+	AZOn,
+	AZOff
+};
+
+typedef NS_ENUM(NSUI, AZTrackState) { LeftOn,LeftOff,TopOn,TopOff,RightOn,RightOff,BottomOn,BottomOff	};
+typedef NS_ENUM(NSUI, AZDockSort)	{	AZDockSortNatural,AZDockSortColor,AZDockSortPoint,AZDockSortPointNew	};
+typedef enum  {	AZSearchByCategory,AZSearchByColor,AZSearchByName,AZSearchByRecent		} AZSearchBy;
+typedef NS_ENUM(NSUI, AZSlideState)	  {	AZIn,AZOut																};
+typedef NS_ENUM(NSUI, AZMenuPosition) { AZMenuN,AZMenuS,AZMenuE,AZMenuW,AZMenuPositionCount						};
+//#ifndef ATOZTOUCH
+typedef NS_ENUM(NSUI, AZWindowPosition) {
+	AZPositionLeft 			= NSMinXEdge, // 0  NSDrawer
+	AZPositionRight		 = NSMaxXEdge, // 2  preferredEdge
+	AZPositionTop		   = NSMaxYEdge, // 3  compatibility
+	AZPositionBottom		= NSMinYEdge, // 1  numbering!
+	AZPositionTopLeft	   = 4,
+	AZPositionBottomLeft	= 5,
+	AZPositionTopRight	  = 6,
+	AZPositionBottomRight   = 7,
+	AZPositionAutomatic	 = 8
+};// AZWindowPosition;
+
+// NSVALUE defined, see NSValue+AtoZ.h
+#define AZWindowPositionTypeArray @"Left",@"Bottom",@"Right",@"Top",@"TopLeft",@"BottomLeft",@"TopRight",@"BottomRight",@"Automatic",nil
+//#endif
+
+#define QUAD AZQuadrant
+
+typedef NS_ENUM(NSUI, AZQuadrant){
+	AZTopLeftQuad = 0,
+	AZTopRightQuad,
+	AZBotRightQuad,
+	AZBotLeftQuad
+};
+
+
+typedef struct {	CGFloat tlX; CGFloat tlY;
+	CGFloat trX; CGFloat trY;
+	CGFloat blX; CGFloat blY;
+	CGFloat brX; CGFloat brY;
+} CIPerspectiveMatrix;
+
+//extern NSString *const AZOrientName[AZOrientCount];
+extern NSString *const AZMenuPositionName[AZMenuPositionCount];
+// NSLog(@"%@", FormatTypeName[XML]);
+
+//NSString *const FormatTypeName[FormatTypeCount] = { [JSON]=@"JSON", [XML]=@"XML", [Atom] = @"Atom", [RSS] = @"RSS", };
+typedef enum {	AZItemsAsBundleIDs,
+	AZItemsAsPaths,
+	AZItemsAsNames
+} AZItemsViewFormat;
+typedef enum {	ReadAccess = R_OK,
+	WriteAccess = W_OK,
+	ExecuteAccess = X_OK,
+	PathExists = F_OK
+} SandBox;
+
+BOOL isPathAccessible(NSString *path, SandBox mode);
+void trackMouse();
+// In a header file
+
+
+/**	const
+
+ 	extern NSString * const MyConstant;
+
+	You'll see this in header files. It tells the compiler that the variable MyConstant exists and can be used in your implementation files.	More likely than not, the variable is set something like:
+
+	NSString * const MyConstant = @"foo";
+ 	The value can't be changed. If you want a global that can be changed, then drop the const from the declaration.
+ 	The position of the const keyword relative to the type identifier doesn't matter
+		const NSString *MyConstant = @"foo";  ===  NSString const *MyConstant = @"foo";
+	You can also legally declare both the pointer and the referenced value const, for maximum constness:
+ 		const NSString * const MyConstant = @"foo";
+extern
+
+	Allows you to declare a variable in one compilation unit, and let the compiler know that you've defined that variable in a separate compilation unit. You would generally use this only for global values and constants.
+
+ 	A compilation unit is a single .m file, as well as all the .h files it includes. At build time the compiler compiles each .m file into a separate .o file, and then the linker hooks them all together into a single binary. Usually the way one compilation unit knows about identifiers (such as a class name) declared in another compilation unit is by importing a header file. But, in the case of globals, they are often not part of a class's public interface, so they're frequently declared and defined in a .m file.
+	
+ 	If compilation unit A declares a global in a .m file:
+
+		#import "A.h"
+		NSString *someGlobalValue;
+
+	and compilation unit B wants to use that global:
+
+		#import "B.h"
+		extern NSString *someGlobalValue;
+
+		@implementation B
+		- (void)someFunc {  
+			NSString *localValue = [self getSomeValue];
+			[localValue isEqualToString:someGlobalValue] ? ^{ ... }() : ^{ ... }();
+		}
+
+	unit B has to somehow tell the compiler to use the variable declared by unit A. It can't import the .m file where the declaration occurs, so it uses extern to tell the compiler that the variable exists elsewhere.
+	Note that if unit A and unit B both have this line at the top level of the file:
+
+		NSString *someGlobalValue;
+	
+ 	then you have two compilation units declaring the same global variable, and the linker will fail with a duplicate symbol error. If you want to have a variable like this that exists only inside a compilation unit, and is invisible to any other compilation units (even if they use extern), you can use the static keyword:
+
+		static NSString * const someFileLevelConstant = @"wibble";
+
+ 	This can be useful for constants that you want to use within a single implementation file, but won't need elsewhere
+**/
+
+#define nAZColorWellChanged @"AtoZColorWellChangedColors"
+
+
+
+//NS_INLINE void _AZSimpleLog(const char *file, int lineNumber, const char *funcName, NSString *format,...);
+NS_INLINE void _AZSimpleLog( const char *file, int lineNumber, const char *funcName, NSString *format, ... )
+{
+	va_list   argList;
+	va_start (argList, format);
+	NSString *path  	= [[NSString stringWithUTF8String:file]lastPathComponent];
+	NSString *message 	= [NSString.alloc initWithFormat:format arguments:argList];
+	NSString *toLog 	= [NSString stringWithFormat:@"[%s]:%i %s \n", [path UTF8String], lineNumber, [message UTF8String]];
+
+	/**
+	if ( [[NSApplication sharedApplication] delegate] ) {
+		id appD = [[NSApplication sharedApplication] delegate];
+//		fprintf ( stderr, "%s", [[appD description]UTF8String] );
+		if ( [(NSObject*)appD respondsToSelector:NSSelectorFromString(@"stdOutView")]) {
+			NSTextView *tv 	= ((NSTextView*)[appD valueForKey:@"stdOutView"]);
+			if (tv) [tv autoScrollText:toLog];
+		}
+	}
+	*/
+	// $(@"%s: %@", __PRETTY_FUNCTION__, [NSString stringWithFormat: args])	]
+	fprintf ( stderr, "%s", [toLog UTF8String]);//[%s]:%i %s \n", [path UTF8String], lineNumber, [message UTF8String] );
+	va_end  (argList);
+	//	const char *threadName = [[[NSThread currentThread] name] UTF8String];
+}
+
+
 
 typedef NS_ENUM(NSUI, AssetType){ JS, CSS, HTML, PHP, BASH,	ObjC, TXT,	UNKNOWN = 99 };
 extern NSString * const assetStringValue[];
@@ -797,104 +909,6 @@ NS_INLINE NSS* stringForScrollFix(ScrollFix val) { return [NSArray.alloc initWit
 
 
 
-
-typedef struct { CAConstraintAttribute constraint; CGFloat scale; CGFloat offset; }AZCAConstraint;
-
-typedef NS_ENUM(NSUI, AppCat) {
-	Games, Education, Entertainment,
-	Books, Lifestyle, Utilities, Business,
-	Travel, Music, Reference, Sports,
-	Productivity, News, HealthcareFitness,
-	Photography, Finance, Medical, SocialNetworking,
-	Navigation, Weather, Catalogs, FoodDrink, Newsstand
-};
-
-#define AppCatTypeArray @"Games", @"Education", @"Entertainment", @"Books", @"Lifestyle", @"Utilities", @"Business", @"Travel", @"Music", @"Reference", @"Sports", @"Productivity", @"News", @"Healthcare & Fitness", @"Photography", @"Finance", @"Medical", @"Social Networking", @"Navigation", @"Weather", @"Catalogs", @"Food & Drink", @"Newsstand", nil
-typedef enum {
-	AZOrientTop,
-	AZOrientLeft,
-	AZOrientBottom,
-	AZOrientRight,
-	AZOrientGrid,
-	AZOrientPerimeter,
-	AZOrientFiesta,
-	AZOrientVertical,
-	AZOrientHorizontal,
-}	AZOrient;
-
-typedef NS_ENUM(NSUI,  	AZInfiteScale) {
-	AZInfiteScale0X,
-	AZInfiteScale1X,
-	AZInfiteScale2X,
-	AZInfiteScale3X,
-	AZInfiteScale10X
-};
-
-typedef NS_ENUM(NSUI, AZState) {
-	AZIdleState,
-	AZCreatingState,
-	AZModifyingState,
-	AZDeletingState,
-	AZOn,
-	AZOff
-};
-
-typedef NS_ENUM(NSUI, AZTrackState) { LeftOn,LeftOff,TopOn,TopOff,RightOn,RightOff,BottomOn,BottomOff	};
-typedef NS_ENUM(NSUI, AZDockSort)	{	AZDockSortNatural,AZDockSortColor,AZDockSortPoint,AZDockSortPointNew	};
-typedef enum  {	AZSearchByCategory,AZSearchByColor,AZSearchByName,AZSearchByRecent		} AZSearchBy;
-typedef NS_ENUM(NSUI, AZSlideState)	  {	AZIn,AZOut																};
-typedef NS_ENUM(NSUI, AZMenuPosition) { AZMenuN,AZMenuS,AZMenuE,AZMenuW,AZMenuPositionCount						};
-//#ifndef ATOZTOUCH
-typedef NS_ENUM(NSUI, AZWindowPosition) {
-				AZPositionLeft 			= NSMinXEdge, // 0  NSDrawer
-				AZPositionRight		 = NSMaxXEdge, // 2  preferredEdge
-				AZPositionTop		   = NSMaxYEdge, // 3  compatibility
-				AZPositionBottom		= NSMinYEdge, // 1  numbering!
-				AZPositionTopLeft	   = 4,
-				AZPositionBottomLeft	= 5,
-				AZPositionTopRight	  = 6,
-				AZPositionBottomRight   = 7,
-				AZPositionAutomatic	 = 8
-};// AZWindowPosition;
-
-// NSVALUE defined, see NSValue+AtoZ.h
-#define AZWindowPositionTypeArray @"Left",@"Bottom",@"Right",@"Top",@"TopLeft",@"BottomLeft",@"TopRight",@"BottomRight",@"Automatic",nil
-//#endif
-
-#define QUAD AZQuadrant
-
-typedef NS_ENUM(NSUI, AZQuadrant){
-	AZTopLeftQuad = 0,
-	AZTopRightQuad,
-	AZBotRightQuad,
-	AZBotLeftQuad
-};
-
-
-typedef struct {	CGFloat tlX; CGFloat tlY;
-					CGFloat trX; CGFloat trY;
-					CGFloat blX; CGFloat blY;
-					CGFloat brX; CGFloat brY;
-} CIPerspectiveMatrix;
-
-//extern NSString *const AZOrientName[AZOrientCount];
-extern NSString *const AZMenuPositionName[AZMenuPositionCount];
-// NSLog(@"%@", FormatTypeName[XML]);
-
-//NSString *const FormatTypeName[FormatTypeCount] = { [JSON]=@"JSON", [XML]=@"XML", [Atom] = @"Atom", [RSS] = @"RSS", };
-typedef enum {	AZItemsAsBundleIDs,
-				AZItemsAsPaths,
-				AZItemsAsNames
-} AZItemsViewFormat;
-typedef enum {	ReadAccess = R_OK,
-				WriteAccess = W_OK,
-				ExecuteAccess = X_OK,
-				PathExists = F_OK
-} SandBox;
-
-BOOL isPathAccessible(NSString *path, SandBox mode);
-void trackMouse();
-// In a header file
 //typedef enum {
 //	JSON = 0,		 // explicitly indicate starting index
 //	XML,
