@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleExecutable</key>
+	<string>AZCLI</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.mrgray.azcli</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>AZCLI</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>2.2.2</string>
+	<key>CFBundleVersion</key>
+	<string>2.2.2</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleTypeMIMETypes</key>
+	<array>
+		<string>application/rss+xml</string>
+		<string>application/rdf+xml</string>
+		<string>application/atom+xml</string>
+	</array>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>Feed</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>feed</string>
+			</array>
+		</dict>
+	</array>
+	<key>LSUIElement</key>
+	<string>1</string>
+	<key>NSMainNibFile</key>
+	<string>MainMenu</string>
+	<key>NSPrincipalClass</key>
+	<string>NSApplication</string>
+</dict>
+</plist>

@@ -1,0 +1,8 @@
+//
+// Prefix header for all source files of the 'SpeechConverter' target in the 'SpeechConverter' project
+//
+
+#ifdef __OBJC__
+	#import <Cocoa/Cocoa.h>
+	#import <Foundation/Foundation.h>
+#endif
