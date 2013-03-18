@@ -10,14 +10,19 @@
 
 - (IBAction) recognizerForLabel:(id)sender;
 {
-	NSS* s = [(NSButton*)sender title];
-	AZLOG(s);
-	__block GoogleSpeechAPI *api;
-	((void (^)()) [@{
-		@"Dicksonism" 	: ^{ api = [GoogleSpeechAPI recognizeSynthesizedText:NSS.randomDicksonism completion:^(NSS *s) { self.outputArea.stringValue = s; }]; },
-		@"Random" 				: ^{ api = [GoogleSpeechAPI recognizeSynthesizedText:NSS.randomWord.wikiDescription toControl:_outputArea]; }
-	}	objectForKey:s] ?: nil )();
+	NSA* say =[@[@[ @"dicksonism",	NSS.randomDicksonism],
+				 @[ @"random",	 	NSS.randomWord],
+				 @[ @"urband",	 	$(@"%@ : %@", NSS.randomUrbanD.word, NSS.randomUrbanD.definition)],
+				 @[ @"bad word",   [NSS badWords].randomElement]]filterOne:^BOOL(id object) {
+					 return [object[0] contains:[(NSButton*)sender title].lowercaseString]; }] ?: @"Not Found";
+	//((void (^)())
+	 [GoogleSpeechAPI recognizeSynthesizedText:[say[1] copy] completion:^(NSS *theString) {
+		self.outputArea.stringValue = $(@"Original: \n\n%@\n\nResult:\n%@", [say[1] copy], theString); }];
+	// )();
+}
+@end
 
+//^{ api = [GoogleSpeechAPI recognizeSynthesizedText:NSS.randomWord.wikiDescription toControl:_outputArea];
 
 //	FilterBlock fb2 = ^id(id element, NSUInteger idx, BOOL *stop){
 //		if ([element isEqualToString:@"NO"] ) {		*stop = YES;} return element;};
@@ -42,8 +47,6 @@
 	NSNumber *numberTwoResult = [numberTwo processByPerformingFilterBlocks:filterBlocks];
 	NSLog(@"%@ %@", numberTwo, numberTwoResult);
 	*/
-}
-@end
 
 
 

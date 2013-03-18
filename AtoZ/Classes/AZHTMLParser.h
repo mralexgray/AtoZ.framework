@@ -8,7 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-#import <libxml/HTMLparser.h>
+#include <libxml/HTMLparser.h>
+
 #import "HTMLNode.h"
 
 @class HTMLNode;

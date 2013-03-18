@@ -9,6 +9,12 @@
 - (NSString *)MD5String;
 @end
 
+@interface Definition : NSObject
+@property (NATOM, STRNG) NSString *word, *definition;
+@end
+
+#define $DEFINE(A,B) [Definition.alloc initWithProperties:@{@"word" :A, @"definition" :B}]
+
 
 @interface NSString (AtoZ)
 
@@ -25,9 +31,14 @@
 - (NSString *)decodeHTMLCharacterEntities;
 - (NSString *)encodeHTMLCharacterEntities;
 
-+ (NSS*) randomWiki;
-- (NSS*)wikiDescription;
-+ (NSS*)randomWord;
+- (NSString *)stringByDecodingXMLEntities;
+
++ (NSString*) randomWiki;
+- (NSS*) wikiDescription;
++ (NSS*) randomWord;
+
++ (NSArray*) badWords;
+
 
 - (NSS*)parseXMLTag:(NSS*)tag;
 - (NSString*)stripHtml;
@@ -55,6 +66,9 @@
 - (NSS*) firstLetter;
 + (NSS*) newUniqueIdentifier;
 + (NSS*) randomAppPath;
+
++ (Definition*) randomUrbanD;
+
 
 + (NSS*) randomWords:	 (NSI)number;
 + (NSS*) randomSentences: (NSI)number;

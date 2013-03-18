@@ -214,8 +214,7 @@
 -(NSArray *)objectsWithFormat:(NSString *)format, ...;
 -(id)firstObjectWithFormat:(NSString *)format, ...;
 
--(NSArray *)filteredArrayUsingBlock:
-(BOOL (^)(id evaluatedObject, NSDictionary *bindings))block;
+-(NSArray *)filteredArrayUsingBlock: (BOOL (^)(id evaluatedObject, NSDictionary *bindings))block;
 -(NSA*) uniqueObjects;
 
 -(NSA*) uniqueObjectsSortedUsingSelector: (SEL)comparator;

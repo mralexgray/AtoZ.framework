@@ -1,7 +1,6 @@
 
 //  NSString+AtoZ.m
 //  AtoZ
-
 //  Created by Alex Gray on 7/1/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 #import "NSString+AtoZ.h"
@@ -11,16 +10,16 @@
 #import "RuntimeReporter.h"
 #import "AtoZ.h"
 #import <CommonCrypto/CommonDigest.h>
-
 #define kMaxFontSize	10000
 
 
+@implementation Definition
+@end
+
 
 @implementation NSString (MD5)
-
 - (NSString *)MD5String
 {
-
 	const char *cStr = [self UTF8String];
     unsigned char result[16];
     CC_MD5( cStr, strlen(cStr), result ); // This is the md5 call
@@ -51,19 +50,15 @@
 //	free(md5str);
 //	return ret;
 //}
-
 @end
 
-
 //  Copyright 2011 Leigh McCulloch. Released under the MIT license.
-
 @interface NSString_stripHtml_XMLParsee : NSObject<NSXMLParserDelegate> {
 @private
     NSMutableArray* strings;
 }
 - (NSString*)getCharsFound;
 @end
-
 @implementation NSString_stripHtml_XMLParsee
 - (id)init
 {
@@ -77,14 +72,12 @@
 @end
 
 @implementation NSString (AtoZ)
-
 - (NSString *)JSONRepresentation
 {
 	__block NSMutableString *jsonString =@"\"".mutableCopy;
 	
 	// Build the result one character at a time, inserting escaped characters as necessary
 	[[NSArray from:0 to:self.length] eachWithIndex:^(id obj, NSInteger i) {
-
 		unichar nextChar = [self characterAtIndex:i];
 		switch (nextChar) {
 			case '\"':
@@ -123,18 +116,13 @@
 	[jsonString appendString:@"\""];
 	return jsonString;
 }
-
 + (NSS*) stringFromArray:(NSA*)a; { return  [a reduce:@"" withBlock:^id(id sum, id obj) {
 		return [sum stringByAppendingString:$(@" %@",obj)];
 	}];
 }
 
-
-
 + (NSS*) dicksonParagraphWith:(NSUI)sentences { return [self stringFromArray:[self.dicksonPhrases.shuffeled withMaxItems:sentences]]; }
-
 + (NSA*) dicksonPhrases { return [self.dicksonBible extractAllSentences]; };
-
 + (NSA*) dicksonisms {		static NSA* dicks = nil;		return dicks = dicks ? dicks : @[
 		 @"When I was 10 years old - I wore this dress; I just keep getting it altered.",  @"See? I still fit into my 10-year-old clothing.", @"Look at that! Oh, is that me on the wall? I drew it myself - with chalk!",
 		  @"I can't move, but boy, can I ever pose!", @"I wish there was a close up on my face.. there it is! <<sighing>> Wow, looking better and better all the time.",
@@ -143,41 +131,87 @@
 }
 + (NSS*) dicksonBible { return  @"When do I look at the camera?  When do I look? <gasp> Hi, what a surprise that you're here.  Welcome... to my bathroom.  My fingers are.. fused together. My thumb was broken... in.. an... acting.. accident..  I can't wait to show you more of my face. Look at my face. 	There's my face, there's my face!  That's not my body... but this is my.. FACE. Here are four looks. I have four different emotions - they may seem the same.. oh there's my high school grad picture.. and my picture from Woolworth's!I like to stare blankly into space.  <<chuckle>> that's something I do. When I was 10 years old - I wore this dress; I just keep getting it altered.  See? I still fit into my 10-year-old clothing. Look at that! Oh, is that me on the wall? I drew it myself - with chalk!  I can't move, but boy, can I ever pose!  I wish there was a close up on my face.. there it is! <<sighing>> Wow, looking better and better all the time. That's a - beret - it's from Europe.  I really shouldn't be doing this; but I'm going to have an ad for IKEA right now.  This is a complete IKEA closet.  The bed is underneath my pants. If you have a look - you can see that everything fits - into this particle board.   You just paint it white.. pull it out... oh gold and silver! (those are my two signature colors.)	What are legs good for? They're not good for pants.. they're good for sitting!   It's after Labor Day and I am wearing white. This is a very comfortable pose. This is how all the models do it. This is called boobies.		And this is another picture of my FACE. I liked putting Vaseline on the lens; it erases all lines that one may have on their face.  It's a fashion face; a face full of fashion.	I eat so much fowl - I shit feathers!It's winter - so I wear pantyhose with my open-toed sandals.I hope I never get arrested for not leaving a premises which is no longer mine!	I still I look like a teenager, don't I?  Well, thankfully my herpes is in remission, right now.  Look, no blisters, not one!  Just a cold sore!  Oh, that's herpes.  Oh, It's back.	I like to fill my breasts with photos of myself; one's bigger than the other...  because my hair is - greater on one side.  This is live video footage of me.I don't blink; that's a huge part of fashion. Breathe in my eye - just some air, nothing.  I do not blink.  Not at all.  Good for me!		Here's what happens when I go down on my knees. I'm bending down right now, and I'm on my knees. There, I'm on my knees right now. I can really stay on my knees a very long time - huge part of fashion.		The look this season is clothes that don't fit correctly. These pants are way too tight, not my size. This top is completely not my size.  Isn't it fashion?!		This top doesn't fit at all <<awkward chuckle>>		These boots don't fit.  I wonder if belts fit?  No, the belt does not fit either.  <<sigh>>		Oh, these boots fit, but the purse is the wrong size (I got this from Pic-N-Save)  I'll tell you.. their Halloween collection.. not a lot to be desired... <<creepy sigh>>		This is an oversized top. These are my breasts. I have two of them.  I even 'out' my breasts on my own; it's still the same Wol-Co. photo from earlier.  I just cropped it to make it larger.. oh I cropped it again... I'm really, really good with scissors. I'll tell you that much.		Here's what I wear too bed. It's, it's like a trap - a spider trap. I get them into my bu'drow... and then I, I eat their head off.  They're absolutely delicious!		I always wanted to be on dynasty... but here's two things: and nipple and a tertiary nipple.  I have two nipples. Uh, My tummy does not have any support right now - that's just me.  And white shoes.. It's before - and after Labor Day.		I wanted to show you this necklace.  I'm wearing a gold necklace - umm, with diamonds - I wear it every single shot - every single one.  Watch this...  Prest-o Change-o!  Let's go up a little bit.. Let me get on my knees - I'm going down.  Look what's there! It's a heart diamond necklace! If you see on my left- umm right-hand side..  That's My kitty cat - I named it Chester.. and I.. he was absolutely delicious.		And and I'm also part of aChipapeantribe...  I thought I looked very.. native.. North American in this. Uh, I like to bring out my culture, my taste... oh, uh, when you open your legs, ladies - watch the Seaguls...  Sometimes they come a-flock and - they're your friends, too!  I.. could... make a hat out of most of them.		Let's open the microwave and see what I've made. Enjoy some popcorn - absolutely yumms. Yes, I do eat solid foods. But I have four microwaves stacked on top of each other for when company comes over. My door is always welcome to you.   For Halloween I'm going to dress up as.. a Hooker!  Won't that be fun!? Look at all the choices that I have!  Oh, the kids just love it.ABCDEF..GHIJKL.. M..N..OPQRS.. oh what's next, I can't remember what's next, UVWX.Y.Z! I wish I was Jacqueline Smith.. but I'm not... so here's my face double..   Okay - I like to put makeup over my makeup.. and then tattoo my makeup on. I got it from Pic-N-Save. I'm already tattooed, but you can never have enough, you know, can you?  awkakwaka.		My schedule is free so I'm available for donkey shows.. for grand openings.. for sales...  I'm good at telemarketing - and flourishes - watch the hand. So - you know, for Halloween this is how we're going to look. Some people use it as a daily look.  It's Halloween everday in my house - every single day!Welcome, Sorry I'm late... I gave myself a camel toe - and not the Dorothy Hamill kind."; }
 
-+ (NSS*) randomWord { return ((NSS*)[NSS stringWithContentsOfURL:$URL(@"http://randomword.setgetgo.com/get.php") encoding:NSUTF8StringEncoding error:nil]).trim; }
++ (NSS*) randomWord
+{
+	NSURLRequest* request = [NSURLRequest requestWithURL:$URL(@"http://randomword.setgetgo.com/get.php") cachePolicy:0 timeoutInterval:5];
+	NSURLResponse* response=nil;	NSError* error=nil;
+	NSData* data=[NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+	return data ? [NSString stringWithData:data encoding:NSUTF8StringEncoding] : @"Timeout!";
+}
+//return ((NSS*)[NSS stringWithContentsOfURL: encoding:NSUTF8StringEncoding error:nil]).trim; }
 
-+ (NSS*) randomWiki { return  NSS.randomWord.trim.wikiDescription; }
++ (NSS*) randomWiki
+{
+	__block NSS* wiki; __block NSS *word;  NSUI tries = 10; [[NSA from:0 to:tries] az_eachConcurrentlyWithBlock:^(NSI index, id obj, BOOL *stop) {
+
+		NSS *rando = NSS.randomWord.trim;
+		NSS *randoWiki = rando.wikiDescription;
+		if (randoWiki) {  wiki = randoWiki;  word = rando;  *stop = YES; }
+		return;
+	}];
+	return $(@"%@:  %@", word, wiki);
+}
 
 - (NSS*)wikiDescription	{
-
 	__block NSS* wikiD;
 	__block NSError *requestError;
+	NSS*wikiPage = 	[NSS stringWithContentsOfURL:$URL($(@"http://lookup.dbpedia.org/api/search.asmx/KeywordSearch?QueryString=%@&MaxHits=1",self)) encoding:NSUTF8StringEncoding  error:&requestError];
+	//http://lookup.dbpedia.org/api/search.asmx/KeywordSearch?QueryClass=%@&MaxHits=1",self)) encoding:NSUTF8StringEncoding  error:&requestError]; //NSASCIIStringEncoding
+	return requestError ? $(@"Error parsing wiki: %@", requestError) : [wikiPage parseXMLTag:@"Description"].stringByDecodingXMLEntities;  // $(@"%@: %@", self,
+}
+
++ (NSArray*) badWords { return [NSArray arrayFromPlist:[AZFWRESOURCES withPath:@"BadWords.plist"]]; }
+
++ (Definition*) randomUrbanD;
+{
+	__block Definition *urbanD;
+	ASIHTTPRequest *requester = [ASIHTTPRequest.alloc initWithURL:$URL($(@"http://www.urbandictionary.com/random.php"))];
+	[requester setCompletionBlock:^(ASIHTTPRequest *request) {
+
+		NSS* responsePage = request.responseString.copy;
+//		NSLog(@"Response:%@", responsePage);
+	 	NSError *requestError 	= [request error];
+		if (!requestError) {
+			AZHTMLParser *p = [AZHTMLParser.alloc initWithString:responsePage error:&requestError];
+			NSS *title 	= 	[[p.head findChildWithAttribute:@"property" matchingName:@"og:title" allowPartial:YES] getAttributeNamed:@"content"];
+			NSS *desc	= 	[[p.head findChildWithAttribute:@"property" matchingName:@"og:description" allowPartial:YES] getAttributeNamed:@"content"];
+//			NSLog(@"title: %@  desc: %@", title, desc );
+			urbanD = $DEFINE(  title, desc );///rawContents.urlDecoded.decodeHTMLCharacterEntities);
+		} else urbanD = $DEFINE( @"undefined", @"no response from urban" );
+	}];
+	[requester startSynchronous];
+	return urbanD;
+}
+
+
 
 //	ASIHTTPRequest *requester = [ASIHTTPRequest.alloc initWithURL:$URL($(@"http://lookup.dbpedia.org/api/search.asmx/KeywordSearch?QueryString=%@&MaxHits=1",self))];
-	ASIHTTPRequest *requester = [ASIHTTPRequest.alloc initWithURL:$URL($(@"http://en.wikipedia.org/w/api.php?action=parse&page=%@&prop=text&section=0&format=json&callback=?", self))];//http://en.wikipedia.org/w/api.php?action=parse&page=%@&format=json&prop=text&section=0",self))];
-
+/**	ASIHTTPRequest *requester = [ASIHTTPRequest.alloc initWithURL:$URL($(@"http://en.wikipedia.org/w/api.php?action=parse&page=%@&prop=text&section=0&format=json&callback=?", self))];//http://en.wikipedia.org/w/api.php?action=parse&page=%@&format=json&prop=text&section=0",self))];
 	[requester setCompletionBlock:^(ASIHTTPRequest *request) {
 		wikiD 				= request.responseString.copy;
 		requestError 	= [request error];
 	}];
 	[requester startSynchronous];
 	AZHTMLParser *p = [AZHTMLParser.alloc initWithString:wikiD error:nil];
-
-	return p.body;///requester.responseString.stripHtml;// parseXMLTag:@"text"]);
+	return $(@"POOP: %@",p.body.rawContents.urlDecoded.decodeHTMLCharacterEntities);
+*/
+	///requester.responseString.stripHtml;// parseXMLTag:@"text"]);
 //	if (requestError) return  $(@"Error: %@  headers: %@", requestError, [requester responseHeaders]);
 //	else if (![wikiD loMismo: @"(null)"])   { NSLog(@"found wiki for: %@, %@", self, wikiD); return [wikiD parseXMLTag:@"Description"]; }
 //	else return $(@"code: %i no resonse.. %@", requester.responseStatusCode, [requester responseHeaders]);
-}
 //		NSS* result = nil;
 //	NSS* try = ^(NSS*){ return [NSS stringWithContentsOfURL: };
 //	//	@"https://www.google.com/search?client=safari&rls=en&q=%@&ie=UTF-8&oe=UTF-8", );
 //	while (!result) [@5 times:^id{ 
-//	NSS*wikiPage = 	encoding:NSUTF8StringEncoding  error:&e];
-////					 ?: [NSS stringWithContentsOfURL:$URL($(@"http://lookup.dbpedia.org/api/search.asmx/KeywordSearch?QueryClass=%@&MaxHits=1",self)) 	encoding:NSUTF8StringEncoding  error:&e]; //NSASCIIStringEncoding
-//	return e ? $(@"Error parsing wiki: %@", e) : $(@"%@  %@", self, [wikiPage parseXMLTag:@"Description"]);
-//}
 
+-(NSString *) stringByStrippingHTML {
+	NSRange r;
+	NSString *s = [[self copy] autorelease];
+	while ((r = [s rangeOfString:@"<[^>]+>" options:NSRegularExpressionSearch]).location != NSNotFound)
+		s = [s stringByReplacingCharactersInRange:r withString:@""];
+	return s;
+}
 - (NSS*) parseXMLTag:(NSS*)tag;	{	return [self substringBetweenPrefix:$(@"<%@>", tag) andSuffix:$(@"</%@>",tag)]; }
-
 //
 //	NSScanner *theScanner;
 //	NSString *text = nil;
@@ -201,10 +235,84 @@
 //	// trim off whitespace
 //	return trim ? [html stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] : html;
 //}
+- (NSString *)stringByDecodingXMLEntities {
+    NSUInteger myLength = [self length];
+    NSUInteger ampIndex = [self rangeOfString:@"&" options:NSLiteralSearch].location;
+    // Short-circuit if there are no ampersands.
+    if (ampIndex == NSNotFound) {
+        return self;
+    }
+    // Make result string with some extra capacity.
+    NSMutableString *result = [NSMutableString stringWithCapacity:(myLength * 1.25)];
+    // First iteration doesn't need to scan to & since we did that already, but for code simplicity's sake we'll do it again with the scanner.
+    NSScanner *scanner = [NSScanner scannerWithString:self];
+    [scanner setCharactersToBeSkipped:nil];
+    NSCharacterSet *boundaryCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@" \t\n\r;"];
+    do {
+        // Scan up to the next entity or the end of the string.
+        NSString *nonEntityString;
+        if ([scanner scanUpToString:@"&" intoString:&nonEntityString]) {
+            [result appendString:nonEntityString];
+        }
+        if ([scanner isAtEnd]) {
+            goto finish;
+        }
+        // Scan either a HTML or numeric character entity reference.
+        if ([scanner scanString:@"&amp;" intoString:NULL])
+            [result appendString:@"&"];
+        else if ([scanner scanString:@"&apos;" intoString:NULL])
+            [result appendString:@"'"];
+        else if ([scanner scanString:@"&quot;" intoString:NULL])
+            [result appendString:@"\""];
+        else if ([scanner scanString:@"&lt;" intoString:NULL])
+            [result appendString:@"<"];
+        else if ([scanner scanString:@"&gt;" intoString:NULL])
+            [result appendString:@">"];
+        else if ([scanner scanString:@"&#" intoString:NULL]) {
+            BOOL gotNumber;
+            unsigned charCode;
+            NSString *xForHex = @"";
+            // Is it hex or decimal?
+            if ([scanner scanString:@"x" intoString:&xForHex]) {
+                gotNumber = [scanner scanHexInt:&charCode];
+            }
+            else {
+                gotNumber = [scanner scanInt:(int*)&charCode];
+            }
+            if (gotNumber) {
+                [result appendFormat:@"%C", (unichar)charCode];
+                [scanner scanString:@";" intoString:NULL];
+            }
+            else {
+                NSString *unknownEntity = @"";
+                [scanner scanUpToCharactersFromSet:boundaryCharacterSet intoString:&unknownEntity];
 
+                [result appendFormat:@"&#%@%@", xForHex, unknownEntity];
+                //[scanner scanUpToString:@";" intoString:&unknownEntity];
+                //[result appendFormat:@"&#%@%@;", xForHex, unknownEntity];
+                NSLog(@"Expected numeric character entity but got &#%@%@;", xForHex, unknownEntity);
+            }
+        }
+        else {
+            NSString *amp;
+            [scanner scanString:@"&" intoString:&amp];  //an isolated & symbol
+            [result appendString:amp];
+            /*
+			 NSString *unknownEntity = @"";
+			 [scanner scanUpToString:@";" intoString:&unknownEntity];
+			 NSString *semicolon = @"";
+			 [scanner scanString:@";" intoString:&semicolon];
+			 [result appendFormat:@"%@%@", unknownEntity, semicolon];
+			 NSLog(@"Unsupported XML character entity %@%@", unknownEntity, semicolon);
+             */
+        }
+    }
+    while (![scanner isAtEnd]);
+finish:
+    return result;
+}
 - (NSS*)withPath:(NSS*)path { return [self stringByAppendingPathComponent:path]; }
 - (NSS*)withExt: (NSS*)ext; { return [self stringByAppendingPathExtension:ext];  }
-
 
 - (NSString*)stripHtml {
     // take this string obj and wrap it in a root element to ensure only a single root element exists
@@ -222,11 +330,9 @@
     NSString* strippedString = [parsee getCharsFound];
     // clean up
     [parser release];    [parsee release];
-
     // get the raw text out of the parsee after parsing, and return it
     return strippedString;
 }
-
 + (NSString*)clipboard
 {
 	NSPasteboard* pasteboard = [NSPasteboard generalPasteboard] ;
@@ -235,7 +341,6 @@
 	NSString* value = [pasteboard stringForType:type];
 	return value ;
 }
-
 - (void)copyToClipboard {
 	NSPasteboard* pasteboard = [NSPasteboard generalPasteboard] ;
 	[pasteboard declareTypes:[NSArray arrayWithObjects:NSStringPboardType, nil]
@@ -245,15 +350,12 @@
 				  forType:NSStringPboardType] ;
 }
 
-
 - (unichar)lastCharacter {
 	return [self characterAtIndex:([self length] - 1)];
 }
-
 - (NSString*)substringToLastCharacter {
 	return [self substringToIndex:([self length] - 1)];
 }
-
 /*
  - (id)decodeAllPercentEscapes {
  NSString *cocoaWay =
@@ -264,7 +366,6 @@
  }
  return cfWay;
  }*/
-
 - (NSString*)decodeAllAmpersandEscapes {
 	return [self stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
 }
@@ -277,13 +378,10 @@
 		[[NSFileManager defaultManager] copyItemAtPath:self toPath:path error:nil];
 }
 
-
-
 - (CGFloat)pointSizeForFrame:(NSRect)frame withFont:(NSString *)fontName;
 {
 	return [[self class] pointSizeForFrame:frame withFont:fontName forString:self];
 }
-
 + (CGFloat)pointSizeForFrame:(NSRect)frame withFont:(NSString *)fontName forString:(NSString*)string;
 {
 	NSFont * displayFont = nil;
@@ -301,13 +399,10 @@
 	return (CGFloat)fontLoop - 1.0;
 }
 
-
-
 - (NSString *)stringByReplacingAllOccurancesOfString:(NSString *)search withString:(NSString *)replacement
 {
 	return [NSString stringWithString:[[self mutableCopy]replaceAll:search withString:replacement]];
 }
-
 - (NSString*)urlEncoded { 	// Encode all the reserved characters, per RFC 3986
 //	CFStringRef escaped =
 //	return (__bridge NSString *) CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
@@ -317,15 +412,12 @@
 	return (__bridge_transfer NSString*) CFURLCreateStringByAddingPercentEscapes(	NULL, (CFStringRef)self, NULL,
 				(CFStringRef)@"!*'();:@&=+$,/?%#[]", kCFStringEncodingUTF8 );
 }
-
 -(NSString*) urlDecoded {
 	NSMutableString *resultString = [NSMutableString stringWithString:self];
 	[resultString replaceOccurrencesOfString:@"+" withString:@" " options:NSLiteralSearch range: (NSRange) {0, [resultString length]}];
 	return [resultString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
-
 - (NSString *)firstLetter {	return [self substringWithRange:NSMakeRange(0, 1)]; }
-
 + (NSString *)newUniqueIdentifier
 {
 	CFUUIDRef uuid = CFUUIDCreate(NULL);	CFStringRef identifier = CFUUIDCreateString(NULL, uuid);
@@ -335,9 +427,7 @@
 {
 	return [[[[NSWorkspace sharedWorkspace]launchedApplications]valueForKeyPath:@"NSApplicationPath"]randomElement];
 }
-
 + (NSS*) randomDicksonism {  return self.dicksonisms.randomElement; }
-
 + (NSString*) randomWords:(NSInteger)number;
 {
 	return [[LoremIpsum new] words:number];
@@ -347,11 +437,8 @@
 	return [[LoremIpsum new] sentences:number];
 }
 //- (NSColor *)colorValue {	return [NSColor colorFromString:self]; }
-
 -(NSData*) colorData {	return [NSArchiver archivedDataWithRootObject:self]; }
-
 + (NSColor*) colorFromData:(NSData*)theData {	return  [NSUnarchiver unarchiveObjectWithData:theData];}
-
 //- (void)drawCenteredInRect:(CGRect)rect withFontNamed:(NSFont *)font
 //{
 //	CGSize size = CGSizeMake(20.0f, 400.0f); // [self sizeWithAttributes: //sizeWithFont:font];
@@ -362,12 +449,9 @@
 //								   size.width, size.height };
 //	[self drawCenteredInRect:textBounds withFont:font.fontName];
 //}
-
 //- (void) drawCenteredInRect: (NSR)rect withFontNamed: (NSS*) font;
-
 - (void) drawCenteredInRect: (NSR)rect withFont: (NSF*) font
 {
-
 
 //- (void)drawCenteredInFrame:(NSRect)frame withFont:(NSF*)font {
 //	NSView *view = framer;
@@ -378,11 +462,9 @@
 //								   size.width, size.height);
 	[string drawCenteredVerticallyInRect:rect];// withFontNamed:font.fontName andColor:WHITE];//@{font:NSFontNameAttribute }];
 }
-
 - (void) drawInRect:(NSRect)r withFont:(NSFont*)font andColor:(NSColor*)color {
 	 [self drawInRect:r withFontNamed:font.fontName andColor:color];
 }
-
 
 - (NSSZ) sizeWithFont:(NSFont*)font margin:(NSSZ)size;
 {
@@ -390,7 +472,6 @@
 	sz.width += 2 * size.width;
 	sz.height += 2 * size.height;
 	return sz;
-
 }
 - (NSSZ) sizeWithFont:(NSFont*)font;
 {
@@ -398,7 +479,6 @@
 	NSAttributedString *s =[[NSAttributedString alloc]initWithString:self attributes:attrs];
 	return [s  size];
 }
-
 
 - (CGF) widthWithFont:(NSF*)font
 {
@@ -409,16 +489,13 @@
 	return AZRectFromSize( [self sizeWithFont:font margin:NSMakeSize(font.pointSize/2, font.pointSize/2)] );
 }
 
-
 - (void) drawInRect:(NSRect)r withFontNamed:(NSS*)fontName andColor:(NSColor*)color
 {
 	NSMPS *paraAttr = [[NSMPS defaultParagraphStyle ] mutableCopy];
 	[paraAttr setAlignment:NSCenterTextAlignment];
 	[paraAttr setLineBreakMode:NSLineBreakByTruncatingTail];
-
 	CGFloat points 	= [self pointSizeForFrame:r withFont:fontName];
 	NSF* fnt 		= [NSFont fontWithName:fontName size:points] ?: [AtoZ font:fontName size:points] ?: [NSFont fontWithName:@"Helvetica" size:points];
-
 
 	NSAS *drawingString = [[NSAS alloc]  initWithString:self attributes:@{	NSFontAttributeName				: fnt,
 																			NSForegroundColorAttributeName	: color,
@@ -428,70 +505,51 @@
 //		NSMutableParagraphStyle *paraStyle = [[NSMutableParagraphStyle alloc] init];
 ////		[paraStyle setParagraphStyle:	[NSParagraphStyle defaultParagraphStyle]];
 ////		[paraStyle setAlignment:		NSCenterTextAlignment];
-
 //		NSDictionary *msgAttrs = @{ 	   NSFontAttributeName : font.fontName,
 //										   NSFontSizeAttribute : $(@"%f",(float)[font pointSize]),
-
 //								 NSParagraphStyleAttributeName : paraStyle };
-
 //	 @{ NSParagraphStyleAttributeName : style,  NSFontNameAttribute : font.fontName,  : @(font.pointSize)}];
-
 
 ////	NSMutableParagraphStyle* style =
 //	NSParagraphStyle* style =	[[NSParagraphStyle alloc]initWithProperties: @{ NSParagraphStyleAttributeName :NSCenterTextAlignment }];
-
 //	][style setAlignment:NSCenterTextAlignment];
 //	@{ style : NSParagraphStyleAttributeName};
 //	[myString drawInRect:someRect withAttributes:attr];
 //	[style release];
 //}
-
 - (NSString*)trim {	return [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]; }
-
 - (NSString *)shifted {	return [self substringFromIndex:1]; }
-
 - (NSString *)popped { 	return [self substringWithRange:NSMakeRange(0, self.length - 1)];	}
-
 - (NSString *)chopped {	return [self substringWithRange:NSMakeRange(1, self.length - 2)];	}
-
 - (NSString *)camelized {	return [[self mutableCopy] camelize];	}
-
 - (NSString *)hyphonized {	return [[self mutableCopy] hyphonize];	}
-
 - (NSString *)underscored {	return [[self mutableCopy] underscorize]; }
-
 - (BOOL)isEmpty { 	 return (self == nil || [self isKindOfClass:[NSNull class]]
 							 			 || [self.trim isEqualToString:@""]
 							 			 || ([self respondsToSelector:@selector(length)] && ([(NSData *)self length] == 0))
 							 			 || ([self respondsToSelector:@selector(count)] && ([(NSArray *)self count] == 0)));
 }
 /*** Actually this should be called stringByReversingThisString, but that appeared to be too much sugar-free.  Reverse ist non-destructive */
-
 - (NSString *)reversed	{		NSMutableString *re = NSMutableString.string;
 								for (int i = self.length - 1; i >= 0; i--)
 									[re appendString:[self substringWithRange:NSMakeRange(i, 1)]];	return re;
 }
-
 - (NSUInteger)count:(NSString *)s options:(NSStringCompareOptions)mask
 {
 	NSUInteger re = 0;	NSRange rr, r; r = (NSRange) { 0, self.length };
 	while ((rr = [self rangeOfString:s options:mask range:r]).location != NSNotFound) {		re++;
 		r.location = rr.location + 1; 	r.length = self.length - r.location; }				return re;
 }
-
 - (NSUInteger)count:(NSString *)aString {	return [self count:aString options:0];	}
-
 - (NSUInteger)indentationLevel
 {
 	NSUInteger re = 0;
 	while (re < self.length && [[self substringWithRange:NSMakeRange(re, 1)] isEqualToString:@" "])		re++;
 	return re;
 }
-
 - (BOOL)contains:(NSString *)aString {
 	return [self rangeOfString:aString].location != NSNotFound;
 }
-
 - (BOOL)containsAnyOf:(NSArray *)array
 {
 	for (id v in array) {	  NSString *s = [v description];
@@ -499,7 +557,6 @@
 		if ([self contains:s]) 	return YES;
 	}	return NO;
 }
-
 - (BOOL)containsAllOf:(NSA*) array {
 	for (id v in array) {		NSString *s = [v description];
 		if ([v isKindOfClass:[NSString class]]) s = (NSString *)v;
@@ -507,13 +564,9 @@
 	}
 	return YES;
 }
-
 - (BOOL)startsWith:(NSString *)aString {	return [self hasPrefix:aString];	}
-
 - (BOOL)endsWith:(NSString *)aString {	return [self hasSuffix:aString];	}
-
 - (BOOL)hasPrefix:(NSString *)prefix andSuffix:(NSString *)suffix {	return [self hasPrefix:prefix] && [self hasSuffix:suffix];	}
-
 - (NSString *)substringBetweenPrefix:(NSString *)prefix andSuffix:(NSString *)suffix
 {
 	NSRange pre = [self rangeOfString:prefix];
@@ -524,10 +577,8 @@
 	//NSLog(@"Substring with range %i, %i, %@", loc, len, NSStringFromRange(r));
 	return [self substringWithRange: (NSRange) {loc, len}];
 }
-
 /*** Unlike the Object-C default rangeOfString this method will return -1 if the String could not be found, not NSNotFound	 */
 - (NSInteger)indexOf:(NSString *)aString{ 	return [self indexOf:aString afterIndex:0];	}
-
 - (NSInteger)indexOf:(NSString *)aString afterIndex:(NSInteger)index
 {
 	NSRange lookupRange = NSMakeRange(0, self.length);
@@ -542,47 +593,37 @@
 	NSRange range = [self rangeOfString:aString	options:0 range:lookupRange];
 	return (range.location == NSNotFound ? -1 : range.location);
 }
-
 - (NSInteger)lastIndexOf:(NSString *)aString
 {
 	NSString *reversed = self.reversed;
 	NSInteger pos = [reversed indexOf:aString];
 	return pos == -1 ? -1 : self.length - pos;
 }
-
 - (NSRange)rangeOfAny:(NSSet *)strings
 {
 	NSRange re = NSMakeRange(NSNotFound, 0);
 	for (NSString *s in strings) {	NSRange r = [self rangeOfString:s];	if (r.location < re.location) re = r;	}	return re;
 }
-
 - (NSArray *)lines	{ return [self componentsSeparatedByString:@"\n"]; }
-
 - (NSArray *)words
 {
 	NSMutableArray *re = NSMutableArray.array;
 	for (NSString *s in [self componentsSeparatedByString:@" "]) {  if (!s.isEmpty)	[re addObject:s];	}	return re;
 }
-
 - (NSSet *)wordSet { return [NSMutableSet setWithArray:self.words];	}
-
 - (NSArray *)trimmedComponentsSeparatedByString:(NSString *)separator
 {
 	NSMutableArray *re = NSMutableArray.array;
 	for (__strong NSString *s in [self componentsSeparatedByString:separator]) {	s = s.trim;	if (!s.isEmpty)  [re addObject:s]; }
 	return re;
 }
-
 - (NSArray *)decolonize {	return [self componentsSeparatedByString:@":"];	}
-
 - (NSArray *)splitByComma {	return [self componentsSeparatedByString:@","];	}
-
 - (NSString *)substringBefore:(NSString *)delimiter
 {
 	NSInteger index = [self indexOf:delimiter];
 	return (index == -1) ? self : [self substringToIndex:index];
 }
-
 - (NSString *)substringAfter:(NSString *)delimiter {
 	NSInteger index = [self indexOf:delimiter];
 	if (index == -1) {
@@ -590,14 +631,12 @@
 	}
 	return [self substringFromIndex:index + delimiter.length];
 }
-
 - (NSArray *)splitAt:(NSString *)delimiter
 {
 	NSRange index = [self rangeOfString:delimiter];
 	return (index.location == NSNotFound) ?@[self] :	 @[[self substringToIndex:index.location],
 													   [self substringFromIndex:index.location + index.length]];
 }
-
 - (BOOL)splitAt:(NSString *)delimiter head:(NSString **)head tail:(NSString **)tail
 {
 	NSRange index = [self rangeOfString:delimiter];
@@ -607,14 +646,12 @@
 	*tail = [copy substringFromIndex:index.location + index.length];
 	return YES;
 }
-
 - (NSArray *)decapitate
 {
 	NSRange index = [self rangeOfString:@" "];
 	return (index.location == NSNotFound)	? @[[self trim]]
 											: @[[[self substringToIndex:index.location] trim],												[[self substringFromIndex:index.location + index.length] trim]];
 }
-
 - (NSPoint)pointValue
 {
 	NSPoint re = (NSPoint) {0.0, 0.0};		NSArray *values = self.splitByComma;
@@ -622,13 +659,11 @@
 	re.x = [values[0] floatValue];
 	if (values.count < 2) 	re.y = re.x;	else re.y = [values[1] floatValue];		return re;
 }
-
 - (NSUInteger)minutesValue
 {
 	NSArray *split = [self componentsSeparatedByString:@":"];
 	return  (split.count > 1) ? [split[0] intValue] * 60 + [split[1] intValue] : [self intValue];
 }
-
 - (NSUInteger)secondsValue
 {
 	NSArray *split = [self componentsSeparatedByString:@":"];
@@ -636,25 +671,19 @@
 	else if (split.count == 2)	return [split[0] intValue] * 3600 	+ [split[1] intValue] * 60;
 	return [self intValue];
 }
-
 -(NSURL *)url {			return [NSURL URLWithString:self];		}
-
 -(NSURL *)fileURL {		return [NSURL fileURLWithPath:self];	}
-
 - (NSString *)ucfirst
 {
 	NSString *head = [[self substringToIndex:1] uppercaseString];	NSString *tail = [self substringFromIndex:1];
 	return $(@"%@%@", head, tail);
 }
-
 - (NSString *)lcfirst {
 	NSString *head = [[self substringToIndex:1] lowercaseString];
 	NSString *tail = [self substringFromIndex:1];
 	return $(@"%@%@", head, tail);
 }
-
 + (id)stringWithData:(NSData *)data encoding:(NSStringEncoding)encoding {	return [[self alloc] initWithData:data encoding:encoding]; }
-
 + (NSString *)stringWithCGFloat:(CGFloat)f maxDigits:(NSUInteger)numDigits
 {
 	//012345678 <-Indices.
@@ -675,16 +704,12 @@
 	}
 	return [str substringToIndex:i];
 }
-
 - (NSAttributedString*) attributedWithFont:(NSF*)font andColor:(NSC*)color {
 	return [[NSAttributedString alloc] initWithString:self attributes:@{
 				NSFontAttributeName : font,
 	NSForegroundColorAttributeName  : color}];
-
 }
-
 //This method creates an NSMutableAttributedString, using an NSString and an NSMutableParagraphStyle.
-
 -(NSMutableAttributedString *) attributedParagraphWithSpacing:(CGF)spacing
 {
 	NSMutableParagraphStyle *aMutableParagraphStyle;
@@ -738,10 +763,8 @@
 	return attString;
 }
 //If your NSTextView already has attributed strings in its textStorage, you can get the NSParagraphStyle by:
-
 //aMutableParagraphStyle = [[myTextView typingAttributes]
 //						  objectForKey:@"NSParagraphStyle"];
-
 
 -(NSString*) truncatedForRect:(NSRect)frame withFont:(NSFont*)font
 {
@@ -756,7 +779,6 @@
 	rangeToCut.location = [self length] / 2;
 	rangeToCut.length = 1;
 	//  }
-
 	while( txSize > frame.size.width )	{
 		if( truncateMode != NSLineBreakByTruncatingHead && rangeToCut.location <= 1 )	return @"...";
 		[currString setString: self];
@@ -773,11 +795,9 @@
 	return currString;
 }
 
-
 // Method based on code obtained from:
 // http://www.thinkmac.co.uk/blog/2005/05/removing-entities-from-html-in-cocoa.html
 //
-
 - (NSString *)decodeHTMLCharacterEntities {
     if ([self rangeOfString:@"&"].location == NSNotFound) {
         return self;
@@ -798,9 +818,7 @@
                           @"&igrave;", @"&iacute;", @"&icirc;", @"&iuml;", @"&eth;", @"&ntilde;", @"&ograve;",
                           @"&oacute;", @"&ocirc;", @"&otilde;", @"&ouml;", @"&divide;", @"&oslash;", @"&ugrave;",
                           @"&uacute;", @"&ucirc;", @"&uuml;", @"&yacute;", @"&thorn;", @"&yuml;", nil];
-
         NSUInteger i, count = [codes count];
-
         // Html
         for (i = 0; i < count; i++) {
             NSRange range = [self rangeOfString:[codes objectAtIndex:i]];
@@ -811,9 +829,7 @@
                                               range:NSMakeRange(0, [escaped length])];
             }
         }
-
         // The following five are not in the 160+ range
-
         // @"&amp;"
         NSRange range = [self rangeOfString:@"&amp;"];
         if (range.location != NSNotFound) {
@@ -822,7 +838,6 @@
                                         options:NSLiteralSearch
                                           range:NSMakeRange(0, [escaped length])];
         }
-
         // @"&lt;"
         range = [self rangeOfString:@"&lt;"];
         if (range.location != NSNotFound) {
@@ -831,7 +846,6 @@
                                         options:NSLiteralSearch
                                           range:NSMakeRange(0, [escaped length])];
         }
-
         // @"&gt;"
         range = [self rangeOfString:@"&gt;"];
         if (range.location != NSNotFound) {
@@ -840,7 +854,6 @@
                                         options:NSLiteralSearch
                                           range:NSMakeRange(0, [escaped length])];
         }
-
         // @"&apos;"
         range = [self rangeOfString:@"&apos;"];
         if (range.location != NSNotFound) {
@@ -849,7 +862,6 @@
                                         options:NSLiteralSearch
                                           range:NSMakeRange(0, [escaped length])];
         }
-
         // @"&quot;"
         range = [self rangeOfString:@"&quot;"];
         if (range.location != NSNotFound) {
@@ -858,28 +870,22 @@
                                         options:NSLiteralSearch
                                           range:NSMakeRange(0, [escaped length])];
         }
-
         // Decimal & Hex
         NSRange start, finish, searchRange = NSMakeRange(0, [escaped length]);
         i = 0;
-
         while (i < [escaped length]) {
             start = [escaped rangeOfString:@"&#"
                                    options:NSCaseInsensitiveSearch
                                      range:searchRange];
-
             finish = [escaped rangeOfString:@";"
                                     options:NSCaseInsensitiveSearch
                                       range:searchRange];
-
             if (start.location != NSNotFound && finish.location != NSNotFound &&
                 finish.location > start.location) {
                 NSRange entityRange = NSMakeRange(start.location, (finish.location - start.location) + 1);
                 NSString *entity = [escaped substringWithRange:entityRange];
                 NSString *value = [entity substringWithRange:NSMakeRange(2, [entity length] - 2)];
-
                 [escaped deleteCharactersInRange:entityRange];
-
                 if ([value hasPrefix:@"x"]) {
                     unsigned tempInt = 0;
                     NSScanner *scanner = [NSScanner scannerWithString:[value substringFromIndex:1]];
@@ -891,14 +897,11 @@
             } else { i++; }
             searchRange = NSMakeRange(i, [escaped length] - i);
         }
-
         return escaped;    // Note this is autoreleased
     }
 }
-
 - (NSString *)encodeHTMLCharacterEntities {
     NSMutableString *encoded = [NSMutableString stringWithString:self];
-
     // @"&amp;"
     NSRange range = [self rangeOfString:@"&"];
     if (range.location != NSNotFound) {
@@ -907,7 +910,6 @@
                                     options:NSLiteralSearch
                                       range:NSMakeRange(0, [encoded length])];
     }
-
     // @"&lt;"
     range = [self rangeOfString:@"<"];
     if (range.location != NSNotFound) {
@@ -916,7 +918,6 @@
                                     options:NSLiteralSearch
                                       range:NSMakeRange(0, [encoded length])];
     }
-
     // @"&gt;"
     range = [self rangeOfString:@">"];
     if (range.location != NSNotFound) {
@@ -928,9 +929,7 @@
 	
     return encoded;
 }
-
 @end
-
 //	[NSGraphicsContext saveGraphicsState];
 //	[NSBezierPath clipRect: box];   // Make sure we don't draw outside our cell.
 //	NSDictionary *attrs = $map(
@@ -939,7 +938,6 @@
 //	NSLineBreakMode truncateMode = NSLineBreakByTruncatingMiddle;
 //	[displayTitle drawInRect: textBox withAttributes: attrs];
 //	[NSGraphicsContext restoreGraphicsState];
-
 NSString*   StringByTruncatingStringWithAttributesForWidth( NSString* s, NSDictionary* attrs, float wid, NSLineBreakMode truncateMode )
 {
 	NSSize				txSize = [s sizeWithAttributes: attrs];
@@ -948,7 +946,6 @@ NSString*   StringByTruncatingStringWithAttributesForWidth( NSString* s, NSDicti
 	if( truncateMode == NSLineBreakByTruncatingTail )	 	{	rangeToCut.location = [s length] -1; 	rangeToCut.length = 1; }
 	else if( truncateMode == NSLineBreakByTruncatingHead )  {  rangeToCut.location = 0;					rangeToCut.length = 1; }
 	else {	rangeToCut.location = [s length] / 2;		rangeToCut.length = 1;  } // NSLineBreakByTruncatingMiddle
-
 	while( txSize.width > wid )	{
 		if( truncateMode != NSLineBreakByTruncatingHead && rangeToCut.location <= 1 )	return @"...";
 		[currString setString: s];
@@ -963,10 +960,7 @@ NSString*   StringByTruncatingStringWithAttributesForWidth( NSString* s, NSDicti
 	}
 	return currString;
 }
-
 @implementation NSMutableString (AtoZ)
-
-
 
 
 - (NSString *)shift
@@ -974,28 +968,24 @@ NSString*   StringByTruncatingStringWithAttributesForWidth( NSString* s, NSDicti
 	NSString *re = [self substringToIndex:1];
 	[self setString:[self substringFromIndex:1]];			return re;
 }
-
 - (NSString *)pop
 {
 	NSUInteger index = self.length - 1;
 	NSString *re = [self substringFromIndex:index];
 	[self setString:[self substringToIndex:index]];			return re;
 }
-
 - (BOOL)removePrefix:(NSString *)prefix
 {
 	if (![self hasPrefix:prefix]) 							return NO;
 	NSRange range = NSMakeRange(0, prefix.length);
 	[self replaceCharactersInRange:range withString:@""];	return YES;
 }
-
 - (BOOL)removeSuffix:(NSString *)suffix
 {
 	if (![self hasSuffix:suffix]) 							return NO;
 	NSRange range = NSMakeRange(self.length - suffix.length, suffix.length);
 	[self replaceCharactersInRange:range withString:@""];	return YES;
 }
-
 - (BOOL)removePrefix:(NSString *)prefix andSuffix:(NSString *)suffix
 {
 	if (![self hasPrefix:prefix andSuffix:suffix]) 			return NO;
@@ -1004,7 +994,6 @@ NSString*   StringByTruncatingStringWithAttributesForWidth( NSString* s, NSDicti
 	range = NSMakeRange(self.length - suffix.length, suffix.length);
 	[self replaceCharactersInRange:range withString:@""];	return YES;
 }
-
 - (NSMutableString *)camelize
 {
 	unichar c, us, hy; 		us = [@"_" characterAtIndex:0];		hy = [@"-" characterAtIndex:0];
@@ -1016,127 +1005,95 @@ NSString*   StringByTruncatingStringWithAttributesForWidth( NSString* s, NSDicti
 		}
 	}	return self;
 }
-
 - (NSMutableString *)hyphonize {	return [self replaceAll:@"_" withString:@"-"];	}
-
 - (NSMutableString *)underscorize {	return [self replaceAll:@"-" withString:@"_"];	}
-
 - (NSMutableString *)constantize {	[self setString:[[self underscorize] uppercaseString]];	return self;		}
-
 - (NSMutableString *)replaceAll:(NSString *)needle withString:(NSString *)replacement
 {
 	[self replaceOccurrencesOfString:needle withString:replacement options:0 range:NSMakeRange(0, self.length)]; 	return self;
 }
-
 @end
-
 @implementation NSString (RuntimeReporting)
-
 - (BOOL) hasNoSubclasses { return ![self hasSubclasses]; }
 - (BOOL) hasSubclasses { return [[RuntimeReporter subclassNamesForClassNamed:self] count] ? YES : NO; }
 - (int) numberOfSubclasses { return [[RuntimeReporter subclassNamesForClassNamed:self] count]; }
 - (NSArray *) subclassNames { return [RuntimeReporter subclassNamesForClassNamed: self]; }
-
 - (NSArray *) methodNames // assumes the receiver contains a valid classname.
 { 
 	return 
 	[[RuntimeReporter methodNamesForClassNamed:self]  
 	 sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
 }
-
 - (NSArray *) ivarNames // assumes the receiver contains a valid classname.
 { 
 	return 
 	[[RuntimeReporter iVarNamesForClassNamed:self] 
 	 sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
 }
-
 - (NSArray *) propertyNames // assumes the receiver contains a valid classname.
 { 
 	return 
 	[[RuntimeReporter propertyNamesForClassNamed:self]
 	 sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
 }
-
 - (NSArray *) protocolNames // assumes the receiver contains a valid classname.
 { 
 	return 
 	[[RuntimeReporter protocolNamesForClassNamed:self] 
 	 sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
 }
-
 // KVC compliance stuff: This was needed for NSTreeController.  Not needed for the iPhone version.
 //- (void) setSubclassNames:(NSArray *) names { NSLog(@"Can't set subclass names!"); }
 //- (id) valueForUndefinedKey:(NSString *) key { return self; }
 //- (void) setValue:(id)value forUndefinedKey:(NSString *)key { NSLog(@"unknown key:%@", key); }
-
 @end
-
 int gNSStringGeometricsTypesetterBehavior = NSTypesetterLatestBehavior ;
-
 @implementation NSAttributedString (Geometrics)
-
 
 - (NSSize)sizeForWidth:(float)width height:(float)height
 {
 	NSInteger typesetterBehavior = NSTypesetterLatestBehavior;
-
 	NSSize answer = NSZeroSize;
-
 	if ([self length] > 0) {
 		// Checking for empty string is necessary since Layout Manager will give the nominal
 		// height of one line if length is 0.  Our API specifies 0.0 for an empty string.
 		NSSize size = NSMakeSize(width, height);
-
 		NSTextContainer *textContainer 	= [[NSTextContainer alloc] initWithContainerSize:size];
 		NSTextStorage	 *textStorage	= [[NSTextStorage alloc] initWithAttributedString:self];
 		NSLayoutManager *layoutManager 	= [[NSLayoutManager alloc] init];
-
 		[layoutManager addTextContainer:textContainer];
 		[textStorage   addLayoutManager:layoutManager];
 		[layoutManager       setHyphenationFactor:0.0];
-
 		if (typesetterBehavior != NSTypesetterLatestBehavior) [layoutManager setTypesetterBehavior:typesetterBehavior];
-
 		// NSLayoutManager is lazy, so we need the following kludge to force layout:
 		[layoutManager glyphRangeForTextContainer:textContainer];
 		answer = [layoutManager usedRectForTextContainer:textContainer].size;
 		// Adjust if there is extra height for the cursor
 		NSSize extraLineSize = [layoutManager extraLineFragmentRect].size;
-
 		if (extraLineSize.height > 0)  answer.height -= extraLineSize.height;
-
 		// In case we changed it above, set typesetterBehavior back
 		// to the default value.
 //		typesetterBehavior = NSTypesetterLatestBehavior;
 	}
-
 	return answer;
 }
-
 - (float)heightForWidth:(float)width
 {
 	return [self sizeForWidth:width height:FLT_MAX].height;
 }
-
 - (float)widthForHeight:(float)height
 {
 	return [self sizeForWidth:FLT_MAX height:height].width;
 }
-
 - (void)drawCenteredVerticallyInRect:(NSRect)rect
 {
 	float strHeight = [self heightForWidth:rect.size.width];
 	float orgY = (rect.origin.y) + (rect.size.height / 2) - (strHeight / 2);
-
 	NSRect newRect = NSMakeRect(rect.origin.x, orgY, rect.size.width, strHeight);
-
 	[self drawInRect:newRect];
 }
 
-
 #pragma mark Measure Attributed String
-
 //- (NSSize)sizeForWidth:(float)width height:(float)height		{	NSSize answer = NSZeroSize ;
 //
 //	//	Checking for empty string is necessary since Layout Manager will give the nominal height of one line if length is 0.
@@ -1160,35 +1117,26 @@ int gNSStringGeometricsTypesetterBehavior = NSTypesetterLatestBehavior ;
 //- (float)widthForHeight:(float)height {		return [self sizeForWidth:FLT_MAX	height:height].width ;	}
 //
 @end
-
 @implementation NSString (Geometrics)
 
-
-
 #pragma mark Given String with Attributes
-
 - (NSSize)sizeInSize:(NSSize)size 	  font:(NSFont*)font;
 {
 	return [self sizeForWidth:size.width height:size.height font:font];
 }
-
 - (NSSize)sizeForWidth:(float)width	height:(float)height attributes:(NSDictionary*)attributes
 {
 	return [[[NSAttributedString alloc] initWithString:self attributes:attributes]  sizeForWidth:width height:height] ;
 }
-
 - (float)heightForWidth:(float)width attributes:(NSDictionary*)attributes
 {
 	return [self sizeForWidth:width height:FLT_MAX attributes:attributes].height ;
 }
-
 - (float)widthForHeight:(float)height attributes:(NSDictionary*)attributes
 {
 	return [self sizeForWidth:FLT_MAX height:height attributes:attributes].width ;
 }
-
 #pragma mark Given String with Font
-
 - (NSSize)sizeForWidth:(float)width height:(float)height font:(NSFont*)font
 {
 	NSSize answer = NSZeroSize ;
@@ -1196,21 +1144,15 @@ int gNSStringGeometricsTypesetterBehavior = NSTypesetterLatestBehavior ;
 //	else
 		return 		answer = [self sizeForWidth:width height:height attributes:@{NSFontAttributeName: font}] ;
 }
-
 - (float)heightForWidth:(float)width font:(NSFont*)font { return [self sizeForWidth:width height:FLT_MAX font:font].height ; }
-
 - (float)widthForHeight:(float)height font:(NSFont*)font { return [self sizeForWidth:FLT_MAX height:height font:font].width ; }
-
 @end
-
 #import <objc/runtime.h>
 #import <stdarg.h>
-
 static BOOL IsColonOnlySelector(SEL selector);
 static NSUInteger ColonCount(SEL selector);
 static NSString *SillyStringImplementation(id self, SEL _cmd, ...);
 @implementation NSString (JASillyStringImpl)
-
 + (BOOL)resolveInstanceMethod:(SEL)sel
 {
 	if (IsColonOnlySelector(sel)) {
@@ -1222,7 +1164,6 @@ static NSString *SillyStringImplementation(id self, SEL _cmd, ...);
 	}
 	else return [super resolveInstanceMethod:sel];
 }
-
 @end
 static BOOL IsColonOnlySelector(SEL selector)
 {
@@ -1254,23 +1195,17 @@ static NSString *SillyStringImplementation(id self, SEL _cmd, ...)
 	return result;
 }
 
-
 @implementation NSString (AQPropertyKVC)
-
 - (NSString *) propertyStyleString
 {
 	NSString * result = [[self substringToIndex: 1] lowercaseString];
 	if ( [self length] == 1 )
 		return ( result );
-
 	return ( [result stringByAppendingString: [self substringFromIndex: 1]] );
 }
-
 @end
 
-
 @implementation NSString (SGSAdditions)
-
 - (NSString*) truncatedToWidth: (CGFloat) width withAttributes: (NSD*) attributes
 {
 	NSString*	fixedString		= self;
@@ -1294,26 +1229,20 @@ static NSString *SillyStringImplementation(id self, SEL _cmd, ...)
 	}
 	return fixedString;
 }
-
 @end
-
 @implementation NSString (Extensions)
-
 - (BOOL) hasCaseInsensitivePrefix:(NSString*)prefix {
 	NSRange range = [self rangeOfString:prefix options:(NSCaseInsensitiveSearch | NSAnchoredSearch)];
 	return range.location != NSNotFound;
 }
-
 - (NSString*) urlEscapedString {
 	return [(__bridge NSString*)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)self, NULL, CFSTR(":@/?&=+"),
 														kCFStringEncodingUTF8) autorelease];
 }
-
 - (NSString*) unescapeURLString {
 	return [(__bridge NSString*)CFURLCreateStringByReplacingPercentEscapesUsingEncoding(kCFAllocatorDefault, (CFStringRef)self, CFSTR(""),
 																		kCFStringEncodingUTF8) autorelease];
 }
-
 static NSArray* _SpecialAbreviations() {
 	static NSArray* array = nil;
 	if (array == nil) {
@@ -1325,7 +1254,6 @@ static NSArray* _SpecialAbreviations() {
 	}
 	return array;
 }
-
 // http://www.attivio.com/blog/57-unified-information-access/263-doing-things-with-words-part-two-sentence-boundary-detection.html
 static void _ScanSentence(NSScanner* scanner) {
 	NSUInteger initialLocation = scanner.scanLocation;
@@ -1336,7 +1264,6 @@ static void _ScanSentence(NSScanner* scanner) {
 			break;
 		}
 		NSUInteger boundaryLocation = scanner.scanLocation;
-
 		// Skip sentence boundary (return if boundary is a newline or if at end)
 		if (![scanner scanCharactersFromSet:_GetCachedCharacterSet(kCharacterSet_SentenceBoundaries) intoString:NULL]) {
 			break;
@@ -1344,7 +1271,6 @@ static void _ScanSentence(NSScanner* scanner) {
 		if ([scanner isAtEnd]) {
 			break;
 		}
-
 		// Make sure sentence boundary is followed by whitespace or newline
 		NSRange range = [scanner.string rangeOfCharacterFromSet:_GetCachedCharacterSet(kCharacterSet_WhitespaceAndNewline)
 														options:NSAnchoredSearch
@@ -1352,7 +1278,6 @@ static void _ScanSentence(NSScanner* scanner) {
 		if (range.location == NSNotFound) {
 			continue;
 		}
-
 		// Extract previous token
 		range = [scanner.string rangeOfCharacterFromSet:_GetCachedCharacterSet(kCharacterSet_WhitespaceAndNewline)
 												options:NSBackwardsSearch
@@ -1361,7 +1286,6 @@ static void _ScanSentence(NSScanner* scanner) {
 			continue;
 		}
 		range = NSMakeRange(range.location + 1, boundaryLocation - range.location - 1);
-
 		// Make sure previous token is a not special abreviation
 		BOOL match = NO;
 		for (NSString* abreviation in _SpecialAbreviations()) {
@@ -1376,7 +1300,6 @@ static void _ScanSentence(NSScanner* scanner) {
 		if (match) {
 			continue;
 		}
-
 		// Make sure previous token does not contain a period or is more than 4 characters long or is followed by an uppercase letter
 		NSRange subrange = [scanner.string rangeOfString:@"." options:0 range:range];
 		if ((subrange.location != NSNotFound) && (range.length < 4)) {
@@ -1392,12 +1315,10 @@ static void _ScanSentence(NSScanner* scanner) {
 				continue;
 			}
 		}
-
 		// We have found a sentence
 		break;
 	}
 }
-
 - (NSString*) extractFirstSentence {
 	NSScanner* scanner = [[NSScanner alloc] initWithString:self];
 	scanner.charactersToBeSkipped = nil;
@@ -1405,7 +1326,6 @@ static void _ScanSentence(NSScanner* scanner) {
 	NSString* newSelf = [self substringToIndex:scanner.scanLocation];
 	return newSelf;
 }
-
 - (NSA*) extractAllSentences {
 	NSMutableArray* array = [NSMutableArray array];
 	NSScanner* scanner = [[NSScanner alloc] initWithString:self];
@@ -1424,7 +1344,6 @@ static void _ScanSentence(NSScanner* scanner) {
 	[scanner release];
 	return array;
 }
-
 - (NSIndexSet*) extractSentenceIndices {
 	NSMutableIndexSet* set = [NSMutableIndexSet indexSet];
 	NSScanner* scanner = [[NSScanner alloc] initWithString:self];
@@ -1443,7 +1362,6 @@ static void _ScanSentence(NSScanner* scanner) {
 	[scanner release];
 	return set;
 }
-
 - (NSString*) stripParenthesis {
 	NSMutableString* string = [NSMutableString string];
 	NSRange range = NSMakeRange(0, self.length);
@@ -1462,12 +1380,10 @@ static void _ScanSentence(NSScanner* scanner) {
 				subrange.location = subrange2.location + 1;
 			}
 		}
-
 		// Copy characters until location
 		[string appendString:[self substringWithRange:NSMakeRange(range.location, subrange.location - range.location)]];
 		range.length -= subrange.location - range.location;
 		range.location = subrange.location;
-
 		// Skip characters from location to end of parenthesis or end of string otherwise
 		if (range.length) {
 			subrange = [self rangeOfString:@")" options:0 range:range];
@@ -1482,12 +1398,10 @@ static void _ScanSentence(NSScanner* scanner) {
 	}
 	return string;
 }
-
 - (BOOL) containsString:(NSString*)string {
 	NSRange range = [self rangeOfString:string];
 	return range.location != NSNotFound;
 }
-
 - (NSA*) extractAllWords {
 	NSCharacterSet* characterSet = _GetCachedCharacterSet(kCharacterSet_WordBoundaries);
 	if (self.length) {
@@ -1507,7 +1421,6 @@ static void _ScanSentence(NSScanner* scanner) {
 	}
 	return nil;
 }
-
 - (NSRange) rangeOfWordAtLocation:(NSUInteger)location {
 	NSCharacterSet* characterSet = _GetCachedCharacterSet(kCharacterSet_WordBoundaries);
 	if (![characterSet characterIsMember:[self characterAtIndex:location]]) {
@@ -1525,7 +1438,6 @@ static void _ScanSentence(NSScanner* scanner) {
 	}
 	return NSMakeRange(NSNotFound, 0);
 }
-
 - (NSRange) rangeOfNextWordFromLocation:(NSUInteger)location {
 	NSCharacterSet* characterSet = _GetCachedCharacterSet(kCharacterSet_WordBoundaries);
 	if ([characterSet characterIsMember:[self characterAtIndex:location]]) {
@@ -1542,35 +1454,30 @@ static void _ScanSentence(NSScanner* scanner) {
 	}
 	return NSMakeRange(NSNotFound, 0);
 }
-
 - (NSString*) stringByDeletingPrefix:(NSString*)prefix {
 	if ([self hasPrefix:prefix]) {
 		return [self substringFromIndex:prefix.length];
 	}
 	return self;
 }
-
 - (NSString*) stringByDeletingSuffix:(NSString*)suffix {
 	if ([self hasSuffix:suffix]) {
 		return [self substringToIndex:(self.length - suffix.length)];
 	}
 	return self;
 }
-
 - (NSString*) stringByReplacingPrefix:(NSString*)prefix withString:(NSString*)string {
 	if ([self hasPrefix:prefix]) {
 		return [string stringByAppendingString:[self substringFromIndex:prefix.length]];
 	}
 	return self;
 }
-
 - (NSString*) stringByReplacingSuffix:(NSString*)suffix withString:(NSString*)string {
 	if ([self hasSuffix:suffix]) {
 		return [[self substringToIndex:(self.length - suffix.length)] stringByAppendingString:string];
 	}
 	return self;
 }
-
 - (BOOL) isIntegerNumber {
 	NSRange range = NSMakeRange(0, self.length);
 	if (range.length) {
@@ -1584,18 +1491,14 @@ static void _ScanSentence(NSScanner* scanner) {
 	}
 	return NO;
 }
-
 //- (NSString*) stripped {
 //	NSMutableString *s = self.mutableCopy;
 //	[s trimWhitespaceAndNewlineCharacters];
 //	return s.copy;
 //}
 
-
 @end
-
 @implementation NSMutableString (Extensions)
-
 - (void) trimWhitespaceAndNewlineCharacters {
 	NSRange range = [self rangeOfCharacterFromSet:_GetCachedCharacterSet(kCharacterSet_WhitespaceAndNewline_Inverted)];
 	if ((range.location != NSNotFound) && (range.location > 0)) {
@@ -1607,11 +1510,8 @@ static void _ScanSentence(NSScanner* scanner) {
 		[self deleteCharactersInRange:NSMakeRange(range.location, self.length - range.location)];
 	}
 }
-
 @end
-
 @implementation NSString (Creations)
-
 - (id)initWithInteger:(NSInteger)value {
     #ifdef __LP64__
         #define __NSINTEGER_FORMAT @"%ld"
@@ -1621,19 +1521,15 @@ static void _ScanSentence(NSScanner* scanner) {
     return [self initWithFormat:__NSINTEGER_FORMAT, value];
     #undef __NSINTEGER_FORMAT
 }
-
 + (id)stringWithInteger:(NSInteger)value {
     return [[[self alloc] initWithInteger:value] autorelease];
 }
-
 + (NSString *)stringWithFormat:(NSString *)format arguments:(va_list)argList {
     return [[[self alloc] initWithFormat:format arguments:argList] autorelease];
 }
-
 + (NSString *)stringWithData:(NSData *)data encoding:(NSStringEncoding)encoding {
     return [[[self alloc] initWithData:data encoding:encoding] autorelease];
 }
-
 - (id)initWithConcatnatingStrings:(NSString *)first, ... {
     NSMutableArray *array = [NSMutableArray array];
     va_list args;
@@ -1645,7 +1541,6 @@ static void _ScanSentence(NSScanner* scanner) {
     // OMG... what's the best?
     return [self initWithString:[array componentsJoinedByString:@""]];
 }
-
 + (id)stringWithConcatnatingStrings:(NSString *)first, ... {
     NSMutableArray *array = [NSMutableArray array];
     va_list args;
@@ -1656,16 +1551,12 @@ static void _ScanSentence(NSScanner* scanner) {
     va_end(args);
     return [array componentsJoinedByString:@""];
 }
-
 @end
 
-
 @implementation NSString (Shortcuts)
-
 - (BOOL)hasSubstring:(NSString *)aString {
     return [self rangeOfString:aString].location != NSNotFound;
 }
-
 // slow! proof of concept
 - (NSString *)format:(id)first, ... {
     NSUInteger len = self.length;
@@ -1686,7 +1577,6 @@ static void _ScanSentence(NSScanner* scanner) {
         }
         index += 1;
     } while (index < len);
-
     if (index == len) {
         return [NSString stringWithFormat:self, first];
     } else {
@@ -1697,7 +1587,6 @@ static void _ScanSentence(NSScanner* scanner) {
         return result;
     }
 }
-
 - (NSString *)format0:(id)dummy, ... {
     va_list args;
     va_start(args, dummy);
@@ -1705,45 +1594,33 @@ static void _ScanSentence(NSScanner* scanner) {
     va_end(args);
     return result;
 }
-
 - (NSRange)range {
     return NSRangeFromString(self);
 }
-
 - (NSString *)substringFromIndex:(NSUInteger)from length:(NSUInteger)length {
     return [self substringWithRange:NSMakeRange(from, length)];
 }
-
 - (NSString *)substringFromIndex:(NSUInteger)from toIndex:(NSUInteger)to {
     return [self substringWithRange:NSMakeRange(from, to - from)];
 }
-
 @end
 
-
 @implementation NSString (NSUTF8StringEncoding)
-
 + (NSString *)stringWithUTF8Data:(NSData *)data {
     return [[[self alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
 }
-
 - (NSString *) stringByAddingPercentEscapesUsingUTF8Encoding {
     return [self stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
-
 - (NSString *) stringByReplacingPercentEscapesUsingUTF8Encoding {
     return [self stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
-
 - (NSData *) dataUsingUTF8Encoding {
     return [self dataUsingEncoding:NSUTF8StringEncoding];
 }
-
 @end
 
-
 @implementation NSString (Evaluation)
-
 - (NSInteger)integerValueBase:(NSInteger)radix {
     NSInteger result = 0;
     for ( NSUInteger i=0; i < [self length]; i++ ) {
@@ -1762,16 +1639,12 @@ static void _ScanSentence(NSScanner* scanner) {
     }
     return result;
 }
-
 - (NSInteger)hexadecimalValue {
     return [self integerValueBase:16];
 }
-
 @end
 
-
 @implementation NSMutableString (Shortcuts)
-
 - (id)initWithConcatnatingStrings:(NSString *)first, ... {
     self = [self initWithString:first];
     if (self != nil) {
@@ -1784,7 +1657,6 @@ static void _ScanSentence(NSScanner* scanner) {
     }
     return self;
 }
-
 + (id)stringWithConcatnatingStrings:(NSString *)first, ... {
     NSMutableString *aString = [self stringWithString:first];
     va_list args;
@@ -1795,5 +1667,4 @@ static void _ScanSentence(NSScanner* scanner) {
     va_end(args);
     return aString;
 }
-
 @end
