@@ -2,27 +2,36 @@
 
 
 
-@interface AZSpeechtoText : BaseModel
+@interface AZSpeech2Text : BaseModel
+@property (assign) IBOutlet NSTextField *outputArea;
+@property (assign) IBOutlet WebView *audioView;
+AZPROP(NSString,whatever);
+
 - (IBAction) recognizerForLabel:(id)sender;
+
 @end
 
 
 typedef void (^SpeechToTextDone) 	(NSString *text);
+//typedef void (^SpeechToOutlet) (NSControl *control);
+
 @interface GoogleSpeechAPI : BaseModel
 extern BOOL const useSox;
 
 @property (nonatomic,copy) 	SpeechToTextDone recognizerFinished;
+//@property (nonatomic,copy) 	SpeechToOutlet outlet;
 
 @property (nonatomic,strong) NSString 	*recognizedText,
 													*wordsToSynthesize,
 													*audioToRecognize;
 
-@property (readonly) CGFloat						confidence,
-																			time;
+@property (readonly) CGFloat	confidence,	time;
 
 //+ (instancetype) recognizeAudioFile:			(NSString*)s completion:(SpeechToTextDone)done;
 + (instancetype) recognizeSynthesizedText:(NSString*)s completion:(SpeechToTextDone)done;
 + (instancetype) recordFor:(NSUI)s completion:(SpeechToTextDone)done;
++ (instancetype) recognizeSynthesizedText:(NSString*)s toControl:(id)outlet;
++ (instancetype) recognizeSynthesizedText:(NSString*)s toControl:(id)outlet withAudioView:(WebView*)wv;
 
 @end
 

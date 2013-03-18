@@ -25,7 +25,9 @@
 - (NSString *)decodeHTMLCharacterEntities;
 - (NSString *)encodeHTMLCharacterEntities;
 
++ (NSS*) randomWiki;
 - (NSS*)wikiDescription;
++ (NSS*)randomWord;
 
 - (NSS*)parseXMLTag:(NSS*)tag;
 - (NSString*)stripHtml;
@@ -412,6 +414,7 @@ extern int gNSStringGeometricsTypesetterBehavior ;
 - (NSS*)  stringByReplacingPrefix: 	   	(NSS*)prefix withString: (NSS*)string;
 - (NSS*)  stringByReplacingSuffix: 	   	(NSS*)suffix withString: (NSS*)string;
 - (BOOL)  isIntegerNumber;
+
 @end
 
 @interface NSMutableString (Extensions)

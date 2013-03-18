@@ -1,138 +1,6 @@
-#define NSLog(args...) _AZSimpleLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args);
+#pragma mark - GLOBAL CONSTANTS
 
 
-#define LOCALIZED_STRING(key) [[NSBundle bundleForClass:[AtoZ class]]localizedStringForKey:(key) value:@"" table:nil]
-/* You cannot take the address of a return value like that, only a variable. Thus, you’d have to put the result in a temporary variable:
- The way to get around this problem is use another GCC extension allowing statements in expressions. Thus, the macro creates a temporary variable, _Y_, with the same type of _X_ (again using typeof) and passes the address of this temporary to the function.
- http://www.dribin.org/dave/blog/archives/2008/09/22/convert_to_nsstring/
- */
-#define AZString(_X_) ({typeof(_X_) _Y_ = (_X_);\
-AZToStringFromTypeAndValue(@encode(typeof(_X_)), &_Y_);})
-
-#define RONLY readonly
-#define RDWRT readwrite
-#define ASSGN assign
-#define NATOM nonatomic
-#define STRNG strong
-#define ASS assign
-#define CP copy
-#define SET setter
-#define GET getter
-#define WK weak
-
-#define setPBCN setPostsBoundsChangedNotifications:YES
-#define setPFCN setPostsFrameChangedNotifications:YES
-
-#define pBCN postsBoundsChangedNotifications
-#define pFCN postsFrameChangedNotifications
-
-#define NSKVOBEFOREAFTER NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld
-#define NSEVENTLOCALMASK NSEvent addLocalMonitorForEventsMatchingMask
-#define NSEVENTGLOBALMASK NSEvent addGlobalMonitorForEventsMatchingMask
-
-#define kIMG 	@"image"
-#define kCLR 	@"color"
-#define kIDX 	@"index"
-#define kLAY 	@"layer"
-#define kPOS 	@"position"
-#define kPSTRING @"pString"
-#define kSTR 	@"string"
-#define kFRM 	@"frame"
-#define kHIDE 	@"hide"
-
-#define AZFWORKBUNDLE [NSBundle bundleForClass:[AtoZ class]]
-#define AZFWRESOURCES [AZFWORKBUNDLE resourcePath]
-
-#define  AZAPPBUNDLE [NSBundle mainBundle]
-#define  AZAPPRESOURCES [[NSBundle mainBundle]resourcePath]
-
-#define   CAMEDIAEASEOUT [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]
-#define   CAMEDIAEASEIN [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn]
-#define   CAMEDIAEASY [CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionEaseInEaseOut]
-#define   AZWORKSPACE [NSWorkspace sharedWorkspace]
-#define	AZUSERDEFS [NSUserDefaults standardUserDefaults]
-#define	AZUSERDEFSCTR [NSUserDefaultsController sharedUserDefaultsController]
-#define   AZNOTCENTER [NSNotificationCenter defaultCenter]
-#define AZFILEMANAGER [NSFileManager defaultManager]
-#define AZGRAPHICSCTX [NSGraphicsContext currentContext]
-#define AZCURRENTCTX AZGRAPHICSCTX
-#define  AZQTZCONTEXT [[NSGraphicsContext currentContext] graphicsPort]
-#define   AZSHAREDAPP [NSApplication sharedApplication]
-#define   AZWEBPREFS [WebPreferences standardPreferences]
-
-
-#define AZPROCINFO [NSProcessInfo processInfo]
-#define AZPROCNAME [NSProcessInfo.processInfo processName]
-
-#define DCHECK(__CONDITION__)
-//#define check(x)		if (!(x)) return 0;
-#define NOT_REACHED() \
-do { \
-AZLOG(@"<INTERNAL INCONSISTENCY>"); \
-} while (0)
-
-
-#define loMismo isEqualToString
-
-#define APP_NAME [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleName"]
-#define APP_VERSION [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]
-#define OPEN_URL(urlString) [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:urlString]]
-
-/* Retrieving preference values */
-
-#define PREF_KEY_VALUE(x) [[[NSUserDefaultsController sharedUserDefaultsController] values] valueForKey:(x)]
-#define PREF_KEY_BOOL(x) [(PREF_KEY_VALUE(x)) boolValue]
-#define PREF_SET_KEY_VALUE(x, y) [[[NSUserDefaultsController sharedUserDefaultsController] values] setValue:(y) forKey:(x)]
-#define PREF_OBSERVE_VALUE(x, y) [[NSUserDefaultsController sharedUserDefaultsController] addObserver:y forKeyPath:x options:NSKeyValueObservingOptionOld context:nil]
-
-/* key, observer, object */
-
-#define OB_OBSERVE_VALUE(x, y, z) [(z) addObserver:y forKeyPath:x options:NSKeyValueObservingOptionOld context:nil];
-#define AZBUNDLE [NSBundle bundleForClass:[AtoZ class]]
-
-#define AZLocalizedString(key) NSLocalizedStringFromTableInBundle(key,nil,AZBUNDLE,nil)
-
-//#define AZLocalizedString(key, comment) NSLocalizedStringFromTableInBundle((key)nil, [NSBundle bundleWithIdentifier:AZBUNDLE,(comment))
-
-//Usage:
-//AZLocalizedString(@"ZeebaGreeting", @"Huluu zeeba")
-//+ (NSString*)typeStringForType:(IngredientType)_type {
-//	NSString *key = [NSString stringWithFormat:@"IngredientType_%i", _type];
-//	return NSLocalizedString(key, nil);
-//}
-//#ifdef __OBJC__
-//#endif
-
-//typedef ((NSTask*)(^launchMonitorReturnTask) NSTask* task);
-//typedef (^TaskBlock);
-
-//#define AZLAUNCHMONITORRETURNTASK(A) ((NSTask*)(^launchMonitorReturnTask)(A))
-
-
-// ^{ [A launch]; monitorTask(A); return A; }()
-
-#define AZNEWPIPE NSPipe.pipe
-#define AZNEWMUTEA NSMutableArray.array
-#define AZNEWMUTED NSMutableDictionary.new
-//#define PROPSTRONG (@property (nonatomic,strong) )
-//#define PROPASSIGN (@property (nonatomic,assign) )
-
-#define UNSFE unsafe_unretained
-//#define STRONG ((nonatomic,strong) )
-//#define ASSIGN ((nonatomic,assign) )
-
-#define CGSUPRESSINTERVAL(x) CGEventSourceSetLocalEventsSuppressionInterval(nil,x)
-#define AZPOS AZWindowPosition
-
-#define AZSSOQ AZSharedSingleOperationQueue()
-#define AZSOQ AZSharedOperationQueue()
-
-#define AZNULL [NSNull null]
-#define ELSENULL ?: [NSNull null]
-#define AZGView AtoZGridView
-#define AZGVItem AtoZGridViewItem
-#define AZP AZPalette
-#define AZIS AZInstallationStatus
 
 #define BLKVIEW BNRBlockView
 #define CAA CAAnimation
@@ -271,6 +139,7 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define AZWINDOWINIT NSWINDOWINIT
 
 #define AZBORDLESSWINDOWINIT(A) [NSWindow.alloc initWithContentRect:A styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO] // screen:self.screen];
+#define AZTEMPD NSTemporaryDirectory()
 
 #define RNG AZRange
 
@@ -312,6 +181,154 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 #define RES RouteResponse
 #define $SHORT(A,B) [Shortcut.alloc initWithURI:A syntax:B]
 #define	vLOG(A)	[((AppDelegate*)[NSApp sharedApplication].delegate).textOutField appendToStdOutView:A] // $(@"%s: %@", __PRETTY_FUNCTION__, [NSString stringWithFormat: args])]
+
+
+
+
+#pragma mark - FUNCTION defines
+
+#define NSLog(args...) _AZSimpleLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args);
+
+#define LOCALIZED_STRING(key) [[NSBundle bundleForClass:[AtoZ class]]localizedStringForKey:(key) value:@"" table:nil]
+/* You cannot take the address of a return value like that, only a variable. Thus, you’d have to put the result in a temporary variable:
+ The way to get around this problem is use another GCC extension allowing statements in expressions. Thus, the macro creates a temporary variable, _Y_, with the same type of _X_ (again using typeof) and passes the address of this temporary to the function.
+ http://www.dribin.org/dave/blog/archives/2008/09/22/convert_to_nsstring/
+ */
+#define AZString(_X_) ({typeof(_X_) _Y_ = (_X_);\
+AZToStringFromTypeAndValue(@encode(typeof(_X_)), &_Y_);})
+
+#pragma mark - CONSTANT defines
+
+#define RONLY readonly
+#define RDWRT readwrite
+#define ASSGN assign
+#define NATOM nonatomic
+#define STRNG strong
+#define ASS assign
+#define CP copy
+#define SET setter
+#define GET getter
+#define WK weak
+
+#define setPBCN setPostsBoundsChangedNotifications:YES
+#define setPFCN setPostsFrameChangedNotifications:YES
+
+#define pBCN postsBoundsChangedNotifications
+#define pFCN postsFrameChangedNotifications
+
+#define NSKVOBEFOREAFTER NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld
+#define NSEVENTLOCALMASK NSEvent addLocalMonitorForEventsMatchingMask
+#define NSEVENTGLOBALMASK NSEvent addGlobalMonitorForEventsMatchingMask
+
+#define kIMG 	@"image"
+#define kCLR 	@"color"
+#define kIDX 	@"index"
+#define kLAY 	@"layer"
+#define kPOS 	@"position"
+#define kPSTRING @"pString"
+#define kSTR 	@"string"
+#define kFRM 	@"frame"
+#define kHIDE 	@"hide"
+
+#define AZFWORKBUNDLE [NSBundle bundleForClass:[AtoZ class]]
+#define AZFWRESOURCES [AZFWORKBUNDLE resourcePath]
+
+#define  AZAPPBUNDLE [NSBundle mainBundle]
+#define  AZAPPRESOURCES [[NSBundle mainBundle]resourcePath]
+
+#define   CAMEDIAEASEOUT [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]
+#define   CAMEDIAEASEIN [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn]
+#define   CAMEDIAEASY [CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionEaseInEaseOut]
+#define   AZWORKSPACE [NSWorkspace sharedWorkspace]
+#define	AZUSERDEFS [NSUserDefaults standardUserDefaults]
+#define	AZUSERDEFSCTR [NSUserDefaultsController sharedUserDefaultsController]
+#define   AZNOTCENTER [NSNotificationCenter defaultCenter]
+#define AZFILEMANAGER [NSFileManager defaultManager]
+#define AZGRAPHICSCTX [NSGraphicsContext currentContext]
+#define AZCURRENTCTX AZGRAPHICSCTX
+#define  AZQTZCONTEXT [[NSGraphicsContext currentContext] graphicsPort]
+#define   AZSHAREDAPP [NSApplication sharedApplication]
+#define   AZWEBPREFS [WebPreferences standardPreferences]
+
+
+#define AZPROCINFO [NSProcessInfo processInfo]
+#define AZPROCNAME [NSProcessInfo.processInfo processName]
+
+
+#pragma mark - MACROS
+
+#define DCHECK(__CONDITION__)
+//#define check(x)		if (!(x)) return 0;
+#define NOT_REACHED() \
+do { \
+AZLOG(@"<INTERNAL INCONSISTENCY>"); \
+} while (0)
+
+
+#define loMismo isEqualToString
+
+#define APP_NAME [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleName"]
+#define APP_VERSION [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]
+#define OPEN_URL(urlString) [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:urlString]]
+
+/* Retrieving preference values */
+
+#define PREF_KEY_VALUE(x) [[[NSUserDefaultsController sharedUserDefaultsController] values] valueForKey:(x)]
+#define PREF_KEY_BOOL(x) [(PREF_KEY_VALUE(x)) boolValue]
+#define PREF_SET_KEY_VALUE(x, y) [[[NSUserDefaultsController sharedUserDefaultsController] values] setValue:(y) forKey:(x)]
+#define PREF_OBSERVE_VALUE(x, y) [[NSUserDefaultsController sharedUserDefaultsController] addObserver:y forKeyPath:x options:NSKeyValueObservingOptionOld context:nil]
+
+/* key, observer, object */
+
+#define OB_OBSERVE_VALUE(x, y, z) [(z) addObserver:y forKeyPath:x options:NSKeyValueObservingOptionOld context:nil];
+#define AZBUNDLE [NSBundle bundleForClass:[AtoZ class]]
+
+#define AZLocalizedString(key) NSLocalizedStringFromTableInBundle(key,nil,AZBUNDLE,nil)
+
+//#define AZLocalizedString(key, comment) NSLocalizedStringFromTableInBundle((key)nil, [NSBundle bundleWithIdentifier:AZBUNDLE,(comment))
+
+//Usage:
+//AZLocalizedString(@"ZeebaGreeting", @"Huluu zeeba")
+//+ (NSString*)typeStringForType:(IngredientType)_type {
+//	NSString *key = [NSString stringWithFormat:@"IngredientType_%i", _type];
+//	return NSLocalizedString(key, nil);
+//}
+
+
+//typedef ((NSTask*)(^launchMonitorReturnTask) NSTask* task);
+//typedef (^TaskBlock);
+//#define AZLAUNCHMONITORRETURNTASK(A) ((NSTask*)(^launchMonitorReturnTask)(A))
+// ^{ [A launch]; monitorTask(A); return A; }()
+
+#define AZNEWPIPE NSPipe.pipe
+#define AZNEWMUTEA NSMutableArray.array
+#define AZNEWMUTED NSMutableDictionary.new
+
+#define AZSTRONGSTRING(A) @property (nonatomic, strong) NSString* A
+#define AZPROP(A,B) @property (nonatomic, strong) A* B
+#define AZPROPASS(A,B) @property (NATOM,ASS) A B
+#define AZPROPIBO(A,B) @property (ASS) IBOutlet A *B
+
+//#define PROPSTRONG (@property (nonatomic,strong) )
+//#define PROPASSIGN (@property (nonatomic,assign) )
+
+#define UNSFE unsafe_unretained
+//#define STRONG ((nonatomic,strong) )
+//#define ASSIGN ((nonatomic,assign) )
+
+#define CGSUPRESSINTERVAL(x) CGEventSourceSetLocalEventsSuppressionInterval(nil,x)
+#define AZPOS AZWindowPosition
+
+#define AZSSOQ AZSharedSingleOperationQueue()
+#define AZSOQ AZSharedOperationQueue()
+
+#define AZNULL [NSNull null]
+#define ELSENULL ?: [NSNull null]
+#define AZGView AtoZGridView
+#define AZGVItem AtoZGridViewItem
+#define AZP AZPalette
+#define AZIS AZInstallationStatus
+
 
 
 
@@ -667,7 +684,7 @@ typedef NS_ENUM(NSUI, AppCat) {
 };
 
 #define AppCatTypeArray @"Games", @"Education", @"Entertainment", @"Books", @"Lifestyle", @"Utilities", @"Business", @"Travel", @"Music", @"Reference", @"Sports", @"Productivity", @"News", @"Healthcare & Fitness", @"Photography", @"Finance", @"Medical", @"Social Networking", @"Navigation", @"Weather", @"Catalogs", @"Food & Drink", @"Newsstand", nil
-typedef enum {
+typedef NS_ENUM(NSUI, AZOrient) {
 	AZOrientTop,
 	AZOrientLeft,
 	AZOrientBottom,
@@ -677,7 +694,7 @@ typedef enum {
 	AZOrientFiesta,
 	AZOrientVertical,
 	AZOrientHorizontal,
-}	AZOrient;
+};
 
 typedef NS_ENUM(NSUI,  	AZInfiteScale) {
 	AZInfiteScale0X,

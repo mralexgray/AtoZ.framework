@@ -7,12 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+
 #import <libxml/HTMLparser.h>
 #import "HTMLNode.h"
 
 @class HTMLNode;
 
-@interface HTMLParser : NSObject 
+@interface AZHTMLParser : NSObject
 {
 	@public
 	htmlDocPtr _doc;

@@ -11,6 +11,9 @@ typedef void(^openURL)(NSS*url, WebView *w);
 
 @interface DockBox : NSObject <NSApplicationDelegate>
 
+- (IBAction)getFB:(id)sender;
+- (IBAction)getColorList:(id)sender;
+
 @property (ASS) IBOutlet NSWindow 					*window;
 @property (ASS) IBOutlet WebView 					*webView;
 @property (ASS) IBOutlet NSTableView 				*table;

@@ -6,10 +6,10 @@
 //  Copyright 2010 Ben Reeves. All rights reserved.
 //
 
-#import "HTMLParser.h"
+#import "AZHTMLParser.h"
 
 
-@implementation HTMLParser
+@implementation AZHTMLParser
 
 -(HTMLNode*)doc
 {

@@ -1,18 +1,26 @@
 
 #import "AZSpeechRecognition.h"
 
-@interface AZSpeechtoText ()
+@interface AZSpeech2Text ()
 @property (nonatomic, assign) FilterBlock filter;
 @end
-@implementation AZSpeechtoText
+@implementation AZSpeech2Text
 
+- (NSS*) whatever { return @"hello"; }
 
 - (IBAction) recognizerForLabel:(id)sender;
 {
-	NSString *label = [(NSButton*)sender title];
+	NSS* s = [(NSButton*)sender title];
+	AZLOG(s);
+	__block GoogleSpeechAPI *api;
+	((void (^)()) [@{
+		@"Dicksonism" 	: ^{ api = [GoogleSpeechAPI recognizeSynthesizedText:NSS.randomDicksonism completion:^(NSS *s) { self.outputArea.stringValue = s; }]; },
+		@"Random" 				: ^{ api = [GoogleSpeechAPI recognizeSynthesizedText:NSS.randomWord.wikiDescription toControl:_outputArea]; }
+	}	objectForKey:s] ?: nil )();
 
 
-	FilterBlock fb2 = ^id(id element, NSUInteger idx, BOOL *stop){ if ([element isEqualToString:@"NO"] ) { NSLog(@"Nope");        *stop = YES;} return element;};
+//	FilterBlock fb2 = ^id(id element, NSUInteger idx, BOOL *stop){
+//		if ([element isEqualToString:@"NO"] ) {		*stop = YES;} return element;};
 /*
 	NSArray *filter = @[ fb1, fb2 ];
 	NSArray *inputArray = @[@"NO",@"YES"];
@@ -40,9 +48,9 @@
 
 
 @interface GoogleSpeechAPI ()
-@property (nonatomic, strong) NSString 					 *tempPath,   *tempFile,		*flacTempPath;
-@property (nonatomic, strong) NSData 					 *flacData,		*wavData;
-@property (readwrite) 			CGFloat 					confidence, 		 time;
+@property (nonatomic, strong) NSString 					 *tempPath, *flacTempPath;
+@property (nonatomic, strong) NSData 					 *flacData,	*cafData;
+@property (readwrite) 			CGFloat 					confidence, 	 time;
 @end
 
 const BOOL usr = YES;
@@ -55,7 +63,24 @@ const BOOL usr = YES;
 -(NSA*) FFMPEG { return @[ @"/usr/local/bin/ffmpeg",
 								@[ @"-ab", @"8000", @"-ac", @"1",@"-y", @"-vn",  @"-i", _audioToRecognize, [self.tempPath withExt:@"flac"]]]; 			}
 -(NSA*) SAY 		{ return @[ @"/usr/bin/say",
-								@[ @"--data-format=LEF32@8000", @"-o", [self.tempPath withExt:@"wav"], self.wordsToSynthesize]];													}
+								@[ @"--data-format=LEF32@8000", @"-o", [self.tempPath withExt:@"caf"], self.wordsToSynthesize]];													}
+
+
++ (instancetype) recognizeSynthesizedText:(NSString*)s toControl:(id)outlet withAudioView:(WebView*)wv
+{
+
+}
+
++ (instancetype) recognizeSynthesizedText:(NSString*)s toControl:(id)outlet
+{
+	return [self.alloc initWithProperties:@{ @"wordsToSynthesize":s.copy, @"recognizerFinished" : ^(NSS*s){ ((NSControl*)outlet).stringValue = s; }}];
+//	g.wordsToSynthesize	= s.copy;
+//	g.recognizerFinished = ^(NSS*s){ ((NSControl*)outlet).stringValue = s; };
+//	g.audioToRecognize = nil;
+//	return g;
+}
+
+
 
 + (instancetype) recordFor:(NSUI)s completion:(SpeechToTextDone)done;
 {
@@ -77,11 +102,11 @@ const BOOL usr = YES;
 
 - (void) setWordsToSynthesize:(NSString *)wordsToSynthesize	{		_wordsToSynthesize = wordsToSynthesize;
 
-	NSLog(@"saving caf to %@", self.SAY[0]);
+	NSLog(@"\"saying\" caf to %@", [self.tempPath withExt:@"caf"]);
 
-	CWTask *u = [CWTask.alloc initWithExecutable:self.SAY[0] andArguments:self.SAY[1] atDirectory:NSTemporaryDirectory()];
+	CWTask *u = [CWTask.alloc initWithExecutable:self.SAY[0] andArguments:self.SAY[1] atDirectory:AZTEMPD];
 	[u launchTaskOnQueue:AZSSOQ withCompletionBlock:^(NSString *output, NSError *error) {
-		if (!error)	self.audioToRecognize = [self.tempPath withExt:@"wav"];
+		if (!error)	self.audioToRecognize = [self.tempPath withExt:@"caf"];
 	}];
 }
 
@@ -89,7 +114,8 @@ const BOOL usr = YES;
 {
 	CWTask  *u;
 	if ( audioToRecognize )  { 	_audioToRecognize = audioToRecognize; AZLOG($(@"setting ffmpeg args: %@",self.FFMPEG[1]));
-		u = [CWTask.alloc initWithExecutable:self.FFMPEG[0] andArguments:self.FFMPEG[1] atDirectory:NSTemporaryDirectory()];
+		
+		u = [CWTask.alloc initWithExecutable:self.FFMPEG[0] andArguments:self.FFMPEG[1] atDirectory:AZTEMPD];
 		[u launchTaskOnQueue:AZSSOQ withCompletionBlock:^(NSString *output, NSError *error) {
 			if (!error) 	self.flacTempPath = [self.tempPath withExt:@"flac"];
 		}];

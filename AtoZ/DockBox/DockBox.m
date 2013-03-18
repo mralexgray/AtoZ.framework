@@ -23,26 +23,35 @@
 	[_router start];
 
 	NSURLREQ *req = [NSURLREQ requestWithURL:$URL($(@"%@:%u/colorchart/",_router.baseURL, _router.port))];
+	[_webView.mainFrame loadRequest:req];
 	NSLog(@"Requesting url from webview %@", req.URL);
+
+	[_window setBackgroundColor:RED];
 
 //	[_webView.mainFrame
 
-	_fb = [AZFacebookConnection initWithQuery:@"me/posts" param:@"message" thenDo:^(NSString *text) {
+}
 
+
+//	b(nil,z);
+
+
+- (IBAction)getFB:(id)sender {
+	_fb = [AZFacebookConnection initWithQuery:@"me/posts" param:@"message" thenDo:^(NSString *text) {
+	
 //		[_window.contentView addSubview:
 //		 [NSTextView textViewForFrame: _window.frame withString:[text.mutableCopy attributedWithFont:AtoZ.controlFont andColor:RANDOMCOLOR]]];
 	}];
-	[_window setBackgroundColor:RED];
-	[GoogleTTS recognizeSynthesizedText:[NSS dicksonParagraphWith:10] completion:^(NSS *s) {
+}
+
+- (IBAction)getColorList:(id)sender {
+	[GoogleSpeechAPI recognizeSynthesizedText:[NSS dicksonParagraphWith:10] completion:^(NSS *s) {
 //		[NSThread.mainThread pe  [_webView.mainFrame loadHTMLString:s baseURL:$URL(_router.baseURL)];
 //		[NSTextView textViewForFrame: [w convertRectFromScreen:w.frame] withString:[s.mutableCopy attributedWithFont:AtoZ.controlFont andColor:RANDOMCOLOR]]];
 		AZLOG($(@"The sentence was: %@ and the response ", s));
 	}];
 
-
-	//	b(nil,z);
 }
-
 @end
 
 //int main(int c, const char* v [] ) { @autoreleasepool {	NSApplication.sharedApplication;

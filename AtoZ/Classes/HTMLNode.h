@@ -7,10 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <libxml/HTMLparser.h>
-#import "HTMLParser.h"
+#import "AZHTMLParser.h"
+#import <libxml/parser.h>
+//#import "/usr/include/libxml2/libxml/HTMLParser.h"//<libxml/HTMLparser.h>
 
-@class HTMLParser;
+//@class HTMLParser;
 
 #define ParsingDepthUnlimited 0
 #define ParsingDepthSame -1

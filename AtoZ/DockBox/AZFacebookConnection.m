@@ -13,7 +13,6 @@ NSString* APPLICATION_ID = @"223404761008769";
 @end
 
 @implementation AZFacebookConnection
-@synthesize fb;
 
 + (instancetype) initWithQuery:(NSString*)q param:(NSString*)key thenDo:(FBTextBlock)block {
 
@@ -21,17 +20,14 @@ NSString* APPLICATION_ID = @"223404761008769";
 	
 
 }
-
 //+ (NSString*) query:(NSString*)q param:(NSString*)key;
+
+- (PhFacebook*)	fb { return _fb = _fb ?: [PhFacebook.alloc initWithApplicationID: APPLICATION_ID delegate: self]; }
 
 - (void) setUp
 {
-	fb = [PhFacebook.alloc initWithApplicationID: APPLICATION_ID delegate: self];
 	_q= NSOQ.new;
 	_q.maxConcurrentOperationCount = NSOperationQueueDefaultMaxConcurrentOperationCount;
-
-	[self getAccessToken:nil];
-	[fb sendRequest: @"me/posts"];
 	//	self.token_label.stringValue = @"Invalid";
 	//	[self.request_label setEnabled: NO];	[self.request_text setEnabled: NO];
 	//	[self.send_request setEnabled: NO];		[self.result_text setEditable: NO];
@@ -40,18 +36,20 @@ NSString* APPLICATION_ID = @"223404761008769";
 
 #pragma mark IBActions
 
+-(void) myPosts { 	[self.fb sendRequest: @"me/posts"]; }
+
 - (IBAction) getAccessToken: (id) sender
 {
 //	[NSThread performBlockInBackground:^{
 		// Always get a new token, don't get a cached one
-		[fb getAccessTokenForPermissions: @[@"read_stream", @"export_stream"] cached: NO];
+		[self.fb getAccessTokenForPermissions: @[@"read_stream", @"export_stream"] cached: NO];
 //	}];
 }
 
 - (IBAction) sendRequest: (id) sender
 {
 //	[self.send_request setEnabled: NO];
-	[fb sendRequest: [sender stringValue]];// request_text.stringValue];
+	[self.fb sendRequest: [sender stringValue]];// request_text.stringValue];
 }
 
 #pragma mark PhFacebookDelegate methods
@@ -65,7 +63,7 @@ NSString* APPLICATION_ID = @"223404761008769";
 //		[self.request_text setEnabled: YES];
 //		[self.send_request setEnabled: YES];
 //		[self.result_text setEditable: YES];
-		[fb sendRequest: @"me/picture"];
+		[self.fb sendRequest: @"me/picture"];
 //		[self sendRequest:nil];
 	}
 	else
