@@ -716,7 +716,7 @@ typedef NS_ENUM(NSUI, AZState) {
 typedef NS_ENUM(NSUI, AZTrackState) { LeftOn,LeftOff,TopOn,TopOff,RightOn,RightOff,BottomOn,BottomOff	};
 typedef NS_ENUM(NSUI, AZDockSort)	{	AZDockSortNatural,AZDockSortColor,AZDockSortPoint,AZDockSortPointNew	};
 typedef enum  {	AZSearchByCategory,AZSearchByColor,AZSearchByName,AZSearchByRecent		} AZSearchBy;
-typedef NS_ENUM(NSUI, AZSlideState)	  {	AZIn,AZOut																};
+typedef NS_ENUM(NSUI, AZSlideState)	  {	AZIn, AZOut, AZToggle									};
 typedef NS_ENUM(NSUI, AZMenuPosition) { AZMenuN,AZMenuS,AZMenuE,AZMenuW,AZMenuPositionCount						};
 //#ifndef ATOZTOUCH
 typedef NS_ENUM(NSUI, AZWindowPosition) {

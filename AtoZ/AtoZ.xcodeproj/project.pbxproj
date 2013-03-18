@@ -502,8 +502,8 @@
 		7B92137515C56F4600862F9D /* AZSimpleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B92137315C56F4600862F9D /* AZSimpleView.m */; };
 		7B9595B115E1D0090044620B /* UbuntuTitling-Bold.ttf in fonts Files */ = {isa = PBXBuildFile; fileRef = 7B9595A815E1CEA20044620B /* UbuntuTitling-Bold.ttf */; };
 		7B9595B215E1D0090044620B /* UbuntuMono-B.ttf in fonts Files */ = {isa = PBXBuildFile; fileRef = 7BDB8D7B15CB56BA0037A4BF /* UbuntuMono-B.ttf */; };
-		7B95C88716F04DAC00480BB1 /* JNWAnimatableWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B95C88516F04DAC00480BB1 /* JNWAnimatableWindow.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7B95C88816F04DAC00480BB1 /* JNWAnimatableWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B95C88616F04DAC00480BB1 /* JNWAnimatableWindow.m */; };
+		7B95C88716F04DAC00480BB1 /* CAWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B95C88516F04DAC00480BB1 /* CAWindow.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B95C88816F04DAC00480BB1 /* CAWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B95C88616F04DAC00480BB1 /* CAWindow.m */; };
 		7B95C88D16F0760E00480BB1 /* NSObject-Utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B449C6D1616136500AB9335 /* NSObject-Utilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B95C88E16F0762100480BB1 /* NSObject-Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B449C6E1616136500AB9335 /* NSObject-Utilities.m */; };
 		7B95C89A16F07FA700480BB1 /* AZFacebookBrowserView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B95C89916F07FA700480BB1 /* AZFacebookBrowserView.m */; };
@@ -715,6 +715,8 @@
 		7BD908BD162F556B000DE2BB /* AtoZGeometry.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BD908BC162F5557000DE2BB /* AtoZGeometry.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BD908BF162F580E000DE2BB /* AtoZGeometry.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD908BE162F580E000DE2BB /* AtoZGeometry.m */; };
 		7BDB8D7D15CB56BA0037A4BF /* missing.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BDB8D7915CB56BA0037A4BF /* missing.png */; };
+		7BDD284D16F7598B00FEB3AF /* NSSplitView+DMAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BDD284B16F7598B00FEB3AF /* NSSplitView+DMAdditions.m */; };
+		7BDD284E16F75DB800FEB3AF /* NSSplitView+DMAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BDD284A16F7598B00FEB3AF /* NSSplitView+DMAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BDDD5E415A3792600A5C222 /* AZStopwatch.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BDDD5E215A3792600A5C222 /* AZStopwatch.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BDDD5E515A3792600A5C222 /* AZStopwatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BDDD5E315A3792600A5C222 /* AZStopwatch.m */; };
 		7BDF41F1164AFD3F008B3240 /* NSObject+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B24E99E15A1309300A9D87A /* NSObject+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1997,8 +1999,8 @@
 		7B92137315C56F4600862F9D /* AZSimpleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZSimpleView.m; sourceTree = "<group>"; };
 		7B9595A815E1CEA20044620B /* UbuntuTitling-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "UbuntuTitling-Bold.ttf"; path = "Fonts/UbuntuTitling-Bold.ttf"; sourceTree = "<group>"; };
 		7B95C88416F00E9A00480BB1 /* AtoZ-Framework-Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "AtoZ-Framework-Config.xcconfig"; path = "../../AtoZ-Framework-Config.xcconfig"; sourceTree = "<group>"; };
-		7B95C88516F04DAC00480BB1 /* JNWAnimatableWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JNWAnimatableWindow.h; sourceTree = "<group>"; };
-		7B95C88616F04DAC00480BB1 /* JNWAnimatableWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JNWAnimatableWindow.m; sourceTree = "<group>"; };
+		7B95C88516F04DAC00480BB1 /* CAWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = CAWindow.h; sourceTree = "<group>"; };
+		7B95C88616F04DAC00480BB1 /* CAWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CAWindow.m; sourceTree = "<group>"; };
 		7B95C89816F07FA700480BB1 /* AZFacebookBrowserView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZFacebookBrowserView.h; sourceTree = "<group>"; };
 		7B95C89916F07FA700480BB1 /* AZFacebookBrowserView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZFacebookBrowserView.m; sourceTree = "<group>"; };
 		7B95C89B16F0804A00480BB1 /* AZFacebookBrowserView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AZFacebookBrowserView.xib; sourceTree = "<group>"; };
@@ -2257,6 +2259,8 @@
 		7BD908BE162F580E000DE2BB /* AtoZGeometry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AtoZGeometry.m; path = ../AZGeometry/AtoZGeometry.m; sourceTree = "<group>"; };
 		7BDB8D7915CB56BA0037A4BF /* missing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = missing.png; sourceTree = "<group>"; };
 		7BDB8D7B15CB56BA0037A4BF /* UbuntuMono-B.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "UbuntuMono-B.ttf"; path = "Fonts/UbuntuMono-B.ttf"; sourceTree = "<group>"; };
+		7BDD284A16F7598B00FEB3AF /* NSSplitView+DMAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = "NSSplitView+DMAdditions.h"; sourceTree = "<group>"; };
+		7BDD284B16F7598B00FEB3AF /* NSSplitView+DMAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSSplitView+DMAdditions.m"; sourceTree = "<group>"; };
 		7BDDD5E215A3792600A5C222 /* AZStopwatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZStopwatch.h; sourceTree = "<group>"; };
 		7BDDD5E315A3792600A5C222 /* AZStopwatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZStopwatch.m; sourceTree = "<group>"; };
 		7BDF56051625A45C00041A42 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -3214,6 +3218,8 @@
 		7B583063159BDA900039CEED /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				7BDD284A16F7598B00FEB3AF /* NSSplitView+DMAdditions.h */,
+				7BDD284B16F7598B00FEB3AF /* NSSplitView+DMAdditions.m */,
 				7B9AC20616EC911A00F8763C /* NSTask+OneLineTasksWithOutput.h */,
 				7B9AC20716EC911A00F8763C /* NSTask+OneLineTasksWithOutput.m */,
 				7BBD991015B0648A00943FC1 /* CAAnimation+AtoZ.h */,
@@ -3546,8 +3552,8 @@
 			children = (
 				7B095DFD161AD78D0076C990 /* AZSemiResponderWindow.h */,
 				7B095DFE161AD78D0076C990 /* AZSemiResponderWindow.m */,
-				7B95C88516F04DAC00480BB1 /* JNWAnimatableWindow.h */,
-				7B95C88616F04DAC00480BB1 /* JNWAnimatableWindow.m */,
+				7B95C88516F04DAC00480BB1 /* CAWindow.h */,
+				7B95C88616F04DAC00480BB1 /* CAWindow.m */,
 				7B81287315D0339A0070193F /* AZWindowExtend.h */,
 				7B81287415D0339A0070193F /* AZWindowExtend.m */,
 				7BDF567A1626B68600041A42 /* AZBorderlessResizeWindow.h */,
@@ -4302,6 +4308,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7B4DD6C016EDE3520084826B /* OperationsRunnerProtocol.h in Headers */,
+				7BDD284E16F75DB800FEB3AF /* NSSplitView+DMAdditions.h in Headers */,
 				7B3777EC16F1BE4A0083CBB5 /* GCDAsyncSocket.h in Headers */,
 				7B3777EE16F1BE4A0083CBB5 /* DDData.h in Headers */,
 				7B3777F016F1BE4A0083CBB5 /* DDNumber.h in Headers */,
@@ -4541,7 +4548,7 @@
 				7B2F242F16F289BC003D7648 /* AtoZStack.h in Headers */,
 				7B2F243116F289BC003D7648 /* SIConstants.h in Headers */,
 				7BB1766416EFBF7300E341CC /* JsonElement.h in Headers */,
-				7B95C88716F04DAC00480BB1 /* JNWAnimatableWindow.h in Headers */,
+				7B95C88716F04DAC00480BB1 /* CAWindow.h in Headers */,
 				7B95C88D16F0760E00480BB1 /* NSObject-Utilities.h in Headers */,
 				7B2D754716F15BB60054C5F2 /* Bootstrap.h in Headers */,
 				7B4A90B916F3AB70003CD058 /* AZSpeechRecognition.h in Headers */,
@@ -5610,7 +5617,7 @@
 				7B4DD6C216EDE3520084826B /* OperationsRunner.m in Sources */,
 				7B4DD6C416EDE3520084826B /* WebFetcher.m in Sources */,
 				7BB1766316EFBF7300E341CC /* JsonElement.m in Sources */,
-				7B95C88816F04DAC00480BB1 /* JNWAnimatableWindow.m in Sources */,
+				7B95C88816F04DAC00480BB1 /* CAWindow.m in Sources */,
 				7B95C88E16F0762100480BB1 /* NSObject-Utilities.m in Sources */,
 				7B2D754816F15BB60054C5F2 /* Bootstrap.m in Sources */,
 				7B3777ED16F1BE4A0083CBB5 /* GCDAsyncSocket.m in Sources */,
@@ -5654,6 +5661,7 @@
 				7B31581916F40D5200642171 /* PXListDocumentView.m in Sources */,
 				7B66B26B16F6E0020084E2A5 /* NSString+HTML.h in Sources */,
 				7B66B26C16F6E0020084E2A5 /* NSString+HTML.m in Sources */,
+				7BDD284D16F7598B00FEB3AF /* NSSplitView+DMAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

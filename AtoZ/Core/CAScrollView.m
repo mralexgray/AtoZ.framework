@@ -16,10 +16,10 @@
 
 - (void) awakeFromNib
 {
-	oreo        				= HRZ;
+	oreo        			= HRZ;
 	_selectedStyle 			= _hoverStyle = None;
-	hostlayer 					= (CALNH*)[[[self setupHostViewNoHit] named:@"hostLayer"  ]colored:GREEN];
-	scrollLayer 				= [[[CAL  layerWithFrame:hostlayer.bounds] named:@"scrollLayer"]colored:RED];
+	hostlayer 				= (CALNH*)[[[self setupHostViewNoHit] named:@"hostLayer"  ]colored:GREEN];
+	scrollLayer 			= [[[CAL  layerWithFrame:hostlayer.bounds] named:@"scrollLayer"]colored:RED];
 //	scrollLayer.arMASK = CASIZEABLE;
 	hostlayer.sublayers = @[scrollLayer];
 	scrollLayer.loM 	= self;

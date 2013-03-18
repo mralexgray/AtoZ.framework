@@ -314,7 +314,7 @@
 #import "AZSemiResponderWindow.h"
 #import "AZAttachedWindow.h"
 
-#import "JNWAnimatableWindow.h"
+#import "CAWindow.h"
 
 
 //CoreScroll
@@ -353,6 +353,8 @@
 #import "StarLayer.h"
 #import "BBMeshView.h"
 #import "AZSourceList.h"
+#import "NSSplitView+DMAdditions.h"
+
 
 #import "AZVeil.h"
 
