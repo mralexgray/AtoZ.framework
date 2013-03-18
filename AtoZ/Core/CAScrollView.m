@@ -26,15 +26,14 @@
 //	[self observeFrameChangeUsingBlock:^{ [self setFixState:LayerStateUnset]; }];
 //	[self addObserver:self keyPath:@[@"offset",@"orientation",@"layerQueue"] selector:@selector(fixState	) userInfo:nil options:NSKeyValueObservingOptionNew];
 }
-- (void) viewDidEndLiveResize {
-	[CATransaction immediately:^{
-		[@[hostlayer, scrollLayer] each:^(CAL* obj) {
-//			[obj setPosition:AZCenterOfRect(self.bounds)];
-//																								[obj setAnchorPoint:(CGP){.5,.5}];
-																								[obj setBounds:self.bounds];
-		}]; //[scrollLayer sublayersBlock:^(CALayer *layer) { [layer setBoundsHeight:self.height]; }];
-	}];
-}
+//- (void) viewDidEndLiveResize {
+//	[CATransaction immediately:^{
+//		[@[hostlayer, scrollLayer] each:^(CAL* obj) {
+////			[obj setPosition:AZCenterOfRect(self.bounds)]; [obj setAnchorPoint:(CGP){.5,.5}];
+//			[obj setBounds:self.bounds];
+//		}]; //[scrollLayer sublayersBlock:^(CALayer *layer) { [layer setBoundsHeight:self.height]; }];
+//	}];
+//}
 
 - (void)setLayerQueue:(NSMA*)lQ
 {
@@ -54,22 +53,25 @@
 
 - (void) viewDidMoveToSuperview
 {
-//	self.window.acceptsMouseMovedEvents = YES;
+	self.window.acceptsMouseMovedEvents = YES;
 //	[self.window makeFirstResponder: self];
 	[self setFrame:self.superview.bounds];
+	[self setAutoresizingMask:NSSIZEABLE];
 //	[self setNeedsDisplay:YES];
 }
 
 - (void) layoutSublayersOfLayer: (CAL*)layer
 {
-	[CATransaction immediately:^{	__block CGF off = _offset;
-		[scrollLayer.sublayers each:^(CAL* obj) {
-			obj.frameMinX = oreo == VRT ? 0 : off;
-			obj.frameMinY = oreo == VRT ? off : 0;
-			off += oreo == VRT ? obj.boundsHeight : obj.boundsWidth;
-			obj.boundsHeight = obj.superlayer.boundsHeight;
+	if (scrollLayer.sublayers) {
+		[CATransaction immediately:^{	__block CGF off = _offset;
+			[scrollLayer.sublayers each:^(CAL* obj) {
+				obj.frameMinX = oreo == VRT ? 0 : off;
+				obj.frameMinY = oreo == VRT ? off : 0;
+				off += oreo == VRT ? obj.boundsHeight : obj.boundsWidth;
+				obj.boundsHeight = obj.superlayer.boundsHeight;
+			}];
 		}];
-	}];
+	}
 }
 
 - (CGF) sublayerSpan { return ((NSN*)[scrollLayer.sublayers reduce:^id(NSN*memo,CAL*cur) { return @(memo.floatValue + oreo == VRT ? cur.boundsHeight : cur.boundsWidth); } withInitialMemo:@0]).floatValue; }
