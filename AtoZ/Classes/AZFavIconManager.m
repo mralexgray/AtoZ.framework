@@ -1,4 +1,4 @@
-//  DSFavIconFinder.m
+//  AZFavIconFinder.m
 //  Created by Fabio Pelosin on 04/09/12.
 //  Copyright (c) 2012 Discontinuity s.r.l. All rights reserved.
 
@@ -58,7 +58,11 @@ CGSize sizeInPixels(NSIMG *icon) {
 {
 	return [AZFavIconManager.sharedInstance iconForURL:url downloadHandler:downloadHandler];
 }
-
++ (NSIMG*)AZFavIconManager:(NSURL *)url downloadHandler:(void (^)(NSIMG *icon))downloadHandler;
+{
+	AZFavIconManager * n = AZFavIconManager.new;
+	return [n iconForURL:url downloadHandler:downloadHandler];
+}
 - (NSIMG*)iconForURL:(NSURL *)url downloadHandler:(void (^)(NSIMG *icon))downloadHandler
 {
 	NSS* keyForUrl = [self keyForURL:url];
@@ -66,7 +70,7 @@ CGSize sizeInPixels(NSIMG *icon) {
 	if (cachedImage) { cachedImage.name = $(@"cachedIconFor:%@", keyForUrl);  return cachedImage; }
 	if (_discardRequestsForIconsWithPendingOperation && [_opsPerURL objectForKey:url]) 	return self.placehoder;
 
-	DSFavIconOperationCompletionBlock completionBlock = ^(NSIMG *icon) {
+	AZFavIconOperationCompletionBlock completionBlock = ^(NSIMG *icon) {
 		if (icon) {
 			[_opsPerURL removeObjectForKey:url];
 			[_cache setImage:icon forKey:keyForUrl];
@@ -121,15 +125,15 @@ CGSize sizeInPixels(NSIMG *icon) {
 @end
 
 
-NSS *const kDSFavIconOperationDidStartNetworkActivity = @"kDSFavIconOperationDidStartNetworkActivity";
-NSS *const kDSFavIconOperationDidEndNetworkActivity   = @"kDSFavIconOperationDidEndNetworkActivity";
+NSS *const kAZFavIconOperationDidStartNetworkActivity = @"kAZFavIconOperationDidStartNetworkActivity";
+NSS *const kAZFavIconOperationDidEndNetworkActivity   = @"kAZFavIconOperationDidEndNetworkActivity";
 
 @implementation AZFavIconOperation
 
 + (AZFavIconOperation*)operationWithURL: (NSURL*)url
 					 relationshipsRegex: (NSS*)relationshipsRegex
 						   defaultNames: (NSA*)defaultNames
-						completionBlock: (DSFavIconOperationCompletionBlock)completion;
+						completionBlock: (AZFavIconOperationCompletionBlock)completion;
 {
 	AZFavIconOperation* result 	= self.new;
 	result.url 					= url;
@@ -152,9 +156,9 @@ NSS *const kDSFavIconOperationDidEndNetworkActivity   = @"kDSFavIconOperationDid
 		NSURLRequest *request = [NSURLRequest requestWithURL:_url];
 		NSURLResponse *response;
 
-		[AZNOTCENTER postNotificationName:kDSFavIconOperationDidStartNetworkActivity object:self];
+		[AZNOTCENTER postNotificationName:kAZFavIconOperationDidStartNetworkActivity object:self];
 		NSData *htmlData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:nil];
-		[AZNOTCENTER postNotificationName:kDSFavIconOperationDidEndNetworkActivity object:self];
+		[AZNOTCENTER postNotificationName:kAZFavIconOperationDidEndNetworkActivity object:self];
 
 		icon = ![self isIconValid:icon] && !self.isCancelled ? [self searchURLForImages:response.URL withNames:_defaultNames] ?: icon :
 			   ![self isIconValid:icon] && !self.isCancelled ? [self iconFromHTML:htmlData textEncodingName:response.textEncodingName url:response.URL] : icon;
@@ -169,9 +173,9 @@ NSS *const kDSFavIconOperationDidEndNetworkActivity   = @"kDSFavIconOperationDid
 	[names enumerateObjectsUsingBlock:^(NSS *iconName, NSUInteger idx, BOOL *stop) {
 		if (!self.isCancelled) {
 			NSURL *iconURL = [NSURL URLWithString:iconName relativeToURL:baseURL];
-			[AZNOTCENTER postNotificationName:kDSFavIconOperationDidStartNetworkActivity object:self];
+			[AZNOTCENTER postNotificationName:kAZFavIconOperationDidStartNetworkActivity object:self];
 			NSData *data = [NSData dataWithContentsOfURL:iconURL];
-			[AZNOTCENTER postNotificationName:kDSFavIconOperationDidEndNetworkActivity object:self];
+			[AZNOTCENTER postNotificationName:kAZFavIconOperationDidEndNetworkActivity object:self];
 			NSIMG *newIcon = [[NSIMG alloc] initWithData:data];
 			if (newIcon) {
 				icon = newIcon;
@@ -213,9 +217,9 @@ NSS *const kDSFavIconOperationDidEndNetworkActivity   = @"kDSFavIconOperationDid
 			NSS *href_value = [link_tag substringWithRange:[href_result rangeAtIndex:1]];
 			if (href_value) {
 				NSURL* iconURL = [NSURL URLWithString:href_value relativeToURL:url];
-				[AZNOTCENTER postNotificationName:kDSFavIconOperationDidStartNetworkActivity object:self];
+				[AZNOTCENTER postNotificationName:kAZFavIconOperationDidStartNetworkActivity object:self];
 				NSData *data = [NSData dataWithContentsOfURL:iconURL];
-				[AZNOTCENTER postNotificationName:kDSFavIconOperationDidEndNetworkActivity object:self];
+				[AZNOTCENTER postNotificationName:kAZFavIconOperationDidEndNetworkActivity object:self];
 				if (data)
 				{
 					NSIMG   *newIcon = [[NSIMG alloc] initWithData:data];
@@ -304,11 +308,11 @@ NSS *const kDSFavIconOperationDidEndNetworkActivity   = @"kDSFavIconOperationDid
 
 @end
 
-//  DSFavIconOperation.m
-//  DSFavIcon
+//  AZFavIconOperation.m
+//  AZFavIcon
 //  Created by Fabio Pelosin on 05/09/12.
 //  Copyright (c) 2012 Discontinuity s.r.l. All rights reserved.
-//	#import "DSFavIconOperation.h"
+//	#import "AZFavIconOperation.h"
 
 
 //	return [bitmapRep representationUsingType:NSPNGFileType properties:Nil];

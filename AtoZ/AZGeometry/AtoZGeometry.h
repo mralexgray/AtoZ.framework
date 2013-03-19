@@ -133,6 +133,10 @@ CGF AZAreaOfRect ( NSR rect );
 // Size -> Point conversion
 NSP AZPointFromSize ( NSSZ size );
 
+
+CGF AZMenuBarH (void);
+
+
 // NSP result methods
 NSP AZOriginFromMenubarWithX ( CGF yOffset, CGF xOffset );
 

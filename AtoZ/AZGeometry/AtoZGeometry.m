@@ -277,6 +277,9 @@ CGFloat distanceFromPoint (NSPoint p1, NSPoint p2) {
 //
 // NSPoint result functions
 //
+
+CGF AZMenuBarH (void) { return  [[NSApp mainMenu] menuBarHeight]; }
+
 NSPoint AZOriginFromMenubarWithX(CGFloat yOffset, CGFloat xOffset) {
 
 	NSPoint topLeft = NSMakePoint(0,[[NSScreen mainScreen]frame].size.height);

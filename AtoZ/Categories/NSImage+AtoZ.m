@@ -8,6 +8,7 @@
 #import <AppKit/AppKit.h>
 #import <Quartz/Quartz.h>
 #import <QuickLook/QuickLook.h>
+#import <SVGKit/SVGKit.h>
 
 
 static NSS *_systemIconsFolder = nil;
@@ -1909,35 +1910,37 @@ rightDone:
 	return returnImg;
 }
 
-//+(NSImage *) fromSVG:(NSString *)documentName withAlpha:(BOOL)hasAlpha {
-//	
-//	SVGDocument *document = [SVGDocument documentNamed:documentName];
-//	NSBitmapImageRep *rep = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
-//																	pixelsWide:document.width
-//																	pixelsHigh:document.height
-//																 bitsPerSample:8
-//															   samplesPerPixel:3
-//																	  hasAlpha:hasAlpha
-//																	  isPlanar:NO
-//																colorSpaceName:NSCalibratedRGBColorSpace
-//																   bytesPerRow:4 * document.width
-//																  bitsPerPixel:32];
-//	
-//	CGContextRef context = [[NSGraphicsContext graphicsContextWithBitmapImageRep:rep] graphicsPort];
-//	//	if (!hasAlpha) 
-//	CGContextSetRGBFillColor(context, 1.0f, 1.0f, 1.0f, 1.0f); // white background
-//	CGContextFillRect(context, CGRectMake(0.0f, 0.0f, document.width, document.height));
-//	CGContextScaleCTM(context, 1.0f, -1.0f); // flip
-//	CGContextTranslateCTM(context, 0.0f, -document.height);
-//	[[document layerTree] renderInContext:context];
-//	CGImageRef image = CGBitmapContextCreateImage(context);
-//	NSBitmapImageRep *rendering = [[NSBitmapImageRep alloc] initWithCGImage:image];
-//	CGImageRelease(image);
-//	NSImage * rendered = [[NSImage alloc] initWithSize:[rendering size]];
-//	[rendered setScalesWhenResized:YES];
-//	[rendered addRepresentation: rendering];
-//	return rendered;
-//}
+
++(NSImage *) fromSVG:(NSString *)documentName withAlpha:(BOOL)hasAlpha
+{
+
+	SVGDocument *document = [SVGDocument documentNamed:documentName];
+	NSBitmapImageRep *rep = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
+																	pixelsWide:document.width
+																	pixelsHigh:document.height
+																 bitsPerSample:8
+															   samplesPerPixel:3
+																	  hasAlpha:hasAlpha
+																	  isPlanar:NO
+																colorSpaceName:NSCalibratedRGBColorSpace
+																   bytesPerRow:4 * document.width
+																  bitsPerPixel:32];
+	
+	CGContextRef context = [[NSGraphicsContext graphicsContextWithBitmapImageRep:rep] graphicsPort];
+	//	if (!hasAlpha) 
+	CGContextSetRGBFillColor(context, 1.0f, 1.0f, 1.0f, 1.0f); // white background
+	CGContextFillRect(context, CGRectMake(0.0f, 0.0f, document.width, document.height));
+	CGContextScaleCTM(context, 1.0f, -1.0f); // flip
+	CGContextTranslateCTM(context, 0.0f, -document.height);
+	[[document layerTree] renderInContext:context];
+	CGImageRef image = CGBitmapContextCreateImage(context);
+	NSBitmapImageRep *rendering = [[NSBitmapImageRep alloc] initWithCGImage:image];
+	CGImageRelease(image);
+	NSImage * rendered = [[NSImage alloc] initWithSize:[rendering size]];
+	[rendered setScalesWhenResized:YES];
+	[rendered addRepresentation: rendering];
+	return rendered;
+}
 
 + (NSA*) systemImages {
 	static NSArray *_systemImages = nil;

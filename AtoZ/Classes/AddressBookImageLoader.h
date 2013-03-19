@@ -5,10 +5,19 @@
 @interface AZAddressBook : NSObject
 
 +(AZAddressBook*) sharedInstance;
-//+ (NSMA*) contacts;
-@property (nonatomic, strong) ABAddressBook *addressBook;
-@property (nonatomic, strong) NSMA *contacts;
-@property (nonatomic, strong) NSMD *images;
+@property (strong) ABAddressBook *addressBook;
+@property (strong, nonatomic) NSMA *contacts;
+@property (strong, nonatomic ) NSMD *images;
+@end
+
+@interface AZContact : NSObject //<ABImageClient>
+- (id) initWithUid:(NSS*)uid;
+@property (nonatomic, copy) NSString *uid;
+@property (nonatomic, readonly)	NSS *company, *lastName, *firstName;
+@property (readonly) NSIMG *image;
+
+
+
 //+ (NSArray *) groups; // groups
 // Counting
 //@property (nonatomic, readonly) NSUI contactsCount, contactsWithImageCount;//, contactsWithoutImageCount, numberOfGroups;
@@ -21,21 +30,20 @@
 //+ (NSA*) contactsMatchingPhone: (NSS*)number;
 // Find groups
 //+ (NSArray *) groupsMatchingName: (NSString *) fname;
-@end
 
-@interface AZContact : NSObject <ABImageClient>
+
+
+
 //- (id) initWithRecord: (ABRecord*) record;
 //@property (nonatomic, copy) ABRecord *record;
 //@property (nonatomic) NSI fetchTag;
-- (id) initWithUid:(NSS*)uid;
+
 //- (void) consumeImageData:(NSData *)data forTag:(NSInteger)tag;
 //- (void) fetchImage;
 
-@property (nonatomic, copy) NSString *uid;
-@property (nonatomic, readonly)	NSS *company, *lastName, *firstName;
 //@property (nonatomic, strong) NSA	*urls, *emails, *phones;
 //@property (nonatomic, strong) NSData *imageData;
-@property (strong, nonatomic) NSIMG *image;
+
 //@property (nonatomic, readonly) BOOL isPerson;
 #pragma mark SINGLE VALUE STRING
 //@property (nonatomic, strong) NSString *firstname, *lastname, *suffix, *organization, *nickname;

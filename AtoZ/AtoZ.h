@@ -169,7 +169,7 @@
 #import "AZTalker.h"
 
 #import "SynthesizeSingleton.h"
-//#import "iCarousel.h"
+#import "iCarousel.h"
 //#impo   rt "azCarousel.h"
 
 #import "CTGradient.h"
@@ -287,7 +287,7 @@
 #import "AZHostView.h"
 #import "AZSegmentedRect.h"
 #import "AZQueue.h"
-//#import "AZDockQuery.h"
+#import "AZDockQuery.h"
 #import "AZAXAuthorization.h"
 //#import "AZNotificationCenter.h"
 #import "NSLogConsole.h"
@@ -503,6 +503,7 @@ extern NSString *const AtoZDockSortedUpdated;
 
 - (NSJSONSerialization*) jsonRequest: (NSString*) url;
 + (NSJSONSerialization*) jsonRequest: (NSString*) url;
+
 + (NSString *) version;
 + (NSBundle*) bundle;
 + (NSString*) resources;

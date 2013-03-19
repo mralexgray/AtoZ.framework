@@ -32,6 +32,8 @@
 - (NSString *)encodeHTMLCharacterEntities;
 
 - (NSString *)stringByDecodingXMLEntities;
+- (NSS*) stringByCleaningJSONUnicode;
+- (NSS*) unescapeQuotes;
 
 + (NSString*) randomWiki;
 - (NSS*) wikiDescription;

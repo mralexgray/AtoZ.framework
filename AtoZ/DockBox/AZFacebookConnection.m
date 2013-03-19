@@ -17,22 +17,22 @@ NSString* APPLICATION_ID = @"223404761008769";
 + (instancetype) initWithQuery:(NSString*)q param:(NSString*)key thenDo:(FBTextBlock)block {
 
 	AZFacebookConnection *me = [AZFacebookConnection sharedInstance];
-	
+//	[me.fb sendRequest:q params:ket usePostRequest:<#(BOOL)#>]
 
 }
 //+ (NSString*) query:(NSString*)q param:(NSString*)key;
 
-- (PhFacebook*)	fb { return _fb = _fb ?: [PhFacebook.alloc initWithApplicationID: APPLICATION_ID delegate: self]; }
+- (PhFacebook*)	fb { return _fb = _fb ?:	LogAndReturn( [PhFacebook.alloc initWithApplicationID: APPLICATION_ID
+																						 delegate: self]); }
+- (NSOQ*) q { return _q = _q ?: ^{  _q = NSOQ.new;
+									_q.maxConcurrentOperationCount = NSOperationQueueDefaultMaxConcurrentOperationCount;
+									return _q; }(); }
 
-- (void) setUp
-{
-	_q= NSOQ.new;
-	_q.maxConcurrentOperationCount = NSOperationQueueDefaultMaxConcurrentOperationCount;
 	//	self.token_label.stringValue = @"Invalid";
 	//	[self.request_label setEnabled: NO];	[self.request_text setEnabled: NO];
 	//	[self.send_request setEnabled: NO];		[self.result_text setEditable: NO];
 	//	[self.result_text setFont: [NSFont fontWithName: @"Monaco" size: 10.0]];
-}
+//}
 
 #pragma mark IBActions
 

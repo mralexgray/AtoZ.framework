@@ -1,9 +1,8 @@
 
 
-
-
 #import "AddressBookImageLoader.h"
 #import <AddressBook/AddressBook.h>
+#import <AddressBook/ABAddressBookC.h>
 
 static NSString * const kFirstNameKey = @"firstName";
 static NSString * const kLastNameKey = @"lastName";
@@ -14,40 +13,110 @@ static NSString * const kEmailsKey = @"emails";
 static NSString * const kPhonesKey = @"phones";
 static NSString * const kImageDataKey = @"image";
 
-
 @implementation AZAddressBook
 
 + (AZAddressBook*)sharedInstance
 {
-	static dispatch_once_t once;
-	static id sharedInstance;
-	dispatch_once(&once, ^{  sharedInstance = self.new; });
-	return sharedInstance;
+	static  dispatch_once_t once;	static id sharedInstance;
+			dispatch_once( &once, ^{  		  sharedInstance = self.new; });	return sharedInstance;
 }
 
-- (id) init
+- (id) init	{	if (self != super.init ) return nil;
+
+	[AZStopwatch named:@"Create AddressBook" block:^{
+
+		_addressBook 	= ABAddressBook.sharedAddressBook;
+		_images   		= NSMD.new;
+		_contacts 		= [_addressBook.people cw_mapArray:^id(ABPerson *person) {
+			NSS* u		= [person valueForProperty:kABUIDProperty];
+			return u   != nil ? [AZContact.alloc initWithUid:u] : u;	}].mutableCopy;
+	}];
+	return self;
+}
+//- (NSMD*) images {  return _images = _images ?: [self.contacts :^id(id onj) {
+//		return @{
+//	}];
+//}
+
+@end
+
+
+@interface AZContact ()
+@property (readwrite) NSIMG *image;
+@end
+
+@implementation AZContact
+@synthesize image = _image;
+
+- (id) init	{	return [self initWithUid:nil];	}
+
+- (id) initWithUid:(NSS*)uid
 {
 	if (self != super.init ) return nil;
-	_addressBook = ABAddressBook.sharedAddressBook;
-	_contacts = NSMA.new;
-	_images   = NSMD.new;
+	_uid = uid.copy;
+	return self;
+}
 
-	NSA *people = [_addressBook people];
-	for (ABPerson *person in people) {
-		NSS* u = [person valueForProperty:kABUIDProperty];
-		NSLog(@"u:%@", u);
-		if (u)
-		[_contacts addObject:[[AZContact alloc] initWithUid:u]];
+//- (void) fetchImage {
+//
+//	ABRecord *pers = [ABAddressBook.sharedAddressBook recordForUniqueId:self.uid];
+//	NSLog(@"pers: %@", pers);
+//	if (pers && [pers isKindOfClass:ABPerson.class]) [(ABPerson*)pers beginLoadingImageDataForClient:self];
+//}
+
+-(NSString *) firstName
+{
+	return [[ABAddressBook.sharedAddressBook recordForUniqueId:_uid] valueForProperty: kABFirstNameProperty] ?:nil;
+}
+
+- (NSString*) lastName
+{
+	return [[ABAddressBook.sharedAddressBook recordForUniqueId:_uid] valueForProperty: kABLastNameProperty] ?:nil;
+}
+
+- (NSString*) company
+{
+	return [[ABAddressBook.sharedAddressBook recordForUniqueId:_uid] valueForProperty: kABOrganizationProperty] ?:nil;
+}
+//
+//- (NSImage*) image
+//{
+//	return _image = _image ?: ^{
+////		NSData *data = 	(__bridge NSData*)
+////					 	( (CFDataRef) ABPersonCopyImageData (
+////						  	( (__bridge ABPersonRef)[ABAddressBook.sharedAddressBook
+////							recordForUniqueId:_uid])));
+//		return [NSImage imageWithData:[ABAddressBook.sharedAddressBook recordForUniqueId:_uid] icpon];
+//		//]data];
+//	}();
+////	CGImageSourceRef imageSource = CGImageSourceCreateWithData((__bridge CFDataRef)ABPersonCopyImageData( , NULL));
+////	CGImageRef imageRef = CGImageSourceCreateImageAtIndex(imageSource, 0, NULL);
+////
+////	[NSIMG imageWithData: ,kABPersonImageFormatThumbnail)] ?: nil;
+//	 //[AZAddressBook.sharedInstance].images[_uid] ?:  [
+//}
+
+@end
+
+
+//+ (NSSet*) keyPathsForValuesAffectingImage  { return  NSSET(@"uid"); }
+
+//- (void)consumeImageData:(NSData *)data forTag:(NSInteger)tag;
+//{
+//	NSImage *iii;
+////	NSLog(@"consuming! fetcghtag: %ld  tag:%ld", self.fetchTag, tag);
+//	if (data) iii = [NSIMG.alloc initWithData:data];
+//	if (iii) self.image = iii;
+//}
+
 //		if ([person imageData]) {
 //			NSData * d = [person imageData];
 //			NSLog(@"data: %@", d);
 //			if (d) [_images setValue:[NSIMG imageWithData:d] forKey:u];
 //		}
-	}
-	NSLog(@"images:%@", _images);
+
+//	NSLog(@"images:%@", _images);
 //	[self loadImages];
-	return self;
-}
 
 //-(void) loadImages {
 //
@@ -150,61 +219,6 @@ static NSString * const kImageDataKey = @"image";
 //+ (NSA*) contactsMatchingPhone: (NSS*)number;
 //// Find groups
 //+ (NSArray *) groupsMatchingName: (NSString *) fname;
-@end
-
-
-
-@implementation AZContact
-
-- (id) init
-{
-	return [self initWithUid:nil];
-}
-
- - (id) initWithUid:(NSS*)uid
-{
-	if (self != super.init ) return nil;
-	_uid = uid.copy;
-	return self;
-}
-
-//- (void) fetchImage {
-//
-//	ABRecord *pers = [ABAddressBook.sharedAddressBook recordForUniqueId:self.uid];
-//	NSLog(@"pers: %@", pers);
-//	if (pers && [pers isKindOfClass:ABPerson.class]) [(ABPerson*)pers beginLoadingImageDataForClient:self];
-//}
-
--(NSString *) firstName
-{
-	return [[ABAddressBook.sharedAddressBook recordForUniqueId:_uid] valueForProperty: kABFirstNameProperty] ?:nil;
-}
-
-- (NSString*) lastName
-{
-	return [[ABAddressBook.sharedAddressBook recordForUniqueId:_uid] valueForProperty: kABLastNameProperty] ?:nil;
-}
-
-- (NSString*) company
-{
-	return [[ABAddressBook.sharedAddressBook recordForUniqueId:_uid] valueForProperty: kABOrganizationProperty] ?:nil;
-}
-
-//+ (NSSet*) keyPathsForValuesAffectingImage  { return  NSSET(@"uid"); }
-
-//- (void)consumeImageData:(NSData *)data forTag:(NSInteger)tag;
-//{
-//	NSImage *iii;
-////	NSLog(@"consuming! fetcghtag: %ld  tag:%ld", self.fetchTag, tag);
-//	if (data) iii = [NSIMG.alloc initWithData:data];
-//	if (iii) self.image = iii;
-//}
-- (NSImage*) image
-{
-	return _image ?: //[AZAddressBook.sharedInstance].images[_uid] ?:
-	[NSImage imageNamed:@"missing"];//imageWithData:[[ABAddressBook.sharedAddressBook recordForUniqueId:_uid] imageData]] ?:nil;
-}
-
 //- (id) initWithRecord: (ABRecord*) aRecord
 //{
 //	if (self != super.init ) return nil;
@@ -315,7 +329,6 @@ static NSString * const kImageDataKey = @"image";
 //	*/
 //}
 
-@end
 
 /*
 - (NSArray *) dictionaryArrayForProperty: (ABPropertyID) aProperty

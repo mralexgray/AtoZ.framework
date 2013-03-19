@@ -315,8 +315,7 @@
 		7B4A909516F3A6F1003CD058 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7B4A909316F3A6F1003CD058 /* InfoPlist.strings */; };
 		7B4A909716F3A6F1003CD058 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B4A909616F3A6F1003CD058 /* main.m */; };
 		7B4A90A116F3A6F1003CD058 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B4A909F16F3A6F1003CD058 /* MainMenu.xib */; };
-		7B4A90A916F3A9C0003CD058 /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B311951159B6D9E002134C4 /* AtoZ.framework */; };
-		7B4A90AA16F3A9D8003CD058 /* AtoZ.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7B311951159B6D9E002134C4 /* AtoZ.framework */; };
+		7B4A90AA16F3A9D8003CD058 /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B311951159B6D9E002134C4 /* AtoZ.framework */; };
 		7B4A90AB16F3A9E3003CD058 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B23C36715CE9AB800DD1A9C /* WebKit.framework */; };
 		7B4A90AC16F3A9EA003CD058 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B311995159B7FD0002134C4 /* QuartzCore.framework */; };
 		7B4A90AD16F3AB39003CD058 /* AZHTTPRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2D754016F14FE90054C5F2 /* AZHTTPRouter.m */; };
@@ -338,7 +337,6 @@
 		7B4DD6C216EDE3520084826B /* OperationsRunner.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B4DD68A16EDBBE70084826B /* OperationsRunner.m */; };
 		7B4DD6C316EDE3520084826B /* WebFetcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B4DD68B16EDBBE70084826B /* WebFetcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B4DD6C416EDE3520084826B /* WebFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B4DD68C16EDBBE70084826B /* WebFetcher.m */; };
-		7B4EE0FD16F6845A006C1628 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B4EE0FC16F6845A006C1628 /* libxml2.2.dylib */; };
 		7B4F01D51609E97700A79C77 /* NSDictionary+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B4F01D31609E97700A79C77 /* NSDictionary+AtoZ.m */; };
 		7B4F01D71609EABF00A79C77 /* NSDictionary+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B4F01D21609E97700A79C77 /* NSDictionary+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B4F0238160A4DEA00A79C77 /* AZCoreScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B4F022D160A4DEA00A79C77 /* AZCoreScrollView.m */; };
@@ -383,10 +381,7 @@
 		7B662A86161E3231003D5EE0 /* win.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A4E161E3231003D5EE0 /* win.caf */; };
 		7B662AE1161F484B003D5EE0 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B82B82215CB66D30026FE8C /* Cocoa.framework */; };
 		7B6663CF16F3E24C00E7D327 /* AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B311961159B6D9E002134C4 /* AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7B66B26716F6D1E40084E2A5 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B66B26616F6D1E40084E2A5 /* libxml2.dylib */; };
 		7B66B26816F6D41F0084E2A5 /* AZHTMLParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BBCBAF0167149C900681F2B /* AZHTMLParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7B66B26B16F6E0020084E2A5 /* NSString+HTML.h in Sources */ = {isa = PBXBuildFile; fileRef = 7B66B26916F6E0020084E2A5 /* NSString+HTML.h */; };
-		7B66B26C16F6E0020084E2A5 /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B66B26A16F6E0020084E2A5 /* NSString+HTML.m */; };
 		7B66B26E16F6EEB10084E2A5 /* BadWords.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7B66B26D16F6EEB10084E2A5 /* BadWords.plist */; };
 		7B6901B8159E09D800D0DA47 /* NSApplication+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B6901B6159E09D800D0DA47 /* NSApplication+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B6901C9159E322300D0DA47 /* AZAXAuthorization.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B6901C7159E322300D0DA47 /* AZAXAuthorization.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -716,7 +711,15 @@
 		7BD908BF162F580E000DE2BB /* AtoZGeometry.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD908BE162F580E000DE2BB /* AtoZGeometry.m */; };
 		7BDB8D7D15CB56BA0037A4BF /* missing.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BDB8D7915CB56BA0037A4BF /* missing.png */; };
 		7BDD284D16F7598B00FEB3AF /* NSSplitView+DMAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BDD284B16F7598B00FEB3AF /* NSSplitView+DMAdditions.m */; };
-		7BDD284E16F75DB800FEB3AF /* NSSplitView+DMAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BDD284A16F7598B00FEB3AF /* NSSplitView+DMAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BDD284F16F75DFF00FEB3AF /* NSSplitView+DMAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BDD284A16F7598B00FEB3AF /* NSSplitView+DMAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BDD285116F762A500FEB3AF /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BDD285016F762A500FEB3AF /* libxml2.2.dylib */; };
+		7BDD285916F8255800FEB3AF /* AtoZ.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7B311951159B6D9E002134C4 /* AtoZ.framework */; };
+		7BDD286016F8280500FEB3AF /* iCarousel.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BA147AB15DCE7A10041BAFE /* iCarousel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BDD286116F8280D00FEB3AF /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA147AC15DCE7A10041BAFE /* iCarousel.m */; };
+		7BDD286216F828F200FEB3AF /* AZDockQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B3422C815A5EF03006AC46C /* AZDockQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BDD286316F828F700FEB3AF /* AZDockQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B3422C915A5EF03006AC46C /* AZDockQuery.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7BDD287316F832FE00FEB3AF /* SVGKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BDD286E16F832D800FEB3AF /* SVGKit.framework */; };
+		7BDD287416F8330C00FEB3AF /* SVGKit.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7BDD286E16F832D800FEB3AF /* SVGKit.framework */; };
 		7BDDD5E415A3792600A5C222 /* AZStopwatch.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BDDD5E215A3792600A5C222 /* AZStopwatch.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BDDD5E515A3792600A5C222 /* AZStopwatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BDDD5E315A3792600A5C222 /* AZStopwatch.m */; };
 		7BDF41F1164AFD3F008B3240 /* NSObject+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B24E99E15A1309300A9D87A /* NSObject+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1214,6 +1217,27 @@
 			remoteGlobalIDString = 74C1FABE1538E14B0077DAD1;
 			remoteInfo = UnitTestiOS;
 		};
+		7BDD286D16F832D800FEB3AF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7BDD286816F832D700FEB3AF /* SVGKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
+			remoteInfo = SVGKit;
+		};
+		7BDD286F16F832D800FEB3AF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7BDD286816F832D700FEB3AF /* SVGKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 66213432148AF2CF006881E1;
+			remoteInfo = SVGKitLibrary;
+		};
+		7BDD287116F832F300FEB3AF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7BDD286816F832D700FEB3AF /* SVGKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
+			remoteInfo = SVGKit;
+		};
 		7BF26171164EDAB00057EB88 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7BF26168164EDAB00057EB88 /* Lumberjack.xcodeproj */;
@@ -1237,6 +1261,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				7BDD287416F8330C00FEB3AF /* SVGKit.framework in frameworks copy */,
 				7B1B34D416F2EAE600B94864 /* Lumberjack.framework in frameworks copy */,
 				7B1B34CE16F2BCAB00B94864 /* Zangetsu.framework in frameworks copy */,
 				7B37786A16F1C8320083CBB5 /* KSHTMLWriterFramework.framework in frameworks copy */,
@@ -1290,7 +1315,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				7B4A90AA16F3A9D8003CD058 /* AtoZ.framework in CopyFiles */,
+				7BDD285916F8255800FEB3AF /* AtoZ.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1382,8 +1407,8 @@
 		7B0E4BD5166901F500CA1684 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
 		7B0E4BD71669145F00CA1684 /* NSCell+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCell+AtoZ.h"; sourceTree = "<group>"; };
 		7B0E4BD81669145F00CA1684 /* NSCell+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSCell+AtoZ.m"; sourceTree = "<group>"; };
-		7B0E4BEB1669221A00CA1684 /* AddressBookImageLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressBookImageLoader.h; sourceTree = "<group>"; };
-		7B0E4BEC1669221A00CA1684 /* AddressBookImageLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AddressBookImageLoader.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		7B0E4BEB1669221A00CA1684 /* AddressBookImageLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = AddressBookImageLoader.h; path = Classes/AddressBookImageLoader.h; sourceTree = SOURCE_ROOT; };
+		7B0E4BEC1669221A00CA1684 /* AddressBookImageLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = AddressBookImageLoader.m; path = Classes/AddressBookImageLoader.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7B0E727E1654DA2B00A1A613 /* PicolSingulario.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = PicolSingulario.pdf; path = Resources/PicolSingulario.pdf; sourceTree = SOURCE_ROOT; };
 		7B0F16F01620F1ED00E028FC /* SynthesizeSingleton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.objj.h; name = SynthesizeSingleton.h; path = Models/SynthesizeSingleton.h; sourceTree = SOURCE_ROOT; };
 		7B0F8B0315F2F07000BB3CE7 /* F.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; lineEnding = 0; path = F.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -1776,7 +1801,6 @@
 		7B4E9E3715E35B5500C0581A /* fontawesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = fontawesome.ttf; path = Fonts/fontawesome.ttf; sourceTree = "<group>"; };
 		7B4E9E3915E365BA00C0581A /* Nexa Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Nexa Bold.otf"; path = "Fonts/Nexa Bold.otf"; sourceTree = "<group>"; };
 		7B4E9E3A15E365BA00C0581A /* Nexa Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Nexa Light.otf"; path = "Fonts/Nexa Light.otf"; sourceTree = "<group>"; };
-		7B4EE0FC16F6845A006C1628 /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
 		7B4F01D21609E97700A79C77 /* NSDictionary+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; lineEnding = 0; path = "NSDictionary+AtoZ.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		7B4F01D31609E97700A79C77 /* NSDictionary+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+AtoZ.m"; sourceTree = "<group>"; };
 		7B4F022C160A4DEA00A79C77 /* AZCoreScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = AZCoreScrollView.h; path = AZCoreScroll/AZCoreScrollView.h; sourceTree = "<group>"; };
@@ -1866,7 +1890,6 @@
 		7B662A4D161E3231003D5EE0 /* Voicemail.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Voicemail.caf; sourceTree = "<group>"; };
 		7B662A4E161E3231003D5EE0 /* win.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = win.caf; sourceTree = "<group>"; };
 		7B662ADA161EE363003D5EE0 /* AZBaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZBaseModel.m; sourceTree = "<group>"; };
-		7B66B26616F6D1E40084E2A5 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = ../../../../../usr/lib/libxml2.dylib; sourceTree = "<group>"; };
 		7B66B26916F6E0020084E2A5 /* NSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = "NSString+HTML.h"; sourceTree = "<group>"; };
 		7B66B26A16F6E0020084E2A5 /* NSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+HTML.m"; sourceTree = "<group>"; };
 		7B66B26D16F6EEB10084E2A5 /* BadWords.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BadWords.plist; sourceTree = "<group>"; };
@@ -2261,6 +2284,8 @@
 		7BDB8D7B15CB56BA0037A4BF /* UbuntuMono-B.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "UbuntuMono-B.ttf"; path = "Fonts/UbuntuMono-B.ttf"; sourceTree = "<group>"; };
 		7BDD284A16F7598B00FEB3AF /* NSSplitView+DMAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = "NSSplitView+DMAdditions.h"; sourceTree = "<group>"; };
 		7BDD284B16F7598B00FEB3AF /* NSSplitView+DMAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSSplitView+DMAdditions.m"; sourceTree = "<group>"; };
+		7BDD285016F762A500FEB3AF /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = ../../../../../usr/lib/libxml2.2.dylib; sourceTree = "<group>"; };
+		7BDD286816F832D700FEB3AF /* SVGKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SVGKit.xcodeproj; path = ../Frameworks/SVGKit/XCodeProjects/SVGKit/SVGKit.xcodeproj; sourceTree = "<group>"; };
 		7BDDD5E215A3792600A5C222 /* AZStopwatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZStopwatch.h; sourceTree = "<group>"; };
 		7BDDD5E315A3792600A5C222 /* AZStopwatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZStopwatch.m; sourceTree = "<group>"; };
 		7BDF56051625A45C00041A42 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -2342,9 +2367,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				7B4A90AC16F3A9EA003CD058 /* QuartzCore.framework in Frameworks */,
+				7B4A90AA16F3A9D8003CD058 /* AtoZ.framework in Frameworks */,
 				7B4A90AB16F3A9E3003CD058 /* WebKit.framework in Frameworks */,
 				7B4A908B16F3A6F0003CD058 /* Cocoa.framework in Frameworks */,
-				7B4A90A916F3A9C0003CD058 /* AtoZ.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2371,8 +2396,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7B66B26716F6D1E40084E2A5 /* libxml2.dylib in Frameworks */,
-				7B4EE0FD16F6845A006C1628 /* libxml2.2.dylib in Frameworks */,
+				7BDD287316F832FE00FEB3AF /* SVGKit.framework in Frameworks */,
+				7BDD285116F762A500FEB3AF /* libxml2.2.dylib in Frameworks */,
 				7B1B34D016F2BFE700B94864 /* libz.dylib in Frameworks */,
 				7B9AC1FC16EC0F7E00F8763C /* Python.framework in Frameworks */,
 				7B1B34D316F2EAC700B94864 /* Lumberjack.framework in Frameworks */,
@@ -2418,8 +2443,6 @@
 		7B05BB09159C406200409B83 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				7B0E4BEB1669221A00CA1684 /* AddressBookImageLoader.h */,
-				7B0E4BEC1669221A00CA1684 /* AddressBookImageLoader.m */,
 				7B091A3C15A850E500821FFD /* AZButton.h */,
 				7B091A3D15A850E500821FFD /* AZButton.m */,
 				7B7D5586163070FC00711D0F /* AZCIFilters.h */,
@@ -2853,8 +2876,7 @@
 		7B311945159B6D9E002134C4 = {
 			isa = PBXGroup;
 			children = (
-				7B66B26616F6D1E40084E2A5 /* libxml2.dylib */,
-				7B4EE0FC16F6845A006C1628 /* libxml2.2.dylib */,
+				7BDD285016F762A500FEB3AF /* libxml2.2.dylib */,
 				7B31580016F4092200642171 /* liblibatoz.a */,
 				7B3157FE16F4090E00642171 /* liblibatoz.a */,
 				7B4A909016F3A6F1003CD058 /* DockBox */,
@@ -2895,6 +2917,7 @@
 		7B311953159B6D9E002134C4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7BDD286816F832D700FEB3AF /* SVGKit.xcodeproj */,
 				7B1B34BB16F2BC4700B94864 /* Zangetsu.xcodeproj */,
 				7B37776516F16E2A0083CBB5 /* WebKit.framework */,
 				7B95C8A216F0899100480BB1 /* PhFacebook.xcodeproj */,
@@ -3335,6 +3358,8 @@
 		7B59C8281600D346009DAFCA /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				7B0E4BEB1669221A00CA1684 /* AddressBookImageLoader.h */,
+				7B0E4BEC1669221A00CA1684 /* AddressBookImageLoader.m */,
 				7B2F23E816F289BC003D7648 /* AtoZStack */,
 				7BA8EFEC16F1EF5900D092CA /* Reader Notifier.xcodeproj */,
 				7B2D754516F15BB50054C5F2 /* Bootstrap.h */,
@@ -4160,6 +4185,15 @@
 			path = ../Frameworks/AFNetworking/AFNetworking;
 			sourceTree = "<group>";
 		};
+		7BDD286916F832D700FEB3AF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7BDD286E16F832D800FEB3AF /* SVGKit.framework */,
+				7BDD287016F832D800FEB3AF /* libSVGKitLibrary.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		7BDF56951627695400041A42 /* AtoZTestBed */ = {
 			isa = PBXGroup;
 			children = (
@@ -4308,7 +4342,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7B4DD6C016EDE3520084826B /* OperationsRunnerProtocol.h in Headers */,
-				7BDD284E16F75DB800FEB3AF /* NSSplitView+DMAdditions.h in Headers */,
 				7B3777EC16F1BE4A0083CBB5 /* GCDAsyncSocket.h in Headers */,
 				7B3777EE16F1BE4A0083CBB5 /* DDData.h in Headers */,
 				7B3777F016F1BE4A0083CBB5 /* DDNumber.h in Headers */,
@@ -4320,6 +4353,7 @@
 				7B3777FC16F1BE4A0083CBB5 /* HTTPServer.h in Headers */,
 				7B3777FE16F1BE4A0083CBB5 /* MultipartFormDataParser.h in Headers */,
 				7B37780016F1BE4A0083CBB5 /* MultipartMessageHeader.h in Headers */,
+				7BDD284F16F75DFF00FEB3AF /* NSSplitView+DMAdditions.h in Headers */,
 				7B37780216F1BE4A0083CBB5 /* MultipartMessageHeaderField.h in Headers */,
 				7B37780416F1BE4A0083CBB5 /* HTTPAsyncFileResponse.h in Headers */,
 				7B37780616F1BE4A0083CBB5 /* HTTPDataResponse.h in Headers */,
@@ -4564,6 +4598,8 @@
 				7B31581816F40D4C00642171 /* PXListView.h in Headers */,
 				7B31581A16F40D5600642171 /* PXListDocumentView.h in Headers */,
 				7B66B26816F6D41F0084E2A5 /* AZHTMLParser.h in Headers */,
+				7BDD286016F8280500FEB3AF /* iCarousel.h in Headers */,
+				7BDD286216F828F200FEB3AF /* AZDockQuery.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4602,6 +4638,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				7BDD287216F832F300FEB3AF /* PBXTargetDependency */,
 				7B1B34D216F2EAA600B94864 /* PBXTargetDependency */,
 				7B1B34CB16F2BC7400B94864 /* PBXTargetDependency */,
 				7B37786816F1C81D0083CBB5 /* PBXTargetDependency */,
@@ -4660,9 +4697,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7B4A90A216F3A6F1003CD058 /* Build configuration list for PBXNativeTarget "DockBox" */;
 			buildPhases = (
+				7B4A90A816F3A978003CD058 /* CopyFiles */,
 				7B4A908516F3A6F0003CD058 /* Sources */,
 				7B4A908616F3A6F0003CD058 /* Frameworks */,
-				7B4A90A816F3A978003CD058 /* CopyFiles */,
 				7B4A908716F3A6F0003CD058 /* Resources */,
 			);
 			buildRules = (
@@ -4819,6 +4856,10 @@
 				{
 					ProductGroup = 7BB86F7816383FCD0000C242 /* Products */;
 					ProjectRef = 7BB86F7716383FCD0000C242 /* Rebel.xcodeproj */;
+				},
+				{
+					ProductGroup = 7BDD286916F832D700FEB3AF /* Products */;
+					ProjectRef = 7BDD286816F832D700FEB3AF /* SVGKit.xcodeproj */;
 				},
 				{
 					ProductGroup = 7B645C9A15F5300E00566160 /* Products */;
@@ -5178,6 +5219,20 @@
 			fileType = wrapper.cfbundle;
 			path = UnitTestiOS.octest;
 			remoteRef = 7BC6905A162BA94100B71602 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7BDD286E16F832D800FEB3AF /* SVGKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SVGKit.framework;
+			remoteRef = 7BDD286D16F832D800FEB3AF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7BDD287016F832D800FEB3AF /* libSVGKitLibrary.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libSVGKitLibrary.a;
+			remoteRef = 7BDD286F16F832D800FEB3AF /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		7BF26172164EDAB00057EB88 /* Lumberjack.framework */ = {
@@ -5659,9 +5714,9 @@
 				7B31581516F40D3F00642171 /* PXListViewCell.m in Sources */,
 				7B31581716F40D4800642171 /* PXListView.m in Sources */,
 				7B31581916F40D5200642171 /* PXListDocumentView.m in Sources */,
-				7B66B26B16F6E0020084E2A5 /* NSString+HTML.h in Sources */,
-				7B66B26C16F6E0020084E2A5 /* NSString+HTML.m in Sources */,
 				7BDD284D16F7598B00FEB3AF /* NSSplitView+DMAdditions.m in Sources */,
+				7BDD286116F8280D00FEB3AF /* iCarousel.m in Sources */,
+				7BDD286316F828F700FEB3AF /* AZDockQuery.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5820,6 +5875,11 @@
 			isa = PBXTargetDependency;
 			name = "BlocksKit Framework";
 			targetProxy = 7BC2DD2216469A8B00E73757 /* PBXContainerItemProxy */;
+		};
+		7BDD287216F832F300FEB3AF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SVGKit;
+			targetProxy = 7BDD287116F832F300FEB3AF /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -6074,11 +6134,12 @@
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_WARN_UNUSED_VALUE = NO;
-				HEADER_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = "\"$(SDKROOT)/usr/include/libxml2\"";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "";
-				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
+				OTHER_LDFLAGS = "-lxml2";
+				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = NO;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 			};
@@ -6093,11 +6154,12 @@
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_WARN_UNUSED_VALUE = NO;
-				HEADER_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = "\"$(SDKROOT)/usr/include/libxml2\"";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "";
-				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
+				OTHER_LDFLAGS = "-lxml2";
+				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = NO;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 			};
@@ -6395,7 +6457,7 @@
 		7B4A90A316F3A6F1003CD058 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
@@ -6433,7 +6495,7 @@
 		7B4A90A416F3A6F1003CD058 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_WARN_CONSTANT_CONVERSION = YES;

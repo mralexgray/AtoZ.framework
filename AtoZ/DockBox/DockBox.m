@@ -28,6 +28,10 @@
 
 	[_window setBackgroundColor:RED];
 
+	_ab = [AZAddressBook new];
+	NSLog(@"%@ Records", ((AZContact*)_ab.contacts[2]).image);
+
+	
 //	[_webView.mainFrame
 
 }

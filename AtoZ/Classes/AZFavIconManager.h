@@ -1,6 +1,6 @@
 //
-//  DSFavIconFinder.h
-//  DSFavIcon
+//  AZFavIconFinder.h
+//  AZFavIcon
 //  Created by Fabio Pelosin on 04/09/12.
 //  Copyright (c) 2012 Discontinuity s.r.l. All rights reserved.
 
@@ -14,13 +14,13 @@ extern CGSize sizeInPixels(NSIMG *image);
 
 
 @class  AZFavIconCache;
-/** DSFavIconManager is a complete solution for managing Favicons.*/
+/** AZFavIconManager is a complete solution for managing Favicons.*/
 @interface AZFavIconManager : NSObject
 /** Returns the shared singleton. */
 + (AZFavIconManager*) sharedInstance;
 /** Placeholder image for favicons. Defaults to [UIImage imageNamed:@"favicon"]. */
 @property (NATOM, STRNG) NSImage *placehoder;
-/** The DSFavIconCache instance used by the current manager. Defaults to [DSFavIconCache sharedCache] */
+/** The AZFavIconCache instance used by the current manager. Defaults to [AZFavIconCache sharedCache] */
 @property (NATOM, STRNG) AZFavIconCache *cache;
 
 /** Wether requests for the icon of an URL already in the queue should be discarded (useful in tables). Defaults to false. */
@@ -35,7 +35,7 @@ extern CGSize sizeInPixels(NSIMG *image);
 
 /** Returns the image for an icon. If the icon has already been downloaded it is returned immediately.
 		UIImageView *imageView;
-		imageView.image = [[DSFavIconManager sharedInstance] iconForURL:url completionBlock:^(UIImage *icon) {
+		imageView.image = [[AZFavIconManager sharedInstance] iconForURL:url completionBlock:^(UIImage *icon) {
 			imageView.image = icon;
 		}];
 
@@ -55,26 +55,26 @@ extern CGSize sizeInPixels(NSIMG *image);
 
 @end
 
-typedef void (^DSFavIconOperationCompletionBlock)(NSIMG *icon);
-typedef BOOL (^DSFavIconOperationAcceptanceBlock)(NSIMG *icon);
-typedef BOOL (^DSFavIconOperationPreflightBlock)(NSURL *url);
+typedef void (^AZFavIconOperationCompletionBlock)(NSIMG *icon);
+typedef BOOL (^AZFavIconOperationAcceptanceBlock)(NSIMG *icon);
+typedef BOOL (^AZFavIconOperationPreflightBlock)(NSURL *url);
 
-extern NSString *const kDSFavIconOperationDidStartNetworkActivity;
-extern NSString *const kDSFavIconOperationDidEndNetworkActivity;
+extern NSString *const kAZFavIconOperationDidStartNetworkActivity;
+extern NSString *const kAZFavIconOperationDidEndNetworkActivity;
 
 @interface AZFavIconOperation : NSOperation
 
 @property (NATOM, STRNG) NSURL *url;
 @property (NATOM, STRNG) NSArray *defaultNames;
 @property (NATOM, STRNG) NSString *relationshipsRegex;
-@property (nonatomic, copy) DSFavIconOperationCompletionBlock completion;
-@property (nonatomic, copy) DSFavIconOperationAcceptanceBlock acceptanceBlock;
-@property (nonatomic, copy) DSFavIconOperationPreflightBlock  preFlightBlock;
+@property (nonatomic, copy) AZFavIconOperationCompletionBlock completion;
+@property (nonatomic, copy) AZFavIconOperationAcceptanceBlock acceptanceBlock;
+@property (nonatomic, copy) AZFavIconOperationPreflightBlock  preFlightBlock;
 
 + (AZFavIconOperation*)operationWithURL:(NSURL*)url
 					 relationshipsRegex:(NSString*)relationshipsRegex
 						   defaultNames:(NSArray*)defaultNames
-						completionBlock:(DSFavIconOperationCompletionBlock)completion;
+						completionBlock:(AZFavIconOperationCompletionBlock)completion;
 
 @end
 

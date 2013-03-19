@@ -665,13 +665,19 @@ _Pragma("clang diagnostic pop") \
 
 
 
+//NSDATE NSSTRING ETC
+static OSSpinLock _calendarSpinLock = 0;
+static OSSpinLock _formattersSpinLock = 0;
+static OSSpinLock _staticSpinLock = 0;
 
 
 
-typedef struct AZCAConstraint { CAConstraintAttribute constraint;
-											CGFloat scale;
-											CGFloat offset;
-};
+
+typedef struct {
+	CAConstraintAttribute constraint;
+	CGFloat scale;
+	CGFloat offset;
+}	AZCAConstraint;
 
 
 typedef NS_ENUM(NSUI, AppCat) {
@@ -853,10 +859,6 @@ extern NSString * const assetStringValue[];
 extern NSString * const assetTagName[];
 
 
-//NSDATE NSSTRING ETC
-static OSSpinLock _calendarSpinLock = 0;
-static OSSpinLock _formattersSpinLock = 0;
-static OSSpinLock _staticSpinLock = 0;
 
 typedef NS_ENUM(NSUI, CharacterSet) {
 	kCharacterSet_Newline = 0,

@@ -11,6 +11,8 @@ typedef void(^openURL)(NSS*url, WebView *w);
 
 @interface DockBox : NSObject <NSApplicationDelegate>
 
+@property (STRNG) AZAddressBook *ab;
+
 - (IBAction)getFB:(id)sender;
 - (IBAction)getColorList:(id)sender;
 
