@@ -10,6 +10,75 @@
 #import <CoreText/CoreText.h>
 #import "AtoZ.h"
 
+CATransform3D CA3DxRotation(float x);
+CATransform3D CA3DyRotation(float y);
+CATransform3D CA3DzRotation(float z);
+
+CATransform3D CA3DTransform3DConcat(CAT3D xRotation, CAT3D yRotation);
+CATransform3D CA3DxyZRotation(CAT3D xYRotation, CAT3D zRotation);
+CAT3DConcatenatedTransformation(CAT3D xyZRotation, CAT3D transformation );
+//CATransform3D concatenatedTransformation = CATransform3DConcat(xRotation, transformation);
+
+
+/** EXAMPLE
+
+- (void) animateLayerOpacity {
+    CALayer *layer = [CALayer layer];
+    // layer properties are set here
+    ...
+    CABasicAnimation animation =
+	[CABasicAnimation animationWithKeyPath:@"opacity"];
+    animation.beginTime = 0;
+    animation.endTime = 10;
+    animation.repeatCount = 0;
+    animation.fromValue = [NSNumber numberWithFloat:0];
+    animation.toValue = [NSNumber numberWithFloat:1.0];
+
+    CAAnimationBlockDelegate *delegate =
+	[[CAAnimationBlockDelegate alloc] init];
+    // Define block that gets invoked after
+    // animation starts
+    delegate.blockOnAnimationStarted = ^() {
+        // your logic goes here ...
+    };
+    // Define block that gets invoked after
+    // animation succeeds
+    delegate.blockOnAnimationSucceeded = ^() {
+        // your logic goes here ...
+    };
+    animation.delegate = delegate;
+
+    // Set the animation on the layer
+    [layer addAnimation:animation
+				 forKey:nil];
+}
+*/
+
+@interface CAAnimationBlockDelegate : NSObject
+// Block to call when animation is started
+@property (nonatomic, strong)
+void(^blockOnAnimationStarted)(void);
+// Block to call when animation is successful
+@property (nonatomic, strong)
+void(^blockOnAnimationSucceeded)(void);
+
+// Block to call when animation fails
+@property (nonatomic, strong)
+void(^blockOnAnimationFailed)(void);
+
+/* Delegate method called by CAAnimation at start of animation
+ * @param theAnimation animation which issued the callback.
+ */
+- (void)animationDidStart:(CAAnimation *)theAnimation;
+
+/* Delegate method called by CAAnimation at end of animation
+ * @param theAnimation animation which issued the callback.
+ * @param finished BOOL indicating whether animation succeeded or failed.
+ */
+- (void)animationDidStop:(CAAnimation *)theAnimation
+                finished:(BOOL)flag;
+@end
+
 
 @interface CAShapeLayer (Lassos)
 - (void) redrawPath;
@@ -121,6 +190,8 @@ extern CATransform3D CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13, CG
 - (void) toggleLasso:(BOOL)state;
 
 - (id) lassoLayerForLayer:(CALayer*)layer;
+
+
 
 
 - (CALayer*) selectionLayerForLayer:(CALayer*)layer;

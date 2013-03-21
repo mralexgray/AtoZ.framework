@@ -11,6 +11,7 @@
 #import "AtoZ.h"
 #import <CommonCrypto/CommonDigest.h>
 #define kMaxFontSize	10000
+#import "HTMLNode.h"
 
 
 @implementation Definition

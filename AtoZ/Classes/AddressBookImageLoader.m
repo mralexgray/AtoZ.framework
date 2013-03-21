@@ -13,6 +13,32 @@ static NSString * const kEmailsKey = @"emails";
 static NSString * const kPhonesKey = @"phones";
 static NSString * const kImageDataKey = @"image";
 
+@interface AZContact ()
+@property (strong) ABPerson *ref;
+@end
+
+//- (id)initWithImage:(NSImage*)image imageID:(NSString*)imageID andImageSubtitle:(NSString*) subtitle   andPersonUID:(NSString*) pUID
+
+@implementation AZContact
+@synthesize  organization = _organization, image = _image, personUID = _personUID, displayName = _displayName;
+
++ (instancetype)contactWithPerson:(ABPerson*)a	{  	AZContact *i = AZContact.new;  i.ref = a; return i;	}
+- (NSString*) imageUID 	    { return self.personUID; }
+- (NSString*) personUID 	{ return _personUID 	= _personUID 	?: [_ref uniqueId];	}
+- (NSString*) imageTitle 	{ return _displayName  	= _displayName	?: [[[[_ref valueForProperty: kABFirstNameProperty]copy]
+											stringByAppendingString:     [[_ref valueForProperty: kABLastNameProperty] copy]]
+									        stringByReplacingOccurrencesOfString: @"(null)"  withString:@""];
+}
+- (NSString*) imageSubtitle 		  { return _organization 	= _organization ?: [_ref valueForProperty: kABOrganizationProperty];	}
+- (NSString*) imageRepresentationType {	return IKImageBrowserNSImageRepresentationType;		}
+- (void) 	  setImageSubtitle:       ( NSString*) title {	_displayName = [title copy];	}
+- (NSIMG*)	  image 	 			  {	return _image 	= _image ?: [_ref imageData]
+														? [NSImage.alloc initWithData:_ref.imageData]
+														: [NSIMG monoIconNamed:@"67"];		}
+
+@end
+
+
 @implementation AZAddressBook
 
 + (AZAddressBook*)sharedInstance
@@ -21,15 +47,48 @@ static NSString * const kImageDataKey = @"image";
 			dispatch_once( &once, ^{  		  sharedInstance = self.new; });	return sharedInstance;
 }
 
+- (NSArray*) searchAddressesFor:(NSArray*)properties withValue:(NSString*)search
+{
+	return (search) ? 	[ABSHARED 		   recordsMatchingSearchElement:
+						[ABSearchElement   searchElementForConjunction: 		kABSearchOr
+							    children: [properties map:^id(NSS *field) {
+								  return  [ABPerson searchElementForProperty: 	field
+													label: nil  key:nil  value:	search
+													comparison: kABContainsSubStringCaseInsensitive];
+										 }]
+						]] : [_addressBook people];
+}
+
+
+//- (void)find:(id) sender {	/._imageArray = nil;//removeAllObjects];
+- (NSMA*) contacts {
+
+	return _contacts = _contacts ?:
+//	[AZSOQ addOperationWithBlock:^{
+//		self.imageArray = [[self searchAddressesFor:@[kABOrganizationProperty,
+//							  kABLastNameProperty,
+//							  kABFirstNameProperty]withValue:[sender stringValue]]
+		[[self.addressBook people] cw_mapArray:^id(ABPerson* person) {
+			return [AZContact contactWithPerson:person];
+		}].mutableCopy;
+//	NSLog(@"ContactsWithImages:%ld",  _contacts.count);
+//	}];
+//	[_imageBrowser performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:YES];
+//	[_imageTable reloadData];
+}
+
+
 - (id) init	{	if (self != super.init ) return nil;
 
 	[AZStopwatch named:@"Create AddressBook" block:^{
 
 		_addressBook 	= ABAddressBook.sharedAddressBook;
-		_images   		= NSMD.new;
-		_contacts 		= [_addressBook.people cw_mapArray:^id(ABPerson *person) {
-			NSS* u		= [person valueForProperty:kABUIDProperty];
-			return u   != nil ? [AZContact.alloc initWithUid:u] : u;	}].mutableCopy;
+//		_images   		= NSMD.new;
+//		[self performSelectorInBackground:@selector(find:) withObject:nil];
+
+//		_contacts 		= [_addressBook.people cw_mapArray:^id(ABPerson *person) {
+//			NSS* u		= [person valueForProperty:kABUIDProperty];
+//			return u   != nil ? [AZContact.alloc initWithUid:u] : u;	}].mutableCopy;
 	}];
 	return self;
 }
@@ -41,21 +100,51 @@ static NSString * const kImageDataKey = @"image";
 @end
 
 
-@interface AZContact ()
-@property (readwrite) NSIMG *image;
-@end
 
-@implementation AZContact
-@synthesize image = _image;
 
-- (id) init	{	return [self initWithUid:nil];	}
+/*
+ - (NSArray *) dictionaryArrayForProperty: (ABPropertyID) aProperty
+ {
+ NSA *valueArray = [self.record valueForKey::aProperty];
+ NSA *labelArray = [self.record valueForKey:aProperty];
 
-- (id) initWithUid:(NSS*)uid
-{
-	if (self != super.init ) return nil;
-	_uid = uid.copy;
-	return self;
-}
+ int num = MIN(valueArray.count, labelArray.count);
+ NSMutableArray *items = [NSMutableArray array];
+ for (int i = 0; i < num; i++)
+ {
+ NSMutableDictionary *md = [NSMutableDictionary dictionary];
+ [md setObject:[valueArray objectAtIndex:i] forKey:@"value"];
+ [md setObject:[labelArray objectAtIndex:i] forKey:@"label"];
+ [items addObject:md];
+ }
+ return items;
+ }
+
+ - (NSArray *) emailDictionaries			{	return [self dictionaryArrayForProperty:kABEmailProperty];			}
+
+ - (NSArray *) phoneDictionaries			{	return [self dictionaryArrayForProperty:kABPhoneProperty];			}
+
+ - (NSArray *) relatedNameDictionaries	{	return [self dictionaryArrayForProperty:kABRelatedNamesProperty];	}
+
+ - (NSArray *) urlDictionaries			{	return [self dictionaryArrayForProperty:kABURLProperty];			}
+
+ - (NSArray *) dateDictionaries			{	return [self dictionaryArrayForProperty:kABDateProperty];			}
+
+ - (NSArray *) addressDictionaries		{	return [self dictionaryArrayForProperty:kABAddressProperty];		}
+
+ - (NSArray *) smsDictionaries			{	return [self dictionaryArrayForProperty:kABInstantMessageProperty];	}
+ 
+
+*/
+
+//- (id) init	{	return [self initWithUid:nil];	}
+//
+//- (id) initWithUid:(NSS*)uid
+//{
+//	if (self != super.init ) return nil;
+//	_uid = uid.copy;
+//	return self;
+//}
 
 //- (void) fetchImage {
 //
@@ -64,26 +153,12 @@ static NSString * const kImageDataKey = @"image";
 //	if (pers && [pers isKindOfClass:ABPerson.class]) [(ABPerson*)pers beginLoadingImageDataForClient:self];
 //}
 
--(NSString *) firstName
-{
-	return [[ABAddressBook.sharedAddressBook recordForUniqueId:_uid] valueForProperty: kABFirstNameProperty] ?:nil;
-}
 
-- (NSString*) lastName
-{
-	return [[ABAddressBook.sharedAddressBook recordForUniqueId:_uid] valueForProperty: kABLastNameProperty] ?:nil;
-}
-
-- (NSString*) company
-{
-	return [[ABAddressBook.sharedAddressBook recordForUniqueId:_uid] valueForProperty: kABOrganizationProperty] ?:nil;
-}
-//
 //- (NSImage*) image
 //{
 //	return _image = _image ?: ^{
-////		NSData *data = 	(__bridge NSData*)
-////					 	( (CFDataRef) ABPersonCopyImageData (
+//		NSData *data = 	(__bridge NSData*)
+//					 	( (CFDataRef) ABPersonCopyImageData (
 ////						  	( (__bridge ABPersonRef)[ABAddressBook.sharedAddressBook
 ////							recordForUniqueId:_uid])));
 //		return [NSImage imageWithData:[ABAddressBook.sharedAddressBook recordForUniqueId:_uid] icpon];
@@ -96,7 +171,6 @@ static NSString * const kImageDataKey = @"image";
 //	 //[AZAddressBook.sharedInstance].images[_uid] ?:  [
 //}
 
-@end
 
 
 //+ (NSSet*) keyPathsForValuesAffectingImage  { return  NSSET(@"uid"); }
@@ -331,36 +405,6 @@ static NSString * const kImageDataKey = @"image";
 
 
 /*
-- (NSArray *) dictionaryArrayForProperty: (ABPropertyID) aProperty
-{
-	NSArray *valueArray = [self.record valueForKey::aProperty];
-	NSArray *labelArray = [self.record valueForKey:aProperty];
-
-	int num = MIN(valueArray.count, labelArray.count);
-	NSMutableArray *items = [NSMutableArray array];
-	for (int i = 0; i < num; i++)
-	{
-		NSMutableDictionary *md = [NSMutableDictionary dictionary];
-		[md setObject:[valueArray objectAtIndex:i] forKey:@"value"];
-		[md setObject:[labelArray objectAtIndex:i] forKey:@"label"];
-		[items addObject:md];
-	}
-	return items;
-}
-
-- (NSArray *) emailDictionaries			{	return [self dictionaryArrayForProperty:kABEmailProperty];			}
-
-- (NSArray *) phoneDictionaries			{	return [self dictionaryArrayForProperty:kABPhoneProperty];			}
-
-- (NSArray *) relatedNameDictionaries	{	return [self dictionaryArrayForProperty:kABRelatedNamesProperty];	}
-
-- (NSArray *) urlDictionaries			{	return [self dictionaryArrayForProperty:kABURLProperty];			}
-
-- (NSArray *) dateDictionaries			{	return [self dictionaryArrayForProperty:kABDateProperty];			}
-
-- (NSArray *) addressDictionaries		{	return [self dictionaryArrayForProperty:kABAddressProperty];		}
-
-- (NSArray *) smsDictionaries			{	return [self dictionaryArrayForProperty:kABInstantMessageProperty];	}
 
 #pragma mark Setting Strings
 - (BOOL) setString: (NSS*) aString forProperty:(ABPropertyID) anID

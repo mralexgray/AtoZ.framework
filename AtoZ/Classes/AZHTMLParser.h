@@ -8,17 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-#include <libxml/HTMLparser.h>
-
-#import "HTMLNode.h"
-
 @class HTMLNode;
-
 @interface AZHTMLParser : NSObject
-{
-	@public
-	htmlDocPtr _doc;
-}
+//{
+//	@public
+//	htmlDocPtr _doc;
+//}
 
 -(id)initWithContentsOfURL:(NSURL*)url error:(NSError**)error;
 -(id)initWithData:(NSData*)data error:(NSError**)error;

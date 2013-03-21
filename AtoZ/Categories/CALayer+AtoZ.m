@@ -9,6 +9,50 @@
 #import "AtoZUmbrella.h"
 #import "AtoZFunctions.h"
 
+
+CATransform3D CA3DxRotation(float x) { return CATransform3DMakeRotation(x*M_PI/180.0, 1.0, 0, 0); }
+CATransform3D CA3DyRotation(float y) { return CATransform3DMakeRotation(y*M_PI/180.0, 0.0, 1.0, 0); }
+CATransform3D CA3DzRotation(float z) { return CATransform3DMakeRotation(z*M_PI/180.0, 0.0, 0, 1.0); }
+CATransform3D CA3DTransform3DConcat(CAT3D xRotation, CAT3D yRotation) {
+	return CATransform3DConcat(xRotation, yRotation);
+}
+CATransform3D CA3DxyZRotation(CAT3D xYRotation, CAT3D zRotation) {
+return CATransform3DConcat(xYRotation, zRotation);
+}
+
+//CATransform3D CAT3DConcatenatedTransformation(CAT3D xyZRotation, CAT3D transformation ) {
+//	return CATransform3DConcat(xyZRotation, transformation);
+//}
+//CATransform3D concatenatedTransformation = CATransform3DConcat(xRotation, transformation);
+
+
+
+
+@implementation CAAnimationBlockDelegate
+@synthesize blockOnAnimationStarted, blockOnAnimationSucceeded, blockOnAnimationFailed;
+
+/* Delegate method called by CAAnimation at start of animation	 */
+- (void) animationDidStart:(CAAnimation *)theAnimation {
+    if( !self.blockOnAnimationStarted ) return;
+    self.blockOnAnimationStarted();
+}
+/* Delegate method called by CAAnimation at end of animation	*/
+- (void) animationDidStop:(CAAnimation *)theAnimation
+                 finished:(BOOL)flag {
+    if( flag ) {
+        if( !self.blockOnAnimationSucceeded ) return;
+        self.blockOnAnimationSucceeded();
+        return;
+    }
+    if( !self.blockOnAnimationFailed ) return;
+    self.blockOnAnimationFailed();
+}
+@end
+
+
+
+
+
 @implementation CAShapeLayer (Lassos)
 - (void) redrawPath {
 	CALayer *selected = [self valueForKey:@"mommy"];

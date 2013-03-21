@@ -64,3 +64,10 @@ typedef void(^BNRBlockViewDrawer)(BNRBlockView *view, NSRect dirtyRect);
 @property (NATOM, CP) BNRBlockViewDrawer drawBlock;
 @property (nonatomic, assign) BOOL opaque;
 @end
+
+
+@class BNRBlockView;
+@interface AZBlockWindow : NSWindow
++ (AZBlockWindow *)windowWithFrame:(NSRect)frame drawnUsingBlock:(BNRBlockViewDrawer)drawBlock;
+@property (NATOM, CP) BNRBlockViewDrawer drawBlock;
+@end

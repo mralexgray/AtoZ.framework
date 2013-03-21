@@ -47,7 +47,7 @@ typedef CAL*(^CALAyerSetupBlock)(CAL* layer);
 
 @property (nonatomic, assign, readonly) CALayer *layer;
 @property (nonatomic, copy) CALAyerSetupBlock setupBlock;
-
+@property (nonatomic, assign) BOOL fullScreen;
 /* Destroys the layer and fake window. Only necessary for use if the layer is animated manually.
  If the convenience methods are used below, calling this is not necessary as it is done automatically. */
 

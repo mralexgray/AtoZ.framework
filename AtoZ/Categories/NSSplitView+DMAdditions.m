@@ -9,17 +9,21 @@
 
 @implementation NSSplitView (DMAdditions)
 
-- (CGFloat)positionOfDividerAtIndex:(NSInteger)dividerIndex {
-    // It looks like NSSplitView relies on its subviews being ordered left->right or top->bottom so we can too.
-    // It also raises w/ array bounds exception if you use its API with dividerIndex > count of subviews.
-    while (dividerIndex >= 0 && [self isSubviewCollapsed:[[self subviews] objectAtIndex:dividerIndex]])
-        dividerIndex--;
-    if (dividerIndex < 0)
-        return 0.0f;
-    
-    NSRect priorViewFrame = [[[self subviews] objectAtIndex:dividerIndex] frame];
-    return [self isVertical] ? NSMaxX(priorViewFrame) : NSMaxY(priorViewFrame);
+- (CGFloat)positionOfDividerAtIndex:(NSInteger)dividerIndex
+{
+// 	It looks like NSSplitView relies on its subviews being ordered left->right or top->bottom so we can too. It also raises w/ array bounds exception if you use its API with dividerIndex > count of subviews.
+    while ( dividerIndex >= 0 && [self isSubviewCollapsed:self.subviews[dividerIndex]] )   dividerIndex--;
+    NSRect priorViewFrame = [self.subviews[dividerIndex] frame];
+	return dividerIndex < 0 ? 0.:
+		   self.isVertical 	? NSMaxX(priorViewFrame)
+		   					: NSMaxY(priorViewFrame);
 }
+
+- (CGF)positionOfSplitAtIndex:(NSI)dividerIndex
+{
+	return  [self positionOfDividerAtIndex:dividerIndex] + [self dividerThickness];
+}
+
 
 - (BOOL) setPositions:(NSArray *)newPositions ofDividersAtIndexes:(NSArray *)indexes {
     NSUInteger numberOfSubviews = self.subviews.count;

@@ -79,7 +79,68 @@ static NSString *NSCONTROLVOIDBLOCKACTIONKEY = @"com.mrgray.NSControl.voidBlock"
 
 @end
 
+//insideDrag dragBlock = ^void(NSE *e, NSP start, whileDragging dragaction) {
+//
+//	NSLog(@"Inside dragblock!  Yay!");
+//	while ( ( e = [NSApp nextEventMatchingMask: MOUSEDRAGGING untilDate:FUTURE inMode:NSEventTrackingRunLoopMode dequeue:YES] ) && ( e.type != MOUSEUP) ) {
+//		@autoreleasepool {
+//			dragaction();
+//		}
+//	}
+//};
+
 @implementation NSEvent (AtoZ)
+
+//+ (whileDragging)dragBlock:(NSE*)e;
+//{
+//	NSPoint start = e.locationInWindow;
+//	return  whileDragging:(e, start);
+//}
+static NSEvent *theDrag;
+
++ (void)whileDragging:(void(^)(NSE*click, NSE*drag)) block
+{
+	[self addLocalMonitorForEventsMatchingMask:NSLeftMouseDownMask handler:^NSE*(NSE *click){
+		NSLog(@"click caller at %@", AZString(click.locationInWindow));
+		theDrag = [click dragHandlerForClickWithBlock:block];
+		return click;
+	}];
+	[self addLocalMonitorForEventsMatchingMask:NSLeftMouseUpMask handler:^NSEvent *(NSEvent *e) {
+		theDrag = nil;
+		return e;
+	}];
+}
+
+- (id) dragHandlerForClickWithBlock:(void(^)(NSE*click, NSE*drag)) block
+{
+	return [self.class addLocalMonitorForEventsMatchingMask:NSLeftMouseDraggedMask handler:^NSEvent *(NSEvent *drag) {
+//		drag = [NSApp nextEventMatchingMask:NSLeftMouseDraggedMask untilDate:FUTURE inMode:NSEventTrackingRunLoopMode dequeue:YES];
+//			[NSApp discardEventsMatchingMask:NSAnyEventMask beforeEvent:drag];
+//			if ( drag.type == NSLeftMouseDragged )
+		block(self, drag);
+//			else if ( click.type == NSLeftMouseUp )
+			return drag;
+	}];
+}
+
+//	__block NSP down;
+//		down = d.locationInWindow;
+//		[self addLocalMonitorForEventsMatchingMask:NSLeftMouseDraggedMask handler:^(NSE *drag) {
+//		NSE *drag;
+//		while ( ( drag = [NSApp nextEventMatchingMask: NSLeftMouseDraggedMask untilDate:FUTURE inMode:NSEventTrackingRunLoopMode dequeue:YES] )
+//		&&
+//		 ( drag.type != MOUSEUP ))  {
+//			@autoreleasepool {
+//				block(click, drag);
+//			}
+//			return drag;
+//			}];
+//		}
+//		return click;
+//
+//	}];
+
+
 + (void) shiftClick:(void(^)(void))block {
 
 	[NSEvent addLocalMonitorForEventsMatchingMask:NSKeyDownMask handler: ^(NSEvent *event){

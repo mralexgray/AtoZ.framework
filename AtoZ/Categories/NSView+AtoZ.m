@@ -613,6 +613,8 @@ NSView* AZResizeWindowAndContent(NSWindow* window, CGF dXLeft, CGF dXRight, CGF 
 	NSRect frame = [self frame] ;	frame.origin.x += adjustment ;	[self setFrame:frame];
 }
 
+
+
 - (CGF)bottom {	return [self frame].origin.y ;	}
 
 - (CGF)top {		return [self frame].origin.y + [self height] ;	}
@@ -620,6 +622,18 @@ NSView* AZResizeWindowAndContent(NSWindow* window, CGF dXLeft, CGF dXRight, CGF 
 - (CGF)centerY {	return ([self frame].origin.y + [self height]/2) ;}
 
 - (void)setBottom:(CGF)t {	NSRect frame = [self frame] ;	frame.origin.y = t ;	[self setFrame:frame] ;	}
+
+- (void) setBottom:(CGF)t duration:(NSTI)time
+{
+ 	[NSAnimationContext runAnimationBlock:^{	NSRect frame = self.frame;	frame.origin.y = t;
+												[[self animator] setFrame:frame]; }
+						completionHandler:nil	duration: time];
+}
+
+- (void) setTop:(CGF)t duration:(NSTI)time; {
+
+}
+- (void) setCenterY:(CGF)t duration:(NSTI)time {}
 
 - (void)setTop:(CGF)t {	NSRect frame = [self frame] ;	frame.origin.y = t - [self height] ;	[self setFrame:frame] ;	}
 
@@ -819,12 +833,12 @@ NSView* AZResizeWindowAndContent(NSWindow* window, CGF dXLeft, CGF dXRight, CGF 
 @end
 
 
-void NSAnimationContextRunAnimationBlock( dispatch_block_t group, dispatch_block_t completionHandler, NSTimeInterval time )
-{
-    [NSAnimationContext runAnimationBlock:group
-                        completionHandler:completionHandler
-                                 duration:time];
-}
+//void NSAnimationContextRunAnimationBlock( dispatch_block_t group, dispatch_block_t completionHandler, NSTimeInterval time )
+//{
+//    [NSAnimationContext runAnimationBlock:group
+//                        completionHandler:completionHandler
+//                                 duration:time];
+//}
 @implementation NSAnimationContext (AtoZ)
 
 + (void)runAnimationBlock:(dispatch_block_t)group	completionHandler:(dispatch_block_t)completionHandler

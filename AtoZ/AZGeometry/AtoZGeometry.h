@@ -13,6 +13,8 @@
 #import "AZSegmentedRect.h"
 
 
+NSR AZTransformRect (NSRect target, NSRect model);
+
 NSR  nanRectCheck  ( NSR   rect );
 NSP  nanPointCheck ( NSP  point );
 NSSZ nanSizeCheck  ( NSSZ  size );
@@ -69,7 +71,10 @@ NSP AZBotRight ( NSR rect );
 
 //NSRange AZMakeRange ( NSUInteger min, NSUInteger max );
 
+
 CGF AZPointDistance ( CGP p1, CGP p2 );
+#define AZDistanceBetween(A,B) AZPointDistance(A,B)
+
 CGF AZPointAngle ( CGP p1, CGP p2 );
 
 CGF distanceFromPoint   ( NSP p1,NSP p2 );
@@ -366,6 +371,8 @@ typedef struct AZInsetRects {
 	NSRect bottom;
 	NSRect left;
 } AZInsetRects;
+
+NSR AZRectInsideRectOnEdge(NSRect center, NSRect outer, AZPOS position);
 
 NSR AZRectOutsideRectOnEdge(NSRect center, NSRect outer, AZPOS position);
 NSR AZRectFlippedOnEdge(NSRect r, AZPOS position);

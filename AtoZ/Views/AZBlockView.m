@@ -37,15 +37,12 @@
 + (NSImage*)imageWithSize:(NSSZ)size drawnUsingBlock:(NSImageDrawer)drawBlock;
 {
 	NSImage *newer = [[NSImage alloc]initWithSize:size];
-//	[newer setAssociatedValue:drawBlock forKey:@"dBlock"];
 	[newer lockFocus];
-//	if ([newer associatedValueForKey:@"dBlock"]) {
-//		NSImageDrawer d = [newer associatedValueForKey:@"dBlock"];
-//		d();
-//	}
 	drawBlock();
 	[newer unlockFocus];
 	return newer;
+//	if ([newer associatedValueForKey:@"dBlock"]) {NSImageDrawer d = [newer associatedValueForKey:@"dBlock"];	d(); }
+//	[newer setAssociatedValue:drawBlock forKey:@"dBlock"];
 }
 
 @end
@@ -66,6 +63,22 @@
 
 - (BOOL)isOpaque { 	return opaque;	}
 
+@end
+
+@implementation AZBlockWindow
+@synthesize drawBlock;
+
++ (AZBlockWindow*) windowWithFrame: (NSRect)frame drawnUsingBlock:(BNRBlockViewDrawer)theDrawBlock
+{	//	__typeof__(self)
+	AZBlockWindow *view = [AZBlockWindow.alloc initWithContentRect:frame styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO];
+	view.drawBlock = theDrawBlock;
+//	[view setMovable: YES];
+	[(NSView*)[view contentView]addSubview:view.drawBlock];
+	return view;
+}
+
+- (BOOL) acceptsFirstResponder { return YES; }
+- (BOOL) acceptsMouseMovedEvents { return YES; }
 @end
 
 

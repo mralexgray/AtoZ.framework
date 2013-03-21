@@ -7,7 +7,8 @@
 #import <Cocoa/Cocoa.h>
 
 @protocol NSSplitViewAnimatableDelegate <NSSplitViewDelegate>
-/** Inform delegate about the status of the animation (if set). 
+@optional
+/** Inform delegate about the status of the animation (if set).
 	@param	splitView	target splitview
 	@param	animating	YES if animating is started, NO if animation is ended
  */
@@ -38,6 +39,7 @@
  @param  dividerIndex           target divider index in this splitview
  @return                        target divider position
 */
-- (CGFloat) positionOfDividerAtIndex:(NSInteger)dividerIndex;
+- (CGF) positionOfDividerAtIndex:(NSI)dividerIndex;
+- (CGF) positionOfSplitAtIndex:(NSI)dividerIndex;
 
 @end

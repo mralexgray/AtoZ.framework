@@ -119,6 +119,9 @@ typedef void (^viewFrameDidChangeBlock)(void);
 - (void) setBottom:(CGF)t ;
 - (void) setTop:(CGF)t ;
 - (void) setCenterY:(CGF)t ;
+- (void) setBottom:(CGF)t duration:(NSTI)t ;
+- (void) setTop:(CGF)t duration:(NSTI)t;
+- (void) setCenterY:(CGF)t duration:(NSTI)t ;
 
 // Size
 @property (nonatomic, assign) CGF width;
@@ -184,7 +187,9 @@ typedef void (^viewFrameDidChangeBlock)(void);
 
 @end
 
-//typedef void (^NSAnimationContextRunAnimationBlock)( dispatch_block_t group, dispatch_block_t completionHandler, NSTimeInterval time );
+
+typedef void (^NSAnimationContextRunAnimationBlock)( dispatch_block_t group, dispatch_block_t completionHandler, NSTimeInterval time );
+
 
 @interface NSAnimationContext (AtoZ)
 

@@ -232,6 +232,9 @@
 #import "AtoZModels.h"
 #import "AZSimpleView.h"
 
+#import "KGNoise.h"
+
+
 	// Categories
 #import "NSDate+AtoZ.h"
 #import "NSTask+OneLineTasksWithOutput.h"
@@ -301,6 +304,8 @@
 #import "CPAccelerationTimer.h"
 #import "StandardPaths.h"
 
+#import "MAAttachedWindow.h"
+
 
 	//Controls
 #import "AZToggleArrayView.h"
@@ -329,7 +334,7 @@
 #import "AtoZWebSnapper.h"
 #import "AZURLSnapshot.h"
 #import "AZHTMLParser.h"
-#import "HTMLNode.h"
+//#import "HTMLNode.h"
 
 // Views
 #import "AZPrismView.h"

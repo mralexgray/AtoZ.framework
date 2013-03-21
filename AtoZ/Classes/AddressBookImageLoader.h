@@ -1,21 +1,30 @@
 /* Erica Sadun, http://ericasadun.com iPhone Developer's Cookbook, 3.0 Edition BSD License, Use at your own risk	*/
 
 #import <AddressBook/AddressBook.h>
+#define ABSHARED ABAddressBook.sharedAddressBook
 
 @interface AZAddressBook : NSObject
 
 +(AZAddressBook*) sharedInstance;
 @property (strong) ABAddressBook *addressBook;
 @property (strong, nonatomic) NSMA *contacts;
-@property (strong, nonatomic ) NSMD *images;
+//@property (retain) NSMutableArray *imageArray;
+//@property (strong, nonatomic ) NSMA *images;
 @end
 
 @interface AZContact : NSObject //<ABImageClient>
-- (id) initWithUid:(NSS*)uid;
-@property (nonatomic, copy) NSString *uid;
-@property (nonatomic, readonly)	NSS *company, *lastName, *firstName;
-@property (readonly) NSIMG *image;
-
++ (instancetype)contactWithPerson:(ABPerson*)a;
+//- (id) initWithUid:(NSS*)uid;
+@property (nonatomic, strong) NSImage *image;
+@property (readonly) NSString *displayName;
+@property (readonly) NSString *personUID;
+@property (readonly) NSString *organization;
+@end;
+//
+//@property (nonatomic, copy) NSString *uid;
+//@property (nonatomic, readonly)	NSS *company, *lastName, *firstName;
+//@property (readonly) NSIMG *image;
+//
 
 
 //+ (NSArray *) groups; // groups
@@ -80,5 +89,5 @@
 //
 //+ (id) contactWithDictionary: (NSDictionary *) dict;
 //+ (id) contactWithData: (NSData *) data;
-@end
+
 

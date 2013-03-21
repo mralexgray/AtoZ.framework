@@ -747,6 +747,16 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 	[self enumerateObjectsUsingBlock:block];
 }
 
+-(void) eachDictionaryKeyAndObjectUsingBlock:(void(^)(id key, id obj))block;
+{
+	[self each:^(NSD* dict) {
+		[dict enumerateEachKeyAndObjectUsingBlock:^(id key, id obj) {
+			block(key, obj);
+		}];
+	}];
+}
+
+
 /**
  Enumerates over the receiving arrays objects concurrently in a synchronous method.
  

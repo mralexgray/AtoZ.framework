@@ -1,10 +1,43 @@
 
-//  NSWindow+AtoZ.h
-//  AtoZ
 
-//  Created by Alex Gray on 7/2/12.
-//  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-#import <Cocoa/Cocoa.h>
+static BOOL	gWindowTrackingEnabled = NO;
+static BOOL gWindowTracking = NO;
+static NSPoint gWindowTrackingEventOrigin, gWindowTrackingCurrentWindowOrigin;
+
+
+@interface NSWindow (SBSWindowAdditions)
+
++ (void) setLiveFrameTracking:(BOOL) bol;
++ (BOOL) isLiveFrameTracking;
+
+@end
+
+@protocol NSWindowResizing
+
+enum NSWindowResizing {
+
+	NSWindowResizeTopLeftCorner = 1,
+	NSWindowResizeTopRightCorner = 2,
+	NSWindowResizeBottomRightCorner = 3,
+	NSWindowResizeBottomLeftCorner = 4
+
+};
+
+@end
+
+
+
+
+
+@interface NSWindow (Resize)
+
+- (void) resizeToWidth:(float)theWidth height:(float)theHeight;
+- (void) resizeToWidth:(float)theWidth height:(float)theHeight origin:(int)theOrigin;
+- (void) resizeToWidth:(float)theWidth height:(float)theHeight origin:(int)theOrigin duration:(float)theDuration;
+- (void) resizeToWidth:(float)theWidth height:(float)theHeight origin:(int)theOrigin duration:(float)theDuration;
+
+@end
+
 /*
  Provides a "zoom" animation for windows when ordering on and off screen.
 
@@ -21,8 +54,13 @@
 @interface NSWindow (AtoZ)
 
 
+
 @property (weak) CAL *layer;
 - (void) setLayer: (CAL*) layer;
+
+
+// Origin X
+@property (readonly) CGF originX, originY;
 
 // Size
 @property (nonatomic, assign) CGF width;
@@ -33,6 +71,7 @@
 - (void) setHeight: (CGF) t;
 - (void) setSize: (NSSZ) size;
 
+- (NSA*)windowAndChildren;
 + (NSA*) allWindows;
 - (CALayer*)veilLayer;
 - (CALayer*)veilLayerForView: (NSView*)view;

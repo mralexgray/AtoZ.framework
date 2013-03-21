@@ -41,6 +41,15 @@ static const CGS CAWindowShadowOffset 		= (CGS){ 0, -30 };
 	self.windowRepresentationLayer = [CALayer layer];
 	self.windowRepresentationLayer.contentsScale = self.backingScaleFactor;
 
+
+	if (self.hasShadow) [self setShadow];
+
+	self.windowRepresentationLayer.contentsGravity = kCAGravityResize;
+	self.windowRepresentationLayer.opaque = YES;
+}
+
+- (void) setShadow
+{
 	CGColorRef shadowColor = CGColorCreateGenericRGB(0, 0, 0, CAWindowShadowOpacity);
 	self.windowRepresentationLayer.shadowColor = shadowColor;
 	self.windowRepresentationLayer.shadowOffset = CAWindowShadowOffset;
@@ -52,8 +61,6 @@ static const CGS CAWindowShadowOffset 		= (CGS){ 0, -30 };
 	self.windowRepresentationLayer.shadowPath = shadowPath;
 	CGPathRelease(shadowPath);
 
-	self.windowRepresentationLayer.contentsGravity = kCAGravityResize;
-	self.windowRepresentationLayer.opaque = YES;
 }
 
 - (void)initializeFullScreenWindow {
@@ -102,7 +109,8 @@ static const CGS CAWindowShadowOffset 		= (CGS){ 0, -30 };
 		return;
 	}
 
-	[self initializeFullScreenWindow];
+//	if (self.fullScreen)
+		[self initializeFullScreenWindow];
 	[self initializeWindowRepresentationLayer];
 
 	[[self.fullScreenWindow.contentView layer] addSublayer:self.windowRepresentationLayer];
@@ -111,17 +119,14 @@ static const CGS CAWindowShadowOffset 		= (CGS){ 0, -30 };
 	NSImage *image = [self imageRepresentationOffscreen:NO];
 
 	// Begin a non-animated transaction to ensure that the layer's contents are set before we get rid of the real window.
-	[CATransaction begin];
-	[CATransaction setDisableActions:YES];
-
-	self.windowRepresentationLayer.contents = image;
+	[CATransaction immediately:^{
+		self.windowRepresentationLayer.contents = image;
 
 	// The setup block is called when we are ordering in. We want this non-animated and done before the the fake window
 	// is shown, so we do in in the same transaction.
-	if (setupBlock != nil)
-		setupBlock(self.windowRepresentationLayer);
-
-	[CATransaction commit];
+		if (setupBlock != nil)
+			setupBlock(self.windowRepresentationLayer);
+	}];
 
 	[self.fullScreenWindow makeKeyAndOrderFront:nil];
 
@@ -287,17 +292,15 @@ static const CGS CAWindowShadowOffset 		= (CGS){ 0, -30 };
 - (void)performAnimations:(void (^)(CALayer *layer))animations withDuration:(CFTimeInterval)duration timing:(CAMediaTimingFunction *)timing {
 	[NSAnimationContext beginGrouping];
 
-	[CATransaction begin];
-	[CATransaction setAnimationDuration:duration];
-	[CATransaction setAnimationTimingFunction:timing?:CAMEDIAEASY];//[CAMediaTimingFunction functionWithName:CAMEDIAEASY]];
-	[CATransaction setCompletionBlock:^{
-		[self destroyTransformingWindowIfNeeded];
+	[CATransaction transactionWithLength:duration easing:timing?:CAMEDIAEASY actions:^{
+
+		[CATransaction setCompletionBlock:^{
+			[self destroyTransformingWindowIfNeeded];
+		}];
+		animations(self.windowRepresentationLayer);
+		CAWindowOpenTransactions++;
 	}];
-
-	animations(self.windowRepresentationLayer);
-	CAWindowOpenTransactions++;
-
-	[CATransaction commit];
+//	[CATransaction commit];
 	[NSAnimationContext endGrouping];
 }
 
@@ -330,7 +333,7 @@ static const CGS CAWindowShadowOffset 		= (CGS){ 0, -30 };
 // Called when the ordering methods are complete. If the layer is used
 // manually, this should be called when animations are complete.
 - (void)destroyTransformingWindow {
-	self.alphaValue = 1.f;
+	[self.windowAndChildren makeObjectsPerformSelector:@selector(setAlphaValue:) withObject:@(1)];// alphaValue = 1.f;
 
 	[self.windowRepresentationLayer removeFromSuperlayer];
 	self.windowRepresentationLayer.contents = nil;

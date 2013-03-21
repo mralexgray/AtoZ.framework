@@ -7,9 +7,17 @@
 //
 
 #import "AZHTMLParser.h"
+#include <libxml/HTMLparser.h>
+#import "HTMLNode.h"
+
+
+@interface AZHTMLParser ()
+@property (ASS) htmlDocPtr _doc;
+@end
 
 
 @implementation AZHTMLParser
+@synthesize _doc;
 
 -(HTMLNode*)doc
 {

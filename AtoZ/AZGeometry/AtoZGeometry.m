@@ -11,6 +11,18 @@
 #import <Quartz/Quartz.h>
 //#import <DrawKit/DKDrawKit.h>
 
+
+
+NSR AZTransformRect (NSRect target, NSRect model){
+	NSRect r 		= target;
+	r.origin.x 		+= model.origin.x;
+	r.origin.y 		+= model.origin.y;
+	r.size.width 	+= model.size.width;
+	r.size.height 	+= model.size.height;
+	return r;
+}
+
+
 @implementation AtoZGeometry
 @end
 
@@ -861,7 +873,12 @@ NSR AZRectOutsideRectOnEdge(NSRect center, NSRect outer, AZPOS position) {
 	:		position == AZPositionBottom	?	AZRectExceptOriginY(outer, -outer.size.height)
 	:											AZRectExceptOriginX(outer, -outer.size.width );
 }
-
+NSR AZRectInsideRectOnEdge(NSRect center, NSRect outer, AZPOS position) {
+return  position == AZPositionTop 		? 	AZRectExceptOriginY(center, outer.size.height - center.size.height)
+:		position == AZPositionRight		?	AZRectExceptOriginX(center, outer.size.width - center.size.width )
+:		position == AZPositionBottom	?	AZRectExceptOriginY(center, outer.origin.y)
+:											AZRectExceptOriginX(center, outer.origin.x );
+}
 
 FOUNDATION_EXPORT BOOL  AZPointIsInInsetRects    ( NSP point, NSRect outside, NSSZ inset ) {
 	AZInsetRects e =  AZMakeInsideRects(outside, inset);

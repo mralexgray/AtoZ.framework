@@ -456,14 +456,15 @@ NSData* PNGRepresentation(NSIMG *image) {
 
 + (NSIMG*)randomMonoIcon {			 return [self.monoIcons randomElement]; }
 
+
 + (NSA*) monoIcons {
 	static NSA *monos = nil;
 	return monos = monos ?: ^{
-		PDFDocument *myPDF = [[PDFDocument alloc]initWithURL:[NSURL fileURLWithPath:[AZFWORKBUNDLE pathForResource:@"PicolSingulario" ofType:@"pdf"]]];
-		return [[NSArray from: 0 to:[myPDF pageCount]-1] nmap:^id(id obj, NSUInteger index) {
-			NSIMG* d = [NSIMG imageWithSize:AZSizeFromDimension(512) named:[@(index) stringValue]];
-			[d addRepresentation:[NSPDFImageRep imageRepWithData:[myPDF pageAtIndex:index].dataRepresentation]];
-			return d;
+		PDFDocument *myPDF = [PDFDocument.alloc initWithURL: $URL( [AZFWORKBUNDLE pathForResource:
+																	@"PicolSingulario" ofType:@"pdf"])];
+		return [[@0 to:@(myPDF.pageCount - 1)] cw_mapArray:^id(NSN* pdfPage) {
+			NSIMG* d = [NSIMG imageWithSize: AZSizeFromDimension(512) named:pdfPage.stringValue];
+			[d addRepresentation:[NSPDFImageRep imageRepWithData: [myPDF pageAtIndex:pdfPage.integerValue].dataRepresentation]];	return d;
 		}];
 	}();
 }

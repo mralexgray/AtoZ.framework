@@ -25,9 +25,15 @@ typedef void(^NSControlActionBlock)(id inSender);
 - (void) setActionString:(NSS*)methodasString withTarget:(id)object;
 @end
 
+//typedef void (^whileDragging)(void);
+//typedef void (^insideDrag)(NSE*, NSP, whileDragging);
+
 @interface NSEvent (AtoZ)
 
+//- (whileDragging)dragBlock:(NSE*)e;
++ (void)whileDragging:(void(^)(NSE* click, NSE*drag))block;
 + (void) shiftClick:(void(^)(void))block;
+//+ (NSE*) whileDragging:(whileDragging)whileDraggingBlock;
 
 @end
 

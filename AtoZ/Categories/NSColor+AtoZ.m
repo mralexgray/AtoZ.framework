@@ -206,6 +206,108 @@ static ColorNameRec sColorTable[] = {
 
 @implementation NSColor (AtoZ)
 
++ (NSA*) gradientPalletteLooping:(NSA*)colors steps:(NSUI)steps {
+
+	NSC * blend = [colors.first blend:colors.last];
+	NSA *s 		= [NSArray arrayWithArrays:@[ @[ [colors.first blend:blend] ], colors, @[ [colors.last blend:blend]]]];
+	return [self gradientPalletteBetween:s steps:steps];
+}
+
++ (NSA*) gradientPalletteBetween:(NSA*)colors steps:(NSUI)steps {
+
+	int count = colors.count;
+	int i = 0;
+	CGFloat locations[colors.count];
+    for (i; i < count; i++) locations[i] = (CGF)((float)i/(float)count);
+
+	NSGradient *gradient = [NSGradient.alloc initWithColors: colors
+												atLocations: locations
+												 colorSpace: NSColorSpace.genericRGBColorSpace];
+	NSSize imageSize = NSMakeSize(100, 4);
+    NSBitmapImageRep *bitmapRep =
+    [NSBitmapImageRep.alloc initWithBitmapDataPlanes:NULL
+											pixelsWide:imageSize.width
+											pixelsHigh:imageSize.height
+										 bitsPerSample:8	samplesPerPixel:4
+											  hasAlpha:YES	isPlanar:NO  // <--- important !
+										colorSpaceName:NSCalibratedRGBColorSpace
+										   bytesPerRow:0	bitsPerPixel:0 ];
+
+    [NSGraphicsContext saveGraphicsState];
+ 	 NSGraphicsContext *context =	[NSGraphicsContext graphicsContextWithBitmapImageRep:bitmapRep];
+    [NSGraphicsContext setCurrentContext:context];
+	[gradient drawFromPoint:(NSP){0,2} toPoint:(NSP){100,2} options:0];
+	NSMA *cs = NSMA.new;
+	for (int ii = 0; ii < steps; ii++) {
+		int indc = ceil(( ( ii / (float)steps) * 100));
+		NSLog(@"index %i of %ld", indc, steps );
+		[cs addObject:[bitmapRep colorAtX:indc y:3]];
+		//		return (NSC*)[bitmapRep colorAtX:3 y :(int)(index/steps)];
+	}
+	[NSGraphicsContext restoreGraphicsState];
+	return cs;
+}
+
+
+	// :AZRectFromSize(imageSize) angle:270];
+
+//    [[NSColor colorWithDeviceRed:0.2 green:0.3 blue:0.7 alpha:0.9]	 set];
+//    //[[NSColor colorWithCalibratedWhite:1.0 alpha:1.0] set];
+//    NSRectFillUsingOperation(NSMakeRect(0, 0, imageSize.width,
+//                                        imageSize.height),
+//							 NSCompositeCopy);
+//    [[NSColor redColor] set]; // adding a rect to see that (and how)
+//	it works
+//    [NSBezierPath fillRect:NSMakeRect(50, 50, 200,100)];
+    
+
+//    NSLog(@"%@", [bitmapRep colorAtX:10 y:10]);
+	// for a test only:
+//    [[bitmapRep TIFFRepresentation] writeToFile:@"/tmp/tst.tiff"
+//									 atomically:NO];
+//									 NSR rect = AZRectBy(100, 5);
+//	NSIMG *img = [NSIMG imageWithSize:rect.size drawnUsingBlock:^{
+//		[gradient drawInRect:rect angle:180];
+//	}];
+//	[img openInPreview];
+//	NSBitmapImageRep* imageRep = [NSBitmapImageRep.alloc initWithData:[img TIFFRepresentation]];
+	//	NSA* loop = [colors arrayByAddingObject:colors.last];
+//	return [NSA arrayWithArrays:[[@0 to: @(steps)]nmap:^id(id obj, NSUInteger index) {
+//
+//		int idx = (int)[obj floatValue]/loop.count;
+//			idx = idx < loop.count ? idx : idx -1;
+//		NSC *one = loop[idx];  NSC* two = loop[idx+1];
+//		return [self gradientPalletteBetween:one and:two steps:(int)loop.count/steps];
+//	}]];
+
+
+//- (NSColor*)coloratPercent:(float)percent betweenColor:(NSC*)one andColor:(NSC*)two
++ (NSA*) gradientPalletteBetween:(NSC*)one and:(NSC*)two steps:(NSUI)steps;
+{
+	CGF sr = one.redComponent, sg = one.greenComponent, sb = one.blueComponent;
+	CGF er = two.redComponent, eg = two.greenComponent, eb = two.blueComponent;
+
+
+//	CGF (^percent)(int) = {step  * 100;//CGF index = 100 * percent;
+	return [[@0 to:@(steps)]map:^id(id obj) {
+
+		CGF count = 100;
+		CGF index = ([obj floatValue]/steps) * 100;//CGF index = 100 * percent;
+
+		int cutoff = 7;
+		CGFloat delta =  count > cutoff ? delta = 1.0 / count : 1.0 / cutoff;
+		count =  count > cutoff ? count : cutoff;
+
+		CGFloat s = delta * (count - index);
+		CGFloat e = delta * index;
+
+		CGFloat red = sr * s + er * e;
+		CGFloat green = sg * s + eg * e;
+		CGFloat blue = sb * s + eb * e;
+		return [NSColor colorWithDeviceRed:red green:green blue:blue alpha:1];
+	}];
+}
+
 - (NSColor*) alpha:(CGFloat)floater
 {
 	return [self colorWithAlphaComponent:floater];

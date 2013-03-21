@@ -135,7 +135,8 @@
 #define NSTBAR NSToolbar
 #define NSW NSWindow
 
-#define NSWINDOWINIT (id)initWithContentRect:(NSRect)contentRect styleMask:(NSUInteger)aStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)flag {      if (self != [super  initWithContentRect:contentRect styleMask:aStyle backing:bufferingType   defer:flag]) return nil;
+#define NSWINDOWINIT(A,B) [NSWindow.alloc initWithContentRect:A styleMask:( B ?: NSResizableWindowMask) backing:NSBackingStoreBuffered defer:NO]
+
 #define AZWINDOWINIT NSWINDOWINIT
 
 #define AZBORDLESSWINDOWINIT(A) [NSWindow.alloc initWithContentRect:A styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO] // screen:self.screen];
@@ -209,6 +210,9 @@ AZToStringFromTypeAndValue(@encode(typeof(_X_)), &_Y_);})
 #define SET setter
 #define GET getter
 #define WK weak
+#define UNSF unsafe_unretained
+#define prop property
+#define IBO IBOutlet
 
 #define setPBCN setPostsBoundsChangedNotifications:YES
 #define setPFCN setPostsFrameChangedNotifications:YES
@@ -219,6 +223,14 @@ AZToStringFromTypeAndValue(@encode(typeof(_X_)), &_Y_);})
 #define NSKVOBEFOREAFTER NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld
 #define NSEVENTLOCALMASK NSEvent addLocalMonitorForEventsMatchingMask
 #define NSEVENTGLOBALMASK NSEvent addGlobalMonitorForEventsMatchingMask
+
+#define MOUSEDRAG NSLeftMouseDraggedMask
+#define MOUSEUP NSLeftMouseUpMask
+#define MOUSEDOWN NSLeftMouseDownMask
+#define MOUSEDRAGGING MOUSEDOWN | MOUSEDRAG | MOUSEUP
+
+#define FUTURE NSDate.distantFuture
+
 
 #define kIMG 	@"image"
 #define kCLR 	@"color"
@@ -429,6 +441,10 @@ attr1 relativeTo:relName attribute:attr2 scale:scl offset:off]
 
 #define RAND01() ((random() / (float)0x7fffffff ))
 
+
+#define NOISY(C)   [C colorWithNoiseWithOpacity:.2 andBlendMode:kCGBlendModeMultiply]
+#define RANDOMNOISYCOLOR  NOISY(RANDOMCOLOR)
+
 //#define rand() (arc4random() % ((unsigned)RAND_MAX + 1))
 #define LINEN [NSColor linen]
 #define RANDOMLINEN [NSColor linenTintedWithColor:RANDOMCOLOR]
@@ -596,6 +612,9 @@ attr1 relativeTo:relName attribute:attr2 scale:scl offset:off]
 #define $float(A)	 		[NSNumber numberWithFloat:(A)]
 #define $doubles(...) 		[NSArray arrayWithDoubles:__VA_ARGS__,MAXFLOAT]
 #define $words(...)   		[[@#__VA_ARGS__ splitByComma] trimmedStrings]
+
+#define ARRAYSET(A) [NSSet setWithArray:A]
+
 //#define $concat(A,...) { A = [A arrayByAddingObjectsFromArray:((NSArray *)[NSArray arrayWithObjects:__VA_ARGS__,nil])]; }
 // s stringByReplacingOccurrencesOfString:@"fff	" withString:@"%%%%"] )
 //#define AZLOG(log,...) NSLog(@"%@", [log s stringByReplacingOccurrencesOfString:@"fff	" withString:@"%%%%"] )

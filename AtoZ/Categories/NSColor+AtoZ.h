@@ -10,6 +10,9 @@
 
 @interface NSColor (AtoZ)
 
++ (NSA*) gradientPalletteBetween:(NSC*)c1 and:(NSC*)c2 steps:(NSUI)steps;
++ (NSA*) gradientPalletteBetween:(NSA*)colors steps:(NSUI)steps;
++ (NSA*) gradientPalletteLooping:(NSA*)colors steps:(NSUI)steps;
 
 - (NSC*) alpha:(CGFloat)floater;
 - (NSC*) inverted;
@@ -49,14 +52,14 @@
 + (NSC*)	randomColor;
 + (NSC*)	randomOpaqueColor;
 + (NSC*)	colorFromHexRGB: (NSString*) inColorString;
-//+ (NSC*)	colorWithHTMLString:(NSString*)	hexString;
++ (NSC*)	colorWithHTMLString:(NSString*)	hexString;
 
 //+ (NSC*)	colorWithCGColor: (CGColorRef) aColor;
 + (NSC*)	crayonColorNamed: (NSString*) key;
 
-//+ (NSC*)	colorWithName:(NSString*)colorName;
-//+ (NSC*)	colorFromString: 	(NSString*)	string;
-//+ (NSC*)	colorFromHexString: (NSString*)	hexString;
++ (NSC*)	colorWithName:(NSString*)colorName;
++ (NSC*)	colorFromString: 	(NSString*)	string;
++ (NSC*)	colorFromHexString: (NSString*)	hexString;
 - (NSString*)	toHex;
 
 @property (RONLY) NSColor *deviceRGBColor;

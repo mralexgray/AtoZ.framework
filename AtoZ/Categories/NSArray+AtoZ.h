@@ -221,6 +221,9 @@
 
 -(id)firstObject;
 
+-(void) eachDictionaryKeyAndObjectUsingBlock:(void(^)(id key, id obj))block;
+
+
 -(void) az_each:(void (^)(id obj, NSUInteger index, BOOL *stop))block;
 
 -(void) az_eachConcurrentlyWithBlock:(void (^)(NSInteger index, id obj, BOOL * stop))block;

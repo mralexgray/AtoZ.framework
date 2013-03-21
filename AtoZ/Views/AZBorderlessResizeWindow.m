@@ -49,7 +49,10 @@
 @implementation AZBorderlessResizeWindow
 @synthesize  initialMouseLocation, initialWindowFrame, isResizeOperation ;
 
-- NSWINDOWINIT
+- (id) initWithContentRect:(NSRect)contentRect styleMask:(NSUInteger)aStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)flag {
+
+    if (self != [super initWithContentRect:contentRect styleMask:aStyle backing:bufferingType defer:flag] ) return nil;
+
 
 	self.opaque		= NO;
 	self.bgC		= [NSColor clearColor];
