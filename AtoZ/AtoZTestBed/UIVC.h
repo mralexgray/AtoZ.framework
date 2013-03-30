@@ -8,22 +8,26 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface AZUIViewController : NSViewController <AtoZGridViewDataSource, AtoZGridViewDelegate>
+@interface UIVC : NSViewController <AtoZGridViewDataSource, AtoZGridViewDelegate>
 
-@property (assign) 	IBOutlet BGHUDTabView *tabView;
+@property (assign) 	IBOutlet BGHUDTabView 			*tabView;
 @property (assign) 	IBOutlet BGHUDProgressIndicator *bar;
 @property (assign) 	IBOutlet BGHUDProgressIndicator *spinner;
 @property (assign) 	IBOutlet AtoZGridView *gridView;
 @property (assign) 	IBOutlet NSSlider *itemSizeSlider;
-@property (assign)  IBOutlet BGHUDView *windowView;
-@property (assign)  IBOutlet AtoZColorWell *colorWell;
+@property (assign)  	IBOutlet BGHUDView *windowView;
+@property (assign)  	IBOutlet AtoZColorWell *colorWell;
+@property (nonatomic, strong) XLDragDropView *xl;
 
+
+@property (NATOM,strong) NSColor *baseColor;
+@property (weak) IBOutlet NSW *window;
 @property (strong) 		  NSMA *items;
 
 - (IBAction)doSegmentStuff:(id)sender;
 - (IBAction)itemSizeSliderAction:(id)sender;
-- (IBAction)setViewColor:(id)sender;
 
+- (IBAction)showXFLDragDrop:(id)sender;
 
 @property (assign, nonatomic) BOOL spinning;
 @property (assign, nonatomic) double progress;

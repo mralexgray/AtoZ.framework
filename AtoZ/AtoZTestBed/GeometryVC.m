@@ -6,13 +6,13 @@
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 //
 
-#import "AZGeometryViewController.h"
+#import "GeometryVC.h"
 
-@interface AZGeometryViewController ()
+@interface GeometryVC ()
 
 @end
 
-@implementation AZGeometryViewController
+@implementation GeometryVC
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

@@ -42,9 +42,9 @@
 - (NSPoint)associatedPointForElementAtIndex:(NSUInteger)anIndex;
 + (NSBezierPath *)bezierPathWithRoundedRect:(NSRect)aRect cornerRadius:(CGFloat)radius;
 + (NSBezierPath *)bezierPathWithRoundedRect:(NSRect)aRect cornerRadius:(CGFloat)radius inCorners:(OSCornerType)corners;
-- (CGPathRef)quartzPath;
+- (CGPathRef)quartzPath CF_RETURNS_RETAINED;
 + (NSBezierPath *)bezierPathWithCGPath:(CGPathRef)pathRef;
-- (CGPathRef)cgPath;
+- (CGPathRef)cgPath CF_RETURNS_RETAINED;
 ///  Extract a CGPathRef from a NSBezierPath.
 //  Args: 
 //  Returns:

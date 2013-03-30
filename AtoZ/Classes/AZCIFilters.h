@@ -6,8 +6,14 @@
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 //
 
+@interface AZFilters : BaseModel
+@property (RONLY) NSA *filterNames;
+@end
+
+
 
 @interface AZIrisOpenFilter : CIFilter
+
 
 @property (NATOM, retain) CIImage* inputImage;
 @property (NATOM, retain) CIImage* inputTargetImage;

@@ -3,12 +3,13 @@
 
 
 @interface AZSpeech2Text : BaseModel
-@property (assign) IBOutlet NSTextField *outputArea;
-@property (assign) IBOutlet WebView *audioView;
+@property (weak) IBOutlet NSTextField *outputArea;
+@property (weak) IBOutlet WebView *audioView;
+
 AZPROP(NSString,whatever);
 
 - (IBAction) recognizerForLabel:(id)sender;
-
+- (IBAction) record:(id)sender;
 @end
 
 

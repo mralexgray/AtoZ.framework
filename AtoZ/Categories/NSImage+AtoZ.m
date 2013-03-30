@@ -241,6 +241,21 @@ NSData* PNGRepresentation(NSIMG *image) {
 
 @implementation NSImage (AtoZ)
 
+- (void) lockFocusBlock:(void(^)(NSIMG*))block
+{
+	[self lockFocus];
+	block(self);
+	[self unlockFocus];
+}
+
+- (NSIMG*) lockFocusBlockOut:(NSIMG*(^)(NSIMG*))block;
+{
+	[self lockFocus];
+	NSIMG* i = block(self);
+	[self unlockFocus];
+	return i;
+}
+
 + (NSIMG*)faviconForDomain:(NSS*)domainAsString
 {
 	static NSA* iconLocs = nil;
@@ -452,21 +467,37 @@ NSData* PNGRepresentation(NSIMG *image) {
 	static NSA *theNamesOfSystemIcons_ = nil;
 	return 	    theNamesOfSystemIcons_ = theNamesOfSystemIcons_ ?: [[AZFILEMANAGER contentsOfDirectoryAtPath:_systemIconsFolder error:nil] filter:^BOOL(id object) { return [(NSString*)object contains:@".icn"];  }];
 }
+
+static BOOL monosMade = NO;
+
++ (PDFDocument*) monoPDF {		static PDFDocument *doc = nil;
+		return doc = doc ?: [PDFDocument.alloc initWithURL:[NSURL fileURLWithPath:[AZFWORKBUNDLE pathForResource:@"PicolSingulario" ofType:@"pdf"]]];
+}
 + (NSIMG*)monoIconNamed:(NSS*)name { return [self.monoIcons filterOne:^BOOL(NSIMG*icon) { return areSame(icon.name, name); }]; }
 
-+ (NSIMG*)randomMonoIcon {			 return [self.monoIcons randomElement]; }
++ (NSIMG*)randomMonoIcon
+{
+	NSUI monoCt = self.monoIcons.count;//monoPDF.pageCount -1;
+ 	NSUI rand = RAND_INT_VAL(0, monoCt);
+	NSLog(@"randomMono:[%i / %i]", rand, monoCt );
+//	return monosMade ? self.monoIcons[rand]
+	return [self monoIconNamed:@(rand).stringValue];
+//	 imageFromPDF:self.monoPDF page:rand size:AZSizeFromDimension(256) named:AZString(rand)];
+}
 
-
-+ (NSA*) monoIcons {
-	static NSA *monos = nil;
-	return monos = monos ?: ^{
-		PDFDocument *myPDF = [PDFDocument.alloc initWithURL: $URL( [AZFWORKBUNDLE pathForResource:
-																	@"PicolSingulario" ofType:@"pdf"])];
-		return [[@0 to:@(myPDF.pageCount - 1)] cw_mapArray:^id(NSN* pdfPage) {
-			NSIMG* d = [NSIMG imageWithSize: AZSizeFromDimension(512) named:pdfPage.stringValue];
-			[d addRepresentation:[NSPDFImageRep imageRepWithData: [myPDF pageAtIndex:pdfPage.integerValue].dataRepresentation]];	return d;
++ (NSA*) monoIcons {				static NSA *monos = nil;
+										PDFDocument *myPDF = self.monoPDF;
+		monos = monos ?:  [[@0 to:@( myPDF.pageCount - 1)] map:^id(NSN *obj) {
+			return [self imageFromPDF:myPDF page:obj.unsignedIntegerValue size:AZSizeFromDimension(256) named:obj.stringValue];
 		}];
-	}();
+		monosMade = (monos);
+		return monos;
+}
++ (NSIMG*) imageFromPDF:(PDFDocument*)doc page:(NSUI)page size:(NSSZ)size named:(NSS*)name
+{
+	NSIMG*render = [NSIMG imageWithSize:size named:name];
+	[render addRepresentation:[NSPDFImageRep imageRepWithData:[doc pageAtIndex:page].dataRepresentation]];
+	return render;
 }
 	//+ (NSA*) iconStrings {
 
@@ -520,7 +551,12 @@ NSData* PNGRepresentation(NSIMG *image) {
 
 + (NSIMG*) badgeForRect:(NSR)frame withColor:(NSC*)color stroked:(NSC*) stroke withString:(NSS*)string
 {
-	[AtoZ hasSharedInstance] ? nil : [AtoZ sharedInstance];
+	return [self badgeForRect:frame withColor:color stroked:stroke withString:nil orDrawBlock:nil];
+}
+
++ (NSIMG*) badgeForRect:(NSR)frame withColor:(NSC*)color stroked:(NSC*) stroke withString:(NSS*)string orDrawBlock:(void(^)(NSR))drawBlock {
+
+	AtoZ.sharedInstance;
 
 	CGF inset 		= AZMinDim 			 ( frame.size ) * .1;
 	NSR outerRect	= AZCenterRectOnRect ( AZRectFromDim ( (AZMinDim(frame.size)-inset)), frame );	//AZSquareInRect( 	  NSInsetRect( newFrame, inset, inset ));
@@ -544,6 +580,7 @@ NSData* PNGRepresentation(NSIMG *image) {
 
 		[CLEAR set];
 		[centerBP 	fillWithInnerShadow:innerShadow];
+		if (drawBlock) drawBlock(frame);
 		!string ?: ^{
 			[innerShadow set];
 			[string drawInRect:AZInsetRect(centerRect, inset) withFontNamed:@"PrintBold" andColor:contraster];
@@ -581,7 +618,7 @@ NSData* PNGRepresentation(NSIMG *image) {
 
 + (NSImage *)reflectedImage:(NSImage *)sourceImage amountReflected:(float)fraction
 {
-	NSImage *reflection = [[NSImage alloc]initWithSize:sourceImage.size];
+	NSImage *reflection = [NSIMG.alloc initWithSize:sourceImage.size];
 	[reflection setFlipped:NO];
 	NSRect reflectionRect = (NSRect)	{0, 0,
 									sourceImage.size.width,
@@ -1155,7 +1192,7 @@ NSData* PNGRepresentation(NSIMG *image) {
 - (NSIMG*)generateQuantizedSwatch{
 
 	NSA* q = [self quantize];
-	NSImage *u = [[NSImage alloc]initWithSize:AZSizeFromPoint((NSPoint){512,256})];
+	NSImage *u = [NSIMG.alloc initWithSize:AZSizeFromPoint((NSPoint){512,256})];
 	AZSizer *s = [AZSizer forQuantity:q.count inRect:AZRectFromDim(256)];
 	[u lockFocus];
 	[s.rects eachWithIndex:^(id obj, NSInteger idx) {
@@ -1305,43 +1342,36 @@ NSData* PNGRepresentation(NSIMG *image) {
 }
 - (NSImage *) tintedWithColor:(NSColor *)tint 
 {
-	if (tint != nil) {
-		NSSZ size = [self size];
-		NSRect bounds = { NSZeroPoint, size };
-		NSImage *tintedImage = [[NSImage alloc] initWithSize:size];
-		
-		[tintedImage lockFocus];
-		
-		CIFilter *colorGenerator = [CIFilter filterWithName:@"CIConstantColorGenerator"];
-		CIColor *color = [[CIColor alloc] initWithColor:tint];
-		
-		[colorGenerator setValue:color forKey:@"inputColor"];
-		
-		CIFilter *monochromeFilter = [CIFilter filterWithName:@"CIColorMonochrome"];
-		CIImage *baseImage = [CIImage imageWithData:[self TIFFRepresentation]];
-		
-		[monochromeFilter setValue:baseImage forKey:@"inputImage"];			 
-		[monochromeFilter setValue:[CIColor colorWithRed:0.75 green:0.75 blue:0.75] forKey:@"inputColor"];
-		[monochromeFilter setValue:@1.0f forKey:@"inputIntensity"];
-		
-		CIFilter *compositingFilter = [CIFilter filterWithName:@"CIMultiplyCompositing"];
-		
-		[compositingFilter setValue:[colorGenerator valueForKey:@"outputImage"] forKey:@"inputImage"];
-		[compositingFilter setValue:[monochromeFilter valueForKey:@"outputImage"] forKey:@"inputBackgroundImage"];
-		
-		CIImage *outputImage = [compositingFilter valueForKey:@"outputImage"];
-		
-		[outputImage drawAtPoint:NSZeroPoint
-						fromRect:bounds
-					   operation:NSCompositeCopy
-						fraction:1.0];
-		
-		[tintedImage unlockFocus];  
+	if (tint != nil) return self;  else
+	{
+		NSImage *tintedImage = [NSImage.alloc initWithSize:self.size];
+		[tintedImage lockFocusBlock:^(NSImage *i) {
+
+			CIFilter *colorGenerator 	= [CIFilter filterWithName:@"CIConstantColorGenerator"];
+			CIColor *color 				= [CIColor.alloc initWithColor:tint];
+			
+			[colorGenerator setValue:color forKey:@"inputColor"];
+			
+			CIFilter *monochromeFilter = [CIFilter  filterWithName:@"CIColorMonochrome"];
+			CIImage *baseImage 			= [CIImage imageWithData:self.TIFFRepresentation];
+			
+			[monochromeFilter setValue:baseImage forKey:@"inputImage"];			 
+			[monochromeFilter setValue:[CIColor colorWithRed:0.75 green:0.75 blue:0.75] forKey:@"inputColor"];
+			[monochromeFilter setValue:@1.0f forKey:@"inputIntensity"];
+			
+			CIFilter *compositingFilter = [CIFilter filterWithName:@"CIMultiplyCompositing"];
+			
+			[compositingFilter setValue:[colorGenerator valueForKey:@"outputImage"] forKey:@"inputImage"];
+			[compositingFilter setValue:[monochromeFilter valueForKey:@"outputImage"] forKey:@"inputBackgroundImage"];
+			
+			CIImage *outputImage = [compositingFilter valueForKey:@"outputImage"];
+			
+			[outputImage drawAtPoint:NSZeroPoint 	   fromRect:AZRectFromSize(self.size)
+								operation:NSCompositeCopy	fraction:1.0];
+			
+		}];//		[tintedImage unlockFocus];
 		
 		return tintedImage;
-	}
-	else {
-		return [self copy];
 	}
 }
 
@@ -2029,7 +2059,7 @@ rightDone:
 
 - (NSIMG*) etched
 {
-	NSIMG* etched = [[NSImage alloc]initWithSize:self.size];
+	NSIMG* etched = [NSIMG.alloc initWithSize:self.size];
 	[etched lockFocus];
 	[self drawEtchedInRect:AZRectFromSize(self.size)];
 	[etched unlockFocus];
@@ -2038,7 +2068,7 @@ rightDone:
 
 - (NSIMG*) alpha:(CGF)fraction
 {
-	NSIMG* alpha = [[NSImage alloc]initWithSize:self.size];
+	NSIMG* alpha = [NSIMG.alloc initWithSize:self.size];
 	[alpha lockFocus];
 	[self drawInRect:AZRectFromSize(self.size) fraction:fraction];
 	[alpha unlockFocus];

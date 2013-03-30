@@ -18,67 +18,65 @@ typedef struct AZTriPair {	AZTri uno;	AZTri duo;  				}AZTriPair;
 @implementation AZTrackingWindow
 
 + (AZTrackingWindow *) standardInit {
-   AZTrackingWindow *w = [[[self class] alloc] initWithContentRect:AZScreenFrame()
-														 styleMask:NSBorderlessWindowMask
+   AZTrackingWindow *w = [self.alloc initWithContentRect:AZScreenFrame()
+													 styleMask:NSBorderlessWindowMask|NSResizableWindowMask
 														   backing:NSBackingStoreBuffered defer:NO];
 	w.slideState 	= AZIn;
-	w.level 		= NSStatusWindowLevel;				   w.movableByWindowBackground 		= NO;
-	w.hasShadow		= NO;								   w.backgroundColor 				= CLEAR;
+	w.level 			= NSStatusWindowLevel;			w.movableByWindowBackground 		= NO;
+	w.hasShadow		= NO;								   w.backgroundColor 				= [BLACK alpha:.3];//CLEAR;
 	[w setOpaque:NO];
-	w.contentView	= [[AZSimpleView alloc]initWithFrame: [w.contentView bounds]];	w.view 	= w.contentView;
-	w.view.backgroundColor = CLEAR;
-	[ @{   	NSApplicationWillBecomeActiveNotification 	:	@"slideIn",
+//	w.contentView	= [AZSimpleView.alloc initWithFrame: [w.contentView bounds]];	
+//	w.view 			= w.contentView;
+//	w.view.backgroundColor = CLEAR;
+	[ @{  NSApplicationWillBecomeActiveNotification 	:	@"slideIn",
 	 		NSApplicationDidResignActiveNotification 	: 	@"slideOut" }	each:^( id key, id obj ) {
-			[w observeObject:NSApp forName:obj calling: NSSelectorFromString ( obj ) ];	}];
-//	[NSEvent addLocalMonitorForEventsMatchingMask:NSLeftMouseDownMask handler:^NSEvent *(NSEvent *e) {
-//		[w shake];
-//		return e;
-//	}];
+				[w observeObject:NSApp forName:obj calling: NSSelectorFromString ( obj ) ];	}];
+//	[NSEEVENTLOCALMASK:NSLeftMouseDownMask handler:^NSEvent *(NSEvent *e) {	[w shake];		return e; }];
 	return w;
 }
 
 + (AZTrackingWindow*) oriented:(AZWindowPosition)orient intruding:(CGFloat)distance inRect:(NSRect)frame withDelegate: (id) del
 {
-	AZTrackingWindow *w  = [[self class] standardInit];		w.position = orient;	w.intrusion = distance;
-	w.workingFrame 		 = NSEqualRects(frame, NSZeroRect) ?  AZScreenFrameUnderMenu() : frame;		//	[w setFrameOrigin:frame.origin];
-	if (del) w.delegate = del;		// NSLog(@"Class method factory result: %@", w.propertiesPlease);
+	AZTW *w  		= [self standardInit];
+	w.position 	= orient;	
+	w.intrusion = distance;
+	w.workingFrame 	= NSEqualRects(frame, NSZeroRect) ?  AZScreenFrameUnderMenu() : frame;		
+	//	[w setFrameOrigin:frame.origin];
+	 w.delegate = del ? del : w.delegate ?: nil;		// NSLog(@"Class method factory result: %@", w.propertiesPlease);
 	[w setFrame: w.visibleFrame display:YES];
 	return w;
 }
 
-+ (AZTrackingWindow*) oriented:(AZWindowPosition)o intruding:(CGFloat)d inRect:(NSRect)frame {
-	return [[self class] oriented:o intruding:d inRect:frame withDelegate:nil]; 			 }
++ (AZTW*) oriented:(AZPOS)o intruding:(CGF)d 
+								 withDelegate:(id)del {						return [self oriented:o 					intruding:d 
+																 										         inRect:NSZeroRect withDelegate:del]; }
++ (AZTW*) oriented:(AZPOS)o intruding:(CGF)d inRect:(NSR)f 	{	return [self oriented:o             intruding:d 
+																																										         inRect:f          withDelegate:nil]; }
++ (AZTW*) oriented:(AZPOS)o intruding:(CGF)d 	{						return [self oriented:o             intruding:d 
+         																															         inRect:NSZeroRect withDelegate:nil]; }
+- (NSRect) outFrame {		NSSize w = self.visibleFrame.size;
 
-+ (AZTrackingWindow*) oriented:(AZWindowPosition)o intruding:(CGFloat)d 					 {
-	return [[self class] oriented:o intruding:d inRect:NSZeroRect withDelegate:nil]; 		 }
-
-+ (AZTrackingWindow*) oriented:(AZWindowPosition)o intruding:(CGFloat)d withDelegate:(id)del {
-	return [[self class] oriented:o intruding:d inRect:NSZeroRect withDelegate:del];		 }
-- (NSRect) outFrame {	NSSize w = self.visibleFrame.size;
-
-	return 	_position == AZPositionLeft
-		  ? NSOffsetRect(_visibleFrame,  NEG(w.width), -w.height / 2 )
-		  : _position == AZPositionTop
-		  ? AZRectHorizontallyOffsetBy( AZRectTrimmedOnBottom( _visibleFrame, 	w.height),  -w.width / 2 )
-		  :	_position == AZPositionRight
-		  ? NSOffsetRect(_visibleFrame, w.width, w.height / 2 )  : (NSRect) {  w.width/2,  NEG(w.height),  w.width,  w.height  };
+	return _position == AZPositionLeft	? NSOffsetRect(_visibleFrame,  NEG(w.width), -w.height / 2 )
+		  : _position == AZPositionTop		? AZRectHorizontallyOffsetBy( AZRectTrimmedOnBottom( _visibleFrame, 	w.height),  																			 -w.width / 2 )
+		  :	_position == AZPositionRight  ? NSOffsetRect(_visibleFrame, w.width, w.height / 2 )  
+													: (NSR) {  w.width/2,  NEG(w.height),  w.width,  w.height  };
 }
 
 - (NSRect) triggerFrame {	   _visibleFrame = self.visibleFrame;
 															  if (!_triggerWidth) self.triggerWidth = 6;
 															return _triggerFrame =
 	self.position == AZPositionLeft  ? AZLeftEdge ( _visibleFrame, _triggerWidth)
-  :		_position == AZPositionTop	 ? AZUpperEdge( _visibleFrame, _triggerWidth)
+  :	 _position == AZPositionTop	? AZUpperEdge( _visibleFrame, _triggerWidth)
   :	 _position == AZPositionRight ? AZRightEdge( _visibleFrame, _triggerWidth)
-  :									   AZLowerEdge( _visibleFrame, _triggerWidth);
+  :	              						  AZLowerEdge( _visibleFrame, _triggerWidth);
 }
 - (NSRect) visibleFrame { 		 return _visibleFrame =
 
-	_position == AZPositionLeft  ? AZRectTrimmedOnTop(	AZLeftEdge  ( _workingFrame, _intrusion), _intrusion)
+		_position == AZPositionLeft  ? AZRectTrimmedOnTop(		AZLeftEdge  ( _workingFrame, _intrusion), _intrusion)
   :	_position == AZPositionTop   ? AZRectTrimmedOnRight(  AZUpperEdge ( _workingFrame, _intrusion), _intrusion)
 	//	AZRectTrimmedOnRight( AZMakeRectMaxXUnderMenuBarY (self.intrusion), self.intrusion)
-  :	_position == AZPositionRight ?	AZRectTrimmedOnBottom( AZRightEdge( _workingFrame, _intrusion), _intrusion)
-  : 									(NSRect) {_intrusion, 0, _workingFrame.size.width - _intrusion, _intrusion};
+  :	_position == AZPositionRight ?	 AZRectTrimmedOnBottom( AZRightEdge ( _workingFrame, _intrusion), _intrusion)
+  : 											 (NSR) {_intrusion, 0, _workingFrame.size.width - _intrusion, _intrusion};
 }
 - (AZOrient)orientation { return _position == AZPositionBottom || _position == AZPositionTop ? AZOrientHorizontal : AZOrientVertical; }
 
@@ -127,8 +125,8 @@ typedef struct AZTriPair {	AZTri uno;	AZTri duo;  				}AZTriPair;
 	_showsHandle = showsHandle;
 }
 
-- (NSImageView*) handle {
-
+- (NSImageView*) handle 
+{
 	if ( !_handle) {
 		NSImage* i = [NSImage az_imageNamed:@"bullseye.png"];
 		self.handle = [[NSImageView alloc]initWithFrame:AZMakeRectFromSize(i.size)];

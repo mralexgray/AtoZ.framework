@@ -15,6 +15,71 @@
 #import <Python/Python.h>
 
 
+
+
+void _AZSimpleLog( const char *file, int lineNumber, const char *funcName, NSString *format, ... ) {
+	static NSA* colors;  colors = colors ?: NSC.randomPalette;
+	static NSUI idx = 0;
+	va_list   argList;
+	va_start (argList, format);
+	NSS *path  	= [$UTF8(file) lastPathComponent];
+	NSS *mess   = [NSString.alloc initWithFormat:format arguments:argList];
+	NSS *toLog;
+	char *xcode_colors = getenv(XCODE_COLORS);
+	if (xcode_colors && (strcmp(xcode_colors, "YES") == 0))
+	{
+	//	NSS *justinfo = $(@"[%s]:%i",path.UTF8String, lineNumber);
+	//	NSS *info   = [NSString stringWithFormat:@"word:%-11s rank:%u", [word UTF8String], rank];
+	NSS *info 	= $( XCODE_COLORS_ESCAPE @"fg82,82,82;" @"  [%s]" XCODE_COLORS_RESET
+						 XCODE_COLORS_ESCAPE @"fg140,140,140;" @":%i" XCODE_COLORS_RESET	, path.UTF8String, lineNumber);
+	int max 			= 120;
+	int cutTo			= 22;
+	BOOL longer 	= mess.length > max;
+	NSC *c = [colors normal:idx]; 
+		c = c.isDark ? [c colorWithBrightnessMultiplier:1.5] : [c colorWithBrightnessMultiplier:.7];
+	NSS *cs = $(@"%i,%i,%i",(int)(c.redComponent *255), (int)(c.greenComponent *255), (int)(c.blueComponent *255)); idx++;
+	NSS* nextLine 	= longer ? $(XCODE_COLORS_ESCAPE @"fg%@;" XCODE_COLORS_RESET @"\n\t%@\n", cs, [mess substringFromIndex:max - cutTo]) : @"\n";
+	mess 				= longer ? [mess substringToIndex:max - cutTo] : mess;
+	int add = max - mess.length - cutTo;
+	if (add > 0) {
+		NSS *pad = [NSS.string stringByPaddingToLength:add withString:@" " startingAtIndex:0];
+		info = [pad stringByAppendingString:info];
+	}
+	toLog 	= $(XCODE_COLORS_ESCAPE @"fg%@;" @"%@" XCODE_COLORS_RESET @"%@%@", cs, mess, info, nextLine);
+		// XcodeColors is installed and enabled!
+	}
+	else {
+		toLog = $(@"[%s]:%i %s \n", path.UTF8String, lineNumber, mess.UTF8String);
+	}
+
+	fprintf ( stderr, "%s", toLog.UTF8String);//
+	va_end  (argList);
+	
+	//	NSS *toLog 	= $( XCODE_COLORS_RESET	@"%s" XCODE_COLORS_ESCAPE @"fg82,82,82;" @"%-70s[%s]" XCODE_COLORS_RESET
+	//									XCODE_COLORS_ESCAPE @"fg140,140,140;" @":%i\n" XCODE_COLORS_RESET	, 
+	//								    mess.UTF8String, "", path.UTF8String, lineNumber);
+	
+	//	NSLog(XCODE_COLORS_ESCAPE @"bg89,96,105;" @"Grey background" XCODE_COLORS_RESET);
+	//	NSLog(XCODE_COLORS_ESCAPE @"fg0,0,255;"
+	//			XCODE_COLORS_ESCAPE @"bg220,0,0;"
+	//			@"Blue text on red background"
+	//			XCODE_COLORS_RESET);
+	
+	
+	/**
+	 if ( [[NSApplication sharedApplication] delegate] ) {
+	 id appD = [[NSApplication sharedApplication] delegate];
+	 //		fprintf ( stderr, "%s", [[appD description]UTF8String] );
+	 if ( [(NSObject*)appD respondsToSelector:NSSelectorFromString(@"stdOutView")]) {
+	 NSTextView *tv 	= ((NSTextView*)[appD valueForKey:@"stdOutView"]);
+	 if (tv) [tv autoScrollText:toLog];
+	 }
+	 }
+	 */
+	// $(@"%s: %@", __PRETTY_FUNCTION__, [NSString stringWithFormat: args])	]
+	//	const char *threadName = [[[NSThread currentThread] name] UTF8String];
+}
+
 void pyRunWithArgsInDir(NSS* script, NSA *args, NSS*working){
 	pyRunWithArgsInDirPythonPath(script, args, working, nil);
 }
@@ -493,15 +558,22 @@ BOOL SameString(const char *a, const char *b) {
 	return [$(@"%s", a) isEqualToString:$(@"%s", b)];
 }
 
+// Key to AZString
 NSString * AZToStringFromTypeAndValue(const char * typeCode, void * value)
 {
-	return 	SameString( typeCode, @encode(   NSP)) ?  NSStringFromPoint( *( NSPoint			 *)value)
-	:		SameString( typeCode, @encode( NSRNG)) ?  NSStringFromRange( *( NSRNG		 	 *)value)
-	:		SameString( typeCode, @encode(  NSSZ)) ?  NSStringFromSize ( *( NSSize		 	 *)value)
-	:		SameString( typeCode, @encode(   NSR)) ?  AZStringFromRect ( *( NSRect 			 *)value)
-	: 		SameString( typeCode, @encode(  BOOL)) ?  StringFromBOOL   ( *( BOOL  	 		 *)value)
-	: 		SameString( typeCode, @encode( AZPOS)) ?  stringForPosition( *( AZWindowPosition *)value)
-	: nil;
+	return 	SameString( typeCode, @encode(   NSP)) ?  AZStringFromPoint(	 *( NSPoint	       *)value)
+		:		SameString( typeCode, @encode( NSRNG)) ?  NSStringFromRange( *( NSRNG		 	    *)value)
+		:		SameString( typeCode, @encode(  NSSZ)) ?  NSStringFromSize ( *( NSSize		 	 *)value)
+		:		SameString( typeCode, @encode(   NSR)) ?  AZStringFromRect ( *( NSRect 			 *)value)
+		: 		SameString( typeCode, @encode(  BOOL)) ?  StringFromBOOL   ( *( BOOL  	 		 *)value)
+		: 		SameString( typeCode, @encode( AZPOS)) ?  stringForPosition( *( AZWindowPosition *)value)
+		:		SameString( typeCode, @encode(   CGF)) ?  $(@"%f", 			 *(( CGF    		 *)value))
+		:		SameString( typeCode, @encode(  NSUI)) ?  $(@"%lu",			 *(( NSUI            *)value))
+		:		SameString( typeCode, @encode(   int)) ?  $(@"%d", 			 *(( int             *)value))
+		:		SameString( typeCode, @encode(   NSI)) ?  $(@"%ld",			 *(( NSUI            *)value))
+		:		SameString( typeCode, @encode(  CGCR)) ?  [@"cg" withString:[[NSC colorWithCGColor:*((CGCR *)value)]nameOfColor]]
+		:		SameString( typeCode, @encode(    id)) ?  $(@"%@", (__bridge NSObject*)value)
+		: nil;
 }
 
 NSString* bitString(NSUInteger mask){	NSString *str = @""; // Prepend "0" or "1", depending on the bit
@@ -548,8 +620,14 @@ NSString* stringForPosition(AZWindowPosition enumVal)
 {
 	return  [[NSArray alloc]initWithObjects:AZWindowPositionTypeArray][enumVal];
 }
-NSString* AZStringFromRect(NSRect rect){
-	return $(@"x.%0.f y.%0.f %0.fw %0.fh", rect.origin.x, rect.origin.x, rect.size.width, rect.size.height);
+NSString* AZStringFromPoint(NSP p){
+	return $(@"[x.%0.f y.%0.f]", p.x, p.y);
+}
+
+NSString* AZStringFromRect(NSRect rect)
+{
+//	NSString *demo=[NSS.alloc initWithData:[NSData dataWithBytes:"✖" length:0] encoding:NSUnicodeStringEncoding];
+	return $(@"[x.%0.f y.%0.f [%0.f x %0.f]]", rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
 }
 //static void glossInterpolation(void *info, const float *input);
 //float *output);
@@ -1001,6 +1079,13 @@ void QuietLog (NSString *format, ...) {
 	NSS *message = 	[[NSS alloc] initWithFormat: format arguments: argList];
 	printf ("%s", [message UTF8String]); va_end  (argList);
 } // QuietLog
+
+void LOGWARN(NSString *format,...) {
+	va_list argList; va_start (argList, format);
+	NSS* full = [NSS.alloc initWithFormat:format arguments:argList]; 
+	NSLog(XCODE_COLORS_ESCAPE @"fg218,147,0;" "%@" XCODE_COLORS_RESET, full);
+}
+
 
 #ifndef NDEBUG
 #import <Foundation/Foundation.h>

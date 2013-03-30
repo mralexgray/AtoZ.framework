@@ -151,3 +151,37 @@ static NSEvent *theDrag;
 }
 
 @end
+/*
+
+- (void)mouseDown:(NSEvent *)theEvent
+{
+    BOOL keepOn = YES;
+    BOOL isInside = YES;
+    NSPoint mouseLoc;
+
+    do {
+		mouseLoc = [self convertPoint:[theEvent mouseLocationInWindow
+									   fromView:nil]];
+		isInside = [self mouse:mouseLoc inRect:[self bounds]];
+
+		switch ([theEvent type]) {
+            case NSLeftMouseDragged:
+				[self highlight:isInside];
+				break;
+            case NSLeftMouseUp:
+				if (isInside) [self doSomethingSignificant];
+				[self highlight:NO];
+				keepOn = NO;
+				break;
+            default:
+//				 Ignore any other kind of event.  * /
+				break;
+        }
+
+        theEvent = [[self window] nextEventMatchingMask: NSLeftMouseUpMask |
+					NSLeftMouseDraggedMask];
+
+	}while (keepOn);
+
+    return;
+}*/

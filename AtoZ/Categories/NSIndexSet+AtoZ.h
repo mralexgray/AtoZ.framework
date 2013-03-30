@@ -9,6 +9,19 @@
 #import <Foundation/Foundation.h>
 
 
+@interface NSObject (AtoZKVO)
++ (NSSet*)keyPathsForValuesAffecting: (NSS*)key fromDictionary:(NSD*)pairs;
+//- (NSSet*)keyPathsForValuesAffecting:(NSS*)string includingSuper:(NSSet*(^)(NSS*key))block;
+//+ (NSSet*) keyPathsForValuesAffectingValueForKey:(NSSet*(^)(NSS*key))block;
+@end
+
+@interface NSIndexPath (ESExtensions)
+- (NSUInteger)firstIndex;
+- (NSUInteger)lastIndex;
+- (NSIndexPath *)indexPathByIncrementingLastIndex;
+- (NSIndexPath *)indexPathByReplacingIndexAtPosition:(NSUInteger)position withIndex:(NSUInteger)index;
+@end
+
 @interface NoodleIndexSetEnumerator : NSObject
 {
 	NSUInteger	*_indexes;

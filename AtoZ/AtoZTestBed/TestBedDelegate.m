@@ -1,153 +1,73 @@
 
 #import "TestBedDelegate.h"
 
-
-
-//self.sublayerOrig + self.sublayerSpan  < self.superBounds  - self.lastLaySpan
-// || offset < NEG(self.firstLayerSpan))
-//__block CGF spanner = 0;	[scrollLayer.sublayers each:^(CAL* cur) {  spanner += oreo == VRT ? cur.boundsHeight : cur.boundsWidth; }]; return spanner;	}
-
-//		NSLog(@"fix:%@ superbounds:%0.0f off: %0.0f origin: %0.0f  span:%0.0f  first:%0.0f  last:%0.0f", stringForScrollFix(fixState), self.superBounds, _offset, self.sublayerOrig, self.sublayerSpan, self.firstLaySpan, self.lastLaySpan );
-//	fixState == LayerStateOK  		? [scrollLayer setNeedsLayout] : nil;
-//	if (fixState != LayerStateOK)
-//	if (fixState != LayerStateOK  && tries < 4) [self fixLayerState];
-
-//	NSLog(@"layer:%@", scrollLayer.debugLayerTree);
-//			obj.frame = AZMakeRect( (NSP){ oreo == VRT ? 0 : off, oreo == VRT ? off : 0 }, obj.boundsSize );
-//	_offset = 0;
-//	if (fixState != LayerStateOK)	self.fixState;
-//	[self fixLayerState];	// offset = 0;// [scrollLayer.sublayers each:^(CAL* obj) {	if (oreo == VRT) obj.frameMinY += offset; else obj.frameMinX += offset; }]; }]; if (_sublayerOrigin == 1) offset = 0;
-//- (void) setOffset:(CGF)o 			{ if ( offset 	   != o) { offset		= o; [scrollLayer setNeedsLayout]; }	 } //[scrollLayer performSelectorOnMainThread:@selector(setNeedsLayout) withObject:nil waitUntilDone:YES]; } }// [self fixLayerState]; } }
-//- (void) setOrientation:(AZOrient)o	{ if ( oreo        != o) { oreo      	= o; [scrollLayer setNeedsLayout]; }	 }
-//- (void) setLayerQueue:(NSMA*)q		{ if ( layerQueue  != q) { layerQueue 	= q; [self 		   fixLayerState]; }	 }
-
-//+ (NSSet*) keyPathsForValuesAffectingFixState { return [NSSet setWithObjects:@"layerQueue", @"offset", nil]; }
-
-//	if (oreo == VRT) 	newFirst.frameMinY =  _sublayerOrigin - newFirst.boundsHeight; else 	newFirst.frameMinX =  _sublayerOrigin - newFirst.boundsWidth;
-//	if (oreo == VRT)	newFirst.frameMinY = _sublayerOrigin + _sublayerSpan;	else	newFirst.frameMinX = _sublayerOrigin + _sublayerSpan;
-//- (void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-//{
-//	if (areSame(keyPath, @"") ) [scrollLayer setNeedsLayout];
-//	else [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
-//}
-
-
-
 @interface TestBedDelegate ()
 //@property (STRNG) CATransition *transition;
 //@property (STRNG) NSA *transitions;
 @end
 
-
 // Constants used by the Scroll layer to setup its contents and to scroll.
 #define kScrollContentRect CGRectMake(  0.0,   0.0, 3000.0, 300.0)
 
-
 @implementation TestBedDelegate
-//@synthesize holdOntoViews;//, activeView, semiLog, semiWindow;
-@synthesize window, genVC, uiVC, colorVC, mainView, colorWell;//, geoVC, , fileGrid, vcs, , colorWell;
 
 - (void) awakeFromNib
 {
-	[self.window setAcceptsMouseMovedEvents:YES];
-	[self.window makeFirstResponder:mainView];
-	[self createScrollLayer];
+	AtoZ* o = AtoZ.sharedInstance;
+	[self createScrollLayer]; 
+	[((BGHUDView*)_contentView).theme bind:@"baseColor" toObject:_colorWell withKeyPath:@"color" options:nil];
+
+//	[self.window setAcceptsMouseMovedEvents:YES];
+//	[self.window makeFirstResponder:_targetView];
+}
 //	[NotificationCenterSpy toggleSpyingAllNotificationsIgnoring:nil ignoreOverlyVerbose:YES];
 //	[AtoZ sharedInstance];
 //	window.delegate = self;
-
-	[((BGHUDView*)window.contentView).theme bind:@"baseColor" toObject:colorWell withKeyPath:@"color" options:nil];
-
-//	vcs 		= [WeakMutableArray new];
-
-//	genVC 		= [[AZGeneralViewController  alloc] initWithNibName: @"AZGeneralViewController"  bundle:nil];
-//	[vcs addObject:genVC.view];
-//	geoVC 		= [[AZGeometryViewController alloc] initWithNibName: @"AZGeometryViewController" bundle:nil];
-//	[vcs addObject:geoVC.view];
-//	uiVC  		= [[AZUIViewController	     alloc] initWithNibName: @"AZUIViewController"	     bundle:nil];
-//	[vcs addObject:uiVC.view];
-//	fileGrid 	= [[AZFileGridView 			 alloc]   initWithFrame: mainView.bounds];
-//	[vcs addObject:fileGrid];
-
-//	 @{  @"General" : genVC.view, @"Geometry": geoVC.view, @"fileGridView" : fileGrid, @"UI" : uiVC.view }.mutableCopy;
-
-//	for ( NSV* view in vcs) {
-//		view.frame  = [mainView bounds];		view.arMASK = NSSIZEABLE;
-//		view.hidden = YES;						[mainView addSubview:view];
-//	}
-
-//	[fileGrid setHidden:NO];
-
-//	holdOntoViews.actionBlock = ^(id inSender){		semiWindow = [AZSemiResponderWindow new];
-//		semiWindow.semiResponder = self;			[semiWindow   makeKeyAndOrderFront:self];
-//	};
-
-//	self.genVC = [[AZGeneralViewController alloc]initWithNibName:@"AZGeneralViewController" bundle:nil];
-//	[_mainView addSubview: _genVC.view];
-//	_genVC.view.frame	= [_mainView frame];
-}
-
 //- (void) logString:(NSS*)s { 	self.semiLog = s; }
 
 - (IBAction)setViewFromPopUp:(id)sender
 {
-//	[[mainView allSubviews]makeObjectsPerformSelector:@selector(fadeOut)];
-//	[mainView removeAllSubviews];
+	// allSubviews]makeObjectsPerformSelector:@selector(fadeOut)]; //[_targetView removeAllSubviews];
 	NSS *selecto = [sender titleOfSelectedItem];
-	id view = areSame(selecto, @"General") ? genVC.view :
-				   areSame(selecto, @"UI") ? uiVC.view :
-					areSame(selecto, @"Colors") ? colorVC.view :
-						areSame(selecto, @"Facebook") ? _fbV.view : nil;
+	id view = 	areSame(selecto,  @"General") ? _genVC.	view :
+			   	areSame(selecto, 	     @"UI") ? _uiVC.		view :
+					areSame(selecto,   @"Colors") ? _colorVC.	view :
+					areSame(selecto, @"Facebook") ? _fbV.		view : nil;
 	if (view) {
 		NSLog(@"selecto:%@  view:%@", [selecto debugDescription],[view subviews]);
-		if (mainView.subviews.count != 0) {
-			[mainView.subviews.first fadeOut];
-//			[mainView removeAllSubviews];
-	}
-		mainView.subviews = @[view];
-		[view setFrame:mainView.bounds];
-//		[(NSV*)view setAutoresizingMask: NSSIZEABLE];
-		[view fadeIn];
-	}
-	if ( areSame(@"CAScrollLayer", selecto))
-	{
-		[self createScrollLayer];
-	}
-//	[[mainView animator]swapSubs:newView];
-//	[[activeView animator] setHidden:YES];
-//	activeView = vcs[[sender titleOfSelectedItem]];
-//	[mainView addSubview:activeView positioned:NSWindowAbove relativeTo:mainView];
-//	[activeView setHidden:NO];
-//	[_activeView setNeedsDisplay:YES];
+		[view setFrame:_targetView.bounds];
+		[_targetView swapSubs:view];
+//		if (_targetView.subviews) [_targetView removeAllSubviews];	//	[_targetView.subviews.first fadeOut];
+
+//		[_targetView addSubview: view];						//		[(NSV*)view setAutoresizingMask: NSSIZEABLE];
+//		[view fadeIn];
+	} else if ( areSame(@"CAScrollLayer", selecto)) [self createScrollLayer];
 }
-
-
 - (void) createScrollLayer
 {
-	if ( mainView.subviews.count > 0) [mainView.subviews.first fadeOut];		//		[mainView.subviews[0] removeFromSuperview];
-	if ([mainView.subviews doesNotContainObject:_scrollTestHost])		[mainView addSubview:_scrollTestHost];
-	[_scrollTestHost setFrame:mainView.frame];
-	 _scrollTestHost.arMASK = NSSIZEABLE;			//	[_scrollTestHost fadeIn];  [_scrollTestHost setFrame:mainView.bounds];
+//	if ( _targetView.subviews.count > 0) [_targetView.subviews.first fadeOut];		//		[_targetView.subviews[0] removeFromSuperview];
+	if ([_targetView.subviews doesNotContainObject:_scrollTest])
+		[_targetView swapSubs:_scrollTest];
+//	[_scrollTestHost setFrame:_targetView.frame];
 	[self reZhuzhScrollLayer:nil];
 }
 
 - (IBAction)reZhuzhScrollLayer:(id)sender
 {
-	_scrollTest.hoverStyle = Lasso;
-	_scrollTest.selectedStyle = DarkenOthers;
-	_scrollTest.layerQueue =
- 	[[NSC randomPalette] nmap:^id(NSC* c, NSUI idx) {
+	_scrollTest.hoverStyle 		= Lasso;
+	_scrollTest.selectedStyle 	= DarkenOthers;
+	_scrollTest.layerQueue 		= [NSC.randomPalette nmap:^id(NSC* c, NSUI idx) {
 
 		CAL *l = [CAL layerNamed:$(@"%ld",idx)];
-		l.bounds = AZRectBy(40,40);
+		l.frame = AZRectBy(50, 30);//RAND_FLOAT_VAL(40, 100),_scrollTest.height);
 		l.bgC = c.brighter.cgColor;
-//		l.loM = AZLAYOUTMGR;
+		l.loM = AZLAYOUTMGR;
 //		l.constraints = @[AZConstAttrRelNameAttrScaleOff(kCAConstraintWidth, @"superlayer", kCAConstraintHeight, 1, 0), AZConstRelSuper(kCAConstraintHeight)];
 //		l.arMASK = CASIZEABLE;
 //		[l addConstraintsRelSuper: kCAConstraintMidY];//kCAConstraintHeight, kCAConstraintMaxY, kCAConstraintMidY, kCAConstraintMinY, nil];
 //		l.borderColor = c.darker.cgColor;
-		l.delegate = self;
-		[l setNeedsDisplay];
+//		l.delegate = self;
+//		[l setNeedsDisplay]; 
 		return l;
 	}].mutableCopy;
 
@@ -164,14 +84,57 @@
 //			[b fillWithInnerShadow:[NSSHDW shadowWithColor:BLACK offset:NSMakeSize(4, -4) radius:10]];
 //		}();
 //		[NSSHDW setShadowWithOffset:(NSSZ){5,-3} blurRadius:7 color:BLACK];
-		NSIMG * icon;// = [NSIMG randomMonoIcon];
-		if ( [layer hasAssociatedValueForKey:@"icon"] ) icon = [layer associatedValueForKey:@"icon"];
-		else { icon = [[NSIMG randomMonoIcon]etched]; [layer setAssociatedValue:icon forKey:@"icon" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC]; }
-		[icon drawInRect:AZMakeSquare((NSP){NSMidX(layer.bounds), (.5 * layer.boundsWidth)}, .5 * layer.boundsWidth) fraction:1];//:[NSInsetRect(layer.bounds, 0, 10) fraction:1];// operation:NSCompositePlusDarker fraction:1];
+
+		NSIMG* icon = layer[@"icon"] ?: ^{ 
+						  layer[@"icon"] = ((NSIMG*)NSIMG.monoIcons[RAND_INT_VAL(0, NSIMG.monoIcons.count -1)]).etched;
+			 	 return (NSIMG*)layer[@"icon"];
+		}();
+		[icon drawInRect:AZMakeSquare((NSP){NSMidX(layer.bounds), (.5 * layer.boundsWidth)}, .5 * layer.boundsWidth) fraction:1];
+//		[[layer associatedValueForKey:@"icon" 
+//									 orSetTo:((NSIMG*)NSIMG.monoIcons[RAND_INT_VAL(0, NSIMG.monoIcons.count)]).etched policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC]
+//		 drawInRect:AZMakeSquare((NSP){NSMidX(layer.bounds), (.5 * layer.boundsWidth)}, .5 * layer.boundsWidth) fraction:1];
+					//:[NSInsetRect(layer.bounds, 0, 10) fraction:1];// operation:NSCompositePlusDarker fraction:1];
 //		[layer.name drawInRect:layer.bounds withFontNamed:@"Helvetica" andColor: WHITE];
 	}];
 
 }
+//	vcs 		= [WeakMutableArray new];
+
+//	genVC 		= [[AZGeneralViewController  alloc] initWithNibName: @"AZGeneralViewController"  bundle:nil];
+//	[vcs addObject:genVC.view];
+//	geoVC 		= [[AZGeometryViewController alloc] initWithNibName: @"AZGeometryViewController" bundle:nil];
+//	[vcs addObject:geoVC.view];
+//	uiVC  		= [[AZUIViewController	     alloc] initWithNibName: @"AZUIViewController"	     bundle:nil];
+//	[vcs addObject:uiVC.view];
+//	fileGrid 	= [[AZFileGridView 			 alloc]   initWithFrame: _targetView.bounds];
+//	[vcs addObject:fileGrid];
+
+//	 @{  @"General" : genVC.view, @"Geometry": geoVC.view, @"fileGridView" : fileGrid, @"UI" : uiVC.view }.mutableCopy;
+
+//	for ( NSV* view in vcs) {
+//		view.frame  = [_targetView bounds];		view.arMASK = NSSIZEABLE;
+//		view.hidden = YES;						[_targetView addSubview:view];
+//	}
+
+//	[fileGrid setHidden:NO];
+
+//	holdOntoViews.actionBlock = ^(id inSender){		semiWindow = [AZSemiResponderWindow new];
+//		semiWindow.semiResponder = self;			[semiWindow   makeKeyAndOrderFront:self];
+//	};
+
+//	self.genVC = [[AZGeneralViewController alloc]initWithNibName:@"AZGeneralViewController" bundle:nil];
+//	[__targetView addSubview: _genVC.view];
+//	_genVC.view.frame	= [__targetView frame];
+//	[[_targetView animator]swapSubs:newView];
+//	[[activeView animator] setHidden:YES];
+//	activeView = vcs[[sender titleOfSelectedItem]];
+//	[_targetView addSubview:activeView positioned:NSWindowAbove relativeTo:_targetView];
+//	[activeView setHidden:NO];
+//	[_activeView setNeedsDisplay:YES];
+//}
+
+
+
 	// A scroll layer by itself is rather uninteresting
 	// so we'll create a regular layer to provide content.
 //	self.scrollLayerContent = [CALayer layer];
@@ -187,7 +150,7 @@
 //	_scrollLayer.arMASK = CASIZEABLE;
 //	_scrollLayerContent.delegate = self;
 //	_scrollLayerContent.needsDisplayOnBoundsChange = YES;
-//	_scrollLayer.frame = mainView.bounds;
+//	_scrollLayer.frame = _targetView.bounds;
 //	_scrollLayer.arMASK = CASIZEABLE;
 	// Since its handy, we'll use the same content as our basic CALayer example
 	// This also shows that you can use the same delegate for multiple layers :)
@@ -199,7 +162,7 @@
 
 	// We set a frame for this layer. Sublayers coordinates are always in terms of the
 	// parent layer's bounds.
-//	scrollLayerContent.frame = mainView.bounds;
+//	scrollLayerContent.frame = _targetView.bounds;
 
 	// Now we add the configured layer to the scroll layer.
 //	[_scrollLayer addSublayer:_scrollLayerContent];
@@ -245,7 +208,7 @@
 
 //- (void) windowDidEndLiveResize:(NSNotification *)notification
 //{
-//	[mainView.subviews each:^(NSV* obj) { [[obj animator] setFrame:mainView.bounds]; }];
+//	[_targetView.subviews each:^(NSV* obj) { [[obj animator] setFrame:_targetView.bounds]; }];
 //}
 
 //- (IBAction)loadSecondNib:(id)sender
@@ -495,3 +458,34 @@ const CGFloat dash[2] = {100, 60};
 
 @end
 */
+
+
+
+
+//self.sublayerOrig + self.sublayerSpan  < self.superBounds  - self.lastLaySpan
+// || offset < NEG(self.firstLayerSpan))
+//__block CGF spanner = 0;	[scrollLayer.sublayers each:^(CAL* cur) {  spanner += oreo == VRT ? cur.boundsHeight : cur.boundsWidth; }]; return spanner;	}
+
+//		NSLog(@"fix:%@ superbounds:%0.0f off: %0.0f origin: %0.0f  span:%0.0f  first:%0.0f  last:%0.0f", stringForScrollFix(fixState), self.superBounds, _offset, self.sublayerOrig, self.sublayerSpan, self.firstLaySpan, self.lastLaySpan );
+//	fixState == LayerStateOK  		? [scrollLayer setNeedsLayout] : nil;
+//	if (fixState != LayerStateOK)
+//	if (fixState != LayerStateOK  && tries < 4) [self fixLayerState];
+
+//	NSLog(@"layer:%@", scrollLayer.debugLayerTree);
+//			obj.frame = AZMakeRect( (NSP){ oreo == VRT ? 0 : off, oreo == VRT ? off : 0 }, obj.boundsSize );
+//	_offset = 0;
+//	if (fixState != LayerStateOK)	self.fixState;
+//	[self fixLayerState];	// offset = 0;// [scrollLayer.sublayers each:^(CAL* obj) {	if (oreo == VRT) obj.frameMinY += offset; else obj.frameMinX += offset; }]; }]; if (_sublayerOrigin == 1) offset = 0;
+//- (void) setOffset:(CGF)o 			{ if ( offset 	   != o) { offset		= o; [scrollLayer setNeedsLayout]; }	 } //[scrollLayer performSelectorOnMainThread:@selector(setNeedsLayout) withObject:nil waitUntilDone:YES]; } }// [self fixLayerState]; } }
+//- (void) setOrientation:(AZOrient)o	{ if ( oreo        != o) { oreo      	= o; [scrollLayer setNeedsLayout]; }	 }
+//- (void) setLayerQueue:(NSMA*)q		{ if ( layerQueue  != q) { layerQueue 	= q; [self 		   fixLayerState]; }	 }
+
+//+ (NSSet*) keyPathsForValuesAffectingFixState { return [NSSet setWithObjects:@"layerQueue", @"offset", nil]; }
+
+//	if (oreo == VRT) 	newFirst.frameMinY =  _sublayerOrigin - newFirst.boundsHeight; else 	newFirst.frameMinX =  _sublayerOrigin - newFirst.boundsWidth;
+//	if (oreo == VRT)	newFirst.frameMinY = _sublayerOrigin + _sublayerSpan;	else	newFirst.frameMinX = _sublayerOrigin + _sublayerSpan;
+//- (void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+//{
+//	if (areSame(keyPath, @"") ) [scrollLayer setNeedsLayout];
+//	else [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+//}

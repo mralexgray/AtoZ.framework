@@ -42,3 +42,5 @@ libatoz/
 AtoZ/Views/README.md
 AtoZ.graffle/
 MailCore
+html
+AtoZ/html/*

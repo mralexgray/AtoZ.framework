@@ -9,7 +9,8 @@
 
 @interface AZPropellerView()
 @property (ASS) BOOL isSpinning;
-@property (NATOM, strong) NSIMG* badge, *spinner;
+@property (readonly) NSIMG* badgeTemplate;
+@property (strong) NSIMG* badge, *spinner;
 - (CAAnimation*)rotateAnimation;
 @end
 
@@ -23,50 +24,50 @@
 
 - (id)initWithFrame:(NSRect)frame andColor:(NSColor*)color;
 {
-	if (self != [super initWithFrame:frame]) return nil;
-	{
-		_badge =	_badgeView.image = [_badge tintedWithColor: color];
-		_color = color;
-	}
+    if (self != [super initWithFrame:frame]) return nil;
+	_badge =	_badgeView.image = [_badge tintedWithColor: color];
+	_color = color;
 	return self;
 }
 
-- (NSIMG*) badge {  return _badge = _badge ?: [NSImage frameworkImageNamed:@"AZPropellerBadge.png"]; }
+- (NSIMG*) badgeTemplate
+{
+  	return [NSImage frameworkImageNamed:@"AZPropellerBadge.png"];
+}
 
 - (id)initWithFrame:(NSRect)frame
 {
     if (self != [super initWithFrame:frame]) return nil;
 
-	
 	// create the NSImage view
 	self.badgeView = [[NSImageView alloc] initWithFrame:frame];
 	
 	// set it on the center of the parent container
 	_badgeView.center = self.getCenter;
-	_badgeView.image  = self.badge;
+	_badgeView.image  = self.badgeTemplate;
 
 	NSImage *spinner = [NSImage frameworkImageNamed:@"AZPropellerBar.png"];
 	
 	// create the progress image view
-	self.progressImage = [[NSImageView alloc] initWithFrame:frame];
+	self.progressImage = [NSImageView.alloc initWithFrame:frame];
 	// enable its layer for the core animation
 	self.progressImage.wantsLayer = YES;
 			
 	// set the center of the progress image
 	// to the center of the badge
-	[self.progressImage setCenter:[self.badgeView getCenterOnFrame]];
+	[self.progressImage setCenter:_badgeView.center];
 	
 	// set the spinner image in the NSImage View
 	[self.progressImage setImage:spinner];
 	// first add the progress image in the container
-	[self addSubview:self.progressImage];
-	
-	// then add the badge view
-	[self addSubview:self.badgeView];
+	self.subviews = @[_progressImage, _badgeView];
 	// spin
 	[self spin];
     return self;
 }
+
+- (void) toggle { if (_isSpinning) [self stop]; else [self spin]; }
+
 // -----------------------
 #pragma mark - Spinning
 // -----------------------
@@ -77,11 +78,13 @@
     
     // add the animation to the layer
     [self.progressImage.layer addAnimation:[self rotateAnimation] forKey:@"rotate"];
+	self.isSpinning = YES;
 }
 - (void)stop
 {
     // remove the animations from the layer
     [self.progressImage.layer removeAllAnimations];
+	self.isSpinning = NO;
 }
 // -----------------------
 #pragma mark - Rotate Animation

@@ -3,12 +3,12 @@
 	<data>
 		<int key="IBDocument.SystemTarget">1070</int>
 		<string key="IBDocument.SystemVersion">12C60</string>
-		<string key="IBDocument.InterfaceBuilderVersion">2844</string>
+		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
 		<string key="IBDocument.AppKitVersion">1187.34</string>
 		<string key="IBDocument.HIToolboxVersion">625.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">2844</string>
+			<string key="NS.object.0">3084</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>NSButtonCell</string>
@@ -33,7 +33,7 @@
 		</object>
 		<array class="NSMutableArray" key="IBDocument.RootObjects" id="1000">
 			<object class="NSCustomObject" id="1001">
-				<string key="NSClassName">AZColorViewController</string>
+				<string key="NSClassName">ColorVC</string>
 			</object>
 			<object class="NSCustomObject" id="1003">
 				<string key="NSClassName">FirstResponder</string>
@@ -42,7 +42,7 @@
 				<string key="NSClassName">NSApplication</string>
 			</object>
 			<object class="NSCustomView" id="1005">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">268</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="NSTabView" id="406743144">
@@ -50,7 +50,6 @@
 						<int key="NSvFlags">18</int>
 						<string key="NSFrameSize">{568, 342}</string>
 						<reference key="NSSuperview" ref="1005"/>
-						<reference key="NSNextKeyView" ref="187140476"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<array class="NSMutableArray" key="NSTabViewItems">
 							<object class="NSTabViewItem" id="188462198">
@@ -423,7 +422,8 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 												<int key="NSPeriodicDelay">400</int>
 												<int key="NSPeriodicInterval">75</int>
 											</object>
-											<reference key="NSSelectedCell" ref="48604206"/>
+											<int key="NSSelectedRow">-1</int>
+											<int key="NSSelectedCol">-1</int>
 											<reference key="NSBackgroundColor" ref="630706543"/>
 											<object class="NSColor" key="NSCellBackgroundColor" id="861055236">
 												<int key="NSColorSpace">3</int>
@@ -448,7 +448,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 															<int key="NSvFlags">256</int>
 															<string key="NSFrameSize">{354, 173}</string>
 															<reference key="NSSuperview" ref="670057812"/>
-															<reference key="NSNextKeyView"/>
+															<reference key="NSNextKeyView" ref="83955478"/>
 															<string key="NSReuseIdentifierKey">_NS:13</string>
 															<bool key="NSEnabled">YES</bool>
 															<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
@@ -650,7 +650,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 											</array>
 											<string key="NSFrame">{{197, 2}, {354, 173}}</string>
 											<reference key="NSSuperview" ref="187140476"/>
-											<reference key="NSNextKeyView" ref="83955478"/>
+											<reference key="NSNextKeyView" ref="670057812"/>
 											<string key="NSReuseIdentifierKey">_NS:9</string>
 											<int key="NSsFlags">133632</int>
 											<reference key="NSVScroller" ref="83955478"/>
@@ -695,7 +695,6 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 					</object>
 				</array>
 				<string key="NSFrameSize">{568, 342}</string>
-				<reference key="NSSuperview"/>
 				<reference key="NSNextKeyView" ref="406743144"/>
 				<string key="NSClassName">NSView</string>
 			</object>

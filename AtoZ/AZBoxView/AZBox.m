@@ -70,10 +70,15 @@
 //		gradient = [[NSGradient alloc] initWithStartingColor:c.color.brighter.brighter endingColor:c.color.darker.darker];
 		color = c.color;
 		image = [ c.image coloredWithColor:c.color.contrastingForegroundColor];
-		
-		//		NSImage *ci =  (selected_ ? [ c.image tintedWithColor:c.color] : c.image);
+//		NSImage *ci =  (selected_ ? [ c.image tintedWithColor:c.color] : c.image);
 		[image setScalesWhenResized: YES];
 	}
+	if ( [representedObject_ isKindOfClass:[NSIMG class]] ){
+		color = RANDOMCOLOR;
+		image = representedObject_;
+		[image setScalesWhenResized: YES];
+	}
+
 	//		self.color = [representedObject_ valueForKey:@"color"];
 	//	} else { NSColor *r = RANDOMCOLOR;
 	//		while ( (![r isRedish]) || ([r isBoring]) ) r = RANDOMCOLOR;

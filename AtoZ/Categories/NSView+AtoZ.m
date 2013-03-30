@@ -101,10 +101,10 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 
 - (void) observeFrameChangeUsingBlock:(void(^)(void))block
 {
+	self.postsFrameChangedNotifications  = YES;
 	self.postsBoundsChangedNotifications = YES;
-	[self observeName:NSViewFrameDidChangeNotification usingBlock:^(NSNotification *n) {
-		block();
-	}];
+	[@[NSViewFrameDidChangeNotification, NSViewBoundsDidChangeNotification] each:^(NSS* name) {
+	[self observeName:name usingBlock:^(NSNotification *n) {	block();	}];			}];
 }
 - (BOOL)isSubviewOfView:(NSView*) theView
 {
@@ -184,8 +184,8 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 	}
 	
 	CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"frame"];
-	[animation setFromValue:[NSValue valueWithRect:[self frame]]];
-	[animation setToValue:	[NSValue valueWithRect:newViewFrame]];
+	[animation setFromValue:AZVrect([self frame)]];
+	[animation setToValue:	AZVrect(newViewFrame)];
 
 //	CABasicAnimation *fader = [CABasicAnimation animationWithKeyPath:@"alphaValue"];
 //	[fader setFromValue:@0.f];
@@ -199,7 +199,7 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 
 	if (! [self valueForKeyPath:@"dictionary.visibleRect"] ) {
 		NSLog(@"avaing cvisirect: %@", NSStringFromRect([self frame]));
-		[self setValue:[NSValue valueWithRect:[self frame]] forKeyPath:@"dictionary.visibleRect"];
+		[self setValue:AZVrect([self frame)] forKeyPath:@"dictionary.visibleRect"];
 	}
 		NSRect newViewFrame = [self frame];
 		AZWindowPosition r = AZPositionOfRectInRect([[self window]frame], AZScreenFrameUnderMenu());
@@ -207,8 +207,8 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 		newViewFrame.size.width  += getOut.width;
 		newViewFrame.size.height += getOut.height;
 		CABasicAnimation *framer = [CABasicAnimation animationWithKeyPath:@"frame"];
-		[framer setFromValue:[NSValue valueWithRect:[self frame]]];
-		[framer setToValue:	[NSValue valueWithRect:newViewFrame]];
+		[framer setFromValue:AZVrect([self frame)]];
+		[framer setToValue:	AZVrect(newViewFrame)];
 		[self setAnimations:	@{ @"frame" : framer}];
 		[[self animator] setFrame:newViewFrame];
 }
@@ -454,12 +454,12 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 
 - (void)animateToFrame:(NSRect)newFrame
 {
-	[self playAnimationWithParameters:@{NSViewAnimationEndFrameKey: [NSValue valueWithRect:newFrame]}];
+	[self playAnimationWithParameters:@{NSViewAnimationEndFrameKey: AZVrect(newFrame)}];
 }
 
 - (void)fadeToFrame:(NSRect)newFrame
 {
-	[self playAnimationWithParameters:@{NSViewAnimationEndFrameKey: [NSValue valueWithRect:newFrame], NSViewAnimationEffectKey: [self isHidden] ?
+	[self playAnimationWithParameters:@{NSViewAnimationEndFrameKey: AZVrect(newFrame), NSViewAnimationEffectKey: [self isHidden] ?
 									   NSViewAnimationFadeInEffect : NSViewAnimationFadeOutEffect}];
 }
 
@@ -516,6 +516,13 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 }
 
 /////[i convertPoint: [[i window] convertScreenToBase:[NSEvent mouseLocation]] fromView: nil ]
+- (NSP)windowPoint 
+{
+	NSPoint globalLocation 	= NSE.mouseLocation;
+  	NSPoint windowLocation 	= [self.window convertScreenToBase:globalLocation];
+  	NSPoint viewLocation 		= [self convertPoint: windowLocation fromView: nil];
+	return viewLocation;
+}
 
 - (NSPoint) localPoint;
 {

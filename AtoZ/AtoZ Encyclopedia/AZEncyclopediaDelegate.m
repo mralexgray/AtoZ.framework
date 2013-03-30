@@ -131,11 +131,11 @@
 		//
 		//
 		//
-		//		[self.controlWindow setValue:[NSValue valueWithRect: underbar] forKeyPath:@"dictionary.visibleRect"];
+		//		[self.controlWindow setValue:AZVrect( underbar) forKeyPath:@"dictionary.visibleRect"];
 		//		NSRect zerobar = underbar;
 		//		zerobar.size.height = 0;
 		//		zerobar.origin.y += underbar.size.height;
-		//		[self.controlWindow setValue:[NSValue valueWithRect: zerobar] forKeyPath:@"dictionary.hiddenRect"];
+		//		[self.controlWindow setValue:AZVrect( zerobar) forKeyPath:@"dictionary.hiddenRect"];
 		//
 		//		[self.controlWindow setContentSize:underbar.size display:YES animate:NO];
 		//		[self.controlWindow setAlphaValue:0];
@@ -326,7 +326,7 @@
 			//		NSLog(@"dict %@", dict.description);
 	}
 
-	[self createNoteWithDictionary:@{@"title":@"wasa", @"frame": [NSValue valueWithRect:NSMakeRect( 200, 669,404, 77)] }];
+	[self createNoteWithDictionary:@{@"title":@"wasa", @"frame": AZVrect(NSMakeRect( 200, 669,404, 77)) }];
 }
 - (void) saveNotes {
 	NSMutableArray *array = [NSMutableArray array];

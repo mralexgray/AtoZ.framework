@@ -6,25 +6,20 @@
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 //
 
-#import "AZUIViewController.h"
+#import "UIVC.h"
 
-@interface AZUIViewController ()
+@implementation UIVC
 
-@end
-
-@implementation AZUIViewController
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (IBAction)showXFLDragDrop:(id)sender;
 {
-	self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-	if (self) {
-		// Initialization code here.
-	}
-	
-	return self;
+	self.xl = [XLDragDropView.alloc initWithFrame:quadrant(self.view.frame, AZTopLeftQuad) normalBackgroundImageName:@"1.pdf"];
+	_xl.delegate = (id)self;
+	_xl.highlightedBackgroundImageName 	= [[NSIMG randomIcon]name];//@"2.pdf";
+	_xl.acceptedBackgroundImageName 	= [[NSIMG randomIcon]name];// @"3.pdf";
+	_xl.desiredSuffixes 				= @[@"png", @"pdf"];
+	[self.view addSubview:_xl];
+	// after initialization. Then implement delegate methods in your controller class.	// Insert
 }
-
-
 
 - (IBAction) doSegmentStuff: (id)sender
 {
@@ -35,7 +30,6 @@
 		default: break;
 	}
 }
-
 - (void) setProgress:(double)progress
 {
 	[@[_spinner, _bar] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -52,15 +46,14 @@
 	}];
 	_spinning = spinning;
 }
-- (IBAction)setViewColor:(id)sender
+- (void)setBaseColor:(NSColor *)baseColor
 {
-	[(BGTheme*)(BGHUDView*)self.windowView.theme setBaseColor:[sender color]];
+	_baseColor = baseColor;
+	[((BGTheme*)((BGHUDView*)_windowView).theme) setBaseColor:_baseColor];
 //	self.windowView.needsDisplay = YES;
 //	[((BGHUDView*)[[[self view]window]contentView]).theme setBaseColor:self.colorWell.color];
 //	[[[[self view ]window] contentView]setNeedsDisplay:YES];
 }
-
-
 
 - (void) awakeFromNib //:(NSNotification*) aNotification
 {

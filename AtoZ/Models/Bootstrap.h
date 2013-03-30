@@ -23,10 +23,6 @@
 
 
 
-@property            (strong) 	BKSenderBlock 	stringDelegate;
-
-//- (id)initWithUserStyles:(NSS*)css script:(NSS*)script andInnerHTML:(NSS*) html  calling:(BKSenderBlock)block;
-+ (void) initWithUserStyle:(Asset*)css script:(Asset*)script andInnerHTML:(NSS*) html  calling:(BKSenderBlock)block;
 
 @end
 

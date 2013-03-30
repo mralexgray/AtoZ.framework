@@ -29,14 +29,14 @@ NSR AZTransformRect (NSRect target, NSRect model){
 
 BOOL AZEqualRects(NSR r1, NSR r2){ return NSEqualRects(r1,r2); }
 
-const CGP AZAnchorTop		  = (CGP) { .5, 1 };
-const CGP AZAnchorBottom	  = (CGP) { .5, 0 };
-const CGP AZAnchorRight		  = (CGP) {  1,.5 };
-const CGP AZAnchorLeft 		  = (CGP) {  0,.5 };
-const CGP AZAnchorTopLeft	  = (CGP) { .5,.5 };  //  0, 1 };
-const CGP AZAnchorBottomLeft  = (CGP) { .5,.5 };  // 0, 0 };
-const CGP AZAnchorTopRight	= (CGP) { .5,.5 };  // 1, 1 };
-const CGP AZAnchorBottomRight = (CGP) { .5,.5 };  //1, 0 };
+const CGP AZAnchorTop		  		= (CGP) { .5, 1 };
+const CGP AZAnchorBottom	  		= (CGP) { .5, 0 };
+const CGP AZAnchorRight		  	= (CGP) {  1,.5 };
+const CGP AZAnchorLeft 		  	= (CGP) {  0,.5 };
+const CGP AZAnchorTopLeft	  	= (CGP) {  0, 1 };  //  0, 1 };
+const CGP AZAnchorBottomLeft  = (CGP) {  0, 0 };  // 0, 0 };
+const CGP AZAnchorTopRight		= (CGP) {  1, 1 };  // 1, 1 };
+const CGP AZAnchorBottomRight = (CGP) {  1, 0 };  //1, 0 };
 
 
 AZPOS AZPositionAtPerimeterInRect(NSR edgeBox, NSR outer)
@@ -51,18 +51,12 @@ AZPOS AZPositionAtPerimeterInRect(NSR edgeBox, NSR outer)
 	return p;
 }
 
-CGP AZAnchorPointForPosition( AZPOS pos){
-
-	return pos == AZPositionLeft  		? AZAnchorLeft
-		 : pos == AZPositionTop			? AZAnchorTop
-		 : pos == AZPositionBottom 		? AZAnchorBottom
-		 : pos == AZPositionRight  		? AZAnchorRight
-		 : pos == AZPositionTopLeft		? AZAnchorTopLeft
-		 : pos == AZPositionBottomLeft 	? AZAnchorBottomLeft
-	 	 : pos == AZPositionTopRight	? AZAnchorTopRight
-		 : 								  AZAnchorBottomRight;  //pos == AZPositionRight
-
-
+CGP AZAnchorPointForPosition( AZPOS pos)
+{
+	return 	pos == AZPositionLeft  		? 	AZAnchorLeft		: pos == AZPositionTop				? 	AZAnchorTop
+			 : pos == AZPositionBottom 		? 	AZAnchorBottom		: pos == AZPositionRight  			? 	AZAnchorRight
+			 : pos == AZPositionTopLeft		? 	AZAnchorTopLeft	: pos == AZPositionBottomLeft 		? 	AZAnchorBottomLeft
+			 : pos == AZPositionTopRight	?	AZAnchorTopRight	: AZAnchorBottomRight;
 }
 
 NSR	AZRandomRectinRect(CGRect rect){
@@ -212,23 +206,78 @@ AZPOS AZPositionOpposite(AZPOS position){
 	}
 }
 
+
+
+AZPOS AZPositionOfRectAtOffsetInsidePerimeterOfRect(NSR inner, CGF offset, NSR outer) {
+	
+	NSSZ outsz = outer.size; AZPOS anchor;
+	anchor =
+	outsz.width == offset 								? AZPositionBottomRight :
+	offset == 0 || offset == AZPerimeter(outer) 	? AZPositionBottomLeft	:
+	outsz.width + outsz.height == offset				? AZPositionTopRight				   :
+	offset == AZPerimeter(outer) - outsz.height  ? AZPositionTopLeft     :
+	outsz.width > offset //? offset < inner.size.width 
+								//? AZPositionBottomLeft 
+								//: offset > outsz.width - inner.size.width 
+								//? AZPositionBottomRight 
+								? AZPositionBottom 
+								:
+	outsz.width + outsz.height > offset //? offset < outsz.width + inner.size.height 
+													//? AZPositionBottomRight 
+													//: offset > AZPerimeter(outer)/2 - inner.size.height 
+													//? AZPositionTopRight 
+													? AZPositionRight
+													:
+	AZPerimeter(outer) - outsz.height > offset //? AZPerimeter(outer)/2 + inner.size.width > offset 
+														  //? AZPositionTopRight 
+														  //: AZPerimeter(outer) - outsz.height - inner.size.width > offset 
+														  //? AZPositionTopLeft
+														  ? AZPositionTop
+														  :
+	AZPerimeter(outer) - inner.size.height > offset //? AZPositionBottomLeft
+																	//: AZPerimeter(outer) - outsz.height + inner.size.height > offset 
+																	//? AZPositionTopLeft
+																	? AZPositionLeft : AZPositionAutomatic;
+	return anchor;
+}
 AZPOS AZPositionOfEdgeAtOffsetAlongPerimeterOfRect(CGF offset, NSR r) {
 
-	NSSZ sz = r.size; AZPOS anchor;
-	if 		( sz.width > offset ) 					anchor = AZPositionBottom;
-	else if ( sz.width + sz.height > offset ) 		anchor = AZPositionRight;
-	else if ( AZPerimeter(r) - sz.height > offset ) anchor = AZPositionTop;
+	NSSZ rsz = r.size; AZPOS anchor;
+	
+	if 		  ( rsz.width > offset ) 					anchor = AZPositionBottom;
+	else if ( rsz.width + rsz.height > offset ) 		anchor = AZPositionRight;
+	else if ( AZPerimeter(r) - rsz.height > offset ) anchor = AZPositionTop;
 	else 											anchor = AZPositionLeft;
 	return anchor;
 }
+
+
 CGP AZPointAtOffsetAlongPerimeterOfRect(CGF offset, NSR r)
 {
-	NSSZ sz = r.size; NSP anchor; CGF offsetOnSide;
-	if 		( sz.width > offset ) 					anchor = (NSP) { offset, 				   				 0};
-	else if ( sz.width + sz.height > offset ) 		anchor = (NSP) { sz.width, 				 offset - sz.width};
+	NSSZ sz = r.size; 
+	NSP anchor; 
+	CGF offsetOnSide;
+	if 		  ( sz.width > offset )						anchor = (NSP) { offset,	  0};   // along bottom;
+	else if ( sz.width + sz.height > offset ) 		anchor = (NSP) { sz.width, 	offset - sz.width}; // along right
 	else if ( AZPerimeter(r) - sz.height > offset ) anchor = (NSP) { ABS( sz.width - (offset - sz.width - sz.height)),  sz.height};
 	else 											anchor = (NSP) { 0,				   AZPerimeter(r) - offset};
 	return anchor;
+}
+
+CGP AZPointAtOffsetAlongPerimeterWithRoundRadius(CGF offset, NSR r, CGF radius)
+{
+//	CGF totes = AZPermineterWithRoundRadius( r, radius);
+//	CGF totalNoRad = AZPerimeter(r);
+//	CGF Di	ameter = totalNoRad = tot
+//	NSSZ sz = r.size; 
+//	NSP anchor; 
+//	CGF offsetOnSide;
+//	if 		  ( sz.width > offset )						anchor = (NSP) { offset,	  0};   // along bottom;
+//else if ( sz.width + sz.height > offset ) 		anchor = (NSP) { sz.width, 	offset - sz.width}; // along right
+//else if ( AZPerimeter(r) - sz.height > offset ) anchor = (NSP) { ABS( sz.width - (offset - sz.width - sz.height)),  sz.height};
+//else 											anchor = (NSP) { 0,				   AZPerimeter(r) - offset};
+//return anchor;
+
 //	CG totes = AZPerimeter (r);  //  for example 60 ... 10 x 20 box
 //	CGF cross = offset / totes;  //  offset of 10.   .16;
 //	CGF xRat  = r.size.width / (totes/2);
@@ -243,7 +292,7 @@ CGFloat AZPerimeter (NSR rect) {
 	return ( (2* rect.size.width) + (2 * rect.size.height) );
 }
 
-CGFloat AZPermineterWithRoundRadius (NSR rect, CGFloat radius) {
+CGFloat AZPerimeterWithRoundRadius (NSR rect, CGFloat radius) {
 	return  ( AZPerimeter(rect) - ( ( 8 - (   (2 * pi) * radius)   )));
 }
 NSR AZScreenFrameUnderMenu(void) { return AZRectTrimmedOnTop( [[NSScreen mainScreen]frame], AZMenuBarThickness()); }
@@ -1188,8 +1237,8 @@ AZOrient deltaDirectionOfPoints(NSPoint a, NSPoint b){
 AZPOS AZPositionOfRectInRect(NSR rect, NSR outer ) {
 
 	return NSEqualPoints( rect.origin, outer.origin) 			? AZPositionBottomLeft 	:
-		   NSEqualPoints( AZTopLeftPoint(rect), AZTopLeftPoint(outer)) ||
-		   (rect.origin.x == outer.origin.x && (rect.origin.y +NSHeight(rect) ) == NSHeight(outer))
+		   	 NSEqualPoints( AZTopLeftPoint(rect), AZTopLeftPoint(outer)) ||
+							  (rect.origin.x == outer.origin.x && (rect.origin.y +NSHeight(rect) ) == NSHeight(outer))
 		   	? AZPositionTopLeft		:
 		   NSEqualPoints( AZTopRightPoint(rect), AZTopRightPoint(outer))	? AZPositionTopRight	:
 		   NSEqualPoints( AZBotRightPoint(rect), AZBotRightPoint(outer))	? AZPositionBottomRight :
@@ -1242,6 +1291,7 @@ AZPOS AZOutsideEdgeOfRectInRect (NSR rect, NSR outer ) {
 
 	test = AZDistanceFromPoint( myCenter, (NSPoint) { myCenter.x, NSHeight(outer) }); //testright
 	if  ( test < minDist) { 	minDist = test; winner = AZPositionTop; }
+	
 
 	return  winner;
 }
@@ -1416,8 +1466,8 @@ NSSet*			DifferenceOfTwoRects( const NSRect a, const NSRect b )
 		{
 			// no intersection, so result is the two input rects
 			
-			[result addObject:[NSValue valueWithRect:a]];
-			[result addObject:[NSValue valueWithRect:b]];
+			[result addObject:AZVrect(a)];
+			[result addObject:AZVrect(b)];
 		}
 		else
 		{
@@ -1458,16 +1508,16 @@ NSSet*				SubtractTwoRects( const NSRect a, const NSRect b )
 	// add any non empty rects to the result
 	
 	if ( rr.size.width > 0 && rr.size.height > 0 )
-		[result addObject:[NSValue valueWithRect:rr]];
+		[result addObject:AZVrect(rr)];
 		
 	if ( rl.size.width > 0 && rl.size.height > 0 )
-		[result addObject:[NSValue valueWithRect:rl]];
+		[result addObject:AZVrect(rl)];
 		
 	if ( rt.size.width > 0 && rt.size.height > 0 )
-		[result addObject:[NSValue valueWithRect:rt]];
+		[result addObject:AZVrect(rt)];
 		
 	if ( rb.size.width > 0 && rb.size.height > 0 )
-		[result addObject:[NSValue valueWithRect:rb]];
+		[result addObject:AZVrect(rb)];
 
 	return result;
 }

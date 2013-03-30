@@ -8,8 +8,19 @@
 
 #import "AZCIFilters.h"
 #import"NSError+AtoZ.h"
+
+
+static NSA *_filters;
 static NSMutableDictionary *classToKernel = nil;
 
+
+@implementation  AZFilters
+
+
+- (NSA*)filterNames {
+	return  _filters = _filters ?: @[ @"CIAdditionCompositing", @"CIAffineTransform", @"CICheckerboardGenerator", @"CIColorBlendMode", @"CIColorBurnBlendMode", @"CIColorControls", @"CIColorCube", @"CIColorDodgeBlendMode", @"CIColorInvert", @"CIColorMatrix", @"CIColorMonochrome", @"CIConstantColorGenerator", @"CICrop", @"CIDarkenBlendMode", @"CIDifferenceBlendMode", @"CIExclusionBlendMode", @"CIExposureAdjust", @"CIFalseColor", @"CIGammaAdjust", @"CIGaussianGradient", @"CIHardLightBlendMode", @"CIHighlightShadowAdjust", @"CIHueAdjust", @"CIHueBlendMode", @"CILightenBlendMode", @"CILinearGradient", @"CILuminosityBlendMode", @"CIMaximumCompositing", @"CIMinimumCompositing", @"CIMultiplyBlendMode", @"CIMultiplyCompositing", @"CIOverlayBlendMode", @"CIRadialGradient", @"CISaturationBlendMode", @"CIScreenBlendMode", @"CISepiaTone", @"CISoftLightBlendMode", @"CISourceAtopCompositing", @"CISourceInCompositing", @"CISourceOutCompositing", @"CISourceOverCompositing", @"CIStraightenFilter", @"CIStripesGenerator", @"CITemperatureAndTint", @"CIToneCurve", @"CIVibrance", @"CIVignette", @"CIWhitePointAdjust", @"CIFaceBalance"];
+}
+@end
 @implementation AZIrisOpenFilter
 
 /*

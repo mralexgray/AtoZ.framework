@@ -458,10 +458,10 @@
 			CGPathCloseSubpath(path);
 
 		immutablePath = CGPathCreateCopy(path);
-		CGPathRelease(path);
+//		CGPathRelease(path);
 	}
 
-	return immutablePath;
+	return CGPathCreateCopy(immutablePath);// immutablePath;
 }
 //	return [self newQuartzPath];
 /*	// Need to begin a path here.

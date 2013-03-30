@@ -18,6 +18,13 @@
 
 @interface NSString (AtoZ)
 
+- (NSS*) justifyRight:(NSUI)col;
+- (NSS*) unescapeUnicodeString;
+- (NSS*) escapeUnicodeString;
+- (NSS*) w_NP_String:(NSS*)string;
+- (NSS*) w_String:(NSS*)string;
+- (NSS*) withString:(NSS*)string;
+
 + (NSS*) stringFromArray:(NSA*)a;
 
 - (NSString *)JSONRepresentation;

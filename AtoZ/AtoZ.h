@@ -79,24 +79,30 @@
 #import <PLWeakCompatibility/PLWeakCompatibilityStubs.h>
 #import <Rebel/Rebel.h>
 #import <FunSize/FunSize.h>
-//#import <DrawKit/DKDrawKit.h>
+#import <DrawKit/DKDrawKit.h>
 #import <MapKit/MapKit.h>
 #import <PhFacebook/PhFacebook.h>
+#import <Lumberjack/Lumberjack.h>
 
+//typedef void(^log)(NSS*s);
 
 //#import <KSHTMLWriterFramework/KS>
 
+// Log levels: off, error, warn, info, verbose
+static const int ddLogLevel = LOG_LEVEL_VERBOSE;
+
 
 #import <Zangetsu/Zangetsu.h>
-#import <BlocksKit/BlocksKit.h>
+//#import <BlocksKit/BlocksKit.h>
 #import <CocoaPuffs/CocoaPuffs.h>
 #import <AtoZBezierPath/AtoZBezierPath.h>
 #import <AtoZAppKit/BGHUDAppKit.h>
 //#import <Lumberjack/Lumberjack.h>
 
-#import <AtoZ/BaseModel.h>
-#import "AutoCoding.h"
-#import "HRCoder.h"
+//#import <AtoZ/BaseModel.h>
+//#import "AutoCoding.h"
+//#import "HRCoder.h"
+#import "BaseModel.h"
 
 #import "F.h"
 //#import "MArray.h"
@@ -238,6 +244,7 @@
 	// Categories
 #import "NSDate+AtoZ.h"
 #import "NSTask+OneLineTasksWithOutput.h"
+#import "NSOutlineView+AtoZ.h"
 
 //#import "NSManagedObjectContext+EasyFetch.h"
 #import "NSEvent+AtoZ.h"
@@ -337,6 +344,8 @@
 //#import "HTMLNode.h"
 
 // Views
+
+#import "XLDragDropView.h"
 #import "AZPrismView.h"
 #import "CalcModel.h"
 #import "AZMedallionView.h"
@@ -461,7 +470,7 @@ extern NSString *const AtoZDockSortedUpdated;
 <GrowlApplicationBridgeDelegate>
 #endif
 
-+ (NSIMG*)imageNamed:(NSString *)name;
+//+ (NSIMG*)imageNamed:(NSString *)name;
 
 //@property (NATOM, STRNG) SoundManager *sManager;
 

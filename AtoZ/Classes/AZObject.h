@@ -21,3 +21,11 @@
 @property (nonatomic, retain) AZObject *sharedInstance;
 @property (nonatomic, retain) NSString *uniqueID;
 @end
+
+@interface NSObject (NSCoding)
+
+- (void)autoEncodeWithCoder: (NSCoder *)coder;
+- (void)autoDecode:(NSCoder *)coder;
+- (NSDictionary *)properties;
+- (NSDictionary *) autoEncodedProperties;
+@end

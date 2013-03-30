@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface AZColorViewController : NSViewController
+@interface ColorVC : NSViewController
 @property (nonatomic, retain) NSA *palette;
 @property (assign) IBOutlet NSBUTT *reloadPalette;
 @property IBOutlet AtoZGridViewAuto *autoGrid;

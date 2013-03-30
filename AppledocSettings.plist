@@ -2,28 +2,59 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>--project-name</key>
-		<string>AtoZ.Framework</string>
-
+	<key>--project-version</key>
+	<string>${BUILD_VERSION} </string>
+	<key>--docset-bundle-name</key>
+	<string>AtoZ</string>
+	<key>--docset-desc</key>
+	<string>Zhuzhiness in the form of a framework.</string>
+	<key>--exit-threshold</key>
+	<integer>2</integer>
 	<key>--input</key>
-		<array>
-			<string>./AtoZ</string>
-			<string>./Frameworks</string>
-		</array>
-	<!-- <key>--ignore</key> -->
-		<!-- <array> -->
-		<!-- </array> -->
-	<!-- <key>--output</key> -->
- 		<!-- <string>./Documentation</string> -->
-	<!-- <key>--docset-feed-url</key> -->
-		<!-- <string>http://mrgray.com/docs/%DOCSETATOMFILENAME</string> -->
-	<!-- <key>--docset-package-url</key> -->
-	 	<!-- <string>http://mrgray.com/docs/%DOCSETPACKAGEFILENAME</string> -->
-	<!-- <key>--publish-docset</key> -->
-		<!-- <true/> -->
-	<!-- <key>--verbose</key> -->
-		<!-- <integer>4</integer> -->
-	<!-- <key>--logformat</key> -->
-		<!-- <integer>1</integer> -->
+	<array>
+		<string>AtoZ/Categories</string>
+		<string>AtoZ/AZGeometry</string>
+		<string>AtoZ/Views</string>
+		<string>AtoZ/Core</string>
+		<string>AtoZ/Classes</string>
+	</array>
+	<key>--no-create-docset</key>
+	<false/>
+	<key>--merge-categories</key>
+	<true/>
+	<key>--keep-undocumented-members</key>
+	<true/>
+	<key>--search-undocumented-doc</key>
+	<true/>
+	<key>--keep-intermediate-files</key>
+	<true/>
+	<key>--keep-undocumented-objects</key>
+	<true/>
+	<key>--create-html</key>
+	<true/>
+	<key>--publish-docset</key>
+	<true/>
+	<key>--install-docset</key>
+	<true/>
+	<key>--create-docset</key>
+	<true/>
+	<key>--project-company</key>
+	<string>mrgray.com</string>
+	<key>--output</key>
+	<string>/mg/docs/atoz</string>
+	<key>--docset-feed-url</key>
+	<string>http://mrgray.com/docs/atoz/%DOCSETATOMFILENAME</string>
+	<key>--docset-package-url</key>
+	<string>http://mrgray.com/docs/atoz/%DOCSETPACKAGEFILENAME</string>
+	<key>--project-name</key>
+	<string>AtoZ.Framework</string>
+	<key>--ignore</key>
+	<array>
+		<string>Frameworks</string>
+	</array>
+	<key>--verbose</key>
+	<integer>5</integer>
+	<key>--logformat</key>
+	<integer>1</integer>
 </dict>
 </plist>

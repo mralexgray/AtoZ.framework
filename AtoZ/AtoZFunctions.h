@@ -181,6 +181,9 @@ BOOL areSameThenDo(id a, id b, VoidBlock doBlock);
 id LogAndReturn(id toLog); //= ^(id toLog) { AZLOG(toLog); return toLog; };
 id LogAndReturnWithCaller(id toLog, SEL caller);
 
+extern void  LOGWARN (NSString *format, ...);
+
+
 
 //void (^now)(void) = ^ {	NSDate *date = [NSDate date]; NSLog(@"The date and time is %@", date); };
 
@@ -188,6 +191,7 @@ id LogAndReturnWithCaller(id toLog, SEL caller);
 
 NSS* stringForPosition(AZWindowPosition enumVal);
 NSS* AZStringFromRect(NSRect rect);
+NSString* AZStringFromPoint(NSP p);
 NSA* ApplicationPathsInDirectory(NSString *searchPath);
 
 void ApplicationsInDirectory(NSString *searchPath, NSMutableArray *applications);

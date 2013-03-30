@@ -1,3 +1,31 @@
+
+#pragma mark - Color Logging
+
+/*	Foreground color:
+		Insert the ESCAPE_SEQ into your string, followed by "fg124,12,255;" where r=124, g=12, b=255.
+	Background color:
+		Insert the ESCAPE_SEQ into your string, followed by "bg12,24,36;" where r=12, g=24, b=36.
+	Reset the foreground color (to default value):
+		Insert the ESCAPE_SEQ into your string, followed by "fg;"
+	Reset the background color (to default value):
+		Insert the ESCAPE_SEQ into your string, followed by "bg;"
+	Reset the foreground and background color (to default values) in one operation:
+		Insert the ESCAPE_SEQ into your string, followed by ";"
+*/
+#define XCODE_COLORS_ESCAPE_MAC @"\033["
+#define XCODE_COLORS_ESCAPE_IOS @"\xC2\xA0["
+
+#if TARGET_OS_IPHONE
+#define XCODE_COLORS_ESCAPE  XCODE_COLORS_ESCAPE_IOS
+#else
+#define XCODE_COLORS_ESCAPE  XCODE_COLORS_ESCAPE_MAC
+#endif
+
+#define XCODE_COLORS_RESET_FG  XCODE_COLORS_ESCAPE @"fg;" // Clear any foreground color
+#define XCODE_COLORS_RESET_BG  XCODE_COLORS_ESCAPE @"bg;" // Clear any background color
+#define XCODE_COLORS_RESET     XCODE_COLORS_ESCAPE @";"   // Clear any foreground or background color
+
+
 #pragma mark - GLOBAL CONSTANTS
 
 
@@ -17,7 +45,7 @@
 #define CASCRLL CAScrollLayer
 //#define CASHL CAShapeLayer
 #define CASL CAShapeLayer
-
+#define CATLNH CATextLayerNoHit
 #define CAT CATransaction
 #define CAT3 CATransform3D
 #define CAT3D CATransform3D
@@ -28,6 +56,7 @@
 
 #define CATRANNY CATransition
 #define CFTI CFTimeInterval
+#define CGCR CGColorRef
 #define CGF CGFloat
 #define CGP CGPoint
 #define CGPR CGPathRef
@@ -35,6 +64,7 @@
 #define CGS CGSize
 #define CGSZ CGSize
 #define CIF CIFilter
+
 #define IBO IBOutlet
 #define IBA IBAction
 #define ID3D CATransform3DIdentity
@@ -67,7 +97,7 @@
 #define NSBIR NSBitmapImageRep
 #define NSBLO NSBlockOperation
 
-
+#define NSCOMPR NSComparisonResult
 #define NSDE NSDirectoryEnumerator
 #define NSGC NSGraphicsContext
 #define NSC NSColor
@@ -143,6 +173,7 @@
 #define AZTEMPD NSTemporaryDirectory()
 
 #define RNG AZRange
+#define SHAREDLOG [DDTTYLogger sharedInstance]
 
 //#define ID \(NSObject*\)
 #define lMGR layoutManager
@@ -176,7 +207,9 @@
 #define rV rectValue
 #define fV floatValue
 #define loM layoutManager
-
+#define subs sublayers
+#define zPos zPosition
+#define NSZeroRange NSMakeRange(0,0)
 
 #define REQ RouteRequest
 #define RES RouteResponse
@@ -220,9 +253,15 @@ AZToStringFromTypeAndValue(@encode(typeof(_X_)), &_Y_);})
 #define pBCN postsBoundsChangedNotifications
 #define pFCN postsFrameChangedNotifications
 
+
 #define NSKVOBEFOREAFTER NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld
+#define KVONEW NSKeyValueObservingOptionNew
+#define KVOOLD NSKeyValueObservingOptionOld
+
+
 #define NSEVENTLOCALMASK NSEvent addLocalMonitorForEventsMatchingMask
 #define NSEVENTGLOBALMASK NSEvent addGlobalMonitorForEventsMatchingMask
+
 
 #define MOUSEDRAG NSLeftMouseDraggedMask
 #define MOUSEUP NSLeftMouseUpMask
@@ -604,6 +643,7 @@ attr1 relativeTo:relName attribute:attr2 scale:scl offset:off]
 
 //#define $#(A)				((NSString *)[NSString string
 #define $(...)				((NSString *)[NSString stringWithFormat:__VA_ARGS__,nil])
+#define $UTF8(A)			((NSString *)[NSS stringWithUTF8String:A])
 #define $array(...)  		((NSArray *)[NSArray arrayWithObjects:__VA_ARGS__,nil])
 #define $set(...)		 	((NSSet *)[NSSet setWithObjects:__VA_ARGS__,nil])
 #define $map(...)	 		((NSDictionary *)[NSDictionary dictionaryWithObjectsAndKeys:__VA_ARGS__,nil])
@@ -613,7 +653,8 @@ attr1 relativeTo:relName attribute:attr2 scale:scl offset:off]
 #define $doubles(...) 		[NSArray arrayWithDoubles:__VA_ARGS__,MAXFLOAT]
 #define $words(...)   		[[@#__VA_ARGS__ splitByComma] trimmedStrings]
 
-#define ARRAYSET(A) [NSSet setWithArray:A]
+
+#define $ARRAYSET(A) [NSSet setWithArray:A]
 
 //#define $concat(A,...) { A = [A arrayByAddingObjectsFromArray:((NSArray *)[NSArray arrayWithObjects:__VA_ARGS__,nil])]; }
 // s stringByReplacingOccurrencesOfString:@"fff	" withString:@"%%%%"] )
@@ -743,6 +784,11 @@ typedef NS_ENUM(NSUI, AZDockSort)	{	AZDockSortNatural,AZDockSortColor,AZDockSort
 typedef enum  {	AZSearchByCategory,AZSearchByColor,AZSearchByName,AZSearchByRecent		} AZSearchBy;
 typedef NS_ENUM(NSUI, AZSlideState)	  {	AZIn, AZOut, AZToggle									};
 typedef NS_ENUM(NSUI, AZMenuPosition) { AZMenuN,AZMenuS,AZMenuE,AZMenuW,AZMenuPositionCount						};
+typedef NS_ENUM(NSUI, AZTrackPosition) { AZTrackN,AZTrackS,AZTrackE,AZTrackW,AZTrackPositionCount				};
+
+#define AZTW AZTrackingWindow
+#define iC iCarousel
+
 //#ifndef ATOZTOUCH
 typedef NS_ENUM(NSUI, AZWindowPosition) {
 	AZPositionLeft 			= NSMinXEdge, // 0  NSDrawer
@@ -844,16 +890,60 @@ extern
 
 #define nAZColorWellChanged @"AtoZColorWellChangedColors"
 
+//static NSString* MakeCritical(NSString *format,...) {
+//   NSString *string;
+//   va_list   arguments;
+//	
+//   va_start(arguments,format);
+//   string = $(format,arguments);
+//   va_end(arguments);
+//	return string;
+//}
+//
+//#define CRITICAL(A) MakeCritical(XCODE_COLORS_ESCAPE @"fg218,147,0;" @"%@" XCODE_COLORS_RESET, A)
+//
+
 
 
 //NS_INLINE void _AZSimpleLog(const char *file, int lineNumber, const char *funcName, NSString *format,...);
-NS_INLINE void _AZSimpleLog( const char *file, int lineNumber, const char *funcName, NSString *format, ... )
-{
+FOUNDATION_EXPORT void _AZSimpleLog( const char *file, int lineNumber, const char *funcName, NSString *format, ... );
+/*{
+	static NSA* colors;  colors = colors ?: NSC.randomPalette;
+	static NSUI idx = 0;
 	va_list   argList;
 	va_start (argList, format);
-	NSString *path  	= [[NSString stringWithUTF8String:file]lastPathComponent];
-	NSString *message 	= [NSString.alloc initWithFormat:format arguments:argList];
-	NSString *toLog 	= [NSString stringWithFormat:@"[%s]:%i %s \n", [path UTF8String], lineNumber, [message UTF8String]];
+	NSS *path  	= [$UTF8(file) lastPathComponent];
+	NSS *mess   = [NSString.alloc initWithFormat:format arguments:argList];
+//	NSS *justinfo = $(@"[%s]:%i",path.UTF8String, lineNumber);
+//	NSS *info   = [NSString stringWithFormat:@"word:%-11s rank:%u", [word UTF8String], rank];
+	NSS *info 	= $( XCODE_COLORS_ESCAPE @"fg82,82,82;" @"  [%s]" XCODE_COLORS_RESET
+						 XCODE_COLORS_ESCAPE @"fg140,140,140;" @":%i" XCODE_COLORS_RESET	, path.UTF8String, lineNumber);
+	int max 			= 130;
+	int cutTo			= 22;
+	BOOL longer 	= mess.length > max;
+	NSC *c = [colors normal:idx]; 
+	NSS *cs = $(@"%i%i%i",(int)c.redComponent, (int)c.greenComponent, (int)c.blueComponent); idx++;
+	NSS* nextLine 	= longer ? $(XCODE_COLORS_ESCAPE @"fg%@;" XCODE_COLORS_RESET @"\n\t%@\n", cs, [mess substringFromIndex:max - cutTo]) : @"\n";
+	mess 				= longer ? [mess substringToIndex:max - cutTo] : mess;
+	int add = max - mess.length - cutTo;
+	if (add > 0) {
+		NSS *pad = [NSS.string stringByPaddingToLength:add withString:@" " startingAtIndex:0];
+		info = [pad stringByAppendingString:info];
+	}
+	NSS *toLog 	= $(XCODE_COLORS_ESCAPE @"fg%@;" @"%@" XCODE_COLORS_RESET @"%@%@", cs, mess, info, nextLine);
+	fprintf ( stderr, "%s", toLog.UTF8String);//[%s]:%i %s \n", [path UTF8String], lineNumber, [message UTF8String] );
+	va_end  (argList);
+*/
+//	NSS *toLog 	= $( XCODE_COLORS_RESET	@"%s" XCODE_COLORS_ESCAPE @"fg82,82,82;" @"%-70s[%s]" XCODE_COLORS_RESET
+//									XCODE_COLORS_ESCAPE @"fg140,140,140;" @":%i\n" XCODE_COLORS_RESET	, 
+//								    mess.UTF8String, "", path.UTF8String, lineNumber);
+																
+//	NSLog(XCODE_COLORS_ESCAPE @"bg89,96,105;" @"Grey background" XCODE_COLORS_RESET);
+//	NSLog(XCODE_COLORS_ESCAPE @"fg0,0,255;"
+//			XCODE_COLORS_ESCAPE @"bg220,0,0;"
+//			@"Blue text on red background"
+//			XCODE_COLORS_RESET);
+
 
 	/**
 	if ( [[NSApplication sharedApplication] delegate] ) {
@@ -866,10 +956,8 @@ NS_INLINE void _AZSimpleLog( const char *file, int lineNumber, const char *funcN
 	}
 	*/
 	// $(@"%s: %@", __PRETTY_FUNCTION__, [NSString stringWithFormat: args])	]
-	fprintf ( stderr, "%s", [toLog UTF8String]);//[%s]:%i %s \n", [path UTF8String], lineNumber, [message UTF8String] );
-	va_end  (argList);
 	//	const char *threadName = [[[NSThread currentThread] name] UTF8String];
-}
+//}
 
 
 
@@ -930,19 +1018,29 @@ typedef enum {
 
 
 //CASCROLLVIEW
+//minimizing = 0x01, // 00000001
+//maximizing = 0x02, // 00000010
+//minimized  = 0x04, // 00000100
+//maximized  = 0x08  // 00001000
 
-typedef NS_ENUM (NSUI, ScrollFix)	{	LayerInsertFront,	LayerInsertEnd,	LayerCopyInsertEnd,
-										LayerRemoveFront,	LayerRemoveEnd,
-										LayerStateOK	,	LayerStateUnset		};
+typedef NS_ENUM (NSUI, ScrollFix)	{	LayerInsertFront, 		//= 0x01, // 00000001
+													LayerInsertEnd,
+													LayerRemoveFront,
+													LayerRemoveEnd,
+													LayerStateOK,// 			= 0x04, // 00000100
+													LayerStateUnresolved,// = 0x08,  // 00001000
+													LayerStateUnset
+};
 
 typedef NS_ENUM (NSUI, StateStyle)	{	Lasso,			InnerShadow,
 										DarkenOthers,	None				};
 
-
 #define VRT AZOrientVertical
 #define HRZ AZOrientHorizontal
-#define ScrollFixTypeArray @"LayerInsertFront",@"LayerInsertEnd",@"LayerCopyInsertEnd",@"LayerRemoveFront",@"LayerRemoveEnd",@"LayerStateOK",@"LayerStateUnset",nil
+#define ScrollFixTypeArray @"LayerInsertFront",	@"LayerInsertEnd",			     @"LayerRemoveFront",	@"LayerRemoveEnd", \
+									@"LayerStateOK",		@"LayerStateUnresolved",  @"LayerStateUnset",  	nil
 
+//@"LayerCopyInsertFront",@"LayerCopyInsertEnd"
 NS_INLINE NSS* stringForScrollFix(ScrollFix val) { return [NSArray.alloc initWithObjects:ScrollFixTypeArray][val]; }
 
 

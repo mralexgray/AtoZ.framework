@@ -1,208 +1,236 @@
-
 #import "CAScrollView.h"
-
 @interface CAScrollView ()
-@property (RONLY)	NSA		*allLayers;
-@property (NATOM, STRNG) 	NSA 	*shroudedLayers;
-@property (NATOM, STRNG) 	CAL 	*scrollLayer;
-@property (NATOM, STRNG) 	CALNH 	*hostlayer;
-@property (NATOM, ASS)		CGF 	offset;
-@property (RONLY)  		 	CGF 	firstLaySpan, sublayerOrig, sublayerSpan, lastLaySpan, superBounds, lastLayOrig;
-@property (NATOM, ASS)	BOOL 	needsLayout;
+@property (NATOM,STRNG) 	CALNH *hostlayer;
+@property (NATOM,STRNG) 	NSA 	*shroudedLayers, *originalQueue;
+@property (NATOM,ASS) ScrollFix fixState;
+@property (NATOM,ASS)	 CGF 		offset;
+@property (NATOM,ASS) NSUI 		normalizedCopyIndex;
+@property (NATOM,ASS) BOOL 		recursiveFix, scrolling;
+@property (RONLY)	CAL	*lastLayer, *firstLayer;
+@property (RONLY) NSA 	*scrollLayersByAscendingPosition, *sSubs;
+@property (RONLY) CGF 	firstLaySpan, sublayerOrig, sublayerSpan, lastLaySpan, superBounds, lastLayOrig;
+@property (RONLY) NSUI  sublayerCt;
+@property (RONLY) 	BOOL 	isVRT;
+@property (STRNG) CWStack *stack;
+@property (STRNG) CAScrollLayer *sclr;
 @end
 
-
-
+#define WATCHDOGMAX  100
+#define WATCHDOG_STOP _fixWatchdog > WATCHDOGMAX
 
 @implementation CAScrollView
-@synthesize 		layerQueue, 		hostlayer, 	scrollLayer, 	oreo, needsLayout;
+@synthesize layerQueue, scrollLayer,	oreo, fixState = _fixState, isVRT, hoverStyle, selectedStyle, stack;
 
-- (void) awakeFromNib
+- (id) initWithFrame:(NSRect)frameRect
 {
-	oreo        			= HRZ;
-	_selectedStyle 			= _hoverStyle = None;
-//	hostlayer 				= (CALNH*)[[[self setupHostViewNoHit] named:@"hostLayer"  ]colored:GREEN];
-	scrollLayer 			= [self setupHostView];//[[CAL  layerWithFrame:hostlayer.bounds] named:@"scrollLayer"]colored:RED];
-	scrollLayer.arMASK = CASIZEABLE;
+	if (self != [super initWithFrame:frameRect]) return nil;
+	oreo        	 	 = HRZ;
+	selectedStyle 		 = Lasso;				/* StateStyle(s) Lasso, 	InnerShadow, DarkenOthers,	None */
+	hoverStyle 		 	 = DarkenOthers;
+	_hostlayer 			 = (CALNH*)[[[self setupHostViewNoHit] named:@"hostLayer"]colored:GREEN];
+	scrollLayer    		 = [_hostlayer copyLayer];
+	_hostlayer.subs 	 = @[scrollLayer];
+	scrollLayer.loM 	 = self;
 	[scrollLayer addConstraintsSuperSize];
-	hostlayer.sublayers = @[scrollLayer];
-	scrollLayer.loM 	= self;
-//	[[self superviews]each:^(id obj) {
-//		[obj observeFrameChangeUsingBlock:^{
-//			NSLog(@"superviewchanged");
-			[self fixStateRecursively:YES];//:LayerInsertEnd];
-//		}];
-//	}];
-	[[self window] makeFirstResponder:self];
-	[[self window]setAcceptsMouseMovedEvents:YES];
-//	[self observeFrameChangeUsingBlock:^{ [self setFixState:LayerStateUnset]; }];
-//	[self addObserver:self keyPath:@[@"offset",@"orientation",@"layerQueue"] selector:@selector(fixState	) userInfo:nil options:NSKeyValueObservingOptionNew];
+	_hostlayer.arMASK 	 = scrollLayer.arMASK = CASIZEABLE;
+//	scrollLayer.bgC		 = cgPURPLE;
+	[self awakeFromNib];
+	return self;
 }
-//- (void) viewDidEndLiveResize {
-//	[CATransaction immediately:^{
-//		[@[hostlayer, scrollLayer] each:^(CAL* obj) {
-////			[obj setPosition:AZCenterOfRect(self.bounds)]; [obj setAnchorPoint:(CGP){.5,.5}];
-//			[obj setBounds:self.bounds];
-//		}]; //[scrollLayer sublayersBlock:^(CALayer *layer) { [layer setBoundsHeight:self.height]; }];
-//	}];
-//}
-
-- (void)setLayerQueue:(NSMA*)lQ
+-(void) awakeFromNib 
 {
-	if (scrollLayer.sublayers.count > 0) [
-		scrollLayer.sublayers makeObjectsPerformSelector:@selector(removeFromSuperlayer)];
-		layerQueue = nil;
-
+	self.frame = self.superview.bounds;
+	self.arMASK      							= NSSIZEABLE;
+	self.window.acceptsMouseMovedEvents = YES;
+	[self.window 		makeFirstResponder:self];
+	[self   observeFrameChangeUsingBlock:^{ self.fixState = LayerStateUnset; }];
+	self.needsDisplay							= YES;
+}
+- (void) setLayerQueue:(NSMA*)lQ
+{
 	layerQueue = lQ.mutableCopy;
-	__block CGF scrollWide = 0;  [lQ each:^(CAL*l) {  scrollWide += oreo == VRT ? l.boundsHeight : l.boundsWidth; }];
-	NSI i = 0;
-	while ( scrollWide < self.superBounds ) {
-		CAL* l = [[layerQueue normal:i] copyLayer];
-		[layerQueue addObject:l]; i++; scrollWide += oreo == VRT ? l.boundsHeight : l.boundsWidth; }
-//	NSLog(@"layers purged.. fixeing %ld in queue", lQ.count);
-	[self fixStateRecursively:YES];
-}
-
-- (void) viewDidMoveToSuperview
-{
-//	self.window.acceptsMouseMovedEvents = YES;
-//	[self.window makeFirstResponder: self];
-//	[self setFrame:self.superview.bounds];
-//	[self setAutoresizingMask:NSSIZEABLE];
-//	[self setNeedsDisplay:YES];
-}
-
-- (void) layoutSublayersOfLayer: (CAL*)layer
-{
-	if (scrollLayer.sublayers) {
-		NSLog(@"laying out %ld layers of scrollayer.  total layers: %ld", scrollLayer.sublayers.count, layerQueue.count);
-		[CATransaction immediately:^{	__block CGF off = _offset;
-			[scrollLayer.sublayers each:^(CAL* obj) {
-				obj.frameMinX = oreo == VRT ? 0 : off;
-				obj.frameMinY = oreo == VRT ? off : 0;
-				off += oreo == VRT ? obj.boundsHeight : obj.boundsWidth;
-				obj.boundsHeight = obj.superlayer.boundsHeight;
-			}];
-		}];
+	[scrollLayer removeSublayers];
+	CGF f = [lQ sumFloatWithKey: isVRT ? @"boundsHeight" : @"boundsWidth"];
+	int normalI = 0;
+	while ( f < ( 2 * self.superBounds))  {		CAL*copy = [[lQ normal:normalI]copyLayer];
+																		  [layerQueue addObject:copy];
+													 normalI++; f += [self aLayerSpan:copy]; 
 	}
+	LOGWARN(@"donewithcopy:  had:%i  have:%i", lQ.count, layerQueue.count);
+	[layerQueue each:^(id obj) { [obj addConstraintsRelSuper:kCAConstraintHeight, nil]; }];
+	CAL *starter = layerQueue[0];  
+	[scrollLayer addSublayerImmediately:starter];
+//	[starter setFloat:-100 forKey:$(@"frameMin%@", isVRT ? @"Y" : @"X")];
+	_recursiveFix = YES;	self.fixState = LayerStateUnset;
 }
-
-- (CGF) sublayerSpan { return ((NSN*)[scrollLayer.sublayers reduce:^id(NSN*memo,CAL*cur) { return @(memo.floatValue + oreo == VRT ? cur.boundsHeight : cur.boundsWidth); } withInitialMemo:@0]).floatValue; }
-- (CGF) sublayerOrig { return [scrollLayer.sublayers.first floatForKey: oreo == VRT ? @"frameMinY"    : @"frameMinX"  ]; }
-- (CGF) lastLaySpan  { return [scrollLayer.sublayers.last  floatForKey: oreo == VRT ? @"boundsHeight" : @"boundsWidth"]; }
-- (CGF) firstLaySpan { return [scrollLayer.sublayers.first floatForKey: oreo == VRT ? @"boundsHeight" : @"boundsWidth"]; }
-- (CGF) lastLayOrig  { return [scrollLayer.sublayers.last  floatForKey: oreo == VRT ? @"frameMinY"    : @"frameMinX"  ]; }
-- (CGF) superBounds  { return oreo == VRT ?  scrollLayer.boundsHeight : scrollLayer.boundsWidth; 					}
-- (NSA*) allLayers 	 { return layerQueue.count > 0 ? [NSA arrayWithArrays:@[scrollLayer.sublayers, layerQueue]] : scrollLayer.sublayers; }
+- (void) layoutSublayersOfLayer: (CAL*)layer
+{	
+	static int loslols = 0; loslols++; LOGWARN(@"loslols:%i", loslols);
+	
+	[CATransaction immediately:^{												        __block CGF off = _offset;
+		
+		[scrollLayer.sublayers each:^(CAL *obj) { obj.frameOrigin = (NSP) { isVRT ? 0 : off, isVRT ?	off : 0  };
+																off += isVRT ? obj.boundsHeight : obj.boundsWidth;				}];
+	}];		_scrolling 		= NO;
+			_recursiveFix 	? [self setFixState :self.fixState] : nil;
+}
 
 #define QAINTEMPTY && layerQueue.count > 0
 #define SCRLHASSUB && scrollLayer.sublayers
 
-@synthesize  sublayerOrig, lastLayOrig, lastLaySpan, sublayerSpan, firstLaySpan, superBounds;
-
-- (void) fixStateRecursively:(BOOL)recurse
+- (ScrollFix) fixState
+{																															     return  	
+	self.sublayerOrig 	> 0				 							QAINTEMPTY 	? LayerInsertFront 	:
+	self.lastLayOrig  < self.superBounds  							QAINTEMPTY	? LayerInsertEnd     :	 	
+//	self.lastLayOrig 	< self.superBounds 		 		&& !layerQueue.count ? LayerCopyInsertEnd :
+	self.sublayerOrig 	< NEG(self.firstLaySpan) 					SCRLHASSUB 	? LayerRemoveFront	:
+	self.lastLayOrig 	> self.superBounds + self.lastLaySpan	SCRLHASSUB	? LayerRemoveEnd	   : LayerStateOK;
+	
+}
+-(void) setFixState:(ScrollFix)f
 {
-//	NSLog(@"fixing state Recursively: %@", StringFromBOOL(recurse));
-	ScrollFix theState =
-
-		self.sublayerOrig 	> 0 					 				QAINTEMPTY 	? LayerInsertFront 	 :
-		self.lastLayOrig   	< self.superBounds  				QAINTEMPTY	? LayerInsertEnd	 :
-//		lastLayOrig 	< self.superBounds 		 							? LayerCopyInsertEnd :
-		self.sublayerOrig 	< NEG(self.firstLaySpan) 				SCRLHASSUB 	? LayerRemoveFront	 :
-		self.lastLayOrig 	> self.superBounds + self.lastLaySpan			SCRLHASSUB	? LayerRemoveEnd	 : LayerStateOK;
-		
-	if ( theState != LayerStateOK)	{
-		[self fixLayerState:theState];
-		if (recurse) [self fixStateRecursively:YES];
-	}
-	[scrollLayer setNeedsLayout];
-
+	LOGWARN(@"Fix:%@ dog:%ld subs:%ld q:%ld",stringForScrollFix(f),_fixWatchdog,self.sublayerCt,layerQueue.count);
+	
+	if (f == LayerStateOK || f == LayerStateUnresolved) { 	_fixWatchdog = 0; _recursiveFix = NO; 
+																				[scrollLayer setNeedsLayout]; return; }
+	
+	f == LayerInsertFront	 ? ^{	               CAL *newFirst = layerQueue.shift;
+													_offset 	-=  [self aLayerSpan:newFirst];
+						  [scrollLayer insertSublayer:newFirst  atIndex:0];
+													                }():
+	f == LayerRemoveFront	 ? ^{		 					      CAL *front = self.firstLayer; 	
+												  [layerQueue  shove: front];	 
+									   _offset += [self aLayerSpan:front];		
+																			 [front  removeFromSuperlayer];		}():
+	f == LayerRemoveEnd  	 ? ^{	                        CAL *end = self.lastLayer;
+												 [layerQueue addObject:end];
+																			 [end removeFromSuperlayer];		   }():	
+	f == LayerInsertEnd 	 ? [scrollLayer addSublayer:layerQueue.pop]:  
+	f == LayerStateUnset 	 ? [self setFixState:			  self.fixState]: nil;  	
+	[scrollLayer  setNeedsLayout]; 
+	
 }
 
-- (void) fixLayerState:(ScrollFix)state { NSLog(@"reason:  %@", stringForScrollFix(state));
+//f == LayerCopyInsertEnd  ? ^{ 
+//
+//	NSR lastFrame = self.lastLayer.frame;
+//	 	 lastFrame = isVRT ? AZRectVerticallyOffsetBy   ( lastFrame, lastFrame.size.height )
+//								 : AZRectHorizontallyOffsetBy ( lastFrame, lastFrame.size.width  );
+//	CAL *l = [_originalQueue[_normalizedCopyIndex] copyLayer];			
+//	[scrollLayer addSublayerImmediately:l];
+//	l.frame = lastFrame; 
+//	NSLog(@"NeedMoreLayers! Displaying %i. Making copy %ld / %ld [normal: %ld] New lastFrame:%@ in superb: %0.1f",
+//	self.sublayerCt	, copyIndex, _originalQueue.count, _normalizedCopyIndex, AZString(lastFrame), self.superBounds);
+//	copyIndex++; 
+//	_normalizedCopyIndex = _normalizedCopyIndex < _originalQueue.count - 1 ? _normalizedCopyIndex + 1 : 0;  
+//}() :
+//f == LayerCopyInsertFront ? ^{
 
-	state == LayerInsertFront 	? ^{	CAL *newFirst = layerQueue.shift;
-//		[scrollLayer insertSublayer:newFirst atIndex:0];
-		[scrollLayer insertSublayerImmediately:newFirst atIndex:0];
-										_offset = oreo == VRT ? -newFirst.boundsHeight : -newFirst.boundsWidth;	}():
-	state == LayerRemoveFront 	? ^{	[layerQueue shove: scrollLayer.sublayers.first];
-//		[scrollLayer.sublayers.first removeFromSuperlayer];
-		RemoveImmediately( scrollLayer.sublayers.first );
-										_offset = 0;																}():
-	state == LayerRemoveEnd    	? ^{	[layerQueue addObject:scrollLayer.sublayers.last];
-//						[scrollLayer.sublayers.last  removeFromSuperlayer];						}():
-				RemoveImmediately( scrollLayer.sublayers.last );						}():
-	state == LayerInsertEnd		? 		layerQueue.count != 0 ? [scrollLayer addSublayerImmediately:layerQueue.pop] : nil:
-	state == LayerCopyInsertEnd ? ^{ 	  }() : nil;
-	[self fixStateRecursively:YES];
+//	lastFrame = isVRT ? AZRectVerticallyOffsetBy   ( lastFrame, lastFrame.size.height )
+//	: AZRectHorizontallyOffsetBy ( lastFrame, lastFrame.size.width  );
+//	CAL *newFirst = [_originalQueue[_normalizedCopyIndex] copyLayer];			
+//	[scrollLayer insertSublayer:newFirst atIndex:0];
+//	_offset -= [self aLayerSpan:newFirst];															
+//	NSLog(@"CopyFront! Displaying %i. Making copy %ld / %ld [normal: %ld] superb: %0.1f",
+//			self.sublayerCt	, copyIndex, _originalQueue.count, _normalizedCopyIndex, self.superBounds);
+//	copyIndex++; 
+//	_normalizedCopyIndex = _normalizedCopyIndex < _originalQueue.count - 1 ? _normalizedCopyIndex + 1 : 0;  
+
+/*	[scrollLayer insertSublayerImmediately:l atIndex:scrollLayer.sublayers.count];	*/
+
+
+//	if (_fixState == LayerStateOK){  [scrollLayer setNeedsLayout]; _fixWatchdog = 0;  return; }
 	//map:^id(CAL*l){ return [l copyLayer]; }]].mutableCopy;  }() : nil;
 
+- (NSA*) sSubs 		{ return scrollLayer.sublayers; } 
+- (NSA*) scrollLayersByAscendingPosition { return [self.sSubs sortedWithKey:isVRT ? @"frameMinY" : @"frameMinX" ascending:YES]; }
+- (NSA*) allLayers	 	{	return [NSA arrayWithArrays:@[	scrollLayer.sublayers,
+											  layerQueue.count ? layerQueue : @[] ]];
 }
+- (CAL*) lastLayer 	{ return  self.scrollLayersByAscendingPosition.last; 	}
+- (CAL*) firstLayer 	{ return  self.scrollLayersByAscendingPosition.first;	}
+- (NSUI) sublayerCt  { return  self.sSubs.count; }
+- (CGF) sublayerOrig	{ return [self.firstLayer.modelLayer fKey: isVRT ? @"frameY" 		: @"frameX"  ]; }
+- (CGF) lastLaySpan	{ return [self aLayerSpan:self.lastLayer.modelLayer]; }
+- (CGF) firstLaySpan	{ return [self aLayerSpan:self.firstLayer.modelLayer]; }
+- (CGF) lastLayOrig	{ return [self.lastLayer.modelLayer  fKey: isVRT ? @"frameY"		: @"frameX"  ]; }
+- (CGF) superBounds	{ return isVRT ? scrollLayer.frameHeight : scrollLayer.frameWidth;			 }
+- (CGF) sublayerSpan	{
+	return ((NSN*)[self.	sSubs reduce:^id(NSN*memo,CAL*cur) {
+		return @(memo.fV + [self aLayerSpan:cur]); } withInitialMemo:@0]).fV;
+}																														// Sizing getters
+- (CGF) aLayerSpan:(CAL*)l { return  isVRT ? [l.modelLayer boundsHeight] : [l.modelLayer boundsWidth]; }
 
-- (BOOL) acceptsFirstResponder 	{ 	return YES;		}
-- (void) scrollWheel:(NSE*)e
+
+- (void) scrollWheel:(NSE*)e																								//	Event Handling
 {
-	self.offset += (oreo == VRT ? e.deltaY : e.deltaX) * 3 ;
-	[self fixStateRecursively:YES];
-	if ([_delegate respondsToSelector:@selector(scrollView:isScrolling:)] )
-		[_delegate performSelector:@selector(scrollView:isScrolling:) withObject:self withObject:e];
+	_offset += (isVRT ? e.deltaY : e.deltaX) * 5 ;
+	_recursiveFix = NO; // NSLog(@"Offset:%f", _offset);
+	[self setFixState:self.fixState];
+	[(NSObject*)_delegate respondsToStringThenDo:@"scrollView:isScrolling:" withObject:self withObject:e];
 }
-- (void) mouseDown:  (NSE*)e	{
+- (void) mouseDown:  (NSE*)e
+{
 	NSP hitPoint = [self convertPoint:e.locationInWindow fromView:nil];
 	CAL* i = [scrollLayer hitTestSubs:hitPoint];
 	 if (i) self.selectedLayer 	= i;
-	NSLog(@"hittest %@, found:%@", AZString(hitPoint), i);
+	NSLog(@"hittest %@, found:%@ F:%@  B:%@", AZString(hitPoint), i.name, AZStringFromRect(i.frame), AZStringFromRect([i.modelLayer bounds]));// [[NSC colorWithCGColor:i.bgC]nameOfColor]);
 }
-- (void) mouseMoved: (NSE*)e 	{	NSLog(@"scrollview mousemoved: %@", AZString(e.locationInWindow)); self.hoveredLayer = [scrollLayer hitTestSubs:[self convertPoint:e.locationInWindow fromView:nil]] ?: nil; }
-
-- (void) setHoveredLayer:(CAL*)hoveredLayer
+- (void) mouseMoved: (NSE*)e
 {
-//	AZLOG(hoveredLayer.debugLayerTree);
+	self.hoveredLayer = [scrollLayer hitTestSubs:e.locationInWindow];//[self convertPoint:e.locationInWindow fromView:nil]] ?: nil; /*NSLog(@"scrollview mousemoved: %@", AZString(e.locationInWindow));*/
+}
+- (void) setHoveredLayer:(CAL*)hoveredLayer																																				//	Selection States
+{
 	if (hoveredLayer == _hoveredLayer) return;
-	!_hoveredLayer ?: ^{			_hoveredLayer.hovered = NO;	 	[_hoveredLayer setNeedsDisplay]; }();
-	if (hoveredLayer) {
+	if (hoveredLayer) { 
 		_hoveredLayer = hoveredLayer;
-		_hoveredLayer.hovered = YES;
+//		_hoveredLayer.hovered = YES;
 		[_hoveredLayer setNeedsDisplay];
 	}
-	_hoverStyle 	== DarkenOthers ? ^{ self.shroudedLayers = nil; self.shroudedLayers = hoveredLayer ? nil : @[_hoveredLayer]; }() :
-	_hoverStyle 	== Lasso 		? hoveredLayer ? [self lasso:_hoveredLayer dymamicStroke:.05] : [self deLasso] : NSLog(@"no hover style set");
+	switch (hoverStyle) {
+  	case DarkenOthers:
+    	self.shroudedLayers = nil;	 	self.shroudedLayers = hoveredLayer ? nil : @[_hoveredLayer]; break;
+	case Lasso:
+		_hoveredLayer ? [self lasso:_hoveredLayer dymamicStroke:.05] : [self deLasso];	 break;
+	default:	  	
+		NSLog(@"no hover style set");    	break;
+	}
 }
 - (void) setSelectedLayer:(CAL*)selectedLayer
 {
 	if ( selectedLayer == _selectedLayer ){
-		 _selectedLayer.selected = NO;
-		_selectedStyle == Lasso 		? [self deLasso]
-	  : _selectedStyle == DarkenOthers 	? [self setShroudedLayers:nil]
-	  : nil;
+		_selectedLayer.selected = NO;
+		selectedStyle 	 == Lasso 			? [self deLasso]	: selectedStyle == DarkenOthers 	? [self setShroudedLayers:nil]		 : nil;
 		[_selectedLayer setNeedsDisplay];
 		_selectedLayer = nil;
 		return;
 	}
-	_selectedLayer = selectedLayer;
-	_selectedLayer.selected = YES;
-		_selectedStyle == DarkenOthers 	? ^{ self.shroudedLayers = nil; self.shroudedLayers = @[_selectedLayer]; }()
-	:	_selectedStyle == Lasso 		? [self lasso:_selectedLayer dymamicStroke:.05]
-	:	_selectedStyle == None 			? nil : NSLog(@"no selection style");
+	_selectedLayer.selected = NO;
+	selectedStyle == Lasso			? [self deLasso]
+: 	selectedStyle == DarkenOthers ? [self setShroudedLayers:nil]					 : nil;
 	[_selectedLayer setNeedsDisplay];
-	if ([_delegate respondsToSelector:@selector(scrollView:didSelectLayer:)] )
-		[_delegate performSelector:@selector(scrollView:didSelectLayer:) withObject:self withObject:_selectedLayer];
+	_selectedLayer = nil;
+	_selectedLayer = selectedLayer;
+	selectedLayer.selected = YES;
+	selectedStyle == DarkenOthers ? [self setShroudedLayers: @[_selectedLayer]]
+:	selectedStyle == Lasso 			? [self lasso:_selectedLayer dymamicStroke:.05]
+:	selectedStyle == None 			? nil :nil;
+//NSLog(@"no selection style: %@", AZString(selectedStyle)) : [self autoDescribe];
 
+	[_selectedLayer setNeedsDisplay];
+	[(NSO*)_delegate respondsToStringThenDo:@"scrollView:didSelectLayer:" withObject:self withObject:_selectedLayer];
 //	CAL* l = _hoverStyle == Lasso ? [self lassoLayerWithFrame:_hoveredLayer.bounds dymamicStroke:.03] :
 //	[_hoveredLayer addSublayer:];
 }
-
-- (IBAction) toggleOreo:(id)sender { self.oreo = ((NSBUTT*)sender).state == NSOnState ? VRT : HRZ; }
-
 - (void) setShroudedLayers:(NSA*)actuallyAllLayersExcept
 {
-	if (!actuallyAllLayersExcept) { [_shroudedLayers makeObjectsPerformSelector:@selector(removeFromSuperlayer)]; return; }
+	if (!actuallyAllLayersExcept) { [_shroudedLayers makeObjectsPerformSelector:@selector(removeFromSuperlayer)];
+												return;
+	}
 	NSA* all = [self.allLayers arrayWithoutObject:actuallyAllLayersExcept[0]];
-	_shroudedLayers = [all map:^id(CAL* obj) {  CALNH* l = [CALNH layerWithFrame:obj.bounds]; l.bgC = cgBLACK; l.opacity = .7; [obj addSublayer:l]; return l; }];
+	_shroudedLayers = [all map:^id(CAL* obj) {  CALNH* l = [CALNH layerWithFrame:obj.bounds]; l.bgC = cgBLACK; l.opacity = .7; l.arMASK = CASIZEABLE; [obj addSublayer:l]; return l; }];
 }
-
-- (void) deLasso { 	[self.allLayers each:^(CAL* l) { RemoveImmediately([l sublayerWithName:@"lasso"]); }]; }
-
 - (void) lasso:(CAL*)layer dymamicStroke:(CGF)percent
 {
 	[self deLasso];
@@ -229,9 +257,13 @@
 	[blk addAnimation:dashAnimation forKey:@"linePhase"];
 	[layer addSublayer:root];
 }
+- (void) deLasso { 	[self.allLayers each:^(CAL*l){ RemoveImmediately([l sublayerWithName:@"lasso"]); }]; }
 
-- (IBAction)toggleOrientation:(id)sender;{
 
+- (IBAction) toggleOreo:			 (id)sender { self.oreo = ((NSBUTT*)sender).state == NSOnState ? VRT : HRZ; }
+- (IBAction) toggleOrientation:(id)sender;{
 	self.oreo = HRZ ? VRT : HRZ;
 }
+- (BOOL) acceptsFirstResponder 	{ 	return YES;		}
+- (BOOL) isVRT { return  self.isVRT; }
 @end

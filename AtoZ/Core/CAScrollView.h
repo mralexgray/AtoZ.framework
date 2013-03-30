@@ -12,14 +12,19 @@
 -(NSC*)scrollView:(CAScrollView*)sc colorForObject:(id)o atIndex:(NSUI)idx;
 @end
 
-@interface 	  CAScrollView : NSView
+@interface 	  CAScrollView : RBLScrollView
 
+@property (NATOM,ASS) 		NSUI 		fixWatchdog;
+@property (RONLY)				NSA 		*allLayers;
 @property (NATOM, STRNG) 	NSMA 		*layerQueue;
-@property (NATOM, STRNG) 	CAL 		*hoveredLayer, *selectedLayer;
-@property (NATOM, ASS)  	AZOrient		oreo;
+@property (NATOM, STRNG) 	CAL 		*hoveredLayer, *selectedLayer, *scrollLayer;
+@property (NATOM, ASS)  		AZOrient		oreo;
 @property (NATOM, ASS)		StateStyle 	hoverStyle, selectedStyle;
 @property (unsafe_unretained) id <CAScrollViewDelegate>  delegate;
+
 - (IBAction)toggleOrientation:(id)sender;
+
+//@property (NATOM, ASS)	BOOL 	needsLayout;
 
 @end
 

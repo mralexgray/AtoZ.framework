@@ -8,17 +8,24 @@
 
 - (NSS*) whatever { return @"hello"; }
 
-- (IBAction) recognizerForLabel:(id)sender;
+- (IBAction) recognizerForLabel:(NSBUTT*)sender;	{	NSA* say =
+
+	[@[@[ @"dicksonism",	NSS.randomDicksonism										   ],
+	   @[ @"random",		NSS.randomWord			 									   ],
+	   @[ @"urband", 	   [NSS.randomUrbanD.word w_NP_String: NSS.randomUrbanD.definition]],
+	   @[ @"bad word",		NSS.badWords.randomElement									   ]]
+
+		subIndex:0 blockReturnsIndex:^id(NSS*s){ return [s contains: sender.title.lowercaseString] ? s : nil;
+	}];
+	[GoogleSpeechAPI recognizeSynthesizedText:say[1] completion:^(NSS *result) {
+		_outputArea.stringValue = $(@"Original: \n\n%@\n\nResult:\n%@", say[1], result);
+	}];
+}
+- (IBAction)record:(id)sender
 {
-	NSA* say =[@[@[ @"dicksonism",	NSS.randomDicksonism],
-				 @[ @"random",	 	NSS.randomWord],
-				 @[ @"urband",	 	$(@"%@ : %@", NSS.randomUrbanD.word, NSS.randomUrbanD.definition)],
-				 @[ @"bad word",   [NSS badWords].randomElement]]filterOne:^BOOL(id object) {
-					 return [object[0] contains:[(NSButton*)sender title].lowercaseString]; }] ?: @"Not Found";
-	//((void (^)())
-	 [GoogleSpeechAPI recognizeSynthesizedText:[say[1] copy] completion:^(NSS *theString) {
-		self.outputArea.stringValue = $(@"Original: \n\n%@\n\nResult:\n%@", [say[1] copy], theString); }];
-	// )();
+	[GoogleSpeechAPI recordFor:10
+				    completion:^(NSS *result) {_outputArea.stringValue = $(@"Result:\n%@", result);
+	}];
 }
 @end
 

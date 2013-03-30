@@ -1,32 +1,36 @@
 //#import "AZGeometryViewController.h"
-#import "AZGeneralViewController.h"
-#import "AZUIViewController.h"
-#import "AZColorViewController.h"
-#import "AZFacebookBrowserView.h"
+#import "GeneralVC.h"
+#import "UIVC.h"
+#import "ColorVC.h"
+#import "FBVC.h"
 
 
-@interface TestBedDelegate : NSObject <NSApplicationDelegate, NSWindowDelegate> //, AZSemiResponder>
+@interface TestBedDelegate : NSObject			<	NSApplicationDelegate,
+													NSWindowDelegate	>
+													//, AZSemiResponder>
 
 @property (STRNG) IBOutlet AtoZColorWell 			*colorWell;
 
-@property (STRNG) IBOutlet NSBUTT 					*holdOntoViews;
-//@property (NATOM, STRNG)  AZFileGridView 			*fileGrid;
+@property (UNSFE) IBOutlet  GeneralVC		*genVC;
+@property (UNSFE) IBOutlet  UIVC			*uiVC;
+@property (UNSFE) IBOutlet  ColorVC		*colorVC;
+@property (UNSFE) IBOutlet  FBVC		*fbV;
 
-//@property (weak) IBOutlet  AZGeometryViewController *geoVC;
-@property (STRNG) IBOutlet  AZGeneralViewController  *genVC;
-@property (STRNG) IBOutlet  AZUIViewController		*uiVC;
-@property (STRNG) IBOutlet  AZColorViewController	*colorVC;
-@property (STRNG) IBOutlet  AZFacebookBrowserView	*fbV;
+@property (STRNG) IBOutlet id				window;
+@property (STRNG) IBOutlet id				contentView;
+@property (STRNG) IBOutlet NSView*			targetView;
 
-@property (STRNG) IBOutlet NSW 					*window;
-@property (STRNG) IBOutlet NSV						*mainView;
-@property (STRNG) IBOutlet NSView				*scrollTestHost;
-@property (STRNG) IBOutlet CAScrollView			*scrollTest;
+@property (STRNG) IBOutlet NSView			*scrollTestHost;
+@property (STRNG) IBOutlet CAScrollView		*scrollTest;
 
 - (IBAction) setViewFromPopUp:(id)sender;
 - (IBAction) reZhuzhScrollLayer:(id)sender;
 
+@property (STRNG) IBOutlet NSBUTT 					*holdOntoViews;
+
 @end
+//@property (NATOM, STRNG)  AZFileGridView 			*fileGrid;
+//@property (weak) IBOutlet  AZGeometryViewController *geoVC;
 //@property (weak) IBOutlet NSView	*scrollTest;
 //@property (weak) IBOutlet CAScrollView 	*scrollTestLayerView;
 //@property (nonatomic, strong) CAScrollLayer *scrollLayer;

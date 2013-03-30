@@ -36,7 +36,7 @@
 @implementation NSImage (AtoZDrawBlock)
 + (NSImage*)imageWithSize:(NSSZ)size drawnUsingBlock:(NSImageDrawer)drawBlock;
 {
-	NSImage *newer = [[NSImage alloc]initWithSize:size];
+	NSImage *newer = [NSIMG.alloc initWithSize:size];
 	[newer lockFocus];
 	drawBlock();
 	[newer unlockFocus];

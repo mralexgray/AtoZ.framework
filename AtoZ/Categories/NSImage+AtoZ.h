@@ -57,6 +57,10 @@ extern NSData *PNGRepresentation(NSIMG *image);
 @class AZFile;
 @interface NSImage (AtoZ)
 
+- (void) lockFocusBlock:(void(^)(NSIMG*))block;
+
+- (NSIMG*) lockFocusBlockOut:(NSIMG*(^)(NSIMG*))block;
+
 + (NSIMG*)faviconForDomain:(NSS*)domainAsString;
 
 + (NSIMG*)imageWithData:(NSData*)data;
@@ -74,8 +78,13 @@ extern NSData *PNGRepresentation(NSIMG *image);
 
 + (NSIMG*) blackBadgeForRect:(NSR)frame;
 + (NSIMG*) badgeForRect:(NSR)frame withColor:(NSC*)color;
-+ (NSIMG*) badgeForRect:(NSR)frame withColor:(NSC*)color stroked:(NSC*) stroke;
-+ (NSIMG*) badgeForRect:(NSR)frame withColor:(NSC*)color stroked:(NSC*) stroke withString:(NSS*)string;
++ (NSIMG*) badgeForRect:(NSR)frame withColor:(NSC*)color      stroked:(NSC*) stroke;
++ (NSIMG*) badgeForRect:(NSR)frame withColor:(NSC*)color      stroked:(NSC*) stroke
+								  withString:(NSS*)string;
+
+
++ (NSIMG*) badgeForRect:(NSR)frame withColor:(NSC*)color      stroked:(NSC*) stroke
+								  withString:(NSS*)string orDrawBlock:(void(^)(NSR))drawBlock;
 
 + (NSA*) randomImages:(NSUI)number;
 + (NSA*) systemImages;

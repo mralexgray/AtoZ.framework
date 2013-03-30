@@ -30,6 +30,7 @@
 - (void)removeAssociatedValueForKey:(NSString *)key;
 - (void)removeAllAssociatedValues;
 - (BOOL)hasAssociatedValueForKey:(NSS*)string;
+- (id)associatedValueForKey:(NSS*)key orSetTo:(id)anObject policy: (objc_AssociationPolicy) policy;
 
 @end
 //- (void)registerObservation{	[observee addObserverForKeyPath:@"someValue" task:^(id obj, NSDictionary *change) {
@@ -49,11 +50,18 @@ typedef void (^AZBlockTask)(id obj, NSDictionary *change);
 @end
 @interface NSObject (AtoZ)
 
+-(void) 	DDLogError;
+-(void) 	DDLogWarn;
+-(void) 	DDLogInfo	;
+-(void) 	DDLogVerbose;
 
 - (void) bindArrayKeyPath:(NSS*)array toController:(NSArrayController*)controller;
 
 - (id) performString:(NSS*)string;
 - (id) performString:(NSS*)string withObject:(id) obj;
+
+- (id)performSelectorARC:(SEL)selector withObject:(id)obj;
+- (id)performSelectorARC:(SEL)selector withObject:(id)one withObject:(id)two;
 
 - (NSS*) instanceMethods;
 - (NSA*) instanceMethodArray;
@@ -68,6 +76,8 @@ typedef void (^AZBlockTask)(id obj, NSDictionary *change);
 
 -(void) propagateValue:(id)value forBinding:(NSString*)binding;
 
+- (NSA*) settableKeys;
+- (NSA*) keysWorthReading;
 -(void) setWithDictionary:(NSD*)dic;
 
 /*
@@ -158,6 +168,9 @@ BOOL respondsTo(id obj, SEL selector);
 BOOL respondsToString(id obj,NSS* string);
 
 - (BOOL) respondsToString:(NSS*)string;
+- (id) respondsToStringThenDo: (NSS*)string withObject:(id)obj withObject:(id)objtwo;
+- (id) respondsToStringThenDo: (NSS*)string withObject:(id)obj;
+- (id) respondsToStringThenDo: (NSS*)string;
 
 - (IBAction)increment:(id)sender;
 - (IBAction)setFromSegmentLabel:(id)sender;

@@ -133,7 +133,7 @@
 	NSViewAnimation	 *animation;
 	animation = [[NSViewAnimation alloc] initWithViewAnimations:
 				 @[@{NSViewAnimationTargetKey: self,
-										   NSViewAnimationEndFrameKey: [NSValue valueWithRect:frameRect]}]];
+										   NSViewAnimationEndFrameKey: AZVrect(frameRect)}]];
 	[animation setDuration:duration];
 	[animation setAnimationBlockingMode:NSAnimationBlocking];
 	[animation setAnimationCurve:NSAnimationLinear];
@@ -691,7 +691,7 @@ return midpoint;
 	@{ 	NSViewAnimationTargetKey: self,
 	NSViewAnimationEffectKey: (fade ?NSViewAnimationFadeInEffect :NSViewAnimationFadeOutEffect) },
 	@{ 	NSViewAnimationTargetKey:self,
-	NSViewAnimationEndFrameKey:[NSValue valueWithRect:frame]} ]];
+	NSViewAnimationEndFrameKey:AZVrect(frame)} ]];
 	[animation setAnimationBlockingMode: NSAnimationBlocking];
 	[animation setDuration: 0.5]; // or however long you want it for
 	[animation startAnimation]; // because it's blocking, once it returns, we're done
@@ -706,8 +706,8 @@ return midpoint;
 	destinationRect.origin.y -= firstViewFrame.size.height;
 	NSViewAnimation *theAnim = [[NSViewAnimation alloc] initWithViewAnimations: $array($map(
 		self, NSViewAnimationTargetKey,
-		[NSValue valueWithRect:firstViewFrame], NSViewAnimationStartFrameKey,
-		[NSValue valueWithRect:destinationRect], NSViewAnimationEndFrameKey))];
+		AZVrect(firstViewFrame), NSViewAnimationStartFrameKey,
+		AZVrect(destinationRect), NSViewAnimationEndFrameKey))];
 	[theAnim setAnimationCurve:NSAnimationEaseInOut];
 	[theAnim setDuration:.4];
 	[theAnim startAnimation];
@@ -730,8 +730,8 @@ return midpoint;
 - (void)slideDown {
 	NSRect newViewFrame = [[self valueForKeyPath:@"dictionary.visibleRect"]rectValue];
 	CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"frame"];
-	[animation setFromValue:[NSValue valueWithRect:[self frame]]];
-	[animation setToValue:	[NSValue valueWithRect:newViewFrame]];
+	[animation setFromValue:AZVrect([self frame)]];
+	[animation setToValue:	AZVrect(newViewFrame)];
 	CABasicAnimation *fader = [CABasicAnimation animationWithKeyPath:@"alphaValue"];
 	[fader setFromValue:@0.f];
 	[fader setToValue:@1.f];
@@ -743,14 +743,14 @@ return midpoint;
 	newViewFrame.origin.y += [self frame].size.height;
 	newViewFrame.size.height = 0;
 	CABasicAnimation *framer = [CABasicAnimation animationWithKeyPath:@"frame"];
-	[framer setFromValue:[NSValue valueWithRect:[self frame]]];
-	[framer setToValue:	[NSValue valueWithRect:newViewFrame]];
+	[framer setFromValue:AZVrect([self frame)]];
+	[framer setToValue:	AZVrect(newViewFrame)];
 	[self setAnimations:	@{ @"frame" : framer}];
 //	[[self animator] setFrame:newViewFrame display:YES];
 //	NSViewAnimation *theAnim = [[NSViewAnimation alloc] initWithViewAnimations: $array($map(
 //		self, NSViewAnimationTargetKey,
-//		[NSValue valueWithRect:firstViewFrame], NSViewAnimationStartFrameKey,
-//		[NSValue valueWithRect:newViewFrame], NSViewAnimationEndFrameKey))];
+//		AZVrect(firstViewFrame), NSViewAnimationStartFrameKey,
+//		AZVrect(newViewFrame), NSViewAnimationEndFrameKey))];
 //	[theAnim setValue:self forKeyPath:@"dictionary.slideUpNowFoldUpWindow"];
 //	[theAnim setDuration:.3];
 //	[theAnim setDelegate:self];

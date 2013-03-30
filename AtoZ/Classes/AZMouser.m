@@ -234,7 +234,7 @@ void dragTo ( CGPoint dest ) {
 	NSPoint prev, curr;
 	[flatPath setLineWidth:10];
 	[RED set];
-	NSImage *image = [[NSImage alloc]initWithSize:NSMakeSize(512,512)];
+	NSImage *image = [NSIMG.alloc initWithSize:NSMakeSize(512,512)];
 	[image lockFocus];
 	[[NSColor blackColor]set];
 	[flatPath stroke];

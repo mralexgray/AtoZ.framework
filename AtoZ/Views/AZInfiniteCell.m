@@ -50,7 +50,7 @@
 
 - (void)setInset:(float)anInset {	self.inset = anInset; [self setNeedsDisplay:YES]; }
 
-- (float) halfwayWithInset { return AZPermineterWithRoundRadius([self frame],self.radius);
+- (float) halfwayWithInset { return AZPerimeterWithRoundRadius([self frame],self.radius);
 //	NSRect dim = NSInsetRect(self.bounds, self.inset, self.inset);
 //	return ( (2*dim.size.width) + (2*dim.size.height) - (( 8 - ((2 * pi) * self.radius))));
 }

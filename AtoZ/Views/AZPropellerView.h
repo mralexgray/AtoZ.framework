@@ -8,6 +8,7 @@
 
 
 @interface AZPropellerView : NSView
+
 @property (nonatomic, strong) NSImageView *progressImage, *badgeView;
 @property (nonatomic, strong) NSColor 	  *color;
 

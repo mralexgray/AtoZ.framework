@@ -15,14 +15,39 @@
 - (void)awakeFromNib
 {
 	[AtoZ sharedInstance];
+	_content = [NSIMG monoIcons].mutableCopy;
+	[_boxes setDelegate:self];
+	[_boxes setDataSource:self];
+	[_boxes reloadData];
+	[_boxes setCellSize:NSMakeSize(64.0, 64.0)];
+	[_boxes setAllowsMultipleSelection:YES];
+}
+
+- (NSUInteger)numberOfCellsInCollectionView:(AZBoxGrid *)collectionView
+{
+	return [_content count];
+}
+- (AZBox *)collectionView:(AZBoxGrid *)collectionView cellForIndex:(NSUInteger)index
+{
+	AZBox *cell = [_boxes dequeueReusableCellWithIdentifier:@"cell"];
+	if(!cell)
+		cell = [AZBox.alloc initWithFrame:AZRectFromDim(100) representing:_content[index] atIndex:index];
+		return cell;
+}
+- (void)collectionView:(AZBoxGrid *)collectionView didDeselectCellAtIndex:(NSUInteger)index
+{
+	NSLog(@"Selected cell at index: %u", (unsigned int)index);
+	NSLog(@"Position: %@", NSStringFromPoint([_boxes positionOfCellAtIndex:index]));
+}
+
 //	CALayer *root 			= [CALayer greyGradient];
 //	[root setValue:@(YES) forKey:@"locked"];
 //	root.frame 				= [_window.contentView bounds];
 //	root.autoresizingMask 	= kCALayerWidthSizable | kCALayerHeightSizable;
 //	self.gridView 			= AddLayer(root);
 //	_gridView.superview.wantsLayer = YES;
-	//	[root addSublayer:back];
-}
+//	[root addSublayer:back];
+
 
 
 //Metallic grey gradient background
@@ -37,7 +62,7 @@
 //	headerLayer.colors = colors;
 //	headerLayer.locations = locations;
 //	return headerLayer;
-//	
+//
 //}
 
 

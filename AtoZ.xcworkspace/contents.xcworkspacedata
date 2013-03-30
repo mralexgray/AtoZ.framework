@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:libatoz/libatoz.xcodeproj">
+      location = "group:MailCore/Examples/OSX/MessageSender/MessageSender.xcodeproj">
    </FileRef>
    <FileRef
       location = "container:AtoZ/AtoZ.xcodeproj">
@@ -30,5 +30,8 @@
    </FileRef>
    <FileRef
       location = "group:AZLayerGrid/AZLayerGrid.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:libatoz/libatoz.xcodeproj">
    </FileRef>
 </Workspace>

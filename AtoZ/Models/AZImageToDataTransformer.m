@@ -99,7 +99,7 @@
 																	 bytesPerRow:0
 																	bitsPerPixel:0];
 
-	NSImage*uiImage =	[[NSImage alloc]initWithSize:size];
+	NSImage*uiImage =	[NSIMG.alloc initWithSize:size];
 	[NSGraphicsContext state:^{
 		[uiImage lockFocus];
 		[bmRep drawInRect:AZMakeRectFromSize(size)];

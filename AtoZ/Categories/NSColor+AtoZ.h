@@ -52,7 +52,6 @@
 + (NSC*)	randomColor;
 + (NSC*)	randomOpaqueColor;
 + (NSC*)	colorFromHexRGB: (NSString*) inColorString;
-+ (NSC*)	colorWithHTMLString:(NSString*)	hexString;
 
 //+ (NSC*)	colorWithCGColor: (CGColorRef) aColor;
 + (NSC*)	crayonColorNamed: (NSString*) key;
@@ -108,6 +107,10 @@
 //@property (RONLY)	BOOL isBasicallyWhite;
 //@property (RONLY)	BOOL isBasicallyBlack;
 
+@end
+
+@interface NSColor (AIColorAdditions_HTMLSVGCSSColors)
++ (NSC*)	colorWithHTMLString:(NSString*)	hexString;
 @end
 
 @interface NSString (THColorConversion)

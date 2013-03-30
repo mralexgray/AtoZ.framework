@@ -143,6 +143,14 @@
 /*** Returns a subArray in wich all object returned true for the block Reduced version of filteredArrayUsingBlock, without the dictionary */
 - (NSArray *)filter:(BOOL (^)(id object))block;
 
+- (NSArray *)subIndex:(NSUI)subIndex filter:   (BOOL (^)(id object))block;
+- (id)	     subIndex:(NSUI)subIndex filterOne:(BOOL (^)(id object))block;
+
+//performs block on subindex of array and returns the result of the block
+- (id)subIndex:(NSUI)subIndex block:(MapArrayBlock)block;
+//performs block on subindex of array and returns the original index object that return from the block
+- (id)subIndex:(NSUI)subIndex blockReturnsIndex:(MapArrayBlock)block;
+
 /*** Filters one element from the array that returns YES from the called block might not always be the same, it just will return any match! In case you are not absolutely sure that there is only ONE match better use filter and grab the result manually will return nil for no match */
 - (id)filterOne:(BOOL (^)(id object))block;
 
@@ -222,6 +230,7 @@
 -(id)firstObject;
 
 -(void) eachDictionaryKeyAndObjectUsingBlock:(void(^)(id key, id obj))block;
+
 
 
 -(void) az_each:(void (^)(id obj, NSUInteger index, BOOL *stop))block;

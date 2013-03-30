@@ -10,6 +10,11 @@
 //@property (nonatomic, strong) 	NSMA 		*cssAssets, 	*jsAssets;
 @property (strong) NSMS *mString;
 @property (strong) NSOperationQueue *oQ;
+@property            (strong) 	BKSenderBlock 	stringDelegate;
+
+//- (id)initWithUserStyles:(NSS*)css script:(NSS*)script andInnerHTML:(NSS*) html  calling:(BKSenderBlock)block;
++ (void) initWithUserStyle:(Asset*)css script:(Asset*)script andInnerHTML:(NSS*) html  calling:(BKSenderBlock)block;
+
 @end
 
 NSString * const custCSS = @"html,	body{height:100%; } #wrap{min-height:100%;height:auto !important;height:100%;/* Negative indent footer by it's height */	margin:0 auto -60px;}	#push,	#footer{height:60px;}	#footer{background-color:#f5f5f5;}	@media (max-width:767px){#footer{margin-left:-20px;margin-right:-20px;padding-left:20px;padding-right:20px;}	}	#wrap > .container{padding-top:60px;}	.container .credit{margin:20px 0;}	code{font-size:80%;}";

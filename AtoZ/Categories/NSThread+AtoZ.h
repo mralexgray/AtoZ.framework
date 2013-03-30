@@ -7,6 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+
+@interface NSBlockOperation(Completion)
+- (void) setCompletionBlockInCurrentThread:(void (^)(void))block;
+@end
+
 @interface NSThread (BlocksAdditions)
 - (void)performBlock:(void (^)())block;
 - (void)performBlock:(void (^)())block waitUntilDone:(BOOL)wait;

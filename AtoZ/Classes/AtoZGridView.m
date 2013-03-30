@@ -831,7 +831,7 @@ static CGF mPhase = 0;
 
 - (void)aniHandler:(NSTimer*)timer {
 
-	CGF halfwayWithInset = AZPermineterWithRoundRadius( self.frame,/*radiuus*/ 0 );
+	CGF halfwayWithInset = AZPerimeterWithRoundRadius( self.frame,/*radiuus*/ 0 );
 	mPhase = mPhase < halfwayWithInset ? mPhase + halfwayWithInset / 128 : 0;
 	[self setNeedsDisplayInRect:NSInsetRect(self.bounds, 8, 8)];
 }

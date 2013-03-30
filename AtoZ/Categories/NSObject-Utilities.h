@@ -58,13 +58,6 @@
 - (SEL) chooseSelector: (SEL) aSelector, ...;
 @end
 
-@interface NSObject (NSCoding)
-
-- (void)autoEncodeWithCoder: (NSCoder *)coder;
-- (void)autoDecode:(NSCoder *)coder;
-- (NSDictionary *)properties;
-
-@end
 
 
 @interface NSObject (AZOverride)

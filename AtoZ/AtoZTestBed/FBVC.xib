@@ -22,6 +22,8 @@
 			<string>NSTextField</string>
 			<string>NSTextFieldCell</string>
 			<string>NSTextView</string>
+			<string>NSTokenField</string>
+			<string>NSTokenFieldCell</string>
 			<string>NSView</string>
 		</array>
 		<array key="IBDocument.PluginDependencies">
@@ -33,7 +35,7 @@
 		</object>
 		<array class="NSMutableArray" key="IBDocument.RootObjects" id="1000">
 			<object class="NSCustomObject" id="1001">
-				<string key="NSClassName">AZFacebookBrowserView</string>
+				<string key="NSClassName">FBVC</string>
 			</object>
 			<object class="NSCustomObject" id="1003">
 				<string key="NSClassName">FirstResponder</string>
@@ -42,7 +44,7 @@
 				<string key="NSClassName">NSApplication</string>
 			</object>
 			<object class="NSView" id="497054447">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">256</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="NSButton" id="102979731">
@@ -183,7 +185,7 @@
 							<reference key="NSSupport" ref="915613896"/>
 							<reference key="NSControlView" ref="713064251"/>
 							<bool key="NSDrawsBackground">YES</bool>
-							<object class="NSColor" key="NSBackgroundColor">
+							<object class="NSColor" key="NSBackgroundColor" id="669790282">
 								<int key="NSColorSpace">6</int>
 								<string key="NSCatalogName">System</string>
 								<string key="NSColorName">textBackgroundColor</string>
@@ -231,6 +233,37 @@
 						<reference key="NSNextResponder" ref="497054447"/>
 						<int key="NSvFlags">274</int>
 						<array class="NSMutableArray" key="NSSubviews">
+							<object class="NSTokenField" id="196274889">
+								<reference key="NSNextResponder" ref="914886923"/>
+								<int key="NSvFlags">274</int>
+								<set class="NSMutableSet" key="NSDragTypes">
+									<string>NSStringPboardType</string>
+								</set>
+								<string key="NSFrame">{{20, 181}, {501, 80}}</string>
+								<reference key="NSSuperview" ref="914886923"/>
+								<reference key="NSNextKeyView" ref="1070034969"/>
+								<string key="NSReuseIdentifierKey">_NS:9</string>
+								<bool key="NSEnabled">YES</bool>
+								<object class="NSTokenFieldCell" key="NSCell" id="275677046">
+									<int key="NSCellFlags">341835776</int>
+									<int key="NSCellFlags2">0</int>
+									<object class="NSFont" key="NSSupport">
+										<string key="NSName">LucidaGrande</string>
+										<double key="NSSize">12</double>
+										<int key="NSfFlags">16</int>
+									</object>
+									<string key="NSCellIdentifier">_NS:9</string>
+									<reference key="NSControlView" ref="196274889"/>
+									<bool key="NSDrawsBackground">YES</bool>
+									<reference key="NSBackgroundColor" ref="669790282"/>
+									<reference key="NSTextColor" ref="243656680"/>
+									<reference key="NSDelegate" ref="196274889"/>
+									<double key="NSCompletionDelay">0.0</double>
+									<int key="NSTokenStyle">0</int>
+								</object>
+								<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
+								<int key="NSTokenFieldVersion">2</int>
+							</object>
 							<object class="NSScrollView" id="1070034969">
 								<reference key="NSNextResponder" ref="914886923"/>
 								<int key="NSvFlags">274</int>
@@ -242,9 +275,9 @@
 											<object class="NSTextView" id="442167299">
 												<reference key="NSNextResponder" ref="850556090"/>
 												<int key="NSvFlags">2322</int>
-												<string key="NSFrameSize">{499, 226}</string>
+												<string key="NSFrameSize">{499, 141}</string>
 												<reference key="NSSuperview" ref="850556090"/>
-												<reference key="NSNextKeyView" ref="658289196"/>
+												<reference key="NSNextKeyView" ref="428567145"/>
 												<object class="NSTextContainer" key="NSTextContainer" id="559173269">
 													<object class="NSLayoutManager" key="NSLayoutManager">
 														<object class="NSTextStorage" key="NSTextStorage">
@@ -303,7 +336,7 @@
 												<nil key="NSDelegate"/>
 											</object>
 										</array>
-										<string key="NSFrame">{{1, 1}, {499, 226}}</string>
+										<string key="NSFrame">{{1, 1}, {499, 141}}</string>
 										<reference key="NSSuperview" ref="1070034969"/>
 										<reference key="NSNextKeyView" ref="442167299"/>
 										<reference key="NSDocView" ref="442167299"/>
@@ -332,9 +365,8 @@
 									<object class="NSScroller" id="658289196">
 										<reference key="NSNextResponder" ref="1070034969"/>
 										<int key="NSvFlags">256</int>
-										<string key="NSFrame">{{484, 1}, {16, 226}}</string>
+										<string key="NSFrame">{{484, 1}, {16, 141}}</string>
 										<reference key="NSSuperview" ref="1070034969"/>
-										<reference key="NSNextKeyView"/>
 										<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 										<reference key="NSTarget" ref="1070034969"/>
 										<string key="NSAction">_doScroller:</string>
@@ -354,9 +386,9 @@
 										<double key="NSPercent">0.94565218687057495</double>
 									</object>
 								</array>
-								<string key="NSFrame">{{20, 20}, {501, 228}}</string>
+								<string key="NSFrame">{{20, 20}, {501, 143}}</string>
 								<reference key="NSSuperview" ref="914886923"/>
-								<reference key="NSNextKeyView" ref="428567145"/>
+								<reference key="NSNextKeyView" ref="850556090"/>
 								<int key="NSsFlags">133138</int>
 								<reference key="NSVScroller" ref="658289196"/>
 								<reference key="NSHScroller" ref="428567145"/>
@@ -368,13 +400,12 @@
 						</array>
 						<string key="NSFrame">{{0, -5}, {541, 268}}</string>
 						<reference key="NSSuperview" ref="497054447"/>
-						<reference key="NSNextKeyView" ref="1070034969"/>
+						<reference key="NSNextKeyView" ref="196274889"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<string key="NSClassName">NSView</string>
 					</object>
 				</array>
 				<string key="NSFrameSize">{541, 355}</string>
-				<reference key="NSSuperview"/>
 				<reference key="NSNextKeyView" ref="624572617"/>
 			</object>
 		</array>
@@ -499,6 +530,7 @@
 						<reference key="object" ref="914886923"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="1070034969"/>
+							<reference ref="196274889"/>
 						</array>
 						<reference key="parent" ref="497054447"/>
 					</object>
@@ -618,6 +650,19 @@
 						<reference key="object" ref="442167299"/>
 						<reference key="parent" ref="1070034969"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">79</int>
+						<reference key="object" ref="196274889"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="275677046"/>
+						</array>
+						<reference key="parent" ref="914886923"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">80</int>
+						<reference key="object" ref="275677046"/>
+						<reference key="parent" ref="196274889"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -642,14 +687,17 @@
 				<string key="5.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="6.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="7.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="79.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="8.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="80.CustomClassName">BGHUDTokenFieldCell</string>
+				<string key="80.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="9.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">78</int>
+			<int key="maxID">80</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>

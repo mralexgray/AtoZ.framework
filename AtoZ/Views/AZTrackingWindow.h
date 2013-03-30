@@ -5,7 +5,6 @@
 // key for dictionary in NSTrackingAreas's userInfo  NSString *kAZTrackerChanged = @"trackerState";
 @interface AZTrackingWindow : NSWindow
 @property (nonatomic, assign) AZWindowPosition 	position;
-
 @property (nonatomic, assign) AZSlideState 		slideState;
 @property (nonatomic, assign) CGFloat 			triggerWidth, 	intrusion;
 @property (nonatomic, assign) NSRect 			triggerFrame, 	workingFrame, 	visibleFrame;
@@ -19,6 +18,7 @@
 @property (RONLY) NSRect	 	outFrame;
 @property (RONLY) AZOrient 	orientation;
 @property (RONLY) NSUInteger capacity;
+@property (NATOM, ASS) NSRange range;
 
 - (void) slideOut;
 - (void) slideIn;

@@ -67,10 +67,10 @@
 	[self get:@"/request" withBlock:^(REQ *req, RES *res) {  [res respondWithString:$(@"%@",req)]; }];
 
 	[self get:@"/bootstrap" withBlock:^(REQ *req, RES *res) {
-		[Bootstrap initWithUserStyle:nil script:nil andInnerHTML:nil  calling:^(id sender) {
+//		[Bootstrap initWithUserStyle:nil script:nil andInnerHTML:nil  calling:^(id sender) {
 			// 	initWithUserStyles:@"" script:@"" andInnerHTML:@"<P>HELLO</P>" calling:^(id sender) {
-			[res respondWithString:[(NSS*)sender copy]];
-		}];
+//			[res respondWithString:[(NSS*)sender copy]];
+//		}];
 	}];
 
 	[self get:@"/indexUP.html" withBlock:^(REQ *req, RES *res) {

@@ -1,24 +1,33 @@
 
-#import "AZEntitlementDelegate.h"
 #import "AZQuadCell.h"
 
 @interface AZQuadCarousel : NSObject <iCarouselDataSource, iCarouselDelegate, NSWindowDelegate>
 
+@property (NATOM, STRNG) AZTW 	*track_N, 	*track_S, 	*track_E, 	*track_W;
+@property (NATOM, STRNG) iC 		 *menu_N, 	 *menu_S, 	 *menu_E, 	 *menu_W;
+@property (NATOM) iC *activeMenu;
+
 @property (NATOM) iCarouselType cType;
-@property (NATOM) CGF 	fontSize,	intrusion;;
+@property (NATOM) CGF 	fontSize;
 @property (NATOM) NSUI 	iconStyle, 	selectedIndex, 	tilt;
+@property (RONLY) NSRNG selectedRange;
+@property (NATOM, STRNG) NSS 		*activeMenuID,	*activeTrackID;
+@property (NATOM, STRNG) NSD 		*windowLog;
+@property (RONLY) 			 NSA 		*menus, 			*tracks;
+
 @property (NATOM) Option option;
 @property (UNSFE) id refToSelf;
 
-@property (NATOM, STRNG) IBOutlet NSMutableArray *items;
-@property (NATOM, STRNG) AZSegmentedRect *seg;
+@property (NATOM, STRNG) NSMutableArray 	*items;
+@property (NATOM, STRNG) NSD 					*quads;
+@property (NATOM, STRNG) AZSegmentedRect 	*seg;
 
 - (IBAction) toggleQuadFlip: (id)sender;
-- (IBAction) toggleQuad:	 (id)sender;
-- (IBAction) setType:		 (id)sender;
+//- (IBAction) toggleQuad:	 (id)sender;
+//- (IBAction) setType:		 (id)sender;
 
--(void) advance;
--(void) rewind;
+-(IBAction)advance:(id)sender;
+-(IBAction)rewind:(id)sender;
 
 @end
 

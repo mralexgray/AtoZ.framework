@@ -97,7 +97,7 @@ CGF  AZAspectRatioForSize ( NSSZ size );
 // Simple Length and Area calculus
 
 CGF AZPerimeter ( NSR rect );
-CGF AZPermineterWithRoundRadius  ( NSR rect, CGF radius );
+CGF AZPerimeterWithRoundRadius  ( NSR rect, CGF radius );
 
 
 AZPOS AZPositionOpposite(AZPOS position);
@@ -107,6 +107,11 @@ AZPOS AZPositionOfEdgeAtOffsetAlongPerimeterOfRect(CGF offset, NSR r);
 CGP   AZPointAtOffsetAlongPerimeterOfRect(CGF offset, NSR r);  //from bottom left going counterclockwise
 
 AZPOS AZPositionOfRectPinnedToOutisdeOfRect(NSR box, NSR innerBox  );
+
+
+
+//Includes corner preciion based on inner rect size;
+AZPOS AZPositionOfRectAtOffsetInsidePerimeterOfRect(NSR inner, CGF offset, NSR outer);
 
 
 AZPOS AZPositionOfRectInRect ( NSR rect, NSR outer );

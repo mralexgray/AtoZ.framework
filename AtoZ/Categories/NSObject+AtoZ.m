@@ -1,7 +1,7 @@
 
 #import "AtoZ.h"
 #import "NSObject+AtoZ.h"
-#import "AutoCoding.h"
+//#import "AutoCoding.h"
 
 //#import "Nu.h"
 //
@@ -28,6 +28,14 @@
 - (void)removeAllAssociatedValues { 	objc_removeAssociatedObjects(self); }
 
 - (BOOL)hasAssociatedValueForKey:(NSS*)string {  return [self associatedValueForKey:string] != nil; }
+
+- (id)associatedValueForKey:(NSS*)key orSetTo:(id)anObject policy: (objc_AssociationPolicy) policy
+{
+	return 	[self hasAssociatedValueForKey:key]
+			? 	[self associatedValueForKey:	 key]
+			: ^{	[self setAssociatedValue:anObject forKey:key policy:policy];
+					return [self associatedValueForKey:key];	}();
+}
 
 @end
 
@@ -133,7 +141,18 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary(void) {
 }
 @end
 
+#import "AtoZUmbrella.h"
+#import "AtoZFunctions.h"
+
+//static const int ddLogLevel = LOG_LEVEL_VERBOSE;
+
 @implementation NSObject (AtoZ)
+
+-(void) 	DDLogError   {	DDLogError  (@"%@",self);  } 	// Red
+-(void) 	DDLogWarn    {	DDLogWarn   (@"%@",self);  } 	// Orange
+-(void) 	DDLogInfo	    {	DDLogInfo   (@"%@",self);  } 	// Default (black)
+-(void) 	DDLogVerbose {	DDLogVerbose(@"%@",self);	}	// Default (black)
+
 
 - (void) bindArrayKeyPath: (NSS*)array toController: (NSArrayController*)controller
 {
@@ -226,12 +245,26 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary(void) {
 	[boundObject setValue:value forKeyPath:boundKeyPath];
 }
 
+//- (NSA*) settableKeys
+//{
+//	return [[[self class] uncodableKeys] filter:^BOOL(id object) {
+//		return [self canSetValueForKey:object];
+//	}];
+//}
+
+- (NSA*) keysWorthReading
+{
+	return [self.settableKeys filter:^BOOL(id object) {
+		return [self hasPropertyNamed:object];
+	}];
+}
+
 -(void) setWithDictionary: (NSD*)dic;
 {
-	NSA* limitedD 	  = [dic.codableKeys filter:^BOOL(id object) { return [self canSetValueForKey:object];}];
+
 	NSCoder *aDecoder = NSCoder.new;
 //	for (NSS *key in [dic codableKeys]) {
-	[limitedD do:^(NSS *key) {		[self setValue:[aDecoder decodeObjectForKey:key] forKey:key]; }];
+	[[self settableKeys] do:^(NSS *key) {		[self setValue:[aDecoder decodeObjectForKey:key] forKey:key]; }];
 	//	[[dic allKeys] each:^(id obj) {
 	//		NSS *j = $(@"set%@:", [obj capitalizedString]);
 	//		if ([self respondsToString:j] )
@@ -578,6 +611,27 @@ BOOL respondsTo(id obj, SEL selector){
 	return [self respondsToSelector:NSSelectorFromString(string)];
 }
 
+
+- (id) respondsToStringThenDo:(NSS*)string 
+{
+	return 	[self respondsToStringThenDo:string.copy withObject:nil withObject:nil];
+}
+
+- (id) respondsToStringThenDo:(NSS*)string withObject:(id)obj {
+	return 	[self respondsToStringThenDo:string.copy withObject:obj withObject:nil];
+}
+
+- (id) respondsToStringThenDo:(NSS*)string withObject:(id)obj withObject:(id)objtwo 
+{
+	SEL select = NSSelectorFromString(AZ_RETAIN([string copy]));
+	BOOL doesit =  [self respondsToSelector:select];
+	return 	doesit && obj && objtwo 	? [self performSelectorARC:select withObject:obj withObject:objtwo]
+			:	doesit && obj 				? [self performSelectorARC:select withObject:obj]
+			:	doesit 						? [self cw_ARCPerformSelector:select] : nil;
+}
+
+
+
 - (IBAction)performActionFromLabel: (id)sender;
 {
 	NSS *stringSel, *setter;
@@ -590,13 +644,10 @@ BOOL respondsTo(id obj, SEL selector){
 }
 - (IBAction)performActionFromSegmentLabel: (id)sender;
 {
-	BOOL isSegmented = [sender isKindOfClass:[NSSegmentedControl class]];
-	if (isSegmented) {
-		BOOL isSelected;	NSS*label;
-		NSI selectedSegment = [sender selectedSegment];
-		label = [sender labelForSegment:selectedSegment];	//		BOOL *optionPtr = &isSelected;
+	if ([sender isKindOfClass:NSSegmentedControl.class]) {
+		NSS *label = [sender labelForSegment:[sender selectedSegment]];	//		BOOL *optionPtr = &isSelected;
 		if ([self respondsToString:label])
-			[self performSelector:NSSelectorFromString(label) withValue:nil];
+			[self  performSelector:NSSelectorFromString(label) withValue:nil];
 	}
 }
 
@@ -805,6 +856,20 @@ static const char * getPropertyType(objc_property_t property) {
 	}
 }
 
+- (id)performSelectorARC:(SEL)selector withObject:(id)obj {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+	return [self performSelector:selector withObject:obj];
+#pragma clang diagnostic pop
+}
+-(id)performSelectorARC:(SEL)selector withObject:(id)one withObject:(id)two
+{
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+	return [self performSelector:selector withObject:one withObject:two];
+#pragma clang diagnostic pop
+}
+
 - (id) performSelectorWithoutWarnings: (SEL)aSelector {	return  [self performSelectorSafely:aSelector]; }
 
 - (id) performSelectorWithoutWarnings: (SEL)aSelector withObject: (id)obj
@@ -922,12 +987,12 @@ static const char * getPropertyType(objc_property_t property) {
 
 @implementation NSD (PropertyMap)
 
-- (void)mapPropertiesToObject: (id)instance
-{
-	[[instance class].codableKeys do:^(NSS* propertyKey) {
-		[instance canSetValueForKey:propertyKey] ? [instance setValue:self[propertyKey]	forKey:propertyKey] : nil;
-	}];
-}
+//- (void)mapPropertiesToObject: (id)instance
+//{
+//	[[instance class].codableKeys do:^(NSS* propertyKey) {
+//		[instance canSetValueForKey:propertyKey] ? [instance setValue:self[propertyKey]	forKey:propertyKey] : nil;
+//	}];
+//}
 
 @end
 

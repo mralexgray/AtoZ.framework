@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface AZGeneralViewController : NSViewController
+@interface GeneralVC : NSViewController
 
 @property (NATOM) IBOutlet AZBackgroundProgressBar *pBar;
 @property (NATOM) IBOutlet NSSegmentedControl *segments;
@@ -17,7 +17,7 @@
 @property (NATOM) AZMedallionView 	*medallion;
 @property (NATOM) BLKVIEW	   	 		*blockView;
 @property (NATOM) AZDebugLayerView  	*debugLayers;
-@property (NATOM) NSIV	 			*badges, *imageNamed;
+@property (NATOM, STRNG) NSIV	 			*badges, *imageNamed;
 @property (NATOM) NSSV 				*contactSheet;
 @property (NATOM) AtoZGridViewAuto   	*picol;
 @property (NATOM) AtoZGridViewAuto	*autoGrid;

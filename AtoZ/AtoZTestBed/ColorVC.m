@@ -6,13 +6,13 @@
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 //
 
-#import "AZColorViewController.h"
+#import "ColorVC.h"
 
-@interface AZColorViewController ()
+@interface ColorVC ()
 
 @end
 
-@implementation AZColorViewController
+@implementation ColorVC
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

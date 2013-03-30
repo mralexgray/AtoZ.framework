@@ -21,7 +21,7 @@ typedef NS_ENUM(NSUI, AZQuadCellModel) {
 
 @property (weak) AZTrackingWindow* superWindow;
 @property (nonatomic, assign) AZWindowPosition position;
-@property (nonatomic, retain) id objectRep;
+@property (weak) 					id objectRep;
 @property (nonatomic, strong) NSString *string;
 @property (nonatomic, strong) NSColor *color;
 @property (nonatomic, assign) NSFont *font;

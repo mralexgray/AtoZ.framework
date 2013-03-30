@@ -128,11 +128,12 @@
 
 - (NSA*) withMinItems:(NSUI) items;
 {
-	if ( self.count > items) return self;
-	NSMA *upgrade = [NSMA array];
-	for (int i = 0; i<items; i++)		[upgrade addObject:[[self normal:i]copy]];
+	if ( self.count >= items) return self;
+	NSMA *upgrade = [NSMA arrayWithArray:self];
+	for (int i = self.count; i < items; i++)		
+		[upgrade addObject:[[self normal:i]copy]];
 	NSLog(@"grew array from %ld to %ld", self.count, upgrade.count);
-	return upgrade.copy;
+	return upgrade;
 }
 
 
@@ -181,8 +182,8 @@
 }
 - (void) saveToPlistAtPath:(NSS*)path{
 
-	[HRCoder archiveRootObject:self toFile:path];
-	[NSTask launchedTaskWithLaunchPath:@"/usr/bin/plutil" arguments:@[@"-convert", @"xml1", path]];
+//	[HRCoder archiveRootObject:self toFile:path];
+//	[NSTask launchedTaskWithLaunchPath:@"/usr/bin/plutil" arguments:@[@"-convert", @"xml1", path]];
 }
 - (NSA*)arrayWithEach{
 	return	[NSArray arrayWithArrays:self];
@@ -494,7 +495,29 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 	return re;
 }
 
-- (NSA*)filter:(BOOL(^)(id object))blk {	return [self filteredArrayUsingBlock:^(id o, NSD *d) { return (BOOL) blk(o); }]; }
+- (NSA*)subIndex:(NSUI)subIndex filter:   (BOOL (^)(id object))block
+{
+	return [self[subIndex] filter:block];
+}
+- (id)	     subIndex:(NSUI)subIndex filterOne:(BOOL (^)(id object))block
+{
+	return [self[subIndex] filterOne:block];
+}
+
+- (id)subIndex:(NSUI)subIndex blockReturnsIndex:(MapArrayBlock)block
+{
+	id theIndex = [self subIndex:subIndex block:block];
+	return self[[self indexOfObject:theIndex]];
+}
+
+- (id)subIndex:(NSUI)subIndex block:(MapArrayBlock)block;
+{
+	return  block(self[subIndex]);
+}
+
+- (NSA*)filter: (BOOL(^)(id object))blk
+{
+	return [self filteredArrayUsingBlock:^(id o, NSD *d) { return (BOOL) blk(o); }]; }
 
 - (id)filterOne:(BOOL(^)(id object))blk
 {

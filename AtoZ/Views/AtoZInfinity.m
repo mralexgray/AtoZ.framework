@@ -120,7 +120,7 @@
 	}
 	self.totalBarFrame = AZMakeRectFromSize(_totalBar);
 	NSLog(@"taking opicture, it lasts longer!");
-	bar = [[NSImage alloc]initWithSize:_totalBar];
+	bar = [NSIMG.alloc initWithSize:_totalBar];
 	[bar lockFocus];
 	[_infiniteObjects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 		NSColor *color = [obj valueForKey:@"color"];
@@ -179,7 +179,7 @@ NSClipView only invokes this method during automatic or user controlled scrollin
 //		}
 //		[self stack];
 //	} else {
-	/*	snap = [[NSImage alloc]initWithSize:AZScaleRect([[self contentView] frame], 3).size];
+	/*	snap = [NSIMG.alloc initWithSize:AZScaleRect([[self contentView] frame], 3).size];
 		__block NSRect localunit = self.unit;
 		[snap lockFocus];
 		[infiniteViews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {

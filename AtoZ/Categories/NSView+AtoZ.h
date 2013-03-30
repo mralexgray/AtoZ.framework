@@ -99,6 +99,7 @@ typedef void (^viewFrameDidChangeBlock)(void);
 
 - (void) handleMouseEvent:(NSEventMask)event withBlock:(void (^)())block;
 - (NSP) localPoint;
+- (NSP) windowPoint;
 
 @end
 

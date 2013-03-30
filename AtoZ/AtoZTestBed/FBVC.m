@@ -8,9 +8,9 @@
 NSString* APPLICATION_ID = @"223404761008769";
 
 
-#import "AZFacebookBrowserView.h"
+#import "FBVC.h"
 
-@implementation AZFacebookBrowserView
+@implementation FBVC
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

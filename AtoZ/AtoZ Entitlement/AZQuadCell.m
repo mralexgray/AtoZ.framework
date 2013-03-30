@@ -11,46 +11,43 @@
 
 - (id)initInWindow:(AZTrackingWindow*)window withObject:(id)thing atIndex:(NSUInteger)index
 {
-	self = [super initWithFrame:NSZeroRect];
-	if (self) {
-//		[self setupHostView];
-		self.wantsLayer = YES;
-		NSSize trkrSize		= [[window contentView] bounds].size;
-		CGFloat trkLong 	= window.orientation == AZOrientVertical ? trkrSize.height : trkrSize.width;
-		trkLong 			= ( trkLong / (float) window.capacity );
+	if (self != [super initWithFrame:window.frame]) return nil;
+	_superWindow = window;
+	NSSize trkrSize		= [(NSV*)_superWindow.contentView size];
+	CGFloat trkLong 	= window.orientation == AZOrientVertical ? trkrSize.height : trkrSize.width;
+	trkLong 				= ( trkLong / (float) window.capacity );
 
-		NSSize dim 			= window.orientation == AZOrientVertical ? (NSSize) { window.intrusion,  trkLong  }
-																	 : (NSSize) { trkLong, 	window.intrusion };
-		self.superWindow 	= window;
-		self.position 		= window.position;
-		self.frame 		=	AZMakeRectFromSize(dim);
-		if (thing) {
-			self.objectRep 	= 	thing;
-			self.color 		= [thing class] == [NSColor class] ? thing
-							: [thing respondsToSelector:@selector(color)] ? [thing color]
-							: RANDOMCOLOR;
-			self.string		= [thing class] == [AZFile class] ? [thing valueForKey:@"name"]
-							: [thing valueForKey:@"string"];
-		}
-		if (!_color) self.color 		= RANDOMCOLOR;
-		if (!_string) self.string		= $(@"%ld",index);
-		self.layer.backgroundColor = [_color cgColor];
-	
-		CATextLayer *l = [CATextLayer layer];
-		l.string =$(@"%ld", index);
+	NSSize dim 			= window.orientation == AZOrientVertical 	? (NSSize) { window.intrusion,  trkLong  }
+																 					: (NSSize) { trkLong, 	window.intrusion };
+	_position 			= window.position;
+	self.frame 			= AZMakeRectFromSize(dim);
+	if (thing) {
+		_objectRep 	= 	thing;
+		_color 		= [thing isKindOfClass:NSColor.class] ? thing
+						: [thing respondsToSelector:@selector(color)] ? [thing valueForKey:@"color"]
+						: RANDOMCOLOR;
+		_string		= [thing  isKindOfClass:AZFile.class] ? [thing valueForKey:@"name"]
+						: [thing valueForKey:@"string"] ?: nil;
+	}
+	if (!_color) 	_color 		= RANDOMCOLOR;
+	if (!_string) 	_string		= $(@"%ld",index);
+	CAL* host = CAL.layer;
+	self.layer = host;
+	[self setWantsLayer:YES];
+	host.backgroundColor = [_color cgColor];
+
+	CATextLayer *l = [CATextLayer layer];
+	l.string =$(@"%ld", index);
 //		l.string =$(@"%@%ld", _string.firstLetter, index);
-		l.frame = [self bounds];
-		l.font = (__bridge CFTypeRef)((id)@"Ubuntu Mono Bold");
-		l.foregroundColor = [_color.contrastingForegroundColor cgColor];
-		l.fontSize = self.font.pointSize;
-		NSImage *s = [_objectRep valueForKey:@"image"];
-		if (s) 	self.layer.contents = s;		//[(AZFile*)_objectRep image];
-		[self.layer addSublayer:l];
+	l.frame = [self bounds];
+	l.font = (__bridge CFTypeRef)((id)@"Ubuntu Mono Bold");
+	l.foregroundColor = [_color.contrastingForegroundColor cgColor];
+	l.fontSize = self.font.pointSize;
+	NSImage *s = [_objectRep valueForKey:@"image"];
+	if (s)   host.contents = s;		//[(AZFile*)_objectRep image];
+	if (l)  [host addSublayer:l];
 //, [(NSColor*)[view valueForKey:@"backgroundColor"] nameOfColor])];
 //		view.frame = AZMakeRectFromSize(dim);
-
-	}
-
 	return self;
 }
 
