@@ -18,6 +18,8 @@
 
 @interface NSString (AtoZ)
 
+- (NSComparisonResult)compareNumberStrings:(NSS*)str;
+
 - (NSS*) justifyRight:(NSUI)col;
 - (NSS*) unescapeUnicodeString;
 - (NSS*) escapeUnicodeString;
@@ -77,6 +79,9 @@
 + (NSS*) randomAppPath;
 
 + (Definition*) randomUrbanD;
+
+- (BOOL) loMismo:(NSS*)s;
+- (NSString *) stringByStrippingHTML;
 
 
 + (NSS*) randomWords:	 (NSI)number;
@@ -197,6 +202,7 @@
 - (NSS*)   truncatedForRect: (NSR)frame withFont: (NSF*)font;
 //-(NSMutableAttributedString *) attributedParagraphWithSpacing:(CGF)spacing
 
++ (NSA*) testDomains;
 @end
 // Truncate a string by inserting an ellipsis ("..."). truncateMode can be NSLineBreakByTruncatingHead, NSLineBreakByTruncatingMiddle or NSLineBreakByTruncatingTail.
 NSS*   StringByTruncatingStringWithAttributesForWidth( NSS* s, NSD* attrs, float wid, NSLineBreakMode truncateMode );
@@ -652,3 +658,26 @@ extern int gNSStringGeometricsTypesetterBehavior ;
 
 
 
+
+
+@interface NSString (SNRAdditions)
+- (NSString*)stringByRemovingExtraneousWhitespace;
+- (NSString*)stringByFilteringToCharactersInSet:(NSCharacterSet*)set;
+- (NSString*)stringByRemovingNonAlphanumbericCharacters;
++ (NSString*)stringFromFileSize:(NSUInteger)theSize;
+- (NSString*)MD5;
+- (NSString*)URLEncodedString;
+- (NSString*)URLEncodedStringForCharacters:(NSString*)characters;
+- (NSString*)normalizedString;
+- (NSString*)upperBoundsString;
++ (NSString*)timeStringForTimeInterval:(NSTimeInterval)interval;
++ (NSString*)humanReadableStringForTimeInterval:(NSTimeInterval)interval;
+- (NSArray*)spaceSeparatedComponents;
++ (NSString*)randomUUID;
++ (NSData*)HMACSHA256EncodedDataWithKey:(NSString*)key data:(NSString*)data;
+@end
+
+@interface NSAttributedString (SNRAdditions)
+- (NSAttributedString*)attributedStringWithColor:(NSColor*)color;
+- (NSColor*)color;
+@end

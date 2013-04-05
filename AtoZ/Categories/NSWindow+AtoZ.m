@@ -222,6 +222,22 @@
 }
 @end
 @implementation NSWindow (AtoZ)
+
+static CGR inFrame, outFrame;  
+static AZSlideState inOut = AZToggle;
+
+- (CGR) inFrame 			{ return inFrame  = CGRectIsNull(inFrame)  ? self.frame : inFrame;  } 
+- (CGR) outFrame 			{ return outFrame = CGRectIsNull(outFrame) ? self.frame : outFrame; } 
+- (AZSlideState) inOut  { return inOut; }
+- (void) setInFrame:(CGRect)inF; 	{ inFrame = inF;   }
+- (void) setOutFrame:(CGRect)outF;	{ outFrame = outF; }
+- (void) setInOut:(AZSlideState)iO;	{  WARN($(@"%@ setting slideState: %ld",self, iO));
+
+ 	if ( inOut != iO ) { 
+ 		[self setFrame: iO == AZIn ? self.inFrame : self.outFrame display:YES];  inOut = iO ; 
+	}
+}
+
 - (CAL *)layer
 {
 	return [self.contentView layer];

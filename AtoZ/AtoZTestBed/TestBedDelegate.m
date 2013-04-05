@@ -8,6 +8,7 @@
 
 // Constants used by the Scroll layer to setup its contents and to scroll.
 #define kScrollContentRect CGRectMake(  0.0,   0.0, 3000.0, 300.0)
+#define kScrollContentRect CGRectMake(  0.0,   0.0, 100, _targetView.height )
 
 @implementation TestBedDelegate
 
@@ -15,7 +16,7 @@
 {
 	AtoZ* o = AtoZ.sharedInstance;
 	[self createScrollLayer]; 
-	[((BGHUDView*)_contentView).theme bind:@"baseColor" toObject:_colorWell withKeyPath:@"color" options:nil];
+	[((BGHUDView*)_contentView).theme.baseColor bind:@"value" toObject:_colorWell withKeyPath:@"color" options:nil];
 
 //	[self.window setAcceptsMouseMovedEvents:YES];
 //	[self.window makeFirstResponder:_targetView];
@@ -32,7 +33,8 @@
 	id view = 	areSame(selecto,  @"General") ? _genVC.	view :
 			   	areSame(selecto, 	     @"UI") ? _uiVC.		view :
 					areSame(selecto,   @"Colors") ? _colorVC.	view :
-					areSame(selecto, @"Facebook") ? _fbV.		view : nil;
+					areSame(selecto, @"Facebook") ? _fbV.		view : 
+					areSame(selecto, 	   @"TUIV") ? _tuiVC.		view : nil;
 	if (view) {
 		NSLog(@"selecto:%@  view:%@", [selecto debugDescription],[view subviews]);
 		[view setFrame:_targetView.bounds];
@@ -43,41 +45,184 @@
 //		[view fadeIn];
 	} else if ( areSame(@"CAScrollLayer", selecto)) [self createScrollLayer];
 }
-- (void) createScrollLayer
-{
-//	if ( _targetView.subviews.count > 0) [_targetView.subviews.first fadeOut];		//		[_targetView.subviews[0] removeFromSuperview];
-	if ([_targetView.subviews doesNotContainObject:_scrollTest])
-		[_targetView swapSubs:_scrollTest];
-//	[_scrollTestHost setFrame:_targetView.frame];
-	[self reZhuzhScrollLayer:nil];
+
+- (NSMD*) model {  return _model = _model ?:  ^{
+		NSA* icons = [NSIMG.monoIcons withMaxItems:30];
+		return  @{ @"icons" :  icons, @"colors" :[NSC gradientPalletteLooping:NSC.randomPalette steps:icons.count] }.mutableCopy;
+	}();
 }
 
-- (IBAction)reZhuzhScrollLayer:(id)sender
-{
+@synthesize  host, off, scrlr;
+- (void) createScrollLayer	{
+
+//	_scrollTest = [CAScrollView.alloc initWithFrame: _targetView.bounds];
 	_scrollTest.hoverStyle 		= Lasso;
 	_scrollTest.selectedStyle 	= DarkenOthers;
-	_scrollTest.layerQueue 		= [NSC.randomPalette nmap:^id(NSC* c, NSUI idx) {
-
+	_scrollTest.layerQueue 		= 
+	[NSC.randomPalette nmap:^id(NSC* c, NSUI idx) {
 		CAL *l = [CAL layerNamed:$(@"%ld",idx)];
-		l.frame = AZRectBy(50, 30);//RAND_FLOAT_VAL(40, 100),_scrollTest.height);
+		l.frame = AZRectBy(50, _targetView.height);//RAND_FLOAT_VAL(40, 100),_scrollTest.height);
 		l.bgC = c.brighter.cgColor;
-		l.loM = AZLAYOUTMGR;
+//		l.loM = AZLAYOUTMGR;
 //		l.constraints = @[AZConstAttrRelNameAttrScaleOff(kCAConstraintWidth, @"superlayer", kCAConstraintHeight, 1, 0), AZConstRelSuper(kCAConstraintHeight)];
 //		l.arMASK = CASIZEABLE;
 //		[l addConstraintsRelSuper: kCAConstraintMidY];//kCAConstraintHeight, kCAConstraintMaxY, kCAConstraintMidY, kCAConstraintMinY, nil];
-//		l.borderColor = c.darker.cgColor;
+		l.borderColor = c.darker.cgColor;
 //		l.delegate = self;
 //		[l setNeedsDisplay]; 
 		return l;
 	}].mutableCopy;
 
+
+//	[_targetView addSubview:_scrollTest];
+//	[_targetView removeAllSubviews];
+//	_targetView.subviews = @[self.scrollTest = [CAScrollView new]];
+//	_scrollTest.layerQueue = 	[self.model [@"icons"] nmap:^id(NSIMG*o, NSUI idx){
+//		CAGL *g 	= [CAL gradientWithColor:self.model[@"colors"][idx]];
+//		//				 	g.sublayers = @[gImg = [CAL layerNamed:o.name]];
+//		g.name = o.name;
+//		[g setInt:idx forKey:@"index"];
+//		//				 gImg.contents = o;
+//		//				gImg.transform = CATransform3DMakeScale(.65, 1, 1);
+//		g.delegate = self;
+//		[g setNeedsDisplay];
+//		return g;	}].mutableCopy;
+//	_scrollTest.frame = _scrollTest.bounds;
 }
 
-- (void)drawLayer:(CAL*)layer inContext:(CGContextRef)ctx
-{
-//	NSLog(@"drawLinCTX called on: %@...  vageen?:%@", layer, StringFromBOOL([layer boolForKey:@"clicked"]));
+- (void) drawLayer:(CAL*)layer inContext:(CGContextRef)ctx			{
+	
+//	[NSGraphicsContext drawInContext:ctx flipped:NO actions:^{
+//		NSIMG* icon = self.model[@"icons"][[layer integerForKey:@"index"]];
+//		NSR bottomSquare = AZRectTrimmedOnTop(layer.bounds,layer.boundsHeight - layer.boundsWidth);
+//		[icon drawInRect:AZInsetRect(bottomSquare, 15) fraction:1];
+//		NSString *pos = AZString(layer.position);
+//		[pos drawInRect:AZSquareInRect(layer.bounds) withFontNamed:@"UbuntuMono-Bold" andColor:WHITE];
+//	}];
+}
 
-	[NSGraphicsContext drawInContext:ctx flipped:NO actions:^{
+
+- (void) alternate {
+
+	_targetView.subviews = @[host = [BLKVIEW inView:_targetView withBlock:^(BLKVIEW *v, CAL *l) {	 }]];
+   host.layer.sublayers = @[scrlr = [CASCRLL layerWithFrame:host.layer.bounds]];		            
+				  scrlr.bgC = [[GREEN alpha:.4] CGColor];
+			  scrlr.arMASK = CASIZEABLE;
+			scrlr.delegate = self;
+			
+  self.model[@"layers"]	= scrlr.sublayers = [self.model [@"icons"] nmap:^id(NSIMG*o, NSUI idx){
+			CAL*gImg; CAGL *g 	= [CAL gradientWithColor:self.model[@"colors"][idx]];
+//				 	g.sublayers = @[gImg = [CAL layerNamed:o.name]];
+						  g.name = o.name;
+				  [g setInt:idx forKey:@"index"];
+//				 gImg.contents = o;
+//				gImg.transform = CATransform3DMakeScale(.65, 1, 1);
+					 g.delegate = self;
+						[g setNeedsDisplay];
+						  return g;	}];
+						  
+	[NSEVENTLOCALMASK:NSScrollWheelMask handler:^(NSE*e){
+		self.off += e.deltaX * ABS(e.deltaX);	[scrlr scrollToPoint:(NSP){off, 0}];		return e; }];
+		
+	[NSEVENTLOCALMASK:NSLeftMouseUpMask handler:^(NSE*e){	CAGL* c = self.hit; 	if (c) [c setFrameMinX:c.frameMinX - c.boundsWidth]; return e; }];
+		
+	[_targetView.window setAcceptsMouseMovedEvents:YES];
+	[NSEVENTLOCALMASK:NSMouseMovedMask handler:^(NSE*e){ static id hovered;	CAGL* c = self.hit; 
+																			if(c && ![c[@"spinning"]boolValue] && c != hovered) { 
+																			[hovered setBool:NO forKey:@"hover"]; 
+																			[c setBool:YES forKey:@"hover"]; } 				return  e; }];
+}
+- (CAGL*) hit 					{ NSP hit = host.windowPoint;  hit.x += off;	return _hit = (CAGL*)[scrlr hitTestSubs:hit]; }
+- (NSA*) visibleSubs	 		{ return _visibleSubs = scrlr.visibleSublayers; }
+- (NSA*) subsAscending		{ return _subsAscending = scrlr.sublayersAscending; }
+- (NSUI) indexLastVisible 	{ NSA *visi = self.visibleSubs;  return visi ? [self.subsAscending indexOfObject:visi.last]   : NSNotFound; }
+- (NSUI) indexFirstVisible { NSA *visi = self.visibleSubs;  return visi ? [self.subsAscending indexOfObject:visi[0]] : NSNotFound; }
+- (NSS*) visibleSubsString { NSA* vs = [self.visibleSubs valueForKeyPath:@"name"]; 
+									  return $(@"%@ [%ld] Offset:%.1f", [NSS stringFromArray:vs], vs.count, self.off); 
+}
+- (NSRNG) front 	{ return NSMakeRange( 						    0, self.visible.location); }
+- (NSRNG) back  	{ return NSMakeRange(    self.visible.length, scrlr.sublayers.count); }
+- (NSRNG) visible { return NSMakeRange(self.indexFirstVisible, self.indexLastVisible ); }
+
+- (NSString *)fixState 	{ return stringForScrollFix(self.scrollFix); }
+- (ScrollFix) scrollFix { 	ScrollFix aFix 		= 	self.front.location == 0  && [self indexLastVisible] < self.subsAscending.count 
+															? 	LayerInsertFront
+															:	self.visible.length 	== scrlr.sublayers.count
+															?	LayerInsertEnd
+															:	LayerStateOK; // self.back.length - _visible.length 	
+	static NSUI fixCt = 0;  fixCt++;	
+	if (aFix != LayerStateOK) 
+	{ 
+		NSLog(@"fix:%@ x %ld", MAKEWARN(stringForScrollFix(aFix)), fixCt);	
+		NSA *locsort = self.subsAscending;
+		CAL* toMove	 	= aFix == LayerInsertFront ? locsort.last : locsort.first;
+		CAL* toWhere 	= aFix == LayerInsertFront ? locsort.first : locsort.last;
+		CGF relOff 		= aFix == LayerInsertFront ? -toMove.boundsWidth : toMove.boundsWidth;
+		CGR originR		= AZRectHorizontallyOffsetBy(toWhere.frame, relOff);  
+		[CATransaction immediately:^{ toMove.frame = originR; }];
+		[self visible];
+	}
+	return aFix;
+}
+/*		  
++ (NSSet*) keyPathsForValuesAffectingValueForKey:(NSS*)key			{
+ 
+	NSSet*s = [[super keyPathsForValuesAffectingValueForKey:key] setByAddingObjectsFromArray:
+
+	[key isEqualToAnyOf:@[	@"visible"					]] ? @[@"scrlr.onLayout", @"off"] :
+	
+	[key isEqualToAnyOf:@[	@"visibleSubsString", 
+									   @"front", @"back", 
+									        @"scrollFix", 
+									         @"fixState"		]] ? @[@"visible"]  
+	  															      : @[]];
+	
+	LOGWARN(@"kpVsAVfK: %@ \t[%ld]\t %@",key, s.allObjects.count,AZStringFromSet(s));
+	return s;
+}
+
+- (id<CAAction>) actionForLayer:(CAL*)layer forKey:(NSS*)event 	{		static NSMA *actions = nil; actions = actions ?: NSMA.new;
+	
+	[actions addObject:$(@"%@ on %@",event,layer)]; [self performBlock:^{	 self.actionStatus = actions[0]; [actions removeFirstObject];
+																																																											                                    } afterDelay:actions.count];
+
+	return 	 layer == scrlr && [@[@"bounds", @"position",@"contents"] containsObject:event] ?	 AZIDCAA AZNULL : 
+//											    		 	         [@[@"onLayout"] containsObject:event] ? nil : 
+											 	layer == scrlr && [@[@"sublayers"]containsObject:event] ? AZIDCAA self :
+												                               [event loMismo:@"hover"] ? AZIDCAA self : nil;
+}
+//			:  [layer isKindOfClass:CAGL.class] 
+//			?  [CABA animationWithKeyPath:@"position" andDuration:4]
+
+- (void) runActionForKey:(NSS*)k object:(id)o arguments:(NSD*)d  	{
+
+	NSLog(@"Its asking about %@ for %@", MAKEWARN(k), MAKEWARN(o));
+	
+	o == scrlr  && [k loMismo:@"sublayers"] ? ^{    													      // setup layout and size
+
+		[scrlr.sublayers eachWithIndex:^(CAL* obj, NSI idx) { 
+			[obj setFrame:(NSR) { idx * 100, 0, 100, _targetView.height }];
+			    AddTextLayer( obj, obj.name, AtoZ.controlFont, CASIZEABLE);
+		}];																	  self.off = 0;		
+
+	}() :	[o boolForKey:@"spinning"] ? ^{																      // Hover Action
+
+		CAA* a = CAA.shakeAnimation;	 a.duration = 3; a.repeatCount 	= 10;
+		a.completion = ^(BOOL d) {	[o setBool:NO forKey:@"spinning"]; [o setBool:NO forKey:@"hover"]; };
+		[(CAL*)o addAnimation:a  forKey:k]; 
+
+	}() : ![o boolForKey:@"spinning"] ? ^{																      // Hover Action
+		
+		CAA* a = [CAKA dockBounceAnimationWithIconHeight:100];
+		a.duration = .5; a.repeatCount 	= 1;
+		a.completion = ^(BOOL d) {		WARN(@"shaking has subsided");
+			[o setBool:NO forKey:@"spinning"]; };
+		[(CAL*)o addAnimation:a  forKey:k]; 
+		
+	}() : nil;
+}
+*/
+//	NSLog(@"drawLinCTX called on: %@...  vageen?:%@", layer, StringFromBOOL([layer boolForKey:@"clicked"]));
 //		!layer.hovered ?: ^{
 //			NSRectFillWithColor(layer.bounds, [NSC checkerboardWithFirstColor:BLACK secondColor:CLEAR squareWidth:20]);
 //			NSBP *b = [NSBP bezierPathWithRect:layer.bounds];
@@ -85,19 +230,303 @@
 //		}();
 //		[NSSHDW setShadowWithOffset:(NSSZ){5,-3} blurRadius:7 color:BLACK];
 
-		NSIMG* icon = layer[@"icon"] ?: ^{ 
-						  layer[@"icon"] = ((NSIMG*)NSIMG.monoIcons[RAND_INT_VAL(0, NSIMG.monoIcons.count -1)]).etched;
-			 	 return (NSIMG*)layer[@"icon"];
-		}();
-		[icon drawInRect:AZMakeSquare((NSP){NSMidX(layer.bounds), (.5 * layer.boundsWidth)}, .5 * layer.boundsWidth) fraction:1];
 //		[[layer associatedValueForKey:@"icon" 
 //									 orSetTo:((NSIMG*)NSIMG.monoIcons[RAND_INT_VAL(0, NSIMG.monoIcons.count)]).etched policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC]
 //		 drawInRect:AZMakeSquare((NSP){NSMidX(layer.bounds), (.5 * layer.boundsWidth)}, .5 * layer.boundsWidth) fraction:1];
-					//:[NSInsetRect(layer.bounds, 0, 10) fraction:1];// operation:NSCompositePlusDarker fraction:1];
+//:[NSInsetRect(layer.bounds, 0, 10) fraction:1];// operation:NSCompositePlusDarker fraction:1];
 //		[layer.name drawInRect:layer.bounds withFontNamed:@"Helvetica" andColor: WHITE];
-	}];
 
+
+
+
+// Creates a rect that is a fraction of the original rect
+CGR MakeSubrect(CGR r, CGF x, CGF y, CGF w, CGF h)	 {
+	return CGRectMake(	
+							r.origin.x + r.size.width * x,
+							r.origin.y + r.size.height * y,
+							r.size.width * w,
+							r.size.height * h);
 }
+- (IBAction)scrollFromSegment:(id)sender; {
+	
+	NSSegmentedControl *s = sender;
+	NSUI i = [sender selectedSegment];
+	NSArray *action = @[	^{ [scrlr scrollToRect:MakeSubrect(kScrollContentRect,.25, .5,  1, .5)]; },
+							  ^{ [scrlr scrollToRect:MakeSubrect(kScrollContentRect, .5,.25,  1, .5)]; },
+							  ^{ [scrlr scrollToRect:MakeSubrect(kScrollContentRect,.25,  0,  1, .5)]; }, 
+							  ^{ [scrlr scrollToRect:MakeSubrect(kScrollContentRect,  0,.25,  1, .5)]; },
+							  ^{ [scrlr scrollToRect:MakeSubrect(kScrollContentRect,  0, .5, .5, .5)]; },
+							  ^{ [scrlr scrollToRect:MakeSubrect(kScrollContentRect, .5, .5, .5, .5)]; },
+							  ^{ [scrlr scrollToRect:MakeSubrect(kScrollContentRect,  0,  0, .5, .5)]; },
+							  ^{ [scrlr scrollToRect:MakeSubrect(kScrollContentRect,  0,  0, .5, .5)]; },
+							  ^{ [scrlr scrollToRect:MakeSubrect(kScrollContentRect, .5,  0, .5, .5)]; }];
+	
+	((void (^)()) [action objectAtIndex:i] )();
+}
+@end
+
+
+/*	[obj setTransform:CATransform3DConcat(CATransform3DMakeScale(100, scrlr.boundsHeight, 1), 	
+ CATransform3DMakeTranslation(idx *100, 1, 1))];
+ }() : 	anObject == scrlr && areSame(key, @"onLayout") ? ^{ */
+ 
+//	if ( !areSame(fixState, stringForScrollFix(LayerStateOK)) )	[self performBlock:^{ static NSUI j; j++; 		[self setFixState:stringForScrollFix(LayerStateOK)]; } afterDelay:2];
+//		[numbers makeObjectsPerformSelector:@selector(fadeOut)];
+//		[toMove animate:@"frame" toRect:originR time:0.001 completion:^{
+
+//	static ScrollFix f; f = f != theFix && theFix != LayerStateOK ? theFix : f;
+//	if (f != LayerStateOK ) { 
+//		if (theFix == LayerInsertFront) [self fixState];
+//		if (_visible.length < self.back.length && ) [self fixState]; 
+//	}
+//	 self.fixState = stringForScrollFix(_scrollFix);
+
+//]last setFrame:AZRectExceptOriginX(scrlr.sublayers[0], CGFloat x)scrlr.sublayers.first; ? 
+//	int toIndex = l == LayerInsertFront
+//	NSLog(@"%.1f %@  %.1f",first.frameMinX, first.name, first.frameX);
+
+
+
+
+
+
+			
+//[CAA rotateAnimationForLayer:layer  start:0 end:180];
+//	if ( layer.superlayer == scrlr && 
+//		[layer pulse];
+//	[ _targetView inLiveResize ] ) {
+//	if ( /*layer == _t &&*/ [ _targetView inLiveResize ] ) {
+		// disable implicit animations for scrolllayer in live resize
+//		return (id<CAAction>)[ NSNull null ];
+//	}
+
+
+	
+//	_scrollTest.hoverStyle 		= Lasso;
+//	_scrollTest.selectedStyle 	= DarkenOthers;
+//	_scrollTest.layerQueue 		= [NSC.randomPalette nmap:^id(NSC* c, NSUI idx) {
+		
+//		CAL *l = [CAL layerNamed:$(@"%ld",idx)];
+//		l.frame = AZRectBy(50, 30);//RAND_FLOAT_VAL(40, 100),_scrollTest.height);
+//		l.bgC = c.brighter.cgColor;
+//		l.loM = AZLAYOUTMGR;
+		//		l.constraints = @[AZConstAttrRelNameAttrScaleOff(kCAConstraintWidth, @"superlayer", kCAConstraintHeight, 1, 0), AZConstRelSuper(kCAConstraintHeight)];
+		//		l.arMASK = CASIZEABLE;
+		//		[l addConstraintsRelSuper: kCAConstraintMidY];//kCAConstraintHeight, kCAConstraintMaxY, kCAConstraintMidY, kCAConstraintMinY, nil];
+		//		l.borderColor = c.darker.cgColor;
+		//		l.delegate = self;
+		//		[l setNeedsDisplay]; 
+//		return l;
+//	}].mutableCopy;
+
+/*
+
+	CASCRLL *trck = [CAScrollLayer layerWithFrame:_targetView.bounds];
+	trck.scrollMode = kCAScrollHorizontally;
+	trck.autoresizingMask = kCALayerWidthSizable | kCALayerHeightSizable;
+	trck.layoutManager = self;
+	CATransform3D perspTransform = CATransform3DIdentity;
+	perspTransform.m34 = 1. / -900;
+	trck.sublayerTransform = perspTransform;
+	trck.masksToBounds = NO;
+	trck.delegate = self;
+	trck.sublayers = [NSIMG.systemIcons nmap:^id(id obj, NSUInteger index) {
+			
+		return ReturnImageLayer(trck, obj, 1);							
+	}];
+	CAL *l = 	_targetView.setupHostView;
+	[l addSublayer: trck];
+}
+*/
+#pragma mark -
+#pragma mark CALayerDelegate protocol
+//- (id<CAAction>)actionForLayer:(CALayer *)layer forKey:(NSString *)event
+//{
+//	if ( layer == _t && [ _targetView inLiveResize ] ) {
+//		// disable implicit animations for scrolllayer in live resize
+//		return (id<CAAction>)[ NSNull null ];
+//	}
+//	return nil;
+//}
+
+#pragma mark - CALayoutManager protocol
+/*
+- (void)layoutSublayersOfLayer:(CALayer *)flowViewLayer
+{
+	if ( ( flowViewLayer != self.scrollLayer ) ||
+		 ( self.selectedIndex == NSNotFound ) ) {
+		return;
+	}
+	[ CATransaction begin ];
+	[ CATransaction setDisableActions:[ self inLiveResize ] ];
+	[ CATransaction setAnimationDuration:self.scrollDuration ];
+	[ CATransaction setAnimationTimingFunction:[ CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut ] ];
+	[ CATransaction setCompletionBlock:^{
+		[ self updateImages ];
+		[ self setupTrackingAreas ];
+	} ];
+	// layout
+	[ self layoutItemLayersInRange:NSMakeRange( 0, self.numberOfItems ) ];
+	[ self.scrollLayer scrollToPoint:[ self selectedScrollPoint ] ];
+	[ CATransaction commit ];
+	[ self calculateVisibleItems ];
+	[ self updateScrollKnob ];
+}
+- (void)layoutItemLayersInRange:(NSRange)layoutRange
+{
+	CGSize itemSize = [ self itemSizeForRect:self.scrollLayer.bounds ];
+	NSIndexSet *updatedIndexes = [ NSIndexSet indexSetWithIndexesInRange:NSIntersectionRange( layoutRange, NSMakeRange( 0, self.numberOfItems ) ) ];
+	[ updatedIndexes enumerateIndexesUsingBlock:^(NSUInteger itemIndex, BOOL *stop) {
+		[ self setFrameForLayer:(CAReplicatorLayer*)[ self itemLayerAtIndex:itemIndex ]
+							 atIndex:itemIndex
+					  withItemSize:itemSize ];
+	} ];
+}
+- (void)calculateVisibleItems
+{
+	NSInteger firstVisibleItem = NSNotFound;
+	NSUInteger numberOfVisibleItems = 0;
+	// visibility test
+	for ( CAReplicatorLayer *itemLayer in self.scrollLayer.sublayers )	{
+		NSUInteger itemIndex = [ [ itemLayer valueForKey:kMMFlowViewItemIndexKey ] unsignedIntegerValue ];
+		
+		if ( !CGRectIsEmpty( itemLayer.visibleRect ) ) {
+			if ( firstVisibleItem == NSNotFound ) {
+				firstVisibleItem = itemIndex;
+			}
+			numberOfVisibleItems++;
+		}
+	}
+	self.visibleItemIndexes = ( firstVisibleItem != NSNotFound ) ? [ NSIndexSet indexSetWithIndexesInRange:NSMakeRange( firstVisibleItem, numberOfVisibleItems ) ] : [ NSIndexSet indexSet ];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+	
+	selectedCover = (int) roundf((self.contentOffset.y/SCROLL_PIXELS));
+	if (selectedCover > [ _covers count ] -1) {
+		selectedCover = [ _covers count ] - 1;
+	}
+	[ self layoutLayer: trck ];
+}
+
+- (void)setSelectedCover:(int)index {
+	
+	if (index != selectedCover) {
+		selectedCover  = index;
+		[ self layoutLayer: trck ];
+		self.contentOffset = CGPointMake(self.contentOffset.x, selectedCover *
+													SCROLL_PIXELS);
+	}
+}
+
+- (int) getSelectedCover {
+	return selectedCover;
+}
+
+-(void) layoutLayer:(CAScrollLayer *)layer
+{
+	CALayer *sublayer;
+	NSArray *array;
+	size_t i, count;
+	CGRect rect, cfImageRect;
+	CGSize cellSize, spacing, margin, size;
+	CATransform3D leftTransform, rightTransform, sublayerTransform;
+	float zCenterPosition, zSidePosition;
+	float sideSpacingFactor, rowScaleFactor;
+	float angle = 1.39;
+	int x;
+	
+	size = [ layer bounds ].size;
+*/	
+//	zCenterPosition = 60;      /* Z-Position of selected cover */
+//	zSidePosition = 0;         /* Default Z-Position for other covers */
+//	sideSpacingFactor = .85;   /* How close should slide covers be */
+//	rowScaleFactor = .55;      /* Distance between main cover and side covers */
+/*	
+	leftTransform = CATransform3DMakeRotation(angle, -1, 0, 0);
+	rightTransform = CATransform3DMakeRotation(-angle, -1, 0, 0);
+	
+	margin   = CGSizeMake(5.0, 5.0);
+	spacing  = CGSizeMake(5.0, 5.0);
+	cellSize = CGSizeMake (COVER_WIDTH_HEIGHT, COVER_WIDTH_HEIGHT);
+	
+	margin.width += (size.width - cellSize.width * [ _covers count ]
+						  -  spacing.width * ([ _covers count ] - 1)) * .5;
+	margin.width = floor (margin.width);
+	
+//	 Build an array of covers 
+	array = [ layer sublayers ];
+	count = [ array count ];
+	sublayerTransform = CATransform3DIdentity;
+	
+//	 Set perspective 
+	sublayerTransform.m34 = -0.006;
+	
+//	 Begin a CATransaction so that all animations happen simultaneously 
+	[ CATransaction begin ];
+	[ CATransaction setValue: [ NSNumber numberWithFloat: 0.3f ]
+							forKey:@"animationDuration" ];
+	
+	for (i = 0; i < count; i++)
+	{
+		sublayer = [ array objectAtIndex:i ];
+		x = i;
+		
+		rect.size = *(CGSize *)&cellSize;
+		rect.origin = CGPointZero;
+		cfImageRect = rect;
+		
+//	 Base position 
+		rect.origin.x = size.width / 2 - cellSize.width / 2;
+		rect.origin.y = margin.height + x * (cellSize.height + spacing.height);
+		
+		[ [ sublayer superlayer ] setSublayerTransform: sublayerTransform ];
+		
+		if (x < selectedCover)        // Left side 
+		{
+			rect.origin.y += cellSize.height * sideSpacingFactor
+			* (float) (selectedCover - x - rowScaleFactor);
+			sublayer.zPosition = zSidePosition - 2.0 * (selectedCover - x);
+			sublayer.transform = leftTransform;
+		}
+		else if (x > selectedCover)  // Right side 
+		{
+			rect.origin.y -= cellSize.height * sideSpacingFactor
+			* (float) (x - selectedCover - rowScaleFactor);
+			sublayer.zPosition = zSidePosition - 2.0 * (x - selectedCover);
+			sublayer.transform = rightTransform;
+		}
+		else                      // Selected cover 
+		{
+			sublayer.transform = CATransform3DIdentity;
+			sublayer.zPosition = zCenterPosition;
+			
+//		Position in the middle of the scroll layer 
+			[ layer scrollToPoint: CGPointMake(0, rect.origin.y
+														  - (([ layer bounds ].size.height - cellSize.width)/2.0))
+			 ];
+			
+//		Position the scroll layer in the center of the view 
+			layer.position =
+			CGPointMake(160.0f, 240.0f + (selectedCover * SCROLL_PIXELS));
+		}
+		[ sublayer setFrame: rect ];
+		
+	}
+	[ CATransaction commit ];
+}
+
+*/
+//	if ( _targetView.subviews.count > 0) [_targetView.subviews.first fadeOut];		//		[_targetView.subviews[0] removeFromSuperview];
+//	if ([_targetView.subviews doesNotContainObject:_scrollTest])
+//		[_targetView swapSubs:_scrollTest];
+////	[_scrollTestHost setFrame:_targetView.frame];
+//	[self reZhuzhScrollLayer:nil];
+//}
+
+
+
+
 //	vcs 		= [WeakMutableArray new];
 
 //	genVC 		= [[AZGeneralViewController  alloc] initWithNibName: @"AZGeneralViewController"  bundle:nil];
@@ -261,7 +690,6 @@
 //
 //}
 
-@end
 
 //
 //@interface NSObject (getLayer)

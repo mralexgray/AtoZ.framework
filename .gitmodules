@@ -142,3 +142,15 @@
 	path = AtoZ/Models/StackAPI
 	url = https://github.com/mralexgray/StackInbox.git
 	ignore = dirty
+[submodule "Frameworks/NSOperationStack"]
+	path = Frameworks/NSOperationStack
+	url = https://github.com/mralexgray/NSOperationStack.git
+[submodule "Frameworks/CocoatechCore"]
+	path = Frameworks/CocoatechCore
+	url = https://github.com/mralexgray/CocoatechCore.git
+[submodule "Frameworks/TwUI"]
+	path = Frameworks/TwUI
+	url = https://github.com/mralexgray/twui.git
+[submodule "AtoZ/Views/TUIVs/AHLayout"]
+	path = AtoZ/Views/TUIVs/AHLayout
+	url = https://github.com/mralexgray/AHLayout.git

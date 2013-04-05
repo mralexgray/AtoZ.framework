@@ -1,83 +1,58 @@
-
-//  GTMNSBezierPath+CGPath.h
-
-#import <Cocoa/Cocoa.h>
-#import <AppKit/AppKit.h>
 #import "AtoZ.h"
 
-
 @interface NSAffineTransform (UKShearing)
-
-+ (NSAffineTransform *)transformRotatingAroundPoint:(NSPoint) p byDegrees:(CGFloat) deg;
--(void)	shearXBy: (CGFloat)xFraction yBy: (CGFloat)yFraction;
++ (NSAffineTransform *)transformRotatingAroundPoint:(NSP) p byDegrees:(CGF) deg;
+-(void)	shearXBy: (CGF)xFraction yBy: (CGF)yFraction;
 @end
-
-
 
 @interface NSBezierPath (AtoZ)
 
-- (NSBP*)scaledToSize:(NSSZ)size;
-- (NSBP*)scaledToFrame:(NSR)rect;
+- (NSR)	 nonEmptyBounds;
+- (NSBP*) scaledToSize:  (NSSZ)size;
+- (NSBP*) scaledToFrame: (NSR)rect;
+- (NSP)   associatedPointForElementAtIndex:(NSUI)anIndex;
+- (CGPR)  quartzPath CF_RETURNS_RETAINED;
++ (NSBP*) bezierPathWithCGPath:(CGPR)pathRef;
+- (CGPR)  cgPath CF_RETURNS_RETAINED;
 
+- (NSBP*) pathWithStrokeWidth:(CGF)strokeWidth;
+- (NSBP*) stroked:					(CGF)strokeWidth; // alias of pathWithStrokeWidth: 
 
-+ (NSBP*)bezierPathWithSpringWithCoils:(NSUI)numCoils inFrame:(NSR)bounds;
+- (void) drawWithFill: 	   (NSC*)fill  andStroke: (NSC*)stroke;
+- (void) fillGradientFrom: (NSC*)start to:(NSC*)end angle:(float)inAngle;
 
-+ (NSBezierPath *)bezierPathWithPlateInRect:(NSRect)rect;
+@property (STRNG,NATOM) NSA* dashPattern;
+//- (NSA*) dashPattern;
+//- (void) setDashPattern:(NSA*)newPattern;
 
-- (void)appendBezierPathWithPlateInRect:(NSRect)rect;
-- (void)appendBezierPathWithRoundedRect:(NSRect)rect cornerRadius:(float)radius;
-+ (NSBezierPath *)bezierPathWithTriangleInRect:(NSRect)aRect orientation:(AMTriangleOrientation)orientation;
-- (void)appendBezierPathWithTriangleInRect:(NSRect)aRect orientation:(AMTriangleOrientation)orientation;
-- (void) drawWithFill:(NSColor*)fill andStroke:(NSColor*)stroke;
-- (void)fillGradientFrom:(NSColor*)inStartColor to:(NSColor*)inEndColor angle:(float)inAngle;
+- (void) strokeInside;
+- (void) strokeInsideWithinRect: (NSR)clipRect;
+- (void) applyInnerShadow:	  (NSShadow*)shadow;
+- (void) fillWithInnerShadow:(NSShadow*)shadow;
+- (void) strokeWithColor:	 (NSC*)color;
+- (void) strokeWithColor:	 (NSC*)color andWidth:(CGF)width;
+- (void) fillWithColor:	 	 (NSC*)color;
+- (void) drawBlurWithColor: (NSC*)color radius:(CGF)radius;
+- (void) strokeWithColor:	 (NSC*)color andWidth:(CGF)width inside:(NSR)frame;
 
-+ (NSBezierPath *)bezierPathWithLeftRoundedRect:(NSRect)rect radius:(CGFloat)radius;
-+ (NSBezierPath *)bezierPathWithRightRoundedRect:(NSRect)rect radius:(CGFloat)radius;
-
-- (NSArray *)dashPattern;
-- (void)setDashPattern:(NSArray *)newPattern;
-
-- (NSRect)nonEmptyBounds;
-
-- (NSPoint)associatedPointForElementAtIndex:(NSUInteger)anIndex;
-+ (NSBezierPath *)bezierPathWithRoundedRect:(NSRect)aRect cornerRadius:(CGFloat)radius;
-+ (NSBezierPath *)bezierPathWithRoundedRect:(NSRect)aRect cornerRadius:(CGFloat)radius inCorners:(OSCornerType)corners;
-- (CGPathRef)quartzPath CF_RETURNS_RETAINED;
-+ (NSBezierPath *)bezierPathWithCGPath:(CGPathRef)pathRef;
-- (CGPathRef)cgPath CF_RETURNS_RETAINED;
-///  Extract a CGPathRef from a NSBezierPath.
-//  Args: 
-//  Returns:
-//	Converted autoreleased CGPathRef. 
-//	nil if failure.
-
-- (NSBezierPath *)pathWithStrokeWidth:(CGFloat)strokeWidth;
-
-- (void)applyInnerShadow:(NSShadow *)shadow;
-- (void)fillWithInnerShadow:(NSShadow *)shadow;
-- (void)drawBlurWithColor:(NSColor *)color radius:(CGFloat)radius;
-
-
-- (void)fillWithColor:(NSC*)color;
-
-- (void)strokeWithColor:(NSC*)color andWidth:(CGF)width inside:(NSR)frame;
-- (void)strokeWithColor:(NSC*)color andWidth:(CGF)width;
-- (void)strokeWithColor:(NSC*)color;
-- (void)strokeInside;
-- (void)strokeInsideWithinRect:(NSRect)clipRect;
-
-+ (NSBezierPath*) bezierPathWithCappedBoxInRect: (NSRect)rect;
-
++ (NSBP*) bezierPathWithSpringWithCoils: (NSUI)numCoils inFrame:(NSR)bounds;
++ (NSBP*) bezierPathWithPlateInRect: 		  	(NSR)rect;
++ (NSBP*) bezierPathWithTriangleInRect:   		(NSR)aRect orientation: (AMTriangleOrientation)orientation;
++ (NSBP*) bezierPathWithCappedBoxInRect:  		(NSR)rect;
+- (void) appendBezierPathWithTriangleInRect: (NSR)aRect orientation: (AMTriangleOrientation)orientation;
+- (void) appendBezierPathWithPlateInRect: 		(NSR)rect;
+- (void) appendBezierPathWithRoundedRect: 		(NSR)rect cornerRadius:(float)radius;
 #pragma mark Rounded rectangles
-
-+ (NSBezierPath *)bezierPathWithRoundedRect:(NSRect)rect radius:(CGFloat)radius;
-+ (NSBezierPath *)bezierPathRoundedRectOfSize:(NSSize)backgroundSize;
-+ (NSBezierPath *)bezierPathWithRoundedRect:(NSRect)bounds;
-+ (NSBezierPath *)bezierPathWithRoundedTopCorners:(NSRect)rect radius:(CGFloat)radius;
-+ (NSBezierPath *)bezierPathWithRoundedBottomCorners:(NSRect)rect radius:(CGFloat)radius;
-
++ (NSBP*) bezierPathWithRoundedRect: 			 (NSR)rect;
++ (NSBP*) bezierPathWithRoundedRect: 			 (NSR)rect radius:(CGF)radius;
++ (NSBP*) bezierPathWithLeftRoundedRect:  		 (NSR)rect radius:(CGF)radius;
++ (NSBP*) bezierPathWithRightRoundedRect: 		 (NSR)rect radius:(CGF)radius;
++ (NSBP*) bezierPathWithRoundedTopCorners:    (NSR)rect radius:(CGF)radius;
++ (NSBP*) bezierPathWithRoundedBottomCorners: (NSR)rect radius:(CGF)radius;
++ (NSBP*) bezierPathWithRoundedRect: 			 (NSR)aRect cornerRadius:(CGF)radius;
++ (NSBP*) bezierPathWithRoundedRect: 			 (NSR)aRect cornerRadius:(CGF)radius inCorners:(OSCornerType)corners;
++ (NSBP*) bezierPathRoundedRectOfSize:			 (NSSZ)backgroundSize;
 #pragma mark Arrows
-
 /* default metrics of the arrow (as returned by +bezierPathWithArrow):
  *	^
  *   / \
@@ -90,80 +65,48 @@
  *
  *   default shaft width: 1/3
  * the bounds of this arrow are { { 0, 0 }, { 1, 1 } }.
- *
- * the other three methods allow you to override either or both of these metrics.	*/
-+ (NSBezierPath *)bezierPathWithArrowWithShaftLengthMultiplier:(CGFloat)shaftLengthMulti shaftWidth:(CGFloat)shaftWidth;
-+ (NSBezierPath *)bezierPathWithArrowWithShaftLengthMultiplier:(CGFloat)shaftLengthMulti;
-+ (NSBezierPath *)bezierPathWithArrowWithShaftWidth:(CGFloat)shaftWidth;
-+ (NSBezierPath *)bezierPathWithArrow;
-
+ * the other three methods allow you to override either or both of these metrics.		*/
++ (NSBP*)bezierPathWithArrowWithShaftLengthMultiplier:(CGF)shaftLengthMulti shaftWidth:(CGF)shaftWidth;
++ (NSBP*)bezierPathWithArrowWithShaftLengthMultiplier:(CGF)shaftLengthMulti;
++ (NSBP*)bezierPathWithArrowWithShaftWidth:(CGF)shaftWidth;
++ (NSBP*)bezierPathWithArrow;
 #pragma mark Nifty things
-
 //these three are in-place. they return self, so that you can do e.g. [[NSBezierPath bezierPathWithArrow] flipVertically].
-- (NSBezierPath *)flipHorizontally;
-- (NSBezierPath *)flipVertically;
-- (NSBezierPath *)scaleToSize:(NSSize)newSize;
-
+- (NSBP*)flipHorizontally;
+- (NSBP*)flipVertically;
+- (NSBP*)scaleToSize:(NSSZ)newSize;
 //these three return an autoreleased copy.
-- (NSBezierPath *)bezierPathByFlippingHorizontally;
-- (NSBezierPath *)bezierPathByFlippingVertically;
-- (NSBezierPath *)bezierPathByScalingToSize:(NSSize)newSize;
-
+- (NSBP*)bezierPathByFlippingHorizontally;
+- (NSBP*)bezierPathByFlippingVertically;
+- (NSBP*)bezierPathByScalingToSize:(NSSZ)newSize;
 @end
-/*
-
- Available at
- http://earthlingsoft.net/code/NSBezierPath+ESPoints/
- More code at
- http://earthlingsoft.net/code/
-
- You may use this code in your own projects at your own risk.
- Please notify us of problems you discover and be sure to give
- reasonable credit.
-
- ********************************************************************
-
- Category on NSBezierPath for drawing anchor and handle control
- points with a single method call:
-
- -drawPointsAndHandles
-
- draws the control points of the path and associated handles in green
- and the anchor points in red, which is particularly useful when
- debugging Bézier paths.
-
- Call it after stroking the path to get the full picture.
-
- The remaining methods allow finer control of the colour usage and are
- helper methods for doing the drawing.	*/
+/*	Available at http://earthlingsoft.net/code/NSBezierPath+ESPoints/		More code at http://earthlingsoft.net/code/
+	You may use this code in your own projects at your own risk. Please notify us of problems you discover and be sure to give reasonable credit.
+	-drawPointsAndHandles 		Category on NSBezierPath for drawing anchor and handle control points with a single method call.  Draws the control points of the path and associated handles in green and the anchor points in red, which is particularly useful when debugging Bézier paths. 	Call it after stroking the path to get the full picture. The remaining methods allow finer control of the colour usage and are helper methods for doing the drawing.	
+*/
 @interface NSBezierPath (ESPoints)
-
 - (void) drawPointsAndHandles;
-
-- (void) drawPointsInColor: (NSColor*) pointColor withHandlesInColor: (NSColor *) handleColor;
-
-- (void) drawPoint: (NSPoint) pt;
-- (void) drawPoint: (NSPoint) pt inColor: (NSColor*) pointColor;
-- (void) drawHandlePoint: (NSPoint) pt;
-- (void) drawHandlePoint: (NSPoint) pt inColor: (NSColor*) pointColor;
-
-- (NSPoint) drawPathElement:(int) n withPreviousPoint: (NSPoint) previous;
-- (NSPoint) drawPathElement:(int) n  withPreviousPoint: (NSPoint) previous inColor: (NSColor*) pointColor withHandlesInColor: (NSColor*) handleColor;
+- (void) drawPoint:(NSP)pt;
+- (void) drawPoint:(NSP)pt inColor:(NSC*)pointColor;
+- (void) drawPointsInColor:			  (NSC*)pointColor withHandlesInColor:(NSC*)handleColor;
+- (void) drawHandlePoint:(NSP)pt;
+- (void) drawHandlePoint:(NSP)pt inColor:(NSC*)pointColor;
+- (NSP) drawPathElement:(int)n withPreviousPoint: (NSP)previous;
+- (NSP) drawPathElement:(int)n withPreviousPoint: (NSP)previous inColor:(NSC*)pointColor withHandlesInColor:(NSC*) handleColor;
 @end
 
 @interface NSBezierPath (RoundRects)
-
-+(void)			fillRoundRectInRect:(NSR)rect radius:(CGFloat) radius;
-+(void)			strokeRoundRectInRect:(NSR)rect radius:(CGFloat) radius;
-+(NSBezierPath*)		  bezierPathWithRoundRectInRect:(NSR)rect radius:(CGFloat) radius;
-NSP  UKCenterOfRect( NSR rect );
-NSP  UKTopCenterOfRect( NSR rect );
-NSP  UKTopLeftOfRect( NSR rect );
-NSP  UKTopRightOfRect( NSR rect );
-NSP  UKLeftCenterOfRect( NSR rect );
++ (void)	fillRoundRectInRect:	 			 (NSR)rect radius:(CGF)radius;
++ (void)	strokeRoundRectInRect:  		 (NSR)rect radius:(CGF)radius;
++ (NSBP*) bezierPathWithRoundRectInRect:(NSR)rect radius:(CGF)radius;
+NSP  UKCenterOfRect		 ( NSR rect );
+NSP  UKTopCenterOfRect	 ( NSR rect );
+NSP  UKTopLeftOfRect	 	 ( NSR rect );
+NSP  UKTopRightOfRect		 ( NSR rect );
+NSP  UKLeftCenterOfRect	 ( NSR rect );
 NSP  UKBottomCenterOfRect( NSR rect );
-NSP  UKBottomLeftOfRect( NSR rect );
-NSP  UKBottomRightOfRect( NSR rect );
-NSP  UKRightCenterOfRect( NSR rect );
+NSP  UKBottomLeftOfRect	 ( NSR rect );
+NSP  UKBottomRightOfRect ( NSR rect );
+NSP  UKRightCenterOfRect ( NSR rect );
 
 @end

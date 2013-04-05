@@ -56,6 +56,10 @@ CAT3D CA3DConcatenatedTransformation(CAT3D xyZRotation, CAT3D transformation );
 @end
 
 
+@interface CATransaction (AtoZ)
++(void)immediatelyWithCompletion:(void (^)())completion transaction:(void (^)())block;
+@end
+
 @interface CAShapeLayer (Lassos)
 - (void) redrawPath;
 @end
@@ -126,6 +130,11 @@ extern CAT3D CAT3DMake(CGF m11, CGF m12, CGF m13, CGF m14,
 @end
 
 @interface CAL (AtoZ)
+
+- (NSA*) sublayersAscending;
+- (NSA*) visibleSublayers;
+- (NSR) actuallyVisibleRect;
+- (NSR) actuallyVisibleRectInView:(NSV*)v;
 
 - (NSA*) sublayersOfClass:(Class)k;
 - (void) removeImmediately;
@@ -248,6 +257,7 @@ extern CAT3D CAT3DMake(CGF m11, CGF m12, CGF m13, CGF m14,
 + (CAL*)closeBoxLayerForLayer:(CAL*)parentLayer;
 
 	//Metallic grey gradient background
++ (CAGL*)gradientWithColor:(NSC*)c;
 + (CAGradientLayer*) greyGradient;
 -(NSString*)debugDescription;
 
@@ -264,6 +274,7 @@ extern CAT3D CAT3DMake(CGF m11, CGF m12, CGF m13, CGF m14,
 
 - (CAL*) permaPresentation;
 
+@property (RDWRT)								  NSV* hostView;
 @property (readwrite, nonatomic, assign) BOOL hovered;
 @property (readwrite, nonatomic, assign) BOOL selected;
 

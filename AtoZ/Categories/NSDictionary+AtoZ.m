@@ -803,7 +803,7 @@ static void DynamicDictionarySetter(id self, SEL _cmd, id value)
 	return defaultObject;
 }
 
-- (id)deepMutableCopy;
+- (NSMD*)deepMutableCopy;
 {
 	NSMutableDictionary *newDictionary = [self mutableCopy];
 	// Run through the new dictionary and replace any objects that respond to -deepMutableCopy or -mutableCopy with copies.

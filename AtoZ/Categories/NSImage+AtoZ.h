@@ -9,47 +9,22 @@
 
 
 static inline int get_bit(unsigned char *arr, unsigned long bit_num);
-CGImageRef 		  CreateCGImageFromData( NSData* data );
-float 			  distance( NSPoint aPoint ); // Just one function to declare...
-
-typedef enum {
-	AGImageResizeCrop,
-	AGImageResizeCropStart,
-	AGImageResizeCropEnd,
-	AGImageResizeScale
-} 	AGImageResizingMethod;
-
-
+CGImageRef  			CreateCGImageFromData( NSData* data );
+float 			  		distance					( NSP aPoint ); // Just one function to declare...
+typedef NS_ENUM(NSUI, AGImageResizingMethod) {	AGImageResizeCrop,AGImageResizeCropStart,	AGImageResizeCropEnd, AGImageResizeScale };
 
 @interface NSImage (Merge)
-
-/*!
- @brief	Returns an image constructed by tiling a given array
- of images side-by-side or top-to-bottom.
-
- @param	spacingX  Spacing which will be applied horizontally between
- images, and at the left and right borders.
- @param	spacingY  Spacing which will be applied vertitally between
- images, and at the bottom and top borders.
- @param	vertically  YES to tile the given images from top
- to bottom, starting with the first image in the array at the top.
- NO to tile the given images from left to right, starting with
- the first image in the array at the left.	*/
-
-+ (NSImage*)contactSheetWith:(NSArray*)images inFrame:(NSR)rect columns:(NSUI)cols;
-
-+ (NSImage*)contactSheetWith:(NSArray*)images sized:(NSSZ)size spaced:(NSSZ)spacing columns:(NSUI)cols;
-+ (NSImage*)contactSheetWith:(NSArray*)images sized:(NSSZ)size spaced:(NSSZ)spacing columns:(NSUI)cols withName:(BOOL)name;
-
-+ (NSImage*)imageByTilingImages:(NSArray*)images
-					   spacingX:(CGFloat)spacingY
-					   spacingY:(CGFloat)spacingY
-					 vertically:(BOOL)vertically ;
-
-- (NSImage*)imageBorderedWithInset:(CGFloat)inset ;
-
-- (NSImage*)imageBorderedWithOutset:(CGFloat)outset ;
-
+/*!	@brief	Returns an image constructed by tiling a given array of images side-by-side or top-to-bottom.
+ 		@param	spacingX  Spacing which will be applied horizontally between images, and at the left and right borders.
+ 		@param	spacingY  Spacing which will be applied vertitally between images, and at the bottom and top borders.
+ 		@param	vertically  YES to tile the given images from top to bottom, starting with the first image in the array at the top. NO to tile the given images from left to right, starting with the first image in the array at the left.	*/
+	
++ (NSIMG*) contactSheetWith:   (NSA*)images inFrame:(NSR)rect  columns:(NSUI)cols;
++ (NSIMG*) contactSheetWith: 	 (NSA*)images sized:  (NSSZ)size spaced: (NSSZ)spacing columns:(NSUI)cols;
++ (NSIMG*) contactSheetWith:	 (NSA*)images sized:  (NSSZ)size spaced: (NSSZ)spacing columns:(NSUI)cols withName:(BOOL)name;
++ (NSIMG*) imageByTilingImages:(NSA*)images spacingX:(CGF)spacingY spacingY:(CGF)spacingY vertically:(BOOL)vertically;
+- (NSIMG*) imageBorderedWithInset: (CGF)inset;
+- (NSIMG*) imageBorderedWithOutset:(CGF)outset;
 @end
 
 extern NSData *PNGRepresentation(NSIMG *image);
@@ -57,46 +32,36 @@ extern NSData *PNGRepresentation(NSIMG *image);
 @class AZFile;
 @interface NSImage (AtoZ)
 
-- (void) lockFocusBlock:(void(^)(NSIMG*))block;
-
++ (NSIMG*) imageFromLockedFocusSize:(NSSZ)sz lock:(NSIMG*(^)(NSIMG*))block;
 - (NSIMG*) lockFocusBlockOut:(NSIMG*(^)(NSIMG*))block;
-
-+ (NSIMG*)faviconForDomain:(NSS*)domainAsString;
-
-+ (NSIMG*)imageWithData:(NSData*)data;
-
-- (NSS*) saveToWeb;
-
-+ (NSImage*)glowingSphereImageWithScaleFactor:(CGFloat)scale coreColor:(NSC*)core glowColor:(NSC*)glow;
+- (void)   lockFocusBlock:(void(^)(NSIMG*))block;
++ (NSIMG*) faviconForDomain:(NSS*)domainAsString;
++ (NSIMG*) imageWithData:(NSData*)data;
+- (NSS*)   saveToWeb;
++ (NSIMG*) glowingSphereImageWithScaleFactor:(CGF)scale coreColor:(NSC*)core glowColor:(NSC*)glow;
 
 //@property (readonly, strong) NSC *color;
 //@property (readonly, strong) NSA *colors;
 
-+ (NSIMG*)swizzledImageNamed:(NSString *)name;
-
++ (NSIMG*) swizzledImageNamed:(NSString *)name;
 + (NSIMG*) imageFromURL:(NSS*)url;
 
 + (NSIMG*) blackBadgeForRect:(NSR)frame;
 + (NSIMG*) badgeForRect:(NSR)frame withColor:(NSC*)color;
-+ (NSIMG*) badgeForRect:(NSR)frame withColor:(NSC*)color      stroked:(NSC*) stroke;
-+ (NSIMG*) badgeForRect:(NSR)frame withColor:(NSC*)color      stroked:(NSC*) stroke
-								  withString:(NSS*)string;
++ (NSIMG*) badgeForRect:(NSR)frame withColor:(NSC*)color stroked:(NSC*) stroke;
++ (NSIMG*) badgeForRect:(NSR)frame withColor:(NSC*)color stroked:(NSC*) stroke  withString:(NSS*)string;
++ (NSIMG*) badgeForRect:(NSR)frame withColor:(NSC*)color stroked:(NSC*) stroke	  withString:(NSS*)string orDrawBlock:(void(^)(NSR))drawBlock;
 
-
-+ (NSIMG*) badgeForRect:(NSR)frame withColor:(NSC*)color      stroked:(NSC*) stroke
-								  withString:(NSS*)string orDrawBlock:(void(^)(NSR))drawBlock;
-
-+ (NSA*) randomImages:(NSUI)number;
-+ (NSA*) systemImages;
 + (NSIMG*) screenShot;
-
 //+ (NSA*) iconsTintedWith:(NSC*)color;
 + (NSA*) icons;
 + (NSA*) systemIcons;
++ (NSA*) randomImages:(NSUI)count;
++ (NSA*) systemImages;
 
-+ (NSIMG*)monoIconNamed:(NSS*)name;
-+ (NSIMG*)randomMonoIcon;
-+ (NSA*) monoIcons;
++ (NSIMG*) monoIconNamed:(NSS*)name;
++ (NSIMG*) randomMonoIcon;
++ (NSA*)   monoIcons;
 
 + (NSIMG*) randomIcon;
 + (NSIMG*) forFile:(AZFile*)file;
@@ -106,26 +71,25 @@ extern NSData *PNGRepresentation(NSIMG *image);
 - (NSIMG*) initWithFile:(NSS*)file named:(NSS*)name;
 + (NSIMG*) imageWithFile:(NSS*)file named:(NSS*)name;
 
-
 + (NSIMG*) systemIconNamed:(NSS*)name;
 + (NSIMG*) frameworkImageNamed:(NSS*)string;
 + (NSA*) frameworkImageNames;
 + (NSA*) frameworkImagePaths;
 + (NSA*) frameworkImages;
-
+- (instancetype) named;
 + (NSA*) picolStrings;
 //+ (NSA*) iconStrings;
 
-- (NSIMG*) scaledToMax:(CGFloat)f;
+- (NSIMG*) scaledToMax:(CGF)f;
 - (void) draw;
 - (void) drawAtPoint:(NSP)point inRect:(NSR)rect;
 - (void) drawAtPoint:(NSP)point;
 - (CAL*) imageLayerForRect:(NSR)rect;
 - (void) drawinQuadrant: (QUAD)quad inRect:(NSR)rect;
-+ (void) drawInQuadrants:(NSA*)images inRect:(NSRect)frame;
-+ (NSIMG*) imagesInQuadrants:(NSA*)images inRect:(NSR)frame;
++ (void) drawInQuadrants:	  (NSA*)images inRect:(NSR)frame;
 
-- (NSImage *) reflected:(float)amountFraction;
++ (NSIMG*) imagesInQuadrants:(NSA*)images inRect:(NSR)frame;
+- (NSIMG*) reflected:(float)amountFraction;
 + (NSIMG*) reflectedImage:(NSIMG*)sourceImage amountReflected:(float)fraction;
 
 - (NSIMG*) coloredWithColor:	  	(NSC*) inColor;
@@ -139,15 +103,15 @@ extern NSData *PNGRepresentation(NSIMG *image);
 
 - (NSIMG*) resizeWhenScaledImage;
 + (NSIMG*) prettyGradientImage;  // Generates a 256 by 256 pixel image with a complicated gradient in it.
-- (NSA*) quantize;
+- (NSA*)   quantize;
 + (NSIMG*) desktopImage;
 - (void) openInPreview;
 - (NSS*) asTempFile;
 
 + (NSIMG*) svg2png:(NSString*)inFile out:(NSString*)optionalOutFile;
-- (void) openQuantizedSwatch;
+- (void) 	  openQuantizedSwatch;
 - (NSIMG*) generateQuantizedSwatch;
-+ (void) openQuantizeChartFor:(NSA*)images;
++ (void)   openQuantizeChartFor:(NSA*)images;
 
 //- (NSIMG*) maskedByColor:(NSC *)color;
 
@@ -164,6 +128,10 @@ extern NSData *PNGRepresentation(NSIMG *image);
 																   addSheen:(BOOL)shouldAddSheen;
 - (NSIMG*) imageByFillingVisibleAlphaWithColor:(NSC*)fillColor;
 - (NSIMG*) imageByConvertingToBlackAndWhite;
+
+- (NSIMG*) inverted;
+- (NSImage *)blackWhite;
+
 - (NSIMG*) maskWithColor:(NSC*)c;
 
 + (NSIMG*) createImageFromSubView:(NSView*) view	rect:(NSRect)rect;
@@ -183,7 +151,7 @@ extern NSData *PNGRepresentation(NSIMG *image);
 - (NSIMG*) 	tintedWithColor:(NSC*) tint ;
 - (NSBitmapImageRep*) bitmap;
 - (CGImageRef) 	cgImage;
-- (NSIMG*)imageRotatedByDegrees:(CGFloat)degrees;
+- (NSIMG*)imageRotatedByDegrees:(CGF)degrees;
 //- (NSIMG*)imageByScalingProportionallyToSize:(NSSize)targetSize;
 - (NSIMG*)	imageByScalingProportionallyToSize:(NSSize) targetSize background:(NSC*) bk;
 
@@ -208,7 +176,7 @@ extern NSData *PNGRepresentation(NSIMG *image);
 //+ (NSIMG*) fromSVG:(NSString *)documentName withAlpha:(BOOL)hasAlpha;
 //+ (NSIMG*)imageFromCGImageRef:(CGImageRef)image;
 
-- (NSIMG*) addReflection:(CGFloat)percentage;
+- (NSIMG*) addReflection:(CGF)percentage;
 
 - (NSIMG*) etched;
 - (NSIMG*) alpha:(CGF)fraction;
@@ -344,7 +312,7 @@ extern NSData *PNGRepresentation(NSIMG *image);
  	NSImage loads image data from files lazily.
  	This method forces the file to be read to create a small sized version.
  	This can be a useful thing to do as a background operation.	*/
-+ (id)thumbnailImageWithContentsOfURL:(NSURL *)url width:(CGFloat)width;
++ (id)thumbnailImageWithContentsOfURL:(NSURL *)url width:(CGF)width;
 
 @end
 
@@ -366,7 +334,7 @@ extern NSData *PNGRepresentation(NSIMG *image);
  	@param		delta The opacity of the image, specified as a value from 0.0 to 1.0. Specifying a value of 0.0 draws the image as fully transparent while a value of 1.0 draws the image as fully opaque. Values greater than 1.0 are interpreted as 1.0.
  	@discussion The image content is drawn at its current resolution and is not scaled unless the CTM of the current coordinate system itself contains a scaling factor. The image is otherwise positioned and oriented using the current coordinate system, except that it takes the flipped status into account, drawing right-side-up in a such a case.
 	Unlike the compositeToPoint:fromRect:operation: and compositeToPoint:fromRect:operation:fraction: methods, this method checks the rectangle you pass to the srcRect parameter and makes sure it does not lie outside the image bounds.	*/
-- (void)drawAdjustedAtPoint:(NSPoint)aPoint fromRect:(NSRect)srcRect operation:(NSCompositingOperation)op fraction:(CGFloat)delta;
+- (void)drawAdjustedAtPoint:(NSPoint)aPoint fromRect:(NSRect)srcRect operation:(NSCompositingOperation)op fraction:(CGF)delta;
 
 /*!	@method	drawAdjustedInRect:fromRect:operation:fraction:
  	@abstract	Draws all or part of the image in the specified rectangle in the current coordinate system. Unlike other methods in NSImage, this will orient the image properly in flipped coordinate systems.
@@ -376,7 +344,7 @@ extern NSData *PNGRepresentation(NSIMG *image);
  	@param		delta The opacity of the image, specified as a value from 0.0 to 1.0. Specifying a value of 0.0 draws the image as fully transparent while a value of 1.0 draws the image as fully opaque. Values greater than 1.0 are interpreted as 1.0.
  	@discussion If the srcRect and dstRect rectangles have different sizes, the source portion of the image is scaled to fit the specified destination rectangle. The image is otherwise positioned and oriented using the current coordinate system, except that it takes the flipped status into account, drawing right-side-up in a such a case.
  	Unlike the compositeToPoint:fromRect:operation: and compositeToPoint:fromRect:operation:fraction: methods, this method checks the rectangle you pass to the srcRect parameter and makes sure it does not lie outside the image bounds.	*/
-- (void)drawAdjustedInRect:(NSRect)dstRect fromRect:(NSRect)srcRect operation:(NSCompositingOperation)op fraction:(CGFloat)delta;
+- (void)drawAdjustedInRect:(NSRect)dstRect fromRect:(NSRect)srcRect operation:(NSCompositingOperation)op fraction:(CGF)delta;
 
 /*!	@method	unflippedImage
  	@abstract	Returns a version of the receiver but unflipped.

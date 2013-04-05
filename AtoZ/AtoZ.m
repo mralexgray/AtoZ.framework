@@ -201,12 +201,14 @@ static char CONVERTTOXML_KEY;
 //	[$ swizzleClassMethod:@selector(testSizzle) in:[AtoZ class] with:@selector(testSizzleReplacement) in:[AtoZ class]];
 //	[[AtoZ class] testSizzle];
 
-
++ (void) initialize { 	WARN(@"Welcome to AtoZ.framework"); }
 
 - (void) setUp
 {
 	[AZStopwatch named:@"Welcome to AtoZ.framework." block:^{
 	// Standard lumberjack initialization
+	[NSApp setApplicationIconImage:[NSIMG imageNamed:@"logo.png"]];
+
 	[DDLog addLogger:SHAREDLOG];
 	// And then enable colors
 	SHAREDLOG.colorsEnabled = YES;
@@ -214,19 +216,14 @@ static char CONVERTTOXML_KEY;
 //	[@[@"DDLogError", @"DDLogWarn", @"DDLogInfo", @"DDLogVerose"] each:^(id obj) {
 //		[NSS.randomDicksonism respondsToStringThenDo:obj];
 //	}];
-		
-	NSLog(XCODE_COLORS_ESCAPE @"bg89,96,105;" @"Grey background" XCODE_COLORS_RESET);
-	NSLog(XCODE_COLORS_ESCAPE @"fg0,0,255;"
-			XCODE_COLORS_ESCAPE @"bg220,0,0;"
-			@"Blue text on red background"
-			XCODE_COLORS_RESET);
-	
-	NSLog(XCODE_COLORS_ESCAPE @"fg209,57,168;" @"You can supply your own RGB values!" XCODE_COLORS_RESET);
+//	NSLog(COLOR_ESC @"bg89,96,105;" @"Grey background" XCODE_COLORS_RESET);
+//	NSLog(COLOR_ESC @"fg0,0,255;" COLOR_ESC @"bg220,0,0;"	 @"Blue text on red background" XCODE_COLORS_RESET);
+//	NSLog(XCODE_COLORS_ESCAPE @"fg209,57,168;" @"You can supply your own RGB values!" XCODE_COLORS_RESET);
 
-	DDLogError  (@"Paper jam"										);                              // Red
-	DDLogWarn   (@"Toner is low"									);                            // Orange
-	DDLogInfo   (@"Warming up printer (pre-customization)");  // Default (black)
-	DDLogVerbose(@"Intializing protcol x26"						);              // Default (black)
+//	DDLogError  (@"Paper jam"										);                              // Red
+//	DDLogWarn   (@"Toner is low"									);                            // Orange
+//	DDLogInfo   (@"Warming up printer (pre-customization)");  // Default (black)
+//	DDLogVerbose(@"Intializing protcol x26"						);              // Default (black)
 	
 	// Now let's do some customization:
 	// Info  : Pink
@@ -237,7 +234,7 @@ static char CONVERTTOXML_KEY;
 	NSColor *pink = [NSColor colorWithCalibratedRed:(255/255.0) green:(58/255.0) blue:(159/255.0) alpha:1.0];
 #endif
 	[SHAREDLOG setForegroundColor:pink backgroundColor:nil forFlag:LOG_FLAG_INFO];
-	DDLogInfo(@"Warming up printer (post-customization)"); // Pink !
+//	DDLogInfo(@"Warming up printer (post-customization)"); // Pink !
 		
 //		[AZFWORKBUNDLE cacheNamedImages];
 //		_cachedImages = cachedI;
@@ -409,8 +406,6 @@ static char CONVERTTOXML_KEY;
 //	return 	[AtoZ  registerFonts:fontSize];
 //}
 
-+ (void) initialize {
-}
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 
 + (NSArray *)fonts { return AtoZ.sharedInstance.fonts; }

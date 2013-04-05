@@ -7,6 +7,32 @@
 //
 
 #import "NSCell+AtoZ.h"
+#import "AtoZ.h"
+
+
+@implementation NSButton (SNRAdditions)
+- (NSColor *)textColor
+{
+	return [[self attributedTitle] color];
+}
+
+- (void)setTextColor:(NSColor *)textColor
+{
+	[self setAttributedTitle:[[self attributedTitle] attributedStringWithColor:textColor]];
+}
+
+- (NSColor *)alternateTextColor
+{
+	return [[self attributedAlternateTitle] color];
+}
+
+- (void)setAlternateTextColor:(NSColor *)alternateTextColor
+{
+	NSAttributedString *string = self.attributedAlternateTitle ?: self.attributedTitle;
+	[self setAttributedAlternateTitle:[string attributedStringWithColor:alternateTextColor]];
+}
+@end
+
 
 @implementation NSCell (AtoZ)
 

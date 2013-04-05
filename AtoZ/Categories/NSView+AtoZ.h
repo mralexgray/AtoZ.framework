@@ -27,6 +27,8 @@ typedef void (^viewFrameDidChangeBlock)(void);
 
 @interface NSView (AtoZ)
 
+@property (RONLY) CGF maxDim, minDim;
+
 - (NSV*) autosizeable;
 // setup 3d transform
 - (void) setZDistance: (NSUI) zDistance;

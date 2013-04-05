@@ -3,6 +3,8 @@
 #import "UIVC.h"
 #import "ColorVC.h"
 #import "FBVC.h"
+#import "TUIVVC.h"
+
 
 
 @interface TestBedDelegate : NSObject			<	NSApplicationDelegate,
@@ -14,7 +16,8 @@
 @property (UNSFE) IBOutlet  GeneralVC		*genVC;
 @property (UNSFE) IBOutlet  UIVC			*uiVC;
 @property (UNSFE) IBOutlet  ColorVC		*colorVC;
-@property (UNSFE) IBOutlet  FBVC		*fbV;
+@property (UNSFE) IBOutlet  FBVC			*fbV;
+@property (UNSFE) IBOutlet  TUIVVC		*tuiVC;
 
 @property (STRNG) IBOutlet id				window;
 @property (STRNG) IBOutlet id				contentView;
@@ -26,8 +29,21 @@
 - (IBAction) setViewFromPopUp:(id)sender;
 - (IBAction) reZhuzhScrollLayer:(id)sender;
 
-@property (STRNG) IBOutlet NSBUTT 					*holdOntoViews;
+@property (STRNG) IBOutlet NSBUTT *holdOntoViews;
 
+@property (STRNG)	BLKVIEW  *host;
+@property (STRNG) CASCRLL  *scrlr;
+@property (NATOM) CAGL	   *hit;
+@property (NATOM) NSMD     *model;
+@property (RONLY) 	NSRNG 	 visible, front, back;
+@property (RONLY) 	NSS	   *fixState;
+@property (RONLY) 	ScrollFix scrollFix;
+@property (RONLY) 	NSS 		*visibleSubsString;
+@property (NATOM) 	CGF 	    off;
+@property (NATOM)	NSA		*visibleSubs, *subsAscending; // actually visible, and them sorted
+@property (STRNG) 	NSS		*actionStatus; 	 					// Just shows what "actions" are happening.
+
+- (IBAction)scrollFromSegment:(id)sender;
 @end
 //@property (NATOM, STRNG)  AZFileGridView 			*fileGrid;
 //@property (weak) IBOutlet  AZGeometryViewController *geoVC;

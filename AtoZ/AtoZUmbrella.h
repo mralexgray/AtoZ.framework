@@ -26,6 +26,15 @@
 #define XCODE_COLORS_RESET     XCODE_COLORS_ESCAPE @";"   // Clear any foreground or background color
 
 
+#define COLOR_RESET XCODE_COLORS_RESET
+#define COLOR_ESC XCODE_COLORS_ESCAPE
+#define COLOR_WARN COLOR_ESC @"fg:74,203,68;"
+#define MAKEWARN(A) [NSString stringWithFormat:@"%@ %@ %@", COLOR_WARN, (A), COLOR_RESET]
+
+#define WARN(A) NSLog(@"%@", MAKEWARN(A))
+
+#define XCODE_COLORS 0
+
 #pragma mark - GLOBAL CONSTANTS
 
 
@@ -35,6 +44,7 @@
 #define CAAG CAAnimationGroup
 #define CABA CABasicAnimation
 #define CAGA CAGroupAnimation
+#define CAGL CAGradientLayer
 #define CAKA CAKeyframeAnimation
 #define CAL CALayer
 #define CALNA CALayerNonAnimating
@@ -72,7 +82,7 @@
 #define AZRUNFOREVER [NSRunLoop.currentRunLoop runMode:NSDefaultRunLoopMode beforeDate:NSDate.distantFuture]
 
 #define CGRGB CGColorCreateGenericRGB
-#define CGCREF CGColorRef
+#define CGCREF CGContextRef
 
 #define JSCREF JSContextRef
 #define CGWL CGWindowLevel
@@ -165,6 +175,13 @@
 #define NSTBAR NSToolbar
 #define NSW NSWindow
 
+
+#define TUINSV TUINSView
+#define TUINSW TUINSWindow
+#define TUIV TUIView
+
+#define VBLK VoidBlock
+
 #define NSWINDOWINIT(A,B) [NSWindow.alloc initWithContentRect:A styleMask:( B ?: NSResizableWindowMask) backing:NSBackingStoreBuffered defer:NO]
 
 #define AZWINDOWINIT NSWINDOWINIT
@@ -207,7 +224,7 @@
 #define rV rectValue
 #define fV floatValue
 #define loM layoutManager
-#define subs sublayers
+#define sblrs sublayers
 #define zPos zPosition
 #define NSZeroRange NSMakeRange(0,0)
 
@@ -220,6 +237,8 @@
 
 
 #pragma mark - FUNCTION defines
+#define LOGWARN(fmt, ...) NSLog((@"%s [Line %d] " XCODE_COLORS_ESCAPE @"fg218,147,0;" fmt XCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
+
 
 #define NSLog(args...) _AZSimpleLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args);
 
@@ -232,6 +251,8 @@
 AZToStringFromTypeAndValue(@encode(typeof(_X_)), &_Y_);})
 
 #pragma mark - CONSTANT defines
+
+#define AZIDCAA (id<CAAction>)
 
 #define RONLY readonly
 #define RDWRT readwrite
@@ -316,7 +337,7 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 } while (0)
 
 
-#define loMismo isEqualToString
+//#define loMismo isEqualToString
 
 #define APP_NAME [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleName"]
 #define APP_VERSION [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]
@@ -640,6 +661,7 @@ attr1 relativeTo:relName attribute:attr2 scale:scl offset:off]
 
 #define $URL(A)				((NSURL *)[NSURL URLWithString:A])
 #define $SEL(A)				NSSelectorFromString(A)
+#define AZStringFromSet(A) [NSS stringFromArray:A.allObjects]
 
 //#define $#(A)				((NSString *)[NSString string
 #define $(...)				((NSString *)[NSString stringWithFormat:__VA_ARGS__,nil])
@@ -652,6 +674,7 @@ attr1 relativeTo:relName attribute:attr2 scale:scl offset:off]
 #define $float(A)	 		[NSNumber numberWithFloat:(A)]
 #define $doubles(...) 		[NSArray arrayWithDoubles:__VA_ARGS__,MAXFLOAT]
 #define $words(...)   		[[@#__VA_ARGS__ splitByComma] trimmedStrings]
+
 
 
 #define $ARRAYSET(A) [NSSet setWithArray:A]

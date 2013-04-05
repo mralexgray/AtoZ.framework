@@ -16,6 +16,13 @@
 
 
 
+//void _AZSimpleLog( const char *file, int lineNumber, const char *funcName, NSString *format, ... ) {
+
+//void LOGWARN(NSString *format,...) {
+//	va_list argList; va_start (argList, format);
+//	NSS* full = [NSS.alloc initWithFormat:format arguments:argList]; 
+//	NSLog(XCODE_COLORS_ESCAPE @"fg218,147,0;" "%@" XCODE_COLORS_RESET, full);
+//}
 
 void _AZSimpleLog( const char *file, int lineNumber, const char *funcName, NSString *format, ... ) {
 	static NSA* colors;  colors = colors ?: NSC.randomPalette;
@@ -28,28 +35,30 @@ void _AZSimpleLog( const char *file, int lineNumber, const char *funcName, NSStr
 	char *xcode_colors = getenv(XCODE_COLORS);
 	if (xcode_colors && (strcmp(xcode_colors, "YES") == 0))
 	{
-	//	NSS *justinfo = $(@"[%s]:%i",path.UTF8String, lineNumber);
-	//	NSS *info   = [NSString stringWithFormat:@"word:%-11s rank:%u", [word UTF8String], rank];
-	NSS *info 	= $( XCODE_COLORS_ESCAPE @"fg82,82,82;" @"  [%s]" XCODE_COLORS_RESET
-						 XCODE_COLORS_ESCAPE @"fg140,140,140;" @":%i" XCODE_COLORS_RESET	, path.UTF8String, lineNumber);
-	int max 			= 120;
-	int cutTo			= 22;
-	BOOL longer 	= mess.length > max;
-	NSC *c = [colors normal:idx]; 
-		c = c.isDark ? [c colorWithBrightnessMultiplier:1.5] : [c colorWithBrightnessMultiplier:.7];
-	NSS *cs = $(@"%i,%i,%i",(int)(c.redComponent *255), (int)(c.greenComponent *255), (int)(c.blueComponent *255)); idx++;
-	NSS* nextLine 	= longer ? $(XCODE_COLORS_ESCAPE @"fg%@;" XCODE_COLORS_RESET @"\n\t%@\n", cs, [mess substringFromIndex:max - cutTo]) : @"\n";
-	mess 				= longer ? [mess substringToIndex:max - cutTo] : mess;
-	int add = max - mess.length - cutTo;
-	if (add > 0) {
-		NSS *pad = [NSS.string stringByPaddingToLength:add withString:@" " startingAtIndex:0];
-		info = [pad stringByAppendingString:info];
-	}
-	toLog 	= $(XCODE_COLORS_ESCAPE @"fg%@;" @"%@" XCODE_COLORS_RESET @"%@%@", cs, mess, info, nextLine);
-		// XcodeColors is installed and enabled!
-	}
-	else {
-		toLog = $(@"[%s]:%i %s \n", path.UTF8String, lineNumber, mess.UTF8String);
+		//	NSS *justinfo = $(@"[%s]:%i",path.UTF8String, lineNumber);
+		//	NSS *info   = [NSString stringWithFormat:@"word:%-11s rank:%u", [word UTF8String], rank];
+		NSS *info 	= $( XCODE_COLORS_ESCAPE @"fg82,82,82;" @" [%s]" XCODE_COLORS_RESET
+							 XCODE_COLORS_ESCAPE @"fg140,140,140;" @":%i" XCODE_COLORS_RESET	, path.UTF8String, lineNumber);
+		int max 			= 120;
+		int cutTo			= 22;
+		BOOL longer 	= mess.length > max;
+		NSC *c = [colors normal:idx]; 
+			c = c.isDark ? [c colorWithBrightnessMultiplier:1.5] : [c colorWithBrightnessMultiplier:.7];
+		NSS *cs = $(@"%i,%i,%i",(int)(c.redComponent *255), (int)(c.greenComponent *255), (int)(c.blueComponent *255)); idx++;
+		NSS* nextLine 	= longer ? $(XCODE_COLORS_ESCAPE @"fg%@;" XCODE_COLORS_RESET @"\n\t%@\n", cs, [mess substringFromIndex:max - cutTo]) : @"\n";
+		mess 				= longer ? [mess substringToIndex:max - cutTo] : mess;
+		int add = max - mess.length - cutTo;
+		if (add > 0) {
+			NSS *pad = [NSS.string stringByPaddingToLength:add withString:@" " startingAtIndex:0];
+			info = [pad stringByAppendingString:info];
+		}
+		toLog 	= $(XCODE_COLORS_ESCAPE @"fg%@;" @"%@" XCODE_COLORS_RESET @"%@%@", cs, mess, info, nextLine);
+			// XcodeColors is installed and enabled!
+		}
+		else {
+			NSS *info = $( XCODE_COLORS_ESCAPE @"fg82,82,82;" @"  [%s]" XCODE_COLORS_RESET
+							  XCODE_COLORS_ESCAPE @"fg140,140,140;" @":%i" XCODE_COLORS_RESET	, path.UTF8String, lineNumber);
+			toLog = $(@"%@ %s \n", info, mess.UTF8String);
 	}
 
 	fprintf ( stderr, "%s", toLog.UTF8String);//
@@ -1080,11 +1089,6 @@ void QuietLog (NSString *format, ...) {
 	printf ("%s", [message UTF8String]); va_end  (argList);
 } // QuietLog
 
-void LOGWARN(NSString *format,...) {
-	va_list argList; va_start (argList, format);
-	NSS* full = [NSS.alloc initWithFormat:format arguments:argList]; 
-	NSLog(XCODE_COLORS_ESCAPE @"fg218,147,0;" "%@" XCODE_COLORS_RESET, full);
-}
 
 
 #ifndef NDEBUG

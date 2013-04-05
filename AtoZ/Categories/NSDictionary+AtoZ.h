@@ -100,7 +100,7 @@
 	// This seems more convenient than having to write your own if statement a zillion times
 - (id)objectForKey:(NSString *)key defaultObject:(id)defaultObject;
 
-- (NSMutableDictionary *)deepMutableCopy NS_RETURNS_RETAINED;
+- (NSMutableDictionary *)deepMutableCopy;// NS_RETURNS_RETAINED;
 
 //- (NSArray *)copyKeys;
 //- (NSMutableArray *)mutableCopyKeys;

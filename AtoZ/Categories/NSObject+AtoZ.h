@@ -50,6 +50,8 @@ typedef void (^AZBlockTask)(id obj, NSDictionary *change);
 @end
 @interface NSObject (AtoZ)
 
+//-(void) propagateValue:(id)value forBinding:(NSString*)binding;
+
 -(void) 	DDLogError;
 -(void) 	DDLogWarn;
 -(void) 	DDLogInfo	;
@@ -106,6 +108,9 @@ typedef void (^caseBlock)();
 
 - (void)performBlock:(void (^)(void))block afterDelay:(NSTimeInterval)delay;
 - (void)fireBlockAfterDelay:(void (^)(void))block;
+
+
++ (NSMA*)newInstances:(NSUI)count;
 
 //- existsOrElse:(id(^)(BOOL yesOrNO))block {
 //

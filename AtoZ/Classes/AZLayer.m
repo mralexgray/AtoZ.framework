@@ -55,7 +55,7 @@ static CFHashCode _hashString(const void *value)
 
 @implementation AZLayer
 
-
+/*
 -(id<CAAction>)actionForKey:(NSString *)event {
 	if ([event isEqualToAnyOf:@[@"startAngle", @"endAngle"]]) {
       return [self makeAnimationForKey:event];
@@ -84,7 +84,7 @@ static CFHashCode _hashString(const void *value)
 	
 	return self;
 }
-
+*/
 + (BOOL)needsDisplayForKey:(NSString *)key {
 	if ([key isEqualToString:@"startAngle"] || [key isEqualToString:@"endAngle"]) {
       return YES;

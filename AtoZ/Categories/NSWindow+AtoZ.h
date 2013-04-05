@@ -53,7 +53,11 @@ enum NSWindowResizing {
 
 @interface NSWindow (AtoZ)
 
-
+@property (NATOM,ASS) CGR inFrame, outFrame;
+@property (NATOM,ASS) AZSlideState inOut;
+- (void) setInFrame:(CGRect)inF;
+- (void) setOutFrame:(CGRect)outF;
+- (void) setInOut:(AZSlideState)iO;
 
 @property (weak) CAL *layer;
 - (void) setLayer: (CAL*) layer;

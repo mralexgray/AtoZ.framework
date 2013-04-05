@@ -2,10 +2,10 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:MailCore/Examples/OSX/MessageSender/MessageSender.xcodeproj">
+      location = "container:AtoZ/AtoZ.xcodeproj">
    </FileRef>
    <FileRef
-      location = "container:AtoZ/AtoZ.xcodeproj">
+      location = "group:MailCore/Examples/OSX/MessageSender/MessageSender.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:MailCore/Examples/OSX/InboxLister/../../../MailCore.xcodeproj">

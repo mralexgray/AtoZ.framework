@@ -78,6 +78,10 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 @implementation NSView (AtoZ)
 
 
+- (CGF) maxDim { return AZMaxDim(self.size); }
+- (CGF) minDim { return AZMinDim(self.size); }
+
+
 - (NSV*) autosizeable { self.arMASK = NSSIZEABLE; return self; }
 
 
@@ -297,6 +301,8 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 
 -(CALayer*) setupHostView {
 	CALayer *layer = [CALayer layerNamed:@"root"];
+	layer.hostView = self;
+	
 //	layer.frame = [self bounds];
 //	layer.position = [self center];
 //	layer.bounds = [self bounds];
@@ -305,7 +311,7 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 //	layer.autoresizingMask = kCALayerWidthSizable | kCALayerHeightSizable;
 	[self setLayer:layer];
 	[self setWantsLayer:YES];
-	NSLog(@"setup hosting layer:%@ in view: %@.  do not addsubviews to this view.  go crazy with layers.", layer.debugDescription, self);
+//	NSLog(@"setup hosting layer:%@ in view: %@.  do not addsubviews to this view.  go crazy with layers.", layer.debugDescription, self);
 	return layer;
 }
 - (NSView *)firstSubview

@@ -8,8 +8,6 @@
 @property (NATOM,ASS) BOOL 		recursiveFix, scrolling;
 @property (RONLY)	CAL	*lastLayer, *firstLayer;
 @property (RONLY) NSA 	*scrollLayersByAscendingPosition, *sSubs;
-@property (RONLY) CGF 	firstLaySpan, sublayerOrig, sublayerSpan, lastLaySpan, superBounds, lastLayOrig;
-@property (RONLY) NSUI  sublayerCt;
 @property (RONLY) 	BOOL 	isVRT;
 @property (STRNG) CWStack *stack;
 @property (STRNG) CAScrollLayer *sclr;
@@ -28,19 +26,17 @@
 	selectedStyle 		 = Lasso;				/* StateStyle(s) Lasso, 	InnerShadow, DarkenOthers,	None */
 	hoverStyle 		 	 = DarkenOthers;
 	_hostlayer 			 = (CALNH*)[[[self setupHostViewNoHit] named:@"hostLayer"]colored:GREEN];
-	scrollLayer    		 = [_hostlayer copyLayer];
-	_hostlayer.subs 	 = @[scrollLayer];
+	_hostlayer.sblrs 	 = @[scrollLayer = [_hostlayer copyLayer]];
 	scrollLayer.loM 	 = self;
 	[scrollLayer addConstraintsSuperSize];
 	_hostlayer.arMASK 	 = scrollLayer.arMASK = CASIZEABLE;
-//	scrollLayer.bgC		 = cgPURPLE;
 	[self awakeFromNib];
 	return self;
 }
 -(void) awakeFromNib 
 {
-	self.frame = self.superview.bounds;
-	self.arMASK      							= NSSIZEABLE;
+	self.frame 									= self.superview.bounds;
+	self.arMASK									= NSSIZEABLE;
 	self.window.acceptsMouseMovedEvents = YES;
 	[self.window 		makeFirstResponder:self];
 	[self   observeFrameChangeUsingBlock:^{ self.fixState = LayerStateUnset; }];
@@ -48,43 +44,63 @@
 }
 - (void) setLayerQueue:(NSMA*)lQ
 {
-	layerQueue = lQ.mutableCopy;
 	[scrollLayer removeSublayers];
-	CGF f = [lQ sumFloatWithKey: isVRT ? @"boundsHeight" : @"boundsWidth"];
-	int normalI = 0;
-	while ( f < ( 2 * self.superBounds))  {		CAL*copy = [[lQ normal:normalI]copyLayer];
-																		  [layerQueue addObject:copy];
-													 normalI++; f += [self aLayerSpan:copy]; 
-	}
-	LOGWARN(@"donewithcopy:  had:%i  have:%i", lQ.count, layerQueue.count);
-	[layerQueue each:^(id obj) { [obj addConstraintsRelSuper:kCAConstraintHeight, nil]; }];
+	layerQueue = lQ;
+//	CGF qNativeWidth 	= [lQ sumFloatWithKey: isVRT ? @"boundsHeight" : @"boundsWidth"];
+//	CGF vMinWidth 		= self.superBounds;
+//	CGF qNativeUnit 	= [layerQueue[0] boundsWidth];
+//	BOOL isWiderThanView = vMinWidth < qNativeWidth;
+//	NSUI ct = 0;
+//	if (isWiderThanView) {
+//		CGF nativeVisible = 0; while (nativeVisible < vMinWidth) { ct++; nativeVisible += qNativeWidth; }
+//	}
+//	else 
+	NSUI ct = lQ.count;
+	CGF unitPercent = .4;	
+//	int normalI = 0;
+//	while ( f < ( )  {		CAL*copy = [[lQ normal:normalI]copyLayer];
+//																		  [layerQueue addObject:copy];
+//													 normalI++; f += [self aLayerSpan:copy]; 
+//	}
+//	LOGWARN(@"donewithcopy:  had:%i  have:%i", lQ.count, layerQueue.count);
+//	[layerQueue each:^(id obj) { [obj addConstraintsRelSuper:kCAConstraintHeight, AZConstRelSuperScaleOff( kCAConstraintWidth, unitPercent, 0), nil]; }];
 	CAL *starter = layerQueue[0];  
 	[scrollLayer addSublayerImmediately:starter];
 //	[starter setFloat:-100 forKey:$(@"frameMin%@", isVRT ? @"Y" : @"X")];
 	_recursiveFix = YES;	self.fixState = LayerStateUnset;
 }
+
+-(NSSZ) unit { return _unit = NSMakeSize(	isVRT ? self.width 	: self.width / self.allLayers.count , 
+													isVRT ? self.height /self.allLayers.count : self.height); 
+					
+}
 - (void) layoutSublayersOfLayer: (CAL*)layer
 {	
 	static int loslols = 0; loslols++; LOGWARN(@"loslols:%i", loslols);
-	
-	[CATransaction immediately:^{												        __block CGF off = _offset;
+	_unit = self.unit;
+	[CATransaction immediately:^{	 __block CGF off = _offset;
 		
-		[scrollLayer.sublayers each:^(CAL *obj) { obj.frameOrigin = (NSP) { isVRT ? 0 : off, isVRT ?	off : 0  };
-																off += isVRT ? obj.boundsHeight : obj.boundsWidth;				}];
-	}];		_scrolling 		= NO;
-			_recursiveFix 	? [self setFixState :self.fixState] : nil;
+		[scrollLayer.sublayers each:^(CAL *obj) { NSP o = (NSP) { isVRT ? 0 : off, isVRT ?	off : 0  };
+																obj.frame = AZMakeRect(o, _unit);
+																off += isVRT ? obj.boundsHeight : obj.boundsWidth;
+		}];
+	}];
+		_scrolling 		= NO;
+		_recursiveFix 	? [self setFixState :self.fixState] : nil;
 }
 
 #define QAINTEMPTY && layerQueue.count > 0
 #define SCRLHASSUB && scrollLayer.sublayers
 
 - (ScrollFix) fixState
-{																															     return  	
-	self.sublayerOrig 	> 0				 							QAINTEMPTY 	? LayerInsertFront 	:
-	self.lastLayOrig  < self.superBounds  							QAINTEMPTY	? LayerInsertEnd     :	 	
+{								
+																							     return  	
+	self.sublayerOrig 	> 0							 	? LayerInsertFront 	:
+//	self.lastLayOrig  < self.superBounds  				? LayerInsertEnd     :	 	
 //	self.lastLayOrig 	< self.superBounds 		 		&& !layerQueue.count ? LayerCopyInsertEnd :
-	self.sublayerOrig 	< NEG(self.firstLaySpan) 					SCRLHASSUB 	? LayerRemoveFront	:
-	self.lastLayOrig 	> self.superBounds + self.lastLaySpan	SCRLHASSUB	? LayerRemoveEnd	   : LayerStateOK;
+//	self.sublayerOrig 	< NEG(self.firstLaySpan) 					SCRLHASSUB 	? LayerRemoveFront	:
+//	self.lastLayOrig 	> self.superBounds + self.lastLaySpan	SCRLHASSUB	? LayerRemoveEnd	   : 
+	LayerStateOK;
 	
 }
 -(void) setFixState:(ScrollFix)f
@@ -94,20 +110,28 @@
 	if (f == LayerStateOK || f == LayerStateUnresolved) { 	_fixWatchdog = 0; _recursiveFix = NO; 
 																				[scrollLayer setNeedsLayout]; return; }
 	
-	f == LayerInsertFront	 ? ^{	               CAL *newFirst = layerQueue.shift;
-													_offset 	-=  [self aLayerSpan:newFirst];
-						  [scrollLayer insertSublayer:newFirst  atIndex:0];
+	f == LayerInsertFront	 ? ^{	 layerQueue.count ? ^{	CAL *newFirst = layerQueue.shift;
+																				_offset -=  [self aLayerSpan:newFirst];
+													[scrollLayer insertSublayerImmediately:newFirst  atIndex:0]; }(): ^{
+													WARN(@"copying in front!");
+											[scrollLayer addSublayerImmediately: [scrollLayer.sublayers[0]copyLayer]];
+				}();
 													                }():
 	f == LayerRemoveFront	 ? ^{		 					      CAL *front = self.firstLayer; 	
 												  [layerQueue  shove: front];	 
 									   _offset += [self aLayerSpan:front];		
-																			 [front  removeFromSuperlayer];		}():
+																			 [front  removeImmediately];		}():
 	f == LayerRemoveEnd  	 ? ^{	                        CAL *end = self.lastLayer;
 												 [layerQueue addObject:end];
-																			 [end removeFromSuperlayer];		   }():	
-	f == LayerInsertEnd 	 ? [scrollLayer addSublayer:layerQueue.pop]:  
+																			 [end removeImmediately];		   }():	
+	f == LayerInsertEnd 	 ? ^{  layerQueue.count ? [scrollLayer addSublayerImmediately:layerQueue.pop]  
+																: ^{   WARN(@"copying in back!");
+																			 [scrollLayer addSublayerImmediately:
+																					[scrollLayer.sublayers[0]copyLayer]]; }();
+									}():
 	f == LayerStateUnset 	 ? [self setFixState:			  self.fixState]: nil;  	
 	[scrollLayer  setNeedsLayout]; 
+//	[self setFixState:self.fixState];
 	
 }
 

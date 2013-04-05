@@ -148,6 +148,51 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary(void) {
 
 @implementation NSObject (AtoZ)
 
+-(void) propagateValue:(id)value forBinding:(NSString*)binding;
+{
+	NSParameterAssert(binding != nil);
+	
+	//WARNING: bindingInfo contains NSNull, so it must be accounted for
+	NSDictionary* bindingInfo = [self infoForBinding:binding];
+	if(!bindingInfo)
+		return; //there is no binding
+	
+	//apply the value transformer, if one has been set
+	NSDictionary* bindingOptions = [bindingInfo objectForKey:NSOptionsKey];
+	if(bindingOptions){
+		NSValueTransformer* transformer = [bindingOptions valueForKey:NSValueTransformerBindingOption];
+		if(!transformer || (id)transformer == [NSNull null]){
+			NSString* transformerName = [bindingOptions valueForKey:NSValueTransformerNameBindingOption];
+			if(transformerName && (id)transformerName != [NSNull null]){
+				transformer = [NSValueTransformer valueTransformerForName:transformerName];
+			}
+		}
+		
+		if(transformer && (id)transformer != [NSNull null]){
+			if([[transformer class] allowsReverseTransformation]){
+				value = [transformer reverseTransformedValue:value];
+			} else {
+				NSLog(@"WARNING: binding \"%@\" has value transformer, but it doesn't allow reverse transformations in %s", binding, __PRETTY_FUNCTION__);
+			}
+		}
+	}
+	
+	id boundObject = [bindingInfo objectForKey:NSObservedObjectKey];
+	if(!boundObject || boundObject == [NSNull null]){
+		NSLog(@"ERROR: NSObservedObjectKey was nil for binding \"%@\" in %s", binding, __PRETTY_FUNCTION__);
+		return;
+	}
+	
+	NSString* boundKeyPath = [bindingInfo objectForKey:NSObservedKeyPathKey];
+	if(!boundKeyPath || (id)boundKeyPath == [NSNull null]){
+		NSLog(@"ERROR: NSObservedKeyPathKey was nil for binding \"%@\" in %s", binding, __PRETTY_FUNCTION__);
+		return;
+	}
+	
+	[boundObject setValue:value forKeyPath:boundKeyPath];
+}
+
+
 -(void) 	DDLogError   {	DDLogError  (@"%@",self);  } 	// Red
 -(void) 	DDLogWarn    {	DDLogWarn   (@"%@",self);  } 	// Orange
 -(void) 	DDLogInfo	    {	DDLogInfo   (@"%@",self);  } 	// Default (black)
@@ -209,6 +254,8 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary(void) {
 	return [methods mapSelector:@selector(name)];
 }
 
+/**
+
 -(void) propagateValue: (id)value forBinding: (NSS*)binding;
 {
 	NSParameterAssert(binding != nil);
@@ -244,7 +291,7 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary(void) {
 	}
 	[boundObject setValue:value forKeyPath:boundKeyPath];
 }
-
+*/
 //- (NSA*) settableKeys
 //{
 //	return [[[self class] uncodableKeys] filter:^BOOL(id object) {
@@ -362,6 +409,14 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary(void) {
 	if (objc_getAssociatedObject( self, @"dictionary" ) == nil)
 		objc_setAssociatedObject( self, @"dictionary", NSMD.new, OBJC_ASSOCIATION_RETAIN);
 	return (NSMD *)objc_getAssociatedObject( self, @"dictionary" );
+}
+
+
++ (NSMA*)newInstances:(NSUI)count;
+{
+	return [[@0 to: @(count)] map:^id(id obj) {	return  [self.class respondsToSelector:@selector(new)] ? self.new : [self.alloc init];
+	}].mutableCopy;
+
 }
 
 static char windowPosition;

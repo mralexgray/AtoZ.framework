@@ -12,8 +12,9 @@
 -(NSC*)scrollView:(CAScrollView*)sc colorForObject:(id)o atIndex:(NSUI)idx;
 @end
 
-@interface 	  CAScrollView : RBLScrollView
+@interface 	  CAScrollView : NSView
 
+@property (NATOM)  			NSSZ		unit;
 @property (NATOM,ASS) 		NSUI 		fixWatchdog;
 @property (RONLY)				NSA 		*allLayers;
 @property (NATOM, STRNG) 	NSMA 		*layerQueue;
@@ -21,6 +22,8 @@
 @property (NATOM, ASS)  		AZOrient		oreo;
 @property (NATOM, ASS)		StateStyle 	hoverStyle, selectedStyle;
 @property (unsafe_unretained) id <CAScrollViewDelegate>  delegate;
+@property (RONLY) CGF 	firstLaySpan, sublayerOrig, sublayerSpan, lastLaySpan, superBounds, lastLayOrig;
+@property (RONLY) NSUI  sublayerCt;
 
 - (IBAction)toggleOrientation:(id)sender;
 

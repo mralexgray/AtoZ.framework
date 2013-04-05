@@ -172,6 +172,7 @@ __MAC_OS_X_VERSION_MIN_REQUIRED >				__MAC_10_7))
 #import "AtoZUmbrella.h"
 #import "AtoZGeometry.h"
 #import "AtoZFunctions.h"
+#import "AtoZ.h"
 
 #endif
 

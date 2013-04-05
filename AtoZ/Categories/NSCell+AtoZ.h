@@ -8,6 +8,13 @@
 
 #import <Cocoa/Cocoa.h>
 
+
+@interface NSButton (SNRAdditions)
+@property (nonatomic, retain) NSColor *textColor;
+@property (nonatomic, retain) NSColor *alternateTextColor;
+@end
+
+
 @interface NSCell (AtoZ)
 
 @end

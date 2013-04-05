@@ -533,9 +533,48 @@ static char ROOT_IDENTIFIER;
 static char TEXT_IDENTIFIER;
 
 
+@implementation CATransaction (AtoZ)
++(void)immediatelyWithCompletion:(void (^)())completion transaction:(void (^)())block
+{
+	[self begin];
+	[self setCompletionBlock:completion];
+	[self setDisableActions:YES];
+	block();
+	[self commit];
+}
+
+@end
+
 #define kCALayerLabel @"CALayerLabel"
 @implementation CALayer (AtoZ)
 
+- (NSA*) sublayersAscending { return  [self.sublayers sortedWithKey:@"frameX" ascending:YES]; }
+
+- (void) setHostView:(NSView *)hostView {
+	[self setAssociatedValue:hostView forKey:@"hostView" policy:OBJC_ASSOCIATION_RETAIN];
+}
+- (NSV*) hostView { return  [self associatedValueForKey:@"hostView"]; }  
+
+- (NSR) actuallyVisibleRect;
+{
+	return [self actuallyVisibleRectInView:nil];
+}
+- (NSR) actuallyVisibleRectInView:(NSV*)v;
+{
+	v = v ?: self.hostView ?: [[self.superlayers cw_mapArray:^id(id o) { return [o hostView]; }] 
+																	  sortedWithKey:@"minDim" ascending:NO].first;
+
+	NSR actual = NSIntersectionRect(self.visibleRect, AZRectFromSize([[v window] size]));
+//	NSLog(@"%@ vs %@ in %@ %@", AZString(self.visibleRect), AZString(actual), AZString(v.bounds), [v class]);
+	return actual;
+}
+- (NSA*) visibleSublayers 
+{ 
+	NSA* i = [self.sublayers filter:^BOOL(id o){ return !CGRectIsEmpty([o actuallyVisibleRect]); }]; 
+//	NSLog(@"%ld/%ld subs Visible.", i.count, self.sublayers.count);
+	return i;
+
+}
 - (NSA*) sublayersOfClass:(Class)k
 {
 	return [self.sublayers filter:^BOOL(id object) {
@@ -1137,7 +1176,7 @@ static char TEXT_IDENTIFIER;
 		if (isEmpty(object)) [self setValue:@"" forKey:key];
 		else{
 			[self setValue:object forKey:key];
-			NSLog(@"setValue: %@ for layer's key: %@", object, key)
+//			NSLog(@"setValue: %@ for layer's key: %@", object, key)
 		}}
 }
 
@@ -1787,6 +1826,16 @@ static char TEXT_IDENTIFIER;
 	
 	return animationGroup;
 }
+
+
++ (CAGL*)gradientWithColor:(NSC*)c;
+{
+	CAGL *h 		= CAGL.layer;
+	h.colors		=  @[ (id)c.darker.CGColor, (id)c.CGColor, (id)c.brighter.CGColor];
+	h.locations	= @[ @0, @.5, @1 ];
+	return h;
+}
+
 //Metallic grey gradient background
 + (CAGradientLayer*) greyGradient {
 	NSArray *colors =  $array(
@@ -1947,6 +1996,8 @@ NSTimeInterval const LTKDefaultTransitionDuration = 0.25;
 
 #pragma mark - Property Accessors
 //@synthesize selected, hovered;
+
+
 
 - (BOOL)selected 			{ return [self valueForKey:@"_selected_"] ? [[self valueForKey:@"_selected_"]boolValue] : NO; } //return [self boolForKey:@"selected" defaultValue:NO]; }
 - (void)setSelected:(BOOL)s { 		 [self setValue:@(s) forKey:@"_selected_"]; 			}

@@ -89,15 +89,19 @@
 
 - (NSS *)recursiveSearchForPathOfResourceNamed:(NSString *)name;
 {
-	NSFileManager *fm = [[NSFileManager alloc] init]; // +defaultManager is not thread safe
+	NSFileManager *fm = NSFileManager.new; // +defaultManager is not thread safe
 	NSDirectoryEnumerator *enumerator = [fm enumeratorAtPath: [self resourcePath]];
 
-	NSS* file = [[enumerator allObjects] filterOne:^BOOL(NSS* filePath) {
+	NSA* files = [enumerator.allObjects filter:^BOOL(NSS* filePath) {
 
-		return (!isEmpty([name pathExtension])) ? [filePath endsWith:name]
-												: [[filePath stringByDeletingPathExtension] endsWith:name];
+		return !isEmpty(name.pathExtension) ? [filePath endsWith:name]
+												      : [[filePath stringByDeletingPathExtension] endsWith:name];
 
 	}];
+	NSS *file = nil;
+	if (files.count) file = [files filterOne:^BOOL(NSS* filePath) {  return areSame(name, filePath.lastPathComponent); }];
+	if (!file && files.count) file = files[0];
+	
 	return file ? [[self resourcePath] stringByAppendingPathComponent:file] : nil;
 
 }

@@ -47,16 +47,38 @@
 
 @end
 
-
 @implementation BNRBlockView
-@synthesize drawBlock, opaque;
+@synthesize drawBlock, opaque, layerBlock;
 
-+ (BNRBlockView*) viewWithFrame: (NSRect)frame  opaque: (BOOL)opaque drawnUsingBlock:(BNRBlockViewDrawer)theDrawBlock
++ (BLKVIEW*) viewWithFrame: (NSR)frame  opaque: (BOOL)opaque 
+			  drawnUsingBlock: (BNRBlockViewDrawer)theDrawBlock
 {	//	__typeof__(self)
-	BNRBlockView *view = [[BNRBlockView alloc] initWithFrame:frame];
+	BLKVIEW *view 	= [BLKVIEW.alloc initWithFrame:frame];
 	[view setDrawBlock:theDrawBlock];
 	[view setOpaque:opaque];
 	return view;
+}
++ (BLKVIEW*) inView:(NSV*)v withBlock:(BNRBlockViewLayerDelegate)ctxBlock
+{
+	BLKVIEW *view 	= [BLKVIEW.alloc initWithFrame:v.bounds];
+	[v addSubview:view];
+	view.arMASK 	= NSSIZEABLE;
+	CAL* l 			= view.setupHostView;
+	view.layer 		= l;
+	l.delegate 		= view;
+	l.arMASK 			= CASIZEABLE;
+	l.bgC 				= [LINEN CGColor];
+	[l setNeedsDisplay];
+	[view setLayerBlock:ctxBlock];
+	return view;
+}
+
+- (void) drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx 
+{
+	[NSGraphicsContext drawInContext:ctx flipped:NO actions:^{
+		if (layerBlock) layerBlock(self, layer);
+		if (drawBlock) drawBlock(self, layer.bounds);
+	}];
 }
 
 - (void)drawRect:(NSRect)dirtyRect { if (drawBlock) drawBlock(self, dirtyRect); }
@@ -81,7 +103,7 @@
 - (BOOL) acceptsMouseMovedEvents { return YES; }
 @end
 
-
+/*
 @implementation AZBlockView
 @synthesize drawBlock, opaque;
 + (AZBlockView*)  viewWithFrame:(NSRect)frame  opaque:(BOOL)opaque
@@ -99,3 +121,4 @@
 - (BOOL)isOpaque {	return opaque; }
 
 @end
+*/

@@ -178,10 +178,11 @@ BOOL areSameThenDo(id a, id b, VoidBlock doBlock);
 
 //USAGE: .... return (NSA*)logAndReturn( [NSArray arrayWithArrays:@[blah,blahb]] );
 //id (^logAndReturn)(id); //= ^(id toLog) { AZLOG(toLog); return toLog; };
+id LogStackAndReturn(id toLog);
 id LogAndReturn(id toLog); //= ^(id toLog) { AZLOG(toLog); return toLog; };
 id LogAndReturnWithCaller(id toLog, SEL caller);
 
-extern void  LOGWARN (NSString *format, ...);
+//extern void  LOGWARN (NSString *format, ...);
 
 
 

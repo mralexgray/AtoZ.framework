@@ -201,13 +201,9 @@
 	[self stroke];
 }
 
-- (void)fillGradientFrom:(NSColor*)inStartColor to:(NSColor*)inEndColor angle:(float)inAngle
+- (void)fillGradientFrom:(NSColor*)start to:(NSColor*)end angle:(float)angle
 {
-
-
-	NSGradient *fillGradient = [[NSGradient alloc] initWithStartingColor:inStartColor endingColor:inEndColor];
-
-	[fillGradient drawInBezierPath:self angle:inAngle];
+	[[NSG.alloc initWithStartingColor:start endingColor:end] drawInBezierPath:self angle:angle];
 	/*
 
 	 CIImage*	coreimage;
@@ -588,6 +584,8 @@ static void CGPathCallback(void *info, const CGPathElement *element)
 	 return thePath;
 	 */
 }
+
+- (NSBP*) stroked:					(CGF)strokeWidth { return  [self pathWithStrokeWidth:strokeWidth]; }
 
 - (NSBezierPath *)pathWithStrokeWidth:(CGFloat)strokeWidth
 {

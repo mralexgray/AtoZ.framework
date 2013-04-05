@@ -15,19 +15,19 @@
 #import "AtoZ.h"
 
 
-@class AZBlockView;
-// Declare the AZBlockViewDrawer block type:
-typedef void(^AZBlockViewDrawer)(AZBlockView *view, NSRect dirtyRect);
-@interface AZBlockView : NSView {
-	AZBlockViewDrawer drawBlock;
-	BOOL opaque;
-}
-+ (AZBlockView *)viewWithFrame:(NSRect)frame
-						 opaque:(BOOL)opaque
-				drawnUsingBlock:(AZBlockViewDrawer)drawBlock;
-@property (NATOM, CP) AZBlockViewDrawer drawBlock;
-@property (nonatomic, assign) BOOL opaque;
-@end
+//@class AZBlockView;
+//// Declare the AZBlockViewDrawer block type:
+//typedef void(^AZBlockViewDrawer)(AZBlockView *view, NSRect dirtyRect);
+//@interface AZBlockView : NSView {
+//	AZBlockViewDrawer drawBlock;
+//	BOOL opaque;
+//}
+//+ (AZBlockView *)viewWithFrame:(NSRect)frame
+//						 opaque:(BOOL)opaque
+//				drawnUsingBlock:(AZBlockViewDrawer)drawBlock;
+//@property (NATOM, CP) AZBlockViewDrawer drawBlock;
+//@property (nonatomic, assign) BOOL opaque;
+//@end
 
 //Usage:
 /*
@@ -50,18 +50,19 @@ typedef void(^NSImageDrawer)(void);
 @end
 
 
-@class BNRBlockView;
-typedef void(^BNRBlockViewDrawer)(BNRBlockView *view, NSRect dirtyRect);
+@class BLKVIEW;
+typedef void(^BNRBlockViewDrawer)        (BLKVIEW*v, NSR r);
+typedef void(^BNRBlockViewLayerDelegate) (BLKVIEW*v, CAL*l);
+
 @interface BNRBlockView : NSView
-{
-//	BNRBlockViewDrawer drawBlock;
-//	BOOL opaque;
-}
 
-+ (BNRBlockView *)viewWithFrame:(NSRect)frame  opaque:(BOOL)opaque
-				drawnUsingBlock:(BNRBlockViewDrawer)drawBlock;
++ (BLKVIEW*) inView:(NSV*)v withBlock:(BNRBlockViewLayerDelegate)ctxBlock;
 
-@property (NATOM, CP) BNRBlockViewDrawer drawBlock;
++ (BLKVIEW*) viewWithFrame:(NSR)frame  opaque:(BOOL)opaque
+			  drawnUsingBlock:(BNRBlockViewDrawer) drawBlock;
+
+@property (NATOM, CP) BNRBlockViewDrawer 			drawBlock;
+@property (NATOM, CP) BNRBlockViewLayerDelegate layerBlock;
 @property (nonatomic, assign) BOOL opaque;
 @end
 
