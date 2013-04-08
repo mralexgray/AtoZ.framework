@@ -313,11 +313,10 @@
 	return array;
 }
 
-- (void)setDashPattern:(NSArray *)newPattern {
-	NSInteger i, count = [newPattern count];
-	CGFloat pattern[count];
-	for (i = 0; i< count; i++)
-		pattern[i] = [newPattern[i] doubleValue];
+- (void)setDashPattern:(NSA*)newPattern {
+	NSI i, count = [newPattern count];
+	CGF pattern[count];
+	for (i = 0; i < count; i++) pattern[i] = [newPattern[i] doubleValue];
 	[self setLineDash:pattern count:count phase:0];
 }
 

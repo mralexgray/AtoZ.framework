@@ -258,6 +258,14 @@
 
 @implementation  NSDictionary (AtoZ)
 
+-(void)eachWithIndex:(void (^)(id key, id value, NSUI idx, BOOL *stop))block;
+{
+
+	[self.allKeys enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+		block (obj, self[obj], idx, *stop);
+	}];
+}
+
 //- (NSA*) recursiveObjectsForKey:(NSString *)key;
 //{
 //	__block NSMA *bag = [NSMA array];

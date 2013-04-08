@@ -10,6 +10,7 @@ Documentation
 # AtoZ/Resources/Frameworks/*
 AtoZ/AtoZiTunes.framework
 Frameworks/Cocotron
+Frameworks/CocoatechStrings
 # Xcode
 # build/*
 *.pbxuser
@@ -45,3 +46,7 @@ MailCore
 html
 AtoZ/html/*
 Frameworks/KVO-Test
+
+AtoZ/Classes/Nu.h
+
+AtoZ/Classes/Nu.m

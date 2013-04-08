@@ -3,8 +3,6 @@
 //  Copyright (c) 2012 Discontinuity s.r.l. All rights reserved.
 
 #import "AZFavIconManager.h"
-
-
 CGSize sizeInPixels(NSIMG *icon) {
 	CGSize size = icon.size;
 	#if TARGET_OS_IPHONE
@@ -14,7 +12,6 @@ CGSize sizeInPixels(NSIMG *icon) {
 	return size;
 }
 
-
 @interface AZFavIconManager ()
 @property (STRNG,NATOM) NSOQ *opQueue;
 @property (STRNG,NATOM) NSMD *opsPerURL;
@@ -22,51 +19,41 @@ CGSize sizeInPixels(NSIMG *icon) {
 
 @implementation AZFavIconManager
 
-+ (AZFavIconManager*)sharedInstance
-{
-	static dispatch_once_t once;
-	static id sharedInstance;
-	dispatch_once(&once, ^{  sharedInstance = self.new; });
-	return sharedInstance;
-}
++ (AZFavIconManager*)sharedInstance			 	{ 
 
-- (id)init
-{
-	 if (!(self = [super init])) return nil;
-	_cache 		= AZFavIconCache.sharedCache;
-	_opQueue 	= NSOperationQueue.new;
-	_opQueue.maxConcurrentOperationCount = 20;
-	_opsPerURL	= NSMD.new;
+	static dispatch_once_t once; 	
+	static id sharedInstance; 	
+	dispatch_once(&once, ^{  
+		sharedInstance = [AZFavIconManager.alloc init]; 
+	});	
+	return sharedInstance; 
+}
+- (id) init												{
+
+	 if (!(self 	= [super init])) return nil;
+	_cache 			= AZFavIconCache.sharedCache;
+	_opQueue 		= [NSOperationStack.alloc init];
+	_opQueue.maxConcurrentOperationCount = 300;
+	_opsPerURL		= NSMD.new;
 	_discardRequestsForIconsWithPendingOperation = NO;
 	_useAppleTouchIconForHighResolutionDisplays  = YES;
 	return self;
 }
-
-- (NSIMG*) placehoder { return _placehoder ?: [NSIMG monoIconNamed:@"130"]; }
+- (NSIMG*) placehoder	 						{ return _placehoder ?: [NSIMG imageNamed:@"missing.png"]; } //[NSIMG monoIconNamed:@"130"]; }
 
 #pragma mark - Public methods
 
-- (void) cancelRequests {	[_opQueue cancelAllOperations]; _opsPerURL = NSMD.new; 	}
-
-- (void) clearCache {		[self cancelRequests];	[_cache removeAllObjects];					}
-
-- (BOOL) hasOperationForURL:(NSURL*)url {	return [_opsPerURL objectForKey:url] != nil;	}
-
-- (NSIMG*)cachedIconForURL:(NSURL*)url {	return [_cache imageForKey:[self keyForURL:url]];				}
-
-+ (NSIMG*)iconForURL:(NSURL *)url downloadHandler:(void (^)(NSIMG *icon))downloadHandler
-{
-	return [AZFavIconManager.sharedInstance iconForURL:url downloadHandler:downloadHandler];
+-   (void) cancelRequests  					{	[_opQueue cancelAllOperations]; _opsPerURL = NSMD.new; 	}
+-   (void) clearCache 							{	[self cancelRequests];	[_cache removeAllObjects];					}
+-   (BOOL) hasOperationForURL:(NSURL*)url {	return [_opsPerURL objectForKey:url] != nil;	}
+- (NSIMG*) cachedIconForURL:  (NSURL*)url {	return [_cache imageForKey:[self keyForURL:url]];				}
++ (NSIMG*) iconForURL:			(NSURL*)url downloadHandler:(void (^)(NSIMG *icon))h	{
+	return [self.sharedInstance iconForURL:url downloadHandler:h];
 }
-+ (NSIMG*)AZFavIconManager:(NSURL *)url downloadHandler:(void (^)(NSIMG *icon))downloadHandler;
-{
-	AZFavIconManager * n = AZFavIconManager.new;
-	return [n iconForURL:url downloadHandler:downloadHandler];
-}
-- (NSIMG*)iconForURL:(NSURL *)url downloadHandler:(void (^)(NSIMG *icon))downloadHandler
-{
-	NSS* keyForUrl = [self keyForURL:url];
-	NSIMG *cachedImage = [_cache imageForKey:keyForUrl];	//[self cachedIconForURL:url];
+- (NSIMG*) iconForURL:			(NSURL*)url downloadHandler:(void (^)(NSIMG *icon))h	{
+
+	NSS   *keyForUrl 		= [self keyForURL:url];
+	NSIMG *cachedImage 	= [_cache imageForKey:keyForUrl];//self cachedIconForURL:url];//[_cache imageForKey:keyForUrl];	//[self cachedIconForURL:url];
 	if (cachedImage) { cachedImage.name = $(@"cachedIconFor:%@", keyForUrl);  return cachedImage; }
 	if (_discardRequestsForIconsWithPendingOperation && [_opsPerURL objectForKey:url]) 	return self.placehoder;
 
@@ -74,52 +61,38 @@ CGSize sizeInPixels(NSIMG *icon) {
 		if (icon) {
 			[_opsPerURL removeObjectForKey:url];
 			[_cache setImage:icon forKey:keyForUrl];
-			dispatch_async(dispatch_get_main_queue(), ^{  downloadHandler(icon); });
+			dispatch_async(dispatch_get_main_queue(), ^{  h(icon); });
 		}
 	};
-	AZFavIconOperation *op = [AZFavIconOperation operationWithURL:url
-											   relationshipsRegex:self.acceptedRelationshipAttributesRegex
-													 defaultNames:self.defaultNames
-												  completionBlock:completionBlock];
-
+	AZFavIconOperation *op = [AZFavIconOperation operationWithURL:url				relationshipsRegex:self.acceptedRelationshipAttributesRegex
+														  defaultNames:self.defaultNames completionBlock:completionBlock];
 	// Prevent starting an operation for an icon that has been downloaded in the meanwhile.
 	op.preFlightBlock = ^BOOL (NSURL *url) {
 		NSIMG *icon = [self cachedIconForURL:url];
-		if (icon) {
-			dispatch_async(dispatch_get_main_queue(), ^{ downloadHandler(icon); });
-			return NO;
-		} else	return YES;
+		if (icon) dispatch_async(dispatch_get_main_queue(), ^{ h(icon); });  // NO
+		return !(icon); 																	   // else YES
 	};
-	op.acceptanceBlock = ^BOOL (NSIMG *icon) {
-		CGSZ size 		   = sizeInPixels(icon);
-		NSLog(@"acceptance:  %.0f >= 16 * deice scale (%.0f)", size.width, AZDeviceScreenScale());
-		return size.width >= (16 * AZDeviceScreenScale()) && size.height >= (16.f * AZDeviceScreenScale());
-	};
+	op.acceptanceBlock = ^BOOL (NSIMG *icon) {  return AZMinDim(icon.size) >= 32; };
+//		CGSZ size 		   = sizeInPixels(icon); BOOL isItOK = size.width >= (16 * AZDeviceScreenScale()) && size.height >= (16.f * AZDeviceScreenScale());
+//		NSLog(@"acccepted:%@  %.0f >= 16* dScale:%.0f", StringFromBOOL(isItOK), size.width, AZDeviceScreenScale()); return isItOK;
+
 	[_opsPerURL setObject:op forKey:url];
 	[_opQueue  addOperation:op];
 	return self.placehoder;
 }
 #pragma mark - Private methods
 
-- (NSString*)keyForURL:(NSURL*)url {	return url.host;		}
+- (NSString*)keyForURL:(NSURL*)url {		return url.host;		}
 
-- (NSS *)acceptedRelationshipAttributesRegex {
-//	NSArray *array = @[ @"shortcut icon", @"icon" ];
-//	if (_useAppleTouchIconForHighResolutionDisplays && screenScale() > 1.f) {
-//		array = @[ @"shortcut icon", @"icon", @"apple-touch-icon" ];
-//	} else {
-//		array = @[ @"shortcut icon", @"icon" ];
-//	}
-//	return [@[@"shortcut icon", @"icon", @"apple-touch-icon" ] componentsJoinedByString:@"|"];
-	return @"icon|apple-touch-icon";// ] componentsJoinedByString:@"|"];
+- (NSS *)acceptedRelationshipAttributesRegex {	return [@[@"apple-touch-icon", @"shortcut icon", @"icon"]  componentsJoinedByString:@"|"];
+//	NSArray *array = @[ @"shortcut icon", @"icon" ];	if (_useAppleTouchIconForHighResolutionDisplays && screenScale() > 1.f) {		array = @[ @"shortcut icon", @"icon", @"apple-touch-icon" ];	} else {		array = @[ @"shortcut icon", @"icon" ];	}	return [@[@"shortcut icon", @"icon", @"apple-touch-icon" ] componentsJoinedByString:@"|"];	@"icon|apple-touch-icon";// ] componentsJoinedByString:@"|"];
 }
 
 -(NSArray*)defaultNames;
 {
 	static NSA *_defNames = nil;
-	return _defNames = _defNames ?: @[ @"touch-icon-114x114.png", @"touch-icon-72x72.png", @"touch-icon-iphone.png", @"apple-touch-icon-precomposed.png", @"apple-touch-icon.png", @"touch-icon-iphone.png", @"favicon.ico"].copy;
-	//  if (_useAppleTouchIconForHighResolutionDisplays && screenScale() > 1.f) {
-	//	} else return @[ @"apple-touch-icon.png"];//favicon.ico" ];
+	return _defNames = _defNames ?: @[ @"touch-icon-114x114.png", @"touch-icon-72x72.png", @"touch-icon-iphone.png", @"apple-touch-icon-precomposed.png", @"apple-touch-icon.png", @"touch-icon-iphone.png", @"favicon.ico"];
+	//  if (_useAppleTouchIconForHighResolutionDisplays && screenScale() > 1.f) {	} else return @[ @"apple-touch-icon.png"];//favicon.ico" ];
 }
 
 @end
@@ -136,10 +109,10 @@ NSS *const kAZFavIconOperationDidEndNetworkActivity   = @"kAZFavIconOperationDid
 						completionBlock: (AZFavIconOperationCompletionBlock)completion;
 {
 	AZFavIconOperation* result 	= self.new;
-	result.url 					= url;
-	result.relationshipsRegex 	= relationshipsRegex;
-	result.defaultNames		 	= defaultNames;
-	result.completion 			= completion;
+	result.url 							= url;
+	result.relationshipsRegex 		= relationshipsRegex;
+	result.defaultNames		 		= defaultNames;
+	result.completion 					= completion;
 	return result;
 }
 
@@ -174,11 +147,16 @@ NSS *const kAZFavIconOperationDidEndNetworkActivity   = @"kAZFavIconOperationDid
 		if (!self.isCancelled) {
 			NSURL *iconURL = [NSURL URLWithString:iconName relativeToURL:baseURL];
 			[AZNOTCENTER postNotificationName:kAZFavIconOperationDidStartNetworkActivity object:self];
-			NSData *data = [NSData dataWithContentsOfURL:iconURL];
+			ASIHTTPRequest *requester = [ASIHTTPRequest.alloc initWithURL:iconURL];
+			[requester startSynchronous];
+			NSData *data = [requester responseData];
+			
+//			NSData *data = [NSData dataWithContentsOfURL:iconURL];
 			[AZNOTCENTER postNotificationName:kAZFavIconOperationDidEndNetworkActivity object:self];
-			NSIMG *newIcon = [[NSIMG alloc] initWithData:data];
+			NSIMG *newIcon = [NSIMG imageWithData:data];
 			if (newIcon) {
-				icon = newIcon;
+				icon = newIcon; 
+				icon.name = url.host.copy;
 				*stop = [self isIconValid:icon];
 			}
 		} else *stop = YES;
@@ -222,8 +200,8 @@ NSS *const kAZFavIconOperationDidEndNetworkActivity   = @"kAZFavIconOperationDid
 				[AZNOTCENTER postNotificationName:kAZFavIconOperationDidEndNetworkActivity object:self];
 				if (data)
 				{
-					NSIMG   *newIcon = [[NSIMG alloc] initWithData:data];
-					if (newIcon) {	icon = newIcon;
+					NSIMG   *newIcon = [NSIMG imageWithData:data];
+					if (newIcon) {	icon = newIcon; icon.name = url.host;
 						           *stop = [self isIconValid:icon];	}
 				}
 			}
@@ -247,7 +225,7 @@ NSS *const kAZFavIconOperationDidEndNetworkActivity   = @"kAZFavIconOperationDid
 {
 	static AZFavIconCache *sharedCache = nil;
 	static dispatch_once_t onceToken;
-	dispatch_once(&onceToken, ^{		sharedCache = [self new];	});
+	dispatch_once(&onceToken, ^{		sharedCache = [AZFavIconCache.alloc init];	});
 	return sharedCache;
 }
 

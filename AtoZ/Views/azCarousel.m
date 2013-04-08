@@ -39,7 +39,7 @@
 @interface iCarousel (AtoZ)
 - (CGFloat)		offsetForItemAtIndex:(NSInteger)index;
 - (NSInteger)	clampedIndex:(NSInteger)index;
-- (CGFloat)		clampedOffset:(CGFloat)offset;
+- (CGFloat)		az_clampedOffset:(CGFloat)offset;
 //- (NSInteger)	currentItemIndex;
 @property (nonatomic, assign) NSInteger currentItemIndex;
 @property (nonatomic, assign) NSTimeInterval startTime;
@@ -81,6 +81,15 @@
 - (AZTrackingWindow*) hostWindow {	return  (AZTrackingWindow*)[self window]; }
 
 	//- (id)initWithFrame:(NSRect)frame {	 if ((self = [super initWithFrame:frame])) {
+
++ (void) load {
+	
+	[$ swizzleMethod:@selector(clampedOffset:) 		in:iCarousel.class 
+					with:@selector(az_clampedOffset:) 	in:iCarousel.class];
+	[$ swizzleMethod:@selector(currentItemIndex) 		in:iCarousel.class 
+					with:@selector(az_currentItemIndex) 	in:iCarousel.class];
+}
+
 
 -(void) additionalSetUp {
 	/*		[NSEvent addGlobalMonitorForEventsMatchingMask:NSMouseMovedMask handler:^(NSEvent *e) {
@@ -126,7 +135,7 @@
 	CGFloat factor = 1.f;
 	if (!self.wrapEnabled && self.bounces)
 
-		factor = 1.0f - fminf(fabsf(self.scrollOffset - [self clampedOffset:self.scrollOffset]), self.bounceDistance) / self.bounceDistance;
+		factor = 1.0f - fminf(fabsf(self.scrollOffset - [self az_clampedOffset:self.scrollOffset]), self.bounceDistance) / self.bounceDistance;
 	NSTimeInterval thisTime = [theEvent timestamp];
 	self.startVelocity = -(translation / (thisTime - self.startTime)) * factor * self.scrollSpeed / self.itemWidth;
 	self.startTime = thisTime;
@@ -142,7 +151,7 @@
 {
 	if (self.wrapEnabled || !self.bounces)
 	{
-		self.scrollOffset = [self clampedOffset:self.scrollOffset];
+		self.scrollOffset = [self az_clampedOffset:self.scrollOffset];
 	}
 	else
 	{
@@ -253,8 +262,10 @@
 	}
 }
 
-- (CGFloat)clampedOffset:(CGFloat)offset
+- (CGFloat)az_clampedOffset:(CGFloat)offset
 {
+	[self az_clampedOffset:offset];
+	LOGWARN(@"Swizzled az_clampedoff:");
 	if (self.wrapEnabled)	//	if (_wrapEnabled)
 	{
 		return self.numberOfItems? (offset - floorf(offset / (CGFloat)self.numberOfItems) * self.numberOfItems): 0.0f;
@@ -265,8 +276,10 @@
 	}
 }
 
-- (NSInteger)currentItemIndex
+- (NSInteger)az_currentItemIndex
 {
+	NSI i = [self az_currentItemIndex];
+	NSLog(@"swixxled: az_currentItemIndex");
 	return [self clampedIndex:roundf(self.scrollOffset)];
 }
 

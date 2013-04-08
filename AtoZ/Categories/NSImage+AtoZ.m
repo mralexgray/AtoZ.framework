@@ -41,15 +41,20 @@ CGImageRef CreateCGImageFromData(NSData* data)
 	NSSZ iSize = AZSizeFromDimension(rect.size.width/cols);
 	AZSizer *s = [AZSizer forQuantity:images.count  ofSize:iSize  withColumns:cols];
 	NSA *rects = s.rects.copy;
-	NSIMG *contact = [[NSIMG alloc]initWithSize:NSMakeSize(s.rows*s.width, s.columns*s.height)];
-	[contact lockFocus];
-	[images eachWithIndex:^(NSIMG* obj, NSInteger idx) {
-		NSR theR = [[rects normal:idx]rectValue];
-		[[obj scaledToMax:AZMaxDim(iSize)] drawCenteredinRect:theR operation:NSCompositeSourceOver fraction:1];
+	return [NSIMG imageWithSize:NSMakeSize(s.rows*s.width, s.columns*s.height) drawnUsingBlock:^{
+		
+//	[contact lockFocus];
+		[images eachWithIndex:^(NSIMG* obj, NSInteger idx) {
+			NSLog(@"Contact Sheet render:%@   #%ld of %ld", obj.name, idx, images.count);
+			NSR theR = [[rects normal:idx]rectValue];
+			[[obj scaleImageToFillSize:theR.size]
+			///[obj scaledToMax:AZMaxDim(iSize)] 
+				drawCenteredinRect:theR operation:NSCompositeSourceOver fraction:1];
 //		if (obj.name) NSF * f = [AtoZ font:@"UbuntuTitling-Bold" size:AZMinDim(theR.size)*.1];
+		}];
 	}];
-	[contact unlockFocus];
-	return contact;
+//	[contact unlockFocus];
+//	return contact;
 }
 //			NSAS* string = [[obj.name truncatedForRect:nameRect withFont:f] attributedWithSize:AZMinDim(theR.size)*.1 andColor:WHITE];
 //			nameRect = AZRectExceptWide(nameRect, theR.size.width < nameRect.size.width ? theR.size.width : nameRect.size.width);
@@ -245,7 +250,8 @@ NSData* PNGRepresentation(NSIMG *image) {
 }
 + (NSIMG*) faviconForDomain: (NSS*)domainAsString	{
 
-	static NSA* iconLocs = nil; static NSIMG *missing = nil;
+	static NSA* iconLocs = nil; 
+	static NSIMG *missing = nil;
 	iconLocs = iconLocs ?: @[@"/touch-icon-114x114.png", @"/touch-icon-72x72.png", @"/touch-icon-iphone.png", @"/favicon.ico"];
 
 	NSS* theUrl = [domainAsString startsWith:@"http://"] ? domainAsString : $(@"http://%@",domainAsString);
@@ -260,6 +266,7 @@ NSData* PNGRepresentation(NSIMG *image) {
 		}
 	}];
 	if (!theIcon) missing = missing ?: [[NSIMG imageNamed:@"missing"]scaledToMax:64];
+	NSLog(@"Favicon for %@: %@", domainAsString, theIcon ? @"FOUND" : @"MISSING" );
 	return theIcon ?: missing;
 }
 + (NSIMG*) imageWithData:(NSData*)data	{	return [NSImage.alloc initWithData:data];	}
@@ -386,7 +393,7 @@ NSData* PNGRepresentation(NSIMG *image) {
 		return [NSIMG imageWithFile:obj named:NSIMG.frameworkImageNames[index]];
 	}] filter:^BOOL(id object) { return [object isKindOfClass:[NSIMG class]]; }];
 }
-- (instancetype) named:(NSS*)name { if (name) self.name = name;  return self; }
+- (NSIMG*) named:(NSS*)name { if (name) self.name = name;  return self; }
 + (instancetype) imageWithFile:(NSS*)file named:(NSS*)name 	{ 	return [self.alloc initWithFile:file named:name]; 	}
 - (instancetype) initWithFile: (NSS*)file named:(NSS*)name 	{	NSIMG* i = [self.class.alloc initWithContentsOfFile:file]; 	i.name = name;	return i;	}
 + (instancetype) imageWithSize:(NSSZ)size named:(NSS*)name 	{	return [self.alloc initWithSize:size named:name];	}
@@ -920,6 +927,7 @@ static BOOL monosMade = NO;
 	return newImage;
 }
 
+- (NSC*) quantized { NSA* q = [self quantize];  return (q.count) ? q.first : CHECKERS; }
 - (NSA*) quantize
 {
 	self.size 					= NSMakeSize(32, 32);

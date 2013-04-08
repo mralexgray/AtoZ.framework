@@ -10,4 +10,8 @@
 
 @implementation NSFont (AtoZ)
 
+- (NSFont *)fontWithSize:(CGFloat)fontSize {
+
+		return [NSFont fontWithName:self.fontName size:fontSize];
+}
 @end

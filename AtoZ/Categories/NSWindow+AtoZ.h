@@ -89,14 +89,28 @@ enum NSWindowResizing {
 
 //@property (readonly, nonatomic) BOOL isBorderless;
 @property (readonly, nonatomic) CGFloat toolbarHeight;
+
+- (void) fadeIn;
+- (void) fadeOut;
+/*
+ - (void) fadeInYesOrOutNo: (BOOL)fade andResizeTo: (NSRect)frame;
+ */
+- (void) slideUp;
+- (void) slideDown;
+
+- (void) extendVerticallyBy: (CGF) amount;
+
+- (void) setDefaultFirstResponder;
+//+ (NSWindow*) borderlessWindowWithContentRect: (NSRect)aRect;
+- (void)setIgnoresEventsButAcceptsMoved;
+
 @end
 
 #define kNTSetDefaultFirstResponderNotification @"NTSetDefaultFirstResponderNotification"  // object is the window, must check
 
-@interface NSWindow (Utilities)
-/*
-- (void)veil:(NSView*)view;
-*/
+/*@interface NSWindow (Utilities)
+//- (void)veil:(NSView*)view;
+
 + (void) cascadeWindow:(NSWindow*)inWindow;
 
 + (NSA*) visibleWindows:(BOOL)ordered;
@@ -129,24 +143,9 @@ enum NSWindowResizing {
 
 + (BOOL) windowRectIsOnScreen: (NSRect)windowRect;
 
-- (void) setDefaultFirstResponder;
-
-- (void) fadeIn;
-- (void) fadeOut;
-/*
-- (void) fadeInYesOrOutNo: (BOOL)fade andResizeTo: (NSRect)frame;
-*/
-- (void) slideUp;
-- (void) slideDown;
-
-- (void) extendVerticallyBy: (CGF) amount;
-/*
-+ (NSWindow*) borderlessWindowWithContentRect: (NSRect)aRect;
-*/
-
-- (void)setIgnoresEventsButAcceptsMoved;
 
 @end
+*/
 
 //@interface NSWindow (UndocumentedRoutines)
 //- (void)setBottomCornerRounded:(BOOL)set;
@@ -163,4 +162,8 @@ enum NSWindowResizing {
 -(void) fadeOutWithDuration:(NSTimeInterval)duration;
 -(void) fadeOutOneStep: 	(NSTimer*)timer;
 -(void)	fadeToLevel: 		(int)lev withDuration: (NSTimeInterval)duration;
+@end
+
+
+@interface DesktopWindow : NSWindow 
 @end

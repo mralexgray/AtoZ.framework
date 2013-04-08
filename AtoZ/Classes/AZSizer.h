@@ -29,5 +29,7 @@ extern NSUInteger gcd(NSI m, NSUI n);
 @property (NATOM, CP) 	NSMA 	*positions;
 
 
++ (NSA*) rectsForColumns:  (NSUI)ct inRect:(NSR)frame;
+
 @end
 

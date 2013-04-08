@@ -102,8 +102,8 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 #import <CocoatechCore/CocoatechCore.h>
 
 //#import <AtoZ/BaseModel.h>
-//#import "AutoCoding.h"
-//#import "HRCoder.h"
+#import "AutoCoding.h"
+#import "HRCoder.h"
 #import "BaseModel.h"
 
 #import "F.h"
@@ -244,6 +244,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 
 	// Categories
+#import "NSFont+AtoZ.h"
 #import "NSDate+AtoZ.h"
 #import "NSTask+OneLineTasksWithOutput.h"
 #import "NSOutlineView+AtoZ.h"
@@ -291,6 +292,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 #import "JsonElement.h"
 
 //Classes
+#import "NSOrderedDictionary.h"
 #import "AZHomeBrew.h"
 #import "AZDebugLayer.h"
 #import "AZInstantApp.h"
@@ -439,6 +441,7 @@ typedef id(^FilterBlock)(id element,NSUInteger idx, BOOL *stop);
 /* A shared operation que that is used to generate thumbnails in the background. */
 extern NSOperationQueue *AZSharedOperationQueue(void);
 extern NSOperationQueue *AZSharedSingleOperationQueue(void);
+extern NSOperationQueue *AZSharedOperationStack(void);
 
 
 CGFloat ScreenWidess();
@@ -460,7 +463,7 @@ extern NSString *const AtoZDockSortedUpdated;
 @interface AZDummy : NSObject
 + (instancetype) sharedInstance;
 //- (void)addOperation:(NSOperation*)op;
-@property (NATOM, STRNG) NSOperationQueue *sharedQ, *sharedSQ;
+@property (NATOM, STRNG) NSOperationQueue *sharedQ, *sharedSQ, *sharedStack;
 @end
 
 @class NSLogConsole;

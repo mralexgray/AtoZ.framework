@@ -35,6 +35,18 @@
 
 @end
 
+@implementation TUIView (BezierPaths)
+- (NSBP*) path {  NSBP* path = [self associatedValueForKey:@"bPath"];
+
+	return path ?: [NSBP bezierPathWithRect:self.bounds];
+}
+
+- (void) setPath:(NSBezierPath *)path {
+
+	[self setAssociatedValue:path forKey:@"bPath" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
+}
+
+@end
 
 @implementation TUIView (Subviews)
 

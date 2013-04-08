@@ -275,7 +275,7 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
 		_scrolling = NO;
 		_decelerating = NO;
 		[self disableAnimation];
-		_scrollOffset = [self clampedOffset:scrollOffset];
+		_scrollOffset = [self az_clampedOffset:scrollOffset];
 		[self didScroll];
 		_previousItemIndex = self.currentItemIndex;
 		[self depthSortViews];
@@ -847,7 +847,7 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
 
 		//special-case logic for iCarouselTypeCoverFlow2
 	CGFloat clampedOffset = fmaxf(-1.0f, fminf(1.0f, offset));
-	if (_decelerating || (_scrolling && !_didDrag) || (_scrollOffset - [self clampedOffset:_scrollOffset]) != 0.0f)
+	if (_decelerating || (_scrolling && !_didDrag) || (_scrollOffset - [self az_clampedOffset:_scrollOffset]) != 0.0f)
 	{
 		if (offset > 0)
 		{
@@ -1117,7 +1117,7 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
 		}
 		else
 		{
-			_scrollOffset = [self clampedOffset:_scrollOffset];
+			_scrollOffset = [self az_clampedOffset:_scrollOffset];
 		}
 	}
 
@@ -1414,7 +1414,7 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
 		_endOffset = _startOffset + offset;
 		if (!_wrapEnabled)
 		{
-			_endOffset = [self clampedOffset:_endOffset];
+			_endOffset = [self az_clampedOffset:_endOffset];
 		}
 		if ([_delegate respondsToSelector:@selector(carouselWillBeginScrollingAnimation:)])
 		{
@@ -1691,7 +1691,7 @@ _timer = [NSTimer scheduledTimerWithTimeInterval:1.0/60.0	target:self		selector:
 		}
 		else
 		{
-			_endOffset = [self clampedOffset:_endOffset];
+			_endOffset = [self az_clampedOffset:_endOffset];
 		}
 	}
 	distance = _endOffset - _startOffset;
@@ -1761,7 +1761,7 @@ _timer = [NSTimer scheduledTimerWithTimeInterval:1.0/60.0	target:self		selector:
 				[_delegate carouselDidEndDecelerating:self];
 				[self disableAnimation];
 			}
-			if (_scrollToItemBoundary || (_scrollOffset - [self clampedOffset:_scrollOffset]) != 0.0f)
+			if (_scrollToItemBoundary || (_scrollOffset - [self az_clampedOffset:_scrollOffset]) != 0.0f)
 			{
 				if (fabsf(_scrollOffset - self.currentItemIndex) < 0.01f)
 				{
@@ -2032,7 +2032,7 @@ _timer = [NSTimer scheduledTimerWithTimeInterval:1.0/60.0	target:self		selector:
 					[_delegate carouselDidEndDragging:self willDecelerate:_decelerating];
 					[self disableAnimation];
 				}
-				if (!_decelerating && (_scrollToItemBoundary || (_scrollOffset - [self clampedOffset:_scrollOffset]) != 0.0f))
+				if (!_decelerating && (_scrollToItemBoundary || (_scrollOffset - [self az_clampedOffset:_scrollOffset]) != 0.0f))
 				{
 					if (fabsf(_scrollOffset - self.currentItemIndex) < 0.01f)
 					{
@@ -2140,7 +2140,7 @@ _timer = [NSTimer scheduledTimerWithTimeInterval:1.0/60.0	target:self		selector:
 		CGFloat factor = 1.0f;
 		if (!_wrapEnabled && _bounces)
 		{
-			factor = 1.0f - fminf(fabsf(_scrollOffset - [self clampedOffset:_scrollOffset]), _bounceDistance) / _bounceDistance;
+			factor = 1.0f - fminf(fabsf(_scrollOffset - [self az_clampedOffset:_scrollOffset]), _bounceDistance) / _bounceDistance;
 		}
 
 		NSTimeInterval thisTime = [theEvent timestamp];

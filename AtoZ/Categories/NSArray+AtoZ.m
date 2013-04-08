@@ -37,7 +37,35 @@
 
 @end
 
+#import "Nu.h"
+
 @implementation NSArray (AtoZ)
+
++ (void) load 	{ 
+	Method original, swizzle;
+	
+	// Get the "- (id)initWithFrame:" method.
+	original = class_getInstanceMethod(self, @selector(objectat:));
+	// Get the "- (id)swizzled_initWithFrame:" method.
+	swizzle = class_getInstanceMethod(self, @selector(swizzledObjectAtIndexedSubscript:));
+	// Swap their implementations.
+//	method_exchangeImplementations(original, swizzle);
+	
+//	[self exchangeInstanceMethod:@selector(objectAtIndexedSubscript:) withMethod:@selector(swizzledObjectAtIndexedSubscript:)];
+//	[$ swizzleMethod:@selector(objectAtIndexedSubscript:) with:@selector(swizzledObjectAtIndexedSubscript:) in:NSA.class];
+}
+- (id)swizzledObjectAtIndexedSubscript:(NSUI)index 	
+{
+//	id anObj = [self swizzledObjectAtIndexedSubscript:index];
+//	if (!anObj) 
+	
+	id anObj = [self objectAtIndexedSubscript:index];
+//	if (!anObj) anObj = [self normal:index];
+	if (anObj)	NSLog(@"swizzle objAtSubscript.. found %@", anObj);
+	return anObj ?: nil;
+}
+
+
 - ( int )createArgv: ( char *** )argv
 {
     char			**av;
@@ -125,15 +153,20 @@
 
 @dynamic trimmedStrings;
 
-
-- (NSA*) withMinItems:(NSUI) items;
-{
+- (NSA*) withMinItems:(NSUI) items usingFiller:(id) fill {
 	if ( self.count >= items) return self;
 	NSMA *upgrade = [NSMA arrayWithArray:self];
+	
 	for (int i = self.count; i < items; i++)		
-		[upgrade addObject:[[self normal:i]copy]];
-	NSLog(@"grew array from %ld to %ld", self.count, upgrade.count);
+	
+		if (fill == self)  	[upgrade addObject:[[self normal:i]copy]];
+		else [upgrade addObject:[fill copy]];
+		NSLog(@"grew array from %ld to %ld", self.count, upgrade.count);
 	return upgrade;
+}
+- (NSA*) withMinItems:(NSUI) items;
+{
+	return [self withMinItems:items usingFiller:self];
 }
 
 

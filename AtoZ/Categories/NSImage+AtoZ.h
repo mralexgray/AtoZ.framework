@@ -76,10 +76,10 @@ extern NSData *PNGRepresentation(NSIMG *image);
 + (NSA*) frameworkImageNames;
 + (NSA*) frameworkImagePaths;
 + (NSA*) frameworkImages;
-- (instancetype) named;
 + (NSA*) picolStrings;
 //+ (NSA*) iconStrings;
 
+- (NSIMG*) named:(NSS*)name;
 - (NSIMG*) scaledToMax:(CGF)f;
 - (void) draw;
 - (void) drawAtPoint:(NSP)point inRect:(NSR)rect;
@@ -103,6 +103,7 @@ extern NSData *PNGRepresentation(NSIMG *image);
 
 - (NSIMG*) resizeWhenScaledImage;
 + (NSIMG*) prettyGradientImage;  // Generates a 256 by 256 pixel image with a complicated gradient in it.
+- (NSC*) 	  quantized;
 - (NSA*)   quantize;
 + (NSIMG*) desktopImage;
 - (void) openInPreview;

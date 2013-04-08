@@ -12,6 +12,8 @@
 
 #import "NSImage-Tint.h"
 
+//NO CORE IMAGE!!! 
+//https://github.com/mhallendal/imagetinter
 
 @implementation NSImage (Transform)
 

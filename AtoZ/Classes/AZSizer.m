@@ -46,7 +46,7 @@ NSUI gcd (NSI m, NSUI n) { NSI t, r;
 @interface AZSizer ()
 @property (RDWRT)  NSUI		   rows,  columns;
 @property (RDWRT)  CGF		   width, height;
-@property (NATOM, RDWRT) NSSZ  size;
+//@property (NATOM, RDWRT) NSSZ  size;
 @property (NATOM, STRNG) NSMA *candidates;
 @end
 
@@ -55,15 +55,15 @@ NSUI gcd (NSI m, NSUI n) { NSI t, r;
 - (id) initWithQuantity:(NSUI)aNumber inRect:(NSR)aFrame
 {
 	if (self != super.init ) return nil;
-	_orient			= AZOrientGrid;	_size 		= NSZeroSize;
+	_orient			= AZOrientGrid;	//_size 		= NSZeroSize;
 	_outerFrame 	= aFrame;			_quantity 	= aNumber;
 	
 	__block int smallR, rem, runnerUp, rUpItems, x; 		x = MAX(aNumber, 2);		smallR = 0;
 	
-	_candidates = [[@2 to:@(ceil(sqrt(x))+ 4)] nmap:^id(NSN *obj, NSUInteger idx){
+	_candidates = [[@2 to:@(ceil(sqrt(x))+ 4)] nmap:^id(NSN *obj, NSUI idx){
 		
 		int _rowCand 	= obj.intValue;				//		int xx 			= gcd( x, _rowCand );
-		float items 		= (float) x / _rowCand;
+		float items		= (float) x / _rowCand;
 		rem 				= ( _rowCand + ( x % _rowCand ) ) % _rowCand;
 		int itemsnow 	= floor(items);
 		smallR 			= rem;
@@ -78,8 +78,8 @@ NSUI gcd (NSI m, NSUI n) { NSI t, r;
 		float distance = (c.aspectRatio < 1 ? (1.0 - c.aspectRatio) : (c.aspectRatio - 1.0));
 		if (distance < distanceFromOne) {		winner = c;	distanceFromOne = distance;		}
 	}];
-	_columns	= winner.columns;		_rows 		= winner.rows;
-	_width 	= winner.width;			_height  	= winner.height;
+	_columns	= winner.columns;	_rows		= winner.rows;
+	_width 	= winner.width;	_height  = winner.height;
 	return self;
 }
 + (AZSizer*) forQuantity: (NSUI)q ofSize:(NSSZ)s withColumns:(NSUI)c
@@ -87,8 +87,8 @@ NSUI gcd (NSI m, NSUI n) { NSI t, r;
 	AZSizer *sizer 		=  self.instance;
 	sizer.outerFrame 	= [self rectForQuantity:q ofSize:s withColumns:c];
 	sizer.orient		= AZOrientGrid;
-	sizer.size 			= s;
-	sizer.quantity 		= q;
+//	sizer.size 			= s;
+	sizer.quantity		= q;
 	sizer.columns		= c;
 	sizer.rows 			= ceil(q/c);
 	if (( q % c) != 0) sizer.rows++;
@@ -102,18 +102,17 @@ NSUI gcd (NSI m, NSUI n) { NSI t, r;
 }
 + (AZSizer*) forQuantity: (NSUI)aNumber aroundRect:(NSR)aFrame
 {
- 	AZSizer* totalBoc 	= self.new;
+ 	AZSizer* totalBoc	= self.new;
 	NSR normalFrame 	= totalBoc.outerFrame = nanRectCheck(aFrame);
 	CGF percentHigh 	= normalFrame.size.height / (normalFrame.size.height + normalFrame.size.width);
 	totalBoc.orient 	= AZOrientPerimeter;
-	totalBoc.quantity 	= MAX(aNumber, 1);;
+	totalBoc.quantity	= MAX(aNumber, 1);
 	totalBoc.rows 		= ceil(  (aNumber * percentHigh)  / 2 );
-	totalBoc.columns 	= aNumber - totalBoc.rows			 / 2 ;
+	totalBoc.columns 	= aNumber - 	totalBoc.rows		 / 2 ;
 	while ( totalBoc.remainder < 0 )	totalBoc.rows     += 1;
-	while ( totalBoc.remainder > 2 ) 	totalBoc.columns  -= 1;
-	totalBoc.width 		= normalFrame.size.width / totalBoc.columns;
+	while ( totalBoc.remainder > 2 ) totalBoc.columns  -= 1;
+	totalBoc.width 	= normalFrame.size.width / totalBoc.columns;
 	totalBoc.height 	= normalFrame.size.height /totalBoc.rows;// - (2 * totalBoc.width)) / totalBoc.rows;
-	
 	//	totalBoc.height 	= (normalFrame.size.height / totalBoc.rows);
 	return  totalBoc;
 }
@@ -124,55 +123,61 @@ NSUI gcd (NSI m, NSUI n) { NSI t, r;
 	if (!sassy) return nil;
 	sassy.objects 	= objects;	sassy.orient 	= arr;	return sassy;
 }
-+ (NSA*) rectsForQuantity:(NSUI)aNumber     inRect:(NSR)aFrame
-{
++ (NSA*) rectsForQuantity: (NSUI)aNumber  inRect:(NSR)aFrame	{
+
 	return [[[self forQuantity:aNumber > 0 ? aNumber : 1 inRect:aFrame]rects] copy];
 }
-+ (NSR) structForQuantity:(NSUI)aNumber     inRect:(NSR)aFrame
-{
++ (NSR)  structForQuantity:(NSUI)aNumber  inRect:(NSR)aFrame	{
+
 	AZSizer *r = [self.alloc initWithQuantity:aNumber inRect:aFrame];
 	return 	     NSMakeRect( r.rows, r.columns, r.width, r.height );
 }
-+ (NSR) rectForQuantity:  (NSUI)q ofSize:(NSSZ)s withColumns:(NSUI)c;
-{
-	CGF width, height;
-	width = c * s.width;
-	int rows = q % c == 0 ? q / c : ceil( q / c);
-	height = rows * s.width;
-	return (NSR){0,0,width, height};
++ (NSR)  rectForQuantity:  (NSUI)q        ofSize:(NSSZ)s withColumns:(NSUI)c	{
+
+	CGF width, height; int rows;
+	width 	= c * s.width;
+	rows 		= q % c == 0 ? q / c : ceil( q / c);
+	height 	= rows * s.width;
+	return AZRectBy(width, height);
 }
-- (NSR) rectForPoint:(NSP) point
-{
+- (NSR)  rectForPoint:		(NSP) point									{
+
 	NSValue* rect = [self.rects filterOne:^BOOL(id object) { return NSPointInRect(point, [object rectValue]); }];
 	return rect ? [rect rectValue] : NSZeroRect;
 }
-- (NSA*) rects
-{
+
+//#define addValuemakeRect A
+#define AZMakeValueRect(A,B,C,D) AZVrect ( NSMakeRect( A,B,C,D))
+//#define __add(A)  addObject:A
+- (NSA*) rects	{
+
 	if (!_positions) self.positions = [NSMA array]; static NSSZ sizeCheck;
 	return _rects = NSEqualSizes(sizeCheck, self.size) && _rects ? _rects :
 	^{
 //		NSLog(@"Size: %@.  Quant: %ld.	Cap: %ld. Rem:%ld Aspect:%@. Rows: %ld.  Cols:%ld", NSStringFromSize(_size), _quantity, self.capacity, self.remainder, self.aspectRatio , _rows, _columns );
 		return _orient == AZOrientGrid ?
 		^{
-			NSUI Q = 0;
-			NSMA *pRects = [NSMA array];
+			NSUI Q = 0;		NSMA *pRects = NSMA.new;
 			for ( int r = (_rows-1); r >= 0; r--){
 				for ( int c = 0; c < _columns; c++ ) {
 					if (Q < _quantity) {
-						[pRects addRect:nanRectCheck((NSR) { (c * _width), (r *_height), _width, _height })];  Q++;
-					}	}	}
+						[pRects addRect:nanRectCheck( (NSR) { (c * _width), (r *_height), _width, _height })];  Q++;
+					}	
+				}	
+			}
 			return [pRects withMinItems:_quantity];
 		}()
 		: _orient == AZOrientPerimeter ? ^{ NSMA* rectss = NSMA.new;
 			
 			for(int i = 1; i < _columns; i++)
-				[rectss addObject: AZVrect( NSMakeRect( i * _width, 0, _width, _height))];
+				[rectss addObject: AZMakeValueRect( i * _width, 		0,		_width,		_height)];
 			for(int i = 1; i < _rows - 1; i++)
-				[rectss addObject:  AZVrect(NSMakeRect( NSWidth(_outerFrame) - _width, _height * i, _width,_height))];
+				[rectss addObject: AZMakeValueRect(	NSWidth(_outerFrame) - _width, 	_height * i,	_width,	_height )];	
 			for(int i = 0; i < _columns; i++)
-				[rectss addObject: AZVrect(NSMakeRect((NSWidth(_outerFrame) - _width) - (i * _width), NSHeight(_outerFrame) - _height, 	_width, _height ))];
-			for(int i = 1; i < _rows; i++) 
-				[rectss addObject:AZVrect( NSMakeRect(0, NSHeight(_outerFrame) - (i * _height),_width, _height))];
+				[rectss addObject: AZMakeValueRect(	(NSWidth(_outerFrame) - _width) - (i * _width), 
+																NSHeight(_outerFrame) - _height,   _width,	_height )];
+			for ( int i = 1; i < _rows; i++ ) 
+				[rectss addObject: AZMakeValueRect(	0,	NSHeight(_outerFrame) - (i * _height), _width, _height )];
 
 			return rectss;// withMinItems:self.capacity];// withMaxItems:2* _columns + ((2 * _rows) - 2)];
 		}() : @[];
@@ -180,16 +185,16 @@ NSUI gcd (NSI m, NSUI n) { NSI t, r;
 }
 - (NSSZ) size
 {
-	return _size = nanSizeCheck( (NSSZ) { _width, _height } );
+	return nanSizeCheck( (NSSZ) { _width, _height } );
 //					 : nanSizeCheck( (NSSZ) { _outerFrame.size.width / _columns,
 //																	_outerFrame.size.height / _rows}   );
 }
 - (NSS*) aspectRatio
 {
 	//	NSInteger i = gcd((int)self.size.width, (int)self.size.height);
-	return	_size.height == _size.width  ?	   @"** 1 : 1 **" :
-	_size.height >  _size.width  ? $(@"1 : %0.1f", (float)(_size.height/_size.width))
-	: $(@"%0.1f : 1", (float)(_size.width/_size.height));
+	return	self.height == self.width  ?	 @"** 1 : 1 **" :
+				self.height >  self.width  ? $(@"1 : %0.1f", (float)(self.height/self.width))
+													: $(@"%0.1f : 1", (float)(self.width/self.height));
 }
 - (NSI) remainder 
 { return self.capacity - _quantity;  }
@@ -197,6 +202,17 @@ NSUI gcd (NSI m, NSUI n) { NSI t, r;
 {	return _orient == AZOrientPerimeter	? (2 * self.columns) + (2 * self.rows) - 2
 	:	 _orient == AZOrientGrid      ? _columns * _rows : _quantity;
 	/* _orient == AZOrientGrid *///	:  self.rows * self.columns;
+}
+
+
+// ancillary methods not neeeded for sizer core
++ (NSA*) rectsForColumns:  (NSUI)ct inRect:(NSR)frame 
+{
+	
+	NSR r = AZRectExceptWide(frame, frame.size.width / (float) ct);
+	return [[@0 to: @( ct-1 )] mapWithIndex:^id(id object, NSUInteger index) {
+		return AZVrect(AZRectExceptOriginX(r, index * r.size.width));
+	}];
 }
 
 
@@ -220,7 +236,7 @@ NSUI gcd (NSI m, NSUI n) { NSI t, r;
  }() :nil;
  }();
  }
- /*			NSPoint p = NSZeroPoint; NSInteger r1, r2, c1, c2;		r1 = r2 = c1 = c2 = 1;	_size = self.size;
+			NSPoint p = NSZeroPoint; NSInteger r1, r2, c1, c2;		r1 = r2 = c1 = c2 = 1;	_size = self.size;
  while (Q < _quantity + self.remainder) {
  //row 1
  if		(r1 < _columns) { [pRects addRect: nanRectCheck( AZMakeRect(p, _size) )];	p.x += _width;  r1++; Q++; }

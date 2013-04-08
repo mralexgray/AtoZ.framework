@@ -49,6 +49,12 @@ typedef void (^AZBlockTask)(id obj, NSDictionary *change);
 - (void)removeObserverWithBlockToken:(AZBlockToken *)token;
 @end
 @interface NSObject (AtoZ)
+// adapted from the CocoaDev MethodSwizzling page
+
++ (BOOL) exchangeInstanceMethod:(SEL)sel1 withMethod:(SEL)sel2;
++ (BOOL) exchangeClassMethod:(SEL)sel1 withMethod:(SEL)sel2;
+
+- (NSURL*)urlified;
 
 //-(void) propagateValue:(id)value forBinding:(NSString*)binding;
 

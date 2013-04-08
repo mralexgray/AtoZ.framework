@@ -10,4 +10,5 @@
 
 @interface NSFont (AtoZ)
 
+- (NSFont *)fontWithSize:(CGFloat)fontSize;
 @end

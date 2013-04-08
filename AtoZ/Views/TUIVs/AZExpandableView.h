@@ -1,17 +1,19 @@
 
-
-#import <TwUI/TUIKit.h>
-
-
 @interface AZExpandableView : TUIView
 
-@property (NATOM,STRNG) NSIMG	*favicon;
-@property (RONLY)			NSS 	*name, *url;
 
-@property (NATOM,  ASS)	BOOL	expanded;
+@property (NATOM,STRNG) NSIMG	   *favicon;
+@property (NATOM,STRNG) NSC	     *color;
+@property (NATOM,STRNG)	NSS 	      *name;
+@property (NATOM,STRNG)	NSURL	       *url;
+
 @property (NATOM,STRNG)	NSMD 	*dictionary;
-@property (NATOM,  ASS)	BOOL 	selected;
-@property (NATOM,   WK) NSMA  *objects;
 
+@property (RONLY)			NSAS	*attrString;
+@property (RONLY)			BOOL 	  faviconOK;
+
+@property (NATOM,   WK) NSMA  	*objects;
+@property (NATOM,  ASS)	BOOL	   expanded, 
+											selected;
 @end
 

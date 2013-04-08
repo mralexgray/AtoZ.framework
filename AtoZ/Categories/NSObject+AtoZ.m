@@ -148,6 +148,67 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary(void) {
 
 @implementation NSObject (AtoZ)
 
+- (NSURL*) urlified 
+{
+	NSURL* theURL;
+	if ( [self isKindOfClass:NSS.class]) {  
+		NSS* selfcp = [(NSS*)self startsWith:@"http://"] ? self.copy 
+																		 : $(@"http://%@",self);
+	 	theURL = $URL(selfcp);
+	}
+	if ([self isKindOfClass:NSURL.class])
+		theURL = areSame([(NSURL*)self scheme], @"http") ? (NSURL*)self : [NSURL URLWithFormat:@"http://%@", self];
+	return theURL;
+}
+// adapted from the CocoaDev MethodSwizzling page
+
++ (BOOL) exchangeInstanceMethod:(SEL)sel1 withMethod:(SEL)sel2
+{
+	Class myClass = [self class];
+	Method method1 = NULL, method2 = NULL;
+	
+	// First, look for the methods
+	method1 = class_getInstanceMethod(myClass, sel1);
+	method2 = class_getInstanceMethod(myClass, sel2);
+	// If both are found, swizzle them
+	if ((method1 != NULL) && (method2 != NULL)) {
+		method_exchangeImplementations(method1, method2);
+		return true;
+	}
+	else {
+		if (method1 == NULL) NSLog(@"swap failed: can't find %s", sel_getName(sel1));
+		if (method2 == NULL) NSLog(@"swap failed: can't find %s", sel_getName(sel2));
+		return false;
+	}
+	
+	return YES;
+}
+
++ (BOOL) exchangeClassMethod:(SEL)sel1 withMethod:(SEL)sel2
+{
+	Class myClass = [self class];
+	Method method1 = NULL, method2 = NULL;
+	
+	// First, look for the methods
+	method1 = class_getClassMethod(myClass, sel1);
+	method2 = class_getClassMethod(myClass, sel2);
+	
+	// If both are found, swizzle them
+	if ((method1 != NULL) && (method2 != NULL)) {
+		method_exchangeImplementations(method1, method2);
+		return true;
+	}
+	else {
+		if (method1 == NULL) NSLog(@"swap failed: can't find %s", sel_getName(sel1));
+		if (method2 == NULL) NSLog(@"swap failed: can't find %s", sel_getName(sel2));
+		return false;
+	}
+	
+	return YES;
+}
+
+
+
 -(void) propagateValue:(id)value forBinding:(NSString*)binding;
 {
 	NSParameterAssert(binding != nil);

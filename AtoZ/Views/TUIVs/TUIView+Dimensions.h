@@ -21,6 +21,11 @@
 
 @end
 
+@interface TUIView (BezierPaths)
+@property (NATOM, STRNG) NSBP *path;
+- (void) setPath:(NSBP*) path;
+@end
+
 @interface TUIView (Subviews)
 
 - (void) setSubviews:  (NSA*) subs;

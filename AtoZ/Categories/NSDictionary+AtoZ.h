@@ -35,6 +35,8 @@
 
 @interface NSDictionary (AtoZ)
 
+-(void)eachWithIndex:(void (^)(id key, id value, NSUI idx, BOOL *stop))block;
+
 //- (NSA*) recursiveObjectsForKey:(NSString *)key;
 - (id) recursiveObjectForKey:(NSString *)key;
 

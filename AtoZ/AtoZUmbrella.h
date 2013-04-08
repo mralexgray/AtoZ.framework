@@ -151,6 +151,7 @@
 #define NSSI NSStatusItem
 #define NSSHDW NSShadow
 #define NSSZ NSSize
+#define NSST NSSet
 #define NST NSTimer
 #define NSSV NSScrollView
 
@@ -393,6 +394,7 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 
 #define AZSSOQ AZSharedSingleOperationQueue()
 #define AZSOQ AZSharedOperationQueue()
+#define AZOS AZSharedOperationStack()
 
 #define AZNULL [NSNull null]
 #define ELSENULL ?: [NSNull null]
@@ -677,7 +679,7 @@ attr1 relativeTo:relName attribute:attr2 scale:scl offset:off]
 
 
 
-#define $ARRAYSET(A) [NSSet setWithArray:A]
+#define $ARRAYSET(A) [NSSet setWithArray:(A)]
 
 //#define $concat(A,...) { A = [A arrayByAddingObjectsFromArray:((NSArray *)[NSArray arrayWithObjects:__VA_ARGS__,nil])]; }
 // s stringByReplacingOccurrencesOfString:@"fff	" withString:@"%%%%"] )

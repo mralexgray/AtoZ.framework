@@ -145,15 +145,20 @@
 [submodule "Frameworks/NSOperationStack"]
 	path = Frameworks/NSOperationStack
 	url = https://github.com/mralexgray/NSOperationStack.git
+	ignore = dirty
 [submodule "Frameworks/CocoatechCore"]
 	path = Frameworks/CocoatechCore
 	url = https://github.com/mralexgray/CocoatechCore.git
+	ignore = dirty
 [submodule "Frameworks/TwUI"]
 	path = Frameworks/TwUI
 	url = https://github.com/mralexgray/twui.git
+	ignore = dirty
 [submodule "AtoZ/Views/TUIVs/AHLayout"]
 	path = AtoZ/Views/TUIVs/AHLayout
 	url = https://github.com/mralexgray/AHLayout.git
+	ignore = dirty
 [submodule "Frameworks/SNRHUDKit"]
 	path = Frameworks/SNRHUDKit
 	url = https://github.com/mralexgray/SNRHUDKit.git
+	ignore = dirty

@@ -27,6 +27,7 @@ typedef void (^viewFrameDidChangeBlock)(void);
 
 @interface NSView (AtoZ)
 
+@property (RONLY) NSBP *path;
 @property (RONLY) CGF maxDim, minDim;
 
 - (NSV*) autosizeable;
@@ -201,5 +202,45 @@ typedef void (^NSAnimationContextRunAnimationBlock)( dispatch_block_t group, dis
 
 + (void)runAnimationBlock:(dispatch_block_t)group	completionHandler:(dispatch_block_t)completionHandler
 				 duration:(NSTimeInterval)time;
+
+@end
+
+
+@interface NSPopover (Message)
+
++ (void) showRelativeToRect:(NSRect)rect
+                     ofView:(NSView *)view
+              preferredEdge:(NSRectEdge)edge
+                     string:(NSString *)string
+                   maxWidth:(float)width;
+
++ (void) showRelativeToRect:(NSRect)rect
+                     ofView:(NSView *)view
+              preferredEdge:(NSRectEdge)edge
+                     string:(NSString *)string
+            backgroundColor:(NSColor *)backgroundColor
+                   maxWidth:(float)width;
+
++ (void) showRelativeToRect:(NSRect)rect
+                     ofView:(NSView *)view
+              preferredEdge:(NSRectEdge)edge
+                     string:(NSString *)string
+            backgroundColor:(NSColor *)backgroundColor
+            foregroundColor:(NSColor *)foregroundColor
+                       font:(NSFont *)font
+                   maxWidth:(float)width;
+
++ (void) showRelativeToRect:(NSRect)rect
+                     ofView:(NSView *)view
+              preferredEdge:(NSRectEdge)edge
+           attributedString:(NSAttributedString *)attributedString
+            backgroundColor:(NSColor *)backgroundColor
+                   maxWidth:(float)width;
+@end
+
+
+@interface RBLPopover (AtoZ)
+
++ (void) showRelativeTo:(NSR)r ofView:(NSV*)v edge:(NSRectEdge)edge string:(NSS*)s bg:(NSC*)bg size:(NSSZ)sz;
 
 @end

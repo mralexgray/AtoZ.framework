@@ -28,9 +28,7 @@
 
 
 /* A shared operation que that is used to generate thumbnails in the background. */
-NSOperationQueue *AZSharedOperationQueue()
-{
-	return AZDummy.sharedInstance.sharedQ;
+
 
 //    static NSOperationQueue *_AZGeneralOperationQueue = nil;
 //    return _AZGeneralOperationQueue ?: ^{
@@ -38,20 +36,21 @@ NSOperationQueue *AZSharedOperationQueue()
 //		_AZGeneralOperationQueue.maxConcurrentOperationCount = NSOperationQueueDefaultMaxConcurrentOperationCount;
 //		return _AZGeneralOperationQueue;
 //	}();
-}
+
 
 
 /* A shared operation que that is used to generate thumbnails in the background. */
-NSOperationQueue *AZSharedSingleOperationQueue()
-{
-	return AZDummy.sharedInstance.sharedSQ;
+NSOQ *AZSharedOperationStack() {	return AZDummy.sharedInstance.sharedStack; }
+NSOQ *AZSharedOperationQueue() {	return AZDummy.sharedInstance.sharedQ; }
+NSOQ *AZSharedSingleOperationQueue(){	return AZDummy.sharedInstance.sharedSQ; }
+
 //    static NSOperationQueue *_AZSingleOperationQueue = nil;
 //    return _AZSingleOperationQueue  ?: ^{
 //        _AZSingleOperationQueue = NSOperationQueue.new;
 //		_AZSingleOperationQueue.maxConcurrentOperationCount = 1;
 //		return _AZSingleOperationQueue;
 //	}();
-}
+
 
 //
 //@interface AZDummy () <OperationsRunnerProtocol>
@@ -61,11 +60,23 @@ NSOperationQueue *AZSharedSingleOperationQueue()
 
 - (id)init
 {
-	self = [super init];
-	if (self) {
-			_sharedQ= NSOQ.new; _sharedQ.maxConcurrentOperationCount = NSOperationQueueDefaultMaxConcurrentOperationCount;  _sharedSQ = NSOQ.new; _sharedSQ.maxConcurrentOperationCount = 1; } return self; }
+	if (self != super.init ) return nil;
+	_sharedStack = NSOperationStack.new;
+	_sharedQ= NSOQ.new; 
+	_sharedQ.maxConcurrentOperationCount = NSOperationQueueDefaultMaxConcurrentOperationCount;  
+	_sharedSQ = NSOQ.new; 
+	_sharedSQ.maxConcurrentOperationCount = 1;
+	return self;
+}
 
-+ (AZDummy*)sharedInstance	{ static AZDummy *sharedInstance = nil;    static dispatch_once_t isDispatched; dispatch_once(&isDispatched, ^	{  sharedInstance = AZDummy.new;	}); return sharedInstance; }
++ (AZDummy*)sharedInstance	
+{ 
+	static AZDummy *sharedInstance = nil;    
+	static dispatch_once_t isDispatched; 
+	dispatch_once(&isDispatched, ^{  sharedInstance = AZDummy.new;	}); 
+	return sharedInstance; 
+}
+@end
 
 //// 4) Add this method to the implementation file
 //- (id)forwardingTargetForSelector:(SEL)sel
@@ -82,7 +93,6 @@ NSOperationQueue *AZSharedSingleOperationQueue()
 //	}
 //}
 
-@end
 
 static char CONVERTTOXML_KEY;
 
@@ -271,7 +281,7 @@ static char CONVERTTOXML_KEY;
 + (NSS*) randomFontName; {	return AtoZ.sharedInstance.fonts.randomElement;	}
 
 + (NSFont*) controlFont {
-	return [self font:@"UbuntuTitling" size:18];
+	return [self font:@"UbuntuMono-Bold" size:14];
 }
 
 - (void)registerHotKeys

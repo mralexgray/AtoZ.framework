@@ -43,6 +43,7 @@
 
 
 - (NSA*) withMinItems:(NSUI) items;
+- (NSA*) withMinItems:(NSUI) items usingFiller:(id) fill;
 
 - (NSA*) withMaxItems:(NSUI) items;
 
@@ -62,6 +63,8 @@
 + (NSMutableArray *)mutableArrayWithArrays:(NSArray *)arrays;
 + (NSArray *)arrayWithArrays:(NSArray *)arrays;
 - (NSArray *)arrayWithEach;
+
+#define vsForKeys dictionaryWithValuesForKeys
 
 - (NSArray *)arrayUsingIndexedBlock:(id (^)(id obj, NSUInteger idx))block;
 
