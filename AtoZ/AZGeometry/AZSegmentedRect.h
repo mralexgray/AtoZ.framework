@@ -11,42 +11,42 @@
 #import "AtoZ.h"
 
 @class AZPoint, AZSize,  AZRect;
-@interface AZSegmentedRect : AZRect {	NSPoint segments;			BOOL emptyBorder;
-  										NSSize minimumSegmentSize;	NSSize maximumSegmentSize;
+@interface AZSegmentedRect : AZRect {	NSP segments;			BOOL emptyBorder;
+											NSSize minimumSegmentSize;	NSSize maximumSegmentSize;
 }
-//+(AZSegmentedRect *) rectsInside:  (NSRect) rect NSIInside: (NSRect)	rect;
+//+ (AZSegmentedRect*) rectsInside:  (NSR) rect NSIInside: (NSR)	rect;
 
-+(AZSegmentedRect *) rectWithRect: (NSRect)	rect;
-+(AZSegmentedRect *) rectWithRect: (NSRect) rect	cubicSize: (NSUInteger) size;
-+(AZSegmentedRect *) rectWithRect: (NSRect) rect	width: 	   (NSUInteger) width 	height: (NSUInteger) height;
++ (AZSegmentedRect*) rectWithRect: (NSR)	rect;
++ (AZSegmentedRect*) rectWithRect: (NSR) rect	cubicSize: (NSUInteger) size;
++ (AZSegmentedRect*) rectWithRect: (NSR) rect	width: 	   (NSUInteger) width 	height: (NSUInteger) height;
 
-@property (nonatomic, assign)  AZOrient *orientation;
-@property (nonatomic, assign)  BOOL emptyBorder;
-@property (nonatomic, assign)  NSUInteger horizontalSegments;
-@property (nonatomic, assign)  NSUInteger verticalSegments;
+@property (NATOM,ASS)  AZOrient *orientation;
+@property (NATOM,ASS)  BOOL emptyBorder;
+@property (NATOM,ASS)  NSUI horizontalSegments;
+@property (NATOM,ASS)  NSUI verticalSegments;
 
-@property (nonatomic, assign)  NSSize minimumSegmentSize;
-@property (nonatomic, assign)  NSSize maximumSegmentSize;
+@property (NATOM,ASS)  NSSZ minimumSegmentSize;
+@property (NATOM,ASS)  NSSZ maximumSegmentSize;
 
-@property (RONLY)  NSUInteger segmentCount;
-@property (RONLY)  NSSize 	 segmentSize;
+@property (RONLY)  NSUI segmentCount;
+@property (RONLY)  NSSZ 	 segmentSize;
 
 - (id) setCubicSize:	  (NSUInteger) size;
 - (id) setDimensionWidth: (NSUInteger) width 	height: (NSUInteger) height;
 
-- (NSPoint) 	indicesOfSegmentAtIndex: (NSUInteger) index;
-- (NSUInteger) 	indexAtPoint: 			  (NSPoint)   pt;
+- (NSP) 	indicesOfSegmentAtIndex: (NSUInteger) index;
+- (NSUInteger) 	indexAtPoint: 			  (NSP)   pt;
 
-- (AZRect *) segmentAtIndex: (NSUInteger) index;
-- (AZRect *) segmentAtX: 	 (NSUInteger) x 	y:(NSUInteger) y;
+- (AZRect*) segmentAtIndex: (NSUInteger) index;
+- (AZRect*) segmentAtX: 	 (NSUInteger) x 	y:(NSUInteger) y;
 
-- (NSPoint) pointOfSegmentAtIndex: (NSUInteger) index;
-- (NSPoint) pointOfSegmentAtX: 	   (NSUInteger) x 	y:(NSUInteger) y;
+- (NSP) pointOfSegmentAtIndex: (NSUInteger) index;
+- (NSP) pointOfSegmentAtX: 	   (NSUInteger) x 	y:(NSUInteger) y;
 
-- (NSRect) rectOfSegmentAtIndex: (NSUInteger) index;
-- (NSRect) rectOfSegmentAtX: 	 (NSUInteger) x 	y: (NSUInteger) y;
+- (NSR) rectOfSegmentAtIndex: (NSUInteger) index;
+- (NSR) rectOfSegmentAtX: 	 (NSUInteger) x 	y: (NSUInteger) y;
 
-- (NSPoint) pointWithString: 	(NSString *) string;
+- (NSP) pointWithString: 	(NSString*) string;
 
 @end
 @interface AZRect (AZSegmentedRect)
@@ -58,5 +58,5 @@
 @end
 @interface NSBezierPath (AZSegmentedRect) 
 
-- (id) traverseSegments: (NSString *) segmentDefinition inRect: (AZSegmentedRect *) segmentedRect;
+- (id) traverseSegments: (NSString*) segmentDefinition inRect: (AZSegmentedRect*) segmentedRect;
 @end

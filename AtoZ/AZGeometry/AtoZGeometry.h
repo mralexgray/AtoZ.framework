@@ -13,7 +13,7 @@
 #import "AZSegmentedRect.h"
 
 
-NSR AZTransformRect (NSRect target, NSRect model);
+NSR AZTransformRect (NSRect target, NSR model);
 
 NSR  nanRectCheck  ( NSR   rect );
 NSP  nanPointCheck ( NSP  point );
@@ -32,10 +32,10 @@ id 	 nanCheck	   ( NSV* point );
 
 BOOL AZEqualRects ( NSR r1, NSR r2 );
 
-NSNumber *iNum ( NSInteger   i );
-NSNumber *uNum ( NSUInteger ui );
-NSNumber *fNum ( CGF f );
-NSNumber *dNum ( double  d );
+NSNumber *iNum ( NSI    i );
+NSNumber *uNum ( NSUI  ui );
+NSNumber *fNum ( CGF    f );
+NSNumber *dNum ( double d );
 
 FOUNDATION_EXPORT const CGP AZAnchorTop;
 FOUNDATION_EXPORT const CGP AZAnchorBottom;
@@ -54,9 +54,9 @@ FOUNDATION_EXPORT const CGP AZAnchorBottomLeft;
 extern const CGRect CGRectOne;
 
 //FOUNDATION_EXPORT const CGP AZAnchorTop,
-//							AZAnchorBottom,
-//							AZAnchorRight,
-//							AZAnchorLeft;
+//				AZAnchorBottom,
+//				AZAnchorRight,
+//				AZAnchorLeft;
 
 
 
@@ -69,7 +69,7 @@ NSP AZBotRight ( NSR rect );
 
 /**	NSRange from a min and max values even though the names imply that min should be greater than max the order does not matter the range will always start at the lower value and have a size to reach the upper value **/
 
-//NSRange AZMakeRange ( NSUInteger min, NSUInteger max );
+//NSRange AZMakeRange ( NSUI min, NSUI max );
 
 
 CGF AZPointDistance ( CGP p1, CGP p2 );
@@ -119,8 +119,8 @@ AZPOS AZOutsideEdgeOfRectInRect (NSR rect, NSR outer );
 
 
 AZPOS AZPositionAtPerimeterInRect ( NSR edgeBox, NSR outer );
-CGP	  AZAnchorPointForPosition( AZWindowPosition pos );
-NSSZ  AZDirectionsOffScreenWithPosition ( NSR rect, AZWindowPosition position );
+CGP	  AZAnchorPointForPosition( AZPOS pos );
+NSSZ  AZDirectionsOffScreenWithPosition ( NSR rect, AZPOS position );
 
 
 AZOrient deltaDirectionOfPoints ( NSP a, NSP b );
@@ -144,7 +144,7 @@ CGF AZAreaOfRect ( NSR rect );
 NSP AZPointFromSize ( NSSZ size );
 
 
-CGF AZMenuBarH (void);
+CGF AZMenuBarH (void) ;
 
 
 // NSP result methods
@@ -174,7 +174,7 @@ NSP AZAddPoints ( NSP one, NSP another );
 NSP AZSubtractPoints ( NSP origin, NSP subtrahend );
 
 // sums a list of points
-NSP AZSumPoints ( NSUInteger count, NSP points, ... );
+NSP AZSumPoints ( NSUI count, NSP points, ... );
 
 // multiplies both x and y with one multiplier
 NSP AZMultiplyPoint ( NSP point, CGF multiplier );
@@ -341,10 +341,10 @@ NSR AZRectTrimmedOnTop ( NSR rect, CGF height );
 NSSZ AZSizeExceptWide  ( NSSZ sz, CGF wide );
 NSSZ AZSizeExceptHigh  ( NSSZ sz, CGF high );
 
-NSR AZRectExtendedOnLeft(NSR rect, CGFloat amount);
-NSR AZRectExtendedOnBottom(NSR rect, CGFloat amount);
-NSR AZRectExtendedOnTop(NSR rect, CGFloat amount);
-NSR AZRectExtendedOnRight(NSR rect, CGFloat amount);
+NSR AZRectExtendedOnLeft(NSR rect, CGF amount);
+NSR AZRectExtendedOnBottom(NSR rect, CGF amount);
+NSR AZRectExtendedOnTop(NSR rect, CGF amount);
+NSR AZRectExtendedOnRight(NSR rect, CGF amount);
 
 
 
@@ -377,26 +377,26 @@ typedef struct AZInsetRects {
 	NSRect left;
 } AZInsetRects;
 
-NSR AZRectInsideRectOnEdge(NSRect center, NSRect outer, AZPOS position);
+NSR AZRectInsideRectOnEdge(NSRect center, NSR outer, AZPOS position);
 
-NSR AZRectOutsideRectOnEdge(NSRect center, NSRect outer, AZPOS position);
+NSR AZRectOutsideRectOnEdge(NSRect center, NSR outer, AZPOS position);
 NSR AZRectFlippedOnEdge(NSRect r, AZPOS position);
 
-FOUNDATION_EXPORT NSR AZInsetRectInPosition ( NSRect outside, NSSZ inset, AZPOS pos );
+FOUNDATION_EXPORT NSR AZInsetRectInPosition ( NSR outside, NSSZ inset, AZPOS pos );
 
-FOUNDATION_EXPORT AZPOS AZPosOfPointInInsetRects ( NSP point, NSRect outside, NSSZ inset );
-FOUNDATION_EXPORT BOOL  AZPointIsInInsetRects    ( NSP point, NSRect outside, NSSZ inset );
+FOUNDATION_EXPORT AZPOS AZPosOfPointInInsetRects ( NSP point, NSR outside, NSSZ inset );
+FOUNDATION_EXPORT BOOL  AZPointIsInInsetRects    ( NSP point, NSR outside, NSSZ inset );
 
-static inline AZInsetRects AZMakeInsideRects(NSRect rect, NSSize inset) {
+static inline AZInsetRects AZMakeInsideRects(NSRect rect, NSSZ inset) {
 
-   AZInsetRects rects = { AZUpperEdge( rect, inset.height ), AZRightEdge( rect, inset.width  ),
-						  AZLowerEdge( rect, inset.height ), AZLeftEdge ( rect, inset.width  ) };
+	 AZInsetRects rects = { AZUpperEdge( rect, inset.height ), AZRightEdge( rect, inset.width  ),
+		  AZLowerEdge( rect, inset.height ), AZLeftEdge ( rect, inset.width  ) };
 	return rects;
 }
 
 //FOUNDATION_EXPORT AZOutsideEdges AZOutsideEdgesSized(NSRect rect, NSSZ size);
 
-//BOOL AZPointInOutsideEdgeOfRect(NSP point, NSRect rect, NSSZ size);
+//BOOL AZPointInOutsideEdgeOfRect(NSP point, NSR rect, NSSZ size);
 
 // macro to call a border drawing method with a border width
 // this will effectively draw the border but clip the inner rect
@@ -404,58 +404,52 @@ static inline AZInsetRects AZMakeInsideRects(NSRect rect, NSSize inset) {
 // Example: AZInsideClip ( NSDrawLightBezel, rect, 2 );
 //		  Will draw a 2px light beezel around a rect
 #define AZInsideClip ( METHOD,RECT,BORDER) \
-  METHOD ( RECT, AZLeftEdge( RECT, BORDER ) ); \
-  METHOD ( RECT, AZRightEdge ( RECT, BORDER ) ); \
-  METHOD ( RECT, AZUpperEdge ( RECT, BORDER ) ); \
-  METHOD ( RECT, AZLowerEdge ( RECT, BORDER ))
+	METHOD ( RECT, AZLeftEdge( RECT, BORDER ) ); \
+	METHOD ( RECT, AZRightEdge ( RECT, BORDER ) ); \
+	METHOD ( RECT, AZUpperEdge ( RECT, BORDER ) ); \
+	METHOD ( RECT, AZLowerEdge ( RECT, BORDER ))
 // Comparison methods
-BOOL AZIsPointLeftOfRect ( NSP point, NSR rect );
-BOOL AZIsPointRightOfRect ( NSP point, NSR rect );
-BOOL AZIsPointAboveRect ( NSP point, NSR rect );
-BOOL AZIsPointBelowRect ( NSP point, NSR rect );
+BOOL	AZIsPointLeftOfRect  ( NSP point, NSR rect );
+BOOL	AZIsPointRightOfRect ( NSP point, NSR rect );
+BOOL	AZIsPointAboveRect   ( NSP point, NSR rect );
+BOOL	AZIsPointBelowRect   ( NSP point, NSR rect );
 
-BOOL AZIsRectLeftOfRect ( NSR rect, NSR compare );
-BOOL AZIsRectRightOfRect ( NSR rect, NSR compare );
-BOOL AZIsRectAboveRect ( NSR rect, NSR compare );
-BOOL AZIsRectBelowRect ( NSR rect, NSR compare );
+BOOL	AZIsRectLeftOfRect   ( NSR rect, NSR compare );
+BOOL	AZIsRectRightOfRect  ( NSR rect, NSR compare );
+BOOL	AZIsRectAboveRect    ( NSR rect, NSR compare );
+BOOL	AZIsRectBelowRect    ( NSR rect, NSR compare );
 
-NSR rectZoom ( NSR rect,float zoom,int quadrant );
-
-
-NSR AZSquareInRect ( NSR rect );
-
-
-NSR AZSizeRectInRect ( NSR innerRect,NSR outerRect,bool expand );
-NSP AZOffsetPoint 	 ( NSP fromPoint, NSP toPoint );
-NSR AZFitRectInRect  ( NSR innerRect,NSR outerRect,bool expand );
-NSR AZCenterRectInRect ( NSR rect, NSR mainRect );
-NSR AZRectFromSize ( NSSZ size );
+NSR	rectZoom 			 ( NSR rect,float zoom,int quadrant );
+NSR 	AZSquareInRect 	 ( NSR rect );
+NSR 	AZSizeRectInRect   ( NSR innerRect,NSR outerRect,bool expand );
+NSP 	AZOffsetPoint 	 	 ( NSP fromPoint, NSP toPoint );
+NSR 	AZFitRectInRect  	 ( NSR innerRect,NSR outerRect,bool expand );
+NSR 	AZCenterRectInRect ( NSR rect, NSR mainRect );
+NSR 	AZRectFromSize 	 ( NSSZ size );
 //NSR rectWithProportion ( NSR innerRect,float proportion,bool expand );
 
-NSR sectionPositioned ( NSR r, AZWindowPosition p );
-int oppositeQuadrant ( int quadrant );
-NSR quadrant ( NSR r, AZQuadrant quad );
-NSR AZRectOfQuadInRect(NSR originalRect, AZQuadrant quad); //alias for quadrant
+NSR 	sectionPositioned ( NSR r, AZPOS p );
+int 	oppositeQuadrant ( int quadrant );
+NSR 	quadrant ( NSR r, AZQuadrant quad );
+NSR 	AZRectOfQuadInRect		  (NSR originalRect, AZQuadrant quad); //alias for quadrant
 
-CGF quadrantsVerticalGutter ( NSR r );
-
-CGF quadrantsHorizontalGutter ( NSR r );
-
-NSR constrainRectToRect ( NSR innerRect, NSR outerRect );
-NSR alignRectInRect ( NSR innerRect,NSR outerRect,int quadrant );
+CGF 	quadrantsVerticalGutter   ( NSR r );
+CGF	quadrantsHorizontalGutter ( NSR r );
+NSR	constrainRectToRect 		  ( NSR innerRect, 	NSR outerRect );
+NSR	alignRectInRect			  ( NSR innerRect,	NSR outerRect,	int quadrant );
 //NSR expelRectFromRect ( NSR innerRect, NSR outerRect,float peek );
 //NSR expelRectFromRectOnEdge ( NSR innerRect, NSR outerRect,NSREdge edge,float peek );
 
+AZPOS AZPosAtCGRectEdge ( CGRectEdge edge );
+CGRectEdge CGRectEdgeAtPosition ( AZPOS pos );
+
 CGRectEdge AZEdgeTouchingEdgeForRectInRect ( NSR innerRect, NSR outerRect );
 AZPOS AZClosestCorner ( NSR innerRect,NSR outerRect );
-QUAD AZOppositeQuadrant ( int quadrant );
-//
-NSR AZBlendRects ( NSR start, NSR end, CGF b );
-void logRect ( NSR rect );
-
-
+QUAD 	AZOppositeQuadrant ( int quadrant );
+NSR 	AZBlendRects ( NSR start, NSR end, CGF b );
+void 	logRect ( NSR rect );
 NSR	AZRandomRectinRect ( CGRect rect );
-CGP AZRandomPointInRect ( CGRect rect );
+CGP	AZRandomPointInRect ( CGRect rect );
 
 /** Returns the center point of a CGRect. */
 static inline CGP AZCenter( CGRect rect ) {
@@ -479,58 +473,59 @@ static inline CGP AZCenter( CGRect rect ) {
 
 NSRect AZOffsetRect(NSR rect, NSP offset);
 
-NSRect				NSRectFromTwoPoints( const NSPoint a, const NSPoint b );
-NSRect				NSRectCentredOnPoint( const NSPoint p, const NSSize size );
-NSRect				UnionOfTwoRects( const NSRect a, const NSRect b );
-NSRect				UnionOfRectsInSet( const NSSet* aSet );
-NSSet*				DifferenceOfTwoRects( const NSRect a, const NSRect b );
-NSSet*				SubtractTwoRects( const NSRect a, const NSRect b );
+NSR	NSRectFromTwoPoints	( const NSP a, const NSP b );
+NSR	NSRectCentredOnPoint	( const NSP p, const NSSZ size );
+NSR	UnionOfTwoRects		( const NSR a, const NSR b );
+NSR	UnionOfRectsInSet		( const NSSet* aSet );
+NSST*	DifferenceOfTwoRects ( const NSR a, const NSR b );
+NSST*	SubtractTwoRects		( const NSR a, const NSR b );
 
-BOOL				AreSimilarRects( const NSRect a, const NSRect b, const CGFloat epsilon );
+BOOL	AreSimilarRects( const NSR a, const NSR b, const CGF epsilon );
 
-CGFloat				PointFromLine( const NSPoint inPoint, const NSPoint a, const NSPoint b );
-NSPoint				NearestPointOnLine( const NSPoint inPoint, const NSPoint a, const NSPoint b );
-CGFloat				RelPoint( const NSPoint inPoint, const NSPoint a, const NSPoint b );
-NSInteger			PointInLineSegment( const NSPoint inPoint, const NSPoint a, const NSPoint b );
+CGF	PointFromLine		 ( const NSP inPoint, const NSP a, const NSP b );
+NSP	NearestPointOnLine ( const NSP inPoint, const NSP a, const NSP b );
+CGF	RelPoint				 ( const NSP inPoint, const NSP a, const NSP b );
+NSI	PointInLineSegment ( const NSP inPoint, const NSP a, const NSP b );
 
-NSPoint				BisectLine( const NSPoint a, const NSPoint b );
-NSPoint				Interpolate( const NSPoint a, const NSPoint b, const CGFloat proportion);
-CGFloat				LineLength( const NSPoint a, const NSPoint b );
+NSP	BisectLine( const NSP a, const NSP b );
+NSP	Interpolate( const NSP a, const NSP b, const CGF proportion);
+CGF	LineLength( const NSP a, const NSP b );
 
-CGFloat				SquaredLength( const NSPoint p );
-NSPoint				DiffPoint( const NSPoint a, const NSPoint b );
-CGFloat				DiffPointSquaredLength( const NSPoint a, const NSPoint b );
-NSPoint				SumPoint( const NSPoint a, const NSPoint b );
+CGF	SquaredLength( const NSP p );
+NSP	DiffPoint( const NSP a, const NSP b );
+CGF	DiffPointSquaredLength( const NSP a, const NSP b );
+NSP	SumPoint( const NSP a, const NSP b );
 
-NSPoint				EndPoint( NSPoint origin, CGFloat angle, CGFloat length );
-CGFloat				Slope( const NSPoint a, const NSPoint b );
-CGFloat				AngleBetween( const NSPoint a, const NSPoint b, const NSPoint c );
-CGFloat				DotProduct( const NSPoint a, const NSPoint b );
-NSPoint				Intersection( const NSPoint aa, const NSPoint ab, const NSPoint ba, const NSPoint bb );
-NSPoint				Intersection2( const NSPoint p1, const NSPoint p2, const NSPoint p3, const NSPoint p4 );
+NSP	EndPoint			( NSP origin, 	CGF angle, CGF length );
+CGF	Slope				( const NSP a, const NSP b );
+CGF	AngleBetween	( const NSP a, const NSP b, const NSP c );
+CGF	DotProduct		( const NSP a, const NSP b );
+NSP	Intersection	( const NSP aa, const NSP ab, const NSP ba, const NSP bb );
+NSP	Intersection2	( const NSP p1, const NSP p2, const NSP p3, const NSP p4 );
 
-NSRect				CentreRectOnPoint( const NSRect inRect, const NSPoint p );
-NSPoint				MapPointFromRect( const NSPoint p, const NSRect rect );
-NSPoint				MapPointToRect( const NSPoint p, const NSRect rect );
-NSPoint				MapPointFromRectToRect( const NSPoint p, const NSRect srcRect, const NSRect destRect );
-NSRect				MapRectFromRectToRect( const NSRect inRect, const NSRect srcRect, const NSRect destRect );
+NSR	CentreRectOnPoint		  ( const NSR inRect, const NSP p 	 );
+NSP	MapPointFromRect		  ( const NSP p, 		 const NSR rect );
+NSP	MapPointToRect			  ( const NSP p, 		 const NSR rect );
+NSP	MapPointFromRectToRect ( const NSP p, 		 const NSR srcRect, const NSR destRect );
+NSR	MapRectFromRectToRect  ( const NSR inRect, const NSR srcRect, const NSR destRect );
 
-NSRect				ScaleRect( const NSRect inRect, const CGFloat scale );
-NSRect				ScaledRectForSize( const NSSize inSize, NSRect const fitRect );
-NSRect				CentreRectInRect(const NSRect r, const NSRect cr );
-NSBezierPath*		RotatedRect( const NSRect r, const CGFloat radians );
+NSR	ScaleRect			( const NSR  inRect, const CGF scale 	);
+NSR	ScaledRectForSize	( const NSSZ inSize, NSR const fitRect );
+NSR	CentreRectInRect	( const NSR  r, 		const NSR cr 		);
+NSBP*	RotatedRect			( const NSR  r,	 	const CGF radians );
 
-NSRect				NormalizedRect( const NSRect r );
-NSAffineTransform*	RotationTransform( const CGFloat radians, const NSPoint aboutPoint );
+NSR	NormalizedRect( const NSR r );
 
-//NSPoint			PerspectiveMap( NSPoint inPoint, NSSize sourceSize, NSPoint quad[4]);
+NSAffineTransform*	RotationTransform( const CGF radians, const NSP aboutPoint );
 
-NSPoint				NearestPointOnCurve( const NSPoint inp, const NSPoint bez[4], double* tValue );
-NSPoint				Bezier( const NSPoint* v, const NSInteger degree, const double t, NSPoint* Left, NSPoint* Right );
+//NSP			PerspectiveMap( NSP inPoint, NSSZ sourceSize, NSP quad[4]);
 
-CGFloat				BezierSlope( const NSPoint bez[4], const CGFloat t );
+NSP	NearestPointOnCurve( const NSP inp, const NSP bez[4], double* tValue );
+NSP	Bezier( const NSP* v, const NSI degree, const double t, NSP* Left, NSP* Right );
 
-extern const NSPoint NSNotFoundPoint;
+CGF	BezierSlope( const NSP bez[4], const CGF t );
+
+extern const NSP NSNotFoundPoint;
 
 
 @interface AtoZGeometry:NSObject

@@ -1,66 +1,55 @@
-//
 //  THPoint.h
 //  Lumumba Framework
-//
 //  Created by Benjamin Schüttler on 28.09.09.
 //  Copyright 2011 Rogue Coding. All rights reserved.
-//
-
-#import <Cocoa/Cocoa.h>
 
 @class AZSize, AZRect, AZGrid, AGMatrix;
+@interface AZPoint : NSObject {  CGF x, y;  }
++ (AZPoint*) point;
++ (AZPoint*) pointOf:(id)object;
++ (AZPoint*) pointWithX:(CGF)x y:(CGF)y;
++ (AZPoint*) pointWithPoint:(NSP)pt;
++ (AZPoint*) halfPoint;
 
-@interface AZPoint : NSObject {
-  CGFloat x;
-  CGFloat y;
-}
-+(AZPoint *)point;
-+(AZPoint *)pointOf:(id)object;
-+(AZPoint *)pointWithX:(CGFloat)x y:(CGFloat)y;
-+(AZPoint *)pointWithPoint:(NSPoint)pt;
-+(AZPoint *)halfPoint;
++ (BOOL)maybePoint:(id) object;
 
-+(BOOL)maybePoint:(id)object;
+- (id) initWithPoint:(NSP)pt;
+- (id) initWithX:		(CGF)x y:(CGF)y;
 
--(id)initWithPoint:(NSPoint)pt;
--(id)initWithX:(CGFloat)x y:(CGFloat)y;
+@property (RONLY) CGP cgpoint;
+@property (ASS) NSP point;
+@property (ASS) CGF x, y;
 
-@property (assign) NSPoint point;
-@property (RONLY) CGPoint cgpoint;
-@property (assign) CGFloat x;
-@property (assign) CGFloat y;
+@property (RONLY) CGF min, max;
 
-@property (RONLY) CGFloat min;
-@property (RONLY) CGFloat max;
+- (id) moveTo:(id) object;
 
--(id)moveTo:(id)object;
+- (id) moveTowards:		(id)object withDistance:(CGF)relativeDistance;
+- (id) moveTowardsPoint:(NSP)pt withDistance:(CGF)relativeDistance;
 
--(id)moveTowards:(id)object withDistance:(CGFloat)relativeDistance;
--(id)moveTowardsPoint:(NSPoint)pt withDistance:(CGFloat)relativeDistance;
+- (id) moveBy:			 (id) object;
+- (id) moveByPoint:	 (NSP)pt;
+- (id) moveByX:		 (CGF)x andY:(CGF)y;
+- (id) moveByNegative:(id) object;
 
--(id)moveBy:(id)object;
--(id)moveByPoint:(NSPoint)pt;
--(id)moveByX:(CGFloat)x andY:(CGFloat)y;
--(id)moveByNegative:(id)object;
+- (id) multiplyBy:(id) object;
+- (id) divideBy:	(id) object;
 
--(id)multiplyBy:(id)object;
--(id)divideBy:(id)object;
+- (id) swap;
+- (id) negate;
+- (id) invert;
 
--(id)swap;
--(id)negate;
--(id)invert;
+- (id) floor;
+- (id) round;
+- (id) ceil;
+- (id) square;
+- (id) root;
 
--(id)floor;
--(id)round;
--(id)ceil;
--(id)square;
--(id)root;
+- (id) ratio;
 
--(id)ratio;
+- (BOOL)equals:(id) object;
+- (BOOL)equalsPoint:(NSP)point;
 
--(BOOL)equals:(id)object;
--(BOOL)equalsPoint:(NSPoint)point;
-
--(BOOL)isWithin:(id)object;
+- (BOOL)isWithin:(id) object;
 
 @end

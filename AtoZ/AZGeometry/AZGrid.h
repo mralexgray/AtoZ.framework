@@ -14,49 +14,49 @@
 #import "AZMatrix.h"
 
 enum {
-  AZGridStyleCompact = 0,
-  AZGridStyleHorizontal = 1,
-  AZGridStyleVertical = 2
+	AZGridStyleCompact = 0,
+	AZGridStyleHorizontal = 1,
+	AZGridStyleVertical = 2
 };
 
 enum AZGridOrder {
-  AZGridRowMajorOrder = 0,
-  AZGridColumnMajorOrder = 1
+	AZGridRowMajorOrder = 0,
+	AZGridColumnMajorOrder = 1
 };
 
 @class AZPoint, AZSize, AZRect, AZMatrix;
 
 @interface AZGrid : NSObject {
-  NSMutableArray *array;
-  NSUInteger parallels;
-  NSUInteger style;
-  NSUInteger order;
-  BOOL rowMajorOrder;
+	NSMA *array;
+	NSUI parallels;
+	NSUI style;
+	NSUI order;
+	BOOL rowMajorOrder;
 }
 
--(id)initWithCapacity:(NSUInteger)numItems;
+- (id) initWithCapacity:(NSUInteger)numItems;
 
-@property (RONLY) NSUInteger count;
-@property (unsafe_unretained, readonly) AZSize* size;
-@property (RONLY) CGFloat width;
-@property (RONLY) CGFloat height;
+@property (UNSFE,RONLY) AZSize* size;
+@property (RONLY) NSUI count;
+@property (RONLY) CGF width;
+@property (RONLY) CGF height;
 
-@property (RONLY) CGFloat min;
-@property (RONLY) CGFloat max;
+@property (RONLY) CGF min;
+@property (RONLY) CGF max;
 
-@property (assign) NSUInteger parallels;
-@property (assign) NSUInteger order;
-@property (assign) NSUInteger style;
+@property (ASS) NSUI parallels;
+@property (ASS) NSUI order;
+@property (ASS) NSUI style;
 
--(NSMutableArray *)elements;
--(NSNumber *)indexAtPoint:(NSPoint)point;
--(id)objectAtIndex:(NSUInteger)index;
--(id)objectAtPoint:(NSPoint)point;
--(AZPoint *)pointAtIndex:(NSUInteger)index;
+- (NSMA*) elements;
+- (NSNumber*) indexAtPoint:(NSP)point;
+- (id) objectAtIndex:(NSUInteger)index;
+- (id) objectAtPoint:(NSP)point;
+- (AZPoint*) pointAtIndex:(NSUInteger)index;
 
--(void)addObject:(id)anObject;
--(void)insertObject:(id)anObject atIndex:(NSUInteger)index;
--(void)removeObjectAtIndex:(NSUInteger)index;
--(void)removeAllObjects;
+- (void) addObject:(id) anObject;
+- (void) insertObject:(id) anObject atIndex:(NSUInteger)index;
+- (void) removeObjectAtIndex:(NSUInteger)index;
+- (void) removeAllObjects;
 
 @end

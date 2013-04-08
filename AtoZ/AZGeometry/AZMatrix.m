@@ -9,40 +9,40 @@
 #import "AZMatrix.h"
 @implementation AZMatrix
 
--(id)init {
-  if ((self = super.init)) {
+- (id) init {
+	if ((self = super.init)) {
 	data = NSMA.new;
 	height = 0;
 	width = 0;
-  }
-  
-  return self;
+	}
+	
+	return self;
 }
 @synthesize width, height;
 
--(void)setHeight:(NSUInteger)hv {
-  // this is easy, just extend or crop the array
-  if (hv == height) {
+- (void) setHeight:(NSUInteger)hv {
+	// this is easy, just extend or crop the array
+	if (hv == height) {
 	// NADA
 	return;
-  }
-  if (hv > height) {
+	}
+	if (hv > height) {
 	// FIXME hier weiterschreiben
-  }
+	}
 }
 
--(void)setWidth:(NSUInteger)wv {
-  
+- (void) setWidth:(NSUInteger)wv {
+	
 }
 
--(id)objectAtX:(NSUInteger)x y:(NSUInteger)y {
-  if (x > width || y > height) {
+- (id) objectAtX:(NSUInteger)x y:(NSUInteger)y {
+	if (x > width || y > height) {
 	[NSException raise:@"AZMatrixIndexOutOfBounds" 
-				format:@"Matrix index (%ld, %ld) out of bounds (%ld, %ld)",
-	 x,y,width,height];
+			format:@"Matrix index (%ld, %ld) out of bounds (%ld, %ld)",
+	x,y,width,height];
 	return nil;
-  }
-  return data[(y * width + x)];
+	}
+	return data[(y * width + x)];
 }
 
 @end

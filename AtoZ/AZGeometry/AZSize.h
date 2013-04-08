@@ -1,53 +1,40 @@
-//
 //  THSize.h
 //  Lumumba Framework
-//
 //  Created by Benjamin Schüttler on 28.09.09.
 //  Copyright 2011 Rogue Coding. All rights reserved.
-//
-
-#import <Cocoa/Cocoa.h>
 
 @class AZPoint, AZRect, AZGrid;
+@interface AZSize : NSObject { 	CGF width, height;	}
 
-@interface AZSize : NSObject {
-  CGFloat width;
-  CGFloat height;
-}
++ (AZSize*) size;
++ (AZSize*) sizeOf:(id)object;
++ (AZSize*) sizeWithSize:(NSSZ)size;
++ (AZSize*) sizeWithWidth:(CGF)width height:(CGF)height;
 
-+(AZSize *)size;
-+(AZSize *)sizeOf:(id)object;
-+(AZSize *)sizeWithSize:(NSSize)size;
-+(AZSize *)sizeWithWidth:(CGFloat)width height:(CGFloat)height;
++ (BOOL)maybeSize:(id) object;
 
-+(BOOL)maybeSize:(id)object;
+- (id) initWithWidth:(CGF)width height:(CGF)height;
+- (id) initWithSize:(NSSZ)size;
 
--(id)initWithWidth:(CGFloat)width height:(CGFloat)height;
--(id)initWithSize:(NSSize)size;
+@property (ASS) CGF 	width, height;
+@property (ASS) NSSZ size;
+@property (RONLY)CGF wthRatio, min,	max;
 
-@property (assign) NSSize size;
-@property (assign) CGFloat width;
-@property (assign) CGFloat height;
+- (id) growBy:		 (id) object;
+- (id) growByWidth:(CGF)width height:(CGF)height;
 
-@property (RONLY) CGFloat min;
-@property (RONLY) CGFloat max;
-@property (RONLY) CGFloat wthRatio;
+- (id) multipyBy:		 (id) object;
+- (id) multipyByWidth:(CGF)width height:(CGF)height;
+- (id) multipyByPoint:(NSP)point;
+- (id) multipyBySize: (NSSZ)size;
 
--(id)growBy:(id)object;
--(id)growByWidth:(CGFloat)width height:(CGFloat)height;
+- (id) divideBy: 		(id) object;
+- (id) divideByWidth:(CGF)width height:(CGF)height;
+- (id) divideByPoint:(NSP)point;
+- (id) divideBySize: (NSSZ)size;
 
--(id)multipyBy:(id)object;
--(id)multipyByWidth:(CGFloat)width height:(CGFloat)height;
--(id)multipyByPoint:(NSPoint)point;
--(id)multipyBySize:(NSSize)size;
-
--(id)divideBy:(id)object;
--(id)divideByWidth:(CGFloat)width height:(CGFloat)height;
--(id)divideByPoint:(NSPoint)point;
--(id)divideBySize:(NSSize)size;
-
--(id)swap;
--(id)negate;
--(id)invert;
+- (id) swap;
+- (id) negate;
+- (id) invert;
 
 @end

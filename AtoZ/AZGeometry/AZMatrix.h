@@ -1,23 +1,17 @@
-//
 //  THMatrix.h
 //  Lumumba Framework
-//
 //  Created by Benjamin Schüttler on 28.09.09.
 //  Copyright 2011 Rogue Coding. All rights reserved.
-//
-
-#import <Cocoa/Cocoa.h>
 
 // A THMatrix is always mutable
 
 @interface AZMatrix : NSObject {
-  NSUInteger width, height;
-  NSMutableArray *data;
+	NSUI width, height;
+	NSMA *data;
 }
 
-@property (nonatomic, assign) NSUInteger width;
-@property (nonatomic, assign) NSUInteger height;
+@property (NATOM,ASS) NSUI width, height;
 
--(id)objectAtX:(NSUInteger)x y:(NSUInteger)y;
+- (id) objectAtX:(NSUInteger)x y:(NSUInteger)y;
 
 @end

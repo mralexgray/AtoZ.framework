@@ -154,3 +154,6 @@
 [submodule "AtoZ/Views/TUIVs/AHLayout"]
 	path = AtoZ/Views/TUIVs/AHLayout
 	url = https://github.com/mralexgray/AHLayout.git
+[submodule "Frameworks/SNRHUDKit"]
+	path = Frameworks/SNRHUDKit
+	url = https://github.com/mralexgray/SNRHUDKit.git
