@@ -24,6 +24,69 @@
 //	NSLog(XCODE_COLORS_ESCAPE @"fg218,147,0;" "%@" XCODE_COLORS_RESET, full);
 //}
 
+NSA* rgbColorValues (id color) {
+	float r, g, b;
+	if ([color isKindOfClass:NSS.class]) 
+		color = [NSC colorWithName:color] ?: [NSC colorWithCSSRGB:color] ?: WHITE;
+	if ([color isKindOfClass:NSC.class]) { 
+		color = [color colorUsingColorSpace:NSColorSpace.genericRGBColorSpace];
+		r = [(NSC*)color   redComponent] * 255; 		
+		g = [(NSC*)color greenComponent] * 255;
+		b = [(NSC*)color  blueComponent] * 255;
+	} else if ([color isKindOfClass:NSA.class] && [color count] == 3) {
+		r = [color[0]integerValue]; g = [color[1]integerValue]; b = [color[2] integerValue]; 
+	} else r = g = b = 0;
+	return @[@(r), @(g), @(b)];
+}
+
+NSS* colorizeStringWithColors(NSS* string, id color, id back) {
+	
+	NSA *rgbs = rgbColorValues(color);	NSS* output;
+	
+	output =  $(XCODE_COLORS_ESCAPE @"fg%i,%i,%i;%@" XCODE_COLORS_RESET, 
+						[rgbs[0] intValue], [rgbs[1]intValue], [rgbs[2]intValue], string);
+	if (back) {
+		rgbs = rgbColorValues(back);
+		output =  $(XCODE_COLORS_ESCAPE @"bg%i,%i,%i;%@" XCODE_COLORS_RESET, 
+						[rgbs[0] intValue], [rgbs[1]intValue], [rgbs[2]intValue], output);
+	}
+	return output;
+}
+
+NSS* colorizeStringWithColor(NSS* string, id color) {	return colorizeStringWithColors(string, color, nil); }
+
+void _AZColorLog( NSC *color, const char *filename, int line, const char *funcName, NSS *format, ... ){
+
+//	NSS *colorString = @"fg218,147,0";
+	char *sss = getenv("XCODE_COLORS");
+	BOOL YESORNO = (sss != NULL) ? areSame( $(@"%s",sss), @"NO") ? NO : YES : YES;
+//	NSLog(@"%s is %@",sss, StringFromBOOL(isit));
+//	NSS* envStr = @(getenv("XCODE_COLORS")) ?: @"YES";
+//	
+//	BOOL YESORNO = [envStr boolValue]; 
+	va_list   argList;	va_start (argList, format);
+	NSS *path  	= $UTF8(filename).lastPathComponent;
+	NSS *mess   = [NSS.alloc initWithFormat:format arguments:argList];
+	fprintf ( stderr, "%s", 
+		YESORNO ? 	$(	@"%@%@ %@ %@\n",
+										colorizeStringWithColor( $(@"[%@]"	,path), 		   @[@82,@82,@82]), 
+										colorizeStringWithColor( $(@":%i"	,line), 		@[@140,@140,@140]),
+										colorizeStringWithColors( $(@"%s"	,funcName),	   @[@109,@9,@40], @[@50,@9,@40] ),  
+										colorizeStringWithColor( mess, 										color)).UTF8String
+				 :	$(@"[%@]:%i %s %@\n", path, line, funcName, mess ).UTF8String); 
+								
+//										XCODE_COLORS_ESCAPE @"fg140,140,140;" 	@":%i" 	XCODE_COLORS_RESET
+//										XCODE_COLORS_ESCAPE @"fg109,0,40;"  @" %s " 		XCODE_COLORS_RESET
+//										XCODE_COLORS_ESCAPE @"%@" "%@"XCODE_COLORS_RESET @"\n", 
+//										path, 
+//										line, funcName,
+//										colorString, 
+//										mess)
+//	 toLog.UTF8String);//
+	va_end  (argList);
+}
+
+
 void _AZSimpleLog( const char *file, int lineNumber, const char *funcName, NSString *format, ... ) {
 	static NSA* colors;  colors = colors ?: NSC.randomPalette;
 	static NSUI idx = 0;
@@ -33,7 +96,7 @@ void _AZSimpleLog( const char *file, int lineNumber, const char *funcName, NSStr
 	NSS *mess   = [NSString.alloc initWithFormat:format arguments:argList];
 	NSS *toLog;
 	char *xcode_colors = getenv(XCODE_COLORS);
-	if (xcode_colors && (strcmp(xcode_colors, "YES") == 0))
+	if (getenv(XCODE_COLORS) && (strcmp(xcode_colors, "YES") == 0))
 	{
 		//	NSS *justinfo = $(@"[%s]:%i",path.UTF8String, lineNumber);
 		//	NSS *info   = [NSString stringWithFormat:@"word:%-11s rank:%u", [word UTF8String], rank];
@@ -1991,7 +2054,7 @@ BOOL sel_isEqual(SEL lhs, SEL rhs) {
 NSString *const AtoZSharedInstanceUpdated = @"AtoZSharedInstanceUpdated";
 NSString *const AtoZDockSortedUpdated = @"AtoZDockSortedUpdated";
 NSString *const AtoZSuperLayer = @"superlayer";
-CGFloat ScreenWidess(){
+CGFloat AZScreenWidth(){
 	return  [[NSScreen mainScreen]frame].size.width;
 }
 CGFloat ScreenHighness 	(){

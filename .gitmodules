@@ -162,3 +162,6 @@
 	path = Frameworks/SNRHUDKit
 	url = https://github.com/mralexgray/SNRHUDKit.git
 	ignore = dirty
+[submodule "Frameworks/nu"]
+	path = Frameworks/nu
+	url = https://github.com/mralexgray/nu.git

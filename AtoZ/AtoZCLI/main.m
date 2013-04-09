@@ -1,10 +1,3 @@
-//
-//  main.m
-//  AtoZCLI
-//
-//  Created by Alex Gray on 9/9/12.
-//  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-//
 
 #import <Foundation/Foundation.h>
 #import <AtoZ/AtoZ.h>
@@ -12,25 +5,22 @@
 /*
 void cliDefaults(){
 	NSUserDefaults *defaults = [[NSUserDefaults alloc] init];
-//	NSUInteger counter = [defaults[@"counter"]unsignedIntegerValue] +1;
-
-//	[defaults setPersistentDomain:[NSDictionary dictionaryWithObject:@(counter) forKey:@"counter"] forName:@"com.mralexgray.atozCLI"];
-//	[defaults synchronize];
-//	NSLog(@"welcome the the CLI.  We've launched %ld times!", counter);
+	NSUInteger counter = [defaults[@"counter"]unsignedIntegerValue] +1;
+	[defaults setPersistentDomain:[NSDictionary dictionaryWithObject:@(counter) forKey:@"counter"] forName:@"com.mralexgray.atozCLI"];
+	[defaults synchronize];
+	NSLog(@"welcome the the CLI.  We've launched %ld times!", counter);
 }
-//#import <RMKit/RMKit.h>
 void quantize() {
 	[AZStopwatch start:@"quantize"];
 	cliDefaults();
 	@autoreleasepool {
-//		[[NSImage systemImages] eachConcurrentlyWithBlock:^(NSInteger index, id objI, BOOL *stop) {
-//	   		[[[AZColor sharedInstance] colorsForImage:objI] az_each:^(id obj, NSUInteger index, BOOL *stop) {
-//				NSLog(@"Hello, World!  %@", [obj propertiesPlease]);
-//			}];
-//		}];
+		[[NSImage systemImages] eachConcurrentlyWithBlock:^(NSInteger index, id objI, BOOL *stop) {
+			[[[AZColor sharedInstance] colorsForImage:objI] az_each:^(id obj, NSUInteger index, BOOL *stop) {
+			NSLog(@"Hello, World!  %@", [obj propertiesPlease]);
+			}];
+		}];
 	}
 	[AZStopwatch stop:@"quantize"];
-
 }
 
 void TestStopwatchBlock (NSString* name) {
@@ -70,20 +60,37 @@ void TestStopwatchBlock (NSString* name) {
 	NSRectFill( [self bounds] );
 }
 
--(void)windowWillClose:(NSNotification *)note {
-	[[NSApplication sharedApplication] terminate:self];
-}
+-(void)windowWillClose:(NSNotification *)note {		[[NSApplication sharedApplication] terminate:self];	}
 
-- (void) mouseDown:(NSEvent*)ev
-{
-	//	[_lay animateOverAndUpFrom:_lay.position to:AZCenterOfRect(quadrant(self.bounds, 3)) duration:5];
-}
+- (void) mouseDown:(NSEvent*)ev	{	[_lay animateOverAndUpFrom:_lay.position to:AZCenterOfRect(quadrant(self.bounds, 3)) duration:5];	}
 @end
 */
-int main(int argc, const char * argv[])
-{
 
+
+@interface AZTests : BaseModel
+- (void) colorLogging;
+@end
+
+int main(int argc, char *argv[]) {
 	@autoreleasepool {
+
+		NSA *reference = [AZTests instanceMethods];
+		if (!reference) return -1;
+
+		int inputOne;
+		COLORLOG( WHITE, @"Available Tests:%@", [NSS stringFromArray:[reference nmap:^id(id obj, NSUInteger index) {
+			return $(@"%ld: %@\n", index, colorizeStringWithColor(obj, RANDOMCOLOR));
+		}]]);
+      scanf("%i", &inputOne);
+      NSLog (@"You chose: %i : %@", inputOne, reference[inputOne]);
+      int inputTwo;
+      NSLog (@"Enter another number: ");
+      scanf("%i", &inputTwo);
+      NSLog (@"%i + %i = %d", inputOne, inputTwo, inputOne + inputTwo);
+   }
+	return 0;
+}
+
 /*
 		NSApplication *app			= [NSApplication sharedApplication];
 		NSRect 			frame  	= (NSRect) { 100, 100, 300, 300 };
@@ -100,20 +107,41 @@ int main(int argc, const char * argv[])
 		[NSApp activateIgnoringOtherApps:YES];
 		[app run];
 	} */
-		[AZStopwatch stopwatch:@"Runtime" timing:^{
-			AZLOG([NSB applicationSupportFolder]);
+//		AZLOG([NSB applicationSupportFolder]);
+//		[AZStopwatch stopwatch:@"Runtime" timing:^{
+
+
+@implementation AZTests
+- (void) colorLogging {
+
+	COLORLOG(YELLOw, @"whatever %@", @4);
+
+	NSD *allColorInfo = NSC.colorsAndNames;
+	NSLog(@"Available named colors:\n%@", 	[NSS stringFromArray:[allColorInfo.allKeys map:^id(id obj) {
+															return colorizeStringWithColor(	
+																	[obj stringByPaddingToLength:22 withString:@" " startingAtIndex:0], 
+																	allColorInfo[obj]);	
+														}]]  	
+	);
+}
+
+@end
+		
+//						COLORLOG(value, @"%@", key);
+//			}];
+//			COLORLOG(RANDOMCOLOR, @"%@", NSS.randomDicksonism);
+//			NSC.logPalettes;
+			
+//			COLORLOG(GREEN, @"%@",[NSC colorNames]);
 //			AZLOG([CWPathUtilities applicationSupportFolder]);
 			//		NSLog(@"TEST start");
 //			AZFile *f = [AZFile instanceWithPath:@"/Applications/Safari.app"];
 //			AZLOG([AZFILEMANAGER attributesOfItemAtPath:f.path error:nil]);
 
-		}];
-		AZLOG([[AtoZ sharedInstance]instanceMethodNames]);
+		
 
+//		AZLOG([[AtoZ sharedInstance]instanceMethodNames]);
 
-	}
-	return 0;
-}
 
 
 //	TestStopwatchBlock(@"testTheWatch");

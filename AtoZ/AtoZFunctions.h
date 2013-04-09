@@ -1,11 +1,6 @@
 //  AtoZFunctions.h
 
-//#import "AtoZ.h"
 #import "AtoZUmbrella.h"
-#import <objc/message.h>
-#import <sys/time.h>
-#include <sys/types.h>
-#include <pwd.h>
 
 // StringConsts.h
 #ifdef SYNTHESIZE_CONSTS
@@ -25,6 +20,12 @@
 //#define SYNTHESIZE_CONSTS
 //#import "myfile.h"
 //#undef SYNTHESIZE_CONSTS
+
+@interface AZSingleton : NSObject
++(id) instance;
++(id) sharedInstance; //alias for instance
++(id) singleton;	  //alias for instance
+@end
 
 
 typedef void (^PythonBlock)(NSS* path, NSS*inDir, NSA* args, NSS* anENV, NSS *pyPATH);
@@ -92,6 +93,10 @@ typedef void(^AZActionCellBlock)(id objVal);
 @interface  NSColor (compare)
 - (NSComparisonResult)compare:(NSColor*)otherColor;
 @end
+
+// NSColor, "name" (CSS, or named color) or @[@4, @44, @244] rgbIntegers
+NSS* colorizeStringWithColor(NSS* string, id color);
+
 
 //#import "AtoZ.h"
 //PUT IN PRECOMP #define NSLog(args...) _AZSimpleLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args);
@@ -183,6 +188,8 @@ id LogAndReturn(id toLog); //= ^(id toLog) { AZLOG(toLog); return toLog; };
 id LogAndReturnWithCaller(id toLog, SEL caller);
 
 //extern void  LOGWARN (NSString *format, ...);
+CGFloat AZScreenWidth();
+CGFloat AZScreenHeight();
 
 
 

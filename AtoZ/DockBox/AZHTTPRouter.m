@@ -117,7 +117,7 @@
 		NSLog(@"Post to /uploadwav %@", req.params);
 	}];
 
-	NSError *error;	if (![self start:&error]) 	NSLog(@"Error starting HTTP server: %@", error)	else nil;// [self loadURL:nil];
+	NSError *error;	if (![self start:&error]) 	NSLog(@"Error starting HTTP server: %@", error);	else nil;// [self loadURL:nil];
 	
 //	return self;
 }

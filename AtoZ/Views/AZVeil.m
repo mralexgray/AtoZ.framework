@@ -135,7 +135,7 @@
 
 - (void) awakeFromNib {
 //	self.view.image = nil;
-//	[_leveler setFrame:NSMakeRect(0, (ScreenHighness()-1),1,1) display:YES animate:NO];
+//	[_leveler setFrame:NSMakeRect(0, (AZScreenHeight()-1),1,1) display:YES animate:NO];
 	[_shroud  setIgnoresMouseEvents:YES];
 	[NotificationCenterSpy toggleSpyingAllNotifications];
 	[ @[_leveler, _shroud, _window] az_each:^(id obj, NSUInteger index, BOOL *stop) {
@@ -280,7 +280,7 @@
 //	return rect;
 
 //	_view.image = [NSImage imageFromCGImageRef:
-//		CGWindowListCreateImage(  AZFlipRectinRect(AZMenulessScreenRect(), (CGRect) { 0,22,ScreenWidess(), ScreenHighness()}),
+//		CGWindowListCreateImage(  AZFlipRectinRect(AZMenulessScreenRect(), (CGRect) { 0,22,AZScreenWidth(), AZScreenHeight()}),
 
 ////			AZFlipRectinRect( AZMenulessScreenRect(), AZScreenFrame()),
 ////			_shroud.frame,
@@ -289,7 +289,7 @@
 //			kCGWindowImageDefault							)];
 
 		//				AZFlipRectinRect( _shroud.frame, AZScreenFrame()),
-		//AZMakeRectMaxXUnderMenuBarY( ScreenHighness() - 22 ), AZScreenFrame()),
+		//AZMakeRectMaxXUnderMenuBarY( AZScreenHeight() - 22 ), AZScreenFrame()),
 
 
 		//	[image addRepresentation: bitmapRep];
@@ -343,9 +343,9 @@
 	//	CFArrayRef thisWindowAsArray = CFMakeCollectable(CFArrayCreate(kCFAllocatorDefault, thisWindow, 1, NULL));
 	//	CGImageRef r = (CGImageRef) CFMakeCollectable(CGWindowListCreateImageFromArray(CGRectNull, thisWindowAsArray, kCGWindowImageDefault));
 
-	//	return [NSImage imageFromCGImageRef:CGWindowListCreateImage( 	AZFlipRectinRect(AZMakeRectMaxXUnderMenuBarY( ScreenHighness() - 22 ), AZScreenFrame()), thisWindow, kCGWindowListOptionOnScreenBelowWindow | kCGWindowImageNominalResolution)];
+	//	return [NSImage imageFromCGImageRef:CGWindowListCreateImage( 	AZFlipRectinRect(AZMakeRectMaxXUnderMenuBarY( AZScreenHeight() - 22 ), AZScreenFrame()), thisWindow, kCGWindowListOptionOnScreenBelowWindow | kCGWindowImageNominalResolution)];
 
-	//		AZFlipRectinRect(AZMakeRectMaxXUnderMenuBarY( ScreenHighness() - 22 ), AZScreenFrame()),  thisWindow, kCGWindowListOptionOnScreenBelowWindow, kCGWindowImageNominalResolution)];
+	//		AZFlipRectinRect(AZMakeRectMaxXUnderMenuBarY( AZScreenHeight() - 22 ), AZScreenFrame()),  thisWindow, kCGWindowListOptionOnScreenBelowWindow, kCGWindowImageNominalResolution)];
 	//AZMenulessScreenRect(), [_leveler windowNumber],
 
 	//		CGWindowListCreateImage( AZFlipRectinRect( AZMenulessScreenRect(), AZScreenFrame()), windy,
@@ -401,10 +401,10 @@
 	//	_flippedSnapRect.size.height -= offset;
 	//	_flippedSnapRect.origin.y += offset;
 
-	//	self.PushedScreenRect = self.unPushedScreenRect = AZMakeRectMaxXUnderMenuBarY(ScreenHighness()- 22);//AZMakeRect(NS
-	//	(NSPoint){0,  ScreenHighness() - ( 22 + sizer)},(NSSize){ ScreenWidess(), 0 });
-	//	_pushedScreenRect.origin.y  -= offset;//  AZMakeRectMaxXUnderMenuBarY(ScreenHighness()- 22 - 100);
-	//	 AZMakeRect(NSZeroPoint, (NSSize){ ScreenWidess(),ScreenHighness() - ( 22 + sizer)});
+	//	self.PushedScreenRect = self.unPushedScreenRect = AZMakeRectMaxXUnderMenuBarY(AZScreenHeight()- 22);//AZMakeRect(NS
+	//	(NSPoint){0,  AZScreenHeight() - ( 22 + sizer)},(NSSize){ AZScreenWidth(), 0 });
+	//	_pushedScreenRect.origin.y  -= offset;//  AZMakeRectMaxXUnderMenuBarY(AZScreenHeight()- 22 - 100);
+	//	 AZMakeRect(NSZeroPoint, (NSSize){ AZScreenWidth(),AZScreenHeight() - ( 22 + sizer)});
 
 	//	_barFrameUp.origin.y += sizer;//tabView.frame.size.height;
 	//	_barFrameUp.size.height = 0;
@@ -426,7 +426,7 @@
 	_window.downFrame 	= AZMakeRectMaxXUnderMenuBarY(_defaultSize);
 	_shroud.downFrame =  AZLowerEdge(AZScreenFrame(), 300 +22);
 	[_shroud setAlphaValue : 1];
-//	_shroud.downFrame	= AZLowerEdge(ScreenHighness()-22 - _defaultSize)
+//	_shroud.downFrame	= AZLowerEdge(AZScreenHeight()-22 - _defaultSize)
 //	   AZRectVerticallyOffsetBy(_shroud.upFrame,_defaultSize);
 	[ @[_window, _shroud] az_each:^(id obj, NSUInteger index, BOOL *stop) {
 		[obj setFrame:[[obj valueForKey:@"upFrame"] rectValue] display:NO animate:NO];

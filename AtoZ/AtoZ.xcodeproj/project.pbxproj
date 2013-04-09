@@ -133,6 +133,8 @@
 		7B24E9A615A13A4100A9D87A /* NSBezierPath+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B24E9A415A13A4000A9D87A /* NSBezierPath+AtoZ.m */; };
 		7B24E9ED15A176AC00A9D87A /* NSWindow+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B24E9EB15A176AB00A9D87A /* NSWindow+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B24E9EE15A176AC00A9D87A /* NSWindow+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B24E9EC15A176AB00A9D87A /* NSWindow+AtoZ.m */; };
+		7B28C15A1713A1700068774A /* Nu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B28C13E1713A1140068774A /* Nu.framework */; };
+		7B28C15B1713A1850068774A /* Nu.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7B28C13E1713A1140068774A /* Nu.framework */; };
 		7B2D754716F15BB60054C5F2 /* Bootstrap.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B2D754516F15BB50054C5F2 /* Bootstrap.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B2D754816F15BB60054C5F2 /* Bootstrap.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2D754616F15BB50054C5F2 /* Bootstrap.m */; };
 		7B2F23E916F289BC003D7648 /* IGIsolatedCookieWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B2F239016F289BC003D7648 /* IGIsolatedCookieWebView.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -798,6 +800,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		7B0441DD1713462400711DD3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B311947159B6D9E002134C4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7B311950159B6D9E002134C4;
+			remoteInfo = AtoZ;
+		};
 		7B0E4BB91668A20E00CA1684 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7B0E4BB11668A20D00CA1684 /* AtoZWebSnapper.xcodeproj */;
@@ -888,6 +897,34 @@
 			proxyType = 2;
 			remoteGlobalIDString = 0573A9641526484200D0D884;
 			remoteInfo = "PLWeakCompatibility-iOS-Tests";
+		};
+		7B28C13D1713A1140068774A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B28C1201713A1130068774A /* Nu.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
+			remoteInfo = Nu;
+		};
+		7B28C13F1713A1140068774A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B28C1201713A1130068774A /* Nu.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2283073111DDBE3100A5C690;
+			remoteInfo = nush;
+		};
+		7B28C1411713A1140068774A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B28C1201713A1130068774A /* Nu.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 22EE2BF413A4731600895861;
+			remoteInfo = NuApp;
+		};
+		7B28C1581713A1660068774A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B28C1201713A1130068774A /* Nu.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
+			remoteInfo = Nu;
 		};
 		7B31B14615E9447400802CD5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1360,6 +1397,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				7B28C15B1713A1850068774A /* Nu.framework in frameworks copy */,
 				7B427EFD170B136E0052FC31 /* TwUI.framework in frameworks copy */,
 				7B427EEA170B03F80052FC31 /* CocoatechCore.framework in frameworks copy */,
 				7BD7D3FA170A1995001D49FA /* BlocksKit.framework in frameworks copy */,
@@ -1671,6 +1709,7 @@
 		7B28542C15FEEBA90077960A /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
 		7B28542D15FEEBA90077960A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7B28546215FEF0840077960A /* GHUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GHUnit.framework; path = "../../git/gh-unit/Project-MacOSX/build/Release/GHUnit.framework"; sourceTree = SOURCE_ROOT; };
+		7B28C1201713A1130068774A /* Nu.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Nu.xcodeproj; path = ../Frameworks/nu/Xcode/Nu.xcodeproj; sourceTree = "<group>"; };
 		7B2D753F16F14FE90054C5F2 /* AZHTTPRouter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZHTTPRouter.h; sourceTree = "<group>"; };
 		7B2D754016F14FE90054C5F2 /* AZHTTPRouter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZHTTPRouter.m; sourceTree = "<group>"; };
 		7B2D754216F153FB0054C5F2 /* AZFacebookConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZFacebookConnection.h; sourceTree = "<group>"; };
@@ -2533,6 +2572,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B28C15A1713A1700068774A /* Nu.framework in Frameworks */,
 				7BB765CC1703F23A003BDFDB /* DrawKit.framework in Frameworks */,
 				7B427EE7170B03D20052FC31 /* CocoatechCore.framework in Frameworks */,
 				7BDD287316F832FE00FEB3AF /* SVGKit.framework in Frameworks */,
@@ -2844,6 +2884,16 @@
 			path = ../../../git/BlocksKit/Tests;
 			sourceTree = "<group>";
 		};
+		7B28C1211713A1130068774A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7B28C13E1713A1140068774A /* Nu.framework */,
+				7B28C1401713A1140068774A /* nush */,
+				7B28C1421713A1140068774A /* NuApp.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		7B2E2599165F30DC009BE6C8 /* PXList */ = {
 			isa = PBXGroup;
 			children = (
@@ -3073,6 +3123,7 @@
 		7B311953159B6D9E002134C4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7B28C1201713A1130068774A /* Nu.xcodeproj */,
 				7B55B4511712DBBD00F0EAED /* SNRHUDKit.xcodeproj */,
 				7B427EEB170B13230052FC31 /* TwUI.xcodeproj */,
 				7B427EB0170AF7250052FC31 /* CocoatechCore.xcodeproj */,
@@ -4830,6 +4881,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				7B0441DE1713462400711DD3 /* PBXTargetDependency */,
 			);
 			name = AtoZCLI;
 			productName = AtoZCLI;
@@ -4852,6 +4904,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				7B28C1591713A1660068774A /* PBXTargetDependency */,
 				7B427EFF170B13760052FC31 /* PBXTargetDependency */,
 				7B427EE9170B03E80052FC31 /* PBXTargetDependency */,
 				7BD7D3F8170A195C001D49FA /* PBXTargetDependency */,
@@ -5064,6 +5117,10 @@
 					ProjectRef = 7BC69049162BA94000B71602 /* NanoStore.xcodeproj */;
 				},
 				{
+					ProductGroup = 7B28C1211713A1130068774A /* Products */;
+					ProjectRef = 7B28C1201713A1130068774A /* Nu.xcodeproj */;
+				},
+				{
 					ProductGroup = 7B95C8A316F0899100480BB1 /* Products */;
 					ProjectRef = 7B95C8A216F0899100480BB1 /* PhFacebook.xcodeproj */;
 				},
@@ -5190,6 +5247,27 @@
 			fileType = wrapper.cfbundle;
 			path = "PLWeakCompatibility-iOS-Tests.octest";
 			remoteRef = 7B276CDB1616A4320083C29E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7B28C13E1713A1140068774A /* Nu.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Nu.framework;
+			remoteRef = 7B28C13D1713A1140068774A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7B28C1401713A1140068774A /* nush */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = nush;
+			remoteRef = 7B28C13F1713A1140068774A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7B28C1421713A1140068774A /* NuApp.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = NuApp.app;
+			remoteRef = 7B28C1411713A1140068774A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		7B37786216F1C80B0083CBB5 /* libKSHTMLWriter.a */ = {
@@ -6099,6 +6177,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		7B0441DE1713462400711DD3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7B311950159B6D9E002134C4 /* AtoZ */;
+			targetProxy = 7B0441DD1713462400711DD3 /* PBXContainerItemProxy */;
+		};
 		7B1B34CB16F2BC7400B94864 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = Zangetsu;
@@ -6108,6 +6191,11 @@
 			isa = PBXTargetDependency;
 			name = Lumberjack;
 			targetProxy = 7B1B34D116F2EAA600B94864 /* PBXContainerItemProxy */;
+		};
+		7B28C1591713A1660068774A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Nu;
+			targetProxy = 7B28C1581713A1660068774A /* PBXContainerItemProxy */;
 		};
 		7B31B14715E9447400802CD5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -6565,6 +6653,9 @@
 					CocoatechCore,
 					"-sub_umbrella",
 					TwUI,
+					"-sub_umbrella",
+					Nu,
+					"-all_load",
 				);
 				PRODUCT_NAME = AtoZ;
 				RUN_CLANG_STATIC_ANALYZER = NO;
@@ -6659,6 +6750,9 @@
 					CocoatechCore,
 					"-sub_umbrella",
 					TwUI,
+					"-sub_umbrella",
+					Nu,
+					"-all_load",
 				);
 				PRODUCT_NAME = AtoZ;
 				RUN_CLANG_STATIC_ANALYZER = NO;

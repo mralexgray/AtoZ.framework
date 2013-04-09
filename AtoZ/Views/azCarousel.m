@@ -265,7 +265,7 @@
 - (CGFloat)az_clampedOffset:(CGFloat)offset
 {
 	[self az_clampedOffset:offset];
-	LOGWARN(@"Swizzled az_clampedoff:");
+//	LOGWARN(@"Swizzled az_clampedoff:");
 	if (self.wrapEnabled)	//	if (_wrapEnabled)
 	{
 		return self.numberOfItems? (offset - floorf(offset / (CGFloat)self.numberOfItems) * self.numberOfItems): 0.0f;

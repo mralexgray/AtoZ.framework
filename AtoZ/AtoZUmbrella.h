@@ -29,9 +29,9 @@
 #define COLOR_RESET XCODE_COLORS_RESET
 #define COLOR_ESC XCODE_COLORS_ESCAPE
 #define COLOR_WARN COLOR_ESC @"fg:74,203,68;"
-#define MAKEWARN(A) [NSString stringWithFormat:@"%@ %@ %@", COLOR_WARN, (A), COLOR_RESET]
+//#define MAKEWARN(A) [NSString stringWithFormat:@"%@ %@ %@", COLOR_WARN, (A), COLOR_RESET]
 
-#define WARN(A) NSLog(@"%@", MAKEWARN(A))
+//#define WARN(A) NSLog(@"%@", MAKEWARN(A))
 
 #define XCODE_COLORS 0
 
@@ -111,10 +111,12 @@
 #define NSDE NSDirectoryEnumerator
 #define NSGC NSGraphicsContext
 #define NSC NSColor
+#define NSCL NSColorList
 #define NSCS NSCountedSet
 #define NSD NSDictionary
 #define NSDCLASS NSDictionary.class
 #define NSE NSEvent
+#define NSERR NSError
 #define NSF NSFont
 #define NSG NSGradient
 
@@ -138,6 +140,7 @@
 #define NSO NSObject
 #define NSOQ NSOperationQueue
 #define NSOP NSOperation
+#define AZOQMAX NSOperationQueueDefaultMaxConcurrentOperationCount
 
 #define NSP NSPoint
 #define NSPInRect NSPointInRect
@@ -163,6 +166,7 @@
 #define NSTXTV NSTextView
 #define NSUI NSUInteger
 
+#define NSURLC NSURLConnection
 #define NSMURLREQ 	NSMutableURLRequest
 #define NSURLREQ NSURLRequest
 #define NSURLRES NSURLResponse
@@ -234,14 +238,6 @@
 #define $SHORT(A,B) [Shortcut.alloc initWithURI:A syntax:B]
 #define	vLOG(A)	[((AppDelegate*)[NSApp sharedApplication].delegate).textOutField appendToStdOutView:A] // $(@"%s: %@", __PRETTY_FUNCTION__, [NSString stringWithFormat: args])]
 
-
-
-
-#pragma mark - FUNCTION defines
-#define LOGWARN(fmt, ...) NSLog((@"%s [Line %d] " XCODE_COLORS_ESCAPE @"fg218,147,0;" fmt XCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
-
-
-#define NSLog(args...) _AZSimpleLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args);
 
 #define LOCALIZED_STRING(key) [[NSBundle bundleForClass:[AtoZ class]]localizedStringForKey:(key) value:@"" table:nil]
 /* You cannot take the address of a return value like that, only a variable. Thus, you’d have to put the result in a temporary variable:
@@ -616,20 +612,53 @@ attr1 relativeTo:relName attribute:attr2 scale:scl offset:off]
 
 
 
-#ifndef DSFavIcon_UINSImage_h
-#define DSFavIcon_UINSImage_h
 
-#if TARGET_OS_IPHONE
-#import <UIKit/UIKit.h>
-#define UINSImage   UIImage
-#define UINSScreen  UIScreen
-#else
-#import <Cocoa/Cocoa.h>
-#define UINSImage   NSImage
-#define UINSScreen  NSScreen
-#endif
+//void _AZSimpleLog( const char *file, int lineNumber, const char *funcName, NSString *format, ... ) {
+//NS_INLINE void ConditionalLog( const char *filename, int line, const char *funcName, NSS *format, ... ) { 	
 
-#endif
+//	BOOL YESORNO = strcmp(getenv(XCODE_COLORS), "YES") == 0;
+//	va_list   argList;
+//	va_start (argList, format);
+//	NSS *path  	= [[NSS stringWithFormat:@"%s",filename] lastPathComponent];
+//	NSS *mess   = [NSString.alloc initWithFormat:format arguments:argList];
+////	NSS *toLog;
+//	char *xcode_colors = getenv(XCODE_COLORS);
+	
+//	va_list vl; 
+//	va_start(vl, formatted);
+//	NSS* str = [NSString.alloc initWithFormat:(NSS*)formatted arguments:vl];
+//	va_end(vl);
+//
+//	YESORNO 	? 
+//	NSLog(@"%s [Line %d] " XCODE_COLORS_ESCAPE @"fg218,147,0; %@" XCODE_COLORS_RESET, 
+//																				  __PRETTY_FUNCTION__, __LINE__, str)
+//				: 	NSLog(@"%@",str);
+//}
+
+
+#pragma mark - FUNCTION defines
+//#define LOGWARN(fmt,...) 	ConditionalLog(__VA_ARGS__)
+
+//#define LOGWARN(fmt,...) _AZConditionalLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args)
+//	BOOL YESORNO = strcmp(getenv(XCODE_COLORS), "YES") == 0;					\
+//	va_list vl;																				\
+//	va_start(vl, fmt);																	\
+//	NSS* str = [NSString.alloc initWithFormat:(NSS*)fmt arguments:vl];	\
+//	va_end(vl);																				\
+//	YESORNO 	? 	NSLog(@"%s [Line %d] " XCODE_COLORS_ESCAPE @"fg218,147,0;" @"%@" XCODE_COLORS_RESET, __PRETTY_FUNCTION__, __LINE__, str) \
+//				: 	NSLog(@"%@",str); \
+//}()
+
+//strcmp(getenv(XCODE_COLORS), "YES") == 0 \
+//									? NSLog(	(@"%s [Line %d] " XCODE_COLORS_ESCAPE @"fg218,147,0;" fmt XCODE_COLORS_RESET)\
+//												, __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__) \
+//									: NSLog(fmt,__VA_ARGS__)
+
+
+
+#define NSLog(args...) _AZSimpleLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args);
+
+
 
 // 64-bit float macros
 
@@ -764,6 +793,11 @@ typedef struct {
 	CGFloat offset;
 }	AZCAConstraint;
 
+#define AZCACMaxX		AZConstraint(kCAConstraintMaxX,@"superlayer")
+#define AZCACMaxY		AZConstraint(kCAConstraintMaxY,@"superlayer")
+#define AZCACSuperW 	AZConstraint(kCAConstraintWidth,@"superlayer")
+#define AZCACSuperH 	AZConstraint(kCAConstraintHeight,@"superlayer")
+
 
 typedef NS_ENUM(NSUI, AppCat) {
 	Games, Education, Entertainment,
@@ -865,6 +899,67 @@ typedef enum {	ReadAccess = R_OK,
 BOOL isPathAccessible(NSString *path, SandBox mode);
 void trackMouse();
 // In a header file
+
+
+
+
+//void _AZSimpleLog( const char *file, int lineNumber, const char *funcName, NSString *format, ... ) {
+
+
+//void COLORLOGFORMAT(
+
+void _AZColorLog( NSC *color, const char *filename, int line, const char *funcName, NSS *format, ... );
+//
+//	NSS *colorString = @"fg218,147,0";
+//	NSS* envStr = @(getenv("XCODE_COLORS")) ?: @"YES";
+//	BOOL YESORNO = [envStr boolValue]; 
+//	if (color !=nil && YESORNO) { 
+//		float r, g, b;  
+//		r = color.redComponent; 
+//		g = color.greenComponent; 
+//		b = color.blueComponent;
+//		colorString = $(@"fg%.0f,%.0f,%.0f; ", r*255, g*255, b*255);
+//	}
+//	va_list   argList;	va_start (argList, format);
+//	NSS*pathStr = $UTF8(filename);
+//	NSS *path  	= [pathStr lastPathComponent];
+//	NSS *mess   = [NSS.alloc initWithFormat:format arguments:argList];
+//	NSS *toLog  = YESORNO ? $(@"[%@]:%i" XCODE_COLORS_ESCAPE  @"%@%@" XCODE_COLORS_RESET @"\n", path, line,colorString, mess)
+//								 :	$(@"[%@]:%i %@\n", path, line, mess ); 
+//	fprintf ( stderr, "%s", toLog.UTF8String);//
+//	va_end  (argList);
+//}
+
+//#define _AZConditionalLog(fmt...) { _AZColorLog(nil, f, ln, func, fmt,...);	}
+
+//	va_list vl; va_start(vl, formatted);	NSS* str = [NSString.alloc initWithFormat:(NSS*)formatted arguments:vl];
+//	va_end(vl);	YESORNO 	? 	NSLog(@"%s [Line %d] " XCODE_COLORS_ESCAPE @"fg218,147,0; %@" XCODE_COLORS_RESET, 
+//																				  __PRETTY_FUNCTION__, __LINE__, str)
+//				: 	NSLog(@"%@",str);}
+#pragma mark - FUNCTION defines
+//#define LOGWARN(fmt,...) 	ConditionalLog(__VA_ARGS__)
+
+#define COLORLOG(color,fmt...) _AZColorLog(color,__FILE__,__LINE__,__PRETTY_FUNCTION__,fmt)
+#define LOGWARN(fmt...) _AZColorLog(nil,__FILE__,__LINE__,__PRETTY_FUNCTION__,fmt)
+//		\
+//	BOOL YESORNO = strcmp(getenv(XCODE_COLORS), "YES") == 0;					\
+//	va_list vl;																				\
+//	va_start(vl, fmt);																	\
+//	NSS* str = [NSString.alloc initWithFormat:(NSS*)fmt arguments:vl];	\
+//	va_end(vl);																				\
+//	YESORNO 	? 	NSLog(@"%s [Line %d] " XCODE_COLORS_ESCAPE @"fg218,147,0;" @"%@" XCODE_COLORS_RESET, __PRETTY_FUNCTION__, __LINE__, str) \
+//				: 	NSLog(@"%@",str); \
+//}()
+
+//strcmp(getenv(XCODE_COLORS), "YES") == 0 \
+//									? NSLog(	(@"%s [Line %d] " XCODE_COLORS_ESCAPE @"fg218,147,0;" fmt XCODE_COLORS_RESET)\
+//												, __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__) \
+//									: NSLog(fmt,__VA_ARGS__)
+
+
+
+#define NSLog(fmt...) _AZColorLog(nil,__FILE__,__LINE__,__PRETTY_FUNCTION__,fmt)  
+//_AZColorLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args);
 
 
 /**	const

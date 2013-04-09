@@ -27,6 +27,8 @@ typedef void (^viewFrameDidChangeBlock)(void);
 
 @interface NSView (AtoZ)
 
+-(CALayer *)layerFromContents;
+
 @property (RONLY) NSBP *path;
 @property (RONLY) CGF maxDim, minDim;
 

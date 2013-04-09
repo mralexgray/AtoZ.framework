@@ -40,7 +40,6 @@ enum NSWindowResizing {
 
 /*
  Provides a "zoom" animation for windows when ordering on and off screen.
-
  For more details, check out the related blog posts at http://www.noodlesoft.com/blog/2007/06/30/animation-in-the-time-of-tiger-part-1/ and http://www.noodlesoft.com/blog/2007/09/20/animation-in-the-time-of-tiger-part-3/	*/
 
 @interface NSWindow (NoodleEffects)
@@ -52,6 +51,8 @@ enum NSWindowResizing {
 @end
 
 @interface NSWindow (AtoZ)
+
++ (NSWindow*) borderlessWindowWithContentRect: (NSRect)aRect;
 
 @property (NATOM,ASS) CGR inFrame, outFrame;
 @property (NATOM,ASS) AZSlideState inOut;
@@ -75,34 +76,30 @@ enum NSWindowResizing {
 - (void) setHeight: (CGF) t;
 - (void) setSize: (NSSZ) size;
 
-- (NSA*)windowAndChildren;
+- (NSA*) windowAndChildren;
 + (NSA*) allWindows;
-- (CALayer*)veilLayer;
-- (CALayer*)veilLayerForView: (NSView*)view;
+- (CAL*) veilLayer;
+- (CAL*) veilLayerForView: (NSV*)view;
 
-- (NSPoint)	midpoint; //get the midpoint of the window
+-  (NSP)	midpoint; //get the midpoint of the window
 - (void)	setMidpoint:		(NSPoint) midpoint; //set the midpoint of the window
 - (void)	addViewToTitleBar:	(NSView*) viewToAdd atXPosition:(CGFloat)x;
-- (CGFloat)	heightOfTitleBar;
-- (void) 	setContentSize:		(NSSize) aSize display:(BOOL)displayFlag animate:(BOOL)animateFlag;
-- (void) 	betterCenter;
+-  (CGF)	heightOfTitleBar;
+- (void) setContentSize:		(NSSize) aSize display:(BOOL)displayFlag animate:(BOOL)animateFlag;
+- (void) betterCenter;
 
 //@property (readonly, nonatomic) BOOL isBorderless;
 @property (readonly, nonatomic) CGFloat toolbarHeight;
 
 - (void) fadeIn;
 - (void) fadeOut;
-/*
- - (void) fadeInYesOrOutNo: (BOOL)fade andResizeTo: (NSRect)frame;
- */
+/* - (void) fadeInYesOrOutNo: (BOOL)fade andResizeTo: (NSRect)frame;	*/
 - (void) slideUp;
 - (void) slideDown;
-
 - (void) extendVerticallyBy: (CGF) amount;
-
 - (void) setDefaultFirstResponder;
-//+ (NSWindow*) borderlessWindowWithContentRect: (NSRect)aRect;
-- (void)setIgnoresEventsButAcceptsMoved;
++ (NSW*) borderlessWindowWithContentRect: (NSRect)aRect;
+- (void) setIgnoresEventsButAcceptsMoved;
 
 @end
 

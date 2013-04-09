@@ -282,7 +282,8 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary(void) {
 	Method *method_list = class_copyMethodList([self class], &method_count);
 	int i;
 	for (i = 0; i < method_count; i++) {
-		//		[array addObject:[[[NuMethod alloc] initWithMethod:method_list[i]] autorelease]];
+//		[array addObject: ]
+		[array addObject:[NuMethod.alloc initWithMethod:method_list[i]]];// autorelease]];
 	}
 	free(method_list);
 	[array sortUsingSelector:@selector(compare:)];
@@ -438,7 +439,7 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary(void) {
 
 - (void)setObject: (id)obj forKeyedSubscript: (id <NSCopying>)key
 {
-	if ( areSame(obj, [self valueForKey:(id)key] )) { AZLOG(@"Theyre already the same, doing nothing!") return;}
+	if ( areSame(obj, [self valueForKey:(id)key] )) { LOGWARN(@"%@",@"Theyre already the same, doing nothing!"); return;}
 	__block BOOL wasSet = NO;
 	[self canSetValueForKey: (id)key] ? ^{
 		//			NSLog(@"Setting Value: %@ forKey:%@", obj, key);

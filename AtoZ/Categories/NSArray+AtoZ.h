@@ -47,7 +47,7 @@
 
 - (NSA*) withMaxItems:(NSUI) items;
 
-- (void) setStringsToNilOnbehalfOf:(id)entity;
+- (void) setStringsToNilOnbehalfOf:(id)entity;  // FIX:  DOCUMENT!!
 
 - (NSA*) URLsForPaths;
 - (void) logEachPropertiesPlease;
@@ -63,6 +63,9 @@
 + (NSMutableArray *)mutableArrayWithArrays:(NSArray *)arrays;
 + (NSArray *)arrayWithArrays:(NSArray *)arrays;
 - (NSArray *)arrayWithEach;
+- (NSS*) stringValueInColumnsCharWide:(NSUI)characters;
+
+
 
 #define vsForKeys dictionaryWithValuesForKeys
 

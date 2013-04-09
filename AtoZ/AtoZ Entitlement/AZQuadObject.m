@@ -1001,7 +1001,7 @@ static const NSString *didScroll = @"scrollOffset";
  //	[_attache makeKeyAndOrderFront:_attache];
  //	NSString *url = $(@"http://api.alternativeto.net/software/%@/?count=5&platform=mac", [[[AtoZ dockSorted]objectAtIndex:index]valueForKey: @"name"]);// urlEncoded];
  
- //	NSLog(@"%@", [AtoZ jsonReuest:url]);
+ //	NSLog(@"%@", [AtoZ jsonRequest:url]);
  
  //	AZBox *b = [[AZBox alloc]initWithFrame:v.frame];
  //	[v addSubview:b];

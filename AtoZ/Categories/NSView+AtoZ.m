@@ -78,6 +78,16 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 
 @implementation NSView (AtoZ)
 
+-(CALayer *)layerFromContents		{
+
+	CALayer *newLayer = CALayer.layer;
+	newLayer.bounds = NSRectToCGRect(self.bounds);
+	NSBitmapImageRep *bitmapRep = [self bitmapImageRepForCachingDisplayInRect:self.bounds];
+	[self cacheDisplayInRect:self.bounds toBitmapImageRep:bitmapRep];
+	newLayer.contents =  [NSIMG.alloc initWithData:bitmapRep.TIFFRepresentation];
+	return newLayer;
+}
+
 - (NSBP*) path {  return [NSBP bezierPathWithRect:self.bounds]; }
 
 - (CGF) maxDim { return AZMaxDim(self.size); }

@@ -387,8 +387,8 @@
  }
  //			[[_scrollLayer sublayers] eachWithIndex:^(CAL* obj, NSInteger idx) {
  //				NSR nw = AZRectExceptOriginX(obj.frame, obj.frame.origin.x + theEvent.deltaX);
- //				if (nw.origin.x < -unit) nw.origin.x =  ScreenWidess() + unit;
- //				else if (nw.origin.x > ScreenWidess() ) nw.origin.x = -unit;
+ //				if (nw.origin.x < -unit) nw.origin.x =  AZScreenWidth() + unit;
+ //				else if (nw.origin.x > AZScreenWidth() ) nw.origin.x = -unit;
 
  //				obj.frame = nw;
  //				[obj.sublayers  each:^(CAL *l) { [l setNeedsDisplay]; }];
@@ -478,7 +478,7 @@
  //				[v removeFromSuperlayer];
  //				v.hidden = YES;
  //				NSR newF = AZRectFromSize(perfectRect.size);
- //				newF.origin.x = neg ? ScreenWidess() + unit : -unit;
+ //				newF.origin.x = neg ? AZScreenWidth() + unit : -unit;
  //				v.position = AZCenterOfRect(newF);
  //				neg ? [self.scrollLayer addSublayer:v] : [self.s \crollLayer insertSublayer:v atIndex:0];
  //				[self addTabConstraintsToTab:v];
@@ -493,7 +493,7 @@
 
  //		[_scrollLayer.sublayers each:^(CAL * obj) {
  //			NSR f = AZRectHorizontallyOffsetBy(obj.frame, theEvent.deltaX);
- //			if ( obj.frame.origin.x > ScreenWidess()) {
+ //			if ( obj.frame.origin.x > AZScreenWidth()) {
  //				NSRect pminus = AZRectHorizontallyOffsetBy(perfectRect, -unit);
  //				[CATransaction immediately:^{
  //					obj.frame = pminus;
@@ -663,7 +663,7 @@
 //}
 //- (id) init
 //{
-//	NSRect 	f = AZRectExceptHigh(AZMenuBarFrame(), ScreenHighness());
+//	NSRect 	f = AZRectExceptHigh(AZMenuBarFrame(), AZScreenHeight());
 ////			f = AZRectVerticallyOffsetBy(f, -100);
 //
 //	if (!(self = [self initWithContentRect:f styleMask:NSBorderlessWindowMask

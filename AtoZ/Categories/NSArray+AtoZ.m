@@ -37,7 +37,7 @@
 
 @end
 
-#import "Nu.h"
+//#import "Nu.h"
 
 @implementation NSArray (AtoZ)
 
@@ -235,6 +235,14 @@
 		[array addObjectsFromArray:a];
 	}
 	return array;
+}
+
+- (NSS*) stringValueInColumnsCharWide:(NSUI)characters {
+
+	return [self reduce:^id(id memo, id obj) {
+		NSUI min = MAX( characters - [obj length], 0);
+		return [memo withString:[obj stringByPaddingToLength:characters withString:@" " startingAtIndex:0]];
+	} withInitialMemo:@""];
 }
 - (NSS*) stringWithEnum: (NSUInteger) anEnum; {	return self[anEnum];	}
 

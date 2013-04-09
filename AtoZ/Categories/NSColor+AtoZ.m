@@ -438,6 +438,11 @@ static NSC*ColorWithCSSString(NSS *str) {
 
 	return nil;
 }
+
++ (NSD*) colorsAndNames {  return [NSD dictionaryWithObjects:self.colorsWithNames forKeys:self.colorNames]; }
+
++ (NSA*) colorsWithNames {  return [self.colorNames map:^id(id obj) {  return [self colorNamed:obj]; }]; }
+
 + (NSC*)colorNamed:(NSS *)name {
 
 	if (![name length])
@@ -904,15 +909,16 @@ static NSC*ColorWithCSSString(NSS *str) {
 		return [[NSColorList alloc] initWithName:name fromFile:obj];
 	}];
 }
-+ (NSArray *) colorsInFrameworkListNamed:(NSS*)name {
-	NSArray *lists = [NSC colorListsInFramework];
-	NSColorList *theList = [lists filterOne:^BOOL(id object) {
-		return [[(NSColorList *)object name] isEqualToString:name] ? YES : NO;
-	}];
-	return [[theList allKeys]arrayUsingBlock:^id(id obj) {
-		return [[theList colorWithKey:obj] colorUsingColorSpaceName:NSDeviceRGBColorSpace];
-		;
-	}];
++ (NSA*) colorsInFrameworkListNamed:(NSS*)name 
+{
+	static NSMD *colorListD;  if (!colorListD) colorListD = NSMD.new;
+	return colorListD[name] = (NSA*)colorListD[name] ?: ^NSA*{
+		NSCL *clist = [NSC.colorListsInFramework filterOne:^BOOL(NSCL* list) { return areSame(list.name, name); }];
+ 		return [clist.allKeys cw_mapArray:^id(id obj) {
+			NSC* c = [[clist colorWithKey:obj] colorUsingColorSpaceName:NSDeviceRGBColorSpace];
+			c.name = obj; return c;
+		}];
+	}();
 }
 
 + (NSArray *) fengshui {
@@ -945,6 +951,25 @@ static NSC*ColorWithCSSString(NSS *str) {
 		return [obj isBoring] ? NO : YES;
 	}];
 
+}
+
+- (void) setName:(NSS*) aName;
+{
+	[self setAssociatedValue:aName forKey:@"nameOfColor" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
+}
+
+- (NSS*) name { return [self associatedValueForKey:@"nameOfColor"] ?: $(@"\"%@\"",self.nameOfColor); }
+
+
+
++ (void) logPalettes {   
+
+	[self.colorListsInFramework each:^(id obj) {
+		COLORLOG(GRAY9, @"COLORLIST: %@", [obj valueForKey:@"name"]);
+		[[self colorsInFrameworkListNamed:[obj valueForKey:@"name"]] each:^(NSC* color) {
+			COLORLOG(color ?: nil, @"%@", color.name);
+		}];
+	}];
 }
 +(NSA*) randomPalette {
 

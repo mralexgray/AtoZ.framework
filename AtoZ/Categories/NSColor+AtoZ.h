@@ -25,6 +25,13 @@
 															   squareWidth: (CGFloat)width;
 + (NSA*) colorNames;
 + (NSC*) colorNamed:(NSString*)string;
++ (NSA*) colorsWithNames;
++ (NSD*) colorsAndNames;
++ (void) logPalettes;
+
+@property (strong, nonatomic) NSS* name;
+- (void) setName:(NSS*) aName;
+- (NSS*) name;
 
 - (BOOL)	 isBoring;
 - (BOOL)	 isExciting;

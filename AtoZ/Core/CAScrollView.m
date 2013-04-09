@@ -113,7 +113,7 @@
 	f == LayerInsertFront	 ? ^{	 layerQueue.count ? ^{	CAL *newFirst = layerQueue.shift;
 																				_offset -=  [self aLayerSpan:newFirst];
 													[scrollLayer insertSublayerImmediately:newFirst  atIndex:0]; }(): ^{
-													WARN(@"copying in front!");
+													LOGWARN(@"%@",@"copying in front!");
 											[scrollLayer addSublayerImmediately: [scrollLayer.sublayers[0]copyLayer]];
 				}();
 													                }():
@@ -125,7 +125,7 @@
 												 [layerQueue addObject:end];
 																			 [end removeImmediately];		   }():	
 	f == LayerInsertEnd 	 ? ^{  layerQueue.count ? [scrollLayer addSublayerImmediately:layerQueue.pop]  
-																: ^{   WARN(@"copying in back!");
+																: ^{   LOGWARN(@"%@",@"copying in back!");
 																			 [scrollLayer addSublayerImmediately:
 																					[scrollLayer.sublayers[0]copyLayer]]; }();
 									}():

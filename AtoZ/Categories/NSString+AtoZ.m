@@ -252,7 +252,8 @@
 	NSURLRequest* request = [NSURLRequest requestWithURL:$URL(@"http://randomword.setgetgo.com/get.php") cachePolicy:0 timeoutInterval:5];
 	NSURLResponse* response=nil;	NSError* error=nil;
 	NSData* data=[NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-	return data ? [NSString stringWithData:data encoding:NSUTF8StringEncoding] : @"Timeout!";
+	NSS*theWord = data ? [NSString stringWithData:data encoding:NSUTF8StringEncoding] : @"Timeout!";
+	return [theWord stringByTrimmingWhiteSpace];
 }
 //return ((NSS*)[NSS stringWithContentsOfURL: encoding:NSUTF8StringEncoding error:nil]).trim; }
 
