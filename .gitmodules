@@ -165,3 +165,4 @@
 [submodule "Frameworks/nu"]
 	path = Frameworks/nu
 	url = https://github.com/mralexgray/nu.git
+	ignore = dirty
