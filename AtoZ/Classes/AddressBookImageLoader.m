@@ -23,15 +23,15 @@ static NSString * const kImageDataKey = @"image";
 @synthesize  organization = _organization, image = _image, personUID = _personUID, displayName = _displayName;
 
 + (instancetype)contactWithPerson:(ABPerson*)a	{  	AZContact *i = AZContact.new;  i.ref = a; return i;	}
-- (NSString*) imageUID 	    { return self.personUID; }
+- (NSString*) imageUID 		{ return self.personUID; }
 - (NSString*) personUID 	{ return _personUID 	= _personUID 	?: [_ref uniqueId];	}
 - (NSString*) imageTitle 	{ return _displayName  	= _displayName	?: [[[[_ref valueForProperty: kABFirstNameProperty]copy]
-											stringByAppendingString:     [[_ref valueForProperty: kABLastNameProperty] copy]]
-									        stringByReplacingOccurrencesOfString: @"(null)"  withString:@""];
+											stringByAppendingString:	 [[_ref valueForProperty: kABLastNameProperty] copy]]
+											stringByReplacingOccurrencesOfString: @"(null)"  withString:@""];
 }
 - (NSString*) imageSubtitle 		  { return _organization 	= _organization ?: [_ref valueForProperty: kABOrganizationProperty];	}
 - (NSString*) imageRepresentationType {	return IKImageBrowserNSImageRepresentationType;		}
-- (void) 	  setImageSubtitle:       ( NSString*) title {	_displayName = [title copy];	}
+- (void) 	  setImageSubtitle:	   ( NSString*) title {	_displayName = [title copy];	}
 - (NSIMG*)	  image 	 			  {	return _image 	= _image ?: [_ref imageData]
 														? [NSImage.alloc initWithData:_ref.imageData]
 														: [NSIMG monoIconNamed:@"67"];		}
@@ -51,7 +51,7 @@ static NSString * const kImageDataKey = @"image";
 {
 	return (search) ? 	[ABSHARED 		   recordsMatchingSearchElement:
 						[ABSearchElement   searchElementForConjunction: 		kABSearchOr
-							    children: [properties map:^id(NSS *field) {
+								children: [properties map:^id(NSS *field) {
 								  return  [ABPerson searchElementForProperty: 	field
 													label: nil  key:nil  value:	search
 													comparison: kABContainsSubStringCaseInsensitive];
@@ -296,7 +296,7 @@ static NSString * const kImageDataKey = @"image";
 //- (id) initWithRecord: (ABRecord*) aRecord
 //{
 //	if (self != super.init ) return nil;
-//	[@{ @"firstname" : kABFirstNameProperty, @"middlename": kABMiddleNameProperty,  @"lastname"     : kABLastNameProperty,
+//	[@{ @"firstname" : kABFirstNameProperty, @"middlename": kABMiddleNameProperty,  @"lastname"	 : kABLastNameProperty,
 //		@"suffix" 	 : kABSuffixProperty, 	 @"nickname"  : kABNicknameProperty, 	@"organization" : kABOrganizationProperty }
 //		enumerateEachKeyAndObjectUsingBlock:^(NSS* key, NSS* obj) {
 //			id someValue = [aRecord valueForProperty:obj];
@@ -319,13 +319,13 @@ static NSString * const kImageDataKey = @"image";
 //}
 //- (NSS*) firstname		{	return [self.record valueForKey:   kABFirstNameProperty]; 	}
 //- (NSS*) middlename		{	return [self.record valueForKey:  kABMiddleNameProperty];	}
-//- (NSS*) lastname 		{	return [self.record valueForKey:    kABLastNameProperty];	}
-//- (NSS*) suffix			{	return [self.record valueForKey:      kABSuffixProperty];	}
-//- (NSS*) nickname		{	return [self.record valueForKey:    kABNicknameProperty];	}
+//- (NSS*) lastname 		{	return [self.record valueForKey:	kABLastNameProperty];	}
+//- (NSS*) suffix			{	return [self.record valueForKey:	  kABSuffixProperty];	}
+//- (NSS*) nickname		{	return [self.record valueForKey:	kABNicknameProperty];	}
 //- (NSS*) organization	{	return [self.record valueForKey:kABOrganizationProperty];	}
-//- (NSS*) jobtitle		{	return [self.record valueForKey:    kABJobTitleProperty];	}
+//- (NSS*) jobtitle		{	return [self.record valueForKey:	kABJobTitleProperty];	}
 //- (NSS*) department		{	return [self.record valueForKey:  kABDepartmentProperty];	}
-//- (NSS*) note			{	return [self.record valueForKey:        kABNoteProperty];	}
+//- (NSS*) note			{	return [self.record valueForKey:		kABNoteProperty];	}
 
 #pragma mark Contact Name Utility
 /*- (NSS*) contactName
@@ -350,11 +350,11 @@ static NSString * const kImageDataKey = @"image";
 
 //- (NSS*) compositeName	{	return (NSS*)ABRecordCopyCompositeName(record);	}
 
-//- (NSDate *) birthday			{	return [self.record valueForKey:        kABBirthdayProperty];	}
-//- (NSDate *) creationDate		{	return [self.record valueForKey:    kABCreationDateProperty];	}
+//- (NSDate *) birthday			{	return [self.record valueForKey:		kABBirthdayProperty];	}
+//- (NSDate *) creationDate		{	return [self.record valueForKey:	kABCreationDateProperty];	}
 //- (NSDate *) modificationDate	{	return [self.record valueForKey:kABModificationDateProperty];	}
 //
-//- (NSArray *) emailArray		{	return [self.record valueForKey:         kABEmailProperty];	}
+//- (NSArray *) emailArray		{	return [self.record valueForKey:		 kABEmailProperty];	}
 //- (NSArray *) emailLabels		{	return [self.record valueForKey:		 kABEmailProperty];	}
 //- (NSArray *) phoneArray		{	return [self.record valueForKey:		 kABPhoneProperty];	}
 //- (NSArray *) phoneLabels		{	return [self.record valueForKey:  		 kABPhoneProperty];	}

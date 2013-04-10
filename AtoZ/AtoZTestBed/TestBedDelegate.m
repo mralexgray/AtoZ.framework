@@ -31,7 +31,7 @@
 	// allSubviews]makeObjectsPerformSelector:@selector(fadeOut)]; //[_targetView removeAllSubviews];
 	NSS *selecto = [sender titleOfSelectedItem];
 	id view = 	areSame(selecto,  @"General") ? _genVC.	view :
-			   	areSame(selecto, 	     @"UI") ? _uiVC.		view :
+			   	areSame(selecto, 		 @"UI") ? _uiVC.		view :
 					areSame(selecto,   @"Colors") ? _colorVC.	view :
 					areSame(selecto, @"Facebook") ? _fbV.		view : 
 					areSame(selecto, 	   @"TUIV") ? _tuiVC.		view : nil;
@@ -105,7 +105,7 @@
 - (void) alternate {
 
 	_targetView.subviews = @[host = [BLKVIEW inView:_targetView withBlock:^(BLKVIEW *v, CAL *l) {	 }]];
-   host.layer.sublayers = @[scrlr = [CASCRLL layerWithFrame:host.layer.bounds]];		            
+   host.layer.sublayers = @[scrlr = [CASCRLL layerWithFrame:host.layer.bounds]];					
 				  scrlr.bgC = [[GREEN alpha:.4] CGColor];
 			  scrlr.arMASK = CASIZEABLE;
 			scrlr.delegate = self;
@@ -140,8 +140,8 @@
 - (NSS*) visibleSubsString { NSA* vs = [self.visibleSubs valueForKeyPath:@"name"]; 
 									  return $(@"%@ [%ld] Offset:%.1f", [NSS stringFromArray:vs], vs.count, self.off); 
 }
-- (NSRNG) front 	{ return NSMakeRange( 						    0, self.visible.location); }
-- (NSRNG) back  	{ return NSMakeRange(    self.visible.length, scrlr.sublayers.count); }
+- (NSRNG) front 	{ return NSMakeRange( 							0, self.visible.location); }
+- (NSRNG) back  	{ return NSMakeRange(	self.visible.length, scrlr.sublayers.count); }
 - (NSRNG) visible { return NSMakeRange(self.indexFirstVisible, self.indexLastVisible ); }
 
 - (NSString *)fixState 	{ return stringForScrollFix(self.scrollFix); }
@@ -173,9 +173,9 @@
 	
 	[key isEqualToAnyOf:@[	@"visibleSubsString", 
 									   @"front", @"back", 
-									        @"scrollFix", 
-									         @"fixState"		]] ? @[@"visible"]  
-	  															      : @[]];
+											@"scrollFix", 
+											 @"fixState"		]] ? @[@"visible"]  
+	  																  : @[]];
 	
 	LOGWARN(@"kpVsAVfK: %@ \t[%ld]\t %@",key, s.allObjects.count,AZStringFromSet(s));
 	return s;
@@ -184,12 +184,12 @@
 - (id<CAAction>) actionForLayer:(CAL*)layer forKey:(NSS*)event 	{		static NSMA *actions = nil; actions = actions ?: NSMA.new;
 	
 	[actions addObject:$(@"%@ on %@",event,layer)]; [self performBlock:^{	 self.actionStatus = actions[0]; [actions removeFirstObject];
-																																																											                                    } afterDelay:actions.count];
+																																																																				} afterDelay:actions.count];
 
 	return 	 layer == scrlr && [@[@"bounds", @"position",@"contents"] containsObject:event] ?	 AZIDCAA AZNULL : 
-//											    		 	         [@[@"onLayout"] containsObject:event] ? nil : 
+//														 			 [@[@"onLayout"] containsObject:event] ? nil : 
 											 	layer == scrlr && [@[@"sublayers"]containsObject:event] ? AZIDCAA self :
-												                               [event loMismo:@"hover"] ? AZIDCAA self : nil;
+																			   [event loMismo:@"hover"] ? AZIDCAA self : nil;
 }
 //			:  [layer isKindOfClass:CAGL.class] 
 //			?  [CABA animationWithKeyPath:@"position" andDuration:4]
@@ -198,20 +198,20 @@
 
 	NSLog(@"Its asking about %@ for %@", MAKEWARN(k), MAKEWARN(o));
 	
-	o == scrlr  && [k loMismo:@"sublayers"] ? ^{    													      // setup layout and size
+	o == scrlr  && [k loMismo:@"sublayers"] ? ^{															  // setup layout and size
 
 		[scrlr.sublayers eachWithIndex:^(CAL* obj, NSI idx) { 
 			[obj setFrame:(NSR) { idx * 100, 0, 100, _targetView.height }];
-			    AddTextLayer( obj, obj.name, AtoZ.controlFont, CASIZEABLE);
+				AddTextLayer( obj, obj.name, AtoZ.controlFont, CASIZEABLE);
 		}];																	  self.off = 0;		
 
-	}() :	[o boolForKey:@"spinning"] ? ^{																      // Hover Action
+	}() :	[o boolForKey:@"spinning"] ? ^{																	  // Hover Action
 
 		CAA* a = CAA.shakeAnimation;	 a.duration = 3; a.repeatCount 	= 10;
 		a.completion = ^(BOOL d) {	[o setBool:NO forKey:@"spinning"]; [o setBool:NO forKey:@"hover"]; };
 		[(CAL*)o addAnimation:a  forKey:k]; 
 
-	}() : ![o boolForKey:@"spinning"] ? ^{																      // Hover Action
+	}() : ![o boolForKey:@"spinning"] ? ^{																	  // Hover Action
 		
 		CAA* a = [CAKA dockBounceAnimationWithIconHeight:100];
 		a.duration = .5; a.repeatCount 	= 1;
@@ -438,10 +438,10 @@ CGR MakeSubrect(CGR r, CGF x, CGF y, CGF w, CGF h)	 {
 	
 	size = [ layer bounds ].size;
 */	
-//	zCenterPosition = 60;      /* Z-Position of selected cover */
-//	zSidePosition = 0;         /* Default Z-Position for other covers */
+//	zCenterPosition = 60;	  /* Z-Position of selected cover */
+//	zSidePosition = 0;		 /* Default Z-Position for other covers */
 //	sideSpacingFactor = .85;   /* How close should slide covers be */
-//	rowScaleFactor = .55;      /* Distance between main cover and side covers */
+//	rowScaleFactor = .55;	  /* Distance between main cover and side covers */
 /*	
 	leftTransform = CATransform3DMakeRotation(angle, -1, 0, 0);
 	rightTransform = CATransform3DMakeRotation(-angle, -1, 0, 0);
@@ -482,7 +482,7 @@ CGR MakeSubrect(CGR r, CGF x, CGF y, CGF w, CGF h)	 {
 		
 		[ [ sublayer superlayer ] setSublayerTransform: sublayerTransform ];
 		
-		if (x < selectedCover)        // Left side 
+		if (x < selectedCover)		// Left side 
 		{
 			rect.origin.y += cellSize.height * sideSpacingFactor
 			* (float) (selectedCover - x - rowScaleFactor);
@@ -496,7 +496,7 @@ CGR MakeSubrect(CGR r, CGF x, CGF y, CGF w, CGF h)	 {
 			sublayer.zPosition = zSidePosition - 2.0 * (x - selectedCover);
 			sublayer.transform = rightTransform;
 		}
-		else                      // Selected cover 
+		else					  // Selected cover 
 		{
 			sublayer.transform = CATransform3DIdentity;
 			sublayer.zPosition = zCenterPosition;
@@ -533,7 +533,7 @@ CGR MakeSubrect(CGR r, CGF x, CGF y, CGF w, CGF h)	 {
 //	[vcs addObject:genVC.view];
 //	geoVC 		= [[AZGeometryViewController alloc] initWithNibName: @"AZGeometryViewController" bundle:nil];
 //	[vcs addObject:geoVC.view];
-//	uiVC  		= [[AZUIViewController	     alloc] initWithNibName: @"AZUIViewController"	     bundle:nil];
+//	uiVC  		= [[AZUIViewController		 alloc] initWithNibName: @"AZUIViewController"		 bundle:nil];
 //	[vcs addObject:uiVC.view];
 //	fileGrid 	= [[AZFileGridView 			 alloc]   initWithFrame: _targetView.bounds];
 //	[vcs addObject:fileGrid];
@@ -905,7 +905,7 @@ const CGFloat dash[2] = {100, 60};
 //	if (fixState != LayerStateOK)	self.fixState;
 //	[self fixLayerState];	// offset = 0;// [scrollLayer.sublayers each:^(CAL* obj) {	if (oreo == VRT) obj.frameMinY += offset; else obj.frameMinX += offset; }]; }]; if (_sublayerOrigin == 1) offset = 0;
 //- (void) setOffset:(CGF)o 			{ if ( offset 	   != o) { offset		= o; [scrollLayer setNeedsLayout]; }	 } //[scrollLayer performSelectorOnMainThread:@selector(setNeedsLayout) withObject:nil waitUntilDone:YES]; } }// [self fixLayerState]; } }
-//- (void) setOrientation:(AZOrient)o	{ if ( oreo        != o) { oreo      	= o; [scrollLayer setNeedsLayout]; }	 }
+//- (void) setOrientation:(AZOrient)o	{ if ( oreo		!= o) { oreo	  	= o; [scrollLayer setNeedsLayout]; }	 }
 //- (void) setLayerQueue:(NSMA*)q		{ if ( layerQueue  != q) { layerQueue 	= q; [self 		   fixLayerState]; }	 }
 
 //+ (NSSet*) keyPathsForValuesAffectingFixState { return [NSSet setWithObjects:@"layerQueue", @"offset", nil]; }

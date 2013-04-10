@@ -10,7 +10,7 @@
 //@property (nonatomic, strong) 	NSMA 		*cssAssets, 	*jsAssets;
 @property (strong) NSMS *mString;
 @property (strong) NSOperationQueue *oQ;
-@property            (strong) 	BKSenderBlock 	stringDelegate;
+@property			(strong) 	BKSenderBlock 	stringDelegate;
 
 //- (id)initWithUserStyles:(NSS*)css script:(NSS*)script andInnerHTML:(NSS*) html  calling:(BKSenderBlock)block;
 + (void) initWithUserStyle:(Asset*)css script:(Asset*)script andInnerHTML:(NSS*) html  calling:(BKSenderBlock)block;
@@ -47,7 +47,7 @@ NSString * const custCSS = @"html,	body{height:100%; } #wrap{min-height:100%;hei
 
 - (void) observeValueForKeyPath:(NSS*)kP ofObject:(id)obj change:(NSD*)change context:(void*)c
 {
-    if ( areSame(_oQ, obj) && areSame(kP, @"operations") && _oQ.operations.count == 0 )  {
+	if ( areSame(_oQ, obj) && areSame(kP, @"operations") && _oQ.operations.count == 0 )  {
 		NSLog(@"queue has completed");
 //		self.html = nil;
 	} else	[super observeValueForKeyPath:kP ofObject:obj change:change context:c];
@@ -198,8 +198,8 @@ NSString * const custCSS = @"html,	body{height:100%; } #wrap{min-height:100%;hei
 //	[writer writeHTMLString:@"</body></html>"];
 //	[writer writeToFile:@"~/Desktop/bootie.html" atomically:YES];
 
-    }
-    return self;
+	}
+	return self;
 }
 //-(void) writeCSS:(NSArray*)cssArray {	for (NSString* css in cssArray){
 //		NSString *filePath = [resources stringByAppendingPathComponent:css];
@@ -297,9 +297,9 @@ NSString * const custHTMLRECORDER = @""
 					"<p>"
 					"This is a very basic example for the Recorder.js. Checkout <a href='http://github.com/jwagener/recorder'>GitHub</a> for details and have a look at the source for this file.  Start by clicking record:"
 					"</p><div>"
-					"  <a href='javascript:record()'  id='record'                       >Record</a>"
-					"  <a href='javascript:play()'    id='play'   >Play</a> "
-					"  <a href='javascript:stop()'    id='stop'   >Stop</a>"
+					"  <a href='javascript:record()'  id='record'					   >Record</a>"
+					"  <a href='javascript:play()'	id='play'   >Play</a> "
+					"  <a href='javascript:stop()'	id='stop'   >Stop</a>"
 					"  <a href='javascript:upload()'  id='upload' >Upload to SoundCloud</a>"
 					"</div>"
 					"<span id='time'>0:00</span>"

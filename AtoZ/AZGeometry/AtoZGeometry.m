@@ -214,7 +214,7 @@ AZPOS AZPositionOfRectAtOffsetInsidePerimeterOfRect(NSR inner, CGF offset, NSR o
 	outsz.width == offset 								? AZPositionBottomRight :
 	offset == 0 || offset == AZPerimeter(outer) 	? AZPositionBottomLeft	:
 	outsz.width + outsz.height == offset				? AZPositionTopRight				   :
-	offset == AZPerimeter(outer) - outsz.height  ? AZPositionTopLeft     :
+	offset == AZPerimeter(outer) - outsz.height  ? AZPositionTopLeft	 :
 	outsz.width > offset //? offset < inner.size.width 
 							//? AZPositionBottomLeft 
 							//: offset > outsz.width - inner.size.width 
@@ -927,7 +927,7 @@ return  position == AZPositionTop 		? 	AZRectExceptOriginY(center, outer.size.he
 :											AZRectExceptOriginX(center, outer.origin.x );
 }
 
-FOUNDATION_EXPORT BOOL  AZPointIsInInsetRects    ( NSP point, NSR outside, NSSZ inset ) {
+FOUNDATION_EXPORT BOOL  AZPointIsInInsetRects	( NSP point, NSR outside, NSSZ inset ) {
 	AZInsetRects e =  AZMakeInsideRects(outside, inset);
 	return  NSPInRect(point, e.top) 	?:
 		NSPInRect(point, e.right) 	?:
@@ -1068,7 +1068,7 @@ NSR quadrant(NSR r, AZQuadrant quad)
 	NSR newR  = AZRectBy(half.width, half.height);
 	NSP p 	  = quad == AZTopLeftQuad  ? (NSP) { 0, 			 half.height }
 		  : quad == AZTopRightQuad ? (NSP) { half.width, half.height }
-		  : quad == AZBotRightQuad ? (NSP) { half.width,           0 }
+		  : quad == AZBotRightQuad ? (NSP) { half.width,		   0 }
 		  :	NSZeroPoint;
 		 
 	return AZOffsetRect(newR, p);

@@ -54,12 +54,12 @@
 	WeakMutableArray *weakling = WeakMutableArray.new;
 	[self cw_each:^(id obj, NSUInteger index, BOOL *stop) {
 		id rObj = block(obj);
-        if (rObj) {
+		if (rObj) {
 			WeakReferenceObject *weakO = [WeakReferenceObject weakReferenceObjectWithObject:rObj];
-            [weakling addObject:weakO];
-        }
+			[weakling addObject:weakO];
+		}
 	}];
-    return weakling;
+	return weakling;
 }
 @end
 @implementation WeakMutableArray {

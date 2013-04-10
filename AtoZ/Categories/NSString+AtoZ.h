@@ -50,7 +50,9 @@
 + (NSS*) randomWord;
 
 + (NSArray*) badWords;
++ (NSA*) properNames;
 
+- (NSS*)paddedTo:(NSUI) count;
 
 - (NSS*)parseXMLTag:(NSS*)tag;
 - (NSString*)stripHtml;
@@ -473,8 +475,8 @@ extern int gNSStringGeometricsTypesetterBehavior ;
 /*!
  *  @file
  *  @brief [NSString][0] and [NSMutableString][1] extension category collection
- *      [0]: https://developer.apple.com/library/mac/#documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/Reference/NSString.html
- *      [1]: https://developer.apple.com/library/mac/#documentation/Cocoa/Reference/Foundation/Classes/NSMutableString_Class/Reference/Reference.html
+ *	  [0]: https://developer.apple.com/library/mac/#documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/Reference/NSString.html
+ *	  [1]: https://developer.apple.com/library/mac/#documentation/Cocoa/Reference/Foundation/Classes/NSMutableString_Class/Reference/Reference.html
  */
 
 /*!
@@ -487,7 +489,7 @@ extern int gNSStringGeometricsTypesetterBehavior ;
 /*!
  *  @brief Initialize an NSString from integer value.
  *  @details Implemented with [NSString initWithFormat:][0]
- *      [0]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/Reference/NSString.html#//apple_ref/occ/instm/NSString/initWithFormat:
+ *	  [0]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/Reference/NSString.html#//apple_ref/occ/instm/NSString/initWithFormat:
  */
 - (id)initWithInteger:(NSInteger)value;
 
@@ -508,14 +510,14 @@ extern int gNSStringGeometricsTypesetterBehavior ;
 /*!
  *  @brief Creates and returns an NSString object initialized by using a given format string as a template into which the remaining argument values are substituted according to the user’s default locale.
  *  @see [initWithFormat:arguments:][0]
- *      [0]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/Reference/NSString.html#//apple_ref/occ/instm/NSString/initWithFormat:arguments:
+ *	  [0]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/Reference/NSString.html#//apple_ref/occ/instm/NSString/initWithFormat:arguments:
  */
 + (id)stringWithFormat:(NSString *)format arguments:(va_list)argList NS_FORMAT_FUNCTION(1,0);
 
 /*!
  *  @brief Creates and returns an NSString object initialized by converting given data into Unicode characters using a given encoding.
  *  @see [initWithData:encoding:][0]
- *      [0]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/Reference/NSString.html#//apple_ref/occ/instm/NSString/initWithData:encoding:
+ *	  [0]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/Reference/NSString.html#//apple_ref/occ/instm/NSString/initWithData:encoding:
  */
 + (id)stringWithData:(NSData *)data encoding:(NSStringEncoding)encoding;
 
@@ -536,7 +538,7 @@ extern int gNSStringGeometricsTypesetterBehavior ;
  *  @param aString A string.
  *  @returns YES if aString is contained in the receiver, otherwise NO. Returns NO if aString is empty.
  *  @see [rangeOfString:][1]
- *      [1]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/Reference/NSString.html#//apple_ref/occ/instm/NSString/rangeOfString:
+ *	  [1]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/Reference/NSString.html#//apple_ref/occ/instm/NSString/rangeOfString:
  */
 - (BOOL)hasSubstring:(NSString *)aString;
 
@@ -550,7 +552,7 @@ extern int gNSStringGeometricsTypesetterBehavior ;
  *  @warning Implementation of this method is not optimized enough so this is slow for some case.
  *  @see format0:
  *  @see [stringWithFormat:][0]
- *      [0]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/Reference/NSString.html#//apple_ref/occ/clm/NSString/stringWithFormat:
+ *	  [0]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/Reference/NSString.html#//apple_ref/occ/clm/NSString/stringWithFormat:
  */
 - (NSString *)format:(id)first, ...;
 /*!
@@ -561,7 +563,7 @@ extern int gNSStringGeometricsTypesetterBehavior ;
  *  @details This ignores first argument. Pass anything.
  *  @see format:
  *  @see [stringWithFormat:][0]
- *      [0]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/Reference/NSString.html#//apple_ref/occ/clm/NSString/stringWithFormat:
+ *	  [0]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/Reference/NSString.html#//apple_ref/occ/clm/NSString/stringWithFormat:
  */
 - (NSString *)format0:(id)dummyLikeNil, ...;
 
@@ -570,7 +572,7 @@ extern int gNSStringGeometricsTypesetterBehavior ;
 /*!
  *  @brief Returns range of string.
  *  @see [NSRangeFromString][0]
- *      [0]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Miscellaneous/Foundation_Functions/Reference/reference.html#//apple_ref/c/func/NSRangeFromString
+ *	  [0]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Miscellaneous/Foundation_Functions/Reference/reference.html#//apple_ref/c/func/NSRangeFromString
  */
 - (NSRange)range;
 
@@ -580,7 +582,7 @@ extern int gNSStringGeometricsTypesetterBehavior ;
  *  @param length A length. The summation of this value and from index must lie within the bounds of the receiver, or be equal to the length of the receiver.
  *  @return new string containing the characters of the receiver from the one at from index with given length.
  *  @see [substringWithRange:][0]
- *      [0]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/Reference/NSString.html#//apple_ref/occ/instm/NSString/substringWithRange:
+ *	  [0]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/Reference/NSString.html#//apple_ref/occ/instm/NSString/substringWithRange:
  */
 - (NSString *)substringFromIndex:(NSUInteger)from length:(NSUInteger)length;
 /*!
@@ -589,7 +591,7 @@ extern int gNSStringGeometricsTypesetterBehavior ;
  *  @param to An index. The value must lie within the bounds of the receiver, or be equal to the length of the receiver.
  *  @return new string containing the characters of the receiver from the one at from index to to index.
  *  @see [substringWithRange:][0]
- *      [0]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/Reference/NSString.html#//apple_ref/occ/instm/NSString/substringWithRange:
+ *	  [0]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/Reference/NSString.html#//apple_ref/occ/instm/NSString/substringWithRange:
  */
 - (NSString *)substringFromIndex:(NSUInteger)from toIndex:(NSUInteger)to;
 
@@ -598,7 +600,7 @@ extern int gNSStringGeometricsTypesetterBehavior ;
 /*!
  *  @brief Shortcut for UTF8
  *  @see [NSUTF8StringEncoding][0]
- *      [0]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/Reference/NSString.html#//apple_ref/c/econst/NSUTF8StringEncoding
+ *	  [0]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/Reference/NSString.html#//apple_ref/c/econst/NSUTF8StringEncoding
  */
 @interface NSString (NSUTF8StringEncoding)
 
@@ -611,20 +613,20 @@ extern int gNSStringGeometricsTypesetterBehavior ;
 /*!
  *  @brief Returns a representation of the receiver using UTF8 encoding to determine the percent escapes necessary to convert the receiver into a legal URL string.
  *  @see [stringByAddingPercentEscapesUsingEncoding:][0]
- *      [0]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/Reference/NSString.html#//apple_ref/occ/instm/NSString/stringByAddingPercentEscapesUsingEncoding:
+ *	  [0]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/Reference/NSString.html#//apple_ref/occ/instm/NSString/stringByAddingPercentEscapesUsingEncoding:
  */
 - (NSString *)stringByAddingPercentEscapesUsingUTF8Encoding;
 /*!
  *  @brief Returns a new string made by replacing in the receiver all percent escapes with the matching characters as determined by UTF8 encoding.
  *  @see [stringByReplacingPercentEscapesUsingEncoding:][0]
- *      [0]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/Reference/NSString.html#//apple_ref/occ/instm/NSString/stringByAddingPercentEscapesUsingEncoding:
+ *	  [0]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/Reference/NSString.html#//apple_ref/occ/instm/NSString/stringByAddingPercentEscapesUsingEncoding:
  */
 - (NSString *)stringByReplacingPercentEscapesUsingUTF8Encoding;
 
 /*!
  *  @brief Returns an NSData object containing a representation of the receiver encoded using UTF8 encoding.
  *  @see [dataUsingEncoding:][0]
- *      [0]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/Reference/NSString.html#//apple_ref/occ/instm/NSString/dataUsingEncoding:
+ *	  [0]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/Reference/NSString.html#//apple_ref/occ/instm/NSString/dataUsingEncoding:
  */
 - (NSData *)dataUsingUTF8Encoding;
 
@@ -641,8 +643,8 @@ extern int gNSStringGeometricsTypesetterBehavior ;
  *  @param radix Base radix of text reperesentation.
  *  @return The [NSInteger][0] value of the receiver’s text with given base radix.
  *  @see [integerValue][1]
- *      [0]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Miscellaneous/Foundation_DataTypes/Reference/reference.html#//apple_ref/doc/c_ref/NSInteger
- *      [1]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/Reference/NSString.html#//apple_ref/occ/instm/NSString/integerValue
+ *	  [0]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Miscellaneous/Foundation_DataTypes/Reference/reference.html#//apple_ref/doc/c_ref/NSInteger
+ *	  [1]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/Reference/NSString.html#//apple_ref/occ/instm/NSString/integerValue
  */
 - (NSInteger)integerValueBase:(NSInteger)radix;
 /*!
@@ -650,8 +652,8 @@ extern int gNSStringGeometricsTypesetterBehavior ;
  *  @return The [NSInteger][0] value of the receiver’s text with 16 base.
  *  @see [integerValue][1]
  *  @see integerValueBase:
- *      [0]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Miscellaneous/Foundation_DataTypes/Reference/reference.html#//apple_ref/doc/c_ref/NSInteger
- *      [1]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/Reference/NSString.html#//apple_ref/occ/instm/NSString/integerValue
+ *	  [0]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Miscellaneous/Foundation_DataTypes/Reference/reference.html#//apple_ref/doc/c_ref/NSInteger
+ *	  [1]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/Reference/NSString.html#//apple_ref/occ/instm/NSString/integerValue
  */
 - (NSInteger)hexadecimalValue;
 

@@ -120,7 +120,7 @@ NSS *const kAZFavIconOperationDidEndNetworkActivity   = @"kAZFavIconOperationDid
 
 - (void)main
 {
-	if (self.isCancelled)                             return;
+	if (self.isCancelled)							 return;
 	if (_preFlightBlock ) if (!_preFlightBlock(_url)) return;
 
 	NSIMG *icon = [self searchURLForImages:_url withNames:_defaultNames];
@@ -202,7 +202,7 @@ NSS *const kAZFavIconOperationDidEndNetworkActivity   = @"kAZFavIconOperationDid
 				{
 					NSIMG   *newIcon = [NSIMG imageWithData:data];
 					if (newIcon) {	icon = newIcon; icon.name = url.host;
-						           *stop = [self isIconValid:icon];	}
+								   *stop = [self isIconValid:icon];	}
 				}
 			}
 		} else	*stop = true;
@@ -242,7 +242,7 @@ NSS *const kAZFavIconOperationDidEndNetworkActivity   = @"kAZFavIconOperationDid
 
 - (void)removeAllObjects
 {
-	[_fileManager      removeItemAtPath:_cacheDirectory error:nil];
+	[_fileManager	  removeItemAtPath:_cacheDirectory error:nil];
 	[_fileManager createDirectoryAtPath:_cacheDirectory withIntermediateDirectories:YES attributes:nil error:nil];
 	[super removeAllObjects];
 }

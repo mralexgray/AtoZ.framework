@@ -109,11 +109,11 @@
 	[self willChangeValueForKey:@"isFinished"];
 	[self willChangeValueForKey:@"isExecuting"];
 
-    executing = NO;
-    finished = YES;
+	executing = NO;
+	finished = YES;
 
-    [self didChangeValueForKey:@"isFinished"];
-    [self didChangeValueForKey:@"isExecuting"];
+	[self didChangeValueForKey:@"isFinished"];
+	[self didChangeValueForKey:@"isExecuting"];
 }
 
 - (void)timer:(NSTimer *)t

@@ -38,7 +38,7 @@ CATransform3D CA3DxyZRotation(CAT3D xYRotation, CAT3D zRotation) {
 }
 /* Delegate method called by CAAnimation at end of animation	*/
 - (void) animationDidStop:(CAAnimation *)theAnimation
-                 finished:(BOOL)flag {
+				 finished:(BOOL)flag {
 	if( flag ) {
 		if( !self.blockOnAnimationSucceeded ) return;
 		self.blockOnAnimationSucceeded();
@@ -547,13 +547,17 @@ static char TEXT_IDENTIFIER;
 
 #define kCALayerLabel @"CALayerLabel"
 @implementation CALayer (AtoZ)
+@dynamic hostView;
 
 - (NSA*) sublayersAscending { return  [self.sublayers sortedWithKey:@"frameX" ascending:YES]; }
 
-- (void) setHostView:(NSView *)hostView {
-	[self setAssociatedValue:hostView forKey:@"hostView" policy:OBJC_ASSOCIATION_RETAIN];
+
+- (void) setHostView:(NSView *)hostView	{
+
+	[self setAssociatedValue:hostView forKey:@"hostView" policy:OBJC_ASSOCIATION_ASSIGN];
+
 }
-- (NSV*) hostView { return  [self associatedValueForKey:@"hostView"]; }  
+- (NSV*) hostView { return  [self associatedValueForKey:@"hostView"] ?: nil; }
 
 - (NSR) actuallyVisibleRect;
 {
@@ -662,7 +666,7 @@ static char TEXT_IDENTIFIER;
 
 //+ (NSArray *)uncodableKeys
 //{
-//    return [self propertyNames];
+//	return [self propertyNames];
 //}
 //
 //- (void)setWithCoder:(NSCoder *)coder
@@ -672,8 +676,8 @@ static char TEXT_IDENTIFIER;
 //}
 //- (void)encodeWithCoder:(NSCoder *)coder
 //{
-//    [super encodeWithCoder:coder];
-//    [self autoDecode:coder]; //encodeObject:ENCODE_VALUE(self.newProperty) forKey:@"uncodableProperty"];
+//	[super encodeWithCoder:coder];
+//	[self autoDecode:coder]; //encodeObject:ENCODE_VALUE(self.newProperty) forKey:@"uncodableProperty"];
 //}
 
 //	[[self.class uncodableKeys] each:^(NSS* key) {
@@ -683,8 +687,8 @@ static char TEXT_IDENTIFIER;
 //
 //- (void)encodeWithCoder:(NSCoder *)coder
 //{
-//    [super encodeWithCoder:coder];
-//    [coder encodeObject:ENCODE_VALUE(self.newProperty) forKey:@"uncodableProperty"];
+//	[super encodeWithCoder:coder];
+//	[coder encodeObject:ENCODE_VALUE(self.newProperty) forKey:@"uncodableProperty"];
 //}
 //
 //

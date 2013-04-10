@@ -10,7 +10,7 @@
 @implementation TUIVVC
 @synthesize button, removeButton, collapsed, containerView;
 
-- (id)initWithNibName:(NSS*)name bundle:(NSB*)nib	{    return self = self = [super initWithNibName:name bundle:nib];	 }
+- (id)initWithNibName:(NSS*)name bundle:(NSB*)nib	{	return self = self = [super initWithNibName:name bundle:nib];	 }
 
 - (void)awakeFromNib										 	{
 
@@ -26,8 +26,8 @@
 	_horizontalLayout.typeOfLayout 	= AHLayoutHorizontal;
 	_horizontalLayout.arMASK 		 	= TUIViewAutoresizingFlexibleBottomMargin | 
 												  TUIViewAutoresizingFlexibleWidth;
-	_horizontalLayout.dataSource 	      = self;
-	_horizontalLayout.clipsToBounds     = YES;
+	_horizontalLayout.dataSource 		  = self;
+	_horizontalLayout.clipsToBounds	 = YES;
 	_horizontalLayout.spaceBetweenViews = 0;
 	_horizontalLayout.viewClass 			= AZExpandableView.class;
 //	_horizontalLayout.reloadHandler 		= self.reloadHandler;

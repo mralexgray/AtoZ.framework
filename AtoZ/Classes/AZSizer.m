@@ -32,10 +32,10 @@ NSUI gcd (NSI m, NSUI n) { NSI t, r;
 -(id) initWithDictionary:(NSD*)d
 {
 	self 			 = [self.class instance];
-	self.remainder 	 = [d integerForKey:	      @"remainder" defaultValue:0];
+	self.remainder 	 = [d integerForKey:		  @"remainder" defaultValue:0];
 	self.rows 		 = [d unsignedIntegerForKey:	  @"rows"];
 	self.columns 	 = [d unsignedIntegerForKey: @"columns"];
-	self.frame	 	 = [d rectForKey:			      @"screen"];
+	self.frame	 	 = [d rectForKey:				  @"screen"];
 	self.width 		 =  _frame.size.width  / (CGF) _columns;
 	self.height 	 =  _frame.size.height / (CGF) _rows 	;
 	self.aspectRatio=  _width / _height ;
@@ -96,7 +96,7 @@ NSUI gcd (NSI m, NSUI n) { NSI t, r;
 	sizer.height  		= s.height;
 	return sizer;
 }
-+ (AZSizer*) forQuantity: (NSUI)aNumber    inRect:(NSR)aFrame
++ (AZSizer*) forQuantity: (NSUI)aNumber	inRect:(NSR)aFrame
 {
 	return [self.alloc initWithQuantity:aNumber inRect:aFrame];
 }
@@ -109,7 +109,7 @@ NSUI gcd (NSI m, NSUI n) { NSI t, r;
 	totalBoc.quantity	= MAX(aNumber, 1);
 	totalBoc.rows 		= ceil(  (aNumber * percentHigh)  / 2 );
 	totalBoc.columns 	= aNumber - 	totalBoc.rows		 / 2 ;
-	while ( totalBoc.remainder < 0 )	totalBoc.rows     += 1;
+	while ( totalBoc.remainder < 0 )	totalBoc.rows	 += 1;
 	while ( totalBoc.remainder > 2 ) totalBoc.columns  -= 1;
 	totalBoc.width 	= normalFrame.size.width / totalBoc.columns;
 	totalBoc.height 	= normalFrame.size.height /totalBoc.rows;// - (2 * totalBoc.width)) / totalBoc.rows;
@@ -118,7 +118,7 @@ NSUI gcd (NSI m, NSUI n) { NSI t, r;
 }
 + (AZSizer*) forObjects:  (NSA*)objects  withFrame:(NSR)aFrame arranged:(AZOrient)arr
 {
-	AZSizer *sassy = arr == AZOrientGrid      ? [self forQuantity:objects.count inRect:aFrame] 
+	AZSizer *sassy = arr == AZOrientGrid	  ? [self forQuantity:objects.count inRect:aFrame] 
 						: arr == AZOrientPerimeter ? [self forQuantity:objects.count aroundRect:aFrame] : nil;
 	if (!sassy) return nil;
 	sassy.objects 	= objects;	sassy.orient 	= arr;	return sassy;
@@ -130,9 +130,9 @@ NSUI gcd (NSI m, NSUI n) { NSI t, r;
 + (NSR)  structForQuantity:(NSUI)aNumber  inRect:(NSR)aFrame	{
 
 	AZSizer *r = [self.alloc initWithQuantity:aNumber inRect:aFrame];
-	return 	     NSMakeRect( r.rows, r.columns, r.width, r.height );
+	return 		 NSMakeRect( r.rows, r.columns, r.width, r.height );
 }
-+ (NSR)  rectForQuantity:  (NSUI)q        ofSize:(NSSZ)s withColumns:(NSUI)c	{
++ (NSR)  rectForQuantity:  (NSUI)q		ofSize:(NSSZ)s withColumns:(NSUI)c	{
 
 	CGF width, height; int rows;
 	width 	= c * s.width;
@@ -200,7 +200,7 @@ NSUI gcd (NSI m, NSUI n) { NSI t, r;
 { return self.capacity - _quantity;  }
 - (NSUI) capacity	
 {	return _orient == AZOrientPerimeter	? (2 * self.columns) + (2 * self.rows) - 2
-	:	 _orient == AZOrientGrid      ? _columns * _rows : _quantity;
+	:	 _orient == AZOrientGrid	  ? _columns * _rows : _quantity;
 	/* _orient == AZOrientGrid *///	:  self.rows * self.columns;
 }
 

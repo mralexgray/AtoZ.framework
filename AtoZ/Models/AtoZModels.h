@@ -15,7 +15,7 @@
 
 extern NSString *TagsDefaultsKey;
 @interface Tweet : NSObject
-@property (nonatomic, strong) NSDate    *createdAtDate;
+@property (nonatomic, strong) NSDate	*createdAtDate;
 @property (nonatomic, strong) NSString  *screenNameString, *createdAtString, *tweetTextString;
 - (id)initWithJSON:(NSDictionary *)JSONObject;
 @end

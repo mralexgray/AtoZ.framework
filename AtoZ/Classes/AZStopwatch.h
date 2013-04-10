@@ -15,7 +15,7 @@
 @interface AZStopwatch : NSObject 
 
 //+ (void) timerBlock:((^)(char *file))block;
-+ (void) named:    (NSS*)name block: (VoidBlock)block;
++ (void) named:	(NSS*)name block: (VoidBlock)block;
 + (void) stopwatch:(NSS*)name timing:(VoidBlock)block;
 + (void) start:	 (NSS*)name;
 + (void) stop:		 (NSS*)name;

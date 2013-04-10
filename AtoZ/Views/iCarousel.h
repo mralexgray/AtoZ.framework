@@ -207,8 +207,8 @@ typedef enum{	OPTION1,	OPTION2,	OPTION3,	OPTION4,	OPTION5,	OPTION6,	OPTION7,	OPT
 - (void) reloadItemAtIndex: 		 (NSI)index 		 animated: (BOOL)animated;
 - (void) reloadData;
 
-- (UIView*)      itemViewAtIndex: (NSI)index;
-- (NSI)          indexOfItemView: (UIView*) view;
+- (UIView*)	  itemViewAtIndex: (NSI)index;
+- (NSI)		  indexOfItemView: (UIView*) view;
 - (NSI) indexOfItemViewOrSubview: (UIView*) view;
 //- (CGF)offsetForItemAtIndex: 	(NSI)index;
 
@@ -243,10 +243,10 @@ typedef enum{	OPTION1,	OPTION2,	OPTION3,	OPTION4,	OPTION5,	OPTION6,	OPTION7,	OPT
 - (CGF)carouselItemWidth: (iC*) carousel;
 
 - (CAT3D)carousel: (iC*) carousel itemTransformForOffset: (CGF)offset
-													    baseTransform: (CAT3D)transform;
+														baseTransform: (CAT3D)transform;
 
 - (CGF)carousel: (iC*) carousel valueForOption: (iCarouselOption)option
-														    withDefault: (CGF)value;
+															withDefault: (CGF)value;
 
 @end
 

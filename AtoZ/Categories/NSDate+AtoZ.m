@@ -77,8 +77,8 @@
  * you're better off using daysAgoAgainstMidnight
  */
 - (NSUInteger)daysAgo {
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSDateComponents *components = [calendar components:(NSDayCalendarUnit)
+	NSCalendar *calendar = [NSCalendar currentCalendar];
+	NSDateComponents *components = [calendar components:(NSDayCalendarUnit)
 											   fromDate:self
 												 toDate:[NSDate date]
 												options:0];
@@ -116,8 +116,8 @@
 }
 
 - (NSUInteger)weekday {
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSDateComponents *weekdayComponents = [calendar components:(NSWeekdayCalendarUnit) fromDate:self];
+	NSCalendar *calendar = [NSCalendar currentCalendar];
+	NSDateComponents *weekdayComponents = [calendar components:(NSWeekdayCalendarUnit) fromDate:self];
 	return [weekdayComponents weekday];
 }
 
@@ -142,24 +142,24 @@
 }
 
 + (NSString *)stringForDisplayFromDate:(NSDate *)date prefixed:(BOOL)prefixed alwaysDisplayTime:(BOOL)displayTime {
-    /*
+	/*
 	 * if the date is in today, display 12-hour time with meridian,
 	 * if it is within the last 7 days, display weekday name (Friday)
 	 * if within the calendar year, display as Jan 23
 	 * else display as Nov 11, 2008
 	 */
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSDateFormatter *displayFormatter = [[NSDateFormatter alloc] init];
+	NSCalendar *calendar = [NSCalendar currentCalendar];
+	NSDateFormatter *displayFormatter = [[NSDateFormatter alloc] init];
 
 	NSDate *today = [NSDate date];
-    NSDateComponents *offsetComponents = [calendar components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit)
+	NSDateComponents *offsetComponents = [calendar components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit)
 													 fromDate:today];
 
 	NSDate *midnight = [calendar dateFromComponents:offsetComponents];
 	NSString *displayString = nil;
 
 	// comparing against midnight
-    NSComparisonResult midnight_result = [date compare:midnight];
+	NSComparisonResult midnight_result = [date compare:midnight];
 	if (midnight_result == NSOrderedDescending) {
 		if (prefixed) {
 			[displayFormatter setDateFormat:@"'at' h:mm a"]; // at 11:30 am
@@ -172,13 +172,13 @@
 		[componentsToSubtract setDay:-7];
 		NSDate *lastweek = [calendar dateByAddingComponents:componentsToSubtract toDate:today options:0];
 		[componentsToSubtract release];
-        NSComparisonResult lastweek_result = [date compare:lastweek];
+		NSComparisonResult lastweek_result = [date compare:lastweek];
 		if (lastweek_result == NSOrderedDescending) {
-            if (displayTime) {
-                [displayFormatter setDateFormat:@"EEEE h:mm a"];
-            } else {
-                [displayFormatter setDateFormat:@"EEEE"]; // Tuesday
-            }
+			if (displayTime) {
+				[displayFormatter setDateFormat:@"EEEE h:mm a"];
+			} else {
+				[displayFormatter setDateFormat:@"EEEE"]; // Tuesday
+			}
 		} else {
 			// check if same calendar year
 			NSInteger thisYear = [offsetComponents year];
@@ -187,19 +187,19 @@
 														   fromDate:date];
 			NSInteger thatYear = [dateComponents year];
 			if (thatYear >= thisYear) {
-                if (displayTime) {
-                    [displayFormatter setDateFormat:@"MMM d h:mm a"];
-                }
-                else {
-                    [displayFormatter setDateFormat:@"MMM d"];
-                }
+				if (displayTime) {
+					[displayFormatter setDateFormat:@"MMM d h:mm a"];
+				}
+				else {
+					[displayFormatter setDateFormat:@"MMM d"];
+				}
 			} else {
-                if (displayTime) {
-                    [displayFormatter setDateFormat:@"MMM d, yyyy h:mm a"];
-                }
-                else {
-                    [displayFormatter setDateFormat:@"MMM d, yyyy"];
-                }
+				if (displayTime) {
+					[displayFormatter setDateFormat:@"MMM d, yyyy h:mm a"];
+				}
+				else {
+					[displayFormatter setDateFormat:@"MMM d, yyyy"];
+				}
 			}
 		}
 		if (prefixed) {
@@ -212,7 +212,7 @@
 	// use display formatter to return formatted date string
 	displayString = [displayFormatter stringFromDate:date];
 
-    [displayFormatter release];
+	[displayFormatter release];
 
 	return displayString;
 }
@@ -250,7 +250,7 @@
 	// largely borrowed from "Date and Time Programming Guide for Cocoa"
 	// we'll use the default calendar and hope for the best
 	NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSDate *beginningOfWeek = nil;
+	NSDate *beginningOfWeek = nil;
 	BOOL ok = [calendar rangeOfUnit:NSWeekCalendarUnit startDate:&beginningOfWeek
 						   interval:NULL forDate:self];
 	if (ok) {
@@ -278,16 +278,16 @@
 }
 
 - (NSDate *)beginningOfDay {
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    // Get the weekday component of the current date
+	NSCalendar *calendar = [NSCalendar currentCalendar];
+	// Get the weekday component of the current date
 	NSDateComponents *components = [calendar components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit)
 											   fromDate:self];
 	return [calendar dateFromComponents:components];
 }
 
 - (NSDate *)endOfWeek {
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    // Get the weekday component of the current date
+	NSCalendar *calendar = [NSCalendar currentCalendar];
+	// Get the weekday component of the current date
 	NSDateComponents *weekdayComponents = [calendar components:NSWeekdayCalendarUnit fromDate:self];
 	NSDateComponents *componentsToAdd = [[NSDateComponents alloc] init];
 	// to get the end of week for a particular date, add (7 - weekday) days

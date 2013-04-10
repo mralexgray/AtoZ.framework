@@ -218,14 +218,14 @@ static ColorNameRec sColorTable[] = {
 	int count = colors.count;
 	int i = 0;
 	CGFloat locations[colors.count];
-    for (i; i < count; i++) locations[i] = (CGF)((float)i/(float)count);
+	for (i; i < count; i++) locations[i] = (CGF)((float)i/(float)count);
 
 	NSGradient *gradient = [NSGradient.alloc initWithColors: colors
 												atLocations: locations
 												 colorSpace: NSColorSpace.genericRGBColorSpace];
 	NSSize imageSize = NSMakeSize(100, 4);
-    NSBitmapImageRep *bitmapRep =
-    [NSBitmapImageRep.alloc initWithBitmapDataPlanes:NULL
+	NSBitmapImageRep *bitmapRep =
+	[NSBitmapImageRep.alloc initWithBitmapDataPlanes:NULL
 										  pixelsWide:imageSize.width
 										  pixelsHigh:imageSize.height
 									   bitsPerSample:8	samplesPerPixel:4
@@ -250,19 +250,19 @@ static ColorNameRec sColorTable[] = {
 
 // :AZRectFromSize(imageSize) angle:270];
 
-//    [[NSC colorWithDeviceRed:0.2 green:0.3 blue:0.7 alpha:0.9]	 set];
-//    //[[NSC colorWithCalibratedWhite:1.0 alpha:1.0] set];
-//    NSRectFillUsingOperation(NSMakeRect(0, 0, imageSize.width,
-//                                        imageSize.height),
+//	[[NSC colorWithDeviceRed:0.2 green:0.3 blue:0.7 alpha:0.9]	 set];
+//	//[[NSC colorWithCalibratedWhite:1.0 alpha:1.0] set];
+//	NSRectFillUsingOperation(NSMakeRect(0, 0, imageSize.width,
+//										imageSize.height),
 //							 NSCompositeCopy);
-//    [[NSC redColor] set]; // adding a rect to see that (and how)
+//	[[NSC redColor] set]; // adding a rect to see that (and how)
 //	it works
-//    [NSBezierPath fillRect:NSMakeRect(50, 50, 200,100)];
+//	[NSBezierPath fillRect:NSMakeRect(50, 50, 200,100)];
 
 
-//    NSLog(@"%@", [bitmapRep colorAtX:10 y:10]);
+//	NSLog(@"%@", [bitmapRep colorAtX:10 y:10]);
 // for a test only:
-//    [[bitmapRep TIFFRepresentation] writeToFile:@"/tmp/tst.tiff"
+//	[[bitmapRep TIFFRepresentation] writeToFile:@"/tmp/tst.tiff"
 //									 atomically:NO];
 //									 NSR rect = AZRectBy(100, 5);
 //	NSIMG *img = [NSIMG imageWithSize:rect.size drawnUsingBlock:^{
@@ -971,6 +971,11 @@ static NSC*ColorWithCSSString(NSS *str) {
 		}];
 	}];
 }
+
++ (NSC*) white:(CGF)percent { return [self colorWithDeviceWhite:percent alpha:1]; }
++ (NSC*) white:(CGF)percent a:(CGF)alpha { return [self colorWithDeviceWhite:percent alpha:alpha]; }
++ (NSC*) r:(CGF)red g:(CGF)green b:(CGF)blue a:(CGF)trans { return [self colorWithDeviceRed:red green:green blue:blue alpha:trans];}
+
 +(NSA*) randomPalette {
 
 	return [NSC colorsInFrameworkListNamed:[[[NSC colorListsInFramework]randomElement] valueForKey:@"name"]];

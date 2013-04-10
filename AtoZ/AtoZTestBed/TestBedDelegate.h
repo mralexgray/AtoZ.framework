@@ -34,12 +34,12 @@
 @property (STRNG)	BLKVIEW  *host;
 @property (STRNG) CASCRLL  *scrlr;
 @property (NATOM) CAGL	   *hit;
-@property (NATOM) NSMD     *model;
+@property (NATOM) NSMD	 *model;
 @property (RONLY) 	NSRNG 	 visible, front, back;
 @property (RONLY) 	NSS	   *fixState;
 @property (RONLY) 	ScrollFix scrollFix;
 @property (RONLY) 	NSS 		*visibleSubsString;
-@property (NATOM) 	CGF 	    off;
+@property (NATOM) 	CGF 		off;
 @property (NATOM)	NSA		*visibleSubs, *subsAscending; // actually visible, and them sorted
 @property (STRNG) 	NSS		*actionStatus; 	 					// Just shows what "actions" are happening.
 

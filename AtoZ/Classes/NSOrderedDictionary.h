@@ -13,9 +13,9 @@
 
 @interface NSOrderedDictionary : NSObject <NSCopying, /*NSFastEnumeration,*/ NSCoding>
 {
-    NSMutableArray *keys;
-    NSMutableArray *objects;
-    NSMutableDictionary *pairs;
+	NSMutableArray *keys;
+	NSMutableArray *objects;
+	NSMutableDictionary *pairs;
 }
 /************ Terminology ************/
 /*

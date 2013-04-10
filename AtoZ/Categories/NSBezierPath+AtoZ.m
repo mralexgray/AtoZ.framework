@@ -411,15 +411,15 @@
 	int i, numElements;
 
 	// Need to begin a path here.
-	CGPathRef           immutablePath = NULL;
+	CGPathRef		   immutablePath = NULL;
 
 	// Then draw the path elements.
 	numElements = [self elementCount];
 	if (numElements > 0)
 	{
-		CGMutablePathRef    path = CGPathCreateMutable();
-		NSPoint             points[3];
-		BOOL                didClosePath = YES;
+		CGMutablePathRef	path = CGPathCreateMutable();
+		NSPoint			 points[3];
+		BOOL				didClosePath = YES;
 
 		for (i = 0; i < numElements; i++)
 		{
@@ -588,6 +588,9 @@ static void CGPathCallback(void *info, const CGPathElement *element)
 
 - (NSBezierPath *)pathWithStrokeWidth:(CGFloat)strokeWidth
 {
+	[self setLineWidth:strokeWidth];
+	return self;
+/*
 #ifdef MCBEZIER_USE_PRIVATE_FUNCTION
 	NSBezierPath *path = [self copy];
 	CGContextRef context = [[NSGraphicsContext currentContext] graphicsPort];
@@ -613,6 +616,7 @@ static void CGPathCallback(void *info, const CGPathElement *element)
 #else
 	return nil;
 #endif//MCBEZIER_USE_PRIVATE_FUNCTION
+*/
 }
 
 - (void)applyInnerShadow:(NSShadow *)shadow {

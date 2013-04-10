@@ -19,10 +19,10 @@
 //@end
 
 /*!
-    @brief  JSON data to representation converter
-    
-    JsonElement get parsed NSArray or NSDictionary data as JSON data.
-    JsonElement provides representation for data for each view type.
+	@brief  JSON data to representation converter
+	
+	JsonElement get parsed NSArray or NSDictionary data as JSON data.
+	JsonElement provides representation for data for each view type.
  */
 #import "AtoZUmbrella.h"
 

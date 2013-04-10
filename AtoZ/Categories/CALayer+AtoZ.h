@@ -27,7 +27,7 @@ CAT3D CA3DConcatenatedTransformation(CAT3D xyZRotation, CAT3D transformation );
 {
 	CABA <#name#> =	[CABA animationWithKeyPath:<#keypath#>];
    <#name#>.beginTime 	= <#interval#>;		<#name#>.endTime 		= <#interval#>;   <#name#>.repeatCount 	= <#repeats#>;
-   <#name#>.fromValue 	= @<#from#>;    	<#name#>.toValue 		= @<#to#>;
+   <#name#>.fromValue 	= @<#from#>;		<#name#>.toValue 		= @<#to#>;
 
    animation.delegate = delegate = CAAnimationBlockDelegate *delegate = 	CAAnimationBlockDelegate.new;
 	delegate.blockOnAnimationStarted 		= ^() { <#logic#> 	};
@@ -130,6 +130,11 @@ extern CAT3D CAT3DMake(CGF m11, CGF m12, CGF m13, CGF m14,
 @end
 
 @interface CAL (AtoZ)
+
+
+@property (RDWRT, ASS)  NSV* hostView;
+- (void) setHostView:(NSView *)hostView;
+- (NSV*) hostView;
 
 - (NSA*) sublayersAscending;
 - (NSA*) visibleSublayers;
@@ -266,15 +271,15 @@ extern CAT3D CAT3DMake(CGF m11, CGF m12, CGF m13, CGF m14,
 - (void) addSublayers:(NSA*)subLayers;
 
 + (CAL*)newGlowingSphereLayer;
-
-
-
 @end
+
+@interface CALayerNonAnimating
+@end
+
 @interface CAL (LTKAdditions)
 
 - (CAL*) permaPresentation;
 
-@property (RDWRT)								  NSV* hostView;
 @property (readwrite, nonatomic, assign) BOOL hovered;
 @property (readwrite, nonatomic, assign) BOOL selected;
 
@@ -331,8 +336,8 @@ extern CAT3D CAT3DMake(CGF m11, CGF m12, CGF m13, CGF m14,
 + (CGF)largestWidthInLayers:(NSArray *)layers;
 + (CGF)largestHeightInLayers:(NSArray *)layers;
 
-- (CAL *)presentationCAL;
-- (CAL *)modelCAL;
+- (CAL *)presentationCALayer;
+- (CAL *)modelCALayer;
 
 - (void)addDefaultFadeTransition;
 - (void)addDefaultMoveInTransitionWithSubtype:(NSString *)subtype;

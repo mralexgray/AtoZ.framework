@@ -32,10 +32,10 @@
 	return  ^{
 		__block NSMAS *fancy = [NSMAS.alloc initWithAttributedString:[NSAS.alloc initWithString:self.name attributes:@{NSFontAttributeName: [AtoZ font:font size:24], NSForegroundColorAttributeName: GREEN}]]; 	// Add the name
 		!self.version ?: [fancy appendAttributedString:[NSAS.alloc initWithString:$(@"\tversion: %@", self.version) attributes:@{NSFontAttributeName: [AtoZ font:font size:18], NSForegroundColorAttributeName:GRAY8}]]; 	// Add the version
-		!self.desc    ?: [fancy appendAttributedString:[NSAS.alloc initWithString:$(@"\nDescription: %@", self.desc) attributes:@{NSFontAttributeName: [AtoZ font:font size:18], NSForegroundColorAttributeName:BLACK}]]; 	// Add the version
-		!self.desc    ?: [fancy appendAttributedString:[NSAS.alloc initWithString:$(@"\nURL: %@", self.url) attributes:@{NSFontAttributeName: [AtoZ font:font size:18], NSForegroundColorAttributeName:BLACK}]]; 	// Add the version
+		!self.desc	?: [fancy appendAttributedString:[NSAS.alloc initWithString:$(@"\nDescription: %@", self.desc) attributes:@{NSFontAttributeName: [AtoZ font:font size:18], NSForegroundColorAttributeName:BLACK}]]; 	// Add the version
+		!self.desc	?: [fancy appendAttributedString:[NSAS.alloc initWithString:$(@"\nURL: %@", self.url) attributes:@{NSFontAttributeName: [AtoZ font:font size:18], NSForegroundColorAttributeName:BLACK}]]; 	// Add the version
 
-//		!self.info    ?: ^{																// Add the info
+//		!self.info	?: ^{																// Add the info
 //			NSMAS *fancyInfo = [NSMAS.alloc initWithString:$(@"\n%@\n", self.info)];
 //			//			__block int index = 1;  // Detect the URLs  // Skip the leading newline
 //			[[self.info componentsSeparatedByCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet] reduce:^id  (id memo, NSS*word) {
@@ -71,16 +71,16 @@ static NSDictionary *operations;
 
 + (void)initialize
 {
-	operations = @{	@(BrewOperationNone)	  	:          @"",
-					@(BrewFormulaeInstalled) 	:      @"list",
-					@(BrewFormulaeAvailable)	:    @"search",
+	operations = @{	@(BrewOperationNone)	  	:		  @"",
+					@(BrewFormulaeInstalled) 	:	  @"list",
+					@(BrewFormulaeAvailable)	:	@"search",
 					@(BrewFormulaeOutdated) 	:  @"outdated",
 					@(BrewOperationInstall)	  	:   @"install",
 					@(BrewOperationUninstall) 	: @"uninstall",
-					@(BrewOperationUpdate)    	:    @"update",
+					@(BrewOperationUpdate)		:	@"update",
 					@(BrewOperationUpgrade)   	:   @"upgrade",
-					@(BrewOperationInfo)      	:      @"info",
-					@(BrewOperationDesc)      	:      @"desc"};
+					@(BrewOperationInfo)	  	:	  @"info",
+					@(BrewOperationDesc)	  	:	  @"desc"};
 }
 
 - (NSS*)brewPath { return _brewPath ?: @"/usr/local/bin/brew"; }
@@ -175,10 +175,10 @@ static NSDictionary *operations;
 //			__block NSMAS *fancy = [NSMAS.alloc initWithAttributedString:[NSAS.alloc initWithString:formula.name attributes:@{NSFontAttributeName: [AtoZ font: size:24], NSForegroundColorAttributeName: GREEN}]]; 	// Add the name
 //
 //			!self.version ?: [fancy appendAttributedString:[NSAS.alloc initWithString:$(@"\tversion: %@", self.version) attributes:@{NSFontAttributeName: [AtoZ font:font size:18], NSForegroundColorAttributeName:GRAY8}]]; 	// Add the version
-//			!self.desc    ?: [fancy appendAttributedString:[NSAS.alloc initWithString:$(@"\nDescription: %@", self.desc) attributes:@{NSFontAttributeName: [AtoZ font:font size:18], NSForegroundColorAttributeName:BLACK}]]; 	// Add the version
-//			hadVersion    =  self.version != nil;
-//			hadDesc       =  self.desc    != nil;
-//			!self.info    ?: ^{																// Add the info
+//			!self.desc	?: [fancy appendAttributedString:[NSAS.alloc initWithString:$(@"\nDescription: %@", self.desc) attributes:@{NSFontAttributeName: [AtoZ font:font size:18], NSForegroundColorAttributeName:BLACK}]]; 	// Add the version
+//			hadVersion	=  self.version != nil;
+//			hadDesc	   =  self.desc	!= nil;
+//			!self.info	?: ^{																// Add the info
 //				NSMAS *fancyInfo = [NSMAS.alloc initWithString:$(@"\n%@\n", self.info)];
 //				//			__block int index = 1;  // Detect the URLs  // Skip the leading newline
 //				[[self.info componentsSeparatedByCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet] reduce:^id  (id memo, NSS*word) {
@@ -203,7 +203,7 @@ static NSDictionary *operations;
 //+ (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString *)key
 //{
 //	NSSet  *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
-//    return 	areSame(key, @"shouldLog") 	?	[keyPaths setByAddingObjectsFromSet:NSSET(@"avail",@"installed")] :
+//	return 	areSame(key, @"shouldLog") 	?	[keyPaths setByAddingObjectsFromSet:NSSET(@"avail",@"installed")] :
 //	//			areSame(key, @"avail")	  	?	[keyPaths setByAddingObjectsFromSet:NSSET(@"installed", @"shouldLog")] :
 //	keyPaths;
 //}

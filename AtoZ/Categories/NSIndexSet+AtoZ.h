@@ -22,21 +22,3 @@
 - (NSIndexPath *)indexPathByReplacingIndexAtPosition:(NSUInteger)position withIndex:(NSUInteger)index;
 @end
 
-@interface NoodleIndexSetEnumerator : NSObject
-{
-	NSUInteger	*_indexes;
-	NSUInteger	_count;
-	NSUInteger	_currentIndex;
-}
-
-// Returns NSNotFound when there are no more indexes.
-- (NSUInteger)nextIndex;
-
-@end
-
-
-@interface NSIndexSet (NoodleExtensions)
-
-- (NoodleIndexSetEnumerator *)indexEnumerator;
-
-@end

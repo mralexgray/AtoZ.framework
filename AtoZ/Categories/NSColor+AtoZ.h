@@ -28,6 +28,9 @@
 + (NSA*) colorsWithNames;
 + (NSD*) colorsAndNames;
 + (void) logPalettes;
++ (NSC*) white:(CGF)percent;
++ (NSC*) white:(CGF)percent a:(CGF)alpha;
++ (NSC*) r:(CGF)red g:(CGF)green b:(CGF)blue a:(CGF)trans;
 
 @property (strong, nonatomic) NSS* name;
 - (void) setName:(NSS*) aName;

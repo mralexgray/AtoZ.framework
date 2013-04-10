@@ -58,14 +58,14 @@ static CFHashCode _hashString(const void *value)
 /*
 -(id<CAAction>)actionForKey:(NSString *)event {
 	if ([event isEqualToAnyOf:@[@"startAngle", @"endAngle"]]) {
-      return [self makeAnimationForKey:event];
+	  return [self makeAnimationForKey:event];
 	}
 	return [super actionForKey:event];
 }
 
 - (id)initWithLayer:(id)layer {
 	if (self = [super initWithLayer:layer]) {
-      if ([layer isKindOfClass:AZLAyer.class]) {
+	  if ([layer isKindOfClass:AZLAyer.class]) {
 			AZLayer *other = (AZLayer*)layer;
 			self.startAngle = other.startAngle;
 			self.endAngle = other.endAngle;
@@ -79,7 +79,7 @@ static CFHashCode _hashString(const void *value)
 			//	[self addSublayer:_tLayer];
 			//	[_tLayer addConstraintsSuperSize];
 //			applyPerspective(self);
-      }
+	  }
 	}
 	
 	return self;
@@ -87,7 +87,7 @@ static CFHashCode _hashString(const void *value)
 */
 + (BOOL)needsDisplayForKey:(NSString *)key {
 	if ([key isEqualToString:@"startAngle"] || [key isEqualToString:@"endAngle"]) {
-      return YES;
+	  return YES;
 	}
 	
 	return [super needsDisplayForKey:key];

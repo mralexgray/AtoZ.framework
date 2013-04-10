@@ -11,7 +11,7 @@ extern NSUInteger gcd(NSI m, NSUI n);
 + (AZSizer*)  forQuantity: (NSUI)aNumber	 inRect:(NSR)aFrame;
 + (NSR) structForQuantity: (NSUI)aNumber	 inRect:(NSR)aFrame;
 + (NSR)   rectForQuantity: (NSUI)q 			 ofSize:(NSSize)s  	withColumns:(NSUI)c;
-- (NSR)	    rectForPoint: (NSP)point;
+- (NSR)		rectForPoint: (NSP)point;
 
 @property (NATOM, ASS)   AZOrient		orient;
 @property (NATOM, ASS)   NSR		outerFrame;

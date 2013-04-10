@@ -68,7 +68,7 @@
 
 - (NSString*) getTextFromGoogleWithFlac:(NSString*) flac
 {
-	NSData    *myData	= [NSData dataWithContentsOfFile:flac];
+	NSData	*myData	= [NSData dataWithContentsOfFile:flac];
 	NSMURLREQ *request 	= [NSMURLREQ.alloc initWithURL:	$URL(@"https://www.google.com/speech-api/v1/recognize?xjerr=1&client=chromium&lang=en-US")];
 	request.HTTPMethod 	= @"POST";														//set headers
  	[request setAllHTTPHeaderFields:@{ 	@"Content-Type" 		: 	@"audio/x-flac; rate=16000",

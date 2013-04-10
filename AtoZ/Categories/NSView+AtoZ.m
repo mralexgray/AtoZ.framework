@@ -861,9 +861,9 @@ NSView* AZResizeWindowAndContent(NSWindow* window, CGF dXLeft, CGF dXRight, CGF 
 
 //void NSAnimationContextRunAnimationBlock( dispatch_block_t group, dispatch_block_t completionHandler, NSTimeInterval time )
 //{
-//    [NSAnimationContext runAnimationBlock:group
-//                        completionHandler:completionHandler
-//                                 duration:time];
+//	[NSAnimationContext runAnimationBlock:group
+//						completionHandler:completionHandler
+//								 duration:time];
 //}
 @implementation NSAnimationContext (AtoZ)
 

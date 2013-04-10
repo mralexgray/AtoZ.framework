@@ -150,7 +150,7 @@
 - (NSArray *)filter:(BOOL (^)(id object))block;
 
 - (NSArray *)subIndex:(NSUI)subIndex filter:   (BOOL (^)(id object))block;
-- (id)	     subIndex:(NSUI)subIndex filterOne:(BOOL (^)(id object))block;
+- (id)		 subIndex:(NSUI)subIndex filterOne:(BOOL (^)(id object))block;
 
 //performs block on subindex of array and returns the result of the block
 - (id)subIndex:(NSUI)subIndex block:(MapArrayBlock)block;

@@ -45,19 +45,19 @@
 @property (nonatomic, assign) ShroudIs shroudState;
 
 @property (NATOM, ASS) CGFloat defaultSize;
-@property (weak) IBOutlet id closeButton;
-@property (weak) IBOutlet id quad1;
-@property (weak) IBOutlet id quad2;
-@property (weak) IBOutlet id quad3;
-@property (weak) IBOutlet id quad4;
-@property (weak) IBOutlet id subBar;
+@property (ASS) IBOutlet id closeButton;
+@property (ASS) IBOutlet id quad1;
+@property (ASS) IBOutlet id quad2;
+@property (ASS) IBOutlet id quad3;
+@property (ASS) IBOutlet id quad4;
+@property (ASS) IBOutlet id subBar;
 
-@property (weak) IBOutlet NSWindow *leveler;
-@property (weak) IBOutlet TransparentWindow *shroud;
-@property (weak) IBOutlet TransparentWindow *window;
-@property (weak) IBOutlet NSImageView* view;
+@property (ASS) IBOutlet NSWindow *leveler;
+@property (ASS) IBOutlet TransparentWindow *shroud;
+@property (ASS) IBOutlet TransparentWindow *window;
+@property (ASS) IBOutlet NSImageView* view;
 
-@property (weak) IBOutlet AZSplitView *horizonSplit;
+@property (ASS) IBOutlet AZSplitView *horizonSplit;
 
 @property (nonatomic, assign) NSRect barFrame;
 @property (nonatomic, assign) NSRect barFrameUp;

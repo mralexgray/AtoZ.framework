@@ -22,9 +22,9 @@
 - (NSString *)MD5String
 {
 	const char *cStr = [self UTF8String];
-    unsigned char result[16];
-    CC_MD5( cStr, strlen(cStr), result ); // This is the md5 call
-    return [NSString stringWithFormat:
+	unsigned char result[16];
+	CC_MD5( cStr, strlen(cStr), result ); // This is the md5 call
+	return [NSString stringWithFormat:
 			@"%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
 			result[0], result[1], result[2], result[3],
 			result[4], result[5], result[6], result[7],
@@ -56,7 +56,7 @@
 //  Copyright 2011 Leigh McCulloch. Released under the MIT license.
 @interface NSString_stripHtml_XMLParsee : NSObject<NSXMLParserDelegate> {
 @private
-    NSMutableArray* strings;
+	NSMutableArray* strings;
 }
 - (NSString*)getCharsFound;
 @end
@@ -67,9 +67,9 @@
 	strings = NSMA.new;
 	return self;
 }
-- (void)dealloc	{    [strings release];	}
-- (void)parser:(NSXMLParser*)parser foundCharacters:(NSString*)string {	    [strings addObject:string];	}
-- (NSString*)getCharsFound {    return [strings componentsJoinedByString:@""];	}
+- (void)dealloc	{	[strings release];	}
+- (void)parser:(NSXMLParser*)parser foundCharacters:(NSString*)string {		[strings addObject:string];	}
+- (NSString*)getCharsFound {	return [strings componentsJoinedByString:@""];	}
 @end
 
 @implementation NSString (AtoZ)
@@ -279,6 +279,14 @@
 
 + (NSArray*) badWords { return [NSArray arrayFromPlist:[AZFWRESOURCES withPath:@"BadWords.plist"]]; }
 
+- (NSS*)paddedTo:(NSUI) count { return [self stringByPaddingToLength:count withString:@" " startingAtIndex:0]; }
+
++ (NSA*) properNames {
+
+	NSS* names = @"/usr/share/dict/propernames";
+	return [[[self stringWithContentsOfFile:names usedEncoding:NULL error:NULL] componentsSeparatedByCharactersInSet:NSCharacterSet.newlineCharacterSet]
+		sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+}
 + (Definition*) randomUrbanD;
 {
 	__block Definition *urbanD;
@@ -396,102 +404,102 @@
 }
 
 - (NSString *)stringByDecodingXMLEntities {
-    NSUInteger myLength = [self length];
-    NSUInteger ampIndex = [self rangeOfString:@"&" options:NSLiteralSearch].location;
-    // Short-circuit if there are no ampersands.
-    if (ampIndex == NSNotFound) {
-        return self;
-    }
-    // Make result string with some extra capacity.
-    NSMutableString *result = [NSMutableString stringWithCapacity:(myLength * 1.25)];
-    // First iteration doesn't need to scan to & since we did that already, but for code simplicity's sake we'll do it again with the scanner.
-    NSScanner *scanner = [NSScanner scannerWithString:self];
-    [scanner setCharactersToBeSkipped:nil];
-    NSCharacterSet *boundaryCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@" \t\n\r;"];
-    do {
-        // Scan up to the next entity or the end of the string.
-        NSString *nonEntityString;
-        if ([scanner scanUpToString:@"&" intoString:&nonEntityString]) {
-            [result appendString:nonEntityString];
-        }
-        if ([scanner isAtEnd]) {
-            goto finish;
-        }
-        // Scan either a HTML or numeric character entity reference.
-        if ([scanner scanString:@"&amp;" intoString:NULL])
-            [result appendString:@"&"];
-        else if ([scanner scanString:@"&apos;" intoString:NULL])
-            [result appendString:@"'"];
-        else if ([scanner scanString:@"&quot;" intoString:NULL])
-            [result appendString:@"\""];
-        else if ([scanner scanString:@"&lt;" intoString:NULL])
-            [result appendString:@"<"];
-        else if ([scanner scanString:@"&gt;" intoString:NULL])
-            [result appendString:@">"];
-        else if ([scanner scanString:@"&#" intoString:NULL]) {
-            BOOL gotNumber;
-            unsigned charCode;
-            NSString *xForHex = @"";
-            // Is it hex or decimal?
-            if ([scanner scanString:@"x" intoString:&xForHex]) {
-                gotNumber = [scanner scanHexInt:&charCode];
-            }
-            else {
-                gotNumber = [scanner scanInt:(int*)&charCode];
-            }
-            if (gotNumber) {
-                [result appendFormat:@"%C", (unichar)charCode];
-                [scanner scanString:@";" intoString:NULL];
-            }
-            else {
-                NSString *unknownEntity = @"";
-                [scanner scanUpToCharactersFromSet:boundaryCharacterSet intoString:&unknownEntity];
+	NSUInteger myLength = [self length];
+	NSUInteger ampIndex = [self rangeOfString:@"&" options:NSLiteralSearch].location;
+	// Short-circuit if there are no ampersands.
+	if (ampIndex == NSNotFound) {
+		return self;
+	}
+	// Make result string with some extra capacity.
+	NSMutableString *result = [NSMutableString stringWithCapacity:(myLength * 1.25)];
+	// First iteration doesn't need to scan to & since we did that already, but for code simplicity's sake we'll do it again with the scanner.
+	NSScanner *scanner = [NSScanner scannerWithString:self];
+	[scanner setCharactersToBeSkipped:nil];
+	NSCharacterSet *boundaryCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@" \t\n\r;"];
+	do {
+		// Scan up to the next entity or the end of the string.
+		NSString *nonEntityString;
+		if ([scanner scanUpToString:@"&" intoString:&nonEntityString]) {
+			[result appendString:nonEntityString];
+		}
+		if ([scanner isAtEnd]) {
+			goto finish;
+		}
+		// Scan either a HTML or numeric character entity reference.
+		if ([scanner scanString:@"&amp;" intoString:NULL])
+			[result appendString:@"&"];
+		else if ([scanner scanString:@"&apos;" intoString:NULL])
+			[result appendString:@"'"];
+		else if ([scanner scanString:@"&quot;" intoString:NULL])
+			[result appendString:@"\""];
+		else if ([scanner scanString:@"&lt;" intoString:NULL])
+			[result appendString:@"<"];
+		else if ([scanner scanString:@"&gt;" intoString:NULL])
+			[result appendString:@">"];
+		else if ([scanner scanString:@"&#" intoString:NULL]) {
+			BOOL gotNumber;
+			unsigned charCode;
+			NSString *xForHex = @"";
+			// Is it hex or decimal?
+			if ([scanner scanString:@"x" intoString:&xForHex]) {
+				gotNumber = [scanner scanHexInt:&charCode];
+			}
+			else {
+				gotNumber = [scanner scanInt:(int*)&charCode];
+			}
+			if (gotNumber) {
+				[result appendFormat:@"%C", (unichar)charCode];
+				[scanner scanString:@";" intoString:NULL];
+			}
+			else {
+				NSString *unknownEntity = @"";
+				[scanner scanUpToCharactersFromSet:boundaryCharacterSet intoString:&unknownEntity];
 
-                [result appendFormat:@"&#%@%@", xForHex, unknownEntity];
-                //[scanner scanUpToString:@";" intoString:&unknownEntity];
-                //[result appendFormat:@"&#%@%@;", xForHex, unknownEntity];
-                NSLog(@"Expected numeric character entity but got &#%@%@;", xForHex, unknownEntity);
-            }
-        }
-        else {
-            NSString *amp;
-            [scanner scanString:@"&" intoString:&amp];  //an isolated & symbol
-            [result appendString:amp];
-            /*
+				[result appendFormat:@"&#%@%@", xForHex, unknownEntity];
+				//[scanner scanUpToString:@";" intoString:&unknownEntity];
+				//[result appendFormat:@"&#%@%@;", xForHex, unknownEntity];
+				NSLog(@"Expected numeric character entity but got &#%@%@;", xForHex, unknownEntity);
+			}
+		}
+		else {
+			NSString *amp;
+			[scanner scanString:@"&" intoString:&amp];  //an isolated & symbol
+			[result appendString:amp];
+			/*
 			 NSString *unknownEntity = @"";
 			 [scanner scanUpToString:@";" intoString:&unknownEntity];
 			 NSString *semicolon = @"";
 			 [scanner scanString:@";" intoString:&semicolon];
 			 [result appendFormat:@"%@%@", unknownEntity, semicolon];
 			 NSLog(@"Unsupported XML character entity %@%@", unknownEntity, semicolon);
-             */
-        }
-    }
-    while (![scanner isAtEnd]);
+			 */
+		}
+	}
+	while (![scanner isAtEnd]);
 finish:
-    return result;
+	return result;
 }
 - (NSS*)withPath:(NSS*)path { return [self stringByAppendingPathComponent:path]; }
 - (NSS*)withExt: (NSS*)ext; { return [self stringByAppendingPathExtension:ext];  }
 
 - (NSString*)stripHtml {
-    // take this string obj and wrap it in a root element to ensure only a single root element exists
-    NSString* string = (@"<root>%@</root>", self);
-    // add the string to the xml parser
-    NSStringEncoding encoding = string.fastestEncoding;
-    NSData* data = [string dataUsingEncoding:encoding];
-    NSXMLParser* parser = [[NSXMLParser alloc] initWithData:data];
-    // parse the content keeping track of any chars found outside tags (this will be the stripped content)
-    NSString_stripHtml_XMLParsee* parsee = NSString_stripHtml_XMLParsee.new;
-    parser.delegate = parsee;		[parser parse];
-	NSError * error = nil;    // log any errors encountered while parsing
-    if((error = [parser parserError])) { NSLog(@"This is a warning only. There was an error parsing the string to strip HTML. This error may be because the string did not contain valid XML, however the result will likely have been decoded correctly anyway.: %@", error);    }
-    // any chars found while parsing are the stripped content
-    NSString* strippedString = [parsee getCharsFound];
-    // clean up
-    [parser release];    [parsee release];
-    // get the raw text out of the parsee after parsing, and return it
-    return strippedString;
+	// take this string obj and wrap it in a root element to ensure only a single root element exists
+	NSString* string = (@"<root>%@</root>", self);
+	// add the string to the xml parser
+	NSStringEncoding encoding = string.fastestEncoding;
+	NSData* data = [string dataUsingEncoding:encoding];
+	NSXMLParser* parser = [[NSXMLParser alloc] initWithData:data];
+	// parse the content keeping track of any chars found outside tags (this will be the stripped content)
+	NSString_stripHtml_XMLParsee* parsee = NSString_stripHtml_XMLParsee.new;
+	parser.delegate = parsee;		[parser parse];
+	NSError * error = nil;	// log any errors encountered while parsing
+	if((error = [parser parserError])) { NSLog(@"This is a warning only. There was an error parsing the string to strip HTML. This error may be because the string did not contain valid XML, however the result will likely have been decoded correctly anyway.: %@", error);	}
+	// any chars found while parsing are the stripped content
+	NSString* strippedString = [parsee getCharsFound];
+	// clean up
+	[parser release];	[parsee release];
+	// get the raw text out of the parsee after parsing, and return it
+	return strippedString;
 }
 + (NSString*)clipboard
 {
@@ -959,135 +967,135 @@ finish:
 // http://www.thinkmac.co.uk/blog/2005/05/removing-entities-from-html-in-cocoa.html
 //
 - (NSString *)decodeHTMLCharacterEntities {
-    if ([self rangeOfString:@"&"].location == NSNotFound) {
-        return self;
-    } else {
-        NSMutableString *escaped = [NSMutableString stringWithString:self];
-        NSArray *codes = [NSArray arrayWithObjects:
-                          @"&nbsp;", @"&iexcl;", @"&cent;", @"&pound;", @"&curren;", @"&yen;", @"&brvbar;",
-                          @"&sect;", @"&uml;", @"&copy;", @"&ordf;", @"&laquo;", @"&not;", @"&shy;", @"&reg;",
-                          @"&macr;", @"&deg;", @"&plusmn;", @"&sup2;", @"&sup3;", @"&acute;", @"&micro;",
-                          @"&para;", @"&middot;", @"&cedil;", @"&sup1;", @"&ordm;", @"&raquo;", @"&frac14;",
-                          @"&frac12;", @"&frac34;", @"&iquest;", @"&Agrave;", @"&Aacute;", @"&Acirc;",
-                          @"&Atilde;", @"&Auml;", @"&Aring;", @"&AElig;", @"&Ccedil;", @"&Egrave;",
-                          @"&Eacute;", @"&Ecirc;", @"&Euml;", @"&Igrave;", @"&Iacute;", @"&Icirc;", @"&Iuml;",
-                          @"&ETH;", @"&Ntilde;", @"&Ograve;", @"&Oacute;", @"&Ocirc;", @"&Otilde;", @"&Ouml;",
-                          @"&times;", @"&Oslash;", @"&Ugrave;", @"&Uacute;", @"&Ucirc;", @"&Uuml;", @"&Yacute;",
-                          @"&THORN;", @"&szlig;", @"&agrave;", @"&aacute;", @"&acirc;", @"&atilde;", @"&auml;",
-                          @"&aring;", @"&aelig;", @"&ccedil;", @"&egrave;", @"&eacute;", @"&ecirc;", @"&euml;",
-                          @"&igrave;", @"&iacute;", @"&icirc;", @"&iuml;", @"&eth;", @"&ntilde;", @"&ograve;",
-                          @"&oacute;", @"&ocirc;", @"&otilde;", @"&ouml;", @"&divide;", @"&oslash;", @"&ugrave;",
-                          @"&uacute;", @"&ucirc;", @"&uuml;", @"&yacute;", @"&thorn;", @"&yuml;", nil];
-        NSUInteger i, count = [codes count];
-        // Html
-        for (i = 0; i < count; i++) {
-            NSRange range = [self rangeOfString:[codes objectAtIndex:i]];
-            if (range.location != NSNotFound) {
-                [escaped replaceOccurrencesOfString:[codes objectAtIndex:i]
-                                         withString:$(@"%lu", 160 + i)
-                                            options:NSLiteralSearch
-                                              range:NSMakeRange(0, [escaped length])];
-            }
-        }
-        // The following five are not in the 160+ range
-        // @"&amp;"
-        NSRange range = [self rangeOfString:@"&amp;"];
-        if (range.location != NSNotFound) {
-            [escaped replaceOccurrencesOfString:@"&amp;"
-                                     withString:$(@"%d", 38)
-                                        options:NSLiteralSearch
-                                          range:NSMakeRange(0, [escaped length])];
-        }
-        // @"&lt;"
-        range = [self rangeOfString:@"&lt;"];
-        if (range.location != NSNotFound) {
-            [escaped replaceOccurrencesOfString:@"&lt;"
-                                     withString:$(@"%d", 60)
-                                        options:NSLiteralSearch
-                                          range:NSMakeRange(0, [escaped length])];
-        }
-        // @"&gt;"
-        range = [self rangeOfString:@"&gt;"];
-        if (range.location != NSNotFound) {
-            [escaped replaceOccurrencesOfString:@"&gt;"
-                                     withString:$(@"%d", 62)
-                                        options:NSLiteralSearch
-                                          range:NSMakeRange(0, [escaped length])];
-        }
-        // @"&apos;"
-        range = [self rangeOfString:@"&apos;"];
-        if (range.location != NSNotFound) {
-            [escaped replaceOccurrencesOfString:@"&apos;"
-                                     withString:$(@"%i", 39)
-                                        options:NSLiteralSearch
-                                          range:NSMakeRange(0, [escaped length])];
-        }
-        // @"&quot;"
-        range = [self rangeOfString:@"&quot;"];
-        if (range.location != NSNotFound) {
-            [escaped replaceOccurrencesOfString:@"&quot;"
-                                     withString:[NSString stringWithFormat:@"%d", 34]
-                                        options:NSLiteralSearch
-                                          range:NSMakeRange(0, [escaped length])];
-        }
-        // Decimal & Hex
-        NSRange start, finish, searchRange = NSMakeRange(0, [escaped length]);
-        i = 0;
-        while (i < [escaped length]) {
-            start = [escaped rangeOfString:@"&#"
-                                   options:NSCaseInsensitiveSearch
-                                     range:searchRange];
-            finish = [escaped rangeOfString:@";"
-                                    options:NSCaseInsensitiveSearch
-                                      range:searchRange];
-            if (start.location != NSNotFound && finish.location != NSNotFound &&
-                finish.location > start.location) {
-                NSRange entityRange = NSMakeRange(start.location, (finish.location - start.location) + 1);
-                NSString *entity = [escaped substringWithRange:entityRange];
-                NSString *value = [entity substringWithRange:NSMakeRange(2, [entity length] - 2)];
-                [escaped deleteCharactersInRange:entityRange];
-                if ([value hasPrefix:@"x"]) {
-                    unsigned tempInt = 0;
-                    NSScanner *scanner = [NSScanner scannerWithString:[value substringFromIndex:1]];
-                    [scanner scanHexInt:&tempInt];
-                    [escaped insertString:$(@"%i", tempInt) atIndex:entityRange.location];
-                } else {
-                    [escaped insertString:$(@"%i", [value intValue]) atIndex:entityRange.location];
-                } i = start.location;
-            } else { i++; }
-            searchRange = NSMakeRange(i, [escaped length] - i);
-        }
-        return escaped;    // Note this is autoreleased
-    }
+	if ([self rangeOfString:@"&"].location == NSNotFound) {
+		return self;
+	} else {
+		NSMutableString *escaped = [NSMutableString stringWithString:self];
+		NSArray *codes = [NSArray arrayWithObjects:
+						  @"&nbsp;", @"&iexcl;", @"&cent;", @"&pound;", @"&curren;", @"&yen;", @"&brvbar;",
+						  @"&sect;", @"&uml;", @"&copy;", @"&ordf;", @"&laquo;", @"&not;", @"&shy;", @"&reg;",
+						  @"&macr;", @"&deg;", @"&plusmn;", @"&sup2;", @"&sup3;", @"&acute;", @"&micro;",
+						  @"&para;", @"&middot;", @"&cedil;", @"&sup1;", @"&ordm;", @"&raquo;", @"&frac14;",
+						  @"&frac12;", @"&frac34;", @"&iquest;", @"&Agrave;", @"&Aacute;", @"&Acirc;",
+						  @"&Atilde;", @"&Auml;", @"&Aring;", @"&AElig;", @"&Ccedil;", @"&Egrave;",
+						  @"&Eacute;", @"&Ecirc;", @"&Euml;", @"&Igrave;", @"&Iacute;", @"&Icirc;", @"&Iuml;",
+						  @"&ETH;", @"&Ntilde;", @"&Ograve;", @"&Oacute;", @"&Ocirc;", @"&Otilde;", @"&Ouml;",
+						  @"&times;", @"&Oslash;", @"&Ugrave;", @"&Uacute;", @"&Ucirc;", @"&Uuml;", @"&Yacute;",
+						  @"&THORN;", @"&szlig;", @"&agrave;", @"&aacute;", @"&acirc;", @"&atilde;", @"&auml;",
+						  @"&aring;", @"&aelig;", @"&ccedil;", @"&egrave;", @"&eacute;", @"&ecirc;", @"&euml;",
+						  @"&igrave;", @"&iacute;", @"&icirc;", @"&iuml;", @"&eth;", @"&ntilde;", @"&ograve;",
+						  @"&oacute;", @"&ocirc;", @"&otilde;", @"&ouml;", @"&divide;", @"&oslash;", @"&ugrave;",
+						  @"&uacute;", @"&ucirc;", @"&uuml;", @"&yacute;", @"&thorn;", @"&yuml;", nil];
+		NSUInteger i, count = [codes count];
+		// Html
+		for (i = 0; i < count; i++) {
+			NSRange range = [self rangeOfString:[codes objectAtIndex:i]];
+			if (range.location != NSNotFound) {
+				[escaped replaceOccurrencesOfString:[codes objectAtIndex:i]
+										 withString:$(@"%lu", 160 + i)
+											options:NSLiteralSearch
+											  range:NSMakeRange(0, [escaped length])];
+			}
+		}
+		// The following five are not in the 160+ range
+		// @"&amp;"
+		NSRange range = [self rangeOfString:@"&amp;"];
+		if (range.location != NSNotFound) {
+			[escaped replaceOccurrencesOfString:@"&amp;"
+									 withString:$(@"%d", 38)
+										options:NSLiteralSearch
+										  range:NSMakeRange(0, [escaped length])];
+		}
+		// @"&lt;"
+		range = [self rangeOfString:@"&lt;"];
+		if (range.location != NSNotFound) {
+			[escaped replaceOccurrencesOfString:@"&lt;"
+									 withString:$(@"%d", 60)
+										options:NSLiteralSearch
+										  range:NSMakeRange(0, [escaped length])];
+		}
+		// @"&gt;"
+		range = [self rangeOfString:@"&gt;"];
+		if (range.location != NSNotFound) {
+			[escaped replaceOccurrencesOfString:@"&gt;"
+									 withString:$(@"%d", 62)
+										options:NSLiteralSearch
+										  range:NSMakeRange(0, [escaped length])];
+		}
+		// @"&apos;"
+		range = [self rangeOfString:@"&apos;"];
+		if (range.location != NSNotFound) {
+			[escaped replaceOccurrencesOfString:@"&apos;"
+									 withString:$(@"%i", 39)
+										options:NSLiteralSearch
+										  range:NSMakeRange(0, [escaped length])];
+		}
+		// @"&quot;"
+		range = [self rangeOfString:@"&quot;"];
+		if (range.location != NSNotFound) {
+			[escaped replaceOccurrencesOfString:@"&quot;"
+									 withString:[NSString stringWithFormat:@"%d", 34]
+										options:NSLiteralSearch
+										  range:NSMakeRange(0, [escaped length])];
+		}
+		// Decimal & Hex
+		NSRange start, finish, searchRange = NSMakeRange(0, [escaped length]);
+		i = 0;
+		while (i < [escaped length]) {
+			start = [escaped rangeOfString:@"&#"
+								   options:NSCaseInsensitiveSearch
+									 range:searchRange];
+			finish = [escaped rangeOfString:@";"
+									options:NSCaseInsensitiveSearch
+									  range:searchRange];
+			if (start.location != NSNotFound && finish.location != NSNotFound &&
+				finish.location > start.location) {
+				NSRange entityRange = NSMakeRange(start.location, (finish.location - start.location) + 1);
+				NSString *entity = [escaped substringWithRange:entityRange];
+				NSString *value = [entity substringWithRange:NSMakeRange(2, [entity length] - 2)];
+				[escaped deleteCharactersInRange:entityRange];
+				if ([value hasPrefix:@"x"]) {
+					unsigned tempInt = 0;
+					NSScanner *scanner = [NSScanner scannerWithString:[value substringFromIndex:1]];
+					[scanner scanHexInt:&tempInt];
+					[escaped insertString:$(@"%i", tempInt) atIndex:entityRange.location];
+				} else {
+					[escaped insertString:$(@"%i", [value intValue]) atIndex:entityRange.location];
+				} i = start.location;
+			} else { i++; }
+			searchRange = NSMakeRange(i, [escaped length] - i);
+		}
+		return escaped;	// Note this is autoreleased
+	}
 }
 - (NSString *)encodeHTMLCharacterEntities {
-    NSMutableString *encoded = [NSMutableString stringWithString:self];
-    // @"&amp;"
-    NSRange range = [self rangeOfString:@"&"];
-    if (range.location != NSNotFound) {
-        [encoded replaceOccurrencesOfString:@"&"
-                                 withString:@"&amp;"
-                                    options:NSLiteralSearch
-                                      range:NSMakeRange(0, [encoded length])];
-    }
-    // @"&lt;"
-    range = [self rangeOfString:@"<"];
-    if (range.location != NSNotFound) {
-        [encoded replaceOccurrencesOfString:@"<"
-                                 withString:@"&lt;"
-                                    options:NSLiteralSearch
-                                      range:NSMakeRange(0, [encoded length])];
-    }
-    // @"&gt;"
-    range = [self rangeOfString:@">"];
-    if (range.location != NSNotFound) {
-        [encoded replaceOccurrencesOfString:@">"
-                                 withString:@"&gt;"
-                                    options:NSLiteralSearch
-                                      range:NSMakeRange(0, [encoded length])];
-    }
+	NSMutableString *encoded = [NSMutableString stringWithString:self];
+	// @"&amp;"
+	NSRange range = [self rangeOfString:@"&"];
+	if (range.location != NSNotFound) {
+		[encoded replaceOccurrencesOfString:@"&"
+								 withString:@"&amp;"
+									options:NSLiteralSearch
+									  range:NSMakeRange(0, [encoded length])];
+	}
+	// @"&lt;"
+	range = [self rangeOfString:@"<"];
+	if (range.location != NSNotFound) {
+		[encoded replaceOccurrencesOfString:@"<"
+								 withString:@"&lt;"
+									options:NSLiteralSearch
+									  range:NSMakeRange(0, [encoded length])];
+	}
+	// @"&gt;"
+	range = [self rangeOfString:@">"];
+	if (range.location != NSNotFound) {
+		[encoded replaceOccurrencesOfString:@">"
+								 withString:@"&gt;"
+									options:NSLiteralSearch
+									  range:NSMakeRange(0, [encoded length])];
+	}
 	
-    return encoded;
+	return encoded;
 }
 
 + (NSA*) testDomains {  static NSA *testDOmains_ = nil;
@@ -1097,14 +1105,14 @@ finish:
 // URL Absolute string
 + (NSArray*)domainsToSkip {
 	return @[
-			 @"http://googleusercontent.com", @"http://go.com", @"http://bp.blogspot.com", @"http://secureserver.net", @"http://wikia.com", @"http://optmd.com", @"http://people.com.cn", @"http://yieldmanager.com", @"http://zedo.com", @"http://adf.ly",                   // 1px size
-    @"http://adcash.com",               // 1px size
-    @"http://adultfriendfinder.com",    // 1px size
-    @"http://rapidshare.com",           // Creates the link tag with Javascritp
-    @"http://thepiratebay.se",          // Blocked in Italy
-    @"http://kat.ph",                   // Blocked in Italy
-    @"http://london2012.org"            // Offline ?
-    ];
+			 @"http://googleusercontent.com", @"http://go.com", @"http://bp.blogspot.com", @"http://secureserver.net", @"http://wikia.com", @"http://optmd.com", @"http://people.com.cn", @"http://yieldmanager.com", @"http://zedo.com", @"http://adf.ly",				   // 1px size
+	@"http://adcash.com",			   // 1px size
+	@"http://adultfriendfinder.com",	// 1px size
+	@"http://rapidshare.com",		   // Creates the link tag with Javascritp
+	@"http://thepiratebay.se",		  // Blocked in Italy
+	@"http://kat.ph",				   // Blocked in Italy
+	@"http://london2012.org"			// Offline ?
+	];
 }
 
 @end
@@ -1242,7 +1250,7 @@ int gNSStringGeometricsTypesetterBehavior = NSTypesetterLatestBehavior ;
 		NSLayoutManager *layoutManager 	= [[NSLayoutManager alloc] init];
 		[layoutManager addTextContainer:textContainer];
 		[textStorage   addLayoutManager:layoutManager];
-		[layoutManager       setHyphenationFactor:0.0];
+		[layoutManager	   setHyphenationFactor:0.0];
 		if (typesetterBehavior != NSTypesetterLatestBehavior) [layoutManager setTypesetterBehavior:typesetterBehavior];
 		// NSLayoutManager is lazy, so we need the following kludge to force layout:
 		[layoutManager glyphRangeForTextContainer:textContainer];
@@ -1692,159 +1700,159 @@ static void _ScanSentence(NSScanner* scanner) {
 @end
 @implementation NSString (Creations)
 - (id)initWithInteger:(NSInteger)value {
-    #ifdef __LP64__
-        #define __NSINTEGER_FORMAT @"%ld"
-    #else
-        #define __NSINTEGER_FORMAT @"%d"
-    #endif
-    return [self initWithFormat:__NSINTEGER_FORMAT, value];
-    #undef __NSINTEGER_FORMAT
+	#ifdef __LP64__
+		#define __NSINTEGER_FORMAT @"%ld"
+	#else
+		#define __NSINTEGER_FORMAT @"%d"
+	#endif
+	return [self initWithFormat:__NSINTEGER_FORMAT, value];
+	#undef __NSINTEGER_FORMAT
 }
 + (id)stringWithInteger:(NSInteger)value {
-    return [[[self alloc] initWithInteger:value] autorelease];
+	return [[[self alloc] initWithInteger:value] autorelease];
 }
 + (NSString *)stringWithFormat:(NSString *)format arguments:(va_list)argList {
-    return [[[self alloc] initWithFormat:format arguments:argList] autorelease];
+	return [[[self alloc] initWithFormat:format arguments:argList] autorelease];
 }
 + (NSString *)stringWithData:(NSData *)data encoding:(NSStringEncoding)encoding {
-    return [[[self alloc] initWithData:data encoding:encoding] autorelease];
+	return [[[self alloc] initWithData:data encoding:encoding] autorelease];
 }
 - (id)initWithConcatnatingStrings:(NSString *)first, ... {
-    NSMutableArray *array = [NSMutableArray array];
-    va_list args;
-    va_start(args, first);
-    for (NSString *component = first; component != nil; component = va_arg(args, NSString *)) {
-        [array addObject:component];
-    }
-    va_end(args);
-    // OMG... what's the best?
-    return [self initWithString:[array componentsJoinedByString:@""]];
+	NSMutableArray *array = [NSMutableArray array];
+	va_list args;
+	va_start(args, first);
+	for (NSString *component = first; component != nil; component = va_arg(args, NSString *)) {
+		[array addObject:component];
+	}
+	va_end(args);
+	// OMG... what's the best?
+	return [self initWithString:[array componentsJoinedByString:@""]];
 }
 + (id)stringWithConcatnatingStrings:(NSString *)first, ... {
-    NSMutableArray *array = [NSMutableArray array];
-    va_list args;
-    va_start(args, first);
-    for (NSString *component = first; component != nil; component = va_arg(args, NSString *)) {
-        [array addObject:component];
-    }
-    va_end(args);
-    return [array componentsJoinedByString:@""];
+	NSMutableArray *array = [NSMutableArray array];
+	va_list args;
+	va_start(args, first);
+	for (NSString *component = first; component != nil; component = va_arg(args, NSString *)) {
+		[array addObject:component];
+	}
+	va_end(args);
+	return [array componentsJoinedByString:@""];
 }
 @end
 
 @implementation NSString (Shortcuts)
 - (BOOL)hasSubstring:(NSString *)aString {
-    return [self rangeOfString:aString].location != NSNotFound;
+	return [self rangeOfString:aString].location != NSNotFound;
 }
 // slow! proof of concept
 - (NSString *)format:(id)first, ... {
-    NSUInteger len = self.length;
-    NSUInteger index = 0;
-    BOOL passed = NO;
-    do {
-        unichar chr = [self characterAtIndex:index];
-        if (chr == '%') {
-            if (passed) {
-                if ([self characterAtIndex:index - 1] == '%') {
-                    passed = NO;
-                } else {
-                    break;
-                }
-            } else {
-                passed = YES;
-            }
-        }
-        index += 1;
-    } while (index < len);
-    if (index == len) {
-        return [NSString stringWithFormat:self, first];
-    } else {
-        va_list args;
-        va_start(args, first);
-        NSString *result = [[NSString stringWithFormat:[self substringToIndex:index], first] stringByAppendingString:[NSString stringWithFormat:[self substringFromIndex:index] arguments:args]];
-        va_end(args);
-        return result;
-    }
+	NSUInteger len = self.length;
+	NSUInteger index = 0;
+	BOOL passed = NO;
+	do {
+		unichar chr = [self characterAtIndex:index];
+		if (chr == '%') {
+			if (passed) {
+				if ([self characterAtIndex:index - 1] == '%') {
+					passed = NO;
+				} else {
+					break;
+				}
+			} else {
+				passed = YES;
+			}
+		}
+		index += 1;
+	} while (index < len);
+	if (index == len) {
+		return [NSString stringWithFormat:self, first];
+	} else {
+		va_list args;
+		va_start(args, first);
+		NSString *result = [[NSString stringWithFormat:[self substringToIndex:index], first] stringByAppendingString:[NSString stringWithFormat:[self substringFromIndex:index] arguments:args]];
+		va_end(args);
+		return result;
+	}
 }
 - (NSString *)format0:(id)dummy, ... {
-    va_list args;
-    va_start(args, dummy);
-    NSString *result = [NSString stringWithFormat:self arguments:args];
-    va_end(args);
-    return result;
+	va_list args;
+	va_start(args, dummy);
+	NSString *result = [NSString stringWithFormat:self arguments:args];
+	va_end(args);
+	return result;
 }
 - (NSRange)range {
-    return NSRangeFromString(self);
+	return NSRangeFromString(self);
 }
 - (NSString *)substringFromIndex:(NSUInteger)from length:(NSUInteger)length {
-    return [self substringWithRange:NSMakeRange(from, length)];
+	return [self substringWithRange:NSMakeRange(from, length)];
 }
 - (NSString *)substringFromIndex:(NSUInteger)from toIndex:(NSUInteger)to {
-    return [self substringWithRange:NSMakeRange(from, to - from)];
+	return [self substringWithRange:NSMakeRange(from, to - from)];
 }
 @end
 
 @implementation NSString (NSUTF8StringEncoding)
 + (NSString *)stringWithUTF8Data:(NSData *)data {
-    return [[[self alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
+	return [[[self alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
 }
 - (NSString *) stringByAddingPercentEscapesUsingUTF8Encoding {
-    return [self stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+	return [self stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
 - (NSString *) stringByReplacingPercentEscapesUsingUTF8Encoding {
-    return [self stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+	return [self stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
 - (NSData *) dataUsingUTF8Encoding {
-    return [self dataUsingEncoding:NSUTF8StringEncoding];
+	return [self dataUsingEncoding:NSUTF8StringEncoding];
 }
 @end
 
 @implementation NSString (Evaluation)
 - (NSInteger)integerValueBase:(NSInteger)radix {
-    NSInteger result = 0;
-    for ( NSUInteger i=0; i < [self length]; i++ ) {
-        result *= radix;
-        unichar digit = [self characterAtIndex:i];
-        if ( '0' <= digit && digit <= '9' )
-            digit -= '0';
-        else if ( 'a' <= digit && digit < 'a'-10+radix )
-            digit -= 'a'-10;
-        else if ( 'A' <= digit && digit < 'A'-10+radix )
-            digit -= 'A'-10;
-        else {
-            break;
-        }
-        result += digit;
-    }
-    return result;
+	NSInteger result = 0;
+	for ( NSUInteger i=0; i < [self length]; i++ ) {
+		result *= radix;
+		unichar digit = [self characterAtIndex:i];
+		if ( '0' <= digit && digit <= '9' )
+			digit -= '0';
+		else if ( 'a' <= digit && digit < 'a'-10+radix )
+			digit -= 'a'-10;
+		else if ( 'A' <= digit && digit < 'A'-10+radix )
+			digit -= 'A'-10;
+		else {
+			break;
+		}
+		result += digit;
+	}
+	return result;
 }
 - (NSInteger)hexadecimalValue {
-    return [self integerValueBase:16];
+	return [self integerValueBase:16];
 }
 @end
 
 @implementation NSMutableString (Shortcuts)
 - (id)initWithConcatnatingStrings:(NSString *)first, ... {
-    self = [self initWithString:first];
-    if (self != nil) {
-        va_list args;
-        va_start(args, first);
-        for (NSString *component = va_arg(args, NSString *); component != nil; component = va_arg(args, NSString *)) {
-            [self appendString:component];
-        }
-        va_end(args);
-    }
-    return self;
+	self = [self initWithString:first];
+	if (self != nil) {
+		va_list args;
+		va_start(args, first);
+		for (NSString *component = va_arg(args, NSString *); component != nil; component = va_arg(args, NSString *)) {
+			[self appendString:component];
+		}
+		va_end(args);
+	}
+	return self;
 }
 + (id)stringWithConcatnatingStrings:(NSString *)first, ... {
-    NSMutableString *aString = [self stringWithString:first];
-    va_list args;
-    va_start(args, first);
-    for (NSString *component = va_arg(args, NSString *); component != nil; component = va_arg(args, NSString *)) {
-        [aString appendString:component];
-    }
-    va_end(args);
-    return aString;
+	NSMutableString *aString = [self stringWithString:first];
+	va_list args;
+	va_start(args, first);
+	for (NSString *component = va_arg(args, NSString *); component != nil; component = va_arg(args, NSString *)) {
+		[aString appendString:component];
+	}
+	va_end(args);
+	return aString;
 }
 @end
 
@@ -1887,7 +1895,7 @@ static void _ScanSentence(NSScanner* scanner) {
 	while ([scanner isAtEnd] == NO) {
 		NSString *buffer = nil;
 		if ([scanner scanCharactersFromSet:set intoString:&buffer]) {
-			[result appendString:buffer];     
+			[result appendString:buffer];	 
 		} else {
 			[scanner setScanLocation:([scanner scanLocation] + 1)];
 		}
@@ -1953,7 +1961,7 @@ static void _ScanSentence(NSScanner* scanner) {
 	// We can't do a simple lastChar + 1 operation here without taking into account
 	// unicode surrogate characters (http://unicode.org/faq/utf_bom.html#34)
 	
-	if ((lastChar >= 0xD800UL) && (lastChar <= 0xDBFFUL)) {         // surrogate high character
+	if ((lastChar >= 0xD800UL) && (lastChar <= 0xDBFFUL)) {		 // surrogate high character
 		incrementedChar = (0xDBFFUL + 1);
 	} else if ((lastChar >= 0xDC00UL) && (lastChar <= 0xDFFFUL)) {  // surrogate low character
 		incrementedChar = (0xDFFFUL + 1);
@@ -1999,33 +2007,33 @@ static void _ScanSentence(NSScanner* scanner) {
 	return [NSString stringWithFormat:@"%d %@", rounded, NSLocalizedString(@"minutes", nil)];
    // }
 	/*interval = interval / 60;
-    if (interval < 24) {
+	if (interval < 24) {
 	 int rounded = floor(interval);
 	 if (rounded == 1) { return [NSString stringWithFormat:@"1 %@", NSLocalizedString(@"hour", nil)]; }
 	 return [NSString stringWithFormat:@"%d %@", rounded, NSLocalizedString(@"hours", nil)];
-    }
-    interval = interval / 24;
-    if (interval < 7) {
+	}
+	interval = interval / 24;
+	if (interval < 7) {
 	 int rounded = floor(interval);
 	 if (rounded == 1) { return [NSString stringWithFormat:@"1 %@", NSLocalizedString(@"day", nil)]; }
 	 return [NSString stringWithFormat:@"%d %@", rounded, NSLocalizedString(@"days", nil)];
-    }
-    interval = interval / 7;
-    if (interval < 4) {
+	}
+	interval = interval / 7;
+	if (interval < 4) {
 	 int rounded = floor(interval);
 	 if (rounded == 1) { return [NSString stringWithFormat:@"1 %@", NSLocalizedString(@"week", nil)]; }
 	 return [NSString stringWithFormat:@"%d %@", rounded, NSLocalizedString(@"weeks", nil)];
-    }
-    interval = interval / 4;
-    if (interval < 12) {
+	}
+	interval = interval / 4;
+	if (interval < 12) {
 	 int rounded = floor(interval);
 	 if (rounded == 1) { return [NSString stringWithFormat:@"1 %@", NSLocalizedString(@"month", nil)]; }
 	 return [NSString stringWithFormat:@"%d %@", rounded, NSLocalizedString(@"months", nil)];
-    }
-    interval = interval / 12;
-    int rounded = floor(interval);
-    if (rounded == 1) { return [NSString stringWithFormat:@"1 %@", NSLocalizedString(@"year", nil)]; }
-    return [NSString stringWithFormat:@"%1.f %@", interval, NSLocalizedString(@"years", nil)];*/
+	}
+	interval = interval / 12;
+	int rounded = floor(interval);
+	if (rounded == 1) { return [NSString stringWithFormat:@"1 %@", NSLocalizedString(@"year", nil)]; }
+	return [NSString stringWithFormat:@"%1.f %@", interval, NSLocalizedString(@"years", nil)];*/
 	
 }
 

@@ -41,6 +41,7 @@
 
 @implementation NSArray (AtoZ)
 
+/*
 + (void) load 	{ 
 	Method original, swizzle;
 	
@@ -64,47 +65,47 @@
 	if (anObj)	NSLog(@"swizzle objAtSubscript.. found %@", anObj);
 	return anObj ?: nil;
 }
-
+*/
 
 - ( int )createArgv: ( char *** )argv
 {
-    char			**av;
-    int				i, ac = 0, actotal;
-    
-    if ( self == nil || [ self count ] == 0 ) {
-        *argv = NULL;
-        return( 0 );
-    }
-    
-    actotal = [ self count ];
-    
-    if (( av = ( char ** )malloc( sizeof( char * ) * actotal )) == NULL ) {
-        NSLog( @"malloc: %s", strerror( errno ));
-        exit( 2 );
-    }
-    
-    for ( i = 0; i < [ self count ]; i++ ) {
-        av[ i ] = ( char * )[[ self objectAtIndex: i ] UTF8String ];
-        ac++;
-        
-        if ( ac >= actotal ) {
-            if (( av = ( char ** )realloc( av, sizeof( char * ) * ( actotal + 10 ))) == NULL ) {
-                NSLog( @"realloc: %s", strerror( errno ));
-                exit( 2 );
-            }
-            actotal += 10;
-        }
-    }
-    if ( ac >= actotal ) {
-        if (( av = ( char ** )realloc( av, sizeof( char * ) * ( actotal + 10 ))) == NULL ) {
-            NSLog( @"realloc: %s", strerror( errno ));
-            exit( 2 );
-        }
-        actotal += 10;
-    }
+	char			**av;
+	int				i, ac = 0, actotal;
+	
+	if ( self == nil || [ self count ] == 0 ) {
+		*argv = NULL;
+		return( 0 );
+	}
+	
+	actotal = [ self count ];
+	
+	if (( av = ( char ** )malloc( sizeof( char * ) * actotal )) == NULL ) {
+		NSLog( @"malloc: %s", strerror( errno ));
+		exit( 2 );
+	}
+	
+	for ( i = 0; i < [ self count ]; i++ ) {
+		av[ i ] = ( char * )[[ self objectAtIndex: i ] UTF8String ];
+		ac++;
+		
+		if ( ac >= actotal ) {
+			if (( av = ( char ** )realloc( av, sizeof( char * ) * ( actotal + 10 ))) == NULL ) {
+				NSLog( @"realloc: %s", strerror( errno ));
+				exit( 2 );
+			}
+			actotal += 10;
+		}
+	}
+	if ( ac >= actotal ) {
+		if (( av = ( char ** )realloc( av, sizeof( char * ) * ( actotal + 10 ))) == NULL ) {
+			NSLog( @"realloc: %s", strerror( errno ));
+			exit( 2 );
+		}
+		actotal += 10;
+	}
 	av[ i ] = NULL;
-    *argv = av;
-    return( ac );
+	*argv = av;
+	return( ac );
 }
 
 
@@ -540,7 +541,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 {
 	return [self[subIndex] filter:block];
 }
-- (id)	     subIndex:(NSUI)subIndex filterOne:(BOOL (^)(id object))block
+- (id)		 subIndex:(NSUI)subIndex filterOne:(BOOL (^)(id object))block
 {
 	return [self[subIndex] filterOne:block];
 }
@@ -949,15 +950,15 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 
 + (id)mutableArrayUsingWeakReferences
 {
-    return [self mutableArrayUsingWeakReferencesWithCapacity:0];
+	return [self mutableArrayUsingWeakReferencesWithCapacity:0];
 }
 + (id)mutableArrayUsingWeakReferencesWithCapacity:(NSUI)capacity
 {
-    // The two NULLs are for the CFArrayRetainCallBack and CFArrayReleaseCallBack methods.  Since they are
-    // NULL no retain or releases sill be done.
-    CFArrayCallBacks callbacks = {0, NULL, NULL, CFCopyDescription, CFEqual};
-    // We create a weak reference array
-    return (__bridge id)(CFArrayCreateMutable(0, capacity, &callbacks));
+	// The two NULLs are for the CFArrayRetainCallBack and CFArrayReleaseCallBack methods.  Since they are
+	// NULL no retain or releases sill be done.
+	CFArrayCallBacks callbacks = {0, NULL, NULL, CFCopyDescription, CFEqual};
+	// We create a weak reference array
+	return (__bridge id)(CFArrayCreateMutable(0, capacity, &callbacks));
 }
 
 @end

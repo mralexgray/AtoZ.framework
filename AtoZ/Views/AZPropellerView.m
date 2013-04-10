@@ -24,7 +24,7 @@
 
 - (id)initWithFrame:(NSRect)frame andColor:(NSColor*)color;
 {
-    if (self != [super initWithFrame:frame]) return nil;
+	if (self != [super initWithFrame:frame]) return nil;
 	_badge =	_badgeView.image = [_badge tintedWithColor: color];
 	_color = color;
 	return self;
@@ -37,7 +37,7 @@
 
 - (id)initWithFrame:(NSRect)frame
 {
-    if (self != [super initWithFrame:frame]) return nil;
+	if (self != [super initWithFrame:frame]) return nil;
 
 	// create the NSImage view
 	self.badgeView = [[NSImageView alloc] initWithFrame:frame];
@@ -63,7 +63,7 @@
 	self.subviews = @[_progressImage, _badgeView];
 	// spin
 	[self spin];
-    return self;
+	return self;
 }
 
 - (void) toggle { if (_isSpinning) [self stop]; else [self spin]; }
@@ -73,17 +73,17 @@
 // -----------------------
 - (void)spin
 {
-    // ensure the acnhor point is the center so it animates with respect to the center
-    self.progressImage.layer.anchorPoint = CGPointMake(0.5, 0.5);
-    
-    // add the animation to the layer
-    [self.progressImage.layer addAnimation:[self rotateAnimation] forKey:@"rotate"];
+	// ensure the acnhor point is the center so it animates with respect to the center
+	self.progressImage.layer.anchorPoint = CGPointMake(0.5, 0.5);
+	
+	// add the animation to the layer
+	[self.progressImage.layer addAnimation:[self rotateAnimation] forKey:@"rotate"];
 	self.isSpinning = YES;
 }
 - (void)stop
 {
-    // remove the animations from the layer
-    [self.progressImage.layer removeAllAnimations];
+	// remove the animations from the layer
+	[self.progressImage.layer removeAllAnimations];
 	self.isSpinning = NO;
 }
 // -----------------------
@@ -91,23 +91,23 @@
 // -----------------------
 - (CAAnimation*)rotateAnimation;
 {
-    // create a CABasic animation
-    CABasicAnimation *animation = [CABasicAnimation
-                                   animationWithKeyPath:@"transform.rotation.z"];
-    
-    // set the values for the rotation
-    animation.fromValue = DegreesToNumber(359);
-    animation.toValue = DegreesToNumber(0);
-    animation.removedOnCompletion = NO;
-    
-    // set the speed and the fill mode
-    animation.speed = 0.5f;
-    animation.fillMode = kCAFillModeBackwards;
-    
-    // set the repeat count
-    animation.repeatCount = HUGE_VALF;
-    
-    return animation;
+	// create a CABasic animation
+	CABasicAnimation *animation = [CABasicAnimation
+								   animationWithKeyPath:@"transform.rotation.z"];
+	
+	// set the values for the rotation
+	animation.fromValue = DegreesToNumber(359);
+	animation.toValue = DegreesToNumber(0);
+	animation.removedOnCompletion = NO;
+	
+	// set the speed and the fill mode
+	animation.speed = 0.5f;
+	animation.fillMode = kCAFillModeBackwards;
+	
+	// set the repeat count
+	animation.repeatCount = HUGE_VALF;
+	
+	return animation;
 }
 @end
 
@@ -131,7 +131,7 @@
 
 - (id)initWithFrame:(NSRect)frame andColor:(NSColor*)color
 {
-    if (self != [super initWithFrame:frame]) return nil;
+	if (self != [super initWithFrame:frame]) return nil;
 
 	// create the NSImage view
 	self.badgeView = [[NSImageView alloc] initWithFrame:frame];//NSMakeRect(0, 0,

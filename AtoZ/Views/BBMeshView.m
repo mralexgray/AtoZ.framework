@@ -75,11 +75,11 @@
 }
 
 - (id)initWithFrame:(NSRect)frame {
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code here.
-    }
-    return self;
+	self = [super initWithFrame:frame];
+	if (self) {
+		// Initialization code here.
+	}
+	return self;
 }
 
 - (void)awakeFromNib
@@ -229,13 +229,13 @@
 
 	// make a new layer, set up all the defaults
 	// put it at the center of the view for now
-	CALayer* vertexLayer           = [CALayer layer];
-	vertexLayer.bounds              = CGRectMake ( 0, 0, [vertImage size].width, [vertImage size].height );
-	vertexLayer.contents            = vertImage;//(id)cgImage;
-	vertexLayer.contentsGravity     = kCAGravityCenter;
-	vertexLayer.delegate            = self;    
-	vertexLayer.opacity             = 1.0;  
-	vertexLayer.position            = CGPointMake(NSMidX([self bounds]), NSMidY([self bounds]));  
+	CALayer* vertexLayer		   = [CALayer layer];
+	vertexLayer.bounds			  = CGRectMake ( 0, 0, [vertImage size].width, [vertImage size].height );
+	vertexLayer.contents			= vertImage;//(id)cgImage;
+	vertexLayer.contentsGravity	 = kCAGravityCenter;
+	vertexLayer.delegate			= self;	
+	vertexLayer.opacity			 = 1.0;  
+	vertexLayer.position			= CGPointMake(NSMidX([self bounds]), NSMidY([self bounds]));  
 
 	// add it to my main layer
 	[self.layer addSublayer:vertexLayer];   
@@ -259,7 +259,7 @@
 //-(CGImageRef)createCGImageFromData:(NSData*)data
 //{
 //	// just convert an NSImage to a cgimageref so that it is all layer compatible
-//	CGImageRef        imageRef = NULL;
+//	CGImageRef		imageRef = NULL;
 //	CGImageSourceRef  sourceRef;
 //	
 //	sourceRef = CGImageSourceCreateWithData((CFDataRef)data, NULL);
@@ -485,7 +485,7 @@
 	// good explanation found here:
 	// http://www.blackpawn.com/texts/pointinpoly/default.html
 
-	// Compute vectors relative to a       
+	// Compute vectors relative to a	   
 	CGPoint v0 = CGPointMake(c.x - a.x, c.y - a.y);
 	CGPoint v1 = CGPointMake(b.x - a.x, b.y - a.y);
 	CGPoint v2 = CGPointMake(p.x - a.x, p.y - a.y);

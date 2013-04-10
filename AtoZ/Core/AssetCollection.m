@@ -32,7 +32,7 @@ NSString * const assetTagName[] = {  @"script",@"style",@"div",@"php",@"sh",@"m"
 
 //	static NSD *types = nil;		if (!types) types =
 //		@{	@"script" : @(JS), @"div"	: @(HTML), 	@"style"	: @(CSS),	@"php" : @(PHP), 	@"sh" : @(BASH),		@"m"  	: @(ObjC),	@"txt"	: @(TXT),	@"n/a" :@(UNKNOWN) };
-//    return (AssetType)[types[self] intValue];
+//	return (AssetType)[types[self] intValue];
 //}
 @end
 
@@ -91,7 +91,7 @@ NSString * const assetTagName[] = {  @"script",@"style",@"div",@"php",@"sh",@"m"
 
 - (id)objectInAssetsAtIndex:(NSUI)index 							{	return self.assets[index];	 				  }
 
-- (void)removeObjectFromAssetsAtIndex:(NSUI)index 				{ 	[self.assets removeObjectAtIndex:index];	      }
+- (void)removeObjectFromAssetsAtIndex:(NSUI)index 				{ 	[self.assets removeObjectAtIndex:index];		  }
 
 - (void)insertObject:(Asset*)todo inAssetsAtIndex:(NSUI)index {	[self.assets insertObject:todo atIndex:index]; }
 
@@ -100,17 +100,17 @@ NSString * const assetTagName[] = {  @"script",@"style",@"div",@"php",@"sh",@"m"
 @implementation AssetTypeTransformer
 
 +(Class)transformedValueClass {
-    return NSString.class;
+	return NSString.class;
 }
 
 -(id)transformedValue:(id)value {
-//    AssetType t = [value intValue];
+//	AssetType t = [value intValue];
 	return assetStringValue[[value intValue]];
 //	if (quality == kQualityBest)
-//        return @"Best";
-//    else if (quality == kQualityWorst)
-//        return @"Worst";
+//		return @"Best";
+//	else if (quality == kQualityWorst)
+//		return @"Worst";
 //
-    return nil;
+	return nil;
 }
 @end

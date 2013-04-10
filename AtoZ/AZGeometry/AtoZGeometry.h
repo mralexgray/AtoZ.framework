@@ -32,9 +32,9 @@ id 	 nanCheck	   ( NSV* point );
 
 BOOL AZEqualRects ( NSR r1, NSR r2 );
 
-NSNumber *iNum ( NSI    i );
+NSNumber *iNum ( NSI	i );
 NSNumber *uNum ( NSUI  ui );
-NSNumber *fNum ( CGF    f );
+NSNumber *fNum ( CGF	f );
 NSNumber *dNum ( double d );
 
 FOUNDATION_EXPORT const CGP AZAnchorTop;
@@ -385,7 +385,7 @@ NSR AZRectFlippedOnEdge(NSRect r, AZPOS position);
 FOUNDATION_EXPORT NSR AZInsetRectInPosition ( NSR outside, NSSZ inset, AZPOS pos );
 
 FOUNDATION_EXPORT AZPOS AZPosOfPointInInsetRects ( NSP point, NSR outside, NSSZ inset );
-FOUNDATION_EXPORT BOOL  AZPointIsInInsetRects    ( NSP point, NSR outside, NSSZ inset );
+FOUNDATION_EXPORT BOOL  AZPointIsInInsetRects	( NSP point, NSR outside, NSSZ inset );
 
 static inline AZInsetRects AZMakeInsideRects(NSRect rect, NSSZ inset) {
 
@@ -416,8 +416,8 @@ BOOL	AZIsPointBelowRect   ( NSP point, NSR rect );
 
 BOOL	AZIsRectLeftOfRect   ( NSR rect, NSR compare );
 BOOL	AZIsRectRightOfRect  ( NSR rect, NSR compare );
-BOOL	AZIsRectAboveRect    ( NSR rect, NSR compare );
-BOOL	AZIsRectBelowRect    ( NSR rect, NSR compare );
+BOOL	AZIsRectAboveRect	( NSR rect, NSR compare );
+BOOL	AZIsRectBelowRect	( NSR rect, NSR compare );
 
 NSR	rectZoom 			 ( NSR rect,float zoom,int quadrant );
 NSR 	AZSquareInRect 	 ( NSR rect );

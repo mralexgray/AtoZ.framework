@@ -206,7 +206,7 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey = @"AZCAAnimationCompl
 + (CABA*) propertyAnimation:(NSD*)dict
 {
 	CABA* newA = [dict hasKey:@"keyPath"] ? [CABA animationWithKeyPath:dict[@"keyPath"]] : [CABA animation];
-	[dict hasKey:@"keyPath"] ?  [newA setWithDictionary:[dict dictionaryWithoutKey:@"keyPath"]] : [newA setWithDictionary:dict];
+	[dict hasKey:@"keyPath"] ?  [newA setPropertiesWithDictionary:[dict dictionaryWithoutKey:@"keyPath"]] : [newA setPropertiesWithDictionary:dict];
 	return newA;
 }
 

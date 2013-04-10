@@ -51,7 +51,7 @@ typedef void(^NSImageDrawer)(void);
 
 
 @class BLKVIEW;
-typedef void(^BNRBlockViewDrawer)        (BLKVIEW*v, NSR r);
+typedef void(^BNRBlockViewDrawer)		(BLKVIEW*v, NSR r);
 typedef void(^BNRBlockViewLayerDelegate) (BLKVIEW*v, CAL*l);
 
 @interface BNRBlockView : NSView

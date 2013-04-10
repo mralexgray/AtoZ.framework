@@ -17,7 +17,7 @@ NSString *const AZToggleOff 		= @"AZToggleOff";
 NSString *const AZToggleOn			= @"AZToggleOn";
 NSString *const AZToggleState		= @"AZToggleState";
 
-@interface AZToggleArrayView ()    //(UserInteraction)
+@interface AZToggleArrayView ()	//(UserInteraction)
 @property (STRNG, NATOM) CAL *containerLayer, *rootLayer;
 - (AZToggleControlLayer*) toggleLayerForEvent:(NSE*)event;
 - (CGP) layerLocationForEvent:(NSE*)event;
@@ -108,7 +108,7 @@ NSString *const AZToggleState		= @"AZToggleState";
 //	NSA* rects = [[NSA from:0 to:ct]nmap:^id(id obj, NSUInteger index) {
 //		NSR r;
 //		r.size.width 	= oreo == AZOrientHorizontal ? _rootLayer.boundsWidth /ct : _rootLayer.boundsWidth;
-//		r.size.height 	= oreo == AZOrientHorizontal ? _rootLayer.boundsWidth     : _rootLayer.boundsWidth / ct;
+//		r.size.height 	= oreo == AZOrientHorizontal ? _rootLayer.boundsWidth	 : _rootLayer.boundsWidth / ct;
 ////		r.origin.x 		= oreo == AZOrientHorizontal ? index * r.size.width  : 0;
 ////		r.origin.y 		= oreo == AZOrientHorizontal ? 0 : _rootLayer.boundsHeight - (( index+1 ) *  r.size.height);
 //		return AZVrect(r);
@@ -150,7 +150,7 @@ NSString *const AZToggleState		= @"AZToggleState";
 //	return result;
 //}
 - (AZTCL*) toggleLayerWithOnText:(NSS*)on offText:(NSS*)off initialState:(BOOL)state 
-									title:(NSS*)title	    index:(NSUI)index 
+									title:(NSS*)title		index:(NSUI)index 
 {
 	AZToggleControlLayer* result = [AZToggleControlLayer toggleWithOn:on off:off];
 	result.name = $(@"toggle%ld", index); //title

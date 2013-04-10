@@ -7,9 +7,9 @@
 //
 /**
 	PyTerminalTask* task = [[PyTerminalTask alloc] init];
-    setup_tty_param(&term, &win, [screen width], [screen height]);
+	setup_tty_param(&term, &win, [screen width], [screen height]);
 	_rl_set_screen_size(25, 80);
-    int ret = openpty(&shell->FILDES, &task->TTY_SLAVE, ttyname, &term, &win);
+	int ret = openpty(&shell->FILDES, &task->TTY_SLAVE, ttyname, &term, &win);
 	if(ret != 0) {
 		fprintf(stderr, "PyTerminal: openpty failed: %s\n", strerror(errno));
 		int fildes[2] = {-1,-1};
@@ -22,25 +22,25 @@
 		task->TTY_SLAVE = fildes[1];
 	}
 	
-    int one = 1;
+	int one = 1;
 	int sts = ioctl(shell->FILDES, TIOCPKT, &one);
-    if(sts < 0)
+	if(sts < 0)
 		fprintf(stderr, "PyTerminal: ioctl TIOCPKT failed: %s\n", strerror(errno));
 	
-    shell->TTY = [[NSString stringWithUTF8String:ttyname] retain];
-    NSParameterAssert(shell->TTY != nil);
+	shell->TTY = [[NSString stringWithUTF8String:ttyname] retain];
+	NSParameterAssert(shell->TTY != nil);
 	
 	// spawn a thread to do the read task
-    [NSThread detachNewThreadSelector:@selector(_processReadThread:)
-            	             toTarget:[PTYTask class]
+	[NSThread detachNewThreadSelector:@selector(_processReadThread:)
+							 toTarget:[PTYTask class]
 						   withObject:shell];
 	
 	// spawn a thread for Python
-    [NSThread detachNewThreadSelector:@selector(_runPython:)
-            	             toTarget:self
+	[NSThread detachNewThreadSelector:@selector(_runPython:)
+							 toTarget:self
 						   withObject:task];
 	
-    [aSession release];
+	[aSession release];
 }
 
 
@@ -93,8 +93,8 @@ void initPython() {
 @interface  PythonOperation ()
 
 // Read/write versions of public properties
-//@property (copy,   readwrite) NSString *    imageFilePath;
-@property (readwrite, assign) int    exitStatus;
+//@property (copy,   readwrite) NSString *	imageFilePath;
+@property (readwrite, assign) int	exitStatus;
 @property (nonatomic, assign) 	PyThreadState* pyThread;
 @end
 
@@ -177,11 +177,11 @@ static dispatch_once_t once;
 //	NSLog(@"Operation START: %@.  Python thread %@", AZPROCINFO, _optArgs);
 
 	
-//    PyObject *sysin, *sysout, *syserr;
+//	PyObject *sysin, *sysout, *syserr;
 //	sysin = PyFile_FromFile(fp_in, "<stdin>", "r", NULL);
-//    sysout = PyFile_FromFile(fp_out, "<stdout>", "w", _check_and_flush);
-//    syserr = PyFile_FromFile(fp_err, "<stderr>", "w", _check_and_flush);
-//    NSParameterAssert(!PyErr_Occurred());
+//	sysout = PyFile_FromFile(fp_out, "<stdout>", "w", _check_and_flush);
+//	syserr = PyFile_FromFile(fp_err, "<stderr>", "w", _check_and_flush);
+//	NSParameterAssert(!PyErr_Occurred());
 //	
 //	PySys_SetObject("stdin", sysin);
 //	PySys_SetObject("stdout", sysout);
@@ -190,8 +190,8 @@ static dispatch_once_t once;
 //	overwritePyRawInput(interp->builtins);
 	dispatch_async(dispatch_get_current_queue(), ^{
 
-//    Py_SetProgramName("/usr/bin/python");
-//    Py_Initialize();
+//	Py_SetProgramName("/usr/bin/python");
+//	Py_Initialize();
 //	PySys_SetArgv(argc, (char **)argv);
 //	if (_workingD)
 //		setenv 				("PYTHONPATH", _workingD.UTF8String, 1);
@@ -285,9 +285,9 @@ static dispatch_once_t once;
 
 
 /**
-    BOOL            success;
+	BOOL			success;
 	Py_SetProgramName("/usr/bin/python");
-    Py_Initialize();
+	Py_Initialize();
 	PyImport_AddModule("lib");
    	PyImport_AddModule("app");
 //	char strs[NUMBER_OF_STRINGS][STRING_LENGTH+1] = {"foo", "bar", "bletch", ...};
@@ -311,49 +311,49 @@ static dispatch_once_t once;
 	char **argv;
 	int v = [aA createArgv:&argv];	// ](char*)cArrayFromNSArray(aA);
 	for ( int j = 0; j < argc; j++ ) {
-		NSLog(@"ARG #%i, %s", j, argv[j]);    //%s", aA, argv);
+		NSLog(@"ARG #%i, %s", j, argv[j]);	//%s", aA, argv);
 	}
 
-//    argv[0] = (char*)path.lastPathComponent.UTF8String;
-//    argv[1] = "10011";//"-m";
-//    argv[2] = "/tmp/targets.list";
+//	argv[0] = (char*)path.lastPathComponent.UTF8String;
+//	argv[1] = "10011";//"-m";
+//	argv[2] = "/tmp/targets.list";
 
-//    Py_SetProgramName(argv[0]);
-//    Py_Initialize();
-    PySys_SetArgv(argc, (char**)argv);
+//	Py_SetProgramName(argv[0]);
+//	Py_Initialize();
+	PySys_SetArgv(argc, (char**)argv);
 
-    file = fopen(_spriptP.UTF8String,"r");
-    success = PyRun_SimpleFile(file,(char*)_spriptP.lastPathComponent.UTF8String);// "mypy.py");
-    Py_Finalize();
+	file = fopen(_spriptP.UTF8String,"r");
+	success = PyRun_SimpleFile(file,(char*)_spriptP.lastPathComponent.UTF8String);// "mypy.py");
+	Py_Finalize();
 
-//    const char *mainFilePathPtr = [path UTF8String];
-//    FILE *mainFile = fopen(mainFilePathPtr, "r");
+//	const char *mainFilePathPtr = [path UTF8String];
+//	FILE *mainFile = fopen(mainFilePathPtr, "r");
 //	NSLog(@"running simple file... %s", mainFilePathPtr);
-//    int result = PyRun_SimpleFile(mainFile, (char *)[[path lastPathComponent] UTF8String]);
+//	int result = PyRun_SimpleFile(mainFile, (char *)[[path lastPathComponent] UTF8String]);
 //	Py_Finalize();
 */
-//    if ( success != 0 )
+//	if ( success != 0 )
 //		[NSException raise: NSInternalInconsistencyException format:
 //			NSLog(@"%s:%d main() PyRun_SimpleFile failed with file '%@'.  See console for errors.", __FILE__, __LINE__, _spriptP);
 
 - (void)stopWithError:(NSError *)error
-    // An internal method called to stop the fetch and clean things up.
+	// An internal method called to stop the fetch and clean things up.
 {
-//    assert(error != nil);
-//    [self.queue invalidate];
-//    [self.queue cancelAllOperations];
-//    self.error = error;
-//    // When we set done our client's KVO might release us, meaning that we end 
-//    // up running with an invalid self.  This can cause all sorts of problems, 
-//    // so we do my standard retain/autorelease technique to avoid it.
-//    [[self retain] autorelease];
-//    self.done = YES;
+//	assert(error != nil);
+//	[self.queue invalidate];
+//	[self.queue cancelAllOperations];
+//	self.error = error;
+//	// When we set done our client's KVO might release us, meaning that we end 
+//	// up running with an invalid self.  This can cause all sorts of problems, 
+//	// so we do my standard retain/autorelease technique to avoid it.
+//	[[self retain] autorelease];
+//	self.done = YES;
 }
  
 - (void)stop
-    // See comment in header.
+	// See comment in header.
 {
-    [self stopWithError:[NSError errorWithDomain:NSCocoaErrorDomain code:NSUserCancelledError userInfo:nil]];
+	[self stopWithError:[NSError errorWithDomain:NSCocoaErrorDomain code:NSUserCancelledError userInfo:nil]];
 }
 
 

@@ -12,8 +12,8 @@
 - (CGFloat)positionOfDividerAtIndex:(NSInteger)dividerIndex
 {
 // 	It looks like NSSplitView relies on its subviews being ordered left->right or top->bottom so we can too. It also raises w/ array bounds exception if you use its API with dividerIndex > count of subviews.
-    while ( dividerIndex >= 0 && [self isSubviewCollapsed:self.subviews[dividerIndex]] )   dividerIndex--;
-    NSRect priorViewFrame = [self.subviews[dividerIndex] frame];
+	while ( dividerIndex >= 0 && [self isSubviewCollapsed:self.subviews[dividerIndex]] )   dividerIndex--;
+	NSRect priorViewFrame = [self.subviews[dividerIndex] frame];
 	return dividerIndex < 0 ? 0.:
 		   self.isVertical 	? NSMaxX(priorViewFrame)
 		   					: NSMaxY(priorViewFrame);
@@ -26,54 +26,54 @@
 
 
 - (BOOL) setPositions:(NSArray *)newPositions ofDividersAtIndexes:(NSArray *)indexes {
-    NSUInteger numberOfSubviews = self.subviews.count;
-    
-    // indexes and newPositions arrays must have the same object count
-    if (indexes.count == newPositions.count == NO) return NO;
-    // trying to move too many dividers
-    if (indexes.count < numberOfSubviews == NO) return NO;
+	NSUInteger numberOfSubviews = self.subviews.count;
+	
+	// indexes and newPositions arrays must have the same object count
+	if (indexes.count == newPositions.count == NO) return NO;
+	// trying to move too many dividers
+	if (indexes.count < numberOfSubviews == NO) return NO;
    
-    NSRect newRect[numberOfSubviews];
-    
-    for (NSUInteger i = 0; i < numberOfSubviews; i++)
-        newRect[i] = [[self.subviews objectAtIndex:i] frame];
-    
-    for (NSNumber *indexObject in indexes) {
-        NSInteger index = [indexObject integerValue];
-        CGFloat  newPosition = [[newPositions objectAtIndex:[indexes indexOfObject:indexObject]] doubleValue];
-        if (self.isVertical) {
-            CGFloat oldMaxXOfRightHandView = NSMaxX(newRect[index + 1]);
-            newRect[index].size.width = newPosition - NSMinX(newRect[index]);
-            CGFloat dividerAdjustment = (newPosition < NSWidth(self.bounds)) ? self.dividerThickness : 0.0;
-            newRect[index + 1].origin.x = newPosition + dividerAdjustment;
-            newRect[index + 1].size.width = oldMaxXOfRightHandView - newPosition - dividerAdjustment;
-        } else {
-            CGFloat oldMaxYOfBottomView = NSMaxY(newRect[index + 1]);
-            newRect[index].size.height = newPosition - NSMinY(newRect[index]);
-            CGFloat dividerAdjustment = (newPosition < NSHeight(self.bounds)) ? self.dividerThickness : 0.0;
-            newRect[index + 1].origin.y = newPosition + dividerAdjustment;
-            newRect[index + 1].size.height = oldMaxYOfBottomView - newPosition - dividerAdjustment;
-        }
-    }
-    
-    if ([self.delegate respondsToSelector:@selector(splitView:splitViewIsAnimating:)])
-        [((id <NSSplitViewAnimatableDelegate>)self.delegate) splitView:self splitViewIsAnimating:YES];
+	NSRect newRect[numberOfSubviews];
+	
+	for (NSUInteger i = 0; i < numberOfSubviews; i++)
+		newRect[i] = [[self.subviews objectAtIndex:i] frame];
+	
+	for (NSNumber *indexObject in indexes) {
+		NSInteger index = [indexObject integerValue];
+		CGFloat  newPosition = [[newPositions objectAtIndex:[indexes indexOfObject:indexObject]] doubleValue];
+		if (self.isVertical) {
+			CGFloat oldMaxXOfRightHandView = NSMaxX(newRect[index + 1]);
+			newRect[index].size.width = newPosition - NSMinX(newRect[index]);
+			CGFloat dividerAdjustment = (newPosition < NSWidth(self.bounds)) ? self.dividerThickness : 0.0;
+			newRect[index + 1].origin.x = newPosition + dividerAdjustment;
+			newRect[index + 1].size.width = oldMaxXOfRightHandView - newPosition - dividerAdjustment;
+		} else {
+			CGFloat oldMaxYOfBottomView = NSMaxY(newRect[index + 1]);
+			newRect[index].size.height = newPosition - NSMinY(newRect[index]);
+			CGFloat dividerAdjustment = (newPosition < NSHeight(self.bounds)) ? self.dividerThickness : 0.0;
+			newRect[index + 1].origin.y = newPosition + dividerAdjustment;
+			newRect[index + 1].size.height = oldMaxYOfBottomView - newPosition - dividerAdjustment;
+		}
+	}
+	
+	if ([self.delegate respondsToSelector:@selector(splitView:splitViewIsAnimating:)])
+		[((id <NSSplitViewAnimatableDelegate>)self.delegate) splitView:self splitViewIsAnimating:YES];
 
-    [CATransaction begin]; {
-        [CATransaction setAnimationDuration:0.25];
-        [CATransaction setAnimationTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
-        [CATransaction setCompletionBlock:^{
+	[CATransaction begin]; {
+		[CATransaction setAnimationDuration:0.25];
+		[CATransaction setAnimationTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+		[CATransaction setCompletionBlock:^{
 
-            if ([self.delegate respondsToSelector:@selector(splitView:splitViewIsAnimating:)])
-                [((id <NSSplitViewAnimatableDelegate>)self.delegate) splitView:self splitViewIsAnimating:NO];
+			if ([self.delegate respondsToSelector:@selector(splitView:splitViewIsAnimating:)])
+				[((id <NSSplitViewAnimatableDelegate>)self.delegate) splitView:self splitViewIsAnimating:NO];
 
-        }];
-        
-        for (NSUInteger i = 0; i < numberOfSubviews; i++) {
-            [[[self.subviews objectAtIndex:i] animator] setFrame:newRect[i]];
-        }
-    } [CATransaction commit];
-    return YES;
+		}];
+		
+		for (NSUInteger i = 0; i < numberOfSubviews; i++) {
+			[[[self.subviews objectAtIndex:i] animator] setFrame:newRect[i]];
+		}
+	} [CATransaction commit];
+	return YES;
 }
 
 - (BOOL) setPosition:(CGFloat)position ofDividerAtIndex:(NSInteger)dividerIndex animated:(BOOL) animated {
@@ -82,7 +82,7 @@
 		NSUInteger numberOfSubviews = self.subviews.count;
 		if (dividerIndex >= numberOfSubviews) return NO;
 		[self setPositions:@[@(position)] ofDividersAtIndexes:@[@(dividerIndex)]];
-    }
+	}
 	return YES;
 }
 

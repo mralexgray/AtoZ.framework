@@ -166,3 +166,8 @@
 	path = Frameworks/nu
 	url = https://github.com/mralexgray/nu.git
 	ignore = dirty
+[submodule "Frameworks/NoodleKit"]
+	path = Frameworks/NoodleKit
+	url = https://github.com/mralexgray/NoodleKit.git
+	ignore = dirty
+	

@@ -25,9 +25,9 @@ NSString *TagsDefaultsKey = @"tags";
 										@"dateStyle"  : 	@(NSDateFormatterShortStyle),
 										@"doesRelativeDateFormatting": 	  @(YES) }];
 	self.createdAtDate 	 = [dateFormatter dateFromString:JSONObject[@"created_at"]];
-	self.createdAtString = [dateFormatter stringFromDate:    	self.createdAtDate];
+	self.createdAtString = [dateFormatter stringFromDate:		self.createdAtDate];
 	self.tweetTextString = 										JSONObject[@"text"];
-    return self;
+	return self;
 }
 
 @end

@@ -1168,7 +1168,7 @@ const int jsonDoNotIndent = -1;
 
 - (NSString *)jsonStringValue
 {
-    return [self jsonStringValueWithIndentLevel:0];
+	return [self jsonStringValueWithIndentLevel:0];
 }
 
 @end
@@ -1178,25 +1178,25 @@ const int jsonDoNotIndent = -1;
 - (NSString *)jsonStringValueWithIndentLevel:(int)level
 {
 	NSMutableString *jsonString = [[NSMutableString alloc] init];
-    [jsonString appendString:jsonObjectStartString];
+	[jsonString appendString:jsonObjectStartString];
 	
 	NSEnumerator *keyEnum = [self keyEnumerator];
 	NSString *keyString = [keyEnum nextObject];
 	NSString *valueString;
 	if (keyString != nil) {
 		valueString = [self jsonStringForValue:[self objectForKey:keyString] withIndentLevel:level];
-        if (level != jsonDoNotIndent) { // indent before each key
-            [jsonString appendString:[self jsonIndentStringForLevel:level]];
-        }            
+		if (level != jsonDoNotIndent) { // indent before each key
+			[jsonString appendString:[self jsonIndentStringForLevel:level]];
+		}			
 		[jsonString appendFormat:@" %@ %@ %@", [self jsonStringForString:keyString], jsonKeyValueSeparatorString, valueString];
 	}
 	
 	while (keyString = [keyEnum nextObject]) {
 		valueString = [self jsonStringForValue:[self objectForKey:keyString] withIndentLevel:level]; // TODO bail if valueString is nil? How to bail successfully from here?
-        [jsonString appendString:jsonValueSeparatorString];
-        if (level != jsonDoNotIndent) { // indent before each key
-            [jsonString appendFormat:@"%@", [self jsonIndentStringForLevel:level]];
-        }
+		[jsonString appendString:jsonValueSeparatorString];
+		if (level != jsonDoNotIndent) { // indent before each key
+			[jsonString appendFormat:@"%@", [self jsonIndentStringForLevel:level]];
+		}
 		[jsonString appendFormat:@" %@ %@ %@", [self jsonStringForString:keyString], jsonKeyValueSeparatorString, valueString];
 	}
 	
@@ -1305,16 +1305,16 @@ const int jsonDoNotIndent = -1;
 
 - (NSString *)jsonIndentStringForLevel:(int)level
 {
-    NSMutableString *indentString = [[NSMutableString alloc] init];
-    if (level != jsonDoNotIndent) {
-        [indentString appendString:@"\n"];
-        int i;
-        for (i = 0; i < level; i++) {
-            [indentString appendString:jsonIndentString];
-        }
-    }
-    
-    return [indentString autorelease];
+	NSMutableString *indentString = [[NSMutableString alloc] init];
+	if (level != jsonDoNotIndent) {
+		[indentString appendString:@"\n"];
+		int i;
+		for (i = 0; i < level; i++) {
+			[indentString appendString:jsonIndentString];
+		}
+	}
+	
+	return [indentString autorelease];
 }
 
 @end
@@ -1341,10 +1341,10 @@ NSString *jsonNullString = @"null";
 	
 	BOOL result = NO;
 	
-    /* START - April 21, 2006 - Updated to bypass irrelevant characters at the beginning of a JSON string */
-    NSString *ignoredString;
-    [self scanUpToString:jsonObjectStartString intoString:&ignoredString];
-    /* END - April 21, 2006 */
+	/* START - April 21, 2006 - Updated to bypass irrelevant characters at the beginning of a JSON string */
+	NSString *ignoredString;
+	[self scanUpToString:jsonObjectStartString intoString:&ignoredString];
+	/* END - April 21, 2006 */
 
 	if (![self scanJSONObjectStartString]) {
 		// TODO: Error condition. For now, return false result, do nothing with the dictionary handle
@@ -1448,22 +1448,22 @@ NSString *jsonNullString = @"null";
 					[self setScanLocation:([self scanLocation] + 2)]; // advance past '\u'
 					NSString *digits = [[self string] substringWithRange:NSMakeRange([self scanLocation], 4)];
 					/* START Updated code modified from code fix submitted by Bill Garrison - March 28, 2006 - http://www.standardorbit.net */
-                    NSScanner *hexScanner = [NSScanner scannerWithString:digits];
-                    NSString *verifiedHexDigits;
-                    NSCharacterSet *hexDigitSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789ABCDEF"];
+					NSScanner *hexScanner = [NSScanner scannerWithString:digits];
+					NSString *verifiedHexDigits;
+					NSCharacterSet *hexDigitSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789ABCDEF"];
 					if (NO == [hexScanner scanCharactersFromSet:hexDigitSet intoString:&verifiedHexDigits])
-                        return NO;
-                    if (4 != [verifiedHexDigits length])
-                        return NO;
-                        
-                    // Read in the hex value
-                    [hexScanner setScanLocation:0];
-                    unsigned unicodeHexValue;
-                    if (NO == [hexScanner scanHexInt:&unicodeHexValue]) {
-                        return NO;
-                    }
-                    [chars appendFormat:characterFormat, unicodeHexValue];
-                    /* END update - March 28, 2006 */
+						return NO;
+					if (4 != [verifiedHexDigits length])
+						return NO;
+						
+					// Read in the hex value
+					[hexScanner setScanLocation:0];
+					unsigned unicodeHexValue;
+					if (NO == [hexScanner scanHexInt:&unicodeHexValue]) {
+						return NO;
+					}
+					[chars appendFormat:characterFormat, unicodeHexValue];
+					/* END update - March 28, 2006 */
 					[self setScanLocation:([self scanLocation] + 4)];
 					break;
 				}

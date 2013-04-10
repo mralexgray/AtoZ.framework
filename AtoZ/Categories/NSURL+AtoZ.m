@@ -30,10 +30,10 @@
 //	Uses LaunchServices and UTIs to detect if a given file path is an image file.
 - (BOOL)isImageFile
 {
-    BOOL isImageFile = NO;
-    NSString *utiValue;
-    [self getResourceValue:&utiValue forKey:NSURLTypeIdentifierKey error:nil];
-    return utiValue ? UTTypeConformsTo((__bridge CFStringRef)utiValue, kUTTypeImage): isImageFile;
+	BOOL isImageFile = NO;
+	NSString *utiValue;
+	[self getResourceValue:&utiValue forKey:NSURLTypeIdentifierKey error:nil];
+	return utiValue ? UTTypeConformsTo((__bridge CFStringRef)utiValue, kUTTypeImage): isImageFile;
 }
 
 @end

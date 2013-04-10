@@ -518,7 +518,7 @@ static NSMD*	 pendingFades = nil;
 								@(stepSize), @"stepSize",
 								nil];	// Releases of any old fades.
 }
--(void) fadeInOneStep:       					 (NSTimer*)timer	{
+-(void) fadeInOneStep:	   					 (NSTimer*)timer	{
 	NSString*   key = [NSString stringWithFormat: @"%@", self];
 	float	   newAlpha = [self alphaValue] + [pendingFades[key][@"stepSize"] floatValue];
 	if( newAlpha >= 1.0 )
@@ -549,7 +549,7 @@ static NSMD*	 pendingFades = nil;
 	[[NSRunLoop currentRunLoop] addTimer: timer forMode: NSModalPanelRunLoopMode];
 	[[NSRunLoop currentRunLoop] addTimer: timer forMode: NSEventTrackingRunLoopMode];
 }
--(void) fadeOutOneStep:      					 (NSTimer*)timer	{
+-(void) fadeOutOneStep:	  					 (NSTimer*)timer	{
 	NSString*				key = [NSString stringWithFormat: @"%@", self];
 	NSMutableDictionary*	currFadeDict = pendingFades[key];//retain] autorelease];	// Make sure it doesn't go away in case we're cross-fading layers.
 	float					newAlpha = [self alphaValue] - [currFadeDict[@"stepSize"] floatValue];
@@ -606,9 +606,9 @@ static NSMD*	 pendingFades = nil;
 @implementation DesktopWindow
 
 - (id)initWithContentRect:(NSRect)contentRect
-                styleMask:(NSUInteger)aStyle
-                  backing:(NSBackingStoreType)bufferingType
-                    defer:(BOOL)flag								{
+				styleMask:(NSUInteger)aStyle
+				  backing:(NSBackingStoreType)bufferingType
+					defer:(BOOL)flag								{
 	self = [super initWithContentRect:contentRect
 									styleMask:aStyle
 									  backing:bufferingType

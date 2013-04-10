@@ -22,7 +22,7 @@
 - (id) initWithFrame:(NSRect)frameRect
 {
 	if (self != [super initWithFrame:frameRect]) return nil;
-	oreo        	 	 = HRZ;
+	oreo			 	 = HRZ;
 	selectedStyle 		 = Lasso;				/* StateStyle(s) Lasso, 	InnerShadow, DarkenOthers,	None */
 	hoverStyle 		 	 = DarkenOthers;
 	_hostlayer 			 = (CALNH*)[[[self setupHostViewNoHit] named:@"hostLayer"]colored:GREEN];
@@ -94,9 +94,9 @@
 
 - (ScrollFix) fixState
 {								
-																							     return  	
+																								 return  	
 	self.sublayerOrig 	> 0							 	? LayerInsertFront 	:
-//	self.lastLayOrig  < self.superBounds  				? LayerInsertEnd     :	 	
+//	self.lastLayOrig  < self.superBounds  				? LayerInsertEnd	 :	 	
 //	self.lastLayOrig 	< self.superBounds 		 		&& !layerQueue.count ? LayerCopyInsertEnd :
 //	self.sublayerOrig 	< NEG(self.firstLaySpan) 					SCRLHASSUB 	? LayerRemoveFront	:
 //	self.lastLayOrig 	> self.superBounds + self.lastLaySpan	SCRLHASSUB	? LayerRemoveEnd	   : 
@@ -116,12 +116,12 @@
 													LOGWARN(@"%@",@"copying in front!");
 											[scrollLayer addSublayerImmediately: [scrollLayer.sublayers[0]copyLayer]];
 				}();
-													                }():
-	f == LayerRemoveFront	 ? ^{		 					      CAL *front = self.firstLayer; 	
+																	}():
+	f == LayerRemoveFront	 ? ^{		 						  CAL *front = self.firstLayer; 	
 												  [layerQueue  shove: front];	 
 									   _offset += [self aLayerSpan:front];		
 																			 [front  removeImmediately];		}():
-	f == LayerRemoveEnd  	 ? ^{	                        CAL *end = self.lastLayer;
+	f == LayerRemoveEnd  	 ? ^{							CAL *end = self.lastLayer;
 												 [layerQueue addObject:end];
 																			 [end removeImmediately];		   }():	
 	f == LayerInsertEnd 	 ? ^{  layerQueue.count ? [scrollLayer addSublayerImmediately:layerQueue.pop]  
@@ -214,11 +214,11 @@
 	}
 	switch (hoverStyle) {
   	case DarkenOthers:
-    	self.shroudedLayers = nil;	 	self.shroudedLayers = hoveredLayer ? nil : @[_hoveredLayer]; break;
+		self.shroudedLayers = nil;	 	self.shroudedLayers = hoveredLayer ? nil : @[_hoveredLayer]; break;
 	case Lasso:
 		_hoveredLayer ? [self lasso:_hoveredLayer dymamicStroke:.05] : [self deLasso];	 break;
 	default:	  	
-		NSLog(@"no hover style set");    	break;
+		NSLog(@"no hover style set");		break;
 	}
 }
 - (void) setSelectedLayer:(CAL*)selectedLayer

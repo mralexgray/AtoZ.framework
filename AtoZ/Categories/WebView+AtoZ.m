@@ -23,42 +23,42 @@
 
 - (NSImage *)snapshot
 {
-    WebFrame *frame = self.mainFrame;
-    WebFrameView *view = frame.frameView;
-    NSRect imageRect = view.documentView.frame;
+	WebFrame *frame = self.mainFrame;
+	WebFrameView *view = frame.frameView;
+	NSRect imageRect = view.documentView.frame;
 
-    imageRect.origin.x = 0;
-    imageRect.origin.y = 0;
+	imageRect.origin.x = 0;
+	imageRect.origin.y = 0;
 
-    NSBitmapImageRep *imageRep = [view.documentView bitmapImageRepForCachingDisplayInRect:view.documentView.frame];
-    [view.documentView cacheDisplayInRect:imageRect toBitmapImageRep:imageRep];
-    NSImage *image = [[[NSImage alloc] initWithSize:imageRect.size] autorelease];
-    [image addRepresentation:imageRep];
-    return image;
+	NSBitmapImageRep *imageRep = [view.documentView bitmapImageRepForCachingDisplayInRect:view.documentView.frame];
+	[view.documentView cacheDisplayInRect:imageRect toBitmapImageRep:imageRep];
+	NSImage *image = [[[NSImage alloc] initWithSize:imageRect.size] autorelease];
+	[image addRepresentation:imageRep];
+	return image;
 }
 
 
 -(void)appendTagToBody:(NSString *)tagName InnerHTML:(NSString *)innerHTML
 {
-    // Gets a list of all <body></body> nodes.
-    DOMNodeList *bodyNodeList = [self.mainFrame.DOMDocument getElementsByTagName:@"body"];
+	// Gets a list of all <body></body> nodes.
+	DOMNodeList *bodyNodeList = [self.mainFrame.DOMDocument getElementsByTagName:@"body"];
 
-    // There should be just one in valid HTML, so get the first DOMElement.
-    DOMHTMLElement *bodyNode = (DOMHTMLElement *) [bodyNodeList item:0];
+	// There should be just one in valid HTML, so get the first DOMElement.
+	DOMHTMLElement *bodyNode = (DOMHTMLElement *) [bodyNodeList item:0];
 
-    // Create a new element, with a tag name.
-    DOMHTMLElement *newNode = (DOMHTMLElement *) [self.mainFrame.DOMDocument createElement:tagName];
+	// Create a new element, with a tag name.
+	DOMHTMLElement *newNode = (DOMHTMLElement *) [self.mainFrame.DOMDocument createElement:tagName];
 
-    // Add the innerHTML for the new element.
-    [newNode setInnerHTML:innerHTML];
+	// Add the innerHTML for the new element.
+	[newNode setInnerHTML:innerHTML];
 
-    // Add the new element to the bodyNode as the last child.
-    [bodyNode appendChild:newNode];
+	// Add the new element to the bodyNode as the last child.
+	[bodyNode appendChild:newNode];
 }
 //and whenever wanted to change the content,
 //-(void)appendString:(NSString *)pString{
-//    [self appendTagToBody:@"div" InnerHTML:@"<div><p> Hi there </p></div>"];
-//    [self setNeedsDisplay:YES];
+//	[self appendTagToBody:@"div" InnerHTML:@"<div><p> Hi there </p></div>"];
+//	[self setNeedsDisplay:YES];
 //}
 
 @end

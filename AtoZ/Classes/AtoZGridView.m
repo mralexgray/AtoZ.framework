@@ -92,7 +92,7 @@ CNItemPoint CNMakeItemPoint(NSUI aColumn, NSUI aRow) {
 
 - (id)initWithFrame:(NSRect)frame
 {
-    if (self != [super initWithFrame:frame]) return nil;
+	if (self != [super initWithFrame:frame]) return nil;
 	[self setupDefaults];
 	_delegate 	= nil;
 	_dataSource = nil;
@@ -126,7 +126,7 @@ CNItemPoint CNMakeItemPoint(NSUI aColumn, NSUI aRow) {
 	textShadow.shadowOffset		= NSMakeSize(.5, -1);
 	NSMutableParagraphStyle *textStyle = NSMutableParagraphStyle.defaultParagraphStyle.mutableCopy;
 	textStyle.alignment	 		= NSCenterTextAlignment;
-	_itemTitleTextAttributes    = @{	NSFontAttributeName			  	: [AtoZ font:@"Ubuntu" size:16],
+	_itemTitleTextAttributes	= @{	NSFontAttributeName			  	: [AtoZ font:@"Ubuntu" size:16],
 										NSShadowAttributeName			: textShadow,
 										NSForegroundColorAttributeName	: self.itemTitleColor,
 										NSParagraphStyleAttributeName	: textStyle};
@@ -428,7 +428,7 @@ CNItemPoint CNMakeItemPoint(NSUI aColumn, NSUI aRow) {
 #pragma mark - Reloading GridView Data
 - (void) reloadData
 {
-	 self.numberOfItems 	              = [self gridView:self numberOfItemsInSection:0];
+	 self.numberOfItems 				  = [self gridView:self numberOfItemsInSection:0];
 	[self.keyedVisibleItems.allValues do:^(AZGVItem *obj) { [obj removeFromSuperview]; }];
 	[self.keyedVisibleItems		removeAllObjects];
 	[self.reuseableItems		removeAllObjects];
@@ -539,77 +539,77 @@ CNItemPoint CNMakeItemPoint(NSUI aColumn, NSUI aRow) {
 	CNItemPoint topLeftItemPoint = [self locationForItemAtIndex:topLeftItemIndex];
 	CNItemPoint bottomRightItemPoint = [self locationForItemAtIndex:bottomRightItemIndex];
 	/// handle all "by selection frame" selected items beeing now outside
-    /// the selection frame
-    [[self indexesForVisibleItems] enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-        AZGVItem *selectedItem = [self.selectedItems objectForKey:[NSNumber numberWithInteger:idx]];
-        AZGVItem *selectionFrameItem = [self.selectedItemsBySelectionFrame objectForKey:[NSNumber numberWithInteger:idx]];
-        if (selectionFrameItem) {
-            CNItemPoint itemPoint = [self locationForItemAtIndex:selectionFrameItem.index];
+	/// the selection frame
+	[[self indexesForVisibleItems] enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+		AZGVItem *selectedItem = [self.selectedItems objectForKey:[NSNumber numberWithInteger:idx]];
+		AZGVItem *selectionFrameItem = [self.selectedItemsBySelectionFrame objectForKey:[NSNumber numberWithInteger:idx]];
+		if (selectionFrameItem) {
+			CNItemPoint itemPoint = [self locationForItemAtIndex:selectionFrameItem.index];
 
-            /// handle all 'out of selection frame range' items
-            if ((itemPoint.row < topLeftItemPoint.row)              ||  /// top edge out of range
-                (itemPoint.column > bottomRightItemPoint.column)    ||  /// right edge out of range
-                (itemPoint.row > bottomRightItemPoint.row)          ||  /// bottom edge out of range
-                (itemPoint.column < topLeftItemPoint.column))           /// left edge out of range
-            {
-                /// ok. before we deselect this item, lets take a look into our `keyedVisibleItems`
-                /// if it there is selected too. If it so, keep it untouched!
+			/// handle all 'out of selection frame range' items
+			if ((itemPoint.row < topLeftItemPoint.row)			  ||  /// top edge out of range
+				(itemPoint.column > bottomRightItemPoint.column)	||  /// right edge out of range
+				(itemPoint.row > bottomRightItemPoint.row)		  ||  /// bottom edge out of range
+				(itemPoint.column < topLeftItemPoint.column))		   /// left edge out of range
+			{
+				/// ok. before we deselect this item, lets take a look into our `keyedVisibleItems`
+				/// if it there is selected too. If it so, keep it untouched!
 
-                /// so, the current item wasn't selected, we can restore its old state (to unselected)
-                if (![selectionFrameItem isEqual:selectedItem]) {
-                    selectionFrameItem.isSelected = NO;
-                    [self.selectedItemsBySelectionFrame removeObjectForKey:[NSNumber numberWithInteger:selectionFrameItem.index]];
-                }
+				/// so, the current item wasn't selected, we can restore its old state (to unselected)
+				if (![selectionFrameItem isEqual:selectedItem]) {
+					selectionFrameItem.isSelected = NO;
+					[self.selectedItemsBySelectionFrame removeObjectForKey:[NSNumber numberWithInteger:selectionFrameItem.index]];
+				}
 
-                /// the current item already was selected, so reselect it.
-                else {
-                    selectionFrameItem.isSelected = YES;
-                    [self.selectedItemsBySelectionFrame setObject:selectionFrameItem forKey:[NSNumber numberWithInteger:selectionFrameItem.index]];
-                }
-            }
-        }
-    }];
+				/// the current item already was selected, so reselect it.
+				else {
+					selectionFrameItem.isSelected = YES;
+					[self.selectedItemsBySelectionFrame setObject:selectionFrameItem forKey:[NSNumber numberWithInteger:selectionFrameItem.index]];
+				}
+			}
+		}
+	}];
 
-    /// update all items that needs to be selected
-    NSUI columnsInGridView = [self columnsInGridView];
-    for (NSUI row = topLeftItemPoint.row; row <= bottomRightItemPoint.row; row++) {
-        for (NSUI col = topLeftItemPoint.column; col <= bottomRightItemPoint.column; col++) {
-            NSUI itemIndex = ((row -1) * columnsInGridView + col) -1;
-            AZGVItem *selectedItem = [self.selectedItems objectForKey:[NSNumber numberWithInteger:itemIndex]];
-            AZGVItem *itemToSelect = [self.keyedVisibleItems objectForKey:[NSNumber numberWithInteger:itemIndex]];
-            [self.selectedItemsBySelectionFrame setObject:itemToSelect forKey:[NSNumber numberWithInteger:itemToSelect.index]];
-            if (modifierFlags & NSCommandKeyMask) {
-                itemToSelect.isSelected = ([itemToSelect isEqual:selectedItem] ? NO : YES);
-            } else {
-                itemToSelect.isSelected = YES;
-            }
-        }
-    }
+	/// update all items that needs to be selected
+	NSUI columnsInGridView = [self columnsInGridView];
+	for (NSUI row = topLeftItemPoint.row; row <= bottomRightItemPoint.row; row++) {
+		for (NSUI col = topLeftItemPoint.column; col <= bottomRightItemPoint.column; col++) {
+			NSUI itemIndex = ((row -1) * columnsInGridView + col) -1;
+			AZGVItem *selectedItem = [self.selectedItems objectForKey:[NSNumber numberWithInteger:itemIndex]];
+			AZGVItem *itemToSelect = [self.keyedVisibleItems objectForKey:[NSNumber numberWithInteger:itemIndex]];
+			[self.selectedItemsBySelectionFrame setObject:itemToSelect forKey:[NSNumber numberWithInteger:itemToSelect.index]];
+			if (modifierFlags & NSCommandKeyMask) {
+				itemToSelect.isSelected = ([itemToSelect isEqual:selectedItem] ? NO : YES);
+			} else {
+				itemToSelect.isSelected = YES;
+			}
+		}
+	}
 	
 /**	/// handle all "by selection frame" selected items beeing now outside the selection frame
 	[self.indexesForVisibleItems enumerateIndexesUsingBlock:^(NSUI idx, BOOL *stop) {
 		AZGVItem *item = self.selectedItemsBySelectionFrame[[NSNumber numberWithInt:idx]];
 		if (item) {
 			CNItemPoint itemPoint = [self locationForItemAtIndex:item.index];
-			if ( itemPoint.row    < topLeftItemPoint.row		||  /// top edge out of range
+			if ( itemPoint.row	< topLeftItemPoint.row		||  /// top edge out of range
 				 itemPoint.column > bottomRightItemPoint.column	||  /// right edge out of range
 				 itemPoint.row 	  > bottomRightItemPoint.row	||  /// bottom edge out of range
-				 itemPoint.column < topLeftItemPoint.column )	    /// left edge out of range
+				 itemPoint.column < topLeftItemPoint.column )		/// left edge out of range
 			{
 				/// ok. before we deselect this item, lets take a look into our `keyedVisibleItems`
-                /// if it there is selected too. If it so, keep it untouched!
+				/// if it there is selected too. If it so, keep it untouched!
 
-                /// so, the current item wasn't selected, we can restore its old state (to unselected)
-                if (![selectionFrameItem isEqual:selectedItem]) {
-                    selectionFrameItem.selected = NO;
-                    [selectedItemsBySelectionFrame removeObjectForKey:[NSNumber numberWithInteger:selectionFrameItem.index]];
-                }
+				/// so, the current item wasn't selected, we can restore its old state (to unselected)
+				if (![selectionFrameItem isEqual:selectedItem]) {
+					selectionFrameItem.selected = NO;
+					[selectedItemsBySelectionFrame removeObjectForKey:[NSNumber numberWithInteger:selectionFrameItem.index]];
+				}
 
-                /// the current item already was selected, so reselect it.
-                else {
-                    selectionFrameItem.selected = YES;
-                    [selectedItemsBySelectionFrame setObject:selectionFrameItem forKey:[NSNumber numberWithInteger:selectionFrameItem.index]];
-                }
+				/// the current item already was selected, so reselect it.
+				else {
+					selectionFrameItem.selected = YES;
+					[selectedItemsBySelectionFrame setObject:selectionFrameItem forKey:[NSNumber numberWithInteger:selectionFrameItem.index]];
+				}
 
 //				/// ok. before we deselect this item, lets take a look into our `keyedVisibleItems`
 //				/// if it there is selected too. If it so, keep it untouched!
@@ -1066,7 +1066,7 @@ static CGF mPhase = 0;
 {
 	return _grid ?: ^{
 		self.grid 				= [AZGView.alloc initWithFrame:self.bounds];
-		_grid.arMASK    		= NSSIZEABLE;
+		_grid.arMASK			= NSSIZEABLE;
 //		_grid.delegate 			= self;
 		_grid.dataSource 		= self;
 		_grid.scrollElasticity 	= NO;
@@ -1077,7 +1077,7 @@ static CGF mPhase = 0;
 }
 -(id) initWithFrame:(NSR)frame andArray:(NSArray *)array  // inView:(NSView *)view
 {
-    if (self != [super initWithFrame:frame]) return nil;
+	if (self != [super initWithFrame:frame]) return nil;
 	self.autoresizesSubviews = YES;
 	self.arMASK 		= NSSIZEABLE;
 	self.items = array.mutableCopy;

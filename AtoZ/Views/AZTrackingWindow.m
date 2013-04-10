@@ -49,11 +49,11 @@ typedef struct AZTriPair {	AZTri uno;	AZTri duo;  				}AZTriPair;
 
 + (AZTW*) oriented:(AZPOS)o intruding:(CGF)d 
 								 withDelegate:(id)del {						return [self oriented:o 					intruding:d 
-																 										         inRect:NSZeroRect withDelegate:del]; }
-+ (AZTW*) oriented:(AZPOS)o intruding:(CGF)d inRect:(NSR)f 	{	return [self oriented:o             intruding:d 
-																																										         inRect:f          withDelegate:nil]; }
-+ (AZTW*) oriented:(AZPOS)o intruding:(CGF)d 	{						return [self oriented:o             intruding:d 
-         																															         inRect:NSZeroRect withDelegate:nil]; }
+																 												 inRect:NSZeroRect withDelegate:del]; }
++ (AZTW*) oriented:(AZPOS)o intruding:(CGF)d inRect:(NSR)f 	{	return [self oriented:o			 intruding:d 
+																																												 inRect:f		  withDelegate:nil]; }
++ (AZTW*) oriented:(AZPOS)o intruding:(CGF)d 	{						return [self oriented:o			 intruding:d 
+		 																																	 inRect:NSZeroRect withDelegate:nil]; }
 - (NSRect) outFrame {		NSSize w = self.visibleFrame.size;
 
 	return _position == AZPositionLeft	? NSOffsetRect(_visibleFrame,  NEG(w.width), -w.height / 2 )
@@ -68,7 +68,7 @@ typedef struct AZTriPair {	AZTri uno;	AZTri duo;  				}AZTriPair;
 	self.position == AZPositionLeft  ? AZLeftEdge ( _visibleFrame, _triggerWidth)
   :	 _position == AZPositionTop	? AZUpperEdge( _visibleFrame, _triggerWidth)
   :	 _position == AZPositionRight ? AZRightEdge( _visibleFrame, _triggerWidth)
-  :	              						  AZLowerEdge( _visibleFrame, _triggerWidth);
+  :				  						  AZLowerEdge( _visibleFrame, _triggerWidth);
 }
 - (NSRect) visibleFrame { 		 return _visibleFrame =
 

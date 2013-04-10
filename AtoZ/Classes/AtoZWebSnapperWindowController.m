@@ -87,7 +87,7 @@ static AtoZWebSnapperWindowController *kController = nil;
 
 	[urlField bind:@"stringValue" toObject:snapper withKeyPath:@"currentURL" options:nil];
 
-    [snapper addObserver:self keyPath:@"webHistory" options:NSKeyValueChangeInsertion block:^(MAKVONotification *notification) {
+	[snapper addObserver:self keyPath:@"webHistory" options:NSKeyValueChangeInsertion block:^(MAKVONotification *notification) {
 		NSURL * i = snapper.webHistory.lastObject;
 		NSLog(@"History has changed.  latest entry:%@", i);
 		[self addURLToHistory:i];

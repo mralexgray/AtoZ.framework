@@ -424,7 +424,7 @@
 	NSMutableArray *protocolNames = [NSMutableArray array];
 //	unsigned int num;
 	unsigned int protocolIndex = 0;
-    Protocol * const *protocols = class_copyProtocolList(self.class, &protocolIndex);
+	Protocol * const *protocols = class_copyProtocolList(self.class, &protocolIndex);
 
 //	Protocol **protocols = (__bridge_retained Protocol)class_copyProtocolList(self, &num);
 	for (int i = 0; i < protocolIndex; i++)
@@ -587,7 +587,7 @@ static Class OverrideClass(id self, SEL _cmd)
 		subclass = selfClass;
 #endif
 	}
-     Method m = class_getInstanceMethod(selfClass, selector);
+	 Method m = class_getInstanceMethod(selfClass, selector);
 	if (m == NULL)
 	{
 		NSLog(@"Could not find method %@ in class %@", NSStringFromSelector(selector), NSStringFromClass(selfClass));

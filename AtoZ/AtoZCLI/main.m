@@ -2,91 +2,105 @@
 #import <Foundation/Foundation.h>
 #import <AtoZ/AtoZ.h>
 
-/*
-void cliDefaults(){
-	NSUserDefaults *defaults = [[NSUserDefaults alloc] init];
-	NSUInteger counter = [defaults[@"counter"]unsignedIntegerValue] +1;
-	[defaults setPersistentDomain:[NSDictionary dictionaryWithObject:@(counter) forKey:@"counter"] forName:@"com.mralexgray.atozCLI"];
-	[defaults synchronize];
-	NSLog(@"welcome the the CLI.  We've launched %ld times!", counter);
-}
-void quantize() {
-	[AZStopwatch start:@"quantize"];
-	cliDefaults();
-	@autoreleasepool {
-		[[NSImage systemImages] eachConcurrentlyWithBlock:^(NSInteger index, id objI, BOOL *stop) {
-			[[[AZColor sharedInstance] colorsForImage:objI] az_each:^(id obj, NSUInteger index, BOOL *stop) {
-			NSLog(@"Hello, World!  %@", [obj propertiesPlease]);
-			}];
-		}];
-	}
-	[AZStopwatch stop:@"quantize"];
-}
-
-void TestStopwatchBlock (NSString* name) {
-	[AZStopwatch stopwatch:name timing:^{
-			[AtoZ performBlock:^{
-//				[self someLongAssFunction];
-			} afterDelay:10];
-		[AtoZ performSelector:@selector(dock) onThread:[NSThread mainThread] withObject:nil waitUntilDone:YES];
-			AZLOG(@"longblock");
-	}];
-}
-
-//const NSImage*paddy = [[NSImage alloc]initWithContentsOfFile:@"/Library/Desktop Pictures/Rice Paddy.jpg"];
-
-@interface AAAA : BaseModel
+#define AZSTDIN NSFileHandle.fileHandleWithStandardInput
+@interface AZCLIMenu 	: NSObject
+@property (STRNG)	NSA* items;
+@property (RONLY)	NSS* outputString;
+@property (ASS)   NSRNG range;
 @end
-@implementation AAAA
-@end
-@interface TestView : NSView <NSWindowDelegate> { }
+@interface AZCLIHandler : NSObject	{ NSA* palette; }
 
-@property (strong) CALayer* lay;
--(void)drawRect:(NSRect)rect;
+@property (NATOM) BOOL finished;
+@property (STRNG) NSFileHandle *stdinFileHandle;
+@property (RONLY) NSC *nextColor;
+- (void) mainMenu;
 @end
 
-@implementation TestView
+@implementation AZCLIHandler
 
--(void)viewDidMoveToSuperview {
-	NSLog(@"view did load");
-	self.wantsLayer = YES;
-	self.lay = [CALayer layer];
-	_lay.frame = quadrant(self.bounds, 1);
-	_lay.backgroundColor = cgRED;
-	self.layer.sublayers = @[_lay];
+- (id) init { 	if (self != super.init ) return nil;
+
+  _stdinFileHandle = AZSTDIN;
+  palette = [NSC colorsInFrameworkListNamed:@"FengShui"];
+  [AZNOTCENTER addObserver:self selector:@selector(didReadStdin:) name:NSFileHandleReadCompletionNotification object:_stdinFileHandle];
+  fprintf(stdout, "Welcome to %s.  Please choose a test option.", colorizeStringWithColors(@"AtoZ.framework", RED, WHITE).UTF8String);
+  fflush(stdout);
+  [self mainMenu];
+  return self;
 }
--(void)drawRect:(NSRect)rect {
-	[[NSColor blueColor] set];
-	NSRectFill( [self bounds] );
+- (NSC*) nextColor 		{ static NSUI _p = 0; _p++; return [palette normal:_p]; }
+- (NSS*) methodMenu	 { return self.instanceMethodArray.count ? [NSS stringFromArray:[self.instanceMethodArray nmap:^id(id obj, NSUI i) {
+										return $(@"\n\t%ld:\t%@", i, colorizeStringWithColor(obj, self.nextColor));}]] : nil;   	}
+
+- (NSS*) frameworkMenu	{	return [NSS stringFromArray:[AZFWORKBUNDLE.frameworkIdentifiers nmap:^id(id obj, NSUI i) {
+										return $(@"%ld:%@", 100 + i, [colorizeStringWithColor(obj, self.nextColor) paddedTo:60]); }]]; 	}
+
+//- (VoidBlock) actionAtIndex {}
+
+- (void) mainMenu {	fprintf(stdout, "\n\nAvailable Frameworks:\n\n%s",	self.frameworkMenu.UTF8String); 
+							fprintf(stdout, "\n\nAvailable Tests:%s\n",  		self.methodMenu.UTF8String );
+							[_stdinFileHandle readInBackgroundAndNotify];
+}	
+
+- (void)didReadStdin:(NSNOT*)note
+{
+   NSS *string = [NSS stringWithData:[note.userInfo objectForKey:NSFileHandleNotificationDataItem] encoding:NSASCIIStringEncoding];
+	NSUI select  = string.integerValue;
+	BOOL hit = select < self.instanceMethodNames.count ||  ( 100 <= select && select < 100 + AZFWORKBUNDLE.frameworkIdentifiers.count);
+	!hit  ? [self mainMenu] 
+			: fprintf(stdout, "YOu selected %ld\n", select);
+//	if ([result respondsToSelector:@selector(UTF8String)])  fprintf(stdout, "%s\n", [result UTF8String]);   fprintf(stdout, "objj> ");
+	fflush(stdout);
+	[_stdinFileHandle readInBackgroundAndNotify];
+}
+- (void) colorLogging {
+
+	COLORLOG(YELLOw, @"whatever %@", @4);	NSD *allColorInfo = NSC.colorsAndNames;
+	NSLog(@"Available named colors:\n%@", 	[NSS stringFromArray:[allColorInfo.allKeys map:^id(id obj) {
+															return colorizeStringWithColor(	
+																	[obj stringByPaddingToLength:22 withString:@" " startingAtIndex:0], 
+																	allColorInfo[obj]);	
+														}]]);
+	[self mainMenu];
+}
+- (void) variadicColorLogging {
+
+	LOGCOLORS(RED, @"red", ORANGE, @"orange", YELLOw, @"yellow", GREEN, @"green", BLUE, @"blue", PURPLE, GREY, "purple (but not in the right order", "Grey (also out of order)", nil);
 }
 
--(void)windowWillClose:(NSNotification *)note {		[[NSApplication sharedApplication] terminate:self];	}
+//	NSFileHandle *inHandle = AZSTDIN; // Read from stdin
+//	[AZNOTCENTER addObserver:self selector:@selector(stdinDataAvailable) name:NSFileHandleDataAvailableNotification object:inHandle];
+//	[inHandle waitForDataInBackgroundAndNotify];
+//   return self;
+//}
 
-- (void) mouseDown:(NSEvent*)ev	{	[_lay animateOverAndUpFrom:_lay.position to:AZCenterOfRect(quadrant(self.bounds, 3)) duration:5];	}
+//- (void) stdinDataAvailable 	{
+//	
+//	NSData *theData = [[NSFileHandle fileHandleWithStandardInput] availableData];
+//	NSLog(@"Got data: %@", theData);
+//	_finished 		 = !theData.length;	
+//	if (_finished)  return; 
+//	[AZSTDIN waitForDataInBackgroundAndNotify];	// Listen for more
+//   
+//}
 @end
-*/
 
+int main(int argc, char *argv[]) {	@autoreleasepool {
 
-@interface AZTests : BaseModel
-- (void) colorLogging;
-@end
-
-int main(int argc, char *argv[]) {
-	@autoreleasepool {
-
-		NSA *reference = [AZTests instanceMethods];
-		if (!reference) return -1;
-
-		int inputOne;
-		COLORLOG( WHITE, @"Available Tests:%@", [NSS stringFromArray:[reference nmap:^id(id obj, NSUInteger index) {
-			return $(@"%ld: %@\n", index, colorizeStringWithColor(obj, RANDOMCOLOR));
-		}]]);
-      scanf("%i", &inputOne);
-      NSLog (@"You chose: %i : %@", inputOne, reference[inputOne]);
-      int inputTwo;
-      NSLog (@"Enter another number: ");
-      scanf("%i", &inputTwo);
-      NSLog (@"%i + %i = %d", inputOne, inputTwo, inputOne + inputTwo);
+	// Create the input handler
+   AZCLIHandler *ih = AZCLIHandler.new;
+	while (!ih.finished) AZRUNFOREVER;	   // Kick the run loop
+	
+//					__block NSUI chooser = 1; 
+//		int inputOne;
+//				
+//	  scanf("%i", &inputOne);
+//	  NSLog (@"You chose: %i : %@", inputOne, allOpts[(inputOne + 1)]);
+//	  int inputTwo;
+//	  NSLog (@"Enter another number: ");
+//	  scanf("%i", &inputTwo);
+//	  NSLog (@"%i + %i = %d", inputOne, inputTwo, inputOne + inputTwo);
+//*/
    }
 	return 0;
 }
@@ -111,21 +125,6 @@ int main(int argc, char *argv[]) {
 //		[AZStopwatch stopwatch:@"Runtime" timing:^{
 
 
-@implementation AZTests
-- (void) colorLogging {
-
-	COLORLOG(YELLOw, @"whatever %@", @4);
-
-	NSD *allColorInfo = NSC.colorsAndNames;
-	NSLog(@"Available named colors:\n%@", 	[NSS stringFromArray:[allColorInfo.allKeys map:^id(id obj) {
-															return colorizeStringWithColor(	
-																	[obj stringByPaddingToLength:22 withString:@" " startingAtIndex:0], 
-																	allColorInfo[obj]);	
-														}]]  	
-	);
-}
-
-@end
 		
 //						COLORLOG(value, @"%@", key);
 //			}];
@@ -265,4 +264,68 @@ int main(int argc, char *argv[]) {
 		return retVal;
 	}
 }
+*/
+
+/*
+void cliDefaults(){
+	NSUserDefaults *defaults = [[NSUserDefaults alloc] init];
+	NSUInteger counter = [defaults[@"counter"]unsignedIntegerValue] +1;
+	[defaults setPersistentDomain:[NSDictionary dictionaryWithObject:@(counter) forKey:@"counter"] forName:@"com.mralexgray.atozCLI"];
+	[defaults synchronize];
+	NSLog(@"welcome the the CLI.  We've launched %ld times!", counter);
+}
+void quantize() {
+	[AZStopwatch start:@"quantize"];
+	cliDefaults();
+	@autoreleasepool {
+		[[NSImage systemImages] eachConcurrentlyWithBlock:^(NSInteger index, id objI, BOOL *stop) {
+			[[[AZColor sharedInstance] colorsForImage:objI] az_each:^(id obj, NSUInteger index, BOOL *stop) {
+			NSLog(@"Hello, World!  %@", [obj propertiesPlease]);
+			}];
+		}];
+	}
+	[AZStopwatch stop:@"quantize"];
+}
+
+void TestStopwatchBlock (NSString* name) {
+	[AZStopwatch stopwatch:name timing:^{
+			[AtoZ performBlock:^{
+//				[self someLongAssFunction];
+			} afterDelay:10];
+		[AtoZ performSelector:@selector(dock) onThread:[NSThread mainThread] withObject:nil waitUntilDone:YES];
+			AZLOG(@"longblock");
+	}];
+}
+
+//const NSImage*paddy = [[NSImage alloc]initWithContentsOfFile:@"/Library/Desktop Pictures/Rice Paddy.jpg"];
+
+@interface AAAA : BaseModel
+@end
+@implementation AAAA
+@end
+@interface TestView : NSView <NSWindowDelegate> { }
+
+@property (strong) CALayer* lay;
+-(void)drawRect:(NSRect)rect;
+@end
+
+@implementation TestView
+
+-(void)viewDidMoveToSuperview {
+	NSLog(@"view did load");
+	self.wantsLayer = YES;
+	self.lay = [CALayer layer];
+	_lay.frame = quadrant(self.bounds, 1);
+	_lay.backgroundColor = cgRED;
+	self.layer.sublayers = @[_lay];
+}
+-(void)drawRect:(NSRect)rect {
+	[[NSColor blueColor] set];
+	NSRectFill( [self bounds] );
+}
+
+-(void)windowWillClose:(NSNotification *)note {		[[NSApplication sharedApplication] terminate:self];	}
+
+- (void) mouseDown:(NSEvent*)ev	{	[_lay animateOverAndUpFrom:_lay.position to:AZCenterOfRect(quadrant(self.bounds, 3)) duration:5];	}
+@end
 */

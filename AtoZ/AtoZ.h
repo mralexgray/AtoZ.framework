@@ -69,9 +69,14 @@
 //#import <Growl/Growl.h>
 //#import "Nu.h"
 
+// ARC is compatible with iOS 4.0 upwards, but you need at least Xcode 4.2 with Clang LLVM 3.0 to compile it.
+//#if !__has_feature(objc_arc)
+//#error This project must be compiled with ARC (Xcode 4.2+ with LLVM 3.0 and above)
+//#endif
 
-#define EXCLUDE_STUB_PROTOTYPES 1
-#import <PLWeakCompatibility/PLWeakCompatibilityStubs.h>
+
+//#define EXCLUDE_STUB_PROTOTYPES 1
+//#import <PLWeakCompatibility/PLWeakCompatibilityStubs.h>
 
 #import <BlocksKit/BlocksKit.h>
 #import <CocoaPuffs/CocoaPuffs.h>
@@ -79,16 +84,20 @@
 #import <DrawKit/DKDrawKit.h>
 #import <FunSize/FunSize.h>
 #import <Lumberjack/Lumberjack.h>
+#import <KSHTMLWriterFramework/KSHTMLWriterFramework.h>
 #import <MapKit/MapKit.h>
-#import <Nu/Nu.h>
+#import <NoodleKit/NoodleKit.h>
+//#import <Nu/Nu.h>
 #import <PhFacebook/PhFacebook.h>
 #import <Rebel/Rebel.h>
-//#import <SNRHUDKit/SNRHUDKit.h>
+
 #import <TwUI/TUIKit.h>
 #import <Zangetsu/Zangetsu.h>
 
 #import <AtoZBezierPath/AtoZBezierPath.h>
 #import <AtoZAppKit/BGHUDAppKit.h>
+
+#import "AtoZUmbrella.h"
 
 //#import <AtoZUI/AtoZUI.h>
 //#import <RMKit/RMKit.h>
@@ -297,6 +306,16 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 /* CONTROLS */
 #import "AZToggleArrayView.h"
 #import "AZDarkButtonCell.h"
+//#import "SNRHUDKit.h"
+#import "SNRHUDButtonCell.h"
+#import "SNRHUDImageCell.h"
+#import "SNRHUDScrollView.h"
+#import "SNRHUDSegmentedCell.h"
+#import "SNRHUDTextFieldCell.h"
+#import "SNRHUDTextView.h"
+#import "SNRHUDWindow.h"
+
+
 
 /* WINDOWS */
 #import "AZAttachedWindow.h"
@@ -374,7 +393,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
  You can use it as
 
  FilterBlock fb1 = ^id(id element, NSUInteger idx, BOOL *stop){ if ([element isEqualToString:@"YES"]) { NSLog(@"You did it");  *stop = YES;} return element;};
- FilterBlock fb2 = ^id(id element, NSUInteger idx, BOOL *stop){ if ([element isEqualToString:@"NO"] ) { NSLog(@"Nope");        *stop = YES;} return element;};
+ FilterBlock fb2 = ^id(id element, NSUInteger idx, BOOL *stop){ if ([element isEqualToString:@"NO"] ) { NSLog(@"Nope");		*stop = YES;} return element;};
 
  NSArray *filter = @[ fb1, fb2 ];
  NSArray *inputArray = @[@"NO",@"YES"];
@@ -496,7 +515,7 @@ typedef void (^asyncTaskCallback)(AZTaskResponder *response);
 
 + (AZPOS) positionForString: (NSS*)strVal;
 +  (NSS*) stringForPosition:(AZPOS)enumVal;
-+  (NSS*) stringForType:	    (id)type;
++  (NSS*) stringForType:		(id)type;
 
 //+ (NSFont*) fontWithSize: (CGFloat) fontSize;
 //- (NSFont*) registerFonts:(CGFloat)size;
@@ -514,7 +533,7 @@ typedef void (^asyncTaskCallback)(AZTaskResponder *response);
 /*@property (strong, nonatomic) NSLogConsole *console;	
 - (id)objectForKeyedSubscript:(NSString *)key; - (void)setObject:(id)newValue forKeyedSubscription:(NSString *)key;	*/
 
-- (void) performBlock:(VoidBlock)block;
+//- (void) performBlock:(VoidBlock)block;
 - (void) performBlock:(VoidBlock)block waitUntilDone:(BOOL)wait;
 
 + (void) playNotificationSound: (NSD*)apsDictionary;
@@ -525,9 +544,9 @@ typedef void (^asyncTaskCallback)(AZTaskResponder *response);
 
 + (void) say:(NSS*)thing;
 
-+  (CGF) clamp: 			(CGF)value       from:(CGF)minimum to:(CGF)maximum;
-+  (CGF) scaleForSize:	(CGS)size      inRect:(CGR)rect;
-+  (CGR) centerSize:		(CGS)size      inRect:(CGR)rect;
++  (CGF) clamp: 			(CGF)value	   from:(CGF)minimum to:(CGF)maximum;
++  (CGF) scaleForSize:	(CGS)size	  inRect:(CGR)rect;
++  (CGR) centerSize:		(CGS)size	  inRect:(CGR)rect;
 +  (CGP) centerOfRect:	(CGR)rect;
 +  (NSR) rectFromPointA:(NSP)pointA andPointB:(NSP)pointB;
 + (void) printRect:		(NSR)toPrint;
@@ -540,10 +559,44 @@ typedef void (^asyncTaskCallback)(AZTaskResponder *response);
 
 @end
 
+typedef void (^KVOLastChangedBlock)( NSS *whatKeyChanged, id whichInstance, id newVal);
+
 @interface BaseModel (AtoZ)
-@property (NATOM,  CP) NSString *uniqueID;
+
+
++ (instancetype) objectAtIndex:(NSUI)idx;
+
++ (void) setLastChangedBlock:(KVOLastChangedBlock)lastChangedBlock;
+
+// Shared instance is the object modified after each key change
+// After being notified of change to the shared instance, call this to get last modified key of last modified instance
++ (instancetype)	lastModifiedInstance;
++ (NSS*)				lastModifiedKey;
++ (void)				setLastModifiedKey:(NSS*)key forInstance:(id)object;
+
+- (id) valueForUndefinedKey:(NSString *)key;
+
+//+ (instancetype) swizzleInstanceWithObject:(id)obj;
+- (void) swizzleSave;
+
+@property (RONLY) NSString *uniqueID;
+- (NSS*) uniqueID;
+
+@property (RONLY) NSA *superProperties;
+@property (RONLY) NSUI instanceNumber;
+- (NSUI) instanceNumber;
++ (NSUI) instances;
+
+
 @property (NATOM, ASS) BOOL convertToXML;
 + (NSS*)saveFilePath;
+
+
+- (id)objectAtIndexedSubscript:(NSUInteger)idx;
+- (void)setObject:(id)obj atIndexedSubscript:(NSUInteger)idx;
+- (void)setObject:(id)obj forKeyedSubscript:(id <NSCopying>)key;
+- (id)objectForKeyedSubscript:(id)key;
+
 @end
 
 //

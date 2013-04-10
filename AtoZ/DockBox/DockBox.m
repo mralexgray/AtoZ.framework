@@ -77,7 +77,7 @@
 //	[w 						makeKeyAndOrderFront:	 nil];
 
 
-//	[NSApp run]; 	return 0;  }	}     // (main.exitCode)
+//	[NSApp run]; 	return 0;  }	}	 // (main.exitCode)
 
 
 //	NSRunLoop   		* runLoop;
@@ -87,7 +87,7 @@
 //	{
 //		// create run loop
 //		runLoop = NSRunLoop.currentRunLoop;
-//		main    = AZHTTPRouter.alloc.init; // replace with init method
+//		main	= AZHTTPRouter.alloc.init; // replace with init method
 //
 //		// kick off object, if required
 //		[main start];
@@ -114,7 +114,7 @@
 //	@autoreleasepool
 //	{
 //		runLoop = NSRunLoop.currentRunLoop; 		// create run loop
-//		main    = AZHTTPRouter.new; 						// replace with init method
+//		main	= AZHTTPRouter.new; 						// replace with init method
 //																						// enter run loop
 ////	while ( main && [runLoop runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:2]] );
 //		{
@@ -167,7 +167,7 @@
  //		}waitUntilDone:YES];
 
  }
- //    return 0;
+ //	return 0;
  }
  
  */

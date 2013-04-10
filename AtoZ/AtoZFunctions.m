@@ -24,11 +24,26 @@
 //	NSLog(XCODE_COLORS_ESCAPE @"fg218,147,0;" "%@" XCODE_COLORS_RESET, full);
 //}
 
-NSA* rgbColorValues (id color) {
+
+void LOGCOLORS(id stringsAndColors, ...) {			__block NSMA *colors = NSMA.new;		__block NSMA *words  = NSMA.new;
+	
+	AZVA_Block theBlk = ^(id thing) {	[thing isKindOfClass:NSS.class] ?	[words  addObject: thing] :
+													[thing isKindOfClass:NSC.class] ?	[colors addObject: thing] : nil;
+	};
+	azva_iterate_list( stringsAndColors, theBlk ); __block NSUI ctr = 0;
+	
+	NSS* toLog = [words reduce:^id(id memo, id obj) {	ctr++;
+																		return [memo withString:colorizeStringWithColor( obj, [colors normal:ctr] )]; 
+																	} withInitialMemo:@"LOGCOLORS: "];
+	printf("%s", toLog.UTF8String);			
+}
+
+NSA* rgbColorValues (id color)												{
 	float r, g, b;
 	if ([color isKindOfClass:NSS.class]) 
 		color = [NSC colorWithName:color] ?: [NSC colorWithCSSRGB:color] ?: WHITE;
 	if ([color isKindOfClass:NSC.class]) { 
+		color = [color isDark] ? [[color brighter]brighter] : color;
 		color = [color colorUsingColorSpace:NSColorSpace.genericRGBColorSpace];
 		r = [(NSC*)color   redComponent] * 255; 		
 		g = [(NSC*)color greenComponent] * 255;
@@ -38,41 +53,46 @@ NSA* rgbColorValues (id color) {
 	} else r = g = b = 0;
 	return @[@(r), @(g), @(b)];
 }
-
-NSS* colorizeStringWithColors(NSS* string, id color, id back) {
+NSS* colorizeStringWithColors( NSS* string, id front, id back ) 	{  	NSA *rgbs;
 	
-	NSA *rgbs = rgbColorValues(color);	NSS* output;
-	
-	output =  $(XCODE_COLORS_ESCAPE @"fg%i,%i,%i;%@" XCODE_COLORS_RESET, 
-						[rgbs[0] intValue], [rgbs[1]intValue], [rgbs[2]intValue], string);
-	if (back) {
-		rgbs = rgbColorValues(back);
-		output =  $(XCODE_COLORS_ESCAPE @"bg%i,%i,%i;%@" XCODE_COLORS_RESET, 
-						[rgbs[0] intValue], [rgbs[1]intValue], [rgbs[2]intValue], output);
+	if (front) 	{	rgbs 		= rgbColorValues( front );
+						string 	= $(XCODE_COLORS_ESCAPE @"fg%i,%i,%i;%@" XCODE_COLORS_RESET, 
+										[rgbs[0] intValue], [rgbs[1]intValue], [rgbs[2]intValue], string);
 	}
-	return output;
+	if (back)	{	rgbs 		= rgbColorValues( back );
+						string 	=  $(XCODE_COLORS_ESCAPE @"bg%i,%i,%i;%@" XCODE_COLORS_RESET, 
+										[rgbs[0] intValue], [rgbs[1]intValue], [rgbs[2]intValue], string);
+	}
+	return string;
 }
+NSS* colorizeStringWithColor ( NSS* string, id color ) 				{	return colorizeStringWithColors(string, color, nil); }
 
-NSS* colorizeStringWithColor(NSS* string, id color) {	return colorizeStringWithColors(string, color, nil); }
-
-void _AZColorLog( NSC *color, const char *filename, int line, const char *funcName, NSS *format, ... ){
+// ACTIVE NSLOG
+void _AZColorLog ( NSC *color, const char *filename, int line, const char *funcName, NSS *format, ... ){
 
 //	NSS *colorString = @"fg218,147,0";
-	char *sss = getenv("XCODE_COLORS");
-	BOOL YESORNO = (sss != NULL) ? areSame( $(@"%s",sss), @"NO") ? NO : YES : YES;
-//	NSLog(@"%s is %@",sss, StringFromBOOL(isit));
-//	NSS* envStr = @(getenv("XCODE_COLORS")) ?: @"YES";
-//	
-//	BOOL YESORNO = [envStr boolValue]; 
-	va_list   argList;	va_start (argList, format);
-	NSS *path  	= $UTF8(filename).lastPathComponent;
-	NSS *mess   = [NSS.alloc initWithFormat:format arguments:argList];
+//	printf("%s", colorizeStringWithColor(@"AZCOLORLOG", YELLOw).UTF8String);
+	
+	// silly color theming
+	static NSA *logtheme = nil; 
+					logtheme = logtheme ?: [[NSC.fengshui map:^id(id obj) { return [obj darker]; }].shuffeled withMaxItems:3];
+	
+	va_list   	argList;		va_start 	(argList, format);
+	char *sss 		= getenv("XCODE_COLORS");
+	BOOL YESORNO 	= (sss != NULL) ? areSame( $(@"%s",sss), @"NO") ? NO : YES : YES;
+
+	NSS *path  		= $UTF8(filename).lastPathComponent;
+	NSS *mess   	= [NSS stringWithFormat:format arguments:argList];
 	fprintf ( stderr, "%s", 
-		YESORNO ? 	$(	@"%@%@ %@ %@\n",
-										colorizeStringWithColor( $(@"[%@]"	,path), 		   @[@82,@82,@82]), 
-										colorizeStringWithColor( $(@":%i"	,line), 		@[@140,@140,@140]),
-										colorizeStringWithColors( $(@"%s"	,funcName),	   @[@109,@9,@40], @[@50,@9,@40] ),  
-										colorizeStringWithColor( mess, 										color)).UTF8String
+		YESORNO ? 	$(	@"%@ %@ %@\n",
+										//  calling method filename
+										[$(@"%@%@",colorizeStringWithColor( $(@"[%@]",    path),   logtheme[0]), 
+											//  calling method line number
+											colorizeStringWithColor( $(@":%i", line),   logtheme[1]))paddedTo:60],
+										//  actual log message 
+										colorizeStringWithColor( mess , color),
+										//  calling method
+										colorizeStringWithColor( $(@"%s", funcName),	[logtheme[2] darker])).UTF8String
 				 :	$(@"[%@]:%i %s %@\n", path, line, funcName, mess ).UTF8String); 
 								
 //										XCODE_COLORS_ESCAPE @"fg140,140,140;" 	@":%i" 	XCODE_COLORS_RESET
@@ -129,7 +149,7 @@ void _AZSimpleLog( const char *file, int lineNumber, const char *funcName, NSStr
 	
 	//	NSS *toLog 	= $( XCODE_COLORS_RESET	@"%s" XCODE_COLORS_ESCAPE @"fg82,82,82;" @"%-70s[%s]" XCODE_COLORS_RESET
 	//									XCODE_COLORS_ESCAPE @"fg140,140,140;" @":%i\n" XCODE_COLORS_RESET	, 
-	//								    mess.UTF8String, "", path.UTF8String, lineNumber);
+	//									mess.UTF8String, "", path.UTF8String, lineNumber);
 	
 	//	NSLog(XCODE_COLORS_ESCAPE @"bg89,96,105;" @"Grey background" XCODE_COLORS_RESET);
 	//	NSLog(XCODE_COLORS_ESCAPE @"fg0,0,255;"
@@ -194,13 +214,13 @@ void pyRunWithArgsInDirPythonPath(NSS* _spriptP, NSA *_optArgs, NSS*working, NSS
 //   int count = array.count + 1;
 //   char *cargs = (char*) malloc( count * sizeof(char*));
 ////   char *cargs = (char*) malloc(sizeof(char*) * (count + 1));
-//   for(i = 0; i < count - 1; i++) {        //cargs is a pointer to 4 pointers to char
-//	  NSString *s      = array[i];     //get a NSString
+//   for(i = 0; i < count - 1; i++) {		//cargs is a pointer to 4 pointers to char
+//	  NSString *s	  = array[i];	 //get a NSString
 //	  char *cstr = [s cStringUsingEncoding:NSUTF8StringEncoding];// UTF8String; //get cstring
-////	  int          len = strlen(cstr); //get its length
+////	  int		  len = strlen(cstr); //get its length
 ////	  char  *cstr_copy = (char*) malloc(sizeof(char) * (len + 1));//allocate memory, + 1 for ending '\0'
-////	  strcpy(cstr_copy, cstr);         //make a copy
-//	  cargs[i] = &cstr; //cstr_copy;            //put the point in cargs
+////	  strcpy(cstr_copy, cstr);		 //make a copy
+//	  cargs[i] = &cstr; //cstr_copy;			//put the point in cargs
 //  }
 //  cargs[count] = NULL;
 //  return cargs;
@@ -209,13 +229,13 @@ void pyRunWithArgsInDirPythonPath(NSS* _spriptP, NSA *_optArgs, NSS*working, NSS
 //char** cArrayFromNSArray ( NSArray* array ){
 //   int i, count = array.count;
 //   char *cargs = (char*) malloc(sizeof(char*) * (count + 1));
-//   for(i = 0; i < count; i++) {        //cargs is a pointer to 4 pointers to char
-//	  NSString *s      = array[i];     //get a NSString
+//   for(i = 0; i < count; i++) {		//cargs is a pointer to 4 pointers to char
+//	  NSString *s	  = array[i];	 //get a NSString
 //	  const char *cstr = s.UTF8String; //get cstring
-//	  int          len = strlen(cstr); //get its length
+//	  int		  len = strlen(cstr); //get its length
 //	  char  *cstr_copy = (char*) malloc(sizeof(char) * (len + 1));//allocate memory, + 1 for ending '\0'
-//	  strcpy(cstr_copy, cstr);         //make a copy
-//	  cargs[i] = cstr_copy;            //put the point in cargs
+//	  strcpy(cstr_copy, cstr);		 //make a copy
+//	  cargs[i] = cstr_copy;			//put the point in cargs
 //  }
 //  cargs[i] = NULL;
 //  return cargs;
@@ -240,23 +260,23 @@ void pyRunWithArgsInDirPythonPath(NSS* _spriptP, NSA *_optArgs, NSS*working, NSS
 //		strnlen(t,&cargs);
 //		cargs[array.count +1] = NULL;
 //	int argc;		char * argv[3];
-//    argv[0] = (char*)path.lastPathComponent.UTF8String;
-//    argv[1] = "10011";//"-m";
-//    argv[2] = "/tmp/targets.list";
-//    Py_SetProgramName(argv[0]);
-////    Py_Initialize();
-//    PySys_SetArgv(argc, argv);
+//	argv[0] = (char*)path.lastPathComponent.UTF8String;
+//	argv[1] = "10011";//"-m";
+//	argv[2] = "/tmp/targets.list";
+//	Py_SetProgramName(argv[0]);
+////	Py_Initialize();
+//	PySys_SetArgv(argc, argv);
 //	[NSThread.mainThread performBlock:^{
 //		NSLog(@"Hello");
 //	} waitUntilDone:YES];
 //	} afterDelay:]
-//    const char *mainFilePathPtr = [path UTF8String];
-//    FILE *mainFile = fopen(mainFilePathPtr, "r");
+//	const char *mainFilePathPtr = [path UTF8String];
+//	FILE *mainFile = fopen(mainFilePathPtr, "r");
 //	NSLog(@"running simple file... %s", mainFilePathPtr);
-//    int result = PyRun_SimpleFile(mainFile, (char *)[[path lastPathComponent] UTF8String]);
+//	int result = PyRun_SimpleFile(mainFile, (char *)[[path lastPathComponent] UTF8String]);
 //	Py_Finalize();
 
-//        [NSException raise: NSInternalInconsistencyException format:
+//		[NSException raise: NSInternalInconsistencyException format:
 
 
 
@@ -330,7 +350,7 @@ void pyRunWithArgsInDirPythonPath(NSS* _spriptP, NSA *_optArgs, NSS*working, NSS
 	{
 		[RED set];
 		NSBP *i = [NSBP bezierPathWithRect:cellFrame];
-			      [i setLineWidth:5];
+				  [i setLineWidth:5];
 				  [i strokeInsideWithinRect:cellFrame];
 	}
 }
@@ -393,10 +413,10 @@ static NSIMG *installed, *notInstalled, *needsUpdate, *installedNeedsUpdate;
 
 //-(id)transformedValue:(id)value
 //{
-//    CSQuality quality = [value intValue];
-//    if (quality == kQualityBest) return @"Best";
-//    else if (quality == kQualityWorst) return @"Worst";
-//    return nil;
+//	CSQuality quality = [value intValue];
+//	if (quality == kQualityBest) return @"Best";
+//	else if (quality == kQualityWorst) return @"Worst";
+//	return nil;
 //}
 //-(id) reverseTransformedValue:(id)value {
 //	
@@ -424,7 +444,7 @@ void monitorTask(NSTask* task) {
 									[epipe getBytes:buffer length:[epipe length]];
 									LogAndReturn(@(buffer));
 	}
-	NSData   *spipe      = [[task.standardOutput fileHandleForReading] readDataToEndOfFile];
+	NSData   *spipe	  = [[task.standardOutput fileHandleForReading] readDataToEndOfFile];
 	buffer = calloc([spipe length]+1, sizeof(char));
 	[spipe getBytes:buffer length:[spipe length]];
 	NSLog(@"%@", @(buffer));
@@ -633,18 +653,18 @@ BOOL SameString(const char *a, const char *b) {
 // Key to AZString
 NSString * AZToStringFromTypeAndValue(const char * typeCode, void * value)
 {
-	return 	SameString( typeCode, @encode(   NSP)) ?  AZStringFromPoint(	 *( NSPoint	       *)value)
-		:		SameString( typeCode, @encode( NSRNG)) ?  NSStringFromRange( *( NSRNG		 	    *)value)
+	return 	SameString( typeCode, @encode(   NSP)) ?  AZStringFromPoint(	 *( NSPoint		   *)value)
+		:		SameString( typeCode, @encode( NSRNG)) ?  NSStringFromRange( *( NSRNG		 		*)value)
 		:		SameString( typeCode, @encode(  NSSZ)) ?  NSStringFromSize ( *( NSSize		 	 *)value)
 		:		SameString( typeCode, @encode(   NSR)) ?  AZStringFromRect ( *( NSRect 			 *)value)
 		: 		SameString( typeCode, @encode(  BOOL)) ?  StringFromBOOL   ( *( BOOL  	 		 *)value)
 		: 		SameString( typeCode, @encode( AZPOS)) ?  stringForPosition( *( AZWindowPosition *)value)
-		:		SameString( typeCode, @encode(   CGF)) ?  $(@"%f", 			 *(( CGF    		 *)value))
-		:		SameString( typeCode, @encode(  NSUI)) ?  $(@"%lu",			 *(( NSUI            *)value))
-		:		SameString( typeCode, @encode(   int)) ?  $(@"%d", 			 *(( int             *)value))
-		:		SameString( typeCode, @encode(   NSI)) ?  $(@"%ld",			 *(( NSUI            *)value))
+		:		SameString( typeCode, @encode(   CGF)) ?  $(@"%f", 			 *(( CGF			 *)value))
+		:		SameString( typeCode, @encode(  NSUI)) ?  $(@"%lu",			 *(( NSUI			*)value))
+		:		SameString( typeCode, @encode(   int)) ?  $(@"%d", 			 *(( int			 *)value))
+		:		SameString( typeCode, @encode(   NSI)) ?  $(@"%ld",			 *(( NSUI			*)value))
 		:		SameString( typeCode, @encode(  CGCR)) ?  [@"cg" withString:[[NSC colorWithCGColor:*((CGCR *)value)]nameOfColor]]
-		:		SameString( typeCode, @encode(    id)) ?  $(@"%@", (__bridge NSObject*)value)
+		:		SameString( typeCode, @encode(	id)) ?  $(@"%@", (__bridge NSObject*)value)
 		: nil;
 }
 

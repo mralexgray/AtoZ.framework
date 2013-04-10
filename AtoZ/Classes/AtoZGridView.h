@@ -17,13 +17,13 @@
 @class 	   AtoZGridView, AtoZGridViewItem;
 @protocol 			  AtoZGridViewDelegate  <NSObject>
 @optional
-- (void) gridView: (AZGV*) gridView  willHovertemAtIndex:	    (NSUI)index  inSection: (NSUI)section;
-- (void) gridView: (AZGV*) gridView  willUnhovertemAtIndex:	    (NSUI)index  inSection: (NSUI)section;
-- (void) gridView: (AZGV*) gridView  willSelectItemAtIndex:	    (NSUI)index  inSection: (NSUI)section;
-- (void) gridView: (AZGV*) gridView  didSelectItemAtIndex:	    (NSUI)index  inSection: (NSUI)section;
+- (void) gridView: (AZGV*) gridView  willHovertemAtIndex:		(NSUI)index  inSection: (NSUI)section;
+- (void) gridView: (AZGV*) gridView  willUnhovertemAtIndex:		(NSUI)index  inSection: (NSUI)section;
+- (void) gridView: (AZGV*) gridView  willSelectItemAtIndex:		(NSUI)index  inSection: (NSUI)section;
+- (void) gridView: (AZGV*) gridView  didSelectItemAtIndex:		(NSUI)index  inSection: (NSUI)section;
 - (void) gridView: (AZGV*) gridView  willDeselectItemAtIndex:   (NSUI)index  inSection: (NSUI)section;
-- (void) gridView: (AZGV*) gridView  didDeselectItemAtIndex:    (NSUI)index  inSection: (NSUI)section;
-- (void) gridView: (AZGV*) gridView  didClickItemAtIndex:	    (NSUI)index  inSection: (NSUI)section;
+- (void) gridView: (AZGV*) gridView  didDeselectItemAtIndex:	(NSUI)index  inSection: (NSUI)section;
+- (void) gridView: (AZGV*) gridView  didClickItemAtIndex:		(NSUI)index  inSection: (NSUI)section;
 - (void) gridView: (AZGV*) gridView  didDoubleClickItemAtIndex: (NSUI)index  inSection: (NSUI)section;
 
 - (void) gridView: (AZGV*) gridView  rightMouseButtonClickedOnItemAtIndex:(NSUI)index inSection:(NSUI)section;
@@ -31,11 +31,11 @@
 
 @class AtoZGridView;
 @protocol AtoZGridViewDataSource <NSObject>
-- (NSUI)   gridView: (AZGV*) gridView            numberOfItemsInSection:(NSI)section;
+- (NSUI)   gridView: (AZGV*) gridView			numberOfItemsInSection:(NSI)section;
 - (AZGVI*) gridView: (AZGV*) gridView itemAtIndex:(NSI)index  inSection:(NSI)section;
 @optional
-- (NSUI) numberOfSectionsInGridView:    (AZGV*) gridView;
-- (NSS*) gridView: 					    (AZGV*) gridView titleForHeaderInSection:(NSI)section;
+- (NSUI) numberOfSectionsInGridView:	(AZGV*) gridView;
+- (NSS*) gridView: 						(AZGV*) gridView titleForHeaderInSection:(NSI)section;
 - (NSA*) sectionIndexTitlesForGridView: (AZGV*) gridView;
 @end
 
@@ -114,7 +114,7 @@ typedef NS_ENUM( NSUInteger, AtoZGridViewItemVisibleContent ) {
 @property (NATOM, ASS) CGF  selectionRingLineWidth;
 @property (NATOM, ASS) NSUI contentInset;
 @property (NATOM, ASS) NSUI itemBorderRadius;
-@property (STRNG     ) NSD  *itemTitleTextAttributes;
+@property (STRNG	 ) NSD  *itemTitleTextAttributes;
 
 #pragma mark - Colors
 /** @name GridView Item Colors */
@@ -143,7 +143,7 @@ typedef NS_ENUM( NSUInteger, AtoZGridViewItemVisibleContent ) {
 
 #pragma mark - Scrolling to GridView Items
 /** @name  Scrolling to GridView Items */
-- (void) scrollToGridViewItem: (AZGVI*) gridViewItem    animated:(BOOL)animated;
+- (void) scrollToGridViewItem: (AZGVI*) gridViewItem	animated:(BOOL)animated;
 - (void) scrollToGridViewItemAtIndexPath: (NSIndexPath*) indexPath animated:(BOOL)animated;
 
 @end

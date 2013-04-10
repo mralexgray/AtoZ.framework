@@ -51,7 +51,7 @@
 
 - (id) initWithContentRect:(NSRect)contentRect styleMask:(NSUInteger)aStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)flag {
 
-    if (self != [super initWithContentRect:contentRect styleMask:aStyle backing:bufferingType defer:flag] ) return nil;
+	if (self != [super initWithContentRect:contentRect styleMask:aStyle backing:bufferingType defer:flag] ) return nil;
 
 
 	self.opaque		= NO;
@@ -120,7 +120,7 @@
 		// iii. Set
 		[self setFrame:windowFrame display:YES animate:NO];
 	}
-    else
+	else
 	{
 		//grab the current global mouse location; we could just as easily get the mouse location 
 		//in the same way as we do in -mouseDown:
@@ -159,7 +159,7 @@
 //		NSR flp = AZRectFlippedOnEdge(rel, d);
 		_handle = _handle ?: [AZHandlebarWindow.alloc init];
 		if (![_handle isVisible]) [self addChildWindow:_handle ordered:NSWindowAbove];
-    	[_handle setFrame:rel display:YES animate:YES];
+		[_handle setFrame:rel display:YES animate:YES];
 	}
 }
 

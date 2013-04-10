@@ -44,7 +44,7 @@ static char *opContext = "opContext";
 
 - (id)initWithDelegate:(id <OperationsRunnerProtocol>)del
 {
-    if((self = [super init])) {
+	if((self = [super init])) {
 		delegate	= del;
 		queue		= [NSOperationQueue new];
 		
@@ -150,8 +150,8 @@ static char *opContext = "opContext";
 	__block BOOL containsObject;
 	dispatch_sync(operationsQueue, ^
 		{
-            containsObject = [operations containsObject:operation];
-        } );
+			containsObject = [operations containsObject:operation];
+		} );
 	if(!containsObject) return;
 	
 	// User cancelled
@@ -206,8 +206,8 @@ static char *opContext = "opContext";
 	__block NSSet *set;
 	dispatch_sync(operationsQueue, ^
 		{
-            set = [NSSet setWithSet:operations];
-        } );
+			set = [NSSet setWithSet:operations];
+		} );
 	return set;
 }
 - (NSUInteger)operationsCount
@@ -215,8 +215,8 @@ static char *opContext = "opContext";
 	__block NSUInteger count;
 	dispatch_sync(operationsQueue, ^
 		{
-            count = [operations count];
-        } );
+			count = [operations count];
+		} );
 	return count;
 }
 

@@ -15,10 +15,10 @@ typedef NS_ENUM(NSUI, BrewOperationType) {
 };
 
 
-@interface    AZBrewFormula : BaseModel
+@interface	AZBrewFormula : BaseModel
 @property (NATOM,STRNG) NSAS 	*fancyDesc;
 @property (NATOM,STRNG) NSS		*url, *info, *name, *desc, *version;
-@property 				BOOL    googleGenerated;
+@property 				BOOL	googleGenerated;
 @property 				AZIS	  installStatus;
 + (instancetype) instanceWithName: (NSS*)name;
 @end

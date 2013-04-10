@@ -55,7 +55,7 @@ extern  NSS * const kAZFavIconOperationDidEndNetworkActivity;
 @property (nonatomic, copy) AZFavIconOperationPreflightBlock  preFlightBlock;
 
 + (AZFavIconOperation*)operationWithURL:(NSURL*)url	relationshipsRegex:(NSS*)relationshipsRegex
-						         defaultNames:(NSA*)defNames 	completionBlock:(AZFavIconOperationCompletionBlock)completion;
+								 defaultNames:(NSA*)defNames 	completionBlock:(AZFavIconOperationCompletionBlock)completion;
 @end
 
 @interface AZFavIconCache : NSCache

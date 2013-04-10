@@ -50,8 +50,8 @@ static NSMD* _children;
 
 /* A shared operation que that is used to generate thumbnails in the background. *//**
 
-    static NSOperationQueue *_AZGeneralOperationQueue = nil;
-    return _AZGeneralOperationQueue ?: ^{		_AZGeneralOperationQueue = NSOperationQueue.new;
+	static NSOperationQueue *_AZGeneralOperationQueue = nil;
+	return _AZGeneralOperationQueue ?: ^{		_AZGeneralOperationQueue = NSOperationQueue.new;
 		_AZGeneralOperationQueue.maxConcurrentOperationCount = AZOQMAX;
 		return _AZGeneralOperationQueue;
 	}();																									*/
@@ -61,9 +61,9 @@ NSOQ *AZSharedOperationStack() 			{	return AZDummy.sharedInstance.sharedStack; }
 NSOQ *AZSharedOperationQueue() 			{	return AZDummy.sharedInstance.sharedQ; }
 NSOQ *AZSharedSingleOperationQueue()	{	return AZDummy.sharedInstance.sharedSQ; }
 
-/**    static NSOperationQueue *_AZSingleOperationQueue = nil;
-    return _AZSingleOperationQueue  ?: ^{
-        _AZSingleOperationQueue = NSOperationQueue.new;
+/**	static NSOperationQueue *_AZSingleOperationQueue = nil;
+	return _AZSingleOperationQueue  ?: ^{
+		_AZSingleOperationQueue = NSOperationQueue.new;
 		_AZSingleOperationQueue.maxConcurrentOperationCount = 1;
 		return _AZSingleOperationQueue;
 	}();																									*/
@@ -75,15 +75,15 @@ NSOQ *AZSharedSingleOperationQueue()	{	return AZDummy.sharedInstance.sharedSQ; }
 
    _sharedStack 									  = NSOperationStack.new;
 	 	 _sharedQ 									  = NSOQ.new; 
-	   _sharedSQ                             = NSOQ.new; 
+	   _sharedSQ							 = NSOQ.new; 
 	_sharedStack.maxConcurrentOperationCount = AZOQMAX;
-	    _sharedQ.maxConcurrentOperationCount = AZOQMAX;  
+		_sharedQ.maxConcurrentOperationCount = AZOQMAX;  
 	   _sharedSQ.maxConcurrentOperationCount = 1;
 	return self;
 }
 + (AZDummy*) sharedInstance	{ 
 
-	static AZDummy *sharedInstance = nil;    
+	static AZDummy *sharedInstance = nil;	
 	static dispatch_once_t isDispatched; 
 	dispatch_once(&isDispatched, ^{  sharedInstance = AZDummy.new;	}); 
 	return sharedInstance; 
@@ -108,32 +108,47 @@ NSOQ *AZSharedSingleOperationQueue()	{	return AZDummy.sharedInstance.sharedSQ; }
 
 static char CONVERTTOXML_KEY;
 
+
+@interface BaseModel ()
+@property (copy) KVOLastChangedBlock lastChangedBlock;
+- (void) setLastChangedBlock:(KVOLastChangedBlock)lastChangedBlock;
+- (KVOLastChangedBlock) lastChangedBlock;
+//- (NSA*) superProperties;
+@end
+
 @implementation BaseModel (AtoZ)
-@dynamic convertToXML, uniqueID;
+static NSUI instanceNumber = 0;
+static id	lastModifiedInstance;
+static NSS	*lastModifiedKey;			// class methods for last modified key and instance - these are held as static data
+static NSPointerArray *pointers;
 
-- (NSS*) uniqueID										{
-	NSS* u =  [self associatedValueForKey:@"uniqueid"];
-	if (!u) {
-		u = [self.class newUniqueIdentifier];
-		[self setUniqueID:u];
-	}
-	return u;
-}
-- (void) setUniqueID:	 (NSS*)uniqueID		{
-	[self setAssociatedValue:uniqueID forKey:@"uniqueid" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
-}
++ (instancetype) objectAtIndex:(NSUI)idx 		{  if (idx > pointers.count) return (id)AZNULL;
+																void *thePtf = [pointers pointerAtIndex:idx];
+																return  thePtf != NULL ? (__bridge id)thePtf : (id)AZNULL; 	}
+- (id) swizzleInit 									{ instanceNumber++;
 
-- (void) setConvertToXML:(BOOL)convertToXML	{
-	objc_setAssociatedObject(self, &CONVERTTOXML_KEY, @(convertToXML), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+	if (self != super.init ) return nil;
+	self.propertyNames
+	[self setAssociatedValue:@(instanceNumber) forKey:@"instanceNumber" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
+	[pointers addPointer:(void*)self];
+	return [self swizzleInit];
 }
-- (BOOL) convertToXML	{
-	if ([self respondsToSelector:@selector(convertToXML)]) return self.convertToXML;
-	return	[self hasAssociatedValueForKey:[NSString stringWithUTF8String:&CONVERTTOXML_KEY]]
-			? [objc_getAssociatedObject(self, &CONVERTTOXML_KEY) boolValue] : NO;
++ (void) load 											{	
+	pointers = [NSPointerArray new];
+//	[$ swizzleClassMethod:@selector(instance) in:self.class with:@selector(swizzleInstance) in:self.class];
+	[$ swizzleMethod:@selector(init) with:@selector(swizzleInit) in:self.class];
+	[$ swizzleMethod:@selector(save) with:@selector(swizzleSave) in:self.class];
+//	[$ swizzleMethod:@selector(setUp) with:@selector(swizzleSetUp) in:self.class];
 }
+- (NSA*) superProperties 							{ return  [BaseModel propertyNames]; }
++ (NSUI) instances									{ return  instanceNumber; }
++ (instancetype) swizzleInstance 				{   return [self swizzleInstance]; }
+/*- (void) swizzleSetUp 								{ 		 instanceNumber++;  COLORLOG(RED, @"swizzled setup... instance#: %ld", instanceNumber);
+								 [self setAssociatedValue:@(instanceNumber) forKey:@"instanceNumber" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
+								 [self swizzleSetUp];
+}*/
+- (void) swizzleSave									{
 
-+ (void) load 				{	[$ swizzleMethod:@selector(save) with:@selector(swizzleSave) in:[BaseModel class]]; }
-- (void) swizzleSave		{
 	NSLog(@"swizzlin!");
 	[self swizzleSave];
 	if (self.convertToXML) {
@@ -143,11 +158,103 @@ static char CONVERTTOXML_KEY;
 			[AtoZ plistToXML:saveP];
 	}
 }
-+ (NSS*) saveFilePath 	{
-	return [NSB.applicationSupportFolder withPath:self.saveFile];
++ (NSS*) saveFilePath 								{	return [NSB.applicationSupportFolder withPath:self.saveFile];	}
+
+- (void) setValue: (id)value forKey:(NSS*)key				{
+
+	if (![self canSetValueForKey:key]) {  NSLog(@"Asked to, but canot set val for: %@", key); return; }
+	//	overload to dispatch change notification to our shared instance
+	[super setValue:value forKey:key];
+	// If this is the shared instance, don't go any further
+	if (self == self.class.sharedInstance)	return;
+	// Class method - set last modified
+	[self.class setLastModifiedKey:key forInstance:self];
+	// Instance method - dummy setValue to dispatch notifications
+	[self.class.sharedInstance setValue:self forKey:@"keyChanged"];
+/** KVO  class-level block! *//*
+
+	[SampleObject setLastChangedBlock:^(NSS *whatKeyChanged, id whichInstance, id newVal) {
+
+		_result = $(@"Object: %@'s valueForProp:\"%@\" changed to: %@\n",	[(BaseModel*)whichInstance uniqueID], whatKeyChanged, newVal);
+	}];																																								
+	
+*/	KVOLastChangedBlock b = ((BaseModel*)self.class.sharedInstance).lastChangedBlock;
+	b ? b(key, self, value) : nil;
 }
++ (void) setLastModifiedKey:(NSS*)k forInstance:(id)obj	{
+
+	lastModifiedKey			= k;	lastModifiedInstance		= obj;
+}
++ (instancetype) lastModifiedInstance							{	return lastModifiedInstance;	}
++ (NSS*) 		  lastModifiedKey									{	return lastModifiedKey;			}
+- (instancetype) keyChanged										{
+
+// keyChanged - dummy key set by setValue:forKey: on our shared instance, used to dispatch KVO notifications
+	return self.class.sharedInstance;	}
+- (void)setKeyChanged: (id) dummy								{		}
+
++ (void) setLastChangedBlock:(KVOLastChangedBlock)lastChangedBlock 	{
+
+	[self.sharedInstance setLastChangedBlock:lastChangedBlock];
+}
+- (void) setLastChangedBlock:(KVOLastChangedBlock)lastChangedBlock	{
+
+	[self setAssociatedValue:[lastChangedBlock copy] forKey:@"lastChangedBlockStorage" policy:OBJC_ASSOCIATION_COPY_NONATOMIC];
+}
+- (KVOLastChangedBlock) lastChangedBlock 										{
+
+	return [self associatedValueForKey:@"lastChangedBlockStorage"] ?: nil;
+}
+
+- (NSUI) instanceNumber 							{  id theNumber = [self associatedValueForKey:@"instanceNumber"];
+									return theNumber ? [theNumber unsignedIntegerValue] : NSNotFound;
+}
+- (NSS*) uniqueID										{
+
+	NSS* u 	=	[self associatedValueForKey:@"uniqueid"];
+	if (!u)		[self setAssociatedValue: self.class.newUniqueIdentifier
+			  								forKey: @"uniqueid" policy: OBJC_ASSOCIATION_RETAIN_NONATOMIC];
+	return u ?: [self associatedValueForKey:@"uniqueid"];
+}
+- (void) setConvertToXML:(BOOL)convertToXML	{
+
+	objc_setAssociatedObject(self, &CONVERTTOXML_KEY, @(convertToXML), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+- (BOOL) convertToXML								{
+
+	if ([self respondsToSelector:@selector(convertToXML)]) return self.convertToXML;
+	return	[self hasAssociatedValueForKey: $UTF8(&CONVERTTOXML_KEY)]? [objc_getAssociatedObject(self, &CONVERTTOXML_KEY) boolValue] : NO;
+}
+
+- (id) objectAtIndexedSubscript: (NSUI)idx	 								{
+
+	return [self respondsToSelector:@selector(objectAtIndex:)] ? [(NSA*)self objectAtIndex:idx] : AZNULL;
+}
+- (void) setObject: (id)o atIndexedSubscript: (NSUI)idx  				{
+
+	if ([self respondsToSelector:@selector(setObject:atIndex:)])
+		 [(NSMutableOrderedSet*)self setObject:o atIndex:idx];
+}
+- (void) setObject: (id)obj forKeyedSubscript: (id <NSCopying>)key 	{
+
+	if ([self canSetValueForKey:[(id)key stringValue]]) [self setValue:obj forKey:[(id)key stringValue]];
+	else  [self setAssociatedValue:obj forKey:[(id)key stringValue] policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
+}
+- (id) objectForKeyedSubscript: (id)key 										{
+
+	return 	[self hasPropertyForKVCKey:key] ? [self valueForKey:key] :
+				[self valueForKeyPath:[(id)key stringValue]] ?: [self associatedValueForKey:[(id)key stringValue]] ?: AZNULL;
+}
+- (id) valueForUndefinedKey: (NSS*)key 										{			NSS *class = NSStringFromClass([self class]);
+
+	return  [self associatedValueForKey:key]
+											?: ^{		LOGCOLORS(RANDOMCOLOR, NSStringFromClass(self.class), GRAY3, @"%@ instance could not find a value for undefined key:", YELLOW, key);
+						return NO; }() ? AZNULL : nil;
+}
+
 @end
 
+/* + (instancetype) swizzleInstanceWithObject:(id)obj {	NSLog(@"swizzlin!");	[self swizzleInstanceWithObject:obj];	id theInstance = self.instance;	//	if ( [[theInstance methodNames] filterOne:^BOOL(NSS* o){	return [o contains:@"setWithDictionary"]; }] )	if ([theInstance respondsToSelector:@selector(setWithDictionary:)] && [obj isKindOfClass:NSD.class])		[theInstance setWithDictionary:obj];	else if (	[obj isKindOfClass:NSD.class])		[theInstance setPropertiesWithDictionary:obj];	else	theInstance = [self instanceWithObject:obj];	return theInstance;		} */
 
 @interface AtoZ ()
 @property (nonatomic, assign) BOOL fontsRegistered;
@@ -174,10 +281,10 @@ static char CONVERTTOXML_KEY;
 
 - (void) setUp 						{
 	[AZStopwatch named:@"AtoZ.framework Setup Time" block:^{
-		[NSApp setApplicationIconImage:[NSIMG imageNamed:@"logo.png"]];
+//		[NSApp setApplicationIconImage:[NSIMG imageNamed:@"logo.png"]];
 
-		[DDLog addLogger:SHAREDLOG]; 		// Standard lumberjack initialization
-		SHAREDLOG.colorsEnabled = YES;	// And then enable colors
+//		[DDLog addLogger:SHAREDLOG]; 		// Standard lumberjack initialization
+//		SHAREDLOG.colorsEnabled = YES;	// And then enable colors
 //		[@[@"Error", @"Warn", @"Info"]]
 //		[@[@"DDLogError", @"DDLogWarn", @"DDLogInfo", @"DDLogVerose"] each:^(id obj) {
 	//		[NSS.randomDicksonism respondsToStringThenDo:obj];
@@ -186,10 +293,10 @@ static char CONVERTTOXML_KEY;
 	//	NSLog(COLOR_ESC @"fg0,0,255;" COLOR_ESC @"bg220,0,0;"	 @"Blue text on red background" XCODE_COLORS_RESET);
 	//	NSLog(XCODE_COLORS_ESCAPE @"fg209,57,168;" @"You can supply your own RGB values!" XCODE_COLORS_RESET);
 
-	//	DDLogError  (@"Paper jam"										);                              // Red
-	//	DDLogWarn   (@"Toner is low"									);                            // Orange
+	//	DDLogError  (@"Paper jam"										);							  // Red
+	//	DDLogWarn   (@"Toner is low"									);							// Orange
 	//	DDLogInfo   (@"Warming up printer (pre-customization)");  // Default (black)
-	//	DDLogVerbose(@"Intializing protcol x26"						);              // Default (black)
+	//	DDLogVerbose(@"Intializing protcol x26"						);			  // Default (black)
 		
 		// Now let's do some customization:
 		// Info  : Pink
@@ -199,7 +306,7 @@ static char CONVERTTOXML_KEY;
 	#else
 		NSColor *pink = [NSColor colorWithCalibratedRed:(255/255.0) green:(58/255.0) blue:(159/255.0) alpha:1.0];
 	#endif
-		[SHAREDLOG setForegroundColor:pink backgroundColor:nil forFlag:LOG_FLAG_INFO];
+//		[SHAREDLOG setForegroundColor:pink backgroundColor:nil forFlag:LOG_FLAG_INFO];
 	//	DDLogInfo(@"Warming up printer (post-customization)"); // Pink !
 			
 	//		[AZFWORKBUNDLE cacheNamedImages];
@@ -226,7 +333,7 @@ static char CONVERTTOXML_KEY;
 //	[$ swizzleClassMethod:@selector(testSizzle) in:[AtoZ class] with:@selector(testSizzleReplacement) in:[AtoZ class]];
 //	[[AtoZ class] testSizzle];
 }
-+ (void) initialize 					{ 	LOGWARN(@"%@", @"AtoZ.framework Initialized!"); }
++ (void) initialize 					{ 	LogStackAndReturn(self.bundle);} // @"AtoZ.framework Initialized!"); }
 + (NSS*) version						{
 	NSString *myVersion	= [AZFWORKBUNDLE infoDictionary][@"CFBundleShortVersionString"];
 	NSString *buildNum 	= [AZFWORKBUNDLE infoDictionary][(NSString*)kCFBundleVersionKey];
@@ -240,9 +347,9 @@ static char CONVERTTOXML_KEY;
 
 //#define LOGWARN(fmt, ...) NSLog((@"%s [Line %d] " XCODE_COLORS_ESCAPE @"fg218,147,0;" fmt XCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
 
-+ (void) logError:(NSS*)log 	{ DDLogError(log); }
-+ (void) logInfo: (NSS*)log 	{ DDLogError(log); }
-+ (void) logWarn: (NSS*)log 	{ DDLogWarn (log); }
++ (void) logError:(NSS*)log 	{ DDLogError(@"%@",log); }
++ (void) logInfo: (NSS*)log 	{ DDLogError(@"%@",log); }
++ (void) logWarn: (NSS*)log 	{ DDLogWarn (@"%@",log); }
 - (NSC*) logColor 		{  return _logColor = _logColor ?: RANDOMCOLOR; }
 - (NSA*) basicFunctions	{
 
@@ -308,7 +415,7 @@ static char CONVERTTOXML_KEY;
 }
 // A method to retrieve the int value from the NSArray of NSStrings
 + (AZPOS) positionForString:	(NSS*)strVal	{	return (AZPOS) [[[NSA alloc]initWithObjects:AZWindowPositionTypeArray] indexOfObject:strVal]; }
-+ (NSS*) stringForType:     (id)type			{
++ (NSS*) stringForType:	 (id)type			{
 
 	Class i = [type class];	NSLog(@"String: %@   Class:%@", NSStringFromClass(i), i);		//	[type autoDescribe:type];
 	NSString *key = [NSString stringWithFormat:@"AZOrient_%@", NSStringFromClass([type class])];
@@ -543,7 +650,7 @@ static void soundCompleted(SystemSoundID soundFileObject, void *clientData) { //
 	// if (userEnabledSounds)
 	NSS 					 *soundName = [apsDictionary stringForKey:@"sound"];	if (!soundName) return;
 	SystemSoundID soundFileObject = kSystemSoundID_UserPreferredAlert;
-	CFURLRef      soundFileURLRef	= NULL;
+	CFURLRef	  soundFileURLRef	= NULL;
 	if ([soundName compare:@"default"] != NSOrderedSame) {
 		CFBundleRef mainBundle = CFBundleGetMainBundle();	// Get the main bundle for the app.
 		// Get the URL to the sound file to play. The sound property's value is the full filename including the extension.
@@ -579,37 +686,37 @@ static void soundCompleted(SystemSoundID soundFileObject, void *clientData) { //
 }
 
 
-+    (CGP) centerOfRect:     (CGR)rect 												{ return AZCenterOfRect(rect); 
++	(CGP) centerOfRect:	 (CGR)rect 												{ return AZCenterOfRect(rect); 
 
 //	CGF midx = CGRectGetMidX(rect);CGF midy = CGRectGetMidY(rect);return CGPointMake(midx, midy);
 }
-+   (void)printCGRect:       (CGR)cgRect 												{	[AtoZ printRect:cgRect];	}
-+   (void) printRect:        (NSR)toPrint												{	
++   (void)printCGRect:	   (CGR)cgRect 												{	[AtoZ printRect:cgRect];	}
++   (void) printRect:		(NSR)toPrint												{	
 	NSLog(@"Rect is x: %i y: %i width: %i height: %i ", (int)toPrint.origin.x, (int)toPrint.origin.y,
 		  (int)toPrint.size.width, (int)toPrint.size.height);
 }
-+   (void) printCGPoint:     (CGP)cgPoint 											{	[AtoZ printPoint:cgPoint];	}
-+   (void) printPoint:	     (NSP)toPrint 											{		NSLog(@"Point is x: %f y: %f", toPrint.x, toPrint.y);	}
++   (void) printCGPoint:	 (CGP)cgPoint 											{	[AtoZ printPoint:cgPoint];	}
++   (void) printPoint:		 (NSP)toPrint 											{		NSLog(@"Point is x: %f y: %f", toPrint.x, toPrint.y);	}
 +   (void) printTransform:   (CGAffineTransform)t 									{
 	NSLog(@"[ %1.1f %1.1f 0.0 ]", t.a, t.b);
 	NSLog(@"[ %1.1f %1.1f 0.0 ]", t.c, t.d);
 	NSLog(@"[ %1.1f %1.1f 1.0 ]", t.tx, t.ty);
 }
-+    (CGF) clamp:(CGF)v from:(CGF)minimum  to:(CGF)maximum 						{
++	(CGF) clamp:(CGF)v from:(CGF)minimum  to:(CGF)maximum 						{
 	return v = v < minimum 	 ? minimum : v > maximum ? v= maximum : v;
 }
-+    (CGF) scaleForSize:     (CGS)size inRect:(CGR)rect							{
++	(CGF) scaleForSize:	 (CGS)size inRect:(CGR)rect							{
 	CGF hScale = rect.size.width / size.width;
 	CGF vScale = rect.size.height / size.height;
 	return  MIN(hScale, vScale);
 }
-+    (CGR) centerSize:	     (CGS)size inRect:(CGR)rect 							{
++	(CGR) centerSize:		 (CGS)size inRect:(CGR)rect 							{
 	CGF scale = [[self class] scaleForSize:size inRect:rect];
 	return AZMakeRect(	CGPointMake ( rect.origin.x + 0.5 * (rect.size.width  - size.width),
 									 rect.origin.y + 0.5 * (rect.size.height - size.height) ),
 					  CGSizeMake(size.width * scale, size.height * scale) );
 }
-+    (NSR) rectFromPointA:   (NSP)pointA 			andPointB:(NSP)pointB 		{
++	(NSR) rectFromPointA:   (NSP)pointA 			andPointB:(NSP)pointB 		{
 
 	// 	get the current distance from the original mouse down point
 	float xDistance = pointB.x - pointA.x;		float yDistance = pointB.y - pointA.y;
@@ -621,7 +728,7 @@ static void soundCompleted(SystemSoundID soundFileObject, void *clientData) { //
 	else {								returnRect.origin.y= pointA.y;				returnRect.size.height = yDistance;			}
 	return returnRect;
 }
-+ (NSIMG*) cropImage:        (NSIMG*)sourceImage withRect:(NSR)sourceRect 	{
++ (NSIMG*) cropImage:		(NSIMG*)sourceImage withRect:(NSR)sourceRect 	{
 
 	NSImage* cropImage = [[NSImage alloc] initWithSize:NSMakeSize(sourceRect.size.width, sourceRect.size.height)];
 	[cropImage lockFocus];
@@ -657,13 +764,13 @@ static void soundCompleted(SystemSoundID soundFileObject, void *clientData) { //
 	}
 	return self;
 }
-- (void)      drawRect: (NSR)dirtyRect 	{
+- (void)	  drawRect: (NSR)dirtyRect 	{
 	//	cotn ext
 	[color set];	NSRectFill(dirtyRect);
 	selected = NO;
 	//	if (selected) [self lasso];
 }
-- (void)       mouseUp: (NSE*)theEvent 	{
+- (void)	   mouseUp: (NSE*)theEvent 	{
 
 	//	NSPoint location = [self convertPoint:[theEvent locationInWindow] fromView:nil];
 	//	NSLog(@"BOX HIT AT POINT: %@", NSStringFromPoint(location));
@@ -679,7 +786,7 @@ static void soundCompleted(SystemSoundID soundFileObject, void *clientData) { //
 	}
 	[self performSelector:@selector(flash:) withObject:save afterDelay:.6];
 }
-- (void)         flash: (NSC*)savedColor 	{
+- (void)		 flash: (NSC*)savedColor 	{
 	//	NSLog(@"FLASHING %@", savedColor);
 	color = savedColor;
 	[self setNeedsDisplay:YES];

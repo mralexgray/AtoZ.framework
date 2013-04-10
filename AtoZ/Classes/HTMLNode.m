@@ -96,7 +96,7 @@ NSString * getAttributeNamed(xmlNode * node, const char * nameStr)
 	const char * classNameStr = className;
 	//BOOL found = NO;
 	
-    for (cur_node = node; cur_node; cur_node = cur_node->next) 
+	for (cur_node = node; cur_node; cur_node = cur_node->next) 
 	{				
 		for(xmlAttrPtr attr = cur_node->properties; NULL != attr; attr = attr->next)
 		{
@@ -137,7 +137,7 @@ NSString * getAttributeNamed(xmlNode * node, const char * nameStr)
 	if (tagNameStr == nil)
 		return;
 	
-    for (cur_node = node; cur_node; cur_node = cur_node->next) 
+	for (cur_node = node; cur_node; cur_node = cur_node->next) 
 	{				
 		if (cur_node->name && strcmp((char*)cur_node->name, tagNameStr) == 0)
 		{
@@ -165,7 +165,7 @@ NSString * getAttributeNamed(xmlNode * node, const char * nameStr)
 	xmlNode *cur_node = NULL;
 	const char * tagNameStr =  [tagName UTF8String];
 	
-    for (cur_node = node; cur_node; cur_node = cur_node->next) 
+	for (cur_node = node; cur_node; cur_node = cur_node->next) 
 	{				
 		if (cur_node && cur_node->name && strcmp((char*)cur_node->name, tagNameStr) == 0)
 		{
@@ -226,7 +226,7 @@ NSString * getAttributeNamed(xmlNode * node, const char * nameStr)
 	if (node == NULL)
 		return NULL;
 	
-    for (cur_node = node; cur_node; cur_node = cur_node->next) 
+	for (cur_node = node; cur_node; cur_node = cur_node->next) 
 	{		
 		for(xmlAttrPtr attr = cur_node->properties; NULL != attr; attr = attr->next)
 		{			
@@ -301,7 +301,7 @@ NSString * getAttributeNamed(xmlNode * node, const char * nameStr)
 		return;
 	
 	xmlNode *cur_node = NULL;	
-    for (cur_node = node; cur_node; cur_node = cur_node->next) 
+	for (cur_node = node; cur_node; cur_node = cur_node->next) 
 	{
 		if (cur_node->content)
 		{			

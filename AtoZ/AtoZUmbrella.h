@@ -23,7 +23,7 @@
 
 #define XCODE_COLORS_RESET_FG  XCODE_COLORS_ESCAPE @"fg;" // Clear any foreground color
 #define XCODE_COLORS_RESET_BG  XCODE_COLORS_ESCAPE @"bg;" // Clear any background color
-#define XCODE_COLORS_RESET     XCODE_COLORS_ESCAPE @";"   // Clear any foreground or background color
+#define XCODE_COLORS_RESET	 XCODE_COLORS_ESCAPE @";"   // Clear any foreground or background color
 
 
 #define COLOR_RESET XCODE_COLORS_RESET
@@ -38,31 +38,33 @@
 #pragma mark - GLOBAL CONSTANTS
 
 
+#define AHLO 	AHLayoutObject
+#define AHLT 	AHLayoutTransaction
 
-#define BLKVIEW BNRBlockView
-#define CAA CAAnimation
-#define CAAG CAAnimationGroup
-#define CABA CABasicAnimation
-#define CAGA CAGroupAnimation
-#define CAGL CAGradientLayer
-#define CAKA CAKeyframeAnimation
-#define CAL CALayer
-#define CALNA CALayerNonAnimating
-#define CALNH CALayerNoHit
-#define CAMTF CAMediaTimingFunction
-#define CASLNH CAShapeLayerNoHit
-#define CASHL CAShapeLayer
-#define CASCRLL CAScrollLayer
+#define  BLKVIEW 	BNRBlockView
+#define 		 CAA 	CAAnimation
+#define     CAAG	CAAnimationGroup
+#define 	   CABA	CABasicAnimation
+#define     CAGA	CAGroupAnimation
+#define     CAGL	CAGradientLayer
+#define     CAKA	CAKeyframeAnimation
+#define      CAL	CALayer
+#define    CALNA 	CALayerNonAnimating
+#define    CALNH 	CALayerNoHit
+#define    CAMTF	CAMediaTimingFunction
+#define   CASLNH 	CAShapeLayerNoHit
+#define    CASHL 	CAShapeLayer
+#define  CASCRLL 	CAScrollLayer
 //#define CASHL CAShapeLayer
-#define CASL CAShapeLayer
-#define CATLNH CATextLayerNoHit
-#define CAT CATransaction
-#define CAT3 CATransform3D
-#define CAT3D CATransform3D
-#define CAT3DR CATransform3DRotate
-#define CAT3DTR CATransform3DTranslate
-#define CATL CATransformLayer
-#define CATXTL CATextLayer
+#define CASL 		CAShapeLayer
+#define CATLNH 	CATextLayerNoHit
+#define CAT 		CATransaction
+#define CAT3 		CATransform3D
+#define CAT3D 		CATransform3D
+#define CAT3DR 	CATransform3DRotate
+#define CAT3DTR 	CATransform3DTranslate
+#define CATL 		CATransformLayer
+#define CATXTL 	CATextLayer
 
 #define CATRANNY CATransition
 #define CFTI CFTimeInterval
@@ -198,15 +200,15 @@
 #define SHAREDLOG [DDTTYLogger sharedInstance]
 
 //#define ID \(NSObject*\)
-#define lMGR layoutManager
-#define bgC backgroundColor
-#define fgC foregroundColor
+#define lMGR 	layoutManager
+#define bgC	 	backgroundColor
+#define fgC 	foregroundColor
 #define arMASK autoresizingMask
-#define mTB masksToBounds
+#define mTB 	masksToBounds
 #define cRadius cornerRadius
 #define aPoint anchorPoint
-#define NDOBC needsDisplayOnBoundsChange
-#define nDoBC needsDisplayOnBoundsChange
+#define NDOBC 	needsDisplayOnBoundsChange
+#define nDoBC 	needsDisplayOnBoundsChange
 #define CASIZEABLE kCALayerWidthSizable | kCALayerHeightSizable
 #define NSSIZEABLE NSViewHeightSizable | NSViewWidthSizable
 
@@ -224,13 +226,13 @@
 #define pBCN postsBoundsChangedNotifications
 #define pFCN postsFrameChangedNotifications
 
-#define vFk valueForKey
-#define pV pointValue
-#define rV rectValue
-#define fV floatValue
-#define loM layoutManager
-#define sblrs sublayers
-#define zPos zPosition
+#define vFk 	valueForKey
+#define pV 		pointValue
+#define rV 		rectValue
+#define fV 		floatValue
+#define loM 	layoutManager
+#define sblrs 	sublayers
+#define zPos 	zPosition
 #define NSZeroRange NSMakeRange(0,0)
 
 #define REQ RouteRequest
@@ -244,8 +246,13 @@
  The way to get around this problem is use another GCC extension allowing statements in expressions. Thus, the macro creates a temporary variable, _Y_, with the same type of _X_ (again using typeof) and passes the address of this temporary to the function.
  http://www.dribin.org/dave/blog/archives/2008/09/22/convert_to_nsstring/
  */
+
+
+NSString * AZToStringFromTypeAndValue(const char * typeCode, void * value);
+
 #define AZString(_X_) ({typeof(_X_) _Y_ = (_X_);\
-AZToStringFromTypeAndValue(@encode(typeof(_X_)), &_Y_);})
+	AZToStringFromTypeAndValue(@encode(typeof(_X_)), &_Y_);})
+
 
 #pragma mark - CONSTANT defines
 
@@ -336,21 +343,21 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 
 //#define loMismo isEqualToString
 
-#define APP_NAME [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleName"]
-#define APP_VERSION [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]
-#define OPEN_URL(urlString) [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:urlString]]
+#define APP_NAME 					[NSBundle.mainBundle objectForInfoDictionaryKey:@"CFBundleName"]
+#define APP_VERSION 				[NSBundle.mainBundle objectForInfoDictionaryKey:@"CFBundleVersion"]
+#define OPEN_URL(urlString) 	[NSWorkspace.sharedWorkspace openURL:[NSURL URLWithString:urlString]]
 
 /* Retrieving preference values */
 
-#define PREF_KEY_VALUE(x) [[[NSUserDefaultsController sharedUserDefaultsController] values] valueForKey:(x)]
-#define PREF_KEY_BOOL(x) [(PREF_KEY_VALUE(x)) boolValue]
-#define PREF_SET_KEY_VALUE(x, y) [[[NSUserDefaultsController sharedUserDefaultsController] values] setValue:(y) forKey:(x)]
-#define PREF_OBSERVE_VALUE(x, y) [[NSUserDefaultsController sharedUserDefaultsController] addObserver:y forKeyPath:x options:NSKeyValueObservingOptionOld context:nil]
+#define PREF_KEY_VALUE(x) 			[[NSUserDefaultsController.sharedUserDefaultsController values] valueForKey:(x)]
+#define PREF_KEY_BOOL(x) 			[(PREF_KEY_VALUE(x)) boolValue]
+#define PREF_SET_KEY_VALUE(x, y) [[NSUserDefaultsController.sharedUserDefaultsController values] setValue:(y) forKey:(x)]
+#define PREF_OBSERVE_VALUE(x, y) [NSUserDefaultsController.sharedUserDefaultsController addObserver:y forKeyPath:x\ 																						options:NSKeyValueObservingOptionOld context:nil]
 
 /* key, observer, object */
 
-#define OB_OBSERVE_VALUE(x, y, z) [(z) addObserver:y forKeyPath:x options:NSKeyValueObservingOptionOld context:nil];
-#define AZBUNDLE [NSBundle bundleForClass:[AtoZ class]]
+#define OB_OBSERVE_VALUE(x, y, z) 	[(z) addObserver:y forKeyPath:x options:NSKeyValueObservingOptionOld context:nil];
+#define AZBUNDLE 							[NSBundle bundleForClass:[AtoZ class]]
 
 #define AZLocalizedString(key) NSLocalizedStringFromTableInBundle(key,nil,AZBUNDLE,nil)
 
@@ -508,47 +515,47 @@ attr1 relativeTo:relName attribute:attr2 scale:scl offset:off]
 #define RANDOMLINEN [NSColor linenTintedWithColor:RANDOMCOLOR]
 #define CHECKERS [NSColor checkerboardWithFirstColor: BLACK secondColor: WHITE squareWidth:25]
 
-#define RED				[NSColor colorWithCalibratedRed:0.797 green:0.000 blue:0.043 alpha:1.000]
-#define ORANGE			[NSColor colorWithCalibratedRed:0.888 green:0.492 blue:0.000 alpha:1.000]
-#define YELLOw			[NSColor colorWithCalibratedRed:0.830 green:0.801 blue:0.277 alpha:1.000]
-#define GREEN			[NSColor colorWithCalibratedRed:0.367 green:0.583 blue:0.179 alpha:1.000]
-#define BLUE			[NSColor colorWithCalibratedRed:0.267 green:0.683 blue:0.979 alpha:1.000]
-#define BLACK			[NSColor blackColor]
-#define GREY			[NSColor grayColor]
-#define WHITE			[NSColor whiteColor]
-#define RANDOMCOLOR		[NSColor randomColor]
-#define CLEAR			[NSColor clearColor]
-#define PURPLE 			[NSColor colorWithCalibratedRed:0.617 green:0.125 blue:0.628 alpha:1.000]
-#define LGRAY			[NSColor colorWithCalibratedWhite:.5 alpha:.6]
-#define GRAY1			[NSColor colorWithCalibratedWhite:.1 alpha:1]
-#define GRAY2			[NSColor colorWithCalibratedWhite:.2 alpha:1]
-#define GRAY3			[NSColor colorWithCalibratedWhite:.3 alpha:1]
-#define GRAY4			[NSColor colorWithCalibratedWhite:.4 alpha:1]
-#define GRAY5			[NSColor colorWithCalibratedWhite:.5 alpha:1]
-#define GRAY6			[NSColor colorWithCalibratedWhite:.6 alpha:1]
-#define GRAY7			[NSColor colorWithCalibratedWhite:.7 alpha:1]
-#define GRAY8			[NSColor colorWithCalibratedWhite:.8 alpha:1]
-#define GRAY9			[NSColor colorWithCalibratedWhite:.9 alpha:1]
+#define         RED	[NSC r:0.797 g:0.000 b:0.043 a:1.]
+#define      ORANGE	[NSC r:0.888 g:0.492 b:0.000 a:1.]
+#define      YELLOw	[NSC r:0.830 g:0.801 b:0.277 a:1.]
+#define      YELLOW	[NSC r:0.830 g:0.801 b:0.277 a:1.]
+#define       GREEN	[NSC r:0.367 g:0.583 b:0.179 a:1.]
+#define        BLUE	[NSC r:0.267 g:0.683 b:0.979 a:1.]
+#define       BLACK	NSC.blackColor
+#define        GREY	NSC.grayColor
+#define 		  WHITE	NSC.whiteColor
+#define RANDOMCOLOR	NSC.randomColor
+#define 		  CLEAR	NSC.clearColor
+#define 		 PURPLE	[NSC r:0.617 g:0.125 b:0.628 a:1.000]
+#define LGRAY			[NSColor white:.5 a:.6]
+#define GRAY1			[NSColor white:.1 a:1]
+#define GRAY2			[NSColor white:.2 a:1]
+#define GRAY3			[NSColor white:.3 a:1]
+#define GRAY4			[NSColor white:.4 a:1]
+#define GRAY5			[NSColor white:.5 a:1]
+#define GRAY6			[NSColor white:.6 a:1]
+#define GRAY7			[NSColor white:.7 a:1]
+#define GRAY8			[NSColor white:.8 a:1]
+#define GRAY9			[NSColor white:.9 a:1]
 
-#define cgRED			[RED 		 			CGColor]
-#define cgORANGE		[ORANGE 	 			CGColor]
-#define cgYELLOW		[YELLOW		 			CGColor]
-#define cgGREEN			[GREEN		 			CGColor]
-#define cgPURPLE		[PURPLE		 			CGColor]
-#define cgRANDOMCOLOR	[RANDOMCOLOR 			CGColor]
+#define cgRED			   		  RED.CGColor
+#define cgORANGE				  ORANGE.CGColor
+#define cgYELLOW				  YELLOW.CGColor
+#define cgGREEN		 			GREEN.CGColor
+#define cgPURPLE				  PURPLE.CGColor
+#define cgRANDOMCOLOR	RANDOMCOLOR.CGColor
+#define cgBLUE		 				 BLUE.CGColor
+#define cgBLACK				   BLACK.CGColor
+#define cgGREY						 GRAY.CGColor
+#define cgWHITE					WHITE.CGColor
+#define cgCLEARCOLOR		      CLEAR.CGColor
 
-#define cgBLUE			[[NSColor  blueColor]	CGColor]
-#define cgBLACK			[[NSColor blackColor]	CGColor]
-#define cgGREY			[[NSColor  grayColor]	CGColor]
-#define cgWHITE			[[NSColor whiteColor]	CGColor]
-#define cgCLEARCOLOR	[[NSColor clearColor]	CGColor]
-
-#define RANDOMGRAY [NSColor colorWithDeviceWhite:RAND_FLOAT_VAL(0,1) alpha:1]
-#define cgRANDOMGRAY CGColorCreateGenericGray( RAND_FLOAT_VAL(0,1), 1)
-#define kBlackColor 	[[NSColor  blackColor]	CGColor]
-#define kWhiteColor 	[[NSColor  whiteColor]	CGColor]
+#define RANDOMGRAY 		[NSColor white:RAND_FLOAT_VAL(0,1) a:1]
+#define cgRANDOMGRAY 	CGColorCreateGenericGray( RAND_FLOAT_VAL(0,1), 1)
+#define kBlackColor 		cgBLACK
+#define kWhiteColor 		cgWHITE
 #define kHighlightColor [[NSColor randomColor]  CGColor]
-#define kRedColor   	[[NSColor	redColor]  CGColor]
+#define kRedColor   		cgRED
 #define kLightBlueColor [[NSColor   blueColor]	CGColor]
 
 #define CGSHADOW(A) CGColorCreate( kCGColorSpaceGenericGray, {0.0, 0.0, A})
@@ -595,15 +602,13 @@ attr1 relativeTo:relName attribute:attr2 scale:scl offset:off]
 
 // converting from radians to degrees
 
-#define	DEGREES_TO_RADIANS( d )			((d) * 0.0174532925199432958)
-#define RADIANS_TO_DEGREES( r )			((r) * 57.29577951308232)
-
+#define	DEGREES_TO_RADIANS( d )		((d) * 0.0174532925199432958)
+#define 	RADIANS_TO_DEGREES( r )		((r) * 57.29577951308232)
 // some useful angular constants
-
-#define FIFTEEN_DEGREES					(0.261799387799)
-#define NINETY_DEGREES					(pi * 0.5)
-#define FORTYFIVE_DEGREES				(pi * 0.25)
-#define HALF_PI							(pi * 0.5)
+#define 			  FIFTEEN_DEGREES		(0.261799387799)
+#define 				NINETY_DEGREES		(pi * 0.5)
+#define 			FORTYFIVE_DEGREES		(pi * 0.25)
+#define 						 HALF_PI		(pi * 0.5)
 
 // exception safe save/restore of the current graphics context
 
@@ -656,7 +661,7 @@ attr1 relativeTo:relName attribute:attr2 scale:scl offset:off]
 
 
 
-#define NSLog(args...) _AZSimpleLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args);
+//#define NSLog(args...) _AZSimpleLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args);
 
 
 
@@ -774,7 +779,6 @@ _Pragma("clang diagnostic pop") \
 //#define $affectors(A,...) +(NSSet *)keyPathsForValuesAffecting##A { static NSSet *re = nil; \
 //if (!re) { re = [[[@#__VA_ARGS__ splitByComma] trimmedStrings] set]; } return re; }
 
-#import <QuartzCore/QuartzCore.h>
 
 
 
@@ -958,7 +962,6 @@ void _AZColorLog( NSC *color, const char *filename, int line, const char *funcNa
 
 
 
-#define NSLog(fmt...) _AZColorLog(nil,__FILE__,__LINE__,__PRETTY_FUNCTION__,fmt)  
 //_AZColorLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args);
 
 
@@ -1056,7 +1059,7 @@ FOUNDATION_EXPORT void _AZSimpleLog( const char *file, int lineNumber, const cha
 */
 //	NSS *toLog 	= $( XCODE_COLORS_RESET	@"%s" XCODE_COLORS_ESCAPE @"fg82,82,82;" @"%-70s[%s]" XCODE_COLORS_RESET
 //									XCODE_COLORS_ESCAPE @"fg140,140,140;" @":%i\n" XCODE_COLORS_RESET	, 
-//								    mess.UTF8String, "", path.UTF8String, lineNumber);
+//									mess.UTF8String, "", path.UTF8String, lineNumber);
 																
 //	NSLog(XCODE_COLORS_ESCAPE @"bg89,96,105;" @"Grey background" XCODE_COLORS_RESET);
 //	NSLog(XCODE_COLORS_ESCAPE @"fg0,0,255;"
@@ -1102,12 +1105,12 @@ typedef NS_ENUM(NSUI, CharacterSet) {
 
 typedef NS_OPTIONS(NSUInteger, AZInstallationStatus) {
 	AZNotInstalled			= 0,
-    AZInstalled				= 1 << 0,
-    AZNeedsUpdate			= 1 << 1,
-	//    UIViewAutoresizingFlexibleRightMargin  = 1 << 2,
-	//    UIViewAutoresizingFlexibleTopMargin    = 1 << 3,
-	//    UIViewAutoresizingFlexibleHeight       = 1 << 4,
-	//    UIViewAutoresizingFlexibleBottomMargin = 1 << 5,
+	AZInstalled				= 1 << 0,
+	AZNeedsUpdate			= 1 << 1,
+	//	UIViewAutoresizingFlexibleRightMargin  = 1 << 2,
+	//	UIViewAutoresizingFlexibleTopMargin	= 1 << 3,
+	//	UIViewAutoresizingFlexibleHeight	   = 1 << 4,
+	//	UIViewAutoresizingFlexibleBottomMargin = 1 << 5,
 	AZInstalledNeedsUpdate 	= AZInstalled|AZNeedsUpdate
 };
 
@@ -1157,7 +1160,7 @@ typedef NS_ENUM (NSUI, StateStyle)	{	Lasso,			InnerShadow,
 
 #define VRT AZOrientVertical
 #define HRZ AZOrientHorizontal
-#define ScrollFixTypeArray @"LayerInsertFront",	@"LayerInsertEnd",			     @"LayerRemoveFront",	@"LayerRemoveEnd", \
+#define ScrollFixTypeArray @"LayerInsertFront",	@"LayerInsertEnd",				 @"LayerRemoveFront",	@"LayerRemoveEnd", \
 									@"LayerStateOK",		@"LayerStateUnresolved",  @"LayerStateUnset",  	nil
 
 //@"LayerCopyInsertFront",@"LayerCopyInsertEnd"
@@ -1344,33 +1347,33 @@ OmniBase_EXTERN void OBSetAssertionFailureHandler(OBAssertionFailureHandler hand
 OmniBase_EXTERN void OBAssertFailed(const char *type, const char *expression, const char *file, unsigned int lineNumber);
 
 
-#define OBPRECONDITION(expression)                                            \
-do {                                                                        \
-if (!(expression))                                                      \
-OBAssertFailed("PRECONDITION", #expression, __FILE__, __LINE__);    \
+#define OBPRECONDITION(expression)											\
+do {																		\
+if (!(expression))													  \
+OBAssertFailed("PRECONDITION", #expression, __FILE__, __LINE__);	\
 } while (NO)
 
-#define OBPOSTCONDITION(expression)                                           \
-do {                                                                        \
-if (!(expression))                                                      \
+#define OBPOSTCONDITION(expression)										   \
+do {																		\
+if (!(expression))													  \
 OBAssertFailed("POSTCONDITION", #expression, __FILE__, __LINE__);   \
 } while (NO)
 
-#define OBINVARIANT(expression)                                               \
-do {                                                                        \
-if (!(expression))                                                      \
-OBAssertFailed("INVARIANT", #expression, __FILE__, __LINE__);       \
+#define OBINVARIANT(expression)											   \
+do {																		\
+if (!(expression))													  \
+OBAssertFailed("INVARIANT", #expression, __FILE__, __LINE__);	   \
 } while (NO)
 
-#define OBASSERT(expression)                                                  \
-do {                                                                        \
-if (!(expression))                                                      \
-OBAssertFailed("ASSERT", #expression, __FILE__, __LINE__);          \
+#define OBASSERT(expression)												  \
+do {																		\
+if (!(expression))													  \
+OBAssertFailed("ASSERT", #expression, __FILE__, __LINE__);		  \
 } while (NO)
 
-#define OBASSERT_NOT_REACHED(reason)                                        \
-do {                                                                        \
-OBAssertFailed("NOTREACHED", reason, __FILE__, __LINE__);              \
+#define OBASSERT_NOT_REACHED(reason)										\
+do {																		\
+OBAssertFailed("NOTREACHED", reason, __FILE__, __LINE__);			  \
 } while (NO)
 
 
@@ -1386,3 +1389,46 @@ OBAssertFailed("NOTREACHED", reason, __FILE__, __LINE__);              \
 
 
 #endif // _OmniBase_assertions_h_
+
+
+
+
+/* 	KSVarArgs is a set of macros designed to make dealing with variable arguments	easier in Objective-C. 
+		All macros assume that the varargs list contains only objective-c objects or object-like structures (assignable to type id). 
+		The base macro ksva_iterate_list() iterates over the variable arguments, invoking a block for each argument, until it encounters a terminating nil.
+		The other macros are for convenience when converting to common collections.			
+*/
+/** 	Block type used by ksva_iterate_list.
+	@param entry The current argument in the vararg list.	*/
+
+typedef void (^AZVA_Block)(id entry);
+
+/**	Iterate over a va_list, executing the specified code block for each entry.
+	@param FIRST_ARG_NAME The name of the first argument in the vararg list.
+	@param BLOCK A code block of type KSVA_Block.	 */
+
+#define azva_iterate_list(FIRST_ARG_NAME, BLOCK) { AZVA_Block azva_block = BLOCK;	va_list azva_args	;	va_start(azva_args,FIRST_ARG_NAME );	\
+															 for( id azva_arg = FIRST_ARG_NAME;	azva_arg != nil;  	azva_arg = va_arg(azva_args, id ) )	 	\
+																		azva_block(azva_arg); 											 				va_end(azva_args );}
+
+/***	Convert a variable argument list into an array. An autoreleased NSMA will be created in the current scope with the specified name.
+	@param FIRST_ARG_NAME The name of the first argument in the vararg list.
+	@param ARRAY_NAME The name of the array to create in the current scope.	 */
+ 
+#define azva_list_to_nsarray(FIRST_ARG_NAME, ARRAY_NAME) NSMA* ARRAY_NAME = NSMA.new;  azva_iterate_list(FIRST_ARG_NAME, ^(id entry) { \
+																																	  [ARRAY_NAME addObject:entry]; })
+
+/*** 	Convert a variable argument list into a dictionary, interpreting the vararg list as object, key, object, key, ...
+		An autoreleased NSMutableDictionary will be created in the current scope with the specified name.
+	@param FIRST_ARG_NAME The name of the first argument in the vararg list.
+	@param DICT_NAME The name of the dictionary to create in the current scope.		*/
+ 
+#define azva_list_to_nsdictionary(FIRST_ARG_NAME, DICT_NAME) NSMD* DICT_NAME = NSMD.new; 	{				 							\
+																					__block id azva_object = nil; 										\
+																					azva_iterate_list(FIRST_ARG_NAME, ^(id entry) { 				\
+																						if(azva_object == nil)   azva_object = entry; 				\
+																						else {	[DICT_NAME setObject:azva_object forKey:entry]; \
+																								azva_object = nil;  } 	}); }
+																									
+																									
+																									

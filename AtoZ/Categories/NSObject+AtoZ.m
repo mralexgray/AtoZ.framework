@@ -161,7 +161,7 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary(void) {
 	return theURL;
 }
 // adapted from the CocoaDev MethodSwizzling page
-
+/*
 + (BOOL) exchangeInstanceMethod:(SEL)sel1 withMethod:(SEL)sel2
 {
 	Class myClass = [self class];
@@ -252,11 +252,11 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary(void) {
 	
 	[boundObject setValue:value forKeyPath:boundKeyPath];
 }
-
+*/
 
 -(void) 	DDLogError   {	DDLogError  (@"%@",self);  } 	// Red
--(void) 	DDLogWarn    {	DDLogWarn   (@"%@",self);  } 	// Orange
--(void) 	DDLogInfo	    {	DDLogInfo   (@"%@",self);  } 	// Default (black)
+-(void) 	DDLogWarn	{	DDLogWarn   (@"%@",self);  } 	// Orange
+-(void) 	DDLogInfo		{	DDLogInfo   (@"%@",self);  } 	// Default (black)
 -(void) 	DDLogVerbose {	DDLogVerbose(@"%@",self);	}	// Default (black)
 
 
@@ -283,7 +283,7 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary(void) {
 	int i;
 	for (i = 0; i < method_count; i++) {
 //		[array addObject: ]
-		[array addObject:[NuMethod.alloc initWithMethod:method_list[i]]];// autorelease]];
+//		[array addObject:[NuMethod.alloc initWithMethod:method_list[i]]];// autorelease]];
 	}
 	free(method_list);
 	[array sortUsingSelector:@selector(compare:)];
@@ -361,25 +361,25 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary(void) {
 //	}];
 //}
 
-- (NSA*) keysWorthReading
-{
-	return [self.settableKeys filter:^BOOL(id object) {
-		return [self hasPropertyNamed:object];
-	}];
-}
+//- (NSA*) keysWorthReading
+//{
+//	return [self.settableKeys filter:^BOOL(id object) {
+//		return [self hasPropertyNamed:object];
+//	}];
+//}
 
--(void) setWithDictionary: (NSD*)dic;
-{
-
-	NSCoder *aDecoder = NSCoder.new;
-//	for (NSS *key in [dic codableKeys]) {
-	[[self settableKeys] do:^(NSS *key) {		[self setValue:[aDecoder decodeObjectForKey:key] forKey:key]; }];
-	//	[[dic allKeys] each:^(id obj) {
-	//		NSS *j = $(@"set%@:", [obj capitalizedString]);
-	//		if ([self respondsToString:j] )
-	//			[self performSelectorWithoutWarnings:NSSelectorFromString(j) withObject:[dic[obj]copy]];
-	//	}];
-}
+//-(void) setWithDictionary: (NSD*)dic;
+//{
+//
+//	NSCoder *aDecoder = NSCoder.new;
+////	for (NSS *key in [dic codableKeys]) {
+//	[[self settableKeys] do:^(NSS *key) {		[self setValue:[aDecoder decodeObjectForKey:key] forKey:key]; }];
+//	//	[[dic allKeys] each:^(id obj) {
+//	//		NSS *j = $(@"set%@:", [obj capitalizedString]);
+//	//		if ([self respondsToString:j] )
+//	//			[self performSelectorWithoutWarnings:NSSelectorFromString(j) withObject:[dic[obj]copy]];
+//	//	}];
+//}
 +(void)switchOn: (id<NSObject>)obj cases:casesList, ...
 {
 	va_list list;	va_start(list, casesList);	id<NSObject> o = casesList;
@@ -404,7 +404,7 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary(void) {
 - (id)objectForKeyedSubscript: (id)key
 {
 
-	return  [self hasPropertyForKVCKey:key] ? [self valueForKey:key] : nil;
+	return  [self hasPropertyForKVCKey:key] ? [self valueForKey:key] : nil;// [super objectForKeyedSubscript:key];
 	//	NSArray *syms = [NSThread  callStackSymbols];
 	//	if ([syms count] > 1) {
 	//		NSLog(@"<%@ %p> %@ - caller: %@ ", [self class], self, NSStringFromSelector(_cmd),[syms objectAtIndex:1]);
@@ -577,6 +577,37 @@ static char windowPosition;
 @end
 
 @implementation NSObject (AG)
+
+- (void) log{ [self logInColor:RANDOMCOLOR]; }
+
+- (void) logInColor:(NSC*)color { 	COLORLOG(color, @"%@", self); }
+
+
+
+//- (NSMethodSignature *)methodSignatureForSelector:(SEL)selector
+//{
+//	NSString *sel = NSStringFromSelector(selector);
+//	if ([sel rangeOfString:@"set"].location == 0) {
+//		return [NSMethodSignature signatureWithObjCTypes:"v@:@"];
+//	} else {
+//		return [NSMethodSignature signatureWithObjCTypes:"@@:"];
+//	}
+//}
+
+//- (void)forwardInvocation:(NSInvocation *)invocation
+//{
+//	NSString *key = NSStringFromSelector([invocation selector]);
+//	if ([key rangeOfString:@"set"].location == 0) {
+//		key = [[key substringWithRange:NSMakeRange(3, [key length]-4)] lowercaseString];
+//		NSString *obj;
+//		[invocation getArgument:&obj atIndex:2];
+//		[data setObject:obj forKey:key];
+//	} else {
+//		NSString *obj = [data objectForKey:key];
+//		[invocation setReturnValue:&obj];
+//	}
+//}
+
 
 - (id)performSelector: (SEL)selector withObject: (id)p1 withObject: (id)p2 withObject: (id)p3
 {
@@ -925,7 +956,7 @@ static const char * getPropertyType(objc_property_t property) {
 - (NSS*) stringFromClass {	return NSStringFromClass(self.class); }
 - (void) setIntValue:   (NSI)i forKey: 	   (NSS*)key 	 { [self setValue:[NSNumber numberWithInt:i] forKey:key]; }
 - (void) setIntValue:   (NSI)i forKeyPath: (NSS*)keyPath { [self setValue:[NSNumber numberWithInt:i] forKeyPath:keyPath]; }
-- (void) setFloatValue: (CGF)f forKey:     (NSS*)key 	 { [self setValue:[NSNumber numberWithFloat:f] forKey:key]; }
+- (void) setFloatValue: (CGF)f forKey:	 (NSS*)key 	 { [self setValue:[NSNumber numberWithFloat:f] forKey:key]; }
 - (void) setFloatValue: (CGF)f forKeyPath: (NSS*)keyPath { [self setValue:[NSNumber numberWithFloat:f] forKeyPath:keyPath]; }
 
 - (BOOL) isEqualToAnyOf: (id<NSFastEnumeration>)enumerable {	for (id o in enumerable) { if ([self isEqual:o]) return YES; } return NO; }
@@ -1104,12 +1135,14 @@ static const char * getPropertyType(objc_property_t property) {
 
 @implementation NSD (PropertyMap)
 
-//- (void)mapPropertiesToObject: (id)instance
-//{
-//	[[instance class].codableKeys do:^(NSS* propertyKey) {
-//		[instance canSetValueForKey:propertyKey] ? [instance setValue:self[propertyKey]	forKey:propertyKey] : nil;
-//	}];
-//}
+- (void)mapPropertiesToObject: (id)instance {
+
+	[[instance class].codableKeys do:^(NSS* propertyKey) {
+
+		[instance canSetValueForKey:propertyKey] && [self objectForKey:propertyKey]
+			? [instance setValue:self[propertyKey]	forKey:propertyKey]	: nil;
+	}];
+}
 
 @end
 
@@ -1187,7 +1220,7 @@ CG_EXTERN CFTimeInterval CGEventSourceSecondsSinceLastEventType( CGEventSourceSt
 	CFTimeInterval	idleTime;
 	NSTimeInterval	timeSinceInitialCall;
 
-    timeSinceInitialCall = [NSDate timeIntervalSinceReferenceDate] - startTime;
+	timeSinceInitialCall = [NSDate timeIntervalSinceReferenceDate] - startTime;
 
 	if (maxTime > 0)
 	{

@@ -67,10 +67,10 @@ static id _sharedSingleton		= nil;
 	
 	double secsRem	= [self runtime];
 	// 3600 seconds in an hour
-	int hours		= (int)     (secsRem / 3600);
+	int hours		= (int)	 (secsRem / 3600);
 	secsRem			= secsRem - (hours   * 3600);
-	int mins			= (int)     (secsRem /   60);
-	secsRem			= secsRem - (mins      * 60);
+	int mins			= (int)	 (secsRem /   60);
+	secsRem			= secsRem - (mins	  * 60);
 	
 	return hours > 0 ? $(@"%d:%d:%.2f", hours, mins, secsRem) : mins > 0 ? $(@"%d:%.2f", mins, secsRem) : $(@"%.4f seconds", secsRem);
 }

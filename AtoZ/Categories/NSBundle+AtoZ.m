@@ -10,6 +10,20 @@
 
 @implementation NSBundle (AtoZ)
 
+- (NSA*) frameworks {
+
+	NSS* basePath = $UTF8(getenv("BUILDPATH")) ?: self.bundlePath;
+	return [NSB.allFrameworks filter :^BOOL(NSB* obj){		return [obj.bundlePath contains:basePath];	}];
+}
+- (NSA*) frameworkIdentifiers 		{ return [self.frameworks cw_mapArray:^id(NSB* p){	return p.bundleIdentifier;	}]; }
+- (NSA*) frameworkInfoDictionaries	{ return [self.frameworks cw_mapArray:^id(NSB* p){	return p.infoDictionary;	}]; }
+- (NSD*) infoDictionaryWithIdentifier:(NSS*)identifier	{
+
+	NSB* theB =  [self.frameworks filterOne:^BOOL(NSB* b) { return areSame(b.bundleIdentifier, identifier); }];
+	return theB ? theB.infoDictionary : nil; 
+}
+
+
 + (NSBundle*) frameworkBundleNamed:(NSS*)name {
 	NSS* str = [[NSBundle bundleWithPath:[[NSBundle mainBundle] privateFrameworksPath]]pathForResource:name ofType:@"framework"];
 	return [NSBundle bundleWithPath:str];
@@ -69,11 +83,21 @@
 									  		  : @"unknown";
 }
 
-
-- (NSArray *)frameworkClasses;
+- (NSArray *)definedClasses
 {
-
-	NSMutableArray *array = [NSMutableArray array];
+   NSMA *array = NSMA.new;		int numClasses;		Class *classes = NULL;	
+	
+	numClasses = objc_getClassList(NULL, 0);
+//	NSLog(@"Number of classes: %d", numClasses);
+	if (numClasses > 0 )
+	{
+		classes = (__unsafe_unretained Class *)malloc(sizeof(Class) * numClasses);
+		numClasses = objc_getClassList(classes, numClasses);
+		for (int i = 0; i < numClasses; i++) {
+			[array addObject:$UTF8(class_getName(classes[i]))];	//		NSLog(@"Class name: %s", class_getName(classes[i]));
+		}
+		free(classes);
+	}
 //	int numberOfClasses = objc_getClassList(NULL, 0);
 //	Class *classes = calloc(sizeof(Class), numberOfClasses);
 //	numberOfClasses = objc_getClassList(classes, numberOfClasses);
@@ -84,8 +108,26 @@
 //		}
 //	}
 //	free(classes);
-	return array;
+	return [array sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
 }
+
+
+//- (NSArray *)frameworkClasses;
+//{
+//
+//	NSMutableArray *array = [NSMutableArray array];
+//	int numberOfClasses = objc_getClassList(NULL, 0);
+//	Class *classes = calloc(sizeof(Class), numberOfClasses);
+//	numberOfClasses = objc_getClassList(classes, numberOfClasses);
+////	for (int i = 0; i < numberOfClasses; ++i) {
+////		Class c = classes[i];
+////		if ([NSBundle bundleForClass:c] == self) {
+////			[array addObject:c];
+////		}
+////	}
+////	free(classes);
+//	return array;
+//}
 
 - (NSS *)recursiveSearchForPathOfResourceNamed:(NSString *)name;
 {
@@ -95,7 +137,7 @@
 	NSA* files = [enumerator.allObjects filter:^BOOL(NSS* filePath) {
 
 		return !isEmpty(name.pathExtension) ? [filePath endsWith:name]
-												      : [[filePath stringByDeletingPathExtension] endsWith:name];
+													  : [[filePath stringByDeletingPathExtension] endsWith:name];
 
 	}];
 	NSS *file = nil;

@@ -235,12 +235,15 @@ NSData* PNGRepresentation(NSIMG *image) {
 
 + (NSIMG*) imageFromLockedFocusSize:(NSSZ)sz lock:(NSIMG*(^)(NSIMG*))block {
 	NSIMG* newI = [self.alloc initWithSize:sz];
-	return block(newI);
+	newI = block(newI);
+	return newI;
 }
 - (void) 	  lockFocusBlock:								  (void  (^)(NSIMG*))block	{
-	[self lockFocus];
-	block(self);
-	[self unlockFocus];
+	[NSGraphicsContext state:^{
+		[self lockFocus];
+		block(self);
+		[self unlockFocus];
+	}];
 }
 - (NSIMG*) lockFocusBlockOut:							  (NSIMG*(^)(NSIMG*))block {
 	[self lockFocus];
@@ -316,7 +319,7 @@ NSData* PNGRepresentation(NSIMG *image) {
 	// apply the blur using CIGaussianBlur
 	CIFilter* filter = [CIFilter filterWithName:@"CIGaussianBlur"];
 	[filter setDefaults];
-	[filter setValue:@3          forKey:@"inputRadius"];
+	[filter setValue:@3		  forKey:@"inputRadius"];
 	[filter setValue:ciBlurImage forKey:@"inputImage"];
 	CIImage* ciBlurredImage = [[filter valueForKey:@"outputImage"]imageByCroppingToRect:NSRectToCGRect(finalImageRect)];
 
@@ -408,7 +411,7 @@ NSData* PNGRepresentation(NSIMG *image) {
 }
 + (NSA*) systemIconNames_ {
 	static NSA *theNamesOfSystemIcons_ = nil;
-	return 	    theNamesOfSystemIcons_ = theNamesOfSystemIcons_ ?: [[AZFILEMANAGER contentsOfDirectoryAtPath:_systemIconsFolder error:nil] filter:^BOOL(id object) { return [(NSString*)object contains:@".icn"];  }];
+	return 		theNamesOfSystemIcons_ = theNamesOfSystemIcons_ ?: [[AZFILEMANAGER contentsOfDirectoryAtPath:_systemIconsFolder error:nil] filter:^BOOL(id object) { return [(NSString*)object contains:@".icn"];  }];
 }
 
 static BOOL monosMade = NO;
@@ -2844,38 +2847,38 @@ CGImageRef CreateCGImageFromData(NSData* data)
 /* Create an NSImage from with the contents of the url of the specified width. The height of the resulting NSImage maintains the proportions in source.	*/
 + (id) thumbnailImageWithContentsOfURL:(NSURL*)url width:(CGF)width
 {
-    NSIMG*thumbnailImage = nil;
-    NSIMG*image = [[NSImage alloc] initWithContentsOfURL:url];
-    if (image != nil) {
-        NSSize imageSize = [image size];
-        CGFloat imageAspectRatio = imageSize.width / imageSize.height;
-        // Create a thumbnail image from this image (this part of the slow operation)
-        NSSize thumbnailSize = NSMakeSize(width, width * imageAspectRatio);
-        thumbnailImage = [[NSImage alloc] initWithSize:thumbnailSize];
+	NSIMG*thumbnailImage = nil;
+	NSIMG*image = [[NSImage alloc] initWithContentsOfURL:url];
+	if (image != nil) {
+		NSSize imageSize = [image size];
+		CGFloat imageAspectRatio = imageSize.width / imageSize.height;
+		// Create a thumbnail image from this image (this part of the slow operation)
+		NSSize thumbnailSize = NSMakeSize(width, width * imageAspectRatio);
+		thumbnailImage = [[NSImage alloc] initWithSize:thumbnailSize];
 
-        [thumbnailImage lockFocus];
-        [image drawInRect:NSMakeRect(0, 0, thumbnailSize.width, thumbnailSize.height) fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
-        [thumbnailImage unlockFocus];
+		[thumbnailImage lockFocus];
+		[image drawInRect:NSMakeRect(0, 0, thumbnailSize.width, thumbnailSize.height) fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+		[thumbnailImage unlockFocus];
 
-        /* In general, the accessibility description is a localized description of the image.  In this app, and in the Desktop & Screen Saver preference pane, the name of the desktop picture file is what is used as the localized description in the user interface, and so it is appropriate to use the file name in this case.
+		/* In general, the accessibility description is a localized description of the image.  In this app, and in the Desktop & Screen Saver preference pane, the name of the desktop picture file is what is used as the localized description in the user interface, and so it is appropriate to use the file name in this case.
 
 		 When an accessibility description is set on an image, the description is automatically reported to accessibility when that image is displayed in image views/cells, buttons/button cells, segmented controls, etc.  In this case the description is set programatically.  For images retrieved by name, using +imageNamed:, you can use a strings file named AccessibilityImageDescriptions.strings, which uses the names of the images as keys and the description as the string value, to automatically provide accessibility descriptions for named images in your application.
 		 */
-        NSString *imageName = [[url lastPathComponent] stringByDeletingPathExtension];
-        [thumbnailImage setAccessibilityDescription:imageName];
+		NSString *imageName = [[url lastPathComponent] stringByDeletingPathExtension];
+		[thumbnailImage setAccessibilityDescription:imageName];
 
-		//        [thumbnailImage autorelease];
-		//        [image release];
-    }
+		//		[thumbnailImage autorelease];
+		//		[image release];
+	}
 
-    /* This is a sample code feature that delays the creation of the thumbnail for demonstration purposes only.
+	/* This is a sample code feature that delays the creation of the thumbnail for demonstration purposes only.
 	 Hold down the control key to extend thumnail creation by 2 seconds.
 	 */
-    if ([NSEvent modifierFlags] & NSControlKeyMask) {
-        usleep(2000000);
-    }
+	if ([NSEvent modifierFlags] & NSControlKeyMask) {
+		usleep(2000000);
+	}
 
-    return thumbnailImage;
+	return thumbnailImage;
 }
 
 @end

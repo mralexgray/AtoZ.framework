@@ -97,6 +97,9 @@ typedef void(^AZActionCellBlock)(id objVal);
 // NSColor, "name" (CSS, or named color) or @[@4, @44, @244] rgbIntegers
 NSS* colorizeStringWithColor(NSS* string, id color);
 
+NSS* colorizeStringWithColors(NSS* string, id color, id back);
+NSA* rgbColorValues (id color);
+void LOGCOLORS(id stringsAndColors, ...);
 
 //#import "AtoZ.h"
 //PUT IN PRECOMP #define NSLog(args...) _AZSimpleLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args);

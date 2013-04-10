@@ -51,8 +51,8 @@ typedef void (^AZBlockTask)(id obj, NSDictionary *change);
 @interface NSObject (AtoZ)
 // adapted from the CocoaDev MethodSwizzling page
 
-+ (BOOL) exchangeInstanceMethod:(SEL)sel1 withMethod:(SEL)sel2;
-+ (BOOL) exchangeClassMethod:(SEL)sel1 withMethod:(SEL)sel2;
+//+ (BOOL) exchangeInstanceMethod:(SEL)sel1 withMethod:(SEL)sel2;
+//+ (BOOL) exchangeClassMethod:(SEL)sel1 withMethod:(SEL)sel2;
 
 - (NSURL*)urlified;
 
@@ -68,8 +68,8 @@ typedef void (^AZBlockTask)(id obj, NSDictionary *change);
 - (id) performString:(NSS*)string;
 - (id) performString:(NSS*)string withObject:(id) obj;
 
-- (id)performSelectorARC:(SEL)selector withObject:(id)obj;
-- (id)performSelectorARC:(SEL)selector withObject:(id)one withObject:(id)two;
+//- (id)performSelectorARC:(SEL)selector withObject:(id)obj;
+//- (id)performSelectorARC:(SEL)selector withObject:(id)one withObject:(id)two;
 
 - (NSS*) instanceMethods;
 - (NSA*) instanceMethodArray;
@@ -82,11 +82,11 @@ typedef void (^AZBlockTask)(id obj, NSDictionary *change);
 	self.color = newColor;
 	[self propagateValue:newColor forBinding:@"color"];  } */
 
--(void) propagateValue:(id)value forBinding:(NSString*)binding;
+//-(void) propagateValue:(id)value forBinding:(NSString*)binding;
 
-- (NSA*) settableKeys;
-- (NSA*) keysWorthReading;
--(void) setWithDictionary:(NSD*)dic;
+//- (NSA*) settableKeys;
+//- (NSA*) keysWorthReading;
+//-(void) setWithDictionary:(NSD*)dic;
 
 /*
 [WSLObjectSwitch switchOn:<id object> defaultBlock:^{ NSLog (@"Dee Fault"); }
@@ -160,6 +160,13 @@ typedef void (^caseBlock)();
 @end
 
 @interface NSObject (AG)
+
+- (void) log;
+- (void) logInColor:(NSC*)color;
+
+//- (NSMethodSignature *)methodSignatureForSelector:(SEL)selector;
+//- (void)forwardInvocation:(NSInvocation *)invocation;
+
 
 /**	Additional performSelector signatures that support up to 7 arguments.	*/
 - (id)performSelector:(SEL)selector withObject:(id)p1 withObject:(id)p2 withObject:(id)p3;
@@ -334,7 +341,7 @@ free(p);
 - (NSIMG*)imageValue;
 
 @end
-
+/*
 @interface NSObject (NoodlePerformWhenIdle)
 
 - (void)performSelector:(SEL)aSelector withObject:(id)anArgument afterSystemIdleTime:(NSTimeInterval)delay;
@@ -342,3 +349,4 @@ free(p);
 - (void)performSelector:(SEL)aSelector withObject:(id)anArgument afterSystemIdleTime:(NSTimeInterval)delay withinTimeLimit:(NSTimeInterval)maxTime;
 
 @end
+*/

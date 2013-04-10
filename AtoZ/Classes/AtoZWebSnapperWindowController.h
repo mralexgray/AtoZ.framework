@@ -21,7 +21,7 @@
 @class AtoZWebSnapper;
 @interface AtoZWebSnapperWindowController : NSWindowController
 {
-    IBOutlet NSComboBox				*urlField;
+	IBOutlet NSComboBox				*urlField;
 
 	IBOutlet NSScrollView			*scrollView;
 	IBOutlet NSImageView			*imageView;

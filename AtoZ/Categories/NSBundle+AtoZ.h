@@ -10,6 +10,11 @@
 
 @interface NSBundle (AtoZ)
 
+- (NSA*) frameworks;
+- (NSA*) frameworkIdentifiers;
+- (NSA*) frameworkInfoDictionaries;
+- (NSD*) infoDictionaryWithIdentifier:(NSS*)identifier;
+
 + (NSBundle*) frameworkBundleNamed:(NSS*)name;
 + (NSS*) appSuppFolder;
 + (NSS*) appSuppDir;
@@ -17,11 +22,14 @@
 + (NSS*) appSuppSubPathNamed: (NSS*)name;
 
 + (NSS*) calulatedBundleIDForPath: (NSS*)path;
-- (NSA*) frameworkClasses;
+- (NSArray *)definedClasses;
+
+//- (NSA*) frameworkClasses;
 - (NSA*) cacheImages;
 - (void) cacheNamedImages;
 - (NSArray *)recursivePathsForResourcesOfType:(NSString *)type inDirectory:(NSString *)directoryPath;
 - (NSS *)recursiveSearchForPathOfResourceNamed:(NSString *)name;
+
 //+ (NSMutableArray *)systemFrameworks;
 
 /*!

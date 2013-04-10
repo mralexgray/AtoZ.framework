@@ -29,7 +29,7 @@
 // file handles.
 //
 // Parameters:
-//    aTask - the NSTask object to observe.
+//	aTask - the NSTask object to observe.
 //
 // returns the initialized output reader
 //
@@ -111,11 +111,11 @@
 // Reads standard out into the standardOutput data object.
 //
 // Parameters:
-//    notification - the notification containing the NSFileHandle to read
+//	notification - the notification containing the NSFileHandle to read
 //
 -(void)standardOutNotification: (NSNotification *) notification
 {
-    NSFileHandle *standardOutFile = (NSFileHandle *)[notification object];
+	NSFileHandle *standardOutFile = (NSFileHandle *)[notification object];
 	
 	NSData *availableData = [standardOutFile availableData];
 	if ([availableData length] == 0)
@@ -124,8 +124,8 @@
 		return;
 	}
 	
-    [standardOutput appendData:availableData];
-    [standardOutFile waitForDataInBackgroundAndNotify];
+	[standardOutput appendData:availableData];
+	[standardOutFile waitForDataInBackgroundAndNotify];
 }
  
 //
@@ -134,11 +134,11 @@
 // Reads standard error into the standardError data object.
 //
 // Parameters:
-//    notification - the notification containing the NSFileHandle to read
+//	notification - the notification containing the NSFileHandle to read
 //
 -(void)standardErrorNotification: (NSNotification *) notification
 {
-    NSFileHandle *standardErrorFile = (NSFileHandle *)[notification object];
+	NSFileHandle *standardErrorFile = (NSFileHandle *)[notification object];
 
 	NSData *availableData = [standardErrorFile availableData];
 	if ([availableData length] == 0)
@@ -147,8 +147,8 @@
 		return;
 	}
 	
-    [standardError appendData:availableData];
-    [standardErrorFile waitForDataInBackgroundAndNotify];
+	[standardError appendData:availableData];
+	[standardErrorFile waitForDataInBackgroundAndNotify];
 }
  
 //
@@ -157,11 +157,11 @@
 // Sets the taskComplete flag when a terminated notification is received.
 //
 // Parameters:
-//    notification - the notification
+//	notification - the notification
 //
 - (void)terminatedNotification: (NSNotification *)notification
 {
-    taskComplete = YES;
+	taskComplete = YES;
 }
 
 //
@@ -212,9 +212,9 @@
 // Executes a process and returns the standard output as an NSString
 //
 // Parameters:
-//    processPath - the path to the executable
-//    arguments - arguments to pass to the executable
-//    error - an NSError pointer or nil
+//	processPath - the path to the executable
+//	arguments - arguments to pass to the executable
+//	error - an NSError pointer or nil
 //
 // Returns the standard out from the process an an NSString (if the NSTask
 //	completes successfully), nil otherwise.
@@ -306,10 +306,10 @@
 // output as an NSString.
 //
 // Parameters:
-//    processPath - the path to the executable
-//    arguments - arguments to pass to the executable
+//	processPath - the path to the executable
+//	arguments - arguments to pass to the executable
 //	  authorization - an SFAuthorization object specifying the privileges
-//    error - an NSError pointer or nil
+//	error - an NSError pointer or nil
 //
 // Returns the standard out from the process an an NSString (if the
 //  AuthorizationExecuteWithPrivileges completes successfully), nil otherwise.

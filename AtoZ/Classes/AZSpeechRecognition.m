@@ -24,7 +24,7 @@
 - (IBAction)record:(id)sender
 {
 	[GoogleSpeechAPI recordFor:10
-				    completion:^(NSS *result) {_outputArea.stringValue = $(@"Result:\n%@", result);
+					completion:^(NSS *result) {_outputArea.stringValue = $(@"Result:\n%@", result);
 	}];
 }
 @end

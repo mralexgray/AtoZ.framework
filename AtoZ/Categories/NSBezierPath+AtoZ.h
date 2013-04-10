@@ -47,7 +47,7 @@
 + (NSBP*) bezierPathWithRoundedRect: 			 (NSR)rect radius:(CGF)radius;
 + (NSBP*) bezierPathWithLeftRoundedRect:  		 (NSR)rect radius:(CGF)radius;
 + (NSBP*) bezierPathWithRightRoundedRect: 		 (NSR)rect radius:(CGF)radius;
-+ (NSBP*) bezierPathWithRoundedTopCorners:    (NSR)rect radius:(CGF)radius;
++ (NSBP*) bezierPathWithRoundedTopCorners:	(NSR)rect radius:(CGF)radius;
 + (NSBP*) bezierPathWithRoundedBottomCorners: (NSR)rect radius:(CGF)radius;
 + (NSBP*) bezierPathWithRoundedRect: 			 (NSR)aRect cornerRadius:(CGF)radius;
 + (NSBP*) bezierPathWithRoundedRect: 			 (NSR)aRect cornerRadius:(CGF)radius inCorners:(OSCornerType)corners;
