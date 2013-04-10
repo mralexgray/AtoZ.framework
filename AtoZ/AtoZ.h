@@ -1,43 +1,26 @@
-
-#import <Availability.h>
-#if __IPHONE_OS_VERSION_MIN_REQUIRED
-#import <SystemConfiguration/SystemConfiguration.h>
-#import <MobileCoreServices/MobileCoreServices.h>
-#else
-#import <SystemConfiguration/SystemConfiguration.h>
-#import <CoreServices/CoreServices.h>
-#endif
-
-#import <TargetConditionals.h>
-#if TARGET_OS_IPHONE
-#import <MobileCoreServices/MobileCoreServices.h>
-#import <sys/xattr.h>
-#else
-#import <CoreServices/CoreServices.h>
-#endif
-
+#import <Cocoa/Cocoa.h>
+#import <AppKit/AppKit.h>
+#import <Carbon/Carbon.h>
+#import <Quartz/Quartz.h>
+#import <Foundation/Foundation.h>
+#import <QuartzCore/QuartzCore.h>
+#include <pwd.h>
+#include <sys/types.h>
+#import <objc/message.h>
+#import <objc/runtime.h>
+#import <unistd.h>
 #import <libkern/OSAtomic.h>
+#import <sys/time.h>
 #import <sys/xattr.h>
 #import <sys/sysctl.h>
-#import <unistd.h>
-#import <dirent.h>
 #import <sys/stat.h>
+#import <dirent.h>
 #import <xpc/xpc.h>
-#import <objc/runtime.h>
-#import <objc/message.h>
-#import <sys/time.h>
-#include <sys/types.h>
-#include <pwd.h>
-
-
-#import <Cocoa/Cocoa.h>
-#import <Quartz/Quartz.h>
-#import <Carbon/Carbon.h>
 #import <Python/Python.h>
-#import <AppKit/AppKit.h>
-#import <QuartzCore/QuartzCore.h>
-#import <Foundation/Foundation.h>
+#import <Security/Security.h>
 #import <AudioToolbox/AudioToolbox.h>
+#import <CoreServices/CoreServices.h>
+#import <AVFoundation/AVFoundation.h>
 #import <ApplicationServices/ApplicationServices.h>
 
 #ifndef DSFavIcon_UINSImage_h
@@ -114,11 +97,6 @@
 static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 
-/* MODEL */
-#import "JsonElement.h"
-#import "AutoCoding.h"
-#import "HRCoder.h"
-#import "BaseModel.h"
 
 /* ESSENTIAL */
 #import "F.h"
@@ -134,6 +112,13 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 #import "AtoZUmbrella.h"
 #import "AtoZGeometry.h"
 #import "AtoZFunctions.h"
+
+/* MODEL */
+#import "JsonElement.h"
+#import "AutoCoding.h"
+#import "HRCoder.h"
+#import "BaseModel.h"
+
 
 #import "SDToolkit.h"
 
@@ -560,75 +545,74 @@ typedef void (^asyncTaskCallback)(AZTaskResponder *response);
 @end
 
 typedef void (^KVOLastChangedBlock)( NSS *whatKeyChanged, id whichInstance, id newVal);
+typedef void (^KVONewInstanceBlock)( id newInstance );
+
+extern NSString *const BaseModelDidAddNewInstance;
 
 @interface BaseModel (AtoZ)
 
+/* Shared instance is the object modified after each key change.
+	After being notified of change to the shared instance, call this to get last modified key of last modified instance */
++ (NSS*)	lastModifiedKey;
++ (INST)	lastModifiedInstance;
++ (void)	setLastModifiedKey:	(NSS*)key      forInstance:(id)object;
++ (void)	setLastChangedBlock:	(KVOLastChangedBlock) lastChangedBlock;
++ (void)	setNewInstanceBlock: (KVONewInstanceBlock) onInitBlock;
 
-+ (instancetype) objectAtIndex:(NSUI)idx;
-
-+ (void) setLastChangedBlock:(KVOLastChangedBlock)lastChangedBlock;
-
-// Shared instance is the object modified after each key change
-// After being notified of change to the shared instance, call this to get last modified key of last modified instance
-+ (instancetype)	lastModifiedInstance;
-+ (NSS*)				lastModifiedKey;
-+ (void)				setLastModifiedKey:(NSS*)key forInstance:(id)object;
-
-- (id) valueForUndefinedKey:(NSString *)key;
-
-//+ (instancetype) swizzleInstanceWithObject:(id)obj;
-- (void) swizzleSave;
-
-@property (RONLY) NSString *uniqueID;
-- (NSS*) uniqueID;
-
-@property (RONLY) NSA *superProperties;
-@property (RONLY) NSUI instanceNumber;
-- (NSUI) instanceNumber;
++ (INST)	objectAtIndex:(NSUI)idx;
 + (NSUI) instances;
 
+@property (RONLY) 		NSUI instanceNumber;
+@property (RONLY) 		NSA 	*superProperties;
+@property (RONLY) 		NSS 	*uniqueID;
+@property (NATOM,ASS) 	BOOL 	 convertToXML;
++ (NSS*) saveFilePath;
 
-@property (NATOM, ASS) BOOL convertToXML;
-+ (NSS*)saveFilePath;
 
-
-- (id)objectAtIndexedSubscript:(NSUInteger)idx;
-- (void)setObject:(id)obj atIndexedSubscript:(NSUInteger)idx;
-- (void)setObject:(id)obj forKeyedSubscript:(id <NSCopying>)key;
-- (id)objectForKeyedSubscript:(id)key;
-
+-   (id) objectForKeyedSubscript:					(id)  key;
+-   (id) objectAtIndexedSubscript:					(NSUI)idx;
+- (void) setObject: (id)obj atIndexedSubscript: (NSUI)idx;
+- (void) setObject: (id)obj forKeyedSubscript:  (IDCP)key;
+-   (id) valueForUndefinedKey:						(NSS*)key;
 @end
 
-//
-//@implementation  NSArray (SubscriptsAdd)
-//- (id)objectAtIndexedSubscript:(NSUInteger)index {
-//	return [self objectAtIndex:index];
-//}
-//@end
-//
-//@implementation NSMutableArray (SubscriptsAdd)
-//- (void)setObject:(id)object atIndexedSubscript:(NSUInteger)index {
-//	if (index < self.count){
-//		if (object)
-//			[self replaceObjectAtIndex:index withObject:object];
-//		else
-//			[self removeObjectAtIndex:index];
-//	} else {
-//		[self addObject:object];
-//	}
-//}
-//@end
-//@implementation NSDictionary (SubscriptsAdd)
-//- (id)objectForKeyedSubscript:(id)key {
-//	return [self objectForKey:key];
-//}
-//@end
-//@implementation NSMutableDictionary (SubscriptsAdd)
-//- (void)setObject:(id)object forKeyedSubscript:(id)key {
-//	[self setObject:object forKey:key];
-//}
-//@end
+/**
 
+
+//- (void) swizzleSave;
+//- (NSS*) uniqueID;
+
+
++ (instancetype) swizzleInstanceWithObject:(id)obj;
+@implementation  NSArray (SubscriptsAdd)
+- (id)objectAtIndexedSubscript:(NSUInteger)index {
+	return [self objectAtIndex:index];
+}
+@end
+
+@implementation NSMutableArray (SubscriptsAdd)
+- (void)setObject:(id)object atIndexedSubscript:(NSUInteger)index {
+	if (index < self.count){
+		if (object)
+			[self replaceObjectAtIndex:index withObject:object];
+		else
+			[self removeObjectAtIndex:index];
+	} else {
+		[self addObject:object];
+	}
+}
+@end
+@implementation NSDictionary (SubscriptsAdd)
+- (id)objectForKeyedSubscript:(id)key {
+	return [self objectForKey:key];
+}
+@end
+@implementation NSMutableDictionary (SubscriptsAdd)
+- (void)setObject:(id)object forKeyedSubscript:(id)key {
+	[self setObject:object forKey:key];
+}
+@end
+*/
 @interface Box : NSView
 @property (ASS) 		BOOL 	selected;
 @property (RDWRT,CP) CASHL *shapeLayer;

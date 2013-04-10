@@ -14,6 +14,31 @@
 #import "AtoZ.h"
 #import <Python/Python.h>
 
+CAConstraint * AZConstraint ( CAConstraintAttribute attrb, NSS* rel) {
+
+	return [CAConstraint constraintWithAttribute:attrb relativeTo:rel attribute:attrb];		}
+
+CAConstraint *  AZConst (CAConstraintAttribute attrb, NSS* rel) {
+
+	return [CAConstraint constraintWithAttribute:attrb relativeTo:rel attribute:attrb];		}
+
+CAConstraint *  AZConstScaleOff (CAConstraintAttribute attrb, NSS* rel, CGF scl, CGF off){
+
+	return [CAConstraint constraintWithAttribute:attrb relativeTo:rel attribute:attrb scale:scl offset:off];	}
+
+CAConstraint * AZConstRelSuper (CAConstraintAttribute att) {
+
+	return [CAConstraint constraintWithAttribute:att relativeTo:@"superlayer" attribute:att];
+}
+
+CAConstraint * AZConstRelSuperScaleOff (CAConstraintAttribute attrb, CGF scl, CGF off) {
+	return [CAConstraint constraintWithAttribute:attrb relativeTo:@"superlayer" attribute:attrb scale:scl offset:off];
+}
+
+CAConstraint * AZConstAttrRelNameAttrScaleOff ( CAConstraintAttribute aOne, NSS* relName, CAConstraintAttribute aTwo, CGF scl, CGF off) {
+
+	return [CAConstraint constraintWithAttribute:aOne relativeTo:relName attribute:aTwo scale:scl offset:off];
+}
 
 
 //void _AZSimpleLog( const char *file, int lineNumber, const char *funcName, NSString *format, ... ) {

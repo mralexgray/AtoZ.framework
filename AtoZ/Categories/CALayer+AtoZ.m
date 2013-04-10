@@ -517,13 +517,14 @@ extern CATransform3D CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13, CG
 
 
 @implementation CALayer (VariadicConstraints)
+
 - (void)addConstraintsRelSuper:(CAConstraintAttribute)first,...{ /* REQUIRES NSNotFound termination */
 	va_list args; 	va_start(args, first);
-	for (NSUInteger arg = first;
-		  arg != NSNotFound;
-		  arg = va_arg(args, NSUInteger))
-	{ [self addConstraint:AZConstRelSuper(arg)]; }
+	for (NSUInteger arg = first;	  arg != NSNotFound;	  arg = va_arg(args, NSUInteger)){
+		[self addConstraint:AZConstRelSuper(arg)];
+	}
 	va_end(args);
+
 }
 
 @end

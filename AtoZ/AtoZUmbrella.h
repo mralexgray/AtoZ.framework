@@ -1,17 +1,453 @@
 
-#pragma mark - Color Logging
+#define RNG AZRange
+#define SHAREDLOG [DDTTYLogger sharedInstance]
+
+#pragma mark - GLOBAL CONSTANTS
+
+#define 				  AHLO 	AHLayoutObject
+#define 				  AHLT 	AHLayoutTransaction
+#define  		  BLKVIEW 	BNRBlockView
+
+#pragma mark -  CoreAnimation
+
+
+typedef struct {
+	CAConstraintAttribute constraint;
+	CGFloat scale;
+	CGFloat offset;
+}	AZCAConstraint;
+
+#define AZCACMaxX		AZConstraint(kCAConstraintMaxX,@"superlayer")
+#define AZCACMaxY		AZConstraint(kCAConstraintMaxY,@"superlayer")
+#define AZCACSuperW 	AZConstraint(kCAConstraintWidth,@"superlayer")
+#define AZCACSuperH 	AZConstraint(kCAConstraintHeight,@"superlayer")
+
+
+#define 		 			CAA 	CAAnimation
+#define     		  CAAG	CAAnimationGroup
+#define 	   		  CABA	CABasicAnimation
+
+#define     		  CAGA	CAGroupAnimation
+#define     		  CAGL	CAGradientLayer
+#define     		  CAKA	CAKeyframeAnimation
+#define      			CAL	CALayer
+#define    			 CALNA 	CALayerNonAnimating
+#define    			 CALNH 	CALayerNoHit
+#define    			 CAMTF	CAMediaTimingFunction
+#define   			CASLNH 	CAShapeLayerNoHit
+#define    			 CASHL 	CAShapeLayer
+#define  		  CASCRLL 	CAScrollLayer
+#define 				 CASHL 	CAShapeLayer
+#define     		  CASL 	CAShapeLayer
+#define   			CATLNH 	CATextLayerNoHit
+#define      			CAT 	CATransaction
+#define     		  CAT3 	CATransform3D
+#define            CAT3D 	CATransform3D
+#define   		   CAT3DR 	CATransform3DRotate
+#define  		  CAT3DTR 	CATransform3DTranslate
+#define     		  CATL 	CATransformLayer
+#define   			CATXTL 	CATextLayer
+#define 			 CATRANNY 	CATransition
+#define 		   CATIMENOW CACurrentMediaTime()
+
+//#define ID \(NSObject*\)
+#define 				  lMGR 	layoutManager
+#define				   bgC	backgroundColor
+#define 					fgC 	foregroundColor
+#define 				arMASK 	autoresizingMask
+#define 					mTB 	masksToBounds
+#define 			  cRadius 	cornerRadius
+#define 				aPoint 	anchorPoint
+#define 				 NDOBC 	needsDisplayOnBoundsChange
+#define 				 nDoBC 	needsDisplayOnBoundsChange
+#define 		  CASIZEABLE 	kCALayerWidthSizable | kCALayerHeightSizable
+#define 					loM 	layoutManager
+#define 				 sblrs 	sublayers
+#define 				  zPos 	zPosition
+#define			  constWa   constraintWithAttribute
+#define 		  removedOnC 	removedOnCompletion
+
+#define 				  kIMG 	@"image"
+#define 				  kCLR 	@"color"
+#define 				  kIDX 	@"index"
+#define 				  kLAY 	@"layer"
+#define 				  kPOS 	@"position"
+#define 			 kPSTRING 	@"pString"
+#define 			     kSTR 	@"string"
+#define 				  kFRM 	@"frame"
+#define 				 kHIDE	@"hide"
+#define AZSuperLayerSuper (@"superlayer")
+
+#define CATransform3DPerspective    ( t, x, y ) (CATransform3DConcat(t, CATransform3DMake(1,0,0,x,0,1,0,y,0,0,1,0,0,0,0,1)))
+#define CATransform3DMakePerspective  (  x, y ) (CATransform3DPerspective( CATransform3DIdentity, x, y ))
+
+////#define CACcWA CAConstraint constraintWithAttribute
+//#define AZConstraint(attrb,rel)	\
+//	[CAConstraint constraintWithAttribute:attrb relativeTo:rel attribute:attrb]
+//
+//#define AZConst(attrb,rel)	\
+//	[CAConstraint constraintWithAttribute:attrb relativeTo:rel attribute:attrb]
+//
+//#define AZConstScaleOff(attrb,rel,scl,off)	\
+//	[CAConstraint constraintWithAttribute:attrb relativeTo:rel attribute:attrb scale:scl offset:off]
+//
+//#define AZConstRelSuper(attrb)	\
+//	[CAConstraint constraintWithAttribute:attrb relativeTo:AZSuperLayerSuper attribute:attrb]
+//
+//#define AZConstRelSuperScaleOff (att,scl,off) \
+//	[CAConstraint constraintWithAttribute:att relativeTo:AZSuperLayerSuper attribute:att scale:scl offset:off]
+//
+//#define AZConstAttrRelNameAttrScaleOff ( attr1, relName, attr2, scl, off) \
+//	[CAConstraint constraintWithAttribute:attr1 relativeTo:relName attribute:attr2 scale:scl offset:off]
+
+#pragma mark - VIEWS
+
+#define 		  NSSIZEABLE 	NSViewHeightSizable | NSViewWidthSizable
+#define 				  pBCN 	postsBoundsChangedNotifications
+#define 				  pFCN 	postsFrameChangedNotifications
+
+
+#pragma mark - STRINGS
+
+#define sepByCharsInSet componentsSeparatedByCharactersInSet
+#define sepByString componentsSeparatedByString
+#define sansLast arrayByRemovingLastObject
+
+
+
+#define vFk 	valueForKey
+#define pV 		pointValue
+#define rV 		rectValue
+#define fV 		floatValue
+#define NSZeroRange NSMakeRange(0,0)
+
+
+#pragma mark - CoreGraphics / CoreFoundation
+
+#define 				  CFTI	CFTimeInterval
+#define 				  CGCR	CGColorRef
+#define 					CGF 	CGFloat
+#define 				   CGP	CGPoint
+#define 				  CGPR 	CGPathRef
+#define	 				CGR 	CGRect
+#define 					CGS 	CGSize
+#define 				  CGSZ 	CGSize
+#define 					CIF 	CIFilter
+#define 				 CGRGB 	CGColorCreateGenericRGB
+#define 				CGCREF 	CGContextRef
+#define 				JSCREF 	JSContextRef
+#define 				  CGWL 	CGWindowLevel
+
+
+#define CGPATH(A)					CGPathCreateWithRect(R)
+
+#define 				  ID3D 	CATransform3DIdentity
+
+#define 			AZRUNLOOP	NSRunLoop.currentRunLoop
+#define 	   AZRUNFOREVER 	[AZRUNLOOP runMode:NSDefaultRunLoopMode beforeDate:NSDate.distantFuture]
+
+#define 					NSA 	NSArray
+#define 			 NSACLASS 	NSArray.class
+#define 	    NSAorDCLASS 	@[NSArray.class, NSDictionary.class]
+
+#define 			  ISADICT 	isKindOfClass:NSDictionary.class
+#define 			ISANARRAY	isKindOfClass:NSArray.class
+#define 	 ISADICTorARRAY	isKindOfAnyClass:NSAorDCLASS
+
+#define 	NSSCLASS NSString.class
+
+#define				 NSAPP 	NSApplication
+#define				  NSAC 	NSArrayController
+#define				  NSAS 	NSAttributedString
+#define				  NSAT 	NSAffineTransform
+#define			    	NSB 	NSBundle
+#define				NSBUTT 	NSButton
+#define				  NSBP 	NSBezierPath
+#define				 NSBIR 	NSBitmapImageRep
+#define				 NSBLO 	NSBlockOperation
+
+#define			  NSCOMPR 	NSComparisonResult
+#define				  NSDE 	NSDirectoryEnumerator
+#define				  NSGC 	NSGraphicsContext
+#define				   NSC 	NSColor
+#define			     NSCL 	NSColorList
+#define				  NSCS 	NSCountedSet
+#define				   NSD 	NSDictionary
+#define			 NSDCLASS 	NSDictionary.class
+#define			   	NSE 	NSEvent
+#define				 NSERR 	NSError
+#define			    	NSF 	NSFont
+#define			    	NSG	NSGradient
+
+#define				   NSI 	NSInteger
+#define				  NSIP 	NSIndexPath
+#define				 NSIMG 	NSImage
+#define				  NSIS 	NSIndexSet
+#define				  NSIV 	NSImageView
+#define				  NSMA 	NSMutableArray
+#define				 NSMAS 	NSMutableAttributedString
+#define				  NSMD 	NSMutableDictionary
+#define				   NSM 	NSMenu
+#define				  NSMI 	NSMenuItem
+#define			  NSMenuI	NSMenuItem
+#define				  NSMS 	NSMutableString
+#define				NSMSet 	NSMutableSet
+#define				 NSMIS 	NSMutableIndexSet
+#define				 NSMPS 	NSMutableParagraphStyle
+#define				   NSN 	NSNumber
+#define				 NSNOT 	NSNotification
+#define				   NSO 	NSObject
+#define				  NSOQ 	NSOperationQueue
+#define				  NSOP 	NSOperation
+#define			  AZOQMAX 	NSOperationQueueDefaultMaxConcurrentOperationCount
+
+#define					NSP 	NSPoint
+#define			NSPInRect 	NSPointInRect
+#define			     NSPI 	NSProgressIndicator
+#define			 NSPUBUTT 	NSPopUpButton
+#define					NSR 	NSRect
+#define				 NSRNG 	NSRange
+
+#define			  NSRFill 	NSRectFill
+#define					NSS 	NSString
+#define				  NSSI 	NSStatusItem
+#define				NSSHDW 	NSShadow
+#define				  NSSZ 	NSSize
+#define				  NSST 	NSSet
+#define					NST 	NSTimer
+#define				  NSSV 	NSScrollView
+
+#define			     NSTA 	NSTrackingArea
+#define			 	  NSTI 	NSTimeInterval
+#define				  NSTV 	NSTableView
+#define				  NSTC 	NSTableColumn
+#define				NSTXTF 	NSTextField
+#define				NSTXTV 	NSTextView
+#define				  NSUI 	NSUInteger
+
+#define				NSURLC 	NSURLConnection
+#define		   NSMURLREQ	NSMutableURLRequest
+#define			 NSURLREQ 	NSURLRequest
+#define			 NSURLRES 	NSURLResponse
+#define			   	NSV 	NSView
+#define				  NSVC 	NSViewController
+#define				  NSWC 	NSWindowController
+#define				 NSVAL 	NSValue
+#define				  NSVT 	NSValueTransformer
+
+#define				NSTABV 	NSTabView
+#define				NSTBAR 	NSToolbar
+#define				   NSW 	NSWindow
+
+
+#define				TUINSV 	TUINSView
+#define				TUINSW 	TUINSWindow
+#define				  TUIV 	TUIView
+
+#define				  VBLK 	VoidBlock
+
+
+#pragma mark - AZSHORTCUTS
+
+
+#define AZIDCAA 	(id<CAAction>)
+#define IDCAA 		(id<CAAction>)
+#define IDCP	 	id<NSCopying>
+#define 				  	 IBO 	IBOutlet
+#define 					 IBA 	IBAction
+#define 				  RONLY 	readonly
+#define 				  RDWRT	readwrite
+#define 				  ASSGN 	assign
+#define 				  NATOM 	nonatomic
+#define 				  STRNG 	strong
+#define 					 ASS 	assign
+#define 					  CP 	copy
+#define 					 SET 	setter
+#define 					 GET 	getter
+#define	 				  WK 	weak
+#define 					UNSF 	unsafe_unretained
+#define					prop 	property
+#define 					 IBO 	IBOutlet
+
+#define 				setPBCN 	setPostsBoundsChangedNotifications:YES
+#define 				setPFCN 	setPostsFrameChangedNotifications:YES
+
+#define 					pBCN 	postsBoundsChangedNotifications
+#define 					pFCN 	postsFrameChangedNotifications
+
+
+#define  NSKVOBEFOREAFTER	NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld
+#define            KVONEW 	NSKeyValueObservingOptionNew
+#define 				 KVOOLD 	NSKeyValueObservingOptionOld
+
+#define  NSEVENTLOCALMASK 	NSEvent addLocalMonitorForEventsMatchingMask
+#define NSEVENTGLOBALMASK 	NSEvent addGlobalMonitorForEventsMatchingMask
+
+#define         MOUSEDRAG 	NSLeftMouseDraggedMask
+#define 			   MOUSEUP 	NSLeftMouseUpMask
+#define 			 MOUSEDOWN	NSLeftMouseDownMask
+#define MOUSEDRAGGING MOUSEDOWN | MOUSEDRAG | MOUSEUP
+
+#define FUTURE NSDate.distantFuture
+
+#define  AZFWORKBUNDLE 	[NSBundle bundleForClass:AtoZ.class]
+#define  AZFWRESOURCES 	[AZFWORKBUNDLE resourcePath]
+#define    AZAPPBUNDLE 	NSBundle.mainBundle
+#define AZAPPRESOURCES 	[NSBundle.mainBundle resourcePath]
+
+#define CAMEDIAEASEOUT 	[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]
+#define  CAMEDIAEASEIN 	[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn]
+#define    CAMEDIAEASY 	[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]
+#define    AZWORKSPACE 	NSWorkspace.sharedWorkspace
+#define     AZUSERDEFS 	NSUserDefaults.standardUserDefaults
+#define  AZUSERDEFSCTR 	NSUserDefaultsController.sharedUserDefaultsController
+#define    AZNOTCENTER 	NSNotificationCenter.defaultCenter
+#define  AZFILEMANAGER 	NSFileManager.defaultManager
+#define  AZGRAPHICSCTX 	NSGraphicsContext.currentContext
+#define   AZCURRENTCTX 	AZGRAPHICSCTX
+#define   AZQTZCONTEXT 	[NSGraphicsContext.currentContext graphicsPort]
+#define    AZSHAREDAPP 	NSApplication.sharedApplication
+#define     AZWEBPREFS 	WebPreferences.standardPreferences
+#define     AZPROCINFO 	NSProcessInfo.processInfo
+#define     AZPROCNAME 	[NSProcessInfo.processInfo processName]
+
+
+
+#define AZNEWPIPE NSPipe.pipe
+#define AZNEWMUTEA NSMutableArray.array
+#define AZNEWMUTED NSMutableDictionary.new
+
+#define AZSTRONGSTRING(A) @property (nonatomic, strong) NSString* A
+#define AZPROP(A,B) @property (nonatomic, strong) A* B
+#define AZPROPASS(A,B) @property (NATOM,ASS) A B
+#define AZPROPIBO(A,B) @property (ASS) IBOutlet A *B
+
+//#define PROPSTRONG (@property (nonatomic,strong) )
+//#define PROPASSIGN (@property (nonatomic,assign) )
+
+#define UNSFE unsafe_unretained
+//#define STRONG ((nonatomic,strong) )
+//#define ASSIGN ((nonatomic,assign) )
+
+#define CGSUPRESSINTERVAL(x) CGEventSourceSetLocalEventsSuppressionInterval(nil,x)
+#define AZPOS AZWindowPosition
+
+#define AZSSOQ AZSharedSingleOperationQueue()
+#define AZSOQ AZSharedOperationQueue()
+#define AZOS AZSharedOperationStack()
+
+#define AZNULL [NSNull null]
+#define ELSENULL ?: [NSNull null]
+#define AZGView AtoZGridView
+#define AZGVItem AtoZGridViewItem
+#define AZP AZPalette
+#define AZIS AZInstallationStatus
+
+
+#define performDelegateSelector(sel) if ([delegate respondsToSelector:sel]) { [delegate performSelector:sel]; }
+#define performBlockIfDelegateRespondsToSelector(block, sel) if ([delegate respondsToSelector:sel]) { block(); }
+
+#define AZBindSelector(observer,sel,keypath,obj) [AZNOTCENTER addObserver:observer selector:sel name:keypath object:obj]
+#define AZBind(binder,binding,toObj,keyPath) [binder bind:binding toObject:toObj withKeyPath:keyPath options:nil]
+
+#define 	AZLAYOUTMGR 		[CAConstraintLayoutManager layoutManager]
+#define  AZTALK(log) 	 	[AZTalker.new say:log]
+#define  AZBezPath(rect) 	[NSBezierPath bezierPathWithRect:rect]
+#define  NSBezPath(rect) AZBezPath(rect)
+#define  AZQtzPath(rect) [[NSBezierPath bezierPathWithRect:rect]quartzPath]
+
+#define AZContentBounds [[[self window]contentView]bounds]
+
+#define  AZVinstall(p) [NSValue valueWithInstallStatus:	  p]
+#define  AZVposi(p) [NSValue valueWithPosition:	  p]
+#define AZVpoint(p) [NSValue valueWithPoint:		 p]
+#define  AZVrect(r) [NSValue valueWithRect:		  r]
+#define  AZVsize(s) [NSValue valueWithSize:		  s]
+#define   AZV3d(t) [NSValue valueWithCATransform3D: t]
+
+#define 						kContentTitleKey @"itemTitle"
+#define 						kContentColorKey @"itemColor"
+#define 						kContentImageKey @"itemImage"
+#define 						kItemSizeSliderPositionKey @"ItemSizeSliderPosition"
+
+#define AZTArea(frame) [[NSTrackingArea alloc] initWithRect:frame options:(NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways | NSTrackingInVisibleRect | NSTrackingMouseMoved ) owner:self userInfo:nil]
+
+#define AZTAreaInfo(frame,info) [[NSTrackingArea alloc] initWithRect: frame options:(NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways | NSTrackingInVisibleRect | NSTrackingMouseMoved ) owner:self userInfo:info];
+#define CLAMP(value, lowerBound, upperbound) MAX( lowerBound, MIN( upperbound, value ))
+
+#define AZDistance(A,B) sqrtf(powf(fabs(A.x - B.x), 2.0f) + powf(fabs(A.y - B.y), 2.0f))
+#define rand() (arc4random() % ((unsigned)RAND_MAX + 1))
+
+
+
+#pragma mark - COLORS
+
+#define RED							  [NSC  r:0.797 g:0.000 b:0.043 a:1.]
+#define ORANGE						  [NSC  r:0.888 g:0.492 b:0.000 a:1.]
+#define YELLOw						  [NSC  r:0.830 g:0.801 b:0.277 a:1.]
+#define YELLOW						  [NSC  r:0.830 g:0.801 b:0.277 a:1.]
+#define GREEN						  [NSC  r:0.367 g:0.583 b:0.179 a:1.]
+#define BLUE						  [NSC  r:0.267 g:0.683 b:0.979 a:1.]
+#define PURPLE						  [NSC  r:0.617 g:0.125 b:0.628 a:1.]
+#define RANDOMGRAY 				  [NSC white:RAND_FLOAT_VAL(0,1) a:1]
+#define RANDOMCOLOR				  [NSC   randomColor]
+#define BLACK						  [NSC    blackColor]
+#define GREY						  [NSC     grayColor]
+#define WHITE						  [NSC    whiteColor]
+#define CLEAR						  [NSC    clearColor]
+#define LGRAY						  [NSC white:.5 a:.6]
+#define GRAY1						  [NSC white:.1 a: 1]
+#define GRAY2						  [NSC white:.2 a: 1]
+#define GRAY3						  [NSC white:.3 a: 1]
+#define GRAY4						  [NSC white:.4 a: 1]
+#define GRAY5						  [NSC white:.5 a: 1]
+#define GRAY6						  [NSC white:.6 a: 1]
+#define GRAY7						  [NSC white:.7 a: 1]
+#define GRAY8						  [NSC white:.8 a: 1]
+#define GRAY9						  [NSC white:.9 a: 1]
+
+#define cgRED			   		  RED.CGColor
+#define cgORANGE				  ORANGE.CGColor
+#define cgYELLOW				  YELLOW.CGColor
+#define cgGREEN		 			GREEN.CGColor
+#define cgPURPLE				  PURPLE.CGColor
+#define cgRANDOMCOLOR	RANDOMCOLOR.CGColor
+#define cgBLUE		 				 BLUE.CGColor
+#define cgBLACK				   BLACK.CGColor
+#define cgGREY						 GRAY.CGColor
+#define cgWHITE					WHITE.CGColor
+#define cgCLEARCOLOR		      CLEAR.CGColor
+
+#define cgRANDOMGRAY 			CGColorCreateGenericGray( RAND_FLOAT_VAL(0,1), 1)
+#define 	kBlackColor 			cgBLACK
+#define 	kWhiteColor 			cgWHITE
+
+#define CGSHADOW(A) 				CGColorCreate( kCGColorSpaceGenericGray, {0.0, 0.0, A})
+
+#define 	kTranslucentGrayColor CGColorCreate( kCGColorSpaceGenericGray, {0.0, 0.5, 1.0})
+#define 	kTranslucentLightGrayColor cgGREY
+#define	kAlmostInvisibleWhiteColor CGColorCreate( kCGColorSpaceGenericGray, {1, 0.05, 1.0})
+
+#define NOISY(C)   				  [C colorWithNoiseWithOpacity:.2 andBlendMode:kCGBlendModeMultiply]
+#define RANDOMNOISYCOLOR  		   NOISY(RANDOMCOLOR)
+
+#define LINEN 					     [NSColor linen]
+#define RANDOMLINEN 				  [NSC linenTintedWithColor:RANDOMCOLOR]
+#define CHECKERS 					  [NSC checkerboardWithFirstColor: BLACK secondColor: WHITE squareWidth:25]
+
+#pragma mark - COLOR LOGGING
 
 /*	Foreground color:
-		Insert the ESCAPE_SEQ into your string, followed by "fg124,12,255;" where r=124, g=12, b=255.
-	Background color:
-		Insert the ESCAPE_SEQ into your string, followed by "bg12,24,36;" where r=12, g=24, b=36.
-	Reset the foreground color (to default value):
-		Insert the ESCAPE_SEQ into your string, followed by "fg;"
-	Reset the background color (to default value):
-		Insert the ESCAPE_SEQ into your string, followed by "bg;"
-	Reset the foreground and background color (to default values) in one operation:
-		Insert the ESCAPE_SEQ into your string, followed by ";"
-*/
+ Insert the ESCAPE_SEQ into your string, followed by "fg124,12,255;" where r=124, g=12, b=255.
+ Background color:
+ Insert the ESCAPE_SEQ into your string, followed by "bg12,24,36;" where r=12, g=24, b=36.
+ Reset the foreground color (to default value):
+ Insert the ESCAPE_SEQ into your string, followed by "fg;"
+ Reset the background color (to default value):
+ Insert the ESCAPE_SEQ into your string, followed by "bg;"
+ Reset the foreground and background color (to default values) in one operation:
+ Insert the ESCAPE_SEQ into your string, followed by ";"
+ */
 #define XCODE_COLORS_ESCAPE_MAC @"\033["
 #define XCODE_COLORS_ESCAPE_IOS @"\xC2\xA0["
 
@@ -35,205 +471,59 @@
 
 #define XCODE_COLORS 0
 
-#pragma mark - GLOBAL CONSTANTS
+#define NSLog(fmt...) _AZColorLog(nil,__FILE__,__LINE__,__PRETTY_FUNCTION__,fmt)
+
+#define AZLOG(a) NSLog(@"%@", a)
+//static inline void AZLOG(id args){ _AZSimpleLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args); }
+//void _AZSimpleLog( const char *file, int lineNumber, const char *funcName, NSString *format, ... ) {
+//NS_INLINE void ConditionalLog( const char *filename, int line, const char *funcName, NSS *format, ... ) {
+
+//	BOOL YESORNO = strcmp(getenv(XCODE_COLORS), "YES") == 0;
+//	va_list   argList;
+//	va_start (argList, format);
+//	NSS *path  	= [[NSS stringWithFormat:@"%s",filename] lastPathComponent];
+//	NSS *mess   = [NSString.alloc initWithFormat:format arguments:argList];
+////	NSS *toLog;
+//	char *xcode_colors = getenv(XCODE_COLORS);
+
+//	va_list vl;
+//	va_start(vl, formatted);
+//	NSS* str = [NSString.alloc initWithFormat:(NSS*)formatted arguments:vl];
+//	va_end(vl);
+//
+//	YESORNO 	?
+//	NSLog(@"%s [Line %d] " XCODE_COLORS_ESCAPE @"fg218,147,0; %@" XCODE_COLORS_RESET,
+//																				  __PRETTY_FUNCTION__, __LINE__, str)
+//				: 	NSLog(@"%@",str);
+//}
 
 
-#define AHLO 	AHLayoutObject
-#define AHLT 	AHLayoutTransaction
+#pragma mark - FUNCTION defines
+//#define LOGWARN(fmt,...) 	ConditionalLog(__VA_ARGS__)
+//#define LOGWARN(fmt,...) _AZConditionalLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args)
+//	BOOL YESORNO = strcmp(getenv(XCODE_COLORS), "YES") == 0;					\
+//	va_list vl;																				\
+//	va_start(vl, fmt);																	\
+//	NSS* str = [NSString.alloc initWithFormat:(NSS*)fmt arguments:vl];	\
+//	va_end(vl);																				\
+//	YESORNO 	? 	NSLog(@"%s [Line %d] " XCODE_COLORS_ESCAPE @"fg218,147,0;" @"%@" XCODE_COLORS_RESET, __PRETTY_FUNCTION__, __LINE__, str) \
+//				: 	NSLog(@"%@",str); \
+//}()
 
-#define  BLKVIEW 	BNRBlockView
-#define 		 CAA 	CAAnimation
-#define     CAAG	CAAnimationGroup
-#define 	   CABA	CABasicAnimation
-#define     CAGA	CAGroupAnimation
-#define     CAGL	CAGradientLayer
-#define     CAKA	CAKeyframeAnimation
-#define      CAL	CALayer
-#define    CALNA 	CALayerNonAnimating
-#define    CALNH 	CALayerNoHit
-#define    CAMTF	CAMediaTimingFunction
-#define   CASLNH 	CAShapeLayerNoHit
-#define    CASHL 	CAShapeLayer
-#define  CASCRLL 	CAScrollLayer
-//#define CASHL CAShapeLayer
-#define CASL 		CAShapeLayer
-#define CATLNH 	CATextLayerNoHit
-#define CAT 		CATransaction
-#define CAT3 		CATransform3D
-#define CAT3D 		CATransform3D
-#define CAT3DR 	CATransform3DRotate
-#define CAT3DTR 	CATransform3DTranslate
-#define CATL 		CATransformLayer
-#define CATXTL 	CATextLayer
+//strcmp(getenv(XCODE_COLORS), "YES") == 0 \
+//									? NSLog(	(@"%s [Line %d] " XCODE_COLORS_ESCAPE @"fg218,147,0;" fmt XCODE_COLORS_RESET)\
+//												, __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__) \
+//									: NSLog(fmt,__VA_ARGS__)
 
-#define CATRANNY CATransition
-#define CFTI CFTimeInterval
-#define CGCR CGColorRef
-#define CGF CGFloat
-#define CGP CGPoint
-#define CGPR CGPathRef
-#define CGR CGRect
-#define CGS CGSize
-#define CGSZ CGSize
-#define CIF CIFilter
-
-#define IBO IBOutlet
-#define IBA IBAction
-#define ID3D CATransform3DIdentity
-
-#define AZRUNFOREVER [NSRunLoop.currentRunLoop runMode:NSDefaultRunLoopMode beforeDate:NSDate.distantFuture]
-
-#define CGRGB CGColorCreateGenericRGB
-#define CGCREF CGContextRef
-
-#define JSCREF JSContextRef
-#define CGWL CGWindowLevel
-
-#define NSA NSArray
-#define NSACLASS NSArray.class
-#define NSAorDCLASS @[NSArray.class, NSDictionary.class]
-
-#define ISADICT isKindOfClass:NSDictionary.class
-#define ISANARRAY isKindOfClass:NSArray.class
-#define ISADICTorARRAY isKindOfAnyClass:NSAorDCLASS
-
-#define NSSCLASS NSString.class
-
-#define NSAPP NSApplication
-#define NSAC NSArrayController
-#define NSAS NSAttributedString
-#define NSAT NSAffineTransform
-#define NSB NSBundle
-#define NSBUTT NSButton
-#define NSBP NSBezierPath
-#define NSBIR NSBitmapImageRep
-#define NSBLO NSBlockOperation
-
-#define NSCOMPR NSComparisonResult
-#define NSDE NSDirectoryEnumerator
-#define NSGC NSGraphicsContext
-#define NSC NSColor
-#define NSCL NSColorList
-#define NSCS NSCountedSet
-#define NSD NSDictionary
-#define NSDCLASS NSDictionary.class
-#define NSE NSEvent
-#define NSERR NSError
-#define NSF NSFont
-#define NSG NSGradient
-
-#define NSI NSInteger
-#define NSIP NSIndexPath
-#define NSIMG NSImage
-#define NSIS NSIndexSet
-#define NSIV NSImageView
-#define NSMA NSMutableArray
-#define NSMAS NSMutableAttributedString
-#define NSMD NSMutableDictionary
-#define NSM NSMenu
-#define NSMI NSMenuItem
-#define NSMenuI	NSMenuItem
-#define NSMS NSMutableString
-#define NSMSet NSMutableSet
-#define NSMIS NSMutableIndexSet
-#define NSMPS NSMutableParagraphStyle
-#define NSN NSNumber
-#define NSNOT NSNotification
-#define NSO NSObject
-#define NSOQ NSOperationQueue
-#define NSOP NSOperation
-#define AZOQMAX NSOperationQueueDefaultMaxConcurrentOperationCount
-
-#define NSP NSPoint
-#define NSPInRect NSPointInRect
-#define NSPI NSProgressIndicator
-#define NSPUBUTT NSPopUpButton
-#define NSR NSRect
-#define NSRNG NSRange
-
-#define NSRFill NSRectFill
-#define NSS NSString
-#define NSSI NSStatusItem
-#define NSSHDW NSShadow
-#define NSSZ NSSize
-#define NSST NSSet
-#define NST NSTimer
-#define NSSV NSScrollView
-
-#define NSTA NSTrackingArea
-#define NSTI NSTimeInterval
-#define NSTV NSTableView
-#define NSTC NSTableColumn
-#define NSTXTF NSTextField
-#define NSTXTV NSTextView
-#define NSUI NSUInteger
-
-#define NSURLC NSURLConnection
-#define NSMURLREQ 	NSMutableURLRequest
-#define NSURLREQ NSURLRequest
-#define NSURLRES NSURLResponse
-#define NSV NSView
-#define NSVC NSViewController
-#define NSWC NSWindowController
-#define NSVAL NSValue
-#define NSVT NSValueTransformer
-
-#define NSTABV NSTabView
-#define NSTBAR NSToolbar
-#define NSW NSWindow
-
-
-#define TUINSV TUINSView
-#define TUINSW TUINSWindow
-#define TUIV TUIView
-
-#define VBLK VoidBlock
-
-#define NSWINDOWINIT(A,B) [NSWindow.alloc initWithContentRect:A styleMask:( B ?: NSResizableWindowMask) backing:NSBackingStoreBuffered defer:NO]
-
-#define AZWINDOWINIT NSWINDOWINIT
-
-#define AZBORDLESSWINDOWINIT(A) [NSWindow.alloc initWithContentRect:A styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO] // screen:self.screen];
-#define AZTEMPD NSTemporaryDirectory()
-
-#define RNG AZRange
-#define SHAREDLOG [DDTTYLogger sharedInstance]
-
-//#define ID \(NSObject*\)
-#define lMGR 	layoutManager
-#define bgC	 	backgroundColor
-#define fgC 	foregroundColor
-#define arMASK autoresizingMask
-#define mTB 	masksToBounds
-#define cRadius cornerRadius
-#define aPoint anchorPoint
-#define NDOBC 	needsDisplayOnBoundsChange
-#define nDoBC 	needsDisplayOnBoundsChange
-#define CASIZEABLE kCALayerWidthSizable | kCALayerHeightSizable
-#define NSSIZEABLE NSViewHeightSizable | NSViewWidthSizable
-
-#define NSSIZEABLE NSViewHeightSizable | NSViewWidthSizable
-
-#define sepByCharsInSet componentsSeparatedByCharactersInSet
-#define sepByString componentsSeparatedByString
-#define sansLast arrayByRemovingLastObject
-
-#define removedOnC removedOnCompletion
+//#define NSLog(args...) _AZSimpleLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args);
 
 
 
+#define	NSWINDOWINIT(A,B) 			[NSW.alloc initWithContentRect:A styleMask:( B ?: 1 << 3) backing:2 defer:NO]
+#define 	AZBORDLESSWINDOWINIT(A) 	[NSW.alloc initWithContentRect:A styleMask:(1|8) backing:2 defer:NO]
+#define	AZWINDOWINIT NSWINDOWINIT
 
-#define pBCN postsBoundsChangedNotifications
-#define pFCN postsFrameChangedNotifications
 
-#define vFk 	valueForKey
-#define pV 		pointValue
-#define rV 		rectValue
-#define fV 		floatValue
-#define loM 	layoutManager
-#define sblrs 	sublayers
-#define zPos 	zPosition
-#define NSZeroRange NSMakeRange(0,0)
 
 #define REQ RouteRequest
 #define RES RouteResponse
@@ -251,84 +541,7 @@
 NSString * AZToStringFromTypeAndValue(const char * typeCode, void * value);
 
 #define AZString(_X_) ({typeof(_X_) _Y_ = (_X_);\
-	AZToStringFromTypeAndValue(@encode(typeof(_X_)), &_Y_);})
-
-
-#pragma mark - CONSTANT defines
-
-#define AZIDCAA (id<CAAction>)
-
-#define RONLY readonly
-#define RDWRT readwrite
-#define ASSGN assign
-#define NATOM nonatomic
-#define STRNG strong
-#define ASS assign
-#define CP copy
-#define SET setter
-#define GET getter
-#define WK weak
-#define UNSF unsafe_unretained
-#define prop property
-#define IBO IBOutlet
-
-#define setPBCN setPostsBoundsChangedNotifications:YES
-#define setPFCN setPostsFrameChangedNotifications:YES
-
-#define pBCN postsBoundsChangedNotifications
-#define pFCN postsFrameChangedNotifications
-
-
-#define NSKVOBEFOREAFTER NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld
-#define KVONEW NSKeyValueObservingOptionNew
-#define KVOOLD NSKeyValueObservingOptionOld
-
-
-#define NSEVENTLOCALMASK NSEvent addLocalMonitorForEventsMatchingMask
-#define NSEVENTGLOBALMASK NSEvent addGlobalMonitorForEventsMatchingMask
-
-
-#define MOUSEDRAG NSLeftMouseDraggedMask
-#define MOUSEUP NSLeftMouseUpMask
-#define MOUSEDOWN NSLeftMouseDownMask
-#define MOUSEDRAGGING MOUSEDOWN | MOUSEDRAG | MOUSEUP
-
-#define FUTURE NSDate.distantFuture
-
-
-#define kIMG 	@"image"
-#define kCLR 	@"color"
-#define kIDX 	@"index"
-#define kLAY 	@"layer"
-#define kPOS 	@"position"
-#define kPSTRING @"pString"
-#define kSTR 	@"string"
-#define kFRM 	@"frame"
-#define kHIDE 	@"hide"
-
-#define AZFWORKBUNDLE [NSBundle bundleForClass:[AtoZ class]]
-#define AZFWRESOURCES [AZFWORKBUNDLE resourcePath]
-
-#define  AZAPPBUNDLE [NSBundle mainBundle]
-#define  AZAPPRESOURCES [[NSBundle mainBundle]resourcePath]
-
-#define   CAMEDIAEASEOUT [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]
-#define   CAMEDIAEASEIN [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn]
-#define   CAMEDIAEASY [CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionEaseInEaseOut]
-#define   AZWORKSPACE [NSWorkspace sharedWorkspace]
-#define	AZUSERDEFS [NSUserDefaults standardUserDefaults]
-#define	AZUSERDEFSCTR [NSUserDefaultsController sharedUserDefaultsController]
-#define   AZNOTCENTER [NSNotificationCenter defaultCenter]
-#define AZFILEMANAGER [NSFileManager defaultManager]
-#define AZGRAPHICSCTX [NSGraphicsContext currentContext]
-#define AZCURRENTCTX AZGRAPHICSCTX
-#define  AZQTZCONTEXT [[NSGraphicsContext currentContext] graphicsPort]
-#define   AZSHAREDAPP [NSApplication sharedApplication]
-#define   AZWEBPREFS [WebPreferences standardPreferences]
-
-
-#define AZPROCINFO [NSProcessInfo processInfo]
-#define AZPROCNAME [NSProcessInfo.processInfo processName]
+AZToStringFromTypeAndValue(@encode(typeof(_X_)), &_Y_);})
 
 
 #pragma mark - MACROS
@@ -342,6 +555,7 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 
 
 //#define loMismo isEqualToString
+#define AZTEMPD NSTemporaryDirectory()
 
 #define APP_NAME 					[NSBundle.mainBundle objectForInfoDictionaryKey:@"CFBundleName"]
 #define APP_VERSION 				[NSBundle.mainBundle objectForInfoDictionaryKey:@"CFBundleVersion"]
@@ -376,104 +590,6 @@ AZLOG(@"<INTERNAL INCONSISTENCY>"); \
 //#define AZLAUNCHMONITORRETURNTASK(A) ((NSTask*)(^launchMonitorReturnTask)(A))
 // ^{ [A launch]; monitorTask(A); return A; }()
 
-#define AZNEWPIPE NSPipe.pipe
-#define AZNEWMUTEA NSMutableArray.array
-#define AZNEWMUTED NSMutableDictionary.new
-
-#define AZSTRONGSTRING(A) @property (nonatomic, strong) NSString* A
-#define AZPROP(A,B) @property (nonatomic, strong) A* B
-#define AZPROPASS(A,B) @property (NATOM,ASS) A B
-#define AZPROPIBO(A,B) @property (ASS) IBOutlet A *B
-
-//#define PROPSTRONG (@property (nonatomic,strong) )
-//#define PROPASSIGN (@property (nonatomic,assign) )
-
-#define UNSFE unsafe_unretained
-//#define STRONG ((nonatomic,strong) )
-//#define ASSIGN ((nonatomic,assign) )
-
-#define CGSUPRESSINTERVAL(x) CGEventSourceSetLocalEventsSuppressionInterval(nil,x)
-#define AZPOS AZWindowPosition
-
-#define AZSSOQ AZSharedSingleOperationQueue()
-#define AZSOQ AZSharedOperationQueue()
-#define AZOS AZSharedOperationStack()
-
-#define AZNULL [NSNull null]
-#define ELSENULL ?: [NSNull null]
-#define AZGView AtoZGridView
-#define AZGVItem AtoZGridViewItem
-#define AZP AZPalette
-#define AZIS AZInstallationStatus
-
-
-
-
-#define performDelegateSelector(sel) if ([delegate respondsToSelector:sel]) { [delegate performSelector:sel]; }
-#define performBlockIfDelegateRespondsToSelector(block, sel) if ([delegate respondsToSelector:sel]) { block(); }
-
-
-#define AZBindSelector(observer,sel,keypath,obj) [AZNOTCENTER addObserver:observer selector:sel name:keypath object:obj]
-
-#define AZBind(binder,binding,toObj,keyPath) [binder bind:binding toObject:toObj withKeyPath:keyPath options:nil]
-
-#define  AZLAYOUTMGR [CAConstraintLayoutManager layoutManager]
-
-#define  AZTALK(log) 	 [[AZTalker new] say:log]
-#define  AZBezPath(rect) [NSBezierPath bezierPathWithRect:rect]
-#define  NSBezPath(rect) AZBezPath(rect)
-#define  AZQtzPath(rect) [[NSBezierPath bezierPathWithRect:rect]quartzPath]
-
-#define AZContentBounds [[[self window]contentView]bounds]
-
-#define  AZVinstall(p) [NSValue valueWithInstallStatus:	  p]
-#define  AZVposi(p) [NSValue valueWithPosition:	  p]
-#define AZVpoint(p) [NSValue valueWithPoint:		 p]
-#define  AZVrect(r) [NSValue valueWithRect:		  r]
-#define  AZVsize(s) [NSValue valueWithSize:		  s]
-#define   AZV3d(t) [NSValue valueWithCATransform3D: t]
-
-#define kContentTitleKey @"itemTitle"
-#define kContentColorKey @"itemColor"
-#define kContentImageKey @"itemImage"
-#define kItemSizeSliderPositionKey @"ItemSizeSliderPosition"
-
-
-#define CATransform3DPerspective(t, x, y) (CATransform3DConcat(t, CATransform3DMake(1, 0, 0, x, 0, 1, 0, y, 0, 0, 1, 0, 0, 0, 0, 1)))
-#define CATransform3DMakePerspective(x, y) (CATransform3DPerspective(CATransform3DIdentity, x, y))
-
-
-#define AZSuperLayerSuper (@"superlayer")
-
-#define CATIMENOW CACurrentMediaTime()
-
-//#define CACcWA CAConstraint constraintWithAttribute
-
-#define AZConstraint(attr,rel) [CAConstraint constraintWithAttribute \
-:attr relativeTo:rel attribute:attr]
-
-#define AZConst(attrib, relate) [CAConstraint constraintWithAttribute: \
-attrib relativeTo:rel attribute:attrib]
-
-#define AZConstScaleOff(attr, rel, scl, off) [CAConstraint constraintWithAttribute\
-:attr relativeTo:rel attribute:attr scale:scl offset:off]
-
-#define AZConstRelSuper(attr) [CAConstraint constraintWithAttribute\
-:attr relativeTo:@"superlayer" attribute:attr]
-
-#define AZConstRelSuperScaleOff(attr, scl, off) [CAConstraint constraintWithAttribute\
-:attr relativeTo:AZSuperLayerSuper attribute:attr scale:scl offset:off]
-
-#define AZConstAttrRelNameAttrScaleOff(attr1, relName, attr2, scl, off) [CAConstraint constraintWithAttribute:\
-attr1 relativeTo:relName attribute:attr2 scale:scl offset:off]
-
-#define AZTArea(frame) [[NSTrackingArea alloc] initWithRect:frame options:(NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways | NSTrackingInVisibleRect | NSTrackingMouseMoved ) owner:self userInfo:nil]
-
-#define AZTAreaInfo(frame,info) [[NSTrackingArea alloc] initWithRect: frame options:(NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways | NSTrackingInVisibleRect | NSTrackingMouseMoved ) owner:self userInfo:info];
-#define CLAMP(value, lowerBound, upperbound) MAX( lowerBound, MIN( upperbound, value ))
-
-#define AZDistance(A,B) sqrtf(powf(fabs(A.x - B.x), 2.0f) + powf(fabs(A.y - B.y), 2.0f))
-#define rand() (arc4random() % ((unsigned)RAND_MAX + 1))
 
 #define NEG(a) -a
 #define HALF(a) (a / 2.0)
@@ -482,9 +598,6 @@ attr1 relativeTo:relName attribute:attr2 scale:scl offset:off]
 //#define MIN(a, b) ((a) < (b) ? (a) : (b))
 
 
-#define AZLOG(a) NSLog(@"%@", a)
-
-//static inline void AZLOG(id args){ _AZSimpleLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args); }
 
 #define StringFromBOOL(b) (b?@"YES":@"NO")
 
@@ -497,88 +610,25 @@ attr1 relativeTo:relName attribute:attr2 scale:scl offset:off]
 #define P(x,y) CGPointMake(x, y)
 #define R(x,y) CGRectMake(0,0,x, y)
 #define S(w,h) NSMakeSize(w,h)
-
 #define TWOPI (2 * 3.1415926535)
 
 #define RAD2DEG (rad) (rad * 180.0f / M_PI)
 //returns float in range 0 - 1.0f
 //usage RAND01()*3, or (int)RAND01()*3 , so there is no risk of dividing by zero
-
 #define RAND01() ((random() / (float)0x7fffffff ))
 
 
-#define NOISY(C)   [C colorWithNoiseWithOpacity:.2 andBlendMode:kCGBlendModeMultiply]
-#define RANDOMNOISYCOLOR  NOISY(RANDOMCOLOR)
+#pragma mark - arc4random()
 
-//#define rand() (arc4random() % ((unsigned)RAND_MAX + 1))
-#define LINEN [NSColor linen]
-#define RANDOMLINEN [NSColor linenTintedWithColor:RANDOMCOLOR]
-#define CHECKERS [NSColor checkerboardWithFirstColor: BLACK secondColor: WHITE squareWidth:25]
+#define 			RAND_UINT_MAX	0xFFFFFFFF
+#define 			 RAND_INT_MAX	0x7FFFFFFF
+#define 			  RAND_UINT()	arc4random()											// positive unsigned integer from 0 to RAND_UINT_MAX
+#define 				RAND_INT()	((int)(arc4random() & 0x7FFFFFFF))				// positive unsigned integer from 0 to RAND_UINT_MAX
+#define 	  RAND_INT_VAL(a,b)	((arc4random() % ((b)-(a)+1)) + (a))			// integer on the interval [a,b] (includes a and b)
 
-#define         RED	[NSC r:0.797 g:0.000 b:0.043 a:1.]
-#define      ORANGE	[NSC r:0.888 g:0.492 b:0.000 a:1.]
-#define      YELLOw	[NSC r:0.830 g:0.801 b:0.277 a:1.]
-#define      YELLOW	[NSC r:0.830 g:0.801 b:0.277 a:1.]
-#define       GREEN	[NSC r:0.367 g:0.583 b:0.179 a:1.]
-#define        BLUE	[NSC r:0.267 g:0.683 b:0.979 a:1.]
-#define       BLACK	NSC.blackColor
-#define        GREY	NSC.grayColor
-#define 		  WHITE	NSC.whiteColor
-#define RANDOMCOLOR	NSC.randomColor
-#define 		  CLEAR	NSC.clearColor
-#define 		 PURPLE	[NSC r:0.617 g:0.125 b:0.628 a:1.000]
-#define LGRAY			[NSColor white:.5 a:.6]
-#define GRAY1			[NSColor white:.1 a:1]
-#define GRAY2			[NSColor white:.2 a:1]
-#define GRAY3			[NSColor white:.3 a:1]
-#define GRAY4			[NSColor white:.4 a:1]
-#define GRAY5			[NSColor white:.5 a:1]
-#define GRAY6			[NSColor white:.6 a:1]
-#define GRAY7			[NSColor white:.7 a:1]
-#define GRAY8			[NSColor white:.8 a:1]
-#define GRAY9			[NSColor white:.9 a:1]
-
-#define cgRED			   		  RED.CGColor
-#define cgORANGE				  ORANGE.CGColor
-#define cgYELLOW				  YELLOW.CGColor
-#define cgGREEN		 			GREEN.CGColor
-#define cgPURPLE				  PURPLE.CGColor
-#define cgRANDOMCOLOR	RANDOMCOLOR.CGColor
-#define cgBLUE		 				 BLUE.CGColor
-#define cgBLACK				   BLACK.CGColor
-#define cgGREY						 GRAY.CGColor
-#define cgWHITE					WHITE.CGColor
-#define cgCLEARCOLOR		      CLEAR.CGColor
-
-#define RANDOMGRAY 		[NSColor white:RAND_FLOAT_VAL(0,1) a:1]
-#define cgRANDOMGRAY 	CGColorCreateGenericGray( RAND_FLOAT_VAL(0,1), 1)
-#define kBlackColor 		cgBLACK
-#define kWhiteColor 		cgWHITE
-#define kHighlightColor [[NSColor randomColor]  CGColor]
-#define kRedColor   		cgRED
-#define kLightBlueColor [[NSColor   blueColor]	CGColor]
-
-#define CGSHADOW(A) CGColorCreate( kCGColorSpaceGenericGray, {0.0, 0.0, A})
-#define CGPATH(A)	CGPathCreateWithRect(R)
-
-#define kTranslucentGrayColor CGColorCreate( kCGColorSpaceGenericGray, {0.0, 0.5, 1.0})
-#define kTranslucentLightGrayColor cgGREY
-#define	kAlmostInvisibleWhiteColor CGColorCreate( kCGColorSpaceGenericGray, {1, 0.05, 1.0})
-// random macros utilizing arc4random()
-#define RAND_UINT_MAX		0xFFFFFFFF
-#define RAND_INT_MAX		0x7FFFFFFF
-
-// RAND_UINT() positive unsigned integer from 0 to RAND_UINT_MAX
-// RAND_INT() positive integer from 0 to RAND_INT_MAX
-// RAND_INT_VAL(a,b) integer on the interval [a,b] (includes a and b)
-#define RAND_UINT()				arc4random()
-#define RAND_INT()				((int)(arc4random() & 0x7FFFFFFF))
-#define RAND_INT_VAL(a,b)		((arc4random() % ((b)-(a)+1)) + (a))
-
-// RAND_FLOAT() float between 0 and 1 (including 0 and 1)
-// RAND_FLOAT_VAL(a,b) float between a and b (including a and b)
-#define RAND_FLOAT()			(((float)arc4random()) / RAND_UINT_MAX)
-#define RAND_FLOAT_VAL(a,b)		(((((float)arc4random()) * ((b)-(a))) / RAND_UINT_MAX) + (a))
+#define 			 RAND_FLOAT()	(((float)arc4random()) / RAND_UINT_MAX)		// float between 0 and 1 (including 0 and 1)
+#define 	RAND_FLOAT_VAL(a,b)	(((((float)arc4random()) * ((b)-(a))) / RAND_UINT_MAX) + (a))
+// float between a and b (including a and b)
 
 // note: Random doubles will contain more precision than floats, but will NOT utilize the
 //		full precision of the double. They are still limited to the 32-bit precision of arc4random
@@ -592,16 +642,12 @@ attr1 relativeTo:relName attribute:attr2 scale:scl offset:off]
 #define RAND_BOOL()				(arc4random() & 1)
 #define RAND_DIRECTION()		(RAND_BOOL() ? 1 : -1)
 
-
-
-
+//#define rand() (arc4random() % ((unsigned)RAND_MAX + 1))
 
 // pinning a value between a lower and upper limit
-
 #define LIMIT( value, min, max )		(((value) < (min))? (min) : (((value) > (max))? (max) : (value)))
 
 // converting from radians to degrees
-
 #define	DEGREES_TO_RADIANS( d )		((d) * 0.0174532925199432958)
 #define 	RADIANS_TO_DEGREES( r )		((r) * 57.29577951308232)
 // some useful angular constants
@@ -611,57 +657,11 @@ attr1 relativeTo:relName attribute:attr2 scale:scl offset:off]
 #define 						 HALF_PI		(pi * 0.5)
 
 // exception safe save/restore of the current graphics context
-
 #define	SAVE_GRAPHICS_CONTEXT			@try { [NSGraphicsContext saveGraphicsState];
 #define RESTORE_GRAPHICS_CONTEXT		} @finally { [NSGraphicsContext restoreGraphicsState]; }
 
 
 
-
-//void _AZSimpleLog( const char *file, int lineNumber, const char *funcName, NSString *format, ... ) {
-//NS_INLINE void ConditionalLog( const char *filename, int line, const char *funcName, NSS *format, ... ) { 	
-
-//	BOOL YESORNO = strcmp(getenv(XCODE_COLORS), "YES") == 0;
-//	va_list   argList;
-//	va_start (argList, format);
-//	NSS *path  	= [[NSS stringWithFormat:@"%s",filename] lastPathComponent];
-//	NSS *mess   = [NSString.alloc initWithFormat:format arguments:argList];
-////	NSS *toLog;
-//	char *xcode_colors = getenv(XCODE_COLORS);
-	
-//	va_list vl; 
-//	va_start(vl, formatted);
-//	NSS* str = [NSString.alloc initWithFormat:(NSS*)formatted arguments:vl];
-//	va_end(vl);
-//
-//	YESORNO 	? 
-//	NSLog(@"%s [Line %d] " XCODE_COLORS_ESCAPE @"fg218,147,0; %@" XCODE_COLORS_RESET, 
-//																				  __PRETTY_FUNCTION__, __LINE__, str)
-//				: 	NSLog(@"%@",str);
-//}
-
-
-#pragma mark - FUNCTION defines
-//#define LOGWARN(fmt,...) 	ConditionalLog(__VA_ARGS__)
-
-//#define LOGWARN(fmt,...) _AZConditionalLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args)
-//	BOOL YESORNO = strcmp(getenv(XCODE_COLORS), "YES") == 0;					\
-//	va_list vl;																				\
-//	va_start(vl, fmt);																	\
-//	NSS* str = [NSString.alloc initWithFormat:(NSS*)fmt arguments:vl];	\
-//	va_end(vl);																				\
-//	YESORNO 	? 	NSLog(@"%s [Line %d] " XCODE_COLORS_ESCAPE @"fg218,147,0;" @"%@" XCODE_COLORS_RESET, __PRETTY_FUNCTION__, __LINE__, str) \
-//				: 	NSLog(@"%@",str); \
-//}()
-
-//strcmp(getenv(XCODE_COLORS), "YES") == 0 \
-//									? NSLog(	(@"%s [Line %d] " XCODE_COLORS_ESCAPE @"fg218,147,0;" fmt XCODE_COLORS_RESET)\
-//												, __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__) \
-//									: NSLog(fmt,__VA_ARGS__)
-
-
-
-//#define NSLog(args...) _AZSimpleLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args);
 
 
 
@@ -712,6 +712,8 @@ attr1 relativeTo:relName attribute:attr2 scale:scl offset:off]
 #define $words(...)   		[[@#__VA_ARGS__ splitByComma] trimmedStrings]
 
 
+#define capped capitalizedString
+#define INST instancetype
 
 #define $ARRAYSET(A) [NSSet setWithArray:(A)]
 
@@ -791,17 +793,6 @@ static OSSpinLock _staticSpinLock = 0;
 
 
 
-typedef struct {
-	CAConstraintAttribute constraint;
-	CGFloat scale;
-	CGFloat offset;
-}	AZCAConstraint;
-
-#define AZCACMaxX		AZConstraint(kCAConstraintMaxX,@"superlayer")
-#define AZCACMaxY		AZConstraint(kCAConstraintMaxY,@"superlayer")
-#define AZCACSuperW 	AZConstraint(kCAConstraintWidth,@"superlayer")
-#define AZCACSuperH 	AZConstraint(kCAConstraintHeight,@"superlayer")
-
 
 typedef NS_ENUM(NSUI, AppCat) {
 	Games, Education, Entertainment,
@@ -813,7 +804,7 @@ typedef NS_ENUM(NSUI, AppCat) {
 };
 
 #define AppCatTypeArray @"Games", @"Education", @"Entertainment", @"Books", @"Lifestyle", @"Utilities", @"Business", @"Travel", @"Music", @"Reference", @"Sports", @"Productivity", @"News", @"Healthcare & Fitness", @"Photography", @"Finance", @"Medical", @"Social Networking", @"Navigation", @"Weather", @"Catalogs", @"Food & Drink", @"Newsstand", nil
-typedef NS_ENUM(NSUI, AZOrient) {
+typedef NS_OPTIONS(NSUI, AZOrient) {
 	AZOrientTop,
 	AZOrientLeft,
 	AZOrientBottom,
@@ -916,11 +907,11 @@ void _AZColorLog( NSC *color, const char *filename, int line, const char *funcNa
 //
 //	NSS *colorString = @"fg218,147,0";
 //	NSS* envStr = @(getenv("XCODE_COLORS")) ?: @"YES";
-//	BOOL YESORNO = [envStr boolValue]; 
-//	if (color !=nil && YESORNO) { 
-//		float r, g, b;  
-//		r = color.redComponent; 
-//		g = color.greenComponent; 
+//	BOOL YESORNO = [envStr boolValue];
+//	if (color !=nil && YESORNO) {
+//		float r, g, b;
+//		r = color.redComponent;
+//		g = color.greenComponent;
 //		b = color.blueComponent;
 //		colorString = $(@"fg%.0f,%.0f,%.0f; ", r*255, g*255, b*255);
 //	}
@@ -929,7 +920,7 @@ void _AZColorLog( NSC *color, const char *filename, int line, const char *funcNa
 //	NSS *path  	= [pathStr lastPathComponent];
 //	NSS *mess   = [NSS.alloc initWithFormat:format arguments:argList];
 //	NSS *toLog  = YESORNO ? $(@"[%@]:%i" XCODE_COLORS_ESCAPE  @"%@%@" XCODE_COLORS_RESET @"\n", path, line,colorString, mess)
-//								 :	$(@"[%@]:%i %@\n", path, line, mess ); 
+//								 :	$(@"[%@]:%i %@\n", path, line, mess );
 //	fprintf ( stderr, "%s", toLog.UTF8String);//
 //	va_end  (argList);
 //}
@@ -937,7 +928,7 @@ void _AZColorLog( NSC *color, const char *filename, int line, const char *funcNa
 //#define _AZConditionalLog(fmt...) { _AZColorLog(nil, f, ln, func, fmt,...);	}
 
 //	va_list vl; va_start(vl, formatted);	NSS* str = [NSString.alloc initWithFormat:(NSS*)formatted arguments:vl];
-//	va_end(vl);	YESORNO 	? 	NSLog(@"%s [Line %d] " XCODE_COLORS_ESCAPE @"fg218,147,0; %@" XCODE_COLORS_RESET, 
+//	va_end(vl);	YESORNO 	? 	NSLog(@"%s [Line %d] " XCODE_COLORS_ESCAPE @"fg218,147,0; %@" XCODE_COLORS_RESET,
 //																				  __PRETTY_FUNCTION__, __LINE__, str)
 //				: 	NSLog(@"%@",str);}
 #pragma mark - FUNCTION defines
@@ -967,56 +958,56 @@ void _AZColorLog( NSC *color, const char *filename, int line, const char *funcNa
 
 /**	const
 
- 	extern NSString * const MyConstant;
+ extern NSString * const MyConstant;
 
-	You'll see this in header files. It tells the compiler that the variable MyConstant exists and can be used in your implementation files.	More likely than not, the variable is set something like:
+ You'll see this in header files. It tells the compiler that the variable MyConstant exists and can be used in your implementation files.	More likely than not, the variable is set something like:
 
-	NSString * const MyConstant = @"foo";
- 	The value can't be changed. If you want a global that can be changed, then drop the const from the declaration.
- 	The position of the const keyword relative to the type identifier doesn't matter
-		const NSString *MyConstant = @"foo";  ===  NSString const *MyConstant = @"foo";
-	You can also legally declare both the pointer and the referenced value const, for maximum constness:
- 		const NSString * const MyConstant = @"foo";
-extern
+ NSString * const MyConstant = @"foo";
+ The value can't be changed. If you want a global that can be changed, then drop the const from the declaration.
+ The position of the const keyword relative to the type identifier doesn't matter
+ const NSString *MyConstant = @"foo";  ===  NSString const *MyConstant = @"foo";
+ You can also legally declare both the pointer and the referenced value const, for maximum constness:
+ const NSString * const MyConstant = @"foo";
+ extern
 
-	Allows you to declare a variable in one compilation unit, and let the compiler know that you've defined that variable in a separate compilation unit. You would generally use this only for global values and constants.
+ Allows you to declare a variable in one compilation unit, and let the compiler know that you've defined that variable in a separate compilation unit. You would generally use this only for global values and constants.
 
- 	A compilation unit is a single .m file, as well as all the .h files it includes. At build time the compiler compiles each .m file into a separate .o file, and then the linker hooks them all together into a single binary. Usually the way one compilation unit knows about identifiers (such as a class name) declared in another compilation unit is by importing a header file. But, in the case of globals, they are often not part of a class's public interface, so they're frequently declared and defined in a .m file.
-	
- 	If compilation unit A declares a global in a .m file:
+ A compilation unit is a single .m file, as well as all the .h files it includes. At build time the compiler compiles each .m file into a separate .o file, and then the linker hooks them all together into a single binary. Usually the way one compilation unit knows about identifiers (such as a class name) declared in another compilation unit is by importing a header file. But, in the case of globals, they are often not part of a class's public interface, so they're frequently declared and defined in a .m file.
 
-		#import "A.h"
-		NSString *someGlobalValue;
+ If compilation unit A declares a global in a .m file:
 
-	and compilation unit B wants to use that global:
+ #import "A.h"
+ NSString *someGlobalValue;
 
-		#import "B.h"
-		extern NSString *someGlobalValue;
+ and compilation unit B wants to use that global:
 
-		@implementation B
-		- (void)someFunc {  
-			NSString *localValue = [self getSomeValue];
-			[localValue isEqualToString:someGlobalValue] ? ^{ ... }() : ^{ ... }();
-		}
+ #import "B.h"
+ extern NSString *someGlobalValue;
 
-	unit B has to somehow tell the compiler to use the variable declared by unit A. It can't import the .m file where the declaration occurs, so it uses extern to tell the compiler that the variable exists elsewhere.
-	Note that if unit A and unit B both have this line at the top level of the file:
+ @implementation B
+ - (void)someFunc {
+ NSString *localValue = [self getSomeValue];
+ [localValue isEqualToString:someGlobalValue] ? ^{ ... }() : ^{ ... }();
+ }
 
-		NSString *someGlobalValue;
-	
- 	then you have two compilation units declaring the same global variable, and the linker will fail with a duplicate symbol error. If you want to have a variable like this that exists only inside a compilation unit, and is invisible to any other compilation units (even if they use extern), you can use the static keyword:
+ unit B has to somehow tell the compiler to use the variable declared by unit A. It can't import the .m file where the declaration occurs, so it uses extern to tell the compiler that the variable exists elsewhere.
+ Note that if unit A and unit B both have this line at the top level of the file:
 
-		static NSString * const someFileLevelConstant = @"wibble";
+ NSString *someGlobalValue;
 
- 	This can be useful for constants that you want to use within a single implementation file, but won't need elsewhere
-**/
+ then you have two compilation units declaring the same global variable, and the linker will fail with a duplicate symbol error. If you want to have a variable like this that exists only inside a compilation unit, and is invisible to any other compilation units (even if they use extern), you can use the static keyword:
+
+ static NSString * const someFileLevelConstant = @"wibble";
+
+ This can be useful for constants that you want to use within a single implementation file, but won't need elsewhere
+ **/
 
 #define nAZColorWellChanged @"AtoZColorWellChangedColors"
 
 //static NSString* MakeCritical(NSString *format,...) {
 //   NSString *string;
 //   va_list   arguments;
-//	
+//
 //   va_start(arguments,format);
 //   string = $(format,arguments);
 //   va_end(arguments);
@@ -1031,36 +1022,36 @@ extern
 //NS_INLINE void _AZSimpleLog(const char *file, int lineNumber, const char *funcName, NSString *format,...);
 FOUNDATION_EXPORT void _AZSimpleLog( const char *file, int lineNumber, const char *funcName, NSString *format, ... );
 /*{
-	static NSA* colors;  colors = colors ?: NSC.randomPalette;
-	static NSUI idx = 0;
-	va_list   argList;
-	va_start (argList, format);
-	NSS *path  	= [$UTF8(file) lastPathComponent];
-	NSS *mess   = [NSString.alloc initWithFormat:format arguments:argList];
-//	NSS *justinfo = $(@"[%s]:%i",path.UTF8String, lineNumber);
-//	NSS *info   = [NSString stringWithFormat:@"word:%-11s rank:%u", [word UTF8String], rank];
-	NSS *info 	= $( XCODE_COLORS_ESCAPE @"fg82,82,82;" @"  [%s]" XCODE_COLORS_RESET
-						 XCODE_COLORS_ESCAPE @"fg140,140,140;" @":%i" XCODE_COLORS_RESET	, path.UTF8String, lineNumber);
-	int max 			= 130;
-	int cutTo			= 22;
-	BOOL longer 	= mess.length > max;
-	NSC *c = [colors normal:idx]; 
-	NSS *cs = $(@"%i%i%i",(int)c.redComponent, (int)c.greenComponent, (int)c.blueComponent); idx++;
-	NSS* nextLine 	= longer ? $(XCODE_COLORS_ESCAPE @"fg%@;" XCODE_COLORS_RESET @"\n\t%@\n", cs, [mess substringFromIndex:max - cutTo]) : @"\n";
-	mess 				= longer ? [mess substringToIndex:max - cutTo] : mess;
-	int add = max - mess.length - cutTo;
-	if (add > 0) {
-		NSS *pad = [NSS.string stringByPaddingToLength:add withString:@" " startingAtIndex:0];
-		info = [pad stringByAppendingString:info];
-	}
-	NSS *toLog 	= $(XCODE_COLORS_ESCAPE @"fg%@;" @"%@" XCODE_COLORS_RESET @"%@%@", cs, mess, info, nextLine);
-	fprintf ( stderr, "%s", toLog.UTF8String);//[%s]:%i %s \n", [path UTF8String], lineNumber, [message UTF8String] );
-	va_end  (argList);
-*/
+ static NSA* colors;  colors = colors ?: NSC.randomPalette;
+ static NSUI idx = 0;
+ va_list   argList;
+ va_start (argList, format);
+ NSS *path  	= [$UTF8(file) lastPathComponent];
+ NSS *mess   = [NSString.alloc initWithFormat:format arguments:argList];
+ //	NSS *justinfo = $(@"[%s]:%i",path.UTF8String, lineNumber);
+ //	NSS *info   = [NSString stringWithFormat:@"word:%-11s rank:%u", [word UTF8String], rank];
+ NSS *info 	= $( XCODE_COLORS_ESCAPE @"fg82,82,82;" @"  [%s]" XCODE_COLORS_RESET
+ XCODE_COLORS_ESCAPE @"fg140,140,140;" @":%i" XCODE_COLORS_RESET	, path.UTF8String, lineNumber);
+ int max 			= 130;
+ int cutTo			= 22;
+ BOOL longer 	= mess.length > max;
+ NSC *c = [colors normal:idx];
+ NSS *cs = $(@"%i%i%i",(int)c.redComponent, (int)c.greenComponent, (int)c.blueComponent); idx++;
+ NSS* nextLine 	= longer ? $(XCODE_COLORS_ESCAPE @"fg%@;" XCODE_COLORS_RESET @"\n\t%@\n", cs, [mess substringFromIndex:max - cutTo]) : @"\n";
+ mess 				= longer ? [mess substringToIndex:max - cutTo] : mess;
+ int add = max - mess.length - cutTo;
+ if (add > 0) {
+ NSS *pad = [NSS.string stringByPaddingToLength:add withString:@" " startingAtIndex:0];
+ info = [pad stringByAppendingString:info];
+ }
+ NSS *toLog 	= $(XCODE_COLORS_ESCAPE @"fg%@;" @"%@" XCODE_COLORS_RESET @"%@%@", cs, mess, info, nextLine);
+ fprintf ( stderr, "%s", toLog.UTF8String);//[%s]:%i %s \n", [path UTF8String], lineNumber, [message UTF8String] );
+ va_end  (argList);
+ */
 //	NSS *toLog 	= $( XCODE_COLORS_RESET	@"%s" XCODE_COLORS_ESCAPE @"fg82,82,82;" @"%-70s[%s]" XCODE_COLORS_RESET
-//									XCODE_COLORS_ESCAPE @"fg140,140,140;" @":%i\n" XCODE_COLORS_RESET	, 
+//									XCODE_COLORS_ESCAPE @"fg140,140,140;" @":%i\n" XCODE_COLORS_RESET	,
 //									mess.UTF8String, "", path.UTF8String, lineNumber);
-																
+
 //	NSLog(XCODE_COLORS_ESCAPE @"bg89,96,105;" @"Grey background" XCODE_COLORS_RESET);
 //	NSLog(XCODE_COLORS_ESCAPE @"fg0,0,255;"
 //			XCODE_COLORS_ESCAPE @"bg220,0,0;"
@@ -1068,18 +1059,18 @@ FOUNDATION_EXPORT void _AZSimpleLog( const char *file, int lineNumber, const cha
 //			XCODE_COLORS_RESET);
 
 
-	/**
-	if ( [[NSApplication sharedApplication] delegate] ) {
-		id appD = [[NSApplication sharedApplication] delegate];
-//		fprintf ( stderr, "%s", [[appD description]UTF8String] );
-		if ( [(NSObject*)appD respondsToSelector:NSSelectorFromString(@"stdOutView")]) {
-			NSTextView *tv 	= ((NSTextView*)[appD valueForKey:@"stdOutView"]);
-			if (tv) [tv autoScrollText:toLog];
-		}
-	}
-	*/
-	// $(@"%s: %@", __PRETTY_FUNCTION__, [NSString stringWithFormat: args])	]
-	//	const char *threadName = [[[NSThread currentThread] name] UTF8String];
+/**
+ if ( [[NSApplication sharedApplication] delegate] ) {
+ id appD = [[NSApplication sharedApplication] delegate];
+ //		fprintf ( stderr, "%s", [[appD description]UTF8String] );
+ if ( [(NSObject*)appD respondsToSelector:NSSelectorFromString(@"stdOutView")]) {
+ NSTextView *tv 	= ((NSTextView*)[appD valueForKey:@"stdOutView"]);
+ if (tv) [tv autoScrollText:toLog];
+ }
+ }
+ */
+// $(@"%s: %@", __PRETTY_FUNCTION__, [NSString stringWithFormat: args])	]
+//	const char *threadName = [[[NSThread currentThread] name] UTF8String];
 //}
 
 
@@ -1146,22 +1137,22 @@ typedef enum {
 //minimized  = 0x04, // 00000100
 //maximized  = 0x08  // 00001000
 
-typedef NS_ENUM (NSUI, ScrollFix)	{	LayerInsertFront, 		//= 0x01, // 00000001
-													LayerInsertEnd,
-													LayerRemoveFront,
-													LayerRemoveEnd,
-													LayerStateOK,// 			= 0x04, // 00000100
-													LayerStateUnresolved,// = 0x08,  // 00001000
-													LayerStateUnset
+typedef NS_OPTIONS(NSUI, ScrollFix)	{	LayerInsertFront, 		//= 0x01, // 00000001
+	LayerInsertEnd,
+	LayerRemoveFront,
+	LayerRemoveEnd,
+	LayerStateOK,// 			= 0x04, // 00000100
+	LayerStateUnresolved,// = 0x08,  // 00001000
+	LayerStateUnset
 };
 
 typedef NS_ENUM (NSUI, StateStyle)	{	Lasso,			InnerShadow,
-										DarkenOthers,	None				};
+	DarkenOthers,	None				};
 
 #define VRT AZOrientVertical
 #define HRZ AZOrientHorizontal
 #define ScrollFixTypeArray @"LayerInsertFront",	@"LayerInsertEnd",				 @"LayerRemoveFront",	@"LayerRemoveEnd", \
-									@"LayerStateOK",		@"LayerStateUnresolved",  @"LayerStateUnset",  	nil
+@"LayerStateOK",		@"LayerStateUnresolved",  @"LayerStateUnset",  	nil
 
 //@"LayerCopyInsertFront",@"LayerCopyInsertEnd"
 NS_INLINE NSS* stringForScrollFix(ScrollFix val) { return [NSArray.alloc initWithObjects:ScrollFixTypeArray][val]; }
@@ -1177,35 +1168,35 @@ NS_INLINE NSS* stringForScrollFix(ScrollFix val) { return [NSArray.alloc initWit
 //	FormatTypeCount,  // keep track of the enum size automatically
 //} FormatType;
 //extern NSString *const FormatTypeName[FormatTypeCount];
-	//NSLog(@"%@", FormatTypeName[XML]);
-	//	// In a source file
-	//NSString *const FormatTypeName[FormatTypeCount] = {
-	//	[JSON] = @"JSON",
-	//	[XML] = @"XML",
-	//	[Atom] = @"Atom",
-	//	[RSS] = @"RSS",
-	//};
+//NSLog(@"%@", FormatTypeName[XML]);
+//	// In a source file
+//NSString *const FormatTypeName[FormatTypeCount] = {
+//	[JSON] = @"JSON",
+//	[XML] = @"XML",
+//	[Atom] = @"Atom",
+//	[RSS] = @"RSS",
+//};
 //typedef enum {
 //	IngredientType_text  = 0,
 //	IngredientType_audio = 1,
 //	IngredientType_video = 2,
 //	IngredientType_image = 3
 //} IngredientType;
-	//write a method like this in class:
-	//+ (NSString*)typeStringForType:(IngredientType)_type {
-	//	NSString *key = [NSString stringWithFormat:@"IngredientType_%i", _type];
-	//	return NSLocalizedString(key, nil);
-	//}
-	//have the strings inside Localizable.strings file:
-	///* IngredientType_text */
-	//"IngredientType_0" = "Text";
-	///* IngredientType_audio */
-	//"IngredientType_1" = "Audio";
-	///* IngredientType_video */
-	//"IngredientType_2" = "Video";
-	///* IngredientType_image */
-	//"IngredientType_3" = "Image";
-	//
+//write a method like this in class:
+//+ (NSString*)typeStringForType:(IngredientType)_type {
+//	NSString *key = [NSString stringWithFormat:@"IngredientType_%i", _type];
+//	return NSLocalizedString(key, nil);
+//}
+//have the strings inside Localizable.strings file:
+///* IngredientType_text */
+//"IngredientType_0" = "Text";
+///* IngredientType_audio */
+//"IngredientType_1" = "Audio";
+///* IngredientType_video */
+//"IngredientType_2" = "Video";
+///* IngredientType_image */
+//"IngredientType_3" = "Image";
+//
 
 //typedef struct _GlossParameters{
 //	CGFloat color[4];
@@ -1232,49 +1223,32 @@ SC##_sharedInstance = [[SC alloc] init]; \
 return SC##_sharedInstance; \
 }
 
-	//#define AZTransition(duration, type, subtype) CATransition *transition = [CATransition animation];
-	//[transition setDuration:1.0];
-	//[transition setType:kCATransitionPush];
-	//[transition setSubtype:kCATransitionFromLeft];
-	//extern NSArray* AZConstraintEdgeExcept(AZCOn attr, rel, scale, off) \
-	//[NSArray arrayWithArray:@[
-	//AZConstRelSuper( kCAConstraintMaxX ),
-	//AZConstRelSuper( kCAConstraintMinX ),
-	//AZConstRelSuper( kCAConstraintWidth),
-	//AZConstRelSuper( kCAConstraintMinY ),
-	//AZConstRelSuperScaleOff(kCAConstraintHeight, .2, 0),
+//#define AZTransition(duration, type, subtype) CATransition *transition = [CATransition animation];
+//[transition setDuration:1.0];
+//[transition setType:kCATransitionPush];
+//[transition setSubtype:kCATransitionFromLeft];
+//extern NSArray* AZConstraintEdgeExcept(AZCOn attr, rel, scale, off) \
+//[NSArray arrayWithArray:@[
+//AZConstRelSuper( kCAConstraintMaxX ),
+//AZConstRelSuper( kCAConstraintMinX ),
+//AZConstRelSuper( kCAConstraintWidth),
+//AZConstRelSuper( kCAConstraintMinY ),
+//AZConstRelSuperScaleOff(kCAConstraintHeight, .2, 0),
 
-	//#define AZConstraint(attr, rel) \
-	//[CAConstraint constraintWithAttribute: attr relativeTo: rel attribute: attr]
-	//@property (nonatomic, assign) <\#type\#> <\#name\#>;
-	// AZConst(<\#CAConstraintAttribute\#>, <#\NSString\#>);
-	// AZConst(<#CAConstraintAttribute#>, <#NSString*#>);
-	//#import "AtoZiTunes.h"
+//#define AZConstraint(attr, rel) \
+//[CAConstraint constraintWithAttribute: attr relativeTo: rel attribute: attr]
+//@property (nonatomic, assign) <\#type\#> <\#name\#>;
+// AZConst(<\#CAConstraintAttribute\#>, <#\NSString\#>);
+// AZConst(<#CAConstraintAttribute#>, <#NSString*#>);
+//#import "AtoZiTunes.h"
 
-	// Sweetness vs. longwindedness
+// Sweetness vs. longwindedness
 
-	//  BaseModel.h
-	//  Version 2.3.1
-	//  ARC Helper
-	//  Version 1.3.1
+//  BaseModel.h
+//  Version 2.3.1
+//  ARC Helper
+//  Version 1.3.1
 
-#ifndef AZ_RETAIN
-#if __has_feature(objc_arc)
-#define AZ_RETAIN(x) (x)
-#define AZ_RELEASE(x) (void)(x)
-#define AZ_AUTORELEASE(x) (x)
-#define AZ_SUPER_DEALLOC (void)(0)
-#define __AZ_BRIDGE __bridge
-#else
-#define __AZ_WEAK
-#define AZ_WEAK assign
-#define AZ_RETAIN(x) [(x) retain]
-#define AZ_RELEASE(x) [(x) release]
-#define AZ_AUTORELEASE(x) [(x) autorelease]
-#define AZ_SUPER_DEALLOC [super dealloc]
-#define __AZ_BRIDGE
-#endif
-#endif
 
 
 ////  Weak delegate support
@@ -1309,126 +1283,52 @@ return SC##_sharedInstance; \
 #define foreach(B,A) A.andExecuteEnumeratorBlock = \
 ^(B, NSUInteger A##Index, BOOL *A##StopBlock)
 
-	//#define foreach(A,B,C) \
-	//A.andExecuteEnumeratorBlock = \
-	//  ^(B, NSUInteger C, BOOL *A##StopBlock)
+//#define foreach(A,B,C) \
+//A.andExecuteEnumeratorBlock = \
+//  ^(B, NSUInteger C, BOOL *A##StopBlock)
 
 
 
 
-#ifndef _OmniBase_assertions_h_
-#define _OmniBase_assertions_h_
-
-//#import <OmniBase/FrameworkDefines.h>
-#import <objc/objc.h>
-
-//#if defined(DEBUG) || defined(OMNI_FORCE_ASSERTIONS)
-//#define OMNI_ASSERTIONS_ON
-//#endif
-
-// This allows you to turn off assertions when debugging
-//#if defined(OMNI_FORCE_ASSERTIONS_OFF)
-#undef OMNI_ASSERTIONS_ON
-//#warning Forcing assertions off!
-//#endif
-
-
-// Make sure that we don't accidentally use the ASSERT macro instead of OBASSERT
-#ifdef ASSERT
-#undef ASSERT
-#endif
-
-typedef void (*OBAssertionFailureHandler)(const char *type, const char *expression, const char *file, unsigned int lineNumber);
-
-#if defined(OMNI_ASSERTIONS_ON)
-
-OmniBase_EXTERN void OBSetAssertionFailureHandler(OBAssertionFailureHandler handler);
-
-OmniBase_EXTERN void OBAssertFailed(const char *type, const char *expression, const char *file, unsigned int lineNumber);
-
-
-#define OBPRECONDITION(expression)											\
-do {																		\
-if (!(expression))													  \
-OBAssertFailed("PRECONDITION", #expression, __FILE__, __LINE__);	\
-} while (NO)
-
-#define OBPOSTCONDITION(expression)										   \
-do {																		\
-if (!(expression))													  \
-OBAssertFailed("POSTCONDITION", #expression, __FILE__, __LINE__);   \
-} while (NO)
-
-#define OBINVARIANT(expression)											   \
-do {																		\
-if (!(expression))													  \
-OBAssertFailed("INVARIANT", #expression, __FILE__, __LINE__);	   \
-} while (NO)
-
-#define OBASSERT(expression)												  \
-do {																		\
-if (!(expression))													  \
-OBAssertFailed("ASSERT", #expression, __FILE__, __LINE__);		  \
-} while (NO)
-
-#define OBASSERT_NOT_REACHED(reason)										\
-do {																		\
-OBAssertFailed("NOTREACHED", reason, __FILE__, __LINE__);			  \
-} while (NO)
-
-
-#else	// else insert blank lines into the code
-
-#define OBPRECONDITION(expression)
-#define OBPOSTCONDITION(expression)
-#define OBINVARIANT(expression)
-#define OBASSERT(expression)
-#define OBASSERT_NOT_REACHED(reason)
-
-#endif
-
-
-#endif // _OmniBase_assertions_h_
 
 
 
 
-/* 	KSVarArgs is a set of macros designed to make dealing with variable arguments	easier in Objective-C. 
-		All macros assume that the varargs list contains only objective-c objects or object-like structures (assignable to type id). 
-		The base macro ksva_iterate_list() iterates over the variable arguments, invoking a block for each argument, until it encounters a terminating nil.
-		The other macros are for convenience when converting to common collections.			
-*/
+/* 	KSVarArgs is a set of macros designed to make dealing with variable arguments	easier in Objective-C.
+ All macros assume that the varargs list contains only objective-c objects or object-like structures (assignable to type id).
+ The base macro ksva_iterate_list() iterates over the variable arguments, invoking a block for each argument, until it encounters a terminating nil.
+ The other macros are for convenience when converting to common collections.
+ */
 /** 	Block type used by ksva_iterate_list.
-	@param entry The current argument in the vararg list.	*/
+ @param entry The current argument in the vararg list.	*/
 
 typedef void (^AZVA_Block)(id entry);
 
 /**	Iterate over a va_list, executing the specified code block for each entry.
-	@param FIRST_ARG_NAME The name of the first argument in the vararg list.
-	@param BLOCK A code block of type KSVA_Block.	 */
+ @param FIRST_ARG_NAME The name of the first argument in the vararg list.
+ @param BLOCK A code block of type KSVA_Block.	 */
 
 #define azva_iterate_list(FIRST_ARG_NAME, BLOCK) { AZVA_Block azva_block = BLOCK;	va_list azva_args	;	va_start(azva_args,FIRST_ARG_NAME );	\
-															 for( id azva_arg = FIRST_ARG_NAME;	azva_arg != nil;  	azva_arg = va_arg(azva_args, id ) )	 	\
-																		azva_block(azva_arg); 											 				va_end(azva_args );}
+for( id azva_arg = FIRST_ARG_NAME;	azva_arg != nil;  	azva_arg = va_arg(azva_args, id ) )	 	\
+azva_block(azva_arg); 											 				va_end(azva_args );}
 
 /***	Convert a variable argument list into an array. An autoreleased NSMA will be created in the current scope with the specified name.
-	@param FIRST_ARG_NAME The name of the first argument in the vararg list.
-	@param ARRAY_NAME The name of the array to create in the current scope.	 */
- 
+ @param FIRST_ARG_NAME The name of the first argument in the vararg list.
+ @param ARRAY_NAME The name of the array to create in the current scope.	 */
+
 #define azva_list_to_nsarray(FIRST_ARG_NAME, ARRAY_NAME) NSMA* ARRAY_NAME = NSMA.new;  azva_iterate_list(FIRST_ARG_NAME, ^(id entry) { \
-																																	  [ARRAY_NAME addObject:entry]; })
+[ARRAY_NAME addObject:entry]; })
 
 /*** 	Convert a variable argument list into a dictionary, interpreting the vararg list as object, key, object, key, ...
-		An autoreleased NSMutableDictionary will be created in the current scope with the specified name.
-	@param FIRST_ARG_NAME The name of the first argument in the vararg list.
-	@param DICT_NAME The name of the dictionary to create in the current scope.		*/
- 
+ An autoreleased NSMutableDictionary will be created in the current scope with the specified name.
+ @param FIRST_ARG_NAME The name of the first argument in the vararg list.
+ @param DICT_NAME The name of the dictionary to create in the current scope.		*/
+
 #define azva_list_to_nsdictionary(FIRST_ARG_NAME, DICT_NAME) NSMD* DICT_NAME = NSMD.new; 	{				 							\
-																					__block id azva_object = nil; 										\
-																					azva_iterate_list(FIRST_ARG_NAME, ^(id entry) { 				\
-																						if(azva_object == nil)   azva_object = entry; 				\
-																						else {	[DICT_NAME setObject:azva_object forKey:entry]; \
-																								azva_object = nil;  } 	}); }
-																									
-																									
-																									
+__block id azva_object = nil; 										\
+azva_iterate_list(FIRST_ARG_NAME, ^(id entry) { 				\
+if(azva_object == nil)   azva_object = entry; 				\
+else {	[DICT_NAME setObject:azva_object forKey:entry]; \
+azva_object = nil;  } 	}); }
+
+

@@ -9,6 +9,27 @@
 # define STR_CONST(name, value) extern NSString* const name
 #endif
 
+
+
+
+//#define CACcWA CAConstraint constraintWithAttribute
+FOUNDATION_EXPORT CAConstraint * AZConstraint( CAConstraintAttribute attrb, NSS* rel);
+
+FOUNDATION_EXPORT CAConstraint *  AZConst(CAConstraintAttribute attrb, NSS* rel);
+//	[CAConstraint constraintWithAttribute:attrb relativeTo:rel attribute:attrb]
+
+FOUNDATION_EXPORT CAConstraint *  AZConstScaleOff(CAConstraintAttribute attrb, NSS* rel, CGF scl, CGF off);
+//	[CAConstraint constraintWithAttribute:attrb relativeTo:rel attribute:attrb scale:scl offset:off]
+
+FOUNDATION_EXPORT CAConstraint * AZConstRelSuper(CAConstraintAttribute attrb);
+//	[CAConstraint constraintWithAttribute:attrb relativeTo:AZSuperLayerSuper attribute:attrb]
+
+FOUNDATION_EXPORT CAConstraint * AZConstRelSuperScaleOff (CAConstraintAttribute attrb, CGF scl, CGF off);
+//	[CAConstraint constraintWithAttribute:att relativeTo:AZSuperLayerSuper attribute:att scale:scl offset:off]
+FOUNDATION_EXPORT CAConstraint * AZConstAttrRelNameAttrScaleOff ( CAConstraintAttribute aOne, NSS* relName, CAConstraintAttribute aTwo, CGF scl, CGF off);
+
+//	[CAConstraint constraintWithAttribute:attr1 relativeTo:relName attribute:attr2 scale:scl offset:off]
+
 //The in my .h/.m pair where I want to define the constant I do the following:
 // myfile.h
 //#import <StringConsts.h>

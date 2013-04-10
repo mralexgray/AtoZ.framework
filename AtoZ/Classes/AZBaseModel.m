@@ -233,7 +233,7 @@ static NSMutableDictionary *sharedInstances = nil;
 {
 		//override this
 }
-+ (instancetype)instance {	return AH_AUTORELEASE([[self alloc] init]); }
++ (instancetype)instance {	return ah_autorelease([[self alloc] init]); }
 
 static BOOL loadingFromResourceFile = NO;
 - (instancetype)init
@@ -249,7 +249,7 @@ static BOOL loadingFromResourceFile = NO;
 		loadingFromResourceFile = NO;
 		if (object)
 			{
-			AH_RELEASE(self);
+			ah_release(self);
 			self = object;
 			return self;
 			}
@@ -271,7 +271,7 @@ static BOOL loadingFromResourceFile = NO;
 + (instancetype)instanceWithObject:(id)object
 {
 		//return nil if object is nil
-	return object? AH_AUTORELEASE([[self alloc] initWithObject:object]): nil;
+	return object? ah_autorelease([[self alloc] initWithObject:object]): nil;
 }
 - (NSString *)setterNameForClass:(Class)class
 {
@@ -314,7 +314,7 @@ static BOOL loadingFromResourceFile = NO;
 }
 + (instancetype)instanceWithCoder:(NSCoder *)decoder	 //return nil if coder is nil
 {
-	return decoder ? AH_AUTORELEASE([[self alloc] initWithCoder:decoder]) : nil;
+	return decoder ? ah_autorelease([[self alloc] initWithCoder:decoder]) : nil;
 }
 - (instancetype)initWithCoder:(NSCoder *)decoder
 {
@@ -357,7 +357,7 @@ static BOOL loadingFromResourceFile = NO;
 			path = [self saveFilePath:filePath];
 			}
 		}
-	return AH_AUTORELEASE([[self alloc] initWithContentsOfFile:path]);
+	return ah_autorelease([[self alloc] initWithContentsOfFile:path]);
 }
 - (instancetype)initWithContentsOfFile:(NSString *)filePath
 {
@@ -372,7 +372,7 @@ static BOOL loadingFromResourceFile = NO;
 		id object = cachedResourceFiles[filePath];
 		if (object)
 			{
-			AH_RELEASE(self);
+			ah_release(self);
 			return ((self = (object == [NSNull null])? nil: AH_RETAIN(object)));
 			}
 		}
@@ -396,7 +396,7 @@ static BOOL loadingFromResourceFile = NO;
 					object = objc_msgSend(coderClass, @selector(unarchiveObjectWithPlist:), object);
 			}
 			if ([object isKindOfClass:[self class]]) {
-				AH_RELEASE(self); //return object
+				ah_release(self); //return object
 				return ((self = AH_RETAIN(object)));
 			}
 		}
@@ -412,7 +412,7 @@ static BOOL loadingFromResourceFile = NO;
 	else if (isResourceFile)   //store null for non-existent files to improve performance next time
 		cachedResourceFiles[filePath] = [NSNull null];
 		//failed to load
-	AH_RELEASE(self);
+	ah_release(self);
 	return ((self = nil));
 }
 - (void)writeToFile:(NSString *)path atomically:(BOOL)atomically
@@ -440,7 +440,7 @@ static BOOL loadingFromResourceFile = NO;
 }
 - (void)dealloc
 {
-	AH_RELEASE(_uniqueID);
+	ah_release(_uniqueID);
 		//	[self enumerateIvarsUsingBlock:^(Ivar var, NSString *name, BOOL *cancel) {
 		//		if (ivar_getTypeEncoding(var)[0] == _C_ID) [self setValue:nil forKey:name];
 		//	}];

@@ -771,7 +771,7 @@ BOOL respondsTo(id obj, SEL selector){
 
 - (id) respondsToStringThenDo:(NSS*)string withObject:(id)obj withObject:(id)objtwo 
 {
-	SEL select = NSSelectorFromString(AZ_RETAIN([string copy]));
+	SEL select = NSSelectorFromString(AH_RETAIN([string copy]));
 	BOOL doesit =  [self respondsToSelector:select];
 	return 	doesit && obj && objtwo 	? [self performSelectorARC:select withObject:obj withObject:objtwo]
 			:	doesit && obj 				? [self performSelectorARC:select withObject:obj]

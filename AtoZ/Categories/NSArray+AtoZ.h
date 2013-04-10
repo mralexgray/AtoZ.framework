@@ -59,9 +59,11 @@
 - (NSString*) stringWithEnum: (NSUInteger) anEnum;
 - (NSUInteger) enumFromString: (NSString*) aString default: (NSUInteger) def;
 - (NSUInteger) enumFromString: (NSString*) aString;
+
 @property (RONLY) NSArray *colorValues;
+
 + (NSMutableArray *)mutableArrayWithArrays:(NSArray *)arrays;
-+ (NSArray *)arrayWithArrays:(NSArray *)arrays;
++ (NSArray*)arrayWithArrays:(NSArray *)arrays;
 - (NSArray *)arrayWithEach;
 - (NSS*) stringValueInColumnsCharWide:(NSUI)characters;
 

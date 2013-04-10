@@ -49,6 +49,8 @@
 - (NSS*) wikiDescription;
 + (NSS*) randomWord;
 
+
++ (NSS*) randomBadWord;
 + (NSArray*) badWords;
 + (NSA*) properNames;
 
@@ -82,6 +84,7 @@
 + (NSS*) randomAppPath;
 
 + (Definition*) randomUrbanD;
++ (void) randomUrabanDBlock:(void(^)(Definition* definition))block;
 
 - (BOOL) loMismo:(NSS*)s;
 - (NSString *) stringByStrippingHTML;

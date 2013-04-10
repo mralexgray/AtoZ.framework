@@ -277,7 +277,12 @@
 	return requestError ? $(@"Error parsing wiki: %@", requestError) : [wikiPage parseXMLTag:@"Description"].stringByDecodingXMLEntities;  // $(@"%@: %@", self,
 }
 
-+ (NSArray*) badWords { return [NSArray arrayFromPlist:[AZFWRESOURCES withPath:@"BadWords.plist"]]; }
++ (NSS*) randomBadWord { return [self badWords].randomElement; }
+
++ (NSA*) badWords {	static NSA *swearwords = nil;
+								swearwords = swearwords ?: [NSA arrayFromPlist:[AZFWRESOURCES withPath:@"BadWords.plist"]];
+								return swearwords;
+}
 
 - (NSS*)paddedTo:(NSUI) count { return [self stringByPaddingToLength:count withString:@" " startingAtIndex:0]; }
 
@@ -287,9 +292,32 @@
 	return [[[self stringWithContentsOfFile:names usedEncoding:NULL error:NULL] componentsSeparatedByCharactersInSet:NSCharacterSet.newlineCharacterSet]
 		sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
 }
+
++ (void) randomUrabanDBlock:(void(^)(Definition* definition))block {
+
+	__block Definition *urbanD;
+	ASIHTTPRequest *requester = [ASIHTTPRequest.alloc initWithURL:$URL($(@"http://www.urbandictionary.com/random.php"))];
+	[requester setCompletionBlock:^(ASIHTTPRequest *request) {
+
+		NSS* responsePage 		= request.responseString.copy;
+	 	NSError *requestError 	= [request error];
+		if (!requestError) {
+			AZHTMLParser *p	= 	[AZHTMLParser.alloc initWithString:responsePage error:&requestError];
+			NSS *title 			=	[[p.head findChildWithAttribute:@"property" matchingName:@"og:title" allowPartial:YES]
+										 																			getAttributeNamed:@"content"];
+			NSS *desc			= 	[[p.head findChildWithAttribute:@"property" matchingName:@"og:description" allowPartial:YES]
+																															getAttributeNamed:@"content"];
+			urbanD = $DEFINE(  title, desc );///rawContents.urlDecoded.decodeHTMLCharacterEntities);
+			block (urbanD);
+		} else urbanD = $DEFINE( @"undefined", @"no response from urban" );
+	}];
+	[requester startAsynchronous];
+}
+
 + (Definition*) randomUrbanD;
 {
 	__block Definition *urbanD;
+	
 	ASIHTTPRequest *requester = [ASIHTTPRequest.alloc initWithURL:$URL($(@"http://www.urbandictionary.com/random.php"))];
 	[requester setCompletionBlock:^(ASIHTTPRequest *request) {
 
@@ -304,7 +332,7 @@
 			urbanD = $DEFINE(  title, desc );///rawContents.urlDecoded.decodeHTMLCharacterEntities);
 		} else urbanD = $DEFINE( @"undefined", @"no response from urban" );
 	}];
-	[requester startSynchronous];
+	[requester startAsynchronous];
 	return urbanD;
 }
 
@@ -589,7 +617,7 @@ finish:
 + (NSString *)newUniqueIdentifier
 {
 	CFUUIDRef uuid = CFUUIDCreate(NULL);	CFStringRef identifier = CFUUIDCreateString(NULL, uuid);
-	CFRelease(uuid);						return AZ_RETAIN(CFBridgingRelease(identifier));
+	CFRelease(uuid);						return AH_RETAIN(CFBridgingRelease(identifier));
 }
 + (NSString *)randomAppPath
 {
