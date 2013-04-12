@@ -170,10 +170,11 @@
 	path = Frameworks/NoodleKit
 	url = https://github.com/mralexgray/NoodleKit.git
 	ignore = dirty
-		
 [submodule "AtoZ/Core/JREnum"]
 	path = AtoZ/Core/JREnum
 	url = https://github.com/mralexgray/JREnum.git
+	ignore = dirty
 [submodule "Frameworks/BWToolKit"]
 	path = Frameworks/BWToolKit
 	url = https://github.com/mralexgray/bwtoolkit
+	ignore = dirty
