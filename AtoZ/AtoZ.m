@@ -88,196 +88,6 @@ NSOQ *AZSharedSingleOperationQueue()	{	return AZDummy.sharedInstance.sharedSQ; }
 //- (id)forwardingTargetForSelector:(SEL)sel	{		if(		sel == @selector(runOperation:withMsg:)	|| sel == @selector(operationsSet)			||		sel == @selector(operationsCount)		|| sel == @selector(cancelOperations)		||		sel == @selector(enumerateOperations:)		) {		if(!operationsRunner) {	// Object only created if needed			operationsRunner = [[OperationsRunner alloc] initWithDelegate:self];		}	return operationsRunner;	} else {	return [super forwardingTargetForSelector:sel];	}	}
 */
 
-static char CONVERTTOXML_KEY;
-
-NSString *const BaseModelDidAddNewInstance = @"BaseModelDidAddNewInstanceNotification";
-//static NSString *const BaseModelSharedInstanceKey = @"sharedInstance";
-//static NSString *const BaseModelLoadingFromResourceFileKey = @"loadingFromResourceFile";
-
-
-@interface BaseModel ()
-@property (copy) KVOLastChangedBlock lastChangedBlock;
-- (void) setLastChangedBlock:(KVOLastChangedBlock)lastChangedBlock;
-- (KVOLastChangedBlock) lastChangedBlock;
-
-@property (copy) KVONewInstanceBlock onInitBlock;
-- (void) setOnInitBlock:(KVONewInstanceBlock)onInitBlock;
-- (KVONewInstanceBlock) onInitBlock;
-
-@end
-
-@implementation BaseModel (AtoZ)
-static NSUI 	 instanceNumber 			= 0;
-static id		 lastModifiedInstance 	= nil;
-static NSS		*lastModifiedKey 			= nil;			// class methods for last modified key and instance - these are held as static data
-static NSPointerArray *pointers			= nil;
-
-+ (void) load							{		 /* 	Instantiate pointerarray, swizzle methods	  */
-
-	pointers = NSPointerArray.new;
-	[@[@"init", @"save"] each:^(NSS* obj) {  		/*	[$ swizzleClassMethod:in:self.class with:in:self.class]; */
-		[$ swizzleMethod:NSSelectorFromString(obj) with:NSSelectorFromString($(@"swizzle%@",obj.uppercaseString)) in:self.class];	}];
-
-//	[AZNOTCENTER addObserverForName:BaseModelDidAddNewInstance object:nil block:^(NSNOT *n) {
-//			[self.sharedInstance willChangeValueForKey:@"instances"];
-//			[self.sharedInstance  didChangeValueForKey:@"instances"];
-//	}];
-}
-
-- (id)  	swizzleInit					{ 	/* Post NewInstance Notification, addself to PointerArray, Associate instance number. */
-
-		instanceNumber++;
-		 	if (self != [self swizzleInit] ) return nil;
-	[self setAssociatedValue:@(instanceNumber) forKey:@"instanceNumber" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
-	[pointers addPointer:(void*)self];   [AZNOTCENTER postNotificationName:BaseModelDidAddNewInstance object:self];
-
-	[self.class.sharedInstance setValue:self forKey:@"keyChanged"];
-	if (self == self.class.sharedInstance)	[self.class setLastModifiedKey:@"newSharedInstance" forInstance:self];
-		// Class method - set last modified
-	else [self.class setLastModifiedKey:@"newInstance" forInstance:self];
-	// Instance method - dummy setValue to dispatch notifications
-	[self.class.sharedInstance willChangeValueForKey:@"instances"];
-	[self.class.sharedInstance setValue:@"newInstance" forKey:@"keyChanged"];
-	[self.class.sharedInstance didChangeValueForKey:@"instances"];
-	return self;
-}
-
-+ (INST) objectAtIndex:(NSUI)idx 				{		VoidBlock logNull = ^{ [@"Pointer array empty return NSNUll" log]; };
-
-	if (idx > pointers.count) {   logNull(); return (id)AZNULL; }
-
-	void *thePtf = [pointers pointerAtIndex:idx];
-
-	if ( thePtf != NULL) return (__bridge id)thePtf;  else {  logNull();  return  (id)AZNULL; 	}
-}		/*																				*/
-+ (NSUI) instances									{ return  instanceNumber; } 		/*		Number of class instamces TOTAL.  Living and dead.		*/
-- (NSUI) instanceNumber 							{  id theNumber = [self associatedValueForKey:@"instanceNumber"];
-									return theNumber ? [theNumber unsignedIntegerValue] : NSNotFound;
-} 		/* 	EAch object knows its "place" in the birthcycle.		*/
-
-
-- (void) setValue: (id)value forKey:(NSS*)key				{
-
-	if (![self canSetValueForKey:key]) {  NSLog(@"Asked to, but canot set val for: %@", key); return; }
-	//	overload to dispatch change notification to our shared instance
-	[super setValue:value forKey:key];
-	// If this is the shared instance, don't go any further
-	if (self == self.class.sharedInstance)	return;
-	// Class method - set last modified
-	[self.class setLastModifiedKey:key forInstance:self];
-	// Instance method - dummy setValue to dispatch notifications
-	[self.class.sharedInstance setValue:self forKey:@"keyChanged"];
-/** KVO  class-level block! *//*
-
-	[SampleObject setLastChangedBlock:^(NSS *whatKeyChanged, id whichInstance, id newVal) {
-
-		_result = $(@"Object: %@'s valueForProp:\"%@\" changed to: %@\n",	[(BaseModel*)whichInstance uniqueID], whatKeyChanged, newVal);
-	}];																																								
-	
-*/
-	KVOLastChangedBlock b = ((BaseModel*)self.class.sharedInstance).lastChangedBlock;
-	b ? b(key, self, value) : nil;
-}
-+ (void) setLastModifiedKey:(NSS*)k forInstance:(id)obj	{
-
-	lastModifiedKey			= k;	lastModifiedInstance		= obj;
-}
-+ (instancetype) lastModifiedInstance							{	return lastModifiedInstance;	}
-+ (NSS*) 		  lastModifiedKey									{	return lastModifiedKey;			}
-
-- (instancetype) keyChanged										{  return self.class.sharedInstance; }
-/** keyChanged -	dummy key set by setValue:forKey: on sharedInstance, used 2 dispatch KVO notes. */
-- (void)setKeyChanged: (id) dummy								{		}
-
-+ (void) setLastChangedBlock:(KVOLastChangedBlock)lastChangedBlock 	{
-
-	[self.sharedInstance setLastChangedBlock:lastChangedBlock];
-}
-- (void) setLastChangedBlock:(KVOLastChangedBlock)lastChangedBlock	{
-
-	[self setAssociatedValue:[lastChangedBlock copy] forKey:@"lastChangedBlockStorage" policy:OBJC_ASSOCIATION_COPY_NONATOMIC];
-}
-- (KVOLastChangedBlock) lastChangedBlock 										{
-
-	return [self associatedValueForKey:@"lastChangedBlockStorage"] ?: nil;
-}
-
-+ (void) setOnInitBlock:(KVONewInstanceBlock)onInitBlock 				{	[self.sharedInstance setOnInitBlock:onInitBlock];	}
-- (void) setOnInitBlock:(KVONewInstanceBlock)onInitBlock					{
-
-	[self setAssociatedValue:[onInitBlock copy] forKey:@"onInitBlockStorage" policy:OBJC_ASSOCIATION_COPY_NONATOMIC];
-}
-- (KVONewInstanceBlock) onInitBlock		 										{
-
-	return	 [self associatedValueForKey:@"onInitBlockStorage"] ?: nil;
-}
-
-
-
-- (void) swizzleSave									{
-
-	NSLog(@"swizzlin!");
-	[self swizzleSave];
-	if (self.convertToXML) {
-		NSS* saveP = [self.class saveFilePath];
-		NSLog(@"converting to XML: %@", saveP);
-		if ([AZFILEMANAGER fileExistsAtPath:saveP])
-			[AtoZ plistToXML:saveP];
-	}
-}
-+ (NSS*) saveFilePath 								{	return [NSB.applicationSupportFolder withPath:self.saveFile];	}
-- (BOOL) convertToXML								{
-
-	if ([self respondsToSelector:@selector(convertToXML)]) return self.convertToXML;
-	return	[self hasAssociatedValueForKey: $UTF8(&CONVERTTOXML_KEY)]? [objc_getAssociatedObject(self, &CONVERTTOXML_KEY) boolValue] : NO;
-}
-- (void) setConvertToXML:(BOOL)convertToXML	{
-
-	objc_setAssociatedObject(self, &CONVERTTOXML_KEY, @(convertToXML), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (NSA*) superProperties 							{ return  [BaseModel propertyNames]; }
-- (NSS*) uniqueID										{
-
-	NSS* u 	=	[self associatedValueForKey:@"uniqueid"];
-	if (!u)		[self setAssociatedValue: self.class.newUniqueIdentifier
-			  								forKey: @"uniqueid" policy: OBJC_ASSOCIATION_RETAIN_NONATOMIC];
-	return u ?: [self associatedValueForKey:@"uniqueid"];
-}
-
--   (id) objectAtIndexedSubscript:(NSUI)idx	 						{
-
-	return [self respondsToSelector:@selector(objectAtIndex:)] ? [(NSA*)self objectAtIndex:idx] : AZNULL;
-}
-- (void) setObject:(id)o atIndexedSubscript:(NSUI)idx  			{
-
-	if ([self respondsToSelector:@selector(setObject:atIndex:)])
-		 [(NSMutableOrderedSet*)self setObject:o atIndex:idx];
-}
-- (void) setObject:(id)o forKeyedSubscript:(id<NSCopying>)key	{
-
-	if ([self canSetValueForKey:[(id)key stringValue]]) [self setValue:o forKey:[(id)key stringValue]];
-	else  [self setAssociatedValue:o forKey:[(id)key stringValue] policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
-}
--   (id) objectForKeyedSubscript:(id)key 								{
-
-	return 	[self hasPropertyForKVCKey:key] ? [self valueForKey:key] :
-				[self valueForKeyPath:[(id)key stringValue]] ?: [self associatedValueForKey:[(id)key stringValue]] ?: AZNULL;
-}
--   (id) valueForUndefinedKey:(NSS*)key 								{			NSS *class = NSStringFromClass([self class]);
-
-	return  [self associatedValueForKey:key]
-											?: ^{		LOGCOLORS(RANDOMCOLOR, NSStringFromClass(self.class), GRAY3, @"%@ instance could not find a value for undefined key:", YELLOW, key);
-						return NO; }() ? AZNULL : nil;
-}
-
-@end
-/*- (void) swizzleSetUp 								{ 		 instanceNumber++;  COLORLOG(RED, @"swizzled setup... instance#: %ld", instanceNumber);
-								 [self setAssociatedValue:@(instanceNumber) forKey:@"instanceNumber" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
-								 [self swizzleSetUp];
-}
-+ (instancetype) swizzleInstance 				{   return [self swizzleInstance]; }
-+ (instancetype) swizzleInstanceWithObject:(id)obj {	NSLog(@"swizzlin!");	[self swizzleInstanceWithObject:obj];	id theInstance = self.instance;	//	if ( [[theInstance methodNames] filterOne:^BOOL(NSS* o){	return [o contains:@"setWithDictionary"]; }] )	if ([theInstance respondsToSelector:@selector(setWithDictionary:)] && [obj isKindOfClass:NSD.class])		[theInstance setWithDictionary:obj];	else if (	[obj isKindOfClass:NSD.class])		[theInstance setPropertiesWithDictionary:obj];	else	theInstance = [self instanceWithObject:obj];	return theInstance;		} */
 
 @interface AtoZ ()
 @property (nonatomic, assign) BOOL fontsRegistered;
@@ -302,8 +112,13 @@ static NSPointerArray *pointers			= nil;
 @implementation AtoZ
 @synthesize fonts, fontsRegistered, basicFunctions;
 
+//+ (void) load							{	globalRandoPalette = NSC.randomPalette.shuffeled; }
++ (void) initialize 					{
+												[@"AtoZ.framework Version:%@ Initialized!" log:[self version], nil];	}
+													//LogStackAndReturn(self.bundle);} // ; }
 - (void) setUp 						{
 	[AZStopwatch named:@"AtoZ.framework Setup Time" block:^{
+		[self.class playRandomSound];
 //		[NSApp setApplicationIconImage:[NSIMG imageNamed:@"logo.png"]];
 
 //		[DDLog addLogger:SHAREDLOG]; 		// Standard lumberjack initialization
@@ -356,13 +171,14 @@ static NSPointerArray *pointers			= nil;
 //	[$ swizzleClassMethod:@selector(testSizzle) in:[AtoZ class] with:@selector(testSizzleReplacement) in:[AtoZ class]];
 //	[[AtoZ class] testSizzle];
 }
-+ (void) initialize 					{ 	LogStackAndReturn(self.bundle);} // @"AtoZ.framework Initialized!"); }
 + (NSS*) version						{
 	NSString *myVersion	= [AZFWORKBUNDLE infoDictionary][@"CFBundleShortVersionString"];
 	NSString *buildNum 	= [AZFWORKBUNDLE infoDictionary][(NSString*)kCFBundleVersionKey];
-	return LogAndReturn( $(@"Version: %@ (%@)", myVersion ?: @"N/A", buildNum ?: @"N/A"));
+	return $(@"%@ [ %@ ]", myVersion ?: @"N/A", buildNum ?: @"N/A");
 	//	AZLOG(versText); return versText;
 }
++ (NSS*) wrapper		  				{ return $(@"%s", getenv("WRAPPER_NAME")); }
++ (NSS*) installPath  				{ return $(@"%s", getenv("BUILT_PRODUCTS_DIR")); }
 + (NSB*) bundle 						{	return [NSBundle bundleForClass:self.class]; }
 + (NSS*) resources 					{ return self.bundle.resourcePath; }
 + (NSUserDefaults*) defs			{	return [NSUserDefaults standardUserDefaults];	}

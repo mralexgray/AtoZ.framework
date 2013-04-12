@@ -71,10 +71,12 @@ typedef void (^AZBlockTask)(id obj, NSDictionary *change);
 //- (id)performSelectorARC:(SEL)selector withObject:(id)obj;
 //- (id)performSelectorARC:(SEL)selector withObject:(id)one withObject:(id)two;
 
-- (NSS*) instanceMethods;
-- (NSA*) instanceMethodArray;
+//- (NSS*) instanceMethods;
+//- (NSA*) instanceMethodArray;
 - (NSA*) instanceMethodNames;
-+ (NSA*) instanceMethods;
+//+ (NSA*) instanceMethods;
+- (NSS*) instanceMethodsInColumns;
+
 
 /* USAGE:
 -(void)mouseDown:(NSEvent*)theEvent {
@@ -157,6 +159,13 @@ typedef void (^caseBlock)();
 
 @interface NSObject (SubclassEnumeration)
 +(NSA*) subclasses;
+@end
+
+@interface NSString (VARARGLOGGING)
+
+- (NSS*)formatWithArguments:(NSA*)arr;
++ (NSS*)evaluatePseudoFormat:(NSS*)fmt withArguments:(NSA*)arr;
+- (void) log:(id) firstObject, ...;
 @end
 
 @interface NSObject (AG)

@@ -14,4 +14,10 @@
 - (void)postNotificationOnMainThreadName:(NSString *)aName object:(id)anObject;
 - (void)postNotificationOnMainThreadName:(NSString *)aName object:(id)anObject userInfo:(NSDictionary *)aUserInfo;
 
+
+@end
+@interface NSNotification (AtoZ)
+
+- (NSS*) stringForKey:(NSS*)key;
+
 @end

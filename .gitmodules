@@ -174,3 +174,6 @@
 [submodule "AtoZ/Core/JREnum"]
 	path = AtoZ/Core/JREnum
 	url = https://github.com/mralexgray/JREnum.git
+[submodule "Frameworks/BWToolKit"]
+	path = Frameworks/BWToolKit
+	url = https://github.com/mralexgray/bwtoolkit

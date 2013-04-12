@@ -2,6 +2,31 @@
 #define RNG AZRange
 #define SHAREDLOG [DDTTYLogger sharedInstance]
 
+
+
+#ifdef _DEBUG_TARGET
+#define DEBUG_LEVEL 4
+#else
+#define DEBUG_LEVEL 0
+#endif
+
+#define DEBUG_ERROR   (DEBUG_LEVEL >= 1)
+#define DEBUG_WARN    (DEBUG_LEVEL >= 2)
+#define DEBUG_INFO    (DEBUG_LEVEL >= 3)
+#define DEBUG_VERBOSE (DEBUG_LEVEL >= 4)
+
+#define DDLogError(format, ...)		if(DEBUG_ERROR)   \
+										NSLog((format), ##__VA_ARGS__)
+#define DDLogWarn(format, ...)		if(DEBUG_WARN)    \
+										NSLog((format), ##__VA_ARGS__)
+#define DDLogInfo(format, ...)		if(DEBUG_INFO)    \
+										NSLog((format), ##__VA_ARGS__)
+#define DDLogVerbose(format, ...)	if(DEBUG_VERBOSE) \
+										NSLog((format), ##__VA_ARGS__)
+
+
+
+
 #pragma mark - GLOBAL CONSTANTS
 
 #define 				  AHLO 	AHLayoutObject
@@ -26,7 +51,8 @@ typedef struct {
 #define 		 			CAA 	CAAnimation
 #define     		  CAAG	CAAnimationGroup
 #define 	   		  CABA	CABasicAnimation
-
+#define 		 CACONSTATTR   CAConstraintAttribute
+#define			  CACONST	CAConstraint
 #define     		  CAGA	CAGroupAnimation
 #define     		  CAGL	CAGradientLayer
 #define     		  CAKA	CAKeyframeAnimation
@@ -862,12 +888,23 @@ typedef NS_ENUM(NSUI, AZWindowPosition) {
 
 #define QUAD AZQuadrant
 
-typedef NS_ENUM(NSUI, AZQuadrant){
-	AZTopLeftQuad = 0,
-	AZTopRightQuad,
-	AZBotRightQuad,
-	AZBotLeftQuad
-};
+
+//JREnum() is fine for when you have an enum that lives solely in an .m file. But if you're exposing an enum in a header file, you'll have to use the alternate macros. In your .h, use JREnumDeclare():
+//	JREnumDeclare(StreamState,	   Stream_Disconnected,   	Stream_Connecting,                                                    										Stream_Connected, 		Stream_Disconnecting);
+//And then use JREnumDefine() in your .m:
+//	JREnumDefine(StreamState); for Free!!
+// NSString* AZQuadrantToString(int value);
+
+JREnumDeclare( AZQuadrant, AZTopLeftQuad = 0,
+									AZTopRightQuad,
+									AZBotRightQuad,
+									AZBotLeftQuad	);
+//typedef NS_ENUM(NSUI, AZQuadrant){
+//	AZTopLeftQuad = 0,
+//	AZTopRightQuad,
+//	AZBotRightQuad,
+//	AZBotLeftQuad
+//};
 
 
 typedef struct {	CGFloat tlX; CGFloat tlY;
@@ -896,46 +933,8 @@ void trackMouse();
 // In a header file
 
 
-
-
-//void _AZSimpleLog( const char *file, int lineNumber, const char *funcName, NSString *format, ... ) {
-
-
-//void COLORLOGFORMAT(
-
-void _AZColorLog( NSC *color, const char *filename, int line, const char *funcName, NSS *format, ... );
-//
-//	NSS *colorString = @"fg218,147,0";
-//	NSS* envStr = @(getenv("XCODE_COLORS")) ?: @"YES";
-//	BOOL YESORNO = [envStr boolValue];
-//	if (color !=nil && YESORNO) {
-//		float r, g, b;
-//		r = color.redComponent;
-//		g = color.greenComponent;
-//		b = color.blueComponent;
-//		colorString = $(@"fg%.0f,%.0f,%.0f; ", r*255, g*255, b*255);
-//	}
-//	va_list   argList;	va_start (argList, format);
-//	NSS*pathStr = $UTF8(filename);
-//	NSS *path  	= [pathStr lastPathComponent];
-//	NSS *mess   = [NSS.alloc initWithFormat:format arguments:argList];
-//	NSS *toLog  = YESORNO ? $(@"[%@]:%i" XCODE_COLORS_ESCAPE  @"%@%@" XCODE_COLORS_RESET @"\n", path, line,colorString, mess)
-//								 :	$(@"[%@]:%i %@\n", path, line, mess );
-//	fprintf ( stderr, "%s", toLog.UTF8String);//
-//	va_end  (argList);
-//}
-
-//#define _AZConditionalLog(fmt...) { _AZColorLog(nil, f, ln, func, fmt,...);	}
-
-//	va_list vl; va_start(vl, formatted);	NSS* str = [NSString.alloc initWithFormat:(NSS*)formatted arguments:vl];
-//	va_end(vl);	YESORNO 	? 	NSLog(@"%s [Line %d] " XCODE_COLORS_ESCAPE @"fg218,147,0; %@" XCODE_COLORS_RESET,
-//																				  __PRETTY_FUNCTION__, __LINE__, str)
-//				: 	NSLog(@"%@",str);}
 #pragma mark - FUNCTION defines
-//#define LOGWARN(fmt,...) 	ConditionalLog(__VA_ARGS__)
 
-#define COLORLOG(color,fmt...) _AZColorLog(color,__FILE__,__LINE__,__PRETTY_FUNCTION__,fmt)
-#define LOGWARN(fmt...) _AZColorLog(nil,__FILE__,__LINE__,__PRETTY_FUNCTION__,fmt)
 //		\
 //	BOOL YESORNO = strcmp(getenv(XCODE_COLORS), "YES") == 0;					\
 //	va_list vl;																				\
@@ -1303,6 +1302,7 @@ return SC##_sharedInstance; \
  @param entry The current argument in the vararg list.	*/
 
 typedef void (^AZVA_Block)(id entry);
+
 
 /**	Iterate over a va_list, executing the specified code block for each entry.
  @param FIRST_ARG_NAME The name of the first argument in the vararg list.

@@ -104,6 +104,7 @@ __MAC_OS_X_VERSION_MIN_REQUIRED >= __MAC_10_8)
 #endif
 #endif
 
+#import "JREnum.h"
 
 //#define EXCLUDE_STUB_PROTOTYPES 1
 //#import <PLWeakCompatibility/PLWeakCompatibilityStubs.h>
@@ -125,12 +126,13 @@ __MAC_OS_X_VERSION_MIN_REQUIRED >= __MAC_10_8)
 //#import <AtoZUI/AtoZUI.h>
 //#import <libatoz.h>
 
-//#import "BaseModel.h"
 //#import "AutoCoding.h"
 //#import "HRCoder.h"
 #import "AtoZUmbrella.h"
 #import "AtoZGeometry.h"
 #import "AtoZFunctions.h"
+#import "BaseModel.h"
+#import "BaseModel+AtoZ.h"
 //#import "AtoZ.h"
 #import "SNRHUDButtonCell.h"
 #import "SNRHUDImageCell.h"

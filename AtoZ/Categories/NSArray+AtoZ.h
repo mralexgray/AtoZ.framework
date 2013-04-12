@@ -393,3 +393,70 @@
 - (NSString*)listNames ;
 
 @end
+
+
+//	Category:
+// Methods to treat an NSArray with three/four elements as an RGB/RGBA color.
+//  Useful for storing colors in NSUserDefaults and other Property Lists.
+//  Note that this isn't quite the same as storing an NSData of the color, as
+//  some colors can't be correctly represented in RGB, but this makes for more
+//  readable property lists than NSData.
+// If we wanted to get fancy, we could use an NSDictionary instead and save
+//	different color types in different ways.
+@interface NSArray (UKColor)
++ (NSArray*)		arrayWithColor: (NSColor*) col;
+- (NSColor*)		colorValue;
+@end
+
+@interface NSArray (StringExtensions)
+- (NSArray *) arrayBySortingStrings;
+@property (readonly, getter=arrayBySortingStrings) NSArray *sortedStrings;
+@property (readonly) NSString *stringValue;
+@end
+
+@interface NSArray (UtilityExtensions)
+- (id) firstObject;
+- (NSArray *) uniqueMembers;
+- (NSArray *) unionWithArray: (NSArray *) array;
+- (NSArray *) intersectionWithArray: (NSArray *) array;
+
+
+// Note also see: makeObjectsPeformSelector: withObject:. Map collects the results a la mapcar in Lisp
+- (NSArray *) map: (SEL) selector;
+- (NSArray *) map: (SEL) selector withObject: (id)object;
+- (NSArray *) map: (SEL) selector withObject: (id)object1 withObject: (id)object2;
+
+- (NSArray *) collect: (SEL) selector withObject: (id) object1 withObject: (id) object2;
+- (NSArray *) collect: (SEL) selector withObject: (id) object1;
+- (NSArray *) collect: (SEL) selector;
+
+- (NSArray *) reject: (SEL) selector withObject: (id) object1 withObject: (id) object2;
+- (NSArray *) reject: (SEL) selector withObject: (id) object1;
+- (NSArray *) reject: (SEL) selector;
+@end
+
+@interface NSMutableArray (UtilityExtensions)
+- (NSMutableArray *) removeFirstObject;
+- (NSMutableArray *) reverse;
+- (NSMutableArray *) scramble;
+@property (readonly, getter=reverse) NSMutableArray *reversed;
+@end
+
+@interface NSMutableArray (StackAndQueueExtensions) 
+- (NSMutableArray *)pushObject:(id)object;
+- (NSMutableArray *)pushObjects:(id)object,...;
+- (id) popObject;
+- (id) pullObject;
+
+// Synonyms for traditional use
+- (NSMutableArray *)push:(id)object;
+- (id) pop;
+- (id) pull;
+@end
+
+
+@interface NSArray (FilterByProperty)
+
+- (NSArray*) filterByProperty:(NSString *) p;
+
+@end

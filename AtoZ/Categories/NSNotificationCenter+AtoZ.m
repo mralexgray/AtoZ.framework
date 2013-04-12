@@ -28,3 +28,8 @@
 }
 
 @end
+@implementation NSNotification (AtoZ)
+
+- (NSS*) stringForKey:(NSS*)aKey { return [NSS stringWithData:[self.userInfo objectForKey: aKey] encoding:NSASCIIStringEncoding]; }
+
+@end

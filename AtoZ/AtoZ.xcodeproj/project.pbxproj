@@ -33,6 +33,9 @@
 		7B0B7A4615A22C0D006B5062 /* NSImage+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0B7A4415A22C0D006B5062 /* NSImage+AtoZ.m */; };
 		7B0B7A7C15A3553F006B5062 /* AZIndeterminateIndicator.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B0B7A7A15A3553F006B5062 /* AZIndeterminateIndicator.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B0C13CA16F4647F00229000 /* sox in Resources */ = {isa = PBXBuildFile; fileRef = 7B0C13C916F4647F00229000 /* sox */; };
+		7B0D66911715DB8C0032F5D3 /* JREnum.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B0D66901715DB8C0032F5D3 /* JREnum.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B0D66941715E4500032F5D3 /* BaseModel+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B0D66921715E4500032F5D3 /* BaseModel+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B0D66951715E4500032F5D3 /* BaseModel+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0D66931715E4500032F5D3 /* BaseModel+AtoZ.m */; };
 		7B0D7C2115A3D2C400037D30 /* AZBoxGrid.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B0B7A8B15A370BB006B5062 /* AZBoxGrid.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B0D7C2315A3D2CB00037D30 /* AZBoxGrid.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0B7A8C15A370BB006B5062 /* AZBoxGrid.m */; };
 		7B0E4BC01668AE8B00CA1684 /* ColorVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0E4BBE1668AE8A00CA1684 /* ColorVC.m */; };
@@ -133,6 +136,16 @@
 		7B24E9A615A13A4100A9D87A /* NSBezierPath+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B24E9A415A13A4000A9D87A /* NSBezierPath+AtoZ.m */; };
 		7B24E9ED15A176AC00A9D87A /* NSWindow+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B24E9EB15A176AB00A9D87A /* NSWindow+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B24E9EE15A176AC00A9D87A /* NSWindow+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B24E9EC15A176AB00A9D87A /* NSWindow+AtoZ.m */; };
+		7B2585E217183CB800527501 /* AZMatteButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B2585D817183CB700527501 /* AZMatteButton.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B2585E317183CB800527501 /* AZMatteButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2585D917183CB700527501 /* AZMatteButton.m */; };
+		7B2585E417183CB800527501 /* AZMatteFocusedGradientBox.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B2585DA17183CB700527501 /* AZMatteFocusedGradientBox.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B2585E517183CB800527501 /* AZMatteFocusedGradientBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2585DB17183CB700527501 /* AZMatteFocusedGradientBox.m */; };
+		7B2585E617183CB800527501 /* AZMattePopUpButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B2585DC17183CB700527501 /* AZMattePopUpButton.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B2585E717183CB800527501 /* AZMattePopUpButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2585DD17183CB700527501 /* AZMattePopUpButton.m */; };
+		7B2585E817183CB800527501 /* AZMattePopUpButtonView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B2585DE17183CB700527501 /* AZMattePopUpButtonView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B2585E917183CB800527501 /* AZMattePopUpButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2585DF17183CB700527501 /* AZMattePopUpButtonView.m */; };
+		7B2585EA17183CB800527501 /* AZMatteSegmentedControl.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B2585E017183CB800527501 /* AZMatteSegmentedControl.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B2585EB17183CB800527501 /* AZMatteSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2585E117183CB800527501 /* AZMatteSegmentedControl.m */; };
 		7B28C171171463800068774A /* SNRHUDButtonCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B28C1611714637C0068774A /* SNRHUDButtonCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B28C172171463800068774A /* SNRHUDImageCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B28C1621714637C0068774A /* SNRHUDImageCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B28C174171463800068774A /* SNRHUDScrollView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B28C1641714637C0068774A /* SNRHUDScrollView.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1601,6 +1614,9 @@
 		7B0B7A8C15A370BB006B5062 /* AZBoxGrid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AZBoxGrid.m; path = AZBoxView/AZBoxGrid.m; sourceTree = SOURCE_ROOT; };
 		7B0C13C916F4647F00229000 /* sox */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = sox; sourceTree = "<group>"; };
 		7B0CEC8F164FD82E00419EA7 /* background_folder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background_folder.png; sourceTree = "<group>"; };
+		7B0D66901715DB8C0032F5D3 /* JREnum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JREnum.h; path = Core/JREnum/JREnum.h; sourceTree = SOURCE_ROOT; };
+		7B0D66921715E4500032F5D3 /* BaseModel+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "BaseModel+AtoZ.h"; path = "../../Frameworks/BaseModel/BaseModel/BaseModel+AtoZ.h"; sourceTree = "<group>"; };
+		7B0D66931715E4500032F5D3 /* BaseModel+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "BaseModel+AtoZ.m"; path = "../../Frameworks/BaseModel/BaseModel/BaseModel+AtoZ.m"; sourceTree = "<group>"; };
 		7B0D7C3915A3F0BA00037D30 /* MondoSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MondoSwitch.h; sourceTree = "<group>"; };
 		7B0D7C3A15A3F0BA00037D30 /* MondoSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MondoSwitch.m; sourceTree = "<group>"; };
 		7B0D7C3C15A3F0BA00037D30 /* MondoSwitchButtonCALayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MondoSwitchButtonCALayer.h; sourceTree = "<group>"; };
@@ -1715,6 +1731,16 @@
 		7B24E9EC15A176AB00A9D87A /* NSWindow+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "NSWindow+AtoZ.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7B254D3E162A9F86006B6AC6 /* AZKVOllection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = AZKVOllection.h; sourceTree = "<group>"; };
 		7B254D3F162A9F86006B6AC6 /* AZKVOllection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZKVOllection.m; sourceTree = "<group>"; };
+		7B2585D817183CB700527501 /* AZMatteButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZMatteButton.h; sourceTree = "<group>"; };
+		7B2585D917183CB700527501 /* AZMatteButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZMatteButton.m; sourceTree = "<group>"; };
+		7B2585DA17183CB700527501 /* AZMatteFocusedGradientBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZMatteFocusedGradientBox.h; sourceTree = "<group>"; };
+		7B2585DB17183CB700527501 /* AZMatteFocusedGradientBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZMatteFocusedGradientBox.m; sourceTree = "<group>"; };
+		7B2585DC17183CB700527501 /* AZMattePopUpButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZMattePopUpButton.h; sourceTree = "<group>"; };
+		7B2585DD17183CB700527501 /* AZMattePopUpButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZMattePopUpButton.m; sourceTree = "<group>"; };
+		7B2585DE17183CB700527501 /* AZMattePopUpButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZMattePopUpButtonView.h; sourceTree = "<group>"; };
+		7B2585DF17183CB700527501 /* AZMattePopUpButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZMattePopUpButtonView.m; sourceTree = "<group>"; };
+		7B2585E017183CB800527501 /* AZMatteSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZMatteSegmentedControl.h; sourceTree = "<group>"; };
+		7B2585E117183CB800527501 /* AZMatteSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZMatteSegmentedControl.m; sourceTree = "<group>"; };
 		7B2853F715FEE79F0077960A /* AZCategoryTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = AZCategoryTests.h; path = ../AtoZCLI/AZCategoryTests.h; sourceTree = "<group>"; };
 		7B2853F815FEE79F0077960A /* AZCategoryTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AZCategoryTests.m; path = ../AtoZCLI/AZCategoryTests.m; sourceTree = "<group>"; };
 		7B2853FB15FEEBA90077960A /* NSArrayBlocksKitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = NSArrayBlocksKitTest.h; sourceTree = "<group>"; };
@@ -2879,6 +2905,23 @@
 			path = AZGeometry;
 			sourceTree = SOURCE_ROOT;
 		};
+		7B2585631718304F00527501 /* Controls */ = {
+			isa = PBXGroup;
+			children = (
+				7B2585D817183CB700527501 /* AZMatteButton.h */,
+				7B2585D917183CB700527501 /* AZMatteButton.m */,
+				7B2585DA17183CB700527501 /* AZMatteFocusedGradientBox.h */,
+				7B2585DB17183CB700527501 /* AZMatteFocusedGradientBox.m */,
+				7B2585DC17183CB700527501 /* AZMattePopUpButton.h */,
+				7B2585DD17183CB700527501 /* AZMattePopUpButton.m */,
+				7B2585DE17183CB700527501 /* AZMattePopUpButtonView.h */,
+				7B2585DF17183CB700527501 /* AZMattePopUpButtonView.m */,
+				7B2585E017183CB800527501 /* AZMatteSegmentedControl.h */,
+				7B2585E117183CB800527501 /* AZMatteSegmentedControl.m */,
+			);
+			path = Controls;
+			sourceTree = "<group>";
+		};
 		7B276CCC1616A4320083C29E /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -3841,6 +3884,7 @@
 		7B6901BB159E0ADB00D0DA47 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				7B2585631718304F00527501 /* Controls */,
 				7BA36BB2165AA9130077A065 /* NSViews */,
 				7B137CF915A2021E0088A630 /* AZBoxView */,
 				7B4F0229160A4CD000A79C77 /* AZCoreScroll */,
@@ -3882,6 +3926,7 @@
 		7B6BEDD91674B42E00829B8A /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				7B0D66901715DB8C0032F5D3 /* JREnum.h */,
 				7B1B352216F3396600B94864 /* AZSpeechRecognition.h */,
 				7B1B352316F3396600B94864 /* AZSpeechRecognition.m */,
 				7BCDFC6E15C71B340003DA4D /* Essential */,
@@ -4498,6 +4543,8 @@
 				7B31580216F40B6C00642171 /* HRCoder.m */,
 				7BF9854D15FEBDF900D47192 /* NSBag.h */,
 				7BF9854E15FEBDF900D47192 /* NSBag.m */,
+				7B0D66921715E4500032F5D3 /* BaseModel+AtoZ.h */,
+				7B0D66931715E4500032F5D3 /* BaseModel+AtoZ.m */,
 			);
 			name = Essential;
 			path = ../Classes;
@@ -4983,6 +5030,13 @@
 				7B30BE85170DB2A5004CB62B /* AZExpandableView.h in Headers */,
 				7B30BE9B170E73BB004CB62B /* AutoCoding.h in Headers */,
 				7B55B3FF1711250300F0EAED /* NSOrderedDictionary.h in Headers */,
+				7B0D66911715DB8C0032F5D3 /* JREnum.h in Headers */,
+				7B0D66941715E4500032F5D3 /* BaseModel+AtoZ.h in Headers */,
+				7B2585E217183CB800527501 /* AZMatteButton.h in Headers */,
+				7B2585E417183CB800527501 /* AZMatteFocusedGradientBox.h in Headers */,
+				7B2585E617183CB800527501 /* AZMattePopUpButton.h in Headers */,
+				7B2585E817183CB800527501 /* AZMattePopUpButtonView.h in Headers */,
+				7B2585EA17183CB800527501 /* AZMatteSegmentedControl.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6003,7 +6057,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "  PRODUCT_PATH=\"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}\"\n        BINARY=\"$PRODUCT_PATH/${PRODUCT_NAME}\"\n           MAC=\"/Library/Frameworks/\"\nSYSTEM_PRODUCT=\"$MAC/${WRAPPER_NAME}\"\n\nenv\n\nfunction test {\n\t\"$@\"\n\tstatus=$?\n   if [ $status -ne 0 ]; then\n   \t\techo \"error with $1\"\n\tfi\n\treturn $status\n}\n\ntest otool -l \"$BINARY\" #/Library/Frameworks/AtoZ.framework/AtoZ\n\nif [ $status == 0 ]; then\n\t#say \"Yeah, it worked\"\n    growlnotify -m \"it worked\" -p -1 -n AtoZ Build\n\t#sudo rm -r \"$SYSTEM_PRODUCT\"\n#    sudo cp -r \"$PRODUCT_PATH\" \t\t\"$SYSTEM_PRODUCT\"\nelse\n\t#say \"Poop, no workie\"\n    growlnotify -m \"BUILD FAILED\" -p 2 -n AtoZ Build\nfi\n\nsudo ln -sF \"${PRODUCT_PATH}\" \"${MAC}\"\n\ncd \"${PRODUCT_PATH}\"\nln -sF Versions/Current/Frameworks Frameworks\n#logger `pwd`\n\n\n#if [ -f  \"${PRODUCT_PATH}/${PRODUCT_NAME}\" ]; then\n#\t$growler -n \"AtoZ\" -m \"AtoZ Was compiled AOK.\"\n#\tif [ -d \"${PRECOMPS}/${WRAPPER_NAME}\" ]; then\n#    \trm -r \"${PRECOMPS}/${WRAPPER_NAME}\"\n#   fi\n#\tmkdir -p \"${PRECOMPS}\"\n#\tcp -r \"${PRODUCT_PATH}\" \"${PRECOMPS}\"\n#else\n#\t$growler -n \"AtoZ\" -m \"AtoZ is not a complete Binary!.\"\n#\tsay \"AtoZ is not a complete Binary!\"\n#fi\n\n\n#class-dump /Library/Frameworks/AtoZ.framework/AtoZ >>\n\n#install_name_tool -change \\\n#\"@executable_path/../Frameworks/${WRAPPER_NAME}/Versions/A/${PRODUCT_NAME}\" \\\n#\"@loader_path/../../../../Frameworks/${WRAPPER_NAME}/Versions/A/${PRODUCT_NAME}\" \\\n#\"$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/BaseTenAppKit.framework/Versions/A/BaseTenAppKit\"\n\n#-header-pad_max_install_names\n\n#FRAMEWORKS_DIR=\"${PRODUCT_PATH}\"FRAMEWORK_DIR/Versions/Frameworks\"\n\n#if ( ! [ -e \"$FRAMEWORKS_DIR\" ] ); then\n#$$ln -s \"$FRAMEWORK_DIR/Versions/Current/Frameworks\" \"$FRAMEWORKS_DIR\"\n#fi\n\n\n# PRECOMPS=\"$HOME/Library/Developer/Precompiled\"\n# growler='/ServiceData/UNIX/bin/growlnotify'\n";
+			shellScript = "  PRODUCT_PATH=\"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}\"\n        BINARY=\"$PRODUCT_PATH/${PRODUCT_NAME}\"\n           MAC=\"/Library/Frameworks/\"\nSYSTEM_PRODUCT=\"$MAC/${WRAPPER_NAME}\"\n\nenv\n\nfunction test {\n\t\"$@\"\n\tstatus=$?\n   if [ $status -ne 0 ]; then\n   \t\techo \"error with $1\"\n\tfi\n\treturn $status\n}\n\ntest otool -l \"$BINARY\" #/Library/Frameworks/AtoZ.framework/AtoZ\n\nif [ $status == 0 ]; then\n\t#say \"Yeah, it worked\"\n    growlnotify -m \"it worked\" -p -1 -n AtoZ Build\n\t#sudo rm -r \"$SYSTEM_PRODUCT\"\n#    sudo cp -r \"$PRODUCT_PATH\" \t\t\"$SYSTEM_PRODUCT\"\nelse\n\t#say \"Poop, no workie\"\n    growlnotify -m \"BUILD FAILED\" -p 2 -n AtoZ Build\nfi\n\nsudo ln -sF \"${PRODUCT_PATH}\" \"${MAC}\"\n\ncd \"${PRODUCT_PATH}\"\nln -sF Versions/Current/Frameworks Frameworks\n#logger `pwd`\n\necho \"Cleaning Profiler Information\"\ncd \"${OBJECT_FILE_DIR_normal}/${CURRENT_ARCH}\"\n# Delete *.gcda files in the current target\nrm -f *.gcda\n\n\n#if [ -f  \"${PRODUCT_PATH}/${PRODUCT_NAME}\" ]; then\n#\t$growler -n \"AtoZ\" -m \"AtoZ Was compiled AOK.\"\n#\tif [ -d \"${PRECOMPS}/${WRAPPER_NAME}\" ]; then\n#    \trm -r \"${PRECOMPS}/${WRAPPER_NAME}\"\n#   fi\n#\tmkdir -p \"${PRECOMPS}\"\n#\tcp -r \"${PRODUCT_PATH}\" \"${PRECOMPS}\"\n#else\n#\t$growler -n \"AtoZ\" -m \"AtoZ is not a complete Binary!.\"\n#\tsay \"AtoZ is not a complete Binary!\"\n#fi\n\n\n#class-dump /Library/Frameworks/AtoZ.framework/AtoZ >>\n\n#install_name_tool -change \\\n#\"@executable_path/../Frameworks/${WRAPPER_NAME}/Versions/A/${PRODUCT_NAME}\" \\\n#\"@loader_path/../../../../Frameworks/${WRAPPER_NAME}/Versions/A/${PRODUCT_NAME}\" \\\n#\"$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/BaseTenAppKit.framework/Versions/A/BaseTenAppKit\"\n\n#-header-pad_max_install_names\n\n#FRAMEWORKS_DIR=\"${PRODUCT_PATH}\"FRAMEWORK_DIR/Versions/Frameworks\"\n\n#if ( ! [ -e \"$FRAMEWORKS_DIR\" ] ); then\n#$$ln -s \"$FRAMEWORK_DIR/Versions/Current/Frameworks\" \"$FRAMEWORKS_DIR\"\n#fi\n\n\n# PRECOMPS=\"$HOME/Library/Developer/Precompiled\"\n# growler='/ServiceData/UNIX/bin/growlnotify'\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -6283,6 +6337,12 @@
 				7B30BE9C170E73C4004CB62B /* AutoCoding.m in Sources */,
 				7B5E020017105E550086AF70 /* NSFont+AtoZ.m in Sources */,
 				7B55B4001711250300F0EAED /* NSOrderedDictionary.m in Sources */,
+				7B0D66951715E4500032F5D3 /* BaseModel+AtoZ.m in Sources */,
+				7B2585E317183CB800527501 /* AZMatteButton.m in Sources */,
+				7B2585E517183CB800527501 /* AZMatteFocusedGradientBox.m in Sources */,
+				7B2585E717183CB800527501 /* AZMattePopUpButton.m in Sources */,
+				7B2585E917183CB800527501 /* AZMattePopUpButtonView.m in Sources */,
+				7B2585EB17183CB800527501 /* AZMatteSegmentedControl.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6838,6 +6898,7 @@
 					KSHTMLWriterFramework,
 					"-sub_umbrella",
 					NoodleKit,
+					"-all_load",
 				);
 				PRODUCT_NAME = AtoZ;
 				RUN_CLANG_STATIC_ANALYZER = NO;
@@ -6934,6 +6995,7 @@
 					KSHTMLWriterFramework,
 					"-sub_umbrella",
 					NoodleKit,
+					"-all_load",
 				);
 				PRODUCT_NAME = AtoZ;
 				RUN_CLANG_STATIC_ANALYZER = NO;

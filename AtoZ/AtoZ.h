@@ -22,6 +22,7 @@
 #import <CoreServices/CoreServices.h>
 #import <AVFoundation/AVFoundation.h>
 #import <ApplicationServices/ApplicationServices.h>
+#import "JREnum.h"
 
 #ifndef DSFavIcon_UINSImage_h
 	#define DSFavIcon_UINSImage_h
@@ -118,6 +119,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 #import "AutoCoding.h"
 #import "HRCoder.h"
 #import "BaseModel.h"
+#import "BaseModel+AtoZ.h"
 
 
 #import "SDToolkit.h"
@@ -289,6 +291,11 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 #import "StandardPaths.h"
 
 /* CONTROLS */
+#import "AZMatteButton.h"
+#import "AZMatteFocusedGradientBox.h"
+#import "AZMattePopUpButton.h"
+#import "AZMattePopUpButtonView.h"
+#import "AZMatteSegmentedControl.h"
 #import "AZToggleArrayView.h"
 #import "AZDarkButtonCell.h"
 //#import "SNRHUDKit.h"
@@ -451,6 +458,8 @@ typedef void (^asyncTaskCallback)(AZTaskResponder *response);
 @end
 */
 
+
+
 @class NSLogConsole;
 @interface AtoZ : BaseModel
 
@@ -543,39 +552,6 @@ typedef void (^asyncTaskCallback)(AZTaskResponder *response);
 + (NSImage*)cropImage:(NSImage*)sourceImage withRect:(NSRect)sourceRect;
 
 @end
-
-typedef void (^KVOLastChangedBlock)( NSS *whatKeyChanged, id whichInstance, id newVal);
-typedef void (^KVONewInstanceBlock)( id newInstance );
-
-extern NSString *const BaseModelDidAddNewInstance;
-
-@interface BaseModel (AtoZ)
-
-/* Shared instance is the object modified after each key change.
-	After being notified of change to the shared instance, call this to get last modified key of last modified instance */
-+ (NSS*)	lastModifiedKey;
-+ (INST)	lastModifiedInstance;
-+ (void)	setLastModifiedKey:	(NSS*)key      forInstance:(id)object;
-+ (void)	setLastChangedBlock:	(KVOLastChangedBlock) lastChangedBlock;
-+ (void)	setNewInstanceBlock: (KVONewInstanceBlock) onInitBlock;
-
-+ (INST)	objectAtIndex:(NSUI)idx;
-+ (NSUI) instances;
-
-@property (RONLY) 		NSUI instanceNumber;
-@property (RONLY) 		NSA 	*superProperties;
-@property (RONLY) 		NSS 	*uniqueID;
-@property (NATOM,ASS) 	BOOL 	 convertToXML;
-+ (NSS*) saveFilePath;
-
-
--   (id) objectForKeyedSubscript:					(id)  key;
--   (id) objectAtIndexedSubscript:					(NSUI)idx;
-- (void) setObject: (id)obj atIndexedSubscript: (NSUI)idx;
-- (void) setObject: (id)obj forKeyedSubscript:  (IDCP)key;
--   (id) valueForUndefinedKey:						(NSS*)key;
-@end
-
 /**
 
 

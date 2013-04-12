@@ -275,6 +275,7 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary(void) {
 	return [self performSelectorWithoutWarnings:NSSelectorFromString(string) withObject:obj];
 }
 
+/*
 + (NSA*) instanceMethods
 {
 	NSMA *array = NSMA.new;
@@ -289,32 +290,31 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary(void) {
 	[array sortUsingSelector:@selector(compare:)];
 	return array;
 }
-- (NSA*) instanceMethodArray
+*/
+- (NSA*) instanceMethodNames
 {
-	Class clazz = self.class;
-	u_int count;
-	Method* methods = class_copyMethodList(clazz, &count);
-	NSMA *methodArray = NSMA.new;
-	for (int i = 0; i < count ; i++)
-	{
-		SEL selector = method_getName(methods[i]);
-		const char* methodName = sel_getName(selector);
-		[methodArray addObject:[NSS stringWithCString:methodName encoding:NSUTF8StringEncoding]];
-	}
-	free(methods);
-	return  methodArray;
+	Class clazz 		= [self class];		u_int count;
+	Method* methods 	= class_copyMethodList(clazz, &count);
+
+	return [[@0 to:@(count-1)] nmap:^id(id obj, NSUI index) {
+		return $UTF8( sel_getName		( method_getName 	( methods [(u_int)index] ) ));
+	}];
+
+//	free(	methods );
+//	return  methodArray;
 }
-- (NSS*) instanceMethods
+
+- (NSS*) instanceMethodsInColumns
 {
-	return [[self instanceMethodArray]formatAsListWithPadding:30];
+	return [[self instanceMethodNames]formatAsListWithPadding:30];
 }
 
 /*! Get an array containing the names of the instance methods of a class. */
-- (NSA*) instanceMethodNames
-{
-	id methods = [self instanceMethods];
-	return [methods mapSelector:@selector(name)];
-}
+//- (NSA*) instanceMethodNames
+//{
+//	NSA* methods = [self instanceMethodArray];
+//	return [methods mapSelector:@selector(name)];
+//}
 
 /**
 
@@ -574,6 +574,69 @@ static char windowPosition;
 	}
 	return subClasses;
 }
+@end
+
+
+//@interface NSString (VARARGLOGGING)
+////- (void) log:(id) firstObject, ...;
+//- (void) log:...;
+//@end
+
+@implementation NSString (VARARGLOGGING)
+
+
+- (NSS*)formatWithArguments:(NSA*)arr {
+	return [self.class evaluatePseudoFormat:self withArguments:arr];
+}
+
++ (NSS*)evaluatePseudoFormat:(NSS*)fmt withArguments:(NSA*)arr
+{
+  NSS   *replacement;
+  NSRNG varRange, scanRange;
+  NSMS  *evaluatedString 		= fmt.mutableCopy;
+  int length 						= fmt.length;
+  scanRange 						= NSMakeRange(0, length);
+  int index 						= arr.count;
+
+  while ( (varRange = [fmt rangeOfString: @"%@"  options:NSBackwardsSearch  range:scanRange]).length > 0 && index >= 0) {
+
+		replacement = arr[--index ];
+    	[evaluatedString replaceCharactersInRange: varRange withString: replacement];
+    	length = varRange.location;					scanRange = NSMakeRange(0, length);
+  }
+  return evaluatedString;
+}
+
+//void LOGWARN(NSString *format,...) {
+
+- (void) log:(id) firstObject, ... {
+
+	azva_list_to_nsarray(firstObject, things);
+
+	[[self formatWithArguments:things] log];
+
+
+//	va_list argList; va_start (argList, self);
+//	NSS *mess   	= [NSS stringWithFormat:self arguments:argList];
+//	va_end(argList);
+//	[mess log];
+}
+//	va_list   	argList;		va_start 	(argList, firstObject);
+//
+//	id eachObject;
+//	va_list argumentList;
+//	if (firstObject) // The first argument isn't part of the varargs list,
+//	{
+//		[self addObject: firstObject];// so we'll handle it separately.
+//		va_start(argumentList, firstObject); // Start scanning for arguments after firstObject.
+//		while (eachObject = va_arg(argumentList, id)) // As many times as we can get an argument of type "id"
+//		{
+//			[self addObject: eachObject]; // that isn't nil, add it to self's contents.
+//		}
+//		va_end(argumentList);
+//
+//	}
+
 @end
 
 @implementation NSObject (AG)
