@@ -178,3 +178,15 @@
 	path = Frameworks/BWToolKit
 	url = https://github.com/mralexgray/bwtoolkit
 	ignore = dirty
+[submodule "Frameworks/NSLogger-CocoaLumberjack-connector"]
+	path = Frameworks/NSLogger-CocoaLumberjack-connector
+	url = https://github.com/steipete/NSLogger-CocoaLumberjack-connector.git
+[submodule "Frameworks/StatusBarApp.framework"]
+	path = Frameworks/StatusBarApp.framework
+	url = https://github.com/mralexgray/StatusBarApp.framework.git
+[submodule "AtoZ/Views/AGNSSplitView"]
+	path = AtoZ/Views/AGNSSplitView
+	url = https://github.com/mralexgray/AGNSSplitView.git
+[submodule "www/jqm"]
+	path = www/jqm
+	url = https://github.com/jquery/jquery-mobile.git
