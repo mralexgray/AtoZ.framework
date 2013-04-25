@@ -169,7 +169,7 @@ static int flagbit8 		= 128;  	// 2^^7    000...10000000
 
 #define AZA AZAlign
 //JREnumDeclare (AZAlign,
-typedef NS_OPTIONS(int, AZAlign) {
+JROptionsDeclare(AZAlign,
 	AZAlignNone			  = 		  0, // 0
 	AZAlignLeft         = 0x00000001, // 1 << 0   aka (0x1 << 0), // => 0x00000001
 	AZAlignRight        = 0x00000010, // 2 << 0  (0x1 << 1), // => 0x00000010
@@ -179,7 +179,7 @@ typedef NS_OPTIONS(int, AZAlign) {
 	AZAlignTopRight     = 0x00000110,
 	AZAlignBottomLeft   = 0x00001001,
 	AZAlignBottomRight  = 0x00001010
-};
+);
 
 
 //NSS* stringForPosition(AZWindowPosition enumVal);

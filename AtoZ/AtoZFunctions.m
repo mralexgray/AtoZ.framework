@@ -4,7 +4,7 @@
 
 JREnumDefine(AZQuadrant);
 JREnumDefine(Color);
-//JREnumDefine(AZAlign);
+JROptionsDefine(AZAlign);
 
 NSC* Clr(Color c) {
 	return 	c == ColorNone 	? nil 		 :	c == ColorRed 	? RED		 	:	c == ColorOrange 	? ORANGE		 	:

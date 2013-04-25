@@ -12,15 +12,8 @@
 
 + (NSN*)integerWithHexString:(NSS*)hexString;
 {
-  NSScanner *scanner = [NSScanner scannerWithString:hexString];
-  
-  NSUInteger value;
-  if ([scanner scanHexInt:(NSInteger)&value])
-  {
-    return [NSNumber numberWithInteger:value]; 
-  }
-  
-  return nil;
+  NSScanner *scanner = [NSScanner scannerWithString:hexString];  NSUInteger value;
+  return [scanner scanHexInt:(NSInteger)&value] ? [NSNumber numberWithInteger:value] : nil;
 }
 
 - (CFNumberType) type {  return CFNumberGetType((CFNumberRef)self); }

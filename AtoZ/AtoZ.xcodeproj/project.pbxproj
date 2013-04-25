@@ -534,8 +534,6 @@
 		7B82B82F15CB66D30026FE8C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B82B82E15CB66D30026FE8C /* main.m */; };
 		7B82B83915CB66D30026FE8C /* ControlPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B82B83715CB66D30026FE8C /* ControlPanel.xib */; };
 		7B8558E915B2CBAF0005F558 /* circle2.tif in Resources */ = {isa = PBXBuildFile; fileRef = 7B8558E815B2CBAF0005F558 /* circle2.tif */; };
-		7B869FB4171B273500E584A4 /* AZXMLWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B869FB2171B273500E584A4 /* AZXMLWriter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7B869FB5171B273500E584A4 /* AZXMLWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B869FB3171B273500E584A4 /* AZXMLWriter.m */; };
 		7B8870021670E01A00C94BFC /* AtoZAppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B7EDA0F164B970B00D8C6C6 /* AtoZAppKit.framework */; };
 		7B8870051670E01A00C94BFC /* CocoaPuffs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B99B97B16394E3B00500715 /* CocoaPuffs.framework */; };
 		7B8870061670E01A00C94BFC /* AtoZBezierPath.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BB8701D16384FF20000C242 /* AtoZBezierPath.framework */; };
@@ -738,6 +736,8 @@
 		7BC3990515E45D2700482937 /* fontawesome.ttf in fonts Files */ = {isa = PBXBuildFile; fileRef = 7B4E9E3715E35B5500C0581A /* fontawesome.ttf */; };
 		7BC3C2B015C9F0DD00DA2EFA /* AZMouser.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B8558E415B2C98D0005F558 /* AZMouser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BC3C2B115C9F26D00DA2EFA /* AZMouser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B8558E515B2C98D0005F558 /* AZMouser.m */; };
+		7BC77D7A1729D39D0075AFEE /* AZXMLWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B869FB2171B273500E584A4 /* AZXMLWriter.h */; };
+		7BC77D7B1729D3A30075AFEE /* AZXMLWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B869FB3171B273500E584A4 /* AZXMLWriter.m */; };
 		7BC859C515A8C0F400582632 /* AZSizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BC859C315A8C0F400582632 /* AZSizer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BC859CA15A8C56700582632 /* NSNumber+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BC859C815A8C56700582632 /* NSNumber+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BC859CB15A8C56700582632 /* NSNumber+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC859C915A8C56700582632 /* NSNumber+AtoZ.m */; };
@@ -2334,8 +2334,8 @@
 		7B8558E415B2C98D0005F558 /* AZMouser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZMouser.h; sourceTree = "<group>"; };
 		7B8558E515B2C98D0005F558 /* AZMouser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZMouser.m; sourceTree = "<group>"; };
 		7B8558E815B2CBAF0005F558 /* circle2.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = circle2.tif; sourceTree = "<group>"; };
-		7B869FB2171B273500E584A4 /* AZXMLWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZXMLWriter.h; path = Core/JREnum/AZXMLWriter.h; sourceTree = SOURCE_ROOT; };
-		7B869FB3171B273500E584A4 /* AZXMLWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AZXMLWriter.m; path = Core/JREnum/AZXMLWriter.m; sourceTree = SOURCE_ROOT; };
+		7B869FB2171B273500E584A4 /* AZXMLWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZXMLWriter.h; path = Core/AZXMLWriter.h; sourceTree = SOURCE_ROOT; };
+		7B869FB3171B273500E584A4 /* AZXMLWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AZXMLWriter.m; path = Core/AZXMLWriter.m; sourceTree = SOURCE_ROOT; };
 		7B8A29FC15E2735000286E27 /* AZModelObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZModelObject.h; sourceTree = "<group>"; };
 		7B8A29FD15E2735000286E27 /* AZModelObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZModelObject.m; sourceTree = "<group>"; };
 		7B8A2A0B15E2C52400286E27 /* AZSourceListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZSourceListViewController.h; sourceTree = "<group>"; };
@@ -5248,7 +5248,6 @@
 				7B2585FE1718447600527501 /* NSError+AtoZ.h in Headers */,
 				7B25863E1718944700527501 /* AZCLI.h in Headers */,
 				7B2586411719B04F00527501 /* AtoZTypes.h in Headers */,
-				7B869FB4171B273500E584A4 /* AZXMLWriter.h in Headers */,
 				7B440434171E2022009950A7 /* AGNSSplitView.h in Headers */,
 				7B440436171E2022009950A7 /* AGNSSplitViewDelegate.h in Headers */,
 				7B8226AC171EEB43002AAD9C /* SNRHUDButtonCell.h in Headers */,
@@ -5258,6 +5257,7 @@
 				7BEA75C21720F6A2000A7D84 /* StickyNoteView.h in Headers */,
 				7B8F52F51725C55500B53CE2 /* AZCLICategories.h in Headers */,
 				7B232F9B17274D9F00B111FE /* MArray.h in Headers */,
+				7BC77D7A1729D39D0075AFEE /* AZXMLWriter.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6679,7 +6679,6 @@
 				7B2585E917183CB800527501 /* AZMattePopUpButtonView.m in Sources */,
 				7B2585EB17183CB800527501 /* AZMatteSegmentedControl.m in Sources */,
 				7B25863F1718944700527501 /* AZCLI.m in Sources */,
-				7B869FB5171B273500E584A4 /* AZXMLWriter.m in Sources */,
 				7B44042C171DEE3C009950A7 /* NSString+AtoZEnums.m in Sources */,
 				7B440435171E2022009950A7 /* AGNSSplitView.m in Sources */,
 				7B440437171E2022009950A7 /* AGNSSplitViewDelegate.m in Sources */,
@@ -6691,6 +6690,7 @@
 				7B5806751721B7C2004F4E74 /* NSTableView+AtoZ.m in Sources */,
 				7B8F52F61725C55500B53CE2 /* AZCLICategories.m in Sources */,
 				7B232F9C17274D9F00B111FE /* MArray.m in Sources */,
+				7BC77D7B1729D3A30075AFEE /* AZXMLWriter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7286,6 +7286,7 @@
 					MenuApp,
 				);
 				PRODUCT_NAME = AtoZ;
+				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = NO;
 				SDKROOT = macosx;
 				USER_HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -7385,6 +7386,7 @@
 					MenuApp,
 				);
 				PRODUCT_NAME = AtoZ;
+				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = NO;
 				SDKROOT = macosx;
 				USER_HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				VERSIONING_SYSTEM = "apple-generic";
