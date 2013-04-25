@@ -1040,9 +1040,9 @@ static CGF mPhase = 0;
 //	if (_items.count != 0) [_grid reloadData];
 }
 
-- (NSSV*) scrollView {
+- (NSSCRLV*) scrollView {
 	return _scrollView ?: ^{
-		self.scrollView					= [NSSV.alloc initWithFrame:self.bounds];
+		self.scrollView					= [NSSCRLV.alloc initWithFrame:self.bounds];
 		_scrollView.bgC					= [NSC leatherTintedWithColor:RANDOMCOLOR];
 		_scrollView.arMASK 				= NSSIZEABLE;
 		_scrollView.borderType 			= NSNoBorder;

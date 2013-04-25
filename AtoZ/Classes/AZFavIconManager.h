@@ -9,6 +9,19 @@
 #if TARGET_OS_IPHONE
 #define NSImage UIImage
 #endif
+#ifndef DSFavIcon_UINSImage_h
+#define DSFavIcon_UINSImage_h
+#if TARGET_OS_IPHONE
+#import <UIKit/UIKit.h>
+#define UINSImage   UIImage
+#define UINSScreen  UIScreen
+#else
+#import <Cocoa/Cocoa.h>
+#define UINSImage   NSImage
+#define UINSScreen  NSScreen
+#endif
+#endif
+
 extern CGSize sizeInPixels(NSIMG *image);
 
 @class  AZFavIconCache;

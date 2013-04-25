@@ -7,6 +7,7 @@
 //
 
 #import <SenTestingKit/SenTestingKit.h>
+#import <AtoZ/AtoZ.h>
 
 @interface AZFaviconManagerTests : SenTestCase
 

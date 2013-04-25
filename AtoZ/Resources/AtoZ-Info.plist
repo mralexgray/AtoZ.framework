@@ -53,6 +53,17 @@
 	<string>1.0</string>
 	<key>CFBundleSignature</key>
 	<string>ATOZ</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>com.github.mralexgray</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>atoz</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>LSApplicationCategoryType</key>

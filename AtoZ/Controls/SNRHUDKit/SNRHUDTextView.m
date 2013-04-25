@@ -36,6 +36,11 @@
 	[scrollView setHorizontalScrollElasticity:NSScrollElasticityNone];
 	[scrollView setVerticalScrollElasticity:NSScrollElasticityNone];
 	[scrollView setScrollerKnobStyle:NSScrollerKnobStyleLight];
+
+}
+- (void) setUseDefaults:(BOOL) useDefs {
+
+	_useDefaults = YES;
 	NSColor *textColor = SNRTextViewTextColor;
 	[self setInsertionPointColor:textColor];
 	[self setTextColor:textColor];

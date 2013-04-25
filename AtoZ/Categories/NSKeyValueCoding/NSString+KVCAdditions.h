@@ -10,7 +10,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 @interface NSString (KVCAdditions)
 -(void)_KVC_partBeforeDot:(NSString**)before afterDot:(NSString**)after;
--(BOOL)_KVC_isSetterForSelectorNameStartingWith:(NSString *)start endingWith:(NSString *)end;
+-(BOOL)_KVC_isSetterForSelectorNameStartingWith:(NSS*)start endingWith:(NSS*)end;
 @end
 
 NSString *_NSKVOSplitKeyPath(NSString *path,NSString **restOfPath);

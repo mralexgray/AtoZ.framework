@@ -15,13 +15,13 @@
 	[self performSelectorOnMainThread:@selector(postNotification:) withObject:notification waitUntilDone:YES];
 }
 
-- (void)postNotificationOnMainThreadName:(NSString *)aName object:(id)anObject
+- (void)postNotificationOnMainThreadName:(NSS*)aName object:(id)anObject
 {
 	NSNotification *notification = [NSNotification notificationWithName:aName object:anObject];
 	[self postNotificationOnMainThread:notification];
 }
 
-- (void)postNotificationOnMainThreadName:(NSString *)aName object:(id)anObject userInfo:(NSDictionary *)aUserInfo
+- (void)postNotificationOnMainThreadName:(NSS*)aName object:(id)anObject userInfo:(NSD*)aUserInfo
 {
 	NSNotification *notification = [NSNotification notificationWithName:aName object:anObject userInfo:aUserInfo];
 	[self postNotificationOnMainThread:notification];

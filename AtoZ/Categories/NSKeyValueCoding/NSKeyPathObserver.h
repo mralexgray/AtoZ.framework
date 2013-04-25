@@ -14,18 +14,18 @@
    NSMutableDictionary	   *_changeDictionary;
 }
 
--initWithObject:object observer:observer keyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options context:(void *)context;
+-initWithObject:object observer:observer keyPath:(NSS*)keyPath options:(NSKeyValueObservingOptions)options context:(void *)context;
 
 -object;
 -observer;
--(NSString *)keyPath;
+-(NSS*)keyPath;
 -(NSKeyValueObservingOptions)options;
 -(void *)context;
 
 -(BOOL)willChangeAlreadyChanging;
 -(BOOL)didChangeAlreadyChanging;
 
--(NSMutableDictionary *)changeDictionaryWithInfo:(NSDictionary *)info;
+-(NSMutableDictionary *)changeDictionaryWithInfo:(NSD*)info;
 -(NSMutableDictionary *)changeDictionary;
 -(void)clearChangeDictionary;
 

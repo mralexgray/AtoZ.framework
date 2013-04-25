@@ -21,10 +21,10 @@
  of our WRLD method and then we call a method on our WRLD object from inside of our
  startLoading method on our NSURLProtocol object.	*/
 @interface NSURLRequest (SpecialProtocol)
-- (NSDictionary *)specialVars;
+- (NSD*)specialVars;
 @end
 @interface NSMutableURLRequest (SpecialProtocol)
-- (void)setSpecialVars:(NSDictionary *)caller;
+- (void)setSpecialVars:(NSD*)caller;
 @end
 
 @interface NSURL (AtoZ)

@@ -1,8 +1,5 @@
 
 
-static BOOL	gWindowTrackingEnabled = NO;
-static BOOL gWindowTracking = NO;
-static NSPoint gWindowTrackingEventOrigin, gWindowTrackingCurrentWindowOrigin;
 
 
 @interface NSWindow (SBSWindowAdditions)
@@ -33,7 +30,6 @@ enum NSWindowResizing {
 
 - (void) resizeToWidth:(float)theWidth height:(float)theHeight;
 - (void) resizeToWidth:(float)theWidth height:(float)theHeight origin:(int)theOrigin;
-- (void) resizeToWidth:(float)theWidth height:(float)theHeight origin:(int)theOrigin duration:(float)theDuration;
 - (void) resizeToWidth:(float)theWidth height:(float)theHeight origin:(int)theOrigin duration:(float)theDuration;
 
 @end
@@ -98,7 +94,7 @@ enum NSWindowResizing {
 - (void) slideDown;
 - (void) extendVerticallyBy: (CGF) amount;
 //- (void) setDefaultFirstResponder;
-+ (NSW*) borderlessWindowWithContentRect: (NSRect)aRect;
+
 - (void) setIgnoresEventsButAcceptsMoved;
 
 @end

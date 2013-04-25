@@ -87,37 +87,41 @@ static NSString* const SNRButtonReturnKeyEquivalent = @"\r";
 
 	__buttonType == NSSwitchButton ?	[self snr_drawCheckboxBezelWithFrame:f inView:cV] : nil;
 }
--  (BOOL) drawCheckBoxesShaded 																	{
-
-	BOOL shaded = _delegate && [_delegate respondsToSelector:@selector(cellShouldDrawCheckBoxesShaded:)] ?
-		[_delegate cellShouldDrawCheckBoxesShaded:self] : NO;
-	NSLog(@"delegate says I %@ draw shaded!", shaded ? @"SHOULD" : @"SHOULD NOT");
-	return shaded;
-}
+//-  (BOOL) drawCheckBoxesShaded 																	{
+//
+//	BOOL shaded = NO;
+//
+//	if (_delegate != nil && [_delegate respondsToSelector:@selector(cellShouldDrawCheckBoxesShaded:)]) {
+//		NSLog(@"shaded Delegate = %@", _delegate);
+//		shaded = [_delegate cellShouldDrawCheckBoxesShaded:self];
+//		NSLog(@"delegate says I %@ draw shaded!", shaded ? @"SHOULD" : @"SHOULD NOT");
+//	}
+//	return shaded;
+//}
 -  (void) snr_drawButtonBezelWithFrame:  (NSR)f  inView:	(NSV*)cV						{
 	
 	f = NSInsetRect(f, 0.5f, 0.5f);
 	f.size.height -= SNRButtonDropShadowBlurRadius;
 	__bezelPath = [NSBP bezierPathWithRoundedRect:f xRadius:SNRButtonCornerRadius yRadius:SNRButtonCornerRadius];
 	BOOL blue = [self snr_shouldDrawBlueButton];
-	if (!self.drawCheckBoxesShaded || blue) {
+	BOOL shaded = YES;//[self drawCheckBoxesShaded];
+	if (!shaded || blue) {
 		// Draw the gradient fill
 		[[NSG gradientFrom:blue ? SNRButtonBlueGradientBottomColor : SNRButtonBlackGradientBottomColor 
 							 to:blue ? SNRButtonBlueGradientTopColor : SNRButtonBlackGradientTopColor]
 		  drawInBezierPath:__bezelPath angle:270.f];
-	} else {
-		[[NSG gradientFrom:self.on.brighter to:self.on.darker]  drawInBezierPath:__bezelPath angle:270.f];
-//		NSIMG* oo = [NSIMG imageFromLockedFocusSize: lock:<#^NSImage *(NSImage *)block#>:__bezelPath.bounds.size lock:^NSImage *(NSImage *i) {
-//			[[NSG gradientFrom:self.on.brighter to:self.on.darker]  drawInBezierPath:__bezelPath angle:270.f];
-//			return LogAndReturn(i);
-//		}];
-//		[oo openInPreview];
-		NSLog(@"just filled with: %@", self.on.nameOfColor);
+	} else {				//this is whats active!!
+//		NSLog(@"just filled with: %@", self.on.nameOfColor);
+		[[NSG gradientFrom:RED to:ORANGE ] /*self.on.brighter to:self.on.darker] */ drawInBezierPath:__bezelPath angle:270.f];
 	}
+//		NSIMG* oo = [NSIMG imageFromLockedFocusSize: lock:^NSImage *(NSImage *) {
+//			}:__bezelPath.bounds.size lock:^NSImage *(NSImage *i) {
+//			[[NSG gradientFrom:self.on.brighter to:self.on.darker]  drawInBezierPath:__bezelPath angle:270.f];
+//			return LogAndReturn(i);	}];	[oo openInPreview];
+
 	[NSGraphicsContext state:^{									// Draw the border and drop shadow
-		[SNRButtonBorderColor set];
 		[[NSSHDW  shadowWithColor:SNRButtonDropShadowColor offset:SNRButtonDropShadowOffset blurRadius:SNRButtonDropShadowBlurRadius]set];
-		[__bezelPath stroke];
+		[__bezelPath strokeWithColor:SNRButtonBorderColor];
 	}];
 	// Draw the highlight line around the top edge of the pill
 	// Outset the width of the rectangle by 0.5px so that the highlight "bleeds" around the rounded corners
@@ -126,10 +130,9 @@ static NSString* const SNRButtonReturnKeyEquivalent = @"\r";
 	// Make the height of the highlight rect something bigger than the bounds so that it won't show up on the bottom
 	highlightRect.size.height *= 2.f;
 	[NSGraphicsContext state:^{
-		NSBP *highlightPath = [NSBP bezierPathWithRoundedRect:highlightRect xRadius:SNRButtonCornerRadius yRadius:SNRButtonCornerRadius];
+		NSBP *highlightPath = [NSBP bezierPathWithRoundedRect:highlightRect cornerRadius:SNRButtonCornerRadius];
 		[__bezelPath addClip];
-		[blue ? SNRButtonBlueHighlightColor : SNRButtonBlackHighlightColor set];
-		[highlightPath stroke];
+		[highlightPath strokeWithColor:blue ? SNRButtonBlueHighlightColor : SNRButtonBlackHighlightColor];
 	}];
 }
 -  (void) snr_drawCheckboxBezelWithFrame:(NSR)f  inView: (NSV*)cV						{
@@ -165,12 +168,15 @@ static NSString* const SNRButtonReturnKeyEquivalent = @"\r";
 	}
 	return path;
 }
+
 -   (NSR) snr_drawButtonTitle:  (NSAS*)title withFrame:  (NSR)f inView:(NSV*)cV	{
+
 	BOOL blue 				= [self snr_shouldDrawBlueButton];
 	NSSHDW *textShadow	= [NSSHDW shadowWithColor:blue ?      SNRButtonBlueTextShadowColor : SNRButtonBlackTextShadowColor 
 														 offset:blue ?     SNRButtonBlueTextShadowOffset : SNRButtonBlackTextShadowOffset
 													blurRadius:blue ? SNRButtonBlueTextShadowBlurRadius : SNRButtonBlackTextShadowBlurRadius];
-	NSAS *attrLabel = [NSAS stringWithString:title.string attributes:@{ NSFontAttributeName : SNRButtonTextFont, 
+
+	NSAS *attrLabel = [NSAS stringWithString:title.string attributes:@{ NSFontAttributeName : SNRButtonTextFont,
 																		  	   NSForegroundColorAttributeName : SNRButtonTextColor, 
 																		               NSShadowAttributeName : textShadow}];
 	NSSize labelSize = attrLabel.size;

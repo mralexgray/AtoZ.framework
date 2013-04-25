@@ -168,8 +168,11 @@
 
 - (NSA*) sSubs 		{ return scrollLayer.sublayers; } 
 - (NSA*) scrollLayersByAscendingPosition { return [self.sSubs sortedWithKey:isVRT ? @"frameMinY" : @"frameMinX" ascending:YES]; }
-- (NSA*) allLayers	 	{	return [NSA arrayWithArrays:@[	scrollLayer.sublayers,
-											  layerQueue.count ? layerQueue : @[] ]];
+- (NSA*) allLayers	 	{
+
+	return scrollLayer.sublayers  && layerQueue.count 			? [NSA arrayWithArrays:@[scrollLayer.sublayers, layerQueue]] :
+			 scrollLayer.sublayers  && layerQueue.count == 0 	? scrollLayer.sublayers :
+			 !scrollLayer.sublayers && layerQueue.count 			? layerQueue  : nil;
 }
 - (CAL*) lastLayer 	{ return  self.scrollLayersByAscendingPosition.last; 	}
 - (CAL*) firstLayer 	{ return  self.scrollLayersByAscendingPosition.first;	}

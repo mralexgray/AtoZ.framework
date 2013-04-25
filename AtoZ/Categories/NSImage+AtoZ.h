@@ -43,7 +43,7 @@ extern NSData *PNGRepresentation(NSIMG *image);
 //@property (readonly, strong) NSC *color;
 //@property (readonly, strong) NSA *colors;
 
-+ (NSIMG*) swizzledImageNamed:(NSString *)name;
++ (NSIMG*) swizzledImageNamed:(NSS*)name;
 + (NSIMG*) imageFromURL:(NSS*)url;
 
 + (NSIMG*) blackBadgeForRect:(NSR)frame;
@@ -138,7 +138,8 @@ extern NSData *PNGRepresentation(NSIMG *image);
 + (NSIMG*) createImageFromSubView:(NSView*) view	rect:(NSRect)rect;
 + (NSIMG*) createImageFromView:	(NSView*) view;
 
-- (NSIMG*) scaleImageToFillSize:	(NSSize) targetSize;
+#warning BROKEN
+- (NSIMG*) scaleImageToFillSize:	(NSSize) targetSize; //
 - (void) drawFloatingRightInFrame:(NSRect)aFrame;  //ACG FLOATIAMGE
 // draws the passed image into the passed rect, centered and scaled appropriately.
 // note that this method doesn't know anything about the current focus, so the focus must be locked outside this method
@@ -158,11 +159,11 @@ extern NSData *PNGRepresentation(NSIMG *image);
 
 
 // Borrowed from Matt Legend Gemmell   A category on NSImage allowing you to get an image containing  a Quick Look preview of the file at a given path. You can specify the size,   and whether the preview should be rendered as an icon (i.e. with a document border,   drop-shadow, page-curl and file type/extension label superimposed).  If Quick Look can’t generate a preview for the specified file, You’ll be given the file’s Finder icon instead  (which is how the Quick Look panel itself behaves in Leopard).
-+ (NSIMG*)imageWithPreviewOfFileAtPath:(NSString *)path  ofSize:(NSSize)size asIcon:(BOOL)icon;
++ (NSIMG*)imageWithPreviewOfFileAtPath:(NSS*)path  ofSize:(NSSize)size asIcon:(BOOL)icon;
 
 - (NSIMG*)	imageToFitSize:(NSSize)size method:(AGImageResizingMethod)resizeMethod;
 - (NSIMG*)	imageCroppedToFitSize:(NSSize)size;
-- (NSIMG*)	imageScaledToFitSize:(NSSize)size;
+- (NSIMG*)	imageScaledToFitSize:(NSSize)size;   // PREFERRED RESIZING METHOD
 
 - (NSImageRep*) largestRepresentation;
 - (NSSize) 		sizeLargestRepresentation;
@@ -174,7 +175,7 @@ extern NSData *PNGRepresentation(NSIMG *image);
 - (CIImage *)toCIImage;
 
 - (NSIMG*) imageByRemovingTransparentAreasWithFinalRect: (NSRect*)outBox;
-//+ (NSIMG*) fromSVG:(NSString *)documentName withAlpha:(BOOL)hasAlpha;
+//+ (NSIMG*) fromSVG:(NSS*)documentName withAlpha:(BOOL)hasAlpha;
 //+ (NSIMG*)imageFromCGImageRef:(CGImageRef)image;
 
 - (NSIMG*) addReflection:(CGF)percentage;
@@ -201,11 +202,11 @@ extern NSData *PNGRepresentation(NSIMG *image);
 - (NSIMG*)croppedImage:(CGRect)bounds;
 
 /*!	@abstract   save image to disk*/
-- (BOOL)saveImage:(NSString *)path 
-		 fileName:(NSString *)name 
+- (BOOL)saveImage:(NSS*)path 
+		 fileName:(NSS*)name 
 		 fileType:(NSBitmapImageFileType)type;
 
-- (BOOL)saveAs:(NSString *)path;
+- (BOOL)saveAs:(NSS*)path;
 - (NSIMG*)scaleToFillSize:(NSSize)targetSize;
 @end
 
@@ -287,8 +288,8 @@ extern NSData *PNGRepresentation(NSIMG *image);
 @end
 
 @interface CIFilter (Subscript)
-- (id)objectForKeyedSubscript:(NSString *)key;
-- (void)setObject:(id)object forKeyedSubscript:(NSString *)key;
+- (id)objectForKeyedSubscript:(NSS*)key;
+- (void)setObject:(id)object forKeyedSubscript:(NSS*)key;
 @end
 
 
@@ -354,3 +355,6 @@ extern NSData *PNGRepresentation(NSIMG *image);
 @end
 
 */
+@interface NSGraphicsContext (AtoZ)
++ (void) addNoiseToContext;
+@end

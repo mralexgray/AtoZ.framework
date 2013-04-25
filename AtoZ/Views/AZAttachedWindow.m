@@ -20,14 +20,10 @@
 - (NSBezierPath *)_backgroundPath;
 - (void)_appendArrowToPath:(NSBezierPath *)path;
 - (void)_redisplay;
-
 @end
-
 @implementation AZAttachedWindow
 {
-
 	NSPoint initialLocation;
-
 }
 @synthesize view = _view;
 
@@ -39,10 +35,7 @@
 						atDistance:(float)distance
 {
 	// Insist on having a valid view.
-	if (!view) {
-		return nil;
-	}
-	
+	if (!view) return nil;
 	// Create dummy initial contentRect for window.
 	NSRect contentRect = NSZeroRect;
 	contentRect.size = [view frame].size;
@@ -77,15 +70,10 @@
 		self.cornerRadius = 8.0;
 		self.drawsRoundCornerBesideArrow = YES;
 		_resizing = NO;
-		
 		// Work out what side to put the window on if it's "automatic".
-		if (_side == AZPositionAutomatic) {
-			_side = [self _bestSideForAutomaticPosition];
-		}
-		
+		if (_side == AZPositionAutomatic) _side = [self _bestSideForAutomaticPosition];
 		// Configure our initial geometry.
 		[self _updateGeometry];
-		
 		// Update the background.
 		[self _updateBackground];
 		

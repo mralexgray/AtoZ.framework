@@ -8,43 +8,77 @@
 
 #import "SNRHUDSegmentedCell.h"
 //#import "NSBezierPath+MCAdditions.h"
-#import <AtoZ/AtoZ.h>
+//#import <AtoZ/AtoZ.h>
 
-#define SNRSegControlGradientBottomColor		 GRAY1
-#define SNRSegControlGradientTopColor			GRAY2
-#define SNRSegControlSelectedGradientBottomColor GRAY1
-#define SNRSegControlSelectedGradientTopColor	GRAY1
+#define SNRSegControlGradientBottomColor         [NSColor colorWithDeviceWhite:0.150 alpha:1.000]
+#define SNRSegControlGradientTopColor            [NSColor colorWithDeviceWhite:0.220 alpha:1.000]
+#define SNRSegControlSelectedGradientBottomColor [NSColor colorWithDeviceWhite:0.130 alpha:1.000]
+#define SNRSegControlSelectedGradientTopColor    [NSColor colorWithDeviceWhite:0.120 alpha:1.000]
 
-#define SNRSegControlDividerGradientBottomColor  GRAY1
-#define SNRSegControlDividerGradientTopColor	 GRAY2
+#define SNRSegControlDividerGradientBottomColor  [NSColor colorWithDeviceWhite:0.120 alpha:1.000]
+#define SNRSegControlDividerGradientTopColor     [NSColor colorWithDeviceWhite:0.160 alpha:1.000]
 
-#define SNRSegControlHighlightColor			  [BLACK alpha:.5]
-#define SNRSegControlHighlightOverlayColor	   GRAY3
+#define SNRSegControlHighlightColor              [NSColor colorWithDeviceWhite:1.000 alpha:0.050]
+#define SNRSegControlHighlightOverlayColor       [NSColor colorWithDeviceWhite:0.000 alpha:0.300]
+#define SNRSegControlBorderColor                 [NSColor blackColor]
+#define SNRSegControlCornerRadius                3.f
 
-#define SNRSegControlBorderColor				 BLACK
-#define SNRSegControlCornerRadius				3.f
+#define SNRSegControlInnerShadowColor            [NSColor colorWithDeviceWhite:0.000 alpha:1.000]
+#define SNRSegControlInnerShadowBlurRadius       3.f
+#define SNRSegControlInnerShadowOffset           NSMakeSize(0.f, -1.f)
 
-#define SNRSegControlInnerShadowColor			[NSColor colorWithDeviceWhite:0.000 alpha:1.000]
-#define SNRSegControlInnerShadowBlurRadius	   3.f
-#define SNRSegControlInnerShadowOffset		   NSMakeSize(0.f, -1.f)
+#define SNRSegControlDropShadowColor             [NSColor colorWithDeviceWhite:1.000 alpha:0.050]
+#define SNRSegControlDropShadowBlurRadius        1.f
+#define SNRSegControlDropShadowOffset            NSMakeSize(0.f, -1.f)
 
-#define SNRSegControlDropShadowColor			 [NSColor colorWithDeviceWhite:1.000 alpha:0.050]
-#define SNRSegControlDropShadowBlurRadius		1.f
-#define SNRSegControlDropShadowOffset			NSMakeSize(0.f, -1.f)
+#define SNRSegControlTextFont                    AtoZ.controlFont  //[NSFont systemFontOfSize:11.f]
+#define SNRSegControlTextColor                   [NSColor colorWithDeviceWhite:0.700 alpha:1.000]
+#define SNRSegControlSelectedTextColor           [NSColor whiteColor]
+#define SNRSegControlSelectedTextShadowOffset    NSMakeSize(0.f, -1.f)
+#define SNRSegControlTextShadowOffset            NSMakeSize(0.f, 1.f)
+#define SNRSegControlTextShadowBlurRadius        1.4f
+#define SNRSegControlTextShadowColor             [BLACK alpha:.7]
 
-#define SNRSegControlTextFont					[NSFont systemFontOfSize:11.f]
-#define SNRSegControlTextColor				   [NSColor colorWithDeviceWhite:0.700 alpha:1.000]
-#define SNRSegControlSelectedTextColor		   [NSColor whiteColor]
-#define SNRSegControlSelectedTextShadowOffset	NSMakeSize(0.f, -1.f)
-#define SNRSegControlTextShadowOffset			NSMakeSize(0.f, 1.f)
-#define SNRSegControlTextShadowBlurRadius		1.f
-#define SNRSegControlTextShadowColor			 [NSColor blackColor]
+#define SNRSegControlDisabledAlpha               0.5f
 
-#define SNRSegControlDisabledAlpha			   0.5f
-
-#define SNRSegControlXEdgeMargin				 10.f
-#define SNRSegControlYEdgeMargin				 5.f
-#define SNRSegControlImageLabelMargin			5.f
+#define SNRSegControlXEdgeMargin                 10.f
+#define SNRSegControlYEdgeMargin                 5.f
+#define SNRSegControlImageLabelMargin            5.f
+//#define SNRSegControlGradientBottomColor		 GRAY1
+//#define SNRSegControlGradientTopColor			GRAY2
+//#define SNRSegControlSelectedGradientBottomColor GRAY1
+//#define SNRSegControlSelectedGradientTopColor	GRAY1
+//
+//#define SNRSegControlDividerGradientBottomColor  GRAY1
+//#define SNRSegControlDividerGradientTopColor	 GRAY2
+//
+//#define SNRSegControlHighlightColor			  [BLACK alpha:.5]
+//#define SNRSegControlHighlightOverlayColor	   GRAY3
+//
+//#define SNRSegControlBorderColor				 BLACK
+//#define SNRSegControlCornerRadius				3.f
+//
+//#define SNRSegControlInnerShadowColor			[NSColor colorWithDeviceWhite:0.000 alpha:1.000]
+//#define SNRSegControlInnerShadowBlurRadius	   3.f
+//#define SNRSegControlInnerShadowOffset		   NSMakeSize(0.f, -1.f)
+//
+//#define SNRSegControlDropShadowColor			 RED//[NSColor colorWithDeviceWhite:1.000 alpha:0.050]
+//#define SNRSegControlDropShadowBlurRadius		1.f
+//#define SNRSegControlDropShadowOffset			NSMakeSize(0.f, -1.f)
+//
+//#define SNRSegControlTextFont					[NSFont systemFontOfSize:11.f]
+//#define SNRSegControlTextColor				   [NSColor colorWithDeviceWhite:0.700 alpha:1.000]
+//#define SNRSegControlSelectedTextColor		   [NSColor whiteColor]
+//#define SNRSegControlSelectedTextShadowOffset	NSMakeSize(0.f, -1.f)
+//#define SNRSegControlTextShadowOffset			NSMakeSize(0.f, 1.f)
+//#define SNRSegControlTextShadowBlurRadius		1.f
+//#define SNRSegControlTextShadowColor			 [NSColor blackColor]
+//
+//#define SNRSegControlDisabledAlpha			   0.5f
+//
+//#define SNRSegControlXEdgeMargin				 10.f
+//#define SNRSegControlYEdgeMargin				 5.f
+//#define SNRSegControlImageLabelMargin			5.f
 
 // This is a value that is set internally by AppKit, used for layout purposes in this code
 // Don't change this

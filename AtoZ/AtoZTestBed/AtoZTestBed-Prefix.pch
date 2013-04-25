@@ -6,4 +6,5 @@
 	#import <Cocoa/Cocoa.h>
 	#import <QuartzCore/QuartzCore.h>
 	#import <AtoZ/AtoZ.h>
+	#import <MenuApp/MenuApp.h>
 #endif

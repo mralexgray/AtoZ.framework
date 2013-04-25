@@ -9,7 +9,7 @@
 #import "AtoZGeometry.h"
 #import "AtoZ.h"
 #import <QuartzCore/QuartzCore.h>
-#import <DrawKit/DKShapeFactory.h>
+//#import <DrawKit/DKShapeFactory.h>
 
 //@interface NSView ()
 //+ (void)runEndBlock:(void (^)(void))completionBlock;
@@ -219,7 +219,7 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 		[self setValue:AZVrect([self frame]) forKeyPath:@"dictionary.visibleRect"];
 	}
 	NSRect newViewFrame = [self frame];
-	AZWindowPosition r = AZPositionOfRectInRect([[self window]frame], AZScreenFrameUnderMenu());
+	AZWindowPosition r = AZPositionOfQuadInRect([[self window]frame], AZScreenFrameUnderMenu());
 	NSSize getOut = AZDirectionsOffScreenWithPosition(newViewFrame,r);
 	newViewFrame.size.width  += getOut.width;
 	newViewFrame.size.height += getOut.height;
@@ -230,7 +230,7 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 	[[self animator] setFrame:newViewFrame];
 }
 
-- (NSArray *)allSubviews {
+- (NSA*)allSubviews {
 	NSMutableArray *allSubviews = [NSMutableArray arrayWithObject:self];
 	NSArray *subviews = [self subviews];
 	for (NSView *view in subviews) {
@@ -238,7 +238,7 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 	}
 	return [allSubviews copy];
 }
--(void)setAnimationIdentifer:(NSString *)newAnimationIdentifer{
+-(void)setAnimationIdentifer:(NSS*)newAnimationIdentifer{
 	objc_setAssociatedObject(self, &ANIMATION_IDENTIFER, newAnimationIdentifer, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
@@ -374,7 +374,7 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 }
 
 -(NSTrackingArea *)trackAreaWithRect:(NSRect)rect
-									 userInfo:(NSDictionary *)context
+									 userInfo:(NSD*)context
 {
 	NSTrackingAreaOptions options = NSTrackingMouseEnteredAndExited
 	| NSTrackingMouseMoved
@@ -438,7 +438,7 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 }
 
 
-- (NSArray *)animationArrayForParameters:(NSDictionary *)params
+- (NSA*)animationArrayForParameters:(NSD*)params
 {
 	NSMutableDictionary *animationDetails = [NSMutableDictionary
 														  dictionaryWithDictionary:params];
@@ -446,7 +446,7 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 	return @[animationDetails];
 }
 
-- (void)playAnimationWithParameters:(NSDictionary *)params
+- (void)playAnimationWithParameters:(NSD*)params
 {
 	NSViewAnimation *animation = [[NSViewAnimation alloc]
 											initWithViewAnimations:[self animationArrayForParameters:params]];
@@ -822,7 +822,7 @@ NSView* AZResizeWindowAndContent(NSWindow* window, CGF dXLeft, CGF dXRight, CGF 
 
 @implementation NSView (findSubview)
 
-- (NSArray *)findSubviewsOfKind:(Class)kind withTag:(NSInteger)tag inView:(NSView*)v {
+- (NSA*)findSubviewsOfKind:(Class)kind withTag:(NSInteger)tag inView:(NSView*)v {
 	NSMutableArray *array = [NSMutableArray array];
 	
 	if(kind==nil || [v isKindOfClass:kind]) {
@@ -841,11 +841,11 @@ NSView* AZResizeWindowAndContent(NSWindow* window, CGF dXLeft, CGF dXRight, CGF 
 
 #pragma mark -
 
-- (NSArray *)subviewsOfKind:(Class)kind withTag:(NSInteger)tag {
+- (NSA*)subviewsOfKind:(Class)kind withTag:(NSInteger)tag {
 	return [self findSubviewsOfKind:kind withTag:tag inView:self];
 }
 
-- (NSArray *)subviewsOfKind:(Class)kind {
+- (NSA*)subviewsOfKind:(Class)kind {
 	return [self findSubviewsOfKind:kind withTag:NSNotFound inView:self];
 }
 

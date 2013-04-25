@@ -189,11 +189,11 @@
 	[self setIsVisible:![self isVisible]];
 }
 
+
+/*
 static NSP currentLocation, newOrigin, initialLocation;
 static NSR screenFrame, windowFrame;
 
-
-/*
 - (void)mouseDragged:(NSEvent *)theEvent
 {
 	static dispatch_once_t onceToken;	dispatch_once(&onceToken, ^{	screenFrame = AZScreenFrame();

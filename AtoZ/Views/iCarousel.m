@@ -1354,17 +1354,17 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
 //	}
 //}
 
-//- (CGFloat)clampedOffset:(CGFloat)offset
-//{
-//	if (_wrapEnabled)
-//	{
-//		return _numberOfItems? (offset - floorf(offset / (CGFloat)_numberOfItems) * _numberOfItems): 0.0f;
-//	}
-//	else
-//	{
-//		return fminf(fmaxf(0.0f, offset), (CGFloat)_numberOfItems - 1.0f);
-//	}
-//}
+- (CGFloat)clampedOffset:(CGFloat)offset
+{
+	if (_wrapEnabled)
+	{
+		return _numberOfItems? (offset - floorf(offset / (CGFloat)_numberOfItems) * _numberOfItems): 0.0f;
+	}
+	else
+	{
+		return fminf(fmaxf(0.0f, offset), (CGFloat)_numberOfItems - 1.0f);
+	}
+}
 
 //- (NSInteger)currentItemIndex 
 //{

@@ -29,7 +29,7 @@ static const CGFloat cornerRadius = 5.0;
   self.borderWidth = 0;
   self.bounds = CGRectMake(00, 00, 20, 20);
   
-  [self addConstraint:AZConstraint(kCAConstraintMinY, @"superlayer")];
+  [self addConstraints:AZCACMinY];
   [self addConstraint:AZConstraint(kCAConstraintMinX, @"superlayer")];	
   [self addConstraint:AZConstraint(kCAConstraintWidth, @"superlayer")];
   [self addConstraint:AZConstraint(kCAConstraintHeight, @"superlayer")];	

@@ -2,11 +2,8 @@
 //  NSString+AtoZ.h
 //  AtoZ
 
-#import <Foundation/Foundation.h>
-#import "AtoZ.h"
-
 @interface NSString (MD5)
-- (NSString *)MD5String;
+- (NSS*)MD5String;
 @end
 
 @interface Definition : NSObject
@@ -28,9 +25,11 @@
 - (NSS *)w_String:(NSS *)string;
 - (NSS *)withString:(NSS *)string;
 
-+ (NSS *)stringFromArray:(NSA *)a;
++ (NSS*) stringFromArray:(NSA *)a;
++ (NSS*) stringFromArray:(NSA*)a withSpaces:(BOOL)spaces onePerline:(BOOL)newl;
++ (NSS*) stringFromArray:(NSA*)a withDelimeter:(NSS*)del last:(NSS*)last;
 
-- (NSString *)JSONRepresentation;
+- (NSS*)JSONRepresentation;
 
 + (NSS *)dicksonParagraphWith:(NSUI)sentences;
 + (NSA *)dicksonPhrases;
@@ -38,33 +37,31 @@
 + (NSS *)randomDicksonism;
 + (NSS *)dicksonBible;
 
-- (NSString *)decodeHTMLCharacterEntities;
-- (NSString *)encodeHTMLCharacterEntities;
+- (NSS*)decodeHTMLCharacterEntities;
+- (NSS*)encodeHTMLCharacterEntities;
 
-- (NSString *)stringByDecodingXMLEntities;
+- (NSS*)stringByDecodingXMLEntities;
 - (NSS *)stringByCleaningJSONUnicode;
 - (NSS *)unescapeQuotes;
 
-+ (NSString *)randomWiki;
++ (NSS*)randomWiki;
 - (NSS *)wikiDescription;
 + (NSS *)randomWord;
 
 
 + (NSS *)randomBadWord;
-+ (NSArray *)badWords;
++ (NSA*)badWords;
 + (NSA *)properNames;
 + (NSS *)spaces:(NSUI)ct;
 - (NSS *)paddedTo:(NSUI)count;
 
-@property (nonatomic) NSObject *logBackground;
-@property (nonatomic) NSObject *logForeground;
-- (void)setLogBackground:(NSObject *)color;
-- (void)setLogForeground:(NSObject *)color;
-@property (readonly) NSS *colorLogString;
+- (void)setLogBackground:(id)color;
+- (void)setLogForeground:(id)color;
 
+@property (RONLY) NSS *colorLogString;
 
 - (NSS *)parseXMLTag:(NSS *)tag;
-- (NSString *)stripHtml;
+- (NSS*)stripHtml;
 
 + (NSS *)clipboard;
 - (void)copyToClipboard;
@@ -94,7 +91,7 @@
 + (void)randomUrabanDBlock:(void (^)(Definition *definition))block;
 
 - (BOOL)loMismo:(NSS *)s;
-- (NSString *)stringByStrippingHTML;
+- (NSS*)stringByStrippingHTML;
 
 
 + (NSS *)randomWords:(NSI)number;
@@ -219,6 +216,7 @@
 + (NSA *)testDomains;
 
 - (NSS *)truncateInMiddleForWidth:(CGF)overall;
+- (NSS *)truncateInMiddleToCharacters:(NSUI)chars;
 
 @end
 // Truncate a string by inserting an ellipsis ("..."). truncateMode can be NSLineBreakByTruncatingHead, NSLineBreakByTruncatingMiddle or NSLineBreakByTruncatingTail.
@@ -245,11 +243,11 @@ NSS *   StringByTruncatingStringWithAttributesForWidth(NSS *s, NSD *attrs, float
 @interface NSString (RuntimeReporting)
 
 - (BOOL)hasSubclasses;
-- (NSArray *)subclassNames;
-- (NSArray *)methodNames;
-- (NSArray *)ivarNames;
-- (NSArray *)propertyNames;
-- (NSArray *)protocolNames;
+- (NSA*)subclassNames;
+- (NSA*)methodNames;
+- (NSA*)ivarNames;
+- (NSA*)propertyNames;
+- (NSA*)protocolNames;
 
 @end
 /*
@@ -406,7 +404,7 @@ extern int gNSStringGeometricsTypesetterBehavior;
 
 //  NSLog(@"%@", [@"Hello" : @", " : [NSC redColor] : @"World!" : @"  " : [NSNumber numberWithInt:42]]);
 @interface NSString (JASillyString)
-
+/**
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 
@@ -438,7 +436,7 @@ extern int gNSStringGeometricsTypesetterBehavior;
 - :a:b:c:d:e:f:g:h:i:j:k:l:m:n:o:p:q:r:s:t:u:v:w:x:y:z;
 
 #pragma clang diagnostic pop
-
+*/
 @end
 
 
@@ -512,7 +510,7 @@ extern int gNSStringGeometricsTypesetterBehavior;
  *  @brief Initialize an NSString object with concatnating given arguments.
  *  @details Appends all arguments to first string one by one by order.
  */
-- (id)initWithConcatnatingStrings:(NSString *)first, ...NS_REQUIRES_NIL_TERMINATION;
+- (id)initWithConcatnatingStrings:(NSS*)first, ...NS_REQUIRES_NIL_TERMINATION;
 
 /*! @name Creating a String */
 
@@ -527,7 +525,7 @@ extern int gNSStringGeometricsTypesetterBehavior;
  *  @see [initWithFormat:arguments:][0]
  *	  [0]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/Reference/NSString.html#//apple_ref/occ/instm/NSString/initWithFormat:arguments:
  */
-+ (id)stringWithFormat:(NSString *)format arguments:(va_list)argList NS_FORMAT_FUNCTION(1, 0);
++ (id)stringWithFormat:(NSS*)format arguments:(va_list)argList NS_FORMAT_FUNCTION(1, 0);
 
 /*!
  *  @brief Creates and returns an NSString object initialized by converting given data into Unicode characters using a given encoding.
@@ -539,7 +537,7 @@ extern int gNSStringGeometricsTypesetterBehavior;
 /*!
  *  @brief Creates and returns an NSString object with concatnating given arguments.
  */
-+ (id)stringWithConcatnatingStrings:(NSString *)first, ...NS_REQUIRES_NIL_TERMINATION;
++ (id)stringWithConcatnatingStrings:(NSS*)first, ...NS_REQUIRES_NIL_TERMINATION;
 
 @end
 
@@ -555,7 +553,7 @@ extern int gNSStringGeometricsTypesetterBehavior;
  *  @see [rangeOfString:][1]
  *	  [1]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/Reference/NSString.html#//apple_ref/occ/instm/NSString/rangeOfString:
  */
-- (BOOL)hasSubstring:(NSString *)aString;
+- (BOOL)hasSubstring:(NSS*)aString;
 
 /*! @name Format */
 
@@ -569,7 +567,7 @@ extern int gNSStringGeometricsTypesetterBehavior;
  *  @see [stringWithFormat:][0]
  *	  [0]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/Reference/NSString.html#//apple_ref/occ/clm/NSString/stringWithFormat:
  */
-- (NSString *)format:(id)first, ...;
+- (NSS*)format:(id)first, ...;
 /*!
  *  @brief Returns a string made by using self as a format string template into which the remaining argument values are substituted.
  *  @param dummyLikeNil Do nothing. Value will be ignored. This is placeholder
@@ -580,7 +578,7 @@ extern int gNSStringGeometricsTypesetterBehavior;
  *  @see [stringWithFormat:][0]
  *	  [0]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/Reference/NSString.html#//apple_ref/occ/clm/NSString/stringWithFormat:
  */
-- (NSString *)format0:(id)dummyLikeNil, ...;
+- (NSS*)format0:(id)dummyLikeNil, ...;
 
 /*! @name Range */
 
@@ -599,7 +597,7 @@ extern int gNSStringGeometricsTypesetterBehavior;
  *  @see [substringWithRange:][0]
  *	  [0]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/Reference/NSString.html#//apple_ref/occ/instm/NSString/substringWithRange:
  */
-- (NSString *)substringFromIndex:(NSUInteger)from length:(NSUInteger)length;
+- (NSS*)substringFromIndex:(NSUInteger)from length:(NSUInteger)length;
 /*!
  *  @brief Returns a new string containing the characters of the receiver from the one at a given index to the other given index.
  *  @param from An index. The value must lie within the bounds of the receiver, or be equal to the length of the receiver.
@@ -608,7 +606,7 @@ extern int gNSStringGeometricsTypesetterBehavior;
  *  @see [substringWithRange:][0]
  *	  [0]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/Reference/NSString.html#//apple_ref/occ/instm/NSString/substringWithRange:
  */
-- (NSString *)substringFromIndex:(NSUInteger)from toIndex:(NSUInteger)to;
+- (NSS*)substringFromIndex:(NSUInteger)from toIndex:(NSUInteger)to;
 
 @end
 
@@ -623,20 +621,20 @@ extern int gNSStringGeometricsTypesetterBehavior;
  *  @brief Creates and returns an NSString object initialized by converting given data into Unicode characters using UTF8 encoding.
  *  @see @ref NSString(Creations)::stringWithData:encoding:
  */
-+ (NSString *)stringWithUTF8Data:(NSData *)data;
++ (NSS*)stringWithUTF8Data:(NSData *)data;
 
 /*!
  *  @brief Returns a representation of the receiver using UTF8 encoding to determine the percent escapes necessary to convert the receiver into a legal URL string.
  *  @see [stringByAddingPercentEscapesUsingEncoding:][0]
  *	  [0]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/Reference/NSString.html#//apple_ref/occ/instm/NSString/stringByAddingPercentEscapesUsingEncoding:
  */
-- (NSString *)stringByAddingPercentEscapesUsingUTF8Encoding;
+- (NSS*)stringByAddingPercentEscapesUsingUTF8Encoding;
 /*!
  *  @brief Returns a new string made by replacing in the receiver all percent escapes with the matching characters as determined by UTF8 encoding.
  *  @see [stringByReplacingPercentEscapesUsingEncoding:][0]
  *	  [0]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/Reference/NSString.html#//apple_ref/occ/instm/NSString/stringByAddingPercentEscapesUsingEncoding:
  */
-- (NSString *)stringByReplacingPercentEscapesUsingUTF8Encoding;
+- (NSS*)stringByReplacingPercentEscapesUsingUTF8Encoding;
 
 /*!
  *  @brief Returns an NSData object containing a representation of the receiver encoded using UTF8 encoding.
@@ -679,20 +677,20 @@ extern int gNSStringGeometricsTypesetterBehavior;
 
 
 @interface NSString (SNRAdditions)
-- (NSString *)stringByRemovingExtraneousWhitespace;
-- (NSString *)stringByFilteringToCharactersInSet:(NSCharacterSet *)set;
-- (NSString *)stringByRemovingNonAlphanumbericCharacters;
-+ (NSString *)stringFromFileSize:(NSUInteger)theSize;
-- (NSString *)MD5;
-- (NSString *)URLEncodedString;
-- (NSString *)URLEncodedStringForCharacters:(NSString *)characters;
-- (NSString *)normalizedString;
-- (NSString *)upperBoundsString;
-+ (NSString *)timeStringForTimeInterval:(NSTimeInterval)interval;
-+ (NSString *)humanReadableStringForTimeInterval:(NSTimeInterval)interval;
-- (NSArray *)spaceSeparatedComponents;
-+ (NSString *)randomUUID;
-+ (NSData *)HMACSHA256EncodedDataWithKey:(NSString *)key data:(NSString *)data;
+- (NSS*)stringByRemovingExtraneousWhitespace;
+- (NSS*)stringByFilteringToCharactersInSet:(NSCharacterSet *)set;
+- (NSS*)stringByRemovingNonAlphanumbericCharacters;
++ (NSS*)stringFromFileSize:(NSUInteger)theSize;
+- (NSS*)MD5;
+- (NSS*)URLEncodedString;
+- (NSS*)URLEncodedStringForCharacters:(NSS*)characters;
+- (NSS*)normalizedString;
+- (NSS*)upperBoundsString;
++ (NSS*)timeStringForTimeInterval:(NSTimeInterval)interval;
++ (NSS*)humanReadableStringForTimeInterval:(NSTimeInterval)interval;
+- (NSA*)spaceSeparatedComponents;
++ (NSS*)randomUUID;
++ (NSData *)HMACSHA256EncodedDataWithKey:(NSS*)key data:(NSS*)data;
 @end
 
 @interface NSAttributedString (SNRAdditions)
@@ -702,12 +700,12 @@ extern int gNSStringGeometricsTypesetterBehavior;
 
 @interface NSString (IngredientsUtilities)
 
-- (BOOL)startsWith:(NSString *)s;
-- (BOOL)containsString:(NSString *)s;
-- (BOOL)caseInsensitiveContainsString:(NSString *)s;
-- (BOOL)caseInsensitiveHasPrefix:(NSString *)s;
-- (BOOL)caseInsensitiveHasSuffix:(NSString *)s;
-- (BOOL)isCaseInsensitiveEqual:(NSString *)s;
+- (BOOL)startsWith:(NSS*)s;
+- (BOOL)containsString:(NSS*)s;
+- (BOOL)caseInsensitiveContainsString:(NSS*)s;
+- (BOOL)caseInsensitiveHasPrefix:(NSS*)s;
+- (BOOL)caseInsensitiveHasSuffix:(NSS*)s;
+- (BOOL)isCaseInsensitiveEqual:(NSS*)s;
 
 @end
 
@@ -731,23 +729,13 @@ extern int gNSStringGeometricsTypesetterBehavior;
  * @param keyCode The key code to make into a string.
  * @returns The string representation of the key code.
  */
-+ (NSString *)stringWithKeyCode:(NSInteger)keyCode;
++ (NSS*)stringWithKeyCode:(NSInteger)keyCode;
 
 /** Return the string representation of a key sequence.
  * @param keySequence An array of NSNumbers representing key codes.
  * @returns The string representation of the key codes.
  */
-+ (NSString *)stringWithKeySequence:(NSArray *)keySequence;
-
-/** Convert a string to an array of key codes.
- * @returns An array of NSNumbers representing key codes.
- */
-- (NSArray *)keyCodes;
-
-+ (NSString *)visualStringWithKeyCode:(NSInteger)keyCode;
-+ (NSString *)visualStringWithKeySequence:(NSArray *)keySequence;
-+ (NSString *)visualStringWithKeyString:(NSString *)keyString;
-- (NSString *)visualKeyString;
++ (NSS*)stringWithKeySequence:(NSA*)keySequence;
 
 /**
  * @returns YES if the string is in uppercase.
@@ -756,6 +744,152 @@ extern int gNSStringGeometricsTypesetterBehavior;
 
 /*** @returns YES if the string is in lowercase */
 - (BOOL)isLowercase;
-
-- (NSString *)titleize;
+- (NSA*)keyCodes;
++ (NSS*)visualStringWithKeySequence:(NSA*)keySequence;
 @end
+
+
+/** This catagory provides some method aliases and extension to existing method set for NSString class. */
+
+/**
+ @enum HFSplitRule
+ String seperate rules.
+ */
+enum {
+	/** Whole string as seperator */
+	HFSplitRuleWhole = 0,
+	/** Any charater in string as seperator */
+	HFSplitRuleAny
+};
+typedef int HFSplitRule;
+
+@interface NSString (HFExtension)
+/** @name Method Aliases */
+
+/** Method alias for method `uppercaseString`.
+ */
+- (NSS*)toUpper;
+
+/** Method alias for method `lowercaseString`.
+ */
+- (NSS*)toLower;
+
+/** Method alias for method `uppercaseString`.
+ */
+- (NSS*)upCase;
+
+/** Method alias for method `lowercaseString`.
+ */
+- (NSS*)downCase;
+
+/** Method alias for method `capitalizedString`.
+ */
+- (NSS*)capitalize;
+
+/** Method alias for method `length`.
+ */
+- (NSUInteger)size;
+
+/** Method alias for method `length`.
+ */
+- (NSUInteger)count;
+
+/** @name Convinent Methods */
+
+/** This method is used to seperate a string into parts by some seperator characters.
+
+ @param separator A string of separators. **ALL** the charactors in the string will be used as a separator.
+ @return An array of NSString objects.
+
+ This method is a convinient method for split:rule: which use HFSplitRuleAny for parameter rule.
+ */
+- (NSA*)split:(NSS*)separator;
+
+/** This method is used to seperate a string into parts by seperator characters or a fixed string as seperator.
+
+ @param separator A string of separators or a separator string, depending on the value passed to parameter rule.
+ @param rule The rule to decide whether the seperator string is used as a whole or independent charators in the string will be used as seperator(s) to split the original string.
+ @return An array of NSString objects.
+
+ - When `HFSplitRuleWhole` is passed, the separetor will be used as the separator as a whole.
+ - When `HFSplitRuleAny` is passed, **ALL** the charactors in the string will be used as a separator.
+ */
+- (NSA*)split:(NSS*)separator rule:(HFSplitRule)rule;
+
+/** Method alias for `lastPathComponent`.
+
+ This is also a convenient method for baseNameWithExtension: when `YES` is passed to parameter `ext`.
+ */
+- (NSS*)baseName;
+
+/** Return the last path component with or without the file extension.
+
+ @param ext A `BOOL` value which decide whether show the file extension or not.
+ */
+- (NSS*)baseNameWithExtension:(BOOL)ext;
+
+/** Return the containing directory for a specific path. */
+- (NSS*)dirName;
+
+/** Return the character at the index of a string.
+
+ If `index` is beyond the range of the string, `nil` will be returned.
+
+ @param index The index inside a string.
+ @return A string containing the characer at the specific `index`, or return `nil`.
+ */
+- (NSS*)charStringAtIndex:(NSUInteger)index;
+
+/** This method is used to found out whether the string only contains blank characers or nothing(a blank string).
+
+ Since `nil` is not a `NSString` instance, this method can not be used to judge whether a string object is `nil`.
+ */
+- (BOOL)isBlank;
+
+/** Get rid of blank characters at the beginning and the end of a string object. */
+- (NSS*)strip;
+
+/** Get rid of blank characters at the beginning of a string object. */
+- (NSS*)lstrip;
+
+/** Get rid of blank characters at the end of a string object. */
+- (NSS*)rstrip;
+
+@end
+
+@interface NSScanner (additions)
+- (unichar)peek;
+- (void)inc;
+- (BOOL)expectCharacter:(unichar)ch;
+- (BOOL)scanCharacter:(unichar *)ch;
+- (BOOL)scanUpToUnescapedCharacterFromSet:(NSCharacterSet *)toCharSet
+			   appendToString:(NSMutableString *)string
+			     stripEscapes:(BOOL)stripEscapes;
+- (BOOL)scanUpToUnescapedCharacterFromSet:(NSCharacterSet *)toCharSet
+			       intoString:(NSString **)string
+			     stripEscapes:(BOOL)stripEscapes;
+- (BOOL)scanUpToUnescapedCharacter:(unichar)toChar
+                        intoString:(NSString **)string
+                      stripEscapes:(BOOL)stripEscapes;
+- (BOOL)scanUpToUnescapedCharacter:(unichar)toChar
+                        intoString:(NSString **)string;
+- (BOOL)scanShellVariableIntoString:(NSString **)intoString;
+- (BOOL)scanString:(NSS*)aString;
+- (BOOL)scanKeyCode:(NSInteger *)intoKeyCode;
+- (void)skipWhitespace;
+@end
+
+/*
+Implements fuzzy matching for strings.
+*/
+@interface NSString (Similiarity)
+
+/*
+ Returns 0.0 <= x <= 1.0.  0.0 == not equal (or error), 1.0 == equal.
+ Uses Search Kit (a.k.a. AIAT, V-Twin) technology.
+ */
+- (float)isSimilarToString:(NSS*)aString;
+
+@end
+
+

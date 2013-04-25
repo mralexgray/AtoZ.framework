@@ -42,7 +42,7 @@
 @class 	AtoZGridView;
 @interface AtoZGridViewAuto : NSView <AtoZGridViewDataSource>//, AtoZGridViewDelegate>
 
-@property (NATOM, STRNG) NSSV 	*scrollView;
+@property (NATOM, STRNG) NSSCRLV 	*scrollView;
 @property (NATOM, STRNG) AZGV 	*grid;
 @property (NATOM, STRNG) NSMA	*items;
 

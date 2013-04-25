@@ -39,7 +39,7 @@ typedef void (^animationCompletionBlock)(void);
 @property (ASS,   NATOM) CGF						 offset;
 @property (STRNG, NATOM) NSBP 					*scrollPath;
 
-+ (id<CAAction>)defaultActionForKey:(NSS*)event;
+//+ (id<CAAction>)defaultActionForKey:(NSS*)event;
 
 @end
 

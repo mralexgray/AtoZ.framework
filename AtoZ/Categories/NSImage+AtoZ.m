@@ -238,6 +238,7 @@ NSData* PNGRepresentation(NSIMG *image) {
 	newI = block(newI);
 	return newI;
 }
+
 - (void) 	  lockFocusBlock:								  (void  (^)(NSIMG*))block	{
 	[NSGraphicsContext state:^{
 		[self lockFocus];
@@ -424,7 +425,7 @@ static BOOL monosMade = NO;
 + (NSIMG*) randomMonoIcon				{
 	NSUI monoCt = self.monoIcons.count;//monoPDF.pageCount -1;
  	NSUI rand = RAND_INT_VAL(0, monoCt);
-	NSLog(@"randomMono:[%i / %i]", rand, monoCt );
+	NSLog(@"randomMono:[%lu / %lu]", rand, monoCt );
 //	return monosMade ? self.monoIcons[rand]
 	return [self monoIconNamed:@(rand).stringValue];
 //	 imageFromPDF:self.monoPDF page:rand size:AZSizeFromDimension(256) named:AZString(rand)];
@@ -838,7 +839,7 @@ static BOOL monosMade = NO;
 	else return self;
 }
 
-+ (NSIMG*) imageWithFileName:(NSString *)fileName inBundle:(NSBundle *)aBundle {
++ (NSIMG*) imageWithFileName:(NSS*)fileName inBundle:(NSBundle *)aBundle {
 	NSIMG*img = nil;
 	if (aBundle != nil) {
 		NSString *imagePath;
@@ -849,18 +850,18 @@ static BOOL monosMade = NO;
 	return img;
 }
 
-+ (NSIMG*) imageWithFileName:(NSString *) fileName inBundleForClass:(Class) aClass {
++ (NSIMG*) imageWithFileName:(NSS*) fileName inBundleForClass:(Class) aClass {
 	return [self imageWithFileName: fileName inBundle: [NSBundle bundleForClass: aClass]];
 }
 
-+ (NSIMG*)az_imageNamed:(NSString *)name {
++ (NSIMG*)az_imageNamed:(NSS*)name {
 	NSIMG *i =  [NSIMG imageNamed:name]
 			 ?: [[NSIMG alloc]initWithContentsOfFile: [AZFWORKBUNDLE pathForImageResource:name]];
 	i.name 	= i.name ?: name;
 	return i;
 }
 
-//+ (NSIMG*) az_imageNamed:(NSString *) fileName {
+//+ (NSIMG*) az_imageNamed:(NSS*) fileName {
 //	NSBundle *aBundle = [NSBundle bundleForClass: [self class]];
 //	return [self imageWithFileName: fileName inBundle: aBundle];
 //}
@@ -1029,7 +1030,8 @@ static BOOL monosMade = NO;
 - (void) openInPreview;
 {		NSS* p = [AtoZ tempFilePathWithExtension:@"png"];
 		[self saveAs:p];
-		[NSTask launchedTaskWithLaunchPath:@"/usr/bin/open" arguments:@[@"-a", @"Preview", p]];
+		if ([AZFILEMANAGER fileExistsAtPath:p])
+			[NSTask launchedTaskWithLaunchPath:@"/usr/bin/open" arguments:@[@"-a", @"Preview", p]];
 
 //		[AZWORKSPACE openFile:p withApplication:@"Preview"];
 }
@@ -1161,8 +1163,9 @@ static BOOL monosMade = NO;
 		[compositingFilter setValue:[monochromeFilter valueForKey:@"outputImage"] forKey:@"inputBackgroundImage"];
 		
 		CIImage *outputImage = [compositingFilter valueForKey:@"outputImage"];
-		
-		[outputImage drawAtPoint:NSZeroPoint 	   fromRect:AZRectFromSize(self.size)
+
+		if (outputImage)
+			[outputImage drawAtPoint:NSZeroPoint 	   fromRect:AZRectFromSize(self.size)
 							operation:NSCompositeCopy	fraction:1.0];
 
 	}];//		[tintedImage unlockFocus];
@@ -1736,7 +1739,7 @@ rightDone:
 }
 
 
-+(NSIMG*) fromSVG:(NSString *)documentName withAlpha:(BOOL)hasAlpha
++(NSIMG*) fromSVG:(NSS*)documentName withAlpha:(BOOL)hasAlpha
 {
 
 	SVGDocument *document = [SVGDocument documentNamed:documentName];
@@ -2019,10 +2022,10 @@ CGContextRef MyCreateBitmapContext (int pixelsWide, int pixelsHigh)
 
 #pragma mark Quicklook Preview
 
-+ (NSIMG*)imageWithPreviewOfFileAtPath:(NSString *)path ofSize:(NSSZ)size asIcon:(BOOL)icon {
++ (NSIMG*)imageWithPreviewOfFileAtPath:(NSS*)path ofSize:(NSSZ)size asIcon:(BOOL)icon {
 	NSURL *fileURL = [NSURL fileURLWithPath:path];
 	if (!path || !fileURL) return nil;
-	NSDictionary *dict = @{(NSString *)kQLThumbnailOptionIconModeKey: @(icon)};
+	NSDictionary *dict = @{(NSS*)kQLThumbnailOptionIconModeKey: @(icon)};
 	CGImageRef ref = QLThumbnailImageCreate(kCFAllocatorDefault, 
 											(__bridge CFURLRef)fileURL, 
 											CGSizeMake(size.width, size.height),
@@ -2100,7 +2103,7 @@ CGContextRef MyCreateBitmapContext (int pixelsWide, int pixelsHigh)
 
 #pragma mark Save Image
 
-- (BOOL)saveImage:(NSString *)path fileName:(NSString *)name fileType:(NSBitmapImageFileType)type
+- (BOOL)saveImage:(NSS*)path fileName:(NSS*)name fileType:(NSBitmapImageFileType)type
 {	
 	// deal with the file type and assign the filename suffix by the file type
 	NSString *suffix;
@@ -2146,7 +2149,7 @@ CGContextRef MyCreateBitmapContext (int pixelsWide, int pixelsHigh)
 	
 	return [data writeToFile:destination atomically:NO];
 }
-- (BOOL)saveAs:(NSString *)path{	
+- (BOOL)saveAs:(NSS*)path{	
 	NSBitmapImageRep *bmpImageRep = [[NSBitmapImageRep alloc] initWithData:[self TIFFRepresentation]];
 	NSData *data = [bmpImageRep representationUsingType:NSPNGFileType properties:nil];
 	return [data writeToFile:path atomically:YES];
@@ -2879,6 +2882,25 @@ CGImageRef CreateCGImageFromData(NSData* data)
 	}
 
 	return thumbnailImage;
+}
+
+@end
+
+
+@implementation  NSGraphicsContext (AtoZ)
+
++ (void) addNoiseToContext {
+	static CIImage *noisePattern = nil;
+	[self state:^{
+		if (noisePattern == nil) {
+			CIFilter *randomGenerator = [CIFilter filterWithName:@"CIColorMonochrome"];
+			[randomGenerator setValue:[[CIFilter filterWithName:@"CIRandomGenerator"] valueForKey:@"outputImage"]
+														 forKey:@"inputImage"];
+			[randomGenerator setDefaults];
+			noisePattern = [randomGenerator valueForKey:@"outputImage"];
+		}
+		[noisePattern drawAtPoint:NSZeroPoint fromRect:NSZeroRect operation:NSCompositePlusLighter fraction:.5];
+	}];
 }
 
 @end

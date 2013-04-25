@@ -231,8 +231,8 @@
 // standard error (the output on standard out will still be returned as a
 // string). The error code will be kNSTaskProcessOutputError in this case.
 //
-+ (NSString *)stringByLaunchingPath:(NSString *)processPath
-	withArguments:(NSArray *)arguments
++ (NSS*)stringByLaunchingPath:(NSS*)processPath
+	withArguments:(NSA*)arguments
 	error:(NSError **)error
 {
 	NSTask *task = [[[NSTask alloc] init] autorelease];
@@ -320,8 +320,8 @@
 // object will have its code set to the OSErr that it returns an nil will be
 // returned from the method.
 //
-+ (NSString *)stringByLaunchingPath:(NSString *)processPath
-	withArguments:(NSArray *)arguments
++ (NSS*)stringByLaunchingPath:(NSS*)processPath
+	withArguments:(NSA*)arguments
 	authorization:(SFAuthorization *)authorization
 	error:(NSError **)error
 {
@@ -440,7 +440,7 @@
 }
 
 // Return a task (not yet launched) and optionally allocate stdout/stdin/stderr streams for communication with it
-+ (NSTask *) taskWithArguments:(NSArray *)args
++ (NSTask *) taskWithArguments:(NSA*)args
 								 input:(NSFileHandle **)outWriteHandle
 								output:(NSFileHandle **)outReadHandle
 								 error:(NSFileHandle **)outErrorHandle
@@ -481,7 +481,7 @@
 }
 
 // Atomically execute the task and return output as data
-+ (int) executeTaskWithArguments:(NSArray *)args
++ (int) executeTaskWithArguments:(NSA*)args
 									input:(id)inputDataOrString
 							 outputData:(NSData **)outputData
 							errorString:(NSString **)errorString;
@@ -532,7 +532,7 @@
 	return [task terminationStatus];
 }
 
-+ (int) executeTaskWithArguments:(NSArray *)args
++ (int) executeTaskWithArguments:(NSA*)args
 									input:(id)inputDataOrString
 						  outputString:(NSString **)outputString
 							errorString:(NSString **)errorString;

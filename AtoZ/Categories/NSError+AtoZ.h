@@ -10,12 +10,12 @@
 
 @interface NSError (AtoZ)
 //
-//- (NSError *)underlyingErrorWithDomain:(NSString *)domain;
-//- (NSError *)underlyingErrorWithDomain:(NSString *)domain code:(NSInteger)code;
-//- (BOOL)hasUnderlyingErrorDomain:(NSString *)domain code:(NSInteger)code;
+//- (NSError *)underlyingErrorWithDomain:(NSS*)domain;
+//- (NSError *)underlyingErrorWithDomain:(NSS*)domain code:(NSInteger)code;
+//- (BOOL)hasUnderlyingErrorDomain:(NSS*)domain code:(NSInteger)code;
 //
 //- (BOOL)causedByUserCancelling;
 //
-//- initWithPropertyList:(NSDictionary *)propertyList;
-- (NSDictionary *)toPropertyList;
+//- initWithPropertyList:(NSD*)propertyList;
+- (NSD*)toPropertyList;
 @end

@@ -7,6 +7,7 @@
 
 @interface NSBezierPath (AtoZ)
 
++ (NSBP*) diagonalLinesInRect:(NSR)rect phase:(CGF)phase; // background progress bar
 - (NSR)	 nonEmptyBounds;
 - (NSBP*) scaledToSize:  (NSSZ)size;
 - (NSBP*) scaledToFrame: (NSR)rect;

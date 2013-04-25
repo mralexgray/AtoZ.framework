@@ -9,6 +9,30 @@
 #import <Foundation/Foundation.h>
 
 @interface NSNumber (AtoZ)
+
++ (NSN*)integerWithHexString:(NSS*)hexString;
+
+/* CFNumberType {
+   kCFNumberSInt8Type = 1,
+   kCFNumberSInt16Type = 2,
+   kCFNumberSInt32Type = 3,
+   kCFNumberSInt64Type = 4,
+   kCFNumberFloat32Type = 5,
+   kCFNumberFloat64Type = 6,
+   kCFNumberCharType = 7,
+   kCFNumberShortType = 8,
+   kCFNumberIntType = 9,
+   kCFNumberLongType = 10,
+   kCFNumberLongLongType = 11,
+   kCFNumberFloatType = 12,
+   kCFNumberDoubleType = 13,
+   kCFNumberCFIndexType = 14,
+   kCFNumberNSIntegerType = 15,
+   kCFNumberCGFloatType = 16,
+   kCFNumberMaxType = 16	};
+*/
+- (CFNumberType) type;
+
 - (NSString*) prettyBytes;
 + (NSNumber*) zero;
 + (NSNumber*) one;
@@ -32,7 +56,7 @@
  *  @brief Returns a string that describes the value of the number. This keeps type information.
  *  @return A string that describes the value of the number.
  */
-- (NSString *)typeFormedDescription;
+- (NSS*)typeFormedDescription;
 
 @end
 
@@ -46,6 +70,6 @@
  *  @brief Returns a string that describes the value of the number. This keeps type information.
  *  @return A string that describes the value of the number.
  */
-- (NSString *)typeFormedDescription;
+- (NSS*)typeFormedDescription;
 
 @end

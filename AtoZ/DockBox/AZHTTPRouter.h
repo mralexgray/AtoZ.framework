@@ -20,6 +20,6 @@ typedef RES (^GetReturnsString)(REQ *req, NSD* shortcuts);
 
 @property (STRNG, NATOM) 	NSS	*uri,*syntax, *string;
 
-+ (instancetype) initWithURI:(NSS*)uri syntax:(NSS*)syntax;
+//+ (instancetype) initWithURI:(NSS*)uri syntax:(NSS*)syntax;
 
 @end

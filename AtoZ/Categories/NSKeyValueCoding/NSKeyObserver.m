@@ -3,7 +3,7 @@
 
 @implementation NSKeyObserver
 
--initWithObject:object key:(NSString *)key keyPathObserver:(NSKeyPathObserver *)keyPathObserver restOfPath:(NSString *)restOfPath {
+-initWithObject:object key:(NSS*)key keyPathObserver:(NSKeyPathObserver *)keyPathObserver restOfPath:(NSS*)restOfPath {
    _object=object;
    _key=[key copy];
 	_keyPathObserver=keyPathObserver;// retain];
@@ -33,7 +33,7 @@
    return _object;
 }
 
--(NSString *)key {
+-(NSS*)key {
    return _key;
 }
 
@@ -41,7 +41,7 @@
    return _keyPathObserver;
 }
 
--(NSString *)restOfPath {
+-(NSS*)restOfPath {
    return _branchPath;
 }
 
@@ -55,18 +55,18 @@
    _branchObserver=keyObserver;
 }
 
--(NSArray *)dependantKeyObservers {
+-(NSA*)dependantKeyObservers {
    return _dependantKeyObservers;
 }
 
--(void)setDependantKeyObservers:(NSArray *)keyObservers {
+-(void)setDependantKeyObservers:(NSA*)keyObservers {
 	keyObservers=keyObservers;// retain];
    
    [_dependantKeyObservers release];
    _dependantKeyObservers=keyObservers;
 }
 
--(NSString *)description {
+-(NSS*)description {
    return [NSString stringWithFormat:@"<%@ %@ _object: %@ _key: %@ _branchPath: %@>",isa,self,_object,_key,_branchPath];
 }
 

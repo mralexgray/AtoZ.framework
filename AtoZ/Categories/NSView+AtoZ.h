@@ -213,20 +213,20 @@ typedef void (^NSAnimationContextRunAnimationBlock)( dispatch_block_t group, dis
 + (void) showRelativeToRect:(NSRect)rect
 					 ofView:(NSView *)view
 			  preferredEdge:(NSRectEdge)edge
-					 string:(NSString *)string
+					 string:(NSS*)string
 				   maxWidth:(float)width;
 
 + (void) showRelativeToRect:(NSRect)rect
 					 ofView:(NSView *)view
 			  preferredEdge:(NSRectEdge)edge
-					 string:(NSString *)string
+					 string:(NSS*)string
 			backgroundColor:(NSColor *)backgroundColor
 				   maxWidth:(float)width;
 
 + (void) showRelativeToRect:(NSRect)rect
 					 ofView:(NSView *)view
 			  preferredEdge:(NSRectEdge)edge
-					 string:(NSString *)string
+					 string:(NSS*)string
 			backgroundColor:(NSColor *)backgroundColor
 			foregroundColor:(NSColor *)foregroundColor
 					   font:(NSFont *)font

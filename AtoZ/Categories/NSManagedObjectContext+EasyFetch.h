@@ -3,7 +3,7 @@
 
 @interface NSManagedObjectContext (EasyFetch)
 
-- (NSSet *)fetchObjectsForEntityName:(NSString *)newEntityName
+- (NSSet *)fetchObjectsForEntityName:(NSS*)newEntityName
 					   withPredicate:(id)stringOrPredicate, ...;
 
 - (NSManagedObject*)copyObject:(NSManagedObject*)object

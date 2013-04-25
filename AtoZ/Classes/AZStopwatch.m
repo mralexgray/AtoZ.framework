@@ -21,7 +21,7 @@
 + (void) print:	 (NSS*)name 								{
 
 	AZStopwatchItem *item = [AZStopwatch.sharedInstance get:name];
-	if (item) item.stopped ?	COLORLOG(GRAY5,@"%@", item) : NSLog(@"%@ (running)", item);
+	if (item) item.stopped ?	NSLog(@"%@", item) : NSLog(@"%@ (running)", item);
 	else	NSLog(@"No stopwatch named [%@] found", name);
 }
 

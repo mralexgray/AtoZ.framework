@@ -28,7 +28,7 @@
 - (id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(NSI)rowIndex {
     id obj = self[rowIndex]; if (obj == nil) return nil;
     if (![obj ISADICT]) return obj;
-    return ((NSDictionary *)obj)[[aTableColumn identifier]];
+    return ((NSD*)obj)[[aTableColumn identifier]];
 }
 
 - (NSI)numberOfRowsInTableView:(NSTableView *)aTableView {
@@ -41,8 +41,37 @@
 
 @implementation NSArray (AtoZ)
 
+-(NSS*)swizzleDescription {
+//	[NSPropertyListWriter_vintage stringWithPropertyList:self];
+//	NSS *normal =
+	[self swizzleDescription];
+//	NSLog(@"normal: %@", normal);
+	return [[[NSS stringWithData:[AZXMLWriter dataWithPropertyList:self] encoding:NSUTF8StringEncoding] stringByRemovingPrefix:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n<plist version=\"1.0\">"]stringByRemovingSuffix:@"</plist>"];
+
+}
+
+- (NSObject*) swizzledObjectAtIndexedSubscript: (NSUInteger) i {
+
+	id try = nil;
+	if (i < self.count) {
+			try =  (id)[self swizzledObjectAtIndexedSubscript:i];
+		if (!try) {
+				try = [[self normal:i]copy];
+				try ? NSLog(@"found indexed subscript for arrray starting with: %@ from NORMALIZED subscript!", self[0]) :
+								NSLog(@"Array of length :%ld, with first item: %@ could not find index at subscript: %ld", self.count, self.first, i);
+		}
+	} else {	__block NSBag *b = NSBag.new; [self do:^(id obj) { [b add:NSStringFromClass([obj class])]; }];
+				NSS *types = [[b objects] reduce:^id(id memo, id obj) {
+					return [memo withString:$(@"%ld instances of class: %@\n", [b occurrencesOf:obj], obj)]; } withInitialMemo:@"In this array there are..\n"];
+				NSLog(@"%@ %s indexed subscript out of bounds.  last good valu was :%@.... my length is %ld.  I start with %@\n", types,__PRETTY_FUNCTION__, [self.last propertiesPlease], self.count, self[0] ); }
+	return try ?: @"";// AZNULL;
+}
++ (void) load  {
+
+//	[$ swizzleMethod:@selector(description) with:@selector(swizzleDescription) in:self.class];
+	[$ swizzleMethod:@selector(objectAtIndexedSubscript:) with:@selector(swizzledObjectAtIndexedSubscript:) in:self.class];
+
 /*
- + (void) load  {
         Method original, swizzle;
 
         // Get the "- (id)initWithFrame:" method.
@@ -64,8 +93,9 @@
    //	if (!anObj) anObj = [self normal:index];
         if (anObj)	NSLog(@"swizzle objAtSubscript.. found %@", anObj);
         return anObj ?: nil;
-   }
- */
+*/
+}
+
 
 - (int)createArgv:(char ***)argv {
     char **av;
@@ -137,7 +167,7 @@
     return [[NSCountedSet alloc] initWithArray:self];
 }
 
-+ (NSArray *)arrayWithRange:(NSRange)range {
++ (NSA*)arrayWithRange:(NSRange)range {
     NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:range.length];
     NSI i;
     for (i = range.location; i < (range.location + range.length); i++) {
@@ -153,16 +183,23 @@
 @dynamic trimmedStrings;
 
 - (NSA *)withMinItems:(NSUI)items usingFiller:(id)fill {
-    if (self.count >= items) return self;
+
+
+	 if (self.count >= items) return self;
     NSMA *upgrade = [NSMA arrayWithArray:self];
 
     for (int i = self.count; i < items; i++) {
-        if (fill == self) [upgrade addObject:[[self normal:i]copy]];
-        else [upgrade addObject:[fill copy]];
+
+		  	id filler = fill == self ? [[self normal:i]copy] : [fill copy];
+			if (!filler) return;
+			else [upgrade addObject:filler];
     }
 //    NSLog(@"grew array from %ld to %ld", self.count, upgrade.count);
     return upgrade;
 }
+
+- (NSA *)withMin:(NSUI)min max:(NSUI)max{  return [[self withMinItems:min ] withMaxItems:max]; }
+
 
 - (NSA *)withMinItems:(NSUI)items;
 {
@@ -248,11 +285,47 @@
 
 - (NSUInteger)enumFromString:(NSS *)aString;  {       return [self enumFromString:aString default:0]; }
 
+- (NSA*) allKeysInChildDictionaries {
+
+	return [self cw_mapArray:^id(id object) {
+		return [object respondsToSelector:@selector(allKeys)] || [object ISKINDA:NSD.class] ? [object allKeys][0] : nil;
+	}];
+
+}
+- (NSA*) allvaluesInChildDictionaries {
+
+	return [self cw_mapArray:^id(id object) {
+		return [object respondsToSelector:@selector(allValues)] || [object ISKINDA:NSD.class] ? [object allValues][0] : nil;
+	}];
+}
+
+
 - (NSA *)colorValues {
     return [self arrayUsingBlock:^id (id obj) {
         return [obj colorValue];
     }];
 //	[self arrayPerformingSelector:@selector(colorValue)];
+}
+
+// array evaluating a selector
+- (NSA*)arrayPerformingSelector:(SEL)selector {
+	NSMutableArray *re = [NSMutableArray arrayWithCapacity:self.count];
+	for (id o in self) {
+		id v = [o performSelectorWithoutWarnings:selector];
+		if (v) {
+			[re addObject:v];
+		}
+	}
+	return re;
+}
+
+- (NSA*)arrayPerformingSelector:(SEL)selector withObject:(id)object {
+	NSMutableArray *re = [NSMutableArray arrayWithCapacity:self.count];
+	for (id o in self) {
+		id v = [o performSelectorWithoutWarnings:selector withObject:object];
+		if (v) {			[re addObject:v];		}
+	}
+	return re;
 }
 
 - (NSA *)arrayUsingIndexedBlock:(id (^)(id obj, NSUI idx))block {
@@ -969,21 +1042,18 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 }
 
 @end
-
+//  Found through:
+//      http://stackoverflow.com/questions/4692161/non-retaining-array-for-delegates
+//  Created by Tod Cunningham on 8/31/12.  www.fivelakesstudio.com
 @implementation NSMutableArray (WeakReferences)
-
-+ (id)mutableArrayUsingWeakReferences {
-    return [self mutableArrayUsingWeakReferencesWithCapacity:0];
++ (id)mutableArrayUsingWeakReferences	{	return [self mutableArrayUsingWeakReferencesWithCapacity:0];	}
++ (id)mutableArrayUsingWeakReferencesWithCapacity:(NSUInteger)capacity	{
+	// The two NULLs are for the CFArrayRetainCallBack and CFArrayReleaseCallBack methods.  Since they are
+	// NULL no retain or releases sill be done.
+	CFArrayCallBacks callbacks = {0, NULL, NULL, CFCopyDescription, CFEqual};
+	// We create a weak reference array
+	return (__bridge id)(CFArrayCreateMutable(0, capacity, &callbacks));
 }
-
-+ (id)mutableArrayUsingWeakReferencesWithCapacity:(NSUI)capacity {
-    // The two NULLs are for the CFArrayRetainCallBack and CFArrayReleaseCallBack methods.  Since they are
-    // NULL no retain or releases sill be done.
-    CFArrayCallBacks callbacks = { 0, NULL, NULL, CFCopyDescription, CFEqual };
-    // We create a weak reference array
-    return (__bridge id)(CFArrayCreateMutable(0, capacity, &callbacks));
-}
-
 @end
 
 @implementation NSMutableArray (AG)
@@ -1209,7 +1279,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 //
 //  REVISIONS:
 //		2004-05-18  witness documented.
-+ (NSArray *)arrayWithColor:(NSColor *)col          {
++ (NSA*)arrayWithColor:(NSColor *)col          {
     CGFloat fRed = 0, fGreen = 0, fBlue = 0, fAlpha = 1.0;
 
     col = [col colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
@@ -1254,7 +1324,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 
 #pragma mark StringExtensions
 @implementation NSArray (StringExtensions)
-- (NSArray *)arrayBySortingStrings {
+- (NSA*)arrayBySortingStrings {
     NSMutableArray *sort = [NSMutableArray arrayWithArray:self];
     for (id eachitem in self) {
         if (![eachitem isKindOfClass:[NSString class]]) [sort removeObject:eachitem];
@@ -1262,7 +1332,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
     return [sort sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
 }
 
-- (NSString *)stringValue {
+- (NSS*)stringValue {
     return [self componentsJoinedByString:@" "];
 }
 
@@ -1274,7 +1344,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
     return [self objectAtIndex:0];
 }
 
-- (NSArray *)uniqueMembers {
+- (NSA*)uniqueMembers {
     NSMutableArray *copy = [self mutableCopy];
     for (id object in self) {
         [copy removeObjectIdenticalTo:object];
@@ -1283,12 +1353,12 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
     return [copy autorelease];
 }
 
-- (NSArray *)unionWithArray:(NSArray *)anArray {
+- (NSA*)unionWithArray:(NSA*)anArray {
     if (!anArray) return self;
     return [[self arrayByAddingObjectsFromArray:anArray] uniqueMembers];
 }
 
-- (NSArray *)intersectionWithArray:(NSArray *)anArray {
+- (NSA*)intersectionWithArray:(NSA*)anArray {
     NSMutableArray *copy = [[self mutableCopy] autorelease];
     for (id object in self) {
         if (![anArray containsObject:object]) [copy removeObjectIdenticalTo:object];
@@ -1297,7 +1367,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 }
 
 // A la LISP, will return an array populated with values
-- (NSArray *)map:(SEL)selector withObject:(id)object1 withObject:(id)object2 {
+- (NSA*)map:(SEL)selector withObject:(id)object1 withObject:(id)object2 {
     NSMutableArray *results = [NSMutableArray array];
     for (id eachitem in self) {
         if (![eachitem respondsToSelector:selector]) {
@@ -1312,16 +1382,16 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
     return results;
 }
 
-- (NSArray *)map:(SEL)selector withObject:(id)object1 {
+- (NSA*)map:(SEL)selector withObject:(id)object1 {
     return [self map:selector withObject:object1 withObject:nil];
 }
 
-- (NSArray *)map:(SEL)selector {
+- (NSA*)map:(SEL)selector {
     return [self map:selector withObject:nil];
 }
 
 // NOTE: Selector must return BOOL
-- (NSArray *)collect:(SEL)selector withObject:(id)object1 withObject:(id)object2 {
+- (NSA*)collect:(SEL)selector withObject:(id)object1 withObject:(id)object2 {
     NSMutableArray *riz = [NSMutableArray array];
     for (id eachitem in self) {
         BOOL yorn;
@@ -1334,16 +1404,16 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
     return riz;
 }
 
-- (NSArray *)collect:(SEL)selector withObject:(id)object1 {
+- (NSA*)collect:(SEL)selector withObject:(id)object1 {
     return [self collect:selector withObject:object1 withObject:nil];
 }
 
-- (NSArray *)collect:(SEL)selector {
+- (NSA*)collect:(SEL)selector {
     return [self collect:selector withObject:nil withObject:nil];
 }
 
 // NOTE: Selector must return BOOL
-- (NSArray *)reject:(SEL)selector withObject:(id)object1 withObject:(id)object2 {
+- (NSA*)reject:(SEL)selector withObject:(id)object1 withObject:(id)object2 {
     NSMutableArray *riz = [NSMutableArray array];
     for (id eachitem in self) {
         BOOL yorn;
@@ -1356,11 +1426,11 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
     return riz;
 }
 
-- (NSArray *)reject:(SEL)selector withObject:(id)object1 {
+- (NSA*)reject:(SEL)selector withObject:(id)object1 {
     return [self reject:selector withObject:object1 withObject:nil];
 }
 
-- (NSArray *)reject:(SEL)selector {
+- (NSA*)reject:(SEL)selector {
     return [self reject:selector withObject:nil withObject:nil];
 }
 
@@ -1446,7 +1516,17 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 
 @implementation NSArray (FilterByProperty)
 
-- (NSArray*) filterByProperty:(NSString *) p
+
+- (NSA*) subArrayWithMembersOfKind:(Class)class {
+	return [self cw_mapArray:^id(id object) {
+		return  [object ISKINDA:class] ? object : nil;
+	}];
+}
+- (NSUI) lengthOfLongestMemberString {
+
+	return [[[self subArrayWithMembersOfKind:NSS.class] sortedWithKey:@"length" ascending:NO][0]length];
+}
+- (NSArray*) filterByProperty:(NSS*) p
 {
     NSMutableArray *finalArray = [NSMutableArray array];
     NSMutableSet *lookup = [[NSMutableSet alloc]init];

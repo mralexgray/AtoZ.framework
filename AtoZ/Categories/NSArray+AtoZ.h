@@ -21,7 +21,7 @@
 
 - (int) createArgv:(char***)argv;
 
-+ (NSArray *) from:(NSI)from to:(NSI)to;
++ (NSA*) from:(NSI)from to:(NSI)to;
 
 - (id) nextObject;
 
@@ -41,7 +41,7 @@
 - (NSA*) withMinRandomItems:(NSUI) items;
 - (NSA*) withMaxRandomItems:(NSUI) items;
 
-
+- (NSA *)withMin:(NSUI)min max:(NSUI)max;
 - (NSA*) withMinItems:(NSUI) items;
 - (NSA*) withMinItems:(NSUI) items usingFiller:(id) fill;
 
@@ -62,24 +62,26 @@
 
 @property (RONLY) NSArray *colorValues;
 
-+ (NSMutableArray *)mutableArrayWithArrays:(NSArray *)arrays;
-+ (NSArray*)arrayWithArrays:(NSArray *)arrays;
-- (NSArray *)arrayWithEach;
++ (NSMutableArray *)mutableArrayWithArrays:(NSA*)arrays;
++ (NSArray*)arrayWithArrays:(NSA*)arrays;
+- (NSA*)arrayWithEach;
 - (NSS*) stringValueInColumnsCharWide:(NSUI)characters;
 
 
+- (NSA*) allKeysInChildDictionaries;
+- (NSA*) allvaluesInChildDictionaries;
 
 #define vsForKeys dictionaryWithValuesForKeys
 
-- (NSArray *)arrayUsingIndexedBlock:(id (^)(id obj, NSUInteger idx))block;
+- (NSA*)arrayUsingIndexedBlock:(id (^)(id obj, NSUInteger idx))block;
 
-- (NSArray *)sortedWithKey:(NSString *)theKey ascending:(BOOL)ascending;
-//- (NSArray *)sortedArrayUsingArray:(NSArray *)otherArray;
+- (NSA*)sortedWithKey:(NSS*)theKey ascending:(BOOL)ascending;
+//- (NSA*)sortedArrayUsingArray:(NSA*)otherArray;
 /*** Returns an NSArray containing a number of NSNumber elements that have been initialized with NSInteger values. As this method takes a variadic argument list you have to terminate the input with a NSNotFound entry This is done automatically via the $ints(...) macro */
-+ (NSArray *)arrayWithInts:(NSInteger)i,...;
++ (NSA*)arrayWithInts:(NSInteger)i,...;
 
 /*** Returns an NSArray containing a number of NSNumber elements that have been initialized with double values. As this method takes a variadic argument list you have to terminate the input with a FLOAT_MAX entry This is done automatically via the $doubles(...) macro */
-+ (NSArray *)arrayWithDoubles:(double)d,...;
++ (NSA*)arrayWithDoubles:(double)d,...;
 
 /*** Returns an NSSet containing the same elements as the array (unique of course, as the set does not keep doubled entries) */
 @property (RONLY) NSSet *set;
@@ -89,7 +91,7 @@
 @property (RONLY) NSArray *reversed;
 
 /*** Returns an array of the same size as the original one with the result of calling the keyPath on each object */
-- (NSArray *)arrayWithKey:(NSString *)keyPath;
+- (NSA*)arrayWithKey:(NSS*)keyPath;
 
 
 /**	Calls performSelector on all objects that can receive the selector in the array.
@@ -119,39 +121,40 @@
 - (BOOL)containsObject:(id)object withSelector:(SEL)selector;
 
 
-/*** Returns an array of the same size as the original one with the result of performing the selector on each object */
-//- (NSArray *)arrayPerformingSelector:(SEL)selector;
 
 /*** Returns an array of the same size as the original one with the result of performing the selector on each object */
-//- (NSArray *)arrayPerformingSelector:(SEL)selector withObject:(id)object;
+- (NSA*)arrayPerformingSelector:(SEL)selector;
+
+/*** Returns an array of the same size as the original one with the result of performing the selector on each object */
+- (NSA*)arrayPerformingSelector:(SEL)selector withObject:(id)object;
 
 /*** Returns an array of the same size as the original one with the results of performing the block on each object */
-- (NSArray *)arrayUsingBlock:(id (^)(id obj))block;
+- (NSA*)arrayUsingBlock:(id (^)(id obj))block;
 
 /*** Shortcut for the arrayUsingBlock method map is better known in more functional oriented languages */
-- (NSArray *)map:(id (^)(id obj))block;
+- (NSA*)map:(id (^)(id obj))block;
 
-- (NSArray *)nmap:(id (^)(id obj, NSUInteger index))block;
+- (NSA*)nmap:(id (^)(id obj, NSUInteger index))block;
 
 /*** performs consecutive calls of block for every pair of elements in this array */
 - (id)reduce:(id (^)(id a, id b))block;
 
 /*** Returns a subArray that does not contain the argument object */
-- (NSArray *)arrayWithoutObject:(id)object;
+- (NSA*)arrayWithoutObject:(id)object;
 
 /*** Returns a subArray that does not contain any of the passed arguments */
-- (NSArray *)arrayWithoutObjects:(id)object,...;
+- (NSA*)arrayWithoutObjects:(id)object,...;
 
 /*** Returns a subArray that does not contain any value that the passed NSArray contains */
-- (NSArray *)arrayWithoutArray:(NSArray *)value;
+- (NSA*)arrayWithoutArray:(NSA*)value;
 
 /*** Returns a subArray that does not contain any value that the passed NSSet contains */
-- (NSArray *)arrayWithoutSet:(NSSet *)values;
+- (NSA*)arrayWithoutSet:(NSSet *)values;
 
 /*** Returns a subArray in wich all object returned true for the block Reduced version of filteredArrayUsingBlock, without the dictionary */
-- (NSArray *)filter:(BOOL (^)(id object))block;
+- (NSA*)filter:(BOOL (^)(id object))block;
 
-- (NSArray *)subIndex:(NSUI)subIndex filter:   (BOOL (^)(id object))block;
+- (NSA*)subIndex:(NSUI)subIndex filter:   (BOOL (^)(id object))block;
 - (id)		 subIndex:(NSUI)subIndex filterOne:(BOOL (^)(id object))block;
 
 //performs block on subindex of array and returns the result of the block
@@ -166,7 +169,7 @@
 - (BOOL)allKindOfClass:(Class)aClass;
 
 /*** Returns a subArray with all members of the original array that pass the isKindOfClass test with the given Class */
-- (NSArray *)elementsOfClass:(Class)aClass;
+- (NSA*)elementsOfClass:(Class)aClass;
 
 /*** Shortcut for elementsOfClass:NSNumber.class */
 @property (RONLY) NSArray *numbers;
@@ -176,15 +179,15 @@
 /*** Returns a subArray with all NSString members and calls trim on each before returning */
 @property (RONLY) NSArray *trimmedStrings;
 
-- (NSArray *)subarrayFromIndex:(NSInteger)start;
-- (NSArray *)subarrayToIndex:(NSInteger)end;
-- (NSArray *)subarrayFromIndex:(NSInteger)start toIndex:(NSInteger)end;
+- (NSA*)subarrayFromIndex:(NSInteger)start;
+- (NSA*)subarrayToIndex:(NSInteger)end;
+- (NSA*)subarrayFromIndex:(NSInteger)start toIndex:(NSInteger)end;
 
 /*** Returns a random element from this array */
 @property (RONLY) id randomElement;
 
 /*** Returns a random subArray of this array with up to 'size' elements */
-- (NSArray *)randomSubarrayWithSize:(NSUInteger)size;
+- (NSA*)randomSubarrayWithSize:(NSUInteger)size;
 
 /*** Returns a shuffeled version of this array */
 @property (RONLY) NSArray *shuffeled;
@@ -209,8 +212,8 @@
 
 @property (RONLY) id last;
 
-- (NSInteger)sumIntWithKey:(NSString *)keyPath;
-- (CGFloat)sumFloatWithKey:(NSString *)keyPath;
+- (NSInteger)sumIntWithKey:(NSS*)keyPath;
+- (CGFloat)sumFloatWithKey:(NSS*)keyPath;
 
 /*** Returns YES when this array contains any of the elements in enumerable */
 - (BOOL)containsAny:(id <NSFastEnumeration>)enumerable;
@@ -227,10 +230,10 @@
 -(void)setAndExecuteEnumeratorBlock:(void (^)(id obj, NSUInteger idx, BOOL *stop))block;
 
 /*** */
--(NSArray *)objectsWithFormat:(NSString *)format, ...;
--(id)firstObjectWithFormat:(NSString *)format, ...;
+-(NSA*)objectsWithFormat:(NSS*)format, ...;
+-(id)firstObjectWithFormat:(NSS*)format, ...;
 
--(NSArray *)filteredArrayUsingBlock: (BOOL (^)(id evaluatedObject, NSDictionary *bindings))block;
+-(NSA*)filteredArrayUsingBlock: (BOOL (^)(id evaluatedObject, NSDictionary *bindings))block;
 -(NSA*) uniqueObjects;
 
 -(NSA*) uniqueObjectsSortedUsingSelector: (SEL)comparator;
@@ -249,13 +252,13 @@
 
 -(BOOL)isObjectInArrayWithBlock:(BOOL (^)(id obj))block;
 
--(NSArray *)findAllWithBlock:(BOOL (^)(id obj))block;
+-(NSA*)findAllWithBlock:(BOOL (^)(id obj))block;
 
 #if !(TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
 -(NSHashTable *)findAllIntoWeakRefsWithBlock:(BOOL (^)(id))block;
 #endif
 
--(NSArray *)mapArray:(id (^)(id obj))block;
+-(NSA*)mapArray:(id (^)(id obj))block;
 @end
 
 @interface NSArray(ListComprehensions) 
@@ -409,30 +412,30 @@
 @end
 
 @interface NSArray (StringExtensions)
-- (NSArray *) arrayBySortingStrings;
+- (NSA*) arrayBySortingStrings;
 @property (readonly, getter=arrayBySortingStrings) NSArray *sortedStrings;
 @property (readonly) NSString *stringValue;
 @end
 
 @interface NSArray (UtilityExtensions)
 - (id) firstObject;
-- (NSArray *) uniqueMembers;
-- (NSArray *) unionWithArray: (NSArray *) array;
-- (NSArray *) intersectionWithArray: (NSArray *) array;
+- (NSA*) uniqueMembers;
+- (NSA*) unionWithArray: (NSA*) array;
+- (NSA*) intersectionWithArray: (NSA*) array;
 
 
 // Note also see: makeObjectsPeformSelector: withObject:. Map collects the results a la mapcar in Lisp
-- (NSArray *) map: (SEL) selector;
-- (NSArray *) map: (SEL) selector withObject: (id)object;
-- (NSArray *) map: (SEL) selector withObject: (id)object1 withObject: (id)object2;
+- (NSA*) map: (SEL) selector;
+- (NSA*) map: (SEL) selector withObject: (id)object;
+- (NSA*) map: (SEL) selector withObject: (id)object1 withObject: (id)object2;
 
-- (NSArray *) collect: (SEL) selector withObject: (id) object1 withObject: (id) object2;
-- (NSArray *) collect: (SEL) selector withObject: (id) object1;
-- (NSArray *) collect: (SEL) selector;
+- (NSA*) collect: (SEL) selector withObject: (id) object1 withObject: (id) object2;
+- (NSA*) collect: (SEL) selector withObject: (id) object1;
+- (NSA*) collect: (SEL) selector;
 
-- (NSArray *) reject: (SEL) selector withObject: (id) object1 withObject: (id) object2;
-- (NSArray *) reject: (SEL) selector withObject: (id) object1;
-- (NSArray *) reject: (SEL) selector;
+- (NSA*) reject: (SEL) selector withObject: (id) object1 withObject: (id) object2;
+- (NSA*) reject: (SEL) selector withObject: (id) object1;
+- (NSA*) reject: (SEL) selector;
 @end
 
 @interface NSMutableArray (UtilityExtensions)
@@ -457,6 +460,8 @@
 
 @interface NSArray (FilterByProperty)
 
-- (NSArray*) filterByProperty:(NSString *) p;
+- (NSA*) subArrayWithMembersOfKind:(Class)class;
+- (NSUI) lengthOfLongestMemberString;
+- (NSArray*) filterByProperty:(NSS*) p;
 
 @end

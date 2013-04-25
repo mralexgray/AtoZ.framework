@@ -161,7 +161,7 @@
 		
 		if (NSPointInRect(p, [self bounds]))
 			if ([[self target] respondsToSelector:[self action]])
-				[[self target] performSelector:[self action]];
+				[[self target] performSelectorWithoutWarnings:[self action]];
 	}
 	
 	mouseState = 0;

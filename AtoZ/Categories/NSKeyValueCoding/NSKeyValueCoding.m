@@ -279,7 +279,7 @@ NSString *const NSUndefinedKeyException = @"NSUnknownKeyException";
 }
 
 
--(void)setValue:(id)value forKey:(NSString *)key
+-(void)setValue:(id)value forKey:(NSS*)key
 {
 	NSUInteger cStringLength = [key length];
 	char keyCString[cStringLength + 1];
@@ -349,7 +349,7 @@ NSString *const NSUndefinedKeyException = @"NSUnknownKeyException";
 }
 
 
-- (BOOL)validateValue:(id *)ioValue forKey:(NSString *)key error:(NSError **)outError
+- (BOOL)validateValue:(id *)ioValue forKey:(NSS*)key error:(NSError **)outError
 {
 	SEL sel=NSSelectorFromString([NSString stringWithFormat:@"validate%@:error:", [key capitalizedString]]);
 	if([self respondsToSelector:sel])
@@ -371,12 +371,12 @@ NSString *const NSUndefinedKeyException = @"NSUnknownKeyException";
    return YES;
 }
 
--valueForUndefinedKey:(NSString *)key {
+-valueForUndefinedKey:(NSS*)key {
    [NSException raise:NSUndefinedKeyException format:@"%@: trying to get undefined key %@", [self className], key];
    return nil;
 }
 
--(void)setValue:(id)value forUndefinedKey:(NSString *)key {
+-(void)setValue:(id)value forUndefinedKey:(NSS*)key {
    [NSException raise:NSUndefinedKeyException format:@"%@: trying to set undefined key %@", [self className], key];
 }
 
@@ -397,7 +397,7 @@ NSString *const NSUndefinedKeyException = @"NSUnknownKeyException";
 	}
 }
 
--(void)setValue:(id)value forKeyPath:(NSString *)keyPath {
+-(void)setValue:(id)value forKeyPath:(NSS*)keyPath {
 
    NSString* firstPart, *rest;
    [keyPath _KVC_partBeforeDot:&firstPart afterDot:&rest];
@@ -410,7 +410,7 @@ NSString *const NSUndefinedKeyException = @"NSUnknownKeyException";
    }
 }
 
-- (BOOL)validateValue:(id *)ioValue forKeyPath:(NSString *)keyPath error:(NSError **)outError
+- (BOOL)validateValue:(id *)ioValue forKeyPath:(NSS*)keyPath error:(NSError **)outError
 {
 	id array=[[[keyPath componentsSeparatedByString:@"."] mutableCopy] autorelease];
 	id lastPathComponent=[array lastObject];
@@ -429,7 +429,7 @@ NSString *const NSUndefinedKeyException = @"NSUnknownKeyException";
 }
 
 
--(NSDictionary *)dictionaryWithValuesForKeys:(NSArray *)keys
+-(NSD*)dictionaryWithValuesForKeys:(NSA*)keys
 {
 	id en=[keys objectEnumerator];
 	id ret=[NSMutableDictionary dictionary];
@@ -443,7 +443,7 @@ NSString *const NSUndefinedKeyException = @"NSUnknownKeyException";
 }
 
 
-- (void)setValuesForKeysWithDictionary:(NSDictionary *)keyedValues
+- (void)setValuesForKeysWithDictionary:(NSD*)keyedValues
 {
 	id en=[keyedValues keyEnumerator];
 	NSString* key;

@@ -9,26 +9,15 @@
 #import "NSDate+AtoZ.h"
 
 
+#define DCHECK(__CONDITION__)
 
 @implementation NSTimeZone (Extensions)
-
 + (NSTimeZone*) GMTTimeZone {
 	static NSTimeZone* timeZone = nil;
-	if (timeZone == nil) {
-		timeZone = [[NSTimeZone alloc] initWithName:@"GMT"];
-		DCHECK(timeZone);
-	}
+	if (timeZone == nil) {	timeZone = [NSTimeZone.alloc initWithName:@"GMT"];	DCHECK(timeZone);	}
 	return timeZone;
 }
-
 @end
-
-
-
-
-
-
-
 @implementation NSDate (SI)
 +(NSS *)highestSignificantComponentStringFromDate:(NSDate *)date toDate:(NSDate *)toDate {
 
@@ -61,146 +50,94 @@
 	return @"0s";
 }
 @end
-
-
-
 @implementation NSDate (AtoZ)
-
-
-+ (NSS*)dayOfWeek
-{
-	return [[NSDate date] descriptionWithCalendarFormat:@"%A" timeZone:nil locale:[AZUSERDEFS dictionaryRepresentation]];
++ (NSS*) dayOfWeek					{
+	return [NSDate.date descriptionWithCalendarFormat:@"%A" timeZone:nil locale:[AZUSERDEFS dictionaryRepresentation]];
 }
+/* This guy can be a little unreliable and produce unexpected results, you're better off using daysAgoAgainstMidnight */
+- (NSUI) daysAgo 						{
 
-/*
- * This guy can be a little unreliable and produce unexpected results,
- * you're better off using daysAgoAgainstMidnight
- */
-- (NSUInteger)daysAgo {
 	NSCalendar *calendar = [NSCalendar currentCalendar];
-	NSDateComponents *components = [calendar components:(NSDayCalendarUnit)
-											   fromDate:self
-												 toDate:[NSDate date]
-												options:0];
+	NSDateComponents *components = [calendar components:(NSDayCalendarUnit) fromDate:self toDate:NSDate.date options:0];
 	return [components day];
 }
+- (NSUI) daysAgoAgainstMidnight 	{		// get a midnight version of ourself:
 
-- (NSUInteger)daysAgoAgainstMidnight {
-	// get a midnight version of ourself:
 	NSDateFormatter *mdf = [[NSDateFormatter alloc] init];
 	[mdf setDateFormat:@"yyyy-MM-dd"];
 	NSDate *midnight = [mdf dateFromString:[mdf stringFromDate:self]];
 	[mdf release];
-
 	return (int)[midnight timeIntervalSinceNow] / (60*60*24) *-1;
 }
 
-- (NSString *)stringDaysAgo {
-	return [self stringDaysAgoAgainstMidnight:YES];
+- (NSS*) stringDaysAgo 				{	return [self stringDaysAgoAgainstMidnight:YES];	}
+
+- (NSS*) stringDaysAgoAgainstMidnight: (BOOL)flag {
+
+	NSUI 		daysAgo = (flag) ? [self daysAgoAgainstMidnight] : [self daysAgo];
+	return  	daysAgo == 0 ? @"Today" : daysAgo == 1 ? @"Yesterday" : $(@"%ld days ago", daysAgo);
 }
 
-- (NSString *)stringDaysAgoAgainstMidnight:(BOOL)flag {
-	NSUInteger daysAgo = (flag) ? [self daysAgoAgainstMidnight] : [self daysAgo];
-	NSString *text = nil;
-	switch (daysAgo) {
-		case 0:
-			text = @"Today";
-			break;
-		case 1:
-			text = @"Yesterday";
-			break;
-		default:
-			text = [NSString stringWithFormat:@"%ld days ago", daysAgo];
-	}
-	return text;
-}
+- (NSUI) weekday 						{
 
-- (NSUInteger)weekday {
-	NSCalendar *calendar = [NSCalendar currentCalendar];
-	NSDateComponents *weekdayComponents = [calendar components:(NSWeekdayCalendarUnit) fromDate:self];
+	NSDateComponents *weekdayComponents = [NSCalendar.currentCalendar components:(NSWeekdayCalendarUnit) fromDate:self];
 	return [weekdayComponents weekday];
 }
 
-+ (NSDate *)dateFromString:(NSString *)string {
-	return [NSDate dateFromString:string withFormat:[NSDate dbFormatString]];
-}
++ (NSDate*) dateFromString:(NSS*)string {	return [NSDate dateFromString:string withFormat:NSDate.dbFormatString]; }
 
-+ (NSDate *)dateFromString:(NSString *)string withFormat:(NSString *)format {
-	NSDateFormatter *inputFormatter = [[NSDateFormatter alloc] init];
++ (NSDate*) dateFromString:(NSS*)string withFormat:(NSS*)format {
+	NSDateFormatter *inputFormatter = NSDateFormatter.new;
 	[inputFormatter setDateFormat:format];
 	NSDate *date = [inputFormatter dateFromString:string];
 	[inputFormatter release];
 	return date;
 }
 
-+ (NSString *)stringFromDate:(NSDate *)date withFormat:(NSString *)format {
-	return [date stringWithFormat:format];
-}
++ (NSS*) stringFromDate:(NSDate*)date withFormat:(NSS*)format {	return [date stringWithFormat:format];	}
 
-+ (NSString *)stringFromDate:(NSDate *)date {
-	return [date string];
-}
++ (NSS*) stringFromDate:(NSDate*)date {	return [date string];	}
 
-+ (NSString *)stringForDisplayFromDate:(NSDate *)date prefixed:(BOOL)prefixed alwaysDisplayTime:(BOOL)displayTime {
-	/*
-	 * if the date is in today, display 12-hour time with meridian,
++ (NSS*)stringForDisplayFromDate:(NSDate *)date prefixed:(BOOL)prefixed alwaysDisplayTime:(BOOL)displayTime {
+
+	/* if the date is in today, display 12-hour time with meridian,
 	 * if it is within the last 7 days, display weekday name (Friday)
-	 * if within the calendar year, display as Jan 23
-	 * else display as Nov 11, 2008
-	 */
-	NSCalendar *calendar = [NSCalendar currentCalendar];
-	NSDateFormatter *displayFormatter = [[NSDateFormatter alloc] init];
+	 * if within the calendar year, display as Jan 23 else display as Nov 11, 2008	*/
 
-	NSDate *today = [NSDate date];
-	NSDateComponents *offsetComponents = [calendar components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit)
+	NSCalendar *calendar 					= NSCalendar.currentCalendar;
+	NSDateFormatter *displayFormatter 	= NSDateFormatter.new;
+	NSDate *today 								= NSDate.date;
+	NSDateComponents *offsetComponents 	= [calendar components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit)
 													 fromDate:today];
-
-	NSDate *midnight = [calendar dateFromComponents:offsetComponents];
-	NSString *displayString = nil;
-
+	NSDate *midnight 							= [calendar dateFromComponents:offsetComponents];
 	// comparing against midnight
 	NSComparisonResult midnight_result = [date compare:midnight];
-	if (midnight_result == NSOrderedDescending) {
-		if (prefixed) {
-			[displayFormatter setDateFormat:@"'at' h:mm a"]; // at 11:30 am
-		} else {
-			[displayFormatter setDateFormat:@"h:mm a"]; // 11:30 am
-		}
-	} else {
+	NSString *displayString;
+
+	if (midnight_result == NSOrderedDescending) 	prefixed	?	[displayFormatter setDateFormat:@"'at' h:mm a"] 	// at 11:30 am
+																			:	[displayFormatter setDateFormat:@"h:mm a"]; 			// 11:30 am
+	else {
 		// check if date is within last 7 days
-		NSDateComponents *componentsToSubtract = [[NSDateComponents alloc] init];
+		NSDateComponents *componentsToSubtract = NSDateComponents.new;
 		[componentsToSubtract setDay:-7];
-		NSDate *lastweek = [calendar dateByAddingComponents:componentsToSubtract toDate:today options:0];
+		NSDate *lastweek 								= [calendar dateByAddingComponents:componentsToSubtract toDate:today options:0];
 		[componentsToSubtract release];
-		NSComparisonResult lastweek_result = [date compare:lastweek];
-		if (lastweek_result == NSOrderedDescending) {
-			if (displayTime) {
-				[displayFormatter setDateFormat:@"EEEE h:mm a"];
-			} else {
-				[displayFormatter setDateFormat:@"EEEE"]; // Tuesday
-			}
-		} else {
+		NSComparisonResult lastweek_result 		= [date compare:lastweek];
+		if (lastweek_result == NSOrderedDescending)
+			if (displayTime)	[displayFormatter setDateFormat:@"EEEE h:mm a"];
+			else					[displayFormatter setDateFormat:@"EEEE"]; // Tuesday
+		else {
 			// check if same calendar year
 			NSInteger thisYear = [offsetComponents year];
-
 			NSDateComponents *dateComponents = [calendar components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit)
-														   fromDate:date];
+															fromDate:date];
 			NSInteger thatYear = [dateComponents year];
-			if (thatYear >= thisYear) {
-				if (displayTime) {
-					[displayFormatter setDateFormat:@"MMM d h:mm a"];
-				}
-				else {
-					[displayFormatter setDateFormat:@"MMM d"];
-				}
-			} else {
-				if (displayTime) {
-					[displayFormatter setDateFormat:@"MMM d, yyyy h:mm a"];
-				}
-				else {
-					[displayFormatter setDateFormat:@"MMM d, yyyy"];
-				}
-			}
+			if (thatYear >= thisYear)
+				if (displayTime)		[displayFormatter setDateFormat:@"MMM d h:mm a"];
+				else 						[displayFormatter setDateFormat:@"MMM d"];
+			else
+				if (displayTime)		[displayFormatter setDateFormat:@"MMM d, yyyy h:mm a"];
+				else						[displayFormatter setDateFormat:@"MMM d, yyyy"];
 		}
 		if (prefixed) {
 			NSString *dateFormat = [displayFormatter dateFormat];
@@ -208,24 +145,19 @@
 			[displayFormatter setDateFormat:[prefix stringByAppendingString:dateFormat]];
 		}
 	}
-
 	// use display formatter to return formatted date string
-	displayString = [displayFormatter stringFromDate:date];
-
-	[displayFormatter release];
-
-	return displayString;
+	return [displayFormatter stringFromDate:date];
 }
 
-+ (NSString *)stringForDisplayFromDate:(NSDate *)date prefixed:(BOOL)prefixed {
++ (NSS*)stringForDisplayFromDate:(NSDate *)date prefixed:(BOOL)prefixed {
 	return [[self class] stringForDisplayFromDate:date prefixed:prefixed alwaysDisplayTime:NO];
 }
 
-+ (NSString *)stringForDisplayFromDate:(NSDate *)date {
++ (NSS*)stringForDisplayFromDate:(NSDate *)date {
 	return [self stringForDisplayFromDate:date prefixed:NO];
 }
 
-- (NSString *)stringWithFormat:(NSString *)format {
+- (NSS*)stringWithFormat:(NSS*)format {
 	NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
 	[outputFormatter setDateFormat:format];
 	NSString *timestamp_str = [outputFormatter stringFromDate:self];
@@ -233,11 +165,11 @@
 	return timestamp_str;
 }
 
-- (NSString *)string {
+- (NSS*)string {
 	return [self stringWithFormat:[NSDate dbFormatString]];
 }
 
-- (NSString *)stringWithDateStyle:(NSDateFormatterStyle)dateStyle timeStyle:(NSDateFormatterStyle)timeStyle {
+- (NSS*)stringWithDateStyle:(NSDateFormatterStyle)dateStyle timeStyle:(NSDateFormatterStyle)timeStyle {
 	NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
 	[outputFormatter setDateStyle:dateStyle];
 	[outputFormatter setTimeStyle:timeStyle];
@@ -298,20 +230,20 @@
 	return endOfWeek;
 }
 
-+ (NSString *)dateFormatString {
++ (NSS*)dateFormatString {
 	return @"yyyy-MM-dd";
 }
 
-+ (NSString *)timeFormatString {
++ (NSS*)timeFormatString {
 	return @"HH:mm:ss";
 }
 
-+ (NSString *)timestampFormatString {
++ (NSS*)timestampFormatString {
 	return @"yyyy-MM-dd HH:mm:ss";
 }
 
 // preserving for compatibility
-+ (NSString *)dbFormatString {
++ (NSS*)dbFormatString {
 	return [NSDate timestampFormatString];
 }
 

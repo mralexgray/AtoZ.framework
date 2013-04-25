@@ -8,79 +8,61 @@
 
 #import <Cocoa/Cocoa.h>
 #import <WebKit/WebKit.h>
-#import "AtoZ.h"
 
-//[NSLogConsole sharedConsole];
-//	[[NSLogConsole sharedConsole] open];
 
-// Uncomment to test error messages coming from foreign code
-//	[[NSView alloc] retain];
+@protocol NSLogConsoleDelegate <NSObject>
+- (void) textWasEntered:(NSS*)string;
 
-// Log some errors
-//	[[NSView alloc] retain];
-//	CGBitmapContextCreate(nil, 400, 400, 3, 324, nil, kCGBitmapByteOrder32Big);
+@end
 
-/*
- - (IBAction)toggleConsole:(id)sender  {
- BOOL isOpen = [[NSLogConsole sharedConsole] isOpen];
- NSLog(@"Toggle console %d", isOpen);
- if (!isOpen)	[[NSLogConsole sharedConsole] open];
- else			[[NSLogConsole sharedConsole] close];
- } */
+void			NSLogProlog (char* file, int line);
+void			NSLogPostLog(char* file, int line);
+@class		NSLogConsoleView;
 
-void	NSLogProlog(char* file, int line);
-void	NSLogPostLog(char* file, int line);
-
-@class	NSLogConsoleView;
-
-@interface NSLogConsole : AZSingleton {
-	// Window title
-	NSString*	windowTitle;
-}
-
-@property (assign) 	IBOutlet	 id	window;
+@interface 	NSLogConsole : NSObject <MTTokenFieldDelegate>
+@property (strong, nonatomic) NSMutableAttributedString *terminal;
+@property (assign) id <NSLogConsoleDelegate> delegate;
+@property (retain) 				NSMA* 			tokensForCompletion;
+@property (assign) IBOutlet 	MTTokenField *tokenField;
+@property (assign) IBOutlet id classTable;
 @property (assign) BOOL		autoOpens;
 
-@property (weak) IBOutlet	NSLogConsoleView*	webView;
-@property (weak) IBOutlet	id searchField;
-@property (weak) IBOutlet	id po;
+@property (unsafe_unretained)	IBOutlet	id	window;
+@property (weak)	IBOutlet	NSLogConsoleView*	webView;
+@property (unsafe_unretained)	IBOutlet	id searchField;
+	
+@property (assign)	int			original_stderr;
+@property (strong)	NSString*	logPath;
+@property (strong)	NSFileHandle*	fileHandle;
+@property (strong,nonatomic)	NSString	*fakeStdin;
 
-@property (assign) int			original_stderr;
-@property (nonatomic, strong) NSString*	logPath;
-@property (nonatomic, retain) NSFileHandle*	fileHandle;
+@property (assign)	unsigned long long	fileOffset;
 
-@property NSUInteger fileOffset;
-+ (id)sharedConsole;
+@property (RONLY) NSA *classes;
 
-- (void)open;
-- (void)close;
-- (BOOL)isOpen;
-- (IBAction)clear:(id)sender;
-
-- (IBAction)searchChanged:(id)sender;
-- (IBAction)poChanged:(id)sender;
-- (id)window;
-
-- (void)logData:(NSData*)data file:(char*)file lineNumber:(int)line;
-- (void)updateLogWithFile:(char*)file lineNumber:(int)line;
-@property (copy) NSString* windowTitle;
-@property (retain, nonatomic) NSMutableArray *messageQueue;
+	// Window title
+@property (strong)	NSString*	windowTitle;
++       (id) sharedConsole;
+-     (void) open;
+-     (void) close;
+-     (BOOL) isOpen;
+- (IBAction) clear:			(id)sender;
+- (IBAction) searchChanged:(id)sender;
+-     (void) logData:		(NSData*)data 			file:(char*)file lineNumber:(int)line;
+-     (void) updateLogWithFile:(char*)file lineNumber:(int)line;
 @end
 @interface NSWindow(Goodies)
-- (void)setBottomCornerRounded:(BOOL)a;
+- (void) setBottomCornerRounded:(BOOL)a;
 @end
-
 @interface NSLogConsoleView : WebView {
-
-	// A message might trigger console opening, BUT the WebView will take time to load and won't be able to display messages yet.
-	// Queue them - they will be unqueued when WebView has loaded.
+// A message might trigger console opening, BUT the WebView will take time to load and won't be able to display messages yet.
+// Queue them - they will be unqueued when WebView has loaded.
+	id		messageQueue;
 	BOOL	webViewLoaded;
 }
-@property (strong, nonatomic) id messageQueue;
-
-- (void) logString:(NSString*) string file: (char*)file lineNumber:(int)line;
+- (void) logString:(NSString*)string file:(char*)file lineNumber:(int)line;
 - (void) clear;
-- (void) search: (NSString*) string;
+- (void) search:(NSString*)string;
 
 @end
 

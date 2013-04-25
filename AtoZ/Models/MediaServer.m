@@ -40,7 +40,7 @@
         NSA *tweetObjects       = [JSON[@"results"] map:^id (NSD *tweetDictionary) {
                 return [Tweet.alloc initWithJSON:tweetDictionary];
             }];
-        NSLog(@"Search for '%@' returned %i results.", searchString, tweetObjects.count);
+        NSLog(@"Search for '%@' returned %lu results.", searchString, tweetObjects.count);
         // Return to the main queue once the request has been processed.
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
                 error ? block(nil, error) : block(tweetObjects, nil);

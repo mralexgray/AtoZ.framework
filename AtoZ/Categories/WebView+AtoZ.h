@@ -16,6 +16,6 @@
 
 - (NSImage *)snapshot;
 
--(void)appendTagToBody:(NSString *)tagName InnerHTML:(NSString *)innerHTML;
+-(void)appendTagToBody:(NSS*)tagName InnerHTML:(NSS*)innerHTML;
 
 @end

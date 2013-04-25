@@ -10,10 +10,10 @@
 
 @implementation NSBundle (AtoZ)
 
-- (NSA*) frameworks {
 
-	NSS* basePath = $UTF8(getenv("BUILDPATH")) ?: self.bundlePath;
-	return [NSB.allFrameworks filter :^BOOL(NSB* obj){		return [obj.bundlePath contains:basePath];	}];
+- (NSA*) frameworks {
+//	NSS* basePath = $UTF8(getenv("BUILDPATH")) ?: ;
+	return [NSB.allFrameworks filter :^BOOL(NSB* obj){		return [obj.bundlePath contains:AZFWORKBUNDLE.bundlePath];	}];
 }
 - (NSA*) frameworkIdentifiers 		{ return [self.frameworks cw_mapArray:^id(NSB* p){	return p.bundleIdentifier;	}]; }
 - (NSA*) frameworkInfoDictionaries	{ return [self.frameworks cw_mapArray:^id(NSB* p){	return p.infoDictionary;	}]; }
@@ -23,9 +23,17 @@
 	return theB ? theB.infoDictionary : nil; 
 }
 
++ (void) loadAZFrameworks {
+
+	[[self pathsForResourcesOfType:@"framework" inDirectory:[AZBUNDLE privateFrameworksPath]] each:^(id obj) {
+		[[self bundleWithPath:obj]load];
+	}];
+//[[[AZFILEMANAGER visibleDirectoryContentsAtPath:[AZBUNDLE privateFrameworksPath]] each:^(id obj) {
+//	[NSB frameworkBundleNamed:[obj ]
+}
 
 + (NSBundle*) frameworkBundleNamed:(NSS*)name {
-	NSS* str = [[NSBundle bundleWithPath:[[NSBundle mainBundle] privateFrameworksPath]]pathForResource:name ofType:@"framework"];
+	NSS* str = [[AZBUNDLE privateFrameworksPath]withPath:[name withString:@".framework"]];
 	return [NSBundle bundleWithPath:str];
 //	AZLOG(fw);
 }
@@ -37,7 +45,7 @@
 	return [[[self class] applicationSupportFolder]stringByAppendingPathComponent:name];
 }
 
-+ (NSString *)appSuppDir {
++ (NSS*)appSuppDir {
 
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
 	NSString *basePath = ([paths count] > 0) ? paths[0] : NSTemporaryDirectory();
@@ -49,18 +57,24 @@
 }
 + (NSS*) applicationSupportFolder
 {
-	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
-	NSString *applicationSupportDirectory = [paths objectAtIndex:0];
+	static NSS* appsupport = nil;
+	if (!appsupport) {
 
-	NSString *appName = [NSB.mainBundle objectForInfoDictionaryKey:(NSS*)kCFBundleNameKey]
-					  ?: [[NSBundle bundleForClass:AtoZ.class] objectForInfoDictionaryKey:(NSS*)kCFBundleNameKey];
-	NSString *applicationsubPath = [applicationSupportDirectory withPath:appName];//Create App directory if not exists:
-//	NSString* bundleID = [[NSBundle bundleForClass:[AtoZ class]] bundleIdentifier];
-//	NSArray* urlPaths = [AZFILEMANAGER URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask];
-//	NSURL* appDirectory = [urlPaths[0] URLByAppendingPathComponent:[NSB.mainBundle objectForInfoDictionaryKey:(NSString *)kCFBundleNameKey] isDirectory:YES];
-	if (![AZFILEMANAGER fileExistsAtPath:applicationsubPath])
-		[AZFILEMANAGER createDirectoryAtPath:applicationsubPath withIntermediateDirectories:NO attributes:nil error:nil];
-	return  applicationsubPath;
+		NSArray *paths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES) ?:
+		@[[@"~/Library/Application Support/" stringByExpandingTildeInPath]];
+		NSString *applicationSupportDirectory = [paths objectAtIndex:0];
+		printf("Application Support: %s", applicationSupportDirectory.UTF8String);
+		NSString *appName = [NSB.mainBundle objectForInfoDictionaryKey:(NSS*)kCFBundleNameKey]
+						  ?: [[NSBundle bundleForClass:AtoZ.class] objectForInfoDictionaryKey:(NSS*)kCFBundleNameKey] ?: @"AtoZ";
+		appsupport = [applicationSupportDirectory withPath:appName];//Create App directory if not exists:
+	//	NSString* bundleID = [[NSBundle bundleForClass:[AtoZ class]] bundleIdentifier];
+	//	NSArray* urlPaths = [AZFILEMANAGER URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask];
+	//	NSURL* appDirectory = [urlPaths[0] URLByAppendingPathComponent:[NSB.mainBundle objectForInfoDictionaryKey:(NSS*)kCFBundleNameKey] isDirectory:YES];
+		if (![AZFILEMANAGER fileExistsAtPath:appsupport])
+			[AZFILEMANAGER createDirectoryAtPath:appsupport withIntermediateDirectories:NO attributes:nil error:nil];
+	}
+
+	return  appsupport;
 }
 //	//build path
 //	NSArray *supports = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
@@ -83,7 +97,7 @@
 									  		  : @"unknown";
 }
 
-- (NSArray *)definedClasses
+- (NSA*)definedClasses
 {
    NSMA *array = NSMA.new;		int numClasses;		Class *classes = NULL;	
 	
@@ -112,7 +126,7 @@
 }
 
 
-//- (NSArray *)frameworkClasses;
+//- (NSA*)frameworkClasses;
 //{
 //
 //	NSMutableArray *array = [NSMutableArray array];
@@ -129,7 +143,7 @@
 //	return array;
 //}
 
-- (NSS *)recursiveSearchForPathOfResourceNamed:(NSString *)name;
+- (NSS *)recursiveSearchForPathOfResourceNamed:(NSS*)name;
 {
 	NSFileManager *fm = NSFileManager.new; // +defaultManager is not thread safe
 	NSDirectoryEnumerator *enumerator = [fm enumeratorAtPath: [self resourcePath]];
@@ -148,7 +162,7 @@
 
 }
 
-- (NSArray *)recursivePathsForResourcesOfType:(NSString *)type inDirectory:(NSString *)directoryPath{
+- (NSA*)recursivePathsForResourcesOfType:(NSS*)type inDirectory:(NSS*)directoryPath{
 
 	NSMutableArray *filePaths = [NSMutableArray new];  // Enumerators are recursive
 	NSDirectoryEnumerator *enumerator = [[NSFileManager defaultManager] enumeratorAtPath:directoryPath];
@@ -161,20 +175,28 @@
 	return filePaths;
 }
 
-- (NSA*) cacheImages;
-{
-	NSA*u = [@[@"pdf", @"png"] map:^(NSString *type){
-		return  [[self recursivePathsForResourcesOfType:type inDirectory:[self resourcePath]] map:^(NSS*path) {
-			NSS*name = [[path lastPathComponent]stringByDeletingPathExtension];
-			return [NSImage imageNamed:name] ? name : ^{
-				NSImage *needsPath = [[NSImage alloc]  initByReferencingFile:path];
-				if (needsPath) needsPath.name = name;
-				return needsPath;
-			}();
+- (NSA*) cacheImages;	{	static NSA* cachedImages = nil;
+
+	[AZStopwatch named:$(@"Caching images for Bundle:%@", NSStringFromClass([self principalClass])) block:^{
+	if (!cachedImages) cachedImages = ^{
+		NSA*u = [@[@"pdf", @"png"] map:^(NSS *type){
+			return  [[self recursivePathsForResourcesOfType:type inDirectory:[self resourcePath]] cw_mapArray:^id(NSS* path) {
+
+				NSS*name = [path.lastPathComponent stringByDeletingPathExtension];
+				return [NSIMG imageNamed:name] ? name : ^{
+					NSImage *needsPath = [NSIMG.alloc  initByReferencingFile:path];
+					if (needsPath) needsPath.name = name;
+					return needsPath;
+				}();
+			}];
 		}];
-	}];
-	AZLOG($(@"Cached %ld images.",u.count));
+		AZLOG($(@"Cached %ld images: %@.",u.count, [u valueForKeyPath:@"name"] ));
+
 	return  [NSArray arrayWithArrays:[u valueForKeyPath:@"name"]];
+	}();
+}];
+
+return cachedImages;
 }
 
 

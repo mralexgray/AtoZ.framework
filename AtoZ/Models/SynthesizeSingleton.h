@@ -11,6 +11,7 @@
 //  appreciated but not required.
 //
 
+
 #if __has_feature(objc_arc)
 #define SYNTHESIZE_SINGLETON_FOR_CLASS(classname, accessorname) \
 + (classname *)accessorname\

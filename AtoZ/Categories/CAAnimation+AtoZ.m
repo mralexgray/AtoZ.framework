@@ -54,6 +54,18 @@
 @end
 
 
+
+@implementation CATransaction (AtoZ)
++ (void)flushBlock:(VoidBlock)block {
+
+	[self begin];
+	block();
+	[self flush];
+	[self commit];
+}
+@end
+
+
 @implementation CAAnimation (BlocksAddition)
 
 - (void)setCompletion:(void (^)(BOOL))completion
@@ -176,22 +188,20 @@
 NSString *AZCAAnimationCompletionBlockAssociatedObjectKey = @"AZCAAnimationCompletionBlockAssociatedObjectKey";
 
 //void disableCA(){
-//
-//	[CATransaction flush];
-//	[CATransaction begin];
-//	[CATransaction setValue:(id)kCFBooleanTrue
-//					 forKey:kCATransactionDisableActions];
+//	[CATransaction flush];	[CATransaction begin];	[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
 //}
 
 
-@implementation CATransaction (AtoZ)
-+ (void)az_performWithDisabledActions:(void(^)(void))block
-{
-	if	([self disableActions])		 block();
-	else { [self setDisableActions:YES]; block(); [self setDisableActions:NO]; }
-}
+//@implementation CATransaction (AtoZ)   SEE CAANIMATION + ATOZ
+//+ (void) immediatelyWithCompletion:(void (^)())completion transaction:(void (^)())block;
 
-@end
+//+ (void)az_performWithDisabledActions:(void(^)(void))block
+//{
+//	if	([self disableActions])   		   block();
+//	else { [self setDisableActions:YES]; block(); [self setDisableActions:NO]; }
+//}
+
+
 
 @implementation CAAnimation (AtoZ)
 

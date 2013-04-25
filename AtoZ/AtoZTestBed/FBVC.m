@@ -29,7 +29,7 @@ NSString* APPLICATION_ID = @"223404761008769";
 
 	NSControlActionBlock block = ^(id inSender) {
 
-		AZLOG(@"xlisidud")
+		AZLOG(@"xlisidud");
 		[self getAccessToken:nil];
 	};
 	[self.send_request setActionBlock:block];

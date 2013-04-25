@@ -41,6 +41,39 @@
 @end
 @implementation NSBezierPath (AtoZ)
 
++ (NSBP*) diagonalLinesInRect:(NSR)rect phase:(CGF)phase {
+
+	NSBP *_bp = [self new]; CGF bandWidth, h, modPhase, lastX;
+	NSI numX 	= ceil( rect.size.width / 25 );
+	bandWidth	= 20;
+	h				= 0;
+	modPhase		= round(fmod(phase, rect.size.width));
+	lastX 		= -27 + modPhase - rect.size.width;
+	for ( NSI i = NEG(numX); i < numX; i++ ) {
+		[_bp moveToPoint:NSMakePoint(                         lastX + .5, rect.size.height + .5 - h )];
+		[_bp lineToPoint:NSMakePoint(             lastX + bandWidth + .5,                0 + .5 + h )];
+		[_bp lineToPoint:NSMakePoint( lastX + bandWidth + bandWidth + .5,                0 + .5 + h )];
+		[_bp lineToPoint:NSMakePoint(             lastX + bandWidth + .5, rect.size.height + .5 - h )];
+		[_bp lineToPoint:NSMakePoint(                         lastX + .5, rect.size.height + .5 - h )];
+		lastX += bandWidth * 2 - 1;
+	}
+	return _bp;
+}
+//	NSI numX 	  	= ceil( rect.size.width / 25 );
+//	CGF bandWidth 	= 20;
+//	CGF h 		  	= 0;
+//	CGF modPhase  	= round(fmod(self.phase, rect.size.width));
+//	CGF lastX	 	= -27 + modPhase - rect.size.width;
+//
+//	for ( NSI i = NEG(numX); i < numX; i++ ) {
+//		[_bp moveToPoint:NSMakePoint(                         lastX + .5, rect.size.height + .5 - h )];
+//		[_bp lineToPoint:NSMakePoint(             lastX + bandWidth + .5,                0 + .5 + h )];
+//		[_bp lineToPoint:NSMakePoint( lastX + bandWidth + bandWidth + .5,                0 + .5 + h )];
+//		[_bp lineToPoint:NSMakePoint(             lastX + bandWidth + .5, rect.size.height + .5 - h )];
+//		[_bp lineToPoint:NSMakePoint(                         lastX + .5, rect.size.height + .5 - h )];
+//		lastX += bandWidth * 2 - 1;
+//	}
+
 
 - (NSBP*)scaledToSize:(NSSZ)size;
 {
@@ -300,7 +333,7 @@
 	return path;
 }
 
-- (NSArray *)dashPattern {
+- (NSA*)dashPattern {
 	NSInteger i, count = 0;
 	NSMutableArray *array = [NSMutableArray array];
 	[self getLineDash:NULL count:&count phase:NULL];
@@ -684,7 +717,7 @@ static void CGPathCallback(void *info, const CGPathElement *element)
 		NSAffineTransform *transform = [NSAT transform];
 		[AZCURRENTCTX isFlipped] 	? [transform translateXBy:0 yBy:bounds.size.height]
 		: [transform translateXBy:0 yBy:-bounds.size.height];
-		NSBP *drawingPath = AZBezPath(bounds);
+		NSBP *drawingPath = [NSBP bezierPathWithRect: bounds];
 		[drawingPath setWindingRule:NSEvenOddWindingRule];
 		[drawingPath appendBezierPath:self];
 		[drawingPath transformUsingAffineTransform:transform];

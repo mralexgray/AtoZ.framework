@@ -7,7 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <AtoZ/AtoZ.h>
 
-@interface AZCLITests : NSObject
+JREnumDeclare(AZTestCase, AZTestFailed, AZTestPassed, AZTestUnset, AZTestNoFailures);
+
+@interface AZCLITests : BaseModel
+@property (STRNG,NATOM) NSA* tests, *results;
 
 @end

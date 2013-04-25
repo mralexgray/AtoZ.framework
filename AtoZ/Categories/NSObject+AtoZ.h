@@ -10,6 +10,35 @@
 #import <stdarg.h>
 
 
+/* AWEOME!!
+	[@["methodOne", @"methodtwo"] each:^(id obj) {
+		[Foo addMethodForSelector:NSSelectorFromString(obj) typed:"v@:" implementation:^ (id self, SEL _cmd) {
+			NSLog(@"Called -[%@ %@] with void return", [self class], NSStringFromSelector(_cmd));
+		}];
+		[foo performSelector:stringified];
+	}];
+	[@["returnWithInputOne:", @"returnWithInputTwo:"] eachWithIndex:^(id obj, NSUI idx){
+		[Foo addMethodForSelector:stringified typed:"@@:" implementation:^id(id self, SEL _cmd) {
+		return NSS.randomDicksonism;
+	}];
+	NSLog(@"%@", [foo performSelector:stringified]);
+}
+[Foo addMethodForSelector:@selector(idreturn) typed:"@@:" implementation:^ id (id self, SEL _cmd) {
+	return [NSString stringWithFormat:@"Called -[%@ %@] with id return", [self class], NSStringFromSelector(_cmd)];
+}];
+NSLog(@"%@", [foo idreturn]);
+}
+*/
+
+@interface NSObject (AddMethod)
+
++ (BOOL) addMethodForSelector:(SEL)selector typed:(const char*)types implementation:(id)blockPtr;
+- (NSA*) methodSignatureArray:(SEL)selector;
++ (NSA*) methodSignatureArray:(SEL)selector;
+- (NSA*) methodSignatureString:(SEL)selector;
++ (NSA*) methodSignatureString:(SEL)selector;
+
+@end
 //Here’s how you’d store a value with a strong reference:
 //			objc_setAssociatedObject(obj, key, value, OBJC_ASSOCIATION_RETAIN);
 //And how you’d get it back:
@@ -24,31 +53,32 @@
 //@end
 
 @interface NSObject (AssociatedValues)
-- (void)setAssociatedValue:(id)value forKey:(NSString *)key;
-- (void)setAssociatedValue:(id)value forKey:(NSString *)key policy:(objc_AssociationPolicy)policy;
-- (id)associatedValueForKey:(NSString *)key;
-- (void)removeAssociatedValueForKey:(NSString *)key;
-- (void)removeAllAssociatedValues;
-- (BOOL)hasAssociatedValueForKey:(NSS*)string;
-- (id)associatedValueForKey:(NSS*)key orSetTo:(id)anObject policy: (objc_AssociationPolicy) policy;
+
+- (void) setAssociatedValue: (id)value forKey: (NSS*)key;
+- (void) setAssociatedValue: (id)value forKey: (NSS*)key policy:(objc_AssociationPolicy)policy;
+-   (id) associatedValueForKey:        		  (NSS*)key;
+- (void) removeAssociatedValueForKey:			  (NSS*)key;
+- (void) removeAllAssociatedValues;
+- (BOOL) hasAssociatedValueForKey:				  (NSS*)string;
+-   (id) associatedValueForKey:					  (NSS*)key orSetTo:(id)anObject policy: (objc_AssociationPolicy) policy;
 
 @end
 //- (void)registerObservation{	[observee addObserverForKeyPath:@"someValue" task:^(id obj, NSDictionary *change) {
 //								   NSLog(@"someValue changed: %@", change);  }]; }
 typedef NSString AZBlockToken;
 typedef void (^AZBlockTask)(id obj, NSDictionary *change);
-
 @interface NSObject (AZBlockObservation)
-
 //-(void)observeKeyPath:(NSS*)keyPath;
-
-- (NSA*)addObserverForKeyPaths:(NSA*)keyPaths task:(AZBlockTask)task;
+- (NSA*) addObserverForKeyPaths: (NSA*)keyPaths task:(AZBlockTask)task;
 //@interface NSObject (AMBlockObservation)
-- (AZBlockToken *)addObserverForKeyPath:(NSString *)keyPath task:(AZBlockTask)task;
-- (AZBlockToken *)addObserverForKeyPath:(NSString *)keyPath onQueue:(NSOQ*)queue task:(AZBlockTask)task;
+- (AZBlockToken*) addObserverForKeyPath:(NSS*) keyPath task:(AZBlockTask)task;
+- (AZBlockToken*) addObserverForKeyPath:(NSS*) keyPath onQueue:(NSOQ*)queue task:(AZBlockTask)task;
 - (void)removeObserverWithBlockToken:(AZBlockToken *)token;
 @end
 @interface NSObject (AtoZ)
+
+- (NSS*) xmlRepresentation;
+- (BOOL) saveAs:(NSS*)file;
 // adapted from the CocoaDev MethodSwizzling page
 
 //+ (BOOL) exchangeInstanceMethod:(SEL)sel1 withMethod:(SEL)sel2;
@@ -83,9 +113,7 @@ typedef void (^AZBlockTask)(id obj, NSDictionary *change);
 	NSColor* newColor = //mouse down changes the color somehow (view-driven change)
 	self.color = newColor;
 	[self propagateValue:newColor forBinding:@"color"];  } */
-
 //-(void) propagateValue:(id)value forBinding:(NSString*)binding;
-
 //- (NSA*) settableKeys;
 //- (NSA*) keysWorthReading;
 //-(void) setWithDictionary:(NSD*)dic;
@@ -97,10 +125,8 @@ typedef void (^AZBlockTask)(id obj, NSDictionary *change);
 */
 
 -(BOOL) isKindOfAnyClass:(NSA*)classes;
-
 typedef void (^caseBlock)();
 +(void)switchOn:(id<NSObject>)obj cases:casesList, ...;
-
 +(void)switchOn:(id<NSObject>)obj
    defaultBlock:(caseBlock)defaultBlock
 		  cases:casesList, ...;
@@ -113,7 +139,6 @@ typedef void (^caseBlock)();
 	// To add dictionary style subscripting
 //- (void)setObject:(id)obj forKeyedSubscript:(id <NSCopying>)key; // setter
 - (id)objectForKeyedSubscript:(id)key;						   // getter
-
 - (void)performBlock:(void (^)(void))block afterDelay:(NSTimeInterval)delay;
 - (void)fireBlockAfterDelay:(void (^)(void))block;
 
@@ -170,10 +195,61 @@ typedef void (^caseBlock)();
 
 @interface NSObject (AG)
 
+/* 
+- (void)doSomethingWithFloat:(float)f;														// Example 1
+	float value = 7.2661; 																		// Create a float
+	float *height = &value; 																	// Create a _pointer_ to the float (a floater?)
+	[self performSelector:@selector(doSomethingWithFloat:) withValue:height]; 	// Now pass the pointer to the float
+	free(height); 																					// Don't forget to free the pointer!
+
+- (int)addOne:(int)i;																			// Example 2
+	int ten = 10; 																					// As above
+	int *i = &ten;
+	int *result = [self performSelector:@selector(addOne:) withValue:i]; 		// Returns a __pointer__ to the int
+	NSLog(@"result is %d", *result); 														// Remember that it's a pointer, so keep the *!
+ 	free(result);
+
+- (NSObject *)objectIfTrue:(BOOL)b;															// Example 3
+	BOOL y = YES; 																					// Same as previously
+ 	BOOL *valid = &y;
+ 	void **p = [self performSelector:@selector(objectIfTrue:) withValue:valid];// Returns a pointer to an NSObject (standard Objective-C behaviour)
+ 	NSObject *obj = (__bridge NSObject *)*p;												// bridge the pointer to Objective-C
+ 	NSLog(@"object is %@", obj);
+ 	free(p);
+
+- (NSS*)strWithView:(UIView *)v;														// Example 4
+	UIView *view = [[UIView alloc] init];
+ 	void **p = [self performSelector:@selector(strWithView:) withValue:&view];
+	NSString *str = (__bridge NSString *)*p;
+	NSLog(@"string is %@", str);
+	free(p);
+*/
+
+- (void*)performSelector:(SEL)selector withValue:(void *)value;
+- (void*)performSelector:(SEL)selector withValue:(void *)value andValue:(void*)value2;
+
+
+//	void **pp = [RED performSelector:@selector(colorWithSaturation:brightness:) withValues:oneP,twoP, nil];
+//	NSLog(@"string is %@", (__bridge NSC*)*pp);
+//	free(pp)
+- (void*) performSelector:(SEL)aSelector withValues:(void *)context, ...;
+
++ (NSS*) stringFromType:(const char*)type;
+
+//- (NSValue*) invoke:(SEL)selector withArgs:(NSA*)args;
+
+/*
+	NSView *vv = [NSV.alloc init];
+ 	[vv invokeSelector:@selector(setFrame:), AZVrect(AZRectFromDim(100))];
+ 	NSLog(@"%@",AZStringFromRect(vv.frame)); -> [x.0 y.0 [100 x 100]]
+*/
+
+- (NSValue*) invokeSelector:(SEL)selector, ...;
+
 - (void) log;
 - (void) logInColor:(NSC*)color;
 
-//- (NSMethodSignature *)methodSignatureForSelector:(SEL)selector;
+//- (NSMethodSignature*) methodSignatureForSelector:(SEL)selector;
 //- (void)forwardInvocation:(NSInvocation *)invocation;
 
 
@@ -234,10 +310,22 @@ BOOL respondsToString(id obj,NSS* string);
 			 forName:	(NSString*) notificationName
 			 calling:	(SEL) selector;
 
--(void)observeName:(NSString *)notificationName
+-(void)observeName:(NSS*) notificationName
 		   calling:(SEL)selector;
 
 - (void) stopObserving:	(NSObject*) object forName:	(NSString*) notificationName;
+
+
+// This awesome method was found at Stackoverflow From Rob Mayoff - http://stackoverflow.com/users/77567/rob-mayoff
+// Initial Solution by Scott Thompson - http://stackoverflow.com/users/415303/scott-thompson http://stackoverflow.com/a/7933931/1320374
+
+#define PerformSelectorWithoutLeakWarning(Stuff) do { \
+_Pragma("clang diagnostic push") \
+_Pragma("clang diagnostic ignored \"-Warc-performSelector-leaks\"") \
+Stuff; \
+_Pragma("clang diagnostic pop") \
+} while (0)
+
 
 - (id) performSelectorSafely:(SEL)aSelector;
 - (id) performSelectorWithoutWarnings:(SEL)aSelector;
@@ -253,6 +341,8 @@ BOOL respondsToString(id obj,NSS* string);
 
 - (void) willChangeValueForKeys:	(id<NSFastEnumeration>) keys;
 - (void) didChangeValueForKeys:	(id<NSFastEnumeration>) keys;
+
+
 #pragma PropertyArray
 - (NSDictionary*) dictionaryWithValuesForKeys;
 - (NSA*)  allKeys;
@@ -272,11 +362,12 @@ BOOL respondsToString(id obj,NSS* string);
 */
 
 #pragma SetClass
-- (void) setClass:	(Class) aClass;
-// In your custom class
-+ (id) customClassWithProperties:	(NSDictionary*) properties;
-- (id) initWithProperties:	(NSDictionary*) properties;
-+ (id) newFromDictionary:(NSD*)dic;
+- (void) setClass:	(Class) aClass;	// In your custom class
++ (instancetype) customClassWithProperties:(NSD*) properties;
+- (instancetype) initWithProperties:		 (NSD*) properties;
+- (instancetype) initWithDictionary:		 (NSD*) properties;
++ (instancetype) instanceWithDictionary:	 (NSD*) properties;
++ (instancetype) newFromDictionary:			 (NSD*) properties;
 @end
 
 
@@ -308,7 +399,7 @@ BOOL respondsToString(id obj,NSS* string);
 
 //	Here are some examples. Let’s assume you have a class with the following methods:
 //	- (NSObject *)objectIfTrue:(BOOL)b;	 // Example 3
-//	- (NSString *)strWithView:(UIView *)v;  // Example 4
+//	- (NSS*) strWithView:(UIView *)v;  // Example 4
 //	Notice how both methods return objects (well, technically, pointers to objects, which is important!). We can now use performSelector:withValue: as follows:
 /*
 	BOOL y = YES; // Same as previously
@@ -359,3 +450,95 @@ free(p);
 
 @end
 */
+
+
+ // thanks Landon Fuller
+#define VERIFIED_CLASS(className) ((className *) NSClassFromString(@"" # className))
+
+@interface NSObject (SadunUtilities)
+
+// Return all superclasses of object
+- (NSA*) superclasses;
+
+// Selector Utilities
+- (NSInvocation *) invocationWithSelectorAndArguments: (SEL) selector,...;
+- (BOOL) performSelector: (SEL) selector withReturnValueAndArguments: (void *) result, ...;
+- (const char *) returnTypeForSelector:(SEL)selector;
+
+// Request return value from performing selector
+- (id) objectByPerformingSelectorWithArguments: (SEL) selector, ...;
+- (id) objectByPerformingSelector:(SEL)selector withObject:(id) object1 withObject: (id) object2;
+- (id) objectByPerformingSelector:(SEL)selector withObject:(id) object1;
+- (id) objectByPerformingSelector:(SEL)selector;
+
+// Delay Utilities
+- (void) performSelector: (SEL) selector withCPointer: (void *) cPointer afterDelay: (NSTimeInterval) delay;
+- (void) performSelector: (SEL) selector withInt: (int) intValue afterDelay: (NSTimeInterval) delay;
+- (void) performSelector: (SEL) selector withFloat: (float) floatValue afterDelay: (NSTimeInterval) delay;
+- (void) performSelector: (SEL) selector withBool: (BOOL) boolValue afterDelay: (NSTimeInterval) delay;
+- (void) performSelector: (SEL) selector afterDelay: (NSTimeInterval) delay;
+- (void) performSelector: (SEL) selector withDelayAndArguments: (NSTimeInterval) delay,...;
+
+// Return Values, allowing non-object returns
+- (id) valueByPerformingSelector:(SEL)selector withObject:(id) object1 withObject: (id) object2;
+- (id) valueByPerformingSelector:(SEL)selector withObject:(id) object1;
+- (id) valueByPerformingSelector:(SEL)selector;
+
+// Access to object essentials for run-time checks. Stored by class in dictionary.
+@property (readonly) NSDictionary *selectors;
+@property (readonly) NSDictionary *properties;
+@property (readonly) NSDictionary *ivars;
+@property (readonly) NSDictionary *protocols;
+
+// Check for properties, ivar. Use respondsToSelector: and conformsToProtocol: as well
+- (BOOL) hasProperty: (NSS*)  propertyName;
+- (BOOL) hasIvar: (NSS*)  ivarName;
++ (BOOL) classExists: (NSS*)  className;
++ (id) instanceOfClassNamed: (NSS*)  className;
+
+// Attempt selector if possible
+- (id) tryPerformSelector: (SEL) aSelector withObject: (id) object1 withObject: (id) object2;
+- (id) tryPerformSelector: (SEL) aSelector withObject: (id) object1;
+- (id) tryPerformSelector: (SEL) aSelector;
+
+// Choose the first selector that the object responds to
+- (SEL) chooseSelector: (SEL) aSelector, ...;
+@end
+
+
+typedef void (^KVOFullBlock)(NSString *keyPath, id object, NSDictionary *change);
+@interface NSObject (NSObject_KVOBlock)
+- (id)addKVOBlockForKeyPath:(NSS*)inKeyPath options:(NSKeyValueObservingOptions)inOptions handler:(KVOFullBlock)inHandler;
+- (void)removeKVOBlockForToken:(id)inToken;
+/// One shot blocks remove themselves after they've been fired once.
+- (id)addOneShotKVOBlockForKeyPath:(NSS*)inKeyPath options:(NSKeyValueObservingOptions)inOptions handler:(KVOFullBlock)inHandler;
+- (void)KVODump;
+@end
+
+@interface NSObject (FOOCoding)
+
+- (id)initWithDictionary:(NSD*)dictionary;
+
+- (NSA*)arrayForKey:(NSS*)key;
+- (NSA*)arrayOfClass:(Class)objectClass forKey:(NSS*)key;
+- (NSA*)arrayOfClass:(Class)objectClass;
+- (NSA*)arrayOfDictionariesForKey:(NSS*)key;
+- (NSA*)arrayOfStringsForKey:(NSS*)key;
+
+- (BOOL)boolForKey:(NSS*)key;
+- (NSData *)dataForKey:(NSS*)key;
+- (NSDate *)dateForKey:(NSS*)key;
+- (NSD*)dictionaryForKey:(NSS*)key;
+- (double)doubleForKey:(NSS*)key;
+- (CGFloat)floatForKey:(NSS*)key;
+- (NSInteger)integerForKey:(NSS*)key;
+- (NSS*)stringForKey:(NSS*)key;
+- (NSUInteger)unsignedIntegerForKey:(NSS*)key;
+- (NSURL *)URLForKey:(NSS*)key;
+
+- (id)valueForKey:(NSS*)key assertingClass:(Class)class;
+- (id)valueForKey:(NSS*)key assertingRespondsToSelector:(SEL)theSelector;
+- (BOOL)contentsOfCollection:(id <NSFastEnumeration>)theCollection areKindOfClass:(Class)theClass;
+
+@end
+

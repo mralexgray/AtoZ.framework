@@ -25,8 +25,6 @@
 - (void) loadUnloadViews;
 - (void) transformItemViews;
 - (void) startAnimation;
-- (void) loadUnloadViews;
-- (void) transformItemViews;
 - (void) disableAnimation;
 - (void) enableAnimation;
 - (NSInteger)minScrollDistanceFromIndex:(NSInteger)fromIndex toIndex:(NSInteger)toIndex;
@@ -84,9 +82,9 @@
 
 + (void) load {
 	
-	[$ swizzleMethod:@selector(clampedOffset:) 		in:iCarousel.class 
-					with:@selector(az_clampedOffset:) 	in:iCarousel.class];
-	[$ swizzleMethod:@selector(currentItemIndex) 		in:iCarousel.class 
+//	[$ swizzleMethod:@selector(clampedOffset:) 		in:iCarousel.class 
+//					with:@selector(az_clampedOffset:) 	in:iCarousel.class];
+	[$ swizzleMethod:@selector(currentItemIndex) 		in:iCarousel.class
 					with:@selector(az_currentItemIndex) 	in:iCarousel.class];
 }
 

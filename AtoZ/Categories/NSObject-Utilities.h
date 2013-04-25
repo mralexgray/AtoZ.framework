@@ -11,7 +11,7 @@
 @interface NSObject (Utilities)
 
 // Return all superclasses of object
-- (NSArray *) superclasses;
+- (NSA*) superclasses;
 
 // Selector Utilities
 - (NSInvocation *) invocationWithSelectorAndArguments: (SEL) selector,...;
@@ -44,10 +44,10 @@
 @property (RONLY) NSDictionary *protocols;
 
 // Check for properties, ivar. Use respondsToSelector: and conformsToProtocol: as well
-- (BOOL) hasProperty: (NSString *) propertyName;
-- (BOOL) hasIvar: (NSString *) ivarName;
-+ (BOOL) classExists: (NSString *) className;
-+ (id) instanceOfClassNamed: (NSString *) className;
+- (BOOL) hasProperty: (NSS*) propertyName;
+- (BOOL) hasIvar: (NSS*) ivarName;
++ (BOOL) classExists: (NSS*) className;
++ (id) instanceOfClassNamed: (NSS*) className;
 
 // Attempt selector if possible
 - (id) tryPerformSelector: (SEL) aSelector withObject: (id) object1 withObject: (id) object2;
@@ -59,6 +59,7 @@
 @end
 
 
+#define overrideSEL az_overrideSelector
 
 @interface NSObject (AZOverride)
  /*

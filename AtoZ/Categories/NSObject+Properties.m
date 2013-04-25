@@ -112,7 +112,7 @@ static const char * getPropertyType(objc_property_t property) 		{
 /** @returns (NSString) Dictionary of property name --> type	*/
 + (NSD*)classObjectPropertiesAndTypes 										{
 
-//+ (NSDictionary *)propertyTypeDictionaryOfClass:(Class)klass {
+//+ (NSD*)propertyTypeDictionaryOfClass:(Class)klass {
 	NSMD *propertyMap = NSMD.new;
 	unsigned int outCount, i;
 	objc_property_t *properties = class_copyPropertyList(self.class, &outCount);
@@ -262,6 +262,14 @@ static const char * getPropertyType(objc_property_t property) 		{
 - (NSD*) propertiesSans: 	  (NSS*)someKey 								{	return [self propertiesSansKeys:@[someKey]]; }
 - (NSD*) propertiesSansKeys: (NSA*)someKeys								{	return [self.propertiesPlease subdictionaryWithKeys:
 																									 	 [self.propertyNames arrayByRemovingObjectsFromArray:someKeys]]; }
+
+- (NSS*) ppString 																{
+
+	NSUI truncation = 20;
+	NSA* phrases = [[self.propertyNames map:^id(id obj) { return [$(@"%@ : %@", obj, [self valueForKey:obj]) truncateInMiddleToCharacters:truncation]; }] arrayByAddingObjectToFront:@"Properties: \n"];
+//	NSUI *mostLong = [[phrases sortedWithKey:@"length" ascending:NO].first length];
+	return [phrases formatAsListWithPadding:truncation +3];
+}
 - (NSD*) propertiesPlease														{
 	return [self.propertyNames mapToDictionary:^id(id object) {
 		return [self valueForKey:object];
@@ -287,6 +295,7 @@ static const char * getPropertyType(objc_property_t property) 		{
 	return props.copy;
 	*/
 }
+- (NSD*) pp 																		{	return self.propertiesPlease; }
 - (BOOL) hasProperties															{
 	return ( [[self class] hasProperties] );
 }

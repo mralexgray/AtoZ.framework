@@ -68,7 +68,7 @@ NSStringFromClass([self class]), NSStringFromSelector(_cmd), ##__VA_ARGS__]
 
 /** Returns a cached `NSImage` rendered with the drawing code in the block.
  The `NSImage` is cached in an `NSCache` with the identifier provided. */
-+ (NSImage *)imageWithIdentifier:(NSString *)identifier forSize:(NSSize)size andDrawingBlock:(void(^)())drawingBlock;
++ (NSImage *)imageWithIdentifier:(NSS*)identifier forSize:(NSSize)size andDrawingBlock:(void(^)())drawingBlock;
 
 @end
 

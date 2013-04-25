@@ -39,7 +39,7 @@ NSString *const AZToggleState		= @"AZToggleState";
 - (BOOL) acceptsFirstResponder { return YES; }
 
 - (AZOrient) orientation {
-	return _orientation = [_datasource respondsToSelector:@selector(orientationOfToggleView:)] 
+	return _orientation = [(NSO*)_datasource respondsToString:@"orientationOfToggleView:"]
 							  ? [_datasource toggleOrientationForView:self] : _orientation ?: AZOrientHorizontal;
 }
 - (CAL*) rootLayer			{

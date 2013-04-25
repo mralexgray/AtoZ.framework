@@ -6,8 +6,22 @@
 //  Copyright (c) 2013 mrgray.com, inc. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+#import "AtoZ.h"
 
-@interface AZCLICategories : NSWindow
+@interface AZCLI (Categories)
+
+//@property (RONLY) NSA 	*names, *colors;
+//@property (RONLY) NSC 	*next;
+//@property (STRNG) NSS	*name;
+//
+//- (id) objectAtIndexedSubscript:(NSUI)idx;
+//
+//+ (instancetype) instanceWithListNamed:(NSS*)listName;
+//+ (instancetype) instanceWithColorList:(NSCL*)list;
+//+ (instancetype) instanceWithNames:(NSA*)names;
+//+ (instancetype) instanceWithColors:(NSA*)names;
++ (NSS*) cliMenuFor:(NSA*)items starting:(NSUI)idx palette:(NSA*)p;
+
+
 
 @end

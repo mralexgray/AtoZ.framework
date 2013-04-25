@@ -1,262 +1,253 @@
-//
-//  NSLogConsole.m
-//  NSLogConsole
-//
 //  Created by Patrick Geiller on 16/08/08.
-//  Copyright 2008 __MyCompanyName__. All rights reserved.
-//
 
 #import "NSLogConsole.h"
 #import <ScriptingBridge/ScriptingBridge.h>
-#import "AtoZ.h"
 
-BOOL inited = NO;
-void	NSLogPostLog(char* file, int line)
-{
-	if (!inited)	return;
-	[[NSLogConsole sharedConsole] updateLogWithFile:file lineNumber:line];
-}
+BOOL 	inited = NO;
+void	NSLogPostLog(char* file, int line){ if(!inited)return; [NSLogConsole.sharedConsole updateLogWithFile:file lineNumber:line];}
 
 @implementation NSLogConsole
+@synthesize autoOpens, windowTitle, original_stderr, logPath, fileHandle, fileOffset, webView, window, searchField;
 
-@synthesize autoOpens, windowTitle, messageQueue, window = _window, original_stderr  = _original_stderr;
-+ (id)sharedConsole
+- 	    (void) setTerminal:(NSMutableAttributedString *)terminal
 {
-	return [NSLogConsole sharedInstance];
-//	static id singleton = NULL;
-//	@synchronized(self)
-//	{
-//		if (!singleton)
-//		{
-//			singleton = [[self class] new];// alloc];
-////			[singleton init];
-//		}
-//	}
-//	return singleton;
+	_terminal = terminal;
+	if ([_delegate respondsToSelector:@selector(textWasEntered:)]) [_delegate textWasEntered:terminal.string];
 }
++       (id)sharedConsole														{
 
-//
-// Init : should only be called once by sharedConsole
-//
-- (id)init
-{
-
-	/* Initialize webInspector. */
-	[[NSUserDefaults standardUserDefaults] setBool:TRUE forKey:@"WebKitDeveloperExtras"];
-	[[NSUserDefaults standardUserDefaults] synchronize];
+		static id singleton = NULL;
+		@synchronized(self){
+			if (!singleton){
+				singleton = self.alloc;
+				[singleton init];
+			}
+		}
+	return singleton;
+}
+-       (id)init																	{
 	id o		= [super init];
 	autoOpens	= YES;
-	_logPath		= NULL;
+	logPath		= NULL;
 	inited		= YES;
-
+	_tokensForCompletion = NSMA.new;
 	// Save stderr
-	self.original_stderr = dup(STDERR_FILENO);
+	original_stderr = dup(STDERR_FILENO);
 
-//	self.logPath = [NSString stringWithFormat:@"%@%@.log.txt", NSTemporaryDirectory(), [[NSBundle bundleForClass:[self class]bundleIdentifier]]];
-	NSLog(@"path: %@", _logPath);
-//	[logPath retain];
+	logPath = [NSString stringWithFormat:@"%@%@.log.txt", NSTemporaryDirectory(), [AZBUNDLE bundleIdentifier]];
 
 	// Create the file — NSFileHandle doesn't do it !
-	[@"" writeToFile:_logPath atomically:YES encoding:NSUTF8StringEncoding error:nil];
-	self.fileHandle = [NSFileHandle fileHandleForWritingAtPath:_logPath];
-	if (!_fileHandle)	NSLog(@"Opening log at %@ failed", _logPath);
+	[@"" writeToFile:logPath atomically:YES encoding:NSUTF8StringEncoding error:nil];
+	fileHandle = [NSFileHandle fileHandleForWritingAtPath:logPath];
+	if (!fileHandle)	NSLog(@"Opening log at %@ failed", logPath);
 
-//	[fileHandle retain];
-	id fd = [NSFileHandle fileHandleWithStandardError];// fileDescriptor];
-//
+	int fd = [fileHandle fileDescriptor];
+
 	// Redirect stderr
-//	int err = dup2( [NSFi ]fd, STDERR_FILENO);
-//	if (!err)	NSLog(@"Couldn't redirect stderr");
+	int err = dup2(fd, STDERR_FILENO);
+	if (!err)	NSLog(@"Couldn't redirect stderr");
 
-	_fileOffset = 0;
+	fileOffset = 0;
+	
+	[fileHandle readInBackgroundAndNotify];
+//	[AZNOTCENTER addObserver:self selector:@selector(setFakeStdin:) name:@"NSLogConsoleFakeStdin" object:nil ];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dataAvailable:) name:NSFileHandleReadCompletionNotification object: fileHandle];
 
-//	[NSFileHandle readInBackgroundAndNotify];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dataAvailable:) name:NSFileHandleReadCompletionNotification object: _fileHandle];
+
 	return	o;
-}
+}	// Init : should only be called once by sharedConsole
 
-// NSLog will generate an event posted in the next run loop run
-- (void)dataAvailable:(NSNotification *)aNotification
-{
-//	NSData *data = [[aNotification userInfo] objectForKey:NSFileHandleNotificationDataItem];
+
+-     (void) dataAvailable:(NSNotification *)aNotification			{
+	NSData *data = [[aNotification userInfo] objectForKey:NSFileHandleNotificationDataItem];
+	NSLog(@"data: %@", data);
 	[[NSLogConsole sharedConsole] updateLogWithFile:"" lineNumber:0];
-}
-- (void)open
-{
-	if (!_window)
+	printf("%snslog logged,babay!", _fakeStdin.UTF8String);
+}	// NSLog will generate an event posted in the next run loop run
+-     (void) open																	{
+	if (!window)
 	{
 		if (![NSBundle loadNibNamed:@"NSLogConsole" owner:self])
 		{
 			NSLog(@"NSLogConsole.nib not loaded");
 			return;
 		}
-		if ([_window respondsToSelector:@selector(setBottomCornerRounded:)])
-			[_window setBottomCornerRounded:NO];
-		if ([_window respondsToSelector:@selector(setLevel:)])
-			[_window setLevel:NSScreenSaverWindowLevel];
+		if ([window respondsToSelector:@selector(setBottomCornerRounded:)])
+			[window setBottomCornerRounded:NO];
 	}
-//	NSRunningApplication *activeAppDict =//[[NSWorkspace sharedWorkspace] cur];
-	NSString *activeApplicationPath =  [[NSRunningApplication currentApplication] valueForKey:@"localizedName"];
-	//activeApplicationPath [activeAppDict valueForKey:@"NSApplicationPath"];
-//	NSImage *activeAppImage = [[NSWorkspace sharedWorkspace] iconForFile:activeApplicationPath];
-
-//	if (windowTitle)
-	[_window setTitle:activeApplicationPath];//[[NSApplication sharedApplication] stringFromClass]];// windowTitle];
-	[_window orderFront:self];
+	if (windowTitle)	[window setTitle:windowTitle];
+	[window orderFront:self];
 }
-- (void)close
-{
-	[_window orderOut:self];
+-     (void) close																{	[window orderOut:self];	}
+-     (BOOL) isOpen																{	return	[window isVisible];	}
+- (IBAction) clear:(id)sender													{
+	[webView clear];
 }
-- (BOOL)isOpen
-{
-	return	[_window isVisible];
-}
-
-- (IBAction)clear:(id)sender
-{
-	[self.webView clear];
-}
-- (IBAction)searchChanged:(id)sender
-{
-	[self.webView search:[sender stringValue]];
-}
-- (IBAction)poChanged:(id)sender
-{
-	NSLog(@"%@",[sender stringValue]);
-}
-
-//
-// Read log data from handle
-//
-- (void)updateLogWithFile:(char*)file lineNumber:(int)line
-{
+- (IBAction) searchChanged:(id)sender										{
+	[webView search:[sender stringValue]];
+} // Read log data from handle
+-     (void) updateLogWithFile:(char*)fl lineNumber:(int)ln 		{
 	// Open a new handle to read new data
-	id f = [NSFileHandle fileHandleForReadingAtPath:self.logPath];
-	if (!f)	NSLog(@"Opening log at %@ failed", self.logPath);
-
+	id f = [NSFileHandle fileHandleForReadingAtPath:logPath];
+	printf("readinglogfileat:%s", logPath.UTF8String);
+	if (!f)	NSLog(@"Opening log at %@ failed", logPath);
 	// Get file length
 	[f seekToEndOfFile];
 	unsigned long long length = [f offsetInFile];
 	if (length == 0)	return;
-
 	// Open console if it's hidden
-	if (![_window isVisible] && autoOpens)	[self open];
-
+	if (![window isVisible] && autoOpens)	[self open];
 	// Read data
-	[f seekToFileOffset:self.fileOffset];
+	[f seekToFileOffset:fileOffset];
 	NSData* data = [f readDataToEndOfFile];
-	[self logData:data file:file lineNumber:line];
-	
+	[self logData:data file:fl lineNumber:ln];
 	// We'll read from that offset next time
-	self.fileOffset = length;
-}
+	fileOffset = length;
+}// Log data to webview and original stderr
+-     (void) logData:(NSData*)d file:(char*)fl lineNumber:(int)ln	{
+	if (![window isVisible] && autoOpens)	[self open];
 
-//
-// Log data to webview and original stderr 
-//
-- (void)logData:(NSData*)data file:(char*)file lineNumber:(int)line
-{
-	if (![_window isVisible] && autoOpens)	[self open];
-
-	id str = [[NSString alloc] initWithBytes:[data bytes] length:[data length] encoding:NSUTF8StringEncoding];
+	id str = [[NSString alloc] initWithBytes:[d bytes] length:[d length] encoding:NSUTF8StringEncoding];
 //	[[NSAlert alertWithMessageText:@"hello" defaultButton:@"Furthe" alternateButton:nil otherButton:nil informativeTextWithFormat:str] runModal];
 	// Write back to original stderr
-	write(_original_stderr, [data bytes], [data length]);
+	write(original_stderr, [d bytes], [d length]);
 	// Clear search
-//	[searchField setStringValue:@""];
-	[_webView search:@""];
+	[searchField setStringValue:@""];
+	[webView search:@""];
 	// Log string
-	[_webView logString:str file:file lineNumber:line];
+	[webView logString:str file:fl lineNumber:ln];
+}
+- (void) setFakeStdin:(NSString *)fakeStdin {  printf("%s", fakeStdin.UTF8String); }
+- (void) tableViewSelectionDidChange:(NSNotification *)notification {
 
-//	[str release];
+	NSUI row = [(NSTV*)notification.object selectedRow];
+	NSS* className = self.classes[row][@"names"];
+	NSA* methods = [RuntimeReporter methodNamesForClassNamed:className];
+	NSLog(@"%@selected%@", className, methods);
+}
+- (NSA*) classes {
+//	NSMA* names = NSMA.new;
+//	NSLog(@"%@",
+//	[[AtoZ classMethods]each:^(id obj) {
+	return	[[AZFWORKBUNDLE definedClasses] map:^id(id obj) {
+					return @{@"names":obj};
+				}];
+
+//	[self.myTokenField setTokenArray:[NSArray arrayWithObject:@"test"]];
+//	NSLog(@"%@", names);
+//	return names;
+}
+
+- (NSA*)tokenField:(MTTokenField*)tokenField completionsForSubstring:(NSS*)substring	{
+
+		return [self.tokensForCompletion filter:^BOOL(id object) {
+					return [(NSS*)object contains:substring];
+					}];
+/*			//	if (self.option==0){
+		// matching substring to anyportion of the candidat		else{
+		// matching substring to leading characters of candidate ignoring any non AlphaNumeric characters in candidate
+		// eg
+		// if substring is "ac",   matches will include "@action" and "account" but not "fact"
+
+		NSRange alphaNumericRange = [substring rangeOfCharacterFromSet:[NSCharacterSet alphanumericCharacterSet]];
+		NSString * alphaSubstring = @"";
+		BOOL searchFullString = NO;
+		if (alphaNumericRange.location!=NSNotFound)
+			alphaSubstring = [substring substringFromIndex:alphaNumericRange.location];
+		else{			alphaSubstring = substring;
+						searchFullString = YES;
+		}
+		NSMutableArray * matches = [[[NSMutableArray alloc] init] autorelease];;
+		for (NSString *candidate in testArray){
+			// remove any candidate already in use
+			if ([tokenField respondsToSelector:@selector(tokenArray)]){
+				if([[tokenField tokenArray] containsObject:candidate]) continue;
+			}
+			else				if([[tokenField objectValue] containsObject:candidate]) continue;
+			NSRange alphaNumericRange = [candidate rangeOfCharacterFromSet:[NSCharacterSet alphanumericCharacterSet]];
+			if (alphaNumericRange.location!=NSNotFound){
+				NSString * alphaKeyword = searchFullString?candidate:[candidate substringFromIndex:alphaNumericRange.location];
+				NSRange substringRange = [alphaKeyword rangeOfString:alphaSubstring options:NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch];
+				if (substringRange.location == 0){
+					[matches addObject:candidate];
+				}
+			}
+		}
+		return matches;
+	}
+*/
+}
+
+- (void)action:(id)sender{	NSLog(@"You selected Menu Item: %@",sender);	}
+
+- (NSMenu*)tokenField:(MTTokenField*)tokenField menuForToken:(NSS*)string atIndex:(NSUI) index	{
+	NSMenu * test = [[[NSMenu alloc] init] autorelease];
+	NSArray * itemNames = [NSArray arrayWithObjects:@"Cut",@"Copy",@"Paste",@"-", [NSString stringWithFormat:@"Add %@ to preferences",string], nil];
+	for (NSString *aName in itemNames){
+		if ([aName isEqualToString:@"-"]){
+			[test addItem:[NSMenuItem separatorItem]];
+		}
+		else{
+			NSMenuItem * item = [[NSMenuItem alloc] initWithTitle:aName action:@selector(action:) keyEquivalent:@""];
+			[item setTarget:self];
+			[test addItem:item];
+			[item release];
+
+
+		}
+	}
+	return test;
 }
 
 @end
-
-
-
 @implementation NSLogConsoleView
-
-//
-//- (void)dealloc
-//{
-//	[messageQueue release];
-//	[super dealloc];
-//}
-//
-- (BOOL)drawsBackground
-{
+- (BOOL)drawsBackground	{
 	return	NO;
 }
-
-- (void)awakeFromNib
-{
-	_messageQueue	= [NSMutableArray array];
+- (void)awakeFromNib		{
+	messageQueue	= [[NSMutableArray alloc] init];
 	webViewLoaded	= NO;
 
 	// Frame load
 	[self setFrameLoadDelegate:self];
-	NSBundle *aBundle = [NSBundle bundleForClass: [AtoZ class]];
-	id path = [aBundle pathForResource:@"NSLogConsole" ofType:@"html"];
 
 	// Load html page
-
-//	id path = [[NSBundle mainBundle] pathForResource:@"NSLogConsole" ofType:@"html"];
+	id path = [AZBUNDLE pathForResource:@"NSLogConsole" ofType:@"html"];
 	[[self mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:path]]];
 
 	// Navigation notification
 	[self setPolicyDelegate:self];
 }
+//	Javascript is available	Register our custom javascript object in the hosted page
+- (void)webView:(WebView *)view windowScriptObjectAvailable:(WebScriptObject *)windowScriptObject	{
 
-//
-//	Javascript is available
-//		Register our custom javascript object in the hosted page
-//
-- (void)webView:(WebView *)view windowScriptObjectAvailable:(WebScriptObject *)windowScriptObject
-{
 	[windowScriptObject setValue:self forKey:@"NSLogConsoleView"];
 }
-
-//
-// WebView has finished loading
-//
-- (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame
-{
+- (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame	{
 	webViewLoaded	= YES;
-
 	// Flush message queue
-	for (id o in _messageQueue)
+	for (id o in messageQueue)
 		[self logString:[o valueForKey:@"string"] file:(char*)[[o valueForKey:@"file"] UTF8String] lineNumber:[[o valueForKey:@"line"] intValue]];
-//	[messageQueue release];
-}
+} // WebView has finished loading
 
-//
-// Notify WebView of new message
-//
-- (void)logString:(NSString*)string file:(char*)file lineNumber:(int)line
-{
+- (void)logString:(NSString*)string file:(char*)file lineNumber:(int)line	{
 	// Queue message if WebView has not finished loading
-	if (!webViewLoaded)
-	{
+	if (!webViewLoaded)	{
 		id o = @{@"string": [NSString stringWithString:string],
 															@"file": @(file),
 															@"line": @(line)};
-		[_messageQueue addObject:o];
+		[messageQueue addObject:o];
 		return;
 	}
-	[[self windowScriptObject] callWebScriptMethod:@"log" withArguments:@[string, 
+	[self.windowScriptObject callWebScriptMethod:@"log" withArguments:@[string,
 																			@(file), 
 																			@(line)]];
-}
+} // Notify WebView of new message
 
-//
-// Open source file in XCode at correct line number
-//
 - (void)webView:(WebView *)webView decidePolicyForNavigationAction:(NSDictionary *)actionInformation
-														   request:(NSURLRequest *)request
-															 frame:(WebFrame *)frame
-												  decisionListener:(id<WebPolicyDecisionListener>)listener
+                                                           request:(NSURLRequest *)request
+                                                             frame:(WebFrame *)frame
+                                                  decisionListener:(id<WebPolicyDecisionListener>)listener
 {
 	// Get path, formed by AbsolutePathOnDisk(space)LineNumber
 	NSString* pathAndLineNumber = [[request URL] path];
@@ -285,19 +276,14 @@ void	NSLogPostLog(char* file, int line)
 												set selection to paragraph (%d) of contents of doc		\n\
 											end tell", path, line];
 	id script = [[NSAppleScript alloc] initWithSource:source];
-	[script performSelectorOnMainThread:@selector(executeAndReturnError:) withObject:nil waitUntilDone:YES];
-	// executeAndReturnError:nil];
-	script = nil;
-//	[script release];
-}
+	[script executeAndReturnError:nil];
+}  // Open source file in XCode at correct line number
 - (void)clear
 {
 	[[self windowScriptObject] callWebScriptMethod:@"clear" withArguments:nil];
 }
-
 - (void)search:(NSString*)string
-{
-	[[self windowScriptObject] callWebScriptMethod:@"search" withArguments:@[string]];
+{	[[self windowScriptObject] callWebScriptMethod:@"search" withArguments:@[string]];
 }
 @end
 

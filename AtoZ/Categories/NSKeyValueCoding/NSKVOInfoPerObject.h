@@ -15,7 +15,7 @@
 -objectForKey:key;
 -(void)setObject:object forKey:key;
 
--(NSArray *)keyObserversForKey:(NSString *)key;
+-(NSA*)keyObserversForKey:(NSS*)key;
 -(void)addKeyObserver:(NSKeyObserver *)keyObserver;
 -(void)removeKeyObserver:(NSKeyObserver *)keyObserver;
 

@@ -534,17 +534,6 @@ static char ROOT_IDENTIFIER;
 static char TEXT_IDENTIFIER;
 
 
-@implementation CATransaction (AtoZ)
-+(void)immediatelyWithCompletion:(void (^)())completion transaction:(void (^)())block
-{
-	[self begin];
-	[self setCompletionBlock:completion];
-	[self setDisableActions:YES];
-	block();
-	[self commit];
-}
-
-@end
 
 #define kCALayerLabel @"CALayerLabel"
 @implementation CALayer (AtoZ)
@@ -601,35 +590,35 @@ static char TEXT_IDENTIFIER;
 }
 
 
--(NSData *)dataKey:(NSString *)defaultName
+-(NSData *)dataKey:(NSS*)defaultName
 {
 	NSData *data=[self valueForKey:defaultName];
 	return [data isKindOfClass:objc_lookUpClass("NSData")]?data:(NSData *)nil;
 }
 
--(NSS*)strKey:(NSString *)defaultName {
+-(NSS*)strKey:(NSS*)defaultName {
 	NSString *string=self[defaultName];
-	return [string isKindOfClass:objc_lookUpClass("NSString")]?string:(NSString *)nil;
+	return [string isKindOfClass:objc_lookUpClass("NSString")]?string:(NSS*)nil;
 }
 
--(NSArray *)arrKey:(NSString *)defaultName {
+-(NSA*)arrKey:(NSS*)defaultName {
 	NSArray *array= self [defaultName];
 	
-	return [array isKindOfClass:objc_lookUpClass("NSArray")]?array:(NSArray *)nil;
+	return [array isKindOfClass:objc_lookUpClass("NSArray")]?array:(NSA*)nil;
 }
 
--(NSDictionary *)dicKey:(NSString *)defaultName
+-(NSD*)dicKey:(NSS*)defaultName
 {	NSDictionary *dictionary=self[defaultName];
-	return [dictionary isKindOfClass:objc_lookUpClass("NSDictionary")]?dictionary:(NSDictionary *)nil;
+	return [dictionary isKindOfClass:objc_lookUpClass("NSDictionary")]?dictionary:(NSD*)nil;
 }
 
--(BOOL)boolKey:(NSString *)defaultName {
+-(BOOL)boolKey:(NSS*)defaultName {
 	id object=self[defaultName];
 	return [object isKindOfAnyClass:@[NSNumber.class,NSString.class]] ? [object boolValue] : NO;
 	
 }
 
--(NSI)iKey:(NSString *)defaultName
+-(NSI)iKey:(NSS*)defaultName
 {
 	id number=self[defaultName];
 	return [number isKindOfClass:objc_lookUpClass("NSString")]
@@ -639,7 +628,7 @@ static char TEXT_IDENTIFIER;
 }
 
 
--(CGF)fKey:(NSString *)defaultName
+-(CGF)fKey:(NSS*)defaultName
 {
 	id number=self[defaultName];
 	return	[number isKindOfClass:objc_lookUpClass("NSString")]
@@ -665,7 +654,7 @@ static char TEXT_IDENTIFIER;
 	}];
 }
 
-//+ (NSArray *)uncodableKeys
+//+ (NSA*)uncodableKeys
 //{
 //	return [self propertyNames];
 //}
@@ -793,7 +782,7 @@ static char TEXT_IDENTIFIER;
 }
 
 
-- (void)setValue:(id)value	  forKeyPath:(NSString *)keyPath
+- (void)setValue:(id)value	  forKeyPath:(NSS*)keyPath
 		  duration:(CFTimeInterval)duration delay:(CFTimeInterval)delay {
 	[CATransaction immediately:^{
 		[self setValue:value forKeyPath:keyPath];
@@ -847,7 +836,7 @@ static char TEXT_IDENTIFIER;
 }
 
 
-- (NSNumber *) addValues:(int) count, ... {
+- (NSN*) addValues:(int) count, ... {
 	va_list args;
 	va_start(args, count);
 	
@@ -1175,7 +1164,7 @@ static char TEXT_IDENTIFIER;
 	return [self valueForKey:key] ?: nil;
 }
 
-- (void)setObject:(id)object forKeyedSubscript:(NSString *)key
+- (void)setObject:(id)object forKeyedSubscript:(NSS*)key
 {
 	if ( [self canSetValueForKey:key]) {
 		if (isEmpty(object)) [self setValue:@"" forKey:key];
@@ -1187,7 +1176,7 @@ static char TEXT_IDENTIFIER;
 
 -(void)rotateAroundYAxis:(CGFloat)radians
 {
-	[self vFk:@"animating"] ? ^{ return; }() : ^{ [self setValue:@(YES) forKey:@"animating"];
+	[self vFK:@"animating"] ? ^{ return; }() : ^{ [self setValue:@(YES) forKey:@"animating"];
 		[CATransaction transactionWithLength:1 easing:CAMEDIAEASY actions:^{
 			self.sublayerTransform = CATransform3DMakeRotation(radians, 0, 1, 0);
 		}];
@@ -1201,7 +1190,7 @@ static char TEXT_IDENTIFIER;
 }
 -(void)animateCameraToPosition:(CGPoint)point
 {
-	[self vFk:@"animating"] ? ^{ return; }() : ^{ [self setValue:@(YES) forKey:@"animating"];
+	[self vFK:@"animating"] ? ^{ return; }() : ^{ [self setValue:@(YES) forKey:@"animating"];
 		
 		[CATransaction transactionWithLength:2 easing:CAMEDIAEASY actions:^{
 			//	} setCompletionBlock:^ { // referencing mBeingAnimated creates a retain cycle as the block will retain self mBeingAnimated = NO; }];
@@ -1215,7 +1204,7 @@ static char TEXT_IDENTIFIER;
 
 -(void)rotateBy45
 {
-	[self vFk:@"animating"] ? ^{ return; }() : ^{ [self setValue:@(YES) forKey:@"animating"];
+	[self vFK:@"animating"] ? ^{ return; }() : ^{ [self setValue:@(YES) forKey:@"animating"];
 		[self rotateAroundYAxis:M_PI_4];
 		[self setValue:@(NO) forKey:@"animating"];
 	}();
@@ -1473,7 +1462,7 @@ static char TEXT_IDENTIFIER;
 	[self addAnimation:pulseAnimation forKey:@"pulseAnimation"];
 }
 
-- (void)addAnimations:(NSA*)anims forKeys:(NSArray *)keys;
+- (void)addAnimations:(NSA*)anims forKeys:(NSA*)keys;
 {
 	[anims enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 		[self addAnimation:obj forKey:keys[idx]];
@@ -1567,14 +1556,14 @@ static char TEXT_IDENTIFIER;
 	return [self sublayerWithName:kCALayerLabel];
 }
 
-- (id)sublayerWithName:(NSString *)name {
+- (id)sublayerWithName:(NSS*)name {
 	return [self.sublayers filterOne:^BOOL(id object) {
 		return [[object valueForKey:@"name"] isEqualToString:name];
 	}];
 	return nil;
 }
 
-- (CALayer *) setLabelString:(NSString *)label {
+- (CALayer *) setLabelString:(NSS*)label {
 	CATextLayer *layer = (CATextLayer *)[self sublayerWithName:kCALayerLabel];
 	if (!label) {		[layer removeFromSuperlayer]; return nil;	}
 	if (!layer) {
@@ -2521,7 +2510,7 @@ NSTimeInterval const LTKDefaultTransitionDuration = 0.25;
 	self.anchorPoint = anchorPoint;
 }
 
-+ (CGFloat)smallestWidthInLayers:(NSArray *)layers
++ (CGFloat)smallestWidthInLayers:(NSA*)layers
 {
 	CGFloat smallestWidth = 0.0f;
 	
@@ -2536,7 +2525,7 @@ NSTimeInterval const LTKDefaultTransitionDuration = 0.25;
 	return smallestWidth;
 }
 
-+ (CGFloat)smallestHeightInLayers:(NSArray *)layers
++ (CGFloat)smallestHeightInLayers:(NSA*)layers
 {
 	CGFloat smallestHeight = 0.0f;
 	
@@ -2551,7 +2540,7 @@ NSTimeInterval const LTKDefaultTransitionDuration = 0.25;
 	return smallestHeight;
 }
 
-+ (CGFloat)largestWidthInLayers:(NSArray *)layers
++ (CGFloat)largestWidthInLayers:(NSA*)layers
 {
 	CGFloat largestWidth = 0.0f;
 	
@@ -2566,7 +2555,7 @@ NSTimeInterval const LTKDefaultTransitionDuration = 0.25;
 	return largestWidth;
 }
 
-+ (CGFloat)largestHeightInLayers:(NSArray *)layers
++ (CGFloat)largestHeightInLayers:(NSA*)layers
 {
 	CGFloat largestHeight = 0.0f;
 	
@@ -2596,17 +2585,17 @@ NSTimeInterval const LTKDefaultTransitionDuration = 0.25;
 	[self addFadeTransitionWithDuration:LTKDefaultTransitionDuration];
 }
 
-- (void)addDefaultMoveInTransitionWithSubtype:(NSString *)subtype
+- (void)addDefaultMoveInTransitionWithSubtype:(NSS*)subtype
 {
 	[self addMoveInTransitionWithSubtype:subtype duration:LTKDefaultTransitionDuration];
 }
 
-- (void)addDefaultPushTransitionWithSubtype:(NSString *)subtype
+- (void)addDefaultPushTransitionWithSubtype:(NSS*)subtype
 {
 	[self addPushTransitionWithSubtype:subtype duration:LTKDefaultTransitionDuration];
 }
 
-- (void)addDefaultRevealTransitionWithSubtype:(NSString *)subtype
+- (void)addDefaultRevealTransitionWithSubtype:(NSS*)subtype
 {
 	[self addRevealTransitionWithSubtype:subtype duration:LTKDefaultTransitionDuration];
 }
@@ -2619,7 +2608,7 @@ NSTimeInterval const LTKDefaultTransitionDuration = 0.25;
 	[self addAnimation:transition forKey:kCATransition];
 }
 
-- (void)addMoveInTransitionWithSubtype:(NSString *)subtype duration:(NSTimeInterval)duration
+- (void)addMoveInTransitionWithSubtype:(NSS*)subtype duration:(NSTimeInterval)duration
 {
 	CATransition *transition = [CATransition animation];
 	transition.type = kCATransitionMoveIn;
@@ -2629,7 +2618,7 @@ NSTimeInterval const LTKDefaultTransitionDuration = 0.25;
 	[self addAnimation:transition forKey:kCATransition];
 }
 
-- (void)addPushTransitionWithSubtype:(NSString *)subtype duration:(NSTimeInterval)duration
+- (void)addPushTransitionWithSubtype:(NSS*)subtype duration:(NSTimeInterval)duration
 {
 	CATransition *transition = [CATransition animation];
 	transition.type = kCATransitionPush;
@@ -2639,7 +2628,7 @@ NSTimeInterval const LTKDefaultTransitionDuration = 0.25;
 	[self addAnimation:transition forKey:kCATransition];
 }
 
-- (void)addRevealTransitionWithSubtype:(NSString *)subtype duration:(NSTimeInterval)duration
+- (void)addRevealTransitionWithSubtype:(NSS*)subtype duration:(NSTimeInterval)duration
 {
 	CATransition *transition = [CATransition animation];
 	transition.type = kCATransitionReveal;
@@ -2654,12 +2643,12 @@ NSTimeInterval const LTKDefaultTransitionDuration = 0.25;
 	[self addAnimation:animation forKey:nil];
 }
 
-- (void)addAnimation:(CAAnimation *)animation forKey:(NSString *)key withStopBlock:(void (^)(BOOL finished))stopBlock
+- (void)addAnimation:(CAAnimation *)animation forKey:(NSS*)key withStopBlock:(void (^)(BOOL finished))stopBlock
 {
 	[self addAnimation:animation forKey:key withStartBlock:nil stopBlock:stopBlock];
 }
 
-- (void)addAnimation:(CAAnimation *)animation forKey:(NSString *)key withStartBlock:(void (^)(void))startBlock stopBlock:(void (^)(BOOL finished))stopBlock
+- (void)addAnimation:(CAAnimation *)animation forKey:(NSS*)key withStartBlock:(VoidBlock)startBlock stopBlock:(void (^)(BOOL finished))stopBlock
 {
 	LTKAnimationDelegate *animationDelegate = [LTKAnimationDelegate new];
 	animationDelegate.startBlock = startBlock;
@@ -2670,13 +2659,13 @@ NSTimeInterval const LTKDefaultTransitionDuration = 0.25;
 	[self addAnimation:animation forKey:key];
 }
 
-- (void)replaceAnimationForKey:(NSString *)key withAnimation:(CAAnimation *)animation
+- (void)replaceAnimationForKey:(NSS*)key withAnimation:(CAAnimation *)animation
 {
 	[self removeAnimationForKey:key];
 	[self addAnimation:animation forKey:key];
 }
 
-- (NSArray *)keyedAnimations
+- (NSA*)keyedAnimations
 {
 	NSMutableArray *keyedAnimations = [NSMutableArray array];
 	
@@ -2733,14 +2722,14 @@ NSTimeInterval const LTKDefaultTransitionDuration = 0.25;
 
 @implementation CATextLayer (AtoZ)
 
-- (CTFontRef)newFontWithAttributes:(NSDictionary *)attributes {
+- (CTFontRef)newFontWithAttributes:(NSD*)attributes {
 	CTFontDescriptorRef descriptor = CTFontDescriptorCreateWithAttributes((__bridge CFDictionaryRef)attributes);
 	CTFontRef font = CTFontCreateWithFontDescriptor(descriptor, 0, NULL);
 	CFRelease(descriptor);
 	return font;
 }
 
-- (CTFontRef)newCustomFontWithName:(NSString *)fontName ofType:(NSString *)type attributes:(NSDictionary *)attributes {
+- (CTFontRef)newCustomFontWithName:(NSS*)fontName ofType:(NSS*)type attributes:(NSD*)attributes {
 	NSString *fontPath = [[NSBundle bundleForClass:[AtoZ class]] pathForResource:fontName ofType:type];
 	NSData *data = [[NSData alloc] initWithContentsOfFile:fontPath];
 	CGDataProviderRef fontProvider = CGDataProviderCreateWithCFData((__bridge CFDataRef)data);
@@ -2783,23 +2772,23 @@ NSTimeInterval const LTKDefaultTransitionDuration = 0.25;
 }
 
 - (void)setupAttributedTextLayerWithFont:(CTFontRef)font {
-	NSDictionary *baseAttributes = @{(NSString *)kCTFontAttributeName: (__bridge id)font};
+	NSDictionary *baseAttributes = @{(NSS*)kCTFontAttributeName: (__bridge id)font};
 	
 	NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:self.string
 																											 attributes:baseAttributes];
 	CFRelease(font);
 	//Make the class name in the string Courier Bold and red
-	NSDictionary *fontAttributes = @{(NSString *)kCTFontFamilyNameAttribute: @"Courier",
-											 (NSString *)kCTFontStyleNameAttribute: @"Bold",
-											 (NSString *)kCTFontSizeAttribute: @16.f};
+	NSDictionary *fontAttributes = @{(NSS*)kCTFontFamilyNameAttribute: @"Courier",
+											 (NSS*)kCTFontStyleNameAttribute: @"Bold",
+											 (NSS*)kCTFontSizeAttribute: @16.f};
 	CTFontRef courierFont = [self newFontWithAttributes:fontAttributes];
 	
 	NSRange rangeOfClassName = [[attrString string] rangeOfString:@"CATextLayer"];
 	
-	[attrString addAttribute:(NSString *)kCTFontAttributeName
+	[attrString addAttribute:(NSS*)kCTFontAttributeName
 							 value:(__bridge id)courierFont
 							 range:rangeOfClassName];
-	[attrString addAttribute:(NSString *)kCTForegroundColorAttributeName
+	[attrString addAttribute:(NSS*)kCTForegroundColorAttributeName
 							 value:(id)[[NSColor redColor] CGColor]
 							 range:rangeOfClassName];
 	
@@ -2820,7 +2809,7 @@ NSTimeInterval const LTKDefaultTransitionDuration = 0.25;
 @end
 
 @implementation CALayerNonAnimating
-- (id<CAAction>)actionForKey:(NSString *)key;
+- (id<CAAction>)actionForKey:(NSS*)key;
 {
 	// return nil to disable animations on this layer
 	return nil;

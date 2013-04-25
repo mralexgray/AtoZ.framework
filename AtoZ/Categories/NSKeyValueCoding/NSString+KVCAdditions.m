@@ -11,7 +11,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 @implementation NSString (KVCPrivateAdditions)
 
--(BOOL)_KVC_isSetterForSelectorNameStartingWith:(NSString *)start endingWith:(NSString *)end;
+-(BOOL)_KVC_isSetterForSelectorNameStartingWith:(NSS*)start endingWith:(NSS*)end;
 {
 	if([self hasPrefix:start] && [self hasSuffix:end])
 	{

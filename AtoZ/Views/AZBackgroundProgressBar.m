@@ -22,6 +22,8 @@ const CGF framesPerSecond = 10.0;
 @property (NATOM,  ASS) CGF   phase;
 @end
 
+
+
 @implementation AZBackgroundProgressBar
 
 - (id) initWithFrame:(NSR)frame 	{
@@ -33,22 +35,7 @@ const CGF framesPerSecond = 10.0;
 }
 - (void) drawRect:	(NSR)rect 	{
 
-	self.bp 	  		= NSBP.bezierPath;
-	NSI numX 	  	= ceil( rect.size.width / 25 );
-	CGF bandWidth 	= 20;
-	CGF h 		  	= 0;
-	CGF modPhase  	= round(fmod(self.phase, rect.size.width));
-	CGF lastX	 	= -27 + modPhase - rect.size.width;
-
-	for ( NSI i = NEG(numX); i < numX; i++ ) {
-		[_bp moveToPoint:NSMakePoint(                         lastX + .5, rect.size.height + .5 - h )];
-		[_bp lineToPoint:NSMakePoint(             lastX + bandWidth + .5,                0 + .5 + h )];
-		[_bp lineToPoint:NSMakePoint( lastX + bandWidth + bandWidth + .5,                0 + .5 + h )];
-		[_bp lineToPoint:NSMakePoint(             lastX + bandWidth + .5, rect.size.height + .5 - h )];
-		[_bp lineToPoint:NSMakePoint(                         lastX + .5, rect.size.height + .5 - h )];
-		lastX += bandWidth * 2 - 1;
-	}
-	[_bp fillWithColor:self.primaryColor];
+	[self.bp = [NSBP diagonalLinesInRect:rect phase:self.phase] fillWithColor:self.primaryColor];
 }
 - (void) startProgressAnimation	{
 

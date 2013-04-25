@@ -8,6 +8,8 @@
 
 #import "NSEvent+AtoZ.h"
 
+JREnumDefine(AZEvent);
+
 static NSString *NSTVDOUBLEACTIONBLOCKKEY = @"com.mrgray.NSTV.double.action.block";
 
 
@@ -33,6 +35,31 @@ static NSString *NSTVDOUBLEACTIONBLOCKKEY = @"com.mrgray.NSTV.double.action.bloc
 	[self setAssociatedValue:block forKey: NSTVDOUBLEACTIONBLOCKKEY policy:OBJC_ASSOCIATION_COPY];
 }
 - (void) callDoubleActionBlock { self.doubleActionBlock(); }
+
+
+
++ (void) initialize {
+	[self.class.superclass initialize];
+	Class NSControlClass = NSControl.class;
+	method_exchangeImplementations(class_getInstanceMethod(NSControlClass,@selector(initWithCoder:)),class_getInstanceMethod(NSControlClass,@selector(newInitWithCoder:)));
+}
+
+//inspired from: [h]ttp://www.mikeash.com/pyblog/custom-nscells-done-right.html
+- (instancetype) newInitWithCoder:(NSCoder *) _coder {
+
+	if(![_coder ISKINDA:NSKeyedUnarchiver.class]) return [self newInitWithCoder:_coder];
+	NSKeyedUnarchiver * unarchiver = (NSKeyedUnarchiver *)_coder;
+
+	Class supercell 	= self.superclass.cellClass;
+	Class selfcell 	= self.class.cellClass;
+	if(!selfcell || !supercell) return [self newInitWithCoder:_coder];
+	NSString * supercellName = NSStringFromClass(supercell);
+	[unarchiver setClass:selfcell forClassName:supercellName];
+	id aself = self;
+	aself = [self newInitWithCoder:_coder];
+	[unarchiver setClass:supercell forClassName:supercellName];
+	return aself;
+}
 
 @end
 

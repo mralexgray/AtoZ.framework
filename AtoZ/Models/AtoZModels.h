@@ -8,7 +8,7 @@
 
 //#import "AtoZFunctions.h"
 //#import "AtoZUmbrella.h"
-#import "AZObject.h"
+//#import "AZObject.h"
 #import <Cocoa/Cocoa.h>
 
 

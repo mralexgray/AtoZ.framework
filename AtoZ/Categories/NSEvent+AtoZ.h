@@ -11,6 +11,35 @@
 
 
 
+JREnumDeclare(AZEvent, AZEventLeftMouseDown,
+				   AZEventLeftMouseUp,
+				   AZEventRightMouseDown,
+				   AZEventRightMouseUp,
+				   AZEventMouseMoved,
+				   AZEventLeftMouseDragged,
+				   AZEventRightMouseDragged,
+				   AZEventMouseEntered,
+				   AZEventMouseExited,
+				   AZEventKeyDown,
+				   AZEventKeyUp,
+				   AZEventFlagsChanged,
+				   AZEventAppKitDefined,
+				   AZEventSystemDefined,
+				   AZEventApplicationDefined,
+				   AZEventPeriodic,
+				   AZEventCursorUpdate,
+				   AZEventScrollWheel,
+				   AZEventTabletPoint,
+				   AZEventTabletProximity,
+				   AZEventOtherMouseDown,
+				   AZEventOtherMouseUp,
+				   AZEventOtherMouseDragged,
+				   AZEventEventTypeGesture,
+				   AZEventEventTypeMagnify,
+				   AZEventEventTypeSwipe,
+				   AZEventEventTypeRotate,
+				   AZEventEventTypeBeginGesture,
+				   AZEventTypeEndGesture);
 
 typedef void(^NSControlVoidActionBlock)(void);
 

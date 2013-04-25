@@ -337,7 +337,7 @@ CGF distanceFromPoint (NSP p1, NSP p2) {
 // NSP result functions
 //
 
-CGF AZMenuBarH (void) { return  [[NSApp mainMenu] menuBarHeight]; }
+CGF AZMenuBarH (void) { return  [[(NSApplication*)NSApp mainMenu] menuBarHeight]; }
 
 NSP AZOriginFromMenubarWithX(CGF yOffset, CGF xOffset) {
 
@@ -680,6 +680,12 @@ NSSize AZSizeBound(NSSize preferred, NSSZ minSize, NSSZ maxSize) {
 //
 // NSR result functions
 //
+NSR AZRectOffsetFromDim(CGRect rect, CGF xyDistance) { return  AZRectOffsetBy(rect, xyDistance, xyDistance); }
+
+NSR AZRectOffsetBy(CGRect rect, CGF x, CGF y) { return  AZRectExceptOriginX(AZRectExceptOriginY(rect, y), x); }
+NSR AZRectOffsetBySize(CGRect rect, CGSZ sz) { return AZRectOffsetBy(rect, sz.width, sz.height); }
+NSR AZRectOffsetByPt(CGRect rect, NSP pt) { return AZRectOffsetBy(rect, pt.x, pt.y); }
+
 NSR AZRectVerticallyOffsetBy(CGRect rect, CGF offset) {
 	rect.origin.y += offset;
 	return  rect;
@@ -828,6 +834,7 @@ NSR AZRectTrimmedOnTop(NSR rect, CGF height) {
 	return NSMakeRect(	rect.origin.x, 					rect.origin.y,
 					rect.size.width,  				(rect.size.height - height)	);
 }
+
 
 NSSZ AZSizeExceptWide  ( NSSZ sz, CGF wide ) {	return NSMakeSize(wide, sz.height); }
 NSSZ AZSizeExceptHigh  ( NSSZ sz, CGF high ) {  return NSMakeSize(sz.width, high);  }
@@ -1243,7 +1250,7 @@ AZOrient deltaDirectionOfPoints(NSP a, NSP b){
 	return a.x != b.x ? AZOrientHorizontal : AZOrientVertical;
 }
 
-AZPOS AZPositionOfRectInRect(NSR rect, NSR outer ) {
+AZPOS AZPositionOfQuadInRect(NSR rect, NSR outer ) {
 
 	return NSEqualPoints( rect.origin, outer.origin) 			? AZPositionBottomLeft 	:
 	   	 NSEqualPoints( AZTopLeftPoint(rect), AZTopLeftPoint(outer)) ||
@@ -1283,11 +1290,66 @@ AZPOS AZPositionOfRectPinnedToOutisdeOfRect(NSR box, NSR innerBox  )
 
 
 
+AZA AZAlignmentInsideRect(NSR edgeBox, NSR outerBox) {
+
+	AZRect *edge, *outer; edge = [AZRect rectWithRect:edgeBox]; outer = [AZRect rectWithRect:outerBox];
+	AZA e = 0;
+	if (edge.maxY == outer.maxY) 						 	e |= AZAlignTop;
+	if (edge.minY == outer.minY) 							e |= AZAlignBottom;
+	if (edge.minX == outer.minX) 						   e |= AZAlignLeft;
+	if (edge.maxX == outer.maxX) 						 	e |= AZAlignRight;
+	return e;
+}
+//	if (NSEqualPoints(edge.origin, outer.origin))   e |= AZAlignBottomLeft;
+//	if (NSEqualPoints(edge.apex, 	 outer.apex)) 	 	e |= AZAlignTopRight;
+//	edge = edgeBox.origin.x == outer.origin.x ? edge | AZAlignLeft 	: edge;
+//	edge = edgeBox.origin.y == outer.origin.y ? edge | AZAlignRight 	: edge;
+//	edge = edgeBox.origin.x == outer.origin.x ? edge | AZAlignLeft 	: edge;
+// edge = edgeBox.origin.x == outer.origin.x ? edge | AZAlignLeft 	: edge;
+
+//	NSP myCenter = AZCenterOfRect(rect);
+//	CGF test;
+//	AZPOS winner = AZPositionAutomatic;
+//	CGF minDist = AZMaxDim(outer.size);
+//
+//	winner 	= NSEqualPoints(.origin, outer.origin) ? AZPositionBottomLeft
+//	: NSEqualPoints(AZTopLeftPoint(rect), AZTopLeftPoint(outer)) ? AZPositionTopLeft
+//	: NSEqualPoints(AZTopRightPoint(rect), AZTopRightPoint(outer)) ? AZPositionTopRight
+//	: NSEqualPoints(AZBotRightPoint(rect), AZBotRightPoint(outer)) ? AZPositionBottomRight : AZPositionAutomatic;
+//
+//	if (winner != AZPositionAutomatic) goto finishline;
+//
+//
+//
+//	test = AZDistanceFromPoint( myCenter, (NSP) { outer.origin.x, myCenter.y }); //testleft
+//	if  ( test < minDist) { 	minDist = test; winner = AZPositionLeft;}
+//
+//	test = AZDistanceFromPoint( myCenter, (NSP) { myCenter.x,  0 }); //testbottom  OK
+//	if  ( test < minDist) { 	minDist = test; winner = AZPositionBottom; }
+//
+//	test = AZDistanceFromPoint( myCenter, (NSP) {NSWidth(outer), myCenter.y }); //testright
+//	if  ( test < minDist) { 	minDist = test; winner = AZPositionRight; }
+//
+//	test = AZDistanceFromPoint( myCenter, (NSP) { myCenter.x, NSHeight(outer) }); //testright
+//	if  ( test < minDist) { 	minDist = test; winner = AZPositionTop; }
+//finishline:
+//	return  winner;
+//
+
 AZPOS AZOutsideEdgeOfRectInRect (NSR rect, NSR outer ) {
 	NSP myCenter = AZCenterOfRect(rect);
 	CGF test;
-	AZPOS winner;
+	AZPOS winner = AZPositionAutomatic;
 	CGF minDist = AZMaxDim(outer.size);
+
+	winner 	= NSEqualPoints(rect.origin, outer.origin) ? AZPositionBottomLeft
+				: NSEqualPoints(AZTopLeftPoint(rect), AZTopLeftPoint(outer)) ? AZPositionTopLeft
+				: NSEqualPoints(AZTopRightPoint(rect), AZTopRightPoint(outer)) ? AZPositionTopRight
+			 	: NSEqualPoints(AZBotRightPoint(rect), AZBotRightPoint(outer)) ? AZPositionBottomRight : AZPositionAutomatic;
+
+	if (winner != AZPositionAutomatic) goto finishline;
+
+	
 
 	test = AZDistanceFromPoint( myCenter, (NSP) { outer.origin.x, myCenter.y }); //testleft
 	if  ( test < minDist) { 	minDist = test; winner = AZPositionLeft;}
@@ -1300,7 +1362,7 @@ AZPOS AZOutsideEdgeOfRectInRect (NSR rect, NSR outer ) {
 
 	test = AZDistanceFromPoint( myCenter, (NSP) { myCenter.x, NSHeight(outer) }); //testright
 	if  ( test < minDist) { 	minDist = test; winner = AZPositionTop; }
-	
+finishline:
 	return  winner;
 }
 

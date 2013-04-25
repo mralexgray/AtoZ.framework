@@ -65,7 +65,7 @@ void NSDetermineKeyValueDebugLoggingLevel()
 
 
 @interface NSObject (KVOSettersForwardReferencs)
-+(NSDictionary *)_KVO_buildDependencyUnion;
++(NSD*)_KVO_buildDependencyUnion;
 @end
 
 @interface NSObject (KVCPrivateMethod)
@@ -257,7 +257,7 @@ static NSKeyObserver *addKeyPathObserverToObject(id object,NSString *path,NSKeyP
  * 4.3 Adds the keyObserver to the info
  */
 
--(void)addObserver:observer forKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options context:(void *)context {
+-(void)addObserver:observer forKeyPath:(NSS*)keyPath options:(NSKeyValueObservingOptions)options context:(void *)context {
 
 	NSKeyValueDebugLog(NSKeyValueDebugLogLevel, @"self: %@ observer: %@, keyPath: %@", self, observer, keyPath);
 
@@ -299,7 +299,7 @@ static void pruneKeyObserver(NSKeyObserver *keyObserver){
    removeKeyObserver(keyObserver);
 }
 
--(void)removeObserver:observer forKeyPath:(NSString *)keyPath {
+-(void)removeObserver:observer forKeyPath:(NSS*)keyPath {
    NSKeyObserver *keyObserver=keyObserverForObserverAndKeyPath(self,observer,keyPath);
 
    pruneKeyObserver(keyObserver);
@@ -384,14 +384,14 @@ static void willChangeValueForKey(id object,NSString *key,NSDictionary *changeIn
 	return count > 0;
 }
 
--(void)willChangeValueForKey:(NSString *)key {
+-(void)willChangeValueForKey:(NSS*)key {
 	NSMutableDictionary *changeInfo=[[NSMutableDictionary allocWithZone:NULL] init];
 	[changeInfo setObject:[NSNumber numberWithInt:NSKeyValueChangeSetting] forKey:NSKeyValueChangeKindKey];
 	willChangeValueForKey(self,key,changeInfo);
 	[changeInfo release];
 }
 
--(void)willChange:(NSKeyValueChange)change valuesAtIndexes:(NSIndexSet *)indexes forKey:(NSString *)key {
+-(void)willChange:(NSKeyValueChange)change valuesAtIndexes:(NSIndexSet *)indexes forKey:(NSS*)key {
 	NSMutableDictionary *changeInfo=[[NSMutableDictionary allocWithZone:NULL] init];
 
 	[changeInfo setObject:[NSNumber numberWithUnsignedInteger:change] forKey:NSKeyValueChangeKindKey];
@@ -402,7 +402,7 @@ static void willChangeValueForKey(id object,NSString *key,NSDictionary *changeIn
 	[changeInfo release];
 }
 
--(void)willChangeValueForKey:(NSString *)key withSetMutation:(NSKeyValueSetMutationKind)mutation usingObjects:(NSSet*)objects {
+-(void)willChangeValueForKey:(NSS*)key withSetMutation:(NSKeyValueSetMutationKind)mutation usingObjects:(NSSet*)objects {
 	NSMutableSet* changeSet;
 	NSMutableDictionary* changeInfo=[[NSMutableDictionary allocWithZone:NULL] init];
 	
@@ -501,19 +501,19 @@ static void didChangeValueForKey(id object,NSString *key)  {
    }
 }
 
--(void)didChangeValueForKey:(NSString *)key {
+-(void)didChangeValueForKey:(NSS*)key {
    didChangeValueForKey(self,key);
 }
 
--(void)didChange:(NSKeyValueChange)change valuesAtIndexes:(NSIndexSet *)indexes forKey:(NSString *)key {
+-(void)didChange:(NSKeyValueChange)change valuesAtIndexes:(NSIndexSet *)indexes forKey:(NSS*)key {
    didChangeValueForKey(self,key);
 }
 
--(void)didChangeValueForKey:(NSString *)key withSetMutation:(NSKeyValueSetMutationKind)mutation usingObjects:(NSSet*)objects {
+-(void)didChangeValueForKey:(NSS*)key withSetMutation:(NSKeyValueSetMutationKind)mutation usingObjects:(NSSet*)objects {
 	didChangeValueForKey(self,key);
 }
 
-+(void)setKeys:(NSArray *)keys triggerChangeNotificationsForDependentKey:(NSString *)dependentKey {
++(void)setKeys:(NSA*)keys triggerChangeNotificationsForDependentKey:(NSS*)dependentKey {
    NSKVOInfoPerObject* observationInfo=[self observationInfo];
 
    if(!observationInfo) {
@@ -554,7 +554,7 @@ static SEL selectorForKeyPathsForValuesAffecting(NSString *key){
    return result;
 }
 
-+(NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
++(NSSet *)keyPathsForValuesAffectingValueForKey:(NSS*)key {
    SEL	   sel=selectorForKeyPathsForValuesAffecting(key);
    NSSet	*result=nil;
 
@@ -869,7 +869,7 @@ CHANGE_DECLARATION(SEL)
 //
 
 // This method gathers dependent keys from all superclasses and merges them together
-+(NSDictionary *)_KVO_buildDependencyUnion {
++(NSD*)_KVO_buildDependencyUnion {
    NSKVOInfoPerObject *observationInfo=[self observationInfo];
 
    if(!observationInfo) {
@@ -1124,7 +1124,7 @@ static BOOL methodIsAutoNotifyingSetter(Class class,const char *methodCString){
 }
 
 
-+ (BOOL)automaticallyNotifiesObserversForKey:(NSString *)key; {
++ (BOOL)automaticallyNotifiesObserversForKey:(NSS*)key; {
    if([key isEqualToString:@"observationInfo"]) {
 	return NO;
    }

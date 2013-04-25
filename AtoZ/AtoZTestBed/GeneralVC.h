@@ -18,7 +18,7 @@
 @property (NATOM) BLKVIEW	   	 		*blockView;
 @property (NATOM) AZDebugLayerView  	*debugLayers;
 @property (NATOM, STRNG) NSIV	 			*badges, *imageNamed;
-@property (NATOM) NSSV 				*contactSheet;
+@property (NATOM) NSSCRLV 				*contactSheet;
 @property (NATOM) AtoZGridViewAuto   	*picol;
 @property (NATOM) AtoZGridViewAuto	*autoGrid;
 @property (NATOM) AZHostView			*hostView;

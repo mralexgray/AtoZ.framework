@@ -9,7 +9,7 @@
 @implementation NSObject (Utilities)
 
 // Return an array of an object's superclasses
-- (NSArray *) superclasses
+- (NSA*) superclasses
 {
 	Class cl = [self class];
 	NSMutableArray *results = [NSMutableArray arrayWithObject:cl];
@@ -353,7 +353,7 @@
 	return [self valueByPerformingSelector:selector withObject:nil withObject:nil];
 }
 // Return an array of all an object's selectors
-+ (NSArray *) getSelectorListForClass
++ (NSA*) getSelectorListForClass
 {
 	NSMutableArray *selectors = [NSMutableArray array];
 	unsigned int num;
@@ -365,7 +365,7 @@
 }
 
 // Return a dictionary with class/selectors entries, all the way up to NSObject
-- (NSDictionary *) selectors
+- (NSD*) selectors
 {
 	NSMutableDictionary *dict = [NSMutableDictionary dictionary];
 	dict[NSStringFromClass([self class])] = [[self class] getSelectorListForClass];
@@ -375,7 +375,7 @@
 }
 
 // Return an array of all an object's properties
-+ (NSArray *) getPropertyListForClass
++ (NSA*) getPropertyListForClass
 {
 	NSMutableArray *propertyNames = [NSMutableArray array];
 	unsigned int num;
@@ -387,7 +387,7 @@
 }
 
 // Return a dictionary with class/selectors entries, all the way up to NSObject
-- (NSDictionary *) properties
+- (NSD*) properties
 {
 	NSMutableDictionary *dict = [NSMutableDictionary dictionary];
 	dict[NSStringFromClass([self class])] = [[self class] getPropertyListForClass];
@@ -397,7 +397,7 @@
 }
 
 // Return an array of all an object's properties
-+ (NSArray *) getIvarListForClass
++ (NSA*) getIvarListForClass
 {
 	NSMutableArray *ivarNames = [NSMutableArray array];
 	unsigned int num;
@@ -409,7 +409,7 @@
 }
 
 // Return a dictionary with class/selectors entries, all the way up to NSObject
-- (NSDictionary *) ivars
+- (NSD*) ivars
 {
 	NSMutableDictionary *dict = [NSMutableDictionary dictionary];
 	dict[NSStringFromClass([self class])] = [[self class] getIvarListForClass];
@@ -419,7 +419,7 @@
 }
 
 // Return an array of all an object's properties
-+ (NSArray *) getProtocolListForClass
++ (NSA*) getProtocolListForClass
 {
 	NSMutableArray *protocolNames = [NSMutableArray array];
 //	unsigned int num;
@@ -434,7 +434,7 @@
 }
 
 // Return a dictionary with class/selectors entries, all the way up to NSObject
-- (NSDictionary *) protocols
+- (NSD*) protocols
 {
 	NSMutableDictionary *dict = [NSMutableDictionary dictionary];
 	dict[NSStringFromClass([self class])] = [[self class] getProtocolListForClass];
@@ -443,17 +443,27 @@
 	return dict;
 }
 
+// https://github.com/nodemaker/Additions/blob/master/NSObject/NSObject%2BUtilities.m
+- (NSD*) runtime_properties
+{
+	NSMD *dict = NSMD.new;
+	dict[NSStringFromClass([self class])] = [[self class] getPropertyListForClass];
+	for (Class cl in [self superclasses])
+		dict[NSStringFromClass(cl)] = [cl getPropertyListForClass];
+	return dict;
+}
+
 // Runtime checks of properties, etc.
-- (BOOL) hasProperty: (NSString *) propertyName
+- (BOOL) hasProperty: (NSS*) propertyName
 {
 	NSMutableSet *set = [NSMutableSet set];
-	NSDictionary *dict = self.properties;
+	NSDictionary *dict = [self runtime_properties];
 	for (NSArray *properties in [dict allValues])
 		[set addObjectsFromArray:properties];
 	return [set containsObject:propertyName];
 }
 
-- (BOOL) hasIvar: (NSString *) ivarName
+- (BOOL) hasIvar: (NSS*) ivarName
 {
 	NSMutableSet *set = [NSMutableSet set];
 	NSDictionary *dict = self.ivars;
@@ -462,12 +472,12 @@
 	return [set containsObject:ivarName];
 }
 
-+ (BOOL) classExists: (NSString *) className
++ (BOOL) classExists: (NSS*) className
 {
 	return (NSClassFromString(className) != nil);
 }
 
-+ (id) instanceOfClassNamed: (NSString *) className
++ (id) instanceOfClassNamed: (NSS*) className
 {
 	if (NSClassFromString(className) != nil)
 		return [[[NSClassFromString(className) alloc] init] autorelease];
@@ -502,10 +512,14 @@
 }
 
 // Perform the selector if possible, returning any return value. Otherwise return nil.
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+
 - (id) tryPerformSelector: (SEL) aSelector withObject: (id) object1 withObject: (id) object2
 {
 	return ([self respondsToSelector:aSelector]) ? [self performSelector:aSelector withObject: object1 withObject: object2] : nil;
 }
+#pragma clang diagnostic pop
 - (id) tryPerformSelector: (SEL) aSelector withObject: (id) object1
 {
 	return [self tryPerformSelector:aSelector withObject:object1 withObject:nil];
@@ -541,9 +555,11 @@ static Class OverrideClass(id self, SEL _cmd)
 	return objc_getClass([className UTF8String]);
 }
 #endif
- 
+
+
 @implementation NSObject (AZOverride)
- 
+
+
 - (BOOL)az_overrideSelector:(SEL)selector withBlock:(void *)block
 {
 	Class selfClass = [self class];
@@ -593,17 +609,14 @@ static Class OverrideClass(id self, SEL _cmd)
 		NSLog(@"Could not find method %@ in class %@", NSStringFromSelector(selector), NSStringFromClass(selfClass));
 		return NO;
 	}
- 
 	// See also: http://www.friday.com/bbum/2011/03/17/ios-4-3-imp_implementationwithblock/
 	IMP imp = imp_implementationWithBlock((__bridge id)(block));
 //	IMP imp = imp_implementationWithBlock(block);
-
 	if (!class_addMethod(subclass, selector, imp, method_getTypeEncoding(m)))
 	{
 		NSLog(@"Could not add method %@ to class %@", NSStringFromSelector(selector), NSStringFromClass(subclass));
 		return NO;
 	}
- 
 	return YES;
 }
  
@@ -613,13 +626,11 @@ static Class OverrideClass(id self, SEL _cmd)
 	return [[self class] instanceMethodForSelector:selector];
 #else
 	NSString *prefix = [NSString stringWithFormat:@"MHOverride_%p_", self];
- 
 	Class theClass = [self class];
 	while (theClass != nil)
 	{
 		NSString *className = NSStringFromClass(theClass);
 		theClass = [theClass superclass];
- 
 		if ([className hasPrefix:prefix])
 			return (void *)[theClass instanceMethodForSelector:selector];
 	}

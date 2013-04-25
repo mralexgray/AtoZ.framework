@@ -14,11 +14,12 @@
 
 +(NSString *)nameOfColor:(NSColor *)color;
 +(NSString *)nameOfColor:(NSColor *)color savingDistance:(NSColor **)distance;
-
+- (id) normal:(NSUI)idx;
+@property (RONLY) NSA* colors;
 @end
 
 @interface NSColor (AZNamedColors)
 
-@property (RONLY) NSString *webName;
+@property (RONLY) NSString *name;
 
 @end

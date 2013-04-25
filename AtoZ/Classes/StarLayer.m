@@ -142,9 +142,9 @@
 			[smallP fill];
 		}() : layer == _text ? ^{
 
-			NSString *s = [AtoZ stringForPosition:self.orient];
+//			NSString *s = [NSS stringForPosition:self.orient];
 			NSS*font = [AtoZ randomFontName];
-			[s drawInRect:AZCenteredRect(NSMakeSize(NSWidth(_text.frame),20), self.frame) withFontNamed:font andColor:WHITE];
+//			[s drawInRect:AZCenteredRect(NSMakeSize(NSWidth(_text.frame),20), self.frame) withFontNamed:font andColor:WHITE];
 		}() :
 		 layer == self ? ^{
 			[[NSBP bezierPathWithTriangleInRect:AZCenterRectOnPoint(AZRectFromDim(50), self.anchorPoint) orientation:0]drawWithFill:BLACK andStroke:WHITE];

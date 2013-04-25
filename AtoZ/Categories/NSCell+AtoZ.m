@@ -63,7 +63,7 @@ static NSColor *highlightColor;
 	[super setObjectValue:[obj valueForKey:@"title"]];
 }
 
--(NSDictionary *)titleAttributes {
+-(NSD*)titleAttributes {
 	if (!titleAttributes_) {
 		NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
 		[attributes setValue:[NSFont controlContentFontOfSize:12.0f] forKey:NSFontAttributeName];
@@ -73,7 +73,7 @@ static NSColor *highlightColor;
 	return titleAttributes_;
 }
 
--(NSDictionary *)selectedTitleAttributes {
+-(NSD*)selectedTitleAttributes {
 	if (!selectedTitleAttributes_) {
 		NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
 		[attributes setValue:[NSFont fontWithName:@"LucidaGrande-Bold" size:12.0f] forKey:NSFontAttributeName];
@@ -83,7 +83,7 @@ static NSColor *highlightColor;
 	return selectedTitleAttributes_;
 }
 
-//-(NSDictionary *)categoryAttributes {
+//-(NSD*)categoryAttributes {
 //	if (!categoryAttributes_) {
 //		NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
 //		[attributes setValue:[NSFont controlContentFontOfSize:10.0f] forKey:NSFontAttributeName];
@@ -93,7 +93,7 @@ static NSColor *highlightColor;
 //	return categoryAttributes_;
 //}
 //
-//-(NSDictionary *)selectedCategoryAttributes {
+//-(NSD*)selectedCategoryAttributes {
 //	if (!selectedCategoryAttributes_) {
 //		NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
 //		[attributes setValue:[NSFont controlContentFontOfSize:10.0f] forKey:NSFontAttributeName];

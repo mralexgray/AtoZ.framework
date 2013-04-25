@@ -19,7 +19,7 @@
 
 @end
 @interface NSCell (TrackingAreaExtensions)
-- (void)addTrackingAreasForView:(NSView *)view inRect:(NSRect)cellFrame withUserInfo:(NSDictionary *)userInfo mouseLocation:(NSPoint)currentPoint;
+- (void)addTrackingAreasForView:(NSView *)view inRect:(NSRect)cellFrame withUserInfo:(NSD*)userInfo mouseLocation:(NSPoint)currentPoint;
 - (void)mouseEntered:(NSEvent *)event;
 - (void)mouseExited:(NSEvent *)event;
 @end

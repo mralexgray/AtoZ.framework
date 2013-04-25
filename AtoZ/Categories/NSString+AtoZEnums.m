@@ -10,4 +10,19 @@
 
 @implementation NSString (AtoZEnums)
 
+
++ (NSD*) enumDictionary;
+{
+
+	return @{@"AZWindowPosition":
+				@[@"Left",@"Bottom",@"Right",@"Top",@"TopLeft",@"BottomLeft",@"TopRight",@"BottomRight",@"Automatic"]};
+
+}
+
++ (NSS*) eType:(NSS*)type v:(int)value {
+	
+
+}
+- (int) enumValue { return  9; }
+
 @end

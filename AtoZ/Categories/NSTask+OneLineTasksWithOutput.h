@@ -17,16 +17,16 @@
 
 @interface NSTask (OneLineTasksWithOutput)
 
-+ (NSString *)stringByLaunchingPath:(NSString *)processPath
-	withArguments:(NSArray *)arguments
++ (NSS*)stringByLaunchingPath:(NSS*)processPath
+	withArguments:(NSA*)arguments
 	error:(NSError **)error;
-+ (NSString *)stringByLaunchingPath:(NSString *)processPath
-	withArguments:(NSArray *)arguments
++ (NSS*)stringByLaunchingPath:(NSS*)processPath
+	withArguments:(NSA*)arguments
 	authorization:(SFAuthorization *)authorization
 	error:(NSError **)error;
 
 
-- (void)launchTaskAndRunSynchronous;
+//- (void)launchTaskAndRunSynchronous;
 @end
 
 #define kNSTaskLaunchFailed -1
@@ -42,19 +42,19 @@
 //	input may be NULL, an NSString object, or an NSData object.
 
 // Return a task (not yet launched) and optionally allocate stdout/stdin/stderr streams for communication with it
-+ (NSTask *) taskWithArguments:(NSArray *)arguments
++ (NSTask *) taskWithArguments:(NSA*)arguments
 								 input:(NSFileHandle **)outWriteHandle
 								output:(NSFileHandle **)outReadHandle
 								 error:(NSFileHandle **)outErrorHandle;
 
 // Atomically execute the task and return output as data
-+ (int) executeTaskWithArguments:(NSArray *)args
++ (int) executeTaskWithArguments:(NSA*)args
 									input:(id)inputDataOrString
 							 outputData:(NSData **)outputData
 							errorString:(NSString **)errorString;
 
 // Atomically execute the task and return output as string
-+ (int) executeTaskWithArguments:(NSArray *)args
++ (int) executeTaskWithArguments:(NSA*)args
 									input:(id)inputDataOrString
 						  outputString:(NSString **)outputString
 							errorString:(NSString **)errorString;

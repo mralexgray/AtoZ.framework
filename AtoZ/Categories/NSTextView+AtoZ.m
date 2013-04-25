@@ -15,27 +15,40 @@
 @implementation NSTextView (AtoZ)
 
 
++ (void) load {
+
+	[$ swizzleMethod:@selector(insertText:) with:@selector(swizzledInsert:) in:self.class];
+}
 
 
--(void) autoScrollText:(NSString*) text;
-{
+- (void) swizzledInsert:(id) text; {	[self autoScrollText:text];	}
+
+-	(void) autoScrollText:(id) text	{
+
+	NSRange theEnd				= NSMakeRange([self.string length], 0);
+	theEnd.location	   	+= [text length];
+	// Smart Scrolling
+	if (NSMaxY(self.visibleRect) == NSMaxY(self.bounds)) {
+		// Append string to textview and scroll to bottom
+		[text isKindOfClass:NSAS.class]
+			?	[self.textStorage appendAttributedString:text]
+			:	[self.textStorage appendString:text];
+			[self scrollRangeToVisible:theEnd];
+	} else	// Append string to textview
+		[text isKindOfClass:NSAS.class]
+			?	[self.textStorage appendAttributedString:text]
+			:  [self.textStorage appendString:text];
+}
+
+-	(void) autoScrollAndStyleText:(NSString*) text;{
+
 	static	NSColor *c = nil;  c = c ?: RANDOMCOLOR;
 	static	NSDictionary *dict = nil;
 
 	dict = dict ?: @{ @"NSFontAttributeName" : AtoZ.controlFont,
 				   @"NSForegroundColorAttributeName" : c };
-
-	NSAttributedString *string = [NSAttributedString.alloc initWithString: text attributes: dict];
+	[self autoScrollText:[NSAttributedString stringWithString:text attributes: dict]];
 	// Get the length of the textview contents
-	NSRange theEnd				= NSMakeRange([self.string length], 0);
-	theEnd.location	   			+= text.length;
-	// Smart Scrolling
-	if (NSMaxY(self.visibleRect) == NSMaxY(self.bounds)) {
-		// Append string to textview and scroll to bottom
-		[self.textStorage appendAttributedString:string];
-		[self scrollRangeToVisible:theEnd];
-	} else	// Append string to textview
-		[self.textStorage appendAttributedString:string];
 }
 
 + (AZTextViewResponder*)  textViewForFrame:(NSRect)frame withString:(NSAttributedString*)s {

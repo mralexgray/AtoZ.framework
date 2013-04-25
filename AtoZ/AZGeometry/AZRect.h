@@ -76,7 +76,9 @@ static inline NSR AZScaleRect(NSRect frame, CGF factor) {
 @property (ASS) NSSZ 	size;
 @property (ASS) NSR 		rect;
 @property (ASS) AZPOS	orient;
-@property (RONLY) CGF 	area;
+@property (RONLY) CGF 	area, maxX, maxY, minY, minX;
+@property (RONLY) NSP 	apex;
+
 
 - (id) shrinkBy:(id) object;
 - (id) shrinkByPadding:(NSI)padding;

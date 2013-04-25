@@ -18,11 +18,11 @@ typedef void(^FBTextBlock)(NSString *text);
 @property (strong, nonatomic) NSImage 		*pic;
 @property (unsafe_unretained) NSView 			*outview;
 
-- (void) getToken;
+//- (void) getToken;
 - (void) myPosts;
 
 + (instancetype) initWithQuery:(NSString*)q param:(NSString*)key thenDo:(FBTextBlock)block;
 
-+ (NSString*) query:(NSString*)q param:(NSString*)key;
+//+ (NSString*) query:(NSString*)q param:(NSString*)key;
 
 @end

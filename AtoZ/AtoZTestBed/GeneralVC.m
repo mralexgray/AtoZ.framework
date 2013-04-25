@@ -96,10 +96,10 @@
 	return _picol = _picol ?: [AtoZGridViewAuto.alloc initWithFrame:_targetView.bounds andArray:NSC.randomPalette];
 }
 
--(NSSV*)contactSheet
+-(NSSCRLV*)contactSheet
 {
 	return _contactSheet = ^{
-		NSSV *sv 	= [[NSSV alloc]initWithFrame:_targetView.bounds];
+		NSSCRLV *sv 	= [[NSSCRLV alloc]initWithFrame:_targetView.bounds];
  		sv.autoresizingMask = NSSIZEABLE;
 
 		NSIMG* i	= [NSImage contactSheetWith:[NSIMG monoIcons] inFrame:_targetView.bounds columns:12];

@@ -10,6 +10,8 @@
 #import <objc/runtime.h>
 #import "OperationsRunner.h"
 
+
+
 //Subclassible thread-safe ARC singleton  Copyright Kevin Lawler. Released under ISC.
 @implementation AZSingleton
 static NSMD* _children;
@@ -63,6 +65,16 @@ NSOQ *AZSharedSingleOperationQueue()	{	return AZDummy.sharedInstance.sharedSQ; }
 		return _AZSingleOperationQueue;
 	}();																									*/
 
+
+@implementation AZClassProxy
+- (id)valueForUndefinedKey:(NSS*)key {	return NSClassFromString(key);	}
+@end
+// NSLog(@"%@", [[RED.classProxy valueForKey:@"NSColor"] redColor]);
+// --> NSCalibratedRGBColorSpace 1 0 0 1
+@implementation NSObject (AZClassProxy)
+- (id) classProxy {	static AZClassProxy *proxy = nil; return proxy = proxy ?: AZClassProxy.new; }
+@end
+
 @implementation AZDummy
 - (id)init							{	 if (self != super.init ) return nil;
 
@@ -82,6 +94,10 @@ NSOQ *AZSharedSingleOperationQueue()	{	return AZDummy.sharedInstance.sharedSQ; }
 	return sharedInstance; 
 }
 @end
+@interface AToZFuntion	: BaseModel
+@property (strong, NATOM) NSS* name;
+@property (strong, NATOM) NSIMG* icon;
+@end
 
 /*
 // 4) Add this method to the implementation file
@@ -93,70 +109,55 @@ NSOQ *AZSharedSingleOperationQueue()	{	return AZDummy.sharedInstance.sharedSQ; }
 @property (nonatomic, assign) BOOL fontsRegistered;
 @end
 
-@interface AToZFuntion	: BaseModel
-@property (strong, NATOM) NSS* name;
-@property (strong, NATOM) NSIMG* icon;
-@end
-
-#import "AtoZUmbrella.h"
-
 //@synthesize sManager; - (id)init {	self = [super init];	if (self) {	static NSA* cachedI = nil;
-
 //	AZLOG($(	@"AZImage! Name: %@.. SEL:%@", name, NSStringFromSelector(_cmd)));	NSIMG *i;  // =  [NSIMG  new];//imageNamed:name];
 //	if (!i) dispatch_once:^{		[[NSIMG alloc]initWithContentsOfFile: [AZFWORKBUNDLE pathForImageResource:name]];
 //		i =  [NSIMG imageNamed:name];	i.name 	= i.name ?: name;	 }();	i = [NSIMG imageNamed:name];	return i;
-
 //	return [NSIMG imageNamed:name];	?: [[NSIMG alloc]initWithContentsOfFile: [AZFWORKBUNDLE pathForImageResource:name]];
 //	i.name 	= i.name ?: name;	return/ i;	}
 
 @implementation AtoZ
-@synthesize fonts, fontsRegistered, basicFunctions;
 
 //+ (void) load							{	globalRandoPalette = NSC.randomPalette.shuffeled; }
 + (void) initialize 					{
 												[@"AtoZ.framework Version:%@ Initialized!" log:[self version], nil];	}
-													//LogStackAndReturn(self.bundle);} // ; }
 - (void) setUp 						{
 	[AZStopwatch named:@"AtoZ.framework Setup Time" block:^{
-		[self.class playRandomSound];
-//		[NSApp setApplicationIconImage:[NSIMG imageNamed:@"logo.png"]];
-
-//		[DDLog addLogger:SHAREDLOG]; 		// Standard lumberjack initialization
-//		SHAREDLOG.colorsEnabled = YES;	// And then enable colors
-//		[@[@"Error", @"Warn", @"Info"]]
-//		[@[@"DDLogError", @"DDLogWarn", @"DDLogInfo", @"DDLogVerose"] each:^(id obj) {
-	//		[NSS.randomDicksonism respondsToStringThenDo:obj];
-	//	}];
-	//	NSLog(COLOR_ESC @"bg89,96,105;" @"Grey background" XCODE_COLORS_RESET);
-	//	NSLog(COLOR_ESC @"fg0,0,255;" COLOR_ESC @"bg220,0,0;"	 @"Blue text on red background" XCODE_COLORS_RESET);
-	//	NSLog(XCODE_COLORS_ESCAPE @"fg209,57,168;" @"You can supply your own RGB values!" XCODE_COLORS_RESET);
-
-	//	DDLogError  (@"Paper jam"										);							  // Red
-	//	DDLogWarn   (@"Toner is low"									);							// Orange
-	//	DDLogInfo   (@"Warming up printer (pre-customization)");  // Default (black)
-	//	DDLogVerbose(@"Intializing protcol x26"						);			  // Default (black)
-		
-		// Now let's do some customization:
-		// Info  : Pink
-		
-	#if TARGET_OS_IPHONE
-		UIColor *pink = [UIColor colorWithRed:(255/255.0) green:(58/255.0) blue:(159/255.0) alpha:1.0];
-	#else
-		NSColor *pink = [NSColor colorWithCalibratedRed:(255/255.0) green:(58/255.0) blue:(159/255.0) alpha:1.0];
-	#endif
-//		[SHAREDLOG setForegroundColor:pink backgroundColor:nil forFlag:LOG_FLAG_INFO];
-	//	DDLogInfo(@"Warming up printer (post-customization)"); // Pink !
-			
-	//		[AZFWORKBUNDLE cacheNamedImages];
-	//		_cachedImages = cachedI;
-			fonts = self.fonts;
-	//		Sound *rando = [Sound randomSound];
-	//		[[SoundManager sharedManager] prepareToPlayWithSound:rando];
-	//		[[SoundManager sharedManager] playSound:rando];
-	//		[self registerHotKeys];
+		[NSB loadAZFrameworks];
+//		[self.class playRandomSound];
+/*		[[NSIMG imageFromLockedFocusSize:AZSizeFromDimension(256) lock:^NSImage *(NSImage *s) {
+			[NSGraphicsContext state:^{
+				NSIMG* i = [NSIMG imageNamed:@"logo.png"];
+				NSBP *bp = [NSBP bezierPathRoundedRectOfSize:AZSizeFromDimension(256)];
+				[bp addClip];
+				[i drawInRect:AZRectFromSize(s.size) fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+			}];
+			return s;
+		}]openInPreview];
+*/
+		[NSApp setApplicationIconImage:[NSIMG imageNamed:@"logo.png"]];
+		_fonts = self.fonts;
+		[self _setupLogging];
 	}];
-}
 
+	// Insert code here to initialize your application
+	[NSAppleEventManager.sharedAppleEventManager setEventHandler:self andSelector:@selector(handleURLEvent:withReplyEvent:) forEventClass:kInternetEventClass andEventID:kAEGetURL];
+
+/*		[AZFWORKBUNDLE cacheNamedImages];
+		_cachedImages = cachedI;
+		Sound *rando = [Sound randomSound];
+		[[SoundManager sharedManager] prepareToPlayWithSound:rando];
+		[[SoundManager sharedManager] playSound:rando];
+		[self registerHotKeys];
+*/
+}
+- (void)handleURLEvent:(NSAppleEventDescriptor*)theEvent withReplyEvent:(NSAppleEventDescriptor*)replyEvent {
+	
+	NSString* path = [[theEvent paramDescriptorForKeyword:keyDirectObject] stringValue];
+	NSLog(@"apple url event: %@", path);
+	[[NSAlert alertWithMessageText:@"URL Request" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"%@", path] runModal];
+}
+- (BOOL) inTTY							{   return [@(isatty(STDERR_FILENO))boolValue]; }
 + (void) testSizzle 					{
 
 	AZLOG(@"The original, non -siizled");
@@ -167,9 +168,7 @@ NSOQ *AZSharedSingleOperationQueue()	{	return AZDummy.sharedInstance.sharedSQ; }
 	AZLOG(@"Totally swizzed OUT ***************************");
 	[self testSizzleReplacement];
 	AZLOG(NSStringFromSelector(_cmd));
-//	[[AtoZ class] testSizzle];
-//	[$ swizzleClassMethod:@selector(testSizzle) in:[AtoZ class] with:@selector(testSizzleReplacement) in:[AtoZ class]];
-//	[[AtoZ class] testSizzle];
+//	[[AtoZ class] testSizzle];	[$ swizzleClassMethod:@selector(testSizzle) in:[AtoZ class] with:@selector(testSizzleReplacement) in:[AtoZ class]];	[[AtoZ class] testSizzle];
 }
 + (NSS*) version						{
 	NSString *myVersion	= [AZFWORKBUNDLE infoDictionary][@"CFBundleShortVersionString"];
@@ -183,9 +182,6 @@ NSOQ *AZSharedSingleOperationQueue()	{	return AZDummy.sharedInstance.sharedSQ; }
 + (NSS*) resources 					{ return self.bundle.resourcePath; }
 + (NSUserDefaults*) defs			{	return [NSUserDefaults standardUserDefaults];	}
 - (NSS*) description 				{	return [[self.propertiesPlease valueForKey:@"description"] componentsJoinedByString:@""];	}
-
-//#define LOGWARN(fmt, ...) NSLog((@"%s [Line %d] " XCODE_COLORS_ESCAPE @"fg218,147,0;" fmt XCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
-
 + (void) logError:(NSS*)log 	{ DDLogError(@"%@",log); }
 + (void) logInfo: (NSS*)log 	{ DDLogError(@"%@",log); }
 + (void) logWarn: (NSS*)log 	{ DDLogWarn (@"%@",log); }
@@ -194,9 +190,7 @@ NSOQ *AZSharedSingleOperationQueue()	{	return AZDummy.sharedInstance.sharedSQ; }
 
 	return @[@"Maps", @"Browser", @"Contacts", @"Mail", @"Gists", @"Settings"];
 }
-
 + (NSS*) tempFilePathWithExtension:(NSS*)extension	{return $(@"/tmp/atoztempfile.%@.%@", NSS.newUniqueIdentifier, extension); }
-
 - (void) appendToStdOutView:(NSS*)text		{
 	NSAttributedString *string = [text attributedWithFont:AtoZ.controlFont andColor:self.logColor];
 	// Get the length of the textview contents
@@ -210,7 +204,6 @@ NSOQ *AZSharedSingleOperationQueue()	{	return AZDummy.sharedInstance.sharedSQ; }
 	} else	// Append string to textview
 		[[_stdOutView textStorage] appendAttributedString:string];
 }
-
 + (NSF*) font: (NSS*)family size:(CGF)size	{
 
 	NSS * font = [AtoZ.sharedInstance.fonts filterOne:^BOOL(NSS* object) {	return [object.lowercaseString contains:family.lowercaseString]; }];
@@ -218,7 +211,6 @@ NSOQ *AZSharedSingleOperationQueue()	{	return AZDummy.sharedInstance.sharedSQ; }
 }
 + (NSS*) randomFontName {	return AtoZ.sharedInstance.fonts.randomElement;	}
 + (NSF*) controlFont 	{	return [self font:@"UbuntuMono-Bold" size:14];	}
-
 - (void)registerHotKeys	{
 	EventHotKeyRef 	hotKeyRef; 		EventTypeSpec 	eventType;		EventHotKeyID 	hotKeyID;
 	eventType.eventClass  = kEventClassKeyboard;
@@ -232,7 +224,6 @@ NSOQ *AZSharedSingleOperationQueue()	{	return AZDummy.sharedInstance.sharedSQ; }
 //- (void)applicationDidFinishLaunching:(NSNotification *)aNotification  { [self registerHotKeys]; }
 
 }
-
 + (void) playRandomSound 			{	[[SoundManager sharedManager] playSound:[Sound randomSound] looping:NO]; }
 + (void) playSound: (id)number	{   //[ playSound:@1];
 
@@ -247,81 +238,36 @@ NSOQ *AZSharedSingleOperationQueue()	{	return AZDummy.sharedInstance.sharedSQ; }
 + (void) setSoundVolume:(NSUI)outtaHundred { SoundManager.sharedManager.soundVolume = outtaHundred / 100.0; }
 
 // Place inside the @implementation block - A method to convert an enum to string
-+ (NSS*) stringForPosition: (AZPOS)enumVal	{
-
-	static NSArray *enumVals = nil;  if (!enumVals) enumVals = [[NSA alloc]initWithObjects:AZWindowPositionTypeArray];
-	return enumVals.count >= enumVal ? enumVals[enumVal] : @"outside of range for Positions";
-}
 // A method to retrieve the int value from the NSArray of NSStrings
-+ (AZPOS) positionForString:	(NSS*)strVal	{	return (AZPOS) [[[NSA alloc]initWithObjects:AZWindowPositionTypeArray] indexOfObject:strVal]; }
-+ (NSS*) stringForType:	 (id)type			{
++  (NSS*) stringForType:(id)type		{
 
 	Class i = [type class];	NSLog(@"String: %@   Class:%@", NSStringFromClass(i), i);		//	[type autoDescribe:type];
 	NSString *key = [NSString stringWithFormat:@"AZOrient_%@", NSStringFromClass([type class])];
 	return NSLocalizedString(key, nil);
 }
-
-//- (void) setUp {
-//	char *xcode_colors = getenv(XCODE_COLORS);
-//	xcode_colors && (strcmp(xcode_colors, "YES") == 0) ? ^{/* XcodeColors=installed+enabled! */}() : nil;
-//	[DDLog addLogger:[DDTTYLogger sharedInstance]];
-//	DDLogVerbose(@"Verbose"); DDLogInfo(@"Info"); DDLogWarn(@"Warn"); DDLogError(@"Error");
-//	[self registerFonts:(CGF)]
-//	self.sortOrder = AZDockSortNatural;
-//	[[[AZSoundEffect alloc]initWithSoundNamed:@"welcome.wav"]play];
-//}
-
-
-+ (NSA*) appCategories 		{		static NSArray *cats;  return cats = cats ? cats :
++ (NSA*) appCategories 					{		static NSArray *cats;  return cats = cats ? cats :
 	@[	@"Games", @"Education", @"Entertainment", @"Books", @"Lifestyle", @"Utilities", @"Business", @"Travel", @"Music", @"Reference", @"Sports", @"Productivity", @"News", @"Healthcare & Fitness", @"Photography", @"Finance", @"Medical", @"Social Networking", @"Navigation", @"Weather", @"Catalogs", @"Food & Drink", @"Newsstand" ];
 //+ (NSA*) appCategories {	return [AZAppFolder sharedInstance].appCategories; }
 }
-+ (NSA*) macPortsCategories{		static NSArray *mPortsCats;  return mPortsCats = mPortsCats ? mPortsCats :
++ (NSA*) macPortsCategories			{		static NSArray *mPortsCats;  return mPortsCats = mPortsCats ? mPortsCats :
 	@[@"amusements", @"aqua", @"archivers", @"audio", @"benchmarks", @"biology", @"blinkenlights", @"cad", @"chat", @"chinese", @"comms", @"compression", @"cross", @"crypt", @"crypto", @"database", @"databases", @"devel", @"editor", @"editors", @"education", @"electronics", @"emacs", @"emulators", @"erlang", @"fonts", @"framework", @"fuse", @"games", @"genealogy", @"gis", @"gnome", @"gnustep", @"graphics", @"groovy", @"gtk", @"haskell", @"html", @"ipv6", @"irc", @"japanese", @"java", @"kde", @"kde3", @"kde4", @"lang", @"lua", @"macports", @"mail", @"mercurial", @"ml", @"mono", @"multimedia", @"mww", @"net", @"network", @"news", @"ocaml", @"office", @"palm", @"parallel", @"pdf", @"perl", @"php", @"pim", @"print", @"python", @"rox", @"ruby", @"russian", @"scheme", @"science", @"security", @"shells", @"shibboleth", @"spelling", @"squeak", @"sysutils", @"tcl", @"tex", @"text", @"textproc", @"tk", @"unicode", @"vnc", @"win32", @"wsn", @"www", @"x11", @"x11-font", @"x11-wm", @"xfce", @"xml", @"yorick", @"zope"];
 }
-+ (NSA*) dock 					{	return (NSA*)[AZDock sharedInstance];
++ (NSA*) dock 								{	return (NSA*)[AZDock sharedInstance];
 }
-+ (NSA*) dockSorted 			{ 	return [AZFolder samplerWithCount:20];} // sharedInstance].dockSorted; }
-
-+ (void) plistToXML: (NSS*) path	{
++ (NSA*) dockSorted 						{ 	return [AZFolder samplerWithCount:20];} // sharedInstance].dockSorted; }
++ (void) plistToXML: (NSS*) path		{
 
 	[NSTask launchedTaskWithLaunchPath:@"/usr/bin/plutil" arguments:@[@"-convert", @"xml1", path]];
 }
-
-
-#define GROWL_ENABLED 0
-#ifdef GROWL_ENABLED
-- (BOOL) registerGrowl 	{
-
-	NSBundle *growlBundle = [NSBundle bundleWithPath:[[AZFWORKBUNDLE privateFrameworksPath] withPath: @"Growl.framework"]];
-//	NSLog(@"growl props: %@ ", [growlBundle propertiesPlease]);
-	if (growlBundle && [growlBundle load]) 	{
-		NSLog(@"Succeefully Loaded Growl.framework!");
-//		[GrowlApplicationBridge registrationDictionaryFromBundle:AZFWORKBUNDLE];
-//		[GrowlApplicationBridge setGrowlDelegate:self];  bundle];	//	Register ourselves as a Growl delegate
-//		[GrowlApplicationBridge notifyWithTitle:@"Welcome To AtoZ" description:@"Sexy."		notificationName:@"Log" iconData:nil priority:1 isSticky:NO clickContext:nil];
-		return YES;
-	} else {		NSLog(@"Could not load Growl.framework"); return NO; }
-
-}
--(void) growlNotificationWasClicked:(id)clickContext {
-
-	NSLog(@"got clickback from growl... ");
-	NSLog(@"clickback: ", clickContext);
-
-}
-#endif
-
-+ (void) trackIt {	[NSThread performBlockInBackground:^{		trackMouse();		}];	}
-- (void) mouseSelector {	NSLog(@"selectot triggered!  by notificixation, even!");	}
-
++ (void) trackIt							{	[NSThread performBlockInBackground:^{		trackMouse();		}];	}
+- (void) mouseSelector 					{	NSLog(@"selectot triggered!  by notificixation, even!");	}
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-+ (NSA*) fonts 	{ return AtoZ.sharedInstance.fonts; 
++ (NSA*) fonts 							{ return AtoZ.sharedInstance.fonts;
 
 //+ (NSFont*) fontWithSize:(CGF)fontSize {	return 	[AtoZ  registerFonts:fontSize]; }
 }
-- (NSA*) fonts		{
-	return fonts = fonts ?:	
+- (NSA*) fonts								{
+	return _fonts = _fonts ?:
 	[[[[AZFILEMANAGER pathsOfContentsOfDirectory:[AZFWRESOURCES withPath:@"/Fonts"]]URLsForPaths] filter: ^BOOL(NSURL* obj) { return obj == nil ?: ^{
 			FSRef fsRef;	  
 			CFURLGetFSRef( (CFURLRef)obj, &fsRef );  
@@ -344,107 +290,35 @@ NSOQ *AZSharedSingleOperationQueue()	{	return AZDummy.sharedInstance.sharedSQ; }
 
 }
 #pragma GCC diagnostic warning "-Wdeprecated-declarations"
-
-#define AZNOCACHE NSURLRequestReloadIgnoringLocalCacheData
-
-+ (NSJSONSerialization*) jsonRequest:(NSS*)url { return [self.sharedInstance jsonRequest:url]; }
-- (NSJSONSerialization*) jsonRequest:(NSS*)url {
++ (NSJS*) jsonRequest:(NSS*)url 		{ return [self.sharedInstance jsonRequest:url]; }
+- (NSJS*) jsonRequest:(NSS*)url 		{
 
 	NSError *err;
-	NSData *responseData = [NSURLC sendSynchronousRequest: [NSURLREQ requestWithURL:$URL(url) cachePolicy:AZNOCACHE timeoutInterval:10.0] 										   returningResponse:nil error:&err];
+	NSData *responseData = [NSURLC sendSynchronousRequest: [NSURLREQ requestWithURL:$URL(url) cachePolicy:AZNOCACHE timeoutInterval:10.0]  returningResponse:nil error:&err];
 	if (!responseData || err) {			NSLog(@"Connection Error: %@", err.localizedDescription); return; 	}
 	else	return  [NSJSONSerialization JSONObjectWithData:responseData options:0 error:&err];
 	
 //	if (err) { NSAlert *alert = [NSAlert alertWithMessageText:@"Error parsing JSON" defaultButton:@"Damn that sucks" alternateButton:nil otherButton:nil informativeTextWithFormat:@"Check your JSON"];	[alert beginSheetModalForWindow:[[NSApplication sharedApplication]mainWindow] modalDelegate:nil didEndSelector:nil contextInfo:nil];		return; }
 }
-
-/* self.dock =   [self.dockOutline arrayUsingIndexedBlock:^id(AZFile *obj, NSUInteger idx) {
- AZFile *app = [AZFile instanceWithPath:[obj valueForKey:@"path"]];
- app.spot = [[obj valueForKey:@"spot"]unsignedIntegerValue ];
- app.dockPoint = [[obj valueForKey:@"dockPoint"]pointValue];
- NSLog(@"Created file: %@... idx:%ld", app.name, idx);
- return app; }]; return dock;  //		}waitUntilDone:YES];	return _dock;	}
-
-//- (NSA*) dockSorted {	self.sortOrder = AZDockSortColor;	//	[NSThread performBlockInBackground:^{
-//	if (!_dockSorted)
-//		[[NSThread mainThread] performBlock:^{
-//	if (!dockSorted)
-			return  [[[dock sortedWithKey:@"hue" ascending:YES] reversed] arrayUsingIndexedBlock:^id(AZFile* obj, NSUInteger idx) {
-//				if ([obj.name isEqualToString:@"Finder"]) {
-//					obj.spotNew = 999;
-//					obj.dockPointNew = obj.dockPoint;
-//				} else {
-					obj.spotNew = idx;
-					obj.dockPointNew = [[dock[idx]valueForKey:@"dockPoint"]pointValue];
-//				}
-				return obj;
-			}];
-//	return dockSorted;
-//		}waitUntilDone:YES];
-//	return _dockSorted;
-//		[[NSThread mainThread] performBlock:^{
-//			 _dockSorted = adock.mutableCopy;
-//		} waitUntilDone:YES];
-//	}];
-//	return _dockSorted;
-}
-*/
-
-- (void)performBlock: (VoidBlock)block waitUntilDone:(BOOL)wait 	{
+-  (void) performBlock: (VoidBlock)block waitUntilDone:(BOOL)wait 						{
 
 	NSThread *newThread = [NSThread new];
 	[NSThread performSelector:@selector(az_runBlock:) onThread:newThread withObject:[block copy] waitUntilDone:wait];
 }
-+ (void)az_runBlock:(VoidBlock)block 										{ block(); }
-+ (void)performBlockInBackground:(VoidBlock)block 						{
++  (void) az_runBlock:(VoidBlock)block 															{ block(); }
++  (void) performBlockInBackground:(VoidBlock)block 											{
 
 	[NSThread performSelectorInBackground:@selector(az_runBlock:) withObject:[block copy]];
 }
-
-/*+ (NSA*) appFolderSorted {
-	return [AZAppFolder sharedInstance].sorted;
-		[AZFiles sharedInstance].appFolderSorted = [AZFiles.sharedInstance.appFolder sortedWithKey:@"hue" ascending:YES].reversed.mutableCopy;
-		//	return  [AZFiles sharedInstance].appFolderSorted;
-}
-+ (NSA*) appFolder {
-		//	[AZStopwatch start:@"appFolder"];
-		//	if (! [AtoZ sharedInstance].appFolder ) {
-		//		NSMutableArray *applications = [NSMutableArray array];
-		//		ApplicationsInDirectory(@"/Applications", applications);
-		//		[AtoZ sharedInstance].appFolder = [NSMutableArray array];
-		//	}
-		//	[AZStopwatch stop:@"appFolder"];
-		//	[[AtoZ sharedInstance] useHRCoderIfAvailable];
-		//	NSLog(@"%@", [[AtoZ sharedInstance] codableKeys]);
-		//	[[AtoZ sharedInstance] writeToFile:@"/Users/localadmin/Desktop/poop.plist" atomically:NO];
-	return (NSA*)[AZAppFolder sharedInstance];
-}
-
-+ (NSA*) appFolderSamplerWith:(NSUInteger)apps {
-
-	[AZStopwatch start:@"appFolderSampler"];
-	return (NSA*)[AZFolder appFolderSamplerWith:apps andMax:apps];
-	[AZStopwatch stop:@"appFolderSampler"];
-}
-- (NSArray *)uncodableKeys	{	return [self.class.sharedInstance uncodableKeys]; //[NSArray arrayWithObject:@"uncodableProperty"]; }
-- (void)setWithCoder:(NSCoder *)coder { [super setWithCoder:coder];	self. = DECODE_VALUE([coder decodeObjectForKey: @"uncodableProperty"];}
-
-- (void)encodeWithCoder:(NSCoder *)coder	{
-	[super encodeWithCoder:coder];
-	[coder encodeObject:@"uncodable" forKey:@"uncodableProperty"];
-}
-
-*/
-
--  (NSP) convertToScreenFromLocalPoint:(NSP)point relativeToView:(NSV*)view	{
+-   (NSP) convertToScreenFromLocalPoint:(NSP)point relativeToView:(NSV*)view			{
 	NSScreen *currentScreen = NSScreen.currentScreenForMouseLocation;
 	return currentScreen ? (NSP) ^{	NSP windowPoint = [view convertPoint:point toView:nil];
 												NSP screenPoint = [[view window] convertBaseToScreen: windowPoint];
 												return AZPointOffsetY([currentScreen flipPoint: screenPoint], [currentScreen frame].origin.y);
 						  }() : NSZeroPoint;
 }
-- (void) moveMouseToScreenPoint:			(NSP)point {	CGSUPRESSINTERVAL(0); CGWarpMouseCursorPosition(point); CGSUPRESSINTERVAL(.25); }
-- (void) handleMouseEvent:(NSEventMask)event inView:(NSV*)view withBlock:(VoidBlock)block 	{
+-  (void) moveMouseToScreenPoint:			(NSP)point 											{	CGSUPRESSINTERVAL(0); CGWarpMouseCursorPosition(point); CGSUPRESSINTERVAL(.25); }
+-  (void) handleMouseEvent:(NSEM)event inView:(NSV*)view withBlock:(VoidBlock)block	{
 
 	if (self != AtoZ.sharedInstance) NSLog(@"uh oh, not a shared I"); // __typeof__(self) *aToZ = [AtoZ sharedInstance];
 	[NSEVENTLOCALMASK:event handler:^NSE *(NSE *ee) {
@@ -457,14 +331,8 @@ NSOQ *AZSharedSingleOperationQueue()	{	return AZDummy.sharedInstance.sharedSQ; }
 		return ee;
 	}];
 }
-
-//+ (NSA*) fengshui {	return [[self class] fengShui]; }
-//+ (NSA*) fengShui {	return [NSC.fengshui.reversed map:^id(id obj) {	AZFile *t = [AZFile instance]; t.color = obj; return t; }]; }
-
-//NSArray *AllApplications(NSArray *searchPaths) { NSMA *applications = NSMA.new; NSEnumerator *searchPathEnum = [searchPaths objectEnumerator]; NSString *path;	while (path = [searchPathEnum nextObject]) ApplicationsInDirectory(path, applications);	return ([applications count]) ? applications : nil; }
-
-+ (NSA*) runningApps 			{	return [self.class.runningAppsAsStrings arrayUsingBlock:^id(id obj) { return [AZFile instanceWithPath:obj];	}]; }
-+ (NSA*) runningAppsAsStrings {
++  (NSA*) runningApps 																					{	return [self.class.runningAppsAsStrings arrayUsingBlock:^id(id obj) { return [AZFile instanceWithPath:obj];	}]; }
++  (NSA*) runningAppsAsStrings	 																	{
 
 	return [[[[[AZWORKSPACE.runningApplications filter:^BOOL(NSRunningApplication *obj) {
 		return 	obj.activationPolicy == NSApplicationActivationPolicyProhibited ? 	NO : YES;
@@ -479,12 +347,11 @@ NSOQ *AZSharedSingleOperationQueue()	{	return AZDummy.sharedInstance.sharedSQ; }
 																					@"Google Chrome Renderer.app"]];
 		}];
 }
-
-static void soundCompleted(SystemSoundID soundFileObject, void *clientData) { // Clean up.
+static void soundCompleted(SystemSoundID soundFileObject, void *clientData)			{ // Clean up.
 
 	if (soundFileObject != kSystemSoundID_UserPreferredAlert) AudioServicesDisposeSystemSoundID(soundFileObject);
 }
-+ (void) playNotificationSound:(NSD*)apsDictionary		{
++  (void) playNotificationSound:(NSD*)apsDictionary											{
 	// App could implement its own preferences so the user could specify if they want sounds or alerts.
 	// if (userEnabledSounds)
 	NSS 					 *soundName = [apsDictionary stringForKey:@"sound"];	if (!soundName) return;
@@ -500,19 +367,135 @@ static void soundCompleted(SystemSoundID soundFileObject, void *clientData) { //
 	AudioServicesAddSystemSoundCompletion(soundFileObject, NULL, NULL, soundCompleted, NULL); 	// Register function 2b called when done.
 	AudioServicesPlaySystemSound(soundFileObject);	// Play the sound.
 }
-
-+ (void) badgeApplicationIcon:(NSS*)string				{
++  (void) badgeApplicationIcon:(NSS*)string														{
 
 	NSDockTile *dockTile = [[NSApplication sharedApplication] dockTile];
 	if (string != nil)  [dockTile setBadgeLabel:string];
 	else				[dockTile setBadgeLabel:nil];
 
 }
+-  (void) _setupLogging 																				{
+
+	[DDLog addLogger:AZSHAREDLOG]; 		// Standard lumberjack initialization
+	AZSHAREDLOG.colorsEnabled = YES;		// And then enable colors
+	AZSHAREDLOG.logFormatter = self;
+	//		[AZSHAREDLOG setForegroundColor:PINK backgroundColor:GRAY2.deviceRGBColor forFlag:LOG_FLAG_INFO];
+	//		[@[@"DDLogError", @"DDLogWarn", @"DDLogInfo", @"DDLogVerose"] each:^(id obj) {
+	//		[NSS.randomDicksonism respondsToStringThenDo:obj];
+
+}
++  (void) testVarargs:(NSA*)args 																	{		[args eachWithIndex:^(id obj, NSInteger idx) {  printf("%d:  %s", (int)idx, [obj stringValue].UTF8String); }]; }
++  (void) varargBlock:(AZVA_ArrayBlock)block withVarargs:(id)varargs, ... 				{
+	__block NSMA *stuffToPass = NSMA.new;
+	AZVA_Block theBlk = ^(id thing) { [thing isKindOfClass:NSO.class] ? [stuffToPass addObject:thing] : nil; };
+	azva_iterate_list(varargs, theBlk);
+	block(stuffToPass);
+}
++  (void) sendArrayTo:(SEL)method inClass:(Class)class withVarargs:(id)varargs, ... {
+	__block NSMA *stuffToPass = NSMA.new;
+	AZVA_Block theBlk = ^(id thing) { [thing isKindOfClass:NSO.class] ? [stuffToPass addObject:thing] : [stuffToPass addObject:AZString(thing)]; };
+
+	azva_iterate_list(varargs, theBlk);
+	id theShared = [class sharedInstance];
+	[[class class] performSelectorWithoutWarnings:method withObject:stuffToPass];
+}
+int  DDLEVEL2INT			  (DDLogMessage*m)	{
+	int dd = m->logFlag; return dd == LOG_FLAG_ERROR ? 0 : dd == LOG_FLAG_WARN ? 1 : dd == LOG_FLAG_INFO ? 2 : 3;
+}
+NSS* DDLEVEL2STRING		  (DDLogMessage*m) 	{
+	int dd = m->logFlag; return dd == LOG_FLAG_ERROR ? @"ERR" : dd == LOG_FLAG_WARN ? @"WARN" : dd == LOG_FLAG_INFO ? @"INFO" : @"VERBOSE";
+}
+- (NSS*) formatLogMessage:(DDLogMessage*)lM	{
+
+	/*	lM->logMsg 		lM->file		lm->lineNumber	lM->function	lM.fileName	DDLEVEL2STRING(lm) DDLEVEL2INT(lM) */
+	NSS* file = $(@"[%@]", [$UTF8(lM->file).lastPathComponent stringByDeletingPathExtension]);
+	file = [[file truncateInMiddleToCharacters:12]paddedTo:12];
+	file = colorizeStringWithColor(file, GREEN);
+	printf("%s", file.UTF8String);
+	return $(@"%@:%i%@", file , lM->lineNumber, lM->logMsg);
+}
+
+/*
+ //	NSLog(COLOR_ESC @"bg89,96,105;" @"Grey background" XCODE_COLORS_RESET);
+ //	NSLog(COLOR_ESC @"fg0,0,255;" COLOR_ESC @"bg220,0,0;"	 @"Blue text on red background" XCODE_COLORS_RESET);
+ //	NSLog(XCODE_COLORS_ESCAPE @"fg209,57,168;" @"You can supply your own RGB values!" XCODE_COLORS_RESET);
+ //	DDLogError  (@"Paper jam"										);							  // Red
+ //	DDLogWarn   (@"Toner is low"									);							// Orange
+ //	DDLogInfo   (@"Warming up printer (pre-customization)");  // Default (black)
+ //	DDLogVerbose(@"Intializing protcol x26"						);			  // Default (black)
+ //	DDLogInfo(@"Warming up printer (post-customization)"); // Pink !
+ //LogStackAndReturn(self.bundle);} // ; }
+ //#define LOGWARN(fmt, ...) NSLog((@"%s [Line %d] " XCODE_COLORS_ESCAPE @"fg218,147,0;" fmt XCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
+
+ self.dock =   [self.dockOutline arrayUsingIndexedBlock:^id(AZFile *obj, NSUInteger idx) {
+ AZFile *app = [AZFile instanceWithPath:[obj valueForKey:@"path"]];
+ app.spot = [[obj valueForKey:@"spot"]unsignedIntegerValue ];
+ app.dockPoint = [[obj valueForKey:@"dockPoint"]pointValue];
+ NSLog(@"Created file: %@... idx:%ld", app.name, idx);
+ return app; }]; return dock;  //		}waitUntilDone:YES];	return _dock;	}
+
+- (NSA*) dockSorted {	self.sortOrder = AZDockSortColor;	//	[NSThread performBlockInBackground:^{
+	if (!_dockSorted)
+		[[NSThread mainThread] performBlock:^{
+	if (!dockSorted)
+return  [[[dock sortedWithKey:@"hue" ascending:YES] reversed] arrayUsingIndexedBlock:^id(AZFile* obj, NSUInteger idx) {
+				if ([obj.name isEqualToString:@"Finder"]) {
+					obj.spotNew = 999;
+					obj.dockPointNew = obj.dockPoint;	} else { obj.spotNew = idx;
+ obj.dockPointNew = [[dock[idx]valueForKey:@"dockPoint"]pointValue];	} return obj;
+ }];	return dockSorted;			}waitUntilDone:YES];	return _dockSorted;		[[NSThread mainThread] performBlock:^{			 _dockSorted = adock.mutableCopy;		} waitUntilDone:YES];	}];/	return _dockSorted;	}
+
+
++ (NSA*) appFolderSorted {	return [AZAppFolder sharedInstance].sorted;	[AZFiles sharedInstance].appFolderSorted = [AZFiles.sharedInstance.appFolder sortedWithKey:@"hue" ascending:YES].reversed.mutableCopy;		//	return  [AZFiles sharedInstance].appFolderSorted; }
++ (NSA*) appFolder {
+	[AZStopwatch start:@"appFolder"];
+	if (! [AtoZ sharedInstance].appFolder ) {
+		NSMutableArray *applications = [NSMutableArray array];
+		ApplicationsInDirectory(@"/Applications", applications);
+		[AtoZ sharedInstance].appFolder = [NSMutableArray array];
+	}
+	[AZStopwatch stop:@"appFolder"];
+	[[AtoZ sharedInstance] useHRCoderIfAvailable];
+	NSLog(@"%@", [[AtoZ sharedInstance] codableKeys]);
+		[[AtoZ sharedInstance] writeToFile:@"/Users/localadmin/Desktop/poop.plist" atomically:NO];
+	return (NSA*)[AZAppFolder sharedInstance];
+}
++ (NSA*) appFolderSamplerWith:(NSUInteger)apps {	[AZStopwatch start:@"appFolderSampler"];	return (NSA*)[AZFolder appFolderSamplerWith:apps andMax:apps];	[AZStopwatch stop:@"appFolderSampler"];	}
+- (NSArray *)uncodableKeys	{	return [self.class.sharedInstance uncodableKeys]; //[NSArray arrayWithObject:@"uncodableProperty"]; }
+- (void)setWithCoder:(NSCoder *)coder { [super setWithCoder:coder];	self. = DECODE_VALUE([coder decodeObjectForKey: @"uncodableProperty"];}
+- (void)encodeWithCoder:(NSCoder *)coder	{	[super encodeWithCoder:coder];	[coder encodeObject:@"uncodable" forKey:@"uncodableProperty"];	}
++ (NSA*) fengshui {	return [[self class] fengShui]; }
++ (NSA*) fengShui {	return [NSC.fengshui.reversed map:^id(id obj) {	AZFile *t = [AZFile instance]; t.color = obj; return t; }]; }
+NSArray *AllApplications(NSArray *searchPaths) { NSMA *applications = NSMA.new; NSEnumerator *searchPathEnum = [searchPaths objectEnumerator]; NSString *path;	while (path = [searchPathEnum nextObject]) ApplicationsInDirectory(path, applications);	return ([applications count]) ? applications : nil; }
+ */
+
+#define GROWL_ENABLED 0
+#ifdef GROWL_ENABLED
+- (BOOL) registerGrowl 											{
+
+	NSBundle *growlBundle = [NSBundle bundleWithPath:[[AZFWORKBUNDLE privateFrameworksPath] withPath: @"Growl.framework"]];
+	//	NSLog(@"growl props: %@ ", [growlBundle propertiesPlease]);
+	if (growlBundle && [growlBundle load]) 	{
+		NSLog(@"Succeefully Loaded Growl.framework!");
+		//		[GrowlApplicationBridge registrationDictionaryFromBundle:AZFWORKBUNDLE];
+		//		[GrowlApplicationBridge setGrowlDelegate:self];  bundle];	//	Register ourselves as a Growl delegate
+		//		[GrowlApplicationBridge notifyWithTitle:@"Welcome To AtoZ" description:@"Sexy."		notificationName:@"Log" iconData:nil priority:1 isSticky:NO clickContext:nil];
+		return YES;
+	} else {		NSLog(@"Could not load Growl.framework"); return NO; }
+
+}
+-(void) growlNotificationWasClicked:(id)clickContext 	{
+
+	NSLog(@"got clickback from growl... ");
+	NSLog(@"clickback: %@", clickContext);
+	
+}
+#endif
 
 @end
 @implementation AtoZ (MiscFunctions)
 
-+ (void) say:(NSString *)thing {
++  (void) say:				(NSS*)thing 													{
  	// for (NSString *voice in
 // 	NSArray *voices = [NSSpeechSynthesizer availableVoices];
 // 	NSUInteger randomIndex = arc4random() % [voices count];
@@ -523,39 +506,37 @@ static void soundCompleted(SystemSoundID soundFileObject, void *clientData) { //
 // 	printf("Speaking as %s\n", [voice UTF8String]);
 // 	while ([speaker isSpeaking]) { usleep(40); }
 }
-
-
-+	(CGP) centerOfRect:	 (CGR)rect 												{ return AZCenterOfRect(rect); 
++	 (CGP) centerOfRect:	(CGR)rect 														{ return AZCenterOfRect(rect);
 
 //	CGF midx = CGRectGetMidX(rect);CGF midy = CGRectGetMidY(rect);return CGPointMake(midx, midy);
 }
-+   (void)printCGRect:	   (CGR)cgRect 												{	[AtoZ printRect:cgRect];	}
-+   (void) printRect:		(NSR)toPrint												{	
++  (void) printCGRect:	(CGR)cgRect 													{	[AtoZ printRect:cgRect];	}
++  (void) printRect:		(NSR)toPrint													{
 	NSLog(@"Rect is x: %i y: %i width: %i height: %i ", (int)toPrint.origin.x, (int)toPrint.origin.y,
 		  (int)toPrint.size.width, (int)toPrint.size.height);
 }
-+   (void) printCGPoint:	 (CGP)cgPoint 											{	[AtoZ printPoint:cgPoint];	}
-+   (void) printPoint:		 (NSP)toPrint 											{		NSLog(@"Point is x: %f y: %f", toPrint.x, toPrint.y);	}
-+   (void) printTransform:   (CGAffineTransform)t 									{
++  (void) printCGPoint:	(CGP)cgPoint 													{	[AtoZ printPoint:cgPoint];	}
++  (void) printPoint:	(NSP)toPrint 													{		NSLog(@"Point is x: %f y: %f", toPrint.x, toPrint.y);	}
++  (void) printTransform:(CGAffineTransform)t 										{
 	NSLog(@"[ %1.1f %1.1f 0.0 ]", t.a, t.b);
 	NSLog(@"[ %1.1f %1.1f 0.0 ]", t.c, t.d);
 	NSLog(@"[ %1.1f %1.1f 1.0 ]", t.tx, t.ty);
 }
-+	(CGF) clamp:(CGF)v from:(CGF)minimum  to:(CGF)maximum 						{
++	 (CGF) clamp:			(CGF)v      from:(CGF)minimum  to:(CGF)maximum 		{
 	return v = v < minimum 	 ? minimum : v > maximum ? v= maximum : v;
 }
-+	(CGF) scaleForSize:	 (CGS)size inRect:(CGR)rect							{
++	 (CGF) scaleForSize:	(CGS)size inRect:(CGR)rect									{
 	CGF hScale = rect.size.width / size.width;
 	CGF vScale = rect.size.height / size.height;
 	return  MIN(hScale, vScale);
 }
-+	(CGR) centerSize:		 (CGS)size inRect:(CGR)rect 							{
++ 	 (CGR) centerSize:	(CGS)size inRect:(CGR)rect 								{
 	CGF scale = [[self class] scaleForSize:size inRect:rect];
 	return AZMakeRect(	CGPointMake ( rect.origin.x + 0.5 * (rect.size.width  - size.width),
 									 rect.origin.y + 0.5 * (rect.size.height - size.height) ),
 					  CGSizeMake(size.width * scale, size.height * scale) );
 }
-+	(NSR) rectFromPointA:   (NSP)pointA 			andPointB:(NSP)pointB 		{
++   (NSR) rectFromPointA:(NSP)pointA 			   andPointB:(NSP)pointB 		{
 
 	// 	get the current distance from the original mouse down point
 	float xDistance = pointB.x - pointA.x;		float yDistance = pointB.y - pointA.y;
@@ -567,7 +548,7 @@ static void soundCompleted(SystemSoundID soundFileObject, void *clientData) { //
 	else {								returnRect.origin.y= pointA.y;				returnRect.size.height = yDistance;			}
 	return returnRect;
 }
-+ (NSIMG*) cropImage:		(NSIMG*)sourceImage withRect:(NSR)sourceRect 	{
++(NSIMG*) cropImage:		(NSIMG*)sourceImage      withRect:(NSR)sourceRect	{
 
 	NSImage* cropImage = [[NSImage alloc] initWithSize:NSMakeSize(sourceRect.size.width, sourceRect.size.height)];
 	[cropImage lockFocus];
@@ -587,13 +568,8 @@ static void soundCompleted(SystemSoundID soundFileObject, void *clientData) { //
 }
 @end
 
-//@implementation CAConstraint (brevity)
-//+(CAConstraint*)maxX {	return AZConstraint(kCAConstraintMaxX,@"superlayer");	}
-//@end
-
 @implementation Box
 @synthesize color, save, selected, shapeLayer;
-
 -   (id) initWithFrame: (NSR)frame			{
 	self = [super initWithFrame:frame];
 	if (self) {
@@ -635,7 +611,6 @@ static void soundCompleted(SystemSoundID soundFileObject, void *clientData) { //
 
 
 @implementation CAAnimation (NSViewFlipper)
-
 +(CAAnimation *)flipAnimationWithDuration:(NSTimeInterval)aDuration forLayerBeginningOnTop:(BOOL)beginsOnTop scaleFactor:(CGF)scaleFactor {
 	// Rotating halfway (pi radians) around the Y axis gives the appearance of flipping
 	CABasicAnimation *flipAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.y"];
@@ -670,13 +645,11 @@ static void soundCompleted(SystemSoundID soundFileObject, void *clientData) { //
 
 	return animationGroup;
 }
-
 @end
 
 @implementation NSViewFlipperController
 @synthesize isFlipped;
 @synthesize duration;
-
 -(id)initWithHostView:(NSView *)newHostView frontView:(NSView *)newFrontView backView:(NSView *)newBackView	{
 	if ( self = [super init] ) {
 		hostView = newHostView;
@@ -686,7 +659,6 @@ static void soundCompleted(SystemSoundID soundFileObject, void *clientData) { //
 	}
 	return self;
 }
-
 -(void)flip 	{
 
 	if ( isFlipped ) { topView = backView; bottomView = frontView; }
@@ -715,7 +687,6 @@ static void soundCompleted(SystemSoundID soundFileObject, void *clientData) { //
 	[bottomLayer addAnimation:bottomAnimation forKey:@"flip"];
 	[CATransaction commit];
 }
-
 -(void) animationDidStop:(CAA*)animation finished:(BOOL)flag	{
 	isFlipped = !isFlipped;
 	[CATransaction begin];
@@ -734,9 +705,6 @@ static void soundCompleted(SystemSoundID soundFileObject, void *clientData) { //
 //- (id)objectForKeyedSubscript:(NSString *)key { return [_children objectForKey:key];  }
 //- (void)setObject:(id)newValue forKeyedSubscription:(NSString *)key { [_children setObject:newValue forKey:key]; }
 
-
-
-
 /**
 @implementation AGFoundation
 @synthesize speaker;
@@ -751,7 +719,6 @@ static void soundCompleted(SystemSoundID soundFileObject, void *clientData) { //
 		[appArray addObject:app];
 	}
 }
-
 @end
 - (void)enumerateProtocolMethods:(Protocol*)p {
 // Custom block, used only in this method

@@ -10,6 +10,27 @@
 
 @implementation NSTableView (AtoZ)
 
+- (void)selectItemsInArray:(NSA*)selectedItems usingSourceArray:(NSA*)sourceArray
+{
+	if ([sourceArray count] != [self numberOfRows]) {
+		NSLog(@"SourceArray is %lu; rows is %ld",(unsigned long)[sourceArray count], (long)[self numberOfRows]);
+	}
+
+	NSMutableIndexSet *indexes = [NSMutableIndexSet indexSet];
+
+	NSEnumerator *enumerator = [selectedItems objectEnumerator];
+	id	item;
+	while ((item = [enumerator nextObject])) {
+		NSUInteger i = [sourceArray indexOfObject:item];
+		if (i != NSNotFound) {
+			[indexes addIndex:i];
+		}
+	}
+
+	[self selectRowIndexes:indexes byExtendingSelection:NO];
+}
+
+
 @end
 //
 //@implementation NoodleIPhoneTableView

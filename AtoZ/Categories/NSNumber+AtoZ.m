@@ -10,7 +10,22 @@
 
 @implementation NSNumber (AtoZ)
 
-- (NSString *)prettyBytes
++ (NSN*)integerWithHexString:(NSS*)hexString;
+{
+  NSScanner *scanner = [NSScanner scannerWithString:hexString];
+  
+  NSUInteger value;
+  if ([scanner scanHexInt:(NSInteger)&value])
+  {
+    return [NSNumber numberWithInteger:value]; 
+  }
+  
+  return nil;
+}
+
+- (CFNumberType) type {  return CFNumberGetType((CFNumberRef)self); }
+
+- (NSS*)prettyBytes
 {
 	float bytes = [self longValue];
 	NSUInteger unit = 0;
@@ -24,34 +39,34 @@
 	NSString *unitString = @[@"Bytes", @"KB", @"MB", @"GB", @"TB", @"PB"][unit];
 	return unit > 5 ? @"HUGE" : unit == 0 ? $(@"%d %@", (int)bytes, unitString) : $(@"%.2f %@", (float)bytes, unitString);
 }
-+(NSNumber *)zero {
++(NSN*)zero {
 	return @0;
 }
 
-+(NSNumber *)one {
++(NSN*)one {
 	return @1;
 }
 
-+(NSNumber *)two {
++(NSN*)two {
 	return @2;
 }
 
--(NSNumber *)abs {
+-(NSN*)abs {
 	return @(fabs(self.doubleValue));
 }
 
--(NSNumber *)negate {
+-(NSN*)negate {
 	return @(-self.doubleValue);
 }
 
--(NSNumber *)transpose {
+-(NSN*)transpose {
 	return @(1 / self.doubleValue);
 }
 
-- (NSNumber *)increment {
+- (NSN*)increment {
 	return @([self intValue]+1);
 }
--(NSArray *)times:(id (^)(void))block {
+-(NSA*)times:(id (^)(void))block {
 	int n = self.intValue;
 	
 	if (n < 0) {
@@ -70,11 +85,11 @@
 	return re;
 }
 
--(NSArray *)to:(NSNumber *)to {
+-(NSA*)to:(NSN*)to {
 	return [self to:to by:@1.0];
 }
 
--(NSArray *)to:(NSNumber *)to by:(NSNumber *)by {
+-(NSA*)to:(NSN*)to by:(NSN*)by {
 	double alpha = self.doubleValue;
 	double omega = to.doubleValue;
 	double delta = by.doubleValue;
@@ -102,7 +117,7 @@
 
 @implementation NSNumber (Description)
 
-- (NSString *)typeFormedDescription {
+- (NSS*)typeFormedDescription {
 	if ([self.className isEqualToString:@"__NSCFNumber"]) {
 		NSString *defaultDescription = [self description];
 		if (strcmp(self.objCType, @encode(float)) == 0 || strcmp(self.objCType, @encode(double)) == 0) {
@@ -122,7 +137,7 @@
 
 @implementation NSDecimalNumber (Description)
 
-- (NSString *)typeFormedDescription {
+- (NSS*)typeFormedDescription {
 	NSString *defaultDescription = [self description];
 	if (strcmp(self.objCType, @encode(float)) == 0 || strcmp(self.objCType, @encode(double)) == 0) {
 		if (![defaultDescription hasSubstring:@"."]) {

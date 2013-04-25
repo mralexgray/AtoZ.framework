@@ -17,7 +17,10 @@
 
 + (NSD*)classPropertiesAndTypes;
 
-- (NSD*) propertiesPlease;
+
+@property (RONLY) NSD* propertiesPlease;
+@property (RONLY) NSD* pp;
+@property (RONLY) NSS* ppString;
 - (NSD*) propertiesSans:						(NSS*)someKey;
 - (NSD*) propertiesSansKeys: 					(NSA*)someKeys;
 + (BOOL) hasProperties;
@@ -28,7 +31,7 @@
 + (SEL) getterForPropertyNamed: 				(NSS*) name;
 + (SEL) setterForPropertyNamed: 				(NSS*) name;
 + (NSS*) retentionMethodOfPropertyNamed: 	(NSS*) name;	// returns one of: copy, retain, assign
-+ (NSArray *) propertyNames;
++ (NSA*) propertyNames;
 
 // instance convenience accessors for above routines (who likes to type [myObj class] all the time ?)
 - (BOOL) hasProperties;

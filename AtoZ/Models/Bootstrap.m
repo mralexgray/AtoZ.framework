@@ -2,7 +2,7 @@
 //#define SYNTHESIZE_CONSTS
 //#undef SYNTHESIZE_CONSTS
 #import "Bootstrap.h"
-#import <KSHTMLWriterFramework/KSHTMLWriterFramework.h>
+//#import <KSHTMLWriterFramework/KSHTMLWriterFramework.h>
 //#import "KSHTMLWriter.h"
 //#import "KSWriter.h"
 
@@ -27,16 +27,21 @@ NSString * const custCSS = @"html,	body{height:100%; } #wrap{min-height:100%;hei
 	 _oQ.maxConcurrentOperationCount = NSOperationQueueDefaultMaxConcurrentOperationCount;
 //	[_oQ addObserver:self forKeyPath:@"operations" options:0 context:NULL];
 
-	[_oQ addOperationWithBlock:^{
-		[@[@"js", @"css"] each:^(NSS* ext){  [self setValue:[[[_bundle URLsForResourcesWithExtension:ext subdirectory:ext] filter:^BOOL(NSURL* object) {  return ![((NSS*)object.path.lastPathComponent) containsAnyOf:@[@"bootstrap-popover",@"bootstrap-transition"]]; }]
-						   cw_mapArray:^id(NSURL* url) {
-
-			return [Asset instanceOfType:[ext assetFromString] withPath:$(@"/%@/%@", ext, url.path.lastPathComponent) orContents:nil isInline:NO];//$(@"/%@/%@", ext, url.path.lastPathComponent) orContents:nil isInline:YES];}] forKey:ext];
-		}] forKey:ext]; }];
-	}];
-		NSLog(@"css: %@  js: %@", _css, _js);
+//	[_oQ addOperationWithBlock:^{
+//		[@[@"js", @"css"] each:^(NSS* ext){  [self setValue:[[[_bundle URLsForResourcesWithExtension:ext subdirectory:ext] filter:^BOOL(NSURL* object) {  return ![((NSS*)object.path.lastPathComponent) containsAnyOf:@[@"bootstrap-popover",@"bootstrap-transition"]]; }]
+//						   cw_mapArray:^id(NSURL* url) {
+//
+//			return [Asset instanceOfType:[ext assetFromString] withPath:$(@"/%@/%@", ext, url.path.lastPathComponent) orContents:nil isInline:NO];//$(@"/%@/%@", ext, url.path.lastPathComponent) orContents:nil isInline:YES];}] forKey:ext];
+//		}] forKey:ext]; }];
+//	}];
+////		NSLog(@"css: %@  js: %@", _css, _js);
 //		self.html;
 //	}];
+}
+
+- (NSA*) css {
+
+	return [_bundle pathsForResourcesOfType:@"css" inDirectory:@"css"];
 }
 
 + (NSSet *)keyPathsForValuesAffectingValueForKey:(NSS*)key
@@ -82,11 +87,12 @@ NSString * const custCSS = @"html,	body{height:100%; } #wrap{min-height:100%;hei
 	[_writer writeElement:@"head" content:^{
 		[_writer writeElement:@"title" text:@"recorder"];
 		[_writer writeJavascriptWithSrc:JQUERY encoding:NSUTF8StringEncoding];
-		[_css each:^(Asset* obj) { AZLOG(obj.propertiesPlease);
+		[_css each:^(Asset* obj) {
+//		AZLOG(obj.propertiesPlease);
 //			if (obj.contents && obj.isActive) {
 //				if (obj.isInline && obj.contents) 	[_writer writeStyleElementWithCSSString:obj.contents];
 //		   else if (obj.path)
-		   	[_writer writeLinkToStylesheet:obj.path title:nil media:nil];//:obj.path type:nil rel:nil title:nil media:nil];
+   	[_writer writeLinkToStylesheet:obj.path title:nil media:nil];//:obj.path type:nil rel:nil title:nil media:nil];
 //		}
 		}];
 		[_js each:^(Asset* obj) { // AZLOG(obj);

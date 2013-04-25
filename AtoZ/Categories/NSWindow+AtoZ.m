@@ -3,6 +3,10 @@
 
 #import "NSWindow+AtoZ.h"
 
+static BOOL	gWindowTrackingEnabled = NO;
+static BOOL gWindowTracking = NO;
+static NSPoint gWindowTrackingEventOrigin, gWindowTrackingCurrentWindowOrigin;
+
 @implementation NSWindow (SBSWindowAdditions)
 
 + (void) setLiveFrameTracking:(BOOL) bol	{

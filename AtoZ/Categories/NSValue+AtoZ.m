@@ -62,7 +62,7 @@ typedef struct _Pair Pair;
 
 @implementation NSData (NSDataExtension)
 
-+ (NSData *) dataWithBase32String:(NSString *)encoded
++ (NSData *) dataWithBase32String:(NSS*)encoded
 {
 	/* First valid character that can be indexed in decode lookup table */
 	static NSInteger charDigitsBase = '2';
@@ -169,7 +169,7 @@ typedef struct _Pair Pair;
 	return [NSData dataWithBytes:bytes length:sizeof(bytes)];
 }
 
-- (NSString *) base32String
+- (NSS*) base32String
 {
 	/* Lookup table used to canonically encode() groups of data bits */
 	static char canonicalChars[] =

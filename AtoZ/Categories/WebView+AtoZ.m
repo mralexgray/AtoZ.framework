@@ -38,7 +38,7 @@
 }
 
 
--(void)appendTagToBody:(NSString *)tagName InnerHTML:(NSString *)innerHTML
+-(void)appendTagToBody:(NSS*)tagName InnerHTML:(NSS*)innerHTML
 {
 	// Gets a list of all <body></body> nodes.
 	DOMNodeList *bodyNodeList = [self.mainFrame.DOMDocument getElementsByTagName:@"body"];
@@ -56,7 +56,7 @@
 	[bodyNode appendChild:newNode];
 }
 //and whenever wanted to change the content,
-//-(void)appendString:(NSString *)pString{
+//-(void)appendString:(NSS*)pString{
 //	[self appendTagToBody:@"div" InnerHTML:@"<div><p> Hi there </p></div>"];
 //	[self setNeedsDisplay:YES];
 //}

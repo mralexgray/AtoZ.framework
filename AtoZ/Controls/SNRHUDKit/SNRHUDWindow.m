@@ -48,7 +48,7 @@
 
 - (id)initWithContentRect:(NSRect)contentRect styleMask:(NSUInteger)windowStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)deferCreation
 {
-	if ((self = [super initWithContentRect:contentRect styleMask:NSBorderlessWindowMask backing:bufferingType defer:deferCreation])) {
+	if ((self = [super initWithContentRect:contentRect styleMask:NSBorderlessWindowMask| NSResizableWindowMask backing:bufferingType defer:deferCreation])) {
 		[self setOpaque:NO];
 		[self setBackgroundColor:[NSColor clearColor]];
 		[self setMovableByWindowBackground:YES];
@@ -79,49 +79,36 @@
 
 - (void)setContentView:(NSView *)aView
 {
-	if ([__customContentView isEqualTo:aView]) {
-		return;
-	}
-	NSRect bounds = [self frame];
-	bounds.origin = NSZeroPoint;
-	SNRHUDWindowFrameView *frameView = [super contentView];
+	if ([__customContentView isEqualTo:aView]) return;
+	NSRect bounds = self.frame; bounds.origin = NSZeroPoint;
+	SNRHUDWindowFrameView *frameView = super.contentView;
 	if (!frameView) {
 		frameView = [[SNRHUDWindowFrameView alloc] initWithFrame:bounds];
-		NSSize buttonSize = SNRWindowButtonSize;
-		NSRect buttonRect = NSMakeRect(SNRWindowButtonEdgeMargin, NSMaxY(frameView.bounds) -(SNRWindowButtonEdgeMargin + buttonSize.height), buttonSize.width, buttonSize.height);
-		NSButton *closeButton = [[NSButton alloc] initWithFrame:buttonRect];
-		[closeButton setCell:[[SNRHUDWindowButtonCell alloc] init]];
+		NSSZ buttonSize = SNRWindowButtonSize;
+		NSR  buttonRect = NSMakeRect(	SNRWindowButtonEdgeMargin, frameView.height - (SNRWindowButtonEdgeMargin + buttonSize.height),
+												buttonSize.width, 			buttonSize.height);
+		NSButton *closeButton = [NSButton.alloc initWithFrame:buttonRect];
+		[closeButton setCell:SNRHUDWindowButtonCell.new];
 		[closeButton setButtonType:NSMomentaryChangeButton];
-		[closeButton setTarget:self];
-		[closeButton setAction:@selector(close)];
+		[closeButton setAction:@selector(close) withTarget:self];
 		[closeButton setAutoresizingMask:NSViewMaxXMargin | NSViewMinYMargin];
 		[frameView addSubview:closeButton];
 		[super setContentView:frameView];
 	}
-	if (__customContentView) {
-		[__customContentView removeFromSuperview];
-	}
+	if (__customContentView) [__customContentView removeFromSuperview];
 	__customContentView = aView;
 	[__customContentView setFrame:[self contentRectForFrameRect:bounds]];
 	[__customContentView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
 	[frameView addSubview:__customContentView];
 }
 
-- (NSView *)contentView
-{
+- (NSV*) contentView						{
 	return __customContentView;
 }
 
-- (void)setTitle:(NSString *)aString
-{
-	[super setTitle:aString];
-	[[super contentView] setNeedsDisplay:YES];
-}
+- (void) setTitle:(NSS*)aString		{	[super setTitle:aString];	[super.contentView setNeedsDisplay:YES];	}
 
-- (BOOL)canBecomeKeyWindow
-{
-	return YES;
-}
+- (BOOL)canBecomeKeyWindow				{	return YES;	}
 @end
 
 #import <AtoZ/AtoZ.h>
@@ -131,34 +118,32 @@
 - (void)drawRect:(NSRect)dirtyRect
 {
 	NSRect drawingRect = NSInsetRect(self.bounds, 0.5f, 0.5f);
-	NSBezierPath *path = [NSBP bezierPathWithRoundedRect:drawingRect cornerRadius:SNRWindowCornerRadius inCorners:OSBottomLeftCorner | OSBottomRightCorner];
+	NSBP *path = [NSBP bezierPathWithRoundedRect:drawingRect cornerRadius:SNRWindowCornerRadius
+																					inCorners:OSBottomLeftCorner | OSBottomRightCorner];
 //	 [NSBezierPath bezierPathWithRoundedRect:drawingRect xRadius:SNRWindowCornerRadius yRadius:SNRWindowCornerRadius];
-	[NSGraphicsContext saveGraphicsState];
-	[path addClip];
-	// Fill in the title bar with a gradient background
-	NSRect titleBarRect = NSMakeRect(0.f, NSMaxY(self.bounds) - SNRWindowTitlebarHeight, self.bounds.size.width, SNRWindowTitlebarHeight);
-	NSGradient *titlebarGradient = [[NSGradient alloc] initWithStartingColor:SNRWindowBottomColor endingColor:SNRWindowTopColor];
-	[titlebarGradient drawInRect:titleBarRect angle:90.f];
-	// Draw the window title
-	[self snr_drawTitleInRect:titleBarRect];
-	// Rest of the window has a solid fill
-	NSRect bottomRect = NSMakeRect(0.f, 0.f, self.bounds.size.width, self.bounds.size.height - SNRWindowTitlebarHeight);
-	[SNRWindowBottomColor set];
-	[NSBezierPath fillRect:bottomRect];
-	// Draw the highlight line around the top edge of the window
-	// Outset the width of the rectangle by 0.5px so that the highlight "bleeds" around the rounded corners
-	// Outset the height by 1px so that the line is drawn right below the border
-	NSRect highlightRect = NSInsetRect(drawingRect, 0.f, 0.5f);
-	// Make the height of the highlight rect something bigger than the bounds so that it won't show up on the bottom
-	highlightRect.size.height += 50.f;
-	highlightRect.origin.y -= 50.f;
-	NSBezierPath *highlightPath = [NSBezierPath bezierPathWithRoundedRect:highlightRect xRadius:SNRWindowCornerRadius yRadius:SNRWindowCornerRadius];
-	[SNRWindowHighlightColor set];
-	[highlightPath stroke];
-	[NSGraphicsContext restoreGraphicsState];
+	[NSGraphicsContext state:^{
+
+		[path addClip];
+		// Fill in the title bar with a gradient background
+		NSRect titleBarRect = NSMakeRect(0, NSMaxY(self.bounds) - SNRWindowTitlebarHeight, self.width, SNRWindowTitlebarHeight);
+		[[NSG gradientFrom:SNRWindowBottomColor to:SNRWindowTopColor] drawInRect:titleBarRect angle:90.f];
+		// Draw the window title
+		[self snr_drawTitleInRect:titleBarRect];
+		// Rest of the window has a solid fill
+		NSRectFillWithColor((NSR){ 0,0, self.width, self.height - SNRWindowTitlebarHeight}, SNRWindowBottomColor);
+		// Draw the highlight line around the top edge of the window
+		// Outset the width of the rectangle by 0.5px so that the highlight "bleeds" around the rounded corners
+		// Outset the height by 1px so that the line is drawn right below the border
+		NSR highlightRect = NSInsetRect(drawingRect, 0.f, 0.5f);
+		// Make the height of the highlight rect something bigger than the bounds so that it won't show up on the bottom
+		highlightRect.size.height += 50.f;
+		highlightRect.origin.y -= 50.f;
+		NSBezierPath *highlightPath = [NSBezierPath bezierPathWithRoundedRect:highlightRect xRadius:SNRWindowCornerRadius yRadius:SNRWindowCornerRadius];
+		[SNRWindowHighlightColor set];
+		[highlightPath stroke];
+	}];
 	[SNRWindowBorderColor set];
-	[path stroke];
-}
+	[path stroke];}
 
 - (void)snr_drawTitleInRect:(NSRect)titleBarRect
 {

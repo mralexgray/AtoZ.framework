@@ -10,8 +10,8 @@
 
 @interface NSMutableDictionary (AtoZ)
 
-- (void)setColor:(NSColor *)aColor forKey:(NSString *)aKey;
-- (NSColor *)colorForKey:(NSString *)aKey;
+- (void)setColor:(NSColor *)aColor forKey:(NSS*)aKey;
+- (NSColor *)colorForKey:(NSS*)aKey;
 - (BOOL)setObjectOrNull:(id)anObject forKey:(id)aKey;
 @end
 
@@ -24,21 +24,34 @@
 //	items are separated by . and array indices in []
 //	example: a.b[N][M].c.d
 @interface  NSMutableDictionary (GetObjectForKeyPath)
-- (id)objectForKeyPath:(NSString *)inKeyPath;
--(void)setObject:(id)inValue forKeyPath:(NSString *)inKeyPath;
+- (id)objectForKeyPath:(NSS*)inKeyPath;
+-(void)setObject:(id)inValue forKeyPath:(NSS*)inKeyPath;
 @end
 
 @interface  NSObject  (BagofKeysValue)
-- (NSBag*) bagWithValuesForKey:(NSString *)key;
+- (NSBag*) bagWithValuesForKey:(NSS*)key;
 @end
 
+@interface NSDictionary (Types)
+
+- (NSS*)stringForKey:(id)key;
+- (NSS*)stringForKey:(id)key default:(NSS*)defaultValue;
+
+- (NSN*)numberForKey:(id)key default:(NSN*)defaultValue;
+- (NSN*)numberForKey:(id)key;
+
+- (NSA*)arrayForKey:(id)key default:(NSA*)defaultValue;
+- (NSA*)arrayForKey:(id)key;
+
+@end
 
 @interface NSDictionary (AtoZ)
 
+
 -(void)eachWithIndex:(void (^)(id key, id value, NSUI idx, BOOL *stop))block;
 
-//- (NSA*) recursiveObjectsForKey:(NSString *)key;
-- (id) recursiveObjectForKey:(NSString *)key;
+//- (NSA*) recursiveObjectsForKey:(NSS*)key;
+- (id) recursiveObjectForKey:(NSS*)key;
 
 - (id)findDictionaryWithValue:(id)value;
 + (NSDictionary*) dictionaryWithValue:(id)value forKeys:(NSA*)keys;
@@ -59,52 +72,52 @@
 @interface NSDictionary (OFExtensions)
 /// Enumerate each key and object in the dictioanry.
 
-- (NSDictionary *)dictionaryWithObject:(id)anObj forKey:(NSString *)key;
-//- (NSDictionary *)dictionaryByAddingObjectsFromDictionary:(NSDictionary *)otherDictionary;
+- (NSD*)dictionaryWithObject:(id)anObj forKey:(NSS*)key;
+//- (NSD*)dictionaryByAddingObjectsFromDictionary:(NSD*)otherDictionary;
 
 - (id)anyObject;
-- (NSString *)keyForObjectEqualTo:(id)anObj;
+- (NSS*)keyForObjectEqualTo:(id)anObj;
 
-- (NSString *)stringForKey:(NSString *)key defaultValue:(NSString *)defaultValue;
-- (NSString *)stringForKey:(NSString *)key;
+- (NSS*)stringForKey:(NSS*)key defaultValue:(NSS*)defaultValue;
+- (NSS*)stringForKey:(NSS*)key;
 
-- (NSArray *)stringArrayForKey:(NSString *)key defaultValue:(NSArray *)defaultValue;
-- (NSArray *)stringArrayForKey:(NSString *)key;
+- (NSA*)stringArrayForKey:(NSS*)key defaultValue:(NSA*)defaultValue;
+- (NSA*)stringArrayForKey:(NSS*)key;
 
 	// ObjC methods to nil have undefined results for non-id values (though ints happen to currently work)
-- (float)floatForKey:(NSString *)key defaultValue:(float)defaultValue;
-- (float)floatForKey:(NSString *)key;
-- (double)doubleForKey:(NSString *)key defaultValue:(double)defaultValue;
-- (double)doubleForKey:(NSString *)key;
+- (float)floatForKey:(NSS*)key defaultValue:(float)defaultValue;
+- (float)floatForKey:(NSS*)key;
+- (double)doubleForKey:(NSS*)key defaultValue:(double)defaultValue;
+- (double)doubleForKey:(NSS*)key;
 
-- (CGPoint)pointForKey:(NSString *)key defaultValue:(CGPoint)defaultValue;
-- (CGPoint)pointForKey:(NSString *)key;
-- (CGSize)sizeForKey:(NSString *)key defaultValue:(CGSize)defaultValue;
-- (CGSize)sizeForKey:(NSString *)key;
-- (CGRect)rectForKey:(NSString *)key defaultValue:(CGRect)defaultValue;
-- (CGRect)rectForKey:(NSString *)key;
+- (CGPoint)pointForKey:(NSS*)key defaultValue:(CGPoint)defaultValue;
+- (CGPoint)pointForKey:(NSS*)key;
+- (CGSize)sizeForKey:(NSS*)key defaultValue:(CGSize)defaultValue;
+- (CGSize)sizeForKey:(NSS*)key;
+- (CGRect)rectForKey:(NSS*)key defaultValue:(CGRect)defaultValue;
+- (CGRect)rectForKey:(NSS*)key;
 
 	// Returns YES iff the value is YES, Y, yes, y, or 1.
-- (BOOL)boolForKey:(NSString *)key defaultValue:(BOOL)defaultValue;
-- (BOOL)boolForKey:(NSString *)key;
+- (BOOL)boolForKey:(NSS*)key defaultValue:(BOOL)defaultValue;
+- (BOOL)boolForKey:(NSS*)key;
 
 	// Just to make life easier
-- (int)intForKey:(NSString *)key defaultValue:(int)defaultValue;
-- (int)intForKey:(NSString *)key;
-- (unsigned int)unsignedIntForKey:(NSString *)key defaultValue:(unsigned int)defaultValue;
-- (unsigned int)unsignedIntForKey:(NSString *)key;
+- (int)intForKey:(NSS*)key defaultValue:(int)defaultValue;
+- (int)intForKey:(NSS*)key;
+- (unsigned int)unsignedIntForKey:(NSS*)key defaultValue:(unsigned int)defaultValue;
+- (unsigned int)unsignedIntForKey:(NSS*)key;
 
-- (NSInteger)integerForKey:(NSString *)key defaultValue:(NSInteger)defaultValue;
-- (NSInteger)integerForKey:(NSString *)key;
+- (NSInteger)integerForKey:(NSS*)key defaultValue:(NSInteger)defaultValue;
+- (NSInteger)integerForKey:(NSS*)key;
 
-- (unsigned long long int)unsignedLongLongForKey:(NSString *)key defaultValue:(unsigned long long int)defaultValue;
-- (unsigned long long int)unsignedLongLongForKey:(NSString *)key;
+- (unsigned long long int)unsignedLongLongForKey:(NSS*)key defaultValue:(unsigned long long int)defaultValue;
+- (unsigned long long int)unsignedLongLongForKey:(NSS*)key;
 	// This seems more convenient than having to write your own if statement a zillion times
-- (id)objectForKey:(NSString *)key defaultObject:(id)defaultObject;
+- (id)objectForKey:(NSS*)key defaultObject:(id)defaultObject;
 
 - (NSMutableDictionary *)deepMutableCopy;// NS_RETURNS_RETAINED;
 
-//- (NSArray *)copyKeys;
+//- (NSA*)copyKeys;
 //- (NSMutableArray *)mutableCopyKeys;
 //
 //- (NSSet *)copyKeySet;
@@ -227,19 +240,19 @@ extern const int jsonDoNotIndent;
 
 @interface NSDictionary (BSJSONAdditions)
 
-+ (NSDictionary *)dictionaryWithJSONString:(NSString *)jsonString;
-- (NSString *)jsonStringValue;
++ (NSD*)dictionaryWithJSONString:(NSS*)jsonString;
+- (NSS*)jsonStringValue;
 
 @end
 
 
 @interface NSDictionary (PrivateBSJSONAdditions)
 
-- (NSString *)jsonStringValueWithIndentLevel:(int)level;
-- (NSString *)jsonStringForValue:(id)value withIndentLevel:(int)level;
-- (NSString *)jsonStringForArray:(NSArray *)array withIndentLevel:(int)level;
-- (NSString *)jsonStringForString:(NSString *)string;
-- (NSString *)jsonIndentStringForLevel:(int)level;
+- (NSS*)jsonStringValueWithIndentLevel:(int)level;
+- (NSS*)jsonStringForValue:(id)value withIndentLevel:(int)level;
+- (NSS*)jsonStringForArray:(NSA*)array withIndentLevel:(int)level;
+- (NSS*)jsonStringForString:(NSS*)string;
+- (NSS*)jsonIndentStringForLevel:(int)level;
 
 @end
 

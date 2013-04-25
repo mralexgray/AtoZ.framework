@@ -20,7 +20,7 @@
 @end
 
 @interface NSDate (SI)
-+(NSString *)highestSignificantComponentStringFromDate:(NSDate *)date toDate:(NSDate *)toDate;
++(NSS*)highestSignificantComponentStringFromDate:(NSDate *)date toDate:(NSDate *)toDate;
 @end
 
 
@@ -33,30 +33,30 @@
 
 - (NSUInteger)daysAgo;
 - (NSUInteger)daysAgoAgainstMidnight;
-- (NSString *)stringDaysAgo;
-- (NSString *)stringDaysAgoAgainstMidnight:(BOOL)flag;
+- (NSS*)stringDaysAgo;
+- (NSS*)stringDaysAgoAgainstMidnight:(BOOL)flag;
 - (NSUInteger)weekday;
 
-+ (NSDate *)dateFromString:(NSString *)string;
-+ (NSDate *)dateFromString:(NSString *)string withFormat:(NSString *)format;
-+ (NSString *)stringFromDate:(NSDate *)date withFormat:(NSString *)string;
-+ (NSString *)stringFromDate:(NSDate *)date;
-+ (NSString *)stringForDisplayFromDate:(NSDate *)date;
-+ (NSString *)stringForDisplayFromDate:(NSDate *)date prefixed:(BOOL)prefixed;
-+ (NSString *)stringForDisplayFromDate:(NSDate *)date prefixed:(BOOL)prefixed alwaysDisplayTime:(BOOL)displayTime;
++ (NSDate *)dateFromString:(NSS*)string;
++ (NSDate *)dateFromString:(NSS*)string withFormat:(NSS*)format;
++ (NSS*)stringFromDate:(NSDate *)date withFormat:(NSS*)string;
++ (NSS*)stringFromDate:(NSDate *)date;
++ (NSS*)stringForDisplayFromDate:(NSDate *)date;
++ (NSS*)stringForDisplayFromDate:(NSDate *)date prefixed:(BOOL)prefixed;
++ (NSS*)stringForDisplayFromDate:(NSDate *)date prefixed:(BOOL)prefixed alwaysDisplayTime:(BOOL)displayTime;
 
-- (NSString *)string;
-- (NSString *)stringWithFormat:(NSString *)format;
-- (NSString *)stringWithDateStyle:(NSDateFormatterStyle)dateStyle timeStyle:(NSDateFormatterStyle)timeStyle;
+- (NSS*)string;
+- (NSS*)stringWithFormat:(NSS*)format;
+- (NSS*)stringWithDateStyle:(NSDateFormatterStyle)dateStyle timeStyle:(NSDateFormatterStyle)timeStyle;
 
 - (NSDate *)beginningOfWeek;
 - (NSDate *)beginningOfDay;
 - (NSDate *)endOfWeek;
 
-+ (NSString *)dateFormatString;
-+ (NSString *)timeFormatString;
-+ (NSString *)timestampFormatString;
-+ (NSString *)dbFormatString;
++ (NSS*)dateFormatString;
++ (NSS*)timeFormatString;
++ (NSS*)timestampFormatString;
++ (NSS*)dbFormatString;
 
 @end
 

@@ -15,10 +15,10 @@
 
 
 @interface NSTreeNode (ESExtensions)
-- (NSArray *)descendants;
-- (NSArray *)groupDescendants;
-- (NSArray *)leafDescendants;
-- (NSArray *)siblings;
+- (NSA*)descendants;
+- (NSA*)groupDescendants;
+- (NSA*)leafDescendants;
+- (NSA*)siblings;
 - (BOOL)isDescendantOfNode:(NSTreeNode *)node;
 - (BOOL)isSiblingOfNode:(NSTreeNode *)node;
 - (BOOL)isSiblingOfOrDescendantOfNode:(NSTreeNode *)node;
@@ -33,10 +33,10 @@
 @interface NSTreeController (ESExtensions)
 - (NSIndexPath *)indexPathForInsertion;
 - (void)selectNone;
-- (NSArray *)rootNodes;
+- (NSA*)rootNodes;
 - (NSTreeNode *)nodeAtIndexPath:(NSIndexPath *)indexPath;
-- (NSArray *)flattenedContent;
-- (NSArray *)flattenedNodes;
+- (NSA*)flattenedContent;
+- (NSA*)flattenedNodes;
 - (NSTreeNode *)nextSiblingOfNodeAtIndexPath:(NSIndexPath *)indexPath;
 - (NSTreeNode *)nextSiblingOfNode:(NSTreeNode *)node;
 - (void)selectParentFromSelection;

@@ -23,7 +23,7 @@
 @implementation NSTreeNode (ESExtensions)
 
 // returns an array of NSTreeNodes descending from self
-- (NSArray *)descendants;
+- (NSA*)descendants;
 {
 	NSMutableArray *array = [NSMutableArray array];
 	for (NSTreeNode *child in [self childNodes]) {
@@ -34,7 +34,7 @@
 	return [[array copy] autorelease];
 }
 
-- (NSArray *)groupDescendants;
+- (NSA*)groupDescendants;
 {
 	NSMutableArray *array = [NSMutableArray array];
 	for (NSTreeNode *item in [self childNodes]) {
@@ -46,7 +46,7 @@
 	return [[array copy] autorelease];
 }
 
-- (NSArray *)leafDescendants;
+- (NSA*)leafDescendants;
 {
 	NSMutableArray *array = [NSMutableArray array];
 	for (NSTreeNode *item in [self childNodes]) {
@@ -59,7 +59,7 @@
 }
 
 // all the siblings, including self
-- (NSArray *)siblings;
+- (NSA*)siblings;
 {
 	return [[self parentNode] childNodes];
 }
@@ -131,7 +131,7 @@
 	[self removeSelectionIndexPaths:[self selectionIndexPaths]];
 }
 
-- (NSArray *)rootNodes;
+- (NSA*)rootNodes;
 {
 	return [[self arrangedObjects] childNodes];
 }
@@ -142,7 +142,7 @@
 }
 
 // all the real objects in the tree, depth-first searching
-- (NSArray *)flattenedContent;
+- (NSA*)flattenedContent;
 {
 	NSMutableArray *mutableArray = [NSMutableArray array];
 	for (id realNode in self.content) {
@@ -154,7 +154,7 @@
 }
 
 // all the NSTreeNodes in the tree, depth-first searching
-- (NSArray *)flattenedNodes;
+- (NSA*)flattenedNodes;
 {
 	NSMutableArray *mutableArray = [NSMutableArray array];
 	for (NSTreeNode *node in [self rootNodes]) {

@@ -230,7 +230,7 @@
 #endif
 }
 
-+ (NSImage *)imageWithIdentifier:(NSString *)identifier forSize:(NSSize)size andDrawingBlock:(void(^)())drawingBlock{
++ (NSImage *)imageWithIdentifier:(NSS*)identifier forSize:(NSSize)size andDrawingBlock:(void(^)())drawingBlock{
 	NSImage *image = [[[self class] drawingCache] objectForKey:identifier];
 	if(image == nil){
 		image = [[self class] imageForSize:size withDrawingBlock:drawingBlock];

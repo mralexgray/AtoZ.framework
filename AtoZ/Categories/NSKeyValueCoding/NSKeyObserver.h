@@ -12,21 +12,21 @@
    BOOL			   _isValid;
 }
 
--initWithObject:object key:(NSString *)key keyPathObserver:(NSKeyPathObserver *)keyPathObserver restOfPath:(NSString *)restOfPath;
+-initWithObject:object key:(NSS*)key keyPathObserver:(NSKeyPathObserver *)keyPathObserver restOfPath:(NSS*)restOfPath;
 
 -(BOOL)isValid;
 -(void)invalidate;
 
 -object;
--(NSString *)key;
+-(NSS*)key;
 -(NSKeyPathObserver *)keyPathObserver;
 
--(NSString *)restOfPath;
+-(NSS*)restOfPath;
 
 -(NSKeyObserver *)restOfPathObserver;
 -(void)setRestOfPathObserver:(NSKeyObserver *)keyObserver;
 
--(NSArray *)dependantKeyObservers;
--(void)setDependantKeyObservers:(NSArray *)keyObservers;
+-(NSA*)dependantKeyObservers;
+-(void)setDependantKeyObservers:(NSA*)keyObservers;
 
 @end

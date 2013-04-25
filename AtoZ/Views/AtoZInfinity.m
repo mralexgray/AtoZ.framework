@@ -70,7 +70,7 @@
 -(void) setScale:(AZInfiteScale)scale
 {
 	_scale = scale;
-	NSLog(@"scale=%i", scale);
+	NSLog(@"scale=%ld", scale);
 	[self setupInfiniBar];
 }
 

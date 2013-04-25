@@ -14,6 +14,7 @@
 - (NSA*) frameworkIdentifiers;
 - (NSA*) frameworkInfoDictionaries;
 - (NSD*) infoDictionaryWithIdentifier:(NSS*)identifier;
++ (void) loadAZFrameworks;
 
 + (NSBundle*) frameworkBundleNamed:(NSS*)name;
 + (NSS*) appSuppFolder;
@@ -22,13 +23,13 @@
 + (NSS*) appSuppSubPathNamed: (NSS*)name;
 
 + (NSS*) calulatedBundleIDForPath: (NSS*)path;
-- (NSArray *)definedClasses;
+- (NSA*)definedClasses;
 
 //- (NSA*) frameworkClasses;
 - (NSA*) cacheImages;
 - (void) cacheNamedImages;
-- (NSArray *)recursivePathsForResourcesOfType:(NSString *)type inDirectory:(NSString *)directoryPath;
-- (NSS *)recursiveSearchForPathOfResourceNamed:(NSString *)name;
+- (NSA*)recursivePathsForResourcesOfType:(NSS*)type inDirectory:(NSS*)directoryPath;
+- (NSS *)recursiveSearchForPathOfResourceNamed:(NSS*)name;
 
 //+ (NSMutableArray *)systemFrameworks;
 

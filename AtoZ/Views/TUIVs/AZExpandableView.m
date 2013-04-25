@@ -9,69 +9,79 @@
 @end
 
 @implementation AZExpandableView
-@synthesize expanded, dictionary, selected, textRenderer, originalSize;
+@synthesize expanded, selected, textRenderer, originalSize;
 
-- (id)initWithFrame: (CGR)frame 	{
-	if (self != [super initWithFrame:frame]) return nil;
+- (id)initWithFrame: (CGR)frame 	{	if (self != [super initWithFrame:frame]) return nil;
 	self.opaque 		 	= YES;
 	self.textRenderers 	= @[textRenderer = TUITextRenderer.new];
 	self.clipsToBounds 	= YES;
-//	self.backgroundColor = WHITE;
+	self.dictionary		= NSMD.new;
 	return self;
 }
-- (void) setDictionary:(NSMD*)d 	{	dictionary = d;   [d each:^(id key, id value) { [self setValue:value forKey:key]; }]; }
-- (NSAS*) attrString	 				{	NSS*s = _name 	?: _url.host.stringValue 
-																	?: NSS.randomDicksonism; 
-												return [s attributedWithFont:AtoZ.controlFont andColor:WHITE];	
+- (void) setDictionary:(NSMD*)d 	{  _dictionary = nil;
+
+	if (!NSEqualRects(self.frame, NSZeroRect)) {	NSLog(@"setting dictionary: %@ in frame %@", d, NSStringFromRect(self.frame)); }
+	  _dictionary = d;
+//	 [d each:^(id key, id value) { [self setValue:value forKey:key]; }];
 }
-- (NSC*) color 						{  return _color ?: dictionary[@"color"] ?: self.favicon.quantized;  }
-- (NSURL*) url 						{ 	return _url ?: [dictionary[@"url"] urlified]; }
-- (NSIMG*)favicon 					{  return _favicon ?: dictionary[@"favicon"] ?: AZFavIconManager.sharedInstance.placehoder;
-//	
+- (NSAS*) attrString	 				{	NSS* s = _dictionary[@"string"]	?: self.url.host.stringValue;
+												return [s attributedWithFont:[AtoZ.controlFont fontWithSize:22] andColor:WHITE];
+}
+//
+//- (NSIMG*)favicon 	{
+//
+//	return [_dictionary objectForKey:@"favicon"] ?:
+//		[AZFavIconManager iconForURL:[_dictionary[@"url"]urlified] downloadHandler:^(NSImage *icon) {
+//			if (icon && _dictionary) [_dictionary setValue:icon forKey:@"favicon"];
+////							[self redraw];
+//															}];
+//
 //			[AZFavIconManager iconForURL:_url downloadHandler:^(NSIMG *i) { 
 //				_favicon = dictionary[@"favicon"] =  [[i imageScaledToFitSize:self.size] named:_name]; 
 //				[self redraw];
 //			}];
 //	[TUIView animateWithDuration:0.5 animations:^{ 			[self redraw]; 		}];
-}
-- (NSM*) menuForEvent: (NSE*)e	{
-
-	__block NSM *menu = NSMenu.new;	[@{	@"Insert Above" : @"insertObject", @"Insert Below":@"insertObjectBelow", 
-														@"Insert at top": @"prepend",		  		 @"Remove" : @"remove:", 
-  										   @"Toggle Expand To Fill" : @"toggleExpanded" } each:^(id k, id v)  {
-		NSMI *i = [NSMI.alloc initWithTitle:NSLocalizedString(k, nil) 	
-											  action:NSSelectorFromString(v) 
-									 keyEquivalent:@""];  i.target = self;  [menu addItem:i];	 }]; return menu;
-}
-- (BOOL) faviconOK  					{  return [dictionary objectForKey:@"favicon"] != nil 
-												  ? [[(NSIMG*)dictionary[@"favicon"] name] endsWith:self.name] : NO; 
-}
+//}
+//- (BOOL) faviconOK  					{  return [_dictionary objectForKey:@"favicon"] != nil
+//												  ? [[(NSIMG*)_dictionary[@"favicon"] name] endsWith:self.string] : NO;
+//}
 - (void) drawRect:	 (CGR)rect {
+	if ( NSEqualRects( NSUnionRect(self.bounds, rect), NSZeroRect) ) return;
+	NSC* c =  RANDOMCOLOR;//_dictionary[@"color"] ? [NSC linenTintedWithColor: _dictionary[@"color"]] :
+//		self.favicon ?	self.favicon.quantized : RED;
+//	NSLog(@"Name of color for %@: %@", _dictionary[@"url"], [c nameOfColor]);
+	[self.path fillWithColor: c];//self.selected ? c.darker.darker : c.brighter];
 
-	[self.path fillWithColor: self.selected  ? [NSC linenTintedWithColor:self.color] : self.color];
-	NSRect l, r;  l = AZRectTrimmedOnRight(self.bounds, self.height); r = AZRectTrimmedOnLeft(self.bounds, l.size.width);
-	[self.favicon drawInRect:r];
+																	 //self.color] : self.color];self.selected
+	NSRect l, r;  	l = AZRectTrimmedOnRight(self.bounds, self.height);
+						r = AZRectTrimmedOnLeft(self.bounds, l.size.width);
+						r = quadrant(r, AZBotRightQuad);
+//	[self.favicon drawInRect:r];
+//	[self.favicon drawInRect:r];
 	textRenderer.attributedString = self.attrString;
 	textRenderer.frame = l;
 	[textRenderer draw];
 }
-- (void) mouseDown:	  (NSE*)e	{	[super mouseDown:e]; // always call super when overriding mouseXXX: methods - lots of plumbing happens in TUIView
-}
-- (void) mouseUp:		  (NSE*)e	{
+- (void) mouseDown:	  (NSE*)e	{  // always call super when overriding mouseXXX: methods - lots of plumbing happens in TUIView
 
-	LOGWARN(@"selected %@", self.dictionary);			
-	[TUIView animateWithDuration:0.5 animations:^{		// rather than a simple -setNeedsDisplay, let's fade it back out
-		self.selected = !selected;
-//		[self setNeedsDisplay];
-//		self.selected = NO;
-		[self redraw]; // -redraw forces a .contents update immediately based on drawRect, and it happens inside an animation block, so CoreAnimation gives us a cross-fade for free
-	}];
-	if([self eventInside:e]) { 
+		[super mouseDown:e];
+}
+- (void) mouseUp:		  (NSE*)e	{	[super mouseUp:e];
+
+	LOGWARN(@"selected dict:%@  tag:  %ld", self.propertiesPlease, self.tag);
+
 // only perform the action if the mouse up happened inside our bounds - ignores mouse down, drag-out, mouse up
+	if([self eventInside:e]) {
+		[TUIView animateWithDuration:0.5 animations:^{		// rather than a simple -setNeedsDisplay, let's fade it back out
+			self.selected = !selected;
+			/* -redraw forces a .contents update immediately based on drawRect,
+			and it happens inside an animation block, so CoreAnimation gives us a cross-fade for free */
+			[self redraw];
+		}];
+	}
 //		NSLog(@"did seleted %@", self);
 //		[[self tabBar].delegate tabBar:[self tabBar] didSelectTab:self.tag];
-	}
-	[super mouseUp:e]; // moved from top
+
 }
 - (void) toggleExpanded 	{	__block CGSZ tSize; __block CGF w, h; 
 										BOOL isVRT = !self.parentLayout.typeOfLayout == AHLayoutHorizontal;
@@ -82,18 +92,34 @@
 	[self.parentLayout resizeViewAtIndex:self.tag toSize:tSize aniBlock:nil  completion:^{ 	 expanded = !expanded;	 }];
 	[self.parentLayout endUpdates];
 }
-- (void) insertObject		{	[_objects addObject:NSMD.new]; [self.parentLayout insertViewAtIndex:self.tag];
+- (void) insertObject		{	/*[_objects addObject:NSMD.new];*/
+
+	[self.parentLayout insertViewAtIndex:self.tag];
 }
-- (void) insertObjectBelow {	[_objects addObject:NSMD.new]; [self.parentLayout insertViewAtIndex:self.tag-1];	
+- (void) insertObjectBelow {	/*[_objects addObject:NSMD.new];*/
+
+	[self.parentLayout insertViewAtIndex:self.tag-1];
 }
-- (void) prepend 				{	[_objects addObject:NSMD.new]; [self.parentLayout prependNumOfViews:1 aniBlock:nil completion:nil];			
+- (void) prepend 				{ /*[_objects addObject:NSMD.new];*/
+
+	[self.parentLayout prependNumOfViews:1 aniBlock:nil completion:nil];
 }
-- (void) remove: (id)s 		{ 	[_objects removeObjectAtIndex:self.tag];
-										[self.parentLayout removeViewsAtIndexes:[NSIS indexSetWithIndex:self.tag] aniBlock:nil completion:nil ];	
+- (void) remove: (id)s 		{ 	/*[_objects removeObjectAtIndex:self.tag];*/
+
+	[self.parentLayout removeViewsAtIndexes:[NSIS indexSetWithIndex:self.tag] aniBlock:nil completion:nil ];
 }
-- (void) reset					{ 	[self initWithFrame:self.bounds];  }
+- (void) reset					{ 	[self initWithFrame:self.bounds];  	}
 - (AHLayout*) parentLayout	{ 	return (AHLayout*) self.superview;	}
-- (void) setTag: (NSI)tag 	{ 	[super setTag:tag]; }		
+- (NSM*) menuForEvent: (NSE*)e	{
+
+	__block NSM *menu = NSMenu.new;	[@{	@"Insert Above" : @"insertObject", @"Insert Below":@"insertObjectBelow",
+												 @"Insert at top": @"prepend",		  		 @"Remove" : @"remove:",
+												 @"Toggle Expand To Fill" : @"toggleExpanded" } each:^(id k, id v)  {
+													 NSMI *i = [NSMI.alloc initWithTitle:NSLocalizedString(k, nil)
+																							action:NSSelectorFromString(v)
+																				  keyEquivalent:@""];  i.target = self;  [menu addItem:i];	 }]; return menu;
+}
+- (void) setTag: (NSI)tag 	{ 	[super setTag:tag];						}
 @end
 
 

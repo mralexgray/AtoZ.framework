@@ -70,7 +70,7 @@ NSString *NSDCIMFolder()
  iPhone Developer's Cookbook, 3.0 Edition
  BSD License, Use at your own risk	*/
 
-+ (NSString *) pathForItemNamed: (NSString *) fname inFolder: (NSString *) path
++ (NSS*) pathForItemNamed: (NSS*) fname inFolder: (NSS*) path
 {
 	NSString *file;
 	NSDirectoryEnumerator *dirEnum = [[NSFileManager defaultManager] enumeratorAtPath:path];
@@ -80,17 +80,17 @@ NSString *NSDCIMFolder()
 	return nil;
 }
 
-+ (NSString *) pathForDocumentNamed: (NSString *) fname
++ (NSS*) pathForDocumentNamed: (NSS*) fname
 {
 	return [NSFileManager pathForItemNamed:fname inFolder:NSDocumentsFolder()];
 }
 
-+ (NSString *) pathForBundleDocumentNamed: (NSString *) fname
++ (NSS*) pathForBundleDocumentNamed: (NSS*) fname
 {
 	return [NSFileManager pathForItemNamed:fname inFolder:NSBundleFolder()];
 }
 
-+ (NSArray *) filesInFolder: (NSString *) path
++ (NSA*) filesInFolder: (NSS*) path
 {
 	NSString *file;
 	NSMutableArray *results = [NSMutableArray array];
@@ -104,7 +104,7 @@ NSString *NSDCIMFolder()
 	return results;
 }
 
-+ (NSArray *) pathsForItemsInFolder:(NSString *)path withExtension: (NSString *) ext
++ (NSA*) pathsForItemsInFolder:(NSS*)path withExtension: (NSS*) ext
 {
 	NSError *error = nil;
 	return [[AZFILEMANAGER contentsOfDirectoryAtPath:path error:&error] filter:^BOOL(NSS* object) {
@@ -113,7 +113,7 @@ NSString *NSDCIMFolder()
 }
 
 	// Case insensitive compare, with deep enumeration
-+ (NSArray *) pathsForItemsMatchingExtension: (NSString *) ext inFolder: (NSString *) path
++ (NSA*) pathsForItemsMatchingExtension: (NSS*) ext inFolder: (NSS*) path
 {
 //	NSString *file;
 //	NSMutableArray *results = [NSMutableArray array];
@@ -136,13 +136,13 @@ NSString *NSDCIMFolder()
 
 }
 
-+ (NSArray *) pathsForDocumentsMatchingExtension: (NSString *) ext
++ (NSA*) pathsForDocumentsMatchingExtension: (NSS*) ext
 {
 	return [NSFileManager pathsForItemsMatchingExtension:ext inFolder:NSDocumentsFolder()];
 }
 
 	// Case insensitive compare
-+ (NSArray *) pathsForBundleDocumentsMatchingExtension: (NSString *) ext
++ (NSA*) pathsForBundleDocumentsMatchingExtension: (NSS*) ext
 {
 	return [NSFileManager pathsForItemsMatchingExtension:ext inFolder:NSBundleFolder()];
 }
@@ -153,7 +153,7 @@ NSString *NSDCIMFolder()
 
 @implementation NSFileManager (OFSimpleExtensions)
 
-- (NSDictionary *)attributesOfItemAtPath:(NSString *)filePath traverseLink:(BOOL)traverseLink error:(NSError **)outError
+- (NSD*)attributesOfItemAtPath:(NSS*)filePath traverseLink:(BOOL)traverseLink error:(NSError **)outError
 {
 #ifdef MAXSYMLINKS
 	int links_followed = 0;
@@ -187,18 +187,18 @@ NSString *NSDCIMFolder()
 	}
 }
 
-- (BOOL)directoryExistsAtPath:(NSString *)path traverseLink:(BOOL)traverseLink;
+- (BOOL)directoryExistsAtPath:(NSS*)path traverseLink:(BOOL)traverseLink;
 {
 	NSDictionary *attributes = [self attributesOfItemAtPath:path traverseLink:traverseLink error:NULL];
 	return attributes && [[attributes fileType] isEqualToString:NSFileTypeDirectory];
 }
 
-- (BOOL)directoryExistsAtPath:(NSString *)path;
+- (BOOL)directoryExistsAtPath:(NSS*)path;
 {
 	return [self directoryExistsAtPath:path traverseLink:NO];
 }
 
-- (BOOL)createPathToFile:(NSString *)path attributes:(NSDictionary *)attributes error:(NSError **)outError;
+- (BOOL)createPathToFile:(NSS*)path attributes:(NSD*)attributes error:(NSError **)outError;
 	// Creates any directories needed to be able to create a file at the specified path.  Returns NO on failure.
 {
 	NSArray *pathComponents = [path pathComponents];
@@ -209,7 +209,7 @@ NSString *NSDCIMFolder()
 	return [self createPathComponents:[pathComponents subarrayWithRange:(NSRange){0, componentCount-1}] attributes:attributes error:outError];
 }
 
-- (BOOL)createPathComponents:(NSArray *)components attributes:(NSDictionary *)attributes error:(NSError **)outError
+- (BOOL)createPathComponents:(NSA*)components attributes:(NSD*)attributes error:(NSError **)outError
 {
 	if ([attributes count] == 0)
 		attributes = nil;
@@ -577,3 +577,50 @@ static void _appendPropertiesOfTreeAtURL(NSFileManager *self, NSMutableString *s
 }
 
 @end
+
+#import <Carbon/Carbon.h>
+
+@implementation NSString (CarbonUtilities)
+
++ (NSS*)stringWithFSRef:(const FSRef *)aFSRef	{
+	if( !aFSRef )		return nil;
+	UInt8			thePath[PATH_MAX + 1];		// plus 1 for \0 terminator
+	return (FSRefMakePath ( aFSRef, thePath, PATH_MAX ) == noErr) ? [NSString stringWithUTF8String: (char*) thePath] : nil;
+}
+- (BOOL)getFSRef:(FSRef *)aFSRef								{
+	return FSPathMakeRef( (UInt8*) [self UTF8String], aFSRef, NULL ) == noErr;
+}
+- (NSS*)resolveAliasFile								{
+	FSRef			theRef;		Boolean		theIsTargetFolder,
+	theWasAliased;				NSString		* theResolvedAlias = nil;;
+	[self getFSRef:&theRef];
+	if( (FSResolveAliasFile ( &theRef, YES, &theIsTargetFolder, &theWasAliased ) == noErr) )
+		theResolvedAlias = (theWasAliased) ? [NSString stringWithFSRef:&theRef] : self;
+	return theResolvedAlias;
+}
+@end
+@implementation NSFileManager (UKVisibleDirectoryContents)
+
+-(NSArray*)	visibleDirectoryContentsAtPath: (NSString*)path
+{
+	NSDirectoryEnumerator*	enny = [AZFILEMANAGER enumeratorAtPath: path];
+	NSMA*			arr = NSMA.new;
+	NSString*				currFN;
+	while( (currFN = [enny nextObject]) )
+	{
+		[enny skipDescendents];
+		if( [currFN characterAtIndex: 0] == '.' )	continue;
+		FSRef           fref;		FSCatalogInfo   info;
+		if( [[path withPath: currFN] getFSRef: &fref] )
+			if( noErr == FSGetCatalogInfo( &fref, kFSCatInfoFinderInfo, &info, NULL, NULL, NULL ) )
+			{
+				FileInfo*   finderInfo = (FileInfo*)info.finderInfo;
+				if( (finderInfo->finderFlags & kIsInvisible) == kIsInvisible ) continue;
+			}
+		[arr addObject: currFN];
+	}
+	return arr;
+}
+
+@end
+

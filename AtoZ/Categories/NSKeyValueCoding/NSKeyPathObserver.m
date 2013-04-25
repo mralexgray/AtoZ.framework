@@ -4,7 +4,7 @@
 
 @implementation NSKeyPathObserver
 
--initWithObject:object observer:observer keyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options context:(void *)context {
+-initWithObject:object observer:observer keyPath:(NSS*)keyPath options:(NSKeyValueObservingOptions)options context:(void *)context {
    _object=object;
    _observer=observer;
    _keyPath=[keyPath copy];
@@ -27,7 +27,7 @@
    return _observer;
 }
 
--(NSString *)keyPath {
+-(NSS*)keyPath {
    return _keyPath;
 }
 
@@ -51,7 +51,7 @@
    return (_willChangeCount>0)?YES:NO;
 }
 
--(NSMutableDictionary *)changeDictionaryWithInfo:(NSDictionary *)info {
+-(NSMutableDictionary *)changeDictionaryWithInfo:(NSD*)info {
    if(_changeDictionary==nil)
 	_changeDictionary=[[NSMutableDictionary alloc] init];
    else
@@ -71,7 +71,7 @@
    _changeDictionary=nil;
 }
 
--(NSString *)description {
+-(NSS*)description {
 	return [NSString stringWithFormat:@"<%@ %@æ _object: %@ _keypath: %@>",isa, self,_object,_keyPath];
 }
 

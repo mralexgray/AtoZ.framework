@@ -7,7 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-//#import <BWToolkitFramework/BWToolkitFramework.h>
+#import <BWTK/BWToolkitFramework.h>
 
 @interface AZMatteFocusedGradientBox : BWGradientBox {
 

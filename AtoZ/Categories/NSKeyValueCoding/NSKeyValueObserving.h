@@ -43,9 +43,9 @@ enum {
 typedef NSUInteger NSKeyValueSetMutationKind;
 
 @interface NSObject (NSKeyValueObserving)
-+ (BOOL)automaticallyNotifiesObserversForKey:(NSString *)key;
++ (BOOL)automaticallyNotifiesObserversForKey:(NSS*)key;
 +(NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key;
-+(void)setKeys:(NSArray *)keys triggerChangeNotificationsForDependentKey:(NSString *)dependentKey;
++(void)setKeys:(NSA*)keys triggerChangeNotificationsForDependentKey:(NSS*)dependentKey;
 
 -(void)observeValueForKeyPath:(NSString*)keyPath ofObject:(id)object change:(NSDictionary*)changeDict context:(void*)context;
 -(void)addObserver:(id)observer forKeyPath:(NSString*)keyPath options:(NSKeyValueObservingOptions)options context:(void*)context;
@@ -53,22 +53,22 @@ typedef NSUInteger NSKeyValueSetMutationKind;
 
 -(void)willChangeValueForKey:(NSString*)key;
 -(void)didChangeValueForKey:(NSString*)key;
--(void)willChange:(NSKeyValueChange)change valuesAtIndexes:(NSIndexSet *)indexes forKey:(NSString *)key;
--(void)didChange:(NSKeyValueChange)change valuesAtIndexes:(NSIndexSet *)indexes forKey:(NSString *)key;
--(void)willChangeValueForKey:(NSString *)key withSetMutation:(NSKeyValueSetMutationKind)mutation usingObjects:(NSSet*)objects;
--(void)didChangeValueForKey:(NSString *)key withSetMutation:(NSKeyValueSetMutationKind)mutation usingObjects:(NSSet*)objects;
+-(void)willChange:(NSKeyValueChange)change valuesAtIndexes:(NSIndexSet *)indexes forKey:(NSS*)key;
+-(void)didChange:(NSKeyValueChange)change valuesAtIndexes:(NSIndexSet *)indexes forKey:(NSS*)key;
+-(void)willChangeValueForKey:(NSS*)key withSetMutation:(NSKeyValueSetMutationKind)mutation usingObjects:(NSSet*)objects;
+-(void)didChangeValueForKey:(NSS*)key withSetMutation:(NSKeyValueSetMutationKind)mutation usingObjects:(NSSet*)objects;
 
 -(void)setObservationInfo:(void*)newInfo;
 -(void*)observationInfo;
 @end
 
 @interface NSArray (KeyValueObserving)
--(void)addObserver:(NSObject *)observer toObjectsAtIndexes:(NSIndexSet *)indexes forKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options context:(void *)context;
--(void)removeObserver:(NSObject *)observer fromObjectsAtIndexes:(NSIndexSet *)indexes forKeyPath:(NSString *)keyPath;
+-(void)addObserver:(NSObject *)observer toObjectsAtIndexes:(NSIndexSet *)indexes forKeyPath:(NSS*)keyPath options:(NSKeyValueObservingOptions)options context:(void *)context;
+-(void)removeObserver:(NSObject *)observer fromObjectsAtIndexes:(NSIndexSet *)indexes forKeyPath:(NSS*)keyPath;
 @end
 
 @protocol NSKeyValueObserver
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;
+- (void)observeValueForKeyPath:(NSS*)keyPath ofObject:(id)object change:(NSD*)change context:(void *)context;
 @end
 
 

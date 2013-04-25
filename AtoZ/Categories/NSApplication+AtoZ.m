@@ -28,7 +28,7 @@
 NSString *const kShowDockIconUserDefaultsKey = @"ShowDockIcon";
 @implementation NSApplication (AtoZ)
 
-+ (id)infoValueForKey:(NSString *)key {
++ (id)infoValueForKey:(NSS*)key {
 	if ([[NSBundle mainBundle] localizedInfoDictionary][key]) {
 		return [[NSBundle mainBundle] localizedInfoDictionary][key];
 	}

@@ -48,7 +48,6 @@
 						<int key="NSvFlags">259</int>
 						<string key="NSFrame">{{263, 0}, {220, 144}}</string>
 						<reference key="NSSuperview" ref="1005"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<string key="NSAntiCompressionPriority">{250, 750}</string>
@@ -84,7 +83,6 @@
 							</object>
 						</object>
 						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
-						<bool key="NSControlAutosetMaxLayoutWidth">YES</bool>
 					</object>
 					<object class="NSScrollView" id="835957143">
 						<reference key="NSNextResponder" ref="1005"/>
@@ -99,7 +97,6 @@
 										<int key="NSvFlags">256</int>
 										<string key="NSFrameSize">{256, 133}</string>
 										<reference key="NSSuperview" ref="439484383"/>
-										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="83305916"/>
 										<string key="NSReuseIdentifierKey">_NS:13</string>
 										<bool key="NSEnabled">YES</bool>
@@ -110,17 +107,14 @@
 											<int key="NSvFlags">256</int>
 											<string key="NSFrameSize">{256, 17}</string>
 											<reference key="NSSuperview" ref="160929538"/>
-											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView" ref="143621513"/>
+											<reference key="NSNextKeyView" ref="439484383"/>
 											<string key="NSReuseIdentifierKey">_NS:16</string>
 											<reference key="NSTableView" ref="945801160"/>
 										</object>
-										<object class="_NSCornerView" key="NSCornerView" id="143621513">
-											<reference key="NSNextResponder" ref="835957143"/>
+										<object class="_NSCornerView" key="NSCornerView">
+											<nil key="NSNextResponder"/>
 											<int key="NSvFlags">-2147483392</int>
 											<string key="NSFrame">{{224, 0}, {16, 17}}</string>
-											<reference key="NSSuperview" ref="835957143"/>
-											<reference key="NSWindow"/>
 											<reference key="NSNextKeyView" ref="439484383"/>
 											<string key="NSReuseIdentifierKey">_NS:19</string>
 										</object>
@@ -228,7 +222,6 @@
 								</array>
 								<string key="NSFrame">{{1, 17}, {256, 133}}</string>
 								<reference key="NSSuperview" ref="835957143"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="945801160"/>
 								<string key="NSReuseIdentifierKey">_NS:11</string>
 								<reference key="NSDocView" ref="945801160"/>
@@ -240,7 +233,6 @@
 								<int key="NSvFlags">-2147483392</int>
 								<string key="NSFrame">{{224, 17}, {15, 102}}</string>
 								<reference key="NSSuperview" ref="835957143"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="992828085"/>
 								<string key="NSReuseIdentifierKey">_NS:58</string>
 								<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
@@ -254,7 +246,6 @@
 								<int key="NSvFlags">-2147483392</int>
 								<string key="NSFrame">{{1, 119}, {223, 15}}</string>
 								<reference key="NSSuperview" ref="835957143"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="540353756"/>
 								<string key="NSReuseIdentifierKey">_NS:60</string>
 								<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
@@ -271,18 +262,15 @@
 								</array>
 								<string key="NSFrame">{{1, 0}, {256, 17}}</string>
 								<reference key="NSSuperview" ref="835957143"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="805161952"/>
 								<string key="NSReuseIdentifierKey">_NS:15</string>
 								<reference key="NSDocView" ref="805161952"/>
 								<reference key="NSBGColor" ref="1023771193"/>
 								<int key="NScvFlags">4</int>
 							</object>
-							<reference ref="143621513"/>
 						</array>
 						<string key="NSFrameSize">{258, 151}</string>
 						<reference key="NSSuperview" ref="1005"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="160929538"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<int key="NSsFlags">133682</int>
@@ -290,7 +278,6 @@
 						<reference key="NSHScroller" ref="992828085"/>
 						<reference key="NSContentView" ref="439484383"/>
 						<reference key="NSHeaderClipView" ref="160929538"/>
-						<reference key="NSCornerView" ref="143621513"/>
 						<bytes key="NSScrollAmts">QSAAAEEgAABBmAAAQZgAAA</bytes>
 						<double key="NSMinMagnification">0.25</double>
 						<double key="NSMaxMagnification">4</double>
@@ -301,7 +288,6 @@
 						<int key="NSvFlags">274</int>
 						<string key="NSFrame">{{0, 152}, {480, 115}}</string>
 						<reference key="NSSuperview" ref="1005"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="835957143"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<string key="NSClassName">TUINSView</string>
@@ -309,7 +295,6 @@
 				</array>
 				<string key="NSFrameSize">{480, 267}</string>
 				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="1021514010"/>
 				<string key="NSClassName">NSView</string>
 			</object>

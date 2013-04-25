@@ -24,8 +24,8 @@
 
 // Canonical Base32 encoding/decoding.
 // decode
-+ (NSData *) dataWithBase32String:(NSString *)base32;
++ (NSData *) dataWithBase32String:(NSS*)base32;
 // encode
-- (NSString *) base32String;
+- (NSS*) base32String;
 
 @end

@@ -12,7 +12,8 @@
 
 @interface NSTextView (AtoZ)
 
--(void) autoScrollText:(NSString*) text;
+- (void) autoScrollText:(id) text;
+- (void) autoScrollAndStyleText:(NSString*) text;
 
 + (AZTextViewResponder*)  textViewForFrame:(NSRect)frame withString:(NSAttributedString*)s;
 

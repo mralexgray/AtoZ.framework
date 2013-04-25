@@ -16,21 +16,21 @@ FOUNDATION_EXPORT NSString * const NSUndefinedKeyException;
 
 // primitive methods
 -(id)valueForKey:(NSString*)key;
--(void)setValue:(id)value forKey:(NSString *)key;
--(BOOL)validateValue:(id *)ioValue forKey:(NSString *)key error:(NSError **)outError;
+-(void)setValue:(id)value forKey:(NSS*)key;
+-(BOOL)validateValue:(id *)ioValue forKey:(NSS*)key error:(NSError **)outError;
 
 // key path methods
 -(id)valueForKeyPath:(NSString*)keyPath;
--(void)setValue:(id)value forKeyPath:(NSString *)keyPath;
--(BOOL)validateValue:(id *)ioValue forKeyPath:(NSString *)keyPath error:(NSError **)outError;
+-(void)setValue:(id)value forKeyPath:(NSS*)keyPath;
+-(BOOL)validateValue:(id *)ioValue forKeyPath:(NSS*)keyPath error:(NSError **)outError;
 
 // dictionary methods
--(NSDictionary *)dictionaryWithValuesForKeys:(NSArray *)keys;
--(void)setValuesForKeysWithDictionary:(NSDictionary *)keyedValues;
+-(NSD*)dictionaryWithValuesForKeys:(NSA*)keys;
+-(void)setValuesForKeysWithDictionary:(NSD*)keyedValues;
 
 // undefined keys etc.
--(id)valueForUndefinedKey:(NSString *)key;
--(void)setValue:(id)value forUndefinedKey:(NSString *)key;
+-(id)valueForUndefinedKey:(NSS*)key;
+-(void)setValue:(id)value forUndefinedKey:(NSS*)key;
 -(void)setNilValueForKey:(id)key;
 
 -(id)mutableArrayValueForKey:(id)key;

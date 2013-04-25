@@ -14,6 +14,12 @@
 @implementation AZRect
 @synthesize position, orient, anchor;
 
+- (CGF) maxX { return self.origin.x + self.width; }
+- (CGF) maxY { return self.origin.y + self.height; }
+- (CGF) minX { return self.origin.x;	}
+- (CGF) minY { return self.origin.y; 	}
+- (NSP) apex {  return NSMakePoint(self.width, self.height); }
+
 + (AZRect*) rect {
 //  return [[self alloc] init];
 

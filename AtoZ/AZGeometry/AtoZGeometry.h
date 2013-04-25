@@ -5,6 +5,7 @@
 //  Copyright 2011 Rogue Coding. All rights reserved.
 
 #import "AtoZUmbrella.h"
+#import "AtoZTypes.h"
 #import "AZPoint.h"
 #import "AZSize.h"
 #import "AZRect.h"
@@ -108,13 +109,14 @@ CGP   AZPointAtOffsetAlongPerimeterOfRect(CGF offset, NSR r);  //from bottom lef
 
 AZPOS AZPositionOfRectPinnedToOutisdeOfRect(NSR box, NSR innerBox  );
 
+AZA AZAlignmentInsideRect(NSR edgeBox, NSR outer);
 
 
 //Includes corner preciion based on inner rect size;
 AZPOS AZPositionOfRectAtOffsetInsidePerimeterOfRect(NSR inner, CGF offset, NSR outer);
 
 
-AZPOS AZPositionOfRectInRect ( NSR rect, NSR outer );
+AZPOS AZPositionOfQuadInRect ( NSR rect, NSR outer );
 AZPOS AZOutsideEdgeOfRectInRect (NSR rect, NSR outer );
 
 
@@ -285,6 +287,11 @@ CGF AZMenuBarThickness  ( void );
 
 NSR AZMenuBarFrame ( void );
 
+NSR AZRectOffsetBy(CGRect rect, CGF x, CGF y);
+NSR AZRectOffsetBySize(CGRect rect, CGSZ sz);
+NSR AZRectOffsetByPt(CGRect rect, NSP pt);
+NSR AZRectOffsetFromDim(CGRect rect, CGF xyDistance);
+
 NSR AZRectVerticallyOffsetBy ( CGRect rect, CGF offset );
 NSR AZRectHorizontallyOffsetBy ( CGRect rect, CGF offset );
 
@@ -376,6 +383,7 @@ typedef struct AZInsetRects {
 	NSRect bottom;
 	NSRect left;
 } AZInsetRects;
+
 
 NSR AZRectInsideRectOnEdge(NSRect center, NSR outer, AZPOS position);
 

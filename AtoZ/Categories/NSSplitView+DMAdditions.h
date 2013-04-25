@@ -32,7 +32,7 @@
  @param  dividerIndexes		 divider indexes array (set of NSNumber)
  @return						YES if you can animate your transitions
 */
-- (BOOL) setPositions:(NSArray *)newPositions ofDividersAtIndexes:(NSArray *)dividerIndexes;
+- (BOOL) setPositions:(NSA*)newPositions ofDividersAtIndexes:(NSA*)dividerIndexes;
 
 /** Set the new position of a divider at index.
  @param  position			   the new divider position

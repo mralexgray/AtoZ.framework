@@ -29,7 +29,7 @@
    [_dictionary setObject:object forKey:key];
 }
 
--(NSArray *)keyObserversForKey:(NSString *)key {
+-(NSA*)keyObserversForKey:(NSS*)key {
    return [_dictionary objectForKey:key];
 }
 
@@ -54,7 +54,7 @@
 	[_dictionary removeObjectForKey:key];
 }
 
-- (NSString *)description
+- (NSS*)description
 {
 	return [NSString stringWithFormat:@"%@:%p %@", [self class], self, _dictionary];
 }

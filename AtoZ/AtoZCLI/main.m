@@ -1,80 +1,46 @@
 #import <Foundation/Foundation.h>
+#import <Cocoa/Cocoa.h>
 #import <AtoZ/AtoZ.h>
+#import <unistd.h>
+//#include <sys/ioctl.h>
+//#include <stdio.h>
+#include <stdio.h>
 
-#define AZSTDIN NSFileHandle.fileHandleWithStandardInput
-//@interface AZCLIMenu : 	BaseModel	@property (STRNG)   	NSA 	*items;	@property (RONLY)    NSS 	*outputString;	@property (ASS)  		NSRNG  range;	@end
+#define KNRM  "\x1B[0m"
+#define KRED  "\x1B[31m"
+#define KGRN  "\x1B[32m"
+#define KYEL  "\x1B[33m"
+#define KBLU  "\x1B[34m"
+#define KMAG  "\x1B[35m"
+#define KCYN  "\x1B[36m"
+#define KWHT  "\x1B[37m"
 
-@interface AZCLIHandler : BaseModel      { 	          NSA *_palette; 	  NSFileHandle *_stdinFileHandle; 	}
-- (void) mainMenu;									@property BOOL finished;	@property (RONLY) NSC *nextColor;
-@end
+int main(int argc, char*argv[]){ @autoreleasepool { while(!AZCLI.sharedInstance.finished)[NSRunLoop.currentRunLoop run]; } return 0;	}
 
-typedef void (^AZCLITest)(void);
-@implementation AZCLIHandler
 
-//+ (void) load 							{ AtoZ.sharedInstance; }
--   (id) init 							{    if (self != super.init) return nil;
-												  _palette  = [NSC colorsInFrameworkListNamed:@"FengShui"];
-	[AZNOTCENTER addObserver:self selector:@selector(didReadStdin:) name:NSFileHandleReadCompletionNotification
-							object:_stdinFileHandle = AZSTDIN];								 [self mainMenu];	return self;
-}
-- (NSC*) nextColor	            {    static NSUI _p = 0; _p++; return [_palette normal:_p];	}
-- (NSS*) methodMenu      			{
+/*	struct winsize w;
+	ioctl(0, TIOCGWINSZ, &w);
 
-    return self.instanceMethodNames.count ? [NSS stringFromArray:[self.instanceMethodNames nmap:^id (id obj, NSUI i) {
-            return [$(@"%ld: ",i) withString: colorizeStringWithColor( [$(@"%@", obj) paddedTo:12], self.nextColor).colorLogString];
-        }]] : nil;
-}
-- (NSS*) frameworkMenu  			{    return [NSS stringFromArray:[AZFWORKBUNDLE.frameworkIdentifiers nmap:^id (id obj, NSUI i) {
-            return $(@"%ld:%@", 100 + i, [colorizeStringWithColor(obj, self.nextColor) paddedTo:60].colorLogString);
-        }]];
-}
-- (AZCLITest) cuteFunctions 		{ return ^{		LOGCOLORS(RED, @"WANIP(); -> \n\n", WANIP(), WHITE, nil);   };   }
+	printf ("lines %d\n", w.ws_row);
+	printf ("columns %d\n", w.ws_col);
+	printf ("%s", getenv("ENV"));
+	printf("%sred\n", KRED);
+	printf("%sgreen\n", KGRN);
+	printf("%syellow\n", KYEL);
+	printf("%sblue\n", KBLU);
+	printf("%smagenta\n", KMAG);
+	printf("%scyan\n", KCYN);
+	printf("%swhite\n", KWHT);
+	printf("%snormal\n", KNRM);
 
-//- (VoidBlock) actionAtIndex {}
-
-- (void) mainMenu 					{
-
-//	[@[COLORIZE(@"\nPlease choose a test option:\n", ORANGE,nil), COLORIZE(@"\nAvailable Mehod Tests:\n\n",PURPLE,nil),
-//	 ?: @[@""], COLORIZE( @"\nAvailable Frameworks:\n\n", YELLOW,nil), self.methodMenu ?: @[@""]] do:^(id obj) {
-
-																							fprintf(stdout , "%s", [self.methodMenu UTF8String]);// fflush(stdout); }];
-
-	[_stdinFileHandle readInBackgroundAndNotify];
-}
-- (void) didReadStdin:(NSNOT*)n	{
-
-    NSUI select  = [[n stringForKey: NSFileHandleNotificationDataItem] integerValue];
-	 BOOL hit =			   			 select < 					  self.instanceMethodNames.count
-				||  (100 <= select && select < 100 + AZFWORKBUNDLE.frameworkIdentifiers.count);
-
-	fprintf(stdout, "YOu selected %ld.  That matched:%s.\n", select, hit ? "SOMETHING!" : "NADA!");
-
-	[self cuteFunctions]();	 [self mainMenu];
-
-//	if ([result respondsToSelector:@selector(UTF8String)])  fprintf(stdout, "%s\n", [result UTF8String]);   fprintf(stdout, "objj> ");    fflush(stdout);    [_stdinFileHandle readInBackgroundAndNotify];
-}
-- (void) colorLogging 				{
-    COLORLOG(YELLOw, @"whatever %@", @4);   NSD *allColorInfo = NSC.colorsAndNames;
-    NSLog(@"Available named colors:\n%@",   [NSS stringFromArray:[allColorInfo.allKeys map:^id (id obj) {
-                return colorizeStringWithColor(
-                    [obj stringByPaddingToLength:22 withString:@" " startingAtIndex:0],
-                    allColorInfo[obj]);
-            }]]);
-    [self mainMenu];
-}
-- (void) variadicColorLogging	 	{
-    LOGCOLORS(RED, @"red", ORANGE, @"orange", YELLOw, @"yellow", GREEN, @"green", BLUE, @"blue", PURPLE, GREY, "purple (but not in the right order", "Grey (also out of order)", nil);
-}
-- (void) processInfo					{										LOGCOLORS( RED, ORANGE, YELLOW, GREEN,
-
-					$(@"\n\tEXE:\t%@",  															 AZPROCINFO.processName),
-					$(@"\n\tCWD:\t%@\n", [AZFILEMANAGER.currentDirectoryPath truncateInMiddleForWidth:500]),
-					$(@"argv[0]:\t%@\t\t[NSPROC]",  [AZPROCINFO.arguments[0] truncateInMiddleForWidth:500]), nil);
-//					$(@"\nargv[0]:\t%@\t[MAIN]",             [$UTF8(argv[0]) truncateInMiddleForWidth:500])
-}
-@end
-
-int main(int argc, char *argv[]) { @autoreleasepool { while ( ! AZCLIHandler.sharedInstance.finished ) AZRUNFOREVER; } return 0;	}
+	char *xcode_colors = getenv(XCODE_COLORS);
+	if (xcode_colors && (strcmp(xcode_colors, "YES") == 0))
+		// XcodeColors is installed and enabled!
+		setenv("XcodeColors", "YES", 0); // Enables XcodeColors (you obviously have to install it too)
+	else 	printf ("%sUH oh, so hay xcode colores", KWHT);
+*/
+//	printf ("%s%s", KWHT, [AtoZ.sharedInstance.instanceMethodNames stringValueInColumnsCharWide:50].UTF8String);
+//AZRUNFOREVER;
 
 /*
 	__block NSUI chooser = 1;	int inputOne;

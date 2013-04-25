@@ -10,10 +10,10 @@
 {		
 //	__weak MyScrollView *scrollView;
 }// called when scroll view changed the size of content view
-- (void)updateScrollValues:(MyScrollView *)scrollView;
+//- (void)updateScrollValues:(MyScrollView *)scrollView;
 
 // called when content view is scrolled
-- (void)scrollValueChanged:(MyScrollView *)scrollView;
+//- (void)scrollValueChanged:(MyScrollView *)scrollView;
 
 @end
 

@@ -25,7 +25,7 @@
 }
 
 
-- (BOOL) setPositions:(NSArray *)newPositions ofDividersAtIndexes:(NSArray *)indexes {
+- (BOOL) setPositions:(NSA*)newPositions ofDividersAtIndexes:(NSA*)indexes {
 	NSUInteger numberOfSubviews = self.subviews.count;
 	
 	// indexes and newPositions arrays must have the same object count

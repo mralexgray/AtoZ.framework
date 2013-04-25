@@ -5,13 +5,10 @@
       location = "container:AtoZ/AtoZ.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:MailCore/Examples/OSX/MessageSender/MessageSender.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:MailCore/Examples/OSX/InboxLister/../../../MailCore.xcodeproj">
-   </FileRef>
-   <FileRef
       location = "group:MailCore/Examples/OSX/InboxLister/InboxLister.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:MailCore/Examples/OSX/MessageSender/MessageSender.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:AtoZWebkit/DeskBrowse.xcodeproj">

@@ -8,7 +8,7 @@
 // name in the context, optionally limiting by a predicate or by a predicate
 // made from a format NSString and variable arguments.
 //
-- (NSSet *)fetchObjectsForEntityName:(NSString *)newEntityName
+- (NSSet *)fetchObjectsForEntityName:(NSS*)newEntityName
 					   withPredicate:(id)stringOrPredicate, ...
 {
   NSEntityDescription *entity = [NSEntityDescription

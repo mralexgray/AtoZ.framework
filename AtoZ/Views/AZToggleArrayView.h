@@ -1,4 +1,5 @@
-//
+
+
 //  ContentsView.h
 //  CoreAnimationToggleLayer
 //  Created by Tomaz Kragelj on 8.12.09.
@@ -86,7 +87,23 @@ extern NSS *const AZToggleOff;
 extern NSS *const AZToggleOn;
 extern NSS *const AZToggleState;
 
-@protocol 	AZToggleArrayViewDelegate, AZToggleArrayViewDatasource;
+@class AZToggleArrayView;
+@protocol AZToggleArrayViewDatasource <NSObject>
+@required
+- (NSUI)  				toggleCountForView:(AZToggleArrayView*)view;
+- (AZOrient)		toggleOrientationForView:(AZToggleArrayView*)view;
+- (AZToggleControlLayer*) toggleForView:(AZToggleArrayView*)view atIndex:(NSUI)index;
+@optional
+- (NSS*) 					toggleLabelForView:(AZToggleArrayView*)view atIndex:(NSUI)index;
+@end
+@class AZToggleArrayView;
+@protocol AZToggleArrayViewDelegate <NSObject>
+@optional
+- (void)toggleStateDidChangeTo: (BOOL) state inToggleViewArray:(AZToggleArrayView*)view withName:(NSString *)name;
+@end
+
+
+
 @interface 	AZToggleArrayView : NSView
 
 //- (CAL*)	itemLayerWithName:(NSS*)name relativeTo:(NSS*)r onText:(NSS*)on  offText:(NSS*)off 
@@ -110,18 +127,6 @@ extern NSS *const AZToggleState;
 
 @end
 
-@protocol AZToggleArrayViewDatasource <NSObject>
-@required
-- (NSUI)  				toggleCountForView:(AZToggleArrayView*)view;
-- (AZOrient)		toggleOrientationForView:(AZToggleArrayView*)view;
-- (AZToggleControlLayer*) toggleForView:(AZToggleArrayView*)view atIndex:(NSUI)index;
-@optional
-- (NSS*) 					toggleLabelForView:(AZToggleArrayView*)view atIndex:(NSUI)index;
-@end
-@protocol AZToggleArrayViewDelegate <NSObject>
-@optional
-- (void)toggleStateDidChangeTo: (BOOL) state inToggleViewArray:(AZToggleArrayView*)view withName:(NSString *)name;
-@end
 //- (NSS*) toggleView: (AZToggleArrayView*) toggleView questionAtIndex: (NSUI) index;
 /*	return  index == 1 ? @"What?" : @"How?";		*/
 //- (NSUI) numberOfTogglesInView: (AZToggleArrayView*)view;

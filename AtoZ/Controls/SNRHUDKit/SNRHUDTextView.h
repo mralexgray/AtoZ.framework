@@ -10,4 +10,5 @@
 
 @interface SNRHUDTextView : NSTextView
 
+@property (nonatomic, assign) BOOL useDefaults;
 @end

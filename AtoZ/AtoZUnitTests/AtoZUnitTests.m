@@ -7,6 +7,7 @@
 //
 
 #import "AtoZUnitTests.h"
+#import <AtoZ/AtoZ.h>
 
 @implementation AtoZUnitTests
 
@@ -26,7 +27,32 @@
 
 - (void)testExample
 {
-    STFail(@"Unit tests are not implemented yet in AtoZUnitTests");
+//    STFail(@"Unit tests are not implemented yet in AtoZUnitTests");
+}
+
+- (void)testTestFramework
+{
+	NSString *string1 = @"test";
+	NSString *string2 = @"test";
+	STAssertEquals(string1,
+						string2,
+						@"FAILURE");
+	NSUInteger uint_1 = 4;
+	NSUInteger uint_2 = 4;
+	STAssertEquals(uint_1,
+						uint_2,
+						@"FAILURE");
+}
+
+- (void) rgbColorValues {
+
+	NSS	*stringColor 	= @"red";
+	NSA	*stringResult 	=  rgbColorValues(stringColor);
+	NSC	*colorColor	 	= RED;
+	NSA	*colorResult	= rgbColorValues(colorColor);
+	NSA	*arrayColor 	= @[@1,@0, @0];
+	NSA	*arrayResult 	= rgbColorValues(arrayColor);
+	NSLog(@"rgbColorValues:  string: %@   color: %@  array:  %@", stringResult, colorResult, arrayResult);
 }
 
 @end

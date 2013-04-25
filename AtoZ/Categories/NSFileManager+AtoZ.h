@@ -18,38 +18,38 @@ NSString *NSBundleFolder(void);
 
 - (NSA*) arrayWithFilesMatchingPattern: (NSString*) pattern inDirectory: (NSString*) directory;
 
-+ (NSString *) pathForItemNamed: (NSString *) fname inFolder: (NSString *) path;
-+ (NSString *) pathForDocumentNamed: (NSString *) fname;
-+ (NSString *) pathForBundleDocumentNamed: (NSString *) fname;
++ (NSS*) pathForItemNamed: (NSS*) fname inFolder: (NSS*) path;
++ (NSS*) pathForDocumentNamed: (NSS*) fname;
++ (NSS*) pathForBundleDocumentNamed: (NSS*) fname;
 
 //non-resursive
-+ (NSArray *) pathsForItemsInFolder:(NSString *)path withExtension: (NSString *) ext;
++ (NSA*) pathsForItemsInFolder:(NSS*)path withExtension: (NSS*) ext;
 //recursive
-+ (NSArray *) pathsForItemsMatchingExtension: (NSString *) ext inFolder: (NSString *) path;
-+ (NSArray *) pathsForDocumentsMatchingExtension: (NSString *) ext;
-+ (NSArray *) pathsForBundleDocumentsMatchingExtension: (NSString *) ext;
++ (NSA*) pathsForItemsMatchingExtension: (NSS*) ext inFolder: (NSS*) path;
++ (NSA*) pathsForDocumentsMatchingExtension: (NSS*) ext;
++ (NSA*) pathsForBundleDocumentsMatchingExtension: (NSS*) ext;
 
-+ (NSArray *) filesInFolder: (NSString *) path;
++ (NSA*) filesInFolder: (NSS*) path;
 
-//+ (NSImage *) imageNamed: (NSString *) aName;
-//+ (NSImage *) imageFromURLString: (NSString *) urlstring;
+//+ (NSImage *) imageNamed: (NSS*) aName;
+//+ (NSImage *) imageFromURLString: (NSS*) urlstring;
 
 @end
 
 @interface NSFileManager (OFSimpleExtensions)
 
-- (NSDictionary *)attributesOfItemAtPath:(NSString *)filePath traverseLink:(BOOL)traverseLink error:(NSError **)outError;
+- (NSD*)attributesOfItemAtPath:(NSS*)filePath traverseLink:(BOOL)traverseLink error:(NSError **)outError;
 
 	// Directory manipulations
 
-- (BOOL)directoryExistsAtPath:(NSString *)path;
-- (BOOL)directoryExistsAtPath:(NSString *)path traverseLink:(BOOL)traverseLink;
+- (BOOL)directoryExistsAtPath:(NSS*)path;
+- (BOOL)directoryExistsAtPath:(NSS*)path traverseLink:(BOOL)traverseLink;
 
-- (BOOL)createPathToFile:(NSString *)path attributes:(NSDictionary *)attributes error:(NSError **)outError;
+- (BOOL)createPathToFile:(NSS*)path attributes:(NSD*)attributes error:(NSError **)outError;
 	// Creates any directories needed to be able to create a file at the specified path.
 
 	// Creates any directories needed to be able to create a file at the specified path.  Returns NO on failure.
-- (BOOL)createPathComponents:(NSArray *)components attributes:(NSDictionary *)attributes error:(NSError **)outError;
+- (BOOL)createPathComponents:(NSA*)components attributes:(NSD*)attributes error:(NSError **)outError;
 
 	// Changing file access/update timestamps.
 
@@ -89,3 +89,13 @@ NSString *NSBundleFolder(void);
 
 @end
 
+@interface NSString (CarbonUtilities)
++(NSString*)    stringWithFSRef:(const FSRef *)aFSRef;
+-(BOOL)         getFSRef:(FSRef *)aFSRef;
+-(NSString*)    resolveAliasFile;
+@end
+
+@interface NSFileManager (UKVisibleDirectoryContents)
+// Same as directoryContentsAtPath, but filters out files whose names start with ".":
+-(NSArray*)	visibleDirectoryContentsAtPath: (NSString*)path;
+@end

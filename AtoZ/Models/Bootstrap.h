@@ -16,10 +16,10 @@
 @interface Bootstrap : BaseModel
 
 @property (nonatomic, strong) 	KSHTMLWriter 	*writer;
-@property (readonly)			NSString 		*xml;
-@property (nonatomic, strong)	NSA				*js, *css;
-@property (nonatomic, strong)	NSS				*userHTML, *html;
-@property (nonatomic, strong) 	NSBundle	 	*bundle;
+@property (readonly)					NSString 		*xml;
+@property (nonatomic, strong)		NSA				*js, *css;
+@property (nonatomic, strong)		NSS				*userHTML, *html;
+@property (nonatomic, strong) 	NSBundle	 		*bundle;
 
 
 

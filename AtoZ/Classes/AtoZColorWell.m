@@ -1,8 +1,5 @@
 
 #import "AtoZColorWell.h"
-
-
-
 @interface AtoZColorWell()
 //- (void) colorPickerDidChoseRemoveColor:(id)sender;
 - (void) updateColorFromColorPicker:(id)sender;
@@ -13,30 +10,27 @@
 @synthesize title, /*canRemoveColor,*/ borderType;
 //@synthesize removeColorAction, removeColorTarget;
 
-- (id)initWithFrame:(NSRect)frameRect
-{
+-   (id) initWithFrame:(NSRect)frameRect	{
+
 	if (!(self = [super initWithFrame:frameRect])) return nil;
 	self.color = BLACK;
 	self.borderType = NSBezelBorder;
 	return self;
 }
-
-- (id)initWithCoder:(NSCoder *)aDecoder {
+-   (id) initWithCoder:(NSCoder *)aDecoder {
 	if (!(self = [super initWithCoder:aDecoder])) return nil;
 	self.color = WHITE;
 	self.borderType = NSBezelBorder;
 	return self;
 }
+- (void) dealloc	{
 
-- (void)dealloc
-{
 	_colorPickerMenu = nil;
 	_colorPicker 	 = nil;
 	self.color 		 = nil;
 }
+- (void) drawRect:(NSRect)dirtyRect	{
 
-- (void)drawRect:(NSRect)dirtyRect
-{
 	NSRect colorArea 		 = self.bounds;
 	if ( self.borderType	!= NSNoBorder )  {
 		// frame and internal gradient
@@ -61,30 +55,26 @@
 	[self drawWellInside:colorArea];
 	if ( self.title ) [self drawTitleInside:colorArea];
 }
+- (void) drawWellInside:(NSRect)insideRect	{
 
-- (void)drawWellInside:(NSRect)insideRect
-{
 	// NSAssert(self.color!=nil, @"color must not be nil");
 	[self.color set];
 	NSRectFill(insideRect);
 }
+- (void) drawTitleInside:(NSRect)insideRect	{
 
-- (void)drawTitleInside:(NSRect)insideRect
-{
 	NSD *attrs 	= @{ NSFontAttributeName: [AtoZ controlFont], NSForegroundColorAttributeName:BLACK };	//	[NSFont systemFontOfSize:[NSFont systemFontSizeForControlSize:NSSmallControlSize]],
 	NSSZ  size 	= [self.title sizeWithAttributes:attrs];
 	NSP origin 	= (NSP) { NSMidX( insideRect ) - size.width / 2, 1 + (NSMidY( insideRect ) - size.height/2) };
 	[self.title drawAtPoint:origin withAttributes:attrs];
 }
+- (void) takeColorFrom:(id)sender	{
 
-- (void)takeColorFrom:(id)sender
-{
 	if ([sender respondsToSelector: @selector(color)]) self.color = [sender color];
 	[_colorPicker takeColorFrom:sender];
 }
+- (void) updateColorFromColorPicker:(id)sender	{
 
-- (void) updateColorFromColorPicker:(id)sender
-{
 	// Send the color to the shared color panel which passes the changeColor: method to the first responder. I am unable send the changeColor: method directly TextView's don't ask me for the color
 
 	//id target = [NSApp targetForAction:@selector(changeColor:)];
@@ -97,15 +87,14 @@
 
 }
 /*
-- (void) colorPickerDidChoseRemoveColor:(id)sender
-{
+- (void) colorPickerDidChoseRemoveColor:(id)sender	{
 	if ((!self.removeColorTarget) || (!self.removeColorTarget)) return;
 	if ([self respondsToSelector:self.removeColorAction])
  	   [self.removeColorTarget performSelectorWithoutWarnings:self.removeColorAction withObject:self];
 }
 */
-- (void)mouseDown:(NSEvent *)theEvent
-{
+- (void) mouseDown:(NSEvent *)theEvent	{
+
 	// when the menu is already popped and I double-click outside it, the menu disappears but then I receive a mouseDown event again, so check where the mouse down occurred.
 	if ( ![self.superview mouse:[self.superview convertPoint:theEvent.locationInWindow fromView:nil] inRect:self.frame] )		return;
 	if ( _colorPickerMenu == nil )  [self setUpColorPickerMenu];
@@ -116,9 +105,8 @@
 									atLocation:NSMakePoint(0,-4) // don't care for hardcoding this value
 										inView:self];
 }
+- (void) setUpColorPickerMenu	{
 
-- (void) setUpColorPickerMenu
-{
 	NSSize pickerDims = [AtoZColorPicker proposedFrameSizeForAreaDimension:13];
 	static NSInteger kHighlightHeight = 22;
 	static NSInteger kTextHeight	  = 14;
@@ -163,9 +151,8 @@
 	[_colorPickerMenu setDelegate:self];
 
 }
+- (void) menuWillOpen:(NSMenu *)menu	{
 
-- (void)menuWillOpen:(NSMenu *)menu
-{
 	//NSLog(@"%s",__PRETTY_FUNCTION__);
 
 	// An item which can change its color automatically updates the shared color panel,
@@ -308,8 +295,8 @@ static NSArray * SPColorPickerDefaultColorsInCSSRGB(void) {
 @implementation AtoZColorPicker
 @synthesize colors, /*canRemoveColor,*/ selectionIndex, target, action;//, removeColorAction, removeColorTarget;
 
-- (id)initWithFrame:(NSRect)frame
-{
+- (id)initWithFrame:(NSRect)frame	{
+
 	// ideal frame width is factor of 12 + 12...  ideal frame height is this factor + 10
 	// eg 228x190 factor 18 						  see proposedFrameSizeForAreaDimension
 	if (!(self = [super initWithFrame:frame])) return nil;
@@ -336,15 +323,14 @@ static NSArray * SPColorPickerDefaultColorsInCSSRGB(void) {
 //
 //	}];
 
-- (void)dealloc
-{
+-     (void) dealloc	{
+
 	_originalSelection = nil;
 	_trackingAreas = nil;
 }
-- (BOOL) isFlipped { return YES;	}
+-     (BOOL) isFlipped { return YES;	}
+-     (void) drawRect:(NSRect)dirtyRect	{
 
-- (void)drawRect:(NSRect)dirtyRect
-{
 	// NSAssert([self.colors count] == 120, @"Expected 120 colors for drawing");
 	NSRect bds = [self bounds];
 	NSRect paddedBds = NSInsetRect(bds, kColorPickerPadding, kColorPickerPadding);
@@ -391,9 +377,8 @@ static NSArray * SPColorPickerDefaultColorsInCSSRGB(void) {
 	}
 */
 }
+- (NSColor*) selectionColorForAreaColor:(NSColor*)aColor	{
 
-- (NSColor*) selectionColorForAreaColor:(NSColor*)aColor
-{
 	static CGFloat kColorLimit = 144.; // adjust to preference
 	NSC *rgbColor = [aColor colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
 	if ( !rgbColor ) return WHITE;
@@ -406,35 +391,33 @@ static NSArray * SPColorPickerDefaultColorsInCSSRGB(void) {
 	NSLog(@"%@",rgbColor);
 	return nil;
 }
+-   (NSRect) frameForAreaAtRow:(NSInteger)rowIndex column:(NSInteger)columnIndex	{
 
-- (NSRect) frameForAreaAtRow:(NSInteger)rowIndex column:(NSInteger)columnIndex
-{
 	CGFloat rowWidth 	= floor ( ( NSWidth ([self bounds]) - 12) / 12 );
 	CGFloat rowHeight	= floor ( ( NSHeight([self bounds]) - 10) / 10 );
 	NSRect area = NSMakeRect(kColorPickerPadding + rowIndex*rowWidth + rowIndex,
 							 kColorPickerPadding + columnIndex*rowHeight + columnIndex, rowWidth, rowHeight);
 	return area;
 }
-+ (NSSize) proposedFrameSizeForAreaDimension:(CGFloat)dimension
-{
++   (NSSize) proposedFrameSizeForAreaDimension:(CGFloat)dimension	{
+
 	// ideal frame width is factor of 12 + 12
 	// ideal frame height is this factor + 10
 	// eg 228x190 factor 18
 	return NSMakeSize((dimension+1)*24+(kColorPickerPadding*2), (dimension+1)*20+(kColorPickerPadding*2));
 }
-
-- (void) pushCurrentSelection {
+-     (void) pushCurrentSelection {
 	// remember the current selection
 	_originalSelection = nil;
 	_originalSelection = self.selectionIndex;
 }
-- (void) popCurrentSelection {
+-     (void) popCurrentSelection {
 	self.selectionIndex = _originalSelection;
 	[self setNeedsDisplay:YES];
 }
 
 // See sample code CustomMenus. One tracking area for every subsection in the view. It seems that mouseEntered and -Exited events don't register with NSTrackingEnabledDuringMouseDrag when NSTrackingMouseMoved is also specified, but mouseMoved events don't register with just NSTrackingEnabledDuringMouseDrag, at least in a popup menu.
-- (void)updateTrackingAreas {
+- (void) updateTrackingAreas {
 
 	for ( NSTrackingArea *anArea in _trackingAreas ) [self removeTrackingArea:anArea];
 	[_trackingAreas removeAllObjects];
@@ -445,7 +428,6 @@ static NSArray * SPColorPickerDefaultColorsInCSSRGB(void) {
 	}
 
 }
-
 - (NSTrackingArea*) trackingAreaForIndex:(NSInteger)index {
 
 	NSDictionary *trackerData = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:index], kTrackerKey, nil];
@@ -464,9 +446,8 @@ static NSArray * SPColorPickerDefaultColorsInCSSRGB(void) {
 
 	return trackingArea;
 }
+- (void) mouseEntered:(NSEvent *)theEvent	{
 
-- (void) mouseEntered:(NSEvent *)theEvent
-{
 	// on the first mouse entered message, we must also clear the old selection area
 	// mark the view as needing display in the old selection area
 	if ( self.selectionIndex.count > 0 ) {
@@ -483,7 +464,6 @@ static NSArray * SPColorPickerDefaultColorsInCSSRGB(void) {
 	NSInteger row = floor([self.selectionIndex firstIndex] % 12);
 	[self setNeedsDisplayInRect:NSInsetRect([self frameForAreaAtRow:row column:col], -3, -3)];
 }
-
 - (void) mouseExited:(NSEvent *)theEvent {
 	//NSLog(@"%s",__PRETTY_FUNCTION__);
 	// when the cursor completely leaves the view, we need to reset to the original value
@@ -491,11 +471,9 @@ static NSArray * SPColorPickerDefaultColorsInCSSRGB(void) {
 	// would rather handle it here
 	//  self.selectionIndex = [NSIndexSet indexSet];
 }
-
 - (void) mouseUp:(NSEvent*)event {	[self sendAction];	}
+- (void) sendAction	{
 
-- (void) sendAction
-{
 
 	// The action depends on the selection. At index 0 we want to remove the color, which requires a separate action
 
@@ -518,15 +496,12 @@ static NSArray * SPColorPickerDefaultColorsInCSSRGB(void) {
 	[menu cancelTracking];
 	[self setNeedsDisplay:YES];
 }
-
 - (NSColor*) color {
 	return self.selectionIndex.count == 0 ? nil : [self.colors objectAtIndex:[self.selectionIndex firstIndex]];
 }
-
 - (void) takeColorFrom:(id)sender {
 	if ([sender respondsToSelector: @selector(color)]) [self updateSelectionIndexWithColor:[sender color]];
 }
-
 - (BOOL) updateSelectionIndexWithColor:(NSColor*)aColor {
 
 	// try equalivency comparison first
@@ -563,32 +538,28 @@ static NSInteger kHighlightView 			  = 1;
 @implementation AtoZColorWellMenuView
 @synthesize showColorsView, colorPickerView, colorWell;
 
-- (void)dealloc
-{
+- (void) dealloc	{
+
 	_colorPickerTrackingArea 	= nil;
 	_highlightTrackingArea 		= nil;
 }
+- (void) drawRect:(NSRect)dirtyRect	{ }
+- (void) updateTrackingAreas	{
 
-- (void)drawRect:(NSRect)dirtyRect	{ }
-
-- (void)updateTrackingAreas
-{
 	if ( _highlightTrackingArea   ) { [self removeTrackingArea:_highlightTrackingArea  ]; _highlightTrackingArea = nil;   }
 	if ( _colorPickerTrackingArea ) { [self removeTrackingArea:_colorPickerTrackingArea]; _colorPickerTrackingArea = nil; }
 	_highlightTrackingArea   = [self trackingAreaForView:showColorsView identifier:kHighlightView];
 	_colorPickerTrackingArea = [self trackingAreaForView:colorPickerView identifier:kColorPickerView];
 	[@[_highlightTrackingArea, _colorPickerTrackingArea] do:^(id obj) { [self addTrackingArea:obj]; }];
 }
+- (NSTA*) trackingAreaForView:(NSV*)aView identifier:(NSI)viewId	{
 
-- (NSTA*) trackingAreaForView:(NSV*)aView identifier:(NSI)viewId
-{
 	return [[NSTrackingArea alloc] initWithRect:aView.frame options:NSTrackingEnabledDuringMouseDrag | NSTrackingMouseEnteredAndExited | NSTrackingActiveInActiveApp
 										  owner:self	   userInfo:@{ kColorWellMenuViewTrackerKey : @(viewId) }];
 
 }
+- (void) mouseEntered:(NSEvent *)theEvent	{
 
-- (void) mouseEntered:(NSEvent *)theEvent
-{
 	// on the first mouse entered message, we must also clear the old selection area
 	NSI view  = [(NSD*)[theEvent userData]integerForKey:kColorWellMenuViewTrackerKey];
 	if ( view == kHighlightView ) self.showColorsView.highlighted = YES;
@@ -597,21 +568,18 @@ static NSInteger kHighlightView 			  = 1;
 		[self.colorPickerView pushCurrentSelection];
 
 }
+- (void) mouseExited:(NSEvent *)theEvent	{
 
-- (void) mouseExited:(NSEvent *)theEvent
-{
 	NSI v = [(NSD*)[theEvent userData] integerForKey:kColorWellMenuViewTrackerKey];
 		v == kHighlightView   ?  self.showColorsView.highlighted = NO
 	:   v == kColorPickerView ? [self.colorPickerView popCurrentSelection] : nil;		// reset the color selection to the original color
 }
+- (void) mouseUp:(NSEvent*)theEvent	{
 
-- (void)mouseUp:(NSEvent*)theEvent
-{
 	// if we're inside the highlight view, send the Show Colors menu action
 	[self mouse:[self convertPoint:[theEvent locationInWindow] fromView:nil] inRect:self.showColorsView.frame]
 	? [self sendShowColorsAction] : nil;
 }
-
 - (void) sendShowColorsAction {
 
 	// I prefer to decouple this and send the message to the color well itself.  By activating the color well we allow the color well to handle a great deal of the coordinating logic between the well and the color panel, including when it is dismissed or when a different color well becomes active

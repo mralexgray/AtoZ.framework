@@ -94,7 +94,7 @@ static void _addMapppedUserInfoValueToDictionary(const void *key, const void *va
 }
 
 
-- (NSDictionary *)toPropertyList;
+- (NSD*)toPropertyList;
 {
 	NSMutableDictionary *plist = [NSMutableDictionary dictionary];
 
