@@ -181,12 +181,16 @@
 [submodule "Frameworks/NSLogger-CocoaLumberjack-connector"]
 	path = Frameworks/NSLogger-CocoaLumberjack-connector
 	url = https://github.com/steipete/NSLogger-CocoaLumberjack-connector.git
+	ignore = dirty
 [submodule "Frameworks/StatusBarApp.framework"]
 	path = Frameworks/StatusBarApp.framework
 	url = https://github.com/mralexgray/StatusBarApp.framework.git
+	ignore = dirty
 [submodule "AtoZ/Views/AGNSSplitView"]
 	path = AtoZ/Views/AGNSSplitView
 	url = https://github.com/mralexgray/AGNSSplitView.git
+	ignore = dirty
 [submodule "www/jqm"]
 	path = www/jqm
 	url = https://github.com/jquery/jquery-mobile.git
+	ignore = dirty
