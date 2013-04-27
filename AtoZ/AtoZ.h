@@ -375,6 +375,7 @@ extern NSString *const AtoZDockSortedUpdated;
 //	(I actually added this to my application delegate and implemented application:delegateHandlesKey:)  Now you are ready to bind class methods to the Application object, even in the interface builder, with the keyPath @"classProxy.CharacterSet.allCharacterSets".
 @interface NSObject (AZClassProxy)
 - (id)classProxy;
++ (id)performSelector:(SEL)sel;
 @end
 
 @interface AZDummy : NSObject

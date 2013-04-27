@@ -2,6 +2,14 @@
 //  NSString+AtoZ.h
 //  AtoZ
 
+
+
+@interface NSImage(ASCII)
+
+- (NSString *)asciiArtWithWidth:(NSInteger)width height:(NSInteger)height;
+
+@end
+
 @interface NSString (MD5)
 - (NSS*)MD5String;
 @end
@@ -58,6 +66,7 @@
 - (void)setLogBackground:(id)color;
 - (void)setLogForeground:(id)color;
 
+@property (RONLY) const char* cchar;
 @property (RONLY) NSS *colorLogString;
 
 - (NSS *)parseXMLTag:(NSS *)tag;

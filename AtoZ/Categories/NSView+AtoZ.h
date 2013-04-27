@@ -176,6 +176,18 @@ typedef void (^viewFrameDidChangeBlock)(void);
 
 @interface NSScrollView (Notifications)
 - (void) performBlockOnScroll:(void (^)(void))block;
+
+/*! @brief Set if the scrollView should scroll to the bottom when new content is added
+ * If YES, the scrollView will scroll to the bottom when new content is added (i.e. when the frame of the document view increases), bringing the new data into visibility. Automatic scrolling will only occur if the view was scrolled to the bottom previously; it will not force a scroll to the bottom if the user has scrolled up in the scrollView. The default value is NO.
+ * @param inValue YES if the scrollView should automatically scroll as described above.
+ */
+@property (assign,nonatomic) BOOL autoScrollToBottom;
+/*!* @brief Scroll to the top of the documentView.
+ *croll to the top of the documentView.*/
+- (void)scrollToTop;
+/*! @brief Scroll to the bottom of the documentView.Scroll to the bottom of the documentView. */
+- (void)scrollToBottom;
+
 @end
 
 @interface NSTableView (Scrolling)

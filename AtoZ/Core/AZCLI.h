@@ -11,12 +11,16 @@ typedef void (^AZCLITest)(void);
 
 @interface AZCLI : BaseModel <NSLogConsoleDelegate>
 
+@property NSFileHandle *logConsoleHandle;
++ (NSFileHandle*) 		logConsoleHandle;
+
 @property (ASS) IBOutlet NSTextView *terminal;
-@property (NATOM,STRNG)		AZCLITests 		*tests;
 @property (NATOM)			BOOL finished, inTTY, inXcode;
+@property (STRNG) 		NSS *lastCommand;
 
 @property (RONLY) 		NSS* frameworkMenu, *methodMenu;
 @property (NATOM,STRNG) NSMD *selectionDecoder;
+@property (NATOM,STRNG)		AZCLITests 		*tests;
 
 - (void) mainMenu;
 

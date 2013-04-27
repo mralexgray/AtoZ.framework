@@ -50,7 +50,9 @@ static char const * const ObjectRepKey = "ObjectRep";
 															 kCGWindowListOptionIncludingWindow,
 															 (CGWindowID)[[self window] windowNumber],
 															 kCGWindowImageDefault);
-	return [[NSImage alloc] initWithCGImage:cgimg size:[self bounds].size];
+	NSIMG *img = [NSImage.alloc initWithCGImage:cgimg size:[self bounds].size];
+	CFRelease(cgimg);
+	return img;
 }
 - (NSView *)viewWithObjectRep:(id)object {
 	// Raise an exception if object is nil
@@ -805,6 +807,54 @@ NSView* AZResizeWindowAndContent(NSWindow* window, CGF dXLeft, CGF dXRight, CGF 
 	}];
 	//	addObserver:self selector:@selector(boundsDidChange:) name:NSViewBoundsDidChangeNotification object:contentView];
 }
+
+
+
+#define AUTOSCROLL_CATCH_SIZE 	20	//The distance (in pixels) that the scrollview must be within (from the bottom) for auto-scroll to kick in.
+- (void)setAutoScrollToBottom:(BOOL)inValue
+{
+	[self setAssociatedValue:@(inValue) forKey:@"autoScroll" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
+	//Observe the document view's frame changes
+   if (inValue) [AZNOTCENTER removeObserver:self name:NSViewFrameDidChangeNotification object:nil];
+	else  [AZNOTCENTER addObserver:self object:self.documentView keyPath:NSViewFrameDidChangeNotification options:nil block:^(MAKVONotification *notification) {
+					 [self scrollToBottom];
+	}];
+}
+
+//When our document resizes
+//- (void)documentFrameDidChange:(NSNotification *)notification
+//{
+//	//We guard against a recursive call to this method, which may occur if the user is resizing the view at the same time
+//	//content is being modified
+//    if (autoScrollToBottom && !inAutoScrollToBottom) {
+//        NSRect	documentVisibleRect =  [self documentVisibleRect];
+//        NSRect	   newDocumentFrame = [[self documentView] frame];
+//        
+//        //We autoscroll if the height of the document frame changed AND (Using the old frame to calculate) we're scrolled close to the bottom.
+//        if ((newDocumentFrame.size.height != oldDocumentFrame.size.height) && 
+//		   ((documentVisibleRect.origin.y + documentVisibleRect.size.height) > (oldDocumentFrame.size.height - AUTOSCROLL_CATCH_SIZE))) {
+//			inAutoScrollToBottom = YES;
+//            [self scrollToBottom];
+//			inAutoScrollToBottom = NO;
+//        }
+//    
+//        //Remember the new frame
+//        oldDocumentFrame = newDocumentFrame;
+//    }
+//}
+
+//Scroll to the top of our view
+- (void)scrollToTop
+{    
+    [[self documentView] scrollPoint:NSZeroPoint];
+}
+
+//Scroll to the bottom of our view
+- (void)scrollToBottom
+{
+    [[self documentView] scrollPoint:NSMakePoint(0, 1000000)];
+}
+
 @end
 
 @implementation NSTableView (Scrolling)

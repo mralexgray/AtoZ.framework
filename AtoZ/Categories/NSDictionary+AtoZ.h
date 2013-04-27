@@ -44,8 +44,28 @@
 - (NSA*)arrayForKey:(id)key;
 
 @end
+/**  FIERCE
+
+	NSD* whatever = @{@"colors" : NSC.colorLists};
+		 colors =     {
+        BlueSkyTulips = "NSColorList 0x7ff8f330e510 name:BlueSkyTulips device:(null) file:/Volumes/2T/ServiceData/Developer/Xcode/DerivedData/AtoZ-hfqteqfcvjfinlajqwkydsqyzpiz/Build/Products/Release/AtoZ.framework/Resources/BlueSkyTulips.clr loaded:1"; .........
+
+	[whatever valueForKeyPath:@"@allKeys.colors"]	( OliveSunset,		    Bujumbura,		    "Classic Crayons",		    GrayScale,		    Monaco,		    Rainbow, ....		)
+	[whatever valueForKeyPath:@"@allValues.colors"]
+		{
+		    "NSColorList 0x7f83435244c0 name:MossAndLichen device:(null) file:/Volumes/2T/ServiceData/Developer/Xcode/DerivedData/AtoZ-hfqteqfcvjfinlajqwkydsqyzpiz/Build/Products/Release/AtoZ.framework/Resources/MossAndLichen.clr loaded:1"
+		etc...
+		}
+*/
+//http://funwithobjc.tumblr.com/post/1527111790/defining-custom-key-path-operators
+@interface NSDictionary (CustomKVCOperator)
+- (id) _allValuesForKeyPath:(NSS*)keyPath;
+- (id) _allKeysForKeyPath:(NSS*)keyPath;
+@end
+
 
 @interface NSDictionary (AtoZ)
+
 
 
 -(void)eachWithIndex:(void (^)(id key, id value, NSUI idx, BOOL *stop))block;

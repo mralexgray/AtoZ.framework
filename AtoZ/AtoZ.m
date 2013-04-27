@@ -68,10 +68,17 @@ NSOQ *AZSharedSingleOperationQueue()	{	return AZDummy.sharedInstance.sharedSQ; }
 
 @implementation AZClassProxy
 - (id)valueForUndefinedKey:(NSS*)key {	return NSClassFromString(key);	}
+
 @end
 // NSLog(@"%@", [[RED.classProxy valueForKey:@"NSColor"] redColor]);
 // --> NSCalibratedRGBColorSpace 1 0 0 1
 @implementation NSObject (AZClassProxy)
++ (id)performSelector:(SEL)sel { return objc_msgSend([self class], sel); }
+
+//	NSObject* anInstance = [self new];
+//	return [[anInstance.classProxy valueForKey:NSStringFromClass([self class])] performSelector:sel];
+
+
 - (id) classProxy {	static AZClassProxy *proxy = nil; return proxy = proxy ?: AZClassProxy.new; }
 @end
 

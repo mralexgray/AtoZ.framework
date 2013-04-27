@@ -170,15 +170,18 @@ static int flagbit8 		= 128;  	// 2^^7    000...10000000
 #define AZA AZAlign
 //JREnumDeclare (AZAlign,
 JROptionsDeclare(AZAlign,
-	AZAlignNone			  = 		  0, // 0
-	AZAlignLeft         = 0x00000001, // 1 << 0   aka (0x1 << 0), // => 0x00000001
-	AZAlignRight        = 0x00000010, // 2 << 0  (0x1 << 1), // => 0x00000010
-	AZAlignTop          = 0x00000100,
-	AZAlignBottom       = 0x00001000,
-	AZAlignTopLeft      = 0x00000101,
-	AZAlignTopRight     = 0x00000110,
-	AZAlignBottomLeft   = 0x00001001,
-	AZAlignBottomRight  = 0x00001010
+				AZAlignNone	= 0, // 0
+		AZAlignBottomLeft = 0x10000001, // 2 << 0  (0x1 << 1), // => 0x00000010
+			 AZAlignBottom	= 0x00000010,
+	  AZAlignBottomRight	= 0x00000110,
+	     	  AZAlignRight = 0x00001000,
+  	     AZAlignTopRight = 0x00001100,
+	          AZAlignTop = 0x00000000,
+			AZAlignTopLeft = 0x00000101,
+				AZAlignLeft = 0x00000000, // 1 << 0   aka (0x1 << 0), // => 0x00000001
+	       = 0x00001000,
+	   = 0x00001001,
+	  = 0x00001010
 );
 
 

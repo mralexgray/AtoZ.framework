@@ -14,6 +14,77 @@
 #import "NSString+AtoZ.h"
 
 
+
+NSString *stringForBrightness(CGFloat brightness)
+{
+	if (brightness < (19.0 / 255)) {
+		return @"&";
+	}
+	else if (brightness < (50.0 / 255)) {
+		return @"8";
+	}
+	else if (brightness < (75.0 / 255)) {
+		return @"0";
+	}
+	else if (brightness < (100.0 / 255)) {
+		return @"$";
+	}
+	else if (brightness < (130.0 / 255)) {
+		return @"2";
+	}
+	else if (brightness < (165.0 / 255)) {
+		return @"1";
+	}
+	else if (brightness < (180.0 / 255)) {
+		return @"|";
+	}
+	else if (brightness < (200.0 / 255)) {
+		return @";";
+	}
+	else if (brightness < (218.0 / 255)) {
+		return @":";
+	}
+	else if (brightness < (229.0 / 255)) {
+		return @"'";
+	}
+	return @" ";
+}
+
+@implementation NSImage(ASCII)
+
+- (NSString *)asciiArtWithWidth:(NSInteger)width height:(NSInteger)height
+{
+	if (!width)
+		return nil;
+	if (!height)
+		return nil;
+	
+	NSMutableString *string = [NSMutableString string];
+	
+	NSImage *tempImage = [[NSImage alloc] initWithSize:NSMakeSize(width, height)];
+	[tempImage lockFocus];
+	[self drawInRect:NSMakeRect(0, 0, [tempImage size].width, [tempImage size].height) fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];	
+	[tempImage unlockFocus];
+
+	NSBitmapImageRep *bitmapImage = [[NSBitmapImageRep alloc] initWithData:[tempImage TIFFRepresentation]];
+	
+	for (int i = 0; i < [tempImage size].height; i++) {
+		for (int j = 0; j < [tempImage size].width; j++) {
+			NSColor *color = [bitmapImage colorAtX:j y:i];
+			NSColor *wColor = [color colorUsingColorSpaceName:NSDeviceWhiteColorSpace];
+			[string appendString:stringForBrightness([wColor whiteComponent])];
+		}
+		[string appendString:@"\n"];
+	}
+	[bitmapImage release];
+	[tempImage release];
+	return string;
+}
+
+@end
+
+
+
 @implementation Definition
 @end
 
@@ -327,27 +398,122 @@
     [self setAssociatedValue:rgbColorValues(color) forKey:@"logBG" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
 }
 
+//- (const char*) ttyClr {
+//
+//	BOOL inTTY =  [@(isatty(STDERR_FILENO))boolValue];
+//	if (inTTY) return s;
+//	NSArray* cs = @[@31,@32,@33,@34,@35,@36,@37];
+//	NSArray* bg = @[@40];//,@41,@42,@43,@44,@45,@46,@47];
+//
+//	NSNumber* num = cs[arc4random() % 7 ];
+//	NSNumber* nub = bg[arc4random() % 1 ];
+//	NSString *let = [num stringValue];
+//	NSString *blet = [nub stringValue];
+//
+//	return [NSString stringWithFormat:@"\033[%@;%@m%@\033[0m - %@", let,blet, s, num];
+//}
+
+
+// BLINKING
+// "\033[38;5mWhatever\033[0m"
+
+
+- (const char*) cchar {  return self.clr.UTF8String; }
+
 - (NSS *)colorLogString {
 
-    NSA *fgs = [self associatedValueForKey:@"logFG"];
-    NSA *bgs = [self associatedValueForKey:@"logBG"];
+static BOOL isaColorTTY, isaColor256TTY, isaXcodeColorTTY;  static BOOL envSet = NO;
+		
+			
+	if (envSet == NO) {
+		static dispatch_once_t onceToken;
+		dispatch_once(&onceToken, ^{
+				static Class tty = nil;  tty = tty ?: NSClassFromString(@"DDTTYLogger");  [tty sharedInstance];
+							char *term = getenv("TERM");
+							term ? ^{
+								if (strcasestr(term, "color") != NULL)	{
+									isaColorTTY = YES;
+									isaColor256TTY = (strcasestr(term, "256") != NULL);
+									if ([tty sharedInstance]) 	
+    
+
+									objc_msgSend([tty class],
+										NSSelectorFromString( isaColor256TTY ? @"initialize_colors_256" : @"initialize_colors_16"));
+								}
+							}() : ^{
+								// Xcode does NOT natively support colors in the Xcode debugging console.
+								// You'll need to install the XcodeColors plugin to see colors in the Xcode console
+								char *xcode_colors = getenv("XcodeColors");
+								isaXcodeColorTTY = xcode_colors && (strcmp(xcode_colors, "YES") == 0);
+							}();
+		fprintf(stderr, "\033[38;5misaColorTTY\033[0m\t=\t%s\nisaColor256TTY\t=\t%s\nisaXcodeColorTTY\t=\t%s\n", 
+		isaColorTTY ? "YES" : "NO", isaColor256TTY ? "YES" : "NO", isaXcodeColorTTY ? "YES" : "NO");
+		});
+	}
+	envSet = YES;
+	if (!isaColorTTY  && !isaColor256TTY && !isaXcodeColorTTY) return self;
+	NSA *fgs = [self hasAssociatedValueForKey:@"logFG"] ? [self associatedValueForKey:@"logFG"] : nil;
+   NSA *bgs = [self hasAssociatedValueForKey:@"logBG"] ? [self associatedValueForKey:@"logBG"] : nil;
 
 	if (!fgs && !bgs) return self;
-   NSS *colored = self;
-   if (fgs && fgs.count ==3) {
-        colored = $(XCODE_COLORS_ESCAPE @"fg%i,%i,%i;%@" XCODE_COLORS_RESET,
-                    [fgs[0] intValue], [fgs[1] intValue], [fgs[2] intValue], colored);
-    }
-    if (bgs && bgs.count ==3) {
-        colored = colored ? : self;
-        colored = $(XCODE_COLORS_ESCAPE @"bg%i,%i,%i;%@" XCODE_COLORS_RESET,
-                    [bgs[0] intValue], [bgs[1] intValue], [bgs[2] intValue], colored);
-    }
+   NSS *colored = [NSS stringWithString:self.copy];
+	if ((( fgs && fgs.count == 3) || (bgs && bgs.count ==3) ) && isaXcodeColorTTY) {
+		if (fgs && fgs.count ==3) {
+			  colored = $(XCODE_COLORS_ESCAPE @"fg%i,%i,%i;%@" XCODE_COLORS_RESET,
+							  [fgs[0] intValue], [fgs[1] intValue], [fgs[2] intValue], colored);
+		 }
+		 if (bgs && bgs.count ==3) {
+			  colored = colored ? : self;
+			  colored = $(XCODE_COLORS_ESCAPE @"bg%i,%i,%i;%@" XCODE_COLORS_RESET,
+							  [bgs[0] intValue], [bgs[1] intValue], [bgs[2] intValue], colored);
+		 }
+		 return colored;
+	}
+	if (isaColor256TTY || isaColorTTY){
+		NSArray* cs = @[@31,@32,@33,@34,@35,@36,@37];
+		NSArray* bg = @[@40,@41,@42];//,@43,@44,@45,@46,@47];
+
+		NSNumber* num = cs[arc4random() % 7 ];
+		NSNumber* nub = bg[arc4random() % 3 ];
+		NSString *let = [num stringValue];
+		NSString *blet = [nub stringValue];
+		return [NSString stringWithFormat:@"\033[%@;%@m%@\033[0m", let,blet, self];
+	}
+}
+
+//	NSUInteger fgCodeIndex;	NSString *fgCodeRaw;	char fgCode[24];	size_t fgCodeLen;	char resetCode[8];	size_t resetCodeLen;
+//
+//	if (fgs && isaColorTTY) {
+//		NSC*fgColor = [NSC r:[fgs[0] floatValue] g:[fgs[1]floatValue] b:[fgs[2] floatValue] a:1];
+//		// Map foreground color to closest available shell color
+//		fgCodeRaw   = DDTTYLogger.codes_fg[fgCodeIndex];
+//		NSString *escapeSeq = @"\033[";
+//		NSUInteger len1 = [escapeSeq lengthOfBytesUsingEncoding:NSUTF8StringEncoding];
+//		NSUInteger len2 = [fgCodeRaw lengthOfBytesUsingEncoding:NSUTF8StringEncoding];
+//		[escapeSeq getCString:(fgCode)      maxLength:(len1+1) encoding:NSUTF8StringEncoding];
+//		[fgCodeRaw getCString:(fgCode+len1) maxLength:(len2+1) encoding:NSUTF8StringEncoding];
+//			
+//			fgCodeLen = len1+len2;
+//	}
 //	NSS* save = [AZTEMPD withPath:@"whatever.txt"];
 //	[@{@"color": colored } writeToFile:save atomically:YES];
 //	printf("%s", save.UTF8String);
-    return colored ? : self;//@"Something went wrong";
-}
+//    return colored ? : self;//@"Something went wrong";
+
+//	else if (fgColor && isaXcodeColorTTY)
+//	{
+		// Convert foreground color to color code sequence
+//		const char *escapeSeq = XCODE_COLORS_ESCAPE_SEQ;
+//		int result = snprintf(fgCode, 24, "%sfg%u,%u,%u;", escapeSeq, fg_r, fg_g, fg_b);
+//		fgCodeLen = MIN(result, (24-1));
+//	}
+//	else
+//	{
+//		// No foreground color or no color support
+//		
+//		fgCode[0] = '\0';
+//		fgCodeLen = 0;
+//	}
 
 - (NSS *)paddedTo:(NSUI)count {
     return [self stringByPaddingToLength:count withString:@" " startingAtIndex:0];

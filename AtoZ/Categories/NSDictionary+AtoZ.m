@@ -237,6 +237,30 @@
   return [self arrayForKey:key default:[NSArray array]];
 }
 @end
+
+//@implementation NSArray (CustomKVCOperator)
+//
+//- (id) _allValuesForKeyPath:(NSS*)keyPath {
+//  id keyPathValue = [self valueForKeyPath:keyPath];
+////  size_t instanceSize = class_getInstanceSize([NSArray class]);
+//  return [keyPathValue allValues];
+//}
+//
+//@end
+
+@implementation NSDictionary (CustomKVCOperator)
+- (id) _allValuesForKeyPath:(NSS*)keyPath {
+  id keyPathValue = [self valueForKeyPath:keyPath];
+//  size_t instanceSize = class_getInstanceSize([NSArray class]);
+  return [keyPathValue allValues];
+}
+- (id) _allKeysForKeyPath:(NSS*)keyPath {
+  id keyPathValue = [self valueForKeyPath:keyPath];
+//  size_t instanceSize = class_getInstanceSize([NSArray class]);
+  return [keyPathValue allKeys];
+}
+@end
+
 @implementation  NSDictionary (AtoZ)
 -(NSS*)swizzleDescription {
 	NSLog(@"swizzling!");

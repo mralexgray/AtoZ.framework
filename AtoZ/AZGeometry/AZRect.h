@@ -54,9 +54,20 @@ static inline NSR AZScaleRect(NSRect frame, CGF factor) {
 	newFrame.origin.y += (prevSize.height 	- newFrame.size.height) / 2;
 	return frame;
 }
+
+@class AZPoint;
+@interface AZEdge : AZPoint
++ (INST) rect:(AZRect)r along:(AZRect)outer inside:(BOOL)isinide;
+@property AZA alignment;
+@property AZOrient orient;
+@property CGF cornerTreshHold, snapThreshold;
+- (void) moveInDirection:(NSSZ)sz;
+@end
+
 @class AZPoint;
 @interface AZRect : AZPoint 	{  CGF width, height;	}
 
+- (AZA) alignInside:(NSR)ext;
 + (AZRect*) rect;
 + (AZRect*) rectOf:			(id)object;
 + (AZRect*) rectWithRect:	(NSR)rect;
@@ -78,6 +89,7 @@ static inline NSR AZScaleRect(NSRect frame, CGF factor) {
 @property (ASS) AZPOS	orient;
 @property (RONLY) CGF 	area, maxX, maxY, minY, minX;
 @property (RONLY) NSP 	apex;
+@property (ASS) NSR r;
 
 
 - (id) shrinkBy:(id) object;

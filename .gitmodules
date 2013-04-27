@@ -194,3 +194,7 @@
 	path = www/jqm
 	url = https://github.com/jquery/jquery-mobile.git
 	ignore = dirty
+[submodule "Frameworks/TransformerKit"]
+	path = Frameworks/TransformerKit
+	url = https://github.com/mralexgray/TransformerKit.git
+	ignore = dirty

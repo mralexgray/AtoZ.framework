@@ -266,24 +266,24 @@ void pyRunWithArgsInDirPythonPath(NSS *_spriptP,NSA *_optArgs, NSS *working, NSS
 
 //	[AZSOQ addOperation:[PYO inDir:working withPath:script pythonPATH:pyPATH optArgs:argA]];
 }
-/**
-char* cArrayFromNSArray ( NSArray* array ){
+
+char** cArrayFromNSArray ( NSArray* array ){
    int i;
    int count = array.count + 1;
    char *cargs = (char*) malloc( count * sizeof(char*));
 //   char *cargs = (char*) malloc(sizeof(char*) * (count + 1));
    for(i = 0; i < count - 1; i++) {		//cargs is a pointer to 4 pointers to char
 	  NSString *s	  = array[i];	 //get a NSString
-	  char *cstr = [s cStringUsingEncoding:NSUTF8StringEncoding];// UTF8String; //get cstring
+	  const char *cstr = [s UTF8String];// UTF8String; //get cstring
 //	  int		  len = strlen(cstr); //get its length
 //	  char  *cstr_copy = (char*) malloc(sizeof(char) * (len + 1));//allocate memory, + 1 for ending '\0'
 //	  strcpy(cstr_copy, cstr);		 //make a copy
 	  cargs[i] = &cstr; //cstr_copy;			//put the point in cargs
   }
   cargs[count] = NULL;
-  return cargs;
+  return (char **)cargs;
 }
-
+/*
 char** cArrayFromNSArray ( NSArray* array ){
    int i, count = array.count;
    char *cargs = (char*) malloc(sizeof(char*) * (count + 1));
@@ -298,7 +298,7 @@ char** cArrayFromNSArray ( NSArray* array ){
   cargs[i] = NULL;
   return cargs;
 }
-
+/*
 	NSString *path= @"/Volumes/2T/ServiceData/git/VideoIO/VideoIO/weather.py";
 	NSString *path= @"/cgi/hostname.py";
 	NSString *path= @"/cgi/repeater.py";
@@ -750,6 +750,96 @@ BOOL SameChar		(const char *a, const char *b) {
 }
 BOOL SameString	(id a, id b) {
 	return [$(@"%@", a) isEqualToString:$(@"%@", b)];
+}
+
+
+static NSString *humanReadableFScriptTypeDescriptionFromEncodedObjCType(const char *ptr)
+{
+  while (*ptr == 'r' || *ptr == 'n' || *ptr == 'N' || *ptr == 'o' || *ptr == 'O' || *ptr == 'R' || *ptr == 'V')
+    ptr++;
+
+  if      (strcmp(ptr,@encode(id))                  == 0) return @"";
+  else if (strcmp(ptr,@encode(char))                == 0) return @"";
+  else if (strcmp(ptr,@encode(int))                 == 0) return @"int";
+  else if (strcmp(ptr,@encode(short))               == 0) return @"short";
+  else if (strcmp(ptr,@encode(long))                == 0) return @"long";
+  else if (strcmp(ptr,@encode(long long))           == 0) return @"long long";
+  else if (strcmp(ptr,@encode(unsigned char))       == 0) return @"unsigned char";
+  else if (strcmp(ptr,@encode(unsigned short))      == 0) return @"unsigned short";
+  else if (strcmp(ptr,@encode(unsigned int))        == 0) return @"unsigned int";
+  else if (strcmp(ptr,@encode(unsigned long))       == 0) return @"unsigned long";
+  else if (strcmp(ptr,@encode(unsigned long long))  == 0) return @"unsigned long long";
+  else if (strcmp(ptr,@encode(float))               == 0) return @"float";
+  else if (strcmp(ptr,@encode(double))              == 0) return @"double";
+  else if (strcmp(ptr,@encode(char *))              == 0) return @"pointer";
+  else if (strcmp(ptr,@encode(SEL))                 == 0) return @"SEL";
+  else if (strcmp(ptr,@encode(Class))               == 0) return @"Class";
+  else if (strcmp(ptr,@encode(NSRange))             == 0) return @"NSRange";
+  else if (strcmp(ptr,@encode(NSPoint))             == 0) return @"NSPoint";
+  else if (strcmp(ptr,@encode(NSSize))              == 0) return @"NSSize";
+  else if (strcmp(ptr,@encode(NSRect))              == 0) return @"NSRect";
+  else if (strcmp(ptr,@encode(CGPoint))             == 0) return @"CGPoint";
+  else if (strcmp(ptr,@encode(CGSize))              == 0) return @"CGSize";
+  else if (strcmp(ptr,@encode(CGRect))              == 0) return @"CGRect";
+  else if (strcmp(ptr,@encode(CGAffineTransform))   == 0) return @"CGAffineTransform";
+  else if (strcmp(ptr,@encode(_Bool))               == 0) return @"boolean";
+  else if (*ptr == '{')
+  {
+    NSMutableString *structName = [NSMutableString string];
+    ptr++;
+    while (isalnum(*ptr) || *ptr == '_')
+    {
+      [structName appendString:[[[NSString alloc] initWithBytes:ptr length:1 encoding:NSASCIIStringEncoding] autorelease]];
+      ptr++;
+    }
+    if (*ptr == '=' && ![structName isEqualToString:@""])
+      return [@"struct " stringByAppendingString:structName];
+    else 
+      return @"";
+  }
+  else if (*ptr == '^')
+  {
+    NSString *pointed = humanReadableFScriptTypeDescriptionFromEncodedObjCType(++ptr);
+    if ([pointed isEqualToString:@""])
+      return @"pointer";
+    else
+      return [@"pointer to " stringByAppendingString:pointed];
+  }
+  else                                                    return @"";  
+}
+
+static NSString *FScriptObjectTemplateForEncodedObjCType(const char *ptr)
+{
+  while (*ptr == 'r' || *ptr == 'n' || *ptr == 'N' || *ptr == 'o' || *ptr == 'O' || *ptr == 'R' || *ptr == 'V')
+    ptr++;
+
+/*  if      (strcmp(ptr,@encode(id))                  == 0) return @"";
+  else if (strcmp(ptr,@encode(char))                == 0) return @"";
+  else if (strcmp(ptr,@encode(int))                 == 0) return @"";
+  else if (strcmp(ptr,@encode(short))               == 0) return @"";
+  else if (strcmp(ptr,@encode(long))                == 0) return @"";
+  else if (strcmp(ptr,@encode(long long))           == 0) return @"";
+  else if (strcmp(ptr,@encode(unsigned char))       == 0) return @"";
+  else if (strcmp(ptr,@encode(unsigned short))      == 0) return @"";
+  else if (strcmp(ptr,@encode(unsigned int))        == 0) return @"";
+  else if (strcmp(ptr,@encode(unsigned long))       == 0) return @"";
+  else if (strcmp(ptr,@encode(unsigned long long))  == 0) return @"";
+  else if (strcmp(ptr,@encode(float))               == 0) return @"";
+  else if (strcmp(ptr,@encode(double))              == 0) return @"";
+  else if (strcmp(ptr,@encode(char *))              == 0) return @"";
+#warning 64BIT: Inspect use of @encode
+  else*/ if (strcmp(ptr,@encode(SEL))                 == 0) return @"#selector";
+  //else if (strcmp(ptr,@encode(Class))               == 0) return @"";
+  //else if (*ptr == '^')                                   return @"";
+  else if (strcmp(ptr,@encode(NSRange))             == 0) return @"NSValue rangeWithLocation:0 length:0";
+  else if (strcmp(ptr,@encode(NSPoint))             == 0) return @"0<>0";
+  else if (strcmp(ptr,@encode(NSSize))              == 0) return @"NSValue sizeWithWidth:0 height:0";
+  else if (strcmp(ptr,@encode(NSRect))              == 0) return @"0<>0 extent:0<>0";
+  else if (strcmp(ptr,@encode(CGPoint))             == 0) return @"0<>0";
+  else if (strcmp(ptr,@encode(CGSize))              == 0) return @"NSValue sizeWithWidth:0 height:0";
+  else if (strcmp(ptr,@encode(CGRect))              == 0) return @"0<>0 extent:0<>0";
+  //else if (strcmp(ptr,@encode(_Bool))               == 0) return @"";
+  else                                                    return @"";  
 }
 
 

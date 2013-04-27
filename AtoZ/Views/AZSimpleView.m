@@ -91,8 +91,9 @@
 	for (int r = 0; r < rows; r++) {
 		for (int c = 0; c < columns; c++) {
 			CALayer *cell = [CALayer layer];
-			cell.borderColor = CGColorCreateGenericGray(0.8, 0.8);
-			cell.borderWidth = 1;  cell.cornerRadius = 4;
+			cell.borderColor = cgGREY;
+			cell.borderWidth = 1;
+			cell.cornerRadius = 4;
 			cell.name = [NSString stringWithFormat:@"%u@%u", c, r];
 			cell.constraints = @[[CAConstraint constraintWithAttribute: kCAConstraintWidth
 										relativeTo: @"superlayer"

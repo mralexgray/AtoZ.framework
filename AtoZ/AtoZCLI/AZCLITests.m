@@ -52,3 +52,33 @@ JREnumDefine(AZTestCase);
 //return test;
 //}
 @end
+
+
+
+
+@implementation AZGeometryTests
+
+- (AZTestCase) testAZAlign	{
+
+	__block AZTestCase test = AZTestUnset;
+
+	NSR testRect = AZRectFromDim(100);
+
+	NSR a = AZRectFromDim(20);
+	NSR b = AZRectOffsetFromDim(a,80);
+	[[NSA arrayWithRects:a,b, nil] each:^(id obj) {
+		NSR oRect = [obj rectValue];
+		AZA e = AZAlignmentInsideRect(oRect,testRect);
+		NSLog(@"%@'s Alignment in %@: %@", AZStringFromRect(oRect), AZStringFromRect(testRect), AZAlignToString(e));
+	}];
+	[[@0 to:@3] each:^(id obj) {
+		NSR r = quadrant(testRect, [obj integerValue]);
+		AZA e = AZAlignmentInsideRect([obj rectValue],testRect);
+		NSLog(@"%@'s Alignment in %@: %@", AZStringFromRect(r), AZStringFromRect(testRect), AZAlignToString(e));
+	}];
+
+//	NSLog(@"%@",AZAlignByValue(AZAlignTop));
+//	NSLog(@"%@",AZAlignToString(AZAlignBottomLeft));
+
+}
+@end

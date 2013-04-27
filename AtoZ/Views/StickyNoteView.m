@@ -1,5 +1,7 @@
 #import "StickyNoteView.h"
 
+JROptionsDefine(MWDraggingMode)
+
 @implementation StickyNoteView
 static NSW* fullScreenWindow = nil;
 +  (void) initialize 										{
@@ -58,24 +60,30 @@ static NSW* fullScreenWindow = nil;
 							?	MWDraggingModeResize
 							:	[self mouse:_eventStartPoint inRect:[self _closeButtonRectForCurrentFrame]]
 							? 	MWDraggingModeNone :	MWDraggingModeMove;
-	_edge = self.edge;
+	_alignment = self.alignment;
 }
-- (AZPOS) edge										{
-	_edge =  AZOutsideEdgeOfRectInRect (self.window.frame	,self.frame );
-	NSLog(@"newEdge: %@", stringForPosition(_edge));
-	return _edge;
+- (AZA) alignment										{
+	_alignment =  AZAlignmentInsideRect (self.frame, self.window.frame);
+	NSLog(@"newEdge: %@", AZAlignToString(_alignment));
+	return _alignment;
 }
 - (void)mouseDragged:(NSE*)theEvent 					{
 
-
+	_dragThreshold = AZSizeFromPoint(AZPointOffset(NSMakePoint(_dragThreshold.width, _dragThreshold.height), NSMakePoint(theEvent.deltaX, theEvent.deltaY)));
+	if ( AZMaxDim(_dragThreshold) > AZMaxDim(quadrant( AZScreenFrameUnderMenu(), 1).size) ) {
+//		self.alignment |=  AZMaxDim(_dragThreshold) < 0 ?  << 1 :  << -1;
+		return;
+	}	
+	
+	
 	NSRect origFrame, newFrame = self.frame;
 	NSPoint newLocation = [[self superview] convertPoint:theEvent.locationInWindow fromView:nil];
 	float x_amount = _lastDragPoint.x - newLocation.x;
 	float y_amount = _lastDragPoint.y - newLocation.y;
 	if (_draggingMode == MWDraggingModeMove) {
-		if (_edge == AZPositionBottom || _edge == AZPositionTop)
+		if (_alignment == AZAlignBottom || _alignment == AZAlignTop)
 			newFrame.origin.x -= x_amount;
-		else if (self.edge == AZPositionRight || _edge == AZPositionLeft)
+		else if (_alignment == AZAlignLeft || _alignment == AZAlignRight)
 			newFrame.origin.y -= y_amount;
 		else {
 			newFrame.origin.x -= x_amount;
@@ -167,10 +175,10 @@ static NSW* fullScreenWindow = nil;
 	NSPoint mouseLoc = [self convertPoint:[self.window mouseLocationOutsideOfEventStream] fromView:nil];
 	NSRect fillerRect = [self _fillRectForCurrentFrame];
 	if ([self mouse:mouseLoc inRect:fillRect]) {
-		AZPOS edgeD = self.edge;
+		AZA edgeD = self.alignment;
 		CGF inset = 20;
-		NSRect edger = edgeD == AZPositionTop || edgeD == AZPositionBottom ? AZRectBy(fillerRect.size.width, inset)
-				:			edgeD == AZPositionLeft || edgeD == AZPositionRight ? AZRectBy(inset, fillerRect.size.height)
+		NSRect edger = edgeD == AZAlignTop || edgeD == AZAlignBottom ? AZRectBy(fillerRect.size.width, inset)
+				:			edgeD == AZAlignLeft || edgeD == AZAlignRight ? AZRectBy(inset, fillerRect.size.height)
 				:	AZRectFromDim(inset);
 		NSR edgeRect = AZRectInsideRectOnEdge(edger, fillerRect, edgeD);
 		[[NSBP bezierPathWithRect:edgeRect] strokeWithColor:RED andWidth:2];

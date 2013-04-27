@@ -11,9 +11,54 @@
 //#import "AtoZ.h"
 
 
+@implementation AZEdge
++ (INST) rect:(AZRect)r along:(AZRect)outer inside:(BOOL)isinide;
+{	
+	AZEdge *n = self.new; 
+	n.align AZClosestCorner(outer, isinide)
+	
+
+}
+@property AZA alignment;
+@property AZOrient orient;
+@property CGF cornerTreshHold, snapThreshold;
+- (void) moveInDirection:(NSSZ)sz;
+@end
+
 @implementation AZRect
 @synthesize position, orient, anchor;
 
+
+- (AZA) alignInsideInDirection:(NSSZ)delta {
+
+	
+}
+- (AZA) alignInside:(NSR)outerRect
+{
+	AZRect *outer = [AZRect rectWithRect:outerRect];
+	AZA e = 0;
+
+	e |= 	self.maxY == outer.maxY ? AZAlignTop 	: 	self.minY == outer.minY ? AZAlignBottom	:
+			self.minX == outer.minX ? AZAlignLeft	:	self.maxX == outer.maxX ? AZAlignRight 	: e;
+
+	if (e != 0) return e;
+	NSP myCenter = edge.center;
+	CGF test = HUGE_VALF;
+	CGF minDist = AZMaxDim(outer.size);
+
+	test = AZDistanceFromPoint( myCenter, (NSP) { outer.minX, myCenter.y }); //testleft
+	if  ( test < minDist) { 	minDist = test; e = AZAlignLeft;}
+
+	test = AZDistanceFromPoint( myCenter, (NSP) { myCenter.x,  0 }); //testbottom  OK
+	if  ( test < minDist) { 	minDist = test; e = AZAlignBottom; }
+
+	test = AZDistanceFromPoint( myCenter, (NSP) {outer.width, myCenter.y }); //testright
+	if  ( test < minDist) { 	minDist = test; e = AZAlignRight; }
+
+	test = AZDistanceFromPoint( myCenter, (NSP) { myCenter.x, outer.height }); //testright
+	if  ( test < minDist) { 	minDist = test; e = AZAlignTop; }
+	return  e;
+}
 - (CGF) maxX { return self.origin.x + self.width; }
 - (CGF) maxY { return self.origin.y + self.height; }
 - (CGF) minX { return self.origin.x;	}
@@ -23,7 +68,7 @@
 + (AZRect*) rect {
 //  return [[self alloc] init];
 
-	return [[AZRect alloc] init];
+	return self.new;
 }
 
 + (AZRect*) rectOf:(id) object {
@@ -64,6 +109,9 @@
 	
 	return re;
 }
+
+- (NSR) r { return self.rect; }
+- (void) setR:(NSR)r { self.rect = r; }
 
 + (AZRect*) rectWithRect:(NSR)r {
 	AZRect *re = [[self alloc] init];

@@ -20,7 +20,7 @@
 //+ (instancetype) instanceWithColorList:(NSCL*)list;
 //+ (instancetype) instanceWithNames:(NSA*)names;
 //+ (instancetype) instanceWithColors:(NSA*)names;
-+ (NSS*) cliMenuFor:(NSA*)items starting:(NSUI)idx palette:(NSA*)p;
+- (NSS*) cliMenuFor:(NSA*)items starting:(NSUI)idx palette:(NSA*)p;
 
 
 

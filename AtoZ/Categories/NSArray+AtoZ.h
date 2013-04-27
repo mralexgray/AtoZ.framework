@@ -18,6 +18,7 @@
 
 @interface NSArray (AtoZ)
 
++ (NSA*) arrayWithRects:(NSR)firstRect,...NS_REQUIRES_NIL_TERMINATION;
 
 - (int) createArgv:(char***)argv;
 

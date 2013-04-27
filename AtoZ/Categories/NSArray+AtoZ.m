@@ -41,6 +41,19 @@
 
 @implementation NSArray (AtoZ)
 
++ (NSA*) arrayWithRects:(NSR)firstRect,...NS_REQUIRES_NIL_TERMINATION {
+
+ 	NSMutableArray *re = NSMutableArray.array; id detector;
+   [re addObject:AZVrect(firstRect)];
+	va_list args;
+   va_start(args, firstRect);
+		while ((detector = va_arg(args, id)) != nil);
+		NSRect r;
+		(r = va_arg(args, NSRect));
+		[re addObject:AZVrect(r)];
+    va_end(args);
+    return re;
+}
 -(NSS*)swizzleDescription {
 //	[NSPropertyListWriter_vintage stringWithPropertyList:self];
 //	NSS *normal =

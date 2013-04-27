@@ -178,6 +178,16 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary(void) {
 //static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 @implementation NSObject (AtoZ)
+- (void)performBlock:(void (^)())block
+{
+    block();
+}
+
+//- (void)performBlock:(void (^)())block afterDelay:(NSTimeInterval)delay
+//{
+//    void (^block_)() = [block copy]; // autorelease this if you're not using ARC
+//    [self performSelector:@selector(performBlock:) withObject:block_ afterDelay:delay];
+//}
 
 //+ (void) load { [$ swizzleMethod:@selector(description) with:@selector(swizzleDescription) in:self.class]; }
 

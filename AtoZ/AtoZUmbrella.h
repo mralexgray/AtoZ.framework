@@ -57,6 +57,8 @@
 #define			  NSBRWSR 	NSBrowser
 #define				 NSBIR 	NSBitmapImageRep
 #define				 NSBLO 	NSBlockOperation
+#define				 NSBSB	NSBackingStoreBuffered
+#define				 NSBWM 	NSBorderlessWindowMask
 #define			  NSCOMPR 	NSComparisonResult
 #define				  NSDE 	NSDirectoryEnumerator
 #define				  NSGC 	NSGraphicsContext
@@ -147,7 +149,8 @@
 #define				  TUIV 	TUIView
 #define				 TUIVC	TUIViewController
 #define				  VBLK 	VoidBlock
-
+#define					 WV	WebView
+#define				IDWPDL	id<WebPolicyDecisionListener>
 #define 				  AHLO 	AHLayoutObject
 #define 				  AHLT 	AHLayoutTransaction
 #define  		  BLKVIEW 	BNRBlockView
@@ -423,7 +426,7 @@ typedef struct {	CAConstraintAttribute constraint;	CGFloat scale;	CGFloat offset
 #define cgRANDOMCOLOR	RANDOMCOLOR.CGColor
 #define cgBLUE		 				 BLUE.CGColor
 #define cgBLACK				   BLACK.CGColor
-#define cgGREY						 GRAY.CGColor
+#define cgGREY						 GREY.CGColor
 #define cgWHITE					WHITE.CGColor
 #define cgCLEARCOLOR		      CLEAR.CGColor
 

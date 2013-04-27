@@ -2,24 +2,24 @@
 
 #import <Cocoa/Cocoa.h>
 
+
+JROptionsDeclare(MWDraggingMode, MWDraggingModeMove, MWDraggingModeResize, MWDraggingModeNone);
+
 @interface StickyNoteView : NSControl
 
-{
-NSPoint _eventStartPoint, _lastDragPoint;
-	int _draggingMode;
-	NSTrackingRectTag _trackingRectTag;
-}
+@property (NATOM) 	NSSZ 	maxSize,minSize;
+@property (NATOM,CP) NSS* 	placeholderString;
+@property (NATOM)		NSC 	*noteColor,*textColor;
+@property (NATOM) 	AZA 	alignment;
 
-@property (nonatomic, assign) NSSize maxSize, minSize;
-@property (nonatomic, copy) NSS* placeholderString;
-@property (nonatomic, strong)	NSColor *noteColor, *textColor;
-@property (nonatomic, assign) AZPOS edge;
+@property NSPoint 				eventStartPoint, lastDragPoint;
+@property NSEventMask 			draggingMode;
+@property NSTrackingRectTag 	trackingRectTag;
+@property CGSZ		dragThreshold;
+
 
 @end
 
-#define MWDraggingModeMove	 0
-#define MWDraggingModeResize 1
-#define MWDraggingModeNone	 2
 @interface StickyNoteView (PrivateMethods)
 - (void)_doubleMouse:(NSEvent *)theEvent;
 - (NSR)_fillRectForCurrentFrame;

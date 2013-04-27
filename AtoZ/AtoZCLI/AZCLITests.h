@@ -13,5 +13,8 @@ JREnumDeclare(AZTestCase, AZTestFailed, AZTestPassed, AZTestUnset, AZTestNoFailu
 
 @interface AZCLITests : BaseModel
 @property (STRNG,NATOM) NSA* tests, *results;
+@end
 
+
+@interface AZGeometryTests : AZCLITests
 @end

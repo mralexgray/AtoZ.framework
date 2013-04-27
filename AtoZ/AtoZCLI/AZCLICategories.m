@@ -24,20 +24,20 @@
 //
 //+ (void) load { cls = NSMD.new; }
 
-+ (NSS*) cliMenuFor:(NSA*)items starting:(NSUI)idx palette:(id)p {
+- (NSS*) cliMenuFor:(NSA*)items starting:(NSUI)idx palette:(id)p {
 
 	NSUI maxlen = ceil([items lengthOfLongestMemberString] * 1);	// deduce longest string
 	NSUI cols = floor(120.f/(float) maxlen);								// accomodate appropriate number of cols.
 	NSUI maxIndex = $(@"%lu: ", idx + items.count).length;  			// make sure numbers fit nice
 	__block NSUI i = idx -1;													// start at an index
 	return  [items reduce:@"\n" withBlock:^id(id sum, id obj) {		i++; // Allow goruped indexes.
-
+		self.selectionDecoder[@(i)] = obj;
 		NSS* paddedIndex = [ $(@"%lu: ", i) paddedTo:maxIndex];
 		NSS* 	outP = (i % cols) == 0 ? @"\n" : @"";
 				outP = [outP withString:paddedIndex];
 //				NSC* c = [p ISKINDA:NSCL.class] ?[[p colors] normal: i] : [p normal:1];
 				outP = [outP withString:colorizeStringWithColor([$(@"%@",obj) paddedTo:maxlen], [p  normal:i]).colorLogString];
-		return [sum withString:outP];
+		return outP ? [sum withString:outP] : sum;
 	}];		  /* Find the longest string and base our columns on that. */
 }
 

@@ -1292,13 +1292,29 @@ AZPOS AZPositionOfRectPinnedToOutisdeOfRect(NSR box, NSR innerBox  )
 
 AZA AZAlignmentInsideRect(NSR edgeBox, NSR outerBox) {
 
-	AZRect *edge, *outer; edge = [AZRect rectWithRect:edgeBox]; outer = [AZRect rectWithRect:outerBox];
+	AZRect *edge = [AZRect rectWithRect:edgeBox], *outer = [AZRect rectWithRect:outerBox];
 	AZA e = 0;
-	if (edge.maxY == outer.maxY) 						 	e |= AZAlignTop;
-	if (edge.minY == outer.minY) 							e |= AZAlignBottom;
-	if (edge.minX == outer.minX) 						   e |= AZAlignLeft;
-	if (edge.maxX == outer.maxX) 						 	e |= AZAlignRight;
-	return e;
+
+	e |= 	edge.maxY == outer.maxY ? AZAlignTop 	: 	edge.minY == outer.minY ? AZAlignBottom	:
+			edge.minX == outer.minX ? AZAlignLeft	:	edge.maxX == outer.maxX ? AZAlignRight 	: e;
+
+	if (e != 0) return e;
+	NSP myCenter = edge.center;
+	CGF test = HUGE_VALF;
+	CGF minDist = AZMaxDim(outer.size);
+
+	test = AZDistanceFromPoint( myCenter, (NSP) { outer.minX, myCenter.y }); //testleft
+	if  ( test < minDist) { 	minDist = test; e = AZAlignLeft;}
+
+	test = AZDistanceFromPoint( myCenter, (NSP) { myCenter.x,  0 }); //testbottom  OK
+	if  ( test < minDist) { 	minDist = test; e = AZAlignBottom; }
+
+	test = AZDistanceFromPoint( myCenter, (NSP) {outer.width, myCenter.y }); //testright
+	if  ( test < minDist) { 	minDist = test; e = AZAlignRight; }
+
+	test = AZDistanceFromPoint( myCenter, (NSP) { myCenter.x, outer.height }); //testright
+	if  ( test < minDist) { 	minDist = test; e = AZAlignTop; }
+	return  e;
 }
 //	if (NSEqualPoints(edge.origin, outer.origin))   e |= AZAlignBottomLeft;
 //	if (NSEqualPoints(edge.apex, 	 outer.apex)) 	 	e |= AZAlignTopRight;
@@ -1307,9 +1323,9 @@ AZA AZAlignmentInsideRect(NSR edgeBox, NSR outerBox) {
 //	edge = edgeBox.origin.x == outer.origin.x ? edge | AZAlignLeft 	: edge;
 // edge = edgeBox.origin.x == outer.origin.x ? edge | AZAlignLeft 	: edge;
 
-//	NSP myCenter = AZCenterOfRect(rect);
+//	NSP myCenter = edge.center;// AZCenterOfRect(rect);
 //	CGF test;
-//	AZPOS winner = AZPositionAutomatic;
+////	AZPOS winner = AZPositionAutomatic;
 //	CGF minDist = AZMaxDim(outer.size);
 //
 //	winner 	= NSEqualPoints(.origin, outer.origin) ? AZPositionBottomLeft
@@ -1318,9 +1334,7 @@ AZA AZAlignmentInsideRect(NSR edgeBox, NSR outerBox) {
 //	: NSEqualPoints(AZBotRightPoint(rect), AZBotRightPoint(outer)) ? AZPositionBottomRight : AZPositionAutomatic;
 //
 //	if (winner != AZPositionAutomatic) goto finishline;
-//
-//
-//
+
 //	test = AZDistanceFromPoint( myCenter, (NSP) { outer.origin.x, myCenter.y }); //testleft
 //	if  ( test < minDist) { 	minDist = test; winner = AZPositionLeft;}
 //

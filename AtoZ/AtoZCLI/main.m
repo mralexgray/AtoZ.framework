@@ -1,6 +1,6 @@
 #import <Foundation/Foundation.h>
 #import <Cocoa/Cocoa.h>
-#import <AtoZ/AtoZ.h>
+//#import <AtoZ/AtoZ.h>
 #import <unistd.h>
 //#include <sys/ioctl.h>
 //#include <stdio.h>
@@ -15,7 +15,32 @@
 #define KCYN  "\x1B[36m"
 #define KWHT  "\x1B[37m"
 
-int main(int argc, char*argv[]){ @autoreleasepool { while(!AZCLI.sharedInstance.finished)[NSRunLoop.currentRunLoop run]; } return 0;	}
+int main(int argc, char*argv[]){ @autoreleasepool {
+
+//	NSApplication *application = [NSApplication sharedApplication];
+//	AppDelegate *appDelegate = [[AppDelegate alloc] init];
+//	[application setDelegate:appDelegate];
+//	[application run];
+
+ 	NSString* path = [@"/Volumes/2T/ServiceData/Developer/Xcode/DerivedData/AtoZ-hfqteqfcvjfinlajqwkydsqyzpiz/Build/Products/Debug/AtoZ.framework/Versions/A/Frameworks"
+			stringByDeletingLastPathComponent].stringByDeletingLastPathComponent.stringByDeletingLastPathComponent;
+	fprintf ( stderr, "Preflighting path: %s\n", path.UTF8String);
+
+	NSBundle *b = [NSBundle bundleWithPath:  path];
+//	while (![b isLoaded]) {
+	
+	fprintf ( stderr, "Bundle: %s\n", b.debugDescription.UTF8String);
+	NSError *e;
+	BOOL okdok = [b preflightAndReturnError:&e];
+	if (okdok) {	[b load]; }	//NSLog(@"%@ %@  %@  %@",path, b, e, [b bundleIdentifier] ); 	}
+	else fprintf(stderr, "%s\n", e.debugDescription.UTF8String);
+	}
+	Class cli = NSClassFromString(@"AZCLI");
+	while(![[cli sharedInstance]boolForKey:@"finished"])
+		[NSRunLoop.currentRunLoop run];
+//	}
+	return EXIT_SUCCESS;
+}
 
 
 /*	struct winsize w;

@@ -77,6 +77,9 @@ typedef void (^AZBlockTask)(id obj, NSDictionary *change);
 @end
 @interface NSObject (AtoZ)
 
+- (void)performBlock:(void (^)())block;
+//- (void)performBlock:(void (^)())block afterDelay:(NSTimeInterval)delay;
+
 - (NSS*) xmlRepresentation;
 - (BOOL) saveAs:(NSS*)file;
 // adapted from the CocoaDev MethodSwizzling page
