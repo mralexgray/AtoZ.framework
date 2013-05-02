@@ -1,4 +1,7 @@
 #import <Foundation/Foundation.h>
+#import <Cocoa/Cocoa.h>
+//#import <AtoZ.h>
+//#import <AtoZ/AtoZ.h>
 
 
 @interface Contacts: NSObject <NSCoding>
@@ -48,13 +51,23 @@
 -(void) loadBundles;
 -(void) loadAZ;
 @end
+#import "/sd/AtoZ.framework/AZBeetljuice.h"
+
+
+#define CPROXY(x) 	[[@"a" valueForKey:@"classProxy"] valueForKey:@"x"]
+#define MASCOLORE(x) [x setValue:[CXPROXY(NSColor) valueForKey:@"randomColor"] forKey:@"logForeground"]
+#define NSPRINT(x) [[[@"a" valueForKey:@"classProxy"] valueForKey:@"NSTerminal"]performSelectorWithoutWarnings:NSSelectorFromString(@"printString:") withObject:[x valueForKey:@"colorLogString"]]
+//withObject:x]
+
 typedef void (^menuWithContacts)(ContactList*);
 menuWithContacts contactMenu = ^(ContactList *contacts)			{
 
-	[contacts loadAZ];
-	__block BOOL exit = NO; __block NSString *temp;
-	fprintf ( stderr, "%s","\nWelcome to the Contact List App \nPlease choose from the following options: \n");
-NSDictionary*o=@{ @" to Add a Contact"						: ^{ [contacts addContact]; },
+	AZBeetlejuiceLoadAtoZ();
+	__block BOOL exit = NO; 
+	__block NSString *temp;
+	
+	NSPRINT(@"\nWelcome to the Contact List App \nPlease choose from the following options: \n");
+	NSDictionary*o=@{ @" to Add a Contact"						: ^{ [contacts addContact]; },
 					@" to Print a Full List"				: ^{ 	[contacts printAll];  },
 					@" to Search for a Last Name"			: ^{
 						fprintf ( stderr, "%s","Enter Last Name: "); char cTemp[80];
@@ -76,7 +89,10 @@ NSDictionary*o=@{ @" to Add a Contact"						: ^{ [contacts addContact]; },
 						temp = @"";																			},
 					@" to Save & Exit"						: ^{	[contacts saveContacts]; 	},
 					@" to Load Frameworks"   			 	: ^{	[contacts loadBundles]; 	},
-					@" To Load AZ"								: ^{	[contacts loadAZ]; 			} };
+					@" To Load AZ"								: ^{	[contacts loadAZ]; 			},
+					@" To print AtoZ Methods" 				: ^{  
+					[contacts performSelector:@selector(promptWithArray:)
+						withObject:[CPROXY(AtoZ) performSelectorWithoutWarnings:NSSelectorFromString(@"instanceMethods")]]; }};
 
 	void (^mapBlock)(void) = [o valueForKey:[contacts performSelector:@selector(promptWithArray:) withObject:o.allKeys]];
 	if (mapBlock) mapBlock();
@@ -186,19 +202,7 @@ NSDictionary*o=@{ @" to Add a Contact"						: ^{ [contacts addContact]; },
 
 	return [NSString stringWithFormat:@"\033[%@;%@m%@\033[0m - %@", let,blet, s, num];
 }
-- (void) 	 loadAZ 							{
 
-	NSString* path = self.basePath.stringByDeletingLastPathComponent
-										   .stringByDeletingLastPathComponent
-											.stringByDeletingLastPathComponent;
-	fprintf ( stderr, "Preflighting path: %s\n", path.UTF8String);
-	NSBundle *b = [NSBundle bundleWithPath:  path];
-	NSLog(@"bundle:%@",b);
-	NSError *e;
-	BOOL okdok = [b preflightAndReturnError:&e];
-	if (okdok) {	[b load];	NSLog(@"%@ %@  %@  %@",path, b, e, [b bundleIdentifier] ); 	}
-	else fprintf(stderr, "%s\n", e.debugDescription.UTF8String);
-}
 - (void) loadBundles 						{
 
 	id a = [self performSelector:@selector(promptWithArray:) withObject:self.frameworks];
@@ -209,7 +213,7 @@ NSDictionary*o=@{ @" to Add a Contact"						: ^{ [contacts addContact]; },
 	BOOL okdok = [b preflightAndReturnError:&e];
 	if (okdok) {
 		[b load];
-		fprintf ( stderr, "%s\n%s\n", [self clr:a].UTF8String, [self clr:b.description].UTF8String);
+//		fprintf ( stderr, "%s\n%s\n", [self clr:a].UTF8String, [self clr:b.description].UTF8String);
 	}
 	else fprintf ( stderr, "Error loading %s: %s\n", path.UTF8String, [e debugDescription].UTF8String);
 	//		Class atoz = NSClassFromString(@"AtoZ");
@@ -218,15 +222,22 @@ NSDictionary*o=@{ @" to Add a Contact"						: ^{ [contacts addContact]; },
 }
 - (id) promptWithArray:(NSArray*)a 		{
 
-	fprintf ( stderr, "%s","What would you like to do? \n"); int option = 0;
+	NSPRINT(@"What would you like to do?");
+//	fprintf ( stderr, "%s","What would you like to do? \n"); 
+	int option = 0;
 	[a enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-		fprintf ( stderr, "%d %s\n", (int)(idx + 1), [self clr:obj].UTF8String);
+		[obj setValue:GRAY2 forKey:@"logBackground"];
+		NSPRINT([@(idx).stringValue withString:[AZLOGSHARED colorizeString:obj withColor:RANDOMCOLOR]]);
+//		[NSPRINT([NSString stringWithFormat:@"%i %@", (int)(idx + 1), [self clr:obj], nil]);;
+//		[CPROXY(AZLog) performSelector:NSSelectorFromString(@"colorizeString:withColor:") withObject:[NSString stringWithFormat:@"%i %@", (int)(idx + 1), [self clr:obj]] NSColor.orangeColor, nil)[0]clr]);
+//		fprintf ( stderr, "%d %s\n", (int)(idx + 1), [self clr:obj].UTF8String);
 	}];
-	BOOL inRange;
-	do {
-		scanf("%i", &option); 	inRange = (option > 1 && option < a.count + 1);
-		if (!inRange)  {  fprintf(stderr,"%s", "not valid, try again..\n"); fflush(stdin); }
-	}	while(!inRange);
+	do { 
+		option = [NSTerminal readInt]; 	
+		[NSTerminal printStringWithFormat:@"%i", option, nil];
+	} while (option > 1 && option < a.count + 1);
+//		if (!inRange)  {  fprintf(stderr,"%s", "not valid, try again..\n"); fflush(stdin); }
+//	}	while(!inRange);
 
 	return a[option -1];			//char cTemp[80];NSString *temp;
 }

@@ -111,6 +111,8 @@
 	#import "AtoZUmbrella.h"
 	#import "AtoZTypes.h"
 	#import "AtoZCategories.h"
+	#import "NSTerminal.h"
+	#import "AZLog.h"
 	
 #endif
 

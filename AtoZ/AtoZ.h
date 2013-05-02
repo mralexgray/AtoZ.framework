@@ -74,7 +74,8 @@
 #import "AtoZFunctions.h"
 
 #import "AtoZCategories.h"
-
+#import "NSTerminal.h"
+#import "AZLog.h"
 
 /* MODEL */
 #import "JsonElement.h"
@@ -96,7 +97,7 @@
 #import "AFNetworking.h"
 
 //#import <RoutingHTTPServer/RoutingHTTPServer.h>
-
+#import "NSLogConsole.h"
 #import "Bootstrap.h"
 
 /*  FACEBOOK	*/
@@ -203,7 +204,6 @@
 #import "AZDockQuery.h"
 #import "AZAXAuthorization.h"
 //#import "AZNotificationCenter.h"
-#import "NSLogConsole.h"
 #import "AZLaunchServices.h"
 #import "AZLassoView.h"
 #import "AZBackground.h"

@@ -8,6 +8,8 @@
 #import "AZNamedColors.h"
 #import <AIUtilities/AIUtilities.h>
 
+JREnumDefine(AZeColor);
+
 #define AIfmod( X, Y )	fmod((X),(Y))
 typedef struct {
 	unsigned long value;

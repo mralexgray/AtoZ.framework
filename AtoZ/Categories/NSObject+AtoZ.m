@@ -22,6 +22,35 @@ static id addMethodTrampoline(id self, SEL _cmd) {
 }
 
 @implementation NSObject (AddMethod)
+
++ (BOOL) addMethodFromString:(NSS*)s withArgs:(NSA*)a{
+	
+	// get an Objective-C selector variable for the method
+	SEL mySelector;
+	mySelector = NSSelectorFromString(s);
+	// create a singature from the selector
+	NSMethodSignature * sig = nil;
+	sig = [self instanceMethodSignatureForSelector:mySelector];
+	// create an actual invocation object and set the target to self
+	NSInvocation * myInvocation = nil;
+	myInvocation = [NSInvocation invocationWithMethodSignature:sig];
+	[myInvocation setTarget:self];
+	[myInvocation setSelector:mySelector];
+	
+	for (id arg in a ) {
+		// add first argument  // add second argument
+		id var = [[arg class] new];
+		[myInvocation setArgument:&var atIndex:[a indexOfObject:arg] + 2 ];
+	}
+//	class_addMethod(__unsafe_unretained Class cls, SEL name, IMP imp, const char *types)
+//	class_addMethod(self, mySelector, (IMP)addMethodTrampoline, types);
+
+
+//	IMP myIMP = imp_implementationWithBlock(^(id _self, NSString *string) {		NSLog(@"Hello %@", string);
+//	});
+//	class_addMethod([self class], NSSelectorFromString(s), myIMP, "v@:@");
+}
+
 + (BOOL)addMethodForSelector:(SEL)sel typed:(const char*)types implementation:(id)blkPtr {
 
 	objc_setAssociatedObject(self, sel, blkPtr, OBJC_ASSOCIATION_COPY_NONATOMIC);
@@ -2464,6 +2493,20 @@ static void *KVO;
 	return stringValue ? [NSURL URLWithString:stringValue] : nil;
 }
 
+- (id)valueForKeyOrKeyPath:(NSS*)keyOrKeyPath;  //AZAddition
+{
+	return [keyOrKeyPath contains:@"."] ? [self vFKP:keyOrKeyPath] : [self vFK:keyOrKeyPath] ?: nil;
+}
+
+
+
+- (id)valueForKey:(NSS*)key assertingProtocol:(Protocol*)proto;
+{
+	id value = [self vFK:key];
+	if (!value || value == [NSNull null]) return nil;
+	NSAssert1([value conformsToProtocol:proto], @"AZCoding expects an object conforming to prootcol %@", NSStringFromProtocol(proto));
+	return [value conformsToProtocol:proto] ? value : nil;
+}
 - (id)valueForKey:(NSS*)key assertingClass:(Class)theClass;
 {
 	id value = [self valueForKey:key];

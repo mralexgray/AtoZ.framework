@@ -392,11 +392,11 @@ NSString *stringForBrightness(CGFloat brightness)
 
 - (void)setLogForeground:(id)color {
 //	printf("setting fg: %s", ((NSC*)color).nameOfColor.UTF8String);
-    [self setAssociatedValue:rgbColorValues(color) forKey:@"logFG" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
+    [self setAssociatedValue:[AZLOGSHARED rgbColorValues:color] forKey:@"logFG" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
 }
 
 - (void)setLogBackground:(id)color {
-    [self setAssociatedValue:rgbColorValues(color) forKey:@"logBG" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
+    [self setAssociatedValue:[AZLOGSHARED rgbColorValues:color] forKey:@"logBG" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
 }
 
 //- (const char*) ttyClr {
@@ -447,9 +447,11 @@ static BOOL isaColorTTY, isaColor256TTY, isaXcodeColorTTY;  static BOOL envSet =
 								char *xcode_colors = getenv("XcodeColors");
 								isaXcodeColorTTY = xcode_colors && (strcmp(xcode_colors, "YES") == 0);
 							}();
-		fprintf(stderr, "\033[38;5misaColorTTY\033[0m\t=\t%s\nisaColor256TTY\t=\t%s\nisaXcodeColorTTY\t=\t%s\n", 
-		isaColorTTY ? "YES" : "NO", isaColor256TTY ? "YES" : "NO", isaXcodeColorTTY ? "YES" : "NO");
-		});
+		fprintf(stderr, "%sisaColorTTY\t=\t%s%s\t%sisaColor256TTY\t=\t%s%s\t%s", 
+		isaColorTTY ? "\033[38;5m" : "",  isaColorTTY ? "YES" : "NO", isaColorTTY ? "\033[0m" : "", 
+		isaColorTTY ? "\033[38;5m" : "",  isaColor256TTY ? "YES" : "NO", isaColorTTY ? "\033[0m" : "", 
+		$(@"%@isaXcodeColorTTY\t=\t%@%@",isaXcodeColorTTY ? XCODE_COLORS_ESCAPE @"fg244,100,80;" : @"", StringFromBOOL(isaXcodeColorTTY), isaXcodeColorTTY ? XCODE_COLORS_RESET : @"").UTF8String);
+	});
 	}
 	envSet = YES;
 	if (!isaColorTTY  && !isaColor256TTY && !isaXcodeColorTTY) return self;

@@ -2,6 +2,9 @@
 //  NSColot+AtoZ.h
 //  AtoZ
 
+#import "JREnum.h"
+
+JREnumDeclare(AZeColor, AZeColoraliceblue, AZeColorantiquewhite, AZeColoraqua, AZeColoraquamarine, AZeColorazure, AZeColorbeige, AZeColorbisque, AZeColorblack, AZeColorblanchedalmond, AZeColorblue, AZeColorblueviolet, AZeColorbrown, AZeColorburlywood, AZeColorcadetblue, AZeColorchartreuse, AZeColorchocolate, AZeColorcoral, AZeColorcornflowerblue, AZeColorcornsilk, AZeColorcrimson, AZeColorcyan, AZeColordarkblue, AZeColordarkcyan, AZeColordarkgoldenrod, AZeColordarkgray, AZeColordarkgrey, AZeColordarkgreen, AZeColordarkkhaki, AZeColordarkmagenta, AZeColordarkolivegreen, AZeColordarkorange, AZeColordarkorchid, AZeColordarkred, AZeColordarksalmon, AZeColordarkseagreen, AZeColordarkslateblue, AZeColordarkslategray, AZeColordarkslategrey, AZeColordarkturquoise, AZeColordarkviolet, AZeColordeeppink, AZeColordeepskyblue, AZeColordimgray, AZeColordimgrey, AZeColordodgerblue, AZeColorfirebrick, AZeColorfloralwhite, AZeColorforestgreen, AZeColorfuchsia, AZeColorgainsboro, AZeColorghostwhite, AZeColorgold, AZeColorgoldenrod, AZeColorgray, AZeColorgrey, AZeColorgreen, AZeColorgreenyellow, AZeColorhoneydew, AZeColorhotpink, AZeColorindianred, AZeColorindigo, AZeColorivory, AZeColorkhaki, AZeColorlavender, AZeColorlavenderblush, AZeColorlawngreen, AZeColorlemonchiffon, AZeColorlightblue, AZeColorlightcoral, AZeColorlightcyan, AZeColorlightgoldenrodyellow, AZeColorlightgray, AZeColorlightgrey, AZeColorlightgreen, AZeColorlightpink, AZeColorlightsalmon, AZeColorlightseagreen, AZeColorlightskyblue, AZeColorlightslateblue, AZeColorlightslategray, AZeColorlightslategrey, AZeColorlightsteelblue, AZeColorlightyellow, AZeColorlime, AZeColorlimegreen, AZeColorlinen, AZeColormagenta, AZeColormaroon, AZeColormediumaquamarine, AZeColormediumblue, AZeColormediumorchid, AZeColormediumpurple, AZeColormediumseagreen, AZeColormediumslateblue, AZeColormediumspringgreen, AZeColormediumturquoise, AZeColormediumvioletred, AZeColormidnightblue, AZeColormintcream, AZeColormistyrose, AZeColormoccasin, AZeColornavajowhite, AZeColornavy, AZeColoroldlace, AZeColorolive, AZeColorolivedrab, AZeColororange, AZeColororangered, AZeColororchid, AZeColorpalegoldenrod, AZeColorpalegreen, AZeColorpaleturquoise, AZeColorpalevioletred, AZeColorpapayawhip, AZeColorpeachpuff, AZeColorperu, AZeColorpink, AZeColorplum, AZeColorpowderblue, AZeColorpurple, AZeColorred, AZeColorrosybrown, AZeColorroyalblue, AZeColorsaddlebrown, AZeColorsalmon, AZeColorsandybrown, AZeColorseagreen, AZeColorseashell, AZeColorsienna, AZeColorsilver, AZeColorskyblue, AZeColorslateblue, AZeColorslategray, AZeColorslategrey, AZeColorsnow, AZeColorspringgreen, AZeColorsteelblue, AZeColortan, AZeColorteal, AZeColorthistle, AZeColortomato, AZeColorturquoise, AZeColorviolet, AZeColorvioletred, AZeColorwheat, AZeColorwhite, AZeColorwhitesmoke, AZeColoryellow, AZeColoryellowgreen); 
 //#import "NSString+AG.h"
 //#import "NSArray+AG.h"
 //#import <AGFoundation/AGFoundation.h>
@@ -9,9 +12,9 @@
 
 @interface NSColor (AtoZ)
 @property (NATOM,STRNG) NSS*	name;
-@property (RONLY)	BOOL	isBoring, 	isExciting;
-@property (RONLY)	NSS*	nameOfColor, 		*crayonName;
-@property (RONLY)	NSC*	closestWebColor, 	*closestNamedColor,	*closestColorListColor;
+@property (RONLY)	BOOL	isBoring, isExciting;
+@property (RONLY)	NSS*	nameOfColor, *crayonName;
+@property (RONLY)	NSC*	closestWebColor, *closestNamedColor,	*closestColorListColor;
 @property (RONLY)	CGCR 	cgColor;
 @property (RONLY)	NSC* 	inverted;
 @property (RONLY) NSC*	deviceRGBColor;

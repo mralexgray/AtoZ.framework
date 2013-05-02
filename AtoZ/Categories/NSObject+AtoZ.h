@@ -31,7 +31,7 @@ NSLog(@"%@", [foo idreturn]);
 */
 
 @interface NSObject (AddMethod)
-
++ (BOOL) addMethodFromString:(NSS*)s withArgs:(NSA*)a;  //NEEDSWORK NSMethodSignature
 + (BOOL) addMethodForSelector:(SEL)selector typed:(const char*)types implementation:(id)blockPtr;
 - (NSA*) methodSignatureArray:(SEL)selector;
 + (NSA*) methodSignatureArray:(SEL)selector;
@@ -539,6 +539,8 @@ typedef void (^KVOFullBlock)(NSString *keyPath, id object, NSDictionary *change)
 - (NSUInteger)unsignedIntegerForKey:(NSS*)key;
 - (NSURL *)URLForKey:(NSS*)key;
 
+- (id)valueForKeyOrKeyPath:(NSS*)keyOrKeyPath;  //AZAddition
+- (id)valueForKey:(NSS*)key assertingProtocol:(Protocol*)proto;  //AZAddition
 - (id)valueForKey:(NSS*)key assertingClass:(Class)klass;
 - (id)valueForKey:(NSS*)key assertingRespondsToSelector:(SEL)theSelector;
 - (BOOL)contentsOfCollection:(id <NSFastEnumeration>)theCollection areKindOfClass:(Class)theClass;

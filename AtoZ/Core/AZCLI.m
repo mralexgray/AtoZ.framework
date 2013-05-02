@@ -56,11 +56,6 @@ static NSW				*window;
 	[window makeKeyAndOrderFront:nil];
 	[window cascadeTopLeftFromPoint:NSMakePoint(20,20)];
 }
-	AZTestNode *testNode = AZTestNode.sharedInstance;
-	[testNode.class.subclasses map:^(id obj) {	return  [obj instanceMethodNames]; }].log;
-      fprintf(stdout, "objj> ");
-      fflush(stdout);
-
 	[methods eachWithIndex:^(id obj, NSI idx) {	[methodlist appendFormat:@"\n%ld: %@", idx, obj];	}];
 	char methodName [40];
 	scanf("%s",(char*)&methodName);
@@ -83,17 +78,6 @@ static NSW				*window;
 		NSA* words = [input componentsSeparatedByString:@":"];
 		LOGCOLORS(@"rawWords:", words, [[NSC randomPalette]withMinItems:words.count+1], nil);
 	[self.class ]
-		SEL select = NSSelectorFromString(words[2]);		
-		Class class = NSClassFromString(words[1]);
-		if (class_getClassMethod(class, select) != nil)
-			[[class performSelector:select]log];
-		else
-			[[[NSStringFromClass(class) withString:@"class: %@ didnt respond to selector:" ] withString:NSStringFromSelector(select)]log];
-		if (class_getInstanceMethod([self class], select) != nil)
-			[self performSelector:select];
-		else
-			[[@"i didnt respond to selector:"withString:NSStringFromSelector(select)]log];
-		self.mainMenu;
 	}
 		id obj = class ?: self;
 		NSLog(@"class:  %@, sel:%@", NSClassFromString(class), NSStringFromSelector(select));
@@ -109,26 +93,12 @@ class != NULL ? [[class performSelector:select] log] : [[self performSelectorWit
 	[self cuteFunctions]();	 [self mainMenu];
 	if ([result respondsToSelector:@selector(UTF8String)])  fprintf(stdout, "%s\n", [result UTF8String]);   fprintf(stdout, "objj> ");    fflush(stdout);    [_stdinFileHandle readInBackgroundAndNotify];
 - (VoidBlock) tests 				{   return _tests = [AZCLITests sharedInstance]; }
-
-- (void) colorLogging 				{
-    COLORLOG(YELLOw, @"whatever %@", @3);   NSD *allColorInfo = NSC.colorsAndNames;
-    NSLog(@"Available named colors:\n%@",   [NSS stringFromArray:[allColorInfo.allKeys map:^id (id obj) {
-                return colorizeStringWithColor(
-                    [obj stringByPaddingToLength:22 withString:@" " startingAtIndex:0],
-                    allColorInfo[obj]);
-            }]]);
-    [self mainMenu];
-}
-- (VoidBlock) actionAtIndex {}
-+ (void) load 							{ AtoZ.sharedInstance; }
-+ (id) blockEval:(id(^)(id blockArgs, ...))block {	 return block(self);	 }
 */
 
 @implementation AZCLI				
 - (void) setUp 								{
-
-	if (![AZCLI hasSharedInstance]) {
-		AZCLISI = self;
+	
+	if (![AZCLI hasSharedInstance]) { AtoZ.sharedInstance;		AZCLISI = self;
 		[NSApplication.sharedApplication setActivationPolicy:    NSApplicationActivationPolicyRegular];
 		[NSApp 	   setMainMenu:menubar = NSMenu.new];	[menubar addItem:appMenuItem = NSMenuItem.new];
 		[appMenuItem setSubmenu:appMenu = NSMenu.new];	[appMenu  					   addItem:AZQUITMENU];
@@ -142,30 +112,69 @@ class != NULL ? [[class performSelector:select] log] : [[self performSelectorWit
 -  (IBA) toggleConsole:(id)s				{[NSLogConsole.sharedConsole performString:[NSLogConsole.sharedConsole isOpen] ? @"close" : @"open"]; }
 - (void) mainMenu 							{
 
-	CurrentIMP;	_selectionDecoder = NSMD.new;
-	NSA *z 		= COLORIZE(@"AtoZCLI!",RANDOMCOLOR,@" - Please choose a test option:\n",PURPLE, @"Available Frameworks:\n",YELLOW,ORANGE,@"Available Mehod Tests:\n", nil);
-	NSA *menus 	= @[[self.class cliMenuFor:AZBUNDLE.frameworkIdentifiers starting:100 palette:_palette ],
-						 [self.class cliMenuFor:@[@"mainMenu",@"runAClassMethod", @"envTest", @"instanceMethodNames", @"frameworkMenu", @"rainbowArrays",@"variadicColorLogging", @"processInfo"] starting:0 palette:self.palette]];
-	NSA *print 	= @[[z[0]clr], [z[1]clr], [z[2]clr], menus[0], [z[3]clr], menus[1]];
-	[NSTerminal printString:[print reduce:@"\n" withBlock:^id(id sum, id obj){ return $(@"%@%@\n",sum, obj); }]];
-	
-	__block void (^loop) (); __block BOOL *stop = NO;
-	loop = ^{
-		NSString *menuSelect = [NSTerminal readString];
-		*stop = [menuSelect containsAnyOf:@[@"menu",  @"m"]];
+	CurrentIMP;	
+	_selectionDecoder = @{	    @"fwMenu": AZBUNDLE.frameworkIdentifiers, 
+									@"methodMenu": @[	@"mainMenu",@"runAClassMethod", @"envTest", @"instanceMethodNames", 
+															@"frameworkMenu", @"rainbowArrays",@"variadicColorLogging", @"processInfo"]}.mutableCopy;
+	AZCLIMenu *meths, *fws;
+	[NSTerminal printString:[@[[COLORIZE(@"Welcome to AtoZCLI!",
+									 RANDOMCOLOR, nil)[0] clr],
+										[COLORIZE(@"Please choose a test option:",
+											PURPLE, nil)[0] clr],
+	 									[COLORIZE(@"Available Frameworks:",
+										   YELLOW, nil)[0] clr],
+										(fws = [AZCLIMenu cliMenuFor:_selectionDecoder[@"fwMenu"] starting:100 palette:self.palette]).menu.clr,
+										[COLORIZE(@"Available METHODS:",				
+										    GREEN, nil)[0] clr],
+										(meths = [AZCLIMenu cliMenuFor:_selectionDecoder[@"methodMenu"] starting:0 palette:self.palette]).menu.clr]componentsJoinedByString:@"\n"]];
+//	NSLog(@"menu meths: %@", meths.propertiesPlease);
+	NSLog(@"%@", [AZCLIMenu allInstances]);
+	int winner = -1; 
+//	NSIS *mIdxs = [AZCLIMenu  indexesOfMenus];
+	do {  
+		int contender;
+//		NSLog(@"%@", AZString( contender = [NSTerminal readInt])); //	int contender = MIN(200,(int) );	
+//		NSLog(@"IDXSxt:%ld contend:%i win: %i",mIdxs.count, contender, winner);//, _selectionDecoder);
 	//	[self.class handleInteractionWithPrompt:nil block:^(NSString *output) {	fprintf(stderr, "stderrInBlk:%s", output.UTF8String);
-		self.lastCommand = _selectionDecoder [menuSelect];
-		LOGCOLORS(RED, $(@"rquested:\"%@\"", _lastCommand), nil);
-		AZCLITest test;
-		BOOL respondez = [self respondsToSelector:NSSelectorFromString(_lastCommand)];
-		NSLog(@"responds: %@", StringFromBOOL(respondez));
-		id what = [self valueForKey:_lastCommand];
-		NSLog(@"cfk: %@ equal to cliclass: %@... %@", NSStringFromClass([what class]), test, StringFromBOOL(areSame([what class], [test class])));	
-	};
-		while (!stop) loop();
+
+	} while (winner == -1);
+	
+//	self.lastCommand = menuSelect;
+	LOGCOLORS(RED, @"rquested:", _lastCommand,PURPLE, nil);
+//	SEL select = NSSelectorFromString(words[2]);		
+//		Class class = NSClassFromString(words[1]);
+//		if (class_getClassMethod(class, select) != nil)
+//			[[class performSelector:select]log];
+//		else
+//			[[[NSStringFromClass(class) withString:@"class: %@ didnt respond to selector:" ] withString:NSStringFromSelector(select)]log];
+//		if (class_getInstanceMethod([self class], select) != nil)
+//			[self performSelector:select];
+//		else
+//			[[@"i didnt respond to selector:"withString:NSStringFromSelector(select)]log];
+//		self.mainMenu;
+//
+//	AZCLITest test;
+//	BOOL respondez = [self respondsToSelector:NSSelectorFromString(_lastCommand)];
+//	NSLog(@"responds: %@", StringFromBOOL(respondez));
+//	id what = [self valueForKey:_lastCommand];
+//	NSLog(@"cfk: %@ equal to cliclass: %@... %@", NSStringFromClass([what class]), test, StringFromBOOL(areSame([what class], [test class])));	
 //	}];
 	//fflush(stdout); }];
 }
+- (void) colorLogging 				{
+//	COLORLOG(YELLOw, @"whatever %@", @3, nil);   
+//	NSD *allColorInfo = NSC.colorLists ;
+//	NSLog(@"Available named colors:\n%@",   [NSS stringFromArray:[allColorInfo.allKeys map:^id (id obj) {
+//		return colorizeStringWithColor(
+//												 [obj stringByPaddingToLength:22 withString:@" " startingAtIndex:0],
+//												 allColorInfo[obj]);
+//	}]]);
+//	[self mainMenu];
+}
+- (VoidBlock) actionAtIndex {}
++ (void) load 							{ AtoZ.sharedInstance; }
++ (id) blockEval:(id(^)(id blockArgs, ...))block {	 return block(self);	 }
+
 - (void) runAClassMethod 					{
 
 	static BOOL stop = NO;
@@ -173,7 +182,7 @@ class != NULL ? [[class performSelector:select] log] : [[self performSelectorWit
 	NSMS *classlist = @"".mutableCopy; NSMS *methodlist = @"".mutableCopy;
 	NSI historyIdx;
 	LOGCOLORS(@"Enter class Name, ie. \"NSColor\"... or Select a class from history:", PINK, nil);
-	fprintf(stderr, "%s", [self.class cliMenuFor:classes starting:0 palette:NSC.randomPalette].UTF8String);
+	[NSTerminal printString:[AZCLIMenu cliMenuFor:classes starting:0 palette:NSC.randomPalette]];
 	NSString *inputString = [NSString stringWithData:[NSData dataWithData:[NSFileHandle.fileHandleWithStandardInput readDataToEndOfFile]] encoding:NSUTF8StringEncoding];
 	if (inputString.isIntegerNumber) {
 			historyIdx = inputString.integerValue;
@@ -181,7 +190,7 @@ class != NULL ? [[class performSelector:select] log] : [[self performSelectorWit
 		}
 		else [classes doesNotContainObject:inputString] && inputString ? [classes addObject:inputString] : nil;
 	
-	fprintf(stderr, "class method name: %s", methods.count ? [self.class cliMenuFor:methods starting:0 palette:NSC.randomPalette].UTF8String : "");
+	fprintf(stderr, "class method name: %s", methods.count ? [AZCLIMenu cliMenuFor:methods starting:0 palette:NSC.randomPalette].menu.UTF8String : "");
 	NSString *inputMethod = [NSString stringWithData:[NSData dataWithData:[NSFileHandle.fileHandleWithStandardInput readDataToEndOfFile]] encoding:NSUTF8StringEncoding];
 	if (inputMethod.isIntegerNumber) {
 		historyIdx = inputMethod.integerValue;
@@ -193,12 +202,6 @@ class != NULL ? [[class performSelector:select] log] : [[self performSelectorWit
 	NSLog(@"aRes: %@", aRes);
 	if (!stop) [self runAClassMethod];
 }
-- (void) addMethodFromString:(NSS*)s 	{
-
-	IMP myIMP = imp_implementationWithBlock(^(id _self, NSString *string) {		NSLog(@"Hello %@", string);
-	});
-	class_addMethod([self class], NSSelectorFromString(s), myIMP, "v@:@");
-}
 - (void) envTest								{
 
 	struct winsize w;
@@ -207,10 +210,6 @@ class != NULL ? [[class performSelector:select] log] : [[self performSelectorWit
 }
 - (NSA*) palette								{ 	return  _palette ?: [NSC colorsInListNamed:@"FengShui"]; }
 - (NSC*) nextColor	      	  		   {    static NSUI _p = 0; _p++; return [self.palette normal:_p];	}
-- (NSS*) frameworkMenu  					{    return [NSS stringFromArray:[AZFWORKBUNDLE.frameworkIdentifiers nmap:^id (id obj, NSUI i) {
-            return $(@"%ld:%@", 100 + i, [colorizeStringWithColor(obj, self.nextColor) paddedTo:60].colorLogString);
-        }]];
-}
 - (void) rainbowArrays 						{ LOGCOLORS(NSS.dicksonBible.words, NSC.randomPalette,nil); }
 - (void) variadicColorLogging	 			{
     LOGCOLORS(RED, @"red", ORANGE, @"orange", YELLOw, @"yellow", GREEN, @"green", BLUE, @"blue", PURPLE, GREY, "purple (but not in the right order", "Grey (also out of order)", nil);
@@ -226,10 +225,9 @@ class != NULL ? [[class performSelector:select] log] : [[self performSelectorWit
 - (VoidBlock) stringFunctions				{
 
 	return ^{	NSS*w =  NSS.randomBadWord;	[AZTalker say:w];
-					AZCLogFormat("The sum of 50 + 25 is %s", colorizeStringWithColor(w, GREEN).colorLogString.UTF8String);
+					AZCLogFormat("The sum of 50 + 25 is %s", [AZLOGSHARED colorizeString:w withColor:GREEN].colorLogString.UTF8String);
    };
 }
-+ (NSFH*) stdinHandle						{ return AZSTDIN; }
 @end
 @implementation AtoZ (CLIWindow)
 + (NSW*) popDrawWindow:(BNRBlockViewDrawer)blk {

@@ -3,6 +3,7 @@
 //  AtoZ
 
 #import "NSArray+AtoZ.h"
+#import "AZLog.h"
 
 
 @implementation NSArray (EnumExtensions)

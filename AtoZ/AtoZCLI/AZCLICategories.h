@@ -21,7 +21,7 @@
 //+ (instancetype) instanceWithColorList:(NSCL*)list;
 //+ (instancetype) instanceWithNames:(NSA*)names;
 //+ (instancetype) instanceWithColors:(NSA*)names;
-+ (NSS*) cliMenuFor:(NSA*)items starting:(NSUI)idx palette:(NSA*)p;
+//+ (NSS*) cliMenuFor:(NSA*)items starting:(NSUI)idx palette:(NSA*)p;
 
 
 // send a simple program to clang using a GCD task
@@ -31,4 +31,14 @@
 // invoke clang using an NSTask, reading output via notifications and providing input via an async GCD task
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification;
 
+@end
+
+@interface AZCLIMenu : BaseModel
++ (NSIS*) indexesOfMenus;
+@property (RONLY, NATOM)			NSRNG		range;
+@property (NATOM,STRNG)			id			identifier;
+@property (RONLY)			NSS		*menu;
+@property (NATOM,STRNG) id 	palette;
+@property (NATOM,  ASS) NSI  startIdx;
++ (instancetype) cliMenuFor:(NSA*)items starting:(NSUI)idx palette:(id)p;
 @end

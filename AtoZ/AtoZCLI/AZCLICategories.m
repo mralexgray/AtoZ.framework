@@ -1,3 +1,4 @@
+
 //
 //  AZCLICategories.m
 //  AtoZ
@@ -20,11 +21,8 @@
 //static NSMD *cls = nil;
 
 @implementation AZCLI (Categories)
-
-
 + (void) handleInteractionWithPrompt:(NSS*)string block:(void(^)(NSString *output))block {
-	
-	
+
 //	NSFH   *handle = self.stdinHandle;
 //	NSData   *rawD = [NSData dataWithData:handle.readDataToEndOfFile];
 	NSS	  *outie = 	[NSTerminal readString]; //[NSString stringWithData:rawD encoding:NSUTF8StringEncoding];
@@ -37,19 +35,54 @@
 //
 //+ (void) load { cls = NSMD.new; }
 
-+ (NSS*) cliMenuFor:(NSA*)items starting:(NSUI)idx palette:(id)p {
+@end
 
+@implementation AZCLIMenu
+
++ (NSIS*) indexesOfMenus {
+//	NSA* all = [self allInstances];
+//	[all log];	
+	
+	id allof = [self allInstances];
+	NSLog(@"Allofclass: %@", NSStringFromClass(allof));
+	NSMIS* is = NSMIS.new;
+	if (.count) {
+//		NSLog(@"Allinstances:%@", all);// [[@"a".classProxy vFK:NSStringFromClass(self.class)] performSelectorWithoutWarnings:NSSelectorFromString(@"allInstancesAddOrReturn:") withObject:nil]);
+			for (AZCLIMenu *m in [self allInstances]) {
+//			
+			 NSLog(@"%@ RANGE:%@", m, NSStringFromRange(m.range));  [is addIndexesInRange:m.range];
+			}
+	}
+	
+	return is;
+}
+
+//- (void) setUp { NSLog(@"Normal setup");  [self  performSelector:NSSelectorFromString(@"swizzleSetUp")]; }
+
++ (instancetype) cliMenuFor:(NSA*)items starting:(NSUI)idx palette:(id)p {
+	AZCLIMenu *m = [AZCLIMenu.alloc init];
+	[m setUp];
+	m.defaultCollection = items;
+	m.startIdx = idx;
+	m.palette = p;
+	return m;
+}	
+- (id) identifier { return _identifier = _identifier ?: self.uniqueID; }
+- (NSRNG) range {  return  NSMakeRange(self.startIdx, [self.defaultCollection count]); }
+- (NSS*)menu {
+
+	NSA* items = self.defaultCollection;
 	NSUI maxlen 	= ceil([items lengthOfLongestMemberString] * 1);	// deduce longest string
 	NSUI cols 		= floor(120.f/(float) maxlen);								// accomodate appropriate number of cols.
-	NSUI maxIndex 	= $(@"%lu: ", idx + items.count).length;  			// make sure numbers fit nice
-	__block NSUI i = idx -1;													// start at an index
-	return  [items reduce:@"\n" withBlock:^id(id sum, id obj) {		i++; // Allow goruped indexes.
-		[[self sharedInstance]selectionDecoder][@(i)] = obj;
+	NSUI maxIndex 	= $(@"%lu: ", self.startIdx + items.count).length;  			// make sure numbers fit nice
+	__block NSUI i = _startIdx -1;													// start at an index
+	return  [items reduce:@"" withBlock:^id(id sum, id obj) {		i++; // Allow goruped indexes.
+		[[AZCLI sharedInstance]selectionDecoder][@(i)] = obj;
 		NSS* paddedIndex = [ $(@"%lu: ", i) paddedTo:maxIndex];
 		NSS* 	outP = (i % cols) == 0 ? @"\n" : @"";
 				outP = [outP withString:paddedIndex];
 //				NSC* c = [p ISKINDA:NSCL.class] ?[[p colors] normal: i] : [p normal:1];
-				outP = [outP withString:colorizeStringWithColor([$(@"%@",obj) paddedTo:maxlen], [p  normal:i]).colorLogString];
+				outP = [outP withString:[AZLOGSHARED colorizeString:[$(@"%@",obj) paddedTo:maxlen] withColor:[self.palette  normal:i]].colorLogString];
 		return outP ? [sum withString:outP] : sum;
 	}];		  /* Find the longest string and base our columns on that. */
 }

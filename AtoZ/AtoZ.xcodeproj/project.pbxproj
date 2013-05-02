@@ -106,6 +106,8 @@
 		7B1B352516F3396600B94864 /* AZSpeechRecognition.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B1B352316F3396600B94864 /* AZSpeechRecognition.m */; };
 		7B1C48DA1726C0BB007D9987 /* SNRHUDWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B28C1681714637C0068774A /* SNRHUDWindow.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B1C8F2115E49A3A00C30618 /* CategoryDataWheel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B1C8F2015E49A3A00C30618 /* CategoryDataWheel.m */; };
+		7B1EA00517325215007AB4E1 /* AZLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B1EA00317325215007AB4E1 /* AZLog.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B1EA00617325215007AB4E1 /* AZLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B1EA00417325215007AB4E1 /* AZLog.m */; };
 		7B22CA83161B321100D17C40 /* AZSound.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B22CA81161B321100D17C40 /* AZSound.m */; };
 		7B22CA84161B33E600D17C40 /* AZSound.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B22CA80161B321100D17C40 /* AZSound.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B22CA86161B358700D17C40 /* welcome.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7B22CA85161B358700D17C40 /* welcome.wav */; };
@@ -1862,6 +1864,9 @@
 		7B1B352316F3396600B94864 /* AZSpeechRecognition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AZSpeechRecognition.m; path = ../Classes/AZSpeechRecognition.m; sourceTree = "<group>"; };
 		7B1C8F1F15E49A3A00C30618 /* CategoryDataWheel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryDataWheel.h; sourceTree = "<group>"; };
 		7B1C8F2015E49A3A00C30618 /* CategoryDataWheel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryDataWheel.m; sourceTree = "<group>"; };
+		7B1EA00317325215007AB4E1 /* AZLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZLog.h; sourceTree = "<group>"; };
+		7B1EA00417325215007AB4E1 /* AZLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZLog.m; sourceTree = "<group>"; };
+		7B1EA04C1732AAC6007AB4E1 /* AZBeetljuice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AZBeetljuice.h; path = ../../AZBeetljuice.h; sourceTree = "<group>"; };
 		7B22CA80161B321100D17C40 /* AZSound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = AZSound.h; sourceTree = "<group>"; };
 		7B22CA81161B321100D17C40 /* AZSound.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZSound.m; sourceTree = "<group>"; };
 		7B22CA85161B358700D17C40 /* welcome.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = welcome.wav; sourceTree = "<group>"; };
@@ -4225,6 +4230,7 @@
 				7B1B352316F3396600B94864 /* AZSpeechRecognition.m */,
 				7BCDFC6E15C71B340003DA4D /* Essential */,
 				7B311961159B6D9E002134C4 /* AtoZ.h */,
+				7B1EA04C1732AAC6007AB4E1 /* AZBeetljuice.h */,
 				7B311962159B6D9E002134C4 /* AtoZ.m */,
 				7B6901D7159E3AC600D0DA47 /* AtoZUmbrella.h */,
 				7B2586401719B04E00527501 /* AtoZTypes.h */,
@@ -4864,6 +4870,8 @@
 				7BF9854E15FEBDF900D47192 /* NSBag.m */,
 				7B0D66921715E4500032F5D3 /* BaseModel+AtoZ.h */,
 				7B0D66931715E4500032F5D3 /* BaseModel+AtoZ.m */,
+				7B1EA00317325215007AB4E1 /* AZLog.h */,
+				7B1EA00417325215007AB4E1 /* AZLog.m */,
 			);
 			name = Essential;
 			path = ../Classes;
@@ -5420,6 +5428,7 @@
 				7B0838EA172F247100301FB2 /* NSTextView+SyntaxColoring.h in Headers */,
 				7B7287081731D0EB005BCA03 /* NSTerminal.h in Headers */,
 				7B72870B1731DC27005BCA03 /* AtoZCategories.h in Headers */,
+				7B1EA00517325215007AB4E1 /* AZLog.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6966,6 +6975,7 @@
 				7BC77D7B1729D3A30075AFEE /* AZXMLWriter.m in Sources */,
 				7B0838EB172F247100301FB2 /* NSTextView+SyntaxColoring.m in Sources */,
 				7B7287091731D0F2005BCA03 /* NSTerminal.mm in Sources */,
+				7B1EA00617325215007AB4E1 /* AZLog.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7367,6 +7377,7 @@
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "/Volumes/2T/ServiceData/AtoZ.framework/AtoZ/AtoZ-Framework.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -7389,6 +7400,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = "";
+				USER_HEADER_SEARCH_PATHS = /Library/Frameworks/AtoZ.framework/Headers;
 			};
 			name = Debug;
 		};
@@ -7408,6 +7420,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "/Volumes/2T/ServiceData/AtoZ.framework/AtoZ/AtoZ-Framework.pch";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
@@ -7425,6 +7438,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = "";
+				USER_HEADER_SEARCH_PATHS = /Library/Frameworks/AtoZ.framework/Headers;
 			};
 			name = Release;
 		};

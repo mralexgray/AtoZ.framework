@@ -415,7 +415,7 @@ NSS* DDLEVEL2STRING		  (DDLogMessage*m) 	{
 	/*	lM->logMsg 		lM->file		lm->lineNumber	lM->function	lM.fileName	DDLEVEL2STRING(lm) DDLEVEL2INT(lM) */
 	NSS* file = $(@"[%@]", [$UTF8(lM->file).lastPathComponent stringByDeletingPathExtension]);
 	file = [[file truncateInMiddleToCharacters:12]paddedTo:12];
-	file = colorizeStringWithColor(file, GREEN);
+	file = [AZLOGSHARED colorizeString:file withColor:GREEN];
 	printf("%s", file.UTF8String);
 	return $(@"%@:%i%@", file , lM->lineNumber, lM->logMsg);
 }
