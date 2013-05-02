@@ -808,7 +808,7 @@ NSView* AZResizeWindowAndContent(NSWindow* window, CGF dXLeft, CGF dXRight, CGF 
 	//	addObserver:self selector:@selector(boundsDidChange:) name:NSViewBoundsDidChangeNotification object:contentView];
 }
 
-
+- (BOOL) autoScrollToBottom {  return [self associatedValueForKey:@"autoScroll"]; }
 
 #define AUTOSCROLL_CATCH_SIZE 	20	//The distance (in pixels) that the scrollview must be within (from the bottom) for auto-scroll to kick in.
 - (void)setAutoScrollToBottom:(BOOL)inValue

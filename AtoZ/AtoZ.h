@@ -33,7 +33,7 @@
 #import <DrawKit/DKDrawKit.h>
 #import <FunSize/FunSize.h>
 #import <Lumberjack/Lumberjack.h>
-#import <KSHTMLWriterFramework/KSHTMLWriterFramework.h>
+#import <KSHTMLWriterKit/KSHTMLWriterKit.h>
 #import <MapKit/MapKit.h>
 #import <NoodleKit/NoodleKit.h>
 //#import <Nu/Nu.h>
@@ -43,6 +43,7 @@
 #import <Zangetsu/Zangetsu.h>
 #import <AtoZBezierPath/AtoZBezierPath.h>
 #import <AtoZAppKit/BGHUDAppKit.h>
+#import <AIUtilities/AIUtilities.h>
 
 #import "JREnum.h"
 #import "AtoZUmbrella.h"
@@ -71,6 +72,9 @@
 #import "AtoZUmbrella.h"
 #import "AtoZGeometry.h"
 #import "AtoZFunctions.h"
+
+#import "AtoZCategories.h"
+
 
 /* MODEL */
 #import "JsonElement.h"
@@ -171,45 +175,6 @@
 #import "AtoZModels.h"
 #import "KGNoise.h"
 
-
-/* FOUNDATION  CATEGORIES */
-#import "NSBundle+AtoZ.h"
-#import "NSDictionary+AtoZ.h"
-#import "NSError+AtoZ.h"
-#import "NSFileManager+AtoZ.h"
-#import "NSImage+AtoZ.h"
-#import "NSImage-Tint.h"
-#import "NSIndexSet+AtoZ.h"
-#import "NSNotificationCenter+AtoZ.h"
-#import "NSNumber+AtoZ.h"
-#import "NSObject-Utilities.h"
-#import "NSObject+AtoZ.h"
-#import "NSObject+Properties.h"
-#import "NSScreen+AtoZ.h"
-#import "NSString+AtoZ.h"
-#import "NSThread+AtoZ.h"
-#import "NSUserDefaults+Subscript.h"
-#import "NSValue+AtoZ.h"
-//#import "NSManagedObjectContext+EasyFetch.h"
-//#import "NSUserDefaults+AtoZ.h"
-
-/* COCOA CATEGORIES	*/
-#import "NSDate+AtoZ.h"
-#import "NSFont+AtoZ.h"
-#import "NSOutlineView+AtoZ.h"
-#import "NSTask+OneLineTasksWithOutput.h"
-#import "NSEvent+AtoZ.h"
-#import "CAAnimation+AtoZ.h"
-#import "CALayer+AtoZ.h"
-#import "NSApplication+AtoZ.h"
-#import "NSURL+AtoZ.h"
-#import "NSCell+AtoZ.h"
-#import "NSBezierPath+AtoZ.h"
-#import "NSColor+AtoZ.h"
-#import "NSShadow+AtoZ.h"
-#import "NSView+AtoZ.h"
-#import "NSWindow+AtoZ.h"
-#import "NSTableView+AtoZ.h"
 
 //#import "MondoSwitch.h"
 //#import "AZToggleView.h"
@@ -313,9 +278,7 @@
 #import "AZSourceList.h"
 #import "BBMeshView.h"
 #import "CalcModel.h"
-#import "NSTextView+AtoZ.h"
 #import "StarLayer.h"
-#import "NSSplitView+DMAdditions.h"
 #import "XLDragDropView.h"
 #import "AGNSSplitViewDelegate.h"
 #import "AGNSSplitView.h"
@@ -367,8 +330,8 @@ extern NSString *const AtoZDockSortedUpdated;
 - (void) dockItemDidUpdateValues:(NSNotification*)info;
 @end
 
-#import "OperationsRunner.h"
 
+#import "OperationsRunner.h"
 @interface AZClassProxy : NSObject
 - (id)valueForUndefinedKey:(NSString *)key;
 @end
@@ -426,7 +389,7 @@ extern NSString *const AtoZDockSortedUpdated;
 +  (void) badgeApplicationIcon:  (NSS*)string;
 +  (void) testVarargs: (NSA*)args;
 +  (void) varargBlock: (AZVA_ArrayBlock)block withVarargs:(id)varargs, ...;
-+  (void) sendArrayTo: (SEL)method inClass:(Class)class withVarargs:(id)varargs, ...;
++  (void) sendArrayTo: (SEL)method inClass:(Class)klass withVarargs:(id)varargs, ...;
 -  (void) performBlock:(VoidBlock)block waitUntilDone:(BOOL)wait;
 - (NSJS*) jsonRequest: (NSString*) url;
 + (NSJS*) jsonRequest: (NSString*) url;

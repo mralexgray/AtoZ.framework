@@ -5,6 +5,7 @@
 JREnumDefine(AZQuadrant);
 JREnumDefine(Color);
 JROptionsDefine(AZAlign);
+JREnumDefine(AZWindowPosition);
 
 NSC* Clr(Color c) {
 	return 	c == ColorNone 	? nil 		 :	c == ColorRed 	? RED		 	:	c == ColorOrange 	? ORANGE		 	:
@@ -111,7 +112,7 @@ void logNilTerminatedListOfColorsAndStrings ( const char*pretty, id colorsAndThi
 	LogEnv e =  AZLogEnv(); __block NSUI ctr = 0;
 	if (!colors.count) colors = @[WHITE].mutableCopy;
 	if (!words.count) {  printf( "WARNING, NO WORDS TO PRINT: %s", pretty); return; }
-	printf("%s", e != LogEnvXcodeColor ? [words componentsJoinedByString:@" "].UTF8String :
+	fprintf(stderr, "%s", //e != LogEnvXcodeColor ? [words componentsJoinedByString:@" "].UTF8String :
 
 	 [[words reduce:LOG_CALLER_VERBOSE ? @"LOGCOLORS: ":@"" withBlock:^NSS*(NSS *sum,NSS *o) {
 															NSC  *c 				= [colors normal:ctr];	ctr++;
@@ -152,7 +153,7 @@ void _AZColorLog					 (id color, const char *filename, int line, const char *fun
 		//	[func containsAnyOf:@[@"///Color"]] ? @"" : func.colorLogString];	//	fflush(stdout);
 		fprintf(stdout, "%s\n", output.UTF8String);
 
-	}() : ^{ printf("%s",$(@"[%@]:%i %s %@\n", path, line, funcName, mess).UTF8String); return; }();
+	}() : ^{ printf("%s",$(/*@"[%@]:%i @"%s*/ @"%@\n",/* path, line, funcName,*/ mess).UTF8String); return; }();
 //										XCODE_COLORS_ESCAPE @"fg140,140,140;"   @":%i"  XCODE_COLORS_RESET
 //										XCODE_COLORS_ESCAPE @"fg109,0,40;"  @" %s "		 XCODE_COLORS_RESET
 //										XCODE_COLORS_ESCAPE @"%@" "%@"XCODE_COLORS_RESET @"\n",
@@ -298,7 +299,7 @@ char** cArrayFromNSArray ( NSArray* array ){
   cargs[i] = NULL;
   return cargs;
 }
-/*
+
 	NSString *path= @"/Volumes/2T/ServiceData/git/VideoIO/VideoIO/weather.py";
 	NSString *path= @"/cgi/hostname.py";
 	NSString *path= @"/cgi/repeater.py";
@@ -852,7 +853,7 @@ NSString * AZToStringFromTypeAndValue(const char *typeCode, void *value) {
 		   : SameChar( typeCode, @encode(  NSSZ )) ? NSStringFromSize(*(NSSize *)value)
 		   : SameChar( typeCode, @encode(   NSR )) ? AZStringFromRect(*(NSRect *)value)
 		   : SameChar( typeCode, @encode(  BOOL )) ? StringFromBOOL(*(BOOL *)value)
-		   : SameChar( typeCode, @encode( AZPOS )) ? stringForPosition(*(AZWindowPosition *)value)
+		   : SameChar( typeCode, @encode( AZPOS )) ? AZWindowPositionToString(*(AZWindowPosition *)value)
 		   : SameChar( typeCode, @encode(   CGF )) ? $(@"%f",					   *((CGF *)value))
 		   : SameChar( typeCode, @encode(  NSUI )) ? $(@"%lu",					  *((NSUI *)value))
 		   : SameChar( typeCode, @encode(   int )) ? $(@"%d",					   *((int *)value))
@@ -912,7 +913,9 @@ NSString * AZStringFromPoint(NSP p) {
 
 NSString * AZStringFromRect(NSRect rect) {
 //	NSString *demo=[NSS.alloc initWithData:[NSData dataWithBytes:"✖" length:0] encoding:NSUnicodeStringEncoding];
-	return $(@"[x.%0.f y.%0.f [%0.f x %0.f]]", rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
+// good, but...	return $(@"[x.%0.f y.%0.f [%0.f x %0.f]]", rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
+	NSP o, tl, apex, br; o = rect.origin;  tl = AZTopLeftPoint(rect); apex = AZTopRightPoint(rect);  br = AZBotRightPoint(rect);
+	return $(@"%3ld,%3ld ⌱ %3ld,%3ld  [%3ld x %-3ld]\n%3ld,%3ld ⟀ %3ld,%3ld", (NSI)tl.x,(NSI)tl.y, (NSI)apex.x, (NSI)apex.y, (NSI)rect.size.width, (NSI)rect.size.height, (NSI)o.x, (NSI)o.y, (NSI)br.x, (NSI)br.y);
 }
 
 //static void glossInterpolation(void *info, const float *input);
@@ -1627,6 +1630,7 @@ CGPathRef AZRandomPathWithStartingPointInRect(CGPoint firstPoint, NSR inRect) {
 //@interface  NSMutableDictionary (SubscriptsAdd)
 //- (void)setObject:(id)object forKeyedSubscript:(id)key;
 //@end
+
 #include <AvailabilityMacros.h>
 #include <TargetConditionals.h>
 

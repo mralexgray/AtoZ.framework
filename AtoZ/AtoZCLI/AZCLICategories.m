@@ -8,6 +8,7 @@
 
 #import "AZCLICategories.h"
 #import "AtoZ.h"
+#import "NSTerminal.h"
 
 //@implementation NSArray (AZCLI)
 //- (NSS*) cliMenuFromContentsStarting:(NSUI)idx inPalette:(NSA*)pal {
@@ -20,18 +21,30 @@
 
 @implementation AZCLI (Categories)
 
+
++ (void) handleInteractionWithPrompt:(NSS*)string block:(void(^)(NSString *output))block {
+	
+	
+//	NSFH   *handle = self.stdinHandle;
+//	NSData   *rawD = [NSData dataWithData:handle.readDataToEndOfFile];
+	NSS	  *outie = 	[NSTerminal readString]; //[NSString stringWithData:rawD encoding:NSUTF8StringEncoding];
+	[NSTerminal printString:outie];
+//	fprintf(stderr, "rawstring:%s", outie.UTF8String);
+	block(outie);
+}
+
 //- (id) objectAtIndexedSubscript:(NSUInteger)idx { return [self.colors normal:idx]; }
 //
 //+ (void) load { cls = NSMD.new; }
 
-- (NSS*) cliMenuFor:(NSA*)items starting:(NSUI)idx palette:(id)p {
++ (NSS*) cliMenuFor:(NSA*)items starting:(NSUI)idx palette:(id)p {
 
-	NSUI maxlen = ceil([items lengthOfLongestMemberString] * 1);	// deduce longest string
-	NSUI cols = floor(120.f/(float) maxlen);								// accomodate appropriate number of cols.
-	NSUI maxIndex = $(@"%lu: ", idx + items.count).length;  			// make sure numbers fit nice
+	NSUI maxlen 	= ceil([items lengthOfLongestMemberString] * 1);	// deduce longest string
+	NSUI cols 		= floor(120.f/(float) maxlen);								// accomodate appropriate number of cols.
+	NSUI maxIndex 	= $(@"%lu: ", idx + items.count).length;  			// make sure numbers fit nice
 	__block NSUI i = idx -1;													// start at an index
 	return  [items reduce:@"\n" withBlock:^id(id sum, id obj) {		i++; // Allow goruped indexes.
-		self.selectionDecoder[@(i)] = obj;
+		[[self sharedInstance]selectionDecoder][@(i)] = obj;
 		NSS* paddedIndex = [ $(@"%lu: ", i) paddedTo:maxIndex];
 		NSS* 	outP = (i % cols) == 0 ? @"\n" : @"";
 				outP = [outP withString:paddedIndex];
@@ -81,5 +94,40 @@
 //- (void)insertObject:(__INSERTABLE_CLASS__*)o in__CAPPED_KEY__AtIndex:(NSUI)i {	[[self __INTERNAL_KEYPATH__] insertObject:o atIndex:i]; }\
 //
 //SynthesizeMutableAccessors(@"colors",cls[name],NSC);
-//
+
+
+- (void) provideStdin:						(NSFH*)std	{
+	// send a simple program to clang using a GCD task
+   dispatch_queue_t aQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+   dispatch_async(aQueue, ^{
+      [std writeData:[ @"int main(int argc, char **argv)\n"	dataUsingEncoding:NSUTF8StringEncoding]];
+      [std writeData:[ @"{\n" 										dataUsingEncoding:NSUTF8StringEncoding]];
+      [std writeData:[ @"   write(1, \"hello\\n\", 6);\n" 	dataUsingEncoding:NSUTF8StringEncoding]];
+      [std writeData:[ @"}\n" 										dataUsingEncoding:NSUTF8StringEncoding]];
+      [std closeFile];	// sent the code, close the file (pipe in this case)
+   });
+}
+- (void) getData:								(NSNOT*)n 	{
+	// read the output from clang and dump to console
+   NSS *textRead = [NSS stringWithData:[n.userInfo objectForKey:NSFileHandleNotificationDataItem] encoding:NSUTF8StringEncoding];
+   NSLog(@"read %3ld: %@", (long)textRead.length, textRead);
+}
+- (void) applicationDidFinishLaunching:(NSNOT*)n	{
+
+// invoke clang using an NSTask, reading output via notifications and providing input via an async GCD task
+   NSTask *task 			= NSTask.new;
+   NSPipe *outputPipe 	= NSPipe.new;
+   NSPipe *inPipe 		= NSPipe.pipe;
+	task.standardOutput 	= outputPipe;
+   task.standardError 	= outputPipe;
+   NSFH *outputHandle 	= outputPipe.fileHandleForReading;
+	task.standardInput	= inPipe;
+   task.launchPath		= @"/usr/bin/clang";
+   task.arguments			= @[@"-o", @"/tmp/clang.out", @"-xc",@"-"];
+   [AZNOTCENTER addObserver:self selector:@selector(getData:) name:NSFileHandleReadCompletionNotification object:outputHandle];
+   [outputHandle readInBackgroundAndNotify];
+   [task launch];
+   [self provideStdin:inPipe.fileHandleForWriting];
+}
+
 @end

@@ -198,3 +198,15 @@
 	path = Frameworks/TransformerKit
 	url = https://github.com/mralexgray/TransformerKit.git
 	ignore = dirty
+[submodule "Frameworks/Adium"]
+	path = Frameworks/Adium
+	url = https://github.com/mralexgray/adium.git
+[submodule "www/Flat-UI"]
+	path = www/Flat-UI
+	url = https://github.com/mralexgray/Flat-UI.git
+[submodule "www/jquery-mobile-square-ui-theme"]
+	path = www/jquery-mobile-square-ui-theme
+	url = https://github.com/mralexgray/jquery-mobile-square-ui-theme.git
+[submodule "AtoZ/AtoZCLI/NSTerminal"]
+	path = AtoZ/AtoZCLI/NSTerminal
+	url = https://github.com/mralexgray/NSTerminal.git

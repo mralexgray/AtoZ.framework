@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<title>Isometric Grid Generator</title>
+		<link rel="stylesheet" type="text/css" href="css/stylesheet.css" />
+		<script type="text/javascript">
+
+			var oElement = document.documentElement;
+			var oCanvas = document.createElement('canvas');
+			var oContext = oCanvas.getContext("2d");
+
+			function updateGrid() {
+				var gridSettings = document.getElementById('grid-settings');
+
+				var gridWidthElement = gridSettings['grid-width'];
+				var gridHeightElement = gridSettings['grid-height'];
+
+				var gridWidth = parseInt(gridWidthElement.value, 10);
+				var gridHeight = parseInt(gridHeightElement.value, 10);
+
+				gridWidthElement.previousElementSibling.innerHTML = gridWidth;
+				gridHeightElement.previousElementSibling.innerHTML = gridHeight;
+
+				oCanvas.setAttribute('width', gridWidth);
+				oCanvas.setAttribute('height', gridHeight);
+
+				oContext.clearRect(0, 0, gridWidth, gridHeight);
+				oContext.beginPath();
+				oContext.moveTo(gridWidth / 2, 0);
+				oContext.lineTo(0, gridHeight / 2);
+				oContext.lineTo(gridWidth / 2, gridHeight);
+				oContext.lineTo(gridWidth, gridHeight / 2);
+				oContext.lineTo(gridWidth / 2, 0);
+				oContext.stroke();
+				oElement.style.backgroundImage = 'url("'+oCanvas.toDataURL()+'")';
+			}
+
+			function download() {
+				var imageUri = oElement.style.backgroundImage;
+				imageUri = imageUri.split('(').pop();
+				imageUri = imageUri.split(')').shift();
+				window.open(imageUri);
+			}
+		</script>
+	</head>
+	<body onload="updateGrid();">
+		<div class="toolbar-bg"></div>
+		<form id="grid-settings" class="toolbar">
+			<div class="setting-name">Grid width</div>
+			<div class="setting-value">
+				<span></span>
+				<input onchange="updateGrid();" type="range" value="64" name="grid-width" min="10" max="200" />
+			</div>
+			<div class="setting-name">Grid height</div>
+			<div class="setting-value">
+				<span></span>
+				<input onchange="updateGrid();" type="range" value="32" name="grid-height" min="10" max="200" />
+			</div>
+			<input type="button" value="Download background" onclick="download();" />
+		</form>
+	</body>
+</html>

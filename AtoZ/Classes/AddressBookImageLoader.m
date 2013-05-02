@@ -34,7 +34,7 @@ static NSString * const kImageDataKey = @"image";
 - (void) 	  setImageSubtitle:	   ( NSString*) title {	_displayName = [title copy];	}
 - (NSIMG*)	  image 	 			  {	return _image 	= _image ?: [_ref imageData]
 														? [NSImage.alloc initWithData:_ref.imageData]
-														: [NSIMG monoIconNamed:@"67"];		}
+														: NSIMG.monoIcons[@"67"];		}
 
 @end
 

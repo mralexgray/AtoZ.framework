@@ -1,254 +1,131 @@
+
 #ifdef __OBJC__
-#import <Availability.h>
-#import <TargetConditionals.h>
-#if TARGET_OS_IPHONE
-#if __IPHONE_OS_VERSION_MIN_REQUIRED
-#import <SystemConfiguration/SystemConfiguration.h>
-#import <MobileCoreServices/MobileCoreServices.h>
-#import <sys/xattr.h>
-#else
-#import <SystemConfiguration/SystemConfiguration.h>
-#import <CoreServices/CoreServices.h>
+	//#import <Availability.h>
+	//#import <TargetConditionals.h>
+	//#if TARGET_OS_IPHONE && __IPHONE_OS_VERSION_MIN_REQUIRED
+	//#import <SystemConfiguration/SystemConfiguration.h>
+	//#import <MobileCoreServices/MobileCoreServices.h>
+	//#import <sys/xattr.h>
+	//#else
+	#import <pwd.h>
+	#import <stdio.h>
+	#import <netdb.h>
+	#import <dirent.h>
+	#import <unistd.h>
+	#import <xpc/xpc.h>
+	#import <sys/time.h>
+	#import <sys/ioctl.h>
+	#import <sys/sysctl.h>
+	#import <sys/stat.h>
+	#import <sys/types.h>
+	#import <sys/xattr.h>
+	#import <arpa/inet.h>
+	#import <objc/objc.h>
+	#import <netinet/in.h>
+	#import <objc/message.h>
+	#import <objc/runtime.h>
+	#import <libkern/OSAtomic.h>
+	#import <Cocoa/Cocoa.h>
+	#import <AppKit/AppKit.h>
+	#import <Carbon/Carbon.h>
+	#import <Quartz/Quartz.h>
+	#import <Python/Python.h>
+	#import <Security/Security.h>
+	#import <Foundation/Foundation.h>
+	#import <QuartzCore/QuartzCore.h>
+	#import <AudioToolbox/AudioToolbox.h>
+	#import <CoreFoundation/CoreFoundation.h>
+	#import <CoreServices/CoreServices.h>
+	#import <AVFoundation/AVFoundation.h>
+	#import <ApplicationServices/ApplicationServices.h>
+	#import <SystemConfiguration/SystemConfiguration.h>
+
+// #undef ah_retain #undef ah_dealloc #undef ah_autorelease autorelease #undef ah_dealloc dealloc	 
+
+	#if __has_feature(objc_arc)											// ARC Helper Version 2.2
+		#define ah_retain 		self
+		#define ah_release 		self
+		#define ah_autorelease 	self
+		#define release 			self										// Is this right?  Why's mine different?
+		#define autorelease 		self										// But shit hits fan without.
+		#define ah_dealloc 		self
+	#else
+		#define ah_retain 		retain
+		#define ah_release 		release
+		#define ah_autorelease 	autorelease
+		#define ah_dealloc 		dealloc
+		#undef 	__bridge
+		#define  __bridge
+		#undef   __bridge_transfer
+		#define  __bridge_transfer
+	#endif
+	#if !__has_feature(objc_arc_weak)									// Weak reference support
+		#undef 	  ah_weak
+		#define 	  ah_weak   unsafe_unretained
+		#undef 	__ah_weak
+		#define 	__ah_weak __unsafe_unretained
+	#endif
+	#undef ah_weak_delegate													// Weak delegate support
+	#undef __ah_weak_delegate
+	#if	__has_feature(objc_arc_weak) && (!(defined __MAC_OS_X_VERSION_MIN_REQUIRED) || __MAC_OS_X_VERSION_MIN_REQUIRED >= __MAC_10_8)
+		#define   ah_weak_delegate weak
+		#define __ah_weak_delegate __weak
+	#else
+		#define   ah_weak_delegate   unsafe_unretained
+		#define __ah_weak_delegate __unsafe_unretained
+	#endif																		// ARC Helper ends
+
+	//  ARC Helper Version 1.3.1 Created by Nick Lockwood on 05/01/2012. Copyright 2012 Charcoal Design Distributed under the permissive zlib license  Get the latest version from here: https://gist.github.com/1563325
+	#ifndef AH_RETAIN
+		#if __has_feature(objc_arc)
+			#define AH_RETAIN(x) (x)
+			#define AH_RELEASE(x) (void)(x)
+			#define AH_AUTORELEASE(x) (x)
+			#define AH_SUPER_DEALLOC (void)(0)
+			#define __AH_BRIDGE __bridge
+		#else
+			#define __AH_WEAK
+			#define AH_WEAK assign
+			#define AH_RETAIN(x) [(x) retain]
+			#define AH_RELEASE(x) [(x) release]
+			#define AH_AUTORELEASE(x) [(x) autorelease]
+			#define AH_SUPER_DEALLOC [super dealloc]
+			#define __AH_BRIDGE
+		#endif
+	#endif
+
+	#import "JREnum.h"
+	#import "BaseModel.h"
+	//#define EXCLUDE_STUB_PROTOTYPES 1
+	//#import <PLWeakCompatibility/PLWeakCompatibilityStubs.h>
+	//#import <MenuApp/MenuApp.h>
+	#import <Rebel/Rebel.h>
+	#import <FunSize/FunSize.h>
+	#import <DrawKit/DKDrawKit.h>
+	#import <KSHTMLWriterKit/KSHTMLWriterKit.h>
+	#import <Zangetsu/Zangetsu.h>
+	#import <BlocksKit/BlocksKit.h>
+	#import <CocoaPuffs/CocoaPuffs.h>
+	#import <AtoZBezierPath/AtoZBezierPath.h>
+	#import <AIUtilities/AIUtilities.h>
+	#import "AtoZUmbrella.h"
+	#import "AtoZTypes.h"
+	#import "AtoZCategories.h"
+	
 #endif
-#else
-#include <pwd.h>
-#include <netdb.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#import <CoreFoundation/CoreFoundation.h>
 
-#include <sys/types.h>
-#import <objc/message.h>
-#import <objc/runtime.h>
-#import <unistd.h>
-#import <libkern/OSAtomic.h>
-#import <sys/time.h>
-#import <sys/xattr.h>
-#import <sys/sysctl.h>
-#import <sys/stat.h>
-#import <dirent.h>
-#import <xpc/xpc.h>
-#import <Cocoa/Cocoa.h>
-#import <AppKit/AppKit.h>
-#import <Carbon/Carbon.h>
-#import <Quartz/Quartz.h>
-#import <Python/Python.h>
-#import <Security/Security.h>
-#import <Foundation/Foundation.h>
-#import <QuartzCore/QuartzCore.h>
-#import <AudioToolbox/AudioToolbox.h>
-#import <CoreServices/CoreServices.h>
-#import <AVFoundation/AVFoundation.h>
-#import <ApplicationServices/ApplicationServices.h>
-#endif
-
-/*
- #undef ah_retain #undef ah_dealloc
- #undef ah_autorelease autorelease
- #undef ah_dealloc dealloc
- */
-
-#if __has_feature(objc_arc)											// ARC Helper Version 2.2
-#define ah_retain 		self
-#define ah_release 		self
-#define ah_autorelease 	self
-
-#define release 			self										// Is this right?  Why's mine different?
-#define autorelease 		self										// But shit hits fan without.
-
-#define ah_dealloc 		self
-#else
-#define ah_retain 		retain
-#define ah_release 		release
-#define ah_autorelease 	autorelease
-#define ah_dealloc 		dealloc
-#undef 	__bridge
-#define  __bridge
-#undef   __bridge_transfer
-#define  __bridge_transfer
-#endif
-#if !__has_feature(objc_arc_weak)									// Weak reference support
-#undef 	  ah_weak
-#define 	  ah_weak   unsafe_unretained
-#undef 	__ah_weak
-#define 	__ah_weak __unsafe_unretained
-#endif
-
-#undef ah_weak_delegate													// Weak delegate support
-#undef __ah_weak_delegate
-#if 						 	__has_feature(objc_arc_weak) && \
-(!(defined __MAC_OS_X_VERSION_MIN_REQUIRED) ||\
-__MAC_OS_X_VERSION_MIN_REQUIRED >= __MAC_10_8)
-#define   ah_weak_delegate weak
-#define __ah_weak_delegate __weak
-#else
-#define   ah_weak_delegate   unsafe_unretained
-#define __ah_weak_delegate __unsafe_unretained
-#endif																		// ARC Helper ends
-
-
-//  ARC Helper Version 1.3.1
-//  Created by Nick Lockwood on 05/01/2012. Copyright 2012 Charcoal Design
-//  Distributed under the permissive zlib license
-//  Get the latest version from here: https://gist.github.com/1563325
-#ifndef AH_RETAIN
-#if __has_feature(objc_arc)
-#define AH_RETAIN(x) (x)
-#define AH_RELEASE(x) (void)(x)
-#define AH_AUTORELEASE(x) (x)
-#define AH_SUPER_DEALLOC (void)(0)
-#define __AH_BRIDGE __bridge
-#else
-#define __AH_WEAK
-#define AH_WEAK assign
-#define AH_RETAIN(x) [(x) retain]
-#define AH_RELEASE(x) [(x) release]
-#define AH_AUTORELEASE(x) [(x) autorelease]
-#define AH_SUPER_DEALLOC [super dealloc]
-#define __AH_BRIDGE
-#endif
-#endif
-
-#import "JREnum.h"
-
-
-//#define EXCLUDE_STUB_PROTOTYPES 1
-//#import <PLWeakCompatibility/PLWeakCompatibilityStubs.h>
-//#import <MenuApp/MenuApp.h>
-#import <Rebel/Rebel.h>
-#import <FunSize/FunSize.h>
-#import <DrawKit/DKDrawKit.h>
-#import <KSHTMLWriterFramework/KSHTMLWriterFramework.h>
-#import <Zangetsu/Zangetsu.h>
-#import <BlocksKit/BlocksKit.h>
-#import <CocoaPuffs/CocoaPuffs.h>
-#import <AtoZBezierPath/AtoZBezierPath.h>
-//#import <AtoZAppKit/BGHUDAppKit.h>
-//#import <MapKit/MapKit.h>
-//#import <Nu/Nu.h>
-//#import <Lumberjack/Lumberjack.h>
-//#import <XPCKit/XPCKit.h>
-//#import <SNRHUDKit/SNRHUDKit.h>
-//#import <NanoStore/NanoStore.h>
-//#import <AtoZUI/AtoZUI.h>
-//#import <libatoz.h>
-
-//#import "AutoCoding.h"
-//#import "HRCoder.h"
-
-
-#import "AtoZUmbrella.h"
-#import "AtoZTypes.h"
-#import "AtoZGeometry.h"
-
-#import "AtoZ.h"
-
-
-
-
-
-
-//#import "AtoZFunctions.h"
-//#import "BaseModel.h"
-//#import "BaseModel+AtoZ.h"
-////#import "AtoZ.h"
-//#import "SNRHUDButtonCell.h"
-//#import "SNRHUDImageCell.h"
-//#import "SNRHUDScrollView.h"
-//#import "SNRHUDSegmentedCell.h"
-//#import "SNRHUDTextFieldCell.h"
-//#import "SNRHUDTextView.h"
-//#import "SNRHUDWindow.h"
-
-#endif  //  END AZFRAMEWORK PCH  #ifdef __OBJC__
-
-
-//#import "NSObject+AutoMagicCoding.h"
-//#import "AZSizer.h"
-//#import "AZObject.h"
-//#import "AZFile.h"
-//#import "AZGeometry.h"
-//#import "Nu.h"
-
-//#define NSLog(__VA_ARGS__) NSLog(@"[%s:%d]: %@", __FILE__, __LINE__, [NSString stringWithFormat:__VA_ARGS__])
-//	#define NSLog(args...) QuietLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args)
-//#define NSLog(...) qlog(format,...) {\
-//#else
-//# define NSLog(…) /* */
-//#endif
-
-//#define NSLog(...) NSLog(__VA_ARGS__) {\
-//va_list argList;\
-//va_start(argList, format);\
-//NSString *file = [[NSString stringWithUTF8String:__FILE__] lastPathComponent]; \
-//printf("%s:%d - ", [file UTF8String], __LINE__); \
-//QuietLog((format),##__VA_ARGS__); \
-//}
-
-//if (format == nil) {	printf("nil\n"); return; }\
-//va_list argList;\
-//va_start(argList, format);\
-//NSString *s = [[NSString alloc] initWithFormat:format arguments:argList];\
-//printf("%s\n", [[s stringByReplacingOccurrencesOfString:@"%%" withString:@"%%%%"] UTF8String]);\
-//[s release];\
-//va_end(argList);\
-//}
-
-//{ \
-//NSString *file = [[NSString stringWithUTF8String:__FILE__] lastPathComponent]; \
-//printf("%s:%d - ", [file UTF8String], __LINE__); \
-//QuietLog((format),##__VA_ARGS__); \
-//}
-//	#define NSLog(format,...) { \
-//	NSString *file = [[NSString stringWithUTF8String:__FILE__] lastPathComponent]; \
-//	printf("%s:%d - ", [file UTF8String], __LINE__); \
-//	QuietLog((format),##__VA_ARGS__);	}
-
-
-//#endif
-//static inline BOOL isEmpty(id thing);
-//	return thing ?: [thing respondsToSelector:@selector(length)] && [ (NSD*)thing length]
-//				 ?: [thing respondsToSelector:@selector(count) ] && [ (NSA*)thing count ]
-//					NO;
-//}
-
-// StringConsts.h
-//#ifdef SYNTHESIZE_CONSTS
-//# define STR_CONST(name, value) NSString* const name = @ value
-//#else
-//# define STR_CONST(name, value) extern NSString* const name
-//#endif
-
-//The in my .h/.m pair where I want to define the constant I do the following:
-// myfile.h
-//#import <StringConsts.h>
-
-//STR_CONST(MyConst, "Lorem Ipsum");
-//STR_CONST(MyOtherConst, "Hello world");
-
-// myfile.m
-//#define SYNTHESIZE_CONSTS
-//#import "myfile.h"
-//#undef SYNTHESIZE_CONSTS
-
-
-
+/**
+//#endif  //  END AZFRAMEWORK PCH  #ifdef __OBJC__
 #ifndef _OmniBase_assertions_h_
 #define _OmniBase_assertions_h_
 //#import <OmniBase/FrameworkDefines.h>
-#import <objc/objc.h>
-
 //#if defined(DEBUG) || defined(OMNI_FORCE_ASSERTIONS)
 //#define OMNI_ASSERTIONS_ON
 //#endif
-
-// This allows you to turn off assertions when debugging
-//#if defined(OMNI_FORCE_ASSERTIONS_OFF)
+//#if defined(OMNI_FORCE_ASSERTIONS_OFF)					// This allows you to turn off assertions when debugging
 #undef OMNI_ASSERTIONS_ON
 //#warning Forcing assertions off!
 //#endif
-
-
 // Make sure that we don't accidentally use the ASSERT macro instead of OBASSERT
 #ifdef ASSERT
 #undef ASSERT
@@ -270,4 +147,395 @@ OmniBase_EXTERN void OBAssertFailed(const char *type, const char *expression, co
 #define OBASSERT_NOT_REACHED(reason)
 #endif
 #endif // _OmniBase_assertions_h_
+*/
+/*
+#endif
+#import <AtoZAppKit/BGHUDAppKit.h>
+#import <MapKit/MapKit.h>
+#import <Nu/Nu.h>
+#import <Lumberjack/Lumberjack.h>
+#import <XPCKit/XPCKit.h>
+#import <SNRHUDKit/SNRHUDKit.h>
+#import <NanoStore/NanoStore.h>
+#import <AtoZUI/AtoZUI.h>
+#import <libatoz.h>
 
+#import "AutoCoding.h"
+#import "HRCoder.h"
+*/
+/*
+ #import "GTMHTTPFetcher.h"
+ 
+ #import "AddressBookImageLoader.h"
+ #import "AFHTTPClient.h"
+ #import "AFHTTPRequestOperation.h"
+ #import "AFImageRequestOperation.h"
+ #import "AFJSONRequestOperation.h"
+ #import "AFNetworking.h"
+ #import "AFPropertyListRequestOperation.h"
+ #import "AFURLConnectionOperation.h"
+ #import "AFXMLRequestOperation.h"
+ #import "AGNSSplitView.h"
+ #import "AGNSSplitViewDelegate.h"
+ #import "AGProcess.h"
+ #import "AHLayout.h"
+ #import "ASICacheDelegate.h"
+ #import "ASIDataCompressor.h"
+ #import "ASIDataDecompressor.h"
+ #import "ASIDownloadCache.h"
+ #import "ASIFormDataRequest.h"
+ #import "ASIHTTPRequest.h"
+ #import "ASIHTTPRequestConfig.h"
+ #import "ASIHTTPRequestDelegate.h"
+ #import "ASIInputStream.h"
+ #import "ASINetworkQueue.h"
+ #import "ASIProgressDelegate.h"
+ //#import "AssetCollection.h"
+ //#import "AtoZ.h"
+ //#import "AtoZColorWell.h"
+ //#import "AtoZFunctions.h"
+ //#import "AtoZGeometry.h"
+ //#import "AtoZGridView.h"
+ //#import "AtoZGridViewProtocols.h"
+ //#import "AtoZInfinity.h"
+ //#import "AtoZModels.h"
+ //#import "AtoZStack.h"
+ //#import "AtoZTypes.h"
+ //#import "AtoZUmbrella.h"
+ //#import "AtoZWebSnapper.h"
+ //#import "AtoZWebSnapperGridViewController.h"
+ //#import "AtoZWebSnapperWindowController.h"
+ //#import "AutoCoding.h"
+ //#import "AZApplePrivate.h"
+ //#import "AZASIMGV.h"
+ //#import "AZAttachedWindow.h"
+ //#import "AZAXAuthorization.h"
+ //#import "AZBackground.h"
+ //#import "AZBackgroundProgressBar.h"
+ //#import "AZBlockView.h"
+ //#import "AZBorderlessResizeWindow.h"
+ //#import "AZBox.h"
+ //#import "AZBoxGrid.h"
+ //#import "AZBoxMagic.h"
+ //#import "AZButton.h"
+ //#import "AZCalculatorController.h"
+ //#import "AZCLI.h"
+ //#import "AZCLICategories.h"
+ //#import "AZCLITests.h"
+ //#import "AZCoreScrollView.h"
+ //#import "AZCSSColorExtraction.h"
+ //#import "AZDarkButtonCell.h"
+ //#import "AZDebugLayer.h"
+ //#import "AZDockQuery.h"
+ //#import "AZExpandableView.h"
+ //#import "AZFacebookConnection.h"
+ //#import "AZFavIconManager.h"
+ //#import "AZFile.h"
+ //#import "AZFoamView.h"
+ //#import "AZGrid.h"
+ //#import "AZHomeBrew.h"
+ //#import "AZHostView.h"
+ //#import "AZHoverButton.h"
+ //#import "AZHTMLParser.h"
+ //#import "AZHTTPRouter.h"
+ //#import "AZHTTPURLProtocol.h"
+ //#import "AZImageToDataTransformer.h"
+ //#import "AZIndeterminateIndicator.h"
+ //#import "AZInfiniteCell.h"
+ //#import "AZInstantApp.h"
+ //#import "AZLassoLayer.h"
+ //#import "AZLassoView.h"
+ //#import "AZLaunchServices.h"
+ //#import "AZLayer.h"
+ //#import "AZMatrix.h"
+ //#import "AZMatteButton.h"
+ //#import "AZMatteFocusedGradientBox.h"
+ //#import "AZMattePopUpButton.h"
+ //#import "AZMattePopUpButtonView.h"
+ //#import "AZMatteSegmentedControl.h"
+ //#import "AZMedallionView.h"
+ //#import "AZMouser.h"
+ //#import "AZNamedColors.h"
+ //#import "AZPoint.h"
+ //#import "AZPopupWindow.h"
+ //#import "AZPrismView.h"
+ //#import "AZProgressIndicator.h"
+ //#import "AZPropellerView.h"
+ //#import "AZProportionalSegmentController.h"
+ //#import "AZQueue.h"
+ //#import "AZRect.h"
+ //#import "AZScrollerLayer.h"
+ //#import "AZScrollerProtocols.h"
+ //#import "AZScrollPaneLayer.h"
+ //#import "AZSegmentedRect.h"
+ //#import "AZSemiResponderWindow.h"
+ //#import "AZSimpleView.h"
+ //#import "AZSize.h"
+ //#import "AZSizer.h"
+ //#import "AZSnapShotLayer.h"
+ //#import "AZSound.h"
+ //#import "AZSourceList.h"
+ //#import "AZSpeechRecognition.h"
+ //#import "AZSpinnerLayer.h"
+ //#import "AZStopwatch.h"
+ //#import "AZTalker.h"
+ //#import "AZTimeLineLayout.h"
+ //#import "AZToggleArrayView.h"
+ //#import "AZTrackingWindow.h"
+ //#import "AZURLSnapshot.h"
+ //#import "AZVeil.h"
+ //#import "AZWeakCollections.h"
+ //#import "AZWikipedia.h"
+ //#import "AZWindowExtend.h"
+ //#import "AZXMLWriter.h"
+ #import "BaseModel.h"
+ #import "BaseModel+AtoZ.h"
+ #import "BBMeshView.h"
+ #import "BlocksAdditions.h"
+ #import "Bootstrap.h"
+ #import "CAAnimation+AtoZ.h"
+ #import "CALayer+AtoZ.h"
+ #import "CalcModel.h"
+ #import "CAScrollView.h"
+ #import "CAWindow.h"
+ #import "CKAdditions.h"
+ #import "CKMacros.h"
+ #import "CKSingleton.h"
+ #import "ConciseKit.h"
+ #import "ConcurrentOperation.h"
+ #import "CPAccelerationTimer.h"
+ #import "CTBadge.h"
+ #import "CTGradient.h"
+ #import "DDData.h"
+ #import "DDNumber.h"
+ #import "DDRange.h"
+ #import "EGOCache.h"
+ #import "EGOImageLoadConnection.h"
+ #import "EGOImageLoader.h"
+ #import "EGOImageView.h"
+ #import "F.h"
+ #import "GCDAsyncSocket.h"
+ //#import "GTMHTTPFetcher.h"
+ //#import "GTMNSString+HTML.h"
+ #import "HRCoder.h"
+ #import "HTMLNode.h"
+ #import "HTMLParserViewController.h"
+ #import "HTTPAsyncFileResponse.h"
+ #import "HTTPAuthenticationRequest.h"
+ #import "HTTPConnection.h"
+ #import "HTTPDataResponse.h"
+ #import "HTTPDynamicFileResponse.h"
+ #import "HTTPErrorResponse.h"
+ #import "HTTPFileResponse.h"
+ #import "HTTPLogging.h"
+ #import "HTTPMessage.h"
+ #import "HTTPRedirectResponse.h"
+ #import "HTTPResponse.h"
+ #import "HTTPResponseProxy.h"
+ #import "HTTPServer.h"
+ #import "iCarousel.h"
+ #import "IGIsolatedCookieWebView.h"
+ #import "INAppStoreWindow.h"
+ #import "JREnum.h"
+ #import "JsonElement.h"
+ #import "JSONKit.h"
+ #import "KGNoise.h"
+ #import "LetterView.h"
+ #import "LoremIpsum.h"
+ #import "MAAttachedWindow.h"
+ #import "MAKVONotificationCenter.h"
+ //#import "MArray.h"
+ #import "MediaServer.h"
+ #import "MetalUI.h"
+ #import "MultipartFormDataParser.h"
+ #import "MultipartMessageHeader.h"
+ #import "MultipartMessageHeaderField.h"
+ #import "NotificationCenterSpy.h"
+ #import "NSApplication+AtoZ.h"
+ #import "NSArray+AtoZ.h"
+ #import "NSArray+ConciseKit.h"
+ #import "NSArray+F.h"
+ #import "NSArray+UsefulStuff.h"
+ #import "NSBag.h"
+ #import "NSBezierPath+AtoZ.h"
+ #import "NSBundle+AtoZ.h"
+ #import "NSCell+AtoZ.h"
+ #import "NSColor+AtoZ.h"
+ #import "NSDate+AtoZ.h"
+ #import "NSDictionary+AtoZ.h"
+ #import "NSDictionary+ConciseKit.h"
+ #import "NSDictionary+F.h"
+ #import "NSError+AtoZ.h"
+ #import "NSEvent+AtoZ.h"
+ #import "NSFileManager+AtoZ.h"
+ #import "NSFont+AtoZ.h"
+ #import "NSHTTPCookie+Testing.h"
+ #import "NSImage-Tint.h"
+ #import "NSImage+AtoZ.h"
+ #import "NSIndexSet+AtoZ.h"
+ #import "NSLogConsole.h"
+ #import "NSNotificationCenter+AtoZ.h"
+ #import "NSNumber+AtoZ.h"
+ #import "NSNumber+F.h"
+ #import "NSObject-Utilities.h"
+ #import "NSObject+AtoZ.h"
+ #import "NSObject+Properties.h"
+ #import "NSOperationStack.h"
+ #import "NSOrderedDictionary.h"
+ #import "NSOutlineView+AtoZ.h"
+ #import "NSScreen+AtoZ.h"
+ #import "NSShadow+AtoZ.h"
+ #import "NSSplitView+DMAdditions.h"
+ #import "NSString+AtoZ.h"
+ #import "NSString+AtoZEnums.h"
+ #import "NSString+ConciseKit.h"
+ #import "NSString+PathAdditions.h"
+ #import "NSString+URLAdditions.h"
+ #import "NSString+UUID.h"
+ #import "NSTableView+AtoZ.h"
+ #import "NSTask+OneLineTasksWithOutput.h"
+ #import "NSTextView+AtoZ.h"
+ #import "NSThread+AtoZ.h"
+ #import "NSURL+AtoZ.h"
+ #import "NSUserDefaults+Subscript.h"
+ #import "NSValue+AtoZ.h"
+ #import "NSView+AtoZ.h"
+ #import "NSWindow_Flipr.h"
+ #import "NSWindow+AtoZ.h"
+ #import "NSWindow+Geometry.h"
+ #import "OperationsRunner.h"
+ #import "OperationsRunnerProtocol.h"
+ #import "PreferencesController.h"
+ #import "PXListDocumentView.h"
+ #import "PXListView.h"
+ #import "PXListViewCell.h"
+ #import "PythonOperation.h"
+ #import "RoundedView.h"
+ #import "Route.h"
+ #import "RouteRequest.h"
+ #import "RouteResponse.h"
+ #import "RoutingConnection.h"
+ #import "RoutingHTTPServer.h"
+ #import "RuntimeReporter.h"
+ #import "SDCloseButtonCell.h"
+ #import "SDCommonAppDelegate.h"
+ #import "SDDefines.h"
+ #import "SDFoundation.h"
+ #import "SDInsetDividerView.h"
+ #import "SDInsetTextField.h"
+ #import "SDInstructionsWindow.h"
+ #import "SDInstructionsWindowController.h"
+ #import "SDIsNotEmptyValueTransformer.h"
+ #import "SDNextRunloopProxy.h"
+ #import "SDOpenAtLoginController.h"
+ #import "SDPreferencesController.h"
+ #import "SDRoundedInstructionsImageView.h"
+ #import "SDSingleton.h"
+ #import "SDToolkit.h"
+ #import "SDWindowController.h"
+ #import "SIAppCookieJar.h"
+ #import "SIAuthController.h"
+ #import "SIConstants.h"
+ #import "SIInboxDownloader.h"
+ #import "SIInboxModel.h"
+ #import "SIViewControllers.h"
+ #import "SIWindow.h"
+ #import "SNRHUDButtonCell.h"
+ #import "SNRHUDScrollView.h"
+ #import "SNRHUDSegmentedCell.h"
+ #import "SNRHUDTextFieldCell.h"
+ #import "SNRHUDTextView.h"
+ #import "SNRHUDWindow.h"
+ #import "StandardPaths.h"
+ #import "StarLayer.h"
+ #import "StickyNoteView.h"
+ #import "SynthesizeSingleton.h"
+ #import "Transition.h"
+ #import "TransparentWindow.h"
+ #import "TUIView+Dimensions.h"
+ #import "WebFetcher.h"
+ #import "WebSocket.h"
+ #import "WebView+AtoZ.h"
+ #import "XLDragDropView.h"
+ 
+ //#import "AtoZ.h"
+ 
+ 
+ */
+/*
+#import "AtoZFunctions.h"
+#import "BaseModel.h"
+#import "BaseModel+AtoZ.h"
+//#import "AtoZ.h"
+#import "SNRHUDButtonCell.h"
+#import "SNRHUDImageCell.h"
+#import "SNRHUDScrollView.h"
+#import "SNRHUDSegmentedCell.h"
+#import "SNRHUDTextFieldCell.h"
+#import "SNRHUDTextView.h"
+#import "SNRHUDWindow.h"
+
+#import "NSObject+AutoMagicCoding.h"
+#import "AZSizer.h"
+#import "AZObject.h"
+#import "AZFile.h"
+#import "AZGeometry.h"
+#import "Nu.h"
+
+#define NSLog(__VA_ARGS__) NSLog(@"[%s:%d]: %@", __FILE__, __LINE__, [NSString stringWithFormat:__VA_ARGS__])
+	#define NSLog(args...) QuietLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args)
+#define NSLog(...) qlog(format,...) {\
+#else
+# define NSLog(…) 
+#endif
+
+#define NSLog(...) NSLog(__VA_ARGS__) {\
+va_list argList;\
+va_start(argList, format);\
+NSString *file = [[NSString stringWithUTF8String:__FILE__] lastPathComponent]; \
+printf("%s:%d - ", [file UTF8String], __LINE__); \
+QuietLog((format),##__VA_ARGS__); \
+}
+
+if (format == nil) {	printf("nil\n"); return; }\
+va_list argList;\
+va_start(argList, format);\
+NSString *s = [[NSString alloc] initWithFormat:format arguments:argList];\
+printf("%s\n", [[s stringByReplacingOccurrencesOfString:@"%%" withString:@"%%%%"] UTF8String]);\
+[s release];\
+va_end(argList);\
+}
+
+{ \
+NSString *file = [[NSString stringWithUTF8String:__FILE__] lastPathComponent]; \
+printf("%s:%d - ", [file UTF8String], __LINE__); \
+QuietLog((format),##__VA_ARGS__); \
+}
+	#define NSLog(format,...) { \
+	NSString *file = [[NSString stringWithUTF8String:__FILE__] lastPathComponent]; \
+	printf("%s:%d - ", [file UTF8String], __LINE__); \
+	QuietLog((format),##__VA_ARGS__);	}
+#endif
+static inline BOOL isEmpty(id thing);
+	return thing ?: [thing respondsToSelector:@selector(length)] && [ (NSD*)thing length]
+				 ?: [thing respondsToSelector:@selector(count) ] && [ (NSA*)thing count ]
+					NO;
+}
+
+ StringConsts.h
+#ifdef SYNTHESIZE_CONSTS
+# define STR_CONST(name, value) NSString* const name = @ value
+#else
+# define STR_CONST(name, value) extern NSString* const name
+#endif
+
+The in my .h/.m pair where I want to define the constant I do the following:
+ myfile.h
+#import <StringConsts.h>
+STR_CONST(MyConst, "Lorem Ipsum");
+STR_CONST(MyOtherConst, "Hello world");
+ myfile.m
+#define SYNTHESIZE_CONSTS
+#import "myfile.h"
+#undef SYNTHESIZE_CONSTS
+*/

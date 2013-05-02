@@ -152,7 +152,7 @@
 	NSSZ 	i = AZSizeFromDimension(30);
 	if ( AZPointIsInInsetRects(p, r, i) ) {
 		AZPOS d = AZPosOfPointInInsetRects(p, r, i);
-		NSLog(@"%@   %@", NSStringFromPoint(p), stringForPosition(d));
+		NSLog(@"%@   %@", NSStringFromPoint(p), AZWindowPositionToString(d));
 		NSR new = AZInsetRectInPosition(r, i, d);
 		NSR rel = AZOffsetRect(new, self.frame.origin);
 

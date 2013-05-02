@@ -22,6 +22,7 @@
 
 
 @interface NSString (AtoZ)
+@property (RONLY) BOOL isInteger;
 
 
 - (NSComparisonResult)compareNumberStrings:(NSS *)str;
@@ -62,6 +63,7 @@
 + (NSA *)properNames;
 + (NSS *)spaces:(NSUI)ct;
 - (NSS *)paddedTo:(NSUI)count;
+- (NSUI) longestWordLength;
 
 - (void)setLogBackground:(id)color;
 - (void)setLogForeground:(id)color;

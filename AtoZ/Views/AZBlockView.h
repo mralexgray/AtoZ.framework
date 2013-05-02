@@ -44,11 +44,13 @@
 
 
 
+/** IN NSIMAGE + AZOTZ 
 typedef void(^NSImageDrawer)(void);
+
 @interface NSImage (AtoZDrawBlock)
 + (NSImage*)imageWithSize:(NSSZ)size drawnUsingBlock:(NSImageDrawer)drawBlock;
 @end
-
+*/
 
 @class BLKVIEW;
 typedef void(^BNRBlockViewDrawer)		(BLKVIEW*v, NSR r);

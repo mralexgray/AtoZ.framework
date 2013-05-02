@@ -1,28 +1,23 @@
-#include <sys/ioctl.h>
-#include <stdio.h>
-#include <unistd.h>
-#import <AtoZ/AtoZ.h>
-#import "AZCLITests.h"
-#import "NSLogConsole.h"
+
 
 #define AZSTDIN NSFileHandle.fileHandleWithStandardInput
+void AZCLogFormatWithArguments (const char *format,va_list arguments);
+void AZCLogFormat					 (const char *fmt,...);
 
-typedef void (^AZCLITest)(void);
-
+@protocol NSLogConsoleDelegate;
+@class StickyNote;
 @interface AZCLI : BaseModel <NSLogConsoleDelegate>
 
-@property NSFileHandle *logConsoleHandle;
-+ (NSFileHandle*) 		logConsoleHandle;
+@property (			 ASS) IBO NSTV *terminal;
+@property (		  STRNG)     NSFH *logConsoleHandle;
+@property (NATOM,STRNG) 	 NSA	*palette;
+@property (		  STRNG) 	 NSS 	*lastCommand;
+@property (		  RONLY) 	 NSS	*frameworkMenu, *methodMenu;
+@property (NATOM,STRNG) 	 NSMD	*selectionDecoder;
+@property (NATOM		 )		 BOOL  finished, inTTY, inXcode;
 
-@property (ASS) IBOutlet NSTextView *terminal;
-@property (NATOM)			BOOL finished, inTTY, inXcode;
-@property (STRNG) 		NSS *lastCommand;
-
-@property (RONLY) 		NSS* frameworkMenu, *methodMenu;
-@property (NATOM,STRNG) NSMD *selectionDecoder;
-@property (NATOM,STRNG)		AZCLITests 		*tests;
-
-- (void) mainMenu;
++ (NSFH*) stdinHandle;
+-  (void) mainMenu;
 
 @end
 

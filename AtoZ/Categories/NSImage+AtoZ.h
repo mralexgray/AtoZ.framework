@@ -13,12 +13,14 @@ CGImageRef  			CreateCGImageFromData( NSData* data );
 float 			  		distance					( NSP aPoint ); // Just one function to declare...
 typedef NS_ENUM(NSUI, AGImageResizingMethod) {	AGImageResizeCrop,AGImageResizeCropStart,	AGImageResizeCropEnd, AGImageResizeScale };
 
+NSR AZRectForItemsWithColumns(NSA* items, NSUI cols);
 @interface NSImage (Merge)
 /*!	@brief	Returns an image constructed by tiling a given array of images side-by-side or top-to-bottom.
  		@param	spacingX  Spacing which will be applied horizontally between images, and at the left and right borders.
  		@param	spacingY  Spacing which will be applied vertitally between images, and at the bottom and top borders.
  		@param	vertically  YES to tile the given images from top to bottom, starting with the first image in the array at the top. NO to tile the given images from left to right, starting with the first image in the array at the left.	*/
-	
+
++ (NSIMG*) contactSheetWith:(NSA*)images columns:(NSUI)cols;
 + (NSIMG*) contactSheetWith:   (NSA*)images inFrame:(NSR)rect  columns:(NSUI)cols;
 + (NSIMG*) contactSheetWith: 	 (NSA*)images sized:  (NSSZ)size spaced: (NSSZ)spacing columns:(NSUI)cols;
 + (NSIMG*) contactSheetWith:	 (NSA*)images sized:  (NSSZ)size spaced: (NSSZ)spacing columns:(NSUI)cols withName:(BOOL)name;
@@ -27,11 +29,20 @@ typedef NS_ENUM(NSUI, AGImageResizingMethod) {	AGImageResizeCrop,AGImageResizeCr
 - (NSIMG*) imageBorderedWithOutset:(CGF)outset;
 @end
 
+typedef void(^NSImageDrawer)(void);
+typedef void(^NSImageDrawerWithFrame)(NSR dRect);
+@interface NSImage (AtoZDrawBlock)
++ (NSIMG*) imageWithSize:(NSSZ)size drawnUsingBlock:(NSImageDrawer)drawBlock;
++ (NSIMG*) imageInFrame:(NSR)frame withBlock:(NSImageDrawerWithFrame)drawBlockwithFrame;
+
+@end
+
 extern NSData *PNGRepresentation(NSIMG *image);
 
 @class AZFile;
 @interface NSImage (AtoZ)
 
++ (NSIMG*) isometricShelfInRect:(NSR)rect;
 + (NSIMG*) imageFromLockedFocusSize:(NSSZ)sz lock:(NSIMG*(^)(NSIMG*))block;
 - (NSIMG*) lockFocusBlockOut:(NSIMG*(^)(NSIMG*))block;
 - (void)   lockFocusBlock:(void(^)(NSIMG*))block;
@@ -59,7 +70,7 @@ extern NSData *PNGRepresentation(NSIMG *image);
 + (NSA*) randomImages:(NSUI)count;
 + (NSA*) systemImages;
 
-+ (NSIMG*) monoIconNamed:(NSS*)name;
+//+ (NSIMG*) monoIconNamed:(NSS*)name;
 + (NSIMG*) randomMonoIcon;
 + (NSA*)   monoIcons;
 
@@ -68,6 +79,7 @@ extern NSData *PNGRepresentation(NSIMG *image);
 
 - (NSIMG*) initWithSize:(NSSZ)size named:(NSS*)name;
 + (NSIMG*) imageWithSize:(NSSZ)size named:(NSS*)name;
+
 - (NSIMG*) initWithFile:(NSS*)file named:(NSS*)name;
 + (NSIMG*) imageWithFile:(NSS*)file named:(NSS*)name;
 

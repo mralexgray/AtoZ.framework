@@ -126,7 +126,7 @@ typedef NS_OPTIONS(NSUI,     AZOrient ) {	AZOrientTop, AZOrientLeft, AZOrientBot
 
 #define AZTW AZTrackingWindow
 #define iC iCarousel
-
+/*
 //#ifndef ATOZTOUCH
 typedef NS_OPTIONS(NSUI, AZWindowPosition) {
 	AZPositionLeft 			= NSMinXEdge, // 0  NSDrawer
@@ -139,9 +139,21 @@ typedef NS_OPTIONS(NSUI, AZWindowPosition) {
 	AZPositionBottomRight   = 7,
 	AZPositionAutomatic	 	= 8
 };// AZWindowPosition;
+*/
+JREnumDeclare(AZWindowPosition,
+	AZPositionLeft 			= 0,// NSMinXEdge, // 0  NSDrawer
+	AZPositionRight			= 2, //NSMaxXEdge, // 2  preferredEdge
+	AZPositionTop		   	= 3, //NSMaxYEdge, // 3  compatibility
+	AZPositionBottom			= 1,  //NSMinYEdge, // 1  numbering!
+	AZPositionTopLeft	   	= 4,
+	AZPositionBottomLeft		= 5,
+	AZPositionTopRight	 	= 6,
+	AZPositionBottomRight   = 7,
+	AZPositionAutomatic	 	= 8 );// AZWindowPosition;
 
-static NSA *_pos = nil;
-#define AZWindowPositionTypeArray @"Left",@"Bottom",@"Right",@"Top",@"TopLeft",@"BottomLeft",@"TopRight",@"BottomRight",@"Automatic", nil
+
+//static NSA *_pos = nil;
+//#define AZWindowPositionTypeArray @"Left",@"Bottom",@"Right",@"Top",@"TopLeft",@"BottomLeft",@"TopRight",@"BottomRight",@"Automatic", nil
 
 /*
 Binary Math
@@ -178,21 +190,21 @@ JROptionsDeclare(AZAlign,
   	     AZAlignTopRight = 0x00001100,
 	          AZAlignTop = 0x00000000,
 			AZAlignTopLeft = 0x00000101,
-				AZAlignLeft = 0x00000000, // 1 << 0   aka (0x1 << 0), // => 0x00000001
-	       = 0x00001000,
-	   = 0x00001001,
-	  = 0x00001010
+				AZAlignLeft = 0x00011100 // 1 << 0   aka (0x1 << 0), // => 0x00000001
+//	       = 0x00001000,
+//	   = 0x00001001,
+//	  = 0x00001010
 );
 
 
 //NSS* stringForPosition(AZWindowPosition enumVal);
 
-NS_INLINE NSS* stringForPosition(AZPOS e) {	_pos = _pos ?: [NSA arrayWithObjects:AZWindowPositionTypeArray];
-	return _pos.count >= e ? _pos[e] : @"outside of range for Positions";
-}
-NS_INLINE AZPOS positionForString(NSS* s)	{	_pos = _pos ?: [NSA arrayWithObjects:AZWindowPositionTypeArray];
-															return (AZPOS) [_pos indexOfObject:s];
-}
+//NS_INLINE NSS* stringForPosition(AZPOS e) {	_pos = _pos ?: [NSA arrayWithObjects:AZWindowPositionTypeArray];
+//	return _pos.count >= e ? _pos[e] : @"outside of range for Positions";
+//}
+//NS_INLINE AZPOS positionForString(NSS* s)	{	_pos = _pos ?: [NSA arrayWithObjects:AZWindowPositionTypeArray];
+//															return (AZPOS) [_pos indexOfObject:s];
+//}
 
 
 typedef struct AZWhatever {

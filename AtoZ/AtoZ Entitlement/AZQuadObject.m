@@ -83,7 +83,7 @@ static const NSString *didScroll = @"scrollOffset";
 	iC *carrie = _menus[[_tracks indexOfObject:slider]];//[slider.contentView subviewsOfKind:iCarousel.class][0];
 	__block NSTimeInterval time = 0;
 	NSA *carries = [carrie visibleItemViews];
-	NSLog(@"slider:%@, Carrie:%@ [ct %ld], pos:%@", slider, carries, carries.count, stringForPosition(pos));
+	NSLog(@"slider:%@, Carrie:%@ [ct %ld], pos:%@", slider, carries, carries.count, AZWindowPositionToString(pos));
 	[carries each:^(AZQuadCell *cell) {
 		[cell.layer  performBlock:^{
 			BOOL isaffine = CATransform3DIsIdentity(cell.layer.transform);

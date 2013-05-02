@@ -461,8 +461,9 @@
 
 @interface NSArray (FilterByProperty)
 
-- (NSA*) subArrayWithMembersOfKind:(Class)class;
+- (NSA*) subArrayWithMembersOfKind:(Class)klass;
 - (NSUI) lengthOfLongestMemberString;
 - (NSArray*) filterByProperty:(NSS*) p;
+- (NSA*) stringsPaddedToLongestMember;
 
 @end

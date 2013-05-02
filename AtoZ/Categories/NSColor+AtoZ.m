@@ -6,6 +6,7 @@
 #import "NSColor+AtoZ.h"
 #import "AtoZ.h"
 #import "AZNamedColors.h"
+#import <AIUtilities/AIUtilities.h>
 
 #define AIfmod( X, Y )	fmod((X),(Y))
 typedef struct {
@@ -13,7 +14,7 @@ typedef struct {
 	const char name[24];  // Longest name is 20 chars, pad out to multiple of 8
 } ColorNameRec;
 
-static int  hexToInt ( char  hex ) {
+int  hexToInt ( char  hex ) {
 
 	if (hex >= '0' && hex <= '9') {
 		return (hex - '0');
@@ -25,7 +26,7 @@ static int  hexToInt ( char  hex ) {
 		return -1;
 	}
 } // Convert hex to an int
-static char intToHex ( NSI digit ) {
+char intToHex ( NSI digit ) {
 
 	if (digit > 9) {
 		if (digit <= 0xf) {
@@ -1415,7 +1416,7 @@ static NSMutableDictionary *RGBColorValues = nil;
 				(int)(alphaComponent * 255.0)];
 	}
 }	//String representation: R,G,B[,A].
-/*- (NSS *)CSSRepresentation
+- (NSS *)CSSRepresentation
 {
 	CGFloat alpha = [self alphaComponent];
 	if ((1.0 - alpha) >= 0.000001) {
@@ -1430,7 +1431,7 @@ static NSMutableDictionary *RGBColorValues = nil;
 		return [@"#" stringByAppendingString:[self hexString]];
 	}
 }
-*/
+
 @end
 @implementation NSString (AIColorAdditions_RepresentingColors)
 - (NSC*)representedColor						{
@@ -1526,15 +1527,16 @@ scanFailed:
 	&& [[self colorUsingColorSpaceName:inColorSpace] isEqual:[inColor colorUsingColorSpaceName:inColorSpace]];
 }
 @end
+/*
 @implementation NSColor (AIColorAdditions_HTMLSVGCSSColors)
 + (id)colorWithHTMLString:(NSS *)str											{
 	return [self colorWithHTMLString:str defaultColor:nil];
 }
-/*!
+/ * !
  * @brief Convert one or two hex characters to a float
  * @param firstChar The first hex character
  * @param secondChar The second hex character, or 0x0 if only one character is to be used
- * @result The float value. Returns 0 as a bailout value if firstChar or secondChar are not valid hexadecimal characters ([0-9]|[A-F]|[a-f]). Also returns 0 if firstChar and secondChar equal 0.	*/
+ * @result The float value. Returns 0 as a bailout value if firstChar or secondChar are not valid hexadecimal characters ([0-9]|[A-F]|[a-f]). Also returns 0 if firstChar and secondChar equal 0.	* /
 static CGF hexCharsToFloat ( char firstChar, char secondChar )			{
 	CGFloat				hexValue;
 	NSUInteger		firstDigit;
@@ -1648,6 +1650,7 @@ static CGF hexCharsToFloat ( char firstChar, char secondChar )			{
 	return [self colorWithCalibratedRed:red green:green blue:blue alpha:alpha];
 }
 @end
+*/
 @implementation NSColor (AIColorAdditions_ObjectColor)
 + (NSS*) representedColorForObject:(id)anObject withValidColors:(NSA*)validColors	{
 	NSArray *validColorsArray = validColors;

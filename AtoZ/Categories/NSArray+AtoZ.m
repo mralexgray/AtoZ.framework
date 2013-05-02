@@ -1535,6 +1535,11 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 		return  [object ISKINDA:class] ? object : nil;
 	}];
 }
+- (NSA*) stringsPaddedToLongestMember {
+
+	NSUI ct = [self lengthOfLongestMemberString];										// deduce longest string
+	return [self map:^id(id obj) {		return [obj paddedTo:ct];	}];
+}
 - (NSUI) lengthOfLongestMemberString {
 
 	return [[[self subArrayWithMembersOfKind:NSS.class] sortedWithKey:@"length" ascending:NO][0]length];

@@ -33,16 +33,13 @@ static inline NSR AZCenteredRect(NSSize aSize, NSR inRect)
 	return NSMakeRect(x, y, aSize.width, aSize.height);
 }
 
-/** Returns a rect that uses aSize scaled based on the content aspect rule and 
-then centered inside the given rect.
-
-The returned rect is expressed relative the given rect parent coordinate space.<br />
-To get a rect expressed relative the the given rect itself, see ETCenteredRect().
-
-The returned rect origin is valid whether or not your coordinate space is flipped. */
-//extern NSR AZScaledRect(NSSize aSize, NSR inRect);
-/** Returns a rect with a width and height multiplied by the given factor and 
-by shifting the origin to retain the original rect center location. */
+/*	Returns a rect that uses aSize scaled based on the content aspect rule and then centered inside the given rect.
+	The returned rect is expressed relative the given rect parent coordinate space.
+	To get a rect expressed relative the the given rect itself, see ETCenteredRect().
+	The returned rect origin is valid whether or not your coordinate space is flipped. 
+	
+	extern NSR AZScaledRect(NSSize aSize, NSR inRect);
+	Returns a rect with a width and height multiplied by the given factor and by shifting the origin to retain the original rect center location. 
 static inline NSR AZScaleRect(NSRect frame, CGF factor) {
 	NSSize prevSize = frame.size;
 	NSRect newFrame;
@@ -54,20 +51,22 @@ static inline NSR AZScaleRect(NSRect frame, CGF factor) {
 	newFrame.origin.y += (prevSize.height 	- newFrame.size.height) / 2;
 	return frame;
 }
+*/
 
 @class AZPoint;
 @interface AZEdge : AZPoint
-+ (INST) rect:(AZRect)r along:(AZRect)outer inside:(BOOL)isinide;
++ (INST) rect:(AZRect*)r along:(AZRect*)outer inside:(BOOL)isinide;
 @property AZA alignment;
 @property AZOrient orient;
 @property CGF cornerTreshHold, snapThreshold;
-- (void) moveInDirection:(NSSZ)sz;
+//- (void) moveInDirection:(NSSZ)sz;
 @end
 
 @class AZPoint;
 @interface AZRect : AZPoint 	{  CGF width, height;	}
 
-- (AZA) alignInside:(NSR)ext;
+#define $AZRECT(r) [AZRect rectWithRect:r]
+//- (AZA) alignInside:(NSR)ext;
 + (AZRect*) rect;
 + (AZRect*) rectOf:			(id)object;
 + (AZRect*) rectWithRect:	(NSR)rect;

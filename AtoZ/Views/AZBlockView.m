@@ -32,21 +32,6 @@
 //}
 
 
-
-@implementation NSImage (AtoZDrawBlock)
-+ (NSImage*)imageWithSize:(NSSZ)size drawnUsingBlock:(NSImageDrawer)drawBlock;
-{
-	NSImage *newer = [NSIMG.alloc initWithSize:size];
-	[newer lockFocus];
-	drawBlock();
-	[newer unlockFocus];
-	return newer;
-//	if ([newer associatedValueForKey:@"dBlock"]) {NSImageDrawer d = [newer associatedValueForKey:@"dBlock"];	d(); }
-//	[newer setAssociatedValue:drawBlock forKey:@"dBlock"];
-}
-
-@end
-
 @implementation BNRBlockView
 @synthesize drawBlock, opaque, layerBlock;
 

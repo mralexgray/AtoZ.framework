@@ -58,6 +58,7 @@
 #define				 NSBIR 	NSBitmapImageRep
 #define				 NSBLO 	NSBlockOperation
 #define				 NSBSB	NSBackingStoreBuffered
+
 #define				 NSBWM 	NSBorderlessWindowMask
 #define			  NSCOMPR 	NSComparisonResult
 #define				  NSDE 	NSDirectoryEnumerator
@@ -71,6 +72,7 @@
 #define			     NSEM	NSEventMask
 #define				 NSERR 	NSError
 #define			    	NSF 	NSFont
+#define 				  NSFH	NSFileHandle
 #define			    	NSG	NSGradient
 #define				  NSJS	NSJSONSerialization
 #define				   NSI 	NSInteger

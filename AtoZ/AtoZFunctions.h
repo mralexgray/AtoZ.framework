@@ -191,6 +191,15 @@ static NSString* MakeCritical(NSString *format,...) { NSString *string;	va_list 
  
 
 
+// STACK MACRO: "UIKit 0x00540c89 -[UIApplication _callInitializationDelegatesForURL:payload:suspended:] + 1163"
+#define STACKARRAY [[NSThread.callStackSymbols[1] componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" -[]+?.,"]]arrayByRemovingObject:@""]
+#define STACKSTACK		STACKARRAY[0]
+#define STACKFRAMEWORK 	STACKARRAY[1]
+#define STACKADDRESS 	STACKARRAY[2]
+#define STACKCLASS 		STACKARRAY[3]
+#define STACKFUNCTION 	STACKARRAY[4]
+#define STACKLINE	 		STACKARRAY[5]
+
 id 	LogStackAndReturn		  ( id toLog				);	//USAGE: .... return (NSA*)logAndReturn( [NSArray arrayWithArrays:@[blah,blahb]] );
 id 	LogAndReturn			  ( id toLog				); //= ^(id toLog) { AZLOG(toLog); return toLog; };
 id 	LogAndReturnWithCaller ( id toLog, SEL caller);

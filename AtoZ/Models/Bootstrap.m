@@ -2,7 +2,7 @@
 //#define SYNTHESIZE_CONSTS
 //#undef SYNTHESIZE_CONSTS
 #import "Bootstrap.h"
-//#import <KSHTMLWriterFramework/KSHTMLWriterFramework.h>
+//#import <KSHTMLWriterFramework/KSHTMLWriterKit.h>
 //#import "KSHTMLWriter.h"
 //#import "KSWriter.h"
 

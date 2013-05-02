@@ -64,8 +64,6 @@ NSOQ *AZSharedSingleOperationQueue()	{	return AZDummy.sharedInstance.sharedSQ; }
 		_AZSingleOperationQueue.maxConcurrentOperationCount = 1;
 		return _AZSingleOperationQueue;
 	}();																									*/
-
-
 @implementation AZClassProxy
 - (id)valueForUndefinedKey:(NSS*)key {	return NSClassFromString(key);	}
 

@@ -105,9 +105,9 @@
 
 @end
 
-@interface NSColor (AIColorAdditions_HTMLSVGCSSColors)
-+ (NSC*)	colorWithHTMLString:(NSString*)	hexString;
-@end
+//@interface NSColor (AIColorAdditions_HTMLSVGCSSColors)
+//+ (NSC*)	colorWithHTMLString:(NSString*)	hexString;
+//@end
 
 @interface NSString (THColorConversion)
 - (NSC*)	colorValue;
@@ -135,15 +135,16 @@
 
 @end
 
+#define AZNormalFloat(x) { if (x < 0) {x = 0;} else if (x > 1) {x = 1;} }
 
+/*
 @interface NSColor (AIColorAdditions_HLS)
 //Linearly adjust a color
-#define AZNormalFloat(x) { if (x < 0) {x = 0;} else if (x > 1) {x = 1;} }
 
 - (NSC*)adjustHue:(CGFloat)dHue saturation:(CGFloat)dSat brightness:(CGFloat)dBrit;
 
 @end
-
+*/
 
 #define CV_PALETTE_1 	[NSC r:.9372  g:.6313 b:.5019  a:1]
 #define CV_PALETTE_2		[NSC r:.8980  g:.4588 b:.3098  a:1]

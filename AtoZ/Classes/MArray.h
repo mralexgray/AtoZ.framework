@@ -84,31 +84,31 @@
 
 @interface MArray (NSMutableArrayAdditions)
 
-- (void)addObject:(id)anObject;
-- (void)insertObject:(id)anObject atIndex:(unsigned)index;
-- (void)removeLastObject;
-- (void)removeObjectAtIndex:(unsigned)index;
-- (void)replaceObjectAtIndex:(unsigned)index withObject:(id)anObject;
+//- (void)addObject:(id)anObject;
+//- (void)insertObject:(id)anObject atIndex:(unsigned)index;
+//- (void)removeLastObject;
+//- (void)removeObjectAtIndex:(unsigned)index;
+//- (void)replaceObjectAtIndex:(unsigned)index withObject:(id)anObject;
 
 @end
 
 @interface MArray (NSExtendedMutableArray)
 
-- (void)addObjectsFromArray:(MArray *)otherArray;
-- (void)exchangeObjectAtIndex:(unsigned)idx1 withObjectAtIndex:(unsigned)idx2;
-- (void)removeAllObjects;
-- (void)removeObject:(id)anObject inRange:(NSRange)range;
-- (void)removeObject:(id)anObject;
-- (void)removeObjectIdenticalTo:(id)anObject inRange:(NSRange)range;
-- (void)removeObjectIdenticalTo:(id)anObject;
-- (void)removeObjectsFromIndices:(unsigned *)indices numIndices:(unsigned)count;
-- (void)removeObjectsInArray:(MArray *)otherArray;
-- (void)removeObjectsInRange:(NSRange)range;
-- (void)replaceObjectsInRange:(NSRange)range withObjectsFromArray:(MArray *)otherArray range:(NSRange)otherRange;
-- (void)replaceObjectsInRange:(NSRange)range withObjectsFromArray:(MArray *)otherArray;
-- (void)setArray:(MArray *)otherArray;
-- (void)sortUsingFunction:(int (*)(id, id, void *))compare context:(void *)context;
-- (void)sortUsingSelector:(SEL)comparator;
+//- (void)addObjectsFromArray:(MArray *)otherArray;
+//- (void)exchangeObjectAtIndex:(unsigned)idx1 withObjectAtIndex:(unsigned)idx2;
+//- (void)removeAllObjects;
+//- (void)removeObject:(id)anObject inRange:(NSRange)range;
+//- (void)removeObject:(id)anObject;
+//- (void)removeObjectIdenticalTo:(id)anObject inRange:(NSRange)range;
+//- (void)removeObjectIdenticalTo:(id)anObject;
+//- (void)removeObjectsFromIndices:(unsigned *)indices numIndices:(unsigned)count;
+//- (void)removeObjectsInArray:(MArray *)otherArray;
+//- (void)removeObjectsInRange:(NSRange)range;
+//- (void)replaceObjectsInRange:(NSRange)range withObjectsFromArray:(MArray *)otherArray range:(NSRange)otherRange;
+//- (void)replaceObjectsInRange:(NSRange)range withObjectsFromArray:(MArray *)otherArray;
+//- (void)setArray:(MArray *)otherArray;
+//- (void)sortUsingFunction:(int (*)(id, id, void *))compare context:(void *)context;
+//- (void)sortUsingSelector:(SEL)comparator;
 
 @end
 

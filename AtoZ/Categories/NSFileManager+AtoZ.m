@@ -226,7 +226,7 @@ NSString *NSDCIMFolder()
 	for (NSUInteger trimCount = 0; trimCount < dirCount && !error; trimCount ++) {
 		struct stat statbuf;
 
-		OBINVARIANT([trim count] == (dirCount - trimCount));
+//		OBINVARIANT([trim count] == (dirCount - trimCount));
 		NSString *trimmedPath = [NSString pathWithComponents:trim];
 		const char *path = [trimmedPath fileSystemRepresentation];
 		if (stat(path, &statbuf)) {

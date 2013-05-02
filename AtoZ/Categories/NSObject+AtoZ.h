@@ -539,7 +539,7 @@ typedef void (^KVOFullBlock)(NSString *keyPath, id object, NSDictionary *change)
 - (NSUInteger)unsignedIntegerForKey:(NSS*)key;
 - (NSURL *)URLForKey:(NSS*)key;
 
-- (id)valueForKey:(NSS*)key assertingClass:(Class)class;
+- (id)valueForKey:(NSS*)key assertingClass:(Class)klass;
 - (id)valueForKey:(NSS*)key assertingRespondsToSelector:(SEL)theSelector;
 - (BOOL)contentsOfCollection:(id <NSFastEnumeration>)theCollection areKindOfClass:(Class)theClass;
 

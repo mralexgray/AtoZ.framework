@@ -11,10 +11,17 @@
 
 JREnumDeclare(AZTestCase, AZTestFailed, AZTestPassed, AZTestUnset, AZTestNoFailures);
 
-@interface AZCLITests : BaseModel
-@property (STRNG,NATOM) NSA* tests, *results;
+typedef  void (^AZCLITest)(void);
+@interface AZTestNode : BaseModel
+//+(NSA*) tests;
+//+(NSA*) results;
 @end
 
-
-@interface AZGeometryTests : AZCLITests
+@interface AZSizerTests : AZTestNode
+@end
+@interface AZGeometryTests : AZTestNode
+@end
+@interface AZFavIconTests : AZTestNode
+@end
+@interface NSImageTests :AZTestNode
 @end

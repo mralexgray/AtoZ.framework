@@ -5,6 +5,49 @@
 
 #import <Foundation/Foundation.h>
 
+
+@interface NSInvocation (jr_block)
+
+/* Usage example:		https://github.com/rentzsch/NSInvocation-blocks/blob/master/NSInvocation%2Bblocks.h
+    NSInvocation *invocation = [NSInvocation jr_invocationWithTarget:myObject block:^(id myObject){
+        [myObject someMethodWithArg:42.0];	}];
+*/
++ (id)invocationWithTarget:(id)target block:(void (^)(id target))block;
+// http://www.numbergrinder.com/2008/12/callable-objects-in-cocoa-nsinvocation/
++ (NSInvocation *)createInvocationOnTarget:(id)target selector:(SEL)selector;
++ (NSInvocation *)createInvocationOnTarget:(id)target selector:(SEL)selector withArguments:(id)arg1, ...;
+@end
+
+
+@interface NSInvocation(OCMAdditions)
+
+- (id)getArgumentAtIndexAsObject:(int)argIndex;
+
+- (NSString *)invocationDescription;
+
+- (NSString *)argumentDescriptionAtIndex:(int)argIndex;
+
+- (NSString *)objectDescriptionAtIndex:(int)anInt;
+- (NSString *)charDescriptionAtIndex:(int)anInt;
+- (NSString *)unsignedCharDescriptionAtIndex:(int)anInt;
+- (NSString *)intDescriptionAtIndex:(int)anInt;
+- (NSString *)unsignedIntDescriptionAtIndex:(int)anInt;
+- (NSString *)shortDescriptionAtIndex:(int)anInt;
+- (NSString *)unsignedShortDescriptionAtIndex:(int)anInt;
+- (NSString *)longDescriptionAtIndex:(int)anInt;
+- (NSString *)unsignedLongDescriptionAtIndex:(int)anInt;
+- (NSString *)longLongDescriptionAtIndex:(int)anInt;
+- (NSString *)unsignedLongLongDescriptionAtIndex:(int)anInt;
+- (NSString *)doubleDescriptionAtIndex:(int)anInt;
+- (NSString *)floatDescriptionAtIndex:(int)anInt;
+- (NSString *)structDescriptionAtIndex:(int)anInt;
+- (NSString *)pointerDescriptionAtIndex:(int)anInt;
+- (NSString *)cStringDescriptionAtIndex:(int)anInt;
+- (NSString *)selectorDescriptionAtIndex:(int)anInt;
+
+@end
+
+
  // thanks Landon Fuller
 #define VERIFIED_CLASS(className) ((className *) NSClassFromString(@"" # className))
 

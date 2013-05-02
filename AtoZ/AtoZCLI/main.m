@@ -4,7 +4,8 @@
 #import <unistd.h>
 //#include <sys/ioctl.h>
 //#include <stdio.h>
-#include <stdio.h>
+#import <stdio.h>
+//#import "NSTerminal.h"
 
 #define KNRM  "\x1B[0m"
 #define KRED  "\x1B[31m"

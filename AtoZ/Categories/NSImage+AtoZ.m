@@ -15,7 +15,6 @@ static void BitmapReleaseCallback( void* info, const void* data, size_t size ) {
 	id bir = (__bridge_transfer NSBitmapImageRep*)info;
 	//	DLog(@"%@", bir);
 }
-
 /*	 from http://developer.apple.com/technotes/tn2005/tn2143.html
 
 CGImageRef CreateCGImageFromData(NSData* data)
@@ -32,24 +31,47 @@ CGImageRef CreateCGImageFromData(NSData* data)
 	return imageRef;
 }
 */
+NSR AZRectForItemsWithColumns(NSA* items, NSUI cols) {
 
+	__block NSR frame = NSZeroRect; __block NSUI col; __block CGF rowWidth = 0, rowHeight = 0;
+//	NSA sizes = [items[0] valueForKey:@"size"] ? [items valueForKeyPath:@"size"] :
+//					[obj respondsToString:@"frame"] ? [obj sizeForKey:@"frame"] :
+//					 [obj respondsToString:@"bounds"] ? [obj sizeForKey:@"bounds"]  : AZRectBy(1, 1).size;
+
+
+	[[items vFKP:@"size"]enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+		if (AZMaxDim(frame.size) > 10000) { NSLog(@"bailing on maxdim: %@", AZStringFromRect(frame)); *stop  = YES; }
+		if ((idx % cols) == 0) { 
+			frame.size.width 	= MAX(frame.size.width, rowWidth); 
+			NSLog(@"setting width: %f of row at index:%ld", rowWidth, idx);	rowWidth = 0; 
+			frame.size.height +=  rowHeight; rowHeight = 0; 
+		}
+		rowHeight 	= MAX([obj sizeValue].height, rowHeight);
+		rowWidth 	+= 	[obj sizeValue].width;
+			
+	}];
+	return frame;
+}
 @implementation NSImage (Merge)
++ (NSIMG*)contactSheetWith:(NSA*)images columns:(NSUI)cols {
 
-+ (NSIMG*)contactSheetWith:(NSA*)images inFrame:(NSR)rect columns:(NSUI)cols;
-{
+	return  [self contactSheetWith:images inFrame:AZRectForItemsWithColumns(images, cols) columns:cols];
+}
++ (NSIMG*)contactSheetWith:(NSA*)images inFrame:(NSR)rect columns:(NSUI)cols	{
 
 	NSSZ iSize = AZSizeFromDimension(rect.size.width/cols);
 	AZSizer *s = [AZSizer forQuantity:images.count  ofSize:iSize  withColumns:cols];
 	NSA *rects = s.rects.copy;
-	return [NSIMG imageWithSize:NSMakeSize(s.rows*s.width, s.columns*s.height) drawnUsingBlock:^{
-		
-//	[contact lockFocus];
+	return [NSIMG imageInFrame:AZRectBy(s.rows*s.width, s.columns*s.height) withBlock:^(NSRect dRect) {
+		//imageWithSize: drawnUsingBlock:^{
+		//	[contact lockFocus];
 		[images eachWithIndex:^(NSIMG* obj, NSInteger idx) {
-			NSLog(@"Contact Sheet render:%@   #%ld of %ld", obj.name, idx, images.count);
 			NSR theR = [[rects normal:idx]rectValue];
-			[[obj scaleImageToFillSize:theR.size]
+			[(NSIMG*)obj scaleImageToFillSize:theR.size];
+			NSLog(@"Contact Sheet render:%@   #%ld of %ld rect:%@", obj.name, idx, images.count, AZStringFromRect(theR));
+			
 			///[obj scaledToMax:AZMaxDim(iSize)] 
-				drawCenteredinRect:theR operation:NSCompositeSourceOver fraction:1];
+			[obj drawCenteredinRect:theR operation:NSCompositeSourceOver fraction:1];
 //		if (obj.name) NSF * f = [AtoZ font:@"UbuntuTitling-Bold" size:AZMinDim(theR.size)*.1];
 		}];
 	}];
@@ -231,7 +253,48 @@ NSData* PNGRepresentation(NSIMG *image) {
 #endif
 }
 
+@implementation NSImage (AtoZDrawBlock)
++ (NSImage*)imageWithSize:(NSSZ)size drawnUsingBlock:(NSImageDrawer)drawBlock	{
+
+	NSImage *newer; [newer = [self imageWithSize:size named:@"AtoZNSImageDrawBlockImage"] lockFocus];
+	drawBlock();	 [newer unlockFocus]; 	return newer;
+//	if ([newer associatedValueForKey:@"dBlock"]) {NSImageDrawer d = [newer associatedValueForKey:@"dBlock"];	d(); }
+//	[newer setAssociatedValue:drawBlock forKey:@"dBlock"];
+}
+
++ (NSIMG*) imageInFrame:(NSR)frame withBlock:(NSImageDrawerWithFrame)blk {
+	NSR originRect = AZRectBy(frame.size.width, frame.size.height);
+	NSSZ s = originRect.size;
+	NSImage *newer; [newer = [self imageWithSize:s named:@"AtoZNSImageDrawBlockImageWithFrame"] lockFocus];
+	blk(originRect);	 [newer unlockFocus]; 	return newer;
+}
+
+@end
+
 @implementation NSImage (AtoZ)
+
+
++ (NSIMG*) isometricShelfInRect:(NSR)rect;
+{
+	return [self imageWithSize:rect.size drawnUsingBlock:^{
+		[NSGraphicsContext state:^{
+			CGF height 	= rect.size.height - 1.0f;
+			CGF width	= rect.size.width - 1.0f;
+			CGF pcp 		= 10.0f;
+			CGF sh 		= 10.0f; /* shelf Height */
+			NSBP *path = [NSBezierPath bezierPath];
+			[path setLineJoinStyle:NSRoundLineJoinStyle];
+			[path moveToPoint:NSMakePoint(0.0f, sh)];
+			[path lineToPoint:NSMakePoint(width, sh)];
+			[path lineToPoint:NSMakePoint(width - pcp, height)];
+			[path lineToPoint:NSMakePoint(pcp, height)];
+			[path fill];
+			[[NSG gradientFrom:[NSC r:0.85f g:0.66f b:0.45f a:1.0f] to:[NSC r:0.78f	g:0.61f b:0.42f a:1.0f]]drawInBezierPath:path angle:90.0f];
+			path = [NSBezierPath bezierPathWithRect:NSMakeRect(0.0f, 0.0f, width, sh)];
+			[[NSG gradientFrom: [NSC r:0.29f g:0.16f b:0.04f a:1.0f] to:[NSC r:0.48f g:0.30f b:0.16f a:1.0f]] drawInBezierPath:path angle:90.0f];
+		}];
+	}];
+}
 
 + (NSIMG*) imageFromLockedFocusSize:(NSSZ)sz lock:(NSIMG*(^)(NSIMG*))block {
 	NSIMG* newI = [self.alloc initWithSize:sz];
@@ -401,6 +464,8 @@ NSData* PNGRepresentation(NSIMG *image) {
 + (instancetype) imageWithFile:(NSS*)file named:(NSS*)name 	{ 	return [self.alloc initWithFile:file named:name]; 	}
 - (instancetype) initWithFile: (NSS*)file named:(NSS*)name 	{	NSIMG* i = [self.class.alloc initWithContentsOfFile:file]; 	i.name = name;	return i;	}
 + (instancetype) imageWithSize:(NSSZ)size named:(NSS*)name 	{	return [self.alloc initWithSize:size named:name];	}
+
+
 - (instancetype) initWithSize: (NSSZ)size named:(NSS*)name  {	return [(NSIMG*)[self.class.alloc initWithSize:size] named:name]; }
 + (NSA*) systemIcons	{
 			_systemIconsFolder 	= _systemIconsFolder ?: @"/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/";
@@ -415,29 +480,40 @@ NSData* PNGRepresentation(NSIMG *image) {
 	return 		theNamesOfSystemIcons_ = theNamesOfSystemIcons_ ?: [[AZFILEMANAGER contentsOfDirectoryAtPath:_systemIconsFolder error:nil] filter:^BOOL(id object) { return [(NSString*)object contains:@".icn"];  }];
 }
 
-static BOOL monosMade = NO;
-
 + (PDFDocument*) monoPDF 				{			static PDFDocument *doc = nil;
 
 	return doc = doc ?: [PDFDocument.alloc initWithURL:[NSURL fileURLWithPath:[AZFWORKBUNDLE pathForResource:@"PicolSingulario" ofType:@"pdf"]]];
 }
-+ (NSIMG*) monoIconNamed:(NSS*)name { return [self.monoIcons filterOne:^BOOL(NSIMG*icon) { return areSame(icon.name, name); }]; }
+
+//+ (NSIMG*) monoIconNamed:(NSS*)name { return [self.monoIcons filterOne:^BOOL(NSIMG*icon) { return SameS(icon.name, name); }]; }
 + (NSIMG*) randomMonoIcon				{
-	NSUI monoCt = self.monoIcons.count;//monoPDF.pageCount -1;
- 	NSUI rand = RAND_INT_VAL(0, monoCt);
-	NSLog(@"randomMono:[%lu / %lu]", rand, monoCt );
+
+//	NSUI monoCt = self.monoIcons.count;//monoPDF.pageCount -1;
+// 	NSUI rand = RAND_INT_VAL(0, monoCt-1);
+//	NSLog(@"randomMono:[%lu / %lu]", rand, monoCt );
 //	return monosMade ? self.monoIcons[rand]
-	return [self monoIconNamed:@(rand).stringValue];
+	return monos.allValues.randomElement;//[self monoIconNamed:@(rand).stringValue];
 //	 imageFromPDF:self.monoPDF page:rand size:AZSizeFromDimension(256) named:AZString(rand)];
 }
-+ (NSA*)   monoIcons 						{				static NSA *monos = nil;
-
-		PDFDocument *myPDF = self.monoPDF;
-		monos = monos ?:  [[@0 to:@( myPDF.pageCount - 1)] map:^id(NSN *obj) {
-			return [self imageFromPDF:myPDF page:obj.unsignedIntegerValue size:AZSizeFromDimension(256) named:obj.stringValue];
-		}];
-		monosMade = (monos);
-		return monos;
+static NSD *monos = nil;
++ (NSA*)   monoIcons 						{				
+	
+	if (monos == nil) {
+		static dispatch_once_t onceToken;
+		dispatch_once(&onceToken, ^{
+			PDFDocument *myPDF = self.monoPDF;
+			if (myPDF) {
+				NSA* icons = [[@0 to:@( myPDF.pageCount - 1)] cw_mapArray:^id(id obj) {
+					return [self imageFromPDF:myPDF page:[obj unsignedIntegerValue] size:AZSizeFromDimension(256) named:[obj stringValue]] ?: nil; 
+				}]; 
+				__block NSUI ctr = 0;
+				monos = [icons mapToDictionaryKeys:^id(id object) {
+					ctr++; return $(@"%lu", ctr); 
+				}];
+			}	
+		});
+	}
+	return [monos allValues];
 }
 + (NSIMG*) imageFromPDF:(PDFDocument*)doc page:(NSUI)page size:(NSSZ)size named:(NSS*)name		{
 

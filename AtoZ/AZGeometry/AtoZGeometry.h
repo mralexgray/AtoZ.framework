@@ -63,8 +63,8 @@ extern const CGRect CGRectOne;
 
 NSP AZTopLeftPoint  ( NSR rect );
 NSP AZTopRightPoint ( NSR rect );
-NSP AZBotLeft  ( NSR rect );
-NSP AZBotRight ( NSR rect );
+NSP AZBotLeftPoint  ( NSR rect );
+NSP AZBotRightPoint ( NSR rect );
 
 
 
@@ -241,7 +241,7 @@ NSSZ AZSizeFromDimension ( CGF dim );
 
 // converts a point to a size
 NSSZ AZSizeFromPoint ( NSP point );
-
+NSSZ 	AZSizeFromRect	(NSR rect);
 // ABS on both values of the size
 NSSZ AZAbsSize ( NSSZ size );
 
@@ -456,7 +456,8 @@ AZPOS AZClosestCorner ( NSR innerRect,NSR outerRect );
 QUAD 	AZOppositeQuadrant ( int quadrant );
 NSR 	AZBlendRects ( NSR start, NSR end, CGF b );
 void 	logRect ( NSR rect );
-NSR	AZRandomRectinRect ( CGRect rect );
+NSR	AZRandomRectInRect 	( CGRect rect );
+NSR AZRandomRectInFrame		( CGRect rect );
 CGP	AZRandomPointInRect ( CGRect rect );
 
 /** Returns the center point of a CGRect. */
@@ -483,46 +484,46 @@ NSRect AZOffsetRect(NSR rect, NSP offset);
 
 NSR	NSRectFromTwoPoints	( const NSP a, const NSP b );
 NSR	NSRectCentredOnPoint	( const NSP p, const NSSZ size );
-NSR	UnionOfTwoRects		( const NSR a, const NSR b );
-NSR	UnionOfRectsInSet		( const NSSet* aSet );
-NSST*	DifferenceOfTwoRects ( const NSR a, const NSR b );
-NSST*	SubtractTwoRects		( const NSR a, const NSR b );
+NSR	AZUnionOfTwoRects		( const NSR a, const NSR b );
+NSR	AZUnionOfRectsInSet		( const NSSet* aSet );
+NSST*	AZDifferenceOfTwoRects ( const NSR a, const NSR b );
+NSST*	AZSubtractTwoRects		( const NSR a, const NSR b );
 
-BOOL	AreSimilarRects( const NSR a, const NSR b, const CGF epsilon );
+BOOL	AZAreSimilarRects( const NSR a, const NSR b, const CGF epsilon );
 
-CGF	PointFromLine		 ( const NSP inPoint, const NSP a, const NSP b );
-NSP	NearestPointOnLine ( const NSP inPoint, const NSP a, const NSP b );
-CGF	RelPoint				 ( const NSP inPoint, const NSP a, const NSP b );
-NSI	PointInLineSegment ( const NSP inPoint, const NSP a, const NSP b );
+CGF	AZPointFromLine		 ( const NSP inPoint, const NSP a, const NSP b );
+NSP	AZNearestPointOnLine ( const NSP inPoint, const NSP a, const NSP b );
+CGF	AZRelPoint				 ( const NSP inPoint, const NSP a, const NSP b );
+NSI	AZPointInLineSegment ( const NSP inPoint, const NSP a, const NSP b );
 
-NSP	BisectLine( const NSP a, const NSP b );
-NSP	Interpolate( const NSP a, const NSP b, const CGF proportion);
-CGF	LineLength( const NSP a, const NSP b );
+NSP	AZBisectLine( const NSP a, const NSP b );
+NSP	AZInterpolate( const NSP a, const NSP b, const CGF proportion);
+CGF	AZLineLength( const NSP a, const NSP b );
 
-CGF	SquaredLength( const NSP p );
-NSP	DiffPoint( const NSP a, const NSP b );
-CGF	DiffPointSquaredLength( const NSP a, const NSP b );
-NSP	SumPoint( const NSP a, const NSP b );
+CGF	AZSquaredLength( const NSP p );
+NSP	AZDiffPoint( const NSP a, const NSP b );
+CGF	AZDiffPointSquaredLength( const NSP a, const NSP b );
+NSP	AZSumPoint( const NSP a, const NSP b );
 
-NSP	EndPoint			( NSP origin, 	CGF angle, CGF length );
-CGF	Slope				( const NSP a, const NSP b );
-CGF	AngleBetween	( const NSP a, const NSP b, const NSP c );
-CGF	DotProduct		( const NSP a, const NSP b );
-NSP	Intersection	( const NSP aa, const NSP ab, const NSP ba, const NSP bb );
-NSP	Intersection2	( const NSP p1, const NSP p2, const NSP p3, const NSP p4 );
+NSP	AZEndPoint			( NSP origin, 	CGF angle, CGF length );
+CGF	AZSlope				( const NSP a, const NSP b );
+CGF	AZAngleBetween	( const NSP a, const NSP b, const NSP c );
+CGF	AZDotProduct		( const NSP a, const NSP b );
+NSP	AZIntersection	( const NSP aa, const NSP ab, const NSP ba, const NSP bb );
+NSP	AZIntersection2	( const NSP p1, const NSP p2, const NSP p3, const NSP p4 );
 
-NSR	CentreRectOnPoint		  ( const NSR inRect, const NSP p 	 );
-NSP	MapPointFromRect		  ( const NSP p, 		 const NSR rect );
-NSP	MapPointToRect			  ( const NSP p, 		 const NSR rect );
-NSP	MapPointFromRectToRect ( const NSP p, 		 const NSR srcRect, const NSR destRect );
-NSR	MapRectFromRectToRect  ( const NSR inRect, const NSR srcRect, const NSR destRect );
+NSR	AZCentreRectOnPoint		  ( const NSR inRect, const NSP p 	 );
+NSP	AZMapPointFromRect		  ( const NSP p, 		 const NSR rect );
+NSP	AZMapPointToRect			  ( const NSP p, 		 const NSR rect );
+NSP	AZMapPointFromRectToRect ( const NSP p, 		 const NSR srcRect, const NSR destRect );
+NSR	AZMapRectFromRectToRect  ( const NSR inRect, const NSR srcRect, const NSR destRect );
 
-NSR	ScaleRect			( const NSR  inRect, const CGF scale 	);
-NSR	ScaledRectForSize	( const NSSZ inSize, NSR const fitRect );
-NSR	CentreRectInRect	( const NSR  r, 		const NSR cr 		);
-NSBP*	RotatedRect			( const NSR  r,	 	const CGF radians );
+NSR	AZScaleRect			( const NSR  inRect, const CGF scale 	);
+NSR	AZScaledRectForSize	( const NSSZ inSize, NSR const fitRect );
+NSR	AZCentreRectInRect	( const NSR  r, 		const NSR cr 		);
+NSBP*	AZRotatedRect			( const NSR  r,	 	const CGF radians );
 
-NSR	NormalizedRect( const NSR r );
+NSR	AZNormalizedRect( const NSR r );
 
 NSAffineTransform*	RotationTransform( const CGF radians, const NSP aboutPoint );
 

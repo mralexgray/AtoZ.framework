@@ -1,0 +1,70 @@
+html, body {
+	width: 100%;
+	height: 100%;
+	margin: 0px;
+	padding: 0px;
+	font-size: 12px;
+	font-family: tahoma;
+	position: absolute;
+}
+
+.toolbar,
+.toolbar-bg {
+	color: white;
+	width: 500px;
+	position: absolute;
+	left: 50%;
+	height: 50px;
+	padding-top: 5px;
+	margin-left: -250px;
+}
+
+.toolbar-bg {
+	background-color: #333333;
+	opacity: 0.9;
+	-moz-border-radius-bottomleft: 20px;
+	border-bottom-left-radius: 20px;
+	-moz-border-radius-bottomright: 20px;
+	border-bottom-right-radius: 20px;
+}
+
+.setting-name {
+	height: 16px;
+	margin-top: 3px;
+	margin-left: 16px;
+	margin-bottom: -16px;
+}
+
+.setting-value {
+	height: 16px;
+	padding-left: 86px;
+}
+
+.setting-value input {
+	width: 158px;
+}
+
+.setting-value span {
+	padding-left: 170px;
+	display: block;
+	height: 16px;
+	font-size: 10px;
+	margin-bottom: -16px;
+}
+
+.toolbar input[type='button'] {
+	float: right;
+	padding: 7px;
+	padding-left: 12px;
+	padding-right: 12px;
+	font-size: 14px;
+	cursor: pointer;
+	border-style: none;
+	border-radius: 10px;
+	margin-right: 12px;
+	margin-top: -34px;
+	color: white;
+	opacity: 0.8;
+	border: 1px solid #9A9A9A;
+	background-color: #333333;
+}

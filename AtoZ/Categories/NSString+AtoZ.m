@@ -154,6 +154,7 @@ NSString *stringForBrightness(CGFloat brightness)
 
 @implementation NSString (AtoZ)
 
+- (BOOL) isInteger { return self.isIntegerNumber; }
 
 - (NSComparisonResult)compareNumberStrings:(NSS*)str {
     NSNumber *me = [NSNumber numberWithInt:[self intValue]];
@@ -514,6 +515,8 @@ static BOOL isaColorTTY, isaColor256TTY, isaXcodeColorTTY;  static BOOL envSet =
 //		fgCode[0] = '\0';
 //		fgCodeLen = 0;
 //	}
+
+- (NSUI) longestWordLength {  return  [self words].lengthOfLongestMemberString; }
 
 - (NSS *)paddedTo:(NSUI)count {
     return [self stringByPaddingToLength:count withString:@" " startingAtIndex:0];
