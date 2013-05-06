@@ -8,8 +8,9 @@
 
 #import "AtoZ.h"
 
-@interface AZCLI (Categories)
 
+@interface AZCLI (Categories)
++ (void) setupBareBonesApplication;
 + (void) handleInteractionWithPrompt:(NSS*)string block:(void(^)(NSString *output))block;
 //@property (RONLY) NSA 	*names, *colors;
 //@property (RONLY) NSC 	*next;

@@ -149,9 +149,11 @@
 //@end
 //static NSMD *cls = nil;
 
+static 	NSMenu		*menubar, 	*appMenu;
+static 	NSMenuItem	*appMenuItem;  
+
 @implementation AZCLI (Categories)
 + (void) handleInteractionWithPrompt:(NSS*)string block:(void(^)(NSString *output))block {
-
 //	NSFH   *handle = self.stdinHandle;
 //	NSData   *rawD = [NSData dataWithData:handle.readDataToEndOfFile];
 	NSS	  *outie = 	[NSTerminal readString]; //[NSString stringWithData:rawD encoding:NSUTF8StringEncoding];
@@ -160,8 +162,15 @@
 	block(outie);
 }
 
-//- (id) objectAtIndexedSubscript:(NSUInteger)idx { return [self.colors normal:idx]; }
-//
-//+ (void) load { cls = NSMD.new; }
++ (void) setupBareBonesApplication {
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+   	NSApplication.sharedApplication.activationPolicy 	  = NSApplicationActivationPolicyRegular;
+		[NSApp  setMainMenu:  menubar = NSMenu.new];	[menubar addItem:appMenuItem = NSMenuItem.new];
+		appMenuItem.submenu = appMenu = NSMenu.new;	[appMenu  					   addItem:AZQUITMENU];
+		[NSApp activateIgnoringOtherApps:YES];
+	});
+}
+
 
 @end

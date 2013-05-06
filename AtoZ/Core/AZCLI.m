@@ -1,45 +1,37 @@
 #import "AZCLI.h"
 
-static 	id 			menubar, 	appMenu, 	appMenuItem;  
 static 	NSMA			*methods, 	*classes;
 static 	StickyNote 	*sticky;
 static 	NSW			*window;  
 @implementation AZCLI				
-- (void) setUp 								{
+- (void) setUp 								{	
+
+	[AZCLI hasSharedInstance] ? nil : ^{ 	AZCLISI = self; AtoZ.sharedInstance; [AZCLI setupBareBonesApplication];
 	
-	if (![AZCLI hasSharedInstance]) { AtoZ.sharedInstance;		
-		[NSApplication.sharedApplication setActivationPolicy:    NSApplicationActivationPolicyRegular];
-		[NSApp 	   setMainMenu:menubar = NSMenu.new];	[menubar addItem:appMenuItem = NSMenuItem.new];
-		[appMenuItem setSubmenu:appMenu = NSMenu.new];	[appMenu  					   addItem:AZQUITMENU];
-		sticky 	= [StickyNote instanceWithFrame:AZRectFromDim(200)];
-		[NSApp activateIgnoringOtherApps:YES];
-		[AZNOTCENTER addObserverForName:BaseModelSharedInstanceUpdatedNotification object:self queue:AZSOQ usingBlock:^(NSNotification *note) {
-			[AZTalker say:@"sharedinstance changed, grrrrl"];
-		}];
-		AZCLISI = self;	[AZCLISI mainMenu];
-		[NSApp 	  	  run];		//	DDLogInfo(@"Warming up printer (post-customization)"); // Pink !return term;
-	}
-}
+		[[sticky = [StickyNote instanceWithFrame:AZRectFromDim(200)]window] makeKeyAndOrderFront:nil];
+		
+		[AZCLISI mainMenu];		
+	}();																															[NSApp run];
+}   /* All setup code fpr shared INstance */
 -  (IBA) log:(id)sender						{	NSLog(@"hello from button");	}
 -  (IBA) toggleConsole:(id)s				{[NSLogConsole.sharedConsole performString:[NSLogConsole.sharedConsole isOpen] ? @"close" : @"open"]; }
 - (void) mainMenu 							{
 
-	CurrentIMP;	
+			CurrentIMP;				 				AZCLIMenu *meths, *fws;
 	_selectionDecoder = @{	    @"fwMenu": AZBUNDLE.frameworkIdentifiers, 
-									@"methodMenu": @[	@"mainMenu",@"runAClassMethod", @"envTest", @"instanceMethodNames", 
-															@"frameworkMenu", @"rainbowArrays",@"variadicColorLogging", @"processInfo"]}.mutableCopy;
-	AZCLIMenu *meths, *fws;
-	[NSTerminal printString:[@[[COLORIZE(@"Welcome to AtoZCLI!",
-									 RANDOMCOLOR, nil)[0] clr],
-										[COLORIZE(@"Please choose a test option:",
-											PURPLE, nil)[0] clr],
-	 									[COLORIZE(@"Available Frameworks:",
-										   YELLOW, nil)[0] clr],
-										(fws = [AZCLIMenu cliMenuFor:_selectionDecoder[@"fwMenu"] starting:100 palette:self.palette]).menu.clr,
-										[COLORIZE(@"Available METHODS:",				
-										    GREEN, nil)[0] clr],
-										(meths = [AZCLIMenu cliMenuFor:_selectionDecoder[@"methodMenu"] starting:0 palette:self.palette]).menu.clr]componentsJoinedByString:@"\n"]];
-//	NSLog(@"menu meths: %@", meths.propertiesPlease);
+									@"methodMenu": @[	@"mainMenu",					@"runAClassMethod", 
+															@"envTest", 					@"instanceMethodNames", 
+															@"frameworkMenu",				@"rainbowArrays",
+															@"variadicColorLogging",	@"processInfo"]		}.mutableCopy;
+	
+	[NSTerminal printString:[@[[COLORIZE(@"Welcome to AtoZCLI!",				 RANDOMCOLOR, nil)[0] clr],
+										[COLORIZE(@"Please choose a test option:",	      PURPLE, nil)[0] clr],
+	 									[COLORIZE(@"Available Frameworks:",					   YELLOW, nil)[0] clr],
+				(fws = [AZCLIMenu cliMenuFor:_selectionDecoder[@"fwMenu"] starting:100 palette:self.palette]).menu.clr,
+										[COLORIZE(@"Available METHODS:",						    GREEN, nil)[0] clr],
+			(meths = [AZCLIMenu cliMenuFor:_selectionDecoder[@"methodMenu"] starting:0 palette:self.palette]).menu.clr
+																												
+																											]componentsJoinedByString:@"\n"]];
 	NSLog(@"%@", [AZCLIMenu allInstances]);
 	int winner = -1; 
 //	NSIS *mIdxs = [AZCLIMenu  indexesOfMenus];
@@ -47,7 +39,7 @@ static 	NSW			*window;
 		int contender;
 //		NSLog(@"%@", AZString( contender = [NSTerminal readInt])); //	int contender = MIN(200,(int) );	
 //		NSLog(@"IDXSxt:%ld contend:%i win: %i",mIdxs.count, contender, winner);//, _selectionDecoder);
-	//	[self.class handleInteractionWithPrompt:nil block:^(NSString *output) {	fprintf(stderr, "stderrInBlk:%s", output.UTF8String);
+//		[self.class handleInteractionWithPrompt:nil block:^(NSString *output) {	fprintf(stderr, "stderrInBlk:%s", output.UTF8String);
 
 	} while (winner == -1);
 	
@@ -73,22 +65,7 @@ static 	NSW			*window;
 //	}];
 	//fflush(stdout); }];
 }
-- (void) colorLogging 				{
-//	COLORLOG(YELLOw, @"whatever %@", @3, nil);   
-//	NSD *allColorInfo = NSC.colorLists ;
-//	NSLog(@"Available named colors:\n%@",   [NSS stringFromArray:[allColorInfo.allKeys map:^id (id obj) {
-//		return colorizeStringWithColor(
-//												 [obj stringByPaddingToLength:22 withString:@" " startingAtIndex:0],
-//												 allColorInfo[obj]);
-//	}]]);
-//	[self mainMenu];
-}
-- (VoidBlock) actionAtIndex {}
-+ (void) load 							{ AtoZ.sharedInstance; }
-+ (id) blockEval:(id(^)(id blockArgs, ...))block {	 return block(self);	 }
-
 - (void) runAClassMethod 					{
-
 	static BOOL stop = NO;
 	if (!classes) classes = NSMA.new;  if (!methods) methods = NSMA.new;
 	NSMS *classlist = @"".mutableCopy; NSMS *methodlist = @"".mutableCopy;
@@ -114,6 +91,18 @@ static 	NSW			*window;
 	NSLog(@"aRes: %@", aRes);
 	if (!stop) [self runAClassMethod];
 }
+
+
+
+- (void) colorLogging 				{
+//	COLORLOG(YELLOw, @"whatever %@", @3, nil);   
+//	NSD *allColorInfo = NSC.colorLists ;
+//	NSLog(@"Available named colors:\n%@",   [NSS stringFromArray:[allColorInfo.allKeys map:^id (id obj) {
+//		return colorizeStringWithColor( [obj stringByPaddingToLength:22 withString:@" " startingAtIndex:0], allColorInfo[obj]);		}]]);
+//	[self mainMenu];
+}
+- (VoidBlock) actionAtIndex {}
++ (id) blockEval:(id(^)(id blockArgs, ...))block {	 return block(self);	 }
 - (void) envTest								{
 
 	struct winsize w;

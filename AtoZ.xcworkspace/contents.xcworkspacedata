@@ -25,7 +25,4 @@
    <FileRef
       location = "group:../git/icarouselmay2012/Examples/Mac Demo/iCarouselMac.xcodeproj">
    </FileRef>
-   <FileRef
-      location = "group:AZLayerGrid/AZLayerGrid.xcodeproj">
-   </FileRef>
 </Workspace>

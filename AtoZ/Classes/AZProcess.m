@@ -1,4 +1,4 @@
-// AGProcess.m
+// AZProcess.m
 //
 // Copyright (c) 2002-2003 Aram Greenman. All rights reserved.
 //
@@ -8,7 +8,7 @@
 // 2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
 // 3. The name of the author may not be used to endorse or promote products derived from this software without specific prior written permission.
 //
-// THIS SOFTWARE IS PROVIDED BY THE AUTHOR "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+// THIS SOFTWARE IS PROVIDED BY THE AUTHOR "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAZES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAZE.
 
 // Version History:
 //
@@ -18,7 +18,7 @@
 // 0.2 - August 4, 2003
 //	Added code to check OS versions in computations for task memory usage - Aram Greenman
 //	Added methods to retrieve task events (pageins, faults, etc.) - Craig Hockenberry
-//	Fixed compilation warnings in AGGetMachThreadPriority - Craig Hockenberry
+//	Fixed compilation warnings in AZGetMachThreadPriority - Craig Hockenberry
 //	Fixed -siblings method to exclude the receiver - Steve Gehrman
 //
 // 0.3 - November 3, 2003
@@ -45,12 +45,12 @@
 //	Fixed a memory leak during command allocation when the parser failed - Steve Gehrman
 //	Fixed a memory leak when deallocating an instance -- the annotation was not being freed - Craig Hockenberry
 //	Added annotations for Konfabulator widgets - Craig Hockenberry
-#import "AGProcess.h"
+#import "AProcess.h"
 #import <Foundation/Foundation.h>
 #include <mach/mach_host.h>
 #include <mach/mach_port.h>
 #include <mach/mach_traps.h>
-//#include <mach/shared_memory_server.h>
+#include <mach/shared_memory_server.h>
 #include <mach/shared_region.h>
 #include <mach/task.h>
 #include <mach/thread_act.h>
@@ -68,6 +68,8 @@
 #define	SHARED_TEXT_REGION_SIZE		0x10000000
 #define	SHARED_DATA_REGION_SIZE		0x10000000
 
+JREnumDefine(AZProcessState);
+
 static unsigned global_shared_text_segment;
 static unsigned shared_data_region_size;
 static unsigned shared_text_region_size;
@@ -76,11 +78,11 @@ static int major_version;
 static int minor_version;
 static int update_version;
 
-// call this before any of the AGGetMach... functions
+// call this before any of the AZGetMach... functions
 // sets the correct split library segment for running kernel
 // should work at least through Darwin 6.6 (Mac OS X 10.2.6)
 static kern_return_t
-AGMachStatsInit() {
+AZMachStatsInit() {
 	int mib[2];
 	size_t len = 256;
 	char rel[len];
@@ -96,48 +98,42 @@ AGMachStatsInit() {
 	minor_version = 0;
 	update_version = 0;
 	sscanf(rel, "%d.%d.%d", &major_version, &minor_version, &update_version);
-	//NSLog(@"AGProcess: AGMacStatsInit: major_version = %d, minor_version = %d, update_version = %d", major_version, minor_version, update_version);
+	//NSLog(@"AZProcess: AZMacStatsInit: major_version = %d, minor_version = %d, update_version = %d", major_version, minor_version, update_version);
 
 	if (major_version < 6) { // kernel version before 6.0 (Mac OS X 10.2 - Jaguar)
-							 //NSLog(@"AGProcess: AGMachStatsInit: using constant values");
-
+							 //NSLog(@"AZProcess: AZMachStatsInit: using constant values");
 		global_shared_text_segment = 0x70000000;
 		shared_data_region_size = 0x10000000;
 		shared_text_region_size = 0x10000000;
 	}
 	else { // use values defined for the kernel we built under
-		   //NSLog(@"AGProcess: AGMachStatsInit: using definitions");
-
+		   //NSLog(@"AZProcess: AZMachStatsInit: using definitions");
 		global_shared_text_segment = GLOBAL_SHARED_TEXT_SEGMENT;
 		shared_data_region_size = SHARED_DATA_REGION_SIZE;
 		shared_text_region_size = SHARED_TEXT_REGION_SIZE;
 	}
-
 	// get the buffer size that will be large enough to hold the maximum arguments
 	size_t	size = sizeof(argument_buffer_size);
-
 	mib[0] = CTL_KERN;
 	mib[1] = KERN_ARGMAX;
-
 	if (sysctl(mib, 2, &argument_buffer_size, &size, NULL, 0) == -1) {
-		//NSLog(@"AGProcess: AGMachStatsInit: using default for argument_buffer_size");
+		//NSLog(@"AZProcess: AZMachStatsInit: using default for argument_buffer_size");
 		argument_buffer_size = 4096; // kernel failed to provide the maximum size, use a default of 4K
 	}
 	if (major_version < 7) // kernel version < 7.0 (Mac OS X 10.3 - Panther)
 		{
 		if (argument_buffer_size > 8192) {
-			//NSLog(@"AGProcess: AGMachStatsInit: adjusting argument_buffer_size = %d", argument_buffer_size);
+			//NSLog(@"AZProcess: AZMachStatsInit: adjusting argument_buffer_size = %d", argument_buffer_size);
 			argument_buffer_size = 8192; // avoid a kernel bug and use a maximum of 8K
 		}
 		}
 
-	//NSLog(@"AGProcess: AGMachStatsInit: argument_buffer_size = %d", argument_buffer_size);
+	//NSLog(@"AZProcess: AZMachStatsInit: argument_buffer_size = %d", argument_buffer_size);
 
 	return KERN_SUCCESS;
 }
 
-static kern_return_t
-AGGetMachTaskMemoryUsage(task_t task, unsigned *virtual_size, unsigned *resident_size, double *percent) {
+static kern_return_t AZGetMachTaskMemoryUsage(task_t task, unsigned *virtual_size, unsigned *resident_size, double *percent) {
 	kern_return_t error;
 	struct task_basic_info t_info;
 	struct host_basic_info h_info;
@@ -180,7 +176,7 @@ AGGetMachTaskMemoryUsage(task_t task, unsigned *virtual_size, unsigned *resident
 }
 
 static kern_return_t
-AGGetMachThreadCPUUsage(thread_t thread, double *user_time, double *system_time, double *percent) {
+AZGetMachThreadCPUUsage(thread_t thread, double *user_time, double *system_time, double *percent) {
 	kern_return_t error;
 	struct thread_basic_info th_info;
 	mach_msg_type_number_t th_info_count = THREAD_BASIC_INFO_COUNT;
@@ -190,13 +186,13 @@ AGGetMachThreadCPUUsage(thread_t thread, double *user_time, double *system_time,
 
 	if (user_time != NULL) *user_time = th_info.user_time.seconds + th_info.user_time.microseconds / 1e6;
 	if (system_time != NULL) *system_time = th_info.system_time.seconds + th_info.system_time.microseconds / 1e6;
-	if (percent != NULL) *percent = (double)th_info.cpu_usage / TH_USAGE_SCALE;
+	if (percent != NULL) *percent = (double)th_info.cpu_usage / TH_USAZE_SCALE;
 
 	return error;
 }
 
 static kern_return_t
-AGGetMachTaskCPUUsage(task_t task, double *user_time, double *system_time, double *percent) {
+AZGetMachTaskCPUUsage(task_t task, double *user_time, double *system_time, double *percent) {
 	kern_return_t error;
 	struct task_basic_info t_info;
 	thread_array_t th_array;
@@ -212,7 +208,7 @@ AGGetMachTaskCPUUsage(task_t task, double *user_time, double *system_time, doubl
 	// sum time for live threads
 	for (i = 0; i < th_count; i++) {
 		double th_user_time, th_system_time, th_percent;
-		if ((error = AGGetMachThreadCPUUsage(th_array[i], &th_user_time, &th_system_time, &th_percent)) != KERN_SUCCESS)
+		if ((error = AZGetMachThreadCPUUsage(th_array[i], &th_user_time, &th_system_time, &th_percent)) != KERN_SUCCESS)
 			break;
 		my_user_time += th_user_time;
 		my_system_time += th_system_time;
@@ -240,7 +236,7 @@ AGGetMachTaskCPUUsage(task_t task, double *user_time, double *system_time, doubl
 }
 
 static kern_return_t
-AGGetMachThreadPriority(thread_t thread, int *current_priority, int *base_priority) {
+AZGetMachThreadPriority(thread_t thread, int *current_priority, int *base_priority) {
 	kern_return_t error;
 	struct thread_basic_info th_info;
 	mach_msg_type_number_t th_info_count = THREAD_BASIC_INFO_COUNT;
@@ -286,7 +282,7 @@ AGGetMachThreadPriority(thread_t thread, int *current_priority, int *base_priori
 }
 
 static kern_return_t
-AGGetMachTaskPriority(task_t task, int *current_priority, int *base_priority) {
+AZGetMachTaskPriority(task_t task, int *current_priority, int *base_priority) {
 	kern_return_t error;
 	thread_array_t th_array;
 	mach_msg_type_number_t th_count;
@@ -298,7 +294,7 @@ AGGetMachTaskPriority(task_t task, int *current_priority, int *base_priority) {
 
 	for (i = 0; i < th_count; i++) {
 		int th_current_priority, th_base_priority;
-		if ((error = AGGetMachThreadPriority(th_array[i], &th_current_priority, &th_base_priority)) != KERN_SUCCESS)
+		if ((error = AZGetMachThreadPriority(th_array[i], &th_current_priority, &th_base_priority)) != KERN_SUCCESS)
 			break;
 		if (th_current_priority > my_current_priority)
 			my_current_priority = th_current_priority;
@@ -322,7 +318,7 @@ AGGetMachTaskPriority(task_t task, int *current_priority, int *base_priority) {
 }
 
 static kern_return_t
-AGGetMachThreadState(thread_t thread, int *state) {
+AZGetMachThreadState(thread_t thread, int *state) {
 	kern_return_t error;
 	struct thread_basic_info th_info;
 	mach_msg_type_number_t th_info_count = THREAD_BASIC_INFO_COUNT;
@@ -333,22 +329,22 @@ AGGetMachThreadState(thread_t thread, int *state) {
 
 	switch (th_info.run_state) {
 		case TH_STATE_RUNNING:
-			my_state = AGProcessStateRunnable;
+			my_state = AZProcessStateRunnable;
 			break;
 		case TH_STATE_UNINTERRUPTIBLE:
-			my_state = AGProcessStateUninterruptible;
+			my_state = AZProcessStateUninterruptible;
 			break;
 		case TH_STATE_WAITING:
-			my_state = th_info.sleep_time > 20 ? AGProcessStateIdle : AGProcessStateSleeping;
+			my_state = th_info.sleep_time > 20 ? AZProcessStateIdle : AZProcessStateSleeping;
 			break;
 		case TH_STATE_STOPPED:
-			my_state = AGProcessStateSuspended;
+			my_state = AZProcessStateSuspended;
 			break;
 		case TH_STATE_HALTED:
-			my_state = AGProcessStateZombie;
+			my_state = AZProcessStateZombie;
 			break;
 		default:
-			my_state = AGProcessStateUnknown;
+			my_state = AZProcessStateUnknown;
 	}
 
 	if (state != NULL) *state = my_state;
@@ -357,7 +353,7 @@ AGGetMachThreadState(thread_t thread, int *state) {
 }
 
 static kern_return_t
-AGGetMachTaskState(task_t task, int *state) {
+AZGetMachTaskState(task_t task, int *state) {
 	kern_return_t error;
 	thread_array_t th_array;
 	mach_msg_type_number_t th_count;
@@ -369,7 +365,7 @@ AGGetMachTaskState(task_t task, int *state) {
 
 	for (i = 0; i < th_count; i++) {
 		int th_state;
-		if ((error = AGGetMachThreadState(th_array[i], &th_state)) != KERN_SUCCESS)
+		if ((error = AZGetMachThreadState(th_array[i], &th_state)) != KERN_SUCCESS)
 			break;
 		// most active state takes precedence
 		if (th_state < my_state)
@@ -391,7 +387,7 @@ AGGetMachTaskState(task_t task, int *state) {
 }
 
 static kern_return_t
-AGGetMachTaskThreadCount(task_t task, int *count) {
+AZGetMachTaskThreadCount(task_t task, int *count) {
 	kern_return_t error;
 	thread_array_t th_array;
 	mach_msg_type_number_t th_count;
@@ -410,7 +406,7 @@ AGGetMachTaskThreadCount(task_t task, int *count) {
 }
 
 static kern_return_t
-AGGetMachTaskEvents(task_t task, int *faults, int *pageins, int *cow_faults, int *messages_sent, int *messages_received, int *syscalls_mach, int *syscalls_unix, int *csw) {
+AZGetMachTaskEvents(task_t task, int *faults, int *pageins, int *cow_faults, int *messages_sent, int *messages_received, int *syscalls_mach, int *syscalls_unix, int *csw) {
 	kern_return_t error;
 	task_events_info_data_t t_events_info;
 	mach_msg_type_number_t t_events_info_count = TASK_EVENTS_INFO_COUNT;
@@ -430,15 +426,15 @@ AGGetMachTaskEvents(task_t task, int *faults, int *pageins, int *cow_faults, int
 	return error;
 }
 
-@interface AGProcess (Private)
+@interface AZProcess (Private)
 + (NSArray *)processesForThirdLevelName:(int)name value:(int)value;
 - (void)doProcargs;
 @end
 
-@implementation AGProcess (Private)
+@implementation AZProcess (Private)
 
 + (NSArray *)processesForThirdLevelName:(int)name value:(int)value {
-	AGProcess *proc;
+	AZProcess *proc;
 	NSMutableArray *processes = [NSMutableArray array];
 	int mib[4] = { CTL_KERN, KERN_PROC, name, value };
 	struct kinfo_proc *info;
@@ -537,7 +533,7 @@ AGGetMachTaskEvents(task_t task, int *faults, int *pageins, int *cow_faults, int
 						if (strlen(currentItem) > 0) {
 							NSString *itemString = @(currentItem);
 							if (itemString) {
-								//NSLog(@"AGProcess: doProcArgs: itemString = %@", itemString);
+								//NSLog(@"AZProcess: doProcArgs: itemString = %@", itemString);
 
 								NSString *lastPathComponent = [itemString lastPathComponent];
 
@@ -584,7 +580,7 @@ AGGetMachTaskEvents(task_t task, int *faults, int *pageins, int *cow_faults, int
 									argumentCount--;
 								}
 							} else {
-								//NSLog(@"AGProcess: doProcArgs: couldn't convert 0x%08x (0x%08x) [%d of %d] = '%s' (%d) to NSString", currentItem, buffer, currentItem - buffer, length, currentItem, currentItem);
+								//NSLog(@"AZProcess: doProcArgs: couldn't convert 0x%08x (0x%08x) [%d of %d] = '%s' (%d) to NSString", currentItem, buffer, currentItem - buffer, length, currentItem, currentItem);
 							}
 						}
 
@@ -592,11 +588,11 @@ AGGetMachTaskEvents(task_t task, int *faults, int *pageins, int *cow_faults, int
 					}
 				}
 			} else {
-				//NSLog(@"AGProcess: doProcArgs: start of argument list not found for pid = %d", process);
+				//NSLog(@"AZProcess: doProcArgs: start of argument list not found for pid = %d", process);
 				parserFailure = YES;
 			}
 		} else {
-			//NSLog(@"AGProcess: doProcArgs: exec_path not found for pid = %d", process);
+			//NSLog(@"AZProcess: doProcArgs: exec_path not found for pid = %d", process);
 			parserFailure = YES;
 		}
 
@@ -636,14 +632,14 @@ AGGetMachTaskEvents(task_t task, int *faults, int *pageins, int *cow_faults, int
 
 		if (sysctl(mib, 4, &info, &length, NULL, 0) < 0) {
 			command = [[[NSString alloc] init] autorelease];
-			//NSLog(@"AGProcess: doProcArgs: no command");
+			//NSLog(@"AZProcess: doProcArgs: no command");
 		} else {
 			command = [[[NSString alloc] initWithCString:info.kp_proc.p_comm encoding:NSUTF8StringEncoding] autorelease];
-			//NSLog(@"AGProcess: doProcArgs: info.kp_proc.p_comm = %s", info.kp_proc.p_comm);
+			//NSLog(@"AZProcess: doProcArgs: info.kp_proc.p_comm = %s", info.kp_proc.p_comm);
 		}
 	}
 
-	//NSLog(@"AGProcess: doProcArgs: command = '%@', annotation = '%@', args = %@, env = %@", command, annotation, [args description], [env description]);
+	//NSLog(@"AZProcess: doProcArgs: command = '%@', annotation = '%@', args = %@, env = %@", command, annotation, [args description], [env description]);
 
 	[command retain];
 	[annotation retain];
@@ -656,10 +652,10 @@ AGGetMachTaskEvents(task_t task, int *faults, int *pageins, int *cow_faults, int
 
 @end
 
-@implementation AGProcess
+@implementation AZProcess
 
 + (void)initialize {
-	AGMachStatsInit();
+	AZMachStatsInit();
 	[super initialize];
 }
 
@@ -668,7 +664,7 @@ AGGetMachTaskEvents(task_t task, int *faults, int *pageins, int *cow_faults, int
 		process = pid;
 		if (task_for_pid(mach_task_self(), process, &task) != KERN_SUCCESS)
 			task = MACH_PORT_NULL;
-		if ([self state] == AGProcessStateExited) {
+		if ([self state] == AZProcessStateExited) {
 			[self release];
 			return nil;
 		}
@@ -676,7 +672,7 @@ AGGetMachTaskEvents(task_t task, int *faults, int *pageins, int *cow_faults, int
 	return self;
 }
 
-+ (AGProcess *)currentProcess {
++ (AZProcess *)currentProcess {
 	return [self processForProcessIdentifier:getpid()];
 }
 
@@ -688,7 +684,7 @@ AGGetMachTaskEvents(task_t task, int *faults, int *pageins, int *cow_faults, int
 	return [self processesForUser:geteuid()];
 }
 
-+ (AGProcess *)processForProcessIdentifier:(int)pid {
++ (AZProcess *)processForProcessIdentifier:(int)pid {
 	return [[[self alloc] initWithProcessIdentifier:pid] autorelease];
 }
 
@@ -718,7 +714,7 @@ AGGetMachTaskEvents(task_t task, int *faults, int *pageins, int *cow_faults, int
 	return result;
 }
 
-+ (AGProcess *)processForCommand:(NSString *)comm {
++ (AZProcess *)processForCommand:(NSString *)comm {
 	NSArray *processes = [self processesForCommand:comm];
 	if ([processes count])
 		return processes[0];
@@ -734,9 +730,9 @@ AGGetMachTaskEvents(task_t task, int *faults, int *pageins, int *cow_faults, int
 	size_t length = sizeof(struct kinfo_proc);
 	int mib[4] = { CTL_KERN, KERN_PROC, KERN_PROC_PID, process };
 	if (sysctl(mib, 4, &info, &length, NULL, 0) < 0)
-		return AGProcessValueUnknown;
+		return AZProcessValueUnknown;
 	if (length == 0)
-		return AGProcessValueUnknown;
+		return AZProcessValueUnknown;
 	return info.kp_eproc.e_ppid;
 }
 
@@ -745,9 +741,9 @@ AGGetMachTaskEvents(task_t task, int *faults, int *pageins, int *cow_faults, int
 	size_t length = sizeof(struct kinfo_proc);
 	int mib[4] = { CTL_KERN, KERN_PROC, KERN_PROC_PID, process };
 	if (sysctl(mib, 4, &info, &length, NULL, 0) < 0)
-		return AGProcessValueUnknown;
+		return AZProcessValueUnknown;
 	if (length == 0)
-		return AGProcessValueUnknown;
+		return AZProcessValueUnknown;
 	return info.kp_eproc.e_pgid;
 }
 
@@ -756,9 +752,9 @@ AGGetMachTaskEvents(task_t task, int *faults, int *pageins, int *cow_faults, int
 	size_t length = sizeof(struct kinfo_proc);
 	int mib[4] = { CTL_KERN, KERN_PROC, KERN_PROC_PID, process };
 	if (sysctl(mib, 4, &info, &length, NULL, 0) < 0)
-		return AGProcessValueUnknown;
+		return AZProcessValueUnknown;
 	if (length == 0 || info.kp_eproc.e_tdev == 0)
-		return AGProcessValueUnknown;
+		return AZProcessValueUnknown;
 	return info.kp_eproc.e_tdev;
 }
 
@@ -767,9 +763,9 @@ AGGetMachTaskEvents(task_t task, int *faults, int *pageins, int *cow_faults, int
 	size_t length = sizeof(struct kinfo_proc);
 	int mib[4] = { CTL_KERN, KERN_PROC, KERN_PROC_PID, process };
 	if (sysctl(mib, 4, &info, &length, NULL, 0) < 0)
-		return AGProcessValueUnknown;
+		return AZProcessValueUnknown;
 	if (length == 0 || info.kp_eproc.e_tpgid == 0)
-		return AGProcessValueUnknown;
+		return AZProcessValueUnknown;
 	return info.kp_eproc.e_tpgid;
 }
 
@@ -778,9 +774,9 @@ AGGetMachTaskEvents(task_t task, int *faults, int *pageins, int *cow_faults, int
 	size_t length = sizeof(struct kinfo_proc);
 	int mib[4] = { CTL_KERN, KERN_PROC, KERN_PROC_PID, process };
 	if (sysctl(mib, 4, &info, &length, NULL, 0) < 0)
-		return AGProcessValueUnknown;
+		return AZProcessValueUnknown;
 	if (length == 0)
-		return AGProcessValueUnknown;
+		return AZProcessValueUnknown;
 	return info.kp_eproc.e_ucred.cr_uid;
 }
 
@@ -789,9 +785,9 @@ AGGetMachTaskEvents(task_t task, int *faults, int *pageins, int *cow_faults, int
 	size_t length = sizeof(struct kinfo_proc);
 	int mib[4] = { CTL_KERN, KERN_PROC, KERN_PROC_PID, process };
 	if (sysctl(mib, 4, &info, &length, NULL, 0) < 0)
-		return AGProcessValueUnknown;
+		return AZProcessValueUnknown;
 	if (length == 0)
-		return AGProcessValueUnknown;
+		return AZProcessValueUnknown;
 	return info.kp_eproc.e_pcred.p_ruid;
 }
 
@@ -823,7 +819,7 @@ AGGetMachTaskEvents(task_t task, int *faults, int *pageins, int *cow_faults, int
 	return environment;
 }
 
-- (AGProcess *)parent {
+- (AZProcess *)parent {
 	return [[self class] processForProcessIdentifier:[self parentProcessIdentifier]];
 }
 
@@ -842,7 +838,7 @@ AGGetMachTaskEvents(task_t task, int *faults, int *pageins, int *cow_faults, int
 	NSMutableArray *siblings = [NSMutableArray array];
 	int i, count = [all count], ppid = [self parentProcessIdentifier];
 	for (i = 0; i < count; i++) {
-		AGProcess *p = all[i];
+		AZProcess *p = all[i];
 		if ([p parentProcessIdentifier] == ppid && [p processIdentifier] != process)
 			[siblings addObject:p];
 	}
@@ -851,87 +847,87 @@ AGGetMachTaskEvents(task_t task, int *faults, int *pageins, int *cow_faults, int
 
 - (double)percentCPUUsage {
 	double percent;
-	if (AGGetMachTaskCPUUsage(task, NULL, NULL, &percent) != KERN_SUCCESS)
-		return AGProcessValueUnknown;
+	if (AZGetMachTaskCPUUsage(task, NULL, NULL, &percent) != KERN_SUCCESS)
+		return AZProcessValueUnknown;
 	return percent;
 }
 
 - (double)totalCPUTime {
 	double user, system;
-	if (AGGetMachTaskCPUUsage(task, &user, &system, NULL) != KERN_SUCCESS)
-		return AGProcessValueUnknown;
+	if (AZGetMachTaskCPUUsage(task, &user, &system, NULL) != KERN_SUCCESS)
+		return AZProcessValueUnknown;
 	return user + system;
 }
 
 - (double)userCPUTime {
 	double user;
-	if (AGGetMachTaskCPUUsage(task, &user, NULL, NULL) != KERN_SUCCESS)
-		return AGProcessValueUnknown;
+	if (AZGetMachTaskCPUUsage(task, &user, NULL, NULL) != KERN_SUCCESS)
+		return AZProcessValueUnknown;
 	return user;
 }
 
 - (double)systemCPUTime {
 	double system;
-	if (AGGetMachTaskCPUUsage(task, NULL, &system, NULL) != KERN_SUCCESS)
-		return AGProcessValueUnknown;
+	if (AZGetMachTaskCPUUsage(task, NULL, &system, NULL) != KERN_SUCCESS)
+		return AZProcessValueUnknown;
 	return system;
 }
 
 - (double)percentMemoryUsage {
 	double percent;
-	if (AGGetMachTaskMemoryUsage(task, NULL, NULL, &percent) != KERN_SUCCESS)
-		return AGProcessValueUnknown;
+	if (AZGetMachTaskMemoryUsage(task, NULL, NULL, &percent) != KERN_SUCCESS)
+		return AZProcessValueUnknown;
 	return percent;
 }
 
 - (unsigned)virtualMemorySize {
 	unsigned size;
-	if (AGGetMachTaskMemoryUsage(task, &size, NULL, NULL) != KERN_SUCCESS)
-		return AGProcessValueUnknown;
+	if (AZGetMachTaskMemoryUsage(task, &size, NULL, NULL) != KERN_SUCCESS)
+		return AZProcessValueUnknown;
 	return size;
 }
 
 - (unsigned)residentMemorySize {
 	unsigned size;
-	if (AGGetMachTaskMemoryUsage(task, NULL, &size, NULL) != KERN_SUCCESS)
-		return AGProcessValueUnknown;
+	if (AZGetMachTaskMemoryUsage(task, NULL, &size, NULL) != KERN_SUCCESS)
+		return AZProcessValueUnknown;
 	return size;
 }
 
-- (AGProcessState)state {
+- (AZProcessState)state {
 	int state;
 	struct kinfo_proc info;
 	size_t length = sizeof(struct kinfo_proc);
 	int mib[4] = { CTL_KERN, KERN_PROC, KERN_PROC_PID, process };
 	if (sysctl(mib, 4, &info, &length, NULL, 0) < 0)
-		return AGProcessStateExited;
+		return AZProcessStateExited;
 	if (length == 0)
-		return AGProcessStateExited;
+		return AZProcessStateExited;
 	if (info.kp_proc.p_stat == SZOMB)
-		return AGProcessStateZombie;
-	if (AGGetMachTaskState(task, &state) != KERN_SUCCESS)
-		return AGProcessStateUnknown;
+		return AZProcessStateZombie;
+	if (AZGetMachTaskState(task, &state) != KERN_SUCCESS)
+		return AZProcessStateUnknown;
 	return state;
 }
 
 - (int)priority {
 	int priority;
-	if (AGGetMachTaskPriority(task, &priority, NULL) != KERN_SUCCESS)
-		return AGProcessValueUnknown;
+	if (AZGetMachTaskPriority(task, &priority, NULL) != KERN_SUCCESS)
+		return AZProcessValueUnknown;
 	return priority;
 }
 
 - (int)basePriority {
 	int priority;
-	if (AGGetMachTaskPriority(task, NULL, &priority) != KERN_SUCCESS)
-		return AGProcessValueUnknown;
+	if (AZGetMachTaskPriority(task, NULL, &priority) != KERN_SUCCESS)
+		return AZProcessValueUnknown;
 	return priority;
 }
 
 - (int)threadCount {
 	int count;
-	if (AGGetMachTaskThreadCount(task, &count) != KERN_SUCCESS)
-		return AGProcessValueUnknown;
+	if (AZGetMachTaskThreadCount(task, &count) != KERN_SUCCESS)
+		return AZProcessValueUnknown;
 	return count;
 }
 
@@ -942,7 +938,7 @@ AGGetMachTaskEvents(task_t task, int *faults, int *pageins, int *cow_faults, int
 - (BOOL)isEqual:(id)object {
 	if (![object isKindOfClass:[self class]])
 		return NO;
-	return process == [(AGProcess *)object processIdentifier];
+	return process == [(AZProcess *)object processIdentifier];
 }
 
 - (NSString *)description {
@@ -960,7 +956,7 @@ AGGetMachTaskEvents(task_t task, int *faults, int *pageins, int *cow_faults, int
 
 @end
 
-@implementation AGProcess (Signals)
+@implementation AZProcess (Signals)
 
 - (BOOL)suspend {
 	return [self kill:SIGSTOP];
@@ -984,61 +980,61 @@ AGGetMachTaskEvents(task_t task, int *faults, int *pageins, int *cow_faults, int
 
 @end
 
-@implementation AGProcess (MachTaskEvents)
+@implementation AZProcess (MachTaskEvents)
 
 - (int)faults {
 	int faults;
-	if (AGGetMachTaskEvents(task, &faults, NULL, NULL, NULL, NULL, NULL, NULL, NULL) != KERN_SUCCESS)
-		return AGProcessValueUnknown;
+	if (AZGetMachTaskEvents(task, &faults, NULL, NULL, NULL, NULL, NULL, NULL, NULL) != KERN_SUCCESS)
+		return AZProcessValueUnknown;
 	return faults;
 }
 
 - (int)pageins {
 	int pageins;
-	if (AGGetMachTaskEvents(task, NULL, &pageins, NULL, NULL, NULL, NULL, NULL, NULL) != KERN_SUCCESS)
-		return AGProcessValueUnknown;
+	if (AZGetMachTaskEvents(task, NULL, &pageins, NULL, NULL, NULL, NULL, NULL, NULL) != KERN_SUCCESS)
+		return AZProcessValueUnknown;
 	return pageins;
 }
 
 - (int)copyOnWriteFaults {
 	int cow_faults;
-	if (AGGetMachTaskEvents(task, NULL, NULL, &cow_faults, NULL, NULL, NULL, NULL, NULL) != KERN_SUCCESS)
-		return AGProcessValueUnknown;
+	if (AZGetMachTaskEvents(task, NULL, NULL, &cow_faults, NULL, NULL, NULL, NULL, NULL) != KERN_SUCCESS)
+		return AZProcessValueUnknown;
 	return cow_faults;
 }
 
 - (int)messagesSent {
 	int messages_sent;
-	if (AGGetMachTaskEvents(task, NULL, NULL, NULL, &messages_sent, NULL, NULL, NULL, NULL) != KERN_SUCCESS)
-		return AGProcessValueUnknown;
+	if (AZGetMachTaskEvents(task, NULL, NULL, NULL, &messages_sent, NULL, NULL, NULL, NULL) != KERN_SUCCESS)
+		return AZProcessValueUnknown;
 	return messages_sent;
 }
 
 - (int)messagesReceived {
 	int messages_received;
-	if (AGGetMachTaskEvents(task, NULL, NULL, NULL, NULL, &messages_received, NULL, NULL, NULL) != KERN_SUCCESS)
-		return AGProcessValueUnknown;
+	if (AZGetMachTaskEvents(task, NULL, NULL, NULL, NULL, &messages_received, NULL, NULL, NULL) != KERN_SUCCESS)
+		return AZProcessValueUnknown;
 	return messages_received;
 }
 
 - (int)machSystemCalls {
 	int syscalls_mach;
-	if (AGGetMachTaskEvents(task, NULL, NULL, NULL, NULL, NULL, &syscalls_mach, NULL, NULL) != KERN_SUCCESS)
-		return AGProcessValueUnknown;
+	if (AZGetMachTaskEvents(task, NULL, NULL, NULL, NULL, NULL, &syscalls_mach, NULL, NULL) != KERN_SUCCESS)
+		return AZProcessValueUnknown;
 	return syscalls_mach;
 }
 
 - (int)unixSystemCalls {
 	int syscalls_unix;
-	if (AGGetMachTaskEvents(task, NULL, NULL, NULL, NULL, NULL, NULL, &syscalls_unix, NULL) != KERN_SUCCESS)
-		return AGProcessValueUnknown;
+	if (AZGetMachTaskEvents(task, NULL, NULL, NULL, NULL, NULL, NULL, &syscalls_unix, NULL) != KERN_SUCCESS)
+		return AZProcessValueUnknown;
 	return syscalls_unix;
 }
 
 - (int)contextSwitches {
 	int csw;
-	if (AGGetMachTaskEvents(task, NULL, NULL, NULL, NULL, NULL, NULL, NULL, &csw) != KERN_SUCCESS)
-		return AGProcessValueUnknown;
+	if (AZGetMachTaskEvents(task, NULL, NULL, NULL, NULL, NULL, NULL, NULL, &csw) != KERN_SUCCESS)
+		return AZProcessValueUnknown;
 	return csw;
 }
 
