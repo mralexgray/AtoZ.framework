@@ -28,7 +28,4 @@
    <FileRef
       location = "group:AZLayerGrid/AZLayerGrid.xcodeproj">
    </FileRef>
-   <FileRef
-      location = "group:libatoz/libatoz.xcodeproj">
-   </FileRef>
 </Workspace>

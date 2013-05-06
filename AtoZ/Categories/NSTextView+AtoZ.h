@@ -20,7 +20,7 @@
 - (IBAction) decrementFontSize: (id) sender;
 - (IBAction) incrementFontSize: (id) sender;
 - (IBAction) increaseFontSize:  (id) sender;
-- (void)	 changeFontSize:	 	(CGFloat) delta;
+- (void)		 changeFontSize:	 	(CGFloat) delta;
 
 @end
 

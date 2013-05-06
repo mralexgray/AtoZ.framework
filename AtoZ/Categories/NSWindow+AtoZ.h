@@ -59,7 +59,7 @@ enum NSWindowResizing {
 @property (weak) CAL *layer;
 - (void) setLayer: (CAL*) layer;
 
-
+@property (readonly) CGR contentRect;
 // Origin X
 @property (readonly) CGF originX, originY;
 

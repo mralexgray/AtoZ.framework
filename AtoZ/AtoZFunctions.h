@@ -62,6 +62,8 @@ CACONST * AZConstScaleOff						( CACONSTATTR attrb, NSS* rel, 							 CGF scl, C
 CACONST * AZConstRelSuperScaleOff 			( CACONSTATTR attrb, 										 CGF scl, CGF off );
 CACONST * AZConstAttrRelNameAttrScaleOff 	( CACONSTATTR aOne, NSS* relName, CACONSTATTR aTwo, CGF scl, CGF off );
 
+CAT3D  	m34();
+
 @interface CALayerNoHit : CALayer
 @end
 @interface CAShapeLayerNoHit : CAShapeLayer
@@ -92,11 +94,12 @@ CACONST * AZConstAttrRelNameAttrScaleOff 	( CACONSTATTR aOne, NSS* relName, CACO
 
 	myfile.m		#define SYNTHESIZE_CONSTS		#import "myfile.h"		#undef SYNTHESIZE_CONSTS
 */
+#define AZUNO AZSingleton
 
 @interface AZSingleton : NSObject
 +(id) instance;
 +(id) sharedInstance;  //alias for instance
-+(id) singleton;		  //alias for instance
++(id) uno;		  //alias for instance
 @end
 
 /**  PYTHON!  */

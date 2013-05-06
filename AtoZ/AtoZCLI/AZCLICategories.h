@@ -25,11 +25,11 @@
 
 
 // send a simple program to clang using a GCD task
-- (void)provideStdin:(NSFileHandle *)stdinHandle;
+//- (void)provideStdin:(NSFileHandle *)stdinHandle;
 // read the output from clang and dump to console
-- (void) getData:(NSNotification *)notifcation;
+//- (void) getData:(NSNotification *)notifcation;
 // invoke clang using an NSTask, reading output via notifications and providing input via an async GCD task
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification;
+//- (void)applicationDidFinishLaunching:(NSNotification *)aNotification;
 
 @end
 

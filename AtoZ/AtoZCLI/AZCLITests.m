@@ -26,7 +26,7 @@ JREnumDefine(AZTestCase);
 	}
 	self.defaultCollectionKey = @"testsD.allValues";
 	
-//	LOGCOLORS($(@"TESTS in %@", NSStringFromClass(self.class)), [, [NSC.randomPalette withMinItems:_tests.count + 10], nil);
+//	LOGCOLORS($(@"TESTS in %@", AZCLSSTR), [, [NSC.randomPalette withMinItems:_tests.count + 10], nil);
 //	_results =	[_tests nmap:^id(id obj, NSUInteger index) {
 //		NSLog(@"Running test %ld of %ld", index, _tests.count);
 //		return AZTestCaseToString( (int) [self performSelectorWithoutWarnings:NSSelectorFromString(obj)] );

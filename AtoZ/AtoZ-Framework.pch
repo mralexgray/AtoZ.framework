@@ -95,7 +95,7 @@
 	#endif
 
 	#import "JREnum.h"
-	#import "BaseModel.h"
+//	#import "BaseModel.h"
 	//#define EXCLUDE_STUB_PROTOTYPES 1
 	//#import <PLWeakCompatibility/PLWeakCompatibilityStubs.h>
 	//#import <MenuApp/MenuApp.h>
@@ -450,6 +450,7 @@ OmniBase_EXTERN void OBAssertFailed(const char *type, const char *expression, co
  #import "SNRHUDWindow.h"
  #import "StandardPaths.h"
  #import "StarLayer.h"
+
  #import "StickyNoteView.h"
  #import "SynthesizeSingleton.h"
  #import "Transition.h"
@@ -463,7 +464,7 @@ OmniBase_EXTERN void OBAssertFailed(const char *type, const char *expression, co
  //#import "AtoZ.h"
  
  
- */
+*/
 /*
 #import "AtoZFunctions.h"
 #import "BaseModel.h"

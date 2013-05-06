@@ -1,110 +1,22 @@
-
-#ifdef __OBJC__
-
 #import "AZCLI.h"
-#import "AtoZ.h"
-#import "NSTerminal.h"
-#import "AZCLITests.h"
-#import "NSLogConsole.h"
 
-
-static inline IMP 	__CurrentIMP(const char *info, SEL _cmd) {
-
-	__block IMP imp = NULL;
-  	return    info[0]	!= '-' 		 || 
-				 info[0] != '+' ? imp : ^{		NSS *tmp, *clsName;  Class thisCls;
-		
-		tmp 		= $UTF8(info+2);
-		clsName 	= [tmp substringToIndex:[tmp rangeOfString:@" "].location];
-		thisCls 	= NSClassFromString ( clsName );
-		
-		if (thisCls   != nil) {		Method m 	= NULL;
-			m 		= info[0] == '+' 	? class_getClassMethod(thisCls, _cmd) 	: class_getInstanceMethod(thisCls, _cmd);
-			imp 	= m != NULL 		? method_getImplementation(m) 			: imp;
-		}
-		return imp;	//	NSLog(@"IMP%@", (__bridge void**)imp);
-	}();
-}
-#define CurrentIMP 	__CurrentIMP(__PRETTY_FUNCTION__, _cmd)
-#define AZQUITMENU 	[NSMI.alloc initWithTitle:[@"Quit "withString:AZPROCNAME]action:@selector(terminate:) keyEquivalent:@"q"]
-#define AZCLISI 		AZCLI.sharedInstance
-void AZCLogFormatWithArguments (const char *format,va_list arguments){	vfprintf(stderr,format,arguments); fflush(stderr); }
-void AZCLogFormat					 (const char *fmt,...){ va_list args; va_start(args,fmt);	AZCLogFormatWithArguments(fmt,args); va_end(args);	}
-
-typedef void (^runBlock)();
-static id 				menubar, 	appMenu, 	appMenuItem;  
-static NSMA				*methods, 	*classes;
-static StickyNote 	*sticky;
-static NSW				*window;  
-
-/*
-	AIDockingWindow *attached;	
-+ (instancetype) sharedInstance 	{
-	if (![AZCLI hasSharedInstance]) [AZCLI setSharedInstance:AZCLI.instance];
-	[AZNOTCENTER addObserver:self selector:@selector(didReadStdin:) name:NSFileHandleReadCompletionNotification object:_stdinFileHandle = AZSTDIN];
-	NSArray *allPaths 		= NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
- 	NSString *documentsDIR 	= [allPaths objectAtIndex:0];
-	NSLogConsole.sharedConsole.delegate = term;	
-	[NSLogConsole.sharedConsole open];
-	_logConsoleHandle 	= [NSFileHandle fileHandleWithStandardOutput];
-	freopen([_logConsoleHandle cStringUsingEncoding:NSASCIIStringEncoding],"a+",stderr);
-	window.title 				= AZPROCNAME;
-	window.opaque				= NO;
-	window.movable				= YES;
-	window.backgroundColor 	= CLEAR;
-	[attached makeKeyAndOrderFront:self];
-	[window makeKeyAndOrderFront:nil];
-	[window cascadeTopLeftFromPoint:NSMakePoint(20,20)];
-}
-	[methods eachWithIndex:^(id obj, NSI idx) {	[methodlist appendFormat:@"\n%ld: %@", idx, obj];	}];
-	char methodName [40];
-	scanf("%s",(char*)&methodName);
-	NSString * methodput = $UTF8((char*)methodName);
-	if (methodInt < methods.count){ 
-		NSBeep(); 
-		methodput = [methods normal:methodInt];
-		[AZTalker say: $(@"matched a method: %@", methods[methodInt])];
-	}
-	else [methods doesNotContainObject:methodput] ? [methods addObject:methodput.copy]: nil;
-	NSS* s = @"";
-	__block NSI historyIdx =  NSNotFound;		__block NSS* class = nil,  *method = nil
-	[@[classlist, methodlist] eachWithIndex:^(id obj, NSI idx) {		idx == 0 ?		}
-		char input [99];		scanf("%s",(char*)&input);		NSString * stringIn = $UTF8((char*)input); dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0), loop);
-
-
-- (void) didReadStdin:(NSNOT*)n		{
-	NSS* input = [n stringForKey:NSFileHandleNotificationDataItem];
-	if ( SameString(@":", input.firstLetter)) {
-		NSA* words = [input componentsSeparatedByString:@":"];
-		LOGCOLORS(@"rawWords:", words, [[NSC randomPalette]withMinItems:words.count+1], nil);
-	[self.class ]
-	}
-		id obj = class ?: self;
-		NSLog(@"class:  %@, sel:%@", NSClassFromString(class), NSStringFromSelector(select));
-    	NSInvocation *invocation = [NSInvocation invocationWithTarget:obj block:^(id myObject){
-        [obj perf:42.0];	}];
-class != NULL ? [[class performSelector:select] log] : [[self performSelectorWithoutWarnings:select]log];
-		return;
-	}
-}
-	BOOL hit =			   			 select < 					  self.instanceMethodNames.count
-	||  (100 <= select && select < 100 + AZFWORKBUNDLE.frameworkIdentifiers.count);
-	fprintf(stdout, "YOu selected %ld.  That matched:%s.\n", select, hit ? "SOMETHING!" : "NADA!");
-	[self cuteFunctions]();	 [self mainMenu];
-	if ([result respondsToSelector:@selector(UTF8String)])  fprintf(stdout, "%s\n", [result UTF8String]);   fprintf(stdout, "objj> ");    fflush(stdout);    [_stdinFileHandle readInBackgroundAndNotify];
-- (VoidBlock) tests 				{   return _tests = [AZCLITests sharedInstance]; }
-*/
-
+static 	id 			menubar, 	appMenu, 	appMenuItem;  
+static 	NSMA			*methods, 	*classes;
+static 	StickyNote 	*sticky;
+static 	NSW			*window;  
 @implementation AZCLI				
 - (void) setUp 								{
 	
-	if (![AZCLI hasSharedInstance]) { AtoZ.sharedInstance;		AZCLISI = self;
+	if (![AZCLI hasSharedInstance]) { AtoZ.sharedInstance;		
 		[NSApplication.sharedApplication setActivationPolicy:    NSApplicationActivationPolicyRegular];
 		[NSApp 	   setMainMenu:menubar = NSMenu.new];	[menubar addItem:appMenuItem = NSMenuItem.new];
 		[appMenuItem setSubmenu:appMenu = NSMenu.new];	[appMenu  					   addItem:AZQUITMENU];
 		sticky 	= [StickyNote instanceWithFrame:AZRectFromDim(200)];
 		[NSApp activateIgnoringOtherApps:YES];
-		[AZCLISI mainMenu];
+		[AZNOTCENTER addObserverForName:BaseModelSharedInstanceUpdatedNotification object:self queue:AZSOQ usingBlock:^(NSNotification *note) {
+			[AZTalker say:@"sharedinstance changed, grrrrl"];
+		}];
+		AZCLISI = self;	[AZCLISI mainMenu];
 		[NSApp 	  	  run];		//	DDLogInfo(@"Warming up printer (post-customization)"); // Pink !return term;
 	}
 }
@@ -182,7 +94,7 @@ class != NULL ? [[class performSelector:select] log] : [[self performSelectorWit
 	NSMS *classlist = @"".mutableCopy; NSMS *methodlist = @"".mutableCopy;
 	NSI historyIdx;
 	LOGCOLORS(@"Enter class Name, ie. \"NSColor\"... or Select a class from history:", PINK, nil);
-	[NSTerminal printString:[AZCLIMenu cliMenuFor:classes starting:0 palette:NSC.randomPalette]];
+	[NSTerminal printString:[AZCLIMenu cliMenuFor:classes starting:0 palette:NSC.randomPalette].menu];
 	NSString *inputString = [NSString stringWithData:[NSData dataWithData:[NSFileHandle.fileHandleWithStandardInput readDataToEndOfFile]] encoding:NSUTF8StringEncoding];
 	if (inputString.isIntegerNumber) {
 			historyIdx = inputString.integerValue;
@@ -265,4 +177,60 @@ class != NULL ? [[class performSelector:select] log] : [[self performSelectorWit
 }
 @end
 
-#endif
+/*
+	AIDockingWindow *attached;	
++ (instancetype) sharedInstance 	{
+	if (![AZCLI hasSharedInstance]) [AZCLI setSharedInstance:AZCLI.instance];
+	[AZNOTCENTER addObserver:self selector:@selector(didReadStdin:) name:NSFileHandleReadCompletionNotification object:_stdinFileHandle = AZSTDIN];
+	NSArray *allPaths 		= NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+ 	NSString *documentsDIR 	= [allPaths objectAtIndex:0];
+	NSLogConsole.sharedConsole.delegate = term;	
+	[NSLogConsole.sharedConsole open];
+	_logConsoleHandle 	= [NSFileHandle fileHandleWithStandardOutput];
+	freopen([_logConsoleHandle cStringUsingEncoding:NSASCIIStringEncoding],"a+",stderr);
+	window.title 				= AZPROCNAME;
+	window.opaque				= NO;
+	window.movable				= YES;
+	window.backgroundColor 	= CLEAR;
+	[attached makeKeyAndOrderFront:self];
+	[window makeKeyAndOrderFront:nil];
+	[window cascadeTopLeftFromPoint:NSMakePoint(20,20)];
+}
+	[methods eachWithIndex:^(id obj, NSI idx) {	[methodlist appendFormat:@"\n%ld: %@", idx, obj];	}];
+	char methodName [40];
+	scanf("%s",(char*)&methodName);
+	NSString * methodput = $UTF8((char*)methodName);
+	if (methodInt < methods.count){ 
+		NSBeep(); 
+		methodput = [methods normal:methodInt];
+		[AZTalker say: $(@"matched a method: %@", methods[methodInt])];
+	}
+	else [methods doesNotContainObject:methodput] ? [methods addObject:methodput.copy]: nil;
+	NSS* s = @"";
+	__block NSI historyIdx =  NSNotFound;		__block NSS* class = nil,  *method = nil
+	[@[classlist, methodlist] eachWithIndex:^(id obj, NSI idx) {		idx == 0 ?		}
+		char input [99];		scanf("%s",(char*)&input);		NSString * stringIn = $UTF8((char*)input); dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0), loop);
+
+
+- (void) didReadStdin:(NSNOT*)n		{
+	NSS* input = [n stringForKey:NSFileHandleNotificationDataItem];
+	if ( SameString(@":", input.firstLetter)) {
+		NSA* words = [input componentsSeparatedByString:@":"];
+		LOGCOLORS(@"rawWords:", words, [[NSC randomPalette]withMinItems:words.count+1], nil);
+	[self.class ]
+	}
+		id obj = class ?: self;
+		NSLog(@"class:  %@, sel:%@", NSClassFromString(class), NSStringFromSelector(select));
+    	NSInvocation *invocation = [NSInvocation invocationWithTarget:obj block:^(id myObject){
+        [obj perf:42.0];	}];
+class != NULL ? [[class performSelector:select] log] : [[self performSelectorWithoutWarnings:select]log];
+		return;
+	}
+}
+	BOOL hit =			   			 select < 					  self.instanceMethodNames.count
+	||  (100 <= select && select < 100 + AZFWORKBUNDLE.frameworkIdentifiers.count);
+	fprintf(stdout, "YOu selected %ld.  That matched:%s.\n", select, hit ? "SOMETHING!" : "NADA!");
+	[self cuteFunctions]();	 [self mainMenu];
+	if ([result respondsToSelector:@selector(UTF8String)])  fprintf(stdout, "%s\n", [result UTF8String]);   fprintf(stdout, "objj> ");    fflush(stdout);    [_stdinFileHandle readInBackgroundAndNotify];
+- (VoidBlock) tests 				{   return _tests = [AZCLITests sharedInstance]; }
+*/

@@ -1,6 +1,40 @@
 
 #import "AtoZ.h"
 #import "NSObject+AtoZ.h"
+
+
+@implementation NSObject (GCD)
+- (void)performOnMainThread:(void(^)(void))block wait:(BOOL)shouldWait {
+    shouldWait ?        // Synchronous
+        dispatch_sync(dispatch_get_main_queue(), block) :
+    dispatch_async(dispatch_get_main_queue(), block);  // Asynchronous
+}
+- (void)performAsynchronous:(void(^)(void))block {
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_async(queue, block);
+}
+- (void)performAfter:(NSTimeInterval)seconds block:(void(^)(void))block {
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, seconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_current_queue(), block);
+}
+@end
+
+@implementation NSObject (ClassAssociatedReferences)
++ (void)setValue:(id)value forKey:(NSS*)key {
+	
+	[self setAssociatedValue:value forKey:key policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
+}
++ (id)valueForKey:(NSS*)key  {
+	return [(NSO*)self associatedValueForKey:key];
+}
+@end
+
+@implementation NSObject (HidingAssocitively)
+- (BOOL) folded 						{ return [[self associatedValueForKey:@"AtoZhidden" orSetTo:@(NO) policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC]boolValue ]; 	}
+- (void) setFolded:(BOOL)hidden 	{ 	[self setAssociatedValue:@(hidden) forKey:@"AtoZhidden" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC]; }
+@end
+
+
 //#import "AutoCoding.h"
 
 //#import "Nu.h"
@@ -14,6 +48,69 @@
 //- (id)associatedValueFor: (void*)key {			 return objc_getAssociatedObject(self, key);								 }
 //
 //@end
+
+IMP impOfCallingMethod(id lookupObject, SEL selector)
+{
+    NSUInteger returnAddress = (NSUInteger)__builtin_return_address(0);
+    NSUInteger closest = 0;
+    // Iterate over the class and all superclasses
+    Class currentClass = object_getClass(lookupObject);
+    while (currentClass)
+    {
+        // Iterate over all instance methods for this class
+        unsigned int methodCount;
+        Method *methodList = class_copyMethodList(currentClass, &methodCount);
+        unsigned int i;
+        for (i = 0; i < methodCount; i++)
+        {
+            // Ignore methods with different selectors
+            if (method_getName(methodList[i]) != selector)  continue;
+            // If this address is closer, use it instead
+            NSUInteger address = (NSUInteger)method_getImplementation(methodList[i]);
+            if (address < returnAddress && address > closest)
+                closest = address;
+    
+        }
+        free(methodList);
+        currentClass = class_getSuperclass(currentClass);
+    }
+	 return (IMP)closest;
+}
+@implementation NSObject (SupersequentImplementation)
+- (IMP)getImplementationOf:(SEL)lookup after:(IMP)skip
+{
+	BOOL found = NO;
+	Class currentClass = object_getClass(self);
+	while (currentClass)
+	{
+		// Get the list of methods for this class
+		unsigned int methodCount;
+		Method *methodList = class_copyMethodList(currentClass, &methodCount);
+		// Iterate over all methods
+		unsigned int i;
+		for (i = 0; i < methodCount; i++)
+		{
+			// Look for the selector
+			if (method_getName(methodList[i]) != lookup)				continue;
+			IMP implementation = method_getImplementation(methodList[i]);
+			// Check if this is the "skip" implementation
+			if (implementation == skip)
+				found = YES;
+			else if (found)
+			{
+				// Return the match.
+				free(methodList);
+				return implementation;
+			}
+		}
+		// No match found. Traverse up through super class' methods.
+		free(methodList);
+		currentClass = class_getSuperclass(currentClass);
+	}
+	return nil;
+}
+
+@end
 
 
 static id addMethodTrampoline(id self, SEL _cmd) {
@@ -1307,7 +1404,7 @@ static const char * getPropertyType(objc_property_t property) {
 
 
 - (NSS *)stringFromClass {
-	return NSStringFromClass(self.class);
+	return AZCLSSTR;
 }
 
 - (void)setIntValue:(NSI)i forKey:(NSS *)key     {

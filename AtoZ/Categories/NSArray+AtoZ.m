@@ -66,23 +66,24 @@
 
 - (NSObject*) swizzledObjectAtIndexedSubscript: (NSUInteger) i {
 
-	id try = nil;
-	if (i < self.count) {
-			try =  (id)[self swizzledObjectAtIndexedSubscript:i];
-		if (!try) {
-				try = [[self normal:i]copy];
-				try ? NSLog(@"found indexed subscript for arrray starting with: %@ from NORMALIZED subscript!", self[0]) :
-								NSLog(@"Array of length :%ld, with first item: %@ could not find index at subscript: %ld", self.count, self.first, i);
-		}
-	} else {	__block NSBag *b = NSBag.new; [self do:^(id obj) { [b add:NSStringFromClass([obj class])]; }];
-				NSS *types = [[b objects] reduce:^id(id memo, id obj) {
-					return [memo withString:$(@"%ld instances of class: %@\n", [b occurrencesOf:obj], obj)]; } withInitialMemo:@"In this array there are..\n"];
-				NSLog(@"%@ %s indexed subscript out of bounds.  last good valu was :%@.... my length is %ld.  I start with %@\n", types,__PRETTY_FUNCTION__, [self.last propertiesPlease], self.count, self[0] ); }
-	return try ?: @"";// AZNULL;
+	return i < self.count ? [self swizzledObjectAtIndexedSubscript:i]  : [self normal:i];
+//	id try = nil;
+//	if (i < self.count) {
+//			try =  (id)[self swizzledObjectAtIndexedSubscript:i];
+//		if (!try) {
+//				try = [[self normal:i]copy];
+//				try ? NSLog(@"found indexed subscript for arrray starting with: %@ from NORMALIZED subscript!", self[0]) :
+//								NSLog(@"Array of length :%ld, with first item: %@ could not find index at subscript: %ld", self.count, self.first, i);
+//		}
+//	} else {	__block NSBag *b = NSBag.new; [self do:^(id obj) { [b add:NSStringFromClass([obj class])]; }];
+//				NSS *types = [[b objects] reduce:^id(id memo, id obj) {
+//					return [memo withString:$(@"%ld instances of class: %@\n", [b occurrencesOf:obj], obj)]; } withInitialMemo:@"In this array there are..\n"];
+//				NSLog(@"%@ %s indexed subscript out of bounds.  last good valu was :%@.... my length is %ld.  I start with %@\n", types,__PRETTY_FUNCTION__, [self.last propertiesPlease], self.count, self[0] ); }
+//	return try ?: @"";// AZNULL;
 }
 + (void) load  {
 
-//	[$ swizzleMethod:@selector(description) with:@selector(swizzleDescription) in:self.class];
+	[$ swizzleMethod:@selector(description) with:@selector(swizzleDescription) in:self.class];
 	[$ swizzleMethod:@selector(objectAtIndexedSubscript:) with:@selector(swizzledObjectAtIndexedSubscript:) in:self.class];
 
 /*
@@ -159,10 +160,17 @@
 
 - (id)nextObject;
 {
-    static NSS *intIDX = nil;  intIDX = intIDX ? : @"internalIndexNextObject";
-    NSUI intIndex = [self hasAssociatedValueForKey:intIDX] ? [[self associatedValueForKey:intIDX]unsignedIntegerValue] : 0;
-    [self setAssociatedValue:@(intIndex + 1) forKey:intIDX policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
-    return [self normal:intIndex];
+	NSNumber *n = [self associatedValueForKey:@"AZNextObjectInternalIndex" orSetTo:@(0) policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];	
+	NSUI indie = n.unsignedIntegerValue;
+	if (indie < self.count) {
+		[self setAssociatedValue:n.increment forKey:@"AZNextObjectInternalIndex" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
+	 	return [self normal:indie];
+	}
+	return  nil;
+//	static NSS *intIDX = nil;  intIDX = intIDX ? : @"internalIndexNextObject";
+//    NSUI intIndex = [self hasAssociatedValueForKey:intIDX] ? [[self associatedValueForKey:intIDX]unsignedIntegerValue] : 0;
+//    [self setAssociatedValue:@(intIndex + 1) forKey:intIDX policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
+//    return [self normal:intIndex];
 }
 
 - (NSS *)formatAsListWithPadding:(NSUI)characters;

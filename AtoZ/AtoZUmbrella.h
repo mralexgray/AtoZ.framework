@@ -40,6 +40,7 @@
 
 #define 			AZRUNLOOP	NSRunLoop.currentRunLoop
 #define 	   AZRUNFOREVER 	[AZRUNLOOP runMode:NSDefaultRunLoopMode beforeDate:NSDate.distantFuture]
+#define 	AZRUN while(0)	[NSRunLoop.currentRunLoop run]
 #define 					NSA 	NSArray
 #define 			 NSACLASS 	NSArray.class
 #define 	    NSAorDCLASS 	@[NSArray.class, NSDictionary.class]
@@ -80,6 +81,8 @@
 #define				 NSIMG 	NSImage
 #define				  NSIS 	NSIndexSet
 #define				  NSIV 	NSImageView
+#define				 NSINV   NSInvocation
+#define					SIG	NSMethodSignature
 #define				  NSMA 	NSMutableArray
 #define				 NSMAS 	NSMutableAttributedString
 #define				  NSMD 	NSMutableDictionary
@@ -324,6 +327,7 @@ typedef struct {	CAConstraintAttribute constraint;	CGFloat scale;	CGFloat offset
 #define CGSUPRESSINTERVAL(x) CGEventSourceSetLocalEventsSuppressionInterval(nil,x)
 #define AZPOS AZWindowPosition
 
+#define AZCLSSTR NSStringFromClass ( [self class] )
 #define AZSSOQ AZSharedSingleOperationQueue()
 #define AZSOQ AZSharedOperationQueue()
 #define AZOS AZSharedOperationStack()

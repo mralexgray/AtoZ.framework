@@ -25,10 +25,10 @@ int main(int argc, char*argv[]){ @autoreleasepool {
 
  	NSString* path = [@"/Volumes/2T/ServiceData/Developer/Xcode/DerivedData/AtoZ-hfqteqfcvjfinlajqwkydsqyzpiz/Build/Products/Debug/AtoZ.framework/Versions/A/Frameworks"
 			stringByDeletingLastPathComponent].stringByDeletingLastPathComponent.stringByDeletingLastPathComponent;
-	fprintf ( stderr, "Preflighting path: %s\n", path.UTF8String);
+//	fprintf ( stderr, "Preflighting path: %s\n", path.UTF8String);
 
 	NSBundle *b = [NSBundle bundleWithPath:  path];
-//	while (![b isLoaded]) {
+	while (![b isLoaded]) {
 	
 	fprintf ( stderr, "Bundle: %s\n", b.debugDescription.UTF8String);
 	NSError *e;
@@ -39,7 +39,7 @@ int main(int argc, char*argv[]){ @autoreleasepool {
 	Class cli = NSClassFromString(@"AZCLI");
 	while(![[cli sharedInstance]boolForKey:@"finished"])
 		[NSRunLoop.currentRunLoop run];
-//	}
+	}
 	return EXIT_SUCCESS;
 }
 

@@ -47,12 +47,12 @@
 - (void) rgbColorValues {
 
 	NSS	*stringColor 	= @"red";
-	NSA	*stringResult 	=  rgbColorValues(stringColor);
+//	NSA	*stringResult 	= rgbColorValues(stringColor);
 	NSC	*colorColor	 	= RED;
-	NSA	*colorResult	= rgbColorValues(colorColor);
+//	NSA	*colorResult	= rgbColorValues(colorColor);
 	NSA	*arrayColor 	= @[@1,@0, @0];
-	NSA	*arrayResult 	= rgbColorValues(arrayColor);
-	NSLog(@"rgbColorValues:  string: %@   color: %@  array:  %@", stringResult, colorResult, arrayResult);
+//	NSA	*arrayResult 	= rgbColorValues(arrayColor);
+//	NSLog(@"rgbColorValues:  string: %@   color: %@  array:  %@", stringResult, colorResult, arrayResult);
 }
 
 @end

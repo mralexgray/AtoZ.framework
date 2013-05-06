@@ -9,6 +9,10 @@
 #import <SenTestingKit/SenTestingKit.h>
 #import <Cocoa/Cocoa.h>
 #import <AtoZ/AtoZ.h>
+#import <objc/runtime.h>
+#import <objc/message.h>
+#import <AtoZ/AtoZ.h>
+
 @interface NSAlpha : AtoZ
 @end
 @interface NSBravo : AtoZ
@@ -16,7 +20,11 @@
 @interface NSCharlie : NSBravo
 @end
 
-@interface AtoZTests : SenTestCase
+@interface AtoZTestCase : NSObject
+- (void)runTests;
+@end
+
+@interface AtoZTest : SenTestCase
 - (NSString *)stringFromClass;
 @end
 

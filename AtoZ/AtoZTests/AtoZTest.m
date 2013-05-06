@@ -9,10 +9,22 @@
 #import "AtoZTests.h"
 #import <GHUnit/GHUnit.h>
 
-@implementation AtoZTests
+@implementation AtoZTestCase
 
-- (void)testStringFromClass
-{
+- (void)runTests	{
+    unsigned int count;
+    Method *methods 		= class_copyMethodList([self class], &count);
+    for ( int i = 0;  i < count; i++ )	{
+        
+		  SEL selector = method_getName( (Method) methods[i] );
+        NSString *name = NSStringFromSelector(selector);
+        if ([name hasPrefix:@"test"])	 //avoid arc warning by using c runtime
+            objc_msgSend(self, selector);
+        NSLog(@"Test '%@' completed successfuly", [name substringFromIndex:4]);
+    }
+}
+
+- (void)testStringFromClass	{
 	STAssertEqualObjects([[[NSObject alloc] init] stringFromClass], @"NSObject", nil);
 
 	// NSString deploys a class clustering architecture. The actual class is an
@@ -27,43 +39,24 @@
 	// runs! You would expect the compiler to baulk, but no.
 	STAssertEqualObjects([NSObject stringFromClass], @"NSObject", nil);
 }
-- (void)setUp
-{
+- (void)setUp						{
 	[super setUp];
-	
-
 	id a,b,c,d;
 	a = [AtoZ sharedInstance];
 	b = [AtoZ instanceWithObject:self];
 	c = [AtoZ instance];
 	d = (AtoZ*)a;
-	
 	NSLog(@"%d=%d=%d", a=[AtoZ sharedInstance], 	[AtoZ sharedInstance], [AtoZ instanceWithObject:self]  );
 	NSLog(@"%d=%d=%d", b=[NSAlpha sharedInstance],	 [NSAlpha instance],	 [NSAlpha instance]);
 	NSLog(@"%d=%d=%d", c=[NSBravo instance],	 [NSBravo sharedInstance],	 [NSBravo sharedInstance]);
 	NSLog(@"%d=%d=%d", d=[NSCharlie instance],   [NSCharlie instanceWithObject:@"wghay6e"],   [NSCharlie sharedInstance]);
 	NSLog(@"%d != %d != %d != %d", a, b, c, d);
-
 	// Set-up code here.
 }
-
-- (void)tearDown
-{
-	// Tear-down code here.
-	
-	[super tearDown];
-}
-
-- (void)testExample
-{
-//	STFail(@"Unit tests are not implemented yet in AtoZTests");
-}
+- (void)tearDown		{	[super tearDown]; 	}
+- (void)testExample	{		STFail(@"Unit tests are not implemented yet in AtoZTests");	}
 @end
-//
-//-(void) testColorConversion {
-//
-//sta
-//}
+
 @implementation NSAlpha
 @end
 @implementation NSBravo

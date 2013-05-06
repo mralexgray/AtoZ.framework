@@ -10,6 +10,29 @@
 #import <stdarg.h>
 
 
+@interface NSObject (GCD)
+- (void)performOnMainThread:(void(^)(void))block wait:(BOOL)wait;
+- (void)performAsynchronous:(void(^)(void))block;
+- (void)performAfter:(NSTimeInterval)seconds block:(void(^)(void))block;
+@end
+
+@interface NSObject (ClassAssociatedReferences)
++ (void)setValue:(id)value forKey:(NSS*)key;
++ (id)valueForKey:(NSS*)key;
+@end
+
+@interface NSObject (HidingAssocitively)
+@property BOOL folded;
+@end
+
+#define invokeSupersequent(...)  ([self getImplementationOf:_cmd after:impOfCallingMethod(self, _cmd)]) (self, _cmd, ##__VA_ARGS__)
+IMP impOfCallingMethod(id lookupObject, SEL selector);
+@interface NSObject (SupersequentImplementation)
+// Lookup the next implementation of the given selector after the  default one. Returns nil if no alternate implementation is found.
+- (IMP)getImplementationOf:(SEL)lookup after:(IMP)skip;
+@end
+
+
 /* AWEOME!!
 	[@["methodOne", @"methodtwo"] each:^(id obj) {
 		[Foo addMethodForSelector:NSSelectorFromString(obj) typed:"v@:" implementation:^ (id self, SEL _cmd) {
@@ -193,7 +216,7 @@ typedef void (^caseBlock)();
 
 - (NSS*)formatWithArguments:(NSA*)arr;
 + (NSS*)evaluatePseudoFormat:(NSS*)fmt withArguments:(NSA*)arr;
-- (void) log:(id) firstObject, ...;
+//- (void) log:(id) firstObject, ...;
 @end
 
 @interface NSObject (AG)

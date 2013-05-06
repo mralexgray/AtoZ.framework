@@ -2,7 +2,15 @@
 #import <Cocoa/Cocoa.h>
 //#import <AtoZ.h>
 //#import <AtoZ/AtoZ.h>
+#import "AZBeetlejuice.h"
 
+
+#define CPROXY(x) 	[[@"a" valueForKey:@"classProxy"] valueForKey:@"x"]
+#define MASCOLORE(x) [x setValue:[CXPROXY(@"NSColor") valueForKey:@"randomColor"] forKey:@"logForeground"]
+#define NSPRINT(x) 	[[[@"a" valueForKey:@"classProxy"] valueForKey:@"NSTerminal"]performSelectorWithoutWarnings:NSSelectorFromString(@"printString:") withObject:[x valueForKey:@"colorLogString"]]
+//withObject:x]
+
+//#undef NSLog
 
 @interface Contacts: NSObject <NSCoding>
 @property (strong,nonatomic) NSString *firstName, *lastName, *streetAddress, *zipCode, *email, *phoneNumber, *notes;
@@ -51,19 +59,12 @@
 -(void) loadBundles;
 -(void) loadAZ;
 @end
-#import "/sd/AtoZ.framework/AZBeetljuice.h"
-
-
-#define CPROXY(x) 	[[@"a" valueForKey:@"classProxy"] valueForKey:@"x"]
-#define MASCOLORE(x) [x setValue:[CXPROXY(NSColor) valueForKey:@"randomColor"] forKey:@"logForeground"]
-#define NSPRINT(x) [[[@"a" valueForKey:@"classProxy"] valueForKey:@"NSTerminal"]performSelectorWithoutWarnings:NSSelectorFromString(@"printString:") withObject:[x valueForKey:@"colorLogString"]]
-//withObject:x]
 
 typedef void (^menuWithContacts)(ContactList*);
 menuWithContacts contactMenu = ^(ContactList *contacts)			{
 
 	AZBeetlejuiceLoadAtoZ();
-	__block BOOL exit = NO; 
+//	__block BOOL exit = NO; 
 	__block NSString *temp;
 	
 	NSPRINT(@"\nWelcome to the Contact List App \nPlease choose from the following options: \n");
@@ -89,7 +90,7 @@ menuWithContacts contactMenu = ^(ContactList *contacts)			{
 						temp = @"";																			},
 					@" to Save & Exit"						: ^{	[contacts saveContacts]; 	},
 					@" to Load Frameworks"   			 	: ^{	[contacts loadBundles]; 	},
-					@" To Load AZ"								: ^{	[contacts loadAZ]; 			},
+					@" To Load AZ"								: ^{	AZBeetlejuiceLoadAtoZ();	},//[contacts loadAZ]; 			},
 					@" To print AtoZ Methods" 				: ^{  
 					[contacts performSelector:@selector(promptWithArray:)
 						withObject:[CPROXY(AtoZ) performSelectorWithoutWarnings:NSSelectorFromString(@"instanceMethods")]]; }};
@@ -227,15 +228,17 @@ menuWithContacts contactMenu = ^(ContactList *contacts)			{
 	int option = 0;
 	[a enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 		[obj setValue:GRAY2 forKey:@"logBackground"];
-		NSPRINT([@(idx).stringValue withString:[AZLOGSHARED colorizeString:obj withColor:RANDOMCOLOR]]);
-//		[NSPRINT([NSString stringWithFormat:@"%i %@", (int)(idx + 1), [self clr:obj], nil]);;
+//		NSS* printer = [NSString stringWithFormat:@"%@ : %@",@(idx), obj];
+//		NSPRINT(printer);// withString:[[CPROXY(CPROXY(AZLog) valueForKey:@"sharedInstance" ] colorizeString:obj withColor:RANDOMCOLOR]]);
+//			NSString *Uugh = [NSString stringWithFormat:@"%i %@", (int)(idx + 1), [self clr:obj], nil];
+//		NSPRINT(Uugh);
 //		[CPROXY(AZLog) performSelector:NSSelectorFromString(@"colorizeString:withColor:") withObject:[NSString stringWithFormat:@"%i %@", (int)(idx + 1), [self clr:obj]] NSColor.orangeColor, nil)[0]clr]);
 //		fprintf ( stderr, "%d %s\n", (int)(idx + 1), [self clr:obj].UTF8String);
 	}];
 	do { 
-		option = [NSTerminal readInt]; 	
-		[NSTerminal printStringWithFormat:@"%i", option, nil];
-	} while (option > 1 && option < a.count + 1);
+		option = (int)[CPROXY(NSTerminal) performSelectorWithoutWarnings:$SEL(@"readInt")]; 	
+		NSPRINT(@(option).stringValue);//[NSString stringWithFormat:@"%i", option, nil]);
+	} while ( ! NSRangeContainsIndex(NSMakeRange(0,a.count),option));//option = 0 && option < a.count + 1);
 //		if (!inRange)  {  fprintf(stderr,"%s", "not valid, try again..\n"); fflush(stdin); }
 //	}	while(!inRange);
 

@@ -872,6 +872,19 @@ NSView* AZResizeWindowAndContent(NSWindow* window, CGF dXLeft, CGF dXRight, CGF 
 
 @implementation NSView (findSubview)
 
+- (NSA*) subviewFirstOfClass:(Class)k
+{
+	return [self.subviews filterOne:^BOOL(id object) {
+		return [object isKindOfClass:k];
+	}];
+}
+- (NSA*) subviewsOfClass:(Class)k
+{
+	return [self.subviews filter:^BOOL(id object) {
+		return [object isKindOfClass:k];
+	}];
+}
+
 - (NSA*)findSubviewsOfKind:(Class)kind withTag:(NSInteger)tag inView:(NSView*)v {
 	NSMutableArray *array = [NSMutableArray array];
 	

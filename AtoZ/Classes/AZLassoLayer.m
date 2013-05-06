@@ -7,6 +7,89 @@
 #import "AZLassoLayer.h"
 #import <QuartzCore/QuartzCore.h>
 
+@interface AZLassoLayer ()
+@property (STRNG)	 		CALNH  *root;
+@property (STRNG) 		CASLNH *blk, *wht;
+@property (NATOM,ASS) 	CGF 	 dynamicStroke;
+@end
+
+@implementation AZLassoLayer
+
++ (NSR) frame { return [(CALNH*)[self.class.sharedInstance root]frame]; }
+
++ (void) setLayer:(CAL*)layer 	{ //if (![self hasSharedInstance])	
+												//	[self setSharedInstance: self.instance];
+						 [self.class.sharedInstance setLayer:layer]; 
+}
+
+-  (CGF) dynamicStroke {  return 	_dynamicStroke = AZMinDim(_root.boundsSize) * _strokeMultiplier * .1; }
+
+- (void) setUp {
+
+//	if (self != self.class.sharedInstance) return;
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		_root	= [CALNH layerWithFrame:AZRectFromDim(100)];
+//		_root.frame = AZRectBy(10,10);
+		_root.zPosition 		= 1000;
+		_wht	= [CASLNH layerWithFrame:AZRectFromDim(100)];
+		_blk = [CASLNH layerWithFrame:AZRectFromDim(100)];
+		_root.sublayers		= @[_wht, _blk];
+		_blk.fillColor			= _wht.fillColor	= cgCLEARCOLOR;
+		_blk.lineWidth			= _wht.lineWidth	= self.dynamicStroke;
+		_blk.lineJoin			= _wht.lineJoin 	= kCALineJoinMiter;
+		_blk.strokeColor		= cgBLACK;			// [[[layer valueForKey:@"azfile"]valueForKey:@"color"]CGColor]];
+		_wht.strokeColor		= cgWHITE;
+		_blk.lineDashPattern	= @[ @(15), @(15) ];
+		_strokeMultiplier 	= 1;
+		CABA *dashAnimation 			= [CABA animationWithKeyPath:@"lineDashPhase"];
+		dashAnimation.fromValue		= @0;
+		dashAnimation.toValue		= @30;
+		dashAnimation.duration 		= .75;
+		dashAnimation.repeatCount 	= 10000;
+		[_blk addAnimation:dashAnimation forKey:@"linePhase"];
+		[_layer addSublayer:_root];
+		
+	});		
+}
+- (void) setLayer:(CAL*)layer{ NSLog(@"setting layer with frame: %@", AZString(layer.frame));
+
+//	if (self != self.class.sharedInstance) return;
+	if (layer && layer != _layer) {  _layer = layer; 
+		_root.frame = _wht.bounds = _blk.bounds = layer.bounds;
+		[_layer addSublayer:_root];	
+	
+//		if (layer.superlayer != _root.superlayer) { 
+//			[_root 			removeFromSuperlayer]; 
+//			[layer.superlayer addSublayer:_root]; 
+//		}
+//		if (layer.superlayer != _root.superlayer) { [layer.superlayer addSublayer:_root]; }
+		LOGCOLORS(@"layer has been set...  frame is approx.. ", RANDOMCOLOR, AZString(_root.frame),nil);
+		
+		[CATransaction transactionWithLength:.2 actions:^{
+			_root.frame = layer.frame;		_blk.frame = _wht.frame = layer.bounds;
+		}];
+	}
+}
+@end
+/*			
+					if (_root.frame.origin.x == layer.frame.origin.x || _root.frame.origin.y == layer.frame.origin.y) {
+				_root.frame = layer.frame; _blk.frame = _wht.frame = _root.bounds;
+			}
+			else 		
+				[_root animate:@"opacity" toFloat:0 time:.1 completion:^{
+					_root.frame = layer.frame;		_blk.frame = _wht.frame = layer.bounds;
+					
+					[_root animate:@"opacity" toFloat:1 time:.1];
+			}];
+			_wht.opacity = _blk.opacity = 1;
+			_blk.path =_wht.path	= [NSBP bezierPathWithRect:NSInsetRect( layer.bounds, self.dynamicStroke/2, self.dynamicStroke/2)].quartzPath;
+		}];
+	}
+}
+//+ (CAL*)lassoLayer:(CAL*)layer {	return [self.class.sharedInstance root];	}
+@end
+
 
 @interface AZLassoLayer ()
 @property (nonatomic, strong) CAShapeLayer *lassoBorder, *lasso;
@@ -87,13 +170,14 @@
 	}];
 
 //	_lasso.constraints 		= @[		AZConstScaleOff( kCAConstraintMinX,@"superlayer", 1, half),
-//											AZConstScaleOff( kCAConstraintMinY,@"superlayer", 1,half), /*2),*/
+//											AZConstScaleOff( kCAConstraintMinY,@"superlayer", 1,half), / *2),* /
 //											AZConstScaleOff( kCAConstraintMaxY,@"superlayer", 1,half),
 //											AZConstScaleOff( kCAConstraintWidth,@"superlayer", 1,NEG(_dynamicStroke)),
 //											AZConstScaleOff( kCAConstraintHeight,@"superlayer", 1, NEG(_dynamicStroke)),
 //											AZConst( kCAConstraintMidX,@"superlayer"),
 //											AZConst( kCAConstraintMidY,@"superlayer") ];
 
+/ *
 	_lasso.strokeColor 			= cgBLACK;
 	_lassoBorder.strokeColor		= cgWHITE;
 	_lasso.lineDashPattern 		= @[ @(20), @(20)];
@@ -112,3 +196,5 @@
 }
 
 @end
+*/
+

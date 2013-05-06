@@ -26,24 +26,25 @@ id 	LogAndReturnWithCaller ( id toLog, SEL caller);
 void 	QuietLog 				  ( NSS *format, ...		);
 
 /*	Foreground color: 	Insert the ESCAPE_SEQ into your string, followed by "fg124,12,255;" where r=124, g=12, b=255.
- Background color:	 	Insert the ESCAPE_SEQ into your string, followed by "bg12,24,36;" where r=12, g=24, b=36.
- Reset the foreground color (to default value):	Insert the ESCAPE_SEQ into your string, followed by "fg;"
- Reset the background color (to default value):	Insert the ESCAPE_SEQ into your string, followed by "bg;"
- Reset the fground and bground color (to default values) in 1 operation: Insert the ESCAPE_SEQ into your string, followed by ";"
- */
+ 	Background color:	 	Insert the ESCAPE_SEQ into your string, followed by "bg12,24,36;" where r=12, g=24, b=36.
+ 	Reset the foreground color (to default value):	Insert the ESCAPE_SEQ into your string, followed by "fg;"
+	Reset the background color (to default value):	Insert the ESCAPE_SEQ into your string, followed by "bg;"
+	Reset the fground and bground color (to default values) in 1 operation: Insert the ESCAPE_SEQ into your string, followed by ";"
+*/
 #if TARGET_OS_IPHONE
-#define XCODE_COLORS_ESCAPE  @"\xC2\xA0["
+#define 	XCODE_COLORS_ESCAPE  @"\xC2\xA0["
 #else
-#define XCODE_COLORS_ESCAPE  @"\033["
+#define 	XCODE_COLORS_ESCAPE  @"\033["
 #endif
-#define XCODE_COLORS_RESET_FG  	XCODE_COLORS_ESCAPE @"fg;" // Clear any foreground color
-#define XCODE_COLORS_RESET_BG  	XCODE_COLORS_ESCAPE @"bg;" // Clear any background color
-#define XCODE_COLORS_RESET	 		XCODE_COLORS_ESCAPE @";"   // Clear any foreground or background color
-#define COLOR_RESET 					XCODE_COLORS_RESET
-#define COLOR_ESC 					XCODE_COLORS_ESCAPE
-#define XCODE_COLORS 0
+#define 	XCODE_COLORS_RESET_FG  	XCODE_COLORS_ESCAPE @"fg;" // Clear any foreground color
+#define 	XCODE_COLORS_RESET_BG  	XCODE_COLORS_ESCAPE @"bg;" // Clear any background color
+#define 	XCODE_COLORS_RESET	 		XCODE_COLORS_ESCAPE @";"   // Clear any foreground or background color
+#define 	COLOR_RESET 					XCODE_COLORS_RESET
+#define 	COLOR_ESC 					XCODE_COLORS_ESCAPE
+#define 	XCODE_COLORS 0
 
-#define AZLOGSHARED AZLog.sharedInstance
+#define 	AZLOGSHARED AZLog.sharedInstance
+#define	AZLOG(x) NSLog(@"%@", x)
 #define	NSLog(fmt...) [AZLOGSHARED logInColor:RANDOMCOLOR file:__FILE__ line:__LINE__ func:__PRETTY_FUNCTION__ format:fmt]
 //#define	NSLog(fmt...) [AZLog_AZColorLog(nil,__FILE__,__LINE__,__PRETTY_FUNCTION__,fmt)
 

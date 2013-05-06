@@ -9,33 +9,6 @@
 
 #import "AZCLICategories.h"
 #import "AtoZ.h"
-#import "NSTerminal.h"
-
-//@implementation NSArray (AZCLI)
-//- (NSS*) cliMenuFromContentsStarting:(NSUI)idx inPalette:(NSA*)pal {
-
-//@interface AZPalette ()
-//
-//@property (ASS) 	 NSUI index;
-//@end
-//static NSMD *cls = nil;
-
-@implementation AZCLI (Categories)
-+ (void) handleInteractionWithPrompt:(NSS*)string block:(void(^)(NSString *output))block {
-
-//	NSFH   *handle = self.stdinHandle;
-//	NSData   *rawD = [NSData dataWithData:handle.readDataToEndOfFile];
-	NSS	  *outie = 	[NSTerminal readString]; //[NSString stringWithData:rawD encoding:NSUTF8StringEncoding];
-	[NSTerminal printString:outie];
-//	fprintf(stderr, "rawstring:%s", outie.UTF8String);
-	block(outie);
-}
-
-//- (id) objectAtIndexedSubscript:(NSUInteger)idx { return [self.colors normal:idx]; }
-//
-//+ (void) load { cls = NSMD.new; }
-
-@end
 
 @implementation AZCLIMenu
 
@@ -46,13 +19,13 @@
 	id allof = [self allInstances];
 	NSLog(@"Allofclass: %@", NSStringFromClass(allof));
 	NSMIS* is = NSMIS.new;
-	if (.count) {
-//		NSLog(@"Allinstances:%@", all);// [[@"a".classProxy vFK:NSStringFromClass(self.class)] performSelectorWithoutWarnings:NSSelectorFromString(@"allInstancesAddOrReturn:") withObject:nil]);
+//	if (.count) {
+//		NSLog(@"Allinstances:%@", all);// [[@"a".classProxy vFK:AZCLSSTR] performSelectorWithoutWarnings:NSSelectorFromString(@"allInstancesAddOrReturn:") withObject:nil]);
 			for (AZCLIMenu *m in [self allInstances]) {
 //			
 			 NSLog(@"%@ RANGE:%@", m, NSStringFromRange(m.range));  [is addIndexesInRange:m.range];
 			}
-	}
+//	}
 	
 	return is;
 }
@@ -162,5 +135,33 @@
    [task launch];
    [self provideStdin:inPipe.fileHandleForWriting];
 }
+
+@end
+
+#import "NSTerminal.h"
+
+//@implementation NSArray (AZCLI)
+//- (NSS*) cliMenuFromContentsStarting:(NSUI)idx inPalette:(NSA*)pal {
+
+//@interface AZPalette ()
+//
+//@property (ASS) 	 NSUI index;
+//@end
+//static NSMD *cls = nil;
+
+@implementation AZCLI (Categories)
++ (void) handleInteractionWithPrompt:(NSS*)string block:(void(^)(NSString *output))block {
+
+//	NSFH   *handle = self.stdinHandle;
+//	NSData   *rawD = [NSData dataWithData:handle.readDataToEndOfFile];
+	NSS	  *outie = 	[NSTerminal readString]; //[NSString stringWithData:rawD encoding:NSUTF8StringEncoding];
+	[NSTerminal printString:outie];
+//	fprintf(stderr, "rawstring:%s", outie.UTF8String);
+	block(outie);
+}
+
+//- (id) objectAtIndexedSubscript:(NSUInteger)idx { return [self.colors normal:idx]; }
+//
+//+ (void) load { cls = NSMD.new; }
 
 @end

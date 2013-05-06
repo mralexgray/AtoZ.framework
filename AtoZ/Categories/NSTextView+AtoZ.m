@@ -15,10 +15,10 @@
 @implementation NSTextView (AtoZ)
 
 
-+ (void) load {
-
-	[$ swizzleMethod:@selector(insertText:) with:@selector(swizzledInsert:) in:self.class];
-}
+//+ (void) load {
+//
+//	[$ swizzleMethod:@selector(insertText:) with:@selector(swizzledInsert:) in:self.class];
+//}
 
 
 - (void) swizzledInsert:(id) text; {	[self autoScrollText:text];	}

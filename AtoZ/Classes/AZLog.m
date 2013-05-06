@@ -14,12 +14,12 @@ JREnum ( LogEnv, LogEnvXcodeColor, LogEnvXcodeNOColor, LogEnvTTY );
 
 @implementation AZLog
 
-- (void) setUp {
+- (void) setUp {	![self.class hasSharedInstance] ? ^{
 
-	if (![self.class hasSharedInstance]) {
-		if (!gPal) gPal = NSC.randomPalette;
-
-	}
+	[[self class] setSharedInstance:self];
+	if (!gPal) gPal = NSC.randomPalette;
+	
+	}(): nil;
 }
 - (BOOL) inTTY 			{   return [@(isatty(STDERR_FILENO))boolValue]; }
 - (LogEnv) logEnv 		{

@@ -200,6 +200,9 @@ typedef void (^viewFrameDidChangeBlock)(void);
 - (NSA*) subviewsOfKind: (Class)kind  withTag:(NSI)tag;
 - (NSA*) subviewsOfKind: (Class)kind;
 
+- (NSA*) subviewFirstOfClass:(Class)k;
+- (NSA*) subviewsOfClass:(Class)k;
+
 - (NSV*)firstSubviewOfKind: (Class)kind  withTag:(NSI)tag;
 - (NSV*)firstSubviewOfKind: (Class)kind;
 

@@ -1,3 +1,32 @@
+/*
+
+NOTES:
+
+
+BLOCKS:
+
+	__block __typeof(self) selfish = self;
+
+
+
+LAYERS:
+
+	self.root = [self setupHostViewNamed:@"root"];
+
+KVO:
+	
+	[self addObserverForKeyPaths:@[@"content" ] task:^(id obj, NSD *change) { [selfish setContentSubLayers];}];
+	
+	[self addObserverForKeyPaths:@[@"contentLayer",NSViewBoundsDidChangeNotification ] task:^(id obj, NSD *change) { ....
+	
+AZWORKSPACE:	
+											
+	selfcontent	= [AZFolder samplerWithCount:RAND_INT_VAL(12, 48)];
+
+
+*/
+
+
 #import <pwd.h>
 #import <unistd.h>
 #import <dirent.h>
@@ -76,6 +105,7 @@
 #import "AtoZCategories.h"
 #import "NSTerminal.h"
 #import "AZLog.h"
+#import "AtoZContacts.h"
 
 /* MODEL */
 #import "JsonElement.h"

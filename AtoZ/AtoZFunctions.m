@@ -4,6 +4,32 @@
 
 JREnumDefine(AZQuadrant);	JREnumDefine(Color);	JROptionsDefine(AZAlign);	JREnumDefine(AZWindowPosition);
 
+
+//Subclassible thread-safe ARC singleton  Copyright Kevin Lawler. Released under ISC.
+@implementation AZSingleton
+static NSMD* _children;
++ (void) initialize 		{
+	//thread-safe
+	_children = !_children ? NSMD.new : _children;
+	_children [AZCLSSTR] = [self.alloc init];
+}
++ (id) alloc 				{ id c; return (c = self.instance) ? c : [self allocWithZone:nil];  }
+- (id) init  				{ 
+	
+	id c; 
+	return self = ((c = _children[AZCLSSTR])) ? c : [super init];  //sic, unfactored
+//	return  ;
+}
++ (id) instance 			{	return _children [AZCLSSTR];  }
++ (id) sharedInstance 	{ 	return self.instance;  	}	//	alias for instance
++ (id) uno 					{	return self.instance;	} 	//	alias for instance
++ (id) new 					{	return self.instance; 	}	//	stop other creative stuff
++ (id) copyWithZone:			(NSZone *)zone {	return [self instance]; }
++ (id) mutableCopyWithZone:(NSZone *)zone {	return [self instance]; }
+@end
+
+
+
 NSC* Clr			(Color c) {
 	return 	c == ColorNone 	? nil 		 :	c == ColorRed 	? RED		 	:	c == ColorOrange 	? ORANGE		 	:
 				c == ColorYellow 	? YELLOW		 :	c == ColorGreen? GREEN		:	c == ColorBlue 	? BLUE			: nil;
@@ -34,6 +60,9 @@ CACONST * AZConstRelSuperScaleOff		 (CACONSTATTR attrb, CGF scl, CGF off) 						
 CACONST * AZConstAttrRelNameAttrScaleOff(CACONSTATTR aOne, NSS *relName, CACONSTATTR aTwo, CGF scl, CGF off) 	{
 	return [CAConstraint constraintWithAttribute:aOne relativeTo:relName attribute:aTwo scale:scl offset:off];
 }
+
+CAT3D  	m34() { CAT3D t = CATransform3DIdentity; float z=500.0f;t.m34	= 1.0f/z; return t;}
+
 
 /**	   if ( [AZSHAREDAPP delegate] ) {   id appD = [AZSHAREDAPP delegate];
 				fprintf ( stderr, "%s", appD description.UTF8String );

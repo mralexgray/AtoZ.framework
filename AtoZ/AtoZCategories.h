@@ -38,6 +38,7 @@
 #import "NSTextView+SyntaxColoring.h"
 #import "NSDate+AtoZ.h"
 #import "NSFont+AtoZ.h"
+#import "NSView+AtoZ.h"
 #import "NSOutlineView+AtoZ.h"
 #import "NSTask+OneLineTasksWithOutput.h"
 #import "NSEvent+AtoZ.h"

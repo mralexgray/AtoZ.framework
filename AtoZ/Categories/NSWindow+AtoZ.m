@@ -338,6 +338,9 @@ static AZSlideState inOut = AZToggle;
 	
 	return outerFrame.size.height - innerFrame.size.height;
 }
+
+- (CGR) contentRect {  return [self.contentView bounds]; }
+
 /** @brief Set content size with animation	*/
 - (void)setContentSize:(NSSize)aSize display:(BOOL)displayFlag animate:(BOOL)animateFlag	{
 	NSRect  frame = [self frame];

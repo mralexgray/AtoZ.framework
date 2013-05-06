@@ -12,29 +12,6 @@
 
 
 
-//Subclassible thread-safe ARC singleton  Copyright Kevin Lawler. Released under ISC.
-@implementation AZSingleton
-static NSMD* _children;
-+ (void) initialize 		{
-	//thread-safe
-	_children = !_children ? NSMD.new : _children;
-	_children [NSStringFromClass(self.class)] = [self.alloc init];
-}
-+ (id) alloc 				{ id c; return (c = self.instance) ? c : [self allocWithZone:nil];  }
-- (id) init  				{ 
-	
-	id c; 
-	if((c = _children[NSStringFromClass([self class])])) return c;  //sic, unfactored
-	return  self = [super init];
-}
-+ (id) instance 			{	return _children [NSStringFromClass(self.class)];  }
-+ (id) sharedInstance 	{ 	return self.instance;  	}	//	alias for instance
-+ (id) singleton 			{	return self.instance;	} 	//	alias for instance
-+ (id) new 					{	return self.instance; 	}	//	stop other creative stuff
-+ (id) copyWithZone:			(NSZone *)zone {	return [self instance]; }
-+ (id) mutableCopyWithZone:(NSZone *)zone {	return [self instance]; }
-@end
-
 @implementation NSObject (AZFunctional)
 -(id)processByPerformingFilterBlocks:(NSA*)filterBlocks	{
 	__block id blockSelf = self;
@@ -124,13 +101,20 @@ NSOQ *AZSharedSingleOperationQueue()	{	return AZDummy.sharedInstance.sharedSQ; }
 @implementation AtoZ
 
 //+ (void) load							{	globalRandoPalette = NSC.randomPalette.shuffeled; }
-+ (void) initialize 					{
-												[@"AtoZ.framework Version:%@ Initialized!" log:[self version], nil];	}
+//+ (void) initialize 					{//												[@"AtoZ.framework Version:%@ Initialized!" log:[self version], nil];	
+//}
 - (void) setUp 						{
-	[AZStopwatch named:@"AtoZ.framework Setup Time" block:^{
+	[AZStopwatch named:@"AtoZ.framework Instanciate!" block:^{
 		[NSB loadAZFrameworks];
-//		[self.class playRandomSound];
-/*		[[NSIMG imageFromLockedFocusSize:AZSizeFromDimension(256) lock:^NSImage *(NSImage *s) {
+		[NSApp setApplicationIconImage:[NSIMG imageNamed:@"logo.png"]];
+		_fonts = self.fonts;
+		[self _setupLogging];
+	}];
+}
+/*
+
+		[self.class playRandomSound];
+		[[NSIMG imageFromLockedFocusSize:AZSizeFromDimension(256) lock:^NSImage *(NSImage *s) {
 			[NSGraphicsContext state:^{
 				NSIMG* i = [NSIMG imageNamed:@"logo.png"];
 				NSBP *bp = [NSBP bezierPathRoundedRectOfSize:AZSizeFromDimension(256)];
@@ -139,23 +123,17 @@ NSOQ *AZSharedSingleOperationQueue()	{	return AZDummy.sharedInstance.sharedSQ; }
 			}];
 			return s;
 		}]openInPreview];
-*/
-		[NSApp setApplicationIconImage:[NSIMG imageNamed:@"logo.png"]];
-		_fonts = self.fonts;
-		[self _setupLogging];
-	}];
 
-	// Insert code here to initialize your application
 	[NSAppleEventManager.sharedAppleEventManager setEventHandler:self andSelector:@selector(handleURLEvent:withReplyEvent:) forEventClass:kInternetEventClass andEventID:kAEGetURL];
 
-/*		[AZFWORKBUNDLE cacheNamedImages];
+		[AZFWORKBUNDLE cacheNamedImages];
 		_cachedImages = cachedI;
 		Sound *rando = [Sound randomSound];
 		[[SoundManager sharedManager] prepareToPlayWithSound:rando];
 		[[SoundManager sharedManager] playSound:rando];
 		[self registerHotKeys];
 */
-}
+
 - (void)handleURLEvent:(NSAppleEventDescriptor*)theEvent withReplyEvent:(NSAppleEventDescriptor*)replyEvent {
 	
 	NSString* path = [[theEvent paramDescriptorForKeyword:keyDirectObject] stringValue];
@@ -164,15 +142,15 @@ NSOQ *AZSharedSingleOperationQueue()	{	return AZDummy.sharedInstance.sharedSQ; }
 }
 - (BOOL) inTTY							{   return [@(isatty(STDERR_FILENO))boolValue]; }
 + (void) testSizzle 					{
-
-	AZLOG(@"The original, non -siizled");
-	AZLOG(NSStringFromSelector(_cmd));
+//
+//	AZLOG(@"The original, non -siizled");
+//	AZLOG(NSStringFromSelector(_cmd));
 }
 + (void) testSizzleReplacement	{
 
-	AZLOG(@"Totally swizzed OUT ***************************");
-	[self testSizzleReplacement];
-	AZLOG(NSStringFromSelector(_cmd));
+//	AZLOG(@"Totally swizzed OUT ***************************");
+//	[self testSizzleReplacement];
+//	AZLOG(NSStringFromSelector(_cmd));
 //	[[AtoZ class] testSizzle];	[$ swizzleClassMethod:@selector(testSizzle) in:[AtoZ class] with:@selector(testSizzleReplacement) in:[AtoZ class]];	[[AtoZ class] testSizzle];
 }
 + (NSS*) version						{
