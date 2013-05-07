@@ -238,8 +238,7 @@
  [l addSublayer: trck];
  }
  */
-#pragma mark -
-#pragma mark CALayerDelegate protocol
+#pragma mark - CALayerDelegate protocol
 //- (id<CAAction>)actionForLayer:(CALayer *)layer forKey:(NSString *)event
 //{
 //	if ( layer == _t && [ _targetView inLiveResize ] ) {

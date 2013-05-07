@@ -518,6 +518,72 @@ extern CATransform3D CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13, CG
 
 @implementation CALayer (VariadicConstraints)
 
+
+//@implementation NSMutableArray (variadicMethodExample)
+
+//- (void) appendObjects:(id) firstObject, ...
+//{
+//	id eachObject;
+//	va_list argumentList;
+//	if (firstObject) // The first argument isn't part of the varargs list,
+//		{								   // so we'll handle it separately.
+//			[self addObject: firstObject];
+//			va_start(argumentList, firstObject); // Start scanning for arguments after firstObject.
+//			while (eachObject = va_arg(argumentList, id)) // As many times as we can get an argument of type "id"
+//				[self addObject: eachObject]; // that isn't nil, add it to self's contents.
+//			va_end(argumentList);
+//		}
+//}
+
+//@end
+- (void) addConstraintsSuperSizeScaled:(CGFloat)scale;
+{
+	[self addConstraintsSuperSize];
+	[self addConstraint: AZConstRelSuperScaleOff(kCAConstraintWidth, scale,0)];
+	[self addConstraint: AZConstRelSuperScaleOff(kCAConstraintHeight, scale,0)];
+}
+- (void) addConstraintsSuperSize	{
+
+	[self _ensureSuperHasLayoutManager];
+	self.constraints =	@[	AZConstRelSuper(kCAConstraintHeight),
+							  AZConstRelSuper(kCAConstraintWidth),
+							  AZConstRelSuper(kCAConstraintMidX),
+							  AZConstRelSuper(kCAConstraintMidY)		];
+	
+}
+- (void) _ensureSuperHasLayoutManager {
+	
+	if (!self.superlayer.layoutManager) self.superlayer.layoutManager = [[CAConstraintLayoutManager alloc]init];
+}
+
+- (void)addConstraints:(NSA*)constraints {
+	[self _ensureSuperHasLayoutManager];
+	[constraints do:^(id obj) {		[self addConstraint:obj];	}];
+}
+
+
+- (void) addConstraintsRelSuperOr:(NSNumber*) nilAttributeList, ...  // This method takes a nil-terminated list of objects.
+{
+	va_list args;
+	va_start(args, nilAttributeList);
+	NSNumber *value;
+	
+	id arg = nil;
+	while( (value = va_arg( args, NSNumber * )) )
+		
+		while ((arg = va_arg(args,id))) {
+			/// Do your thing with arg here
+	}
+		va_end(args);
+}
+
+- (void)addConstraintObjects:(CAConstraint*)first,... {
+
+	azva_list_to_nsarray(first, constraints);
+	LOGCOLORS(@"Adding ", @(constraints.count), @" constraints to layer with name:", self.name, PINK, ORANGE, nil);
+	[constraints each:^(id obj) { [self addConstraint:obj]; }];
+}
+
 - (void)addConstraintsRelSuper:(CAConstraintAttribute)first,...{ /* REQUIRES NSNotFound termination */
 	va_list args; 	va_start(args, first);
 	for (NSUInteger arg = first;	  arg != NSNotFound;	  arg = va_arg(args, NSUInteger)){
@@ -855,39 +921,6 @@ static char TEXT_IDENTIFIER;
 	return @(retval);
 }
 
-//@implementation NSMutableArray (variadicMethodExample)
-
-//- (void) appendObjects:(id) firstObject, ...
-//{
-//	id eachObject;
-//	va_list argumentList;
-//	if (firstObject) // The first argument isn't part of the varargs list,
-//		{								   // so we'll handle it separately.
-//			[self addObject: firstObject];
-//			va_start(argumentList, firstObject); // Start scanning for arguments after firstObject.
-//			while (eachObject = va_arg(argumentList, id)) // As many times as we can get an argument of type "id"
-//				[self addObject: eachObject]; // that isn't nil, add it to self's contents.
-//			va_end(argumentList);
-//		}
-//}
-
-//@end
-
-- (void) addConstraintsRelSuperOr:(NSNumber*) nilAttributeList, ...  // This method takes a nil-terminated list of objects.
-{
-	va_list args;
-	va_start(args, nilAttributeList);
-	NSNumber *value;
-	
-	id arg = nil;
-	while( (value = va_arg( args, NSNumber * )) )
-		
-		while ((arg = va_arg(args,id))) {
-			/// Do your thing with arg here
-		}
-	
-	va_end(args);
-}
 -(void) animateXThenYToFrame:(NSR)toRect duration:(NSUI)time;
 {
 	//	NSRect max, min;
@@ -1685,34 +1718,6 @@ static char TEXT_IDENTIFIER;
 	transform.m43 = 0;
 	transform.m44 = i / i;
 	return transform;
-}
-- (void) addConstraintsSuperSizeScaled:(CGFloat)scale;
-{
-	[self addConstraintsSuperSize];
-	[self addConstraint: AZConstRelSuperScaleOff(kCAConstraintWidth, scale,0)];
-	[self addConstraint: AZConstRelSuperScaleOff(kCAConstraintHeight, scale,0)];
-}
-- (void) addConstraintsSuperSize
-{
-	[self _ensureSuperHasLayoutManager];
-	self.constraints =	@[	AZConstRelSuper(kCAConstraintHeight),
-							  AZConstRelSuper(kCAConstraintWidth),
-							  AZConstRelSuper(kCAConstraintMidX),
-							  AZConstRelSuper(kCAConstraintMidY)		];
-	
-}
-- (void) _ensureSuperHasLayoutManager {
-	
-	if (!self.superlayer.layoutManager) {
-		CAConstraintLayoutManager *l = [[CAConstraintLayoutManager alloc]init];
-		self.superlayer.layoutManager = l;
-	}
-}
-- (void)addConstraints:(NSA*)constraints{
-	[self _ensureSuperHasLayoutManager];
-	[constraints do:^(id obj) {
-		[self addConstraint:obj];
-	}];
 }
 
 //NSImage *image = // load a image

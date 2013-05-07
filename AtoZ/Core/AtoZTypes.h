@@ -140,7 +140,9 @@ typedef NS_OPTIONS(NSUI, AZWindowPosition) {
 	AZPositionAutomatic	 	= 8
 };// AZWindowPosition;
 */
-JREnumDeclare(AZWindowPosition,
+#define  AZPositionToString AZWindowPositionToString
+#define AZWindowPosition AZPosition
+JREnumDeclare(AZPosition,
 	AZPositionLeft 			= 0,// NSMinXEdge, // 0  NSDrawer
 	AZPositionRight			= 2, //NSMaxXEdge, // 2  preferredEdge
 	AZPositionTop		   	= 3, //NSMaxYEdge, // 3  compatibility

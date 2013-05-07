@@ -211,7 +211,130 @@ static NSPoint gWindowTrackingEventOrigin, gWindowTrackingCurrentWindowOrigin;
 
 @end
 
+@interface NSApplication (Undocumented)
+- (NSArray*)_orderedWindowsWithPanels:(BOOL)panels;
+@end
+
+static NSP dragStart, windowOrigin;
+static NSW *dragWin = nil; 
+id(^findWin)(NSP) = ^(NSP p){	NSA* win = [[NSApp _orderedWindowsWithPanels:YES] filter:^BOOL(id o){ return NSPointInRect(p, [o frame]); }] ?: nil; if (win.count) return [win first]; else return (id)nil; };
+
 @implementation NSWindow (AtoZ)
+
++ (id) hitTest: (NSE*) event { return findWin([[NSScreen currentScreenForMouseLocation] convertPointToScreenCoordinates:event.locationInWindow]); }
++ (id) hitTestPoint:(NSP)location { findWin([[NSScreen currentScreenForMouseLocation] convertPointToScreenCoordinates:location]); }
+- (AZPOS) insideEdge { 
+	__block id observer;
+	return (observer = [AZNOTCENTER addObserverForName:NSWindowDidUpdateNotification
+                      object:nil queue:nil usingBlock:^(NSNOT *n) { [self setInsideEdge:99];
+                                                                        [(NSNotificationCenter*)AZNOTCENTER removeObserver:observer];
+	}]),(AZPOS)[[self associatedValueForKey:@"insideEdge"]unsignedIntegerValue]; 
+}
+//	[AZNOTCENTER addobser :NSWindowDidUpdateNotification usingBlock:^(NSNotification *m) {
+//		if (m.object == self) [self setInsideEdge:99]; }];
+//	LOGCOLORS(AZString(self.frame), @" on edge: ", AZPositionToString(edge),  BLUE, GREEN, YELLOW,nil);
+- (void) setInsideEdge:(AZPOS)position { 
+	[self setAssociatedValue:@(AZOutsideEdgeOfRectInRect([self frame], AZScreenFrameUnderMenu())) forKey:@"insideEdge" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];	
+}
+/*typedef void (^notificationObserver_block)(NSNotification *);
+- (void) addEdgeObserver {
+ our observer block needs to reference itself, which means we need a variable to hold it which is defined up front. For
+   // clarity and safety (and sanity) we'll make it a __block variable:
+   __block notificationObserver_block observer_block;// = (notificationObserver_block);
+   // the observer needs to be assigned by the observer block when it  signs up again, which means another __block variable:	
+	__block id tmpObserver = nil;
+   // the observer block gets defined and assigned to its variable  here:
+   observer_block = ^(NSNotification * note) {
+        if ( [note object] == self )
+        {   [self setInsideEdge:99]; }
+	  // remove the existing observer
+	  [AZNOTCENTER removeObserver: tmpObserver];
+	  // signup again, because we want to keep receiving this notification
+	  tmpObserver = [[NSNotificationCenter defaultCenter]
+						  addObserverForName: NSWindowDidMoveNotification
+										  object: self
+											queue: [NSOperationQueue mainQueue]
+									 usingBlock: observer_block]; // references currently-executing block
+	};
+	// now we need to repeat the last line of our defined block to start the ball rolling:
+	tmpObserver = [[NSNotificationCenter defaultCenter]
+					 addObserverForName: @"TheNotification"
+									 object: nil
+									  queue: [NSOperationQueue mainQueue]
+								usingBlock: observer_block];
+//}
+*/
+-(OSCornerType) corners { AZPOS o = AZPositionOpposite(self.insideEdge);
+	return 	o == AZPositionTop  	 ? (OSBottomLeftCorner 	| OSBottomRightCorner) 	:
+				o == AZPositionLeft 	 ? (OSTopRightCorner   	| OSBottomRightCorner) 	: 
+				o == AZPositionBottom ? (OSTopLeftCorner 		| OSTopRightCorner) 		:
+//				o == AZPositionRight  ? 
+				(OSTopLeftCorner 		| OSBottomLeftCorner) ;
+}
+- (void) setGrabInset:(CGF)grabInset { [self setAssociatedValue:@(grabInset) forKey:@"grabInset" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC]; }
+- (CGF) grabInset { return [[self associatedValueForKey:@"grabInset" orSetTo:@(25) policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC]floatValue]; }
+- (NSR)  grabRect {  AZPOS o = AZPositionOpposite(self.insideEdge);
+
+	return 	o == AZPositionTop  	 ? AZLowerEdge(self.frame, self.grabInset) 	:
+				o == AZPositionLeft 	 ? AZRightEdge(self.frame, self.grabInset) 	: 
+				o == AZPositionBottom ? AZUpperEdge(self.frame, self.grabInset)	:
+//				o == AZPositionRight  ? 
+				AZLeftEdge(self.frame, self.grabInset);
+}
+- (void) setSticksToEdge:(BOOL)sticky {
+
+	if (!sticky) {
+		[self removeAssociatedValueForKey:@"sticksToEdge"];
+		if ([self hasAssociatedValueForKey:@"RESTOREmoveableByWindowBground"]) { [self setMovableByWindowBackground:YES]; [self removeAssociatedValueForKey:@"RESTOREmoveableByWindowBground"]; }
+		return;
+	}
+	BOOL canMove = [self isMovableByWindowBackground];
+	if (canMove) [self setAssociatedValue:@(YES) forKey:@"RESTOREmoveableByWindowBground" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
+	[self setMovableByWindowBackground:NO];
+//		CAL *l = [[self contentView] setupHostView];	[l log];	l.bgC = cgRANDOMCOLOR;	l.name = @"windowLayer";	l.delegate = self; e.subviews = [[self contentView]subviews];	self.contentView = e;		
+	id handler = [NSEVENTLOCALMASK: NSLeftMouseDraggedMask|NSLeftMouseDownMask handler:^NSEvent *(NSEvent *e) {
+		if (e.clickCount == 2) {
+			if ((dragWin = findWin([NSE mouseLocation]))) {
+				if (NSPointInRect(e.locationInWindow, self.grabRect)) {
+//					if ([self hasAssociatedValueForKey:]) {
+					NSR out = [[self associatedValueForKey:@"normalRectMemory" orSetTo:AZVrect(self.frame) policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC]rectValue];
+						[self setFrame:NSEqualRects(out, self.frame) ? AZRectInsideRectOnEdge( self.grabRect, AZScreenFrameUnderMenu(), self.insideEdge) : out display:YES	animate:YES];
+				}
+			}
+		}
+		
+		if (e.type == NSLeftMouseDown && e.type != NSLeftMouseDragged) {
+			if ((dragWin = findWin([NSE mouseLocation]))) {
+				dragStart 		= NSE.mouseLocation;
+				windowOrigin 	= dragWin.frame.origin;
+				LOGCOLORS($(@"dragstart:%@ windowO:%@",AZString(dragStart), AZString(windowOrigin)), zNL, WHITE, nil);
+			}
+		}
+		if (e.type == NSLeftMouseDragged && !(e.deltaX == 0 && e.deltaY ==1)) {
+			NSP distanceFromStart 	= AZSubtractPoints			( NSE.mouseLocation, dragStart  		);
+			NSP    windowShouldBe	= AZPointOffset   			( windowOrigin, distanceFromStart	);
+			if (!NSEqualPoints(dragWin.frame.origin, windowShouldBe))  {
+				NSR 		  newRect	= AZMakeRect                (windowShouldBe, dragWin.size);
+				AZPOS     edgeSide	= AZOutsideEdgeOfRectInRect (newRect, AZScreenFrameUnderMenu()	);
+//					NSLog(AZPositionToString(constrainedSide)); 
+				NSR constrained = AZRectInsideRectOnEdge(newRect, AZScreenFrameUnderMenu(),edgeSide);
+				constrained.origin.x = MAX( 0, constrained.origin.x );
+				constrained.origin.y = MAX( 0, constrained.origin.y );
+				if (constrained.origin.y + constrained.size.height > AZScreenFrameUnderMenu().size.height ) constrained.origin.y =  AZScreenFrameUnderMenu().size.height - constrained.size.height;
+				if (constrained.origin.x + constrained.size.width  > AZScreenWidth() ) constrained.origin.x =  AZScreenWidth() - constrained.size.width;
+				[dragWin setFrame:constrained display:YES];
+			}
+//				LOGCOLORS(@"WINDOWSHOULDSBE:", AZString(windowShouldBe), zTAB,@"offset", AZString(distanceFromStart), zTAB,$(@"%3.fx  %3.f", e.deltaX, e.deltaY), zTAB, @"WIND setTo:", r.description,zNL,zNL,NSC.randomPalette, nil);
+		}//   LOGCOLORS(@"MOUSEDRAGGED:", RED,zNL, $(@"%3.fx  %3.f", e.deltaX, e.deltaY),YELLOW,zNL, nil);
+		return e;
+	}];	
+	[self setAssociatedValue:handler forKey:@"sticksToEdge" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
+
+}
+
+- (BOOL) sticksToEdge { return [self hasAssociatedValueForKey:@"sticksToEdge"];	}
+
+
 
 static CGR inFrame, outFrame;  
 static AZSlideState inOut = AZToggle;
@@ -228,34 +351,18 @@ static AZSlideState inOut = AZToggle;
 	}
 }
 
-- (CAL*) layer								{
-	return [self.contentView layer];
-}
-- (void) setLayer: (CAL*) layer		{		[self.contentView setLayer:layer];	}
+- (CAL*) layer								{	return [(NSV*)self.contentView          layer];	}
+- (void) setLayer: (CAL*) layer		{		    [(NSV*)self.contentView setLayer:layer];	}
 
--  (CGF) originX 							{	return [self frame].origin.x; }
--  (CGF) originY							{	return [self frame].origin.y; }
--  (CGF) width 							{	return [self frame].size.width ;		}
--  (CGF) height 							{	return [self frame].size.height ;	}
-- (void) setWidth: (CGF)t 				{
-	NSRect frame = [self frame] ;
-	frame.size.width = t ;
-	[self setFrame:frame display:YES animate:YES] ;
-}
-- (void) setHeight:(CGF)t				{
-	NSRect frame = [self frame] ;
-	frame.size.height = t ;
-	[self setFrame:frame display:YES animate:YES] ;
-}
-- (NSSZ) size								{
-	return self.frame.size;
-}
-- (void) setSize:(NSSZ)size 			{
-	NSRect frame = [self frame] ;
-	frame.size.width = size.width ;
-	frame.size.height = size.height ;
-	[self setFrame:frame display:YES animate:YES] ;
-}
+-  (CGF) originX 							{ return  self.frame.origin.x; 		}
+-  (CGF) originY							{ return  self.frame.origin.y; 		}
+-  (CGF) width 							{ return  self.frame.size.width;		}
+-  (CGF) height 							{ return  self.frame.size.height;	}
+- (NSSZ) size								{ return  self.frame.size;				}
+- (void) setWidth: (CGF)t 				{ NSR f = self.frame;	f.size.width  	= t; 	[self setFrame:f display:YES animate:YES] ;	}
+- (void) setHeight:(CGF)t				{ NSR f = self.frame;	f.size.height 	= t; 	[self setFrame:f display:YES animate:YES] ; 	}
+- (void) setSize:(NSSZ)size 			{ NSR f = self.frame;	f.size.width 	= size.width; f.size.height = size.height ;
+																											[self setFrame:f display:YES animate:YES] ;	}
 -  (NSP) midpoint 						{
 
 	NSRect frame = [self frame];

@@ -32,6 +32,13 @@
 }@end
 
 @implementation NSValue (AtoZAutoBox)
++ (id)valueWithColor: (NSColor*) color 
+{
+	return (NSVAL*)[NSValue valueWithBytes:[color.hexString dataUsingEncoding:NSUTF8StringEncoding].bytes objCType:@encode(NSS)];
+}
+- (NSC*) colorValue {
+	NSData *j;  [self getValue:&j]; NSS*hex = [NSS stringWithData:j encoding:NSUTF8StringEncoding]; return [NSC colorWithHex:hex];
+}
 
 @end
 

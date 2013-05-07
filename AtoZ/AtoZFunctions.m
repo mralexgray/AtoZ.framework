@@ -2,7 +2,7 @@
 #import "NSString+AtoZ.h"
 #import "AtoZ.h"
 
-JREnumDefine(AZQuadrant);	JREnumDefine(Color);	JROptionsDefine(AZAlign);	JREnumDefine(AZWindowPosition);
+JREnumDefine(AZQuadrant);	JREnumDefine(Color);	JROptionsDefine(AZAlign);	JREnumDefine(AZPosition);
 
 
 //Subclassible thread-safe ARC singleton  Copyright Kevin Lawler. Released under ISC.
@@ -760,12 +760,12 @@ NSString * AZStringFromPoint(NSP p) {
 	return $(@"[x.%0.f y.%0.f]", p.x, p.y);
 }
 
-NSString * AZStringFromRect(NSRect rect) {
+NSString * AZStringFromRect(NSRect rect) { return $(@"[%3ld,%3ld [%3ld x %-3ld]]", (NSI)rect.origin.x,(NSI)rect.origin.y, (NSI)rect.size.width, (NSI)rect.size.height); }
 //	NSString *demo=[NSS.alloc initWithData:[NSData dataWithBytes:"✖" length:0] encoding:NSUnicodeStringEncoding];
 // good, but...	return $(@"[x.%0.f y.%0.f [%0.f x %0.f]]", rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
-	NSP o, tl, apex, br; o = rect.origin;  tl = AZTopLeftPoint(rect); apex = AZTopRightPoint(rect);  br = AZBotRightPoint(rect);
-	return $(@"%3ld,%3ld ⌱ %3ld,%3ld  [%3ld x %-3ld]\n%3ld,%3ld ⟀ %3ld,%3ld", (NSI)tl.x,(NSI)tl.y, (NSI)apex.x, (NSI)apex.y, (NSI)rect.size.width, (NSI)rect.size.height, (NSI)o.x, (NSI)o.y, (NSI)br.x, (NSI)br.y);
-}
+//	NSP o, tl, apex, br; o = rect.origin;  tl = AZTopLeftPoint(rect); apex = AZTopRightPoint(rect);  br = AZBotRightPoint(rect);
+//	return $(@"%3ld,%3ld ⌱ %3ld,%3ld  [%3ld x %-3ld]\n%3ld,%3ld ⟀ %3ld,%3ld", (NSI)tl.x,(NSI)tl.y, (NSI)apex.x, (NSI)apex.y, (NSI)rect.size.width, (NSI)rect.size.height, (NSI)o.x, (NSI)o.y, (NSI)br.x, (NSI)br.y);
+//}
 
 //static void glossInterpolation(void *info, const float *input);
 //float *output);
@@ -2117,7 +2117,8 @@ BOOL sel_isEqual(SEL lhs, SEL rhs) {
 NSString *const AtoZSharedInstanceUpdated = @"AtoZSharedInstanceUpdated";
 NSString *const AtoZDockSortedUpdated = @"AtoZDockSortedUpdated";
 NSString *const AtoZSuperLayer = @"superlayer";
-CGFloat AZScreenWidth() {
+CGF	AZScreenHeight() { return [NSScreen.mainScreen frame].size.height; }
+CGF 	AZScreenWidth() {
 	return [[NSScreen mainScreen]frame].size.width;
 }
 

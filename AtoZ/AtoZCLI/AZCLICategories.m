@@ -13,36 +13,30 @@
 @implementation AZCLIMenu
 
 + (NSIS*) indexesOfMenus {
-//	NSA* all = [self allInstances];
-//	[all log];	
-	
-	id allof = [self allInstances];
-	NSLog(@"Allofclass: %@", NSStringFromClass(allof));
-	NSMIS* is = NSMIS.new;
-//	if (.count) {
-//		NSLog(@"Allinstances:%@", all);// [[@"a".classProxy vFK:AZCLSSTR] performSelectorWithoutWarnings:NSSelectorFromString(@"allInstancesAddOrReturn:") withObject:nil]);
-			for (AZCLIMenu *m in [self allInstances]) {
-//			
-			 NSLog(@"%@ RANGE:%@", m, NSStringFromRange(m.range));  [is addIndexesInRange:m.range];
-			}
-//	}
-	
+
+	NSMIS* is = NSMIS.new;	//	NSLog(@"Allinstances:%@", all);// [[@"a".classProxy vFK:AZCLSSTR] performSelectorWithoutWarnings:NSSelectorFromString(@"allInstancesAddOrReturn:") withObject:nil]);
+	for (AZCLIMenu *m in [self allInstances]) {
+//		NSLog(@"%@ RANGE:%@", m, NSStringFromRange(m.range));  
+				[is addIndexesInRange:m.range];
+	}	
 	return is;
 }
 
 //- (void) setUp { NSLog(@"Normal setup");  [self  performSelector:NSSelectorFromString(@"swizzleSetUp")]; }
 
 + (instancetype) cliMenuFor:(NSA*)items starting:(NSUI)idx palette:(id)p {
-	AZCLIMenu *m = [AZCLIMenu.alloc init];
+	if ([[[self allInstances] valueForKeyPath:@"defaultCollection"]isEqualToArray:items]) {
+		[@"already made a menu for this!" log]; return nil; }
+	AZCLIMenu *m = AZCLIMenu.instance;
 	[m setUp];
 	m.defaultCollection = items;
 	m.startIdx = idx;
 	m.palette = p;
 	return m;
 }	
-- (id) identifier { return _identifier = _identifier ?: self.uniqueID; }
-- (NSRNG) range {  return  NSMakeRange(self.startIdx, [self.defaultCollection count]); }
-- (NSS*)menu {
+-    (id) identifier 	{ return _identifier = _identifier ?: self.uniqueID; }
+- (NSRNG) range 			{  return  NSMakeRange(self.startIdx, [(NSA*)self.defaultCollection count]); }
+-  (NSS*) menu 			{
 
 	NSA* items = self.defaultCollection;
 	NSUI maxlen 	= ceil([items lengthOfLongestMemberString] * 1);	// deduce longest string

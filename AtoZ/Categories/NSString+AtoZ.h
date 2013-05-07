@@ -65,11 +65,6 @@
 - (NSS *)paddedTo:(NSUI)count;
 - (NSUI) longestWordLength;
 
-- (void)setLogBackground:(id)color;
-- (void)setLogForeground:(id)color;
-
-@property (RONLY) const char* cchar;
-@property (RONLY) NSS *colorLogString;
 
 - (NSS *)parseXMLTag:(NSS *)tag;
 - (NSS*)stripHtml;

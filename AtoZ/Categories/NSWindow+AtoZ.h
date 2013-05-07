@@ -48,6 +48,17 @@ enum NSWindowResizing {
 */
 @interface NSWindow (AtoZ)
 
+@property (readonly) OSCornerType corners;
+@property (readonly) NSR grabRect;
+
+@property (NATOM,ASS) CGF grabInset;
+
++ (id) hitTest: (NSE*) event;
++ (id) hitTestPoint:(NSP)location;
+
+@property (NATOM,ASS) BOOL sticksToEdge;
+@property (NATOM,ASS) AZPOS insideEdge;
+
 + (NSWindow*) borderlessWindowWithContentRect: (NSRect)aRect;
 
 @property (NATOM,ASS) CGR inFrame, outFrame;

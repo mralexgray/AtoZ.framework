@@ -210,3 +210,6 @@
 [submodule "AtoZ/AtoZCLI/NSTerminal"]
 	path = AtoZ/AtoZCLI/NSTerminal
 	url = https://github.com/mralexgray/NSTerminal.git
+[submodule "Frameworks/NSMenu-Dark"]
+	path = Frameworks/NSMenu-Dark
+	url = https://github.com/mralexgray/NSMenu-Dark.git

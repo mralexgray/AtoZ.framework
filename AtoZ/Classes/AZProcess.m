@@ -45,12 +45,12 @@
 //	Fixed a memory leak during command allocation when the parser failed - Steve Gehrman
 //	Fixed a memory leak when deallocating an instance -- the annotation was not being freed - Craig Hockenberry
 //	Added annotations for Konfabulator widgets - Craig Hockenberry
-#import "AProcess.h"
+#import "AZProcess.h"
 #import <Foundation/Foundation.h>
 #include <mach/mach_host.h>
 #include <mach/mach_port.h>
 #include <mach/mach_traps.h>
-#include <mach/shared_memory_server.h>
+//#include <mach/shared_memory_server.h>
 #include <mach/shared_region.h>
 #include <mach/task.h>
 #include <mach/thread_act.h>
@@ -186,7 +186,7 @@ AZGetMachThreadCPUUsage(thread_t thread, double *user_time, double *system_time,
 
 	if (user_time != NULL) *user_time = th_info.user_time.seconds + th_info.user_time.microseconds / 1e6;
 	if (system_time != NULL) *system_time = th_info.system_time.seconds + th_info.system_time.microseconds / 1e6;
-	if (percent != NULL) *percent = (double)th_info.cpu_usage / TH_USAZE_SCALE;
+	if (percent != NULL) *percent = (double)th_info.cpu_usage / TH_USAGE_SCALE;
 
 	return error;
 }

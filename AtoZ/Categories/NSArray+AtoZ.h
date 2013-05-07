@@ -49,7 +49,8 @@
 - (NSA*) withMaxItems:(NSUI) items;
 
 - (void) setStringsToNilOnbehalfOf:(id)entity;  // FIX:  DOCUMENT!!
-
+- (NSN*) maxNumberInArray;
+- (NSN*) minNumberInArray;
 - (NSA*) URLsForPaths;
 - (void) logEachPropertiesPlease;
 - (void) logEachProperties;

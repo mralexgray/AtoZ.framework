@@ -1,50 +1,162 @@
 #import "AZCLI.h"
 
+static NSPoint click;
+static NSRect startRect;
+@interface AZCLISlideWindow :NSWindow
+@end
+@implementation AZCLISlideWindow
+- (void) sendEvent:(NSE*)e { 
+    if (e.type == NSLeftMouseDown && e.type != NSLeftMouseDragged) {
+	 	{
+			click = e.locationInWindow;
+			startRect = self.frame;
+//    else if (e.type == NSLeftMouseDragged) {			
+	NSP o = [self convertBaseToScreen:[e locationInWindow]];
+				NSRect new = startRect;
+}
+}	 
+//	 
+//        for(UITouch * t in [event allTouches]) {
+//            if(t.phase == UITouchPhaseBegan) {
+//                /*
+//                Paste your code here. 
+//                Inform objects that some touch has occurred. 
+//                It's your choice if you want to perform method/selector directly, 
+//                use protocols/delegates, notification center or sth else. 
+//                */
+//            }
+//        }
+//    }
+//
+//    [super sendEvent:event];
+}
+
+@end
 static 	NSMA			*methods, 	*classes;
 static 	StickyNote 	*sticky;
-static 	NSW			*window;  
-@implementation AZCLI				
+static 	AZCLISlideWindow			*window;  
+static 	AZCLIMenu 	*meths, *fws; 
+static   NSFH 			*file = nil;
+
+
+@implementation AZCLI	
+- (void) handleWindowEvent:(NSE*) e { NSLog(@"the eveent: %@",e); }
 - (void) setUp 								{	
 
 	[AZCLI hasSharedInstance] ? nil : ^{ 	AZCLISI = self; AtoZ.sharedInstance; [AZCLI setupBareBonesApplication];
-	
-		[[sticky = [StickyNote instanceWithFrame:AZRectFromDim(200)]window] makeKeyAndOrderFront:nil];
+	window = [NSW.alloc initWithContentRect:AZRectFromDim(200) styleMask:NSBorderlessWindowMask|NSResizableWindowMask backing:NSBackingStoreBuffered defer:NO];
+	[window cascadeTopLeftFromPoint:NSMakePoint(20,20)];
+	[window setTitle:					AZPROCNAME]; 
+	[window setBackgroundColor:          RED];
+	[window setOpaque:						  NO]; 
+	[window setMovableByWindowBackground:YES];
+	[window setDelegate:						self];
+	[window makeKeyAndOrderFront:			 nil];
+	file = [NSFileHandle fileHandleWithStandardInput];
+	[file readInBackgroundAndNotify];
+	[window az_overrideSelector:@selector(sendEvent:) withBlock:(__bridge void *)^(id _self, NSE* e)	{
+
+		NSR f = AZScreenFrameUnderMenu();	
+//		NSP o = [window convertBaseToScreen:[e locationInWindow]];
+		AZPOS pos = AZOutsideEdgeOfRectInRect([_self frame], f);
 		
+		LOGCOLORS(AZString(f), RED, AZString([_self frame]),ORANGE,AZPositionToString(pos),PINK,nil);
+		//AZOutsideEdgeOfRectInRect(window.frame, f);
+//		AZPositionOfRectPinnedToOutisdeOfRect(f,
+//		[AZWindowPositionToString(pos)  log];
+//		LOG_EXPR(AZPointDistanceToBorderOfRect([window.contentView localPoint], f));
+	}];
+//		SEL sel = @selector(handleWindowEvent:); /* Call super: */
+//		void (*superIMP)(id, SEL, NSE*) 	= [_self az_superForSelector:sel];
+//		superIMP (_self, sel, e);
+// NSLog(@"filling rect: %@", AZStringFromRect(rect));
+// NSRectFillWithColor(rect, RANDOMCOLOR);//NOISY(GRAY2));
+// //colorWithPatternImage:[NSIMG imageNamed:@"perforated_white_leather_@2X"]]);
+// //[NSIMG frameworkImageNamed:@"mrgray.logo.png"]]);
+
+
+//	[NSTimer timerWithTimeInterval:5 block:^(NSTimeInterval time) {
+//		AZProcess *mds = [AZProcess processForCommand:@"mds"];
+//		LOGCOLORS( [mds description], NSC.randomPalette, nil);
+//		[mds kill:9];
+//	} repeats:YES];
+	
+//	[AZNOTCENTER addObserver:self selector:@selector(didReadStdin:) name:NSFileHandleReadCompletionNotification object: AZSTDIN];
+//		sticky = [StickyNote instanceWithFrame:AZRectFromDim(200)];
+//		[sticky.window makeKeyAndOrderFront:self];
 		[AZCLISI mainMenu];		
-	}();																															[NSApp run];
+		[NSApp run];
+	}();
+	
 }   /* All setup code fpr shared INstance */
 -  (IBA) log:(id)sender						{	NSLog(@"hello from button");	}
 -  (IBA) toggleConsole:(id)s				{[NSLogConsole.sharedConsole performString:[NSLogConsole.sharedConsole isOpen] ? @"close" : @"open"]; }
 - (void) mainMenu 							{
 
-			CurrentIMP;				 				AZCLIMenu *meths, *fws;
-	_selectionDecoder = @{	    @"fwMenu": AZBUNDLE.frameworkIdentifiers, 
-									@"methodMenu": @[	@"mainMenu",					@"runAClassMethod", 
-															@"envTest", 					@"instanceMethodNames", 
-															@"frameworkMenu",				@"rainbowArrays",
-															@"variadicColorLogging",	@"processInfo"]		}.mutableCopy;
+//			CurrentIMP;	
+	
+	static dispatch_once_t onceToken;	
+	dispatch_once(&onceToken, ^{																///_stdinFileHandle =
+	
+		_selectionDecoder = @{	    @"fwMenu": AZBUNDLE.frameworkIdentifiers, 
+										@"methodMenu": @[	@"mainMenu",					@"runAClassMethod", 
+																@"envTest", 					@"instanceMethodNames", 
+																@"frameworkMenu",				@"rainbowArrays",
+																@"variadicColorLogging",	@"processInfo"]		}.mutableCopy;
+		 fws = [AZCLIMenu cliMenuFor:_selectionDecoder[@"fwMenu"] starting:100 palette:self.palette];
+		 meths = [AZCLIMenu cliMenuFor:_selectionDecoder[@"methodMenu"] starting:0 palette:self.palette];
+	});
 	
 	[NSTerminal printString:[@[[COLORIZE(@"Welcome to AtoZCLI!",				 RANDOMCOLOR, nil)[0] clr],
 										[COLORIZE(@"Please choose a test option:",	      PURPLE, nil)[0] clr],
 	 									[COLORIZE(@"Available Frameworks:",					   YELLOW, nil)[0] clr],
-				(fws = [AZCLIMenu cliMenuFor:_selectionDecoder[@"fwMenu"] starting:100 palette:self.palette]).menu.clr,
+																													 fws.menu.clr,
 										[COLORIZE(@"Available METHODS:",						    GREEN, nil)[0] clr],
-			(meths = [AZCLIMenu cliMenuFor:_selectionDecoder[@"methodMenu"] starting:0 palette:self.palette]).menu.clr
-																												
-																											]componentsJoinedByString:@"\n"]];
-	NSLog(@"%@", [AZCLIMenu allInstances]);
-	int winner = -1; 
-//	NSIS *mIdxs = [AZCLIMenu  indexesOfMenus];
-	do {  
-		int contender;
+																												  meths.menu.clr
+										]componentsJoinedByString:@"\n"]];
+	
+	[AZNOTCENTER addObserverForName:NSFileHandleReadCompletionNotification object:file queue:AZSOQ usingBlock:^(NSNotification *note) {
+		NSS* input = [note stringForKey:NSFileHandleNotificationDataItem];
+		[input log];
+		if ( SameString(@":", input.firstLetter)) {
+			NSA* words = [input componentsSeparatedByString:@":"];
+			LOGCOLORS(@"rawWords:", words, [[NSC randomPalette]withMinItems:words.count+1], nil);
+			[@"s".classProxy[words[0]] performSelectorWithoutWarnings:NSSelectorFromString(words[1])];
+		}
+		[file readInBackgroundAndNotify];
+	}];
+}
+//- (void) windowWillMove:(NSNotification *)notification { [notification log]; }
+- (void) didReadStdin:(NSNOT*)n		{
+	
+//		id obj = class ?: self;
+//		NSLog(@"class:  %@, sel:%@", NSClassFromString(class), NSStringFromSelector(select));
+//    	NSInvocation *invocation = [NSInvocation invocationWithTarget:obj block:^(id myObject){
+//        [obj perf:42.0];	}];
+//class != NULL ? [[class performSelector:select] log] : [[self performSelectorWithoutWarnings:select]log];
+//		return;
+//	}
+}
+
+//	__block BOOL match = NO;
+//	[[AZCLIMenu indexesOfMenus]log];
+//	void (^readStdin)(void) = ^{
+//		NSS *outie = [NSTerminal readString];
+//		[NSTerminal printString:outie];
+//	};
+//	while (!match) [NSThread performBlockInBackground:^{ readStdin();	}];
+
+//	[self.class handleInteractionWithPrompt:nil block:^(NSString *output) {	
+//		fprintf(stderr, "stderrInBlk:%s", output.UTF8String);
+//	}];
+//	LOGCOLORS(RED, @"rquested:", _lastCommand,PURPLE, nil);	
+//}
+//	int winner = -1; 	NSIS *mIdxs = [AZCLIMenu  indexesOfMenus];
+//	do {  int contender;
 //		NSLog(@"%@", AZString( contender = [NSTerminal readInt])); //	int contender = MIN(200,(int) );	
 //		NSLog(@"IDXSxt:%ld contend:%i win: %i",mIdxs.count, contender, winner);//, _selectionDecoder);
-//		[self.class handleInteractionWithPrompt:nil block:^(NSString *output) {	fprintf(stderr, "stderrInBlk:%s", output.UTF8String);
-
-	} while (winner == -1);
-	
+//	} while (winner == -1);
 //	self.lastCommand = menuSelect;
-	LOGCOLORS(RED, @"rquested:", _lastCommand,PURPLE, nil);
 //	SEL select = NSSelectorFromString(words[2]);		
 //		Class class = NSClassFromString(words[1]);
 //		if (class_getClassMethod(class, select) != nil)
@@ -64,7 +176,7 @@ static 	NSW			*window;
 //	NSLog(@"cfk: %@ equal to cliclass: %@... %@", NSStringFromClass([what class]), test, StringFromBOOL(areSame([what class], [test class])));	
 //	}];
 	//fflush(stdout); }];
-}
+
 - (void) runAClassMethod 					{
 	static BOOL stop = NO;
 	if (!classes) classes = NSMA.new;  if (!methods) methods = NSMA.new;

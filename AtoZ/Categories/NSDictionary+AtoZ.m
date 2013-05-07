@@ -310,6 +310,15 @@
 //
 //}
 
+- (NSS*) keyForValueOfClass:(Class)klass {
+
+	return [self.allKeys filterOne:^BOOL(id object) {
+		return [self[object] ISKINDA:klass];
+	}];
+}
+
+
+
 - (id) recursiveObjectForKey:(NSS*)key {
 	if([self.allKeys containsObject:key]) {
 		// this dictionary contains the key, return the value

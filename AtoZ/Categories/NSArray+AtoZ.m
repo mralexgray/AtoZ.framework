@@ -249,6 +249,18 @@
     [self each:^(id obj) { [entity setValue:nil forKey:obj]; }];
 }
 
+- (NSN*)maxNumberInArray {	
+	
+	NSSortDescriptor* sortOrder = [NSSortDescriptor sortDescriptorWithKey: @"self" ascending: YES];
+	return (NSN*)[self sortedArrayUsingDescriptors: [NSArray arrayWithObject: sortOrder]].first;
+		//		[self sortedArrayUsingSelector: @selector(compare:)].first;	
+}
+- (NSN*)minNumberInArray {	
+	
+	NSSortDescriptor* sortOrder = [NSSortDescriptor sortDescriptorWithKey: @"self" ascending: NO];
+	return (NSN*)[self sortedArrayUsingDescriptors: [NSArray arrayWithObject: sortOrder]].first;
+//return (NSN*)[self sortedArrayUsingSelector: @selector(compare:)].last;		
+}
 - (NSA *)URLsForPaths {
     return [self map:^id (id obj) { return [NSURL fileURLWithPath:obj]; }];
 }
@@ -256,7 +268,7 @@
 - (void)logEachPropertiesPlease; {      [self eachWithIndex:^(id obj, NSI idx) {                NSLog(@"%@", [obj propertiesPlease]); }]; }
 
 - (void)logEachProperties {
-    [self eachWithIndex:^(id obj, NSI idx) {                NSLog(@"%@", [obj properties]); }];
+    [self eachWithIndex:^(NSO* obj, NSI idx) { NSLog(@"%@", [obj properties]); }];
 }
 
 - (void)logEach;

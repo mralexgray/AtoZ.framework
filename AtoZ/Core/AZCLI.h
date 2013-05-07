@@ -26,7 +26,7 @@ NS_INLINE 		void 	AZCLogFormat					(const char *fmt,				 ...) { va_list args; va
 #define     AZSTDIN	NSFileHandle.fileHandleWithStandardInput
 #define	AZQUITMENU 	[NSMI.alloc initWithTitle:[@"Quit "withString:AZPROCNAME]\
 												    action:@selector(terminate:) keyEquivalent:@"q"]
-@interface AZCLI : BaseModel <NSLogConsoleDelegate>
+@interface AZCLI : BaseModel <NSLogConsoleDelegate, NSWindowDelegate>
 
 @property (			 ASS) IBO NSTV *terminal;
 @property (NATOM,STRNG) 	 NSA	*palette;

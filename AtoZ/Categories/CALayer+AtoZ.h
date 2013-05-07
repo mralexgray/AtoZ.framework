@@ -97,8 +97,14 @@ CAT3D CAT3DMake(CGF m11, CGF m12, CGF m13, CGF m14,
 //											   CGF m41, CGF m42, CGF m43, CGF m44);
 
 @interface CAL (VariadicConstraints)
+
+- (void)addConstraintObjects:(CAConstraint*)first,... NS_REQUIRES_NIL_TERMINATION;
+- (void) addConstraintsRelSuperOr:(NSNumber*) nilAttributeList, ... NS_REQUIRES_NIL_TERMINATION;   // This method takes a nil-terminated list of objects.
 - (void)addConstraintsRelSuper:(CAConstraintAttribute)first,...; /* REQUIRES NSNotFound termination */
 //- (void) addConstraintsRelSuper:(CAConstraintAttribute) nilAttributeList, ...;  // This method takes a nil-terminated list of objects.
+- (void) addConstraints:(NSA*)constraints;
+- (void) addConstraintsSuperSizeScaled:(CGF)scale;
+- (void) addConstraintsSuperSize;
 @end
 
 @interface CAL (AtoZ)
@@ -175,10 +181,9 @@ CAT3D CAT3DMake(CGF m11, CGF m12, CGF m13, CGF m14,
 - (CAL*) selectionLayerForLayer:(CAL*)layer;
 - (CAT3D)makeTransformForAngle:(CGF)angle;
 
-- (id)objectForKeyedSubscript:(NSS*)key;
-- (void)setObject:(id)object forKeyedSubscript:(NSS*)key;
+-   (id) objectForKeyedSubscript:(NSS*)key;
+- (void) setObject:(id)object forKeyedSubscript:(NSS*)key;
 
-- (void)addConstraints:(NSA*)constraints;
 - (void)orientWithPoint:(CGP) point;
 - (void)orientWithX: (CGF)x andY: (CGF)y;
 //- (void)orientOnEvent: (NSEvent*)event;
@@ -225,8 +230,6 @@ CAT3D CAT3DMake(CGF m11, CGF m12, CGF m13, CGF m14,
 
 - (CAT3D)rectToQuad:(NSRect)rect quadTLX:(double)x1a quadTLY:(double)y1a quadTRX:(double)x2a quadTRY:(double)y2a quadBLX:(double)x3a quadBLY:(double)y3a quadBRX:(double)x4a quadBRY:(double)y4a;
 
-- (void) addConstraintsSuperSizeScaled:(CGF)scale;
-- (void) addConstraintsSuperSize;
 + (CAL*)closeBoxLayer;
 + (CAL*)closeBoxLayerForLayer:(CAL*)parentLayer;
 

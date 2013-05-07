@@ -3,18 +3,8 @@
 
 JROptionsDefine(MWDraggingMode)
 
-@interface StickyNoteView : NSControl
-@property (weak) StickyNote 	*proxy;
-@property NSEventMask 			draggingMode;
-@property NSTrackingRectTag 	trackingRectTag;
-@property (STRNG     ) CAL 	*glowBar;
-@property (ASS       ) NSP 	eventStartPoint, lastDragPoint;
-@property (NATOM, ASS) AZPOS 	align;
-@property (NATOM, ASS) NSSZ 	dragThreshold;
-@property (NATOM     ) NSSZ 	maxSize,minSize;
-@end
+
 @interface StickyNote()
-@property (nonatomic,strong) StickyNoteView *sticky;
 @end
 @interface StickyNoteView ()
 - (void) _doubleMouse:(NSE*)theEvent;
@@ -54,9 +44,14 @@ JROptionsDefine(MWDraggingMode)
 	[notes addObject:s.sticky = [StickyNoteView.alloc initWithFrame:frame]];
 	s.sticky.proxy = s;
 	s.noteColor = [NSC r:0.524 g:0.644 b:0.559 a:1.000];	
-	[fullScreenWindow.contentView addSubview:s.sticky]; 		[s.sticky setStringValue:NSS.randomDicksonism];			[s.sticky.cell setPlaceholderString:@"Double Click to Edit"];
-	[s.sticky setMaxSize:AZScreenSize()];						[s.sticky setMinSize:NSMakeSize(75, 75)];			[s.sticky.cell setTextColor:GRAY1];					
-	[s.sticky.cell setEditable:NO];									[s.sticky setFont:[NSFont fontWithName:@"UbuntuMono-Bold" size:22.5]];			
+	[(NSView*)fullScreenWindow.contentView addSubview:s.sticky]; 		
+//	[s.sticky setStringValue:NSS.randomDicksonism];
+//	[s.sticky.cell setPlaceholderString:@"Double Click to Edit"];
+	[s.sticky setMaxSize:AZScreenSize()];					
+	[s.sticky setMinSize:NSMakeSize(75, 75)];
+//	[s.sticky.cell setTextColor:GRAY1];					
+//	[s.sticky.cell setEditable:NO];								
+//	[s.sticky setFont:[NSFont fontWithName:@"UbuntuMono-Bold" size:22.5]];			
 //	[self addSubview:u = [AZSimpleView withFrame:frame color:BLACK]];
 	CAL *l = [CAL layerWithFrame:s.sticky.bounds]; l.arMASK=CASIZEABLE; l.noHit = YES; [s.sticky.layer addSublayer:s.sticky.glowBar = CAL.new];
 	[fullScreenWindow makeKeyAndOrderFront:self];
@@ -153,16 +148,16 @@ JROptionsDefine(MWDraggingMode)
 -  (void) _doubleMouse: (NSE*)theEvent			{
 	NSRect cellFrame = [self _cellRectForCurrentFrame];
 	NSText *editor = [self.window fieldEditor:YES forObject:self];
-	[[self cell] setEditable:YES];
-	[[self cell] editWithFrame:cellFrame inView:self editor:editor delegate:self event:theEvent];
+//	[[self cell] setEditable:YES];
+//	[[self cell] editWithFrame:cellFrame inView:self editor:editor delegate:self event:theEvent];
 }
 																																								#pragma mark -Editor Delegate Methods
 -  (void)    textDidBeginEditing: (NSNOT*)n 	{  [AZTalker say:@"editing textfield"]; }
 -  (void) textDidChange:	     	 (NSNOT*)n 	{	}
 -  (void) textDidEndEditing:	    (NSNOT*)n 	{
-	[self validateEditing];
+//	[self validateEditing];
 	[self.window endEditingFor:self];
-	[[self cell] setEditable:NO];
+//	[[self cell] setEditable:NO];
 }
 -  (BOOL) textShouldBeginEditing:(NSText*)t	{
 	return YES;
@@ -206,10 +201,10 @@ JROptionsDefine(MWDraggingMode)
 	//	[[NSGraphicsContext currentContext] restoreGraphicsState];
 	//	[shadow release];
 	/* draw cell */
-	if ([self currentEditor] == nil) {
+//	if ([self currentEditor] == nil) {
 		NSRect cellFrame = [self _cellRectForCurrentFrame];
-		[self.cell drawWithFrame:cellFrame inView:self];
-	}
+//		[self.cell drawWithFrame:cellFrame inView:self];
+//	}
 	/* draw controls */
 	NSPoint mouseLoc = [self convertPoint:[self.window mouseLocationOutsideOfEventStream] fromView:nil];
 	NSRect fillerRect = [self _fillRectForCurrentFrame];

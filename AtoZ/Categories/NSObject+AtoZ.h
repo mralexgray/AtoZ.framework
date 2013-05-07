@@ -98,7 +98,24 @@ typedef void (^AZBlockTask)(id obj, NSDictionary *change);
 - (AZBlockToken*) addObserverForKeyPath:(NSS*) keyPath onQueue:(NSOQ*)queue task:(AZBlockTask)task;
 - (void)removeObserverWithBlockToken:(AZBlockToken *)token;
 @end
+
+
+@interface AZValueTransformer : NSValueTransformer
++ (instancetype)transformerWithBlock:(id (^)(id value))block;
+@end
+
 @interface NSObject (AtoZ)
+// Calls -[NSObject bind:binding toObject:object withKeyPath:keyPath options:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], NSContinuouslyUpdatesValueBindingOption, nil]]
+- (void)bind:(NSString*)binding toObject:(id)object withKeyPathUsingDefaults:(NSS*)keyPath;
+// Calls -[NSO bind:b toObject:o withKeyPath:kp options:@{ NSContinuouslyUpdatesValueBindingOption: @(YES), NSNullPlaceholderBindingOption: nilValue}];
+- (void)bind:(NSString *)binding toObject:(id)object withKeyPath:(NSString *)keyPath nilValue:(id)nilValue;
+// Same as `-[NSObject bind:toObject:withKeyPath:] but also transforms values using the given transform block.
+- (void)bind:(NSS*)binding toObject:(id)o withKeyPath:(NSS*)kp transform:(id (^)(id value))transformBlock;
+// Same as `-[NSObject bind:toObject:withKeyPath:] but the value is transformed by negating it.
+- (void)bind:(NSS*)binding toObject:(id)o withNegatedKeyPath:(NSS*)keyPath;
+
+
+
 
 - (void)performBlock:(void (^)())block;
 //- (void)performBlock:(void (^)())block afterDelay:(NSTimeInterval)delay;
@@ -118,6 +135,8 @@ typedef void (^AZBlockTask)(id obj, NSDictionary *change);
 -(void) 	DDLogWarn;
 -(void) 	DDLogInfo	;
 -(void) 	DDLogVerbose;
+
+
 
 - (void) bindArrayKeyPath:(NSS*)array toController:(NSArrayController*)controller;
 
@@ -369,7 +388,7 @@ _Pragma("clang diagnostic pop") \
 - (void) didChangeValueForKeys:	(id<NSFastEnumeration>) keys;
 
 
-#pragma PropertyArray
+#pragma mark - PropertyArray
 - (NSDictionary*) dictionaryWithValuesForKeys;
 - (NSA*)  allKeys;
 
@@ -387,7 +406,7 @@ _Pragma("clang diagnostic pop") \
 	[objResur setValuesForKeysWithDictionary: objDict];
 */
 
-#pragma SetClass
+#pragma mark - SetClass
 - (void) setClass:	(Class) aClass;	// In your custom class
 + (instancetype) customClassWithProperties:(NSD*) properties;
 - (instancetype) initWithProperties:		 (NSD*) properties;

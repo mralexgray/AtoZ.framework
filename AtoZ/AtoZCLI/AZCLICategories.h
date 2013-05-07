@@ -36,10 +36,10 @@
 
 @interface AZCLIMenu : BaseModel
 + (NSIS*) indexesOfMenus;
-@property (RONLY, NATOM)			NSRNG		range;
-@property (NATOM,STRNG)			id			identifier;
-@property (RONLY)			NSS		*menu;
-@property (NATOM,STRNG) id 	palette;
-@property (NATOM,  ASS) NSI  startIdx;
+@property (RONLY, NATOM) NSRNG		range;
+@property (NATOM,STRNG)	 id			identifier;
+@property (RONLY)		 	 NSS		*menu;
+@property (NATOM,STRNG)  id 	palette;
+@property (NATOM,  ASS)  NSI  startIdx;
 + (instancetype) cliMenuFor:(NSA*)items starting:(NSUI)idx palette:(id)p;
 @end

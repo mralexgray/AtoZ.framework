@@ -66,7 +66,7 @@
 
 @interface NSDictionary (AtoZ)
 
-
+- (NSS*) keyForValueOfClass:(Class)klass;
 
 -(void)eachWithIndex:(void (^)(id key, id value, NSUI idx, BOOL *stop))block;
 

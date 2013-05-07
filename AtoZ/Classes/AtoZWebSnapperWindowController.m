@@ -249,8 +249,7 @@ static AtoZWebSnapperWindowController *kController = nil;
 	}
 }
 
-#pragma mark -
-#pragma mark Save
+#pragma mark - Save
 
 - (IBAction)saveDocumentAs:(id)sender {
 
@@ -336,8 +335,7 @@ static AtoZWebSnapperWindowController *kController = nil;
 	[[self window] makeFirstResponder:urlField];
 }
 
-#pragma mark -
-#pragma mark URL History
+#pragma mark - URL History
 
 - (void)addURLToHistory:(NSURL *)url
 {

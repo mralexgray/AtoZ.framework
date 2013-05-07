@@ -10,6 +10,14 @@
 #import "BaseModel.h"
 #import "BaseModel+AtoZ.h"
 
+
+@interface NSString (AtoZColorLog)
+- (void)setLogBackground:(id)color;
+- (void)setLogForeground:(id)color;
+@property (RONLY) const char* cchar;
+@property (RONLY) NSS *colorLogString;
+@end
+
 #pragma mark - COLOR LOGGING
 // STACK MACRO: "UIKit 0x00540c89 -[UIApplication _callInitializationDelegatesForURL:payload:suspended:] + 1163"
 #define STACKARRAY [[NSThread.callStackSymbols[1] componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" -[]+?.,"]]arrayByRemovingObject:@""]

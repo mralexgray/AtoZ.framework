@@ -23,9 +23,194 @@
 #define LOG NSLog
 
 #import "OperationsRunner.h"
-
 #import "OperationsRunnerProtocol.h"
 #import "WebFetcher.h"
+
+#pragma mark - Notification constants and keys
+
+NSString * const AZOperationWillStart		= @"AZOperationWillStart";
+NSString * const AZOperationDidFinish		= @"AZOperationDidFinish";
+NSString * const AZOperationInProgress		= @"AZOperationInProgress";
+NSString * const AZOperationWasCancelled	= @"AZOperationWasCancelled";
+
+NSString * const AZOperationContextInfoKey	= @"AZOperationContextInfoKey";
+NSString * const AZOperationSuccessKey		= @"AZOperationSuccessKey";
+NSString * const AZOperationErrorKey		= @"AZOperationErrorKey";
+NSString * const AZOperationProgressKey		= @"AZOperationProgressKey";
+NSString * const AZOperationIndeterminateKey	= @"AZOperationIndeterminateKey";
+
+
+@implementation AZOperation
+@synthesize delegate = _delegate;
+@synthesize contextInfo = _contextInfo;
+@synthesize notifiesOnMainThread = _notifiesOnMainThread;
+@synthesize error = _error;
+@synthesize willStartSelector = _willStartSelector;
+@synthesize wasCancelledSelector = _wasCancelledSelector;
+@synthesize inProgressSelector = _inProgressSelector;
+@synthesize didFinishSelector = _didFinishSelector;
+
+- (id) init
+{
+    self = [super init];
+	if (self)
+	{
+        self.notifiesOnMainThread = YES;
+        self.willStartSelector = @selector(operationWillStart:);
+        self.inProgressSelector = @selector(operationInProgress:);
+        self.wasCancelledSelector = @selector(operationWasCancelled:);
+        self.didFinishSelector = @selector(operationDidFinish:);
+	}
+	return self;
+}
+
+- (void) dealloc
+{
+    self.delegate = nil;
+    self.contextInfo = nil;
+    self.error = nil;
+}
+
+- (void) start
+{
+    [self _sendWillStartNotificationWithInfo: nil];
+    [super start];
+    [self _sendDidFinishNotificationWithInfo: nil];
+}
+
+- (void) cancel
+{	
+	//Only send a notification the first time we're cancelled,
+	//and only if we're in progress when we get cancelled
+	if (!self.isCancelled && self.isExecuting)
+	{
+		[super cancel];
+		if (!self.error)
+		{
+			//If we haven't encountered a more serious error, set the error to indicate that this operation was cancelled.
+            self.error = [NSError errorWithDomain: NSCocoaErrorDomain
+                                             code: NSUserCancelledError
+                                         userInfo: nil];
+		}
+		[self _sendWasCancelledNotificationWithInfo: nil];
+	}
+	else [super cancel];
+}
+
+- (BOOL) succeeded
+{
+    return !self.error;
+}
+
+//The following are meant to be overridden by subclasses to provide more meaningful progress tracking.
+- (AZOperationProgress) currentProgress
+{
+	return 0.0f;
+}
+
++ (NSSet *) keyPathsForValuesAffectingTimeRemaining
+{
+	return [NSSet setWithObjects: @"currentProgress", @"isFinished", nil];
+}
+
+- (NSTimeInterval) timeRemaining
+{
+	return self.isFinished ? 0.0 : AZUnknownTimeRemaining;
+}
+
+- (BOOL) isIndeterminate
+{
+	return YES;
+}
+
+
+#pragma mark - Notifications
+
+- (void) _sendWillStartNotificationWithInfo: (NSDictionary *)info
+{
+	//Don't send start notifications if we're already cancelled
+	if (self.isCancelled) return;
+
+	[self _postNotificationName: AZOperationWillStart
+			   delegateSelector: self.willStartSelector
+	 				   userInfo: info];
+}
+
+- (void) _sendWasCancelledNotificationWithInfo: (NSDictionary *)info
+{
+	[self _postNotificationName: AZOperationWasCancelled
+			   delegateSelector: self.wasCancelledSelector
+					   userInfo: info];
+}
+
+- (void) _sendDidFinishNotificationWithInfo: (NSDictionary *)info
+{
+	NSMutableDictionary *finishInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+									   @(self.succeeded), AZOperationSuccessKey,
+									   self.error, AZOperationErrorKey,
+									   nil];
+
+	if (info)
+        [finishInfo addEntriesFromDictionary: info];
+
+	[self _postNotificationName: AZOperationDidFinish
+			   delegateSelector: self.didFinishSelector
+					   userInfo: finishInfo];
+}
+
+- (void) _sendInProgressNotificationWithInfo: (NSDictionary *)info
+{
+	//Don't send progress notifications if we're already cancelled
+	if (self.isCancelled) return;
+
+	NSMutableDictionary *progressInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+										 @(self.currentProgress), AZOperationProgressKey,
+										 @(self.isIndeterminate), AZOperationIndeterminateKey,
+										 nil];
+	if (info)
+        [progressInfo addEntriesFromDictionary: info];
+
+	[self _postNotificationName: AZOperationInProgress
+			   delegateSelector: self.inProgressSelector
+					   userInfo: progressInfo];
+}
+
+
+- (void) _postNotificationName: (NSString *)name
+			  delegateSelector: (SEL)selector
+					  userInfo: (NSDictionary *)userInfo
+{
+	//Extend the notification dictionary with context info
+	if (self.contextInfo)
+	{
+		NSMutableDictionary *contextDict = [NSMutableDictionary dictionaryWithObject: self.contextInfo
+																			  forKey: AZOperationContextInfoKey];
+		if (userInfo)
+            [contextDict addEntriesFromDictionary: userInfo];
+		userInfo = contextDict;
+	}
+
+	NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+	NSNotification *notification = [NSNotification notificationWithName: name
+																 object: self
+															   userInfo: userInfo];
+
+	if ([(NSO*)self.delegate respondsToSelector: selector])
+	{
+		if (self.notifiesOnMainThread)
+			[(id)self.delegate performSelectorOnMainThread: selector withObject: notification waitUntilDone: NO];
+		else
+			[(NSO*)self.delegate performSelectorWithoutWarnings:selector withObject: notification];
+	}
+
+//	if (self.notifiesOnMainThread)
+//		[center performSelectorOnMainThread: @selector(postNotification:) withObject: notification waitUntilDone: NO];		
+//	else
+		[center postNotification: notification];
+}
+
+@end
+
 
 static char *opContext = "opContext";
 

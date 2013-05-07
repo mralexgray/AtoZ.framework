@@ -7618,7 +7618,10 @@
 				GCC_UNROLL_LOOPS = NO;
 				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				HEADER_SEARCH_PATHS = "\"$(SDKROOT)/usr/include/libxml2\"";
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/../Frameworks/**\"/**",
+					"\"$(SDKROOT)/usr/include/libxml2\"",
+				);
 				INFOPLIST_FILE = "Resources/AtoZ-Info.plist";
 				INSTALL_PATH = "@loader_path/Frameworks";
 				LD_DYLIB_INSTALL_NAME = "";
@@ -7693,9 +7696,10 @@
 					"-sub_umbrella",
 					MenuApp,
 					"-all_load",
+					"-ObjC",
 				);
 				PRODUCT_NAME = AtoZ;
-				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = NO;
+				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SDKROOT = "";
 				USER_HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -7733,7 +7737,10 @@
 				GCC_UNROLL_LOOPS = NO;
 				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				HEADER_SEARCH_PATHS = "\"$(SDKROOT)/usr/include/libxml2\"";
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/../Frameworks/**\"/**",
+					"\"$(SDKROOT)/usr/include/libxml2\"",
+				);
 				INFOPLIST_FILE = "Resources/AtoZ-Info.plist";
 				INSTALL_PATH = "@loader_path/Frameworks";
 				LD_DYLIB_INSTALL_NAME = "";
@@ -7808,9 +7815,10 @@
 					"-sub_umbrella",
 					MenuApp,
 					"-all_load",
+					"-ObjC",
 				);
 				PRODUCT_NAME = AtoZ;
-				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = NO;
+				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SDKROOT = "";
 				USER_HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				VERSIONING_SYSTEM = "apple-generic";

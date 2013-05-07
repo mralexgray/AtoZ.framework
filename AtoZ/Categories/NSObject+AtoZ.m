@@ -301,9 +301,47 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary(void) {
 #import "AtoZUmbrella.h"
 #import "AtoZFunctions.h"
 
+@interface AZValueTransformer ()
+@property (nonatomic, copy) id (^transformBlock)(id value);
+@end
+
+
+@implementation AZValueTransformer
++ (BOOL)allowsReverseTransformation {	return NO;}
+- (id)transformedValue:(id)value {    return self.transformBlock(value);}
+@synthesize transformBlock;
++ (instancetype)transformerWithBlock:(id (^)(id value))block {
+	NSParameterAssert(block != NULL);
+	AZValueTransformer *transformer = [self.alloc init];
+	transformer.transformBlock = block;
+	return transformer;
+}
+
+@end
+
 //static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 @implementation NSObject (AtoZ)
+
+- (void)bind:(NSS*)binding toObject:(id)object withKeyPathUsingDefaults:(NSS*)keyPath {
+	[self bind:binding toObject:object withKeyPath:keyPath nilValue:nil];
+}
+
+- (void)bind:(NSS*)binding toObject:(id)object withKeyPath:(NSS*)keyPath nilValue:(id)nilValue {
+	[self bind:binding toObject:object withKeyPath:keyPath options:@{ NSContinuouslyUpdatesValueBindingOption: @(YES), NSNullPlaceholderBindingOption: nilValue}];
+}
+
+- (void)bind:(NSS*)binding toObject:(id)object withKeyPath:(NSS*)keyPath transform:(id (^)(id value))transformBlock {
+	AZValueTransformer *transformer = [AZValueTransformer transformerWithBlock:transformBlock];
+	[self bind:binding toObject:object withKeyPath:keyPath options:@{NSContinuouslyUpdatesValueBindingOption:@(YES), NSValueTransformerBindingOption:transformer}];
+}
+
+- (void)bind:(NSString *)binding toObject:(id)object withNegatedKeyPath:(NSString *)keyPath {
+	[self bind:binding toObject:object withKeyPath:keyPath options:@{NSContinuouslyUpdatesValueBindingOption: @(YES), NSValueTransformerNameBindingOption : NSNegateBooleanTransformerName}];
+}
+
+
+
 - (void)performBlock:(void (^)())block
 {
     block();
@@ -448,6 +486,9 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary(void) {
 - (void)DDLogVerbose {
 	DDLogVerbose(@"%@", self);
 }                                                               // Default (black)
+
+
+
 
 - (void)bindArrayKeyPath:(NSS *)array toController:(NSArrayController *)controller {
 	[self bind:array toObject:controller withKeyPath:@"arrangedObjects" options:nil];

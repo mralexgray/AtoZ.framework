@@ -199,7 +199,9 @@ typedef struct {	CAConstraintAttribute constraint;	CGFloat scale;	CGFloat offset
 #define  		  CAT3DTR 	CATransform3DTranslate
 #define     		  CATL 	CATransformLayer
 #define   			CATXTL 	CATextLayer
-#define 			 CATRANNY 	CATransition
+
+#define 			 CATRANNY	CATransaction
+#define 			 CATRANST 	CATransition
 #define 				  ID3D 	CATransform3DIdentity
 #define 		   CATIMENOW 	CACurrentMediaTime()
 
@@ -360,6 +362,8 @@ typedef struct {	CAConstraintAttribute constraint;	CGFloat scale;	CGFloat offset
 #define  	AZVrect(r) 	[NSVAL 			 valueWithRect: r]
 #define  	AZVsize(s) 	[NSVAL 			 valueWithSize: s]
 #define   	  AZV3d(t) 	[NSVAL valueWithCATransform3D: t]
+#define   	 AZVclr(c) 	[NSVAL         valueWithColor: c]
+
 
 #define 						kContentTitleKey @"itemTitle"
 #define 						kContentColorKey @"itemColor"
@@ -497,6 +501,9 @@ typedef struct {	CAConstraintAttribute constraint;	CGFloat scale;	CGFloat offset
  The way to get around this problem is use another GCC extension allowing statements in expressions. Thus, the macro creates a temporary variable, _Y_, with the same type of _X_ (again using typeof) and passes the address of this temporary to the function.
  http://www.dribin.org/dave/blog/archives/2008/09/22/convert_to_nsstring/
  */
+#define zNL @"\n"
+#define zTAB @"\t"
+#define zSPC @" "
 
 NSString * AZToStringFromTypeAndValue(const char * typeCode, void * value);
 #define AZString(_X_) ({typeof(_X_) _Y_ = (_X_);\
@@ -597,6 +604,8 @@ AZToStringFromTypeAndValue(@encode(typeof(_X_)), &_Y_);})
 #define AZDistance(A,B) sqrtf(powf(fabs(A.x - B.x), 2.0f) + powf(fabs(A.y - B.y), 2.0f))
 #define rand() (arc4random() % ((unsigned)RAND_MAX + 1))
 
+
+
 #define $point(A)	   	[NSValue valueWithPoint:A]
 #define $points(A,B)	   	[NSValue valueWithPoint:CGPointMake(A,B)]
 #define $rect(A,B,C,D)		[NSValue valueWithRect:CGRectMake(A,B,C,D)]
@@ -624,12 +633,13 @@ AZToStringFromTypeAndValue(@encode(typeof(_X_)), &_Y_);})
 #define INST instancetype
 
 #define $ARRAYSET(A) [NSSet setWithArray:(A)]
-
+#define $CG2NSC(A) [NSC colorWithCGColor:(A)]
 //#define $concat(A,...) { A = [A arrayByAddingObjectsFromArray:((NSArray *)[NSArray arrayWithObjects:__VA_ARGS__,nil])]; }
 // s stringByReplacingOccurrencesOfString:@"fff	" withString:@"%%%%"] )
 //#define AZLOG(log,...) NSLog(@"%@", [log s stringByReplacingOccurrencesOfString:@"fff	" withString:@"%%%%"] )
 
 
+#define VARNAME(x) $(@"%s",#x)
 
 #define SuppressPerformSelectorLeakWarning(Stuff) \
 do { \
@@ -640,7 +650,7 @@ _Pragma("clang diagnostic pop") \
 } while (0)
 
 
-#pragma - General Functions
+#pragma mark - General Functions
 
 //#define NSDICT (...) [NSDictionary dictionaryWithObjectsAndKeys: __VA_ARGS__, nil]
 //#define NSARRAY(...) [NSArray arrayWithObjects: __VA_ARGS__, nil]
