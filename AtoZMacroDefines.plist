@@ -1,0 +1,760 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AZ</key>
+	<dict>
+		<key>AZCACHigh</key>
+		<string>AZConstRelSuper ( kCAConstraintHeight )</string>
+		<key>AZCACMaxX</key>
+		<string>AZConstRelSuper ( kCAConstraintMaxX   )</string>
+		<key>AZCACMaxY</key>
+		<string>AZConstRelSuper ( kCAConstraintMaxY   )</string>
+		<key>AZCACMinX</key>
+		<string>AZConstRelSuper( kCAConstraintMinX   )</string>
+		<key>AZCACMinY</key>
+		<string>AZConstRelSuper ( kCAConstraintMinY   )</string>
+		<key>AZCACWide</key>
+		<string>AZConstRelSuper ( kCAConstraintWidth  )</string>
+		<key>AZRUN</key>
+		<string>while(0) [NSRunLoop.currentRunLoop run]</string>
+		<key>AZRUNFOREVER</key>
+		<string>[AZRUNLOOP runMode:NSDefaultRunLoopMode beforeDate:NSDate.distantFuture]</string>
+		<key>AZRUNLOOP</key>
+		<string>NSRunLoop.currentRunLoop</string>
+		<key>Inactive</key>
+		<dict/>
+	</dict>
+	<key>COLORS</key>
+	<dict>
+		<key>BLACK</key>
+		<string>[NSC blackColor]</string>
+		<key>BLUE</key>
+		<string>[NSC   r:0.267 g:0.683 b:0.979 a:1.]</string>
+		<key>CLEAR</key>
+		<string>[NSC     clearColor]</string>
+		<key>GRAY1</key>
+		<string>[NSC  white:.1 a: 1]</string>
+		<key>GRAY2</key>
+		<string>[NSC  white:.2 a: 1]</string>
+		<key>GRAY3</key>
+		<string>[NSC  white:.3 a: 1]</string>
+		<key>GRAY4</key>
+		<string>[NSC  white:.4 a: 1]</string>
+		<key>GRAY5</key>
+		<string>[NSC  white:.5 a: 1]</string>
+		<key>GRAY6</key>
+		<string>[NSC  white:.6 a: 1]</string>
+		<key>GRAY7</key>
+		<string>[NSC  white:.7 a: 1]</string>
+		<key>GRAY8</key>
+		<string>[NSC  white:.8 a: 1]</string>
+		<key>GRAY9</key>
+		<string>[NSC  white:.9 a: 1]</string>
+		<key>GREEN</key>
+		<string>[NSC   r:0.367 g:0.583 b:0.179 a:1.]</string>
+		<key>GREY</key>
+		<string>[NSC      grayColor]</string>
+		<key>LGRAY</key>
+		<string>[NSC  white:.5 a:.6]</string>
+		<key>ORANGE</key>
+		<string>[NSC   r:0.888 g:0.492 b:0.000 a:1.]</string>
+		<key>PERIWINKLE</key>
+		<string>[NSColor colorWithDeviceRed:.79 green:.78 blue:.9 alpha:1]</string>
+		<key>PINK</key>
+		<string>[NSC   r:1.000 g:0.228 b:0.623 a:1.]</string>
+		<key>PURPLE</key>
+		<string>[NSC   r:0.617 g:0.125 b:0.628 a:1.]</string>
+		<key>RANDOMCOLOR</key>
+		<string>[NSC    randomColor]</string>
+		<key>RANDOMGRAY</key>
+		<string>[NSC  white:RAND_FLOAT_VAL(0,1) a:1]</string>
+		<key>RANDOMPAL</key>
+		<string>[NSC  randomPalette]</string>
+		<key>RED</key>
+		<string>[NSC   r:0.797 g:0.000 b:0.043 a:1.]</string>
+		<key>STANDARDCOLORS</key>
+		<string> = @[RED,ORANGE,YELLOW,GREEN,BLUE,PURPLE,GRAY]</string>
+		<key>WHITE</key>
+		<string>[NSC     whiteColor]</string>
+		<key>YELLOW</key>
+		<string>[NSC   r:0.830 g:0.801 b:0.277 a:1.]</string>
+		<key>YELLOw</key>
+		<string>[NSC   r:0.830 g:0.801 b:0.277 a:1.]</string>
+		<key>cgBLACK</key>
+		<string>BLACK.CGColor</string>
+		<key>cgBLUE</key>
+		<string>BLUE.CGColor</string>
+		<key>cgCLEARCOLOR</key>
+		<string>CLEAR.CGColor</string>
+		<key>cgGREEN</key>
+		<string>GREEN.CGColor</string>
+		<key>cgGREY</key>
+		<string>GREY.CGColor</string>
+		<key>cgORANGE</key>
+		<string>ORANGE.CGColor</string>
+		<key>cgPURPLE</key>
+		<string>PURPLE.CGColor</string>
+		<key>cgRANDOMCOLOR</key>
+		<string>RANDOMCOLOR.CGColor</string>
+		<key>cgRANDOMGRAY</key>
+		<string>CGColorCreateGenericGray( RAND_FLOAT_VAL(0,1), 1)</string>
+		<key>cgRED</key>
+		<string>RED.CGColor</string>
+		<key>cgWHITE</key>
+		<string>WHITE.CGColor</string>
+		<key>cgYELLOW</key>
+		<string>YELLOW.CGColor</string>
+		<key>kBlackColor</key>
+		<string>cgBLACK</string>
+		<key>kWhiteColor</key>
+		<string>cgWHITE</string>
+	</dict>
+	<key>CoreAnimation</key>
+	<dict>
+		<key>AZNOCACHE</key>
+		<string>NSURLRequestReloadIgnoringLocalCacheData</string>
+		<key>AZSuperLayerSuper</key>
+		<string>(@"superlayer")</string>
+		<key>CAA</key>
+		<string>CAAnimation</string>
+		<key>CAAG</key>
+		<string>CAAnimationGroup</string>
+		<key>CABA</key>
+		<string>CABasicAnimation</string>
+		<key>CACONST</key>
+		<string>CAConstraint</string>
+		<key>CACONSTATTR</key>
+		<string>CAConstraintAttribute</string>
+		<key>CACcWA</key>
+		<string>CAConstraint constraintWithAttribute</string>
+		<key>CAGA</key>
+		<string>CAGroupAnimation</string>
+		<key>CAGL</key>
+		<string>CAGradientLayer</string>
+		<key>CAKA</key>
+		<string>CAKeyframeAnimation</string>
+		<key>CAL</key>
+		<string>CALayer</string>
+		<key>CALNA</key>
+		<string>CALayerNonAnimating</string>
+		<key>CALNH</key>
+		<string>CALayerNoHit</string>
+		<key>CAMTF</key>
+		<string>CAMediaTimingFunction</string>
+		<key>CASCRLL</key>
+		<string>CAScrollLayer</string>
+		<key>CASHL</key>
+		<string>CAShapeLayer</string>
+		<key>CASIZEABLE</key>
+		<string>kCALayerWidthSizable | kCALayerHeightSizable</string>
+		<key>CASL</key>
+		<string>CAShapeLayer</string>
+		<key>CASLNH</key>
+		<string>CAShapeLayerNoHit</string>
+		<key>CAT</key>
+		<string>CATransaction</string>
+		<key>CAT3</key>
+		<string>CATransform3D</string>
+		<key>CAT3D</key>
+		<string>CATransform3D</string>
+		<key>CAT3DR</key>
+		<string>CATransform3DRotate</string>
+		<key>CAT3DTR</key>
+		<string>CATransform3DTranslate</string>
+		<key>CATIMENOW</key>
+		<string>CACurrentMediaTime()</string>
+		<key>CATL</key>
+		<string>CATransformLayer</string>
+		<key>CATLNH</key>
+		<string>CATextLayerNoHit</string>
+		<key>CATRANNY</key>
+		<string>CATransaction</string>
+		<key>CATRANST</key>
+		<string>CATransition</string>
+		<key>CATXTL</key>
+		<string>CATextLayer</string>
+		<key>CATransform3DMakePerspective (x, y )</key>
+		<string> (CATransform3DPerspective( CATransform3DIdentity, x, y ))</string>
+		<key>CATransform3DPerspective( t, x, y )</key>
+		<string>(CATransform3DConcat(t, CATransform3DMake(1,0,0,x,0,1,0,y,0,0,1,0,0,0,0,1)))</string>
+		<key>ID3D</key>
+		<string>CATransform3DIdentity</string>
+		<key>Inactive</key>
+		<dict>
+			<key>AZConst(attrb,rel)</key>
+			<string>[CAConstraint constraintWithAttribute:attrb relativeTo:rel attribute:attrb]</string>
+			<key>AZConstAttrRelNameAttrScaleOff(attr1, relName, attr2, scl, off)</key>
+			<string> [CAConstraint constraintWithAttribute:attr1 relativeTo:relName attribute:attr2 scale:scl offset:off]</string>
+			<key>AZConstRelSuper(attrb)</key>
+			<string>[CAConstraint constraintWithAttribute:attrb relativeTo:AZSuperLayerSuper attribute:attrb]</string>
+			<key>AZConstRelSuperScaleOff(att,scl,off) </key>
+			<string>[CAConstraint constraintWithAttribute:att relativeTo:AZSuperLayerSuper attribute:att scale:scl offset:off]</string>
+			<key>AZConstScaleOff(attrb,rel,scl,off)</key>
+			<string>[CAConstraint constraintWithAttribute:attrb relativeTo:rel attribute:attrb scale:scl offset:off]</string>
+			<key>AZConstraint(attrb,rel)</key>
+			<string>[CAConstraint constraintWithAttribute:attrb relativeTo:rel attribute:attrb]</string>
+			<key>RESTORE_GRAPHICS_CONTEXT</key>
+			<string>} @finally { [NSGraphicsContext restoreGraphicsState]; } </string>
+			<key>SAVE_GRAPHICS_CONTEXT</key>
+			<string>@try{ [NSGraphicsContext saveGraphicsState]; </string>
+		</dict>
+		<key>NDOBC</key>
+		<string>needsDisplayOnBoundsChange</string>
+		<key>aPoint</key>
+		<string>anchorPoint</string>
+		<key>arMASK</key>
+		<string>autoresizingMask</string>
+		<key>bgC</key>
+		<string>backgroundColor</string>
+		<key>cRadius</key>
+		<string>cornerRadius</string>
+		<key>constWa</key>
+		<string>constraintWithAttribute</string>
+		<key>fgC</key>
+		<string>foregroundColor</string>
+		<key>kCLR</key>
+		<string>@"color"</string>
+		<key>kFRM</key>
+		<string>@"frame"</string>
+		<key>kHIDE</key>
+		<string>@"hide"</string>
+		<key>kIDX</key>
+		<string>@"index"</string>
+		<key>kIMG</key>
+		<string>@"image"</string>
+		<key>kLAY</key>
+		<string>@"layer"</string>
+		<key>kPOS</key>
+		<string>@"position"</string>
+		<key>kPSTRING</key>
+		<string>@"pString"</string>
+		<key>kSTR</key>
+		<string>@"string"</string>
+		<key>lMGR</key>
+		<string>layoutManager</string>
+		<key>loM</key>
+		<string>layoutManager</string>
+		<key>mTB</key>
+		<string>masksToBounds</string>
+		<key>nDoBC</key>
+		<string>needsDisplayOnBoundsChange</string>
+		<key>removedOnC</key>
+		<string>removedOnCompletion</string>
+		<key>sblrs</key>
+		<string>sublayers</string>
+		<key>zPos</key>
+		<string>zPosition</string>
+	</dict>
+	<key>Foundation</key>
+	<dict>
+		<key>ASS</key>
+		<string>assign</string>
+		<key>ASSGN</key>
+		<string>assign</string>
+		<key>AZIDCAA</key>
+		<string>(id&lt;CAAction&gt;)</string>
+		<key>CP</key>
+		<string>copy</string>
+		<key>CPY</key>
+		<string>copy</string>
+		<key>GET</key>
+		<string>getter</string>
+		<key>IBA</key>
+		<string>IBAction</string>
+		<key>IBO</key>
+		<string>IBOutlet</string>
+		<key>IDCAA</key>
+		<string>(id&lt;CAAction&gt;)</string>
+		<key>IDCP</key>
+		<string>id&lt;NSCopying&gt;</string>
+		<key>IDDRAG</key>
+		<string>id&lt;NSDraggingInfo&gt;</string>
+		<key>NATOM</key>
+		<string>nonatomic</string>
+		<key>NSPB</key>
+		<string>NSPasteboard</string>
+		<key>RDWRT</key>
+		<string>readwrite</string>
+		<key>RONLY</key>
+		<string>readonly</string>
+		<key>SET</key>
+		<string>setter</string>
+		<key>STR</key>
+		<string>strong</string>
+		<key>STRNG</key>
+		<string>strong</string>
+		<key>UNSF</key>
+		<string>unsafe_unretained</string>
+		<key>WK</key>
+		<string>weak</string>
+		<key>WORD</key>
+		<string>definition</string>
+		<key>prop</key>
+		<string>property</string>
+	</dict>
+	<key>NS</key>
+	<dict>
+		<key>AZOQMAX</key>
+		<string>NSOperationQueueDefaultMaxConcurrentOperationCount</string>
+		<key>ISADICT</key>
+		<string>isKindOfClass:NSDictionary.class</string>
+		<key>ISADICTorARRAY</key>
+		<string>isKindOfAnyClass:NSAorDCLASS</string>
+		<key>ISANARRAY</key>
+		<string>isKindOfClass:NSArray.class</string>
+		<key>NSA</key>
+		<string>NSArray</string>
+		<key>NSAC</key>
+		<string>NSArrayController</string>
+		<key>NSACLASS</key>
+		<string>NSArray.class</string>
+		<key>NSAPP</key>
+		<string>NSApplication</string>
+		<key>NSAS</key>
+		<string>NSAttributedString</string>
+		<key>NSAT</key>
+		<string>NSAffineTransform</string>
+		<key>NSAorDCLASS</key>
+		<string>@[NSArray.class, NSDictionary.class]</string>
+		<key>NSB</key>
+		<string>NSBundle</string>
+		<key>NSBIR</key>
+		<string>NSBitmapImageRep</string>
+		<key>NSBLO</key>
+		<string>NSBlockOperation</string>
+		<key>NSBP</key>
+		<string>NSBezierPath</string>
+		<key>NSBRWSR</key>
+		<string>NSBrowser</string>
+		<key>NSBSB</key>
+		<string>NSBackingStoreBuffered</string>
+		<key>NSBUTT</key>
+		<string>NSButton</string>
+		<key>NSBWM</key>
+		<string>NSBorderlessWindowMask</string>
+		<key>NSC</key>
+		<string>NSColor</string>
+		<key>NSCL</key>
+		<string>NSColorList</string>
+		<key>NSCOMPR</key>
+		<string>NSComparisonResult</string>
+		<key>NSCS</key>
+		<string>NSCountedSet</string>
+		<key>NSCSV</key>
+		<string>NSCellStateValue</string>
+		<key>NSD</key>
+		<string>NSDictionary</string>
+		<key>NSDCLASS</key>
+		<string>NSDictionary.class</string>
+		<key>NSDE</key>
+		<string>NSDirectoryEnumerator</string>
+		<key>NSDO</key>
+		<string>NSDragOperation</string>
+		<key>NSE</key>
+		<string>NSEvent</string>
+		<key>NSED</key>
+		<string>NSEntityDescription</string>
+		<key>NSEM</key>
+		<string>NSEventMask</string>
+		<key>NSERR</key>
+		<string>NSError</string>
+		<key>NSF</key>
+		<string>NSFont</string>
+		<key>NSFH</key>
+		<string>NSFileHandle</string>
+		<key>NSG</key>
+		<string>NSGradient</string>
+		<key>NSGC</key>
+		<string>NSGraphicsContext</string>
+		<key>NSI</key>
+		<string>NSInteger</string>
+		<key>NSIMG</key>
+		<string>NSImage</string>
+		<key>NSINV</key>
+		<string>NSInvocation</string>
+		<key>NSIP</key>
+		<string>NSIndexPath</string>
+		<key>NSIS</key>
+		<string>NSIndexSet</string>
+		<key>NSIV</key>
+		<string>NSImageView</string>
+		<key>NSJS</key>
+		<string>NSJSONSerialization</string>
+		<key>NSM</key>
+		<string>NSMenu</string>
+		<key>NSMA</key>
+		<string>NSMutableArray</string>
+		<key>NSMAS</key>
+		<string>NSMutableAttributedString</string>
+		<key>NSMD</key>
+		<string>NSMutableDictionary</string>
+		<key>NSMDATA</key>
+		<string>NSMutableData</string>
+		<key>NSMI</key>
+		<string>NSMenuItem</string>
+		<key>NSMIS</key>
+		<string>NSMutableIndexSet</string>
+		<key>NSMO</key>
+		<string>NSManagedObject</string>
+		<key>NSMOC</key>
+		<string>NSManagedObjectContext</string>
+		<key>NSMOM</key>
+		<string>NSManagedObjectModel</string>
+		<key>NSMPS</key>
+		<string>NSMutableParagraphStyle</string>
+		<key>NSMS</key>
+		<string>NSMutableString</string>
+		<key>NSMSet</key>
+		<string>NSMutableSet</string>
+		<key>NSMURLREQ</key>
+		<string>NSMutableURLRequest</string>
+		<key>NSMenuI</key>
+		<string>NSMenuItem</string>
+		<key>NSN</key>
+		<string>NSNumber</string>
+		<key>NSNOT</key>
+		<string>NSNotification</string>
+		<key>NSO</key>
+		<string>NSObject</string>
+		<key>NSOP</key>
+		<string>NSOperation</string>
+		<key>NSOQ</key>
+		<string>NSOperationQueue</string>
+		<key>NSOV</key>
+		<string>NSOutlineView</string>
+		<key>NSP</key>
+		<string>NSPoint</string>
+		<key>NSPI</key>
+		<string>NSProgressIndicator</string>
+		<key>NSPInRect</key>
+		<string>NSPointInRect</string>
+		<key>NSPO</key>
+		<string>NSPopover</string>
+		<key>NSPSC</key>
+		<string>NSPersistentStoreCoordinator</string>
+		<key>NSPUBUTT</key>
+		<string>NSPopUpButton</string>
+		<key>NSR</key>
+		<string>NSRect</string>
+		<key>NSRE</key>
+		<string>NSRectEdge</string>
+		<key>NSRFill</key>
+		<string>NSRectFill</string>
+		<key>NSRNG</key>
+		<string>NSRange</string>
+		<key>NSS</key>
+		<string>NSString</string>
+		<key>NSSCLASS</key>
+		<string>NSString.class</string>
+		<key>NSSCRLV</key>
+		<string>NSScrollView</string>
+		<key>NSSEGC</key>
+		<string>NSSegmentedControl</string>
+		<key>NSSHDW</key>
+		<string>NSShadow</string>
+		<key>NSSI</key>
+		<string>NSStatusItem</string>
+		<key>NSSPLTV</key>
+		<string>NSSplitView</string>
+		<key>NSST</key>
+		<string>NSSet</string>
+		<key>NSSZ</key>
+		<string>NSSize</string>
+		<key>NST</key>
+		<string>NSTimer</string>
+		<key>NSTA</key>
+		<string>NSTrackingArea</string>
+		<key>NSTABV</key>
+		<string>NSTabView</string>
+		<key>NSTBAR</key>
+		<string>NSToolbar</string>
+		<key>NSTC</key>
+		<string>NSTableColumn</string>
+		<key>NSTI</key>
+		<string>NSTimeInterval</string>
+		<key>NSTSK</key>
+		<string>NSTask</string>
+		<key>NSTV</key>
+		<string>NSTableView</string>
+		<key>NSTVDO</key>
+		<string>NSTableViewDropOperation</string>
+		<key>NSTXTF</key>
+		<string>NSTextField</string>
+		<key>NSTXTV</key>
+		<string>NSTextView</string>
+		<key>NSUI</key>
+		<string>NSUInteger</string>
+		<key>NSURLC</key>
+		<string>NSURLConnection</string>
+		<key>NSURLREQ</key>
+		<string>NSURLRequest</string>
+		<key>NSURLRES</key>
+		<string>NSURLResponse</string>
+		<key>NSV</key>
+		<string>NSView</string>
+		<key>NSVAL</key>
+		<string>NSValue</string>
+		<key>NSVC</key>
+		<string>NSViewController</string>
+		<key>NSVT</key>
+		<string>NSValueTransformer</string>
+		<key>NSW</key>
+		<string>NSWindow</string>
+		<key>NSWC</key>
+		<string>NSWindowController</string>
+		<key>SIG</key>
+		<string>NSMethodSignature</string>
+	</dict>
+	<key>Quartz</key>
+	<dict>
+		<key>CFTI</key>
+		<string>CFTimeInterval</string>
+		<key>CGCR</key>
+		<string>CGColorRef</string>
+		<key>CGCREF</key>
+		<string>CGContextRef</string>
+		<key>CGF</key>
+		<string>CGFloat</string>
+		<key>CGP</key>
+		<string>CGPoint</string>
+		<key>CGPATH(A)</key>
+		<string>CGPathCreateWithRect(R)</string>
+		<key>CGPR</key>
+		<string>CGPathRef</string>
+		<key>CGR</key>
+		<string>CGRect</string>
+		<key>CGRGB</key>
+		<string>CGColorCreateGenericRGB</string>
+		<key>CGS</key>
+		<string>CGSize</string>
+		<key>CGSZ</key>
+		<string>CGSize</string>
+		<key>CGWL</key>
+		<string>CGWindowLevel</string>
+		<key>CIF</key>
+		<string>CIFilter</string>
+		<key>JSCREF</key>
+		<string>JSContextRef</string>
+	</dict>
+	<key>STRINGS</key>
+	<dict>
+		<key>AZAPPBUNDLE</key>
+		<string>NSBundle.mainBundle</string>
+		<key>AZAPPRESOURCES</key>
+		<string>[NSBundle.mainBundle resourcePath]</string>
+		<key>AZBezPath(r)</key>
+		<string>[NSBezierPath bezierPathWithRect: r]</string>
+		<key>AZBind(binder,binding,toObj,keyPath)</key>
+		<string>[binder bind:binding toObject:toObj withKeyPath:keyPath options:nil]</string>
+		<key>AZBindSelector(observer,sel,keypath,obj)</key>
+		<string>[AZNOTCENTER  addObserver:observer selector:sel name:keypath object:obj]</string>
+		<key>AZCLSSTR</key>
+		<string>NSStringFromClass ( [self class] )</string>
+		<key>AZCOLORPANEL</key>
+		<string>NSColorPanel.sharedColorPanel</string>
+		<key>AZCURRENTCTX</key>
+		<string>AZGRAPHICSCTX</string>
+		<key>AZContentBounds</key>
+		<string>[[[self window ] contentView] bounds]</string>
+		<key>AZFILEMANAGER</key>
+		<string>NSFileManager.defaultManager</string>
+		<key>AZFWORKBUNDLE</key>
+		<string>[NSBundle bundleForClass:AtoZ.class]</string>
+		<key>AZFWRESOURCES</key>
+		<string>[AZFWORKBUNDLE resourcePath]</string>
+		<key>AZGRAPHICSCTX</key>
+		<string>NSGraphicsContext.currentContext</string>
+		<key>AZGVItem</key>
+		<string>AtoZGridViewItem</string>
+		<key>AZGView</key>
+		<string>AtoZGridView</string>
+		<key>AZIS</key>
+		<string>AZInstallationStatus</string>
+		<key>AZLAYOUTMGR</key>
+		<string>[CAConstraintLayoutManager layoutManager]</string>
+		<key>AZNEWMUTEA</key>
+		<string>NSMutableArray.array</string>
+		<key>AZNEWMUTED</key>
+		<string>NSMutableDictionary.new</string>
+		<key>AZNEWPIPE</key>
+		<string>NSPipe.pipe</string>
+		<key>AZNOTCENTER</key>
+		<string>(NSNotificationCenter*)NSNotificationCenter.defaultCenter</string>
+		<key>AZNULL</key>
+		<string>[NSNull  null]</string>
+		<key>AZOS</key>
+		<string>AZSharedOperationStack()</string>
+		<key>AZP</key>
+		<string>AZPalette</string>
+		<key>AZPOS</key>
+		<string>AZWindowPosition</string>
+		<key>AZPROCINFO</key>
+		<string>NSProcessInfo.processInfo</string>
+		<key>AZPROCNAME</key>
+		<string>[NSProcessInfo.processInfo processName]</string>
+		<key>AZPROP(A,B)</key>
+		<string>@property  (nonatomic, strong) A* B</string>
+		<key>AZPROPASS(A,B)</key>
+		<string>@property (NATOM,ASS) A B</string>
+		<key>AZPROPIBO(A,B)</key>
+		<string>@property (ASS) IBOutlet A *B</string>
+		<key>AZQTZCONTEXT</key>
+		<string>[NSGraphicsContext.currentContext  graphicsPort]</string>
+		<key>AZQtzPath(r)</key>
+		<string>[(AZBezPath(r)) quartzPath]</string>
+		<key>AZSHAREDAPP</key>
+		<string>NSApplication.sharedApplication</string>
+		<key>AZSHAREDLOG</key>
+		<string>DDTTYLogger.sharedInstance</string>
+		<key>AZSOQ</key>
+		<string>AZSharedOperationQueue()</string>
+		<key>AZSSOQ</key>
+		<string>AZSharedSingleOperationQueue()</string>
+		<key>AZSTRONGSTRING(A)</key>
+		<string>@property (nonatomic, strong) NSString* A</string>
+		<key>AZTALK(log)</key>
+		<string>[AZTalker.new say:log]</string>
+		<key>AZTArea(frame)</key>
+		<string>[NSTA.alloc initWithRect:frame options:AZTRACKALL owner:self userInfo:nil]</string>
+		<key>AZTAreaInfo(frame,info)</key>
+		<string>[NSTA.allocinitWithRect: frame options:(NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways | NSTrackingInVisibleRect | NSTrackingMouseMoved ) owner:self userInfo:info] </string>
+		<key>AZTRACKALL</key>
+		<string>(NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways | NSTrackingInVisibleRect | NSTrackingMouseMoved)</string>
+		<key>AZUSERDEFS</key>
+		<string>NSUserDefaults.standardUserDefaults</string>
+		<key>AZUSERDEFSCTR</key>
+		<string>NSUserDefaultsController.sharedUserDefaultsController</string>
+		<key>AZV3d(t)</key>
+		<string>[NSVAL valueWithCATransform3D: t]</string>
+		<key>AZVclr(c)</key>
+		<string>[NSVAL valueWithColor: c]</string>
+		<key>AZVinstall(p)</key>
+		<string>[NSVAL valueWithInstallStatus: p]</string>
+		<key>AZVpoint(p)</key>
+		<string>[NSVAL valueWithPoint: p]</string>
+		<key>AZVposi(p)</key>
+		<string>[NSVAL      valueWithPosition: p]</string>
+		<key>AZVrect(r)</key>
+		<string>[NSVAL		 valueWithRect: r]</string>
+		<key>AZVrng(c)</key>
+		<string>[NSVAL  valueWithRange: c]</string>
+		<key>AZVsize(s)</key>
+		<string>[NSVAL valueWithSize: s]</string>
+		<key>AZWEBPREFS</key>
+		<string>WebPreferences.standardPreferences</string>
+		<key>AZWORKSPACE</key>
+		<string>NSWorkspace.sharedWorkspace</string>
+		<key>CAMEDIAEASEIN</key>
+		<string>[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn]</string>
+		<key>CAMEDIAEASEOUT</key>
+		<string>[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]</string>
+		<key>CAMEDIAEASY</key>
+		<string>[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]</string>
+		<key>CGSUPRESSINTERVAL(x)</key>
+		<string>CGEventSourceSetLocalEventsSuppressionInterval(nil,x)</string>
+		<key>ELSENULL</key>
+		<string>?:  [NSNull null]</string>
+		<key>FUTURE</key>
+		<string>NSDate.distantFuture</string>
+		<key>KVONEW</key>
+		<string>NSKeyValueObservingOptionNew</string>
+		<key>KVOOLD</key>
+		<string>NSKeyValueObservingOptionOld</string>
+		<key>MOUSEDOWN</key>
+		<string>NSLeftMouseDownMask</string>
+		<key>MOUSEDRAG</key>
+		<string>NSLeftMouseDraggedMask</string>
+		<key>MOUSEDRAGGING</key>
+		<string>MOUSEDOWN | MOUSEDRAG | MOUSEUP</string>
+		<key>MOUSEUP</key>
+		<string>NSLeftMouseUpMask</string>
+		<key>NSBezPath(r)</key>
+		<string>AZBezPath(r)</string>
+		<key>NSEVENTGLOBALMASK</key>
+		<string>NSEvent addGlobalMonitorForEventsMatchingMask</string>
+		<key>NSEVENTLOCALMASK</key>
+		<string>NSEvent addLocalMonitorForEventsMatchingMask </string>
+		<key>NSKVOBEFOREAFTER</key>
+		<string>NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld</string>
+		<key>NSZeroRange</key>
+		<string>NSMakeRange(0,0)</string>
+		<key>UNSFE</key>
+		<string>unsafe_unretained</string>
+		<key>USF</key>
+		<string>unsafe_unretained</string>
+		<key>fV</key>
+		<string>floatValue</string>
+		<key>kContentColorKey</key>
+		<string>@"itemColor"</string>
+		<key>kContentImageKey</key>
+		<string>@"itemImage"</string>
+		<key>kContentTitleKey</key>
+		<string>@"itemTitle"</string>
+		<key>kItemSizeSliderPositionKey</key>
+		<string>@"ItemSizeSliderPosition"</string>
+		<key>pBCN</key>
+		<string>postsBoundsChangedNotifications</string>
+		<key>pFCN</key>
+		<string>postsFrameChangedNotifications</string>
+		<key>pV</key>
+		<string>pointValue</string>
+		<key>performBlockIfDelegateRespondsToSelector(block,sel)</key>
+		<string>if ([delegate respondsToSelector:sel]) { block(); }</string>
+		<key>performDelegateSelector(sel)</key>
+		<string>if ([delegate respondsToSelector:sel]) { [delegate performSelector:sel]; }</string>
+		<key>rV</key>
+		<string>rectValue</string>
+		<key>rngV</key>
+		<string>rangeValue</string>
+		<key>sansLast</key>
+		<string>arrayByRemovingLastObject</string>
+		<key>sepByCharsInSet</key>
+		<string>componentsSeparatedByCharactersInSet</string>
+		<key>sepByString</key>
+		<string>componentsSeparatedByString</string>
+		<key>setPBCN</key>
+		<string>setPostsBoundsChangedNotifications:YES</string>
+		<key>setPFCN</key>
+		<string>setPostsFrameChangedNotifications:YES</string>
+		<key>vFK</key>
+		<string>valueForKey</string>
+		<key>vFKP</key>
+		<string>valueForKeyPath</string>
+	</dict>
+	<key>TUI</key>
+	<dict>
+		<key>AHLO</key>
+		<string>AHLayoutObject</string>
+		<key>AHLT</key>
+		<string>AHLayoutTransaction</string>
+		<key>BLKV</key>
+		<string>BLKVIEW</string>
+		<key>BLKVIEW</key>
+		<string>BNRBlockView</string>
+		<key>IDWPDL</key>
+		<string>id&lt;WebPolicyDecisionListener&gt;</string>
+		<key>TUINSV</key>
+		<string>TUINSView</string>
+		<key>TUINSW</key>
+		<string>TUINSWindow</string>
+		<key>TUIV</key>
+		<string>TUIView</string>
+		<key>TUIVC</key>
+		<string>TUIViewController</string>
+		<key>VBLK</key>
+		<string>VoidBlock</string>
+		<key>WV</key>
+		<string>WebView</string>
+	</dict>
+	<key>VIEWS</key>
+	<dict>
+		<key>NSSIZEABLE</key>
+		<string>NSViewHeightSizable | NSViewWidthSizable</string>
+		<key>pBCN</key>
+		<string>postsBoundsChangedNotifications</string>
+		<key>pFCN</key>
+		<string>postsFrameChangedNotifications</string>
+	</dict>
+</dict>
+</plist>

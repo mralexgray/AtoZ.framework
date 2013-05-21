@@ -201,18 +201,24 @@
 [submodule "Frameworks/Adium"]
 	path = Frameworks/Adium
 	url = https://github.com/mralexgray/adium.git
+	ignore = dirty
 [submodule "www/Flat-UI"]
 	path = www/Flat-UI
 	url = https://github.com/mralexgray/Flat-UI.git
+	ignore = dirty
 [submodule "www/jquery-mobile-square-ui-theme"]
 	path = www/jquery-mobile-square-ui-theme
 	url = https://github.com/mralexgray/jquery-mobile-square-ui-theme.git
+	ignore = dirty
 [submodule "AtoZ/AtoZCLI/NSTerminal"]
 	path = AtoZ/AtoZCLI/NSTerminal
 	url = https://github.com/mralexgray/NSTerminal.git
+	ignore = dirty
 [submodule "Frameworks/NSMenu-Dark"]
 	path = Frameworks/NSMenu-Dark
 	url = https://github.com/mralexgray/NSMenu-Dark.git
+	ignore = dirty
 [submodule "Frameworks/ObjectMatcher"]
 	path = Frameworks/ObjectMatcher
 	url = https://github.com/mralexgray/ObjectMatcher.git
+	ignore = dirty
