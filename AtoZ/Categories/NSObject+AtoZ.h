@@ -97,6 +97,7 @@ typedef void (^AZBlockTask)(id obj, NSDictionary *change);
 - (AZBlockToken*) addObserverForKeyPath:(NSS*) keyPath task:(AZBlockTask)task;
 - (AZBlockToken*) addObserverForKeyPath:(NSS*) keyPath onQueue:(NSOQ*)queue task:(AZBlockTask)task;
 - (void)removeObserverWithBlockToken:(AZBlockToken *)token;
+- (void) observeNotificationsUsingBlocks:(NSS*) firstNotificationName, ...;
 @end
 
 
@@ -105,6 +106,15 @@ typedef void (^AZBlockTask)(id obj, NSDictionary *change);
 @end
 
 @interface NSObject (AtoZ)
+
+/*
+-(void)mouseDown:(NSEvent*)theEvent;	{
+    NSColor* newColor = //mouse down changes the color somehow (view-driven change)
+    self.color = newColor;
+    [self propagateValue:newColor forBinding:@"color"];	} */
+	 
+-(void) propagateValue:(id)value forBinding:(NSString*)binding;
+
 // Calls -[NSObject bind:binding toObject:object withKeyPath:keyPath options:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], NSContinuouslyUpdatesValueBindingOption, nil]]
 - (void)bind:(NSString*)binding toObject:(id)object withKeyPathUsingDefaults:(NSS*)keyPath;
 // Calls -[NSO bind:b toObject:o withKeyPath:kp options:@{ NSContinuouslyUpdatesValueBindingOption: @(YES), NSNullPlaceholderBindingOption: nilValue}];
@@ -371,7 +381,7 @@ Stuff; \
 _Pragma("clang diagnostic pop") \
 } while (0)
 
-
+- (BOOL) canPerformSelector: (SEL)aSelector;
 - (id) performSelectorSafely:(SEL)aSelector;
 - (id) performSelectorWithoutWarnings:(SEL)aSelector;
 

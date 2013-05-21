@@ -3,6 +3,9 @@
 //  AtoZ
 
 
+@interface NSParagraphStyle (AtoZ)
++ (NSParagraphStyle*) defaultParagraphStyleWithDictionary:(NSD*)d;
+@end
 
 @interface NSImage(ASCII)
 
@@ -14,15 +17,11 @@
 - (NSS*)MD5String;
 @end
 
-@interface Definition : NSObject
-@property (NATOM, STRNG) NSString *word, *definition;
-@end
 
-#define $DEFINE(A, B) [Definition.alloc initWithProperties : @{ @"word" : A, @"definition" : B }]
-
-
+@class Definition;
 @interface NSString (AtoZ)
 @property (RONLY) BOOL isInteger;
+@property NSRNG subRange;
 
 
 - (NSComparisonResult)compareNumberStrings:(NSS *)str;
@@ -178,7 +177,7 @@
  * Shortcut for componentsSeperatedByString:@" "
  * Empty elements will not be part of the resulting array */
 @property (RONLY) NSArray *words;
-
+@property (RONLY) NSArray *wordsWithRanges;
 /*** Returns a set with all unique elements of this String,
  * separated by whitespaces */
 @property (RONLY) NSSet *wordSet;

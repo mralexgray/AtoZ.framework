@@ -3,6 +3,7 @@
 #import <Quartz/Quartz.h>
 #import <QuickLook/QuickLook.h>
 #import <SVGKit/SVGKit.h>
+#import "AtoZCategories.h"
 
 static NSS *_systemIconsFolder = nil;
 static NSA *_systemIcons = nil;
@@ -273,6 +274,14 @@ NSData* PNGRepresentation(NSIMG *image) {
 
 @implementation NSImage (AtoZ)
 
+- (CGF)width {	return self.size.width ;		}
+
+- (CGF)height {	return self.size.height ;	}
+
+- (void)setWidth:(CGF)t {  self.scalesWhenResized = YES; [self setSize:AZSizeExceptWide(self.size, t)]; }
+
+- (void)setHeight:(CGF)t 	{ self.scalesWhenResized = YES; [self setSize:AZSizeExceptHigh(self.size, t)]; }
+
 
 + (NSIMG*) isometricShelfInRect:(NSR)rect;
 {
@@ -492,10 +501,10 @@ NSData* PNGRepresentation(NSIMG *image) {
 // 	NSUI rand = RAND_INT_VAL(0, monoCt-1);
 //	NSLog(@"randomMono:[%lu / %lu]", rand, monoCt );
 //	return monosMade ? self.monoIcons[rand]
-	return monos.allValues.randomElement;//[self monoIconNamed:@(rand).stringValue];
+	return self.monoIcons.randomElement;//[self monoIconNamed:@(rand).stringValue];
 //	 imageFromPDF:self.monoPDF page:rand size:AZSizeFromDimension(256) named:AZString(rand)];
 }
-static NSD *monos = nil;
+static NSOrderedDictionary  *monos = nil;
 + (NSA*)   monoIcons 						{				
 	
 	if (monos == nil) {
@@ -507,13 +516,13 @@ static NSD *monos = nil;
 					return [self imageFromPDF:myPDF page:[obj unsignedIntegerValue] size:AZSizeFromDimension(256) named:[obj stringValue]] ?: nil; 
 				}]; 
 				__block NSUI ctr = 0;
-				monos = [icons mapToDictionaryKeys:^id(id object) {
+				monos = (NSOrderedDictionary*)[icons mapToDictionaryKeys:^id(id object) {
 					ctr++; return $(@"%lu", ctr); 
 				}];
 			}	
 		});
 	}
-	return [monos allValues];
+	return [monos allObjects];
 }
 + (NSIMG*) imageFromPDF:(PDFDocument*)doc page:(NSUI)page size:(NSSZ)size named:(NSS*)name		{
 

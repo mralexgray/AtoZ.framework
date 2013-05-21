@@ -11,7 +11,7 @@
 
 
 
-JREnumDeclare(AZEvent, AZEventLeftMouseDown,
+JREnumDeclare(AZEvent, AZEventLeftMouseDown = 1,
 				   AZEventLeftMouseUp,
 				   AZEventRightMouseDown,
 				   AZEventRightMouseUp,
@@ -56,8 +56,20 @@ typedef void(^NSControlActionBlock)(id inSender);
 
 //typedef void (^whileDragging)(void);
 //typedef void (^insideDrag)(NSE*, NSP, whileDragging);
+typedef void (^EventBlock)(NSE* e);
 
 @interface NSEvent (AtoZ)
+
+
+/*	- (void) scrollWheel:(NSEvent *)theEvent	{	self.offset = [theEvent scrollOffsetInView:self];	
+																						    [self setNeedsDisplay:YES];	} */
+- (NSSZ) scrollOffsetInView:(NSV*)view;
+
+/*	- (void)magnifyWithEvent:(NSEvent *)event {	[self setFrame:[event magnifyRect:self.frame]]; */
+- (NSR) magnifyRect:(NSR)rect;
+
+
+
 
 //- (whileDragging)dragBlock:(NSE*)e;
 + (void)whileDragging:(void(^)(NSE* click, NSE*drag))block;

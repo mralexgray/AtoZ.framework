@@ -11,7 +11,10 @@
 
 
 /* FOUNDATION  CATEGORIES */
-
+#import "NSObject-Utilities.h"
+#import "NSObject+AtoZ.h"
+#import "NSObject+Properties.h"
+#import "NSUserDefaults+Subscript.h"
 #import "NSBundle+AtoZ.h"
 #import "NSDictionary+AtoZ.h"
 #import "NSError+AtoZ.h"
@@ -21,14 +24,12 @@
 #import "NSIndexSet+AtoZ.h"
 #import "NSNotificationCenter+AtoZ.h"
 #import "NSNumber+AtoZ.h"
-#import "NSObject-Utilities.h"
-#import "NSObject+AtoZ.h"
-#import "NSObject+Properties.h"
 #import "NSScreen+AtoZ.h"
 #import "NSString+AtoZ.h"
 #import "NSThread+AtoZ.h"
 #import "NSUserDefaults+Subscript.h"
 #import "NSValue+AtoZ.h"
+#import "CoreData+AtoZ.h"
 //#import "NSManagedObjectContext+EasyFetch.h"
 //#import "NSUserDefaults+AtoZ.h"
 
@@ -42,18 +43,17 @@
 #import "NSOutlineView+AtoZ.h"
 #import "NSTask+OneLineTasksWithOutput.h"
 #import "NSEvent+AtoZ.h"
-#import "CAAnimation+AtoZ.h"
-#import "CALayer+AtoZ.h"
 #import "NSApplication+AtoZ.h"
 #import "NSURL+AtoZ.h"
 #import "NSCell+AtoZ.h"
 #import "NSBezierPath+AtoZ.h"
 #import "NSColor+AtoZ.h"
 #import "NSShadow+AtoZ.h"
-#import "NSView+AtoZ.h"
 #import "NSWindow+AtoZ.h"
 #import "NSTableView+AtoZ.h"
 
+#import "CAAnimation+AtoZ.h"
+#import "CALayer+AtoZ.h"
 
 
 #endif

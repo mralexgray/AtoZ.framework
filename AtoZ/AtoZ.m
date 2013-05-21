@@ -11,6 +11,11 @@
 #import "OperationsRunner.h"
 
 
+NSString *AZGridShouldDrawKey = @"AZGridShouldDraw";
+NSString *AZGridUnitWidthKey = @"AZGridUnitWidth";
+NSString *AZGridUnitHeightKey = @"AZGridUnitHeight";
+NSString *AZGridColorDataKey = @"AZGridColorData";
+
 
 @implementation NSObject (AZFunctional)
 -(id)processByPerformingFilterBlocks:(NSA*)filterBlocks	{
@@ -99,6 +104,34 @@ NSOQ *AZSharedSingleOperationQueue()	{	return AZDummy.sharedInstance.sharedSQ; }
 //	i.name 	= i.name ?: name;	return/ i;	}
 
 @implementation AtoZ
+
++ (void) processInfo							{										
+
+	LOGCOLORS( RED, ORANGE, YELLOW, GREEN,
+	$(@"\n\tEXE:\t%@",  															 AZPROCINFO.processName),
+	$(@"\n\tCWD:\t%@\n", [AZFILEMANAGER.currentDirectoryPath truncateInMiddleForWidth:500]),
+	$(@"argv[0]:\t%@\t\t[NSPROC]",  [AZPROCINFO.arguments[0] truncateInMiddleForWidth:500]), nil);
+//					$(@"\nargv[0]:\t%@\t[MAIN]",             [$UTF8(argv[0]) truncateInMiddleForWidth:500])
+
+	NSProcessInfo *pi = [NSProcessInfo processInfo];
+	LOGCOLORS([[[pi environment]allKeys] map:^(id o){ return $(@"%@ : %@\n",o, [[pi environment]objectForKey:o]); }], RANDOMPAL, nil); 
+	NSLog(@"environment SHELL: %@", [[pi environment] objectForKey:@"SHELL"]);
+	NSLog(@"globallyUniqueString: %@", [pi globallyUniqueString]);
+	NSLog(@"hostName: %@", [pi hostName]);
+	NSLog(@"processIdentifier: %d", [pi processIdentifier]);
+	NSLog(@"processName: %@", [pi processName]);
+	[pi setProcessName:@"MyProcessNewName"];
+	NSLog(@"processName: %@", [pi processName]);
+	NSLog(@"operatingSystem: %d", [pi operatingSystem]);
+	NSLog(@"operatingSystemName: %@", [pi operatingSystemName]);
+	NSLog(@"operatingSystemVersionString: %@", [pi operatingSystemVersionString]);
+	NSLog(@"processorCount: %d", [pi processorCount]);
+	NSLog(@"activeProcessorCount: %d", [pi activeProcessorCount]);
+	NSLog(@"physicalMemory: %qu", [pi physicalMemory]);
+	NSLog(@"args: %@", [pi arguments]);
+
+}
+
 
 //+ (void) load							{	globalRandoPalette = NSC.randomPalette.shuffeled; }
 //+ (void) initialize 					{//												[@"AtoZ.framework Version:%@ Initialized!" log:[self version], nil];	

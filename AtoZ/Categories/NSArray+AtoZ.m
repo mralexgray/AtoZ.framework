@@ -83,8 +83,8 @@
 }
 + (void) load  {
 
-	[$ swizzleMethod:@selector(description) with:@selector(swizzleDescription) in:self.class];
-	[$ swizzleMethod:@selector(objectAtIndexedSubscript:) with:@selector(swizzledObjectAtIndexedSubscript:) in:self.class];
+//	[$ swizzleMethod:@selector(description) with:@selector(swizzleDescription) in:self.class];
+//	[$ swizzleMethod:@selector(objectAtIndexedSubscript:) with:@selector(swizzledObjectAtIndexedSubscript:) in:self.class];
 
 /*
         Method original, swizzle;
@@ -251,13 +251,13 @@
 
 - (NSN*)maxNumberInArray {	
 	
-	NSSortDescriptor* sortOrder = [NSSortDescriptor sortDescriptorWithKey: @"self" ascending: YES];
+	NSSortDescriptor* sortOrder = [NSSortDescriptor sortDescriptorWithKey: @"self" ascending: NO];
 	return (NSN*)[self sortedArrayUsingDescriptors: [NSArray arrayWithObject: sortOrder]].first;
 		//		[self sortedArrayUsingSelector: @selector(compare:)].first;	
 }
 - (NSN*)minNumberInArray {	
 	
-	NSSortDescriptor* sortOrder = [NSSortDescriptor sortDescriptorWithKey: @"self" ascending: NO];
+	NSSortDescriptor* sortOrder = [NSSortDescriptor sortDescriptorWithKey: @"self" ascending: YES];
 	return (NSN*)[self sortedArrayUsingDescriptors: [NSArray arrayWithObject: sortOrder]].first;
 //return (NSN*)[self sortedArrayUsingSelector: @selector(compare:)].last;		
 }
@@ -647,6 +647,18 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
     return block(self[subIndex]);
 }
 
+- (NSUI)indexOfFirstObjectPassing:(BOOL(^)(id obj))block {
+	__block NSUI index = NSNotFound;
+	[self enumerateObjectsUsingBlock:^(id test, NSUInteger idx, BOOL *stop) {
+		if (block(test)) {
+			index = [self indexOfObject:test];
+			*stop = YES;	
+		}
+	}];
+	return index;
+}
+
+
 - (NSA *)filter:(BOOL (^)(id object))blk {
     return [self filteredArrayUsingBlock:^(id o, NSD *d) { return (BOOL)blk(o); }];
 }
@@ -919,7 +931,14 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 - (id)last             {
     return self.lastObject;
 }                                                         //return self.count > 0 ? self[self.count - 1] : nil;	}
-
+- (NSN*) sum {  /*	!! @YES = 1, @NO = 0  !! */
+	NSN* add = nil;
+	for (NSN* n in self) {
+		if (!add) add = n;
+		else add = [add plus:n];
+	}
+	return add;
+}
 /**
    Iterates over all the objects in an array and calls the block on each object
 

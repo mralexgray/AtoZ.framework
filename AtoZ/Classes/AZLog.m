@@ -10,23 +10,44 @@
 
 
 static NSA *gPal = nil;
-JREnum ( LogEnv, LogEnvXcodeColor, LogEnvXcodeNOColor, LogEnvTTY );
+JREnum ( LogEnv, LogEnvXcodeColor, LogEnvXcodeNOColor, LogEnvTTY, LogEnvTTYColor, LogEnvTTY256, LogEnvUnknown );
 
+static LogEnv logEnv = NSNotFound;
 @implementation AZLog
 
 - (void) setUp {	![self.class hasSharedInstance] ? ^{
 
-	[[self class] setSharedInstance:self];
-	if (!gPal) gPal = NSC.randomPalette;
+	[self.class setSharedInstance:self];
+	gPal = NSC.randomPalette;
+	[self logEnv];
 	
 	}(): nil;
 }
-- (BOOL) inTTY 			{   return [@(isatty(STDERR_FILENO))boolValue]; }
+//- (BOOL) inTTY 			{   return [@(isatty(STDERR_FILENO))boolValue]; }
 - (LogEnv) logEnv 		{
 
-	if (self.inTTY) return LogEnvTTY;
-	char *XcodeSaysColor	= getenv("XCODE_COLORS");
-	return XcodeSaysColor != NULL && SameChar(XcodeSaysColor,"YES") ? LogEnvXcodeColor :  LogEnvXcodeNOColor;
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{	
+		NSS* term = $UTF8orNIL(getenv("XCODE_COLORS"));
+		if (term) logEnv = SameString(term,@"YES") ? LogEnvXcodeColor :
+								 SameString(term,@"NO")  ? LogEnvXcodeNOColor : logEnv;
+		else if (isatty(STDERR_FILENO))
+			if ((term = $UTF8orNIL(getenv("TERM"))))
+				logEnv = [term containsAllOf:@[@"color",@"256"]] ? LogEnvTTY256 :
+							[term contains:@"color"] ? LogEnvTTYColor : LogEnvTTY;
+	});	
+//		of ([tty sharedInstance]) 		objc_msgSend([tty class],
+//		NSSelectorFromString( isaColor256TTY ? @"initialize_colors_256" : @"initialize_colors_16"));
+	// Xcode does NOT natively support colors in the Xcode debugging console.
+	// You'll need to install the XcodeColors plugin to see colors in the Xcode console
+//			NSS *xcode_colors = $UTF8(getenv("XcodeColors"));
+//			isaXcodeColorTTY = xcode_colors && SameString(xcode_colors,@"YES");
+//		}();
+//		fprintf(stdout, "%sisaColorTTY\t=\t%s%s\t%sisaColor256TTY\t=\t%s%s\t%s\n", 
+//		isaColorTTY ? "\033[38;5m" : "",  isaColorTTY ? "YES" : "NO", isaColorTTY ? "\033[0m" : "", 
+//		isaColorTTY ? "\033[38;5m" : "",  isaColor256TTY ? "YES" : "NO", isaColorTTY ? "\033[0m" : "", 
+//		$(@"%@isaXcodeColorTTY\t=\t%@%@",isaXcodeColorTTY ? XCODE_COLORS_ESCAPE @"fg244,100,80;" : zSPC, StringFromBOOL(isaXcodeColorTTY), isaXcodeColorTTY ? XCODE_COLORS_RESET : @"").UTF8String);
+	return logEnv = logEnv == NSNotFound ? LogEnvUnknown : logEnv;
 }
 
 #define LOG_CALLER_VERBOSE NO		// Rediculous logging of calling method
@@ -110,24 +131,25 @@ void WEBLOG (id format, ...) {
 }
 
 
--(void) logInColor:(id)color file:(const char *)filename line:(int)line func:( const char *)funcName format:(id) format, ...	{
+-(void) logInColor:(id)clr file:(const char*)file line:(int)ln func:(const char*)fnc format:(id)fmt,...{
 
-   va_list argList;  va_start(argList,format);	__block NSS *lineNum,*path,*mess,*func,*output; __block NSUI numberofspaces;
 
-	path	= $(@"[%@]", $UTF8(filename).lastPathComponent);
-	mess 	= [NSS stringWithFormat:format arguments:argList];
+   va_list argList;  va_start(argList,fmt);	__block NSS *lineNum,*path,*mess,*func,*output; __block NSUI numberofspaces;
+
+	path	= $(@"[%@]", $UTF8(file).lastPathComponent);
+	mess 	= [NSS stringWithFormat:fmt arguments:argList];
 
 		//:fl lineNumber:ln];setFakeStdin:$(@"%@%i%s%@",path, line, funcName, mess)];
 	self.logEnv == LogEnvXcodeColor ? ^{
 
 		path.logForeground 		= gPal [0];
-		lineNum						= $( @":%i ", line );
+		lineNum						= $( @":%i ", ln );
 		lineNum.logForeground 	= gPal [1];
 		numberofspaces		 		=      10;	//MIN(MAX((paddedString.length - concat.length), 2), 20);
-		func  						= [$UTF8(funcName) truncateInMiddleToCharacters:30];
+		func  						= [$UTF8(fnc) truncateInMiddleToCharacters:30];
 		func.logForeground 		= [gPal[2] darker];
 		//	output = $(@"%@%@", path.colorLogString, lineNum.colorLogString);   //, [NSS spaces:numberofspaces]);
-		NSC* messColor				= color 	? : gPal [4];
+		NSC* messColor				= clr 	? : gPal [4];
 		mess.logForeground      = messColor;
 		mess 							= mess.colorLogString ?: mess;  //  actual log message
 
@@ -188,41 +210,11 @@ void WEBLOG (id format, ...) {
 
 - (NSS *)colorLogString {
 
-static BOOL isaColorTTY, isaColor256TTY, isaXcodeColorTTY;  static BOOL envSet = NO;
-		
-			
-	if (envSet == NO) {
-		static dispatch_once_t onceToken;
-		dispatch_once(&onceToken, ^{
-//				DDTTYLogger sharedInstance];
-			char *term = getenv("TERM");
-			term ? ^{
-				if (strcasestr(term, "color") != NULL)	{
-					isaColorTTY = YES;
-					isaColor256TTY = (strcasestr(term, "256") != NULL);
-//					if ([tty sharedInstance]) 		objc_msgSend([tty class],
-//	NSSelectorFromString( isaColor256TTY ? @"initialize_colors_256" : @"initialize_colors_16"));
-				}
-			}() : ^{
-								// Xcode does NOT natively support colors in the Xcode debugging console.
-								// You'll need to install the XcodeColors plugin to see colors in the Xcode console
-								char *xcode_colors = getenv("XcodeColors");
-								isaXcodeColorTTY = xcode_colors && (strcmp(xcode_colors, "YES") == 0);
-							}();
-		fprintf(stdout, "%sisaColorTTY\t=\t%s%s\t%sisaColor256TTY\t=\t%s%s\t%s\n", 
-		isaColorTTY ? "\033[38;5m" : "",  isaColorTTY ? "YES" : "NO", isaColorTTY ? "\033[0m" : "", 
-		isaColorTTY ? "\033[38;5m" : "",  isaColor256TTY ? "YES" : "NO", isaColorTTY ? "\033[0m" : "", 
-		$(@"%@isaXcodeColorTTY\t=\t%@%@",isaXcodeColorTTY ? XCODE_COLORS_ESCAPE @"fg244,100,80;" : zSPC, StringFromBOOL(isaXcodeColorTTY), isaXcodeColorTTY ? XCODE_COLORS_RESET : @"").UTF8String);
-	});
-	}
-	envSet = YES;
-	if (!isaColorTTY  && !isaColor256TTY && !isaXcodeColorTTY) return self;
 	NSA *fgs = [self hasAssociatedValueForKey:@"logFG"] ? [self associatedValueForKey:@"logFG"] : nil;
    NSA *bgs = [self hasAssociatedValueForKey:@"logBG"] ? [self associatedValueForKey:@"logBG"] : nil;
-
 	if (!fgs && !bgs) return self;
    NSS *colored = [NSS stringWithString:self.copy];
-	if ((( fgs && fgs.count == 3) || (bgs && bgs.count ==3) ) && isaXcodeColorTTY) {
+	if ((( fgs && fgs.count == 3) || (bgs && bgs.count ==3) ) && logEnv == LogEnvXcodeColor) {
 		if (fgs && fgs.count ==3) {
 			  colored = $(XCODE_COLORS_ESCAPE @"fg%i,%i,%i;%@" XCODE_COLORS_RESET,
 							  [fgs[0] intValue], [fgs[1] intValue], [fgs[2] intValue], colored);
@@ -234,15 +226,11 @@ static BOOL isaColorTTY, isaColor256TTY, isaXcodeColorTTY;  static BOOL envSet =
 		 }
 		 return colored;
 	}
-	if (isaColor256TTY || isaColorTTY){
-		NSArray* cs = @[@31,@32,@33,@34,@35,@36,@37];
-		NSArray* bg = @[@40,@41,@42];//,@43,@44,@45,@46,@47];
-
-		NSNumber* num = cs[arc4random() % 7 ];
-		NSNumber* nub = bg[arc4random() % 3 ];
-		NSString *let = [num stringValue];
-		NSString *blet = [nub stringValue];
-		return [NSString stringWithFormat:@"\033[%@;%@m%@\033[0m", let,blet, self];
+	if (logEnv == LogEnvTTYColor || logEnv == LogEnvTTY256){		static NSArray* cs, *bg;
+		cs = cs ?: @[@31,@32,@33,@34,@35,@36,@37];
+		bg = bg ?: @[@40,@41,@42];//,@43,@44,@45,@46,@47];
+		return [NSString stringWithFormat:@"\033[%@;%@m%@\033[0m", [cs[arc4random() % 7 ]stringValue],
+																					  [bg[arc4random() % 3 ]stringValue], self];
 	}
 }
 @end

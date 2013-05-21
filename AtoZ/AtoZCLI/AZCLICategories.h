@@ -9,9 +9,6 @@
 #import "AtoZ.h"
 
 
-@interface AZCLI (Categories)
-+ (void) setupBareBonesApplication;
-+ (void) handleInteractionWithPrompt:(NSS*)string block:(void(^)(NSString *output))block;
 //@property (RONLY) NSA 	*names, *colors;
 //@property (RONLY) NSC 	*next;
 //@property (STRNG) NSS	*name;
@@ -31,15 +28,3 @@
 //- (void) getData:(NSNotification *)notifcation;
 // invoke clang using an NSTask, reading output via notifications and providing input via an async GCD task
 //- (void)applicationDidFinishLaunching:(NSNotification *)aNotification;
-
-@end
-
-@interface AZCLIMenu : BaseModel
-+ (NSIS*) indexesOfMenus;
-@property (RONLY, NATOM) NSRNG		range;
-@property (NATOM,STRNG)	 id			identifier;
-@property (RONLY)		 	 NSS		*menu;
-@property (NATOM,STRNG)  id 	palette;
-@property (NATOM,  ASS)  NSI  startIdx;
-+ (instancetype) cliMenuFor:(NSA*)items starting:(NSUI)idx palette:(id)p;
-@end

@@ -1,133 +1,162 @@
 #import "AZCLI.h"
+#import "AZGrid.h"
 
-static NSPoint click;
-static NSRect startRect;
-@interface AZCLISlideWindow :NSWindow
-@end
-@implementation AZCLISlideWindow
-- (void) sendEvent:(NSE*)e { 
-    if (e.type == NSLeftMouseDown && e.type != NSLeftMouseDragged) {
-	 	{
-			click = e.locationInWindow;
-			startRect = self.frame;
-//    else if (e.type == NSLeftMouseDragged) {			
-	NSP o = [self convertBaseToScreen:[e locationInWindow]];
-				NSRect new = startRect;
-}
-}	 
-//	 
-//        for(UITouch * t in [event allTouches]) {
-//            if(t.phase == UITouchPhaseBegan) {
-//                /*
-//                Paste your code here. 
-//                Inform objects that some touch has occurred. 
-//                It's your choice if you want to perform method/selector directly, 
-//                use protocols/delegates, notification center or sth else. 
-//                */
-//            }
-//        }
-//    }
-//
-//    [super sendEvent:event];
-}
+//static 	StickyNote 	*sticky;	
 
-@end
-static 	NSMA			*methods, 	*classes;
-static 	StickyNote 	*sticky;
-static 	AZCLISlideWindow			*window;  
-static 	AZCLIMenu 	*meths, *fws; 
-static   NSFH 			*file = nil;
-
+static NSMenu *menubar,*appMenu; static NSMenuItem *appMenuItem; static NSApplication *sharedApp;
+static dispatch_once_t onceToken;
+static NSMD	*selectionDecoder = nil;
 
 @implementation AZCLI	
-- (void) handleWindowEvent:(NSE*) e { NSLog(@"the eveent: %@",e); }
-- (void) setUp 								{	
+//+ (void) load {
+//	if (AZCLI.hasSharedInstance) return; 	
+	//	ProcessSerialNumber psn;  OSStatus err=GetCurrentProcess(&psn);  
+//}
 
-	[AZCLI hasSharedInstance] ? nil : ^{ 	AZCLISI = self; AtoZ.sharedInstance; [AZCLI setupBareBonesApplication];
-	window = [NSW.alloc initWithContentRect:AZRectFromDim(200) styleMask:NSBorderlessWindowMask|NSResizableWindowMask backing:NSBackingStoreBuffered defer:NO];
-	[window cascadeTopLeftFromPoint:NSMakePoint(20,20)];
-	[window setTitle:					AZPROCNAME]; 
-	[window setBackgroundColor:          RED];
-	[window setOpaque:						  NO]; 
-	[window setMovableByWindowBackground:YES];
-	[window setDelegate:						self];
-	[window makeKeyAndOrderFront:			 nil];
-	file = [NSFileHandle fileHandleWithStandardInput];
-	[file readInBackgroundAndNotify];
+- (id) init {
+
+	if (self != super.init ) return nil;
+	[_menu = MenuAppController.new loadStatusMenu];
+	_stdinHandle = AZSTDIN;
+//	[self window];
+	[self mainMenu];		
+	[AZGrid preview];
+	[AZPrismView preview];
+	sharedApp = [NSApplication sharedApplication];
+	dispatch_once(&onceToken, ^{
+   	sharedApp.activationPolicy = NSApplicationActivationPolicyRegular;
+		[sharedApp setMainMenu: menubar = NSMenu.new];	
+		[menubar addItem:  appMenuItem = NSMenuItem.new];
+		appMenuItem.submenu =     appMenu = NSMenu	 .new;
+		[appMenu addItem:AZQUITMENU];
+		[NSApp setDelegate: self];
+	});
+
+	return self;
+//		appMenu.isDark = menubar.isDark = YES;
+//	});
+//	[self setupBareBonesApplication];
+}   /* All setup code fpr shared INstance */
+
+- (void) applicationDidFinishLaunching:(NSNotification *)notification {
+
+//		AZLOGCMD;
+//	[_stdinHandle readInBackgroundAndNotify];
+//	[AZNOTCENTER observeName:NSWindowDidUpdateNotification usingBlock:^(NSNOT*n) { [self.contentView setNeedsDisplay:YES]; }];
+	[NSApp activateIgnoringOtherApps:YES];
+
+}
+- (NSW*)window {
+	
+	if (!_window) {
+		_window = [NSW.alloc initWithContentRect:AZRectFromDim(200) styleMask:NSBorderlessWindowMask|NSResizableWindowMask backing:NSBackingStoreBuffered defer:NO];
+//		[_window cascadeTopLeftFromPoint:NSMakePoint(20,20)];
+		[_window setTitle:				 AZPROCNAME]; 
+		[_window setContentView: self.contentView];
+		[_window setBackgroundColor:        CLEAR];
+		[_window setOpaque:				 		   NO]; 
+		[_window setSticksToEdge:		 		  YES];
+		[_window setDelegate:					 self];
+//		[AZNOTCENTER observeName:NSApplicationDidBecomeActiveNotification usingBlock:^(NSNOT*n) {
+//			[NSApp activateIgnoringOtherApps:YES];	[_window makeKeyAndOrderFront:self];
+//		}];
+		[self.windowPosString bind:NSValueBinding toObject:_window withKeyPath:@"insideEdge" transform:^id(id value) {
+			return AZPositionToString([value unsignedIntegerValue]);
+		}];
+	}
+	return [_window makeKeyAndOrderFront: nil], _window;
+}
+- (BLKVIEW*) contentView { 
+
+	return _contentView = _contentView ?: [BLKVIEW viewWithFrame:self.window.contentRect opaque:NO drawnUsingBlock:^(BNRBlockView *v, NSRect r) {
+		[[NSBP bezierPathWithRoundedRect:_window.contentRect cornerRadius:20 inCorners:_window.sticksToEdgeOutsideCorners]fillWithColor:RANDOMCOLOR];
+		[self.windowPosString drawInRect:_window.contentRect withAttributes:@{NSFontNameAttribute:AtoZ.controlFont}];
+	}];
+
+}
+
++ (void) handleInteractionWithPrompt:(NSS*)string block:(void(^)(NSString *output))block {
+//	NSFH   *handle = self.stdinHandle;
+//	NSData   *rawD = [NSData dataWithData:handle.readDataToEndOfFile];
+	NSS	  *outie = 	[NSTerminal readString]; //[NSString stringWithData:rawD encoding:NSUTF8StringEncoding];
+	[NSTerminal printString:outie];
+//	fprintf(stderr, "rawstring:%s", outie.UTF8String);
+	block(outie);
+}
+
+//- (void) setupBareBonesApplication {
+//
+//}
+
+/*
 	[window az_overrideSelector:@selector(sendEvent:) withBlock:(__bridge void *)^(id _self, NSE* e)	{
-
 		NSR f = AZScreenFrameUnderMenu();	
 //		NSP o = [window convertBaseToScreen:[e locationInWindow]];
 		AZPOS pos = AZOutsideEdgeOfRectInRect([_self frame], f);
 		
 		LOGCOLORS(AZString(f), RED, AZString([_self frame]),ORANGE,AZPositionToString(pos),PINK,nil);
-		//AZOutsideEdgeOfRectInRect(window.frame, f);
-//		AZPositionOfRectPinnedToOutisdeOfRect(f,
-//		[AZWindowPositionToString(pos)  log];
-//		LOG_EXPR(AZPointDistanceToBorderOfRect([window.contentView localPoint], f));
+AZOutsideEdgeOfRectInRect(window.frame, f);
+		AZPositionOfRectPinnedToOutisdeOfRect(f,
+		[AZWindowPositionToString(pos)  log];
+		LOG_EXPR(AZPointDistanceToBorderOfRect([window.contentView localPoint], f));
 	}];
-//		SEL sel = @selector(handleWindowEvent:); /* Call super: */
-//		void (*superIMP)(id, SEL, NSE*) 	= [_self az_superForSelector:sel];
-//		superIMP (_self, sel, e);
-// NSLog(@"filling rect: %@", AZStringFromRect(rect));
-// NSRectFillWithColor(rect, RANDOMCOLOR);//NOISY(GRAY2));
-// //colorWithPatternImage:[NSIMG imageNamed:@"perforated_white_leather_@2X"]]);
-// //[NSIMG frameworkImageNamed:@"mrgray.logo.png"]]);
+		SEL sel = @selector(handleWindowEvent:); / * Call super: * /
+		void (*superIMP)(id, SEL, NSE*) 	= [_self az_superForSelector:sel];
+		superIMP (_self, sel, e);
+ NSLog(@"filling rect: %@", AZStringFromRect(rect));
+ NSRectFillWithColor(rect, RANDOMCOLOR);//NOISY(GRAY2));
+ //colorWithPatternImage:[NSIMG imageNamed:@"perforated_white_leather_@2X"]]);
+ //[NSIMG frameworkImageNamed:@"mrgray.logo.png"]]);
 
 
-//	[NSTimer timerWithTimeInterval:5 block:^(NSTimeInterval time) {
-//		AZProcess *mds = [AZProcess processForCommand:@"mds"];
-//		LOGCOLORS( [mds description], NSC.randomPalette, nil);
-//		[mds kill:9];
-//	} repeats:YES];
+	[NSTimer timerWithTimeInterval:5 block:^(NSTimeInterval time) {
+		AZProcess *mds = [AZProcess processForCommand:@"mds"];
+		LOGCOLORS( [mds description], NSC.randomPalette, nil);
+		[mds kill:9];
+	} repeats:YES];
 	
-//	[AZNOTCENTER addObserver:self selector:@selector(didReadStdin:) name:NSFileHandleReadCompletionNotification object: AZSTDIN];
-//		sticky = [StickyNote instanceWithFrame:AZRectFromDim(200)];
-//		[sticky.window makeKeyAndOrderFront:self];
-		[AZCLISI mainMenu];		
-		[NSApp run];
-	}();
-	
-}   /* All setup code fpr shared INstance */
+	[AZNOTCENTER addObserver:self selector:@selector(didReadStdin:) name:NSFileHandleReadCompletionNotification object: AZSTDIN];
+		sticky = [StickyNote instanceWithFrame:AZRectFromDim(200)];
+		[sticky.window makeKeyAndOrderFront:self];
+*/
 -  (IBA) log:(id)sender						{	NSLog(@"hello from button");	}
 -  (IBA) toggleConsole:(id)s				{[NSLogConsole.sharedConsole performString:[NSLogConsole.sharedConsole isOpen] ? @"close" : @"open"]; }
-- (void) mainMenu 							{
+- (id) mainMenu 							{
 
-//			CurrentIMP;	
-	
-	static dispatch_once_t onceToken;	
-	dispatch_once(&onceToken, ^{																///_stdinFileHandle =
-	
-		_selectionDecoder = @{	    @"fwMenu": AZBUNDLE.frameworkIdentifiers, 
-										@"methodMenu": @[	@"mainMenu",					@"runAClassMethod", 
-																@"envTest", 					@"instanceMethodNames", 
-																@"frameworkMenu",				@"rainbowArrays",
-																@"variadicColorLogging",	@"processInfo"]		}.mutableCopy;
-		 fws = [AZCLIMenu cliMenuFor:_selectionDecoder[@"fwMenu"] starting:100 palette:self.palette];
-		 meths = [AZCLIMenu cliMenuFor:_selectionDecoder[@"methodMenu"] starting:0 palette:self.palette];
+	//			CurrentIMP;	
+	static 	AZCLIMenu 	*meths, *fws; 
+	static 	dispatch_once_t onceToken; dispatch_once(&onceToken, ^{
+		if (!selectionDecoder) selectionDecoder = NSMD.new;																///_stdinFileHandle =
+		selectionDecoder = @{	@"fwMenu"		: AZBUNDLE.frameworkIdentifiers, 
+										@"methodMenu"	: @[	@"mainMenu",					@"runAClassMethod", 
+																	@"envTest", 					@"instanceMethodNames", 
+																	@"frameworkMenu",				@"rainbowArrays",
+																	@"variadicColorLogging",	@"processInfo"]		}.mutableCopy;
+		 fws 	 = [AZCLIMenu cliMenuFor:selectionDecoder[@"fwMenu"] 	 starting:100 palette:self.palette];
+		 meths = [AZCLIMenu cliMenuFor:selectionDecoder[@"methodMenu"] starting:0   palette:self.palette];
 	});
-	
 	[NSTerminal printString:[@[[COLORIZE(@"Welcome to AtoZCLI!",				 RANDOMCOLOR, nil)[0] clr],
 										[COLORIZE(@"Please choose a test option:",	      PURPLE, nil)[0] clr],
-	 									[COLORIZE(@"Available Frameworks:",					   YELLOW, nil)[0] clr],
-																													 fws.menu.clr,
-										[COLORIZE(@"Available METHODS:",						    GREEN, nil)[0] clr],
-																												  meths.menu.clr
-										]componentsJoinedByString:@"\n"]];
+	 									[COLORIZE(@"Available Frameworks:",					   YELLOW, nil)[0] clr],	
+					fws.menu.clr,	[COLORIZE(@"Available METHODS:",						    GREEN, nil)[0] clr], 
+				 meths.menu.clr   ]componentsJoinedByString:@"\n"]];
 	
-	[AZNOTCENTER addObserverForName:NSFileHandleReadCompletionNotification object:file queue:AZSOQ usingBlock:^(NSNotification *note) {
-		NSS* input = [note stringForKey:NSFileHandleNotificationDataItem];
+	return _mainMenu ? _mainMenu :	[AZNOTCENTER addObserverForName:NSFileHandleReadCompletionNotification 
+																	 object:_stdinHandle queue:AZSOQ usingBlock:^(NSNOT *n) { 
+//					[self setInsideEdge:99];  [AZNOTCENTER removeObserver:observer1];	}]),
+//	_mainMenu = [AZNOTCENTER addObserverForName:NSFileHandleReadCompletionNotification object:_stdinHandle queue:AZSOQ usingBlock:^(NSNOT *note) {
+		NSS* input = [n stringForKey:NSFileHandleNotificationDataItem];
 		[input log];
 		if ( SameString(@":", input.firstLetter)) {
 			NSA* words = [input componentsSeparatedByString:@":"];
-			LOGCOLORS(@"rawWords:", words, [[NSC randomPalette]withMinItems:words.count+1], nil);
+			LOGCOLORS(@"rawWords:", words, NSC.randomPalette, nil);
 			[@"s".classProxy[words[0]] performSelectorWithoutWarnings:NSSelectorFromString(words[1])];
 		}
-		[file readInBackgroundAndNotify];
+		[_stdinHandle readInBackgroundAndNotify];
 	}];
 }
 //- (void) windowWillMove:(NSNotification *)notification { [notification log]; }
-- (void) didReadStdin:(NSNOT*)n		{
+//- (void) didReadStdin:(NSNOT*)n		{
 	
 //		id obj = class ?: self;
 //		NSLog(@"class:  %@, sel:%@", NSClassFromString(class), NSStringFromSelector(select));
@@ -136,7 +165,7 @@ static   NSFH 			*file = nil;
 //class != NULL ? [[class performSelector:select] log] : [[self performSelectorWithoutWarnings:select]log];
 //		return;
 //	}
-}
+//}
 
 //	__block BOOL match = NO;
 //	[[AZCLIMenu indexesOfMenus]log];
@@ -176,7 +205,7 @@ static   NSFH 			*file = nil;
 //	NSLog(@"cfk: %@ equal to cliclass: %@... %@", NSStringFromClass([what class]), test, StringFromBOOL(areSame([what class], [test class])));	
 //	}];
 	//fflush(stdout); }];
-
+/*
 - (void) runAClassMethod 					{
 	static BOOL stop = NO;
 	if (!classes) classes = NSMA.new;  if (!methods) methods = NSMA.new;
@@ -203,7 +232,7 @@ static   NSFH 			*file = nil;
 	NSLog(@"aRes: %@", aRes);
 	if (!stop) [self runAClassMethod];
 }
-
+*/
 
 
 - (void) colorLogging 				{
@@ -227,13 +256,6 @@ static   NSFH 			*file = nil;
 - (void) variadicColorLogging	 			{
     LOGCOLORS(RED, @"red", ORANGE, @"orange", YELLOw, @"yellow", GREEN, @"green", BLUE, @"blue", PURPLE, GREY, "purple (but not in the right order", "Grey (also out of order)", nil);
 }
-- (void) processInfo							{										LOGCOLORS( RED, ORANGE, YELLOW, GREEN,
-
-					$(@"\n\tEXE:\t%@",  															 AZPROCINFO.processName),
-					$(@"\n\tCWD:\t%@\n", [AZFILEMANAGER.currentDirectoryPath truncateInMiddleForWidth:500]),
-					$(@"argv[0]:\t%@\t\t[NSPROC]",  [AZPROCINFO.arguments[0] truncateInMiddleForWidth:500]), nil);
-//					$(@"\nargv[0]:\t%@\t[MAIN]",             [$UTF8(argv[0]) truncateInMiddleForWidth:500])
-}
 - (void) textWasEntered:(NSS*)s			{	[AZTalker say: s];				}
 - (VoidBlock) stringFunctions				{
 
@@ -242,6 +264,56 @@ static   NSFH 			*file = nil;
    };
 }
 @end
+
+@implementation AZCLIMenu
+
++ (NSIS*) indexesOfMenus {
+
+	NSMIS* is = NSMIS.new;	//	NSLog(@"Allinstances:%@", all);// [[@"a".classProxy vFK:AZCLSSTR] performSelectorWithoutWarnings:NSSelectorFromString(@"allInstancesAddOrReturn:") withObject:nil]);
+	for (AZCLIMenu *m in [self allInstances]) {
+//		NSLog(@"%@ RANGE:%@", m, NSStringFromRange(m.range));  
+				[is addIndexesInRange:m.range];
+	}	
+	return is;
+}
+
+//- (void) setUp { NSLog(@"Normal setup");  [self  performSelector:NSSelectorFromString(@"swizzleSetUp")]; }
+
++ (instancetype) cliMenuFor:(NSA*)items starting:(NSUI)idx palette:(id)p {
+	if ([[[self allInstances] valueForKeyPath:@"defaultCollection"]isEqualToArray:items]) {
+		[@"already made a menu for this!" log]; return nil; }
+	AZCLIMenu *m = AZCLIMenu.instance;
+	[m setUp];
+	m.defaultCollection = items;
+	m.startIdx = idx;
+	m.palette = p;
+	return m;
+}	
+-    (id) identifier 	{ return _identifier = _identifier ?: self.uniqueID; }
+- (NSRNG) range 			{  return  NSMakeRange(self.startIdx, [(NSA*)self.defaultCollection count]); }
+//@property (NATOM,STRNG) NSMD	*selectionDecoder;
+-  (NSS*) menu 			{
+
+	NSA* items = self.defaultCollection;
+	NSUI maxlen 	= ceil([items lengthOfLongestMemberString] * 1);	// deduce longest string
+	NSUI cols 		= floor(120.f/(float) maxlen);								// accomodate appropriate number of cols.
+	NSUI maxIndex 	= [$(@"%lu: ", self.startIdx + items.count)length];  			// make sure numbers fit nice
+	__block NSUI i = _startIdx -1;													// start at an index
+	if (!selectionDecoder) selectionDecoder = NSMD.new;
+	return  [items reduce:@"" withBlock:^id(id sum, id obj) {		i++; // Allow goruped indexes.
+		selectionDecoder[@(i)] = obj;
+		NSS* paddedIndex = [ $(@"%lu: ", i) paddedTo:maxIndex];
+		NSS* 	outP = (i % cols) == 0 ? @"\n" : @"";
+				outP = [outP withString:paddedIndex];
+//				NSC* c = [p ISKINDA:NSCL.class] ?[[p colors] normal: i] : [p normal:1];
+				outP = [outP withString:[AZLOGSHARED colorizeString:[$(@"%@",obj) paddedTo:maxlen] withColor:[self.palette  normal:i]].colorLogString];
+		return outP ? [sum withString:outP] : sum;
+	}];		  /* Find the longest string and base our columns on that. */
+}
+
+
+@end
+
 @implementation AtoZ (CLIWindow)
 + (NSW*) popDrawWindow:(BNRBlockViewDrawer)blk {
 
@@ -249,14 +321,16 @@ static   NSFH 			*file = nil;
 	if (!running) {
 		[NSApplication sharedApplication];
 		[NSApp setActivationPolicy:NSApplicationActivationPolicyRegular];
-		id menubar, appMenu, appMenuItem;
-		menubar 								=		NSMenu.new;
-		appMenu 								=		NSMenu.new;
+		NSMenu* menubar, *appMenu; NSMenuItem *appMenuItem;
+		menubar		=		NSMenu.new;
+		appMenu 		=		NSMenu.new;
 		[menubar  addItem:appMenuItem = NSMenuItem.new];
 		[NSApp 	 setMainMenu:menubar];
 		[appMenu  addItem:[NSMI.alloc initWithTitle:[@"Quit " withString:AZPROCNAME]
-														 action:@selector(terminate:) keyEquivalent:@"q"]];
+														 action:NSSelectorFromString(@"terminate:") keyEquivalent:@"q"]];
 		[appMenuItem setSubmenu:appMenu];
+		menubar.isDark = YES; 
+		appMenu.isDark = YES;
 		NSW* window = [NSW.alloc initWithContentRect:AZRectFromDim(200) styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO];
 		[window cascadeTopLeftFromPoint:NSMakePoint(20,20)];
 		[window setTitle:AZPROCNAME]; window.backgroundColor = CLEAR;

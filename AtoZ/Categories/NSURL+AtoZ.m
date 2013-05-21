@@ -6,6 +6,8 @@
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 //
 
+#define NOT_REACHED() do {	AZLOG(@"<INTERNAL INCONSISTENCY>"); } while (0)
+
 #import "NSURL+AtoZ.h"
 /* data passing categories on NSURLRequest and NSMutableURLRequest.  see the
  header file for more info.  */

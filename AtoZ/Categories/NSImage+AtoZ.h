@@ -42,6 +42,9 @@ extern NSData *PNGRepresentation(NSIMG *image);
 @class AZFile;
 @interface NSImage (AtoZ)
 
+@property (nonatomic, assign) CGF width;
+@property (nonatomic, assign) CGF height;
+
 + (NSIMG*) isometricShelfInRect:(NSR)rect;
 + (NSIMG*) imageFromLockedFocusSize:(NSSZ)sz lock:(NSIMG*(^)(NSIMG*))block;
 - (NSIMG*) lockFocusBlockOut:(NSIMG*(^)(NSIMG*))block;
@@ -150,7 +153,7 @@ extern NSData *PNGRepresentation(NSIMG *image);
 + (NSIMG*) createImageFromSubView:(NSView*) view	rect:(NSRect)rect;
 + (NSIMG*) createImageFromView:	(NSView*) view;
 
-#warning BROKEN
+//NOTE BROKEN
 - (NSIMG*) scaleImageToFillSize:	(NSSize) targetSize; //
 - (void) drawFloatingRightInFrame:(NSRect)aFrame;  //ACG FLOATIAMGE
 // draws the passed image into the passed rect, centered and scaled appropriately.

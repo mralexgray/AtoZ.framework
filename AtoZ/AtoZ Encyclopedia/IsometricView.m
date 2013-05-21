@@ -68,7 +68,7 @@
 {
 	float width = [self frame].size.width;
 	float height = [self frame].size.height;
-	CGContextRef ctx = [[NSGraphicsContext currentContext] graphicsPort];
+	CGContextRef ctx = [AZGRAPHICSCTX graphicsPort];
 	CGContextDrawRadialGradient(ctx, backgroundGradient,
 								CGPointMake(width/2, height), width,
 								CGPointMake(width/2, -height/2), 0,

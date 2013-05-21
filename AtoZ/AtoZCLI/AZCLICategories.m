@@ -10,50 +10,6 @@
 #import "AZCLICategories.h"
 #import "AtoZ.h"
 
-@implementation AZCLIMenu
-
-+ (NSIS*) indexesOfMenus {
-
-	NSMIS* is = NSMIS.new;	//	NSLog(@"Allinstances:%@", all);// [[@"a".classProxy vFK:AZCLSSTR] performSelectorWithoutWarnings:NSSelectorFromString(@"allInstancesAddOrReturn:") withObject:nil]);
-	for (AZCLIMenu *m in [self allInstances]) {
-//		NSLog(@"%@ RANGE:%@", m, NSStringFromRange(m.range));  
-				[is addIndexesInRange:m.range];
-	}	
-	return is;
-}
-
-//- (void) setUp { NSLog(@"Normal setup");  [self  performSelector:NSSelectorFromString(@"swizzleSetUp")]; }
-
-+ (instancetype) cliMenuFor:(NSA*)items starting:(NSUI)idx palette:(id)p {
-	if ([[[self allInstances] valueForKeyPath:@"defaultCollection"]isEqualToArray:items]) {
-		[@"already made a menu for this!" log]; return nil; }
-	AZCLIMenu *m = AZCLIMenu.instance;
-	[m setUp];
-	m.defaultCollection = items;
-	m.startIdx = idx;
-	m.palette = p;
-	return m;
-}	
--    (id) identifier 	{ return _identifier = _identifier ?: self.uniqueID; }
-- (NSRNG) range 			{  return  NSMakeRange(self.startIdx, [(NSA*)self.defaultCollection count]); }
--  (NSS*) menu 			{
-
-	NSA* items = self.defaultCollection;
-	NSUI maxlen 	= ceil([items lengthOfLongestMemberString] * 1);	// deduce longest string
-	NSUI cols 		= floor(120.f/(float) maxlen);								// accomodate appropriate number of cols.
-	NSUI maxIndex 	= $(@"%lu: ", self.startIdx + items.count).length;  			// make sure numbers fit nice
-	__block NSUI i = _startIdx -1;													// start at an index
-	return  [items reduce:@"" withBlock:^id(id sum, id obj) {		i++; // Allow goruped indexes.
-		[[AZCLI sharedInstance]selectionDecoder][@(i)] = obj;
-		NSS* paddedIndex = [ $(@"%lu: ", i) paddedTo:maxIndex];
-		NSS* 	outP = (i % cols) == 0 ? @"\n" : @"";
-				outP = [outP withString:paddedIndex];
-//				NSC* c = [p ISKINDA:NSCL.class] ?[[p colors] normal: i] : [p normal:1];
-				outP = [outP withString:[AZLOGSHARED colorizeString:[$(@"%@",obj) paddedTo:maxlen] withColor:[self.palette  normal:i]].colorLogString];
-		return outP ? [sum withString:outP] : sum;
-	}];		  /* Find the longest string and base our columns on that. */
-}
-
 //+ (instancetype) instanceWithListNamed:(NSS*)listName {
 //
 //	NSA* lists = [NSC colorLists];
@@ -94,7 +50,8 @@
 //- (void)insertObject:(__INSERTABLE_CLASS__*)o in__CAPPED_KEY__AtIndex:(NSUI)i {	[[self __INTERNAL_KEYPATH__] insertObject:o atIndex:i]; }\
 //
 //SynthesizeMutableAccessors(@"colors",cls[name],NSC);
-
+/*
+@implementation  AZCLIMenu
 
 - (void) provideStdin:						(NSFH*)std	{
 	// send a simple program to clang using a GCD task
@@ -131,7 +88,7 @@
 }
 
 @end
-
+*/
 #import "NSTerminal.h"
 
 //@implementation NSArray (AZCLI)
@@ -143,28 +100,3 @@
 //@end
 //static NSMD *cls = nil;
 
-static 	NSMenu		*menubar, 	*appMenu;
-static 	NSMenuItem	*appMenuItem;  
-
-@implementation AZCLI (Categories)
-+ (void) handleInteractionWithPrompt:(NSS*)string block:(void(^)(NSString *output))block {
-//	NSFH   *handle = self.stdinHandle;
-//	NSData   *rawD = [NSData dataWithData:handle.readDataToEndOfFile];
-	NSS	  *outie = 	[NSTerminal readString]; //[NSString stringWithData:rawD encoding:NSUTF8StringEncoding];
-	[NSTerminal printString:outie];
-//	fprintf(stderr, "rawstring:%s", outie.UTF8String);
-	block(outie);
-}
-
-+ (void) setupBareBonesApplication {
-	static dispatch_once_t onceToken;
-	dispatch_once(&onceToken, ^{
-   	NSApplication.sharedApplication.activationPolicy 	  = NSApplicationActivationPolicyRegular;
-		[NSApp  setMainMenu:  menubar = NSMenu.new];	[menubar addItem:appMenuItem = NSMenuItem.new];
-		appMenuItem.submenu = appMenu = NSMenu.new;	[appMenu  					   addItem:AZQUITMENU];
-		[NSApp activateIgnoringOtherApps:YES];
-	});
-}
-
-
-@end

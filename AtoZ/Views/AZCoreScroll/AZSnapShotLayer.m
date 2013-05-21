@@ -109,7 +109,7 @@ static NSInteger snapshotNumber;
 //	CGSize b = self.bounds.size;
 //	NSImage* compositeImage = [[NSImage alloc] initWithSize:b];
 //		[compositeImage lockFocus];
-//	CGContextRef ctx = [[NSGraphicsContext currentContext] graphicsPort];
+//	CGContextRef ctx = [AZGRAPHICSCTX graphicsPort];
 //	CGContextDrawRadialGradient(ctx, backgroundGradient,
 //								CGPointMake(b.width/2, b.height), b.width,
 //								CGPointMake(b.width/2, -b.height/2), 0,

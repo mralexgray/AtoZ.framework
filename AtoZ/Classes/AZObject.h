@@ -6,8 +6,11 @@
 //  Copyright 2008 __MyCompanyName__. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
 #import <Cocoa/Cocoa.h>
 @interface AZObject : NSObject <NSCoding,NSCopying,NSFastEnumeration>
+@property (strong) id representedObject;
+@property (copy) NSArray *keys;
 
 // Shared instance is the object modified after each key change
 //+ (AZObject*)sharedInstance;
@@ -24,8 +27,8 @@
 
 @interface NSObject (NSCoding)
 
-- (void)autoEncodeWithCoder: (NSCoder *)coder;
-- (void)autoDecode:(NSCoder *)coder;
-- (NSDictionary *)properties;
-- (NSDictionary *) autoEncodedProperties;
+- (void) autoEncodeWithCoder: (NSCoder*)coder;
+- (void) autoDecode:				(NSCoder*)coder;
+//- (NSD*) properties;
+- (NSD*) autoEncodedProperties;
 @end

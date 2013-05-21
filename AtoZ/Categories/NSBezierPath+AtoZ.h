@@ -1,11 +1,38 @@
 #import "AtoZ.h"
 
+@interface NSAffineTransform (RectMapping)
+/* initialize the NSAffineTransform so it maps points in srcBounds proportionally to points in dstBounds */
+- (NSAffineTransform*)mapFrom:(NSRect) srcBounds to: (NSRect) dstBounds;
+/* scale the rectangle 'bounds' proportionally to the given height centered above the origin with the bottom of the rectangle a distance of height above the a particular point.  Handy for revolving items around a particular point. */
+- (NSAffineTransform*)scaleBounds:(NSR) bounds 	toHeight: (CGF) height centeredDistance:(CGF) distance abovePoint:(NSP) loc;
+/* same as the above, except it centers the item above the origin.  */
+- (NSAffineTransform*)scaleBounds:(NSR) bounds	toHeight: (CGF) height centeredAboveOrigin:(CGF) distance;
+/* initialize the NSAffineTransform so it will flip the contents of bounds	vertically. */
+- (NSAffineTransform*)flipVertical:(NSRect) bounds;
+@end
+@interface NSBezierPath (ShadowDrawing)
+/* fill a bezier path, but draw a shadow under it offset by the given angle (counter clockwise from the x-axis) and distance. */
+- (void)fillWithShadowAtDegrees:(CGF) angle withDistance: (CGF) distance;
+@end
+@interface BezierNSLayoutManager: NSLayoutManager 
+@property (nonatomic, copy) NSBezierPath* theBezierPath;
+- (void)showPackedGlyphs:(char*)glyphs length:(unsigned)glyphLen	/* convert NSString into a NSBezierPath using a specific font. */
+		glyphRange:(NSRange)glyphRange atPoint:(NSPoint)point font:(NSFont *)font
+		color:(NSC*)color printingAdjustment:(NSSZ)printingAdjustment;
+@end
+@interface NSString (BezierConversions)
+- (NSBezierPath*) bezierWithFont: (NSFont*) theFont;	/* convert the NSString into a NSBezierPath using a specific font. */
+@end
+
 @interface NSAffineTransform (UKShearing)
 + (NSAffineTransform *)transformRotatingAroundPoint:(NSP) p byDegrees:(CGF) deg;
 -(void)	shearXBy: (CGF)xFraction yBy: (CGF)yFraction;
 @end
 
 @interface NSBezierPath (AtoZ)
+
+@property (nonatomic, assign) CGF width;
+@property (nonatomic, assign) CGF height;
 
 + (NSBP*) diagonalLinesInRect:(NSR)rect phase:(CGF)phase; // background progress bar
 - (NSR)	 nonEmptyBounds;

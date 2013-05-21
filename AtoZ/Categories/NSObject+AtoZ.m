@@ -296,6 +296,18 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary(void) {
 	});
 }
 
+- (void) observeNotificationsUsingBlocks:(NSS*) firstNotificationName, ... {
+
+	azva_list_to_nsarray(firstNotificationName, namesAndBlocks);
+	NSA* names = [namesAndBlocks subArrayWithMembersOfKind:NSS.class];
+	NSA* justBlocks = [namesAndBlocks arrayByRemovingObjectsFromArray:names];
+	[names eachWithIndex:^(id obj, NSInteger idx) {
+		[self observeName:obj usingBlock:^(NSNotification *n) {	
+			((void(^)(void))justBlocks[idx])();	
+		}];	
+	}];
+}
+
 @end
 
 #import "AtoZUmbrella.h"
@@ -322,6 +334,52 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary(void) {
 //static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 @implementation NSObject (AtoZ)
+ 
+ 
+-(void) propagateValue:(id)value forBinding:(NSString*)binding;
+{
+	NSParameterAssert(binding != nil);
+
+	//WARNING: bindingInfo contains NSNull, so it must be accounted for
+	NSDictionary* bindingInfo = [self infoForBinding:binding];
+	if(!bindingInfo)
+		return; //there is no binding
+
+	//apply the value transformer, if one has been set
+	NSDictionary* bindingOptions = [bindingInfo objectForKey:NSOptionsKey];
+	if(bindingOptions){
+		NSValueTransformer* transformer = [bindingOptions valueForKey:NSValueTransformerBindingOption];
+		if(!transformer || (id)transformer == [NSNull null]){
+			NSString* transformerName = [bindingOptions valueForKey:NSValueTransformerNameBindingOption];
+			if(transformerName && (id)transformerName != [NSNull null]){
+				transformer = [NSValueTransformer valueTransformerForName:transformerName];
+			}
+		}
+
+		if(transformer && (id)transformer != [NSNull null]){
+			if([[transformer class] allowsReverseTransformation]){
+				value = [transformer reverseTransformedValue:value];
+			} else {
+				NSLog(@"WARNING: binding \"%@\" has value transformer, but it doesn't allow reverse transformations in %s", binding, __PRETTY_FUNCTION__);
+			}
+		}
+	}
+
+	id boundObject = [bindingInfo objectForKey:NSObservedObjectKey];
+	if(!boundObject || boundObject == [NSNull null]){
+		NSLog(@"ERROR: NSObservedObjectKey was nil for binding \"%@\" in %s", binding, __PRETTY_FUNCTION__);
+		return;
+	}
+
+	NSString* boundKeyPath = [bindingInfo objectForKey:NSObservedKeyPathKey];
+	if(!boundKeyPath || (id)boundKeyPath == [NSNull null]){
+		NSLog(@"ERROR: NSObservedKeyPathKey was nil for binding \"%@\" in %s", binding, __PRETTY_FUNCTION__);
+		return;
+	}
+
+	[boundObject setValue:value forKeyPath:boundKeyPath];
+}
+
 
 - (void)bind:(NSS*)binding toObject:(id)object withKeyPathUsingDefaults:(NSS*)keyPath {
 	[self bind:binding toObject:object withKeyPath:keyPath nilValue:nil];
@@ -1499,6 +1557,15 @@ static const char * getPropertyType(objc_property_t property) {
 	[AZNOTCENTER removeObserver:self name:notificationName object:object];
 }
 
+- (BOOL)canPerformSelector: (SEL)aSelector {
+
+	NSParameterAssert(aSelector != NULL);
+	NSParameterAssert([self respondsToSelector:aSelector]);
+	NSMethodSignature *methodSig = [self methodSignatureForSelector:aSelector];
+	if (methodSig == nil) return NO;
+	const char *retType = [methodSig methodReturnType];
+	return (strcmp(retType, @encode(id)) == 0 || strcmp(retType, @encode(void)) == 0);
+}
 - (id)performSelectorSafely:(SEL)aSelector;
 {
 	NSParameterAssert(aSelector != NULL);

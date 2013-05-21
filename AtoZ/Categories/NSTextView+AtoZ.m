@@ -6,17 +6,132 @@
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 //
 #import "NSTextView+AtoZ.h"
+#import "AtoZCategories.h"
 
 @implementation AZTextViewResponder
 - (void) mouseDown:(NSEvent *)theEvent {
 	[[self nextResponder] mouseDown:theEvent];
 }
 @end
-@implementation NSTextView (AtoZ)
 
+@implementation NSTextView (AtoZ)
+- (NSString*) highlightColorDefaultsKeyName 	{	  return @"CurrentLineHighlightColor";	}
+- (void) setHighlightCurrentLine:(BOOL)hl 	{
+
+	AZCOLORPANEL;
+	[self setAssociatedValue:hl?@(YES):@(NO) forKey:self.highlightColorDefaultsKeyName policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
+	if (!hl) return;
+//	[AZNOTCENTER observeName:NSViewFrameDidChangeNotification usingBlock:^(NSNotification *m) {
+	[AZNOTCENTER observeNotificationsUsingBlocks: NSViewFrameDidChangeNotification, ^(NSNotification *m){
+		 m.object == self ? [self highlightLineContainingRange:self.selectedRange] : nil;
+	}, NSTextViewDidChangeSelectionNotification, 
+	^(NSNotification *z) {
+		[self addItemToApplicationMenu];
+		if (z.object != self) return;
+		[self removeHighlightFromLineContainingRange:[z.userInfo[@"NSOldSelectedCharacterRange"] rangeValue]];
+		self.selectedRange.length  ? nil : [self highlightLineContainingRange:self.selectedRange]; // not a multi-line selection
+	}, nil];
+//	[AZNOTCENTER observeName:NSTextViewDidChangeSelectionNotification usingBlock:^(NSNotification *z) {
+//		if (z.object != self) return;
+//		[self removeHighlightFromLineContainingRange:[z.userInfo[@"NSOldSelectedCharacterRange"] rangeValue]];
+//		self.selectedRange.length  ? nil : [self highlightLineContainingRange:self.selectedRange]; // not a multi-line selection
+//	}];
+}
+- (BOOL) highlightCurrentLine 					{  
+	
+	return [self hasAssociatedValueForKey:self.highlightColorDefaultsKeyName] 
+		? [[self associatedValueForKey:self.highlightColorDefaultsKeyName]boolValue] : NO; 
+}
+- (NSC*) highlightCurrentLineColor 				{
+
+	NSData* colorAsData = [AZUSERDEFS objectForKey:self.highlightColorDefaultsKeyName];
+	__block NSC* c = colorAsData ? [NSKeyedUnarchiver unarchiveObjectWithData:colorAsData] : ^{
+		return  c = RANDOMCOLOR, [self setHighlightCurrentLineColor:c], c;
+	}();
+	return c;
+}
+
+/* selector:@selector( highlightFrameChanged:) name:  object: nil];
+	[AZNOTCENTER addObserver:self selector: @selector( highlightSelectionChanged:) name: NSTextViewDidChangeSelectionNotification object: nil];
+- (void) highlightFrameChanged:	  (NSNOT*)n { n.object == self ? [self highlightLineContainingRange:self.selectedRange] : nil; }
+- (void) highlightSelectionChanged:(NSNOT*)n {  	
+	if (n.object != self) return;
+	[self removeHighlightFromLineContainingRange:[n.userInfo[@"NSOldSelectedCharacterRange"] rangeValue]];
+	self.selectedRange.length  ? nil : [self highlightLineContainingRange:self.selectedRange]; // not a multi-line selection	}*/
+
+- (void) highlightLineContainingRange:				(NSRNG)r	{
+                
+  	NSD *attrs = @{NSBackgroundColorAttributeName : self.highlightCurrentLineColor};                                                                                                           
+	[self.layoutManager addTemporaryAttributes:attrs
+									 forCharacterRange:[self.string lineRangeForRange:r]];
+}
+- (void) removeHighlightFromLineContainingRange:(NSRNG)r	{
+
+    [self.layoutManager removeTemporaryAttribute:NSBackgroundColorAttributeName 
+										 forCharacterRange:[self.string lineRangeForRange:r]];
+}
+
+- (void) setHighlightCurrentLineColor:(NSC*)c	{
+
+  	[AZUSERDEFS setColor:c forKey:self.highlightColorDefaultsKeyName];
+	[AZUSERDEFS synchronize];
+}
+- (void) selectHighlightColor:		  (id)send	{
+
+  [AZCOLORPANEL bind:@"color" toObject:self withKeyPathUsingDefaults:@"highlightCurrentLineColor"];
+//  [(NSControl*)AZCOLORPANEL setAction:@selector(changeHighlightColor:) withTarget:self];
+  [AZCOLORPANEL observeName:NSWindowWillCloseNotification usingBlock:^(NSNOT  *m) {
+//		[AZNOTCENTER stopObserving:AZCOLORPANEL forName:NSWindowWillCloseNotification];
+//  		[AZNOTCENTER stopObserving:AZCOLORPANEL forName:NSColorPanelColorDidChangeNotification];
+//		[(NSControl*)AZCOLORPANEL setAction:nil withTarget:nil];
+		[AZCOLORPANEL unbind:@"color"];
+  }];
+//  [AZCOLORPANEL observeName:NSColorPanelColorDidChangeNotification usingBlock:^(NSNOT *c){
+//  	self.highlightCurrentLineColor = AZCOLORPANEL.color;
+//  }];
+  [NSApp orderFrontColorPanel:nil];
+}
+//- (IBAction) changeHighlightColor:	  (id)send	{
+//
+//  [self setHighlightCurrentLineColor:AZCOLORPANEL.color];
+//  // Update window size (grow then back to what it was) in order to cause frame
+//  // change even. This is because we can't have a guaranteed valid reference to
+//  // the view. Kind of silly, but better than crashing.
+////  id window = [NSApp mainWindow];
+////  NSRect frame = [window frame];      
+////  NSRect tempFrame = NSMakeRect( frame.origin.x, 
+////                                 frame.origin.y, 
+////                                 frame.size.width, 
+////                                 frame.size.height + 1.0 );
+////
+////  [window setFrame:tempFrame display:YES];
+//  [self.window setFrame:AZRectExtendedOnBottom(self.window.frame,1) display:YES];
+//}
+//- (void) colorPanelWillClose:(NSNOT*)n	{
+//}
+#define HIGHLIGHTMENUWORDS @"Highlight Current Line"
+
+- (id) validateHighlightMenuReturnsTargetIfUnset {
+
+	NSUI indexOfView = [[NSApp mainMenu] indexOfItemWithTitle:@"View"];
+  	NSMenu* editorMenu = [[[NSApp mainMenu] itemAtIndex:indexOfView] submenu];
+	return editorMenu && !([editorMenu itemWithTitle:HIGHLIGHTMENUWORDS]) ? editorMenu : nil;
+}
+- (void) addItemToApplicationMenu {
+
+	NSMenu *editorMenu = self.validateHighlightMenuReturnsTargetIfUnset;
+	if (!editorMenu) return;
+	NSMenuItem* newItem;
+	[editorMenu addItems:@[NSMenuItem.separatorItem, newItem = NSMenuItem.new]];
+	[newItem setTitle:HIGHLIGHTMENUWORDS];  // note: not localized
+	[(NSControl*)newItem setAction:@selector( selectHighlightColor: ) withTarget:self];
+	[newItem setEnabled:YES];
+	[newItem bind:@"state" toObject:self withKeyPath:@"highlightCurrentLine" options:nil];
+	[editorMenu insertItem:newItem atIndex:editorMenu.numberOfItems];
+}
 
 //+ (void) load {
-//
+
 //	[$ swizzleMethod:@selector(insertText:) with:@selector(swizzledInsert:) in:self.class];
 //}
 

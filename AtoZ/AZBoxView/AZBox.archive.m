@@ -720,10 +720,10 @@
 
 ////	NSLog(@"Tag: %ld ALL: %f, mPhase: %f", self.tag, _all, _mPhase);
 ////	[NSGraphicsContext saveGraphicsState];
-////	[[NSGraphicsContext currentContext] setShouldAntialias:NO];
+////	[AZGRAPHICSCTX setShouldAntialias:NO];
 ////	[NSShadow setShadowWithOffset:NSMakeSize(10,10) blurRadius:11 color:BLACK];
 ////	[[self backgroundColor] set];
-//	NSGraphicsContext *ctx = [NSGraphicsContext currentContext];
+//	NSGraphicsContext *ctx = AZGRAPHICSCTX;
 //	
 //	
 //		

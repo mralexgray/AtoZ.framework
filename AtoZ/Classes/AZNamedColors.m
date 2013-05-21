@@ -8,14 +8,22 @@
 #import "AZNamedColors.h"
 #import "AtoZ.h"
 @implementation AZNamedColors
-static AZNamedColors *instance = nil;
 
-+ (void)initialize {	[super initialize]; [self namedColors];
-}
+
+//+ (void)initialize {	[super initialize]; [self namedColors];
+//}
 + (AZNamedColors *)namedColors {
-	static  dispatch_once_t once;
-	dispatch_once( &once, ^{  		  instance = self.new; });
-	return instance;
+	static AZNamedColors *sharedNamedColors = nil;
+	static dispatch_once_t predicate;
+	dispatch_once(&predicate, ^{
+                sharedNamedColors = [[self alloc] init]; 
+	});
+   return sharedNamedColors;
+
+
+//	static  dispatch_once_t once;
+//	dispatch_once( &once, ^{  		  instance = [[self alloc]init]; });
+//	return instance;
 
 //	@synchronized(self) {
 //		if (!instance)        instance = [[self alloc] init];
@@ -173,22 +181,22 @@ forKey : @#N]
 	_COLOR(9ACD32, YellowGreen);
 #undef _COLOR
 }
-- (id)init {
-	if (instance != nil) {
-		[NSException
-		 raise:NSInternalInconsistencyException
-		 format:@"[%@ %@] cannot be called; use +[%@ %@] instead",
-		 [self className],
-		 NSStringFromSelector(_cmd),
-		 [self className],
-		 NSStringFromSelector(@selector(instance))
-		 ];
-	} else if ((self = [super init])) {
-		instance = self;
-		[self _initColors];
-	}
-	return instance;
-}
+//- (id)init {
+//	if (instance != nil) {
+//		[NSException
+//		 raise:NSInternalInconsistencyException
+//		 format:@"[%@ %@] cannot be called; use +[%@ %@] instead",
+//		 [self className],
+//		 NSStringFromSelector(_cmd),
+//		 [self className],
+//		 NSStringFromSelector(@selector(instance))
+//		 ];
+//	} else if ((self = [super init])) {
+//		instance = self;
+//		[self _initColors];
+//	}
+//	return instance;
+//}
 + (NSString *)nameOfColor:(NSColor *)color {
 	return [self nameOfColor:color savingDistance:nil];
 }

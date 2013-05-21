@@ -23,9 +23,17 @@ extern NSV* AZResizeWindowAndContent	( NSW* window, 	CGF dXLeft, CGF dXRight, CG
 - (NSV*)viewWithObjectRep:(id)object;
 @end
 
+@interface NSObject (AZPreview)
++ (id) preview;
+@end
+
 typedef void (^viewFrameDidChangeBlock)(void);
 
 @interface NSView (AtoZ)
+
+- (NSManagedObjectContext*)managedObjectContext;
++ (id) preview; //	returns new window
++ (id) previewOfClass:(Class)klass;
 
 -(CALayer *)layerFromContents;
 
@@ -128,6 +136,8 @@ typedef void (^viewFrameDidChangeBlock)(void);
 - (void) setBottom:(CGF)t duration:(NSTI)t ;
 - (void) setTop:(CGF)t duration:(NSTI)t;
 - (void) setCenterY:(CGF)t duration:(NSTI)t ;
+
+@property (nonatomic, assign) CGF originY, originX;
 
 // Size
 @property (nonatomic, assign) CGF width;

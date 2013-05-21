@@ -1,5 +1,7 @@
-#pragma mark 														- GLOBAL CONSTANTS
+#import "AtoZMacroDefines.h"
 
+#pragma mark 														- GLOBAL CONSTANTS
+/*
 #define 				 IDDRAG 	id<NSDraggingInfo>
 #define 					NSPB 	NSPasteboard
 
@@ -13,12 +15,17 @@
 #define 				  ASSGN 	assign
 #define 				  NATOM 	nonatomic
 #define 				  STRNG 	strong
+#define 				    STR 	strong
+
 #define 					 ASS 	assign
 #define 					  CP 	copy
+#define 					 CPY 	copy
+
 #define 					 SET 	setter
 #define 					 GET 	getter
 #define	 				  WK 	weak
 #define 					UNSF 	unsafe_unretained
+
 #define					prop 	property
 #define 					 IBO 	IBOutlet
 #pragma mark 														- CoreGraphics / CoreFoundation
@@ -143,6 +150,12 @@
 #define				  NSVT 	NSValueTransformer
 #define				NSTABV 	NSTabView
 
+#define 				 NSPSC 	NSPersistentStoreCoordinator
+#define 				  NSED 	NSEntityDescription
+#define 				  NSMO	NSManagedObject
+#define 				 NSMOM	NSManagedObjectModel
+#define 			    NSMOC	NSManagedObjectContext
+
 #define				NSTVDO	NSTableViewDropOperation
 #define 				  NSDO	NSDragOperation
 
@@ -159,6 +172,7 @@
 #define 				  AHLO 	AHLayoutObject
 #define 				  AHLT 	AHLayoutTransaction
 #define  		  BLKVIEW 	BNRBlockView
+#define  		     BLKV 	BLKVIEW
 
 #pragma mark -  CoreAnimation
 #import <QuartzCore/QuartzCore.h>
@@ -239,7 +253,7 @@ typedef struct {	CAConstraintAttribute constraint;	CGFloat scale;	CGFloat offset
 // exception safe save/restore of the current graphics context
 #define 			SAVE_GRAPHICS_CONTEXT	@try { [NSGraphicsContext saveGraphicsState];
 #define 		RESTORE_GRAPHICS_CONTEXT	} @finally { [NSGraphicsContext restoreGraphicsState]; }
-
+*/
 /*
 //#define CACcWA CAConstraint constraintWithAttribute
 #define AZConstraint(attrb,rel)		[CAConstraint constraintWithAttribute:attrb relativeTo:rel attribute:attrb]
@@ -268,6 +282,8 @@ typedef struct {	CAConstraintAttribute constraint;	CGFloat scale;	CGFloat offset
 #define 					 pV 	pointValue
 #define 					 rV	rectValue
 #define 					 fV	floatValue
+#define 				  rngV	rangeValue
+
 #define 		 NSZeroRange 	NSMakeRange(0,0)
 
 #define 				setPBCN 	setPostsBoundsChangedNotifications:YES
@@ -298,9 +314,10 @@ typedef struct {	CAConstraintAttribute constraint;	CGFloat scale;	CGFloat offset
 #define  	CAMEDIAEASEIN 	[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn]
 #define    	  CAMEDIAEASY 	[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]
 #define    	  AZWORKSPACE 	NSWorkspace.sharedWorkspace
+#define 	    AZCOLORPANEL 	NSColorPanel.sharedColorPanel
 #define     	AZUSERDEFS 	NSUserDefaults.standardUserDefaults
 #define  	AZUSERDEFSCTR 	NSUserDefaultsController.sharedUserDefaultsController
-#define    	  AZNOTCENTER 	NSNotificationCenter.defaultCenter
+#define    	  AZNOTCENTER 	(NSNotificationCenter*)NSNotificationCenter.defaultCenter
 #define  	AZFILEMANAGER 	NSFileManager.defaultManager
 #define  	AZGRAPHICSCTX 	NSGraphicsContext.currentContext
 #define   	 AZCURRENTCTX 	AZGRAPHICSCTX
@@ -322,6 +339,7 @@ typedef struct {	CAConstraintAttribute constraint;	CGFloat scale;	CGFloat offset
 //#define PROPSTRONG (@property (nonatomic,strong) )
 //#define PROPASSIGN (@property (nonatomic,assign) )
 
+#define	 USF unsafe_unretained
 #define UNSFE unsafe_unretained
 //#define STRONG ((nonatomic,strong) )
 //#define ASSIGN ((nonatomic,assign) )
@@ -348,13 +366,13 @@ typedef struct {	CAConstraintAttribute constraint;	CGFloat scale;	CGFloat offset
 #define AZBindSelector(observer,sel,keypath,obj) [AZNOTCENTER addObserver:observer selector:sel name:keypath object:obj]
 #define AZBind(binder,binding,toObj,keyPath) [binder bind:binding toObject:toObj withKeyPath:keyPath options:nil]
 
-#define 	AZLAYOUTMGR 		[CAConstraintLayoutManager layoutManager]
-#define  AZTALK	 (log) 	[AZTalker.new say:log]
-#define  AZBezPath (r) 		[NSBezierPath bezierPathWithRect: r]
-#define  NSBezPath (r) 		AZBezPath(r)
-#define  AZQtzPath (r) 		[(AZBezPath(r)) quartzPath]
+//#define 	AZLAYOUTMGR 		[CAConstraintLayoutManager layoutManager]
+//#define  AZTALK	 (log) 	[AZTalker.new say:log]
+//#define  AZBezPath (r) 		[NSBezierPath bezierPathWithRect: r]
+//#define  NSBezPath (r) 		AZBezPath(r)
+//#define  AZQtzPath (r) 		[(AZBezPath(r)) quartzPath]
 
-#define AZContentBounds [[[ self window ] contentView] bounds]
+//#define AZContentBounds [[[ self window ] contentView] bounds]
 
 #define  AZVinstall(p) 	[NSVAL valueWithInstallStatus: p]
 #define  	AZVposi(p) 	[NSVAL      valueWithPosition: p]
@@ -363,6 +381,7 @@ typedef struct {	CAConstraintAttribute constraint;	CGFloat scale;	CGFloat offset
 #define  	AZVsize(s) 	[NSVAL 			 valueWithSize: s]
 #define   	  AZV3d(t) 	[NSVAL valueWithCATransform3D: t]
 #define   	 AZVclr(c) 	[NSVAL         valueWithColor: c]
+#define   	 AZVrng(c) 	[NSVAL         valueWithRange: c]
 
 
 #define 						kContentTitleKey @"itemTitle"
@@ -372,8 +391,8 @@ typedef struct {	CAConstraintAttribute constraint;	CGFloat scale;	CGFloat offset
 
 #define		AZTRACKALL 	(NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways | NSTrackingInVisibleRect | NSTrackingMouseMoved)
 #define AZTArea(frame) 	[NSTA.alloc initWithRect:frame options:AZTRACKALL owner:self userInfo:nil]
-
-#define AZTAreaInfo(frame,info) [NSTA.alloc initWithRect: frame options:(NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways | NSTrackingInVisibleRect | NSTrackingMouseMoved ) owner:self userInfo:info];
+//
+//#define AZTAreaInfo(frame,info) [NSTA.alloc initWithRect: frame options:(NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways | NSTrackingInVisibleRect | NSTrackingMouseMoved ) owner:self userInfo:info];
 
 #pragma mark - COLORS
 
@@ -401,7 +420,7 @@ typedef struct {	CAConstraintAttribute constraint;	CGFloat scale;	CGFloat offset
 
 #define PERIWINKLE [NSColor colorWithDeviceRed:.79 green:.78 blue:.9 alpha:1]
 
-#define STANDARDCOLORS = @[REDORANGE,YELLOW,GREEN,BLUE,PURPLE,GRAY]
+//#define STANDARDCOLORS = @[REDORANGE,YELLOW,GREEN,BLUE,PURPLE,GRAY]
 
 #define RED							  [NSC  r:0.797 g:0.000 b:0.043 a:1.]
 #define ORANGE						  [NSC  r:0.888 g:0.492 b:0.000 a:1.]
@@ -413,6 +432,7 @@ typedef struct {	CAConstraintAttribute constraint;	CGFloat scale;	CGFloat offset
 #define PINK						  [NSC  r:1.000 g:0.228 b:0.623 a:1.]
 #define RANDOMGRAY 				  [NSC white:RAND_FLOAT_VAL(0,1) a:1]
 #define RANDOMCOLOR				  [NSC   randomColor]
+#define RANDOMPAL				  	  [NSC randomPalette]
 #define BLACK						  [NSC    blackColor]
 #define GREY						  [NSC     grayColor]
 #define WHITE						  [NSC    whiteColor]
@@ -505,14 +525,36 @@ typedef struct {	CAConstraintAttribute constraint;	CGFloat scale;	CGFloat offset
 #define zTAB @"\t"
 #define zSPC @" "
 
-NSString * AZToStringFromTypeAndValue(const char * typeCode, void * value);
-#define AZString(_X_) ({typeof(_X_) _Y_ = (_X_);\
+//1 #define LOG_EXPR(_X_) do{\
+//2 	__typeof__(_X_) _Y_ = (_X_);\
+//3 	const char * _TYPE_CODE_ = @encode(__typeof__(_X_));\
+//4 	NSString *_STR_ = VTPG_DDToStringFromTypeAndValue(_TYPE_CODE_, &_Y_);\
+//5 	if(_STR_)\
+//6 		NSLog(@"%s = %@", #_X_, _STR_);\
+//7 	else\
+//8 		NSLog(@"Unknown _TYPE_CODE_: %s for expression %s in function %s, file %s, line %d", _TYPE_CODE_, #_X_, __func__, __FILE__, __LINE__);\
+//9 }while(0)
+
+//NSString * AZToStringFromTypeAndValue(const char * typeCode, void * value);
+#define AZString(_X_) (	{	typeof(_X_) _Y_ = (_X_);\
 AZToStringFromTypeAndValue(@encode(typeof(_X_)), &_Y_);})
+
+//	NSLog(@"%@", StringFromBOOL(ISATYPE	( ( @"Hello", NSString)));   // DOESNT WORK
+//	NSLog(@"%@", StringFromBOOL(ISATYPE	( ( (NSR){0,1,1,2} ), NSRect)));   // YES
+//	NSLog(@"%@", StringFromBOOL(ISATYPE	( ( (NSR){0,1,1,2} ), NSRange)));  // NO
+#define 	ISATYPE(_a_,_b_)  SameChar( @encode(typeof(_a_)), @encode(_b_) )
+
+//	NSRect rect = (NSR){0,0,1,1};				
+//		NSRange rng = NSMakeRange(0, 11);	
+//			CGR cgr = CGRectMake (0,1,2,4);			
+//				NSS *str = @"d";
+//	SAMETYPE(cgr, rect);  YES		SAMETYPE(cgr,  rng);	 NO		SAMETYPE(rect, str);  NO		SAMETYPE(str, str);   YES
+
+#define 	SAMETYPE(_a_,_b_)  SameChar( @encode(typeof(_a_)), @encode(typeof(_b_)) )
 
 #pragma mark - MACROS
 
 //#define check(x)		if (!(x)) return 0;
-#define NOT_REACHED() do {	AZLOG(@"<INTERNAL INCONSISTENCY>"); } while (0)
 
 //#define loMismo isEqualToString
 
@@ -521,6 +563,8 @@ AZToStringFromTypeAndValue(@encode(typeof(_X_)), &_Y_);})
 #define APP_NAME 					[NSBundle.mainBundle objectForInfoDictionaryKey:@"CFBundleName"]
 #define APP_VERSION 				[NSBundle.mainBundle objectForInfoDictionaryKey:@"CFBundleVersion"]
 #define OPEN_URL(urlString) 	[NSWorkspace.sharedWorkspace openURL:[NSURL URLWithString:urlString]]
+
+
 
 /* Retrieving preference values */
 
@@ -617,12 +661,13 @@ AZToStringFromTypeAndValue(@encode(typeof(_X_)), &_Y_);})
 #define AZStringFromSet(A) [NSS stringFromArray:A.allObjects]
 
 //#define $#(A)				((NSString *)[NSString string
-#define $(...)				((NSString *)[NSString stringWithFormat:__VA_ARGS__,nil])
-#define $UTF8(A)			((NSString *)[NSS stringWithUTF8String:A])
-#define $array(...)  		((NSArray *)[NSArray arrayWithObjects:__VA_ARGS__,nil])
+#define $(...)				(NSString*)[NSString stringWithFormat:__VA_ARGS__,nil]
+#define $UTF8(A)			((NSString*)[NSS stringWithUTF8String:A])
+#define $UTF8orNIL(A)	(A) ? ((NSString *)[NSS stringWithUTF8String:A]) : nil
+#define $array(...)  	((NSArray *)[NSArray arrayWithObjects:__VA_ARGS__,nil])
 #define $set(...)		 	((NSSet *)[NSSet setWithObjects:__VA_ARGS__,nil])
 #define $map(...)	 		((NSDictionary *)[NSDictionary dictionaryWithObjectsAndKeys:__VA_ARGS__,nil])
-#define $int(A)	   			@(A) // [NSNumber numberWithInt:(A)]
+#define $int(A)	   	@(A) // [NSNumber numberWithInt:(A)]
 #define $ints(...)			[NSArray arrayWithInts:__VA_ARGS__,NSNotFound]
 #define $float(A)	 		[NSNumber numberWithFloat:(A)]
 #define $doubles(...) 		[NSArray arrayWithDoubles:__VA_ARGS__,MAXFLOAT]

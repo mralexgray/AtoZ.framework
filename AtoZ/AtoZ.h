@@ -69,6 +69,7 @@ AZWORKSPACE:
 #import <KSHTMLWriterKit/KSHTMLWriterKit.h>
 #import <MapKit/MapKit.h>
 #import <NoodleKit/NoodleKit.h>
+#import <NanoStore/NanoStore.h>
 //#import <Nu/Nu.h>
 #import <PhFacebook/PhFacebook.h>
 #import <Rebel/Rebel.h>
@@ -82,6 +83,8 @@ AZWORKSPACE:
 #import "AtoZUmbrella.h"
 #import "AtoZTypes.h"
 #import "AtoZGeometry.h"
+#import "NSOrderedDictionary.h"
+#import "AZGrid.h"
 
 
 
@@ -97,6 +100,7 @@ AZWORKSPACE:
 #import "F.h"
 #import "NSBag.h"
 #import "NSArray+F.h"
+#import "objswitch.h"
 #import "NSNumber+F.h"
 #import "NSDictionary+F.h"
 #import "NSOperationStack.h"
@@ -164,7 +168,7 @@ AZWORKSPACE:
 #import "SynthesizeSingleton.h"
 
 // END CORE
-
+#import "AZBlockView.h"
 #import "AZTalker.h"
 #import "iCarousel.h"
 //#import "azCarousel.h"
@@ -211,7 +215,7 @@ AZWORKSPACE:
 #import "AZMouser.h"
 #import "AtoZModels.h"
 #import "KGNoise.h"
-
+#import "NSString+AtoZEnums.h"
 
 //#import "MondoSwitch.h"
 //#import "AZToggleView.h"
@@ -219,9 +223,9 @@ AZWORKSPACE:
 /* FOUNDATION CLASSES */
 #import "AZCLI.h"
 #import "AZCLICategories.h"
-#import "NSOrderedDictionary.h"
 #import "AZWeakCollections.h"
 #import "AZXMLWriter.h"
+#import "AZHTMLParser.h"
 
 
 /*	COLOR AND IMAGE CLASSES */
@@ -267,6 +271,7 @@ AZWORKSPACE:
 #import "SNRHUDTextView.h"
 #import "SNRHUDWindow.h"
 //#import "AZStatusItemView.h"
+#import "NSMenu+Dark.h"
 
 
 
@@ -291,12 +296,10 @@ AZWORKSPACE:
 
 #import "AtoZWebSnapper.h"
 #import "AZURLSnapshot.h"
-#import "AZHTMLParser.h"
 //#import "HTMLNode.h"
 
 // Views
 #import "AtoZInfinity.h"
-#import "AZBlockView.h"
 #import "AZIndeterminateIndicator.h"
 #import "AZLassoLayer.h"
 #import "AZLassoView.h"
@@ -343,6 +346,10 @@ AZWORKSPACE:
 //#import "AZOverlay.h"
 
 
+extern NSString *AZGridShouldDrawKey;
+extern NSString *AZGridUnitWidthKey;
+extern NSString *AZGridUnitHeightKey;
+extern NSString *AZGridColorDataKey;
 
 
 typedef id(^FilterBlock)(id element,NSUInteger idx, BOOL *stop);
@@ -387,6 +394,8 @@ extern NSString *const AtoZDockSortedUpdated;
 #define TestVarArgBlock(fmt...) [AtoZ  varargBlock:^(NSA*values) { [values eachWithIndex:^(id obj, NSInteger idx) {  printf("VARARG #%d:  %s <%s>\n", (int)idx, [obj stringValue].UTF8String, NSStringFromClass([obj class]).UTF8String); }]; } withVarargs:fmt]
 
 @interface AtoZ : BaseModel <DDLogFormatter>
+
++ (void) processInfo;
 
 @property (NATOM,STRNG) NSA *basicFunctions, *fonts;
 @property (NATOM,STRNG) NSC *logColor;

@@ -10,7 +10,7 @@
 
 - (void)drawImage:(NSImage*)image withFrame:(NSRect)frame inView:(NSView*)controlView
 {
-	NSGraphicsContext *ctx = [NSGraphicsContext currentContext];
+	NSGraphicsContext *ctx = AZGRAPHICSCTX;
 	CGContextRef contextRef = [ctx graphicsPort];
 
 	NSData *data = [image TIFFRepresentation];
@@ -44,7 +44,7 @@
 
 - (void)drawBezelWithFrame:(NSRect)frame inView:(NSView *)controlView
 {
-	NSGraphicsContext *ctx = [NSGraphicsContext currentContext];
+	NSGraphicsContext *ctx = AZGRAPHICSCTX;
 
 	CGFloat roundedRadius = 0.0f;
 

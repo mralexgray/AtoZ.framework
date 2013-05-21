@@ -38,6 +38,8 @@ NSNumber *uNum ( NSUI  ui );
 NSNumber *fNum ( CGF	f );
 NSNumber *dNum ( double d );
 
+NSP AZAnchorPointOfActualRect(NSR rect, AZPOS pos);
+
 FOUNDATION_EXPORT const CGP AZAnchorTop;
 FOUNDATION_EXPORT const CGP AZAnchorBottom;
 FOUNDATION_EXPORT const CGP AZAnchorRight;
@@ -119,6 +121,7 @@ AZPOS AZPositionOfRectAtOffsetInsidePerimeterOfRect(NSR inner, CGF offset, NSR o
 AZPOS AZPositionOfQuadInRect ( NSR rect, NSR outer );
 AZPOS AZOutsideEdgeOfRectInRect (NSR rect, NSR outer );
 
+AZPOS AZOutsideEdgeOfPointInRect (NSP inside, NSR outer );
 
 AZPOS AZPositionAtPerimeterInRect ( NSR edgeBox, NSR outer );
 CGP	  AZAnchorPointForPosition( AZPOS pos );
@@ -438,8 +441,8 @@ NSR 	AZRectFromSize 	 ( NSSZ size );
 
 NSR 	sectionPositioned ( NSR r, AZPOS p );
 int 	oppositeQuadrant ( int quadrant );
-NSR 	quadrant ( NSR r, AZQuadrant quad );
-NSR 	AZRectOfQuadInRect		  (NSR originalRect, AZQuadrant quad); //alias for quadrant
+NSR 	quadrant ( NSR r, AZQuad quad );
+NSR 	AZRectOfQuadInRect		  (NSR originalRect, AZQuad quad); //alias for quadrant
 
 CGF 	quadrantsVerticalGutter   ( NSR r );
 CGF	quadrantsHorizontalGutter ( NSR r );

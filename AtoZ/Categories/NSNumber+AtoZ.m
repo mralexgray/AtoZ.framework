@@ -10,6 +10,16 @@
 
 @implementation NSNumber (AtoZ)
 
+- (NSN*)plus:(NSN*)toAdd {			/*	!! @YES = 1, @NO = 0  !! */
+//	[@4.999 objCType] = d; [@YES objCType] = c; [@0 objCType] = i; [[NSN numberWithUnsignedInteger:66] objCType] = q
+
+	return 	strcmp("d", self.objCType) ?  @(self.doubleValue   		 	+ toAdd.doubleValue 				):
+				strcmp("c", self.objCType) ?	@(self.charValue      			+ toAdd.charValue   				):
+				strcmp("i", self.objCType) ?	@(self.integerValue   			+ toAdd.integerValue  			):
+				strcmp("q", self.objCType) ?	@(self.unsignedIntegerValue  	+ toAdd.unsignedIntegerValue  ):
+				strcmp("f", self.objCType) ?	@(self.floatValue   				+ toAdd.floatValue				):
+														@(self.longLongValue				+ toAdd.longLongValue			);
+}
 + (NSN*)integerWithHexString:(NSS*)hexString;
 {
   NSScanner *scanner = [NSScanner scannerWithString:hexString];  NSUInteger value;
@@ -106,6 +116,8 @@
 	
 	return re;
 }
+
+
 @end
 
 @implementation NSNumber (Description)

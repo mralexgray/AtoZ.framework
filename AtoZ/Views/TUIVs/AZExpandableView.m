@@ -55,7 +55,7 @@
 																	 //self.color] : self.color];self.selected
 	NSRect l, r;  	l = AZRectTrimmedOnRight(self.bounds, self.height);
 						r = AZRectTrimmedOnLeft(self.bounds, l.size.width);
-						r = quadrant(r, AZBotRightQuad);
+						r = quadrant(r, AZQuadBotRight);
 //	[self.favicon drawInRect:r];
 //	[self.favicon drawInRect:r];
 	textRenderer.attributedString = self.attrString;

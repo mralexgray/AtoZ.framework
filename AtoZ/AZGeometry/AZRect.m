@@ -12,6 +12,8 @@
 
 
 @implementation AZEdge
+
+
 + (INST) rect:(AZRect*)r along:(AZRect*)outer inside:(BOOL)isinide {	
 	AZEdge *n = self.new; 
 //	n.align AZClosestCorner(outer, isinide)
@@ -25,6 +27,11 @@
 
 @implementation AZRect
 @synthesize position, orient, anchor;
+
+static AZRect *screnFrameUnderMenu = nil; 
+
++ (AZRect*)screnFrameUnderMenu { return screnFrameUnderMenu = screnFrameUnderMenu ?: [AZRect rectWithRect:AZScreenFrameUnderMenu()];
+}
 
 //
 //- (AZA) alignInsideInDirection:(NSSZ)delta {
@@ -69,11 +76,16 @@
 	return self.new;
 }
 
++ (AZRect*) rect:(NSR)frame oriented:(AZPOS)pos {
+	id selfnew = self.new;
+	[selfnew setRect:frame];
+	[(AZRect*)selfnew setOrient:pos];
+	return selfnew;
+}
+
+
 + (AZRect*) rectOf:(id) object {
-	if (object == nil) {
-	return nil;
-	}
-	
+	if (object == nil) return nil;
 	AZRect *re = [[AZRect alloc] init];
 	
 	if ([object isKindOfClass:NSNumber.class]) {

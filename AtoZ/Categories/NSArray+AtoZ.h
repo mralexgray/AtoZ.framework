@@ -156,6 +156,8 @@
 /*** Returns a subArray in wich all object returned true for the block Reduced version of filteredArrayUsingBlock, without the dictionary */
 - (NSA*)filter:(BOOL (^)(id object))block;
 
+- (NSUI)indexOfFirstObjectPassing:(BOOL(^)(id obj))block;
+
 - (NSA*)subIndex:(NSUI)subIndex filter:   (BOOL (^)(id object))block;
 - (id)		 subIndex:(NSUI)subIndex filterOne:(BOOL (^)(id object))block;
 
@@ -213,6 +215,7 @@
 
 
 @property (RONLY) id last;
+@property (RONLY) NSN* sum;
 
 - (NSInteger)sumIntWithKey:(NSS*)keyPath;
 - (CGFloat)sumFloatWithKey:(NSS*)keyPath;

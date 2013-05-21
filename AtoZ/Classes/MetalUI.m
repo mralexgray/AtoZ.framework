@@ -31,7 +31,7 @@
 		
 		imgRect = NSMakeRect(floorf((cellFrame.size.width - width) / 2.0) + cellFrame.origin.x, floorf((cellFrame.size.height - height) / 2.0) + cellFrame.origin.y, ceilf(width), ceilf(height));
 		
-		[[NSGraphicsContext currentContext] setImageInterpolation:NSImageInterpolationHigh];
+		[AZGRAPHICSCTX setImageInterpolation:NSImageInterpolationHigh];
 		[img drawInRect:imgRect fromRect:NSZeroRect operation:NSCompositeCopy fraction:1.0];
 		[[NSColor colorWithCalibratedWhite:0.4 alpha:1.0] set];
 		

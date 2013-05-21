@@ -14,7 +14,7 @@
 - (void)drawRect:(NSRect)dirtyRect
 {
 	[NSGraphicsContext saveGraphicsState];
-	CGContextSetAlpha([[NSGraphicsContext currentContext] graphicsPort], [self isActive] ? 1.0 : 0.7);
+	CGContextSetAlpha([AZGRAPHICSCTX graphicsPort], [self isActive] ? 1.0 : 0.7);
 	
 	//NSRect rect = [self bounds];
 	//NSImage *image = [[NSImage alloc] initWithSize:rect.size];

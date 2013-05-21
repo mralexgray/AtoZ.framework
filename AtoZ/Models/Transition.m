@@ -367,7 +367,7 @@
 		// They advise this rather than simply [outputCIImage drawInRect... - I can't see any performance difference
 		CGRect  cg = CGRectMake(NSMinX(rect), NSMinY(rect),NSWidth(rect), NSHeight(rect));
 		if(!context) {
-			context = [CIContext contextWithCGContext:[[NSGraphicsContext currentContext] graphicsPort] options: nil];
+			context = [CIContext contextWithCGContext:[AZGRAPHICSCTX graphicsPort] options: nil];
 			[context retain];
 		}
 		[context drawImage:outputCIImage inRect:cg fromRect:CGRectMake(0, cg.size.height, cg.size.width, -cg.size.height)];

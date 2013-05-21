@@ -78,7 +78,47 @@ static char const * const ObjectRepKey = "ObjectRep";
 static NSString *ANIMATION_IDENTIFER = @"animation";
 static char const * const ISANIMATED_KEY = "ObjectRep";
 
+@implementation NSObject (AZPreview)
++ (id) preview {
+
+	return [NSView previewOfClass:self.class];
+	// [[[@"a" classProxy] vFK:AZCLSSTR]performSelector:@selector(preview)];
+//	NSEXPQUOTE(klass)
+
+}
+@end
 @implementation NSView (AtoZ)
+
+- (NSManagedObjectContext*)managedObjectContext {
+ return [[[self.window windowController] document]managedObjectContext];
+}
+
+
++ (id) preview	{	
+	return [self.class previewOfClass:self.class];
+}
++(id) previewOfClass:(Class)klass {	
+		
+	NSW*window = nil;
+	window = [NSW.appWindows objectWithValue:AZCLSSTR forKey:@"title"]; //	NSEXPQUOTE(self.class)
+	if (!window) {
+		NSR r  = AZRectFromDim(200);
+		window = [NSW.alloc initWithContentRect:r 
+											   styleMask:NSBorderlessWindowMask|NSResizableWindowMask 
+				 								  backing:NSBackingStoreBuffered defer:NO];
+		[window setTitle:											 AZCLSSTR];		// NSEXPQUOTE(self.class)];
+		[window setContentView:[klass.alloc initWithFrame:r]];
+		[window setBackgroundColor:        						 CLEAR];
+		[window setOpaque:				 		  					    NO]; 
+		[window setSticksToEdge:		 		  						YES];
+		[AZNOTCENTER observeName:NSApplicationDidBecomeActiveNotification usingBlock:^(NSNOT*n) {	
+			[NSApp activateIgnoringOtherApps:YES];	[window makeKeyAndOrderFront:nil]; 		     
+		}];
+	}
+	return [window makeKeyAndOrderFront: nil], window;
+}
+
+
 
 -(CALayer *)layerFromContents		{
 
@@ -124,6 +164,10 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 	[@[NSViewFrameDidChangeNotification, NSViewBoundsDidChangeNotification] each:^(NSS* name) {
 		[self observeName:name usingBlock:^(NSNotification *n) {	block();	}];			}];
 }
+
+
+
+
 - (BOOL)isSubviewOfView:(NSView*) theView
 {
 	__block BOOL isSubView = NO;
@@ -146,7 +190,6 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 	}];
 	return containsSubView;
 }
-
 
 - (void)setCenter:(NSPoint)center
 {
@@ -677,9 +720,37 @@ NSView* AZResizeWindowAndContent(NSWindow* window, CGF dXLeft, CGF dXRight, CGF 
 	NSRect frame = [self frame] ;
 	frame.size.width = t ;
 	[self setFrame:frame] ;
+   [[self superview] setNeedsDisplay:YES];
 }
 
-- (void)setHeight:(CGF)t 	{ 	self.frame = AZRectExceptHigh(self.frame, t); }
+- (void)setHeight:(CGF)t 	{ 	self.frame = AZRectExceptHigh(self.frame, t); [[self superview] setNeedsDisplay:YES];}
+
+
+
+- (CGF)originX {
+    return [self frame].origin.x;
+}
+- (CGF)originY {
+    return [self frame].origin.y;
+}
+
+- (void)setOriginX:(CGF)aFloat {
+    if (aFloat != [self originX]) {
+        NSRect frame = [self frame];
+        frame.origin.x = aFloat;
+        [self setFrame:frame];
+        [[self superview] setNeedsDisplay:YES];
+    }
+}
+- (void)setOriginY:(CGF)aFloat {
+    if (aFloat != self.originY) {
+        NSRect frame = self.frame;
+        frame.origin.y = aFloat;
+        [self setFrame:frame];
+        [[self superview] setNeedsDisplay:YES];
+    }
+}
+
 
 - (NSSize)size 				{	return  self.bounds.size; }
 
@@ -816,7 +887,8 @@ NSView* AZResizeWindowAndContent(NSWindow* window, CGF dXLeft, CGF dXRight, CGF 
 	[self setAssociatedValue:@(inValue) forKey:@"autoScroll" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
 	//Observe the document view's frame changes
    if (inValue) [AZNOTCENTER removeObserver:self name:NSViewFrameDidChangeNotification object:nil];
-	else  [AZNOTCENTER addObserver:self object:self.documentView keyPath:NSViewFrameDidChangeNotification options:nil block:^(MAKVONotification *notification) {
+	else  [AZNOTCENTER observeTarget:self.documentView keyPath:NSViewFrameDidChangeNotification options:nil block:^(MAKVONotification *notification) {
+		//	:self.documentView keyPath:NSViewFrameDidChangeNotification options:nil block:^(MAKVONotification *notification) {
 					 [self scrollToBottom];
 	}];
 }

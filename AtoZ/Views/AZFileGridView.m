@@ -231,8 +231,8 @@
 ////	NSImage * i = [[NSImage alloc] initWithData:[[self getCurrentFrame] TIFFRepresentation]]; //Size:[self frame].size];
 //
 ////	[i lockFocus];
-////	if ([self lockFocusIfCanDrawInContext:[NSGraphicsContext currentContext]]) {
-////		[self displayRectIgnoringOpacity:[self frame] inContext:[NSGraphicsContext currentContext]];
+////	if ([self lockFocusIfCanDrawInContext:AZGRAPHICSCTX]) {
+////		[self displayRectIgnoringOpacity:[self frame] inContext:AZGRAPHICSCTX];
 ////		[self unlockFocus];
 ////	}
 ////	[i unlockFocus];

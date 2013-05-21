@@ -116,7 +116,33 @@ static NSString *NSCONTROLVOIDBLOCKACTIONKEY = @"com.mrgray.NSControl.voidBlock"
 //	}
 //};
 
+static NSMutableDictionary *scrolls = nil;
 @implementation NSEvent (AtoZ)
+
+-(NSSize) scrollOffsetInView:(NSView*)view {
+
+	if (!scrolls) scrolls = [NSMutableDictionary new];
+	
+	NSSize x = ([scrolls objectForKey:view.description]) ? [scrolls[view.description] sizeValue ] : NSZeroSize;
+	x.width += self.deltaX;
+	x.height += self.deltaY;
+	scrolls[view.description] = AZVsize(x);
+	return x;
+}
+
+
+- (NSR) magnifyRect:(NSR)rect {
+	
+	NSRect originalRect,newRect; originalRect = newRect = rect;
+	newRect.size.height 	= originalRect.size.height * ([self magnification] + 1.0);
+	newRect.size.width 	= originalRect.size.width 	* ([self magnification] + 1.0);
+//	[self setFrameSize:size];
+	CGFloat deltaX = (originalRect.size.width  - newRect.size.width) / 2;
+	CGFloat deltaY = (originalRect.size.height  - newRect.size.height) / 2;
+	newRect.origin.x = newRect.origin.x + deltaX;
+	newRect.origin.y = newRect.origin.y + deltaY;
+	return newRect;	
+}
 
 //+ (whileDragging)dragBlock:(NSE*)e;
 //{
@@ -127,13 +153,14 @@ static NSEvent *theDrag;
 
 + (void)whileDragging:(void(^)(NSE*click, NSE*drag)) block
 {
-	[self addLocalMonitorForEventsMatchingMask:NSLeftMouseDownMask handler:^NSE*(NSE *click){
-		NSLog(@"click caller at %@", AZString(click.locationInWindow));
+	__block id handler = [self addLocalMonitorForEventsMatchingMask:NSLeftMouseDownMask handler:^NSE*(NSE *click){
+//		NSLog(@"click caller at %@", AZString(click.locationInWindow));
 		theDrag = [click dragHandlerForClickWithBlock:block];
 		return click;
 	}];
 	[self addLocalMonitorForEventsMatchingMask:NSLeftMouseUpMask handler:^NSEvent *(NSEvent *e) {
 		theDrag = nil;
+		handler = nil;
 		return e;
 	}];
 }

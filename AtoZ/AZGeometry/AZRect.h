@@ -33,6 +33,11 @@ static inline NSR AZCenteredRect(NSSize aSize, NSR inRect)
 	return NSMakeRect(x, y, aSize.width, aSize.height);
 }
 
+@interface NSObject (AZRectResponder)
+
+@end
+
+
 /*	Returns a rect that uses aSize scaled based on the content aspect rule and then centered inside the given rect.
 	The returned rect is expressed relative the given rect parent coordinate space.
 	To get a rect expressed relative the the given rect itself, see ETCenteredRect().
@@ -56,22 +61,26 @@ static inline NSR AZScaleRect(NSRect frame, CGF factor) {
 @class AZPoint;
 @interface AZEdge : AZPoint
 + (INST) rect:(AZRect*)r along:(AZRect*)outer inside:(BOOL)isinide;
-@property AZA alignment;
-@property AZOrient orient;
-@property CGF cornerTreshHold, snapThreshold;
+@property (NATOM, ASS) AZA alignment;
+@property (NATOM, ASS) AZOrient orient;
+@property (NATOM, ASS) CGF cornerTreshHold, snapThreshold;
 //- (void) moveInDirection:(NSSZ)sz;
 @end
 
+
+
 @class AZPoint;
 @interface AZRect : AZPoint 	{  CGF width, height;	}
-
+#define AZRECTUNDERMENU [AZRect screnFrameUnderMenu]
 #define $AZRECT(r) [AZRect rectWithRect:r]
 //- (AZA) alignInside:(NSR)ext;
++ (AZRect*) screnFrameUnderMenu;
 + (AZRect*) rect;
 + (AZRect*) rectOf:			(id)object;
 + (AZRect*) rectWithRect:	(NSR)rect;
 + (AZRect*) rectWithOrigin:(NSP)origin andSize:(NSSZ)size;
 + (AZRect*) rectWithX:		(CGF)x andY:(CGF)y  width:(CGF)width  height:(CGF)height;
++ (AZRect*) rect:(NSR)frame oriented:(AZPOS)pos;
 
 + (BOOL)maybeRect:(id) object;
 
@@ -80,15 +89,15 @@ static inline NSR AZScaleRect(NSRect frame, CGF factor) {
 - (id) initFromPoint:(NSP)ptOne toPoint:(NSP)ptTwo;
 - (id) initWithFrame:(NSR)frame inFrame:(NSR)superframe;
 
-@property (ASS) CGP 		anchor, position;
-@property (ASS) CGF 		width, height;
-@property (ASS) NSP 		origin, center;
-@property (ASS) NSSZ 	size;
-@property (ASS) NSR 		rect;
-@property (ASS) AZPOS	orient;
+@property (NATOM,ASS) CGP 		anchor, position;
+@property (NATOM,ASS) CGF 		width, height;
+@property (NATOM,ASS) NSP 		origin, center;
+@property (NATOM,ASS) NSSZ 	size;
+@property (NATOM,ASS) NSR 		rect;
+@property (NATOM,ASS) AZPOS	orient;
 @property (RONLY) CGF 	area, maxX, maxY, minY, minX;
 @property (RONLY) NSP 	apex;
-@property (ASS) NSR r;
+@property (NATOM,ASS) NSR r;
 
 
 - (id) shrinkBy:(id) object;

@@ -112,7 +112,7 @@
 	CGContextRelease ( mainMaskContextRef  );
 	CGContextRelease ( shineMaskContextRef );
 	// Done with mask context
-	CGContextRef contextRef =	[[NSGraphicsContext currentContext]graphicsPort];
+	CGContextRef contextRef =	[AZGRAPHICSCTX graphicsPort];
 //; UIGraphicsGetCurrentContext();
 	CGContextSaveGState(contextRef);
 

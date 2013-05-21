@@ -1,23 +1,26 @@
-//
 //  AZLog.h
-//  AtoZ
-//
-//  Created by Alex Gray on 5/2/13.
-//  Copyright (c) 2013 mrgray.com, inc. All rights reserved.
-//
 
 #import "AtoZUmbrella.h"
-#import "BaseModel.h"
 #import "BaseModel+AtoZ.h"
 
-
 @interface NSString (AtoZColorLog)
-- (void)setLogBackground:(id)color;
-- (void)setLogForeground:(id)color;
+- (void) setLogBackground:(id)color;
+- (void) setLogForeground:(id)color;
 @property (RONLY) const char* cchar;
 @property (RONLY) NSS *colorLogString;
 @end
 
+/*		
+		NSLog(@"%s", QUOTE(NSR));					NSLog(@"%s", EXPQUOTE(NSR));
+		NSLog(@"%@", $UTF8(EXPQUOTE(NSR)));		NSLog(NSQUOTE(NSC));
+		NSLog(NSEXPQUOTE(NSC));
+*/
+#define QUOTE(str) #str  							// printf("%s\n", QUOTE(NSR));		-> %s NSR
+#define EXPQUOTE(str) QUOTE(str) 				// printf("%s\n", EXPQUOTE(NSR));	-> %s NSRect
+#define NSQUOTE(str) $UTF8(#str)					// -> %@ NSR
+#define NSEXPQUOTE(str) $UTF8(QUOTE(str))		// -> %@ NSRect
+//	NSW* theWindowVar; ->
+//	NSLog(@"%@", NSEXPQUOTE(theWindowVar)); 		-> %@ theWindowVar
 #pragma mark - COLOR LOGGING
 // STACK MACRO: "UIKit 0x00540c89 -[UIApplication _callInitializationDelegatesForURL:payload:suspended:] + 1163"
 #define STACKARRAY [[NSThread.callStackSymbols[1] componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" -[]+?.,"]]arrayByRemovingObject:@""]
@@ -51,37 +54,30 @@ void 	QuietLog 				  ( NSS *format, ...		);
 #define 	COLOR_ESC 					XCODE_COLORS_ESCAPE
 #define 	XCODE_COLORS 0
 
-#define 	AZLOGSHARED AZLog.sharedInstance
-#define	AZLOG(x) NSLog(@"%@", x)
-#define	NSLog(fmt...) [AZLOGSHARED logInColor:RANDOMCOLOR file:__FILE__ line:__LINE__ func:__PRETTY_FUNCTION__ format:fmt]
 //#define	NSLog(fmt...) [AZLog_AZColorLog(nil,__FILE__,__LINE__,__PRETTY_FUNCTION__,fmt)
 
+#define 	AZLOGSHARED 		AZLog.sharedInstance
+#define	AZLOG(x) 			NSLog(@"%@", x)
+#define	NSLog(fmt...) 		[AZLOGSHARED logInColor:RANDOMCOLOR file:__FILE__ line:__LINE__ func:__PRETTY_FUNCTION__ format:fmt]
+#define 	COLORIZE(x...) 		[AZLOGSHARED colorizeAndReturn:x]
+#define _AZColorLog(x) 		[AZLOGSHARED logInColor:RANDOMCOLOR file:__FILE__ line:__LINE__ func:__PRETTY_FUNCTION__ format:x];
+#define 	LOGWARN(fmt...) 	[AZLOGSHARED logInColor:RANDOMCOLOR file:__FILE__ line:__LINE__ func:__PRETTY_FUNCTION__ format:fmt];
+#define 	LOGCOLORS(X...) 	[AZLOGSHARED logNilTerminatedListOfColorsAndStrings:__PRETTY_FUNCTION__ things:X]
+#define	COLORLOG(fmt...)	[AZLOGSHARED logNilTerminatedListOfColorsAndStrings:__PRETTY_FUNCTION__ things:fmt]
+
 @interface AZLog : BaseModel
-
-
 - (NSA*) rgbColorValues:(id)color;
 - (NSS*) colorizeString:(NSS*)string withColor:(id)color;
 - (NSS*) colorizeString:(NSS*)string front:(id)front back:(id)back;
-#define COLORIZE(x...) [AZLOGSHARED colorizeAndReturn:x]
 - (NSA*) colorizeAndReturn:(id) colorsAndThings, ...;
-
-#define _AZColorLog(x) [AZLOGSHARED logInColor:RANDOMCOLOR file:__FILE__ line:__LINE__ func:__PRETTY_FUNCTION__ format:x];
-#define LOGWARN(fmt...) [AZLOGSHARED logInColor:RANDOMCOLOR file:__FILE__ line:__LINE__ func:__PRETTY_FUNCTION__ format:fmt];
-//#define LOGWARN(fmt...) _AZColorLog(nil,__FILE__,__LINE__,__PRETTY_FUNCTION__,fmt)
 - (void) logInColor:(id)color file:(const char*)filename line:(int)line func:( const char *)funcName format:(id) format, ...; 
-
-
-
 /* Pass a variadic list of Colors, and Ovjects, in any order, TRMINATED BY NIL, abd it wiull use those colors to log those objects! */
-#define LOGCOLORS(X...) [AZLOGSHARED logNilTerminatedListOfColorsAndStrings:__PRETTY_FUNCTION__ things:X]
-#define COLORLOG(fmt...) [AZLOGSHARED logNilTerminatedListOfColorsAndStrings:__PRETTY_FUNCTION__ things:fmt]
 -(void) logNilTerminatedListOfColorsAndStrings:(const char*)pretty things:(id) colorsAndThings,... ;
 @end
-
+//#define LOGWARN(fmt...) _AZColorLog(nil,__FILE__,__LINE__,__PRETTY_FUNCTION__,fmt)
 //void _AZSimpleLog				( 				  const char *file, int line, const char *funcName, NSS *format, ... );
 //extern void _AZColorLog			( id color, const char *file, int line, const char *funcName, NSS *format, ... );
 //NSA *	COLORIZE						( id colorsAndThings, ... ); 
-
 //#define LOGCOLORS(X...) logNilTerminatedListOfColorsAndStrings(__PRETTY_FUNCTION__,X)
 //void 	logNilTerminatedListOfColorsAndStrings ( const char*pretty, id colorsAndThings,...)NS_REQUIRES_NIL_TERMINATION;
 /*	NSColor, "name" (CSS, or named color) or @[@4, @44, @244] rgbIntegers 		*/
@@ -90,17 +86,12 @@ void 	QuietLog 				  ( NSS *format, ...		);
 //NSS * colorizeStringWithColors	( NSS* string, id color, id back );
 /*  pass in color, or hex string, get an array of r, g, b integers... [ 0 - 255 ] (i think) */
 //NSA * rgbColorValues 				( id color );
-//
 #define	AZLOG(x) NSLog(@"%@", x)
 //#define	LogProps(a)      NSLog(@"%@", a.propertiesPlease)
 //#define	logprop (a)      NSLog(@"%@", [a propertiesPlease])
 //#define	desc    (a)      NSLog(@"%@", [a description])
 //#define logobj (a) id logit = a \		 NSLog(@"%@", a)
-
-
 //#define	vLOG(A)	[((AppDelegate*)[NSApp sharedApplication].delegate).textOutField appendToStdOutView:A] 
-
-
 //#define COLORLOG(fmt...) _AZColorLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,fmt)
 #define LOG_EXPR(_X_) do{ 	__typeof__(_X_) _Y_ = (_X_);	const char * _TYPE_CODE_ = @encode(__typeof__(_X_)); \
 													 NSString *_STR_ = VTPG_DDToStringFromTypeAndValue(_TYPE_CODE_, &_Y_); \
@@ -188,7 +179,6 @@ static NSString* MakeCritical(NSString *format,...) { NSString *string;	va_list 
  #ifdef DEBUG
  # undef DEBUG
  #endif
-
  #ifdef NO_DEBUG
  # define DEBUG(fmt, ...)
  #else
@@ -197,18 +187,14 @@ static NSString* MakeCritical(NSString *format,...) { NSString *string;	va_list 
  NSLog([NSString stringWithFormat:@"%s:%u: %@%@", __func__, __LINE__, ws, fmt], ## __VA_ARGS__); \
  } while(0)
  #endif
-
  #define INFO(fmt, ...) do { \
  NSString *ws = [@"" stringByPaddingToLength:logIndent*2 withString:@" " startingAtIndex:0]; \
  NSLog([NSString stringWithFormat:@"%s:%u: %@%@", __func__, __LINE__, ws, fmt], ## __VA_ARGS__); \
  } while(0)
-
  #endif
-
  #ifndef FORCE_MEMDEBUG
  # define NO_MEMDEBUG
  #endif
-
  #ifdef NO_MEMDEBUG
  # define MEMDEBUG(fmt, ...)
  # define DEBUG_FINALIZE()
@@ -226,6 +212,3 @@ static NSString* MakeCritical(NSString *format,...) { NSString *string;	va_list 
  }
  #endif
  */
- 
-
-

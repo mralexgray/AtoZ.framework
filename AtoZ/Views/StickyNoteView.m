@@ -191,14 +191,14 @@ JROptionsDefine(MWDraggingMode)
 	 [gradFilter setValue:startVector forKey:@"inputPoint0"];
 	 [gradFilter setValue:endVector forKey:@"inputPoint1"];
 	 CIImage *grad = [gradFilter valueForKey:@"outputImage"];
-	 [[NSGraphicsContext currentContext] saveGraphicsState];
+	 [AZGRAPHICSCTX saveGraphicsState];
 	 */
 	[[NSSHDW shadowWithOffset:NSMakeSize(0.0, -1.0) blurRadius:3.0 color:[BLACK alpha:.3]] set];
-	//	CIContext *context = [[NSGraphicsContext currentContext] CIContext];
+	//	CIContext *context = [AZGRAPHICSCTX CIContext];
 	[[NSGradient gradientFrom:self.proxy.noteColor.brighter to:self.proxy.noteColor.darker.darker]drawInRect:rect angle:270];
 	[NSSHDW clearShadow];
 	//	[context drawImage:grad atPoint:CGPointMake(fillRect.origin.x, fillRect.origin.y) fromRect:CGRectMake(0.0, 0.0, fillRect.size.width, fillRect.size.height)];
-	//	[[NSGraphicsContext currentContext] restoreGraphicsState];
+	//	[AZGRAPHICSCTX restoreGraphicsState];
 	//	[shadow release];
 	/* draw cell */
 //	if ([self currentEditor] == nil) {

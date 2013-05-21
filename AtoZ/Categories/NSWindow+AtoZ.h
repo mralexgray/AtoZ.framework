@@ -1,6 +1,13 @@
 
+#import "AtoZUmbrella.h"
+#import "AtoZCategories.h"
+#import "NSArray+AtoZ.h"
+#import "JREnum.h"
+	
+#define CRNR OSCornerType
 
 
+JREnumDeclare(NSWindowResize, NSWindowResizeTopLeftCorner = 1, NSWindowResizeTopRightCorner = 2, NSWindowResizeBottomRightCorner = 3, NSWindowResizeBottomLeftCorner = 4);
 
 @interface NSWindow (SBSWindowAdditions)
 
@@ -8,29 +15,11 @@
 + (BOOL) isLiveFrameTracking;
 
 @end
-
-@protocol NSWindowResizing
-
-enum NSWindowResizing {
-
-	NSWindowResizeTopLeftCorner = 1,
-	NSWindowResizeTopRightCorner = 2,
-	NSWindowResizeBottomRightCorner = 3,
-	NSWindowResizeBottomLeftCorner = 4
-
-};
-
-@end
-
-
-
-
-
 @interface NSWindow (Resize)
 
-- (void) resizeToWidth:(float)theWidth height:(float)theHeight;
-- (void) resizeToWidth:(float)theWidth height:(float)theHeight origin:(int)theOrigin;
-- (void) resizeToWidth:(float)theWidth height:(float)theHeight origin:(int)theOrigin duration:(float)theDuration;
+- (void) resizeToWidth:(CGF)theWidth height:(CGF)theHeight;
+- (void) resizeToWidth:(CGF)theWidth height:(CGF)theHeight origin:(NSWindowResize)theOrigin;
+- (void) resizeToWidth:(CGF)theWidth height:(CGF)theHeight origin:(NSWindowResize)theOrigin duration:(NSTI)theDuration;
 
 @end
 
@@ -46,26 +35,28 @@ enum NSWindowResizing {
 
 @end
 */
-@interface NSWindow (AtoZ)
 
-@property (readonly) OSCornerType corners;
-@property (readonly) NSR grabRect;
+@interface NSWindow (AtoZStickyWindows)
+
+@property (NATOM,ASS) BOOL sticksToEdge;
+@property (NATOM,ASS) NSR outsideEdgeRect;
+@property (readonly) AZPOS insideEdge;
+@property (readonly) OSCornerType sticksToEdgeOutsideCorners;
 
 @property (NATOM,ASS) CGF grabInset;
+@property (NATOM,ASS) CGR inFrame, outFrame;
+@property (readonly) NSR sticksToEdgeGrabRect;
+@property (NATOM,ASS) AZSlideState slideState;
 
 + (id) hitTest: (NSE*) event;
 + (id) hitTestPoint:(NSP)location;
++ (NSA*) appWindows;
+@end
 
-@property (NATOM,ASS) BOOL sticksToEdge;
-@property (NATOM,ASS) AZPOS insideEdge;
+@interface NSWindow (AtoZ)
 
 + (NSWindow*) borderlessWindowWithContentRect: (NSRect)aRect;
 
-@property (NATOM,ASS) CGR inFrame, outFrame;
-@property (NATOM,ASS) AZSlideState inOut;
-- (void) setInFrame:(CGRect)inF;
-- (void) setOutFrame:(CGRect)outF;
-- (void) setInOut:(AZSlideState)iO;
 
 @property (weak) CAL *layer;
 - (void) setLayer: (CAL*) layer;

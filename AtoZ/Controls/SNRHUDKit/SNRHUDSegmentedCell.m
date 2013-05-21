@@ -95,7 +95,7 @@
 
 - (void)drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView
 {
-	CGContextRef ctx = [[NSGraphicsContext currentContext] graphicsPort];
+	CGContextRef ctx = [AZGRAPHICSCTX graphicsPort];
 	if (![self isEnabled]) {
 		CGContextSetAlpha(ctx, SNRSegControlDisabledAlpha);
 	}

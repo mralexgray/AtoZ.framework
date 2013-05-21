@@ -36,6 +36,7 @@
 	#import <AudioToolbox/AudioToolbox.h>
 	#import <CoreFoundation/CoreFoundation.h>
 	#import <CoreServices/CoreServices.h>
+	#import <CoreData/CoreData.h>
 	#import <AVFoundation/AVFoundation.h>
 	#import <ApplicationServices/ApplicationServices.h>
 	#import <SystemConfiguration/SystemConfiguration.h>
@@ -93,7 +94,7 @@
 			#define __AH_BRIDGE
 		#endif
 	#endif
-
+	#import "objswitch.h"
 	#import "JREnum.h"
 //	#import "BaseModel.h"
 	//#define EXCLUDE_STUB_PROTOTYPES 1
@@ -104,6 +105,7 @@
 	#import <DrawKit/DKDrawKit.h>
 	#import <KSHTMLWriterKit/KSHTMLWriterKit.h>
 	#import <Zangetsu/Zangetsu.h>
+	#import <NanoStore/NanoStore.h>
 	#import <BlocksKit/BlocksKit.h>
 	#import <CocoaPuffs/CocoaPuffs.h>
 	#import <AtoZBezierPath/AtoZBezierPath.h>
@@ -112,9 +114,9 @@
 	#import "AtoZTypes.h"
 	#import "AtoZCategories.h"
 	#import "NSTerminal.h"
-	#import "AZLog.h"
+//	#import "AZLog.h"
 	
-	
+	#import "NSUserDefaults+Subscript.h"
 	#import "AZProcess.h"
 	
 #endif
@@ -161,7 +163,6 @@ OmniBase_EXTERN void OBAssertFailed(const char *type, const char *expression, co
 #import <Lumberjack/Lumberjack.h>
 #import <XPCKit/XPCKit.h>
 #import <SNRHUDKit/SNRHUDKit.h>
-#import <NanoStore/NanoStore.h>
 #import <AtoZUI/AtoZUI.h>
 #import <libatoz.h>
 

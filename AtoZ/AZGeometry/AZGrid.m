@@ -8,15 +8,110 @@
 
 #import "AZGrid.h"
 
-@interface AZGrid (Private)
+
+JREnumDefine(AZGridStyle);
+JREnumDefine(AZGridOrder);
+
+@interface AZGrid ()
 - (void) _init;
 @end
 @implementation AZGrid
 
+-   (id) initWithFrame:(NSR)frame {
+
+	if (!(self = [AZGrid.alloc initWithUnitSize:NSMakeSize(20.0f, 20.0f)  color:GRAY3 shouldDraw:YES]))return nil;
+	BLKVIEW* w = [BLKVIEW viewWithFrame:frame opaque:YES drawnUsingBlock:^(BNRBlockView *v, NSRect r) {
+		if (![v hasAssociatedValueForKey:@"grid"])
+			[v setAssociatedValue:self forKey:@"grid" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
+		[[v associatedValueForKey:@"grid"] drawRect:r];
+	}];
+	return (AZGrid*)w;
+}
+- (id)initWithUnitSize:(NSSize)newUnitSize color:(NSColor *)newColor		shouldDraw:(BOOL)newShouldDraw
+{
+	self = [self init];
+	if (newColor)
+	{
+		self.unitSize = newUnitSize;
+		self.color = newColor;
+		self.shouldDraw = newShouldDraw;
+	}
+	return self;
+}
+
+- (id)initWithCoder:(NSCoder *)coder
+{
+	return [self initWithUnitSize:[coder decodeSizeForKey:@"gridUnitSize"]
+							color:[coder decodeObjectForKey:@"gridColor"]
+					   shouldDraw:[coder decodeBoolForKey:@"gridShouldDraw"]];
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder
+{
+	[coder encodeBool:[self shouldDraw] forKey:@"gridShouldDraw"];
+	[coder encodeObject:[self color] forKey:@"gridColor"];
+	[coder encodeSize:[self unitSize] forKey:@"gridUnitSize"];
+}
+
+- (void)drawRect:(NSRect)drawingRect
+{
+	if (!self.shouldDraw)
+		return;
+	
+	NSSize dimensions 		= drawingRect.size;
+	CGFloat lineWidth 		= [NSBP defaultLineWidth];
+	BOOL oldShouldAntialias = [AZGRAPHICSCTX shouldAntialias];
+	
+	[AZGRAPHICSCTX setShouldAntialias:NO];
+	[NSBP setDefaultLineWidth:0.0f];
+	
+	[self.color set];
+	
+	for (CGFloat i = 0.0f; i < dimensions.width + self.unitSize.width; i += self.unitSize.width)
+	{
+		[NSBP strokeLineFromPoint:NSMakePoint(i, 0.0f)
+								  toPoint:NSMakePoint(i, dimensions.height)];
+	}
+	
+	for (CGFloat i = 0.0f; i < dimensions.height + self.unitSize.height; i += self.unitSize.height)
+	{
+		[NSBP strokeLineFromPoint:NSMakePoint(0.0f, i)
+								  toPoint:NSMakePoint(dimensions.width, i)];
+	}
+	
+	[NSBP setDefaultLineWidth:lineWidth];
+	
+	[AZGRAPHICSCTX setShouldAntialias:oldShouldAntialias];
+}
+
+- (void)setDefaultParameters
+{
+
+	if (![AZUSERDEFS objectForKey:AZGridColorDataKey])
+	{
+		self.shouldDraw = NO;
+		self.unitSize = NSMakeSize(1.0f, 1.0f);
+		self.color = [NSColor colorWithCalibratedWhite:0.2f alpha:0.5f];
+	}
+	else
+	{
+		self.shouldDraw = [AZUSERDEFS boolForKey:AZGridShouldDrawKey];
+		self.unitSize = NSMakeSize([AZUSERDEFS floatForKey:AZGridUnitWidthKey], [AZUSERDEFS floatForKey:AZGridUnitHeightKey]);
+		self.color = [NSKeyedUnarchiver unarchiveObjectWithData:[AZUSERDEFS objectForKey:AZGridColorDataKey]];
+	}
+}
+
+- (id)copyWithZone:(NSZone *)zone	{
+
+	return [[AZGrid allocWithZone:zone] initWithUnitSize:self.unitSize color:self.color shouldDraw:self.shouldDraw];
+}
+
 - (void) _init {
 	parallels = 1;
 	style = AZGridStyleCompact;
-	order = AZGridRowMajorOrder;
+	order = AZGridOrderRowMajor;
+	[self setDefaultParameters];
+
 }
 - (id) init {
 	if ((self = [super init])) {
@@ -34,16 +129,9 @@
 	return self;
 }
 
-- (NSUInteger)parallels {
-	return parallels;
-}
-
-- (void) setParallels:(NSUInteger)v {
-	self->parallels = MAX(1, parallels);
-}
-
-- (NSUInteger)style {
-	return style;
+- (NSUInteger)parallels					 {	return parallels;}
+- (void) setParallels:(NSUInteger)v {		self->parallels = MAX(1, parallels);	}
+- (NSUInteger)style 						{	return style;
 }
 
 - (void) setStyle:(NSUInteger)v {
@@ -134,7 +222,7 @@
 	AZSize *s = self.size;
 	CGF x, y;
 	
-	if (order == AZGridColumnMajorOrder) {
+	if (order == AZGridOrderColumnMajor) {
 	// column major order
 	x = floor(index / s.height);
 	y = index % (int)s.height;
@@ -160,10 +248,10 @@
 	return nil;
 	}
 	
-	if (order == AZGridRowMajorOrder) {
+	if (order == AZGridOrderRowMajor) {
 	// left to right -> top to bottom
 	return [NSNumber numberWithUnsignedInt:point.y * s.width + point.x];
-	} else if (order == AZGridColumnMajorOrder) {
+	} else if (order == AZGridOrderColumnMajor) {
 	// top to bottom -> left to right
 	return [NSNumber numberWithUnsignedInt:point.x * s.height + point.y];
 	}

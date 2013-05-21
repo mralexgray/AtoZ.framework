@@ -22,6 +22,9 @@
 - (IBAction) increaseFontSize:  (id) sender;
 - (void)		 changeFontSize:	 	(CGFloat) delta;
 
+@property (nonatomic, assign) BOOL highlightCurrentLine;
+@property (nonatomic, strong) NSColor *highlightCurrentLineColor;
+
 @end
 
 

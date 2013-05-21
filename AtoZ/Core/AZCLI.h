@@ -1,5 +1,8 @@
 #import "AZCLITests.h"
+#import "AtoZUmbrella.h"
 #import "AtoZ.h"
+
+
 
 typedef 	void (^runBlock)();
 #define	CurrentIMP 	__CurrentIMP 					(__PRETTY_FUNCTION__,      _cmd)
@@ -24,17 +27,38 @@ NS_INLINE 		void 	AZCLogFormatWithArguments 	(const char *fmt,  va_list args)	{	
 NS_INLINE 		void 	AZCLogFormat					(const char *fmt,				 ...) { va_list args; va_start(args,fmt);	AZCLogFormatWithArguments(fmt,args); va_end(args);	}
 #define	   AZCLISI 	AZCLI.sharedInstance
 #define     AZSTDIN	NSFileHandle.fileHandleWithStandardInput
-#define	AZQUITMENU 	[NSMI.alloc initWithTitle:[@"Quit "withString:AZPROCNAME]\
-												    action:@selector(terminate:) keyEquivalent:@"q"]
-@interface AZCLI : BaseModel <NSLogConsoleDelegate, NSWindowDelegate>
+#define	AZQUITMENU 	[NSMI.alloc initWithTitle:[@"Quit "withString:AZPROCNAME] action:NSSelectorFromString(@"terminate:") keyEquivalent:@"q"]
 
-@property (			 ASS) IBO NSTV *terminal;
-@property (NATOM,STRNG) 	 NSA	*palette;
-@property (		  STRNG) 	 NSS 	*lastCommand;
-@property (NATOM,STRNG) 	 NSMD	*selectionDecoder;
-@property (NATOM		 )		 BOOL  finished, inTTY, inXcode;
-								-  (void) mainMenu;
+@interface AZCLI : NSObject <NSLogConsoleDelegate, NSWindowDelegate, NSApplicationDelegate>
+
+@property (NATOM,STRNG) NSW	*window;  
+@property (NATOM,STRNG)	NSS	*windowPosString; 
+@property (NATOM,STRNG) BLKVIEW *contentView;
+@property (NATOM,STRNG) NSFH 	*stdinHandle;
+@property (NATOM,STRNG) MenuAppController	*menu;
+
+@property (NATOM,STRNG) NSA	*palette;
+@property (NATOM,   WK)	id     mainMenu;
+
+- (void) setupBareBonesApplication;
+
+//+ (void) handleInteractionWithPrompt:(NSS*)string block:(void(^)(NSString *output))block;
+//@property (			 ASS) IBO NSTV *terminal;
+//@property (		  STRNG) 	 NSS 	*lastCommand;
+//@property (NATOM		 )		 BOOL  finished, inTTY, inXcode;
 @end
+
+@interface AZCLIMenu : BaseModel
+
++ (NSIS*) indexesOfMenus;
+@property (RONLY, NATOM) NSRNG		range;
+@property (NATOM,STRNG)	 id			identifier;
+@property (RONLY)		 	 NSS		*menu;
+@property (NATOM,STRNG)  id 	palette;
+@property (NATOM,  ASS)  NSI  startIdx;
++ (instancetype) cliMenuFor:(NSA*)items starting:(NSUI)idx palette:(id)p;
+@end
+
 
 //void AZCLogFormatWithArguments (const char *format,va_list arguments);
 //void AZCLogFormat					 (const char *fmt,...);

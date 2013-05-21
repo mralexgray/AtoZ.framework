@@ -12,7 +12,19 @@
 #import "AtoZFunctions.h"
 #import "RuntimeReporter.h"
 #import "NSString+AtoZ.h"
+#import "AtoZModels.h"
 
+
+@implementation NSParagraphStyle (AtoZ)
++ (NSParagraphStyle*) defaultParagraphStyleWithDictionary:(NSD*)d {
+
+	NSMutableParagraphStyle *s = self.defaultParagraphStyle.mutableCopy;
+	for (NSS* key in d) 
+		[s setValue:d[key] forKey:key];
+	return  s;
+}
+
+@end
 
 
 NSString *stringForBrightness(CGFloat brightness)
@@ -85,8 +97,6 @@ NSString *stringForBrightness(CGFloat brightness)
 
 
 
-@implementation Definition
-@end
 
 
 @implementation NSString (MD5)
@@ -153,6 +163,12 @@ NSString *stringForBrightness(CGFloat brightness)
 @end
 
 @implementation NSString (AtoZ)
+//@dynamic range;
+
+- (void) setSubRange:(NSRNG) rng { NSLog(@"setting range: %@", NSStringFromRange(rng));      
+	[self setAssociatedValue:AZVrng(rng) forKey:@"AZRange" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
+}
+- (NSRNG) subRange {  return [[self associatedValueForKey:@"AZRange"]rngV]; }
 
 - (BOOL) isInteger { return self.isIntegerNumber; }
 
@@ -437,7 +453,7 @@ NSString *stringForBrightness(CGFloat brightness)
             urbanD = $DEFINE(title, desc);               ///rawContents.urlDecoded.decodeHTMLCharacterEntities);
         } else urbanD = $DEFINE(@"undefined", @"no response from urban");
     }];
-    [requester startAsynchronous];
+    [requester startSynchronous];
     return urbanD;
 }
 
@@ -974,6 +990,20 @@ NSString *stringForBrightness(CGFloat brightness)
 - (NSA*)lines      {
     return [self componentsSeparatedByString:@"\n"];
 }
+
+- (NSA*)wordsWithRanges {
+    NSMutableArray *re = NSMutableArray.array;
+	 NSRange left = NSMakeRange(0, self.length);
+    for (NSString *s in [self componentsSeparatedByString : @" "]) {
+		s.subRange = [self rangeOfString:s options:0 range:left];
+		if (s.isEmpty) continue;
+		[re addObject:s];
+		left.location += s.length+1;
+		left.length -= (s.length+1);
+   }
+	return re;
+}
+
 
 - (NSA*)words {
     NSMutableArray *re = NSMutableArray.array;
@@ -2393,7 +2423,7 @@ static void _ScanSentence(NSScanner *scanner) {
     for (i = 0; i < 6; i++) {
         NSUI r = random();
         r %= 65536;         // 16^4
-        [uuidString appendString:$(@"%04lu", r).uppercaseString];
+        [uuidString appendString:[$(@"%04lu", r) uppercaseString]];
     }
     return uuidString;
 }

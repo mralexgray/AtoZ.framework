@@ -25,4 +25,7 @@
    <FileRef
       location = "group:../git/icarouselmay2012/Examples/Mac Demo/iCarouselMac.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:../git/HopShop/HopShop.xcodeproj">
+   </FileRef>
 </Workspace>

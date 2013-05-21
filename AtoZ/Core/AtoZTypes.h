@@ -219,7 +219,7 @@ typedef struct AZWhatever {
 //#define AZWindowPositionTypeArray @[@"Left",@"Bottom",@"Right",@"Top",@"TopLeft",@"BottomLeft",@"TopRight",@"BottomRight",@"Automatic"]
 //#endif
 
-#define QUAD AZQuadrant
+#define QUAD AZQuad
 
 
 //JREnum() is fine for when you have an enum that lives solely in an .m file. But if you're exposing an enum in a header file, you'll have to use the alternate macros. In your .h, use JREnumDeclare():
@@ -228,7 +228,8 @@ typedef struct AZWhatever {
 //	JREnumDefine(StreamState); for Free!!
 // NSString* AZQuadrantToString(int value);
 
-__unused JREnumDeclare( AZQuadrant, AZTopLeftQuad = 0, AZTopRightQuad, AZBotRightQuad, AZBotLeftQuad	);
+//JREnumDeclare( AZQuadrant, AZTopLeftQuad = 0, AZTopRightQuad, AZBotRightQuad, AZBotLeftQuad);
+JREnumDeclare( AZQuad, AZQuadTopLeft = 0, AZQuadTopRight, AZQuadBotRight, AZQuadBotLeft);
 
 //typedef NS_ENUM(NSUI, AZQuadrant){
 //	AZTopLeftQuad = 0,

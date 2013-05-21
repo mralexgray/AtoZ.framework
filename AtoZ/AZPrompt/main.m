@@ -188,7 +188,7 @@ menuWithContacts contactMenu = ^(ContactList *contacts)			{
 }
 
 - (NSArray*) frameworks						{ return @[@"AtoZAppKit.framework", @"BWTK.framework", @"Zangetsu.framework", @"Rebel.framework", @"PhFacebook.framework", @"MapKit.framework", @"KSHTMLWriterFramework.framework", @"FunSize.framework", @"CocoaPuffs.framework", @"AtoZBezierPath.framework", @"TwUI.framework", @"SVGKit.framework", @"NoodleKit.framework", @"MenuApp.framework", @"Lumberjack.framework", @"DrawKit.framework", @"CocoatechCore.framework", @"BlocksKit.framework" ];	}
-- (NSString*) basePath 						{ return @"/Volumes/2T/ServiceData/Developer/Xcode/DerivedData/AtoZ-hfqteqfcvjfinlajqwkydsqyzpiz/Build/Products/Debug/AtoZ.framework/Versions/A/Frameworks";	}
+- (NSString*) basePath 						{ return @"/Library/Frameworks/AtoZ.framework/Versions/A/Frameworks";	}
 - (NSString*) clr:(NSString*)s 			{
 
 //	BOOL inTTY =  [@(isatty(STDERR_FILENO))boolValue];

@@ -8,7 +8,8 @@
 
 #import "AZObject.h"
 #import <objc/runtime.h>
-
+#import "AtoZUmbrella.h"
+#import "AtoZCategories.h"
 
 
 @implementation NSObject (NSCoding)
@@ -36,20 +37,17 @@
 #define AUTO_ENCODE - (void)encodeWithCoder:(NSCoder *)coder { [self autoEncodeWithCoder:coder]; }
 #define AUTO_DECODE - (id)initWithCoder:(NSCoder *)coder { if (self = [super init]) { [self autoDecode:coder]; } return self; }
 
-- (NSDictionary *) properties
-{
+- (NSDictionary *) properties						{
 	return [self propertiesForClass:self.class];
 }
-- (NSDictionary *) autoEncodedProperties
-{
+- (NSDictionary *) autoEncodedProperties		{
 	NSArray *ignoredProperties =  [[self class] respondsToString:@"autoCodingIgnoredProperties"]
 										?	[[self class] performSelector:@selector(autoCodingIgnoredProperties)]
 										: 	nil;
 	NSD *allprops 	 = self.properties;
 	return [allprops subdictionaryWithKeys:[allprops.allKeys arrayWithoutArray:ignoredProperties]];
 }
-- (void) autoEncodeWithCoder:(NSCoder *)coder
-{
+- (void) autoEncodeWithCoder:(NSCoder*)coder	{
 
 	[self.autoEncodedProperties each:^(NSS* key, id type) {
 
@@ -143,10 +141,7 @@
 		}		 
 	}];
 }
-
-
-- (void) autoDecode:(NSCoder *)coder
-{
+- (void) autoDecode:			  (NSCoder*)coder	{
 	[self.autoEncodedProperties each:^(NSS* key, NSS* type) {
 
 		switch ([type characterAtIndex:0])
@@ -237,17 +232,81 @@
 	}];
 }
 @end
-
-
-
-
 @interface  AZObject ()
 + (void)setLastModifiedKey:(NSString*)key forInstance:(id)object;
 @end
-
 NSString *const AZObjectSharedInstanceUpdatedNotification = @"AZObjectSharedInstanceUpdatedNotification";
 
 @implementation AZObject
+
+-(id) initWithCoder:(NSCoder*)decoder {	if(self != [self init]) return nil;
+	_representedObject = [decoder decodeObjectForKey: @"AZObjectRepresentedObject"];
+	_keys = [decoder decodeObjectForKey: @"AZObjectKeys"];
+	[_keys each:^(NSS* obj) {
+		[self setValue:[decoder decodeObjectForKey:obj] forKey:obj];
+	}];
+	return self;
+}
+
+-(void)encodeWithCoder:(NSCoder *)encoder {
+	[encoder encodeObject: [self representedObject] forKey: @"AZObjectRepresentedObject"];
+	[encoder encodeObject: keys forKey: @"AZObjectKeys"];
+	[keys each:^(id obj) {
+		[encoder encodeObject:[self vFK:obj] forKey:obj];
+	}];
+}
+
+
+// -(NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector {
+// 	return [representedObject methodSignatureForSelector: aSelector];
+// }
+// 
+// -(void)forwardInvocation:(NSInvocation *)anInvocation {
+// 	[anInvocation invokeWithTarget: representedObject];
+// }
+// 
+// -(BOOL)respondsToSelector:(SEL)selector {
+// 	return [super respondsToSelector: selector] || [representedObject respondsToSelector: selector];
+// }
+
+
+-(id)valueForUndefinedKey:(NSString *)key {
+	id guess;
+	if ( [self.keys containsObject: key] && [self.representedObject respondsToString:key] ){
+	 	if ( (guess = [self.representedObject vFK:key]) ) return guess;
+		if ( [self.representedObject hasAssociatedValueForKey:key] )	
+	}
+	if ( [self hasAssociatedValueForKey:key] )	
+	 	
+		if (guess [self representedObject] valueForKey: key] ?: nil;eturn [super valueForUndefinedKey: key];
+}
+
+-(void)setValue:(id)value forUndefinedKey:(NSString *)key {
+	if([keys containsObject: key]) {
+		return [[self representedObject] setValue: value forUndefinedKey: key];
+	}
+	return [super setValue: value forUndefinedKey: key];
+}
+
+
+-(void)bind:(NSString *)binding toObject:(id)obj withKeyPath:(NSString *)keyPath options:(NSDictionary *)options {
+	[representedObject bind: binding toObject: obj withKeyPath: keyPath options: options];
+}
+
+- (void)unbind:(NSS*)binding 				{		[representedObject unbind: binding];	}
+-   (id) copyWithZone:(NSZone *)zone 	{
+
+	id copy = [[self.class allocWithZone: zone] init];
+	[copy setValue:representedObject = representedObject;
+	copy.keys = self.keys;
+	return copy;
+}
+-(void)setKeys:(NSArray *)k {
+	[self willChangeValueForKey: @"keys"];
+	[keys setArray: k];
+	[self didChangeValueForKey: @"keys"];
+}
+-(NSArray *)exposedBindings {	return [self keys];	}
 
 + (instancetype)instance
 {

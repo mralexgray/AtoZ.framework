@@ -11,6 +11,8 @@ JREnumDeclare(AZeColor, AZeColoraliceblue, AZeColorantiquewhite, AZeColoraqua, A
 //#import "AGFoundation.h"
 
 @interface NSColor (AtoZ)
++ (NSC*)colorFromAZeColor:(AZeColor)c;
+
 @property (NATOM,STRNG) NSS*	name;
 @property (RONLY)	BOOL	isBoring, isExciting;
 @property (RONLY)	NSS*	nameOfColor, *crayonName;
@@ -138,7 +140,8 @@ JREnumDeclare(AZeColor, AZeColoraliceblue, AZeColorantiquewhite, AZeColoraqua, A
 
 @end
 
-#define AZNormalFloat(x) { if (x < 0) {x = 0;} else if (x > 1) {x = 1;} }
+//#define AZNormalFloat(x) { if (x < 0) {x = 0;} else if (x > 1) {x = 1;} }
+#define AZNormalFloat(x) x = x < 0 ? 0 : x > 1 ? 1 : x
 
 /*
 @interface NSColor (AIColorAdditions_HLS)

@@ -213,3 +213,6 @@
 [submodule "Frameworks/NSMenu-Dark"]
 	path = Frameworks/NSMenu-Dark
 	url = https://github.com/mralexgray/NSMenu-Dark.git
+[submodule "Frameworks/ObjectMatcher"]
+	path = Frameworks/ObjectMatcher
+	url = https://github.com/mralexgray/ObjectMatcher.git

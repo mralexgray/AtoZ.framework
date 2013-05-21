@@ -58,7 +58,7 @@
 - (void)drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView
 {
 	if (![self isEnabled]) {
-		CGContextSetAlpha([[NSGraphicsContext currentContext] graphicsPort], SNRTextFieldDisabledAlpha);
+		CGContextSetAlpha([AZGRAPHICSCTX graphicsPort], SNRTextFieldDisabledAlpha);
 	}
 	NSRect backgroundRect = cellFrame;
 	backgroundRect.size.height -= 1.f;

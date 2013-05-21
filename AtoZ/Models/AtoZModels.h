@@ -7,10 +7,21 @@
 //
 
 //#import "AtoZFunctions.h"
-//#import "AtoZUmbrella.h"
+#import "AtoZUmbrella.h"
 //#import "AZObject.h"
-#import <Cocoa/Cocoa.h>
+//#import <Cocoa/Cocoa.h>
 
+JREnumDeclare (AZLexicon, AZLexiconUrbanD, AZLexiconWiki, AZLexiconGoogle, AZLexiconDuckDuckGo);
+
+@class Definition;
+typedef void (^DefinitionCallback)(Definition *def);
+
+@interface Definition : BaseModel
+@property (CP) DefinitionCallback callback;
+@property AZLexicon lexicon; 
+@property (NATOM, STRNG) NSString *word, *definition;
+@end
+#define $DEFINE(A, B) [Definition.alloc initWithProperties : @{ @"word" : A, @"definition" : B }]
 
 
 extern NSString *TagsDefaultsKey;

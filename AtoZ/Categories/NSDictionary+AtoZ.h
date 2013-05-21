@@ -8,6 +8,12 @@
 
 #import "AtoZ.h"
 
+
+@interface NSOrderedDictionary (AtoZ)
+- (void) forwardInvocation:(NSINV*)invocation;
+- (SIG*) methodSignatureForSelector:(SEL)sel;
+- (BOOL) respondsToSelector:(SEL)selector;
+@end
 @interface NSMutableDictionary (AtoZ)
 
 - (void)setColor:(NSColor *)aColor forKey:(NSS*)aKey;

@@ -6,6 +6,50 @@
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 //
 #import "NSDictionary+AtoZ.h"
+
+
+
+@implementation NSOrderedDictionary (AtoZ)
+
+- (void) forwardInvocation:(NSINV*)invocation 		{  // FIERCE
+
+// Forward the message to the surrogate object if the surrogate object understands the message, otherwise just pass the invocation up the inheritance chain, eventually hitting the default -forwardInvocation: which will throw an unknown selector exception.
+	SEL sel = invocation.selector;
+	[self methodSignatureForSelector:sel] 					?
+		[invocation invokeWithTarget:self] 					:
+	[@[] methodSignatureForSelector:sel] 					?
+		[invocation invokeWithTarget:self.allObjects] 	: 	
+	[@{} methodSignatureForSelector:sel]					?
+		[invocation invokeWithTarget:(NSD*)self]			:
+	[super forwardInvocation:invocation];
+//
+//
+//	self.defaultCollection && [self.defaultCollection respondsToSelector:[invocation selector]]
+//									?				   [invocation invokeWithTarget:self.defaultCollection]:nil;
+//									:										 [super forwardInvocation:invocation];
+}
+- (SIG*) methodSignatureForSelector:(SEL)sel			{
+	// To build up the invocation passed to -forwardInvocation properly, the object must provide the types for parameters and return values for the NSInvocation through -methodSignatureForSelector:
+
+ return 	[self methodSignatureForSelector:sel] 
+ ?:		[@[] methodSignatureForSelector:sel] 
+ ?: 		[@{} methodSignatureForSelector:sel] 
+ ?: 		nil;
+//    return [self respondsToSelector:sel]  resolveInstanceMethod:selector] || [NSDictionary resolveInstanceMethod:selector];
+//    return [super methodSignatureForSelector:sel] ?: [self.defaultCollection methodSignatureForSelector:sel];
+}
+- (BOOL) respondsToSelector:(SEL)selector 				{
+	// Claim to respond to any selector that our surrogate object also responds to.
+    return ([self methodSignatureForSelector:selector]) 
+	 || 		[NSA resolveInstanceMethod:selector] 
+	 || 		[NSD resolveInstanceMethod:selector] 
+	 || 		[super  respondsToSelector:selector];
+//	 [super respondsToSelector:selector] || [self.defaultCollection respondsToSelector:selector];
+}	/* All methods above are fierce Posing classes */
+
+
+@end
+
 @implementation NSMutableDictionary (AtoZ)
 //Returns NO if `anObject` is nil; can be used by the sender of the message or ignored if it is irrelevant.
 - (BOOL)setObjectOrNull:(id)anObject forKey:(id)aKey	{

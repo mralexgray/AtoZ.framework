@@ -68,7 +68,7 @@ static NSString* const AZButtonReturnKeyEquivalent = @"\r";
 - (void) setButtonType:			(NSButtonType) aType {	__buttonType = aType;	[super setButtonType:aType]; }
 - (void) drawWithFrame:			(NSRect) cellFrame 	inView:(NSView*) controlView {
 	if (![self isEnabled])
-		CGContextSetAlpha([[NSGraphicsContext currentContext] graphicsPort], AZButtonDisabledAlpha);
+		CGContextSetAlpha([AZGRAPHICSCTX graphicsPort], AZButtonDisabledAlpha);
 	[super drawWithFrame:cellFrame inView:controlView];
 	if (__bezelPath && [self isHighlighted]) { [color set]; [__bezelPath fill]; }
 }
@@ -125,7 +125,7 @@ static NSString* const AZButtonReturnKeyEquivalent = @"\r";
 	[NSGraphicsContext restoreGraphicsState];
 	
 	/**
-	 NSGraphicsContext *ctx = [NSGraphicsContext currentContext];
+	 NSGraphicsContext *ctx = AZGRAPHICSCTX;
 	 
 	 CGFloat roundedRadius = 0.0f;
 	 

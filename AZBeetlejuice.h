@@ -8,16 +8,16 @@
 #ifndef AtoZ_AZBeetljuice_h
 #define AtoZ_AZBeetljuice_h
 NS_INLINE void AZBeetlejuiceLoadAtoZ (void) {
-	NSString *basePath = @"/Volumes/2T/ServiceData/Developer/Xcode/DerivedData/AtoZ-hfqteqfcvjfinlajqwkydsqyzpiz/Build/Products/Debug/AtoZ.framework/Versions/A/Frameworks";
+	NSString *basePath = @"/Library/Frameworks/AtoZ.framework/Versions/A/Frameworks";
 	NSString* path = basePath.stringByDeletingLastPathComponent
 									.stringByDeletingLastPathComponent
 									 .stringByDeletingLastPathComponent;
-	fprintf ( stderr, "Preflighting path: %s\n", path.UTF8String);
+//	fprintf ( stderr, "Beetlejuice. path: %s\n", path.UTF8String);
 	NSBundle *b = [NSBundle bundleWithPath:  path];
-	NSLog(@"bundle:%@",b);
+	NSLog(@"Beetlejuice. bundle:%@",b);
 	NSError *e;
 	BOOL okdok = [b preflightAndReturnError:&e];
-	if (okdok) {	[b load];	NSLog(@"%@ %@  %@  %@",path, b, e, [b bundleIdentifier] ); 	}
-	else fprintf(stderr, "%s\n", e.debugDescription.UTF8String);
+	if (okdok) {	[b load];	NSLog(@"BEETLEJUICE OK! : %@ %@  %@  %@",path, b, e, [b bundleIdentifier] ); 	}
+	else fprintf(stderr, "AtoZ BJ ERROR: %s\n", e.debugDescription.UTF8String);
 }
 #endif

@@ -2,33 +2,85 @@
 #import "NSString+AtoZ.h"
 #import "AtoZ.h"
 
-JREnumDefine(AZQuadrant);	JREnumDefine(Color);	JROptionsDefine(AZAlign);	JREnumDefine(AZPosition);
-
+JREnumDefine(AZQuad);	JREnumDefine(Color);	JROptionsDefine(AZAlign);	JREnumDefine(AZPosition);
 
 //Subclassible thread-safe ARC singleton  Copyright Kevin Lawler. Released under ISC.
 @implementation AZSingleton
+static NSMutableDictionary* _children;
+
++ (id)sharedInstance {
+	static dispatch_once_t onceToken;
+   if (!_children) {
+//		dispatch_sync(dispatch_get_main_queue(),^{
+			dispatch_once(&onceToken, ^{
+				_children = NSMD.new;
+			});
+//		});
+	}
+	if ( ! _children[AZCLSSTR] || _children[AZCLSSTR] == AZNULL ) {
+//		dispatch_sync(dispatch_get_main_queue(),^{
+      	  _children[AZCLSSTR] =  [self.class.alloc init];
+//    	});
+	 }
+    return _children[AZCLSSTR];
+}
++ (instancetype) instance {	return _children[AZCLSSTR] ?: self.sharedInstance; }
++ (void) setSharedInstance:(id)i { 
+	if (i == nil) { 
+		_children = [_children.allKeys cw_mapArray:^id(id object) {
+			if (SameString(object, AZCLSSTR)) return nil; else return @{object:_children[object]};
+		}].mutableCopy; 
+	}
+//		[_children removeObjectForKey:AZCLSSTR];  return;	}
+	else if ((i) && [i ISKINDA:self.class]) [_children setObject:i forKey:AZCLSSTR];
+}
++ (void) print {  NSLog(@"%@", _children); }
+	// = AZNULL; _children = [_children dictionaryWithoutKey:AZCLSSTR].mutableCopy; } }
+//+(void) initialize {    //thread-safe	
+//   if(!_children) _children = NSMutableDictionary.new; [_children setObject:[self.alloc init] forKey:AZCLSSTR];
+//}
+
+//+(id) alloc {    id c; if((c = [self instance]))  return c;  return [self allocWithZone:nil];	}
+//-(id) init 	{    id c; if((c = [_children objectForKey:AZCLSSTR])) return c;//sic, unfactored
+//    self = [super init];    return self;
+//}
+//
+//+ (id) instance 		{    return [_children objectForKey:AZCLSSTR];	}
+//+ (id) sharedInstance {     return [self instance];  } //alias for instance 
+//+ (id) singleton 		{         return [self instance];   } //alias for instance
+////stop other creative stuff
+//+ (id) new {    return [self instance];}
+//
+//+(id)copyWithZone:(NSZone *)zone {    return [self instance];	}
+//+(id)mutableCopyWithZone:(NSZone *)zone {    return [self instance];	}
+//+ (void) setSharedInstance:(id)i { if ((i) && [self instance] != i && [i ISKINDA:self.class]) [_children setObject:i forKey:AZCLSSTR];
+//	if (i == nil) {    id selfthing = [_children objectForKey:AZCLSSTR]; selfthing = AZNULL;  }//_children = [_children dictionaryWithoutKey:AZCLSSTR].mutableCopy; } 
+//}
+@end
+
+/*
 static NSMD* _children;
-+ (void) initialize 		{
-	//thread-safe
++ (void) initialize 		{	//thread-safe
 	_children = !_children ? NSMD.new : _children;
 	_children [AZCLSSTR] = [self.alloc init];
 }
-+ (id) alloc 				{ id c; return (c = self.instance) ? c : [self allocWithZone:nil];  }
-- (id) init  				{ 
++ (instancetype) alloc 				{ id c; return (c = self.instance) ? c : [self allocWithZone:nil];  }
+- (instancetype) init  				{ 
 	
 	id c; 
 	return self = ((c = _children[AZCLSSTR])) ? c : [super init];  //sic, unfactored
 //	return  ;
 }
-+ (id) instance 			{	return _children [AZCLSSTR];  }
-+ (id) sharedInstance 	{ 	return self.instance;  	}	//	alias for instance
-+ (id) uno 					{	return self.instance;	} 	//	alias for instance
-+ (id) new 					{	return self.instance; 	}	//	stop other creative stuff
-+ (id) copyWithZone:			(NSZone *)zone {	return [self instance]; }
-+ (id) mutableCopyWithZone:(NSZone *)zone {	return [self instance]; }
++ (void) setSharedInstance:(id)i { if (i) _children[AZCLSSTR]  = i; else [_children removeObjectForKey:AZCLSSTR]; }
++ (instancetype) instance 			{	return [_children objectForKey:AZCLSSTR] ?:^{ return _children[AZCLSSTR] = [self.alloc init]; }();  }
++ (instancetype) sharedInstance 	{ 	return self.instance;  	}	//	alias for instance
++ (instancetype) uno 					{	return self.instance;	} 	//	alias for instance
++ (instancetype) new 					{	return self.instance; 	}	//	stop other creative stuff
++ (instancetype) copyWithZone:			(NSZone *)zone {	return [self instance]; }
++ (instancetype) mutableCopyWithZone:(NSZone *)zone {	return [self instance]; }
 @end
 
-
+*/
 
 NSC* Clr			(Color c) {
 	return 	c == ColorNone 	? nil 		 :	c == ColorRed 	? RED		 	:	c == ColorOrange 	? ORANGE		 	:
@@ -189,22 +241,33 @@ char** cArrayFromNSArray ( NSArray* array ){
 @end
 //  OR
 @implementation CALayer (NoHit)
-- (void)setNoHit:(BOOL)noHit 			{
-	if (noHit) [self setAssociatedValue:@(YES) forKey:@"noHit" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
-}
-- (BOOL)noHit 								{
-	NSN * nohit = [self associatedValueForKey:@"noHit"];
-	return nohit != nil && nohit.boolValue == YES ? YES : NO;
-}
-+ (void)load 								{
-	[$ swizzleMethod:@selector(containsPoint:) with:@selector(swizzleContainsPoint:) in:self.class];
-}
-- (BOOL)swizzleContainsPoint:(CGP)p {
-	BOOL fakedout =  [self noHit];
-	BOOL forReals = [self swizzleContainsPoint:p];
+@dynamic noHit;
 
-	return fakedout == YES ? NO : [self swizzleContainsPoint:p];// NO ? NO : forReals;
+//+ (void)load 								{
+//	[$ swizzleMethod:@selector(containsPoint:) with:@selector(swizzleContainsPoint:) in:self.class];
+//}
+- (void)setNoHit:(BOOL)noHit 			{
+
+	if (![self hasAssociatedValueForKey:@"noHit"])
+		[self setAssociatedValue:@(noHit) forKey:@"noHit" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
+		[self overrideSEL:@selector(containsPoint:) withBlock:(__bridge void*)^BOOL(id _self, NSP p)	{
+			if (!self.noHit) {
+				SEL sel = @selector(containsPoint:);
+				BOOL (*superIMP)(id, SEL, NSP) = [_self az_superForSelector:sel];
+ 				return superIMP(_self, sel, p);
+			}
+			else return NO;
+		}];
+	if (![self hasAssociatedValueForKey:@"noHit"])
+		[self setAssociatedValue:@(noHit) forKey:@"noHit" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
+	//		[self az_overrideSelector:@selector(containsPoint:) withBlock:^(]
 }
+- (BOOL)noHit 								{	return [self hasAssociatedValueForKey:@"noHit"];	}
+//- (BOOL)swizzleContainsPoint:(CGP)p {
+//	BOOL fakedout =  [self noHit];
+//	BOOL forReals = [self swizzleContainsPoint:p];
+//	return self.noHit ? NO :[self swizzleContainsPoint:p];// NO ? NO : forReals;
+//}
 @end
 
 
@@ -373,7 +436,7 @@ NSS * realHomeDirectory() {
 					  stringWithFileSystemRepresentation:home
 												  length:strlen(home)];
 	static NSString *realHomeDirectory = nil;
-	return realHomeDirectory = [[NSURL fileURLWithPath:path isDirectory:YES] path];
+	return realHomeDirectory = [(NSURL*)[NSURL fileURLWithPath:path isDirectory:YES] path];
 }
 BOOL powerBox() {
 	NSOpenPanel *openPanel = [[NSOpenPanel alloc] init];
@@ -684,15 +747,10 @@ static NSString *FScriptObjectTemplateForEncodedObjCType(const char *ptr)
 }
 
 //NSString * AZTypeOfValInBlock(NSString* (^)(void))blk {
-//
 //	const char* typecod
-//
 //}
-NSString * AZStringForTypeOfValue(id *obj) {
-
-		
-		NSString * s = AZToStringFromTypeAndValue((const char *)@encode(typeof(obj)), (void*)obj);
-	return s;		
+NSS * AZStringForTypeOfValue(id *obj) {
+	return (NSS*)AZToStringFromTypeAndValue((const char *)@encode(typeof(obj)), (void*)obj);
 }
 // Key to AZString
 NSString * AZToStringFromTypeAndValue(const char *typeCode, void *value) {
@@ -1227,15 +1285,10 @@ void QuietLog( NSString *fmt,...) {	va_list argList; va_start(argList, fmt);
 #import <stdio.h>
 
 extern void _NSSetLogCStringFunction(void (*)(const char *string, unsigned length, BOOL withSyslogBanner));
-
-static void PrintNSLogMessage(const char *string, unsigned length, BOOL withSyslogBanner) {
-	puts(string);
-}
+static void PrintNSLogMessage(const char *string, unsigned length, BOOL withSyslogBanner) {	puts(string);	}
 
 static void HackNSLog(void) __attribute__((constructor));
-static void HackNSLog(void) {
-	_NSSetLogCStringFunction(PrintNSLogMessage);
-}
+static void HackNSLog(void) {	_NSSetLogCStringFunction(PrintNSLogMessage);	}
 
 #endif
 
@@ -2565,4 +2618,98 @@ NSImage * reflectedView(NSView *view) {
 	CGImageRelease(reflectionCGImage);
 
 	return reflectionImage;
+}
+
+
+
+
+
+#include <stdbool.h>
+#include <sys/types.h>
+#include <limits.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <fcntl.h>
+
+#include <dirent.h>
+#include <sys/stat.h>
+#include <string.h>
+
+
+//int main(int argc, char **argv) {
+//	int status = EXIT_SUCCESS;
+//	for (int argi = 1; argi < argc; ++argi) {
+//		status = runforpath(argv[argi]);
+//	}
+//	return status;
+//}
+
+NSS* prettySizeOfDirAt(NSS *path) { return @(sizeOfDirectoryAt(path)).prettyBytes; 	}
+NSUI sizeOfDirectoryAt(NSS* path) {	return (NSUI)totaldiratpath(path.UTF8String);	}
+
+static int runforpath(const char *path) {
+	off_t size = totaldiratpath(path);
+	printf("%lld\t%s\n", size, path);
+	return size >= 0
+		? EXIT_SUCCESS
+		: EXIT_FAILURE;
+}
+
+static void logpath(unsigned depth, const char *name) {
+	for (unsigned d = 0; d < depth; ++d) fputc('\t', stdout);
+	printf("%s\n", name);
+}
+#define logpath(x, y) /**/
+
+static off_t totaldiratpath(const char *path) {
+	off_t size = 0;
+
+	DIR *stream = opendir(path);
+	if (!stream) {
+		perror("Couldn't open directory");
+		return -1;
+	}
+
+	int olddirfd = open(".", O_RDONLY);
+	chdir(path);
+
+	static unsigned depth = 0;
+	struct dirent entry;
+	struct dirent *result = NULL;
+	while ((readdir_r(stream, &entry, &result) == 0) && result) {
+		if (strcmp(entry.d_name, ".") == 0) continue;
+		if (strcmp(entry.d_name, "..") == 0) continue;
+		logpath(depth, entry.d_name);
+
+		switch (entry.d_type) {
+			case DT_DIR:
+				++depth;
+				logpath(depth, "-----");
+				size += totaldiratpath(entry.d_name);
+				logpath(depth, "-----");
+				--depth;
+				break;
+			default:
+				{
+					struct stat sb;
+					int stat_result = stat(entry.d_name, &sb);
+					if (stat_result == 0) {
+						size += sb.st_size;
+					} else {
+						perror("Could not stat");
+						char cwd[PATH_MAX];
+						fprintf(stderr, "%s/%s\n", getcwd(cwd, PATH_MAX), entry.d_name);
+					}
+				}
+				break;
+		}
+	}
+
+	int fchdir_result = fchdir(olddirfd);
+	if (fchdir_result != 0)
+		perror("Could not restore current directory");
+	closedir(stream);
+
+	return size;
 }

@@ -271,8 +271,13 @@ static const char * getPropertyType(objc_property_t property) 		{
 	return [phrases formatAsListWithPadding:truncation +3];
 }
 - (NSD*) propertiesPlease														{
-	return [self.propertyNames mapToDictionary:^id(id object) {
-		return [self valueForKey:object];
+	return [[[self.propertyNames cw_mapArray:^id(NSS* name) {
+ 		return [self hasPropertyForKVCKey:name] ? name : nil;
+	}] cw_mapArray:^id(id canGet) {
+		SEL getter = [self getterForPropertyNamed:canGet];
+		return [self canPerformSelector:getter] ? NSStringFromSelector(getter) : nil;
+	}] mapToDictionary:^id(id object) {
+		return   [self performSelectorWithoutWarnings:NSSelectorFromString(object)];
 	}];
 /*
 	NSMD *props = NSMD.new;

@@ -12,65 +12,90 @@
 		<key>AZPrompt.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>4</integer>
+			<integer>8</integer>
 		</dict>
 		<key>AZUmbrellaTestBed.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<true/>
 			<key>orderHint</key>
-			<integer>12</integer>
+			<integer>24</integer>
 		</dict>
 		<key>AtoZ Encyclopedia.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<true/>
 			<key>orderHint</key>
-			<integer>7</integer>
+			<integer>14</integer>
 		</dict>
 		<key>AtoZ Entitlement.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<true/>
 			<key>orderHint</key>
-			<integer>8</integer>
+			<integer>16</integer>
 		</dict>
 		<key>AtoZ.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<true/>
 			<key>orderHint</key>
-			<integer>5</integer>
+			<integer>10</integer>
+		</dict>
+		<key>AtoZAggregate.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>153</integer>
 		</dict>
 		<key>AtoZCLI.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>10</integer>
+			<integer>20</integer>
 		</dict>
 		<key>AtoZTestBed∞.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>11</integer>
+			<integer>22</integer>
 		</dict>
 		<key>AtoZTouch.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>9</integer>
+			<integer>18</integer>
 		</dict>
 		<key>AtoZUnitTests.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>116</integer>
+			<integer>124</integer>
+		</dict>
+		<key>BaseModel.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>151</integer>
 		</dict>
 		<key>DockBox.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>13</integer>
+			<integer>26</integer>
+		</dict>
+		<key>StaticLibTester.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>152</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>7B02A2C4172A852E00973A80</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7B0DA21817434FCA00535483</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7B0DA29E174352CC00535483</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -146,6 +171,11 @@
 			<true/>
 		</dict>
 		<key>7BDF568B1627695300041A42</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7BF1EC5A174A1DEE00699D38</key>
 		<dict>
 			<key>primary</key>
 			<true/>

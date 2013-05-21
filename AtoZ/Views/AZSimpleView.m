@@ -49,7 +49,7 @@
 - (void)drawRect:(NSRect)rect {
 
 	if (glossy) {
-//		DrawGlossGradient([[NSGraphicsContext currentContext]graphicsPort],self.backgroundColor, [self bounds]);
+//		DrawGlossGradient([AZGRAPHICSCTXgraphicsPort],self.backgroundColor, [self bounds]);
 		return;
 	}
 	else if (gradient) {
@@ -63,7 +63,7 @@
 	NSRectFill( [self bounds] );
 
 //		[[NSColor colorWithCalibratedRed:0.f green:0.5f blue:0.f alpha:0.5f] set];
-//		[[NSGraphicsContext currentContext]
+//		[AZGRAPHICSCTX
 //		 setCompositingOperation:NSCompositeClear];
 //		[[NSBezierPath bezierPathWithRect:rect] fill];
 //	}

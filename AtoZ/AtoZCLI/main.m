@@ -23,22 +23,26 @@ int main(int argc, char*argv[]){ @autoreleasepool {
 //	[application setDelegate:appDelegate];
 //	[application run];
 
- 	NSString* path = [@"/Volumes/2T/ServiceData/Developer/Xcode/DerivedData/AtoZ-hfqteqfcvjfinlajqwkydsqyzpiz/Build/Products/Debug/AtoZ.framework/Versions/A/Frameworks"
+ 	NSString* path = [@"/Library/Frameworks/AtoZ.framework/Versions/A/Frameworks"
 			stringByDeletingLastPathComponent].stringByDeletingLastPathComponent.stringByDeletingLastPathComponent;
 //	fprintf ( stderr, "Preflighting path: %s\n", path.UTF8String);
 
 	NSBundle *b = [NSBundle bundleWithPath:  path];
 	while (![b isLoaded]) {
-	
-	fprintf ( stderr, "Bundle: %s\n", b.debugDescription.UTF8String);
-	NSError *e;
-	BOOL okdok = [b preflightAndReturnError:&e];
-	if (okdok) {	[b load]; }	//NSLog(@"%@ %@  %@  %@",path, b, e, [b bundleIdentifier] ); 	}
-	else fprintf(stderr, "%s\n", e.debugDescription.UTF8String);
+		fprintf ( stderr, "While Bundle Not loaded...: %s\n", b.debugDescription.UTF8String);
+		NSError *e;
+		BOOL okdok = [b preflightAndReturnError:&e];
+		if (okdok) {	[b load]; }	//NSLog(@"%@ %@  %@  %@",path, b, e, [b bundleIdentifier] ); 	}
+		else fprintf(stderr, "Preflight reported error.. %s\n", e.debugDescription.UTF8String);
 	}
 	Class cli = NSClassFromString(@"AZCLI");
-	while(![[cli sharedInstance]boolForKey:@"finished"])
-		[NSRunLoop.currentRunLoop run];
+	id cliApp = [cli new];
+//	[NSApp run];
+
+	[NSApplication sharedApplication];
+	[NSApp run];
+//	[NSRunLoop.currentRunLoop runMode:NSDefaultRunLoopMode beforeDate:NSDate.distantFuture];
+//	while(![[cli sharedInstance]boolForKey:@"finished"])	[NSRunLoop.currentRunLoop run];
 	}
 	return EXIT_SUCCESS;
 }
