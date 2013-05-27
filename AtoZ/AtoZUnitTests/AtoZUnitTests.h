@@ -6,8 +6,17 @@
 //  Copyright (c) 2013 mrgray.com, inc. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+//#import <SenTestingKit/SenTestingKit.h>
 
-@interface AtoZUnitTests : SenTestCase
+@interface NSObject (UnitTests)
+
+//+ (void) runInstanceTests;
+//+ (void) runClassTests;
+
+- (NSArray*) tests;
+
+@end
+
+@interface AtoZUnitTests : NSObject
 
 @end

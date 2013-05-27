@@ -4,19 +4,11 @@
 //
 //  Created by Benjamin Schüttler on 28.09.09.
 //  Copyright 2011 Rogue Coding. All rights reserved.
-//
 
 #import "AZRect.h"
-
-//#import "AtoZ.h"
-
-
 @implementation AZEdge
-
-
 + (INST) rect:(AZRect*)r along:(AZRect*)outer inside:(BOOL)isinide {	
-	AZEdge *n = self.new; 
-//	n.align AZClosestCorner(outer, isinide)
+	AZEdge *n = self.new; 			//	n.align AZClosestCorner(outer, isinide)
 	return n;
 }
 //@property AZA alignment;
@@ -64,26 +56,47 @@ static AZRect *screnFrameUnderMenu = nil;
 //	if  ( test < minDist) { 	minDist = test; e = AZAlignTop; }
 //	return  e;
 //}
-//- (CGF) maxX { return self.origin.x + self.width; }
-//- (CGF) maxY { return self.origin.y + self.height; }
-//- (CGF) minX { return self.origin.x;	}
-//- (CGF) minY { return self.origin.y; 	}
-//- (NSP) apex {  return NSMakePoint(self.width, self.height); }
 
-+ (AZRect*) rect {
-//  return [[self alloc] init];
+-  (CGF) leftEdge 				{	return [self rect].origin.x ;	}
+- (void) setLeftEdge: (CGF)t 	{ NSR frame = self.rect ;	frame.origin.x = t ;	[self setRect:frame] ;	}
+-  (CGF) rightEdge 				{	return [self rect].origin.x + [self width] ;	}
+- (void) setRightEdge:(CGF)t 	{ NSR frame = self.rect ;	frame.origin.x = t - [self width] ;	[self setRect:frame];	}
+-  (CGF) centerX   				{	return ([self rect].origin.x + [self width]/2) ;	}
+- (void) setCenterX:  (CGF)t 	{ CGF center = self.centerX;	CGF adjustment = t - center ; self.minX += adjustment;	}
+-  (CGF) bottom 					{	return self.rect.origin.y ;	}
+- (void) setBottom:	 (CGF)t 	{ NSRect frame = self.rect ;	frame.origin.y = t ;	[self setRect:frame] ;	}
+-  (CGF) top 						{		return self.rect.origin.y + [self height] ;	}
+- (void) setTop:		 (CGF)t 	{	NSRect frame = self.rect ;	frame.origin.y = t - [self height] ;	[self setRect:frame] ;	}
+-  (CGF) centerY 					{	return (self.rect.origin.y + [self height]/2) ;}
+- (void) setCenterY:	 (CGF)t 	{	self.minY += (t - self.centerY);		}
+-  (CGF) width 					{	return self.rect.size.width ;		}
+- (void) setWidth:	 (CGF)t 	{	NSR frame = self.rect; frame.size.width = t; self.rect = frame;	}
+-  (CGF) height 					{	return self.rect.size.height ;	}
+- (void) setHeight:	 (CGF)t 	{self.rect = AZRectExceptHigh(self.rect, t);}
+-  (CGF) originX					{
+    return self.rect.origin.x;
+}
+- (void) setOriginX:	 (CGF)o 	{ self.minX = o; }
+-  (CGF) originY 					{
+    return self.rect.origin.y;
+}
+- (void) setOriginY:	 (CGF)o 	{    self.minY = o; }
+-  (CGF) maxX 						{ return self.origin.x + self.width; }
+- (void) setMaxX:		 (CGF)m	{ self.origin = (NSP) {m - self.width, self.minY  }; }
+-  (CGF) maxY 						{ return self.origin.y + self.height; }
+- (void) setMaxY:     (CGF)m 	{ self.origin = (NSP) {self.minX, m - self.height }; }
+-  (CGF) minX 						{ return self.origin.x;	}
+- (void) setMinX:		 (CGF)m 	{ self.origin = (NSP) {m, self.minY }; }
+-  (CGF) minY 						{ return self.origin.y; 	}
+- (void) setMinY:		 (CGF)m 	{ self.origin = (NSP) {self.minX, m }; }
+-  (NSP) apex 						{  return NSMakePoint(self.width, self.height); }
 
-	return self.new;
+- (void) setApex:(NSP)p move1Scale2:(NSN*)n {
+//	if ([n isEqualToNumber:1]) 
 }
 
-+ (AZRect*) rect:(NSR)frame oriented:(AZPOS)pos {
-	id selfnew = self.new;
-	[selfnew setRect:frame];
-	[(AZRect*)selfnew setOrient:pos];
-	return selfnew;
-}
-
-
++ (AZRect*) rect { return self.new;	}
++ (AZRect*) rect:(NSR)frame oriented:(AZPOS)pos { AZRect* n = [self rectWithRect:frame]; n.orient = pos; return n; }
 + (AZRect*) rectOf:(id) object {
 	if (object == nil) return nil;
 	AZRect *re = [[AZRect alloc] init];

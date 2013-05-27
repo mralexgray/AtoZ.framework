@@ -30,6 +30,9 @@
 @end
 
 @interface NSBezierPath (AtoZ)
+ - (void)customHorizontalFillWithCallbacks:(CGFunctionCallbacks)functionCallbacks firstColor:(NSColor *)firstColor secondColor:(NSColor *)secondColor;
+ - (void)linearGradientFillWithStartColor:(NSColor *)startColor endColor:(NSColor *)endColor;
+ - (void)bilinearGradientFillWithOuterColor:(NSColor *)outerColor innerColor:(NSColor *)innerColor;
 
 @property (nonatomic, assign) CGF width;
 @property (nonatomic, assign) CGF height;

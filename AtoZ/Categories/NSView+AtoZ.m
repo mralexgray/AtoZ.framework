@@ -15,6 +15,46 @@
 //+ (void)runEndBlock:(void (^)(void))completionBlock;
 //@end
 
+NSRect frameMovedFromPointToPoint(NSRect frame, NSPoint point1, NSPoint point2) {
+	frame.origin.x += point2.x - point1.x;
+	frame.origin.y += point2.y - point1.y;
+	return frame;
+}
+NSRect frameResizedFromPointToPoint(NSRect frame, NSPoint point1, NSPoint point2, int quadrant) {
+	int xMod = (quadrant == 3 || quadrant == 4) ? -1 : 1;
+	int yMod = (quadrant == 2 || quadrant == 3) ? -1 : 1;
+  
+	
+	frame.size.width += xMod * (point2.x - point1.x);
+	frame.size.height += yMod * (point2.y - point1.y);
+	
+	if (xMod < 0) frame.origin.x -= xMod * (point2.x - point1.x);
+	if (yMod < 0) frame.origin.y -= yMod * (point2.y - point1.y);
+	return frame; 
+}
+
+
+@implementation NSView (MoveAndResize)
+
+- (void)setNewFrameFromMouseDrag:(NSRect)newFrame {
+  [[self window] setFrame:newFrame display:YES];
+}
+
+
+- (void)trackMouseDragsForEvent:(NSEvent *)theEvent clickType:(int)clickType{
+  NSPoint point1 = NSEvent.mouseLocation;
+		NSRect frame = self.window.frame;		
+		NSEvent *anotherEvent;
+		while ((anotherEvent = [self.window nextEventMatchingMask:NSLeftMouseUpMask | NSLeftMouseDraggedMask])
+           && [anotherEvent type] != NSLeftMouseUp) {
+			NSRect newFrame;
+			NSPoint point2 = NSEvent.mouseLocation;
+			newFrame = clickType ? 	frameResizedFromPointToPoint(frame, point1, point2, clickType):
+											frameMovedFromPointToPoint(frame, point1, point2);
+ 	     [self setNewFrameFromMouseDrag:newFrame];
+		}
+}
+@end
 
 NSTimeInterval AZDefaultAnimationDuration = -1; // -1 makes the system provide a default duration
 NSAnimationBlockingMode AZDefaultAnimationBlockingMode = NSAnimationNonblocking;
@@ -98,24 +138,9 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 	return [self.class previewOfClass:self.class];
 }
 +(id) previewOfClass:(Class)klass {	
-		
-	NSW*window = nil;
-	window = [NSW.appWindows objectWithValue:AZCLSSTR forKey:@"title"]; //	NSEXPQUOTE(self.class)
-	if (!window) {
-		NSR r  = AZRectFromDim(200);
-		window = [NSW.alloc initWithContentRect:r 
-											   styleMask:NSBorderlessWindowMask|NSResizableWindowMask 
-				 								  backing:NSBackingStoreBuffered defer:NO];
-		[window setTitle:											 AZCLSSTR];		// NSEXPQUOTE(self.class)];
-		[window setContentView:[klass.alloc initWithFrame:r]];
-		[window setBackgroundColor:        						 CLEAR];
-		[window setOpaque:				 		  					    NO]; 
-		[window setSticksToEdge:		 		  						YES];
-		[AZNOTCENTER observeName:NSApplicationDidBecomeActiveNotification usingBlock:^(NSNOT*n) {	
-			[NSApp activateIgnoringOtherApps:YES];	[window makeKeyAndOrderFront:nil]; 		     
-		}];
-	}
-	return [window makeKeyAndOrderFront: nil], window;
+
+	AZWindowTab *window;
+	return [window = [AZWindowTab tabWithViewClass:klass] makeKeyAndOrderFront: nil], window;
 }
 
 

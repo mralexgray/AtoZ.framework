@@ -163,6 +163,17 @@ NSString *stringForBrightness(CGFloat brightness)
 @end
 
 @implementation NSString (AtoZ)
+
+- (void) openInTextMate {
+
+//	NSS* launchPath = [AZFILEMANAGER fileExistsAtPath:self] ? self : ^{
+//		NSS* s = [AtoZ tempFilePathWithExtension:@"txt"];
+//		[self writeToFile:s atomically:YES encoding:NSUTF8StringEncoding error:nil];
+//		return s;
+//	}();
+	[NSTask launchedTaskWithLaunchPath:@"/usr/bin/mate" arguments:@[self]];//@"-a", @"TextMate", launchPath]];
+	//		[AZWORKSPACE openFile:p withApplication:@"Preview"];
+}
 //@dynamic range;
 
 - (void) setSubRange:(NSRNG) rng { NSLog(@"setting range: %@", NSStringFromRange(rng));      

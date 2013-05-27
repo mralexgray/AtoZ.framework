@@ -25,7 +25,7 @@
 	[self setAssociatedValue:value forKey:key policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
 }
 + (id)valueForKey:(NSS*)key  {
-	return [(NSO*)self associatedValueForKey:key];
+	return [(NSO*)self associatedValueForKey:(__bridge const void *)(key)];
 }
 @end
 
@@ -194,14 +194,14 @@ static id addMethodTrampoline(id self, SEL _cmd) {
 }
 
 - (BOOL)hasAssociatedValueForKey:(NSS *)string {
-	return [self associatedValueForKey:string] != nil;
+	return [self associatedValueForKey:(__bridge const void *)string] != nil;
 }
 
 - (id)associatedValueForKey:(NSS *)key orSetTo:(id)anObject policy:(objc_AssociationPolicy)policy {
 	return [self hasAssociatedValueForKey:key]
-	? [self associatedValueForKey:key]
+	? [self associatedValueForKey:(__bridge const void *)(key)]
 	: ^{    [self setAssociatedValue:anObject forKey:key policy:policy];
-		return [self associatedValueForKey:key];        } ();
+		return [self associatedValueForKey:(__bridge const void *)(key)];        } ();
 }
 
 @end

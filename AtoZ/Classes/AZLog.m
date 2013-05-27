@@ -187,25 +187,19 @@ void WEBLOG (id format, ...) {
 }
 
 //- (const char*) ttyClr {
-//
 //	BOOL inTTY =  [@(isatty(STDERR_FILENO))boolValue];
 //	if (inTTY) return s;
 //	NSArray* cs = @[@31,@32,@33,@34,@35,@36,@37];
 //	NSArray* bg = @[@40];//,@41,@42,@43,@44,@45,@46,@47];
-//
 //	NSNumber* num = cs[arc4random() % 7 ];
 //	NSNumber* nub = bg[arc4random() % 1 ];
 //	NSString *let = [num stringValue];
 //	NSString *blet = [nub stringValue];
-//
 //	return [NSString stringWithFormat:@"\033[%@;%@m%@\033[0m - %@", let,blet, s, num];
 //}
 
 
-// BLINKING
-// "\033[38;5mWhatever\033[0m"
-
-
+// BLINKING	 "\033[38;5mWhatever\033[0m"
 - (const char*) cchar {  return self.clr.UTF8String; }
 
 - (NSS *)colorLogString {
@@ -213,7 +207,7 @@ void WEBLOG (id format, ...) {
 	NSA *fgs = [self hasAssociatedValueForKey:@"logFG"] ? [self associatedValueForKey:@"logFG"] : nil;
    NSA *bgs = [self hasAssociatedValueForKey:@"logBG"] ? [self associatedValueForKey:@"logBG"] : nil;
 	if (!fgs && !bgs) return self;
-   NSS *colored = [NSS stringWithString:self.copy];
+   NSS *colored = self.copy;
 	if ((( fgs && fgs.count == 3) || (bgs && bgs.count ==3) ) && logEnv == LogEnvXcodeColor) {
 		if (fgs && fgs.count ==3) {
 			  colored = $(XCODE_COLORS_ESCAPE @"fg%i,%i,%i;%@" XCODE_COLORS_RESET,
@@ -232,6 +226,7 @@ void WEBLOG (id format, ...) {
 		return [NSString stringWithFormat:@"\033[%@;%@m%@\033[0m", [cs[arc4random() % 7 ]stringValue],
 																					  [bg[arc4random() % 3 ]stringValue], self];
 	}
+	else return self;
 }
 @end
 

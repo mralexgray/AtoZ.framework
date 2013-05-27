@@ -2,7 +2,21 @@
 #import "NSString+AtoZ.h"
 #import "AtoZ.h"
 
-JREnumDefine(AZQuad);	JREnumDefine(Color);	JROptionsDefine(AZAlign);	JREnumDefine(AZPosition);
+JREnumDefine(AZQuad);	JREnumDefine(Color);	JROptionsDefine(AZAlign);	//JREnumDefine(AZPosition);
+
+
+NSString * runCommand(NSString* c) {
+	NSS* outP;	FILE *read_fp;	char buffer[BUFSIZ + 1];	int chars_read;
+	memset(buffer, '\0', sizeof(buffer));
+	read_fp = popen(c.UTF8String, "r");
+	if (read_fp != NULL) {
+		chars_read = fread(buffer, sizeof(char), BUFSIZ, read_fp);
+	   		if (chars_read > 0) outP = $UTF8(buffer);
+		pclose(read_fp);
+	}	
+	return outP;
+}
+
 
 //Subclassible thread-safe ARC singleton  Copyright Kevin Lawler. Released under ISC.
 @implementation AZSingleton
@@ -752,6 +766,7 @@ static NSString *FScriptObjectTemplateForEncodedObjCType(const char *ptr)
 NSS * AZStringForTypeOfValue(id *obj) {
 	return (NSS*)AZToStringFromTypeAndValue((const char *)@encode(typeof(obj)), (void*)obj);
 }
+#define AZWindowPositionToString AZAlignToString
 // Key to AZString
 NSString * AZToStringFromTypeAndValue(const char *typeCode, void *value) {
 				//  Compare
@@ -760,7 +775,7 @@ NSString * AZToStringFromTypeAndValue(const char *typeCode, void *value) {
 		   : SameChar( typeCode, @encode(  NSSZ )) ? NSStringFromSize(*(NSSize *)value)
 		   : SameChar( typeCode, @encode(   NSR )) ? AZStringFromRect(*(NSRect *)value)
 		   : SameChar( typeCode, @encode(  BOOL )) ? StringFromBOOL(*(BOOL *)value)
-		   : SameChar( typeCode, @encode( AZPOS )) ? AZWindowPositionToString(*(AZWindowPosition *)value)
+//		   : SameChar( typeCode, @encode( AZPOS )) ? AZWindowPositionToString(*(AZWindowPosition *)value)
 		   : SameChar( typeCode, @encode(   CGF )) ? $(@"%f",					   *((CGF *)value))
 		   : SameChar( typeCode, @encode(  NSUI )) ? $(@"%lu",					  *((NSUI *)value))
 		   : SameChar( typeCode, @encode(   int )) ? $(@"%d",					   *((int *)value))

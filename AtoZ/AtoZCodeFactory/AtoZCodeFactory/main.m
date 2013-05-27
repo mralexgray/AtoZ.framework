@@ -1,72 +1,111 @@
 
-//   							 AtoZCodeFactory   main.m             
-
-@interface 							 PlistNode : NSObject	@property id value, key, expanded; @property (nonatomic) NSMutableArray * children;	@end
-@implementation 					 PlistNode - (NSMutableArray*)children	{ return _children = _children ?: NSMutableArray.new; }																			@end
-
-@interface 			  DefinitionController : NSObject <NSOutlineViewDataSource, NSOutlineViewDelegate, NSApplicationDelegate, NSTextViewDelegate>
-@property 				      NSOutlineView * nodeView;	
-@property 				      NSSearchField * searchField;
-@property 				         NSUInteger   matched;
-@property  (readonly) 		 NSDictionary * expansions;
-@property  (readonly) 			  NSString * generatedHeader;
-@property  (readonly) 				NSArray * allKeywords,*allReplacements;
-@property (nonatomic) 			  NSString * plistPath,  *generatedHeaderPath;
-@property (nonatomic)           NSWindow * window;
-@property (nonatomic) 		    PlistNode * root;
+#import "AtoZBundleProtocol.h"		/** AtoZCodeFactory *//* main.m */
+typedef void(^allRootsBlock)(AZNode*);
+typedef void(^allReplacementsBlock)(AZNode*);
+typedef void(^allKeysBlock)(AZNode*);
+@interface AZExpandingOutlineView : NSOutlineView 
+@end
+@implementation AZExpandingOutlineView
+//- (void) viewDidMoveToSuperview {
+//	[self.enclosingScrollView.documentView
+//}
 
 @end
-@implementation DefinitionController
--             (id) outlineView:(NSOutlineView*)v 
-	  objectValueForTableColumn:(NSTableColumn*)c 							 byItem:(id)x	{	
-	  
-	return [c.identifier isEqualToString:@"value"] ? ((PlistNode*)x).children.count ? nil : ((PlistNode*)x).value:((PlistNode*)x).key;
+
+@implementation AZNode - (NSMutableArray*)children	{ return _children = _children ?: NSMutableArray.new; }	@end
+
+@interface 		  DefinitionController : NSObject <NSOutlineViewDataSource, NSOutlineViewDelegate, 
+																    NSApplicationDelegate, NSTextViewDelegate>
+@property 			         NSUInteger   matched;
+@property	   NSOutlineView * nodeView;	
+@property			      NSSearchField * searchField;
+@property (nonatomic) 	     	 AZNode * root;
+@property (nonatomic)        NSWindow * window;
+@property (nonatomic) 	 NSDictionary * expansions;
+@property (nonatomic)		  NSString * generatedHeader;
+@property 				  NSMutableArray * allReplacements,
+												  * allKeywords, 
+												  * allCats;
+@property 						  NSString * generatedHeaderPath, 
+												  * plistPath;
+@property (readonly) allKeysBlock keyEnumeratorBlock;
+@property (readonly) allRootsBlock rootEnumeratorBlock;
+@property (readonly) allReplacementsBlock replacementsyEnumeratorBlock;
+@end
+
+
+@implementation  DefinitionController
+
+-             (id) outlineView:(NSOutlineView*)v 																/* Outline View Datasource */
+	  objectValueForTableColumn:(NSTableColumn*)c byItem:(id)x								{	return [c.identifier isEqualToString:@"value"] ? ((AZNode*)x).children.count ? nil 
+		/* returns child count in "Value", ie. columns 2, or nil, for root, akak "key" columns" */												  : ((AZNode*)x).value:((AZNode*)x).key;
 }
-- 				(BOOL) outlineView:(NSOutlineView*)v 			 		  isGroupItem:(id)x 	{ return [(PlistNode*)x value] == nil; }
--           (BOOL) outlineView:(NSOutlineView*)v 		      isItemExpandable:(id)x	{ return !x ?   : [[x children]count];	}
+- 				(BOOL) outlineView:(NSOutlineView*)v 			 		  isGroupItem:(id)x 	{ return [(AZNode*)x value] == nil; /* if value is nil, it must be a key, aka a root */ }
+-           (BOOL) outlineView:(NSOutlineView*)v 		      isItemExpandable:(id)x	{ return !x ?: [[x children]count];	/* root items (nil) exp., also if there are childrenseses */ }
 -      (NSInteger) outlineView:(NSOutlineView*)v      numberOfChildrenOfItem:(id)x	{ NSInteger ct = !x ? 1 : [[x children]count];	
 																																				  return NSLog(@"Item: %@ children ct: %ld", x, ct),ct;
 }
-- 			     (id) outlineView:(NSOutlineView*)v child:(NSInteger)idx ofItem:(id)x	{	return !x ? self.root : [x children][idx];	
-}  
-//-  			(BOOL) outlineView:(NSOutlineView*)v shouldExpandItem:			  (id)x  {  return  ([((PlistNode*)x).children count]);}//expanded boolValue] ?: x == _root; }
-//
-//	if (![_searchField.stringValue isEqualToString:@""]) return  YES; 
-//	NSString *key = [(PlistNode*)x key];
-//	NSUserDefaults *d = NSUserDefaults.standardUserDefaults;
-//	return  [d objectForKey:key]  ? [d boolForKey:key] : YES; 
+- 			     (id) outlineView:(NSOutlineView*)v child:(NSInteger)idx ofItem:(id)x	{	return !x ? self.root : [x children][idx];	}  
 
--           (void) applicationWillFinishLaunching:	(NSNotification*)n	{ [self.window makeKeyAndOrderFront:self];	}
--				(void) outlineViewItemDidCollapse:		(NSNotification*)n 	{	if (![n.object isKindOfClass:PlistNode.class]) return;
-	[NSUserDefaults.standardUserDefaults setBool:YES forKey:[(PlistNode*)n.object key]];	
-}
--           (void) controlTextDidChange:				(NSNotification*)n 	{ 	
+-  (NSDictionary*) expansions 						{	NSString *e = nil;	NSPropertyListFormat fmt;
+	return _expansions = _expansions ?: [NSPropertyListSerialization propertyListFromData:[NSData dataWithContentsOfFile:_plistPath] mutabilityOption:NSPropertyListMutableContainersAndLeaves format:&fmt errorDescription:&e];
+} 															/* parse the plist */
+-        (AZNode*) root 								{ 
 
-	static BOOL isCompleting; NSLog(@"%@", n.userInfo);
-	static NSString *last = nil; 
-	if (!isCompleting && [[(NSTextView*)n.userInfo[@"NSFieldEditor"]  string]length] > last.length) { 
-		isCompleting = YES;
-		[n.userInfo[@"NSFieldEditor"] complete:nil];	
-		isCompleting = NO;
-	}
-	last = _searchField.stringValue;
+	return _root = _root ?: ^{ _root = AZNode.new; _root.key = @"Expansions"; __block AZNode *cat, *def;
+		_allKeywords = NSMutableArray.new; _allReplacements = NSMutableArray.new; _allCats = NSMutableArray.new;
+		return [self.expansions enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+			[_root.children addObject:cat = AZNode.new]; cat.key = key;  [_allCats addObject:key];
+			[obj enumerateKeysAndObjectsUsingBlock:^(NSString *macro,NSString *expansion, BOOL*s){ 
+				[cat.children 		addObject:def = AZNode.new]; 
+				[_allKeywords 		addObject:def.key = macro]; 
+				[_allReplacements addObject:def.value = expansion];	
+			}];
+//			if (cat.children.count) { if (_searchField.stringValue) cat.expanded = @YES; [_root.children addObject:cat]; }
+		}], _root;
+	}();
 }
-- 		  (NSArray*) allKeywords 						{  NSMutableArray *keys = NSMutableArray.new; 
-	[[self.expansions allValues] enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
-		[obj  enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-			[keys addObject:key];
+- (NSDictionary*) filteredRoot {
+	/*
+	NSString*w; _matched = 0; w = [w = [_searchField stringValue] isEqualToString:@""] ? nil : w; / *builds root, and matches searches simultaneously * /
+		if (w && (macro || expansion)) / * if we have a search string, and either macro, or expansion exists.. parse * /
+			if ([macro rangeOfString:w].location == NSNotFound && [expansion rangeOfString:w].location == NSNotFound) return; / *not found, don't add * /
+			self.matched = _matched+1;
+*/return  NSDictionary.new;
+}
+-  	      (void) addItem:(id)x						{	AZNode *item; 	[item.children addObject: item = [_nodeView itemAtRow:_nodeView.selectedRow] ?: self.root];
+																							[_nodeView reloadItem:item reloadChildren:YES];
+}												
+-      (NSString*) generatedHeader					{
+
+	__block NSString *define, *definition; __block NSUInteger pad, longest; __block NSMutableArray *keys;
+	__block NSMutableString *definer = @"#import <QuartzCore/QuartzCore.h>\n".mutableCopy;
+	[self.root.children enumerateObjectsUsingBlock:^(AZNode* category,NSUInteger idx,BOOL *stop) {
+		[definer appendFormat:@"\n#pragma mark - %@\n\n", category.key];
+		[keys = [[category.children valueForKeyPath:@"key"]mutableCopy] sortUsingComparator:^NSComparisonResult(NSString *s1, NSString *s2) {
+			return 	s1.length < s2.length ? (NSComparisonResult) NSOrderedDescending :
+						s1.length > s2.length ? (NSComparisonResult) NSOrderedAscending  : (NSComparisonResult)NSOrderedSame;
 		}];
-	}];
-	return keys;
-}
-- 		  (NSArray*) allReplacements 					{  NSMutableArray *keys = NSMutableArray.new; 
-	[[self.expansions allValues] enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
-		[obj enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-			[keys addObject:obj];
+		longest = [keys[0] length];
+		[category.children enumerateObjectsUsingBlock:^(AZNode *defineNode, NSUInteger idx, BOOL *stop) {
+			if (!defineNode.key || [defineNode.key isEqualToString:@"Inactive"]) return; else definition = defineNode.key;
+			pad 		= MAX(8, (NSInteger)(longest - definition.length + 8));
+			NSLog(@"def: %@  pad: %lu",definition, pad);
+			define	= [@"#define" stringByPaddingToLength:pad withString:@" " startingAtIndex:0];
+			[definer appendString:[define stringByAppendingFormat:@"%@ %@\n", definition, defineNode.value ?: @""]];
 		}];
-	}];
-	return keys;
+	}];		
+	return definer;
 }
+//- 		  (NSArray*) allKeywords 						{ return NSArray.new;
+//// 
+//	[self.expansions.allValues enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
+//		[obj  enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {	[keys addObject:key]; }];	}], keys;
+//}
+//- 		  (NSArray*) allReplacements 					{  					NSMutableArray *values = NSMutableArray.new; return 
+//	[self.expansions.allValues enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
+//		[obj enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {	[values addObject:obj]; }];	}], values;
+//}
 -      (NSWindow*) window								{
 
 	NSInteger wMask 	= NSTitledWindowMask|NSResizableWindowMask|NSClosableWindowMask;
@@ -107,67 +146,33 @@
 	[_window makeFirstResponder:_nodeView];
 	return _window; 
 }
--  (NSDictionary*) expansions 						{	
-	NSData* data = [NSData dataWithContentsOfFile:_plistPath];	NSString *errorDesc = nil;	NSPropertyListFormat format;
-	return (NSDictionary*)[NSPropertyListSerialization propertyListFromData:data    mutabilityOption:NSPropertyListMutableContainersAndLeaves
-																									format:&format errorDescription:&errorDesc];
-}
--     (PlistNode*) root 								{ _root = PlistNode.new; _root.key = @"Expansions"; __block PlistNode *cat, *def;  NSString*w = [_searchField stringValue]; w = [w isEqualToString:@""] ? nil : w;
-																	self.matched = 0;  
-	[self.expansions enumerateKeysAndObjectsUsingBlock:^(id key,id obj,BOOL*stop){ cat = PlistNode.new; cat.key = key;
-		[obj enumerateKeysAndObjectsUsingBlock:^(NSString* macro,NSString *expand,BOOL*stop){ 
-			if (w!= nil && (macro!=nil || expand!=nil))	if ([macro rangeOfString:w].location == NSNotFound && [expand rangeOfString:w].location == NSNotFound) return;
-			[cat.children addObject:def = PlistNode.new]; def.key = macro; def.value = expand;	self.matched = _matched +1;
-		}];
-		if (cat.children.count) { if (w) cat.expanded = @YES; [_root.children addObject:cat]; }
-	}];
-	return _root;
-}
--  	      (void) addItem:(id)x							{	PlistNode *item; 	[item.children addObject: item = [_nodeView itemAtRow:_nodeView.selectedRow] ?: self.root];
-																							[_nodeView reloadItem:item reloadChildren:YES];
-}												
--      (NSString*) generatedHeader 						{
+-				(void) outlineViewItemDidCollapse:		(NSNotification*)n 	{	if (![n.object isKindOfClass:AZNode.class]) return;
+	[NSUserDefaults.standardUserDefaults setBool:YES forKey:[(AZNode*)n.object key]];	
+} 							/* saving collapse state */
+-           (void) controlTextDidChange:				(NSNotification*)n 	{ 	
 
-	__block NSString *define, *definition; __block NSUInteger pad, longest; __block NSMutableArray *keys;
-	__block NSMutableString *definer = @"#import <QuartzCore/QuartzCore.h>\n".mutableCopy;
-	[self.root.children enumerateObjectsUsingBlock:^(PlistNode* category,NSUInteger idx,BOOL *stop) {
-		[definer appendFormat:@"\n#pragma mark - %@\n\n", category.key];
-		[keys = [[category.children valueForKeyPath:@"key"]mutableCopy] sortUsingComparator:^NSComparisonResult(NSString *s1, NSString *s2) {
-			return 	s1.length < s2.length ? (NSComparisonResult) NSOrderedDescending :
-						s1.length > s2.length ? (NSComparisonResult) NSOrderedAscending  : (NSComparisonResult)NSOrderedSame;
-		}];
-		longest = [keys[0] length];
-		[category.children enumerateObjectsUsingBlock:^(PlistNode *defineNode, NSUInteger idx, BOOL *stop) {
-			if (!defineNode.key || [defineNode.key isEqualToString:@"Inactive"]) return; else definition = defineNode.key;
-			pad 		= MAX(8, (NSInteger)(longest - definition.length + 8));
-			NSLog(@"def: %@  pad: %lu",definition, pad);
-			define	= [@"#define" stringByPaddingToLength:pad withString:@" " startingAtIndex:0];
-			[definer appendString:[define stringByAppendingFormat:@"%@ %@\n", definition, defineNode.value ?: @""]];
-		}];
-	}];		
-	return definer;
+	static BOOL isCompleting; NSLog(@"%@", n.userInfo); static NSString *last = nil; 
+	if (!isCompleting && [[(NSTextView*)n.userInfo[@"NSFieldEditor"]  string]length] > last.length) { isCompleting = YES; [n.userInfo[@"NSFieldEditor"] complete:nil]; isCompleting = NO; }
+	last = _searchField.stringValue;
 }
-- (NSArray*) control: (NSControl*)c 
-				textView:(NSTextView*)tv 
-		   completions:   (NSArray*)w 
- forPartialWordRange:    (NSRange)r 
- indexOfSelectedItem: (NSInteger*)i 					{
+-           (void) applicationWillFinishLaunching:	(NSNotification*)n	{ [self.window makeKeyAndOrderFront:self];	}
+
+- (NSArray*) control: (NSControl*)c textView:(NSTextView*)tv completions:(NSArray*)w forPartialWordRange:(NSRange)r indexOfSelectedItem:(NSInteger*)i	{
 	
-
-		NSLog(@"annoying method called");
+	NSLog(@"annoying method called");
 	//	Use this method to override NSFieldEditor's default matches (which is a much bigger	list of keywords).  
 	NSString *partial 		= [_searchField.stringValue substringWithRange:r];
+	NSAssert(self.allKeywords.count == self.allReplacements.count, @"all keywords should match count of replacements?");
    NSArray *keywords 		= [self.allKeywords arrayByAddingObjectsFromArray:self.allReplacements];
    __block NSMutableArray *matches = NSMutableArray.new;
     // find any match in our keyword array against what was typed -
-   [keywords enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+   [keywords enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) { NSLog(@"enumerating class: %@", NSStringFromClass([obj class])); if (![obj isKindOfClass:[NSString class]]) return;
 		[obj rangeOfString:partial options:NSAnchoredSearch|NSCaseInsensitiveSearch range:NSMakeRange(0,[obj length] )].location != NSNotFound ? [matches addObject:obj] : nil;
 	}];
 	[matches sortUsingSelector:@selector(compare:)];
    return matches;
 }
-- (void) search:(id) sender {
-	static NSString *lastSearch = nil; 
+- (void) search:(id) sender {	static NSString *lastSearch = nil; 
 	if (![lastSearch isEqualToString:[sender stringValue]]) { [self root];  [_nodeView reloadData]; [_nodeView expandItem:nil expandChildren:YES]; lastSearch = [sender stringValue]; }
 }
 @end
@@ -195,6 +200,7 @@ int main(int argc, const char * argv[])	{
 		void(^justProcessHeaders)(void) = ^{  v.plistPath = plistPath; v.generatedHeaderPath = generatedHeaderPath;
 			NSLog(@"root: %@", v.root);
 			[v.generatedHeader writeToFile:v.generatedHeaderPath atomically:YES encoding:NSUTF8StringEncoding error:nil];
+			playSound();
 		};		
 		BOOL(^hasFileChanged)(void) = ^BOOL{
 		
@@ -227,6 +233,9 @@ int main(int argc, const char * argv[])	{
 	return 0;
 }
 
+//-  			(BOOL) outlineView:(NSOutlineView*)v shouldExpandItem:			  (id)x  {  return  ([((AZNode*)x).children count]);}//expanded boolValue] ?: x == _root; }
+//	if (![_searchField.stringValue isEqualToString:@""]) return  YES;	NSString *key = [(AZNode*)x key]; NSUserDefaults *d = NSUserDefaults.standardUserDefaults;
+//	return  [d objectForKey:key]  ? [d boolForKey:key] : YES; 
 
 //		 [NSString stringWithFormat:@"%@/../Include/%@",srcRoot, @"AZGenerated.h"]
 

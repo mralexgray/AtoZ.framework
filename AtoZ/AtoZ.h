@@ -76,8 +76,13 @@ AZWORKSPACE:
 #import <TwUI/TUIKit.h>
 #import <Zangetsu/Zangetsu.h>
 #import <AtoZBezierPath/AtoZBezierPath.h>
-#import <AtoZAppKit/BGHUDAppKit.h>
+#import <AtoZAppKit/AtoZAppKit.h>
 #import <AIUtilities/AIUtilities.h>
+
+#import "objswitch.h"
+#import "SelectorMatcher.h"
+#import "ObjectMatcher.h"
+
 
 #import "JREnum.h"
 #import "AtoZUmbrella.h"
@@ -123,6 +128,7 @@ AZWORKSPACE:
 #import "HRCoder.h"
 #import "BaseModel.h"
 #import "BaseModel+AtoZ.h"
+#import "NullSafe.h"
 
 #import "SDToolkit.h"
 #import "MAKVONotificationCenter.h"
@@ -276,6 +282,7 @@ AZWORKSPACE:
 
 
 /* WINDOWS */
+#import "AZWindowTab.h"
 #import "AZAttachedWindow.h"
 #import "AZBorderlessResizeWindow.h"
 #import "AZSemiResponderWindow.h"

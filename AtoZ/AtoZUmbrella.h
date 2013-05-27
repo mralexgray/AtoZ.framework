@@ -343,10 +343,10 @@ typedef struct {	CAConstraintAttribute constraint;	CGFloat scale;	CGFloat offset
 #define UNSFE unsafe_unretained
 //#define STRONG ((nonatomic,strong) )
 //#define ASSIGN ((nonatomic,assign) )
-
+#define AZWindowPositionToString AZAlignToString
 #define CGSUPRESSINTERVAL(x) CGEventSourceSetLocalEventsSuppressionInterval(nil,x)
-#define AZPOS AZWindowPosition
-
+#define AZPOS AZA// AZWindowPosition
+//
 #define AZCLSSTR NSStringFromClass ( [self class] )
 #define AZSSOQ AZSharedSingleOperationQueue()
 #define AZSOQ AZSharedOperationQueue()
@@ -356,7 +356,8 @@ typedef struct {	CAConstraintAttribute constraint;	CGFloat scale;	CGFloat offset
 #define ELSENULL ?: [NSNull null]
 #define AZGView AtoZGridView
 #define AZGVItem AtoZGridViewItem
-#define AZP AZPalette
+
+#define AZPAL AZPalette
 #define AZIS AZInstallationStatus
 
 
@@ -559,6 +560,7 @@ AZToStringFromTypeAndValue(@encode(typeof(_X_)), &_Y_);})
 //#define loMismo isEqualToString
 
 #define AZTEMPD 					NSTemporaryDirectory()
+#define CLSSBNDL					[NSBundle bundleForClass:[self class]]
 #define AZBUNDLE					[NSBundle bundleForClass:[AtoZ class]]
 #define APP_NAME 					[NSBundle.mainBundle objectForInfoDictionaryKey:@"CFBundleName"]
 #define APP_VERSION 				[NSBundle.mainBundle objectForInfoDictionaryKey:@"CFBundleVersion"]
@@ -661,7 +663,7 @@ AZToStringFromTypeAndValue(@encode(typeof(_X_)), &_Y_);})
 #define AZStringFromSet(A) [NSS stringFromArray:A.allObjects]
 
 //#define $#(A)				((NSString *)[NSString string
-#define $(...)				(NSString*)[NSString stringWithFormat:__VA_ARGS__,nil]
+#define $(...)				((NSString*)[NSString stringWithFormat:__VA_ARGS__,nil])
 #define $UTF8(A)			((NSString*)[NSS stringWithUTF8String:A])
 #define $UTF8orNIL(A)	(A) ? ((NSString *)[NSS stringWithUTF8String:A]) : nil
 #define $array(...)  	((NSArray *)[NSArray arrayWithObjects:__VA_ARGS__,nil])
@@ -808,7 +810,7 @@ return SC##_sharedInstance; \
 /** 	Block type used by ksva_iterate_list.
  @param entry The current argument in the vararg list.	*/
 typedef void (^AZVA_Block)(id entry);
-typedef void (^AZVA_ArrayBlock)(NSA* values);
+typedef void (^AZVA_ArrayBlock)(NSArray* values);
 
 /**	Iterate over a va_list, executing the specified code block for each entry.
  @param FIRST_ARG_NAME The name of the first argument in the vararg list.

@@ -3,7 +3,7 @@
 //  AtoZ
 
 #import "NSArray+AtoZ.h"
-#import "AZLog.h"
+//#import "AZLog.h"
 
 
 @implementation NSArray (EnumExtensions)
@@ -534,6 +534,16 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
     for (id delegate in self) {
         [delegate performSelector:selector withObject:p1 withObject:p2 withObject:p3];
     }
+}
+
+- (id) objectsWithValue:(id)value forKey:(id)key	{
+
+	NSMA *subsample = NSMA.new;
+   for (id object in self) {
+        id propertyValue = [object valueForKey:key];
+        if ([propertyValue isEqual:value])   [subsample addObject:object];
+    }
+    return subsample.count ? subsample : nil;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

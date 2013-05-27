@@ -149,6 +149,7 @@ CAT3D CAT3DMake(CGF m11, CGF m12, CGF m13, CGF m14,
 - (void) addSublayersImmediately:(NSA*)subArray;
 - (void) insertSublayerImmediately:(CAL*)sub atIndex:(NSUI)idx;
 
+- (void) setValueImmediately:(id)v forKey:(id)key;
 
 - (void) toggleSpin: (AZState)state;
 

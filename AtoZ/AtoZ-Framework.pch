@@ -100,16 +100,16 @@
 	//#define EXCLUDE_STUB_PROTOTYPES 1
 	//#import <PLWeakCompatibility/PLWeakCompatibilityStubs.h>
 	//#import <MenuApp/MenuApp.h>
-	#import <Rebel/Rebel.h>
-	#import <FunSize/FunSize.h>
-	#import <DrawKit/DKDrawKit.h>
-	#import <KSHTMLWriterKit/KSHTMLWriterKit.h>
-	#import <Zangetsu/Zangetsu.h>
-	#import <NanoStore/NanoStore.h>
-	#import <BlocksKit/BlocksKit.h>
-	#import <CocoaPuffs/CocoaPuffs.h>
-	#import <AtoZBezierPath/AtoZBezierPath.h>
-	#import <AIUtilities/AIUtilities.h>
+//	#import <Rebel/Rebel.h>
+//	#import <FunSize/FunSize.h>
+//	#import <DrawKit/DKDrawKit.h>
+//	#import <KSHTMLWriterKit/KSHTMLWriterKit.h>
+//	#import <Zangetsu/Zangetsu.h>
+//	#import <NanoStore/NanoStore.h>
+//	#import <BlocksKit/BlocksKit.h>
+//	#import <CocoaPuffs/CocoaPuffs.h>
+//	#import <AtoZBezierPath/AtoZBezierPath.h>
+//	#import <AIUtilities/AIUtilities.h>
 	#import "AtoZUmbrella.h"
 	#import "AtoZTypes.h"
 	#import "AtoZCategories.h"

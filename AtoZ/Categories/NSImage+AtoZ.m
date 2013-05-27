@@ -347,6 +347,12 @@ NSData* PNGRepresentation(NSIMG *image) {
 }
 + (NSIMG*) imageWithData:(NSData*)data	{	return [NSImage.alloc initWithData:data];	}
 // create a new "sphere" layer and add it to the container layer
+
++ (NSIMG*)testGlowingSphereImageWithScaleFactor:(CGF)scale coreColor:(NSC*)core glowColor:(NSC*)glow { 
+	NSLog(@"testing %@ with arguments 1.0 (scaleFactor), WHITE (coreColor)m and RANDOMCOLOR (glowColor);", NSStringFromSelector(_cmd));
+	return [NSImage glowingSphereImageWithScaleFactor:1 coreColor:WHITE glowColor:RANDOMCOLOR];
+}
+
 + (NSIMG*)glowingSphereImageWithScaleFactor:(CGF)scale coreColor:(NSC*)core glowColor:(NSC*)glow {
 
 	if ( scale > 10.0 || scale < 0.5 ) {
@@ -411,17 +417,19 @@ NSData* PNGRepresentation(NSIMG *image) {
 + (void) load { [$ swizzleClassMethod:@selector(imageNamed:) with:@selector(swizzledImageNamed:) in:NSIMG.class]; }
 + (NSIMG*)swizzledImageNamed:(NSS*)name 	{
 
-	static NSMD* __nameToImageDict = nil;
-	NSIMG *image = [self swizzledImageNamed:name];			// locate by name or load from main bundle
-	if (image) return image;
-	if (name.length == 0) return nil;								// there is no unnamed image...
-	if ( areSame( name, @"NSApplicationIcon") )	{ 			// try to load application icon
-		NSS *subst = [NSB.mainBundle objectForInfoDictionaryKey:@"CFBundleIconFile"];	// replace from Info.plist
-		name = subst.length > 0 ? subst : name;			// try to load
-		if((image = [__nameToImageDict objectForKey:name]))  // found a record in cache
-			return [image isKindOfClass:NSNull.class] ? nil : image; // we know that we don't know...
+	if (!name || name.length == 0) return nil;								// there is no unnamed image...
+	NSIMG *image; id cached = nil;
+	static NSMD* __nameToImageDict = nil; __nameToImageDict = __nameToImageDict ?: NSMD.new;
+	if((cached = [__nameToImageDict objectForKey:name]))
+		 return [cached ISKINDA:AZNULL.class] ? nil : cached; // found a record in cache
+	if ((image = [self swizzledImageNamed:name])){
+		__nameToImageDict[name] = image;
+		return image; 		// locate by name or load from main bundle
 	}
-	NSS *path, *ext;	NSBundle *bundle;	NSEnumerator *e;
+//	if ( SameString( name, @"NSApplicationIcon") )	{ 			// try to load application icon
+//		NSS *subst = [NSB.mainBundle objectForInfoDictionaryKey:@"CFBundleIconFile"];	// replace from Info.plist
+//		name = subst.length > 0 ? subst : name;			// try to load
+	NSS *path, *ext;	NSBundle *bundle;//NSEnumerator *e;
 	//	NSA*fileTypes = [NSImageRep imageFileTypes];
 	// locate in specific bundle (e.g. a loaded bundle) and then in AppKit.framework
 	path = [AZFWORKBUNDLE recursiveSearchForPathOfResourceNamed:name];
@@ -432,13 +440,14 @@ NSData* PNGRepresentation(NSIMG *image) {
 		bundle= [NSBundle bundleForClass:NSIMG.class];					// If not found in app bundle search for image in system
 		path = [bundle recursiveSearchForPathOfResourceNamed:name];
 	}
-	if(path && (image = [NSImage.alloc initByReferencingFile:path]))		// file really exists
+	if(path && (__nameToImageDict[name] = image = [NSImage.alloc initByReferencingFile:path]))		// file really exists
 	{ 
 		[image setName:name];	// will save in __nameToImageDict - and increment retain count
-		[image autorelease];	// don't leak if everything is released - unfortunately we are never deleted from the image cache
+		// [image autorelease];	// don't leak if everything is released - unfortunately we are never deleted from the image cache
 	}
 	if(!image)	[__nameToImageDict setObject:AZNULL forKey:name];	// save a tag that we don't know the image
-	return image;
+	
+	return NSLog(@"Keys in imageD:%ld",__nameToImageDict.allKeys.count), image;
 }
 + (NSIMG*) imageFromURL:(NSS*)url {
 	return  [NSImage.alloc initWithData: [NSData dataWithContentsOfURL: $URL(url)]];
@@ -469,6 +478,17 @@ NSData* PNGRepresentation(NSIMG *image) {
 		return [NSIMG imageWithFile:obj named:NSIMG.frameworkImageNames[index]];
 	}] filter:^BOOL(id object) { return [object isKindOfClass:[NSIMG class]]; }];
 }
+
+void TestLog(const char* prettyF, ...) {
+
+	
+}
+#define TESTLOGDECLAREARGS(...)  	NSLog(@"Testing %@ w/args 1.0 (scaleFactor), WHITE (coreColor)m and RANDOMCOLOR (glowColor);", NSStringFromSelector(_cmd));
+
+- (NSIMG*) testNamed:(NSS*)name { 
+
+
+if (name) self.name = name;  return self; }
 - (NSIMG*) named:(NSS*)name { if (name) self.name = name;  return self; }
 + (instancetype) imageWithFile:(NSS*)file named:(NSS*)name 	{ 	return [self.alloc initWithFile:file named:name]; 	}
 - (instancetype) initWithFile: (NSS*)file named:(NSS*)name 	{	NSIMG* i = [self.class.alloc initWithContentsOfFile:file]; 	i.name = name;	return i;	}
@@ -912,13 +932,19 @@ static NSOrderedDictionary  *monos = nil;
 	if ( inColor ) {
 		BOOL avoidGradient = NO;// ( [self state] == NSOnState );
 		NSRect targetRect = NSMakeRect(0,0,self.size.width, self.size.height);		
-		NSIMG*target = [[NSImage alloc] initWithSize:self.size];
-		NSGradient *gradient = ( avoidGradient ? nil : [[NSGradient alloc] initWithStartingColor:inColor.brighter endingColor:[inColor.darker shadowWithLevel:kGradientShadowLevel]] );
-		[target lockFocus];
-		if ( avoidGradient ) { [inColor set]; NSRectFill(targetRect); }
-		else [gradient drawInRect:targetRect angle:kGradientAngle];
-		[self drawInRect:targetRect fromRect:NSZeroRect operation:comp fraction:1.0];
-		[target unlockFocus];
+		NSIMG*target = [NSImage imageWithSize:self.size drawnUsingBlock:^{
+			
+//		NSGradient *gradient = ( avoidGradient ? nil : [[NSGradient alloc] initWithStartingColor:inColor.brighter endingColor:[inColor.darker shadowWithLevel:kGradientShadowLevel]] );
+//		[target lockFocus];
+		if ( avoidGradient ) NSRectFillWithColor(AZRectFromSize(self.size), inColor); 
+//		[shadowWithLevel:kGradientShadowLevel
+		else {
+			[[NSGradient gradientFrom:inColor.brighter to:inColor.darker] drawInRect:AZRectFromSize(self.size) angle:kGradientAngle];
+			[self drawInRect:targetRect fromRect:NSZeroRect operation:comp fraction:1.0];
+			}
+		}];
+		target.name = self.name ?: $(@"Image filled with color: %@", [inColor nameOfColor]);
+//		[target unlockFocus];
 		return target;
 	}
 	else return self;
@@ -940,10 +966,10 @@ static NSOrderedDictionary  *monos = nil;
 }
 
 + (NSIMG*)az_imageNamed:(NSS*)name {
-	NSIMG *i =  [NSIMG imageNamed:name]
-			 ?: [[NSIMG alloc]initWithContentsOfFile: [AZFWORKBUNDLE pathForImageResource:name]];
-	i.name 	= i.name ?: name;
-	return i;
+	NSIMG *i;
+	return i = [NSIMG az_imageNamed:name] ?: [NSIMG.alloc initWithContentsOfFile: [AZFWORKBUNDLE pathForImageResource:name]], [i setName:name], i;
+//	i.name 	= i.name ?: name;
+//	return i;
 }
 
 //+ (NSIMG*) az_imageNamed:(NSS*) fileName {

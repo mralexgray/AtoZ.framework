@@ -40,7 +40,7 @@
 - (BOOL) highlightCurrentLine 					{  
 	
 	return [self hasAssociatedValueForKey:self.highlightColorDefaultsKeyName] 
-		? [[self associatedValueForKey:self.highlightColorDefaultsKeyName]boolValue] : NO; 
+		? [[self associatedValueForKey:(__bridge const void *)(self.highlightColorDefaultsKeyName)]boolValue] : NO; 
 }
 - (NSC*) highlightCurrentLineColor 				{
 

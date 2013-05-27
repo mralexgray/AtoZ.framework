@@ -439,7 +439,8 @@ NSR 	AZCenterRectInRect ( NSR rect, NSR mainRect );
 NSR 	AZRectFromSize 	 ( NSSZ size );
 //NSR rectWithProportion ( NSR innerRect,float proportion,bool expand );
 
-NSR 	sectionPositioned ( NSR r, AZPOS p );
+NSR AZCornerRectPositionedWithSize(NSR outerRect, AZPOS pos, NSSZ sz);
+//NSR 	sectionPositioned ( NSR r, AZPOS p );
 int 	oppositeQuadrant ( int quadrant );
 NSR 	quadrant ( NSR r, AZQuad quad );
 NSR 	AZRectOfQuadInRect		  (NSR originalRect, AZQuad quad); //alias for quadrant

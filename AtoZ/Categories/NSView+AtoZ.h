@@ -8,6 +8,13 @@
 #import "CALayer+AtoZ.h"
 #import <QuartzCore/QuartzCore.h>
 
+
+
+@interface NSView (MoveAndResize)
+- (void)setNewFrameFromMouseDrag:(NSRect)newFrame;
+- (void)trackMouseDragsForEvent:(NSEvent *)theEvent clickType:(int)clickType;
+@end
+
 typedef NS_ENUM(NSI, AZViewAnimationType) {
 	AZViewAnimationTypeJiggle = 0,
 	AZViewAnimationTypeFlipHorizontally,

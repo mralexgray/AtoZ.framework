@@ -799,6 +799,7 @@ static char TEXT_IDENTIFIER;
 - (void) addSublayersImmediately:(NSA*)subArray {	[CATransaction immediately:^{	[self addSublayers:subArray];	}];	}
 - (void) insertSublayerImmediately:(CAL*)sub atIndex:(NSUI)idx {	[CATransaction immediately:^{	[self insertSublayer:sub atIndex:idx];	}];	}
 
+- (void) setValueImmediately:(id)v forKey:(id)key {	[CATRANNY immediately:^{ [self setValue:v forKey:key];	}];	}
 -(void) toggleSpin: (AZState)state
 {
 	AZState exist = [self unsignedIntegerForKey:@"spinState"];

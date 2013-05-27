@@ -116,6 +116,8 @@
 /**	@return nil or an object that matches value with isEqual:	*/
 - (id)objectWithValue:(id)value forKey:(id)key;
 
+- (id) objectsWithValue:(id)value forKey:(id)key;
+
 /**	@return the first object with the given class.	*/
 - (id)objectWithClass:(Class)cls;
 

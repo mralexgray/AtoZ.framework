@@ -36,25 +36,13 @@ JREnumDeclare(NSWindowResize, NSWindowResizeTopLeftCorner = 1, NSWindowResizeTop
 @end
 */
 
-@interface NSWindow (AtoZStickyWindows)
 
-@property (NATOM,ASS) BOOL sticksToEdge;
-@property (NATOM,ASS) NSR outsideEdgeRect;
-@property (readonly) AZPOS insideEdge;
-@property (readonly) OSCornerType sticksToEdgeOutsideCorners;
-
-@property (NATOM,ASS) CGF grabInset;
-@property (NATOM,ASS) CGR inFrame, outFrame;
-@property (readonly) NSR sticksToEdgeGrabRect;
-@property (NATOM,ASS) AZSlideState slideState;
-
+@interface NSWindow (AtoZ)
+- (void) setFrame:(NSR)frame;
 + (id) hitTest: (NSE*) event;
 + (id) hitTestPoint:(NSP)location;
 + (NSA*) appWindows;
-@end
-
-@interface NSWindow (AtoZ)
-
+@property (readonly) NSR bounds;
 + (NSWindow*) borderlessWindowWithContentRect: (NSRect)aRect;
 
 

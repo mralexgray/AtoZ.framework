@@ -27,7 +27,7 @@ static NSString *NSTVDOUBLEACTIONBLOCKKEY = @"com.mrgray.NSTV.double.action.bloc
 @dynamic doubleActionBlock;
 
 
-- (NSControlVoidActionBlock) doubleActionBlock {	return (NSControlVoidActionBlock)[self associatedValueForKey:NSTVDOUBLEACTIONBLOCKKEY];}
+- (NSControlVoidActionBlock) doubleActionBlock {	return (NSControlVoidActionBlock)[self associatedValueForKey:(__bridge const void *)(NSTVDOUBLEACTIONBLOCKKEY)];}
 
 - (void)setDoubleActionBlock:(NSControlVoidActionBlock)block
 {
@@ -73,7 +73,7 @@ static NSString *NSCONTROLVOIDBLOCKACTIONKEY = @"com.mrgray.NSControl.voidBlock"
 
 - (NSControlActionBlock)actionBlock
 {//	NSControlActionBlock theBlock =
-	return (NSControlActionBlock)[self associatedValueForKey:NSCONTROLBLOCKACTIONKEY];
+	return (NSControlActionBlock)[self associatedValueForKey:(__bridge const void *)(NSCONTROLBLOCKACTIONKEY)];
 //	return(theBlock);
 }
 - (void)setActionBlock:(NSControlActionBlock)inBlock
@@ -86,7 +86,7 @@ static NSString *NSCONTROLVOIDBLOCKACTIONKEY = @"com.mrgray.NSControl.voidBlock"
 - (void)callAssociatedBlock:(id)inSender { self.actionBlock(inSender); }
 
 
-- (NSControlVoidActionBlock) voidActionBlock {	return (NSControlVoidActionBlock)[self associatedValueForKey:NSCONTROLVOIDBLOCKACTIONKEY];}
+- (NSControlVoidActionBlock) voidActionBlock {	return (NSControlVoidActionBlock)[self associatedValueForKey:(__bridge const void *)(NSCONTROLVOIDBLOCKACTIONKEY)];}
 
 - (void)setVoidActionBlock:(NSControlVoidActionBlock)inBlock
 {

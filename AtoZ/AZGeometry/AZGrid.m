@@ -20,13 +20,26 @@ JREnumDefine(AZGridOrder);
 -   (id) initWithFrame:(NSR)frame {
 
 	if (!(self = [AZGrid.alloc initWithUnitSize:NSMakeSize(20.0f, 20.0f)  color:GRAY3 shouldDraw:YES]))return nil;
-	BLKVIEW* w = [BLKVIEW viewWithFrame:frame opaque:YES drawnUsingBlock:^(BNRBlockView *v, NSRect r) {
+		BLKVIEW* w = [BLKVIEW viewWithFrame:frame opaque:YES drawnUsingBlock:^(BNRBlockView *v, NSRect r) {
 		if (![v hasAssociatedValueForKey:@"grid"])
-			[v setAssociatedValue:self forKey:@"grid" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
+			[v setAssociatedValue:self forKey:@"grid" policy:OBJC_ASSOCIATION_ASSIGN];
 		[[v associatedValueForKey:@"grid"] drawRect:r];
+	}];
+	[NSEVENTLOCALMASK: NSScrollWheelMask handler:^NSEvent *(NSEvent *e){ 
+		int dx, dy;
+		dx = floor(ABS(e.deltaX/5.0));
+		dy = floor(ABS(e.deltaY/5.0));
+		if (dx || dy){
+			self.unitSize = (NSSZ){_unitSize.width + dx,_unitSize.height + dy}; 
+			[w setNeedsDisplay:YES];
+			NSLog(@"Newsize:%@", AZString(_unitSize));
+		}
+		return e;
 	}];
 	return (AZGrid*)w;
 }
+
+
 - (id)initWithUnitSize:(NSSize)newUnitSize color:(NSColor *)newColor		shouldDraw:(BOOL)newShouldDraw
 {
 	self = [self init];
@@ -64,7 +77,7 @@ JREnumDefine(AZGridOrder);
 	
 	[AZGRAPHICSCTX setShouldAntialias:NO];
 	[NSBP setDefaultLineWidth:0.0f];
-	
+	NSRectFillWithColor(drawingRect, WHITE);
 	[self.color set];
 	
 	for (CGFloat i = 0.0f; i < dimensions.width + self.unitSize.width; i += self.unitSize.width)

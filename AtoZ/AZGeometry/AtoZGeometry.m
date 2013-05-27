@@ -985,6 +985,15 @@ CGRectEdge AZEdgeTouchingEdgeForRectInRect( NSR innerRect, NSR outerRect ){
 NSR	AZRectFromSize(NSSZ size){
 	return NSMakeRect(0,0,size.width,size.height);
 }
+
+NSR AZCornerRectPositionedWithSize(NSR outerRect, AZPOS pos, NSSZ sz) {
+
+	return pos == AZPositionTopLeft ? (NSR){outerRect.origin.x, outerRect.size.height - sz.height, sz.width, sz.height} 
+	:		 pos == AZPositionTopRight ? (NSR){ outerRect.size.width - sz.width, outerRect.size.height - sz.height, sz.width, sz.height}
+	:		 pos == AZPositionBottomRight ? (NSR){ outerRect.size.width - sz.width,outerRect.origin.y, sz.width, sz.height}
+	:												(NSR) {outerRect.origin.x,outerRect.origin.y, sz.width, sz.height };
+}
+
 static float AZDistanceFromOrigin(NSP point){
 	return hypot(point.x, point.y);
 }
@@ -1088,11 +1097,12 @@ AZA AZAlignmentInsideRect(NSR edgeBox, NSR outerBox) {
 
 AZPOS AZOutsideEdgeOfPointInRect (NSP inside, NSR outer ) {   	NSN* u, *d, *l, *r, *mini;
 
-	u = @(outer.size.height - inside.y);	r = @(outer.size.width - inside.x);
-	d = @(inside.y - outer.origin.y);		l = @(inside.x - outer.origin.x);
-	mini = [@[u, r, d, l]minNumberInArray];
-	return  	mini == u ? AZPositionTop 		: mini == r ?  AZPositionRight 
-			: 	mini == d ? AZPositionBottom 	: 					AZPositionLeft;
+		   u = @(outer.size.height - inside.y);		r	= @(outer.size.width - inside.x);
+	      d = @(inside.y - outer.origin.y);			l 	= @(inside.x - outer.origin.x);
+		mini = [@[u, r, d, l]minNumberInArray];
+	AZPOS c =	mini == u ? AZPositionTop 		: mini == r ?  AZPositionRight 
+				: 	mini == d ? AZPositionBottom 	: 					AZPositionLeft;
+	return c;
 }
 
 AZPOS AZOutsideEdgeOfRectInRect (NSR rect, NSR outer ) {   			 CGF min = HUGE_VALF, t = HUGE_VALF;

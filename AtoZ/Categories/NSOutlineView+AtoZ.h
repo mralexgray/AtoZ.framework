@@ -15,29 +15,26 @@
 
 
 @interface NSTreeNode (ESExtensions)
-- (NSA*)descendants;
-- (NSA*)groupDescendants;
-- (NSA*)leafDescendants;
-- (NSA*)siblings;
-- (BOOL)isDescendantOfNode:(NSTreeNode *)node;
-- (BOOL)isSiblingOfNode:(NSTreeNode *)node;
-- (BOOL)isSiblingOfOrDescendantOfNode:(NSTreeNode *)node;
-- (NSIndexPath *)adjacentIndexPath;
-- (NSIndexPath *)nextSiblingIndexPath;
-- (NSIndexPath *)nextChildIndexPath;
+- (NSA*)        descendants;
+- (NSA*)   groupDescendants;
+- (NSA*)    leafDescendants;
+- (NSA*) 			 siblings;
+- (BOOL) isDescendantOfNode:				(NSTreeNode*)node;
+- (BOOL)    isSiblingOfNode:				(NSTreeNode*)node;
+- (BOOL) isSiblingOfOrDescendantOfNode:(NSTreeNode*)node;
+- (NSIndexPath*) adjacentIndexPath;
+- (NSIndexPath*) nextSiblingIndexPath;
+- (NSIndexPath*) nextChildIndexPath;
 @end
 
-
-
-
 @interface NSTreeController (ESExtensions)
-- (NSIndexPath *)indexPathForInsertion;
-- (void)selectNone;
-- (NSA*)rootNodes;
-- (NSTreeNode *)nodeAtIndexPath:(NSIndexPath *)indexPath;
-- (NSA*)flattenedContent;
-- (NSA*)flattenedNodes;
-- (NSTreeNode *)nextSiblingOfNodeAtIndexPath:(NSIndexPath *)indexPath;
-- (NSTreeNode *)nextSiblingOfNode:(NSTreeNode *)node;
-- (void)selectParentFromSelection;
+- (NSA*) 			 			  rootNodes;
+- (void) 						 selectNone;
+- (NSA*)						flattenedNodes;
+- (NSA*)              flattenedContent;
+- (void)     selectParentFromSelection;
+- (NSIndexPath*) indexPathForInsertion;
+-  (NSTreeNode*) 		  nodeAtIndexPath:  		 (NSIndexPath*)indexPath;
+-  (NSTreeNode*)     nextSiblingOfNode:	    (NSTreeNode*)node;
+-  (NSTreeNode*) nextSiblingOfNodeAtIndexPath:(NSIndexPath *)indexPath;
 @end

@@ -91,6 +91,7 @@
 #define                                        AZBezPath(r) [NSBezierPath bezierPathWithRect: r]
 #define                                          AZNEWMUTEA NSMutableArray.array
 #define                                    kContentImageKey @"itemImage"
+#define                                               AZPAL AZPalette
 #define                                                 USF unsafe_unretained
 #define                                              KVONEW NSKeyValueObservingOptionNew
 #define                                          AZVposi(p) [NSVAL      valueWithPosition: p]
@@ -99,7 +100,6 @@
 #define                                          AZNEWMUTED NSMutableDictionary.new
 #define performBlockIfDelegateRespondsToSelector(block,sel) if ([delegate respondsToSelector:sel]) { block(); }
 #define                             AZTAreaInfo(frame,info) [NSTA.allocinitWithRect: frame options:(NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways | NSTrackingInVisibleRect | NSTrackingMouseMoved ) owner:self userInfo:info] 
-#define                                                 AZP AZPalette
 #define                                   NSEVENTGLOBALMASK NSEvent addGlobalMonitorForEventsMatchingMask
 #define                                       MOUSEDRAGGING MOUSEDOWN | MOUSEDRAG | MOUSEUP
 #define                                         AZSHAREDAPP NSApplication.sharedApplication
@@ -167,7 +167,7 @@
 #define                                     AZContentBounds [[[self window ] contentView] bounds]
 #define                                      CAMEDIAEASEOUT [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]
 #define                                             setPBCN setPostsBoundsChangedNotifications:YES
-#define                                               AZPOS AZWindowPosition
+#define                                               AZPOS AZA
 #define                                        AZCURRENTCTX AZGRAPHICSCTX
 #define                                             setPFCN setPostsFrameChangedNotifications:YES
 #define                                       AZFILEMANAGER NSFileManager.defaultManager
@@ -196,15 +196,17 @@
 
 #pragma mark - AZ
 
-#define AZRUNFOREVER [AZRUNLOOP runMode:NSDefaultRunLoopMode beforeDate:NSDate.distantFuture]
-#define        AZRUN while(0) [NSRunLoop.currentRunLoop run]
-#define    AZCACMaxX AZConstRelSuper ( kCAConstraintMaxX   )
-#define    AZCACMinX AZConstRelSuper( kCAConstraintMinX   )
 #define    AZCACWide AZConstRelSuper ( kCAConstraintWidth  )
-#define    AZRUNLOOP NSRunLoop.currentRunLoop
-#define    AZCACHigh AZConstRelSuper ( kCAConstraintHeight )
+#define        AZRUN while(0) [NSRunLoop.currentRunLoop run]
 #define    AZCACMaxY AZConstRelSuper ( kCAConstraintMaxY   )
+#define    AZCACHigh AZConstRelSuper ( kCAConstraintHeight )
+#define    AZCACMinX AZConstRelSuper( kCAConstraintMinX   )
+#define    AZCACMaxX AZConstRelSuper ( kCAConstraintMaxX   )
+#define    AZRUNLOOP NSRunLoop.currentRunLoop
 #define    AZCACMinY AZConstRelSuper ( kCAConstraintMinY   )
+#define     AZLOGCMD [$UTF8(__PRETTY_FUNCTION__) log]
+#define AZRUNFOREVER [AZRUNLOOP runMode:NSDefaultRunLoopMode beforeDate:NSDate.distantFuture]
+#define AZRANDOMICON [NSIMG randomMonoIcon]
 
 #pragma mark - VIEWS
 

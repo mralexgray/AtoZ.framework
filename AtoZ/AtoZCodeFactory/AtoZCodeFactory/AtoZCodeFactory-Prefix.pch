@@ -6,3 +6,19 @@
 	#import <Foundation/Foundation.h>
 	#import <Cocoa/Cocoa.h>
 #endif
+
+
+NS_INLINE NSString* runCommand(NSString* c) {
+	NSString* outP;	FILE *read_fp;	char buffer[BUFSIZ + 1];	int chars_read;
+	memset(buffer, '\0', sizeof(buffer));
+	read_fp = popen(c.UTF8String, "r");
+	if (read_fp != NULL) {
+		chars_read = (int)fread(buffer, sizeof(char), BUFSIZ, read_fp);
+	   		if (chars_read > 0) outP = [NSString stringWithUTF8String:buffer];
+		pclose(read_fp);
+	}	
+	return outP;
+}
+
+NS_INLINE void playSound(void){  runCommand(@"afplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/accessibility/Sticky Keys ON.aif\"");
+}

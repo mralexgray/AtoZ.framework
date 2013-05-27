@@ -1,32 +1,38 @@
 
 #import "NSWindow+AtoZ.h"
 
+
+	 
+	 
 @interface NSApplication (Undocumented)	
 - (NSA*)_orderedWindowsWithPanels:(BOOL)panels;	
 @end
-static 	 NSPoint 	gWindowTrackingEventOrigin, 	gWindowTrackingCurrentWindowOrigin;
+
+static 	 NSPoint gWindowTrackingEventOrigin, 	gWindowTrackingCurrentWindowOrigin;
 static 	 CGR 		inFrame, 							outFrame;  	
-id(^findWin)(NSP) = ^id(NSP p){	NSA* windows;return windows = [[NSApp _orderedWindowsWithPanels:YES] filter:^BOOL(id o){ 
-																				return NSPointInRect(p, [o frame]); 
-																		}] ? windows[0] : (id)nil; 										};
+id(^findWin)(NSP) = ^id(NSP p){	NSA* windows; 
+
+	return windows = [[NSApp _orderedWindowsWithPanels:YES] filter:^BOOL(id o){ 
+		return NSPointInRect(p, [o frame]); 	}] ? windows[0] : (id)nil; 										
+};
+
 JREnumDefine(NSWindowResize);
+
 @implementation NSWindow (SBSWindowAdditions)	static BOOL	gWindowTrackingEnabled = NO, gWindowTracking = NO;
-+ (BOOL) isLiveFrameTracking 				{
-	return gWindowTrackingEnabled;
-}
++ (BOOL) isLiveFrameTracking 					{	return gWindowTrackingEnabled;	}
 + (void) setLiveFrameTracking:(BOOL) bol	{	gWindowTrackingEnabled = bol;	// we have to use global variables (polluting global namespace)
 	bol ? [AZNOTCENTER addObserver:self selector:@selector(willMove:) name:NSWindowWillMoveNotification object:nil] 
 		: ^{ gWindowTracking = NO;	// getting informed as soon as any window is dragged
 	 		[AZNOTCENTER removeObserver:self name:NSWindowWillMoveNotification object:nil]; // like this, applications can interrupt even ongoing frame tracking
 		}();			
 }
-+ (void) willMove:   (id) notification	{
++ (void) willMove:   (id) notification		{
 	gWindowTracking = YES;										// the loop condition during tracking
 	gWindowTrackingEventOrigin = [NSEvent mouseLocation];		// most accurate (somethings wrong with NSLeftMouseDragged events and their deltaX)
 	[NSThread detachNewThreadSelector:@selector(windowMoves:) toTarget:(NSWindow*)[(NSNotification*)notification object] withObject:notification];
 	// creating a new thread that is doing the monitoring of mouse movement
 }
-- (void) windowMoves:(id) notification	{
+- (void) windowMoves:(id) notification		{
 	@autoreleasepool {											// remember, we are in a new thread!
 		NSRect startFrame = self.frame;							// where was the window prior to dragging
 		gWindowTrackingCurrentWindowOrigin = startFrame.origin;		// where is it now
@@ -41,7 +47,7 @@ JREnumDefine(NSWindowResize);
 		}
 	}												// thread is dying, so we clean up
 }
-- (void) windowMoved:(id) notification	{						// to be performed on the main thread
+- (void) windowMoved:(id) notification		{						// to be performed on the main thread
 	if (!NSEqualPoints(gWindowTrackingCurrentWindowOrigin, _frame.origin)) {
 		// _frame is the private variable of an NSWindow, we have full access (category!)
 		_frame.origin = gWindowTrackingCurrentWindowOrigin;		// setting the private instance variable so obersers of the windowDidMove notification
@@ -61,7 +67,7 @@ JREnumDefine(NSWindowResize);
 - (void) resizeToWidth:(CGF)wide height:(CGF)high 														{
 	[self resizeToWidth:wide height:high origin:NSWindowResizeBottomLeftCorner];
 }
-- (void) resizeToWidth:(CGF)wide height:(CGF)high origin:(NSWindowResize)ori 						{
+- (void) resizeToWidth:(CGF)wide height:(CGF)high origin:(NSWindowResize)ori 					{
 	[self resizeToWidth:wide height:high origin:ori duration:0.5];
 }
 - (void) resizeToWidth:(CGF)wide height:(CGF)high origin:(NSWindowResize)ori duration:(NSTI)dur {
@@ -91,7 +97,7 @@ JREnumDefine(NSWindowResize);
 	[animation setAnimationCurve:NSAnimationLinear];
 	[animation startAnimation];
 }
-- (NSW*) _createZoomWindowWithRect:	(NSR)rect								{
+- (NSW*) _createZoomWindowWithRect:	(NSR)rect									{
 	NSWindow		*zoomWindow;
 	NSImageView	*imageView;
 	NSRect			frame 		= self.frame;
@@ -129,7 +135,7 @@ JREnumDefine(NSWindowResize);
 	[self setOneShot:isOneShot];	// Reset one shot flag
 	return zoomWindow;
 }
-- (void) zoomOnFromRect:				(NSR)startRect						{
+- (void) zoomOnFromRect:				(NSR)startRect								{
 	NSRect			  frame;
 	NSWindow			*zoomWindow;
 	if ([self isVisible])	return;
@@ -140,7 +146,7 @@ JREnumDefine(NSWindowResize);
 	[self makeKeyAndOrderFront:self];
 	[zoomWindow close];
 }
-- (void) zoomOffToRect:					(NSR)endRect									{
+- (void) zoomOffToRect:					(NSR)endRect								{
 	NSRect  frame = [self frame];
 	if (![self isVisible]) return;
 	NSWindow *zoomWindow = [self _createZoomWindowWithRect:frame];
@@ -150,250 +156,14 @@ JREnumDefine(NSWindowResize);
 	[zoomWindow close];
 }	
 @end
-static CAL* indicator;
-@interface  ClickedWindow : NSObject
-@property (assign) CGP dragStart, windowOrigin;
-@property (atomic, readonly, weak) NSW* window; 		// The weak reference to the actual object
-@end
-static ClickedWindow *clickclack = nil;
-@implementation  ClickedWindow 							// Singlton window that is our "Active window", aka, being dragged.
-- (instancetype) initWithWindow:(NSW*)w	{			
-//	if (!w) [self.class setSharedInstance:nil]; return; 
-	// if the object window is already the shared instance's window.. then this is redundant, return the shared instance.
-//	if (w == [self.class.sharedInstance window]) return self.class.sharedInstance;
-//	else  [self.class setSharedInstance: self = self.class.new]; // or make it so.
-	if (w == clickclack.window) return clickclack;
-	if (indicator)  [indicator fadeOut];	// [v setFrame:AZRectExtendedOnBottom(v.frame, 1) display:YES]; }
-	if (self != super.init) return nil;
-	clickclack = self;
-	_window 			= w;// Store the weak reference.  This will become nil automatically when this object is disposed of.
-	LOGCOLORS(@"made clicked widnow with ", w, GREEN, PINK, nil);  //  log it.
-	_dragStart 		= NSE.mouseLocation;  		// note our starting point.
-	_windowOrigin  = w.frame.origin;  	// save initial origin.
-	indicator = [CAL layerWithFrame:AZRectInsideRectOnEdge(AZRectFromDim(50), AZRectFromSize(_window.size), _window.insideEdge)];
-	indicator.contents = [[NSIMG imageNamed:@"1"]scaledToMax:AZMaxDim(indicator.bounds.size)];
-	CAL *host; NSView *vvv;
-	if (!( vvv = [[w.contentView subviews] filterOne:^BOOL(id ob) {	return [[ob layer].name isEqualToString:@"layerHostXYZ"]; 	}] )) {
-		[_window.contentView addSubview:vvv = [NSView.alloc initWithFrame:[_window.contentView frame]]]; vvv.arMASK = NSSIZEABLE; 	host = [vvv setupHostView];
-	} else host = vvv.layer;
-	CAL *grab = [CAL layerWithFrame:self.window.sticksToEdgeGrabRect];
-	grab.backgroundColor = cgBLACK;
-	[grab bind:@"bounds" toObject:_window withKeyPath:@"insideEdge" transform:^id(id value) {
-		return AZVrect(self.window.sticksToEdgeGrabRect);
-	}];
-	[grab bind:@"position" toObject:_window withKeyPath:@"insideEdge" transform:^id(id value) {
-		AZPOS pos = [value unsignedIntegerValue];
-		NSP calced = AZAnchorPointOfActualRect( grab.bounds,pos );
-		NSLog(@"calced Point: %@ ofrect:%@ atPos: %ld", AZString(calced), AZString(grab.bounds), AZWindowPositionToString(pos));
-		return AZVpoint(calced);
-	}];
-	
-	[indicator bind:@"position" toObject:_window withKeyPath:@"insideEdge" transform:^id(id value) {
-		NSLog(@"Got inside edge as... %@", value);
-		return AZVpoint(AZCenter(AZRectInsideRectOnEdge(AZCenterRectInRect(AZRectFromDim(50), AZRectFromSize(_window.size)), AZRectFromSize(_window.size), _window.insideEdge)));
-	}];
-	[host addSublayer:indicator];
-	[host addSublayer:grab];
-   return clickclack;
-}
-//- (BOOL) respondsToSelector:(SEL)s			{ 	return [_window respondsToSelector:s] ?: [super respondsToSelector:s];  
 
-// [self respondsToSelector:s] ?:
-//- (id) valueForUndefinedKey:(NSS*)key { id value;if ([_window respondsToString:key])value = [_window valueForKey:key];if (value == nil) value = [super valueForUndefinedKey: key];	}
-//} 
-@end
-@implementation NSWindow (AtoZStickyWindows)
-
--  (void) setOutsideEdgeRect:(NSRect)frame  	{ 
-
-	[self setAssociatedValue:AZVrect(frame) forKey:@"outsideEdgeRect" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC]; 
-}
--   (NSR) outsideEdgeRect					 	{
-
-	return [self hasAssociatedValueForKey:@"outsideEdgeRect"] ? [[self associatedValueForKey:@"outsideEdgeRect"]rectValue] : AZScreenFrameUnderMenu();
-}
-static NSMA    *nonStickies = nil; 
--  (void) setSticksToEdge:(BOOL)sticky 	{  
-	// Sets associated value for sticky bit
-	sticky ? [self setAssociatedValue:@YES forKey:@"sticksToEdge" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC] 
-			 : [self removeAssociatedValueForKey:@"sticksToEdge"];
-	// static referenced
-	
-	nonStickies = nonStickies ?: ^{ nonStickies  = [NSMA mutableArrayUsingWeakReferences];
-								  								  [NSW.appWindows each:^(id w) { if (![w sticksToEdge]) [nonStickies addObject:w]; }]; return nonStickies;		}();
-	
-	if (!sticky) { [nonStickies addObject:self]; 			 if ([self hasAssociatedValueForKey:@"WASMOVEABLE"]) {
-						[self setMovableByWindowBackground:YES]; [self removeAssociatedValueForKey:@"WASMOVEABLE"]; } 	return; }
-
-	id (^findEdgeEnabledWin)(NSP) = ^id(NSP p){  
-		NSA* all = NSW.appWindows;
-		NSA* win = [all arrayByRemovingObjectsFromArray:nonStickies];
-		
-		NSA *winners = [win filter:^BOOL(NSW*o){ return o.sticksToEdge && NSPointInRect(p, o.frame); 	}];
-		NSLog(@"allCT: %ld thestickiesct:%ld  winnersCt: %ld", all.count, win.count, winners.count);
-		return !winners.count ? nil : [winners.first isEqualTo:clickclack.window] ? clickclack.window  : winners.first; 		
-	};
- 
-	// OK, we're gonna be sticky, let's do it.  Remove oneself from the list of nonsticky windows.
-	[nonStickies containsObject:self] ?	[nonStickies removeObjectIdenticalTo:self] : nil;
-	//  if can be moved by...  turn off, and save value for restore if made non-sticky again.
-	self.isMovableByWindowBackground  ? ^{ [self setMovableByWindowBackground:NO], 
-														[self setAssociatedValue:@(YES) forKey:@"WASMOVEABLE" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC]; }() : nil;
-	//  THIS window's click handler.
-	id handler = [NSEVENTLOCALMASK: NSLeftMouseDraggedMask | NSLeftMouseDownMask | NSLeftMouseUpMask handler:^NSE*(NSE*e) {
-		VoidBlock defineClickedWindow, dragAction, doubleClick;
-		
-		defineClickedWindow = ^{ 
-			id win = findEdgeEnabledWin(NSE.mouseLocation); 
-			if (!win) return;
-			if (!clickclack || win != clickclack.window) {
-			
-				clickclack =  [ClickedWindow.alloc initWithWindow:win];
-				NSLog(@"found the clicked victim: %@", clickclack.window);
-				[nonStickies removeObject:clickclack.window];
-			}
-//			ClickedWindow *w = [ClickedWindow.alloc initWithWindow:windy];
-			  // find and set "shared" "clicked" window
-		};
-		
-		dragAction = ^{ 	//ClickedWindow *win = 
-			//		if (win != ClickedWindow.sharedInstance.window) return;//findEdgeEnabledWin(NSE.mouseLocation);
-//			ClickedWindow *target = [ClickedWindow sharedInstance]; 	// Convenience accessors
-			AZPOS          ptEdge = AZOutsideEdgeOfPointInRect ( NSE.mouseLocation, AZScreenFrameUnderMenu());
-			NSP            offset = AZSubtractPoints ( NSE.mouseLocation, AZSubtractPoints ( clickclack.dragStart, clickclack.windowOrigin));
-			AZRect *newRect = [clickclack.window frameInRect:AZScreenFrameUnderMenu() offset:offset insideEdge:ptEdge];
-			LOGCOLORS(@"newframe:",newRect, @"newloc ",AZPositionToString(newRect.orient),  zNL, RANDOMPAL, nil);
-			[clickclack.window setInsideEdge:newRect.orient];
-			[clickclack.window setFrame:newRect.rect display:YES animate:YES];
-			NSLog(@"finished dragging clicked window!");
-		};
-	
-		doubleClick = ^{ 
-			if (clickclack
-//			.window == findWin(NSE.mouseLocation) 
-			&& NSPointInRect(e.locationInWindow, clickclack.window.sticksToEdgeGrabRect)) {
-				NSLog(@"doubleCLICKwindow:%@!");
-				LOG_EXPR(clickclack.window);
-				AZSlideState dClickSlideState = clickclack.window.slideState;
-				LOG_EXPR(dClickSlideState);
-				[clickclack.window setSlideState:dClickSlideState == AZIn ? AZOut : AZIn];
-//				NSR out = [[self associatedValueForKey:@"normalRectMemory" 
-//														 orSetTo:AZVrect(self.frame) policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC]rectValue];
-//				[self setFrame:NSEqualRects(out, self.frame) 
-//				?	AZRectInsideRectOnEdge( self.sticksToEdgeGrabRect, AZRECTUNDERMENU.rect, self.insideEdge) 
-//				: 	out display:YES	animate:YES];
-			}
-		};	
-		//  Mouse clicked, NOT dragged... setup.
-		if		 	( e.clickCount == 2 && self == clickclack.window) 																					doubleClick();
-		else if 	( e.type == NSLeftMouseDown && e.type != NSLeftMouseDragged && e.clickCount != 2 ) 	defineClickedWindow();
-		// Mouse WAS dragged..  could add && !(e.deltaX == 0 && e.deltaY ==0)) 	
-		else if  ( e.type == NSLeftMouseDragged && self == clickclack.window ) 																	dragAction();
-		//mouse up
-		else if  ( e.type == NSLeftMouseUp && self == clickclack.window )		{ clickclack = nil;  NSLog(@"clcick should be nil: %@", clickclack); }
-		//  Double Click handler for windowshade action.
-		return e;
-	}];	
-}
--  (BOOL) sticksToEdge 						{ 		
-	
-	BOOL hasa = NO; hasa = [[self associatedValueForKey:@"sticksToEdge" orSetTo:@NO policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC]boolValue];
-	NSLog(@"%@ thinks it is Sticky:%@", self,StringFromBOOL(hasa)); return hasa; 
-}
-
--  (AZRect*) frameInRect:(NSR)f 
-					offset:(NSP)off 
-			  insideEdge:(AZPOS)pos 		{
-	
-	__block NSR newRect 	= AZRectInsideRectOnEdge ( self.frame, f, pos);
-	pos == AZPositionRight | pos == AZPositionLeft	?  ^{	newRect.origin.y = off.y; }()
-															:  ^{ newRect.origin.x 	= off.x; }();
-	newRect.origin.x = MAX(newRect.origin.x, 0);	
-	newRect.origin.y = MAX(newRect.origin.y, 0); 														
-	newRect.origin.x = MIN(newRect.origin.x, f.size.width  - newRect.size.width );
-	newRect.origin.y = MIN(newRect.origin.y, f.size.height - newRect.size.height);
-
-	NSP topleft 	= (NSP){0, f.size.height-newRect.size.height};
-	NSP topRight 	= (NSP){f.size.width-newRect.size.width,f.size.height-newRect.size.height};
-	NSP bottomRight = (NSP){f.size.width  - newRect.size.width, 0};
-	AZPOS newpos =	NSEqualPoints(newRect.origin, NSZeroPoint)  	? AZPositionBottomLeft :
-			NSEqualPoints(newRect.origin,     topleft)	? AZPositionTopLeft :
-			NSEqualPoints(newRect.origin,    topRight) 	? AZPositionTopRight :
-			NSEqualPoints(newRect.origin, bottomRight) 	? AZPositionBottomRight : (AZPOS)pos;
-	AZRect *newaz =  [AZRect.alloc initWithRect:newRect];
-	 newaz.orient =newpos;
-	return newaz;
-} 
-- (AZPOS) insideEdge 						{ 	
-	return [[self associatedValueForKey:@"insideEdge" orSetTo:@(AZPositionAutomatic) policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC] unsignedIntegerValue];	
-} /* AssociatedGetter */
--  (void) setInsideEdge:(AZPOS)posi		{ 
-		[self setAssociatedValue:@(posi) forKey:@"insideEdge" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];	
-//	[self setFrame:AZRectInsideRectOnEdge(self.frame, AZScreenFrameUnderMenu(), position) display:YES animate:YES];
-} /* AssociatedSettrer */
--  (CRNR) sticksToEdgeOutsideCorners 							{ AZPOS o = AZPositionOpposite(self.insideEdge);
-	return 	o == AZPositionTop  	 ? (OSBottomLeftCorner 	| OSBottomRightCorner) 	:
-				o == AZPositionLeft 	 ? (OSTopRightCorner   	| OSBottomRightCorner) 	: 
-				o == AZPositionBottom ? (OSTopLeftCorner 		| OSTopRightCorner) 		:	//	o == AZPositionRight  ? 
-												(OSTopLeftCorner 		| OSBottomLeftCorner) 	;
-}
--  (void) setGrabInset:(CGF)grabInset 	{ [self setAssociatedValue:@(grabInset) forKey:@"grabInset" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC]; }
--   (CGF) grabInset 							{ 
-
-	return [[self associatedValueForKey:@"grabInset" orSetTo:@(25) policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC]floatValue]; }
--   (NSR) sticksToEdgeGrabRect 							{  AZPOS o = AZPositionOpposite(self.insideEdge);
-
-	return 	o == AZPositionTop  	 ? AZLowerEdge(self.frame, self.grabInset) 	:
-				o == AZPositionLeft 	 ? AZRightEdge(self.frame, self.grabInset) 	: 
-				o == AZPositionBottom ? AZUpperEdge(self.frame, self.grabInset)	:
-//				o == AZPositionRight  ? 
-				AZLeftEdge(self.frame, self.grabInset);
-}
-
-- (AZSlideState) slideState { return [[self associatedValueForKey:@"slideState"]unsignedIntegerValue]; }// inOut = AZToggle;	
-- (void) setSlideState:(AZSlideState)ss	{  
-	
-	[self setAssociatedValue:@(ss) forKey:@"slideState" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
-//	if (ss == AZIn) self.inFrame = 
- 	[self setFrame: ss == AZIn ? self.inFrame : self.outFrame display:YES animate:YES];
-}
-- (void) setInFrame:(CGRect)inFrame		{ 	
-
-	[self setAssociatedValue:AZVrect(inFrame) forKey:@"inFrame" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];	
-}
-- (void) setOutFrame:(CGRect)outFrame		{
-
-	[self setAssociatedValue:AZVrect(inFrame) forKey:@"outFrame" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];	
-}
--   (CGR) inFrame 							{  
-	if ([self hasAssociatedValueForKey:@"inFrame"]) return [[self associatedValueForKey:@"inFrame"]rectValue];
-	BOOL stcky = self.sticksToEdge;  
-	NSRect  theStart = stcky ? self.outFrame : self.frame;
-	AZPOS inEdge = self.insideEdge;
-	return 
-	inEdge == AZPositionLeft	?  	AZRectExceptOriginX(theStart, self.width - self.grabInset) 									:
- 	inEdge == AZPositionTop 	? 	AZRectExceptOriginY(theStart, theStart.origin.y + theStart.size.height - self.grabInset)	:
- 	inEdge == AZPositionRight	? 	AZRectExceptOriginX(theStart, theStart.origin.x + theStart.size.width - self.grabInset)	:												
-	inEdge == AZPositionBottom	?	AZRectExceptOriginY(theStart, theStart.origin.y - theStart.size.height + self.grabInset) : theStart;
- 	//		return inFrame  = CGRectIsNull(inFrame)  ? self.frame : inFrame;  } 
-}
--   (CGR) outFrame 							{ 
-
-	if ([self hasAssociatedValueForKey:@"outFrame"]) return [[self associatedValueForKey:@"outFrame"]rectValue];
-	BOOL stcky; if (!(stcky = self.sticksToEdge )) return self.frame;  
-	AZRect *r =  [self frameInRect:AZScreenFrameUnderMenu() offset:NSZeroPoint  insideEdge:self.insideEdge];
-//	[self setInsideEdge:r.orient];
-	return r.rect;
-}
-			  // outFrame = CGRectIsNull(outFrame) ? self.frame : outFrame; } 
+@implementation NSWindow (AtoZ)
 
 +    (id) hitTest:     (NSE*)event 	{ return findWin([[NSScreen currentScreenForMouseLocation] convertPointToScreenCoordinates:event.locationInWindow]); }
 +    (id) hitTestPoint:(NSP)location 	{ findWin([[NSScreen currentScreenForMouseLocation] convertPointToScreenCoordinates:location]); }
 +  (NSA*) appWindows 					{ return [NSApp _orderedWindowsWithPanels:YES]; } /* FIERCE  Undocumented...  but tells us all of this apps windows...*/
-
-@end
-
-@implementation NSWindow (AtoZ)
+- (NSR) bounds { return AZRectFromSize(self.size); }
+- (void) setFrame:(NSRect)frameRect {  [self setFrame:frameRect display:YES];}
 /* prevent any "offscreen action"
 
 //  Not sure why this is here.

@@ -3,6 +3,60 @@
 #import "AtoZUmbrella.h"
 
 
+//static NSA *_pos = nil;
+//#define AZWindowPositionTypeArray @"Left",@"Bottom",@"Right",@"Top",@"TopLeft",@"BottomLeft",@"TopRight",@"BottomRight",@"Automatic", nil
+
+/*
+Binary Math
+0 + 0 = 0
+0 + 1 = 1
+1 + 1 = 10
+
+Binary to Decimal Conversion
+00010011 = 0*2**7 + 0*2**6 + 0*2**5 + 1*2**4 + 0*2**3 + 0*2**2 + 1*2**1 + 1*2**0
+         = 		 0 + 		 0 + 		 0 + 		16 + 		 0 + 		 0 + 		 2 + 		 1
+         = 																							19
+*/
+
+
+// Constants to hold bit masks for desired flags
+static int flagAllOff 	=   0;	//         000...00000000 (empty mask)
+static int flagbit1 		=   1;   // 2^^0    000...00000001
+static int flagbit2 		=   2;   // 2^^1    000...00000010
+static int flagbit3 		=   4;   // 2^^2    000...00000100
+static int flagbit4 		=   8;   // 2^^3    000...00001000
+static int flagbit5 		=  16;   // 2^^4    000...00010000
+static int flagbit6 		=  32;   // 2^^5    000...00100000
+static int flagbit7 		=  64;   // 2^^6    000...01000000
+static int flagbit8 		= 128;  	// 2^^7    000...10000000
+
+#define AZA AZAlign
+#define AZPOS AZA
+//JREnumDeclare (AZAlign,
+JROptionsDeclare(AZAlign, 	AZAlignLeft       = 0x00000001, 
+									AZAlignRight      = 0x00000010,
+									AZAlignTop        = 0x00000100,
+									AZAlignBottom     = 0x00001000,
+									AZAlignTopLeft    = 0x00000101,
+									AZAlignBottomLeft = 0x00001001,		
+									AZAlignTopRight   = 0x00000110,
+									AZAlignBottomRight  = 0x00001010
+
+//				AZAlignNone	= 0, // 0
+//		AZAlignBottomLeft = 0x10000001, // 2 << 0  (0x1 << 1), // => 0x00000010
+//			 AZAlignBottom	= 0x00000010,
+//	  AZAlignBottomRight	= 0x00000110,
+//	     	  AZAlignRight = 0x00001000,
+//  	     AZAlignTopRight = 0x00001100,
+//	          AZAlignTop = 0x00000000,
+//			AZAlignTopLeft = 0x00000101,
+//				AZAlignLeft = 0x00011100 // 1 << 0   aka (0x1 << 0), // => 0x00000001
+////	       = 0x00001000,
+//	   = 0x00001001,
+//	  = 0x00001010
+);
+
+
 typedef NS_ENUM(NSUI, AssetType){ JS, CSS, HTML, PHP, BASH,	ObjC, TXT,	UNKNOWN = 99 };
 extern NSString * const assetStringValue[];
 extern NSString * const assetTagName[];
@@ -141,62 +195,40 @@ typedef NS_OPTIONS(NSUI, AZWindowPosition) {
 };// AZWindowPosition;
 */
 #define  AZPositionToString AZWindowPositionToString
+#define AZPosition AZAlign
 #define AZWindowPosition AZPosition
-JREnumDeclare(AZPosition,
-	AZPositionLeft 			= 0,// NSMinXEdge, // 0  NSDrawer
-	AZPositionRight			= 2, //NSMaxXEdge, // 2  preferredEdge
-	AZPositionTop		   	= 3, //NSMaxYEdge, // 3  compatibility
-	AZPositionBottom			= 1,  //NSMinYEdge, // 1  numbering!
-	AZPositionTopLeft	   	= 4,
-	AZPositionBottomLeft		= 5,
-	AZPositionTopRight	 	= 6,
-	AZPositionBottomRight   = 7,
-	AZPositionAutomatic	 	= 8 );// AZWindowPosition;
+//JREnumDeclare(AZPosition,
+//	AZPositionLeft 			= 0,// NSMinXEdge, // 0  NSDrawer
+//	AZPositionRight			= 2, //NSMaxXEdge, // 2  preferredEdge
+//	AZPositionTop		   	= 3, //NSMaxYEdge, // 3  compatibility
+//	AZPositionBottom			= 1,  //NSMinYEdge, // 1  numbering!
+//	AZPositionTopLeft	   	= 4,
+//	AZPositionBottomLeft		= 5,
+//	AZPositionTopRight	 	= 6,
+//	AZPositionBottomRight   = 7,
+//	AZPositionAutomatic	 	= 8 );// AZWindowPosition;
 
 
-//static NSA *_pos = nil;
-//#define AZWindowPositionTypeArray @"Left",@"Bottom",@"Right",@"Top",@"TopLeft",@"BottomLeft",@"TopRight",@"BottomRight",@"Automatic", nil
 
-/*
-Binary Math
-0 + 0 = 0
-0 + 1 = 1
-1 + 1 = 10
+#define AZPositionLeft 		AZAlignLeft
+#define AZPositionRight		AZAlignRight		//			= 2, //NSMaxXEdge, // 2  preferredEdge
+#define 	AZPositionTop		AZAlignTop		   //	= 3, //NSMaxYEdge, // 3  compatibility
+#define 	AZPositionBottom		AZAlignBottom//			= 1,  //NSMinYEdge, // 1  numbering!
+#define 	AZPositionTopLeft 		AZAlignTopLeft//	   	= 4,
+#define 	AZPositionBottomLeft		AZAlignBottomLeft//		= 5,
+#define 	AZPositionTopRight		AZAlignTopRight//	 	= 6,
+#define 	AZPositionBottomRight		AZAlignBottomRight//   = 7,
+#define 	AZPositionAutomatic		NSNotFound//	 	= 8 );// AZWindowPosition;
 
-Binary to Decimal Conversion
-00010011 = 0*2**7 + 0*2**6 + 0*2**5 + 1*2**4 + 0*2**3 + 0*2**2 + 1*2**1 + 1*2**0
-         = 		 0 + 		 0 + 		 0 + 		16 + 		 0 + 		 0 + 		 2 + 		 1
-         = 																							19
-*/
+#define AZLft 		AZPositionLeft
+#define AZRgt		AZPositionRight
+#define AZTop		AZPositionTop
+#define AZBot		AZPositionBottom
+#define AZTpLft	AZPositionTopLeft
+#define AZBtLft	AZPositionBottomLeft
+#define AZTpRgt	AZPositionTopRight
+#define AZBtRgt	AZPositionBottomRight
 
-
-// Constants to hold bit masks for desired flags
-static int flagAllOff 	=   0;	//         000...00000000 (empty mask)
-static int flagbit1 		=   1;   // 2^^0    000...00000001
-static int flagbit2 		=   2;   // 2^^1    000...00000010
-static int flagbit3 		=   4;   // 2^^2    000...00000100
-static int flagbit4 		=   8;   // 2^^3    000...00001000
-static int flagbit5 		=  16;   // 2^^4    000...00010000
-static int flagbit6 		=  32;   // 2^^5    000...00100000
-static int flagbit7 		=  64;   // 2^^6    000...01000000
-static int flagbit8 		= 128;  	// 2^^7    000...10000000
-
-#define AZA AZAlign
-//JREnumDeclare (AZAlign,
-JROptionsDeclare(AZAlign,
-				AZAlignNone	= 0, // 0
-		AZAlignBottomLeft = 0x10000001, // 2 << 0  (0x1 << 1), // => 0x00000010
-			 AZAlignBottom	= 0x00000010,
-	  AZAlignBottomRight	= 0x00000110,
-	     	  AZAlignRight = 0x00001000,
-  	     AZAlignTopRight = 0x00001100,
-	          AZAlignTop = 0x00000000,
-			AZAlignTopLeft = 0x00000101,
-				AZAlignLeft = 0x00011100 // 1 << 0   aka (0x1 << 0), // => 0x00000001
-//	       = 0x00001000,
-//	   = 0x00001001,
-//	  = 0x00001010
-);
 
 
 //NSS* stringForPosition(AZWindowPosition enumVal);

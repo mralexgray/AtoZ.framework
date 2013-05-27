@@ -40,7 +40,6 @@ NS_INLINE 		void 	AZCLogFormat					(const char *fmt,				 ...) { va_list args; va
 @property (NATOM,STRNG) NSA	*palette;
 @property (NATOM,   WK)	id     mainMenu;
 
-- (void) setupBareBonesApplication;
 
 //+ (void) handleInteractionWithPrompt:(NSS*)string block:(void(^)(NSString *output))block;
 //@property (			 ASS) IBO NSTV *terminal;

@@ -55,13 +55,12 @@ static NSMD	*selectionDecoder = nil;
 		[_window setContentView: self.contentView];
 		[_window setBackgroundColor:        CLEAR];
 		[_window setOpaque:				 		   NO]; 
-		[_window setSticksToEdge:		 		  YES];
 		[_window setDelegate:					 self];
 //		[AZNOTCENTER observeName:NSApplicationDidBecomeActiveNotification usingBlock:^(NSNOT*n) {
 //			[NSApp activateIgnoringOtherApps:YES];	[_window makeKeyAndOrderFront:self];
 //		}];
 		[self.windowPosString bind:NSValueBinding toObject:_window withKeyPath:@"insideEdge" transform:^id(id value) {
-			return AZPositionToString([value unsignedIntegerValue]);
+			return AZAlignToString([value unsignedIntegerValue]);
 		}];
 	}
 	return [_window makeKeyAndOrderFront: nil], _window;
@@ -69,7 +68,7 @@ static NSMD	*selectionDecoder = nil;
 - (BLKVIEW*) contentView { 
 
 	return _contentView = _contentView ?: [BLKVIEW viewWithFrame:self.window.contentRect opaque:NO drawnUsingBlock:^(BNRBlockView *v, NSRect r) {
-		[[NSBP bezierPathWithRoundedRect:_window.contentRect cornerRadius:20 inCorners:_window.sticksToEdgeOutsideCorners]fillWithColor:RANDOMCOLOR];
+		[[NSBP bezierPathWithRoundedRect:_window.contentRect cornerRadius:20 inCorners:OSBottomLeftCorner|OSBottomRightCorner] fillWithColor:RANDOMCOLOR];
 		[self.windowPosString drawInRect:_window.contentRect withAttributes:@{NSFontNameAttribute:AtoZ.controlFont}];
 	}];
 

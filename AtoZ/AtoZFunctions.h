@@ -3,6 +3,14 @@
 #import "AtoZUmbrella.h"
 #import <BlocksKit/BlocksKit.h>
 
+/*		[runCommand(@"ls -la /")log]; ->
+total 16751
+drwxrwxr-x+ 60 root        wheel     2108 May 24 15:19 .
+drwxrwxr-x+ 60 root        wheel     2108 May 24 15:19 ..
+drwxrwxrwt@  5 localadmin  admin      170 Jul 14  2012 .TemporaryItems ,,, */
+NSString * runCommand(NSString* c);
+
+
 /** BLOCKS!  */
 void profile (const char *name, VoidBlock block); 		// usage	 profile("Long Task", ^{ performLongTask() } );
 
@@ -99,7 +107,7 @@ CAT3D  	m34();
 + (void) setSharedInstance:(id)i;
 +(instancetype) instance;
 +(instancetype) sharedInstance;  //alias for instance
-+(instancetype) uno;		  //alias for instance
+//+(instancetype) uno;		  //alias for instance
 @end
 
 /**  PYTHON!  */

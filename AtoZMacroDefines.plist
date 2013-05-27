@@ -4,6 +4,8 @@
 <dict>
 	<key>AZ</key>
 	<dict>
+		<key>AZRANDOMICON</key>
+		<string>[NSIMG randomMonoIcon]</string>
 		<key>AZCACHigh</key>
 		<string>AZConstRelSuper ( kCAConstraintHeight )</string>
 		<key>AZCACMaxX</key>
@@ -22,6 +24,8 @@
 		<string>[AZRUNLOOP runMode:NSDefaultRunLoopMode beforeDate:NSDate.distantFuture]</string>
 		<key>AZRUNLOOP</key>
 		<string>NSRunLoop.currentRunLoop</string>
+		<key>AZLOGCMD</key>
+		<string>[$UTF8(__PRETTY_FUNCTION__) log]</string>
 		<key>Inactive</key>
 		<dict/>
 	</dict>
@@ -115,7 +119,7 @@
 		<key>AZNOCACHE</key>
 		<string>NSURLRequestReloadIgnoringLocalCacheData</string>
 		<key>AZSuperLayerSuper</key>
-		<string>(@"superlayer")</string>
+		<string>(@&quot;superlayer&quot;)</string>
 		<key>CAA</key>
 		<string>CAAnimation</string>
 		<key>CAAG</key>
@@ -214,23 +218,23 @@
 		<key>fgC</key>
 		<string>foregroundColor</string>
 		<key>kCLR</key>
-		<string>@"color"</string>
+		<string>@&quot;color&quot;</string>
 		<key>kFRM</key>
-		<string>@"frame"</string>
+		<string>@&quot;frame&quot;</string>
 		<key>kHIDE</key>
-		<string>@"hide"</string>
+		<string>@&quot;hide&quot;</string>
 		<key>kIDX</key>
-		<string>@"index"</string>
+		<string>@&quot;index&quot;</string>
 		<key>kIMG</key>
-		<string>@"image"</string>
+		<string>@&quot;image&quot;</string>
 		<key>kLAY</key>
-		<string>@"layer"</string>
+		<string>@&quot;layer&quot;</string>
 		<key>kPOS</key>
-		<string>@"position"</string>
+		<string>@&quot;position&quot;</string>
 		<key>kPSTRING</key>
-		<string>@"pString"</string>
+		<string>@&quot;pString&quot;</string>
 		<key>kSTR</key>
-		<string>@"string"</string>
+		<string>@&quot;string&quot;</string>
 		<key>lMGR</key>
 		<string>layoutManager</string>
 		<key>loM</key>
@@ -585,10 +589,10 @@
 		<string>[NSNull  null]</string>
 		<key>AZOS</key>
 		<string>AZSharedOperationStack()</string>
-		<key>AZP</key>
+		<key>AZPAL</key>
 		<string>AZPalette</string>
 		<key>AZPOS</key>
-		<string>AZWindowPosition</string>
+		<string>AZA</string>
 		<key>AZPROCINFO</key>
 		<string>NSProcessInfo.processInfo</string>
 		<key>AZPROCNAME</key>
@@ -686,13 +690,13 @@
 		<key>fV</key>
 		<string>floatValue</string>
 		<key>kContentColorKey</key>
-		<string>@"itemColor"</string>
+		<string>@&quot;itemColor&quot;</string>
 		<key>kContentImageKey</key>
-		<string>@"itemImage"</string>
+		<string>@&quot;itemImage&quot;</string>
 		<key>kContentTitleKey</key>
-		<string>@"itemTitle"</string>
+		<string>@&quot;itemTitle&quot;</string>
 		<key>kItemSizeSliderPositionKey</key>
-		<string>@"ItemSizeSliderPosition"</string>
+		<string>@&quot;ItemSizeSliderPosition&quot;</string>
 		<key>pBCN</key>
 		<string>postsBoundsChangedNotifications</string>
 		<key>pFCN</key>

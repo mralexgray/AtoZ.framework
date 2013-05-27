@@ -73,6 +73,8 @@ static inline NSR AZScaleRect(NSRect frame, CGF factor) {
 @interface AZRect : AZPoint 	{  CGF width, height;	}
 #define AZRECTUNDERMENU [AZRect screnFrameUnderMenu]
 #define $AZRECT(r) [AZRect rectWithRect:r]
+#define $AZR(r) [AZRect rectWithRect:r]
+
 //- (AZA) alignInside:(NSR)ext;
 + (AZRect*) screnFrameUnderMenu;
 + (AZRect*) rect;
@@ -90,13 +92,14 @@ static inline NSR AZScaleRect(NSRect frame, CGF factor) {
 - (id) initWithFrame:(NSR)frame inFrame:(NSR)superframe;
 
 @property (NATOM,ASS) CGP 		anchor, position;
-@property (NATOM,ASS) CGF 		width, height;
+@property (NATOM,ASS) CGF 		width, height, maxX, maxY, minY, minX;
 @property (NATOM,ASS) NSP 		origin, center;
 @property (NATOM,ASS) NSSZ 	size;
 @property (NATOM,ASS) NSR 		rect;
 @property (NATOM,ASS) AZPOS	orient;
-@property (RONLY) CGF 	area, maxX, maxY, minY, minX;
+@property (RONLY) CGF 	area;
 @property (RONLY) NSP 	apex;
+- (void) setApex:(NSP)p move1Scale2:(NSN*)n;
 @property (NATOM,ASS) NSR r;
 
 

@@ -45,11 +45,11 @@ extern NSString * const AZOperationIndeterminateKey;	//An NSNumber boolean indic
 @protocol AZOperationDelegate;
 @interface AZOperation : NSOperation
 {
-	__unsafe_unretained id <AZOperationDelegate> _delegate;
-	id _contextInfo;
-	SEL _willStartSelector, _inProgressSelector,_wasCancelledSelector,_didFinishSelector;
-	BOOL _notifiesOnMainThread;
-	NSError *_error;
+//	__unsafe_unretained id <AZOperationDelegate> _delegate;
+//	id _contextInfo;
+//	SEL _willStartSelector, _inProgressSelector,_wasCancelledSelector,_didFinishSelector;
+//	BOOL _notifiesOnMainThread;
+//	NSError *_error;
 }
 
 #pragma mark - Configuration properties

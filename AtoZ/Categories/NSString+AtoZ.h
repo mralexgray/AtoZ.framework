@@ -23,6 +23,7 @@
 @property (RONLY) BOOL isInteger;
 @property NSRNG subRange;
 
+- (void) openInTextMate;
 
 - (NSComparisonResult)compareNumberStrings:(NSS *)str;
 

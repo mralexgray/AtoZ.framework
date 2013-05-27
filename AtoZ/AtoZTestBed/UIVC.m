@@ -12,7 +12,7 @@
 
 - (IBAction)showXFLDragDrop:(id)sender;
 {
-	self.xl = [XLDragDropView.alloc initWithFrame:quadrant(self.view.frame, AZTopLeftQuad) normalBackgroundImageName:@"1.pdf"];
+	self.xl = [XLDragDropView.alloc initWithFrame:quadrant(self.view.frame, AZQuadTopLeft) normalBackgroundImageName:@"1.pdf"];
 	_xl.delegate = (id)self;
 	_xl.highlightedBackgroundImageName 	= [[NSIMG randomIcon]name];//@"2.pdf";
 	_xl.acceptedBackgroundImageName 	= [[NSIMG randomIcon]name];// @"3.pdf";
