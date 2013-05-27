@@ -222,3 +222,9 @@
 	path = Frameworks/ObjectMatcher
 	url = https://github.com/mralexgray/ObjectMatcher.git
 	ignore = dirty
+[submodule "Frameworks/NullSafe"]
+	path = Frameworks/NullSafe
+	url = https://github.com/mralexgray/NullSafe.git
+[submodule "src/libextobjc"]
+	path = src/libextobjc
+	url = https://github.com/mralexgray/libextobjc.git
