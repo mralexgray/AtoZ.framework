@@ -119,8 +119,10 @@
 	tray.backgroundColor = cgPURPLE;//SPACERCOLOR;
 	tray.layoutManager = [CAConstraintLayoutManager layoutManager];
 
-	NSUInteger columns = [AtoZ dock].count;
-	for (int c = 0; c < columns ; c++) {
+	NSA* a = RANDOMPAL;
+	
+	NSUInteger columns = a.count;//NSIMG.monoIcons.count;//[AtoZ dock].count;
+	for (int c = 0; c < a.count ; c++) {
 		CALayer *cell = [CALayer layer];
 		cell.frame = self.bounds;
 //		t.size.height = 50;
@@ -129,7 +131,8 @@
 //		[cell setBounds:CGRectMake(0,0,100,self.bounds.size.height)];
 //		cell.borderColor =	CGColorCreateGenericGray(0.8, 0.8);
 //		cell.borderWidth = 1;	cell.cornerRadius = 4;
-		cell.backgroundColor = [[[[[AtoZ dock] sortedWithKey:@"hue" ascending:YES] objectAtNormalizedIndex:c]valueForKey:@"color"]CGColor];
+		cell.backgroundColor = [a[c]CGColor];//cgRANDOMCOLOR;
+//		 [[[[[AtoZ dock] sortedWithKey:@"hue" ascending:YES] objectAtNormalizedIndex:c]valueForKey:@"color"]CGColor];
 //		cell.shadowOffset = CGSizeMake(5,5);
 //		cell.shadowColor = cgBLACK;
 //		cell.shadowRadius = 10;

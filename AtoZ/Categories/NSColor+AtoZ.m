@@ -254,6 +254,21 @@ static NSMD *colorsFromStruct = nil;
 
 @implementation NSColor (AtoZ)
 
+
++ (NSA*)randomPaletteAnimationBlock:(colorFadeBlock)target {
+	NSA* r = RANDOMPAL;
+	NSA* pal = [self gradientPalletteLooping:r steps:1000];
+	NSLog(@"number of colors in fade: %ld", pal.count);
+	__block NSUI ct = 0;
+	return [NSTimer scheduledTimerWithTimeInterval:.2 block:^(NSTimeInterval time) {
+		NSColor*u =[pal normal:ct]; ct++; 
+//		NSLog(@"gotColor: %@", u.nameOfColor);
+		target(u);
+ 	} repeats:YES], pal;
+}
+
+
+
 + (NSArray *)colorNames {
   	static NSArray *sAllNames = nil;
 	if (!sAllNames) {

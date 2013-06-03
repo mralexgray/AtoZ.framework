@@ -7,8 +7,49 @@
 //
 
 #import "UIVC.h"
+//@interface	AZNode : NSObject	
+//@property (strong) id value, key, expanded; 
+//@property (strong,nonatomic) NSMutableArray * children;	
+//@end
+//@implementation AZNode - (NSMutableArray*)children	{ return _children = _children ?: NSMutableArray.new; }	@end
 
 @implementation UIVC
+
+
+
+-             (id) outlineView:(NSOutlineView*)v 																/* Outline View Datasource */
+	  objectValueForTableColumn:(NSTableColumn*)c byItem:(id)x								{	
+	  
+	  return [c.identifier isEqualToString:@"value"] ? ((AZNode*)x).children.count ? nil 
+		/* returns child count in "Value", ie. columns 2, or nil, for root, akak "key" columns" */												  : ((AZNode*)x).value:((AZNode*)x).key;
+}
+- 				(BOOL) outlineView:(NSOutlineView*)v 			 		  isGroupItem:(id)x 	{ return [(AZNode*)x value] == nil; /* if value is nil, it must be a key, aka a root */ }
+-           (BOOL) outlineView:(NSOutlineView*)v 		      isItemExpandable:(id)x	{ return !x ?: [[x children]count];	/* root items (nil) exp., also if there are childrenseses */ }
+-      (NSInteger) outlineView:(NSOutlineView*)v      numberOfChildrenOfItem:(id)x	{ NSInteger ct = !x ? 1 : [[x children]count];	
+																																				  return NSLog(@"Item: %@ children ct: %ld", x, ct),ct;
+}
+- 			     (id) outlineView:(NSOutlineView*)v child:(NSInteger)idx ofItem:(id)x	{	return !x ? self.root : [x children][idx];	}  
+
+-  (NSDictionary*) expansions 						{	NSString *e = nil;	NSPropertyListFormat fmt;
+	return [NSPropertyListSerialization propertyListFromData:[NSData dataWithContentsOfFile:@"/Volumes/2T/ServiceData/AtoZ.framework/AtoZMacroDefines.plist"] mutabilityOption:NSPropertyListMutableContainersAndLeaves format:&fmt errorDescription:&e];
+} 															/* parse the plist */
+-        (AZNode*) root 								{ 
+
+	__block AZNode*_root = AZNode.new; _root.key = @"Expansions"; __block AZNode *cat, *def; 
+	NSMutableArray *_allKeywords, *_allReplacements, *_allCats;	
+	_allKeywords = NSMutableArray.new; _allReplacements = NSMutableArray.new; _allCats = NSMutableArray.new;
+	return [self.expansions enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+		[_root.children addObject:cat = AZNode.new]; cat.key = key;  [_allCats addObject:key];
+		[obj enumerateKeysAndObjectsUsingBlock:^(NSString *macro,NSString *expansion, BOOL*s){ 
+			[cat.children 		addObject:def = AZNode.new]; 
+			[_allKeywords 		addObject:def.key = macro]; 
+			[_allReplacements addObject:def.value = expansion];	
+		}];
+//			if (cat.children.count) { if (_searchField.stringValue) cat.expanded = @YES; [_root.children addObject:cat]; }
+	}], _root;
+}
+
+
 
 - (IBAction)showXFLDragDrop:(id)sender;
 {
@@ -46,18 +87,18 @@
 	}];
 	_spinning = spinning;
 }
+- (BGThemeManager*) sharedThemeManager { return  [BGThemeManager sharedManager]; }
 - (void)setBaseColor:(NSColor *)baseColor
 {
-	_baseColor = baseColor;
-	[((BGTheme*)((BGHUDView*)_windowView).theme) setBaseColor:_baseColor];
-//	self.windowView.needsDisplay = YES;
+	[((BGTheme*)((BGHUDView*)_windowView).theme) setBaseColor:_baseColor = baseColor];
+	[self.windowView setNeedsDisplay:YES];
 //	[((BGHUDView*)[[[self view]window]contentView]).theme setBaseColor:self.colorWell.color];
 //	[[[[self view ]window] contentView]setNeedsDisplay:YES];
 }
 
 - (void) awakeFromNib //:(NSNotification*) aNotification
 {
-	[((BGHUDView*)self.windowView) bind:@"baseColor" toObject:_colorWell withKeyPath:@"color" options:nil];
+	[[((BGHUDView*)self.windowView) theme] bind:@"baseColor" toObject:_colorWell withKeyPath:@"color" options:nil];
 
 	// Insert code here to initialize your application
 	NSLog(@"Done with initialization");

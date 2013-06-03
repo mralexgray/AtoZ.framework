@@ -1,7 +1,7 @@
 #import <AIUtilities/AIUtilities.h>
 
 
-JROptionsDeclare(MWDraggingMode, MWDraggingModeMove, MWDraggingModeResize, MWDraggingModeNone);
+JROptionsDeclare(AZDraggingMode, AZDraggingModeMove, AZDraggingModeResize, AZDraggingModeNone);
 
 @class StickyNote;
 @interface StickyNoteView : AIWindowDraggingView
@@ -26,5 +26,18 @@ JROptionsDeclare(MWDraggingMode, MWDraggingModeMove, MWDraggingModeResize, MWDra
 @property (STRNG, NATOM) StickyNoteView *sticky;
 
 @end
+
+
+@interface AZStickyNoteView : NSControl 
+@property (assign) AZDraggingMode draggingMode;
+@property (assign) NSTrackingRectTag trackingRectTag;
+@property (assign )NSPoint eventStartPoint,lastDragPoint;
+@property (assign) NSSize minSize, maxSize;
+@property (strong) NSColor *noteColor, *textColor;
+@property (strong) NSString* placeholderString;
+
+@end
+
+
 
 

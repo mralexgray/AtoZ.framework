@@ -18,10 +18,7 @@
 -  (BOOL) cellShouldDrawCheckBoxesShaded:(SNRHUDButtonCell*)cell ;
 @end
 
-@interface SNRHUDButtonCell : NSButtonCell
-{	
-	NSC* _on, *_off, *_mixed;
-}
+@interface SNRHUDButtonCell : NSButtonCell	{	NSColor* _on, *_off, *_mixed;	}
 @property (unsafe_unretained) IBOutlet id <SNRHUDViewDelegate> delegate;
 @property (readonly) 			BOOL drawCheckBoxesShaded;
 @property (strong, nonatomic) NSColor *on, *off, *mixed;

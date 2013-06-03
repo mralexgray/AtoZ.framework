@@ -11,7 +11,7 @@ typedef enum  {
 @interface AZSnapShotLayer : CALayer
 
 + (AZSnapShotLayer*) rootSnapshot;
-+ (AZSnapShotLayer*) rootSnapWithFile:(AZFile *)file andDisplayMode:(AZDisplayMode)style;
+//+ (AZSnapShotLayer*) rootSnapWithFile:(AZFile *)file andDisplayMode:(AZDisplayMode)style;
 
 @property (nonatomic, retain) CATransformLayer				*trannyLayer;
 @property (nonatomic, retain) CAConstraintLayoutManager		*constrainLayer;

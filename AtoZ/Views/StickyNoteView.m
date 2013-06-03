@@ -1,7 +1,7 @@
 #import "StickyNoteView.h"
 #import <QuartzCore/QuartzCore.h>
 
-JROptionsDefine(MWDraggingMode)
+JROptionsDefine(AZDraggingMode)
 
 
 @interface StickyNote()
@@ -74,10 +74,10 @@ JROptionsDefine(MWDraggingMode)
 	_eventStartPoint 	=  [self 			  convertPoint:theEvent.locationInWindow fromView:nil];
 	_lastDragPoint 	= [[[self window]contentView] convertPoint:theEvent.locationInWindow fromView:nil];
 //	_draggingMode 		=  [self mouse:_eventStartPoint inRect:[self _resizeHandleRectForCurrentFrame]]
-//							?	MWDraggingModeResize
+//							?	AZDraggingModeResize
 //							:	[self mouse:_eventStartPoint inRect:[self _closeButtonRectForCurrentFrame]]
-//							? 	MWDraggingModeNone :	MWDraggingModeMove;
-//	NSLog(@"DRAGMODE:%@", MWDraggingModeToString(_draggingMode));
+//							? 	AZDraggingModeNone :	AZDraggingModeMove;
+//	NSLog(@"DRAGMODE:%@", AZDraggingModeToString(_draggingMode));
 }		
 - (void) setAlign:(AZWindowPosition)align{	CGF inset = 20;	NSRect normalRect, edger;
 	
@@ -118,11 +118,11 @@ JROptionsDefine(MWDraggingMode)
 	NSPoint newLocation = [self convertPoint:theEvent.locationInWindow fromView:nil];
 	float x_amount = _lastDragPoint.x - newLocation.x;
 	float y_amount = _lastDragPoint.y - newLocation.y;
-	newFrame = _draggingMode == MWDraggingModeMove 	? 	_align == AZPositionBottom || _align == AZPositionTop ? 	AZRectExceptOriginX(newFrame,-x_amount) 
+	newFrame = _draggingMode == AZDraggingModeMove 	? 	_align == AZPositionBottom || _align == AZPositionTop ? 	AZRectExceptOriginX(newFrame,-x_amount) 
 																	:	_align == AZPositionLeft || _align == AZPositionRight ?	AZRectExceptOriginY(newFrame, -y_amount)
 																	: AZOffsetRect(newFrame, NSMakePoint(-x_amount, y_amount)) : newFrame;
 																	
-	_draggingMode == MWDraggingModeResize 				? ^{	newFrame.size.width -= x_amount;		newFrame.origin.y -= y_amount;
+	_draggingMode == AZDraggingModeResize 				? ^{	newFrame.size.width -= x_amount;		newFrame.origin.y -= y_amount;
 																			newFrame.size.height += y_amount;	newFrame = [self _constrainRectSize:newFrame]; }() : nil;
 	
 	_lastDragPoint = newLocation;
@@ -140,7 +140,7 @@ JROptionsDefine(MWDraggingMode)
 }
 -  (void) mouseUp:	   (NSE*)theEvent 		{
 	NSPoint mousePoint = [self convertPoint:[theEvent locationInWindow] fromView:nil];
-	if ( (_draggingMode == MWDraggingModeNone) &&
+	if ( (_draggingMode == AZDraggingModeNone) &&
 		 ([self mouse:_eventStartPoint inRect:[self _closeButtonRectForCurrentFrame]]) &&
 		 ([self mouse:mousePoint inRect:[self _closeButtonRectForCurrentFrame]]) )
 		[self removeFromSuperview];
@@ -289,3 +289,226 @@ JROptionsDefine(MWDraggingMode)
 }
 
 */
+
+@interface AZStickyNoteView (PrivateMethods)
+
+- (void) _doubleMouse:(NSEvent *)theEvent;
+- (NSRect) _fillRectForCurrentFrame;
+- (NSRect) _cellRectForCurrentFrame;
+- (NSRect) _closeButtonRectForCurrentFrame;
+- (NSRect) _resizeHandleRectForCurrentFrame;
+- (NSRect) _constrainRectSize:(NSRect)rect;
+
+@end
+
+
+@implementation AZStickyNoteView
+
++ (Class)cellClass										{    return NSTextFieldCell.class;	}
+- (id)initWithFrame:(NSRect)frame 					{
+    if (self != [super initWithFrame:frame]) return nil;
+	 _noteColor = [NSC r:0.99 g:0.96 b:0.61 a:1.0];
+	
+	[self setStringValue:@""];
+	[self setTextColor:[NSColor colorWithCalibratedWhite:0.25 alpha:1.0]];
+	[self setFont:[NSFont fontWithName:@"Marker Felt" size:12.5]];
+	[self setPlaceholderString:@"Double Click to Edit"];
+	[self setMinSize:NSMakeSize(75,75)];
+	[self setMaxSize:NSMakeSize(200,200)];
+	
+	[[self cell] setEditable:NO];
+	return self;
+}
+- (void)viewDidMoveToWindow							{	
+		_trackingRectTag = (self.window) ? [self addTrackingRect:[self _fillRectForCurrentFrame] owner:self userData:nil assumeInside:NO] : _trackingRectTag;
+}
+- (void)viewWillMoveToWindow:(NSWindow*)w			{
+	if ( (self.window) && _trackingRectTag ) [self removeTrackingRect:_trackingRectTag];
+}
+- (void)setFrame:(NSRect)frame 						{
+    [super setFrame:frame];
+    [self removeTrackingRect:_trackingRectTag];
+    _trackingRectTag = [self addTrackingRect:[self _fillRectForCurrentFrame] owner:self userData:nil assumeInside:YES];
+}
+
+#pragma mark Note Properties
+- (void)setTextColor:(NSColor *)col					{	[[self cell] setTextColor:col];	}
+- (NSColor *)textColor									{	return [[self cell] textColor];	}
+- (void)setPlaceholderString:(NSString *)string	{	[[self cell] setPlaceholderString:string];	}
+- (NSString *)placeholderString						{	return [[self cell] placeholderString];		}
+#pragma mark Note Controls
+- (void)mouseEntered:(NSE*)e	{		[self setNeedsDisplay:YES];	}
+- (void)mouseExited: (NSE*)e	{	[self setNeedsDisplay:YES];	}
+- (void)mouseDown:	(NSE*)e	{
+	if(e.clickCount == 2)		{		[self _doubleMouse:e];	return;		}
+	_eventStartPoint 	= [self convertPoint:e.locationInWindow fromView:nil];
+	_lastDragPoint 	= [self.superview convertPoint:e.locationInWindow fromView:nil];
+	_draggingMode 		= [self mouse:_eventStartPoint inRect:self._resizeHandleRectForCurrentFrame] ? AZDraggingModeResize:
+							  [self mouse:_eventStartPoint inRect:self._closeButtonRectForCurrentFrame]  ? AZDraggingModeNone  : 
+																																	 AZDraggingModeMove  ;
+}
+- (void)mouseDragged:(NSE*)e	{
+	NSRect origFrame = self.frame, newFrame = self.frame;
+	NSPoint newLocation = [[self superview] convertPoint:e.locationInWindow fromView:nil];
+	
+	float x_amount=_lastDragPoint.x-newLocation.x;
+	float y_amount=_lastDragPoint.y-newLocation.y;
+	
+	if(_draggingMode == AZDraggingModeMove)
+	{
+		newFrame.origin.x -= x_amount;
+		newFrame.origin.y -= y_amount;
+	}
+	
+	if(_draggingMode == AZDraggingModeResize)
+	{
+		newFrame.size.width -= x_amount;
+		newFrame.origin.y -= y_amount;
+		newFrame.size.height += y_amount;
+		
+		newFrame = [self _constrainRectSize:newFrame];
+	}
+	
+	if(NSContainsRect([[self superview] bounds], newFrame))
+	{
+		[self setFrame:newFrame];
+		_lastDragPoint = newLocation;
+		[[self superview] setNeedsDisplayInRect:NSUnionRect(origFrame, newFrame)];
+	}
+}
+- (void)mouseUp:		(NSE*)e	{
+
+	NSPoint mousePoint = [self convertPoint:e.locationInWindow fromView:nil];
+
+	(_draggingMode == AZDraggingModeNone && [self mouse:_eventStartPoint inRect:self._closeButtonRectForCurrentFrame])  
+													 && [self mouse:mousePoint inRect:self._closeButtonRectForCurrentFrame]
+	? ^{ if (self == [self.window contentView]) [self.window orderOut:nil]; else [self removeFromSuperview];	}() : nil;
+		
+}
+- (void)_doubleMouse:(NSE*)e	{
+	NSRect cellFrame 	= [self _cellRectForCurrentFrame];
+	NSText *editor 	= [self.window fieldEditor:YES forObject:self];
+	[self.cell setEditable:YES];
+	[self.cell editWithFrame:cellFrame inView:self editor:editor delegate:self event:e];
+}
+#pragma mark Editor Delegate Methods
+- (void) textDidBeginEditing:	  (NSNOT*)n		{}
+- (void) textDidChange:		 	  (NSNOT*)n		{}
+- (void) textDidEndEditing:	  (NSNOT*)n		{
+	[self validateEditing];
+	[[self window] endEditingFor:self];
+	[[self cell] setEditable:NO];
+}
+- (BOOL) textShouldBeginEditing:(NSText*)txt	{	return YES;}
+- (BOOL) textShouldEndEditing:  (NSText*)txt	{	return YES;	}
+#pragma mark Drawing
+- (void) drawRect:			  	  (NSR)rect		{
+	NSRect fillRect = [self _fillRectForCurrentFrame];
+	/* draw background */
+	NSColor *baseColor = [_noteColor colorUsingColorSpaceName:NSDeviceRGBColorSpace];
+	NSColor *hiColor = [NSColor colorWithCalibratedHue:baseColor.hueComponent-0.02
+											saturation:baseColor.saturationComponent-0.1 
+											brightness:baseColor.brightnessComponent+0.1 
+												 alpha:baseColor.alphaComponent];
+	NSColor *loColor = [NSColor colorWithCalibratedHue:baseColor.hueComponent 
+											saturation:baseColor.saturationComponent+0.05 
+											brightness:baseColor.brightnessComponent-0.05
+												 alpha:baseColor.alphaComponent];
+	
+	NSColor *topColor = ([self isFlipped]) ? loColor : hiColor;
+	NSColor *bottomColor =([self isFlipped]) ? hiColor : loColor;
+	CIColor* ciTopColor = [CIColor colorWithRed:[topColor redComponent] green:[topColor greenComponent] blue:[topColor blueComponent] alpha:[topColor alphaComponent]];
+	CIColor* ciBottomColor = [CIColor colorWithRed:[bottomColor redComponent] green:[bottomColor greenComponent] blue:[bottomColor blueComponent] alpha:[bottomColor alphaComponent]];
+	
+	CIVector *startVector = [CIVector vectorWithX:0.0 Y:0.0];
+	CIVector *endVector = [CIVector vectorWithX:0.0 Y:fillRect.size.height];
+	
+	CIFilter* gradFilter = [CIFilter filterWithName:@"CILinearGradient"];
+	[gradFilter setDefaults];
+	[gradFilter setValue:ciTopColor forKey:@"inputColor0"];
+	[gradFilter setValue:ciBottomColor forKey:@"inputColor1"];
+	[gradFilter setValue:startVector forKey:@"inputPoint0"];
+	[gradFilter setValue:endVector forKey:@"inputPoint1"];
+	
+	CIImage *grad = [gradFilter valueForKey:@"outputImage"];
+	
+	[NSGraphicsContext state:^{
+			
+		NSShadow *shadow=[[NSShadow alloc] init];
+		[shadow setShadowOffset:NSMakeSize(0.0,-1.0)];
+		[shadow setShadowColor:[[NSColor blackColor] colorWithAlphaComponent:0.3]];
+		[shadow setShadowBlurRadius:3.0];
+		[shadow set];
+		
+		CIContext *context = [NSGraphicsContext.currentContext CIContext];	
+		[context drawImage:grad atPoint:CGPointMake(fillRect.origin.x, fillRect.origin.y) fromRect:CGRectMake(0.0, 0.0, fillRect.size.width, fillRect.size.height)];
+	}];
+	/* draw cell */
+	if([self currentEditor] == nil)
+	{
+		NSRect cellFrame = [self _cellRectForCurrentFrame];
+		[[self cell] drawWithFrame:cellFrame inView:self];
+	}
+	/* draw controls */
+	NSPoint mouseLoc = [self convertPoint:[[self window] mouseLocationOutsideOfEventStream] fromView:nil];
+	if([self mouse:mouseLoc inRect:[self _fillRectForCurrentFrame]])
+	{
+		[[NSColor colorWithCalibratedWhite:0.5 alpha:0.5] set];
+		NSRect closeRect = NSInsetRect([self _closeButtonRectForCurrentFrame], 3.0, 3.0);
+		NSBezierPath *path = [NSBezierPath bezierPath];
+		[path setLineWidth:1];
+		[path moveToPoint:NSMakePoint(closeRect.origin.x, closeRect.origin.y)];
+		[path lineToPoint:NSMakePoint(closeRect.origin.x + closeRect.size.width, closeRect.origin.y + closeRect.size.height)];
+		[path moveToPoint:NSMakePoint(closeRect.origin.x, closeRect.origin.y + closeRect.size.height)];
+		[path lineToPoint:NSMakePoint(closeRect.origin.x + closeRect.size.width, closeRect.origin.y)];
+		[path stroke];
+		
+		NSRect resizeRect = NSInsetRect([self _resizeHandleRectForCurrentFrame], 3.0, 3.0);
+		path = [NSBezierPath bezierPath];
+		[path setLineWidth:1];
+		[path moveToPoint:NSMakePoint(resizeRect.origin.x, resizeRect.origin.y)];
+		[path lineToPoint:NSMakePoint(resizeRect.origin.x + resizeRect.size.width, resizeRect.origin.y + resizeRect.size.height)];
+		[path moveToPoint:NSMakePoint(resizeRect.origin.x +3.0, resizeRect.origin.y)];
+		[path lineToPoint:NSMakePoint(resizeRect.origin.x + resizeRect.size.width, resizeRect.origin.y + (resizeRect.size.height -3.0))];
+		[path stroke];
+	}
+}
+#pragma mark Geometry
+-  (NSR) _fillRectForCurrentFrame				{
+	NSRect noteRect = [self bounds];
+	noteRect.size.height -= 4.0;
+	noteRect.size.width -= 6.0;
+	noteRect.origin.y += 3.0;
+	noteRect.origin.x += 3.0;
+	return noteRect;
+}
+-  (NSR) _cellRectForCurrentFrame				{
+	return NSInsetRect([self _fillRectForCurrentFrame], 10.0, 10.0);
+}
+-  (NSR) _closeButtonRectForCurrentFrame		{
+
+	NSRect bRect = [self _fillRectForCurrentFrame];
+	bRect.origin.y = (NSMaxY(bRect) - 12.0);
+	bRect.size.height = 12.0;
+	bRect.size.width = 12.0;
+
+	return bRect;
+}
+-  (NSR) _resizeHandleRectForCurrentFrame		{
+	NSRect rRect = [self _fillRectForCurrentFrame];
+	rRect.origin.x = (NSMaxX(rRect) - 12.0);
+	rRect.size.width = 12.0;
+	rRect.size.height = 12.0;
+	return rRect;
+}
+-  (NSR) _constrainRectSize:	  (NSR)rect		{
+
+	NSRect r = rect;	NSSize max = [self maxSize], min = [self minSize];
+	r.size.width = (r.size.width < max.width) ? r.size.width : max.width;
+	r.size.width = (r.size.width > min.width) ? r.size.width : min.width;
+	r.size.height = (r.size.height < max.height) ? r.size.height : max.height;
+	r.size.height = (r.size.height > min.height) ? r.size.height : min.height;
+	if (r.size.height != rect.size.height) r.origin.y += (rect.size.height - r.size.height);	
+	return r;
+}
+@end

@@ -1,7 +1,4 @@
-
-//  AZBlockView.h
-//  AtoZ
-/*  USAGE
+/** AZBlockView.h - USAGE
 
 [[someView addSubview:
 	[AZBlockView viewWithFrame:someView.bounds opaque:NO drawnUsingBlock: ^(AZBlockView *view, NSRect dirtyRect) {
@@ -10,6 +7,7 @@
 		[[NSBezierPath bezierPathWithRoundedRect:view.bounds xRadius:5 yRadius:5] fill];
 	}]
 ]positioned:NSWindowBelow relativeTo:anotherView];
+
 */
 
 
@@ -27,8 +25,7 @@
 //@property (nonatomic, assign) BOOL opaque;
 //@end
 
-//Usage:
-/*
+/*		Usage:
 
 - (void) awakeFromNib {
  	block __typeof(self) blockSelf = self; 
@@ -38,11 +35,7 @@
  	}]];
 }
 
-*/
-
-
-
-/** IN NSIMAGE + AZOTZ 
+**** IN NSIMAGE + AZOTZ  ***
 typedef void(^NSImageDrawer)(void);
 
 @interface NSImage (AtoZDrawBlock)

@@ -1,58 +1,40 @@
-//
-//  NSEvent+AtoZ.m
-//  AtoZ
-//
-//  Created by Alex Gray on 9/23/12.
-//  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-//
-
 #import "NSEvent+AtoZ.h"
+#include <objc/runtime.h>
 
 JREnumDefine(AZEvent);
 
+// GOOD EXAMPLE OF SWIZZLING 
 static NSString *NSTVDOUBLEACTIONBLOCKKEY = @"com.mrgray.NSTV.double.action.block";
-
-
 @implementation NSTableView (TargetAction)
-
-- (void) setDoubleAction:(SEL)method withTarget:(id)object;
-{
+- (void) setDoubleAction:(SEL)method withTarget:(id)object {
 	self.doubleAction = method;	self.target = object;
 }
-- (void) setDoubleActionString:(NSS*)methodAsString withTarget:(id)object;
-{
+- (void) setDoubleActionString:(NSS*)methodAsString withTarget:(id)object	 {
 	self.doubleAction = NSSelectorFromString(methodAsString);	self.target		= object;
 }
-
 @dynamic doubleActionBlock;
-
-
-- (NSControlVoidActionBlock) doubleActionBlock {	return (NSControlVoidActionBlock)[self associatedValueForKey:(__bridge const void *)(NSTVDOUBLEACTIONBLOCKKEY)];}
-
-- (void)setDoubleActionBlock:(NSControlVoidActionBlock)block
-{
+- (NSControlVoidActionBlock) doubleActionBlock {	
+	return (NSControlVoidActionBlock)[self associatedValueForKey:(__bridge const void*)(NSTVDOUBLEACTIONBLOCKKEY)];
+}
+- (void)setDoubleActionBlock:(NSControlVoidActionBlock)block	{
 	[self setDoubleActionString:@"callDoubleActionBlock" withTarget:self];
 	[self setAssociatedValue:block forKey: NSTVDOUBLEACTIONBLOCKKEY policy:OBJC_ASSOCIATION_COPY];
 }
 - (void) callDoubleActionBlock { self.doubleActionBlock(); }
-
-
-
-+ (void) initialize {
++ (void) initialize {	
+	
 	[self.class.superclass initialize];
 	Class NSControlClass = NSControl.class;
-	method_exchangeImplementations(class_getInstanceMethod(NSControlClass,@selector(initWithCoder:)),class_getInstanceMethod(NSControlClass,@selector(newInitWithCoder:)));
+	method_exchangeImplementations(	class_getInstanceMethod(NSControlClass,@selector(initWithCoder:)),
+												class_getInstanceMethod(NSControlClass,@selector(newInitWithCoder:)));
 }
-
-//inspired from: [h]ttp://www.mikeash.com/pyblog/custom-nscells-done-right.html
 - (instancetype) newInitWithCoder:(NSCoder *) _coder {
-
+	//inspired from: [h]ttp://www.mikeash.com/pyblog/custom-nscells-done-right.html
 	if(![_coder ISKINDA:NSKeyedUnarchiver.class]) return [self newInitWithCoder:_coder];
-	NSKeyedUnarchiver * unarchiver = (NSKeyedUnarchiver *)_coder;
-
-	Class supercell 	= self.superclass.cellClass;
-	Class selfcell 	= self.class.cellClass;
-	if(!selfcell || !supercell) return [self newInitWithCoder:_coder];
+	NSKeyedUnarchiver *unarchiver = (NSKeyedUnarchiver *)_coder;
+	Class supercell 					= self.superclass.cellClass;
+	Class selfcell 					= self.class	  .cellClass;
+	if (!selfcell || !supercell) return [self newInitWithCoder:_coder];
 	NSString * supercellName = NSStringFromClass(supercell);
 	[unarchiver setClass:selfcell forClassName:supercellName];
 	id aself = self;
@@ -60,47 +42,33 @@ static NSString *NSTVDOUBLEACTIONBLOCKKEY = @"com.mrgray.NSTV.double.action.bloc
 	[unarchiver setClass:supercell forClassName:supercellName];
 	return aself;
 }
-
 @end
-
-#include <objc/runtime.h>
 
 static NSString *NSCONTROLBLOCKACTIONKEY = @"com.mrgray.NSControl.block";
 static NSString *NSCONTROLVOIDBLOCKACTIONKEY = @"com.mrgray.NSControl.voidBlock";
-
 @implementation NSControl (AtoZ)
 @dynamic actionBlock, voidActionBlock;
-
-- (NSControlActionBlock)actionBlock
-{//	NSControlActionBlock theBlock =
+- (NSControlActionBlock)actionBlock									{//	NSControlActionBlock theBlock =
 	return (NSControlActionBlock)[self associatedValueForKey:(__bridge const void *)(NSCONTROLBLOCKACTIONKEY)];
 //	return(theBlock);
 }
-- (void)setActionBlock:(NSControlActionBlock)inBlock
-{
+- (void)setActionBlock:(NSControlActionBlock)inBlock			{
 	self.target = self;
 	self.action = @selector(callAssociatedBlock:);
 	[self setAssociatedValue:inBlock forKey: NSCONTROLBLOCKACTIONKEY policy:OBJC_ASSOCIATION_COPY];
 }
-
-- (void)callAssociatedBlock:(id)inSender { self.actionBlock(inSender); }
-
-
-- (NSControlVoidActionBlock) voidActionBlock {	return (NSControlVoidActionBlock)[self associatedValueForKey:(__bridge const void *)(NSCONTROLVOIDBLOCKACTIONKEY)];}
-
-- (void)setVoidActionBlock:(NSControlVoidActionBlock)inBlock
-{
+- (void)callAssociatedBlock:(id)inSender 							{ self.actionBlock(inSender); }
+- (NSControlVoidActionBlock) voidActionBlock 					{	return (NSControlVoidActionBlock)[self associatedValueForKey:(__bridge const void *)(NSCONTROLVOIDBLOCKACTIONKEY)];}
+- (void)setVoidActionBlock:(NSControlVoidActionBlock)inBlock{
 	[self setActionString:@"callAssociatedVoidBlock" withTarget:self];
 	[self setAssociatedValue:inBlock forKey: NSCONTROLVOIDBLOCKACTIONKEY policy:OBJC_ASSOCIATION_COPY];
 }
-- (void)callAssociatedVoidBlock { self.voidActionBlock(); }
-
-- (void) setAction:(SEL)method withTarget:(id)object;
-{
+- (void)callAssociatedVoidBlock									 	{ self.voidActionBlock(); }
+- (void) setAction:(SEL)method withTarget:(id)object;			{
 	self.action = method; 	self.target = object;
 }
-- (void) setActionString:(NSS*)methodAsString withTarget:(id)object
-{
+- (void) setActionString:(NSS*)methodAsString 
+				  withTarget:(id)object									{
 	self.action = NSSelectorFromString(methodAsString);	self.target = object;
 }
 

@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>AIUtilities.framework.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>16</integer>
+		</dict>
 		<key>AZLayerTest.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -14,35 +19,35 @@
 			<key>isShown</key>
 			<true/>
 			<key>orderHint</key>
-			<integer>12</integer>
+			<integer>1</integer>
 		</dict>
 		<key>AZUmbrellaTestBed.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<true/>
 			<key>orderHint</key>
-			<integer>32</integer>
+			<integer>45</integer>
 		</dict>
 		<key>AtoZ Encyclopedia.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<true/>
 			<key>orderHint</key>
-			<integer>18</integer>
+			<integer>23</integer>
 		</dict>
 		<key>AtoZ Entitlement.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<true/>
 			<key>orderHint</key>
-			<integer>20</integer>
+			<integer>27</integer>
 		</dict>
 		<key>AtoZ.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<true/>
 			<key>orderHint</key>
-			<integer>14</integer>
+			<integer>2</integer>
 		</dict>
 		<key>AtoZAggregate.xcscheme</key>
 		<dict>
@@ -52,22 +57,22 @@
 		<key>AtoZCLI.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>28</integer>
+			<integer>42</integer>
 		</dict>
 		<key>AtoZTestBed∞.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>30</integer>
+			<integer>11</integer>
 		</dict>
 		<key>AtoZTouch.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>24</integer>
+			<integer>29</integer>
 		</dict>
 		<key>AtoZUnitTests.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>132</integer>
+			<integer>136</integer>
 		</dict>
 		<key>BaseModel.xcscheme</key>
 		<dict>
@@ -77,7 +82,7 @@
 		<key>DockBox.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>34</integer>
+			<integer>9</integer>
 		</dict>
 		<key>StaticLibTester.xcscheme</key>
 		<dict>

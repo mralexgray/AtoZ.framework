@@ -60,9 +60,9 @@ void profile (const char *name, VoidBlock block); 		// usage	 profile("Long Task
 
 */
 
-JREnumDeclare(Color,ColorNone,ColorRed,ColorOrange,ColorYellow,ColorGreen,ColorBlue,ColorPurple,ColorGray);
-NSG* GradForClr(Color c);
-NSC* Clr(Color c);
+JREnumDeclare(azkColor,azkColorNone,azkColorRed,azkColorOrange,azkColorYellow,azkColorGreen,azkColorBlue,azkColorPurple,azkColorGray);
+NSG* GradForClr(azkColor c);
+NSC* Clr(azkColor c);
 
 
 CACONST * AZConstRelSuper						( CACONSTATTR attrb																	);

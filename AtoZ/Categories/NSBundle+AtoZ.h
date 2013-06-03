@@ -23,7 +23,7 @@
 + (NSS*) appSuppSubPathNamed: (NSS*)name;
 
 + (NSS*) calulatedBundleIDForPath: (NSS*)path;
-- (NSA*)definedClasses;
+- (NSA*) definedClasses;
 
 //- (NSA*) frameworkClasses;
 - (NSA*) cacheImages;

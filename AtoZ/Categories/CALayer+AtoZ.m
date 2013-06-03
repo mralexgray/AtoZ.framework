@@ -1838,17 +1838,16 @@ static char TEXT_IDENTIFIER;
 
 //Metallic grey gradient background
 + (CAGradientLayer*) greyGradient {
-	NSArray *colors =  $array(
-									  (id)[[NSColor colorWithDeviceWhite:0.15f alpha:1.0f]CGColor],
-									  [[NSColor colorWithDeviceWhite:0.19f alpha:1.0f]CGColor],
-									  [[NSColor colorWithDeviceWhite:0.20f alpha:1.0f]CGColor],
-									  [[NSColor colorWithDeviceWhite:0.25f alpha:1.0f] CGColor]);
-	NSArray *locations = $array($float(0),$float(.5), $float(.5), $float(1));
-	CAGradientLayer *headerLayer = [CAGradientLayer layer];
-	headerLayer.colors = colors;
-	headerLayer.locations = locations;
-	return headerLayer;
-	
+
+	CAGradientLayer *headerLayer = CAGradientLayer.layer;
+	return headerLayer.colors = @[(id)[NSC white:0.15f a:1.0f].CGColor,
+											(id)[NSC white:0.19f a:1.0f].CGColor,
+											(id)[NSC white:0.20f a:1.0f].CGColor,
+											(id)[NSC white:0.25f a:1.0f].CGColor],
+		headerLayer.locations = @[	$float(0),
+											$float(.5), 
+											$float(.5), 
+											$float(1)], headerLayer;
 }
 
 -(NSString*)debugDescription

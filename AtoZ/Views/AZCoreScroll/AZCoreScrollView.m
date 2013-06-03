@@ -66,12 +66,12 @@
 	//		[CAConstraint constraintWithAttribute:kCAConstraintMaxY relativeTo:@"superlayer"
 	//				attribute:kCAConstraintMinY offset:0] ]];//		10 + SCROLLER_HEIGHT]]];
 
-	for (AZFile* i in [[AtoZ dock]sortedWithKey:@"hue" ascending:YES]){
-
-		AZSnapShotLayer *d = [AZSnapShotLayer rootSnapWithFile:i andDisplayMode:AZAdobeInitals];
-		NSLog(@"Snapclass: %@ .	Assigned color:%@	Was null: %@.", d.propertiesPlease, 		d.contentLayer.backgroundColor, StringFromBOOL(i.color));
-		[_bodyLayer addSublayer:d];
-	}
+//	for (AZFile* i in [[AtoZ dock]sortedWithKey:@"hue" ascending:YES]){
+//
+//		AZSnapShotLayer *d = [AZSnapShotLayer rootSnapWithFile:i andDisplayMode:AZAdobeInitals];
+//		NSLog(@"Snapclass: %@ .	Assigned color:%@	Was null: %@.", d.propertiesPlease, 		d.contentLayer.backgroundColor, StringFromBOOL(i.color));
+//		[_bodyLayer addSublayer:d];
+//	}
 
 	[self debugLayers:@[_bodyLayer, _mainLayer, _scrollerLayer, contentContainer]];
 	//	 each:^(id obj, NSUInteger index, BOOL *stop) {

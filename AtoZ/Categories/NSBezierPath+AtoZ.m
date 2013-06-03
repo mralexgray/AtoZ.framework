@@ -150,19 +150,15 @@
 @end
 @implementation NSBezierPath (AtoZ)
 
-static void linearShadedColor(void *info, const float *in, float *out)
-{
-	float *colors = info;
+static void linearShadedColor		(void *info, const CGFloat *in, CGFloat *out)	{	CGFloat *colors = info;
 	*out++ = colors[0] + *in * colors[8];
 	*out++ = colors[1] + *in * colors[9];
 	*out++ = colors[2] + *in * colors[10];
 	*out++ = colors[3] + *in * colors[11];
 }
-
-static void bilinearShadedColor(void *info, const float *in, float *out)
-{
-	float *colors = info;
-	float factor = (*in)*2.0;
+static void bilinearShadedColor	(void *info, const CGFloat *in, CGFloat *out)	{
+	CGFloat *colors = info;
+	CGFloat factor = (*in)*2.0;
 	if (*in > 0.5) {
 		factor = 2-factor;
 	}
@@ -172,23 +168,17 @@ static void bilinearShadedColor(void *info, const float *in, float *out)
 	*out++ = colors[3] + factor * colors[11];
 }
 
-- (void)linearGradientFillWithStartColor:(NSColor *)startColor endColor:(NSColor *)endColor
-{
-
-	static const CGFunctionCallbacks callbacks = {0, &linearShadedColor, NULL};
-	
+- (void)linearGradientFillWithStartColor:  (NSColor*)startColor endColor:  (NSColor*)endColor		{
+	static const CGFunctionCallbacks callbacks = {0, &linearShadedColor, 0};
 	[self customHorizontalFillWithCallbacks:callbacks firstColor:startColor secondColor:endColor];
-};
-
-- (void)bilinearGradientFillWithOuterColor:(NSColor *)outerColor innerColor:(NSColor *)innerColor
-{
-	static const CGFunctionCallbacks callbacks = {0, &bilinearShadedColor, NULL};
-
+}
+- (void)bilinearGradientFillWithOuterColor:(NSColor*)outerColor innerColor:(NSColor*)innerColor		{
+	
+	static const CGFunctionCallbacks callbacks = {0, &bilinearShadedColor, 0};
 	[self customHorizontalFillWithCallbacks:callbacks firstColor:innerColor secondColor:outerColor];
 }
-
-- (void)customHorizontalFillWithCallbacks:(CGFunctionCallbacks)functionCallbacks firstColor:(NSColor *)firstColor secondColor:(NSColor *)secondColor
-{
+- (void)customHorizontalFillWithCallbacks:(CGFunctionCallbacks)functionCallbacks 
+										  firstColor:(NSColor*)firstColor secondColor:(NSColor*)secondColor	{
 	CGColorSpaceRef colorspace;
 	CGShadingRef shading;
 	CGPoint startPoint = {0, 0};
@@ -222,8 +212,8 @@ static void bilinearShadedColor(void *info, const float *in, float *out)
 	// draw gradient
 	colorspace = CGColorSpaceCreateDeviceRGB();
 	size_t components = 1 + CGColorSpaceGetNumberOfComponents(colorspace);
-	static const float  domain[2] = {0.0, 1.0};
-	static const float  range[10] = {0, 1, 0, 1, 0, 1, 0, 1, 0, 1};
+	static const CGFloat  domain[2] = {0.0, 1.0};
+	static const CGFloat  range[10] = {0, 1, 0, 1, 0, 1, 0, 1, 0, 1};
 	//static const CGFunctionCallbacks callbacks = {0, &bilinearShadedColor, NULL};
 	
 	// Create a CGFunctionRef that describes a function taking 1 input and kChannelsPerColor outputs.
@@ -245,21 +235,10 @@ static void bilinearShadedColor(void *info, const float *in, float *out)
 	CGFunctionRelease(function);
 	CGColorSpaceRelease(colorspace);
 }
-
-
-- (CGF)width {
-    return self.bounds.size.width;
-}
-
-- (CGF)height {
-    return self.bounds.size.height;
-}
-
-- (void)setWidth:(CGF)t {
-    [self scaledToSize:AZSizeExceptWide(self.bounds.size, t)];
-}
-
-- (void)setHeight:(CGF)t        {
+- (CGF)width	{    return self.bounds.size.width;	}
+- (CGF)height 	{    return self.bounds.size.height;	}
+- (void)setWidth:(CGF)t 	{    [self scaledToSize:AZSizeExceptWide(self.bounds.size, t)];	}
+- (void)setHeight:(CGF)t  	{
     [self scaledToSize:AZSizeExceptHigh(self.bounds.size, t)];
 }
 

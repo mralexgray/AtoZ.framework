@@ -7,21 +7,22 @@
 
 @interface TestBedDelegate : NSObject <NSApplicationDelegate,NSWindowDelegate>
 
-@property (STRNG) IBOutlet AtoZColorWell		*colorWell;
+@property (USF) IBOutlet AtoZColorWell		*colorWell;
+@property (USF) IBOutlet MenuAppController	*menu;
+@property (STR) GeneralVC			*genVC;
+@property (STR) UIVC					*uiVC;
+@property (STR) ColorVC				*colorVC;
+@property (STR) FBVC					*fbV;
+@property (STR) TUIVVC				*tuiVC;
+@property (STR) NSMutableArray   *windowControllers;
+@property (STR) NSTimer   *colorFade;
 
-@property (UNSFE) IBOutlet MenuAppController	*menu;
-@property (UNSFE) IBOutlet  GeneralVC			*genVC;
-@property (UNSFE) IBOutlet  UIVC					*uiVC;
-@property (UNSFE) IBOutlet  ColorVC				*colorVC;
-@property (UNSFE) IBOutlet  FBVC					*fbV;
-@property (UNSFE) IBOutlet  TUIVVC				*tuiVC;
+@property (ASS) IBOutlet id		window;
+@property (ASS) IBOutlet id		contentView;
+@property (ASS) IBOutlet NSView*	targetView;
 
-@property (STRNG) IBOutlet id				window;
-@property (STRNG) IBOutlet id				contentView;
-@property (STRNG) IBOutlet NSView*		targetView;
-
-@property (STRNG) IBOutlet NSView		*scrollTestHost;
-@property (STRNG) IBOutlet CAScrollView*scrollTest;
+//@property (ASS) IBOutlet NSView		*scrollTestHost;
+@property (ASS) IBOutlet CAScrollView*scrollTest;
 
 - (IBAction) setViewFromPopUp:(id)sender;
 //- (IBAction) reZhuzhScrollLayer:(id)sender;
@@ -31,8 +32,8 @@
 @property (STRNG)	BLKVIEW  *host;
 @property (STRNG) CASCRLL  *scrlr;
 @property (NATOM) CAGL	   *hit;
-@property (NATOM) NSMD	 *model;
-@property (RONLY) NSRNG 	 visible, front, back;
+@property (NATOM) NSMD	   *model;
+@property (RONLY) NSRNG 	visible, front, back;
 @property (RONLY) NSS	   *fixState;
 @property (RONLY) ScrollFix scrollFix;
 @property (RONLY) NSS 		*visibleSubsString;
@@ -461,42 +462,32 @@
 //	[_activeView setNeedsDisplay:YES];
 //}
 
-
-
-// A scroll layer by itself is rather uninteresting
-// so we'll create a regular layer to provide content.
-//	self.scrollLayerContent = [CALayer layer];
-//	_scrollLayerContent.frame = kScrollContentRect;
-//	NSIMG *pony = [NSIMG imageFromURL:@"http://apod.nasa.gov/apod/image/1001/almosttrees_mro_big.jpg"];//:NSImageNameDotMac];
-//	LOG_EXPR(pony);
-//	scrollLayerContent.contents = pony;
-
+/*
+// A scroll layer by itself is rather uninteresting so we'll create a regular layer to provide content.
+	self.scrollLayerContent = [CALayer layer];
+	_scrollLayerContent.frame = kScrollContentRect;
+	NSIMG *pony = [NSIMG imageFromURL:@"http://apod.nasa.gov/apod/image/1001/almosttrees_mro_big.jpg"];//:NSImageNameDotMac];
+	LOG_EXPR(pony);
+	scrollLayerContent.contents = pony;
 //	CGColorRef ref = [[NSC colorWithPatternImage:pony] CGColor];
 //	scrollLayerContent.bgC = ref;
+	_scrollLayer = [CAScrollLayer layer];
+	_scrollLayer.arMASK = CASIZEABLE;
+	_scrollLayerContent.delegate = self;
+	_scrollLayerContent.needsDisplayOnBoundsChange = YES;
+	_scrollLayer.frame = _targetView.bounds;
+	_scrollLayer.arMASK = CASIZEABLE;
+	// Since its handy, we'll use the same content as our basic CALayer example This also shows that you can use the same delegate for multiple layers :)
+	scrollLayerContent.delegate = delegateCALayer;
+	// Layers start life validated (unlike views).  We request that the layer have its contents drawn so that it can display something.
+	[_scrollLayerContent setNeedsDisplay];
+	// We set a frame for this layer. Sublayers coordinates are always in terms of the  parent layer's bounds.
+	scrollLayerContent.frame = _targetView.bounds;
+	// Now we add the configured layer to the scroll layer.
+	[_scrollLayer addSublayer:_scrollLayerContent];
 
-//	_scrollLayer = [CAScrollLayer layer];
-//	_scrollLayer.arMASK = CASIZEABLE;
-//	_scrollLayerContent.delegate = self;
-//	_scrollLayerContent.needsDisplayOnBoundsChange = YES;
-//	_scrollLayer.frame = _targetView.bounds;
-//	_scrollLayer.arMASK = CASIZEABLE;
-// Since its handy, we'll use the same content as our basic CALayer example
-// This also shows that you can use the same delegate for multiple layers :)
-//	scrollLayerContent.delegate = delegateCALayer;
-
-// Layers start life validated (unlike views).
-// We request that the layer have its contents drawn so that it can display something.
-//	[_scrollLayerContent setNeedsDisplay];
-
-// We set a frame for this layer. Sublayers coordinates are always in terms of the
-// parent layer's bounds.
-//	scrollLayerContent.frame = _targetView.bounds;
-
-// Now we add the configured layer to the scroll layer.
-//	[_scrollLayer addSublayer:_scrollLayerContent];
-
-//	[l addSublayer:_scrollLayer];
-//.layer = exampleCAScrollLayer;
+	//	[l addSublayer:_scrollLayer];
+	//.layer = exampleCAScrollLayer;
 
 //}
 //- (NSS*)visiRect {

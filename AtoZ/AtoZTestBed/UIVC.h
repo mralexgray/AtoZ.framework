@@ -10,14 +10,15 @@
 
 @interface UIVC : NSViewController <AtoZGridViewDataSource, AtoZGridViewDelegate>
 
-@property (assign) 	IBOutlet BGHUDTabView 			*tabView;
-@property (assign) 	IBOutlet BGHUDProgressIndicator *bar;
-@property (assign) 	IBOutlet BGHUDProgressIndicator *spinner;
-@property (assign) 	IBOutlet AtoZGridView *gridView;
-@property (assign) 	IBOutlet NSSlider *itemSizeSlider;
-@property (assign)  	IBOutlet BGHUDView *windowView;
-@property (assign)  	IBOutlet AtoZColorWell *colorWell;
-@property (nonatomic, strong) XLDragDropView *xl;
+@property (readonly)     		BGThemeManager				*sharedThemeManager;
+@property (assign) 	IBOutlet BGHUDTabView 				*tabView;
+@property (assign) 	IBOutlet BGHUDProgressIndicator 	*bar;
+@property (assign) 	IBOutlet BGHUDProgressIndicator 	*spinner;
+@property (assign) 	IBOutlet AtoZGridView 				*gridView;
+@property (assign) 	IBOutlet NSSlider					 	*itemSizeSlider;
+@property (assign)  	IBOutlet BGHUDView		 			*windowView;
+@property (assign)  	IBOutlet AtoZColorWell 				*colorWell;
+@property (nonatomic, strong) XLDragDropView 			*xl;
 
 
 @property (NATOM,strong) NSColor *baseColor;

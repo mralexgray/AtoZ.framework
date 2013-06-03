@@ -45,7 +45,7 @@
 //
 //- (void)weaklyAssociate: (id)value with: (void*)key {	objc_setAssociatedObject(self, key, value, OBJC_ASSOCIATION_ASSIGN); }
 //
-//- (id)associatedValueFor: (void*)key {			 return objc_getAssociatedObject(self, key);								 }
+//- (id)associatedValueFor: (void*)key {			 return va;(self, key);								 }
 //
 //@end
 
@@ -1737,12 +1737,23 @@ static const char * getPropertyType(objc_property_t property) {
 @implementation NSD (PropertyMap)
 
 - (void)mapPropertiesToObject:(id)instance {
-	[[instance class].codableKeys do :^(NSS *propertyKey) {
-		[instance canSetValueForKey:propertyKey] && [self objectForKey:propertyKey]
-		? [instance setValue:self[propertyKey]  forKey:propertyKey] : nil;
+	
+//	NSA* codables = [self allKeys];
+//	codables = [[instance class] respondsToSelector:@selector(codableKeys)] ? [instance class].codableKeys : self.allKeys;
+//	if ([codables doesNotContainObjects:[self allKeys]]) {
+//		NSLog(@"possible error:  not going to set values for keys: %@", [self.allKeys arrayByRemovingObjectsFromArray:codables]);
+//	}
+	
+	[self each:^(NSS *propertyKey, id value) {
+		[instance canSetValueForKey:propertyKey] && value ?
+		[instance setValue:value forKey:propertyKey] :  ^{
+			SEL select = NULL;
+			select = [instance setterForPropertyNamed:propertyKey];
+			if (select != NULL && [instance respondsToSelector:select])
+				[instance performSelectorWithoutWarnings:select withObject:value];
+		}();
 	}];
 }
-
 @end
 
 @implementation NSObject (KVCExtensions)
@@ -2698,9 +2709,34 @@ static void *KVO;
 	return stringValue ? [NSURL URLWithString:stringValue] : nil;
 }
 
-- (id)valueForKeyOrKeyPath:(NSS*)keyOrKeyPath;  //AZAddition
+- (id)valueForKeyOrKeyPath:(id)keyOrKeyPath  //AZAddition
 {
-	return [keyOrKeyPath contains:@"."] ? [self vFKP:keyOrKeyPath] : [self vFK:keyOrKeyPath] ?: nil;
+	NSLog(@"%@: %@", NSStringFromSelector(_cmd), keyOrKeyPath);
+	if (![keyOrKeyPath isKindOfClass:NSString.class]) return  nil;
+	if ([keyOrKeyPath containsString:@"."]) {
+		NSA* components = [keyOrKeyPath componentsSeparatedByString:@"."];
+//		NSLog(@"serching for KP components: %@", components);
+		__block id result = self;
+		[components enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+			if ([(NSS*)obj isIntegerNumber] && [result isKindOfClass:NSA.class]) {
+				result = [(NSA*)result normal:[(NSS*)obj integerValue]];
+			}
+			else {
+				result = [result vFK:obj];
+				//[result respondsToSelector:[result getterForPropertyNamed:obj]] && [result hasPropertyForKey:obj]
+					//	 ?  [result performSelectorWithoutWarnings:[result getterForPropertyNamed:obj]] : nil;
+			}
+			if (!result) *stop = YES;// else LOG_EXPR(result);
+		}];
+		return result;
+//		 return [self vFKP:rawPath] ?: nil;
+	}
+	else if ([keyOrKeyPath isIntegerNumber] && [self isKindOfClass:NSA.class]) return [(NSA*)self normal:[(NSS*)keyOrKeyPath integerValue]];
+	else if ([self respondsToString:keyOrKeyPath]) {
+		return [self performString:keyOrKeyPath];
+	}
+	else return [self performSelectorWithoutWarnings:[self getterForPropertyNamed:keyOrKeyPath]] ?: nil;
+	
 }
 
 

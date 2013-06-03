@@ -722,9 +722,9 @@ _Pragma("clang diagnostic pop") \
 //}()
 
 //strcmp(getenv(XCODE_COLORS), "YES") == 0 \
-//									? NSLog(	(@"%s [Line %d] " XCODE_COLORS_ESCAPE @"fg218,147,0;" fmt XCODE_COLORS_RESET)\
-//												, __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__) \
-//									: NSLog(fmt,__VA_ARGS__)
+//		? NSLog(	(@"%s [Line %d] " XCODE_COLORS_ESCAPE @"fg218,147,0;" fmt XCODE_COLORS_RESET)\
+//		, __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__) \
+//			: NSLog(fmt,__VA_ARGS__)
 
 
 

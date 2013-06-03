@@ -56,3 +56,4 @@ cocoa-configurations
 AtoZ/Resources/palettes/COLORMATE.CLR
 
 src/libextobjc
+CABlockDelegate

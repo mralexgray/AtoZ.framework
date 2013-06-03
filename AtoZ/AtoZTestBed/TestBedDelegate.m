@@ -13,27 +13,45 @@
 @implementation TestBedDelegate
 @synthesize  host, off, scrlr;
 
+#define NEWFROMNIB(x) (^{ id v = [[NSClassFromString(x) alloc]initWithNibName:x bundle:[NSBundle bundleForClass:self.class]]; \
+	[(NSView*)[v view] setAutoresizingMask:(NSViewWidthSizable|NSViewHeightSizable)]; return v; }())
+
 -  (void) awakeFromNib						{
 	[_menu loadStatusMenu];
 	[self createScrollLayer];
-	[((BGHUDView*)_contentView).theme.baseColor bind:@"value" toObject:_colorWell withKeyPath:@"color" options:nil];
+	[((BGHUDView*)_contentView).theme bind:@"baseColor" toObject:_colorWell withKeyPath:@"color" options:nil];
 	[self.window setAcceptsMouseMovedEvents:YES];
 	[self.window makeFirstResponder:_targetView];
+	[NSC randomPaletteAnimationBlock:^(NSColor *c) {
+		_colorWell.color = c;
+	}];
+//		NSLog(@"Color: %@", c.nameOfColor);
+//		_colorWell.color = c;
+//	}];
 }
 -   (IBA) setViewFromPopUp:(id)sender	{	NSS *selecto = [sender titleOfSelectedItem];
 
-	id view = 	areSame(selecto,  @"General") ?   _genVC.view :
-			   	areSame(selecto, 		  @"UI") ?    _uiVC.view :
-					areSame(selecto,   @"Colors") ? _colorVC.view :
-					areSame(selecto, @"Facebook") ? 	   _fbV.view :
-					areSame(selecto, 	   @"TUIV") ?   _tuiVC.view : nil;
+	id view = 	SameString(selecto,     @"General") ? ^{ _genVC 	= _genVC 	?: NEWFROMNIB(@"GeneralVC"); 	return _genVC.view; 	}() :
+			   	SameString(selecto, 		     @"UI") ? ^{ _uiVC 		= _uiVC 		?: NEWFROMNIB(@"UIVC");  		return _uiVC.view; 	}() :
+					SameString(selecto,      @"Colors") ? ^{ _colorVC 	= _colorVC 	?: NEWFROMNIB(@"ColorVC");  	return _colorVC.view;}() :
+					SameString(selecto, 	  @"Facebook") ? ^{ _fbV 		= _fbV 		?: NEWFROMNIB(@"FBVC"); 		return _fbV.view; 	}() :
+					SameString(selecto, 		   @"TUIV") ? ^{ _tuiVC 	= _tuiVC 	?: NEWFROMNIB(@"TUIVVC"); 		return _tuiVC.view; 	}() :
+					SameString(selecto, @"BPODialTest") ? BPODialTest.new : nil;
 
-	if (view) {
-		NSLog(@"selecto:%@  view:%@", [selecto debugDescription],[view subviews]);
+	if (view && [view ISKINDA:NSView.class]) {	
+		NSLog(@"selecto:%@  view:%@", selecto,[view subviews]);
 												[view setFrame:_targetView.bounds];
 												[_targetView swapSubs:view];
-
-	} else areSame(@"CAScrollLayer", selecto) ? [self createScrollLayer] : nil;
+	} else [view ISKINDA:[NSWindowController class]] ? ^{
+		_windowControllers = _windowControllers ?: NSMA.new;
+		[_windowControllers addObject:view];
+		[[view window]display];
+		[[view window]makeKeyAndOrderFront:nil];
+		
+			NSLog(@"View: %@, etc %@", view, [view window]);
+		}():
+	
+	areSame(@"CAScrollLayer", selecto) ? [self createScrollLayer] : nil;
 }
 - (NSMD*) model 								{  return _model = _model ?:  ^{
 		NSA* icons = [NSIMG.monoIcons withMaxItems:30];

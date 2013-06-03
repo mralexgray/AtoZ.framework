@@ -591,7 +591,7 @@ typedef void (^KVOFullBlock)(NSString *keyPath, id object, NSDictionary *change)
 - (NSUInteger)unsignedIntegerForKey:(NSS*)key;
 - (NSURL *)URLForKey:(NSS*)key;
 
-- (id)valueForKeyOrKeyPath:(NSS*)keyOrKeyPath;  //AZAddition
+- (id)valueForKeyOrKeyPath:(id)keyOrKeyPath;  //AZAddition
 - (id)valueForKey:(NSS*)key assertingProtocol:(Protocol*)proto;  //AZAddition
 - (id)valueForKey:(NSS*)key assertingClass:(Class)klass;
 - (id)valueForKey:(NSS*)key assertingRespondsToSelector:(SEL)theSelector;

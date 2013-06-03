@@ -2,7 +2,7 @@
 #import "NSString+AtoZ.h"
 #import "AtoZ.h"
 
-JREnumDefine(AZQuad);	JREnumDefine(Color);	JROptionsDefine(AZAlign);	//JREnumDefine(AZPosition);
+JREnumDefine(AZQuad);	JREnumDefine(azkColor);	JROptionsDefine(AZAlign);	//JREnumDefine(AZPosition);
 
 
 NSString * runCommand(NSString* c) {
@@ -96,15 +96,15 @@ static NSMD* _children;
 
 */
 
-NSC* Clr			(Color c) {
-	return 	c == ColorNone 	? nil 		 :	c == ColorRed 	? RED		 	:	c == ColorOrange 	? ORANGE		 	:
-				c == ColorYellow 	? YELLOW		 :	c == ColorGreen? GREEN		:	c == ColorBlue 	? BLUE			: nil;
+NSC* Clr			(azkColor c) {
+	return 	c == azkColorNone 	? nil 		 :	c == azkColorRed 	? RED		 	:	c == azkColorOrange 	? ORANGE		 	:
+				c == azkColorYellow 	? YELLOW		 :	c == azkColorGreen? GREEN		:	c == azkColorBlue 	? BLUE			: nil;
 }
-NSG* GradForClr(Color c) {
+NSG* GradForClr(azkColor c) {
 
-		return 	c == ColorNone 	? nil 		 :	c == ColorRed 	? REDGRAD 	:	c == ColorOrange 	? ORANGEGRAD 	:
-					c == ColorYellow 	? YELLOWGRAD :	c == ColorGreen ? GREENGRAD :	c == ColorBlue 	? BLUEGRAD 	:
-					c == ColorPurple 	? PURPLEGRAD :	c == ColorGray ? GRAYGRAD 	:	nil;
+		return 	c == azkColorNone 	? nil 		 :	c == azkColorRed 	? REDGRAD 	:	c == azkColorOrange 	? ORANGEGRAD 	:
+					c == azkColorYellow 	? YELLOWGRAD :	c == azkColorGreen ? GREENGRAD :	c == azkColorBlue 	? BLUEGRAD 	:
+					c == azkColorPurple 	? PURPLEGRAD :	c == azkColorGray ? GRAYGRAD 	:	nil;
 }
 
 CACONST * AZConst								 (CACONSTATTR attrb, NSS *rel) 														{
