@@ -1,0 +1,16 @@
+[submodule "MTTokenField"]
+	path = submodules/MTTokenField
+	url = https://github.com/mralexgray/MTTokenField.git
+	ignore = dirty
+[submodule "submodules/RMSuggestionPanel"]
+	path = submodules/RMSuggestionPanel
+	url = https://github.com/mralexgray/RMSuggestionPanel.git
+	ignore = dirty
+[submodule "submodules/BPODial"]
+	path = submodules/BPODial
+	url = https://github.com/mralexgray/BPODial
+	ignore = dirty
+[submodule "submodules/SNRHUDKit"]
+	path = submodules/SNRHUDKit
+	url = https://github.com/mralexgray/SNRHUDKit.git
+	ignore = dirty
