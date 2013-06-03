@@ -40,9 +40,9 @@ You can tweak the way ArchDirectoryObserver observes your directory with two opt
 ArchDirectoryObserverObservesSelf: By default, you won't observe changes made by your own process. Pass this parameter if you really do want to see them.
 
 ArchDirectoryObserverResponsive: The default behavior does not notify you immediately of changes; it waits a few seconds and coalesces similar changes to avoid overwhelming your app with observations. This kind of lag isn't very good where the user can see it, though. This flag changes the coalescing algorithm to one that immediately notifies you of the first change and only coalesces subsequent changes.
-
-
 */
+
+
 #import <Foundation/Foundation.h>
 #import <CoreServices/CoreServices.h>
 
