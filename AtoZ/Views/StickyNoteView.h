@@ -1,10 +1,10 @@
-#import <AIUtilities/AIUtilities.h>
+//#import <AIUtilities/AIUtilities.h>
 
 
 JROptionsDeclare(AZDraggingMode, AZDraggingModeMove, AZDraggingModeResize, AZDraggingModeNone);
 
 @class StickyNote;
-@interface StickyNoteView : AIWindowDraggingView
+@interface StickyNoteView : NSView
 @property (weak) StickyNote 	*proxy;
 @property NSEventMask 			draggingMode;
 @property NSTrackingRectTag 	trackingRectTag;

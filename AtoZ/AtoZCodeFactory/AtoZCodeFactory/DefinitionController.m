@@ -41,9 +41,11 @@
 
 @implementation  DefinitionController @synthesize pList = _pList, generatedHeader = _generatedHeader;
 
-- (NSMA*) nodeChildren 			{ return self.root.children; } 
--     (id) nodeKey 				{ return @"Expansions";} 
--     (id) nodeValue 			{ return nil; }
+- (id) init { if (!(self=super.init))return self;  _atozobjc = AtoZObjC.new; return self; }
+
+- (NSMA*)  children 				{ return self.root.children; } 
+-     (id) key 					{ return @"Expansions";} 
+-     (id) value 					{ return nil; }
 -   (NSD*) plistData				{ 
 
 	return _plistData = _plistData ?: ^{  /* parse the plist */		NSError *e = nil;	NSPropertyListFormat fmt;	NSData *data;	
@@ -74,7 +76,7 @@
 
 	__block NSString *define, *definition; __block NSUInteger pad, longest; __block NSMutableArray *keys;
 	__block NSMutableString *definer = @"#import <QuartzCore/QuartzCore.h>\n".mutableCopy;  // put some other crap here ??
-	[self.nodeChildren enumerateObjectsUsingBlock:^(AZNode* category,NSUInteger idx,BOOL *stop) {
+	[self.children enumerateObjectsUsingBlock:^(AZNode* category,NSUInteger idx,BOOL *stop) {
 		[definer appendFormat:@"\n#pragma mark - %@\n\n", category.key];   // pragma section per "category"
 		// figure out the longest member for pretty psacing.
 		[keys = [[category.children valueForKeyPath:@"key"]mutableCopy] sortUsingComparator:^NSComparisonResult(NSString *s1, NSString *s2) {
@@ -173,7 +175,7 @@
 -   (BOOL) saveGeneratedHeader {
 	
 	if (!_generatedHeader.outdated) return NO;   NSError *e;
-	NSLog(@"Just Procesing %ld \"Child\" Hedaers to %@!",self.root.nodeChildren.count, self.generatedHeader.URL.path);
+	NSLog(@"Just Procesing %ld \"Child\" Hedaers to %@!",self.root.numberOfChildren.integerValue, self.generatedHeader.URL.path);
 	return  [self.generatedHeaderStr writeToFile:self.generatedHeader.URL.path atomically:YES encoding:NSUTF8StringEncoding error:&e]
 	
 	? 	[UDEFS setObject:_generatedHeader.fileModified forKey:@"headerSaved"],

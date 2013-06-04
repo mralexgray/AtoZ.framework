@@ -182,14 +182,18 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 	return [self.layer convertPoint:[self layerPoint:event] toLayer:layer];
 }
 
-- (void) observeFrameChangeUsingBlock:(void(^)(void))block
-{
-	self.postsFrameChangedNotifications  = YES;
-	self.postsBoundsChangedNotifications = YES;
-	[@[NSViewFrameDidChangeNotification, NSViewBoundsDidChangeNotification] each:^(NSS* name) {
-		[self observeName:name usingBlock:^(NSNotification *n) {	block();	}];			}];
+- (void) observeFrameChangeUsingBlock:(void(^)(void))block	{
+	self.postsFrameChangedNotifications  =	self.postsBoundsChangedNotifications = YES;
+	[@[NSViewFrameDidChangeNotification, NSViewBoundsDidChangeNotification] each:^(NSS* name){
+										[self observeName:name usingBlock:^(NSNOT*n) {	block();	}]; }];
 }
 
+- (void) observeFrameNotifications:(void(^)(NSNOT*n))block
+{
+	self.postsFrameChangedNotifications  =  self.postsBoundsChangedNotifications = YES;
+	[@[NSViewFrameDidChangeNotification, NSViewBoundsDidChangeNotification] each:^(NSS* name){
+									[self observeName:name usingBlock:^(NSNOT*n) {	 block(n);	}]; }];
+}
 
 
 

@@ -1,4 +1,6 @@
 
+#import "AtoZObjC.h"
+
 @interface AZFile : NSObject <NSCoding, NSCopying>
 @property (readonly) NSData 	*data;   		// For archiving.
 @property (readonly) NSD 		*fileInfo;		// Convenience.
@@ -14,6 +16,8 @@
 
 @class AZFactoryView;
 @interface		  DefinitionController : NSObject <NSApplicationDelegate,NSTextFieldDelegate,NSTextViewDelegate,AtoZNodeProtocol,NSPathControlDelegate>
+
+@property AtoZObjC *atozobjc;
 
 @property (readonly)  	   NSS * generatedHeaderStr;
 @property (nonatomic) 	   NSD * plistData; 

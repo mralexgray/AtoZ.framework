@@ -1,7 +1,6 @@
-#import "AtoZNodeProtocol.h"
-#import "DefinitionController.h"
-#import "CABlockDelegate.h"
+
 #import <objc/runtime.h>
+#import "AtoZObjC.h"
 
 typedef CALayer * (^layerFromNodeBlock) (AZN*);
 @interface   					  AZFactoryView : NSView 
@@ -10,8 +9,8 @@ typedef CALayer * (^layerFromNodeBlock) (AZN*);
 @property (nonatomic)   	  NSPathControl * headerPathControl, 	*plistPathControl;
 @property (nonatomic) 				 		NSA * nodeRects;
 @property (nonatomic)				 		AZN * selectedNode;
-@property (nonatomic) 			 		NSRect   nodeRect, unitBounds;
-@property (nonatomic)  				  CGFloat   unitHeight;
+@property (nonatomic) 			 		NSRect   nodeRect;//, unitBounds;
+//@property (nonatomic)  				  CGFloat   unitHeight;
 @property (nonatomic)  				  NSColor * headerColor, *plistColor;
 @property (nonatomic,copy)			  CALayer * (^listLayerWithNodes)(NSA*);
 @property (copy)	  			layerFromNodeBlock makeNodeLayer, findNodeLayer, nodeCatList;     	  ; // FOR node (finds corresponding)

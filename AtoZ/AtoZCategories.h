@@ -30,6 +30,7 @@
 #import "NSUserDefaults+Subscript.h"
 #import "NSValue+AtoZ.h"
 #import "CoreData+AtoZ.h"
+#import "NSValueTransformer+TransformerKit.h"
 //#import "NSManagedObjectContext+EasyFetch.h"
 //#import "NSUserDefaults+AtoZ.h"
 

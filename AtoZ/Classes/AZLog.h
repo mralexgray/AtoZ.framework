@@ -1,7 +1,7 @@
 //  AZLog.h
 
+#import "BaseModel.h"
 #import "AtoZUmbrella.h"
-#import "BaseModel+AtoZ.h"
 
 @interface NSString (AtoZColorLog)
 - (void) setLogBackground:(id)color;

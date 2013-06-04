@@ -1,7 +1,7 @@
 #import <Foundation/Foundation.h>
 #import <Cocoa/Cocoa.h>
 //#import <AtoZ.h>
-//#import <AtoZ/AtoZ.h>
+#import <AtoZ/AtoZ.h>
 #import "AZBeetlejuice.h"
 
 

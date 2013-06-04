@@ -55,6 +55,7 @@ typedef void (^viewFrameDidChangeBlock)(void);
 - (CGP) layerPoint: (NSE*)event toLayer: (CAL*)layer;
 
 - (void) observeFrameChangeUsingBlock: (void(^)(void))block;
+- (void) observeFrameNotifications:(void(^)(NSNOT*n))block;
 
 - (void) replaceSubviewWithRandomTransition: (NSV*)oldView with: (NSV*)newView;
 

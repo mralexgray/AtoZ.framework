@@ -60,8 +60,6 @@ return retval;\
 @end
 
 // ...
-
-
 @implementation Color
 @dynamic hue;
 GANDENUM(RED, 0, [NSNumber numberWithFloat: 0.0], @"hue")

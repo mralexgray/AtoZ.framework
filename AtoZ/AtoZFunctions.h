@@ -2,6 +2,7 @@
 
 #import "AtoZUmbrella.h"
 #import <BlocksKit/BlocksKit.h>
+#import <objc/objc-class.h>
 
 /*		[runCommand(@"ls -la /")log]; ->
 total 16751
@@ -9,6 +10,10 @@ drwxrwxr-x+ 60 root        wheel     2108 May 24 15:19 .
 drwxrwxr-x+ 60 root        wheel     2108 May 24 15:19 ..
 drwxrwxrwt@  5 localadmin  admin      170 Jul 14  2012 .TemporaryItems ,,, */
 NSString * runCommand(NSString* c);
+
+// Do not use these things. If you think using something in this file is a good idea, stop, turn 360º, walk away, and give it some serious thought. The code was written by Satan himself with the blood of new born babies.
+Method GetImplementedInstanceMethod(Class aClass, SEL aSelector);
+IMP SwizzleImplementedInstanceMethods(Class aClass, const SEL originalSelector, const SEL alternateSelector);
 
 
 /** BLOCKS!  */
