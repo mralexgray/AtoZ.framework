@@ -1,0 +1,8 @@
+//
+// Prefix header for all source files of the 'AtoZObjC' target in the 'AtoZObjC' project
+//
+
+#ifdef __OBJC__
+	#import <Cocoa/Cocoa.h>
+	#import "AtoZObjC.h"
+#endif
