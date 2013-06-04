@@ -226,3 +226,6 @@
 	path = Frameworks/NullSafe
 	url = https://github.com/mralexgray/NullSafe.git
 	ignore = dirty
+[submodule "Frameworks/THObserversAndBinders"]
+	path = Frameworks/THObserversAndBinders
+	url = https://github.com/mralexgray/THObserversAndBinders.git
