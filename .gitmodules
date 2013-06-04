@@ -229,3 +229,4 @@
 [submodule "Frameworks/THObserversAndBinders"]
 	path = Frameworks/THObserversAndBinders
 	url = https://github.com/mralexgray/THObserversAndBinders.git
+	ignore = dirty
