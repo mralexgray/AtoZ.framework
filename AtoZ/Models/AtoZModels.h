@@ -11,17 +11,22 @@
 //#import "AZObject.h"
 //#import <Cocoa/Cocoa.h>
 
-JREnumDeclare (AZLexicon, AZLexiconUrbanD, AZLexiconWiki, AZLexiconGoogle, AZLexiconDuckDuckGo);
+JREnumDeclare (AZLexicon, AZLexiconUrbanD, AZLexiconWiki, AZLexiconGoogle, AZLexiconDuckDuckGo, AZLexiconAppleThesaurus, AZLexiconAppleDictionary);
 
-@class Definition;
-typedef void (^DefinitionCallback)(Definition *def);
+@class AZDefinition;
+typedef void (^AZDefinitionCallback)(AZDefinition *def);
 
-@interface Definition : BaseModel
-@property (CP) DefinitionCallback callback;
-@property AZLexicon lexicon; 
+@interface AZDefinition : BaseModel
++ (INST) define:(NSString*)term ofType:(AZLexicon)lexicon completion:(AZDefinitionCallback)block;
+@property (CP) AZDefinitionCallback completion;
+@property (ASS) AZLexicon lexicon; 
+@property (RONLY) NSURL* query;
 @property (NATOM, STRNG) NSString *word, *definition;
+@property (NATOM, STRNG) NSA* results;
+@property (strong, nonatomic) id rawResult;
+@property (copy) NSError *error;
 @end
-#define $DEFINE(A, B) [Definition.alloc initWithProperties : @{ @"word" : A, @"definition" : B }]
+#define $DEFINE(A, B) [AZDefinition.alloc initWithProperties : @{ @"word" : A, @"definition" : B }]
 
 
 extern NSString *TagsDefaultsKey;

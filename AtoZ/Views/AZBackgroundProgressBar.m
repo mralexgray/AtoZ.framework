@@ -26,11 +26,9 @@ const CGF framesPerSecond = 10.0;
 
 @implementation AZBackgroundProgressBar
 
-- (id) initWithFrame:(NSR)frame 	{
-
-	if (!(self 		= [super initWithFrame:frame])) return nil;
+- (id) initWithFrame:(NSR)frame 	{	if (self!=[super initWithFrame:frame]) return nil;
 	_shouldAnimate = YES;
-	[NSThread detachNewThreadSelector:@selector(animate:) toTarget:self withObject:nil];
+	[NSThread detachNewThreadSelector:@selector(animate) toTarget:self withObject:nil];
 	return self;
 }
 - (void) drawRect:	(NSR)rect 	{
@@ -41,10 +39,10 @@ const CGF framesPerSecond = 10.0;
 
 	BOOL wasAlready 		= _shouldAnimate;
 	self.shouldAnimate 	= YES;
-	if (!wasAlready)	[NSThread detachNewThreadSelector:@selector(animate:) toTarget:self withObject:nil];
+	if (!wasAlready)	[NSThread detachNewThreadSelector:@selector(animate) toTarget:self withObject:nil];
 }
 - (void) stopProgressAnimation	{	self.shouldAnimate = NO;	}
-- (void) animate:(id)anObject		{	@autoreleasepool {		// animate
+- (void) animate						{	@autoreleasepool {		// animate
 
 		while (_shouldAnimate) {	[self stepAnimation:nil];
 											self.needsDisplay = YES;

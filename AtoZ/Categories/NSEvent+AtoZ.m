@@ -85,8 +85,26 @@ static NSString *NSCONTROLVOIDBLOCKACTIONKEY = @"com.mrgray.NSControl.voidBlock"
 //};
 
 static NSMutableDictionary *scrolls = nil;
+
 @implementation NSEvent (AtoZ)
 
+
+
+//+(void) dragBlock:(void(^)(NSP delta))block {
+//
+//	__block NSP ref;
+//	[self addLocalMonitorForEventsMatchingMask:NSLeftMouseDownMask handler:^NSE*(NSE *click){
+//
+//		NSLog(@"Inside dragblock! Click:%@ Yay!", AZString(ref = click.locationInWindow));
+////		while ( ( click = [NSApp nextEventMatchingMask: MOUSEDRAGGING untilDate:FUTURE inMode:NSEventTrackingRunLoopMode dequeue:YES] ) && ( e.type != MOUSEUP) ) {
+////		@autoreleasepool {
+////			block (AZSubtractPoints(ref,click.locationInWindow))
+////		}
+////	}
+////	}];
+//		return e;
+//	}];
+//}
 -(NSSize) scrollOffsetInView:(NSView*)view {
 
 	if (!scrolls) scrolls = [NSMutableDictionary new];

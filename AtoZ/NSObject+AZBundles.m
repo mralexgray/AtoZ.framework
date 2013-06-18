@@ -2,6 +2,8 @@
 #import <Cocoa/Cocoa.h>
 #import <objc/runtime.h>
 #import "AtoZNodeProtocol.h"
+#import "extobjc_OSX/extobjc.h"
+
 
 #ifdef AtoZFramework
 #define VOMIT @"vageen"
@@ -15,12 +17,16 @@ JREnumDefine(AZMethod);
 #endif
 
 @interface  AZNode()
-@property (strong, nonatomic) id nKey, nValue;
-@property (strong, nonatomic) NSMutableArray *nChildren;
+@property (strong) NSMA *arranged;
 @end
 @implementation AZNode
-@synthesize key, value, children;
-- (id) init { return  (self = super.init) ? [self setChildren:NSMutableArray.new], [self setKey:nil], [self setValue:nil], self : nil; }
+- (NSS*) valuePath { return @"value"; }
+- (NSS*) childrenPath { return @"arrangedObjects"; }
+- (NSS*) keyPath { return @"key"; }
+
+//@synthesize nChildren = _nChildren,nKey = _nKey, nValue = _nValue, 
+//				key = _nKey, value = _nValue, children = _nChildren;
+- (id) init { return  (self = super.init) ? [self setArranged:NSMA.new], [self bind:@"contentArray" toObject:_arranged withKeyPathUsingDefaults:NSValueBinding], [self setKey:nil], [self setValue:nil], self : nil; }
 
 //-      (void) addChild:(AZNode*)c		{    [self willChangeValueForKey:@"numberOfChildren"]; 
 
@@ -74,7 +80,7 @@ JREnumDefine(AZMethod);
 // 2008-11-07 23:25:43.379 Test[2580:10b] AMModerator - LRMethodSuper
 
 @implementation NSObject (ProtocolConformance)
-+ (AZMethod) implementationOfSelector:(SEL)selector {
++ (AZMethod) implementationOfSelector:(SEL)selector 			{
 	Method method = NULL, superclassMethod = NULL;	 Class superclass;
 	if(!(method = class_getClassMethod([self class ], selector))) return AZMethodNotFound;
 	if((superclass = class_getSuperclass([self class]))) {
@@ -84,20 +90,20 @@ JREnumDefine(AZMethod);
 	}
 	else return AZMethodNotFound;
 }
-- 				 (BOOL) implementsProtocol:
-					(id) nameOrProtocol 		{
+
+- 	   (BOOL) implementsProtocol:			(id)nameOrProtocol 	{ return [self.class implementsProtocol:nameOrProtocol]; }
++ 	   (BOOL) implementsProtocol:			(id)nameOrProtocol 	{
 	
-	static NSMutableDictionary *conformCache; conformCache = conformCache ?: NSMutableDictionary.new;
-	__block NSString *classStr = NSStringFromClass(self.class), *pString;
-	Protocol *p = NULL;
-	if ([nameOrProtocol isKindOfClass:NSString.class]) p = NSProtocolFromString(pString = nameOrProtocol);
-	else { p = strcmp(@encode(typeof(nameOrProtocol)), @encode(typeof(@protocol(NSTableViewDataSource)))) ? nameOrProtocol : p; }
+	static NSMD *conformCache; conformCache = conformCache ?: NSMD.new;
+	__block NSS *classStr = AZCLSSTR, *pString;	Protocol *p = NULL;
+	// did we pass in a string or a protocol?
+	p = [nameOrProtocol ISKINDA:NSS.class] ? NSProtocolFromString(pString = nameOrProtocol)
+		// rape the protcol out of it.
+	  : strcmp(@encode(typeof(nameOrProtocol)), @encode(typeof(@protocol(NSTableViewDataSource)))) ? nameOrProtocol : p;
 	if (!p || p == NULL) return NO;
-	if (![conformCache objectForKey:classStr]) 
-		conformCache[classStr] = NSMutableDictionary.new;
-	else if ([conformCache[classStr] objectForKey:pString])
-			return [conformCache[classStr][pString]boolValue];
-	Class klass = [self class];
+	if ([conformCache[classStr] objectForKey:pString])		return [conformCache[classStr][pString]boolValue];
+	if (![conformCache objectForKey:classStr])						  conformCache[classStr] = NSMutableDictionary.new;
+	Class klass = self.class;
 	NSLog(@"Testing conformance of %@ class to %@.", NSStringFromClass(klass), NSStringFromProtocol(p));
 	unsigned int outCount = 0;
    struct objc_method_description *methods = NULL;
@@ -105,52 +111,47 @@ JREnumDefine(AZMethod);
 	NSLog(@"Found %i methods in %@.", outCount, NSStringFromProtocol(p));
    for (unsigned int i = 0; i < outCount; ++i) {
 		SEL selector = methods[i].name;
-       if (![klass instancesRespondToSelector: selector]) {
+		NSLog(@"%@", NSStringFromSelector(selector));
+	}
+	for (unsigned int i = 0; i < outCount; ++i) {
+		SEL selector = methods[i].name;
+		if (![klass instancesRespondToSelector: selector]) {
             if (methods) free(methods);
             methods = NULL; conformCache[classStr][pString] = @NO; return NO;
         }
     }
     if (methods) free(methods); methods = NULL; conformCache[classStr][pString] = @YES; return YES;
-}				@end
+}				
+@end
 
-@implementation  NSObject (AtoZNodeProtocol)
+@concreteprotocol  (AtoZNodeProtocol) //NSObject (AtoZNodeProtocol)
 
-- (BOOL )isaNode {  return  [self implementsProtocol:@"AtoZNodeProtocol"]; }
-
+-      (BOOL) isaNode 				{  return  [self implementsProtocol:@"AtoZNodeProtocol"]; 	}
 -      (void) addChild:(id)c		{   
 
 	if (!self.isaNode || ![c isaNode]) return;
-	[(AZNODEPRO self).children addObject:c];
+	[[self vFK:(AZNODEPRO self).childrenPath] addObject:c];
 	objc_setAssociatedObject(c, (__bridge const void *)@"nodeParent", self, OBJC_ASSOCIATION_ASSIGN);
 }
-
-- (id<AtoZNodeProtocol>)parent { return  (AZNODEPRO objc_getAssociatedObject(self, (__bridge const void*)@"nodeParent")); }
-
-- (NSArray *)allSiblings { NSMutableArray* bros = [[self.parent children]mutableCopy]; [bros removeObject:self]; return bros; }
-
-
-//- 					(id) value					{ return 	  _nValue	= [self implementsProtocol:@protocol(AtoZNodeProtocol)] 
-//																				? (AZNODEPRO self).value : _nValue ?: nil; 
-//}
-//- 					(id) key						{ return _nKey 	= [self implementsProtocol:@protocol(AtoZNodeProtocol)] 
-//																		? ((id<AtoZNodeProtocol>)self).key : _nKey ?: nil; 
-//}
-//- (NSMutableArray*) children				{ 	return  _nChildren = [self implementsProtocol:@protocol(AtoZNodeProtocol)] 
-//																				? [(id <AtoZNodeProtocol>)self children] 
-//																				: _nChildren ?: NSMutableArray.new;
-//}
--			    (BOOL) isLeaf					{ if (!self.isaNode) return NO; else return self.numberOfChildren == 0; }
--   (NSArray*) allDescendants		{   // declare a __block variable to use inside the block itself for its recursive phase.
+- AZNODEPRO parent 					{ return [self hasAssociatedValueForKey:@"nodeParent"] ?
+	
+	(AZNODEPRO objc_getAssociatedObject(self, (__bridge const void*)@"nodeParent")) : nil;
+}
+-      (NSA*) allSiblings 			{ return [[[self.parent vFK:self.parent.childrenPath] mutableCopy]arrayWithoutObject:self]; 	}
+-		 (BOOL) isLeaf					{ if (!self.isaNode) return NO; else return self.numberOfChildren == 0; }
+-      (NSA*) allDescendants		{
+	
+	// declare a __block variable to use inside the block itself for its recursive phase.
 	if (!self.isaNode) return nil;
 	NSArray* __block (^enumerateAndAdd_recurse)(NSArray*);	// then define the block, blow
 	NSArray*         (^enumerateAndAdd)			 (NSArray*) = ^(NSArray*kids){ // looks like calling another block, but not really.
-		NSMutableArray  *allDs = NSMutableArray.new;	for (NSObject *k in kids) { 	 [allDs addObject:k];  
-		if (!k.isLeaf)  [allDs addObjectsFromArray:enumerateAndAdd_recurse((AZNODEPRO k).children)]; }return allDs;
+		NSMutableArray  *allDs = NSMutableArray.new;	for (id<AtoZNodeProtocol> k in kids) { 	 [allDs addObject:k];  
+		if (!k.isLeaf)  [allDs addObjectsFromArray:enumerateAndAdd_recurse([(AZNODEPRO k) vFK:(AZNODEPRO k).childrenPath])]; }return allDs;
 	};	// kickstart the block	
 	enumerateAndAdd_recurse = enumerateAndAdd; // initialize the alias
-   return enumerateAndAdd((AZNODEPRO self).children); // starts the block
+   return enumerateAndAdd([self vFK:(AZNODEPRO self).childrenPath]); // starts the block
 }
--  (id) expanded {  AZMethod m = [self.class implementationOfSelector:@selector(expanded:)];
+-        (id) expanded {  AZMethod m = [self.class implementationOfSelector:@selector(expanded:)];
 
 	if (m == AZMethodAuthor || m == AZMethodInherits) return objc_getAssociatedObject(self, (__bridge const void*)@"nodeExpanded");
 	else if (m == AZMethodOverrider) return [self valueForKey:@"expanded"];
@@ -161,9 +162,9 @@ JREnumDefine(AZMethod);
 	else if (m == AZMethodOverrider)  [self setValue:expanded forKey:@"expanded"];
 }
 
-- (NSNumber*) index 					{ return (!self.isaNode) ? nil : @([self.parent.children indexOfObject:self]); 	}
-- (NSNumber*) of 						{ return (!self.isaNode) ? nil : @([[(NSObject*)self.parent numberOfChildren] integerValue]); 		}
-- (NSNumber*) numberOfChildren 	{ return (!self.isaNode) ? nil : @([(AZNODEPRO self).children count]-1);	 			}
+- (NSNumber*) index 					{ return (!self.isaNode) ? nil : @([[self.parent vFK:self.parent.childrenPath] indexOfObject:self]); 	}
+- (NSNumber*) of 						{ return (!self.isaNode) ? nil : @([[(id<AtoZNodeProtocol>)self.parent numberOfChildren] integerValue]); 		}
+- (NSNumber*) numberOfChildren 	{ return (!self.isaNode) ? nil : @([[self vFK:(AZNODEPRO self).childrenPath ] count]-1);	 			}
 @end
 
 

@@ -20,7 +20,7 @@
 -             (id) outlineView:(NSOutlineView*)v 																/* Outline View Datasource */
 	  objectValueForTableColumn:(NSTableColumn*)c byItem:(id)x								{	
 	  
-	  return [c.identifier isEqualToString:@"value"] ? ((AZNode*)x).children.count ? nil 
+	  return [c.identifier isEqualToString:@"value"] ? ((AZNode*)x).numberOfChildren ? nil 
 		/* returns child count in "Value", ie. columns 2, or nil, for root, akak "key" columns" */												  : ((AZNode*)x).value:((AZNode*)x).key;
 }
 - 				(BOOL) outlineView:(NSOutlineView*)v 			 		  isGroupItem:(id)x 	{ return [(AZNode*)x value] == nil; /* if value is nil, it must be a key, aka a root */ }

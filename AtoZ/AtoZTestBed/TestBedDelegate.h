@@ -597,7 +597,6 @@
 //	return  [(NSView*)self layer] ?: [(NSView*)self setupHostView];//(CAL*)^{ [me setWantsLayer:YES];  me.layer.anchorPoint = (CGP){.5, .5}; [me.layer setAnchorPointRelative:me.center]; return me.layer; }();
 //}
 //@end
-/*
 
  const CGFloat dash[2] = {100, 60};
 

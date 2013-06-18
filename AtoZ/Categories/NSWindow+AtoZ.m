@@ -2,10 +2,38 @@
 #import "NSWindow+AtoZ.h"
 
 
-	 
-	 
-@interface NSApplication (Undocumented)	
-- (NSA*)_orderedWindowsWithPanels:(BOOL)panels;	
+@implementation NSAnimationContext (Blocks)
++ (void)groupWithDuration:(NSTimeInterval)duration
+   timingFunctionWithName:(NSString *)timingFunction
+        completionHandler:(void (^)(void))completionHandler
+           animationBlock:(void (^)(void))animationBlock {
+	[NSAnimationContext beginGrouping];
+	[[NSAnimationContext currentContext] setDuration:duration];
+	[[NSAnimationContext currentContext] setCompletionHandler:completionHandler];
+	[[NSAnimationContext currentContext] setTimingFunction:[CAMediaTimingFunction functionWithName:timingFunction != nil ? timingFunction : CAMEDIAEASY]];
+	animationBlock();
+	[NSAnimationContext endGrouping];
+}
+
++ (void)groupWithDuration:(NSTimeInterval)duration
+        completionHandler:(void (^)(void))completionHandler
+           animationBlock:(void (^)(void))animationBlock {
+	[self groupWithDuration:duration
+	 timingFunctionWithName:nil
+			completionHandler:completionHandler
+				animationBlock:animationBlock];
+}
+
++ (void)groupWithDuration:(NSTimeInterval)duration
+           animationBlock:(void (^)(void))animationBlock {
+	[self groupWithDuration:duration completionHandler:nil animationBlock:animationBlock];
+}
+@end
+
+
+
+@interface NSApplication (Undocumented)
+- (NSA*)_orderedWindowsWithPanels:(BOOL)panels;
 @end
 
 static 	 NSPoint gWindowTrackingEventOrigin, 	gWindowTrackingCurrentWindowOrigin;
@@ -90,7 +118,8 @@ JREnumDefine(NSWindowResize);
 @end 	  
 @implementation NSWindow (NoodleEffects)
 - (void) animateToFrame:				(NSR)frameRect duration:(NSTI)dur	{
-	NSViewAnimation	 *animation = 
+
+	NSVA	 *animation = 
 	[NSViewAnimation.alloc initWithViewAnimations: @[@{NSViewAnimationTargetKey: self,NSViewAnimationEndFrameKey: AZVrect(frameRect)}]];
 	[animation setDuration:dur];
 	[animation setAnimationBlockingMode:NSAnimationBlocking];
@@ -158,6 +187,12 @@ JREnumDefine(NSWindowResize);
 @end
 
 @implementation NSWindow (AtoZ)
+
+- (void) delegateBlock: (void(^)(NSNOT*))block {
+
+	[@[NSWindowDidBecomeKeyNotification, NSWindowDidBecomeMainNotification, NSWindowDidChangeScreenNotification, NSWindowDidDeminiaturizeNotification, NSWindowDidExposeNotification, NSWindowDidMiniaturizeNotification, NSWindowDidMoveNotification, NSWindowDidResignKeyNotification, NSWindowDidResignMainNotification, NSWindowDidResizeNotification, NSWindowDidUpdateNotification, NSWindowWillCloseNotification, NSWindowWillMiniaturizeNotification, NSWindowWillMoveNotification, NSWindowWillBeginSheetNotification, NSWindowDidEndSheetNotification, NSWindowDidChangeScreenProfileNotification,NSWindowWillStartLiveResizeNotification,NSWindowDidEndLiveResizeNotification]each:^(NSS* name){
+			[self observeName:name usingBlock:^(NSNOT*n) {	 block(n);	}]; }];
+}
 
 +    (id) hitTest:     (NSE*)event 	{ return findWin([[NSScreen currentScreenForMouseLocation] convertPointToScreenCoordinates:event.locationInWindow]); }
 +    (id) hitTestPoint:(NSP)location 	{ findWin([[NSScreen currentScreenForMouseLocation] convertPointToScreenCoordinates:location]); }
@@ -234,8 +269,12 @@ typedef void (^notificationObserver_block)(NSNotification *);
 		if (constrained.origin.x + constrained.width  > AZScreenWidth() ) [constrained setOrigin: (NSP){ AZScreenWidth() - constrained.width, constrained.origin.y}];
 		[dragWin setFrame:constrained.rect display:YES];
 */
-- (CAL*) layer								{	return [(NSV*)self.contentView          layer];	}
-- (void) setLayer: (CAL*) layer		{		    [(NSV*)self.contentView setLayer:layer];	}
+- (BOOL) hasLayer							{ return ([self.contentView layer]); 					}
+- (CAL*) layer								{ return (self.hasLayer) ? [(NSV*)self.contentView layer] : [self.contentView setupHostView]; }
+- (void) setLayer: (CAL*) layer		{ BOOL hasit = self.hasLayer; 
+													[(NSV*)self.contentView setLayer:layer]; 
+												  if (!hasit) [self.contentView setWantsLayer:YES];
+}
 -  (CGF) originX 							{ return  self.frame.origin.x; 		}
 -  (CGF) originY							{ return  self.frame.origin.y; 		}
 -  (CGF) width 							{ return  self.frame.size.width;		}

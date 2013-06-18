@@ -6,7 +6,7 @@
 #import "NSColor+AtoZ.h"
 #import "AtoZ.h"
 #import "AZNamedColors.h"
-#import <AIUtilities/AIUtilities.h>
+//#import <AIUtilities/AIUtilities.h>
 
 JREnumDefine(AZeColor);
 
@@ -1373,6 +1373,90 @@ static NSMutableDictionary *RGBColorValues = nil;
 	}
 	return RGBColorValues;
 }
+
++ (id)colorWithHTMLString:(NSString *)str
+{
+	return [self colorWithHTMLString:str defaultColor:nil];
+}
++ (id)colorWithHTMLString:(NSString *)str defaultColor:(NSColor *)defaultColor
+{
+	if (!str) return nil;
+
+	unsigned strLength = [str length];
+
+	NSString *colorValue = str;
+	if ((!strLength) || ([str characterAtIndex:0] != '#')) {
+		//look it up; it's a colour name
+		NSDictionary *colorValues = [self colorNamesDictionary];
+		colorValue = [colorValues objectForKey:str];
+		if (!colorValue) colorValue = [colorValues objectForKey:[str lowercaseString]];
+		if (!colorValue) {
+#if COLOR_DEBUG
+			NSLog(@"+[NSColor(AIColorAdditions) colorWithHTMLString:] called with unrecognised color name (str is %@); returning %@", str, defaultColor);
+#endif
+			return defaultColor;
+		}
+	}
+
+	//we need room for at least 9 characters (#00ff00ff) plus the NUL terminator.
+	//this array is 12 bytes long because I like multiples of four. ;)
+	enum { hexStringArrayLength = 12 };
+	size_t hexStringLength = 0;
+	char hexStringArray[hexStringArrayLength] = { 0, 0, 0, 0,  0, 0, 0, 0,  0, 0, 0, 0, };
+	{
+		NSData *stringData = [str dataUsingEncoding:NSUTF8StringEncoding];
+		hexStringLength = [stringData length];
+		//subtract 1 because we don't want to overwrite that last NUL.
+		memcpy(hexStringArray, [stringData bytes], MIN(hexStringLength, hexStringArrayLength - 1));
+	}
+	const char *hexString = hexStringArray;
+
+	float 	red,green,blue;
+	float	alpha = 1.0;
+
+	//skip # if present.
+	if (*hexString == '#') ++hexString;
+
+	if (hexStringLength < 3) {
+#if COLOR_DEBUG
+		NSLog(@"+[%@ colorWithHTMLString:] called with a string that cannot possibly be a hexadecimal color specification (e.g. #ff0000, #00b, #cc08) (string: %@ input: %@); returning %@", NSStringFromClass(self), colorValue, str, defaultColor);
+#endif
+		return defaultColor;
+	}
+
+	//long specification:  #rrggbb[aa]
+	//short specification: #rgb[a]
+	//e.g. these all specify pure opaque blue: #0000ff #00f #0000ffff #00ff
+	BOOL isLong = hexStringLength > 4;
+
+	//for a long component c = 'xy':
+	//	c = (x * 0x10 + y) / 0xff
+	//for a short component c = 'x':
+	//	c = x / 0xf
+
+	red   = hexToInt(*(hexString++));
+	if (isLong) red    = (red   * 16.0 + hexToInt(*(hexString++))) / 255.0;
+	else        red   /= 15.0;
+
+	green = hexToInt(*(hexString++));
+	if (isLong) green  = (green * 16.0 + hexToInt(*(hexString++))) / 255.0;
+	else        green /= 15.0;
+
+	blue  = hexToInt(*(hexString++));
+	if (isLong) blue   = (blue  * 16.0 + hexToInt(*(hexString++))) / 255.0;
+	else        blue  /= 15.0;
+
+	if (*hexString) {
+		//we still have one more component to go: this is alpha.
+		//without this component, alpha defaults to 1.0 (see initialiser above).
+		alpha = hexToInt(*(hexString++));
+		if (isLong) alpha = (alpha * 16.0 + hexToInt(*(hexString++))) / 255.0;
+		else alpha /= 15.0;
+	}
+
+	return [self colorWithCalibratedRed:red green:green blue:blue alpha:alpha];
+}
+
 @end
 @implementation NSColor (AIColorAdditions_Comparison)
 - (BOOL)equalToRGBColor:(NSC*)inColor			{
@@ -2073,6 +2157,100 @@ _COLOR(9ACD32, YellowGreen);
 }
 +    (NSC*) colorFromData:(NSData*)theD 	{ return [NSUnarchiver unarchiveObjectWithData:theD];	}
 @end
+
+
+@interface NSColor (AMAdditions_AppKitPrivate)
++ (NSColor *)toolTipColor;
++ (NSColor *)toolTipTextColor;
+@end
+
+
+@implementation NSColor (AMAdditions)
+
++ (NSColor *)lightYellowColor
+{
+	return [NSColor colorWithCalibratedHue:0.2 saturation:0.2 brightness:1.0 alpha:1.0];
+}
+
++ (NSColor *)am_toolTipColor
+{
+	NSColor *result;
+	if ([NSColor respondsToSelector:@selector(toolTipColor)]) {
+		result = [NSColor toolTipColor];
+	} else {
+		result = [NSColor lightYellowColor];
+	}
+	return result;
+}
+
++ (NSColor *)am_toolTipTextColor
+{
+	NSColor *result;
+	if ([NSColor respondsToSelector:@selector(toolTipTextColor)]) {
+		result = [NSColor toolTipTextColor];
+	} else {
+		result = [NSColor blackColor];
+	}
+	return result;
+}
+
+- (NSColor *)accentColor
+{
+	NSColor *result;
+	CGFloat hue;
+	CGFloat saturation;
+	CGFloat brightness;
+	CGFloat alpha;
+	[[self  colorUsingColorSpaceName:NSDeviceRGBColorSpace] getHue:&hue saturation:&saturation brightness:&brightness alpha:&alpha];
+	if (brightness <= 0.3) {
+		[[[NSColor colorForControlTint:[NSColor currentControlTint]] colorUsingColorSpaceName:NSDeviceRGBColorSpace] getHue:&hue saturation:&saturation brightness:&brightness alpha:&alpha];
+		saturation = 1.0;
+		brightness = 1.0;
+	} else {
+		//if (saturation > 0.3) {
+		brightness = brightness/2.0;
+		//}
+		saturation = 1.0;
+	}
+	result = [NSColor colorWithCalibratedHue:hue saturation:saturation brightness:brightness alpha:alpha];
+	return result;
+}
+
+- (NSColor *)lighterColor
+{
+	NSColor *result;
+	CGFloat hue;
+	CGFloat saturation;
+	CGFloat brightness;
+	CGFloat alpha;
+	[[self  colorUsingColorSpaceName:NSDeviceRGBColorSpace] getHue:&hue saturation:&saturation brightness:&brightness alpha:&alpha];
+	if (brightness > 0.4) {
+		if (brightness < 0.90) {
+			brightness += 0.1+(brightness*0.3);
+		} else {
+			brightness = 1.0;
+			if (saturation > 0.12) {
+				saturation = MAX(0.0, saturation-0.1-(saturation/2.0));
+			} else {
+				saturation += 0.25;
+			}
+		}
+	} else {
+		brightness = 0.6;
+	}
+	result = [NSColor colorWithCalibratedHue:hue saturation:saturation brightness:brightness alpha:alpha];
+	return result;
+}
+
+- (NSColor *)disabledColor
+{
+	int alpha = [self alphaComponent];
+	return [self colorWithAlphaComponent:alpha*0.5];
+}
+
+
+@end
+
 /*
  NSC*thisColor = [self colorUsingColorSpaceName:NSCalibratedRGBColorSpace];	NSColorList *colors = [NSColorList colorListInFrameworkWithFileName:@"RGB.clr"];	NSColorList *crayons = [NSColorList colorListNamed:@"Crayons"];
  //- (NSC*)closestColorListColor {

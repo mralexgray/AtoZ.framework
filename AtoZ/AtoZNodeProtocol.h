@@ -8,16 +8,36 @@
 
 #import <Foundation/Foundation.h>
 
+JREnumDeclare( AZOutlineCellStyle, 	AZOutlineCellStyleToggleHeader,
+												AZOutlineCellStyleScrollList,
+												AZOutlineCellStyleScrollListItem );
+
 
 #define CEL NSCell
-#define AZNODEPRO (id<AtoZNodeProtocol>)
+#define AZNODEPRO (NSObject<AtoZNodeProtocol>*)
 
 @protocol AtoZNodeProtocol	<NSObject>
 @required
-@property (strong) id value, key,children;
+@property (readonly) NSString *valuePath, *keyPath, *childrenPath;
+//- (id) value;- (id) key;- (id) children;
 @optional
-@property (strong) id expanded;
+//- (void) setValue:(id)v;
+//- (void) setKey:  (id)k;
+- (void) addChild:(id<AtoZNodeProtocol>)c;
+@property (strong,nonatomic) id expanded;
+@concrete
+@property (strong, nonatomic)	    id   value, key;
+@property (readonly)         NSMA    * children;
+@property (readonly)         NSA 	 * allDescendants, //* allAncestors, 
+									          * allSiblings;
+@property (readonly)            BOOL   isLeaf, isaNode;
+@property (readonly)        NSNumber * of, 
+											    * index, 
+											    * numberOfChildren;
+@property (weak,readonly) 	  		   NSObject<AtoZNodeProtocol>*parent;
+
 @end
+
 
 #ifdef JRENUM 
 JREnumDeclare(AZMethod,	AZMethodNotFound, 	// method not found (LRMethodNotFound )
@@ -38,24 +58,16 @@ typedef NS_ENUM(NSUInteger, AZMethod){
 @interface NSObject (ProtocolConformance)
 + (AZMethod) implementationOfSelector:(SEL)selector;
 - (BOOL) implementsProtocol:(id)nameOrProtocol;
++ (BOOL) implementsProtocol:(id)nameOrProtocol;
 @end
 @interface  NSObject (AtoZNodeProtocol)
-@property (readonly)         NSArray * allDescendants, 
-//									          * allAncestors, 
-									          * allSiblings;
-@property (readonly)            BOOL   isLeaf, isaNode;
-@property (readonly)        NSNumber * of, 
-											    * index, 
-											    * numberOfChildren;
-- (void) addChild:(id<AtoZNodeProtocol>)o; 
-@property (weak,readonly) 	  		   id<AtoZNodeProtocol>   parent;
 @end
 
-@interface	AZNode : NSObject	<AtoZNodeProtocol > //NSCopying, NSCoding
-//@property (nonatomic,strong)      id   key, 
-//													value, 
-//									        	 	expanded; 
-//@property (nonatomic) NSMutableArray * 
+@interface	AZNode : NSArrayController	<AtoZNodeProtocol > //NSCopying, NSCoding
+@property (nonatomic,strong)      id   key, 
+													value, 
+									        	 	expanded; 
+@property (nonatomic) NSMutableArray * children; 
 //@property (readonly)         NSArray * allDescendants, 
 //									          * allAncestors, 
 //									          * allSiblings;

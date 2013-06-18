@@ -49,13 +49,14 @@ typedef void(^BNRBlockViewLayerDelegate) (BLKVIEW*v, CAL*l);
 
 @interface BNRBlockView : NSView
 
++ (BLKVIEW*) inView:(NSV*)v withFrame:(NSR)f inContext:(void(^)(BLKVIEW*view, CAL*lay))block;
 + (BLKVIEW*) inView:(NSV*)v withBlock:(BNRBlockViewLayerDelegate)ctxBlock;
 
 + (BLKVIEW*) viewWithFrame:(NSR)frame  opaque:(BOOL)opaque
 			  drawnUsingBlock:(BNRBlockViewDrawer) drawBlock;
 
-@property (NATOM, CP) BNRBlockViewDrawer 			drawBlock;
-@property (NATOM, CP) BNRBlockViewLayerDelegate layerBlock;
+@property (NATOM, CP) BNRBlockViewDrawer 			dBlock;
+@property (NATOM, CP) BNRBlockViewLayerDelegate lBlock;
 @property (nonatomic, assign) BOOL opaque;
 @end
 

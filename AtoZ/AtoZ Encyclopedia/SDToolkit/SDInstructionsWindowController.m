@@ -31,7 +31,7 @@
 	NSArray *imageNames = [delegate instructionImageNames] ?: [NSImage systemImages];
 	
 	for (NSString *imageName in imageNames) {
-		NSImage *image = ( [NSImage imageNamed:imageName] ? [NSImage imageNamed:imageName] : [NSImage az_imageNamed:imageName]);
+		NSImage *image = ( [NSImage imageNamed:imageName] ? [NSImage imageNamed:imageName] : [NSImage imageNamed:imageName]);
 
 		NSRect imageViewFrame = NSZeroRect;
 		imageViewFrame.size = [imageViewContainer frame].size;

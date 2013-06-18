@@ -3,6 +3,25 @@
 
 
 
+
+@implementation NSIndexSet (AtoZ)
++ (instancetype) indexWithIndexes:(NSA*)indexes {
+	__block NSMutableIndexSet *mutableIndexSet = NSMutableIndexSet.new;
+	[indexes each:^(id obj) { [mutableIndexSet addIndex:[obj integerValue]]; }];
+	return mutableIndexSet;
+}
+
++ (instancetype) indexesOfObjects:(NSA*)objs inArray:(NSA*)ref {
+
+	__block NSMutableIndexSet *mutableIndexSet = NSMutableIndexSet.new;
+	[objs each:^(id obj) { [mutableIndexSet addIndex:[ref indexOfObject:obj]]; }];
+	return mutableIndexSet;
+}
+@end
+
+
+
+
 @implementation NSObject (AtoZKVO)
 
 

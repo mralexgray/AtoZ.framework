@@ -9,12 +9,12 @@
 
 
 @implementation BNRBlockView
-@synthesize drawBlock, opaque, layerBlock;
+//@synthesize drawBlock, opaque, layerBlock;
 + (BLKVIEW*) viewWithFrame: (NSR)frame  opaque: (BOOL)opaque 
 			  drawnUsingBlock: (BNRBlockViewDrawer)theDrawBlock
 {	//	__typeof__(self)
 	BLKVIEW *view 	= [BLKVIEW.alloc initWithFrame:frame];
-	[view setDrawBlock:theDrawBlock];
+	[view setDBlock:theDrawBlock];
 	[view setOpaque:opaque];
 	return view;
 }
@@ -29,22 +29,43 @@
 	l.arMASK 			= CASIZEABLE;
 	l.bgC 				= [LINEN CGColor];
 	[l setNeedsDisplay];
-	[view setLayerBlock:ctxBlock];
+	[view setLBlock:ctxBlock];
 	return view;
 }
+
++ (BLKVIEW*) inView:(NSV*)v withFrame:(NSR)f inContext:(BNRBlockViewLayerDelegate)ctxBlock{
+	
+	BLKVIEW *blkV 	= [self.alloc initWithFrame:v.bounds];
+	blkV.arMASK = NSSIZEABLE;
+	BOOL hasLayer = (v.layer != nil);	
+	[blkV setupHostView];	
+//	if (!hasLayer)  [v setupHostView];
+	blkV.layer.needsDisplayOnBoundsChange = YES;
+	CAL*l = CAL.layer;
+	l.arMASK = kCALayerNotSizable;
+	l.frame = f;
+	[blkV.layer addSublayer:l]; 
+	l.arMASK 			= CASIZEABLE;
+	CABlockDelegate *d = [CABlockDelegate delegateFor:l ofType:CABlockTypeDrawBlock withBlock: ^(CAL* layer,CGContextRef ref){
+		[NSGraphicsContext drawInContext:ref flipped:NO actions:^{
+			NSLog(@"drawing in blockview block delegate context: %@", AZString(layer.frame));
+			ctxBlock(blkV, layer);
+		}];
+	}];
+	[v addSubview:blkV];
+	return blkV;
+}
+
 
 - (void) drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx 
 {
 	[NSGraphicsContext drawInContext:ctx flipped:NO actions:^{
-		if (layerBlock) layerBlock(self, layer);
-		if (drawBlock) drawBlock(self, layer.bounds);
+		if (_lBlock) self.lBlock(self, layer);
+		if (_dBlock) self.dBlock(self, layer.bounds);
 	}];
 }
 
-- (void)drawRect:(NSRect)dirtyRect { if (drawBlock) drawBlock(self, dirtyRect); }
-
-- (BOOL)isOpaque { 	return opaque;	}
-
+- (void)drawRect:(NSRect)dirtyRect { if (_dBlock) self.dBlock(self, dirtyRect); }
 @end
 
 @implementation AZBlockWindow

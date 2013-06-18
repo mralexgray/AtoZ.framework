@@ -15,11 +15,8 @@ JROptionsDeclare(AZDraggingMode, AZDraggingModeMove, AZDraggingModeResize, AZDra
 @property (NATOM     ) NSSZ 	maxSize,minSize;
 @end
 
-
 @interface StickyNote : BaseModel 
-
 + (instancetype) instanceWithFrame: (NSR)rect;
-
 @property 	  	  (RONLY)	NSW	*window;
 @property    (CP, NATOM)  	NSS	*placeholderString;
 @property (STRNG, NATOM)	NSC	*noteColor, *textColor;
@@ -29,12 +26,15 @@ JROptionsDeclare(AZDraggingMode, AZDraggingModeMove, AZDraggingModeResize, AZDra
 
 
 @interface AZStickyNoteView : NSControl 
-@property (assign) AZDraggingMode draggingMode;
-@property (assign) NSTrackingRectTag trackingRectTag;
-@property (assign )NSPoint eventStartPoint,lastDragPoint;
-@property (assign) NSSize minSize, maxSize;
-@property (strong) NSColor *noteColor, *textColor;
-@property (strong) NSString* placeholderString;
+@property (assign)    AZDraggingMode   draggingMode;
+@property (assign) NSTrackingRectTag   trackingRectTag;
+@property (strong) 			 NSString * placeholderString;
+@property (strong) 			  NSColor * noteColor, 
+												 * textColor;
+@property (assign)           NSPoint   eventStartPoint,
+													lastDragPoint;
+@property (assign)            NSSize   minSize, 
+													maxSize;
 
 @end
 

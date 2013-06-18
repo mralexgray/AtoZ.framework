@@ -242,7 +242,7 @@
 	[_selectedLayer setNeedsDisplay];
 	_selectedLayer = nil;
 	_selectedLayer = selectedLayer;
-	selectedLayer.selected = YES;
+	selectedLayer.selected = @YES;
 	selectedStyle == DarkenOthers ? [self setShroudedLayers: @[_selectedLayer]]
 :	selectedStyle == Lasso 			? [self lasso:_selectedLayer dymamicStroke:.05]
 :	selectedStyle == None 			? nil :nil;

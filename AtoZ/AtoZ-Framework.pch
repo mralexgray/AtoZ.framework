@@ -94,6 +94,10 @@
 			#define __AH_BRIDGE
 		#endif
 	#endif
+//	#import <extobjc_OSX/e.h>
+	#import "extobjc_OSX/extobjc.h"
+	#import "AZObserversAndBinders.h"
+//	#import <extobjc/metamacros.h>
 	#import "objswitch.h"
 	#import "JREnum.h"
 //	#import "BaseModel.h"
@@ -101,10 +105,10 @@
 	//#import <PLWeakCompatibility/PLWeakCompatibilityStubs.h>
 	//#import <MenuApp/MenuApp.h>
 //	#import <Rebel/Rebel.h>
-//	#import <FunSize/FunSize.h>
-//	#import <DrawKit/DKDrawKit.h>
+	#import <FunSize/FunSize.h>
+	#import <DrawKit/DKDrawKit.h>
 //	#import <KSHTMLWriterKit/KSHTMLWriterKit.h>
-//	#import <Zangetsu/Zangetsu.h>
+	#import <Zangetsu/Zangetsu.h>
 //	#import <NanoStore/NanoStore.h>
 //	#import <BlocksKit/BlocksKit.h>
 //	#import <CocoaPuffs/CocoaPuffs.h>
@@ -115,7 +119,7 @@
 	#import "AtoZTypes.h"
 	#import "AtoZCategories.h"
 	#import "NSTerminal.h"
-//	#import "AZLog.h"
+	#import "AZLog.h"
 	
 	#import "NSUserDefaults+Subscript.h"
 	#import "AZProcess.h"

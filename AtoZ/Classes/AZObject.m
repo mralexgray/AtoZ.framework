@@ -12,6 +12,27 @@
 #import "AtoZCategories.h"
 
 
+
+
+@interface AZArray ()
+
+@property (nonatomic, readwrite, strong) NSArray *objects;
+@end
+
+@implementation AZArray
+
++ (AZArray*)sharedArray {
+	static AZArray *sharedModel;
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{ sharedModel = [AZArray new];  sharedModel.objects = @[]; });
+	return sharedModel;
+}
+
+- (NSUInteger)countOfObjects {	return self.objects.count;	}
+- (id)objectInObjectsAtIndex:(NSUInteger)index {	return self.objects[index];	}
+- (void)addObject:(id)o { [[self mutableArrayValueForKey:@"objects"]insertObject:o atIndex:self.countOfObjects]; }
+@end
+/*
 @implementation NSObject (NSCoding)
 
 - (NSMutableDictionary *)propertiesForClass:(Class)klass
@@ -400,7 +421,7 @@ static BOOL loadingFromResourceFile = NO;
 //	self.description = @"description";
 //	self.color		= [NSColor blueColor];
 //	return	self;
-//}
+//}*/
 /*
 	Key Value Bastard Observing (KVBO) is everything below.
 	We overload setValue:forKey: to listen to all changes.
@@ -413,8 +434,9 @@ static BOOL loadingFromResourceFile = NO;
 
 		[myObserver bind:@"myKey" toObject:[SampleObject sharedInstance] withKeyPath:@"keyChanged" options:nil];
 		
-	myObserver's setMyKey will then be called for each change of any attribute of any instance.
-*/
+	
+ myObserver's setMyKey will then be called for each change of any attribute of any instance.
+*//*
 - (id)objectForKeyedSubscript:(NSString *)key
 {
 	return [self valueForKey:key];
@@ -683,3 +705,4 @@ static NSMutableDictionary *keyNames = nil, *nillableKeyNames = nil;
 - (NSString *)uniqueID {	return _uniqueID  = _uniqueID ? _uniqueID :[[self class] newUniqueIdentifier]; }
 
 @end
+*/

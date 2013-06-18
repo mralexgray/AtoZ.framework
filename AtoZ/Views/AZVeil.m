@@ -374,7 +374,7 @@
 			 [CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionEaseOut]];
 			[[_window animator]setFrame:_window.upFrame display:YES animate:YES];
 			
-			[[_view animator]setFrame:AZMenulessScreenRect() display:YES animate:YES];
+//			[[_view animator]setFrame:AZMenulessScreenRect() display:YES animate:YES];
 			[NSAnimationContext endGrouping];
 
 		} waitUntilDone:YES];
@@ -455,7 +455,7 @@
 	[[_window animator]setFrame:_window.downFrame display:YES animate:YES];
 	NSRect r = _shroud.frame;
 	r.origin.y -= _defaultSize;
-	[[_view animator] setFrame:r display:YES animate:YES ];// :_shroud.downFrame display:YES animate:YES];
+	[[_view animator] setFrame:r];// display:YES animate:YES ];// :_shroud.downFrame display:YES animate:YES];
 
 	[NSAnimationContext endGrouping];
 		//		} waitUntilDone:YES];

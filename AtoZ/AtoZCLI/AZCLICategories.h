@@ -9,6 +9,30 @@
 #import "AtoZ.h"
 
 
+typedef 	void (^runBlock)();
+#define	CurrentIMP 	__CurrentIMP 					(__PRETTY_FUNCTION__,      _cmd)
+NS_INLINE 		 IMP 	__CurrentIMP 					(const char *info,     SEL _cmd)	{ // static 	inline
+
+	__block IMP imp = NULL;
+  	return    info[0]	!= '-' 		 || 
+				 info[0] != '+' ? imp : ^{		NSS *tmp, *clsName;  Class thisCls;
+		
+		tmp 		= $UTF8(info+2);
+		clsName 	= [tmp substringToIndex:[tmp rangeOfString:@" "].location];
+		thisCls 	= NSClassFromString ( clsName );
+		
+		if (thisCls   != nil) {		Method m 	= NULL;
+			m 		= info[0] == '+' 	? class_getClassMethod(thisCls, _cmd) 	: class_getInstanceMethod(thisCls, _cmd);
+			imp 	= m != NULL 		? method_getImplementation(m) 			: imp;
+		}
+		return imp;	//	NSLog(@"IMP%@", (__bridge void**)imp);
+	}();
+}
+NS_INLINE void	AZCLogFormatWithArguments 	(const char *fmt,  va_list args)	{ vfprintf(stderr,fmt,args); fflush(stderr); }
+NS_INLINE void	             AZCLogFormat	(const char *fmt,...) 				{ va_list args; va_start(args,fmt);	
+																									  AZCLogFormatWithArguments(fmt,args); va_end(args);	}
+
+
 //@property (RONLY) NSA 	*names, *colors;
 //@property (RONLY) NSC 	*next;
 //@property (STRNG) NSS	*name;

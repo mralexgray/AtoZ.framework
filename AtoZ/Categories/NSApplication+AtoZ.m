@@ -24,6 +24,96 @@
 #import "AtoZ.h"
 
 
+@implementation NSMenu (SBAdditions)
+
+- (NSMenuItem *)selectedItem
+{
+	NSMenuItem *menuItem = nil;
+	for (NSMenuItem *item in [self itemArray])
+	{
+		if ([item state] == NSOnState)
+		{
+			menuItem = item;
+			break;
+		}
+	}
+	return menuItem;
+}
+
+- (void)selectItem:(NSMenuItem *)menuItem
+{
+	for (NSMenuItem *item in [self itemArray])
+	{
+		[item setState:(item == menuItem ? NSOnState : NSOffState)];
+	}
+}
+
+- (NSMenuItem *)selectItemWithRepresentedObject:(id)representedObject
+{
+	NSMenuItem *selectedItem = nil;
+	for (NSMenuItem *item in [self itemArray])
+	{
+		id repObject = [item representedObject];
+		BOOL equal = (!repObject && !representedObject) || [repObject isEqualTo:representedObject];
+		[item setState:(equal ? (selectedItem ? NSOffState : NSOnState) : NSOffState)];
+		if (equal)
+		{
+			if (!selectedItem)
+				selectedItem = item;
+		}
+	}
+	return selectedItem;
+}
+
+- (void)deselectItem
+{
+	for (NSMenuItem *item in [self itemArray])
+	{
+		[item setState:NSOffState];
+	}
+}
+
+- (NSMenuItem *)addItemWithTitle:(NSString *)aString target:(id)target action:(SEL)aSelector tag:(NSInteger)tag
+{
+	NSMenuItem *item = [[[NSMenuItem alloc] init] autorelease];
+	[item setTitle:aString];
+	[item setTarget:target];
+	[item setAction:aSelector];
+	[item setTag:tag];
+	[self addItem:item];
+	return item;
+}
+
+- (NSMenuItem *)addItemWithTitle:(NSString *)aString representedObject:(id)representedObject target:(id)target action:(SEL)aSelector
+{
+	NSMenuItem *item = [[[NSMenuItem alloc] init] autorelease];
+	[item setTitle:aString];
+	[item setTarget:target];
+	[item setAction:aSelector];
+	[item setRepresentedObject:representedObject];
+	[self addItem:item];
+	return item;
+}
+
+@end
+@implementation NSMenuItem (AtoZ)
+
+- (id)initWithTitle:(NSString *)aString target:(id)target action:(SEL)aSelector keyEquivalent:(NSS*)keyEquivalent representedObject:(id)representedObject;
+
+{
+	if (self != super.init) return self;
+	[self setTitle:aString];
+	[self setTarget:target];
+	[self setAction:aSelector];
+	[self setRepresentedObject:representedObject];
+	[self setKeyEquivalent:keyEquivalent];
+
+	return self;
+}
+
+@end
+
+
 
 NSString *const kShowDockIconUserDefaultsKey = @"ShowDockIcon";
 @implementation NSApplication (AtoZ)

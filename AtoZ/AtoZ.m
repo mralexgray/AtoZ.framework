@@ -141,7 +141,12 @@ NSOQ *AZSharedSingleOperationQueue()	{	return AZDummy.sharedInstance.sharedSQ; }
 		[NSB loadAZFrameworks];
 		[NSApp setApplicationIconImage:[NSIMG imageNamed:@"logo.png"]];
 		_fonts = self.fonts;
-		[self _setupLogging];
+		[DDLog addLogger:AZSHAREDLOG]; 		// Standard lumberjack initialization
+		AZSHAREDLOG.colorsEnabled = YES;		// And then enable colors
+		AZSHAREDLOG.logFormatter = self;
+		//		[AZSHAREDLOG setForegroundColor:PINK backgroundColor:GRAY2.deviceRGBColor forFlag:LOG_FLAG_INFO];
+		//		[@[@"DDLogError", @"DDLogWarn", @"DDLogInfo", @"DDLogVerose"] each:^(id obj) {
+		//		[NSS.randomDicksonism respondsToStringThenDo:obj];
 	}];
 }
 /*
@@ -282,23 +287,17 @@ NSOQ *AZSharedSingleOperationQueue()	{	return AZDummy.sharedInstance.sharedSQ; }
 
 //+ (NSFont*) fontWithSize:(CGF)fontSize {	return 	[AtoZ  registerFonts:fontSize]; }
 }
-- (NSA*) fonts								{
-	return _fonts = _fonts ?:
-	[[[[AZFILEMANAGER pathsOfContentsOfDirectory:[AZFWRESOURCES withPath:@"/Fonts"]]URLsForPaths] filter: ^BOOL(NSURL* obj) { return obj == nil ?: ^{
-			FSRef fsRef;	  
-			CFURLGetFSRef( (CFURLRef)obj, &fsRef );  
-			NSError *err;
-			OSStatus status = ATSFontActivateFromFileReference(	&fsRef, 	kATSFontContextLocal, 
-																								kATSFontFormatUnspecified, NULL, 
-																								kATSOptionFlagsDefault, 	NULL);
-			return  status == noErr  ?: ^ {
-				NSERR *error = [NSERR errorWithDomain:NSOSStatusErrorDomain code:status userInfo:nil];
-				AZLOG($(@"Error: %@\nFailed to acivate font at %@!", error, obj));
-				return  NO;  }();
-		}();
-	}] map:^id(NSURL *obj) {
+- (NSA*) fonts								{	return _fonts = _fonts ?:
+
+	[[[AZFILEMANAGER pathsOfContentsOfDirectory:[AZFWRESOURCES withPath:@"/Fonts"]]URLsForPaths] cw_mapArray:^id(NSURL* obj) { 
+		if (!obj) return nil; NSError *err; FSRef fsRef; OSStatus status;
+		CFURLGetFSRef((CFURLRef)obj, &fsRef);
+		if (status = ATSFontActivateFromFileReference(	&fsRef, 	kATSFontContextLocal,
+																					kATSFontFormatUnspecified, NULL, 
+																					kATSOptionFlagsDefault, 	NULL) != noErr)
+			AZLOG($(@"Error: %@\nFailed to acivate font at %@!", [NSERR errorWithDomain:NSOSStatusErrorDomain code:status userInfo:nil], obj));
 		CFArrayRef desc = CTFontManagerCreateFontDescriptorsFromURL((__bridge CFURLRef)obj);
-		return [((NSA*)CFBridgingRelease(desc))[0] objectForKey:@"NSFontNameAttribute"] ?: @"N/A";
+		return [((NSA*)CFBridgingRelease(desc))[0] objectForKey:@"NSFontNameAttribute"] ?: (id)nil;
 	}];
 
 
@@ -388,16 +387,6 @@ static void soundCompleted(SystemSoundID soundFileObject, void *clientData)			{ 
 	NSDockTile *dockTile = [[NSApplication sharedApplication] dockTile];
 	if (string != nil)  [dockTile setBadgeLabel:string];
 	else				[dockTile setBadgeLabel:nil];
-
-}
--  (void) _setupLogging 																				{
-
-	[DDLog addLogger:AZSHAREDLOG]; 		// Standard lumberjack initialization
-	AZSHAREDLOG.colorsEnabled = YES;		// And then enable colors
-	AZSHAREDLOG.logFormatter = self;
-	//		[AZSHAREDLOG setForegroundColor:PINK backgroundColor:GRAY2.deviceRGBColor forFlag:LOG_FLAG_INFO];
-	//		[@[@"DDLogError", @"DDLogWarn", @"DDLogInfo", @"DDLogVerose"] each:^(id obj) {
-	//		[NSS.randomDicksonism respondsToStringThenDo:obj];
 
 }
 +  (void) testVarargs:(NSA*)args 																	{		[args eachWithIndex:^(id obj, NSInteger idx) {  printf("%d:  %s", (int)idx, [obj stringValue].UTF8String); }]; }

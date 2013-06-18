@@ -68,6 +68,8 @@ NSN	*fNum	(CGF 	  f) { return [NSN	numberWithFloat:		  f];	}
 NSN	*dNum	(double d) {
 	return @(d);
 }
+
+NSR  AZRectCheckWithMinSize(NSR r, NSSZ z){ return AZRectExceptSize(r,(NSSZ){MAX(z.width,r.size.width),MAX(z.height, r.size.height)}); }
 //	NSRange AZMakeRange(NSUI min, NSUI max) {  NSUI loc = MIN(min, max);  NSUI len = MAX(min, max) - loc;  return NSMakeRange(loc, len);	}
 NSR 	nanRectCheck	(NSR   rect) {
 	rect.origin = nanPointCheck(rect.origin);
@@ -677,6 +679,7 @@ NSR	AZRectTrimmedOnTop		(NSR rect, CGF height) 				{
 }
 NSSZ  AZSizeExceptWide  		(NSSZ sz, CGF wide ) 				{	return NSMakeSize(wide, sz.height); }
 NSSZ  AZSizeExceptHigh  		(NSSZ sz, CGF high ) 				{  return NSMakeSize(sz.width, high);  }
+NSR 	AZRectExceptSize			(NSRect r, NSSZ z) { r.size.width = z.width;  r.size.height = z.height; return r; }
 NSR	AZRectExtendedOnLeft		(NSR rect, CGF amount) 	{
 	NSR newRect = rect;
 	rect.origin.x -= amount;
@@ -1011,7 +1014,7 @@ NSP AZBotRightPoint ( NSR rect ){ return (NSP){rect.origin.x + NSWidth(rect), re
 //	}
 //	return closestCorner;
 //}
-	void logRect(NSR rect){
+void logRect(NSR rect){
 	LOG_EXPR(rect);
 //QSLog(@"(%f,%f) (%fx%f)",rect.origin.x,rect.origin.y,rect.size.width,rect.size.height);
 }
@@ -1869,3 +1872,169 @@ CGF	AZBezierSlope( const NSP bez[4], const CGF t )	{
 }
 @implementation AtoZGeometry
 @end
+
+
+NSInteger fitToPowerOfTwo(NSInteger value)
+{
+    int shift = 0;
+    while ((value >>= 1) != 0) shift++;
+    return 2 << shift;
+}
+
+CGFloat aspectRatioOfSize(NSSize size)
+{
+	return (size.height) ? (size.width / size.height) : 0.0f;
+}
+
+NSPoint integralPoint(NSPoint point)
+{
+    return NSMakePoint(roundf(point.x), roundf(point.y));
+}
+
+NSSize integralSize(NSSize size)
+{
+	//To match behaviour of NSIntegralRect
+	if (size.width <= 0 || size.height <= 0) return NSZeroSize;
+	return NSMakeSize(ceilf(size.width), ceilf(size.height));
+}
+
+NSSize sizeToMatchRatio(NSSize size, CGFloat aspectRatio, BOOL preserveHeight)
+{
+	//Calculation is impossible - perhaps we should assert here instead
+	if (aspectRatio == 0) return NSZeroSize;
+	
+	if (preserveHeight) return NSMakeSize(size.height * aspectRatio, size.height);
+	else				return NSMakeSize(size.width, size.width / aspectRatio);
+}
+
+BOOL sizeFitsWithinSize(NSSize innerSize, NSSize outerSize)
+{
+	return (innerSize.width <= outerSize.width) && (innerSize.height <= outerSize.height);
+}
+
+NSSize sizeToFitSize(NSSize innerSize, NSSize outerSize)
+{
+	NSSize finalSize = outerSize;
+	CGFloat ratioW = outerSize.width / innerSize.width;
+	CGFloat ratioH = outerSize.height / innerSize.height;
+	
+	if (ratioW < ratioH)	finalSize.height	= (innerSize.height * ratioW);
+	else					finalSize.width		= (innerSize.width * ratioH);
+	return finalSize;
+}
+
+NSSize constrainToFitSize(NSSize innerSize, NSSize outerSize)
+{
+	if (sizeFitsWithinSize(innerSize, outerSize)) return innerSize;
+	else return sizeToFitSize(innerSize, outerSize);
+}
+
+NSRect resizeRectFromPoint(NSRect theRect, NSSize newSize, NSPoint anchor)
+{	
+	CGFloat widthDiff	= newSize.width		- theRect.size.width;
+	CGFloat heightDiff	= newSize.height	- theRect.size.height;
+	
+	NSRect newRect		= theRect;
+	newRect.size		= newSize;
+	newRect.origin.x	-= widthDiff	* anchor.x;
+	newRect.origin.y	-= heightDiff	* anchor.y;
+	
+	return newRect;
+}
+
+NSPoint pointRelativeToRect(NSPoint thePoint, NSRect theRect)
+{
+	NSPoint anchorPoint = NSZeroPoint;
+	anchorPoint.x = (theRect.size.width > 0.0f)		? ((thePoint.x - theRect.origin.x) / theRect.size.width)	: 0.0f;
+	anchorPoint.y = (theRect.size.height > 0.0f)	? ((thePoint.y - theRect.origin.y) / theRect.size.height)	: 0.0f;
+	return anchorPoint;
+}
+
+NSRect alignInRectWithAnchor(NSRect innerRect, NSRect outerRect, NSPoint anchor)
+{
+	NSRect alignedRect = innerRect;
+	alignedRect.origin.x = outerRect.origin.x + (anchor.x * (outerRect.size.width - innerRect.size.width));
+	alignedRect.origin.y = outerRect.origin.y + (anchor.y * (outerRect.size.height - innerRect.size.height));
+	return alignedRect;	
+}
+
+NSRect centerInRect(NSRect innerRect, NSRect outerRect)
+{
+	return alignInRectWithAnchor(innerRect, outerRect, NSMakePoint(0.5f, 0.5f));
+}
+
+NSRect fitInRect(NSRect innerRect, NSRect outerRect, NSPoint anchor)
+{
+	NSRect fittedRect = NSZeroRect;
+	fittedRect.size = sizeToFitSize(innerRect.size, outerRect.size);
+	return alignInRectWithAnchor(fittedRect, outerRect, anchor);
+}
+
+NSRect constrainToRect(NSRect innerRect, NSRect outerRect, NSPoint anchor)
+{
+	if (sizeFitsWithinSize(innerRect.size, outerRect.size))
+    {
+		return alignInRectWithAnchor(innerRect, outerRect, anchor);
+    }
+	else
+    {
+        return fitInRect(innerRect, outerRect, anchor);
+    }
+}
+
+NSPoint clampPointToRect(NSPoint point, NSRect rect)
+{
+	NSPoint clampedPoint = NSZeroPoint;
+	clampedPoint.x = fmaxf(fminf(point.x, NSMaxX(rect)), NSMinX(rect));
+	clampedPoint.y = fmaxf(fminf(point.y, NSMaxY(rect)), NSMinY(rect));
+	return clampedPoint;
+}
+
+NSPoint deltaFromPointToPoint(NSPoint pointA, NSPoint pointB)
+{
+	return NSMakePoint(pointB.x - pointA.x,
+					   pointB.y - pointA.y);
+}
+
+NSPoint pointWithDelta(NSPoint point, NSPoint delta)
+{
+	return NSMakePoint(point.x + delta.x,
+					   point.y + delta.y);
+}
+NSPoint pointWithoutDelta(NSPoint point, NSPoint delta)
+{
+	return NSMakePoint(point.x - delta.x,
+					   point.y - delta.y);
+}
+
+
+#pragma mark -
+#pragma mark CG functions
+
+BOOL CGSizeFitsWithinSize(CGSize innerSize, CGSize outerSize)
+{
+	return (innerSize.width <= outerSize.width) && (innerSize.height <= outerSize.height);	
+}
+
+CGSize CGSizeToFitSize(CGSize innerSize, CGSize outerSize)
+{
+	CGSize finalSize = outerSize;
+	CGFloat ratioW = outerSize.width / innerSize.width;
+	CGFloat ratioH = outerSize.height / innerSize.height;
+	
+	if (ratioW < ratioH)	finalSize.height	= (innerSize.height * ratioW);
+	else					finalSize.width		= (innerSize.width * ratioH);
+	return finalSize;
+}
+
+CGPoint CGPointIntegral(CGPoint point)
+{
+    return CGPointMake(round(point.x), round(point.y));
+}
+
+CGSize CGSizeIntegral(CGSize size)
+{
+	//To match behaviour of CGRectIntegral
+	if (size.width <= 0 || size.height <= 0) return CGSizeZero;
+	return CGSizeMake(ceil(size.width), ceil(size.height));
+}

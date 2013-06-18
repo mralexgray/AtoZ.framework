@@ -8,71 +8,92 @@
 
 #import "AtoZModels.h"
 #import "AtoZFunctions.h"
+#import <CoreServices/CoreServices.h>
 
 JREnumDefine(AZLexicon);
+NSMD *dictionaryPrefs;
+NSString * const DefaultsIdentifier 	= @"com.apple.DictionaryServices",
+			* const ActiveDictionariesKey = @"DefaultsIdentifier",
+			* const AppleWords				= @"/Library/Dictionaries/Apple Dictionary.dictionary",
+			* const Thesaurus					= @"/Library/Dictionaries/New Oxford American Dictionary.dictionary",
+			* const OxfordDictionary		= @"/Library/Dictionaries/Oxford American Writer's Thesaurus.dictionary";
 
-@implementation Definition
+void SetActiveDictionaries(NSArray *dictionaries) {
+	[dictionaryPrefs setObject:dictionaries forKey:ActiveDictionariesKey];
+	[AZUSERDEFS setPersistentDomain:dictionaryPrefs forName:DefaultsIdentifier];
+}
+NSArray* DCSGetActiveDictionaries();
+NSArray* DCSCopyAvailableDictionaries();
+NSString* DCSDictionaryGetName(DCSDictionaryRef dictID);
+NSString* DCSDictionaryGetShortName(DCSDictionaryRef dictID);
+DCSDictionaryRef DCSDictionaryCreate(CFURLRef url);
+
+@interface  AZDefinition ()
+@property (strong) ASIHTTPRequest *requester;
+@end
+@implementation AZDefinition
 
 //+ (instancetype) definitionOf:(NSS*)wordOrNilForRand lexicon:(AZLexicon)lex completion:(DefinitionBlock)orNullForSync {
+/**	ASIHTTPRequest *requester = [ASIHTTPRequest.alloc initWithURL:$URL($(@"http://en.wikipedia.org/w/api.php?action=parse&page=%@&prop=text&section=0&format=json&callback=?", self))];//http://en.wikipedia.org/w/api.php?action=parse&page=%@&format=json&prop=text&section=0",self))];	*/
+//	return $(@"POOP: %@",  p.body.rawContents.urlDecoded.decodeHTMLCharacterEntities		);
++ (INST) synonymsOf:(NSS*)word  { return [self define:word ofType:AZLexiconAppleThesaurus completion:NULL];	}
++ (INST) define:(NSS*)word   { return [self define:word ofType:AZLexiconAppleDictionary completion:NULL];	}
++ (INST) definitionFromDuckDuckGoOf:(NSS*)query { return [self define:query ofType:AZLexiconDuckDuckGo completion:NULL];	}
 
-
-+ (instancetype) definitionFromWikipediaOf:(NSS*)query { 
- 
- 	__block NSS* wikiD = nil;  __block  NSError *requestError;
-	ASIHTTPRequest *requester = [ASIHTTPRequest.alloc initWithURL:$URL($(@"http://lookup.dbpedia.org/api/search.asmx/KeywordSearch?QueryString=%@&MaxHits=1",query))];
-/**	ASIHTTPRequest *requester = [ASIHTTPRequest.alloc initWithURL:$URL($(@"http://en.wikipedia.org/w/api.php?action=parse&page=%@&prop=text&section=0&format=json&callback=?", self))];//http://en.wikipedia.org/w/api.php?action=parse&page=%@&format=json&prop=text&section=0",self))];
-*/
-	[requester setCompletionBlock:^(ASIHTTPRequest *request) {
-              	wikiD               = request.responseString.copy;
-					requestError    = [request error];
-	}];
-	[requester startSynchronous];
-   AZHTMLParser *p = [AZHTMLParser.alloc initWithString:wikiD error:nil];
-		
-	
-//	return $(@"POOP: %@",  p.body.rawContents.urlDecoded.decodeHTMLCharacterEntities
-//	);
-	requester.responseString.stripHtml;// parseXMLTag:@"text"]);
-	Definition *w = self.instance;
-	w.word = query;
-	w.lexicon = AZLexiconWiki;
-	if (requestError) {
-	
-	 	 w.definition = $(@"Error: %@  headers: %@", requestError, [requester responseHeaders]);
-	}
-	else if (![wikiD loMismo: @"(null)"])   { 
-			w.definition = [wikiD parseXMLTag:@"Description"];
-	}
-	return w;
-//			NSLog(@"found wiki for: %@, %@", self, wikiD); return [wikiD parseXMLTag:@"Description"]; }
-//	else return $(@"code: %i no resonse.. %@", requester.responseStatusCode, [requester responseHeaders]);
-//		NSS* result = nil;
-//	NSS* try = ^(NSS*){ return [NSS stringWithContentsOfURL: };
-	//	@"https://www.google.com/search?client=safari&rls=en&q=%@&ie=UTF-8&oe=UTF-8", );
-//	while (!result) [@5 times:^id{
-
++ (INST) define:(NSString*)term ofType:(AZLexicon)lexicon completion:(AZDefinitionCallback)block {
+	AZDefinition *n = AZDefinition.new;	n.lexicon = lexicon; n.word = term;	if (block != NULL) n.completion = [block copy];	return n;
 }
 
-//+ (instancetype) 
-+ (instancetype) definitionFromDuckDuckGoOf:(NSS*)query {
++ (NSSet*) keyPathsForValuesAffectingRawResult {  return NSSET(@"word", @"lexicon", @"completion"); }
 
-	NSS *url 		= [NSS stringWithFormat:@"http://api.duckduckgo.com/?q=%@&format=json", query];
-	NSURLREQ *req 	= [NSURLREQ requestWithURL:$URL(url)];
-	NSURLRES *res 	= nil;
-	NSError 	*err  = nil;
-	Definition *w = self.instance;
-	w.word = query;
-	w.lexicon = AZLexiconWiki;
+- (NSString*) definition { return _definition ?: _results ? _results[0] : nil; }
 
-	NSData *data = [NSURLConnection sendSynchronousRequest:req returningResponse:&res error:&err];
+- (NSURL*) query {  if (!_word || _lexicon == (AZLexicon)NSNotFound) return  nil;
+
+	return  _lexicon == AZLexiconDuckDuckGo ? $URL($(@"http://api.duckduckgo.com/?q=%@&format=json", _word)) :
+			  _lexicon == AZLexiconWiki 		 ? $URL($(@"http://lookup.dbpedia.org/api/search.asmx/KeywordSearch?QueryString=%@&MaxHits=1",_word)) : nil;
+}
+
+- (id) rawResult {
+
+	if (_lexicon == AZLexiconDuckDuckGo)  {
 	
-	w.definition = err ? @"Error."  : ^{
+		NSURLREQ *req 	= [NSURLREQ requestWithURL:self.query];	NSURLRES *res 	= nil;	NSError 	*err  = nil;
+		NSData *data 	= [NSURLConnection sendSynchronousRequest:req returningResponse:&res error:&err];
+		_rawResult 		= (NSArray*)((NSD*)[NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:NULL])[@"RelatedTopics"];
+		self.results   = [_rawResult count] ? [_rawResult vFKP:@"Text"] : nil;
+	}
+	if (_lexicon == AZLexiconWiki) {	__block NSError *requestError = nil;  __block NSS* wikiD = nil;
 	
-		NSDictionary *results = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:NULL];
-	NSArray *rel = [results vFK:@"RelatedTopics"];
-	return rel.count ? rel[0][@"Text"] : @"No results";
-	}();
-	return w;
+		_requester 							= [ASIHTTPRequest.alloc initWithURL:self.query];
+		_requester.completionBlock 	= ^(ASIHTTPRequest *request) {	wikiD = request.responseString.copy; requestError = [request error];	};
+		_requester.startSynchronous;
+		AZHTMLParser *p		= [AZHTMLParser.alloc initWithString:wikiD error:nil];
+		_rawResult = wikiD;
+		NSString * stripped 	= [_rawResult stripHtml];																		// parseXMLTag:@"text"]);
+		self.results  			= requestError 		?  @[$(@"Error: %@  headers: %@", requestError, _requester.responseHeaders)]
+									: ![wikiD isEmpty]	?  @[[wikiD parseXMLTag:@"Description"]] : nil;
+	}
+	if (_results.count) _completion(self);
+/* appleds
+    NSURL *url = [NSURL fileURLWithPath:Ox];
+    CFTypeRef dict = DCSDictionaryCreate((CFURLRef) url);
+    printf("%s\n", [[[dict_name componentsSeparatedByString: @" "] lastObject] UTF8String]);
+    CFRange range = DCSGetTermRangeInString((DCSDictionaryRef)dict, (CFStringRef)searchStr, 0);
+    NSString* result = (NSString*)DCSCopyTextDefinition((DCSDictionaryRef)dict, (CFStringRef)searchStr, range);
+  	// Shorthands for dictionaries shipped with OS 10.6 Snow Leopard
+	NSMD *dictionaryPrefs = [[NSUserDefaults persistentDomainForName:DefaultsIdentifier] mutableCopy];
+	// Cache the original active dictionaries
+	NSArray *activeDictionaries = dictionaryPrefs[ActiveDictionariesKey];
+		// Set the specified dictionary as the only active dictionary
+		NSString *dictionaryArgument = [NSString stringWithUTF8String: argv[1]];
+		NSString *shortHand = [shorthands objectForKey:dictionaryArgument];
+		NSString *dictionaryPath 		SetActiveDictionaries([NSArray arrayWithObject:dictionaryPath]);
+		// Get the definition
+		puts([(NSString *)DCSCopyTextDefinition(NULL, (CFStringRef)word, CFRangeMake(0, [word length])) UTF8String]);
+		// Restore the cached active dictionaries
+		SetActiveDictionaries(activeDictionaries);
+*/
 }
 //	if (err)	[sender showErrorOutput:@"Error searching" errorRange:NSMakeRange(0, [input length])];
 //				else {
@@ -100,6 +121,16 @@ JREnumDefine(AZLexicon);
 //				// Call this when the task is done
 //				[sender endDelayedOutputMode];
 //			}];
+//+ (instancetype) definitionFromWikipediaOf:(NSS*)query { 	__block NSS* wikiD = nil;  __block  NSError *requestError;  Definition *w; 
+//	return w;
+//}
+
+//			NSLog(@"found wiki for: %@, %@", self, wikiD); return [wikiD parseXMLTag:@"Description"]; }
+//	else return $(@"code: %i no resonse.. %@", requester.responseStatusCode, [requester responseHeaders]);
+//		NSS* result = nil;
+//	NSS* try = ^(NSS*){ return [NSS stringWithContentsOfURL: };
+	//	@"https://www.google.com/search?client=safari&rls=en&q=%@&ie=UTF-8&oe=UTF-8", );
+//	while (!result) [@5 times:^id{
 
 
 @end

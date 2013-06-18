@@ -1,5 +1,119 @@
 #import "AtoZMacroDefines.h"
 
+#pragma mark - COLORS
+
+//#define REDGRAD  		[NSG.alloc initWithColorsAndLocations: [NSColor colorWithDeviceRed:241/255 green:152/255 blue:139/255 alpha:1.0], 0,\
+//							 [NSColor colorWithDeviceRed:	 228/255 green:116/255 blue:102/255 alpha:1.0], 0,\
+//							 [NSColor colorWithCalibratedRed:192/255 green:86/255 blue:73/255 alpha:1.0], 1, nil]
+//#define ORANGEGRAD 	[NSG.alloc initWithColorsAndLocations:[NSColor colorWithDeviceRed:248/255 green:201/255 blue:148/255 alpha:1.0], 0,\
+//[NSColor colorWithDeviceRed:237/255 green:174/255 blue:107/255 alpha:1.0], .5,\
+//[NSColor colorWithCalibratedRed:210/255 green:143/255 blue:77/255 alpha:1.0], 1, nil];
+//#define YELLOWGRAD 	[NSG.alloc initWithColorsAndLocations:[NSColor colorWithDeviceRed:240/255 green:229/255 blue:164/255 alpha:1.0], 0,\
+//[NSColor colorWithDeviceRed:227/255 green:213/255 blue:119/255 alpha:1.0], .5,\
+//[NSColor colorWithCalibratedRed:201/255 green:188/255 blue:92/255 alpha:1.0], 1.0, nil];
+//#define GREENGRAD  	[NSG.alloc initWithColorsAndLocations:[NSColor colorWithDeviceRed:209/255 green:236/255 blue:156/255 alpha:1.0], 0.0,\
+//[NSColor colorWithDeviceRed:175/255 green:215/255 blue:119/255 alpha:1.0], 0.5,\
+//[NSColor colorWithCalibratedRed:142/255 green:182/255 blue:102/255 alpha:1.0], 1.0, nil];
+//#define BLUEGRAD  	[NSG.alloc initWithColorsAndLocations: [NSColor colorWithDeviceRed:165/255 green:216/255 blue:249/255 alpha:1], 0,\
+//[NSColor colorWithDeviceRed:118/255 green:185/255 blue:232/255 alpha:1.0], 0.5,\
+//[NSColor colorWithCalibratedRed:90/255 green:152/255 blue:201/255 alpha:1.0], 1.0, nil];
+//#define PURPLEGRAD  	[NSG.alloc initWithColorsAndLocations:[NSColor colorWithDeviceRed:232/255 green:191/255 blue:248/255 alpha:1.0], 0,\
+//[NSColor colorWithDeviceRed:202/255 green:152/255 blue:224/255 alpha:1.0], 0.5,\
+//[NSColor colorWithCalibratedRed:163/255 green:121/255 blue:186/255 alpha:1.0], 1.0, nil];
+//#define GRAYGRAD  	[NSG.alloc initWithColorsAndLocations:[NSColor colorWithCalibratedWhite:212/255 alpha:1.0], 0.0,\
+//[NSColor colorWithCalibratedWhite:182/255 alpha:1.0], 0.5,\
+//[NSColor colorWithCalibratedWhite:151/255 alpha:1.0], 1.0, nil];
+/*
+#define PERIWINKLE [NSColor colorWithDeviceRed:.79 green:.78 blue:.9 alpha:1]
+
+//#define STANDARDCOLORS = @[REDORANGE,YELLOW,GREEN,BLUE,PURPLE,GRAY]
+
+#define RED							  [NSC  r:0.797 g:0.000 b:0.043 a:1.]
+#define ORANGE						  [NSC  r:0.888 g:0.492 b:0.000 a:1.]
+#define YELLOw						  [NSC  r:0.830 g:0.801 b:0.277 a:1.]
+#define YELLOW						  [NSC  r:0.830 g:0.801 b:0.277 a:1.]
+#define GREEN						  [NSC  r:0.367 g:0.583 b:0.179 a:1.]
+#define BLUE						  [NSC  r:0.267 g:0.683 b:0.979 a:1.]
+#define PURPLE						  [NSC  r:0.617 g:0.125 b:0.628 a:1.]
+#define PINK						  [NSC  r:1.000 g:0.228 b:0.623 a:1.]
+#define RANDOMGRAY 				  [NSC white:RAND_FLOAT_VAL(0,1) a:1]
+#define RANDOMCOLOR				  [NSC   randomColor]
+#define RANDOMPAL				  	  [NSC randomPalette]
+#define BLACK						  [NSC    blackColor]
+#define GREY						  [NSC     grayColor]
+#define WHITE						  [NSC    whiteColor]
+#define CLEAR						  [NSC    clearColor]
+#define LGRAY						  [NSC white:.5 a:.6]
+#define GRAY1						  [NSC white:.1 a: 1]
+#define GRAY2						  [NSC white:.2 a: 1]
+#define GRAY3						  [NSC white:.3 a: 1]
+#define GRAY4						  [NSC white:.4 a: 1]
+#define GRAY5						  [NSC white:.5 a: 1]
+#define GRAY6						  [NSC white:.6 a: 1]
+#define GRAY7						  [NSC white:.7 a: 1]
+#define GRAY8						  [NSC white:.8 a: 1]
+#define GRAY9						  [NSC white:.9 a: 1]
+
+#define cgRED			   		  RED.CGColor
+#define cgORANGE				  ORANGE.CGColor
+#define cgYELLOW				  YELLOW.CGColor
+#define cgGREEN		 			GREEN.CGColor
+#define cgPURPLE				  PURPLE.CGColor
+#define cgRANDOMCOLOR	RANDOMCOLOR.CGColor
+#define cgBLUE		 				 BLUE.CGColor
+#define cgBLACK				   BLACK.CGColor
+#define cgGREY						 GREY.CGColor
+#define cgWHITE				  [NSColor.whiteColor CGColor]
+#define cgCLEARCOLOR		      CLEAR.CGColor
+
+#define cgRANDOMGRAY 			CGColorCreateGenericGray( RAND_FLOAT_VAL(0,1), 1)
+#define 	kBlackColor 			cgBLACK
+#define 	kWhiteColor 			cgWHITE
+*/
+#define CGSHADOW(A) 				CGColorCreate( kCGColorSpaceGenericGray, {0.0, 0.0, A})
+
+#define 	kTranslucentGrayColor CGColorCreate( kCGColorSpaceGenericGray, {0.0, 0.5, 1.0})
+#define 	kTranslucentLightGrayColor cgGREY
+#define	kAlmostInvisibleWhiteColor CGColorCreate( kCGColorSpaceGenericGray, {1, 0.05, 1.0})
+
+#define NOISY(C)   				  [C colorWithNoiseWithOpacity:.2 andBlendMode:kCGBlendModeMultiply]
+#define RANDOMNOISYCOLOR  		   NOISY(RANDOMCOLOR)
+
+#define LINEN 					     [NSColor linen]
+#define RANDOMLINEN 				  [NSC linenTintedWithColor:RANDOMCOLOR]
+#define CHECKERS 					  [NSC checkerboardWithFirstColor: BLACK secondColor: WHITE squareWidth:25]
+
+#define clr colorLogString
+
+
+#define REDGRAD  		[NSG.alloc initWithColorsAndLocations: [NSColor colorWithDeviceRed:241./255. green:152./255. blue:139./255. alpha:1.0], 0.0,\
+							[NSColor colorWithDeviceRed:	 228./255. green:116./255. blue:102./255. alpha:1.0], 0.5,\
+							[NSColor colorWithCalibratedRed:192./255. green:86./255. blue:73./255. alpha:1.0], 1.0, nil]
+
+#define ORANGEGRAD 	[NSG.alloc initWithColorsAndLocations:[NSColor colorWithDeviceRed:248./255. green:201./255. blue:148./255. alpha:1.0], 0.0,\
+							[NSColor colorWithDeviceRed:237./255. green:174./255. blue:107./255. alpha:1.0], 0.5,\
+							[NSColor colorWithCalibratedRed:210./255. green:143./255. blue:77./255. alpha:1.0], 1.0, nil]
+
+#define YELLOWGRAD 	[NSG.alloc initWithColorsAndLocations:[NSColor colorWithDeviceRed:240./255. green:229./255. blue:164./255. alpha:1.0], 0.0,\
+							[NSColor colorWithDeviceRed:227./255. green:213./255. blue:119./255. alpha:1.0], 0.5,\
+							[NSColor colorWithCalibratedRed:201./255. green:188./255. blue:92./255. alpha:1.0], 1.0, nil]
+
+#define GREENGRAD  	[NSG.alloc initWithColorsAndLocations:[NSColor colorWithDeviceRed:209./255. green:236./255. blue:156./255. alpha:1.0], 0.0,\
+							[NSColor colorWithDeviceRed:175./255. green:215./255. blue:119./255. alpha:1.0], 0.5,\
+							[NSColor colorWithCalibratedRed:142./255. green:182./255. blue:102./255. alpha:1.0], 1.0, nil]
+
+#define BLUEGRAD  	[NSG.alloc initWithColorsAndLocations: [NSColor colorWithDeviceRed:165./255. green:216./255. blue:249./255. alpha:1.], 0.0,\
+							[NSColor colorWithDeviceRed:118./255. green:185./255. blue:232./255. alpha:1.0], 0.5,\
+							[NSColor colorWithCalibratedRed:90./255. green:152./255. blue:201./255. alpha:1.0], 1.0, nil]
+
+#define PURPLEGRAD  	[NSG.alloc initWithColorsAndLocations:[NSColor colorWithDeviceRed:232./255. green:191./255. blue:248./255. alpha:1.0], 0.0,\
+							[NSColor colorWithDeviceRed:202./255. green:152./255. blue:224/255. alpha:1.0], 0.5,\
+							[NSColor colorWithCalibratedRed:163./255. green:121./255. blue:186./255. alpha:1.0], 1.0, nil]
+
+#define GRAYGRAD  	[NSG.alloc initWithColorsAndLocations:[NSColor colorWithCalibratedWhite:212./255. alpha:1.0], 0.0,\
+							[NSColor colorWithCalibratedWhite:182./255. alpha:1.0], 0.5,\
+							[NSColor colorWithCalibratedWhite:151./255. alpha:1.0], 1.0, nil]
+
 #pragma mark 														- GLOBAL CONSTANTS
 /*
 #define 				 IDDRAG 	id<NSDraggingInfo>
@@ -270,12 +384,23 @@ typedef struct {	CAConstraintAttribute constraint;	CGFloat scale;	CGFloat offset
 #define 				  pFCN 	postsFrameChangedNotifications
 
 
+#define UDEFSCTL	 	[NSUserDefaultsController sharedUserDefaultsController]
+#define CONTINUOUS 	NSContinuouslyUpdatesValueBindingOption:@(YES)
+#define AZN 	AZNode
+#define CABD 	CABlockDelegate
+#define FM 		NSFileManager.defaultManager
+#define UDEFS 	NSUserDefaults.standardUserDefaults
+#define PINFO	NSProcessInfo.processInfo
+#define AZF AZFile
+
+
 #pragma mark - STRINGS
 
 #define sepByCharsInSet componentsSeparatedByCharactersInSet
 #define sepByString componentsSeparatedByString
 #define sansLast arrayByRemovingLastObject
 
+#define NSVA NSViewAnimation
 
 #define 				  vFKP 	valueForKeyPath
 #define 					vFK 	valueForKey
@@ -331,10 +456,34 @@ typedef struct {	CAConstraintAttribute constraint;	CGFloat scale;	CGFloat offset
 #define 			AZNEWMUTED 	NSMutableDictionary.new
 #define 	 	  AZSHAREDLOG DDTTYLogger.sharedInstance
 
+/*		
+		NSLog(@"%s", QUOTE(NSR));					NSLog(@"%s", EXPQUOTE(NSR));
+		NSLog(@"%@", $UTF8(EXPQUOTE(NSR)));		NSLog(NSQUOTE(NSC));
+		NSLog(NSEXPQUOTE(NSC));
+*/
+#define QUOTE(str) #str  							// printf("%s\n", QUOTE(NSR));		-> %s NSR
+#define EXPQUOTE(str) QUOTE(str) 				// printf("%s\n", EXPQUOTE(NSR));	-> %s NSRect
+#define NSQUOTE(str) $UTF8(#str)					// -> %@ NSR
+#define NSEXPQUOTE(str) $UTF8(QUOTE(str))		// -> %@ NSRect
+//	NSW* theWindowVar; ->
+//	NSLog(@"%@", NSEXPQUOTE(theWindowVar)); 		-> %@ theWindowVar
+
+
+
+
+#define AZCLASSNIBNAMED(XX,INSTANCENAME) 		\
+static NSNib   *aNib = nil;				\
+NSArray *objs = nil;							\
+[aNib = aNib ?: [NSNib.alloc initWithNibNamed:AZCLSSTR bundle:nil] instantiateWithOwner:nil topLevelObjects:&objs];\
+XX *INSTANCENAME = [objs objectWithClass:self.class];
+
 #define AZSTRONGSTRING(A) @property (nonatomic, strong) NSString* A
-#define AZPROP(A,B) @property (nonatomic, strong) A* B
-#define AZPROPASS(A,B) @property (NATOM,ASS) A B
-#define AZPROPIBO(A,B) @property (ASS) IBOutlet A *B
+
+#define AZPROPSTR(z,x)		@property (nonatomic, strong) #z #x
+#define AZPROPRDO(z,x) 	@property (readonly) #z #x
+//#define AZPROPASS (A,B...) 	@property (NATOM,ASS) A B
+//#define AZPROPIBO (A,B...) 	@property (ASS) IBOutlet A B
+//	static NSString *_##ENUM_TYPENAME##_constants_string = @"" #ENUM_CONSTANTS; 	\
 
 //#define PROPSTRONG (@property (nonatomic,strong) )
 //#define PROPASSIGN (@property (nonatomic,assign) )
@@ -377,7 +526,12 @@ typedef struct {	CAConstraintAttribute constraint;	CGFloat scale;	CGFloat offset
 
 #define  AZVinstall(p) 	[NSVAL valueWithInstallStatus: p]
 #define  	AZVposi(p) 	[NSVAL      valueWithPosition: p]
-#define 	  AZVpoint(p) 	[NSVAL 			valueWithPoint: p]
+
+#define 	  AZVpoints(x,y) 	[NSVAL 	valueWithPoint:NSMakePoint(x,y)]
+#define 	     AZVpoint(p) 	[NSVAL	valueWithPoint: p]
+
+#define  	AZVrectMake(x,y,w,h) 	[NSVAL 			 valueWithRect:NSMakeRect(x,y,w,h)]
+
 #define  	AZVrect(r) 	[NSVAL 			 valueWithRect: r]
 #define  	AZVsize(s) 	[NSVAL 			 valueWithSize: s]
 #define   	  AZV3d(t) 	[NSVAL valueWithCATransform3D: t]
@@ -394,121 +548,6 @@ typedef struct {	CAConstraintAttribute constraint;	CGFloat scale;	CGFloat offset
 #define AZTArea(frame) 	[NSTA.alloc initWithRect:frame options:AZTRACKALL owner:self userInfo:nil]
 //
 //#define AZTAreaInfo(frame,info) [NSTA.alloc initWithRect: frame options:(NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways | NSTrackingInVisibleRect | NSTrackingMouseMoved ) owner:self userInfo:info];
-
-#pragma mark - COLORS
-
-//#define REDGRAD  		[NSG.alloc initWithColorsAndLocations: [NSColor colorWithDeviceRed:241/255 green:152/255 blue:139/255 alpha:1.0], 0,\
-//							 [NSColor colorWithDeviceRed:	 228/255 green:116/255 blue:102/255 alpha:1.0], 0,\
-//							 [NSColor colorWithCalibratedRed:192/255 green:86/255 blue:73/255 alpha:1.0], 1, nil]
-//#define ORANGEGRAD 	[NSG.alloc initWithColorsAndLocations:[NSColor colorWithDeviceRed:248/255 green:201/255 blue:148/255 alpha:1.0], 0,\
-//[NSColor colorWithDeviceRed:237/255 green:174/255 blue:107/255 alpha:1.0], .5,\
-//[NSColor colorWithCalibratedRed:210/255 green:143/255 blue:77/255 alpha:1.0], 1, nil];
-//#define YELLOWGRAD 	[NSG.alloc initWithColorsAndLocations:[NSColor colorWithDeviceRed:240/255 green:229/255 blue:164/255 alpha:1.0], 0,\
-//[NSColor colorWithDeviceRed:227/255 green:213/255 blue:119/255 alpha:1.0], .5,\
-//[NSColor colorWithCalibratedRed:201/255 green:188/255 blue:92/255 alpha:1.0], 1.0, nil];
-//#define GREENGRAD  	[NSG.alloc initWithColorsAndLocations:[NSColor colorWithDeviceRed:209/255 green:236/255 blue:156/255 alpha:1.0], 0.0,\
-//[NSColor colorWithDeviceRed:175/255 green:215/255 blue:119/255 alpha:1.0], 0.5,\
-//[NSColor colorWithCalibratedRed:142/255 green:182/255 blue:102/255 alpha:1.0], 1.0, nil];
-//#define BLUEGRAD  	[NSG.alloc initWithColorsAndLocations: [NSColor colorWithDeviceRed:165/255 green:216/255 blue:249/255 alpha:1], 0,\
-//[NSColor colorWithDeviceRed:118/255 green:185/255 blue:232/255 alpha:1.0], 0.5,\
-//[NSColor colorWithCalibratedRed:90/255 green:152/255 blue:201/255 alpha:1.0], 1.0, nil];
-//#define PURPLEGRAD  	[NSG.alloc initWithColorsAndLocations:[NSColor colorWithDeviceRed:232/255 green:191/255 blue:248/255 alpha:1.0], 0,\
-//[NSColor colorWithDeviceRed:202/255 green:152/255 blue:224/255 alpha:1.0], 0.5,\
-//[NSColor colorWithCalibratedRed:163/255 green:121/255 blue:186/255 alpha:1.0], 1.0, nil];
-//#define GRAYGRAD  	[NSG.alloc initWithColorsAndLocations:[NSColor colorWithCalibratedWhite:212/255 alpha:1.0], 0.0,\
-//[NSColor colorWithCalibratedWhite:182/255 alpha:1.0], 0.5,\
-//[NSColor colorWithCalibratedWhite:151/255 alpha:1.0], 1.0, nil];
-
-#define PERIWINKLE [NSColor colorWithDeviceRed:.79 green:.78 blue:.9 alpha:1]
-
-//#define STANDARDCOLORS = @[REDORANGE,YELLOW,GREEN,BLUE,PURPLE,GRAY]
-
-#define RED							  [NSC  r:0.797 g:0.000 b:0.043 a:1.]
-#define ORANGE						  [NSC  r:0.888 g:0.492 b:0.000 a:1.]
-#define YELLOw						  [NSC  r:0.830 g:0.801 b:0.277 a:1.]
-#define YELLOW						  [NSC  r:0.830 g:0.801 b:0.277 a:1.]
-#define GREEN						  [NSC  r:0.367 g:0.583 b:0.179 a:1.]
-#define BLUE						  [NSC  r:0.267 g:0.683 b:0.979 a:1.]
-#define PURPLE						  [NSC  r:0.617 g:0.125 b:0.628 a:1.]
-#define PINK						  [NSC  r:1.000 g:0.228 b:0.623 a:1.]
-#define RANDOMGRAY 				  [NSC white:RAND_FLOAT_VAL(0,1) a:1]
-#define RANDOMCOLOR				  [NSC   randomColor]
-#define RANDOMPAL				  	  [NSC randomPalette]
-#define BLACK						  [NSC    blackColor]
-#define GREY						  [NSC     grayColor]
-#define WHITE						  [NSC    whiteColor]
-#define CLEAR						  [NSC    clearColor]
-#define LGRAY						  [NSC white:.5 a:.6]
-#define GRAY1						  [NSC white:.1 a: 1]
-#define GRAY2						  [NSC white:.2 a: 1]
-#define GRAY3						  [NSC white:.3 a: 1]
-#define GRAY4						  [NSC white:.4 a: 1]
-#define GRAY5						  [NSC white:.5 a: 1]
-#define GRAY6						  [NSC white:.6 a: 1]
-#define GRAY7						  [NSC white:.7 a: 1]
-#define GRAY8						  [NSC white:.8 a: 1]
-#define GRAY9						  [NSC white:.9 a: 1]
-
-#define cgRED			   		  RED.CGColor
-#define cgORANGE				  ORANGE.CGColor
-#define cgYELLOW				  YELLOW.CGColor
-#define cgGREEN		 			GREEN.CGColor
-#define cgPURPLE				  PURPLE.CGColor
-#define cgRANDOMCOLOR	RANDOMCOLOR.CGColor
-#define cgBLUE		 				 BLUE.CGColor
-#define cgBLACK				   BLACK.CGColor
-#define cgGREY						 GREY.CGColor
-#define cgWHITE					WHITE.CGColor
-#define cgCLEARCOLOR		      CLEAR.CGColor
-
-#define cgRANDOMGRAY 			CGColorCreateGenericGray( RAND_FLOAT_VAL(0,1), 1)
-#define 	kBlackColor 			cgBLACK
-#define 	kWhiteColor 			cgWHITE
-
-#define CGSHADOW(A) 				CGColorCreate( kCGColorSpaceGenericGray, {0.0, 0.0, A})
-
-#define 	kTranslucentGrayColor CGColorCreate( kCGColorSpaceGenericGray, {0.0, 0.5, 1.0})
-#define 	kTranslucentLightGrayColor cgGREY
-#define	kAlmostInvisibleWhiteColor CGColorCreate( kCGColorSpaceGenericGray, {1, 0.05, 1.0})
-
-#define NOISY(C)   				  [C colorWithNoiseWithOpacity:.2 andBlendMode:kCGBlendModeMultiply]
-#define RANDOMNOISYCOLOR  		   NOISY(RANDOMCOLOR)
-
-#define LINEN 					     [NSColor linen]
-#define RANDOMLINEN 				  [NSC linenTintedWithColor:RANDOMCOLOR]
-#define CHECKERS 					  [NSC checkerboardWithFirstColor: BLACK secondColor: WHITE squareWidth:25]
-
-#define clr colorLogString
-
-
-#define REDGRAD  		[NSG.alloc initWithColorsAndLocations: [NSColor colorWithDeviceRed:241./255. green:152./255. blue:139./255. alpha:1.0], 0.0,\
-							[NSColor colorWithDeviceRed:	 228./255. green:116./255. blue:102./255. alpha:1.0], 0.5,\
-							[NSColor colorWithCalibratedRed:192./255. green:86./255. blue:73./255. alpha:1.0], 1.0, nil]
-
-#define ORANGEGRAD 	[NSG.alloc initWithColorsAndLocations:[NSColor colorWithDeviceRed:248./255. green:201./255. blue:148./255. alpha:1.0], 0.0,\
-							[NSColor colorWithDeviceRed:237./255. green:174./255. blue:107./255. alpha:1.0], 0.5,\
-							[NSColor colorWithCalibratedRed:210./255. green:143./255. blue:77./255. alpha:1.0], 1.0, nil]
-
-#define YELLOWGRAD 	[NSG.alloc initWithColorsAndLocations:[NSColor colorWithDeviceRed:240./255. green:229./255. blue:164./255. alpha:1.0], 0.0,\
-							[NSColor colorWithDeviceRed:227./255. green:213./255. blue:119./255. alpha:1.0], 0.5,\
-							[NSColor colorWithCalibratedRed:201./255. green:188./255. blue:92./255. alpha:1.0], 1.0, nil]
-
-#define GREENGRAD  	[NSG.alloc initWithColorsAndLocations:[NSColor colorWithDeviceRed:209./255. green:236./255. blue:156./255. alpha:1.0], 0.0,\
-							[NSColor colorWithDeviceRed:175./255. green:215./255. blue:119./255. alpha:1.0], 0.5,\
-							[NSColor colorWithCalibratedRed:142./255. green:182./255. blue:102./255. alpha:1.0], 1.0, nil]
-
-#define BLUEGRAD  	[NSG.alloc initWithColorsAndLocations: [NSColor colorWithDeviceRed:165./255. green:216./255. blue:249./255. alpha:1.], 0.0,\
-							[NSColor colorWithDeviceRed:118./255. green:185./255. blue:232./255. alpha:1.0], 0.5,\
-							[NSColor colorWithCalibratedRed:90./255. green:152./255. blue:201./255. alpha:1.0], 1.0, nil]
-
-#define PURPLEGRAD  	[NSG.alloc initWithColorsAndLocations:[NSColor colorWithDeviceRed:232./255. green:191./255. blue:248./255. alpha:1.0], 0.0,\
-							[NSColor colorWithDeviceRed:202./255. green:152./255. blue:224/255. alpha:1.0], 0.5,\
-							[NSColor colorWithCalibratedRed:163./255. green:121./255. blue:186./255. alpha:1.0], 1.0, nil]
-
-#define GRAYGRAD  	[NSG.alloc initWithColorsAndLocations:[NSColor colorWithCalibratedWhite:212./255. alpha:1.0], 0.0,\
-							[NSColor colorWithCalibratedWhite:182./255. alpha:1.0], 0.5,\
-							[NSColor colorWithCalibratedWhite:151./255. alpha:1.0], 1.0, nil]
-
 
 #pragma mark - FUNCTION defines
 

@@ -1,19 +1,20 @@
 
-#import "AtoZNodeProtocol.h"								/** AtoZCodeFactory *//* main.m */
+//#import <AtoZNodeProtocol.h>								/** AtoZCodeFactory *//* main.m */
 #import <AppKit/NSAttributedString.h>
 #import <objc/runtime.h>
 #import <QuartzCore/QuartzCore.h>
 
-#import "AZFactoryView.h"
-#import "DefinitionController.h"
-
+//#import "AZFactoryView.h"
+//#import "DefinitionController.h"
+#import <AtoZ/AtoZ.h>
 
 int main(int argc, const char * argv[])		{	@autoreleasepool {
 
 	__block DefinitionController *v 	= DefinitionController.new; 
-	
+
 	void (^setUpApp)(void) = ^{
-		[NSApplication sharedApplication];	id appMenu, menuBar, appMenuItem, quitString;
+		[NSApplication sharedApplication];	
+		id appMenu, menuBar, appMenuItem, quitString;
 		[NSApp setActivationPolicy:NSApplicationActivationPolicyRegular];
 		[NSApp setMainMenu:  menuBar    =	  NSMenu.new];
 		[menuBar addItem:appMenuItem 	  = NSMenuItem.new];
@@ -22,11 +23,12 @@ int main(int argc, const char * argv[])		{	@autoreleasepool {
 		[appMenu addItem:[NSMenuItem.alloc initWithTitle:quitString action:@selector(terminate:) keyEquivalent:@"q"]];
 		[NSApp setDelegate:v];
 	};
-	if (PINFO.arguments.count > 1) {
+//	if (PINFO.arguments.count > 1) {
 		setUpApp(); 
 		if ([v generatedHeader].outdated) [v saveGeneratedHeader];
+		playTrumpet();
 		[NSApp run];
-	}
+//	}
 //	else [v hasFileChanged] ? [v setHeaderOutdated:YES] :nil;
 
 }

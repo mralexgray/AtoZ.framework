@@ -7,57 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7B3C8C0E174B908B00842B90 /* ArchDirectoryObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B3C8C0D174B908B00842B90 /* ArchDirectoryObserver.m */; };
 		7BF1ECBC174A1F8B00699D38 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF1ECBB174A1F8B00699D38 /* Foundation.framework */; };
 		7BF1ECBF174A1F8B00699D38 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF1ECBE174A1F8B00699D38 /* main.m */; };
 		7BF1ECC3174A1F8B00699D38 /* AtoZCodeFactory.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7BF1ECC2174A1F8B00699D38 /* AtoZCodeFactory.1 */; };
 		7BF1ECD0174A2EC800699D38 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF1ECCF174A2EC800699D38 /* Cocoa.framework */; };
 		7BFBF4FA175DCF82007A84AC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BFBF4F9175DCF82007A84AC /* Cocoa.framework */; };
-		7BFBF504175DCF82007A84AC /* AtoZObjC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BFBF503175DCF82007A84AC /* AtoZObjC.m */; };
-		7BFBF511175DCFC1007A84AC /* AtoZObjC.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BFBF502175DCF82007A84AC /* AtoZObjC.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BFBF514175DCFFC007A84AC /* ArchDirectoryObserver.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B3C8C0C174B908B00842B90 /* ArchDirectoryObserver.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7BFBF515175DCFFC007A84AC /* CABlockDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BC4618D175A954E003DFA14 /* CABlockDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BFBF516175DCFFC007A84AC /* DefinitionController.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BC4618A175A94C8003DFA14 /* DefinitionController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BFBF517175DCFFC007A84AC /* AZFactoryView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BC46187175A9455003DFA14 /* AZFactoryView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7BFBF518175DD020007A84AC /* libTHObserversAndBinders.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BFBF50E175DCFB1007A84AC /* libTHObserversAndBinders.a */; };
-		7BFBF52A175DD2F4007A84AC /* libAtoZObjC.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BFBF4F7175DCF82007A84AC /* libAtoZObjC.a */; };
-		7BFBF52B175DD4FF007A84AC /* CABlockDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC4618E175A954E003DFA14 /* CABlockDelegate.m */; };
 		7BFBF52C175DD535007A84AC /* AZFactoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC46188175A9455003DFA14 /* AZFactoryView.m */; };
 		7BFBF52D175DD53B007A84AC /* NSObject+AZBundles.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA9F09417562D4A006B89A1 /* NSObject+AZBundles.m */; };
-		7BFBF52F175DD9ED007A84AC /* AtoZNodeProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BFBF52E175DD9ED007A84AC /* AtoZNodeProtocol.h */; };
-		7BFBF530175DDA35007A84AC /* DefinitionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC4618B175A94C8003DFA14 /* DefinitionController.m */; };
+		7BFBF52F175DD9ED007A84AC /* AtoZNodeProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BFBF52E175DD9ED007A84AC /* AtoZNodeProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		7BFBF50D175DCFB1007A84AC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7BFBF508175DCFB1007A84AC /* THObserversAndBinders.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 7D7830151667A93600F83BC7;
-			remoteInfo = THObserversAndBinders;
-		};
-		7BFBF50F175DCFB1007A84AC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7BFBF508175DCFB1007A84AC /* THObserversAndBinders.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 7D7830261667A93600F83BC7;
-			remoteInfo = THObserversAndBindersTests;
-		};
-		7BFBF512175DCFD1007A84AC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7BFBF508175DCFB1007A84AC /* THObserversAndBinders.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 7D7830141667A93600F83BC7;
-			remoteInfo = THObserversAndBinders;
-		};
-		7BFBF528175DD2ED007A84AC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7BF1ECB0174A1F8B00699D38 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 7BFBF4F6175DCF82007A84AC;
-			remoteInfo = AtoZObjC;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		7BF1ECB6174A1F8B00699D38 /* CopyFiles */ = {
@@ -81,8 +42,6 @@
 		7BC46188175A9455003DFA14 /* AZFactoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AZFactoryView.m; path = ../AtoZCodeFactory/AZFactoryView.m; sourceTree = "<group>"; };
 		7BC4618A175A94C8003DFA14 /* DefinitionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DefinitionController.h; path = ../AtoZCodeFactory/DefinitionController.h; sourceTree = "<group>"; };
 		7BC4618B175A94C8003DFA14 /* DefinitionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DefinitionController.m; path = ../AtoZCodeFactory/DefinitionController.m; sourceTree = "<group>"; };
-		7BC4618D175A954E003DFA14 /* CABlockDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CABlockDelegate.h; sourceTree = "<group>"; };
-		7BC4618E175A954E003DFA14 /* CABlockDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CABlockDelegate.m; sourceTree = "<group>"; };
 		7BF1ECB8174A1F8B00699D38 /* AtoZCodeFactory */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = AtoZCodeFactory; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BF1ECBB174A1F8B00699D38 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		7BF1ECBE174A1F8B00699D38 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -98,7 +57,6 @@
 		7BFBF501175DCF82007A84AC /* AtoZObjC-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AtoZObjC-Prefix.pch"; sourceTree = "<group>"; };
 		7BFBF502175DCF82007A84AC /* AtoZObjC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AtoZObjC.h; sourceTree = "<group>"; };
 		7BFBF503175DCF82007A84AC /* AtoZObjC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AtoZObjC.m; sourceTree = "<group>"; };
-		7BFBF508175DCFB1007A84AC /* THObserversAndBinders.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = THObserversAndBinders.xcodeproj; path = /Volumes/2T/ServiceData/AtoZ.framework/AtoZ/../Frameworks/THObserversAndBinders/THObserversAndBinders.xcodeproj; sourceTree = "<absolute>"; };
 		7BFBF52E175DD9ED007A84AC /* AtoZNodeProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AtoZNodeProtocol.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -107,7 +65,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7BFBF52A175DD2F4007A84AC /* libAtoZObjC.a in Frameworks */,
 				7BF1ECBC174A1F8B00699D38 /* Foundation.framework in Frameworks */,
 				7BF1ECD0174A2EC800699D38 /* Cocoa.framework in Frameworks */,
 			);
@@ -117,7 +74,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7BFBF518175DD020007A84AC /* libTHObserversAndBinders.a in Frameworks */,
 				7BFBF4FA175DCF82007A84AC /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -180,7 +136,6 @@
 		7BFBF4F8175DCF82007A84AC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				7BFBF508175DCFB1007A84AC /* THObserversAndBinders.xcodeproj */,
 				7BFBF4F9175DCF82007A84AC /* Cocoa.framework */,
 				7BFBF4FB175DCF82007A84AC /* Other Frameworks */,
 			);
@@ -206,8 +161,6 @@
 				7BFBF503175DCF82007A84AC /* AtoZObjC.m */,
 				7BC46187175A9455003DFA14 /* AZFactoryView.h */,
 				7BC46188175A9455003DFA14 /* AZFactoryView.m */,
-				7BC4618D175A954E003DFA14 /* CABlockDelegate.h */,
-				7BC4618E175A954E003DFA14 /* CABlockDelegate.m */,
 				7BA9F09417562D4A006B89A1 /* NSObject+AZBundles.m */,
 				7BFBF52E175DD9ED007A84AC /* AtoZNodeProtocol.h */,
 				7BFBF500175DCF82007A84AC /* Supporting Files */,
@@ -223,15 +176,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		7BFBF509175DCFB1007A84AC /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				7BFBF50E175DCFB1007A84AC /* libTHObserversAndBinders.a */,
-				7BFBF510175DCFB1007A84AC /* THObserversAndBindersTests.octest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -239,12 +183,10 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7BFBF511175DCFC1007A84AC /* AtoZObjC.h in Headers */,
 				7BFBF514175DCFFC007A84AC /* ArchDirectoryObserver.h in Headers */,
-				7BFBF515175DCFFC007A84AC /* CABlockDelegate.h in Headers */,
 				7BFBF517175DCFFC007A84AC /* AZFactoryView.h in Headers */,
-				7BFBF516175DCFFC007A84AC /* DefinitionController.h in Headers */,
 				7BFBF52F175DD9ED007A84AC /* AtoZNodeProtocol.h in Headers */,
+				7BFBF516175DCFFC007A84AC /* DefinitionController.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -262,7 +204,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				7BFBF529175DD2ED007A84AC /* PBXTargetDependency */,
 			);
 			name = AtoZCodeFactory;
 			productName = AtoZCodeFactory;
@@ -282,7 +223,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				7BFBF513175DCFD1007A84AC /* PBXTargetDependency */,
 			);
 			name = AtoZObjC;
 			productName = AtoZObjC;
@@ -308,12 +248,6 @@
 			mainGroup = 7BF1ECAF174A1F8B00699D38;
 			productRefGroup = 7BF1ECB9174A1F8B00699D38 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 7BFBF509175DCFB1007A84AC /* Products */;
-					ProjectRef = 7BFBF508175DCFB1007A84AC /* THObserversAndBinders.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				7BF1ECB7174A1F8B00699D38 /* AtoZCodeFactory */,
@@ -321,23 +255,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		7BFBF50E175DCFB1007A84AC /* libTHObserversAndBinders.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libTHObserversAndBinders.a;
-			remoteRef = 7BFBF50D175DCFB1007A84AC /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7BFBF510175DCFB1007A84AC /* THObserversAndBindersTests.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = THObserversAndBindersTests.octest;
-			remoteRef = 7BFBF50F175DCFB1007A84AC /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		7BFBF51A175DD05C007A84AC /* Resources */ = {
@@ -371,7 +288,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7BF1ECBF174A1F8B00699D38 /* main.m in Sources */,
-				7B3C8C0E174B908B00842B90 /* ArchDirectoryObserver.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -379,28 +295,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7BFBF504175DCF82007A84AC /* AtoZObjC.m in Sources */,
-				7BFBF52B175DD4FF007A84AC /* CABlockDelegate.m in Sources */,
 				7BFBF52D175DD53B007A84AC /* NSObject+AZBundles.m in Sources */,
 				7BFBF52C175DD535007A84AC /* AZFactoryView.m in Sources */,
-				7BFBF530175DDA35007A84AC /* DefinitionController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		7BFBF513175DCFD1007A84AC /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = THObserversAndBinders;
-			targetProxy = 7BFBF512175DCFD1007A84AC /* PBXContainerItemProxy */;
-		};
-		7BFBF529175DD2ED007A84AC /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 7BFBF4F6175DCF82007A84AC /* AtoZObjC */;
-			targetProxy = 7BFBF528175DD2ED007A84AC /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		7BF1ECC4174A1F8B00699D38 /* Debug */ = {
@@ -427,7 +327,12 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "\"$(NODE_PROTOCOL)\"";
+				HEADER_SEARCH_PATHS = (
+					"\"$(NODE_PROTOCOL)\"",
+					"$(AtoZ)",
+					"$(SRCROOT)",
+					"\"$(AZ)\"",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -452,7 +357,12 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "\"$(NODE_PROTOCOL)\"";
+				HEADER_SEARCH_PATHS = (
+					"\"$(NODE_PROTOCOL)\"",
+					"$(AtoZ)",
+					"$(SRCROOT)",
+					"\"$(AZ)\"",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				SDKROOT = macosx;
 			};
@@ -461,10 +371,11 @@
 		7BF1ECC7174A1F8B00699D38 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AtoZCodeFactory/AtoZCodeFactory-Prefix.pch";
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "AtoZCodeFactory/AtoZCodeFactory-Info.plist";
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -473,18 +384,22 @@
 					AppKit,
 					"-framework",
 					QuartzCore,
+					"-framework",
+					AtoZ,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = "";
 			};
 			name = Debug;
 		};
 		7BF1ECC8174A1F8B00699D38 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AtoZCodeFactory/AtoZCodeFactory-Prefix.pch";
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "AtoZCodeFactory/AtoZCodeFactory-Info.plist";
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -493,8 +408,11 @@
 					AppKit,
 					"-framework",
 					QuartzCore,
+					"-framework",
+					AtoZ,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = "";
 			};
 			name = Release;
 		};
@@ -515,6 +433,7 @@
 					"$(SRCROOT)/**",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "include/$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
@@ -535,6 +454,7 @@
 					"$(SRCROOT)/**",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "include/$(TARGET_NAME)";
 			};
 			name = Release;
 		};
@@ -566,6 +486,7 @@
 				7BFBF506175DCF82007A84AC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

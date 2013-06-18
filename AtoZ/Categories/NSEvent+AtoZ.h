@@ -33,12 +33,14 @@ JREnumDeclare(AZEvent, AZEventLeftMouseDown = 1,
 ...  .m
 [_someButton setActionBlock:(NSControlActionBlock) ^(id inSender) { AZLOG(@"xlisidud"); [self doSomeBullshit:nil];	}];
 */
-	
+
+
 typedef void(^NSControlVoidActionBlock)(void);
-typedef void(^NSControlActionBlock)(id inSender);
+typedef void(^NSControlActionBlock)(id);
 @interface NSControl (AtoZ)
-@property (readwrite, nonatomic, copy) NSControlActionBlock actionBlock;
-@property (readwrite, nonatomic, copy) NSControlVoidActionBlock voidActionBlock;
+
+@property (readwrite, nonatomic, copy) void(^actionBlock)(id);
+@property (readwrite, nonatomic, copy) void(^voidActionBlock)(void);
 - (void) setAction:(SEL)method withTarget:(id)object;
 - (void) setActionString:(NSS*)methodasString withTarget:(id)object;
 @end
@@ -48,6 +50,8 @@ typedef void(^NSControlActionBlock)(id inSender);
 typedef void (^EventBlock)(NSE* e);
 
 @interface NSEvent (AtoZ)
+
+//+ (void) dragBlock:(void(^)(NSP click, NSP delta))block;
 
 /*	- (void) scrollWheel:(NSEvent *)theEvent	{	self.offset = [theEvent scrollOffsetInView:self];	
 																						    [self setNeedsDisplay:YES];	} */

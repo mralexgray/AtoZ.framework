@@ -3,6 +3,7 @@
 //  AtoZ
 
 #import "AtoZ.h"
+extern NSString * const NSMutableArrayDidInsertObjectNotification;
 
 @interface NSArray (EnumExtensions)
 
@@ -16,19 +17,18 @@
 - (NSI) numberOfRowsInTableView:(NSTableView *)aTableView;
 @end
 
-@interface NSArray (AtoZ)
-
-+ (NSA*) arrayWithRects:(NSR)firstRect,...NS_REQUIRES_NIL_TERMINATION;
-
-- (int) createArgv:(char***)argv;
-
-+ (NSA*) from:(NSI)from to:(NSI)to;
-
-- (id) nextObject;
-
-- (NSA*) alphabetize;
-
+@interface NSArray (AtoZCLI)
+- (NSS*) stringValueInColumnsCharWide:(NSUI)characters;
 - (NSS*) formatAsListWithPadding:(NSUI)characters;
+- (NSA*) alphabetize;
+@end
+
+@interface NSArray (AtoZ)
++ (NSA*) arrayWithRects:(NSR)firstRect,...NS_REQUIRES_NIL_TERMINATION;
+-  (int) createArgv:(char***)argv;
++ (NSA*) from:(NSI)from to:(NSI)to;
+-   (id) nextObject;
+
 
 - (NSCountedSet*)countedSet ;
 
@@ -36,17 +36,15 @@
  @brief	Returns an array of NSNumbers whose -integerValues
  span a given range, each value being one more than the previous
  value.	*/
-+ (NSArray*)arrayWithRange:(NSRange)range ;
++ (NSA*) arrayWithRange:	 (NSRNG)range;
+- (NSA*) withMinRandomItems:(NSUI)items;
+- (NSA*) withMaxRandomItems:(NSUI)items;
 
-
-- (NSA*) withMinRandomItems:(NSUI) items;
-- (NSA*) withMaxRandomItems:(NSUI) items;
-
-- (NSA *)withMin:(NSUI)min max:(NSUI)max;
-- (NSA*) withMinItems:(NSUI) items;
-- (NSA*) withMinItems:(NSUI) items usingFiller:(id) fill;
-
+- (NSA*) withMin:     (NSUI)min max:(NSUI)max;
 - (NSA*) withMaxItems:(NSUI) items;
+- (NSA*) withMinItems:(NSUI)items;
+- (NSA*) withMinItems:(NSUI)items usingFiller:(id) fill;
+
 
 - (void) setStringsToNilOnbehalfOf:(id)entity;  // FIX:  DOCUMENT!!
 - (NSN*) maxNumberInArray;
@@ -67,8 +65,6 @@
 + (NSMutableArray *)mutableArrayWithArrays:(NSA*)arrays;
 + (NSArray*)arrayWithArrays:(NSA*)arrays;
 - (NSA*)arrayWithEach;
-- (NSS*) stringValueInColumnsCharWide:(NSUI)characters;
-
 
 - (NSA*) allKeysInChildDictionaries;
 - (NSA*) allvaluesInChildDictionaries;
@@ -76,7 +72,6 @@
 #define vsForKeys dictionaryWithValuesForKeys
 
 - (NSA*)arrayUsingIndexedBlock:(id (^)(id obj, NSUInteger idx))block;
-
 - (NSA*)sortedWithKey:(NSS*)theKey ascending:(BOOL)ascending;
 //- (NSA*)sortedArrayUsingArray:(NSA*)otherArray;
 /*** Returns an NSArray containing a number of NSNumber elements that have been initialized with NSInteger values. As this method takes a variadic argument list you have to terminate the input with a NSNotFound entry This is done automatically via the $ints(...) macro */
@@ -87,14 +82,10 @@
 
 /*** Returns an NSSet containing the same elements as the array (unique of course, as the set does not keep doubled entries) */
 @property (RONLY) NSSet *set;
-
-@property (RONLY) NSArray *shifted;
-@property (RONLY) NSArray *popped;
-@property (RONLY) NSArray *reversed;
+@property (RONLY) NSA *shifted, *popped, *reversed;
 
 /*** Returns an array of the same size as the original one with the result of calling the keyPath on each object */
 - (NSA*)arrayWithKey:(NSS*)keyPath;
-
 
 /**	Calls performSelector on all objects that can receive the selector in the array.
  * Makes an iterable copy of the array, making it possible for the selector to modify
@@ -107,27 +98,18 @@
 
 /**	Extensions to makeObjectsPerformSelector to provide support for more than one object
  * parameter.	*/
-- (void)makeObjectsPerformSelector:(SEL)selector withObject:(id)p1 withObject:(id)p2;
-- (void)makeObjectsPerformSelector: (SEL)selector
-						withObject: (id)p1
-						withObject: (id)p2
-						withObject: (id)p3;
+- (void)makeObjectsPerformSelector:(SEL)s withObject:(id)o1 withObject:(id)o2;
+- (void)makeObjectsPerformSelector:(SEL)s withObject:(id)o1	withObject:(id)o2 withObject:(id)o3;
 
 /**	@return nil or an object that matches value with isEqual:	*/
-- (id)objectWithValue:(id)value forKey:(id)key;
-
-- (id) objectsWithValue:(id)value forKey:(id)key;
-
+-   (id) objectWithValue: (id)value forKey:(id)key;
+-   (id) objectsWithValue:(id)value forKey:(id)key;
 /**	@return the first object with the given class.	*/
-- (id)objectWithClass:(Class)cls;
-
+-   (id) objectWithClass:(Class)cls;
 /**	@param selector Required format: - (NSNumber*)method:(id)object;	*/
-- (BOOL)containsObject:(id)object withSelector:(SEL)selector;
-
-
-
+- (BOOL) containsObject:(id)object withSelector:(SEL)selector;
 /*** Returns an array of the same size as the original one with the result of performing the selector on each object */
-- (NSA*)arrayPerformingSelector:(SEL)selector;
+- (NSA*) arrayPerformingSelector:(SEL)selector;
 
 /*** Returns an array of the same size as the original one with the result of performing the selector on each object */
 - (NSA*)arrayPerformingSelector:(SEL)selector withObject:(id)object;

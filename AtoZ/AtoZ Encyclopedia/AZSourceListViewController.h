@@ -11,7 +11,7 @@
 
 #import "iCarouselViewController.h"
 
-@interface AZSourceListViewController : NSViewController <AZSourceListDataSource, AZToggleArrayViewDelegate>
+@interface AZSourceListViewController : NSViewController <AZSourceListDataSource, AZToggleArrayViewDatasource >
 
 @property (weak) IBOutlet AZSourceList *sourceList;
 //@property (weak) IBOutlet AZToggleArrayView *tv;

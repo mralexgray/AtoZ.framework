@@ -148,7 +148,37 @@
 }
 
 @end
+//#define VALUE(_INDEX_) AZVpoint(points[_INDEX_])
 @implementation NSBezierPath (AtoZ)
+
+void getPointsFromBezier(void *info, const CGPathElement *element) 	{
+
+    NSMutableArray *bezierPoints = (__bridge NSMutableArray *)info;    
+    CGPathElementType type 		= element->type;			// Retrieve the path element type and its points
+    CGPoint *points 					= element->points;
+    if (type != kCGPathElementCloseSubpath)	    	// Add the points if they're available (per type)
+    {
+        [bezierPoints addObject:AZVpoint(points[0])];
+        if (type != kCGPathElementAddLineToPoint && type != kCGPathElementMoveToPoint) [bezierPoints addObject:AZVpoint(points[1])];
+    }    
+    if (type == kCGPathElementAddCurveToPoint)											         [bezierPoints addObject:AZVpoint(points[2])];
+}
+- (NSArray *)points
+{
+    NSMutableArray *points = NSMA.new;
+    CGPathApply(self.quartzPath, (__bridge void*)points, getPointsFromBezier);
+    return points;
+}
++ (NSBP*) bezierPathWithPoints:(NSA*)points {
+
+	NSBezierPath *path = [NSBezierPath bezierPath];
+	[path moveToPoint:[points[0] pointValue]];
+	int i;
+	int count = [points count];
+	for (NSValue* point in points)
+		[path lineToPoint:[point pointValue]];
+	return path;
+}
 
 static void linearShadedColor		(void *info, const CGFloat *in, CGFloat *out)	{	CGFloat *colors = info;
 	*out++ = colors[0] + *in * colors[8];
@@ -168,15 +198,138 @@ static void bilinearShadedColor	(void *info, const CGFloat *in, CGFloat *out)	{
 	*out++ = colors[3] + factor * colors[11];
 }
 
-- (void)linearGradientFillWithStartColor:  (NSColor*)startColor endColor:  (NSColor*)endColor		{
-	static const CGFunctionCallbacks callbacks = {0, &linearShadedColor, 0};
-	[self customHorizontalFillWithCallbacks:callbacks firstColor:startColor secondColor:endColor];
-}
-- (void)bilinearGradientFillWithOuterColor:(NSColor*)outerColor innerColor:(NSColor*)innerColor		{
+- (void)linearGradientFillWithStartColor:(NSColor *)startColor endColor:(NSColor *)endColor
+{
+	/*
+	CGColorSpaceRef colorspace;
+	CGShadingRef shading;
+	CGPoint startPoint = {0, 0};
+	CGPoint endPoint = {0, 0};
+	CGFunctionRef function;
+	float colors[12]; // pointer to color values
 	
-	static const CGFunctionCallbacks callbacks = {0, &bilinearShadedColor, 0};
-	[self customHorizontalFillWithCallbacks:callbacks firstColor:innerColor secondColor:outerColor];
+	// get my context
+	CGContextRef currentContext = (CGContextRef)[[NSGraphicsContext currentContext] graphicsPort];
+	
+	NSColor *deviceDependentStartColor = [startColor colorUsingColorSpaceName:NSDeviceRGBColorSpace];
+	NSColor *deviceDependentEndColor = [endColor colorUsingColorSpaceName:NSDeviceRGBColorSpace];
+	
+	// set up colors for gradient
+	colors[0] = [deviceDependentStartColor redComponent];
+	colors[1] = [deviceDependentStartColor greenComponent];
+	colors[2] = [deviceDependentStartColor blueComponent];
+	colors[3] = [deviceDependentStartColor alphaComponent];
+	
+	colors[4] = [deviceDependentEndColor redComponent];
+	colors[5] = [deviceDependentEndColor greenComponent];
+	colors[6] = [deviceDependentEndColor blueComponent];
+	colors[7] = [deviceDependentEndColor alphaComponent];
+	
+	// difference between start and end color for each color components
+	colors[8] = (colors[4]-colors[0]);
+	colors[9] = (colors[5]-colors[1]);
+	colors[10] = (colors[6]-colors[2]);
+	colors[11] = (colors[7]-colors[3]);
+	
+	// draw gradient
+	colorspace = CGColorSpaceCreateDeviceRGB();
+	
+	size_t components = 1 + CGColorSpaceGetNumberOfComponents(colorspace);
+	static const float  domain[2] = {0.0, 1.0};
+	static const float  range[10] = {0, 1, 0, 1, 0, 1, 0, 1, 0, 1};
+	static const CGFunctionCallbacks callbacks = {0, &shadedColor, NULL};
+
+	// Create a CGFunctionRef that describes a function taking 1 input and kChannelsPerColor outputs.
+	function = CGFunctionCreate(colors, 1, domain, components, range, &callbacks);
+	
+	startPoint.x=0;
+	startPoint.y=[self bounds].origin.y;
+	endPoint.x=0;
+	endPoint.y=NSMaxY([self bounds]);
+	
+	shading = CGShadingCreateAxial(colorspace, startPoint, endPoint, function, NO, NO);
+	
+	CGContextSaveGState(currentContext);
+	[self addClip];
+	CGContextDrawShading(currentContext, shading);
+	CGContextRestoreGState(currentContext);
+	
+	CGShadingRelease(shading);
+	CGFunctionRelease(function);
+	CGColorSpaceRelease(colorspace);
+	 */
+	static const CGFunctionCallbacks callbacks = {0, &linearShadedColor, NULL};
+	[self customVerticalFillWithCallbacks:callbacks firstColor:startColor secondColor:endColor];
+};
+
+- (void)bilinearGradientFillWithOuterColor:(NSColor *)outerColor innerColor:(NSColor *)innerColor
+{
+	static const CGFunctionCallbacks callbacks = {0, &bilinearShadedColor, NULL};
+	[self customVerticalFillWithCallbacks:callbacks firstColor:innerColor secondColor:outerColor];
 }
+
+- (void)customVerticalFillWithCallbacks:(CGFunctionCallbacks)functionCallbacks firstColor:(NSColor *)firstColor secondColor:(NSColor *)secondColor	{
+	CGColorSpaceRef colorspace;
+	CGShadingRef shading;
+	CGPoint startPoint = {0, 0};
+	CGPoint endPoint = {0, 0};
+	CGFunctionRef function;
+	CGFloat colors[12]; // pointer to color values
+	
+	// get my context
+	CGContextRef currentContext = (CGContextRef)[[NSGraphicsContext currentContext] graphicsPort];
+	
+	NSColor *deviceDependentFirstColor = [firstColor colorUsingColorSpaceName:NSDeviceRGBColorSpace];
+	NSColor *deviceDependentSecondColor = [secondColor colorUsingColorSpaceName:NSDeviceRGBColorSpace];
+	
+	// set up colors for gradient
+	colors[0] = [deviceDependentFirstColor redComponent];
+	colors[1] = [deviceDependentFirstColor greenComponent];
+	colors[2] = [deviceDependentFirstColor blueComponent];
+	colors[3] = [deviceDependentFirstColor alphaComponent];
+	
+	colors[4] = [deviceDependentSecondColor redComponent];
+	colors[5] = [deviceDependentSecondColor greenComponent];
+	colors[6] = [deviceDependentSecondColor blueComponent];
+	colors[7] = [deviceDependentSecondColor alphaComponent];
+	
+	// difference between start and end color for each color components
+	colors[8] = (colors[4]-colors[0]);
+	colors[9] = (colors[5]-colors[1]);
+	colors[10] = (colors[6]-colors[2]);
+	colors[11] = (colors[7]-colors[3]);
+	
+	// draw gradient
+#if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_4
+	colorspace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
+#else
+	colorspace = CGColorSpaceCreateDeviceRGB();
+#endif
+	size_t components = 1 + CGColorSpaceGetNumberOfComponents(colorspace);
+	static const CGFloat domain[2] = {0.0, 1.0};
+	static const CGFloat range[10] = {0, 1, 0, 1, 0, 1, 0, 1, 0, 1};
+	//static const CGFunctionCallbacks callbacks = {0, &bilinearShadedColor, NULL};
+	
+	// Create a CGFunctionRef that describes a function taking 1 input and kChannelsPerColor outputs.
+	function = CGFunctionCreate(colors, 1, domain, components, range, &functionCallbacks);
+	
+	startPoint.x=0;
+	startPoint.y=[self bounds].origin.y;
+	endPoint.x=0;
+	endPoint.y=NSMaxY([self bounds]);
+	
+	shading = CGShadingCreateAxial(colorspace, startPoint, endPoint, function, NO, NO);
+	
+	CGContextSaveGState(currentContext);
+	[self addClip];
+	CGContextDrawShading(currentContext, shading);
+	CGContextRestoreGState(currentContext);
+	
+	CGShadingRelease(shading);
+	CGFunctionRelease(function);
+	CGColorSpaceRelease(colorspace);
+}
+
 - (void)customHorizontalFillWithCallbacks:(CGFunctionCallbacks)functionCallbacks 
 										  firstColor:(NSColor*)firstColor secondColor:(NSColor*)secondColor	{
 	CGColorSpaceRef colorspace;
@@ -235,6 +388,7 @@ static void bilinearShadedColor	(void *info, const CGFloat *in, CGFloat *out)	{
 	CGFunctionRelease(function);
 	CGColorSpaceRelease(colorspace);
 }
+
 - (CGF)width	{    return self.bounds.size.width;	}
 - (CGF)height 	{    return self.bounds.size.height;	}
 - (void)setWidth:(CGF)t 	{    [self scaledToSize:AZSizeExceptWide(self.bounds.size, t)];	}
@@ -374,37 +528,37 @@ static void bilinearShadedColor	(void *info, const CGFloat *in, CGFloat *out)	{
     }
 }
 
-+ (NSBezierPath *)bezierPathWithTriangleInRect:(NSRect)aRect orientation:(AMTriangleOrientation)orientation {
++ (NSBezierPath *)bezierPathWithTriangleInRect:(NSRect)aRect orientation:(AZCompass)orientation {
     NSBezierPath *result = [[[NSBezierPath alloc] init] autorelease];
     [result appendBezierPathWithTriangleInRect:aRect orientation:orientation];
     return result;
 }
 
-- (void)appendBezierPathWithTriangleInRect:(NSRect)aRect orientation:(AMTriangleOrientation)orientation {
+- (void)appendBezierPathWithTriangleInRect:(NSRect)aRect orientation:(AZCompass)orientation {
     NSPoint a, b, c;
     switch (orientation) {
-        case AMTriangleUp: {
+        case AZCompassN: {
             a = NSMakePoint(NSMinX(aRect), NSMinY(aRect));
             b = NSMakePoint((NSMinX(aRect) + NSMaxX(aRect)) / 2, NSMaxY(aRect));
             c = NSMakePoint(NSMaxX(aRect), NSMinY(aRect));
             break;
         }
 
-        case AMTriangleDown: {
+        case AZCompassS: {
             a = NSMakePoint(NSMinX(aRect), NSMaxY(aRect));
             c = NSMakePoint(NSMaxX(aRect), NSMaxY(aRect));
             b = NSMakePoint((NSMinX(aRect) + NSMaxX(aRect)) / 2, NSMinY(aRect));
             break;
         }
 
-        case AMTriangleLeft: {
+        case AZCompassW: {
             a = NSMakePoint(NSMaxX(aRect), NSMaxY(aRect));
             b = NSMakePoint(NSMaxX(aRect), NSMinY(aRect));
             c = NSMakePoint(NSMinX(aRect), (NSMinY(aRect) + NSMaxY(aRect)) / 2);
             break;
         }
 
-        default:          // case AMTriangleRight:
+        default:          // case AZCompassE:
         {
             a = NSMakePoint(NSMinX(aRect), NSMinY(aRect));
             b = NSMakePoint(NSMinX(aRect), NSMaxY(aRect));
@@ -694,7 +848,7 @@ static void bilinearShadedColor	(void *info, const CGFloat *in, CGFloat *out)	{
  */
 
 
-//#define MCBEZIER_USE_PRIVATE_FUNCTION
+#define MCBEZIER_USE_PRIVATE_FUNCTION
 
 #ifdef MCBEZIER_USE_PRIVATE_FUNCTION
 extern CGPathRef CGContextCopyPath(CGContextRef context);
@@ -740,8 +894,68 @@ static void CGPathCallback(void *info, const CGPathElement *element) {
 
 // Method borrowed from Google's Cocoa additions
 - (CGPathRef)cgPath {
-    return [self quartzPath];
+		// Borrowed from http://bit.ly/150i1lL
 
+//	- (CGPathRef) CGPath {
+		NSInteger i, numElements;
+
+			// Need to begin a path here.
+		CGPathRef           immutablePath = NULL;
+
+			// Then draw the path elements.
+		numElements = [self elementCount];
+		if (numElements > 0)
+		{
+			CGMutablePathRef    path = CGPathCreateMutable();
+			NSPoint             points[3];
+			BOOL                didClosePath = YES;
+
+			for (i = 0; i < numElements; i++)
+			{
+            switch ([self elementAtIndex:i associatedPoints:points])
+            {
+					case NSMoveToBezierPathElement:
+						CGPathMoveToPoint(path, NULL, points[0].x, points[0].y);
+						break;
+
+					case NSLineToBezierPathElement:
+						CGPathAddLineToPoint(path, NULL, points[0].x, points[0].y);
+						didClosePath = NO;
+						break;
+
+					case NSCurveToBezierPathElement:
+						CGPathAddCurveToPoint(path, NULL, points[0].x, points[0].y,
+													 points[1].x, points[1].y,
+													 points[2].x, points[2].y);
+						didClosePath = NO;
+						break;
+
+					case NSClosePathBezierPathElement:
+						CGPathCloseSubpath(path);
+						didClosePath = YES;
+						break;
+            }
+			}
+
+				// Be sure the path is closed or Quartz may not do valid hit detection.
+			if (!didClosePath)
+            CGPathCloseSubpath(path);
+
+			immutablePath = CGPathCreateCopy(path);
+			CGPathRelease(path);
+		}
+
+			// Auto-destroy path after a cycle of the run loop
+
+		double delayInSeconds = 0.0;
+		dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+		dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+			CGPathRelease(immutablePath);
+		});
+
+		return immutablePath;
+	}
+	
     /*	CGMutablePathRef thePath = CGPathCreateMutable();
        if (!thePath) return nil;
 
@@ -777,7 +991,7 @@ static void CGPathCallback(void *info, const CGPathElement *element) {
        }
        return thePath;
      */
-}
+
 
 - (NSBP *)stroked:(CGF)strokeWidth {
     return [self pathWithStrokeWidth:strokeWidth];
@@ -1426,3 +1640,5 @@ static const CGFloat domainAndRange[8] = {0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0
 	CGColorSpaceRelease(colorSpace);	
 }
 @end
+
+

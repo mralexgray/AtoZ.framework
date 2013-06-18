@@ -56,7 +56,9 @@ static id _sharedSingleton		= nil;
 	AZStopwatchItem *item	= AZStopwatchItem.new;	item.name = name;	item.started = NSDate.date; return item;
 }
 - 	 (void) stop 			{	self.stopped = NSDate.date; }
--   (NSS*) description 	{	return $(@"%@ : %@", name, [AZLOGSHARED colorizeString:$(@"[%@]",[self runtimePretty]) withColor:WHITE]);	}
+-   (NSS*) description 	{	
+
+	return $(@"%@ : %@", name, [AZLOGSHARED colorizeString:$(@"[%@]",[self runtimePretty]) withColor:NSColor.whiteColor]);	}
 - (double) runtimeMills {	return [self runtime] * 1000.0; }
 -   (NSTI) runtime 		{
 			// never started																		/* start to stop time */

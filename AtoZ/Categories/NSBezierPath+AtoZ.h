@@ -30,9 +30,12 @@
 @end
 
 @interface NSBezierPath (AtoZ)
- - (void)customHorizontalFillWithCallbacks:(CGFunctionCallbacks)functionCallbacks firstColor:(NSColor *)firstColor secondColor:(NSColor *)secondColor;
- - (void)linearGradientFillWithStartColor:(NSColor *)startColor endColor:(NSColor *)endColor;
- - (void)bilinearGradientFillWithOuterColor:(NSColor *)outerColor innerColor:(NSColor *)innerColor;
+- (NSA*) points;
++ (NSBP*) bezierPathWithPoints:(NSA*)points;
+- (void) customVerticalFillWithCallbacks:  (CGFunctionCallbacks)functionCallbacks firstColor:(NSC*)firstColor secondColor:(NSC*)secondColor;
+- (void) customHorizontalFillWithCallbacks:(CGFunctionCallbacks)functionCallbacks firstColor:(NSC*)firstColor secondColor:(NSC*)secondColor;
+- (void) linearGradientFillWithStartColor:(NSColor *)startColor endColor:(NSColor *)endColor;
+- (void) bilinearGradientFillWithOuterColor:(NSColor *)outerColor innerColor:(NSColor *)innerColor;
 
 @property (nonatomic, assign) CGF width;
 @property (nonatomic, assign) CGF height;
@@ -58,31 +61,31 @@
 
 - (void) strokeInside;
 - (void) strokeInsideWithinRect: (NSR)clipRect;
-- (void) applyInnerShadow:	  (NSShadow*)shadow;
-- (void) fillWithInnerShadow:(NSShadow*)shadow;
+- (void) applyInnerShadow:	  (NSSHDW*)shadow;
+- (void) fillWithInnerShadow:(NSSHDW*)shadow;
 - (void) strokeWithColor:	 (NSC*)color;
 - (void) strokeWithColor:	 (NSC*)color andWidth:(CGF)width;
 - (void) fillWithColor:	 	 (NSC*)color;
-- (void) drawBlurWithColor: (NSC*)color radius:(CGF)radius;
+- (void) drawBlurWithColor: (NSC*)color   radius:(CGF)radius;
 - (void) strokeWithColor:	 (NSC*)color andWidth:(CGF)width inside:(NSR)frame;
 
-+ (NSBP*) bezierPathWithSpringWithCoils: (NSUI)numCoils inFrame:(NSR)bounds;
-+ (NSBP*) bezierPathWithPlateInRect: 		  	(NSR)rect;
-+ (NSBP*) bezierPathWithTriangleInRect:   		(NSR)aRect orientation: (AMTriangleOrientation)orientation;
-+ (NSBP*) bezierPathWithCappedBoxInRect:  		(NSR)rect;
-- (void) appendBezierPathWithTriangleInRect: (NSR)aRect orientation: (AMTriangleOrientation)orientation;
-- (void) appendBezierPathWithPlateInRect: 		(NSR)rect;
-- (void) appendBezierPathWithRoundedRect: 		(NSR)rect cornerRadius:(float)radius;
++ (NSBP*) bezierPathWithSpringWithCoils: 		(NSUI)numCoils inFrame:(NSR)bounds;
++ (NSBP*) bezierPathWithPlateInRect: 	 		(NSR)rect;
++ (NSBP*) bezierPathWithTriangleInRect:   	(NSR)aRect orientation: (AZCompass)orientation;
++ (NSBP*) bezierPathWithCappedBoxInRect:  	(NSR)rect;
+- (void) appendBezierPathWithTriangleInRect: (NSR)aRect orientation: (AZCompass)orientation;
+- (void) appendBezierPathWithPlateInRect: 	(NSR)rect;
+- (void) appendBezierPathWithRoundedRect: 	(NSR)rect cornerRadius:(float)radius;
 #pragma mark Rounded rectangles
-+ (NSBP*) bezierPathWithRoundedRect: 			 (NSR)rect;
-+ (NSBP*) bezierPathWithRoundedRect: 			 (NSR)rect radius:(CGF)radius;
-+ (NSBP*) bezierPathWithLeftRoundedRect:  		 (NSR)rect radius:(CGF)radius;
-+ (NSBP*) bezierPathWithRightRoundedRect: 		 (NSR)rect radius:(CGF)radius;
++ (NSBP*) bezierPathWithRoundedRect: 			(NSR)rect;
++ (NSBP*) bezierPathWithRoundedRect: 			(NSR)rect radius:(CGF)radius;
++ (NSBP*) bezierPathWithLeftRoundedRect:  	(NSR)rect radius:(CGF)radius;
++ (NSBP*) bezierPathWithRightRoundedRect: 	(NSR)rect radius:(CGF)radius;
 + (NSBP*) bezierPathWithRoundedTopCorners:	(NSR)rect radius:(CGF)radius;
-+ (NSBP*) bezierPathWithRoundedBottomCorners: (NSR)rect radius:(CGF)radius;
-+ (NSBP*) bezierPathWithRoundedRect: 			 (NSR)aRect cornerRadius:(CGF)radius;
-+ (NSBP*) bezierPathWithRoundedRect: 			 (NSR)aRect cornerRadius:(CGF)radius inCorners:(OSCornerType)corners;
-+ (NSBP*) bezierPathRoundedRectOfSize:			 (NSSZ)backgroundSize;
++ (NSBP*) bezierPathWithRoundedBottomCorners:(NSR)rect radius:(CGF)radius;
++ (NSBP*) bezierPathWithRoundedRect: 			(NSR)aRect cornerRadius:(CGF)radius;
++ (NSBP*) bezierPathWithRoundedRect: 			(NSR)aRect cornerRadius:(CGF)radius inCorners:(OSCornerType)corners;
++ (NSBP*) bezierPathRoundedRectOfSize:			(NSSZ)backgroundSize;
 #pragma mark Arrows
 /* default metrics of the arrow (as returned by +bezierPathWithArrow):
  *	^

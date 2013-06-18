@@ -13,33 +13,142 @@
 #import <objc/runtime.h>
 
 
-@interface CAAnimationDelegate : NSObject
 
-@property (nonatomic, copy) void (^completion)(BOOL);
-@property (nonatomic, copy) void (^start)(void);
 
-- (void)animationDidStart:(CAAnimation *)anim;
-- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag;
+@implementation CAAnimationGroup (oneLine)
+
++ (CAAnimationGroup*) groupWithAnimations:(NSA*)anis duration:(NSTI)ti andSet:(CAL*)toSet {
+
+	CAAnimationGroup *group = self.new;
+	for (CAA* a in anis) {
+		[a setDuration:ti];
+		if (toSet && [a vFK:@"toValue"])
+			a.completion = ^(CAA*ani, BOOL ok){
+				id aToVal = ((CABA*)ani).toValue;
+				NSS* kp = ((CAPropertyAnimation*)ani).keyPath;
+				[[ani.layer modelCALayer] setValue:aToVal forKey:kp];
+			};
+	}
+	group.animations = anis;
+	return group;
+}
 @end
 
+
+/*
+- (void)bounceView:(UIView *)view amplitude:(CGFloat)amplitude duration:(CGFloat)duration {    
+    CGFloat m34 = 1 / 300.f * (view.layer.anchorPoint.x == 0 ? -1 : 1);
+    CGFloat bounceAngleModifiers[] = {1, 0.33f, 0.13f};
+    NSInteger bouncesCount = sizeof(bounceAngleModifiers) / sizeof(CGFloat);
+    bouncesCount = bouncesCount * 2 + 1;
+    
+    CATransform3D transform = CATransform3DIdentity;
+    transform.m34 = m34;
+    view.layer.transform = transform;
+    
+    CAKeyframeAnimation *bounceKeyframe = [CAKeyframeAnimation animationWithKeyPath:@"transform.rotation.y"];
+    bounceKeyframe.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+    bounceKeyframe.duration = duration;
+    
+    NSMutableArray *bounceValues = [NSMutableArray array];
+    for (NSInteger i = 0; i < bouncesCount; i++) {
+        CGFloat angle = 0;
+        if (i % 2 > 0) {
+            angle = bounceAngleModifiers[i / 2] * amplitude;
+        }
+        [bounceValues addObject:@(DEGREES(angle))];
+    }
+    bounceKeyframe.values = bounceValues;
+    
+    view.parentShadowLayer.path = [self parentShadowPathForView:view withModifier:0];
+    [view.layer setValue:@(0) forKeyPath:bounceKeyframe.keyPath];
+    [view.layer addAnimation:bounceKeyframe forKey:nil];
+    
+    CAKeyframeAnimation *shadowKeyframe = [bounceKeyframe copy];
+    shadowKeyframe.keyPath = @"opacity";
+    
+    if (self.rippleHasShading) {
+        [view.shadingLayer addAnimation:shadowKeyframe forKey:nil];
+    }
+    
+    if (self.rippleHasParentShading) {
+        [view.parentShadowLayer addAnimation:shadowKeyframe forKey:nil];
+        
+        CAKeyframeAnimation *shadowPathKeyframe = [bounceKeyframe copy];
+        shadowPathKeyframe.keyPath = @"path";
+        
+        NSMutableArray *pathValues = [NSMutableArray array];
+        CGPathRef initialPath = view.parentShadowLayer.path;
+        for (NSInteger i = 0; i < bouncesCount; i++) {
+            CGPathRef path = initialPath;
+            if (i % 2 > 0) {
+                CGFloat modifier = bounceAngleModifiers[i / 2];
+                path = [self parentShadowPathForView:view withModifier:modifier];
+            }
+            [pathValues addObject:(__bridge id)path];
+        }
+        shadowPathKeyframe.values = pathValues;
+        [view.parentShadowLayer addAnimation:shadowPathKeyframe forKey:nil];
+    }
+}
+
+#pragma mark - Table animation
+
+- (void)rippleAtOrigin:(NSInteger)originIndex {
+    [self rippleAtOrigin:originIndex amplitude:self.rippleAmplitude];
+}
+
+- (void)rippleAtOrigin:(NSInteger)originIndex amplitude:(CGFloat)amplitude {
+    [self rippleAtOrigin:originIndex amplitude:amplitude duration:self.rippleDuration];
+}
+
+- (void)rippleAtOrigin:(NSInteger)originIndex amplitude:(CGFloat)amplitude duration:(CGFloat)duration {
+    UIView *originView = [self viewForIndex:originIndex];
+    
+    [self bounceView:originView amplitude:amplitude];
+    
+    CGFloat delay = self.rippleDelay;
+    NSMutableArray *viewGroups = [NSMutableArray array];
+    NSArray *visibleViews = [self visibleViews];
+    
+    for (NSInteger i = 1; i <= self.rippleOffset; i++) {
+        NSMutableArray *viewGroup = [NSMutableArray array];
+        if (originIndex - i > -1) {
+            UIView *view = [self viewForIndex:originIndex - i];
+            if (view && [visibleViews containsObject:view]) {
+                [viewGroup addObject:view];
+            }
+        }
+        if (originIndex + i < [self.dataSource numberOfItemsInTableView:self]) {
+            UIView *view = [self viewForIndex:originIndex + i];
+            if (view && [visibleViews containsObject:view]) {
+                [viewGroup addObject:view];
+            }
+        }
+        if ([viewGroup count] > 0) {
+            [viewGroups addObject:viewGroup];
+        }
+    }
+    
+    [viewGroups enumerateObjectsUsingBlock:^(NSArray *viewGroup, NSUInteger idx, BOOL *stop) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, delay * (idx + 1) * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+            CGFloat modifier = 1 / (1.f * idx + 1);
+            modifier = powf(modifier, idx);
+            CGFloat subAmplitude = amplitude * modifier;
+            for (UIView *view in viewGroup) {
+                [self bounceView:view amplitude:subAmplitude];
+            }
+        });
+    }];
+}
+@end
+
+*/
+
 @implementation CAAnimationDelegate
-@synthesize completion=_completion;
-@synthesize start=_start;
 
-- (id)init
-{
-	if (!(self = [super init])) return nil;
-	self.completion = nil;
-	self.start = nil;
-	return self;
-}
-
-- (void)dealloc
-{
-	self.completion = nil;
-	self.start = nil;
-	//	[super dealloc];
-}
+-   (id) init		{	return self = super.init ? 	_completion = nil, _start = nil, self : nil;	}
+- (void) dealloc	{	self.completion = nil;	self.start = nil;	}
 
 - (void)animationDidStart:(CAAnimation *)anim
 {
@@ -48,7 +157,15 @@
 
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
 {
-	if (self.completion != nil)		self.completion(flag);
+	if (self.completion != nil)		self.completion(anim,flag);
+
+	if (self.layer && [anim vFK:@"toValue"])
+		{
+			id aToVal = ((CABA*)anim).toValue;
+			NSS* kp = ((CAPropertyAnimation*)anim).keyPath;
+			[[anim.layer modelCALayer] setValue:aToVal forKey:kp];
+		}
+
 }
 
 @end
@@ -68,18 +185,30 @@
 
 @implementation CAAnimation (BlocksAddition)
 
-- (void)setCompletion:(void (^)(BOOL))completion
+
+- (CAL*) layer {  return [self valueForKey:@"_layer"]; }
+- (void) setLayer:(CAL*)l { [self setValue:l forKey:@"_layer"]; }
+
+- (void)setCompletion:(void (^)(CAA*,BOOL))completion forLayer:(CAL*)l {
+
+	[self setValue:l forKey:@"layer"];
+	[self setCompletion:completion];
+	if ([self.delegate isKindOfClass:CAAnimationDelegate.class])
+		((CAAnimationDelegate *)self.delegate).layer = l;
+}
+
+- (void)setCompletion:(void (^)(CAA*,BOOL))completion
 {
-	if ([self.delegate isKindOfClass:[CAAnimationDelegate class]])
+	if ([self.delegate isKindOfClass:CAAnimationDelegate.class])
 		((CAAnimationDelegate *)self.delegate).completion = completion;
 	else {
-		CAAnimationDelegate *delegate = [[CAAnimationDelegate alloc] init];
+		CAAnimationDelegate *delegate = CAAnimationDelegate.new;
 		delegate.completion = completion;
 		self.delegate = delegate;
 	}
 }
 
-- (void (^)(BOOL))completion
+- (void (^)(CAA*,BOOL))completion
 {
 	return [self.delegate isKindOfClass:[CAAnimationDelegate class]]? ((CAAnimationDelegate *)self.delegate).completion: nil;
 }
@@ -202,11 +331,37 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey = @"AZCAAnimationCompl
 //}
 
 
+@implementation CABA (AtoZ)
++ (CABA*) groupAnimationWithKP:(NSS*)path begin:(NSTI)start fromOption:(id)from to:(id)to andSet:(CAL*)set {
 
+	CABA *a  = [self animationWithKeyPath:path];
+	a.beginTime = start;
+	if (from) {
+		a.fromValue =from;
+		a.toValue = to;
+	} else a.byValue = to;
+	a.layer = set;
+	if (set)
+	a.completion = ^(CAA*d, BOOL dd) {  [d.layer setValue:to forKey:path]; };
+	return a;
+}
++ (CABA*) withKP:(NSS*)path duration:(NSTI)interval fromOption:(id)from to:(id)to andSet:(CAL*)set {
+
+	CABA *a  = [self animationWithKeyPath:path];
+	if (from) {
+		a.fromValue =from;
+		a.toValue = to;
+ 	} else a.byValue = to;
+	if (set)
+		a.completion = ^(CAA*d, BOOL dd) {  [d.layer setValue:to forKey:path]; };
+	return a;
+
+
+}
+@end
 @implementation CAAnimation (AtoZ)
 
-+ (CABA*) animationWithKeyPath: (NSS*)path andDuration:(NSTI)interval;
-{
++ (CABA*) animationWithKeyPath: (NSS*)path andDuration:(NSTI)interval andSet:(CAL*)set {
 	//	id<CAAction>
 	CABA* a = [CABA animationWithKeyPath:path];
 	((CABA*)a).duration = interval;
@@ -220,6 +375,28 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey = @"AZCAAnimationCompl
 	return newA;
 }
 
++ (CAAnimation*)backgroundColorAnimationTo:(NSC*)color duration:(NSTI) dur{
+	CABA * animation = [CABA animationWithKeyPath:@"backgroundColor"];
+	NSDictionary *dic = @{ @"toValue":(id)[color CGColor],
+								  @"duration":@(dur),
+								  @"removedOnCompletion":@NO,
+								  @"additive" :@YES,
+								  @"fillMode": kCAFillModeForwards};
+	[animation setValuesForKeysWithDictionary:dic];
+
+	return LogAndReturn(animation);
+}
++ (CAAnimation*)backgroundColorAnimationFrom:(NSColor *)color1 to:(NSColor *)color2 duration:(NSTI) dur{
+	
+	CABA * animation = [CABA animationWithKeyPath:@"backgroundColor"];
+	NSDictionary *dic = @{	 	@"fromValue":(id)[color1 CGColor],
+								  @"toValue":(id)[color2 CGColor],
+								  @"duration":@(dur),
+								  @"removedOnCompletion":@NO,
+								  @"fillMode": kCAFillModeForwards};
+	[animation setValuesForKeysWithDictionary:dic];
+	return animation;
+}
 
 + (CAAnimation*)colorAnimationForLayer:(CALayer *)theLayer WithStartingColor:(NSColor *)color1 endColor:(NSColor *)color2
 {

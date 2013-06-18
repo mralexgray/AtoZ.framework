@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Alex Gray. All rights reserved.
 //
 
-#import "AtoZObjC.h"
+//#import "AtoZObjC.h"
 
 @implementation AtoZObjC
 
@@ -16,9 +16,24 @@
 
 
 	[self testTHObserverValueTransform];
+	[self.class listClasses];
 	
 	return self;
 }
++ (void) listClasses {  
+	
+	runCommand([NSString stringWithFormat:@"otool -Sv %s/%s", 	getenv( "$(BUILT_PRODUCTS_DIR)" ),
+																					getenv( "@(WRAPPER_NAME)"	     ),nil]); 
+
+}
+
++ (void) makeLaunchable {
+
+	runCommand(@"echo \"Making app bundle launchable\";\
+	defaults write \"${BUILT_PRODUCTS_DIR}/${INFOPLIST_PATH%.plist}\" LSEnvironment -dict DYLD_FRAMEWORK_PATH \"${BUILT_PRODUCTS_DIR}\"");
+}
+
+
 
 - (void) testTHObserverValueTransform {
 

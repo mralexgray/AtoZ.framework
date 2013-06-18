@@ -9,30 +9,154 @@
 #import "CABlockDelegate.h"
 #import <objc/runtime.h>
 
+/* inspiration
+@implementation CAAnimationBlockDelegate
+ Delegate method called by CAAnimation at start of animation
+- (void) animationDidStart:(CAA*)a {
+	if( !self.blockOnAnimationStarted ) return;
+	self.blockOnAnimationStarted();
+}
+ Delegate method called by CAAnimation at end of animation
+- (void) animationDidStop:(CAA*)a finished:(BOOL)flag {
+	if( flag ) {	if( !self.blockOnAnimationSucceeded ) return;	self.blockOnAnimationSucceeded();
+		return;	}
+	if( !self.blockOnAnimationFailed ) return;
+	self.blockOnAnimationFailed();
+}
+*/
 
+JROptionsDefine(CABlockType);
+JROptionsDefine(NSOVBlockDelegate);
+
+@implementation NSOutlineViewBlockDelegate
+
+- (instancetype) init { if (!(self = super.init)) return nil; _toggleActionReference = NSMD.new; return self;	}
+
++ (instancetype) delegateFor:(NSOV*)v ofType:(NSOVBlockDelegate)type withBlock:(id)block {
+
+	NSOutlineViewBlockDelegate *d = self.new;
+	d.ov = v;			d.block = [block copy];
+	d.blockType = type;		return d;
+}
+- (void)outlineView:(NSOV*)v willDisplayOutlineCell:(id)c forTableColumn:(NSTC*)tc item:(id)x {
+// Approach 1 - Just replace the triangle images with other images. (This requires the image to be the same size as the triangle)
+	if (_disclosureImage) [c setImage:_disclosureImage(c, tc, x)];
+//Approach 2 -First, hide the triangle completely.
+	//if (item)[cell setTransparent:YES];
+} 
+- (void)outlineView:(NSOV*)v willDisplayCell:(id)c forTableColumn:(NSTC*)tc item:(id)x 	{
+//Now we use the non-outline delegate method to set up a button cell to do the expand and collapse for the row.
+
+	if ([tc.identifier isEqualToString:@"outline"]) { //use the appropriate identifier for you column
+		if ( (AZNODEPRO x).numberOfChildren.integerValue > 0 )  {
+			[c setImage:[v isItemExpanded:x] ? [NSImage imageNamed:@"up"] : [NSImage imageNamed:@"down"]];
+				//set up an action to emulate the clicking you would normally do on the triangle
+				[c setAction:@selector(toggleItem:) withTarget:self];
+		}
+	} else 
+		[c setImage:[NSImage imageNamed:@"unexpandable"]];
+}
+- (void) setToggleActionForItem:(id)item block:(outlineViewToggleItemAction)itemBlock	{
+	self.toggleActionReference[(id)item] = [itemBlock copy];
+}
+- (void)toggleItem:(id)sender {
+
+	id item = [_ov itemAtRow:_ov.selectedRow];
+	if ([_ov isItemExpanded:item])
+		[_ov collapseItem:item];
+	else [_ov expandItem:item];
+}
+
+
+@end
+
+
+//@interface CABlockDelegator : AZSingleton
+//@end
+//@implementation CABlockDelegator
+//static NSMA* delegations = nil;
+
+//+ (instancetype)sharedInstance {	id shared = [super sharedInstance];	delegations = @[].mutableCopy;	return shared;	}
+////+ (void) addDelegation:(CABlockDelegate*)d; { [delegations addObject:d]; }
+
+#define SEL_LOG NSLog(@"%@", NSStringFromSelector(_cmd))
+#pragma mark - CAAnimationDelegate
+// works.  just need to observe
+//- (void)observeValueForKeyPath:(NSString*)kp ofObject:(id)o change:(NSDictionary*)c context:(void*)x{
+//	if (areSame(@"offset",keyPath)) 			[self setNeedsLayout];	}
+
+//SYNTHESIZE_SINGLETON_FOR_CLASS(CABlockDelegate, sharedDelegate);
+//+ (instancetype) addAnimation:(CALayer*)layer ofType:(CABlockType)type withBlock:(id)block {
+
+static NSMD *delegations = nil;
 @implementation CABlockDelegate
++ (void) load { if (!delegations) delegations = NSMD.new; }
+
 + (instancetype) delegateFor:(CALayer*)layer ofType:(CABlockType)type withBlock:(id)block {
 
-	CABlockDelegate *n = self.new;
+	CABlockDelegate *n; NSS* uid;
+	if (!(n = (uid = [layer vFK:@"delegationID"]) ? delegations[[layer vFK:@"delegationID"]] : nil )) {
+		[layer setValue:uid = NSS.newUniqueIdentifier forKey:@"delegationID"];
+		n = delegations[uid] = self.new;
+	}
+	
 	if (block == nil || block == NULL) return NSLog(@"delegate not set!  block is zilch!"), nil;
 	if 	   ( layer.delegate != nil 			&&		(type == CABlockTypeDrawBlock   ||  
 				 type == CABlockTypeAniComplete 	||    type == CABlockTypeLayerAction  ))
-				 return NSLog(@"ERROR*****  NOT willing to override layer (%@)'s previous delegate: %@!", layer, layer.delegate), nil;
+				NSLog(@"ERROR*****  Reluctantly willing to override layer (%@)'s previous delegate: %@!", layer, layer.delegate);
 	if 		(type == CABlockTypeDrawBlock		) [n setDrawBlock:			[block copy]];
 	else if 	(type == CABlockTypeAniComplete	) [n setAniComplete: 		[block copy]];
 	else if 	(type == CABlockTypeLayerAction	) [n setLayerActionBlock:	[block copy]];
 	else if 	(type == CABlockTypeLayoutBlock	) [n setLayoutBlock:			[block copy]];
-	if 		(type == CABlockTypeDrawBlock		) [layer setValue:n forKey:@"CABlockTypeDrawBlock"];
-	else if 	(type == CABlockTypeAniComplete	) [layer setValue:n forKey:@"CABlockTypeAniComplete"];
-	else if 	(type == CABlockTypeLayerAction	) [layer setValue:n forKey:@"CABlockTypeLayerAction"];
-	else if 	(type == CABlockTypeLayoutBlock	) [layer setValue:n forKey:@"CABlockTypeLayoutBlock"];
-	if 		(type == CABlockTypeDrawBlock  	|| 
+	else if 	(type == CABlockTypeKVOChange		) [n setKvoBlock:				[block copy]];
+	if 		(type == CABlockTypeDrawBlock		) [layer sV:n fK:@"CABlockTypeDrawBlock"];
+	else if 	(type == CABlockTypeAniComplete	) [layer sV:n fK:@"CABlockTypeAniComplete"];
+	else if 	(type == CABlockTypeLayerAction	) [layer sV:n fK:@"CABlockTypeLayerAction"];
+	else if 	(type == CABlockTypeLayoutBlock	) [layer sV:n fK:@"CABlockTypeLayoutBlock"];
+	else if 	(type == CABlockTypeKVOChange		) [layer sV:n fK:@"CABlockTypeKVOChange"	];
+	if 		(type == CABlockTypeDrawBlock  	||
 				 type == CABlockTypeAniComplete 	|| 
-				 type == CABlockTypeLayerAction) { layer.delegate		 = n; [layer setNeedsDisplay]; NSAssert(layer.delegate != nil, @"nil");	}
-	else if 	(type == CABlockTypeLayoutBlock)	{ layer.layoutManager = n; [layer  setNeedsLayout];	}
-	return //NSLog(@"setdlegate:%@.. delegate: %@, lom: %@",n,  layer.delegate, layer.layoutManager), 
-				n;
+				 type == CABlockTypeLayerAction	) 	{ 	layer.delegate = n; [layer setNeedsDisplay];
+																	NSAssert(layer.delegate != nil, @"nil");	}
+	else if 	(type == CABlockTypeLayoutBlock	)	{	layer.layoutManager = n; [layer setNeedsLayout];	}
+	else if 	(type == CABlockTypeKVOChange		)	{
+		[layer overrideSelector:@selector(didChangeValueForKey:) withBlock:(__bridge void *)^(id _self, NSS*k){
+			n.kvoBlock(layer, k);
+//			SEL sel = @selector(didChangeValueForKey:);	void (*superIMP)(id, SEL, NSS*) = [_self az_superForSelector:sel];
+//																			    superIMP(_self, sel, k);
+		}];
+	}
+	return n;//NSLog(@"setdlegate:%@.. delegate: %@, lom: %@",n,  layer.delegate, layer.layoutManager),
 }
+
+- (void) drawLayer:(CALayer*)l inContext:(CGContextRef)x 	{ SEL_LOG; 
+
+//	[delegations fi  :[l vFK:@"CABlockTypeDrawBlock"]];
+//	NSA* drawers = [delegations valueForKeyPath:@"drawBlock"];
+//	NSLog(@"drawers: %@", [delegations valueForKeyPath:@"propertyNames"]);
+	if (_drawBlock) _drawBlock(l,x);
+//	[drawers each:^(id sender) { sender ? ((drawBlock)sender)(l,x) : nil;	}];
+}
+	
+- (void) layoutSublayersOfLayer:(CALayer*)layer 				{ 
+
+//	[[delegations valueForKeyPath:@"layoutBlock"] each:^(id sender) { sender ? ((layoutBlock)sender)(layer) : nil;	}];
+SEL_LOG; _layoutBlock ? self.layoutBlock	(layer) 					: nil;
+}
+- (void) animationDidStop:  (CAAnimation*)theAnimation	
+					  finished:				(BOOL)flag 					{SEL_LOG;  
+
+	NSLog(@"Block delagate, reporting for duty. Type: %@", CABlockTypeToString(CABlockTypeAniComplete));
+   _aniComplete ? self.aniComplete	(flag, theAnimation) : nil; 	
+
+//	[[delegations valueForKeyPath:@"aniComplete"] each:^(id sender) { sender ? ((aniComplete)sender)(flag, theAnimation) : nil;	}];
+				  
+					  	// Remove any sublayers marked for removal
+	//	for ( CALayer *layer in self.sublayers ) [[layer valueForKey:@"toRemove"] boolValue]  ?: [layer removeFromSuperlayer];
+
+}
+
+@end
 
 #pragma mark - CALayer Animation Delegate
 
@@ -93,38 +217,22 @@
 	return nil;
 */
 //}
-#define SEL_LOG NSLog(@"%@", NSStringFromSelector(_cmd))
-#pragma mark - CAAnimationDelegate
-// works.  just need to observe
-//- (void)observeValueForKeyPath:(NSString*)kp ofObject:(id)o change:(NSDictionary*)c context:(void*)x{
-//	if (areSame(@"offset",keyPath)) 			[self setNeedsLayout];	}
-
-- (void) drawLayer:(CALayer*)l inContext:(CGContextRef)x 	{ SEL_LOG; _drawBlock 	? self.drawBlock		(l,x) 					: nil;	}
-- (void) layoutSublayersOfLayer:(CALayer*)layer 				{ SEL_LOG; _layoutBlock ? self.layoutBlock	(layer) 					: nil; 	}		
-- (void) animationDidStop:  (CAAnimation*)theAnimation	
-					  finished:				(BOOL)flag 					{SEL_LOG;  _aniComplete ? self.aniComplete	(flag, theAnimation) : nil; 	
-					  
-					  	// Remove any sublayers marked for removal
-	//	for ( CALayer *layer in self.sublayers ) [[layer valueForKey:@"toRemove"] boolValue]  ?: [layer removeFromSuperlayer];
-
-}
-@end
 
 
 
-@interface AZValueTransformer :NSValueTransformer
-@property (nonatomic, copy) id (^transformBlock)(id value);
-+ (instancetype) transformerWithBlock:    (id(^)(id value))block;
-@end
-@implementation AZValueTransformer									@synthesize transformBlock;
-+         (BOOL) allowsReverseTransformation						{ return NO; }
--           (id) transformedValue:			  (id)value			{ return self.transformBlock(value); }
-+ (instancetype) transformerWithBlock:(id(^)(id value))blk	{ NSParameterAssert(blk != NULL);
-	AZValueTransformer *transformer = self.new;
-	transformer.transformBlock = blk;
-	return transformer;
-}
-@end
+//@interface AZValueTransformer :NSValueTransformer
+//@property (nonatomic, copy) id (^transformBlock)(id value);
+//+ (instancetype) transformerWithBlock:    (id(^)(id value))block;
+//@end
+//@implementation AZValueTransformer									@synthesize transformBlock;
+//+         (BOOL) allowsReverseTransformation						{ return NO; }
+//-           (id) transformedValue:			  (id)value			{ return self.transformBlock(value); }
+//+ (instancetype) transformerWithBlock:(id(^)(id value))blk	{ NSParameterAssert(blk != NULL);
+//	AZValueTransformer *transformer = self.new;
+//	transformer.transformBlock = blk;
+//	return transformer;
+//}
+//@end
 
 @implementation  NSObject (KVOTransformer)
 
@@ -191,13 +299,13 @@
 	AZValueTransformer *transformer = [AZValueTransformer transformerWithBlock:transformBlock];
 	[self bind:b toObject:o withKeyPath:k options:@{NSContinuouslyUpdatesValueBindingOption:@(YES), NSValueTransformerBindingOption:transformer}];
 }
-- (void)bind:(NSS*)b toKeysForObjects:(NSDictionary*)d transform:(id (^)(id value))transformBlock {
-
-	for (NSString* key in d.allKeys) {
-		AZValueTransformer *transformer = [AZValueTransformer transformerWithBlock:transformBlock];
-		[self bind:b toObject:d[key] withKeyPath:d options:@{NSContinuouslyUpdatesValueBindingOption:@(YES), NSValueTransformerBindingOption:transformer}];
-	}
-}
+//- (void)bind:(NSS*)b toKeysForObjects:(NSDictionary*)d transform:(id (^)(id value))transformBlock {
+//
+//	for (NSString* key in d.allKeys) {
+//		AZValueTransformer *transformer = [AZValueTransformer transformerWithBlock:transformBlock];
+//		[self bind:b toObject:d[key] withKeyPath:d options:@{NSContinuouslyUpdatesValueBindingOption:@(YES), NSValueTransformerBindingOption:transformer}];
+//	}
+//}
 
 @end
 
@@ -233,7 +341,7 @@
 
 	__block CALayer * thing = nil;
 	[self.sublayers enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-		if ([[obj name] isEqualToString:n]) { thing = obj; *stop = YES;  }
+		if ([[(CAL*)obj name] isEqualToString:n]) { thing = obj; *stop = YES;  }
 		else if ([obj sublayers].count > 0) thing = [obj scanSubsForName:n]; 
 	}];
 	return thing;

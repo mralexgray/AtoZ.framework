@@ -16,6 +16,8 @@
 
 @interface NotificationCenterSpy : NSObject
 
++ (void)toggle;
+
 + (void)toggleSpyingAllNotifications;
 
 + (void)toggleSpyingAllNotificationsIgnoring:(NSA*)notes ignoreOverlyVerbose:(BOOL)ignore;

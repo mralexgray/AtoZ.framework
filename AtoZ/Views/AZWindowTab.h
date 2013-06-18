@@ -7,26 +7,50 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CAWindow.h"
+#define AZR     AZRect
+#define AZP     AZPOS
+#define qP      quartzPath
+#define AZSLDST AZSlideState
+#define AZWT    AZWindowTab
+#define AZWTV   AZWindowTabViewPrivate
 
-@interface AZWindowTab : NSWindow
-+   (id) tabWithViewClass:(Class)k;
--   (id) initWithView:(NSView*)c orClass:(Class)k frame:(NSR)r;
-@property (STR) NSV	*view;
-@property (ASS) CGP drgStrt, wOrig;
-@property (STR, NATOM) AZRect	*inFrame, *outFrame, *grabRect;
-@property (RONLY) OSCornerType outsideCorners;
+
+@interface AZWindowTabViewPrivate : NSView
+@property (STR) 				   CAL * contentLayer,
+											 * tabLayer;
+@property (RONLY)   			 NSIMG * indicator;
+@property (RONLY) 		   	NSR	tabRect;
+@property (CP) void(^closedTabDrawBlock)(NSRect tabRect);
+@end
+
+@interface 				 AZWindowTab : NSWindow
+{ 										CGP	_drgStrt,
+												_wOrig,
+												_offset;
+}
+
+@property (STR,NATOM)		AZRect * inFrame,
+											 * outFrame,
+											 * grabRect,
+											 * outerRect;
+@property (NATOM)	 			   AZA	insideEdge; // !!!
+@property (NATOM) 	AZSlideState 	slideState; // !!!
+@property (NATOM)             CGF	grabInset;
+
+@property (RONLY)    OSCornerType 	outsideCorners;
+
++   (id) tabWithViewClass:				  (Class)k;
+-   (id) initWithView:(NSV*)c	orClass:(Class)k	frame:(NSR)r;
+@end
 
 
-@property (NATOM,STR) AZRect		*outerRect;
-@property (NATOM,STR) NSNumber	*grabInset;
-@property (NATOM) AZSlideState 	slideState;
-@property (NATOM) AZA 				insideEdge;
-@property (NATOM) NSP 	    		offset;
+
+//@property (STR) 			AZWindowTabController	*vc;
+@interface AZWindowTabController : NSArrayController <NSWindowDelegate>
+@end
+
 
 //@property (CP)	void (^rezhzuhz)(void);
 //+ (NSA*) tabRects;
 //+ (NSA*) tabs;
-
-
-
-@end

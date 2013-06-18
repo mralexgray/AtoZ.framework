@@ -130,7 +130,7 @@
 
 		[[@0 to:@3] eachWithIndex:^(id obj, NSInteger idx) {
 			NSBP *tri = [NSBP bezierPathWithTriangleInRect: quadrant( botBox, (QUAD)idx )
-														  orientation: (AMTriangleOrientation)idx];
+														  orientation: (AZCompass)idx];
 			[tri drawWithFill:palette.nextObject andStroke:palette.nextObject];
 			[tri drawPointsAndHandles];
 		}];

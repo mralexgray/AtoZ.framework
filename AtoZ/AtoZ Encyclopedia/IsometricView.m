@@ -95,7 +95,7 @@
 //
 - (IBAction)toggleShadows:(id)sender
 {
-	[self enableShadows:[sender state]];
+	[self enableShadows:[(NSButton*)sender state]];
 }
 
 /*

@@ -428,8 +428,8 @@ NSString *stringForBrightness(CGFloat brightness)
             sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
 }
 
-+ (void)randomUrabanDBlock:(void (^)(Definition *definition))block {
-    __block Definition *urbanD;
++ (void)randomUrabanDBlock:(void (^)(AZDefinition *definition))block {
+    __block AZDefinition *urbanD;
     ASIHTTPRequest *requester = [ASIHTTPRequest.alloc initWithURL:$URL($(@"http://www.urbandictionary.com/random.php"))];
     [requester setCompletionBlock:^(ASIHTTPRequest *request) {
         NSS *responsePage               = request.responseString.copy;
@@ -447,9 +447,9 @@ NSString *stringForBrightness(CGFloat brightness)
     [requester startAsynchronous];
 }
 
-+ (Definition *)randomUrbanD;
++ (AZDefinition *)randomUrbanD;
 {
-    __block Definition *urbanD;
+    __block AZDefinition *urbanD;
 
     ASIHTTPRequest *requester = [ASIHTTPRequest.alloc initWithURL:$URL($(@"http://www.urbandictionary.com/random.php"))];
     [requester setCompletionBlock:^(ASIHTTPRequest *request) {
@@ -1542,8 +1542,18 @@ NSString *   StringByTruncatingStringWithAttributesForWidth(NSString *s, NSDicti
 //- (id) valueForUndefinedKey:(NSS*) key { return self; }
 //- (void) setValue:(id)value forUndefinedKey:(NSS*)key { NSLog(@"unknown key:%@", key); }
 @end
-int gNSStringGeometricsTypesetterBehavior = NSTypesetterLatestBehavior;
+
+@implementation NSAttributedString (AtoZ)
++ (NSD*) defaults {
+
+	return @{NSForegroundColorAttributeName:WHITE, NSFontAttributeName:[AtoZ.controlFont fontWithSize:22], NSFontSizeAttribute:@22};
+}
+@end
+
+
 @implementation NSAttributedString (Geometrics)
+
+int gNSStringGeometricsTypesetterBehavior = NSTypesetterLatestBehavior;
 
 - (NSSize)sizeForWidth:(float)width height:(float)height {
     NSInteger typesetterBehavior = NSTypesetterLatestBehavior;
@@ -2043,7 +2053,12 @@ static void _ScanSentence(NSScanner *scanner) {
 }
 
 + (NSS*)stringWithFormat:(NSS*)format arguments:(va_list)argList {
-    return [[[self alloc] initWithFormat:format arguments:argList] autorelease];
+//	printf("%s", format.UTF8String);
+//	NSLog(@"%@", [NSThread callStackSymbols]);
+	if (!format || argList == NULL) return nil;
+	NSS* newS = nil;
+	newS = [[self stringWithFormat:format arguments:argList]autorelease];
+	return newS;
 }
 
 + (NSS*)stringWithData:(NSData *)data encoding:(NSStringEncoding)encoding {

@@ -8,19 +8,38 @@
 
 #import "AZLog.h"
 
+NSA* AZEnvVars (char** envp) { NSMA* vars = NSMA.new;
+	char** env;	for (env = envp; *env != 0; env++)	{
+		NSString* raw = [NSString stringWithCString:*env encoding:NSASCIIStringEncoding];
+		NSString *var = [raw substringBefore:@"="];
+		objc_setAssociatedObject(var, (__bridge const void *)@"envVarValue", [raw substringAfter:@"="], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+		[vars addObject:var];
+	}
+	return vars;
+}
+NSD* AZEnv (char** envp) {
+	return [AZEnvVars(envp) mapToDictionary:^id(id object) { return objc_getAssociatedObject(object, (__bridge const void*)@"envVarValue"); 	}];
+}
 
+void AZLogEnv(char** envp){ 
+	
+	NSD* envD = AZEnv(envp);
+	NSUI length = [envD.allKeys lengthOfLongestMemberString] + 2;
+	LOGCOLORS( 	[NSA arrayWithArrays:[envD mapToArray:^NSArray *(id k, id v) { return @[[k paddedTo:length], v, zNL]; }]], 
+					[NSC colorsInListNamed:@"flatui"], nil);
+}
 static NSA *gPal = nil;
-JREnum ( LogEnv, LogEnvXcodeColor, LogEnvXcodeNOColor, LogEnvTTY, LogEnvTTYColor, LogEnvTTY256, LogEnvUnknown );
+JREnumDefine ( LogEnv );
 
 static LogEnv logEnv = NSNotFound;
 @implementation AZLog
 
-- (void) setUp {	![self.class hasSharedInstance] ? ^{
+- (void) setUp {	![self.class hasSharedInstance] ? ^{ 
 
-	[self.class setSharedInstance:self];
-	gPal = NSC.randomPalette;
-	[self logEnv];
-	
+	[self.class setSharedInstance:self]; 
+	gPal = NSC.randomPalette;	
+	COLORLOG(@"logformat:",LogEnvToString(self.logEnv), RED, nil);
+
 	}(): nil;
 }
 //- (BOOL) inTTY 			{   return [@(isatty(STDERR_FILENO))boolValue]; }
@@ -47,7 +66,7 @@ static LogEnv logEnv = NSNotFound;
 //		isaColorTTY ? "\033[38;5m" : "",  isaColorTTY ? "YES" : "NO", isaColorTTY ? "\033[0m" : "", 
 //		isaColorTTY ? "\033[38;5m" : "",  isaColor256TTY ? "YES" : "NO", isaColorTTY ? "\033[0m" : "", 
 //		$(@"%@isaXcodeColorTTY\t=\t%@%@",isaXcodeColorTTY ? XCODE_COLORS_ESCAPE @"fg244,100,80;" : zSPC, StringFromBOOL(isaXcodeColorTTY), isaXcodeColorTTY ? XCODE_COLORS_RESET : @"").UTF8String);
-	return logEnv = logEnv == NSNotFound ? LogEnvUnknown : logEnv;
+	return _logEnv = logEnv = logEnv == NSNotFound ? LogEnvUnknown : logEnv;
 }
 
 #define LOG_CALLER_VERBOSE NO		// Rediculous logging of calling method
@@ -111,6 +130,7 @@ static LogEnv logEnv = NSNotFound;
 	LogEnv e =  self.logEnv ; __block NSUI ctr = 0;
 	if (!colors.count) colors = @[WHITE].mutableCopy;
 	if (!words.count) {  printf( "WARNING, NO WORDS TO PRINT: %s", pretty); return; }
+	[words addObject:zNL];
 	fprintf(stdout, "%s", //e != LogEnvXcodeColor ? [words componentsJoinedByString:@" "].UTF8String :
 
 	 [[words reduce:LOG_CALLER_VERBOSE ? @"LOGCOLORS: ":@"" withBlock:^NSS*(NSS *sum,NSS *o) {
@@ -131,12 +151,29 @@ void WEBLOG (id format, ...) {
 }
 
 
--(void) logInColor:(id)clr file:(const char*)file line:(int)ln func:(const char*)fnc format:(id)fmt,...{
+-(void) logInColor:(id)colr file:(const char*)file line:(int)ln func:(const char*)fnc format:(id)fmt,...{
 
+// Get a reference to the arguments that follow the format parameter
+	va_list argList;  va_start(argList, fmt);
+// Perform format string argument substitution, reinstate %% escapes, then print
+	NSString *s = [NSString.alloc initWithFormat:fmt arguments:argList];
+	printf("%s\n", [[s stringByReplacingOccurrencesOfString:@"%%" withString:@"%%%%"] UTF8String]);
+	[s release];
+	va_end(argList);
+/**
+	azva_list_to_nsarray(fmt, FORMATTER)
+	NSMS * formateed = [fmt mutableCopy];
+	[FORMATTER each:^(id obj) {
+		if (![formateed containsString:@"%"]) return;  NSRNG r = [formateed rangeOfString:@"%"]; r.length++; [formateed replaceCharactersInRange:r withString:obj]; 
+	}];
+	[((NSS*)formateed) setLogForeground:colr];
+	fprintf(stdout,"%s",formateed.clr.UTF8String);
+*//**	[self logNilTerminatedListOfColorsAndStrings:file things:[NSString stringWithFormat:fmt arguments:VA_A]]
+   va_list argList;  va_start(argList,fmt);	NSS *path = nil, *fullPath = nil; __block NSS *lineNum = nil,*mess = nil,*func = nil,*output = nil; __block NSUI numberofspaces;
 
-   va_list argList;  va_start(argList,fmt);	__block NSS *lineNum,*path,*mess,*func,*output; __block NSUI numberofspaces;
-
-	path	= $(@"[%@]", $UTF8(file).lastPathComponent);
+	fullPath = file ? $UTF8(file) : nil;
+	if (fullPath) path = [[@"[" withString:[fullPath contains:@"/"] ? [fullPath lastPathComponent] : fullPath]withString:@"]"];
+	/// : @"";
 	mess 	= [NSS stringWithFormat:fmt arguments:argList];
 
 		//:fl lineNumber:ln];setFakeStdin:$(@"%@%i%s%@",path, line, funcName, mess)];
@@ -161,7 +198,7 @@ void WEBLOG (id format, ...) {
 
 	}() : [NSTerminal printString:mess]; 
 	
-//		[%@]:%i @"%s*/ @"%@\n",/* path, line, funcName,*/ 
+//		[%@]:%i @"%s* / @"%@\n", / / * path, line, funcName,* / 
 //										XCODE_COLORS_ESCAPE @"fg140,140,140;"   @":%i"  XCODE_COLORS_RESET
 //										XCODE_COLORS_ESCAPE @"fg109,0,40;"  @" %s "		 XCODE_COLORS_RESET
 //										XCODE_COLORS_ESCAPE @"%@" "%@"XCODE_COLORS_RESET @"\n",
@@ -171,6 +208,7 @@ void WEBLOG (id format, ...) {
 //										mess)
 //	 toLog.UTF8String);//
 	va_end(argList);
+*/
 } // ACTIVE NSLOG
 
 @end

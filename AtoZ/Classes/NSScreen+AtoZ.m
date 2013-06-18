@@ -70,3 +70,159 @@
 //	CGSetLocalEventsSuppressionInterval(0.25);
 }
 @end
+
+
+static NSString *kDefaultsDockDomainKey     = @"com.apple.dock";
+static NSString *kDefaultsDesktopDomainKey  = @"com.apple.desktop";
+static NSString *kNSScreenNumberKey         = @"NSScreenNumber";
+static NSString *kImageFilePathKey          = @"ImageFilePath";
+
+enum {
+    CNDockOrientationLeft = 0,
+    CNDockOrientationRight,
+    CNDockOrientationBottom
+};
+typedef NSUInteger CNDockOrientation;
+
+
+@interface NSScreen (CNBackstageControllerExtension)
++ (CNDockOrientation)dockOrientation;
++ (NSArray*)dockOrientations;
+@end
+
+
+@implementation NSScreen (CNBackstageController)
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark - API
+
++ (NSScreen*)screenWithMenubar
+{
+    NSScreen *result;
+    for (NSScreen *screen in [NSScreen screens]) {
+        NSRect totalFrame = [screen frame];
+        NSRect visibleFrame = [screen visibleFrame];
+        
+        if (totalFrame.size.height > visibleFrame.size.height) {
+            result = screen;
+        }
+    }
+    return result;
+}
+
++ (NSScreen*)screenWithDisplayID:(CGDirectDisplayID)displayID
+{
+    NSScreen *result;
+    for (NSScreen *aScreen in [NSScreen screens]) {
+        if ([[[aScreen deviceDescription] valueForKey:@"NSScreenNumber"] intValue] == displayID) {
+            result = aScreen;
+            break;
+        }
+    }
+    return result;
+}
+
++ (NSImage*)desktopImageForScreen:(NSScreen*)aScreen
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *desktopDefaults = [defaults persistentDomainForName:kDefaultsDesktopDomainKey];
+    NSDictionary *screenDefaults = [desktopDefaults objectForKey:[[aScreen deviceDescription] valueForKey:kNSScreenNumberKey]];
+    return [NSImage imageNamed:[screenDefaults valueForKey:kImageFilePathKey]];
+}
+
+- (BOOL)containsDock
+{
+    NSRect totalFrame = [self frame];
+    NSRect visibleFrame = [self visibleFrame];
+    int statusBarThickness = (self.isMainScreen ? [[NSStatusBar systemStatusBar] thickness] : 0);
+    BOOL result = YES;
+    
+    switch ([NSScreen dockOrientation]) {
+        case CNDockOrientationLeft:
+        case CNDockOrientationRight:
+            result = (NSWidth(visibleFrame) == NSWidth(totalFrame) ? NO : YES);
+            break;
+            
+        case CNDockOrientationBottom:
+            result = (NSHeight(visibleFrame) == (NSHeight(totalFrame) - statusBarThickness) ? NO : YES);
+            break;
+    }
+    return result;
+}
+
+- (BOOL)containsMenuBar
+{
+    CGDirectDisplayID myDisplayID = (CGDirectDisplayID)[[[self deviceDescription] valueForKey:kNSScreenNumberKey] unsignedIntValue];
+    CGDirectDisplayID menuBarScreenDisplayID = (CGDirectDisplayID)[[[[NSScreen screenWithMenubar] deviceDescription] valueForKey:kNSScreenNumberKey] unsignedIntValue];
+    return (myDisplayID == menuBarScreenDisplayID);
+}
+
+- (BOOL)isMainScreen
+{
+    int mainscreen = [[[[NSScreen mainScreen] deviceDescription] valueForKey:kNSScreenNumberKey] intValue];
+    int currentscreen = [[[self deviceDescription] valueForKey:kNSScreenNumberKey] intValue];
+    return (mainscreen == currentscreen);
+}
+
+- (CGImageRef)snapshotOfType:(NSBitmapImageFileType)imageFileType
+{
+    @try {
+        switch (imageFileType) {
+            case NSTIFFFileType:
+            case NSBMPFileType:
+            case NSGIFFileType:
+            case NSJPEGFileType:
+            case NSPNGFileType:
+            case NSJPEG2000FileType: {
+                CGDirectDisplayID displayID = (CGDirectDisplayID)[[[self deviceDescription] valueForKey:kNSScreenNumberKey] unsignedIntValue];
+                CGRect rect = NSRectToCGRect([self frame]);
+                rect.origin = CGPointMake(0, 0);
+                CGImageRef snapshotImageRef = CGDisplayCreateImageForRect(displayID, rect);
+                NSBitmapImageRep *snapshot = [[NSBitmapImageRep alloc] initWithCGImage:snapshotImageRef];
+                return [snapshot CGImage];
+                break;
+            }
+                
+            default: {
+                NSException *wrongFileTypeException = [NSException exceptionWithName:@"CNUnknownBitmapImageFileTypeException"
+                                                                              reason:[NSString stringWithFormat:@"The given bitmap image file type is unknown (%li).", imageFileType]
+                                                                            userInfo:nil];
+                @throw wrongFileTypeException;
+                break;
+            }
+        }
+    }
+    @catch (NSException *wrongFileTypeException) {
+        NSLog(@"ERROR: Caught %@: %@", [wrongFileTypeException name], [wrongFileTypeException reason]);
+    }
+    return NULL;
+}
+
+- (NSString*)desktopImageFilePath
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *desktopDefaults = [defaults persistentDomainForName:kDefaultsDesktopDomainKey];
+    NSDictionary *screenDefaults = [desktopDefaults objectForKey:[[self deviceDescription] valueForKey:kNSScreenNumberKey]];
+    return [screenDefaults valueForKey:kImageFilePathKey];
+}
+
+- (NSImage*)desktopImage
+{
+    return [NSImage imageNamed:[self desktopImageFilePath]];
+}
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark - Private Helper
+
++ (CNDockOrientation)dockOrientation
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *dockDefaults = [defaults persistentDomainForName:kDefaultsDockDomainKey];
+    return [self.dockOrientations indexOfObject:[dockDefaults valueForKey:@"orientation"]];
+}
+
++ (NSArray*)dockOrientations { return [NSArray arrayWithObjects:@"left", @"right", @"bottom", nil]; }
+
+@end

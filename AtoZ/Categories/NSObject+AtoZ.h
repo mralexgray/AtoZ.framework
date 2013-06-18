@@ -10,6 +10,22 @@
 #import <stdarg.h>
 
 
+#define AZBindWDefVs(binder,binding,objectToBindTo,keyPath)   											\
+	[binder bind:binding toObject:objectToBindTo withKeyPathUsingDefaults:keyPath]
+
+#define AZBindButNil(binder,binding,objectToBindTo,keyPath,nilValuecase) 							\
+	[binder bind:binding toObject:objectToBindTo withKeyPath:keyPath nilValue:nilValuecase]
+
+#define AZBindTransf(binder,binding,objectToBindTo,keyPath,transformer)								\
+	[binder bind:binding toObject:objectToBindTo withKeyPath:keyPath  transform:transformer]
+
+#define AZBindNegate(binder,binding,objectToBindTo,keyPath)												\
+	[binder bind:binding toObject:objectToBindTo withNegatedKeyPath:keyPath]
+
+@interface NSObject (NibLoading)
++ (INST) loadFromNib;
+@end
+
 @interface NSObject (GCD)
 - (void)performOnMainThread:(void(^)(void))block wait:(BOOL)wait;
 - (void)performAsynchronous:(void(^)(void))block;
@@ -394,9 +410,9 @@ _Pragma("clang diagnostic pop") \
 - (void) removeObserver:	(NSObject*) observer 
 		  forKeyPaths:	(id<NSFastEnumeration>) keyPaths;
 
-- (void) willChangeValueForKeys:	(id<NSFastEnumeration>) keys;
-- (void) didChangeValueForKeys:	(id<NSFastEnumeration>) keys;
-
+- (void)az_willChangeValueForKeys:(NSA*)keys;//	(id<NSFastEnumeration>) keys;
+- (void)az_didChangeValueForKeys:(NSA*)keys;//	(id<NSFastEnumeration>) keys;
+- (void) triggerChangeForKeys:(NSA*)keys;
 
 #pragma mark - PropertyArray
 - (NSDictionary*) dictionaryWithValuesForKeys;
@@ -423,6 +439,10 @@ _Pragma("clang diagnostic pop") \
 - (instancetype) initWithDictionary:		 (NSD*) properties;
 + (instancetype) instanceWithDictionary:	 (NSD*) properties;
 + (instancetype) newFromDictionary:			 (NSD*) properties;
+
+- (NSA*) objectKeys;
+- (NSA*) primitiveKeys;
+
 @end
 
 
@@ -561,14 +581,14 @@ free(p);
 @end
 
 
-typedef void (^KVOFullBlock)(NSString *keyPath, id object, NSDictionary *change);
-@interface NSObject (NSObject_KVOBlock)
-- (id)addKVOBlockForKeyPath:(NSS*)inKeyPath options:(NSKeyValueObservingOptions)inOptions handler:(KVOFullBlock)inHandler;
-- (void)removeKVOBlockForToken:(id)inToken;
-/// One shot blocks remove themselves after they've been fired once.
-- (id)addOneShotKVOBlockForKeyPath:(NSS*)inKeyPath options:(NSKeyValueObservingOptions)inOptions handler:(KVOFullBlock)inHandler;
-- (void)KVODump;
-@end
+//typedef void (^KVOFullBlock)(NSString *keyPath, id object, NSDictionary *change);
+//@interface NSObject (NSObject_KVOBlock)
+//- (id)addKVOBlockForKeyPath:(NSS*)inKeyPath options:(NSKeyValueObservingOptions)inOptions handler:(KVOFullBlock)inHandler;
+//- (void)removeKVOBlockForToken:(id)inToken;
+///// One shot blocks remove themselves after they've been fired once.
+//- (id)addOneShotKVOBlockForKeyPath:(NSS*)inKeyPath options:(NSKeyValueObservingOptions)inOptions handler:(KVOFullBlock)inHandler;
+//- (void)KVODump;
+//@end
 
 @interface NSObject (FOOCoding)
 
@@ -591,11 +611,13 @@ typedef void (^KVOFullBlock)(NSString *keyPath, id object, NSDictionary *change)
 - (NSUInteger)unsignedIntegerForKey:(NSS*)key;
 - (NSURL *)URLForKey:(NSS*)key;
 
+- (id)valueForKeyOrKeyPath:(id)keyOrKeyPath transform:(THBinderTransformationBlock)tBlock;
 - (id)valueForKeyOrKeyPath:(id)keyOrKeyPath;  //AZAddition
 - (id)valueForKey:(NSS*)key assertingProtocol:(Protocol*)proto;  //AZAddition
 - (id)valueForKey:(NSS*)key assertingClass:(Class)klass;
 - (id)valueForKey:(NSS*)key assertingRespondsToSelector:(SEL)theSelector;
 - (BOOL)contentsOfCollection:(id <NSFastEnumeration>)theCollection areKindOfClass:(Class)theClass;
 
+- (void)sV:(id)v fK:(id)k;
 @end
 

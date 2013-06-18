@@ -1,11 +1,7 @@
-//
 //  BBMeshView.m
 //  BBMeshTest
-//
 //  Created by ben smith on 8/11/08.
-//
 //  This file is part of BBMeshTest.
-//
 //  BBMeshTest is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU Lesser General Public License as published by
 //  the Free Software Foundation, either version 3 of the License, or

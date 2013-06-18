@@ -3,7 +3,6 @@
 CAT3D CA3DxRotation(float x);
 CAT3D CA3DyRotation(float y);
 CAT3D CA3DzRotation(float z);
-
 CAT3D CA3DTransform3DConcat(CAT3D xRotation, CAT3D yRotation);
 CAT3D CA3DxyZRotation(CAT3D xYRotation, CAT3D zRotation);
 CAT3D CA3DConcatenatedTransformation(CAT3D xyZRotation, CAT3D transformation );
@@ -24,22 +23,6 @@ CAT3D CA3DConcatenatedTransformation(CAT3D xyZRotation, CAT3D transformation );
 }
 #endif
 
-@interface CAAnimationBlockDelegate : NSObject
-// Block to call when animation is started
-@property (nonatomic, strong) void(^blockOnAnimationStarted)(void);
-// Block to call when animation is successful
-@property (nonatomic, strong) void(^blockOnAnimationSucceeded)(void);
-// Block to call when animation fails
-@property (nonatomic, strong) void(^blockOnAnimationFailed)(void);	
-										
-/* Delegate method called by CAAnimation at start of animation
- * @param theAnimation animation which issued the callback.	*/
-- (void)animationDidStart:(CAA*)theAnimation;
-/* Delegate method called by CAAnimation at end of animation
- * @param theAnimation animation which issued the callback.
- * @param finished BOOL indicating whether animation succeeded or failed.	 */
-- (void)animationDidStop:(CAA*)theAnimation	finished:(BOOL)flag;
-@end
 @interface CAShapeLayer (Lassos)
 - (void) redrawPath;
 @end
@@ -76,7 +59,7 @@ CGPatternRef CreateImagePattern ( CGImageRef image );
 /** Creates a CGColor that draws the given CGImage as a pattern. */
 CGColorRef CreatePatternColor ( CGImageRef image );
 /** Returns the alpha value of a single pixel in a CGImage, scaled to a particular size. */
-float GetPixelAlpha ( CGImageRef image, CGSize imageSize, CGP pt );
+CGF GetPixelAlpha ( CGImageRef image, CGSize imageSize, CGP pt );
 
 /**
 	As with the distort transform, the x and y values adjust intensity. I have included a CAT3DMake method as there are no built in CAT3D methods to create a transform by passing in 16 values (mimicking the CGAffineTransformMake method).
@@ -107,11 +90,49 @@ CAT3D CAT3DMake(CGF m11, CGF m12, CGF m13, CGF m14,
 - (void) addConstraintsSuperSize;
 @end
 
+
+typedef void(^ReverseAnimationBlock)(void);
+@interface  NSObject (DidMoveToSuperLayer)
+- (void) didMoveToSuperlayer;
+@end
+
+	/// For when you need a weak reference of an object, example: `BBlockWeakObject(obj) wobj = obj;`
+#define BlockSafeObject(o) __typeof__(o) __weak
+	/// For when you need a weak reference to self, example: `BBlockWeakSelf wself = self;`
+#define AZBlockSelf BlockSafeObject(self)
+
+#define declareBlockSafe(__obj__) __weak typeof(__obj__) __obj__ = __obj__
+	//__tmpblk
+#define blockSafe(__obj__) __obj__
+	//__tmpblk##
+#define blk(__obj__) blockSafe(__obj__)
+
+#define declareBlockSafeAs(__obj__, __name__) \
+__weak typeof((__obj__)) __name__ = (__obj__)
+	//__tmpblk##
+
+typedef void(^bSelf)(id<NSObject> bSelf);
+@interface  NSObject (bSelf)
+- (void) blockSelf:(bSelf)block;
+- (void) triggerKVO:(NSS*)k block:(void(^)(id<NSObject> bSelf))blk;
+	//-(void)bSelfBlock:(bSelf)block;
+@end
+
+
 @interface CAL (AtoZ)
 
-@property (RDWRT, ASS)  NSV* hostView;
-- (void) setHostView:(NSView *)hostView;
-- (NSV*) hostView;
+
+- (CAL*) permaPresentation;
+@property (RDWRT,NATOM) NSColor *backgroundNSColor;
+@property (RDWRT,NATOM,ASS) BOOL selected, hovered;
+
+
+@property (readonly) NSA *siblings;
+@property (readonly) NSUI siblingIndex, siblingIndexMax;
+
+@property (RDWRT, weak)  NSV* hostView;
+//- (void) setHostView:(NSView *)hostView;
+//- (NSV*) hostView;
 
 - (NSA*) sublayersAscending;
 - (NSA*) visibleSublayers;
@@ -208,11 +229,13 @@ CAT3D CAT3DMake(CGF m11, CGF m12, CGF m13, CGF m14,
 
 - (void) setScale: (CGF) scale;
 
-- (void)pulse;
+- (ReverseAnimationBlock)pulse;
+
+
 - (void)fadeOut;
 - (void)fadeIn;
 - (void)animateToColor:(NSC*)color;
-
+- (void(^)(void)) animateToColor:(NSColor*)color duration:(NSTI)interval withCallBack:(BOOL)itRezhuzhesTheColor;
 - (void)addAnimations:(NSA*)anims forKeys:(NSA*)keys;
 
 + (instancetype) layerNamed:(NSS*)name;
@@ -249,11 +272,10 @@ CAT3D CAT3DMake(CGF m11, CGF m12, CGF m13, CGF m14,
 @interface CALayerNonAnimating : CALayer
 @end
 
-@interface CAL (LTKAdditions)
-- (CAL*) permaPresentation;
-@property (RDWRT,NATOM,ASS) BOOL hovered;
-@property (RDWRT,NATOM,ASS) BOOL selected;
+@interface NSObject (AZStates)
+@end
 
+@interface CAL (LTKAdditions)
 @property (RDWRT,NATOM,ASS) CGP frameOrigin;
 @property (RDWRT,NATOM,ASS) CGSize frameSize;
 @property (RDWRT,NATOM,ASS) CGF frameX;

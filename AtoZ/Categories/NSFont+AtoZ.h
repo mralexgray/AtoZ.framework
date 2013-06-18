@@ -12,3 +12,8 @@
 
 - (NSFont *)fontWithSize:(CGFloat)fontSize;
 @end
+@interface NSFont (AMFixes)
+
+- (float)fixed_xHeight;
+- (float)fixed_capHeight;
+@end

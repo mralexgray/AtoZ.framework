@@ -15,7 +15,16 @@
 //+ (NSSet*) keyPathsForValuesAffectingValueForKey:(NSSet*(^)(NSS*key))block;
 @end
 
+@interface NSIndexSet (AtoZ)
++ (instancetype) indexWithIndexes:(NSA*)indexes;
++ (instancetype) indexesOfObjects:(NSA*)objs inArray:(NSA*)ref;
+@end
+
 @interface NSIndexPath (ESExtensions)
+
+
+
+
 - (NSUInteger)firstIndex;
 - (NSUInteger)lastIndex;
 - (NSIndexPath *)indexPathByIncrementingLastIndex;

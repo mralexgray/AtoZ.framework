@@ -166,11 +166,11 @@
 		else if ([object isKindOfClass:[AZLassoView class]]) return YES;
 		else return NO;
 	}] az_each:^(AZLassoView* obj, NSUInteger index, BOOL *stop) {
-		AZLOG(@"Ridem cowboy")
+		AZLOG(@"Ridem cowboy");
 		obj.selected = NO;
 	}];
 
-	self.attacheView = [AZBlockView viewWithFrame:AZSquareFromLength(200)  opaque:YES drawnUsingBlock: ^(AZBlockView *view, NSRect dirtyRect) {
+	self.attacheView = [BLKVIEW viewWithFrame:AZSquareFromLength(200)  opaque:YES drawnUsingBlock: ^(BLKVIEW *view, NSRect dirtyRect) {
 		NSBezierPath *path = [NSBezierPath bezierPathWithRect:[view bounds]];
 		[RANDOMCOLOR set];
 		[path fill];

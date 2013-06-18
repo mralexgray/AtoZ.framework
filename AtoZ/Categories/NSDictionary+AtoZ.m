@@ -73,6 +73,13 @@
 	for ( ; key; key = va_arg(ap, id))	object = [object objectForKey:key];
 	va_end(ap);	return object;
 }
+
+- (id)objectMatching:(id)match forKeyorKeyPath:(id)kp {
+
+	return [self.allValues filterOne:^BOOL(id object) {
+		return [object valueForKeyOrKeyPath:kp] == match;
+	}];
+}
 @end
 @implementation NSDictionary(GetObjectForKeyPath)
 //	syntax of path similar to Java: record.array[N].item items are separated by . and array indices in []
@@ -315,6 +322,19 @@
 + (void) load  {
 	[$ swizzleMethod:@selector(description) with:@selector(swizzleDescription) in:self.class];
 }
+
+- (NSA*) mapToArray:(NSA*(^)(id k, id v))block {
+
+//+ (NSD*) mapDict:(NSD*) dict withBlock:(MapDictBlock) block {
+	__block NSMA *a = NSMA.new;
+	[self enumerateEachKeyAndObjectUsingBlock:^(id key, id obj) {
+		[a addObject:block(key, obj)];
+	}];
+	return a;
+//	else {	for (id key in dict) {id obj = [dict objectForKey:key];[mutDict setValue:block(key, obj) forKey:key];	}}
+// [NSDictionary dictionaryWithDictionary:mutDict];
+}
+
 -(void)eachWithIndex:(void (^)(id key, id value, NSUI idx, BOOL *stop))block;	{
 	[self.allKeys enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 		block (obj, self[obj], idx, *stop);

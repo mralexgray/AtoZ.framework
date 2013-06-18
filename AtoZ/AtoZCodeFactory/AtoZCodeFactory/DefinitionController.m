@@ -9,7 +9,7 @@
 #import "DefinitionController.h"
 #import "AZFactoryView.h"
 
-@implementation AZFile
+@implementation ObjCFile
 																	#pragma mark - Conveniences
 - (NSData*) data  			{  return [NSKeyedArchiver archivedDataWithRootObject:self]; }
 -    (NSD*) fileInfo 		{ 		NSError *e = nil; 	
@@ -39,9 +39,11 @@
 - (BOOL) outdated 				{ return  !(self.savedDate)  ?:	![self.fileModified isEqualToNumber:self.savedDate]; }
 @end
 
-@implementation  DefinitionController @synthesize pList = _pList, generatedHeader = _generatedHeader;
+@implementation  DefinitionController 
+@synthesize pList = _pList, generatedHeader = _generatedHeader;
 
-- (id) init { if (!(self=super.init))return self;  _atozobjc = AtoZObjC.new; return self; }
+- (void) awakeFromNib 			{ 	[self.window makeKeyAndOrderFront:nil]; }
+//- (id) init { if (!(self=super.init))return self;  _atozobjc = AtoZObjC.new; return self; }
 
 - (NSMA*)  children 				{ return self.root.children; } 
 -     (id) key 					{ return @"Expansions";} 
@@ -94,39 +96,42 @@
 	}];		
 	return definer;
 }
--   (NSW*) window					{   
+-   (NSW*) window					{   return _window = _window ?: ^{
 
-	[self bind:@"matched" toObject:self withKeyPath:@"allKeywords.@count" options:@{NSContinuouslyUpdatesValueBindingOption:@YES}]; 
-	_window = [NSWindow.alloc initWithContentRect:(NSRect){0,0,200,[NSScreen.mainScreen frame].size.height} styleMask:0|1|2|8 backing:2 defer:YES];
-	[_window setContentView:_view = [AZFactoryView.alloc initWithFrame:[_window.contentView frame] controller:self]];
-	_window.level 		= NSNormalWindowLevel;
-
-	NSLog(@"bundle:    %@", [[NSBundle mainBundle] bundleIdentifier]);
-	return _window; 
+		_window = [NSWindow.alloc initWithContentRect:(NSRect){0,0,200,[NSScreen.mainScreen frame].size.height} styleMask:0|1|2|8 backing:2 defer:YES];
+		[_window setContentView:self.view = [AZFactoryView.alloc initWithFrame:_window.contentRect controller:self]];
+	//	[self bind:@"matched" toObject:self withKeyPath:@"allKeywords.@count" options:@{NSContinuouslyUpdatesValueBindingOption:@YES}]; 
+		_window.level 		= NSNormalWindowLevel;
+		NSLog(@"bundle:    %@", [[NSBundle mainBundle] bundleIdentifier]);
+		return _window; 
+	}();
 }
 
-- (AZF*) pList 							{ return _pList = (_pList != nil) ? _pList 
-															 : [UDEFS objectForKey:@"pList"] != nil ? [AZF fileWithData:[UDEFS objectForKey:@"pList"]]
-															 : [AZF fileWithPath:@"/sd/AtoZ.framework/AtoZMacroDefines.plist"] ?: nil;
-}		// Searches /makes from UDefs or makes AZFile from hardcoded path.
+- (ObjCFile*) pList 							{  return _pList = _pList ?: ^{
+
+		if ([UDEFS objectForKey:@"pList"]) _pList = [ObjCFile fileWithData:[UDEFS objectForKey:@"pList"]];
+		if (_pList && [_pList ISKINDA:ObjCFile.class]) return _pList;
+		else return  _pList = [ObjCFile fileWithPath:@"/sd/AtoZ.framework/AtoZMacroDefines.plist"];
+	}();
+}		// Searches /makes from UDefs or makes ObjCFile from hardcoded path.
 - (void) setPList:(id)p					{  
 
-	_pList = [p isKindOfClass:NSPathControl.class] ? [AZFile fileWithPath:[p URL].path] : [p isKindOfClass:AZFile.class] ? p : _pList;  
+	_pList = [p isKindOfClass:NSPathControl.class] ? [ObjCFile fileWithPath:[p URL].path] : [p isKindOfClass:ObjCFile.class] ? p : _pList;  
 	if (_pList!=nil && _pList.fileExists && self.plistData!=nil) {
 		[NSUserDefaults.standardUserDefaults setObject:_pList.data forKey:@"plist"]; NSLog(@"New plist Path: %@", _pList.URL.path);
 	} else NSLog(@"Problem setting PLIST");
-}   	// Accepts AZFile or NSPathControl.  // Sets AZFile to Udef "pList"
-- (AZF*) generatedHeader 				{	return _generatedHeader = _generatedHeader ?: [NSUserDefaults.standardUserDefaults objectForKey:@"generatedHeader"] ?: 
-																									 [AZFile fileWithPath:@"/sd/AtoZ.framework/AtoZMacroDefines.h"]; 	
-}		// Searches /makes from UDefs or makes AZFile from hardcoded path.
+}   	// Accepts ObjCFile or NSPathControl.  // Sets ObjCFile to Udef "pList"
+- (ObjCFile*) generatedHeader 				{	return _generatedHeader = _generatedHeader ?: [NSUserDefaults.standardUserDefaults objectForKey:@"generatedHeader"] ?: 
+																									 [ObjCFile fileWithPath:@"/sd/AtoZ.framework/AtoZMacroDefines.h"]; 	
+}		// Searches /makes from UDefs or makes ObjCFile from hardcoded path.
 - (void) setGeneratedHeader:(id)g	{ 	
 
-	_generatedHeader = [g isKindOfClass:NSPathControl.class] ? [AZFile fileWithPath:[[[g URL]path] stringByAppendingPathComponent:@"AtoZMacroDefines.h"]] 
-						  : [g isKindOfClass:AZFile.class] ? g : _generatedHeader;  
+	_generatedHeader = [g isKindOfClass:NSPathControl.class] ? [ObjCFile fileWithPath:[[[g URL]path] stringByAppendingPathComponent:@"AtoZMacroDefines.h"]] 
+						  : [g isKindOfClass:ObjCFile.class] ? g : _generatedHeader;  
 	_generatedHeader && _generatedHeader.fileExists ?
 	[NSUserDefaults.standardUserDefaults setObject:_generatedHeader forKey:@"generatedHeader"], 
 	NSLog(@"New _generatedHeaderURL Path: %@", _generatedHeader) : NSLog(@"Problem setting _generatedHeaderURL");
-}   	// Accepts AZFile or NSPathControl
+}   	// Accepts ObjCFile or NSPathControl
 - (void)    			pathControl: (NSPathControl*)p 
 				willDisplayOpenPanel:   (NSOpenPanel*)o 	{ [o setCanChooseDirectories:YES],	[o setCanChooseFiles:NO], [o setCanCreateDirectories:YES];	}
 - (NSA*)  				    control:     (NSControl*)c 
@@ -138,13 +143,13 @@
 	NSLog(@"annoying method called");
 	//	Use this method to override NSFieldEditor's default matches (which is a much bigger	list of keywords).  
 	NSString *partial 		= [_view.searchField.stringValue substringWithRange:r];
-	NSAssert(self.allKeywords.count == self.allReplacements.count, @"all keywords should match count of replacements?");
-   NSArray *keywords 		= [self.allKeywords arrayByAddingObjectsFromArray:self.allReplacements];
+//	NSAssert(self.allKeywords.count == self.allReplacements.count, @"all keywords should match count of replacements?");
+//   NSArray *keywords 		= [self.allKeywords arrayByAddingObjectsFromArray:self.allReplacements];
    __block NSMutableArray *matches = NSMutableArray.new;
     // find any match in our keyword array against what was typed -
-   [keywords enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) { NSLog(@"enumerating class: %@", NSStringFromClass([obj class])); if (![obj isKindOfClass:[NSString class]]) return;
-		[obj rangeOfString:partial options:NSAnchoredSearch|NSCaseInsensitiveSearch range:NSMakeRange(0,[obj length] )].location != NSNotFound ? [matches addObject:obj] : nil;
-	}];
+//   [keywords enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) { NSLog(@"enumerating class: %@", NSStringFromClass([obj class])); if (![obj isKindOfClass:[NSString class]]) return;
+//		[obj rangeOfString:partial options:NSAnchoredSearch|NSCaseInsensitiveSearch range:NSMakeRange(0,[obj length] )].location != NSNotFound ? [matches addObject:obj] : nil;
+//	}];
 	[matches sortUsingSelector:@selector(compare:)];
    return matches;
 }
@@ -154,7 +159,7 @@
 	if (!isCompleting && [[(NSTextView*)n.userInfo[@"NSFieldEditor"]  string]length] > last.length) { isCompleting = YES; [n.userInfo[@"NSFieldEditor"] complete:nil]; isCompleting = NO; }
 	last = _view.searchField.stringValue;
 }
--   (void) applicationWillFinishLaunching:(NSNOT*)n	{ [self.window makeKeyAndOrderFront:self];	}
+-   (void) applicationWillFinishLaunching:(NSNOT*)n	{ if (!self.window.isVisible) [self.window makeKeyAndOrderFront:self];	}
 - 	 (void) applicationDidFinishLaunchng:  (NSNOT*)n 	{
 
 //	[UDEFS registerDefaults:@{@"plistOutdated":@YES,@"headerExists":@NO,@"newBuild":@YES}];
@@ -174,7 +179,7 @@
 
 -   (BOOL) saveGeneratedHeader {
 	
-	if (!_generatedHeader.outdated) return NO;   NSError *e;
+	if (!self.generatedHeader.outdated) return NO;   NSError *e;
 	NSLog(@"Just Procesing %ld \"Child\" Hedaers to %@!",self.root.numberOfChildren.integerValue, self.generatedHeader.URL.path);
 	return  [self.generatedHeaderStr writeToFile:self.generatedHeader.URL.path atomically:YES encoding:NSUTF8StringEncoding error:&e]
 	

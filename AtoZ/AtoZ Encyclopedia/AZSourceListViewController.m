@@ -7,6 +7,7 @@
 //
 
 #import "AZSourceListViewController.h"
+#import <AtoZ/AZSourceList.h>
 
 @interface AZSourceListViewController ()
 {
@@ -29,6 +30,10 @@
 - (void) awakeFromNib {
 	[self makeBadges];
 }
+
+- (NSUI)  				toggleCountForView:(AZToggleArrayView*)view; {  return 1; }
+- (AZOrient)		toggleOrientationForView:(AZToggleArrayView*)view { return  AZOrientHorizontal; }
+- (AZToggleControlLayer*) toggleForView:(AZToggleArrayView*)view atIndex:(NSUI)index; {return nil; }
 
 - (NSA*)itemsForToggleView:(AZToggleArrayView *)view {
 
@@ -87,7 +92,7 @@
 {
 
 	[item setObjectValue:[[AtoZ dockSorted] filterOne:^BOOL(AZFile* object) {
-		return ([object.uniqueID isEqualToString:[item identifier]] ? YES : NO);
+		return ([object.uniqueID isEqualToString:((NSString*)[(SourceListItem*)item identifier])] ? YES : NO);
 	}]];
 
 	[item setTitle:[[item object]valueForKey:@"name"]];
@@ -107,7 +112,7 @@
 - (NSColor*)sourceList:(AZSourceList*)aSourceList badgeBackgroundColorForItem:(id)item {
 
 	AZFile *first = [[AtoZ dockSorted] filterOne:^BOOL(AZFile* object) {
-		return ( [object.uniqueID isEqualTo:[item identifier]] ? YES : NO);
+		return ( [object.uniqueID isEqualTo:[(SourceListItem*)item identifier]] ? YES : NO);
 	}];
 	return first.color;
 
@@ -150,7 +155,7 @@
 
 - (BOOL)sourceList:(AZSourceList*)aSourceList isGroupAlwaysExpanded:(id)group
 {
-	if([[group identifier] isEqualToString:@"apps"])
+	if([[(SourceListItem*)group identifier] isEqualToString:@"apps"])
 		return YES;
 
 	return NO;
@@ -161,7 +166,7 @@
 
 	if([selectedIndexes count]==1)
 	{
-		NSString *identifier = [[_sourceList itemAtRow:[selectedIndexes firstIndex]] identifier];
+		NSString *identifier = [(SourceListItem*)[_sourceList itemAtRow:[selectedIndexes firstIndex]] identifier];
 		AZFile *first = [[AtoZ dockSorted] filterOne:^BOOL(AZFile* object) {
 			return ( [object.uniqueID isEqualTo:identifier] ? YES : NO);
 		}];
@@ -174,7 +179,7 @@
 	}
 	if([selectedIndexes count]==2)
 	{
-		NSString *identifier = [[_sourceList itemAtRow:[selectedIndexes lastIndex]] identifier];
+		NSString *identifier = [(SourceListItem*)[_sourceList itemAtRow:[selectedIndexes lastIndex]] identifier];
 		AZFile *first = [[AtoZ dockSorted] filterOne:^BOOL(AZFile* object) {
 			return ( [object.uniqueID isEqualTo:identifier] ? YES : NO);
 		}];

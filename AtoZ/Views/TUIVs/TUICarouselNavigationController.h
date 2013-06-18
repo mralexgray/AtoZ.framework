@@ -6,7 +6,9 @@
 //
 //
 #import <Foundation/Foundation.h>
-#import "TUIViewController.h"
+//#import "TUIViewController.h"
+#import <TwUI/TUIKit.h>
+
 @class TUICarouselNavigationController;
 @protocol TUICarouselNavigationControllerDelegate  <NSObject>
 - (void)navigationController:(TUICarouselNavigationController *)navigationController willShowViewController:(TUIViewController *)viewController animated:(BOOL)animated;

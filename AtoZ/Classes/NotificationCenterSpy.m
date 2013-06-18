@@ -29,7 +29,7 @@ static NotificationCenterSpy *sharedInstance = nil;
 	
 	return sharedInstance;
 }
-
++ (void)   toggle { [self toggleSpyingAllNotificationsIgnoring:@[] ignoreOverlyVerbose:YES]; }
 - (NSA*) defaultIgnores { return _defaultIgnores = _defaultIgnores ?: @[@"NSApplicationWillUpdateNotification", @"NSWindowDidUpdateNotification", @"NSApplicationDidUpdateNotification"]; }
 
 + (void)toggleSpyingAllNotifications {

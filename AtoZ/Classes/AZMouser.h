@@ -94,7 +94,7 @@ typedef enum {
 @interface  AZMouser : BaseModel
 @property (NATOM, ASS) AZDockOrientation orientation;
 @property (NATOM, ASS) NSSize screenSize;
-@property (NATOM, ASS) BOOL debug;
+@property (NATOM, ASS) BOOL debugMouser;
 //+ (AZMouser*)sharedInstance;
 
 - (void) moveTo: (CGPoint) point;

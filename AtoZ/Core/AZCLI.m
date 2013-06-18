@@ -1,93 +1,218 @@
+
 #import "AZCLI.h"
 #import "AZGrid.h"
-
-//static 	StickyNote 	*sticky;	
 
 static NSMenu *menubar,*appMenu; static NSMenuItem *appMenuItem; static NSApplication *sharedApp;
 static dispatch_once_t onceToken;
 static NSMD	*selectionDecoder = nil;
 
 @implementation AZCLI	
-//+ (void) load {
-//	if (AZCLI.hasSharedInstance) return; 	
-	//	ProcessSerialNumber psn;  OSStatus err=GetCurrentProcess(&psn);  
-//}
 
-- (id) init {
+- (id) init {	if (self != super.init ) return nil;
 
-	if (self != super.init ) return nil;
-	[_menu = MenuAppController.new loadStatusMenu];
-	_stdinHandle = AZSTDIN;
-//	[self window];
-	[self mainMenu];		
-	[AZGrid preview];
-	[AZPrismView preview];
-	sharedApp = [NSApplication sharedApplication];
-	dispatch_once(&onceToken, ^{
-   	sharedApp.activationPolicy = NSApplicationActivationPolicyRegular;
-		[sharedApp setMainMenu: menubar = NSMenu.new];	
-		[menubar addItem:  appMenuItem = NSMenuItem.new];
-		appMenuItem.submenu =     appMenu = NSMenu	 .new;
-		[appMenu addItem:AZQUITMENU];
-		[NSApp setDelegate: self];
-	});
+/*	[@[	@"AZBackground", 	@"AZGrid", @"AZPrismView", 
+			@"AZBackground2", @"AZBackgroundProgressBar", 
+			@"IsometricView"	]each:^(id o) {	[NSClassFromString(o) preview]; }];  // load up some text views... 	*/	
 
-	return self;
-//		appMenu.isDark = menubar.isDark = YES;
-//	});
-//	[self setupBareBonesApplication];
+	       [menu = MenuAppController   .new loadStatusMenu];								// instanciate menu status bar property
+	 		  dCTL = DefinitionController.new;													// instanciate definitio contorller that does some shit with a plist
+//	_stdinHandle = AZSTDIN;		 																	// read stdin
+	dispatch_once(&onceToken, ^{		int policy  =  NSApplicationActivationPolicyRegular;
+												[sharedApp 	= NSApplication.sharedApplication setActivationPolicy:  policy];
+												[sharedApp 	  setMainMenu: menubar = NSMenu	    .new];	
+												[menubar 	  addItem: appMenuItem = NSMenuItem  .new];
+												appMenuItem . submenu    = appMenu = NSMenu      .new;
+												[appMenu 	  							  addItem:AZQUITMENU];		          
+												[NSApp 	 									 setDelegate:self];		}); 	
+												[self  mainMenu];									return self;
 }   /* All setup code fpr shared INstance */
 
-- (void) applicationDidFinishLaunching:(NSNotification *)notification {
+- (void) applicationDidFinishLaunching:(NSNotification *)notification {  [NSApp activateIgnoringOtherApps:YES]; playTrumpet(); }
+
+- 	   (NSW*) window 			{	return [_window = _window ?: ^{	int mask = NSBorderlessWindowMask|NSResizableWindowMask;
+
+	 	_window 	= [NSW.alloc initWithContentRect:AZRectFromDim(200) styleMask:mask backing:NSBackingStoreBuffered defer:NO];
+		
+		[_window setContentView: self.contentView]; 
+		[_window setBackgroundColor:        CLEAR]; [_window setOpaque:     NO]; 
+		[_window setTitle:				 AZPROCNAME]; [_window setDelegate: self];
+		
+		return _window; }() makeKeyAndOrderFront: nil], _window;
+}
+- (BLKVIEW*) contentView 	{ return _contentView = _contentView ?: 
+
+	[BLKVIEW viewWithFrame:self.window.contentRect opaque:NO drawnUsingBlock:^(BNRBlockView *v, NSRect r) {
+		[[NSBP bezierPathWithRoundedRect:_window.contentRect cornerRadius:20 inCorners:OSBottomLeftCorner|OSBottomRightCorner] fillWithColor:RANDOMCOLOR];
+	}];
+}
+-      (IBA) log:(id)sender						{	NSLog(@"hello from button");	}
+-      (IBA) toggleConsole:(id)s				{[NSLogConsole.sharedConsole performString:[NSLogConsole.sharedConsole isOpen] ? @"close" : @"open"]; }
+
+static 	AZCLIMenu 	*meths, *fws; 
+-       (id) mainMenu 							{	_mainMenu = _mainMenu ?: ^{
+
+	//			CurrentIMP;	
+		static 	dispatch_once_t onceToken; dispatch_once(&onceToken, ^{
+			if (!selectionDecoder) selectionDecoder = NSMD.new;																///_stdinFileHandle =
+			selectionDecoder = @{	@"fwMenu"		: AZBUNDLE.frameworkIdentifiers, 
+											@"methodMenu"	: @[	@"mainMenu",					@"runAClassMethod", 
+																		@"envTest", 					@"instanceMethodNames", 
+																		@"frameworkMenu",				@"rainbowArrays",
+																		@"variadicColorLogging",	@"processInfo"]		}.mutableCopy;
+			 fws 	 = [AZCLIMenu cliMenuFor:selectionDecoder[@"fwMenu"] 	 starting:100 palette:self.palette input:^NSS*(NSS* inputs, const char * enc){
+							[AZTalker say:$UTF8(enc)];	return NSS.randomDicksonism; 		}];
+							
+			 meths = [AZCLIMenu cliMenuFor:selectionDecoder[@"methodMenu"] starting:0   palette:self.palette input:^NSS*(NSS* inputs, const char * enc){
+			
+						NSLog(@"WHATEVER");
+				return  [NSS randomWords:3];
+			}];
+	});
+//	LOG_EXPR(_mainMenu);
+	return _mainMenu =  @[fws, meths].copy; }();
+	
+	[NSTerminal printString:[@[[COLORIZE(@"Welcome to AtoZCLI!",				 RANDOMCOLOR, nil)[0] clr],
+										[COLORIZE(@"Please choose a test option:",	      PURPLE, nil)[0] clr],
+	 									[COLORIZE(@"Available Frameworks:",					   YELLOW, nil)[0] clr],	
+					fws.menu.clr,	[COLORIZE(@"Available METHODS:",						    GREEN, nil)[0] clr], 
+				 meths.menu.clr   ]componentsJoinedByString:@"\n"]];
+	
+	LOG_EXPR(fws.block);
+	[NSTerminal addInputBlock:fws.block];
+	[NSTerminal addInputBlock:meths.block];
+	
+//	NSString *resp = 
+	[NSTerminal readString];
+}
+
+
+- (VoidBlock) actionAtIndex {}
++ (id) blockEval:(id(^)(id blockArgs, ...))block {	 return block(self);	 }
+- (void) envTest								{
+
+	struct winsize w;
+	ioctl(0, TIOCGWINSZ, &w);
+	LOGCOLORS($(@"TTYlines: %u.\n", w.ws_row),RED, $(@"TTYColumns:%u\n", w.ws_col), ORANGE, $(@"BUILD_DIR:%s\n", getenv("BUILD_DIR")), GREEN,nil);
+}
+- (NSA*) palette								{ 	return  _palette ?: [NSC colorsInListNamed:@"flatui"]; }//FengShui"]; }
+- (NSC*) nextColor	      	  		   {    static NSUI _p = 0; _p++; return [self.palette normal:_p];	}
+- (void) rainbowArrays 						{ LOGCOLORS(NSS.dicksonBible.words, NSC.randomPalette,nil); }
+- (void) variadicColorLogging	 			{
+    LOGCOLORS(RED, @"red", ORANGE, @"orange", YELLOw, @"yellow", GREEN, @"green", BLUE, @"blue", PURPLE, GREY, "purple (but not in the right order", "Grey (also out of order)", nil);
+}
+- (void) textWasEntered:(NSS*)s			{	[AZTalker say: s];				}
+- (VoidBlock) stringFunctions				{
+
+	return ^{	NSS*w =  NSS.randomBadWord;	[AZTalker say:w];
+					AZCLogFormat("The sum of 50 + 25 is %s", [AZLOGSHARED colorizeString:w withColor:GREEN].colorLogString.UTF8String);
+   };
+}
+@end
+
+@implementation AZCLIMenu
+
++ (NSIS*) indexesOfMenus {
+
+	NSMIS* is = NSMIS.new;	//	NSLog(@"Allinstances:%@", all);// [[@"a".classProxy vFK:AZCLSSTR] performSelectorWithoutWarnings:NSSelectorFromString(@"allInstancesAddOrReturn:") withObject:nil]);
+	for (AZCLIMenu *m in [self allInstances]) {
+//		NSLog(@"%@ RANGE:%@", m, NSStringFromRange(m.range));  
+				[is addIndexesInRange:m.range];
+	}	
+	return is;
+}
++ (instancetype) cliMenuFor:(NSA*)items starting:(NSUI)idx palette:(id)p input:(TINP)block {
+	if ([[self.allInstances valueForKeyPath:@"defaultCollection"]isEqualToArray:items]) {	[@"already made a menu for this!" log]; return nil; }
+	AZCLIMenu *m = AZCLIMenu.instance;		//	[m setUp];
+	m.defaultCollection 	= items;
+	m.startIdx 				= idx;
+	m.palette 				= p;
+	m.block 					= block;			return m;
+}	
+//-    (id) identifier 	{ return _identifier = _identifier ?: self.uniqueID; }
+- (NSRNG) range 			{ return  NSMakeRange(self.startIdx, [(NSA*)self.defaultCollection count]); }
+-  (NSS*) menu 			{
+
+	NSA* items 		= self.defaultCollection;
+	NSUI maxlen 	= ceil([items lengthOfLongestMemberString] * 1);		// deduce longest string
+	NSUI cols 		= floor(120.f/(float) maxlen);								// accomodate appropriate number of cols.
+	NSUI maxIndex 	= [$(@"%lu: ", self.startIdx + items.count)length];  	// make sure numbers fit nice
+	__block NSUI i = _startIdx -1;													// start at an index
+	if (!selectionDecoder) selectionDecoder = NSMD.new;
+	return  [items reduce:@"" withBlock:^id(id sum, id obj) {		i++; // Allow goruped indexes.
+		selectionDecoder[@(i)] = obj;
+		NSS* paddedIndex = [ $(@"%lu: ", i) paddedTo:maxIndex];
+		NSS* 	outP = (i % cols) == 0 ? @"\n" : @"";
+				outP = [outP withString:paddedIndex];
+//				NSC* c = [p ISKINDA:NSCL.class] ?[[p colors] normal: i] : [p normal:1];
+				outP = [outP withString:[AZLOGSHARED colorizeString:[$(@"%@",obj) paddedTo:maxlen] withColor:[self.palette  normal:i]].colorLogString];
+		return outP ? [sum withString:outP] : sum;
+	}];		  /* Find the longest string and base our columns on that. */
+}
+
+
+@end
+/*
+//- (void) setUp { NSLog(@"Normal setup");  [self  performSelector:NSSelectorFromString(@"swizzleSetUp")]; }
+//@property (NATOM,STRNG) NSMD	*selectionDecoder;
+
+- (void) colorLogging 				{
+//	COLORLOG(YELLOw, @"whatever %@", @3, nil);   
+//	NSD *allColorInfo = NSC.colorLists ;
+//	NSLog(@"Available named colors:\n%@",   [NSS stringFromArray:[allColorInfo.allKeys map:^id (id obj) {
+//		return colorizeStringWithColor( [obj stringByPaddingToLength:22 withString:@" " startingAtIndex:0], allColorInfo[obj]);		}]]);
+//	[self mainMenu];
+}
+
+*/
+
+//	[_mainMenu each:^(AZCLIMenu* mensy) {  [NSTerminal printString:mensy.block(resp, @encode(typeof(NSString)))]; }];
+	
+//			[AZNOTCENTER addObserverForName:NSFileHandleReadCompletionNotification 
+//																	 object:_stdinHandle queue:AZSOQ usingBlock:^(NSNOT *n) { 
+//					[self setInsideEdge:99];  [AZNOTCENTER removeObserver:observer1];	}]),
+//	_mainMenu = [AZNOTCENTER addObserverForName:NSFileHandleReadCompletionNotification object:_stdinHandle queue:AZSOQ usingBlock:^(NSNOT *note) {
+//		NSS* input = [n stringForKey:NSFileHandleNotificationDataItem];
+//		[input log];
+//		if ( SameString(@":", input.firstLetter)) {
+//			NSA* words = [input componentsSeparatedByString:@":"];
+//			LOGCOLORS(@"rawWords:", words, NSC.randomPalette, nil);
+//			[@"s".classProxy[words[0]] performSelectorWithoutWarnings:NSSelectorFromString(words[1])];
+//		}
+//		[_stdinHandle readInBackgroundAndNotify];
+//	}]; return _mainMenu;
+//	}();
+
+//+ (void) handleInteractionWithPrompt: (NSS*)string block:(void(^)(NSString *output)) block {
+
+//- (NSString*) termReadStringNowWhat:(NSString*)str ofType:(const char*)encoding {
+	
+//	NSS *outie; [NSTerminal printString:outie = NSTerminal.readString];	block(outie);
+//}
+
+
+/*
 
 //		AZLOGCMD;
 //	[_stdinHandle readInBackgroundAndNotify];
 //	[AZNOTCENTER observeName:NSWindowDidUpdateNotification usingBlock:^(NSNOT*n) { [self.contentView setNeedsDisplay:YES]; }];
-	[NSApp activateIgnoringOtherApps:YES];
 
-}
-- (NSW*)window {
-	
-	if (!_window) {
-		_window = [NSW.alloc initWithContentRect:AZRectFromDim(200) styleMask:NSBorderlessWindowMask|NSResizableWindowMask backing:NSBackingStoreBuffered defer:NO];
+
+[self.windowPosString drawInRect:_window.contentRect withAttributes:@{NSFontNameAttribute:AtoZ.controlFont}];
 //		[_window cascadeTopLeftFromPoint:NSMakePoint(20,20)];
-		[_window setTitle:				 AZPROCNAME]; 
-		[_window setContentView: self.contentView];
-		[_window setBackgroundColor:        CLEAR];
-		[_window setOpaque:				 		   NO]; 
-		[_window setDelegate:					 self];
-//		[AZNOTCENTER observeName:NSApplicationDidBecomeActiveNotification usingBlock:^(NSNOT*n) {
-//			[NSApp activateIgnoringOtherApps:YES];	[_window makeKeyAndOrderFront:self];
-//		}];
+//[NSString stringWithData:rawD encoding:NSUTF8StringEncoding];
+//	fprintf(stderr, "rawstring:%s", outie.UTF8String);
+//	NSFH   *handle = self.stdinHandle;
+//	NSData   *rawD = [NSData dataWithData:handle.readDataToEndOfFile];
 		[self.windowPosString bind:NSValueBinding toObject:_window withKeyPath:@"insideEdge" transform:^id(id value) {
 			return AZAlignToString([value unsignedIntegerValue]);
 		}];
-	}
-	return [_window makeKeyAndOrderFront: nil], _window;
+
+[AZNOTCENTER observeName:NSApplicationDidBecomeActiveNotification usingBlock:^(NSNOT*n) { [NSApp activateIgnoringOtherApps:YES];	[_window makeKeyAndOrderFront:self];		}];
+appMenu.isDark = menubar.isDark = YES;
+});
+[self setupBareBonesApplication];
+- (void) setupBareBonesApplication {
 }
-- (BLKVIEW*) contentView { 
-
-	return _contentView = _contentView ?: [BLKVIEW viewWithFrame:self.window.contentRect opaque:NO drawnUsingBlock:^(BNRBlockView *v, NSRect r) {
-		[[NSBP bezierPathWithRoundedRect:_window.contentRect cornerRadius:20 inCorners:OSBottomLeftCorner|OSBottomRightCorner] fillWithColor:RANDOMCOLOR];
-		[self.windowPosString drawInRect:_window.contentRect withAttributes:@{NSFontNameAttribute:AtoZ.controlFont}];
-	}];
-
-}
-
-+ (void) handleInteractionWithPrompt:(NSS*)string block:(void(^)(NSString *output))block {
-//	NSFH   *handle = self.stdinHandle;
-//	NSData   *rawD = [NSData dataWithData:handle.readDataToEndOfFile];
-	NSS	  *outie = 	[NSTerminal readString]; //[NSString stringWithData:rawD encoding:NSUTF8StringEncoding];
-	[NSTerminal printString:outie];
-//	fprintf(stderr, "rawstring:%s", outie.UTF8String);
-	block(outie);
-}
-
-//- (void) setupBareBonesApplication {
-//
-//}
-
-/*
 	[window az_overrideSelector:@selector(sendEvent:) withBlock:(__bridge void *)^(id _self, NSE* e)	{
 		NSR f = AZScreenFrameUnderMenu();	
 //		NSP o = [window convertBaseToScreen:[e locationInWindow]];
@@ -117,43 +242,7 @@ AZOutsideEdgeOfRectInRect(window.frame, f);
 	[AZNOTCENTER addObserver:self selector:@selector(didReadStdin:) name:NSFileHandleReadCompletionNotification object: AZSTDIN];
 		sticky = [StickyNote instanceWithFrame:AZRectFromDim(200)];
 		[sticky.window makeKeyAndOrderFront:self];
-*/
--  (IBA) log:(id)sender						{	NSLog(@"hello from button");	}
--  (IBA) toggleConsole:(id)s				{[NSLogConsole.sharedConsole performString:[NSLogConsole.sharedConsole isOpen] ? @"close" : @"open"]; }
-- (id) mainMenu 							{
 
-	//			CurrentIMP;	
-	static 	AZCLIMenu 	*meths, *fws; 
-	static 	dispatch_once_t onceToken; dispatch_once(&onceToken, ^{
-		if (!selectionDecoder) selectionDecoder = NSMD.new;																///_stdinFileHandle =
-		selectionDecoder = @{	@"fwMenu"		: AZBUNDLE.frameworkIdentifiers, 
-										@"methodMenu"	: @[	@"mainMenu",					@"runAClassMethod", 
-																	@"envTest", 					@"instanceMethodNames", 
-																	@"frameworkMenu",				@"rainbowArrays",
-																	@"variadicColorLogging",	@"processInfo"]		}.mutableCopy;
-		 fws 	 = [AZCLIMenu cliMenuFor:selectionDecoder[@"fwMenu"] 	 starting:100 palette:self.palette];
-		 meths = [AZCLIMenu cliMenuFor:selectionDecoder[@"methodMenu"] starting:0   palette:self.palette];
-	});
-	[NSTerminal printString:[@[[COLORIZE(@"Welcome to AtoZCLI!",				 RANDOMCOLOR, nil)[0] clr],
-										[COLORIZE(@"Please choose a test option:",	      PURPLE, nil)[0] clr],
-	 									[COLORIZE(@"Available Frameworks:",					   YELLOW, nil)[0] clr],	
-					fws.menu.clr,	[COLORIZE(@"Available METHODS:",						    GREEN, nil)[0] clr], 
-				 meths.menu.clr   ]componentsJoinedByString:@"\n"]];
-	
-	return _mainMenu ? _mainMenu :	[AZNOTCENTER addObserverForName:NSFileHandleReadCompletionNotification 
-																	 object:_stdinHandle queue:AZSOQ usingBlock:^(NSNOT *n) { 
-//					[self setInsideEdge:99];  [AZNOTCENTER removeObserver:observer1];	}]),
-//	_mainMenu = [AZNOTCENTER addObserverForName:NSFileHandleReadCompletionNotification object:_stdinHandle queue:AZSOQ usingBlock:^(NSNOT *note) {
-		NSS* input = [n stringForKey:NSFileHandleNotificationDataItem];
-		[input log];
-		if ( SameString(@":", input.firstLetter)) {
-			NSA* words = [input componentsSeparatedByString:@":"];
-			LOGCOLORS(@"rawWords:", words, NSC.randomPalette, nil);
-			[@"s".classProxy[words[0]] performSelectorWithoutWarnings:NSSelectorFromString(words[1])];
-		}
-		[_stdinHandle readInBackgroundAndNotify];
-	}];
-}
 //- (void) windowWillMove:(NSNotification *)notification { [notification log]; }
 //- (void) didReadStdin:(NSNOT*)n		{
 	
@@ -204,7 +293,7 @@ AZOutsideEdgeOfRectInRect(window.frame, f);
 //	NSLog(@"cfk: %@ equal to cliclass: %@... %@", NSStringFromClass([what class]), test, StringFromBOOL(areSame([what class], [test class])));	
 //	}];
 	//fflush(stdout); }];
-/*
+
 - (void) runAClassMethod 					{
 	static BOOL stop = NO;
 	if (!classes) classes = NSMA.new;  if (!methods) methods = NSMA.new;
@@ -234,84 +323,7 @@ AZOutsideEdgeOfRectInRect(window.frame, f);
 */
 
 
-- (void) colorLogging 				{
-//	COLORLOG(YELLOw, @"whatever %@", @3, nil);   
-//	NSD *allColorInfo = NSC.colorLists ;
-//	NSLog(@"Available named colors:\n%@",   [NSS stringFromArray:[allColorInfo.allKeys map:^id (id obj) {
-//		return colorizeStringWithColor( [obj stringByPaddingToLength:22 withString:@" " startingAtIndex:0], allColorInfo[obj]);		}]]);
-//	[self mainMenu];
-}
-- (VoidBlock) actionAtIndex {}
-+ (id) blockEval:(id(^)(id blockArgs, ...))block {	 return block(self);	 }
-- (void) envTest								{
 
-	struct winsize w;
-	ioctl(0, TIOCGWINSZ, &w);
-	LOGCOLORS($(@"TTYlines: %u.\n", w.ws_row),RED, $(@"TTYColumns:%u\n", w.ws_col), ORANGE, $(@"BUILD_DIR:%s\n", getenv("BUILD_DIR")), GREEN,nil);
-}
-- (NSA*) palette								{ 	return  _palette ?: [NSC colorsInListNamed:@"FengShui"]; }
-- (NSC*) nextColor	      	  		   {    static NSUI _p = 0; _p++; return [self.palette normal:_p];	}
-- (void) rainbowArrays 						{ LOGCOLORS(NSS.dicksonBible.words, NSC.randomPalette,nil); }
-- (void) variadicColorLogging	 			{
-    LOGCOLORS(RED, @"red", ORANGE, @"orange", YELLOw, @"yellow", GREEN, @"green", BLUE, @"blue", PURPLE, GREY, "purple (but not in the right order", "Grey (also out of order)", nil);
-}
-- (void) textWasEntered:(NSS*)s			{	[AZTalker say: s];				}
-- (VoidBlock) stringFunctions				{
-
-	return ^{	NSS*w =  NSS.randomBadWord;	[AZTalker say:w];
-					AZCLogFormat("The sum of 50 + 25 is %s", [AZLOGSHARED colorizeString:w withColor:GREEN].colorLogString.UTF8String);
-   };
-}
-@end
-
-@implementation AZCLIMenu
-
-+ (NSIS*) indexesOfMenus {
-
-	NSMIS* is = NSMIS.new;	//	NSLog(@"Allinstances:%@", all);// [[@"a".classProxy vFK:AZCLSSTR] performSelectorWithoutWarnings:NSSelectorFromString(@"allInstancesAddOrReturn:") withObject:nil]);
-	for (AZCLIMenu *m in [self allInstances]) {
-//		NSLog(@"%@ RANGE:%@", m, NSStringFromRange(m.range));  
-				[is addIndexesInRange:m.range];
-	}	
-	return is;
-}
-
-//- (void) setUp { NSLog(@"Normal setup");  [self  performSelector:NSSelectorFromString(@"swizzleSetUp")]; }
-
-+ (instancetype) cliMenuFor:(NSA*)items starting:(NSUI)idx palette:(id)p {
-	if ([[[self allInstances] valueForKeyPath:@"defaultCollection"]isEqualToArray:items]) {
-		[@"already made a menu for this!" log]; return nil; }
-	AZCLIMenu *m = AZCLIMenu.instance;
-	[m setUp];
-	m.defaultCollection = items;
-	m.startIdx = idx;
-	m.palette = p;
-	return m;
-}	
--    (id) identifier 	{ return _identifier = _identifier ?: self.uniqueID; }
-- (NSRNG) range 			{  return  NSMakeRange(self.startIdx, [(NSA*)self.defaultCollection count]); }
-//@property (NATOM,STRNG) NSMD	*selectionDecoder;
--  (NSS*) menu 			{
-
-	NSA* items = self.defaultCollection;
-	NSUI maxlen 	= ceil([items lengthOfLongestMemberString] * 1);	// deduce longest string
-	NSUI cols 		= floor(120.f/(float) maxlen);								// accomodate appropriate number of cols.
-	NSUI maxIndex 	= [$(@"%lu: ", self.startIdx + items.count)length];  			// make sure numbers fit nice
-	__block NSUI i = _startIdx -1;													// start at an index
-	if (!selectionDecoder) selectionDecoder = NSMD.new;
-	return  [items reduce:@"" withBlock:^id(id sum, id obj) {		i++; // Allow goruped indexes.
-		selectionDecoder[@(i)] = obj;
-		NSS* paddedIndex = [ $(@"%lu: ", i) paddedTo:maxIndex];
-		NSS* 	outP = (i % cols) == 0 ? @"\n" : @"";
-				outP = [outP withString:paddedIndex];
-//				NSC* c = [p ISKINDA:NSCL.class] ?[[p colors] normal: i] : [p normal:1];
-				outP = [outP withString:[AZLOGSHARED colorizeString:[$(@"%@",obj) paddedTo:maxlen] withColor:[self.palette  normal:i]].colorLogString];
-		return outP ? [sum withString:outP] : sum;
-	}];		  /* Find the longest string and base our columns on that. */
-}
-
-
-@end
 
 @implementation AtoZ (CLIWindow)
 + (NSW*) popDrawWindow:(BNRBlockViewDrawer)blk {
@@ -407,4 +419,9 @@ class != NULL ? [[class performSelector:select] log] : [[self performSelectorWit
 	[self cuteFunctions]();	 [self mainMenu];
 	if ([result respondsToSelector:@selector(UTF8String)])  fprintf(stdout, "%s\n", [result UTF8String]);   fprintf(stdout, "objj> ");    fflush(stdout);    [_stdinFileHandle readInBackgroundAndNotify];
 - (VoidBlock) tests 				{   return _tests = [AZCLITests sharedInstance]; }
-*/
+	[[@"a".classProxy vFK:o]performSelector:@selector(preview)]; // load via the hacky class proxy
++ (void) load {
+	if (AZCLI.hasSharedInstance) return; 	
+	ProcessSerialNumber psn;  OSStatus err=GetCurrentProcess(&psn);  
+}
+ */

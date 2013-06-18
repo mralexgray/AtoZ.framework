@@ -6,6 +6,5 @@
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 #import <Foundation/Foundation.h>
 
-@interface AZBackground : NSView
-
-@end
+@interface AZBackground 	: NSView		@end
+@interface AZBackground2 	: NSView		@end

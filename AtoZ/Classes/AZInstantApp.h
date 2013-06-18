@@ -50,7 +50,14 @@ int main(int argc, char *argv[]) {\
 }\
 
 
-#define APPWITHBLOCK(x)  \
+
+/* usage 
+
+APPWITHBLOCKWINDOW(  ^(NSW* win){ 	win.contentView = [AZSimpleView withFrame:win.contentRect color:REEN];	});
+
+*/
+
+#define APPWITHBLOCKWINDOW(x)  \
 int main(int argc, char *argv[]) {\
 	@autoreleasepool {\
 		AZSHAREDAPP; NSM *menubar,*appMenu; NSMI *appMenuItem; NSW* win; NSR r;\
@@ -70,14 +77,25 @@ int main(int argc, char *argv[]) {\
 		[win setMovableByWindowBackground:YES];\
 		[win makeKeyAndOrderFront:nil];\
 		[NSApp activateIgnoringOtherApps:YES];\
-		x(win);\
+		(x(win));\
 		[NSApp run];\
 	}\
 }\
 
 
+#define APPPOPWINDOW(x)  \
+int main(int argc, char *argv[], char**argp ){\
+	@autoreleasepool {\
+	int mask = NSTitledWindowMask|NSClosableWindowMask|NSMiniaturizableWindowMask|NSResizableWindowMask;		\
+  	NSApplication *app = NSApplication.sharedApplication;\
+  	NSW *win = [NSWindow.alloc initWithContentRect:AZRectFromDim(300) styleMask:mask backing:NSBackingStoreBuffered defer:NO];\
+	[win center];	[win setLevel: NSFloatingWindowLevel];	[win makeKeyAndOrderFront: nil]; x(win); 	[app run];	}	return 0;	}
+	
+
 @interface AZInstantApp : NSObject
 
-+ (id) appWithBlock:(void(^)(void))blk;
+//+ (id) appWithBlock:(void(^)(void))blk;
+//+ (id) appWithMenuBlock:(void(^)(void))blk;
+//+ (id) appWithWindowBlock:(void(^)(void))blk;
 
 @end

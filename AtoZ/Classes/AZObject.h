@@ -8,6 +8,20 @@
 
 #import <Foundation/Foundation.h>
 #import <Cocoa/Cocoa.h>
+
+
+@interface AZArray : NSObject
+
++ (AZArray*)sharedArray;
+
+- (void) addObject:(id)o;
+- (NSUI) countOfObjects;
+-   (id) objectInObjectsAtIndex:(NSUInteger)index;
+@end
+
+
+/*
+
 @interface AZObject : NSObject <NSCoding,NSCopying,NSFastEnumeration>
 @property (strong) id representedObject;
 @property (copy) NSArray *keys;
@@ -32,3 +46,4 @@
 //- (NSD*) properties;
 - (NSD*) autoEncodedProperties;
 @end
+*/

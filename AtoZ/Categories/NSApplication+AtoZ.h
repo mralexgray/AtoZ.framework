@@ -8,6 +8,24 @@
 
 #import <Cocoa/Cocoa.h>
 
+
+
+@interface NSMenu (SBAdditions)
+
+- (NSMenuItem *)selectedItem;
+- (void)selectItem:(NSMenuItem *)menuItem;
+- (NSMenuItem *)selectItemWithRepresentedObject:(id)representedObject;
+- (void)deselectItem;
+- (NSMenuItem *)addItemWithTitle:(NSString *)aString target:(id)target action:(SEL)aSelector tag:(NSInteger)tag;
+- (NSMenuItem *)addItemWithTitle:(NSString *)aString representedObject:(id)representedObject target:(id)target action:(SEL)aSelector;
+@end
+@interface NSMenuItem (AtoZ)
+
+- (id)initWithTitle:(NSString*)aString target:(id)target action:(SEL)aSelector keyEquivalent:(NSString*)keyEquivalent representedObject:(id)representedObject;
+
+@end
+
+
 extern NSString *const kShowDockIconUserDefaultsKey;
 
 @interface NSApplication (AtoZ)

@@ -1,7 +1,7 @@
 
 
-#import "AtoZUmbrella.h"
 #import "AtoZMacroDefines.h"
+#import "AtoZUmbrella.h"
 
 
 //static NSA *_pos = nil;
@@ -19,7 +19,7 @@ Binary to Decimal Conversion
          = 																							19
 */
 
-
+/*
 // Constants to hold bit masks for desired flags
 static int flagAllOff 	=   0;	//         000...00000000 (empty mask)
 static int flagbit1 		=   1;   // 2^^0    000...00000001
@@ -30,18 +30,50 @@ static int flagbit5 		=  16;   // 2^^4    000...00010000
 static int flagbit6 		=  32;   // 2^^5    000...00100000
 static int flagbit7 		=  64;   // 2^^6    000...01000000
 static int flagbit8 		= 128;  	// 2^^7    000...10000000
-
+*/
 #define AZA AZAlign
 #define AZPOS AZA
+
+//JROptionsDeclare(AZAlign, 	AZAlignLeft       = flagbit1, //0x00000001, 
+//									AZAlignRight      = flagbit2, //0x00000010,
+//									AZAlignTop        = flagbit3, //0x00000100,
+//									AZAlignBottom     = flagbit4, //0x00001000,
+//									AZAlignTopLeft    = flagbit5, //0x00000101,
+//									AZAlignBottomLeft = flagbit6, //0x00001001,		
+//									AZAlignTopRight   = flagbit7, //0x00000110,
+//									AZAlignBottomRight = flagbit8 // 0x00001010
+//);
+
+
 //JREnumDeclare (AZAlign,
-JROptionsDeclare(AZAlign, 	AZAlignLeft       = 0x00000001, 
-									AZAlignRight      = 0x00000010,
-									AZAlignTop        = 0x00000100,
-									AZAlignBottom     = 0x00001000,
-									AZAlignTopLeft    = 0x00000101,
-									AZAlignBottomLeft = 0x00001001,		
-									AZAlignTopRight   = 0x00000110,
-									AZAlignBottomRight  = 0x00001010
+
+JROptionsDeclare(AZAlign, 	AZAlignLeft       	= 0x00000001, 
+									AZAlignRight      	= 0x00000010,
+									AZAlignTop	        	= 0x00000100,
+									AZAlignBottom     	= 0x00001000,
+									AZAlignTopLeft 	   = 0x00000101,
+									AZAlignBottomLeft		= 0x00001001,		
+									AZAlignTopRight   	= 0x00000110,
+									AZAlignBottomRight  	= 0x00001010	);
+
+/*  expanded....
+ 
+typedef enum AZAlign : NSUInteger AZAlign; 
+		  enum AZAlign : NSUInteger { AZAlignLeft 			= 0x00000001, 
+		  										AZAlignRight 			= 0x00000010, 
+												AZAlignTop 				= 0x00000100, 
+												AZAlignBottom 			= 0x00001000, 
+												AZAlignTopLeft 		= 0x00000101, 
+												AZAlignBottomLeft 	= 0x00001001, 
+												AZAlignTopRight 		= 0x00000110, 
+												AZAlignBottomRight 	= 0x00001010 }; 
+extern NSDictionary* AZAlignByValue(); 
+extern NSDictionary* AZAlignByLabel(); 
+extern NSString* AZAlignToString(int enumValue); 
+extern BOOL AZAlignFromString(NSString *enumLabel, AZAlign *enumValue); 
+static NSString *_AZAlign_constants_string = @"" "AZAlignLeft = 0x00000001, AZAlignRight = 0x00000010, AZAlignTop = 0x00000100, AZAlignBottom = 0x00001000, AZAlignTopLeft = 0x00000101, AZAlignBottomLeft = 0x00001001, AZAlignTopRight = 0x00000110, AZAlignBottomRight = 0x00001010";;
+
+*/
 
 //				AZAlignNone	= 0, // 0
 //		AZAlignBottomLeft = 0x10000001, // 2 << 0  (0x1 << 1), // => 0x00000010
@@ -55,7 +87,6 @@ JROptionsDeclare(AZAlign, 	AZAlignLeft       = 0x00000001,
 ////	       = 0x00001000,
 //	   = 0x00001001,
 //	  = 0x00001010
-);
 
 
 typedef NS_ENUM(NSUI, AssetType){ JS, CSS, HTML, PHP, BASH,	ObjC, TXT,	UNKNOWN = 99 };
@@ -112,7 +143,18 @@ typedef enum {
 	AMTriangleRight
 } AMTriangleOrientation;
 
+NS_INLINE NSUI AZAlignToNormalBitmask(AZA a){return
 
+	a == AZAlignLeft ? 2 :
+	a == AZAlignRight ? 3 :
+	a == AZAlignTop	 ? 0 :
+	a == AZAlignBottom  ? 1 : NSNotFound;
+//	AZAlignTopLeft 	   = 0x00000101,
+//	AZAlignBottomLeft		= 0x00001001,
+//	AZAlignTopRight   	= 0x00000110,
+//	AZAlignBottomRight  	= 0x00001010
+}
+JREnumDeclare(AZCompass,AZCompassN, AZCompassS, AZCompassW, AZCompassE, AZCompassNW, AZCompassNE, AZCompassSE, AZCompassSW );
 
 //CASCROLLVIEW
 //minimizing = 0x01, // 00000001
@@ -138,7 +180,7 @@ typedef NS_ENUM (NSUI, StateStyle)	{	Lasso,			InnerShadow,
 @"LayerStateOK",		@"LayerStateUnresolved",  @"LayerStateUnset",  	nil
 
 //@"LayerCopyInsertFront",@"LayerCopyInsertEnd"
-NS_INLINE NSS* stringForScrollFix(ScrollFix val) { return [NSArray.alloc initWithObjects:ScrollFixTypeArray][val]; }
+NS_INLINE NSS* stringForScrollFix(ScrollFix val) { return [[NSArray.alloc initWithObjects:ScrollFixTypeArray]objectAtIndex:val]; }
 
 
 

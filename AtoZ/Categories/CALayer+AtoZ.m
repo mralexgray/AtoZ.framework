@@ -1,15 +1,7 @@
-
-//  CALayer+AtoZ.m
-//  AtoZ
-
-//  Created by Alex Gray on 7/13/12.
-//  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 #import "CALayer+AtoZ.h"
 #import "AtoZ.h"
 #import "AtoZUmbrella.h"
 #import "AtoZFunctions.h"
-
-
 CATransform3D CA3DxRotation(float x) { return CATransform3DMakeRotation(x*M_PI/180.0, 1.0, 0, 0); }
 CATransform3D CA3DyRotation(float y) { return CATransform3DMakeRotation(y*M_PI/180.0, 0.0, 1.0, 0); }
 CATransform3D CA3DzRotation(float z) { return CATransform3DMakeRotation(z*M_PI/180.0, 0.0, 0, 1.0); }
@@ -19,43 +11,10 @@ CATransform3D CA3DTransform3DConcat(CAT3D xRotation, CAT3D yRotation) {
 CATransform3D CA3DxyZRotation(CAT3D xYRotation, CAT3D zRotation) {
 	return CATransform3DConcat(xYRotation, zRotation);
 }
-
-//CATransform3D CAT3DConcatenatedTransformation(CAT3D xyZRotation, CAT3D transformation ) {
-//	return CATransform3DConcat(xyZRotation, transformation);
-//}
-//CATransform3D concatenatedTransformation = CATransform3DConcat(xRotation, transformation);
-
-
-
-
-@implementation CAAnimationBlockDelegate
-@synthesize blockOnAnimationStarted, blockOnAnimationSucceeded, blockOnAnimationFailed;
-
-/* Delegate method called by CAAnimation at start of animation	 */
-- (void) animationDidStart:(CAAnimation *)theAnimation {
-	if( !self.blockOnAnimationStarted ) return;
-	self.blockOnAnimationStarted();
-}
-/* Delegate method called by CAAnimation at end of animation	*/
-- (void) animationDidStop:(CAAnimation *)theAnimation
-				 finished:(BOOL)flag {
-	if( flag ) {
-		if( !self.blockOnAnimationSucceeded ) return;
-		self.blockOnAnimationSucceeded();
-		return;
-	}
-	if( !self.blockOnAnimationFailed ) return;
-	self.blockOnAnimationFailed();
-}
-@end
-
-
-
-
-
+//CATransform3D CAT3DConcatenatedTransformation(CAT3D xyZRotation, CAT3D transformation ) {	return CATransform3DConcat(xyZRotation, transformation);	}	CATransform3D concatenatedTransformation = CATransform3DConcat(xRotation, transformation);
 @implementation CAShapeLayer (Lassos)
-- (void) redrawPath {
-	CALayer *selected = [self valueForKey:@"mommy"];
+- (void) redrawPath		 {
+	CAL*selected = [self valueForKey:@"mommy"];
 	CGRect shapeRect = selected.bounds;
 	shapeRect.size.width -= 4;
 	shapeRect.size.height -= 4;
@@ -67,83 +26,60 @@ CATransform3D CA3DxyZRotation(CAT3D xYRotation, CAT3D zRotation) {
 	
 }
 @end
-
-
 /*
- struct CATransform3D
- {
- CGFloat m11, m12, m13, m14;
- CGFloat m21, m22, m23, m24;
- CGFloat m31, m32, m33, m34;
- CGFloat m41, m42, m43, m44;
- };
- typedef struct CATransform3D CATransform3D;
+ struct CATransform3D	 {	CGF m11, m12, m13, m14;
+									CGF m21, m22, m23, m24;
+ 									CGF m31, m32, m33, m34;
+ 									CGF m41, m42, m43, m44; };	typedef struct CATransform3D CATransform3D;
+ @property CATransform3D 	transform,
+ 									sublayerTransform;
+ @property CGPoint 			anchorPoint;
+ @property CGF 			anchorPointZ;
+ ***  CATransform3D Matrix Operations ***
  
- @property CATransform3D transform;
- @property CATransform3D sublayerTransform;
- @property CGPoint anchorPoint;
- @property CGFloat anchorPointZ;
- 
- //	CATransform3D Matrix Operations
- 
- CATransform3D CATransform3DMakeTranslation ( CGFloat tx, 		CGFloat ty, 	CGFloat tz		);
- CATransform3D CATransform3DMakeScale (		CGFloat sx, 		 	CGFloat sy,		CGFloat sz		);
- CATransform3D CATransform3DMakeRotation (	CGFloat angle, 	 	CGFloat x,  	CGFloat y, 		CGFloat z		);
- CATransform3D CATransform3DTranslate (		CATransform3D t, 	CGFloat tx, 	CGFloat ty, 	CGFloat tz		);
- CATransform3D CATransform3DScale (			CATransform3D t, 	CGFloat sx, 	CGFloat sy, 	CGFloat sz		);
- CATransform3D CATransform3DRotate (			CATransform3D t, 	CGFloat angle,	CGFloat x,		CGFloat y,		CGFloat z	);
+ CATransform3D CATransform3DMakeTranslation ( CGF tx, 		CGF ty, 	CGF tz		);
+ CATransform3D CATransform3DMakeScale (		CGF sx, 		 	CGF sy,		CGF sz		);
+ CATransform3D CATransform3DMakeRotation (	CGF angle, 	 	CGF x,  	CGF y, 		CGF z		);
+ CATransform3D CATransform3DTranslate (		CATransform3D t, 	CGF tx, 	CGF ty, 	CGF tz		);
+ CATransform3D CATransform3DScale (			CATransform3D t, 	CGF sx, 	CGF sy, 	CGF sz		);
+ CATransform3D CATransform3DRotate (			CATransform3D t, 	CGF angle,	CGF x,		CGF y,		CGF z	);
  CATransform3D CATransform3DConcat (			CATransform3D a, 	CATransform3D b	);
  CATransform3D CATransform3DInvert (			CATransform3D t		);
  
- //Scale the layer along the x-axis
+ ***  Scale the layer along the x-axis ***
  [layer setValue:[NSNumber numberWithFloat:1.5] forKeyPath:@"transform.scale.x"];
- //Same result as above
+ ***  Same result as above ***
  CGSize biggerX = CGSizeMake(1.5, 1.);
  [layer setValue:[NSValue valueWithCGSize:biggerX] forKeyPath:@"transform.scale"];
+ 
+ // Makes this function run when the app loads
+ //__attribute__((constructor))	static void InitQuartzUtils()	{ }
  */
-
-/*
- File: QuartzUtils.m
- Abstract: Assorted CoreGraphics / Core Animation utility functions.	*/
-
-void prepareContext(CGContextRef ctx) {
+/*	File: QuartzUtils.m  Abstract: Assorted CoreGraphics / Core Animation utility functions.	*/
+void prepareContext(CGContextRef ctx) 											{
 	NSGraphicsContext *nsGraphicsContext = [NSGraphicsContext graphicsContextWithGraphicsPort:ctx flipped:NO];
 	[NSGraphicsContext saveGraphicsState]; [NSGraphicsContext setCurrentContext:nsGraphicsContext];
 }
-void applyPerspective (CALayer* layer) {
+void applyPerspective 	( CAL* layer )	 										{
 	CATransform3D perspectiveTransform = CATransform3DIdentity;
 	perspectiveTransform.m34 = 1.0 / -850;
 	layer.sublayerTransform = perspectiveTransform;
 }
-//CGColorRef kBlackColor, kWhiteColor,
-//kTranslucentGrayColor, kTranslucentLightGrayColor,
-//kAlmostInvisibleWhiteColor,
-//kHighlightColor, kRedColor, kLightBlueColor;
-
-static CGColorRef CreateDeviceGrayColor(CGFloat w, CGFloat a)
-{
+static CGColorRef CreateDeviceGrayColor(CGF w, CGF a)						{
 	CGColorSpaceRef gray = CGColorSpaceCreateDeviceGray();
-	CGFloat comps[] = {w, a};
+	CGF comps[] = {w, a};
 	CGColorRef color = CGColorCreate(gray, comps);
 	CGColorSpaceRelease(gray);
 	return color;
 }
-
-static CGColorRef CreateDeviceRGBColor(CGFloat r, CGFloat g, CGFloat b, CGFloat a)
-{
+static CGColorRef CreateDeviceRGBColor	(CGF r, CGF g, CGF b, CGF a)	{
 	CGColorSpaceRef rgb = CGColorSpaceCreateDeviceRGB();
-	CGFloat comps[] = {r, g, b, a};
+	CGF comps[] = {r, g, b, a};
 	CGColorRef color = CGColorCreate(rgb, comps);
 	CGColorSpaceRelease(rgb);
 	return color;
 }
-
-//__attribute__((constructor))		// Makes this function run when the app loads
-//static void InitQuartzUtils()
-//{
-// }
-void ChangeSuperlayer( CALayer *layer, CALayer *newSuperlayer, int index )
-{
+void ChangeSuperlayer	( CAL *layer, CAL*newSuperlayer, int index )	{
 	// Disable actions, else the layer will move to the wrong place and then back!
 	[CATransaction flush];
 	[CATransaction begin];
@@ -161,18 +97,14 @@ void ChangeSuperlayer( CALayer *layer, CALayer *newSuperlayer, int index )
 	
 	[CATransaction commit];
 }
-void RemoveImmediately( CALayer *layer )
-{
+void RemoveImmediately	( CAL*layer )	{
 	[CATransaction immediately:^{	[layer removeFromSuperlayer]; }];
 	
 }
-
-void RemoveSublayers( CALayer *host ){
-	[host sublayersBlockSkippingSelf: ^(CALayer *layer) {	[layer removeFromSuperlayer]; }];
+void RemoveSublayers		( CAL*host  )	{
+	[host sublayersBlockSkippingSelf: ^(CAL*layer) {	[layer removeFromSuperlayer]; }];
 }
-
-
-CALayer* AddBloom( CALayer *layer) {
+CAL* AddBloom				( CAL*layer ) 	{
 	// create the filter and set its default values
 	CIFilter *filter = [CIFilter filterWithName:@"CIBloom"];
 	[filter setDefaults];
@@ -184,10 +116,11 @@ CALayer* AddBloom( CALayer *layer) {
 	: @[filter];
 	return layer;
 }
-CALayer* AddShadow( CALayer *layer) {
+
+CAL* AddShadow				( CAL*layer )	{
 	
 	AZLOG(layer.debugDescription);
-	CGFloat base = NSEqualRects(layer.bounds, NSZeroRect) ? 50 : layer.boundsWidth;
+	CGF base = NSEqualRects(layer.bounds, NSZeroRect) ? 50 : layer.boundsWidth;
 	layer.shadowOffset 		= (CGSize){ .1 * base, -.1 *base };
 	layer.shadowRadius 		= .2 * base;
 	layer.shadowColor	 	= cgBLACK;
@@ -195,8 +128,7 @@ CALayer* AddShadow( CALayer *layer) {
 	
 	return layer;
 }
-
-CALayer* AddPulsatingBloom( CALayer *layer) {
+CAL* AddPulsatingBloom	( CAL*layer ) 	{
 	AddBloom(layer);
 	// create the animation that will handle the pulsing.
 	CABasicAnimation* pulseAnimation = [CABasicAnimation animation];
@@ -216,9 +148,8 @@ CALayer* AddPulsatingBloom( CALayer *layer) {
 	[layer addAnimation:pulseAnimation forKey:@"pulseAnimation"];
 	return layer;
 }
-
-CALayer* NewLayerWithFrame(NSRect rect){
-	CALayer *layer 			= [[CALayer alloc] init];
+CAL* NewLayerWithFrame	( NSR rect  )	{
+	CAL*layer 			= [[CALayer alloc] init];
 	layer.frame				= rect;
 	layer.bounds			= AZMakeRectFromSize(rect.size);
 	layer.position		  	= AZCenterOfRect(rect);
@@ -228,32 +159,22 @@ CALayer* NewLayerWithFrame(NSRect rect){
 	layer.backgroundColor 	= cgCLEARCOLOR;
 	return layer;
 }
-CALayer* NewLayerInLayer( CALayer *superlayer)
-{
-	CALayer *layer 			= NewLayerWithFrame(nanRectCheck(superlayer.frame));
+CAL* NewLayerInLayer		( CAL*superlayer )							{
+	CAL*layer 			= NewLayerWithFrame(nanRectCheck(superlayer.frame));
 	layer.delegate 			= superlayer;
 	[superlayer addSublayer:layer];
 	[layer addConstraintsSuperSize];
 	return layer;
 }
-
-CATextLayer* AddLabel( CALayer *superlayer,
-							 NSString *text)
-{
+CATXTL* AddLabel			( CAL*superlayer, NSS*text)				{
 	NSFont *font = [NSFont fontWithName:@"UbuntuTitling-Bold" size:29];
 	return AddTextLayer(superlayer, text, font, kCALayerWidthSizable);
 }
-
-extern CATextLayer* AddLabelLayer( CALayer *superlayer,								 NSString *text, NSFont* font )
-{
+CATXTL* AddLabelLayer	( CAL*superlayer, NSS*text, NSF*font )	{
 	return AddTextLayer(superlayer, text, font, kCALayerWidthSizable);
 }
-
-CATextLayer* AddTextLayer( CALayer *superlayer,
-								  NSString *text, NSFont* font,
-								  enum CAAutoresizingMask align )
-
-{	CATextLayer *label = [[CATextLayer alloc] init];
+CATXTL* AddTextLayer		( CAL*superlayer, NSS*text, NSF*font, enum CAAutoresizingMask align ){
+	CATXTL *label = [[CATXTL alloc] init];
 	[label setValue:@(YES) forKey:@"label"];
 	label.string = text;
 	label.font = (__bridge CGFontRef)font;
@@ -268,10 +189,10 @@ CATextLayer* AddTextLayer( CALayer *superlayer,
 	//	align |= kCALayerWidthSizable;
 	//	label.alignmentMode = mode;
 	
-	//	CGFloat inset 	= superlayer.borderWidth + 3;
+	//	CGF inset 	= superlayer.borderWidth + 3;
 	CGRect  bounds 	= nanRectCheck(superlayer.bounds);// CGRectInset(superlayer.bounds, inset, inset));
-	//	CGFloat height 	= font.ascender;
-	//	CGFloat y 		= bounds.origin.y;
+	//	CGF height 	= font.ascender;
+	//	CGF y 		= bounds.origin.y;
 	//	if		( align & kCALayerHeightSizable )	y += (bounds.size.height-height)/2.0;
 	//	else if	( align & kCALayerMinYMargin 	)	y += bounds.size.height - height;
 	//			  align &= ~kCALayerHeightSizable;
@@ -283,47 +204,86 @@ CATextLayer* AddTextLayer( CALayer *superlayer,
 	[superlayer addSublayer: label];
 	return label;
 }
-
-//
-//CATextLayer* AddTextLayer( CALayer *superlayer,	NSString *text, NSFont* font,	enum CAAutoresizingMask align )
-//{
-//	CATextLayer *label 	  = [[CATextLayer alloc] init];
-//	label.foregroundColor = kBlackColor;
-//	label.string 		= text;
-//	label.font 			= (__bridge CGFontRef)font;
-//	label.fontSize 		= font.pointSize;
-//	NSString *mode	 	= align & kCALayerWidthSizable 	? @"center"
-//				   		: align & kCALayerMinXMargin 	? @"right"		: @"left";
-//						  align |= kCALayerWidthSizable;
-//	label.alignmentMode = mode;
-//	CGFloat inset 		= superlayer.borderWidth + 3;
-//	CGRect bounds 		= CGRectInset(superlayer.bounds, inset, inset);
-//	CGFloat height 		= font.ascender;
-//	CGFloat y 			= bounds.origin.y;
-//	y 				   += align & kCALayerHeightSizable	? ((bounds.size.height-height) / 2.0)
-// 						: align & kCALayerMinYMargin 	? bounds.size.height - height : 0;
-//	align &= ~kCALayerHeightSizable;
-//	label.bounds 		= (CGRect) { 0, font.descender, bounds.size.width, height - font.descender };
-//	label.position 		= (CGPoint) { bounds.origin.x, y+font.descender };
-//	label.anchorPoint 	= (CGPoint) { 0, 0 };
-//	label.autoresizingMask = align;
-//	[superlayer addSublayer: label];
-//	return label;
-//}
-
-CALayer * AddImageLayer( CALayer *superlayer, NSImage *image, CGFloat scale) {
-	CALayer *u = ReturnImageLayer(superlayer, image, scale);
-	
-	//	u.contentsCenter = AZCenterRectOnRect(superlayer.bounds, new);
-	//	, scale), superlayer.frame);
-	[superlayer addSublayer:u];
+/*
+ CATXTL* AddTextLayer( CAL*superlayer,	NSString *text, NSFont* font,	enum CAAutoresizingMask align ) {
+	CATXTL *label 	  = [[CATXTL alloc] init];
+	label.foregroundColor = kBlackColor;
+	label.string 		= text;
+	label.font 			= (__bridge CGFontRef)font;
+	label.fontSize 		= font.pointSize;
+	NSString *mode	 	= align & kCALayerWidthSizable 	? @"center"
+				   		: align & kCALayerMinXMargin 	? @"right"		: @"left";
+						  align |= kCALayerWidthSizable;
+	label.alignmentMode = mode;
+	CGF inset 		= superlayer.borderWidth + 3;
+	CGRect bounds 		= CGRectInset(superlayer.bounds, inset, inset);
+	CGF height 		= font.ascender;
+	CGF y 			= bounds.origin.y;
+	y 				   += align & kCALayerHeightSizable	? ((bounds.size.height-height) / 2.0)
+ 						: align & kCALayerMinYMargin 	? bounds.size.height - height : 0;
+	align &= ~kCALayerHeightSizable;
+	label.bounds 		= (CGRect) { 0, font.descender, bounds.size.width, height - font.descender };
+	label.position 		= (CGPoint) { bounds.origin.x, y+font.descender };
+	label.anchorPoint 	= (CGPoint) { 0, 0 };
+	label.autoresizingMask = align;
+	[superlayer addSublayer: label];
+	return label;
+}
+ NSString *mode;
+ if( align & kCALayerWidthSizable )
+ mode = @"center";
+ else if( align & kCALayerMinXMargin )
+ mode = @"right";
+ else
+ mode = @"left";
+ align |= kCALayerWidthSizable;
+ label.autoresizingMask = kCALayerWidthSizable | kCALayerHeightSizable;
+ CGF inset = superlayer.borderWidth + 3;
+ CGRect bounds = AZScaleRect(superlayer.bounds, scale);//(superlayer.bounds, inset, inset);
+ CGF height = font.ascender;
+ CGF y = bounds.origin.y;
+ if( align & kCALayerHeightSizable )
+ y += (bounds.size.height-height)/2.0;
+ else if( align & kCALayerMinYMargin )
+ y += bounds.size.height - height;
+ align &= ~kCALayerHeightSizable;
+ label.bounds = CGRectMake(0, font.descender,
+ bounds.size.width, height - font.descender);
+ CGPointMake(bounds.origin.x,y+font.descender);
+ label.anchorPoint = CGPointMake(.5,.5);
+ label.autoresizingMask = align;
+CGImageRef GetCGImageFromPasteboard( NSPasteboard *pb )	{
+	CGImageSourceRef src = NULL;
+	NSArray *paths = [pb propertyListForType: NSFilenamesPboardType];
+	if( paths.count==1 ) {
+		// If a file is being dragged, read it:
+		CFURLRef url = (CFURLRef) [NSURL fileURLWithPath: [paths objectAtIndex: 0]];
+		src = CGImageSourceCreateWithURL(url, NULL);
+	} else {
+		// Else look for an image type:
+		NSString *type = [pb availableTypeFromArray: [NSImage imageUnfilteredPasteboardTypes]];
+		if( type ) {
+			NSData *data = [pb dataForType: type];
+			src = CGImageSourceCreateWithData((CFDataRef)data, NULL);
+		}
+	}
+	if(src) {
+		CGImageRef image = CGImageSourceCreateImageAtIndex(src, 0, NULL);
+		CFRelease(src);
+		return image;
+	} else
+		return NULL;
+}
+*/
+CAL* AddImageLayer		( CAL*superlayer, NSIMG*image, CGF scale) {
+	//	u.contentsCenter = AZCenterRectOnRect(superlayer.bounds, new); , scale), superlayer.frame);
+	CAL*u = ReturnImageLayer(superlayer, image, scale);
+	[superlayer  addSublayer:u];
 	[superlayer layoutIfNeeded];
 	return u;
 }
-
-CALayer* ReturnImageLayer(CALayer *superlayer, NSImage *image, CGFloat scale)
-{
-	CALayer *label 			= NewLayerWithFrame(superlayer.frame);
+CAL* ReturnImageLayer	( CAL*superlayer, NSIMG*image, CGF scale)	{
+	CAL*label 			= NewLayerWithFrame(superlayer.frame);
 	NSSize old 				= superlayer.frame.size;
 	image.size				= (NSSize) { old.width * scale, old.height * scale};
 	label.contentsGravity 	= kCAGravityCenter;
@@ -334,33 +294,7 @@ CALayer* ReturnImageLayer(CALayer *superlayer, NSImage *image, CGFloat scale)
 	//	[label addConstraintsSuperSizeScaled:scale];
 	return label;
 }
-
-//	NSString *mode;
-//	if( align & kCALayerWidthSizable )
-//		mode = @"center";
-//	else if( align & kCALayerMinXMargin )
-//		mode = @"right";
-//	else
-//		mode = @"left";
-//	align |= kCALayerWidthSizable;
-//	label.autoresizingMask = kCALayerWidthSizable | kCALayerHeightSizable;
-
-//	CGFloat inset = superlayer.borderWidth + 3;
-//	CGRect bounds = AZScaleRect(superlayer.bounds, scale);//(superlayer.bounds, inset, inset);
-//	CGFloat height = font.ascender;
-//	CGFloat y = bounds.origin.y;
-//	if( align & kCALayerHeightSizable )
-//		y += (bounds.size.height-height)/2.0;
-//	else if( align & kCALayerMinYMargin )
-//		y += bounds.size.height - height;
-//	align &= ~kCALayerHeightSizable;
-//	label.bounds = CGRectMake(0, font.descender,
-//							  bounds.size.width, height - font.descender);
-//	CGPointMake(bounds.origin.x,y+font.descender);
-//	label.anchorPoint = CGPointMake(.5,.5);
-//	label.autoresizingMask = align;
-CGImageRef CreateCGImageFromFile( NSString *path )
-{
+CGImageRef CreateCGImageFromFile	( NSS*path )	{
 	CGImageRef image = NULL;
 	CFURLRef url = (__bridge CFURLRef) [NSURL fileURLWithPath: path];
 	CGDataProviderRef provider = CGDataProviderCreateWithURL(url);
@@ -375,8 +309,7 @@ CGImageRef CreateCGImageFromFile( NSString *path )
 	}
 	return image;
 }
-CGImageRef GetCGImageNamed( NSString *name )
-{
+CGImageRef GetCGImageNamed			( NSS*name )	{
 	// For efficiency, loaded images are cached in a dictionary by name.
 	static NSMutableDictionary *sMap;
 	if( ! sMap )
@@ -398,8 +331,7 @@ CGImageRef GetCGImageNamed( NSString *name )
 	}
 	return image;
 }
-CGColorRef GetCGPatternNamed( NSString *name )		 // can be resource name or abs. path
-{
+CGColorRef GetCGPatternNamed		( NSS*name )	{		 // can be resource name or abs. path
 	// For efficiency, loaded patterns are cached in a dictionary by name.
 	static NSMutableDictionary *sMap;
 	if( ! sMap )
@@ -412,34 +344,9 @@ CGColorRef GetCGPatternNamed( NSString *name )		 // can be resource name or abs.
 	}
 	return pattern;
 }
-//CGImageRef GetCGImageFromPasteboard( NSPasteboard *pb )
-//{
-//	CGImageSourceRef src = NULL;
-//	NSArray *paths = [pb propertyListForType: NSFilenamesPboardType];
-//	if( paths.count==1 ) {
-//		// If a file is being dragged, read it:
-//		CFURLRef url = (CFURLRef) [NSURL fileURLWithPath: [paths objectAtIndex: 0]];
-//		src = CGImageSourceCreateWithURL(url, NULL);
-//	} else {
-//		// Else look for an image type:
-//		NSString *type = [pb availableTypeFromArray: [NSImage imageUnfilteredPasteboardTypes]];
-//		if( type ) {
-//			NSData *data = [pb dataForType: type];
-//			src = CGImageSourceCreateWithData((CFDataRef)data, NULL);
-//		}
-//	}
-//	if(src) {
-//		CGImageRef image = CGImageSourceCreateImageAtIndex(src, 0, NULL);
-//		CFRelease(src);
-//		return image;
-//	} else
-//		return NULL;
-//}
-float GetPixelAlpha( CGImageRef image, CGSize imageSize, CGPoint pt )
-{
-	// Trivial reject:
-	if( pt.x<0 || pt.x>=imageSize.width || pt.y<0 || pt.y>=imageSize.height )
-		return 0.0;
+CGF GetPixelAlpha						( CGImageRef image, CGSZ imageSize, CGP pt ){
+		// Trivial reject:
+	if( pt.x<0 || pt.x>=imageSize.width || pt.y<0 || pt.y>=imageSize.height )	return 0.0;
 	
 	// sTinyContext is a 1x1 CGBitmapContext whose pixmap stores only alpha.
 	static UInt8 sPixel[1];
@@ -460,22 +367,16 @@ float GetPixelAlpha( CGImageRef image, CGSize imageSize, CGPoint pt )
 	return sPixel[0] / 255.0;
 }
 #pragma mark - PATTERNS:
-// callback for CreateImagePattern.
-static void drawPatternImage (void *info, CGContextRef ctx)
-{
+static void drawPatternImage 		( void *info, CGContextRef ctx)	{
 	CGImageRef image = (CGImageRef) info;
 	CGContextDrawImage(ctx,
 							 CGRectMake(0,0, CGImageGetWidth(image),CGImageGetHeight(image)),
 							 image);
-}
-
-// callback for CreateImagePattern.
-static void releasePatternImage( void *info )
-{
+}	// callback for CreateImagePattern.
+static void releasePatternImage	( void *info )							{
 	CGImageRelease( (CGImageRef)info );
-}
-CGPatternRef CreateImagePattern( CGImageRef image )
-{
+} // callback for CreateImagePattern.
+CGPatternRef CreateImagePattern	( CGImageRef image )					{
 	NSCParameterAssert(image);
 	int width = CGImageGetWidth(image);
 	int height = CGImageGetHeight(image);
@@ -489,22 +390,19 @@ CGPatternRef CreateImagePattern( CGImageRef image )
 									true,
 									&callbacks);
 }
-CGColorRef CreatePatternColor( CGImageRef image )
-{
+CGColorRef CreatePatternColor		( CGImageRef image )					{
 	CGPatternRef pattern = CreateImagePattern(image);
 	CGColorSpaceRef space = CGColorSpaceCreatePattern(NULL);
-	CGFloat components[1] = {1.0};
+	CGF components[1] = {1.0};
 	CGColorRef color = CGColorCreateWithPattern(space, pattern, components);
 	CGColorSpaceRelease(space);
 	CGPatternRelease(pattern);
 	return color;
 }
-
-extern CATransform3D CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13, CGFloat m14,
-													CGFloat m21, CGFloat m22, CGFloat m23, CGFloat m24,
-													CGFloat m31, CGFloat m32, CGFloat m33, CGFloat m34,
-													CGFloat m41, CGFloat m42, CGFloat m43, CGFloat m44)
-{
+extern CATransform3D CATransform3DMake(CGF m11, CGF m12, CGF m13, CGF m14,
+													CGF m21, CGF m22, CGF m23, CGF m24,
+													CGF m31, CGF m32, CGF m33, CGF m34,
+													CGF m41, CGF m42, CGF m43, CGF m44)	{
 	CATransform3D t;
 	t.m11 = m11; t.m12 = m12; t.m13 = m13; t.m14 = m14;
 	t.m21 = m21; t.m22 = m22; t.m23 = m23; t.m24 = m24;
@@ -512,38 +410,25 @@ extern CATransform3D CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13, CG
 	t.m41 = m41; t.m42 = m42; t.m43 = m43; t.m44 = m44;
 	return t;
 }
-
-
-
-
 @implementation CALayer (VariadicConstraints)
-
-
-//@implementation NSMutableArray (variadicMethodExample)
-
-//- (void) appendObjects:(id) firstObject, ...
-//{
-//	id eachObject;
-//	va_list argumentList;
-//	if (firstObject) // The first argument isn't part of the varargs list,
-//		{								   // so we'll handle it separately.
-//			[self addObject: firstObject];
-//			va_start(argumentList, firstObject); // Start scanning for arguments after firstObject.
-//			while (eachObject = va_arg(argumentList, id)) // As many times as we can get an argument of type "id"
-//				[self addObject: eachObject]; // that isn't nil, add it to self's contents.
-//			va_end(argumentList);
-//		}
-//}
-
-//@end
-- (void) addConstraintsSuperSizeScaled:(CGFloat)scale;
-{
+/*	- (void) appendObjects:(id) firstObject, ...	{
+	id eachObject;
+	va_list argumentList;
+	if (firstObject) // The first argument isn't part of the varargs list,
+		{								   // so we'll handle it separately.
+			[self addObject: firstObject];
+			va_start(argumentList, firstObject); // Start scanning for arguments after firstObject.
+			while (eachObject = va_arg(argumentList, id)) // As many times as we can get an argument of type "id"
+				[self addObject: eachObject]; // that isn't nil, add it to self's contents.
+			va_end(argumentList);
+		}
+}										EXAMPLE OF VARIAIDIC		*/
+- (void) addConstraintsSuperSizeScaled:(CGF)scale	{
 	[self addConstraintsSuperSize];
 	[self addConstraint: AZConstRelSuperScaleOff(kCAConstraintWidth, scale,0)];
 	[self addConstraint: AZConstRelSuperScaleOff(kCAConstraintHeight, scale,0)];
 }
-- (void) addConstraintsSuperSize	{
-
+- (void) addConstraintsSuperSize								{
 	[self _ensureSuperHasLayoutManager];
 	self.constraints =	@[	AZConstRelSuper(kCAConstraintHeight),
 							  AZConstRelSuper(kCAConstraintWidth),
@@ -551,19 +436,15 @@ extern CATransform3D CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13, CG
 							  AZConstRelSuper(kCAConstraintMidY)		];
 	
 }
-- (void) _ensureSuperHasLayoutManager {
+- (void) _ensureSuperHasLayoutManager 						{
 	
 	if (!self.superlayer.layoutManager) self.superlayer.layoutManager = [[CAConstraintLayoutManager alloc]init];
 }
-
-- (void)addConstraints:(NSA*)constraints {
+- (void) addConstraints:			 (NSA*)constraints 				{
 	[self _ensureSuperHasLayoutManager];
 	[constraints do:^(id obj) {		[self addConstraint:obj];	}];
 }
-
-
-- (void) addConstraintsRelSuperOr:(NSNumber*) nilAttributeList, ...  // This method takes a nil-terminated list of objects.
-{
+- (void) addConstraintsRelSuperOr:(NSN*)nilAttributeList, ... 	{  // This method takes a nil-terminated list of objects.
 	va_list args;
 	va_start(args, nilAttributeList);
 	NSNumber *value;
@@ -576,126 +457,176 @@ extern CATransform3D CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13, CG
 	}
 		va_end(args);
 }
-
-- (void)addConstraintObjects:(CAConstraint*)first,... {
-
+- (void)addConstraintObjects:		 (CAConstraint*)first,... 		{
 	azva_list_to_nsarray(first, constraints);
 	LOGCOLORS(@"Adding ", @(constraints.count), @" constraints to layer with name:", self.name, PINK, ORANGE, nil);
 	[constraints each:^(id obj) { [self addConstraint:obj]; }];
 }
-
 - (void)addConstraintsRelSuper:(CAConstraintAttribute)first,...{ /* REQUIRES NSNotFound termination */
 	va_list args; 	va_start(args, first);
 	for (NSUInteger arg = first;	  arg != NSNotFound;	  arg = va_arg(args, NSUInteger)){
 		[self addConstraint:AZConstRelSuper(arg)];
 	}
 	va_end(args);
-
 }
-
 @end
-
+@implementation NSObject (bSelf)
+- (void) blockSelf:(void(^)(id<NSObject> bSelf))block { declareBlockSafeAs(self,bSelf); block(bSelf); }
+- (void) triggerKVO:(NSS*)k block:(void(^)(id<NSObject> bSelf))blk {  [self willChangeValueForKey:k]; [self blockSelf:^(NSO *bSelf) { blk(bSelf); }]; [self didChangeValueForKey:k]; }
+@end
+#define KVOTRIGGER(x) [ willChangeValueForKey:x][bSelf setValue:y forKey:x];  [bSelf didChangeValueForKey:x]; })
 static char ORIENT_IDENTIFIER;
 static char ROOT_IDENTIFIER;
 static char TEXT_IDENTIFIER;
-
-
-
 #define kCALayerLabel @"CALayerLabel"
 @implementation CALayer (AtoZ)
-@dynamic hostView;
-
-- (NSA*) sublayersAscending { return  [self.sublayers sortedWithKey:@"frameX" ascending:YES]; }
-
-
-- (void) setHostView:(NSView *)hostView	{
-
-	[self setAssociatedValue:hostView forKey:@"hostView" policy:OBJC_ASSOCIATION_ASSIGN];
-
+//@dynamic hostView, siblings, siblingIndex, siblingIndexMax, selected, hovered, backgroundNSColor;
++ (void) load {	//	NSLog(@"swizzling: @selector(addSublayer:)");
+//	[$ swizzleMethod:@selector(addSublayer:) with:@selector(swizzleAddSublayer:) in:self.class];
+//	[$ swizzleMethod:@selector(actionForKey:) with:@selector(swizzleActionForKey:) in:self.class];
 }
-- (NSV*) hostView { return  [self associatedValueForKey:@"hostView"] ?: nil; }
+//- (CAL*) hitEvent:(NSEvent*) forClass @dynamic permaPresentation;
+- (CAL*) permaPresentation	{	if (!self.presentationLayer) NSLog(@"no presenta para: %@", self);
+	return self.presentationLayer ?: self.modelCALayer ?: self;
+}
+- (void) setBackgroundNSColor:(NSC*)c 	{ self.bgC = c.CGColor; }
+- (NSC*) backgroundNSColor 				{ return self.bgC == NULL ? CLEAR : [NSC colorWithCGColor:self.bgC]; }
+- (BOOL) selected 							{
+	return [[self associatedValueForKey:@"_selected" orSetTo:@NO policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC]boolValue];
+}
+- (void) setSelected:(BOOL)s 				{ if (s == self.selected) return;
+	[self willChangeValueForKey:@"selected"];
+//	[self triggerKVO:@"selected" block:^(NSO *bSelf) {
+		[self setAssociatedValue:@(s) forKey:@"_selected" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
+	[self didChangeValueForKey:@"selected"];
+//	[self setNeedsDisplay];
+//	[self setNeedsLayout];
+}
+- (BOOL) hovered 					{
+	return [[self associatedValueForKey:@"_hovered" orSetTo:@NO policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC]boolValue];
+}
+- (void) setHovered:(BOOL)h	{ if (h == self.hovered) return;
+	[self willChangeValueForKey:@"hovered"];
+//	[self triggerKVO:@"hovered" block:^(NSO *bSelf) { //willChangeValueForKey:@"hovered"];
+	[self setAssociatedValue:@(h) forKey:@"_hovered" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
+	//	[self setValue:@(h) forKey:@"_hovered"];
+	[self didChangeValueForKey:@"hovered"];
+}
+- (void) needsLayoutForKey:(NSString*)key {	[self addObserverForKeyPath:key task:^(id sender) { [sender setNeedsLayout]; }];	}
+//+ (BOOL)automaticallyNotifiesObserversForKey:(NSString *)theKey {
+//	return [@[@"sublayers", @"siblings", @"siblingIndex", @"siblingIndexMax"]containsObject:theKey]
+//		 ?: [super automaticallyNotifiesObserversForKey:theKey];
+//}
+//	return [@[@"siblingIndex", @"siblingIndexMax",@"siblings", @"sublayers"]containsObject:key] ?: [super automaticallyNotifiesObserversForKey:key];
+//}
+//	return [@[@"siblingIndex", @"siblingIndexMax",@"siblings"]containsObject:key] ?: [super automaticallyNotifiesObserversForKey:key];
+//}
+//+ (NSSet*) keyPathsForValuesAffectingSiblings { return NSSET(@"sublayers"); }  //@"superlayer.sublayers"); }
+//+ (NSSet*) keyPathsForValuesAffectingSiblingIndex { return NSSET(@"siblings"); }  //@"superlayer.sublayers"); }
+- (NSA*) siblings 						{ return [self.superlayer.sublayers arrayByRemovingObject:self]; 	}
+- (NSUI) siblingIndex 					{ return MAX([self.superlayer.sublayers indexOfObject:self]+1,0);	}
+- (NSUI) siblingIndexMax				{ return MAX(self.superlayer.sublayers.count - 1, 0);								}
+-  (ACT)	swizzleActionForKey:(NSS*)e{
+//	[self swizzleDidChangeValueForKey:k];
+//	id v = [self vFK:k];
+//	if ([v ISKINDA:NSA.class])
+//	v = $(@"array for Key: %@, ct:%ld", k, [v count]);	//	NSLog(@"swizzle didcvfk:%@  %@", k,v);
+	objswitch(e)
+	objcase(kCAOnOrderIn)
+		NSLog(@"inside %@", e);
+		while (self.superlayer == nil) sleep(1);
+		[self willChangeValueForKey:@"siblings"];
+		if ([self respondsToSelector:@selector(didMoveToSuperlayer)]) [self didMoveToSuperlayer];
+		[self didChangeValueForKey:@"siblings"];
+		return [CABasicAnimation animationWithKeyPath:@"opacity"];
+//		if ([self superlayer].sublayers.count > 1)
+//			[self.sublayers each:^(id obj) {
+//			[obj willChangeValueForKeys:@"siblings", @"siblingIndexMax", nil];
+//			[obj didChangeValueForKeys:@"siblings", @"siblingIndexMax", nil];
+//		}];
 
-- (NSR) actuallyVisibleRect;
-{
+	endswitch
+	
+	return [self swizzleActionForKey:e] ?: [super actionForLayer:self forKey:e] ?: nil;
+//	objcase(@"sublayers")
+//		[self.sublayers makeObjectsPerformSelector:@selector(willChangeValueForKey:) withObject:@"siblings"];
+//		[self.sublayers makeObjectsPerformSelector:@selector(didChangeValueForKey:)  withObject:@"siblings"];
+
+//	return [self swizzleActionForKey:e];
+//	return [[self.class superclass] actionForKey:e];//didChangeValueForKey:k];
+}
+- (void) swizzleAddSublayer:(CAL*)c	{
+//	[self addKVOBlockForKeyPath:@"sublayers.@count" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld handler:^(NSS *keyPath, id object, NSD *change) {
+//	[self addObserver:cal keyPath:@"sublayers" options:0 block:^(MAKVONotification *notification) {
+//		AZLOGCMD;
+//	[self.sublayers each:^(id obj) { [obj willChangeValueForKeys:@[@"siblings", @"siblingIndex", @"siblingIndexMax"]]; }];
+	[self swizzleAddSublayer:c];
+//	[self.sublayers each:^(id obj) { [obj didChangeValueForKeys:@[@"siblings", @"siblingIndex", @"siblingIndexMax"]]; }];
+}
+- (NSA*) sublayersAscending 			{ return  [self.sublayers sortedWithKey:@"frameX" ascending:YES]; }
+- (void) setHostView:(NSV*)hostView	{
+	[self setAssociatedValue:hostView forKey:@"hostView" policy:OBJC_ASSOCIATION_ASSIGN];
+}
+- (NSV*) hostView 						{ return  [self associatedValueForKey:@"hostView"] ?: nil; }
+-  (NSR) actuallyVisibleRect;			{
 	return [self actuallyVisibleRectInView:nil];
 }
-- (NSR) actuallyVisibleRectInView:(NSV*)v;
-{
+-  (NSR) actuallyVisibleRectInView:(NSV*)v;	{
 	v = v ?: self.hostView ?: [[self.superlayers cw_mapArray:^id(id o) { return [o hostView]; }] 
 																	  sortedWithKey:@"minDim" ascending:NO].first;
-
 	NSR actual = NSIntersectionRect(self.visibleRect, AZRectFromSize([[v window] size]));
 //	NSLog(@"%@ vs %@ in %@ %@", AZString(self.visibleRect), AZString(actual), AZString(v.bounds), [v class]);
 	return actual;
 }
-- (NSA*) visibleSublayers 
-{ 
+- (NSA*) visibleSublayers 				{
 	NSA* i = [self.sublayers filter:^BOOL(id o){ return !CGRectIsEmpty([o actuallyVisibleRect]); }]; 
 //	NSLog(@"%ld/%ld subs Visible.", i.count, self.sublayers.count);
 	return i;
-
 }
-- (NSA*) sublayersOfClass:(Class)k
-{
+- (NSA*) sublayersOfClass:(Class)k	{
 	return [self.sublayers filter:^BOOL(id object) {
 		return [object isKindOfClass:k];
 	}];
 }
-
--(void) removeImmediately { RemoveImmediately(self); }
--(void) removeSublayers; { RemoveSublayers(self); }
-
-- (CATXTL*)addTextLayer:(NSS*)text font:(NSFont*)font align:(enum CAAutoresizingMask)align {
+- (void) removeImmediately 			{ RemoveImmediately(self); }
+- (void) removeSublayers; 				{ RemoveSublayers(self); }
+- (CATXTL*)	addTextLayer:(NSS*)text font:(NSFont*)font align:(enum CAAutoresizingMask)align {
 	
 	return AddTextLayer(self, text, font, align);
 }
-
-- (CALayer*)addImageLayer:(NSImage*)image scale:(CGFloat)scale
-{
+- (CAL*)		addImageLayer:(NSIMG*)image scale:(CGF)scale	{
 	return AddImageLayer( self, image, scale);
 }
+- (NSData*)	dataKey:(NSS*)defaultNm	{
 
-
--(NSData *)dataKey:(NSS*)defaultName
-{
-	NSData *data=[self valueForKey:defaultName];
+	NSData *data=[self valueForKey:defaultNm];
 	return [data isKindOfClass:objc_lookUpClass("NSData")]?data:(NSData *)nil;
 }
-
--(NSS*)strKey:(NSS*)defaultName {
+- (NSS*) strKey:	(NSS*)defaultName {
 	NSString *string=self[defaultName];
 	return [string isKindOfClass:objc_lookUpClass("NSString")]?string:(NSS*)nil;
 }
-
--(NSA*)arrKey:(NSS*)defaultName {
+- (NSA*) arrKey:	(NSS*)defaultName {
 	NSArray *array= self [defaultName];
 	
 	return [array isKindOfClass:objc_lookUpClass("NSArray")]?array:(NSA*)nil;
 }
-
--(NSD*)dicKey:(NSS*)defaultName
-{	NSDictionary *dictionary=self[defaultName];
+- (NSD*) dicKey:	(NSS*)defaultName	{	NSDictionary *dictionary=self[defaultName];
 	return [dictionary isKindOfClass:objc_lookUpClass("NSDictionary")]?dictionary:(NSD*)nil;
 }
-
--(BOOL)boolKey:(NSS*)defaultName {
+- (BOOL) boolKey:	(NSS*)defaultName {
 	id object=self[defaultName];
 	return [object isKindOfAnyClass:@[NSNumber.class,NSString.class]] ? [object boolValue] : NO;
 	
 }
-
--(NSI)iKey:(NSS*)defaultName
-{
+-  (NSI) iKey:		(NSS*)defaultName	{
 	id number=self[defaultName];
 	return [number isKindOfClass:objc_lookUpClass("NSString")]
 	?  	[(NSS*)number intValue]
 	:  [number isKindOfClass:objc_lookUpClass("NSNumber")]
 	?	[(NSN*)number intValue] : 0;
 }
-
-
--(CGF)fKey:(NSS*)defaultName
-{
+-  (CGF) fKey:		(NSS*)defaultName	{
 	id number=self[defaultName];
 	return	[number isKindOfClass:objc_lookUpClass("NSString")]
 	?		[(NSS*)number floatValue]
@@ -703,58 +634,16 @@ static char TEXT_IDENTIFIER;
 	?		[(NSN*)number floatValue]	:	0.0;
 	
 }
-
-- (CAL*) colored:(NSColor*)color {  self.bgC = [color CGColor];  return self; }
-
-- (CAL*) named:(NSS*)name {  self.name = name;  return self; }
-
-- (CAL*) withFrame:(NSR)frame { self.frame = frame; return self; }
-
-- (CAL*) withConstraints:(NSA*)constraints { [self addConstraints:constraints]; return  self; }
-
-
-- (CAL*) hitTestSubs:(CGPoint)point
-{
+- (CAL*) colored:	(NSC*)color			{  self.bgC = [color CGColor];  return self; }
+- (CAL*) named:	(NSS*)name 			{  self.name = name;  return self; }
+- (CAL*) withFrame:(NSR)frame 		{ self.frame = frame; return self; }
+- (CAL*) withConstraints:(NSA*)cnst { [self addConstraints:cnst]; return  self; }
+- (CAL*) hitTestSubs:(CGPoint)point	{
 	return [self.sublayers filterOne:^BOOL(CAL* object) {
 		return [object hitTest:point] && object != self;
 	}];
 }
-
-//+ (NSA*)uncodableKeys
-//{
-//	return [self propertyNames];
-//}
-//
-//- (void)setWithCoder:(NSCoder *)coder
-//{
-//	[super setWithCoder:coder];
-//	[self autoEncodeWithCoder:coder];
-//}
-//- (void)encodeWithCoder:(NSCoder *)coder
-//{
-//	[super encodeWithCoder:coder];
-//	[self autoDecode:coder]; //encodeObject:ENCODE_VALUE(self.newProperty) forKey:@"uncodableProperty"];
-//}
-
-//	[[self.class uncodableKeys] each:^(NSS* key) {
-//		[self autoEncodeWithCoder:coder]  ;//]}= DECODE_VALUE([[coder decodeObjectForKey:@"uncodableProperty"];
-//	}];
-//}
-//
-//- (void)encodeWithCoder:(NSCoder *)coder
-//{
-//	[super encodeWithCoder:coder];
-//	[coder encodeObject:ENCODE_VALUE(self.newProperty) forKey:@"uncodableProperty"];
-//}
-//
-//
-//-(id)copyWithZone:(NSZone *)zone {
-//   return [self.class.alloc initWithCoder:NSCoder.new];
-//}
-
-
-- (id) copyLayer
-{
+-   (id) copyLayer											{
 	//	id newOne = [self.class.alloc init];
 	//	NSD* newD =
 	//	NSLog(@"copying layer with props: %@", newD);
@@ -791,20 +680,15 @@ static char TEXT_IDENTIFIER;
 	//	}];// setPropertiesWithDictionary:newD];
 	//	return newOne;
 }
-
-
-- (void) addSublayer:(CAL*)layer named:(NSS*)name { layer.name = name; [self addSublayer:layer]; }
-
+- (void) addSublayer:(CAL*)layer named:(NSS*)name 	{ layer.name = name; [self addSublayer:layer]; }
 - (void) addSublayerImmediately:(CAL*)sub	{	[CATransaction immediately:^{	[self addSublayer:sub];	}];	}
 - (void) addSublayersImmediately:(NSA*)subArray {	[CATransaction immediately:^{	[self addSublayers:subArray];	}];	}
 - (void) insertSublayerImmediately:(CAL*)sub atIndex:(NSUI)idx {	[CATransaction immediately:^{	[self insertSublayer:sub atIndex:idx];	}];	}
-
 - (void) setValueImmediately:(id)v forKey:(id)key {	[CATRANNY immediately:^{ [self setValue:v forKey:key];	}];	}
--(void) toggleSpin: (AZState)state
-{
+- (void) toggleSpin: (AZState)state	{
 	AZState exist = [self unsignedIntegerForKey:@"spinState"];
 	if (exist == state) return;
-	if (state == AZOff || ( state == NSNotFound && exist == AZOn)) { [self removeAllAnimations]; }
+	if (state == AZOff || ( state == (AZState)NSNotFound && exist == AZOn)) { [self removeAllAnimations]; }
 	else {
 		CABA *animation = [CABA animationWithKeyPath:@"transform.rotation"];
 		animation.duration		= 8.0;
@@ -817,10 +701,9 @@ static char TEXT_IDENTIFIER;
 	}
 	[self setUnsignedInteger:state forKey:@"spinState"];
 }
+-   (id) initWithFrame:(CGRect)rect  				{
 
-
--(id)initWithFrame:(CGRect)rect  //from starlayer;
-{
+	//from starlayer
 	if (!(self = [super init])) return nil;
 	self.root 			= [CAL layer];
 	
@@ -841,15 +724,11 @@ static char TEXT_IDENTIFIER;
 	[self setNeedsDisplay];
 	return self;
 }
-
-
-- (void)moveToFront {
+- (void) moveToFront {
 	[self removeFromSuperlayer];
 	[self.superlayer addSublayer:self];
 }
-
-
-- (void)setValue:(id)value	  forKeyPath:(NSS*)keyPath
+- (void) setValue:(id)value	  forKeyPath:(NSS*)keyPath
 		  duration:(CFTimeInterval)duration delay:(CFTimeInterval)delay {
 	[CATransaction immediately:^{
 		[self setValue:value forKeyPath:keyPath];
@@ -862,48 +741,36 @@ static char TEXT_IDENTIFIER;
 		[self addAnimation:anim forKey:keyPath];
 	}];
 }
-
-
 @dynamic root, text, orient;
-
--(void)setText: (CATXTL*)text {
+-  (void) setText: (CATXTL*)text 		{
 	objc_setAssociatedObject(self, &TEXT_IDENTIFIER,text, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 	self.text ? [self replaceSublayer:self.text with:text] : [self addSublayer:text];
 	[self setNeedsLayout];	[self setNeedsDisplay];
 }
-
--(CATXTL*)text{ return (CATXTL*)objc_getAssociatedObject(self, &TEXT_IDENTIFIER);}
-
--(void)setRoot:(CALayer *)root {
+- (CATXTL*) text								{ return (CATXTL*)objc_getAssociatedObject(self, &TEXT_IDENTIFIER);}
+-  (void) setRoot:(CAL*)root				{
 	objc_setAssociatedObject(self, &ROOT_IDENTIFIER,root, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 	self.root ? [self replaceSublayer:self.root with:root] : [self addSublayer:root];
 	[self setNeedsLayout];	[self setNeedsDisplay];
 }
-
--(CAL*)root { return (CAL*)objc_getAssociatedObject(self, &ROOT_IDENTIFIER);}
-
-
--(void)setOrient : (AZPOS)orient
-{
+-  (CAL*) root 								{ return (CAL*)objc_getAssociatedObject(self, &ROOT_IDENTIFIER);}
+-  (void) setOrient : (AZPOS)orient		{
 	objc_setAssociatedObject(self, &ORIENT_IDENTIFIER, @(orient), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 	if ( [self hasPropertyForKVCKey:@"anchorPoint"] ) {
 		CGP newA = AZAnchorPointForPosition(orient);
 		if ( ! NSEqualPoints(newA, self.anchorPoint) )	[self setAnchorPoint:newA];
 	}
 	
-	[self sublayersBlock:^(CALayer *layer) {
+	[self sublayersBlock:^(CAL*layer) {
 		[layer setNeedsDisplay];
 		[layer setNeedsLayout];
 	}];
 }
-
--(AZPOS)orient{
+- (AZPOS) orient								{
 	return (AZPOS)[objc_getAssociatedObject(self, &ORIENT_IDENTIFIER) unsignedIntegerValue];
 	
 }
-
-
-- (NSN*) addValues:(int) count, ... {
+-  (NSN*) addValues:(int) count, ... 	{
 	va_list args;
 	va_start(args, count);
 	
@@ -921,9 +788,7 @@ static char TEXT_IDENTIFIER;
 	va_end(args);
 	return @(retval);
 }
-
--(void) animateXThenYToFrame:(NSR)toRect duration:(NSUI)time;
-{
+-  (void) animateXThenYToFrame:(NSR)toRect duration:(NSUI)time	{
 	//	NSRect max, min;
 	//	max = AZIsRectRightOfRect(self.frame,toRect) ? self.frame : toRect;
 	//	min = NSEqualRects(max, self.frame) ? toRect : self.frame;
@@ -949,7 +814,18 @@ static char TEXT_IDENTIFIER;
 		self.position = interim;
 	}];
 }
-//	}];
+
+
+//+ (NSA*)uncodableKeys {	return [self propertyNames];	}
+//- (void)setWithCoder:(NSCoder *)coder{	[super setWithCoder:coder];[self autoEncodeWithCoder:coder];}
+//- (void)encodeWithCoder:(NSCoder *)coder{	[super encodeWithCoder:coder];
+//	[self autoDecode:coder]; //encodeObject:ENCODE_VALUE(self.newProperty) forKey:@"uncodableProperty"];	}
+//	[[self.class uncodableKeys] each:^(NSS* key) {
+//		[self autoEncodeWithCoder:coder]  ;//]}= DECODE_VALUE([[coder decodeObjectForKey:@"uncodableProperty"];	}];
+//}
+//- (void)encodeWithCoder:(NSCoder *)coder	{	[super encodeWithCoder:coder];
+//	[coder encodeObject:ENCODE_VALUE(self.newProperty) forKey:@"uncodableProperty"];	}
+//- (id)copyWithZone:(NSZone *)zone {  return [self.class.alloc initWithCoder:NSCoder.new];	}
 //			self.position = nanPointCheck(AZCenterOfRect(toRect));
 //			self.bounds =	AZMakeRectFromSize( nanSizeCheck( toRect.size ));
 //	}];
@@ -976,9 +852,7 @@ static char TEXT_IDENTIFIER;
 //
 //	[self addAnimation:group forKey:nil];
 //	[CATransaction commit];
-
-
-- (void)blinkLayerWithColor:(NSColor*)color {
+- (void) blinkLayerWithColor:(NSC*)color 								{
 	CABasicAnimation * blinkAnimation = [CABasicAnimation animationWithKeyPath:@"backgroundColor"];
 	[blinkAnimation setDuration:0.2];
 	[blinkAnimation setAutoreverses:YES];
@@ -986,17 +860,14 @@ static char TEXT_IDENTIFIER;
 	[blinkAnimation setToValue:(id)color.CGColor];
 	[self addAnimation:blinkAnimation forKey:@"blink"];
 }
-
-- (CAL*)hitTestEvent:(NSEvent*)e inView:(NSView*)v
-{
+- (CAL*) hitTestEvent:(NSE*)e inView:(NSV*)v							{
 	NSPoint mD = [NSScreen convertAndFlipEventPoint:e relativeToView:v];
 	return [self hitTest: mD];
 }
--(CALayer*)hitTest:(NSPoint)p inView:(NSView*)v forClass:(Class)klass
-{
+- (CAL*) hitTest:	(NSP)p inView:(NSV*)v forClass:(Class)klass	{
 	
 	NSPoint pp =  [NSScreen convertAndFlipMousePointInView:v];
-	CALayer* layer = [self hitTest:pp];
+	CAL* layer = [self hitTest:pp];
 	
 	while (layer != nil && ![layer isKindOfClass:klass])
 	{
@@ -1005,25 +876,21 @@ static char TEXT_IDENTIFIER;
 	
 	return layer;
 }
-
-
 //How to set the CATransform3DRotate along the x-axis for a specified height with perspective
--(void) addPerspectiveForVerticalOffset: (CGFloat)pixels;
-{
-	CGFloat totalHeight = self.bounds.size.height; //height is 30
-	CGFloat heightToSetViewTo = 5;
-	CGFloat rad = acosf( heightToSetViewTo / totalHeight);
+- (void) addPerspectiveForVerticalOffset:(CGF)pixels				{
+	CGF totalHeight = self.bounds.size.height; //height is 30
+	CGF heightToSetViewTo = 5;
+	CGF rad = acosf( heightToSetViewTo / totalHeight);
 	CATransform3D rT = CATransform3DIdentity;
 	rT = CATransform3DRotate(rT, rad, 1.0f, 0.0f, 0.0f);
 	self.transform = rT;
-	CGFloat zDist = 1000;
+	CGF zDist = 1000;
 	rT.m34 = 1.0f /  -zDist;
 }
-
 //@implementation  NSObject (LayerTools)
--(CALayer*) selectionLayerForLayer:(CALayer*)layer {
+- (CAL*) selectionLayerForLayer:(CAL*)layer 							{
 	
-	CALayer *aselectionLayer = [CALayer layer];
+	CAL*aselectionLayer = [CALayer layer];
 	//		selectionLayer.bounds = CGRectMake (0.0,0.0,width,height);
 	aselectionLayer.borderWidth = 4.0;
 	aselectionLayer.cornerRadius = layer.cornerRadius;
@@ -1059,34 +926,33 @@ static char TEXT_IDENTIFIER;
 	//		[rootLayer addSublayer:self.selectionLayer];
 	return aselectionLayer;
 }
-
-- (void) toggleLasso:(BOOL)state  {		//:(CATransform3D)transform {
+- (void) toggleLasso:(BOOL)state  										{		//:(CATransform3D)transform {
 	if (state) {
 		AZLOG($(@"TOGGLING LASSO ON for %@", self));
 		[[[[self superlayers] filterOne:^BOOL(id object) {
 			return [object[@"name"]isEqualToAnyOf:@[@"root", @"host"]];
 		}] sublayers]each:^(id obj) {
-			[obj sublayersBlockSkippingSelf:^(CALayer *layer) {
+			[obj sublayersBlockSkippingSelf:^(CAL*layer) {
 				if ([layer.name isEqualToString:@"lasso"]) [layer removeFromSuperlayer];
 			}]; }];
 	}
 	else { CAShapeLayer *lasso = [self lassoLayerForLayer:self];
 		lasso.name = @"lasso";  [self addSublayer:lasso];
 	}
-	//	[self sublayersBlockSkippingSelf:^(CALayer *layer) {
+	//	[self sublayersBlockSkippingSelf:^(CAL*layer) {
 	//		[layer[@"name"] isEqualToString:@"lasso"
 	//	}]
 	//	BOOL isFlipped = [[self valueForKey:@"flipped"]boolValue];
 	//	isFlipped ? [self flipBack] : [self flipOver];
 	//	[self setValue:@(isFlipped =! isFlipped) forKey:@"flipped"];
 }
-- (id) lassoLayerForLayer:(CALayer*)layer {
+-   (id) lassoLayerForLayer:(CAL*)layer								{
 	
 	//	NSLog(@"Clicked: %@", [[layer valueForKey:@"azfile"] propertiesPlease] );
 	CAShapeLayerNoHit *shapeLayer = [CAShapeLayerNoHit layer];
 	shapeLayer[@"mommy"] 		= layer;
-	CGFloat dynnamicStroke 		= .05 * AZMaxDim(layer.bounds.size);
-	CGFloat half 				= dynnamicStroke / 2;
+	CGF dynnamicStroke 		= .05 * AZMaxDim(layer.bounds.size);
+	CGF half 				= dynnamicStroke / 2;
 	shapeLayer.bounds			= NSInsetRect(layer.bounds, dynnamicStroke, dynnamicStroke);
 	shapeLayer.autoresizingMask	= kCALayerWidthSizable|kCALayerHeightSizable;
 	shapeLayer.constraints 		= @[		AZConstScaleOff( kCAConstraintMinX,@"superlayer", 1, half),
@@ -1114,74 +980,7 @@ static char TEXT_IDENTIFIER;
 	[shapeLayer needsDisplay];
 	return shapeLayer;
 }
-
-//- (CAShapeLayer*) lassoLayerForLayer:(CALayer*)layer {
-//
-//	NSLog(@"Clicked: %@", [[layer valueForKey:@"azfile"] propertiesPlease] );
-//	CAShapeLayer *shapeLayer = [CAShapeLayer layer];
-//	[shapeLayer setValue:layer forKey:@"mommy"];
-//		//	float total = 	( (2*contentLayer.bounds.size.width) + (2*contentLayer.bounds.size.height) - (( 8 - ((2 * pi) * contentLayer.cornerRadius))));
-//	CGRect shapeRect = layer.bounds;
-//
-//	[shapeLayer setBounds:shapeRect];
-//		//	[shapeLayer setAutoresizingMask:kCALayerWidthSizable|kCALayerHeightSizable];
-//	NSArray *constraints = [NSArray arrayWithObjects:
-//							AZConstScaleOff( kCAConstraintMinX,@"superlayer", 1,2),
-//							AZConstScaleOff( kCAConstraintMaxX,@"superlayer", 1,2),
-//							AZConstScaleOff( kCAConstraintMinY,@"superlayer", 1,2),
-//							AZConstScaleOff( kCAConstraintMaxY,@"superlayer", 1,2),
-//							AZConstScaleOff( kCAConstraintWidth,@"superlayer", 1,-4),
-//							AZConstScaleOff( kCAConstraintHeight,@"superlayer", 1, -4),
-//							AZConst( kCAConstraintMidX,@"superlayer"),
-//							AZConst( kCAConstraintMidY,@"superlayer"),  nil];
-//	shapeLayer.constraints = constraints;
-//		//	[shapeLayer setPosition:CGPointMake(.5,.5)];
-//	[shapeLayer setFillColor:cgCLEARCOLOR];
-//	[shapeLayer setStrokeColor: [[[layer valueForKey:@"azfile"]valueForKey:@"color"]CGColor]];
-//	[shapeLayer setLineWidth:4];
-//	[shapeLayer setLineJoin:kCALineJoinRound];
-//	[shapeLayer setLineDashPattern:@[ @(10), @(5)]];
-//		//	 [NSArray arrayWithObjects:[NSNumber numberWithInt:10],
-//		//	  [NSNumber numberWithInt:5],
-//		//	  nil]];
-//		// Setup the path
-//	shapeRect.size.width -= 4;
-//	shapeRect.size.height -= 4;
-//	NSBezierPath *p = [NSBezierPath bezierPathWithRoundedRect:NSRectFromCGRect(shapeRect) cornerRadius:layer.cornerRadius];
-//
-//		//	CGMutablePathRef path = CGPathCreateMutable();
-//		//	CGPathAddRect(path, NULL, shapeRect);
-//		//	[shapeLayer setPath:path];
-//		//	CGPathRelease(path);
-//	[shapeLayer setPath:[p quartzPath]];
-//	CABasicAnimation *dashAnimation = [CABasicAnimation animationWithKeyPath:@"lineDashPhase"];
-//	[dashAnimation setFromValue:[NSNumber numberWithFloat:0.0f]];
-//	[dashAnimation setToValue:[NSNumber numberWithFloat:15.0f]];
-//	[dashAnimation setDuration:0.75f];
-//	[dashAnimation setRepeatCount:10000];
-//
-//	[shapeLayer addAnimation:dashAnimation forKey:@"linePhase"];
-//
-//		//	float total = (((2* NSMaxX(contentLayer.frame)) + (2 * NSMaxY(box.frame)))/16);
-//		//	CABasicAnimation *dashAnimation = [CABasicAnimation animationWithKeyPath:@"lineDashPhase"];
-//		//	dashAnimation.fromValue 	= $float(0.0f);	dashAnimation.toValue 	= $float
-//		//	(total);
-//		//
-//		//	dashAnimation.duration	= 3;				dashAnimation.repeatCount = 10000;
-//		//	//	dashAnimation.beginTime = CACurrentMediaTime();// + 2;
-//		//	[shapeLayer addAnimation:dashAnimation forKey:@"linePhase"];
-//		//	shapeLayer.fillColor 		= cgRED;
-//		//	shapeLayer.strokeColor		= cgBLACK;
-//		//	shapeLayer.lineJoin			= kCALineJoinMiter;
-//		//	shapeLayer.lineDashPattern 	= $array( $int(total/8), $int(total/8));
-//		//
-//		//	//			srelectedBox.shapeLayer.lineDashPattern 	= $array( $int(15), $int(45));
-//		//	shapeLayer.lineWidth = 5;
-//		//	[shapeLayer setPath:[[NSBezierPath bezierPathWithRoundedRect:contentLayer.bounds cornerRadius:contentLayer.cornerRadius ] quartzPath]];
-// 	return shapeLayer;
-//}
-
--(CATransform3D)makeTransformForAngle:(CGFloat)angle{ // from:(CATransform3D)start{
+- (CAT3D) makeTransformForAngle:(CGF)angle							{ // from:(CATransform3D)start{
 	
 	CATransform3D transform = self.transform;// = start;
 	// the following two lines are the key to achieve the perspective effect
@@ -1192,14 +991,10 @@ static char TEXT_IDENTIFIER;
 	transform = CATransform3DRotate(transform,angle, 0.0, 1.0, 0.0);
 	return transform;
 }
-
-- (id) objectForKeyedSubscript: (NSS*)key
-{
+-   (id) objectForKeyedSubscript: (NSS*)key							{
 	return [self valueForKey:key] ?: nil;
 }
-
-- (void)setObject:(id)object forKeyedSubscript:(NSS*)key
-{
+- (void) setObject:(id)object forKeyedSubscript:(NSS*)key		{
 	if ( [self canSetValueForKey:key]) {
 		if (isEmpty(object)) [self setValue:@"" forKey:key];
 		else{
@@ -1207,68 +1002,133 @@ static char TEXT_IDENTIFIER;
 //			NSLog(@"setValue: %@ for layer's key: %@", object, key)
 		}}
 }
-
--(void)rotateAroundYAxis:(CGFloat)radians
-{
+- (void) rotateAroundYAxis:(CGF)radians								{
 	[self vFK:@"animating"] ? ^{ return; }() : ^{ [self setValue:@(YES) forKey:@"animating"];
 		[CATransaction transactionWithLength:1 easing:CAMEDIAEASY actions:^{
 			self.sublayerTransform = CATransform3DMakeRotation(radians, 0, 1, 0);
 		}];
 	}();
 }
--(void)setHostingLayerAnchorPoint:(CGPoint)point
-{
-	CALayer* topLayer = [self.superlayers lastObject];
+- (void) setHostingLayerAnchorPoint:(CGP)point						{
+	CAL* topLayer = [self.superlayers lastObject];
 	topLayer.anchorPoint = point;
 	//	topLayer.frame = [layerView bounds];
 }
--(void)animateCameraToPosition:(CGPoint)point
-{
+- (void) animateCameraToPosition:(CGP)point							{
 	[self vFK:@"animating"] ? ^{ return; }() : ^{ [self setValue:@(YES) forKey:@"animating"];
 		
 		[CATransaction transactionWithLength:2 easing:CAMEDIAEASY actions:^{
 			//	} setCompletionBlock:^ { // referencing mBeingAnimated creates a retain cycle as the block will retain self mBeingAnimated = NO; }];
-			CGFloat cameraX = percent(point.x);		//[cameraXField doubleValue]);
-			CGFloat cameraY = percent(point.y);		//[cameraYField doubleValue]);
+			CGF cameraX = percent(point.x);		//[cameraXField doubleValue]);
+			CGF cameraY = percent(point.y);		//[cameraYField doubleValue]);
 			[self setHostingLayerAnchorPoint: (CGPoint){cameraX, cameraY}];
 		}];
 		[self setValue:@(NO) forKey:@"animating"];
 	}();
 }
-
--(void)rotateBy45
-{
+- (void) rotateBy45	{
 	[self vFK:@"animating"] ? ^{ return; }() : ^{ [self setValue:@(YES) forKey:@"animating"];
 		[self rotateAroundYAxis:M_PI_4];
 		[self setValue:@(NO) forKey:@"animating"];
 	}();
 	
 }
-
--(void)rotateBy90
-{
+- (void) rotateBy90	{
 	[self rotateAroundYAxis:M_PI_2];
 }
-
-- (void)animateToColor:(NSColor*)color{
+- (void) animateToColor:(NSC*)color{	[self animateToColor:color duration:2 withCallBack:NO];  }
+- (void(^)(void)) animateToColor:(NSColor*)color duration:(NSTI)interval withCallBack:(BOOL)itRezhuzhesTheColor {
+	NSColor *saved = self.bgC == NULL ? CLEAR : [NSColor colorWithCGColor:self.bgC];
+	
 	NSString *key = [self isKindOfClass:[CAShapeLayer class]] ? @"fillColor" : @"backgroundColor";
 	CABasicAnimation *anime = [CABasicAnimation animationWithKeyPath:key];
-	anime.toValue 		= (id)color.CGColor;
-	anime.duration 		= 5.0f;
+	anime.fromValue      = self.bgC == NULL ? (id)cgCLEARCOLOR : (id)self.bgC;
+	anime.toValue 			= (id)color.CGColor;
+	anime.duration 		= interval;
 	anime.autoreverses 	= NO;
-	anime.fillMode		= kCAFillModeForwards;
+	anime.fillMode		= kCAFillModeBoth;//kCAFillModeForwards;
+	anime.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
 	anime.removedOnCompletion = NO;
 	[self addAnimation:anime forKey:@"color"];
+	
+	return itRezhuzhesTheColor ?  ^{  [self animateToColor:saved duration:interval withCallBack:NO]; } : ^{};
 }
+/*
+ - (CAShapeLayer*) lassoLayerForLayer:(CAL*)layer {
+ NSLog(@"Clicked: %@", [[layer valueForKey:@"azfile"] propertiesPlease] );
+ CAShapeLayer *shapeLayer = [CAShapeLayer layer];
+ [shapeLayer setValue:layer forKey:@"mommy"];
+ //	float total = 	( (2*contentLayer.bounds.size.width) + (2*contentLayer.bounds.size.height) - (( 8 - ((2 * pi) * contentLayer.cornerRadius))));
+ CGRect shapeRect = layer.bounds;
+ [shapeLayer setBounds:shapeRect];
+ //	[shapeLayer setAutoresizingMask:kCALayerWidthSizable|kCALayerHeightSizable];
+ NSArray *constraints = [NSArray arrayWithObjects:
+ AZConstScaleOff( kCAConstraintMinX,@"superlayer", 1,2),
+ AZConstScaleOff( kCAConstraintMaxX,@"superlayer", 1,2),
+ AZConstScaleOff( kCAConstraintMinY,@"superlayer", 1,2),
+ AZConstScaleOff( kCAConstraintMaxY,@"superlayer", 1,2),
+ AZConstScaleOff( kCAConstraintWidth,@"superlayer", 1,-4),
+ AZConstScaleOff( kCAConstraintHeight,@"superlayer", 1, -4),
+ AZConst( kCAConstraintMidX,@"superlayer"),
+ AZConst( kCAConstraintMidY,@"superlayer"),  nil];
+ shapeLayer.constraints = constraints;
+ //	[shapeLayer setPosition:CGPointMake(.5,.5)];
+ [shapeLayer setFillColor:cgCLEARCOLOR];
+ [shapeLayer setStrokeColor: [[[layer valueForKey:@"azfile"]valueForKey:@"color"]CGColor]];
+ [shapeLayer setLineWidth:4];
+ [shapeLayer setLineJoin:kCALineJoinRound];
+ [shapeLayer setLineDashPattern:@[ @(10), @(5)]];
+ //	 [NSArray arrayWithObjects:[NSNumber numberWithInt:10],
+ //	  [NSNumber numberWithInt:5],
+ //	  nil]];
+ // Setup the path
+ shapeRect.size.width -= 4;
+ shapeRect.size.height -= 4;
+ NSBezierPath *p = [NSBezierPath bezierPathWithRoundedRect:NSRectFromCGRect(shapeRect) cornerRadius:layer.cornerRadius];
 
-/*	CAAnimation * animation = [[CAAnimation animation] animationWithKeyPath:@"backgroundColor"];
+ //	CGMutablePathRef path = CGPathCreateMutable();
+ //	CGPathAddRect(path, NULL, shapeRect);
+ //	[shapeLayer setPath:path];
+ //	CGPathRelease(path);
+ [shapeLayer setPath:[p quartzPath]];
+ CABasicAnimation *dashAnimation = [CABasicAnimation animationWithKeyPath:@"lineDashPhase"];
+ [dashAnimation setFromValue:[NSNumber numberWithFloat:0.0f]];
+ [dashAnimation setToValue:[NSNumber numberWithFloat:15.0f]];
+ [dashAnimation setDuration:0.75f];
+ [dashAnimation setRepeatCount:10000];
+
+ [shapeLayer addAnimation:dashAnimation forKey:@"linePhase"];
+
+ //	float total = (((2* NSMaxX(contentLayer.frame)) + (2 * NSMaxY(box.frame)))/16);
+ //	CABasicAnimation *dashAnimation = [CABasicAnimation animationWithKeyPath:@"lineDashPhase"];
+ //	dashAnimation.fromValue 	= $float(0.0f);	dashAnimation.toValue 	= $float
+ //	(total);
+ //
+ //	dashAnimation.duration	= 3;				dashAnimation.repeatCount = 10000;
+ //	//	dashAnimation.beginTime = CACurrentMediaTime();// + 2;
+ //	[shapeLayer addAnimation:dashAnimation forKey:@"linePhase"];
+ //	shapeLayer.fillColor 		= cgRED;
+ //	shapeLayer.strokeColor		= cgBLACK;
+ //	shapeLayer.lineJoin			= kCALineJoinMiter;
+ //	shapeLayer.lineDashPattern 	= $array( $int(total/8), $int(total/8));
+ //
+ //	//			srelectedBox.shapeLayer.lineDashPattern 	= $array( $int(15), $int(45));
+ //	shapeLayer.lineWidth = 5;
+ //	[shapeLayer setPath:[[NSBezierPath bezierPathWithRoundedRect:contentLayer.bounds cornerRadius:contentLayer.cornerRadius ] quartzPath]];
+ return shapeLayer;
+ }
+
+
+
+
+ CAAnimation * animation = [[CAAnimation animation] animationWithKeyPath:@"backgroundColor"];
  
  NSDictionary *dic = $map(	(id)[color1 CGColor], 	@"fromValue",								 (id)[color2 CGColor], 	@"toValue",
  $float(2.0), 			@"duration",		 YES,						@"removedOnCompletion",
  kCAFillModeForwards, 	@"fillMode");
  [animation setValuesForKeysWithDictionary:dic];	[theLayer addAnimation:animation forKey:@"color"];
  
- + (CAShapeLayer*) lassoLayerForLayer:(CALayer*)layer {
+ + (CAShapeLayer*) lassoLayerForLayer:(CAL*)layer {
  
  //	NSLog(@"Clicked: %@", [[layer valueForKey:@"azfile"] propertiesPlease] );
  CAShapeLayer *shapeLayer = [CAShapeLayer layer];
@@ -1330,7 +1190,7 @@ static char TEXT_IDENTIFIER;
  }
  
  - (void) redrawPath {
- CALayer *selected = [_lassoLayer valueForKey:@"mommy"];
+ CAL*selected = [_lassoLayer valueForKey:@"mommy"];
  CGRect shapeRect = selected.bounds;
  shapeRect.size.width -= 4;
  shapeRect.size.height -= 4;
@@ -1357,25 +1217,18 @@ static char TEXT_IDENTIFIER;
  draggedDuringThisClick = true;
  
  deltaX = (point.x - dragStart.x)/200;
- deltaY = -(point.y - dragStart.y)/200;
+ deltaY = - (point.y - dragStart.y)/200;
  [self orientWithX:(angleX+deltaX) andY:(angleY+deltaY)];
  
  */
-
-
 - (void)orientWithPoint:(CGP)point	{	[self orientWithX:point.x andY:point.y];	}
-
-- (void)orientWithX:(CGF)x andY:(CGF)y
-{
+- (void)orientWithX:(CGF)x andY:(CGF)y	{
 	CAT3D t	= CATransform3DConcat(	CATransform3DMakeRotation(x, 0, 1, 0),	CATransform3DMakeRotation( y, 1, 0, 0) );
 	t.m34		= 1.0 / -450;	self.sublayerTransform	= t;
 }
 - (void) setAnchorPoint:(CGP)anchor inView:(NSV*)v 	{ [self setAnchorPoint:anchor inRect:v.bounds];		}
-
 - (void) setAnchorPointRelative: (CGP)anchor		{ [self setAnchorPoint:anchor inRect:self.bounds];	}
-
-- (void) setAnchorPoint:(CGP) anchor inRect:(NSR)rect
-{
+- (void) setAnchorPoint:(CGP) anchor inRect:(NSR)rect	{
 	CGP newPoint = (CGP) { rect.size.width * anchor.x, rect.size.height * anchor.y };
 	CGP oldPoint = (CGP) { rect.size.width * self.anchorPoint.x, rect.size.height * self.anchorPoint.y };
 	//	newPoint = CGPo CGPointApplyAffineTransform(newPoint, self.transform); oldPoint = CGPointApplyAffineTransform(oldPoint, self.transform);
@@ -1387,16 +1240,12 @@ static char TEXT_IDENTIFIER;
 }
 //- (void) flipHorizontally {	[self flipForward:YES vertically:NO atPosition:99]; }
 //- (void) flipVertically;  {	[self flipForward:YES vertically:YES atPosition:99]; }
-
 - (void) flipBackAtEdge:(AZPOS)position {	[self flipForward:NO  atPosition: position];	}
-
 - (void) flipForwardAtEdge: (AZPOS)position {		[self flipForward:YES atPosition: position];	}
-
 - (void) toggleFlip  {	BOOL isFlipped = [self boolForKey:@"flipped" defaultValue:NO];
 	isFlipped ? [self flipBack] : [self flipOver];
 	[self setBool:isFlipped =! isFlipped forKey:@"flipped"];
 }
-
 - (void) flipDown  {		//:(CATransform3D)transform {
 	self.anchorPoint = CGPointMake(.5, 0);
 	CATransform3D transform = CATransform3DIdentity;
@@ -1413,13 +1262,11 @@ static char TEXT_IDENTIFIER;
 	transform.m34 = 1.0/700.0;
 	self.transform =  CATransform3DRotate(transform, 180 * M_PI/180, -1, 0, 0);
 }
-
 + (CATransform3D) flipAnimationPositioned:(AZPOS)pos {
 	CGPoint dir = (CGPoint) {   pos == AZPositionTop || pos ==AZPositionBottom ? 1 : 0,
 		pos == AZPositionTop || pos ==AZPositionBottom ? 0 : 1 };
 	return CATransform3DMakeRotation(DEG2RAD(180), dir.x, dir.y, 0.0f);
 }
-
 //	![self[@"flipped"] || ![self hasPropertyForKVCKey:@"orient"] ? ^{
 ////		[self setAnchorPointRelative:self.position];
 //		[self setAnchorPoint:AZAnchorPointForPosition(pos)
@@ -1429,49 +1276,38 @@ static char TEXT_IDENTIFIER;
 //		self[@"flippedTransform"] = AZV3d([CAL flipAnimationPositioned:pos]);
 //		self[@"flipped"] = @NO;
 //	}():nil;
-
-- (void) flipForward:(BOOL)forward  atPosition:(AZPOS)pos duration:(NSTI)time
-{
+- (void) flipForward:(BOOL)forward  atPosition:(AZPOS)pos duration:(NSTI)time	{
 	CAT3D flip = [self flipForward:NO atPosition:pos];
 	[self animate:@"transform" toTransform:flip time:time eased:CAMEDIAEASY completion:^{
 		NSLog(@"flipped: %@", StringFromCATransform3D(flip));
 	}];
 	
 }
-- (CAT3D) flipForward:(BOOL)forward  atPosition:(AZPOS)pos 
-{
+- (CAT3D) flipForward:(BOOL)forward  atPosition:(AZPOS)pos 	{
 	[self setAnchorPoint:AZAnchorPointForPosition(pos) inRect:self.frame];
 	CATransform3D flip = forward ? CATransform3DIdentity
 	: pos == AZPositionTop || pos == AZPositionBottom ? CA3DxRotation(90): CA3DyRotation(90);
 	flip.m34 = -1/700;
 	return flip;
 }
-
 //	CATransform3D savedFlip = [self[@"flippedTransform"]CATransform3DValue];
-
 //	CATransform3D now = self[@"flipped"] ? CATransform3DConcat(savedOrig, savedFlip) : savedOrig;
-
-
 //	CATransform3D savedOrig = [self[@"savedTransform"]	CATransform3DValue];
 //	CATransform3D savedFlip = [self[@"flippedTransform"]CATransform3DValue];
 //	CATransform3D now = self[@"flipped"] ? CATransform3DConcat(savedOrig, savedFlip) : savedOrig;
-
 //			self[@"flipped"] = [self[@"flipped"]boolValue] ? @NO :@YES;
 //			self.transform = now;
 //			[self lassoLayerForLayer:self];
-
 #ifdef DEBUGTALKER
 //	AZTALK($(@"Old: %.1f by %.1f and new is: %.1f by %.1f", self.anchorPoint.x, self.anchorPoint.y, new.x, new.y));
 #endif
-
 #ifdef DEBUGTALKER
 //	AZTALK($(@"%@ flipped", newFlipState ? @"IS" : @"is NOT "));
 #endif
-- (void) setScale: (CGFloat) scale {
+- (void) setScale: (CGF) scale {
 	[self setValue:[NSValue valueWithSize:NSSizeToCGSize((NSSize){scale,scale})] forKeyPath:@"transform.scale"];
 }
--(void)pulse
-{
+- (ReverseAnimationBlock)pulse	{
 	CIFilter *filter = [CIFilter filterWithName:@"CIBloom"]; [filter setDefaults];
 	[filter setValue:@5.0f forKey:@"inputRadius"];
 	// name the filter so we can use the keypath to animate the inputIntensity attribute of the filter
@@ -1494,16 +1330,14 @@ static char TEXT_IDENTIFIER;
 	pulseAnimation.timingFunction = [CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionEaseInEaseOut];
 	// add the animation to the selection layer. This causes it to begin animating. We'll use pulseAnimation as the animation key name
 	[self addAnimation:pulseAnimation forKey:@"pulseAnimation"];
+	return ^{ [self removeAnimationForKey:@"pulseAnimation"]; };
 }
-
-- (void)addAnimations:(NSA*)anims forKeys:(NSA*)keys;
-{
+- (void)addAnimations:(NSA*)anims forKeys:(NSA*)keys;	{
 	[anims enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 		[self addAnimation:obj forKey:keys[idx]];
 	}];
 }
--(void)fadeIn
-{
+- (void)fadeIn	{
 	//	CABasicAnimation *theAnimation=[CABasicAnimation animationWithKeyPath:@"opacity"];
 	//	theAnimation.duration=3.5;			theAnimation.repeatCount=1;
 	//	theAnimation.autoreverses=YES;		theAnimation.fromValue=@(1.0);
@@ -1521,8 +1355,7 @@ static char TEXT_IDENTIFIER;
 	[self addAnimation:theAnimation forKey:@"animateOpacity"];
 	//	disable
 }
--(void)fadeOut
-{
+- (void)fadeOut	{
 	CABasicAnimation *theAnimation=[CABasicAnimation animationWithKeyPath:@"opacity"];
 	theAnimation.duration =  [self animationKeys]
 	? [[[self  animationForKey:[self animationKeys].first] valueForKey:@"duration"]integerValue]						  : .5;
@@ -1535,19 +1368,16 @@ static char TEXT_IDENTIFIER;
 	[self addAnimation:theAnimation forKey:@"animateOpacity"];
 	
 }
-
 + (instancetype) layerNamed:(NSS*)name;
-
-{
+	{
 	id a = [[self class] layer];
 	a[@"name"] = name;
 	return a;
 }
-+ (CALayer *) withName:(NSString*)name   inFrame:(NSRect)rect
-					colored:(NSColor*)color withBorder:(CGFloat)width colored:(NSColor*) borderColor;
-{
++ (CAL*) withName:(NSString*)name   inFrame:(NSRect)rect
+					colored:(NSColor*)color withBorder:(CGF)width colored:(NSColor*) borderColor;	{
 	
-	CALayer *new					= [CALayer layer];
+	CAL*new					= [CALayer layer];
 	if (name) new.name				= name;
 	new.frame						= rect;
 	new.position					= AZCenterOfRect(rect);
@@ -1561,12 +1391,10 @@ static char TEXT_IDENTIFIER;
 	new.autoresizingMask 	= kCALayerWidthSizable| kCALayerHeightSizable;
 	return  new;
 }
--(CATransform3D)makeTransformForAngleX:(CGFloat)angle
-{
+- (CATransform3D)makeTransformForAngleX:(CGF)angle	{
 	return [self makeTransformForAngle: angle from:CATransform3DIdentity];
 }
-
--(CATransform3D)makeTransformForAngle:(CGFloat)angle from:(CATransform3D)start{
+- (CATransform3D)makeTransformForAngle:(CGF)angle from:(CATransform3D)start{
 	CATransform3D transform = start;
 	CATransform3D persp = CATransform3DIdentity;
 	persp.m34 = 1.0 / -1000;
@@ -1574,34 +1402,30 @@ static char TEXT_IDENTIFIER;
 	transform = CATransform3DRotate(transform, DEG2RAD(angle), 0.0, 1.0, 0.0);
 	return transform;
 }
-
 - (BOOL)containsOpaquePoint:(CGPoint)p {
 	if (![self containsPoint:p]) return NO;
 	if (self.backgroundColor && CGColorGetAlpha(self.backgroundColor) > 0.15) return YES;
 	float alpha = 0.0;
-	// RESTORE if ([self isKindOfClass:[CATextLayer class]]) return YES;
+	// RESTORE if ([self isKindOfClass:[CATXTL class]]) return YES;
 	CGImageRef image = (CGImageRef)[self.contents CGImage];
 	if( image ) {		alpha = 1.0; //RESTORE GetPixelAlpha(image, self.bounds.size, p);
 	}
 	return alpha > 0.15;
 }
-
-- (CALayer *) labelLayer {
+- (CAL*) labelLayer {
 	return [self sublayerWithName:kCALayerLabel];
 }
-
 - (id)sublayerWithName:(NSS*)name {
 	return [self.sublayers filterOne:^BOOL(id object) {
 		return [[object valueForKey:@"name"] isEqualToString:name];
 	}];
 	return nil;
 }
-
-- (CALayer *) setLabelString:(NSS*)label {
-	CATextLayer *layer = (CATextLayer *)[self sublayerWithName:kCALayerLabel];
+- (CAL*) setLabelString:(NSS*)label {
+	CATXTL *layer = (CATXTL *)[self sublayerWithName:kCALayerLabel];
 	if (!label) {		[layer removeFromSuperlayer]; return nil;	}
 	if (!layer) {
-		layer = [CATextLayer layer]; 		layer.doubleSided = NO;
+		layer = [CATXTL layer]; 		layer.doubleSided = NO;
 		layer.wrapped = TRUE;				layer.fontSize = 14.0;
 		layer.alignmentMode = kCAAlignmentCenter;
 		layer.anchorPoint = CGPointZero;	layer.name = kCALayerLabel;
@@ -1614,10 +1438,9 @@ static char TEXT_IDENTIFIER;
 	layer.bounds = self.bounds;
 	return layer;
 }
-
-- (CALayer*)magnifier: (NSView*)view {
+- (CAL*)magnifier: (NSView*)view {
 	
-	CALayer *lace = [[CALayer alloc]init];
+	CAL*lace = [[CALayer alloc]init];
 	lace.frame = [view bounds];
 	lace.borderWidth = 10; lace.borderColor = cgRANDOMCOLOR;
 	
@@ -1644,8 +1467,7 @@ static char TEXT_IDENTIFIER;
 	//	CGImageRef img =	NSBitmapImageRep *bitmap = [[NSBitmapImageRep alloc] initWithCGImage:img];	CFRelease(img);	return bitmap;
 	
 }
-
-+ (CALayer*)veilForView:(CALayer*)view{
++ (CAL*)veilForView:(CAL*)view{
 	int pixelsHigh = (int)[view bounds].size.height;
 	int pixelsWide = (int)[view bounds].size.width;
 	int bitmapBytesPerRow   = (pixelsWide * 4);
@@ -1658,7 +1480,7 @@ static char TEXT_IDENTIFIER;
 	if (context== NULL)	{	NSLog(@"Failed to create context.");	return nil;	}
 	CGColorSpaceRelease( colorSpace );
 	[[view presentationLayer] renderInContext:context];
-	CALayer *layer = [CALayer layer];
+	CAL*layer = [CALayer layer];
 	[layer setFrame:view.bounds];
 	[layer setBackgroundColor:cgBLACK];
 	if (view) [layer setDelegate:view];
@@ -1673,9 +1495,7 @@ static char TEXT_IDENTIFIER;
 	//	return bitmap;
 }
 //[Transpose Matrix][1]
-
-- (CATransform3D)rectToQuad:(NSRect)rect quadTLX:(double)x1a quadTLY:(double)y1a quadTRX:(double)x2a quadTRY:(double)y2a quadBLX:(double)x3a quadBLY:(double)y3a quadBRX:(double)x4a quadBRY:(double)y4a
-{
+- (CATransform3D)rectToQuad:(NSRect)rect quadTLX:(double)x1a quadTLY:(double)y1a quadTRX:(double)x2a quadTRY:(double)y2a quadBLX:(double)x3a quadBLY:(double)y3a quadBRX:(double)x4a quadBRY:(double)y4a	{
 	double X = rect.origin.x;
 	double Y = rect.origin.y;
 	double W = rect.size.width;
@@ -1694,11 +1514,11 @@ static char TEXT_IDENTIFIER;
 	
 	double d = H*(-x4a*y21*y3a + x2a*y1a*y43 - x1a*y2a*y43 - x3a*y1a*y4a + x3a*y2a*y4a);
 	double e = W*(x4a*y2a*y31 - x3a*y1a*y42 - x2a*y31*y4a + x1a*y3a*y42);
-	double f = -(W*(x4a*(Y*y2a*y31 + H*y1a*y32) - x3a*(H + Y)*y1a*y42 + H*x2a*y1a*y43 + x2a*Y*(y1a - y3a)*y4a + x1a*Y*y3a*(-y2a + y4a)) - H*X*(x4a*y21*y3a - x2a*y1a*y43 + x3a*(y1a - y2a)*y4a + x1a*y2a*(-y3a + y4a)));
+	double f = - (W*(x4a*(Y*y2a*y31 + H*y1a*y32) - x3a*(H + Y)*y1a*y42 + H*x2a*y1a*y43 + x2a*Y*(y1a - y3a)*y4a + x1a*Y*y3a*(-y2a + y4a)) - H*X*(x4a*y21*y3a - x2a*y1a*y43 + x3a*(y1a - y2a)*y4a + x1a*y2a*(-y3a + y4a)));
 	
 	double g = H*(x3a*y21 - x4a*y21 + (-x1a + x2a)*y43);
 	double h = W*(-x2a*y31 + x4a*y31 + (x1a - x3a)*y42);
-	double i = W*Y*(x2a*y31 - x4a*y31 - x1a*y42 + x3a*y42) + H*(X*(-(x3a*y21) + x4a*y21 + x1a*y43 - x2a*y43) + W*(-(x3a*y2a) + x4a*y2a + x2a*y3a - x4a*y3a - x2a*y4a + x3a*y4a));
+	double i = W*Y*(x2a*y31 - x4a*y31 - x1a*y42 + x3a*y42) + H*(X*(- (x3a*y21) + x4a*y21 + x1a*y43 - x2a*y43) + W*(- (x3a*y2a) + x4a*y2a + x2a*y3a - x4a*y3a - x2a*y4a + x3a*y4a));
 	
 	//Transposed matrix
 	CATransform3D transform;
@@ -1720,24 +1540,19 @@ static char TEXT_IDENTIFIER;
 	transform.m44 = i / i;
 	return transform;
 }
-
 //NSImage *image = // load a image
-//CALayer *layer = [CALayer layer];
+//CAL*layer = [CALayer layer];
 //[layer setContents:image];
 //[view setLayer:myLayer];
 //[view setFrame:NSMakeRect(0, 0, image.size.width, image.size.height)];
 //view.layer.transform = [self rectToQuad:view.frame quadTLX:0 quadTLY:0 quadTRX:image.size.width quadTRY:20 quadBLX:0 quadBLY:image.size.height quadBRX:image.size.width quadBRY:image.size.height + 90];
-
 //[1]: http://codingincircles.com/2010/07/major-misunderstanding/
-+ (CALayer*)closeBoxLayer
-{
-	CALayer *layer = [CALayer closeBoxLayerForLayer:nil];
++ (CAL*)closeBoxLayer	{
+	CAL*layer = [CALayer closeBoxLayerForLayer:nil];
 	return layer;
 }
-
-+ (CALayer*)closeBoxLayerForLayer:(CALayer*)parentLayer;
-{
-	CALayer *layer = [CALayer layer];
++ (CAL*)closeBoxLayerForLayer:(CAL*)parentLayer;	{
+	CAL*layer = [CALayer layer];
 	[layer setFrame:CGRectMake(0.0, 0,
 										30.0, 30.0)];
 	
@@ -1751,15 +1566,14 @@ static char TEXT_IDENTIFIER;
 	if (parentLayer) [layer setDelegate:parentLayer];
 	return layer;
 }
-- (void)flipLayer:(CALayer*)top withLayer:(CALayer*)bottom
-{
+- (void)flipLayer:(CAL*)top withLayer:(CAL*)bottom	{
 #define ANIMATION_DURATION_IN_SECONDS (1.0)
 	// Hold the shift key to flip the window in slo-mo. It's really cool!
-	CGFloat flipDuration = ANIMATION_DURATION_IN_SECONDS;// * (self.isDebugging || window.currentEvent.modifierFlags & NSShiftKeyMask ? 10.0 : 1.0);
+	CGF flipDuration = ANIMATION_DURATION_IN_SECONDS;// * (self.isDebugging || window.currentEvent.modifierFlags & NSShiftKeyMask ? 10.0 : 1.0);
 	
 	// The hidden layer is "in the back" and will be rotating forward. The visible layer is "in the front" and will be rotating backward
-	CALayer *hiddenLayer = bottom; //[frontView.isHidden ? frontView : backView layer];
-	CALayer *visibleLayer = top;// [frontView.isHidden ? backView : frontView layer];
+	CAL*hiddenLayer = bottom; //[frontView.isHidden ? frontView : backView layer];
+	CAL*visibleLayer = top;// [frontView.isHidden ? backView : frontView layer];
 	
 	// Before we can "rotate" the window, we need to make the hidden view look like it's facing backward by rotating it pi radians (180 degrees). We make this its own transaction and supress animation, because this is already the assumed state
 	[CATransaction begin]; {
@@ -1778,10 +1592,10 @@ static char TEXT_IDENTIFIER;
 	
 	//		NSUInteger frameIndex;
 	//		for (frameIndex = 0; frameIndex < flipDuration; frameIndex++)
-	//			[debugger performSelector:@selector(sample) withObject:nil afterDelay:(CGFloat)frameIndex / 2.0];
+	//			[debugger performSelector:@selector(sample) withObject:nil afterDelay:(CGF)frameIndex / 2.0];
 	
 	// We want a sample right before the center frame, when the panel is still barely visible
-	//		[debugger performSelector:@selector(sample) withObject:nil afterDelay:(CGFloat)flipDuration / 2.0 - 0.05];
+	//		[debugger performSelector:@selector(sample) withObject:nil afterDelay:(CGF)flipDuration / 2.0 - 0.05];
 	//	}
 	
 	// Both layers animate the same way, but in opposite directions (front to back versus back to front)
@@ -1790,8 +1604,7 @@ static char TEXT_IDENTIFIER;
 		[visibleLayer addAnimation:[self _flipAnimationWithDuration:flipDuration isFront:YES] forKey:@"flipGroup"];
 	} [CATransaction commit];
 }
-- (CAAnimationGroup *)_flipAnimationWithDuration:(CGFloat)duration isFront:(BOOL)isFront;
-{
+- (CAAnimationGroup *)_flipAnimationWithDuration:(CGF)duration isFront:(BOOL)isFront;	{
 	// Rotating halfway (pi radians) around the Y axis gives the appearance of flipping
 	CABasicAnimation *flipAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.y"];
 	
@@ -1826,19 +1639,14 @@ static char TEXT_IDENTIFIER;
 	
 	return animationGroup;
 }
-
-
-+ (CAGL*)gradientWithColor:(NSC*)c;
-{
++ (CAGL*)gradientWithColor:(NSC*)c;	{
 	CAGL *h 		= CAGL.layer;
 	h.colors		=  @[ (id)c.darker.CGColor, (id)c.CGColor, (id)c.brighter.CGColor];
 	h.locations	= @[ @0, @.5, @1 ];
 	return h;
 }
-
 //Metallic grey gradient background
 + (CAGradientLayer*) greyGradient {
-
 	CAGradientLayer *headerLayer = CAGradientLayer.layer;
 	return headerLayer.colors = @[(id)[NSC white:0.15f a:1.0f].CGColor,
 											(id)[NSC white:0.19f a:1.0f].CGColor,
@@ -1849,51 +1657,39 @@ static char TEXT_IDENTIFIER;
 											$float(.5), 
 											$float(1)], headerLayer;
 }
-
--(NSString*)debugDescription
-{
+- (NSString*)debugDescription	{
 	return [NSString stringWithFormat:@"<%@ (%@) frame=%@ zAnchor=%1.1f>", NSStringFromClass([self class]),
 			  self.name, NSStringFromRect(self.frame), self.zPosition];
 }
-
--(void)debugAppendToLayerTree:(NSMutableString*)treeStr indention:(NSString*)indentStr
-{
+- (void)debugAppendToLayerTree:(NSMutableString*)treeStr indention:(NSString*)indentStr	{
 	[treeStr appendFormat:@"%@%@\n", indentStr, self.debugDescription];
-	for (CALayer *aSub in self.sublayers)
+	for (CAL*aSub in self.sublayers)
 		[aSub debugAppendToLayerTree:treeStr indention:[indentStr stringByAppendingString:@"\t"]];
 }
-
--(NSString*)debugLayerTree
-{
+- (NSString*)debugLayerTree	{
 	NSMutableString *str = [NSMutableString string];
 	[self debugAppendToLayerTree:str indention:@""];
 	return str;
 }
-
-- (void) addSublayers:(NSA*)subLayers;
-{
+- (void) addSublayers:(NSA*)subLayers;	{
 	[subLayers do:^(id obj) {	[self addSublayer:obj];	}];
 }
-
-
 // ---------------------------------------------------------------------------
 // -generateGlowingSphereLayer
 // ---------------------------------------------------------------------------
 // create a new "sphere" layer and add it to the container layer
-
-+ (CALayer*)newGlowingSphereLayer
-{
++ (CAL*)newGlowingSphereLayer	{
 	// generate a random size scale for glowing sphere
 	NSUInteger randomSizeInt	 	= (random() % 200 + 50 );
-	CGFloat sizeScale 		 	= (CGFloat)randomSizeInt / 100.0;
+	CGF sizeScale 		 	= (CGF)randomSizeInt / 100.0;
 	NSImage* compositeImage  	= [NSImage glowingSphereImageWithScaleFactor:sizeScale coreColor:WHITE glowColor:RANDOMCOLOR];
 	//	CGImageRef cgCompositeImage = [compositeImage cgImage];
 	
 	// generate a random opacity value with a minimum of 15%
 	NSUInteger randomOpacityInt = (random() % 100 + 15 );
-	CGFloat opacityScale = (CGFloat)randomOpacityInt / 100.0;
+	CGF opacityScale = (CGF)randomOpacityInt / 100.0;
 	
-	CALayer* sphereLayer			= [CALayer layer];
+	CAL* sphereLayer			= [CALayer layer];
 	sphereLayer.name				= @"glowingSphere";
 	sphereLayer.bounds			  = CGRectMake ( 0, 0, 20, 20 );
 	sphereLayer.contents			= compositeImage;
@@ -1907,584 +1703,351 @@ static char TEXT_IDENTIFIER;
 	
 	//	CGImageRelease ( cgCompositeImage );
 }
-
-
-
-
 @end
-
-
-//
 //	CALayer+LTKAdditions.m
-//	LTKit
-//
-//	Copyright (c) 2012 Michael Potter
-//	http://lucas.tiz.ma
-//	lucas@tiz.ma
-//
-//	Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal
-//	in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-//	copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-//
-//	The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-//
-//	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-//	FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-//	WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-//
-
-//#import <LTKit/LTKit.h>
-//
-//#import "CALayer+LTKAdditions.h"
-
+//	LTKit		Copyright (c) 2012 Michael Potter	http://lucas.tiz.ma		lucas@tiz.ma
+//#import <LTKit/LTKit.h> #import "CALayer+LTKAdditions.h"
 #pragma mark External Definitions
-
 NSTimeInterval const LTKDefaultTransitionDuration = 0.25;
-
 #pragma mark - LTKAnimationDelegate Internal Class
-
 @interface LTKAnimationDelegate : NSObject
-
 @property (readwrite, nonatomic, copy) void (^startBlock)();
 @property (readwrite, nonatomic, copy) void (^stopBlock)(BOOL finished);
-
 @end
-
 #pragma mark - Category Implementation
-
 @implementation LTKAnimationDelegate
-
 @synthesize startBlock;
 @synthesize stopBlock;
-
 #pragma mark - Protocol Implementations
-
 #pragma mark - CAAnimation Methods (Informal)
-
-- (void)animationDidStart:(CAAnimation *)animation
-{
+- (void)animationDidStart:(CAAnimation *)animation	{
 	if (self.startBlock != nil)
 	{
 		self.startBlock();
 	}
 }
-
-- (void)animationDidStop:(CAAnimation *)animation finished:(BOOL)finished
-{
+- (void)animationDidStop:(CAAnimation *)animation finished:(BOOL)finished	{
 	if (self.stopBlock != nil)
 	{
 		self.stopBlock(finished);
 	}
 }
-
 @end
-
-#pragma mark -
-
+#import "extobjc_OSX/extobjc.h"
+@implementation NSObject (AZStates)
+//@synthesizeAssociation(NSObject, selected);
+//@synthesizeAssociation(NSObject, hovered);
+@end
 @implementation CALayer (LTKAdditions)
-
-
-//-(CAL*) hitEvent:(NSEvent*) forClass
-//@dynamic permaPresentation;
-
-- (CAL*) permaPresentation
-{
-	if (!self.presentationLayer) NSLog(@"no presenta para: %@", self);
-	return self.presentationLayer && [self.presentationLayer isKindOfClass:[CAL class]] ? self.presentationLayer : self;
-}
-
-#pragma mark - Property Accessors
-//@synthesize selected, hovered;
-
-
-
-- (BOOL)selected 			{ return [self valueForKey:@"_selected_"] ? [[self valueForKey:@"_selected_"]boolValue] : NO; } //return [self boolForKey:@"selected" defaultValue:NO]; }
-- (void)setSelected:(BOOL)s { 		 [self setValue:@(s) forKey:@"_selected_"]; 			}
-
-- (BOOL)hovered 			{ return [self valueForKey:@"_hovered_"] ? [[self valueForKey:@"_hovered_"]boolValue] : NO; }
-- (void)setHovered:(BOOL)h	{		 [self setValue:@(h) forKey:@"_hovered_"]; 			}
-
-- (CGPoint)frameOrigin
-{
+- (CGPoint)frameOrigin								{
 	return self.frame.origin;
 }
-
-- (void)setFrameOrigin:(CGPoint)frameOrigin
-{
+- (void)setFrameOrigin:(CGPoint)frameOrigin	{
 	CGRect frame = self.frame;
 	frame.origin = frameOrigin;
 	
 	self.frame = frame;
 }
-
-- (CGSize)frameSize
-{
+- (CGSize)frameSize									{
 	return self.frame.size;
 }
-
-- (void)setFrameSize:(CGSize)frameSize
-{
+- (void)setFrameSize:(CGSize)frameSize			{
 	CGRect frame = self.frame;
 	frame.size = frameSize;
 	
 	self.frame = frame;
 }
-
-- (CGFloat)frameX
-{
+- (CGF)frameX											{
 	return self.frame.origin.x;
 }
-
-- (void)setFrameX:(CGFloat)frameX
-{
+- (void)setFrameX:(CGF)frameX	{
 	CGRect frame = self.frame;
 	frame.origin.x = frameX;
 	
 	self.frame = frame;
 }
-
-- (CGFloat)frameY
-{
+- (CGF)frameY	{
 	return self.frame.origin.y;
 }
-
-- (void)setFrameY:(CGFloat)frameY
-{
+- (void)setFrameY:(CGF)frameY	{
 	CGRect frame = self.frame;
 	frame.origin.y = frameY;
 	
 	self.frame = frame;
 }
-
-- (CGFloat)frameWidth
-{
+- (CGF)frameWidth	{
 	return self.frame.size.width;
 }
-
-- (void)setFrameWidth:(CGFloat)frameWidth
-{
+- (void)setFrameWidth:(CGF)frameWidth	{
 	CGRect frame = self.frame;
 	frame.size.width = frameWidth;
 	
 	self.frame = frame;
 }
-
-- (CGFloat)frameHeight
-{
+- (CGF)frameHeight	{
 	return self.frame.size.height;
 }
-
-- (void)setFrameHeight:(CGFloat)frameHeight
-{
+- (void)setFrameHeight:(CGF)frameHeight	{
 	CGRect frame = self.frame;
 	frame.size.height = frameHeight;
 	
 	self.frame = frame;
 }
-
-- (CGFloat)frameMinX
-{
+- (CGF)frameMinX	{
 	return CGRectGetMinX(self.frame);
 }
-
-- (void)setFrameMinX:(CGFloat)frameMinX
-{
+- (void)setFrameMinX:(CGF)frameMinX	{
 	self.frameX = frameMinX;
 }
-
-- (CGFloat)frameMidX
-{
+- (CGF)frameMidX	{
 	return CGRectGetMidX(self.frame);
 }
-
-- (void)setFrameMidX:(CGFloat)frameMidX
-{
+- (void)setFrameMidX:(CGF)frameMidX	{
 	self.frameX = (frameMidX - (self.frameWidth / 2.0f));
 }
-
-- (CGFloat)frameMaxX
-{
+- (CGF)frameMaxX	{
 	return CGRectGetMaxX(self.frame);
 }
-
-- (void)setFrameMaxX:(CGFloat)frameMaxX
-{
+- (void)setFrameMaxX:(CGF)frameMaxX	{
 	self.frameX = (frameMaxX - self.frameWidth);
 }
-
-- (CGFloat)frameMinY
-{
+- (CGF)frameMinY	{
 	return CGRectGetMinY(self.frame);
 }
-
-- (void)setFrameMinY:(CGFloat)frameMinY
-{
+- (void)setFrameMinY:(CGF)frameMinY	{
 	self.frameY = frameMinY;
 }
-
-- (CGFloat)frameMidY
-{
+- (CGF)frameMidY	{
 	return CGRectGetMidY(self.frame);
 }
-
-- (void)setFrameMidY:(CGFloat)frameMidY
-{
+- (void)setFrameMidY:(CGF)frameMidY	{
 	self.frameY = (frameMidY - (self.frameHeight / 2.0f));
 }
-
-- (CGFloat)frameMaxY
-{
+- (CGF)frameMaxY	{
 	return CGRectGetMaxY(self.frame);
 }
-
-- (void)setFrameMaxY:(CGFloat)frameMaxY
-{
+- (void)setFrameMaxY:(CGF)frameMaxY	{
 	self.frameY = (frameMaxY - self.frameHeight);
 }
-
-- (CGPoint)frameTopLeftPoint
-{
+- (CGPoint)frameTopLeftPoint	{
 	return CGPointMake(self.frameMinX, self.frameMinY);
 }
-
-- (void)setFrameTopLeftPoint:(CGPoint)frameTopLeftPoint
-{
+- (void)setFrameTopLeftPoint:(CGPoint)frameTopLeftPoint	{
 	self.frameMinX = frameTopLeftPoint.x;
 	self.frameMinY = frameTopLeftPoint.y;
 }
-
-- (CGPoint)frameTopMiddlePoint
-{
+- (CGPoint)frameTopMiddlePoint	{
 	return CGPointMake(self.frameMidX, self.frameMinY);
 }
-
-- (void)setFrameTopMiddlePoint:(CGPoint)frameTopMiddlePoint
-{
+- (void)setFrameTopMiddlePoint:(CGPoint)frameTopMiddlePoint	{
 	self.frameMidX = frameTopMiddlePoint.x;
 	self.frameMinY = frameTopMiddlePoint.y;
 }
-
-- (CGPoint)frameTopRightPoint
-{
+- (CGPoint)frameTopRightPoint	{
 	return CGPointMake(self.frameMaxX, self.frameMinY);
 }
-
-- (void)setFrameTopRightPoint:(CGPoint)frameTopRightPoint
-{
+- (void)setFrameTopRightPoint:(CGPoint)frameTopRightPoint	{
 	self.frameMaxX = frameTopRightPoint.x;
 	self.frameMinY = frameTopRightPoint.y;
 }
-
-- (CGPoint)frameMiddleRightPoint
-{
+- (CGPoint)frameMiddleRightPoint	{
 	return CGPointMake(self.frameMaxX, self.frameMidY);
 }
-
-- (void)setFrameMiddleRightPoint:(CGPoint)frameMiddleRightPoint
-{
+- (void)setFrameMiddleRightPoint:(CGPoint)frameMiddleRightPoint	{
 	self.frameMaxX = frameMiddleRightPoint.x;
 	self.frameMidY = frameMiddleRightPoint.y;
 }
-
-- (CGPoint)frameBottomRightPoint
-{
+- (CGPoint)frameBottomRightPoint	{
 	return CGPointMake(self.frameMaxX, self.frameMaxY);
 }
-
-- (void)setFrameBottomRightPoint:(CGPoint)frameBottomRightPoint
-{
+- (void)setFrameBottomRightPoint:(CGPoint)frameBottomRightPoint	{
 	self.frameMaxX = frameBottomRightPoint.x;
 	self.frameMaxY = frameBottomRightPoint.y;
 }
-
-- (CGPoint)frameBottomMiddlePoint
-{
+- (CGPoint)frameBottomMiddlePoint	{
 	return CGPointMake(self.frameMidX, self.frameMaxY);
 }
-
-- (void)setFrameBottomMiddlePoint:(CGPoint)frameBottomMiddlePoint
-{
+- (void)setFrameBottomMiddlePoint:(CGPoint)frameBottomMiddlePoint	{
 	self.frameMidX = frameBottomMiddlePoint.x;
 	self.frameMaxY = frameBottomMiddlePoint.y;
 }
-
-- (CGPoint)frameBottomLeftPoint
-{
+- (CGPoint)frameBottomLeftPoint	{
 	return CGPointMake(self.frameMinX, self.frameMaxY);
 }
-
-- (void)setFrameBottomLeftPoint:(CGPoint)frameBottomLeftPoint
-{
+- (void)setFrameBottomLeftPoint:(CGPoint)frameBottomLeftPoint	{
 	self.frameMinX = frameBottomLeftPoint.x;
 	self.frameMaxY = frameBottomLeftPoint.y;
 }
-
-- (CGPoint)frameMiddleLeftPoint
-{
+- (CGPoint)frameMiddleLeftPoint	{
 	return CGPointMake(self.frameMinX, self.frameMidY);
 }
-
-- (void)setFrameMiddleLeftPoint:(CGPoint)frameMiddleLeftPoint
-{
+- (void)setFrameMiddleLeftPoint:(CGPoint)frameMiddleLeftPoint	{
 	self.frameMinX = frameMiddleLeftPoint.x;
 	self.frameMidY = frameMiddleLeftPoint.y;
 }
-
-- (CGPoint)boundsOrigin
-{
+- (CGPoint)boundsOrigin	{
 	return self.bounds.origin;
 }
-
-- (void)setBoundsOrigin:(CGPoint)boundsOrigin
-{
+- (void)setBoundsOrigin:(CGPoint)boundsOrigin	{
 	CGRect bounds = self.bounds;
 	bounds.origin = boundsOrigin;
 	
 	self.bounds = bounds;
 }
-
-- (CGSize)boundsSize
-{
+- (CGSize)boundsSize	{
 	return self.bounds.size;
 }
-
-- (void)setBoundsSize:(CGSize)boundsSize
-{
+- (void)setBoundsSize:(CGSize)boundsSize	{
 	CGRect bounds = self.bounds;
 	bounds.size = boundsSize;
 	
 	self.bounds = bounds;
 }
-
-- (CGFloat)boundsX
-{
+- (CGF)boundsX	{
 	return self.bounds.origin.x;
 }
-
-- (void)setBoundsX:(CGFloat)boundsX
-{
+- (void)setBoundsX:(CGF)boundsX	{
 	CGRect bounds = self.bounds;
 	bounds.origin.x = boundsX;
 	
 	self.bounds = bounds;
 }
-
-- (CGFloat)boundsY
-{
+- (CGF)boundsY	{
 	return self.bounds.origin.y;
 }
-
-- (void)setBoundsY:(CGFloat)boundsY
-{
+- (void)setBoundsY:(CGF)boundsY	{
 	CGRect bounds = self.bounds;
 	bounds.origin.y = boundsY;
 	
 	self.bounds = bounds;
 }
-
-- (CGFloat)boundsWidth
-{
+- (CGF)boundsWidth	{
 	return self.bounds.size.width;
 }
-
-- (void)setBoundsWidth:(CGFloat)boundsWidth
-{
+- (void)setBoundsWidth:(CGF)boundsWidth	{
 	CGRect bounds = self.bounds;
 	bounds.size.width = boundsWidth;
 	
 	self.bounds = bounds;
 }
-
-- (CGFloat)boundsHeight
-{
+- (CGF)boundsHeight	{
 	return self.bounds.size.height;
 }
-
-- (void)setBoundsHeight:(CGFloat)boundsHeight
-{
+- (void)setBoundsHeight:(CGF)boundsHeight	{
 	CGRect bounds = self.bounds;
 	bounds.size.height = boundsHeight;
 	
 	self.bounds = bounds;
 }
-
-- (CGFloat)boundsMinX
-{
+- (CGF)boundsMinX	{
 	return CGRectGetMinX(self.bounds);
 }
-
-- (void)setBoundsMinX:(CGFloat)boundsMinX
-{
+- (void)setBoundsMinX:(CGF)boundsMinX	{
 	self.boundsX = boundsMinX;
 }
-
-- (CGFloat)boundsMidX
-{
+- (CGF)boundsMidX	{
 	return CGRectGetMidX(self.bounds);
 }
-
-- (void)setBoundsMidX:(CGFloat)boundsMidX
-{
+- (void)setBoundsMidX:(CGF)boundsMidX	{
 	self.boundsX = (boundsMidX - (self.boundsWidth / 2.0f));
 }
-
-- (CGFloat)boundsMaxX
-{
+- (CGF)boundsMaxX	{
 	return CGRectGetMaxX(self.bounds);
 }
-
-- (void)setBoundsMaxX:(CGFloat)boundsMaxX
-{
+- (void)setBoundsMaxX:(CGF)boundsMaxX	{
 	self.boundsX = (boundsMaxX - self.boundsWidth);
 }
-
-- (CGFloat)boundsMinY
-{
+- (CGF)boundsMinY	{
 	return CGRectGetMinY(self.bounds);
 }
-
-- (void)setBoundsMinY:(CGFloat)boundsMinY
-{
+- (void)setBoundsMinY:(CGF)boundsMinY	{
 	self.boundsY = boundsMinY;
 }
-
-- (CGFloat)boundsMidY
-{
+- (CGF)boundsMidY	{
 	return CGRectGetMidY(self.bounds);
 }
-
-- (void)setBoundsMidY:(CGFloat)boundsMidY
-{
+- (void)setBoundsMidY:(CGF)boundsMidY	{
 	self.boundsY = (boundsMidY - (self.boundsHeight / 2.0f));
 }
-
-- (CGFloat)boundsMaxY
-{
+- (CGF)boundsMaxY	{
 	return CGRectGetMaxY(self.bounds);
 }
-
-- (void)setBoundsMaxY:(CGFloat)boundsMaxY
-{
+- (void)setBoundsMaxY:(CGF)boundsMaxY	{
 	self.boundsY = (boundsMaxY - self.boundsHeight);
 }
-
-- (CGPoint)boundsTopLeftPoint
-{
+- (CGPoint)boundsTopLeftPoint	{
 	return CGPointMake(self.boundsMinX, self.boundsMinY);
 }
-
-- (void)setBoundsTopLeftPoint:(CGPoint)boundsTopLeftPoint
-{
+- (void)setBoundsTopLeftPoint:(CGPoint)boundsTopLeftPoint	{
 	self.boundsMinX = boundsTopLeftPoint.x;
 	self.boundsMinY = boundsTopLeftPoint.y;
 }
-
-- (CGPoint)boundsTopMiddlePoint
-{
+- (CGPoint)boundsTopMiddlePoint	{
 	return CGPointMake(self.boundsMidX, self.boundsMinY);
 }
-
-- (void)setBoundsTopMiddlePoint:(CGPoint)boundsTopMiddlePoint
-{
+- (void)setBoundsTopMiddlePoint:(CGPoint)boundsTopMiddlePoint	{
 	self.boundsMidX = boundsTopMiddlePoint.x;
 	self.boundsMinY = boundsTopMiddlePoint.y;
 }
-
-- (CGPoint)boundsTopRightPoint
-{
+- (CGPoint)boundsTopRightPoint	{
 	return CGPointMake(self.boundsMaxX, self.boundsMinY);
 }
-
-- (void)setBoundsTopRightPoint:(CGPoint)boundsTopRightPoint
-{
+- (void)setBoundsTopRightPoint:(CGPoint)boundsTopRightPoint	{
 	self.boundsMaxX = boundsTopRightPoint.x;
 	self.boundsMinY = boundsTopRightPoint.y;
 }
-
-- (CGPoint)boundsMiddleRightPoint
-{
+- (CGPoint)boundsMiddleRightPoint	{
 	return CGPointMake(self.boundsMaxX, self.boundsMidY);
 }
-
-- (void)setBoundsMiddleRightPoint:(CGPoint)boundsMiddleRightPoint
-{
+- (void)setBoundsMiddleRightPoint:(CGPoint)boundsMiddleRightPoint	{
 	self.boundsMaxX = boundsMiddleRightPoint.x;
 	self.boundsMidY = boundsMiddleRightPoint.y;
 }
-
-- (CGPoint)boundsBottomRightPoint
-{
+- (CGPoint)boundsBottomRightPoint	{
 	return CGPointMake(self.boundsMaxX, self.boundsMaxY);
 }
-
-- (void)setBoundsBottomRightPoint:(CGPoint)boundsBottomRightPoint
-{
+- (void)setBoundsBottomRightPoint:(CGPoint)boundsBottomRightPoint	{
 	self.boundsMaxX = boundsBottomRightPoint.x;
 	self.boundsMaxY = boundsBottomRightPoint.y;
 }
-
-- (CGPoint)boundsBottomMiddlePoint
-{
+- (CGPoint)boundsBottomMiddlePoint	{
 	return CGPointMake(self.boundsMidX, self.boundsMaxY);
 }
-
-- (void)setBoundsBottomMiddlePoint:(CGPoint)boundsBottomMiddlePoint
-{
+- (void)setBoundsBottomMiddlePoint:(CGPoint)boundsBottomMiddlePoint	{
 	self.boundsMidX = boundsBottomMiddlePoint.x;
 	self.boundsMaxY = boundsBottomMiddlePoint.y;
 }
-
-- (CGPoint)boundsBottomLeftPoint
-{
+- (CGPoint)boundsBottomLeftPoint	{
 	return CGPointMake(self.boundsMinX, self.boundsMaxY);
 }
-
-- (void)setBoundsBottomLeftPoint:(CGPoint)boundsBottomLeftPoint
-{
+- (void)setBoundsBottomLeftPoint:(CGPoint)boundsBottomLeftPoint	{
 	self.boundsMinX = boundsBottomLeftPoint.x;
 	self.boundsMaxY = boundsBottomLeftPoint.y;
 }
-
-- (CGPoint)boundsMiddleLeftPoint
-{
+- (CGPoint)boundsMiddleLeftPoint	{
 	return CGPointMake(self.boundsMinX, self.boundsMidY);
 }
-
-- (void)setBoundsMiddleLeftPoint:(CGPoint)boundsMiddleLeftPoint
-{
+- (void)setBoundsMiddleLeftPoint:(CGPoint)boundsMiddleLeftPoint	{
 	self.boundsMinX = boundsMiddleLeftPoint.x;
 	self.boundsMidY = boundsMiddleLeftPoint.y;
 }
-
-- (CGFloat)positionX
-{
+- (CGF)positionX	{
 	return self.position.x;
 }
-
-- (void)setPositionX:(CGFloat)positionX
-{
+- (void)setPositionX:(CGF)positionX	{
 	self.position = CGPointMake(positionX, self.positionY);
 }
-
-- (CGFloat)positionY
-{
+- (CGF)positionY	{
 	return self.position.y;
 }
-
-- (void)setPositionY:(CGFloat)positionY
-{
+- (void)setPositionY:(CGF)positionY	{
 	self.position = CGPointMake(self.positionX, positionY);
 }
-
 #pragma mark - CALayer (LTKAdditions) Methods
-
-+ (id)layerWithFrame:(CGRect)frame
-{
++ (id)layerWithFrame:(CGRect)frame	{
 	return [[self alloc] initWithFrame:frame];
 }
-
-- (id)initWithFrame:(CGRect)newFrame
-{
+- (id)initWithFrame:(CGRect)newFrame	{
 	self = [self init];
 	
 	if (self != nil)
@@ -2494,9 +2057,7 @@ NSTimeInterval const LTKDefaultTransitionDuration = 0.25;
 	
 	return self;
 }
-
-- (void)setAnchorPointAndPreserveCurrentFrame:(CGPoint)anchorPoint;
-{
+- (void)setAnchorPointAndPreserveCurrentFrame:(CGPoint)anchorPoint;	{
 	CGPoint newPoint = CGPointMake((self.boundsWidth * anchorPoint.x), (self.boundsHeight * anchorPoint.y));
 	CGPoint oldPoint = CGPointMake((self.boundsWidth * self.anchorPoint.x), (self.boundsHeight * self.anchorPoint.y));
 	
@@ -2514,12 +2075,10 @@ NSTimeInterval const LTKDefaultTransitionDuration = 0.25;
 	self.position = position;
 	self.anchorPoint = anchorPoint;
 }
-
-+ (CGFloat)smallestWidthInLayers:(NSA*)layers
-{
-	CGFloat smallestWidth = 0.0f;
++ (CGF)smallestWidthInLayers:(NSA*)layers	{
+	CGF smallestWidth = 0.0f;
 	
-	for (CALayer *layer in layers)
+	for (CAL*layer in layers)
 	{
 		if (layer.frameWidth < smallestWidth)
 		{
@@ -2529,12 +2088,10 @@ NSTimeInterval const LTKDefaultTransitionDuration = 0.25;
 	
 	return smallestWidth;
 }
-
-+ (CGFloat)smallestHeightInLayers:(NSA*)layers
-{
-	CGFloat smallestHeight = 0.0f;
++ (CGF)smallestHeightInLayers:(NSA*)layers	{
+	CGF smallestHeight = 0.0f;
 	
-	for (CALayer *layer in layers)
+	for (CAL*layer in layers)
 	{
 		if (layer.frameHeight < smallestHeight)
 		{
@@ -2544,12 +2101,10 @@ NSTimeInterval const LTKDefaultTransitionDuration = 0.25;
 	
 	return smallestHeight;
 }
-
-+ (CGFloat)largestWidthInLayers:(NSA*)layers
-{
-	CGFloat largestWidth = 0.0f;
++ (CGF)largestWidthInLayers:(NSA*)layers	{
+	CGF largestWidth = 0.0f;
 	
-	for (CALayer *layer in layers)
+	for (CAL*layer in layers)
 	{
 		if (layer.frameWidth > largestWidth)
 		{
@@ -2559,12 +2114,10 @@ NSTimeInterval const LTKDefaultTransitionDuration = 0.25;
 	
 	return largestWidth;
 }
-
-+ (CGFloat)largestHeightInLayers:(NSA*)layers
-{
-	CGFloat largestHeight = 0.0f;
++ (CGF)largestHeightInLayers:(NSA*)layers	{
+	CGF largestHeight = 0.0f;
 	
-	for (CALayer *layer in layers)
+	for (CAL*layer in layers)
 	{
 		if (layer.frameHeight > largestHeight)
 		{
@@ -2574,47 +2127,31 @@ NSTimeInterval const LTKDefaultTransitionDuration = 0.25;
 	
 	return largestHeight;
 }
-
-- (CALayer *)presentationCALayer
-{
-	return (CALayer *)[self presentationLayer];
+- (CAL*)presentationCALayer	{
+	return (CAL*)[self presentationLayer];
 }
-
-- (CALayer *)modelCALayer
-{
-	return (CALayer *)[self modelLayer];
+- (CAL*)modelCALayer	{
+	return (CAL*)[self modelLayer];
 }
-
-- (void)addDefaultFadeTransition
-{
+- (void)addDefaultFadeTransition	{
 	[self addFadeTransitionWithDuration:LTKDefaultTransitionDuration];
 }
-
-- (void)addDefaultMoveInTransitionWithSubtype:(NSS*)subtype
-{
+- (void)addDefaultMoveInTransitionWithSubtype:(NSS*)subtype	{
 	[self addMoveInTransitionWithSubtype:subtype duration:LTKDefaultTransitionDuration];
 }
-
-- (void)addDefaultPushTransitionWithSubtype:(NSS*)subtype
-{
+- (void)addDefaultPushTransitionWithSubtype:(NSS*)subtype	{
 	[self addPushTransitionWithSubtype:subtype duration:LTKDefaultTransitionDuration];
 }
-
-- (void)addDefaultRevealTransitionWithSubtype:(NSS*)subtype
-{
+- (void)addDefaultRevealTransitionWithSubtype:(NSS*)subtype	{
 	[self addRevealTransitionWithSubtype:subtype duration:LTKDefaultTransitionDuration];
 }
-
-- (void)addFadeTransitionWithDuration:(NSTimeInterval)duration
-{
+- (void)addFadeTransitionWithDuration:(NSTimeInterval)duration	{
 	CATransition *transition = [CATransition animation];		// kCATransitionFade is the default type
 	transition.duration = duration;
 	
 	[self addAnimation:transition forKey:kCATransition];
 }
-
-- (void)addMoveInTransitionWithSubtype:(NSS*)subtype duration:(NSTimeInterval)duration
-{
+- (void)addMoveInTransitionWithSubtype:(NSS*)subtype duration:(NSTimeInterval)duration	{
 	CATransition *transition = [CATransition animation];
 	transition.type = kCATransitionMoveIn;
 	transition.subtype = subtype;
@@ -2622,9 +2159,7 @@ NSTimeInterval const LTKDefaultTransitionDuration = 0.25;
 	
 	[self addAnimation:transition forKey:kCATransition];
 }
-
-- (void)addPushTransitionWithSubtype:(NSS*)subtype duration:(NSTimeInterval)duration
-{
+- (void)addPushTransitionWithSubtype:(NSS*)subtype duration:(NSTimeInterval)duration	{
 	CATransition *transition = [CATransition animation];
 	transition.type = kCATransitionPush;
 	transition.subtype = subtype;
@@ -2632,9 +2167,7 @@ NSTimeInterval const LTKDefaultTransitionDuration = 0.25;
 	
 	[self addAnimation:transition forKey:kCATransition];
 }
-
-- (void)addRevealTransitionWithSubtype:(NSS*)subtype duration:(NSTimeInterval)duration
-{
+- (void)addRevealTransitionWithSubtype:(NSS*)subtype duration:(NSTimeInterval)duration	{
 	CATransition *transition = [CATransition animation];
 	transition.type = kCATransitionReveal;
 	transition.subtype = subtype;
@@ -2642,19 +2175,13 @@ NSTimeInterval const LTKDefaultTransitionDuration = 0.25;
 	
 	[self addAnimation:transition forKey:kCATransition];
 }
-
-- (void)addAnimation:(CAAnimation *)animation
-{
+- (void)addAnimation:(CAAnimation *)animation	{
 	[self addAnimation:animation forKey:nil];
 }
-
-- (void)addAnimation:(CAAnimation *)animation forKey:(NSS*)key withStopBlock:(void (^)(BOOL finished))stopBlock
-{
+- (void)addAnimation:(CAAnimation *)animation forKey:(NSS*)key withStopBlock:(void (^)(BOOL finished))stopBlock	{
 	[self addAnimation:animation forKey:key withStartBlock:nil stopBlock:stopBlock];
 }
-
-- (void)addAnimation:(CAAnimation *)animation forKey:(NSS*)key withStartBlock:(VoidBlock)startBlock stopBlock:(void (^)(BOOL finished))stopBlock
-{
+- (void)addAnimation:(CAAnimation *)animation forKey:(NSS*)key withStartBlock:(VoidBlock)startBlock stopBlock:(void (^)(BOOL finished))stopBlock	{
 	LTKAnimationDelegate *animationDelegate = [LTKAnimationDelegate new];
 	animationDelegate.startBlock = startBlock;
 	animationDelegate.stopBlock = stopBlock;
@@ -2663,15 +2190,11 @@ NSTimeInterval const LTKDefaultTransitionDuration = 0.25;
 	
 	[self addAnimation:animation forKey:key];
 }
-
-- (void)replaceAnimationForKey:(NSS*)key withAnimation:(CAAnimation *)animation
-{
+- (void)replaceAnimationForKey:(NSS*)key withAnimation:(CAAnimation *)animation	{
 	[self removeAnimationForKey:key];
 	[self addAnimation:animation forKey:key];
 }
-
-- (NSA*)keyedAnimations
-{
+- (NSA*)keyedAnimations	{
 	NSMutableArray *keyedAnimations = [NSMutableArray array];
 	
 	for (NSString *animationKey in [self animationKeys])
@@ -2681,19 +2204,13 @@ NSTimeInterval const LTKDefaultTransitionDuration = 0.25;
 	
 	return [keyedAnimations copy];
 }
-
-- (NSImage *)renderToImage
-{
+- (NSImage *)renderToImage	{
 	return [self renderToImageWithContextSize:CGSizeZero contextTransform:CGAffineTransformIdentity];
 }
-
-- (NSImage *)renderToImageWithContextSize:(CGSize)contextSize
-{
+- (NSImage *)renderToImageWithContextSize:(CGSize)contextSize	{
 	return [self renderToImageWithContextSize:contextSize contextTransform:CGAffineTransformIdentity];
 }
-
-- (NSImage *)renderToImageWithContextSize:(CGSize)contextSize contextTransform:(CGAffineTransform)contextTransform
-{
+- (NSImage *)renderToImageWithContextSize:(CGSize)contextSize contextTransform:(CGAffineTransform)contextTransform	{
 	int pixelsHigh 			= (int)self.boundsHeight;
 	int pixelsWide 			= (int)self.boundsWidth;
 	int bitmapBytesPerRow 	= (pixelsWide * 4);
@@ -2707,33 +2224,25 @@ NSTimeInterval const LTKDefaultTransitionDuration = 0.25;
 	CGImageRef img 			= CGBitmapContextCreateImage(ctx);
 	return  [[NSImage alloc]initWithCGImage:img size:contextSize];
 }
-
-- (void)enableDebugBordersRecursively:(BOOL)recursively
-{
+- (void)enableDebugBordersRecursively:(BOOL)recursively	{
 	AZDebugLayer *d = [[AZDebugLayer alloc]initWithLayer:self];
 	
 	//	CAShapeLayerNoHit *border = [CAShapeLayerNoHit layer];
 	[self addSublayer:d];
 	//	self.borderWidth = 1.0f;
 	//	self.borderColor = cgRANDOMCOLOR;
-	if (recursively) for (CALayer *sublayer in self.sublayers) {
+	if (recursively) for (CAL*sublayer in self.sublayers) {
 		if (!areSame(sublayer.name, @"debugShape")) [sublayer enableDebugBordersRecursively:YES];
 	}
 }
-
 @end
-
-
-
-@implementation CATextLayer (AtoZ)
-
+@implementation CATXTL (AtoZ)
 - (CTFontRef)newFontWithAttributes:(NSD*)attributes {
 	CTFontDescriptorRef descriptor = CTFontDescriptorCreateWithAttributes((__bridge CFDictionaryRef)attributes);
 	CTFontRef font = CTFontCreateWithFontDescriptor(descriptor, 0, NULL);
 	CFRelease(descriptor);
 	return font;
 }
-
 - (CTFontRef)newCustomFontWithName:(NSS*)fontName ofType:(NSS*)type attributes:(NSD*)attributes {
 	NSString *fontPath = [[NSBundle bundleForClass:[AtoZ class]] pathForResource:fontName ofType:type];
 	NSData *data = [[NSData alloc] initWithContentsOfFile:fontPath];
@@ -2749,11 +2258,9 @@ NSTimeInterval const LTKDefaultTransitionDuration = 0.25;
 	CGFontRelease(cgFont);
 	return font;
 }
-
 - (CGSize)suggestSizeAndFitRange:(CFRange *)range
 				 forAttributedString:(NSMutableAttributedString *)attrString
-							  usingSize:(CGSize)referenceSize
-{
+							  usingSize:(CGSize)referenceSize	{
 	CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString((__bridge CFAttributedStringRef)attrString);
 	CGSize suggestedSize =
 	CTFramesetterSuggestFrameSizeWithConstraints(framesetter,
@@ -2767,15 +2274,14 @@ NSTimeInterval const LTKDefaultTransitionDuration = 0.25;
 	//see the coretext-dev list: http://web.archiveorange.com/archive/v/nagQXwVJ6Gzix0veMh09
 	
 	CTLineRef line = CTLineCreateWithAttributedString((__bridge CFAttributedStringRef)attrString);
-	CGFloat ascent, descent, leading;
+	CGF ascent, descent, leading;
 	CTLineGetTypographicBounds(line, &ascent, &descent, &leading);
-	CGFloat lineHeight = ascent + descent + leading;
+	CGF lineHeight = ascent + descent + leading;
 	suggestedSize.height += lineHeight / 2.f;
 	//END HACK
 	
 	return suggestedSize;
 }
-
 - (void)setupAttributedTextLayerWithFont:(CTFontRef)font {
 	NSDictionary *baseAttributes = @{(NSS*)kCTFontAttributeName: (__bridge id)font};
 	
@@ -2788,7 +2294,7 @@ NSTimeInterval const LTKDefaultTransitionDuration = 0.25;
 											 (NSS*)kCTFontSizeAttribute: @16.f};
 	CTFontRef courierFont = [self newFontWithAttributes:fontAttributes];
 	
-	NSRange rangeOfClassName = [[attrString string] rangeOfString:@"CATextLayer"];
+	NSRange rangeOfClassName = [[attrString string] rangeOfString:@"CATXTL"];
 	
 	[attrString addAttribute:(NSS*)kCTFontAttributeName
 							 value:(__bridge id)courierFont
@@ -2810,30 +2316,20 @@ NSTimeInterval const LTKDefaultTransitionDuration = 0.25;
 	self.position = AZCenterOfRect(self.superlayer.bounds);
 	[attrString release];
 }
-
 @end
-
 @implementation CALayerNonAnimating
-- (id<CAAction>)actionForKey:(NSS*)key;
-{
+- (id<CAAction>)actionForKey:(NSS*)key;	{
 	// return nil to disable animations on this layer
 	return nil;
 }
 @end
-
-
-
 @implementation CAScrollLayer (CAScrollLayer_Extensions)
-
-- (void)scrollBy:(CGPoint)inDelta
-{
+- (void)scrollBy:(CGPoint)inDelta	{
 	const CGRect theVisibleRect = self.visibleRect;
 	const CGPoint theNewScrollLocation = { .x = CGRectGetMinX(theVisibleRect) + inDelta.x, .y = CGRectGetMinY(theVisibleRect) + inDelta.y };
 	[self scrollToPoint:theNewScrollLocation];
 }
-
-- (void)scrollCenterToPoint:(CGPoint)inPoint;
-{
+- (void)scrollCenterToPoint:(CGPoint)inPoint;	{
 	const CGRect theBounds = self.bounds;
 	const CGPoint theCenter = {
 		.x = CGRectGetMidX(theBounds),
@@ -2846,27 +2342,16 @@ NSTimeInterval const LTKDefaultTransitionDuration = 0.25;
 	
 	[self scrollToPoint:theNewPoint];
 }
-
 @end
-
-
-
 static const char *kRenderAsciiBlockKey = "-";
-
 @implementation CALayer (MPPixelHitTesting)
-
-- (void) setRenderASCIIBlock:(MPRenderASCIIBlock)block
-{
+- (void) setRenderASCIIBlock:(MPRenderASCIIBlock)block	{
 	objc_setAssociatedObject(self, kRenderAsciiBlockKey, block, OBJC_ASSOCIATION_COPY);
 }
-
-- (MPRenderASCIIBlock) renderASCIIBlock
-{
+- (MPRenderASCIIBlock) renderASCIIBlock	{
 	return objc_getAssociatedObject(self, kRenderAsciiBlockKey);
 }
-
-- (BOOL) pixelsIntersectWithRect:(CGRect)rect
-{
+- (BOOL) pixelsIntersectWithRect:(CGRect)rect	{
 	CGRect bounds = CGRectIntersection(self.pixelsHitTestRect, rect);
 	
 	// If our pixel bounds do not intersect with the rect then we have nothing to test!
@@ -2922,9 +2407,7 @@ static const char *kRenderAsciiBlockKey = "-";
 	return (hit != 0);
 	
 }
-
-- (void) renderShapeLayer:(CAShapeLayer*)layer inContext:(CGContextRef)context
-{
+- (void) renderShapeLayer:(CAShapeLayer*)layer inContext:(CGContextRef)context	{
 	if (layer.path) {
 		
 		// TODO: still incomplete. Should finish implementation.
@@ -2960,16 +2443,10 @@ static const char *kRenderAsciiBlockKey = "-";
 		}
 	}
 }
-
-
-- (BOOL) pixelsHitTest:(CGPoint)p
-{
+- (BOOL) pixelsHitTest:(CGPoint)p	{
 	return [self pixelsIntersectWithRect:CGRectMake(p.x-0.5, p.y-0.5, 1, 1)];
 }
-
-- (CGRect) pixelsHitTestRect
-{
+- (CGRect) pixelsHitTestRect	{
 	return CGRectInset(self.bounds,-3,-3);
 }
-
 @end

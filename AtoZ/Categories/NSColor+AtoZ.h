@@ -9,6 +9,9 @@ JREnumDeclare(AZeColor, AZeColoraliceblue, AZeColorantiquewhite, AZeColoraqua, A
 //#import <AGFoundation/AGFoundation.h>
 //#import "AGFoundation.h"
 
+@interface AZColorList : NSColorList
+
+@end
 @interface NSColor (AtoZ)
 
 
@@ -113,9 +116,10 @@ typedef void(^colorFadeBlock)(NSColor*c);
 
 @end
 
-//@interface NSColor (AIColorAdditions_HTMLSVGCSSColors)
-//+ (NSC*)	colorWithHTMLString:(NSString*)	hexString;
-//@end
+@interface NSColor (AIColorAdditions_HTMLSVGCSSColors)
++   (id) colorWithHTMLString:(NSString*)str defaultColor:(NSColor*)d;
++ (NSC*)	colorWithHTMLString:(NSString*)hex;
+@end
 
 @interface NSString (THColorConversion)
 - (NSC*)	colorValue;
@@ -237,6 +241,16 @@ typedef void(^colorFadeBlock)(NSColor*c);
 + (id)	colorListWithFileName:(NSString*)	fileName inBundleForClass:(Class)	aClass;
 + (id)	colorListInFrameworkWithFileName:(NSString*)	fileName;
 @end
+
+@interface NSColor (AMAdditions)
++ (NSColor *)lightYellowColor;
++ (NSColor *)am_toolTipColor;
++ (NSColor *)am_toolTipTextColor;
+- (NSColor *)accentColor;
+- (NSColor *)lighterColor;
+- (NSColor *)disabledColor;
+@end
+
 /*
 @implementation NSColor (AIColorAdditions_RepresentingColors)
 - (NSString*)hexString

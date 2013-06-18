@@ -13,6 +13,33 @@
 @interface NSView (MoveAndResize)
 - (void)setNewFrameFromMouseDrag:(NSRect)newFrame;
 - (void)trackMouseDragsForEvent:(NSEvent *)theEvent clickType:(int)clickType;
+
+/*  USAGE  
+
+ // just set of xample layers...
+
+	CAL *ll; [win.layer addSublayer:ll=[CAL layerWithFrame:AZRandomRectInRect(win.bounds)]];
+	ll.bgC = cgRANDOMCOLOR;
+	ll.needsDisplayOnBoundsChange = YES;
+	ll.arMASK = RAND_INT_VAL(0,8);
+	CABlockDelegate delegateFor:ll ofType:CABlockTypeDrawBlock withBlock:^(CAL*lll, CGCREF ref){
+		[NSGC drawInContext:ref flipped:NO actions:^{
+			R r = AZCenterRectOnPoint(AZRectFromDim(20),ll.position);
+			NSRectFillWithColor (r, WHITE);
+			AZString(ll.frame) drawAtPoint:AZPointOffsetX(AZCenter(ll.bounds), -100) withAttributes:NSAS.defaults];
+		}];
+	}];
+
+//  DRAG EXAMPLE				  CAL *superL 	= win.layer;
+							__block CAL *hitL 	= nil;
+							__block NSP refP;
+
+	[win.contentView dragBlock:^(NSP clk,NSP move){
+		if (!hitL) {	hitL = [superL hitTest:clk];	refP = hitL.position;	} // look for hits, save position
+ 		if  (hitL)	[CATRANNY immediately:^{	hitL.position = AZSubtractPoints(refP,move);	[hitL setNeedsDisplay];	}];} 
+	mouseUp:^{	hitL = nil;}];  // clear the hitlayer in between drags, or do whatever
+*/
+- (void) dragBlock:(void(^)(NSP click,NSP delta))block mouseUp:(void(^)(void))upBlock;
 @end
 
 typedef NS_ENUM(NSI, AZViewAnimationType) {
@@ -36,7 +63,16 @@ extern NSV* AZResizeWindowAndContent	( NSW* window, 	CGF dXLeft, CGF dXRight, CG
 
 typedef void (^viewFrameDidChangeBlock)(void);
 
+#define NSViewDidMoveToWindowNotification @"NSViewDidMoveToWindowNotification"
+
 @interface NSView (AtoZ)
+
+- (void) handleDragForTypes:(NSA*)files withHandler:(void (^)(NSURL *URL))handler;
+
+- (void) debug;
+- (void) debuginQuadrant:(AZQuad)q;
+
+-(void)goFullScreen;
 
 - (NSManagedObjectContext*)managedObjectContext;
 + (id) preview; //	returns new window
@@ -54,6 +90,7 @@ typedef void (^viewFrameDidChangeBlock)(void);
 - (CGP) layerPoint: (NSE*)event;
 - (CGP) layerPoint: (NSE*)event toLayer: (CAL*)layer;
 
+- (void) observeFrameChange: (void(^)(NSV*))block;
 - (void) observeFrameChangeUsingBlock: (void(^)(void))block;
 - (void) observeFrameNotifications:(void(^)(NSNOT*n))block;
 

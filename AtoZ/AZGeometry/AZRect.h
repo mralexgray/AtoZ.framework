@@ -92,7 +92,7 @@ static inline NSR AZScaleRect(NSRect frame, CGF factor) {
 - (id) initWithFrame:(NSR)frame inFrame:(NSR)superframe;
 
 @property (NATOM,ASS) CGP 		anchor, position;
-@property (NATOM,ASS) CGF 		width, height, maxX, maxY, minY, minX;
+@property (NATOM,ASS) CGF 		width, height, maxX, maxY, minY, minX, w, h;
 @property (NATOM,ASS) NSP 		origin, center;
 @property (NATOM,ASS) NSSZ 	size;
 @property (NATOM,ASS) NSR 		rect;
@@ -102,6 +102,7 @@ static inline NSR AZScaleRect(NSRect frame, CGF factor) {
 - (void) setApex:(NSP)p move1Scale2:(NSN*)n;
 @property (NATOM,ASS) NSR r;
 
+-(INST) shiftedX:(CGF)x y:(CGF)y w:(CGF)w h:(CGF)h;
 
 - (id) shrinkBy:(id) object;
 - (id) shrinkByPadding:(NSI)padding;

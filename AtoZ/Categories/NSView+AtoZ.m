@@ -54,6 +54,27 @@ NSRect frameResizedFromPointToPoint(NSRect frame, NSPoint point1, NSPoint point2
  	     [self setNewFrameFromMouseDrag:newFrame];
 		}
 }
+
+- (void) dragBlock:(void(^)(NSP click,NSP delta))block mouseUp:(void(^)(void))upBlock {
+
+	[self overrideSelector:@selector(mouseDown:) withBlock:(__bridge void *)^(id _self, NSE*e){
+		NSPoint point1 		= [_self convertPoint:e.locationInWindow toView:nil];
+		void(^newB)(NSP,NSP) = [block copy];
+		while (e.type != NSLeftMouseUp) {
+			e = [NSApp nextEventMatchingMask:NSLeftMouseDraggedMask|NSLeftMouseUpMask
+										  untilDate:FUTURE inMode:NSEventTrackingRunLoopMode dequeue:YES];
+			@autoreleasepool {
+				NSPoint point2 = [_self convertPoint:e.locationInWindow fromView:nil];
+				NSPoint delta 	= AZSubtractPoints( point1, point2 );
+				newB ( point1, delta );
+			}
+		}
+		upBlock();	NSLog(@"MouseUp.. PHEW!!");
+	}];
+}
+
+//		SEL sel = @selector(mouseDown:);void (*superIMP)(id, SEL, NSE*) = [_self az_superForSelector:sel];superIMP(_self, sel, e);
+
 @end
 
 NSTimeInterval AZDefaultAnimationDuration = -1; // -1 makes the system provide a default duration
@@ -127,7 +148,199 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 
 }
 @end
+#import <QuartzCore/QuartzCore.h>
+#import <ApplicationServices/ApplicationServices.h>
+
+
 @implementation NSView (AtoZ)
+
+
++ (void) load {
+	[$ swizzleMethod:@selector(setWantsLayer:) with:@selector(swizzleSetWantsLayer:) in:self.class];
+	[$ swizzleMethod:@selector(didMoveToWindow) with:@selector(swizzleDidMoveToWindow) in:self.class];
+
+}
+- (void) swizzleDidMoveToWindow {
+	[self swizzleDidMoveToWindow];
+	[AZNOTCENTER postNotificationName:NSViewDidMoveToWindowNotification object:self userInfo:@{@"window":self.window}];
+}
+- (void) swizzleSetWantsLayer:(BOOL)yeah {
+	[self swizzleSetWantsLayer:yeah];
+	[(CAL*)self.layer setHostView:self];
+}
+
+
+
+- (void) handleDragForTypes:(NSA*)files withHandler:(void (^)(NSURL *URL))handler;
+{
+	[self registerForDraggedTypes:@[ (__bridge id)kUTTypeFileURL ]];
+}
+/*
+- (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)sender	{
+    NSDragOperation theMask = [sender draggingSourceOperationMask];
+    if ([sender.draggingPasteboard.types containsObject:(__bridge id)kUTTypeFileURL]){
+		self.layer.borderColor = [NSColor keyboardFocusIndicatorColor].CGColor;
+		self.layer.borderWidth = 5.0;
+      if (theMask & NSDragOperationLink) return(NSDragOperationLink);
+		else if (theMask & NSDragOperationCopy)   return(NSDragOperationCopy);
+	}
+   return(NSDragOperationNone);
+}
+- (void)draggingExited:(id <NSDraggingInfo>)sender	{
+	self.layer.borderColor = NULL;
+	self.layer.borderWidth = 0.0;
+}
+
+- (BOOL)performDragOperation:(id <NSDraggingInfo>)sender	{
+	self.layer.borderColor = NULL;
+	self.layer.borderWidth = 0.0;
+	if (self.dragHandler)	{
+		NSPasteboardItem *theItem = sender.draggingPasteboard.pasteboardItems[0];
+		NSURL *theURL = [NSURL URLWithString:[theItem stringForType:(__bridge id)kUTTypeFileURL]];
+		self.dragHandler(theURL);
+	}
+	return(YES);
+}
+*/
+- (void) debug { [self debuginQuadrant:AZAlignBottomLeft]; }
+
+- (void) debuginQuadrant:(AZQuad)q {
+	
+	NSD* attrs = @{	NSForegroundColorAttributeName:WHITE, 
+							NSFontAttributeName:[NSFont fontWithName:@"UbuntuMono-Bold" size:18], 
+							NSFontSizeAttribute:@18};
+							
+	__block NSUI resize; BLKVIEW *b;__block NSAS *title; __block NSR bnds; __block CAL* theL;
+	resize = q == AZQuadBotLeft 	? kCALayerMaxXMargin| kCALayerMaxYMargin 
+			 : q == AZQuadBotRight 	? kCALayerMinXMargin| kCALayerMaxYMargin
+			 :	q == AZQuadTopLeft   ? kCALayerMaxXMargin| kCALayerMinYMargin
+			 :                        kCALayerMinXMargin| kCALayerMinYMargin;
+	
+	void(^Class1Subs2Supers3)(NSUI)= ^(NSUI i){
+		title  = [NSAS.alloc initWithString:
+		i == 1 ? NSStringFromClass(self.class) :
+		i == 2 ? [(NSA*)[self.subviews vFKP:@"class"]stringValue] : 
+		i == 3 ? [[self.superviews vFKP:@"class"]stringValue] : @"" attributes:attrs];
+		theL.frame = bnds = AZRectInsideRectOnEdge(AZRectFromSize([title.string sizeWithAttributes:attrs]), self.bounds, q);
+	};
+	Class1Subs2Supers3(1);
+	[self addSubview:b = [BLKVIEW inView:self withFrame:bnds inContext:^(BNRBlockView *v, CALayer *l) {
+		NSC*c = [l vFK:@"alexColor"];
+		if (!c) [l setValue: c = RANDOMCOLOR forKey:@"alexColor"];
+		NSRectFillWithColor(l.bounds,[c alpha:.8]);
+		l.arMASK = resize;
+//		l.anchorPoint = AZAnchorPointForPosition(q);
+		[title drawInRect:l.bounds];
+		theL = l;
+	}]];
+	__block BOOL hidden = NO;
+	[NSEVENTLOCALMASK:NSLeftMouseDownMask handler:^NSEvent *(NSEvent *e){
+		if (!NSPointInRect([self convertPoint:e.locationInWindow fromView:nil], [self convertRectToBacking:self.frame])) return e;
+		static NSArray *storage = nil;
+//		if ((e.clickCount % 2) == 0) {
+		   if (storage.count) { 
+													[@"resetting old colors" log];
+												 	[storage[0] setBackgroundColor:(id)[storage[1]CGColor]]; 
+											}	CGColorRef rrr = theL.superlayer.bgC;  storage = @[theL,rrr != NULL ? [NSC colorWithCGColor:rrr] : CLEAR]; 
+												LOGCOLORS(@"setting color on thesuperlayer:", theL.superlayer,GREEN, nil);	theL.superlayer.bgC = cgRANDOMCOLOR;  [theL.superlayer setNeedsDisplay];
+//		}
+		LOG_EXPR(theL.isGeometryFlipped);
+		LOG_EXPR(self.isFlipped);
+		LOG_EXPR([self convertPointFromBacking:e.locationInWindow]);
+		LOG_EXPR(e.locationInWindow);
+		LOG_EXPR([theL frame]);
+		LOG_EXPR([self frame]);
+		CAL* l = [self.layer hitTest:[self convertPoint:e.locationInWindow fromView:nil]];
+		LOG_EXPR(l.debugDescription);
+		if (l != theL) return e; else playTrumpet();
+		NSUI ctr = 1;
+		if (e.clickCount == 1) { ctr = ctr >= 3 ? 1 : ctr+1;  Class1Subs2Supers3(ctr); [theL setNeedsDisplay]; }
+		if (e.clickCount == 2) { hidden =! hidden;   hidden ? [theL fadeOut] :[theL fadeIn]; }
+		
+			return e;
+	}];
+
+}
+
+// this is a fun one.  we are going to make a new window
+// and put ourselves into it (taking ourselves out of the old window)
+-(void)goFullScreen {
+	
+	// get the screen that we want to go to
+	__block CGF area = 0; __block NSUI x;
+	[NSScreen.screens eachWithIndex:^(id obj, NSInteger idx) {
+		CGF nArea = $AZR(NSUnionRect(self.frame,[obj frame])).area;
+		if (nArea > area) { area = nArea;  x = idx; }
+	}];
+	NSScreen * chosenScreen = NSScreen.screens[x];
+	// get the screen id from the screen description, and capture that display
+  	CGDirectDisplayID displayID = [[[chosenScreen deviceDescription] objectForKey:@"NSScreenNumber"] intValue];
+	if (CGDisplayCapture( displayID ) != kCGErrorSuccess) { NSLog( @"Couldn't capture the display!" );	}
+	NSWindow *fullScreenWindow = [NSWindow.alloc initWithContentRect:[chosenScreen frame]
+																			 styleMask:NSBorderlessWindowMask
+																				backing:NSBackingStoreBuffered
+																				  defer:NO
+																			 	 screen:chosenScreen];
+	[fullScreenWindow overrideSelector:@selector(canBecomeKeyWindow) 
+									 withBlock:(__bridge void *)^BOOL(id _self)	{ return  YES; }];
+	// put this window above the shielding window
+	[fullScreenWindow setAlphaValue:0];
+	[fullScreenWindow setLevel:CGShieldingWindowLevel()];
+	[fullScreenWindow setFrame:chosenScreen.frame display:NO];
+//	[fullScreenWindow setBackgroundColor:[NSColor blackColor]];
+	
+	//remember the old settings before i move out
+	NSW* ow = self.window;
+	NSR oldF = self.frame;
+//	[self setAssociatedValue:ow = self.window forKey:@"oldWindow" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
+//	[self setAssociatedValue:AZVrect(self.window.frame) forKey:@"oldFrame" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
+	[self.window fadeOut];
+	[self removeFromSuperview];
+	// set my new frame size and insert myself into the new fullscreen window
+	[fullScreenWindow setContentView:self];
+	[self setFrame:fullScreenWindow.frame];
+	[fullScreenWindow makeFirstResponder:self];
+	[fullScreenWindow makeKeyAndOrderFront:nil];
+	[self setNeedsDisplay:YES];
+	[fullScreenWindow fadeIn];
+	[NSEVENTLOCALMASK: NSKeyDownMask handler:^NSE*(NSE*e) {
+		// this is the ESC key
+		if (e.keyCode == 53) { 
+			
+			// dont do nuthin if we dont have a fullscreen window
+			if (fullScreenWindow == nil) return e;
+			// destroy the fullscreen window
+			[fullScreenWindow fadeOut];
+			[fullScreenWindow orderOut:nil];		// need to make this a bit more friendly
+			if (CGReleaseAllDisplays() != kCGErrorSuccess) {NSLog( @"Couldn't release the display(s)!" ); }
+			// re-expand my old window to its original size
+//			NSR oldWindowFrame = [objc_getAssociatedObject(self, (__bridge const void*)@"oldFrame")rectValue];
+//			[ow.animator setFrame:oldWindowFrame display:YES];
+			// add myself back into the content view
+			[[ow contentView] addSubview:self];
+			[self setFrame:oldF];//ZRectFromSize(oldWindowFrame.size)];
+			// reset the button back to it's original use
+	//		[fullScreenButton setTitle:@"Go Fullscreen"];
+	//	[fullScreenButton setAction:@selector(goFullScreen:)];
+	//		[self closeFullScreenWindow:self];
+			[ow fadeIn];
+		}
+		return e;		
+	}];
+	// now do some hocus pocus on the old window to squeeze it down
+	// because taking myself out left a big hole
+//	oldWindowFrame = [self.oldWindow frame];
+//	NSRect squished = oldWindowFrame;
+//	squished.size.height -= NSHeight(oldFrame);
+//	squished.origin.y += NSHeight(oldFrame);
+//	[[self.oldWindow animator] setFrame:(NSR){{ display:YES];
+	
+	// now repurpose our GUI button to cancel the fulscreen
+//	[fullScreenButton setTitle:@"Stop Fullscreen"];
+//	[fullScreenButton setAction:@selector(closeFullScreenWindow:)];
+}
+
+
 
 - (NSManagedObjectContext*)managedObjectContext {
  return [[[self.window windowController] document]managedObjectContext];
@@ -180,6 +393,12 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 - (CGP)layerPoint:(NSEvent*)event toLayer:(CAL*)layer;
 {
 	return [self.layer convertPoint:[self layerPoint:event] toLayer:layer];
+}
+
+- (void) observeFrameChange: (void(^)(NSV*))block; {
+	self.postsFrameChangedNotifications  =	self.postsBoundsChangedNotifications = YES;
+	[@[NSViewFrameDidChangeNotification, NSViewBoundsDidChangeNotification] each:^(NSS* name){
+		[self observeName:name usingBlock:^(NSNOT*n) {	block(self); }]; }];
 }
 
 - (void) observeFrameChangeUsingBlock:(void(^)(void))block	{
@@ -745,15 +964,21 @@ NSView* AZResizeWindowAndContent(NSWindow* window, CGF dXLeft, CGF dXRight, CGF 
 
 - (CGF)height {	return [self frame].size.height ;	}
 
-- (void)setWidth:(CGF)t {
-	NSRect frame = [self frame] ;
-	frame.size.width = t ;
-	[self setFrame:frame] ;
-   [[self superview] setNeedsDisplay:YES];
+- (void)setWidth:(CGF)w {
+
+	if (w != self.width) [self setFrame:AZRectExceptWide(self.frame,w)],self.superview.needsDisplay =YES;
+
+//	NSRect frame = [self frame] ;
+//	frame.size.width = t ;
+//	[self setFrame:frame] ;
+//   [[self superview] setNeedsDisplay:YES];
 }
 
-- (void)setHeight:(CGF)t 	{ 	self.frame = AZRectExceptHigh(self.frame, t); [[self superview] setNeedsDisplay:YES];}
+- (void)setHeight:(CGF)t 	{ 	
 
+//self.frame = AZRectExceptHigh(self.frame, t); [[self superview] setNeedsDisplay:YES];}
+	if (t != self.height) [self setFrame:AZRectExceptHigh(self.frame,t)],self.superview.needsDisplay =YES;
+}
 
 
 - (CGF)originX {
@@ -763,24 +988,18 @@ NSView* AZResizeWindowAndContent(NSWindow* window, CGF dXLeft, CGF dXRight, CGF 
     return [self frame].origin.y;
 }
 
-- (void)setOriginX:(CGF)aFloat {
-    if (aFloat != [self originX]) {
-        NSRect frame = [self frame];
-        frame.origin.x = aFloat;
-        [self setFrame:frame];
-        [[self superview] setNeedsDisplay:YES];
-    }
+- (void)setOriginX:(CGF)x {
+	if (x != self.originX) [self setFrame:AZRectExceptOriginX(self.frame,x)],self.superview.needsDisplay =YES;
+//    if (aFloat != [self originX]) {
+//        NSRect frame = [self frame];
+//        frame.origin.x = aFloat;
+//        [self setFrame:frame];
+//        [self setNeedsDisplay:YES];
+//    }
 }
-- (void)setOriginY:(CGF)aFloat {
-    if (aFloat != self.originY) {
-        NSRect frame = self.frame;
-        frame.origin.y = aFloat;
-        [self setFrame:frame];
-        [[self superview] setNeedsDisplay:YES];
-    }
+- (void)setOriginY:(CGF)y {
+	if (y != self.originY) [self setFrame: AZRectExceptOriginY(self.frame,y)],self.superview.needsDisplay =YES;
 }
-
-
 - (NSSize)size 				{	return  self.bounds.size; }
 
 - (void)setSize:(NSSize)size
@@ -1117,7 +1336,7 @@ NSView* AZResizeWindowAndContent(NSWindow* window, CGF dXLeft, CGF dXRight, CGF 
 	label.editable					 = NO;
 	label.selectable				 = NO;
 	label.attributedStringValue = attributedString;
-	[label.cell setLineBreakMode: NSLineBreakByWordWrapping];
+	[(NSTextFieldCell*)label.cell setLineBreakMode: NSLineBreakByWordWrapping];
 	
 	COICOPopoverView *container = [COICOPopoverView.alloc initWithFrame:containerRect];
 	
@@ -1186,7 +1405,7 @@ NSView* AZResizeWindowAndContent(NSWindow* window, CGF dXLeft, CGF dXRight, CGF 
 	label.editable					 = NO;
 	label.selectable				 = NO;
 	label.attributedStringValue = as;
-	[label.cell setLineBreakMode: NSLineBreakByWordWrapping];
+	[(NSTextFieldCell*)label.cell setLineBreakMode: NSLineBreakByWordWrapping];
 	
 	COICOPopoverView *container = [COICOPopoverView.alloc initWithFrame:containerRect];
 	

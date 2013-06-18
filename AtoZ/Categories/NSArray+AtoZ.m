@@ -5,6 +5,7 @@
 #import "NSArray+AtoZ.h"
 //#import "AZLog.h"
 
+NSString * const NSMutableArrayDidInsertObjectNotification = @"com.mrgray.NSMutableArrayDidInsertObjectNotification";
 
 @implementation NSArray (EnumExtensions)
 
@@ -39,6 +40,24 @@
 @end
 
 //#import "Nu.h"
+
+@implementation NSArray (AtoZCLI)
+
+- (NSS *)stringValueInColumnsCharWide:(NSUI)characters {
+    return [self reduce:^id (id memo, id obj) {
+        NSUI min = MAX(characters - [obj length], 0);
+        return [memo withString:[obj stringByPaddingToLength:characters withString:@" " startingAtIndex:0]];
+    } withInitialMemo:@""];
+}
+- (NSS *)formatAsListWithPadding:(NSUI)characters	{
+
+	return /*$(@"\n%@",*/ [[[self alphabetize] map:^id (id obj) {
+		return [obj stringByPaddingToLength:characters withString:@" " startingAtIndex:0];
+	}] componentsJoinedByString:@" "]; // );
+}
+- (NSA *)alphabetize { return [self.mutableCopy sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];	}
+
+@end
 
 @implementation NSArray (AtoZ)
 
@@ -81,6 +100,7 @@
 //				NSLog(@"%@ %s indexed subscript out of bounds.  last good valu was :%@.... my length is %ld.  I start with %@\n", types,__PRETTY_FUNCTION__, [self.last propertiesPlease], self.count, self[0] ); }
 //	return try ?: @"";// AZNULL;
 }
+
 + (void) load  {
 
 //	[$ swizzleMethod:@selector(description) with:@selector(swizzleDescription) in:self.class];
@@ -173,17 +193,6 @@
 //    return [self normal:intIndex];
 }
 
-- (NSS *)formatAsListWithPadding:(NSUI)characters;
-{
-    return /*$(@"\n%@",*/ [[[self alphabetize] map:^id (id obj) {
-            return [obj stringByPaddingToLength:characters withString:@" " startingAtIndex:0];
-        }]
-                           componentsJoinedByString:@" "]; // );
-}
-
-- (NSA *)alphabetize {
-    return [self.mutableCopy sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
-}
 
 - (NSCountedSet *)countedSet {
     return [[NSCountedSet alloc] initWithArray:self];
@@ -303,12 +312,6 @@
     return array;
 }
 
-- (NSS *)stringValueInColumnsCharWide:(NSUI)characters {
-    return [self reduce:^id (id memo, id obj) {
-        NSUI min = MAX(characters - [obj length], 0);
-        return [memo withString:[obj stringByPaddingToLength:characters withString:@" " startingAtIndex:0]];
-    } withInitialMemo:@""];
-}
 
 - (NSS *)stringWithEnum:(NSUInteger)anEnum; { return self[anEnum];    }
 
@@ -1120,6 +1123,24 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 @end
 
 @implementation NSMutableArray (AG)
+
+- (void)swizzleInsertObject:(id) o atIndex:(NSUInteger)idx {
+	[self swizzleInsertObject:o atIndex:idx];
+	[AZNOTCENTER postNotificationName:NSMutableArrayDidInsertObjectNotification object:self userInfo:nil];
+}
+- (void)swizzleAddObject:(id) o {
+	[self swizzleAddObject:o];
+	[AZNOTCENTER postNotificationName:NSMutableArrayDidInsertObjectNotification object:self userInfo:nil];
+}
+- (void)swizzleAddObjectsFromArray:(NSA*)a {
+	[self swizzleAddObjectsFromArray:a];
+	[AZNOTCENTER postNotificationName:NSMutableArrayDidInsertObjectNotification object:self userInfo:nil];
+}
++ (void) load  {
+	[$ swizzleMethod:@selector(insertObject:atIndex:) with:@selector(swizzleInsertObject:atIndex:) in:self.class];
+	[$ swizzleMethod:@selector(addObject:) with:@selector(swizzleAddObject:) in:self.class];
+	[$ swizzleMethod:@selector(addObjectsFromArray:) with:@selector(swizzleAddObjectsFromArray:) in:self.class];
+}
 
 - (void)addPoint:(NSPoint)point {
     [self addObject:AZVpoint(point)];

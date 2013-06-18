@@ -1,7 +1,16 @@
-
+//
 #import "AtoZ.h"
 #import "NSObject+AtoZ.h"
 
+
+@implementation NSObject (NibLoading)
++ (INST) loadFromNib {
+	static NSNib   *aNib = nil;
+	NSArray *objs = nil;
+	[aNib = aNib ?: [NSNib.alloc initWithNibNamed:AZCLSSTR bundle:nil] instantiateWithOwner:nil topLevelObjects:&objs];
+	return [objs objectWithClass:self.class];
+}
+@end
 
 @implementation NSObject (GCD)
 - (void)performOnMainThread:(void(^)(void))block wait:(BOOL)shouldWait {
@@ -27,6 +36,9 @@
 + (id)valueForKey:(NSS*)key  {
 	return [(NSO*)self associatedValueForKey:(__bridge const void *)(key)];
 }
+
+
+
 @end
 
 @implementation NSObject (HidingAssocitively)
@@ -197,11 +209,11 @@ static id addMethodTrampoline(id self, SEL _cmd) {
 	return [self associatedValueForKey:(__bridge const void *)string] != nil;
 }
 
-- (id)associatedValueForKey:(NSS *)key orSetTo:(id)anObject policy:(objc_AssociationPolicy)policy {
-	return [self hasAssociatedValueForKey:key]
-	? [self associatedValueForKey:(__bridge const void *)(key)]
-	: ^{    [self setAssociatedValue:anObject forKey:key policy:policy];
-		return [self associatedValueForKey:(__bridge const void *)(key)];        } ();
+- (id)associatedValueForKey:(NSS*)key orSetTo:(id)anObject policy:(objc_AssociationPolicy)policy {
+	if ( [self hasAssociatedValueForKey:key] )
+	return [self associatedValueForKey:(__bridge const void *)key];
+	[self setAssociatedValue:anObject forKey:key policy:policy];
+	return anObject;
 }
 
 @end
@@ -303,7 +315,7 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary(void) {
 	NSA* justBlocks = [namesAndBlocks arrayByRemovingObjectsFromArray:names];
 	[names eachWithIndex:^(id obj, NSInteger idx) {
 		[self observeName:obj usingBlock:^(NSNotification *n) {	
-			((void(^)(void))justBlocks[idx])();	
+			((void(^)(NSNotification*))justBlocks[idx])(n);	
 		}];	
 	}];
 }
@@ -1642,13 +1654,21 @@ static const char * getPropertyType(objc_property_t property) {
 	}
 }
 
-- (void)willChangeValueForKeys:(id<NSFastEnumeration>)keys {
+- (void)az_willChangeValueForKeys:(NSA*)keys; { //(id<NSFastEnumeration>)keys {
 	for (id key in keys) {
 		[self willChangeValueForKey:key];
 	}
 }
+- (void) triggerChangeForKeys:(NSA*)keys;{
+	for (id key in keys) {
+		[self willChangeValueForKey:key];
+	}
+	for (id key in keys) {
+		[self didChangeValueForKey:key];
+	}
 
-- (void)didChangeValueForKeys:(id<NSFastEnumeration>)keys {
+}
+- (void)az_didChangeValueForKeys:(NSA*)keys;{//(id<NSFastEnumeration>)keys {
 	for (id key in keys) {
 		[self didChangeValueForKey:key];
 	}
@@ -1685,6 +1705,8 @@ static const char * getPropertyType(objc_property_t property) {
 }
 
 // autorelease];}
+- (NSA*) objectKeys { return [self.propertyNames cw_mapArray:^id(id k) { return ([self classOfPropertyNamed:k] != NULL) ? k : nil; }];}
+- (NSA*) primitiveKeys { return [self.propertyNames cw_mapArray:^id(id k) { return ([self classOfPropertyNamed:k] == NULL) ? k : nil; }];}
 
 
 - (instancetype)initWithDictionary:(NSD*)properties {
@@ -2366,214 +2388,6 @@ CG_EXTERN CFTimeInterval CGEventSourceSecondsSinceLastEventType(CGEventSourceSta
 @end
 
 
-@class CKVOToken;
-
-@interface CKVOBlockHelper : NSObject
-@property (readonly, nonatomic, weak) id observedObject;
-@property (readonly, nonatomic, strong) NSMutableDictionary *tokensByContext;
-@property (readwrite, nonatomic, assign) NSInteger nextIdentifier;
-- (id)initWithObject:(id)inObject;
-- (CKVOToken *)insertNewTokenForKeyPath:(NSS*)inKeyPath block:(KVOFullBlock)inBlock;
-- (void)removeHandlerForKey:(CKVOToken *)inToken;
-- (void)dump;
-@end
-
-#pragma mark -
-
-@interface CKVOToken : NSObject
-@property (readonly, nonatomic, copy) NSString *keypath;
-@property (readonly, nonatomic, assign) NSInteger index;
-@property (readonly, nonatomic, copy) KVOFullBlock block;
-@property (readonly, nonatomic, assign) void *context;
-- (id)initWithKeyPath:(NSS*)inKey index:(NSInteger)inIndex block:(KVOFullBlock)inBlock;
-@end
-
-#pragma mark -
-
-@implementation NSObject (NSObject_KVOBlock)
-
-static void *KVO;
-
-- (id)addKVOBlockForKeyPath:(NSS*)inKeyPath options:(NSKeyValueObservingOptions)inOptions handler:(KVOFullBlock)inHandler
-{
-	NSParameterAssert(inHandler);
-	NSParameterAssert(inKeyPath);
-	NSParameterAssert([NSThread isMainThread]); // TODO -- remove and grow a pair.
-
-	CKVOBlockHelper *theHelper = [self helper:YES];
-	NSParameterAssert(theHelper != NULL);
-
-	CKVOToken *theToken = [theHelper insertNewTokenForKeyPath:inKeyPath block:inHandler];
-	NSParameterAssert(theToken != NULL);
-
-	void *theContext = theToken.context;
-	NSParameterAssert(theContext != NULL);
-
-	[self addObserver:theHelper forKeyPath:inKeyPath options:inOptions context:theContext];
-
-	return(theToken);
-}
-
-- (void)removeKVOBlockForToken:(CKVOToken *)inToken
-{
-	NSParameterAssert([NSThread isMainThread]); // TODO -- remove and grow a pair.
-	CKVOBlockHelper *theHelper = [self helper:NO];
-	NSParameterAssert(theHelper != NULL);
-
-	void *theContext = inToken.context;
-	NSParameterAssert(theContext);
-	NSString *theKeyPath = inToken.keypath;
-	NSParameterAssert(theKeyPath.length > 0);
-	[self removeObserver:theHelper forKeyPath:theKeyPath context:theContext];
-
-	[theHelper removeHandlerForKey:inToken];
-}
-
-#pragma mark -
-
-- (id)addOneShotKVOBlockForKeyPath:(NSS*)inKeyPath options:(NSKeyValueObservingOptions)inOptions handler:(KVOFullBlock)inHandler
-{
-	__block CKVOToken *theToken = NULL;
-	KVOFullBlock theBlock = ^(NSString *keyPath, id object, NSDictionary *change) {
-		inHandler(keyPath, object, change);
-		[self removeKVOBlockForToken:theToken];
-	};
-
-	theToken = [self addKVOBlockForKeyPath:inKeyPath options:inOptions handler:theBlock];
-	return(theToken);
-}
-
-- (void)KVODump
-{
-	CKVOBlockHelper *theHelper = [self helper:NO];
-	[theHelper dump];
-}
-
-#pragma mark -
-
-- (CKVOBlockHelper *)helper:(BOOL)inCreate
-{
-	CKVOBlockHelper *theHelper = objc_getAssociatedObject(self, &KVO);
-	if (theHelper == NULL && inCreate == YES)
-	{
-		theHelper = [[CKVOBlockHelper alloc] initWithObject:self];
-
-		objc_setAssociatedObject(self, &KVO, theHelper, OBJC_ASSOCIATION_RETAIN);
-	}
-	return(theHelper);
-}
-
-@end
-
-#pragma mark -
-
-@implementation CKVOBlockHelper
-
-- (id)initWithObject:(id)inObject
-{
-	if ((self = [super init]) != NULL)
-	{
-		_observedObject = inObject;
-	}
-	return(self);
-}
-
-- (void)dealloc
-{
-	[_tokensByContext enumerateKeysAndObjectsUsingBlock:^(NSNumber *index, CKVOToken *token, BOOL *stop)
-	 {
-		 void *theContext = token.context;
-		 NSParameterAssert(theContext != NULL);
-		 NSString *theKeypath = token.keypath;
-		 NSParameterAssert(theKeypath != NULL);
-		 [_observedObject removeObserver:self forKeyPath:theKeypath context:theContext];
-	 }];
-}
-
-- (NSS*)debugDescription
-{
-	return([NSString stringWithFormat:@"%@ (%@, %@, %@)", [self description], self.observedObject, self.tokensByContext, [self.observedObject observationInfo]]);
-}
-
-- (void)dump
-{
-	printf("*******************************************************\n");
-	printf("%s\n", [[self description] UTF8String]);
-	printf("\tObserved Object: %p\n", (__bridge void *)self.observedObject);
-	printf("\tKeys:\n");
-	[_tokensByContext enumerateKeysAndObjectsUsingBlock:^(NSNumber *index, CKVOToken *token, BOOL *stop) {
-		printf("\t\t%s\n", [[index description] UTF8String]);
-	}];
-	printf("\tObservationInfo: %s\n", [[(__bridge id)[self.observedObject observationInfo] description] UTF8String]);
-}
-
-- (void)removeHandlerForKey:(CKVOToken *)inToken
-{
-	[_tokensByContext removeObjectForKey:@(inToken.index)];
-	if (_tokensByContext.count == 0)
-	{
-		_tokensByContext = NULL;
-	}
-}
-
-- (CKVOToken *)insertNewTokenForKeyPath:(NSS*)inKeyPath block:(KVOFullBlock)inBlock
-{
-	CKVOToken *theToken = [[CKVOToken alloc] initWithKeyPath:inKeyPath index:++self.nextIdentifier block:inBlock];
-	if (_tokensByContext == NULL)
-	{
-		_tokensByContext = [NSMutableDictionary dictionary];
-	}
-	_tokensByContext[@(theToken.index)] = theToken;
-	return(theToken);
-}
-
-#pragma mark -
-
-- (void)observeValueForKeyPath:(NSS*)keyPath ofObject:(id)object change:(NSD*)change context:(void *)context;
-{
-	NSParameterAssert(context);
-
-	NSNumber *theKey = @((NSInteger)context);
-
-	CKVOToken *theToken= _tokensByContext[theKey];
-	if (theToken == NULL)
-	{
-		NSLog(@"Warning: Could not find block for key: %@", theKey);
-	}
-	else
-	{
-		theToken.block(keyPath, object, change);
-	}
-}
-
-@end
-
-@implementation CKVOToken
-
-- (id)initWithKeyPath:(NSS*)inKey index:(NSInteger)inIndex block:(KVOFullBlock)inBlock
-{
-	if ((self = [super init]) != NULL)
-	{
-		_keypath = inKey;
-		_index = inIndex;
-		_block = inBlock;
-	}
-	return self;
-}
-
-- (NSS*)description
-{
-	return([NSString stringWithFormat:@"%@ (%@ #%ld)", [super description], self.keypath, (unsigned long)self.index]);
-}
-
-- (void *)context
-{
-	return((void *)self.index);
-}
-
-@end
-
-
 @implementation NSObject (FOOCoding)
 
 - (id)initWithDictionary:(NSD*)dictionary;
@@ -2709,33 +2523,59 @@ static void *KVO;
 	return stringValue ? [NSURL URLWithString:stringValue] : nil;
 }
 
+
+- (id)valueForKeyOrKeyPath:(id)keyOrKeyPath transform:(THBinderTransformationBlock)transformationBlock	{
+
+	if (![keyOrKeyPath ISKINDA:NSS.class]) return  nil;
+	BOOL isKeyP = [keyOrKeyPath containsString:@"."];
+	id (^integerKeyValue)(id,NSS*) = ^id(id object, NSString*kp){
+		return [kp isIntegerNumber] && [object isKindOfClass:NSA.class] ?	[(NSA*)object normal:kp.integerValue] : nil;  
+	};
+	id foundvalue = isKeyP ? ^{
+		NSA* components = [keyOrKeyPath componentsSeparatedByString:@"."];
+		__block id result = self;
+		[components enumerateObjectsUsingBlock:^(id kp, NSUInteger idx, BOOL *stop) {
+		
+				if (!(result = integerKeyValue(result, kp) ?: [result vFK:kp])) *stop = YES;// else LOG_EXPR(result);
+		}];
+		return result;
+	}(): ^{ 
+	return 		integerKeyValue(self, keyOrKeyPath) 
+				?: [self vFK:keyOrKeyPath]
+				?:	[self respondsToSelector:NSSelectorFromString(keyOrKeyPath)] 
+				?  [self performSelectorSafely:NSSelectorFromString(keyOrKeyPath)] 
+				: [self performSelectorWithoutWarnings:[self getterForPropertyNamed:keyOrKeyPath]] ?: nil;
+	 }();
+	 return foundvalue && [foundvalue conformsToProtocol:@protocol(NSFastEnumeration)] ? [foundvalue cw_mapArray:^id(id object) {
+		 return transformationBlock(object);
+	}] : transformationBlock(foundvalue);
+}
+
 - (id)valueForKeyOrKeyPath:(id)keyOrKeyPath  //AZAddition
 {
-	NSLog(@"%@: %@", NSStringFromSelector(_cmd), keyOrKeyPath);
+//	NSLog(@"%@: %@", NSStringFromSelector(_cmd), keyOrKeyPath);
 	if (![keyOrKeyPath isKindOfClass:NSString.class]) return  nil;
-	if ([keyOrKeyPath containsString:@"."]) {
+	BOOL isKeyP = [keyOrKeyPath containsString:@"."];
+	id (^integerKeyValue)(id,NSS*) = ^id(id object, NSString*kp){
+		return [kp isIntegerNumber] && [object isKindOfClass:NSA.class] ?	[(NSA*)object normal:kp.integerValue] : nil;  
+	};
+	if (isKeyP) {
 		NSA* components = [keyOrKeyPath componentsSeparatedByString:@"."];
-//		NSLog(@"serching for KP components: %@", components);
+		//		NSLog(@"serching for KP components: %@", components);
 		__block id result = self;
-		[components enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-			if ([(NSS*)obj isIntegerNumber] && [result isKindOfClass:NSA.class]) {
-				result = [(NSA*)result normal:[(NSS*)obj integerValue]];
-			}
-			else {
-				result = [result vFK:obj];
-				//[result respondsToSelector:[result getterForPropertyNamed:obj]] && [result hasPropertyForKey:obj]
+		[components enumerateObjectsUsingBlock:^(id kp, NSUInteger idx, BOOL *stop) {
+					//[result respondsToSelector:[result getterForPropertyNamed:obj]] && [result hasPropertyForKey:obj]
 					//	 ?  [result performSelectorWithoutWarnings:[result getterForPropertyNamed:obj]] : nil;
-			}
-			if (!result) *stop = YES;// else LOG_EXPR(result);
+			if (!(result 	= integerKeyValue(result, kp) ?: [result vFK:kp])) *stop = YES;// else LOG_EXPR(result);
 		}];
 		return result;
 //		 return [self vFKP:rawPath] ?: nil;
 	}
-	else if ([keyOrKeyPath isIntegerNumber] && [self isKindOfClass:NSA.class]) return [(NSA*)self normal:[(NSS*)keyOrKeyPath integerValue]];
-	else if ([self respondsToString:keyOrKeyPath]) {
-		return [self performString:keyOrKeyPath];
-	}
-	else return [self performSelectorWithoutWarnings:[self getterForPropertyNamed:keyOrKeyPath]] ?: nil;
+	return integerKeyValue(self, keyOrKeyPath) ?: //[keyOrKeyPath isIntegerNumber] && [self isKindOfClass:NSA.class]) return [(NSA*)self normal:[(NSS*)keyOrKeyPath integerValue]];
+//	else if (
+		[self respondsToSelector:NSSelectorFromString(keyOrKeyPath)] 
+	 ? [self performSelectorSafely:NSSelectorFromString(keyOrKeyPath)] 
+	 : [self performSelectorWithoutWarnings:[self getterForPropertyNamed:keyOrKeyPath]] ?: nil;
 	
 }
 
@@ -2770,4 +2610,5 @@ static void *KVO;
 	return YES;
 }
 
+- (void)sV:(id)v fK:(id)k {  [self setValue:v forKey:k]; }
 @end

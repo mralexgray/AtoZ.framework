@@ -26,7 +26,7 @@
 
 - (void) awakeFromNib {
 	self.statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength];
-	statusItem.image  = [[NSImage az_imageNamed:@"atoz.icns"]scaledToMax:22];
+	statusItem.image  = [[NSImage imageNamed:@"atoz.icns"]scaledToMax:22];
 //   // [NSImage icons][0];//
 //statusimage
 //	statusItem.alternateImage	= [NSImage icons][11];//.randomElement; //[NSImage imageNamed:@"statusimage_pressed"]];

@@ -36,6 +36,11 @@ void profile (const char *name, VoidBlock block); 		// usage	 profile("Long Task
 #define ISA(a,b) (BOOL)[a ISKINDA:[b class]]
 #define ISACLASS(a) class_isMetaClass(object_getClass(a))
 
+// USAGE  IFKINDA( X, SomeClass, LOG_EXPR(((SomeClass*)X).someProperty) );
+#define IFKINDA(A,B,C) ^{ if([A ISKINDA:[B class]]) ^{ C; }(); }()
+
+#define AZOL AZOutlineLayer
+
 
 
 /**	NSS *colorString = @"fg218,147,0";
@@ -64,6 +69,18 @@ void profile (const char *name, VoidBlock block); 		// usage	 profile("Long Task
 				: 	NSLog(@"%@",str);}
 
 */
+
+#define PLAYMACRO(name,path) \
+ NS_INLINE void play##name (void){ fprintf(stderr,"%s", "##path\""); runCommand (@"afplay ##path"); } 
+
+PLAYMACRO(Chirp, /System/Library/PrivateFrameworks/ShareKit.framework/Versions/A/PlugIns/Twitter.sharingservice/Contents/Resources/tweet_sent.caf)
+
+NS_INLINE void playTrumpet(void){ runCommand(@"afplay \"/System/Library/Frameworks/GameKit.framework/Versions/A/Resources/GKInvite.aif\""); }
+
+
+//NS_INLINE void playChirp  (void){ runCommand(@"afplay \"/System/Library/PrivateFrameworks/ShareKit.framework/Versions/A/PlugIns/Twitter.sharingservice/Contents/Resources/tweet_sent.caf\""); }
+//NS_INLINE void playSound  (void){ runCommand(@"afplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/accessibility/Sticky Keys ON.aif\"");}
+
 
 JREnumDeclare(azkColor,azkColorNone,azkColorRed,azkColorOrange,azkColorYellow,azkColorGreen,azkColorBlue,azkColorPurple,azkColorGray);
 NSG* GradForClr(azkColor c);
@@ -346,7 +363,7 @@ NSString * VTPG_DDToStringFromTypeAndValue(const char * typeCode, void * value);
  }
  return 0;
  }	*/
-static void PrintUsageAndQuit(void) __attribute__((noreturn));
+//static void PrintUsageAndQuit(void) __attribute__((noreturn));
 //static void PrintStatus(NSURL *url);
 
 /*
@@ -459,4 +476,4 @@ static off_t totaldiratpath(const char *path);
 NSUI sizeOfDirectoryAt(NSS* path);
 NSS* prettySizeOfDirAt(NSS *path);
 
-
+NSS* weatherForZip(NSUI zip);

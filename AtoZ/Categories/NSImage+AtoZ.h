@@ -4,8 +4,6 @@
 
 //  Created by Alex Gray on 7/2/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-#import <Cocoa/Cocoa.h>
-#import "AtoZ.h"
 
 
 static inline int get_bit(unsigned char *arr, unsigned long bit_num);
@@ -372,4 +370,133 @@ extern NSData *PNGRepresentation(NSIMG *image);
 */
 @interface NSGraphicsContext (AtoZ)
 + (void) addNoiseToContext;
+@end
+
+
+@interface NSImage (ADBImageEffects)
+
+
+//Returns the relative anchor point (from {0.0, 0.0} to {1.0, 1.0})
+//that's equivalent to the specified image alignment constant.
++ (NSPoint) anchorForImageAlignment: (NSImageAlignment)alignment;
+
+//Returns a rect suitable for drawing this image into,
+//given the specified alignment and scaling mode. Intended
+//for NSCell/NSControl subclasses.
+- (NSRect) imageRectAlignedInRect: (NSRect)outerRect
+                        alignment: (NSImageAlignment)alignment
+                          scaling: (NSImageScaling)scaling;
+
+//Returns a new version of the image filled with the specified color at the
+//specified size, using the current image's alpha channel. The resulting image
+//will be a bitmap.
+//Pass NSZeroSize as the size to use the size of the original image.
+//Intended for use with black-and-transparent template images,
+//although it will work with any image.
+- (NSImage *) imageFilledWithColor: (NSColor *)color atSize: (NSSize)targetSize;
+
+//Returns a new version of the image masked by the specified image, at the
+//specified size. The resulting image will be a bitmap.
+- (NSImage *) imageMaskedByImage: (NSImage *)mask atSize: (NSSize)targetSize;
+
+//Draw a template image filled with the specified gradient and rendered
+//with the specified inner and drop shadows.
+- (void) drawInRect: (NSRect)drawRect
+       withGradient: (NSGradient *)fillGradient
+         dropShadow: (NSShadow *)dropShadow
+        innerShadow: (NSShadow *)innerShadow
+     respectFlipped: (BOOL)respectContextIsFlipped;
+
+@end
+
+typedef enum {
+	IMAGE_POSITION_LEFT = 0,
+	IMAGE_POSITION_RIGHT,
+	IMAGE_POSITION_LOWER_LEFT,
+	IMAGE_POSITION_LOWER_RIGHT
+} IMAGE_POSITION;
+
+
+@interface NSImage (AIImageDrawingAdditions)
+
+- (void)tileInRect:(NSRect)rect;
+- (NSImage *)imageByScalingToSize:(NSSize)size;
+//- (NSImage *)imageByScalingToSize:(NSSize)size DPI:(CGFloat)dpi;
+- (NSImage *)imageByFadingToFraction:(CGFloat)delta;
+- (NSImage *)imageByScalingToSize:(NSSize)size fraction:(CGFloat)delta;
+- (NSImage *)imageByScalingForMenuItem;
+- (NSImage *)imageByScalingToSize:(NSSize)size fraction:(CGFloat)delta flipImage:(BOOL)flipImage proportionally:(BOOL)proportionally allowAnimation:(BOOL)allowAnimation;
+- (NSImage *)imageByFittingInSize:(NSSize)size;
+- (NSImage *)imageByFittingInSize:(NSSize)size fraction:(CGFloat)delta flipImage:(BOOL)flipImage proportionally:(BOOL)proportionally allowAnimation:(BOOL)allowAnimation;
+- (NSRect)drawRoundedInRect:(NSRect)rect radius:(CGFloat)radius;
+- (NSRect)drawRoundedInRect:(NSRect)rect fraction:(CGFloat)inFraction radius:(CGFloat)radius;
+- (NSRect)drawRoundedInRect:(NSRect)rect atSize:(NSSize)size position:(IMAGE_POSITION)position fraction:(CGFloat)inFraction radius:(CGFloat)radius;
+- (NSRect)drawInRect:(NSRect)rect atSize:(NSSize)size position:(IMAGE_POSITION)position fraction:(CGFloat)inFraction;
+- (NSRect)rectForDrawingInRect:(NSRect)rect atSize:(NSSize)size position:(IMAGE_POSITION)position;
+
+@end
+
+
+typedef enum {
+	AIUnknownFileType = -9999,
+	AITIFFFileType = NSTIFFFileType,
+    AIBMPFileType = NSBMPFileType,
+    AIGIFFileType = NSGIFFileType,
+    AIJPEGFileType = NSJPEGFileType,
+    AIPNGFileType = NSPNGFileType,
+    AIJPEG2000FileType = NSJPEG2000FileType
+} AIBitmapImageFileType;
+
+
+@interface NSImage (AIImageAdditions)
+
++ (NSImage *)imageNamed:(NSString *)name forClass:(Class)inClass;
++ (NSImage *)imageNamed:(NSString *)name forClass:(Class)inClass loadLazily:(BOOL)flag;
+
++ (NSImage *)imageForSSL;
+
++ (AIBitmapImageFileType)fileTypeOfData:(NSData *)inData;
++ (NSString *)extensionForBitmapImageFileType:(AIBitmapImageFileType)inFileType;
+
+- (NSData *)JPEGRepresentation;
+- (NSData *)JPEGRepresentationWithCompressionFactor:(float)compressionFactor;
+/*!
+ * @brief Obtain a JPEG representation which is sufficiently compressed to have a size <= a given size in bytes
+ *
+ * The image will be increasingly compressed until it fits within maxByteSize. The dimensions of the image are unchanged,
+ * so for best quality results, the image should be sized (via -[NSImage(AIImageDrawingAdditions) imageByScalingToSize:])
+ * before calling this method.
+ *
+ * @param maxByteSize The maximum size in bytes
+ *
+ * @result An NSData JPEG representation whose length is <= maxByteSize, or nil if one could not be made.
+ */
+- (NSData *)JPEGRepresentationWithMaximumByteSize:(NSUInteger)maxByteSize;
+- (NSData *)PNGRepresentation;
+- (NSData *)GIFRepresentation;
+- (NSData *)BMPRepresentation;
+- (NSData *)bestRepresentationByType;
+- (NSBitmapImageRep *)largestBitmapImageRep;
+- (NSData *)representationWithFileType:(NSBitmapImageFileType)fileType
+					   maximumFileSize:(NSUInteger)maximumSize;
+
+/*
+ * Writes Application Extension Block and modifies Graphic Control Block for a GIF image
+ */
+- (void)writeGIFExtensionBlocksInData:(NSMutableData *)data forRepresenation:(NSBitmapImageRep *)bitmap;
+
+/*
+ * Properties for a GIF image
+ */
+- (NSDictionary *)GIFPropertiesForRepresentation:(NSBitmapImageRep *)bitmap;
+
+@end
+
+//Defined in AppKit.framework
+@interface NSImageCell(NSPrivateAnimationSupport)
+- (BOOL)_animates;
+- (void)_setAnimates:(BOOL)fp8;
+- (void)_startAnimation;
+- (void)_stopAnimation;
+- (void)_animationTimerCallback:fp8;
 @end

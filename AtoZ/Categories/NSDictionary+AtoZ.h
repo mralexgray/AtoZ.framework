@@ -6,8 +6,11 @@
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 //
 
-#import "AtoZ.h"
 
+#import "NSOrderedDictionary.h"
+
+
+@class NSBag;
 
 @interface NSOrderedDictionary (AtoZ)
 - (void) forwardInvocation:(NSINV*)invocation;
@@ -25,6 +28,8 @@
 //	supports retrieving individual NSArray entities during traversal. I.e.: ‘data.friends.data.0.name’ to access the first friends name
 @interface NSDictionary (objectForKeyList)
 - (id)objectForKeyList:(id)key, ...;
+
+- (id)objectMatching:(id)match forKeyorKeyPath:(id)kp;
 @end
 //	syntax of path similar to Java: record.array[N].item
 //	items are separated by . and array indices in []
@@ -71,6 +76,8 @@
 
 
 @interface NSDictionary (AtoZ)
+
+- (NSA*) mapToArray:(NSA*(^)(id k, id v))block;
 
 - (NSS*) keyForValueOfClass:(Class)klass;
 

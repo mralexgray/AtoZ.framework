@@ -1,11 +1,3 @@
-#import <Foundation/Foundation.h>
-#import <Cocoa/Cocoa.h>
-//#import <AtoZ/AtoZ.h>
-#import <unistd.h>
-//#include <sys/ioctl.h>
-//#include <stdio.h>
-#import <stdio.h>
-//#import "NSTerminal.h"
 
 #define KNRM  "\x1B[0m"
 #define KRED  "\x1B[31m"
@@ -16,37 +8,57 @@
 #define KCYN  "\x1B[36m"
 #define KWHT  "\x1B[37m"
 
-int main(int argc, char*argv[]){ @autoreleasepool {
 
-//	NSApplication *application = [NSApplication sharedApplication];
-//	AppDelegate *appDelegate = [[AppDelegate alloc] init];
-//	[application setDelegate:appDelegate];
-//	[application run];
+#define XCODE_COLORS	1
+#define PRINT_ENV 	1
+#define FORCE_LOAD	1
 
- 	NSString* path = [@"/Library/Frameworks/AtoZ.framework/Versions/A/Frameworks"
-			stringByDeletingLastPathComponent].stringByDeletingLastPathComponent.stringByDeletingLastPathComponent;
-//	fprintf ( stderr, "Preflighting path: %s\n", path.UTF8String);
 
-	NSBundle *b = [NSBundle bundleWithPath:  path];
-	while (![b isLoaded]) {
-		fprintf ( stderr, "While Bundle Not loaded...: %s\n", b.debugDescription.UTF8String);
-		NSError *e;
-		BOOL okdok = [b preflightAndReturnError:&e];
-		if (okdok) {	[b load]; }	//NSLog(@"%@ %@  %@  %@",path, b, e, [b bundleIdentifier] ); 	}
-		else fprintf(stderr, "Preflight reported error.. %s\n", e.debugDescription.UTF8String);
-	}
-	Class cli = NSClassFromString(@"AZCLI");
-	id cliApp = [cli new];
+// GAMEPLAN   
+// AZWINDOW Tabs surround screen,
+// MenuAPp Instance runs controller status item and dropdown window...
+// Menu app also weirdly enoguh seems to load atoz via a METHOD!
+
+int main(int argc, char *argv[], char** envp) { @autoreleasepool {	[NSApplication sharedApplication];	
+
+#ifdef XCODE_COLORS
+
+		int res;	setenv("XCODE_COLORS", "YES", &res);
+
+#endif
+#ifdef PRINT_ENV
+	AZLogEnv(envp);
+#endif
+#ifdef FORCE_LOAD
+
+		NSString * path 	= @"/Library/Frameworks/AtoZ.framework/Versions/A/Frameworks";
+		NSString * bPath	= path.stringByDeletingLastPathComponent.stringByDeletingLastPathComponent.stringByDeletingLastPathComponent;
+		NSBundle * bundl	= [NSBundle bundleWithPath:bPath];
+		NSError  * e;		do {	 											    fprintf(stderr, "While Bundle Not loaded...: %s\n", bundl.debugDescription.UTF8String); 	
+				   [ bundl preflightAndReturnError:&e]  ? bundl.load : fprintf(stderr, "Preflight reported error.. %s\n",      e.debugDescription.UTF8String);
+		} while (! bundl.isLoaded );
+
+#endif		
+
+		id cliApp = [NSClassFromString(@"AZCLI") new];  /* Start the "App" */	[NSApp run];  // Into the sunset
+		
+}	return EXIT_SUCCESS;	}
+
+
+//	return NSApplicationMain(argc, (const char **) argv);
+//NSLog(@"%@ %@  %@  %@",path, b, e, [b bundleIdentifier] ); 	}
+//#include <stdio.h>
+//#include <sys/ioctl.h>
+//#import <AtoZ/AtoZ.h>
+//#import "NSTerminal.h"
+
+
+//	AppDelegate *appDelegate = [[AppDelegate alloc] init]; [application setDelegate:appDelegate];[application run];
 //	[NSApp run];
-
-	[NSApplication sharedApplication];
-	[NSApp run];
 //	[NSRunLoop.currentRunLoop runMode:NSDefaultRunLoopMode beforeDate:NSDate.distantFuture];
 //	while(![[cli sharedInstance]boolForKey:@"finished"])	[NSRunLoop.currentRunLoop run];
-	}
-	return EXIT_SUCCESS;
-}
 
+//	fprintf ( stderr, "Preflighting path: %s\n", path.UTF8String);
 
 /*	struct winsize w;
 	ioctl(0, TIOCGWINSZ, &w);

@@ -153,7 +153,7 @@ static CFHashCode _hashString(const void *value)
 -(void)drawInContext:(CGContextRef)ctx {
 	if (self.delegate) { [self.delegate drawLayer:self inContext:ctx]; return;  }
 	if (self.hovered) [NSGraphicsContext drawInContext:ctx flipped:NO actions:^{
-		[[NSBezierPath bezierPathWithTriangleInRect:self.bounds orientation:AMTriangleDown]drawWithFill:RANDOMCOLOR andStroke:BLACK];
+		[[NSBezierPath bezierPathWithTriangleInRect:self.bounds orientation:AZCompassS]drawWithFill:RANDOMCOLOR andStroke:BLACK];
 	}];
 
 }

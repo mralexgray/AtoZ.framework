@@ -197,7 +197,7 @@ static void ArchDirectoryEventStreamCallback(
         
         FSEventStreamContext context;
         context.copyDescription = NULL;
-        context.release = NULL;
+//        context.release = NULL;
         context.retain = NULL;
         context.version = 0;
         context.info = (__bridge void*)self;

@@ -18,7 +18,7 @@
 @end
 
 
-@class Definition;
+@class AZDefinition;
 @interface NSString (AtoZ)
 @property (RONLY) BOOL isInteger;
 @property NSRNG subRange;
@@ -93,8 +93,8 @@
 + (NSS *)newUniqueIdentifier;
 + (NSS *)randomAppPath;
 
-+ (Definition *)randomUrbanD;
-+ (void)randomUrabanDBlock:(void (^)(Definition *definition))block;
++ (AZDefinition *)randomUrbanD;
++ (void)randomUrabanDBlock:(void (^)(AZDefinition *definition))block;
 
 - (BOOL)loMismo:(NSS *)s;
 - (NSS*)stringByStrippingHTML;
@@ -211,7 +211,7 @@
 @property (RONLY) NSS *lcfirst;
 
 + (id)stringWithData:(NSData *)data encoding:(NSStringEncoding)encoding;
-//+ (NSS*)   stringWithCGF: (CGF)f		 maxDigits: (NSUI)numDigits;
++ (NSS*)   stringWithCGFloat: (CGF)f		 maxDigits: (NSUI)numDigits;
 //- (NSAS*) attributedWithSize: (NSUI)size andColor: (NSC*)color;
 - (NSAS *)attributedWithFont:(NSF *)font andColor:(NSC *)color;
 - (NSMAS *)attributedParagraphWithSpacing:(CGF)spacing;
@@ -256,6 +256,13 @@ NSS *   StringByTruncatingStringWithAttributesForWidth(NSS *s, NSD *attrs, float
 - (NSA*)protocolNames;
 
 @end
+
+
+@interface NSAttributedString (AtoZ)
++ (NSD*) defaults;
+@end
+
+
 /*
 
  * SUMMARY

@@ -7,6 +7,20 @@
 #define CRNR OSCornerType
 
 
+@interface NSAnimationContext (Blocks)
++ (void)groupWithDuration:(NSTimeInterval)duration
+   timingFunctionWithName:(NSString *)timingFunction
+        completionHandler:(void (^)(void))completionHandler
+           animationBlock:(void (^)(void))animationBlock;
+
++ (void)groupWithDuration:(NSTimeInterval)duration
+        completionHandler:(void (^)(void))completionHandler
+           animationBlock:(void (^)(void))animationBlock;
+
++ (void)groupWithDuration:(NSTimeInterval)duration
+           animationBlock:(void (^)(void))animationBlock;
+@end
+
 JREnumDeclare(NSWindowResize, NSWindowResizeTopLeftCorner = 1, NSWindowResizeTopRightCorner = 2, NSWindowResizeBottomRightCorner = 3, NSWindowResizeBottomLeftCorner = 4);
 
 @interface NSWindow (SBSWindowAdditions)
@@ -86,7 +100,7 @@ JREnumDeclare(NSWindowResize, NSWindowResizeTopLeftCorner = 1, NSWindowResizeTop
 //- (void) setDefaultFirstResponder;
 
 - (void) setIgnoresEventsButAcceptsMoved;
-
+- (void) delegateBlock: (void(^)(NSNOT*))block;
 @end
 
 #define kNTSetDefaultFirstResponderNotification @"NTSetDefaultFirstResponderNotification"  // object is the window, must check

@@ -20,6 +20,16 @@
 @implementation AZRect
 @synthesize position, orient, anchor;
 
+
+-(INST) shiftedX:(CGF)xx y:(CGF)yy w:(CGF)w h:(CGF)h;
+{
+	NSR r = self.r;
+	r.origin.x +=xx;
+	r.origin.y +=yy;
+	r.size.width +=w;
+	r.size.height+=h;
+	return [self.class rectWithRect:r];
+}
 static AZRect *screnFrameUnderMenu = nil; 
 
 + (AZRect*)screnFrameUnderMenu { return screnFrameUnderMenu = screnFrameUnderMenu ?: [AZRect rectWithRect:AZScreenFrameUnderMenu()];
@@ -69,6 +79,11 @@ static AZRect *screnFrameUnderMenu = nil;
 - (void) setTop:		 (CGF)t 	{	NSRect frame = self.rect ;	frame.origin.y = t - [self height] ;	[self setRect:frame] ;	}
 -  (CGF) centerY 					{	return (self.rect.origin.y + [self height]/2) ;}
 - (void) setCenterY:	 (CGF)t 	{	self.minY += (t - self.centerY);		}
+-  (CGF) w 							{	return self.width ;		}
+- (void) setW:			 (CGF)w 	{	self.width = w;	}
+-  (CGF) h 							{	return self.height ;	}
+- (void) setH:			 (CGF)h 	{	self.height = h;}
+
 -  (CGF) width 					{	return self.rect.size.width ;		}
 - (void) setWidth:	 (CGF)t 	{	NSR frame = self.rect; frame.size.width = t; self.rect = frame;	}
 -  (CGF) height 					{	return self.rect.size.height ;	}

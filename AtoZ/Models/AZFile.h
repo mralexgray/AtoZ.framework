@@ -4,38 +4,40 @@
 #import "AtoZUmbrella.h"
 
 
-@interface AZFile : BaseModel  // Base abstract class that wraps a file system URL
+@interface AZFile : BaseModel <AtoZNodeProtocol> // Base abstract class that wraps a file system URL
 
 
-@property (NATOM, STRNG	) NSS 	*path,		*itemKind;
-@property (NATOM, STRNG	) NSC	*color, 	*customColor;
-@property (NATOM, RONLY	) NSA  	*colors;
-@property (NATOM, ASS  	) AZPOS  position;
+@property (NATOM, STRNG) 		NSS * path,
+											 * itemKind;
+@property (NATOM, STRNG) 		NSC * color,
+										 	 * customColor;
+@property (NATOM, RONLY) 		NSA * colors;
+@property (NATOM, ASS  ) 	 AZPOS   position;
 
-+ (id) forAppNamed: 		  (NSS*)   appName;
-+ (id) instanceWithPath:	  (NSS*)   path;
-+ (id) instanceWithImage:	 (NSIMG*) image;
-+ (id) instanceWithColor:	 (NSC*)   color;
-- (void) setActualLabelColor: (NSC*)   aColor;
+@property (RONLY) 				NSS * name,
+											 * calulatedBundleID;
+@property (RONLY) 				NSC * labelColor;
+@property (RONLY)           NSIMG * image;
+@property (RONLY)            NSUI	labelNumber;
+@property (RONLY) 				CGF   hue;
+@property (RONLY)            BOOL   hasLabel;
 
-@property (RONLY) NSS	*name,		*calulatedBundleID;
-@property (RONLY) NSC	*labelColor;
-@property (RONLY) NSIMG *image;
-@property (RONLY) NSUI	 labelNumber;
-@property (RONLY) CGF	 hue;
-@property (RONLY) BOOL	 hasLabel;
-
++   (id) forAppNamed: 		   (NSS*) appName;
++   (id) instanceWithPath:	   (NSS*) path;
++   (id) instanceWithImage: (NSIMG*) image;
++   (id) instanceWithColor:   (NSC*) color;
+- (void) setActualLabelColor: (NSC*) aColor;
 
 @end
 
 // Concrete subclass of ATDesktopEntity that loads children from a folder
 
 
-@interface AZFolder : NSArray //AZFile
-@property (RONLY) NSUI count;
+@interface AZFolder : AZFile <AtoZNodeProtocol> //AZFile
+//@property (RONLY) NSUI count;
 //	@property(NATOM, readonly) NSMutableArray *children;
 //	@property (RONLY) NSUI capacity;
-- (id) initWithArray:(NSArray *)array;
+- (id) initWithArray:(NSArray*)array;
 + (id) appFolder;
 + (id) samplerWithCount:(NSUInteger)items;
 // + (id) samplerWithBetween:(NSUInteger)minItems andMax:(NSUInteger)items;
@@ -62,18 +64,6 @@
 @property (NATOM, assign) AZDockSort sortOrder;
 @end
 
-@interface AZColor : BaseModel
-@property (NATOM, readonly) CGFloat 	brightness, saturation, hue, hueComponent, percent;
-@property (NATOM, assign)	NSUInteger 	total, count;
-@property (NATOM, STRNG)	NSString 	*name;
-@property (NATOM, STRNG)	NSColor	 	*color;
-
-+ (instancetype) instanceWithObject:(NSDictionary*)dic;
-//+ (instancetype) colorWithColor:(NSColor*)color andDictionary:(NSDictionary*)dic;
-//- (NSA*) az_colorsForImage:(NSImage*)image;
-+ (instancetype) instanceWithColor:(NSColor*)color count:(NSUI)c total:(NSUI) totes;
-
-@end
 
 //@interface AZImage : NSObject
 //
