@@ -45,6 +45,11 @@
 - (void) awakeFromNib 			{ 	[self.window makeKeyAndOrderFront:nil]; }
 //- (id) init { if (!(self=super.init))return self;  _atozobjc = AtoZObjC.new; return self; }
 
+- (AZNodeProtocolKeyPaths) keyPaths { return AZNodeProtocolKeyPathsMake(@"key", @"value", @"children"); }
+- (void) addChild:(id<AtoZNodeProtocol>)c
+{
+	[self.root.children addObject:c];
+}
 - (NSMA*)  children 				{ return self.root.children; } 
 -     (id) key 					{ return @"Expansions";} 
 -     (id) value 					{ return nil; }
@@ -180,7 +185,7 @@
 -   (BOOL) saveGeneratedHeader {
 	
 	if (!self.generatedHeader.outdated) return NO;   NSError *e;
-	NSLog(@"Just Procesing %ld \"Child\" Hedaers to %@!",self.root.numberOfChildren.integerValue, self.generatedHeader.URL.path);
+	NSLog(@"Just Procesing %ld \"Child\" Hedaers to %@!",self.root.numberOfChildren, self.generatedHeader.URL.path);
 	return  [self.generatedHeaderStr writeToFile:self.generatedHeader.URL.path atomically:YES encoding:NSUTF8StringEncoding error:&e]
 	
 	? 	[UDEFS setObject:_generatedHeader.fileModified forKey:@"headerSaved"],

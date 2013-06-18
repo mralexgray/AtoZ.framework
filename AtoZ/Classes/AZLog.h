@@ -6,26 +6,42 @@
 
 JREnumDeclare( LogEnv, LogEnvXcodeColor, LogEnvXcodeNOColor, LogEnvTTY, LogEnvTTYColor, LogEnvTTY256, LogEnvUnknown );
 
-@interface AZLog : BaseModel
+@interface 					AZLog : BaseModel
+@property (nonatomic)  LogEnv   logEnv;
+- (NSA*) rgbColorValues:(id)color;
+- (NSS*) colorizeString:(NSS*)string withColor:(id)color;
+- (NSS*) colorizeString:(NSS*)string
+						front:(id)front
+						 back:(id)back;
+- (NSA*) colorizeAndReturn:(id)colorsAndThings, ... 							NS_REQUIRES_NIL_TERMINATION;
+- (void) logInColor:(id)color
+					file:(const char*)filename
+					line:(int)line
+					func:(const char*)funcName
+				 format:(id)format, ... 												NS_REQUIRES_NIL_TERMINATION;
+/* Pass a variadic list of Colors, and Ovjects, in any order, TRMINATED BY NIL. 
+ 	Will those colors to log those objects! 		*/
+-(void) logNilTerminatedListOfColorsAndStrings:(const char*)pretty
+													 things:(id)colorsAndThings,...	NS_REQUIRES_NIL_TERMINATION;
 @end
 
 //#define	NSLog(fmt...) [AZLog_AZColorLog(nil,__FILE__,__LINE__,__PRETTY_FUNCTION__,fmt)
 
-#define 	AZLOGSHARED 		AZLog.sharedInstance
-#define	NSLog(fmt...) 		[AZLOGSHARED logInColor:RANDOMCOLOR file:__FILE__ line:__LINE__ func:__PRETTY_FUNCTION__ format:fmt]
+#define 	AZLOGSHARED 		[AZLog sharedInstance]
+#define	NSLog(fmt...) 		[AZLOGSHARED logInColor:RANDOMCOLOR file:__FILE__ line:__LINE__ func:__PRETTY_FUNCTION__ format:fmt,nil]
 
 #define	AZLOG(x) 			NSLog(@"%@", x)
 #define 	COLORIZE(x...) 	[AZLOGSHARED colorizeAndReturn:x]
 #define _AZColorLog(x) 		[AZLOGSHARED logInColor:RANDOMCOLOR file:__FILE__ line:__LINE__ func:__PRETTY_FUNCTION__ format:x];
-#define 	LOGWARN(fmt...) 	[AZLOGSHARED logInColor:RANDOMCOLOR file:__FILE__ line:__LINE__ func:__PRETTY_FUNCTION__ format:fmt];
+#define 	LOGWARN(fmt...) 	[AZLOGSHARED logInColor:RANDOMCOLOR file:__FILE__ line:__LINE__ func:__PRETTY_FUNCTION__ format:fmt, nil];
 #define 	LOGCOLORS(X...) 	[AZLOGSHARED logNilTerminatedListOfColorsAndStrings:__PRETTY_FUNCTION__ things:X]
-#define	COLORLOG(fmt...)	[AZLOGSHARED logNilTerminatedListOfColorsAndStrings:__PRETTY_FUNCTION__ things:fmt]
+#define	COLORLOG(fmt...)	[AZLOGSHARED logNilTerminatedListOfColorsAndStrings:__PRETTY_FUNCTION__ things:fmt, nil]
 
-#define 	LOG_EXPR(_X_) 		do {	__typeof__(_X_) _Y_ = (_X_); NSS*_STR_						\
-											const char*_TYPE_CODE_ = @encode(__typeof__(_X_));		\
-			if((_STR_== VTPG_DDToStringFromTypeAndValue(_TYPE_CODE_, &_Y_))					\
-				NSLog(@"%s = %@", #_X_, _STR_); 															\
-			else NSLog(@"Unknown _TYPE_CODE_:%s for expr:%s in func:%s file:%s line:%d", 	\
+#define 	LOG_EXPR(_X_) 		do{	__typeof__(_X_) _Y_ = (_X_); NSS*_STR_;					\
+											const char * _TYPE_CODE_ = @encode(__typeof__(_X_));	\
+			(_STR_= VTPG_DDToStringFromTypeAndValue(_TYPE_CODE_, &_Y_))							\
+			?	NSLog(@"%s = %@", #_X_, _STR_) 															\
+			:	NSLog(@"Unknown _TYPE_CODE_:%s for expr:%s in func:%s file:%s line:%d", 	\
 							_TYPE_CODE_, #_X_, __func__, __FILE__, __LINE__);	} while(0)
 
 
@@ -43,18 +59,6 @@ void 	QuietLog 				  	( NSS *format, ...	  );
 @property (RONLY) NSS *colorLogString;  // TTY formatted NSString with Associated Color Info included
 - (void) setLogBackground:(id)color;
 - (void) setLogForeground:(id)color;
-@end
-
-@interface AZLog ()
-
-@property (nonatomic) LogEnv logEnv;
-- (NSA*) rgbColorValues:(id)color;
-- (NSS*) colorizeString:(NSS*)string withColor:(id)color;
-- (NSS*) colorizeString:(NSS*)string front:(id)front back:(id)back;
-- (NSA*) colorizeAndReturn:(id) colorsAndThings, ...;
-- (void) logInColor:(id)color file:(const char*)filename line:(int)line func:( const char *)funcName format:(id) format, ...; 
-/* Pass a variadic list of Colors, and Ovjects, in any order, TRMINATED BY NIL, abd it wiull use those colors to log those objects! */
--(void) logNilTerminatedListOfColorsAndStrings:(const char*)pretty things:(id) colorsAndThings,... ;
 @end
 
 #pragma mark - STACKTRACE
@@ -84,7 +88,7 @@ void 	QuietLog 				  	( NSS *format, ...	  );
 #define 	XCODE_COLORS_RESET	 		XCODE_COLORS_ESCAPE @";"   // Clear any foreground or background color
 #define 	COLOR_RESET 					XCODE_COLORS_RESET
 #define 	COLOR_ESC 					XCODE_COLORS_ESCAPE
-#define 	XCODE_COLORS 0
+//#define 	XCODE_COLORS 0
 
 //#define LOGWARN(fmt...) _AZColorLog(nil,__FILE__,__LINE__,__PRETTY_FUNCTION__,fmt)
 //void _AZSimpleLog				( 				  const char *file, int line, const char *funcName, NSS *format, ... );

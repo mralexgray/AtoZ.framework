@@ -8,5 +8,6 @@
 	#import <Cocoa/Cocoa.h>
 	#import <unistd.h>
 	#import <stdio.h>
+	#import <AtoZ/AtoZ.h>
 
 #endif

@@ -49,7 +49,7 @@ JROptionsDeclare( CABlockType,	CABlockTypeDrawBlock,		CABlockTypeLayoutBlock,
  * Delegate method called by CAAnimation at start of animation
  * @param theAnimation animation which issued the callback.
 - (void)animationDidStart:(CAA*)theAnimation;
-/* Delegate method called by CAAnimation at end of animation
+//	Delegate method called by CAAnimation at end of animation
  * @param theAnimation animation which issued the callback.
  * @param finished BOOL indicating whether animation succeeded or failed.
 - (void)animationDidStop:(CAA*)theAnimation	finished:(BOOL)flag;

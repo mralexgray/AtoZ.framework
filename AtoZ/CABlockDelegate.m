@@ -48,7 +48,7 @@ JROptionsDefine(NSOVBlockDelegate);
 //Now we use the non-outline delegate method to set up a button cell to do the expand and collapse for the row.
 
 	if ([tc.identifier isEqualToString:@"outline"]) { //use the appropriate identifier for you column
-		if ( (AZNODEPRO x).numberOfChildren.integerValue > 0 )  {
+		if ( (AZNODEPRO x).numberOfChildren > 0 )  {
 			[c setImage:[v isItemExpanded:x] ? [NSImage imageNamed:@"up"] : [NSImage imageNamed:@"down"]];
 				//set up an action to emulate the clicking you would normally do on the triangle
 				[c setAction:@selector(toggleItem:) withTarget:self];
@@ -79,7 +79,7 @@ JROptionsDefine(NSOVBlockDelegate);
 //+ (instancetype)sharedInstance {	id shared = [super sharedInstance];	delegations = @[].mutableCopy;	return shared;	}
 ////+ (void) addDelegation:(CABlockDelegate*)d; { [delegations addObject:d]; }
 
-#define SEL_LOG NSLog(@"%@", NSStringFromSelector(_cmd))
+//#define SEL_LOG  NSLog(@"%@", NSStringFromSelector(_cmd), nil)
 #pragma mark - CAAnimationDelegate
 // works.  just need to observe
 //- (void)observeValueForKeyPath:(NSString*)kp ofObject:(id)o change:(NSDictionary*)c context:(void*)x{
@@ -129,7 +129,7 @@ static NSMD *delegations = nil;
 	return n;//NSLog(@"setdlegate:%@.. delegate: %@, lom: %@",n,  layer.delegate, layer.layoutManager),
 }
 
-- (void) drawLayer:(CALayer*)l inContext:(CGContextRef)x 	{ //SEL_LOG;
+- (void) drawLayer:(CALayer*)l inContext:(CGContextRef)x 	{ //AZLOGCMD;
 
 //	[delegations fi  :[l vFK:@"CABlockTypeDrawBlock"]];
 //	NSA* drawers = [delegations valueForKeyPath:@"drawBlock"];
@@ -141,10 +141,10 @@ static NSMD *delegations = nil;
 - (void) layoutSublayersOfLayer:(CALayer*)layer 				{ 
 
 //	[[delegations valueForKeyPath:@"layoutBlock"] each:^(id sender) { sender ? ((layoutBlock)sender)(layer) : nil;	}];
-SEL_LOG; _layoutBlock ? self.layoutBlock	(layer) 					: nil;
+AZLOGCMD; _layoutBlock ? self.layoutBlock	(layer) 					: nil;
 }
 - (void) animationDidStop:  (CAAnimation*)theAnimation	
-					  finished:				(BOOL)flag 					{ SEL_LOG;  
+					  finished:				(BOOL)flag 					{ AZLOGCMD;
 
 	NSLog(@"Block delagate, reporting for duty. Type: %@", CABlockTypeToString(CABlockTypeAniComplete));
    _aniComplete ? self.aniComplete	(flag, theAnimation) : nil; 	

@@ -598,6 +598,8 @@
 		7B8A342A16E6D07A0088D209 /* StandardPaths.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B8A33F916E6D07A0088D209 /* StandardPaths.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B8A342B16E6D07A0088D209 /* StandardPaths.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B8A33FA16E6D07A0088D209 /* StandardPaths.m */; };
 		7B8BF92317709ED300034408 /* TestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0DA2B31743588C00535483 /* TestCase.m */; };
+		7B8BF9251770CD7000034408 /* octocat.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B8BF9241770CD7000034408 /* octocat.png */; };
+		7B8BF9271770CD8500034408 /* 500.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B8BF9261770CD8500034408 /* 500.png */; };
 		7B8D462916F003BE00224316 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B95C90D164FC8D10046F487 /* MapKit.framework */; };
 		7B8D462A16F003CC00224316 /* MapKit.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7B95C90D164FC8D10046F487 /* MapKit.framework */; };
 		7B8EEDAC164BEDB700710841 /* AtoZColorWell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B8EEDA8164BEDB700710841 /* AtoZColorWell.m */; };
@@ -2680,6 +2682,8 @@
 		7B8A342416E6D07A0088D209 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7B8A342516E6D07A0088D209 /* WindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WindowController.h; sourceTree = "<group>"; };
 		7B8A342616E6D07A0088D209 /* WindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WindowController.m; sourceTree = "<group>"; };
+		7B8BF9241770CD7000034408 /* octocat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = octocat.png; sourceTree = "<group>"; };
+		7B8BF9261770CD8500034408 /* 500.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 500.png; sourceTree = "<group>"; };
 		7B8EEDA5164BEDB700710841 /* AtoZGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; lineEnding = 0; name = AtoZGridView.h; path = ../Classes/AtoZGridView.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		7B8EEDA6164BEDB700710841 /* AtoZGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = AtoZGridView.m; path = ../Classes/AtoZGridView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7B8EEDA7164BEDB700710841 /* AtoZColorWell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = AtoZColorWell.h; path = ../Classes/AtoZColorWell.h; sourceTree = "<group>"; };
@@ -5199,6 +5203,8 @@
 		7BE2A4F21611571E003D6B92 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				7B8BF9261770CD8500034408 /* 500.png */,
+				7B8BF9241770CD7000034408 /* octocat.png */,
 				7B2647A5176E0E220062ECF3 /* pw_maze_white.png */,
 				7B2647A6176E0E220062ECF3 /* pw_maze_white_@2X.png */,
 				7B2647A7176E0E220062ECF3 /* sample_profile_bg.jpg */,
@@ -6844,6 +6850,8 @@
 				7B06BB9A1761C7F9003A9C7E /* flatui.clr in Resources */,
 				7B06BB9C1761CD62003A9C7E /* xx.png in Resources */,
 				7B06BB9E1761CD92003A9C7E /* grid.png in Resources */,
+				7B8BF9251770CD7000034408 /* octocat.png in Resources */,
+				7B8BF9271770CD8500034408 /* 500.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8214,6 +8222,7 @@
 					"-DFFI_DEBUG",
 				);
 				OTHER_LDFLAGS = (
+					"-Wl,-no_compact_unwind",
 					"-sub_umbrella",
 					DrawKit,
 					"-all_load",
@@ -8352,6 +8361,7 @@
 					"-DFFI_DEBUG",
 				);
 				OTHER_LDFLAGS = (
+					"-Wl,-no_compact_unwind",
 					"-sub_umbrella",
 					DrawKit,
 					"-all_load",

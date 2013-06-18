@@ -4,7 +4,7 @@
 #import "AtoZUmbrella.h"
 
 
-@interface AZFile : BaseModel <AtoZNodeProtocol> // Base abstract class that wraps a file system URL
+@interface AZFile : BaseModel //<AtoZNodeProtocol> // Base abstract class that wraps a file system URL
 
 
 @property (NATOM, STRNG) 		NSS * path,
@@ -33,7 +33,7 @@
 // Concrete subclass of ATDesktopEntity that loads children from a folder
 
 
-@interface AZFolder : AZFile <AtoZNodeProtocol> //AZFile
+@interface AZFolder : AZFile// <AtoZNodeProtocol> //AZFile
 //@property (RONLY) NSUI count;
 //	@property(NATOM, readonly) NSMutableArray *children;
 //	@property (RONLY) NSUI capacity;

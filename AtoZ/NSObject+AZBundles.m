@@ -20,6 +20,8 @@ JREnumDefine(AZMethod);
 @property (strong) NSMA *arranged;
 @end
 @implementation AZNode
+- (AZNodeProtocolKeyPaths) keyPaths { return AZNodeProtocolKeyPathsMake(@"key", @"value", @"arrangedObjects"); }
+- (void) addChild:(id<AtoZNodeProtocol>)c { [self addObject:c]; }
 - (NSS*) valuePath { return @"value"; }
 - (NSS*) childrenPath { return @"arrangedObjects"; }
 - (NSS*) keyPath { return @"key"; }
@@ -125,7 +127,7 @@ JREnumDefine(AZMethod);
 @end
 
 @concreteprotocol  (AtoZNodeProtocol) //NSObject (AtoZNodeProtocol)
-
+- (AZNodeProtocolKeyPaths) keyPaths {}
 -      (BOOL) isaNode 				{  return  [self implementsProtocol:@"AtoZNodeProtocol"]; 	}
 -      (void) addChild:(id)c		{   
 
@@ -163,8 +165,8 @@ JREnumDefine(AZMethod);
 }
 
 - (NSNumber*) index 					{ return (!self.isaNode) ? nil : @([[self.parent vFK:self.parent.childrenPath] indexOfObject:self]); 	}
-- (NSNumber*) of 						{ return (!self.isaNode) ? nil : @([[(id<AtoZNodeProtocol>)self.parent numberOfChildren] integerValue]); 		}
-- (NSNumber*) numberOfChildren 	{ return (!self.isaNode) ? nil : @([[self vFK:(AZNODEPRO self).childrenPath ] count]-1);	 			}
+- (NSNumber*) of 						{ return (!self.isaNode) ? nil : @([(id<AtoZNodeProtocol>)self.parent numberOfChildren]); 		}
+- (NSUI) numberOfChildren 	{ return self.isaNode ? [[self children] count]-1 : NSNotFound; }
 @end
 
 

@@ -81,17 +81,17 @@ nl.sublayers 			= @[tHost, list];
 			[[nL.reprsentedNode key] drawInRect:l.bounds withAttributes:attrs];
 			NSR badgeRect = (NSR){l.boundsWidth - zCATEGORY_RECT.size.height, 0, l.boundsHeight, l.boundsHeight};
 			[[NSIMG badgeForRect:AZRectFromSize(badgeRect.size) 
-				withColor:RANDOMCOLOR stroked:BLACK withString:nL.reprsentedNode.index.stringValue]	drawInRect:badgeRect];
+				withColor:RANDOMCOLOR stroked:BLACK withString:@(nL.reprsentedNode.siblingIndex).stringValue]	drawInRect:badgeRect];
 		}];
 	}
 }
 - (void) layoutSublayersOfLayer:	(CAL*)l 										{ AZOutlineLayerNode*nL = (AZOutlineLayerNode*)l;
 
 	if ( nL.cellStyle == AZOutlineCellStyleScrollList) {
-		if (![_reprsentedNode.expanded boolValue]) return;
+		if (!_reprsentedNode.nodeState) return;
 		NSRect			vis 		= nL.superlayer.bounds,		// 0 y is scrolled to bott;   // Lock scrolling to bounds
 					  lineRect 		= (NSRect) { 10, 0, vis.size.width, zKEYWORDS_V_UNIT };
-		CGFloat maxPossible 		= zKEYWORDS_V_UNIT * nL.reprsentedNode.numberOfChildren.integerValue,
+		CGFloat maxPossible 		= zKEYWORDS_V_UNIT * nL.reprsentedNode.numberOfChildren,
 						 toobig 		= maxPossible - l.bounds.size.height;				//	NSLog(@"layout node: %@", node.properties);
 		[l scrollPoint: vis.origin.y < 0 ? NSZeroPoint 
 								: vis.origin.y > toobig && maxPossible > vis.size.height ? (CGPoint){0,toobig + 10} 
@@ -207,8 +207,8 @@ nl.sublayers 			= @[tHost, list];
 			layer.frame 	= r;	//	[l.superlayer setNeedsDisplay];
 		}];
 	}];
-		^{	NSLog(@"isanode: %@..  index..%@ of %@", _nodes.selectedNode.isaNode ? @"YES A NODE" : @"NoWAY NOT A NODE", _nodes.selectedNode.index, _nodes.selectedNode.of);
-			NSLog(@"selected node:%@  %@ of %@", _nodes.selectedNode.key,_nodes.selectedNode.index, _nodes.selectedNode.of); }();
+		^{	NSLog(@"isanode: %@..  index..%@ of %@", _nodes.selectedNode.isaNode ? @"YES A NODE" : @"NoWAY NOT A NODE", @(_nodes.selectedNode.siblingIndex), @(_nodes.selectedNode.siblingIndexMax));
+			NSLog(@"selected node:%@  %@ of %@", _nodes.selectedNode.key,@(_nodes.selectedNode.siblingIndex), @(_nodes.selectedNode.siblingIndexMax)); }();
 }
 - (void) scrollWheel:		(NSE*)e 		{ [(CAScrollLayer*)[[_nodes.sublayers objectWithValue:_nodes.selectedNode forKey:@"node"] scanSubsForClass:CAScrollLayer.class] scrollBy:NSMakePoint(2*e.deltaX, 2* e.deltaY)];}
 -  (NSR) nodeRect 			{  return AZRectTrimmedOnTop(self.bounds, 100); }

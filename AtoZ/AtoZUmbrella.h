@@ -743,7 +743,7 @@ _Pragma("clang diagnostic pop") \
 //#define NSBOOL (_X_) [NSNumber numberWithBool:(_X_)]
 //#define NSSET  (...) [NSSet setWithObjects: __VA_ARGS__, nil]
 
-#define NSCOLOR(red,green,blue,alpha) [NSC r:red g:green b:blue a:alpha]
+#define NSCRGBA(red,green,blue,alpha) [NSC r:red g:green b:blue a:alpha]
 #define NSDEVICECOLOR(r,g,b,a) [NSColor colorWithDeviceRed:r green:g blue:b alpha:a]
 #define NSCOLORHSB(h,s,b,a) [NSColor colorWithDeviceHue:h saturation:s brightness:b alpha:a]
 

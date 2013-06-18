@@ -21,7 +21,6 @@
 @end
 
 
-typedef NSString*(^termDidReadString)(NSString*, const char*);
 #define TINP termDidReadString
 
 @interface 				 AZCLIMenu : BaseModel

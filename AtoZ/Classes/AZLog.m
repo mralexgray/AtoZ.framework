@@ -1,35 +1,29 @@
-//
-//  AZLog.m
-//  AtoZ
-//
-//  Created by Alex Gray on 5/2/13.
-//  Copyright (c) 2013 mrgray.com, inc. All rights reserved.
-//
 
 #import "AZLog.h"
 
-NSA* AZEnvVars (char** envp) { NSMA* vars = NSMA.new;
-	char** env;	for (env = envp; *env != 0; env++)	{
-		NSString* raw = [NSString stringWithCString:*env encoding:NSASCIIStringEncoding];
-		NSString *var = [raw substringBefore:@"="];
-		objc_setAssociatedObject(var, (__bridge const void *)@"envVarValue", [raw substringAfter:@"="], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+#define __VSTR(x) (__bridge const void*)x
+
+JREnumDefine ( LogEnv );
+
+NSA* AZEnvVars (char** envp) { 					NSMA * vars = NSMA.new; char** env;
+	for (env = envp; *env != 0; env++)	{      NSS * var, * raw;
+
+		raw = [NSS stringWithCString:*env encoding:NSASCIIStringEncoding];
+		objc_setAssociatedObject(	var = [raw substringBefore:@"="],	 	__VSTR(@"envVarValue"),
+										 	[raw substringAfter:@"="],	OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 		[vars addObject:var];
 	}
 	return vars;
 }
-NSD* AZEnv (char** envp) {
-	return [AZEnvVars(envp) mapToDictionary:^id(id object) { return objc_getAssociatedObject(object, (__bridge const void*)@"envVarValue"); 	}];
+NSD* AZEnv (char** envp) {	return [AZEnvVars(envp) mapToDictionary:^id(id o) {
+														return objc_getAssociatedObject(o, __VSTR(@"envVarValue"));		}];
 }
-
-void AZLogEnv(char** envp){ 
-	
-	NSD* envD = AZEnv(envp);
+void AZLogEnv(char** envp){ 	NSD* envD = AZEnv(envp);
 	NSUI length = [envD.allKeys lengthOfLongestMemberString] + 2;
 	LOGCOLORS( 	[NSA arrayWithArrays:[envD mapToArray:^NSArray *(id k, id v) { return @[[k paddedTo:length], v, zNL]; }]], 
 					[NSC colorsInListNamed:@"flatui"], nil);
 }
 static NSA *gPal = nil;
-JREnumDefine ( LogEnv );
 
 static LogEnv logEnv = NSNotFound;
 @implementation AZLog
@@ -210,19 +204,43 @@ void WEBLOG (id format, ...) {
 	va_end(argList);
 */
 } // ACTIVE NSLOG
-
 @end
-
 @implementation NSString (AtoZColorLog)
-
-- (void)setLogForeground:(id)color {
-//	printf("setting fg: %s", ((NSC*)color).nameOfColor.UTF8String);
-    [self setAssociatedValue:[AZLOGSHARED rgbColorValues:color] forKey:@"logFG" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
+- (void)setLogForeground:(id)color {	//	printf("setting fg: %s", ((NSC*)color).nameOfColor.UTF8String);
+    objc_setAssociatedObject(self,__VSTR(@"logFG"),[AZLOGSHARED rgbColorValues:color],OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
-
 - (void)setLogBackground:(id)color {
-    [self setAssociatedValue:[AZLOGSHARED rgbColorValues:color] forKey:@"logBG" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
+    objc_setAssociatedObject(self,__VSTR(@"logBG"),[AZLOGSHARED rgbColorValues:color],OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
+- (const char*) cchar {  return self.clr.UTF8String; }
+
+- (NSS*) colorLogString {
+
+	NSA *fgs = [self hasAssociatedValueForKey:@"logFG"] ? [self associatedValueForKey:@"logFG"] : nil;
+   NSA *bgs = [self hasAssociatedValueForKey:@"logBG"] ? [self associatedValueForKey:@"logBG"] : nil;
+	if (!fgs && !bgs) return self;
+   NSS *colored = self.copy;
+	if ((( fgs && fgs.count == 3) || (bgs && bgs.count ==3) ) && logEnv == LogEnvXcodeColor) {
+		if (fgs && fgs.count ==3) {
+			colored = $(XCODE_COLORS_ESCAPE @"fg%i,%i,%i;%@" XCODE_COLORS_RESET,
+							[fgs[0] intValue], [fgs[1] intValue], [fgs[2] intValue], colored);
+		}
+		if (bgs && bgs.count ==3) {
+			colored = colored ? : self;
+			colored = $(XCODE_COLORS_ESCAPE @"bg%i,%i,%i;%@" XCODE_COLORS_RESET,
+							[bgs[0] intValue], [bgs[1] intValue], [bgs[2] intValue], colored);
+		}
+		return colored;
+	}
+	if (logEnv == LogEnvTTYColor || logEnv == LogEnvTTY256){		static NSArray* cs, *bg;
+		cs = cs ?: @[@31,@32,@33,@34,@35,@36,@37];
+		bg = bg ?: @[@40,@41,@42];//,@43,@44,@45,@46,@47];
+		return [NSString stringWithFormat:@"\033[%@;%@m%@\033[0m", [cs[arc4random() % 7 ]stringValue],
+				  [bg[arc4random() % 3 ]stringValue], self];
+	}
+	else return self;
+}
+@end
 
 //- (const char*) ttyClr {
 //	BOOL inTTY =  [@(isatty(STDERR_FILENO))boolValue];
@@ -235,38 +253,7 @@ void WEBLOG (id format, ...) {
 //	NSString *blet = [nub stringValue];
 //	return [NSString stringWithFormat:@"\033[%@;%@m%@\033[0m - %@", let,blet, s, num];
 //}
-
-
 // BLINKING	 "\033[38;5mWhatever\033[0m"
-- (const char*) cchar {  return self.clr.UTF8String; }
-
-- (NSS*) colorLogString {
-
-	NSA *fgs = [self hasAssociatedValueForKey:@"logFG"] ? [self associatedValueForKey:@"logFG"] : nil;
-   NSA *bgs = [self hasAssociatedValueForKey:@"logBG"] ? [self associatedValueForKey:@"logBG"] : nil;
-	if (!fgs && !bgs) return self;
-   NSS *colored = self.copy;
-	if ((( fgs && fgs.count == 3) || (bgs && bgs.count ==3) ) && logEnv == LogEnvXcodeColor) {
-		if (fgs && fgs.count ==3) {
-			  colored = $(XCODE_COLORS_ESCAPE @"fg%i,%i,%i;%@" XCODE_COLORS_RESET,
-							  [fgs[0] intValue], [fgs[1] intValue], [fgs[2] intValue], colored);
-		 }
-		 if (bgs && bgs.count ==3) {
-			  colored = colored ? : self;
-			  colored = $(XCODE_COLORS_ESCAPE @"bg%i,%i,%i;%@" XCODE_COLORS_RESET,
-							  [bgs[0] intValue], [bgs[1] intValue], [bgs[2] intValue], colored);
-		 }
-		 return colored;
-	}
-	if (logEnv == LogEnvTTYColor || logEnv == LogEnvTTY256){		static NSArray* cs, *bg;
-		cs = cs ?: @[@31,@32,@33,@34,@35,@36,@37];
-		bg = bg ?: @[@40,@41,@42];//,@43,@44,@45,@46,@47];
-		return [NSString stringWithFormat:@"\033[%@;%@m%@\033[0m", [cs[arc4random() % 7 ]stringValue],
-																					  [bg[arc4random() % 3 ]stringValue], self];
-	}
-	else return self;
-}
-@end
 
 
 // Log levels: off, error, warn, info, verbose
