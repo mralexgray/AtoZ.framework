@@ -57,19 +57,25 @@ NSRect frameResizedFromPointToPoint(NSRect frame, NSPoint point1, NSPoint point2
 
 - (void) dragBlock:(void(^)(NSP click,NSP delta))block mouseUp:(void(^)(void))upBlock {
 
-	[self overrideSelector:@selector(mouseDown:) withBlock:(__bridge void *)^(id _self, NSE*e){
-		NSPoint point1 		= [_self convertPoint:e.locationInWindow toView:nil];
+	[self az_overrideSelector:@selector(mouseDown:) withBlock:(__bridge void *)^(id _self, NSE*e){
+
 		void(^newB)(NSP,NSP) = [block copy];
-		while (e.type != NSLeftMouseUp) {
-			e = [NSApp nextEventMatchingMask:NSLeftMouseDraggedMask|NSLeftMouseUpMask
-										  untilDate:FUTURE inMode:NSEventTrackingRunLoopMode dequeue:YES];
-			@autoreleasepool {
-				NSPoint point2 = [_self convertPoint:e.locationInWindow fromView:nil];
-				NSPoint delta 	= AZSubtractPoints( point1, point2 );
-				newB ( point1, delta );
+//		__block NSEvent *eBlock = e;
+//		__block void(^trackBlock)(void) = ^{
+			NSPoint point1 		= [_self convertPoint:e.locationInWindow toView:nil];
+			while (e.type != NSLeftMouseUp) {
+				e = [NSApp nextEventMatchingMask:NSLeftMouseDraggedMask|NSLeftMouseUpMask
+											  untilDate:FUTURE inMode:NSEventTrackingRunLoopMode dequeue:YES];
+				@autoreleasepool {
+					NSPoint point2 = [_self convertPoint:e.locationInWindow fromView:nil];
+					NSPoint delta 	= AZSubtractPoints( point1, point2 );
+					newB ( point1, delta );
+				}
 			}
-		}
-		upBlock();	NSLog(@"MouseUp.. PHEW!!");
+			upBlock();	NSLog(@"MouseUp.. PHEW!!");
+//			eBlock = nil;
+//		};
+//		trackBlock();
 	}];
 }
 
@@ -281,7 +287,7 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 																				backing:NSBackingStoreBuffered
 																				  defer:NO
 																			 	 screen:chosenScreen];
-	[fullScreenWindow overrideSelector:@selector(canBecomeKeyWindow) 
+	[fullScreenWindow az_overrideSelector:@selector(canBecomeKeyWindow)
 									 withBlock:(__bridge void *)^BOOL(id _self)	{ return  YES; }];
 	// put this window above the shielding window
 	[fullScreenWindow setAlphaValue:0];

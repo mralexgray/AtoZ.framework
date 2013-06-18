@@ -282,25 +282,29 @@ NSData* PNGRepresentation(NSIMG *image) {
 
 - (void)setHeight:(CGF)t 	{ self.scalesWhenResized = YES; [self setSize:AZSizeExceptHigh(self.size, t)]; }
 
-
-+ (NSIMG*) isometricShelfInRect:(NSR)rect;
++ (NSIMG*) isometricShelfInRect:(NSR)rect  { return [self isometricShelfInRect:rect color:[NSC r:0.58f	g:0.81f b:0.782f a:1.0f]];
+}
++ (NSIMG*) isometricShelfInRect:(NSR)rect color:(NSC*)c
 {
-	return [self imageWithSize:rect.size drawnUsingBlock:^{
+	return [self imageWithSize:(AZScaleRect(rect,.5)).size drawnUsingBlock:^{
 		[NSGraphicsContext state:^{
+			[NSGC.currentContext setImageInterpolation:NSImageInterpolationHigh];
 			CGF height 	= rect.size.height - 1.0f;
 			CGF width	= rect.size.width - 1.0f;
 			CGF pcp 		= 10.0f;
-			CGF sh 		= 10.0f; /* shelf Height */
-			NSBP *path = [NSBezierPath bezierPath];
-			[path setLineJoinStyle:NSRoundLineJoinStyle];
-			[path moveToPoint:NSMakePoint(0.0f, sh)];
-			[path lineToPoint:NSMakePoint(width, sh)];
-			[path lineToPoint:NSMakePoint(width - pcp, height)];
-			[path lineToPoint:NSMakePoint(pcp, height)];
+			CGF shelfH 	= 10.0f; /* shelf Height */
+			NSBP *path = NSBP.new;
+			path.lineJoinStyle = NSRoundLineJoinStyle;
+			[path moveToPoint:(NSP){ 0, shelfH 				}];
+			[path lineToPoint:(NSP){ width, shelfH			}];
+			[path lineToPoint:(NSP){ width - pcp, height	}];
+			[path lineToPoint:(NSP){ pcp, height 			}];
 			[path fill];
-			[[NSG gradientFrom:[NSC r:0.85f g:0.66f b:0.45f a:1.0f] to:[NSC r:0.78f	g:0.61f b:0.42f a:1.0f]]drawInBezierPath:path angle:90.0f];
-			path = [NSBezierPath bezierPathWithRect:NSMakeRect(0.0f, 0.0f, width, sh)];
-			[[NSG gradientFrom: [NSC r:0.29f g:0.16f b:0.04f a:1.0f] to:[NSC r:0.48f g:0.30f b:0.16f a:1.0f]] drawInBezierPath:path angle:90.0f];
+			[[NSG gradientFrom:[c colorWithBrightnessOffset:-.4] to:c] drawInBezierPath:path angle:90.0f];
+//			  [NSC r:0.85f g:0.66f b:0.45f a:1.0f] to:[NSC r:0.78f	g:0.61f b:0.42f a:1.0f]]drawInBezierPath:path angle:90.0f];
+	[[NSG gradientFrom: [c colorWithBrightnessOffset:-1] to:[c colorWithBrightnessOffset:-.5]]drawInBezierPath:[NSBezierPath bezierPathWithRect:NSMakeRect(0.0f, 0.0f, width, shelfH)] angle:90.0f];
+// [NSC r:0.29f g:0.16f b:0.04f a:1.0f] to:[NSC r:0.48f g:0.30f b:0.16f a:1.0f]] ;
+//[[NSG gradientFrom: [NSC r:0.29f g:0.16f b:0.04f a:1.0f] to:[NSC r:0.48f g:0.30f b:0.16f a:1.0f]] drawInBezierPath:[NSBezierPath bezierPathWithRect:NSMakeRect(0.0f, 0.0f, width, shelfH)] angle:90.0f];
 		}];
 	}];
 }

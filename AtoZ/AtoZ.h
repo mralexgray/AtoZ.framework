@@ -88,6 +88,7 @@ AZWORKSPACE:
 #import "ObjectMatcher.h"
 
 #import "NSObject_KVOBlock.h"
+#import "CTBlockDescription.h"
 
 #import "AtoZUmbrella.h"
 #import "AtoZTypes.h"

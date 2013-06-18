@@ -29,7 +29,7 @@
 - (NSA*) cacheImages;
 - (void) cacheNamedImages;
 - (NSA*)recursivePathsForResourcesOfType:(NSS*)type inDirectory:(NSS*)directoryPath;
-- (NSS *)recursiveSearchForPathOfResourceNamed:(NSS*)name;
+- (NSS*) recursiveSearchForPathOfResourceNamed:(NSS*)name;
 
 //+ (NSMutableArray *)systemFrameworks;
 

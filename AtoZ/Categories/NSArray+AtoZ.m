@@ -9,18 +9,18 @@ NSString * const NSMutableArrayDidInsertObjectNotification = @"com.mrgray.NSMuta
 
 @implementation NSArray (EnumExtensions)
 
-- (NSS *)stringWithEnum:(NSUInteger)enumVal {
+- (NSS*) stringWithEnum:(NSUInteger)enumVal {
     return self[enumVal];
 }
 
-- (NSUInteger)enumFromString:(NSS *)strVal default:(NSUInteger)def
+- (NSUInteger)enumFromString:(NSS*) strVal default:(NSUInteger)def
 {
     NSUI n = [self indexOfObject:strVal];
     if (n == NSNotFound) n = def;
     return n;
 }
 
-- (NSUInteger)enumFromString:(NSS *)strVal {
+- (NSUInteger)enumFromString:(NSS*) strVal {
     return [self enumFromString:strVal default:0];
 }
 
@@ -43,19 +43,19 @@ NSString * const NSMutableArrayDidInsertObjectNotification = @"com.mrgray.NSMuta
 
 @implementation NSArray (AtoZCLI)
 
-- (NSS *)stringValueInColumnsCharWide:(NSUI)characters {
+- (NSS*) stringValueInColumnsCharWide:(NSUI)characters {
     return [self reduce:^id (id memo, id obj) {
         NSUI min = MAX(characters - [obj length], 0);
         return [memo withString:[obj stringByPaddingToLength:characters withString:@" " startingAtIndex:0]];
     } withInitialMemo:@""];
 }
-- (NSS *)formatAsListWithPadding:(NSUI)characters	{
+- (NSS*) formatAsListWithPadding:(NSUI)characters	{
 
 	return /*$(@"\n%@",*/ [[[self alphabetize] map:^id (id obj) {
 		return [obj stringByPaddingToLength:characters withString:@" " startingAtIndex:0];
 	}] componentsJoinedByString:@" "]; // );
 }
-- (NSA *)alphabetize { return [self.mutableCopy sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];	}
+- (NSA*) alphabetize { return [self.mutableCopy sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];	}
 
 @end
 
@@ -172,7 +172,7 @@ NSString * const NSMutableArrayDidInsertObjectNotification = @"com.mrgray.NSMuta
     return(ac);
 }
 
-+ (NSA *)from:(NSI)from to:(NSI)to;
++ (NSA*) from:(NSI)from to:(NSI)to;
 {
     return [self.class arrayFrom:from To:to];
 }
@@ -213,7 +213,7 @@ NSString * const NSMutableArrayDidInsertObjectNotification = @"com.mrgray.NSMuta
 
 @dynamic trimmedStrings;
 
-- (NSA *)withMinItems:(NSUI)items usingFiller:(id)fill {
+- (NSA*) withMinItems:(NSUI)items usingFiller:(id)fill {
 
 
 	 if (self.count >= items) return self;
@@ -229,26 +229,26 @@ NSString * const NSMutableArrayDidInsertObjectNotification = @"com.mrgray.NSMuta
     return upgrade;
 }
 
-- (NSA *)withMin:(NSUI)min max:(NSUI)max{  return [[self withMinItems:min ] withMaxItems:max]; }
+- (NSA*) withMin:(NSUI)min max:(NSUI)max{  return [[self withMinItems:min ] withMaxItems:max]; }
 
 
-- (NSA *)withMinItems:(NSUI)items;
+- (NSA*) withMinItems:(NSUI)items;
 {
     return [self withMinItems:items usingFiller:self];
 }
 
 
-- (NSA *)withMinRandomItems:(NSUI)items {
+- (NSA*) withMinRandomItems:(NSUI)items {
     return [self.shuffeled withMinItems:items];
 }
 
-- (NSA *)withMaxRandomItems:(NSUI)items;
+- (NSA*) withMaxRandomItems:(NSUI)items;
 {
     return self.count <= items ? self : [self.shuffeled subarrayToIndex:items];
 }
 
 
-- (NSA *)withMaxItems:(NSUI)items;
+- (NSA*) withMaxItems:(NSUI)items;
 {
     return self.count <= items ? self : [self subarrayToIndex:items];
 }
@@ -270,7 +270,7 @@ NSString * const NSMutableArrayDidInsertObjectNotification = @"com.mrgray.NSMuta
 	return (NSN*)[self sortedArrayUsingDescriptors: [NSArray arrayWithObject: sortOrder]].first;
 //return (NSN*)[self sortedArrayUsingSelector: @selector(compare:)].last;		
 }
-- (NSA *)URLsForPaths {
+- (NSA*) URLsForPaths {
     return [self map:^id (id obj) { return [NSURL fileURLWithPath:obj]; }];
 }
 
@@ -285,26 +285,26 @@ NSString * const NSMutableArrayDidInsertObjectNotification = @"com.mrgray.NSMuta
     [self eachWithIndex:^(id obj, NSI idx) {                NSLog(@"Index %ld: %@", idx, obj);  }];
 }
 
-+ (NSA *)arrayFromPlist:(NSS *)path {
++ (NSA*) arrayFromPlist:(NSS*) path {
     return [NSPropertyListSerialization propertyListFromData:
             [NSData dataWithContentsOfFile:path] mutabilityOption:NSPropertyListImmutable
                                                            format:nil errorDescription:nil];
 }
 
-- (void)saveToPlistAtPath:(NSS *)path {
+- (void)saveToPlistAtPath:(NSS*) path {
 //	[HRCoder archiveRootObject:self toFile:path];
 //	[NSTask launchedTaskWithLaunchPath:@"/usr/bin/plutil" arguments:@[@"-convert", @"xml1", path]];
 }
 
-- (NSA *)arrayWithEach {
+- (NSA*) arrayWithEach {
     return [NSArray arrayWithArrays:self];
 }
 
-+ (NSA *)arrayWithArrays:(NSA *)arrays {
++ (NSA*) arrayWithArrays:(NSA*) arrays {
     return [[[self mutableArrayWithArrays:arrays] copy] autorelease];
 }
 
-+ (NSMutableArray *)mutableArrayWithArrays:(NSA *)arrays {
++ (NSMutableArray *)mutableArrayWithArrays:(NSA*) arrays {
     NSMutableArray *array = [NSMutableArray arrayWithCapacity:0];
     for (NSArray *a in arrays) {
         [array addObjectsFromArray:a];
@@ -313,14 +313,14 @@ NSString * const NSMutableArrayDidInsertObjectNotification = @"com.mrgray.NSMuta
 }
 
 
-- (NSS *)stringWithEnum:(NSUInteger)anEnum; { return self[anEnum];    }
+- (NSS*) stringWithEnum:(NSUInteger)anEnum; { return self[anEnum];    }
 
-- (NSUInteger)enumFromString:(NSS *)aString default:(NSUInteger)def;
+- (NSUInteger)enumFromString:(NSS*) aString default:(NSUInteger)def;
 {
     NSUI n = [self indexOfObject:aString];  check(n != NSNotFound); if (n == NSNotFound) n = def; return n;
 }
 
-- (NSUInteger)enumFromString:(NSS *)aString;  {       return [self enumFromString:aString default:0]; }
+- (NSUInteger)enumFromString:(NSS*) aString;  {       return [self enumFromString:aString default:0]; }
 
 - (NSA*) allKeysInChildDictionaries {
 
@@ -337,7 +337,7 @@ NSString * const NSMutableArrayDidInsertObjectNotification = @"com.mrgray.NSMuta
 }
 
 
-- (NSA *)colorValues {
+- (NSA*) colorValues {
     return [self arrayUsingBlock:^id (id obj) {
         return [obj colorValue];
     }];
@@ -365,7 +365,7 @@ NSString * const NSMutableArrayDidInsertObjectNotification = @"com.mrgray.NSMuta
 	return re;
 }
 
-- (NSA *)arrayUsingIndexedBlock:(id (^)(id obj, NSUI idx))block {
+- (NSA*) arrayUsingIndexedBlock:(id (^)(id obj, NSUI idx))block {
     NSMutableArray *result = [NSMutableArray arrayWithCapacity:[self count]];
     [self enumerateObjectsUsingBlock:^(id obj, NSUI idx, BOOL *stop) {
         [result addObject:block(obj, idx)];
@@ -374,7 +374,7 @@ NSString * const NSMutableArrayDidInsertObjectNotification = @"com.mrgray.NSMuta
 }
 
 // NSArray *sortedArray = [theArray sortedWithKey:@"theKey" ascending:YES];
-- (NSA *)sortedWithKey:(NSS *)theKey ascending:(BOOL)ascending {
+- (NSA*) sortedWithKey:(NSS*) theKey ascending:(BOOL)ascending {
     return [self sortedArrayUsingDescriptors:@[[[NSSortDescriptor alloc] initWithKey:theKey ascending:ascending]]];
 }
 
@@ -401,7 +401,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 //}
 
 // an array of NSNumbers with Integer values, NSNotFound is the terminator
-+ (NSA *)arrayWithInts:(NSInteger)i, ...{
++ (NSA*) arrayWithInts:(NSInteger)i, ...{
     NSMutableArray *re = NSMutableArray.array;
 
     [re addObject:[NSNumber numberWithInt:i]];
@@ -417,7 +417,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 }
 
 // an array of NSNUmbers with double values, MAXFLOAT is the terminator
-+ (NSA *)arrayWithDoubles:(double)f, ...{
++ (NSA*) arrayWithDoubles:(double)f, ...{
     NSMutableArray *re = NSMutableArray.array;
 
     [re addObject:@(f)];
@@ -437,24 +437,24 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
     return [NSSet setWithArray:self];
 }
 
-- (NSA *)shifted {
+- (NSA*) shifted {
     NSMutableArray *re = [self mutableCopy];
     [re removeFirstObject];
     return re;
 }
 
-- (NSA *)popped {
+- (NSA*) popped {
     NSMutableArray *re = [self mutableCopy];
     [re removeLastObject];
     return re;
 }
 
-- (NSA *)reversed {
+- (NSA*) reversed {
     return [[self mutableCopy] az_reverse];
 }
 
 // array evaluating the keyPath
-- (NSA *)arrayWithKey:(NSS *)keyPath {
+- (NSA*) arrayWithKey:(NSS*) keyPath {
     NSMutableArray *re = [NSMutableArray arrayWithCapacity:self.count];
     for (id o in self) {
         id v = [o valueForKeyPath:keyPath];
@@ -583,11 +583,11 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
     return NO;
 }
 
-- (NSA *)arrayUsingBlock:(id (^)(id obj))block {
+- (NSA*) arrayUsingBlock:(id (^)(id obj))block {
     return [self map:block];
 }
 
-- (NSA *)map:(id (^)(id obj))block {
+- (NSA*) map:(id (^)(id obj))block {
     NSMutableArray *re = [NSMutableArray arrayWithCapacity:self.count];
     for (id o in self) {
         id v = block(o);
@@ -596,7 +596,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
     return re;
 }
 
-- (NSA *)nmap:(id (^)(id obj, NSUI index))block {
+- (NSA*) nmap:(id (^)(id obj, NSUI index))block {
     NSMutableArray *re = [NSMutableArray arrayWithCapacity:self.count];
     for (int i = 0; i < self.count; i++) {
         id v, o = self[i];
@@ -614,11 +614,11 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
     return re;
 }
 
-- (NSA *)arrayWithoutObject:(id)object {
+- (NSA*) arrayWithoutObject:(id)object {
     return [self arrayWithoutSet:NSSET(object)];
 }
 
-- (NSA *)arrayWithoutObjects:(id)object, ...
+- (NSA*) arrayWithoutObjects:(id)object, ...
 {
     NSSet *s = NSSet.set;
     va_list args;
@@ -630,11 +630,11 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
     return re;
 }
 
-- (NSA *)arrayWithoutArray:(NSA *)value {
+- (NSA*) arrayWithoutArray:(NSA*) value {
     return [self arrayWithoutSet:value.set];
 }
 
-- (NSA *)arrayWithoutSet:(NSSet *)values {
+- (NSA*) arrayWithoutSet:(NSSet *)values {
     NSArray *re = NSArray.array;
     for (id o in self) {
         if (![values containsObject:o]) re = [re arrayByAddingObject:o];
@@ -642,7 +642,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
     return re;
 }
 
-- (NSA *)subIndex:(NSUI)subIndex filter:(BOOL (^)(id object))block {
+- (NSA*) subIndex:(NSUI)subIndex filter:(BOOL (^)(id object))block {
     return [self[subIndex] filter:block];
 }
 
@@ -672,7 +672,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 }
 
 
-- (NSA *)filter:(BOOL (^)(id object))blk {
+- (NSA*) filter:(BOOL (^)(id object))blk {
     return [self filteredArrayUsingBlock:^(id o, NSD *d) { return (BOOL)blk(o); }];
 }
 
@@ -691,15 +691,15 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
     return YES;
 }
 
-- (NSA *)elementsOfClass:(Class)aClass {
+- (NSA*) elementsOfClass:(Class)aClass {
     return [self cw_mapArray:^id (id o) { return [o isKindOfClass:aClass] ? o : nil; }];
 }
 
-- (NSA *)numbers {
+- (NSA*) numbers {
     return [self elementsOfClass:NSNumber.class];
 }
 
-- (NSA *)strings {
+- (NSA*) strings {
     return [self elementsOfClass:NSString.class];
 }
 
@@ -753,15 +753,15 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
     return [self objectOrNilAtIndex:5];
 }
 
-- (NSA *)subarrayFromIndex:(NSI)start {
+- (NSA*) subarrayFromIndex:(NSI)start {
     return [self subarrayFromIndex:start toIndex:(self.count - 1)];
 }
 
-- (NSA *)subarrayToIndex:(NSI)end         {
+- (NSA*) subarrayToIndex:(NSI)end         {
     return [self subarrayFromIndex:0 toIndex:end];
 }
 
-- (NSA *)subarrayFromIndex:(NSInteger)start toIndex:(NSInteger)end {
+- (NSA*) subarrayFromIndex:(NSInteger)start toIndex:(NSInteger)end {
     NSI from = start;
     while (from < 0) from += self.count;
     if (from > self.count) return nil;
@@ -784,11 +784,11 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
     return !self.count ? nil : self[ arc4random() % self.count ];
 }
 
-- (NSA *)shuffeled {
+- (NSA*) shuffeled {
     return self.count < 2 ? self : ((NSMA *)self.mutableCopy).shuffle;
 }
 
-- (NSA *)randomSubarrayWithSize:(NSUInteger)size {
+- (NSA*) randomSubarrayWithSize:(NSUInteger)size {
     if (self.count == 0) {
         return @[];
     }
@@ -822,7 +822,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
     return self[index % self.count];
 }
 
-- (NSInteger)sumIntWithKey:(NSS *)keyPath {
+- (NSInteger)sumIntWithKey:(NSS*) keyPath {
     NSI re = 0;
     for (id v in self) {
         id k = v;
@@ -837,7 +837,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
     return re;
 }
 
-- (CGF)sumFloatWithKey:(NSS *)keyPath {
+- (CGF)sumFloatWithKey:(NSS*) keyPath {
     CGF re = 0;
     for (id v in self) {
         id k = v;
@@ -892,7 +892,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
     [self enumerateObjectsUsingBlock:block];
 }
 
-- (NSA *)objectsWithFormat:(NSS *)format, ...{
+- (NSA*) objectsWithFormat:(NSS*) format, ...{
     va_list args;
     va_start(args, format);
     NSPredicate *p = [NSPredicate predicateWithFormat:format arguments:args];
@@ -901,7 +901,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
     return [self filteredArrayUsingPredicate:p];
 }
 
-- (id)firstObjectWithFormat:(NSS *)format, ...{
+- (id)firstObjectWithFormat:(NSS*) format, ...{
     va_list args;
     va_start(args, format);
     NSPredicate *p = [NSPredicate predicateWithFormat:format arguments:args];
@@ -916,18 +916,18 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
     return nil;
 }
 
-- (NSA *)filteredArrayUsingBlock:(BOOL (^)(id evaluatedObject, NSDictionary *bindings))block {
+- (NSA*) filteredArrayUsingBlock:(BOOL (^)(id evaluatedObject, NSDictionary *bindings))block {
     NSPredicate *p = [NSPredicate predicateWithBlock:block];
     return [self filteredArrayUsingPredicate:p];
 }
 
-- (NSA *)uniqueObjects {
+- (NSA*) uniqueObjects {
     NSSet *set = [[NSSet alloc] initWithArray:self];
     NSArray *vals = [set allObjects];
     return vals;
 }
 
-- (NSA *)uniqueObjectsSortedUsingSelector:(SEL)comparator {
+- (NSA*) uniqueObjectsSortedUsingSelector:(SEL)comparator {
     NSSet *set =
         [[NSSet alloc] initWithArray:self];
     NSArray *vals =
@@ -1031,7 +1031,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 /**	Like find but instead of returning the first object
  * that passes the test it returns all objects passing the
  * bool block test	*/
-- (NSA *)findAllWithBlock:(BOOL (^)(id obj))block {
+- (NSA*) findAllWithBlock:(BOOL (^)(id obj))block {
     NSMA *results = NSMA.new;
     [self az_each:^(id obj, NSUI index, BOOL *stop) {
         if (block(obj)) {
@@ -1067,7 +1067,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
  *
  * @param block a block in which you return an object to be mapped to a new array or nil to not map it
  * @return a new mapped array	*/
-- (NSA *)mapArray:(id (^)(id obj))block {
+- (NSA*) mapArray:(id (^)(id obj))block {
     NSMA *cwArray = NSMA.new;
     [self az_each:^(id obj, NSUI index, BOOL *stop) {
         id rObj = block(obj);
@@ -1079,14 +1079,14 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 @end
 
 @implementation NSArray (ListComprehensions) // Create a new array with a block applied to each index to create a new element
-+ (NSA *)arrayWithBlock:(id (^)(int index))block range:(NSRNG)range {
++ (NSA*) arrayWithBlock:(id (^)(int index))block range:(NSRNG)range {
     id array = NSMA.new; for (int i = range.location; i < range.location + range.length; i++) {
         [array addObject:block(i)];
     }
     return array;
 }                                                                                                                                                                                                        // The same with a condition
 
-+ (NSA *)arrayWithBlock:(id (^)(int index))block range:(NSRNG)range if:(BOOL (^)(int index))blockTest {
++ (NSA*) arrayWithBlock:(id (^)(int index))block range:(NSRNG)range if:(BOOL (^)(int index))blockTest {
     id array = NSMA.new; for (int i = range.location; i < range.location + range.length; i++) {
         if (blockTest(i)) [array addObject:block(i)];
     }
@@ -1294,7 +1294,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 
 @implementation NSArray (Stringing)
 
-- (NSS *)listValuesOnePerLineForKeyPath:(NSS *)keyPath bullet:(NSS *)bullet {
+- (NSS*) listValuesOnePerLineForKeyPath:(NSS*) keyPath bullet:(NSS*) bullet {
     NSI nItems = self.count;
     if (!keyPath) keyPath = @"description";
     if (!bullet) bullet = @"";
@@ -1312,11 +1312,11 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
     return [output autorelease];
 }
 
-- (NSS *)listValuesOnePerLineForKeyPath:(NSS *)keyPath {
+- (NSS*) listValuesOnePerLineForKeyPath:(NSS*) keyPath {
     return [self listValuesOnePerLineForKeyPath:keyPath bullet:nil];
 }
 
-- (NSS *)listValuesForKey:(NSS *)key conjunction:(NSS *)conjunction truncateTo:(NSI)truncateTo {
+- (NSS*) listValuesForKey:(NSS*) key conjunction:(NSS*) conjunction truncateTo:(NSI)truncateTo {
     NSA *array;
     BOOL ellipsize = NO;
     if ((truncateTo > 0) && (truncateTo < [self count])) {
@@ -1348,7 +1348,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
     return [output autorelease];
 }
 
-- (NSS *)listNames {
+- (NSS*) listNames {
     return [self listValuesForKey:@"name" conjunction:nil truncateTo:0];
 }
 

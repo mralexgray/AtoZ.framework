@@ -240,7 +240,7 @@ void WEBLOG (id format, ...) {
 // BLINKING	 "\033[38;5mWhatever\033[0m"
 - (const char*) cchar {  return self.clr.UTF8String; }
 
-- (NSS *)colorLogString {
+- (NSS*) colorLogString {
 
 	NSA *fgs = [self hasAssociatedValueForKey:@"logFG"] ? [self associatedValueForKey:@"logFG"] : nil;
    NSA *bgs = [self hasAssociatedValueForKey:@"logBG"] ? [self associatedValueForKey:@"logBG"] : nil;
@@ -267,6 +267,91 @@ void WEBLOG (id format, ...) {
 	else return self;
 }
 @end
+
+
+// Log levels: off, error, warn, info, verbose
+//static const int ddLogLevel = LOG_LEVEL_VERBOSE;
+//
+//void _AZLog(const char *file, int lineNumber, const char *funcName, NSString *format,...) {
+//	va_list arglist;
+//
+//	va_start (arglist, format);
+//	if (![format hasSuffix: @"\n"]) {
+//		format = [format stringByAppendingString: @"\n"];
+//	}
+//	NSString *body =  [[NSString alloc] initWithFormat: format arguments: arglist];
+//	va_end (arglist);
+//	const char *threadName = [[[NSThread currentThread] name] UTF8String];
+//	NSString *fileName=[[NSString stringWithUTF8String:file] lastPathComponent];
+//		//	if (threadName) {
+//		//		fprintf(stderr,"%s/%s (%s:%d) %s",threadName,funcName,[fileName UTF8String],lineNumber,[body UTF8String]);
+//		//	} else {
+//		//		fprintf(stderr,"%p/%s (%s:%d) %s",[NSThread currentThread],funcName,[fileName UTF8String],lineNumber,[body UTF8String]);
+//		//	}
+//#ifdef PRINTMETHODS
+//	fprintf(stderr,"%s:%d [%s] %s",[fileName UTF8String],lineNumber,funcName, [body UTF8String]);
+//#else
+//	fprintf(stderr,"line:%d %s",lineNumber, [body UTF8String]);
+//#endif
+//		//
+//	[body release];
+//}
+//
+//void _AZLog(const char *file, int lineNumber, const char *funcName, NSString *format,...);
+//
+//void QuietLog (const char *file, int lineNumber, const char *funcName, NSString *format, ...) {
+//	if (format == nil) {
+//		printf("nil\n");
+//		return;
+//	}
+//		// Get a reference to the arguments that follow the format parameter
+//	va_list argList;
+//	va_start(argList, format);
+//		// Perform format string argument substitution, reinstate %% escapes, then print
+//	NSString *s = [[[NSString alloc] initWithFormat:format arguments:argList]stringByReplacingAllOccurancesOfString:@"fff" withString:@"%.1f"];
+//		//for float the format specifier is %f and we can restrict it to print only two decimal place value by %.2f
+//	printf("%s\n", [[s stringByReplacingOccurrencesOfString:@"%%" withString:@"%%%%"] UTF8String]);
+//	[s release];
+//	va_end(argList);
+//}
+
+//void QuietLog (NSString *format, ...) { if (format == nil) { printf("nil\n"); return; }
+//	// Get a reference to the arguments that follow the format parameter
+//	va_list argList;  va_start(argList, format);
+//	// Perform format string argument substitution, reinstate %% escapes, then print
+//	NSString *s = [[NSString alloc] initWithFormat:format arguments:argList];
+//	printf("%s\n", [[s stringByReplacingOccurrencesOfString:@"%%" withString:@"%%%%"] UTF8String]);
+//	[s release];
+//	va_end(argList);
+//}
+
+// NSLog() writes out entirely too much stuff.  Most of the time I'm  not interested in the program name, process ID, and current time down to the subsecond level.
+// This takes an NSString with printf-style format, and outputs it. regular old printf can't be used instead because it doesn't support the '%@' format option.
+
+void QuietLog( NSString *fmt,...) {	va_list argList; va_start(argList, fmt);
+	printf("%s",  [[NSS stringWithFormat:fmt arguments:argList]UTF8String]);
+	va_end(argList);
+} // QuietLog
+
+#ifndef NDEBUG
+#import <Foundation/Foundation.h>
+#import <stdio.h>
+
+extern void _NSSetLogCStringFunction(void (*)(const char *string, unsigned length, BOOL withSyslogBanner));
+static void PrintNSLogMessage(const char *string, unsigned length, BOOL withSyslogBanner) {	puts(string);	}
+
+static void HackNSLog(void) __attribute__((constructor));
+static void HackNSLog(void) {	_NSSetLogCStringFunction(PrintNSLogMessage);	}
+
+#endif
+
+//void QuietLog (NSString *format, ...) {
+//	va_list argList;	va_start (argList, format);
+//	NSString *message = [[NSString alloc] initWithFormat:format arguments:argList];
+//	fprintf (stderr, "*** %s ***\n", [message UTF8String]);	 va_end  (argList);
+//} // QuietLog
+
+
 
 //	NSUInteger fgCodeIndex;	NSString *fgCodeRaw;	char fgCode[24];	size_t fgCodeLen;	char resetCode[8];	size_t resetCodeLen;
 //

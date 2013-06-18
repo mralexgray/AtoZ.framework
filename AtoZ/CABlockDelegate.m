@@ -120,7 +120,7 @@ static NSMD *delegations = nil;
 																	NSAssert(layer.delegate != nil, @"nil");	}
 	else if 	(type == CABlockTypeLayoutBlock	)	{	layer.layoutManager = n; [layer setNeedsLayout];	}
 	else if 	(type == CABlockTypeKVOChange		)	{
-		[layer overrideSelector:@selector(didChangeValueForKey:) withBlock:(__bridge void *)^(id _self, NSS*k){
+		[layer az_overrideSelector:@selector(didChangeValueForKey:) withBlock:(__bridge void *)^(id _self, NSS*k){
 			n.kvoBlock(layer, k);
 //			SEL sel = @selector(didChangeValueForKey:);	void (*superIMP)(id, SEL, NSS*) = [_self az_superForSelector:sel];
 //																			    superIMP(_self, sel, k);
@@ -129,7 +129,7 @@ static NSMD *delegations = nil;
 	return n;//NSLog(@"setdlegate:%@.. delegate: %@, lom: %@",n,  layer.delegate, layer.layoutManager),
 }
 
-- (void) drawLayer:(CALayer*)l inContext:(CGContextRef)x 	{ SEL_LOG; 
+- (void) drawLayer:(CALayer*)l inContext:(CGContextRef)x 	{ //SEL_LOG;
 
 //	[delegations fi  :[l vFK:@"CABlockTypeDrawBlock"]];
 //	NSA* drawers = [delegations valueForKeyPath:@"drawBlock"];
@@ -144,7 +144,7 @@ static NSMD *delegations = nil;
 SEL_LOG; _layoutBlock ? self.layoutBlock	(layer) 					: nil;
 }
 - (void) animationDidStop:  (CAAnimation*)theAnimation	
-					  finished:				(BOOL)flag 					{SEL_LOG;  
+					  finished:				(BOOL)flag 					{ SEL_LOG;  
 
 	NSLog(@"Block delagate, reporting for duty. Type: %@", CABlockTypeToString(CABlockTypeAniComplete));
    _aniComplete ? self.aniComplete	(flag, theAnimation) : nil; 	
@@ -264,6 +264,7 @@ SEL_LOG; _layoutBlock ? self.layoutBlock	(layer) 					: nil;
     }    free(properties);
     return string;
 }
+/**
 - (BOOL)overrideSelector:(SEL)selector withBlock:(void *)block	{
 	Class selfClass 	= [self class];
 	Class subclass 	= nil;
@@ -306,10 +307,10 @@ SEL_LOG; _layoutBlock ? self.layoutBlock	(layer) 					: nil;
 //		[self bind:b toObject:d[key] withKeyPath:d options:@{NSContinuouslyUpdatesValueBindingOption:@(YES), NSValueTransformerBindingOption:transformer}];
 //	}
 //}
-
+*/
 @end
 
-
+/*
 @implementation NSGraphicsContext (FunSize)
 
 +(void)drawInContext:(CGContextRef)ctx 
@@ -328,44 +329,6 @@ SEL_LOG; _layoutBlock ? self.layoutBlock	(layer) 					: nil;
 
 
 @implementation CALayer (CAScrollLayer_Extensions)
-- (id) scanSubsForClass:(Class )c 					{
-
-	__block CALayer * thing = nil;
-	[self.sublayers enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-		if ([obj isKindOfClass:c]) { thing = obj; *stop = YES;  }
-		else if ([obj sublayers].count > 0) thing = [obj scanSubsForClass:c]; 
-	}];
-	return thing;
-}
-- (id) scanSubsForName:(NSString*)n 					{
-
-	__block CALayer * thing = nil;
-	[self.sublayers enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-		if ([[(CAL*)obj name] isEqualToString:n]) { thing = obj; *stop = YES;  }
-		else if ([obj sublayers].count > 0) thing = [obj scanSubsForName:n]; 
-	}];
-	return thing;
-}
-- (void)scrollBy:(CGPoint)inDelta					{
-	if (![self isKindOfClass:[CAScrollLayer class]]) return;
-	const CGRect theVisibleRect = self.visibleRect;
-	const CGPoint theNewScrollLocation = { .x = CGRectGetMinX(theVisibleRect) + inDelta.x, .y = CGRectGetMinY(theVisibleRect) + inDelta.y };
-	[(CAScrollLayer*)self scrollToPoint:theNewScrollLocation];
-}
-- (void)scrollCenterToPoint:(CGPoint)inPoint;	{
-	if (![self isKindOfClass:[CAScrollLayer class]]) return;
-	const CGRect theBounds = self.bounds;
-	const CGPoint theCenter = {
-		.x = CGRectGetMidX(theBounds),
-		.y = CGRectGetMidY(theBounds),
-	};
-	const CGPoint theNewPoint = {
-		.x = inPoint.x - theCenter.x,
-		.y = inPoint.y - theCenter.y,
-	};
-	[(CAScrollLayer*)self scrollToPoint:theNewPoint];
-}
-
 @end
 
 
@@ -410,3 +373,6 @@ SEL_LOG; _layoutBlock ? self.layoutBlock	(layer) 					: nil;
     [self commit];
 }
 @end
+ */
+
+

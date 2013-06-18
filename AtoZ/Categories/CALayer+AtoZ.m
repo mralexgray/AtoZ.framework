@@ -480,13 +480,79 @@ static char ROOT_IDENTIFIER;
 static char TEXT_IDENTIFIER;
 #define kCALayerLabel @"CALayerLabel"
 @implementation CALayer (AtoZ)
-//@dynamic hostView, siblings, siblingIndex, siblingIndexMax, selected, hovered, backgroundNSColor;
-+ (void) load {	//	NSLog(@"swizzling: @selector(addSublayer:)");
+@dynamic hostView, siblings, siblingIndex, siblingIndexMax, selected, hovered, backgroundNSColor;
++ (void) load 												{	//	NSLog(@"swizzling: @selector(addSublayer:)");
 //	[$ swizzleMethod:@selector(addSublayer:) with:@selector(swizzleAddSublayer:) in:self.class];
 //	[$ swizzleMethod:@selector(actionForKey:) with:@selector(swizzleActionForKey:) in:self.class];
+//	[$ swizzleMethod:@selector(hitTest:) with:@selector(swizzleHitTest:) in:CAL.class];
+	[$ swizzleClassMethod:@selector(needsDisplayForKey:) with:@selector(swizzleNeedsDisplayForKey:) in:CAL.class];
+//	[$ swizzleClassMethod:@selector(defaultActionForKey:) with:@selector(swizzleDefaultActionForKey:) in:CAL.class];
+	[$ swizzleClassMethod:@selector(initWithLayer:) with:@selector(swizzleIinitWithLayer:) in:CAL.class];
 }
-//- (CAL*) hitEvent:(NSEvent*) forClass @dynamic permaPresentation;
-- (CAL*) permaPresentation	{	if (!self.presentationLayer) NSLog(@"no presenta para: %@", self);
+- (id) swizzleHitTest:(NSP)p {
+
+//	id (^hit)(CAL*) = ^id(CAL*l) { return [l swizzleHitTest:[l convertPoint:p fromLayer:self]];
+//	NSA* hit = [self.sublayers reduce:@[].mutableCopy withBlock:^id(id sum, id obj) {
+//
+//		return
+//	}];
+//	if (!hit) return nil;
+//	return [hit firstObject];
+//	CGF top = [self.sublayers floatForKeyPath:@"@max.zPosition"];
+//
+//	LOG_EXPR(top);
+//	if (([[hit sortedWithKey:@"zPosition" ascending:NO].first floatForKey:@"zPosition"] < top) || (top == 0.0))
+//
+//		[CATRANNY immediately:^{
+//		 	[hit setFloat:top+100 forKey:@"zPosition"];
+//			NSLog(@"Changed %@ zPos to %f",hit,  hit.zPos);
+//		}];
+//	return  hit;
+}
+
+//	__block CAL* hit = [self hitTestSubs:p];
+//	__block CAL* try = hit;
+//	CGF(^top)(void) = ^CGF{ return  [self.superlayer.sublayers floatForKeyPath:@"@max.zPosition"]; };
+//	while (try && hit.zPosition < top() ){
+//
+//			if ([hit respondsToSelector:@selector(count)]) {
+//		CGF top = [hit floatForKeyPath:@"@max.zPosition"];
+//		if (top != 0) hit = [hit objectWithValue:@(top) forKey:@"zPosition"];
+//		NSLog(@"sorted the hittest by zPosition... winnder %f", top);
+//	}
+//	if ([hit respondsToString:@"last"]) { hit = [hit last]; NSLog(@"giving the last hittest"); }
+//
+//			//		NSLog(@"newZpos:%f", top);
+//		CABA *topper = [CABA animationWithKeyPath:@"zPosition" andDuration:1 andSet:hit];
+//		topper.toValue = @(top);
+//		topper.fromValue = @([hit presentationCALayer].zPosition);
+//		[CAAnimationDelegate delegate:topper forLayer:hit];
+//		[hit addAnimation:topper forKey:nil];
+//			//		[hit animate:@"zPosition" toInt:top  time:2 completion:^{
+//	if (hit && [hit respondsToString:@"selected"] && [hit respondsToString:@"setSelected:"]) {
+//		[hit setSelected:![hit boolForKey:@"selected"]];
+//
+//		return hit;
+//	}
+//}
++ (BOOL) swizzleNeedsDisplayForKey:(NSS*)k		{
+	return [@[@"selected", @"hovered", @"siblingIndex", @"backgroundNSColor"]containsObject:k]
+	?: [self swizzleNeedsDisplayForKey:k];
+}
+- (id) swizzleIinitWithLayer:(id)layer {
+	if (self != [self swizzleIinitWithLayer:layer]) return nil;
+	[@[@"siblings", @"siblingIndex", @"siblingIndexMax", @"selected", @"hovered", @"backgroundNSColor"]each:^(id obj) { id value;
+		if ((value = [layer vFK:obj])) { [[@"swizzle set "withString:obj]log]; [self sV:value fK:obj]; }
+	}];
+	return self;
+}
+//+ (ACT)swizzleDefaultActionForKey:(NSString *)key
+//	return [@[@"selected", @"hovered", @"siblingIndex", @"backgroundNSColor"]containsObject:k]
+//	?: [self swizzleNeedsDisplayForKey:k];
+//}
+
+	//- (CAL*) hitEvent:(NSEvent*) forClass @dynamic permaPresentation;
+- (CAL*) permaPresentation					{	if (!self.presentationLayer) NSLog(@"no presenta para: %@", self);
 	return self.presentationLayer ?: self.modelCALayer ?: self;
 }
 - (void) setBackgroundNSColor:(NSC*)c 	{ self.bgC = c.CGColor; }
@@ -502,17 +568,36 @@ static char TEXT_IDENTIFIER;
 //	[self setNeedsDisplay];
 //	[self setNeedsLayout];
 }
-- (BOOL) hovered 					{
+- (BOOL) hovered 								{
 	return [[self associatedValueForKey:@"_hovered" orSetTo:@NO policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC]boolValue];
 }
-- (void) setHovered:(BOOL)h	{ if (h == self.hovered) return;
+- (void) setHovered:(BOOL)h				{ if (h == self.hovered) return;
 	[self willChangeValueForKey:@"hovered"];
 //	[self triggerKVO:@"hovered" block:^(NSO *bSelf) { //willChangeValueForKey:@"hovered"];
 	[self setAssociatedValue:@(h) forKey:@"_hovered" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
 	//	[self setValue:@(h) forKey:@"_hovered"];
 	[self didChangeValueForKey:@"hovered"];
 }
-- (void) needsLayoutForKey:(NSString*)key {	[self addObserverForKeyPath:key task:^(id sender) { [sender setNeedsLayout]; }];	}
+- (void) needsLayoutForKey:(NSS*)key 	{	[self addObserverForKeyPath:key task:^(id sender) { [sender setNeedsLayout]; }];	}
+- (id) scanSubsForClass:(Class )c 					{
+
+	__block CALayer * thing = nil;
+	[self.sublayers enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+		if ([obj isKindOfClass:c]) { thing = obj; *stop = YES;  }
+		else if ([obj sublayers].count > 0) thing = [obj scanSubsForClass:c];
+	}];
+	return thing;
+}
+- (id) scanSubsForName:(NSString*)n 					{
+
+	__block CALayer * thing = nil;
+	[self.sublayers enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+		if ([[(CAL*)obj name] isEqualToString:n]) { thing = obj; *stop = YES;  }
+		else if ([obj sublayers].count > 0) thing = [obj scanSubsForName:n];
+	}];
+	return thing;
+}
+
 //+ (BOOL)automaticallyNotifiesObserversForKey:(NSString *)theKey {
 //	return [@[@"sublayers", @"siblings", @"siblingIndex", @"siblingIndexMax"]containsObject:theKey]
 //		 ?: [super automaticallyNotifiesObserversForKey:theKey];
@@ -639,9 +724,11 @@ static char TEXT_IDENTIFIER;
 - (CAL*) withFrame:(NSR)frame 		{ self.frame = frame; return self; }
 - (CAL*) withConstraints:(NSA*)cnst { [self addConstraints:cnst]; return  self; }
 - (CAL*) hitTestSubs:(CGPoint)point	{
-	return [self.sublayers filterOne:^BOOL(CAL* object) {
-		return [object hitTest:point] && object != self;
+
+	NSA* a =[self.sublayers filter:^BOOL(CAL* object) {
+		return [object hitTest:point];
 	}];
+	return a.count ? [a sortedWithKey:@"zPosition" ascending:NO].first : nil;
 }
 -   (id) copyLayer											{
 	//	id newOne = [self.class.alloc init];
@@ -815,43 +902,44 @@ static char TEXT_IDENTIFIER;
 	}];
 }
 
+/*
++ (NSA*)uncodableKeys {	return [self propertyNames];	}
+- (void)setWithCoder:(NSCoder *)coder{	[super setWithCoder:coder];[self autoEncodeWithCoder:coder];}
+- (void)encodeWithCoder:(NSCoder *)coder{	[super encodeWithCoder:coder];
+	[self autoDecode:coder]; //encodeObject:ENCODE_VALUE(self.newProperty) forKey:@"uncodableProperty"];	}
+	[[self.class uncodableKeys] each:^(NSS* key) {
+		[self autoEncodeWithCoder:coder]  ;//]}= DECODE_VALUE([[coder decodeObjectForKey:@"uncodableProperty"];	}];
+}
+- (void)encodeWithCoder:(NSCoder *)coder	{	[super encodeWithCoder:coder];
+	[coder encodeObject:ENCODE_VALUE(self.newProperty) forKey:@"uncodableProperty"];	}
+- (id)copyWithZone:(NSZone *)zone {  return [self.class.alloc initWithCoder:NSCoder.new];	}
+			self.position = nanPointCheck(AZCenterOfRect(toRect));
+			self.bounds =	AZMakeRectFromSize( nanSizeCheck( toRect.size ));
+	}];
+	CAAG *group = [CAAG animation];
+	CABA *posX	= [CABA animationWithKeyPath:@"position.x"];
+	CABA *posY 	= [CABA animationWithKeyPath:@"position.y"];
+	CABA *bndr	= [CABA animationWithKeyPath:@"bounds"];
+	CGF baseTime = [self convertTime:CACurrentMediaTime() fromLayer:nil];
+//	anim.beginTime = baseTime + (delay * i++);
+	group.animations 	= [@[posX, posY, bndr] nmap:^id(CABA *obj, NSUInteger idx) {
+		obj.removedOnC	= NO;
+		obj.fillMode 	= kCAFillModeForwards;
+		obj.duration	= idx <= 1 ? (time / 2) : time;
+		obj.beginTime	= idx == 0 || idx == 2  ? baseTime : (baseTime + (time / 2));
+		NSP interim 	= NSMakePoint( AZCenterOfRect(toRect).x, self.position.y);
+		obj.fromValue 	= idx == 0 ? AZVpoint( self.position )
+						: idx == 1 ? AZVpoint( interim )
+						:			 AZVrect( self.bounds );
+		obj.toValue		= idx == 0 ? AZVpoint( interim )
+						: idx == 1 ? AZVpoint( AZCenterOfRect(toRect) )
+						: 			 AZVrect ( AZMakeRectFromSize(toRect.size) );
+		return obj;
+	}];
 
-//+ (NSA*)uncodableKeys {	return [self propertyNames];	}
-//- (void)setWithCoder:(NSCoder *)coder{	[super setWithCoder:coder];[self autoEncodeWithCoder:coder];}
-//- (void)encodeWithCoder:(NSCoder *)coder{	[super encodeWithCoder:coder];
-//	[self autoDecode:coder]; //encodeObject:ENCODE_VALUE(self.newProperty) forKey:@"uncodableProperty"];	}
-//	[[self.class uncodableKeys] each:^(NSS* key) {
-//		[self autoEncodeWithCoder:coder]  ;//]}= DECODE_VALUE([[coder decodeObjectForKey:@"uncodableProperty"];	}];
-//}
-//- (void)encodeWithCoder:(NSCoder *)coder	{	[super encodeWithCoder:coder];
-//	[coder encodeObject:ENCODE_VALUE(self.newProperty) forKey:@"uncodableProperty"];	}
-//- (id)copyWithZone:(NSZone *)zone {  return [self.class.alloc initWithCoder:NSCoder.new];	}
-//			self.position = nanPointCheck(AZCenterOfRect(toRect));
-//			self.bounds =	AZMakeRectFromSize( nanSizeCheck( toRect.size ));
-//	}];
-//	CAAG *group = [CAAG animation];
-//	CABA *posX	= [CABA animationWithKeyPath:@"position.x"];
-//	CABA *posY 	= [CABA animationWithKeyPath:@"position.y"];
-//	CABA *bndr	= [CABA animationWithKeyPath:@"bounds"];
-//	CGF baseTime = [self convertTime:CACurrentMediaTime() fromLayer:nil];
-////	anim.beginTime = baseTime + (delay * i++);
-//	group.animations 	= [@[posX, posY, bndr] nmap:^id(CABA *obj, NSUInteger idx) {
-//		obj.removedOnC	= NO;
-//		obj.fillMode 	= kCAFillModeForwards;
-//		obj.duration	= idx <= 1 ? (time / 2) : time;
-//		obj.beginTime	= idx == 0 || idx == 2  ? baseTime : (baseTime + (time / 2));
-//		NSP interim 	= NSMakePoint( AZCenterOfRect(toRect).x, self.position.y);
-//		obj.fromValue 	= idx == 0 ? AZVpoint( self.position )
-//						: idx == 1 ? AZVpoint( interim )
-//						:			 AZVrect( self.bounds );
-//		obj.toValue		= idx == 0 ? AZVpoint( interim )
-//						: idx == 1 ? AZVpoint( AZCenterOfRect(toRect) )
-//						: 			 AZVrect ( AZMakeRectFromSize(toRect.size) );
-//		return obj;
-//	}];
-//
-//	[self addAnimation:group forKey:nil];
-//	[CATransaction commit];
+	[self addAnimation:group forKey:nil];
+	[CATransaction commit];
+*/
 - (void) blinkLayerWithColor:(NSC*)color 								{
 	CABasicAnimation * blinkAnimation = [CABasicAnimation animationWithKeyPath:@"backgroundColor"];
 	[blinkAnimation setDuration:0.2];
@@ -2225,14 +2313,12 @@ NSTimeInterval const LTKDefaultTransitionDuration = 0.25;
 	return  [[NSImage alloc]initWithCGImage:img size:contextSize];
 }
 - (void)enableDebugBordersRecursively:(BOOL)recursively	{
-	AZDebugLayer *d = [[AZDebugLayer alloc]initWithLayer:self];
-	
-	//	CAShapeLayerNoHit *border = [CAShapeLayerNoHit layer];
-	[self addSublayer:d];
-	//	self.borderWidth = 1.0f;
-	//	self.borderColor = cgRANDOMCOLOR;
-	if (recursively) for (CAL*sublayer in self.sublayers) {
-		if (!areSame(sublayer.name, @"debugShape")) [sublayer enableDebugBordersRecursively:YES];
+
+	AZDebugLayer *l = [self scanSubsForClass:AZDebugLayer.class] ?: nil;
+	if (!l) [self addSublayer:AZDebugLayer.new];
+	if (recursively && self.sublayers.count) {
+		for (CALayer *layer in self.sublayers)
+			[layer enableDebugBordersRecursively:recursively];
 	}
 }
 @end
@@ -2324,6 +2410,8 @@ NSTimeInterval const LTKDefaultTransitionDuration = 0.25;
 }
 @end
 @implementation CAScrollLayer (CAScrollLayer_Extensions)
+
+
 - (void)scrollBy:(CGPoint)inDelta	{
 	const CGRect theVisibleRect = self.visibleRect;
 	const CGPoint theNewScrollLocation = { .x = CGRectGetMinX(theVisibleRect) + inDelta.x, .y = CGRectGetMinY(theVisibleRect) + inDelta.y };
@@ -2352,13 +2440,10 @@ static const char *kRenderAsciiBlockKey = "-";
 	return objc_getAssociatedObject(self, kRenderAsciiBlockKey);
 }
 - (BOOL) pixelsIntersectWithRect:(CGRect)rect	{
+
 	CGRect bounds = CGRectIntersection(self.pixelsHitTestRect, rect);
-	
 	// If our pixel bounds do not intersect with the rect then we have nothing to test!
-	if (CGRectIsNull(bounds))
-		return NO;
-	
-	
+	if (CGRectIsNull(bounds))	return NO;
 	// For pretty ascii art uncomment this line
 	MPRenderASCIIBlock renderBlock = self.renderASCIIBlock;
 	if (renderBlock)
@@ -2368,23 +2453,16 @@ static const char *kRenderAsciiBlockKey = "-";
 	uint64_t height = ceil(bounds.size.height);
 	uint64_t count  = width * height;
 	uint64_t hit	= 0;
-	
 	// We render directly into our result if it takes only 1 byte.
 	uint8_t *buf = (count == 1)? &hit : calloc(count, 1);
-	
 	CGContextRef theMask = CGBitmapContextCreate(buf, width, height, 8, width, NULL, kCGImageAlphaOnly);
-	
 	if (theMask) {
-		
 		// Translate so that our bounds origin is at 0,0 in our buffer
 		CGContextTranslateCTM(theMask, -bounds.origin.x, -bounds.origin.y);
-		
 		// By adding a blurry shadow we make it easier to click on little things
 		CGContextSetShadow(theMask, CGSizeMake(0, 0.0f), 2.0f);
-		
 		// We can now render the presentatinLayer
 		[self.presentationLayer renderInContext:theMask];
-		
 		// CAShapeLayers don't renderInContext so we need a workaround
 		if ([self isKindOfClass:[CAShapeLayer class]])
 			[self renderShapeLayer:(CAShapeLayer*)self inContext:theMask];

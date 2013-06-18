@@ -23,10 +23,10 @@
 	for (CAA* a in anis) {
 		[a setDuration:ti];
 		if (toSet && [a vFK:@"toValue"])
-			a.completion = ^(CAA*ani, BOOL ok){
-				id aToVal = ((CABA*)ani).toValue;
-				NSS* kp = ((CAPropertyAnimation*)ani).keyPath;
-				[[ani.layer modelCALayer] setValue:aToVal forKey:kp];
+			a.start = ^(CAAnimationDelegate*d){
+				id aToVal = ((CABA*)d.ani).toValue;
+				NSS* kp = ((CAPropertyAnimation*)d.ani).keyPath;
+				[[d.layer modelCALayer] setValue:aToVal forKey:kp];
 			};
 	}
 	group.animations = anis;
@@ -144,28 +144,52 @@
 @end
 
 */
-
+@interface CAAnimationDelegate ()
+@property (strong) NSS* kp;
+@property (strong) id tV;
+@end
 @implementation CAAnimationDelegate
+static NSMD* reference;
 
--   (id) init		{	return self = super.init ? 	_completion = nil, _start = nil, self : nil;	}
-- (void) dealloc	{	self.completion = nil;	self.start = nil;	}
+SYNTHESIZE_SINGLETON_FOR_CLASS(CAAnimationDelegate, sharedDelegator);
+
+
++ (instancetype) delegate:(CAA*)a forLayer:(CAL*)l {
+	CAAnimationDelegate*d = self.new;
+	d.layer = l;
+	d.ani = a;
+//	if ([a vFK:@"keyPath"]) [d sV:[a vFK:@"keyPath"] fK:@"kp"];
+	[d.ani setDelegate:d];
+	[d.ani sV:d fK:@"aniDelegate"];
+	return d;
+}
+-   (id) init		{	return self = super.init ? _andSet=YES,_completion=nil, _start=nil,self : nil;	}
+//- (void) dealloc	{	self.completion = nil;	self.start = nil;	}
 
 - (void)animationDidStart:(CAAnimation *)anim
 {
-	if (self.start != nil) self.start();
+	_start ? _start() : nil;
+	_startWithInfo ? _startWithInfo(self) : nil;
+	if (_andSet) {
+
+		NSS* kP = [anim vFK: @"keyPath"];
+		id val = [anim vFK:@"toValue"];
+		if (!_layer || !kP || !val) return NSLog(@"warning, couldnt set value");
+		[[_layer modelCALayer] sV:val fK:kP];
+		NSLog(@"delegated start of animation on %@ with KP:%@",_layer, kP);
+	}
 }
 
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
 {
-	if (self.completion != nil)		self.completion(anim,flag);
-
-	if (self.layer && [anim vFK:@"toValue"])
-		{
-			id aToVal = ((CABA*)anim).toValue;
-			NSS* kp = ((CAPropertyAnimation*)anim).keyPath;
-			[[anim.layer modelCALayer] setValue:aToVal forKey:kp];
-		}
-
+	_completion ? _completion() : nil;
+	_completionWithInfo ? _completionWithInfo(self) : nil;
+//	if (self.layer && [anim vFK:@"toValue"])
+//		{
+//			id aToVal = ((CABA*)anim).toValue;
+//			NSS* kp = ((CAPropertyAnimation*)anim).keyPath;
+//			[[anim.layer modelCALayer] setValue:aToVal forKey:kp];
+//		}
 }
 
 @end
@@ -189,44 +213,37 @@
 - (CAL*) layer {  return [self valueForKey:@"_layer"]; }
 - (void) setLayer:(CAL*)l { [self setValue:l forKey:@"_layer"]; }
 
-- (void)setCompletion:(void (^)(CAA*,BOOL))completion forLayer:(CAL*)l {
+- (void)setCompletion:(void (^)())completion forLayer:(CAL*)l {
 
-	[self setValue:l forKey:@"layer"];
-	[self setCompletion:completion];
-	if ([self.delegate isKindOfClass:CAAnimationDelegate.class])
-		((CAAnimationDelegate *)self.delegate).layer = l;
+	CAAnimationDelegate *s =	[CAAnimationDelegate delegate:self forLayer:l];
+	s.completion = completion;
 }
 
-- (void)setCompletion:(void (^)(CAA*,BOOL))completion
+- (void)setCompletion:(void (^)())completion
 {
 	if ([self.delegate isKindOfClass:CAAnimationDelegate.class])
 		((CAAnimationDelegate *)self.delegate).completion = completion;
 	else {
-		CAAnimationDelegate *delegate = CAAnimationDelegate.new;
+		CAAnimationDelegate *delegate = [CAAnimationDelegate delegate:self forLayer:nil];
 		delegate.completion = completion;
-		self.delegate = delegate;
 	}
 }
 
-- (void (^)(CAA*,BOOL))completion
-{
+- (void (^)())completion {
 	return [self.delegate isKindOfClass:[CAAnimationDelegate class]]? ((CAAnimationDelegate *)self.delegate).completion: nil;
 }
 
-- (void)setStart:(void (^)(void))start
+- (void)setStart:(void (^)())start
 {
 	if ([self.delegate isKindOfClass:[CAAnimationDelegate class]])
 		((CAAnimationDelegate *)self.delegate).start = start;
 	
 	else {
-		CAAnimationDelegate *delegate = [[CAAnimationDelegate alloc] init];
+		CAAnimationDelegate *delegate = [CAAnimationDelegate delegate:self forLayer:nil];
 		delegate.start = start;
-		self.delegate = delegate;
-		
 	}
 }
-
-- (void (^)(void))start
+- (void (^)())start
 {
 	return [self.delegate isKindOfClass:[CAAnimationDelegate class]]? ((CAAnimationDelegate *)self.delegate).start: nil;
 }
@@ -341,8 +358,7 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey = @"AZCAAnimationCompl
 		a.toValue = to;
 	} else a.byValue = to;
 	a.layer = set;
-	if (set)
-	a.completion = ^(CAA*d, BOOL dd) {  [d.layer setValue:to forKey:path]; };
+	if (set) [CAAnimationDelegate delegate:a forLayer:set];
 	return a;
 }
 + (CABA*) withKP:(NSS*)path duration:(NSTI)interval fromOption:(id)from to:(id)to andSet:(CAL*)set {
@@ -352,19 +368,33 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey = @"AZCAAnimationCompl
 		a.fromValue =from;
 		a.toValue = to;
  	} else a.byValue = to;
-	if (set)
-		a.completion = ^(CAA*d, BOOL dd) {  [d.layer setValue:to forKey:path]; };
+	if (set) [CAAnimationDelegate delegate:a forLayer:set];
+//		a.start = ^(CAAnimationDelegate *delegate) {
+//			[[delegate.layer modelCALayer] sV:((CABA*)delegate.ani).toValue fK:((CABA*)delegate.ani).keyPath];
+//		};
 	return a;
-
-
 }
 @end
 @implementation CAAnimation (AtoZ)
 
 + (CABA*) animationWithKeyPath: (NSS*)path andDuration:(NSTI)interval andSet:(CAL*)set {
-	//	id<CAAction>
+	return [self kP:path t:interval f:nil t:nil andSet:set];
+}
++ (CABA*)kP:(NSS*)path t:(NSTI)interval f:(id)from t:(id)to  andSet:(CAL*)set {
+
+
 	CABA* a = [CABA animationWithKeyPath:path];
+	a.keyPath = path;
 	((CABA*)a).duration = interval;
+	if (to) a.toValue = to;
+	if (from) a.fromValue = from;
+	if (set)
+		 [CAAnimationDelegate delegate: a forLayer:set];
+//		a.delegate = (d = CAAnimationDelegate.new);
+//		d.start = ^{
+//			[set.modelCALayer sV:a.toValue fK:path];
+//		};
+//	}
 	return a;
 }
 

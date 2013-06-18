@@ -126,6 +126,9 @@ typedef void(^bSelf)(id<NSObject> bSelf);
 @property (RDWRT,NATOM) NSColor *backgroundNSColor;
 @property (RDWRT,NATOM,ASS) BOOL selected, hovered;
 
+- (void) needsLayoutForKey:(NSS*)key;
+-   (id) scanSubsForName:	(NSS*)n;
+-   (id) scanSubsForClass:	(Class)c;
 
 @property (readonly) NSA *siblings;
 @property (readonly) NSUI siblingIndex, siblingIndexMax;

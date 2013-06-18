@@ -185,19 +185,19 @@ static id addMethodTrampoline(id self, SEL _cmd) {
 
 @implementation NSObject (AssociatedValues)
 
-- (void)setAssociatedValue:(id)value forKey:(NSS *)key {
+- (void)setAssociatedValue:(id)value forKey:(NSS*) key {
 	[self setAssociatedValue:value forKey:key policy:OBJC_ASSOCIATION_ASSIGN];
 }
 
-- (void)setAssociatedValue:(id)value forKey:(NSS *)key policy:(objc_AssociationPolicy)policy {
+- (void)setAssociatedValue:(id)value forKey:(NSS*) key policy:(objc_AssociationPolicy)policy {
 	objc_setAssociatedObject(self, (__bridge const void *)(key), value, policy);
 }
 
-- (id)associatedValueForKey:(NSS *)key {
+- (id)associatedValueForKey:(NSS*) key {
 	return objc_getAssociatedObject(self, (__bridge const void *)(key));
 }
 
-- (void)removeAssociatedValueForKey:(NSS *)key {
+- (void)removeAssociatedValueForKey:(NSS*) key {
 	objc_setAssociatedObject(self, (__bridge const void *)(key), nil, OBJC_ASSOCIATION_ASSIGN);
 }
 
@@ -205,7 +205,7 @@ static id addMethodTrampoline(id self, SEL _cmd) {
 	objc_removeAssociatedObjects(self);
 }
 
-- (BOOL)hasAssociatedValueForKey:(NSS *)string {
+- (BOOL)hasAssociatedValueForKey:(NSS*) string {
 	return [self associatedValueForKey:(__bridge const void *)string] != nil;
 }
 
@@ -223,7 +223,7 @@ static id addMethodTrampoline(id self, SEL _cmd) {
 	__weak id observee;             NSS *keyPath;   AZBlockTask task;       NSOQ *queue;    dispatch_once_t cancellationPredicate;
 }
 
-- (AZObserverTrampoline *)initObservingObject:(id)obj keyPath:(NSS *)keyPath onQueue:(NSOQ *)queue task:(AZBlockTask)task;
+- (AZObserverTrampoline *)initObservingObject:(id)obj keyPath:(NSS*) keyPath onQueue:(NSOQ *)queue task:(AZBlockTask)task;
 - (void)cancelObservation;
 @end
 
@@ -231,7 +231,7 @@ static id addMethodTrampoline(id self, SEL _cmd) {
 
 static NSS *AZObserverTrampolineContext = @"AZObserverTrampolineContext";
 
-- (AZObserverTrampoline *)initObservingObject:(id)obj keyPath:(NSS *)newKeyPath onQueue:(NSOQ *)newQueue task:(AZBlockTask)newTask {
+- (AZObserverTrampoline *)initObservingObject:(id)obj keyPath:(NSS*) newKeyPath onQueue:(NSOQ *)newQueue task:(AZBlockTask)newTask {
 	if (!(self = [super init])) return nil;
 	task = [newTask copy];
 	keyPath = [newKeyPath copy];
@@ -242,7 +242,7 @@ static NSS *AZObserverTrampolineContext = @"AZObserverTrampolineContext";
 	return self;
 }
 
-- (void)observeValueForKeyPath:(NSS *)aKeyPath ofObject:(id)object change:(NSD*)change context:(void *)context {
+- (void)observeValueForKeyPath:(NSS*) aKeyPath ofObject:(id)object change:(NSD*)change context:(void *)context {
 	if (context == (__bridge const void *)AZObserverTrampolineContext) queue ? [queue addOperationWithBlock:^{ task(object, change); }] : task(object, change);
 }
 
@@ -269,15 +269,15 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary(void) {
 
 @implementation NSObject (AZBlockObservation)
 
-- (NSA *)addObserverForKeyPaths:(NSA *)keyPaths task:(AZBlockTask)task {
+- (NSA*) addObserverForKeyPaths:(NSA*) keyPaths task:(AZBlockTask)task {
 	return [keyPaths map:^id (id obj) { return [self addObserverForKeyPath:obj onQueue:nil task:task];       }];
 }
 
-- (AZBlockToken *)addObserverForKeyPath:(NSS *)keyPath task:(AZBlockTask)task {
+- (AZBlockToken *)addObserverForKeyPath:(NSS*) keyPath task:(AZBlockTask)task {
 	return [self addObserverForKeyPath:keyPath onQueue:nil task:task];
 }
 
-- (AZBlockToken *)addObserverForKeyPath:(NSS *)keyPath onQueue:(NSOQ *)queue task:(AZBlockTask)task {
+- (AZBlockToken *)addObserverForKeyPath:(NSS*) keyPath onQueue:(NSOQ *)queue task:(AZBlockTask)task {
 	AZBlockToken *token = [NSProcessInfo.processInfo globallyUniqueString];
 	dispatch_sync(AZObserverMutationQueueCreatingIfNecessary(), ^{
 		NSMutableDictionary *dict = objc_getAssociatedObject(self, (__bridge const void *)(AZObserverMapKey));
@@ -439,7 +439,7 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary(void) {
 - (NSURL *)urlified {
 	NSURL *theURL;
 	if ([self isKindOfClass:NSS.class]) {
-		NSS *selfcp = [(NSS *)self startsWith : @"http://"] ? self.copy
+		NSS *selfcp = [(NSS*) self startsWith : @"http://"] ? self.copy
 		: $(@"http://%@", self);
 		theURL = $URL(selfcp);
 	}
@@ -560,16 +560,16 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary(void) {
 
 
 
-- (void)bindArrayKeyPath:(NSS *)array toController:(NSArrayController *)controller {
+- (void)bindArrayKeyPath:(NSS*) array toController:(NSArrayController *)controller {
 	[self bind:array toObject:controller withKeyPath:@"arrangedObjects" options:nil];
 }
 
-- (id)performString:(NSS *)string;
+- (id)performString:(NSS*) string;
 {
 	return [self performSelectorWithoutWarnings:NSSelectorFromString(string) withObject:nil];
 }
 
-- (id)performString:(NSS *)string withObject:(id)obj;
+- (id)performString:(NSS*) string withObject:(id)obj;
 {
 	return [self performSelectorWithoutWarnings:NSSelectorFromString(string) withObject:obj];
 }
@@ -590,7 +590,7 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary(void) {
  return array;
  }
  */
-- (NSA *)instanceMethodNames {
+- (NSA*) instanceMethodNames {
 	Class clazz             = [self class];         u_int count;
 	Method *methods         = class_copyMethodList(clazz, &count);
 
@@ -602,10 +602,19 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary(void) {
 	//	return  methodArray;
 }
 
-- (NSS *)instanceMethodsInColumns {
+- (NSS*) instanceMethodsInColumns {
 	return [[self instanceMethodNames]formatAsListWithPadding:30];
 }
 
+- (NSS*) blockDescription {
+
+		// allocating a block description
+	CTBlockDescription *blockDescription = [CTBlockDescription.alloc initWithBlock:self];
+
+		// getting a method signature for this block
+	NSMethodSignature *methodSignature = blockDescription.blockSignature;
+	return methodSignature.debugDescription;
+}
 /*! Get an array containing the names of the instance methods of a class. */
 //- (NSA*) instanceMethodNames
 //{
@@ -730,7 +739,7 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary(void) {
 	 return result; */
 }
 
-- (BOOL)isKindOfAnyClass:(NSA *)classes;
+- (BOOL)isKindOfAnyClass:(NSA*) classes;
 {
 	return [classes filterOne:^BOOL (Class object) {
 		return [self isKindOfClass:object];
@@ -750,11 +759,11 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary(void) {
 		wasSet = [self[key] isEqualTo:obj];
 		//			NSLog(@"New val: %@.", self[key]);
 	} () : NSLog(@"Cannot set object:%@ for key:\"%@\" via subscript... \"%@\" does not respond. Current val:%@.", obj, key, self, self[key]);
-	[self canSetValueForKeyPath:(NSS *)key] ? ^{
+	[self canSetValueForKeyPath:(NSS*) key] ? ^{
 		NSLog(@"Setting Value: %@ forKeyPath:%@", obj, key);
-		[self setValue:obj forKeyPath:(NSS *)key];
+		[self setValue:obj forKeyPath:(NSS*) key];
 		//			NSLog(@"New val: %@.", self[key]);
-		wasSet = [[self valueForKeyPath:(NSS *)key]isEqualTo:obj];
+		wasSet = [[self valueForKeyPath:(NSS*) key]isEqualTo:obj];
 	} () : ^{  NSLog(@"Cannot set object:%@ for (dot)keypath:\"%@\" via subscript... \"%@\" does not respond. Current val:%@.", obj, key, self, self[key]); } ();
 	//	}() :
 	//	}();
@@ -791,7 +800,7 @@ static char windowPosition;
 }
 
 //  Finds all properties of an object, and prints each one out as part of a string describing the class.
-- (NSS *)autoDescribeWithClassType:(Class)classType {
+- (NSS*) autoDescribeWithClassType:(Class)classType {
 	unsigned int count;
 	objc_property_t *propList       = class_copyPropertyList(classType, &count);
 	NSMS *propPrint         = NSMS.new;
@@ -814,11 +823,11 @@ static char windowPosition;
 	return propPrint;
 }
 
-+ (NSS *)autoDescribe {
++ (NSS*) autoDescribe {
 	return $(@"%@:%p::%@", self.class, self, [self autoDescribeWithClassType:[self class]]);
 }
 
-- (NSS *)autoDescribe {
+- (NSS*) autoDescribe {
 	Class clazz     = self.class;
 	u_int count;
 	Ivar *ivars     = class_copyIvarList(clazz, &count);
@@ -853,7 +862,7 @@ static char windowPosition;
 
 @implementation NSObject (SubclassEnumeration)
 
-+ (NSA *)subclasses {
++ (NSA*) subclasses {
 	NSMA *subClasses        = NSMA.new;
 	Class *classes        = nil;
 	int count           = objc_getClassList(NULL, 0);
@@ -884,11 +893,11 @@ static char windowPosition;
 @implementation NSString (VARARGLOGGING)
 
 
-- (NSS *)formatWithArguments:(NSA *)arr {
+- (NSS*) formatWithArguments:(NSA*) arr {
 	return [self.class evaluatePseudoFormat:self withArguments:arr];
 }
 
-+ (NSS *)evaluatePseudoFormat:(NSS *)fmt withArguments:(NSA *)arr {
++ (NSS*) evaluatePseudoFormat:(NSS*) fmt withArguments:(NSA*) arr {
 	NSS *replacement;
 	NSRNG varRange, scanRange;
 	NSMS *evaluatedString          = fmt.mutableCopy;
@@ -1310,7 +1319,7 @@ static char windowPosition;
 //	[[AZTalker sharedInstance] say:$(@"%@ is %@ selected", string, isSelected ? @"" : @"NOT")];
 //}
 
-- (NSS *)segmentLabel {
+- (NSS*) segmentLabel {
 	return [self isKindOfClass:[NSSegmentedControl class]]
 	? [(NSSegmentedControl *)self labelForSegment : [(NSSegmentedControl *)self selectedSegment]] : nil;
 }
@@ -1323,19 +1332,19 @@ BOOL respondsTo(id obj, SEL selector) {
 	return [obj respondsToSelector:selector];
 }
 
-- (BOOL)respondsToString:(NSS *)string {
+- (BOOL)respondsToString:(NSS*) string {
 	return [self respondsToSelector:NSSelectorFromString(string)];
 }
 
-- (id)respondsToStringThenDo:(NSS *)string {
+- (id)respondsToStringThenDo:(NSS*) string {
 	return [self respondsToStringThenDo:string.copy withObject:nil withObject:nil];
 }
 
-- (id)respondsToStringThenDo:(NSS *)string withObject:(id)obj {
+- (id)respondsToStringThenDo:(NSS*) string withObject:(id)obj {
 	return [self respondsToStringThenDo:string.copy withObject:obj withObject:nil];
 }
 
-- (id)respondsToStringThenDo:(NSS *)string withObject:(id)obj withObject:(id)objtwo {
+- (id)respondsToStringThenDo:(NSS*) string withObject:(id)obj withObject:(id)objtwo {
 	SEL select = NSSelectorFromString(AH_RETAIN([string copy]));
 	BOOL doesit =  [self respondsToSelector:select];
 	return doesit && obj && objtwo ? [self performSelectorARC:select withObject:obj withObject:objtwo]
@@ -1493,11 +1502,11 @@ static const char * getPropertyType(objc_property_t property) {
  return [rtn filteredArrayUsingPredicate:predicate];
  }	*/
 
-- (NSS *)methods {
+- (NSS*) methods {
 	return [[[self class] classMethods]formatAsListWithPadding:30];
 }
 
-+ (NSA *)classMethods {
++ (NSA*) classMethods {
 	const char *className = class_getName([self class]);
 	int unsigned numMethods;
 	NSMA *ii = [NSMA array];
@@ -1514,23 +1523,23 @@ static const char * getPropertyType(objc_property_t property) {
 //- (NSD *)propertiesDictionariate;
 
 
-- (NSS *)stringFromClass {
+- (NSS*) stringFromClass {
 	return AZCLSSTR;
 }
 
-- (void)setIntValue:(NSI)i forKey:(NSS *)key     {
+- (void)setIntValue:(NSI)i forKey:(NSS*) key     {
 	[self setValue:[NSNumber numberWithInt:i] forKey:key];
 }
 
-- (void)setIntValue:(NSI)i forKeyPath:(NSS *)keyPath {
+- (void)setIntValue:(NSI)i forKeyPath:(NSS*) keyPath {
 	[self setValue:[NSNumber numberWithInt:i] forKeyPath:keyPath];
 }
 
-- (void)setFloatValue:(CGF)f forKey:(NSS *)key       {
+- (void)setFloatValue:(CGF)f forKey:(NSS*) key       {
 	[self setValue:[NSNumber numberWithFloat:f] forKey:key];
 }
 
-- (void)setFloatValue:(CGF)f forKeyPath:(NSS *)keyPath {
+- (void)setFloatValue:(CGF)f forKeyPath:(NSS*) keyPath {
 	[self setValue:[NSNumber numberWithFloat:f] forKeyPath:keyPath];
 }
 
@@ -1541,31 +1550,31 @@ static const char * getPropertyType(objc_property_t property) {
 	return NO;
 }
 
-- (void)fire:(NSS *)notificationName {
+- (void)fire:(NSS*) notificationName {
 	[AZNOTCENTER postNotificationName:notificationName object:self];
 }
 
-- (void)fire:(NSS *)notificationName userInfo:(NSD *)context  {
+- (void)fire:(NSS*) notificationName userInfo:(NSD *)context  {
 	[AZNOTCENTER postNotificationName:notificationName object:self userInfo:context];
 }
 
-- (id)observeObject:(NSS *)notificationName usingBlock:(void (^)(NSNOT *))block {
+- (id)observeObject:(NSS*) notificationName usingBlock:(void (^)(NSNOT *))block {
 	return [AZNOTCENTER addObserverForName:notificationName object:self queue:nil usingBlock:block];
 }
 
-- (id)observeName:(NSS *)notificationName usingBlock:(void (^)(NSNOT *))block {
+- (id)observeName:(NSS*) notificationName usingBlock:(void (^)(NSNOT *))block {
 	return [AZNOTCENTER addObserverForName:notificationName object:self queue:nil usingBlock:block];
 }
 
-- (void)observeObject:(NSObject *)object forName:(NSS *)notificationName calling:(SEL)selector {
+- (void)observeObject:(NSObject *)object forName:(NSS*) notificationName calling:(SEL)selector {
 	[AZNOTCENTER addObserver:self selector:selector name:notificationName object:object];
 }
 
-- (void)observeName:(NSS *)notificationName calling:(SEL)selector {
+- (void)observeName:(NSS*) notificationName calling:(SEL)selector {
 	[AZNOTCENTER addObserver:self selector:selector name:notificationName object:nil];
 }
 
-- (void)stopObserving:(NSObject *)object forName:(NSS *)notificationName {
+- (void)stopObserving:(NSObject *)object forName:(NSS*) notificationName {
 	[AZNOTCENTER removeObserver:self name:notificationName object:object];
 }
 
@@ -1634,11 +1643,11 @@ static const char * getPropertyType(objc_property_t property) {
 	[self performSelector:aSelector withObject:nil afterDelay:seconds];
 }
 
-- (void)observeKeyPath:(NSS *)keyPath {
+- (void)observeKeyPath:(NSS*) keyPath {
 	[self addObserver:self forKeyPath:keyPath options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:nil];
 }
 
-- (void)addObserver:(NSObject *)observer forKeyPath:(NSS *)keyPath {
+- (void)addObserver:(NSObject *)observer forKeyPath:(NSS*) keyPath {
 	[self addObserver:observer forKeyPath:keyPath options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:nil];
 }
 
@@ -1678,7 +1687,7 @@ static const char * getPropertyType(objc_property_t property) {
 	return [self dictionaryWithValuesForKeys:[self allKeys]];
 }
 
-- (NSA *)allKeys {
+- (NSA*) allKeys {
 	Class clazz = self.class;        u_int count;
 	objc_property_t *properties     = class_copyPropertyList(clazz, &count);
 	NSMA *propertyArray = [NSMA arrayWithCapacity:count];
@@ -1785,7 +1794,7 @@ static const char * getPropertyType(objc_property_t property) {
 }
 
 // Can set value for key follows the Key Value Settings search pattern as defined in the apple documentation
-- (BOOL)canSetValueForKey:(NSS *)key {
+- (BOOL)canSetValueForKey:(NSS*) key {
 	NSS *capKey = [key     stringByReplacingCharactersInRange:NSMakeRange(0, 1) // Check for SEL-based setter
 																  withString:[[key substringToIndex:1] uppercaseString]];
 	if ([self respondsToString:$(@"set%@:", capKey)]) return YES;
@@ -1812,7 +1821,7 @@ static const char * getPropertyType(objc_property_t property) {
 }
 
 // Traverse the key path finding you can set the values. Keypath is a set of keys delimited by "."
-- (BOOL)canSetValueForKeyPath:(NSS *)keyPath {
+- (BOOL)canSetValueForKeyPath:(NSS*) keyPath {
 	NSRange delimeterRange = [keyPath rangeOfCharacterFromSet:[NSCharacterSet characterSetWithCharactersInString:@"."]];
 	if (delimeterRange.location == NSNotFound) return [self canSetValueForKey:keyPath];
 	NSS * first      = [keyPath substringToIndex:delimeterRange.location         ];

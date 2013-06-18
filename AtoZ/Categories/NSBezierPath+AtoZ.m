@@ -674,7 +674,7 @@ static void bilinearShadedColor	(void *info, const CGFloat *in, CGFloat *out)	{
     return path;
 }
 
-- (NSA *)dashPattern {
+- (NSA*) dashPattern {
     NSInteger i, count = 0;
     NSMutableArray *array = [NSMutableArray array];
     [self getLineDash:NULL count:&count phase:NULL];
@@ -688,7 +688,7 @@ static void bilinearShadedColor	(void *info, const CGFloat *in, CGFloat *out)	{
     return array;
 }
 
-- (void)setDashPattern:(NSA *)newPattern {
+- (void)setDashPattern:(NSA*) newPattern {
     NSI i, count = [newPattern count];
     CGF pattern[count];
     for (i = 0; i < count; i++) {
@@ -885,12 +885,12 @@ static void CGPathCallback(void *info, const CGPathElement *element) {
     }
 }
 
-+ (NSBezierPath *)bezierPathWithCGPath:(CGPathRef)pathRef {
-    NSBezierPath *path = [NSBezierPath bezierPath];
-    CGPathApply(pathRef, (__bridge void *)path, CGPathCallback);
-
-    return path;
-}
+//+ (NSBezierPath *)bezierPathWithCGPath:(CGPathRef)pathRef {
+//    NSBezierPath *path = [NSBezierPath bezierPath];
+//    CGPathApply(pathRef, (__bridge void *)path, CGPathCallback);
+//
+//    return path;
+//}
 
 // Method borrowed from Google's Cocoa additions
 - (CGPathRef)cgPath {

@@ -20,10 +20,7 @@
 	return  (NSPoint) {	(r.size.width * p.x), (r.size.height * p.y)	};
 
 }
-
-
-- (void) awakeFromNib
-{
+- (void) awakeFromNib	{
 	self.root	= [self setupHostView];
 	_root.backgroundColor = cgRANDOMCOLOR;
 	self.dLayer = [AZDebugLayer layer];
@@ -32,7 +29,7 @@
 	[_root addSublayer:_dLayer];
 	[NSEVENTLOCALMASK:NSLeftMouseUpMask handler:^NSEvent *(NSEvent *e) {
 		CAL *hit = [_root hitTest:e.locationInWindow];
-		areSameThenDo(hit, _dLayer.anchorPointLayer, ^{
+		areSameThenDo(hit, _dLayer, ^{ ///.anchorPointLayer, ^{
 			NSP newA = [self normalizedPoint:AZRandomPointInRect(_root.bounds) inRect:_root.bounds];
 			NSLog(@"hit anchorP layer, new Anchor : %@", AZString(newA));
 			_dLayer.anchorPoint = newA;
@@ -45,7 +42,7 @@
 		NSLog(@"observed object: %@  change:%@", obj, keyPath);
 		NSP newPos = [blockself unNormalizedPoint:blockself.dLayer.anchorPoint inRect:blockself.dLayer.bounds];
 		NSLog(@"newpos = %@", AZString(newPos));
-		blockself.dLayer.anchorPointLayer.position = newPos;
+//		blockself.dLayer.anchorPointLayer.position = newPos;
 		//			[_anchorPointLayer setNeedsDisplay];
 	}];
 	
@@ -62,43 +59,61 @@
 
 
 @implementation AZDebugLayer
-
-
 //- (void) didChangeValueForKey:(NSString *)key {
-//
 //	NSLog(@"did change value for key: %@", key);
 //}
 
-- (id)initWithLayer:(id)layer
+- (id)init
 {
-	if (!(self = [super init])) return nil;
-
-//	NSLog(@"event: %@", event);
-	self.fillColor = cgCLEARCOLOR;
-	CGPathRef ref = [[NSBezierPath bezierPathWithRect:[layer bounds]]quartzPath];
-	[self setPath:ref];
-	CGColorRef col = cgRANDOMCOLOR;
-	[self setStrokeColor:col];
-	[self setLineDashPattern:@[ @(10), @(5)]];
-	[self setLineWidth:3];
+	if (self != [super init]) return nil;
+//	_tracking = [layer ISKINDA:AZDebugLayer.class] ? [layer tracking] : layer;
+//	if (_tracking)
+//		[self bind:@"frame" toObject:_tracking withKeyPath:@"bounds" nilValue:AZVrect(AZRectFromDim(100))];
+	self.nDoBC = YES;
+	[self sV:RANDOMCOLOR fK:@"color"];
+	self.arMASK = CASIZEABLE;
+	self.loM = AZLAYOUTMGR;
 	[self addConstraintsSuperSize];
-	self.name = @"debugShape";
+	self.masksToBounds = YES;
+	self.delegate = self;
+	[self setNeedsDisplay];
 	self.zPosition = 1000000;
-	NSS* aName = [(CAL*)layer name];
-	if (aName) {
-
-		NSFont *font 		= [AtoZ font:@"mono" size:12];
-		CATextLayer *t 		= AddTextLayer(self, aName, [AtoZ font:@"Ubuntu" size:12], 0);
-		t.backgroundColor 	= self.strokeColor;
-		t.foregroundColor   = [[[NSColor colorWithCGColor:self.strokeColor]contrastingForegroundColor]CGColor];
-		t.anchorPoint	 	= AZAnchorBottomLeft;
-		[t addConstraintsRelSuper:kCAConstraintMinY, kCAConstraintMinX, NSNotFound];
-		t.bounds = AZMakeRect(NSZeroPoint, [aName sizeWithFont:font margin:NSMakeSize(4, 3)]);
-	}
 	return self;
-//	[super actionForKey:event];
 }
+- (void) drawInContext:(CGContextRef)ctx {
+	[NSGC drawInContext:ctx flipped:NO actions:^{
 
+//	self.fillColor = cgCLEARCOLOR;
+//	[self setPath:[NSBP bezierPathWithRect:[layer bounds]].newQuartzPath];
+
+	NSBP* b = [NSBP bezierPathWithRect:self.superlayer.bounds];
+	[NSBP setDefaultLineWidth:AZMinDim(self.superlayer.boundsSize)*.05];
+	b.dashPattern = @[ @10, @10];
+	[b strokeWithColor:self[@"color"]];
+	[$(@"%@ z:%.0f i:%ld s:%@ v:%@", self.superlayer.name ?:@"", self.superlayer.zPosition, self.superlayer.siblingIndex, StringFromBOOL(self.superlayer.selected), self.superlayer.hostView) drawAtPoint:self.superlayer.boundsOrigin withAttributes:@{NSFontAttributeName:[NSFont fontWithName:@"UbuntuMono-Bold"size:12], NSFontSizeAttribute:@14}];
+	}];
+}
+//	[self bind:@"lineWidth" toObject:layer withKeyPath:@"bounds" transform:^id(id value) {
+//		return @(AZMinDim([value rectValue].size) * .05);	}];
+//	[self addConstraintsSuperSize];
+//	self.name = @"debugShape";
+//	self.zPosition = 1000000;
+
+//	CATextLayer *t 		= AddTextLayer(self, @"s", AtoZ.controlFont, 0);
+//	[t bind:@"string" toObject:layer withKeyPath:NSValueBinding transform:^id(id value) {
+//		CAL *l = value;
+//		return $(@"%@ z:%.0f i:%ld s:%@ v:%@", l.name ?:@"", l.zPosition, l.siblingIndex, StringFromBOOL(l.selected), l.hostView);
+//	}];
+//	t.backgroundColor 	= self.strokeColor;
+//	t.foregroundColor   	= [NSColor colorWithCGColor:self.strokeColor].contrastingForegroundColor.CGColor;
+//	t.anchorPoint	 		= AZAnchorBottomLeft;
+//	[t addConstraintsRelSuper:kCAConstraintMinY, kCAConstraintMinX, NSNotFound];
+//	[t bind:@"bounds" toObject:t withKeyPath:@"string" transform:^id(id value) {
+//		return AZVrect(AZMakeRect(NSZeroPoint, [value sizeWithFont:AtoZ.controlFont margin:(NSSZ){4,3}]));
+//	}];
+////	t.bounds = AZMakeRect(NSZeroPoint, [aName sizeWithFont:AtoZ.controlFont margin:(NSSZ){4,3}]);
+//	return self;
+//}
 -(BOOL) containsPoint:(CGPoint)p { return NO; };
 //- (id)init
 //{

@@ -129,20 +129,6 @@
 			remoteGlobalIDString = 4339C607142222D300C21E14;
 			remoteInfo = "FunSize-Static";
 		};
-		7B46368D1755259100072CA0 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7B4636791755215C00072CA0 /* SNRHUDKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 0392857D14CCCBF300D02672;
-			remoteInfo = SNRHUDKit;
-		};
-		7B46368F1755259100072CA0 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7B4636791755215C00072CA0 /* SNRHUDKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 039285AE14CCD40500D02672;
-			remoteInfo = Catalog;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -177,7 +163,6 @@
 		7B33663C1754D3600037DE96 /* BPODial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPODial.h; path = BPODial/BPODial/BPODial.h; sourceTree = "<group>"; };
 		7B33663D1754D3600037DE96 /* BPOSliderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPOSliderCell.h; path = BPODial/BPODial/BPOSliderCell.h; sourceTree = "<group>"; };
 		7B33663E1754D3600037DE96 /* NSAffineTransform+Rotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSAffineTransform+Rotation.h"; path = "../submodules/BPODial/BPODial/BPODial/NSAffineTransform+Rotation.h"; sourceTree = "<group>"; };
-		7B4636791755215C00072CA0 /* SNRHUDKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SNRHUDKit.xcodeproj; path = submodules/SNRHUDKit/SNRHUDKit.xcodeproj; sourceTree = "<group>"; };
 		7B4636AA17552A2500072CA0 /* _MTTokenCompletionTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _MTTokenCompletionTableView.h; sourceTree = "<group>"; };
 		7B4636AB17552A2500072CA0 /* _MTTokenCompletionTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _MTTokenCompletionTableView.m; sourceTree = "<group>"; };
 		7B4636AC17552A2500072CA0 /* _MTTokenCompletionWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _MTTokenCompletionWindow.h; sourceTree = "<group>"; };
@@ -233,6 +218,7 @@
 		7B4AC8B4173BFB8E002CD411 /* NSWindow+NBBWindowProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSWindow+NBBWindowProxy.m"; sourceTree = "<group>"; };
 		7B5E022C171078730086AF70 /* NSButton+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSButton+AtoZ.h"; sourceTree = "<group>"; };
 		7B5E022D171078730086AF70 /* NSButton+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSButton+AtoZ.m"; sourceTree = "<group>"; };
+		7B657CE2176225ED000BF102 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		7B8ED431175536D9008C405D /* SNRHUDSegmentedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SNRHUDSegmentedCell.h; path = submodules/SNRHUDKit/SNRHUDKit/Classes/SNRHUDSegmentedCell.h; sourceTree = "<group>"; };
 		7B8ED432175536D9008C405D /* SNRHUDSegmentedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SNRHUDSegmentedCell.m; path = submodules/SNRHUDKit/SNRHUDKit/Classes/SNRHUDSegmentedCell.m; sourceTree = "<group>"; };
 		7B8ED433175536D9008C405D /* SNRHUDTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SNRHUDTextFieldCell.h; path = submodules/SNRHUDKit/SNRHUDKit/Classes/SNRHUDTextFieldCell.h; sourceTree = "<group>"; };
@@ -328,6 +314,7 @@
 		0259C574FE90428111CA0C5A /* BGHUDAppKit */ = {
 			isa = PBXGroup;
 			children = (
+				7B657CE3176225ED000BF102 /* MainMenu.xib */,
 				7B8ED431175536D9008C405D /* SNRHUDSegmentedCell.h */,
 				7B8ED432175536D9008C405D /* SNRHUDSegmentedCell.m */,
 				7B8ED433175536D9008C405D /* SNRHUDTextFieldCell.h */,
@@ -341,7 +328,6 @@
 				7B8ED43B175536D9008C405D /* SNRHUDScrollView.h */,
 				7B8ED43C175536D9008C405D /* SNRHUDScrollView.m */,
 				7B4636A917552A2500072CA0 /* MTTokenField */,
-				7B4636791755215C00072CA0 /* SNRHUDKit.xcodeproj */,
 				7B3366031754D2B30037DE96 /* BPODial */,
 				7B3365FF1754A6AE0037DE96 /* FunSize.framework */,
 				E71317D60E10667D00885A23 /* AtoZAppKit.h */,
@@ -401,6 +387,18 @@
 			path = submodules/RMSuggestionPanel;
 			sourceTree = "<group>";
 		};
+		7B2642551762B3AF00D1183C /* NBBTheme */ = {
+			isa = PBXGroup;
+			children = (
+				7B4AC8A3173BFB8E002CD411 /* NBBThemable.h */,
+				7B4AC8A4173BFB8E002CD411 /* NBBTheme.h */,
+				7B4AC8A5173BFB8E002CD411 /* NBBTheme.m */,
+				7B4AC8A6173BFB8E002CD411 /* NBBThemeEngine.h */,
+				7B4AC8A7173BFB8E002CD411 /* NBBThemeEngine.m */,
+			);
+			name = NBBTheme;
+			sourceTree = "<group>";
+		};
 		7B3366031754D2B30037DE96 /* BPODial */ = {
 			isa = PBXGroup;
 			children = (
@@ -421,15 +419,6 @@
 			children = (
 				7B46362717551DB400072CA0 /* FunSize.framework */,
 				7B46362917551DB400072CA0 /* libFunSize.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		7B4636891755259100072CA0 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				7B46368E1755259100072CA0 /* SNRHUDKit.framework */,
-				7B4636901755259100072CA0 /* Catalog.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -462,6 +451,7 @@
 		7B4AC88A173BFB8E002CD411 /* NBBCore */ = {
 			isa = PBXGroup;
 			children = (
+				7B2642551762B3AF00D1183C /* NBBTheme */,
 				7B4AC88F173BFB8E002CD411 /* NBBButton.h */,
 				7B4AC890173BFB8E002CD411 /* NBBButton.m */,
 				7B4AC893173BFB8E002CD411 /* NBBCore.h */,
@@ -478,11 +468,6 @@
 				7B4AC8A0173BFB8E002CD411 /* NBBTableView.m */,
 				7B4AC8A1173BFB8E002CD411 /* NBBTextField.h */,
 				7B4AC8A2173BFB8E002CD411 /* NBBTextField.m */,
-				7B4AC8A3173BFB8E002CD411 /* NBBThemable.h */,
-				7B4AC8A4173BFB8E002CD411 /* NBBTheme.h */,
-				7B4AC8A5173BFB8E002CD411 /* NBBTheme.m */,
-				7B4AC8A6173BFB8E002CD411 /* NBBThemeEngine.h */,
-				7B4AC8A7173BFB8E002CD411 /* NBBThemeEngine.m */,
 				7B4AC8AA173BFB8E002CD411 /* NBBWindow.h */,
 				7B4AC8AB173BFB8E002CD411 /* NBBWindow.m */,
 				7B4AC8AD173BFB8E002CD411 /* NBBWindowBase.m */,
@@ -535,10 +520,10 @@
 		E79C25890E1095AA00742AF4 /* BGHUDTheming */ = {
 			isa = PBXGroup;
 			children = (
+				E71317D90E10667D00885A23 /* BGTheme.h */,
 				E71317D50E10667D00885A23 /* BGGradientTheme.m */,
 				7BFB9892163DCEAB00254DCF /* AZFlatTheme.m */,
 				7BFB98A0163DFB5700254DCF /* AZDebugTheme.m */,
-				E71317D90E10667D00885A23 /* BGTheme.h */,
 				E71317DA0E10667D00885A23 /* BGTheme.m */,
 				E71317DB0E10667D00885A23 /* BGThemeManager.h */,
 				E71317DC0E10667D00885A23 /* BGThemeManager.m */,
@@ -695,7 +680,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = AZ;
-				LastUpgradeCheck = 0460;
+				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = mrgray.com;
 			};
 			buildConfigurationList = C056398B08A954F8003078D8 /* Build configuration list for PBXProject "AtoZAppKit" */;
@@ -715,10 +700,6 @@
 				{
 					ProductGroup = 7B46362217551DB400072CA0 /* Products */;
 					ProjectRef = 7B3365FE1754A6920037DE96 /* FunSize.xcodeproj */;
-				},
-				{
-					ProductGroup = 7B4636891755259100072CA0 /* Products */;
-					ProjectRef = 7B4636791755215C00072CA0 /* SNRHUDKit.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -741,20 +722,6 @@
 			fileType = archive.ar;
 			path = libFunSize.a;
 			remoteRef = 7B46362817551DB400072CA0 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7B46368E1755259100072CA0 /* SNRHUDKit.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = SNRHUDKit.framework;
-			remoteRef = 7B46368D1755259100072CA0 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7B4636901755259100072CA0 /* Catalog.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = Catalog.app;
-			remoteRef = 7B46368F1755259100072CA0 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -837,6 +804,15 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		7B657CE3176225ED000BF102 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7B657CE2176225ED000BF102 /* en */,
+			);
+			name = MainMenu.xib;
+			path = submodules/SNRHUDKit/Catalog;
+			sourceTree = "<group>";
+		};
 		8D1AC97F0486D23B00FE50C9 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -873,7 +849,7 @@
 				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = NO;
-				GCC_WARN_CHECK_SWITCH_STATEMENTS = YES;
+				GCC_WARN_CHECK_SWITCH_STATEMENTS = NO;
 				GCC_WARN_EFFECTIVE_CPLUSPLUS_VIOLATIONS = YES;
 				GCC_WARN_HIDDEN_VIRTUAL_FUNCTIONS = NO;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = NO;
@@ -890,6 +866,7 @@
 				GCC_WARN_UNUSED_VALUE = NO;
 				INFOPLIST_FILE = "Resources/AtoZAppKitFramework-Info.plist";
 				INSTALL_PATH = "@loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/Frameworks @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
@@ -925,12 +902,14 @@
 				GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = NO;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = NO;
+				GCC_WARN_CHECK_SWITCH_STATEMENTS = NO;
 				GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = NO;
 				GCC_WARN_MISSING_PARENTHESES = NO;
 				GCC_WARN_SIGN_COMPARE = NO;
 				INFOPLIST_FILE = "Resources/AtoZAppKitFramework-Info.plist";
 				INSTALL_PATH = "@loader_path/Frameworks";
 				LD_DYLIB_INSTALL_NAME = "$(DYLIB_INSTALL_NAME_BASE:standardizepath)/$(EXECUTABLE_PATH)";
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/Frameworks @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
@@ -950,7 +929,7 @@
 		C056398C08A954F8003078D8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				GCC_MODEL_TUNING = "";
 				GCC_PREPROCESSOR_DEFINITIONS = PARTOF_AtoZ;
@@ -958,6 +937,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INSTALL_PATH = "@rpath";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -965,7 +945,7 @@
 		C056398D08A954F8003078D8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				GCC_MODEL_TUNING = "";
 				GCC_PREPROCESSOR_DEFINITIONS = PARTOF_AtoZ;

@@ -19,7 +19,7 @@
 }
 @end
 @implementation NSDate (SI)
-+(NSS *)highestSignificantComponentStringFromDate:(NSDate *)date toDate:(NSDate *)toDate {
++(NSS*) highestSignificantComponentStringFromDate:(NSDate *)date toDate:(NSDate *)toDate {
 
 	NSDateComponents *components = [[NSCalendar currentCalendar] components:NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit |NSSecondCalendarUnit
 																																 fromDate:date

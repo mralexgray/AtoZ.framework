@@ -10,8 +10,8 @@
 #import "AtoZ.h"
 
 
-@interface AZDebugLayer : CAShapeLayer
-@property (nonatomic, retain	) CAShapeLayer *anchorPointLayer, *positionLayer;
+@interface AZDebugLayer : CAL
+//@property (strong) CAShapeLayer *anchorPointLayer, *positionLayer;
 @end
 
 @interface AZDebugLayerView : NSView

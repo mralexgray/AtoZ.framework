@@ -150,12 +150,13 @@ nl.sublayers 			= @[tHost, list];
 										c.toValue 	= @1; return c; 				
 		objcase(@"_selected")   NSC* colore = RANDOMCOLOR; NSString *name = colore.nameOfColor; [name log];
 										CAA *coloreA = [CAA backgroundColorAnimationFrom:[self.presentationLayer backgroundNSColor] to:colore duration:2];
-										[coloreA setCompletion:^(CAA*a, BOOL finished) {
-//											[CATRANNY immediately:^{ 
-											[self.modelLayer setBackgroundNSColor:colore];
+//										[coloreA setCompletion:^(CAA*a, BOOL finished) {
+//											[CATRANNY immediately:^{
+//											[self.modelLayer setBackgroundNSColor:colore];
 											//}];
-											NSLog(@"completion for colore: %@",name);
-										}];
+//											NSLog(@"completion for colore: %@",name);
+//										}];
+										[CAAnimationDelegate delegate:coloreA forLayer:self];
 										return coloreA;
 	endswitch
 	return [super actionForKey:key];

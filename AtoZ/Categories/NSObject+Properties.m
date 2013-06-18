@@ -110,7 +110,7 @@ static const char* getPropertyType    (objc_property_t property) 	{
 	return "";
 }
 
-+ (NSS *)propertyTypeStringOfProperty:(objc_property_t)property	{
++ (NSS*) propertyTypeStringOfProperty:(objc_property_t)property	{
 	const char *attr = property_getAttributes(property);
 	NSString *const attributes = [NSString stringWithCString:attr encoding:NSUTF8StringEncoding];
 
@@ -308,10 +308,10 @@ static const char* getPropertyType    (objc_property_t property) 	{
 - (NSA*) propertyNames									{
 	return self.class.propertyNames;
 }
-- (NSD*) propertiesSans:(NSS *)someKey				{
+- (NSD*) propertiesSans:(NSS*) someKey				{
 	return [self propertiesSansKeys:@[someKey]];
 }
-- (NSD*) propertiesSansKeys:(NSA *)someKeys		{
+- (NSD*) propertiesSansKeys:(NSA*) someKeys		{
 	return [self.propertiesPlease subdictionaryWithKeys:
 			[self.propertyNames arrayByRemovingObjectsFromArray:someKeys]];
 }

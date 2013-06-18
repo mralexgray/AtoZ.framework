@@ -2,22 +2,13 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "container:AtoZ/AtoZCodeFactory/xcb/xcb.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:../dev/AtoZBundles/BundleLoader/AtoZBundles.xcodeproj">
    </FileRef>
    <FileRef
-      location = "container:AtoZ/AtoZ.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:MailCore/Examples/OSX/InboxLister/InboxLister.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:MailCore/Examples/OSX/MessageSender/MessageSender.xcodeproj">
-   </FileRef>
-   <FileRef
       location = "group:AtoZWebkit/DeskBrowse.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:ContactFlow/ContactsFlow.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:AtoZ/../DeskLabels/DeskLabels.xcodeproj">
@@ -27,8 +18,5 @@
    </FileRef>
    <FileRef
       location = "group:../git/icarouselmay2012/Examples/Mac Demo/iCarouselMac.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:../git/HopShop/HopShop.xcodeproj">
    </FileRef>
 </Workspace>

@@ -69,32 +69,32 @@ JROptionsDeclare( CABlockType,	CABlockTypeDrawBlock,		CABlockTypeLayoutBlock,
 typedef id (^ transformBlock ) ( id value );
 @interface NSObject (AZBlockFactory)
 @property (readonly) NSString* properties;
-@property (assign) CABlockType blockType;
-- (void)  bind:(NSString*)b toObject:(id)o withKeyPath:(NSString*)kp transform:(id(^)(id))transformBlock;
-- (BOOL)  overrideSelector:  			 (SEL)selector 						withBlock:    (void*)block;
-- (void*) superForSelector:		 	 (SEL)selector;
+@property (assign) 	CABlockType blockType;
+//- (void)  bind:(NSString*)b toObject:(id)o withKeyPath:(NSString*)kp transform:(id(^)(id))transformBlock;
+//- (BOOL)  overrideSelector:  			 (SEL)selector 						withBlock:    (void*)block;
+//- (void*) superForSelector:		 	 (SEL)selector;
 @end
 
-@interface CATransaction (AZBlockFactory)
-+ (void) transactionWithLength: (NSTimeInterval)dur actions:(void(^)()) block;
-+ (void) transactionWithLength: (NSTimeInterval)dur easing:(id)ease actions:(void(^)()) block;
-+ (void) immediately:(void (^)())block;
-@end
-
-@interface NSGraphicsContext (AZBlockFactory)
-+(void)drawInContext:(CGContextRef)ctx flipped:(BOOL)flipped actions:(void(^)())actions;
--(void)state:(void(^)())actions;
-+(void)state:(void(^)())actions;
-@end
-
-
-
-
-@interface CALayer (CAScrollLayer_Extensions)
--   (id) scanSubsForClass:		(Class)c;
-- (void) scrollBy:				(CGPoint)inDelta;
-- (void) scrollCenterToPoint:	(CGPoint)inPoint;
-@end
+//@interface CATransaction (AZBlockFactory)
+//+ (void) transactionWithLength: (NSTimeInterval)dur actions:(void(^)()) block;
+//+ (void) transactionWithLength: (NSTimeInterval)dur easing:(id)ease actions:(void(^)()) block;
+//+ (void) immediately:(void (^)())block;
+//@end
+//
+//@interface NSGraphicsContext (AZBlockFactory)
+//+(void)drawInContext:(CGContextRef)ctx flipped:(BOOL)flipped actions:(void(^)())actions;
+//-(void)state:(void(^)())actions;
+//+(void)state:(void(^)())actions;
+//@end
+//
+//
+//
+//
+//@interface CALayer (CAScrollLayer_Extensions)
+//-   (id) scanSubsForClass:		(Class)c;
+//- (void) scrollBy:				(CGPoint)inDelta;
+//- (void) scrollCenterToPoint:	(CGPoint)inPoint;
+//@end
 
 
 

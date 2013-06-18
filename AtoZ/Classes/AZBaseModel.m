@@ -125,11 +125,11 @@ static NSMutableDictionary *keyNames = nil, *nillableKeyNames = nil;
     return _backingstore.randomElement;
 }
 
-- (NSA *)shuffeled                                                              {
+- (NSA*) shuffeled                                                              {
     return _backingstore.shuffeled;
 }
 
-- (NSA *)randomSubarrayWithSize:(NSUI)size    {
+- (NSA*) randomSubarrayWithSize:(NSUI)size    {
     return [_backingstore randomSubarrayWithSize:AZNormalizedNumberLessThan(@(size), _backingstore.count)];
 }
 

@@ -205,6 +205,9 @@
 		7B25863E1718944700527501 /* AZCLI.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B25863C1718944500527501 /* AZCLI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B25863F1718944700527501 /* AZCLI.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B25863D1718944600527501 /* AZCLI.m */; };
 		7B2586411719B04F00527501 /* AtoZTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B2586401719B04E00527501 /* AtoZTypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B2647A8176E0E220062ECF3 /* pw_maze_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B2647A5176E0E220062ECF3 /* pw_maze_white.png */; };
+		7B2647A9176E0E220062ECF3 /* pw_maze_white_@2X.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B2647A6176E0E220062ECF3 /* pw_maze_white_@2X.png */; };
+		7B2647AA176E0E220062ECF3 /* sample_profile_bg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7B2647A7176E0E220062ECF3 /* sample_profile_bg.jpg */; };
 		7B2D754716F15BB60054C5F2 /* Bootstrap.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B2D754516F15BB50054C5F2 /* Bootstrap.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B2D754816F15BB60054C5F2 /* Bootstrap.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2D754616F15BB50054C5F2 /* Bootstrap.m */; };
 		7B2F23E916F289BC003D7648 /* IGIsolatedCookieWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B2F239016F289BC003D7648 /* IGIsolatedCookieWebView.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -367,8 +370,6 @@
 		7B39615F15F04FD80065813F /* AtoZTouch.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7B39615E15F04FD80065813F /* AtoZTouch.h */; };
 		7B39616115F04FD80065813F /* AtoZTouch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B39616015F04FD80065813F /* AtoZTouch.m */; };
 		7B39616D15F0580B0065813F /* AtoZ.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7B311961159B6D9E002134C4 /* AtoZ.h */; };
-		7B3D6F151753173400F9676B /* AtoZUnitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF72D60171F8F2F0037CF41 /* AtoZUnitTests.m */; };
-		7B3D6F161753173C00F9676B /* AtoZUnitTests.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BF72D5F171F8F2F0037CF41 /* AtoZUnitTests.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B3FB11417689D0300233199 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B3FB11317689D0300233199 /* XCTest.framework */; };
 		7B3FB11A17689D0400233199 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7B3FB11817689D0400233199 /* InfoPlist.strings */; };
 		7B3FB11C17689D0400233199 /* AtoZ_XCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B3FB11B17689D0400233199 /* AtoZ_XCTests.m */; };
@@ -484,6 +485,8 @@
 		7B66D6D3175D16AC00599B28 /* NSValueTransformer+TransformerKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B66D6D1175D16AC00599B28 /* NSValueTransformer+TransformerKit.m */; };
 		7B682BBF16FABC9D00ADF346 /* KGNoise.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B682BBD16FABC9C00ADF346 /* KGNoise.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B682BC016FABC9D00ADF346 /* KGNoise.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B682BBE16FABC9D00ADF346 /* KGNoise.m */; };
+		7B685E87176F0D6500A6F753 /* CTBlockDescription.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B685E85176F0D6500A6F753 /* CTBlockDescription.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B685E88176F0D6500A6F753 /* CTBlockDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B685E86176F0D6500A6F753 /* CTBlockDescription.m */; };
 		7B6901B8159E09D800D0DA47 /* NSApplication+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B6901B6159E09D800D0DA47 /* NSApplication+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B6901C9159E322300D0DA47 /* AZAXAuthorization.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B6901C7159E322300D0DA47 /* AZAXAuthorization.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B6901CA159E322300D0DA47 /* AZAXAuthorization.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B6901C8159E322300D0DA47 /* AZAXAuthorization.m */; };
@@ -594,6 +597,7 @@
 		7B8A2A1115E2D48D00286E27 /* AZVeil.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B8A2A0F15E2D48D00286E27 /* AZVeil.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		7B8A342A16E6D07A0088D209 /* StandardPaths.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B8A33F916E6D07A0088D209 /* StandardPaths.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B8A342B16E6D07A0088D209 /* StandardPaths.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B8A33FA16E6D07A0088D209 /* StandardPaths.m */; };
+		7B8BF92317709ED300034408 /* TestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0DA2B31743588C00535483 /* TestCase.m */; };
 		7B8D462916F003BE00224316 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B95C90D164FC8D10046F487 /* MapKit.framework */; };
 		7B8D462A16F003CC00224316 /* MapKit.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7B95C90D164FC8D10046F487 /* MapKit.framework */; };
 		7B8EEDAC164BEDB700710841 /* AtoZColorWell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B8EEDA8164BEDB700710841 /* AtoZColorWell.m */; };
@@ -734,8 +738,6 @@
 		7BBB595D1769C44F0074A5F9 /* TUITableOulineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BBB59571769C44F0074A5F9 /* TUITableOulineView.m */; };
 		7BBB87CF1744848E0024704E /* JSONKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B2F239916F289BC003D7648 /* JSONKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BBB87D0174484950024704E /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2F239A16F289BC003D7648 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		7BBB87D3174489500024704E /* TestCase.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B0DA2B21743588C00535483 /* TestCase.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7BBB87D4174489500024704E /* TestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0DA2B31743588C00535483 /* TestCase.m */; };
 		7BBCBA0C1671030A00681F2B /* CocoaPuffs.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7B99B97B16394E3B00500715 /* CocoaPuffs.framework */; };
 		7BBCBA0D1671030A00681F2B /* AtoZBezierPath.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7BB8701D16384FF20000C242 /* AtoZBezierPath.framework */; };
 		7BBCBA0E1671030A00681F2B /* Rebel.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7BB86F8216383FCE0000C242 /* Rebel.framework */; };
@@ -899,10 +901,7 @@
 		7BF72D5E171F8F2F0037CF41 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7BF72D5C171F8F2F0037CF41 /* InfoPlist.strings */; };
 		7BF72D61171F8F2F0037CF41 /* AtoZUnitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF72D60171F8F2F0037CF41 /* AtoZUnitTests.m */; };
 		7BF72DA1171F90B80037CF41 /* AZCategoryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2853F815FEE79F0077960A /* AZCategoryTests.m */; };
-		7BF72DA3171F91ED0037CF41 /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B311951159B6D9E002134C4 /* AtoZ.framework */; };
 		7BF72DA7171F96080037CF41 /* AZFaviconManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF72DA6171F96080037CF41 /* AZFaviconManagerTests.m */; };
-		7BF72DAB171FA26B0037CF41 /* AZCLITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF72DA9171F9E840037CF41 /* AZCLITests.m */; };
-		7BF72DAC171FA2700037CF41 /* AZCLITests.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BF72DA8171F9E840037CF41 /* AZCLITests.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BF9854C15FEBDB200D47192 /* AtoZFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF9854A15FEBDB200D47192 /* AtoZFunctions.m */; };
 		7BF9855015FEBDF900D47192 /* NSBag.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF9854E15FEBDF900D47192 /* NSBag.m */; };
 		7BF9855215FEBEB300D47192 /* NSBag.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BF9854D15FEBDF900D47192 /* NSBag.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1485,6 +1484,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = 01C5B57715835D0F001607BC;
 			remoteInfo = FileSuffixesTestMac;
+		};
+		7B8BF92117709E9B00034408 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B311947159B6D9E002134C4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7B311950159B6D9E002134C4;
+			remoteInfo = AtoZ;
 		};
 		7B8D462716F0039100224316 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -2114,6 +2120,9 @@
 		7B25863D1718944600527501 /* AZCLI.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; name = AZCLI.m; path = Core/AZCLI.m; sourceTree = SOURCE_ROOT; };
 		7B2586401719B04E00527501 /* AtoZTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = AtoZTypes.h; path = Core/AtoZTypes.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		7B2586421719B7C800527501 /* AZScratch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AZScratch.h; sourceTree = "<group>"; };
+		7B2647A5176E0E220062ECF3 /* pw_maze_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pw_maze_white.png; sourceTree = "<group>"; };
+		7B2647A6176E0E220062ECF3 /* pw_maze_white_@2X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pw_maze_white_@2X.png"; sourceTree = "<group>"; };
+		7B2647A7176E0E220062ECF3 /* sample_profile_bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = sample_profile_bg.jpg; sourceTree = "<group>"; };
 		7B2853F715FEE79F0077960A /* AZCategoryTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = AZCategoryTests.h; path = ../AtoZCLI/AZCategoryTests.h; sourceTree = "<group>"; };
 		7B2853F815FEE79F0077960A /* AZCategoryTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AZCategoryTests.m; path = ../AtoZCLI/AZCategoryTests.m; sourceTree = "<group>"; };
 		7B2853FB15FEEBA90077960A /* NSArrayBlocksKitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = NSArrayBlocksKitTest.h; sourceTree = "<group>"; };
@@ -2539,6 +2548,8 @@
 		7B66D6D1175D16AC00599B28 /* NSValueTransformer+TransformerKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSValueTransformer+TransformerKit.m"; path = "../../Frameworks/TransformerKit/TransformerKit/NSValueTransformer+TransformerKit.m"; sourceTree = "<group>"; };
 		7B682BBD16FABC9C00ADF346 /* KGNoise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KGNoise.h; path = ../../Frameworks/KGNoise/KGNoise.h; sourceTree = "<group>"; };
 		7B682BBE16FABC9D00ADF346 /* KGNoise.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KGNoise.m; path = ../../Frameworks/KGNoise/KGNoise.m; sourceTree = "<group>"; };
+		7B685E85176F0D6500A6F753 /* CTBlockDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTBlockDescription.h; path = ../../Frameworks/CTObjectiveCRuntimeAdditions/CTObjectiveCRuntimeAdditions/CTObjectiveCRuntimeAdditions/CTBlockDescription.h; sourceTree = "<group>"; };
+		7B685E86176F0D6500A6F753 /* CTBlockDescription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTBlockDescription.m; path = ../../Frameworks/CTObjectiveCRuntimeAdditions/CTObjectiveCRuntimeAdditions/CTObjectiveCRuntimeAdditions/CTBlockDescription.m; sourceTree = "<group>"; };
 		7B6901B6159E09D800D0DA47 /* NSApplication+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSApplication+AtoZ.h"; sourceTree = "<group>"; };
 		7B6901B7159E09D800D0DA47 /* NSApplication+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSApplication+AtoZ.m"; sourceTree = "<group>"; };
 		7B6901BC159E0BF700D0DA47 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
@@ -3175,7 +3186,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7BF72DA3171F91ED0037CF41 /* AtoZ.framework in Frameworks */,
 				7BF72D52171F8F2E0037CF41 /* SenTestingKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -5189,6 +5199,9 @@
 		7BE2A4F21611571E003D6B92 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				7B2647A5176E0E220062ECF3 /* pw_maze_white.png */,
+				7B2647A6176E0E220062ECF3 /* pw_maze_white_@2X.png */,
+				7B2647A7176E0E220062ECF3 /* sample_profile_bg.jpg */,
 				7B06BB9D1761CD92003A9C7E /* grid.png */,
 				7B06BB9B1761CD62003A9C7E /* xx.png */,
 				7B36C050175F3D2D00C83750 /* wall.png */,
@@ -5272,6 +5285,8 @@
 		7BE6068915A00B8800355236 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				7B685E85176F0D6500A6F753 /* CTBlockDescription.h */,
+				7B685E86176F0D6500A6F753 /* CTBlockDescription.m */,
 				7B8A33F416E6D07A0088D209 /* StandardPaths */,
 				7BA36D09165C3E6E0077A065 /* CPAccelerationTimer.h */,
 				7BA36D0A165C3E6E0077A065 /* CPAccelerationTimer.m */,
@@ -5700,7 +5715,6 @@
 				7B440434171E2022009950A7 /* AGNSSplitView.h in Headers */,
 				7B440436171E2022009950A7 /* AGNSSplitViewDelegate.h in Headers */,
 				7B8226B3171EEFC6002AAD9C /* AZProportionalSegmentController.h in Headers */,
-				7BF72DAC171FA2700037CF41 /* AZCLITests.h in Headers */,
 				7B8F52F51725C55500B53CE2 /* AZCLICategories.h in Headers */,
 				7BC77D7A1729D39D0075AFEE /* AZXMLWriter.h in Headers */,
 				7B7731BE172D7F7A006E1CB4 /* StickyNoteView.h in Headers */,
@@ -5716,12 +5730,10 @@
 				7B6EC191173DBC6800E7C5CA /* AZBeetlejuice.h in Headers */,
 				7BE72AC817426B42006709D6 /* CoreData+AtoZ.h in Headers */,
 				7BBB87CF1744848E0024704E /* JSONKit.h in Headers */,
-				7BBB87D3174489500024704E /* TestCase.h in Headers */,
 				7BF1B9AD1744A26700B2BF84 /* NSManagedObject+SDAdditions.h in Headers */,
 				7BF1EC58174A0BBD00699D38 /* AZObject.h in Headers */,
 				7B81C380174B517300226B82 /* AtoZMacroDefines.h in Headers */,
 				7B2FA743174C3F250026E869 /* AZWindowTab.h in Headers */,
-				7B3D6F161753173C00F9676B /* AtoZUnitTests.h in Headers */,
 				7BF343FE17538D330006E542 /* NullSafe.h in Headers */,
 				7B66D6D2175D16AC00599B28 /* NSValueTransformer+TransformerKit.h in Headers */,
 				7B36C04E175E303800C83750 /* DefinitionController.h in Headers */,
@@ -5731,6 +5743,7 @@
 				7BFBF58D175E0F14007A84AC /* AZFactoryView.h in Headers */,
 				7BFBF58E175E0F14007A84AC /* CABlockDelegate.h in Headers */,
 				7BFBF58F175E0F14007A84AC /* AtoZNodeProtocol.h in Headers */,
+				7B685E87176F0D6500A6F753 /* CTBlockDescription.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5951,12 +5964,13 @@
 				7BF72D4B171F8F2E0037CF41 /* Sources */,
 				7BF72D4C171F8F2E0037CF41 /* Frameworks */,
 				7BF72D4D171F8F2E0037CF41 /* Resources */,
-				7BF72D4E171F8F2E0037CF41 /* ShellScript */,
-				7BBB87D2174488CB0024704E /* ShellScript */,
+				7BF72D4E171F8F2E0037CF41 /* Run Script */,
+				7BBB87D2174488CB0024704E /* appledocs */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				7B8BF92217709E9B00034408 /* PBXTargetDependency */,
 			);
 			name = AtoZUnitTests;
 			productName = AtoZUnitTests;
@@ -6106,13 +6120,13 @@
 			projectRoot = "";
 			targets = (
 				7B311950159B6D9E002134C4 /* AtoZ */,
+				7BF72D4F171F8F2E0037CF41 /* AtoZUnitTests */,
 				7B184EE415FCA98600696360 /* AtoZCLI */,
 				7B02A2C4172A852E00973A80 /* AZPrompt */,
 				7B31B12515E9441D00802CD5 /* AtoZ Entitlement */,
 				7BDF568B1627695300041A42 /* AtoZTestBed∞ */,
 				7B4A908816F3A6F0003CD058 /* DockBox */,
 				7B39615815F04FD70065813F /* AtoZTouch */,
-				7BF72D4F171F8F2E0037CF41 /* AtoZUnitTests */,
 				7B0DA21817434FCA00535483 /* BaseModel */,
 				7B0DA29E174352CC00535483 /* StaticLibTester */,
 				7B4F5B6D1760FB5D00BFE73D /* Build Frameworks */,
@@ -6701,6 +6715,7 @@
 				7B1528F615F49DE200027191 /* BlueSkyTulips.clr in Resources */,
 				7B1528F715F49DE200027191 /* Bujumbura.clr in Resources */,
 				7B1528F815F49DE200027191 /* CoffeeBeans.clr in Resources */,
+				7B2647A8176E0E220062ECF3 /* pw_maze_white.png in Resources */,
 				7B1528F915F49DE200027191 /* Daytona.clr in Resources */,
 				7B1528FA15F49DE200027191 /* FengShui.clr in Resources */,
 				7B1528FB15F49DE200027191 /* FlyingGeese.clr in Resources */,
@@ -6795,7 +6810,9 @@
 				7B714354166415EC00B7661A /* thatch.jpg in Resources */,
 				7BBCBABA1671062C00681F2B /* BrewDescriptions.plist in Resources */,
 				7BBCBAE616713F9D00681F2B /* Preferences.nib in Resources */,
+				7B2647AA176E0E220062ECF3 /* sample_profile_bg.jpg in Resources */,
 				7B3777EB16F1BE4A0083CBB5 /* About.txt in Resources */,
+				7B2647A9176E0E220062ECF3 /* pw_maze_white_@2X.png in Resources */,
 				7B2F241E16F289BC003D7648 /* SILoginViewController.xib in Resources */,
 				7B2F241F16F289BC003D7648 /* SIDownloadingViewController.xib in Resources */,
 				7B2F242016F289BC003D7648 /* SINoInternetViewController.xib in Resources */,
@@ -6963,18 +6980,19 @@
 			shellPath = /bin/sh;
 			shellScript = "#${BUILT_PRODUCTS_DIR}/AtoZCodeFactory\n#touch \"${SRCROOT}/${GCC_PREFIX_HEADER}\"\n";
 		};
-		7BBB87D2174488CB0024704E /* ShellScript */ = {
+		7BBB87D2174488CB0024704E /* appledocs */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = appledocs;
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export WWWDIR=\"/sd/www/mrgray\"\nexport DOCSDIR=\"/docs/atoz.framework\"\nmkdir -p \"$WWWDIR$DOCSDIR\"\n\n/usr/local/bin/appledoc \"${SRCROOT}/../AppledocSettings.plist\"\n\n#--project-name \"$FULL_PRODUCT_NAME\" \n#--project-company \\\"mrgray.com\\\" \n#--company-id com.github.mralexgray\n##--output \\\"${WWWDIR}${DOCSDIR}\\\" \n#--docset-feed-url \"http://mrgray.com${DOCSDIR}/%DOCSETATOMFILENAME\" \n#--docset-package-url \"http://mrgray.com${DOCSDIR}/%DOCSETPACKAGEFILENAME\" \n#--publish-docset\n#.;\n";
+			shellScript = "export WWWDIR=\"/sd/www/mrgray\"\nexport DOCSDIR=\"/docs/atoz.framework\"\nmkdir -p \"$WWWDIR$DOCSDIR\"\n\n#/usr/local/bin/appledoc \"${SRCROOT}/../AppledocSettings.plist\"\n\n#--project-name \"$FULL_PRODUCT_NAME\" \n#--project-company \\\"mrgray.com\\\" \n#--company-id com.github.mralexgray\n##--output \\\"${WWWDIR}${DOCSDIR}\\\" \n#--docset-feed-url \"http://mrgray.com${DOCSDIR}/%DOCSETATOMFILENAME\" \n#--docset-package-url \"http://mrgray.com${DOCSDIR}/%DOCSETPACKAGEFILENAME\" \n#--publish-docset\n#.;\n";
 		};
 		7BE63AB915FE9782004BA700 /* LinkBuild To System Frameworks Directory and Create Umbrella Framework Symlink */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -6990,13 +7008,14 @@
 			shellPath = /bin/sh;
 			shellScript = "  PRODUCT_PATH=\"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}\"\n        BINARY=\"$PRODUCT_PATH/${PRODUCT_NAME}\"\n           MAC=\"/Library/Frameworks/\"\nSYSTEM_PRODUCT=\"$MAC/${WRAPPER_NAME}\"\n\n#env\n\nfunction test {\n\t\"$@\"\n\tstatus=$?\n   \tif [ $status -ne 0 ]; then\techo \"error with $1\";\tfi\n\treturn $status\n}\n\ntest otool -l \"$BINARY\" #/Library/Frameworks/AtoZ.framework/AtoZ\n\nif [ $status == 0 ]; then\n\t#say \"Yeah, it worked\"\n    growlnotify -m \"it worked\" -p -1 -n AtoZ Build\n\t#sudo rm -r \"$SYSTEM_PRODUCT\"\n#    sudo cp -r \"$PRODUCT_PATH\" \t\t\"$SYSTEM_PRODUCT\"\nelse\n\t#say \"Poop, no workie\"\n    growlnotify -m \"BUILD FAILED\" -p 2 -n AtoZ Build\nfi\n\nsudo ln -sF \"${PRODUCT_PATH}\" \"${MAC}\"\n\ncd \"${PRODUCT_PATH}\"\nln -sF Versions/Current/Frameworks Frameworks\n\n\n#logger `pwd`\n\necho \"Cleaning Profiler Information\"\ncd \"${OBJECT_FILE_DIR_normal}/${CURRENT_ARCH}\"\n# Delete *.gcda files in the current target\nCOUNT=$(ls *.gcda 2> /dev/null | wc -l)\nif [ $COUNT -ne 0 ]; then\n\tsay \"Deleting $COUNT G C D A's\"\n\trm -f *.gcda\nfi\n\nexit 0\n\n#if [ -f  \"${PRODUCT_PATH}/${PRODUCT_NAME}\" ]; then\n#\t$growler -n \"AtoZ\" -m \"AtoZ Was compiled AOK.\"\n#\tif [ -d \"${PRECOMPS}/${WRAPPER_NAME}\" ]; then\n#    \trm -r \"${PRECOMPS}/${WRAPPER_NAME}\"\n#   fi\n#\tmkdir -p \"${PRECOMPS}\"\n#\tcp -r \"${PRODUCT_PATH}\" \"${PRECOMPS}\"\n#else\n#\t$growler -n \"AtoZ\" -m \"AtoZ is not a complete Binary!.\"\n#\tsay \"AtoZ is not a complete Binary!\"\n#fi\n\n\n#class-dump /Library/Frameworks/AtoZ.framework/AtoZ >>\n\n#install_name_tool -change \\\n#\"@executable_path/../Frameworks/${WRAPPER_NAME}/Versions/A/${PRODUCT_NAME}\" \\\n#\"@loader_path/../../../../Frameworks/${WRAPPER_NAME}/Versions/A/${PRODUCT_NAME}\" \\\n#\"$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/BaseTenAppKit.framework/Versions/A/BaseTenAppKit\"\n\n#-header-pad_max_install_names\n\n#FRAMEWORKS_DIR=\"${PRODUCT_PATH}\"FRAMEWORK_DIR/Versions/Frameworks\"\n\n#if ( ! [ -e \"$FRAMEWORKS_DIR\" ] ); then\n#$$ln -s \"$FRAMEWORK_DIR/Versions/Current/Frameworks\" \"$FRAMEWORKS_DIR\"\n#fi\n\n\n# PRECOMPS=\"$HOME/Library/Developer/Precompiled\"\n# growler='/ServiceData/UNIX/bin/growlnotify'\n";
 		};
-		7BF72D4E171F8F2E0037CF41 /* ShellScript */ = {
+		7BF72D4E171F8F2E0037CF41 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Run Script";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -7320,7 +7339,6 @@
 				7B440435171E2022009950A7 /* AGNSSplitView.m in Sources */,
 				7B440437171E2022009950A7 /* AGNSSplitViewDelegate.m in Sources */,
 				7B8226B4171EEFC6002AAD9C /* AZProportionalSegmentController.m in Sources */,
-				7BF72DAB171FA26B0037CF41 /* AZCLITests.m in Sources */,
 				7BEA75C11720F6A2000A7D84 /* StickyNoteView.m in Sources */,
 				7B5806751721B7C2004F4E74 /* NSTableView+AtoZ.m in Sources */,
 				7B8F52F61725C55500B53CE2 /* AZCLICategories.m in Sources */,
@@ -7334,16 +7352,15 @@
 				7B76A7A1173EFD6700661EF2 /* NSString+AtoZEnums.m in Sources */,
 				7BE72AC917426B42006709D6 /* CoreData+AtoZ.m in Sources */,
 				7BBB87D0174484950024704E /* JSONKit.m in Sources */,
-				7BBB87D4174489500024704E /* TestCase.m in Sources */,
 				7BF1B9AC1744A26300B2BF84 /* NSManagedObject+SDAdditions.m in Sources */,
 				7B2FA744174C3F250026E869 /* AZWindowTab.m in Sources */,
-				7B3D6F151753173400F9676B /* AtoZUnitTests.m in Sources */,
 				7BF3440017538D330006E542 /* NullSafe.m in Sources */,
 				7B66D6D3175D16AC00599B28 /* NSValueTransformer+TransformerKit.m in Sources */,
 				7B36C04F175E303800C83750 /* DefinitionController.m in Sources */,
 				7BD667141760BA07006DA22C /* AZWindowTabViewController.m in Sources */,
 				7B06BBD41761EBB1003A9C7E /* AZColor.m in Sources */,
 				7B06BC161761FEC4003A9C7E /* IsometricView.m in Sources */,
+				7B685E88176F0D6500A6F753 /* CTBlockDescription.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7404,6 +7421,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B8BF92317709ED300034408 /* TestCase.m in Sources */,
 				7BF72DA1171F90B80037CF41 /* AZCategoryTests.m in Sources */,
 				7BF72D61171F8F2F0037CF41 /* AtoZUnitTests.m in Sources */,
 				7BF72DA7171F96080037CF41 /* AZFaviconManagerTests.m in Sources */,
@@ -7608,6 +7626,11 @@
 			isa = PBXTargetDependency;
 			name = "OS X Framework";
 			targetProxy = 7B7F9D7C176DBED80091E0FC /* PBXContainerItemProxy */;
+		};
+		7B8BF92217709E9B00034408 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7B311950159B6D9E002134C4 /* AtoZ */;
+			targetProxy = 7B8BF92117709E9B00034408 /* PBXContainerItemProxy */;
 		};
 		7B8D462816F0039100224316 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -8006,6 +8029,7 @@
 		7B184EF015FCA98700696360 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN__ARC_BRIDGE_CAST_NONARC = NO;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -8038,13 +8062,14 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
-				SDKROOT = "";
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
 		7B184EF115FCA98700696360 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN__ARC_BRIDGE_CAST_NONARC = NO;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -8075,7 +8100,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
-				SDKROOT = "";
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};
@@ -8142,7 +8167,9 @@
 		7B31197C159B6D9E002134C4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ADDITIONAL_SDKS = "";
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ANALYZER_OBJC_RETAIN_COUNT = NO;
 				CLANG_ANALYZER_OBJC_SELF_INIT = NO;
 				CLANG_ANALYZER_OBJC_UNUSED_IVARS = NO;
@@ -8278,7 +8305,9 @@
 		7B31197D159B6D9E002134C4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ADDITIONAL_SDKS = "";
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ANALYZER_OBJC_RETAIN_COUNT = NO;
 				CLANG_ANALYZER_OBJC_SELF_INIT = NO;
 				CLANG_ANALYZER_OBJC_UNUSED_IVARS = NO;
@@ -8767,6 +8796,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ANALYZER_OBJC_UNUSED_IVARS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -8778,6 +8808,7 @@
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+					/Library/Frameworks,
 					"\"$(SRCROOT)/../../git/gh-unit/Project-MacOSX/build/Release\"",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -8796,6 +8827,13 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				INFOPLIST_FILE = "AtoZUnitTests/AtoZUnitTests-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				OTHER_LDFLAGS = (
+					"-lxml2",
+					"-ObjC",
+					"-all_load",
+					"-framework",
+					AtoZ,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -8805,6 +8843,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ANALYZER_OBJC_UNUSED_IVARS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -8817,6 +8856,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+					/Library/Frameworks,
 					"\"$(SRCROOT)/../../git/gh-unit/Project-MacOSX/build/Release\"",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -8828,6 +8868,13 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				INFOPLIST_FILE = "AtoZUnitTests/AtoZUnitTests-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				OTHER_LDFLAGS = (
+					"-lxml2",
+					"-ObjC",
+					"-all_load",
+					"-framework",
+					AtoZ,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = octest;
 			};

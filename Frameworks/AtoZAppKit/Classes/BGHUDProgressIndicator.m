@@ -52,14 +52,14 @@
     }
 }
 
--(NSTimer*)animator {
-    return animator;
-}
+//-(NSTimer*)animator {
+//    return animator;
+//}
 
 -(void)setAnimator:(NSTimer *)value {
-    if (animator != value) {
-        [animator invalidate];
-        animator = value;
+	if (_animator != value) {
+        [_animator invalidate];
+        _animator = value;
     }
 }
 

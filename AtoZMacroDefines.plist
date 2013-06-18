@@ -597,12 +597,12 @@
 		<string>NSProcessInfo.processInfo</string>
 		<key>AZPROCNAME</key>
 		<string>[NSProcessInfo.processInfo processName]</string>
-		<key>AZPROP(A,B)</key>
-		<string>@property  (nonatomic, strong) A* B</string>
+		<key>AZPROPSTR(A,B)</key>
+		<string>@property  (nonatomic,strong) A B</string>
 		<key>AZPROPASS(A,B)</key>
 		<string>@property (NATOM,ASS) A B</string>
 		<key>AZPROPIBO(A,B)</key>
-		<string>@property (ASS) IBOutlet A *B</string>
+		<string>@property (ASS) IBOutlet A B</string>
 		<key>AZQTZCONTEXT</key>
 		<string>[NSGraphicsContext.currentContext  graphicsPort]</string>
 		<key>AZQtzPath(r)</key>
@@ -691,8 +691,12 @@
 		<string>floatValue</string>
 		<key>kContentColorKey</key>
 		<string>@&quot;itemColor&quot;</string>
+		<key>iV</key>
+		<string>integerValue</string>
 		<key>kContentImageKey</key>
 		<string>@&quot;itemImage&quot;</string>
+		<key>uiV</key>
+		<string>unsignedIntegerValue</string>
 		<key>kContentTitleKey</key>
 		<string>@&quot;itemTitle&quot;</string>
 		<key>kItemSizeSliderPositionKey</key>

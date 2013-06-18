@@ -326,7 +326,7 @@ char** cArrayFromNSArray ( NSArray* array ){
 - (BOOL)boolForKey: (NSS*)key											  	{
 	return [self boolForKey:key defaultValue:NO];
 }
-- (void)toggleBoolForKey:(NSS *)key										{
+- (void)toggleBoolForKey:(NSS*) key										{
 	[self setBool:![self boolForKey:key defaultValue:NO] forKey:key];
 	//[NSN numberWithBool:![self boolForKey:key defaultValue:YES]]
 }
@@ -375,7 +375,7 @@ char** cArrayFromNSArray ( NSArray* array ){
 }
 @end
 @implementation NSTableView (CustomDataCell)
-- (void)setColumnWithIdentifier:(NSS *)identifier toClass:(Class)actionCellClass	{
+- (void)setColumnWithIdentifier:(NSS*) identifier toClass:(Class)actionCellClass	{
 	((NSTableColumn *)self.tableColumns[[self columnWithIdentifier:identifier]]).dataCell = actionCellClass.new;
 }
 @end
@@ -533,7 +533,7 @@ NSS * googleSearchFor(NSS *string) {
 	NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONWritingPrettyPrinted error:&error];
 	if (error) NSLog(@"error: %@", error);
 	id valueD = [dictionary recursiveObjectForKey:@"content"];
-	if ([valueD ISKINDA:[NSString class]]) return [(NSS *)valueD stripHtml];
+	if ([valueD ISKINDA:[NSString class]]) return [(NSS*) valueD stripHtml];
 	else return nil;	//  valueD[@"content"];
 //	NSLog(@"result: %@", content);
 //	return content;
@@ -673,7 +673,7 @@ BOOL isEmpty(id thing) {
 	return thing == nil
 		   ? : [thing ISKINDA:[NSNull class]]
 		   ? : [thing respondsToString:@"length"] && ![(NSData *)thing length]
-		   ? : [thing respondsToString:@"count" ] && ![(NSA *)thing count]
+		   ? : [thing respondsToString:@"count" ] && ![(NSA*) thing count]
 		   ? : NO;
 }
 
@@ -1083,102 +1083,80 @@ void trackMouse() {
 }
 
 //based off http://www.dribin.org/dave/blog/archives/2008/09/22/convert_to_nsstring/
-//
-static BOOL TypeCodeIsCharArray(const char *typeCode) {
-	size_t len = strlen(typeCode);
-	if (len <= 2) return NO;
-	size_t lastCharOffset = len - 1;
-	size_t secondToLastCharOffset = lastCharOffset - 1;
 
-	BOOL isCharArray = typeCode[0] == '[' &&
-		typeCode[secondToLastCharOffset] == 'c' && typeCode[lastCharOffset] == ']';
-	for (int i = 1; i < secondToLastCharOffset; i++) {
-		isCharArray = isCharArray && isdigit(typeCode[i]);
-	}
+static BOOL TypeCodeIsCharArray(const char *typeCode) {
+	size_t                    len = strlen(typeCode);			if (len <= 2) return NO;
+	size_t         lastCharOffset = 				 len - 1,
+		    secondToLastCharOffset = lastCharOffset - 1;
+	BOOL              isCharArray = typeCode[0] == '['
+			  && typeCode[secondToLastCharOffset] == 'c'
+			  && 			 typeCode[lastCharOffset] == ']';
+	for (int i = 1; i < secondToLastCharOffset; i++) isCharArray = isCharArray && isdigit(typeCode[i]);
 	return isCharArray;
 }
-
-//since BOOL is #defined as a signed char, we treat the value as
-//a BOOL if it is exactly YES or NO, and a char otherwise.
+//since BOOL is #defined as a signed char, we treat the value as a BOOL if it is exactly YES or NO, and a char otherwise.
 static NSString * VTPGStringFromBoolOrCharValue(BOOL boolOrCharvalue) {
-	if (boolOrCharvalue == YES) return @"YES";
-	if (boolOrCharvalue == NO) return @"NO";
-	return [NSString stringWithFormat:@"'%c'", boolOrCharvalue];
+	return 	boolOrCharvalue == YES 	? @"YES" :
+				boolOrCharvalue == NO	? @"NO"  :	$(@"'%c'", boolOrCharvalue);
 }
-
 static NSString * VTPGStringFromFourCharCodeOrUnsignedInt32(FourCharCode fourcc) {
-	return [NSString stringWithFormat:@"%u ('%c%c%c%c')",
-			fourcc,
-			(fourcc >> 24) & 0xFF,
-			(fourcc >> 16) & 0xFF,
-			(fourcc >> 8) & 0xFF,
-			fourcc & 0xFF];
+	return $(@"%u ('%c%c%c%c')", fourcc, (fourcc >> 24) & 0xFF, (fourcc >> 16) & 0xFF, (fourcc >> 8) & 0xFF, fourcc & 0xFF);
 }
-
-static NSString * StringFromNSDecimalWithCurrentLocal(NSDecimal dcm) {
-	return NSDecimalString(&dcm, [NSLocale currentLocale]);
-}
+static NSString * StringFromNSDecimalWithCurrentLocal(NSDecimal dcm) { return NSDecimalString(&dcm, NSLocale.currentLocale);	}
 
 NSString * VTPG_DDToStringFromTypeAndValue(const char *typeCode, void *value) {
-#define IF_TYPE_MATCHES_INTERPRET_WITH(typeToMatch, func) \
-	if (strcmp(typeCode, @encode(typeToMatch)) == 0) \
-		return (func)(*(typeToMatch *)value)
+
+#define IF_TYPE_MATCHES_INTERPRET_WITH(typeToMatch, func)  	\
+			if (strcmp(typeCode,@encode(typeToMatch)) == 0)		\
+				return (func)(*(typeToMatch*)value)
 
 #if	 TARGET_OS_IPHONE
-	IF_TYPE_MATCHES_INTERPRET_WITH(CGPoint, NSStringFromCGPoint);
-	IF_TYPE_MATCHES_INTERPRET_WITH(CGSize, NSStringFromCGSize);
-	IF_TYPE_MATCHES_INTERPRET_WITH(CGRect, NSStringFromCGRect);
+	IF_TYPE_MATCHES_INTERPRET_WITH (   CGPoint, NSStringFromCGPoint						);
+	IF_TYPE_MATCHES_INTERPRET_WITH (    CGSize, NSStringFromCGSize							);
+	IF_TYPE_MATCHES_INTERPRET_WITH (	   CGRect, NSStringFromCGRect							);
 #else
-	IF_TYPE_MATCHES_INTERPRET_WITH(NSPoint, NSStringFromPoint);
-	IF_TYPE_MATCHES_INTERPRET_WITH(NSSize, NSStringFromSize);
-	IF_TYPE_MATCHES_INTERPRET_WITH(NSRect, NSStringFromRect);
+	IF_TYPE_MATCHES_INTERPRET_WITH (   NSPoint, NSStringFromPoint							);
+	IF_TYPE_MATCHES_INTERPRET_WITH (    NSSize, NSStringFromSize 							);
+	IF_TYPE_MATCHES_INTERPRET_WITH (	   NSRect, NSStringFromRect							);
 #endif
-	IF_TYPE_MATCHES_INTERPRET_WITH(NSRange, NSStringFromRange);
-	IF_TYPE_MATCHES_INTERPRET_WITH(Class, NSStringFromClass);
-	IF_TYPE_MATCHES_INTERPRET_WITH(SEL, NSStringFromSelector);
-	IF_TYPE_MATCHES_INTERPRET_WITH(BOOL, VTPGStringFromBoolOrCharValue);
-	IF_TYPE_MATCHES_INTERPRET_WITH(NSDecimal, StringFromNSDecimalWithCurrentLocal);
+	IF_TYPE_MATCHES_INTERPRET_WITH (   NSRange, NSStringFromRange							);
+	IF_TYPE_MATCHES_INTERPRET_WITH ( 	 Class, NSStringFromClass							);
+	IF_TYPE_MATCHES_INTERPRET_WITH ( 	   SEL, NSStringFromSelector						);
+	IF_TYPE_MATCHES_INTERPRET_WITH ( 	  BOOL, VTPGStringFromBoolOrCharValue	 		);
+	IF_TYPE_MATCHES_INTERPRET_WITH ( NSDecimal, StringFromNSDecimalWithCurrentLocal	);
 
-#define IF_TYPE_MATCHES_INTERPRET_WITH_FORMAT(typeToMatch, formatString) \
-	if (strcmp(typeCode, @encode(typeToMatch)) == 0) \
-		return [NSString stringWithFormat:(formatString), (*(typeToMatch *)value)]
+#define IF_TYPE_MATCHES_INTERPRET_WITH_FORMAT(typeToMatch, formatString) 			\
+	if (strcmp(typeCode, @encode(typeToMatch)) == 0) 										\
+		return $(formatString, (*(typeToMatch *)value))
 
-
-	IF_TYPE_MATCHES_INTERPRET_WITH_FORMAT(CFStringRef, @"%@");	//CFStringRef is toll-free bridged to NSString*
-	IF_TYPE_MATCHES_INTERPRET_WITH_FORMAT(CFArrayRef, @"%@");	//CFArrayRef is toll-free bridged to NSArray*
-	IF_TYPE_MATCHES_INTERPRET_WITH(FourCharCode, VTPGStringFromFourCharCodeOrUnsignedInt32);
-	IF_TYPE_MATCHES_INTERPRET_WITH_FORMAT(long long, @"%lld");
-	IF_TYPE_MATCHES_INTERPRET_WITH_FORMAT(unsigned long long, @"%llu");
-	IF_TYPE_MATCHES_INTERPRET_WITH_FORMAT(float, @"%f");
-	IF_TYPE_MATCHES_INTERPRET_WITH_FORMAT(double, @"%f");
+	IF_TYPE_MATCHES_INTERPRET_WITH_FORMAT ( 			CFStringRef, @"%@");	//CFStringRef is toll-free bridged to NSString*
+	IF_TYPE_MATCHES_INTERPRET_WITH_FORMAT ( 			 CFArrayRef, @"%@");	//CFArrayRef is toll-free bridged to NSArray*
+	IF_TYPE_MATCHES_INTERPRET_WITH		  ( 		  FourCharCode, VTPGStringFromFourCharCodeOrUnsignedInt32);
+	IF_TYPE_MATCHES_INTERPRET_WITH_FORMAT (           long long, @"%lld"		);
+	IF_TYPE_MATCHES_INTERPRET_WITH_FORMAT (  unsigned long long, @"%llu"		);
+	IF_TYPE_MATCHES_INTERPRET_WITH_FORMAT ( 					float, @"%f"		);
+	IF_TYPE_MATCHES_INTERPRET_WITH_FORMAT ( 				  double, @"%f"		);
 #if __has_feature(objc_arc)
-	IF_TYPE_MATCHES_INTERPRET_WITH_FORMAT(__unsafe_unretained id, @"%@");
+	IF_TYPE_MATCHES_INTERPRET_WITH_FORMAT (__unsafe_unretained id, @"%@"		);
 #else /* not __has_feature(objc_arc) */
-	IF_TYPE_MATCHES_INTERPRET_WITH_FORMAT(id, @"%@");
+	IF_TYPE_MATCHES_INTERPRET_WITH_FORMAT (					   id, @"%@"		);
 #endif
-	IF_TYPE_MATCHES_INTERPRET_WITH_FORMAT(short, @"%hi");
-	IF_TYPE_MATCHES_INTERPRET_WITH_FORMAT(unsigned short, @"%hu");
-	IF_TYPE_MATCHES_INTERPRET_WITH_FORMAT(int, @"%i");
-	IF_TYPE_MATCHES_INTERPRET_WITH_FORMAT(unsigned, @"%u");
-	IF_TYPE_MATCHES_INTERPRET_WITH_FORMAT(long, @"%li");
-	IF_TYPE_MATCHES_INTERPRET_WITH_FORMAT(long double, @"%Lf");	//WARNING on older versions of OS X, @encode(long double) == @encode(double)
-
+	IF_TYPE_MATCHES_INTERPRET_WITH_FORMAT (					short, @"%hi"		);
+	IF_TYPE_MATCHES_INTERPRET_WITH_FORMAT (      unsigned short, @"%hu"		);
+	IF_TYPE_MATCHES_INTERPRET_WITH_FORMAT (					  int, @"%i"		);
+	IF_TYPE_MATCHES_INTERPRET_WITH_FORMAT (				unsigned, @"%u"		);
+	IF_TYPE_MATCHES_INTERPRET_WITH_FORMAT (					 long, @"%li"		);
+	IF_TYPE_MATCHES_INTERPRET_WITH_FORMAT (			long double, @"%Lf"		);	//WARNING on older versions of OS X, @encode(long double) == @encode(double)
 	//C-strings
-	IF_TYPE_MATCHES_INTERPRET_WITH_FORMAT(char *, @"%s");
-	IF_TYPE_MATCHES_INTERPRET_WITH_FORMAT(const char *, @"%s");
-	if (TypeCodeIsCharArray(typeCode)) return [NSString stringWithFormat:@"%s", (char *)value];
+	IF_TYPE_MATCHES_INTERPRET_WITH_FORMAT (				   char*, @"%s"		);
+	IF_TYPE_MATCHES_INTERPRET_WITH_FORMAT (			const char*, @"%s"		);
 
-	IF_TYPE_MATCHES_INTERPRET_WITH_FORMAT(void *, @"(void*)%p");
+	if (TypeCodeIsCharArray(typeCode)) return $(@"%s", (char *)value);
 
-	//This is a hack to print out CLLocationCoordinate2D, without needing to #import <CoreLocation/CoreLocation.h>
-	//A CLLocationCoordinate2D is a struct made up of 2 doubles.
-	//We detect it by hard-coding the result of @encode(CLLocationCoordinate2D).
-	//We get at the fields by treating it like an array of doubles, which it is identical to in memory.
-	if (strcmp(typeCode, "{?=dd}") == 0) //@encode(CLLocationCoordinate2D)
-		return [NSString stringWithFormat:@"{latitude=%g,longitude=%g}", ((double *)value)[0], ((double *)value)[1]];
+	IF_TYPE_MATCHES_INTERPRET_WITH_FORMAT (					void*, @"(void*)%p");
 
-	//we don't know how to convert this typecode into an NSString
-	return nil;
+	//This is a hack to print out CLLocationCoordinate2D, without needing to #import <CoreLocation/CoreLocation.h>. A CLLocationCoordinate2D is a struct made up of 2 doubles. We detect it by hard-coding the result of @encode(CLLocationCoordinate2D). We get at the fields by treating it like an array of doubles, which it is identical to in memory.//@encode(CLLocationCoordinate2D) 	//we don't know how to convert this typecode into an NSString
+	return strcmp(typeCode, "{?=dd}") == 0 ? $(@"{latitude=%g,longitude=%g}", ((double *)value)[0], ((double *)value)[1]) : nil;
 }
 
 NSS * serialNumber(void) {
@@ -1262,87 +1240,6 @@ NSS * serialNumber(void) {
 ////	[AZOrientCount] = @"Count",
 //};
 
-// Log levels: off, error, warn, info, verbose
-//static const int ddLogLevel = LOG_LEVEL_VERBOSE;
-//
-//void _AZLog(const char *file, int lineNumber, const char *funcName, NSString *format,...) {
-//	va_list arglist;
-//
-//	va_start (arglist, format);
-//	if (![format hasSuffix: @"\n"]) {
-//		format = [format stringByAppendingString: @"\n"];
-//	}
-//	NSString *body =  [[NSString alloc] initWithFormat: format arguments: arglist];
-//	va_end (arglist);
-//	const char *threadName = [[[NSThread currentThread] name] UTF8String];
-//	NSString *fileName=[[NSString stringWithUTF8String:file] lastPathComponent];
-//		//	if (threadName) {
-//		//		fprintf(stderr,"%s/%s (%s:%d) %s",threadName,funcName,[fileName UTF8String],lineNumber,[body UTF8String]);
-//		//	} else {
-//		//		fprintf(stderr,"%p/%s (%s:%d) %s",[NSThread currentThread],funcName,[fileName UTF8String],lineNumber,[body UTF8String]);
-//		//	}
-//#ifdef PRINTMETHODS
-//	fprintf(stderr,"%s:%d [%s] %s",[fileName UTF8String],lineNumber,funcName, [body UTF8String]);
-//#else
-//	fprintf(stderr,"line:%d %s",lineNumber, [body UTF8String]);
-//#endif
-//		//
-//	[body release];
-//}
-//
-//void _AZLog(const char *file, int lineNumber, const char *funcName, NSString *format,...);
-//
-//void QuietLog (const char *file, int lineNumber, const char *funcName, NSString *format, ...) {
-//	if (format == nil) {
-//		printf("nil\n");
-//		return;
-//	}
-//		// Get a reference to the arguments that follow the format parameter
-//	va_list argList;
-//	va_start(argList, format);
-//		// Perform format string argument substitution, reinstate %% escapes, then print
-//	NSString *s = [[[NSString alloc] initWithFormat:format arguments:argList]stringByReplacingAllOccurancesOfString:@"fff" withString:@"%.1f"];
-//		//for float the format specifier is %f and we can restrict it to print only two decimal place value by %.2f
-//	printf("%s\n", [[s stringByReplacingOccurrencesOfString:@"%%" withString:@"%%%%"] UTF8String]);
-//	[s release];
-//	va_end(argList);
-//}
-
-//void QuietLog (NSString *format, ...) { if (format == nil) { printf("nil\n"); return; }
-//	// Get a reference to the arguments that follow the format parameter
-//	va_list argList;  va_start(argList, format);
-//	// Perform format string argument substitution, reinstate %% escapes, then print
-//	NSString *s = [[NSString alloc] initWithFormat:format arguments:argList];
-//	printf("%s\n", [[s stringByReplacingOccurrencesOfString:@"%%" withString:@"%%%%"] UTF8String]);
-//	[s release];
-//	va_end(argList);
-//}
-
-// NSLog() writes out entirely too much stuff.  Most of the time I'm  not interested in the program name, process ID, and current time down to the subsecond level.
-// This takes an NSString with printf-style format, and outputs it. regular old printf can't be used instead because it doesn't support the '%@' format option.
-
-void QuietLog( NSString *fmt,...) {	va_list argList; va_start(argList, fmt);
-	printf("%s",  [[NSS stringWithFormat:fmt arguments:argList]UTF8String]);
-	va_end(argList);
-} // QuietLog
-
-#ifndef NDEBUG
-#import <Foundation/Foundation.h>
-#import <stdio.h>
-
-extern void _NSSetLogCStringFunction(void (*)(const char *string, unsigned length, BOOL withSyslogBanner));
-static void PrintNSLogMessage(const char *string, unsigned length, BOOL withSyslogBanner) {	puts(string);	}
-
-static void HackNSLog(void) __attribute__((constructor));
-static void HackNSLog(void) {	_NSSetLogCStringFunction(PrintNSLogMessage);	}
-
-#endif
-
-//void QuietLog (NSString *format, ...) {
-//	va_list argList;	va_start (argList, format);
-//	NSString *message = [[NSString alloc] initWithFormat:format arguments:argList];
-//	fprintf (stderr, "*** %s ***\n", [message UTF8String]);	 va_end  (argList);
-//} // QuietLog
 void perceptualCausticColorForColor(CGFloat *inputComponents, CGFloat *outputComponents) {
 	const CGFloat CAUSTIC_FRACTION = 0.60;
 	const CGFloat COSINE_ANGLE_SCALE = 1.4;

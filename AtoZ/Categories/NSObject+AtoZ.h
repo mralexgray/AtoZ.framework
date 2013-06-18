@@ -177,7 +177,7 @@ typedef void (^AZBlockTask)(id obj, NSDictionary *change);
 - (NSA*) instanceMethodNames;
 //+ (NSA*) instanceMethods;
 - (NSS*) instanceMethodsInColumns;
-
+- (NSS*) blockDescription;
 
 /* USAGE:
 -(void)mouseDown:(NSEvent*)theEvent {

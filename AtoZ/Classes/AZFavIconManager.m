@@ -149,7 +149,7 @@ return	[url isKindOfClass:NSURL.class]
 }
 
 
-- (NSS *)acceptedRelationshipAttributesRegex {	return [@[@"apple-touch-icon", @"shortcut icon", @"icon"]  componentsJoinedByString:@"|"];
+- (NSS*) acceptedRelationshipAttributesRegex {	return [@[@"apple-touch-icon", @"shortcut icon", @"icon"]  componentsJoinedByString:@"|"];
 //	NSArray *array = @[ @"shortcut icon", @"icon" ];	if (_useAppleTouchIconForHighResolutionDisplays && screenScale() > 1.f) {		array = @[ @"shortcut icon", @"icon", @"apple-touch-icon" ];	} else {		array = @[ @"shortcut icon", @"icon" ];	}	return [@[@"shortcut icon", @"icon", @"apple-touch-icon" ] componentsJoinedByString:@"|"];	@"icon|apple-touch-icon";// ] componentsJoinedByString:@"|"];
 }
 

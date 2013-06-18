@@ -46,7 +46,7 @@
 - (NSBP*) scaledToFrame: (NSR)rect;
 - (NSP)   associatedPointForElementAtIndex:(NSUI)anIndex;
 - (CGPR)  quartzPath CF_RETURNS_RETAINED;
-+ (NSBP*) bezierPathWithCGPath:(CGPR)pathRef;
+//+ (NSBP*) bezierPathWithCGPath:(CGPR)pathRef;
 - (CGPR)  cgPath CF_RETURNS_RETAINED;
 
 - (NSBP*) pathWithStrokeWidth:(CGF)strokeWidth;

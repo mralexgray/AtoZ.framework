@@ -53,7 +53,7 @@ calulatedBundleID = _calulatedBundleID;
     return _itemKind = _itemKind ? : [_path hasSuffix:@"app"] ? @"Application" : @"Folder";
 }
 
-- (NSS *)name    {
+- (NSS*) name    {
     return _name = _name ? _name :
         _path ? [AZFILEMANAGER displayNameAtPath:_path] :
         _path ? [[_path lastPathComponent] stringByDeletingPathExtension] :
@@ -69,7 +69,7 @@ calulatedBundleID = _calulatedBundleID;
         : [NSImage imageNamed:@"missing.png"];
 }
 
-- (NSA *)colors  {
+- (NSA*) colors  {
     return _colors = _colors ? : ^{
 //		[AZStopwatch start:$(@"%@.colorquant", _name)];
 //		@autoreleasepool {
@@ -151,7 +151,7 @@ calulatedBundleID = _calulatedBundleID;
     return 0;
 }
 
-- (NSS *)calulatedBundleID {
+- (NSS*) calulatedBundleID {
     return _calulatedBundleID = _calulatedBundleID ? _calulatedBundleID : [NSBundle calulatedBundleIDForPath:_path];
 }
 
@@ -338,11 +338,11 @@ calulatedBundleID = _calulatedBundleID;
 //+ (id) instanceWithPaths:(NSA*)strings;
 //+ (id) instanceWithPath:(NSA*)strings;
 
-+ (id)instanceWithFiles:(NSA *)files {
++ (id)instanceWithFiles:(NSA*) files {
     return [[AZFolder alloc]initWithArray:files];
 }
 
-+ (id)instanceWithPaths:(NSA *)paths {
++ (id)instanceWithPaths:(NSA*) paths {
     return [[AZFolder alloc]initWithArray:paths];
 }
 
@@ -358,7 +358,7 @@ calulatedBundleID = _calulatedBundleID;
     return self.backingstore;
 }
 
-- (NSA *)appFolderPaths {
+- (NSA*) appFolderPaths {
     [AZStopwatch start:@"appPaths"];
     NSMA *paths = [NSMA array];
     ApplicationsInDirectory(@"/Applications", paths);

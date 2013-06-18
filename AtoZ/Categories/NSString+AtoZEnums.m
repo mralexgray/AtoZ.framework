@@ -464,7 +464,7 @@ static NSMutableDictionary *gAllEnums = nil;
 }
 
 #pragma mark dynamic ivar support
-- (id)valueForUndefinedKey:(NSS *)key	{	return self.properties[key];	}
+- (id)valueForUndefinedKey:(NSS*) key	{	return self.properties[key];	}
 // to speed this code up, should create a map from SEL to NSString mapping selectors to their keys.
 // converts a getter selector to an NSString, equivalent to NSStringFromSelector().
 NS_INLINE NSS *getterKey(SEL sel) {

@@ -42,34 +42,6 @@ void profile (const char *name, VoidBlock block); 		// usage	 profile("Long Task
 #define AZOL AZOutlineLayer
 
 
-
-/**	NSS *colorString = @"fg218,147,0";
-	NSS* envStr = @(getenv("XCODE_COLORS")) ?: @"YES";
-	BOOL YESORNO = [envStr boolValue];
-	if (color !=nil && YESORNO) {
-		float r, g, b;
-		r = color.redComponent;
-		g = color.greenComponent;
-		b = color.blueComponent;
-		colorString = $(@"fg%.0f,%.0f,%.0f; ", r*255, g*255, b*255);
-	}
-	va_list   argList;	va_start (argList, format);
-	NSS*pathStr = $UTF8(filename);
-	NSS *path  	= [pathStr lastPathComponent];
-	NSS *mess   = [NSS.alloc initWithFormat:format arguments:argList];
-	NSS *toLog  = YESORNO ? $(@"[%@]:%i" XCODE_COLORS_ESCAPE  @"%@%@" XCODE_COLORS_RESET @"\n", path, line,colorString, mess)
-								 :	$(@"[%@]:%i %@\n", path, line, mess );
-	fprintf ( stderr, "%s", toLog.UTF8String);//
-	va_end  (argList);
-}
-#define _AZConditionalLog(fmt...) { _AZColorLog(nil, f, ln, func, fmt,...);	}
-
-	va_list vl; va_start(vl, formatted);	NSS* str = [NSString.alloc initWithFormat:(NSS*)formatted arguments:vl];
-	va_end(vl);	YESORNO 	? 	NSLog(@"%s [Line %d] " XCODE_COLORS_ESCAPE @"fg218,147,0; %@" XCODE_COLORS_RESET,  __PRETTY_FUNCTION__, __LINE__, str)
-				: 	NSLog(@"%@",str);}
-
-*/
-
 #define PLAYMACRO(name,path) \
  NS_INLINE void play##name (void){ fprintf(stderr,"%s", "##path\""); runCommand (@"afplay ##path"); } 
 
@@ -175,19 +147,6 @@ typedef void(^AZActionCellBlock)(id objVal);
 @end
 
 
-/**
-PUT IN PRECOMP #define NSLog(args...) _AZSimpleLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args);
-NS_INLINE  void QuietLog (const char *file, int lineNumber, const char *funcName, NSString *format, ...);
-#define NSLog(args...) QuietLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args)
-NS_INLINE void _AZLog(const char *file, int lineNumber, const char *funcName, NSString *format,...);
-NS_INLINE NSRect SFCopyRect(NSRect toCopy) {	return NSMakeRect(toCopy.origin.x, toCopy.origin.y, toCopy.size.width, toCopy.size.height); }
-NS_INLINE NSRect SFMakeRect(NSPoint origin, NSSize size) {	return NSMakeRect(origin.x, origin.y, size.width, size.height); }
-NS_INLINE NSPoint SFCopyPoint(NSPoint toCopy) {	return NSMakePoint(toCopy.x, toCopy.y);	}
-static inline CGRect convertToCGRect(NSRect rect) {	return *(const CGRect *)&rect;}
-static inline NSRect convertToNSRect(CGRect rect) { 	return *(const NSRect *)&rect;	}
-static inline NSPoint convertToNSPoint(CGPoint point) {	return *(const NSPoint *)&point;	}
-static inline CGPoint convertToCGPoint(NSPoint point) {	return *(const CGPoint *)&point;	}
-*/
 
 #define boardPositionToIndex(pos, boardSize) ((pos).x - 1) + (((pos).y - 1) * boardSize)
 #define indexToBoardPosition(idx, boardSize) (CGPointMake((x) % boardSize, (int)((x) / boardSize) + 1))

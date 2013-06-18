@@ -3,14 +3,61 @@
 #import "BaseModel.h"
 #import "AtoZUmbrella.h"
 
-@interface NSString (AtoZColorLog)
-- (void) setLogBackground:(id)color;
-- (void) setLogForeground:(id)color;
-@property (RONLY) const char* cchar;
-@property (RONLY) NSS *colorLogString;
+
+JREnumDeclare( LogEnv, LogEnvXcodeColor, LogEnvXcodeNOColor, LogEnvTTY, LogEnvTTYColor, LogEnvTTY256, LogEnvUnknown );
+
+@interface AZLog : BaseModel
 @end
 
-#pragma mark - COLOR LOGGING
+//#define	NSLog(fmt...) [AZLog_AZColorLog(nil,__FILE__,__LINE__,__PRETTY_FUNCTION__,fmt)
+
+#define 	AZLOGSHARED 		AZLog.sharedInstance
+#define	NSLog(fmt...) 		[AZLOGSHARED logInColor:RANDOMCOLOR file:__FILE__ line:__LINE__ func:__PRETTY_FUNCTION__ format:fmt]
+
+#define	AZLOG(x) 			NSLog(@"%@", x)
+#define 	COLORIZE(x...) 	[AZLOGSHARED colorizeAndReturn:x]
+#define _AZColorLog(x) 		[AZLOGSHARED logInColor:RANDOMCOLOR file:__FILE__ line:__LINE__ func:__PRETTY_FUNCTION__ format:x];
+#define 	LOGWARN(fmt...) 	[AZLOGSHARED logInColor:RANDOMCOLOR file:__FILE__ line:__LINE__ func:__PRETTY_FUNCTION__ format:fmt];
+#define 	LOGCOLORS(X...) 	[AZLOGSHARED logNilTerminatedListOfColorsAndStrings:__PRETTY_FUNCTION__ things:X]
+#define	COLORLOG(fmt...)	[AZLOGSHARED logNilTerminatedListOfColorsAndStrings:__PRETTY_FUNCTION__ things:fmt]
+
+#define 	LOG_EXPR(_X_) 		do {	__typeof__(_X_) _Y_ = (_X_); NSS*_STR_						\
+											const char*_TYPE_CODE_ = @encode(__typeof__(_X_));		\
+			if((_STR_== VTPG_DDToStringFromTypeAndValue(_TYPE_CODE_, &_Y_))					\
+				NSLog(@"%s = %@", #_X_, _STR_); 															\
+			else NSLog(@"Unknown _TYPE_CODE_:%s for expr:%s in func:%s file:%s line:%d", 	\
+							_TYPE_CODE_, #_X_, __func__, __FILE__, __LINE__);	} while(0)
+
+
+
+NSD* 	AZEnv 						( char** envp			  );
+void 	AZLogEnv						( char** envp			  );
+  id 	LogStackAndReturn		  	( id toLog				  );	// USAGE: .... return (NSA*)logAndReturn( [NSArray arrayWithArrays:@[blah,blahb]] );
+  id 	LogAndReturn			  	( id toLog		  		  ); 	// = ^(id toLog) { AZLOG(toLog); return toLog; };
+  id 	LogAndReturnWithCaller 	( id toLog, SEL caller );
+void 	QuietLog 				  	( NSS *format, ...	  );
+
+
+@interface NSString (AtoZColorLog)
+@property (RONLY) const char* cchar;
+@property (RONLY) NSS *colorLogString;  // TTY formatted NSString with Associated Color Info included
+- (void) setLogBackground:(id)color;
+- (void) setLogForeground:(id)color;
+@end
+
+@interface AZLog ()
+
+@property (nonatomic) LogEnv logEnv;
+- (NSA*) rgbColorValues:(id)color;
+- (NSS*) colorizeString:(NSS*)string withColor:(id)color;
+- (NSS*) colorizeString:(NSS*)string front:(id)front back:(id)back;
+- (NSA*) colorizeAndReturn:(id) colorsAndThings, ...;
+- (void) logInColor:(id)color file:(const char*)filename line:(int)line func:( const char *)funcName format:(id) format, ...; 
+/* Pass a variadic list of Colors, and Ovjects, in any order, TRMINATED BY NIL, abd it wiull use those colors to log those objects! */
+-(void) logNilTerminatedListOfColorsAndStrings:(const char*)pretty things:(id) colorsAndThings,... ;
+@end
+
+#pragma mark - STACKTRACE
 // STACK MACRO: "UIKit 0x00540c89 -[UIApplication _callInitializationDelegatesForURL:payload:suspended:] + 1163"
 #define STACKARRAY [[NSThread.callStackSymbols[1] componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" -[]+?.,"]]arrayByRemovingObject:@""]
 #define STACKSTACK		STACKARRAY[0]
@@ -20,20 +67,13 @@
 #define STACKFUNCTION 	STACKARRAY[4]
 #define STACKLINE	 		STACKARRAY[5]
 
-NSD* 	AZEnv 						( char** envp			);
-void 	AZLogEnv						( char** envp			);
- 
-id 	LogStackAndReturn		  	( id toLog				);	//USAGE: .... return (NSA*)logAndReturn( [NSArray arrayWithArrays:@[blah,blahb]] );
-id 	LogAndReturn			  	( id toLog				); //= ^(id toLog) { AZLOG(toLog); return toLog; };
-id 	LogAndReturnWithCaller 	( id toLog, SEL caller);
-void 	QuietLog 				  	( NSS *format, ...		);
-
+#pragma mark - COLOR LOGGING
 /*	Foreground color: 	Insert the ESCAPE_SEQ into your string, followed by "fg124,12,255;" where r=124, g=12, b=255.
- 	Background color:	 	Insert the ESCAPE_SEQ into your string, followed by "bg12,24,36;" where r=12, g=24, b=36.
- 	Reset the foreground color (to default value):	Insert the ESCAPE_SEQ into your string, followed by "fg;"
-	Reset the background color (to default value):	Insert the ESCAPE_SEQ into your string, followed by "bg;"
-	Reset the fground and bground color (to default values) in 1 operation: Insert the ESCAPE_SEQ into your string, followed by ";"
-*/
+ Background color:	 	Insert the ESCAPE_SEQ into your string, followed by "bg12,24,36;" where r=12, g=24, b=36.
+ Reset the foreground color (to default value):	Insert the ESCAPE_SEQ into your string, followed by "fg;"
+ Reset the background color (to default value):	Insert the ESCAPE_SEQ into your string, followed by "bg;"
+ Reset the fground and bground color (to default values) in 1 operation: Insert the ESCAPE_SEQ into your string, followed by ";"
+ */
 #if TARGET_OS_IPHONE
 #define 	XCODE_COLORS_ESCAPE  @"\xC2\xA0["
 #else
@@ -45,39 +85,6 @@ void 	QuietLog 				  	( NSS *format, ...		);
 #define 	COLOR_RESET 					XCODE_COLORS_RESET
 #define 	COLOR_ESC 					XCODE_COLORS_ESCAPE
 #define 	XCODE_COLORS 0
-
-//#define	NSLog(fmt...) [AZLog_AZColorLog(nil,__FILE__,__LINE__,__PRETTY_FUNCTION__,fmt)
-
-#define 	AZLOGSHARED 		AZLog.sharedInstance
-#define	AZLOG(x) 			NSLog(@"%@", x)
-#define	NSLog(fmt...) 		[AZLOGSHARED logInColor:RANDOMCOLOR file:__FILE__ line:__LINE__ func:__PRETTY_FUNCTION__ format:fmt]
-#define 	COLORIZE(x...) 	[AZLOGSHARED colorizeAndReturn:x]
-#define _AZColorLog(x) 		[AZLOGSHARED logInColor:RANDOMCOLOR file:__FILE__ line:__LINE__ func:__PRETTY_FUNCTION__ format:x];
-#define 	LOGWARN(fmt...) 	[AZLOGSHARED logInColor:RANDOMCOLOR file:__FILE__ line:__LINE__ func:__PRETTY_FUNCTION__ format:fmt];
-#define 	LOGCOLORS(X...) 	[AZLOGSHARED logNilTerminatedListOfColorsAndStrings:__PRETTY_FUNCTION__ things:X]
-#define	COLORLOG(fmt...)	[AZLOGSHARED logNilTerminatedListOfColorsAndStrings:__PRETTY_FUNCTION__ things:fmt]
-
-JREnumDeclare( LogEnv, LogEnvXcodeColor, LogEnvXcodeNOColor, LogEnvTTY, LogEnvTTYColor, LogEnvTTY256, LogEnvUnknown );
-@interface AZLog : BaseModel
-@property (nonatomic) LogEnv logEnv;
-- (NSA*) rgbColorValues:(id)color;
-- (NSS*) colorizeString:(NSS*)string withColor:(id)color;
-- (NSS*) colorizeString:(NSS*)string front:(id)front back:(id)back;
-- (NSA*) colorizeAndReturn:(id) colorsAndThings, ...;
-- (void) logInColor:(id)color file:(const char*)filename line:(int)line func:( const char *)funcName format:(id) format, ...; 
-/* Pass a variadic list of Colors, and Ovjects, in any order, TRMINATED BY NIL, abd it wiull use those colors to log those objects! */
--(void) logNilTerminatedListOfColorsAndStrings:(const char*)pretty things:(id) colorsAndThings,... ;
-@end
-#define	AZLOG(x) NSLog(@"%@", x)
-#define LOG_EXPR(_X_) do{ 																										\
-																																		\
-		  __typeof__(_X_) _Y_ = (_X_);																						\
-	const char * _TYPE_CODE_ = @encode(__typeof__(_X_)); 																\
-				NSString *_STR_ = VTPG_DDToStringFromTypeAndValue(_TYPE_CODE_, &_Y_); 							\
-						if(_STR_)   NSLog(@"%s = %@", #_X_, _STR_); 														\
- 						else 			NSLog(@"Unknown _TYPE_CODE_:%s for expr:%s in func:%s file:%s line:%d", \
-													_TYPE_CODE_, #_X_, __func__, __FILE__, __LINE__);	} while(0) 
-
 
 //#define LOGWARN(fmt...) _AZColorLog(nil,__FILE__,__LINE__,__PRETTY_FUNCTION__,fmt)
 //void _AZSimpleLog				( 				  const char *file, int line, const char *funcName, NSS *format, ... );
@@ -97,6 +104,48 @@ JREnumDeclare( LogEnv, LogEnvXcodeColor, LogEnvXcodeNOColor, LogEnvTTY, LogEnvTT
 //#define logobj (a) id logit = a \		 NSLog(@"%@", a)
 //#define	vLOG(A)	[((AppDelegate*)[NSApp sharedApplication].delegate).textOutField appendToStdOutView:A] 
 //#define COLORLOG(fmt...) _AZColorLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,fmt)
+
+
+/**
+ PUT IN PRECOMP #define NSLog(args...) _AZSimpleLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args);
+ NS_INLINE  void QuietLog (const char *file, int lineNumber, const char *funcName, NSString *format, ...);
+ #define NSLog(args...) QuietLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args)
+ NS_INLINE void _AZLog(const char *file, int lineNumber, const char *funcName, NSString *format,...);
+ NS_INLINE NSRect SFCopyRect(NSRect toCopy) {	return NSMakeRect(toCopy.origin.x, toCopy.origin.y, toCopy.size.width, toCopy.size.height); }
+ NS_INLINE NSRect SFMakeRect(NSPoint origin, NSSize size) {	return NSMakeRect(origin.x, origin.y, size.width, size.height); }
+ NS_INLINE NSPoint SFCopyPoint(NSPoint toCopy) {	return NSMakePoint(toCopy.x, toCopy.y);	}
+ static inline CGRect convertToCGRect(NSRect rect) {	return *(const CGRect *)&rect;}
+ static inline NSRect convertToNSRect(CGRect rect) { 	return *(const NSRect *)&rect;	}
+ static inline NSPoint convertToNSPoint(CGPoint point) {	return *(const NSPoint *)&point;	}
+ static inline CGPoint convertToCGPoint(NSPoint point) {	return *(const CGPoint *)&point;	}
+ */
+
+/**	NSS *colorString = @"fg218,147,0";
+ NSS* envStr = @(getenv("XCODE_COLORS")) ?: @"YES";
+ BOOL YESORNO = [envStr boolValue];
+ if (color !=nil && YESORNO) {
+ float r, g, b;
+ r = color.redComponent;
+ g = color.greenComponent;
+ b = color.blueComponent;
+ colorString = $(@"fg%.0f,%.0f,%.0f; ", r*255, g*255, b*255);
+ }
+ va_list   argList;	va_start (argList, format);
+ NSS*pathStr = $UTF8(filename);
+ NSS *path  	= [pathStr lastPathComponent];
+ NSS *mess   = [NSS.alloc initWithFormat:format arguments:argList];
+ NSS *toLog  = YESORNO ? $(@"[%@]:%i" XCODE_COLORS_ESCAPE  @"%@%@" XCODE_COLORS_RESET @"\n", path, line,colorString, mess)
+ :	$(@"[%@]:%i %@\n", path, line, mess );
+ fprintf ( stderr, "%s", toLog.UTF8String);//
+ va_end  (argList);
+ }
+ #define _AZConditionalLog(fmt...) { _AZColorLog(nil, f, ln, func, fmt,...);	}
+
+ va_list vl; va_start(vl, formatted);	NSS* str = [NSString.alloc initWithFormat:(NSS*)formatted arguments:vl];
+ va_end(vl);	YESORNO 	? 	NSLog(@"%s [Line %d] " XCODE_COLORS_ESCAPE @"fg218,147,0; %@" XCODE_COLORS_RESET,  __PRETTY_FUNCTION__, __LINE__, str)
+ : 	NSLog(@"%@",str);}
+
+ */
 
 
 /*

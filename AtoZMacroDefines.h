@@ -8,7 +8,7 @@
 #define     RANDOMGRAY [NSC  white:RAND_FLOAT_VAL(0,1) a:1]
 #define          GRAY9 [NSC  white:.9 a: 1]
 #define     PERIWINKLE [NSColor colorWithDeviceRed:.79 green:.78 blue:.9 alpha:1]
-#define   cgRANDOMGRAY CGColorCreateGenericGray( RAND_FLOAT_VAL(0,1), 1)
+#define   cgRANDOMGRAY RANDOMGRAY.CGColor // CGColorCreateGenericGray( RAND_FLOAT_VAL(0,1), 1)
 #define          GREEN [NSC   r:0.367 g:0.583 b:0.179 a:1.]
 #define          GRAY7 [NSC  white:.7 a: 1]
 #define    kWhiteColor cgWHITE
@@ -46,9 +46,11 @@
 
 #pragma mark - Foundation
 
+#define   ACT id<CAAction>
+
 #define   IDCAA (id<CAAction>)
 #define     IBA IBAction
-#define     SET setter
+#define     SET NSSet
 #define      CP copy
 #define    NSPB NSPasteboard
 #define     IBO IBOutlet
@@ -144,7 +146,7 @@
 #define                                            sansLast arrayByRemovingLastObject
 #define                                             AZGView AtoZGridView
 #define                                         AZTALK(log) [AZTalker.new say:log]
-#define                                      AZPROPIBO(A,B) @property (ASS) IBOutlet A *B
+#define                                      AZPROPIBO(A) @property (ASS) IBOutlet QUOTE(A)
 #define                AZBind(binder,binding,toObj,keyPath) [binder bind:binding toObject:toObj withKeyPath:keyPath options:nil]
 #define                                           AZNEWPIPE NSPipe.pipe
 #define                                          AZVsize(s) [NSVAL valueWithSize: s]
@@ -176,9 +178,11 @@
 #define                                                pBCN postsBoundsChangedNotifications
 #define                                         AZVpoint(p) [NSVAL valueWithPoint: p]
 #define                                   AZSTRONGSTRING(A) @property (nonatomic, strong) NSString* A
-#define                                      AZPROPASS(A,B) @property (NATOM,ASS) A B
+#define                                      AZPROPASS(A) @property (NATOM,ASS) A
 #define                                           MOUSEDRAG NSLeftMouseDraggedMask
 #define                                       AZFWORKBUNDLE [NSBundle bundleForClass:AtoZ.class]
+#define iV integerValue
+#define uiV unsignedIntegerValue
 
 #pragma mark - TUI
 

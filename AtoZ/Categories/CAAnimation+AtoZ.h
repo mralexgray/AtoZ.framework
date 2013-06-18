@@ -33,21 +33,24 @@ typedef void (^AZCAAnimationCompletionBlock)();
 //}
 
 @interface CAAnimationDelegate : NSObject
-
-@property (nonatomic, copy) void (^completion)(CAA*,BOOL);
-@property (nonatomic, copy) void (^start)(void);
++ (instancetype) delegate:(CAA*)a forLayer:(CAL*)l;
+@property BOOL andSet; // defaults to yes
+@property (weak) CAA* ani;
 @property (weak) CAL* layer;
+@property (nonatomic, copy) void (^completionWithInfo)(CAAnimationDelegate*delegate);
+@property (nonatomic, copy) void (^startWithInfo)(CAAnimationDelegate *delegate);
+@property (nonatomic, copy) void (^completion)(void);
+@property (nonatomic, copy) void (^start)(void);
 - (void)animationDidStart:(CAAnimation *)anim;
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag;
 @end
 
 @interface CAAnimation (BlocksAddition)
 
-@property (weak) CAL *layer;
-@property (nonatomic, copy) void (^completion)(CAA* a, BOOL finished);
-@property (nonatomic, copy) void (^start)(void);
+@property (nonatomic, copy) void (^completion)();
+@property (nonatomic, copy) void (^start)();
 
-- (void)setCompletion:(void (^)(CAA* a, BOOL finished))completion; // Forces auto-complete of setCompletion: to add the name 'finished' in the block parameter
+//- (void)setCompletion:(void (^)(CAA* a, BOOL finished))completion; // Forces auto-complete of setCompletion: to add the name 'finished' in the block parameter
 
 @end
 extern void disableCA();

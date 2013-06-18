@@ -143,7 +143,7 @@
 //	return array;
 //}
 
-- (NSS *)recursiveSearchForPathOfResourceNamed:(NSS*)name;
+- (NSS*) recursiveSearchForPathOfResourceNamed:(NSS*)name;
 {
 	NSFileManager *fm = NSFileManager.new; // +defaultManager is not thread safe
 	NSDirectoryEnumerator *enumerator = [fm enumeratorAtPath: [self resourcePath]];

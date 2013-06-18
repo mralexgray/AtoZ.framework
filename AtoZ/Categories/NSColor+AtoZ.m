@@ -457,7 +457,7 @@ static NSMD *colorsFromStruct = nil;
 }
 //+ (NSD*) colorsAndNames {  return [NSD dictionaryWithObjects:self. forKeys:self.colorNames]; }
 //+ (NSA*) colorsWithNames {  return [self.colorNames map:^id(id obj) {  return [self colorNamed:obj]; }]; }
-+ (NSC*) colorNamed:(NSS *)name {
++ (NSC*) colorNamed:(NSS*) name {
 	if (![name length])	return nil;
 //	NSArray *allNames = [self colorNames];
 //	NSUInteger count = [allNames count];
@@ -575,7 +575,7 @@ static NSMD *colorsFromStruct = nil;
 }
 + (NSC*) colorWithRGB:			  (NSUI)hex					{	return [NSC colorWithCalibratedRGB:hex]; }
 // NSS *hexColor = [color hexColor]
-+ (NSC*) colorWithHex:			  (NSS *)hexColor 		{
++ (NSC*) colorWithHex:			  (NSS*) hexColor 		{
 	// Remove the hash if it exists
 	hexColor = [hexColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
 	int length = (int)[hexColor length];
@@ -1249,7 +1249,7 @@ static NSMutableDictionary *RGBColorValues = nil;
 //see /usr/share/emacs/(some version)/etc/rgb.txt for an example of such a file.
 //the pathname does not need to end in 'rgb.txt', but it must be a file in UTF-8 encoding.
 //the keys are colour names (all converted to lowercase); the values are RGB NSColors.
-/**+ (id)dictionaryWithContentsOfRGBTxtFile:(NSS *)path
+/**+ (id)dictionaryWithContentsOfRGBTxtFile:(NSS*) path
  {
  NSMutableData *data = [NSMutableData dataWithContentsOfFile:path];
  if (!data) return nil;
@@ -1528,7 +1528,7 @@ static NSMutableDictionary *RGBColorValues = nil;
 }
 @end
 @implementation NSColor (AIColorAdditions_RepresentingColors)
-- (NSS *)hexString				{
+- (NSS*) hexString				{
 	CGFloat 	red,green,blue;
 	char	hexString[7];
 	NSInteger		tempNum;
@@ -1563,7 +1563,7 @@ static NSMutableDictionary *RGBColorValues = nil;
 				(int)(alphaComponent * 255.0)];
 	}
 }	//String representation: R,G,B[,A].
-- (NSS *)CSSRepresentation
+- (NSS*) CSSRepresentation
 {
 	CGFloat alpha = [self alphaComponent];
 	if ((1.0 - alpha) >= 0.000001) {
@@ -1676,7 +1676,7 @@ scanFailed:
 @end
 /*
 @implementation NSColor (AIColorAdditions_HTMLSVGCSSColors)
-+ (id)colorWithHTMLString:(NSS *)str											{
++ (id)colorWithHTMLString:(NSS*) str											{
 	return [self colorWithHTMLString:str defaultColor:nil];
 }
 / * !
@@ -1704,7 +1704,7 @@ static CGF hexCharsToFloat ( char firstChar, char secondChar )			{
 	}
 	return hexValue;
 }
-+ (id)colorWithHTMLString:(NSS *)str defaultColor:(NSC*)defaultColor	{
++ (id)colorWithHTMLString:(NSS*) str defaultColor:(NSC*)defaultColor	{
 	if (!str) return defaultColor;
 	NSUInteger strLength = [str length];
 	NSS *colorValue = str;

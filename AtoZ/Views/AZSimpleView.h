@@ -7,15 +7,18 @@
 #import <Cocoa/Cocoa.h>
 #import "AtoZ.h"
 #import <QuartzCore/QuartzCore.h>
+
 @interface AZSimpleView : NSView
-@property (assign) BOOL clear;
-@property (assign) BOOL glossy;
-@property (assign) BOOL gradient;
-@property (assign) BOOL checkerboard;
+@property (assign) BOOL clear, glossy, gradient, checkerboard;
 @property (nonatomic, strong) NSColor *backgroundColor;
 
-+(instancetype)withFrame:(NSRect)frame color:(NSC*)c;
+
++ (instancetype) withFrame:(NSR)f 		color:(NSC*)c;
+
+-         (void) setFrameSizePinnedToTopLeft:(NSSZ)size;
+
 @end
+
 @interface AZSimpleGridView : NSView
 @property (NATOM, ASS) NSSize dimensions;
 @property (nonatomic, retain)  CALayer *grid;
