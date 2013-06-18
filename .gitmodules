@@ -233,9 +233,12 @@
 [submodule "Frameworks/libextobjc"]
 	path = Frameworks/libextobjc
 	url = https://github.com/mralexgray/libextobjc.git
+	ignore = dirty
 [submodule "Frameworks/KVO-Notification-Manager"]
 	path = Frameworks/KVO-Notification-Manager
 	url = https://github.com/mralexgray/KVO-Notification-Manager.git
+	ignore = dirty
 [submodule "Frameworks/CTObjectiveCRuntimeAdditions"]
 	path = Frameworks/CTObjectiveCRuntimeAdditions
 	url = https://github.com/mralexgray/CTObjectiveCRuntimeAdditions.git
+	ignore = dirty
