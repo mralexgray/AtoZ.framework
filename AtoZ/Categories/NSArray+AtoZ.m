@@ -453,6 +453,13 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
     return [[self mutableCopy] az_reverse];
 }
 
+- (NSA*)arrayWithObjectsMatchingKeyOrKeyPath:(NSS*)keyPath;
+{
+	return [self cw_mapArray:^id(id object) {
+		id x = [object valueForKeyOrKeyPath:keyPath];  return x?:nil;
+	}];
+
+}
 // array evaluating the keyPath
 - (NSA*) arrayWithKey:(NSS*) keyPath {
     NSMutableArray *re = [NSMutableArray arrayWithCapacity:self.count];
@@ -676,12 +683,10 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
     return [self filteredArrayUsingBlock:^(id o, NSD *d) { return (BOOL)blk(o); }];
 }
 
-- (id)filterOne:(BOOL (^)(id object))blk {
-    __block id re = nil;
-    [self enumerateObjectsUsingBlock:^(id o, NSUI i, BOOL *stop) {
-        if (blk(o)) {   *stop = YES;    re = o; }
-    }];
-    return re;
+- (id)filterOne:(BOOL (^)(id))block {
+	BOOL yeah = NO;
+   for (id anO in self) { yeah = block(anO); if (yeah == YES) return anO; }
+	return nil;
 }
 
 - (BOOL)allKindOfClass:(Class)aClass {
@@ -780,9 +785,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
     return [self subarrayWithRange:(NSRNG) {from, to }];
 }
 
-- (id)randomElement {
-    return !self.count ? nil : self[ arc4random() % self.count ];
-}
+- (id) randomElement {    return !self.count ? nil : [self normal:(arc4random() % self.count)];	}
 
 - (NSA*) shuffeled {
     return self.count < 2 ? self : ((NSMA *)self.mutableCopy).shuffle;

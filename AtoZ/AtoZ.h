@@ -344,7 +344,6 @@ AZWORKSPACE:
 #import "AGNSSplitView.h"
 #import "StickyNoteView.h"
 
-
 #import "AZVeil.h"
 
 #import "PXListView.h"
@@ -377,8 +376,11 @@ extern NSString *AZGridColorDataKey;
 
 
 typedef id(^FilterBlock)(id element,NSUInteger idx, BOOL *stop);
+
 @interface NSObject (AZFunctional)
--(id)processByPerformingFilterBlocks:(NSArray *)filterBlocks;
+
+-(id)processByPerformingFilterBlocks:(NSA*)filterBlocks;
+
 @end
 
 //static NSEventMask AZMouseActive = NSMouseMovedMask | NSMouseExitedMask |NSMouseEnteredMask);
@@ -399,14 +401,15 @@ extern NSString *const AtoZDockSortedUpdated;
 
 
 #import "OperationsRunner.h"
-@interface AZClassProxy : NSObject
-- (id)valueForUndefinedKey:(NSString *)key;
-@end
-//	(I actually added this to my application delegate and implemented application:delegateHandlesKey:)  Now you are ready to bind class methods to the Application object, even in the interface builder, with the keyPath @"classProxy.CharacterSet.allCharacterSets".
-@interface NSObject (AZClassProxy)
-- (id)classProxy;
-+ (id)performSelector:(SEL)sel;
-@end
+
+
+@interface AZClassProxy : NSObject	- (id)valueForUndefinedKey:(NSString *)key;									@end
+
+//	(I actually added this to my application delegate and implemented application:delegateHandlesKey:)
+// Now you are ready to bind class methods to the Application object, even in the interface builder,
+// with the keyPath @"classProxy.CharacterSet.allCharacterSets".
+
+@interface NSObject (AZClassProxy)		- (id)classProxy;		+ (id)performSelector:(SEL)sel;					@end
 
 @interface AZDummy : NSObject
 + (instancetype) sharedInstance;
@@ -418,14 +421,24 @@ extern NSString *const AtoZDockSortedUpdated;
 #define TestVarArgBlock(fmt...) [AtoZ  varargBlock:^(NSA*values) { [values eachWithIndex:^(id obj, NSInteger idx) {  printf("VARARG #%d:  %s <%s>\n", (int)idx, [obj stringValue].UTF8String, NSStringFromClass([obj class]).UTF8String); }]; } withVarargs:fmt]
 
 @interface AtoZ : BaseModel <DDLogFormatter>
+{
+
+	 NSA * _fonts,
+	     * _basicFunctions,
+		  * _cachedImages;
+	BOOL   _inTTY,
+			 _inXcode;
+}
 
 + (void) processInfo;
 
-@property (NATOM,STRNG) NSA *basicFunctions, *fonts;
-@property (NATOM,STRNG) NSC *logColor;
-@property (RONLY) 		NSA *cachedImages;
-@property (RONLY) 		NSB *bundle;
-@property (RONLY) 		BOOL inTTY, inXcode;
+@property (NATOM,STRNG) NSC * logColor;
+@property (RONLY) 		NSA * basicFunctions,
+									 * fonts,
+									 * cachedImages;
+@property (RONLY) 		NSB * bundle;
+@property (RONLY) 	  BOOL 	inTTY,
+									   inXcode;
 @property (ASS) IBO 		NSTextView *stdOutView;
 
 -  (NSS*) formatLogMessage:(DDLogMessage*)lm;

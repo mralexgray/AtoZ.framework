@@ -10,33 +10,33 @@
 
 @interface NSBundle (AtoZ)
 
-- (NSA*) frameworks;
-- (NSA*) frameworkIdentifiers;
-- (NSA*) frameworkInfoDictionaries;
-- (NSD*) infoDictionaryWithIdentifier:(NSS*)identifier;
+
 + (void) loadAZFrameworks;
 
-+ (NSBundle*) frameworkBundleNamed:(NSS*)name;
-+ (NSS*) appSuppFolder;
++( NSB*) bundleForApplicationName:					(NSS*)appName;
+- (NSD*) infoDictionaryWithIdentifier:			(NSS*)identifier;
++ (NSS*) bundleIdentifierForApplicationName:	(NSS*)appName;
+
+@property (RONLY)	 	NSA	* frameworks,
+									  	* frameworkIdentifiers,
+									  	* frameworkInfoDictionaries,
+										* definedClasses;
+
++ (NSB*) frameworkBundleNamed:(NSS*)name;
 + (NSS*) appSuppDir;
++ (NSS*) appSuppFolder;
 + (NSS*) applicationSupportFolder;
 + (NSS*) appSuppSubPathNamed: (NSS*)name;
-
 + (NSS*) calulatedBundleIDForPath: (NSS*)path;
-- (NSA*) definedClasses;
 
-//- (NSA*) frameworkClasses;
 - (NSA*) cacheImages;
 - (void) cacheNamedImages;
-- (NSA*)recursivePathsForResourcesOfType:(NSS*)type inDirectory:(NSS*)directoryPath;
+- (NSA*) recursivePathsForResourcesOfType:(NSS*)type inDirectory:(NSS*)directoryPath;
 - (NSS*) recursiveSearchForPathOfResourceNamed:(NSS*)name;
 
+//- (NSA*) frameworkClasses;
 //+ (NSMutableArray *)systemFrameworks;
-
-/*!
- @brief	Returns the path to the application's icon file, derived
- from the .icns file specified by "CFBundleIconFile" in the application's
- Info.plist.	*/
+/*! @brief	Returns the path to the application's icon file, derived from the .icns file specified by "CFBundleIconFile" in the application's Info.plist.	*/
 - (NSString*)appIconPath ;
 
 /*!

@@ -606,15 +606,10 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary(void) {
 	return [[self instanceMethodNames]formatAsListWithPadding:30];
 }
 
-- (NSS*) blockDescription {
+- (BOOL) isKindOfBlock:(id)anotherBlock {  return [[self blockSignature] isEqual:[anotherBlock blockSignature]]; }
+- (NSS*) blockDescription {	return self.blockSignature.debugDescription;	}
+- (NSMethodSignature*) blockSignature { return [CTBlockDescription.alloc initWithBlock:self].blockSignature;	}
 
-		// allocating a block description
-	CTBlockDescription *blockDescription = [CTBlockDescription.alloc initWithBlock:self];
-
-		// getting a method signature for this block
-	NSMethodSignature *methodSignature = blockDescription.blockSignature;
-	return methodSignature.debugDescription;
-}
 /*! Get an array containing the names of the instance methods of a class. */
 //- (NSA*) instanceMethodNames
 //{
@@ -2533,13 +2528,15 @@ CG_EXTERN CFTimeInterval CGEventSourceSecondsSinceLastEventType(CGEventSourceSta
 }
 
 
+id (^integerKeyValue)(id,NSS*) = ^id(id object, NSString*kp){
+	return [kp isIntegerNumber] && [object isKindOfClass:NSA.class] ?	[(NSA*)object normal:kp.integerValue] : nil;
+};
+
 - (id)valueForKeyOrKeyPath:(id)keyOrKeyPath transform:(THBinderTransformationBlock)transformationBlock	{
 
-	if (![keyOrKeyPath ISKINDA:NSS.class]) return  nil;
+	if (! [keyOrKeyPath ISKINDA:NSS.class] ) return nil;
+
 	BOOL isKeyP = [keyOrKeyPath containsString:@"."];
-	id (^integerKeyValue)(id,NSS*) = ^id(id object, NSString*kp){
-		return [kp isIntegerNumber] && [object isKindOfClass:NSA.class] ?	[(NSA*)object normal:kp.integerValue] : nil;  
-	};
 	id foundvalue = isKeyP ? ^{
 		NSA* components = [keyOrKeyPath componentsSeparatedByString:@"."];
 		__block id result = self;
@@ -2548,33 +2545,26 @@ CG_EXTERN CFTimeInterval CGEventSourceSecondsSinceLastEventType(CGEventSourceSta
 				if (!(result = integerKeyValue(result, kp) ?: [result vFK:kp])) *stop = YES;// else LOG_EXPR(result);
 		}];
 		return result;
-	}(): ^{ 
-	return 		integerKeyValue(self, keyOrKeyPath) 
+	}(): ^{ 	return 	integerKeyValue(self, keyOrKeyPath)
 				?: [self vFK:keyOrKeyPath]
 				?:	[self respondsToSelector:NSSelectorFromString(keyOrKeyPath)] 
 				?  [self performSelectorSafely:NSSelectorFromString(keyOrKeyPath)] 
-				: [self performSelectorWithoutWarnings:[self getterForPropertyNamed:keyOrKeyPath]] ?: nil;
+				 : [self performSelectorWithoutWarnings:[self getterForPropertyNamed:keyOrKeyPath]] ?: nil;
 	 }();
 	 return foundvalue && [foundvalue conformsToProtocol:@protocol(NSFastEnumeration)] ? [foundvalue cw_mapArray:^id(id object) {
 		 return transformationBlock(object);
 	}] : transformationBlock(foundvalue);
 }
 
-- (id)valueForKeyOrKeyPath:(id)keyOrKeyPath  //AZAddition
-{
-//	NSLog(@"%@: %@", NSStringFromSelector(_cmd), keyOrKeyPath);
-	if (![keyOrKeyPath isKindOfClass:NSString.class]) return  nil;
-	BOOL isKeyP = [keyOrKeyPath containsString:@"."];
-	id (^integerKeyValue)(id,NSS*) = ^id(id object, NSString*kp){
-		return [kp isIntegerNumber] && [object isKindOfClass:NSA.class] ?	[(NSA*)object normal:kp.integerValue] : nil;  
-	};
-	if (isKeyP) {
-		NSA* components = [keyOrKeyPath componentsSeparatedByString:@"."];
-		//		NSLog(@"serching for KP components: %@", components);
-		__block id result = self;
-		[components enumerateObjectsUsingBlock:^(id kp, NSUInteger idx, BOOL *stop) {
-					//[result respondsToSelector:[result getterForPropertyNamed:obj]] && [result hasPropertyForKey:obj]
-					//	 ?  [result performSelectorWithoutWarnings:[result getterForPropertyNamed:obj]] : nil;
+- (id)valueForKeyOrKeyPath:(id)keyOrKeyPath  {
+
+	if ( ![keyOrKeyPath  ISKINDA:NSS.class] ) 					return  nil;  // Bail if not a string. Key...? or key..path!???
+	if ( [keyOrKeyPath containsString:@"."] ) { __block id result = self;  // NSLog(@"serching for KP components: %@", components);
+
+		[[keyOrKeyPath componentsSeparatedByString:@"."] enumerateObjectsUsingBlock:^(id kp, NSUI idx, BOOL *stop) {
+
+			// [result respondsToSelector:[result getterForPropertyNamed:obj]] && [result hasPropertyForKey:obj]
+			//	 ?  [result performSelectorWithoutWarnings:[result getterForPropertyNamed:obj]] : nil;
 			if (!(result 	= integerKeyValue(result, kp) ?: [result vFK:kp])) *stop = YES;// else LOG_EXPR(result);
 		}];
 		return result;

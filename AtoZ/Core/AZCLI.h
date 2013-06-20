@@ -1,5 +1,4 @@
 #import "NSTerminal.h"
-#import "AZCLITests.h"
 #import "AtoZUmbrella.h"
 #import "AtoZ.h"
 
@@ -13,31 +12,38 @@
 		        MenuAppController * menu; 
 		     DefinitionController * dCTL;	
 }
-@property (NATOM,STRNG)     NSW * window;  
-@property (NATOM,STRNG) BLKVIEW * contentView;
-@property (NATOM,STRNG)    NSFH * stdinHandle;
-@property (NATOM,STRNG)     NSA * palette;
-@property (NATOM,   WK)	     id   mainMenu;
+@property (NATOM,STR)   	 NSW * window;
+@property (NATOM,STR) 	BLKVIEW * contentView;
+@property (NATOM,STR)    	 NSA * palette;
++ (void) mainMenu;
 @end
-
-
-#define TINP termDidReadString
-
+@interface 		   AZCLIMenuItem : NSObject
+//@property (CP)			 VoidBlock   actionBlock;
+@property (ASS) 	   		 NSI   index;
+@property (STR)   			 NSS * display;
+@property (STR)     	 		 NSC * color;
++ (instancetype)    cliMenuItem : (NSS*)display
+							     index : (NSI)index
+							     color : (NSC*)c;
+@end
 @interface 				 AZCLIMenu : BaseModel
-
-@property (      RONLY)		 NSS * menu;
-@property (NATOM,STRNG)	   TINP   block;
-@property (NATOM,RONLY)   NSRNG	 range;
-@property (NATOM,STRNG)	     id   identifier;
-@property (NATOM,STRNG)      id   palette;
-@property (NATOM,  ASS)     NSI   startIdx;
-
-+        (NSIS*) indexesOfMenus ;
-+ (instancetype) 	   cliMenuFor : (NSA*) mItems 
++ (instancetype)	   addMenuFor : (NSA*) mItems
 							  starting : (NSUI) indexB 
-						      palette : (id) pallette
-							     input : (TINP)inptBlk;
+						      palette : (NSA*) pallette;
+//							     input : (TINP) inptBlk;
++ (NSS*) menu;
++ (void) resetPrinter;
++ (void) hardReset;
++ (NSS*) valueForIndex:(NSI)index;
 @end
+
+
+
+//@property (NATOM,STR)    NSFH * stdinHandle;
+//+        (NSIS*) indexesOfMenus ;
+//@property (NATOM,RONLY)   NSRNG	 range;
+//@property (NATOM,STRNG)	     id   identifier;
+//@property (NATOM,STRNG)      id   palette;
 
 //@property (NATOM,STRNG)	    NSS * windowPosString; 
 //+ (void) handleInteractionWithPrompt:(NSS*)string block:(void(^)(NSString *output))block;

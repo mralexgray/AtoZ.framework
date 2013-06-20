@@ -60,6 +60,12 @@
 #include <sys/types.h>
 #include <signal.h>
 #include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <errno.h>
+#include <libproc.h>
+
 
 #define GLOBAL_SHARED_TEXT_SEGMENT	0x90000000U
 #define GLOBAL_SHARED_DATA_SEGMENT	0xA0000000U
@@ -682,6 +688,14 @@ AZGetMachTaskEvents(task_t task, int *faults, int *pageins, int *cow_faults, int
 
 + (NSArray *)userProcesses {
 	return [self processesForUser:geteuid()];
+}
+
++ (NSS*)pathOfProcessWithIdentifier:(int)pid;
+{
+   pid_t pidT = (pid_t)pid;
+   char pathbuf[PROC_PIDPATHINFO_MAXSIZE];
+	int ret = proc_pidpath (pid, pathbuf, sizeof(pathbuf));
+	return ret ? $(@"%s", pathbuf) : nil;
 }
 
 + (AZProcess *)processForProcessIdentifier:(int)pid {

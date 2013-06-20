@@ -10,6 +10,20 @@
 
 @implementation NSBundle (AtoZ)
 
++( NSB*) bundleForApplicationName:(NSString *)appName {
+	return [self bundleWithIdentifier:[self bundleIdentifierForApplicationName:appName]];
+}
+
++ (NSString *) bundleIdentifierForApplicationName:(NSString *)appName
+{
+    NSWorkspace * workspace = [NSWorkspace sharedWorkspace];
+    NSString * appPath = [workspace fullPathForApplication:appName];
+    if (appPath) {
+        NSBundle * appBundle = [self.class bundleWithPath:appPath];
+        return [appBundle bundleIdentifier];
+    }
+    return nil; 
+}
 
 - (NSA*) frameworks {
 //	NSS* basePath = $UTF8(getenv("BUILDPATH")) ?: ;

@@ -1159,6 +1159,8 @@ NSString * VTPG_DDToStringFromTypeAndValue(const char *typeCode, void *value) {
 	return strcmp(typeCode, "{?=dd}") == 0 ? $(@"{latitude=%g,longitude=%g}", ((double *)value)[0], ((double *)value)[1]) : nil;
 }
 
+//https://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtTypeEncodings.html
+
 NSS * serialNumber(void) {
 	NSS *result = @"";
 	mach_port_t masterPort;

@@ -3,10 +3,10 @@
 
 static NSApplication *sharedApp;		static NSMenuItem *appMenuItem;	static NSMenu *menubar,*appMenu;
 static dispatch_once_t onceToken;	static AZCLIMenu *meths, *fws;	static NSMD	*selectionDecoder;
+static BOOL ignoreNext = NO;
 
 typedef id(^eval)(id blockArgs, ...);
-
-@implementation AZCLI	
+@implementation AZCLI
 -     (void) applicationDidFinishLaunching:(NSNOT*)n {  [NSApp activateIgnoringOtherApps:YES]; playTrumpet(); }
 
 -    	   (id) init 						{	if (self != super.init ) return nil;
@@ -15,9 +15,9 @@ typedef id(^eval)(id blockArgs, ...);
 			@"AZBackground2", @"AZBackgroundProgressBar", 
 			@"IsometricView"	]each:^(id o) {	[NSClassFromString(o) preview]; }];  // load up some text views... 	*/	
 
-	       [menu = MenuAppController   .new loadStatusMenu];								// instanciate menu status bar property
-	 		  dCTL = DefinitionController.new;													// instanciate definitio contorller that does some shit with a plist
-//	_stdinHandle = AZSTDIN;		 																	// read stdin
+	       [menu = MenuAppController   .new loadStatusMenu];		// instanciate menu status bar property
+	 		  dCTL = DefinitionController.new;							// instanciate definitio contorller that does some shit with a plist
+//	_stdinHandle = AZSTDIN;		 											// read stdin
 	dispatch_once(&onceToken, ^{		int policy  =  NSApplicationActivationPolicyRegular;
 												[sharedApp 	= NSApplication.sharedApplication setActivationPolicy:  policy];
 												[sharedApp 	  setMainMenu: menubar = NSMenu	    .new];	
@@ -25,8 +25,37 @@ typedef id(^eval)(id blockArgs, ...);
 												appMenuItem . submenu    = appMenu = NSMenu      .new;
 												[appMenu 	  							  addItem:AZQUITMENU];		          
 												[NSApp 	 									 setDelegate:self];		}); 	
-												[self  mainMenu];									return self;
+												[self.class  mainMenu];									return self;
 }   /* All setup code fpr shared INstance */
++      (void) mainMenu 					{
+
+	__block VoidBlock k = ^{ [NSTerminal readString]; };
+	VoidBlock(^loopBack)(NSS*,const char*) = ^VoidBlock(NSS* inputs, const char *raw){ if (ignoreNext) { ignoreNext = NO; return nil; }
+		LOGCOLORS(@"response rec'd from fws CLI menu ", inputs,ORANGE, nil);
+//		[AZTalker say: NSS.randomDicksonism];
+//		LOGCOLORS(@"you matched: ", [selectionDecoder.allKeys containsObject:inputs] ? selectionDecoder[inputs] : @"NOTHING!", RANDOMPAL, nil );
+//		[$(@"%@",selectionDecoder.allKeys)log];
+		id foundit = [AZCLIMenu valueForIndex:[inputs integerValue]];
+		if (foundit) { [AZTalker say:foundit]; LOG_EXPR(foundit); }ignoreNext = YES;
+		//[NSTerminal clearInputBlocks];
+		return ^{ [NSTerminal printBuffer]; [NSTerminal readString];  }; //[NSTerminal addInputBlock:loopBack];  [NSTerminal readString]; return nil;
+	};
+//	k = ^{   [NSTerminal addInputBlock:loopBack];  	};
+//	void(^rezhuzh)(void) = ^{ [NSTerminal printBuffer];	[NSTerminal readString]; };
+	NSA* methods = @[	@"mainMenu",@"runAClassMethod",	@"envTest",	@"instanceMethodNames", @"frameworkMenu",	@"rainbowArrays",	@"variadicColorLogging",@"processInfo"];
+	[AZCLIMenu addMenuFor:AZBUNDLE.frameworkIdentifiers starting:100 palette:RANDOMPAL];
+//					    input:(TINP)blk { responder(blk); }];// (NSS*(^)(NSS*, const char*))inBlock { responder(inblock); }];  //^NSS*(NSS* inputs, const char * enc){    }];
+	[NSTerminal printString:[[COLORIZE(@"Welcome to AtoZCLI!",				 RANDOMCOLOR, nil)[0] clr]withString:zNL]];
+	[NSTerminal printString:[[COLORIZE(@"Please choose a test option:",	      PURPLE, nil)[0] clr]withString:zNL]];
+	[NSTerminal printString:[[COLORIZE(@"Available Frameworks:",					YELLOW, nil)[0] clr]withString:zNL]];
+	[NSTerminal printString:[AZCLIMenu.menu.clr  withString:zNL]];
+	[AZCLIMenu resetPrinter];
+	[AZCLIMenu addMenuFor:methods starting:0 palette:RANDOMPAL];// input:(NSS*(^)(NSS*, const char*))iBlk { responder(iBlk); }];
+	[NSTerminal printString:[[COLORIZE(@"Available METHODS:\n",	GREEN, nil)[0] clr]withString:AZCLIMenu.menu.clr]];
+	[NSTerminal addInputBlock:loopBack];
+	[NSTerminal readString];
+
+}
 - 	    (NSW*) window 					{	return [_window = _window ?: ^{	int mask = NSBorderlessWindowMask|NSResizableWindowMask;
 
 	 	_window 	= [NSW.alloc initWithContentRect:AZRectFromDim(200) styleMask:mask backing:NSBackingStoreBuffered defer:NO];
@@ -43,49 +72,10 @@ typedef id(^eval)(id blockArgs, ...);
 		[[NSBP bezierPathWithRoundedRect:_window.contentRect cornerRadius:20 inCorners:OSBottomLeftCorner|OSBottomRightCorner] fillWithColor:RANDOMCOLOR];
 	}];
 }
--       (IBA) log:(id)sender			{	NSLog(@"hello from button");	}
--       (IBA) toggleConsole:(id)s	{[NSLogConsole.sharedConsole performString:[NSLogConsole.sharedConsole isOpen] ? @"close" : @"open"]; }
+-       (IBA) toggleConsole:(id)s	{	[NSLogConsole.sharedConsole performString:[NSLogConsole.sharedConsole isOpen] ? @"close" : @"open"]; } /* NSLOGCONSOLE - UNUSED */
 
+-      (void) envTest						{	struct winsize w;	ioctl(0, TIOCGWINSZ, &w);
 
--        (id) mainMenu 						{	_mainMenu = _mainMenu ?: ^{
-
-	//			CurrentIMP;	
-		static 	dispatch_once_t onceToken; dispatch_once(&onceToken, ^{
-			if (!selectionDecoder) selectionDecoder = NSMD.new;																///_stdinFileHandle =
-			selectionDecoder = @{	@"fwMenu"		: AZBUNDLE.frameworkIdentifiers, 
-											@"methodMenu"	: @[	@"mainMenu",					@"runAClassMethod", 
-																		@"envTest", 					@"instanceMethodNames", 
-																		@"frameworkMenu",				@"rainbowArrays",
-																		@"variadicColorLogging",	@"processInfo"]		}.mutableCopy;
-			 fws 	 = [AZCLIMenu cliMenuFor:selectionDecoder[@"fwMenu"] 	 starting:100 palette:self.palette input:^NSS*(NSS* inputs, const char * enc){
-							[AZTalker say:$UTF8(enc)];	return NSS.randomDicksonism; 		}];
-							
-			 meths = [AZCLIMenu cliMenuFor:selectionDecoder[@"methodMenu"] starting:0   palette:self.palette input:^NSS*(NSS* inputs, const char * enc){
-			
-						NSLog(@"WHATEVER");
-				return  [NSS randomWords:3];
-			}];
-	});
-//	LOG_EXPR(_mainMenu);
-	return _mainMenu =  @[fws, meths].copy; }();
-	
-	[NSTerminal printString:[@[[COLORIZE(@"Welcome to AtoZCLI!",				 RANDOMCOLOR, nil)[0] clr],
-										[COLORIZE(@"Please choose a test option:",	      PURPLE, nil)[0] clr],
-	 									[COLORIZE(@"Available Frameworks:",					   YELLOW, nil)[0] clr],	
-					fws.menu.clr,	[COLORIZE(@"Available METHODS:",						    GREEN, nil)[0] clr], 
-				 meths.menu.clr   ]componentsJoinedByString:@"\n"]];
-	
-	LOG_EXPR(fws.block);
-	[NSTerminal addInputBlock:fws.block];
-	[NSTerminal addInputBlock:meths.block];
-	
-//	NSString *resp = 
-	[NSTerminal readString];
-}
--      (void) envTest						{
-
-	struct winsize w;
-	ioctl(0, TIOCGWINSZ, &w);
 	LOGCOLORS($(@"TTYlines: %u.\n", w.ws_row),RED, $(@"TTYColumns:%u\n", w.ws_col), ORANGE, $(@"BUILD_DIR:%s\n", getenv("BUILD_DIR")), GREEN,nil);
 }
 -      (NSA*) palette						{ 	return  _palette ?: [NSC colorsInListNamed:@"flatui"]; }//FengShui"]; }
@@ -101,52 +91,83 @@ typedef id(^eval)(id blockArgs, ...);
 					AZCLogFormat("The sum of 50 + 25 is %s", [AZLOGSHARED colorizeString:w withColor:GREEN].colorLogString.UTF8String);
    };
 }
-- (VoidBlock) actionAtIndex 				{}
-+        (id) blockEval:(eval)block 	{	 return block(self);	 }
 @end
 
-@implementation AZCLIMenu
 
-- 		   (NSRNG) range						{ return  NSMakeRange(self.startIdx, [(NSA*)self.defaultCollection count]); }
--  		 (NSS*) menu						{
+@implementation AZCLIMenuItem
++ (instancetype) cliMenuItem:(NSS*)display index:(NSI)index color:(NSC*)c {// action:(VoidBlock)blk {
+	AZCLIMenuItem *m = [self.alloc init];  m.display = display; m .index = index; m.color = c; return m;} //m.actionBlock = blk;  return m; }
+@end
 
-	NSA* items 		= self.defaultCollection;
-	NSUI maxlen 	= ceil([items lengthOfLongestMemberString] * 1);		// deduce longest string
-	NSUI cols 		= floor(120.f/(float) maxlen);								// accomodate appropriate number of cols.
-	NSUI maxIndex 	= [$(@"%lu: ", self.startIdx + items.count)length];  	// make sure numbers fit nice
-	__block NSUI i = _startIdx -1;													// start at an index
-	if (!selectionDecoder) selectionDecoder = NSMD.new;
-	return  [items reduce:@"" withBlock:^id(id sum, id obj) {		i++; // Allow goruped indexes.
-		selectionDecoder[@(i)] = obj;
-		NSS* paddedIndex = [ $(@"%lu: ", i) paddedTo:maxIndex];
-		NSS* 	outP = (i % cols) == 0 ? @"\n" : @"";
-		outP = [outP withString:paddedIndex];
-		//				NSC* c = [p ISKINDA:NSCL.class] ?[[p colors] normal: i] : [p normal:1];
-		outP = [outP withString:[AZLOGSHARED colorizeString:[$(@"%@",obj) paddedTo:maxlen] withColor:[self.palette  normal:i]].colorLogString];
-		return outP ? [sum withString:outP] : sum;
-	}];		  /* Find the longest string and base our columns on that. */
+@implementation AZCLIMenu static NSMA* menus = nil; NSMIS *toPrint;
++ (NSS*) menu										{
+
+	return [[menus objectsAtIndexes:toPrint] reduce:@"" withBlock:^NSS*(NSS* outString, AZCLIMenu* m){  	// kist print "toPrint" indexes.
+		  NSUI maxlen 		= ceil([[m.defaultCollection vFKP:@"display"] lengthOfLongestMemberString] * 1);		// deduce longest string
+		  NSUI cols 		= floor(120.f/(float) maxlen);																		// accomodate appropriate number of cols.
+__block NSUI i 			= ((AZCLIMenuItem*)m.defaultCollection[0]).index - 1;											// ascertain first index.
+	  	  NSUI maxIndex	= $(@"%lu: ", i + [m.defaultCollection count]).length; 										// make sure numbers fit nice
+		return outString 	= [[outString withString:zNL] withString:
+								  [m.defaultCollection reduce:@"" withBlock:^id(id sum, AZCLIMenuItem* obj){ i++; NSS*outP; // Allow goruped indexes.
+			return  ( outP = [[(i % cols) == 0 ? @"\n" : @"" withString: [$(@"%lu: ", i) paddedTo:maxIndex]]withString: // pad index
+								  [AZLOGSHARED colorizeString:[obj.display paddedTo:maxlen] withColor:obj.color].clr] )
+							   ? [sum withString:outP]
+								: sum;
+	}]]; }];
 }
-+ 			(NSIS*) indexesOfMenus 			{
++ (void) hardReset 								{ menus = NSMA.new; toPrint = NSMIS.indexSet; } // resets all
++ (void) resetPrinter 							{ toPrint = NSMIS.indexSet; }	// just reset printer output, keep referenes.
++ (NSS*) valueForIndex:		  (NSI)index	{	id winner;
 
-	NSMIS* is = NSMIS.new;	//	NSLog(@"Allinstances:%@", all);// [[@"a".classProxy vFK:AZCLSSTR] performSelectorWithoutWarnings:NSSelectorFromString(@"allInstancesAddOrReturn:") withObject:nil]);
-	for (AZCLIMenu *m in [self allInstances]) {
-//		NSLog(@"%@ RANGE:%@", m, NSStringFromRange(m.range));  
-				[is addIndexesInRange:m.range];
-	}	
-	return is;
+	return (winner = [[NSA arrayWithArrays:[menus vFKP:@"defaultCollection"]] filterOne:^BOOL(AZCLIMenuItem *o) {
+   return o.index == index; }]) ?[winner vFK:@"display"] : nil;
 }
-+ (instancetype) cliMenuFor:(NSA*)items
++ (instancetype) addMenuFor:(NSA*)items
 						 starting:(NSUI)idx
-						  palette:(id)p
-							 input:(TINP)blk 	{
-	if ([[self.allInstances valueForKeyPath:@"defaultCollection"]isEqualToArray:items]) {	[@"already made a menu for this!" log]; return nil; }
-	AZCLIMenu *m = AZCLIMenu.instance;		//	[m setUp];
-	m.defaultCollection 	= items;
-	m.startIdx 				= idx;
-	m.palette 				= p;
-	m.block 					= blk;			return m;
+						  palette:(id)p 			{
+//							 input:(TINP)blk 	{
+							 AZCLIMenu *m = self.instance; 	if(!menus) [self hardReset];
+	m.defaultCollection = [items nmap:^id(NSS* obj, NSUI  index) {
+		return [AZCLIMenuItem cliMenuItem:obj index:idx + index color:[p normal:index]]; }];  //action:(VoidBlock)blk];}];
+//	[NSTerminal addInputBlock:blk];
+		[menus addObject:m]; [toPrint addIndex:[menus indexOfObject:m]]; return m;
+
 }
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//-       (IBA) log:(id)sender			{	NSLog(@"hello from button");	}
+
+//- (VoidBlock) actionAtIndex 				{}
+//+        (id) blockEval:(eval)block 	{	 return block(self);	 }
+//- 		   (NSRNG) range						{ return  NSMakeRange(self.startIdx, [(NSA*)self.defaultCollection count]); }
+
+//+ 			(NSIS*) indexesOfMenus 			{
+//
+//	NSMIS* is = NSMIS.new;	//	NSLog(@"Allinstances:%@", all);// [[@"a".classProxy vFK:AZCLSSTR] performSelectorWithoutWarnings:NSSelectorFromString(@"allInstancesAddOrReturn:") withObject:nil]);
+//	for (AZCLIMenu *m in [self allInstances]) {	//		NSLog(@"%@ RANGE:%@", m, NSStringFromRange(m.range));
+//				[is addIndexesInRange:m.range];
+//	}
+//	return is;
+//}
+//-         (void) addMenuItem:(AZCLIMenuItem*)i { [self.defaultCollection addObject:i]; NSLog(@"defaultcollectionct: %ld", [self.defaultCollection count]); }
 
 
 

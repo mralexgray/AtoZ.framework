@@ -14,74 +14,81 @@ JREnumDeclare(AZeColor, AZeColoraliceblue, AZeColorantiquewhite, AZeColoraqua, A
 @end
 @interface NSColor (AtoZ)
 
++   (id) colorWithHTMLString:(NSS*)str defaultColor:(NSC*)d;
++ (NSC*)	colorWithHTMLString:(NSS*)hex;
++ (NSD*) colorNamesDictionary;
 
-
-@property (NATOM,STRNG) NSS*	name;
-@property (RONLY)	BOOL	isBoring, isExciting;
-@property (RONLY)	NSS*	nameOfColor, *crayonName;
-@property (RONLY)	NSC*	closestWebColor, *closestNamedColor,	*closestColorListColor;
+@property (RONLY)	BOOL	isBoring,
+								isExciting,
+								isBright,
+								isDark;
 @property (RONLY)	CGCR 	cgColor;
-@property (RONLY)	NSC* 	inverted;
-@property (RONLY) NSC*	deviceRGBColor;
-@property (RONLY) NSC*	calibratedRGBColor;
-@property (RONLY) CGF	luminance;
-@property (RONLY) CGF 	relativeBrightness;
-@property (RONLY) BOOL 	isBright;
-@property (RONLY) NSC*	bright;
-@property (RONLY) NSC*	brighter;
-@property (RONLY) BOOL 	isDark;
-@property (RONLY) NSC*	dark;
-@property (RONLY) NSC*	darker;
-@property (RONLY) NSC*	muchDarker;
-@property (RONLY) NSC*	redshift;
-@property (RONLY) NSC*	blueshift;
+@property (RDWRT)	NSS *	nameOfColor;
+@property (RONLY)	NSS * crayonName;
+@property (RONLY)	NSC * closestWebColor,
+							 * closestNamedColor,
+ 							 * closestColorListColor,
+							 *	inverted,
+							 *	deviceRGBColor,
+							 *	calibratedRGBColor;
+@property (RONLY) CGF	luminance,
+								relativeBrightness;
+@property (RONLY) NSC *	brighter,
+							 *	bright,
+							 * dark,
+							 * darker,
+							 *	muchDarker,
+							 * redshift, * blueshift;
 
 -(NSC*)blend:(NSC*)other;
 
-@property (RONLY) NSC*	whitened;
-@property (RONLY) NSC*	blackened;
 
+@property (RONLY) NSC *	whitened, *	blackened;
 @property (RONLY) NSC*	contrastingForegroundColor;
-@property (RONLY) NSC*	complement;
-@property (RONLY) NSC*	rgbComplement;
-
-@property (RONLY) NSC*	opaque;
-@property (RONLY) NSC*	lessOpaque;
-@property (RONLY) NSC*	moreOpaque;
-@property (RONLY) NSC*	translucent;
+@property (RONLY) NSC*	complement, * rgbComplement;
+@property (RONLY) NSC*	opaque, *translucent;
+@property (RONLY) NSC*	lessOpaque, * moreOpaque;
 @property (RONLY) NSC*	watermark;
 @property (RONLY)	CGFloat rgbWeight;
 @property (RONLY)	CGFloat hsbWeight;
 
-@property (RONLY)	BOOL isBlueish;
-@property (RONLY)	BOOL isRedish;
-@property (RONLY)	BOOL isGreenish;
-@property (RONLY)	BOOL isYellowish;
+@property (RONLY)	BOOL isBlueish,
+							  isRedish,
+							  isGreenish,
+							  isYellowish;
 
+/* lists all like...  BlueSkyTulips = "NSColorList 0x7fb2963794d0 
+										  name:BlueSkyTulips device:(null)
+										  file:/Volumes/2T/ServiceData/Develo...Build/Products/Debug/AtoZ.framework/Resources/BlueSkyTulips.clr
+										loaded:1"; */
 + (NSMD*) colorLists;
++ (NSA*) colorListNames;
 + (NSCL*) randomList;
 
 typedef void(^colorFadeBlock)(NSColor*c);
++ (NSA*)randomPaletteAnimationBlock:(colorFadeBlock)target; /* 1000 step animation lock */
 
-+ (NSA*)randomPaletteAnimationBlock:(colorFadeBlock)target;
-
+/* gradients from palettes */
 + (NSA*) gradientPalletteBetween:(NSC*)c1 and:(NSC*)c2 steps:(NSUI)steps;
 + (NSA*) gradientPalletteBetween:(NSA*)colors steps:(NSUI)steps;
 + (NSA*) gradientPalletteLooping:(NSA*)colors steps:(NSUI)steps;
+
+
 + (NSC*) linen;
 + (NSC*) linenTintedWithColor: (NSC*) color;
 + (NSC*) leatherTintedWithColor:(NSC*)color;
 + (NSC*) checkerboardWithFirstColor:(NSC*)firstColor secondColor:(NSC*)secondColor squareWidth:(CGF)width;
-//+ (NSA*) colorNames;
++ (NSA*) colorNames; // preferred "CSS" color names method
++ (NSA*) allSystemColorNames; // i guess this is names of installed clr names;
 + (NSC*) colorNamed:(NSS*)string;
 //+ (NSA*) colorsWithNames;
 //+ (NSD*) colorsAndNames;
+
 + (void) logPalettes;
 + (NSC*) white:(CGF)percent;
 + (NSC*) white:(CGF)percent a:(CGF)alpha;
-+ (NSC*) r:(CGF)red g:(CGF)green b:(CGF)blue a:(CGF)trans;
-
-- (NSC*) alpha:(CGF)floater;
++ (NSC*) 	 r:(CGF)red g:(CGF)green b:(CGF)blue a:(CGF)trans;
+- (NSC*) alpha:(CGF)percent;
 //- (NSDictionary*)	closestColor;  //name, list, and color
 +  (NSA*) boringColors;
 + (NSCL*) createColorlistWithColors:(NSA*)cs andNames:(NSA*)ns named:(NSS*)name;
@@ -89,7 +96,7 @@ typedef void(^colorFadeBlock)(NSColor*c);
 //+  (NSA*) colorsInFrameworkListNamed:(NSString*)name;
 //+  (NSA*) colorListsInFramework;
 +  (NSA*) colorsInListNamed:(NSS*)name;
-+  (NSA*) allColors;
+//+  (NSA*) allColors;			// NOT WORKING
 +  (NSA*) randomPalette;
 +  (NSA*) systemColors;
 +  (NSA*) systemColorNames;
@@ -116,10 +123,6 @@ typedef void(^colorFadeBlock)(NSColor*c);
 
 @end
 
-@interface NSColor (AIColorAdditions_HTMLSVGCSSColors)
-+   (id) colorWithHTMLString:(NSString*)str defaultColor:(NSColor*)d;
-+ (NSC*)	colorWithHTMLString:(NSString*)hex;
-@end
 
 @interface NSString (THColorConversion)
 - (NSC*)	colorValue;

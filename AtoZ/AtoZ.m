@@ -1,8 +1,5 @@
 //
-//  BaseModel.m
-//  Version 2.3.1
-//  http://charcoaldesign.co.uk/source/cocoa#basemodel
-//  https://github.com/nicklockwood/BaseModel
+
 #import "AtoZ.h"
 #import "AtoZFunctions.h"
 #import "AtoZUmbrella.h"
@@ -11,14 +8,15 @@
 #import "OperationsRunner.h"
 
 
-NSString *AZGridShouldDrawKey = @"AZGridShouldDraw";
-NSString *AZGridUnitWidthKey = @"AZGridUnitWidth";
-NSString *AZGridUnitHeightKey = @"AZGridUnitHeight";
-NSString *AZGridColorDataKey = @"AZGridColorData";
+NSS 	* AZGridShouldDrawKey 	= @"AZGridShouldDraw",
+		* AZGridUnitWidthKey 	= @"AZGridUnitWidth",
+		* AZGridUnitHeightKey 	= @"AZGridUnitHeight",
+		* AZGridColorDataKey 	= @"AZGridColorData";
 
 
 @implementation NSObject (AZFunctional)
--(id)processByPerformingFilterBlocks:(NSA*)filterBlocks	{
+- (id) processByPerformingFilterBlocks:(NSA*)filterBlocks	{
+
 	__block id blockSelf = self;
 	[filterBlocks enumerateObjectsUsingBlock:^( id (^block)(id,NSUInteger idx, BOOL*) , NSUInteger idx, BOOL *stop) {
 		blockSelf = block(blockSelf, idx, stop);
@@ -45,19 +43,21 @@ NSOQ *AZSharedSingleOperationQueue()	{	return AZDummy.sharedInstance.sharedSQ; }
 		_AZSingleOperationQueue = NSOperationQueue.new;
 		_AZSingleOperationQueue.maxConcurrentOperationCount = 1;
 		return _AZSingleOperationQueue;
-	}();																									*/
+	}();					
+																					*/
 @implementation AZClassProxy
+
 - (id)valueForUndefinedKey:(NSS*)key {	return NSClassFromString(key);	}
-
 @end
-// NSLog(@"%@", [[RED.classProxy valueForKey:@"NSColor"] redColor]);
-// --> NSCalibratedRGBColorSpace 1 0 0 1
+
+// NSLog(@"%@", [[RED.classProxy valueForKey:@"NSColor"] redColor]);  --> NSCalibratedRGBColorSpace 1 0 0 1
+
 @implementation NSObject (AZClassProxy)
-+ (id)performSelector:(SEL)sel { return objc_msgSend([self class], sel); }
 
-//	NSObject* anInstance = [self new];
++ (id)performSelector:(SEL)sel { return objc_msgSend(self.class, sel); }
+
+//	NSObject* anInstance = self.new;
 //	return [[anInstance.classProxy valueForKey:NSStringFromClass([self class])] performSelector:sel];
-
 
 - (id) classProxy {	static AZClassProxy *proxy = nil; return proxy = proxy ?: AZClassProxy.new; }
 @end
@@ -65,25 +65,21 @@ NSOQ *AZSharedSingleOperationQueue()	{	return AZDummy.sharedInstance.sharedSQ; }
 @implementation AZDummy
 - (id)init							{	 if (self != super.init ) return nil;
 
-   _sharedStack 									  = NSOperationStack.new;
-	 	 _sharedQ 									  = NSOQ.new; 
-	   _sharedSQ							 = NSOQ.new; 
-	_sharedStack.maxConcurrentOperationCount = AZOQMAX;
-		_sharedQ.maxConcurrentOperationCount = AZOQMAX;  
-	   _sharedSQ.maxConcurrentOperationCount = 1;
-	return self;
+   _sharedStack = NSOperationStack.new;
+	 	 _sharedQ = NSOQ.new;
+	   _sharedSQ = NSOQ.new;
+	_sharedStack .maxConcurrentOperationCount = AZOQMAX;
+		 _sharedQ .maxConcurrentOperationCount = AZOQMAX;
+		_sharedSQ .maxConcurrentOperationCount = 1;	return self;
 }
-+ (AZDummy*) sharedInstance	{ 
-
-	static AZDummy *sharedInstance = nil;	
-	static dispatch_once_t isDispatched; 
-	dispatch_once(&isDispatched, ^{  sharedInstance = AZDummy.new;	}); 
-	return sharedInstance; 
++ (AZDummy*) sharedInstance	{ 	static AZDummy *sharedInstance = nil;	static dispatch_once_t isDispatched;
+	dispatch_once(&isDispatched, ^{  sharedInstance = AZDummy.new;	}); 	return sharedInstance;
 }
 @end
+
 @interface AToZFuntion	: BaseModel
-@property (strong, NATOM) NSS* name;
-@property (strong, NATOM) NSIMG* icon;
+@property (STR,NATOM) NSS* name;
+@property (STR,NATOM) NSIMG* icon;
 @end
 
 /*

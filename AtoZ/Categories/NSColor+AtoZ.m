@@ -248,11 +248,110 @@ static CGF  LuminanceFromRGBComponents(const CGFloat *rgb) {
 	return 0.3086f*rgb[0] + 0.6094f*rgb[1] + 0.0820f*rgb[2];
 }
 
+#import <string.h>
+static NSArray *defaultValidColors = nil;
+#define VALID_COLORS_ARRAY [[NSArray alloc] initWithObjects:@"aqua", @"aquamarine", @"blue", @"blueviolet", @"brown", @"burlywood", @"cadetblue", @"chartreuse", @"chocolate", @"coral", @"cornflowerblue", @"crimson", @"cyan", @"darkblue", @"darkcyan", @"darkgoldenrod", @"darkgreen", @"darkgrey", @"darkkhaki", @"darkmagenta", @"darkolivegreen", @"darkorange", @"darkorchid", @"darkred", @"darksalmon", @"darkseagreen", @"darkslateblue", @"darkslategrey", @"darkturquoise", @"darkviolet", @"deeppink", @"deepskyblue", @"dimgrey", @"dodgerblue", @"firebrick", @"forestgreen", @"fuchsia", @"gold", @"goldenrod", @"green", @"greenyellow", @"grey", @"hotpink", @"indianred", @"indigo", @"lawngreen", @"lightblue", @"lightcoral", @"lightgreen", @"lightgrey", @"lightpink", @"lightsalmon", @"lightseagreen", @"lightskyblue", @"lightslategrey", @"lightsteelblue", @"lime", @"limegreen", @"magenta", @"maroon", @"mediumaquamarine", @"mediumblue", @"mediumorchid", @"mediumpurple", @"mediumseagreen", @"mediumslateblue", @"mediumspringgreen", @"mediumturquoise", @"mediumvioletred", @"midnightblue", @"navy", @"olive", @"olivedrab", @"orange", @"orangered", @"orchid", @"palegreen", @"paleturquoise", @"palevioletred", @"peru", @"pink", @"plum", @"powderblue", @"purple", @"red", @"rosybrown", @"royalblue", @"saddlebrown", @"salmon", @"sandybrown", @"seagreen", @"sienna", @"silver", @"skyblue", @"slateblue", @"slategrey", @"springgreen", @"steelblue", @"tan", @"teal", @"thistle", @"tomato", @"turquoise", @"violet", @"yellowgreen", nil]
+static const CGFloat ONE_THIRD = 1.0f/3.0f;
+static const CGFloat ONE_SIXTH = 1.0f/6.0f;
+static const CGFloat TWO_THIRD = 2.0f/3.0f;
+
+
 static NSMD *bestMatches = nil, *palettesD = nil, *colorListD = nil;
 static NSCL 		 *safe = nil,  	 *named = nil;
 static NSMD *colorsFromStruct = nil;
 
 @implementation NSColor (AtoZ)
+
++ (NSD*)colorNamesDictionary						{ return @{
+
+	@"black":[NSC colorWithHTMLString:@"#000"], 		@"silver":[NSC colorWithHTMLString:@"#c0c0c0"],
+    @"gray":[NSC colorWithHTMLString:@"#808080"], 	  @"grey":[NSC colorWithHTMLString:@"#808080"],
+	@"white":[NSC colorWithHTMLString:@"#fff"],		@"maroon":[NSC colorWithHTMLString:@"#800000"],
+     @"red":[NSC colorWithHTMLString:@"#f00"],		@"purple":[NSC colorWithHTMLString:@"#800080"],
+ @"fuchsia":[NSC colorWithHTMLString:@"#f0f"], 		 @"green":[NSC colorWithHTMLString:@"#008000"],
+    @"lime":[NSC colorWithHTMLString:@"#0f0"],		 @"olive":[NSC colorWithHTMLString:@"#808000"],
+  @"yellow":[NSC colorWithHTMLString:@"#ff0"],	 	  @"navy":[NSC colorWithHTMLString:@"#000080"],
+    @"blue":[NSC colorWithHTMLString:@"#00f"],	  	  @"teal":[NSC colorWithHTMLString:@"#008080"],
+    @"aqua":[NSC colorWithHTMLString:@"#0ff"]};
+}
+
++ (id)colorWithHTMLString:(NSS*)str	{	return [self colorWithHTMLString:str defaultColor:nil];	}
++ (id)colorWithHTMLString:(NSS*)str defaultColor:(NSC*)defaultColor
+{
+	if (!str) return nil;
+	unsigned strLength = [str length];
+	NSString *colorValue = str;
+	if ((!strLength) || ([str characterAtIndex:0] != '#')) {
+		//look it up; it's a colour name
+		NSDictionary *colorValues = [self colorNamesDictionary];
+		colorValue = [colorValues objectForKey:str];
+		if (!colorValue) colorValue = [colorValues objectForKey:[str lowercaseString]];
+		if (!colorValue) {
+#if COLOR_DEBUG
+			NSLog(@"+[NSColor(AIColorAdditions) colorWithHTMLString:] called with unrecognised color name (str is %@); returning %@", str, defaultColor);
+#endif
+			return defaultColor;
+		}
+	}
+
+	//we need room for at least 9 characters (#00ff00ff) plus the NUL terminator.
+	//this array is 12 bytes long because I like multiples of four. ;)
+	enum { hexStringArrayLength = 12 };
+	size_t hexStringLength = 0;
+	char hexStringArray[hexStringArrayLength] = { 0, 0, 0, 0,  0, 0, 0, 0,  0, 0, 0, 0, };
+	{
+		NSData *stringData = [str dataUsingEncoding:NSUTF8StringEncoding];
+		hexStringLength = [stringData length];
+		//subtract 1 because we don't want to overwrite that last NUL.
+		memcpy(hexStringArray, [stringData bytes], MIN(hexStringLength, hexStringArrayLength - 1));
+	}
+	const char *hexString = hexStringArray;
+
+	float 	red,green,blue;
+	float	alpha = 1.0;
+
+	//skip # if present.
+	if (*hexString == '#') ++hexString;
+
+	if (hexStringLength < 3) {
+#if COLOR_DEBUG
+		NSLog(@"+[%@ colorWithHTMLString:] called with a string that cannot possibly be a hexadecimal color specification (e.g. #ff0000, #00b, #cc08) (string: %@ input: %@); returning %@", NSStringFromClass(self), colorValue, str, defaultColor);
+#endif
+		return defaultColor;
+	}
+
+	//long specification:  #rrggbb[aa]
+	//short specification: #rgb[a]
+	//e.g. these all specify pure opaque blue: #0000ff #00f #0000ffff #00ff
+	BOOL isLong = hexStringLength > 4;
+
+	//for a long component c = 'xy':
+	//	c = (x * 0x10 + y) / 0xff
+	//for a short component c = 'x':
+	//	c = x / 0xf
+
+	red   = hexToInt(*(hexString++));
+	if (isLong) red    = (red   * 16.0 + hexToInt(*(hexString++))) / 255.0;
+	else        red   /= 15.0;
+
+	green = hexToInt(*(hexString++));
+	if (isLong) green  = (green * 16.0 + hexToInt(*(hexString++))) / 255.0;
+	else        green /= 15.0;
+
+	blue  = hexToInt(*(hexString++));
+	if (isLong) blue   = (blue  * 16.0 + hexToInt(*(hexString++))) / 255.0;
+	else        blue  /= 15.0;
+
+	if (*hexString) {
+		//we still have one more component to go: this is alpha.
+		//without this component, alpha defaults to 1.0 (see initialiser above).
+		alpha = hexToInt(*(hexString++));
+		if (isLong) alpha = (alpha * 16.0 + hexToInt(*(hexString++))) / 255.0;
+		else alpha /= 15.0;
+	}
+
+	return [self colorWithCalibratedRed:red green:green blue:blue alpha:alpha];
+}
 
 
 + (NSA*)randomPaletteAnimationBlock:(colorFadeBlock)target {
@@ -308,6 +407,8 @@ static NSMD *colorsFromStruct = nil;
 	
 //	return [self colorFromString:$UTF8(sColorTable[c])];
 }
+
++ (NSA*) colorListNames { return [self.colorLists.allValues vFKP:@"name"]; }
 +  (NSMD*) colorLists 								{
 
 	if (!colorListD) colorListD = NSMD.new;
@@ -704,17 +805,19 @@ static NSMD *colorsFromStruct = nil;
 		}];
 		return testList;
 }
-- (void) setName:							(NSS*)aName			{
-	[self setAssociatedValue:aName forKey:@"nameOfColor" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
+- (void) setNameOfColor:(NSString *)nameOfColor{
+	[self setAssociatedValue:nameOfColor forKey:@"associatedName" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
 }
-- (NSS*) name 						{ return [self associatedValueForKey:@"nameOfColor"] ?: $(@"\"%@\"",self.nameOfColor); }
 + (void) logPalettes				{
-	[self.colorLists.allValues each:^(id obj) {
-		COLORLOG(GRAY9, @"COLORLIST: %@", [obj valueForKey:@"name"], nil);
-		[[obj colors] each:^(NSC* color) {
-			COLORLOG(color ?: nil, @"%@", color.name);
-		}];
-	}];
+//	[self.colorLists each:^(id key, id value) {
+
+		[[[self.colorLists.allValues vFKP:@"name"] reduce:@"".mutableCopy withBlock:^id(id sum, id obj) {
+			return sum = $(@"%@\n%@\n%@",sum, obj,
+			[[NSC colorsInListNamed:obj]stringValueInColumnsCharWide:30]);
+		}]log];
+//			  [[obj colors] each:^(NSC* color) {
+//			COLORLOG(color ?: nil, @"%@", color.name);
+
 }
 
 + (NSC*) r:(CGF)red g:(CGF)green b:(CGF)blue a:(CGF)trans { return [self colorWithDeviceRed:red green:green blue:blue alpha:trans];}
@@ -722,13 +825,8 @@ static NSMD *colorsFromStruct = nil;
 + (NSC*) white:(CGF)percent a:(CGF)alpha 		{ return [self colorWithDeviceWhite:percent alpha:alpha]; }
 + (NSA*) randomPalette 								{	return [self.colorLists.allValues.randomElement colors];
 }
-+ (NSCL*) randomList 								{
-	return self.colorLists.allValues.randomElement;
-}
-
-+ (NSC*)   crayonColorNamed:(NSS*)key			{
-	return [[NSColorList colorListNamed:@"Crayons"] colorWithKey:key];
-}
++ (NSCL*) randomList 								{	return self.colorLists.allValues.randomElement;	}
++ (NSC*)   crayonColorNamed:(NSS*)key			{	return [[NSColorList colorListNamed:@"Crayons"] colorWithKey:key];	}
 + (NSC*)      colorWithName:(NSS*)colorName 	{
 	// name lookup
 	NSS *lcc = colorName.lowercaseString;
@@ -982,7 +1080,34 @@ static NSMD *colorsFromStruct = nil;
 	//	 objectForKey:@"name"];// valueForKey:@"name"];
 	return color;
 }
+
+/*
++ (BOOL) resolveClassMethod:(SEL)sel {
+	
+	if ([self.colorListNames containsObject:NSStringFromSelector(sel)])
+		Class selfMetaClass = objc_getMetaClass([[self className] UTF8String]);
+	class_addMethod([selfMetaClass, aSEL, (IMP) dynamicMethodIMP, "v@:");
+						  return YES;
+						  }
+						  return [super resolveClassMethod aSEL];
+class_addMethod(self.class, sel, (IMP) dynamicMethodIMP, "v@:");
+			return YES;
+			2009-10-19 | © 2009 Apple Inc. All Rights Reserved. 16
+			￼￼￼@dynamic propertyName;
+			￼
+			void dynamicMethodIMP(id self, SEL _cmd) {
+				// implementation ....
+			}
+			￼￼￼￼
+			Dynamic Method Resolution
+			Dynamic Loading
+		}
+      return [super resolveInstanceMethod:aSEL];
+}
+*/
 - (NSS*) nameOfColor				{
+	if ([self hasAssociatedValueForKey:@"associatedName"]) return [self associatedValueForKey:@"associatedName"];
+
 	//	NSC*color = [self closestColorListColor];
 	NSC*thisColor = [self colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
 	CGFloat bestDistance = FLT_MAX;
@@ -1229,13 +1354,6 @@ static NSMD *colorsFromStruct = nil;
 	}
 }
 @end
-#import <string.h>
-static NSArray *defaultValidColors = nil;
-#define VALID_COLORS_ARRAY [[NSArray alloc] initWithObjects:@"aqua", @"aquamarine", @"blue", @"blueviolet", @"brown", @"burlywood", @"cadetblue", @"chartreuse", @"chocolate", @"coral", @"cornflowerblue", @"crimson", @"cyan", @"darkblue", @"darkcyan", @"darkgoldenrod", @"darkgreen", @"darkgrey", @"darkkhaki", @"darkmagenta", @"darkolivegreen", @"darkorange", @"darkorchid", @"darkred", @"darksalmon", @"darkseagreen", @"darkslateblue", @"darkslategrey", @"darkturquoise", @"darkviolet", @"deeppink", @"deepskyblue", @"dimgrey", @"dodgerblue", @"firebrick", @"forestgreen", @"fuchsia", @"gold", @"goldenrod", @"green", @"greenyellow", @"grey", @"hotpink", @"indianred", @"indigo", @"lawngreen", @"lightblue", @"lightcoral", @"lightgreen", @"lightgrey", @"lightpink", @"lightsalmon", @"lightseagreen", @"lightskyblue", @"lightslategrey", @"lightsteelblue", @"lime", @"limegreen", @"magenta", @"maroon", @"mediumaquamarine", @"mediumblue", @"mediumorchid", @"mediumpurple", @"mediumseagreen", @"mediumslateblue", @"mediumspringgreen", @"mediumturquoise", @"mediumvioletred", @"midnightblue", @"navy", @"olive", @"olivedrab", @"orange", @"orangered", @"orchid", @"palegreen", @"paleturquoise", @"palevioletred", @"peru", @"pink", @"plum", @"powderblue", @"purple", @"red", @"rosybrown", @"royalblue", @"saddlebrown", @"salmon", @"sandybrown", @"seagreen", @"sienna", @"silver", @"skyblue", @"slateblue", @"slategrey", @"springgreen", @"steelblue", @"tan", @"teal", @"thistle", @"tomato", @"turquoise", @"violet", @"yellowgreen", nil]
-static const CGFloat ONE_THIRD = 1.0f/3.0f;
-static const CGFloat ONE_SIXTH = 1.0f/6.0f;
-static const CGFloat TWO_THIRD = 2.0f/3.0f;
-static NSMutableDictionary *RGBColorValues = nil;
 //two parts of a single path:
 //	defaultRGBTxtLocation1/VERSION/defaultRGBTxtLocation2
 //static NSS *defaultRGBTxtLocation1 = @"/usr/share/emacs";
@@ -1336,128 +1454,6 @@ static NSMutableDictionary *RGBColorValues = nil;
  return result;
  }	*/
 //@end
-@implementation NSColor (AIColorAdditions_RGBTxtFiles)
-+ (NSD*)colorNamesDictionary						{
-	if (!RGBColorValues) {
-		RGBColorValues = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
-						  [NSC colorWithHTMLString:@"#000"],	@"black",
-						  [NSC colorWithHTMLString:@"#c0c0c0"], @"silver",
-						  [NSC colorWithHTMLString:@"#808080"], @"gray",
-						  [NSC colorWithHTMLString:@"#808080"], @"grey",
-						  [NSC colorWithHTMLString:@"#fff"],	@"white",
-						  [NSC colorWithHTMLString:@"#800000"], @"maroon",
-						  [NSC colorWithHTMLString:@"#f00"],	@"red",
-						  [NSC colorWithHTMLString:@"#800080"], @"purple",
-						  [NSC colorWithHTMLString:@"#f0f"],	@"fuchsia",
-						  [NSC colorWithHTMLString:@"#008000"], @"green",
-						  [NSC colorWithHTMLString:@"#0f0"],	@"lime",
-						  [NSC colorWithHTMLString:@"#808000"], @"olive",
-						  [NSC colorWithHTMLString:@"#ff0"],	@"yellow",
-						  [NSC colorWithHTMLString:@"#000080"], @"navy",
-						  [NSC colorWithHTMLString:@"#00f"],	@"blue",
-						  [NSC colorWithHTMLString:@"#008080"], @"teal",
-						  [NSC colorWithHTMLString:@"#0ff"],	@"aqua",
-						  nil];
-//		NSArray *paths = [AZFILEMANAGER contentsOfDirectoryAtPath:defaultRGBTxtLocation1 error:NULL];
-//		for (NSS *middlePath in paths) {
-//			NSS *path = [defaultRGBTxtLocation1 stringByAppendingPathComponent:[middlePath stringByAppendingPathComponent:defaultRGBTxtLocation2]];
-//			NSDictionary *extraColors = [NSDictionary dictionaryWithContentsOfRGBTxtFile:path];
-//			[RGBColorValues addEntriesFromDictionary:extraColors];
-//			if (extraColors) {
-#if COLOR_DEBUG
-				NSLog(@"Got colour values from %@", path);
-#endif
-//				break;
-//			}
-//		}
-	}
-	return RGBColorValues;
-}
-
-+ (id)colorWithHTMLString:(NSString *)str
-{
-	return [self colorWithHTMLString:str defaultColor:nil];
-}
-+ (id)colorWithHTMLString:(NSString *)str defaultColor:(NSColor *)defaultColor
-{
-	if (!str) return nil;
-
-	unsigned strLength = [str length];
-
-	NSString *colorValue = str;
-	if ((!strLength) || ([str characterAtIndex:0] != '#')) {
-		//look it up; it's a colour name
-		NSDictionary *colorValues = [self colorNamesDictionary];
-		colorValue = [colorValues objectForKey:str];
-		if (!colorValue) colorValue = [colorValues objectForKey:[str lowercaseString]];
-		if (!colorValue) {
-#if COLOR_DEBUG
-			NSLog(@"+[NSColor(AIColorAdditions) colorWithHTMLString:] called with unrecognised color name (str is %@); returning %@", str, defaultColor);
-#endif
-			return defaultColor;
-		}
-	}
-
-	//we need room for at least 9 characters (#00ff00ff) plus the NUL terminator.
-	//this array is 12 bytes long because I like multiples of four. ;)
-	enum { hexStringArrayLength = 12 };
-	size_t hexStringLength = 0;
-	char hexStringArray[hexStringArrayLength] = { 0, 0, 0, 0,  0, 0, 0, 0,  0, 0, 0, 0, };
-	{
-		NSData *stringData = [str dataUsingEncoding:NSUTF8StringEncoding];
-		hexStringLength = [stringData length];
-		//subtract 1 because we don't want to overwrite that last NUL.
-		memcpy(hexStringArray, [stringData bytes], MIN(hexStringLength, hexStringArrayLength - 1));
-	}
-	const char *hexString = hexStringArray;
-
-	float 	red,green,blue;
-	float	alpha = 1.0;
-
-	//skip # if present.
-	if (*hexString == '#') ++hexString;
-
-	if (hexStringLength < 3) {
-#if COLOR_DEBUG
-		NSLog(@"+[%@ colorWithHTMLString:] called with a string that cannot possibly be a hexadecimal color specification (e.g. #ff0000, #00b, #cc08) (string: %@ input: %@); returning %@", NSStringFromClass(self), colorValue, str, defaultColor);
-#endif
-		return defaultColor;
-	}
-
-	//long specification:  #rrggbb[aa]
-	//short specification: #rgb[a]
-	//e.g. these all specify pure opaque blue: #0000ff #00f #0000ffff #00ff
-	BOOL isLong = hexStringLength > 4;
-
-	//for a long component c = 'xy':
-	//	c = (x * 0x10 + y) / 0xff
-	//for a short component c = 'x':
-	//	c = x / 0xf
-
-	red   = hexToInt(*(hexString++));
-	if (isLong) red    = (red   * 16.0 + hexToInt(*(hexString++))) / 255.0;
-	else        red   /= 15.0;
-
-	green = hexToInt(*(hexString++));
-	if (isLong) green  = (green * 16.0 + hexToInt(*(hexString++))) / 255.0;
-	else        green /= 15.0;
-
-	blue  = hexToInt(*(hexString++));
-	if (isLong) blue   = (blue  * 16.0 + hexToInt(*(hexString++))) / 255.0;
-	else        blue  /= 15.0;
-
-	if (*hexString) {
-		//we still have one more component to go: this is alpha.
-		//without this component, alpha defaults to 1.0 (see initialiser above).
-		alpha = hexToInt(*(hexString++));
-		if (isLong) alpha = (alpha * 16.0 + hexToInt(*(hexString++))) / 255.0;
-		else alpha /= 15.0;
-	}
-
-	return [self colorWithCalibratedRed:red green:green blue:blue alpha:alpha];
-}
-
-@end
 @implementation NSColor (AIColorAdditions_Comparison)
 - (BOOL)equalToRGBColor:(NSC*)inColor			{
 	NSColor	*convertedA = [self colorUsingColorSpaceName:NSCalibratedRGBColorSpace];

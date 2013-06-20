@@ -45,6 +45,9 @@ Instances are created with -initWithProcessIdentifier: or +processForProcessIden
 The level of information an AZProcess can return depends on the user's permission. In general, a user can obtain general information like the arguments or process ID for any process, but can only obtain CPU and memory usage statistics for their own processes, unless they are root. Also, no information is available after the process has exited except the process ID and the state (AZProcessStateZombie or AZProcessStateExited). Methods which return a numerical value will return AZProcessValueUnknown if the statistic can't be obtained. 
 */
 @interface AZProcess : NSObject { int process; task_t task; NSS *command; NSS *annotation; NSA *arguments; NSD *environment;	}
+
+
++ (NSS*)pathOfProcessWithIdentifier:(int)pid;
 /*!
 @method initWithProcessIdentifier:
 Initializes the receiver with the given process identifier. Returns nil if no such process exists. */

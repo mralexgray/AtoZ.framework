@@ -71,7 +71,7 @@
 		self.drawsRoundCornerBesideArrow = YES;
 		_resizing = NO;
 		// Work out what side to put the window on if it's "automatic".
-		if (_side == AZPositionAutomatic) _side = [self _bestSideForAutomaticPosition];
+		if ([@(_side) isEqual:@(AZPositionAutomatic)]) _side = [self _bestSideForAutomaticPosition];
 		// Configure our initial geometry.
 		[self _updateGeometry];
 		// Update the background.

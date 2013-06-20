@@ -177,7 +177,18 @@ typedef void (^AZBlockTask)(id obj, NSDictionary *change);
 - (NSA*) instanceMethodNames;
 //+ (NSA*) instanceMethods;
 - (NSS*) instanceMethodsInColumns;
+
+/*
+	block1 one = ^id(void){ id a= @"a"; return a;};
+	block1 oneA = ^id(void){ id b= @"a"; return b;};
+	block2 two = ^id(id amber) { return amber;   };
+	
+	LOG_EXPR([oneA isKindOfBlock:one]); = YES
+	LOG_EXPR([oneA isKindOfBlock:two]); = NO
+*/
 - (NSS*) blockDescription;
+- (BOOL) isKindOfBlock:(id)anotherBlock;
+- (NSMethodSignature*) blockSignature;
 
 /* USAGE:
 -(void)mouseDown:(NSEvent*)theEvent {

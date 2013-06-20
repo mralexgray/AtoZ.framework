@@ -87,6 +87,10 @@ extern NSString * const NSMutableArrayDidInsertObjectNotification;
 /*** Returns an array of the same size as the original one with the result of calling the keyPath on each object */
 - (NSA*)arrayWithKey:(NSS*)keyPath;
 
+/** will not brick if not all obects have the key etc */
+- (NSA*)arrayWithObjectsMatchingKeyOrKeyPath:(NSS*)keyPath;
+
+
 /**	Calls performSelector on all objects that can receive the selector in the array.
  * Makes an iterable copy of the array, making it possible for the selector to modify
  * the array. Contrast this with makeObjectsPerformSelector which does not allow side effects of
