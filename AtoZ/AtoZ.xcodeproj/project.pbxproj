@@ -303,8 +303,6 @@
 		7B31B14015E9441D00802CD5 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B31B13E15E9441D00802CD5 /* MainMenu.xib */; };
 		7B31B14415E9442A00802CD5 /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B311951159B6D9E002134C4 /* AtoZ.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		7B31B14F15E9449F00802CD5 /* AtoZ.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7B311951159B6D9E002134C4 /* AtoZ.framework */; };
-		7B36C04E175E303800C83750 /* DefinitionController.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B36C04C175E303800C83750 /* DefinitionController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7B36C04F175E303800C83750 /* DefinitionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B36C04D175E303800C83750 /* DefinitionController.m */; };
 		7B36C051175F3D2D00C83750 /* wall.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B36C050175F3D2D00C83750 /* wall.png */; };
 		7B3777EB16F1BE4A0083CBB5 /* About.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7B3777C016F1BE4A0083CBB5 /* About.txt */; };
 		7B3777EC16F1BE4A0083CBB5 /* GCDAsyncSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B3777C116F1BE4A0083CBB5 /* GCDAsyncSocket.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -445,6 +443,9 @@
 		7B5180771654EE8500C7A28B /* LetterView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B5180741654EE1600C7A28B /* LetterView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B55B3FF1711250300F0EAED /* NSOrderedDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B55B3FD1711250300F0EAED /* NSOrderedDictionary.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B55B4001711250300F0EAED /* NSOrderedDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B55B3FE1711250300F0EAED /* NSOrderedDictionary.m */; };
+		7B56DCB51774817800835FDE /* AZFactoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BFBF55C175E0D77007A84AC /* AZFactoryView.m */; };
+		7B56DCB6177483B300835FDE /* DefinitionController.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B36C04C175E303800C83750 /* DefinitionController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B56DCB7177483E500835FDE /* DefinitionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B36C04D175E303800C83750 /* DefinitionController.m */; };
 		7B5806751721B7C2004F4E74 /* NSTableView+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BB3EFCD1675E8D200BABF35 /* NSTableView+AtoZ.m */; };
 		7B583069159BDAF40039CEED /* atoz.icns in Resources */ = {isa = PBXBuildFile; fileRef = 7B583065159BDAF40039CEED /* atoz.icns */; };
 		7B59C8271600D342009DAFCA /* AtoZModels.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B59C8251600D341009DAFCA /* AtoZModels.m */; };
@@ -913,15 +914,13 @@
 		7BF9E7D8159F0A0500B5482D /* AZPopupWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF9E7D6159F0A0500B5482D /* AZPopupWindow.m */; };
 		7BFBF4F1175DC89A007A84AC /* AtoZAppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BFBF4EE175DC861007A84AC /* AtoZAppKit.framework */; };
 		7BFBF4F2175DC8B5007A84AC /* AtoZAppKit.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7BFBF4EE175DC861007A84AC /* AtoZAppKit.framework */; };
-		7BFBF569175E0D77007A84AC /* AZFactoryView.m in Resources */ = {isa = PBXBuildFile; fileRef = 7BFBF55C175E0D77007A84AC /* AZFactoryView.m */; };
 		7BFBF56B175E0D77007A84AC /* CABlockDelegate.m in Resources */ = {isa = PBXBuildFile; fileRef = 7BFBF55E175E0D77007A84AC /* CABlockDelegate.m */; };
-		7BFBF56C175E0D77007A84AC /* NSObject+AZBundles.m in Resources */ = {isa = PBXBuildFile; fileRef = 7BFBF55F175E0D77007A84AC /* NSObject+AZBundles.m */; };
+		7BFBF56C175E0D77007A84AC /* AtoZNodeProtocol.m in Resources */ = {isa = PBXBuildFile; fileRef = 7BFBF55F175E0D77007A84AC /* AtoZNodeProtocol.m */; };
 		7BFBF58D175E0F14007A84AC /* AZFactoryView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BFBF55B175E0D77007A84AC /* AZFactoryView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BFBF58E175E0F14007A84AC /* CABlockDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BFBF55D175E0D77007A84AC /* CABlockDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BFBF58F175E0F14007A84AC /* AtoZNodeProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BFBF560175E0D77007A84AC /* AtoZNodeProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7BFBF590175E0F48007A84AC /* AZFactoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BFBF55C175E0D77007A84AC /* AZFactoryView.m */; };
 		7BFBF591175E0F48007A84AC /* CABlockDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BFBF55E175E0D77007A84AC /* CABlockDelegate.m */; };
-		7BFBF592175E0F48007A84AC /* NSObject+AZBundles.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BFBF55F175E0D77007A84AC /* NSObject+AZBundles.m */; };
+		7BFBF592175E0F48007A84AC /* AtoZNodeProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BFBF55F175E0D77007A84AC /* AtoZNodeProtocol.m */; };
 		7BFDF4DA162E07C800B0E149 /* MAKVONotificationCenter.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BFDF4D8162E07C800B0E149 /* MAKVONotificationCenter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BFDF4DB162E07C800B0E149 /* MAKVONotificationCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BFDF4D9162E07C800B0E149 /* MAKVONotificationCenter.m */; };
 		7BFEC80715D19C55009DA347 /* NSApplication+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B6901B7159E09D800D0DA47 /* NSApplication+AtoZ.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -2303,8 +2302,8 @@
 		7B3422A115A52A61006AC46C /* AZBaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZBaseModel.h; path = Classes/AZBaseModel.h; sourceTree = SOURCE_ROOT; };
 		7B3422C815A5EF03006AC46C /* AZDockQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZDockQuery.h; sourceTree = "<group>"; };
 		7B3422C915A5EF03006AC46C /* AZDockQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZDockQuery.m; sourceTree = "<group>"; };
-		7B36C04C175E303800C83750 /* DefinitionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DefinitionController.h; path = AtoZCodeFactory/AtoZObjC/../AtoZCodeFactory/DefinitionController.h; sourceTree = SOURCE_ROOT; };
-		7B36C04D175E303800C83750 /* DefinitionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DefinitionController.m; path = AtoZCodeFactory/AtoZObjC/../AtoZCodeFactory/DefinitionController.m; sourceTree = SOURCE_ROOT; };
+		7B36C04C175E303800C83750 /* DefinitionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DefinitionController.h; path = Core/DefinitionController.h; sourceTree = SOURCE_ROOT; };
+		7B36C04D175E303800C83750 /* DefinitionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DefinitionController.m; path = Core/DefinitionController.m; sourceTree = SOURCE_ROOT; };
 		7B36C050175F3D2D00C83750 /* wall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wall.png; sourceTree = "<group>"; };
 		7B37776516F16E2A0083CBB5 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = /System/Library/Frameworks/WebKit.framework; sourceTree = "<absolute>"; };
 		7B3777C016F1BE4A0083CBB5 /* About.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = About.txt; sourceTree = "<group>"; };
@@ -3055,11 +3054,11 @@
 		7BFA3EC5162B4DF0003264A4 /* CleanAndCopyToCompiledFrameWorks.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; name = CleanAndCopyToCompiledFrameWorks.sh; path = ../Frameworks/CleanAndCopyToCompiledFrameWorks.sh; sourceTree = "<group>"; };
 		7BFBF4E7175DC860007A84AC /* AtoZAppKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AtoZAppKit.xcodeproj; path = ../Frameworks/AtoZAppKit/AtoZAppKit.xcodeproj; sourceTree = "<group>"; };
 		7BFBF553175E0C75007A84AC /* AtoZCodeFactory.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AtoZCodeFactory.xcodeproj; path = AtoZCodeFactory/xcb/../AtoZCodeFactory.xcodeproj; sourceTree = "<group>"; };
-		7BFBF55B175E0D77007A84AC /* AZFactoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZFactoryView.h; path = ../AtoZCodeFactory/AtoZCodeFactory/AZFactoryView.h; sourceTree = "<group>"; };
-		7BFBF55C175E0D77007A84AC /* AZFactoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AZFactoryView.m; path = ../AtoZCodeFactory/AtoZCodeFactory/AZFactoryView.m; sourceTree = "<group>"; };
+		7BFBF55B175E0D77007A84AC /* AZFactoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZFactoryView.h; path = ../Core/AZFactoryView.h; sourceTree = "<group>"; };
+		7BFBF55C175E0D77007A84AC /* AZFactoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AZFactoryView.m; path = ../Core/AZFactoryView.m; sourceTree = "<group>"; };
 		7BFBF55D175E0D77007A84AC /* CABlockDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CABlockDelegate.h; path = ../CABlockDelegate.h; sourceTree = "<group>"; };
 		7BFBF55E175E0D77007A84AC /* CABlockDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CABlockDelegate.m; path = ../CABlockDelegate.m; sourceTree = "<group>"; };
-		7BFBF55F175E0D77007A84AC /* NSObject+AZBundles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+AZBundles.m"; path = "../NSObject+AZBundles.m"; sourceTree = "<group>"; };
+		7BFBF55F175E0D77007A84AC /* AtoZNodeProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AtoZNodeProtocol.m; path = ../AtoZNodeProtocol.m; sourceTree = "<group>"; };
 		7BFBF560175E0D77007A84AC /* AtoZNodeProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AtoZNodeProtocol.h; path = ../AtoZNodeProtocol.h; sourceTree = "<group>"; };
 		7BFDF4D8162E07C800B0E149 /* MAKVONotificationCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = MAKVONotificationCenter.h; path = ../../Frameworks/MAKVONotificationCenter/MAKVONotificationCenter.h; sourceTree = "<group>"; };
 		7BFDF4D9162E07C800B0E149 /* MAKVONotificationCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MAKVONotificationCenter.m; path = ../../Frameworks/MAKVONotificationCenter/MAKVONotificationCenter.m; sourceTree = "<group>"; };
@@ -4489,6 +4488,7 @@
 				7BD908BE162F580E000DE2BB /* AtoZGeometry.m */,
 				7B81C37F174B517300226B82 /* AtoZMacroDefines.h */,
 				7BFBF560175E0D77007A84AC /* AtoZNodeProtocol.h */,
+				7BFBF55F175E0D77007A84AC /* AtoZNodeProtocol.m */,
 				7B2586401719B04E00527501 /* AtoZTypes.h */,
 				7B6901D7159E3AC600D0DA47 /* AtoZUmbrella.h */,
 				7B1EA04C1732AAC6007AB4E1 /* AZBeetlejuice.h */,
@@ -4507,7 +4507,6 @@
 				7B36C04D175E303800C83750 /* DefinitionController.m */,
 				7BCDFC6E15C71B340003DA4D /* Essential */,
 				7B0D66901715DB8C0032F5D3 /* JREnum.h */,
-				7BFBF55F175E0D77007A84AC /* NSObject+AZBundles.m */,
 				7B4DD6B616EDBBF60084826B /* Operations */,
 				7BFF70001746D07A0001BCF5 /* XcodeENV.sh */,
 			);
@@ -5742,12 +5741,12 @@
 				7B2FA743174C3F250026E869 /* AZWindowTab.h in Headers */,
 				7BF343FE17538D330006E542 /* NullSafe.h in Headers */,
 				7B66D6D2175D16AC00599B28 /* NSValueTransformer+TransformerKit.h in Headers */,
-				7B36C04E175E303800C83750 /* DefinitionController.h in Headers */,
 				7B06BBD31761EBB1003A9C7E /* AZColor.h in Headers */,
 				7BD667131760BA07006DA22C /* AZWindowTabViewController.h in Headers */,
 				7B06BC171761FECB003A9C7E /* IsometricView.h in Headers */,
 				7BFBF58D175E0F14007A84AC /* AZFactoryView.h in Headers */,
 				7BFBF58E175E0F14007A84AC /* CABlockDelegate.h in Headers */,
+				7B56DCB6177483B300835FDE /* DefinitionController.h in Headers */,
 				7BFBF58F175E0F14007A84AC /* AtoZNodeProtocol.h in Headers */,
 				7B685E87176F0D6500A6F753 /* CTBlockDescription.h in Headers */,
 			);
@@ -5830,7 +5829,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7B31197B159B6D9E002134C4 /* Build configuration list for PBXNativeTarget "AtoZ" */;
 			buildPhases = (
-				7B81C383174B5E0400226B82 /* Header Factory */,
 				7B0236DB15E08E500070FE12 /* frameworks copy */,
 				7BBD987B15AF79D000943FC1 /* Frameworks */,
 				7B31194E159B6D9E002134C4 /* Headers */,
@@ -5838,6 +5836,7 @@
 				7B31194C159B6D9E002134C4 /* Sources */,
 				7B9595B015E1CFCE0044620B /* fonts Files */,
 				7BE63AB915FE9782004BA700 /* LinkBuild To System Frameworks Directory and Create Umbrella Framework Symlink */,
+				7B81C383174B5E0400226B82 /* Header Factory */,
 				7B6848E61700536100DF5150 /* AppleDoc */,
 				7B1C48DC1726C8D4007D9987 /* ShellScript */,
 				7B66D779175DBCF600599B28 /* ShellScript */,
@@ -6842,9 +6841,8 @@
 				7BEA75BE1720E169000A7D84 /* GrayScale.clr in Resources */,
 				7B21B628173807F90093CE9B /* tiger.png in Resources */,
 				7BFF712217471A2F0001BCF5 /* GaySlang.plist in Resources */,
-				7BFBF569175E0D77007A84AC /* AZFactoryView.m in Resources */,
 				7BFBF56B175E0D77007A84AC /* CABlockDelegate.m in Resources */,
-				7BFBF56C175E0D77007A84AC /* NSObject+AZBundles.m in Resources */,
+				7BFBF56C175E0D77007A84AC /* AtoZNodeProtocol.m in Resources */,
 				7B36C051175F3D2D00C83750 /* wall.png in Resources */,
 				7BD667151760BA07006DA22C /* AZWindowTabViewController.xib in Resources */,
 				7B06BB9A1761C7F9003A9C7E /* flatui.clr in Resources */,
@@ -6958,7 +6956,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "INCLUDE_PATH=\"${BUILT_PRODUCTS_DIR}/include\"\nPRODUCT_PATH=\"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}\"\n      BINARY=\"$PRODUCT_PATH/Headers/\"\n\ncd \"$INCLUDE_PATH\" \ncp -R . \"$PRODUCT_PATH/Headers/\"\n";
+			shellScript = "if [ 0 == 1 ]; then\nINCLUDE_PATH=\"${BUILT_PRODUCTS_DIR}/include\"\nPRODUCT_PATH=\"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}\"\n      BINARY=\"$PRODUCT_PATH/Headers/\"\n\ncd \"$INCLUDE_PATH\" \ncp -R . \"$PRODUCT_PATH/Headers/\"\nfi\nexit 0";
 		};
 		7B6848E61700536100DF5150 /* AppleDoc */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -7014,7 +7012,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "  PRODUCT_PATH=\"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}\"\n        BINARY=\"$PRODUCT_PATH/${PRODUCT_NAME}\"\n           MAC=\"/Library/Frameworks/\"\nSYSTEM_PRODUCT=\"$MAC/${WRAPPER_NAME}\"\n\n#env\n\nfunction test {\n\t\"$@\"\n\tstatus=$?\n   \tif [ $status -ne 0 ]; then\techo \"error with $1\";\tfi\n\treturn $status\n}\n\ntest otool -l \"$BINARY\" #/Library/Frameworks/AtoZ.framework/AtoZ\n\nif [ $status == 0 ]; then\n\t#say \"Yeah, it worked\"\n    growlnotify -m \"it worked\" -p -1 -n AtoZ Build\n\t#sudo rm -r \"$SYSTEM_PRODUCT\"\n#    sudo cp -r \"$PRODUCT_PATH\" \t\t\"$SYSTEM_PRODUCT\"\nelse\n\t#say \"Poop, no workie\"\n    growlnotify -m \"BUILD FAILED\" -p 2 -n AtoZ Build\nfi\n\nsudo ln -sF \"${PRODUCT_PATH}\" \"${MAC}\"\n\ncd \"${PRODUCT_PATH}\"\nln -sF Versions/Current/Frameworks Frameworks\n\n\n#logger `pwd`\n\necho \"Cleaning Profiler Information\"\ncd \"${OBJECT_FILE_DIR_normal}/${CURRENT_ARCH}\"\n# Delete *.gcda files in the current target\nCOUNT=$(ls *.gcda 2> /dev/null | wc -l)\nif [ $COUNT -ne 0 ]; then\n\tsay \"Deleting $COUNT G C D A's\"\n\trm -f *.gcda\nfi\n\nexit 0\n\n#if [ -f  \"${PRODUCT_PATH}/${PRODUCT_NAME}\" ]; then\n#\t$growler -n \"AtoZ\" -m \"AtoZ Was compiled AOK.\"\n#\tif [ -d \"${PRECOMPS}/${WRAPPER_NAME}\" ]; then\n#    \trm -r \"${PRECOMPS}/${WRAPPER_NAME}\"\n#   fi\n#\tmkdir -p \"${PRECOMPS}\"\n#\tcp -r \"${PRODUCT_PATH}\" \"${PRECOMPS}\"\n#else\n#\t$growler -n \"AtoZ\" -m \"AtoZ is not a complete Binary!.\"\n#\tsay \"AtoZ is not a complete Binary!\"\n#fi\n\n\n#class-dump /Library/Frameworks/AtoZ.framework/AtoZ >>\n\n#install_name_tool -change \\\n#\"@executable_path/../Frameworks/${WRAPPER_NAME}/Versions/A/${PRODUCT_NAME}\" \\\n#\"@loader_path/../../../../Frameworks/${WRAPPER_NAME}/Versions/A/${PRODUCT_NAME}\" \\\n#\"$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/BaseTenAppKit.framework/Versions/A/BaseTenAppKit\"\n\n#-header-pad_max_install_names\n\n#FRAMEWORKS_DIR=\"${PRODUCT_PATH}\"FRAMEWORK_DIR/Versions/Frameworks\"\n\n#if ( ! [ -e \"$FRAMEWORKS_DIR\" ] ); then\n#$$ln -s \"$FRAMEWORK_DIR/Versions/Current/Frameworks\" \"$FRAMEWORKS_DIR\"\n#fi\n\n\n# PRECOMPS=\"$HOME/Library/Developer/Precompiled\"\n# growler='/ServiceData/UNIX/bin/growlnotify'\n";
+			shellScript = "  PRODUCT_PATH=\"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}\"\n#   BINARY_PATH=\"/Versions/Current/${PRODUCT_NAME}\"\n  BUILT_BINARY=\"$PRODUCT_PATH/${PRODUCT_NAME}\"\n           MAC=\"/Library/Frameworks/\"\nSYSTEM_PRODUCT=\"$MAC/${WRAPPER_NAME}\"\n SYSTEM_BINARY=\"$SYSTEM_PRODUCT/${WRAPPER_NAME}\"\n\n#export noitify=\"/Volumes/2T/ServiceData/UNIX/bin/notifycmd.app/Contents/MacOS/notifycmd\"\n\nsudo mkdir -p \"$SYSTEM_PRODUCT\"\ntypeset \tret_code\ntypeset \tcmnd=\"otool -l $BUILT_BINARY 2>&1 > /dev/null\"\neval \t\t$cmnd\nret_code=$?\n #/Library/Frameworks/AtoZ.framework/AtoZ#STATUS=$()\n\nif [ $ret_code -eq 0 ]; then\n#\tsay \"Yeah, it worked\"\n\t#notify echo \"Framework built OK! rsync!\"\n    cmnd=\"sudo rsync -lKr $PRODUCT_PATH $MAC/\"\n\teval $cmnd #test otool -l \"$SYSTEM_BINARY\" #/Library/Frameworks/AtoZ.framework/AtoZ\n#\tSTATUS=$?\n\tret_code=$?\n\tif [ $ret_code -ne 0 ];then\n    \texit $ret_code\n    fi\n#\tsudo rm -r \"$SYSTEM_PRODUCT\"\n#   sudo cp -r \"$PRODUCT_PATH\" \t\t\"$SYSTEM_PRODUCT\"\nelse\n\tLogger \"Touching ${SRCROOT}/AtoZ-Framework.pch\"\n\ttouch \"${SRCROOT}/AtoZ-Framework.pch\"\n    ITRIED=\"defaults read com.mrgray.atoz iTried\"\n\n\tif [ $ITRIED -eq 1 ]; then\n        /usr/bin/say im going to stop trying.\n        defaults write com.mrgray.atoz iTried -boolean NO\n\telse\n\t\t/usr/bin/say \"im going to try to xcodebuild\"\n\t    cd \"${SRCROOT}\"\n\t\tdefaults write com.mrgray.atoz iTried -boolean YES\n#        xcodebuild -target AtoZ\n\tfi\nfi\n\t\n#\tsay \"Poop, no workie\"\n#    open \"${BUILT_PRODUCTS_DIR}\"\n   # notify echo \"BUILD FAILED\"\n\n\n#sudo ln -sF \"${PRODUCT_PATH}\" \"${MAC}\"\n\n#cd \"${PRODUCT_PATH}\"\n#ln -sF Versions/Current/Frameworks Frameworks\n\n\n#logger `pwd`\n\necho \"Cleaning Profiler Information\"\ncd \"${OBJECT_FILE_DIR_normal}/${CURRENT_ARCH}\"\n# Delete *.gcda files in the current target\nCOUNT=$(ls *.gcda 2> /dev/null | wc -l)\nif [ $COUNT -ne 0 ]; then\n\tsay \"Deleting $COUNT G C D A's\"\n\trm -f *.gcda\nfi\n\nexit 0\n\n\n#This produces a compiler warning with a yellow triangle and white exclamation point.\n#echo “MyFileName.m”:1: warning: “My warning message”\n\n\n#if [ -f  \"${PRODUCT_PATH}/${PRODUCT_NAME}\" ]; then\n#\t$growler -n \"AtoZ\" -m \"AtoZ Was compiled AOK.\"\n#\tif [ -d \"${PRECOMPS}/${WRAPPER_NAME}\" ]; then\n#    \trm -r \"${PRECOMPS}/${WRAPPER_NAME}\"\n#   fi\n#\tmkdir -p \"${PRECOMPS}\"\n#\tcp -r \"${PRODUCT_PATH}\" \"${PRECOMPS}\"\n#else\n#\t$growler -n \"AtoZ\" -m \"AtoZ is not a complete Binary!.\"\n#\tsay \"AtoZ is not a complete Binary!\"\n#fi\n\n\n#class-dump /Library/Frameworks/AtoZ.framework/AtoZ >>\n\n#install_name_tool -change \\\n#\"@executable_path/../Frameworks/${WRAPPER_NAME}/Versions/A/${PRODUCT_NAME}\" \\\n#\"@loader_path/../../../../Frameworks/${WRAPPER_NAME}/Versions/A/${PRODUCT_NAME}\" \\\n#\"$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/BaseTenAppKit.framework/Versions/A/BaseTenAppKit\"\n\n#-header-pad_max_install_names\n\n#FRAMEWORKS_DIR=\"${PRODUCT_PATH}\"FRAMEWORK_DIR/Versions/Frameworks\"\n\n#if ( ! [ -e \"$FRAMEWORKS_DIR\" ] ); then\n#$$ln -s \"$FRAMEWORK_DIR/Versions/Current/Frameworks\" \"$FRAMEWORKS_DIR\"\n#fi\n\n\n# PRECOMPS=\"$HOME/Library/Developer/Precompiled\"\n# growler='/ServiceData/UNIX/bin/growlnotify'\n";
 		};
 		7BF72D4E171F8F2E0037CF41 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -7075,9 +7073,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7BFBF590175E0F48007A84AC /* AZFactoryView.m in Sources */,
+				7B56DCB7177483E500835FDE /* DefinitionController.m in Sources */,
 				7BFBF591175E0F48007A84AC /* CABlockDelegate.m in Sources */,
-				7BFBF592175E0F48007A84AC /* NSObject+AZBundles.m in Sources */,
+				7BFBF592175E0F48007A84AC /* AtoZNodeProtocol.m in Sources */,
 				7BDF41F2164AFD53008B3240 /* NSObject+AtoZ.m in Sources */,
 				7BA7D2391639421A0073BADC /* ConciseKit.m in Sources */,
 				7B2F23EC16F289BC003D7648 /* INAppStoreWindow.m in Sources */,
@@ -7306,6 +7304,7 @@
 				7B37782416F1BF030083CBB5 /* RouteRequest.m in Sources */,
 				7B37782616F1BF030083CBB5 /* RouteResponse.m in Sources */,
 				7B37782816F1BF030083CBB5 /* RoutingConnection.m in Sources */,
+				7B56DCB51774817800835FDE /* AZFactoryView.m in Sources */,
 				7B37782A16F1BF030083CBB5 /* RoutingHTTPServer.m in Sources */,
 				7B1B352516F3396600B94864 /* AZSpeechRecognition.m in Sources */,
 				7B4A90AD16F3AB39003CD058 /* AZHTTPRouter.m in Sources */,
@@ -7364,7 +7363,6 @@
 				7B2FA744174C3F250026E869 /* AZWindowTab.m in Sources */,
 				7BF3440017538D330006E542 /* NullSafe.m in Sources */,
 				7B66D6D3175D16AC00599B28 /* NSValueTransformer+TransformerKit.m in Sources */,
-				7B36C04F175E303800C83750 /* DefinitionController.m in Sources */,
 				7BD667141760BA07006DA22C /* AZWindowTabViewController.m in Sources */,
 				7B06BBD41761EBB1003A9C7E /* AZColor.m in Sources */,
 				7B06BC161761FEC4003A9C7E /* IsometricView.m in Sources */,

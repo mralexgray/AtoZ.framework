@@ -1,4 +1,5 @@
 
+#import "BaseModel.h"
 #import "AtoZUmbrella.h"
 
 JREnumDeclare( LogEnv, 	LogEnvXcodeColor,		LogEnvXcodeNOColor,	LogEnvTTY,
@@ -40,12 +41,11 @@ void 	QuietLog 				  	( NSS *format, ...	  );
 								 func : (const char*)funcName
 				           format : (id)format, ... 			NS_REQUIRES_NIL_TERMINATION;
 
--(void) 				   logThese : (const char*)pretty    /* Pass a variadic list of Colors, and Objects, in any order! */
+- (void) 			   logThese : (const char*)pretty    /* Pass a variadic list of Colors, and Objects, in any order! */
 							  things : (id)colorsAndThings,...	NS_REQUIRES_NIL_TERMINATION;
 @end
 
 #define 	AZLOGSHARED 		[AZLog sharedInstance]
-
 
 #define IS_OBJECT(T) _Generic( (T), id: YES, default: NO)
 

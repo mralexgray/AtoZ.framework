@@ -2,70 +2,63 @@
 #import "NSString+AtoZ.h"
 #import "AtoZ.h"
 
-JREnumDefine(AZQuad);	JREnumDefine(azkColor);	JROptionsDefine(AZAlign);	//JREnumDefine(AZPosition);
-JREnumDefine(AZCompass);
+JREnumDefine		(AZQuad	 );
+JREnumDefine		(azkColor );
+JREnumDefine		(AZCompass);
+JROptionsDefine	(AZAlign	 );	//JREnumDefine(AZPosition);
 
-NSString * runCommand(NSString* c) {
-	NSS* outP;	FILE *read_fp;	char buffer[BUFSIZ + 1];	int chars_read;
+NSS 	 * runCommand	(NSS* c) {	NSS* outP;	FILE *read_fp;	char buffer[BUFSIZ + 1];	int chars_read;
+
 	memset(buffer, '\0', sizeof(buffer));
 	read_fp = popen(c.UTF8String, "r");
 	if (read_fp != NULL) {
 		chars_read = fread(buffer, sizeof(char), BUFSIZ, read_fp);
-	   		if (chars_read > 0) outP = $UTF8(buffer);
+	   if (chars_read > 0) outP = $UTF8(buffer);
 		pclose(read_fp);
 	}	
 	return outP;
 }
+Method 	GetImplementedInstanceMethod 		 (Class aClass, SEL aSelector) 								{	Method method = NULL; unsigned int methodCount = 0;
 
-Method GetImplementedInstanceMethod(Class aClass, SEL aSelector) 	{
-	Method method = NULL;	unsigned int methodCount = 0;
 	Method* methodList = class_copyMethodList(aClass, &methodCount);
-	if (methodList) {
-		for (unsigned int i = 0; i < methodCount; ++i) { if (method_getName(methodList[i]) == aSelector) {	method = methodList[i];	break; }	}
-		free(methodList);
+	if (!methodList) return NULL;
+	for (unsigned int i = 0; i < methodCount; ++i) {
+		if (method_getName(methodList[i]) == aSelector) {
+			method = methodList[i];
+			break;
+		}
 	}
-	return method;
+	return free(methodList), method;
 }
-// swizzle the methods fo' shizzle my nizzle
-IMP SwizzleImplementedInstanceMethods(Class aClass, const SEL originalSelector, const SEL alternateSelector) 	{
+IMP 		SwizzleImplementedInstanceMethods (Class k, const SEL original, const SEL alternate)	{
+
+	// swizzle the methods fo' shizzle my nizzle
 	// The methods must both be implemented by the target class, not inherited from a superclass.
-	Method original = GetImplementedInstanceMethod(aClass, originalSelector);
-	Method alternate = GetImplementedInstanceMethod(aClass, alternateSelector);
-	if (!original || !alternate)	return NULL;
+	Method originalM 	= GetImplementedInstanceMethod (k,  original);
+	Method alternateM = GetImplementedInstanceMethod (k, alternate);
+	if (!originalM || !alternateM)	return NULL;
 	// The argument and return types must match exactly.
-	const char* originalTypes = method_getTypeEncoding(original);
-	const char* alternateTypes = method_getTypeEncoding(alternate);
-	if (!originalTypes || !alternateTypes || strcmp(originalTypes, alternateTypes)) return NULL;
+	const char *  originalTypes = method_getTypeEncoding ( originalM  );
+	const char * alternateTypes = method_getTypeEncoding ( alternateM );
+	if ( !originalTypes || !alternateTypes || strcmp( originalTypes, alternateTypes ) ) return NULL;
 	IMP ret;
 	if (ret = method_getImplementation(original)) method_exchangeImplementations(original, alternate);
 	return ret;
 }
 
+static NSMD* 				_children;
+static dispatch_once_t  _onceToken;
 
+@implementation 	AZSingleton //Subclassible thread-safe ARC singleton  Copyright Kevin Lawler. Released under ISC.
++ (id) 		   sharedInstance				{
 
-
-//Subclassible thread-safe ARC singleton  Copyright Kevin Lawler. Released under ISC.
-@implementation AZSingleton
-static NSMutableDictionary* _children;
-
-+ (id)sharedInstance {
-	static dispatch_once_t onceToken;
-   if (!_children) {
-//		dispatch_sync(dispatch_get_main_queue(),^{
-			dispatch_once(&onceToken, ^{
-				_children = NSMD.new;
-			});
-//		});
-	}
-	if ( ! _children[AZCLSSTR] || _children[AZCLSSTR] == AZNULL ) {
-//		dispatch_sync(dispatch_get_main_queue(),^{
-      	  _children[AZCLSSTR] =  [self.class.alloc init];
-//    	});
-	 }
-    return _children[AZCLSSTR];
+	if ( !_children )																dispatch_once(&_onceToken, ^{ _children = NSMD.new; });
+	if ( !_children[AZCLSSTR] || _children[AZCLSSTR] == AZNULL )	dispatch_sync(dispatch_get_main_queue(),^{
+																										 _children[AZCLSSTR] =  self.class.new; });
+	return _children[AZCLSSTR];
 }
-+ (instancetype) instance {	return _children[AZCLSSTR] ?: self.sharedInstance; }
-+ (void) setSharedInstance:(id)i { 
++ (instancetype)     instance				{	return _children[AZCLSSTR] ?: self.sharedInstance; }
++ (void) 	setSharedInstance : (id)i 	{
 	if (i == nil) { 
 		_children = [_children.allKeys cw_mapArray:^id(id object) {
 			if (SameString(object, AZCLSSTR)) return nil; else return @{object:_children[object]};
@@ -74,31 +67,23 @@ static NSMutableDictionary* _children;
 //		[_children removeObjectForKey:AZCLSSTR];  return;	}
 	else if ((i) && [i ISKINDA:self.class]) [_children setObject:i forKey:AZCLSSTR];
 }
-+ (void) print {  NSLog(@"%@", _children); }
-	// = AZNULL; _children = [_children dictionaryWithoutKey:AZCLSSTR].mutableCopy; } }
-//+(void) initialize {    //thread-safe	
-//   if(!_children) _children = NSMutableDictionary.new; [_children setObject:[self.alloc init] forKey:AZCLSSTR];
-//}
++ (void) 					print 			{  NSLog(@"%@", _children); }
 
+@end
+
+/* = AZNULL; _children = [_children dictionaryWithoutKey:AZCLSSTR].mutableCopy; } }
+//+(void) initialize {    //thread-safe if(!_children) _children = NSMutableDictionary.new; [_children setObject:[self.alloc init] forKey:AZCLSSTR]; }
 //+(id) alloc {    id c; if((c = [self instance]))  return c;  return [self allocWithZone:nil];	}
-//-(id) init 	{    id c; if((c = [_children objectForKey:AZCLSSTR])) return c;//sic, unfactored
-//    self = [super init];    return self;
-//}
-//
+//-(id) init 	{    id c; if((c = [_children objectForKey:AZCLSSTR])) return c;//sic, unfactored//    self = [super init];    return self; }
 //+ (id) instance 		{    return [_children objectForKey:AZCLSSTR];	}
 //+ (id) sharedInstance {     return [self instance];  } //alias for instance 
 //+ (id) singleton 		{         return [self instance];   } //alias for instance
 ////stop other creative stuff
 //+ (id) new {    return [self instance];}
-//
 //+(id)copyWithZone:(NSZone *)zone {    return [self instance];	}
 //+(id)mutableCopyWithZone:(NSZone *)zone {    return [self instance];	}
 //+ (void) setSharedInstance:(id)i { if ((i) && [self instance] != i && [i ISKINDA:self.class]) [_children setObject:i forKey:AZCLSSTR];
-//	if (i == nil) {    id selfthing = [_children objectForKey:AZCLSSTR]; selfthing = AZNULL;  }//_children = [_children dictionaryWithoutKey:AZCLSSTR].mutableCopy; } 
-//}
-@end
-
-/*
+//	if (i == nil) {    id selfthing = [_children objectForKey:AZCLSSTR]; selfthing = AZNULL;  }//_children = [_children dictionaryWithoutKey:AZCLSSTR].mutableCopy; } }
 static NSMD* _children;
 + (void) initialize 		{	//thread-safe
 	_children = !_children ? NSMD.new : _children;
@@ -106,10 +91,8 @@ static NSMD* _children;
 }
 + (instancetype) alloc 				{ id c; return (c = self.instance) ? c : [self allocWithZone:nil];  }
 - (instancetype) init  				{ 
-	
-	id c; 
-	return self = ((c = _children[AZCLSSTR])) ? c : [super init];  //sic, unfactored
-//	return  ;
+	id c;
+	return self = ((c = _children[AZCLSSTR])) ? c : [super init];  //sic, unfactored//	return  ;
 }
 + (void) setSharedInstance:(id)i { if (i) _children[AZCLSSTR]  = i; else [_children removeObjectForKey:AZCLSSTR]; }
 + (instancetype) instance 			{	return [_children objectForKey:AZCLSSTR] ?:^{ return _children[AZCLSSTR] = [self.alloc init]; }();  }
@@ -119,7 +102,6 @@ static NSMD* _children;
 + (instancetype) copyWithZone:			(NSZone *)zone {	return [self instance]; }
 + (instancetype) mutableCopyWithZone:(NSZone *)zone {	return [self instance]; }
 @end
-
 */
 
 NSC* Clr			(azkColor c) {
@@ -133,28 +115,26 @@ NSG* GradForClr(azkColor c) {
 					c == azkColorPurple 	? PURPLEGRAD :	c == azkColorGray ? GRAYGRAD 	:	nil;
 }
 
-CACONST * AZConst								 (CACONSTATTR attrb, NSS *rel) 														{
-	return [CACONST constraintWithAttribute:attrb relativeTo:rel
-								  attribute:attrb];
-}
-CACONST * AZConstraint						 (CACONSTATTR attrb, NSS *rel) 														{
-	return AZConst(attrb, rel);
-}
-CACONST * AZConstScaleOff					 (CACONSTATTR attrb, NSS *rel, CGF scl, CGF off) 								{
-	return [CACONST constraintWithAttribute:attrb relativeTo:rel attribute:attrb scale:scl offset:off];
-}
-CACONST * AZConstRelSuper					 (CACONSTATTR att) 																		{
+CACONST * AZConstRelSuper					  (CACONSTATTR att) 																{
 	return [CACONST constraintWithAttribute:att relativeTo:@"superlayer" attribute:att];
 }
-CACONST * AZConstRelSuperScaleOff		 (CACONSTATTR attrb, CGF scl, CGF off) 											{
-	return [CACONST constraintWithAttribute:attrb relativeTo:@"superlayer" attribute:attrb scale:scl offset:off];
+CACONST * AZConst								  (CACONSTATTR att, NSS *rel) 												{
+	return [CACONST constraintWithAttribute:att relativeTo:rel attribute:att];
 }
-CACONST * AZConstAttrRelNameAttrScaleOff(CACONSTATTR aOne, NSS *relName, CACONSTATTR aTwo, CGF scl, CGF off) 	{
-	return [CAConstraint constraintWithAttribute:aOne relativeTo:relName attribute:aTwo scale:scl offset:off];
+CACONST * AZConstraint						  (CACONSTATTR att, NSS *rel) 												{
+	return AZConst(att, rel);
+}
+CACONST * AZConstRelSuperScaleOff		  (CACONSTATTR att, 									 	CGF scl, CGF off)	{
+	return [CACONST constraintWithAttribute:att relativeTo:@"superlayer" attribute:att scale:scl offset:off];
+}
+CACONST * AZConstScaleOff					  (CACONSTATTR att, NSS *rel, 					 	CGF scl, CGF off)	{
+	return [CACONST constraintWithAttribute:att relativeTo:rel attribute:att scale:scl offset:off];
+}
+CACONST * AZConstAttrRelNameAttrScaleOff (CACONSTATTR att, NSS *rel, CACONSTATTR att2, CGF scl, CGF off)	{
+	return [CAConstraint constraintWithAttribute:att relativeTo:rel attribute:att2 scale:scl offset:off];
 }
 
 CAT3D  	m34() { CAT3D t = CATransform3DIdentity; float z=500.0f;t.m34	= 1.0f/z; return t;}
-
 
 /**	   if ( [AZSHAREDAPP delegate] ) {   id appD = [AZSHAREDAPP delegate];
 				fprintf ( stderr, "%s", appD description.UTF8String );
@@ -200,7 +180,7 @@ void pyRunWithArgsInDirPythonPath(NSS *_spriptP,NSA *_optArgs, NSS *working, NSS
 //	[AZSOQ addOperation:[PYO inDir:working withPath:script pythonPATH:pyPATH optArgs:argA]];
 }
 
-char** cArrayFromNSArray ( NSArray* array ){
+char** cArrayFromNSArray ( NSA* array )	{
    int i;
    int count = array.count + 1;
    char *cargs = (char*) malloc( count * sizeof(char*));
@@ -264,82 +244,6 @@ char** cArrayFromNSArray ( NSArray* array ){
 //		[NSException raise: NSInternalInconsistencyException format:
 
 */
-@implementation CALayerNoHit
-- (BOOL)containsPoint:(CGP)p  		{
-	return FALSE;
-}
-@end
-@implementation CAShapeLayerNoHit
-- (BOOL)containsPoint:(CGP)p			{
-	return FALSE;
-}
-@end
-@implementation CATextLayerNoHit
-- (BOOL)containsPoint:(CGP)p			{
-	return FALSE;
-}
-@end
-//  OR
-@implementation CALayer (NoHit)
-@dynamic noHit;
-
-//+ (void)load 								{
-//	[$ swizzleMethod:@selector(containsPoint:) with:@selector(swizzleContainsPoint:) in:self.class];
-//}
-- (void)setNoHit:(BOOL)noHit 			{
-
-	if (![self hasAssociatedValueForKey:@"noHit"])
-		[self setAssociatedValue:@(noHit) forKey:@"noHit" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
-		[self overrideSEL:@selector(containsPoint:) withBlock:(__bridge void*)^BOOL(id _self, NSP p)	{
-			if (!self.noHit) {
-				SEL sel = @selector(containsPoint:);
-				BOOL (*superIMP)(id, SEL, NSP) = [_self az_superForSelector:sel];
- 				return superIMP(_self, sel, p);
-			}
-			else return NO;
-		}];
-	if (![self hasAssociatedValueForKey:@"noHit"])
-		[self setAssociatedValue:@(noHit) forKey:@"noHit" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
-	//		[self az_overrideSelector:@selector(containsPoint:) withBlock:^(]
-}
-- (BOOL)noHit 								{	return [self hasAssociatedValueForKey:@"noHit"];	}
-//- (BOOL)swizzleContainsPoint:(CGP)p {
-//	BOOL fakedout =  [self noHit];
-//	BOOL forReals = [self swizzleContainsPoint:p];
-//	return self.noHit ? NO :[self swizzleContainsPoint:p];// NO ? NO : forReals;
-//}
-@end
-
-
-@implementation NSObject (AZLayerDelegate)
-- (BOOL)boolForKey: (NSS*)key defaultValue:(BOOL)defaultValue 	{
-
-	id val = [self respondsToSelector:[self getterForPropertyNamed:key]] ? [self valueForKey:key] : nil;//:[self getterForPropertyNamed:key]];
-	if (val && [val respondsToString:@"boolValue"]) return [val boolValue];	
-//	if ([self hasPropertyForKVCKey:key]) {
-//
-//		val = [self valueForKey:key];
-//		return  [val ISKINDA:NSSCLASS] || [val ISKINDA:NSN.class] ? [val boolValue] : defaultValue;
-//	}
-	else return [self associatedValueForKey:key orSetTo:@(defaultValue) policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
-}
-- (BOOL)boolForKey: (NSS*)key											  	{
-	return [self boolForKey:key defaultValue:NO];
-}
-- (void)toggleBoolForKey:(NSS*) key										{
-	[self setBool:![self boolForKey:key defaultValue:NO] forKey:key];
-	//[NSN numberWithBool:![self boolForKey:key defaultValue:YES]]
-}
-- (void)layerWasClicked:(CAL *)layer								   {
-	[layer toggleBoolForKey:@"clicked"]; [layer setNeedsDisplay];
-}
-@end
-@implementation CALayer (WasClicked)
-- (void)wasClicked														 	{
-	[self toggleBoolForKey:@"clicked"];  [self setNeedsDisplay];
-}
-
-@end
 
 @implementation AZToggleClickTableCell
 -   (id) target												{

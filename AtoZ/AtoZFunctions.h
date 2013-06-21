@@ -15,7 +15,6 @@ NSString * runCommand(NSString* c);
 Method GetImplementedInstanceMethod(Class aClass, SEL aSelector);
 IMP SwizzleImplementedInstanceMethods(Class aClass, const SEL originalSelector, const SEL alternateSelector);
 
-
 /** BLOCKS!  */
 void profile (const char *name, VoidBlock block); 		// usage	 profile("Long Task", ^{ performLongTask() } );
 
@@ -40,7 +39,6 @@ void profile (const char *name, VoidBlock block); 		// usage	 profile("Long Task
 #define IFKINDA(A,B,C) ^{ if([A ISKINDA:[B class]]) ^{ C; }(); }()
 
 #define AZOL AZOutlineLayer
-
 
 #define PLAYMACRO(name,path) \
  NS_INLINE void play##name (void){ fprintf(stderr,"%s", "##path\""); runCommand (@"afplay ##path"); } 
@@ -67,27 +65,6 @@ CACONST * AZConstAttrRelNameAttrScaleOff 	( CACONSTATTR aOne, NSS* relName, CACO
 
 CAT3D  	m34();
 
-@interface CALayerNoHit : CALayer
-@end
-@interface CAShapeLayerNoHit : CAShapeLayer
-@end
-@interface CATextLayerNoHit : CATextLayer
-@end
-
-@interface CALayer (NoHit)
-@property (NATOM,ASS) BOOL noHit;
-@end
-
-@interface NSObject (AZLayerDelegate)
-- (BOOL) boolForKey:	   (NSS*)key defaultValue:(BOOL)defaultValue;
-- (BOOL) boolForKey:	   (NSS*)key;
-- (void) toggleBoolForKey: (NSS*)key;
-- (void) layerWasClicked:  (CAL*)layer;
-@end
-
-@interface CALayer (WasClicked)
-- (void) wasClicked;
-@end
 
 /*		The in my .h/.m pair where I want to define the constant I do the following:
 

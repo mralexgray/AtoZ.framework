@@ -1,14 +1,4 @@
 
-//  NSObject+AtoZ.h
-//  AtoZ
-
-//  Created by Alex Gray on 7/1/12.
-//  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-#import <Foundation/Foundation.h>
-#import <objc/runtime.h>
-#import <dispatch/dispatch.h>
-#import <stdarg.h>
-
 
 #define AZBindWDefVs(binder,binding,objectToBindTo,keyPath)   											\
 	[binder bind:binding toObject:objectToBindTo withKeyPathUsingDefaults:keyPath]
@@ -25,6 +15,9 @@
 @interface NSObject (NibLoading)
 + (INST) loadFromNib;
 @end
+@interface NSObject (HidingAssocitively)
+@property BOOL folded;
+@end
 
 @interface NSObject (GCD)
 - (void)performOnMainThread:(void(^)(void))block wait:(BOOL)wait;
@@ -33,13 +26,10 @@
 @end
 
 @interface NSObject (ClassAssociatedReferences)
-+ (void)setValue:(id)value forKey:(NSS*)key;
-+ (id)valueForKey:(NSS*)key;
++ (void)		setValue:(id)value forKey:(NSS*)key;
++ (id)	valueForKey:(NSS*)key;
 @end
 
-@interface NSObject (HidingAssocitively)
-@property BOOL folded;
-@end
 
 #define invokeSupersequent(...)  ([self getImplementationOf:_cmd after:impOfCallingMethod(self, _cmd)]) (self, _cmd, ##__VA_ARGS__)
 IMP impOfCallingMethod(id lookupObject, SEL selector);
@@ -50,60 +40,56 @@ IMP impOfCallingMethod(id lookupObject, SEL selector);
 
 
 /* AWEOME!!
+
 	[@["methodOne", @"methodtwo"] each:^(id obj) {
-		[Foo addMethodForSelector:NSSelectorFromString(obj) typed:"v@:" implementation:^ (id self, SEL _cmd) {
+		[Foo addMethodForSelector: NSSelectorFromString(obj) typed:"v@:" implementation:^ (id self, SEL _cmd) {
 			NSLog(@"Called -[%@ %@] with void return", [self class], NSStringFromSelector(_cmd));
 		}];
 		[foo performSelector:stringified];
 	}];
 	[@["returnWithInputOne:", @"returnWithInputTwo:"] eachWithIndex:^(id obj, NSUI idx){
 		[Foo addMethodForSelector:stringified typed:"@@:" implementation:^id(id self, SEL _cmd) {
-		return NSS.randomDicksonism;
+			return NSS.randomDicksonism;
+		}];
+		NSLog(@"%@", [foo performSelector:stringified]);
+	}
+	[Foo addMethodForSelector:@selector(idreturn) typed:"@@:" implementation:^ id (id self, SEL _cmd) {
+		return [NSString stringWithFormat:@"Called -[%@ %@] with id return", [self class], NSStringFromSelector(_cmd)];
 	}];
-	NSLog(@"%@", [foo performSelector:stringified]);
-}
-[Foo addMethodForSelector:@selector(idreturn) typed:"@@:" implementation:^ id (id self, SEL _cmd) {
-	return [NSString stringWithFormat:@"Called -[%@ %@] with id return", [self class], NSStringFromSelector(_cmd)];
-}];
-NSLog(@"%@", [foo idreturn]);
+	NSLog(@"%@", [foo idreturn]);
 }
 */
 
-@interface NSObject (AddMethod)
-+ (BOOL) addMethodFromString:(NSS*)s withArgs:(NSA*)a;  //NEEDSWORK NSMethodSignature
-+ (BOOL) addMethodForSelector:(SEL)selector typed:(const char*)types implementation:(id)blockPtr;
-- (NSA*) methodSignatureArray:(SEL)selector;
-+ (NSA*) methodSignatureArray:(SEL)selector;
-- (NSA*) methodSignatureString:(SEL)selector;
-+ (NSA*) methodSignatureString:(SEL)selector;
-
+@interface 				 NSObject   (AddMethod)
++ (BOOL)   addMethodFromString :	(NSS*)s withArgs:(NSA*)a;  //NEEDSWORK NSMethodSignature
++ (BOOL)  addMethodForSelector : (SEL)selector typed:(const char*)types implementation:(id)blockPtr;
+- (NSA*)  methodSignatureArray : (SEL)selector;
++ (NSA*)  methodSignatureArray : (SEL)selector;
+- (NSA*) methodSignatureString : (SEL)selector;
++ (NSA*) methodSignatureString : (SEL)selector;
 @end
-//Here’s how you’d store a value with a strong reference:
-//			objc_setAssociatedObject(obj, key, value, OBJC_ASSOCIATION_RETAIN);
-//And how you’d get it back:
-//			id value = objc_getAssociatedObject(obj, key);
-
-//key can be any void *; it doesn’t have to implement NSCopying. See objc/runtime.h for the other memory management flags.
-
-//@interface NSObject (AMAssociatedObjects)
-//- (void)associate:(id)value with:(void *)key; // Strong reference
-//- (void)weaklyAssociate:(id)value with:(void *)key;
-//- (id)associatedValueFor:(void *)key;
-//@end
-
+#define PLCY objc_AssociationPolicy
 @interface NSObject (AssociatedValues)
 
-- (void) setAssociatedValue: (id)value forKey: (NSS*)key;
-- (void) setAssociatedValue: (id)value forKey: (NSS*)key policy:(objc_AssociationPolicy)policy;
--   (id) associatedValueForKey:        		  (NSS*)key;
-- (void) removeAssociatedValueForKey:			  (NSS*)key;
-- (void) removeAllAssociatedValues;
-- (BOOL) hasAssociatedValueForKey:				  (NSS*)string;
--   (id) associatedValueForKey:					  (NSS*)key orSetTo:(id)anObject policy: (objc_AssociationPolicy) policy;
+- (void)          setAssociatedValue : (id)v
+										forKey : (NSS*)k; 	/* DEFAULTS TO OBJC_ASSOCIATION_RETAIN */
+- (void)          setAssociatedValue : (id)v
+									   forKey : (NSS*)k
+										policy : (PLCY)p;
+-   (id)       associatedValueForKey : (NSS*)k
+									  orSetTo : (id)def
+							         policy : (PLCY)p;
+-   (id)       associatedValueForKey :	(NSS*)k
+							        orSetTo : (id)def; 	/* DEFAULTS TO OBJC_ASSOCIATION_RETAIN_NONATOMIC */
+-   (id)       associatedValueForKey :	(NSS*)k; 	/* or nil! */
+- (void) removeAssociatedValueForKey :	(NSS*)k;
+- (BOOL)    hasAssociatedValueForKey :	(NSS*)k;
+- (void)   removeAllAssociatedValues ;
 
 @end
 //- (void)registerObservation{	[observee addObserverForKeyPath:@"someValue" task:^(id obj, NSDictionary *change) {
 //								   NSLog(@"someValue changed: %@", change);  }]; }
+
 typedef NSString AZBlockToken;
 typedef void (^AZBlockTask)(id obj, NSDictionary *change);
 @interface NSObject (AZBlockObservation)
@@ -352,6 +338,9 @@ typedef void (^caseBlock)();
 BOOL respondsTo(id obj, SEL selector);
 BOOL respondsToString(id obj,NSS* string);
 
+-(SEL) firstResponsiveSelFromStrings:(NSA*)selectors;
+-(NSS*) firstResponsiveString:(NSA*)selectors;
+
 - (BOOL) respondsToString:(NSS*)string;
 - (id) respondsToStringThenDo: (NSS*)string withObject:(id)obj withObject:(id)objtwo;
 - (id) respondsToStringThenDo: (NSS*)string withObject:(id)obj;
@@ -427,7 +416,7 @@ _Pragma("clang diagnostic pop") \
 
 #pragma mark - PropertyArray
 - (NSDictionary*) dictionaryWithValuesForKeys;
-- (NSA*)  allKeys;
+//- (NSA*)  allKeys;
 
 /** Example:
 	MyObject *obj = [[MyObject alloc] init];
@@ -601,26 +590,26 @@ free(p);
 //- (void)KVODump;
 //@end
 
-@interface NSObject (FOOCoding)
+@interface 				 	  NSObject  (FOOCoding)
 
-- (id)initWithDictionary:(NSD*)dictionary;
+- (id)  		    initWithDictionary : (NSD*)dictionary;
+- (NSA*)        		  arrayForKey : (NSS*)key;
+- (NSA*)      	 		 arrayOfClass : (Class)objectClass forKey:(NSS*)key;
+- (NSA*) 		       arrayOfClass : (Class)objectClass;
+- (NSA*) arrayOfDictionariesForKey : (NSS*)key;
+- (NSA*)      arrayOfStringsForKey : (NSS*)key;
 
-- (NSA*)arrayForKey:(NSS*)key;
-- (NSA*)arrayOfClass:(Class)objectClass forKey:(NSS*)key;
-- (NSA*)arrayOfClass:(Class)objectClass;
-- (NSA*)arrayOfDictionariesForKey:(NSS*)key;
-- (NSA*)arrayOfStringsForKey:(NSS*)key;
+- (BOOL)						boolForKey : (NSS*)key;
 
-- (BOOL)boolForKey:(NSS*)key;
-- (NSData *)dataForKey:(NSS*)key;
-- (NSDate *)dateForKey:(NSS*)key;
-- (NSD*)dictionaryForKey:(NSS*)key;
+- (NSData*)					dataForKey : (NSS*)key;
+- (NSDate*)					dateForKey : (NSS*)key;
+- (NSD*)  dictionaryForKey:(NSS*)key;
 - (double)doubleForKey:(NSS*)key;
-- (CGFloat)floatForKey:(NSS*)key;
-- (NSInteger)integerForKey:(NSS*)key;
+- (CGF)floatForKey:(NSS*)key;
+- (NSI)integerForKey:(NSS*)key;
 - (NSS*)stringForKey:(NSS*)key;
-- (NSUInteger)unsignedIntegerForKey:(NSS*)key;
-- (NSURL *)URLForKey:(NSS*)key;
+- (NSUI)unsignedIntegerForKey:(NSS*)key;
+- (NSURL*)URLForKey:(NSS*)key;
 
 - (id)valueForKeyOrKeyPath:(id)keyOrKeyPath transform:(THBinderTransformationBlock)tBlock;
 - (id)valueForKeyOrKeyPath:(id)keyOrKeyPath;  //AZAddition

@@ -463,6 +463,30 @@
 		block(obj, [self objectForKey:obj], idx);
 	}];
 }
+/*
+- (void) obtainKeyPaths:(id)val intoArray:(NSMutableArray*)arr withString:(NSString*)s {
+    if ([val isKindOfClass:[NSDictionary class]]) {
+        for (id aKey in [val allKeys]) {
+            NSString* path = 
+                (!s ? aKey : [NSString stringWithFormat:@"%@.%@", s, aKey]);
+            [arr addObject: path];
+            [self obtainKeyPaths: [val objectForKey:aKey] 
+                       intoArray: arr
+                      withString: path];
+        }
+    }
+}
+
+- (NSA*)allKeyPaths {
+
+	return [self.allKeys reduce:@"" withBlock:^id(id sum, id obj) {
+		NSString* path = (!s ? aKey : [NSString stringWithFormat:@"%@.%@", s, aKey]);
+//            [arr addObject: path];
+//            [self obtainKeyPaths: [val objectForKey:aKey]
+//                       intoArray: arr
+//                      withString: path];
+		]
+}*/
 @end
 // This horrible hack is hereby placed in the public domain. I recommend never using it for anything.
 #if 0
@@ -502,6 +526,7 @@ static void DynamicDictionarySetter(id self, SEL _cmd, id value)	{
 	}
 	else
 	{
+		NSLog(@"leaving this one to super!",nil);
 		return [super resolveInstanceMethod:sel];
 	}
 }

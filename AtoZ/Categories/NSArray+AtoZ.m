@@ -1153,6 +1153,13 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
     [self addObject:AZVrect(rect)];
 }
 
+
+- (id) advance {
+	id first = self.firstObject;
+	[self firstToLast];
+	return first;
+}
+
 - (id)last {
     return self.lastObject;
 }
@@ -1354,7 +1361,6 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 - (NSS*) listNames {
     return [self listValuesForKey:@"name" conjunction:nil truncateTo:0];
 }
-
 @end
 
 

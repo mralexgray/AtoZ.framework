@@ -254,6 +254,8 @@
 	<dict>
 		<key>ASS</key>
 		<string>assign</string>
+		<key>INST</key>
+		<string>instancetype</string>
 		<key>ASSGN</key>
 		<string>assign</string>
 		<key>AZIDCAA</key>

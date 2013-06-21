@@ -1,24 +1,196 @@
 
 #import "AZFactoryView.h"
 
-EXTMixin		(AZOutlineLayerNode, CAScrollLayer);
 JREnumDefine(AZOutlineCellStyle);
 
-@implementation   AZOutlineLayerNode + (instancetype) layerForNode:AZNODEPRO node style:(AZOutlineCellStyle)style{  AZOutlineLayerNode *nodeL; return 
+@implementation AZFactoryView 		{ NSA*palette_; NSTextField *matchField_; NSButton* rezhuzhButt_; NSView*UIView_; CAL *scrollBar_, *hostLayer_; } /* IVARS */
 
-	[nodeL = AZOutlineLayerNode.layer setReprsentedNode: node],
-	[nodeL setStyle:				 @{	  @"cellStyle" : @(AZOutlineCellStyleToggleHeader),
-										  @"backgroundColor" : (id)GRAY5.CGColor,
-										@"autoresizingMask"  : @(CASIZEABLE),
-							@"needsDisplayOnBoundsChange" : @YES, 
-											 @"masksToBounds" : @YES,
-											 @"layoutManager" : self,
-													@"delegate" : self,
-												 @"scrollMode" : kCAScrollVertically}], nodeL;
+- (void) viewDidMoveToWindow 			{ [self.window setAcceptsMouseMovedEvents:YES]; } /* accept mousemoved events */
+
+-   (id) initWithFrame:		(NSR)fr
+		      controller:    (id)ctr	{ 	if (!(self = [super initWithFrame:fr])) return nil;	_controller = ctr;
+
+	self.layer 			 		= [CAL layerWithFrame:self.bounds];
+	self.layer.sublayers 	= @[_nodes = [AZOutlineLayer layerWithNode:_controller.root inLayer:hostLayer_ withFrame:self.nodeRect]]; 			// nodes <- encapsulates all the OTHER nodes.
+	self.wantsLayer		 	= YES;
+	self.setupAppKitCrap;
+	self.nodes.selectedNode = _controller.children[0]; return self;  // Jusr to start things off;
+}
+- (void) mouseMoved:  		(NSE*)e	{ static ReverseAnimationBlock colorSnap = NULL, pulseSnap = NULL;
+
+	CAL* hit; if (!( hit = [[hostLayer_.presentationCALayer hitTest:e.locationInWindow]modelLayer])) return;
+
+	if (!hit.hovered && SameString(NSStringFromClass(hit.class), @"ListLayerItem")) {
+	
+		if (colorSnap) colorSnap(); if (pulseSnap) pulseSnap();
+		colorSnap 	= [hit.superlayer animateToColor:RANDOMCOLOR duration:5 withCallBack:YES];
+		pulseSnap 	= [hit.superlayer pulse];
+	}
+}
+- (void) mouseDown:  		(NSE*)e	{ _nodes.selectedNode = nil;
+
+
+//	if (SameString(NSStringFromClass([hit class]), @"ListLayerItem")) return [[hit superlayer]animateToColor:RANDOMCOLOR];
+//	_nodes.selectedNode = [hit superlayer][@"node"];
+	[CATransaction transactionWithLength:.6 actions:^{	// self.nodeRects;
+	
+	  __block CGR r; __block CAScrollLayer *scrlr; __block CAL* layer;
+	
+		[(NSA*)_controller.children eachWithIndex:^(AZNode*node, NSI idx) {		
+			layer 			= 		[_nodes.sublayers objectWithValue:node forKey:@"node"]; 
+			layer.frame		= r = [_nodes.nodeRects[idx]rectValue];  NSLog(@"resizing category idx: %ld : %@ r: %@", idx, node.key, NSStringFromRect(r));
+			scrlr          =	 	[layer scanSubsForClass:CAScrollLayer.class];
+			r.origin.y 		= 0;
+			r.size.height 	= [node isEqualTo:_nodes.selectedNode] ? r.size.height - zKEYWORDS_V_UNIT : 0; //self.unitHeight : 0; 
+			layer.frame 	= r;	//	[l.superlayer setNeedsDisplay];
+		}];
+	}];
+		^{	NSLog(@"isanode: %@..  index..%@ of %@", _nodes.selectedNode.isaNode ? @"YES A NODE" : @"NoWAY NOT A NODE", @(_nodes.selectedNode.siblingIndex), @(_nodes.selectedNode.siblingIndexMax));
+			NSLog(@"selected node:%@  %@ of %@", _nodes.selectedNode.key,@(_nodes.selectedNode.siblingIndex), @(_nodes.selectedNode.siblingIndexMax)); }();
+}
+- (void) scrollWheel:		(NSE*)e 	{ [(CAScrollLayer*)[[_nodes.sublayers objectWithValue:_nodes.selectedNode forKey:@"node"] scanSubsForClass:CAScrollLayer.class] scrollBy:NSMakePoint(2*e.deltaX, 2* e.deltaY)];}
+-  (NSR) nodeRect 			{  return AZRectTrimmedOnTop(self.bounds, 100); }
+- (void) setupAppKitCrap 	{
+
+	NSRect upperRect, matchRect, buttRect, findRect, path1, path2;		
+	upperRect   = AZUpperEdge(self.bounds, 100);
+	matchRect 	= (NSRect) {  0, upperRect.size.height  -  25, 50, 25 }; 
+	buttRect 	= (NSRect) {  0, upperRect.size.height  -  50, 50, 25 };
+	findRect 	= (NSRect) { 60, upperRect.size.height  -  50, upperRect.size.width-70, 50 }; 
+	path2			= (NSRect) {  0, upperRect.size.height  -  75, upperRect.size.width,    25 }; 
+	path1			= (NSRect) {  0, upperRect.size.height  - 100, upperRect.size.width,    25 };
+	
+	self	 .postsBoundsChangedNotifications 	= self.postsFrameChangedNotifications = YES;
+	self   .subviews = @[ UIView_ 				= [NSView       .alloc  initWithFrame:upperRect]];
+	UIView_.subviews = @[ matchField_			= [NSTextField  .alloc 	initWithFrame:matchRect],
+							    rezhuzhButt_			= [NSButton     .alloc 	initWithFrame:	buttRect],
+								 _plistPathControl 	= [NSPathControl.alloc 	initWithFrame:		path2],
+								 _headerPathControl 	= [NSPathControl.alloc 	initWithFrame:		path1],
+								 _searchField 			= [NSSearchField.alloc 	initWithFrame:	findRect]];
+
+	[_headerPathControl bind:@"backgroundColor" toObject:_controller withKeyPath:@"pList.outdated" transform:^id(id value){
+		 return [value boolValue] ? NSColor.blueColor :[NSColor colorWithDeviceWhite:.2 alpha:.8];								}];
+	[_plistPathControl bind:@"backgroundColor" toObject:_controller withKeyPath:@"pList.outdated" transform:^id(id  value){
+		return [value boolValue] ? NSColor.orangeColor : [NSColor colorWithDeviceWhite:.6 alpha:.6];							   }];
+	[_searchField		  setAction:@selector(search:)				 withTarget:_controller];
+	[_headerPathControl setAction:@selector(setGeneratedHeader:) withTarget:_controller];
+	[_plistPathControl  setAction:@selector(setPList:) 			 withTarget:_controller];
+	[@[_searchField, _headerPathControl]					makeObjectsPerformSelector:@selector(setDelegate:) withObject:_controller];
+	[@[_plistPathControl.cell, _headerPathControl.cell]makeObjectsPerformSelector:@selector(setEditable:) withObject:			@YES];
+	[_plistPathControl setFont:[NSFont fontWithName:@"UbuntuMono-Bold" size:14]];
+	[_searchField.cell 											  setDrawsBackground:YES];
+	[matchField_				 											   setEditable: NO];
+	[_plistPathControl .cell setPlaceholderString: @"Plist Path"];
+	[_headerPathControl.cell setPlaceholderString:@"Header Path"];
+	[matchField_ 			  bind:NSValueBinding toObject:_controller withKeyPath:@"root.allDescendants.@count" options:nil];
+	[_plistPathControl  bind: @"URL" toObject:_controller withKeyPath:@"pList.URL"  			  options:@{@"NSContinuouslyUpdatesValue":@YES}];
+	[_headerPathControl bind: @"URL" toObject:_controller withKeyPath:@"generatedHeader.URL" options:@{@"NSContinuouslyUpdatesValue":@YES}];
+	_plistPathControl	.pathStyle 			= _headerPathControl.pathStyle 			= NSPathStylePopUp;
+	_plistPathControl	.autoresizingMask = _headerPathControl.autoresizingMask 	= NSViewWidthSizable | NSViewMinYMargin;
+	_searchField		.autoresizingMask = NSViewWidthSizable | NSViewMinYMargin;
+	UIView_				.autoresizingMask = NSViewMinYMargin 	| NSViewWidthSizable;
+	matchField_			.autoresizingMask =
+	rezhuzhButt_		.autoresizingMask	= NSViewMinYMargin;
+	rezhuzhButt_ 	   .refusesFirstResponder = YES;
+}				//	Setup AppKit crap.
+@end
+@implementation 		AZOutlineLayer
+//	[self bind:@"sublayers" toObject:self withKeyPath:@"representedNode"	transform:^id(id subs) {
++ (INST)  layerWithNode:AZNODEPRO node
+					 inLayer:(CAL*)host
+				  withFrame:(NSR)frame 		{	AZOutlineLayer *outline;
+	[host addSublayer:outline = [AZOutlineLayer layerWithFrame:frame]];
+	outline.representedNode = node;
+	outline.style =   @{	   @"borderColor" : (id)cgRANDOMCOLOR,
+							  @"backgroundColor" : (id)PINK.CGColor,
+							@"autoresizingMask"  : @(CASIZEABLE),
+				@"needsDisplayOnBoundsChange" : @YES, 
+								 @"masksToBounds" : @YES,
+								 @"layoutManager" : outline,
+								      @"delegate" : outline,
+							       @"scrollMode" : kCAScrollVertically};
+	[NSEVENTLOCALMASK:NSLeftMouseDownMask handler:^NSE*(NSE*e){
+//		[self.nodeController addObject:AZNode.new];
+		LOG_EXPR(outline.selectedNode);
+		// = ((AZOutlineLayerNode*)[[outline.presentationCALayer hitTest:e.locationInWindow]modelLayer]).reprsentedNode;
+//		LOG_EXPR(h.selected);	LOG_EXPR(self.sublayers);
+//		IFKINDA(h, AZOutlineLayer, LOG_EXPR(((AZOutlineLayer*)h).rootNodes.count) );
+		return e;
+	}];
+	[outline setSublayers:[outline.representedNode.children cw_mapArray:^id(NSO<AtoZNodeProtocol>*x){ return [AZOutlineLayerNode layerForNode:x style:AZOutlineCellStyleToggleHeader];	}]];
+	return outline;
+}  /* designated */
+-   (id) initWithLayer:		    (id)cal	{		return self = [super initWithLayer:cal] ?	// Copy custom property values between layers
+	IFKINDA( cal, AZOL, [self setPropertiesWithDictionary:[cal dictionaryRepresentation]] ),	self : nil;
+}
++ (BOOL) needsDisplayForKey: (NSS*)key	{
+	return [@[@"frame", @"bounds", @"position", @"node"] containsObject:key] 
+		 ?: [super needsDisplayForKey:key]; 
+}
+- IDCAA  actionForKey:		  (NSS*)key	{  NSLog(@"action for key: %@?", key);
+	CABA *c = [CABasicAnimation animation];
+	{ objswitch(key)
+		objcase(kCAOnOrderIn) 	c.keyPath 	= @"opacity"; 
+										c.duration 	= 2; 
+									 	c.fromValue = @0; 
+										c.toValue 	= @1; return c; 				
+		objcase(@"_selected")   NSC* colore = RANDOMCOLOR; NSString *name = colore.nameOfColor; [name log];
+										CAA *coloreA = [CAA backgroundColorAnimationFrom:[self.presentationLayer backgroundNSColor] to:colore duration:2];
+//										[coloreA setCompletion:^(CAA*a, BOOL finished) {
+//											[CATRANNY immediately:^{
+//											[self.modelLayer setBackgroundNSColor:colore];
+											//}];
+//											NSLog(@"completion for colore: %@",name);
+//										}];
+										[CAAnimationDelegate delegate:coloreA forLayer:self];
+										return coloreA;
+	endswitch
+	}
+	return [super actionForKey:key];
+}
+- (NSA*) nodeRects 							{	__block NSR thisRect = (NSRect) { 0, 0, self.boundsWidth, 0 };
+
+	//vertical unit                 // if there is no selection it is evenly divided...  this is impossible, currently
+//	CGF unit = //_nodes.selectedNode == nil 	? self.nodeRect.size.height / _controller.numberOfChildren.floatValue : zKEYWORDS_V_UNIT;
+	
+	return  [_representedNode.children nmap:^id(NSO<AtoZNodeProtocol>*node, NSUInteger idx){
+	
+		thisRect.origin.y += thisRect.size.height;
+		thisRect.size.height = MAX( 0, idx != self.selectedNode.siblingIndex 	? zKEYWORDS_V_UNIT
+																										: ^{
+			NSUInteger leftOver 	= node.siblingIndexMax - self.selectedNode.siblingIndex - 1;
+			CGFloat maxAfter 		= self.boundsHeight - thisRect.origin.y - (leftOver * zKEYWORDS_V_UNIT);
+			return maxAfter; 
+											}());
+		//self.unitHeight; // this is the selected pane 
+		//			bounds.size.height 	= self.nodeRect.size.height - leaveSpace - vOffset;
+		//		thisRect.size.height;
+		return AZVrect(thisRect);
+	}];
 }
 
-- (void) setCellStyle:				(AZOutlineCellStyle)cellStyle 		{ BOOL needsRezhuzh = _cellStyle != cellStyle; _cellStyle = cellStyle;
+@end
 
+EXTMixin			  (AZOutlineLayerNode, CAScrollLayer);
+@implementation   AZOutlineLayerNode
+
++ (instancetype) layerForNode:AZNODEPRO node style:(AZOutlineCellStyle)style{
+
+	AZOutlineLayerNode *nodeL = AZOutlineLayerNode.layer;
+	nodeL.reprsentedNode = node;
+	nodeL.style 		= @{  @"backgroundColor" : (id)GRAY5.CGColor, @"autoresizingMask" : @(CASIZEABLE),
+									  @"masksToBounds" : @YES,						    @"scrollMode" : kCAScrollVertically,
+																		   @"needsDisplayOnBoundsChange" : @YES };
+	nodeL.loM 			= nodeL; [nodeL  setNeedsLayout];
+	nodeL.delegate		= nodeL; [nodeL setNeedsDisplay];
+	nodeL.cellStyle 	= AZOutlineCellStyleToggleHeader;
+	return nodeL;
+}
+
+- (void) setCellStyle:				(AZOutlineCellStyle)cellStyle 		{
+
+	BOOL needsRezhuzh = _cellStyle != cellStyle;
+			 _cellStyle = cellStyle;
 	if (needsRezhuzh) [self removeSublayers];
 	if (_cellStyle == AZOutlineCellStyleToggleHeader) {
 
@@ -27,9 +199,7 @@ JREnumDefine(AZOutlineCellStyle);
 	}
 	else if (_cellStyle == AZOutlineCellStyleScrollList) {
 		
-//		CAScrollLayer * scrl 	= CAScrollLayer.layer; 
-//		scrl.needsDisplayOnBoundsChange	 = YES;
-//		scrl.scrollMode 			= kCAScrollVertically;
+//		CAScrollLayer * scrl 	= CAScrollLayer.layer; 	scrl.needsDisplayOnBoundsChange	 = YES;	scrl.scrollMode = kCAScrollVertically;
 		//	scrl.autoresizingMask 	= kCALayerWidthSizable| kCALayerHeightSizable;
 		for (AZNode *keyword in _reprsentedNode.children) {  CATextLayer *kTxtL;
 			[self addSublayer:kTxtL = CATextLayer.layer];
@@ -55,7 +225,6 @@ JREnumDefine(AZOutlineCellStyle);
 //	[CABlockDelegate delegateFor:scrl ofType:CABlockTypeLayoutBlock withBlock: ^(CALayer*layer){   // lays out each node, that we just made	
 //	}];
 /*
-
 	list.frame  		= tHost.frame = zCATEGORY_RECT;
 	list.anchorPoint  = (NSP){.5, 1};
 	list.frameMinY 	= zCATEGORY_RECT.size.height;
@@ -104,141 +273,89 @@ nl.sublayers 			= @[tHost, list];
 }
 @end
 
-@implementation 		AZOutlineLayer	+ (INST) layerWithNodes:(NSA*)nodes inLayer:(CAL*)host withFrame:(NSR)frame 		{	AZOutlineLayer *outline; return 
-	[host addSublayer:outline = [AZOutlineLayer layerWithFrame:frame]],
-	[outline.nodeController addObjects:nodes], outline;
-}
 
-- (INST) init 									{ return  self = super.init ? 
+CAGradientLayer* greyGradLayer() 	{	CAGradientLayer *gl = CAGradientLayer.layer;
+	gl.colors 		= @[(id)[NSC white:.15 a:1].CGColor, (id)[NSC white:.19 a:1].CGColor,
+							 (id)[NSC white:.20 a:1].CGColor, (id)[NSC white: .25 a:1].CGColor];
+	gl.locations 	= @[@0,@.5, @.5, @1];  													return gl; 
+}
+//			NSInteger r = [cs allKeys].count, thisNodeIdx = [bSelf.controller.nodeChildren indexOfObject:node];
+NSA				* RGBFlameArray(NSC*color, NSUI ct, CGF hueStepDeg, CGF satStepDeg, CGF briStepDeg, NSI align)	{
+
+	CGFloat hue, saturation, brightness, alpha;
+	[color getHue:&hue saturation:&saturation brightness:&brightness alpha:&alpha];
+
+	NSUInteger midway						= align == 0 ? ct / 2 : ct;
+	CGFloat hueStepDegrees 				= hueStepDeg / 360.0;
+	CGFloat brightnessStepDegrees 	= briStepDeg / 100.0;
+   CGFloat saturationStepDegrees 	= satStepDeg / 100.0;
+
+	hue -= align == 1 ?  (hueStepDegrees * ((float) ct - 1.0)) : align == 0 ? (hueStepDegrees * (float) midway) : 0;
+
+	if (hue < 0) hue += 1;	else if (hue > 1) hue -= 1;
+
+	if (align== 1) {
+		brightness -= (brightnessStepDegrees * (float) ct);
+      saturation -= (saturationStepDegrees * (float) ct);
+   }
+	else if (align == 0) {
+		brightness -= (brightnessStepDegrees * (float) midway);
+      saturation -= (saturationStepDegrees * (float) midway);
+   }
+
+	brightness = brightness < 0 ? 0 : brightness > 1 ?  1 : brightness;
+	saturation = saturation < 0 ? 0 : saturation > 1 ?  1 : saturation;
 	
-	[self setNodeController:NSAC.new],	
-//	[self bind:@"sublayers" toObject:_nodeController withKeyPath:@"arrangedObjects.@count"	transform:^id(id subs) {
-//		return nil;
-//	}],
-[self setStyle:@{	   @"borderColor" : (id)cgRANDOMCOLOR,
-							  @"backgroundColor" : (id)PINK.CGColor,
-							@"autoresizingMask"  : @(CASIZEABLE),
-//				@"needsDisplayOnBoundsChange" : @YES, 
-//								 @"masksToBounds" : @YES,
-//								 @"layoutManager" : self,
-//								      @"delegate" : self,
-							       @"scrollMode" : kCAScrollVertically}],
-									 
-	[NSEVENTLOCALMASK:NSLeftMouseDownMask handler:^NSE*(NSE*e){
-		[self.nodeController addObject:AZNode.new];
-		CAL* h = [self hitTest:e.locationInWindow];
-		h.selected = !h.selected;
-		LOG_EXPR(h.selected);
-//		IFKINDA(h, AZOutlineLayer, LOG_EXPR(((AZOutlineLayer*)h).rootNodes.count) );
-		return e;
-	}],
-	self : nil;
-}
--   (id) initWithLayer:		    (id)cal	{		return self = [super initWithLayer:cal] ?	// Copy custom property values between layers
-	IFKINDA( cal, AZOL, [self setPropertiesWithDictionary:[cal dictionaryRepresentation]] ),	self : nil;
-}
-+ (BOOL) needsDisplayForKey: (NSS*)key	{
-	return [@[@"frame", @"bounds", @"position", @"node"] containsObject:key] 
-		 ?: [super needsDisplayForKey:key]; 
-}
-- IDCAA  actionForKey:		  (NSS*)key	{  NSLog(@"action for key: %@?", key);
-	CABA *c = [CABasicAnimation animation];
-	objswitch(key)
-		objcase(kCAOnOrderIn) 	c.keyPath 	= @"opacity"; 
-										c.duration 	= 2; 
-									 	c.fromValue = @0; 
-										c.toValue 	= @1; return c; 				
-		objcase(@"_selected")   NSC* colore = RANDOMCOLOR; NSString *name = colore.nameOfColor; [name log];
-										CAA *coloreA = [CAA backgroundColorAnimationFrom:[self.presentationLayer backgroundNSColor] to:colore duration:2];
-//										[coloreA setCompletion:^(CAA*a, BOOL finished) {
-//											[CATRANNY immediately:^{
-//											[self.modelLayer setBackgroundNSColor:colore];
-											//}];
-//											NSLog(@"completion for colore: %@",name);
-//										}];
-										[CAAnimationDelegate delegate:coloreA forLayer:self];
-										return coloreA;
-	endswitch
-	return [super actionForKey:key];
-}
+	int iterations;
+	NSMutableArray * colors = NSMutableArray.new;
 
-@end
-@implementation AZFactoryView 		{ NSA*_catPal; NSTextField *_matchCt; NSButton* _generateButt; NSView*_uiPanel; CAL *scrollBar, *host; }
+	for( iterations = 0; iterations < ct ; iterations++ ){
+		[colors addObject:[NSColor colorWithCalibratedHue:hue saturation:saturation brightness:brightness alpha:alpha]];
+		hue += hueStepDegrees;
+		if(hue > 1) hue -= 1;
 
-- (void) viewDidMoveToWindow { [self.window setAcceptsMouseMovedEvents:YES]; }
--   (id) initWithFrame:		(NSR)fr 
-		      controller:    (id)ctr	{ 	if (self != [super initWithFrame:fr]) return nil;	
+		if (align == -1 || (align == 0 && iterations >= midway)) {
+			brightness -= brightnessStepDegrees;
+         saturation -= saturationStepDegrees;
+      }
+		else if (align == 1 || (align == 0 && iterations < midway)) {
+			brightness += brightnessStepDegrees;
+         saturation += saturationStepDegrees;
+      }
+		brightness = brightness < 0 ? 0 : 1;
+      saturation = saturation < 0 ? 0 : saturation > 1 ? 1 : saturation;
 
-				
-	_controller 			 	= ctr;
-	self .layer 			 	=			    [CAL layerWithFrame:self.bounds];
-	self .layer.sublayers 	= @[_nodes = [AZOutlineLayer layerWithNodes:_controller.children inLayer:host withFrame:self.nodeRect]]; 			// nodes <- encapsulates all the OTHER nodes.
-	self .wantsLayer		 	= YES;
-	self  .setupAppKitCrap;
-	return self.nodes.selectedNode = _controller.children[0], self;  // Jusr to start things off;
-}
-- (void) mouseMoved:  		(NSE*)e		{  		static CAL *hover = nil;  static ReverseAnimationBlock colorSnap = NULL, pulseSnap = NULL;
-
-	id hit = [[(CAL*)host.presentationLayer hitTest:e.locationInWindow]modelLayer];
-	if (!hit) return;
-	if (hit != hover && SameString(NSStringFromClass([hit class]), @"ListLayerItem")) { 
-	
-		if (colorSnap) colorSnap(); if (pulseSnap) pulseSnap();
-		colorSnap 	= [[hit superlayer] animateToColor:RANDOMCOLOR duration:5 withCallBack:YES];
-		pulseSnap 	= [[hit superlayer] pulse];
 	}
+	return colors;
 }
 
-- (void) mouseDown:  		(NSE*)e		{ _nodes.selectedNode = nil;
-
-	id hit = [[(CAL*)host.presentationLayer hitTest:e.locationInWindow]modelLayer];
-	if (SameString(NSStringFromClass([hit class]), @"ListLayerItem")) return [[hit superlayer]animateToColor:RANDOMCOLOR];
-	_nodes.selectedNode = [hit superlayer][@"node"];
-	[CATransaction transactionWithLength:.6 actions:^{	// self.nodeRects;
-	
-	  __block CGR r; __block CAScrollLayer *scrlr; __block CAL* layer;
-	
-		[(NSA*)_controller.children eachWithIndex:^(AZNode*node, NSI idx) {		
-			layer 			= 		[_nodes.sublayers objectWithValue:node forKey:@"node"]; 
-			layer.frame		= r = [_nodes.nodeRects[idx]rectValue];  NSLog(@"resizing category idx: %ld : %@ r: %@", idx, node.key, NSStringFromRect(r));
-			scrlr          =	 	[layer scanSubsForClass:CAScrollLayer.class];
-			r.origin.y 		= 0;
-			r.size.height 	= [node isEqualTo:_nodes.selectedNode] ? r.size.height - zKEYWORDS_V_UNIT : 0; //self.unitHeight : 0; 
-			layer.frame 	= r;	//	[l.superlayer setNeedsDisplay];
-		}];
-	}];
-		^{	NSLog(@"isanode: %@..  index..%@ of %@", _nodes.selectedNode.isaNode ? @"YES A NODE" : @"NoWAY NOT A NODE", @(_nodes.selectedNode.siblingIndex), @(_nodes.selectedNode.siblingIndexMax));
-			NSLog(@"selected node:%@  %@ of %@", _nodes.selectedNode.key,@(_nodes.selectedNode.siblingIndex), @(_nodes.selectedNode.siblingIndexMax)); }();
+/*
+- (void) bind:(NSString *)binding toObject:(id)observable withKeyPath:(NSString *)keyPath options:(NSDictionary *)options
+{
+  if ([binding isEqualToString:@"observedObjects"]) {
+    [observable addObserver:self forKeyPath:@"arrangedObjects" options:0 context:nil];
+    [observable addObserver:self forKeyPath:@"arrangedObjects.name" options:0 context:nil];
+  } else {
+    [super bind:binding toObject:observable withKeyPath:keyPath options:options];
+  }
 }
-- (void) scrollWheel:		(NSE*)e 		{ [(CAScrollLayer*)[[_nodes.sublayers objectWithValue:_nodes.selectedNode forKey:@"node"] scanSubsForClass:CAScrollLayer.class] scrollBy:NSMakePoint(2*e.deltaX, 2* e.deltaY)];}
--  (NSR) nodeRect 			{  return AZRectTrimmedOnTop(self.bounds, 100); }
-
-
-//- (void) bind:(NSString *)binding toObject:(id)observable withKeyPath:(NSString *)keyPath options:(NSDictionary *)options
-//{
-//  if ([binding isEqualToString:@"observedObjects"]) {
-//    [observable addObserver:self forKeyPath:@"arrangedObjects" options:0 context:nil];
-//    [observable addObserver:self forKeyPath:@"arrangedObjects.name" options:0 context:nil];
-//  } else {
-//    [super bind:binding toObject:observable withKeyPath:keyPath options:options];
-//  }
-//}
 
 	
-	//	_catPal 						= [NSC gradientPalletteLooping:RANDOMPAL steps:_controller.numberOfChildren];//RGBFlameArray( BLUE, _controller.numberOfChildren, -1, -9, 10, 1);
-//	_nodes.sublayers 			= [ _controller.children map:^id(AZNode *n) { 
-//												return [self categoryLayerWith:n]; 
-//										}];
-//	[$(@"does it need displayonboundschange??  %@", StringFromBOOL(_nodes.needsDisplayOnBoundsChange)) log];
+	_catPal 						= [NSC gradientPalletteLooping:RANDOMPAL steps:_controller.numberOfChildren];//RGBFlameArray( BLUE, _controller.numberOfChildren, -1, -9, 10, 1);
+	_nodes.sublayers 			= [ _controller.children map:^id(AZNode *n) { 
+												return [self categoryLayerWith:n]; 
+										}];
+	[$(@"does it need displayonboundschange??  %@", StringFromBOOL(_nodes.needsDisplayOnBoundsChange)) log];
 
-/**	[CABD delegateFor:_nodes ofType:CABlockTypeLayoutBlock withBlock:^(CALayer*nodesDelegate){ 
+// NEWSECTION
+	[CABD delegateFor:_nodes ofType:CABlockTypeLayoutBlock withBlock:^(CALayer*nodesDelegate){
 		[CATransaction immediately:^{	
 			[_nodes setFrame:self.nodeRect]; 
 			NSLog(@"nodesdelegate set noderect: %@", AZString(self.nodeRect));
 			[_controller.children each:^(AZNode *kid) {   [[_nodes.sublayers objectWithValue:kid forKey:@"node"]setFrame: [[self.nodeRects normal:kid.index.iV]rectValue]]; 
 	}]; }]; }];
-	*/
-/*
+
+//NEWSECTION
 - (CAL*) keywordListOf:		(AZN*)n 	{  	// Return a simple "category" table for a single set of a node shilds keypairs
 	
 	CAScrollLayer * scrl 	= CAScrollLayer.layer; 
@@ -323,82 +440,14 @@ nl.sublayers 			= @[tHost, list];
 	return nl;
 }  	// Builds a node layer
 */
-/*- (NSA*) nodeRects 			{	__block NSR thisRect = (NSRect) { 0, 0, _nodes.boundsWidth, 0 };
-
-	//vertical unit                 // if there is no selection it is evenly divided...  this is impossible, currently
-//	CGF unit = //_nodes.selectedNode == nil 	? self.nodeRect.size.height / _controller.numberOfChildren.floatValue : zKEYWORDS_V_UNIT;
-	
-	return  [_controller.children nmap:^id(AZNode* node, NSUInteger idx){
-	
-		thisRect.origin.y += thisRect.size.height;
-		thisRect.size.height = MAX( 0, idx != _nodes.selectedNode.index.integerValue 	? zKEYWORDS_V_UNIT 
-																										: ^{
-			NSUInteger leftOver 	= node.of.integerValue - _nodes.selectedNode.index.integerValue - 1;
-			CGFloat maxAfter 		= _nodes.bounds.size.height - thisRect.origin.y - (leftOver * zKEYWORDS_V_UNIT);
-			return maxAfter; 
-											}());
-		//self.unitHeight; // this is the selected pane 
-		//			bounds.size.height 	= self.nodeRect.size.height - leaveSpace - vOffset;
-		//		thisRect.size.height;
-		return AZVrect(thisRect);
-	}];
-}*/
-- (void) setupAppKitCrap 	{
-
-	NSRect upperRect, matchRect, buttRect, findRect, path1, path2;		
-	self.postsBoundsChangedNotifications = self.postsFrameChangedNotifications = YES;
-	upperRect   = AZUpperEdge(self.bounds, 100);
-//	, <#CGFloat height#>)self.bounds; upperRect.origin.y  	 = upperRect.size.height;
-//										  upperRect.size.height  = 100; 
-	matchRect 	= (NSRect) {  0, upperRect.size.height  -  25, 50, 25 }; 
-	buttRect 	= (NSRect) {  0, upperRect.size.height  -  50, 50, 25 };
-	findRect 	= (NSRect) { 60, upperRect.size.height  -  50, upperRect.size.width-70, 50 }; 
-	path2			= (NSRect) {  0, upperRect.size.height  -  75, upperRect.size.width,    25 }; 
-	path1			= (NSRect) {  0, upperRect.size.height  - 100, upperRect.size.width,    25 };
-	
-	self    .subviews = @[  _uiPanel 				= [NSView       .alloc  initWithFrame:upperRect]];
-	_uiPanel.subviews = @[	_matchCt 				= [NSTextField  .alloc 	initWithFrame:matchRect], 
-									_generateButt 			= [NSButton     .alloc 	initWithFrame:	buttRect], 
-									_plistPathControl 	= [NSPathControl.alloc 	initWithFrame:		path2],
-									_headerPathControl 	= [NSPathControl.alloc 	initWithFrame:		path1],
-									_searchField 			= [NSSearchField.alloc 	initWithFrame:	findRect]];
-
-	[_headerPathControl bind:@"backgroundColor" toObject:_controller withKeyPath:@"pList.outdated" transform:^id(id value){
-		 return [value boolValue] ? NSColor.blueColor :[NSColor colorWithDeviceWhite:.2 alpha:.8];								}];
-	[_plistPathControl bind:@"backgroundColor" toObject:_controller withKeyPath:@"pList.outdated" transform:^id(id  value){
-		return [value boolValue] ? NSColor.orangeColor : [NSColor colorWithDeviceWhite:.6 alpha:.6];							   }];
-	[_searchField		  setAction:@selector(search:)				 withTarget:_controller];
-	[_headerPathControl setAction:@selector(setGeneratedHeader:) withTarget:_controller];
-	[_plistPathControl  setAction:@selector(setPList:) 			 withTarget:_controller];
-	[@[_searchField, _headerPathControl]					makeObjectsPerformSelector:@selector(setDelegate:) withObject:_controller];
-	[@[_plistPathControl.cell, _headerPathControl.cell]makeObjectsPerformSelector:@selector(setEditable:) withObject:			@YES];
-	[_plistPathControl setFont:[NSFont fontWithName:@"UbuntuMono-Bold" size:14]];
-	[_searchField.cell 											  setDrawsBackground:YES];
-	[_matchCt 					 											   setEditable: NO];
-	[_plistPathControl .cell setPlaceholderString: @"Plist Path"];
-	[_headerPathControl.cell setPlaceholderString:@"Header Path"];
-	[_matchCt 			  bind:NSValueBinding toObject:_controller withKeyPath:@"root.allDescendants.@count" options:nil];
-	[_plistPathControl  bind: @"URL" toObject:_controller withKeyPath:@"pList.URL"  			  options:@{@"NSContinuouslyUpdatesValue":@YES}];
-	[_headerPathControl bind: @"URL" toObject:_controller withKeyPath:@"generatedHeader.URL" options:@{@"NSContinuouslyUpdatesValue":@YES}];
-	_plistPathControl	.pathStyle 			= _headerPathControl.pathStyle 			= NSPathStylePopUp;
-	_plistPathControl	.autoresizingMask = _headerPathControl.autoresizingMask 	= NSViewWidthSizable | NSViewMinYMargin;
-	_searchField		.autoresizingMask = NSViewWidthSizable | NSViewMinYMargin;
-	_uiPanel				.autoresizingMask = NSViewMinYMargin 	| NSViewWidthSizable;
-	_matchCt				.autoresizingMask = 
-	_generateButt		.autoresizingMask	= NSViewMinYMargin; 
-	_generateButt     .refusesFirstResponder = YES;
-}				//	Setup AppKit crap.
-@end
-
-
-
-//		tHost.name = @"header";
-//		[tHost setValue:node forKey:@"node"];
-//		[tHost bind:@"frame" toObject:nl withKeyPath:@"bounds" options:nil];
-//		tHost.autoresizingMask = kCALayerWidthSizable|kCALayerHeightSizable;
-//		tHost.autoresizingMask = kCALayerHeightSizable | kCALayerWidthSizable;
-//		tHost.backgroundColor = cgRANDOMCOLOR;
-//		tHost.backgroundColor   = [NSColor.redColor CGColor];
+/**/
+/*		tHost.name = @"header";
+		[tHost setValue:node forKey:@"node"];
+		[tHost bind:@"frame" toObject:nl withKeyPath:@"bounds" options:nil];
+		tHost.autoresizingMask = kCALayerWidthSizable|kCALayerHeightSizable;
+		tHost.autoresizingMask = kCALayerHeightSizable | kCALayerWidthSizable;
+		tHost.backgroundColor = cgRANDOMCOLOR;
+		tHost.backgroundColor   = [NSColor.redColor CGColor];
 
 //	[CABlockDelegate delegateFor:tHost ofType:CABlockTypeDrawBlock withBlock: ^(CALayer *l, CGContextRef x){ // draws category tiles
 //	}];
@@ -489,7 +538,6 @@ nl.sublayers 			= @[tHost, list];
 //		}];
 
 
-/*
 - (void) drawLayer:(CALayer*)l inContext:(CGContextRef)x {
 		NSLog(@"Inside drawblock.. %@", l.name);
 		[NSGraphicsContext drawInContext:x flipped:NO actions:^{
@@ -501,65 +549,6 @@ nl.sublayers 			= @[tHost, list];
 		}];
 }
 */
-
-
-CAGradientLayer* greyGradLayer() 	{	CAGradientLayer *gl = CAGradientLayer.layer;
-	gl.colors 		= @[(id)[NSC white:.15 a:1].CGColor, (id)[NSC white:.19 a:1].CGColor,
-							 (id)[NSC white:.20 a:1].CGColor, (id)[NSC white: .25 a:1].CGColor];
-	gl.locations 	= @[@0,@.5, @.5, @1];  													return gl; 
-}
-//			NSInteger r = [cs allKeys].count, thisNodeIdx = [bSelf.controller.nodeChildren indexOfObject:node];
-NSA				* RGBFlameArray(NSC*color, NSUI ct, CGF hueStepDeg, CGF satStepDeg, CGF briStepDeg, NSI align)	{
-
-	CGFloat hue, saturation, brightness, alpha;
-	[color getHue:&hue saturation:&saturation brightness:&brightness alpha:&alpha];
-
-	NSUInteger midway						= align == 0 ? ct / 2 : ct;
-	CGFloat hueStepDegrees 				= hueStepDeg / 360.0;
-	CGFloat brightnessStepDegrees 	= briStepDeg / 100.0;
-   CGFloat saturationStepDegrees 	= satStepDeg / 100.0;
-
-	hue -= align == 1 ?  (hueStepDegrees * ((float) ct - 1.0)) : align == 0 ? (hueStepDegrees * (float) midway) : 0;
-
-	if (hue < 0) hue += 1;	else if (hue > 1) hue -= 1;
-
-	if (align== 1) {
-		brightness -= (brightnessStepDegrees * (float) ct);
-      saturation -= (saturationStepDegrees * (float) ct);
-   }
-	else if (align == 0) {
-		brightness -= (brightnessStepDegrees * (float) midway);
-      saturation -= (saturationStepDegrees * (float) midway);
-   }
-
-	brightness = brightness < 0 ? 0 : brightness > 1 ?  1 : brightness;
-	saturation = saturation < 0 ? 0 : saturation > 1 ?  1 : saturation;
-	
-	int iterations;
-	NSMutableArray * colors = NSMutableArray.new;
-
-	for( iterations = 0; iterations < ct ; iterations++ ){
-		[colors addObject:[NSColor colorWithCalibratedHue:hue saturation:saturation brightness:brightness alpha:alpha]];
-		hue += hueStepDegrees;
-		if(hue > 1) hue -= 1;
-
-		if (align == -1 || (align == 0 && iterations >= midway)) {
-			brightness -= brightnessStepDegrees;
-         saturation -= saturationStepDegrees;
-      }
-		else if (align == 1 || (align == 0 && iterations < midway)) {
-			brightness += brightnessStepDegrees;
-         saturation += saturationStepDegrees;
-      }
-		brightness = brightness < 0 ? 0 : 1;
-      saturation = saturation < 0 ? 0 : saturation > 1 ? 1 : saturation;
-
-	}
-	return colors;
-}
-
-
-
 /*
 +   (id) defaultValueForKey: (NSS*)key	{ 		NSLog(@"leyernode wants to know defaultfor key: %@", key); objswitch(key) 
 	objcase(					     @"cellStyle") return @(AZOutlineCellStyleToggleHeader);
@@ -574,15 +563,14 @@ NSA				* RGBFlameArray(NSC*color, NSUI ct, CGF hueStepDeg, CGF satStepDeg, CGF b
 	endswitch
 }
 */
+/*				objcase(@"autoresizingMask") 										return @(CASIZEABLE);
+	 [key isEqualToString:@"radius"] ? ^{
+		CABA *c = [CABasicAnimation animationWithKeyPath:@"radius" andDuration:3];
+		c.fromValue = self.permaPresentation[@"radius"];
+		NSLog(@"%@", c.properties);
+		return c;
+		}()
 
-//				objcase(@"autoresizingMask") 										return @(CASIZEABLE);
-//	 [key isEqualToString:@"radius"] ? ^{
-//		CABA *c = [CABasicAnimation animationWithKeyPath:@"radius" andDuration:3];
-//		c.fromValue = self.permaPresentation[@"radius"];
-//		NSLog(@"%@", c.properties);
-//		return c;
-//		}()
-/*
 @implementation AZOutlineLayerScrollableList : AZOutlineLayerNode
 @end
 //- (void) layoutSublayersOfLayer:(CAL*)layer {

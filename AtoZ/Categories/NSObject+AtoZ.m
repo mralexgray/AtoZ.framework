@@ -182,47 +182,42 @@ static id addMethodTrampoline(id self, SEL _cmd) {
 
 @end
 
-
 @implementation NSObject (AssociatedValues)
 
-- (void)setAssociatedValue:(id)value forKey:(NSS*) key {
-	[self setAssociatedValue:value forKey:key policy:OBJC_ASSOCIATION_ASSIGN];
+- (void)          setAssociatedValue : (id)v forKey:(NSS*)k							{
+	[self setAssociatedValue:v forKey:k policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
 }
-
-- (void)setAssociatedValue:(id)value forKey:(NSS*) key policy:(objc_AssociationPolicy)policy {
-	objc_setAssociatedObject(self, (__bridge const void *)(key), value, policy);
+- (void)          setAssociatedValue : (id)v forKey:(NSS*)k policy:(PLCY)p		{
+	objc_setAssociatedObject(self, (__bridge const void *)(k), v, p);
 }
-
-- (id)associatedValueForKey:(NSS*) key {
-	return objc_getAssociatedObject(self, (__bridge const void *)(key));
+-   (id)       associatedValueForKey : (NSS*)k											{
+	return objc_getAssociatedObject(self, (__bridge const void *)(k));
 }
-
-- (void)removeAssociatedValueForKey:(NSS*) key {
-	objc_setAssociatedObject(self, (__bridge const void *)(key), nil, OBJC_ASSOCIATION_ASSIGN);
+- (void) removeAssociatedValueForKey : (NSS*)k											{
+	objc_setAssociatedObject(self, (__bridge const void *)(k), nil, OBJC_ASSOCIATION_ASSIGN);
 }
-
-- (void)removeAllAssociatedValues {
+- (void)   removeAllAssociatedValues 														{
 	objc_removeAssociatedObjects(self);
 }
-
-- (BOOL)hasAssociatedValueForKey:(NSS*) string {
-	return [self associatedValueForKey:(__bridge const void *)string] != nil;
+- (BOOL)    hasAssociatedValueForKey : (NSS*)k 											{
+	return ([self associatedValueForKey:(__bridge const void *)k] != nil);
 }
-
-- (id)associatedValueForKey:(NSS*)key orSetTo:(id)anObject policy:(objc_AssociationPolicy)policy {
-	if ( [self hasAssociatedValueForKey:key] )
-	return [self associatedValueForKey:(__bridge const void *)key];
-	[self setAssociatedValue:anObject forKey:key policy:policy];
-	return anObject;
+-   (id)       associatedValueForKey :	(NSS*)k orSetTo:(id)def 					{ /* DEFAULTS TO OBJC_ASSOCIATION_RETAIN_NONATOMIC */
+	return [self associatedValueForKey:k orSetTo:def policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
+}
+-   (id)       associatedValueForKey : (NSS*)k orSetTo:(id)def policy:(PLCY)p {
+	if ( [self hasAssociatedValueForKey:k] )
+	return [self associatedValueForKey:(__bridge const void *)k];
+	[self setAssociatedValue:def forKey:k policy:p];
+	return def;
 }
 
 @end
 
 @interface AZObserverTrampoline : NSObject
 {
-	__weak id observee;             NSS *keyPath;   AZBlockTask task;       NSOQ *queue;    dispatch_once_t cancellationPredicate;
+	__weak id observee; NSS *keyPath; AZBlockTask task; NSOQ *queue; dispatch_once_t cancellationPredicate;
 }
-
 - (AZObserverTrampoline *)initObservingObject:(id)obj keyPath:(NSS*) keyPath onQueue:(NSOQ *)queue task:(AZBlockTask)task;
 - (void)cancelObservation;
 @end
@@ -1319,6 +1314,16 @@ static char windowPosition;
 	? [(NSSegmentedControl *)self labelForSegment : [(NSSegmentedControl *)self selectedSegment]] : nil;
 }
 
+-(NSS*) firstResponsiveString:(NSA*)selectors;
+{
+	for (NSS* candidate in selectors) if ([self respondsToString:candidate]) return candidate;
+	return nil;
+}
+-(SEL) firstResponsiveSelFromStrings:(NSA*)selectors;
+{	NSS* responder;
+	return (responder = [self firstResponsiveString:selectors])	? NSSelectorFromString(responder) : NULL;
+}
+
 BOOL respondsToString(id obj, NSS *string) {
 	return [obj respondsToString:string];
 }
@@ -1678,10 +1683,10 @@ static const char * getPropertyType(objc_property_t property) {
 	}
 }
 
-- (NSD *)dictionaryWithValuesForKeys {
-	return [self dictionaryWithValuesForKeys:[self allKeys]];
-}
-
+//- (NSD *)dictionaryWithValuesForKeys {
+//	return [self dictionaryWithValuesForKeys:[self allKeys]];
+//}
+/**
 - (NSA*) allKeys {
 	Class clazz = self.class;        u_int count;
 	objc_property_t *properties     = class_copyPropertyList(clazz, &count);
@@ -1693,7 +1698,7 @@ static const char * getPropertyType(objc_property_t property) {
 	free(properties);
 	return propertyArray.copy;
 }
-
+*/
 - (void)setClass:(Class)aClass {
 	NSAssert(class_getInstanceSize([self class]) == class_getInstanceSize(aClass), @"Classes must be the same size to swizzle.");
 	object_setClass(self, aClass);

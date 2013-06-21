@@ -278,6 +278,8 @@ extern NSString * const NSMutableArrayDidInsertObjectNotification;
 - (void) addPoint:(NSPoint)point;
 - (void) addRect:(NSRect)rect;
 
+- (id) advance;  /* returns first object.. moves it to last. */
+
 - (void) firstToLast;
 
 - (void) lastToFirst;

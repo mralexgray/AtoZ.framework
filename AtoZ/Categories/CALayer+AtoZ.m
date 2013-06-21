@@ -2,6 +2,87 @@
 #import "AtoZ.h"
 #import "AtoZUmbrella.h"
 #import "AtoZFunctions.h"
+
+
+
+@implementation CALayerNoHit
+- (BOOL)containsPoint:(CGP)p  		{
+	return FALSE;
+}
+@end
+@implementation CAShapeLayerNoHit
+- (BOOL)containsPoint:(CGP)p			{
+	return FALSE;
+}
+@end
+@implementation CATextLayerNoHit
+- (BOOL)containsPoint:(CGP)p			{
+	return FALSE;
+}
+@end
+//  OR
+@implementation CALayer (NoHit)
+@dynamic noHit;
+
+//+ (void)load 								{
+//	[$ swizzleMethod:@selector(containsPoint:) with:@selector(swizzleContainsPoint:) in:self.class];
+//}
+- (void)setNoHit:(BOOL)noHit 			{
+
+	if (![self hasAssociatedValueForKey:@"noHit"])
+		[self setAssociatedValue:@(noHit) forKey:@"noHit" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
+		[self overrideSEL:@selector(containsPoint:) withBlock:(__bridge void*)^BOOL(id _self, NSP p)	{
+			if (!self.noHit) {
+				SEL sel = @selector(containsPoint:);
+				BOOL (*superIMP)(id, SEL, NSP) = [_self az_superForSelector:sel];
+ 				return superIMP(_self, sel, p);
+			}
+			else return NO;
+		}];
+	if (![self hasAssociatedValueForKey:@"noHit"])
+		[self setAssociatedValue:@(noHit) forKey:@"noHit" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
+	//		[self az_overrideSelector:@selector(containsPoint:) withBlock:^(]
+}
+- (BOOL)noHit 								{	return [self hasAssociatedValueForKey:@"noHit"];	}
+//- (BOOL)swizzleContainsPoint:(CGP)p {
+//	BOOL fakedout =  [self noHit];
+//	BOOL forReals = [self swizzleContainsPoint:p];
+//	return self.noHit ? NO :[self swizzleContainsPoint:p];// NO ? NO : forReals;
+//}
+@end
+
+
+@implementation NSObject (AZLayerDelegate)
+- (BOOL)boolForKey: (NSS*)key defaultValue:(BOOL)defaultValue 	{
+
+	id val = [self respondsToSelector:[self getterForPropertyNamed:key]] ? [self valueForKey:key] : nil;//:[self getterForPropertyNamed:key]];
+	if (val && [val respondsToString:@"boolValue"]) return [val boolValue];	
+//	if ([self hasPropertyForKVCKey:key]) {
+//
+//		val = [self valueForKey:key];
+//		return  [val ISKINDA:NSSCLASS] || [val ISKINDA:NSN.class] ? [val boolValue] : defaultValue;
+//	}
+	else return [self associatedValueForKey:key orSetTo:@(defaultValue) policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
+}
+- (BOOL)boolForKey: (NSS*)key											  	{
+	return [self boolForKey:key defaultValue:NO];
+}
+- (void)toggleBoolForKey:(NSS*) key										{
+	[self setBool:![self boolForKey:key defaultValue:NO] forKey:key];
+	//[NSN numberWithBool:![self boolForKey:key defaultValue:YES]]
+}
+- (void)layerWasClicked:(CAL *)layer								   {
+	[layer toggleBoolForKey:@"clicked"]; [layer setNeedsDisplay];
+}
+@end
+@implementation CALayer (WasClicked)
+- (void)wasClicked														 	{
+	[self toggleBoolForKey:@"clicked"];  [self setNeedsDisplay];
+}
+
+@end
+
+
 CATransform3D CA3DxRotation(float x) { return CATransform3DMakeRotation(x*M_PI/180.0, 1.0, 0, 0); }
 CATransform3D CA3DyRotation(float y) { return CATransform3DMakeRotation(y*M_PI/180.0, 0.0, 1.0, 0); }
 CATransform3D CA3DzRotation(float z) { return CATransform3DMakeRotation(z*M_PI/180.0, 0.0, 0, 1.0); }

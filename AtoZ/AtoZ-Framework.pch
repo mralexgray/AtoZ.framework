@@ -7,11 +7,13 @@
 	//#import <MobileCoreServices/MobileCoreServices.h>
 	//#import <sys/xattr.h>
 	//#else
+
 	#import <pwd.h>
 	#import <stdio.h>
 	#import <netdb.h>
 	#import <dirent.h>
 	#import <unistd.h>
+	#import <stdarg.h>
 	#import <xpc/xpc.h>
 	#import <sys/time.h>
 	#import <sys/ioctl.h>
@@ -30,6 +32,7 @@
 	#import <Carbon/Carbon.h>
 	#import <Quartz/Quartz.h>
 	#import <Python/Python.h>
+	#import <dispatch/dispatch.h>
 	#import <Security/Security.h>
 	#import <Foundation/Foundation.h>
 	#import <QuartzCore/QuartzCore.h>
@@ -41,7 +44,7 @@
 	#import <ApplicationServices/ApplicationServices.h>
 	#import <SystemConfiguration/SystemConfiguration.h>
 	#import <Foundation/NSObjCRuntime.h>
-// #undef ah_retain #undef ah_dealloc #undef ah_autorelease autorelease #undef ah_dealloc dealloc	 
+// #undef ah_retain #undef ah_dealloc #undef ah_autorelease autorelease #undef ah_dealloc dealloc
 
 	#if __has_feature(objc_arc)											// ARC Helper Version 2.2
 		#define ah_retain 		self
@@ -100,7 +103,7 @@
 //	#import <extobjc/metamacros.h>
 	#import "objswitch.h"
 	#import "JREnum.h"
-//	#import "BaseModel.h"
+	#import "BaseModel.h"
 	//#define EXCLUDE_STUB_PROTOTYPES 1
 	//#import <PLWeakCompatibility/PLWeakCompatibilityStubs.h>
 	//#import <MenuApp/MenuApp.h>

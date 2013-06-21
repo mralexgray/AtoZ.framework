@@ -1,72 +1,48 @@
-//
-//  BundleProtocol.h
-//  Doodad
-//
-//  Created by Alex Gray on 10/18/12.
-//
-//
 
-#import <Foundation/Foundation.h>
+#define CEL NSCell
 
 JREnumDeclare( AZOutlineCellStyle, 	AZOutlineCellStyleToggleHeader,
 												AZOutlineCellStyleScrollList,
 												AZOutlineCellStyleScrollListItem );
 
-
-#define CEL NSCell
-#define AZNODEPRO (NSObject<AtoZNodeProtocol>*)
-typedef struct AZNodeProtocolKeyPaths {
-	__unsafe_unretained NSS *keyPath;
-	__unsafe_unretained NSS *valuePath;
-	__unsafe_unretained NSS *childrenPath;
-} AZNodeProtocolKeyPaths;
+AZStruct(AZNodeProtocolKeyPaths,	__unsafe_unretained NSS *keyPath;
+											__unsafe_unretained NSS *valuePath;
+											__unsafe_unretained NSS *childrenPath; );
+//} AZNodeProtocolKeyPaths;
 
 NS_INLINE AZNodeProtocolKeyPaths AZNodeProtocolKeyPathsMake(NSS*kP,NSS*vP,NSS*cP){
 	AZNodeProtocolKeyPaths z; z.keyPath = kP; z.valuePath = vP; z.childrenPath = cP; return z;
 }
 
+#define AZNODEPRO (NSObject<AtoZNodeProtocol>*)
 @protocol AtoZNodeProtocol	<NSObject>
 @required
 - (AZNodeProtocolKeyPaths) keyPaths;
 - (void) addChild:(id<AtoZNodeProtocol>)c;
 @optional
-@property (readonly) NSString *valuePath, *keyPath, *childrenPath;
-- (NSCellStateValue) nodeState;
-- (void) setNodeState:(NSCellStateValue) nodeState;
+//@property (readonly) NSString *valuePath, *keyPath, *childrenPath;
 @concrete
--   (id) value;
--   (id) key;
-- (NSA*) children;
-- (NSA*) allDescendants; //* allAncestors,
-- (NSA*) allSiblings;
-- (BOOL) isLeaf;
-- (BOOL) isaNode;
-- (NSUI) siblingIndex;
-- (NSUI) siblingIndexMax;
-- (NSUI) numberOfChildren;
-
-@property (weak,readonly) NSObject<AtoZNodeProtocol>*parent;
-
+@property (nonatomic) NSCellStateValue nodeState;
+@property (readwrite, nonatomic) id value, key;
+//- (void) setValue:(id)value;
+//-   (id) key;
+//- (void) setKey:(id)key;
+@property (readonly) NSA* children, *allSiblings, *allDescendants; //* allAncestors,
+@property (readonly) BOOL isLeaf, isaNode;
+@property (readonly) NSUI numberOfChildren, siblingIndexMax, siblingIndex;
+@property (weak,readonly) NSObject<AtoZNodeProtocol>* parent;
 @end
 
-//- (void) setValue:(id)v;
-//- (void) setKey:  (id)k;
-//- (id) value;- (id) key;- (id) children;
+@interface	AZNode : NSObject	<AtoZNodeProtocol> //NSCopying, NSCoding
+@end
 
-#ifdef JRENUM 
-JREnumDeclare(AZMethod,	AZMethodNotFound, 	// method not found (LRMethodNotFound )
-	AZMethodAuthor,    	// first in tree to implement method (LRMethodImplement)
-	AZMethodOverrider,   // class overrides method (LRMethodOverride)
- 	AZMethodInherits     // class does not override superclass method (LRMethodSuper)
-);
-#else
-typedef NS_ENUM(NSUInteger, AZMethod){
+
+JREnumDeclare(AZMethod,
 	AZMethodNotFound, 	// method not found (LRMethodNotFound )
 	AZMethodAuthor,    	// first in tree to implement method (LRMethodImplement)
 	AZMethodOverrider,   // class overrides method (LRMethodOverride)
  	AZMethodInherits     // class does not override superclass method (LRMethodSuper)
-};
-#endif
+);
 
 
 @interface NSObject (ProtocolConformance)
@@ -77,12 +53,11 @@ typedef NS_ENUM(NSUInteger, AZMethod){
 @interface  NSObject (AtoZNodeProtocol)
 @end
 
-@interface	AZNode : NSArrayController	<AtoZNodeProtocol > //NSCopying, NSCoding
-@property (nonatomic,strong)      id   key, 
-													value, 
-									        	 	expanded; 
-@property (nonatomic, strong) NSMutableArray * children;
-//@property (readonly)         NSArray * allDescendants, 
+//@property (nonatomic,strong)      id   key,
+//													value, 
+//									        	 	expanded; 
+//@property (nonatomic, strong) NSMutableArray * children;
+//@property (readonly)         NSArray * allDescendants,
 //									          * allAncestors, 
 //									          * allSiblings;
 //@property (readonly)            BOOL   isLeaf;
@@ -96,8 +71,6 @@ typedef NS_ENUM(NSUInteger, AZMethod){
 //- (void) insertChild: (AZNode*)o atIndex:(NSUInteger)i;
 //-   (id) childAtIndex:(NSUInteger)index;
 //- (void) sortChildrenUsingFunction:(NSComparisonResult (*)(id, id, void *))compare context:(void *)context;
-
-@end
 
 
 //@protocol AtoZBundleProtocol <NSObject>

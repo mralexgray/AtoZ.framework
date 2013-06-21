@@ -13,9 +13,6 @@
 		7BF1ECD0174A2EC800699D38 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF1ECCF174A2EC800699D38 /* Cocoa.framework */; };
 		7BFBF4FA175DCF82007A84AC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BFBF4F9175DCF82007A84AC /* Cocoa.framework */; };
 		7BFBF514175DCFFC007A84AC /* ArchDirectoryObserver.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B3C8C0C174B908B00842B90 /* ArchDirectoryObserver.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7BFBF516175DCFFC007A84AC /* DefinitionController.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BC4618A175A94C8003DFA14 /* DefinitionController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7BFBF517175DCFFC007A84AC /* AZFactoryView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BC46187175A9455003DFA14 /* AZFactoryView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7BFBF52C175DD535007A84AC /* AZFactoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC46188175A9455003DFA14 /* AZFactoryView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -35,10 +32,6 @@
 		7B3C8C0C174B908B00842B90 /* ArchDirectoryObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArchDirectoryObserver.h; sourceTree = "<group>"; };
 		7B3C8C0D174B908B00842B90 /* ArchDirectoryObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArchDirectoryObserver.m; sourceTree = "<group>"; };
 		7B99CF801757F05D00977638 /* AtoZCodeFactory-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "AtoZCodeFactory-Info.plist"; path = "AtoZCodeFactory/AtoZCodeFactory-Info.plist"; sourceTree = SOURCE_ROOT; };
-		7BC46187175A9455003DFA14 /* AZFactoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZFactoryView.h; path = ../AtoZCodeFactory/AZFactoryView.h; sourceTree = "<group>"; };
-		7BC46188175A9455003DFA14 /* AZFactoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AZFactoryView.m; path = ../AtoZCodeFactory/AZFactoryView.m; sourceTree = "<group>"; };
-		7BC4618A175A94C8003DFA14 /* DefinitionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DefinitionController.h; path = ../AtoZCodeFactory/DefinitionController.h; sourceTree = "<group>"; };
-		7BC4618B175A94C8003DFA14 /* DefinitionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DefinitionController.m; path = ../AtoZCodeFactory/DefinitionController.m; sourceTree = "<group>"; };
 		7BF1ECB8174A1F8B00699D38 /* AtoZCodeFactory */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = AtoZCodeFactory; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BF1ECBB174A1F8B00699D38 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		7BF1ECBE174A1F8B00699D38 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -149,10 +142,6 @@
 		7BFBF4FF175DCF82007A84AC /* AtoZObjC */ = {
 			isa = PBXGroup;
 			children = (
-				7BC4618A175A94C8003DFA14 /* DefinitionController.h */,
-				7BC4618B175A94C8003DFA14 /* DefinitionController.m */,
-				7BC46187175A9455003DFA14 /* AZFactoryView.h */,
-				7BC46188175A9455003DFA14 /* AZFactoryView.m */,
 				7BFBF500175DCF82007A84AC /* Supporting Files */,
 			);
 			path = AtoZObjC;
@@ -174,8 +163,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7BFBF514175DCFFC007A84AC /* ArchDirectoryObserver.h in Headers */,
-				7BFBF517175DCFFC007A84AC /* AZFactoryView.h in Headers */,
-				7BFBF516175DCFFC007A84AC /* DefinitionController.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,7 +271,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7BFBF52C175DD535007A84AC /* AZFactoryView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -349,7 +335,7 @@
 					AtoZ,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = "";
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -374,7 +360,7 @@
 					AtoZ,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = "";
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};

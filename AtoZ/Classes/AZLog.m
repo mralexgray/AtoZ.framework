@@ -106,31 +106,43 @@ static LogEnv logEnv = NSNotFound;
 /*NSA * COLORIZE		  ( id colorsAndThings, ... )*/							
 
 
--(void) logNilTerminatedListOfColorsAndStrings:(const char*)pretty things:(id) colorsAndThings,... 	{
+-(void) logThese:(const char *)pretty things:(id)colorsAndThings, ... {
 
-	__block NSMA *colors = NSMA.new;  __block NSMA *words  = NSMA.new;
+	__block NSMA *colors = NSMA.new;//[NSMA mutableArrayUsingWeakReferences];
+	__block NSMA *words  = NSMA.new;//[NSMA mutableArrayUsingWeakReferences];
 	AZVA_Block theBlk = ^(id it) {								//			AZVA_Block sort   = ^(id it) {
-		[it ISKINDA:NSC.class] ? [colors addObject:[it copy]] :
-		[it ISKINDA:NSS.class] ? [words  addObject:[it copy ]] :
-		[it ISKINDA:NSA.class] ? [(NSA*)it each:^(id obj) {
-		   [obj ISKINDA:NSC.class] ? [colors addObject:[obj copy]] :
-		   [obj ISKINDA:NSS.class] ? [words  addObject:[obj copy]] :
-		   [obj respondsToString:@"stringValue"] ? [words addObject:[[obj stringValue]copy]] : nil;
-		}]:[ it respondsToString:@"stringValue"] ? [words addObject:[[ it stringValue]copy]] : nil;
+		objswitch(it)
+		objkind(NSC.class) [colors addObject:it];
+		objkind(NSS.class) [words  addObject:it];
+		objkind(NSA.class) if ([(NSA*)it all:^BOOL(id obj) { return [obj ISKINDA:NSC.class];}])
+									[colors addObjectsFromArray:it];
+								 else [words addObject:[it debugDescription]];
+
+//		[(NSA*)it each:^(id obj) {
+//		   [obj ISKINDA:NSC.class] ? [colors addObject:[obj copy]] :
+//		   [obj ISKINDA:NSS.class] ? [words  addObject:[obj copy]] : nil;
+//			NSS* first = [obj firstResponsiveString:@[@"stringValue", @"name"]];
+//			if (first) [words addObject:[obj vFK:first]];
+//		}]:
+
+		defaultcase [it respondsToString@"debugDescription"] ? [words addObject:[it vFK:@"debugDescription"]?: [it description];
+		endswitch
+//			NSS* first = [it firstResponsiveString:@[@"stringValue", @"name"]];
+//				? [words addObject:[[ it stringValue]copy]] : nil;
 	};
 	azva_iterate_list(colorsAndThings, theBlk);
 	//	NSLog(@"colors:%ld:%@ words:%ld:%@", colors.count, colors, words.count, words);
 	//	NSA *colors, *words, *colorStringArray;  colorStringArray = colors1strings2(colorsAndThings); colors = colorStringArray[0]; words = colorStringArray[1];
-	LogEnv e =  self.logEnv ; __block NSUI ctr = 0;
-	if (!colors.count) colors = @[WHITE].mutableCopy;
+	LogEnv e =  self.logEnv ;
+	if (!colors.count) colors = @[RED,WHITE,BLUE].mutableCopy;
 	if (!words.count) {  printf( "WARNING, NO WORDS TO PRINT: %s", pretty); return; }
 	[words addObject:zNL];
 	fprintf(stdout, "%s", //e != LogEnvXcodeColor ? [words componentsJoinedByString:@" "].UTF8String :
 
 	 [[words reduce:LOG_CALLER_VERBOSE ? @"LOGCOLORS: ":@"" withBlock:^NSS*(NSS *sum,NSS *o) {
 															if (![o isEqualToAnyOf:@[@" ",@"\n", @""]]) {
-																NSC  *c			= [colors normal:ctr];	ctr++; 
-																o.logForeground 	= c.isDark ? [c colorWithBrightnessMultiplier:2]: c;
+																NSC  *c = [colors advance];
+																o.logForeground = c.isDark ? [c colorWithBrightnessMultiplier:2]: c;
 																return [sum withString:o.colorLogString];
 															}
 															else return  [sum withString:o];

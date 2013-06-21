@@ -27,57 +27,62 @@ CAT3D CA3DConcatenatedTransformation(CAT3D xyZRotation, CAT3D transformation );
 - (void) redrawPath;
 @end
 
-void prepareContext		(CGContextRef ctx);
-void applyPerspective 	(CAL* layer);	//	CAT3D perspective();
-/** Moves a layer from one superlayer to another, without changing its position onscreen. */
-void ChangeSuperlayer	( CAL *layer, CAL *newSuperlayer, int index );
-/** Removes a layer from its superlayer without any fade-out animation. */
-void RemoveImmediately	( CAL *layer );
-/** Removes receivers sublayers */
-void RemoveSublayers		( CAL *layer );
+void      prepareContext ( CGContextRef ctx );
+void    applyPerspective ( CAL *l );	//	CAT3D perspective();
+void   RemoveImmediately ( CAL *l );  /** Removes layer from superlayer without any fade-out animation. */
+void     RemoveSublayers ( CAL *l ); /** Removes receivers sublayers */
+void    ChangeSuperlayer ( CAL *l, CAL *newSuperL, int x ); /** Moves a layer from one superlayer to another, without changing its position onscreen. */
 
-CAL* AddPulsatingBloom	( CAL *layer);
-CAL* AddShadow 			( CAL *layer);
-CAL* AddBloom  			( CAL *layer);
+CAL*   AddPulsatingBloom ( CAL *l );
+CAL* 			   AddShadow ( CAL *l );
+CAL* 				 AddBloom ( CAL *l );
 /** Convenience for creating, adding,a nd returning a relatively nice CAL. */
-CAL* NewLayerInLayer		( CAL *superlayer );
-CAL* NewLayerWithFrame	( NSRect rect );
+CAL*     NewLayerInLayer ( CAL *superL );
+CAL*   NewLayerWithFrame ( NSR rect    );
 /** Convenience for creating a CATextLayer. */
-CATXTL* AddTextLayer  	( CAL *superlayer, NSString *text, NSFont* font, enum CAAutoresizingMask align );
-CATXTL* AddLabelLayer 	( CAL *superlayer, NSString *text, NSFont* font );
-CATXTL* AddLabel 		 	( CAL *superlayer, NSString *text );
-CAL* 	  ReturnImageLayer( CAL *superlayer, NSImage *image, CGF scale);
-CATXTL* AddLabelLayer   ( CAL *superlayer, NSString *text, NSFont* font );
+CATXTL* 			 AddLabel ( CAL *superL, NSS *text );
+CATXTL*    AddLabelLayer ( CAL *superL, NSS *text, NSF *font );
+CATXTL*     AddTextLayer ( CAL *superL, NSS *text, NSF *font, enum CAAutoresizingMask align );
+CAL* 	  ReturnImageLayer ( CAL *superL, NSIMG *img, CGF scale );
+CATXTL*    AddLabelLayer ( CAL *superL, NSS 	*text, NSF *font );
 
-/** Loads an image or pattern file into a CGImage or CGPattern. If the name begins with "/", it's interpreted as an absolute filesystem path. Otherwise, it's the name of a resource that's looked up in the app bundle. The image must exist, or an assertion-failure exception will be raised! Loaded images/patterns are cached in memory, so subsequent calls with the same name are very fast. */
-CGImageRef GetCGImageNamed ( NSString *name );
-CGColorRef GetCGPatternNamed (	  NSString *name );
-/** Loads image data from the pasteboard into a CGImage. */
-CGImageRef GetCGImageFromPasteboard ( NSPasteboard *pb );
-/** Creates a CGPattern from a CGImage. */
-CGPatternRef CreateImagePattern ( CGImageRef image );
-/** Creates a CGColor that draws the given CGImage as a pattern. */
-CGColorRef CreatePatternColor ( CGImageRef image );
-/** Returns the alpha value of a single pixel in a CGImage, scaled to a particular size. */
-CGF GetPixelAlpha ( CGImageRef image, CGSize imageSize, CGP pt );
+CGImageRef 	         GetCGImageNamed ( NSS *name ); /* Loads an image or pattern file into a CGImage or CGPattern. If the name begins with "/", it's interpreted as an absolute filesystem path. Otherwise, it's the name of a resource that's looked up in the app bundle. The image must exist, or an assertion-failure exception will be raised! Loaded images/patterns are cached in memory, so subsequent calls with the same name are very fast. */
+CGColorRef	       GetCGPatternNamed ( NSS *name );
+CGImageRef 	GetCGImageFromPasteboard ( NSPasteboard *pb ); /** Loads image data from the pasteboard into a CGImage. */
+CGPatternRef      CreateImagePattern ( CGImageRef image ); /** Creates a CGPattern from a CGImage. */
+CGColorRef        CreatePatternColor ( CGImageRef image ); /** Creates a CGColor that draws the given CGImage as a pattern. */
+CGF                    GetPixelAlpha ( CGImageRef image, CGSize imageSize, CGP pt ); /** Returns the alpha value of a single pixel in a CGImage, scaled to a particular size. */
 
-/**
-	As with the distort transform, the x and y values adjust intensity. I have included a CAT3DMake method as there are no built in CAT3D methods to create a transform by passing in 16 values (mimicking the CGAffineTransformMake method).
+/* As with the distort transform, the x and y values adjust intensity. I have included a CAT3DMake method as there are no built in CAT3D methods to create a transform by passing in 16 values (mimicking the CGAffineTransformMake method).
 	For those that have never seen the CAT3D struct before, you must apply the transform to a CAL‘s transform, as opposed to a CGAffineTransform which is applied to the UIView‘s transform. If you want to apply it to a UIView, obtain it’s layer then set the transform (myView.layer = CAT3DMakePerspective(0.002, 0)).
 	What do represent the two parameters in CAT3DMakePerspective(0.002, 0) ?
  	The first is how much you want it to skew on the X axis (horizontally), and the second for the Y axis (vertically)
 	Yes, but what are the units ? (radians … ?)
 	The value goes directly into the transform, if you want to make it radians, or any other type of unit you will need to put some math in there	*/
-CAT3D CAT3DMake(CGF m11, CGF m12, CGF m13, CGF m14,
-				  CGF m21, CGF m22, CGF m23, CGF m24,
-				  CGF m31, CGF m32, CGF m33, CGF m34,
-				  CGF m41, CGF m42, CGF m43, CGF m44);
-//
-//
-//	CG_INLINE CAT3D CAT3DMake( CGF m11, CGF m12, CGF m13, CGF m14,
-//					  						   CGF m21, CGF m22, CGF m23, CGF m24,
-//											   CGF m31, CGF m32, CGF m33, CGF m34,
-//											   CGF m41, CGF m42, CGF m43, CGF m44);
+
+CAT3D CAT3DMake( CGF m11, CGF m12, CGF m13, CGF m14,
+					  CGF m21, CGF m22, CGF m23, CGF m24,
+				  	  CGF m31, CGF m32, CGF m33, CGF m34,
+				     CGF m41, CGF m42, CGF m43, CGF m44);
+
+//	CG_INLINE CAT3D CAT3DMake( CGF m11, CGF m12, CGF m13, CGF m14, CGF m21, CGF m22, CGF m23, CGF m24,
+//										CGF m31, CGF m32, CGF m33, CGF m34, CGF m41, CGF m42, CGF m43, CGF m44);
+
+// GHETTO
+@interface CALayerNoHit 		: CALayer			@end
+@interface CAShapeLayerNoHit 	: CAShapeLayer		@end
+@interface CATextLayerNoHit 	: CATextLayer		@end
+// GATED COMMUNITY
+@interface CALayer (NoHit)		@property (NATOM,ASS) BOOL noHit;	@end
+
+//@interface NSObject (AZLayerDelegate)
+//- (void) layerWasClicked:  (CAL*)layer;
+//@end
+
+//@interface CALayer (WasClicked)
+//- (void) wasClicked;
+//@end
+
 
 @interface CAL (VariadicConstraints)
 

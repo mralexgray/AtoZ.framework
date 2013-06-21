@@ -48,9 +48,9 @@
 - (AZNodeProtocolKeyPaths) keyPaths { return AZNodeProtocolKeyPathsMake(@"key", @"value", @"children"); }
 - (void) addChild:(id<AtoZNodeProtocol>)c
 {
-	[self.root.children addObject:c];
+	[self.root addChild:c];
 }
-- (NSMA*)  children 				{ return self.root.children; } 
+- (NSA*)  children 				{ return self.root.children; } 
 -     (id) key 					{ return @"Expansions";} 
 -     (id) value 					{ return nil; }
 -   (NSD*) plistData				{ 

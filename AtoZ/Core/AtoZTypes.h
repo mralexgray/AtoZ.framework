@@ -54,7 +54,8 @@ JROptionsDeclare(AZAlign, 	AZAlignLeft       	= 0x00000001,
 									AZAlignTopLeft 	   = 0x00000101,
 									AZAlignBottomLeft		= 0x00001001,		
 									AZAlignTopRight   	= 0x00000110,
-									AZAlignBottomRight  	= 0x00001010	);
+									AZAlignBottomRight  	= 0x00001010,
+									AZAlignAutomatic		= 0x11111111	);
 
 /*  expanded....
  
@@ -261,7 +262,7 @@ typedef NS_OPTIONS(NSUI, AZWindowPosition) {
 #define 	AZPositionBottomLeft		AZAlignBottomLeft//		= 5,
 #define 	AZPositionTopRight		AZAlignTopRight//	 	= 6,
 #define 	AZPositionBottomRight		AZAlignBottomRight//   = 7,
-#define 	AZPositionAutomatic		NSNotFound//	 	= 8 );// AZWindowPosition;
+#define 	AZPositionAutomatic		AZAlignAutomatic   //	 	= 8 );// AZWindowPosition;
 
 #define AZLft 		AZPositionLeft
 #define AZRgt		AZPositionRight

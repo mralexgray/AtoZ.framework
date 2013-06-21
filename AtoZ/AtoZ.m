@@ -47,7 +47,7 @@ NSOQ *AZSharedSingleOperationQueue()	{	return AZDummy.sharedInstance.sharedSQ; }
 																					*/
 @implementation AZClassProxy
 
-- (id)valueForUndefinedKey:(NSS*)key {	return NSClassFromString(key);	}
+- (id)valueForUndefinedKey:(NSS*)key {	AZLOGCMD; return NSClassFromString(key);	}
 @end
 
 // NSLog(@"%@", [[RED.classProxy valueForKey:@"NSColor"] redColor]);  --> NSCalibratedRGBColorSpace 1 0 0 1

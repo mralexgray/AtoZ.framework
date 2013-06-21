@@ -726,11 +726,9 @@ static NSOrderedDictionary  *monos = nil;
 		else if ( widthFactor > heightFactor )	thumbnailPoint.x = (targetWidth - scaledWidth) * 0.5;
 	}
 
-	newImage 					= [self.class.alloc initWithSize:tSz];	 	// create a new image to draw into
-	newImage.cacheMode 	= NSImageCacheNever;
-	newImage.flipped 		= f;
+	newImage 					= [NSIMG imageWithSize:tSz drawnUsingBlock:^{
 	// once focus is locked, all drawing goes into this NSImage instance directly, not to the screen. It also receives its own graphics context. Also, keep in mind that we're doing this in a background thread.  You only want to draw to the screen in the main thread, but drawing to an offscreen image is (apparently) okay.
-	[newImage lockFocus];
+
 	[AZGRAPHICSCTX setImageInterpolation:NSImageInterpolationHigh];			// create the properly-scaled rect
 	NSRect thumbnailRect;
 	thumbnailRect.origin = thumbnailPoint;	thumbnailRect.size.width = scaledWidth; 	thumbnailRect.size.height = scaledHeight;
@@ -804,8 +802,11 @@ static NSOrderedDictionary  *monos = nil;
 		[gradient drawInBezierPath:sheenPath angle:285.0];
 		[gradient release];
 	}
-	[newImage unlockFocus];
-	return [newImage autorelease];
+	}];
+	newImage.flipped 		= f;
+	newImage.cacheMode 	= NSImageCacheNever;
+
+	return newImage;
 }
 - (NSIMG*) imageByFillingVisibleAlphaWithColor:(NSC*)fillColor	{
 

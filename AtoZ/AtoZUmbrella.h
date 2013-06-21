@@ -1,4 +1,6 @@
+
 #import "AtoZMacroDefines.h"
+//#import "BaseModel+AtoZ.h"
 
 #pragma mark - COLORS
 
@@ -714,9 +716,13 @@ AZToStringFromTypeAndValue(@encode(typeof(_X_)), &_Y_);})
 #define $doubles(...) 		[NSArray arrayWithDoubles:__VA_ARGS__,MAXFLOAT]
 #define $words(...)   		[[@#__VA_ARGS__ splitByComma] trimmedStrings]
 
+#ifndef INST
+#define INST instancetype
+#endif
+
+#define AZSELSTR NSStringFromSelector(_cmd)
 
 #define capped capitalizedString
-#define INST instancetype
 
 #define $ARRAYSET(A) [NSSet setWithArray:(A)]
 #define $CG2NSC(A) [NSC colorWithCGColor:(A)]

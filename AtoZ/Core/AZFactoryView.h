@@ -1,5 +1,7 @@
 
 #import <objc/runtime.h>
+#import "DefinitionController.h"
+
 
 NSArray* RGBFlameArray(NSC*color, NSUI ct, CGF hueStepDeg, CGF satStepDeg, CGF briStepDeg, NSI align);
 CAGradientLayer* greyGradLayer();
@@ -9,16 +11,19 @@ CAGradientLayer* greyGradLayer();
 #define 	zKEYWORDS_V_UNIT  	2 * zKEYWORDS_FONTSIZE
 #define  zCATEGORY_RECT			(NSRect){ 0, 0, [self.superlayers.first boundsWidth], zKEYWORDS_V_UNIT }
 
-@interface 				 AZOutlineLayer : CALayer
-@property (STR,NATOM)				NSA * nodeRects;
-@property (STR)				 	  NSArrayController * nodeController;
-@property (WK,NATOM) NSO<AtoZNodeProtocol>* selectedNode;
+@interface 				 		 AZOutlineLayer : CALayer
++ (INST)  layerWithNode:AZNODEPRO node inLayer:(CAL*)host withFrame:(NSR)frame;
+@property (NATOM,STR)						NSA * nodeRects;
+@property (NATOM,STR) NSO<AtoZNodeProtocol>* representedNode;
+@property (NATOM,WK)  NSO<AtoZNodeProtocol>* selectedNode;
 @end
 
 @interface 			AZOutlineLayerNode : CALayer
++ (instancetype) layerForNode:AZNODEPRO node style:(AZOutlineCellStyle)style;
 @property (weak) 	NSO<AtoZNodeProtocol> * reprsentedNode;
 @property (NATOM) AZOutlineCellStyle   cellStyle;
 @end
+
 @interface AZOutlineLayerScrollableList : AZOutlineLayerNode
 @end
 
@@ -26,14 +31,14 @@ CAGradientLayer* greyGradLayer();
 
 - (id) initWithFrame:(NSRect)f controller:(id)c;
 
-@property (WK) 	 DefinitionController * controller;
-@property (STR)   	  NSPathControl * headerPathControl, 	*plistPathControl;
+@property (NATOM) 			   	NSR   nodeRect;
+@property (WK)  DefinitionController * controller;
 @property (STR) 		 AZOutlineLayer * nodes;
-@property (STR)			    		  NSSearchField * searchField;
-
-@property (NATOM) 			 		NSRect   nodeRect;
-@property (STR)  				  NSColor * headerColor, 
-														 * plistColor;
+@property (STR)	     NSSearchField * searchField;
+@property (STR)   	  NSPathControl * headerPathControl,
+												 * plistPathControl;
+@property (STR)  				  		NSC * headerColor,
+												 * plistColor;
 
 @end
 
