@@ -16,8 +16,6 @@
 		7BFBF516175DCFFC007A84AC /* DefinitionController.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BC4618A175A94C8003DFA14 /* DefinitionController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BFBF517175DCFFC007A84AC /* AZFactoryView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BC46187175A9455003DFA14 /* AZFactoryView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BFBF52C175DD535007A84AC /* AZFactoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC46188175A9455003DFA14 /* AZFactoryView.m */; };
-		7BFBF52D175DD53B007A84AC /* NSObject+AZBundles.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA9F09417562D4A006B89A1 /* NSObject+AZBundles.m */; };
-		7BFBF52F175DD9ED007A84AC /* AtoZNodeProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BFBF52E175DD9ED007A84AC /* AtoZNodeProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -37,7 +35,6 @@
 		7B3C8C0C174B908B00842B90 /* ArchDirectoryObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArchDirectoryObserver.h; sourceTree = "<group>"; };
 		7B3C8C0D174B908B00842B90 /* ArchDirectoryObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArchDirectoryObserver.m; sourceTree = "<group>"; };
 		7B99CF801757F05D00977638 /* AtoZCodeFactory-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "AtoZCodeFactory-Info.plist"; path = "AtoZCodeFactory/AtoZCodeFactory-Info.plist"; sourceTree = SOURCE_ROOT; };
-		7BA9F09417562D4A006B89A1 /* NSObject+AZBundles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+AZBundles.m"; sourceTree = "<group>"; };
 		7BC46187175A9455003DFA14 /* AZFactoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZFactoryView.h; path = ../AtoZCodeFactory/AZFactoryView.h; sourceTree = "<group>"; };
 		7BC46188175A9455003DFA14 /* AZFactoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AZFactoryView.m; path = ../AtoZCodeFactory/AZFactoryView.m; sourceTree = "<group>"; };
 		7BC4618A175A94C8003DFA14 /* DefinitionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DefinitionController.h; path = ../AtoZCodeFactory/DefinitionController.h; sourceTree = "<group>"; };
@@ -55,9 +52,6 @@
 		7BFBF4FD175DCF82007A84AC /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		7BFBF4FE175DCF82007A84AC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		7BFBF501175DCF82007A84AC /* AtoZObjC-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AtoZObjC-Prefix.pch"; sourceTree = "<group>"; };
-		7BFBF502175DCF82007A84AC /* AtoZObjC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AtoZObjC.h; sourceTree = "<group>"; };
-		7BFBF503175DCF82007A84AC /* AtoZObjC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AtoZObjC.m; sourceTree = "<group>"; };
-		7BFBF52E175DD9ED007A84AC /* AtoZNodeProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AtoZNodeProtocol.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,12 +151,8 @@
 			children = (
 				7BC4618A175A94C8003DFA14 /* DefinitionController.h */,
 				7BC4618B175A94C8003DFA14 /* DefinitionController.m */,
-				7BFBF502175DCF82007A84AC /* AtoZObjC.h */,
-				7BFBF503175DCF82007A84AC /* AtoZObjC.m */,
 				7BC46187175A9455003DFA14 /* AZFactoryView.h */,
 				7BC46188175A9455003DFA14 /* AZFactoryView.m */,
-				7BA9F09417562D4A006B89A1 /* NSObject+AZBundles.m */,
-				7BFBF52E175DD9ED007A84AC /* AtoZNodeProtocol.h */,
 				7BFBF500175DCF82007A84AC /* Supporting Files */,
 			);
 			path = AtoZObjC;
@@ -185,7 +175,6 @@
 			files = (
 				7BFBF514175DCFFC007A84AC /* ArchDirectoryObserver.h in Headers */,
 				7BFBF517175DCFFC007A84AC /* AZFactoryView.h in Headers */,
-				7BFBF52F175DD9ED007A84AC /* AtoZNodeProtocol.h in Headers */,
 				7BFBF516175DCFFC007A84AC /* DefinitionController.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -295,7 +284,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7BFBF52D175DD53B007A84AC /* NSObject+AZBundles.m in Sources */,
 				7BFBF52C175DD535007A84AC /* AZFactoryView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -309,11 +297,6 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -323,16 +306,7 @@
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = (
-					"\"$(NODE_PROTOCOL)\"",
-					"$(AtoZ)",
-					"$(SRCROOT)",
-					"\"$(AZ)\"",
-				);
+				HEADER_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -345,24 +319,10 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = (
-					"\"$(NODE_PROTOCOL)\"",
-					"$(AtoZ)",
-					"$(SRCROOT)",
-					"\"$(AZ)\"",
-				);
+				HEADER_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				SDKROOT = macosx;
 			};
@@ -372,6 +332,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				FRAMEWORK_SEARCH_PATHS = /Library/Frameworks;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AtoZCodeFactory/AtoZCodeFactory-Prefix.pch";
@@ -396,6 +357,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				FRAMEWORK_SEARCH_PATHS = /Library/Frameworks;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AtoZCodeFactory/AtoZCodeFactory-Prefix.pch";
