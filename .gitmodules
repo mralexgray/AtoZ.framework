@@ -249,3 +249,4 @@
 [submodule "Frameworks/Kiwi"]
 	path = Frameworks/Kiwi
 	url = https://github.com/mralexgray/Kiwi.git
+	ignore = dirty
