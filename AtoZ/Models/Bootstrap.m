@@ -6,14 +6,15 @@
 //#import "KSHTMLWriter.h"
 //#import "KSWriter.h"
 
+
 @interface Bootstrap ()
 //@property (nonatomic, strong) 	NSMA 		*cssAssets, 	*jsAssets;
 @property (strong) NSMS *mString;
 @property (strong) NSOperationQueue *oQ;
-@property			(strong) 	BKSenderBlock 	stringDelegate;
+@property (copy) void(^stringDelegate)(id);
 
 //- (id)initWithUserStyles:(NSS*)css script:(NSS*)script andInnerHTML:(NSS*) html  calling:(BKSenderBlock)block;
-+ (void) initWithUserStyle:(Asset*)css script:(Asset*)script andInnerHTML:(NSS*) html  calling:(BKSenderBlock)block;
++ (void) initWithUserStyle:(Asset*)css script:(Asset*)script andInnerHTML:(NSS*) html  calling:(void(^)(id))block;
 
 @end
 
@@ -59,7 +60,7 @@ NSString * const custCSS = @"html,	body{height:100%; } #wrap{min-height:100%;hei
 }
 
 
-+ (void) initWithUserStyle:(Asset*)css script:(Asset*)script andInnerHTML:(NSS*) html  calling:(BKSenderBlock)block
++ (void) initWithUserStyle:(Asset*)css script:(Asset*)script andInnerHTML:(NSS*) html  calling:(void(^)(id sender))block
 {
 	Bootstrap *boot 		= Bootstrap.sharedInstance;
 	if (css) 	boot.css 	= [boot.css arrayByAddingObject:css];

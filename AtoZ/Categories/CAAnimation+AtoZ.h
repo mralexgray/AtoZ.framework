@@ -59,7 +59,7 @@ extern void disableCA();
 + (CAA*)	animationForOpacity;
 + (CAA*)	flipDown: (NSTI)aDur  scaleFactor: (CGF)scale;
 + (CAA*)	animationOnPath: (CGPR)path  duration:	(CFTI)d 	  timeOffset: (CFTI)o;
-+ (CAA*) rotateAnimationForLayer: (CAL*)layer start:(CGF)fl1	 end: (CGF)fl1;
++ (CAA*) rotateAnimationForLayer: (CAL*)layer start:(CGF)starting	 end: (CGF)ending;
 + (CAA*) colorAnimationForLayer:(CALayer*) theLayer WithStartingColor:(NSColor*)color1 endColor:(NSColor*)color2;
 + (CAA*) backgroundColorAnimationFrom:	(NSC*)color1 to:(NSC*)color2 duration:(NSTI)dur;
 + (CAA*) backgroundColorAnimationTo:	(NSC*)color 					  duration:(NSTI)dur;

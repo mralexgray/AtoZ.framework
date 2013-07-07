@@ -20,7 +20,7 @@
 
 @interface PythonOperation : NSOperation
 
-- (id)	 initInDir:(NSS*)d withPath:(NSS*)d pythonPATH:(NSS*)py optArgs:(NSA*)a;
+- (id)	 initInDir:(NSS*)d withPath:(NSS*)path pythonPATH:(NSS*)pyPath optArgs:(NSA*)a;
 + (instancetype) inDir:(NSS*)d withPath:(NSS*)p pythonPATH:(NSS*)py optArgs:(NSA*)a;
 
 	// Downloads the specific URL to a unique file within the specified

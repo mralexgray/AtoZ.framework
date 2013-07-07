@@ -822,7 +822,7 @@ static CGF mPhase = 0;
 	[selectionFramePath strokeWithColor:BLACK andWidth:8 inside:dirtyRect];
 	mPhase += 5;
 //	timer = [NSTimer scheduledTimerWithTimeInterval:.1 target:self selector:@selector(aniHandler:) userInfo:nil repeats:YES];
-	timer =	[NSTimer timerWithTimeInterval:.5 block:^(NSTimeInterval time) { [self display];/*:YES];*/ AZLOG(@"NSTIMER!");	} repeats:NO];
+	timer =	[NSTimer bk_timerWithTimeInterval:.5 block:^(NSTimeInterval time) { [self display];/*:YES];*/ AZLOG(@"NSTIMER!");	} repeats:NO];
 }
 - (BOOL)isFlipped
 {

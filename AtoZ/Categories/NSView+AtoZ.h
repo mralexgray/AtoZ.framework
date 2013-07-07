@@ -3,10 +3,12 @@
 //  AtoZ
 
 #import <objc/objc.h>
+#import <QuartzCore/QuartzCore.h>
 #import "AtoZUmbrella.h"
 #import "AtoZ.h"
 #import "CALayer+AtoZ.h"
-#import <QuartzCore/QuartzCore.h>
+#import "AtoZGeometry.h"
+
 
 
 
@@ -180,9 +182,9 @@ typedef void (^viewFrameDidChangeBlock)(void);
 - (void) setBottom:(CGF)t ;
 - (void) setTop:(CGF)t ;
 - (void) setCenterY:(CGF)t ;
-- (void) setBottom:(CGF)t duration:(NSTI)t ;
-- (void) setTop:(CGF)t duration:(NSTI)t;
-- (void) setCenterY:(CGF)t duration:(NSTI)t ;
+- (void) setBottom:(CGF)bot duration:(NSTI)t ;
+- (void) setTop:(CGF)top duration:(NSTI)t;
+- (void) setCenterY:(CGF)center duration:(NSTI)t ;
 
 @property (nonatomic, assign) CGF originY, originX;
 

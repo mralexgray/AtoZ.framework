@@ -27,9 +27,8 @@
 
 @interface NSObject (ClassAssociatedReferences)
 + (void)		setValue:(id)value forKey:(NSS*)key;
-+ (id)	valueForKey:(NSS*)key;
++   (id) valueForKey:(NSS*)key;
 @end
-
 
 #define invokeSupersequent(...)  ([self getImplementationOf:_cmd after:impOfCallingMethod(self, _cmd)]) (self, _cmd, ##__VA_ARGS__)
 IMP impOfCallingMethod(id lookupObject, SEL selector);
@@ -38,11 +37,10 @@ IMP impOfCallingMethod(id lookupObject, SEL selector);
 - (IMP)getImplementationOf:(SEL)lookup after:(IMP)skip;
 @end
 
-
 /* AWEOME!!
 
-	[@["methodOne", @"methodtwo"] each:^(id obj) {
-		[Foo addMethodForSelector: NSSelectorFromString(obj) typed:"v@:" implementation:^ (id self, SEL _cmd) {
+	[@["methodOne", @"methodtwo"] each:^(id x) {
+		[Foo addMethodForSelector:NSSelectorFromString(x) typed:"v@:" implementation:^(id self,SEL _cmd) {
 			NSLog(@"Called -[%@ %@] with void return", [self class], NSStringFromSelector(_cmd));
 		}];
 		[foo performSelector:stringified];
@@ -69,11 +67,10 @@ IMP impOfCallingMethod(id lookupObject, SEL selector);
 + (NSA*) methodSignatureString : (SEL)selector;
 @end
 #define PLCY objc_AssociationPolicy
-@interface NSObject (AssociatedValues)
-
-- (void)          setAssociatedValue : (id)v
+@interface 						 NSObject   (AssociatedValues)
+- (void)          setAssociatedValue : (id)val
 										forKey : (NSS*)k; 	/* DEFAULTS TO OBJC_ASSOCIATION_RETAIN */
-- (void)          setAssociatedValue : (id)v
+- (void)          setAssociatedValue : (id)val
 									   forKey : (NSS*)k
 										policy : (PLCY)p;
 -   (id)       associatedValueForKey : (NSS*)k
@@ -85,17 +82,16 @@ IMP impOfCallingMethod(id lookupObject, SEL selector);
 - (void) removeAssociatedValueForKey :	(NSS*)k;
 - (BOOL)    hasAssociatedValueForKey :	(NSS*)k;
 - (void)   removeAllAssociatedValues ;
-
 @end
-//- (void)registerObservation{	[observee addObserverForKeyPath:@"someValue" task:^(id obj, NSDictionary *change) {
-//								   NSLog(@"someValue changed: %@", change);  }]; }
+//	- (void)registerObservation{	[observee addObserverForKeyPath:@"someValue" task:^(id obj, NSDictionary *change) {	NSLog(@"someValue changed: %@", change);  }]; }
+//	-(void)observeKeyPath:(NSS*)keyPath;
+//	@interface NSObject (AMBlockObservation)
 
 typedef NSString AZBlockToken;
-typedef void (^AZBlockTask)(id obj, NSDictionary *change);
-@interface NSObject (AZBlockObservation)
-//-(void)observeKeyPath:(NSS*)keyPath;
+typedef void(^AZBlockTask)(id obj, NSD *change);
+
+@interface 						NSObject   (AZBlockObservation)
 - (NSA*) observeKeyPaths: (NSA*)keyPaths task:(AZBlockTask)task;
-//@interface NSObject (AMBlockObservation)
 - (AZBlockToken*) observeKeyPath:(NSS*) keyPath task:(AZBlockTask)task;
 - (AZBlockToken*) observeKeyPath:(NSS*) keyPath onQueue:(NSOQ*)queue task:(AZBlockTask)task;
 - (void) removeObserverWithBlockToken:(AZBlockToken *)token;
@@ -120,7 +116,14 @@ typedef void (^AZBlockTask)(id obj, NSDictionary *change);
 @end
 
 @interface NSObject (AtoZ)
-/*	USAGE: 	id scoop = @"poop";	[scoop setValue:@2 forKey:@"farts"]; 	LOG_EXPR(scoop[@"undefinedKeys"]); -> ( farts ) */
+
+@property (strong) NSMA* propertiesThatHaveBeenSet;
+
+- (BOOL) valueWasSetForKey:(NSS*)key;
+@property (readonly) NSString *uuid; // Associated with custom getter
+
+/*	USAGE: 	id scoop = @"poop";	[scoop setValue:@2 forKey:@"farts"];
+	 			LOG_EXPR(scoop[@"undefinedKeys"]); -> ( farts ) */
 @property NSMA* undefinedKeys;
 
 /*  USAGE:	id whatever = [CAL instanceWithProperties:@"stupid", @(YES), @"sexy", @(NO), nil];  */
@@ -527,12 +530,12 @@ _Pragma("clang diagnostic pop") \
 - (id) objectByPerformingSelector:(SEL)selector;
 
 // Delay Utilities
-- (void) performSelector: (SEL) selector withCPointer: (void *) cPointer afterDelay: (NSTimeInterval) delay;
-- (void) performSelector: (SEL) selector withInt: (int) intValue afterDelay: (NSTimeInterval) delay;
-- (void) performSelector: (SEL) selector withFloat: (float) floatValue afterDelay: (NSTimeInterval) delay;
-- (void) performSelector: (SEL) selector withBool: (BOOL) boolValue afterDelay: (NSTimeInterval) delay;
-- (void) performSelector: (SEL) selector afterDelay: (NSTimeInterval) delay;
-- (void) performSelector: (SEL) selector withDelayAndArguments: (NSTimeInterval) delay,...;
+- (void) performSelector: (SEL)select withCPointer:(void*)cPointer afterDelay:(NSTI)delay;
+- (void) performSelector: (SEL)select withInt: 	(int)iVal  			 afterDelay:(NSTI) delay;
+- (void) performSelector: (SEL)select withFloat:(CGF)fVal  		    afterDelay:(NSTI) delay;
+- (void) performSelector: (SEL)select withBool: (BOOL)bVal         afterDelay:(NSTI) delay;
+- (void) performSelector: (SEL)select 							          afterDelay:(NSTI) delay;
+- (void) performSelector: (SEL)select withDelayAndArguments: (NSTI)delay,...;
 
 // Return Values, allowing non-object returns
 - (id) valueByPerformingSelector:(SEL)selector withObject:(id) object1 withObject: (id) object2;
@@ -540,16 +543,13 @@ _Pragma("clang diagnostic pop") \
 - (id) valueByPerformingSelector:(SEL)selector;
 
 // Access to object essentials for run-time checks. Stored by class in dictionary.
-@property (readonly) NSDictionary *selectors;
-@property (readonly) NSDictionary *properties;
-@property (readonly) NSDictionary *ivars;
-@property (readonly) NSDictionary *protocols;
+@property (readonly) NSDictionary *selectors, *properties, *ivars, *protocols;
 
 // Check for properties, ivar. Use respondsToSelector: and conformsToProtocol: as well
-- (BOOL) hasProperty: (NSS*)  propertyName;
-- (BOOL) hasIvar: (NSS*)  ivarName;
-+ (BOOL) classExists: (NSS*)  className;
-+ (id) instanceOfClassNamed: (NSS*)  className;
+- (BOOL) hasProperty: (NSS*)propertyName;
+- (BOOL) hasIvar: 	 (NSS*)ivarName;
++ (BOOL) classExists: (NSS*)className;
++   (id) instanceOfClassNamed:(NSS*)className;
 
 // Attempt selector if possible
 - (id) tryPerformSelector: (SEL) aSelector withObject: (id) object1 withObject: (id) object2;
@@ -570,36 +570,41 @@ _Pragma("clang diagnostic pop") \
 //- (void)KVODump;
 //@end
 
-@interface 				 	  NSObject  (FOOCoding)
+@interface AZBool : NSObject
+@end
 
-- (id)  		    initWithDictionary : (NSD*)dictionary;
-- (NSA*)        		  arrayForKey : (NSS*)key;
-- (NSA*)      	 		 arrayOfClass : (Class)objectClass forKey:(NSS*)key;
-- (NSA*) 		       arrayOfClass : (Class)objectClass;
-- (NSA*) arrayOfDictionariesForKey : (NSS*)key;
-- (NSA*)      arrayOfStringsForKey : (NSS*)key;
 
-- (BOOL)						boolForKey : (NSS*)key;
+@interface 		     		 	  NSObject  (FOOCoding)
 
-- (NSData*)					dataForKey : (NSS*)key;
-- (NSDate*)					dateForKey : (NSS*)key;
-- (NSD*)  dictionaryForKey:(NSS*)key;
-- (double)doubleForKey:(NSS*)key;
-- (CGF)floatForKey:(NSS*)key;
-- (NSI)integerForKey:(NSS*)key;
-- (NSS*)stringForKey:(NSS*)key;
-- (NSUI)unsignedIntegerForKey:(NSS*)key;
-- (NSURL*)URLForKey:(NSS*)key;
+- (void) sV:(id)v fK:(id)k;  // setValue:forKey:
+- (void) sV:(id)v fKP:(id)k; // setValue:forKeyPath:
 
-- (id)valueForKeyOrKeyPath:(id)keyOrKeyPath transform:(THBinderTransformationBlock)tBlock;
-- (id)valueForKeyOrKeyPath:(id)keyOrKeyPath;  //AZAddition
-- (id)valueForKey:(NSS*)key assertingProtocol:(Protocol*)proto;  //AZAddition
-- (id)valueForKey:(NSS*)key assertingClass:(Class)klass;
-- (id)valueForKey:(NSS*)key assertingRespondsToSelector:(SEL)theSelector;
+-      (id)  		 initWithDictionary : (NSD*)dictionary;
+-    (NSA*)        	     arrayForKey : (NSS*)key;
+-    (NSA*)    	 		 arrayOfClass : (Class)objectClass forKey:(NSS*)key;
+-    (NSA*)              arrayOfClass : (Class)objectClass;
+-    (NSA*) arrayOfDictionariesForKey : (NSS*)key;
+-    (NSA*)      arrayOfStringsForKey : (NSS*)key;
+
+-    (BOOL)						boolForKey : (NSS*)key;
+
+- (NSData*)			    		dataForKey : (NSS*)key;
+- (NSDate*)				   	dateForKey : (NSS*)key;
+-    (NSD*)  			dictionaryForKey : (NSS*)key;
+-  (double)              doubleForKey : (NSS*)key;
+-     (CGF) 				  floatForKey : (NSS*)key;
+-     (NSI)             integerForKey : (NSS*)key;
+-    (NSS*)              stringForKey : (NSS*)key;
+-    (NSUI)     unsignedIntegerForKey : (NSS*)key;
+-  (NSURL*)                 URLForKey : (NSS*)key;
+
+- (id) valueForKeyOrKeyPath:(id)keyOrKeyPath transform:(THBinderTransformationBlock)tBlock;
+- (id) valueForKeyOrKeyPath:(id)keyOrKeyPath;  //AZAddition
+- (id) valueForKey:(NSS*)key assertingProtocol:(Protocol*)proto;  //AZAddition
+- (id) valueForKey:(NSS*)key assertingClass:(Class)klass;
+- (id) valueForKey:(NSS*)key assertingRespondsToSelector:(SEL)theSelector;
 - (BOOL)contentsOfCollection:(id <NSFastEnumeration>)theCollection areKindOfClass:(Class)theClass;
 
-- (void)sV:(id)v fK:(id)k;
-- (void)sV:(id)v fKP:(id)k;
 
 @end
 

@@ -1,56 +1,33 @@
-#import "CALayer+AtoZ.h"
 #import "AtoZ.h"
 #import "AtoZUmbrella.h"
 #import "AtoZFunctions.h"
 #import "NSObject+AtoZ.h"
+#import "CALayer+AtoZ.h"
 
 @implementation CALayerNoHit			- (BOOL)containsPoint:(CGP)p    {	return FALSE;	}	@end
 @implementation CAShapeLayerNoHit	- (BOOL)containsPoint:(CGP)p    {	return FALSE;	}	@end
-@implementation CATextLayerNoHit		- (BOOL)containsPoint:(CGP)p    {	return FALSE;	}	@end
-//  OR
-@implementation CALayer (NoHit)	//@dynamic noHit;
-
-- (void)setNoHit:(BOOL)noHit	{
-	objc_setAssociatedObject(self, (__bridge const void*)@"noHit", @(noHit),OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-	[self az_overrideSelector:@selector(containsPoint:) withBlock:(__bridge void *)^BOOL (id _self, NSP p) {
-	if (!self.noHit) {
-		SEL sel = @selector(containsPoint:);
-		BOOL (*superIMP)(id, SEL, NSP) = [_self az_superForSelector:sel];
-		return superIMP(_self, sel, p);
-	}
-	else return NO;
+@implementation CATextLayerNoHit		- (BOOL)containsPoint:(CGP)p    {	return FALSE;	}	@end			//  OR
+#warning Needs Test Case
+@implementation CALayer (NoHit)	@dynamic noHit;
+- (void)setNoHit:(BOOL)noHit	{  BLOCKIFY(bSelf, self);  BOOL overriden = [self hasAssociatedValueForKey:@"noHit"];
+	objc_setAssociatedObject(self,(__bridge const void*)@"noHit",@(noHit),OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+	if (!noHit || overriden) return
+	[self az_overrideSelector:@selector(containsPoint:) withBlock:(__bridge void*)^BOOL(id _self,NSP p) {
+		if (bSelf.noHit) return NO;	SEL sel 	= @selector(containsPoint:);
+		BOOL(*superIMP)(id,SEL,NSP) 				= [_self az_superForSelector:sel];		return superIMP(_self, sel, p);
 	}];
-	if (![self hasAssociatedValueForKey:@"noHit"]) [self setAssociatedValue:@(noHit) forKey:@"noHit" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
-	//	[self az_overrideSelector:@selector(containsPoint:) withBlock:^(]
 }
-- (BOOL)noHit	    {	return [self hasAssociatedValueForKey:@"noHit"];	}
-//- (BOOL)swizzleContainsPoint:(CGP)p {	BOOL fakedout =  [self noHit];	BOOL forReals = [self swizzleContainsPoint:p];	return self.noHit ? NO :[self swizzleContainsPoint:p];// NO ? NO : forReals;/}
-@end
-@implementation NSObject (AZLayerDelegate)
-- (BOOL)boolForKey:(NSS *)key defaultValue:(BOOL)defaultValue   {
-	id val = [self respondsToSelector:[self getterForPropertyNamed:key]] ? [self valueForKey:key] : nil;    //:[self getterForPropertyNamed:key]];
-	if (val && [val respondsToString:@"boolValue"]) return [val boolValue];
-	//	if ([self hasPropertyForKVCKey:key]) {
-	//
-	//	val = [self valueForKey:key];
-	//	return  [val ISKINDA:NSSCLASS] || [val ISKINDA:NSN.class] ? [val boolValue] : defaultValue;
-	//	}
-	else return [self associatedValueForKey:key orSetTo:@(defaultValue) policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
-}
-- (BOOL)boolForKey:(NSS *)key	{
-	return [self boolForKey:key defaultValue:NO];
-}
-- (void)toggleBoolForKey:(NSS *)key		{
-	[self setBool:![self boolForKey:key defaultValue:NO] forKey:key];
-	//[NSN numberWithBool:![self boolForKey:key defaultValue:YES]]
-}
-- (void)layerWasClicked:(CAL *)layer	{
-	[layer toggleBoolForKey:@"clicked"]; [layer setNeedsDisplay];
+- (BOOL)noHit	    				{
+	id booool = objc_getAssociatedObject(self,(__bridge const void *)@"noHit");
+	return booool ? [booool boolValue]	: NO;
 }
 @end
 @implementation CALayer (WasClicked)
+- (void) layerWasClicked:(CAL *)layer	{
+//	[layer toggleBoolForKey:@"clicked"]; [layer setNeedsDisplay];
+}
 - (void)wasClicked	{
-	[self toggleBoolForKey:@"clicked"];  [self setNeedsDisplay];
+//	[self toggleBoolForKey:@"clicked"];  [self setNeedsDisplay];
 }
 @end
 
@@ -514,7 +491,9 @@ extern CATransform3D CATransform3DMake(CGF m11, CGF m12, CGF m13, CGF m14,
 #define KVOTRIGGER(x) [ willChangeValueForKey : x][bSelf setValue : y forKey : x];  [bSelf didChangeValueForKey:x]; })
 static char ORIENT_IDENTIFIER, ROOT_IDENTIFIER, TEXT_IDENTIFIER;
 #define kCALayerLabel @"CALayerLabel"
-@implementation CALayer (AtoZ)		@dynamic hostView, siblings, siblingIndex, siblingIndexMax, selected, hovered, backgroundNSColor;
+@implementation CALayer (AtoZ)
+
+@dynamic hostView, siblings, siblingIndex, siblingIndexMax, selected, hovered, backgroundNSColor;
 
 - (void) disableActionsForKeys:(NSA*)ks {	self.actions = [self.actions dictionaryWithValue:AZNULL forKeys:ks]; }
 - (void) addActionsForKeys:(NSD*)ks {  self.actions = [self.actions dictionaryByAddingEntriesFromDictionary:ks]; }
@@ -681,7 +660,7 @@ static NSMD* needsDisplayKeysRef = nil;
 	[self.loM setNeedsLayout];
 }
 - (void)needsLayoutForKey:(NSS *)key    {
-	[self addObserverForKeyPath:key task:^(id sender) { [sender setNeedsLayout]; }];
+	[self bk_addObserverForKeyPath:key task:^(id sender) { [sender setNeedsLayout]; }];
 }
 + (id)layerWithFrame:(CGRect)frame	   {
 	id l = [self layer];
@@ -898,6 +877,31 @@ static NSMD* needsDisplayKeysRef = nil;
 	}];
 }
 @dynamic root, text, orient;
+
+- (NSA*) sublayersRecursive { return [self.sublayers bk_reduce:@[].mutableCopy withBlock:^id(id sum, id obj) {
+			if (![obj sublayers].count) [sum addObject:obj]; else [sum addObjectsFromArray:[obj sublayersRecursive]];
+			return sum;
+	}];
+}
+- (NSW*) window {
+
+	return [[NSW.allWindows vFKP:@"contentView.layer"] filterOne:^BOOL(id object) {
+		return [[object sublayersRecursive] containsObject:self];
+	}];
+}
+
+- (void) setSublayerMouseOverBlock:(void(^)(CAL*layer))block {  id monitor;
+
+	[self.window setAcceptsMouseMovedEvents:YES]; __block CAL* hitLayer;
+	if ((!block && (monitor =[self vFK:@"mouseOverBlock"])) || monitor ) [NSE removeMonitor:monitor];
+	[self sV:monitor = [NSEVENTLOCALMASK:NSMouseMovedMask handler:^NSEvent *(NSEvent *e){
+		CAL* l = [self hitTestSubs:[self convertPoint:e.locationInWindow fromLayer:nil]];
+		if (l && l!=hitLayer) {  hitLayer = l;  block(hitLayer); }
+		return e;
+	}] fK:@"mouseOverBlock"];
+}
+
+
 - (void)setText:(CATXTL *)text	     {
 	objc_setAssociatedObject(self, &TEXT_IDENTIFIER, text, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 	self.text ? [self replaceSublayer:self.text with:text] : [self addSublayer:text];
@@ -1370,7 +1374,7 @@ static NSMD* needsDisplayKeysRef = nil;
 	[self flipForward:YES atPosition:position];
 }
 - (void)toggleFlip  {
-	BOOL isFlipped = [self boolForKey:@"flipped" defaultValue:NO];
+	BOOL isFlipped = [self boolForKey:@"flipped"];// defaultValue:NO];
 	isFlipped ? [self flipBack] : [self flipOver];
 	[self setBool:isFlipped = !isFlipped forKey:@"flipped"];
 }

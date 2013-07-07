@@ -83,14 +83,14 @@ CAT3D CAT3DMake( CGF m11, CGF m12, CGF m13, CGF m14,
 //- (void) wasClicked;
 //@end
 
+//- (void) addConstraintsRelSuper:(CAConstraintAttribute) nilAttributeList, ...;  // This method takes a nil-terminated list of objects.
 
 @interface CAL (VariadicConstraints)
 
-- (void)addConstraintObjects:(CAConstraint*)first,... NS_REQUIRES_NIL_TERMINATION;
-- (void) addConstraintsRelSuperOr:(NSNumber*) nilAttributeList, ... NS_REQUIRES_NIL_TERMINATION;   // This method takes a nil-terminated list of objects.
-- (void)addConstraintsRelSuper:(CAConstraintAttribute)first,...; /* REQUIRES NSNotFound termination */
-//- (void) addConstraintsRelSuper:(CAConstraintAttribute) nilAttributeList, ...;  // This method takes a nil-terminated list of objects.
-- (void) addConstraints:(NSA*)constraints;
+- (void) addConstraints:			 (NSA*)constraints;
+- (void) addConstraintObjects:	 (CAConstraint*)first,... NS_REQUIRES_NIL_TERMINATION;
+- (void) addConstraintsRelSuperOr:(NSN*)nilAttributeList, ... NS_REQUIRES_NIL_TERMINATION;   // This method takes a nil-terminated list of objects.
+- (void) addConstraintsRelSuper:(CAConstraintAttribute)first,...; /* REQUIRES NSNotFound termination */
 - (void) addConstraintsSuperSizeScaled:(CGF)scale;
 - (void) addConstraintsSuperSize;
 @end
@@ -133,7 +133,10 @@ typedef void(^bSelf)(id);
 - (CAL*) permaPresentation;
 @property (RDWRT,NATOM) NSColor *backgroundNSColor;
 @property (RDWRT,NATOM,ASS) BOOL selected, hovered;
+@property (RONLY) NSW* window;
+@property (RONLY) NSA* sublayersRecursive;
 
+@property (NATOM, CP) void(^sublayerMouseOverBlock)(CAL*);
 
 + (NSA*) needsDisplayForKeys;
 + (void) setNeedsDisplayForKeys:(NSA*)ks;

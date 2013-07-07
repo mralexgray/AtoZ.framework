@@ -294,7 +294,7 @@ static const char* getPropertyType    (objc_property_t property) 	{
 		[list addObject:[NSS stringWithUTF8String:property_getName(properties[i])]];
 	}
 	
-	return [list.alphabetize reduce:NSMD.new withBlock:^id(id sum, id obj) { NSString *type = nil;
+	return [list.alphabetize bk_reduce:NSMD.new withBlock:^id(id sum, id obj) { NSString *type = nil;
 		const char* t = [self typeOfPropertyNamed:obj]; if (t != NULL)  type = $UTF8(t); if (!type) return sum;
 		if (![sum objectForKey:type]) [sum setValue:@[obj].mutableCopy forKey:type];
 		else [[sum objectForKey:type] addObject:obj];

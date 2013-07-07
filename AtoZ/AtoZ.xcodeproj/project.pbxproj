@@ -374,8 +374,6 @@
 		7B3FB11417689D0300233199 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B3FB11317689D0300233199 /* XCTest.framework */; };
 		7B3FB11A17689D0400233199 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7B3FB11817689D0400233199 /* InfoPlist.strings */; };
 		7B3FB11C17689D0400233199 /* AtoZ_XCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B3FB11B17689D0400233199 /* AtoZ_XCTests.m */; };
-		7B3FB12417689DEF00233199 /* AZBaseModelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B3FB12317689DEF00233199 /* AZBaseModelTests.m */; };
-		7B3FB1251768A02800233199 /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B311951159B6D9E002134C4 /* AtoZ.framework */; };
 		7B40F6B21739C087006FA3B3 /* NSMenu+Dark.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B40F6B01739C087006FA3B3 /* NSMenu+Dark.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B40F6B31739C087006FA3B3 /* NSMenu+Dark.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B40F6B11739C087006FA3B3 /* NSMenu+Dark.m */; };
 		7B427EE7170B03D20052FC31 /* CocoatechCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B427EBE170AF7260052FC31 /* CocoatechCore.framework */; };
@@ -462,6 +460,7 @@
 		7B5C33CC1780895B008B4187 /* AZLogUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5C338A17808147008B4187 /* AZLogUnit.m */; };
 		7B5C33CD1780896C008B4187 /* GDataXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5C33C81780823A008B4187 /* GDataXMLNode.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7B5C33CE178089A4008B4187 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B82660C177DE7340059418E /* libxml2.dylib */; };
+		7B5D28891788AF7800CF483C /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B31196A159B6D9E002134C4 /* SenTestingKit.framework */; };
 		7B5E01FF17105E550086AF70 /* NSFont+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B5E01FD17105E550086AF70 /* NSFont+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B5E020017105E550086AF70 /* NSFont+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5E01FE17105E550086AF70 /* NSFont+AtoZ.m */; };
 		7B5EB909171C28B900B8916B /* MenuApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B5EB906171C263F00B8916B /* MenuApp.framework */; };
@@ -471,6 +470,7 @@
 		7B5F588E176BB77F007280A3 /* AZObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B112A9B15D45B10002C97E8 /* AZObject.m */; };
 		7B5F58D8176CCA1A007280A3 /* NSObject_KVOBlock.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B5F58D6176CCA1A007280A3 /* NSObject_KVOBlock.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B5F58D9176CCA1A007280A3 /* NSObject_KVOBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5F58D7176CCA1A007280A3 /* NSObject_KVOBlock.m */; };
+		7B5FE94E1789C9C50083AE35 /* BlocksKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B5FE9371789C08A0083AE35 /* BlocksKit.framework */; };
 		7B662A4F161E3231003D5EE0 /* 1085.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A16161E3230003D5EE0 /* 1085.caf */; };
 		7B662A50161E3231003D5EE0 /* beat.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A17161E3231003D5EE0 /* beat.caf */; };
 		7B662A51161E3231003D5EE0 /* Blip Synth 01.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B662A18161E3231003D5EE0 /* Blip Synth 01.caf */; };
@@ -862,6 +862,7 @@
 		7BDF56B21627C2ED00041A42 /* AZInstantApp.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BDF56AE1627BE4200041A42 /* AZInstantApp.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BDFE2AE167A191A00BC5C53 /* NSDate+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BDFE2AC167A191A00BC5C53 /* NSDate+AtoZ.m */; };
 		7BDFE2AF167A19D400BC5C53 /* NSDate+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BDFE2AB167A191A00BC5C53 /* NSDate+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BE211DC1785F7A600D6F88D /* AZSynthesize.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BE211DB1785F7A600D6F88D /* AZSynthesize.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BE254FD178202460054DFB6 /* MAAttachedWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA425B315E7B52F00D2A471 /* MAAttachedWindow.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7BE31C73166D4BA200D9456F /* AZHomeBrew.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BE31C71166D4BA200D9456F /* AZHomeBrew.m */; };
 		7BE31C74166D4CA200D9456F /* AZHomeBrew.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BE31C70166D4BA200D9456F /* AZHomeBrew.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -903,17 +904,13 @@
 		7BF1B9AD1744A26700B2BF84 /* NSManagedObject+SDAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BA36BEA165BB2050077A065 /* NSManagedObject+SDAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BF1EC58174A0BBD00699D38 /* AZObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B112A9A15D45B10002C97E8 /* AZObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BF2617D164F2B260057EB88 /* AtoZFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BF9854915FEBDB100D47192 /* AtoZFunctions.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7BF2F6EE1775212D00B884EC /* BlocksKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF2F6E517751C8400B884EC /* BlocksKit.framework */; };
-		7BF2F6EF1775213F00B884EC /* BlocksKit.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7BF2F6E517751C8400B884EC /* BlocksKit.framework */; };
 		7BF343FE17538D330006E542 /* NullSafe.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BF343FC17538D330006E542 /* NullSafe.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BF343FF17538D330006E542 /* NullSafe.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BF343FC17538D330006E542 /* NullSafe.h */; };
 		7BF3440017538D330006E542 /* NullSafe.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF343FD17538D330006E542 /* NullSafe.m */; };
 		7BF3440117538D330006E542 /* NullSafe.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF343FD17538D330006E542 /* NullSafe.m */; };
 		7BF5023F16FE4B6B00432D00 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF5023E16FE4B6B00432D00 /* Quartz.framework */; };
-		7BF72D52171F8F2E0037CF41 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF72D51171F8F2E0037CF41 /* SenTestingKit.framework */; };
 		7BF72D5E171F8F2F0037CF41 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7BF72D5C171F8F2F0037CF41 /* InfoPlist.strings */; };
 		7BF72D61171F8F2F0037CF41 /* AtoZUnitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF72D60171F8F2F0037CF41 /* AtoZUnitTests.m */; };
-		7BF72DA1171F90B80037CF41 /* AZCategoryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2853F815FEE79F0077960A /* AZCategoryTests.m */; };
 		7BF72DA7171F96080037CF41 /* AZFaviconManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF72DA6171F96080037CF41 /* AZFaviconManagerTests.m */; };
 		7BF9854C15FEBDB200D47192 /* AtoZFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF9854A15FEBDB200D47192 /* AtoZFunctions.m */; };
 		7BF9855015FEBDF900D47192 /* NSBag.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF9854E15FEBDF900D47192 /* NSBag.m */; };
@@ -1138,13 +1135,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = 9FC4242D15F57A0F001B9220;
 			remoteInfo = KSHTMLWriterFramework;
-		};
-		7B3FB11E17689D0400233199 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7B311947159B6D9E002134C4 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 7B311950159B6D9E002134C4;
-			remoteInfo = AtoZ;
 		};
 		7B427EBD170AF7260052FC31 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1426,6 +1416,27 @@
 			remoteGlobalIDString = 4311A74313D7429E00820313;
 			remoteInfo = FunSize;
 		};
+		7B5D28A71788AF7800CF483C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B7BA880178896A90015DF7E /* Kiwi.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F5015B9F11583A77002E9A98;
+			remoteInfo = Kiwi;
+		};
+		7B5D28A91788AF7800CF483C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B7BA880178896A90015DF7E /* Kiwi.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 832C83C7157263B300F160D5;
+			remoteInfo = "Kiwi-OSX";
+		};
+		7B5D28AB1788AF7800CF483C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B7BA880178896A90015DF7E /* Kiwi.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F5015C9E11584017002E9A98;
+			remoteInfo = KiwiTests;
+		};
 		7B5EB905171C263F00B8916B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7B5EB901171C263E00B8916B /* MenuApp.xcodeproj */;
@@ -1446,6 +1457,48 @@
 			proxyType = 1;
 			remoteGlobalIDString = 7B311950159B6D9E002134C4;
 			remoteInfo = AtoZ;
+		};
+		7B5FE9341789C08A0083AE35 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B5FE92B1789C0890083AE35 /* BlocksKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 6C3DBF8D1382F1BA00E6C9AA;
+			remoteInfo = libBlocksKit;
+		};
+		7B5FE9361789C08A0083AE35 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B5FE92B1789C0890083AE35 /* BlocksKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 6CC40A751447BB1400E47595;
+			remoteInfo = BlocksKit;
+		};
+		7B5FE9381789C08A0083AE35 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B5FE92B1789C0890083AE35 /* BlocksKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 6CF22CB0161EB048002FD317;
+			remoteInfo = "BlocksKit iOS Tests";
+		};
+		7B5FE93A1789C08A0083AE35 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B5FE92B1789C0890083AE35 /* BlocksKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 6CF22C95161EAFB8002FD317;
+			remoteInfo = "BlocksKit OS X Tests";
+		};
+		7B5FE93C1789C08A0083AE35 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B5FE92B1789C0890083AE35 /* BlocksKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0005D5DE161FDF23007DD837;
+			remoteInfo = "BlocksKit iOS Tests App";
+		};
+		7B5FE94F1789CA710083AE35 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B5FE92B1789C0890083AE35 /* BlocksKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 6CC40A741447BB1400E47595;
+			remoteInfo = BlocksKit;
 		};
 		7B66ACF1173EC96B003F8604 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1481,13 +1534,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = 01C5B57715835D0F001607BC;
 			remoteInfo = FileSuffixesTestMac;
-		};
-		7B8BF92117709E9B00034408 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7B311947159B6D9E002134C4 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 7B311950159B6D9E002134C4;
-			remoteInfo = AtoZ;
 		};
 		7B8D462716F0039100224316 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1776,48 +1822,6 @@
 			remoteGlobalIDString = DCB318CA14ED6C3B001CFBEE;
 			remoteInfo = FmwkTest;
 		};
-		7BF2F6E217751C8400B884EC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7BF2F6DA17751C7200B884EC /* BlocksKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 6C3DBF8D1382F1BA00E6C9AA;
-			remoteInfo = "iOS Library";
-		};
-		7BF2F6E417751C8400B884EC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7BF2F6DA17751C7200B884EC /* BlocksKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 6CC40A751447BB1400E47595;
-			remoteInfo = "OS X Framework";
-		};
-		7BF2F6E617751C8400B884EC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7BF2F6DA17751C7200B884EC /* BlocksKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 6CF22CB0161EB048002FD317;
-			remoteInfo = "iOS Tests";
-		};
-		7BF2F6E817751C8400B884EC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7BF2F6DA17751C7200B884EC /* BlocksKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 6CF22C95161EAFB8002FD317;
-			remoteInfo = "OS X Tests";
-		};
-		7BF2F6EA17751C8400B884EC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7BF2F6DA17751C7200B884EC /* BlocksKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 0005D5DE161FDF23007DD837;
-			remoteInfo = "iOS Tests App";
-		};
-		7BF2F6EC17751C9D00B884EC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7BF2F6DA17751C7200B884EC /* BlocksKit.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 6CC40A741447BB1400E47595;
-			remoteInfo = "OS X Framework";
-		};
 		7BFBF4ED175DC861007A84AC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7BFBF4E7175DC860007A84AC /* AtoZAppKit.xcodeproj */;
@@ -1842,7 +1846,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				7B0F52DE177B48930027FAA2 /* SVGKit.framework in frameworks copy */,
-				7BF2F6EF1775213F00B884EC /* BlocksKit.framework in frameworks copy */,
 				7BFBF4F2175DC8B5007A84AC /* AtoZAppKit.framework in frameworks copy */,
 				7B66AD3B173EC994003F8604 /* NanoStore.framework in frameworks copy */,
 				7B7731B0172C3F80006E1CB4 /* KSHTMLWriterKit.framework in frameworks copy */,
@@ -2489,6 +2492,7 @@
 		7B5EB901171C263E00B8916B /* MenuApp.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MenuApp.xcodeproj; path = ../Frameworks/StatusBarApp.framework/MenuApp.xcodeproj; sourceTree = "<group>"; };
 		7B5F58D6176CCA1A007280A3 /* NSObject_KVOBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSObject_KVOBlock.h; path = "../../Frameworks/KVO-Notification-Manager/NSObject_KVOBlock.h"; sourceTree = "<group>"; };
 		7B5F58D7176CCA1A007280A3 /* NSObject_KVOBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSObject_KVOBlock.m; path = "../../Frameworks/KVO-Notification-Manager/NSObject_KVOBlock.m"; sourceTree = "<group>"; };
+		7B5FE92B1789C0890083AE35 /* BlocksKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BlocksKit.xcodeproj; path = ../Frameworks/BlocksKit/BlocksKit.xcodeproj; sourceTree = "<group>"; };
 		7B61E90515EAA8340053BACF /* XPCKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = XPCKit.xcodeproj; path = ../../../git/XPCKit/XPCKit.xcodeproj; sourceTree = "<group>"; };
 		7B61E92315EAAF750053BACF /* AZFileGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZFileGridView.h; path = Views/AZFileGridView.h; sourceTree = SOURCE_ROOT; };
 		7B61E92415EAAF750053BACF /* AZFileGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = AZFileGridView.m; path = Views/AZFileGridView.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -2612,6 +2616,7 @@
 		7B7852C215ACEDA3008BAD3C /* AZBoxLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AZBoxLayer.m; path = AZLayerGrid/AZBoxLayer.m; sourceTree = SOURCE_ROOT; };
 		7B7A852D15F81AB00071741C /* AZProcess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZProcess.h; sourceTree = "<group>"; };
 		7B7A852E15F81AB00071741C /* AZProcess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AZProcess.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		7B7BA880178896A90015DF7E /* Kiwi.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Kiwi.xcodeproj; path = /Volumes/2T/ServiceData/AtoZ.framework/Frameworks/Kiwi/Kiwi.xcodeproj; sourceTree = "<absolute>"; };
 		7B7C27F915C32B39007DD569 /* RoundedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoundedView.h; sourceTree = "<group>"; };
 		7B7C27FA15C32B39007DD569 /* RoundedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoundedView.m; sourceTree = "<group>"; };
 		7B7C27FB15C32B39007DD569 /* TransparentWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransparentWindow.h; sourceTree = "<group>"; };
@@ -2999,6 +3004,7 @@
 		7BDFE2AB167A191A00BC5C53 /* NSDate+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = "NSDate+AtoZ.h"; sourceTree = "<group>"; };
 		7BDFE2AC167A191A00BC5C53 /* NSDate+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+AtoZ.m"; sourceTree = "<group>"; };
 		7BE1F69C15F90298005ED292 /* FunSize.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FunSize.xcodeproj; path = ../Frameworks/FunSize.framework/FunSize.xcodeproj; sourceTree = SOURCE_ROOT; };
+		7BE211DB1785F7A600D6F88D /* AZSynthesize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZSynthesize.h; path = ../AZSynthesize.h; sourceTree = "<group>"; };
 		7BE31C70166D4BA200D9456F /* AZHomeBrew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = AZHomeBrew.h; sourceTree = "<group>"; };
 		7BE31C71166D4BA200D9456F /* AZHomeBrew.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZHomeBrew.m; sourceTree = "<group>"; };
 		7BE6069315A0E2DC00355236 /* NSString+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = "NSString+AtoZ.h"; sourceTree = "<group>"; };
@@ -3039,7 +3045,6 @@
 		7BF0571A15EB33F2003A2A7A /* AZSpinnerLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZSpinnerLayer.m; sourceTree = "<group>"; };
 		7BF0571B15EB33F3003A2A7A /* AZSpinnerLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZSpinnerLayer.h; sourceTree = "<group>"; };
 		7BF26168164EDAB00057EB88 /* Lumberjack.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Lumberjack.xcodeproj; path = ../Frameworks/CocoaLumberjack/Xcode/LumberjackFramework/Desktop/Lumberjack.xcodeproj; sourceTree = "<group>"; };
-		7BF2F6DA17751C7200B884EC /* BlocksKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BlocksKit.xcodeproj; path = ../Frameworks/BlocksKit/BlocksKit.xcodeproj; sourceTree = "<group>"; };
 		7BF343FC17538D330006E542 /* NullSafe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NullSafe.h; path = ../Frameworks/NullSafe/NullSafe/NullSafe.h; sourceTree = SOURCE_ROOT; };
 		7BF343FD17538D330006E542 /* NullSafe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NullSafe.m; path = ../Frameworks/NullSafe/NullSafe/NullSafe.m; sourceTree = SOURCE_ROOT; };
 		7BF5023E16FE4B6B00432D00 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = /System/Library/Frameworks/Quartz.framework; sourceTree = "<absolute>"; };
@@ -3134,7 +3139,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7B3FB1251768A02800233199 /* AtoZ.framework in Frameworks */,
 				7B3FB11417689D0300233199 /* XCTest.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3154,10 +3158,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B5FE94E1789C9C50083AE35 /* BlocksKit.framework in Frameworks */,
 				7B82660D177DE7340059418E /* libxml2.dylib in Frameworks */,
 				7BC425BF177747A900928201 /* libAtoZAutoBox.a in Frameworks */,
 				7B0F52DD177B487F0027FAA2 /* SVGKit.framework in Frameworks */,
-				7BF2F6EE1775212D00B884EC /* BlocksKit.framework in Frameworks */,
 				7BD667971760EF4B006DA22C /* libextobjc_OSX.a in Frameworks */,
 				7BFBF4F1175DC89A007A84AC /* AtoZAppKit.framework in Frameworks */,
 				7B66AD3A173EC97A003F8604 /* NanoStore.framework in Frameworks */,
@@ -3202,8 +3206,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B5D28891788AF7800CF483C /* SenTestingKit.framework in Frameworks */,
 				7B5C33CE178089A4008B4187 /* libxml2.dylib in Frameworks */,
-				7BF72D52171F8F2E0037CF41 /* SenTestingKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3846,13 +3850,11 @@
 		7B311945159B6D9E002134C4 = {
 			isa = PBXGroup;
 			children = (
-				7B82660C177DE7340059418E /* libxml2.dylib */,
 				7BC425771776799D00928201 /* AtoZAutoBox.xcodeproj */,
 				7BFBF553175E0C75007A84AC /* AtoZCodeFactory.xcodeproj */,
 				7B82B82815CB66D30026FE8C /* AtoZ Encyclopedia */,
 				7B31B12F15E9441D00802CD5 /* AtoZ Entitlement */,
 				7B184EE815FCA98700696360 /* AtoZCLI */,
-				7BDF56951627695400041A42 /* AtoZTestBed */,
 				7B0DA22017434FCC00535483 /* BaseModel */,
 				7B583063159BDA900039CEED /* Categories */,
 				7B05BB09159C406200409B83 /* Classes */,
@@ -3892,14 +3894,12 @@
 		7B311953159B6D9E002134C4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				7BF2F6DA17751C7200B884EC /* BlocksKit.xcodeproj */,
-				7BCE7F4B166BC1A900C40B5E /* AFNetworking */,
+				7B5FE92B1789C0890083AE35 /* BlocksKit.xcodeproj */,
 				7BFBF4E7175DC860007A84AC /* AtoZAppKit.xcodeproj */,
 				7BB8701116384FF00000C242 /* AtoZBezierPath.xcodeproj */,
 				7B0E4BB11668A20D00CA1684 /* AtoZWebSnapper.xcodeproj */,
 				7B2585EC17183EC600527501 /* BWToolkit.xcodeproj */,
 				7BFA3EC5162B4DF0003264A4 /* CleanAndCopyToCompiledFrameWorks.sh */,
-				7B0DA21A17434FCB00535483 /* Cocoa.framework */,
 				7BA7D241163945E60073BADC /* CocoaPuffs.xcodeproj */,
 				7B427EB0170AF7250052FC31 /* CocoatechCore.xcodeproj */,
 				7BB870691638A0FA0000C242 /* ConciseKit */,
@@ -3916,7 +3916,6 @@
 				7BB86F7716383FCD0000C242 /* Rebel.xcodeproj */,
 				7BDD286816F832D700FEB3AF /* SVGKit.xcodeproj */,
 				7B427EEB170B13230052FC31 /* TwUI.xcodeproj */,
-				7B3FB11317689D0300233199 /* XCTest.framework */,
 				7B1B34BB16F2BC4700B94864 /* Zangetsu.xcodeproj */,
 			);
 			name = Frameworks;
@@ -3935,6 +3934,7 @@
 		7B31B12F15E9441D00802CD5 /* AtoZ Entitlement */ = {
 			isa = PBXGroup;
 			children = (
+				7BDF56951627695400041A42 /* AtoZTestBed */,
 				7BA425B615E7C3C200D2A471 /* AZTrackingWindow.h */,
 				7BA425B715E7C3C200D2A471 /* AZTrackingWindow.m */,
 				7B31B14515E9443200802CD5 /* AtoZ Entitlement.entitlements */,
@@ -3976,6 +3976,7 @@
 		7B3777BE16F1BDAD0083CBB5 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				7BCE7F4B166BC1A900C40B5E /* AFNetworking */,
 				7BA8EFEC16F1EF5900D092CA /* Reader Notifier.xcodeproj */,
 				7B1B34CF16F2BFE700B94864 /* libz.dylib */,
 				7B37785B16F1C8090083CBB5 /* KSHTMLWriter.xcodeproj */,
@@ -4398,6 +4399,18 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		7B5FE92C1789C0890083AE35 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7B5FE9351789C08A0083AE35 /* libBlocksKit.a */,
+				7B5FE9371789C08A0083AE35 /* BlocksKit.framework */,
+				7B5FE9391789C08A0083AE35 /* BlocksKit iOS Tests.octest */,
+				7B5FE93B1789C08A0083AE35 /* BlocksKit OS X Tests.octest */,
+				7B5FE93D1789C08A0083AE35 /* BlocksKit iOS Tests App.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		7B662A15161E3230003D5EE0 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
@@ -4522,6 +4535,7 @@
 		7B6BEDD91674B42E00829B8A /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				7BE211DB1785F7A600D6F88D /* AZSynthesize.h */,
 				7B2586401719B04E00527501 /* AtoZTypes.h */,
 				7B311961159B6D9E002134C4 /* AtoZ.h */,
 				7B6901D7159E3AC600D0DA47 /* AtoZUmbrella.h */,
@@ -4595,6 +4609,16 @@
 			);
 			name = AZLayerGrid;
 			path = ../AtoZ;
+			sourceTree = "<group>";
+		};
+		7B7BA883178898330015DF7E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7B5D28A81788AF7800CF483C /* libKiwi.a */,
+				7B5D28AA1788AF7800CF483C /* libKiwi-OSX.a */,
+				7B5D28AC1788AF7800CF483C /* KiwiTests.octest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		7B7E47561734A2CD005C8997 /* BaseModel */ = {
@@ -5221,7 +5245,8 @@
 				7B30BE7C170DAFEA004CB62B /* TUIVVC.m */,
 				7B30BE7D170DAFEA004CB62B /* TUIV.xib */,
 			);
-			path = AtoZTestBed;
+			name = AtoZTestBed;
+			path = ../AtoZTestBed;
 			sourceTree = "<group>";
 		};
 		7BDF56961627695500041A42 /* TestBed SUpport */ = {
@@ -5277,6 +5302,9 @@
 		7BE2A4F31611576E003D6B92 /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7B3FB11317689D0300233199 /* XCTest.framework */,
+				7B82660C177DE7340059418E /* libxml2.dylib */,
+				7B0DA21A17434FCB00535483 /* Cocoa.framework */,
 				7B0DA21D17434FCB00535483 /* AppKit.framework */,
 				7B0DA21E17434FCB00535483 /* CoreData.framework */,
 				7B0DA21F17434FCB00535483 /* Foundation.framework */,
@@ -5401,18 +5429,6 @@
 			children = (
 				7BF26172164EDAB00057EB88 /* Lumberjack.framework */,
 				7BF26174164EDAB00057EB88 /* FmwkTest.app */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		7BF2F6DB17751C7200B884EC /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				7BF2F6E317751C8400B884EC /* libBlocksKit.a */,
-				7BF2F6E517751C8400B884EC /* BlocksKit.framework */,
-				7BF2F6E717751C8400B884EC /* BlocksKit iOS Tests.octest */,
-				7BF2F6E917751C8400B884EC /* BlocksKit OS X Tests.octest */,
-				7BF2F6EB17751C8400B884EC /* BlocksKit iOS Tests App.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -5570,6 +5586,7 @@
 				7B05BB14159C5C6100409B83 /* AZBlockView.h in Headers */,
 				7B6901D5159E39A400D0DA47 /* NSColor+AtoZ.h in Headers */,
 				7B05BB0C159C40A600409B83 /* AZQueue.h in Headers */,
+				7BE211DC1785F7A600D6F88D /* AZSynthesize.h in Headers */,
 				7B0F8B0C15F2F07000BB3CE7 /* F.h in Headers */,
 				7B0F8B0E15F2F07000BB3CE7 /* NSArray+F.h in Headers */,
 				7B59C837160105E8009DAFCA /* AtoZModels.h in Headers */,
@@ -5885,6 +5902,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				7B5FE9501789CA710083AE35 /* PBXTargetDependency */,
 				7B0F52DC177B48670027FAA2 /* PBXTargetDependency */,
 				7BC425BE1777479400928201 /* PBXTargetDependency */,
 				7BD667961760EF3D006DA22C /* PBXTargetDependency */,
@@ -5900,7 +5918,6 @@
 				7B1B34D216F2EAA600B94864 /* PBXTargetDependency */,
 				7B1B34CB16F2BC7400B94864 /* PBXTargetDependency */,
 				7B95C8AC16F089A100480BB1 /* PBXTargetDependency */,
-				7BF2F6ED17751C9D00B884EC /* PBXTargetDependency */,
 				7B8D462816F0039100224316 /* PBXTargetDependency */,
 				7B37567D163B6363003D52B7 /* PBXTargetDependency */,
 				7BB8701F163850050000C242 /* PBXTargetDependency */,
@@ -5959,7 +5976,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				7B3FB11F17689D0400233199 /* PBXTargetDependency */,
 			);
 			name = "AtoZ XCTests";
 			productName = "AtoZ XCTests";
@@ -6017,7 +6033,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				7B8BF92217709E9B00034408 /* PBXTargetDependency */,
 			);
 			name = AtoZUnitTests;
 			productName = AtoZUnitTests;
@@ -6072,8 +6087,8 @@
 					ProjectRef = 7B0E4BB11668A20D00CA1684 /* AtoZWebSnapper.xcodeproj */;
 				},
 				{
-					ProductGroup = 7BF2F6DB17751C7200B884EC /* Products */;
-					ProjectRef = 7BF2F6DA17751C7200B884EC /* BlocksKit.xcodeproj */;
+					ProductGroup = 7B5FE92C1789C0890083AE35 /* Products */;
+					ProjectRef = 7B5FE92B1789C0890083AE35 /* BlocksKit.xcodeproj */;
 				},
 				{
 					ProductGroup = 7B2585ED17183EC600527501 /* Products */;
@@ -6106,6 +6121,10 @@
 				{
 					ProductGroup = 7B5ABAAD1608D76500530EA7 /* Products */;
 					ProjectRef = 7BE1F69C15F90298005ED292 /* FunSize.xcodeproj */;
+				},
+				{
+					ProductGroup = 7B7BA883178898330015DF7E /* Products */;
+					ProjectRef = 7B7BA880178896A90015DF7E /* Kiwi.xcodeproj */;
 				},
 				{
 					ProductGroup = 7B37785C16F1C8090083CBB5 /* Products */;
@@ -6435,11 +6454,67 @@
 			remoteRef = 7B5ABAB31608D76500530EA7 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		7B5D28A81788AF7800CF483C /* libKiwi.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libKiwi.a;
+			remoteRef = 7B5D28A71788AF7800CF483C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7B5D28AA1788AF7800CF483C /* libKiwi-OSX.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libKiwi-OSX.a";
+			remoteRef = 7B5D28A91788AF7800CF483C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7B5D28AC1788AF7800CF483C /* KiwiTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = KiwiTests.octest;
+			remoteRef = 7B5D28AB1788AF7800CF483C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		7B5EB906171C263F00B8916B /* MenuApp.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = MenuApp.framework;
 			remoteRef = 7B5EB905171C263F00B8916B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7B5FE9351789C08A0083AE35 /* libBlocksKit.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libBlocksKit.a;
+			remoteRef = 7B5FE9341789C08A0083AE35 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7B5FE9371789C08A0083AE35 /* BlocksKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = BlocksKit.framework;
+			remoteRef = 7B5FE9361789C08A0083AE35 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7B5FE9391789C08A0083AE35 /* BlocksKit iOS Tests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "BlocksKit iOS Tests.octest";
+			remoteRef = 7B5FE9381789C08A0083AE35 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7B5FE93B1789C08A0083AE35 /* BlocksKit OS X Tests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "BlocksKit OS X Tests.octest";
+			remoteRef = 7B5FE93A1789C08A0083AE35 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7B5FE93D1789C08A0083AE35 /* BlocksKit iOS Tests App.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "BlocksKit iOS Tests App.app";
+			remoteRef = 7B5FE93C1789C08A0083AE35 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		7B8A345916E6D07B0088D209 /* FileSuffixesTest.app */ = {
@@ -6692,41 +6767,6 @@
 			fileType = wrapper.application;
 			path = FmwkTest.app;
 			remoteRef = 7BF26173164EDAB00057EB88 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7BF2F6E317751C8400B884EC /* libBlocksKit.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libBlocksKit.a;
-			remoteRef = 7BF2F6E217751C8400B884EC /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7BF2F6E517751C8400B884EC /* BlocksKit.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = BlocksKit.framework;
-			remoteRef = 7BF2F6E417751C8400B884EC /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7BF2F6E717751C8400B884EC /* BlocksKit iOS Tests.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "BlocksKit iOS Tests.octest";
-			remoteRef = 7BF2F6E617751C8400B884EC /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7BF2F6E917751C8400B884EC /* BlocksKit OS X Tests.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "BlocksKit OS X Tests.octest";
-			remoteRef = 7BF2F6E817751C8400B884EC /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7BF2F6EB17751C8400B884EC /* BlocksKit iOS Tests App.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = "BlocksKit iOS Tests App.app";
-			remoteRef = 7BF2F6EA17751C8400B884EC /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		7BFBF4EE175DC861007A84AC /* AtoZAppKit.framework */ = {
@@ -7047,7 +7087,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "  PRODUCT_PATH=\"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}\"\n#   BINARY_PATH=\"/Versions/Current/${PRODUCT_NAME}\"\n  BUILT_BINARY=\"$PRODUCT_PATH/${PRODUCT_NAME}\"\n           MAC=\"/Library/Frameworks/\"\nSYSTEM_PRODUCT=\"$MAC/${WRAPPER_NAME}\"\n SYSTEM_BINARY=\"$SYSTEM_PRODUCT/${WRAPPER_NAME}\"\n\nfunction vol { # Echos a number from 0 to 100\n    local  __resultvar=$1\n    local  myresult=`osascript -e 'output volume of (get volume settings)'`\n    if [[ \"$__resultvar\" ]]; then eval $__resultvar=\"'$myresult'\"; else echo \"$myresult\"; fi\n}\nfunction saveVol {\n\t#volume=${1:$(vol)}\n    if [ \"$#\" == \"0\" ]; then volume=$(vol); else volume=$1; fi\n\tdefaults write com.mrgray.atoz savedVol -int $volume\n}\nfunction restoreVol {\n\ttoSet=`defaults read com.mrgray.atoz savedVol`\n    setVol $toSet\n}\nfunction setVol { # Where 50 is a number from 0 to 100\n    #v=${$1:20}\n    if [ \"$#\" == \"0\" ]; then v=20; else v=$1; fi\n\t#/sd/UNIX/bin/notify echo \"set Volume to $v\"\n    local  myresult=`osascript -e \"set volume output volume $v\"`\n    eval $myresult\n}\nfunction sayQuietly {\n\tsaveVol; setVol 50; say \"$1\"; restoreVol\n}\n\n\n\nstart_timestamp=$(date +%s)\n\nfunction logtime() {\n\tcurr_timestamp=$(date +%s)\n\telapsed_time=$(expr $end_time - $start_timestamp)\n\tlogger \"Elapsed: $elapsed_time.. $LINENO\"\n}\n\ncd \"$PRODUCT_PATH\"\nln -sF Versions/A/Frameworks Frameworks\n\n#export noitify=\"/Volumes/2T/ServiceData/UNIX/bin/notifycmd.app/Contents/MacOS/notifycmd\"\n\n\nsudo mkdir -p \"$SYSTEM_PRODUCT\"\ntypeset \tret_code\ntypeset \tcmnd=\"otool -l $BUILT_BINARY 2>&1 > /dev/null\"\neval \t\t$cmnd\nret_code=$?\n #/Library/Frameworks/AtoZ.framework/AtoZ#STATUS=$()\n\n\nif [ $ret_code -eq 0 ]; then\n#\tsay \"Yeah, it worked\"\n\t#notify echo \"Framework built OK! rsync!\"\n    cmnd=\"sudo rsync -lKr --del --exclude 'Versions/A/Headers/AtoZAutoBox' \\\n                                --exclude 'Versions/A/Headers/extobjc_OSX'\t\\\n                $PRODUCT_PATH $MAC/\"\n\teval $cmnd #test otool -l \"$SYSTEM_BINARY\" #/Library/Frameworks/AtoZ.framework/AtoZ\n\tlogtime\n#\tSTATUS=$?\n\tret_code=$?\n\tif [ $ret_code -ne 0 ];then\n    \texit $ret_code\n    fi\n\n\tcd \"${BUILT_PRODUCTS_DIR}/include\"\n    for D in `find . -type d -d 1 | xargs basename`\n\tdo\n\t\tlogger $D\n    \tcmnd=\"sudo rsync -lKr --del $D $MAC/${WRAPPER_NAME}/Versions/A/Headers/\"\n\t    eval $cmnd\n\t    ret_code=$?\n\t\tif [ $ret_code -ne 0 ];then\n\t    \texit $ret_code\n\t    fi\n\tdone\n\tlogtime\n\n#\tsudo rm -r \"$SYSTEM_PRODUCT\"\n#   sudo cp -r \"$PRODUCT_PATH\" \t\t\"$SYSTEM_PRODUCT\"\nelse\n\tLogger \"Touching ${SRCROOT}/AtoZ-Framework.pch\"\n\ttouch \"${SRCROOT}/AtoZ-Framework.pch\"\n    ITRIED=\"defaults read com.mrgray.atoz iTried\"\n\n\tif [ $ITRIED -eq 1 ]; then\n        /usr/bin/say im going to stop trying.\n        defaults write com.mrgray.atoz iTried -boolean NO\n\telse\n\t\tsayQuietly \"x code build\"\n\t    cd \"${SRCROOT}\"\n\t\tdefaults write com.mrgray.atoz iTried -boolean YES\n#        xcodebuild -target AtoZ\n\tfi\nfi\n\t\nsayQuietly \"Poop, no workie\"\n\n#    open \"${BUILT_PRODUCTS_DIR}\"\n   # notify echo \"BUILD FAILED\"\n\n\n#sudo ln -sF \"${PRODUCT_PATH}\" \"${MAC}\"\n\n\n\n#logger `pwd`\n\necho \"Cleaning Profiler Information\"\ncd \"${OBJECT_FILE_DIR_normal}/${CURRENT_ARCH}\"\n# Delete *.gcda files in the current target\nCOUNT=$(ls *.gcda 2> /dev/null | wc -l)\nif [ $COUNT -ne 0 ]; then\n\tsayQuietly \"Deleting $COUNT G C D A's\"\n\trm -f *.gcda\nfi\nlogtime \n\nexit 0\n\n\n#This produces a compiler warning with a yellow triangle and white exclamation point.\n#echo “MyFileName.m”:1: warning: “My warning message”\n\n\n#if [ -f  \"${PRODUCT_PATH}/${PRODUCT_NAME}\" ]; then\n#\t$growler -n \"AtoZ\" -m \"AtoZ Was compiled AOK.\"\n#\tif [ -d \"${PRECOMPS}/${WRAPPER_NAME}\" ]; then\n#    \trm -r \"${PRECOMPS}/${WRAPPER_NAME}\"\n#   fi\n#\tmkdir -p \"${PRECOMPS}\"\n#\tcp -r \"${PRODUCT_PATH}\" \"${PRECOMPS}\"\n#else\n#\t$growler -n \"AtoZ\" -m \"AtoZ is not a complete Binary!.\"\n#\tsay \"AtoZ is not a complete Binary!\"\n#fi\n\n\n#class-dump /Library/Frameworks/AtoZ.framework/AtoZ >>\n\n#install_name_tool -change \\\n#\"@executable_path/../Frameworks/${WRAPPER_NAME}/Versions/A/${PRODUCT_NAME}\" \\\n#\"@loader_path/../../../../Frameworks/${WRAPPER_NAME}/Versions/A/${PRODUCT_NAME}\" \\\n#\"$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/BaseTenAppKit.framework/Versions/A/BaseTenAppKit\"\n\n#-header-pad_max_install_names\n\n#FRAMEWORKS_DIR=\"${PRODUCT_PATH}\"FRAMEWORK_DIR/Versions/Frameworks\"\n\n#if ( ! [ -e \"$FRAMEWORKS_DIR\" ] ); then\n#$$ln -s \"$FRAMEWORK_DIR/Versions/Current/Frameworks\" \"$FRAMEWORKS_DIR\"\n#fi\n\n\n# PRECOMPS=\"$HOME/Library/Developer/Precompiled\"\n# growler='/ServiceData/UNIX/bin/growlnotify'\n";
+			shellScript = "  PRODUCT_PATH=\"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}\"\n#   BINARY_PATH=\"/Versions/Current/${PRODUCT_NAME}\"\n  BUILT_BINARY=\"$PRODUCT_PATH/${PRODUCT_NAME}\"\n           MAC=\"/Library/Frameworks\"\nSYSTEM_PRODUCT=\"$MAC/${WRAPPER_NAME}\"\n SYSTEM_BINARY=\"$SYSTEM_PRODUCT/${WRAPPER_NAME}\"\n\n# Echos a number from 0 to 100\nfunction vol {     local  __resultvar=$1  \n\tlocal  myresult=`osascript -e 'output volume of (get volume settings)'`\n    if [[ \"$__resultvar\" ]]; then eval $__resultvar=\"'$myresult'\"; else echo \"$myresult\"; fi\n}\nfunction saveVol {\tvolume=${1:-$(vol)};\tdefaults write com.mrgray.atoz savedVol -int $volume; \t\t\t}\nfunction setVol {  v=${1:-20}; local setIt=`osascript -e \"set volume output volume $v\"`; eval $setIt; \t}\nfunction restoreVol { toSet=`defaults read com.mrgray.atoz savedVol`; setVol $toSet; \t\t\t\t\t}\nfunction sayQuietly { saveVol; setVol 50; say \"$1\"; restoreVol;\t\t\t\t\t\t\t\t\t\t\t}\n\nstart_timestamp=$(date +%s)\nfunction logtime() { curr=$(date +%s); elap=$(expr $end_time - $start_timestamp)\n\tlogger \"Elapsed: $elap.. $LINENO\"\n}\n\ncd \"$PRODUCT_PATH\" && ln -sF Versions/A/Frameworks Frameworks\n\n#export noitify=\"/Volumes/2T/ServiceData/UNIX/bin/notifycmd.app/Contents/MacOS/notifycmd\"\n\n\nsudo mkdir -p \"$SYSTEM_PRODUCT\"\ndeclare \tret_code\ndeclare \tcmnd=\"otool -l $BUILT_BINARY 2>&1 > /dev/null\"\neval \t\t$cmnd\nret_code=$?\t\t#/Library/Frameworks/AtoZ.framework/AtoZ#STATUS=$()\nif [ $ret_code -eq 0 ]; then\t#\tsay \"Yeah, it worked\"\n\t#notify echo \"Framework built OK! rsync!\"\n    cmnd=\"sudo rsync -lKr --del --exclude 'Versions/A/Headers/AtoZAutoBox' \\\n                                --exclude 'Versions/A/Headers/extobjc_OSX'\t\\\n                $PRODUCT_PATH $MAC/\"\n\ttime eval $cmnd #test otool -l \"$SYSTEM_BINARY\" #/Library/Frameworks/AtoZ.framework/AtoZ\n\t# logtime\n#\tSTATUS=$?\n\tret_code=$? && if [ $ret_code -ne 0 ];then exit $ret_code; fi\n\n\tcd \"${BUILT_PRODUCTS_DIR}/include\"\n    for D in `find . -type d -d 1 | xargs basename`; do\n\t\tlogger $D\n    \tcmnd=\"sudo rsync -lKr --del $D $MAC/${WRAPPER_NAME}/Versions/A/Headers/\"\n\t    eval $cmnd\n\t    ret_code=$? && if [ $ret_code -ne 0 ];then exit $ret_code; fi\n\tdone\n\t# logtime\n\n#\tsudo rm -r \"$SYSTEM_PRODUCT\"\n#   sudo cp -r \"$PRODUCT_PATH\" \t\t\"$SYSTEM_PRODUCT\"\nelse\n\tLogger \"Touching ${SRCROOT}/AtoZ-Framework.pch\" && touch \"${SRCROOT}/AtoZ-Framework.pch\"\n    ITRIED=\"defaults read com.mrgray.atoz iTried\"\n\n\tif [ $ITRIED -eq 1 ]; then /usr/bin/say \"im going to stop trying.\" && defaults write com.mrgray.atoz iTried -boolean NO\n\telse sayQuietly \"x code build\" && cd \"${SRCROOT}\" && defaults write com.mrgray.atoz iTried -boolean YES\n#        xcodebuild -target AtoZ\n\tfi\nfi\n\t\n# sayQuietly \"Poop, no workie\"\n\n#    open \"${BUILT_PRODUCTS_DIR}\"\n   # notify echo \"BUILD FAILED\"\n\n\n#sudo ln -sF \"${PRODUCT_PATH}\" \"${MAC}\"\n\n\n\n#logger `pwd`\n\necho \"Cleaning Profiler Information\" && cd \"${OBJECT_FILE_DIR_normal}/${CURRENT_ARCH}\"\n# Delete *.gcda files in the current target\nCOUNT=$(ls *.gcda 2> /dev/null | wc -l)\nif [ $COUNT -ne 0 ]; then sayQuietly \"Deleting $COUNT G C D A's\";  rm -f *.gcda;  fi\n# logtime \n\nexit 0\n\n\n#This produces a compiler warning with a yellow triangle and white exclamation point.\n#echo “MyFileName.m”:1: warning: “My warning message”\n\n\n#if [ -f  \"${PRODUCT_PATH}/${PRODUCT_NAME}\" ]; then\n#\t$growler -n \"AtoZ\" -m \"AtoZ Was compiled AOK.\"\n#\tif [ -d \"${PRECOMPS}/${WRAPPER_NAME}\" ]; then\n#    \trm -r \"${PRECOMPS}/${WRAPPER_NAME}\"\n#   fi\n#\tmkdir -p \"${PRECOMPS}\"\n#\tcp -r \"${PRODUCT_PATH}\" \"${PRECOMPS}\"\n#else\n#\t$growler -n \"AtoZ\" -m \"AtoZ is not a complete Binary!.\"\n#\tsay \"AtoZ is not a complete Binary!\"\n#fi\n\n\n#class-dump /Library/Frameworks/AtoZ.framework/AtoZ >>\n\n#install_name_tool -change \\\n#\"@executable_path/../Frameworks/${WRAPPER_NAME}/Versions/A/${PRODUCT_NAME}\" \\\n#\"@loader_path/../../../../Frameworks/${WRAPPER_NAME}/Versions/A/${PRODUCT_NAME}\" \\\n#\"$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/BaseTenAppKit.framework/Versions/A/BaseTenAppKit\"\n\n#-header-pad_max_install_names\n\n#FRAMEWORKS_DIR=\"${PRODUCT_PATH}\"FRAMEWORK_DIR/Versions/Frameworks\"\n\n#if ( ! [ -e \"$FRAMEWORKS_DIR\" ] ); then\n#$$ln -s \"$FRAMEWORK_DIR/Versions/Current/Frameworks\" \"$FRAMEWORKS_DIR\"\n#fi\n\n\n# PRECOMPS=\"$HOME/Library/Developer/Precompiled\"\n# growler='/ServiceData/UNIX/bin/growlnotify'\n";
 		};
 		7BF72D4E171F8F2E0037CF41 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -7434,7 +7474,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7B3FB11C17689D0400233199 /* AtoZ_XCTests.m in Sources */,
-				7B3FB12417689DEF00233199 /* AZBaseModelTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7469,7 +7508,6 @@
 				7B5C33CD1780896C008B4187 /* GDataXMLNode.m in Sources */,
 				7B5C33CC1780895B008B4187 /* AZLogUnit.m in Sources */,
 				7B8BF92317709ED300034408 /* TestCase.m in Sources */,
-				7BF72DA1171F90B80037CF41 /* AZCategoryTests.m in Sources */,
 				7BF72D61171F8F2F0037CF41 /* AtoZUnitTests.m in Sources */,
 				7BF72DA7171F96080037CF41 /* AZFaviconManagerTests.m in Sources */,
 				7B1EA04F1732C22B007AB4E1 /* BaseModelTests.m in Sources */,
@@ -7513,11 +7551,6 @@
 			isa = PBXTargetDependency;
 			name = CocoaPuffs;
 			targetProxy = 7B37567C163B6363003D52B7 /* PBXContainerItemProxy */;
-		};
-		7B3FB11F17689D0400233199 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 7B311950159B6D9E002134C4 /* AtoZ */;
-			targetProxy = 7B3FB11E17689D0400233199 /* PBXContainerItemProxy */;
 		};
 		7B427EE9170B03E80052FC31 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -7654,6 +7687,11 @@
 			target = 7B311950159B6D9E002134C4 /* AtoZ */;
 			targetProxy = 7B5EB90B171C323A00B8916B /* PBXContainerItemProxy */;
 		};
+		7B5FE9501789CA710083AE35 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = BlocksKit;
+			targetProxy = 7B5FE94F1789CA710083AE35 /* PBXContainerItemProxy */;
+		};
 		7B66ACF2173EC96B003F8604 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = NanoStore;
@@ -7668,11 +7706,6 @@
 			isa = PBXTargetDependency;
 			name = KSHTMLWriterFramework;
 			targetProxy = 7B7731AD172C3EF3006E1CB4 /* PBXContainerItemProxy */;
-		};
-		7B8BF92217709E9B00034408 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 7B311950159B6D9E002134C4 /* AtoZ */;
-			targetProxy = 7B8BF92117709E9B00034408 /* PBXContainerItemProxy */;
 		};
 		7B8D462816F0039100224316 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -7708,11 +7741,6 @@
 			isa = PBXTargetDependency;
 			name = "libextobjc (OS X)";
 			targetProxy = 7BD667951760EF3D006DA22C /* PBXContainerItemProxy */;
-		};
-		7BF2F6ED17751C9D00B884EC /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "OS X Framework";
-			targetProxy = 7BF2F6EC17751C9D00B884EC /* PBXContainerItemProxy */;
 		};
 		7BFBF4F0175DC883007A84AC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -8162,6 +8190,7 @@
 				CODE_SIGN_ENTITLEMENTS = "";
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
 				GCC_WARN_MULTIPLE_DEFINITION_TYPES_FOR_SELECTOR = NO;
 				GCC_WARN_STRICT_SELECTOR_MATCH = NO;
 				GCC_WARN_UNDECLARED_SELECTOR = NO;
@@ -8171,13 +8200,13 @@
 				HEADER_SEARCH_PATHS = "\"$(SDKROOT)/usr/include/libxml2/**\"";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_CFLAGS = "";
+				OTHER_CFLAGS = "-Wduplicate-method-arg";
 				OTHER_LDFLAGS = (
 					"-lxml2",
 					"-ObjC",
 					"-all_load",
 				);
-				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
+				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = NO;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				USER_HEADER_SEARCH_PATHS = "\"$(SDKROOT)/usr/include/libxml2/**\"";
@@ -8195,6 +8224,7 @@
 				CODE_SIGN_ENTITLEMENTS = "";
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
 				GCC_WARN_MULTIPLE_DEFINITION_TYPES_FOR_SELECTOR = NO;
 				GCC_WARN_STRICT_SELECTOR_MATCH = NO;
 				GCC_WARN_UNDECLARED_SELECTOR = NO;
@@ -8204,13 +8234,13 @@
 				HEADER_SEARCH_PATHS = "\"$(SDKROOT)/usr/include/libxml2/**\"";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_CFLAGS = "";
+				OTHER_CFLAGS = "-Wduplicate-method-arg";
 				OTHER_LDFLAGS = (
 					"-lxml2",
 					"-ObjC",
 					"-all_load",
 				);
-				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
+				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = NO;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				USER_HEADER_SEARCH_PATHS = "\"$(SDKROOT)/usr/include/libxml2/**\"";
@@ -8237,6 +8267,7 @@
 					"\"$(DEVELOPER_FRAMEWORKS_DIR)\"",
 				);
 				FRAMEWORK_VERSION = A;
+				GCC_ENABLE_OBJC_GC = unsupported;
 				GCC_FAST_MATH = NO;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
@@ -8382,6 +8413,7 @@
 					"\"$(DEVELOPER_FRAMEWORKS_DIR)\"",
 				);
 				FRAMEWORK_VERSION = A;
+				GCC_ENABLE_OBJC_GC = unsupported;
 				GCC_FAST_MATH = NO;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
@@ -8634,6 +8666,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(inherited)",
+					/Library/Frameworks,
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -8654,6 +8687,13 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "AtoZ XCTests/AtoZ XCTests-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				OTHER_LDFLAGS = (
+					"-lxml2",
+					"-ObjC",
+					"-all_load",
+					"-framework",
+					XCTest,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -8681,6 +8721,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(inherited)",
+					/Library/Frameworks,
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -8694,6 +8735,13 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "AtoZ XCTests/AtoZ XCTests-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				OTHER_LDFLAGS = (
+					"-lxml2",
+					"-ObjC",
+					"-all_load",
+					"-framework",
+					XCTest,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -8878,11 +8926,11 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
 					/Library/Frameworks,
-					"\"$(SRCROOT)/../../git/gh-unit/Project-MacOSX/build/Release\"",
 				);
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_ENABLE_OBJC_GC = unsupported;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AtoZUnitTests/AtoZUnitTests-Prefix.pch";
@@ -8894,6 +8942,7 @@
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GENERATE_MASTER_OBJECT_FILE = NO;
 				HEADER_SEARCH_PATHS = (
 					"\"$(SDKROOT)/usr/include/libxml2/**\"",
 					/usr/include/libxml2,
@@ -8903,7 +8952,6 @@
 				OTHER_LDFLAGS = (
 					"-lxml2",
 					"-ObjC",
-					"-all_load",
 					"-framework",
 					AtoZ,
 				);
@@ -8930,15 +8978,16 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
 					/Library/Frameworks,
-					"\"$(SRCROOT)/../../git/gh-unit/Project-MacOSX/build/Release\"",
 				);
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_ENABLE_OBJC_GC = unsupported;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AtoZUnitTests/AtoZUnitTests-Prefix.pch";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GENERATE_MASTER_OBJECT_FILE = NO;
 				HEADER_SEARCH_PATHS = (
 					"\"$(SDKROOT)/usr/include/libxml2/**\"",
 					/usr/include/libxml2,
@@ -8948,7 +8997,6 @@
 				OTHER_LDFLAGS = (
 					"-lxml2",
 					"-ObjC",
-					"-all_load",
 					"-framework",
 					AtoZ,
 				);

@@ -15,25 +15,20 @@ NSS 	* AZGridShouldDrawKey 	= @"AZGridShouldDraw",
 
 
 @implementation NSObject (AZFunctional)
-- (id) processByPerformingFilterBlocks:(NSA*)filterBlocks	{
-
-	__block id blockSelf = self;
+- (id) processByPerformingFilterBlocks:(NSA*)filterBlocks	{	__block id blockSelf = self;
 	[filterBlocks enumerateObjectsUsingBlock:^( id (^block)(id,NSUInteger idx, BOOL*) , NSUInteger idx, BOOL *stop) {
 		blockSelf = block(blockSelf, idx, stop);
 	}];
-
 	return blockSelf;
 }
 @end
 
 /* A shared operation que that is used to generate thumbnails in the background. *//**
-
 	static NSOperationQueue *_AZGeneralOperationQueue = nil;
 	return _AZGeneralOperationQueue ?: ^{		_AZGeneralOperationQueue = NSOperationQueue.new;
 		_AZGeneralOperationQueue.maxConcurrentOperationCount = AZOQMAX;
 		return _AZGeneralOperationQueue;
 	}();																									*/
-
 NSOQ *AZSharedOperationStack() 			{	return AZDummy.sharedInstance.sharedStack; }
 NSOQ *AZSharedOperationQueue() 			{	return AZDummy.sharedInstance.sharedQ; }
 NSOQ *AZSharedSingleOperationQueue()	{	return AZDummy.sharedInstance.sharedSQ; }
@@ -44,14 +39,14 @@ NSOQ *AZSharedSingleOperationQueue()	{	return AZDummy.sharedInstance.sharedSQ; }
 		_AZSingleOperationQueue.maxConcurrentOperationCount = 1;
 		return _AZSingleOperationQueue;
 	}();					
-																					*/
-@implementation AZClassProxy
 
-- (id)valueForUndefinedKey:(NSS*)key {	AZLOGCMD; return NSClassFromString(key);	}
-@end
+																					*/
 
 // NSLog(@"%@", [[RED.classProxy valueForKey:@"NSColor"] redColor]);  --> NSCalibratedRGBColorSpace 1 0 0 1
 
+@implementation AZClassProxy
+- (id)valueForUndefinedKey:(NSS*)key {	NSLog(@"%@..%@", AZSELSTR, key); return NSClassFromString(key);	}
+@end
 @implementation NSObject (AZClassProxy)
 
 + (id)performSelector:(SEL)sel { return objc_msgSend(self.class, sel); }
@@ -129,15 +124,25 @@ NSOQ *AZSharedSingleOperationQueue()	{	return AZDummy.sharedInstance.sharedSQ; }
 }
 
 
-+ (void) load							{			int res;	setenv("XCODE_COLORS", "YES", &res); }
++ (void) load							{  int res;	const char*XCenv = NULL;
 
+				  XCenv = getenv("__XCODE_BUILT_PRODUCTS_DIR_PATHS");
+	if (XCenv != NULL) setenv("XCODE_COLORS", "YES", &res);
+}
 //globalRandoPalette = NSC.randomPalette.shuffeled; }
 //+ (void) initialize 					{//												[@"AtoZ.framework Version:%@ Initialized!" log:[self version], nil];
 //}
 - (void) setUp 						{
 	[AZStopwatch named:@"AtoZ.framework Instanciate!" block:^{
 		[NSB loadAZFrameworks];
-		[NSApp setApplicationIconImage:[NSIMG imageNamed:@"logo.png"]];
+		NSC* c = RANDOMCOLOR;
+		NSProcessInfo* infoD = AZPROCINFO;
+		NSS*initial = @"A";
+//		NSS *procName = [infoD processName];
+//		initial = procName ? procName.firstLetter : @"A";
+
+//		[NSApp setApplicationIconImage:[NSIMG badgeForRect:AZRectFromDim(256) withColor:c stroked:c.contrastingForegroundColor withString:initial]];
+		// imageNamed:@"logo.png"]];
 		_fonts = self.fonts;
 		[DDLog addLogger:AZSHAREDLOG]; 		// Standard lumberjack initialization
 		AZSHAREDLOG.colorsEnabled = YES;		// And then enable colors

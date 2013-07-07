@@ -25,7 +25,7 @@
 		<key>AZRUNLOOP</key>
 		<string>NSRunLoop.currentRunLoop</string>
 		<key>AZLOGCMD</key>
-		<string>[$UTF8(__PRETTY_FUNCTION__) log]</string>
+		<string>LOGCOLORS($UTF8(__PRETTY_FUNCTION__), AZCLSSTR, RANDOMPAL, nil)</string>
 		<key>Inactive</key>
 		<dict/>
 	</dict>

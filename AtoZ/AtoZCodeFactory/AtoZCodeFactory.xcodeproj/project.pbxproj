@@ -41,8 +41,6 @@
 		7BF1ECD1174AAC6800699D38 /* AtoZMacroDefines.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = AtoZMacroDefines.plist; path = ../../../AtoZMacroDefines.plist; sourceTree = "<group>"; };
 		7BFBF4F7175DCF82007A84AC /* libAtoZObjC.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAtoZObjC.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BFBF4F9175DCF82007A84AC /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
-		7BFBF4FC175DCF82007A84AC /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
-		7BFBF4FD175DCF82007A84AC /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		7BFBF4FE175DCF82007A84AC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		7BFBF501175DCF82007A84AC /* AtoZObjC-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AtoZObjC-Prefix.pch"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -123,20 +121,10 @@
 		7BFBF4F8175DCF82007A84AC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7BFBF4FE175DCF82007A84AC /* Foundation.framework */,
 				7BFBF4F9175DCF82007A84AC /* Cocoa.framework */,
-				7BFBF4FB175DCF82007A84AC /* Other Frameworks */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		7BFBF4FB175DCF82007A84AC /* Other Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				7BFBF4FC175DCF82007A84AC /* AppKit.framework */,
-				7BFBF4FD175DCF82007A84AC /* CoreData.framework */,
-				7BFBF4FE175DCF82007A84AC /* Foundation.framework */,
-			);
-			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
 		7BFBF4FF175DCF82007A84AC /* AtoZObjC */ = {

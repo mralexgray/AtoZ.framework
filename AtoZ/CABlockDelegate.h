@@ -24,7 +24,7 @@ JROptionsDeclare( NSOVBlockDelegate, NSOVBlockDelegateDisclosureTriangle, NSOVBl
 @property (NATOM,CP)  BOOL  (^isgroupItem)	  (NSOV*v,id x);
 + (instancetype) delegateFor:(NSOV*)v ofType:(NSOVBlockDelegate)type withBlock:(id)block;
 - 			 (BOOL) outlineView:(NSOV*)v isGroupItem:(id)x;
-- 			 (void) outlineView:(NSOV*)v willDisplayOutlineCell:(id)c forTableColumn:(NSTC*)c item:(id)x;
+- 			 (void) outlineView:(NSOV*)v willDisplayOutlineCell:(id)cell forTableColumn:(NSTC*)c item:(id)x;
 - 			 (void) setToggleActionForItem:(id)item block:(OVTOGA)itemBlock;
 
 @end

@@ -32,7 +32,7 @@ static LogEnv logEnv = LogEnvUnknown;
 
 	[self.class setSharedInstance:self]; 
 	gPal = NSC.randomPalette;	
-	COLORLOG(@"logformat:",LogEnvToString(self.logEnv), RED, nil);
+	COLORLOG(@"logformat:", LogEnvToString( self.logEnv ), RED, nil);
 
 	}(): nil;
 }
@@ -139,7 +139,7 @@ static LogEnv logEnv = LogEnvUnknown;
 	[words addObject:zNL];
 	fprintf(stdout, "%s", //e != LogEnvXcodeColor ? [words componentsJoinedByString:@" "].UTF8String :
 
-	 [[words reduce:LOG_CALLER_VERBOSE ? @"LOGCOLORS: ":@"" withBlock:^NSS*(NSS *sum,NSS *o) {
+	 [[words bk_reduce:LOG_CALLER_VERBOSE ? @"LOGCOLORS: ":@"" withBlock:^NSS*(NSS *sum,NSS *o) {
 															if (![o isEqualToAnyOf:@[@" ",@"\n", @""]]) {
 																NSC  *c = [colors advance];
 																o.logForeground = c.isDark ? [c colorWithBrightnessMultiplier:2]: c;

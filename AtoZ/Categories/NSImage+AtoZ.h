@@ -34,7 +34,7 @@ NSR AZRectForItemsWithColumns(NSA* items, NSUI cols);
 
 + (NSIMG*) contactSheetWith: 	 (NSA*)images sized:  (NSSZ)size spaced: (NSSZ)spacing columns:(NSUI)cols;
 + (NSIMG*) contactSheetWith:	 (NSA*)images sized:  (NSSZ)size spaced: (NSSZ)spacing columns:(NSUI)cols withName:(BOOL)name;
-+ (NSIMG*) imageByTilingImages:(NSA*)images spacingX:(CGF)spacingY spacingY:(CGF)spacingY vertically:(BOOL)vertically;
++ (NSIMG*) imageByTilingImages:(NSA*)images spacingX:(CGF)spacingX spacingY:(CGF)spacingY vertically:(BOOL)vertically;
 - (NSIMG*) imageBorderedWithInset: (CGF)inset;
 - (NSIMG*) imageBorderedWithOutset:(CGF)outset;
 @end

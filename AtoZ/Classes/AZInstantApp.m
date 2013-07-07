@@ -21,7 +21,8 @@ static const NSString *start = @"echo '\
 	[NSApp activateIgnoringOtherApps:YES];\
 	[NSApp run];\
 return 0;}' | gcc -framework Cocoa -x objective-c -o MinimalistCocoaApp - ; ./MinimalistCocoaApp";
-
+@interface AZInstantApp : NSO
+@end
 
 @implementation AZInstantApp
 

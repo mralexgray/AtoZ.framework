@@ -116,6 +116,8 @@
 		<string>https://github.com/mralexgray/SNRHUDKit.git</string>
 		<key>AE573EEE-A3E5-4491-B13A-F9065D9BCAF4</key>
 		<string>https://github.com/mralexgray/RoutingHTTPServer.git</string>
+		<key>B148B59B-4714-4854-A755-D7C42709B7C4</key>
+		<string>https://github.com/mralexgray/MAObjCRuntime.git</string>
 		<key>B28870EF-6F22-4606-BC54-4B085756DC50</key>
 		<string>https://github.com/mralexgray/ClassCrawler.git</string>
 		<key>B7451821-9FFD-4DED-BAE8-82B866A07D28</key>
@@ -140,6 +142,8 @@
 		<string>https://github.com/mralexgray/NSOperationStack.git</string>
 		<key>DFE9D2B4-9D49-4AF8-8C85-B53F92AC915D</key>
 		<string>https://github.com/mralexgray/bwtoolkit</string>
+		<key>E1DD32FD-A9F8-43CD-BEF4-5C472E52D679</key>
+		<string>https://github.com/mralexgray/REKit.git</string>
 		<key>E4BD971E-1255-450B-B8D1-1E432026DE3A</key>
 		<string>https://github.com/mralexgray/twui.git</string>
 		<key>E624E382-CB20-43B6-9F03-946861D7DC0B</key>
@@ -195,6 +199,8 @@
 		<string>../Frameworks/AFNetworking</string>
 		<key>2C7F4FB3-3A0D-4E6C-BFDD-F89B84DD6A62</key>
 		<string>../AtoZ/AtoZCodeFactory</string>
+		<key>2F8A9925-8700-4D85-932E-6958063A08C6</key>
+		<string>../AtoZ/AtoZAutoBox/REKit</string>
 		<key>3422E3E6-F481-4885-931E-2B40B217F862</key>
 		<string>..</string>
 		<key>42411283-6CB1-4F7B-B4B7-D44AE3FE74C8</key>
@@ -279,6 +285,8 @@
 		<string>../Frameworks/AtoZAppKit/submodules/SNRHUDKit</string>
 		<key>AE573EEE-A3E5-4491-B13A-F9065D9BCAF4</key>
 		<string>../Frameworks/RoutingHTTPServer</string>
+		<key>B148B59B-4714-4854-A755-D7C42709B7C4</key>
+		<string>../AtoZ/AtoZAutoBox/MAObjCRuntime</string>
 		<key>B28870EF-6F22-4606-BC54-4B085756DC50</key>
 		<string>../../dev/AtoZRuntime/ClassCrawler</string>
 		<key>B7451821-9FFD-4DED-BAE8-82B866A07D28</key>
@@ -307,6 +315,8 @@
 		<string>../Frameworks/NSOperationStack</string>
 		<key>DFE9D2B4-9D49-4AF8-8C85-B53F92AC915D</key>
 		<string>../Frameworks/BWToolKit</string>
+		<key>E1DD32FD-A9F8-43CD-BEF4-5C472E52D679</key>
+		<string>../Frameworks/REKit</string>
 		<key>E4BD971E-1255-450B-B8D1-1E432026DE3A</key>
 		<string>../Frameworks/TwUI</string>
 		<key>E624E382-CB20-43B6-9F03-946861D7DC0B</key>
@@ -953,6 +963,22 @@
 			<string>A41A5D3C-F91F-43B5-9260-19C02B25AC35</string>
 			<key>IDESourceControlWCCName</key>
 			<string>KVO-Notification-Manager</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>E1DD32FD-A9F8-43CD-BEF4-5C472E52D679</string>
+			<key>IDESourceControlWCCName</key>
+			<string>REKit</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>B148B59B-4714-4854-A755-D7C42709B7C4</string>
+			<key>IDESourceControlWCCName</key>
+			<string>MAObjCRuntime</string>
 		</dict>
 	</array>
 </dict>

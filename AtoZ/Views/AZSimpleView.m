@@ -1,26 +1,16 @@
-
-//  AZSimpleView.m
-//  AtoZ
-
-//  Created by Alex Gray on 7/29/12.
-//  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 #import "AZSimpleView.h"
 #import "AtoZ.h"
 
 @implementation AZSimpleView
 
-+(instancetype)withFrame:(NSRect)frame color:(NSC*)c;
-{
-	AZSimpleView *u;
-	return u = [AZSimpleView.alloc initWithFrame:frame] ? u.backgroundColor = c, u : nil;
++(instancetype)withFrame:(NSRect)frame color:(NSC*)c	{
+	AZSimpleView *u = [AZSimpleView.alloc initWithFrame:frame];
+	u.backgroundColor = c;
+	return  u;
 }
-- (id)initWithFrame:(NSRect)frame
-{
- 	return self = [super initWithFrame:frame] ?
-	_backgroundColor  = RANDOMGRAY, // [NSColor colorWithCalibratedRed:0.532 green:0.625 blue:0.550 alpha:1.000]],
-	_glossy 	= NO,
-	_checkerboard = NO,
-	_clear = NO, self : nil;
+- (id)initWithFrame:(NSRect)frame	{ 	if (self != [super initWithFrame:frame]) return nil;
+	_backgroundColor  = RANDOMGRAY;
+	_glossy 	= _checkerboard = _clear = NO;  return  self;
 }
 
 -(void)	setFrameSizePinnedToTopLeft: (NSSize)siz	{
@@ -105,5 +95,4 @@
 		}
 	}
 }
-
 @end

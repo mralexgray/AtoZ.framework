@@ -94,7 +94,7 @@
 		case NSLeftMouseUp: {
 			//			if (_noHit) { CGPostMouseEvent(mouseLoc(), FALSE, 1,FALSE);
 			_hit = nil;
-			[self performBlock:^(id sender){ [self setIgnoresMouseEvents: NO]; } afterDelay:.1];
+			[self performBlock:^{ [self setIgnoresMouseEvents: NO]; } afterDelay:.1];
 			break;
 		}
 		case NSMouseEntered:

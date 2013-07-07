@@ -147,7 +147,7 @@
 #define                                            sansLast arrayByRemovingLastObject
 #define                                             AZGView AtoZGridView
 #define                                         AZTALK(log) [AZTalker.new say:log]
-#define                                      AZPROPIBO(A) @property (ASS) IBOutlet QUOTE(A)
+#define                                      AZPROPIBO(A) @property (ASS) IBOutlet A      //QUOTE(A)
 #define                AZBind(binder,binding,toObj,keyPath) [binder bind:binding toObject:toObj withKeyPath:keyPath options:nil]
 #define                                           AZNEWPIPE NSPipe.pipe
 #define                                          AZVsize(s) [NSVAL valueWithSize: s]
@@ -178,8 +178,7 @@
 #define                                         NSZeroRange NSMakeRange(0,0)
 #define                                                pBCN postsBoundsChangedNotifications
 #define                                         AZVpoint(p) [NSVAL valueWithPoint: p]
-#define                                   AZSTRONGSTRING(A) @property (nonatomic, strong) NSString* A
-#define                                      AZPROPASS(A) @property (NATOM,ASS) A
+
 #define                                           MOUSEDRAG NSLeftMouseDraggedMask
 #define                                       AZFWORKBUNDLE [NSBundle bundleForClass:AtoZ.class]
 #define iV integerValue
@@ -209,7 +208,7 @@
 #define    AZCACMaxX AZConstRelSuper ( kCAConstraintMaxX   )
 #define    AZRUNLOOP NSRunLoop.currentRunLoop
 #define    AZCACMinY AZConstRelSuper ( kCAConstraintMinY   )
-#define     AZLOGCMD [$UTF8(__PRETTY_FUNCTION__) log]
+#define     AZLOGCMD LOGCOLORS($UTF8(__PRETTY_FUNCTION__), AZCLSSTR, RANDOMPAL, nil)
 #define AZRUNFOREVER [AZRUNLOOP runMode:NSDefaultRunLoopMode beforeDate:NSDate.distantFuture]
 #define AZRANDOMICON [NSIMG randomMonoIcon]
 

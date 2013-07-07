@@ -151,7 +151,7 @@ NSString *stringForBrightness( CGF brightness )	{	return
 	// done
 	return encodedString;
 }
--  (NSS*) withString:(NSS*)string 					{	return [self stringByAppendingString:string];	}
+-  (NSS*) withString:(NSS*)string 					{	return !string ? self : [self stringByAppendingString:string];	}
 -  (NSS*) JSONRepresentation 							{
 	__block NSMutableString *jsonString = @"\"".mutableCopy;
 
@@ -207,7 +207,7 @@ NSString *stringForBrightness( CGF brightness )	{	return
 				withDelimeter:(NSS*)del
 							last:(NSS*)last 				{
 	if (!a.count) return nil;
-	NSS* outString = [a reduce:@"" withBlock:^id (id sum, id obj) {
+	NSS* outString = [a bk_reduce:@"" withBlock:^id (id sum, id obj) {
    	return [[sum withString:obj] withString:del];
 	}];
 	return [[outString stringByDeletingSuffix:del]withString:last];

@@ -20,6 +20,9 @@
 //
 /*
 
+ zero (0) == FALSE  == NO
+ 
+
 NOTES:
 
 
@@ -81,6 +84,9 @@ AZWORKSPACE:
 #import <MenuApp/MenuApp.h>
 
 #import <BlocksKit/BlocksKit.h>
+//#import <BlocksKit/A2BlockDelegate.h>
+#import <BlocksKit/A2DynamicDelegate.h>
+
 #import <BWTK/BWToolkitFramework.h>
 #import <CocoaPuffs/CocoaPuffs.h>
 #import <CocoatechCore/CocoatechCore.h>
@@ -203,6 +209,7 @@ AZWORKSPACE:
 #import "AssetCollection.h"
 #import "AZSpeechRecognition.h"
 #import "SynthesizeSingleton.h"
+#import "AZSynthesize.h"
 
 // END CORE
 #import "AZBlockView.h"

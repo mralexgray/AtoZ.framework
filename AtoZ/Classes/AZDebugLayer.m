@@ -38,8 +38,8 @@
 	}];
 
 	__block AZDebugLayerView* blockself = self;
-	[_dLayer addObserverForKeyPaths:@[@"anchorPoint", @"position"] task:^(id obj, NSString *keyPath) {
-		NSLog(@"observed object: %@  change:%@", obj, keyPath);
+	[_dLayer bk_addObserverForKeyPaths:@[@"anchorPoint", @"position"] task:^(id obj, NSDictionary *info) {
+		NSLog(@"observed info: %@  obj: %@", info, obj);
 		NSP newPos = [blockself unNormalizedPoint:blockself.dLayer.anchorPoint inRect:blockself.dLayer.bounds];
 		NSLog(@"newpos = %@", AZString(newPos));
 //		blockself.dLayer.anchorPointLayer.position = newPos;

@@ -45,7 +45,7 @@
  NO to tile the given images from left to right, starting with
  the first image in the array at the left.	*/
 + (NSImage*)imageByTilingImages:(NSA*)images
-					   spacingX:(CGFloat)spacingY
+					   spacingX:(CGFloat)spacingX
 					   spacingY:(CGFloat)spacingY
 					 vertically:(BOOL)vertically ;
 

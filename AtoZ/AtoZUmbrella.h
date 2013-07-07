@@ -557,6 +557,10 @@ XX *INSTANCENAME = [objs objectWithClass:self.class];
 
 #pragma mark - FUNCTION defines
 
+// Usage 	NEW( aColor, NSColor.clearColor );   ->  aColor.alphaComponent -> 0.0
+#define NEW(_name_,_value_)  		 			__typeof(_value_) _name_ = _value_
+#define BLOCKIFY(_name_,_value_)  __block __typeof(_value_) _name_ = _value_
+
 #define DYNAMIC(_class_,_type_,_name_...) \
 @interface     _class_ (Dynamic##_name_) @property _type_ _name_; @end \
 @implementation _class_ (Dynamic##_name_) @dynamic _name_; @end
@@ -718,7 +722,7 @@ AZToStringFromTypeAndValue(@encode(typeof(_X_)), &_Y_);})
 #define CGIREF CGImageRef
 #define CGCLRREF CGColorRef
 #define NEWLAYER(_x_) CAL* _x_ = CAL.new
-#define NEW(_class_,_name_) _class_ *_name_ = [_class_.alloc init]
+//#define NEW(_class_,_name_) _class_ *_name_ = [_class_.alloc init]
 
 #define NEWATTR(_class_,_name_...) 
 

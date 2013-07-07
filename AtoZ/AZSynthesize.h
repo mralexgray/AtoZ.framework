@@ -7,9 +7,11 @@
 //  Released under the MIT license.
 //
 
-#import "EXTBlockMethod.h"
-#import "EXTRuntimeExtensions.h"
+#import "extobjc_OSX/extobjc.h"
+//#import  <extobjc_OSX/EXTRuntimeExtensions.h>
 #import <objc/runtime.h>
+
+typedef NS_ENUM(NSUInteger,AZGETORSET){ AZGETTER, AZSETTER };
 
 /**
  * \@synthesizeAssociation synthesizes a property for a class using associated
@@ -19,7 +21,7 @@
  * PROPERTY must have been declared with \@property in the interface of the
  * specified class (or a category upon it), and must be of object type.
  */
-#define synthesizeAssociation(CLASS, PROPERTY) \
+#define synthesizeAssGetSet(CLASS,PROPERTY,_AZGETORSET_,_MODBLOCK_) \
 	dynamic PROPERTY; \
 	\
 	void *ext_uniqueKey_ ## CLASS ## _ ## PROPERTY = &ext_uniqueKey_ ## CLASS ## _ ## PROPERTY; \
@@ -55,12 +57,14 @@
 				NSCAssert(NO, @"Unrecognized property memory management policy %i", (int)attributes->memoryManagementPolicy); \
 		} \
 		\
-		id getter = ^(id self){ \
-			return objc_getAssociatedObject(self, ext_uniqueKey_ ## CLASS ## _ ## PROPERTY); \
+		id getter = ^(id self){ __typeof(self) _self = self; \
+			id _TEMPGET_ = objc_getAssociatedObject(self, ext_uniqueKey_ ## CLASS ## _ ## PROPERTY); \
+			do{ if (_AZGETORSET_ == AZGETTER) _TEMPGET_ =_MODBLOCK_(_self,_TEMPGET_); }while(0); return _TEMPGET_; \
 		}; \
 		\
-		id setter = ^(id self, id value){ \
-			objc_setAssociatedObject(self, ext_uniqueKey_ ## CLASS ## _ ## PROPERTY, value, policy); \
+		id setter = ^(id self, id value){ __typeof(self) _self = self; \
+			id setVal = value; do {  if (_AZGETORSET_ == AZSETTER) setVal = _MODBLOCK_(_self,value); }while(0);   \
+			objc_setAssociatedObject(self, ext_uniqueKey_ ## CLASS ## _ ## PROPERTY, setVal, policy); \
 		}; \
 		\
 		if (!ext_addBlockMethod(cls, attributes->getter, getter, "@@:")) { \

@@ -78,19 +78,19 @@
 // returns an array of NSTreeNodes descending from self
 - (NSA*) descendants			{
 
-	return [self.childNodes reduce:NSMA.new withBlock:^id(id sum, id child) {
+	return [self.childNodes bk_reduce:NSMA.new withBlock:^id(id sum, id child) {
 		[sum addObject:child];	if (![child isLeaf]) [sum addObjectsFromArray:[child descendants]]; return sum;
 	}];
 }
 - (NSA*) groupDescendants	{
 
-	return [self.childNodes reduce:NSMA.new withBlock:^id(id sum, NSTreeNode *item) {
+	return [self.childNodes bk_reduce:NSMA.new withBlock:^id(id sum, NSTreeNode *item) {
 		return item.isLeaf ? sum : [sum arrayByAddingObjectsFromArray:[@[item] arrayByAddingObjectsFromArray:item.groupDescendants]];
 	}];
 }
 - (NSA*) leafDescendants	{
 	
-	return [[self.childNodes reduce:NSMA.new withBlock:^id(id sum, NSTreeNode *item){
+	return [[self.childNodes bk_reduce:NSMA.new withBlock:^id(id sum, NSTreeNode *item){
 		item.isLeaf ? [sum addObject:item]:	[sum addObjectsFromArray:[item leafDescendants]]; return sum;
 	}]copy];
 }

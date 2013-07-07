@@ -55,7 +55,7 @@
 
 - (NSInteger) occurrencesOf: (id) anObject	{	return [dict[anObject] intValue]; }
 - (NSArray*)  objects	{	return dict.allKeys;	}
-- (NSA*) uniqueObjects {  return [self.objects reduce:@[] withBlock:^id(id sum, id obj) {
+- (NSA*) uniqueObjects {  return [self.objects bk_reduce:@[] withBlock:^id(id sum, id obj) {
 	return sum = [sum containsObject:obj] ? sum : [sum arrayByAddingObject:obj];
 	}];
 }
