@@ -67,7 +67,6 @@
 }
 
 
-
 - (id)initWithObjects:(const id [])objects count:(NSUInteger)cnt {
 	self = [super init];
 	if (self) {
@@ -125,22 +124,19 @@
 	NSMutableSet *set;
 }
 
-- (id)initWithObjects:(const __autoreleasing id *)objects count:(NSUInteger)cnt {
-	self = [super init];
-	if (self) {
-		set = [[NSMutableSet alloc] initWithCapacity:cnt];
-
-		if (objects) {
-			for (int i = 0; i < cnt; i++) {
-				[set addObject:[WeakReferenceObject weakReferenceObjectWithObject:objects[i]]];
-			}
+- (id)initWithWeakObjects:(const __autoreleasing id *)objects count:(NSUInteger)cnt {
+	if (!(self = [super init] )) return nil;
+	set = NSMutableSet.new;// alloc] initWithCapacity:cnt];
+	if (objects) {
+		for (int i = 0; i < cnt; i++) {
+			[set addObject:[WeakReferenceObject weakReferenceObjectWithObject:objects[i]]];
 		}
 	}
 	return self;
 }
 
 - (id)initWithCapacity:(NSUInteger)numItems {
-	return [self initWithObjects:NULL count:numItems];
+	return [super initWithObjects:NULL count:numItems];
 }
 
 - (id)init {

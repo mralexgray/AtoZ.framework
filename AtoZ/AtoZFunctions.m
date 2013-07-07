@@ -1,4 +1,5 @@
 #import "AtoZFunctions.h"
+#import <Foundation/Foundation.h>
 #import "NSString+AtoZ.h"
 #import "AtoZ.h"
 
@@ -6,6 +7,8 @@ JREnumDefine		(AZQuad	 );
 JREnumDefine		(azkColor );
 JREnumDefine		(AZCompass);
 JROptionsDefine	(AZAlign	 );	//JREnumDefine(AZPosition);
+
+JROptionsDefine	(AZ_arc);
 
 NSS 	 * runCommand	(NSS* c) {	NSS* outP;	FILE *read_fp;	char buffer[BUFSIZ + 1];	int chars_read;
 
@@ -18,6 +21,7 @@ NSS 	 * runCommand	(NSS* c) {	NSS* outP;	FILE *read_fp;	char buffer[BUFSIZ + 1];
 	}	
 	return outP;
 }
+
 Method 	GetImplementedInstanceMethod 		 (Class aClass, SEL aSelector) 								{	Method method = NULL; unsigned int methodCount = 0;
 
 	Method* methodList = class_copyMethodList(aClass, &methodCount);
@@ -30,21 +34,43 @@ Method 	GetImplementedInstanceMethod 		 (Class aClass, SEL aSelector) 								{	
 	}
 	return free(methodList), method;
 }
-IMP 		SwizzleImplementedInstanceMethods (Class k, const SEL original, const SEL alternate)	{
+// swizzle the methods fo' shizzle my nizzle
+IMP SwizzleImplementedInstanceMethods(Class aClass, const SEL originalSelector, const SEL alternateSelector) 
+{
+	// The methods must both be implemented by the target class, not
+	// inherited from a superclass.
+	Method original = GetImplementedInstanceMethod(aClass, originalSelector);
+	Method alternate = GetImplementedInstanceMethod(aClass, alternateSelector);
 
-	// swizzle the methods fo' shizzle my nizzle
-	// The methods must both be implemented by the target class, not inherited from a superclass.
-	Method originalM 	= GetImplementedInstanceMethod (k,  original);
-	Method alternateM = GetImplementedInstanceMethod (k, alternate);
-	if (!originalM || !alternateM)	return NULL;
+	if (!original || !alternate)
+		return NULL;
+
 	// The argument and return types must match exactly.
-	const char *  originalTypes = method_getTypeEncoding ( originalM  );
-	const char * alternateTypes = method_getTypeEncoding ( alternateM );
-	if ( !originalTypes || !alternateTypes || strcmp( originalTypes, alternateTypes ) ) return NULL;
-	IMP ret;
-	if (ret = method_getImplementation(original)) method_exchangeImplementations(original, alternate);
+	const char* originalTypes = method_getTypeEncoding(original);
+	const char* alternateTypes = method_getTypeEncoding(alternate);
+
+	if (!originalTypes || !alternateTypes || strcmp(originalTypes, alternateTypes))	return NULL;
+
+	IMP ret = method_getImplementation(original);
+	if (ret)		method_exchangeImplementations(original, alternate);
+
 	return ret;
 }
+//IMP 		SwizzleImplementedInstanceMethods (Class k, const SEL original, const SEL alternate)	{
+//
+//	// swizzle the methods fo' shizzle my nizzle
+//	// The methods must both be implemented by the target class, not inherited from a superclass.
+//	Method originalM 	= GetImplementedInstanceMethod (k,  original);
+//	Method alternateM = GetImplementedInstanceMethod (k, alternate);
+//	if (!originalM || !alternateM)	return NULL;
+//	// The argument and return types must match exactly.
+//	const char *  originalTypes = method_getTypeEncoding ( originalM  );
+//	const char * alternateTypes = method_getTypeEncoding ( alternateM );
+//	if ( !originalTypes || !alternateTypes || strcmp( originalTypes, alternateTypes ) ) return NULL;
+//	IMP ret;
+//	if (ret = method_getImplementation(original)) method_exchangeImplementations(original, alternate);
+//	return ret;
+//}
 
 static NSMD* 				_children;
 static dispatch_once_t  _onceToken;
@@ -599,6 +625,9 @@ BOOL SameChar		(const char *a, const char *b) {
 BOOL SameString	(id a, id b) {
 	return [$(@"%@", a) isEqualToString:$(@"%@", b)];
 }
+BOOL SameClass	(id a, id b) {
+	return SameString(NSStringFromClass([a class]), NSStringFromClass([b class]));
+}
 
 /*
 void setValueForKeypathFromObject (NSString *keyPath, id reference, id target) {
@@ -874,6 +903,17 @@ NSString * StringFromCATransform3D(CATransform3D transform) {
 		   ];
 }
 
+
+NSN 	*AZNormalNumber (NSN* number, NSN *min, NSN* max) {
+	NSCAssert( [max isGreaterThan:min], @"problem here, max is less than min!");
+	NSN* newNum =  [min isGreaterThan:number] ? min : number;
+			newNum = [number isGreaterThan:max] ? max : number;
+	return newNum;
+}
+
+CGF 	AZNormalCGF (CGF floatV, CGF min, CGF max) {  return MAX(min, MIN(floatV, max)); }
+NSUI 	AZNormalNSUI (NSUI i, NSUI min, NSUI max) { return MAX(min, MIN(i, max)); }
+
 NSI AZNormalizedNumberGreaterThan(NSI number, NSI min) {
 	return number > min ? number : min;
 }
@@ -986,82 +1026,6 @@ void trackMouse() {
 	CFRunLoopRun();																	 // Keep the RunLoop running forever
 }
 
-//based off http://www.dribin.org/dave/blog/archives/2008/09/22/convert_to_nsstring/
-
-static BOOL TypeCodeIsCharArray(const char *typeCode) {
-	size_t                    len = strlen(typeCode);			if (len <= 2) return NO;
-	size_t         lastCharOffset = 				 len - 1,
-		    secondToLastCharOffset = lastCharOffset - 1;
-	BOOL              isCharArray = typeCode[0] == '['
-			  && typeCode[secondToLastCharOffset] == 'c'
-			  && 			 typeCode[lastCharOffset] == ']';
-	for (int i = 1; i < secondToLastCharOffset; i++) isCharArray = isCharArray && isdigit(typeCode[i]);
-	return isCharArray;
-}
-//since BOOL is #defined as a signed char, we treat the value as a BOOL if it is exactly YES or NO, and a char otherwise.
-static NSString * VTPGStringFromBoolOrCharValue(BOOL boolOrCharvalue) {
-	return 	boolOrCharvalue == YES 	? @"YES" :
-				boolOrCharvalue == NO	? @"NO"  :	$(@"'%c'", boolOrCharvalue);
-}
-static NSString * VTPGStringFromFourCharCodeOrUnsignedInt32(FourCharCode fourcc) {
-	return $(@"%u ('%c%c%c%c')", fourcc, (fourcc >> 24) & 0xFF, (fourcc >> 16) & 0xFF, (fourcc >> 8) & 0xFF, fourcc & 0xFF);
-}
-static NSString * StringFromNSDecimalWithCurrentLocal(NSDecimal dcm) { return NSDecimalString(&dcm, NSLocale.currentLocale);	}
-
-NSString * VTPG_DDToStringFromTypeAndValue(const char *typeCode, void *value) {
-
-#define IF_TYPE_MATCHES_INTERPRET_WITH(typeToMatch, func)  	\
-			if (strcmp(typeCode,@encode(typeToMatch)) == 0)		\
-				return (func)(*(typeToMatch*)value)
-
-#if	 TARGET_OS_IPHONE
-	IF_TYPE_MATCHES_INTERPRET_WITH (   CGPoint, NSStringFromCGPoint						);
-	IF_TYPE_MATCHES_INTERPRET_WITH (    CGSize, NSStringFromCGSize							);
-	IF_TYPE_MATCHES_INTERPRET_WITH (	   CGRect, NSStringFromCGRect							);
-#else
-	IF_TYPE_MATCHES_INTERPRET_WITH (   NSPoint, NSStringFromPoint							);
-	IF_TYPE_MATCHES_INTERPRET_WITH (    NSSize, NSStringFromSize 							);
-	IF_TYPE_MATCHES_INTERPRET_WITH (	   NSRect, NSStringFromRect							);
-#endif
-	IF_TYPE_MATCHES_INTERPRET_WITH (   NSRange, NSStringFromRange							);
-	IF_TYPE_MATCHES_INTERPRET_WITH ( 	 Class, NSStringFromClass							);
-	IF_TYPE_MATCHES_INTERPRET_WITH ( 	   SEL, NSStringFromSelector						);
-	IF_TYPE_MATCHES_INTERPRET_WITH ( 	  BOOL, VTPGStringFromBoolOrCharValue	 		);
-	IF_TYPE_MATCHES_INTERPRET_WITH ( NSDecimal, StringFromNSDecimalWithCurrentLocal	);
-
-#define IF_TYPE_MATCHES_INTERPRET_WITH_FORMAT(typeToMatch, formatString) 			\
-	if (strcmp(typeCode, @encode(typeToMatch)) == 0) 										\
-		return $(formatString, (*(typeToMatch *)value))
-
-	IF_TYPE_MATCHES_INTERPRET_WITH_FORMAT ( 			CFStringRef, @"%@");	//CFStringRef is toll-free bridged to NSString*
-	IF_TYPE_MATCHES_INTERPRET_WITH_FORMAT ( 			 CFArrayRef, @"%@");	//CFArrayRef is toll-free bridged to NSArray*
-	IF_TYPE_MATCHES_INTERPRET_WITH		  ( 		  FourCharCode, VTPGStringFromFourCharCodeOrUnsignedInt32);
-	IF_TYPE_MATCHES_INTERPRET_WITH_FORMAT (           long long, @"%lld"		);
-	IF_TYPE_MATCHES_INTERPRET_WITH_FORMAT (  unsigned long long, @"%llu"		);
-	IF_TYPE_MATCHES_INTERPRET_WITH_FORMAT ( 					float, @"%f"		);
-	IF_TYPE_MATCHES_INTERPRET_WITH_FORMAT ( 				  double, @"%f"		);
-#if __has_feature(objc_arc)
-	IF_TYPE_MATCHES_INTERPRET_WITH_FORMAT (__unsafe_unretained id, @"%@"		);
-#else /* not __has_feature(objc_arc) */
-	IF_TYPE_MATCHES_INTERPRET_WITH_FORMAT (					   id, @"%@"		);
-#endif
-	IF_TYPE_MATCHES_INTERPRET_WITH_FORMAT (					short, @"%hi"		);
-	IF_TYPE_MATCHES_INTERPRET_WITH_FORMAT (      unsigned short, @"%hu"		);
-	IF_TYPE_MATCHES_INTERPRET_WITH_FORMAT (					  int, @"%i"		);
-	IF_TYPE_MATCHES_INTERPRET_WITH_FORMAT (				unsigned, @"%u"		);
-	IF_TYPE_MATCHES_INTERPRET_WITH_FORMAT (					 long, @"%li"		);
-	IF_TYPE_MATCHES_INTERPRET_WITH_FORMAT (			long double, @"%Lf"		);	//WARNING on older versions of OS X, @encode(long double) == @encode(double)
-	//C-strings
-	IF_TYPE_MATCHES_INTERPRET_WITH_FORMAT (				   char*, @"%s"		);
-	IF_TYPE_MATCHES_INTERPRET_WITH_FORMAT (			const char*, @"%s"		);
-
-	if (TypeCodeIsCharArray(typeCode)) return $(@"%s", (char *)value);
-
-	IF_TYPE_MATCHES_INTERPRET_WITH_FORMAT (					void*, @"(void*)%p");
-
-	//This is a hack to print out CLLocationCoordinate2D, without needing to #import <CoreLocation/CoreLocation.h>. A CLLocationCoordinate2D is a struct made up of 2 doubles. We detect it by hard-coding the result of @encode(CLLocationCoordinate2D). We get at the fields by treating it like an array of doubles, which it is identical to in memory.//@encode(CLLocationCoordinate2D) 	//we don't know how to convert this typecode into an NSString
-	return strcmp(typeCode, "{?=dd}") == 0 ? $(@"{latitude=%g,longitude=%g}", ((double *)value)[0], ((double *)value)[1]) : nil;
-}
 
 //https://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtTypeEncodings.html
 
@@ -3089,3 +3053,206 @@ if __name__ == \"__main__\": \
 "if __name__ == \"__main__\":"
 "    main(sys.argv[1:])";
 */
+
+
+/*
+
+lookup_function_pointers.c ... An extremely fast and simple function to replace nlist.
+ 
+Copyright (c) 2009, KennyTM~
+All rights reserved.
+ 
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+ 
+ * Redistributions of source code must retain the above copyright notice, this
+   list of conditions and the following disclaimer.
+ * Redistributions in binary form must reproduce the above copyright notice, 
+   this list of conditions and the following disclaimer in the documentation
+   and/or other materials provided with the distribution.
+ * Neither the name of the KennyTM~ nor the names of its contributors may be
+   used to endorse or promote products derived from this software without
+   specific prior written permission.
+ 
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ 
+*/
+
+#include <mach-o/nlist.h>	// struct nlist
+#include <mach-o/dyld.h>	// _dyld_image_count, etc.
+#include <mach-o/loader.h>	// mach_header, etc.
+#include <mach-o/fat.h>		// fat_header, etc.
+#include <mach/mach.h>		// mach_host_self, etc.
+#include <stdarg.h>
+#include <stdlib.h>
+#include <unistd.h>		// open
+#include <fcntl.h>		// close
+#include <sys/mman.h>		// mmap
+#include <sys/stat.h>		// fstat
+
+struct ImageLoaderMachO {	// There's something before, which will be calculated later.
+	const struct mach_header* fMachOData;			const uint8_t* fLinkEditBase;
+	const struct nlist* fSymbolTable;				const char* fStrings;
+	const struct dysymtab_command* fDynamicInfo;	uintptr_t fSlide;			// the rest are not important.
+};
+union pImageLoaderMachO {	const void* const* rawImage;	const struct ImageLoaderMachO* theImage;	};
+typedef union pImageLoaderMachO (*FPTR)(unsigned index);	static FPTR dyld_getIndexedImage = NULL;
+static int get_image_index(const char* filename) {	unsigned img_count = _dyld_image_count();	size_t filename_len = strlen(filename);
+	for (unsigned i = 0; i < img_count; ++ i) {
+		const char* img_name = _dyld_get_image_name(i);
+		size_t img_name_len = strlen(img_name);
+		if (filename_len > img_name_len)	continue;
+		if (strncmp(filename, img_name - filename_len + img_name_len, filename_len) == 0) return i;
+	}
+	return -1;
+}
+static int struct_shift = 0;
+static void set_struct_shift() {	// Heuristic to get the struct shift.
+	const struct mach_header* header = _dyld_get_image_header(1);
+	union pImageLoaderMachO image = dyld_getIndexedImage(1);
+	for (unsigned i = 0; i < 0x100; ++ i) { if (image.rawImage[i] == header) { struct_shift = i; break; }	}
+}
+/*	Big big big assumptions: (1) dyld is at /usr/lib/dyld
+									 (2) there is a function called  dyld::getIndexedImage(unsigned)
+									 (3) it returns an ImageLoaderMachO pointer with fields compatible with above.
+									 (4) dyld's slide is zero.				
+	If any of these breaks, we're in great trouble.	
+*/
+static int obtain_dyld() {	int retval = 0;
+	if (dyld_getIndexedImage == NULL) {
+		int f = open("/usr/lib/dyld", O_RDONLY);
+		if (f == -1) return -1;
+		struct stat f_status;	fstat(f, &f_status);
+		char* m = (char*)mmap(NULL, f_status.st_size, PROT_READ, MAP_PRIVATE, f, 0);
+		if ((int)m == -1) return close(f), -2;
+		const struct mach_header* header = (const struct mach_header*)m;
+		if (OSSwapBigToHostInt32(header->magic) == FAT_MAGIC) {			// Get our host info
+			host_t                 host_self       = mach_host_self();
+			unsigned               host_info_count = HOST_BASIC_INFO_COUNT;
+			struct host_basic_info host_info_struct;
+			kern_return_t          host_res        = host_info(host_self, HOST_BASIC_INFO, (host_info_t)&host_info_struct, &host_info_count);
+			mach_port_deallocate(mach_task_self(), host_self);
+			if (host_res != KERN_SUCCESS) { retval = -2; goto cleanup; }
+			/* Read in the fat header */
+			const struct fat_header* p_fat          = (const struct fat_header*)m;
+			uint32_t                 fat_arch_count = OSSwapBigToHostInt32(p_fat->nfat_arch);
+			const struct fat_arch*   arch           = (const struct fat_arch*)(p_fat+1);
+			for (uint32_t i = 0; i < fat_arch_count; ++i, ++arch)
+				if (OSSwapBigToHostInt32(arch->cputype) == host_info_struct.cpu_type) {
+					header = (const struct mach_header*)(m + OSSwapBigToHostInt32(arch->offset));
+					goto found_arch;
+				}
+			retval = -3;
+			goto cleanup;
+		}
+found_arch:
+		if (header->magic == MH_MAGIC) {
+			const struct symtab_command* curcmd = (const struct symtab_command*)(header + 1);
+			for (uint32_t i = 0; i < header->ncmds; ++ i) {
+				if (curcmd->cmd == LC_SYMTAB) {
+					const struct nlist* symbols  = (const struct nlist*)((const char*)header + curcmd->symoff);
+					const char*         strings  = (const char*)header + curcmd->stroff;
+					for (uint32_t j = 0; j < curcmd->nsyms; ++j, ++symbols) {
+						if (strcmp(strings + symbols->n_un.n_strx, "__ZN4dyld15getIndexedImageEj") == 0) {
+							dyld_getIndexedImage = (FPTR)symbols->n_value;
+							set_struct_shift();
+							retval = 0;
+							goto cleanup;
+						}	
+					}
+					retval = -4;	goto cleanup;
+				} else curcmd = (const struct symtab_command*)((const char*)(curcmd) + curcmd->cmdsize);
+			} 
+			retval = -5;
+		} else retval = -6;
+cleanup:
+		munmap(m, f_status.st_size);	close(f);
+	}
+	return retval;
+}
+static int get_image_symbol_count(const struct ImageLoaderMachO* image) {
+	if (image == NULL)	return -2;
+	const struct load_command* curcmd = (const struct load_command*)(image->fMachOData + 1);
+	for (unsigned i = 0; i < image->fMachOData->ncmds; ++ i) {
+		if (curcmd->cmd == LC_SYMTAB)	return ((const struct symtab_command*)curcmd)->nsyms;
+		else	curcmd = (const struct load_command*)((const char*)(curcmd) + curcmd->cmdsize);
+	}
+	return -1;
+}
+
+/*	Usage:
+ 
+ lookup_function_pointers("UIKit", "_UIKBGetKeyboardByName", &fptr, "_fntable.12345", &array, NULL);
+ 
+ The worst case of this algorithm is O(nml), where
+  - n is number of symbols in _filename_
+  - m is number of symbols to be found.
+  - l is the maximum string length of each symbol.
+ This is the case where all symbols are undefined.
+ 
+ If you sort the symbols in "nm -p" order and ensure all symbols are defined,
+ the complexity can be reduced to O(n + ml).
+ 
+ (In principle I could define a hash table can further reduce the worst case 
+ complexity to amortized O(n+ml), but it wastes too much resource and gain a 
+ little since m << n and l is small normally.)
+ */
+int lookup_function_pointers(const char* filename, ...) {
+	if (obtain_dyld() != 0)
+		return -1;
+	int index = get_image_index(filename);
+	if (index < 0)
+		return -2;
+	union pImageLoaderMachO pImage = dyld_getIndexedImage(index);
+	pImage.rawImage += struct_shift;
+	const struct ImageLoaderMachO* image = pImage.theImage;
+	int symcount = get_image_symbol_count(image);
+	if (symcount < 0)
+		return -2 + symcount;
+	
+	int current_index = 0;
+	va_list ap;
+	va_start(ap, filename);
+	const char* requested_symname;
+	const char* previously_requested_symname = "";
+	
+	while ((requested_symname = va_arg(ap, const char*)) != NULL) {
+		uint32_t* p_addr = va_arg(ap, uint32_t*);
+		
+		int scan_direction = strcmp(requested_symname, previously_requested_symname);
+		int stop_index = current_index;
+		if (scan_direction >= 0) {
+			syslog(4, "%p, %s", image->fSymbolTable, image->fStrings);
+			for (; current_index < symcount; ++current_index)
+				if (strcmp(image->fStrings+image->fSymbolTable[current_index].n_un.n_strx, requested_symname) == 0)
+					goto found;
+			for (current_index = 0; current_index < stop_index; ++current_index)
+				if (strcmp(image->fStrings+image->fSymbolTable[current_index].n_un.n_strx, requested_symname) == 0)
+					goto found;
+		} else {
+			for (; current_index >= 0; --current_index)
+				if (strcmp(image->fStrings+image->fSymbolTable[current_index].n_un.n_strx, requested_symname) == 0)
+					goto found;
+			for (current_index = symcount-1; current_index > stop_index; --current_index)
+				if (strcmp(image->fStrings+image->fSymbolTable[current_index].n_un.n_strx, requested_symname) == 0)
+					goto found;
+		}
+		
+		*p_addr = 0;
+		continue;
+
+found:
+		*p_addr = image->fSymbolTable[current_index].n_value + image->fSlide;
+		previously_requested_symname = requested_symname;
+	}
+	return 0;
+}

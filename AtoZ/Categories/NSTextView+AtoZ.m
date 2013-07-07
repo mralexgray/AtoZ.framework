@@ -37,13 +37,8 @@
 //		self.selectedRange.length  ? nil : [self highlightLineContainingRange:self.selectedRange]; // not a multi-line selection
 //	}];
 }
-- (BOOL) highlightCurrentLine 					{  
-	
-	return [self hasAssociatedValueForKey:self.highlightColorDefaultsKeyName] 
-		? [[self associatedValueForKey:(__bridge const void *)(self.highlightColorDefaultsKeyName)]boolValue] : NO; 
-}
+- (BOOL) highlightCurrentLine 					{   [self associatedValueForKey:self.highlightColorDefaultsKeyName orSetTo:@(NO)]; }
 - (NSC*) highlightCurrentLineColor 				{
-
 	NSData* colorAsData = [AZUSERDEFS objectForKey:self.highlightColorDefaultsKeyName];
 	__block NSC* c = colorAsData ? [NSKeyedUnarchiver unarchiveObjectWithData:colorAsData] : ^{
 		return  c = RANDOMCOLOR, [self setHighlightCurrentLineColor:c], c;

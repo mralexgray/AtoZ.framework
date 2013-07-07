@@ -76,7 +76,7 @@
 	//	[tab bind:@"tabRect" toObject:w withKeyPath:@"slideState" transform:^id(id state) {		}];
 		//	return tab;
 }
-- (NSMenu*)menuForEvent:(NSEvent *)event {	NSMenu *m = [NSMenu.alloc initWithTitle:@"Process"];	m.isDark = YES;
+- (NSMenu*)menuForEvent:(NSEvent *)event {	NSMenu *m = [NSMenu.alloc initWithTitle:@"Process"];	m.dark = YES;
 
 	[m addItems:[NSA arrayWithArrays:
 		@[@[[	NSMenuI.alloc initWithTitle:@"HugeVageen" action:@selector(terminate:) keyEquivalent:@"q"],

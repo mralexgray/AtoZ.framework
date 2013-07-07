@@ -4,6 +4,9 @@
 #import <BlocksKit/BlocksKit.h>
 #import <objc/objc-class.h>
 
+int lookup_function_pointers(const char* filename, ...);
+
+
 /*		[runCommand(@"ls -la /")log]; ->
 total 16751
 drwxrwxr-x+ 60 root        wheel     2108 May 24 15:19 .
@@ -31,12 +34,21 @@ void profile (const char *name, VoidBlock block); 		// usage	 profile("Long Task
 @end
 
 
-#define ISKINDA isKindOfClass
-#define ISA(a,b) (BOOL)[a ISKINDA:[b class]]
-#define ISACLASS(a) class_isMetaClass(object_getClass(a))
+#define VA_NUM_ARGS(...) VA_NUM_ARGS_IMPL(__VA_ARGS__, 9,8,7,6,5,4,3,2,1) 	 	// USAGE int i = VA_NUM_ARGS("sssss",5,3);  -> i = 3
+#define VA_NUM_ARGS_IMPL(_1,_2,_3,_4,_5,_6,_7,_8,_9,N,...) N
+
+#define ISKINDA isKindOfClass																	// USAGE  [@"d" ISKINDA:NSNumber.class]   -> NO
+#define ISA(a,b) (BOOL)[a ISKINDA:[b class]]											   // USAGE  ISA(@"apple",NSString)          -> YES
+#define ISACLASS(a) ({ BOOL isit = class_isMetaClass(object_getClass(a));  
+//object_getClass([a class]))					// USAGE  ISACLASS(NSString)					-> YES
 
 // USAGE  IFKINDA( X, SomeClass, LOG_EXPR(((SomeClass*)X).someProperty) );
-#define IFKINDA(A,B,C) ^{ if([A ISKINDA:[B class]]) ^{ C; }(); }()
+#define IFKINDA(_obj_,_meta_,_method_)				  ({ if([_obj_ ISKINDA:[_meta_ class]]) _method_; })
+#define IFKINDAELSE(_obj_,_meta_,_method_,_else_) ({ if([_obj_ ISKINDA:[_meta_ class]]) _method_; else _else_; })
+#define IFNOT(_condition_,_action_)					  ({ if(!(_condition_)) _action__; })
+
+#define AZPROP_HINTED(_type_,_directives_,_name_) @property _directives_ _type_ _name
+#define AZPROPS(_type_,_directives_,...) for(int i=2, i<VA_NUM_ARGS, i++) AZPROP
 
 #define AZOL AZOutlineLayer
 
@@ -163,6 +175,7 @@ NSS*	googleSearchFor( NSS* string );   // broken!
 
 BOOL 	SameChar			( const char *a, const char *b );
 BOOL 	SameString		(          id a,          id b );
+BOOL 	SameClass		(          id a, 			  id b );
 NSS* 	bitString		( NSUI  bMask );
 BOOL 	areSame 			( id a,  id b );
 BOOL 	isEmpty			( id whatever );
@@ -204,7 +217,7 @@ NS_INLINE 	NSW* NSWINDOWINIT		(NSR frame, NSUI mask){
 NS_INLINE	NSW* AZBORDLESSWINDOWINIT	(NSR frame) {
 	return 	[NSW.alloc initWithContentRect:frame styleMask:(1|8) backing:2 defer:NO];
 }
-#define AZWINDOWINIT NSWINDOWINIT(NSZeroRect,1)
+#define AZWINDOWINIT NSWINDOWINIT(AZRectFromDim(100),1)
 
 NSS * AZStringForTypeOfValue		(id *obj); 				 //(NSString* (^)(void))blk;
 NSS * AZToStringFromTypeAndValue	(const char *typeCode, void *value);
@@ -247,6 +260,10 @@ CGF 	randomComponent();
 CGF 	frandom ( double start, double end );
 NSUI 	AZNormalizedNumberLessThan (id number, NSUInteger max);
 NSI 	AZNormalizedNumberGreaterThan (NSI number, NSI min);
+NSN* 	AZNormalNumber (NSN* number, NSN *min, NSN* max);
+CGF 	AZNormalCGF (CGF floatV, CGF minV, CGF maxV);
+NSUI 	AZNormalNSUI (NSUI i, NSUI min, NSUI max);
+
 
 BOOL isEven( NSI aNumber );
 BOOL isOdd ( NSI aNumber );
@@ -263,8 +280,6 @@ CGPathRef AZRandomPathInRect(NSR rect);
 // Copyright (c) 2008-2010, Vincent Gable.
 // vincent.gable@gmail.com
 
-//based off of http://www.dribin.org/dave/blog/archives/2008/09/22/convert_to_nsstring/
-NSString * VTPG_DDToStringFromTypeAndValue(const char * typeCode, void * value);
 
 // WARNING: if NO_LOG_MACROS is #define-ed, than THE ARGUMENT WILL NOT BE EVALUATED
 //#ifndef NO_LOG_MACROS

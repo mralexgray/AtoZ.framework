@@ -380,6 +380,7 @@
 					"\"$(AtoZFrameworks)/THObserversAndBinders/\"",
 					"$(SRCROOT)/**",
 				);
+				MACH_O_TYPE = mh_bundle;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PUBLIC_HEADERS_FOLDER_PATH = "include/$(TARGET_NAME)";
 			};
@@ -401,6 +402,7 @@
 					"\"$(AtoZFrameworks)/THObserversAndBinders/\"",
 					"$(SRCROOT)/**",
 				);
+				MACH_O_TYPE = mh_bundle;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PUBLIC_HEADERS_FOLDER_PATH = "include/$(TARGET_NAME)";
 			};

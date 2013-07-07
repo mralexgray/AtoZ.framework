@@ -965,5 +965,63 @@ static Class OverrideClass(id self, SEL _cmd)	{	NSS *className 	= $UTF8(object_g
 	NSLog(@"Could not find superclass for %@", NSStringFromSelector(selector));
 	return NULL;
 }
++ (void) swizzleInstanceSelector:(SEL)oldS withNewSelector:(SEL)newS	{ 	Method oldM = NULL, newM = NULL;
+	newM = class_getInstanceMethod(self, newS);
+	oldM = class_getInstanceMethod(self, oldS);
+	class_addMethod 	  	(self.class,oldS, method_getImplementation(newM), method_getTypeEncoding(newM))
+? 	class_replaceMethod	(self.class,newS, method_getImplementation(oldM), method_getTypeEncoding(oldM))
+:													  method_exchangeImplementations(oldM, newM);	}
+
+
+@end
+
+@implementation NSProxy (AZOverride)
+
+- (BOOL)az_overrideSelector:(SEL)selector withBlock:(void *)block	{  Class selfClass, subclass; NSS * prefix, *className;
+
+	selfClass	= self.class;	subclass 	= nil;	prefix 		= $(@"AZOverride_%p_", self);
+	className 	= OVERRIDE_CLASS_METHOD ? $UTF8(object_getClassName(self)) : NSStringFromClass(selfClass);
+
+	if (![className hasPrefix:prefix])	{
+		NSString *name = [prefix withString:className];
+		subclass = objc_allocateClassPair(selfClass, name.UTF8String, 0);
+		if (OVERRIDE_CLASS_METHOD)
+			if (subclass == NULL) return NSLog(@"Could not create subclass"), NO;
+		else {
+			if (!class_addMethod(subclass, @selector(class), (IMP)OverrideClass, "#@:"))
+				return NSLog(@"Could not add 'class' method to class %@", NSStringFromClass(subclass)), NO;
+		}
+		objc_registerClassPair(subclass);	object_setClass(self, subclass);
+	}
+	else subclass = OVERRIDE_CLASS_METHOD ?objc_getClass(className.UTF8String) : selfClass; // object already has an override subclass
+	Method m = class_getInstanceMethod(selfClass, selector);
+	if (m == NULL) return NSLog(@"Could not find method %@ in class %@", NSStringFromSelector(selector), NSStringFromClass(selfClass)), NO;
+	// See also: http://www.friday.com/bbum/2011/03/17/ios-4-3-imp_implementationwithblock/
+	IMP imp = imp_implementationWithBlock((__bridge id)(block));
+	return !class_addMethod(subclass, selector, imp, method_getTypeEncoding(m)) ?
+		NSLog(@"Could not add method %@ to class %@", NSStringFromSelector(selector), NSStringFromClass(subclass)), NO : YES;
+}
+ 
+- (void *)az_superForSelector:(SEL)selector	{
+
+	if (OVERRIDE_CLASS_METHOD)	return [self.class instanceMethodForSelector:selector];
+	NSString *prefix = $(@"AZOverride_%p_", self);
+	Class theClass = self.class;
+	while (theClass != nil)	{
+		NSString *className = NSStringFromClass(theClass);
+		theClass = theClass.superclass;
+		if ([className hasPrefix:prefix])
+			return (void *)[theClass instanceMethodForSelector:selector];
+	}
+	NSLog(@"Could not find superclass for %@", NSStringFromSelector(selector));
+	return NULL;
+}
++ (void) swizzleInstanceSelector:(SEL)oldS withNewSelector:(SEL)newS	{ 	Method oldM = NULL, newM = NULL;
+	newM = class_getInstanceMethod(self, newS);
+	oldM = class_getInstanceMethod(self, oldS);
+	class_addMethod 	  	(self.class,oldS, method_getImplementation(newM), method_getTypeEncoding(newM))
+? 	class_replaceMethod	(self.class,newS, method_getImplementation(oldM), method_getTypeEncoding(oldM))
+:													  method_exchangeImplementations(oldM, newM);	}
+
 @end
 

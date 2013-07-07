@@ -47,6 +47,35 @@ static int flagbit8 		= 128;  	// 2^^7    000...10000000
 
 //JREnumDeclare (AZAlign,
 
+JROptionsDeclare(AZ_arc, 	AZ_arc_NATOM	       	= 0x00000001,
+									AZ_arc_RONLY 	     		= 0x00000010,
+									AZ_arc_STRNG	        	= 0x00000100,
+									AZ_arc_ASSGN  		   	= 0x00001000,
+									AZ_arc__COPY 		   	= 0x00010000,
+									AZ_arc__WEAK				= 0x00100000);
+
+
+#define QUALIFIER_FROM_BITMASK(q) q&AZ_arc_NATOM 					? nonatomic 			:\
+											 q&AZ_arc_NATOM|AZ_arc_STRNG 	? nonatomic,strong 	:\
+											 q&AZ_arc_RONLY 					? readonly 				:\
+											 q&AZ_arc__COPY 					? copy 					:\
+											 q&AZ_arc_NATOM|AZ_arc__COPY 	? nonatomic,copy 		:\
+											 q&AZ_arc__WEAK 					? weak    : assign
+
+
+#define NATOM_STR nonatomic,strong
+
+#define                                     AZINTERFACE(_super_,_name_) @interface _name_ : _super_
+
+#define AZPROPERTY(_kind_,_arc_,...) @property (_arc_) _kind_   __VA_ARGS__;
+
+//											 #QUALIFIER_FROM_BITMASK(_arc_)
+
+#define                                   AZSTRONGSTRING(A) @property (nonatomic, strong) NSString* A
+
+//AZPROPASS(_kind_...) @property (NATOM,ASS) _kind_ __VA_ARGS__
+
+
 JROptionsDeclare(AZAlign, 	AZAlignLeft       	= 0x00000001, 
 									AZAlignRight      	= 0x00000010,
 									AZAlignTop	        	= 0x00000100,
@@ -90,7 +119,7 @@ static NSString *_AZAlign_constants_string = @"" "AZAlignLeft = 0x00000001, AZAl
 //	  = 0x00001010
 
 
-typedef NS_ENUM(NSUI, AssetType){ JS, CSS, HTML, PHP, BASH,	ObjC, TXT,	UNKNOWN = 99 };
+typedef NS_ENUM(NSUI, AssetType){ JS, CSS, HTML5, PHP, BASH,	ObjC, TXT,	UNKNOWN = 99 };
 extern NSString * const assetStringValue[];
 extern NSString * const assetTagName[];
 

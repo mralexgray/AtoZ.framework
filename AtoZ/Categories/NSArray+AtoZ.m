@@ -61,6 +61,15 @@ NSString * const NSMutableArrayDidInsertObjectNotification = @"com.mrgray.NSMuta
 
 @implementation NSArray (AtoZ)
 
+- (NSA*)arrayByAddingAbsentObjectsFromArray:(NSArray *)otherArray {
+	__block NSMA* newself = self.mutableCopy;
+	[otherArray each:^(id obj) {
+		[newself containsObject:obj] ? nil : [newself addObject:obj];
+	}];
+	return newself;
+}
+
+
 + (NSA*) arrayWithRects:(NSR)firstRect,...NS_REQUIRES_NIL_TERMINATION {
 
  	NSMutableArray *re = NSMutableArray.array; id detector;

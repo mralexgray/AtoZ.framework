@@ -155,7 +155,9 @@ typedef void (^viewFrameDidChangeBlock)(void);
 
 + (void) runEndBlock: (void (^)(void))completionBlock;
 
-- (void) handleMouseEvent:(NSEventMask)event withBlock:(void (^)())block;
+- (void) fadeOutAndThen:(void(^)(NSAnimation*))block;
+
+- (void) handleMouseEvent:(NSEventType)event withBlock:(void (^)())block;
 - (NSP) localPoint;
 - (NSP) windowPoint;
 

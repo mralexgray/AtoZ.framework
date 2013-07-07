@@ -400,7 +400,7 @@ static AtoZWebSnapperWindowController *kController = nil;
 		NSString *resource = [url resourceSpecifier];
 		
 		if ([resource hasPrefix:@"("]) { // has params
-			unsigned lastparen = [resource rangeOfString:@")"].location;
+			NSUI lastparen = [resource rangeOfString:@")"].location;
 			
 			if (lastparen != NSNotFound) {
 				unsigned width = 0;
@@ -517,9 +517,7 @@ static AtoZWebSnapperWindowController *kController = nil;
 
 #pragma mark -
 
-//--------------------------------------------------------------//
 // Drag and drop
-//--------------------------------------------------------------//
 
 - (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)sender {
 	NSPasteboard *pb = [sender draggingPasteboard];
@@ -559,9 +557,7 @@ static AtoZWebSnapperWindowController *kController = nil;
 
 #pragma mark -
 
-//--------------------------------------------------------------//
 // NSApplication delegation
-//--------------------------------------------------------------//
 
 - (BOOL)application:(NSApplication *)app openFile: (NSS*) filename {
 	NSURL *fileURL = [NSURL fileURLWithPath:filename];
@@ -636,9 +632,7 @@ static AtoZWebSnapperWindowController *kController = nil;
 
 #pragma mark -
 
-//--------------------------------------------------------------//
 // urlField defaults
-//--------------------------------------------------------------//
 
 - (void)validateInputSchemeForControl:(NSControl *)control {
 	[control setStringValue:[[control stringValue] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];

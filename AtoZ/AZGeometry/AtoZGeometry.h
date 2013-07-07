@@ -49,8 +49,9 @@ FOUNDATION_EXPORT const CGP AZAnchorLeft;
 FOUNDATION_EXPORT const CGP AZAnchorTopLeft;
 FOUNDATION_EXPORT const CGP AZAnchorBottomLeft;
 FOUNDATION_EXPORT const CGP AZAnchorTopRight;
-FOUNDATION_EXPORT const CGP AZAnchorBottomLeft;
+FOUNDATION_EXPORT const CGP AZAnchorBottomRight;
 
+FOUNDATION_EXPORT const CGP AZAnchorCenter;
 
 
 

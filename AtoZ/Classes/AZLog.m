@@ -25,7 +25,7 @@ void AZLogEnv(char** envp){ 	NSD* envD = AZEnv(envp);
 }
 static NSA *gPal = nil;
 
-static LogEnv logEnv = NSNotFound;
+static LogEnv logEnv = LogEnvUnknown;
 @implementation AZLog
 
 - (void) setUp {	![self.class hasSharedInstance] ? ^{ 
@@ -60,7 +60,7 @@ static LogEnv logEnv = NSNotFound;
 //		isaColorTTY ? "\033[38;5m" : "",  isaColorTTY ? "YES" : "NO", isaColorTTY ? "\033[0m" : "", 
 //		isaColorTTY ? "\033[38;5m" : "",  isaColor256TTY ? "YES" : "NO", isaColorTTY ? "\033[0m" : "", 
 //		$(@"%@isaXcodeColorTTY\t=\t%@%@",isaXcodeColorTTY ? XCODE_COLORS_ESCAPE @"fg244,100,80;" : zSPC, StringFromBOOL(isaXcodeColorTTY), isaXcodeColorTTY ? XCODE_COLORS_RESET : @"").UTF8String);
-	return _logEnv = logEnv = logEnv == NSNotFound ? LogEnvUnknown : logEnv;
+	return _logEnv = logEnv = logEnv == LogEnvUnknown ? LogEnvUnknown : logEnv;
 }
 
 #define LOG_CALLER_VERBOSE NO		// Rediculous logging of calling method
@@ -100,7 +100,7 @@ static LogEnv logEnv = NSNotFound;
 	azva_iterate_list(colorsAndThings, theBlk);   
 	return [words nmap:^id (id o, NSUI i) { 
 		NSS *n = $(@"%@", o); NSC *c  = [colors normal:i];  
-		n.logForeground = c.isDark ? c.invertedColor : c;  return n; 
+		n.logForeground = c.isDark ? c.invertedColor : c;  return n;
 	}];
 }
 /*NSA * COLORIZE		  ( id colorsAndThings, ... )*/							
@@ -112,9 +112,9 @@ static LogEnv logEnv = NSNotFound;
 	__block NSMA *words  = NSMA.new;//[NSMA mutableArrayUsingWeakReferences];
 	AZVA_Block theBlk = ^(id it) {								//			AZVA_Block sort   = ^(id it) {
 		objswitch(it)
-		objkind(NSC.class) [colors addObject:it];
-		objkind(NSS.class) [words  addObject:it];
-		objkind(NSA.class) if ([(NSA*)it all:^BOOL(id obj) { return [obj ISKINDA:NSC.class];}])
+		objkind(NSC) [colors addObject:it];
+		objkind(NSS) [words  addObject:it];
+		objkind(NSA) if ([(NSA*)it all:^BOOL(id obj) { return [obj ISKINDA:NSC.class];}])
 									[colors addObjectsFromArray:it];
 								 else [words addObject:[it debugDescription]];
 
@@ -125,7 +125,7 @@ static LogEnv logEnv = NSNotFound;
 //			if (first) [words addObject:[obj vFK:first]];
 //		}]:
 
-		defaultcase [it respondsToString@"debugDescription"] ? [words addObject:[it vFK:@"debugDescription"]?: [it description];
+		defaultcase if ([it respondsToString:@"debugDescription"]) [words addObject:[it vFK:@"debugDescription"]]; else  [it description];
 		endswitch
 //			NSS* first = [it firstResponsiveString:@[@"stringValue", @"name"]];
 //				? [words addObject:[[ it stringValue]copy]] : nil;

@@ -47,7 +47,6 @@ void 	QuietLog 				  	( NSS *format, ...	  );
 
 #define 	AZLOGSHARED 		[AZLog sharedInstance]
 
-#define IS_OBJECT(T) _Generic( (T), id: YES, default: NO)
 
 #define	NSLog(fmt...) 		[AZLOGSHARED logInColor:RANDOMCOLOR file:__FILE__ line:__LINE__ func:__PRETTY_FUNCTION__ format:fmt,nil]
 
@@ -58,12 +57,6 @@ void 	QuietLog 				  	( NSS *format, ...	  );
 #define 	LOGCOLORS(X...) 	[AZLOGSHARED logThese:__PRETTY_FUNCTION__ things:X]
 #define	COLORLOG(fmt...)	[AZLOGSHARED logThese:__PRETTY_FUNCTION__ things:fmt, nil]
 
-#define 	LOG_EXPR(_X_) 		do{	__typeof__(_X_) _Y_ = (_X_); NSS*_STR_;					\
-											const char * _TYPE_CODE_ = @encode(__typeof__(_X_));	\
-			(_STR_= VTPG_DDToStringFromTypeAndValue(_TYPE_CODE_, &_Y_))							\
-			?	NSLog(@"%s = %@", #_X_, _STR_) 															\
-			:	NSLog(@"Unknown _TYPE_CODE_:\"%s\" for expr:%s in func:%s file:%s line:%d",\
-					_TYPE_CODE_, #_X_, __func__, __FILE__, __LINE__); }while (0)
 
 //		IS_OBJECT(_X_) ? $(@"\n\nAttempting a \"blockDescription\":%@",[_X_ blockDescription]) : @"");	} while(0)
 //	strcmp(_TYPE_CODE_,"@?") ? $(@"\n\nAttempting a \"blockDescription\":%@",[(id)(_X_) blockDescription]) : @"");	} while(0)

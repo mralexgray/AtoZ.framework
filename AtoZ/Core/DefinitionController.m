@@ -182,6 +182,20 @@
 	}
 }
 
+- (void) saveKeyPairsWithSeperator:(NSS*)sep toFile:(NSS*)path {
+
+
+	__block NSString *define, *definition;
+	__block NSMutableString *definer = @"".mutableCopy;  // put some other crap here ??
+	[self.children enumerateObjectsUsingBlock:^(AZNode* category,NSUInteger idx,BOOL *stop) {
+		[definer appendFormat:@"\n\n#  SECTION - %@\n\n", category.key];   // pragma section per "category"
+		[category.children enumerateObjectsUsingBlock:^(AZNode *defineNode, NSUInteger idx, BOOL *stop) {
+			if (!defineNode.key || [defineNode.key isEqualToString:@"Inactive"]) return;
+			[definer appendString:$(@"\n%@==%@", defineNode.key, defineNode.value ?: @"")];
+		}];
+	}];		
+	[definer writeToFile:path atomically:YES];
+}
 -   (BOOL) saveGeneratedHeader {
 	
 	if (!self.generatedHeader.outdated) return NO;   NSError *e;

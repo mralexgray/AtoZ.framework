@@ -3,7 +3,75 @@
 #import <Quartz/Quartz.h>
 #import <QuickLook/QuickLook.h>
 #import <SVGKit/SVGKit.h>
+#import "AZHTMLParser.h"
+#import "HTMLNode.h"
+
 #import "AtoZCategories.h"
+
+
+@interface  AZImageCache ()
+@property (assign, nonatomic) dispatch_queue_t queue;
+@end
+
+@implementation AZImageCache
+SYNTHESIZE_SINGLETON_FOR_CLASS(AZImageCache, sharedCache);
+- (id)init	{
+	if (!(self = [super init])) return nil;
+	_queue 		  	 = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0);
+	NSString* cachesD = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)[0];
+	_cacheDirectory = [cachesD withPath:[APP_NAME withString:@"_ImageCache"]];
+	if (![AZFILEMANAGER fileExistsAtPath:_cacheDirectory]) [AZFILEMANAGER createDirectoryAtPath:_cacheDirectory withIntermediateDirectories:YES attributes:nil error:nil];
+	return self;
+}
+
+- (void)removeAllObjects	{
+	[AZFILEMANAGER	  removeItemAtPath:_cacheDirectory error:nil];
+	[AZFILEMANAGER createDirectoryAtPath:_cacheDirectory withIntermediateDirectories:YES attributes:nil error:nil];
+	[super removeAllObjects];
+}
+
+- (NSIMG*)imageForKey:(NSS*)key	{
+	if (![self hasPropertyForKVCKey:@"key"] || !key) return nil;
+	NSIMG *image = [self objectForKey:key];
+	if (!image) {
+		NSS *path = [self pathForImage:image key:key];
+		image = [NSIMG.alloc initWithContentsOfFile:path];
+		if (image) [self setObject:image forKey:key];
+	}
+	return image ?: nil;
+}
++ (void)cacheImage:(NSImage *)image {
+
+	NSS *path = [self.sharedCache pathForImage:image key:image.name ?: NSS.randomWord];
+	[image saveAs:path];
+}
+- (void)setImage:(NSIMG *)image forKey:(NSS*)key
+{
+	if (!image || !key)	return;
+	[self setObject:image forKey:key];
+	dispatch_async(_queue, ^{
+		NSS *path = [self pathForImage:image key:key];
+//		NSLog(@"%@", path);
+		[image saveAs:path];
+//		NSData *imageData = NSIMGPNGRepresentation(image);
+//		if (imageData) [imageData writeToFile:path atomically:NO];
+	});
+}
+
+#pragma mark - Private Methods
+
+- (NSS*)pathForImage:(NSIMG*)image key:(NSS*)key	{
+	NSS*path = key;
+#if TARGET_OS_IPHONE
+	if (image.scale == 2.0f)	 path = [key stringByAppendingString:@"@2x"];
+#endif
+	path = [key stringByAppendingString:@".png"];
+	return [_cacheDirectory stringByAppendingPathComponent:path];
+}
+
+@end
+
+//  AZFavIconOp
 
 static NSS *_systemIconsFolder = nil;
 static NSA *_systemIcons = nil;
@@ -31,15 +99,10 @@ CGImageRef CreateCGImageFromData(NSData* data)
 
 	return imageRef;
 }
+//	NSA sizes = [items[0] valueForKey:@"size"] ? [items valueForKeyPath:@"size"] : [obj respondsToString:@"frame"] ? [obj sizeForKey:@"frame"] :  [obj respondsToString:@"bounds"] ? [obj sizeForKey:@"bounds"]  : AZRectBy(1, 1).size;
 */
 NSR AZRectForItemsWithColumns(NSA* items, NSUI cols) {
-
 	__block NSR frame = NSZeroRect; __block NSUI col; __block CGF rowWidth = 0, rowHeight = 0;
-//	NSA sizes = [items[0] valueForKey:@"size"] ? [items valueForKeyPath:@"size"] :
-//					[obj respondsToString:@"frame"] ? [obj sizeForKey:@"frame"] :
-//					 [obj respondsToString:@"bounds"] ? [obj sizeForKey:@"bounds"]  : AZRectBy(1, 1).size;
-
-
 	[[items vFKP:@"size"]enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 		if (AZMaxDim(frame.size) > 10000) { NSLog(@"bailing on maxdim: %@", AZStringFromRect(frame)); *stop  = YES; }
 		if ((idx % cols) == 0) { 
@@ -49,17 +112,34 @@ NSR AZRectForItemsWithColumns(NSA* items, NSUI cols) {
 		}
 		rowHeight 	= MAX([obj sizeValue].height, rowHeight);
 		rowWidth 	+= 	[obj sizeValue].width;
-			
 	}];
 	return frame;
 }
+
 @implementation NSImage (Merge)
-+ (NSIMG*)contactSheetWith:(NSA*)images columns:(NSUI)cols {
 
-	return  [self contactSheetWith:images inFrame:AZRectForItemsWithColumns(images, cols) columns:cols];
+//- (void)contactSheetWith:(NSA*)images inRect:(NSR)rect cols:(NSUI)cols callback:(void (^)(NSImage *))callback  {
+//
+//	[NSThread performBlockInBackground:^{
+//		AZSizer *d = [AZSizer for]
+//		NSIMG* image =	[NSImage contactSheetWith:images inFrame:rect columns:cols];
+//		[[NSThread mainThread] performBlock:^{	callback(image); }];
+//	}];
+//}
+
++ (NSIMG*)contactSheetWith:(NSA*)imgs columns:(NSUI)c {
+
+	AZSizer *s = [AZSizer forQuantity:imgs.count  inRect:AZRectForItemsWithColumns(imgs,c)];
+	return [self contactSheetWith:imgs sized:s.size spaced:NSZeroSize columns:c withName:NO]; // wors perfectly
+//	return  [self contactSheetWith:imgs inFrame:AZRectForItemsWithColumns(imgs,c) columns:c]; }
 }
-+ (NSIMG*)contactSheetWith:(NSA*)images inFrame:(NSR)rect columns:(NSUI)cols	{
++ (NSIMG*)contactSheetWith:(NSA*)images inFrame:(NSR)rect { //columns:(NSUI)cols	{
 
+	AZSizer *s = [AZSizer forQuantity:images.count  inRect:rect];
+	return [self contactSheetWith:images withSizer:s withName:NO]; // wors perfectly
+
+// this doesnt work!
+/*
 	NSSZ iSize = AZSizeFromDimension(rect.size.width/cols);
 	AZSizer *s = [AZSizer forQuantity:images.count  ofSize:iSize  withColumns:cols];
 	NSA *rects = s.rects.copy;
@@ -77,27 +157,33 @@ NSR AZRectForItemsWithColumns(NSA* items, NSUI cols) {
 		}];
 	}];
 //	[contact unlockFocus];
-//	return contact;
+//	return contact; 
+//	NSAS* string = [[obj.name truncatedForRect:nameRect withFont:f] attributedWithSize:AZMinDim(theR.size)*.1 andColor:WHITE];
+//	nameRect = AZRectExceptWide(nameRect, theR.size.width < nameRect.size.width ? theR.size.width : nameRect.size.width);
+//	nameRect = AZOffsetRect(nameRect, theR.origin);
+//	NSRectFillWithColor(nameRect, RED);
+//	NSR nameRect = [obj.name frameWithFont:f];
+//	[string drawCenteredVerticallyInRect:nameRect];//:@"UbuntuTitling-Bold"];//:nameRect / * NSMakeRect(2, 2, sizeAndPhoto.width - 4, 14)* / withFont:font andColor:WHITE];
+*/
 }
-//			NSAS* string = [[obj.name truncatedForRect:nameRect withFont:f] attributedWithSize:AZMinDim(theR.size)*.1 andColor:WHITE];
-//			nameRect = AZRectExceptWide(nameRect, theR.size.width < nameRect.size.width ? theR.size.width : nameRect.size.width);
-//			nameRect = AZOffsetRect(nameRect, theR.origin);
-//			NSRectFillWithColor(nameRect, RED);
-//			NSR nameRect = [obj.name frameWithFont:f];
-//			[string drawCenteredVerticallyInRect:nameRect];//:@"UbuntuTitling-Bold"];//:nameRect /*NSMakeRect(2, 2, sizeAndPhoto.width - 4, 14)*/ withFont:font andColor:WHITE];
-+ (NSIMG*)contactSheetWith:(NSA*)images sized:(NSSZ)size spaced:(NSSZ)spacing columns:(NSUI)cols withName:(BOOL)name;
+
++ (NSIMG*)contactSheetWith:(NSA*)images sized:(NSSZ)size spaced:(NSSZ)spacing columns:(NSUI)cols withName:(BOOL)name; // wors perfectly
 {
-	__block NSIMG *contact;
-	[AZStopwatch named:$(@"ContactSheetWith%ldImages",images.count) block:^{
 		NSSZ sizeAndPhoto = AZAddSizes(spacing, size);
 		sizeAndPhoto.height += name ? 18 : 0;
 		AZSizer *s = [AZSizer forQuantity:images.count  ofSize:sizeAndPhoto  withColumns:cols];
+		return  [self contactSheetWith:images withSizer:s withName:name]; // wors perfectly
+}
++ (NSIMG*)contactSheetWith:(NSA*)images withSizer:(AZSizer*)s withName:(BOOL)name; // wors perfectly
+{
+	__block NSIMG *contact;
+	[AZStopwatch named:$(@"ContactSheetWith%ldImages",images.count) block:^{
 		NSA *rects = s.rects.copy;
 		contact = [[NSIMG alloc]initWithSize:s.outerFrame.size];
 		[contact lockFocus];
 		[images eachWithIndex:^(NSIMG* obj, NSInteger idx) {
 			NSR theR = [[rects normal:idx]rectValue];
-			[[obj scaledToMax:AZMaxDim(size) ] drawCenteredinRect:theR operation:NSCompositeSourceOver fraction:1];
+			[[obj scaledToMax:AZMaxDim(s.size) ] drawCenteredinRect:theR operation:NSCompositeSourceOver fraction:1];
 			if (name) {
 				NSR nameRect = AZOffsetRect(AZRectFromDim(AZMinDim(theR.size)*.25), theR.origin);
 				NSRectFillWithColor(nameRect, RED);
@@ -115,55 +201,38 @@ NSR AZRectForItemsWithColumns(NSA* items, NSUI cols) {
 	return [self contactSheetWith:images sized:size spaced:spacing columns:cols withName:NO];
 }
 
-+ (NSIMG*)imageByTilingImages:(NSA*)images
-					   spacingX:(CGFloat)spacingX
-					   spacingY:(CGFloat)spacingY
-					 vertically:(BOOL)vertically {
-	CGFloat mergedWidth = 0.0 ;
-	CGFloat mergedHeight = 0.0 ;
-	if (vertically) {
-		images = [images reversed] ;
-	}
-	for (NSIMG* image in images) {
-		NSSize size = [image size] ;
-		if (vertically) {
-			mergedWidth = MAX(mergedWidth, size.width) ;
-			mergedHeight += size.height ;
-			mergedHeight += spacingY ;
-		}
-		else {
-			mergedWidth += size.width ;
-			mergedWidth += spacingX ;
-			mergedHeight = MAX(mergedHeight, size.height) ;
-		}
-	}
-	// Add the outer margins for the single-image dimension
-	// (The multi-image dimension has already had it added in the loop)
-	if (vertically) 		// Add left and right margins
-		mergedWidth += 2 * spacingX ;
++ (NSIMG*)imageByTilingImages:(NSA*)imgs spacingX:(CGF)x spacingY:(CGF)y vertically:(BOOL)v {
 
-	else	// Add top and bottom margins
-		mergedHeight += 2 * spacingY ;
+	CGF mergedWidth = 0.0, mergedHeight = 0.0;	imgs = v ? imgs.reversed  : imgs;
+	for (NSIMG* image in imgs) {
+		NSSize size = image.size;
+		if (v) {	mergedWidth 	 = MAX(mergedWidth, size.width);
+					mergedHeight 	+= (size.height + y);						}
+		else {	mergedWidth 	+= (size.width + x);
+					mergedHeight 	 = MAX(mergedHeight, size.height);		}
+	}
+	// Add the outer margins for the single-image dimension (The multi-image dimension has already had it added in the loop)
+	if (v)	mergedWidth  += 2 * x; // Add left and right margins
+	else		mergedHeight += 2 * y; // Add top and bottom margins
 
 	NSSize mergedSize = NSMakeSize(mergedWidth, mergedHeight) ;
-	NSIMG* mergedImage = [[NSImage alloc] initWithSize:mergedSize] ;
+	NSIMG* mergedImage = [NSImage.alloc initWithSize:mergedSize] ;
 	[mergedImage lockFocus] ;
-
 	// Draw the images into the mergedImage
-	CGFloat x = spacingX ;
-	CGFloat y = spacingY ;
-	for (NSIMG* image in images) {
-		[image drawAtPoint:NSMakePoint(x, y)
+	CGFloat xx = x;
+	CGFloat yy = y;
+	for (NSIMG* image in imgs) {
+		[image drawAtPoint:NSMakePoint(xx, yy)
 				  fromRect:NSZeroRect
 				 operation:NSCompositeSourceOver
 				  fraction:1.0] ;
-		if (vertically) {
-			y += [image size].height ;
-			y += spacingY ;
+		if (v) {
+			yy += [image size].height ;
+			yy += y;
 		}
 		else {
-			x += [image size].width ;
-			x += spacingX ;
+			xx += [image size].width ;
+			xx += x;
 		}
 	}
 	[mergedImage unlockFocus] ;
@@ -241,6 +310,9 @@ NSR AZRectForItemsWithColumns(NSA* items, NSUI cols) {
 }
 
 @end
+
+
+
 
 NSData* PNGRepresentation(NSIMG *image) {
 #if TARGET_OS_IPHONE
@@ -454,6 +526,113 @@ NSData* PNGRepresentation(NSIMG *image) {
 	if (__nameToImageDict.count % 10 == 0) NSLog(@"Keys in imageD:%lu",__nameToImageDict.allKeys.count);
 	return image;
 }
+
+
++ (NSA*) randomWebImages:(NSUI)ct{	return [[@0 to:@(ct)] cw_mapArray:^id(id object) { return self.randomWebImage; }]; }
+
+
++ (NSIMG*) randomWebImage { return [self googleImages:NSS.randomUrbanD.word ct:1 eachBlock:nil]; }
++ (NSIMG*) googleImage:(NSS*)query{ return [self googleImages:query ct:1 eachBlock:nil]; }
+
+
++ (NSIMG*) googleImages:(NSS*)query ct:(NSUI)ct eachBlock:(void(^)(NSIMG*results))block {
+
+	__block NSIMG* returner = nil;
+	AZGoogleQuery *q = [AZGoogleImages searchGoogleImages:query withBlock:^(NSArray *imageURLs) {
+		if (!block || ct == 1) return (void)(returner = imageURLs ? [self imageFromURL:imageURLs[0]] : nil);
+		for (int i = 0; i < ct; i++)	if (returner = [self imageFromURL:[imageURLs normal:i]]) block(returner);
+	}];
+	return returner;
+
+//	NSMA*images 	= NSMA.new;
+//	NSIMG *retVal 	= nil;
+//	NSS*q 			= query ? [self googleImageURL:query) : fixForGoogle(NSS.randomUrbanD.word);
+//	for (int i = 0; i < ct; i++) {
+//		if (![queries[q] count]) runQuery(q);
+//		if (![queries[q] count]) return images;
+//		if ((retVal = qBlock(q))) [images addObject:retVal];
+//	}
+//	return images;
+}
+/*		LOG_EXPR(tags.count);
+		NSA* urls = [tags cw_mapArray:^id(HTMLNode *object) {	return [object getAttributeNamed:@"src"]; }];// stringByRemovingPrefix:f2]substringBefore:f3]; }];
+		LOG_EXPR(tags);
+	NSS *imageurl 		=       [[p.body findChildWithAttribute:@"alt" matchingName:@"Random Image" allowPartial:TRUE]getAttributeNamed:@"src"];NSIMG *gIMAGE = [NSIMG.alloc initWithContentsOfURL:google];	if (gIMAGE) return gIMAGE;
+		HTMLNode* n = [parser.body findChildWithAttribute:@"id" matchingName:@"search" allowPartial:YES];
+		LOG_EXPR(n);
+		if (urls) {
+			[[NSS stringFromArray:urls] openInTextMate];
+//			NSA* imageTags = [n findChildrenWithAttribute:@"href" matchingName:@"/imgres?imgurl=" allowPartial:YES];
+//			if (imageTags) [$(@"%@", imageTags) openInTextMate];
+		} else [@"problem cerating node" log];
+	} else	[@"problem fetching URL" log];
+*/
++ (NSIMG*) randomFunnyImage {
+
+	[AZStopwatch start:@"photoTimer"];
+	__block NSError *requestError;
+	NSURL   *addy	= $URL($(@"http://junglebiscuit.com/imagesrandomfunnyimagegenerator"));
+	AZHTMLParser 	*p = [AZHTMLParser.alloc initWithContentsOfURL:addy error:&requestError];
+	NSS *imageurl 		=       [[p.body findChildWithAttribute:@"alt" matchingName:@"Random Image" allowPartial:TRUE]getAttributeNamed:@"src"];
+	NSLog(@"imageurl: %@", imageurl);
+	NSIMG*webI = [self imageFromURL:imageurl];
+	[AZStopwatch stop:@"photoTimer"];
+	[webI lockFocusBlock:^(NSImage *i){
+		NSAS* stamp = [NSAS.alloc initWithString:[AZStopwatch runtime:@"photoTimer"] attributes:NSAS.defaults];
+		NSSZ r 		= [stamp size];
+		NSRectFillWithColor(AZRectFromSize(r), RED);
+		[stamp drawAtPoint:NSZeroPoint];
+	}];
+	return webI;
+}
+//	__strong ASIHTTPRequest *requester						 = [ASIHTTPRequest.alloc initWithURL:addy];
+//									 requester.completionBlock  =^(ASIHTTPRequest *request) {
+//			  requestError   = request.error;
+//		NSS *responsePage   = request.responseString.copy;
+//		NSLog(@"got response: %@", responsePage);
+//		AZHTMLParser 	*p =       [AZHTMLParser.alloc initWithString:responsePage error:&requestError];
+//		NSS *imageurl 		=       [[p.body findChildWithAttribute:@"alt" matchingName:@"Random Image" allowPartial:TRUE]getAttributeNamed:@"src"];
+//		NSLog(@"imageurl: %@", imageurl);
+//		webI = [self imageFromURL:imageurl];
+//	};
+//	requester.startSynchronous;
+
+//	wikiD = request.responseString.copy; requestError = [request error];	};
+/*
+		AZHTMLParser *p		= [AZHTMLParser.alloc initWithString:wikiD error:nil];
+		_rawResult = wikiD;
+		NSString * stripped 	= [_rawResult stripHtml];																		// parseXMLTag:@"text"]);
+		self.results  			= requestError 		?  @[$(@"Error: %@  headers: %@", requestError, _requester.responseHeaders)]
+									: ![wikiD isEmpty]	?  @[[wikiD parseXMLTag:@"Description"]] : nil;
+	}
+	if (_results.count) _completion(self);
+	NSURLREQ *req 	= [NSURLREQ requestWithURL:addy];	NSURLRES *res 	= nil;	NSError 	*err  = nil;
+	NSData  *data 	= [NSURLConnection sendSynchronousRequest:req returningResponse:&res error:&err];
+		_rawResult	= (NSArray*)((NSD*)[NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:NULL])[@"RelatedTopics"];
+		self.results   = [_rawResult count] ? [_rawResult vFKP:@"Text"] : nil;
+
+
+	ASIHTTPRequest *requester = [ASIHTTPRequest.alloc initWithURL:];
+	[requester setCompletionBlock:^(ASIHTTPRequest *request) {
+
+		NSS *responsePage               = request.responseString.copy;
+		NSLog(@"got response: %@", responsePage);
+		if (!requestError) {
+//			NSS *desc                       =       [[p.head findChildWithAttribute:@"property" matchingName:@"og:description" allowPartial:YES]
+//														  getAttributeNamed:@"content"];
+		NSLog(@"found URL... %@", imageurl);
+		webI = [self imageFromURL:imageurl];
+
+//			urbanD = $DEFINE(title, desc);               ///rawContents.urlDecoded.decodeHTMLCharacterEntities);
+//			block(urbanD);
+		} else NSLog(@"response error on random web dl:%@", requestError);// urbanD = $DEFINE(@"undefined", @"no response from urban");
+
+	}];
+	[requester startAsynchronous];
+	return webI;
+*/
+
+
 + (NSIMG*) imageFromURL:(NSS*)url {
 	return  [NSImage.alloc initWithData: [NSData dataWithContentsOfURL: $URL(url)]];
 //	url =  [url doesContain:@"http://"] || [url doesContain:@"http://"] ? url : $(@"http://%@", url);
@@ -1051,16 +1230,16 @@ static NSOrderedDictionary  *monos = nil;
 - (NSC*) quantized { NSA* q = [self quantize];  return (q.count) ? q.first : CHECKERS; }
 - (NSA*) quantize
 {
-	self.size 					= NSMakeSize(32, 32);
+	self.size 							= NSMakeSize(32, 32);
 	NSBitmapImageRep *imageRep 	= [self bitmap];
 	[imageRep bitmapImageRepByConvertingToColorSpace:[NSColorSpace deviceRGBColorSpace]	renderingIntent:NSColorRenderingIntentDefault];
 
 	NSMA *catcher 				= [NSMA array];
-	NSBag *satchel 				= [NSBag bag];
+	NSBag *satchel 			= [NSBag bag];
 	NSI width, height;	 height = width = 32;				// 	[imageRep pixelsWide]; NSInteger height 	= 	[imageRep pixelsHigh];
 	for (int i = 0; i < width; i++) {
 		for (int j = 0; j < height; j++) {  				//	[self setColor:AGColorFromNSColor([imageRep colorAtX:i y:j])
-			NSC *thisPx 			= 		[imageRep colorAtX:i y:j];
+			NSC *thisPx = [imageRep colorAtX:i y:j];
 			[thisPx alphaComponent] == 0 ?: [satchel add:thisPx];
 		}
 	}
@@ -1069,7 +1248,6 @@ static NSOrderedDictionary  *monos = nil;
 		for (int s = 0; s < [satchel occurrencesOf:[satchel objects] [j]]; s++)
 			[catcher addObject:[satchel objects][j]];
 	}
-	//	}];
 	return catcher;
 
 }
@@ -1323,9 +1501,8 @@ static NSOrderedDictionary  *monos = nil;
 	NSSZ size = [self size];
 	int rowBytes = ((int)(ceil(size.width)) * 4 + 0x0000000F) & ~0x0000000F; // 16-byte aligned
 	int bps=8, spp=4, bpp=bps*spp;
-	
 	// NOTE: These settings affect how pixels are converted to NSColors
-	NSBitmapImageRep *imageRep = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:nil
+	NSBitmapImageRep *imageRep = [NSBitmapImageRep.alloc initWithBitmapDataPlanes:nil
 																		 pixelsWide:size.width
 																		 pixelsHigh:size.height
 																	  bitsPerSample:bps
@@ -1336,7 +1513,6 @@ static NSOrderedDictionary  *monos = nil;
 																	   bitmapFormat:NSAlphaFirstBitmapFormat
 																		bytesPerRow:rowBytes
 																	   bitsPerPixel:bpp];
-	
 	if (!imageRep) return nil;
 	
 	NSGraphicsContext* imageContext = [NSGraphicsContext graphicsContextWithBitmapImageRep:imageRep];
@@ -1347,6 +1523,72 @@ static NSOrderedDictionary  *monos = nil;
 	[NSGraphicsContext restoreGraphicsState];
 	
 	return imageRep;
+}
+
+- (NSBitmapImageRep*) bitmapBy:(CGF)x y:(CGF)y {
+
+
+
+	//creating the rectangle that defines the bounds of our bitmap image
+	NSRect offscreenRect = NSMakeRect(0.0, 0.0, x, y);
+	NSBitmapImageRep* offscreenRep = nil;
+	//creating the bitmap image
+	offscreenRep = [NSBIR.alloc initWithBitmapDataPlanes:nil
+														   pixelsWide:offscreenRect.size.width
+														   pixelsHigh:offscreenRect.size.height
+													   bitsPerSample:8
+													 samplesPerPixel:4
+													 		  hasAlpha:YES
+													 		  isPlanar:NO
+													  colorSpaceName:NSCalibratedRGBColorSpace
+														 bitmapFormat:0
+														  bytesPerRow:(4 * offscreenRect.size.width)
+														 bitsPerPixel:32];
+	[NSGC state:^{
+	//setting the current context to a bitmap context
+		[NSGC setCurrentContext:[NSGC graphicsContextWithBitmapImageRep:offscreenRep]];
+		[self drawInRect:offscreenRect];
+	}];
+	return offscreenRep;
+
+/*	//creating an NSImage setting whatever we drew above to be it's representation
+	NSImage *image = [[[NSImage alloc] init] autorelease];
+	[image addRepresentation:offscreenRep];
+
+	//this allows us to create an image thats content is transparent (see the 'fraction') parameter below
+	NSImage *dragImage = [[[NSImage alloc] initWithSize:[image size]] autorelease];
+	[dragImage lockFocus];
+	[image compositeToPoint:NSMakePoint(0, 0) operation:NSCompositeSourceOver fraction:0.5];
+	[dragImage unlockFocus];
+
+
+	// returns a 32-bit bitmap rep of the receiver, whatever its original format. The image rep is not added to the image.
+	NSSZ size = NSMakeSize(x, y);
+	int rowBytes = ((int)(ceil(size.width)) * 4 + 0x0000000F) & ~0x0000000F; // 16-byte aligned
+	int bps=8, spp=4, bpp=bps*spp;
+	// NOTE: These settings affect how pixels are converted to NSColors
+	NSBitmapImageRep *imageRep = [NSBitmapImageRep.alloc initWithBitmapDataPlanes:nil
+																		 pixelsWide:size.width
+																		 pixelsHigh:size.height
+																	  bitsPerSample:bps
+																	samplesPerPixel:spp
+																		   hasAlpha:YES
+																		   isPlanar:NO
+																	 colorSpaceName:NSCalibratedRGBColorSpace
+																	   bitmapFormat:NSAlphaFirstBitmapFormat
+																		bytesPerRow:rowBytes
+																	   bitsPerPixel:bpp];
+	if (!imageRep) return nil;
+	
+	NSGraphicsContext* imageContext = [NSGraphicsContext graphicsContextWithBitmapImageRep:imageRep];
+	
+	[NSGraphicsContext saveGraphicsState];
+	[NSGraphicsContext setCurrentContext:imageContext];
+	[self drawAtPoint:NSZeroPoint fromRect:NSZeroRect operation:NSCompositeCopy fraction:1.0];
+	[NSGraphicsContext restoreGraphicsState];
+	
+	return imageRep;
+	*/
 }
 
 - (CGImageRef) cgImage {
@@ -4155,3 +4397,86 @@ CGImageRef CreateCGImageFromData(NSData* data)
 }
 
 @end
+
+//
+//  NSImage+QuickLook.m
+//  QuickLookTest
+//
+//  Created by Matt Gemmell on 29/10/2007.
+//
+
+#import <QuickLook/QuickLook.h> // Remember to import the QuickLook framework into your project!
+
+@implementation NSImage (QuickLook)
+
+
++ (NSImage *)imageWithPreviewOfFileAtPath:(NSString *)path ofSize:(NSSize)size asIcon:(BOOL)asIcon {
+
+    NSURL *fileURL = [NSURL fileURLWithPath:path];
+    if (!path || !fileURL)      return nil;
+    NSDictionary *dict = @{(NSS*)kQLThumbnailOptionIconModeKey:@(asIcon)};
+	 CGImageRef ref = QLThumbnailImageCreate(kCFAllocatorDefault,
+                                            (__bridge CFURLRef)fileURL,
+                                            CGSizeMake(size.width, size.height),
+                                            (__bridge CFDictionaryRef)dict);
+    if (ref != NULL) {
+        // Take advantage of NSBitmapImageRep's -initWithCGImage: initializer, new in Leopard,
+        // which is a lot more efficient than copying pixel data into a brand new NSImage.
+        // Thanks to Troy Stephens @ Apple for pointing this new method out to me.
+        NSBitmapImageRep *bitmapImageRep = [[NSBitmapImageRep alloc] initWithCGImage:ref];
+        NSImage *newImage = nil;
+        if (bitmapImageRep) {
+            newImage = [NSImage.alloc initWithSize:[bitmapImageRep size]];
+            [newImage addRepresentation:bitmapImageRep];
+            [bitmapImageRep release];
+            if (newImage) return [newImage autorelease];
+        }
+        CFRelease(ref);
+    } else {
+        // If we couldn't get a Quick Look preview, fall back on the file's Finder icon.
+        NSImage *icon = [NSWorkspace.sharedWorkspace iconForFile:path];
+        if (icon) [icon setSize:size];
+        return icon;
+    }
+    return nil;
+}
+
+
+@end
+
+@implementation NSImage (Base64Encoding)
+
+NSS *kXML_Base64ReferenceAttribute = @"xlink:href=\"data:;base64,";
+
++ (NSIMG*)imageWithBase64EncodedString:(NSS*)inString	{	return [self.alloc initWithBase64EncodedString:inString];	}
+- (id) initWithBase64EncodedString:(NSS*)inBase64String	{	if (!inBase64String) return nil;
+
+	NSSize		tempSize = { 100, 100 };
+	NSData		*data = nil;
+	NSImageRep	*imageRep = nil;
+	if (!(self = [self initWithSize:tempSize])) return nil;
+	// Now, interpret the inBase64String.
+	return (data = [NSData dataWithBase64String:inBase64String]) ?
+		// Create an image representation from the data.
+		(imageRep = [NSBitmapImageRep imageRepWithData:data]) ?
+		// Set the real size of the image and add the representation.
+		[self setSize:imageRep.size], [self addRepresentation:imageRep], self : nil : nil;
+}
+- (NSString *)base64EncodingWithFileType:(NSBitmapImageFileType)inFileType	{
+	__block NSBitmapImageRep	*imageRep = nil;	NSData *t_filetype_data = nil;
+	// Look for an existing representation in the NSBitmapImageRep class.
+	[self.representations enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+		imageRep = [obj isKindOfClass:NSBitmapImageRep.class] ? obj : imageRep;
+		if (imageRep) *stop = YES;
+	}];
+	imageRep = imageRep ?: [NSBitmapImageRep imageRepWithData:self.TIFFRepresentation];
+	// Need to make a NSBitmapImageRep for so we can get whatever the caller wants later.
+	imageRep ? [self addRepresentation:imageRep] : nil;
+	// Get the image data as whatever type the caller wants.
+	t_filetype_data = imageRep ? [imageRep representationUsingType:inFileType properties:@{NSImageInterlaced :@NO}] : t_filetype_data;
+	// Now, convert the t_filetype_data into Base64 encoding.
+	return t_filetype_data ? [t_filetype_data base64String] : nil;// base64EncodingWithLineLength:120] : nil;
+}
+
+@end
+

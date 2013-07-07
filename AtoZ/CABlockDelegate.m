@@ -38,13 +38,13 @@ JROptionsDefine(NSOVBlockDelegate);
 	d.ov = v;			d.block = [block copy];
 	d.blockType = type;		return d;
 }
-- (void)outlineView:(NSOV*)v willDisplayOutlineCell:(id)c forTableColumn:(NSTC*)tc item:(id)x {
+- (void) outlineView:(NSOV*)v willDisplayOutlineCell:(id)c forTableColumn:(NSTC*)tc item:(id)x {
 // Approach 1 - Just replace the triangle images with other images. (This requires the image to be the same size as the triangle)
 	if (_disclosureImage) [c setImage:_disclosureImage(c, tc, x)];
 //Approach 2 -First, hide the triangle completely.
 	//if (item)[cell setTransparent:YES];
 } 
-- (void)outlineView:(NSOV*)v willDisplayCell:(id)c forTableColumn:(NSTC*)tc item:(id)x 	{
+- (void) outlineView:(NSOV*)v willDisplayCell:(id)c forTableColumn:(NSTC*)tc item:(id)x 	{
 //Now we use the non-outline delegate method to set up a button cell to do the expand and collapse for the row.
 
 	if ([tc.identifier isEqualToString:@"outline"]) { //use the appropriate identifier for you column
@@ -56,10 +56,13 @@ JROptionsDefine(NSOVBlockDelegate);
 	} else 
 		[c setImage:[NSImage imageNamed:@"unexpandable"]];
 }
-- (void) setToggleActionForItem:(id)item block:(outlineViewToggleItemAction)itemBlock	{
+- (BOOL) outlineView:(NSOV*)v isGroupItem:(id)x {
+	return YES;
+}
+- (void) setToggleActionForItem:(id)item block:(OVTOGA)itemBlock	{
 	self.toggleActionReference[(id)item] = [itemBlock copy];
 }
-- (void)toggleItem:(id)sender {
+- (void) toggleItem:(id)sender {
 
 	id item = [_ov itemAtRow:_ov.selectedRow];
 	if ([_ov isItemExpanded:item])
@@ -104,24 +107,27 @@ static NSMD *delegations = nil;
 	if 	   ( layer.delegate != nil 			&&		(type == CABlockTypeDrawBlock   ||  
 				 type == CABlockTypeAniComplete 	||    type == CABlockTypeLayerAction  ))
 				NSLog(@"ERROR*****  Reluctantly willing to override layer (%@)'s previous delegate: %@!", layer, layer.delegate);
-	if 		(type == CABlockTypeDrawBlock		) [n setDrawBlock:			[block copy]];
-	else if 	(type == CABlockTypeAniComplete	) [n setAniComplete: 		[block copy]];
-	else if 	(type == CABlockTypeLayerAction	) [n setLayerActionBlock:	[block copy]];
-	else if 	(type == CABlockTypeLayoutBlock	) [n setLayoutBlock:			[block copy]];
-	else if 	(type == CABlockTypeKVOChange		) [n setKvoBlock:				[block copy]];
-	if 		(type == CABlockTypeDrawBlock		) [layer sV:n fK:@"CABlockTypeDrawBlock"];
-	else if 	(type == CABlockTypeAniComplete	) [layer sV:n fK:@"CABlockTypeAniComplete"];
-	else if 	(type == CABlockTypeLayerAction	) [layer sV:n fK:@"CABlockTypeLayerAction"];
-	else if 	(type == CABlockTypeLayoutBlock	) [layer sV:n fK:@"CABlockTypeLayoutBlock"];
-	else if 	(type == CABlockTypeKVOChange		) [layer sV:n fK:@"CABlockTypeKVOChange"	];
+	if 		(type == CABlockTypeDrawBlock		) [n setDrawBlock:					[block copy]];
+	else if 	(type == CABlockTypeDrawInContext) [n setDrawInContextBlk:			[block copy]];
+	else if 	(type == CABlockTypeAniComplete	) [n setAniComplete: 				[block copy]];
+	else if 	(type == CABlockTypeLayerAction	) [n setLayerActionBlock:			[block copy]];
+	else if 	(type == CABlockTypeLayoutBlock	) [n setLayoutBlock:					[block copy]];
+	else if 	(type == CABlockTypeKVOChange		) [n setKvoObserverBlock:  		[block copy]];
+	if 		(type == CABlockTypeDrawBlock		) [layer sV:n fK:@"CABlockTypeDrawBlock"		];
+	else if 	(type == CABlockTypeDrawInContext) [layer sV:n fK:@"CABlockTypeDrawInContext"	];
+	else if 	(type == CABlockTypeAniComplete	) [layer sV:n fK:@"CABlockTypeAniComplete"	];
+	else if 	(type == CABlockTypeLayerAction	) [layer sV:n fK:@"CABlockTypeLayerAction"	];
+	else if 	(type == CABlockTypeLayoutBlock	) [layer sV:n fK:@"CABlockTypeLayoutBlock"	];
+	else if 	(type == CABlockTypeKVOChange		) [layer sV:n fK:@"CABlockTypeKVOChange"		];
 	if 		(type == CABlockTypeDrawBlock  	||
-				 type == CABlockTypeAniComplete 	|| 
+				type == CABlockTypeDrawInContext	||
+				 type == CABlockTypeAniComplete 	||
 				 type == CABlockTypeLayerAction	) 	{ 	layer.delegate = n; [layer setNeedsDisplay];
 																	NSAssert(layer.delegate != nil, @"nil");	}
 	else if 	(type == CABlockTypeLayoutBlock	)	{	layer.layoutManager = n; [layer setNeedsLayout];	}
 	else if 	(type == CABlockTypeKVOChange		)	{
 		[layer az_overrideSelector:@selector(didChangeValueForKey:) withBlock:(__bridge void *)^(id _self, NSS*k){
-			n.kvoBlock(layer, k);
+			n.kvoObserverBlock(layer, k);
 //			SEL sel = @selector(didChangeValueForKey:);	void (*superIMP)(id, SEL, NSS*) = [_self az_superForSelector:sel];
 //																			    superIMP(_self, sel, k);
 		}];
@@ -131,10 +137,14 @@ static NSMD *delegations = nil;
 
 - (void) drawLayer:(CALayer*)l inContext:(CGContextRef)x 	{ //AZLOGCMD;
 
+	if (_drawInContextBlk) [NSGC drawInContext:x flipped:NO actions:^{
+		_drawInContextBlk(l);
+	}];
+	else if (_drawBlock) _drawBlock(l,x);
+
 //	[delegations fi  :[l vFK:@"CABlockTypeDrawBlock"]];
 //	NSA* drawers = [delegations valueForKeyPath:@"drawBlock"];
 //	NSLog(@"drawers: %@", [delegations valueForKeyPath:@"propertyNames"]);
-	if (_drawBlock) _drawBlock(l,x);
 //	[drawers each:^(id sender) { sender ? ((drawBlock)sender)(l,x) : nil;	}];
 }
 	
@@ -147,7 +157,7 @@ AZLOGCMD; _layoutBlock ? self.layoutBlock	(layer) 					: nil;
 					  finished:				(BOOL)flag 					{ AZLOGCMD;
 
 	NSLog(@"Block delagate, reporting for duty. Type: %@", CABlockTypeToString(CABlockTypeAniComplete));
-   _aniComplete ? self.aniComplete	(flag, theAnimation) : nil; 	
+   _aniComplete ? _aniComplete	(flag, theAnimation) : nil;
 
 //	[[delegations valueForKeyPath:@"aniComplete"] each:^(id sender) { sender ? ((aniComplete)sender)(flag, theAnimation) : nil;	}];
 				  
@@ -157,6 +167,17 @@ AZLOGCMD; _layoutBlock ? self.layoutBlock	(layer) 					: nil;
 }
 
 @end
+
+
+@implementation CALayer (BlockDrawLayer)
++ (CAL*) layerWithFrame:(NSR)f drawnUsingBlock:(void(^)(CAL*))drawBlock {
+	CAL *l = [self.class.alloc init];
+	l.frame = f;
+	[CABlockDelegate delegateFor:l ofType:CABlockTypeDrawInContext withBlock:drawBlock];
+	return l;
+}
+@end
+
 
 #pragma mark - CALayer Animation Delegate
 
@@ -374,5 +395,80 @@ AZLOGCMD; _layoutBlock ? self.layoutBlock	(layer) 					: nil;
 }
 @end
  */
+
+
+
+
+@interface CAAnimationDelegate ()
+@property (strong)  NSS * kp;
+@property (strong) 	id   tV;
+@end
+
+@implementation CAAnimationDelegate	static 	NSMD* referenceDic;		SYNTHESIZE_SINGLETON_FOR_CLASS(CAAnimationDelegate, sharedDelegator);
+
++ (instancetype) delegate:(CAA*)a forLayer:(CAL*)l 		{
+	CAAnimationDelegate*d = self.new;
+	d.layer = l;
+	d.ani = a;
+//	if ([a vFK:@"keyPath"]) [d sV:[a vFK:@"keyPath"] fK:@"kp"];
+	[d.ani setDelegate:d];
+	[d.ani sV:d fK:@"aniDelegate"];
+	return d;
+}
+- 	 (id) init															{	return self = super.init ? _andSet=YES,_completion=nil, _start=nil,self : nil;	}
+- (void) animationDidStart:(CAA*)anim							{
+	_start ? _start() : nil;
+	_startWithInfo ? _startWithInfo(self) : nil;
+	if (_andSet) {
+
+		NSS* kP = [anim vFK: @"keyPath"];
+		id val = [anim vFK:@"toValue"];
+		if (!_layer || !kP || !val) return NSLog(@"warning, couldnt set value");
+		[[_layer modelCALayer] sV:val fK:kP];
+		NSLog(@"delegated start of animation on %@ with KP:%@",_layer, kP);
+	}
+}
+- (void) animationDidStop:(CAA*)anim finished:(BOOL)flag	{
+	_completion ? _completion() : nil;
+	_completionWithInfo ? _completionWithInfo(self) : nil;
+//	if (self.layer && [anim vFK:@"toValue"])
+//		{
+//			id aToVal = ((CABA*)anim).toValue;
+//			NSS* kp = ((CAPropertyAnimation*)anim).keyPath;
+//			[[anim.layer modelCALayer] setValue:aToVal forKey:kp];
+//		}
+}
+@end
+
+@implementation CAAnimation (BlocksAddition)
+- (CAL*) layer 														{ return [self valueForKey:@"_layer"]; }
+- (void) setLayer:(CAL*)l 											{ [self setValue:l forKey:@"_layer"]; }
+- (void) setCompletion:(CAABCOMPINFO)comp forLayer:(CAL*)l 	{
+
+	CAAnimationDelegate *s =	[CAAnimationDelegate delegate:self forLayer:l];
+	s.completionWithInfo = comp;
+}
+- (void) setCompletion:(CAABCOMPINFO)comp							{
+
+	[self.delegate isKindOfClass:CAAnimationDelegate.class] ? [((CAAnimationDelegate *)self.delegate) setCompletionWithInfo:comp] : ^{
+		CAAnimationDelegate *delegate = [CAAnimationDelegate delegate:self forLayer:nil];	delegate.completionWithInfo = comp;	 } ();
+}
+- (CAABCOMPINFO) completion 											{
+	return [self.delegate isKindOfClass:[CAAnimationDelegate class]]? ((CAAnimationDelegate *)self.delegate).completionWithInfo: nil;
+}
+- (void)setStart:(CAABSTRTINFO)start								{
+	if ([self.delegate isKindOfClass:[CAAnimationDelegate class]])
+		((CAAnimationDelegate *)self.delegate).startWithInfo = start;
+	
+	else {
+		CAAnimationDelegate *delegate = [CAAnimationDelegate delegate:self forLayer:nil];
+		delegate.startWithInfo = start;
+	}
+}
+- (CAABSTRTINFO)start 													{
+	return [self.delegate isKindOfClass:[CAAnimationDelegate class]]? ((CAAnimationDelegate *)self.delegate).startWithInfo: nil;
+}
+
+@end
 
 

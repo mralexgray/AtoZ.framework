@@ -7,21 +7,48 @@
 //
 
 #import "HTMLNode.h"
-#import <libxml/HTMLtree.h>
+//#import <libxml/HTMLtree.h>
+#import <libxml/HTMLparser.h>
+#import <libxml/parser.h>
+//#import "libxml/parser.h"
+//#import <libxml/parser.h>/usr/include/libxml2/**
+//#import "/usr/include/libxml2/libxml/HTMLParser.h"//<libxml/HTMLparser.h>
+
+//@class HTMLParser;
+
+@interface  HTMLNode ()
+
+//Init with a lib xml node (shouldn't need to be called manually)
+//Use [parser doc] to get the root Node
+//-(id)initWithXMLNode:(xmlNode*)xmlNode;
+@end
+
+//C functions for minor performance increase in tight loops
+NSString * getAttributeNamed(xmlNode * node, const char * nameStr);
+void setAttributeNamed(xmlNode * node, const char * nameStr, const char * value);
+HTMLNodeType nodeType(xmlNode* node);
+NSString * allNodeContents(xmlNode*node);
+NSString * rawContentsOfNode(xmlNode * node);
+
 
 @implementation HTMLNode
+{
+xmlNode *_node;
+}
+//@public
+
 
 -(HTMLNode*)parent
 {
-	return [[[HTMLNode alloc] initWithXMLNode:_node->parent] autorelease];	
+	return [[[HTMLNode alloc] initWithXMLNode:(id)_node->parent] autorelease];
 }
 
 -(HTMLNode*)nextSibling {
-	return [[[HTMLNode alloc] initWithXMLNode:_node->next] autorelease];
+	return [[[HTMLNode alloc] initWithXMLNode:(id)_node->next] autorelease];
 }
 
 -(HTMLNode*)previousSibling {
-	return [[[HTMLNode alloc] initWithXMLNode:_node->prev] autorelease];	
+	return [[[HTMLNode alloc] initWithXMLNode:(id)_node->prev] autorelease];	
 }
 
 void setAttributeNamed(xmlNode * node, const char * nameStr, const char * value) {
@@ -86,7 +113,7 @@ NSString * getAttributeNamed(xmlNode * node, const char * nameStr)
 
 -(HTMLNode*)firstChild
 {
-	return [[[HTMLNode alloc] initWithXMLNode:_node->children] autorelease];	
+	return [[[HTMLNode alloc] initWithXMLNode:(xmlNode*)_node->children] autorelease];
 }
 
 
@@ -115,7 +142,7 @@ NSString * getAttributeNamed(xmlNode * node, const char * nameStr)
 					if (match)
 					{
 						//Found node
-						HTMLNode * nNode = [[[HTMLNode alloc] initWithXMLNode:cur_node] autorelease];
+						HTMLNode * nNode = [[[HTMLNode alloc] initWithXMLNode:(id)cur_node] autorelease];
 						[array addObject:nNode];
 						break;
 					}
@@ -141,7 +168,7 @@ NSString * getAttributeNamed(xmlNode * node, const char * nameStr)
 	{				
 		if (cur_node->name && strcmp((char*)cur_node->name, tagNameStr) == 0)
 		{
-			HTMLNode * node = [[[HTMLNode alloc] initWithXMLNode:cur_node] autorelease];
+			HTMLNode * node = [[[HTMLNode alloc] initWithXMLNode:(id)cur_node] autorelease];
 			[array addObject:node];
 			
 		}
@@ -169,7 +196,7 @@ NSString * getAttributeNamed(xmlNode * node, const char * nameStr)
 	{				
 		if (cur_node && cur_node->name && strcmp((char*)cur_node->name, tagNameStr) == 0)
 		{
-			return [[[HTMLNode alloc] initWithXMLNode:cur_node] autorelease];
+			return [[[HTMLNode alloc] initWithXMLNode:(id)cur_node] autorelease];
 		}
 		
 		HTMLNode * cNode = [self findChildTag:tagName inXMLNode:cur_node->children];
@@ -195,7 +222,7 @@ NSString * getAttributeNamed(xmlNode * node, const char * nameStr)
 
 	for (cur_node = _node->children; cur_node; cur_node = cur_node->next) 
 	{	
-		HTMLNode * node = [[[HTMLNode alloc] initWithXMLNode:cur_node] autorelease];
+		HTMLNode * node = [[[HTMLNode alloc] initWithXMLNode:(id)cur_node] autorelease];
 		[array addObject:node];
 	}
 	
@@ -243,7 +270,7 @@ NSString * getAttributeNamed(xmlNode * node, const char * nameStr)
 					
 					if (match)
 					{					
-						return [[[HTMLNode alloc] initWithXMLNode:cur_node] autorelease];
+						return [[[HTMLNode alloc] initWithXMLNode:(id)cur_node] autorelease];
 					}
 				}
 				break;
@@ -286,12 +313,9 @@ NSString * getAttributeNamed(xmlNode * node, const char * nameStr)
 	return [self findChildrenWithAttribute:@"class" matchingName:className allowPartial:NO];
 }
 
--(id)initWithXMLNode:(xmlNode*)xmlNode
-{
-	if (self = [super init])
-	{
-		_node = xmlNode;
-	}
+-(id)initWithXMLNode:(xmlNode*)xmlNode	{
+	if (self != super.init ) return nil;
+	_node = xmlNode;
 	return self;
 }
 

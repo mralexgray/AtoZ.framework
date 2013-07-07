@@ -1,3 +1,23 @@
+//
+//  main.m
+//  usernotification
+//
+//    (The WTFPL)
+//
+//    DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+//    Version 2, December 2004
+//
+//    Copyright (C) 2013 Norio Nomura
+//
+//    Everyone is permitted to copy and distribute verbatim or modified
+//    copies of this license document, and changing it is allowed as long
+//    as the name is changed.
+//
+//    DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+//    TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
+//
+//    0. You just DO WHAT THE FUCK YOU WANT TO.
+//
 /*
 
 NOTES:
@@ -81,6 +101,7 @@ AZWORKSPACE:
 //#import <AIUtilities/AIUtilities.h>
 #import "AZObserversAndBinders.h"
 #import "extobjc_OSX/extobjc.h"
+#import "AtoZAutoBox/AtoZAutoBox.h"
 
 #import "JREnum.h"
 #import "objswitch.h"
@@ -244,6 +265,8 @@ AZWORKSPACE:
 #import "AZWeakCollections.h"
 #import "AZXMLWriter.h"
 #import "AZHTMLParser.h"
+#import "AZGoogleImages.h"
+#import "AZMacTrackBall.h"
 
 
 /*	COLOR AND IMAGE CLASSES */
@@ -317,7 +340,7 @@ AZWORKSPACE:
 
 #import "AtoZWebSnapper.h"
 #import "AZURLSnapshot.h"
-//#import "HTMLNode.h"
+#import "HTMLNode.h"
 
 // Views
 #import "AtoZInfinity.h"
@@ -420,6 +443,15 @@ extern NSString *const AtoZDockSortedUpdated;
 #define TestVarArgs(fmt...) [AtoZ sendArrayTo:$SEL(@"testVarargs:") inClass:AtoZ.class withVarargs:fmt]
 #define TestVarArgBlock(fmt...) [AtoZ  varargBlock:^(NSA*values) { [values eachWithIndex:^(id obj, NSInteger idx) {  printf("VARARG #%d:  %s <%s>\n", (int)idx, [obj stringValue].UTF8String, NSStringFromClass([obj class]).UTF8String); }]; } withVarargs:fmt]
 
+
+// extobjc EXTENSIONS
+
+//#define synthesizeAssociations(...) ({ int x = metamacro_argcount(__VA_ARGS__); metamacro_tail( 
+//int sum = firstNum, number;   va_start (args, firstNum);
+//    while (1) if (!(number = va_arg (args, int))) break; else sum += number;
+//    va_end (args);   return (sum);
+
+
 @interface AtoZ : BaseModel <DDLogFormatter>
 {
 
@@ -468,8 +500,13 @@ extern NSString *const AtoZDockSortedUpdated;
 +  (void) playNotificationSound: (NSD*)apsDictionary;
 +  (void) badgeApplicationIcon:  (NSS*)string;
 +  (void) testVarargs: (NSA*)args;
-+  (void) varargBlock: (AZVA_ArrayBlock)block withVarargs:(id)varargs, ...;
-+  (void) sendArrayTo: (SEL)method inClass:(Class)klass withVarargs:(id)varargs, ...;
+
+
+/* USAGE:	AZVA_ArrayBlock varargB = ^(NSA* enumerator){ NSLog(@"what a value!: %@", enumerator); };
+				[AtoZ varargBlock:varargB withVarargs:@"vageen",@2, GREEN, nil];
+*/
++  (void) varargBlock: (void(^)(NSA*enumerator))block withVarargs:(id)varargs, ... NS_REQUIRES_NIL_TERMINATION;
++  (void) sendArrayTo: (SEL)method inClass:(Class)klass withVarargs:(id)varargs, ... NS_REQUIRES_NIL_TERMINATION;
 -  (void) performBlock:(VoidBlock)block waitUntilDone:(BOOL)wait;
 - (NSJS*) jsonRequest: (NSString*) url;
 + (NSJS*) jsonRequest: (NSString*) url;

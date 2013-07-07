@@ -14,6 +14,7 @@ JREnumDeclare(AZeColor, AZeColoraliceblue, AZeColorantiquewhite, AZeColoraqua, A
 @end
 @interface NSColor (AtoZ)
 
+
 +   (id) colorWithHTMLString:(NSS*)str defaultColor:(NSC*)d;
 + (NSC*)	colorWithHTMLString:(NSS*)hex;
 + (NSD*) colorNamesDictionary;
@@ -22,6 +23,7 @@ JREnumDeclare(AZeColor, AZeColoraliceblue, AZeColorantiquewhite, AZeColoraqua, A
 								isExciting,
 								isBright,
 								isDark;
+@property (RONLY)	NSG * gradient;
 @property (RONLY)	CGCR 	cgColor;
 @property (RDWRT)	NSS *	nameOfColor;
 @property (RONLY)	NSS * crayonName;

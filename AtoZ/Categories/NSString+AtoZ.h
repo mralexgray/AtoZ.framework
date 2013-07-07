@@ -96,7 +96,8 @@
 
 - (NSS*)	substringToLastCharacter;
 - (NSN*) numberValue;
-- (NSS*) firstLetter;
+
+AZPROPERTY(NSS, RONLY, *firstLetter, *lastLetter);
 
 - (NSSZ)sizeWithFont:(NSFont *)font;
 - (NSSZ)sizeWithFont:(NSFont *)font margin:(NSSZ)size;

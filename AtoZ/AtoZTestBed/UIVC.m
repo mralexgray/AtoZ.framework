@@ -4,15 +4,15 @@
 //
 //  Created by Alex Gray on 11/16/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-//
-
-#import "UIVC.h"
-//@interface	AZNode : NSObject	
-//@property (strong) id value, key, expanded; 
-//@property (strong,nonatomic) NSMutableArray * children;	
+//@interface	AZNode : NSObject
+//@property (strong) id value, key, expanded;
+//@property (strong,nonatomic) NSMutableArray * children;
 //@end
 //@implementation AZNode - (NSMutableArray*)children	{ return _children = _children ?: NSMutableArray.new; }	@end
 
+//
+
+#import "UIVC.h"
 @implementation UIVC
 
 
@@ -23,7 +23,9 @@
 	  return [c.identifier isEqualToString:@"value"] ? ((AZNode*)x).numberOfChildren ? nil 
 		/* returns child count in "Value", ie. columns 2, or nil, for root, akak "key" columns" */												  : ((AZNode*)x).value:((AZNode*)x).key;
 }
-- 				(BOOL) outlineView:(NSOutlineView*)v 			 		  isGroupItem:(id)x 	{ return [(AZNode*)x value] == nil; /* if value is nil, it must be a key, aka a root */ }
+- 				(BOOL) outlineView:(NSOutlineView*)v 			 		  isGroupItem:(id)x 	{ if (!x) return YES; [x log];
+	NSUI childrenses = (AZNODEPRO x).numberOfChildren; LOG_EXPR(childrenses);
+	return (childrenses != 0); /* if value is nil, it must be a key, aka a root */ }
 -           (BOOL) outlineView:(NSOutlineView*)v 		      isItemExpandable:(id)x	{ return !x ?: [[x children]count];	/* root items (nil) exp., also if there are childrenseses */ }
 -      (NSInteger) outlineView:(NSOutlineView*)v      numberOfChildrenOfItem:(id)x	{ NSInteger ct = !x ? 1 : [[x children]count];	
 																																				  return NSLog(@"Item: %@ children ct: %ld", x, ct),ct;
@@ -39,9 +41,9 @@
 	NSMutableArray *_allKeywords, *_allReplacements, *_allCats;	
 	_allKeywords = NSMutableArray.new; _allReplacements = NSMutableArray.new; _allCats = NSMutableArray.new;
 	return [self.expansions enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-		[_root.children addObject:cat = AZNode.new]; cat.key = key;  [_allCats addObject:key];
+		[_root addChild:cat = AZNode.new]; cat.key = key;  [_allCats addObject:key];
 		[obj enumerateKeysAndObjectsUsingBlock:^(NSString *macro,NSString *expansion, BOOL*s){ 
-			[cat.children 		addObject:def = AZNode.new]; 
+			[cat addChild:def = AZNode.new];
 			[_allKeywords 		addObject:def.key = macro]; 
 			[_allReplacements addObject:def.value = expansion];	
 		}];

@@ -23,12 +23,15 @@ int main(int argc, const char * argv[])		{	@autoreleasepool {
 		[appMenu addItem:[NSMenuItem.alloc initWithTitle:quitString action:@selector(terminate:) keyEquivalent:@"q"]];
 		[NSApp setDelegate:v];
 	};
-//	if (PINFO.arguments.count > 1) {
-		setUpApp(); 
+	if (PINFO.arguments.count > 1) {
+		[v saveKeyPairsWithSeperator:nil toFile:@"/Users/localadmin/.st2_multiple_find_replace_alt"];
+	}
+	else {
+		setUpApp();
 		if ([v generatedHeader].outdated) [v saveGeneratedHeader];
 		playTrumpet();
 		[NSApp run];
-//	}
+	}
 //	else [v hasFileChanged] ? [v setHeaderOutdated:YES] :nil;
 
 }

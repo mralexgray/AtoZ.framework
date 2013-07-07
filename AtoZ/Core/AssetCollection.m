@@ -25,7 +25,7 @@ NSString * const assetTagName[] = {  @"script",@"style",@"div",@"php",@"sh",@"m"
 - (AssetType)assetFromString
 {
 	static NSD *types = nil;		if (!types) types =
-		@{	@"js" : @(JS), @"html"	: @(HTML), 	@"css"	: @(CSS),	@"php" : @(PHP), 	@"sh" : @(BASH),		@"m"  	: @(ObjC),	@"txt"	: @(TXT),	@"n/a" :@(UNKNOWN) };
+		@{	@"js" : @(JS), @"html"	: @(HTML5), 	@"css"	: @(CSS),	@"php" : @(PHP), 	@"sh" : @(BASH),		@"m"  	: @(ObjC),	@"txt"	: @(TXT),	@"n/a" :@(UNKNOWN) };
 	return (AssetType)[types[self] intValue];
 }
 - (NSS*)wrapInHTML { return $(@"<html><title></title>%@", self); }

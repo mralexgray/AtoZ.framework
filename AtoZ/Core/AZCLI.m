@@ -105,8 +105,8 @@ typedef id(^eval)(id blockArgs, ...);
 	return [[menus objectsAtIndexes:toPrint] reduce:@"" withBlock:^NSS*(NSS* outString, AZCLIMenu* m){  	// kist print "toPrint" indexes.
 		  NSUI maxlen 		= ceil([[m.defaultCollection vFKP:@"display"] lengthOfLongestMemberString] * 1);		// deduce longest string
 		  NSUI cols 		= floor(120.f/(float) maxlen);																		// accomodate appropriate number of cols.
-__block NSUI i 			= ((AZCLIMenuItem*)m.defaultCollection[0]).index - 1;											// ascertain first index.
-	  	  NSUI maxIndex	= $(@"%lu: ", i + [m.defaultCollection count]).length; 										// make sure numbers fit nice
+__block NSUI i 			= ((AZCLIMenuItem*)((NSA*)[m defaultCollection])[0]).index - 1;											// ascertain first index.
+	  	  NSUI maxIndex	= $(@"%lu: ", i + [[m defaultCollection] count]).length; 										// make sure numbers fit nice
 		return outString 	= [[outString withString:zNL] withString:
 								  [m.defaultCollection reduce:@"" withBlock:^id(id sum, AZCLIMenuItem* obj){ i++; NSS*outP; // Allow goruped indexes.
 			return  ( outP = [[(i % cols) == 0 ? @"\n" : @"" withString: [$(@"%lu: ", i) paddedTo:maxIndex]]withString: // pad index
@@ -127,8 +127,8 @@ __block NSUI i 			= ((AZCLIMenuItem*)m.defaultCollection[0]).index - 1;									
 						  palette:(id)p 			{
 //							 input:(TINP)blk 	{
 							 AZCLIMenu *m = self.instance; 	if(!menus) [self hardReset];
-	m.defaultCollection = [items nmap:^id(NSS* obj, NSUI  index) {
-		return [AZCLIMenuItem cliMenuItem:obj index:idx + index color:[p normal:index]]; }];  //action:(VoidBlock)blk];}];
+	[(NSMA*)[m defaultCollection] addObjectsFromArray:[items nmap:^id(NSS* obj, NSUI  index) {
+		return [AZCLIMenuItem cliMenuItem:obj index:idx + index color:[p normal:index]]; }]];  //action:(VoidBlock)blk];}];
 //	[NSTerminal addInputBlock:blk];
 		[menus addObject:m]; [toPrint addIndex:[menus indexOfObject:m]]; return m;
 
@@ -362,8 +362,8 @@ AZOutsideEdgeOfRectInRect(window.frame, f);
 		[appMenu  addItem:[NSMI.alloc initWithTitle:[@"Quit " withString:AZPROCNAME]
 														 action:NSSelectorFromString(@"terminate:") keyEquivalent:@"q"]];
 		[appMenuItem setSubmenu:appMenu];
-		menubar.isDark = YES; 
-		appMenu.isDark = YES;
+		menubar.dark = YES;
+		appMenu.dark = YES;
 		NSW* window = [NSW.alloc initWithContentRect:AZRectFromDim(200) styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO];
 		[window cascadeTopLeftFromPoint:NSMakePoint(20,20)];
 		[window setTitle:AZPROCNAME]; window.backgroundColor = CLEAR;

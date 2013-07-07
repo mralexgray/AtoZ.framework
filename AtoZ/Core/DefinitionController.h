@@ -36,5 +36,6 @@
 @property(strong) IBOutlet AZFactoryView * view;
 
 - (BOOL) saveGeneratedHeader;
+- (void) saveKeyPairsWithSeperator:(NSS*)sep toFile:(NSS*)path;
 
 @end

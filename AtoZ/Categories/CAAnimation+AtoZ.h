@@ -2,8 +2,7 @@
 //  AtoZ
 
 #import <QuartzCore/QuartzCore.h>
-
-
+#import "CABlockDelegate.h"
 
 @interface CAAnimationGroup (oneLine)
 + (CAAnimationGroup*) groupWithAnimations:(NSA*)anis duration:(NSTI)ti andSet:(CAL*)layer;
@@ -32,27 +31,7 @@ typedef void (^AZCAAnimationCompletionBlock)();
 //	[CATransaction setValue:@(YES) forKey:kCATransactionDisableActions];
 //}
 
-@interface CAAnimationDelegate : NSObject
-+ (instancetype) delegate:(CAA*)a forLayer:(CAL*)l;
-@property BOOL andSet; // defaults to yes
-@property (weak) CAA* ani;
-@property (weak) CAL* layer;
-@property (nonatomic, copy) void (^completionWithInfo)(CAAnimationDelegate*delegate);
-@property (nonatomic, copy) void (^startWithInfo)(CAAnimationDelegate *delegate);
-@property (nonatomic, copy) void (^completion)(void);
-@property (nonatomic, copy) void (^start)(void);
-- (void)animationDidStart:(CAAnimation *)anim;
-- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag;
-@end
 
-@interface CAAnimation (BlocksAddition)
-
-@property (nonatomic, copy) void (^completion)();
-@property (nonatomic, copy) void (^start)();
-
-//- (void)setCompletion:(void (^)(CAA* a, BOOL finished))completion; // Forces auto-complete of setCompletion: to add the name 'finished' in the block parameter
-
-@end
 extern void disableCA();
 @interface CAKeyframeAnimation (JumpingAndShaking)
 + (CAKA*) shakeAnimation:(NSR)frame;
@@ -72,7 +51,7 @@ extern void disableCA();
 + (CAA*)  randomPathAnimationWithStartingPoint:(CGP)firstPoint inFrame:(NSR)rect;
 + (CAA*)  randomPathAnimationInFrame:(NSR) frame;
 
-+ (CAKA*)	 popInAnimation;
++ (CAKA*) popInAnimation;
 + (CAAG*) shrinkAnimationAtPoint: (CGP)p;
 + (CAAG*) blowupAnimationAtPoint: (CGP)p;
 

@@ -242,3 +242,10 @@
 	path = Frameworks/CTObjectiveCRuntimeAdditions
 	url = https://github.com/mralexgray/CTObjectiveCRuntimeAdditions.git
 	ignore = dirty
+[submodule "AtoZ/AtoZAutoBox"]
+	path = AtoZ/AtoZAutoBox
+	url = https://github.com/mralexgray/AtoZAutoBox.git
+	ignore = dirty
+[submodule "Frameworks/Kiwi"]
+	path = Frameworks/Kiwi
+	url = https://github.com/mralexgray/Kiwi.git

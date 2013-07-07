@@ -102,7 +102,9 @@
 		NSSCRLV *sv 	= [[NSSCRLV alloc]initWithFrame:_targetView.bounds];
  		sv.autoresizingMask = NSSIZEABLE;
 
-		NSIMG* i	= [NSImage contactSheetWith:[NSIMG monoIcons] inFrame:_targetView.bounds columns:12];
+//		NSIMG* i	= [NSImage contactSheetWith:[NSIMG monoIcons] inFrame:_targetView.bounds columns:12];
+		NSIMG* i	= [NSImage contactSheetWith:[NSIMG monoIcons] inFrame:_targetView.bounds];
+
 		NSIV *iv  	= [[NSIV alloc]initWithFrame:AZRectFromSize(i.size)];
 		iv.image 	= i;
 		sv.hasVerticalScroller = YES;

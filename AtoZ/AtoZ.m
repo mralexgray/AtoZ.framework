@@ -129,8 +129,10 @@ NSOQ *AZSharedSingleOperationQueue()	{	return AZDummy.sharedInstance.sharedSQ; }
 }
 
 
-//+ (void) load							{	globalRandoPalette = NSC.randomPalette.shuffeled; }
-//+ (void) initialize 					{//												[@"AtoZ.framework Version:%@ Initialized!" log:[self version], nil];	
++ (void) load							{			int res;	setenv("XCODE_COLORS", "YES", &res); }
+
+//globalRandoPalette = NSC.randomPalette.shuffeled; }
+//+ (void) initialize 					{//												[@"AtoZ.framework Version:%@ Initialized!" log:[self version], nil];
 //}
 - (void) setUp 						{
 	[AZStopwatch named:@"AtoZ.framework Instanciate!" block:^{
@@ -386,7 +388,7 @@ static void soundCompleted(SystemSoundID soundFileObject, void *clientData)			{ 
 
 }
 +  (void) testVarargs:(NSA*)args 																	{		[args eachWithIndex:^(id obj, NSInteger idx) {  printf("%d:  %s", (int)idx, [obj stringValue].UTF8String); }]; }
-+  (void) varargBlock:(AZVA_ArrayBlock)block withVarargs:(id)varargs, ... 				{
++  (void) varargBlock:(AZVA_ARRAYB)block withVarargs:(id)varargs, ... 				{
 	__block NSMA *stuffToPass = NSMA.new;
 	AZVA_Block theBlk = ^(id thing) { [thing isKindOfClass:NSO.class] ? [stuffToPass addObject:thing] : nil; };
 	azva_iterate_list(varargs, theBlk);

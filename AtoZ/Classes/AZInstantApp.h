@@ -34,7 +34,7 @@ int main(int argc, char *argv[]) {\
 		[appMenu = NSM.new addItem: \
 			[NSMI.alloc initWithTitle:@"Quit" action:@selector(terminate:) keyEquivalent:@"q"]];\
 		[appMenuItem setSubmenu:appMenu];\
-		menubar.isDark = YES; \
+		menubar.dark = YES; \
 		r = AZRectFromDim(200);\
 		win = [NSW.alloc initWithContentRect:r styleMask:0|1|2|8 backing:2 defer:NO];\
 		[win cascadeTopLeftFromPoint:NSMakePoint(20,20)];\
@@ -49,38 +49,40 @@ int main(int argc, char *argv[]) {\
 	}\
 }\
 
+#define PARENTHIZE(_x_) (_x_)
 
+/* usage  - NOTICE THE EXTRA PARENS... necessary for dumb macro expansion with commas...
 
-/* usage 
-
-APPWITHBLOCKWINDOW(  ^(NSW* win){ 	win.contentView = [AZSimpleView withFrame:win.contentRect color:REEN];	});
+APPWITHBLOCKWINDOW(( ^(NSW*win){	win.contentView = [AZSimpleView withFrame:win.contentRect color:GREEN]; }));
 
 */
 
-#define APPWITHBLOCKWINDOW(x)  \
-int main(int argc, char *argv[]) {\
-	@autoreleasepool {\
-		AZSHAREDAPP; NSM *menubar,*appMenu; NSMI *appMenuItem; NSW* win; NSR r;\
-		[NSApp setActivationPolicy:NSApplicationActivationPolicyRegular];\
-		[menubar = NSM.new addItem:appMenuItem = NSMI.new];\
-		[NSApp setMainMenu:menubar];\
-		[appMenu = NSM.new addItem: \
-			[NSMI.alloc initWithTitle:@"Quit" action:@selector(terminate:) keyEquivalent:@"q"]];\
-		[appMenuItem setSubmenu:appMenu];\
-		menubar.isDark = YES; \
-		r = AZRectFromDim(200);\
-		win = [NSW.alloc initWithContentRect:r styleMask:0|1|2|8 backing:2 defer:NO];\
-		[win cascadeTopLeftFromPoint:NSMakePoint(20,20)];\
-		[win setTitle:AZPROCNAME]; \
-		win.backgroundColor = RED;\
-		[NSImageView addImageViewWithImage:[NSIMG imageNamed:@"1"] toView:win.contentView];\
-		[win setMovableByWindowBackground:YES];\
-		[win makeKeyAndOrderFront:nil];\
-		[NSApp activateIgnoringOtherApps:YES];\
-		(x(win));\
-		[NSApp run];\
-	}\
-}\
+//#define SINGLE_ARG(...) __VA_ARGS__
+
+//#define APPWITHBLOCKWINDOW(_x_) REALAPPWITHBLOCKWINDOW(PARENTHIZE(_x_))
+
+#define APPWITHBLOCKWINDOW(_x_) 																				\
+int main(int argc, char *argv[]) {	@autoreleasepool {																	\
+		AZSHAREDAPP; NSM *menubar,*appMenu; NSMI *appMenuItem; NSW* win; NSR r;										\
+		[NSApp setActivationPolicy:NSApplicationActivationPolicyRegular];												\
+		[menubar = NSM.new addItem:appMenuItem = NSMI.new];	[NSApp setMainMenu:menubar];						\
+		[appMenu = NSM.new addItem: 																								\
+			[NSMI.alloc initWithTitle:@"Quit" action:@selector(terminate:) keyEquivalent:@"q"]];				\
+		[appMenuItem setSubmenu:appMenu]; menubar.dark = YES; 															\
+		win = [NSW.alloc initWithContentRect:r = AZRectFromDim(200) styleMask:0|1|2|8 backing:2 defer:NO];	\
+		[win cascadeTopLeftFromPoint:NSMakePoint(20,20)];																	\
+		[win setPropertiesWithDictionary:@{@"title" : AZPROCNAME, @"backgroundColor":RED}];						\
+		NSC* c = PINK;	\
+		/*\
+		/ [NSC colorWithPatternImage:[NSIMG imageNamed:@"darklinen"]];										*/\
+		id v = [AZSimpleView withFrame:win.contentRect color:c];															\
+		[win setContentView:v];\
+		[NSImageView addImageViewWithImage:[NSIMG imageNamed:@"1"] toView:win.contentView];						\
+		[win setMovableByWindowBackground:YES];																				\
+		[win makeKeyAndOrderFront:nil]; [NSApp activateIgnoringOtherApps:YES];										\
+		_x_(win);	\
+		[NSApp run];																								\
+}	}
 
 
 #define APPPOPWINDOW(x)  \

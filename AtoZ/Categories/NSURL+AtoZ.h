@@ -27,13 +27,18 @@
 - (void)setSpecialVars:(NSD*)caller;
 @end
 
-@interface NSURL (AtoZ)
+@interface NSURLRequest (UserAgentSwizzling)
+@property BOOL useRandomUA;
++ (NSS*) randomUA;
+@end
 
+@interface NSURL (AtoZ)
 //	Uses LaunchServices and UTIs to detect if a given file path is an image file.
 - (BOOL)isImageFile;
 @end
 
 @interface NSURL (Extensions)
+
 - (NSDictionary*) parseQueryParameters:(BOOL)unescape;
 @end
 

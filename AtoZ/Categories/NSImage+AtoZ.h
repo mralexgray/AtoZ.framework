@@ -4,7 +4,17 @@
 
 //  Created by Alex Gray on 7/2/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
+#import "AZSizer.h"
 
+
+@interface AZImageCache : NSCache
++ (AZImageCache*) sharedCache;
++ (void) cacheImage: (NSIMG*)image;
+- (NSIMG*) imageForKey: (NSS*)key;
+-   (void) setImage:		(NSIMG*)image forKey:(NSS*)key;
+-   (void) removeAllObjects;//  builklt-in method
+@property (nonatomic, retain) NSString *cacheDirectory;
+@end
 
 static inline int get_bit(unsigned char *arr, unsigned long bit_num);
 CGImageRef  			CreateCGImageFromData( NSData* data );
@@ -18,8 +28,10 @@ NSR AZRectForItemsWithColumns(NSA* items, NSUI cols);
  		@param	spacingY  Spacing which will be applied vertitally between images, and at the bottom and top borders.
  		@param	vertically  YES to tile the given images from top to bottom, starting with the first image in the array at the top. NO to tile the given images from left to right, starting with the first image in the array at the left.	*/
 
-+ (NSIMG*) contactSheetWith:(NSA*)images columns:(NSUI)cols;
-+ (NSIMG*) contactSheetWith:   (NSA*)images inFrame:(NSR)rect  columns:(NSUI)cols;
++ (NSIMG*) contactSheetWith:(NSA*)images columns:(NSUI)cols;  // I guess this is natiral size?
++ (NSIMG*) contactSheetWith:(NSA*)images withSizer:(AZSizer*)s withName:(BOOL)name; // sortaconvenient..
++ (NSIMG*) contactSheetWith:   (NSA*)images inFrame:(NSR)rect;//  columns:(NSUI)cols;
+
 + (NSIMG*) contactSheetWith: 	 (NSA*)images sized:  (NSSZ)size spaced: (NSSZ)spacing columns:(NSUI)cols;
 + (NSIMG*) contactSheetWith:	 (NSA*)images sized:  (NSSZ)size spaced: (NSSZ)spacing columns:(NSUI)cols withName:(BOOL)name;
 + (NSIMG*) imageByTilingImages:(NSA*)images spacingX:(CGF)spacingY spacingY:(CGF)spacingY vertically:(BOOL)vertically;
@@ -50,6 +62,7 @@ extern NSData *PNGRepresentation(NSIMG *image);
 + (NSIMG*) faviconForDomain:(NSS*)domainAsString;
 + (NSIMG*) imageWithData:(NSData*)data;
 - (NSS*)   saveToWeb;
+
 + (NSIMG*) glowingSphereImageWithScaleFactor:(CGF)scale coreColor:(NSC*)core glowColor:(NSC*)glow;
 
 //@property (readonly, strong) NSC *color;
@@ -57,7 +70,16 @@ extern NSData *PNGRepresentation(NSIMG *image);
 
 + (NSIMG*) swizzledImageNamed:(NSS*)name;
 + (NSIMG*) imageFromURL:(NSS*)url;
++ (NSIMG*) randomWebImage;
 
++ (NSA*) randomWebImages:(NSUI)ct;
++ (NSIMG*) googleImage:(NSS*)query;
+
+//+ (NSA*) googleImages:(NSS*)query ct:(NSUI)ct;
++ (NSIMG*) googleImages:(NSS*)query ct:(NSUI)ct eachBlock:(void(^)(NSIMG*results))block;
+
++ (NSIMG*) randomFunnyImage;
+	
 + (NSIMG*) blackBadgeForRect:(NSR)frame;
 + (NSIMG*) badgeForRect:(NSR)frame withColor:(NSC*)color;
 + (NSIMG*) badgeForRect:(NSR)frame withColor:(NSC*)color stroked:(NSC*) stroke;
@@ -165,6 +187,7 @@ extern NSData *PNGRepresentation(NSIMG *image);
 - (NSIMG*)tintedImage;
 - (NSIMG*) 	tintedWithColor:(NSC*) tint ;
 - (NSBitmapImageRep*) bitmap;
+- (NSBitmapImageRep*) bitmapBy:(CGF)x y:(CGF)y;
 - (CGImageRef) 	cgImage;
 - (NSIMG*)imageRotatedByDegrees:(CGF)degrees;
 //- (NSIMG*)imageByScalingProportionallyToSize:(NSSize)targetSize;
@@ -499,4 +522,30 @@ typedef enum {
 - (void)_startAnimation;
 - (void)_stopAnimation;
 - (void)_animationTimerCallback:fp8;
+@end
+
+@interface NSImage (QuickLook)
++ (NSImage *)imageWithPreviewOfFileAtPath:(NSS*)path ofSize:(NSSZ)size asIcon:(BOOL)asIcon;
+@end
+
+@interface NSImage (Base64Encoding)
+extern NSString *kXML_Base64ReferenceAttribute;
+/*!	@function	+dataWithBase64EncodedString:
+	@discussion	This method returns an autoreleased NSImage object.  The NSImage object is initialized with the
+				contents of the Base 64 encoded string.  This is a convenience function for
+				-initWithBase64EncodedString:.
+	@param	inBase64String	An NSString object that contains only Base 64 encoded data representation of an image.
+	@result	The NSImage object.	*/
++ (NSIMG*)imageWithBase64EncodedString:(NSS*)inBase64String;
+/*!	@function	-initWithBase64EncodedString:
+	@discussion	The NSImage object is initialized with the contents of the Base 64 encoded string.
+				This method returns self as a convenience.
+	@param	inBase64String	An NSString object that contains only Base 64 encoded image data.
+	@result	This method returns self.	*/
+- (id)initWithBase64EncodedString:(NSS*)inBase64String;
+/*!	@function	-base64EncodingWithFileType:
+	@discussion	This method returns a Base 64 encoded string representation of the NSImage object.
+	@param	inFileType	The image is first converted to this file type, then encoded in Base 64.
+	@result	The base 64 encoded image data string.	*/
+- (NSS*)base64EncodingWithFileType:(NSBitmapImageFileType)inFileType;
 @end

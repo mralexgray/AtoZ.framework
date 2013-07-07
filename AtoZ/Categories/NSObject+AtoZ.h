@@ -94,12 +94,24 @@ typedef NSString AZBlockToken;
 typedef void (^AZBlockTask)(id obj, NSDictionary *change);
 @interface NSObject (AZBlockObservation)
 //-(void)observeKeyPath:(NSS*)keyPath;
-- (NSA*) addObserverForKeyPaths: (NSA*)keyPaths task:(AZBlockTask)task;
+- (NSA*) observeKeyPaths: (NSA*)keyPaths task:(AZBlockTask)task;
 //@interface NSObject (AMBlockObservation)
-- (AZBlockToken*) addObserverForKeyPath:(NSS*) keyPath task:(AZBlockTask)task;
-- (AZBlockToken*) addObserverForKeyPath:(NSS*) keyPath onQueue:(NSOQ*)queue task:(AZBlockTask)task;
-- (void)removeObserverWithBlockToken:(AZBlockToken *)token;
-- (void) observeNotificationsUsingBlocks:(NSS*) firstNotificationName, ...;
+- (AZBlockToken*) observeKeyPath:(NSS*) keyPath task:(AZBlockTask)task;
+- (AZBlockToken*) observeKeyPath:(NSS*) keyPath onQueue:(NSOQ*)queue task:(AZBlockTask)task;
+- (void) removeObserverWithBlockToken:(AZBlockToken *)token;
+/* USAGE
+	[AZNOTCENTER observeNotificationsUsingBlocks: 
+		NSViewFrameDidChangeNotification, ^(NSNOT *m){	
+			m.object == self ? [self highlightLineContainingRange:self.selectedRange] : nil; 
+		},
+		NSTextViewDidChangeSelectionNotification,	^(NSNOT *z) {
+			[self addItemToApplicationMenu];
+			if (z.object != self) return;
+			[self removeHighlightFromLineContainingRange:[z.userInfo[@"NSOldSelectedCharacterRange"] rangeValue]];
+			self.selectedRange.length  ? nil : [self highlightLineContainingRange:self.selectedRange]; // not a multi-line selection
+		}, nil];
+*/
+- (void) observeNotificationsUsingBlocks:(NSS*) firstNotificationName, ... NS_REQUIRES_NIL_TERMINATION;
 @end
 
 
@@ -108,7 +120,25 @@ typedef void (^AZBlockTask)(id obj, NSDictionary *change);
 @end
 
 @interface NSObject (AtoZ)
+/*	USAGE: 	id scoop = @"poop";	[scoop setValue:@2 forKey:@"farts"]; 	LOG_EXPR(scoop[@"undefinedKeys"]); -> ( farts ) */
+@property NSMA* undefinedKeys;
 
+/*  USAGE:	id whatever = [CAL instanceWithProperties:@"stupid", @(YES), @"sexy", @(NO), nil];  */
++ (instancetype) instanceWithProperties:(NSS*)firstKey,... NS_REQUIRES_NIL_TERMINATION;
+
+/*	USAGE:  	[NSS.randomBadWord performBlockWithVarargsInArray:^(NSO*_self,NSA*args){ 
+					LOG_EXPR([args map:^(id o){ return [o withString:_self]; }]); 			}, @"Fuck my ", @"What a huge ", nil];
+	-> ( "Fuck my shagger", "What a huge shagger" )
+*/
+- (void) performBlockWithVarargsInArray:(void(^)(NSO*_self,NSA*varargs))block, ...NS_REQUIRES_NIL_TERMINATION;
+
+/*  USAGE: 	[@"Apple is "performBlockEachVararg:^(NSO*_self,id v){ LOG_EXPR([_self withString:v]); }, @"Whatever!", @"Sexy", @"fruitful", nil];
+	-> Apple is Whatever!	-> Apple is Sexy	-> Apple is fruitful */
+- (void) performBlockEachVararg:(void(^)(NSO*_self,id obj))block, ... NS_REQUIRES_NIL_TERMINATION;
+
+- (void) bind:(NSA*)paths toObject:(id)o withKeyPaths:(NSA*)objKps;
+- (void) bindToObject:(id)o withKeyPaths:(NSA*)objKps;
+- (void)    b:(NSS*)b 		 tO:(id)o 			wKP:(NSS*)kp 		  o:(NSD*)opt;
 /*
 -(void)mouseDown:(NSEvent*)theEvent;	{
     NSColor* newColor = //mouse down changes the color somehow (view-driven change)
@@ -415,7 +445,7 @@ _Pragma("clang diagnostic pop") \
 - (void) triggerChangeForKeys:(NSA*)keys;
 
 #pragma mark - PropertyArray
-- (NSDictionary*) dictionaryWithValuesForKeys;
+//- (NSDictionary*) dictionaryWithValuesForKeys;
 //- (NSA*)  allKeys;
 
 /** Example:
@@ -445,57 +475,7 @@ _Pragma("clang diagnostic pop") \
 
 @end
 
-
-//It actually works best if you create a category on NSObject and just drop that method straight in there, that way you can call it on any object.
-
-@interface NSObject (PrimitiveEvocation)
-- (void *)performSelector:(SEL)selector withValue:(void *)value;
-@end
-
-//Here are some examples. First of all, let’s just assume we have a class with the following methods:
-
-//	- (void)doSomethingWithFloat:(float)f;  // Example 1
-//	- (int)addOne:(int)i;				   // Example 2
-
-// Example 1
-//	float value = 7.2661; // Create a float
-//	float *height = &value; // Create a _pointer_ to the float (a floater?)
-//	[self performSelector:@selector(doSomethingWithFloat:) withValue:height]; // Now pass the pointer to the float
-//	free(height); // Don't forget to free the pointer!
-
-// Example 2
-//	int ten = 10; // As above
-//	int *i = &ten;
-//	int *result = [self performSelector:@selector(addOne:) withValue:i]; // Returns a __pointer__ to the int
-//	NSLog(@"result is %d", *result); // Remember that it's a pointer, so keep the *!
-//	free(result);
-
-/*  Things get a little more complicated when dealing with methods that return objects, as opposed to primitives or structs. For primitives, our performSelector:withValue: returns a pointer to the method’s return value (i.e. a primitive). However, when the underlying method returns an object, it’s actually returning a pointer to the object. So that means that when our code runs, it ends up returning a pointer to a pointer to the object (i.e. a void **), which you need to handle appropriately. If that wasn’t tricky enough, if you’re using ARC, you also need to bridge the void * pointer to bring it into Objective-C land.	*/
-
-//	Here are some examples. Let’s assume you have a class with the following methods:
-//	- (NSObject *)objectIfTrue:(BOOL)b;	 // Example 3
-//	- (NSS*) strWithView:(UIView *)v;  // Example 4
-//	Notice how both methods return objects (well, technically, pointers to objects, which is important!). We can now use performSelector:withValue: as follows:
-/*
-	BOOL y = YES; // Same as previously
-	BOOL *valid = &y;
-	void **p = [self performSelector:@selector(objectIfTrue:) withValue:valid]; // Returns a pointer to an NSObject (standard Objective-C behaviour)
-	NSObject *obj = (__bridge NSObject *)*p; // bridge the pointer to Objective-C
-	NSLog(@"object is %@", obj);
-	free(p); */
-
-//	Notice the return type of performSelector:withValue: is void **. In other words, a pointer to a pointer of type void (which means any type). We then reference the pointer once to get to a pointer to the actual object (to void * — a standard void pointer) and then use a bridged cast to convert that pointer to NSObject * which is a standard object (again, technically, a pointer to an object).
-
-// 	Here’s one final example bringing everything to do with objects together, showing how to use performSelector:withValue: to call a selector on an object, with an object as an argument and as a return type:
-/*
-UIView *view = [[UIView alloc] init];
-void **p = [self performSelector:@selector(strWithView:) withValue:&view];
-NSString *str = (__bridge NSString *)*p;
-NSLog(@"string is %@", str);
-free(p);
-*/
 /// USAGE:  [someDictionary mapPropertiesToObject: someObject];
-
 @interface NSDictionary  (PropertyMap)
 
 - (void) mapPropertiesToObject:	(id) instance;
@@ -619,5 +599,7 @@ free(p);
 - (BOOL)contentsOfCollection:(id <NSFastEnumeration>)theCollection areKindOfClass:(Class)theClass;
 
 - (void)sV:(id)v fK:(id)k;
+- (void)sV:(id)v fKP:(id)k;
+
 @end
 

@@ -80,7 +80,7 @@
 -(void) toggleSpin: (AZState)state
 {
 	if (self.spinState == state) return;
-	if (state == AZOff || ( state == NSNotFound && self.spinState == AZOn)) { [_star removeAllAnimations]; }
+	if (state == AZOff || ( state > (AZState)100 && self.spinState == AZOn)) { [_star removeAllAnimations]; }
 	else {
 		CABA *animation = [CABA animationWithKeyPath:@"transform.rotation"];
 		animation.duration		= 8.0;

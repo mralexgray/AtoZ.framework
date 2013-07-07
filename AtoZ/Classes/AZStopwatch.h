@@ -12,6 +12,11 @@
 
 #import <Foundation/Foundation.h>
 
+@interface  NSObject (Stopwatch)
+- (void) startTiming;
+- (void) stopTiming;
+@property (readonly) NSS* elapsed;
+@end
 @interface AZStopwatch : NSObject 
 
 //+ (void) timerBlock:((^)(char *file))block;
@@ -20,13 +25,17 @@
 + (void) start:	 (NSS*)name;
 + (void) stop:		 (NSS*)name;
 + (void) print:	 (NSS*)name;
+
++ (NSString*) runtime:	 (NSString*)name;
 @end
 @interface AZStopwatchItem : NSObject
 @property (nonatomic, strong) NSS *name;
 @property (nonatomic, strong) NSDate *started, *stopped;
 
 + (AZStopwatchItem*) named:(NSS*)name;
+- (void) start;
 - (void) stop;
+- (NSS*) runtimePretty;
 - (NSTI) runtime;
 - (double) runtimeMills;
 @end

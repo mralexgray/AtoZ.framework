@@ -309,7 +309,7 @@
 		return [obj isEqual:key];
 	}];
 	NSInteger index = NSNotFound;
-	unsigned current_index = [idx1 firstIndex];
+	NSUInteger current_index = [idx1 firstIndex];
 	while (current_index != NSNotFound && index == NSNotFound)
 	{
 		if ([idx2 containsIndex:current_index]) {

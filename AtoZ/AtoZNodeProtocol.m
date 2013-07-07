@@ -31,67 +31,85 @@ JREnumDefine(AZMethod);
 @end
 
 
-@interface NSObject (AtoZNodeProtocolPrivate)
-@property (readonly) NSA* azChildren;
-@property (readonly) id azValue, azKey;
-@end
-@implementation  NSObject (AtoZNodeProtocolPrivate)
--      (NSA*) azChildren 			{  return [self vFK:(AZNODEPRO self).keyPaths.childrenPath]; 	}
--        (id) azValue 				{  return [self vFK:(AZNODEPRO self).keyPaths.valuePath]; 		}
--      	(id) azKey 				{  return [self vFK:(AZNODEPRO self).keyPaths.keyPath]; 			}
-@end
+//@interface NSObject (AtoZNodeProtocolPrivate)
+//@property (readonly) NSA* azChildren;
+//@property (readonly) id azValue, azKey;
+//@end
+//@implementation  NSObject (AtoZNodeProtocolPrivate)
+//-      (NSA*) azChildren 			{  return [self vFK:(AZNODEPRO self).keyPaths.childrenPath]; 	}
+//-        (id) azValue 				{  return [self vFK:(AZNODEPRO self).keyPaths.valuePath]; 		}
+//-      	(id) azKey 					{  return [self vFK:(AZNODEPRO self).keyPaths.keyPath]; 			}
+//@end
 @concreteprotocol  (AtoZNodeProtocol) //NSObject (AtoZNodeProtocol)
 
-
--      (NSA*) children				{  return [self vFK:self.keyPaths.childrenPath];}
-- (void) setValue:(id)v      {  [self setValue:v forKey:self.keyPaths.valuePath]; }
-- (id) value                { return [self vFK:self.keyPaths.valuePath]; }
-- (id) key                { return [self vFK:self.keyPaths.keyPath]; }
-- (NSCellStateValue) nodeState { return [self respondsToSelector:_cmd] ? [[self vFK:@"nodeState"]iV] : [[self associatedValueForKey:@"nodeState" orSetTo:@(NSOffState)]iV]; }
-- (void) setNodeState:(NSCellStateValue)s  { [self respondsToSelector:_cmd]	 ? [self setInteger:s forKey:@"nodeState"] : [self setAssociatedValue:@(s) forKey:@"nodeState"]; }
-- (void) setKey:(id)k      		{  [self setValue:k 	forKey:self.keyPaths.keyPath]; 	}
-- (AZNodeProtocolKeyPaths) keyPaths {}	- (void) addChild:(id)c {}
-
--      (BOOL) isaNode 				{  return [self implementsProtocol:@"AtoZNodeProtocol"]; 	}
-
-//	if (!self.isaNode || ![c isaNode]) return;
-//	[[self vFK:(AZNODEPRO self).keyPaths.childrenPath] addObject:c];
-//	objc_setAssociatedObject(c, (__bridge const void *)@"nodeParent", self, OBJC_ASSOCIATION_ASSIGN);
-//}
-- AZNODEPRO parent 					{ return [self hasAssociatedValueForKey:@"nodeParent"] ?
++ (instancetype) instanceInNode:(id)p {
+	id newone = [self.class new];
+	[newone setAssociatedValue:p forKey:@"nodeParent" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
+	return newone;
+}
+- (void) setNodeState:
+  (NSCellStateValue)s 			{ [self respondsToSelector:_cmd]	 ? [self setInteger:s forKey:@"nodeState"] : [self setAssociatedValue:@(s) forKey:@"nodeState"]; }
+- (NSCellStateValue)cellState {
+	return [self respondsToSelector:_cmd] ? [[self vFK:@"nodeState"]iV]
+													  : [[self associatedValueForKey:@"nodeState" orSetTo:@(NSOffState)]iV];
+}
+- (void) dlog  					{
+	fprintf(stderr, "%s", $(@"AZNode v:%@ k:%@ i:%ld max:%ld ch:%ld leaf:%@ node:%@ p:%@\n"
+									 "KPS: 	v:%@ k:%@ c:%@\n",
+	self.value, self.key, self.siblingIndex, self.siblingIndexMax, self.numberOfChildren,
+	StringFromBOOL(self.isaLeaf), StringFromBOOL(self.isaNode), self.parent, self.keyPaths.valuePath, self.keyPaths.keyPath, self.keyPaths.childrenPath).UTF8String);
+}
+- (NSA*) children					{ return [self vFK:self.keyPaths.childrenPath];}
+- (void) setValue:(id)v    	{ [self setValue:v forKey:self.keyPaths.valuePath]; }
+-   (id) value             	{ return [self vFK:self.keyPaths.valuePath]; }
+-   (id) key              		{ return [self vFK:self.keyPaths.keyPath]; }
+- (void) setKey:(id)k      	{  [self setValue:k 	forKey:self.keyPaths.keyPath]; 	}
+- (BOOL) isaNode 					{ return [self implementsProtocol:@"AtoZNodeProtocol"]; 	}
+- (BOOL) isaRoot 					{ return [self parent] == nil; }
+- (void) addChild:(id)c 		{ [c setAssociatedValue:self forKey:@"nodeParent"]; NSAssert([self respondsToSelector:@selector(addChild:)] == YES, @"You must implement \"addChild:\"!"); [self addChild:c]; }
+- (AZNodeProtocolKeyPaths) keyPaths {}
+- AZNODEPRO parent 				{ return [self hasAssociatedValueForKey:@"nodeParent"] ?
 	
 	(AZNODEPRO objc_getAssociatedObject(self, (__bridge const void*)@"nodeParent")) : nil;
 }
--      (NSA*) allSiblings 			{ return [self.parent.children arrayWithoutObject:self]; 					}
--		 (BOOL) isLeaf					{ if (!self.isaNode) return NO; else return self.numberOfChildren == 0; }
--      (NSA*) allDescendants		{
+- (NSA*) allSiblings 			{ return [self.parent.children arrayWithoutObject:self]; 					}
+- (BOOL) isaLeaf					{ if (!self.isaNode) return NO; else return self.numberOfChildren == 0; }
+- (NSA*) allDescendants			{
 	
 	// declare a __block variable to use inside the block itself for its recursive phase.
 	if (!self.isaNode) return nil;
 	NSA* __block (^enumerateAndAdd_recurse)(NSA*);	// then define the block, blow
 	NSA*         (^enumerateAndAdd)			 (NSA*) = ^(NSA*kids){ // looks like calling another block, but not really.
 		NSMA  *allDs = NSMA.new;	for (NSO<AtoZNodeProtocol>*k in kids) { 	 [allDs addObject:k];
-		if (!k.isLeaf)  [allDs addObjectsFromArray:enumerateAndAdd_recurse(k.children)]; }return allDs;
+		if (!k.isaLeaf)  [allDs addObjectsFromArray:enumerateAndAdd_recurse(k.children)]; }return allDs;
 	};	// kickstart the block	
 	enumerateAndAdd_recurse = enumerateAndAdd; // initialize the alias
    return enumerateAndAdd(self.children); // starts the block
 }
--        (id) expanded {  AZMethod m = [self.class implementationOfSelector:@selector(expanded:)];
+-   (id) expanded 				{  AZMethod m = [self.class implementationOfSelector:@selector(expanded:)];
 
 	if 		(m == AZMethodAuthor  ||
 				 m == AZMethodInherits ) return objc_getAssociatedObject(self, (__bridge const void*)@"nodeExpanded");
 	else if 	(m == AZMethodOverrider) return [self valueForKey:@"expanded"];
 	else if 	(m == AZMethodNotFound ) return nil; return nil;
 }
-- (void) setExpanded: (id)expanded {	AZMethod m = [self.class implementationOfSelector:@selector(expanded:)];
-	if 	  (m == AZMethodAuthor || m == AZMethodInherits) return objc_setAssociatedObject(self, (__bridge const void*)@"nodeExpanded", expanded, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-	else if (m == AZMethodOverrider)  [self setValue:expanded forKey:@"expanded"];
+- (void) setExpanded:(id)e	 	{ AZMethod m = [self.class implementationOfSelector:@selector(e:)];
+	if 	  (m == AZMethodAuthor || m == AZMethodInherits) return objc_setAssociatedObject(self, (__bridge const void*)@"nodeExpanded", e, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+	else if (m == AZMethodOverrider)  [self setValue:e forKey:@"expanded"];
 }
-- (NSUI) siblingIndex 		{ return self.isaNode ? [self.parent.children indexOfObject:self]	: NSNotFound; }
-- (NSUI) siblingIndexMax	{ return self.isaNode ? self.parent.numberOfChildren 					: NSNotFound; }
-- (NSUI) numberOfChildren 	{ return self.isaNode ? self.children.count-1							: NSNotFound; }
+- (NSI) siblingIndex 			{ return self.isaRoot ? -1 : [self.parent.children indexOfObject:self]; }
+- (NSI) siblingIndexMax			{ return self.isaRoot ? -1 : self.parent.numberOfChildren; 	}
+- (NSI) numberOfChildren 		{ return self.isaLeaf ? -1 : self.children.count; 				}
 @end
 
+//	if (!self.isaNode || ![c isaNode]) return; [[self vFK:(AZNODEPRO self).keyPaths.childrenPath] addObject:c];
+//	objc_setAssociatedObject(c, (__bridge const void *)@"nodeParent", self, OBJC_ASSOCIATION_ASSIGN); }
+
+
+//@interface NSCoder (AZNodeProtocolKeyPaths)
+//- (struct AZNodeProtocolKeyPaths)decodeKeyPaths:(id)arg1;
+//- (void)encodeKeyPaths:(struct AZNodeProtocolKeyPaths)kps;
+//@end
 
 
 // 2008-11-07 23:25:43.374 Test[2580:10b] NSObject    - LRMethodNotFound

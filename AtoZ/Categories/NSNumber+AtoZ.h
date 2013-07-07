@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface NSNumber (AtoZ)
++ (NSNumber*) numberWithBytes:(const void *) bytes objCType:(const char *)type;
 - (NSN*)plus:(NSN*)toAdd;
 
 + (NSN*)integerWithHexString:(NSS*)hexString;

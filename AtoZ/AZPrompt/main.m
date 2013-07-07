@@ -249,8 +249,14 @@ menuWithContacts contactMenu = ^(ContactList *contacts)			{
 static ContactList *contacts;
 int main( int argc, const char *argv[] )	{	@autoreleasepool {
 
-		[contacts = ContactList.new loadContacts];
-		contactMenu(contacts);
+//		[contacts = ContactList.new loadContacts];
+//		contactMenu(contacts);
+
+		NSW* windy = AZWINDOWINIT;
+		windy.frame = AZScreenFrameUnderMenu();
+		windy.bgC= RED;
+		[windy makeKeyAndOrderFront:nil];
+
 
 	}
 	return 0;

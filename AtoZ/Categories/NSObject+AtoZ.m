@@ -1,68 +1,47 @@
-//
+
+#import "AtoZUmbrella.h"
+#import "AtoZFunctions.h"
 #import "AtoZ.h"
 #import "NSObject+AtoZ.h"
 
-
-@implementation NSObject (NibLoading)
-+ (INST) loadFromNib {
-	static NSNib   *aNib = nil;
-	NSArray *objs = nil;
+@implementation NSObject (NibLoading)	+ (INST) loadFromNib {	static NSNib   *aNib = nil;	NSArray *objs = nil;
 	[aNib = aNib ?: [NSNib.alloc initWithNibNamed:AZCLSSTR bundle:nil] instantiateWithOwner:nil topLevelObjects:&objs];
 	return [objs objectWithClass:self.class];
-}
-@end
-
+}																		@end
 @implementation NSObject (GCD)
-- (void)performOnMainThread:(void(^)(void))block wait:(BOOL)shouldWait {
-    shouldWait ?        // Synchronous
-        dispatch_sync(dispatch_get_main_queue(), block) :
-    dispatch_async(dispatch_get_main_queue(), block);  // Asynchronous
+- (void) performOnMainThread:								 (void(^)(void))block wait:(BOOL)shouldWait {
+
+		shouldWait 	?  dispatch_sync (dispatch_get_main_queue(), block)	// Synchronous
+       				:	dispatch_async(dispatch_get_main_queue(), block);  // Asynchronous
 }
-- (void)performAsynchronous:(void(^)(void))block {
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    dispatch_async(queue, block);
+- (void) performAsynchronous:								 (void(^)(void))block {    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+																										 dispatch_async(queue, block);
 }
-- (void)performAfter:(NSTimeInterval)seconds block:(void(^)(void))block {
+- (void) performAfter:(NSTimeInterval)seconds block:(void(^)(void))block {
+
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, seconds * NSEC_PER_SEC);
     dispatch_after(popTime, dispatch_get_current_queue(), block);
-}
-@end
+}														@end
 
 @implementation NSObject (ClassAssociatedReferences)
-+ (void)setValue:(id)value forKey:(NSS*)key {
-	
-	[self setAssociatedValue:value forKey:key policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
-}
-+ (id)valueForKey:(NSS*)key  {
-	return [(NSO*)self associatedValueForKey:(__bridge const void *)(key)];
-}
-
-
-
++ (void) setValue:(id)value forKey:(NSS*)key {	[self setAssociatedValue:value forKey:key policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];}
++   (id) valueForKey:				  (NSS*)key {return objc_getAssociatedObject(self,(__bridge const void *)key); }
 @end
 
 @implementation NSObject (HidingAssocitively)
 - (BOOL) folded 						{ return [[self associatedValueForKey:@"AtoZhidden" orSetTo:@(NO) policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC]boolValue ]; 	}
 - (void) setFolded:(BOOL)hidden 	{ 	[self setAssociatedValue:@(hidden) forKey:@"AtoZhidden" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC]; }
 @end
-
-
-//#import "AutoCoding.h"
-
-//#import "Nu.h"
-//
-//@implementation NSObject (AMAssociatedObjects)
-//
-//- (void)associate: (id)value with: (void*)key {			objc_setAssociatedObject(self, key, value, OBJC_ASSOCIATION_RETAIN); }
-//
-//- (void)weaklyAssociate: (id)value with: (void*)key {	objc_setAssociatedObject(self, key, value, OBJC_ASSOCIATION_ASSIGN); }
-//
-//- (id)associatedValueFor: (void*)key {			 return va;(self, key);								 }
-//
-//@end
-
-IMP impOfCallingMethod(id lookupObject, SEL selector)
-{
+/*
+#import "AutoCoding.h"
+#import "Nu.h"
+@implementation NSObject (AMAssociatedObjects)
+- (void)associate: (id)value with: (void*)key {			objc_setAssociatedObject(self, key, value, OBJC_ASSOCIATION_RETAIN); }
+- (void)weaklyAssociate: (id)value with: (void*)key {	objc_setAssociatedObject(self, key, value, OBJC_ASSOCIATION_ASSIGN); }
+- (id)associatedValueFor: (void*)key {			 return va;(self, key);								 }
+@end
+*/
+IMP impOfCallingMethod(id lookupObject, SEL selector)		{
     NSUInteger returnAddress = (NSUInteger)__builtin_return_address(0);
     NSUInteger closest = 0;
     // Iterate over the class and all superclasses
@@ -89,8 +68,7 @@ IMP impOfCallingMethod(id lookupObject, SEL selector)
 	 return (IMP)closest;
 }
 @implementation NSObject (SupersequentImplementation)
-- (IMP)getImplementationOf:(SEL)lookup after:(IMP)skip
-{
+- (IMP)getImplementationOf:(SEL)lookup after:(IMP)skip	{
 	BOOL found = NO;
 	Class currentClass = object_getClass(self);
 	while (currentClass)
@@ -121,18 +99,13 @@ IMP impOfCallingMethod(id lookupObject, SEL selector)
 	}
 	return nil;
 }
-
 @end
-
-
-static id addMethodTrampoline(id self, SEL _cmd) {
+static id addMethodTrampoline(id self, SEL _cmd) 			{
 	id(^block)(id, SEL) = objc_getAssociatedObject([self class], _cmd);
 	return block(self, _cmd);
 }
-
 @implementation NSObject (AddMethod)
-
-+ (BOOL) addMethodFromString:(NSS*)s withArgs:(NSA*)a{
++ (BOOL) addMethodFromString:  (NSS*)s withArgs:(NSA*)a	{
 	
 	// get an Objective-C selector variable for the method
 	SEL mySelector;
@@ -159,21 +132,18 @@ static id addMethodTrampoline(id self, SEL _cmd) {
 //	});
 //	class_addMethod([self class], NSSelectorFromString(s), myIMP, "v@:@");
 }
-
-+ (BOOL)addMethodForSelector:(SEL)sel typed:(const char*)types implementation:(id)blkPtr {
++ (BOOL) addMethodForSelector: (SEL)sel typed:(const char*)types implementation:(id)blkPtr {
 
 	objc_setAssociatedObject(self, sel, blkPtr, OBJC_ASSOCIATION_COPY_NONATOMIC);
 	class_addMethod(self, sel, (IMP)addMethodTrampoline, types);
 	return YES;
 }
-
-- (NSA*) methodSignatureArray:(SEL)selector 	{
+- (NSA*) methodSignatureArray: (SEL)selector 	{
 
 	NSMethodSignature *s =	[self methodSignatureForSelector:selector];
 	return [[@0 to:@([s numberOfArguments] - 1)] nmap:^(id ob, NSUI ud){ return $UTF8([s getArgumentTypeAtIndex:ud]);	}];
 }
-
-+ (NSA*) methodSignatureArray:(SEL)selector 	{
++ (NSA*) methodSignatureArray: (SEL)selector 	{
 	NSMethodSignature *s =	[self methodSignatureForSelector:selector];
 	return  [[@0 to: @([s numberOfArguments] - 1)] nmap:^(id ob, NSUI ud){ return $UTF8([s getArgumentTypeAtIndex:ud]);	}];
 }
@@ -200,56 +170,50 @@ static id addMethodTrampoline(id self, SEL _cmd) {
 	objc_removeAssociatedObjects(self);
 }
 - (BOOL)    hasAssociatedValueForKey : (NSS*)k 											{
-	return ([self associatedValueForKey:(__bridge const void *)k] != nil);
+	return (objc_getAssociatedObject(self,(__bridge const void *)k) != nil);
 }
 -   (id)       associatedValueForKey :	(NSS*)k orSetTo:(id)def 					{ /* DEFAULTS TO OBJC_ASSOCIATION_RETAIN_NONATOMIC */
 	return [self associatedValueForKey:k orSetTo:def policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
 }
 -   (id)       associatedValueForKey : (NSS*)k orSetTo:(id)def policy:(PLCY)p {
-	if ( [self hasAssociatedValueForKey:k] )
-	return [self associatedValueForKey:(__bridge const void *)k];
+	if ( [self hasAssociatedValueForKey:k] ) return objc_getAssociatedObject(self,(__bridge const void *)k);
 	[self setAssociatedValue:def forKey:k policy:p];
 	return def;
 }
-
 @end
-
 @interface AZObserverTrampoline : NSObject
-{
-	__weak id observee; NSS *keyPath; AZBlockTask task; NSOQ *queue; dispatch_once_t cancellationPredicate;
-}
-- (AZObserverTrampoline *)initObservingObject:(id)obj keyPath:(NSS*) keyPath onQueue:(NSOQ *)queue task:(AZBlockTask)task;
-- (void)cancelObservation;
+
+	@property (weak) id observee;
+	@property (copy) NSS *keyPath;
+	@property (copy) AZBlockTask task;
+	@property (strong) NSOQ *queue;
+	@property (assign) dispatch_once_t cancellationPredicate;
+
+- (AZObserverTrampoline*) initObservingObject:(id)obj keyPath:(NSS*)kp onQueue:(NSOQ*)q task:(AZBlockTask)t;
+- (void) cancelObservation;
 @end
-
-@implementation AZObserverTrampoline
-
-static NSS *AZObserverTrampolineContext = @"AZObserverTrampolineContext";
+@implementation AZObserverTrampoline	static NSS *AZObserverTrampolineContext = @"AZObserverTrampolineContext";
 
 - (AZObserverTrampoline *)initObservingObject:(id)obj keyPath:(NSS*) newKeyPath onQueue:(NSOQ *)newQueue task:(AZBlockTask)newTask {
-	if (!(self = [super init])) return nil;
-	task = [newTask copy];
-	keyPath = [newKeyPath copy];
-	queue = newQueue;        // retain];
-	observee = obj;
-	cancellationPredicate = 0;
-	[observee addObserver:self forKeyPath:keyPath options:0 context:(__bridge void *)AZObserverTrampolineContext];
+	if (self != super.init) return nil;
+	_task 						= [newTask copy];
+	_keyPath 					= [newKeyPath copy];
+	_queue 						= newQueue;        // retain];
+	_observee 					= obj;
+	_cancellationPredicate 	= 0;
+	[_observee addObserver:self forKeyPath:_keyPath options:0 context:(__bridge void *)AZObserverTrampolineContext];
 	return self;
 }
-
-- (void)observeValueForKeyPath:(NSS*) aKeyPath ofObject:(id)object change:(NSD*)change context:(void *)context {
-	if (context == (__bridge const void *)AZObserverTrampolineContext) queue ? [queue addOperationWithBlock:^{ task(object, change); }] : task(object, change);
+- (void)observeValueForKeyPath:(NSS*)kp ofObject:(id)o change:(NSD*)c context:(void*)x {
+	if (x == (__bridge const void *)AZObserverTrampolineContext) _queue ? [_queue addOperationWithBlock:^{ _task(o,c); }] : _task(o,c);
 }
-
-- (void)cancelObservation {
-	dispatch_once(&cancellationPredicate, ^{
-		[observee removeObserver:self forKeyPath:keyPath];
-		observee = nil;
+- (void)cancelObservation 	{
+	dispatch_once(&_cancellationPredicate, ^{
+		[_observee removeObserver:self forKeyPath:_keyPath];
+//		_observee = nil;
 	});
 }
-
-//- (void)dealloc {	[self cancelObservation]; [task release]; [keyPath release]; [queue release]; [super dealloc]; }
-
+- (void)dealloc 				{	[self cancelObservation]; [_task release]; [_keyPath release]; [_queue release]; }
 @end
 
 static NSS *AZObserverMapKey = @"com.github.mralexgray.observerMap";
@@ -264,23 +228,18 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary(void) {
 
 @implementation NSObject (AZBlockObservation)
 
-- (NSA*) addObserverForKeyPaths:(NSA*) keyPaths task:(AZBlockTask)task {
-	return [keyPaths map:^id (id obj) { return [self addObserverForKeyPath:obj onQueue:nil task:task];       }];
+- (NSA*) observeKeyPaths:(NSA*) keyPaths task:(AZBlockTask)task {
+	return [keyPaths map:^id (id obj) { return [self observeKeyPath:obj onQueue:nil task:task];       }];
 }
 
-- (AZBlockToken *)addObserverForKeyPath:(NSS*) keyPath task:(AZBlockTask)task {
-	return [self addObserverForKeyPath:keyPath onQueue:nil task:task];
+- (AZBlockToken *)observerKeyPath:(NSS*) keyPath task:(AZBlockTask)task {
+	return [self observeKeyPath:keyPath onQueue:nil task:task];
 }
 
-- (AZBlockToken *)addObserverForKeyPath:(NSS*) keyPath onQueue:(NSOQ *)queue task:(AZBlockTask)task {
+- (AZBlockToken *)observeKeyPath:(NSS*) keyPath onQueue:(NSOQ *)queue task:(AZBlockTask)task {
 	AZBlockToken *token = [NSProcessInfo.processInfo globallyUniqueString];
 	dispatch_sync(AZObserverMutationQueueCreatingIfNecessary(), ^{
-		NSMutableDictionary *dict = objc_getAssociatedObject(self, (__bridge const void *)(AZObserverMapKey));
-		if (!dict) {
-			dict = NSMD.new;
-			objc_setAssociatedObject(self, (__bridge const void *)(AZObserverMapKey), dict, OBJC_ASSOCIATION_RETAIN);
-			//			[dict release];
-		}
+		NSMutableDictionary *dict = [self associatedValueForKey:AZObserverMapKey orSetTo:NSMD.new policy:OBJC_ASSOCIATION_RETAIN];
 		AZObserverTrampoline *trampoline = [AZObserverTrampoline.alloc initObservingObject:self keyPath:keyPath onQueue:queue task:task];
 		dict[token] = trampoline;
 		//		[trampoline release];
@@ -289,13 +248,12 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary(void) {
 }
 
 - (void)removeObserverWithBlockToken:(AZBlockToken *)token {
+
 	dispatch_sync(AZObserverMutationQueueCreatingIfNecessary(), ^{
 		NSMD *observationDictionary = objc_getAssociatedObject(self, (__bridge const void *)(AZObserverMapKey));
 		AZObserverTrampoline *trampoline = observationDictionary[token];
-		if (!trampoline) {
+		if (!trampoline) return
 			NSLog(@"[NSObject(AZBlockObservation) removeObserverWithBlockToken]: Ignoring attempt to remove non-existent observer on %@ for token %@.", self, token);
-			return;
-		}
 		[trampoline cancelObservation];
 		[observationDictionary removeObjectForKey:token];
 		// Due to a bug in the obj-c runtime, this dictionary does not get cleaned up on release when running without GC.
@@ -306,43 +264,67 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary(void) {
 - (void) observeNotificationsUsingBlocks:(NSS*) firstNotificationName, ... {
 
 	azva_list_to_nsarray(firstNotificationName, namesAndBlocks);
-	NSA* names = [namesAndBlocks subArrayWithMembersOfKind:NSS.class];
-	NSA* justBlocks = [namesAndBlocks arrayByRemovingObjectsFromArray:names];
-	[names eachWithIndex:^(id obj, NSInteger idx) {
-		[self observeName:obj usingBlock:^(NSNotification *n) {	
-			((void(^)(NSNotification*))justBlocks[idx])(n);	
-		}];	
-	}];
+	NSA* names 			= [namesAndBlocks   subArrayWithMembersOfKind:NSS.class];
+	NSA* justBlocks 	= [namesAndBlocks arrayByRemovingObjectsFromArray:names];
+	[names eachWithIndex:^(id obj, NSInteger idx){ [self observeName:obj usingBlock:^(NSNOT*n){ ((void(^)(NSNOT*))justBlocks[idx])(n); }]; }];
 }
 
 @end
 
-#import "AtoZUmbrella.h"
-#import "AtoZFunctions.h"
-
-@interface AZValueTransformer ()
-@property (nonatomic, copy) id (^transformBlock)(id value);
-@end
-
-
-@implementation AZValueTransformer
-+ (BOOL)allowsReverseTransformation {	return NO;}
-- (id)transformedValue:(id)value {    return self.transformBlock(value);}
-@synthesize transformBlock;
+@interface AZValueTransformer ()		@property (nonatomic, copy) id (^transformBlock)(id value);	@end
+@implementation AZValueTransformer		@synthesize transformBlock;
++ (BOOL)allowsReverseTransformation {	return NO;}	- (id)transformedValue:(id)value {    return self.transformBlock(value);}
 + (instancetype)transformerWithBlock:(id (^)(id value))block {
-	NSParameterAssert(block != NULL);
-	AZValueTransformer *transformer = [self.alloc init];
-	transformer.transformBlock = block;
-	return transformer;
+	NSParameterAssert(block != NULL);	AZValueTransformer *transformer = [self.alloc init];	transformer.transformBlock = block;	return transformer;
 }
-
 @end
 
 //static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 @implementation NSObject (AtoZ)
- 
- 
+@dynamic undefinedKeys;
+
+- (id) valueForUndefinedKey:(NSString *)key {
+	id thing = objc_getAssociatedObject(self, (__bridge const void*)key) ?: nil;
+	if (thing!=nil)  return thing; else return NSLog(@"warning.. no value for: %@", key),nil;
+}
+- (void) setUndefinedKeys:(NSMA*)ks { objc_setAssociatedObject(self, (__bridge const void*)@"undefinedKeys", ks, OBJC_ASSOCIATION_RETAIN_NONATOMIC); }
+- (NSMA*) undefinedKeys { return [self associatedValueForKey:@"undefinedKeys" orSetTo:NSMA.new]; }
+- (NSMA*) addUndefinedKey:(NSS*)k {  id x; [x=self.undefinedKeys addObject:k]; self.undefinedKeys = x; }
+- (void) setValue:(id)value forUndefinedKey:(NSString *)key  {
+
+	if ([self.undefinedKeys doesNotContainObject:key]) [self addUndefinedKey:key];
+	objc_setAssociatedObject(self,(__bridge const void*)key, value, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
++ (instancetype) instanceWithProperties:(NSS*)firstKey,...  {
+	azva_list_to_nsdictionaryKeyFirst(firstKey, propertyMap);
+	id newOne = [self.alloc init];
+	[newOne setPropertiesWithDictionary:propertyMap];
+	return newOne;
+}
+- (void) performBlockWithVarargsInArray:(void(^)(NSO*_self,NSA*varargs))block, ... {
+	azva_list_to_nsarrayBLOCKSAFE(block, VARARGS);
+	__block typeof(self) blockSelf = self;
+	block(blockSelf, [VARARGS subarrayFromIndex:1]);
+}
+- (void) performBlockEachVararg:(void(^)(NSO*_self,id obj))block, ... {
+
+	__block typeof(self) blockSelf = self;
+	azva_list_to_nsarrayBLOCKSAFE(block, VARARGS);
+	[[VARARGS subarrayFromIndex:1] each:^(id obj) { block(blockSelf, obj); }];
+}
+- (void) bind:(NSA*)paths toObject:(id)o withKeyPaths:(NSA*)objKps {
+	for (NSS* path in paths) {
+//		NSUI index;
+//		if (![o respondsToSelector:[o getterForPropertyNamed:path]] || [o vFK:path] == nil) continue;
+		NSString *theirKP = [objKps normal:[paths indexOfObject:path]];// < objKps.count) ? objKps[index] : path;
+		[self bind:path toObject:o withKeyPathUsingDefaults:theirKP];
+	}
+}
+- (void) bindToObject:(id)o withKeyPaths:(NSA*)objKps{
+
+	[self blockSelf:^(id _self) {	[objKps each:^(id obj){ [_self bind:obj toObject:o withKeyPath:obj options:nil]; }]; }];
+}
 -(void) propagateValue:(id)value forBinding:(NSString*)binding;
 {
 	NSParameterAssert(binding != nil);
@@ -373,29 +355,17 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary(void) {
 	}
 
 	id boundObject = [bindingInfo objectForKey:NSObservedObjectKey];
-	if(!boundObject || boundObject == [NSNull null]){
-		NSLog(@"ERROR: NSObservedObjectKey was nil for binding \"%@\" in %s", binding, __PRETTY_FUNCTION__);
-		return;
-	}
-
+	if(!boundObject || boundObject == AZNULL)
+		return NSLog(@"ERROR: NSObservedObjectKey was nil for binding \"%@\" in %s", binding, __PRETTY_FUNCTION__);
 	NSString* boundKeyPath = [bindingInfo objectForKey:NSObservedKeyPathKey];
-	if(!boundKeyPath || (id)boundKeyPath == [NSNull null]){
-		NSLog(@"ERROR: NSObservedKeyPathKey was nil for binding \"%@\" in %s", binding, __PRETTY_FUNCTION__);
-		return;
-	}
-
+	if(!boundKeyPath||(id)boundKeyPath==AZNULL) return NSLog(@"ERROR: NSObservedKeyPathKey was nil for binding \"%@\" in %s", binding, __PRETTY_FUNCTION__);
 	[boundObject setValue:value forKeyPath:boundKeyPath];
 }
+#define DEFAULTOPTSWITHNULL(x)  @{NSContinuouslyUpdatesValueBindingOption: @(YES), NSNullPlaceholderBindingOption:x}
 
-
-- (void)bind:(NSS*)binding toObject:(id)object withKeyPathUsingDefaults:(NSS*)keyPath {
-	[self bind:binding toObject:object withKeyPath:keyPath nilValue:nil];
-}
-
-- (void)bind:(NSS*)binding toObject:(id)object withKeyPath:(NSS*)keyPath nilValue:(id)nilValue {
-	[self bind:binding toObject:object withKeyPath:keyPath options:@{ NSContinuouslyUpdatesValueBindingOption: @(YES), NSNullPlaceholderBindingOption: nilValue}];
-}
-
+- (void) bind:(NSS*)b toObject:(id)o      withKeyPathUsingDefaults:(NSS*)kp 			{ [self b:b tO:o wKP:kp o:DEFAULTOPTSWITHNULL(AZNULL)]; 	}
+- (void)    b:(NSS*)b tO:(id)o wKP:(NSS*)kp o:(NSD*)opt { [self bind:b toObject:o withKeyPath:kp  options:opt]; 	}
+- (void) bind:(NSS*)b toObject:(id)o withKeyPath:(NSS*)kp nilValue:(id)nilV 			{ [self b:b tO:o wKP:kp o:DEFAULTOPTSWITHNULL(nilV)];	 	}
 - (void)bind:(NSS*)binding toObject:(id)object withKeyPath:(NSS*)keyPath transform:(id (^)(id value))transformBlock {
 	AZValueTransformer *transformer = [AZValueTransformer transformerWithBlock:transformBlock];
 	[self bind:binding toObject:object withKeyPath:keyPath options:@{NSContinuouslyUpdatesValueBindingOption:@(YES), NSValueTransformerBindingOption:transformer}];
@@ -404,20 +374,12 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary(void) {
 - (void)bind:(NSString *)binding toObject:(id)object withNegatedKeyPath:(NSString *)keyPath {
 	[self bind:binding toObject:object withKeyPath:keyPath options:@{NSContinuouslyUpdatesValueBindingOption: @(YES), NSValueTransformerNameBindingOption : NSNegateBooleanTransformerName}];
 }
+- (void)performBlock:(void (^)())block	{ block();	}
 
-
-
-- (void)performBlock:(void (^)())block
-{
-    block();
-}
-
-//- (void)performBlock:(void (^)())block afterDelay:(NSTimeInterval)delay
-//{
+//- (void)performBlock:(void (^)())block afterDelay:(NSTimeInterval)delay	{
 //    void (^block_)() = [block copy]; // autorelease this if you're not using ARC
 //    [self performSelector:@selector(performBlock:) withObject:block_ afterDelay:delay];
 //}
-
 //+ (void) load { [$ swizzleMethod:@selector(description) with:@selector(swizzleDescription) in:self.class]; }
 
 - (NSS*)swizzleDescription {
@@ -1745,25 +1707,6 @@ static const char * getPropertyType(objc_property_t property) {
 }
 
 @end
-@implementation NSObject (PrimitiveEvocation)
-
-- (void *)performSelector:(SEL)selector withValue:(void *)value {
-	NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[self methodSignatureForSelector:selector]];
-	[invocation setSelector:selector];
-	[invocation setTarget:self];
-	[invocation setArgument:value atIndex:2];
-	[invocation invoke];
-	NSUInteger length = [[invocation methodSignature] methodReturnLength];
-
-	if (length > 0) {                       // If method is non-void:
-		void *buffer = (void *)malloc(length);
-		[invocation getReturnValue:buffer];
-		return buffer;
-	}
-	return NULL;                            // If method is void:
-}
-
-@end
 
 @implementation NSD (PropertyMap)
 
@@ -1776,13 +1719,14 @@ static const char * getPropertyType(objc_property_t property) {
 //	}
 	
 	[self each:^(NSS *propertyKey, id value) {
-		[instance canSetValueForKey:propertyKey] && value ?
-		[instance setValue:value forKey:propertyKey] :  ^{
+		[instance canSetValueForKey:propertyKey] && value!=nil ?
+		[instance setValue:value forKey:propertyKey] :	^{
 			SEL select = NULL;
 			select = [instance setterForPropertyNamed:propertyKey];
 			if (select != NULL && [instance respondsToSelector:select])
 				[instance performSelectorWithoutWarnings:select withObject:value];
-		}();
+
+		}();//: NSLog(@"couldnt set:%@ on %@", propertyKey, instance);
 	}];
 }
 @end
@@ -1802,18 +1746,17 @@ static const char * getPropertyType(objc_property_t property) {
 	//	If you can access the instance variable directly, check if that exists.
 	//	Patterns for instance variable naming:  1. _<key>  2. _is<Key>  3. <key>  4. is<Key>
 
-	if ([[self class] accessInstanceVariablesDirectly]) { // Declare all the patters for the key
-		const char *pattern1 = [$(@"_%@",          key) UTF8String];
-		const char *pattern2 = [$(@"_is%@", capKey) UTF8String];
-		const char *pattern3 = [$(@"%@",           key) UTF8String];
-		const char *pattern4 = [$(@"is%@",  capKey) UTF8String];  unsigned int numIvars = 0;
+	if ([self.class accessInstanceVariablesDirectly]) { // Declare all the patters for the key
+		const char *pattern1 = $(@"_%@",      key).UTF8String;
+		const char *pattern2 = $(@"_is%@", capKey).UTF8String;
+		const char *pattern3 = $(@"%@",       key).UTF8String;
+		const char *pattern4 = $(@"is%@",  capKey).UTF8String;  unsigned int numIvars = 0;
 
-		Ivar *ivarList = class_copyIvarList([self class], &numIvars);
+		Ivar *ivarList = class_copyIvarList(self.class, &numIvars);
 		for (unsigned int i = 0; i < numIvars; i++) {
 			const char *name = ivar_getName(*ivarList);
-			if (strcmp(name, pattern1) == 0 || strcmp(name, pattern2) == 0 || strcmp(name, pattern3) == 0 || strcmp(name, pattern4) == 0) {
+			if (strcmp(name, pattern1) == 0 || strcmp(name, pattern2) == 0 || strcmp(name, pattern3) == 0 || strcmp(name, pattern4) == 0)
 				return YES;
-			}
 			ivarList++;
 		}
 	}
@@ -2614,5 +2557,6 @@ id (^integerKeyValue)(id,NSS*) = ^id(id object, NSString*kp){
 	return YES;
 }
 
+- (void)sV:(id)v fKP:(id)k {  [self setValue:v forKeyPath:k]; }
 - (void)sV:(id)v fK:(id)k {  [self setValue:v forKey:k]; }
 @end

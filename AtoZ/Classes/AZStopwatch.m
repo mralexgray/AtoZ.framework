@@ -2,6 +2,9 @@
 
 #import "AZStopwatch.h"
 
+
+
+
 #pragma mark - MMStopwatch
 // +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  - 
 // =================[ PRIVATE ]==================================
@@ -24,7 +27,11 @@
 	if (item) item.stopped ?	NSLog(@"%@", item) : NSLog(@"%@ (running)", item);
 	else	NSLog(@"No stopwatch named [%@] found", name);
 }
-
++ (NSS*) runtime :(NSS*)name {
+	AZStopwatchItem *item = [AZStopwatch.sharedInstance get:name];
+	return item && item.stopped ?	 $(@"%@", item) : $(@"%@ (running)", item);
+	return $(@"No stopwatch named [%@] found", name);
+}
 // INTERNALS
 - (AZStopwatchItem*) get:(NSS*)name {	return  name ? (AZStopwatchItem *)items[name] : nil;	}
 - (void) remove:(NSS*)name 	  		{		if ( ! name) return; 	[items removeObjectForKey:name];	}
@@ -51,10 +58,12 @@ static id _sharedSingleton		= nil;
 @implementation AZStopwatchItem
 @synthesize name, started, stopped;
 
+
 + (AZStopwatchItem*) named:(NSS*)name {
 
 	AZStopwatchItem *item	= AZStopwatchItem.new;	item.name = name;	item.started = NSDate.date; return item;
 }
+-   (void) start        {  self.started = NSDate.date; }
 - 	 (void) stop 			{	self.stopped = NSDate.date; }
 -   (NSS*) description 	{	
 
@@ -65,9 +74,9 @@ static id _sharedSingleton		= nil;
 	return !started ? 0.0 :	!stopped ? [started timeIntervalSinceNow] * -1 : [started timeIntervalSinceDate:stopped] * -1;
 		
 }
--   (NSS*) runtimePretty{
-	
-	double secsRem	= [self runtime];
+-   (NSS*) runtimePretty{ return [self.class runtimePrettyForRuntime:[self runtime]]; }
++   (NSS*) runtimePrettyForRuntime:(NSTI)runtime {
+	double secsRem	= runtime;
 	// 3600 seconds in an hour
 	int hours		= (int)	 (secsRem / 3600);
 	secsRem			= secsRem - (hours   * 3600);
@@ -78,3 +87,22 @@ static id _sharedSingleton		= nil;
 }
 
 @end
+
+@implementation  NSObject (Stopwatch)
+- (void) startTiming { AZStopwatchItem *s; [s=AZStopwatchItem.new start];  [self setAssociatedValue:s forKey:@"watch"];	}
+
+- (double) runningTimer { AZStopwatchItem *s = objc_getAssociatedObject(self, (__bridge const void *)@"watch");
+
+	double run = [[self associatedValueForKey:@"totalDuration" orSetTo:@0]doubleValue];
+	return (s && s.started) ? (run + s.runtime) : run;
+}
+- (void) stopTiming { AZStopwatchItem *s = objc_getAssociatedObject(self, (__bridge const void *)@"watch");
+		if (!s) return;  [s stop];
+		double run = [[self associatedValueForKey:@"totalDuration" orSetTo:@0]doubleValue];
+		run = run == 0 ? s.runtime : run + s.runtime; 	[self setAssociatedValue:@(run) forKey:@"totalDuration"];
+}
+- (NSS*) elapsed { AZStopwatchItem *i = objc_getAssociatedObject(self, (__bridge const void *)@"watch");
+	return i==nil ? nil : [AZStopwatchItem runtimePrettyForRuntime:self.runningTimer]; }
+
+@end
+

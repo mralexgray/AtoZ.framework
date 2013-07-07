@@ -103,6 +103,11 @@
 
 
 #define overrideSEL az_overrideSelector
+@interface NSProxy (AZOverride)
+- (BOOL)az_overrideSelector:(SEL)selector withBlock:(void *)block;
+- (void *)az_superForSelector:(SEL)selector;
++ (void) swizzleInstanceSelector:(SEL)oldS withNewSelector:(SEL)newS;
+@end
 
 @interface NSObject (AZOverride)
  /*
@@ -129,5 +134,8 @@
  * This first gets a function pointer to the super method and then you call it.
  */
 - (void *)az_superForSelector:(SEL)selector;
- 
+
+
++ (void) swizzleInstanceSelector:(SEL)oldS withNewSelector:(SEL)newS;
+
 @end

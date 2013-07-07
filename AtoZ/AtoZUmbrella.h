@@ -404,6 +404,10 @@ typedef struct {	CAConstraintAttribute constraint;	CGFloat scale;	CGFloat offset
 
 #define NSVA NSViewAnimation
 
+#define			 kOpacity 	@"opacity"
+#define				kPhase	@"phase"
+#define				  kBgC	@"backgroundColor"
+#define				kBgNSC	@"backgroundNSColor"
 #define 				  vFKP 	valueForKeyPath
 #define 					vFK 	valueForKey
 #define 					 pV 	pointValue
@@ -412,6 +416,10 @@ typedef struct {	CAConstraintAttribute constraint;	CGFloat scale;	CGFloat offset
 #define 				  rngV	rangeValue
 
 #define 		 NSZeroRange 	NSMakeRange(0,0)
+
+#undef wCVfK
+#define 				  wCVfK 	willChangeValueForKey
+#define 				  dCVfK 	didChangeValueForKey
 
 #define 				setPBCN 	setPostsBoundsChangedNotifications:YES
 #define 				setPFCN 	setPostsFrameChangedNotifications:YES
@@ -470,7 +478,16 @@ typedef struct {	CAConstraintAttribute constraint;	CGFloat scale;	CGFloat offset
 //	NSW* theWindowVar; ->
 //	NSLog(@"%@", NSEXPQUOTE(theWindowVar)); 		-> %@ theWindowVar
 
+//#define ISKINDA(x,y) [y isKindOfClass:[y class]]
 
+#warning - todo
+//NSA*maybeAnArray = objc_dynamic_cast(UISwitch,viewController.view);	if (switch) NSLog(@"It jolly well is!);
+//That's nice, isn't it? Here's how:
+#define objc_dynamic_cast(TYPE, object) \
+  ({ \
+      TYPE *dyn_cast_object = (TYPE*)(object); \
+      [dyn_cast_object isKindOfClass:[TYPE class]] ? dyn_cast_object : nil; \
+  })
 
 
 #define AZCLASSNIBNAMED(XX,INSTANCENAME) 		\
@@ -479,10 +496,10 @@ NSArray *objs = nil;							\
 [aNib = aNib ?: [NSNib.alloc initWithNibNamed:AZCLSSTR bundle:nil] instantiateWithOwner:nil topLevelObjects:&objs];\
 XX *INSTANCENAME = [objs objectWithClass:self.class];
 
-#define AZSTRONGSTRING(A) @property (nonatomic, strong) NSString* A
+#define AZSTRSTR(A) @property (nonatomic, strong) NSString* A
 
-#define AZPROPSTR(z,x)		@property (nonatomic, strong) #z #x
-#define AZPROPRDO(z,x) 	@property (readonly) #z #x
+#define AZPROPSTR(z,x)		@property (nonatomic, strong) z *x
+#define AZPROPRDO(z,x) 	@property (readonly) z* x
 //#define AZPROPASS (A,B...) 	@property (NATOM,ASS) A B
 //#define AZPROPIBO (A,B...) 	@property (ASS) IBOutlet A B
 //	static NSString *_##ENUM_TYPENAME##_constants_string = @"" #ENUM_CONSTANTS; 	\
@@ -526,19 +543,6 @@ XX *INSTANCENAME = [objs objectWithClass:self.class];
 
 //#define AZContentBounds [[[ self window ] contentView] bounds]
 
-#define  AZVinstall(p) 	[NSVAL valueWithInstallStatus: p]
-#define  	AZVposi(p) 	[NSVAL      valueWithPosition: p]
-
-#define 	  AZVpoints(x,y) 	[NSVAL 	valueWithPoint:NSMakePoint(x,y)]
-#define 	     AZVpoint(p) 	[NSVAL	valueWithPoint: p]
-
-#define  	AZVrectMake(x,y,w,h) 	[NSVAL 			 valueWithRect:NSMakeRect(x,y,w,h)]
-
-#define  	AZVrect(r) 	[NSVAL 			 valueWithRect: r]
-#define  	AZVsize(s) 	[NSVAL 			 valueWithSize: s]
-#define   	  AZV3d(t) 	[NSVAL valueWithCATransform3D: t]
-#define   	 AZVclr(c) 	[NSVAL         valueWithColor: c]
-#define   	 AZVrng(c) 	[NSVAL         valueWithRange: c]
 
 
 #define 						kContentTitleKey @"itemTitle"
@@ -552,6 +556,17 @@ XX *INSTANCENAME = [objs objectWithClass:self.class];
 //#define AZTAreaInfo(frame,info) [NSTA.alloc initWithRect: frame options:(NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways | NSTrackingInVisibleRect | NSTrackingMouseMoved ) owner:self userInfo:info];
 
 #pragma mark - FUNCTION defines
+
+#define DYNAMIC(_class_,_type_,_name_...) \
+@interface     _class_ (Dynamic##_name_) @property _type_ _name_; @end \
+@implementation _class_ (Dynamic##_name_) @dynamic _name_; @end
+
+#define DYDISPLAYforKEYorSUPER(_key_) 	[self.dynamicPropertyNames containsObject:_key_] ?: [super needsDisplayForKey:_key_]
+#define SUBLAYERofCLASS(_class_) 		[self sublayerOfClass:[_class_ class]]
+#define SUPERINIT 							if (!(self = [super init])) return nil
+#define SUPERINITWITHFRAME 				if (!(self = [super initWithFrame:frame])) return nil
+#define SELFDELEGATE  						[self setDelegate:self], [self setNeedsDisplay]
+#define WINLOC(_event_) 					[_event_ locationInWindow]
 
 
 #define REQ RouteRequest
@@ -581,6 +596,9 @@ XX *INSTANCENAME = [objs objectWithClass:self.class];
 #define AZString(_X_) (	{	typeof(_X_) _Y_ = (_X_);\
 AZToStringFromTypeAndValue(@encode(typeof(_X_)), &_Y_);})
 
+#define dothisXtimes(_ct_,_action_)  for(int X = 0; X < _ct_; X++) ({ _action_ }) 
+
+
 //	NSLog(@"%@", StringFromBOOL(ISATYPE	( ( @"Hello", NSString)));   // DOESNT WORK
 //	NSLog(@"%@", StringFromBOOL(ISATYPE	( ( (NSR){0,1,1,2} ), NSRect)));   // YES
 //	NSLog(@"%@", StringFromBOOL(ISATYPE	( ( (NSR){0,1,1,2} ), NSRange)));  // NO
@@ -607,6 +625,11 @@ AZToStringFromTypeAndValue(@encode(typeof(_X_)), &_Y_);})
 #define APP_VERSION 				[NSBundle.mainBundle objectForInfoDictionaryKey:@"CFBundleVersion"]
 #define OPEN_URL(urlString) 	[NSWorkspace.sharedWorkspace openURL:[NSURL URLWithString:urlString]]
 
+
+#define kPfVAVfK keyPathsForValuesAffectingValueForKey
+#define dCVfK didChangeValueForKey
+#define dVfK defaultValueForKey
+#define NSET NSSet*
 
 
 /* Retrieving preference values */
@@ -691,7 +714,13 @@ AZToStringFromTypeAndValue(@encode(typeof(_X_)), &_Y_);})
 #define AZDistance(A,B) sqrtf(powf(fabs(A.x - B.x), 2.0f) + powf(fabs(A.y - B.y), 2.0f))
 #define rand() (arc4random() % ((unsigned)RAND_MAX + 1))
 
+#define CARL CAReplicatorLayer
+#define CGIREF CGImageRef
+#define CGCLRREF CGColorRef
+#define NEWLAYER(_x_) CAL* _x_ = CAL.new
+#define NEW(_class_,_name_) _class_ *_name_ = [_class_.alloc init]
 
+#define NEWATTR(_class_,_name_...) 
 
 #define $point(A)	   	[NSValue valueWithPoint:A]
 #define $points(A,B)	   	[NSValue valueWithPoint:CGPointMake(A,B)]
@@ -752,6 +781,9 @@ _Pragma("clang diagnostic pop") \
 #define NSCRGBA(red,green,blue,alpha) [NSC r:red g:green b:blue a:alpha]
 #define NSDEVICECOLOR(r,g,b,a) [NSColor colorWithDeviceRed:r green:g blue:b alpha:a]
 #define NSCOLORHSB(h,s,b,a) [NSColor colorWithDeviceHue:h saturation:s brightness:b alpha:a]
+#define NSCW(_grey_,_alpha_)  [NSColor colorWithCalibratedWhite:_grey_ alpha:_alpha_]
+
+//^NSC*(grey,alpa){ return (NSC*)[NSColor colorWithCalibratedWhite:grey alpha:alpha]; }
 
 
 #pragma mark - FUNCTION defines
@@ -854,6 +886,9 @@ return SC##_sharedInstance; \
 */
 /** 	Block type used by ksva_iterate_list.
  @param entry The current argument in the vararg list.	*/
+#define AZVA_ARRAYB void (^)(NSArray* values)
+#define AZVA_IDB void (^AZVA_Block)(id entry)
+
 typedef void (^AZVA_Block)(id entry);
 typedef void (^AZVA_ArrayBlock)(NSArray* values);
 
@@ -871,6 +906,10 @@ typedef void (^AZVA_ArrayBlock)(NSArray* values);
 #define azva_list_to_nsarray(FIRST_ARG_NAME, ARRAY_NAME) \
 	NSMA* ARRAY_NAME = NSMA.new;  azva_iterate_list(FIRST_ARG_NAME, ^(id entry) { [ARRAY_NAME addObject:entry]; })
 
+#define azva_list_to_nsarrayBLOCKSAFE(FIRST_ARG_NAME, ARRAY_NAME) \
+	NSMA* ARRAY_NAME = NSMA.new;  azva_iterate_list(FIRST_ARG_NAME, ^(id entry) { __block __typeof__(entry) _x_ = entry; [ARRAY_NAME addObject:_x_]; })
+
+
 /*** 	Convert a variable argument list into a dictionary, interpreting the vararg list as object, key, object, key, ...
  An autoreleased NSMutableDictionary will be created in the current scope with the specified name.
  @param FIRST_ARG_NAME The name of the first argument in the vararg list.
@@ -881,6 +920,17 @@ typedef void (^AZVA_ArrayBlock)(NSArray* values);
 		azva_iterate_list(FIRST_ARG_NAME, ^(id entry) { 													\
 			if(azva_object == nil)  azva_object = entry; 													\
 			else {	[DICT_NAME setObject:azva_object forKey:entry]; azva_object = nil;  } 	}); }
+
+
+/*** 	Same as above... but KEY is first!
+ @param FIRST_ARG_NAME The name of the first argument in the vararg list.
+ @param DICT_NAME The name of the dictionary to create in the current scope.		*/
+#define azva_list_to_nsdictionaryKeyFirst(FIRST_KEY, DICT_NAME) \
+	NSMD* DICT_NAME = NSMD.new; 	{						 														\
+		__block id azva_object = nil; 					 														\
+		azva_iterate_list(FIRST_KEY, ^(id entry) { 															\
+			if(azva_object == nil)  azva_object = entry; 													\
+			else {	[DICT_NAME setObject:entry forKey:azva_object]; azva_object = nil;  } 	}); }
 
 
 

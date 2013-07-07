@@ -23,17 +23,33 @@ NS_INLINE AZNodeProtocolKeyPaths AZNodeProtocolKeyPathsMake(NSS*kP,NSS*vP,NSS*cP
 //@property (readonly) NSString *valuePath, *keyPath, *childrenPath;
 @concrete
 @property (nonatomic) NSCellStateValue nodeState;
-@property (readwrite, nonatomic) id value, key;
++ (instancetype) instanceInNode:(id)p;
+- (id) value;
+- (id) key;
+- (void) setValue:(id)v;
+- (void) setKey:(id)k;
 //- (void) setValue:(id)value;
 //-   (id) key;
 //- (void) setKey:(id)key;
-@property (readonly) NSA* children, *allSiblings, *allDescendants; //* allAncestors,
-@property (readonly) BOOL isLeaf, isaNode;
-@property (readonly) NSUI numberOfChildren, siblingIndexMax, siblingIndex;
+@property (readonly) 									NSA * children,
+																	 * allSiblings,
+																	 * allDescendants; //* allAncestors,
+@property (readonly) 								  BOOL   isaLeaf,
+																		isaNode, isaRoot;
+@property (readonly) 								  NSI 	numberOfChildren,
+																		siblingIndexMax,
+																		siblingIndex;
 @property (weak,readonly) NSObject<AtoZNodeProtocol>* parent;
+//@property (readonly) 									NSS * description;
+- (void) dlog;
 @end
 
-@interface	AZNode : NSObject	<AtoZNodeProtocol> //NSCopying, NSCoding
+@interface NSCoder (AZNodeProtocolKeyPaths)
+- (struct AZNodeProtocolKeyPaths)decodeKeyPaths:(id)arg1;
+- (void)encodeKeyPaths:(struct AZNodeProtocolKeyPaths)kps;
+@end
+@interface	AZNode : NSObject	<AtoZNodeProtocol, NSCopying, NSCoding>
+
 @end
 
 

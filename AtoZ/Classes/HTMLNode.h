@@ -8,14 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import "AZHTMLParser.h"
-#import <libxml/parser.h>
-//#import "/usr/include/libxml2/libxml/HTMLParser.h"//<libxml/HTMLparser.h>
-
-//@class HTMLParser;
-
 #define ParsingDepthUnlimited 0
 #define ParsingDepthSame -1
 #define ParsingDepth size_t
+
+
 
 typedef enum
 {
@@ -34,15 +31,12 @@ typedef enum
 	HTMLBlockQuoteNode,
 } HTMLNodeType;
 
-@interface HTMLNode : NSObject 
-{
-@public
-	xmlNode * _node;
-}
+//@class xmlNode;
+@interface HTMLNode : NSObject
 
-//Init with a lib xml node (shouldn't need to be called manually)
-//Use [parser doc] to get the root Node
--(id)initWithXMLNode:(xmlNode*)xmlNode;
+// tried to make private, but oh well
+-(id)initWithXMLNode:(void*)xmlNode;  // was *xmlnode
+
 
 //Returns a single child of class
 -(HTMLNode*)findChildOfClass:(NSString*)className;
@@ -101,12 +95,6 @@ typedef enum
 -(HTMLNodeType)nodetype;
 
 
-//C functions for minor performance increase in tight loops
-NSString * getAttributeNamed(xmlNode * node, const char * nameStr);
-void setAttributeNamed(xmlNode * node, const char * nameStr, const char * value);
-HTMLNodeType nodeType(xmlNode* node);
-NSString * allNodeContents(xmlNode*node);
-NSString * rawContentsOfNode(xmlNode * node);
 
 
 @end

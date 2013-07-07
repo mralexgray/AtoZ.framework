@@ -101,7 +101,7 @@
 		//		[self contactSheetWith: [NSIMG.frameworkImages withMaxItems:10]  rect:AZScreenFrame() cols:3
 		//					  callback:^(NSIMG *i) {
 		[res respondWithData:[[NSImage contactSheetWith:[NSIMG.frameworkImages withMaxRandomItems:10]
-																						inFrame:_webView.bounds columns:4]
+																						inFrame:_webView.bounds]
 													.bitmap representationUsingType: NSJPEGFileType properties:nil]];
 		//		 NSData *result = [i.bitmap	representationUsingType:NSJPEGFileType properties:nil];
 		//		NSData *d = [rando.representations[0] bitmapRepresentation];// bitmapRepresentation;//][0] representationUsingType:NSPNGFileType properties:nil];// TIFFRepresentation];
@@ -124,13 +124,6 @@
 
 
 
-- (void)contactSheetWith:(NSA*)images rect:(NSR)rect cols:(NSUI)cols callback:(void (^)(NSImage *))callback  {
-
-	[NSThread performBlockInBackground:^{
-		NSIMG* image =	[NSImage contactSheetWith:images inFrame:rect columns:cols];
-		[[NSThread mainThread] performBlock:^{	callback(image); }];
-	}];
-}
 
 - (void)handleSelectorRequest:(REQ *)request withResponse:(RES *)response {
 	[response respondWithString:@"Handled through selector"];

@@ -262,6 +262,9 @@ static NSMD *colorsFromStruct = nil;
 
 @implementation NSColor (AtoZ)
 
+- (NSG*) gradient { return [self associatedValueForKey:@"_gradient" orSetTo:[NSG.alloc initWithColorsAndLocations:self.brighter.brighter, 0.0,self.brighter, .13, self, 0.5,self.darker, .8,self.darker.darker.darker, 1.0, nil]]; }
+
+
 + (NSD*)colorNamesDictionary						{ return @{
 
 	@"black":[NSC colorWithHTMLString:@"#000"], 		@"silver":[NSC colorWithHTMLString:@"#c0c0c0"],

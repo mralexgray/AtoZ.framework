@@ -744,57 +744,41 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 	animationDetails[NSViewAnimationTargetKey] = self;
 	return @[animationDetails];
 }
++ (NSViewAnimation*) animationWithDefaultsWithAnimations:(NSArray*)anis {
 
-- (void)playAnimationWithParameters:(NSD*)params
-{
-	NSViewAnimation *animation = [[NSViewAnimation alloc]
-											initWithViewAnimations:[self animationArrayForParameters:params]];
-	[animation setAnimationBlockingMode:AZDefaultAnimationBlockingMode];
-	[animation setDuration:AZDefaultAnimationDuration];
-	[animation setAnimationCurve:AZDefaultAnimationCurve];
+	NSViewAnimation *ani = [NSViewAnimation.alloc initWithViewAnimations:anis];
+	ani.animationBlockingMode 	= AZDefaultAnimationBlockingMode;
+	ani.duration 					= AZDefaultAnimationDuration;
+	ani.animationCurve 			= AZDefaultAnimationCurve;
+	return ani;
+}
+- (void)playAnimationWithParameters:(NSD*)params	{
+	NSViewAnimation *animation = [self.class animationWithDefaultsWithAnimations:[self animationArrayForParameters:params]];
 	[animation setDelegate:(id)self];
 	[animation startAnimation];
 }
-- (void)fadeWithEffect:effect
-{
-	[self playAnimationWithParameters:@{NSViewAnimationEffectKey: effect}];
+- (void) fadeOutAndThen:(void(^)(NSAnimation*))block {
+	NSViewAnimation *animation = [self.class animationWithDefaultsWithAnimations: [self animationArrayForParameters:
+																	 @{ NSViewAnimationEffectKey: NSViewAnimationFadeOutEffect}]];
+	A2DynamicDelegate *d  		= [A2DynamicDelegate.alloc initWithProtocol:@protocol(NSAnimationDelegate)];
+//	 animation.dynamicDelegate;
+	[d implementMethod:@selector(animationDidEnd:) withBlock:block];
+	animation.delegate 			= (id<NSAnimationDelegate>)d;
+	objc_setAssociatedObject(self, _cmd, d, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+	[animation startAnimation];
 }
 
-- (void)fadeOut 
-{
-	[self fadeWithEffect:NSViewAnimationFadeOutEffect];
+- (void)fadeWithEffect:effect	{ [self playAnimationWithParameters:@{	NSViewAnimationEffectKey: effect}];	}
+- (void)fadeOut 					{ [self fadeWithEffect:NSViewAnimationFadeOutEffect];								}
+- (void)fadeIn						{ [self fadeWithEffect:NSViewAnimationFadeInEffect];								}
+- (void)animateToFrame:(NSR)n	{ [self playAnimationWithParameters:@{	NSViewAnimationEndFrameKey: AZVrect(n)}];	}
+- (void)fadeToFrame:(NSR)n		{ [self playAnimationWithParameters:@{	NSViewAnimationEndFrameKey: AZVrect(n),
+																						 	NSViewAnimationEffectKey  : self.isHidden ?
+		  																				 NSViewAnimationFadeInEffect : NSViewAnimationFadeOutEffect}];
 }
-
-- (void)fadeIn
-{
-	[self fadeWithEffect:NSViewAnimationFadeInEffect];
-}
-
-- (void)animateToFrame:(NSRect)newFrame
-{
-	[self playAnimationWithParameters:@{NSViewAnimationEndFrameKey: AZVrect(newFrame)}];
-}
-
-- (void)fadeToFrame:(NSRect)newFrame
-{
-	[self playAnimationWithParameters:@{NSViewAnimationEndFrameKey: AZVrect(newFrame), NSViewAnimationEffectKey: [self isHidden] ?
-		  NSViewAnimationFadeInEffect : NSViewAnimationFadeOutEffect}];
-}
-
-+ (void)setDefaultDuration:(NSTimeInterval)duration
-{
-	AZDefaultAnimationDuration = duration;
-}
-
-+ (void)setDefaultBlockingMode:(NSAnimationBlockingMode)mode
-{
-	AZDefaultAnimationBlockingMode = mode;
-}
-
-+ (void)setDefaultAnimationCurve:(NSAnimationCurve)curve
-{
-	AZDefaultAnimationCurve = curve;
-}
++ (void)setDefaultDuration:(NSTimeInterval)duration				{	AZDefaultAnimationDuration = duration;	}
++ (void)setDefaultBlockingMode:(NSAnimationBlockingMode)mode	{	AZDefaultAnimationBlockingMode = mode;	}
++ (void)setDefaultAnimationCurve:(NSAnimationCurve)curve			{	AZDefaultAnimationCurve = curve;			}
 
 - (NSImage *) snapshot { return [self snapshotFromRect:[self frame]]; }
 
@@ -807,60 +791,43 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 	[snapshot addRepresentation:rep];
 	return snapshot;
 }
-
-+ (void)animateWithDuration:(NSTimeInterval)duration 
-						animation:(void (^)(void))animationBlock
++ (void)animateWithDuration:(NSTI)duration
+						animation:(void(^)(void))animationBlock	{ [self animateWithDuration:duration animation:animationBlock completion:nil];	}
++ (void)animateWithDuration:(NSTI)duration
+						animation:(void(^)(void))animationBlock
+					  completion:(void(^)(void))completionBlock
 {
-	[self animateWithDuration:duration animation:animationBlock completion:nil];
-}
-+ (void)animateWithDuration:(NSTimeInterval)duration 
-						animation:(void (^)(void))animationBlock
-					  completion:(void (^)(void))completionBlock
-{
-	[NSAnimationContext beginGrouping];
-	[[NSAnimationContext currentContext] setDuration:duration];
+	NSAnimationContext.beginGrouping;
+	NSAnimationContext.currentContext.duration = duration;
 	animationBlock();
-	[NSAnimationContext endGrouping];
-	
-	if(completionBlock)
-	{
+	NSAnimationContext.endGrouping;
+	if(completionBlock)	{
 		id completionBlockCopy = [completionBlock copy];
 		[self performSelector:@selector(runEndBlock:) withObject:completionBlockCopy afterDelay:duration];
 	}
 }
-+ (void)runEndBlock:(void (^)(void))completionBlock
-{
-	completionBlock();
-}
++ (void)runEndBlock:(void (^)(void))completionBlock	{	completionBlock();	}
 
 /////[i convertPoint: [[i window] convertScreenToBase:[NSEvent mouseLocation]] fromView: nil ]
-- (NSP)windowPoint 
-{
+- (NSP) windowPoint 	{
 	NSPoint globalLocation 	= NSE.mouseLocation;
 	NSPoint windowLocation 	= [self.window convertScreenToBase:globalLocation];
 	NSPoint viewLocation 		= [self convertPoint: windowLocation fromView: nil];
 	return viewLocation;
 }
-
-- (NSPoint) localPoint;
-{
-	return [self convertPoint: [[self window] convertScreenToBase:NSPointFromCGPoint( mouseLoc())] fromView:nil];
+- (NSP) localPoint	{ return [self convertPoint: [self.window convertScreenToBase:mouseLoc()] fromView:nil];
 	//								[NSEvent mouseLocation]] fromView: nil ]
 }
 
-- (void) handleMouseEvent:(NSEventMask)mask withBlock:(void (^)())block  {
-	[NSEvent addLocalMonitorForEventsMatchingMask:mask handler:^NSEvent *(NSEvent *event) {
-		NSPoint localP = self.localPoint;
-		[self setNeedsDisplay:YES];
-		NSLog(@"oh my god.. point %@", NSStringFromPoint(localP));
-		if ([event type] == mask ) {
-			
-			//			if ( NSPointInRect(localP, view.frame) ){
+- (void) handleMouseEvent:(NSEventType)type withBlock:(void (^)())block  {
+	[NSEVENTLOCALMASK:NSEventMaskFromType(type) handler:^NSE*(NSE *e) {
+		NSP localP = self.localPoint;
+//		[self setNeedsDisplay:YES];		NSLog(@"oh my god.. point %@", NSStringFromPoint(localP));
+		if (e.type == type ) {//if ( NSPointInRect(localP, view.frame) ){
 			NSLog(@"oh my god.. point is local to view: %@! Localpoint: %@...  about to run block !!". self.description, [self localPoint]);
-			[[NSThread mainThread] performBlock:block waitUntilDone:YES];
-			//			[NSThread performBlockInBackground:block];
+			[NSThread.mainThread performBlock:block waitUntilDone:YES]; // [NSThread performBlockInBackground:block];
 		}
-		return event;
+		return e;
 	}];
 	return;
 }

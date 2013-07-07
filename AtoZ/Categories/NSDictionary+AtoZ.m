@@ -319,7 +319,7 @@
 	[self swizzleDescription];	//	NSLog(@"normal: %@", normal);
 	return [[[NSS stringWithData:[AZXMLWriter dataWithPropertyList:self] encoding:NSUTF8StringEncoding] stringByRemovingPrefix:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n<plist version=\"1.0\">"]stringByRemovingSuffix:@"</plist>"];
 }
-+ (void) load  {
++ (void) initialize  {
 	[$ swizzleMethod:@selector(description) with:@selector(swizzleDescription) in:self.class];
 }
 
@@ -423,8 +423,14 @@
 }
 // NSDictionary *resultDict = [self findDictionaryForValue:@"i'm an id" inArray:array];
 
+
 + (NSDictionary*) dictionaryWithValue:(id)value forKeys:(NSA*)keys	{
 	__block NSMutableDictionary *dict = [NSMutableDictionary new];
+	[keys do:^(id obj) { dict[obj] = value; }];
+	return dict;
+}
+- (NSDictionary*) dictionaryWithValue:(id)value forKeys:(NSA*)keys	{
+	__block NSMutableDictionary *dict = self.mutableCopy;
 	[keys do:^(id obj) { dict[obj] = value; }];
 	return dict;
 }

@@ -1,5 +1,6 @@
 
 
+#import "BaseModel.h"
 
 extern NSUInteger gcd(NSI m, NSUI n);
 

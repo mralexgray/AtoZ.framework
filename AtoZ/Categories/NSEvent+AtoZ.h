@@ -38,7 +38,6 @@ JREnumDeclare(AZEvent, AZEventLeftMouseDown = 1,
 typedef void(^NSControlVoidActionBlock)(void);
 typedef void(^NSControlActionBlock)(id);
 @interface NSControl (AtoZ)
-
 @property (readwrite, nonatomic, copy) void(^actionBlock)(id);
 @property (readwrite, nonatomic, copy) void(^voidActionBlock)(void);
 - (void) setAction:(SEL)method withTarget:(id)object;
@@ -70,6 +69,6 @@ typedef void (^EventBlock)(NSE* e);
 @property (readwrite, nonatomic, copy) NSControlVoidActionBlock doubleActionBlock;
 - (void) setDoubleAction:(SEL)method withTarget:(id)object;
 - (void) setDoubleActionString:(NSS*)methodasString withTarget:(id)object;
-- (void) setDoubleActionBlock:(NSControlVoidActionBlock)block;
+//- (void) setDoubleActionBlock:(NSControlVoidActionBlock)block;
 
 @end

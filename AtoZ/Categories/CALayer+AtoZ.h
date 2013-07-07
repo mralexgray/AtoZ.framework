@@ -104,7 +104,7 @@ typedef void(^ReverseAnimationBlock)(void);
 	/// For when you need a weak reference of an object, example: `BBlockWeakObject(obj) wobj = obj;`
 #define BlockSafeObject(o) __typeof__(o) __weak
 	/// For when you need a weak reference to self, example: `BBlockWeakSelf wself = self;`
-#define AZBlockSelf BlockSafeObject(self)
+#define AZBlockSelf(_x_)  BlockSafeObject _x_ = self 
 
 #define declareBlockSafe(__obj__) __weak typeof(__obj__) __obj__ = __obj__
 	//__tmpblk
@@ -116,21 +116,27 @@ typedef void(^ReverseAnimationBlock)(void);
 __weak typeof((__obj__)) __name__ = (__obj__)
 	//__tmpblk##
 
-typedef void(^bSelf)(id<NSObject> bSelf);
+#define SELFBLK void(^)(id _self)
+typedef void(^bSelf)(id);
 @interface  NSObject (bSelf)
-- (void) blockSelf:(bSelf)block;
-- (void) triggerKVO:(NSS*)k block:(void(^)(id<NSObject> bSelf))blk;
+- (void) blockSelf:(void(^)(id _self))block;
+- (void) triggerKVO:(NSS*)k block:(void(^)(id _self))blk;
 	//-(void)bSelfBlock:(bSelf)block;
 @end
 
 
 @interface CAL (AtoZ)
 
+- (void) disableActionsForKeys:(NSA*)ks;
+- (void) addActionsForKeys:(NSD*)keysAndActions;
 
 - (CAL*) permaPresentation;
 @property (RDWRT,NATOM) NSColor *backgroundNSColor;
 @property (RDWRT,NATOM,ASS) BOOL selected, hovered;
 
+
++ (NSA*) needsDisplayForKeys;
++ (void) setNeedsDisplayForKeys:(NSA*)ks;
 - (void) needsLayoutForKey:(NSS*)key;
 -   (id) scanSubsForName:	(NSS*)n;
 -   (id) scanSubsForClass:	(Class)c;
@@ -147,6 +153,7 @@ typedef void(^bSelf)(id<NSObject> bSelf);
 -  (NSR) actuallyVisibleRect;
 -  (NSR) actuallyVisibleRectInView:(NSV*)v;
 
+- (CAL*) sublayerOfClass:(Class)k;
 - (NSA*) sublayersOfClass:(Class)k;
 - (void) removeImmediately;
 - (void) removeSublayers;
@@ -182,7 +189,8 @@ typedef void(^bSelf)(id<NSObject> bSelf);
 
 - (void) toggleSpin: (AZState)state;
 
--(id)initWithFrame:(CGRect)rect;
++   (id) layerWithFrame: (CGR)frame;
+-   (id) initWithFrame:  (CGR)frame;
 
 - (void)moveToFront;
 
@@ -277,6 +285,10 @@ typedef void(^bSelf)(id<NSObject> bSelf);
 + (CAL*)newGlowingSphereLayer;
 @end
 
+@interface CAGradientLayer (NSColors)
+@property NSA* nsColors;
+@end
+
 @interface CALayerNonAnimating : CALayer
 @end
 
@@ -327,8 +339,6 @@ typedef void(^bSelf)(id<NSObject> bSelf);
 @property (RDWRT,NATOM,ASS) CGF positionX;
 @property (RDWRT,NATOM,ASS) CGF positionY;
 
-+   (id) layerWithFrame: (CGR)frame;
--   (id) initWithFrame:  (CGR)frame;
 - (void) setAnchorPointAndPreserveCurrentFrame:(CGP)anchorPoint;
 
 + (CGF) smallestWidthInLayers:  (NSA*)layers;

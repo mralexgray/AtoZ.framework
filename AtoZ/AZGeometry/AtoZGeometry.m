@@ -24,21 +24,23 @@ NSP AZAnchorPointOfActualRect(NSR rect, AZPOS pos) {
 	return newP;
 
 }
+const CGP AZAnchorCenter	  		= (CGP) { .5,.5 };
 const CGP AZAnchorTop		  		= (CGP) { .5, 1 };
 const CGP AZAnchorBottom	  		= (CGP) { .5, 0 };
-const CGP AZAnchorRight		  	= (CGP) {  1,.5 };
-const CGP AZAnchorLeft 		  	= (CGP) {  0,.5 };
-const CGP AZAnchorTopLeft	  	= (CGP) {  0, 1 };  //  0, 1 };
-const CGP AZAnchorBottomLeft  = (CGP) {  0, 0 };  // 0, 0 };
-const CGP AZAnchorTopRight		= (CGP) {  1, 1 };  // 1, 1 };
-const CGP AZAnchorBottomRight = (CGP) {  1, 0 };  //1, 0 };
-AZPOS AZPositionAtPerimeterInRect(NSR edgeBox, NSR outer)	{
-//	CGF max, left, right, top, bttom
+const CGP AZAnchorRight		  		= (CGP) {  1,.5 };
+const CGP AZAnchorLeft 		  		= (CGP) {  0,.5 };
+const CGP AZAnchorTopLeft	  		= (CGP) {  0, 1 };  //  0, 1 };
+const CGP AZAnchorBottomLeft  	= (CGP) {  0, 0 };  // 0, 0 };
+const CGP AZAnchorTopRight			= (CGP) {  1, 1 };  // 1, 1 };
+const CGP AZAnchorBottomRight 	= (CGP) {  1, 0 };  //1, 0 };
+
+AZPOS AZPositionAtPerimeterInRect(NSR edgeBox, NSR outer)	{	//	CGF max, left, right, top, bttom
+
 	AZOrient vORh = (edgeBox.origin.x == outer.origin.x || (edgeBox.origin.x + edgeBox.size.width) == outer.size.width)
-			  ? AZOrientVertical : AZOrientHorizontal;
+					  ? AZOrientVertical : AZOrientHorizontal;
 	AZPOS p;
-	if ( vORh == AZOrientHorizontal ) p = edgeBox.origin.y == 0 ? AZPositionBottom : AZPositionTop;
-	else 							  p = edgeBox.origin.x == 0 ? AZPositionLeft : AZPositionRight;
+	if ( vORh == AZOrientHorizontal ) 	p = edgeBox.origin.y == 0 ? AZPositionBottom : AZPositionTop;
+	else 										  	p = edgeBox.origin.x == 0 ? AZPositionLeft : AZPositionRight;
 	return p;
 }
 CGP	AZAnchorPointForPosition		(AZPOS pos)	{

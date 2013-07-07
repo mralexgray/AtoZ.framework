@@ -3,6 +3,10 @@
 //  AtoZ
 
 #import "AtoZ.h"
+
+
+
+
 extern NSString * const NSMutableArrayDidInsertObjectNotification;
 
 @interface NSArray (EnumExtensions)
@@ -29,6 +33,7 @@ extern NSString * const NSMutableArrayDidInsertObjectNotification;
 + (NSA*) from:(NSI)from to:(NSI)to;
 -   (id) nextObject;
 
+- (NSA*)arrayByAddingAbsentObjectsFromArray:(NSArray *)otherArray;
 
 - (NSCountedSet*)countedSet ;
 
