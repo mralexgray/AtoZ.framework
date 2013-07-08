@@ -270,12 +270,12 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary(void) {
 
 - (void)swizzleSetValue:(id)v forKey:(NSS*)k {
 	id x = [self valueForKey:k];
-	if (IS_OBJECT(x) || x == nil)  return  [self swizzleSetValue:v forKey:k];
-	else {
+	if (!IS_OBJECT(x) || x != nil) {
 		NSMA *setAlready = self.propertiesThatHaveBeenSet ?: NSMA.new;
 		[setAlready addObject:k];
 	 	self.propertiesThatHaveBeenSet = setAlready;
 	}
+	[self swizzleSetValue:v forKey:k];
 }
 
 - (BOOL) valueWasSetForKey:(NSS*)key {	[self.propertiesThatHaveBeenSet containsObject:key];	}
