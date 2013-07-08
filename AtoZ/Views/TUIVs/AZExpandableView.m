@@ -84,7 +84,7 @@
 
 }
 - (void) toggleExpanded 	{	__block CGSZ tSize; __block CGF w, h; 
-										BOOL isVRT = !self.parentLayout.typeOfLayout == AHLayoutHorizontal;
+										BOOL isVRT = !self.parentLayout.typeOfLayout == AZOrientHorizontal;
 
 	!isVRT ? ^{ w	= expanded ? originalSize.width  :  self.parentLayout.width;	tSize = (CGS)   { w, self.height }; }()
 			 : ^{	h 	= expanded ? originalSize.height : self.parentLayout.height;	tSize = (CGS)   { self.width, h  }; }();

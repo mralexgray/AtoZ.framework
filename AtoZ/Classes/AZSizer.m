@@ -165,7 +165,7 @@ NSUI gcd (NSI m, NSUI n) { NSI t, r;
 					}	
 				}	
 			}
-			return [pRects withMinItems:_quantity];
+			return pRects;// withMinItems:_quantity];
 		}()
 		: _orient == AZOrientPerimeter ? ^{ NSMA* rectss = NSMA.new;
 			
