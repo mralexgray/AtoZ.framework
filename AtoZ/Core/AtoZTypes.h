@@ -249,9 +249,8 @@ typedef NS_ENUM(NSUI,  AZMenuPosition ) { AZMenuN, AZMenuS, AZMenuE, AZMenuW, AZ
 typedef NS_ENUM(NSUI, AZTrackPosition ) { AZTrackN, AZTrackS, AZTrackE, AZTrackW, AZTrackPositionCount									};
 typedef NS_ENUM(NSUI,  	AZInfiteScale ) { AZInfiteScale0X, AZInfiteScale1X, AZInfiteScale2X, AZInfiteScale3X, AZInfiteScale10X	};
 
-typedef NS_OPTIONS(NSUI,     AZOrient ) {	AZOrientTop, AZOrientLeft, AZOrientBottom, AZOrientRight,
-														AZOrientGrid, AZOrientPerimeter, AZOrientFiesta,
-														AZOrientVertical, AZOrientHorizontal																	};
+JREnumDeclare(AZOrient,	AZOrientTop, 	AZOrientLeft, 		AZOrientBottom, 	AZOrientRight,
+								AZOrientGrid, 	AZOrientPerimeter,AZOrientFiesta,	AZOrientVertical, AZOrientHorizontal);
 
 #define AZTW AZTrackingWindow
 #define iC iCarousel

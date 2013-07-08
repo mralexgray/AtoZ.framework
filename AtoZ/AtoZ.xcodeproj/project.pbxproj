@@ -42,7 +42,6 @@
 /* Begin PBXBuildFile section */
 		7B02364D15DF15DB0070FE12 /* AZLaunchServices.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B02364B15DF15DA0070FE12 /* AZLaunchServices.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B02364E15DF15DB0070FE12 /* AZLaunchServices.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B02364C15DF15DA0070FE12 /* AZLaunchServices.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		7B02A2CA172A852E00973A80 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B02A2C9172A852E00973A80 /* main.m */; };
 		7B04C2C316118DBE00F46AD2 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B82B82215CB66D30026FE8C /* Cocoa.framework */; };
 		7B0561E416F8A3CF00391E15 /* HTMLNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BBCBAEF167149C900681F2B /* HTMLNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B05BB0C159C40A600409B83 /* AZQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B05BB0A159C40A600409B83 /* AZQueue.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -831,6 +830,7 @@
 		7BD667971760EF4B006DA22C /* libextobjc_OSX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BD6678C1760EF22006DA22C /* libextobjc_OSX.a */; };
 		7BD7D3F5170A04E8001D49FA /* SDCloseButtonCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B379D2715DE634E0040A093 /* SDCloseButtonCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BD7D3F6170A04F3001D49FA /* SDCloseButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B379D2615DE634D0040A093 /* SDCloseButtonCell.m */; };
+		7BD8D901178B434A00B9DB76 /* UknownSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD8D900178B434900B9DB76 /* UknownSelector.m */; };
 		7BD908BD162F556B000DE2BB /* AtoZGeometry.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BD908BC162F5557000DE2BB /* AtoZGeometry.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BD908BF162F580E000DE2BB /* AtoZGeometry.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD908BE162F580E000DE2BB /* AtoZGeometry.m */; };
 		7BDB8D7D15CB56BA0037A4BF /* missing.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BDB8D7915CB56BA0037A4BF /* missing.png */; };
@@ -2979,6 +2979,8 @@
 		7BD667111760BA07006DA22C /* AZWindowTabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZWindowTabViewController.m; sourceTree = "<group>"; };
 		7BD667121760BA07006DA22C /* AZWindowTabViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AZWindowTabViewController.xib; sourceTree = "<group>"; };
 		7BD667821760EF20006DA22C /* extobjc.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = extobjc.xcodeproj; path = ../Frameworks/libextobjc/extobjc.xcodeproj; sourceTree = "<group>"; };
+		7BD8D8FE178B3A0A00B9DB76 /* methodlogging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = methodlogging.m; sourceTree = "<group>"; };
+		7BD8D900178B434900B9DB76 /* UknownSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UknownSelector.m; sourceTree = "<group>"; };
 		7BD908BC162F5557000DE2BB /* AtoZGeometry.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AtoZGeometry.h; path = ../AZGeometry/AtoZGeometry.h; sourceTree = "<group>"; };
 		7BD908BE162F580E000DE2BB /* AtoZGeometry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = AtoZGeometry.m; path = ../AZGeometry/AtoZGeometry.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7BDB8D7915CB56BA0037A4BF /* missing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = missing.png; sourceTree = "<group>"; };
@@ -3229,6 +3231,8 @@
 			isa = PBXGroup;
 			children = (
 				7B02A2C9172A852E00973A80 /* main.m */,
+				7BD8D8FE178B3A0A00B9DB76 /* methodlogging.m */,
+				7BD8D900178B434900B9DB76 /* UknownSelector.m */,
 			);
 			name = AZPrompt;
 			path = ../AZPrompt;
@@ -5929,6 +5933,7 @@
 				7B6848E61700536100DF5150 /* AppleDoc */,
 				7B1C48DC1726C8D4007D9987 /* ShellScript */,
 				7B66D779175DBCF600599B28 /* ShellScript */,
+				7BD8D8FD178B366B00B9DB76 /* CLEAN GCDAS */,
 			);
 			buildRules = (
 			);
@@ -7104,6 +7109,20 @@
 			shellPath = /bin/sh;
 			shellScript = "export WWWDIR=\"/sd/www/mrgray\"\nexport DOCSDIR=\"/docs/atoz.framework\"\nmkdir -p \"$WWWDIR$DOCSDIR\"\n\n#/usr/local/bin/appledoc \"${SRCROOT}/../AppledocSettings.plist\"\n\n#--project-name \"$FULL_PRODUCT_NAME\" \n#--project-company \\\"mrgray.com\\\" \n#--company-id com.github.mralexgray\n##--output \\\"${WWWDIR}${DOCSDIR}\\\" \n#--docset-feed-url \"http://mrgray.com${DOCSDIR}/%DOCSETATOMFILENAME\" \n#--docset-package-url \"http://mrgray.com${DOCSDIR}/%DOCSETPACKAGEFILENAME\" \n#--publish-docset\n#.;\n";
 		};
+		7BD8D8FD178B366B00B9DB76 /* CLEAN GCDAS */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "CLEAN GCDAS";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "echo \"Cleaning Profiler Information\" && cd \"${OBJECT_FILE_DIR_normal}/${CURRENT_ARCH}\"\n# Delete *.gcda files in the current target\nCOUNT=$(ls *.gcda 2> /dev/null | wc -l)\nif [ $COUNT -ne 0 ]; then sayQuietly \"Deleting $COUNT G C D A's\";  rm -f *.gcda;  fi\n";
+		};
 		7BE63AB915FE9782004BA700 /* LinkBuild To System Frameworks Directory and Create Umbrella Framework Symlink */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -7116,7 +7135,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "  PRODUCT_PATH=\"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}\"\n#   BINARY_PATH=\"/Versions/Current/${PRODUCT_NAME}\"\n  BUILT_BINARY=\"$PRODUCT_PATH/${PRODUCT_NAME}\"\n           MAC=\"/Library/Frameworks\"\nSYSTEM_PRODUCT=\"$MAC/${WRAPPER_NAME}\"\n SYSTEM_BINARY=\"$SYSTEM_PRODUCT/${WRAPPER_NAME}\"\n\n# Echos a number from 0 to 100\nfunction vol {     local  __resultvar=$1  \n\tlocal  myresult=`osascript -e 'output volume of (get volume settings)'`\n    if [[ \"$__resultvar\" ]]; then eval $__resultvar=\"'$myresult'\"; else echo \"$myresult\"; fi\n}\nfunction saveVol {\tvolume=${1:-$(vol)};\tdefaults write com.mrgray.atoz savedVol -int $volume; \t\t\t}\nfunction setVol {  v=${1:-20}; local setIt=`osascript -e \"set volume output volume $v\"`; eval $setIt; \t}\nfunction restoreVol { toSet=`defaults read com.mrgray.atoz savedVol`; setVol $toSet; \t\t\t\t\t}\nfunction sayQuietly { saveVol; setVol 50; say \"$1\"; restoreVol;\t\t\t\t\t\t\t\t\t\t\t}\n\nstart_timestamp=$(date +%s)\nfunction logtime() { curr=$(date +%s); elap=$(expr $end_time - $start_timestamp)\n\tlogger \"Elapsed: $elap.. $LINENO\"\n}\n\ncd \"$PRODUCT_PATH\" && ln -sF Versions/A/Frameworks Frameworks\n\n#export noitify=\"/Volumes/2T/ServiceData/UNIX/bin/notifycmd.app/Contents/MacOS/notifycmd\"\n\n\nsudo mkdir -p \"$SYSTEM_PRODUCT\"\ndeclare \tret_code\ndeclare \tcmnd=\"otool -l $BUILT_BINARY 2>&1 > /dev/null\"\neval \t\t$cmnd\nret_code=$?\t\t#/Library/Frameworks/AtoZ.framework/AtoZ#STATUS=$()\nif [ $ret_code -eq 0 ]; then\t#\tsay \"Yeah, it worked\"\n\t#notify echo \"Framework built OK! rsync!\"\n    cmnd=\"sudo rsync -lKr --del --exclude 'Versions/A/Headers/AtoZAutoBox' \\\n                                --exclude 'Versions/A/Headers/extobjc_OSX'\t\\\n                $PRODUCT_PATH $MAC/\"\n\ttime eval $cmnd #test otool -l \"$SYSTEM_BINARY\" #/Library/Frameworks/AtoZ.framework/AtoZ\n\t# logtime\n#\tSTATUS=$?\n\tret_code=$? && if [ $ret_code -ne 0 ];then exit $ret_code; fi\n\n\tcd \"${BUILT_PRODUCTS_DIR}/include\"\n    for D in `find . -type d -d 1 | xargs basename`; do\n\t\tlogger $D\n    \tcmnd=\"sudo rsync -lKr --del $D $MAC/${WRAPPER_NAME}/Versions/A/Headers/\"\n\t    eval $cmnd\n\t    ret_code=$? && if [ $ret_code -ne 0 ];then exit $ret_code; fi\n\tdone\n\t# logtime\n\n#\tsudo rm -r \"$SYSTEM_PRODUCT\"\n#   sudo cp -r \"$PRODUCT_PATH\" \t\t\"$SYSTEM_PRODUCT\"\nelse\n\tLogger \"Touching ${SRCROOT}/AtoZ-Framework.pch\" && touch \"${SRCROOT}/AtoZ-Framework.pch\"\n    ITRIED=\"defaults read com.mrgray.atoz iTried\"\n\n\tif [ $ITRIED -eq 1 ]; then /usr/bin/say \"im going to stop trying.\" && defaults write com.mrgray.atoz iTried -boolean NO\n\telse sayQuietly \"x code build\" && cd \"${SRCROOT}\" && defaults write com.mrgray.atoz iTried -boolean YES\n#        xcodebuild -target AtoZ\n\tfi\nfi\n\t\n# sayQuietly \"Poop, no workie\"\n\n#    open \"${BUILT_PRODUCTS_DIR}\"\n   # notify echo \"BUILD FAILED\"\n\n\n#sudo ln -sF \"${PRODUCT_PATH}\" \"${MAC}\"\n\n\n\n#logger `pwd`\n\necho \"Cleaning Profiler Information\" && cd \"${OBJECT_FILE_DIR_normal}/${CURRENT_ARCH}\"\n# Delete *.gcda files in the current target\nCOUNT=$(ls *.gcda 2> /dev/null | wc -l)\nif [ $COUNT -ne 0 ]; then sayQuietly \"Deleting $COUNT G C D A's\";  rm -f *.gcda;  fi\n# logtime \n\nexit 0\n\n\n#This produces a compiler warning with a yellow triangle and white exclamation point.\n#echo “MyFileName.m”:1: warning: “My warning message”\n\n\n#if [ -f  \"${PRODUCT_PATH}/${PRODUCT_NAME}\" ]; then\n#\t$growler -n \"AtoZ\" -m \"AtoZ Was compiled AOK.\"\n#\tif [ -d \"${PRECOMPS}/${WRAPPER_NAME}\" ]; then\n#    \trm -r \"${PRECOMPS}/${WRAPPER_NAME}\"\n#   fi\n#\tmkdir -p \"${PRECOMPS}\"\n#\tcp -r \"${PRODUCT_PATH}\" \"${PRECOMPS}\"\n#else\n#\t$growler -n \"AtoZ\" -m \"AtoZ is not a complete Binary!.\"\n#\tsay \"AtoZ is not a complete Binary!\"\n#fi\n\n\n#class-dump /Library/Frameworks/AtoZ.framework/AtoZ >>\n\n#install_name_tool -change \\\n#\"@executable_path/../Frameworks/${WRAPPER_NAME}/Versions/A/${PRODUCT_NAME}\" \\\n#\"@loader_path/../../../../Frameworks/${WRAPPER_NAME}/Versions/A/${PRODUCT_NAME}\" \\\n#\"$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/BaseTenAppKit.framework/Versions/A/BaseTenAppKit\"\n\n#-header-pad_max_install_names\n\n#FRAMEWORKS_DIR=\"${PRODUCT_PATH}\"FRAMEWORK_DIR/Versions/Frameworks\"\n\n#if ( ! [ -e \"$FRAMEWORKS_DIR\" ] ); then\n#$$ln -s \"$FRAMEWORK_DIR/Versions/Current/Frameworks\" \"$FRAMEWORKS_DIR\"\n#fi\n\n\n# PRECOMPS=\"$HOME/Library/Developer/Precompiled\"\n# growler='/ServiceData/UNIX/bin/growlnotify'\n";
+			shellScript = "  PRODUCT_PATH=\"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}\"\n#   BINARY_PATH=\"/Versions/Current/${PRODUCT_NAME}\"\n  BUILT_BINARY=\"$PRODUCT_PATH/${PRODUCT_NAME}\"\n           MAC=\"/Library/Frameworks\"\nSYSTEM_PRODUCT=\"$MAC/${WRAPPER_NAME}\"\n SYSTEM_BINARY=\"$SYSTEM_PRODUCT/${WRAPPER_NAME}\"\n\n# Echos a number from 0 to 100\nfunction vol {     local  __resultvar=$1  \n\tlocal  myresult=`osascript -e 'output volume of (get volume settings)'`\n    if [[ \"$__resultvar\" ]]; then eval $__resultvar=\"'$myresult'\"; else echo \"$myresult\"; fi\n}\nfunction saveVol {\tvolume=${1:-$(vol)};\tdefaults write com.mrgray.atoz savedVol -int $volume; \t\t\t}\nfunction setVol {  v=${1:-20}; local setIt=`osascript -e \"set volume output volume $v\"`; eval $setIt; \t}\nfunction restoreVol { toSet=`defaults read com.mrgray.atoz savedVol`; setVol $toSet; \t\t\t\t\t}\nfunction sayQuietly { saveVol; setVol 50; say \"$1\"; restoreVol;\t\t\t\t\t\t\t\t\t\t\t}\n\nstart_timestamp=$(date +%s)\nfunction logtime() { curr=$(date +%s); elap=$(expr $end_time - $start_timestamp)\n\tlogger \"Elapsed: $elap.. $LINENO\"\n}\n\ncd \"$PRODUCT_PATH\" && ln -sF Versions/A/Frameworks Frameworks\n\n#export noitify=\"/Volumes/2T/ServiceData/UNIX/bin/notifycmd.app/Contents/MacOS/notifycmd\"\n\n\nsudo mkdir -p \"$SYSTEM_PRODUCT\"\ndeclare \tret_code\ndeclare \tcmnd=\"otool -l $BUILT_BINARY 2>&1 > /dev/null\"\neval \t\t$cmnd\nret_code=$?\t\t#/Library/Frameworks/AtoZ.framework/AtoZ#STATUS=$()\nif [ $ret_code -eq 0 ]; then\t#\tsay \"Yeah, it worked\"\n\t#notify echo \"Framework built OK! rsync!\"\n    cmnd=\"sudo rsync -lKr --del --exclude 'Versions/A/Headers/AtoZAutoBox' \\\n                                --exclude 'Versions/A/Headers/extobjc_OSX'\t\\\n                $PRODUCT_PATH $MAC/\"\n\ttime eval $cmnd #test otool -l \"$SYSTEM_BINARY\" #/Library/Frameworks/AtoZ.framework/AtoZ\n\t# logtime\n#\tSTATUS=$?\n\tret_code=$? && if [ $ret_code -ne 0 ];then exit $ret_code; fi\n\n\tcd \"${BUILT_PRODUCTS_DIR}/include\"\n    for D in `find . -type d -d 1 | xargs basename`; do\n\t\tlogger $D\n    \tcmnd=\"sudo rsync -lKr --del $D $MAC/${WRAPPER_NAME}/Versions/A/Headers/\"\n\t    eval $cmnd\n\t    ret_code=$? && if [ $ret_code -ne 0 ];then exit $ret_code; fi\n\tdone\n\t# logtime\n\n#\tsudo rm -r \"$SYSTEM_PRODUCT\"\n#   sudo cp -r \"$PRODUCT_PATH\" \t\t\"$SYSTEM_PRODUCT\"\nelse\n\tLogger \"Touching ${SRCROOT}/AtoZ-Framework.pch\" && touch \"${SRCROOT}/AtoZ-Framework.pch\"\n    ITRIED=\"defaults read com.mrgray.atoz iTried\"\n\n\tif [ $ITRIED -eq 1 ]; then /usr/bin/say \"im going to stop trying.\" && defaults write com.mrgray.atoz iTried -boolean NO\n\telse sayQuietly \"x code build\" && cd \"${SRCROOT}\" && defaults write com.mrgray.atoz iTried -boolean YES\n#        xcodebuild -target AtoZ\n\tfi\nfi\n\t\n# sayQuietly \"Poop, no workie\"\n\n#    open \"${BUILT_PRODUCTS_DIR}\"\n   # notify echo \"BUILD FAILED\"\n\n\n#sudo ln -sF \"${PRODUCT_PATH}\" \"${MAC}\"\n\n\n\n#logger `pwd`\n\n\n\nexit 0\n\n\n#This produces a compiler warning with a yellow triangle and white exclamation point.\n#echo “MyFileName.m”:1: warning: “My warning message”\n\n\n#if [ -f  \"${PRODUCT_PATH}/${PRODUCT_NAME}\" ]; then\n#\t$growler -n \"AtoZ\" -m \"AtoZ Was compiled AOK.\"\n#\tif [ -d \"${PRECOMPS}/${WRAPPER_NAME}\" ]; then\n#    \trm -r \"${PRECOMPS}/${WRAPPER_NAME}\"\n#   fi\n#\tmkdir -p \"${PRECOMPS}\"\n#\tcp -r \"${PRODUCT_PATH}\" \"${PRECOMPS}\"\n#else\n#\t$growler -n \"AtoZ\" -m \"AtoZ is not a complete Binary!.\"\n#\tsay \"AtoZ is not a complete Binary!\"\n#fi\n\n\n#class-dump /Library/Frameworks/AtoZ.framework/AtoZ >>\n\n#install_name_tool -change \\\n#\"@executable_path/../Frameworks/${WRAPPER_NAME}/Versions/A/${PRODUCT_NAME}\" \\\n#\"@loader_path/../../../../Frameworks/${WRAPPER_NAME}/Versions/A/${PRODUCT_NAME}\" \\\n#\"$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/BaseTenAppKit.framework/Versions/A/BaseTenAppKit\"\n\n#-header-pad_max_install_names\n\n#FRAMEWORKS_DIR=\"${PRODUCT_PATH}\"FRAMEWORK_DIR/Versions/Frameworks\"\n\n#if ( ! [ -e \"$FRAMEWORKS_DIR\" ] ); then\n#$$ln -s \"$FRAMEWORK_DIR/Versions/Current/Frameworks\" \"$FRAMEWORKS_DIR\"\n#fi\n\n\n# PRECOMPS=\"$HOME/Library/Developer/Precompiled\"\n# growler='/ServiceData/UNIX/bin/growlnotify'\n";
 		};
 		7BF72D4E171F8F2E0037CF41 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -7139,7 +7158,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7B02A2CA172A852E00973A80 /* main.m in Sources */,
+				7BD8D901178B434A00B9DB76 /* UknownSelector.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7973,7 +7992,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
-				SDKROOT = "";
+				SDKROOT = macosx;
 				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Debug;
@@ -8009,7 +8028,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
-				SDKROOT = "";
+				SDKROOT = macosx;
 				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Release;

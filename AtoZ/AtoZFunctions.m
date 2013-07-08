@@ -7,7 +7,7 @@ JREnumDefine		(AZQuad	 );
 JREnumDefine		(azkColor );
 JREnumDefine		(AZCompass);
 JROptionsDefine	(AZAlign	 );	//JREnumDefine(AZPosition);
-
+JREnumDefine		(AZOrient );
 JROptionsDefine	(AZ_arc);
 
 NSS 	 * runCommand	(NSS* c) {	NSS* outP;	FILE *read_fp;	char buffer[BUFSIZ + 1];	int chars_read;
