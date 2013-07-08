@@ -86,6 +86,8 @@
 		<string>git://github.com/zwaldowski/BlocksKit</string>
 		<key>91B345C4-FD48-424A-994D-F82304BB9608</key>
 		<string>https://github.com/mralexgray/KGNoise.git</string>
+		<key>927EA05B-3810-45FA-92A4-EE5F832C33ED</key>
+		<string>https://github.com/mysterioustrousers/MTAnimation-TwUI</string>
 		<key>9B2E7137-6BFD-4F56-B3B0-63EB5E7AE2CA</key>
 		<string>https://github.com/mralexgray/AtoZUI.git</string>
 		<key>9C028FC6-5096-41C7-B5D0-CFA652679023</key>
@@ -255,6 +257,8 @@
 		<string>../../git/BlocksKit</string>
 		<key>91B345C4-FD48-424A-994D-F82304BB9608</key>
 		<string>../Frameworks/KGNoise</string>
+		<key>927EA05B-3810-45FA-92A4-EE5F832C33ED</key>
+		<string>../Frameworks/TwUI/MTAnimation-TwUI</string>
 		<key>9B2E7137-6BFD-4F56-B3B0-63EB5E7AE2CA</key>
 		<string>../Frameworks/AtoZAppKit</string>
 		<key>9C028FC6-5096-41C7-B5D0-CFA652679023</key>
@@ -979,6 +983,14 @@
 			<string>B148B59B-4714-4854-A755-D7C42709B7C4</string>
 			<key>IDESourceControlWCCName</key>
 			<string>MAObjCRuntime</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>927EA05B-3810-45FA-92A4-EE5F832C33ED</string>
+			<key>IDESourceControlWCCName</key>
+			<string>MTAnimation-TwUI</string>
 		</dict>
 	</array>
 </dict>

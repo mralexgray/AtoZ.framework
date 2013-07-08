@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:Frameworks/TwUI/ExampleProject/Example.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "container:AtoZ/AtoZCodeFactory/xcb/xcb.xcodeproj">
    </FileRef>
    <FileRef

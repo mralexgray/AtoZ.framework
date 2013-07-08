@@ -14,8 +14,7 @@
 //		setup our background gradient, create our text layers
 //
 @synthesize rootLayer;
-@synthesize editorField;
-@synthesize editorSelector;
+@synthesize editorField,editorSelector;
 - (void)awakeFromNib
 {
 	// Gradient

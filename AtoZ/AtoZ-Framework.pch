@@ -44,6 +44,7 @@
 	#import <ApplicationServices/ApplicationServices.h>
 	#import <SystemConfiguration/SystemConfiguration.h>
 	#import <Foundation/NSObjCRuntime.h>
+	#import <TwUI/TUIKit.h>
 // #undef ah_retain #undef ah_dealloc #undef ah_autorelease autorelease #undef ah_dealloc dealloc
 
 	#if __has_feature(objc_arc)											// ARC Helper Version 2.2

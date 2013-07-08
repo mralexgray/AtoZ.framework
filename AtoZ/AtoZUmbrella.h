@@ -466,6 +466,12 @@ typedef struct {	CAConstraintAttribute constraint;	CGFloat scale;	CGFloat offset
 #define 			AZNEWMUTED 	NSMutableDictionary.new
 #define 	 	  AZSHAREDLOG DDTTYLogger.sharedInstance
 
+
+#define NSTN NSTreeNode 
+#define tNwRO treeNodeWithRepresentedObject
+#define mcNodes mutableChildNodes
+
+
 /*		
 		NSLog(@"%s", QUOTE(NSR));					NSLog(@"%s", EXPQUOTE(NSR));
 		NSLog(@"%@", $UTF8(EXPQUOTE(NSR)));		NSLog(NSQUOTE(NSC));

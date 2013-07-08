@@ -65,9 +65,11 @@ JROptionsDeclare(AZ_arc, 	AZ_arc_NATOM	       	= 0x00000001,
 
 #define NATOM_STR nonatomic,strong
 
-#define                                     AZINTERFACE(_super_,_name_) @interface _name_ : _super_
+#define AZINTERFACE(_super_,_name_) @interface _name_ : _super_
 
+#define STRONGNATOM strong,nonatomic
 #define AZPROPERTY(_kind_,_arc_,...) @property (_arc_) _kind_   __VA_ARGS__;
+#define AZPROPERTYIBO(_kind_,...) @property (assign) IBOutlet  _kind_   __VA_ARGS__;
 
 //											 #QUALIFIER_FROM_BITMASK(_arc_)
 

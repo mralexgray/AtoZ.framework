@@ -470,7 +470,9 @@ CG_INLINE CGFloat durationForOffset(CGFloat offset)
     TUIFastIndexPath *from = [TUIFastIndexPath indexPathForRow:0 inSection:section];
     TUIFastIndexPath *to = [TUIFastIndexPath indexPathForRow:[self numberOfRowsInSection:section] - 1 inSection:section];
     
-    [self enumerateIndexPathsFromIndexPath:from toIndexPath:to withOptions:0 usingBlock:^(TUIFastIndexPath *indexPath, BOOL *stop) {
+    [self enumerateIndexPathsFromIndexPath:from toIndexPath:to withOptions:0 usingBlock:^(NSIndexPath *indexPath, BOOL *stop){
+
+//	 ^(TUIFastIndexPath *indexPath, BOOL *stop) {
         TUITableViewCell *cell = [self cellForRowAtIndexPath:indexPath];
         cell.layer.zPosition += 100;
     }];
@@ -489,10 +491,10 @@ CG_INLINE CGFloat durationForOffset(CGFloat offset)
         _oldBackgroundView.layer.zPosition -= 100;
     }
     
-    TUIFastIndexPath *from = [TUIFastIndexPath indexPathForRow:0 inSection:section];
-    TUIFastIndexPath *to = [TUIFastIndexPath indexPathForRow:[self numberOfRowsInSection:section] - 1 inSection:section];
+    NSIndexPath *from = [NSIndexPath indexPathForRow:0 inSection:section];
+    NSIndexPath *to = [NSIndexPath indexPathForRow:[self numberOfRowsInSection:section] - 1 inSection:section];
     
-    [self enumerateIndexPathsFromIndexPath:from toIndexPath:to withOptions:0 usingBlock:^(TUIFastIndexPath *indexPath, BOOL *stop) {
+    [self enumerateIndexPathsFromIndexPath:from toIndexPath:to withOptions:0 usingBlock:^(NSIndexPath *indexPath, BOOL *stop) {
         TUITableViewCell *cell = [self cellForRowAtIndexPath:indexPath];
         cell.layer.zPosition -= 100;
     }];
@@ -518,10 +520,10 @@ CG_INLINE CGFloat durationForOffset(CGFloat offset)
         _oldBackgroundView.frame = CGRectOffset(_oldBackgroundView.frame, 0, offset);
     }
     
-    TUIFastIndexPath *from = [TUIFastIndexPath indexPathForRow:0 inSection:section];
-    TUIFastIndexPath *to = [TUIFastIndexPath indexPathForRow:[self numberOfRowsInSection:section] - 1 inSection:section];
+    NSIndexPath *from = [NSIndexPath indexPathForRow:0 inSection:section];
+    NSIndexPath *to = [NSIndexPath indexPathForRow:[self numberOfRowsInSection:section] - 1 inSection:section];
     
-    [self enumerateIndexPathsFromIndexPath:from toIndexPath:to withOptions:0 usingBlock:^(TUIFastIndexPath *indexPath, BOOL *stop) {
+    [self enumerateIndexPathsFromIndexPath:from toIndexPath:to withOptions:0 usingBlock:^(NSIndexPath *indexPath, BOOL *stop) {
         TUITableViewCell *cell = [self cellForRowAtIndexPath:indexPath];
         if (!cell)
             NSLog(@"no cell: %@", indexPath);
