@@ -44,12 +44,16 @@ typedef void(^NSImageDrawer)(void);
 */
 
 @class BLKVIEW;
+#define DRAWBLK ^(BLKVIEW*v,NSR r)
+//#define BLKVIEWinVIEW(v,blk) [v addSubview:[BLKVIEW
 typedef void(^BNRBlockViewDrawer)		(BLKVIEW*v, NSR r);
 typedef void(^BNRBlockViewLayerDelegate) (BLKVIEW*v, CAL*l);
 
 @interface BNRBlockView : NSView
 
+//[BLKVIEW inView:win.contentView withFrame:win.contentRect inContext:^(BLKVIEW*v, CAL*l){ NSRectFillWithColor(l.bounds, GREEN); }];
 + (BLKVIEW*) inView:(NSV*)v withFrame:(NSR)f inContext:(void(^)(BLKVIEW*view, CAL*lay))block;
+
 + (BLKVIEW*) inView:(NSV*)v withBlock:(BNRBlockViewLayerDelegate)ctxBlock;
 
 + (BLKVIEW*) viewWithFrame:(NSR)frame  opaque:(BOOL)opaque

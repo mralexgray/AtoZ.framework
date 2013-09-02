@@ -174,26 +174,34 @@ static id addMethodTrampoline(id self, SEL _cmd) 			{
 }												@end
 
 @interface AZObserverTrampoline : NSObject
-AZPROPERTY( id,  					WK,	observee   );	AZPROPERTY( NSS, 	CP, 	*keyPath   );
-AZPROPERTY( AZBlockTask, 		CP, 	task       );	AZPROPERTY( NSOQ, STR, 	*queue	  );
+AZPROPERTY( id,  					WK,	observee   );
+AZPROPERTY( NSS, 					CP, 	*keyPath   );
+AZPROPERTY( AZBlockTask, 		CP, 	task       );
+AZPROPERTY( NSOQ, 				STR, 	*queue	  );
 AZPROPERTY( dispatch_once_t, 	ASS, 	cancelPred );
+
 - (AZObserverTrampoline*) initObservingObject:(id)obj keyPath:(NSS*)kp onQueue:(NSOQ*)q task:(AZBlockTask)t;
 - (void) cancelObservation;
 @end
+
 @implementation AZObserverTrampoline	static NSS *AZObserverTrampolineContext = @"AZObserverTrampolineContext";
 
 - (AZObserverTrampoline *)initObservingObject:(id)obj keyPath:(NSS*) newKeyPath onQueue:(NSOQ *)newQueue task:(AZBlockTask)newTask {
 	if (self != super.init) return nil;
 	_task 						= [newTask copy];
 	_keyPath 					= [newKeyPath copy];
-	_queue 						= newQueue;        // retain];
+	_queue 						= newQueue ?: AZSOQ;        // retain];
 	_observee 					= obj;
 	_cancelPred		 			= 0;
 	[_observee addObserver:self forKeyPath:_keyPath options:0 context:(__bridge void *)AZObserverTrampolineContext];
 	return self;
 }
 - (void)observeValueForKeyPath:(NSS*)kp ofObject:(id)o change:(NSD*)c context:(void*)x {
-	if (x == (__bridge const void *)AZObserverTrampolineContext) _queue ? [_queue addOperationWithBlock:^{ _task(o,c); }] : _task(o,c);
+
+	c = [c ?: @{} dictionaryByAddingEntriesFromDictionary:@{@"keyPath":_keyPath.copy}];
+	if (x == (__bridge const void*)AZObserverTrampolineContext)
+		_queue ? [_queue addOperationWithBlock:^{ _task(o,c); }]
+				 : [AZSOQ  addOperationWithBlock:^{ _task(o,c); }];
 }
 - (void)cancelObservation 	{
 	dispatch_once(&_cancelPred, ^{	[_observee removeObserver:self forKeyPath:_keyPath]; });
@@ -203,8 +211,11 @@ AZPROPERTY( dispatch_once_t, 	ASS, 	cancelPred );
 @end
 
 static NSS *AZObserverMapKey = @"com.github.mralexgray.observerMap";
+
 static dispatch_queue_t AZObserverMutationQueue = NULL;
+
 static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary(void) {
+
 	static dispatch_once_t queueCreationPredicate = 0;
 	dispatch_once(&queueCreationPredicate, ^{
 		AZObserverMutationQueue = dispatch_queue_create("com.github.mralexgray.observerMutationQueue", 0);
@@ -212,30 +223,45 @@ static dispatch_queue_t AZObserverMutationQueueCreatingIfNecessary(void) {
 	return AZObserverMutationQueue;
 }
 
+@interface NSObject ()
+@property (readonly) NSMutableArray *azBlockObservationTokens;
+@end
+
 @implementation NSObject (AZBlockObservation)
+SYNTHESIZE_ASC_OBJ_LAZY(azBlockObservationTokens, NSMutableArray);
 
 -          (void) observeNotificationsUsingBlocks:(NSS*) firstNotificationName, ... 			{
+
 	azva_list_to_nsarray(firstNotificationName, namesAndBlocks);
 	NSA* names 			= [namesAndBlocks   subArrayWithMembersOfKind:NSS.class];
 	NSA* justBlocks 	= [namesAndBlocks arrayByRemovingObjectsFromArray:names];
 	[names eachWithIndex:^(id obj, NSInteger idx){ [self observeName:obj usingBlock:^(NSNOT*n){ ((void(^)(NSNOT*))justBlocks[idx])(n); }]; }];
 }
 - 			  (NSA*) observeKeyPaths:(NSA*)keyPaths 							 task:(AZBlockTask)task {
-	return [keyPaths map:^id (id obj) { return [self observeKeyPath:obj onQueue:nil task:task];       }];
+
+	__block NSMutableArray *tokenStore = self.azBlockObservationTokens;
+	return [keyPaths map:^id (id obj){
+		[tokenStore addObject:[self observeKeyPath:obj onQueue:nil task:task]];
+		return tokenStore.lastObject;
+}];
 }
 - (AZBlockToken*) observerKeyPath:(NSS*)keyPath  							 task:(AZBlockTask)task {
+
 	return [self observeKeyPath:keyPath onQueue:nil task:task];
 }
+- (AZBlockToken*) observeKeyPath:(NSS*)kp task:(AZBlockTask)t { return [self observeKeyPath:kp onQueue:AZSOQ task:t]; }
+
 - (AZBlockToken*) observeKeyPath: (NSS*)keyPath onQueue:(NSOQ *)queue task:(AZBlockTask)task {
 	AZBlockToken *token = [NSProcessInfo.processInfo globallyUniqueString];
 	dispatch_sync(AZObserverMutationQueueCreatingIfNecessary(), ^{
 		NSMutableDictionary *dict = [self associatedValueForKey:AZObserverMapKey orSetTo:NSMD.new policy:OBJC_ASSOCIATION_RETAIN];
 		AZObserverTrampoline *trampoline = [AZObserverTrampoline.alloc initObservingObject:self keyPath:keyPath onQueue:queue task:task];
-		dict[token] = trampoline;
-		//		[trampoline release];
+		dict[token] = trampoline;	//		[trampoline release];
 	});
+	if (token) [self.azBlockObservationTokens addObject:token];
 	return token;
 }
+- (void) removeObserverTokens { [self.azBlockObservationTokens do:^(id t) { [self removeObserverWithBlockToken:t]; }]; }
 - 			  (void) removeObserverWithBlockToken:(AZBlockToken *)token {
 
 	dispatch_sync(AZObserverMutationQueueCreatingIfNecessary(), ^{
@@ -1304,19 +1330,25 @@ BOOL respondsTo(id obj, SEL selector) {
 }
 
 - (id)respondsToStringThenDo:(NSS*) string {
-	return [self respondsToStringThenDo:string.copy withObject:nil withObject:nil];
+	return [self respondsToStringThenDo:string withObject:nil withObject:nil];
 }
 
 - (id)respondsToStringThenDo:(NSS*) string withObject:(id)obj {
-	return [self respondsToStringThenDo:string.copy withObject:obj withObject:nil];
+	return [self respondsToStringThenDo:string withObject:obj withObject:nil];
 }
 
 - (id)respondsToStringThenDo:(NSS*) string withObject:(id)obj withObject:(id)objtwo {
-	SEL select = NSSelectorFromString(AH_RETAIN([string copy]));
+	SEL select 	= NSSelectorFromString(string);
 	BOOL doesit =  [self respondsToSelector:select];
-	return doesit && obj && objtwo ? [self performSelectorARC:select withObject:obj withObject:objtwo]
-	: doesit && obj ? [self performSelectorARC:select withObject:obj]
-	: doesit ? [self cw_ARCPerformSelector:select] : nil;
+	return
+		!	doesit
+		? 		nil
+		:	doesit && obj && objtwo
+		? 		[self performSelectorARC:select withObject:obj withObject:objtwo]
+		:	doesit && obj
+		? 		[self performSelectorARC:select withObject:obj]
+		:	doesit
+		? 		[self cw_ARCPerformSelector:select] : nil;
 }
 
 - (IBAction)performActionFromLabel:(id)sender;
@@ -2116,7 +2148,7 @@ CG_EXTERN CFTimeInterval CGEventSourceSecondsSinceLastEventType(CGEventSourceSta
 	[self performSelector:selector withCPointer:&intValue afterDelay:delay];
 }
 
-- (void)performSelector:(SEL)selector withFloat:(float)floatValue afterDelay:(NSTimeInterval)delay {
+- (void)performSelector:(SEL)selector withFloat:(CGF)floatValue afterDelay:(NSTimeInterval)delay {
 	[self performSelector:selector withCPointer:&floatValue afterDelay:delay];
 }
 
@@ -2547,6 +2579,23 @@ CG_EXTERN CFTimeInterval CGEventSourceSecondsSinceLastEventType(CGEventSourceSta
 id (^integerKeyValue)(id,NSS*) = ^id(id object, NSString*kp){
 	return [kp isIntegerNumber] && [object isKindOfClass:NSA.class] ?	[(NSA*)object normal:kp.integerValue] : nil;
 };
+
+- (id) mutableArrayValueForKeyOrKeyPath:(id)keyOrKeyPath {
+	if ( !keyOrKeyPath || ![keyOrKeyPath  ISKINDA:NSS.class] ) 	return  nil;  // Bail if not a string. Key...? or key..path!???
+	if ( [keyOrKeyPath containsString:@"."] ) { __block id result = self;  // NSLog(@"serching for KP components: %@", components);
+
+		[[keyOrKeyPath componentsSeparatedByString:@"."] enumerateObjectsUsingBlock:^(id kp, NSUI idx, BOOL *stop) {
+			if (!(result = integerKeyValue(result, kp) ?: [result vFK:kp])) *stop = YES;
+		}];
+		return result;
+	}
+	return integerKeyValue(self, keyOrKeyPath) ?: //[keyOrKeyPath isIntegerNumber] && [self isKindOfClass:NSA.class]) return [(NSA*)self normal:[(NSS*)keyOrKeyPath integerValue]];
+//	else if (
+		[self respondsToSelector:NSSelectorFromString(keyOrKeyPath)] 
+	 ? [self performSelectorSafely:NSSelectorFromString(keyOrKeyPath)] 
+	 : [self performSelectorWithoutWarnings:[self getterForPropertyNamed:keyOrKeyPath]] ?: nil;
+
+}
 
 - (id)valueForKeyOrKeyPath:(id)keyOrKeyPath transform:(THBinderTransformationBlock)transformationBlock	{
 

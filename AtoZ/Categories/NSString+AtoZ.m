@@ -307,7 +307,7 @@ NSString *stringForBrightness( CGF brightness )	{	return
 		NSS *content	 	= [title getAttributeNamed:@"content"];
 		HTMLNode *descN   = [p.head findChildWithAttribute:@"property" matchingName:@"og:description" allowPartial:YES];
 		NSS *desc  			= [descN getAttributeNamed:@"content"];
-		urbanD = $DEFINE(title, desc);               ///rawContents.urlDecoded.decodeHTMLCharacterEntities);
+		urbanD = $DEFINE([title getAttributeNamed:@"content"] , desc);               ///rawContents.urlDecoded.decodeHTMLCharacterEntities);
 		block(urbanD);
 	};
 	[requester startAsynchronous];
@@ -544,6 +544,11 @@ finish:
 	NSMutableString *resultString = [NSMutableString stringWithString:self];
 	[resultString replaceOccurrencesOfString:@"+" withString:@" " options:NSLiteralSearch range:(NSRange) {0, [resultString length] }];
 	return [resultString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+}
+
+- (NSString*)language {  CFRange r = CFRangeMake(0,MIN(self.length, 100));
+
+	return (__bridge NSS*)CFStringTokenizerCopyBestStringLanguage((__bridge CFStringRef)self,r);
 }
 - (NSS*)firstLetter 							{
 	return [self substringWithRange:NSMakeRange(0, 1)];
@@ -1012,6 +1017,15 @@ finish:
 		if (rangeToCut.location <= 0 || (rangeToCut.location + rangeToCut.length) > [self length]) return @"...";
 	}
 	return currString;
+}
+
+- (NSS*) tidyHTML  {
+
+	NSXMLDocument *doc = [NSXMLDocument.alloc initWithXMLString:self options:NSXMLDocumentTidyHTML error:nil];
+	//Convert the NSXMLDocument to NSData
+	NSData *data = [doc XMLDataWithOptions:NSXMLNodePrettyPrint];
+	//Create a string from the NSData object you have
+	return [NSString.alloc initWithData:data encoding:NSUTF8StringEncoding];
 }
 
 // Method based on code obtained from:

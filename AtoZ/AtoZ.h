@@ -93,7 +93,7 @@ AZWORKSPACE:
 #import <DrawKit/DKDrawKit.h>
 #import <FunSize/FunSize.h>
 #import <Lumberjack/Lumberjack.h>
-#import <KSHTMLWriterKit/KSHTMLWriterKit.h>
+#import <KSHTMLWriterFramework/KSHTMLWriterFramework.h>
 #import <MapKit/MapKit.h>
 #import <NoodleKit/NoodleKit.h>
 #import <NanoStore/NanoStore.h>
@@ -195,12 +195,14 @@ AZWORKSPACE:
 #import "HTTPConnection.h"
 #import "HTTPMessage.h"
 #import "HTTPResponse.h"
+#import "HTTPDataResponse.h"
 #import "HTTPAuthenticationRequest.h"
 #import "DDNumber.h"
 #import "DDRange.h"
 #import "DDData.h"
 #import "HTTPFileResponse.h"
 #import "HTTPAsyncFileResponse.h"
+#import "HTTPDynamicFileResponse.h"
 #import "WebSocket.h"
 #import "HTTPLogging.h"
 
@@ -445,6 +447,8 @@ extern NSString *const AtoZDockSortedUpdated;
 // with the keyPath @"classProxy.CharacterSet.allCharacterSets".
 
 @interface NSObject (AZClassProxy)		- (id)classProxy;		+ (id)performSelector:(SEL)sel;					@end
+
+#define CPROXY(x,y)  	[[[self vFK:@"classProxy"] vFK:MACRO_VALUE_TO_STRING(x)]vFK:MACRO_VALUE_TO_STRING(y)]
 
 @interface AZDummy : NSObject
 + (instancetype) sharedInstance;

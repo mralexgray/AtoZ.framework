@@ -262,6 +262,20 @@ static NSMD *colorsFromStruct = nil;
 
 @implementation NSColor (AtoZ)
 
+SYNTHESIZE_ASC_OBJ_LAZYDEFAULT_EXP(name, setName,[self nameOfColor]);
+//SYNTHESIZE_ASC_OBJ_BLOCKOBJ(name, setName,
+//	^id(id bSelf, id o){ return o = o ? o : [bSelf nameOfColor]; },// [(NSC*)bSelf setName:z]; return z;}(); },
+//	^id(id x,id z){ return z; });
+//- (NSS*) name {
+//	NSS* name = objc_getAssociatedObject(self,_cmd);
+//	  if (name == nil) { [(NSC*)self setName:name = [self nameOfColor]]; }
+//	return name;
+//}
+//- (void)setName:(NSString *)name {
+//	NSAssert([name ISKINDA:NSS.class], @"name must be string");
+//	objc_setAssociatedObject(self,@selector(name), name, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+//}
+
 - (NSG*) gradient { return [self associatedValueForKey:@"_gradient" orSetTo:[NSG.alloc initWithColorsAndLocations:self.brighter.brighter, 0.0,self.brighter, .13, self, 0.5,self.darker, .8,self.darker.darker.darker, 1.0, nil]]; }
 
 
@@ -1909,7 +1923,18 @@ static CGF hexCharsToFloat ( char firstChar, char secondChar )			{
 	return lab;
 }
 @end
+
+__attribute__((constructor)) static void do_the_swizzles()
+{
+	[$ swizzleMethod:@selector(colorWithKey:) with:@selector(swizzleColorWithKey:) in:NSColorList.class];
+}
+
 @implementation NSColorList (AtoZ)
+- (NSC*) swizzleColorWithKey:(NSS*)k  {
+	NSC* c = [self swizzleColorWithKey:k];
+	if (c) c.name = k;
+	return c;
+}
 /**
 #define _COLOR(V, N) \
 [self setColor :[@"#" stringByAppendingString : @#V].colorValue \

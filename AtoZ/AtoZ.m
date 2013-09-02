@@ -248,16 +248,14 @@ NSOQ *AZSharedSingleOperationQueue()	{	return AZDummy.sharedInstance.sharedSQ; }
 //- (void)applicationDidFinishLaunching:(NSNotification *)aNotification  { [self registerHotKeys]; }
 
 }
-+ (void) playRandomSound 			{	[[SoundManager sharedManager] playSound:[Sound randomSound] looping:NO]; }
++ (void) playRandomSound 			{	[SoundManager.sharedManager playSound:Sound.randomSound looping:NO]; }
 + (void) playSound: (id)number	{   //[ playSound:@1];
 
 	NSA *sounds = @[@"welcome.wav", @"bling"];
-	NSS *select = number ? [sounds filterOne:^BOOL(id object) { 
-		return [(NSS*)object contains:number] ? YES : NO; }] : sounds[0];
+	NSS *select = number ? [sounds filterOne:^BOOL(id object) { return [object contains:number]; }] : sounds[0];
 	NSS *song   = select ? select : sounds[0];						   
 	NSLog(@"Playing song: %@", song);
 	[SoundManager.sharedManager  playSound:song looping:NO];
-	
 }
 + (void) setSoundVolume:(NSUI)outtaHundred { SoundManager.sharedManager.soundVolume = outtaHundred / 100.0; }
 

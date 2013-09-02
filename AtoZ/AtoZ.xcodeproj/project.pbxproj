@@ -364,6 +364,8 @@
 		7B379CAD15DE0B550040A093 /* AZDarkButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B379CAB15DE0B550040A093 /* AZDarkButtonCell.m */; };
 		7B379CBE15DE4AE30040A093 /* AZToggleArrayView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B379CBC15DE4AE20040A093 /* AZToggleArrayView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B379CBF15DE4AE30040A093 /* AZToggleArrayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B379CBD15DE4AE30040A093 /* AZToggleArrayView.m */; };
+		7B37E7F217D3A63F005DB8BF /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B0DA21E17434FCB00535483 /* CoreData.framework */; };
+		7B37E7F317D3A650005DB8BF /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B0DA21A17434FCB00535483 /* Cocoa.framework */; };
 		7B385DEE15C3B49E00A28686 /* AZFoamView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B385DEC15C3B49E00A28686 /* AZFoamView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B385DEF15C3B49E00A28686 /* AZFoamView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B385DED15C3B49E00A28686 /* AZFoamView.m */; };
 		7B3928C4176B3559005655E7 /* NSTerminal.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7B7286C11731C71D005BCA03 /* NSTerminal.mm */; };
@@ -439,6 +441,7 @@
 		7B4F0245160A4E9A00A79C77 /* AZScrollPaneLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B4F0231160A4DEA00A79C77 /* AZScrollPaneLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B4F0246160A4E9A00A79C77 /* AZSnapShotLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B4F0233160A4DEA00A79C77 /* AZSnapShotLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B4F0247160A4E9A00A79C77 /* AZTimeLineLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B4F0235160A4DEA00A79C77 /* AZTimeLineLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B5157A1178B759E00D4FB8E /* ModelsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5157A0178B759E00D4FB8E /* ModelsTest.m */; };
 		7B5180761654EE7400C7A28B /* LetterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5180751654EE1600C7A28B /* LetterView.m */; };
 		7B5180771654EE8500C7A28B /* LetterView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B5180741654EE1600C7A28B /* LetterView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B55B3FF1711250300F0EAED /* NSOrderedDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B55B3FD1711250300F0EAED /* NSOrderedDictionary.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -466,7 +469,6 @@
 		7B5EB90A171C28C900B8916B /* MenuApp.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7B5EB906171C263F00B8916B /* MenuApp.framework */; };
 		7B5EB90D171C325200B8916B /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B311951159B6D9E002134C4 /* AtoZ.framework */; };
 		7B5EB90E171C325F00B8916B /* AtoZ.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7B311951159B6D9E002134C4 /* AtoZ.framework */; };
-		7B5F588E176BB77F007280A3 /* AZObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B112A9B15D45B10002C97E8 /* AZObject.m */; };
 		7B5F58D8176CCA1A007280A3 /* NSObject_KVOBlock.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B5F58D6176CCA1A007280A3 /* NSObject_KVOBlock.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B5F58D9176CCA1A007280A3 /* NSObject_KVOBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5F58D7176CCA1A007280A3 /* NSObject_KVOBlock.m */; };
 		7B5FE94E1789C9C50083AE35 /* BlocksKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B5FE9371789C08A0083AE35 /* BlocksKit.framework */; };
@@ -573,8 +575,8 @@
 		7B742F561672C88D009CF41B /* AZURLSnapshot.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B742F521672C809009CF41B /* AZURLSnapshot.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B76A7A1173EFD6700661EF2 /* NSString+AtoZEnums.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B44042A171DEE3C009950A7 /* NSString+AtoZEnums.m */; };
 		7B773179172C02ED006E1CB4 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B773178172C02ED006E1CB4 /* CoreFoundation.framework */; };
-		7B7731AF172C3F22006E1CB4 /* KSHTMLWriterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B37786616F1C80B0083CBB5 /* KSHTMLWriterKit.framework */; };
-		7B7731B0172C3F80006E1CB4 /* KSHTMLWriterKit.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7B37786616F1C80B0083CBB5 /* KSHTMLWriterKit.framework */; };
+		7B7731AF172C3F22006E1CB4 /* KSHTMLWriterFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B37786616F1C80B0083CBB5 /* KSHTMLWriterFramework.framework */; };
+		7B7731B0172C3F80006E1CB4 /* KSHTMLWriterFramework.framework in frameworks copy */ = {isa = PBXBuildFile; fileRef = 7B37786616F1C80B0083CBB5 /* KSHTMLWriterFramework.framework */; };
 		7B7731BE172D7F7A006E1CB4 /* StickyNoteView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BEA75C01720F6A2000A7D84 /* StickyNoteView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B78528A15ACA7AB008BAD3C /* AZBoxMagic.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B78528815ACA7AB008BAD3C /* AZBoxMagic.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B7A852F15F81AB00071741C /* AZProcess.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B7A852D15F81AB00071741C /* AZProcess.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -583,6 +585,7 @@
 		7B7C27FE15C32B39007DD569 /* RoundedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7C27FA15C32B39007DD569 /* RoundedView.m */; };
 		7B7C27FF15C32B39007DD569 /* TransparentWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B7C27FB15C32B39007DD569 /* TransparentWindow.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B7C280015C32B39007DD569 /* TransparentWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7C27FC15C32B39007DD569 /* TransparentWindow.m */; };
+		7B7C667A17CD6B5B005EEBA0 /* Python.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B7C667917CD6B5A005EEBA0 /* Python.framework */; };
 		7B7D5589163070FD00711D0F /* AZCIFilters.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7D5587163070FC00711D0F /* AZCIFilters.m */; };
 		7B7D558F1630781C00711D0F /* NSError+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7D558D1630781B00711D0F /* NSError+AtoZ.m */; };
 		7B7D55A3163093C400711D0F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B7D55A1163093C400711D0F /* MainMenu.xib */; };
@@ -603,7 +606,7 @@
 		7B8870071670E01A00C94BFC /* Rebel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BB86F8216383FCE0000C242 /* Rebel.framework */; };
 		7B8870091670E01B00C94BFC /* FunSize.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B5ABAB21608D76500530EA7 /* FunSize.framework */; };
 		7B8A2A1015E2D48D00286E27 /* AZVeil.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B8A2A0E15E2D48D00286E27 /* AZVeil.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7B8A2A1115E2D48D00286E27 /* AZVeil.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B8A2A0F15E2D48D00286E27 /* AZVeil.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		7B8A2A1115E2D48D00286E27 /* AZVeil.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B8A2A0F15E2D48D00286E27 /* AZVeil.m */; };
 		7B8A342A16E6D07A0088D209 /* StandardPaths.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B8A33F916E6D07A0088D209 /* StandardPaths.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B8A342B16E6D07A0088D209 /* StandardPaths.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B8A33FA16E6D07A0088D209 /* StandardPaths.m */; };
 		7B8BF92317709ED300034408 /* TestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0DA2B31743588C00535483 /* TestCase.m */; };
@@ -724,6 +727,8 @@
 		7BA7D23C1639421A0073BADC /* NSString+ConciseKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BB870941638A0FA0000C242 /* NSString+ConciseKit.m */; };
 		7BAD22CE177D7F3300480B2A /* AZGoogleImages.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BAD22CC177D7F3300480B2A /* AZGoogleImages.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BAD22CF177D7F3300480B2A /* AZGoogleImages.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BAD22CD177D7F3300480B2A /* AZGoogleImages.m */; };
+		7BAD633017D4074E0042B96E /* NSObject+AZBlockObservation.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BAD632E17D4074E0042B96E /* NSObject+AZBlockObservation.h */; };
+		7BAD633117D4074E0042B96E /* NSObject+AZBlockObservation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BAD632F17D4074E0042B96E /* NSObject+AZBlockObservation.m */; };
 		7BAD6B1115CD5C2E001DE404 /* AZNamedColors.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BAD6B0F15CD5C2E001DE404 /* AZNamedColors.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BAD6B1215CD5C2E001DE404 /* AZNamedColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BAD6B1015CD5C2E001DE404 /* AZNamedColors.m */; };
 		7BAF2F0415E87BB100099C9A /* Growl Registration Ticket.growlRegDict in Resources */ = {isa = PBXBuildFile; fileRef = 7BAF2F0315E87BB100099C9A /* Growl Registration Ticket.growlRegDict */; };
@@ -799,7 +804,6 @@
 		7BC859C515A8C0F400582632 /* AZSizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BC859C315A8C0F400582632 /* AZSizer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BC859CA15A8C56700582632 /* NSNumber+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BC859C815A8C56700582632 /* NSNumber+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BC859CB15A8C56700582632 /* NSNumber+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC859C915A8C56700582632 /* NSNumber+AtoZ.m */; };
-		7BCB072F1700D9AF00836BD2 /* azCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B8F4C0615EEB38C00571612 /* azCarousel.m */; };
 		7BCDFC4915C6D8590003DA4D /* AZInfiniteCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B92135E15C4A03300862F9D /* AZInfiniteCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BCDFC6315C71A810003DA4D /* CTBadge.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BCDFC5815C71A810003DA4D /* CTBadge.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BCDFC6615C71A810003DA4D /* NSScreen+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BCDFC5B15C71A810003DA4D /* NSScreen+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -830,7 +834,6 @@
 		7BD667971760EF4B006DA22C /* libextobjc_OSX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BD6678C1760EF22006DA22C /* libextobjc_OSX.a */; };
 		7BD7D3F5170A04E8001D49FA /* SDCloseButtonCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B379D2715DE634E0040A093 /* SDCloseButtonCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BD7D3F6170A04F3001D49FA /* SDCloseButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B379D2615DE634D0040A093 /* SDCloseButtonCell.m */; };
-		7BD8D901178B434A00B9DB76 /* UknownSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD8D900178B434900B9DB76 /* UknownSelector.m */; };
 		7BD908BD162F556B000DE2BB /* AtoZGeometry.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BD908BC162F5557000DE2BB /* AtoZGeometry.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BD908BF162F580E000DE2BB /* AtoZGeometry.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD908BE162F580E000DE2BB /* AtoZGeometry.m */; };
 		7BDB8D7D15CB56BA0037A4BF /* missing.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BDB8D7915CB56BA0037A4BF /* missing.png */; };
@@ -897,7 +900,6 @@
 		7BF0571D15EB33F3003A2A7A /* AZSpinnerLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BF0571B15EB33F3003A2A7A /* AZSpinnerLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BF1B9AC1744A26300B2BF84 /* NSManagedObject+SDAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA36BEB165BB2050077A065 /* NSManagedObject+SDAdditions.m */; };
 		7BF1B9AD1744A26700B2BF84 /* NSManagedObject+SDAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BA36BEA165BB2050077A065 /* NSManagedObject+SDAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7BF1EC58174A0BBD00699D38 /* AZObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B112A9A15D45B10002C97E8 /* AZObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BF2617D164F2B260057EB88 /* AtoZFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BF9854915FEBDB100D47192 /* AtoZFunctions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BF343FE17538D330006E542 /* NullSafe.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BF343FC17538D330006E542 /* NullSafe.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BF343FF17538D330006E542 /* NullSafe.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BF343FC17538D330006E542 /* NullSafe.h */; };
@@ -1396,6 +1398,13 @@
 			remoteGlobalIDString = 0785774B15FF4FD800C28714;
 			remoteInfo = CocoaPuffs;
 		};
+		7B5157AC178B759F00D4FB8E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B5FE92B1789C0890083AE35 /* BlocksKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7BFF19D11788D336005FF656;
+			remoteInfo = "BlocksKit Mac Demo";
+		};
 		7B5ABAB11608D76500530EA7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7BE1F69C15F90298005ED292 /* FunSize.xcodeproj */;
@@ -1850,7 +1859,7 @@
 				7B0F52DE177B48930027FAA2 /* SVGKit.framework in frameworks copy */,
 				7BFBF4F2175DC8B5007A84AC /* AtoZAppKit.framework in frameworks copy */,
 				7B66AD3B173EC994003F8604 /* NanoStore.framework in frameworks copy */,
-				7B7731B0172C3F80006E1CB4 /* KSHTMLWriterKit.framework in frameworks copy */,
+				7B7731B0172C3F80006E1CB4 /* KSHTMLWriterFramework.framework in frameworks copy */,
 				7B5EB90A171C28C900B8916B /* MenuApp.framework in frameworks copy */,
 				7B2585FD1718408B00527501 /* BWTK.framework in frameworks copy */,
 				7B4A5B891714B04F00020D6D /* NoodleKit.framework in frameworks copy */,
@@ -2203,7 +2212,6 @@
 		7B2F239116F289BC003D7648 /* IGIsolatedCookieWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IGIsolatedCookieWebView.m; path = External/IGIsolatedCookieWebView.m; sourceTree = "<group>"; };
 		7B2F239216F289BC003D7648 /* INAppStoreWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = INAppStoreWindow.h; path = External/INAppStoreWindow.h; sourceTree = "<group>"; };
 		7B2F239316F289BC003D7648 /* INAppStoreWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = INAppStoreWindow.m; path = External/INAppStoreWindow.m; sourceTree = "<group>"; };
-		7B2F239416F289BC003D7648 /* CKSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CKSingleton.h; path = External/CKSingleton.h; sourceTree = "<group>"; };
 		7B2F239516F289BC003D7648 /* GTMHTTPFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTMHTTPFetcher.h; path = External/GTMHTTPFetcher.h; sourceTree = "<group>"; };
 		7B2F239616F289BC003D7648 /* GTMHTTPFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTMHTTPFetcher.m; path = External/GTMHTTPFetcher.m; sourceTree = "<group>"; };
 		7B2F239716F289BC003D7648 /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GTMNSString+HTML.h"; path = "External/GTMNSString+HTML.h"; sourceTree = "<group>"; };
@@ -2397,7 +2405,7 @@
 		7B39615D15F04FD80065813F /* AtoZTouch-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AtoZTouch-Prefix.pch"; sourceTree = "<group>"; };
 		7B39615E15F04FD80065813F /* AtoZTouch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AtoZTouch.h; sourceTree = "<group>"; };
 		7B39616015F04FD80065813F /* AtoZTouch.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AtoZTouch.m; sourceTree = "<group>"; };
-		7B3FB11217689D0300233199 /* AtoZ XCTests.xctest */ = {isa = PBXFileReference; explicitFileType = folder; includeInIndex = 0; path = "AtoZ XCTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7B3FB11217689D0300233199 /* AtoZ XCTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "AtoZ XCTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B3FB11317689D0300233199 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		7B3FB11717689D0400233199 /* AtoZ XCTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AtoZ XCTests-Info.plist"; sourceTree = "<group>"; };
 		7B3FB11917689D0400233199 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -2470,17 +2478,19 @@
 		7B4F0234160A4DEA00A79C77 /* AZSnapShotLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AZSnapShotLayer.m; path = AZCoreScroll/AZSnapShotLayer.m; sourceTree = "<group>"; };
 		7B4F0235160A4DEA00A79C77 /* AZTimeLineLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = AZTimeLineLayout.h; path = AZCoreScroll/AZTimeLineLayout.h; sourceTree = "<group>"; };
 		7B4F0236160A4DEA00A79C77 /* AZTimeLineLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AZTimeLineLayout.m; path = AZCoreScroll/AZTimeLineLayout.m; sourceTree = "<group>"; };
+		7B5157A0178B759E00D4FB8E /* ModelsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModelsTest.m; sourceTree = "<group>"; };
 		7B5180741654EE1600C7A28B /* LetterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.objj.h; path = LetterView.h; sourceTree = "<group>"; };
 		7B5180751654EE1600C7A28B /* LetterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LetterView.m; sourceTree = "<group>"; };
 		7B55B3FD1711250300F0EAED /* NSOrderedDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSOrderedDictionary.h; sourceTree = "<group>"; };
 		7B55B3FE1711250300F0EAED /* NSOrderedDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSOrderedDictionary.m; sourceTree = "<group>"; };
 		7B578E19167A4F47005C411C /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		7B583065159BDAF40039CEED /* atoz.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = atoz.icns; path = Resources/atoz.icns; sourceTree = SOURCE_ROOT; };
-		7B583066159BDAF40039CEED /* AtoZ-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "AtoZ-Prefix.pch"; path = "/Volumes/2T/ServiceData/AtoZ.framework/AtoZ/AtoZ-Prefix.pch"; sourceTree = "<absolute>"; };
 		7B583067159BDAF40039CEED /* AtoZ-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "AtoZ-Info.plist"; sourceTree = "<group>"; };
 		7B583068159BDAF40039CEED /* AppledocSettings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AppledocSettings.plist; path = ../AppledocSettings.plist; sourceTree = SOURCE_ROOT; };
 		7B59C8241600D341009DAFCA /* AtoZModels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = AtoZModels.h; path = Models/AtoZModels.h; sourceTree = SOURCE_ROOT; };
 		7B59C8251600D341009DAFCA /* AtoZModels.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AtoZModels.m; path = Models/AtoZModels.m; sourceTree = SOURCE_ROOT; };
+		7B5A71FD178C0A1F00AF9807 /* AtoZDocumentation */ = {isa = PBXFileReference; explicitFileType = folder; includeInIndex = 0; path = AtoZDocumentation; sourceTree = BUILT_PRODUCTS_DIR; };
+		7B5A7200178C0A2000AF9807 /* ContentInfo.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ContentInfo.plist; sourceTree = "<group>"; };
 		7B5B2CC5162CA4AF00B454C2 /* AZPrismView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = AZPrismView.h; sourceTree = "<group>"; };
 		7B5B2CC6162CA4AF00B454C2 /* AZPrismView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZPrismView.m; sourceTree = "<group>"; };
 		7B5B2CD5162CD12500B454C2 /* AZImageToDataTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = AZImageToDataTransformer.h; path = Models/AZImageToDataTransformer.h; sourceTree = SOURCE_ROOT; };
@@ -2623,6 +2633,7 @@
 		7B7C27FA15C32B39007DD569 /* RoundedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoundedView.m; sourceTree = "<group>"; };
 		7B7C27FB15C32B39007DD569 /* TransparentWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransparentWindow.h; sourceTree = "<group>"; };
 		7B7C27FC15C32B39007DD569 /* TransparentWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 5; lastKnownFileType = sourcecode.c.objc; path = TransparentWindow.m; sourceTree = "<group>"; };
+		7B7C667917CD6B5A005EEBA0 /* Python.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Python.framework; path = ../../../../../System/Library/Frameworks/Python.framework; sourceTree = "<group>"; };
 		7B7D5586163070FC00711D0F /* AZCIFilters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = AZCIFilters.h; sourceTree = "<group>"; };
 		7B7D5587163070FC00711D0F /* AZCIFilters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZCIFilters.m; sourceTree = "<group>"; };
 		7B7D558A163072A200711D0F /* AZIrisOpenFilter.cikernel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AZIrisOpenFilter.cikernel; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
@@ -2768,6 +2779,7 @@
 		7B9DFE1E1657490E00A47B6F /* UIVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UIVC.xib; sourceTree = "<group>"; };
 		7BA147AB15DCE7A10041BAFE /* iCarousel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iCarousel.h; sourceTree = "<group>"; };
 		7BA147AC15DCE7A10041BAFE /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = iCarousel.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		7BA2550617D2301F00D44066 /* HTTPResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPResponse.m; sourceTree = "<group>"; };
 		7BA35F9D16449FDE00BFEB6B /* DrawKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DrawKit.xcodeproj; path = ../Frameworks/DrawKit/src/DrawKit.xcodeproj; sourceTree = "<group>"; };
 		7BA35FEE1645618400BFEB6B /* StarLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StarLayer.h; sourceTree = "<group>"; };
 		7BA35FEF1645618400BFEB6B /* StarLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StarLayer.m; sourceTree = "<group>"; };
@@ -2825,6 +2837,8 @@
 		7BA8EFEC16F1EF5900D092CA /* Reader Notifier.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "Reader Notifier.xcodeproj"; path = "/Volumes/2T/ServiceData/git/StackInbox/../readernotifier/Reader Notifier.xcodeproj"; sourceTree = "<absolute>"; };
 		7BAD22CC177D7F3300480B2A /* AZGoogleImages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZGoogleImages.h; path = Models/AZGoogleImages.h; sourceTree = SOURCE_ROOT; };
 		7BAD22CD177D7F3300480B2A /* AZGoogleImages.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AZGoogleImages.m; path = Models/AZGoogleImages.m; sourceTree = SOURCE_ROOT; };
+		7BAD632E17D4074E0042B96E /* NSObject+AZBlockObservation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+AZBlockObservation.h"; sourceTree = "<group>"; };
+		7BAD632F17D4074E0042B96E /* NSObject+AZBlockObservation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+AZBlockObservation.m"; sourceTree = "<group>"; };
 		7BAD6B0F15CD5C2E001DE404 /* AZNamedColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZNamedColors.h; sourceTree = "<group>"; };
 		7BAD6B1015CD5C2E001DE404 /* AZNamedColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZNamedColors.m; sourceTree = "<group>"; };
 		7BAF2F0315E87BB100099C9A /* Growl Registration Ticket.growlRegDict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Growl Registration Ticket.growlRegDict"; sourceTree = "<group>"; };
@@ -3171,20 +3185,23 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B37E7F317D3A650005DB8BF /* Cocoa.framework in Frameworks */,
+				7BE6CFC5172B8648004F4CFA /* Foundation.framework in Frameworks */,
+				7B7C667A17CD6B5B005EEBA0 /* Python.framework in Frameworks */,
 				7B5FE94E1789C9C50083AE35 /* BlocksKit.framework in Frameworks */,
 				7B82660D177DE7340059418E /* libxml2.dylib in Frameworks */,
+				7B37E7F217D3A63F005DB8BF /* CoreData.framework in Frameworks */,
 				7BC425BF177747A900928201 /* libAtoZAutoBox.a in Frameworks */,
 				7B0F52DD177B487F0027FAA2 /* SVGKit.framework in Frameworks */,
 				7BD667971760EF4B006DA22C /* libextobjc_OSX.a in Frameworks */,
 				7BFBF4F1175DC89A007A84AC /* AtoZAppKit.framework in Frameworks */,
 				7B66AD3A173EC97A003F8604 /* NanoStore.framework in Frameworks */,
-				7B7731AF172C3F22006E1CB4 /* KSHTMLWriterKit.framework in Frameworks */,
+				7B7731AF172C3F22006E1CB4 /* KSHTMLWriterFramework.framework in Frameworks */,
 				7B773179172C02ED006E1CB4 /* CoreFoundation.framework in Frameworks */,
 				7BE6CFCC172B8860004F4CFA /* CoreServices.framework in Frameworks */,
 				7BE6CFCA172B8821004F4CFA /* SystemConfiguration.framework in Frameworks */,
 				7BBD988215AF7A2400943FC1 /* QuartzCore.framework in Frameworks */,
 				7BE6CFC6172B87E7004F4CFA /* AudioToolbox.framework in Frameworks */,
-				7BE6CFC5172B8648004F4CFA /* Foundation.framework in Frameworks */,
 				7B5EB909171C28B900B8916B /* MenuApp.framework in Frameworks */,
 				7B4A5B881714B03C00020D6D /* NoodleKit.framework in Frameworks */,
 				7B2585FC1718407C00527501 /* BWTK.framework in Frameworks */,
@@ -3233,6 +3250,7 @@
 				7B02A2C9172A852E00973A80 /* main.m */,
 				7BD8D8FE178B3A0A00B9DB76 /* methodlogging.m */,
 				7BD8D900178B434900B9DB76 /* UknownSelector.m */,
+				7B5157A0178B759E00D4FB8E /* ModelsTest.m */,
 			);
 			name = AZPrompt;
 			path = ../AZPrompt;
@@ -3518,6 +3536,8 @@
 				7B728DF615C472D8004F6723 /* NSNotificationCenter+AtoZ.h */,
 				7BC859C815A8C56700582632 /* NSNumber+AtoZ.h */,
 				7B24E99E15A1309300A9D87A /* NSObject+AtoZ.h */,
+				7BAD632E17D4074E0042B96E /* NSObject+AZBlockObservation.h */,
+				7BAD632F17D4074E0042B96E /* NSObject+AZBlockObservation.m */,
 				7B741DA0163AD91200B403B2 /* NSObject+Properties.h */,
 				7B449C6D1616136500AB9335 /* NSObject-Utilities.h */,
 				7B5F58D6176CCA1A007280A3 /* NSObject_KVOBlock.h */,
@@ -3758,7 +3778,6 @@
 				7B2F239116F289BC003D7648 /* IGIsolatedCookieWebView.m */,
 				7B2F239216F289BC003D7648 /* INAppStoreWindow.h */,
 				7B2F239316F289BC003D7648 /* INAppStoreWindow.m */,
-				7B2F239416F289BC003D7648 /* CKSingleton.h */,
 				7B2F239516F289BC003D7648 /* GTMHTTPFetcher.h */,
 				7B2F239616F289BC003D7648 /* GTMHTTPFetcher.m */,
 				7B2F239716F289BC003D7648 /* GTMNSString+HTML.h */,
@@ -3871,6 +3890,7 @@
 			isa = PBXGroup;
 			children = (
 				7BC425771776799D00928201 /* AtoZAutoBox.xcodeproj */,
+				7BD667821760EF20006DA22C /* extobjc.xcodeproj */,
 				7BFBF553175E0C75007A84AC /* AtoZCodeFactory.xcodeproj */,
 				7B82B82815CB66D30026FE8C /* AtoZ Encyclopedia */,
 				7B31B12F15E9441D00802CD5 /* AtoZ Entitlement */,
@@ -3882,6 +3902,7 @@
 				7B6BEDD91674B42E00829B8A /* Core */,
 				7B4A909016F3A6F1003CD058 /* DockBox */,
 				7B3FB11517689D0300233199 /* AtoZ XCTests */,
+				7B5A71FE178C0A1F00AF9807 /* AtoZDocumentation */,
 				7B311953159B6D9E002134C4 /* Frameworks */,
 				7B59C8281600D346009DAFCA /* Models */,
 				7B3777BE16F1BDAD0083CBB5 /* Networking */,
@@ -3906,6 +3927,7 @@
 				7B0DA21917434FCA00535483 /* libBaseModel.a */,
 				7B0DA29F174352CC00535483 /* StaticLibTester */,
 				7B3FB11217689D0300233199 /* AtoZ XCTests.xctest */,
+				7B5A71FD178C0A1F00AF9807 /* AtoZDocumentation */,
 			);
 			name = Products;
 			path = ..;
@@ -3914,6 +3936,7 @@
 		7B311953159B6D9E002134C4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7B7C667917CD6B5A005EEBA0 /* Python.framework */,
 				7B5FE92B1789C0890083AE35 /* BlocksKit.xcodeproj */,
 				7BFBF4E7175DC860007A84AC /* AtoZAppKit.xcodeproj */,
 				7BB8701116384FF00000C242 /* AtoZBezierPath.xcodeproj */,
@@ -3924,7 +3947,6 @@
 				7B427EB0170AF7250052FC31 /* CocoatechCore.xcodeproj */,
 				7BB870691638A0FA0000C242 /* ConciseKit */,
 				7BA35F9D16449FDE00BFEB6B /* DrawKit.xcodeproj */,
-				7BD667821760EF20006DA22C /* extobjc.xcodeproj */,
 				7BE1F69C15F90298005ED292 /* FunSize.xcodeproj */,
 				7BE2A4F31611576E003D6B92 /* Linked Frameworks */,
 				7BF26168164EDAB00057EB88 /* Lumberjack.xcodeproj */,
@@ -4031,6 +4053,7 @@
 				7B3777D016F1BE4A0083CBB5 /* HTTPMessage.h */,
 				7B3777D116F1BE4A0083CBB5 /* HTTPMessage.m */,
 				7B3777D216F1BE4A0083CBB5 /* HTTPResponse.h */,
+				7BA2550617D2301F00D44066 /* HTTPResponse.m */,
 				7B3777D316F1BE4A0083CBB5 /* HTTPServer.h */,
 				7B3777D416F1BE4A0083CBB5 /* HTTPServer.m */,
 				7B3777D516F1BE4A0083CBB5 /* Mime */,
@@ -4119,7 +4142,7 @@
 			children = (
 				7B37786216F1C80B0083CBB5 /* libKSHTMLWriter.a */,
 				7B37786416F1C80B0083CBB5 /* KSHTMLWriterTests.octest */,
-				7B37786616F1C80B0083CBB5 /* KSHTMLWriterKit.framework */,
+				7B37786616F1C80B0083CBB5 /* KSHTMLWriterFramework.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -4339,7 +4362,6 @@
 				7BBCBAB91671062C00681F2B /* BrewDescriptions.plist */,
 				7BC06CDC166214B000B57E3A /* UserAgentStrings.plist */,
 				7B39615B15F04FD70065813F /* AtoZTouch */,
-				7B583066159BDAF40039CEED /* AtoZ-Prefix.pch */,
 				7B9ADE9E1635C51A0026FA02 /* CTBadge_1.pdf */,
 				7B9ADE9F1635C51A0026FA02 /* CTBadge_3.pdf */,
 				7B9ADEA01635C51A0026FA02 /* CTBadge_4.pdf */,
@@ -4368,6 +4390,7 @@
 		7B59C8281600D346009DAFCA /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				7B5A71B5178BC7D700AF9807 /* APIs */,
 				7B1447511666BAE400B999EC /* Protocols */,
 				7B0E4BEB1669221A00CA1684 /* AddressBookImageLoader.h */,
 				7B0E4BEC1669221A00CA1684 /* AddressBookImageLoader.m */,
@@ -4391,15 +4414,38 @@
 				7B0F16F01620F1ED00E028FC /* SynthesizeSingleton.h */,
 				7B71E72B16127CDF0015F4E4 /* Transition.h */,
 				7B71E72C16127CDF0015F4E4 /* Transition.m */,
-				7B0EF0B7170875F1008592BD /* AZWikipedia.h */,
-				7B0EF0B8170875F1008592BD /* AZWikipedia.m */,
 				7BEDF91B1735A20300E62815 /* AtoZContacts.h */,
-				7BAD22CC177D7F3300480B2A /* AZGoogleImages.h */,
-				7BAD22CD177D7F3300480B2A /* AZGoogleImages.m */,
 				7BEDF91C1735A20300E62815 /* AtoZContacts.m */,
 			);
 			name = Models;
 			path = AtoZ;
+			sourceTree = "<group>";
+		};
+		7B5A71B5178BC7D700AF9807 /* APIs */ = {
+			isa = PBXGroup;
+			children = (
+				7B0EF0B7170875F1008592BD /* AZWikipedia.h */,
+				7B0EF0B8170875F1008592BD /* AZWikipedia.m */,
+				7BAD22CC177D7F3300480B2A /* AZGoogleImages.h */,
+				7BAD22CD177D7F3300480B2A /* AZGoogleImages.m */,
+			);
+			name = APIs;
+			sourceTree = "<group>";
+		};
+		7B5A71FE178C0A1F00AF9807 /* AtoZDocumentation */ = {
+			isa = PBXGroup;
+			children = (
+				7B5A71FF178C0A2000AF9807 /* Supporting Files */,
+			);
+			path = AtoZDocumentation;
+			sourceTree = "<group>";
+		};
+		7B5A71FF178C0A2000AF9807 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				7B5A7200178C0A2000AF9807 /* ContentInfo.plist */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		7B5ABAAD1608D76500530EA7 /* Products */ = {
@@ -4424,9 +4470,10 @@
 			children = (
 				7B5FE9351789C08A0083AE35 /* libBlocksKit.a */,
 				7B5FE9371789C08A0083AE35 /* BlocksKit.framework */,
-				7B5FE9391789C08A0083AE35 /* iOS Tests.octest */,
-				7B5FE93B1789C08A0083AE35 /* OS X Tests.octest */,
-				7B5FE93D1789C08A0083AE35 /* iOS Tests App.app */,
+				7B5FE9391789C08A0083AE35 /* BlocksKit iOS Tests.octest */,
+				7B5FE93B1789C08A0083AE35 /* BlocksKit OS X Tests.octest */,
+				7B5FE93D1789C08A0083AE35 /* BlocksKit iOS Tests App.app */,
+				7B5157AD178B759F00D4FB8E /* BlocksKit Mac Demo.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -5776,6 +5823,7 @@
 				7B95C88716F04DAC00480BB1 /* CAWindow.h in Headers */,
 				7B95C88D16F0760E00480BB1 /* NSObject-Utilities.h in Headers */,
 				7B2D754716F15BB60054C5F2 /* Bootstrap.h in Headers */,
+				7BAD633017D4074E0042B96E /* NSObject+AZBlockObservation.h in Headers */,
 				7B4A90B916F3AB70003CD058 /* AZSpeechRecognition.h in Headers */,
 				7B4A90BA16F3AB70003CD058 /* AZHTTPRouter.h in Headers */,
 				7B4A90BB16F3AB70003CD058 /* AZFacebookConnection.h in Headers */,
@@ -5829,7 +5877,6 @@
 				7BE72AC817426B42006709D6 /* CoreData+AtoZ.h in Headers */,
 				7BBB87CF1744848E0024704E /* JSONKit.h in Headers */,
 				7BF1B9AD1744A26700B2BF84 /* NSManagedObject+SDAdditions.h in Headers */,
-				7BF1EC58174A0BBD00699D38 /* AZObject.h in Headers */,
 				7B81C380174B517300226B82 /* AtoZMacroDefines.h in Headers */,
 				7B2FA743174C3F250026E869 /* AZWindowTab.h in Headers */,
 				7BF343FE17538D330006E542 /* NullSafe.h in Headers */,
@@ -5922,9 +5969,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7B31197B159B6D9E002134C4 /* Build configuration list for PBXNativeTarget "AtoZ" */;
 			buildPhases = (
+				7B31194E159B6D9E002134C4 /* Headers */,
 				7B0236DB15E08E500070FE12 /* frameworks copy */,
 				7BBD987B15AF79D000943FC1 /* Frameworks */,
-				7B31194E159B6D9E002134C4 /* Headers */,
 				7B31194F159B6D9E002134C4 /* Resources */,
 				7B31194C159B6D9E002134C4 /* Sources */,
 				7B9595B015E1CFCE0044620B /* fonts Files */,
@@ -6036,6 +6083,22 @@
 			productName = DockBox;
 			productReference = 7B4A908916F3A6F0003CD058 /* DockBox.app */;
 			productType = "com.apple.product-type.application";
+		};
+		7B5A71FC178C0A1F00AF9807 /* AtoZDocumentation */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7B5A7201178C0A2000AF9807 /* Build configuration list for PBXNativeTarget "AtoZDocumentation" */;
+			buildPhases = (
+				7B5A71FB178C0A1F00AF9807 /* Resources */,
+				7B5A7204178C0A4100AF9807 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AtoZDocumentation;
+			productName = AtoZDocumentation;
+			productReference = 7B5A71FD178C0A1F00AF9807 /* AtoZDocumentation */;
+			productType = "com.apple.product-type.in-app-purchase-content";
 		};
 		7BDF568B1627695300041A42 /* AtoZTestBed∞ */ = {
 			isa = PBXNativeTarget;
@@ -6233,6 +6296,7 @@
 				7B0DA29E174352CC00535483 /* StaticLibTester */,
 				7B4F5B6D1760FB5D00BFE73D /* Build Frameworks */,
 				7B3FB11117689D0300233199 /* AtoZ XCTests */,
+				7B5A71FC178C0A1F00AF9807 /* AtoZDocumentation */,
 			);
 		};
 /* End PBXProject section */
@@ -6378,10 +6442,10 @@
 			remoteRef = 7B37786316F1C80B0083CBB5 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		7B37786616F1C80B0083CBB5 /* KSHTMLWriterKit.framework */ = {
+		7B37786616F1C80B0083CBB5 /* KSHTMLWriterFramework.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
-			path = KSHTMLWriterKit.framework;
+			path = KSHTMLWriterFramework.framework;
 			remoteRef = 7B37786516F1C80B0083CBB5 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -6476,6 +6540,13 @@
 			remoteRef = 7B4A5B841714AFF400020D6D /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		7B5157AD178B759F00D4FB8E /* BlocksKit Mac Demo.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "BlocksKit Mac Demo.app";
+			remoteRef = 7B5157AC178B759F00D4FB8E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		7B5ABAB21608D76500530EA7 /* FunSize.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -6532,24 +6603,24 @@
 			remoteRef = 7B5FE9361789C08A0083AE35 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		7B5FE9391789C08A0083AE35 /* iOS Tests.octest */ = {
+		7B5FE9391789C08A0083AE35 /* BlocksKit iOS Tests.octest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = "iOS Tests.octest";
+			path = "BlocksKit iOS Tests.octest";
 			remoteRef = 7B5FE9381789C08A0083AE35 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		7B5FE93B1789C08A0083AE35 /* OS X Tests.octest */ = {
+		7B5FE93B1789C08A0083AE35 /* BlocksKit OS X Tests.octest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = "OS X Tests.octest";
+			path = "BlocksKit OS X Tests.octest";
 			remoteRef = 7B5FE93A1789C08A0083AE35 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		7B5FE93D1789C08A0083AE35 /* iOS Tests App.app */ = {
+		7B5FE93D1789C08A0083AE35 /* BlocksKit iOS Tests App.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
-			path = "iOS Tests App.app";
+			path = "BlocksKit iOS Tests App.app";
 			remoteRef = 7B5FE93C1789C08A0083AE35 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -6723,7 +6794,7 @@
 		};
 		7BC4257F177679A000928201 /* AtoZAutoBoxTests.xctest */ = {
 			isa = PBXReferenceProxy;
-			fileType = folder;
+			fileType = wrapper.cfbundle;
 			path = AtoZAutoBoxTests.xctest;
 			remoteRef = 7BC4257E177679A000928201 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
@@ -6988,6 +7059,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7B5A71FB178C0A1F00AF9807 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7BDF568A1627695300041A42 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -7053,6 +7131,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "PRODUCT_PATH=\"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}\"\nBINARY=\"$PRODUCT_PATH/${PRODUCT_NAME}\"\nMAC=\"/sd/UNIX/bin/\"\nSYSTEM_PRODUCT=\"$MAC/${WRAPPER_NAME}\"\n\nln -sF \"${BINARY}\" \"${SYSTEM_PRODUCT}\"\n";
+		};
+		7B5A7204178C0A4100AF9807 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/bash\n#\thttp://www.hautelooktech.com/2012/11/07/automate-xcode-documentation/\n#\t1. Use headerdoc2html to crawl through source code and generate html files from java styled commenting (ex. /** */).\n#\t2. Use gatherheaderdoc to generate html indexes with Tokens.xml\n#\t3. Package all required files together into apple docset bundle\n#\t4. Use docsetutil  to create necessary index for docset bundle\n\nPROJECT_NAME=\"${PRODUCT_NAME}\"\n\nDOCSET_ID=\"com.mrgray.AtoZFramework\"\nDOCSET_BUNDLE_NAME=\"AtoZ.framework\"\n\nDOCSET_VERSION=`date \"+%Y.%m.%d.%H.%M.%S\"`\nVERSION=$DOCSET_VERSION\n\n# Project root\nROOT_PATH=\"`dirname $0`/../\"\n\n# Determine the tag path\nTAG_NAME=\"${PROJECT_NAME}-${VERSION}\"\nTAG_DIR=\"${ROOT_PATH}/tags/${TAG_NAME}\"\n\n# Verify the tag exists\nif [ ! -d \"$TAG_DIR\" ]; then\n    echo \"Tag $TAG_DIR does not exist, aborting.\"\n    exit 1\nfi\n\n# Docset paths\nDOCSET_DIR=\"${ROOT_PATH}/xcode-docset\"\nDOCSET_ATOM=\"${PROJECT_NAME}-${DOCSET_VERSION}.atom\"\nDOCSET_INPUT_FILE=\"${DOCSET_ID}.docset\"\nDOCSET_OUTPUT_FILE=\"${DOCSET_ID}-${VERSION}.xar\"\nDOCSET_PUBLIC_URL=\"${PUBLIC_SVN_URL}/xcode-docset/\"\nDOCSET_PUBLISHER_ID=\"com.plausiblelabs.documentation\"\nDOCSET_PUBLISHER_NAME=\"Plausible Labs\"\n\n# Xcode paths\nXCODE_BASE=`xcode-select -print-path`\nDOCSET_UTIL=\"${XCODE_BASE}/usr/bin/docsetutil\"\n\nif [ -z \"$XCODE_BASE\" ]; then\n    echo \"Could not determine Xcode installation path\"\n    exit 1\nfi\n\n# Build the Xcode docset\nmake -C \"${TAG_DIR}/docs\"\n\n# Populate the docset meta-data\n/usr/libexec/PlistBuddy -c \"Add :DocSetFeedURL string ${DOCSET_PUBLIC_URL}/${DOCSET_ATOM}\" \"${TAG_DIR}/docs/${DOCSET_INPUT_FILE}/Contents/Info.plist\" \n/usr/libexec/PlistBuddy -c \"Set :DocSetFeedName \\\"${DOCSET_BUNDLE_NAME} ${DOCSET_VERSION}\\\"\" \"${TAG_DIR}/docs/${DOCSET_INPUT_FILE}/Contents/Info.plist\"\n/usr/libexec/PlistBuddy -c \"Add :DocSetPublisherIdentifier string \\\"${DOCSET_PUBLISHER_ID}\\\"\" \"${TAG_DIR}/docs/${DOCSET_INPUT_FILE}/Contents/Info.plist\"\n/usr/libexec/PlistBuddy -c \"Add :DocSetPublisherName string \\\"${DOCSET_PUBLISHER_NAME}\\\"\" \"${TAG_DIR}/docs/${DOCSET_INPUT_FILE}/Contents/Info.plist\"\n\n/usr/libexec/PlistBuddy -c \"Add :CFBundleVersion string ${VERSION}\" \"${TAG_DIR}/docs/${DOCSET_INPUT_FILE}/Contents/Info.plist\" \n/usr/libexec/PlistBuddy -c \"Set :CFBundleName ${DOCSET_BUNDLE_NAME}\" \"${TAG_DIR}/docs/${DOCSET_INPUT_FILE}/Contents/Info.plist\" \n\n# Output the .xar package and the atom file.\n\"${DOCSET_UTIL}\" package -output \"${DOCSET_DIR}/${DOCSET_OUTPUT_FILE}\" -atom \"${DOCSET_DIR}/${DOCSET_ATOM}\" \\\n\t-download-url=\"${DOCSET_PUBLIC_URL}/${DOCSET_OUTPUT_FILE}\" \"${TAG_DIR}/docs/${DOCSET_INPUT_FILE}\"\nrm -rf \"${TAG_DIR}/docs/${DOCSET_INPUT_FILE}\"\n\nsvn add \"${DOCSET_DIR}/${DOCSET_OUTPUT_FILE}\" \"${DOCSET_DIR}/${DOCSET_ATOM}\"\n\n# Validate the build worked\nif [ $? -gt 0 ]; then\n    echo \"Build failed, aborting tagging process.\"\n    exit 1\nfi\n\nXCODE_VERSION=Xcode5-DP2.app\n# SETTING location of XCODE docset\nDOCSET_DIR=~/Library/Developer/Shared/Documentation/DocSets/com.mrgray.documentation.atoz_framework.docset\n# location of html code document, generated by headerdoc2html\nDOCUMENT_DIR=$DOCSET_DIR/Contents/Resources/Documents\n# location of hautelook templates, Info.plist Nodes.xml\n<span style=\"background-color: rgb(255, 255, 153);\">DOCSET_TEMPLATE_DIR=</span>../Docset\n# location of our source code, where headerdoc2html will spider through\nSOURCE_DIR=.\n# clear screen\nclear\n# delete old docset and start from fresh, this will kill XCODE if its running.  <span style=\"background-color: rgb(255, 255, 153);\">good for development only, comment out for production</span>.\n#rm -rf $DOCSET_DIR\n# create document directory\nmkdir -p $DOCUMENT_DIR\n# generate html code document for source code.  <span style=\"background-color: rgb(255, 255, 153);\">-j will recognize java comment tag ex</span>. /** */\n# https://developer.apple.<span style=\"background-color: rgb(255, 255, 153);\">com/library/mac/documentation/DeveloperTools/Conceptual/HeaderDoc/usage/usage</span>.html#//apple_ref/doc/uid/TP40001215-CH337-SW2\nheaderdoc2html -j -o $DOCUMENT_DIR $SOURCE_DIR\n# generate main index file. <span style=\"background-color: rgb(255, 255, 153);\">-d will generate Tokens</span>.xml for us.\n# http://opensource.apple.com/source/headerdoc/\n# https://developer.apple.<span style=\"background-color: rgb(255, 255, 153);\">com/library/mac/documentation/DeveloperTools/Conceptual/HeaderDoc/usage/usage</span>.html#//apple_ref/doc/uid/TP40001215-CH337-SW1\n#\ngatherheaderdoc.pl -d $DOCUMENT_DIR\n \n# copy required template files for apple docset\ncp $DOCSET_TEMPLATE_DIR/Info.plist \t$DOCSET_DIR/Contents/\ncp $DOCSET_TEMPLATE_DIR/Nodes.xml   $DOCSET_DIR/Contents/Resources/\ncp $DOCUMENT_DIR/Tokens.xml         $DOCSET_DIR/Contents/Resources/\n \n# create and validate apple docset indexes\n/Applications/$XCODE_VERSION/Contents/Developer/usr/bin/docsetutil index -verbose -debug $DOCSET_DIR\n/Applications/Xcode.<span style=\"background-color: rgb(255, 255, 153);\">app/Contents/Developer/usr/bin/docsetutil validate -verbose -debug $DOCSET_DIR</span>\n \n\n#\tStep 2: Prepare Info.plist for Docset Bundle\n#\tInstruction for creating documentation set is on Apple Developer Site.   You can google for “apple documentation set guide” or see the references at the end of this post.\n#\tThis plist file is basically used to identify the owner and properties of the docset bundle.  It only has to be created once, and you’ll never have to touch it again.\n# \tNote: You can also use PlistBuddy (another Apple tool) to dynamically generate info.plist in the script.\n\n\n\n<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n<plist version=\"1.0\">\n\t<dict>\n\t\t<key>CFBundleName</key>\n        <string>HauteLook Library</string>\n\t\t<key>CFBundleIdentifier</key>\n\t\t<string>com.hautelook.documentation.atoz_framework</span>.docset</string>\n\t\t<key>DocSetPublisherIdentifier</key>\n\t\t<string>com.hautelook.documentation</string>\n\t\t<key>DocSetPublisherName</key>\n\t\t<string>HauteLook</string>\n\t</dict>\n</plist>\n\n \n\nStep 3: Prepare Nodes.xml for Docset Bundle\n\nNodes.xml creates the file structure “menu” that you see in XCode (please see screenshot #1).  This is by-design, done manually, so that you can customize and organize the way your document is presented.  There are many things you can do here, but we are only interested in presenting the generated HTML files of our code.\n\nFor the purpose of simply displaying generated code document, we can copy/paste additional node to add new section (Ex. Services), or, copy/paste additional “folder” node for new class (Ex. HLDatabaseCleanupService).\n\n \n\n?\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n34\n35\n36\n37\n38\n39\n40\n41\n42\n43\n44\n45\n46\n47\n48\n49\n50\n51\n52\n53\n54\n55\n<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n \n<!--\n \nNodes.xml are used to create directory structure in XCode - Organizer - Documentation\n \n-->\n \n<DocSetNodes version=\"1.0\">\n \n<TOC>\n \n<Node>\n \n<Name>HauteLook Library</Name>\n \n<Subnodes>\n \n<!-- Services Documents -->\n \n<Node>\n \n<Name>Services</Name>\n \n<Subnodes>\n \n<Node type=\"folder\">\n \n<Name>HLDatabaseCleanupService</Name>\n \n<Path>HLDatabaseCleanupService_h/Classes/HLDatabaseCleanupService</Path>\n \n<File>index.html</File>\n \n</Node>\n \n  \n \n<!-- add more services here -->\n \n  \n \n</Subnodes>\n \n</Node>\n \n<!-- END Service Documents -->\n \n</Subnodes>\n \n</Node>\n \n</TOC>\n \n</DocSetNodes>\n \n\nStep 4: Setup Files and Folders Location\n\n After you have done everything described above, place all files in a directory structure as shown below in your source code project.\n\n";
 		};
 		7B66D779175DBCF600599B28 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -7158,7 +7249,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7BD8D901178B434A00B9DB76 /* UknownSelector.m in Sources */,
+				7B5157A1178B759E00D4FB8E /* ModelsTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7198,6 +7289,7 @@
 			files = (
 				7BFBF591175E0F48007A84AC /* CABlockDelegate.m in Sources */,
 				7BFBF592175E0F48007A84AC /* AtoZNodeProtocol.m in Sources */,
+				7B2F23FC16F289BC003D7648 /* ASIHTTPRequest.m in Sources */,
 				7B56DCB7177483E500835FDE /* DefinitionController.m in Sources */,
 				7BDF41F2164AFD53008B3240 /* NSObject+AtoZ.m in Sources */,
 				7BA7D2391639421A0073BADC /* ConciseKit.m in Sources */,
@@ -7207,7 +7299,6 @@
 				7B2F23F116F289BC003D7648 /* GTMNSString+HTML.m in Sources */,
 				7B2F23F816F289BC003D7648 /* ASIInputStream.m in Sources */,
 				7B2F23FA16F289BC003D7648 /* ASIFormDataRequest.m in Sources */,
-				7B2F23FC16F289BC003D7648 /* ASIHTTPRequest.m in Sources */,
 				7B2F23FE16F289BC003D7648 /* ASINetworkQueue.m in Sources */,
 				7B2F240116F289BC003D7648 /* ASIDownloadCache.m in Sources */,
 				7B2F240316F289BC003D7648 /* ASIDataCompressor.m in Sources */,
@@ -7253,6 +7344,7 @@
 				7BE6069615A0E2DD00355236 /* NSString+AtoZ.m in Sources */,
 				7BE606F215A118B400355236 /* AZAttachedWindow.m in Sources */,
 				7BFCD75F178A336100CB9163 /* AZIndexedObjects.m in Sources */,
+				7BAD633117D4074E0042B96E /* NSObject+AZBlockObservation.m in Sources */,
 				7B6901D6159E39A400D0DA47 /* NSColor+AtoZ.m in Sources */,
 				7B24E97A15A1299700A9D87A /* NSView+AtoZ.m in Sources */,
 				7B24E9A215A139A400A9D87A /* AZProgressIndicator.m in Sources */,
@@ -7349,7 +7441,6 @@
 				7BA35FF11645618400BFEB6B /* StarLayer.m in Sources */,
 				7BB5AFFE16481EB3008D50A5 /* BBMeshView.m in Sources */,
 				7B5180761654EE7400C7A28B /* LetterView.m in Sources */,
-				7B5F588E176BB77F007280A3 /* AZObject.m in Sources */,
 				7BA36C17165BB2050077A065 /* NSArray+UsefulStuff.m in Sources */,
 				7BA36C1B165BB2050077A065 /* NSString+PathAdditions.m in Sources */,
 				7BA36C1D165BB2050077A065 /* NSString+URLAdditions.m in Sources */,
@@ -7451,7 +7542,6 @@
 				7BDD286116F8280D00FEB3AF /* iCarousel.m in Sources */,
 				7BDD286316F828F700FEB3AF /* AZDockQuery.m in Sources */,
 				7B682BC016FABC9D00ADF346 /* KGNoise.m in Sources */,
-				7BCB072F1700D9AF00836BD2 /* azCarousel.m in Sources */,
 				7B695F4C170306DE005FB041 /* NSOutlineView+AtoZ.m in Sources */,
 				7B0EF0BA170875F1008592BD /* AZWikipedia.m in Sources */,
 				7BD7D3F6170A04F3001D49FA /* SDCloseButtonCell.m in Sources */,
@@ -8231,21 +8321,24 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ANALYZER_OBJC_INCOMP_METHOD_TYPES = NO;
 				CLANG_ANALYZER_OBJC_UNUSED_IVARS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_MODULES_AUTOLINK = YES;
 				CLANG_WARN__ARC_BRIDGE_CAST_NONARC = NO;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = NO;
 				CODE_SIGN_ENTITLEMENTS = "";
-				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_VERSION = "";
 				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
 				GCC_WARN_MULTIPLE_DEFINITION_TYPES_FOR_SELECTOR = NO;
 				GCC_WARN_STRICT_SELECTOR_MATCH = NO;
 				GCC_WARN_UNDECLARED_SELECTOR = NO;
 				GCC_WARN_UNKNOWN_PRAGMAS = YES;
 				GCC_WARN_UNUSED_VALUE = NO;
-				GENERATE_MASTER_OBJECT_FILE = YES;
-				HEADER_SEARCH_PATHS = "\"$(SDKROOT)/usr/include/libxml2/**\"";
+				GENERATE_MASTER_OBJECT_FILE = NO;
+				HEADER_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-Wduplicate-method-arg";
@@ -8255,7 +8348,7 @@
 					"-all_load",
 				);
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = NO;
-				SDKROOT = macosx;
+				SDKROOT = "";
 				SKIP_INSTALL = YES;
 				USER_HEADER_SEARCH_PATHS = "\"$(SDKROOT)/usr/include/libxml2/**\"";
 			};
@@ -8265,21 +8358,24 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ANALYZER_OBJC_INCOMP_METHOD_TYPES = NO;
 				CLANG_ANALYZER_OBJC_UNUSED_IVARS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_MODULES_AUTOLINK = YES;
 				CLANG_WARN__ARC_BRIDGE_CAST_NONARC = NO;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = NO;
 				CODE_SIGN_ENTITLEMENTS = "";
-				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_VERSION = "";
 				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
 				GCC_WARN_MULTIPLE_DEFINITION_TYPES_FOR_SELECTOR = NO;
 				GCC_WARN_STRICT_SELECTOR_MATCH = NO;
 				GCC_WARN_UNDECLARED_SELECTOR = NO;
 				GCC_WARN_UNKNOWN_PRAGMAS = YES;
 				GCC_WARN_UNUSED_VALUE = NO;
-				GENERATE_MASTER_OBJECT_FILE = YES;
-				HEADER_SEARCH_PATHS = "\"$(SDKROOT)/usr/include/libxml2/**\"";
+				GENERATE_MASTER_OBJECT_FILE = NO;
+				HEADER_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-Wduplicate-method-arg";
@@ -8289,7 +8385,7 @@
 					"-all_load",
 				);
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = NO;
-				SDKROOT = macosx;
+				SDKROOT = "";
 				SKIP_INSTALL = YES;
 				USER_HEADER_SEARCH_PATHS = "\"$(SDKROOT)/usr/include/libxml2/**\"";
 			};
@@ -8299,61 +8395,54 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ADDITIONAL_SDKS = "";
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ANALYZER_MEMORY_MANAGEMENT = NO;
+				CLANG_ANALYZER_OBJC_INCOMP_METHOD_TYPES = NO;
 				CLANG_ANALYZER_OBJC_RETAIN_COUNT = NO;
 				CLANG_ANALYZER_OBJC_SELF_INIT = NO;
 				CLANG_ANALYZER_OBJC_UNUSED_IVARS = NO;
-				CLANG_ENABLE_MODULES = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_LINK_OBJC_RUNTIME = NO;
 				COMBINE_HIDPI_IMAGES = YES;
-				COPY_PHASE_STRIP = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(DEVELOPER_FRAMEWORKS_DIR)\"",
-				);
 				FRAMEWORK_VERSION = A;
-				GCC_ENABLE_OBJC_GC = unsupported;
-				GCC_FAST_MATH = NO;
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_INPUT_FILETYPE = automatic;
-				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AtoZ-Framework.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = "";
-				GCC_SHORT_ENUMS = NO;
-				GCC_UNROLL_LOOPS = NO;
-				GCC_USE_STANDARD_INCLUDE_SEARCHING = YES;
 				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
+				GCC_WARN_ABOUT_MISSING_NEWLINE = NO;
 				GCC_WARN_ABOUT_POINTER_SIGNEDNESS = NO;
 				GCC_WARN_MISSING_PARENTHESES = NO;
-				GENERATE_MASTER_OBJECT_FILE = NO;
-				GENERATE_PROFILING_CODE = NO;
+				GCC_WARN_MULTIPLE_DEFINITION_TYPES_FOR_SELECTOR = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				HEADER_SEARCH_PATHS = (
-					"$(BUILT_PRODUCTS_DIR)/build/include/**",
-					/usr/include/libxml2,
+					"$(inherited)",
+					/usr/include/objc,
 				);
 				INFOPLIST_FILE = "Resources/AtoZ-Info.plist";
 				INSTALL_PATH = "@rpath";
 				LD_DYLIB_INSTALL_NAME = "$(DYLIB_INSTALL_NAME_BASE:standardizepath)/$(EXECUTABLE_PATH)";
-				LD_RUNPATH_SEARCH_PATHS = "@loader_path/Frameworks @loader_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/Frameworks @loader_path/../Frameworks /System/Library/Frameworks";
 				LIBRARY_SEARCH_PATHS = "\"$(SDKROOT)/usr/lib\"";
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = (
-					"-DAtoZFramework",
-					"-DFFI_DEBUG",
+					"-F/System/Library/Frameworks",
+					"-F$(DEVELOPER_FRAMEWORKS_DIR)",
+					"-F/Library/Frameworks",
 				);
 				OTHER_LDFLAGS = (
-					"-Obj-C",
-					"-all_load",
 					"-sub_library",
-					libxml2,
+					libobjc,
+					"-ObjC",
+					"-all_load",
 					"-headerpad_max_install_names",
 					"-Wl,-no_compact_unwind",
+					"-sub_library",
+					libxml2,
 					"-sub_umbrella",
 					DrawKit,
 					"-sub_library",
@@ -8362,7 +8451,6 @@
 					libextobjc_OSX,
 					"-sub_library",
 					libobjc,
-					"-mark_dead_strippable_dylib",
 					"-sub_umbrella",
 					FunSize,
 					"-sub_umbrella",
@@ -8388,7 +8476,7 @@
 					"-sub_umbrella",
 					TwUI,
 					"-sub_umbrella",
-					KSHTMLWriterKit,
+					KSHTMLWriterFramework,
 					"-sub_umbrella",
 					NoodleKit,
 					"-sub_umbrella",
@@ -8407,15 +8495,15 @@
 					Python,
 					"-framework",
 					AVFoundation,
-					"-framework",
+					"-sub_umbrella",
 					Cocoa,
-					"-framework",
+					"-sub_umbrella",
 					QuartzCore,
 					"-framework",
 					WebKit,
 					"-framework",
 					CoreFoundation,
-					"-framework",
+					"-sub_umbrella",
 					Foundation,
 					"-framework",
 					AppKit,
@@ -8431,13 +8519,18 @@
 					IOKit,
 					"-framework",
 					AddressBook,
+					"-sub_umbrella",
+					CoreData,
 				);
-				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES;
 				PRODUCT_NAME = AtoZ;
-				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = NO;
-				SDKROOT = macosx;
+				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
+				SDKROOT = "";
 				USER_HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				VERSIONING_SYSTEM = "apple-generic";
+				WARNING_CFLAGS = (
+					"-Wno-newline-eof",
+					"-Wno-ignored-attributes",
+				);
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Debug;
@@ -8446,61 +8539,54 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ADDITIONAL_SDKS = "";
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ANALYZER_MEMORY_MANAGEMENT = NO;
+				CLANG_ANALYZER_OBJC_INCOMP_METHOD_TYPES = NO;
 				CLANG_ANALYZER_OBJC_RETAIN_COUNT = NO;
 				CLANG_ANALYZER_OBJC_SELF_INIT = NO;
 				CLANG_ANALYZER_OBJC_UNUSED_IVARS = NO;
-				CLANG_ENABLE_MODULES = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_LINK_OBJC_RUNTIME = NO;
 				COMBINE_HIDPI_IMAGES = YES;
-				COPY_PHASE_STRIP = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(DEVELOPER_FRAMEWORKS_DIR)\"",
-				);
 				FRAMEWORK_VERSION = A;
-				GCC_ENABLE_OBJC_GC = unsupported;
-				GCC_FAST_MATH = NO;
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_INPUT_FILETYPE = automatic;
-				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AtoZ-Framework.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = "";
-				GCC_SHORT_ENUMS = NO;
-				GCC_UNROLL_LOOPS = NO;
-				GCC_USE_STANDARD_INCLUDE_SEARCHING = YES;
 				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
+				GCC_WARN_ABOUT_MISSING_NEWLINE = NO;
 				GCC_WARN_ABOUT_POINTER_SIGNEDNESS = NO;
 				GCC_WARN_MISSING_PARENTHESES = NO;
-				GENERATE_MASTER_OBJECT_FILE = NO;
-				GENERATE_PROFILING_CODE = NO;
+				GCC_WARN_MULTIPLE_DEFINITION_TYPES_FOR_SELECTOR = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				HEADER_SEARCH_PATHS = (
-					"$(BUILT_PRODUCTS_DIR)/build/include/**",
-					/usr/include/libxml2,
+					"$(inherited)",
+					/usr/include/objc,
 				);
 				INFOPLIST_FILE = "Resources/AtoZ-Info.plist";
 				INSTALL_PATH = "@rpath";
 				LD_DYLIB_INSTALL_NAME = "$(DYLIB_INSTALL_NAME_BASE:standardizepath)/$(EXECUTABLE_PATH)";
-				LD_RUNPATH_SEARCH_PATHS = "@loader_path/Frameworks @loader_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/Frameworks @loader_path/../Frameworks /System/Library/Frameworks";
 				LIBRARY_SEARCH_PATHS = "\"$(SDKROOT)/usr/lib\"";
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = (
-					"-DAtoZFramework",
-					"-DFFI_DEBUG",
+					"-F/System/Library/Frameworks",
+					"-F$(DEVELOPER_FRAMEWORKS_DIR)",
+					"-F/Library/Frameworks",
 				);
 				OTHER_LDFLAGS = (
-					"-Obj-C",
-					"-all_load",
 					"-sub_library",
-					libxml2,
+					libobjc,
+					"-ObjC",
+					"-all_load",
 					"-headerpad_max_install_names",
 					"-Wl,-no_compact_unwind",
+					"-sub_library",
+					libxml2,
 					"-sub_umbrella",
 					DrawKit,
 					"-sub_library",
@@ -8509,7 +8595,6 @@
 					libextobjc_OSX,
 					"-sub_library",
 					libobjc,
-					"-mark_dead_strippable_dylib",
 					"-sub_umbrella",
 					FunSize,
 					"-sub_umbrella",
@@ -8535,7 +8620,7 @@
 					"-sub_umbrella",
 					TwUI,
 					"-sub_umbrella",
-					KSHTMLWriterKit,
+					KSHTMLWriterFramework,
 					"-sub_umbrella",
 					NoodleKit,
 					"-sub_umbrella",
@@ -8554,15 +8639,15 @@
 					Python,
 					"-framework",
 					AVFoundation,
-					"-framework",
+					"-sub_umbrella",
 					Cocoa,
-					"-framework",
+					"-sub_umbrella",
 					QuartzCore,
 					"-framework",
 					WebKit,
 					"-framework",
 					CoreFoundation,
-					"-framework",
+					"-sub_umbrella",
 					Foundation,
 					"-framework",
 					AppKit,
@@ -8578,13 +8663,18 @@
 					IOKit,
 					"-framework",
 					AddressBook,
+					"-sub_umbrella",
+					CoreData,
 				);
-				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES;
 				PRODUCT_NAME = AtoZ;
-				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = NO;
-				SDKROOT = macosx;
+				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
+				SDKROOT = "";
 				USER_HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				VERSIONING_SYSTEM = "apple-generic";
+				WARNING_CFLAGS = (
+					"-Wno-newline-eof",
+					"-Wno-ignored-attributes",
+				);
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Release;
@@ -8700,6 +8790,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/AtoZ.framework/Versions/A/AtoZ";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -8745,6 +8836,7 @@
 					XCTest,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Debug;
@@ -8753,6 +8845,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/AtoZ.framework/Versions/A/AtoZ";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -8793,6 +8886,7 @@
 					XCTest,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;
@@ -8880,6 +8974,72 @@
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		7B5A7202178C0A2000AF9807 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = AtoZDocumentation/ContentInfo.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/InAppPurchaseContent";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = "";
+			};
+			name = Debug;
+		};
+		7B5A7203178C0A2000AF9807 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = AtoZDocumentation/ContentInfo.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/InAppPurchaseContent";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = "";
 			};
 			name = Release;
 		};
@@ -9153,6 +9313,15 @@
 			buildConfigurations = (
 				7B4F5B6F1760FB5D00BFE73D /* Debug */,
 				7B4F5B701760FB5D00BFE73D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		7B5A7201178C0A2000AF9807 /* Build configuration list for PBXNativeTarget "AtoZDocumentation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7B5A7202178C0A2000AF9807 /* Debug */,
+				7B5A7203178C0A2000AF9807 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

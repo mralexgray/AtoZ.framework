@@ -1,10 +1,7 @@
 //
 //  AZHTTPRouter.m
 //  AtoZ
-//
 //  Created by Alex Gray on 3/13/13.
-//  Copyright (c) 2013 mrgray.com, inc. All rights reserved.
-//
 
 #import "AZHTTPRouter.h"
 #import <WebKit/WebKit.h>
@@ -20,8 +17,7 @@
 
 @implementation AZHTTPRouter
 
-- (void) start
-{
+- (void) start	{
 
 	NSD* bundleInfo = @{ @"Vagina, Inc." : @"1.0"};//NSBundle.mainBundle.infoDictionary; // Set a default Server header in the form of YourApp/1.0
 	NSS *appVersion = @"1.0, natch."; //bundleInfo[@"CFBundleShortVersionString"] ?: bundleInfo[@"CFBundleVersion"];

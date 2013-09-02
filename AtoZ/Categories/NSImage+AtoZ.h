@@ -55,6 +55,8 @@ extern NSData *PNGRepresentation(NSIMG *image);
 @property (nonatomic, assign) CGF width;
 @property (nonatomic, assign) CGF height;
 
+@property (RONLY) NSAS *attributedString;
+
 + (NSIMG*) isometricShelfInRect:(NSR)rect;
 + (NSIMG*) imageFromLockedFocusSize:(NSSZ)sz lock:(NSIMG*(^)(NSIMG*))block;
 - (NSIMG*) lockFocusBlockOut:(NSIMG*(^)(NSIMG*))block;

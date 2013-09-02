@@ -354,6 +354,14 @@ NSData* PNGRepresentation(NSIMG *image) {
 
 - (void)setHeight:(CGF)t 	{ self.scalesWhenResized = YES; [self setSize:AZSizeExceptHigh(self.size, t)]; }
 
+- (NSAS*)attributedString {
+
+	NSTextAttachment *attachment = NSTextAttachment.new;
+	attachment.attachmentCell = [NSTextAttachmentCell.alloc initImageCell:self];
+	return [NSAttributedString  attributedStringWithAttachment: attachment];
+}
+
+
 + (NSIMG*) isometricShelfInRect:(NSR)rect  { return [self isometricShelfInRect:rect color:[NSC r:0.58f	g:0.81f b:0.782f a:1.0f]];
 }
 + (NSIMG*) isometricShelfInRect:(NSR)rect color:(NSC*)c

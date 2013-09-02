@@ -33,11 +33,22 @@ JREnumDefine(AZEvent);
 }
 @end
 
+@concreteprotocol (NSActionBlock)
+
+CLANG_IGNORE(-Wmismatched-parameter-types)
+CLANG_IGNORE(-Wmismatched-return-types)
+SYNTHESIZE_ASC_OBJ_BLOCK(actionBlock, setActionBlock, ^{},
+                         ^{ [(NSControl*)self setAction:@selector(callAssociatedBlock)  withTarget:self]; 	});
+
+SYNTHESIZE_ASC_OBJ_BLOCK(voidActionBlock,setVoidActionBlock,^{},
+								^{ [(NSControl*)self setAction:@selector(callAssociatedVoidBlock)  withTarget:self];	});
+
+CLANG_POP
+- (void) callAssociatedBlock	{  self.actionBlock ? self.actionBlock(self) : nil; }
+- (void) callAssociatedVoidBlock	{ self.voidActionBlock ? self.voidActionBlock() : nil; }
+@end
 @implementation NSControl (AtoZ)
-@synthesizeAssociation(NSControl, actionBlock);
-@synthesizeAssociation(NSControl, voidActionBlock);
-- (void) callAssociatedBlock:(id)inSender 							{ self.actionBlock(inSender); }
-- (void) callAssociatedVoidBlock									 	{ self.voidActionBlock(); }
+
 - (void) setAction:(SEL)method withTarget:(id)object;			{
 	self.action = method; 	self.target = object;
 }

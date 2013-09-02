@@ -7,10 +7,12 @@
 //#import "AZFactoryView.h"
 //#import "DefinitionController.h"
 #import <AtoZ/AtoZ.h>
+#import "AZShortcutWC.h"
 
 int main(int argc, const char * argv[])		{	@autoreleasepool {
 
-	__block DefinitionController *v 	= DefinitionController.new; 
+//	__block DefinitionController *v 	= DefinitionController.new; 
+	AZShortcutWC *wc =  AZShortcutWC.new;
 
 	void (^setUpApp)(void) = ^{
 		[NSApplication sharedApplication];	
@@ -21,17 +23,17 @@ int main(int argc, const char * argv[])		{	@autoreleasepool {
 		[appMenuItem setSubmenu:appMenu =     NSMenu.new];
 		quitString = [@"Quit "stringByAppendingString:NSProcessInfo.processInfo.processName];
 		[appMenu addItem:[NSMenuItem.alloc initWithTitle:quitString action:@selector(terminate:) keyEquivalent:@"q"]];
-		[NSApp setDelegate:v];
+//		[NSApp setDelegate:v];
 	};
-	if (PINFO.arguments.count > 1) {
-		[v saveKeyPairsWithSeperator:nil toFile:@"/Users/localadmin/.st2_multiple_find_replace_alt"];
-	}
-	else {
+//	if (PINFO.arguments.count > 1) {
+//		[v saveKeyPairsWithSeperator:nil toFile:@"/Users/localadmin/.st2_multiple_find_replace_alt"];
+//	}
+//	else {
 		setUpApp();
-		if ([v generatedHeader].outdated) [v saveGeneratedHeader];
-		playTrumpet();
+//		if ([v generatedHeader].outdated) [v saveGeneratedHeader];
+//		playTrumpet();
 		[NSApp run];
-	}
+
 //	else [v hasFileChanged] ? [v setHeaderOutdated:YES] :nil;
 
 }

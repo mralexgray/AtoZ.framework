@@ -1,54 +1,18 @@
-//
-//  AssetCollection.m
-//  RoutingHTTPServer
-//
-//  Created by Alex Gray on 05/03/2013.
-//
-//
 
 #import "AssetCollection.h"
 
-//NSString* assetType(AssetType enumVal)
-//{
-//	static NSArray * assetTypes = nil;
-//	return assetTypes ?: [NSArray.alloc initWithObjects:AssetTypeArray][enumVal];
-//}
-
-
-
-// To convert enum to string:	NSString *str = FormatType_toString[theEnumValue];
-NSString * const assetStringValue[] = {  @"js",@"css",@"html",@"php",@"sh",@"m",@"txt",@"n/a" };
-NSString * const assetTagName[] = {  @"script",@"style",@"div",@"php",@"sh",@"m",@"txt",@"n/a" };
-
-
-@implementation NSString (AssetType)
-- (AssetType)assetFromString
-{
-	static NSD *types = nil;		if (!types) types =
-		@{	@"js" : @(JS), @"html"	: @(HTML5), 	@"css"	: @(CSS),	@"php" : @(PHP), 	@"sh" : @(BASH),		@"m"  	: @(ObjC),	@"txt"	: @(TXT),	@"n/a" :@(UNKNOWN) };
-	return (AssetType)[types[self] intValue];
-}
-- (NSS*)wrapInHTML { return $(@"<html><title></title>%@", self); }
-
-//	static NSD *types = nil;		if (!types) types =
-//		@{	@"script" : @(JS), @"div"	: @(HTML), 	@"style"	: @(CSS),	@"php" : @(PHP), 	@"sh" : @(BASH),		@"m"  	: @(ObjC),	@"txt"	: @(TXT),	@"n/a" :@(UNKNOWN) };
-//	return (AssetType)[types[self] intValue];
-//}
-@end
-
-
 @implementation Asset
 
-+ (instancetype) instanceOfType:(AssetType)type withPath:(NSS*)path orContents:(NSS*)contents isInline:(BOOL)isit;
-{
-	Asset *n 	= Asset.instance;
-	n.assetType	= type != NSNotFound ? type : UNKNOWN ;
-	n.path 		= path;
-	n.isInline 	= path == nil || isit ?: NO;
-	n.contents 	= contents;
++ (instancetype) instanceOfType:(AssetType)type withPath:(NSS*)path orContents:(NSS*)contents printInline:(BOOL)isit {
+
+	Asset *n 		= self.instance;
+	n.assetType		= type == NSNotFound ? UNKNOWN : type;
+	n.path 			= path;
+	n.printInline 	= path == nil || isit ?: NO;
+	n.contents 		= contents;
 	return n;
 }
-- (NSN*) priority { return @([AssetCollection.sharedInstance.assets indexOfObject:self]); }
+- (void) setUp {  _active = @(NSOffState); _priority = @(0); }
 
 - (NSS*) markup
 {
@@ -69,7 +33,7 @@ NSString * const assetTagName[] = {  @"script",@"style",@"div",@"php",@"sh",@"m"
 
 - (void) addFolder: (NSS*)path matchingType:(AssetType)fileType
 {
-	[_folders addObject:path];
+	[[self mutableArrayValueForKey:@"folders"] addObject:path];
 	NSS * ext =  assetStringValue[fileType];
 	NSError *error;
 	NSA* filed = [AZFILEMANAGER contentsOfDirectoryAtPath:path error:&error];
@@ -78,7 +42,7 @@ NSString * const assetTagName[] = {  @"script",@"style",@"div",@"php",@"sh",@"m"
 			return 	[[object pathExtension] isEqualToString:ext];
 		}];
 		AZLOG(filed);
-		[[filed map:^id(id obj) { return  [Asset instanceOfType:fileType withPath:obj orContents:nil isInline:NO]; 	}] each:^(id obj) {
+		[[filed map:^id(id obj) { return  [Asset instanceOfType:fileType withPath:obj orContents:nil printInline:NO]; 	}] each:^(id obj) {
 //			AZLOG([obj propertiesPlease]);
 			[self insertObject:obj inAssetsAtIndex:self.assets.count];
 		}];
@@ -114,3 +78,25 @@ NSString * const assetTagName[] = {  @"script",@"style",@"div",@"php",@"sh",@"m"
 	return nil;
 }
 @end
+
+	// To convert enum to string:	NSString *str = FormatType_toString[theEnumValue];
+NSString * const assetStringValue[] = {  @"js",@"css",@"html",@"php",@"sh",@"m",@"txt",@"n/a" };
+NSString * const assetTagName[] = {  @"script",@"style",@"div",@"php",@"sh",@"m",@"txt",@"n/a" };
+
+@implementation NSString (AssetType)
+- (AssetType)assetFromString	{	static NSD *types = nil;  	return types = types  ?:
+
+	@{	@"js" : @(JS), @"html"	: @(HTML5), 	@"css"	: @(CSS),	@"php" : @(PHP), 	@"sh" : @(BASH),		@"m"  	: @(ObjC),	@"txt"	: @(TXT),	@"n/a" :@(UNKNOWN) },  (AssetType)[types[self] unsignedIntegerValue];
+}
+- (NSS*)wrapInHTML { return $(@"<html><title></title>%@", self); }
+
+@end
+	//NSString* assetType(AssetType enumVal)
+	//{
+	//	static NSArray * assetTypes = nil;
+	//	return assetTypes ?: [NSArray.alloc initWithObjects:AssetTypeArray][enumVal];
+	//}
+	//	static NSD *types = nil;		if (!types) types =
+	//		@{	@"script" : @(JS), @"div"	: @(HTML), 	@"style"	: @(CSS),	@"php" : @(PHP), 	@"sh" : @(BASH),		@"m"  	: @(ObjC),	@"txt"	: @(TXT),	@"n/a" :@(UNKNOWN) };
+	//	return (AssetType)[types[self] intValue];
+	//}

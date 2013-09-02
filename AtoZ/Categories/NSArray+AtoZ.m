@@ -1258,6 +1258,12 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
     return self;
 }
 
+- (void)moveObject:(id)obj toIndex:(NSUI)toIndex { if (!obj) return;
+
+	[self containsObject:obj] 	? 	[self moveObjectAtIndex:[self indexOfObject:obj] toIndex:toIndex]
+										:	[self insertObject:obj atIndex:toIndex];
+}
+
 - (void)moveObjectAtIndex:(NSUI)fromIndex toIndex:(NSUI)toIndex {
     if (fromIndex == toIndex || fromIndex >= self.count) return;  //there is no object to move, return
     if (toIndex >= self.count) toIndex = self.count - 1;          //toIndex too large, assume a move to end

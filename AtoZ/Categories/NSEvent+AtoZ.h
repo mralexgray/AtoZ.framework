@@ -35,11 +35,20 @@ JREnumDeclare(AZEvent, AZEventLeftMouseDown = 1,
 */
 
 
-typedef void(^NSControlVoidActionBlock)(void);
+@interface NSColorPanel (AtoZ)
+@property (nonatomic,copy) void(^actionBlock)(id);
+@end
 typedef void(^NSControlActionBlock)(id);
+typedef void(^NSControlVoidActionBlock)(void);
+
+
+@protocol NSActionBlock <NSObject>
+@concrete
+@property (nonatomic,copy) void(^actionBlock)(id);
+@property (nonatomic,copy) void(^voidActionBlock)(void);
+@end
+
 @interface NSControl (AtoZ)
-@property (readwrite, nonatomic, copy) void(^actionBlock)(id);
-@property (readwrite, nonatomic, copy) void(^voidActionBlock)(void);
 - (void) setAction:(SEL)method withTarget:(id)object;
 - (void) setActionString:(NSS*)methodasString withTarget:(id)object;
 @end

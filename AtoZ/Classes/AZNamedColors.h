@@ -18,8 +18,3 @@
 @property (RONLY) NSA* colors;
 @end
 
-@interface NSColor (AZNamedColors)
-
-@property (RONLY) NSString *name;
-
-@end

@@ -5,7 +5,8 @@
 //  Created by Alex Gray on 6/1/13.
 //  Copyright (c) 2013 Alex Gray. All rights reserved.
 //
-
+#import <Foundation/Foundation.h>
+#import <Cocoa/Cocoa.h>
 #import "DefinitionController.h"
 #import "AZFactoryView.h"
 

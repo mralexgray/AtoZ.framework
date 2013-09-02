@@ -51,6 +51,10 @@
 + (NSS*) randomAppPath;
 + (NSA*) testDomains;
 
+- (NSS*) tidyHTML;
+- (NSS*) decodeHTMLCharacterEntities;
+- (NSS*) encodeHTMLCharacterEntities;
+
 + (NSS*) dicksonBible;
 + (NSA*) dicksonisms;
 + (NSS*) randomDicksonism;
@@ -97,7 +101,7 @@
 - (NSS*)	substringToLastCharacter;
 - (NSN*) numberValue;
 
-AZPROPERTY(NSS, RONLY, *firstLetter, *lastLetter);
+AZPROPERTY(NSS, RONLY, *firstLetter, *lastLetter, *language);
 
 - (NSSZ)sizeWithFont:(NSFont *)font;
 - (NSSZ)sizeWithFont:(NSFont *)font margin:(NSSZ)size;

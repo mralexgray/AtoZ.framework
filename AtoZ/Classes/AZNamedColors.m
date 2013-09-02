@@ -231,8 +231,3 @@ forKey : @#N]
 - (NSA*) colors { return [NSC colorsInListNamed:self.name]; }
 
 @end
-@implementation NSColor (AZNamedColors)
-- (NSString *)name {
-	return [AZNamedColors nameOfColor:self];
-}
-@end

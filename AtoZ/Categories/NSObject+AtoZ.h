@@ -87,28 +87,6 @@ IMP impOfCallingMethod(id lookupObject, SEL selector);
 //	-(void)observeKeyPath:(NSS*)keyPath;
 //	@interface NSObject (AMBlockObservation)
 
-typedef NSString AZBlockToken;
-typedef void(^AZBlockTask)(id obj, NSD *change);
-
-@interface 						NSObject   (AZBlockObservation)
-- (NSA*) observeKeyPaths: (NSA*)keyPaths task:(AZBlockTask)task;
-- (AZBlockToken*) observeKeyPath:(NSS*) keyPath task:(AZBlockTask)task;
-- (AZBlockToken*) observeKeyPath:(NSS*) keyPath onQueue:(NSOQ*)queue task:(AZBlockTask)task;
-- (void) removeObserverWithBlockToken:(AZBlockToken *)token;
-/* USAGE
-	[AZNOTCENTER observeNotificationsUsingBlocks: 
-		NSViewFrameDidChangeNotification, ^(NSNOT *m){	
-			m.object == self ? [self highlightLineContainingRange:self.selectedRange] : nil; 
-		},
-		NSTextViewDidChangeSelectionNotification,	^(NSNOT *z) {
-			[self addItemToApplicationMenu];
-			if (z.object != self) return;
-			[self removeHighlightFromLineContainingRange:[z.userInfo[@"NSOldSelectedCharacterRange"] rangeValue]];
-			self.selectedRange.length  ? nil : [self highlightLineContainingRange:self.selectedRange]; // not a multi-line selection
-		}, nil];
-*/
-- (void) observeNotificationsUsingBlocks:(NSS*) firstNotificationName, ... NS_REQUIRES_NIL_TERMINATION;
-@end
 
 
 @interface AZValueTransformer : NSValueTransformer
@@ -598,6 +576,7 @@ _Pragma("clang diagnostic pop") \
 -    (NSUI)     unsignedIntegerForKey : (NSS*)key;
 -  (NSURL*)                 URLForKey : (NSS*)key;
 
+- (id) mutableArrayValueForKeyOrKeyPath:(id)keyOrKeyPath;
 - (id) valueForKeyOrKeyPath:(id)keyOrKeyPath transform:(THBinderTransformationBlock)tBlock;
 - (id) valueForKeyOrKeyPath:(id)keyOrKeyPath;  //AZAddition
 - (id) valueForKey:(NSS*)key assertingProtocol:(Protocol*)proto;  //AZAddition

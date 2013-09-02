@@ -3,43 +3,112 @@
 #import "AtoZMacroDefines.h"
 #import "AtoZUmbrella.h"
 
+/*  Created by Benedict Cohen on 10/01/2012.
+
+ A Record is a Block (a.k.a. closure) that returns a struct. Unlike struct, Records handle memory management of their fields.
+ The fields can be Objective-C objects or basic C types. Because Records are Blocks they can be treated like objects.
+
+ To declare a Record you must define its fields and implement a function for creating an instance of the record. 2 types are
+ available once a record has been declare:
+ - A struct that contains the defined fields
+ - A block that takes zero arguments and returns a struct
+
+ Declaration example
+ ===================
+ //Person Record declaration
+ RECORD(Person,	RECORD_FIELD_OBJ	(NSString *name)
+						RECORD_FIELD_PRM	(float 		age)
+ );
+
+ ++++ ---->
+ typedef struct Person_ {
+ 	__unsafe_unretained NSString *name;
+	 float age;
+ } Person;
+
+ typedef Person(^PersonRecord)(void);
+________.
+
+ The creation function must return a Record. All object fields must be captured inside the returned block.
+
+ Creation function example
+ =========================
+ static PersonRecord createPersonRecord(NSString *name, float age)
+ {
+ PersonRecord spartacus = ^(void) {
+	 	Person p;
+		p.name 	= name;
+		p.age 	= age;
+ return p;
+ };
+ return spartacus;     //for ARC code
+
+ //for non-ARC code	return (PersonRecord)[[spartacus copy] autorelease];
+ }
+
+ Useage example
+ ==============
+ PersonRecord bill    = createPersonRecord(@"Bill Wyman",     75);
+ PersonRecord charlie = createPersonRecord(@"Charlie Wattts", 70);
+ PersonRecord keith   = createPersonRecord(@"Keith Richards", 68);
+ PersonRecord mick    = createPersonRecord(@"Mick Jagger",    68);
+ PersonRecord ronnie  = createPersonRecord(@"Ronnie Wood",    64);
+
+ NSArray *stones = [NSArray arrayWithObjects: bill, charlie, keith, mick, ronnie, nil];
+
+ for (PersonRecord stone in stones)
+ {
+	 Person p = stone();
+	 NSLog(@"%@  %f", p.name, p.age);
+ }
+
+ It's worth noting that the creation function has the potentinal to do interesting things.
+ */
+
+#define RECORD_FIELD_OBJ(FIELD_TYPE_AND_NAME...) __unsafe_unretained FIELD_TYPE_AND_NAME;
+#define RECORD_FIELD_PRM(FIELD_TYPE_AND_NAME...) FIELD_TYPE_AND_NAME;
+
+#define RECORD(RECORD_NAME, FIELDS...) \/*Typedef for struct returned by Record */ \
+typedef struct RECORD_NAME ## _ {	FIELDS	} RECORD_NAME; \
+typedef RECORD_NAME(^RECORD_NAME ## Record)(void);	/*typedef of Rec. that returns struct*/
+
 
 //static NSA *_pos = nil;
 //#define AZWindowPositionTypeArray @"Left",@"Bottom",@"Right",@"Top",@"TopLeft",@"BottomLeft",@"TopRight",@"BottomRight",@"Automatic", nil
 
 /*
-Binary Math
-0 + 0 = 0
-0 + 1 = 1
-1 + 1 = 10
+ Binary Math
+ 0 + 0 = 0
+ 0 + 1 = 1
+ 1 + 1 = 10
 
-Binary to Decimal Conversion
-00010011 = 0*2**7 + 0*2**6 + 0*2**5 + 1*2**4 + 0*2**3 + 0*2**2 + 1*2**1 + 1*2**0
-         = 		 0 + 		 0 + 		 0 + 		16 + 		 0 + 		 0 + 		 2 + 		 1
-         = 																							19
-*/
+ Binary to Decimal Conversion
+ 00010011 = 0*2**7 + 0*2**6 + 0*2**5 + 1*2**4 + 0*2**3 + 0*2**2 + 1*2**1 + 1*2**0
+ = 		 0 + 		 0 + 		 0 + 		16 + 		 0 + 		 0 + 		 2 + 		 1
+ = 																							19
+ */
 
 /*
-// Constants to hold bit masks for desired flags
-static int flagAllOff 	=   0;	//         000...00000000 (empty mask)
-static int flagbit1 		=   1;   // 2^^0    000...00000001
-static int flagbit2 		=   2;   // 2^^1    000...00000010
-static int flagbit3 		=   4;   // 2^^2    000...00000100
-static int flagbit4 		=   8;   // 2^^3    000...00001000
-static int flagbit5 		=  16;   // 2^^4    000...00010000
-static int flagbit6 		=  32;   // 2^^5    000...00100000
-static int flagbit7 		=  64;   // 2^^6    000...01000000
-static int flagbit8 		= 128;  	// 2^^7    000...10000000
-*/
+ // Constants to hold bit masks for desired flags
+ static int flagAllOff 	=   0;	//         000...00000000 (empty mask)
+ static int flagbit1 		=   1;   // 2^^0    000...00000001
+ static int flagbit2 		=   2;   // 2^^1    000...00000010
+ static int flagbit3 		=   4;   // 2^^2    000...00000100
+ static int flagbit4 		=   8;   // 2^^3    000...00001000
+ static int flagbit5 		=  16;   // 2^^4    000...00010000
+ static int flagbit6 		=  32;   // 2^^5    000...00100000
+ static int flagbit7 		=  64;   // 2^^6    000...01000000
+ static int flagbit8 		= 128;  	// 2^^7    000...10000000
+ */
 #define AZA AZAlign
 #define AZPOS AZA
 
-//JROptionsDeclare(AZAlign, 	AZAlignLeft       = flagbit1, //0x00000001, 
+//JROptionsDeclare(AZAlign, 	AZAlignLeft       = flagbit1, //0x00000001,
 //									AZAlignRight      = flagbit2, //0x00000010,
 //									AZAlignTop        = flagbit3, //0x00000100,
 //									AZAlignBottom     = flagbit4, //0x00001000,
 //									AZAlignTopLeft    = flagbit5, //0x00000101,
-//									AZAlignBottomLeft = flagbit6, //0x00001001,		
+//									AZAlignBottomLeft = flagbit6, //0x00001001,
 //									AZAlignTopRight   = flagbit7, //0x00000110,
 //									AZAlignBottomRight = flagbit8 // 0x00001010
 //);
@@ -48,19 +117,19 @@ static int flagbit8 		= 128;  	// 2^^7    000...10000000
 //JREnumDeclare (AZAlign,
 
 JROptionsDeclare(AZ_arc, 	AZ_arc_NATOM	       	= 0x00000001,
-									AZ_arc_RONLY 	     		= 0x00000010,
-									AZ_arc_STRNG	        	= 0x00000100,
-									AZ_arc_ASSGN  		   	= 0x00001000,
-									AZ_arc__COPY 		   	= 0x00010000,
-									AZ_arc__WEAK				= 0x00100000);
+					  AZ_arc_RONLY 	     		= 0x00000010,
+					  AZ_arc_STRNG	        	= 0x00000100,
+					  AZ_arc_ASSGN  		   	= 0x00001000,
+					  AZ_arc__COPY 		   	= 0x00010000,
+					  AZ_arc__WEAK				= 0x00100000);
 
 
 #define QUALIFIER_FROM_BITMASK(q) q&AZ_arc_NATOM 					? nonatomic 			:\
-											 q&AZ_arc_NATOM|AZ_arc_STRNG 	? nonatomic,strong 	:\
-											 q&AZ_arc_RONLY 					? readonly 				:\
-											 q&AZ_arc__COPY 					? copy 					:\
-											 q&AZ_arc_NATOM|AZ_arc__COPY 	? nonatomic,copy 		:\
-											 q&AZ_arc__WEAK 					? weak    : assign
+q&AZ_arc_NATOM|AZ_arc_STRNG 	? nonatomic,strong 	:\
+q&AZ_arc_RONLY 					? readonly 				:\
+q&AZ_arc__COPY 					? copy 					:\
+q&AZ_arc_NATOM|AZ_arc__COPY 	? nonatomic,copy 		:\
+q&AZ_arc__WEAK 					? weak    : assign
 
 
 #define NATOM_STR nonatomic,strong
@@ -78,34 +147,34 @@ JROptionsDeclare(AZ_arc, 	AZ_arc_NATOM	       	= 0x00000001,
 //AZPROPASS(_kind_...) @property (NATOM,ASS) _kind_ __VA_ARGS__
 
 
-JROptionsDeclare(AZAlign, 	AZAlignLeft       	= 0x00000001, 
-									AZAlignRight      	= 0x00000010,
-									AZAlignTop	        	= 0x00000100,
-									AZAlignBottom     	= 0x00001000,
-									AZAlignTopLeft 	   = 0x00000101,
-									AZAlignBottomLeft		= 0x00001001,		
-									AZAlignTopRight   	= 0x00000110,
-									AZAlignBottomRight  	= 0x00001010,
-									AZAlignAutomatic		= 0x11111111	);
+JROptionsDeclare(AZAlign, 	AZAlignLeft       	= 0x00000001,
+					  AZAlignRight      	= 0x00000010,
+					  AZAlignTop	        	= 0x00000100,
+					  AZAlignBottom     	= 0x00001000,
+					  AZAlignTopLeft 	   = 0x00000101,
+					  AZAlignBottomLeft		= 0x00001001,
+					  AZAlignTopRight   	= 0x00000110,
+					  AZAlignBottomRight  	= 0x00001010,
+					  AZAlignAutomatic		= 0x11111111	);
 
 /*  expanded....
- 
-typedef enum AZAlign : NSUInteger AZAlign; 
-		  enum AZAlign : NSUInteger { AZAlignLeft 			= 0x00000001, 
-		  										AZAlignRight 			= 0x00000010, 
-												AZAlignTop 				= 0x00000100, 
-												AZAlignBottom 			= 0x00001000, 
-												AZAlignTopLeft 		= 0x00000101, 
-												AZAlignBottomLeft 	= 0x00001001, 
-												AZAlignTopRight 		= 0x00000110, 
-												AZAlignBottomRight 	= 0x00001010 }; 
-extern NSDictionary* AZAlignByValue(); 
-extern NSDictionary* AZAlignByLabel(); 
-extern NSString* AZAlignToString(int enumValue); 
-extern BOOL AZAlignFromString(NSString *enumLabel, AZAlign *enumValue); 
-static NSString *_AZAlign_constants_string = @"" "AZAlignLeft = 0x00000001, AZAlignRight = 0x00000010, AZAlignTop = 0x00000100, AZAlignBottom = 0x00001000, AZAlignTopLeft = 0x00000101, AZAlignBottomLeft = 0x00001001, AZAlignTopRight = 0x00000110, AZAlignBottomRight = 0x00001010";;
 
-*/
+ typedef enum AZAlign : NSUInteger AZAlign;
+ enum AZAlign : NSUInteger { AZAlignLeft 			= 0x00000001,
+ AZAlignRight 			= 0x00000010,
+ AZAlignTop 				= 0x00000100,
+ AZAlignBottom 			= 0x00001000,
+ AZAlignTopLeft 		= 0x00000101,
+ AZAlignBottomLeft 	= 0x00001001,
+ AZAlignTopRight 		= 0x00000110,
+ AZAlignBottomRight 	= 0x00001010 };
+ extern NSDictionary* AZAlignByValue();
+ extern NSDictionary* AZAlignByLabel();
+ extern NSString* AZAlignToString(int enumValue);
+ extern BOOL AZAlignFromString(NSString *enumLabel, AZAlign *enumValue);
+ static NSString *_AZAlign_constants_string = @"" "AZAlignLeft = 0x00000001, AZAlignRight = 0x00000010, AZAlignTop = 0x00000100, AZAlignBottom = 0x00001000, AZAlignTopLeft = 0x00000101, AZAlignBottomLeft = 0x00001001, AZAlignTopRight = 0x00000110, AZAlignBottomRight = 0x00001010";;
+
+ */
 
 //				AZAlignNone	= 0, // 0
 //		AZAlignBottomLeft = 0x10000001, // 2 << 0  (0x1 << 1), // => 0x00000010
@@ -121,9 +190,6 @@ static NSString *_AZAlign_constants_string = @"" "AZAlignLeft = 0x00000001, AZAl
 //	  = 0x00001010
 
 
-typedef NS_ENUM(NSUI, AssetType){ JS, CSS, HTML5, PHP, BASH,	ObjC, TXT,	UNKNOWN = 99 };
-extern NSString * const assetStringValue[];
-extern NSString * const assetTagName[];
 
 
 
@@ -181,10 +247,10 @@ NS_INLINE NSUI AZAlignToNormalBitmask(AZA a){return
 	a == AZAlignRight ? 3 :
 	a == AZAlignTop	 ? 0 :
 	a == AZAlignBottom  ? 1 : NSNotFound;
-//	AZAlignTopLeft 	   = 0x00000101,
-//	AZAlignBottomLeft		= 0x00001001,
-//	AZAlignTopRight   	= 0x00000110,
-//	AZAlignBottomRight  	= 0x00001010
+	//	AZAlignTopLeft 	   = 0x00000101,
+	//	AZAlignBottomLeft		= 0x00001001,
+	//	AZAlignTopRight   	= 0x00000110,
+	//	AZAlignBottomRight  	= 0x00001010
 }
 JREnumDeclare(AZCompass,AZCompassN, AZCompassS, AZCompassW, AZCompassE, AZCompassNW, AZCompassNE, AZCompassSE, AZCompassSW );
 
@@ -250,24 +316,24 @@ typedef NS_ENUM(NSUI, AZTrackPosition ) { AZTrackN, AZTrackS, AZTrackE, AZTrackW
 typedef NS_ENUM(NSUI,  	AZInfiteScale ) { AZInfiteScale0X, AZInfiteScale1X, AZInfiteScale2X, AZInfiteScale3X, AZInfiteScale10X	};
 
 JREnumDeclare(AZOrient,	AZOrientTop, 	AZOrientLeft, 		AZOrientBottom, 	AZOrientRight,
-								AZOrientGrid, 	AZOrientPerimeter,AZOrientFiesta,	AZOrientVertical, AZOrientHorizontal);
+				  AZOrientGrid, 	AZOrientPerimeter,AZOrientFiesta,	AZOrientVertical, AZOrientHorizontal);
 
 #define AZTW AZTrackingWindow
 #define iC iCarousel
 /*
-//#ifndef ATOZTOUCH
-typedef NS_OPTIONS(NSUI, AZWindowPosition) {
-	AZPositionLeft 			= NSMinXEdge, // 0  NSDrawer
-	AZPositionRight			= NSMaxXEdge, // 2  preferredEdge
-	AZPositionTop		   	= NSMaxYEdge, // 3  compatibility
-	AZPositionBottom			= NSMinYEdge, // 1  numbering!
-	AZPositionTopLeft	   	= 4,
-	AZPositionBottomLeft		= 5,
-	AZPositionTopRight	 	= 6,
-	AZPositionBottomRight   = 7,
-	AZPositionAutomatic	 	= 8
-};// AZWindowPosition;
-*/
+ //#ifndef ATOZTOUCH
+ typedef NS_OPTIONS(NSUI, AZWindowPosition) {
+ AZPositionLeft 			= NSMinXEdge, // 0  NSDrawer
+ AZPositionRight			= NSMaxXEdge, // 2  preferredEdge
+ AZPositionTop		   	= NSMaxYEdge, // 3  compatibility
+ AZPositionBottom			= NSMinYEdge, // 1  numbering!
+ AZPositionTopLeft	   	= 4,
+ AZPositionBottomLeft		= 5,
+ AZPositionTopRight	 	= 6,
+ AZPositionBottomRight   = 7,
+ AZPositionAutomatic	 	= 8
+ };// AZWindowPosition;
+ */
 #define  AZPositionToString AZWindowPositionToString
 #define AZPosition AZAlign
 #define AZWindowPosition AZPosition

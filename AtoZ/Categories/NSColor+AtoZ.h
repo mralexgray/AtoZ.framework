@@ -14,6 +14,7 @@ JREnumDeclare(AZeColor, AZeColoraliceblue, AZeColorantiquewhite, AZeColoraqua, A
 @end
 @interface NSColor (AtoZ)
 
+@property NSS* name;
 
 +   (id) colorWithHTMLString:(NSS*)str defaultColor:(NSC*)d;
 + (NSC*)	colorWithHTMLString:(NSS*)hex;
@@ -64,10 +65,10 @@ JREnumDeclare(AZeColor, AZeColoraliceblue, AZeColorantiquewhite, AZeColoraqua, A
 										  file:/Volumes/2T/ServiceData/Develo...Build/Products/Debug/AtoZ.framework/Resources/BlueSkyTulips.clr
 										loaded:1"; */
 + (NSMD*) colorLists;
-+ (NSA*) colorListNames;
++  (NSA*) colorListNames;
 + (NSCL*) randomList;
 
-typedef void(^colorFadeBlock)(NSColor*c);
+typedef void(^colorFadeBlock)(NSC*c);
 + (NSA*)randomPaletteAnimationBlock:(colorFadeBlock)target; /* 1000 step animation lock */
 
 /* gradients from palettes */
@@ -242,18 +243,18 @@ typedef void(^colorFadeBlock)(NSColor*c);
 @interface NSColorList (AtoZ)
 - (NSA*) colors;
 - (NSC*)	randomColor;
-+ (id)	colorListWithFileName:(NSString*)fileName inBundle:(NSBundle*)aBundle;
-+ (id)	colorListWithFileName:(NSString*)	fileName inBundleForClass:(Class)	aClass;
-+ (id)	colorListInFrameworkWithFileName:(NSString*)	fileName;
++   (id)	colorListWithFileName:(NSS*)fileName inBundle:(NSB*)aBundle;
++   (id)	colorListWithFileName:(NSS*)fileName inBundleForClass:(Class)	aClass;
++   (id)	colorListInFrameworkWithFileName:(NSS*)	fileName;
 @end
 
 @interface NSColor (AMAdditions)
-+ (NSColor *)lightYellowColor;
-+ (NSColor *)am_toolTipColor;
-+ (NSColor *)am_toolTipTextColor;
-- (NSColor *)accentColor;
-- (NSColor *)lighterColor;
-- (NSColor *)disabledColor;
++ (NSC*) lightYellowColor;
++ (NSC*) am_toolTipColor;
++ (NSC*) am_toolTipTextColor;
+- (NSC*) accentColor;
+- (NSC*) lighterColor;
+- (NSC*) disabledColor;
 @end
 
 /*

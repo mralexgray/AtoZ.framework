@@ -9,11 +9,22 @@
 
 //#import "KSHTMLWriter.h"
 
-#define JQUERY @"http://code.jquery.com/jquery-2.0.0b2.js"
-#define RECORDERJS @"http://mrgray.com/js/recorder.js/recorder.js"
+#define JQUERY 				@"http://code.jquery.com/jquery-2.0.0b2.js"
+#define RECORDERJS 			@"http://mrgray.com/js/recorder.js/recorder.js"
+#define BOOTSTRAP_CSS		@"//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"
+#define BOOTSTRAP_JS			@"//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"
+#define FONTAWESOME 			@"//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css"
+#define BOOTSWATCH_UNITED 	@"//netdna.bootstrapcdn.com/bootswatch/3.0.0/united/bootstrap.min.css"
+
 
 @class KSHTMLWriter, Asset;
 @interface Bootstrap : BaseModel
+
++ (void) initWithUserStyle:(Asset*)css script:(Asset*)script andInnerHTML:(NSS*) html  calling:(void(^)(id sender))block;
+
+- (NSS*) htmlWithBody:(NSS*)bod;
+
+@property (readonly)					NSString 		*demo;
 
 @property (nonatomic, strong) 	KSHTMLWriter 	*writer;
 @property (readonly)					NSString 		*xml;

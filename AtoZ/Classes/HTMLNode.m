@@ -313,7 +313,7 @@ NSString * getAttributeNamed(xmlNode * node, const char * nameStr)
 	return [self findChildrenWithAttribute:@"class" matchingName:className allowPartial:NO];
 }
 
--(id)initWithXMLNode:(xmlNode*)xmlNode	{
+-(id)initWithXMLNode:(void*)xmlNode	{
 	if (self != super.init ) return nil;
 	_node = xmlNode;
 	return self;

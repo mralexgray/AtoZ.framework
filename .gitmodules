@@ -10,10 +10,6 @@
 	path = Frameworks/CoreScroll
 	url = https://github.com/mralexgray/CoreScroll.git
 	ignore = dirty
-[submodule "Frameworks/BlocksKit"]
-	path = Frameworks/BlocksKit
-	url = https://github.com/mralexgray/BlocksKit.git
-	ignore = dirty
 [submodule "AtoZ/Classes/Lorem-Ipsum"]
 	path = AtoZ/Classes/Lorem-Ipsum
 	url = https://github.com/dav/Objective-C-Lorem-Ipsum-Generator.git
@@ -250,3 +246,6 @@
 	path = Frameworks/Kiwi
 	url = https://github.com/mralexgray/Kiwi.git
 	ignore = dirty
+[submodule "Frameworks/BlocksKit"]
+	path = Frameworks/BlocksKit
+	url = https://github.com/mralexgray/BlocksKit.git

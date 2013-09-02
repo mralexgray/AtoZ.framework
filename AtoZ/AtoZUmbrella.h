@@ -6,7 +6,7 @@
 
 //#define REDGRAD  		[NSG.alloc initWithColorsAndLocations: [NSColor colorWithDeviceRed:241/255 green:152/255 blue:139/255 alpha:1.0], 0,\
 //							 [NSColor colorWithDeviceRed:	 228/255 green:116/255 blue:102/255 alpha:1.0], 0,\
-//							 [NSColor colorWithCalibratedRed:192/255 green:86/255 blue:73/255 alpha:1.0], 1, nil]
+//							 [NSC r:192/255 green:86/255 blue:73/255 alpha:1.0], 1, nil]
 //#define ORANGEGRAD 	[NSG.alloc initWithColorsAndLocations:[NSColor colorWithDeviceRed:248/255 green:201/255 blue:148/255 alpha:1.0], 0,\
 //[NSColor colorWithDeviceRed:237/255 green:174/255 blue:107/255 alpha:1.0], .5,\
 //[NSColor colorWithCalibratedRed:210/255 green:143/255 blue:77/255 alpha:1.0], 1, nil];
@@ -88,33 +88,40 @@
 #define clr colorLogString
 
 
-#define REDGRAD  		[NSG.alloc initWithColorsAndLocations: [NSColor colorWithDeviceRed:241./255. green:152./255. blue:139./255. alpha:1.0], 0.0,\
-							[NSColor colorWithDeviceRed:	 228./255. green:116./255. blue:102./255. alpha:1.0], 0.5,\
-							[NSColor colorWithCalibratedRed:192./255. green:86./255. blue:73./255. alpha:1.0], 1.0, nil]
+#define REDGRAD  		[NSG.alloc initWithColorsAndLocations:\
+							[NSC r:241./255. g:152./255. b:139./255. a:1.0], 0.,\
+							[NSC r:228./255. g:116./255. b:102./255. a:1.0], .5,\
+							[NSC r:192./255. g: 86./255. b: 73./255. a:1.0], 1., nil]
 
-#define ORANGEGRAD 	[NSG.alloc initWithColorsAndLocations:[NSColor colorWithDeviceRed:248./255. green:201./255. blue:148./255. alpha:1.0], 0.0,\
-							[NSColor colorWithDeviceRed:237./255. green:174./255. blue:107./255. alpha:1.0], 0.5,\
-							[NSColor colorWithCalibratedRed:210./255. green:143./255. blue:77./255. alpha:1.0], 1.0, nil]
+#define ORANGEGRAD 	[NSG.alloc initWithColorsAndLocations:\
+							[NSC r:248./255. g:201./255. b:148./255. a:1.0], 0.,\
+							[NSC r:237./255. g:174./255. b:107./255. a:1.0], .5,\
+							[NSC r:210./255. g:143./255. b: 77./255. a:1.0], 1., nil]
 
-#define YELLOWGRAD 	[NSG.alloc initWithColorsAndLocations:[NSColor colorWithDeviceRed:240./255. green:229./255. blue:164./255. alpha:1.0], 0.0,\
-							[NSColor colorWithDeviceRed:227./255. green:213./255. blue:119./255. alpha:1.0], 0.5,\
-							[NSColor colorWithCalibratedRed:201./255. green:188./255. blue:92./255. alpha:1.0], 1.0, nil]
+#define YELLOWGRAD 	[NSG.alloc initWithColorsAndLocations:\
+							[NSC r:240./255. g:229./255. b:164./255. a:1.], 0.,\
+							[NSC r:227./255. g:213./255. b:119./255. a:1.], .5,\
+							[NSC r:201./255. g:188./255. b: 92./255. a:1.], 1., nil]
 
-#define GREENGRAD  	[NSG.alloc initWithColorsAndLocations:[NSColor colorWithDeviceRed:209./255. green:236./255. blue:156./255. alpha:1.0], 0.0,\
-							[NSColor colorWithDeviceRed:175./255. green:215./255. blue:119./255. alpha:1.0], 0.5,\
-							[NSColor colorWithCalibratedRed:142./255. green:182./255. blue:102./255. alpha:1.0], 1.0, nil]
+#define GREENGRAD  	[NSG.alloc initWithColorsAndLocations:\
+							[NSC r:209./255. g:236./255. b:156./255. a:1.0], 0.0,\
+							[NSC r:175./255. g:215./255. b:119./255. a:1.0], 0.5,\
+							[NSC r:142./255. g:182./255. b:102./255. a:1.0], 1.0, nil]
 
-#define BLUEGRAD  	[NSG.alloc initWithColorsAndLocations: [NSColor colorWithDeviceRed:165./255. green:216./255. blue:249./255. alpha:1.], 0.0,\
-							[NSColor colorWithDeviceRed:118./255. green:185./255. blue:232./255. alpha:1.0], 0.5,\
-							[NSColor colorWithCalibratedRed:90./255. green:152./255. blue:201./255. alpha:1.0], 1.0, nil]
+#define BLUEGRAD  	[NSG.alloc initWithColorsAndLocations:\
+							[NSC r:165./255. g:216./255. b:249./255. a:1.], 0.0,\
+							[NSC r:118./255. g:185./255. b:232./255. a:1.0], 0.5,\
+							[NSC r:90./255. g:152./255. b:201./255. a:1.0], 1.0, nil]
 
-#define PURPLEGRAD  	[NSG.alloc initWithColorsAndLocations:[NSColor colorWithDeviceRed:232./255. green:191./255. blue:248./255. alpha:1.0], 0.0,\
-							[NSColor colorWithDeviceRed:202./255. green:152./255. blue:224/255. alpha:1.0], 0.5,\
-							[NSColor colorWithCalibratedRed:163./255. green:121./255. blue:186./255. alpha:1.0], 1.0, nil]
+#define PURPLEGRAD  	[NSG.alloc initWithColorsAndLocations:\
+							[NSC r:232./255. g:191./255. b:248./255. a:1.0], 0.0,\
+							[NSC r:202./255. g:152./255. b:224./255. a:1.0], 0.5,\
+							[NSC r:163./255. g:121./255. b:186./255. a:1.0], 1.0, nil]
 
-#define GRAYGRAD  	[NSG.alloc initWithColorsAndLocations:[NSColor colorWithCalibratedWhite:212./255. alpha:1.0], 0.0,\
-							[NSColor colorWithCalibratedWhite:182./255. alpha:1.0], 0.5,\
-							[NSColor colorWithCalibratedWhite:151./255. alpha:1.0], 1.0, nil]
+#define GRAYGRAD  	[NSG.alloc initWithColorsAndLocations:\
+							[NSColor white:212./255. a:1.], 0.0,\
+							[NSColor white:182./255. a:1.], 0.5,\
+							[NSColor white:151./255. a:1.], 1.0, nil]
 
 #pragma mark 														- GLOBAL CONSTANTS
 /*
