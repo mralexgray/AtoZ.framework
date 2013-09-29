@@ -2,8 +2,6 @@
 #import "NSIndexSet+AtoZ.h"
 
 
-
-
 @implementation NSIndexSet (AtoZ)
 + (instancetype) indexWithIndexes:(NSA*)indexes {
 	__block NSMutableIndexSet *mutableIndexSet = NSMutableIndexSet.new;
@@ -20,8 +18,6 @@
 @end
 
 
-
-
 @implementation NSObject (AtoZKVO)
 
 
@@ -36,8 +32,6 @@
 } 
 
 @end
-
-
 
 @implementation NSIndexPath (ESExtensions)
 - (NSUInteger)firstIndex;

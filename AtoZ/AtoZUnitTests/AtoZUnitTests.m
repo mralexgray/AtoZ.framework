@@ -1,15 +1,89 @@
-//
-//  AtoZUnitTests.m
-//  AtoZUnitTests
-//
-//  Created by Alex Gray on 4/17/13.
-//  Copyright (c) 2013 mrgray.com, inc. All rights reserved.
-//
 
-#import "AtoZUnitTests.h"
-#import <AtoZ/AtoZ.h>
+
+@interface NSAlpha : AtoZ
+@end
+@interface NSBravo : AtoZ
+@end
+@interface NSCharlie : NSBravo
+@end
+
+@interface AtoZTestCase : SenTestCase
+- (void)runTests;
+@end
+
+@interface AtoZTest : SenTestCase
+- (NSString *)stringFromClass;
+@end
+
+@implementation AtoZTestCase
+
+- (void)runTests	{
+    unsigned int count;
+    Method *methods 		= class_copyMethodList([self class], &count);
+    for ( int i = 0;  i < count; i++ )	{
+        
+		  SEL selector = method_getName( (Method) methods[i] );
+        NSString *name = NSStringFromSelector(selector);
+        if ([name hasPrefix:@"test"])	 //avoid arc warning by using c runtime
+            objc_msgSend(self, selector);
+        NSLog(@"Test '%@' completed successfuly", [name substringFromIndex:4]);
+    }
+}
+
+- (void)testStringFromClass	{
+	STAssertEqualObjects([[[NSObject alloc] init] stringFromClass], @"NSObject", nil);
+
+	// NSString deploys a class clustering architecture. The actual class is an
+	// implementation-specific sub-class or compatible class, depending on what
+	// kind of string, and presumably what version of Cocoa and on what platform
+	// since the exact underlying class might change. Be prepared for test
+	// breakage.
+	STAssertEqualObjects([@"" stringFromClass], @"__NSCFConstantString", nil);
+
+	// This is freaky. You would not expect this to work. But it does; classes
+	// are also objects. Invoking an instance method on a class: it compiles and
+	// runs! You would expect the compiler to baulk, but no.
+	STAssertEqualObjects([NSObject stringFromClass], @"NSObject", nil);
+}
+- (void)setUp						{
+	[super setUp];
+	id a,b,c,d;
+	a = [AtoZ sharedInstance];
+	b = [AtoZ instanceWithObject:self];
+	c = [AtoZ instance];
+	d = (AtoZ*)a;
+	NSLog(@"%d=%d=%d", a=[AtoZ sharedInstance], 	[AtoZ sharedInstance], [AtoZ instanceWithObject:self]  );
+	NSLog(@"%d=%d=%d", b=[NSAlpha sharedInstance],	 [NSAlpha instance],	 [NSAlpha instance]);
+	NSLog(@"%d=%d=%d", c=[NSBravo instance],	 [NSBravo sharedInstance],	 [NSBravo sharedInstance]);
+	NSLog(@"%d=%d=%d", d=[NSCharlie instance],   [NSCharlie instanceWithObject:@"wghay6e"],   [NSCharlie sharedInstance]);
+	NSLog(@"%d != %d != %d != %d", a, b, c, d);
+	// Set-up code here.
+}
+- (void)tearDown		{	[super tearDown]; 	}
+- (void)testExample	{		STFail(@"Unit tests are not implemented yet in AtoZTests");	}
+@end
+
+@implementation NSAlpha
+@end
+@implementation NSBravo
+@end
+@implementation NSCharlie
+@end
+
+
+@interface NSObject (UnitTests)
+//+ (void) runInstanceTests;
+//+ (void) runClassTests;
+- (NSArray*) tests;
+@end
+
+@interface AtoZUnitTests : NSObject
+
+@end
+
 
 @implementation AtoZUnitTests
+
 /*
 - (void)setUp
 {

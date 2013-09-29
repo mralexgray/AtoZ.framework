@@ -1,5 +1,25 @@
 
 
+#define PROXY_DECLARE(__NAME__)\
+	@interface __NAME__ : NSProxy @end
+	
+
+#define PROXY_DEFINE_BLOCK(__NAME__,__BACKING_CLASS__,__BACKING_BLOCK__) \
+@implementation __NAME__ { __BACKING_CLASS__*backing; } \
+- (id) init 	{ backing = (__BACKING_CLASS__*)__BACKING_BLOCK__(backing);  return self;	}\
+- (NSMethodSignature*) methodSignatureForSelector:(SEL)sel 	{ return [backing methodSignatureForSelector:sel] ?: nil;	}\
+- (void)forwardInvocation:(NSInvocation *)invocation 			{ [invocation invokeWithTarget: backing];							}\
+- (BOOL)respondsToSelector:(SEL)aSelector 						{ return [backing respondsToSelector:aSelector]; 				}\
+- (BOOL) conformsToProtocol:(Protocol *)p { return [@[@protocol(NSCopying),@protocol(NSObject)] containsObject:p]; 		}\
+@end
+
+#define PROXY_DEFINE(__NAME__,__BACKING_CLASS__) \
+	PROXY_DEFINE_BLOCK(__NAME__,__BACKING_CLASS__,^(__BACKING_CLASS__*setter){ return setter = __BACKING_CLASS__.new; })
+
+// Override some of NSProxy's implementations to forward them...
+ 
+
+
 #define AZBindWDefVs(binder,binding,objectToBindTo,keyPath)   											\
 	[binder bind:binding toObject:objectToBindTo withKeyPathUsingDefaults:keyPath]
 
@@ -87,31 +107,35 @@ IMP impOfCallingMethod(id lookupObject, SEL selector);
 //	-(void)observeKeyPath:(NSS*)keyPath;
 //	@interface NSObject (AMBlockObservation)
 
-
-
 @interface AZValueTransformer : NSValueTransformer
 + (instancetype)transformerWithBlock:(id (^)(id value))block;
 @end
 
 @interface NSObject (AtoZ)
 
-@property (strong) NSMA* propertiesThatHaveBeenSet;
+@property (readonly) NSS * uuid; // Associated with custom getter
+@property (strong) 	NSMA		* propertiesThatHaveBeenSet;
 
 - (BOOL) valueWasSetForKey:(NSS*)key;
-@property (readonly) NSString *uuid; // Associated with custom getter
 
-/*	USAGE: 	id scoop = @"poop";	[scoop setValue:@2 forKey:@"farts"];
-	 			LOG_EXPR(scoop[@"undefinedKeys"]); -> ( farts ) */
-@property NSMA* undefinedKeys;
 
-/*  USAGE:	id whatever = [CAL instanceWithProperties:@"stupid", @(YES), @"sexy", @(NO), nil];  */
-+ (instancetype) instanceWithProperties:(NSS*)firstKey,... NS_REQUIRES_NIL_TERMINATION;
+@property NSMA* undefinedKeys; /* USAGE: 	
 
-/*	USAGE:  	[NSS.randomBadWord performBlockWithVarargsInArray:^(NSO*_self,NSA*args){ 
+	id scoop = @"poop";
+	[scoop setValue:@2 forKey:@"farts"];
+	LOG_EXPR( scoop[@"undefinedKeys"] ); 	-> ( farts ) 												*/
+
++ (instancetype) instanceWithProperties:(NSS*)firstKey,... NS_REQUIRES_NIL_TERMINATION;	/*  USAGE:	
+	
+	id whatever = [CAL instanceWithProperties:@"stupid", @(YES), @"sexy", @(NO), nil];  	*/
+
+- (void) performBlockWithVarargsInArray:(void(^)(NSO*_self,NSA*varargs))block, ...NS_REQUIRES_NIL_TERMINATION; /*	USAGE:  	
+
+	[NSS.randomBadWord performBlockWithVarargsInArray:^(NSO*_self,NSA*args){ 
 					LOG_EXPR([args map:^(id o){ return [o withString:_self]; }]); 			}, @"Fuck my ", @"What a huge ", nil];
-	-> ( "Fuck my shagger", "What a huge shagger" )
+	-> ( "Fuck my shagger", "What a huge shagger" )	
 */
-- (void) performBlockWithVarargsInArray:(void(^)(NSO*_self,NSA*varargs))block, ...NS_REQUIRES_NIL_TERMINATION;
+
 
 /*  USAGE: 	[@"Apple is "performBlockEachVararg:^(NSO*_self,id v){ LOG_EXPR([_self withString:v]); }, @"Whatever!", @"Sexy", @"fruitful", nil];
 	-> Apple is Whatever!	-> Apple is Sexy	-> Apple is fruitful */
@@ -138,8 +162,6 @@ IMP impOfCallingMethod(id lookupObject, SEL selector);
 - (void)bind:(NSS*)binding toObject:(id)o withNegatedKeyPath:(NSS*)keyPath;
 
 
-
-
 - (void)performBlock:(void (^)())block;
 //- (void)performBlock:(void (^)())block afterDelay:(NSTimeInterval)delay;
 
@@ -158,8 +180,6 @@ IMP impOfCallingMethod(id lookupObject, SEL selector);
 -(void) 	DDLogWarn;
 -(void) 	DDLogInfo	;
 -(void) 	DDLogVerbose;
-
-
 
 - (void) bindArrayKeyPath:(NSS*)array toController:(NSArrayController*)controller;
 
@@ -346,6 +366,8 @@ typedef void (^caseBlock)();
 
 - (NSS*)segmentLabel;
 
+- (id) responds:(NSS*)selStr do:(id)doBlock;
+
 BOOL respondsTo(id obj, SEL selector);
 BOOL respondsToString(id obj,NSS* string);
 
@@ -365,8 +387,6 @@ BOOL respondsToString(id obj,NSS* string);
 
 //- (BOOL) respondsToSelector:	(SEL) aSelector;
 
-
-
 + (NSDictionary*) classPropsFor:	(Class) klass;
 //- (NSA*) methodDumpForClass:	(NSString*) Class;
 + (NSA*) classMethods;
@@ -385,6 +405,7 @@ BOOL respondsToString(id obj,NSS* string);
 - (void) fire:	(NSString*) notificationName;
 - (void) fire:	(NSString*) notificationName userInfo:	(NSDictionary*) userInfo;
 
+
 - (id) observeName:	(NSString*) notificationName 
 	  usingBlock:	(void (^) (NSNotification*) ) block;
 
@@ -396,6 +417,8 @@ BOOL respondsToString(id obj,NSS* string);
 		   calling:(SEL)selector;
 
 - (void) stopObserving:	(NSObject*) object forName:	(NSString*) notificationName;
+
+- (void) observeNotificationsUsingBlocks:(NSS*) firstNotificationName, ... NS_REQUIRES_NIL_TERMINATION;
 
 
 // This awesome method was found at Stackoverflow From Rob Mayoff - http://stackoverflow.com/users/77567/rob-mayoff

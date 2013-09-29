@@ -19,6 +19,15 @@
 // MenuAPp Instance runs controller status item and dropdown window...
 // Menu app also weirdly enoguh seems to load atoz via a METHOD!
 
+/* reading from interactive prompt:
+
+	int inputOne;
+	NSLog (@"Enter number: ");
+	scanf("%i", &inputOne);
+	NSNumber *ddd = @(inputTwo);
+*/
+
+
 int main(int argc, char *argv[], char** envp) { @autoreleasepool {	[NSApplication sharedApplication];	
 
 #ifdef XCODE_COLORS

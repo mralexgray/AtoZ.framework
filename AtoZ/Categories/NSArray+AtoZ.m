@@ -51,11 +51,10 @@ NSString * const NSMutableArrayDidInsertObjectNotification = @"com.mrgray.NSMuta
 }
 - (NSS*) formatAsListWithPadding:(NSUI)characters	{
 
-	return /*$(@"\n%@",*/ [[[self alphabetize] map:^id (id obj) {
+	return /*$(@"\n%@",*/ [[[self.mutableCopy alphabetize] map:^id (id obj) {
 		return [obj stringByPaddingToLength:characters withString:@" " startingAtIndex:0];
 	}] componentsJoinedByString:@" "]; // );
 }
-- (NSA*) alphabetize { return [self.mutableCopy sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];	}
 
 @end
 
@@ -1088,6 +1087,11 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
     return cwArray;
 }
 
+-(NSD*)mapToDictForgivingly:(AZKeyPair*(^)(id))block {	NSMD * mappedD = NSMD.new;
+	for (id object in self)  { AZKP *kp = block(object); (!kp) ?: [mappedD sV:kp.key fK:kp.value]; }
+	return mappedD;
+}
+
 @end
 
 @implementation NSArray (ListComprehensions) // Create a new array with a block applied to each index to create a new element
@@ -1134,7 +1138,26 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 }
 @end
 
+@implementation NSArray (Extensions)
+
+- (id) firstObject {
+	return self.count ? [self objectAtIndex:0] : nil;
+}
+
+@end
+
+@implementation NSMutableArray (Extensions)
+
+- (void) removeFirstObject {
+	[self removeObjectAtIndex:0];
+}
+
+@end
+
 @implementation NSMutableArray (AG)
+
+- (NSA*) alphabetize { return [self sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];	}
+
 
 - (void)swizzleInsertObject:(id) o atIndex:(NSUInteger)idx {
 	[self swizzleInsertObject:o atIndex:idx];
@@ -1315,8 +1338,6 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 @end
 
 
-
-
 @implementation NSArray (Stringing)
 
 - (NSS*) listValuesOnePerLineForKeyPath:(NSS*) keyPath bullet:(NSS*) bullet {
@@ -1377,8 +1398,6 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
     return [self listValuesForKey:@"name" conjunction:nil truncateTo:0];
 }
 @end
-
-
 
 @implementation NSArray (UKColor)
 //	arrayWithColor:
@@ -1443,7 +1462,21 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 - (NSS*)stringValue {
     return [self componentsJoinedByString:@" "];
 }
+- (NSArray*) reversedArray {
+	return [[self reverseObjectEnumerator] allObjects];
+}
 
+- (id) firstObject {
+	if ([self count] > 0)
+		return self[0];
+	else
+		return nil;
+}
+
+@end
+
+@implementation AZKeyPair
++ (instancetype) key:(id)k value:(id)v {  AZKeyPair *kp = self.new; kp.key = k; kp.value = v; return kp; }
 @end
 
 #pragma mark UtilityExtensions
@@ -1473,6 +1506,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
     }
     return [copy uniqueMembers];
 }
+
 
 // A la LISP, will return an array populated with values
 - (NSA*)map:(SEL)selector withObject:(id)object1 withObject:(id)object2 {
@@ -1546,6 +1580,21 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 
 #pragma mark Mutable UtilityExtensions
 @implementation NSMutableArray (UtilityExtensions)
+- (void) moveObjectFromIndex:(NSInteger)oldIndex toIndex:(NSInteger)newIndex {
+	if (oldIndex == newIndex)
+		return;
+	
+	if (newIndex > oldIndex)
+		newIndex--;
+	
+	id object = self[oldIndex];
+	
+	
+	[self removeObjectAtIndex:oldIndex];
+	[self insertObject:object atIndex:newIndex];
+	
+}
+
 - (NSMutableArray *)reverse {
     for (int i = 0; i < (floor([self count] / 2.0)); i++) {
         [self exchangeObjectAtIndex:i withObjectAtIndex:([self count] - (i + 1))];
@@ -1620,14 +1669,12 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 
 @end
 
-
-
 @implementation NSArray (FilterByProperty)
 
 
-- (NSA*) subArrayWithMembersOfKind:(Class)class {
+- (NSA*) subArrayWithMembersOfKind:(Class)klass {
 	return [self cw_mapArray:^id(id object) {
-		return  [object ISKINDA:class] ? object : nil;
+		return  [object ISKINDA:klass] ? object : nil;
 	}];
 }
 - (NSA*) stringsPaddedToLongestMember {

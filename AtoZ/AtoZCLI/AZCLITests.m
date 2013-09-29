@@ -69,8 +69,6 @@ JREnumDefine(AZTestCase);
 //}
 
 
-
-
 @implementation AZGeometryTests
 
 - (AZTestCase) testAZAlign	{
@@ -123,8 +121,6 @@ JREnumDefine(AZTestCase);
 //+ (NSR) structForQuantity: (NSUI)aNumber	 inRect:(NSR)aFrame;
 //+ (NSR)   rectForQuantity: (NSUI)q 			 ofSize:(NSSize)s  	withColumns:(NSUI)c;
 //- (NSR)		rectForPoint: (NSP)point;
-
-
 
 
 @end

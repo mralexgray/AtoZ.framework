@@ -41,8 +41,6 @@
 //+ (NSArray *) groupsMatchingName: (NSString *) fname;
 
 
-
-
 //- (id) initWithRecord: (ABRecord*) record;
 //@property (nonatomic, copy) ABRecord *record;
 //@property (nonatomic) NSI fetchTag;

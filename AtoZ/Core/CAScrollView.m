@@ -1,7 +1,5 @@
 #import "CAScrollView.h"
 
-
-
 @interface CAScrollView ()
 @property (NATOM,STRNG) 	CALNH *hostlayer;
 @property (NATOM,STRNG) 	NSA 	*shroudedLayers, *originalQueue;

@@ -225,8 +225,6 @@ NSNumber *value = valueString ? [NSNumber numberWithInt:aNumericValue] 							\
 		if (value) { *enumValue = (ENUM_TYPENAME)[value intValue];	return YES;	} else return NO;				\
 	}
 
-
-
  #define _JREnum_GenerateImplementation(ENUM_TYPENAME)  \
  NSArray* _JREnumParse##ENUM_TYPENAME##ConstantsString() {	\
  NSArray *stringPairs = [_##ENUM_TYPENAME##_constants_string componentsSeparatedByString:@","];	\
@@ -247,8 +245,6 @@ NSNumber *value = valueString ? [NSNumber numberWithInt:aNumericValue] 							\
 #define AZEnum(ENUM_TYPENAME, ENUM_CONSTANTS...)    \
 static NSString *_##ENUM_TYPENAME##_constants_string = @"" #ENUM_CONSTANTS; \
 _JREnum_GenerateImplementation(ENUM_TYPENAME)
-
-
 
 #define AZEnumDeclare(ENUM_TYPENAME, ENUM_CONSTANTS...) \
 
@@ -337,8 +333,6 @@ return NO;	\
 */
 
 @interface NSString (AtoZEnums)
-
-
 
 //+ (NSD*) enumDictionary;
 //+ (NSS*) stringForEnumType:(char *)type value:(int)value;

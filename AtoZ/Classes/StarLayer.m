@@ -65,8 +65,6 @@
 	return [super actionForKey:key];
 }
 
-
-
 //+ (BOOL)needsDisplayForKey:(NSString *)key
 //{
 //	BOOL result;
@@ -215,8 +213,6 @@
 //{
 //	return [self associatedValueForKey: key];
 //}
-
-
 
 //- (void) drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx {
 //

@@ -34,8 +34,6 @@
 
 @end
 
-
-
 @interface NSScreen (CNBackstageController)
 
 /**

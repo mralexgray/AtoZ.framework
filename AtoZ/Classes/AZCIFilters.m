@@ -113,8 +113,6 @@ static NSMutableDictionary *classToKernel = nil;
 //@implementation AZIrisOpenFilter
 @synthesize inputImage, inputTime,inputTargetImage;
 
-
-
 static CIKernel *sIrisFilterKernel = nil;
 
 +(void) initialize

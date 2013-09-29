@@ -102,13 +102,13 @@ typedef id(^eval)(id blockArgs, ...);
 @implementation AZCLIMenu static NSMA* menus = nil; NSMIS *toPrint;
 + (NSS*) menu										{
 
-	return [[menus objectsAtIndexes:toPrint] bk_reduce:@"" withBlock:^NSS*(NSS* outString, AZCLIMenu* m){  	// kist print "toPrint" indexes.
+	return [[menus objectsAtIndexes:toPrint] reduce:@"" withBlock:^NSS*(NSS* outString, AZCLIMenu* m){  	// kist print "toPrint" indexes.
 		  NSUI maxlen 		= ceil([[m.defaultCollection vFKP:@"display"] lengthOfLongestMemberString] * 1);		// deduce longest string
 		  NSUI cols 		= floor(120.f/(float) maxlen);																		// accomodate appropriate number of cols.
 __block NSUI i 			= ((AZCLIMenuItem*)((NSA*)[m defaultCollection])[0]).index - 1;											// ascertain first index.
 	  	  NSUI maxIndex	= $(@"%lu: ", i + [[m defaultCollection] count]).length; 										// make sure numbers fit nice
 		return outString 	= [[outString withString:zNL] withString:
-								  [m.defaultCollection bk_reduce:@"" withBlock:^id(id sum, AZCLIMenuItem* obj){ i++; NSS*outP; // Allow goruped indexes.
+								  [m.defaultCollection reduce:@"" withBlock:^id(id sum, AZCLIMenuItem* obj){ i++; NSS*outP; // Allow goruped indexes.
 			return  ( outP = [[(i % cols) == 0 ? @"\n" : @"" withString: [$(@"%lu: ", i) paddedTo:maxIndex]]withString: // pad index
 								  [AZLOGSHARED colorizeString:[obj.display paddedTo:maxlen] withColor:obj.color].clr] )
 							   ? [sum withString:outP]
@@ -143,16 +143,6 @@ __block NSUI i 			= ((AZCLIMenuItem*)((NSA*)[m defaultCollection])[0]).index - 1
 
 
 
-
-
-
-
-
-
-
-
-
-
 //-       (IBA) log:(id)sender			{	NSLog(@"hello from button");	}
 
 //- (VoidBlock) actionAtIndex 				{}
@@ -168,8 +158,6 @@ __block NSUI i 			= ((AZCLIMenuItem*)((NSA*)[m defaultCollection])[0]).index - 1
 //	return is;
 //}
 //-         (void) addMenuItem:(AZCLIMenuItem*)i { [self.defaultCollection addObject:i]; NSLog(@"defaultcollectionct: %ld", [self.defaultCollection count]); }
-
-
 
 /*
 -    (id) identifier 	{ return _identifier = _identifier ?: self.uniqueID; }
@@ -343,8 +331,6 @@ AZOutsideEdgeOfRectInRect(window.frame, f);
 	if (!stop) [self runAClassMethod];
 }
 */
-
-
 
 
 @implementation AtoZ (CLIWindow)

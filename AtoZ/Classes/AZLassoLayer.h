@@ -8,8 +8,6 @@
 //#import "AtoZ.h"
 #import <QuartzCore/QuartzCore.h>
 
-
-
 @interface AZLassoLayer : AZSingleton
 
 @property (ASS)		CGF strokeMultiplier;

@@ -10,8 +10,6 @@
 #import "AtoZGeometry.h"
 
 
-
-
 @interface NSView (MoveAndResize)
 - (void)setNewFrameFromMouseDrag:(NSRect)newFrame;
 - (void)trackMouseDragsForEvent:(NSEvent *)theEvent clickType:(int)clickType;
@@ -69,6 +67,12 @@ typedef void (^viewFrameDidChangeBlock)(void);
 
 @interface NSView (AtoZ)
 
+@property (nonatomic, strong) NSMA* needsDisplayForKeys;
+
+@property (getter=getBackground, setter=doSetBackground:) id background;
+
+- (NSV*) dragSubviewWihEvent:(NSE*)e;
+
 - (void) handleDragForTypes:(NSA*)files withHandler:(void (^)(NSURL *URL))handler;
 
 - (void) debug;
@@ -110,6 +114,8 @@ typedef void (^viewFrameDidChangeBlock)(void);
 - (void) centerOriginInBounds;
 - (void) centerOriginInFrame;
 - (void) centerOriginInRect: (NSR)aRect;
+
+@property (readonly) CAL* azLayer;
 
 - (CAL*) setupHostView;
 - (CALayerNoHit*) setupHostViewNoHit;
@@ -158,6 +164,7 @@ typedef void (^viewFrameDidChangeBlock)(void);
 + (void) runEndBlock: (void (^)(void))completionBlock;
 
 - (void) fadeOutAndThen:(void(^)(NSAnimation*))block;
+
 
 - (void) handleMouseEvent:(NSEventType)event withBlock:(void (^)())block;
 - (NSP) localPoint;

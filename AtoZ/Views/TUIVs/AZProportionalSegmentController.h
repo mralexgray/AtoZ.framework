@@ -5,8 +5,6 @@
 
 // self-refulating, show up to n views, proportanetly. then arrow through.
 
-
-
 #define AZPSV AZProportionalSegmentView
 typedef void (^AZTUICompletionBlock)(BOOL done);
 typedef void(^AZTUIDrawBlock)(TUIV*blkV,CGR dRect);

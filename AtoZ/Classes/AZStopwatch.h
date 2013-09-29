@@ -10,8 +10,6 @@
 	MyApp[4090:15203]  -> Stopwatch: [My Timer] runtime: [0.029]
 */
 
-#import <Foundation/Foundation.h>
-
 @interface  NSObject (Stopwatch)
 - (void) startTiming;
 - (void) stopTiming;
@@ -31,6 +29,8 @@
 @interface AZStopwatchItem : NSObject
 @property (nonatomic, strong) NSS *name;
 @property (nonatomic, strong) NSDate *started, *stopped;
+
++ (void) timeBlocks:(id)blocks,...;
 
 + (AZStopwatchItem*) named:(NSS*)name;
 - (void) start;

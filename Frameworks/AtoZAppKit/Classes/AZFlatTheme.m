@@ -162,8 +162,6 @@
 
 
 
-
-
 -(NSColor *)scrollerStroke {
 	
 	return [NSColor colorWithDeviceRed: 0.749f green: 0.761f blue: 0.788f alpha: 1.0f];
@@ -229,8 +227,6 @@
 //	return [[NSGradient alloc] initWithStartingColor: [NSColor colorWithDeviceRed: 0.251f green: 0.251f blue: 0.255f alpha: 1.0f]
 //										  endingColor: [NSColor colorWithDeviceRed: 0.118f green: 0.118f blue: 0.118f alpha: 1.0f]];
 }
-
-
 
 -(NSColor *)sliderTrackColor {
 	

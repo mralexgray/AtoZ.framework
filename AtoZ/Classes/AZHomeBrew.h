@@ -16,22 +16,33 @@ typedef NS_ENUM(NSUI, BrewOperationType) {
 
 
 @interface	AZBrewFormula : BaseModel
-@property (NATOM,STRNG) NSAS 	*fancyDesc;
-@property (NATOM,STRNG) NSS		*url, *info, *name, *desc, *version;
-@property 				BOOL	googleGenerated;
-@property 				AZIS	  installStatus;
+@property 						BOOL	 googleGenerated;
+@property 					   AZIS	 installStatus;
+@property 		 (RONLY) 	 NSS * info;
+@property (NATOM,STRNG) 	NSAS * fancyDesc;
+@property (NATOM,STRNG) 	 NSS * url,
+									     * name,
+										  * desc,
+										  * version;
+
 + (instancetype) instanceWithName: (NSS*)name;
 @end
 
 
-@interface AZHomeBrew : BaseModel
-@property (NATOM) BOOL shouldExit, shouldLog;
-@property NSI exitCode;
-@property (NATOM, STRNG) NSS  	*brewPath, *savePath;
-@property (NATOM, STRNG) NSMA 	*available;
-@property (NATOM, STRNG) NSMD 	*entriesToAdd;
-@property (NATOM, STRNG) NSD 	*reference;
+@interface 			 AZHomeBrew : NSTreeController <IBSingleton>
 
--(NSS*)setInfoForFormula:(AZBrewFormula*)formula;
+@property 		  (RONLY)  NSD * commands;
+@property 		  (NATOM) BOOL   shouldExit,
+										  shouldLog;
+@property 					  NSI   exitCode;
+@property (STRNG)  		  NSS * brewPath,
+										* savePath;
+
+@property (NATOM, STRNG) NSTN * available;
+
+@property (NATOM, STRNG) NSMD * entriesToAdd;
+@property (NATOM, STRNG)  NSD * reference;
+
+-(NSS*) setInfoForFormula:(AZBrewFormula*)formula;
 
 @end

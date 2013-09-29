@@ -1571,8 +1571,6 @@ void _linearColorReleaseInfoFunction(void *info) {
 static const CGFunctionCallbacks linearFunctionCallbacks = {0, &_linearColorBlendFunction, &_linearColorReleaseInfoFunction};
 static const CGFloat domainAndRange[8] = {0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0};
 
-
-
 @implementation NSBezierPath(RoundedRectangle)
 + (NSBezierPath*)bezierPathWithRoundedRect:(NSRect)aRect radius:(float)radius {
    NSBezierPath* path = [self bezierPath];

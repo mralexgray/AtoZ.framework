@@ -67,8 +67,6 @@ static inline NSR AZScaleRect(NSRect frame, CGF factor) {
 //- (void) moveInDirection:(NSSZ)sz;
 @end
 
-
-
 @class AZPoint;
 @interface AZRect : AZPoint 	{  CGF width, height;	}
 #define AZRECTUNDERMENU [AZRect screnFrameUnderMenu]

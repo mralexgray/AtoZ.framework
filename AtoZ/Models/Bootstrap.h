@@ -33,8 +33,6 @@
 @property (nonatomic, strong) 	NSBundle	 		*bundle;
 
 
-
-
 @end
 
 //#ifdef SYNTHESIZE_CONSTS

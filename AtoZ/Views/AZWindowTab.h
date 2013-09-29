@@ -44,8 +44,6 @@
 -   (id) initWithView:(NSV*)c	orClass:(Class)k	frame:(NSR)r;
 @end
 
-
-
 //@property (STR) 			AZWindowTabController	*vc;
 @interface AZWindowTabController : NSArrayController <NSWindowDelegate>
 @end

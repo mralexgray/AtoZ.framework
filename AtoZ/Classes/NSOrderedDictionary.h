@@ -335,8 +335,6 @@
 - (void)setEntriesFromOrderedDictionary:(NSOrderedDictionary *)orderedDictionary atIndex:(NSUInteger)index;
 - (void)setEntriesFromDictionary:(NSDictionary *)dictionary  atIndex:(NSUInteger)index;
 
-
-
 /************ Removing objects ************/
 - (void)removeAllEntrys;
 - (void)removeLastEntry;

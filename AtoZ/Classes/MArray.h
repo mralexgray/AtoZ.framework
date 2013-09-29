@@ -120,12 +120,10 @@
 @end
 
 
-
-
 @interface MTypedArray : MArray {
 	Class _class;
 }
--(id)initWithTypeClass:(Class)class;
+-(id)initWithTypeClass:(Class)klass;
 -(void)addObject:(id)object;
 -(Class)typeClass;
 @end

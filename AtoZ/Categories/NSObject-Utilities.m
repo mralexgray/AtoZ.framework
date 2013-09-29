@@ -8,8 +8,6 @@
 
 
 
-
-
 @implementation NSInvocation(OCMAdditions)
 
 - (id)getArgumentAtIndexAsObject:(int)argIndex
@@ -387,8 +385,6 @@
     block_(grabber);    return grabber.invocation;
 }
 @end
-
-
 
 @implementation NSObject (Utilities)
 
@@ -899,68 +895,60 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 
-- (id) tryPerformSelector: (SEL) aSelector withObject: (id) object1 withObject: (id) object2
-{
+- (id) tryPerformSelector: (SEL) aSelector withObject: (id) object1 withObject: (id) object2 {
 	return ([self respondsToSelector:aSelector]) ? [self performSelector:aSelector withObject: object1 withObject: object2] : nil;
 }
 #pragma clang diagnostic pop
-- (id) tryPerformSelector: (SEL) aSelector withObject: (id) object1
-{
-	return [self tryPerformSelector:aSelector withObject:object1 withObject:nil];
-}
-- (id) tryPerformSelector: (SEL) aSelector
-{
-	return [self tryPerformSelector:aSelector withObject:nil withObject:nil];
-}
+
+- (id) tryPerformSelector: (SEL) aSelector withObject: (id) object1	{ return [self tryPerformSelector:aSelector withObject:object1 withObject:nil]; }
+- (id) tryPerformSelector: (SEL) aSelector 									{ return [self tryPerformSelector:aSelector withObject:nil withObject:nil];     }
+
 @end
 
+#define OVERRIDE_CLASS_METHOD YES // Whether to override the -class method to return the old class name rather than the one from the override subclass.
 
+static Class OverrideClass(id bSelf, SEL aCmd)	{	NSS *className = $UTF8(object_getClassName(bSelf)),
+																		 *prefix 	= $(@"AZOverride_%p_", bSelf);
 
-
-// Whether to override the -class method to return the old class name rather than the one from the override subclass.
-#define OVERRIDE_CLASS_METHOD YES
-
-static Class OverrideClass(id self, SEL _cmd)	{	NSS *className 	= $UTF8(object_getClassName(self));
-																	NSS *prefix 		= $(@"AZOverride_%p_", self);
 	return objc_getClass(([className hasPrefix:prefix] ? [className substringFromIndex:prefix.length] : className).UTF8String);
 }
 @implementation NSObject (AZOverride)
 
-- (BOOL)az_overrideSelector:(SEL)selector withBlock:(void *)block	{  Class selfClass, subclass; NSS * prefix, *className;
+- (BOOL)az_overrideSelector:(SEL)selector withBlock:(void *)block	{
 
-	selfClass	= self.class;	subclass 	= nil;	prefix 		= $(@"AZOverride_%p_", self);
-	className 	= OVERRIDE_CLASS_METHOD ? $UTF8(object_getClassName(self)) : NSStringFromClass(selfClass);
+	Method        m = NULL;
+	BOOL	  success = NO;
+	Class selfClass = self.class, 
+			 subclass = NULL;
+	NSS 	  *prefix = $(@"AZOverride_%p_", self),
+		  *className = OVERRIDE_CLASS_METHOD ? $UTF8(object_getClassName(self)) : NSStringFromClass(selfClass),
+		  	    *name = [prefix withString:className];
 
 	if (![className hasPrefix:prefix])	{
-		NSString *name = [prefix withString:className];
-		subclass = objc_allocateClassPair(selfClass, name.UTF8String, 0);
-		if (OVERRIDE_CLASS_METHOD)
-			if (subclass == NULL) return NSLog(@"Could not create subclass"), NO;
-		else {
-			if (!class_addMethod(subclass, @selector(class), (IMP)OverrideClass, "#@:"))
-				return NSLog(@"Could not add 'class' method to class %@", NSStringFromClass(subclass)), NO;
-		}
+				  
+		    subclass = objc_allocateClassPair(selfClass, name.UTF8String, 0);
+		
+		if (OVERRIDE_CLASS_METHOD && subclass == NULL) 											return NSLog(@"Couldn't create subclass"), NO;
+		if (!class_addMethod(subclass, @selector(class), (IMP)OverrideClass, "#@:"))	return NSLog(@"Couldn't add 'class' method to class %@",AZOBJCLSSTR(subclass)), NO;
+		
 		objc_registerClassPair(subclass);	object_setClass(self, subclass);
 	}
-	else subclass = OVERRIDE_CLASS_METHOD ?objc_getClass(className.UTF8String) : selfClass; // object already has an override subclass
-	Method m = class_getInstanceMethod(selfClass, selector);
-	if (m == NULL) return NSLog(@"Could not find method %@ in class %@", NSStringFromSelector(selector), NSStringFromClass(selfClass)), NO;
-	// See also: http://www.friday.com/bbum/2011/03/17/ios-4-3-imp_implementationwithblock/
-	IMP imp = imp_implementationWithBlock((__bridge id)(block));
-	return !class_addMethod(subclass, selector, imp, method_getTypeEncoding(m)) ?
-		NSLog(@"Could not add method %@ to class %@", NSStringFromSelector(selector), NSStringFromClass(subclass)), NO : YES;
-}
+	else  subclass = OVERRIDE_CLASS_METHOD ? objc_getClass(className.UTF8String) : selfClass; // object already has an override subclass
+
+	if ((m = class_getInstanceMethod(selfClass, selector)) == NULL) 						return NSLog(@"Could not find method %@ in class %@", NSStringFromSelector(selector), NSStringFromClass(selfClass)), NO;
+
+	IMP imp = imp_implementationWithBlock((__bridge id)block);				// See also: http://www.friday.com/bbum/2011/03/17/ios-4-3-imp_implementationwithblock/
+	success = class_addMethod(subclass, selector, imp, method_getTypeEncoding(m)); 	return success ?:	NSLog(@"Could not add method %@ to class %@", NSStringFromSelector(selector), NSStringFromClass(subclass)), NO;
+}	
  
 - (void *)az_superForSelector:(SEL)selector	{
 
 	if (OVERRIDE_CLASS_METHOD)	return [self.class instanceMethodForSelector:selector];
-	NSString *prefix = $(@"AZOverride_%p_", self);
-	Class theClass = self.class;
-	while (theClass != nil)	{
-		NSString *className = NSStringFromClass(theClass);
-		theClass = theClass.superclass;
-		if ([className hasPrefix:prefix])
-			return (void *)[theClass instanceMethodForSelector:selector];
+	NSString *prefix 	= $(@"AZOverride_%p_", self);
+	Class theClass 	= self.class;
+	while (theClass != nil)	{	NSString *className = NSStringFromClass(theClass);
+										theClass = theClass.superclass;
+		if ([className hasPrefix:prefix]) return (void*)[theClass instanceMethodForSelector:selector];
 	}
 	NSLog(@"Could not find superclass for %@", NSStringFromSelector(selector));
 	return NULL;
@@ -977,29 +965,30 @@ static Class OverrideClass(id self, SEL _cmd)	{	NSS *className 	= $UTF8(object_g
 
 @implementation NSProxy (AZOverride)
 
-- (BOOL)az_overrideSelector:(SEL)selector withBlock:(void *)block	{  Class selfClass, subclass; NSS * prefix, *className;
+- (BOOL)az_overrideSelector:(SEL)selector withBlock:(void*)block	{
 
-	selfClass	= self.class;	subclass 	= nil;	prefix 		= $(@"AZOverride_%p_", self);
-	className 	= OVERRIDE_CLASS_METHOD ? $UTF8(object_getClassName(self)) : NSStringFromClass(selfClass);
+	Class selfClass	= self.class, subclass = nil;
+	NSS 	*prefix 		= $(@"AZOverride_%p_", self),
+			*className 	= OVERRIDE_CLASS_METHOD ? $UTF8(object_getClassName(self)) : NSStringFromClass(selfClass);
 
-	if (![className hasPrefix:prefix])	{
-		NSString *name = [prefix withString:className];
+	if (![className hasPrefix:prefix])	{		NSString *name;
+
+		name 		= [prefix withString:className];
 		subclass = objc_allocateClassPair(selfClass, name.UTF8String, 0);
-		if (OVERRIDE_CLASS_METHOD)
-			if (subclass == NULL) return NSLog(@"Could not create subclass"), NO;
-		else {
-			if (!class_addMethod(subclass, @selector(class), (IMP)OverrideClass, "#@:"))
-				return NSLog(@"Could not add 'class' method to class %@", NSStringFromClass(subclass)), NO;
-		}
-		objc_registerClassPair(subclass);	object_setClass(self, subclass);
+
+		if (OVERRIDE_CLASS_METHOD && subclass == NULL) return NSLog(@"Could not create subclass"), NO;
+		else if (!class_addMethod(subclass, @selector(class), (IMP)OverrideClass, "#@:"))
+			return NSLog(@"Could not add 'class' method to class %@", NSStringFromClass(subclass)), NO;
+		objc_registerClassPair(subclass);
+		object_setClass(self,  subclass);
 	}
-	else subclass = OVERRIDE_CLASS_METHOD ?objc_getClass(className.UTF8String) : selfClass; // object already has an override subclass
-	Method m = class_getInstanceMethod(selfClass, selector);
-	if (m == NULL) return NSLog(@"Could not find method %@ in class %@", NSStringFromSelector(selector), NSStringFromClass(selfClass)), NO;
+	else subclass 	= OVERRIDE_CLASS_METHOD ? objc_getClass(className.UTF8String) : selfClass; // object already has an override subclass
+	Method m 		= class_getInstanceMethod(selfClass, selector);
+	if (m == NULL) return NSLog(@"Could not find method %@ in class %@", NSStringFromSelector(selector), AZCLSSTR), NO;
 	// See also: http://www.friday.com/bbum/2011/03/17/ios-4-3-imp_implementationwithblock/
-	IMP imp = imp_implementationWithBlock((__bridge id)(block));
-	return !class_addMethod(subclass, selector, imp, method_getTypeEncoding(m)) ?
-		NSLog(@"Could not add method %@ to class %@", NSStringFromSelector(selector), NSStringFromClass(subclass)), NO : YES;
+	IMP imp 			= imp_implementationWithBlock((__bridge id)block);
+	return class_addMethod(subclass, selector, imp, method_getTypeEncoding(m)) ?:
+		NSLog(@"Could not add method %@ to class %@", NSStringFromSelector(selector), NSStringFromClass(subclass)), NO;
 }
  
 - (void *)az_superForSelector:(SEL)selector	{

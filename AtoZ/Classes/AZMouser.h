@@ -10,8 +10,6 @@ void AZClick(const CGPoint point);
 void AZRightClick(const CGPoint point);
 void AZDoubleClick(CGPoint point);
 
-
-
 /* pathForArc : Adds an arc (a segment of an oval) fitting inside a rectangle to the path.
 
 context : The CG context to render to.

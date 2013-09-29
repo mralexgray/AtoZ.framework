@@ -1,7 +1,5 @@
 
 
-
-
 @interface AZSpeech2Text : BaseModel
 @property (weak) IBOutlet NSTextField *outputArea;
 @property (weak) IBOutlet WebView *audioView;

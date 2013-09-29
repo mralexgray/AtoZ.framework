@@ -1,15 +1,74 @@
-//
-//  SampleObject.m
-//  CoreAnimationListView
-//
-//  Created by Patrick Geiller on 07/04/08.
-//  Copyright 2008 __MyCompanyName__. All rights reserved.
-//
+
 
 #import "AZObject.h"
-#import <objc/runtime.h>
-#import "AtoZUmbrella.h"
-#import "AtoZCategories.h"
+
+
+@concreteprotocol(IBSingleton)
+
+- (id) init 									{ return self; }
+- (id) _init 									{ return [super init]; }
+//_alloc is important, because otherwise the object wouldn't be allocated
++ (id) _alloc 									{ return [[self class].superclass allocWithZone:NULL]; }
++ (id) alloc									{ return self.sharedInstance; }
++ (id) allocWithZone: (NSZone*)zone 	{ return self.sharedInstance; }
++ (instancetype)sharedInstance {  __strong static id _sharedInstance = nil;
+    static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{ _sharedInstance = [[self _alloc] _init];
+	if ([[self class] instancesRespondToSelector:@selector(setUp)])
+		[(id<IBSingleton>)_sharedInstance setUp];
+	});
+	return _sharedInstance;
+}
+@end
+
+@concreteprotocol(AZPlistRepresentation)
+- (NSDictionary *)plistRepresentation {	// this is the base class, just return a new dictionary with our values
+	return [[self.propertyNames filter:^BOOL(id aKey) { return [self valueWasSetForKey:aKey]; }]
+							 mapToDictionary:^id(NSS* propName) {	return [self vFK:propName]; }];
+}
+@end
+
+static NSString* const kAZObjectNameKey = @"name", *const kAZObjectClassKey = @"class";
+
+@implementation AZObject
+
+- (id) objectForKeyedSubscript:(id)key { return [self vFK:key]; }
+- (void)setObject:(id)obj forKeyedSubscript:(id <NSCopying>)key { if ([self canSetValueForKey:(NSS*)key]) [self sV:obj fK:key]; }
+
+#pragma mark NSCoding *** Protocol Overrides ***
+
+- (id)initWithCoder:(NSCoder *)coder { if (self != [super initWithCoder:coder]) return nil;
+
+	for (NSS* aProp in self.propertyNames) self[aProp] = [coder decodeObjectForKey:aProp];
+	return self;
+}
+- (void)encodeWithCoder:(NSCoder *)coder {
+	for (NSS* aProp in self.propertyNames)	[coder encodeObject:self[aProp] forKey:aProp];
+}
+
+#pragma mark NSCopying
+- (id)copyWithZone:(NSZone *)zone {
+
+	typeof ([self class]) copy = self.class.new;
+	for (NSS* aProp in self.propertyNames)
+		[self valueWasSetForKey:aProp] ?	[copy sV:[self vFK:aProp] fK:aProp] : nil;
+	return copy;
+}
+
+#pragma mark NSMutableCopying
+- (id)mutableCopyWithZone:(NSZone *)zone {
+	typeof ([self class]) copy = self.class.new;
+	for (NSS* aProp in self.propertyNames)
+	for (NSS* aProp in self.propertyNames)
+		[self valueWasSetForKey:aProp] ?	[copy sV:[self vFK:aProp] fK:aProp] : nil;
+	return copy;
+}
+#pragma mark WCPlistRepresentationProtocol
+- (NSDictionary *)plistRepresentation {	// this is the base class, just return a new dictionary with our values
+	return [[self.propertyNames filter:^BOOL(id aKey) { return [self valueWasSetForKey:aKey]; }]
+							 mapToDictionary:^id(NSS* propName) {	return [self vFK:propName]; }];
+}
+@end
 
 
 

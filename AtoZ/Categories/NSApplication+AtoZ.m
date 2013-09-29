@@ -113,8 +113,6 @@
 
 @end
 
-
-
 NSString *const kShowDockIconUserDefaultsKey = @"ShowDockIcon";
 @implementation NSApplication (AtoZ)
 
@@ -151,23 +149,6 @@ NSString *const kShowDockIconUserDefaultsKey = @"ShowDockIcon";
 	}
 }
 @end
-
-@implementation NSArray (Extensions)
-
-- (id) firstObject {
-	return self.count ? [self objectAtIndex:0] : nil;
-}
-
-@end
-
-@implementation NSMutableArray (Extensions)
-
-- (void) removeFirstObject {
-	[self removeObjectAtIndex:0];
-}
-
-@end
-
 
 
 
@@ -266,8 +247,6 @@ NSString *const kShowDockIconUserDefaultsKey = @"ShowDockIcon";
 	NSString* bundleIdentifier = [bundle bundleIdentifier] ;
 	return bundleIdentifier ;
 }
-
-
 
 @end
 

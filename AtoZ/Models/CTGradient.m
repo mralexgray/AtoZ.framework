@@ -1124,8 +1124,6 @@ void inverseChromaticEvaluation(void *info, const float *in, float *out)
   }
 
 
-
-
 void transformRGB_HSV(float *components) //H,S,B -> R,G,B
 	{
 	float H, S, V;

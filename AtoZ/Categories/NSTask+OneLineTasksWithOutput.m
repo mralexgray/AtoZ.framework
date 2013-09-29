@@ -395,8 +395,6 @@
 
 @end
 
-
-
 @interface NSFileHandle (CXAdditions)
 - (NSData *) reallyReadDataToEndOfFile;
 @end

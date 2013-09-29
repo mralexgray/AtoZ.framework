@@ -207,8 +207,6 @@ NSString * const kAZWebSnapperUseGMTKey					= @"UseGMT";
 	}
 }
 
-
-
 #pragma mark -
 
 - (void)takeScreenshot

@@ -10,8 +10,6 @@
 @property (RONLY) NSA *filterNames;
 @end
 
-
-
 @interface AZIrisOpenFilter : CIFilter
 
 

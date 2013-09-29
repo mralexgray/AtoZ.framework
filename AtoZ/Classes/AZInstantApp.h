@@ -6,8 +6,6 @@
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 //
 
-
-
 #import <Foundation/Foundation.h>
 
 // USAGE   APPWITHBLOCK( ^{ NSLog(@"Hige vageen"); }) 

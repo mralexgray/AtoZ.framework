@@ -20,9 +20,9 @@
 @property (UNSFE) IBOutlet NSTextField 	*token_label;
 @property (UNSFE) IBOutlet NSTextField 	*request_label;
 @property (UNSFE) IBOutlet NSTextField 	*request_text;
-@property (UNSFE) IBOutlet NSTextView 	*result_text;
+@property (UNSFE) IBOutlet NSTextView 		*result_text;
 @property (UNSFE) IBOutlet NSImageView 	*profile_picture;
-@property (UNSFE) IBOutlet NSButton 	*send_request;
+@property (UNSFE) IBOutlet NSButton 		*send_request;
 
 @property (UNSFE) IBOutlet NSView*			scrollV;
 @property (UNSFE) IBOutlet NSView*			target;

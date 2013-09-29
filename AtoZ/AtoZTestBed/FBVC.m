@@ -9,6 +9,7 @@ NSString* APPLICATION_ID = @"223404761008769";
 
 
 #import "FBVC.h"
+#import <AtoZ/AtoZ.h>
 
 @implementation FBVC
 
@@ -32,7 +33,7 @@ NSString* APPLICATION_ID = @"223404761008769";
 		AZLOG(@"xlisidud");
 		[self getAccessToken:nil];
 	};
-	[self.send_request setActionBlock:block];
+//	[self.send_request seta
 //	[self.request_label setEnabled: NO];
 //	[self.request_text setEnabled: NO];
 //	[self.send_request setEnabled: NO];

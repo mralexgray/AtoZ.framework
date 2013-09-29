@@ -15,8 +15,6 @@
 */
 
 
-
-
 @interface SourceListItem : NSObject
 
 @property (WK) 	  id 	objectRep;
@@ -139,8 +137,6 @@ extern NSString * const AZSLItemDidExpandNotification			;
 extern NSString * const AZSLItemWillCollapseNotification			;
 extern NSString * const AZSLItemDidCollapseNotification			;
 extern NSString * const AZSLDeleteKeyPressedOnRowsNotification	;
-
-
 
 //{	NSString *title;	NSString *identifier;	NSImage *icon;  NSInteger badgeValue; NSArray *children;}
 //{

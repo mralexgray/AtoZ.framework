@@ -21,8 +21,6 @@ const NSString* ztimeF = @"timingFunction";
 //- (void)_updateTimerFired:(NSTimer *)timer;
 @end
 
-
-
 // Ghetto support for -actionFor<Key>
 static CFMutableDictionaryRef ActionNameToSelector = NULL;
 
@@ -50,8 +48,6 @@ static CFHashCode _hashString(const void *value)
 {
 	return CFHash((CFStringRef)value);
 }
-
-
 
 @implementation AZLayer
 
@@ -129,8 +125,6 @@ static CFHashCode _hashString(const void *value)
 	AZLayer *z = [[self class]layer];	z.index = idx; 	z.range = rng; z.frame = frame; 	 return z;
 }
 
-
-
 //-(id<CAAction>)actionForKey:(NSString *)event {
 - (void)runActionForKey:(NSString *)event object:(id)anObject arguments:(NSDictionary *)dict {
 		NSLog(@"runA4:%@  on:%@  dic:%@", event, anObject, dict);
@@ -147,8 +141,6 @@ static CFHashCode _hashString(const void *value)
 {
 	return [@[@"offset", @"position", @"hovered"] containsObject:key] ?: [super needsDisplayForKey:key];
 }
-
-
 
 -(void)drawInContext:(CGContextRef)ctx {
 	if (self.delegate) { [self.delegate drawLayer:self inContext:ctx]; return;  }
@@ -171,8 +163,6 @@ static CFHashCode _hashString(const void *value)
 		ActionNameToSelector = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &keyCallbacks, &valueCallbacks);
 	}
 }
-
-
 
 #pragma mark NSObject (NSKeyValueObservingCustomization).
 
@@ -213,8 +203,6 @@ static CFHashCode _hashString(const void *value)
 	return [self valueForKey:key] ? anim : [super actionForKey:key];
 
 	//		if ([key isEqualToString:@"color"]) {
-
-
 
 	//		}
 	//	}
@@ -326,8 +314,6 @@ static CFHashCode _hashString(const void *value)
 	CGContextSetLineWidth(ctx, self.strokeWidth);
 	CGContextDrawPath(ctx, kCGPathFillStroke);
 */
-
-
 
 
 /*

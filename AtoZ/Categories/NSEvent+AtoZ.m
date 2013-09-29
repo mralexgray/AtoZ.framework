@@ -47,7 +47,12 @@ CLANG_POP
 - (void) callAssociatedBlock	{  self.actionBlock ? self.actionBlock(self) : nil; }
 - (void) callAssociatedVoidBlock	{ self.voidActionBlock ? self.voidActionBlock() : nil; }
 @end
+
+
 @implementation NSControl (AtoZ)
+
+SYNTHESIZE_ASC_OBJ(	eventActionBlock, setEventActionBlock)
+
 
 - (void) setAction:(SEL)method withTarget:(id)object;			{
 	self.action = method; 	self.target = object;

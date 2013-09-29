@@ -233,8 +233,6 @@ static NSColor *ColorWithCSSString(NSString *str) {
   return nil;
 }
 
-
-
 int  hexToInt ( char  hex ) {
 	return 	hex >= '0' && hex <= '9' 	? 	hex - '0' :
 				hex >= 'a' && hex <= 'f'	?	hex - 'a' + 10 :
@@ -376,14 +374,11 @@ SYNTHESIZE_ASC_OBJ_LAZYDEFAULT_EXP(name, setName,[self nameOfColor]);
 	NSA* pal = [self gradientPalletteLooping:r steps:1000];
 	NSLog(@"number of colors in fade: %ld", pal.count);
 	__block NSUI ct = 0;
-	return [NSTimer bk_scheduledTimerWithTimeInterval:.2 block:^(NSTimeInterval time) {
-		NSColor*u =[pal normal:ct]; ct++; 
-//		NSLog(@"gotColor: %@", u.nameOfColor);
+	return [NSTimer scheduledTimerWithTimeInterval:.2 block:^(NSTimer *timer) { //		NSLog(@"gotColor: %@", u.nameOfColor);
+		NSColor*u =[pal normal:ct]; ct++;
 		target(u);
  	} repeats:YES], pal;
 }
-
-
 
 + (NSArray *)colorNames {
   	static NSArray *sAllNames = nil;
@@ -778,7 +773,7 @@ SYNTHESIZE_ASC_OBJ_LAZYDEFAULT_EXP(name, setName,[self nameOfColor]);
 	if (!safe) 			safe 			= [NSColorList colorListNamed:@"Web Safe Colors"];
 //  	if (!named)			named 		= [AZNamedColors na];
 	__block CGF bestDistance = FLT_MAX;
-	NSC* best = [[NSA arrayWithArrays:@[safe.colors]] bk_reduce:AZNULL withBlock:^id(id sum, NSC* aColor) {
+	NSC* best = [[NSA arrayWithArrays:@[safe.colors]] reduce:AZNULL withBlock:^id(id sum, NSC* aColor) {
 		CGF contender = [self rgbDistanceTo:aColor];
 		if ( contender < bestDistance ) {	bestDistance = contender;	sum = aColor;	}
 		return sum;
@@ -828,7 +823,7 @@ SYNTHESIZE_ASC_OBJ_LAZYDEFAULT_EXP(name, setName,[self nameOfColor]);
 + (void) logPalettes				{
 //	[self.colorLists each:^(id key, id value) {
 
-		[[[self.colorLists.allValues vFKP:@"name"] bk_reduce:@"".mutableCopy withBlock:^id(id sum, id obj) {
+		[[[self.colorLists.allValues vFKP:@"name"] reduce:@"".mutableCopy withBlock:^id(id sum, id obj) {
 			return sum = $(@"%@\n%@\n%@",sum, obj,
 			[[NSC colorsInListNamed:obj]stringValueInColumnsCharWide:30]);
 		}]log];

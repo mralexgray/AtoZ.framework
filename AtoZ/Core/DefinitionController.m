@@ -12,6 +12,7 @@
 
 @implementation ObjCFile
 																	#pragma mark - Conveniences
+
 - (NSData*) data  			{  return [NSKeyedArchiver archivedDataWithRootObject:self]; }
 -    (NSD*) fileInfo 		{ 		NSError *e = nil; 	
 
@@ -21,6 +22,7 @@
 -    (BOOL) fileExists		{ return [FM fileExistsAtPath:self.URL.path]; }
 -    (NSN*) fileModified 	{	 return @(self.fileInfo.fileModificationDate.timeIntervalSinceReferenceDate); }
 																	#pragma mark - Initializers
+
 -   (id) initWithCoder:	     (NSCoder*)c	{
 
 	return (self = super.init) ? 	[self setURL:		 [c decodeObjectForKey:		  @"URL"]],
@@ -105,8 +107,8 @@
 -   (NSW*) window					{   return _window = _window ?: ^{
 
 		_window = [NSWindow.alloc initWithContentRect:(NSRect){0,0,200,[NSScreen.mainScreen frame].size.height} styleMask:0|1|2|8 backing:2 defer:YES];
-		[_window setContentView:self.view = [AZFactoryView.alloc initWithFrame:_window.contentRect controller:self]];
-	//	[self bind:@"matched" toObject:self withKeyPath:@"allKeywords.@count" options:@{NSContinuouslyUpdatesValueBindingOption:@YES}]; 
+//		[_window setContentView:self.view = [AZFactoryView.alloc initWithFrame:_window.contentRect controller:self]];
+	//	[self bind:@"matched" toObject:self withKeyPath:@"allKeywords.@count" options:@{NSContinuouslyUpdatesValueBindingOption:@YES}];
 		_window.level 		= NSNormalWindowLevel;
 		NSLog(@"bundle:    %@", [[NSBundle mainBundle] bundleIdentifier]);
 		return _window; 
@@ -156,7 +158,7 @@
 //   [keywords enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) { NSLog(@"enumerating class: %@", NSStringFromClass([obj class])); if (![obj isKindOfClass:[NSString class]]) return;
 //		[obj rangeOfString:partial options:NSAnchoredSearch|NSCaseInsensitiveSearch range:NSMakeRange(0,[obj length] )].location != NSNotFound ? [matches addObject:obj] : nil;
 //	}];
-	[matches sortUsingSelector:@selector(compare:)];
+	[matches sortUsingSelector:@selector(caseInsensitiveCompare:)];
    return matches;
 }
 -   (void) controlTextDidChange:			   (NSNOT*)n	{ 	

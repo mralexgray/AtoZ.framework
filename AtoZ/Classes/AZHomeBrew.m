@@ -2,17 +2,12 @@
 #import "AZHomeBrew.h"
 
 @implementation AZBrewFormula
-- (void) setUp
-{
-	_googleGenerated 	= NO;
-	_installStatus 		= AZNotInstalled;
-	_info = nil;
-}
-+ (instancetype) instanceWithName: (NSS*)name { AZBrewFormula *n =  self.class.instance; n.name = name;  return n; }
+
+- (void) setUp	{	_googleGenerated 	= NO; 	_installStatus = AZNotInstalled; _info = nil; }
+
++ (instancetype) instanceWithName: (NSS*)name { AZBrewFormula *n =  self.instance; n.name = name;  return n; }
 
 +(NSSet*)keyPathsForValuesAffectingFancyDesc { return NSSET(@"name", @"info", @"version"); }
-
-//+(NSSet*)keyPathsForValuesAffectingVersion { return NSSET(@"info"); }
 
 - (void) setInfo:(NSString *)info
 {
@@ -67,40 +62,42 @@
 @end
 
 @implementation AZHomeBrew
-static NSDictionary *operations;
 
-+ (void)initialize
-{
-	operations = @{	@(BrewOperationNone)	  	:		  @"",
-					@(BrewFormulaeInstalled) 	:	  @"list",
-					@(BrewFormulaeAvailable)	:	@"search",
-					@(BrewFormulaeOutdated) 	:  @"outdated",
-					@(BrewOperationInstall)	  	:   @"install",
-					@(BrewOperationUninstall) 	: @"uninstall",
-					@(BrewOperationUpdate)		:	@"update",
-					@(BrewOperationUpgrade)   	:   @"upgrade",
-					@(BrewOperationInfo)	  	:	  @"info",
-					@(BrewOperationDesc)	  	:	  @"desc"};
-}
+@synthesize commands = _commands;
 
-- (NSS*)brewPath { return _brewPath ?: @"/usr/local/bin/brew"; }
+- (void) setUp {
 
--(void) setUp
-{
+	[$(@"Inside %@ in class %@", AZSELSTR, AZCLSSTR) log];
+
+	_commands = @{   		  @(BrewOperationNone)	:	@"",
+							 @(BrewFormulaeInstalled) 	:	@"list",
+							 @(BrewFormulaeAvailable)	:	@"search",
+							  @(BrewFormulaeOutdated) 	:  @"outdated",
+							  @(BrewOperationInstall)	:  @"install",
+							@(BrewOperationUninstall) 	: 	@"uninstall",
+								@(BrewOperationUpdate)	:	@"update",
+							  @(BrewOperationUpgrade)  :  @"upgrade",
+								  @(BrewOperationInfo)	:	@"info",
+								  @(BrewOperationDesc)	:	@"desc"			};
+
 	_entriesToAdd 	= NSMD.new;
 	_savePath 		= [NSB.applicationSupportFolder withPath:@"updatedDescriptions.plist"];
-	NSS *loadPath   = [AZFILEMANAGER fileExistsAtPath:_savePath] ? _savePath : [AZFWORKBUNDLE pathForResource:@"BrewDescriptions" ofType:@"plist"];
+	NSS *loadPath  = [AZFILEMANAGER fileExistsAtPath:_savePath] ? _savePath : [AZFWORKBUNDLE pathForResource:@"BrewDescriptions" ofType:@"plist"];
 	_reference 		= [NSD dictionaryWithContentsOfFile:loadPath];
-	AZHomeBrew.sharedInstance = self;
-	_shouldExit = NO;
+	_shouldExit 	= NO;
+	_brewPath 		= @"/usr/local/bin/brew";
+	self.content   = @[self.available];//.mutableCopy;
+	self.childrenKeyPath = @"mutableChildNodes";
+	self.objectClass = [AZBrewFormula class];
+
 }
 
-- (void)updateInstalled
-{
-		NSA *installed = [[[CWTask.alloc initWithExecutable:self.brewPath andArguments:@[operations[@(BrewFormulaeInstalled)]] atDirectory:nil]
+- (void)updateInstalled	{
+
+		NSA *installed = [[[CWTask.alloc initWithExecutable:_brewPath andArguments:@[_commands[@(BrewFormulaeInstalled)]] atDirectory:nil]
 								  launchTask:nil] sepByString:@"\n"].sansLast;
 		if (installed.count == 0) return;
-		[self.available each:^(AZBrewFormula* obj) {
+		[self.available.childNodes each:^(AZBrewFormula* obj) {
 			if ([installed containsObject:obj.name]) obj.installStatus = AZInstalled;
 		}];
 		[self updateOutdated];
@@ -108,11 +105,11 @@ static NSDictionary *operations;
 
 - (void)updateOutdated
 {
-	NSA* args = @[operations[@(BrewFormulaeOutdated)]];
-	NSA *outNames = [[[CWTask.alloc initWithExecutable:self.brewPath andArguments:args atDirectory:nil]
+	NSA* args = @[_commands[@(BrewFormulaeOutdated)]];
+	NSA *outNames = [[[CWTask.alloc initWithExecutable:_brewPath andArguments:args atDirectory:nil]
 					  launchTask:nil] sepByString:@"\n"].sansLast;
 	if (outNames.count == 0) return;
-	[self.available each:^(AZBrewFormula* obj){
+	[self.available.childNodes each:^(AZBrewFormula* obj){
 		if ([outNames containsObject:obj.name]) {
 			obj.installStatus = obj.installStatus == AZInstalled ? AZInstalledNeedsUpdate : AZNeedsUpdate;
 		}
@@ -120,53 +117,41 @@ static NSDictionary *operations;
 //	[self updateAllFormulaeInfo];
 }
 
-- (NSMA*)available
+- (NSTN*)available
 {
-	return _available = _available ?: ^{
-		NSA* args = @[operations[@(BrewFormulaeAvailable)]];
-		AZLOG(args);
+	[@"querying brew!" log]; NSBeep();
+
+	return _available = _available ?: ^{		NSA* args = @[_commands[@(BrewFormulaeAvailable)]];		AZLOG(args);
+
+		_available		 		= NSTN.new;
+		__block NSTN *nodes 	= _available;
 		NSS* avaiNamesOutput = [[CWTask.alloc initWithExecutable:self.brewPath andArguments:args atDirectory:nil] launchTask:nil];
 		NSLog(@"availnames: %@", avaiNamesOutput);
-		NSA *availNames = [avaiNamesOutput sepByString:@"\n"].sansLast;
-		AZLOG(availNames);
-		self.available = [availNames cw_mapArray:^id(NSS*name) {
-			AZBrewFormula *f = [AZBrewFormula instanceWithName:name];
-			if (f) {
-				if ([_reference objectForKey:name]) {
-					f.desc = _reference[name];
-				} 
-				if (f.desc == nil) {
-					[AZSSOQ addOperationWithBlock:^{
-						NSS* s = [f.name wikiDescription];
-						NSLog(@"foundwiki for %@   wiki:%@", f.name, s);
-						if (s) f.desc = $(@"W:%@",s);
-					}];
-				}
-
-			}
-			return f ?: nil;
-		}].mutableCopy;
-		NSLog(@"Updating available.  Count:%ld", _available.count);
-		[self updateInstalled];
+		[[avaiNamesOutput sepByString:@"\n"].sansLast each:^(NSS*availName) {
+			AZBrewFormula *f = [AZBrewFormula instanceWithName:availName];
+			if (!f) return;
+			if ([_reference objectForKey:availName]) f.desc = _reference[availName];
+			if (f.desc == nil)
+				[AZSSOQ addOperationWithBlock:^{ NSS* s; NSLog(@"foundwiki for %@   wiki:%@", f.name, s = [f.name wikiDescription]);
+					if (s) f.desc = $(@"W:%@",s);
+				}];
+			[nodes.mutableChildNodes addObject:[NSTN treeNodeWithRepresentedObject:f]];
+		}];
+		NSLog(@"Updating available.  Count:%ld", _available.childNodes.count);	//		[self updateInstalled];
 		return _available;
 	}();
 }
+-(void) updateAllFormulaeInfo	{  [self.available.childNodes each:^(AZBrewFormula* obj) { [self setInfoForFormula:obj]; }]; }
 
--(void) updateAllFormulaeInfo
-{
-	[self.available each:^(AZBrewFormula* obj) {
-		[self setInfoForFormula:obj];
-	}];
-}
+-(NSS*)setInfoForFormula:(AZBrewFormula*)formula {
 
--(NSS*)setInfoForFormula:(AZBrewFormula*)formula;
-{
 	[[CWTask.alloc initWithExecutable:self.brewPath
-										  andArguments:@[operations[@(BrewOperationInfo)], formula.name] atDirectory:nil]
-		launchTaskOnQueue:AZSSOQ withCompletionBlock:^(NSString *output, NSError *error) {
-			if (output) formula.info = output;
-	}];
+							   andArguments:@[_commands[@(BrewOperationInfo)], formula.name] atDirectory:nil]
+		launchTaskOnQueue:AZSSOQ withCompletionBlock:^(NSS*outP, NSERR*e) { if (outP) formula.info = outP; }];
 }
+- (void)setShouldLog:(BOOL)shouldLog	{	_shouldLog = shouldLog;	NSLog(@"Should log:  %@", self.propertiesPlease); }
+@end
+
 //	static BOOL hadDesc, hadVersion;  hadDesc = hadVersion = NO;
 //	static NSS* font = @"UbuntuMono-Bold";
 //	NSAS *aFancyDesc  = formula.fancyDesc ?: ^{
@@ -208,10 +193,3 @@ static NSDictionary *operations;
 //	keyPaths;
 //}
 
-- (void)setShouldLog:(BOOL)shouldLog
-{
-	_shouldLog = shouldLog;
-	NSLog(@"Should log:  %@", self.propertiesPlease);
-}
-
-@end

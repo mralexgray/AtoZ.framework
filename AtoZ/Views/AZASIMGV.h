@@ -6,16 +6,12 @@
 //  All rights reserved.
 //
 
-
-
 @interface AZASIMGV : NSImageView
 
 @property (readonly) BOOL isLoadingImage, userDidCancel, didFailLoadingImage;
 
 @property (nonatomic, strong) NSString *URL;
 //@property (nonatomic, strong) NSURL* properURL;
-
-
 
 @property (NATOM, STRNG) NSString *toolTipWhileLoading;
 @property (NATOM, STRNG) NSString *toolTipWhenFinished;

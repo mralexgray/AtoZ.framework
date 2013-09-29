@@ -27,8 +27,6 @@
 
 @end
 
-
-
 @interface NSSegmentedControl (FitTextNice)
 
 - (void)fitTextNice ;

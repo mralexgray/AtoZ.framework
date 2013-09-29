@@ -7,32 +7,22 @@
 
 
 @implementation CAAnimationGroup (oneLine)
+
 + (CAAG*) groupWithAnimations:(NSA*)anis duration:(NSTI)ti andSet:(CAL*)toSet {
 
 	CAAnimationGroup *group = self.new;
-	for (CAA* a in anis) {
-		[a setDuration:ti];
-		if (toSet && [a vFK:@"toValue"])
-			a.start = ^(CAAnimationDelegate*d){
-				id aToVal = ((CABA*)d.ani).toValue;
-				NSS* kp = ((CAPropertyAnimation*)d.ani).keyPath;
-				[[d.layer modelCALayer] setValue:aToVal forKey:kp];
-			};
+	for (CAA* a in anis) {	a.duration = ti;	if (!toSet || ![a vFK:@"toValue"]) return;
+		a.start = ^(CAAnimationDelegate*d){
+			[d.layer.modelCALayer sV:((CABA*)d.ani).toValue fK:((CAPropertyAnimation*)d.ani).keyPath];
+		};
 	}
-	group.animations = anis;
-	return group;
+	group.animations = anis; return group;
 }
 @end
 
 //- (void) dealloc	{	self.completion = nil;	self.start = nil;	}
 @implementation CATransaction (AtoZ)
-+ (void) flushBlock:(VoidBlock)block							{
-
-	[self begin];
-	block();
-	[self flush];
-	[self commit];
-}
++ (void) flushBlock:(VoidBlock)block	{	[self begin];	block();	[self flush]; [self commit];	}
 @end
 
 
@@ -147,8 +137,6 @@
 */
 
 @implementation CATransition (AtoZ)
-
-
 
 
 + (CATransition*) randomTransition
@@ -313,7 +301,7 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey = @"AZCAAnimationCompl
 + (CAAnimation*)backgroundColorAnimationFrom:(NSColor *)color1 to:(NSColor *)color2 duration:(NSTI) dur{
 	
 	CABA * animation = [CABA animationWithKeyPath:@"backgroundColor"];
-	NSDictionary *dic = @{	 	@"fromValue":(id)[color1 CGColor],
+	NSDictionary *dic = @{ @"fromValue":(id)[color1 CGColor],
 								  @"toValue":(id)[color2 CGColor],
 								  @"duration":@(dur),
 								  @"removedOnCompletion":@NO,
@@ -399,11 +387,7 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey = @"AZCAAnimationCompl
 	return animation;
 }
 
-
-
 #pragma mark - Sphere Layer Generation
-
-
 
 
 
@@ -1085,8 +1069,6 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey = @"AZCAAnimationCompl
  [self.imageView.layer addAnimation:animation forKey:@"0"];
  }
  */
-
-
 
 /* alternative style  
  

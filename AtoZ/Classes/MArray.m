@@ -2,8 +2,6 @@
 #import <objc/objc-class.h>
 
 
-
-
 static const BOOL __MArrayPrint=NO;
 
 @interface MArray (Private)
@@ -127,11 +125,11 @@ static const BOOL __MArrayPrint=NO;
 //	return self;
 //}
 
--(Class)class
-{
-	//return objc_getMetaClass("NSArray");
-	return [MArray class];
-}
+//-(Class)class
+//{
+//	//return objc_getMetaClass("NSArray");
+//	return [MArray class];
+//}
 
 -(BOOL)conformsToProtocol:(Protocol *)proto
 {
@@ -163,14 +161,14 @@ static const BOOL __MArrayPrint=NO;
 	return [[self proxiedObject] isEqual:obj];
 }
 
--(BOOL)isKindOfClass:(Class)class
+-(BOOL)isKindOfClass:(Class)klass
 {
-	return [self class]==class || [[self proxiedObject] isKindOfClass:class];
+	return [self class]==klass || [[self proxiedObject] isKindOfClass:klass];
 }
 
--(BOOL)isMemberOfClass:(Class)class
+-(BOOL)isMemberOfClass:(Class)klass
 {
-	return [self class]==class || [[self proxiedObject] isMemberOfClass:class];
+	return [self class]==klass || [[self proxiedObject] isMemberOfClass:klass];
 }
 
 -(BOOL)isProxy
@@ -227,8 +225,6 @@ static const BOOL __MArrayPrint=NO;
 	return [[self proxiedObject] zone];
 }
 @end
-
-
 
 @implementation NSMutableArray (objectsWithFormat)
 -(unsigned)addObjectsWithFormat:(NSString*)format,...
@@ -304,11 +300,11 @@ static const BOOL __MArrayPrint=NO;
 
 
 @implementation MTypedArray
--(id)initWithTypeClass:(Class)class
+-(id)initWithTypeClass:(Class)klass
 {
 	if(self=[super initWithCapacity:5])
 	{
-		_class=class;
+		_class=klass;
 	}
 	return self;
 }

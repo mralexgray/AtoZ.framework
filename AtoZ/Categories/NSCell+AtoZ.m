@@ -38,8 +38,6 @@
 
 @end
 
-
-
 static NSColor *highlightColor;
 
 @implementation RNAddListItemCell

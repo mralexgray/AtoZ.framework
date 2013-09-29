@@ -129,6 +129,13 @@
 			remoteGlobalIDString = 4339C607142222D300C21E14;
 			remoteInfo = "FunSize-Static";
 		};
+		7BC9600A17D64E0F00E64FCB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B3365FE1754A6920037DE96 /* FunSize.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 4311A74313D7429E00820313;
+			remoteInfo = FunSize;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -667,6 +674,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				7BC9600B17D64E0F00E64FCB /* PBXTargetDependency */,
 			);
 			name = AtoZAppKit;
 			productName = BGHUDAppKit;
@@ -802,6 +810,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		7BC9600B17D64E0F00E64FCB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = FunSize;
+			targetProxy = 7BC9600A17D64E0F00E64FCB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		7B657CE3176225ED000BF102 /* MainMenu.xib */ = {

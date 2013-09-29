@@ -24,8 +24,34 @@
 - (BOOL)setObjectOrNull:(id)anObject forKey:(id)aKey;
 @end
 
-//http://appventure.me/2011/12/fast-nsdictionary-traversal-in-objective-c.html
-//	supports retrieving individual NSArray entities during traversal. I.e.: ‘data.friends.data.0.name’ to access the first friends name
+/** http://appventure.me/2011/12/fast-nsdictionary-traversal-in-objective-c.html
+	supports retrieving individual NSArray entities during traversal.
+	I.e.: ‘data.friends.data.0.name’ to access the first friends name
+
+{
+    "data": [{
+        "location": {
+            "id": "833",
+            "latitude": 37.77956816727314,
+            "longitude": -122.41387367248539,
+            "name": "Civic Center BART"
+        },
+        "comments": {
+            "count": 16,
+            "data": [ ... ]
+        },
+        "caption": null,
+        "link": "http://instagr.am/p/BXsFz/",
+        "likes": {
+            "count": 190,
+            "data": [{
+                "username": "shayne",
+                "full_name": "Shayne Sweeney",
+                "id": "20",
+                "profile_picture": "..."
+            }, {...subset of likers...}]
+        }}]
+}
 @interface NSDictionary (objectForKeyList)
 - (id)objectForKeyList:(id)key, ...;
 
@@ -54,7 +80,8 @@
 - (NSA*)arrayForKey:(id)key default:(NSA*)defaultValue;
 - (NSA*)arrayForKey:(id)key;
 
-@end
+@end */
+
 /**  FIERCE
 
 	NSD* whatever = @{@"colors" : NSC.colorLists};
@@ -289,8 +316,6 @@ extern const int jsonDoNotIndent;
 - (NSS*)jsonIndentStringForLevel:(int)level;
 
 @end
-
-
 
 extern NSString *jsonObjectStartString;
 extern NSString *jsonObjectEndString;

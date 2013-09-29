@@ -255,8 +255,6 @@
 
 //NSR 	e = ([[_s.rects objectAtNormalizedIndex:index] rectValue]);
 
-
-
 //- (void) updateFrame:(NSR)rect
 //{
 //	AZSizer *s = [AZSizer forQuantity:self.quantity inRect:rect];

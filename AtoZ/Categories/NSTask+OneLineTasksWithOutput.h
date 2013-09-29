@@ -32,8 +32,6 @@
 #define kNSTaskLaunchFailed -1
 #define kNSTaskProcessOutputError -2
 
-
-
 @interface NSTask (CXAdditions)
 
 // For the three methods below:

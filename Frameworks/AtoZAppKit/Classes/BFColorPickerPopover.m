@@ -2,8 +2,9 @@
 //  NSColor+ColorPickerPopover.m
 //  CocosGame
 #import "BFColorPickerPopover.h"
-
+#import <objc/runtime.h>
 @implementation NSColor (BFColorPickerPopover)
+
 - (CGColorRef)copyCGColor{
 	NSColor *colorRGB = [self colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
 	CGFloat components[4];
@@ -13,6 +14,7 @@
 	CGColorSpaceRelease(theColorSpace);
 	return theColor;
 }
+
 + (NSColor *)randomColor {
 	return [NSColor colorWithCalibratedRed:(float)random()/RAND_MAX green:(float) random()/RAND_MAX blue:(float) random()/RAND_MAX alpha:1.0f];
 }
@@ -20,53 +22,35 @@
 static BOOL colorPanelEnabled = YES;
 @interface BFColorPickerPopover ()
 - (void)closeAndDeactivateColorWell:(BOOL)deactivate removeTarget:(BOOL)remove removeObserver:(BOOL)removeObserver;
-@property (nonatomic) NSColorPanel *colorPanel;
-@property (nonatomic, weak) NSColorWell *colorWell;
+@property (nonatomic) 		NSColorPanel *colorPanel;
+@property (nonatomic,weak) NSColorWell *colorWell;
 @end
 @implementation NSColorPanel (BFColorPickerPopover)
-- (void)disablePanel {
-	colorPanelEnabled = NO;
-}
-- (void)enablePanel {
-	colorPanelEnabled = YES;
-}
-- (void)orderFront:(id)sender {
-	if (colorPanelEnabled) {
-		NSColorPanel *panel = [BFColorPickerPopover sharedPopover].colorPanel;
-		if (panel) {
-			self.contentView = panel.contentView;
-		}
-		[super orderFront:sender];
-	} else {
-		// Don't do anything.
-	}
+- (void)disablePanel 		{		  colorPanelEnabled = NO;		}
+- (void)enablePanel 			{		  colorPanelEnabled = YES;	}
+- (void)orderFront:(id)s 	{	if (!colorPanelEnabled) return;	NSColorPanel *panel = [BFColorPickerPopover sharedPopover].colorPanel; if (!panel) return;
+																			 self.contentView = panel.contentView;		[super orderFront:s];
 }
 + (NSString *)color {
-	NSColorPanel *panel = [NSColorPanel sharedColorPanel];
-	NSColor *color = [panel color];
-	return [NSString stringWithFormat:@"r: %d, g: %d, b: %d, a: %d",
-			  (int)roundf([color redComponent]*255),
-			  (int)roundf([color greenComponent]*255),
-			  (int)roundf([color blueComponent]*255),
-			  (int)roundf([color alphaComponent]*255)];
+	NSColor *color = NSColorPanel.sharedColorPanel.color;
+	return [NSString stringWithFormat:@"r:%i, g:%i, b:%i, a:%i",	(int)roundf(color.redComponent	*255), (int)roundf(color.greenComponent	*255),
+																					  	(int)roundf(color.blueComponent	*255), (int)roundf(color.alphaComponent	*255)];
 }
 @end
 static NSColorWell *hiddenWell = nil;
 @implementation NSColorWell (BFColorPickerPopover)
 + (void)deactivateAll {
-	[[NSColorPanel sharedColorPanel] disablePanel];
-	hiddenWell = [[NSColorWell alloc] init];
+	[NSColorPanel.sharedColorPanel disablePanel];
+	hiddenWell = NSColorWell.new;
 	hiddenWell.color = [NSColor colorWithCalibratedRed:1/255.0 green:2/255.0 blue:3/255.0 alpha:1];
 	[hiddenWell activate:YES];
 	[hiddenWell deactivate];
-	[[NSColorPanel sharedColorPanel] enablePanel];
+	[NSColorPanel.sharedColorPanel enablePanel];
 }
-+ (NSColorWell *)hiddenWell {
-	return hiddenWell;
-}
++ (NSColorWell *)hiddenWell {	return hiddenWell;	}
 - (void)_performActivationClickWithShiftDown:(BOOL)shift {
 	if (!self.isActive) {
-		BFColorPickerPopover *popover = [BFColorPickerPopover sharedPopover];
+		BFColorPickerPopover *popover = BFColorPickerPopover.sharedPopover;
 		if (popover.isShown) {
 			BOOL animatesBackup = popover.animates;
 			popover.animates = NO;
@@ -76,93 +60,47 @@ static NSColorWell *hiddenWell = nil;
 		[BFColorPickerPopover sharedPopover].target = nil;
 		[BFColorPickerPopover sharedPopover].action = NULL;
 		[self activate:!shift];
-	} else {
+	} else
 		[self deactivate];
-	}
 }
 @end
 
 @implementation BFIconTabBar {
 	NSMutableIndexSet *_selectedIndexes;
 	BFIconTabBarItem *_pressedItem;
-	BOOL _firstItemWasSelected;
-	BOOL _dragging;
+	BOOL _firstItemWasSelected, _dragging;
 }
-@synthesize items = _items;
-@synthesize itemWidth = _itemWidth;
-@synthesize multipleSelection = _multipleSelection;
-@synthesize delegate = _delegate;
 #pragma mark - Initialization & Destruction
 - (id)initWithFrame:(NSRect)frame
 {
-	self = [super initWithFrame:frame];
-	if (self) {
-		_dragging = NO;
-		_itemWidth = 32.0f;
-		_multipleSelection = NO;
-		_selectedIndexes = [[NSMutableIndexSet alloc] init];
-	}
+	if (self != [super initWithFrame:frame]) return  nil;
+	_dragging  = _multipleSelection = NO;
+	_itemWidth 	= 32.0f;
+	_selectedIndexes = NSMutableIndexSet.new;
+	_items = NSMutableArray.new;
 	return self;
 }
 
 #pragma mark - Convenience Methods
 // x coordinate of the first item.
-- (CGFloat)startX {
-	BOOL centered = NO;
-	if (centered) {
-		int itemCount = (int)[_items count];
-		CGFloat totalWidth = itemCount * _itemWidth;
-		CGFloat startX = (self.bounds.size.width - totalWidth) / 2.0f;
-		return startX;
-	} else {
-		return 4.0f;
-	}
-}
-- (BFIconTabBarItem *)itemAtX:(CGFloat)x {
-	NSInteger index = floor((x - [self startX]) / _itemWidth);
-	if (index >= 0 && index < (NSInteger)[_items count]) {
-		return [_items objectAtIndex:(NSUInteger)index];
-	}
-	return nil;
+- (CGFloat)startX { return (self.bounds.size.width - (self.items.count * _itemWidth)) / 2.0f; }
+
+- (BFIconTabBarItem *)itemAtX:(CGFloat)x {	NSInteger index = floor((x - self.startX) / _itemWidth);
+	return index >= 0 && index < self.items.count ? self.items[index] : nil;
 }
 #pragma mark - Getters & Setters
-- (NSMutableArray *)items {
-	if (!_items) {
-		_items = [NSMutableArray arrayWithCapacity:3];
-	}
-	return _items;
-}
-- (void)setItems:(NSArray *)newItems {
-	if (newItems != _items) {
-		_items = [NSMutableArray arrayWithArray:newItems];
-		for (BFIconTabBarItem *item in _items) {
-			item.tabBar = self;
-		}
-		if ([_selectedIndexes count] < 1) {
-			[_selectedIndexes addIndex:0];
-		}
+- (void)setItems:(NSArray *)newItems {	if (newItems != _items) {
+		_items = newItems.mutableCopy;
+		for (BFIconTabBarItem *item in _items) item.tabBar = self;
+		if ([_selectedIndexes count] < 1) [_selectedIndexes addIndex:0];
 		[self setNeedsDisplay];
 	}
 }
 #pragma mark - Selection
-- (BFIconTabBarItem *)selectedItem {
-	if ([_selectedIndexes count] > 0) {
-		return [_items objectAtIndex:[_selectedIndexes firstIndex]];
-	}
-	return nil;
-}
-- (NSInteger)selectedIndex {
-	return [_selectedIndexes count] < 1 ? -1 : (NSInteger)[_selectedIndexes firstIndex];
-}
-- (NSArray *)selectedItems {
-	if ([_selectedIndexes count] > 0) {
-		return [_items objectsAtIndexes:_selectedIndexes];
-	}
-	return nil;
-}
-- (NSIndexSet *)selectedIndexes {
-	return [[NSIndexSet alloc] initWithIndexSet:_selectedIndexes];
-}
+- (BFIconTabBarItem *)selectedItem { return  _selectedIndexes.count ? _items[_selectedIndexes.firstIndex] : nil; }
+- (NSInteger)selectedIndex {	return _selectedIndexes.count < 1 ? -1 : (NSInteger)[_selectedIndexes firstIndex];	}
+- (NSArray *)selectedItems { return _selectedIndexes.count ? [_items objectsAtIndexes:_selectedIndexes] : nil; }
+- (NSIndexSet *)selectedIndexes {	return [NSIndexSet.alloc initWithIndexSet:_selectedIndexes]; }
 - (void)setMultipleSelection:(BOOL)multiple {
 	if (multiple != _multipleSelection) {
 		_multipleSelection = multiple;
@@ -308,11 +246,9 @@ static NSColorWell *hiddenWell = nil;
 	[line1 stroke];
 }
 #pragma mark - Events
-- (void)notify {
-	[NSApp sendAction:[self action] to:[self target] from:self];
-	if ([_delegate respondsToSelector:@selector(tabBarChangedSelection:)]) {
-		[_delegate tabBarChangedSelection:self];
-	}
+- (void)notify { if (self.action == NULL ||  self.target == nil) return;
+	[NSApp sendAction:self.action to:self.target from:self];
+	if ([_delegate respondsToSelector:@selector(tabBarChangedSelection:)]) [_delegate tabBarChangedSelection:self];
 }
 - (void)mouseDown:(NSEvent *)theEvent {
 	CGPoint point = [self convertPoint:[theEvent locationInWindow] fromView:nil];
@@ -343,51 +279,34 @@ static NSColorWell *hiddenWell = nil;
 		BFIconTabBarItem *item = [self itemAtX:point.x];
 		if (item != _pressedItem) {
 			_pressedItem = item;
-			if (_multipleSelection && !_firstItemWasSelected) {
-				[self deselectItem:_pressedItem];
-			} else {
-				[self selectItem:_pressedItem];
-			}
+			_multipleSelection && !_firstItemWasSelected ?	[self deselectItem:_pressedItem] : [self selectItem:_pressedItem];
 			[self notify];
 			[self setNeedsDisplay];
 		}
-	} else {
-		[super mouseDragged:theEvent];
-	}
+	} else		[super mouseDragged:theEvent];
 }
 - (void)mouseUp:(NSEvent *)theEvent {
 	if (_dragging) {
 		_pressedItem = nil;
 		_dragging = NO;
 		[self setNeedsDisplay];
-	} else {
-		[super mouseUp:theEvent];
-	}
+	} else		[super mouseUp:theEvent];
 }
 @end
 #pragma mark - -
 @implementation BFIconTabBarItem
 #pragma mark - Initialization & Destruction
 - (id)initWithIcon:(NSImage *)image tooltip:(NSString *)tooltipString {
-	self = [super init];
-	if (self) {
-		self.icon = image;
-		self.tooltip = tooltipString;
-	}
+	if (!(self = [super init])) return nil;
+	_icon = image;
+	_tooltip = tooltipString;
 	return self;
 }
 + (BFIconTabBarItem *)itemWithIcon:(NSImage *)image tooltip:(NSString *)tooltipString {
 	return [[BFIconTabBarItem alloc] initWithIcon:image tooltip:tooltipString];
 }
-
 #pragma mark - Getters & Setters
-- (void)setIcon:(NSImage *)newIcon {
-	if (newIcon != _icon) {
-		_icon = newIcon;
-		[_tabBar setNeedsDisplay];
-	}
-}
-
+- (void)setIcon:(NSImage *)newIcon {	if (newIcon != _icon) {		_icon = newIcon;		[_tabBar setNeedsDisplay];	}	}
 @end
 
 @interface BFPopoverColorWell ()
@@ -402,23 +321,8 @@ static NSColorWell *hiddenWell = nil;
 	self.useColorPanelIfAvailable = YES;
 }
 
-- (id)initWithCoder:(NSCoder *)coder
-{
-	self = [super initWithCoder:coder];
-	if (self) {
-		[self setup];
-	}
-	return self;
-}
-
-- (id)initWithFrame:(NSRect)frame
-{
-	self = [super initWithFrame:frame];
-	if (self) {
-		[self setup];
-	}
-	return self;
-}
+- (id)initWithCoder:(NSCoder *)coder	{	if (!(self = [super initWithCoder:coder])) return nil;	[self setup]; return self; }
+- (id)initWithFrame:(NSRect)frame		{	if (!(self = [super initWithFrame:frame])) return nil;	[self setup]; return self; }
 
 - (void)activateWithPopover {
 	if (self.isActive) return;
@@ -481,32 +385,15 @@ static NSColorWell *hiddenWell = nil;
 + (BFColorPickerPopover *)sharedPopover	{
 	static BFColorPickerPopover *sharedPopover = nil;
 	static dispatch_once_t onceToken;
-	dispatch_once(&onceToken, ^{
-		sharedPopover = [[BFColorPickerPopover alloc] init];
-	});
+	dispatch_once(&onceToken, ^{		sharedPopover = BFColorPickerPopover.new; 	});
 	return sharedPopover;
 }
-- (id)init	{
-	self = [super init];
-	if (self) {
-		self.behavior = NSPopoverBehaviorSemitransient;
-		_color = [NSColor whiteColor];
-	}
-	return self;
-}
+- (id)init	{ return self = [super init] ? self.behavior = NSPopoverBehaviorSemitransient, _color = [NSColor whiteColor], self : nil; }
+
 #pragma mark - Getters & Setters
-- (NSColorPanel *)colorPanel {
-	return ((BFColorPickerViewController *)self.contentViewController).colorPanel;
-}
-- (NSColor *)color {
-	return self.colorPanel.color;
-}
-- (void)setColor:(NSColor *)color {
-	_color = color;
-	if (self.isShown) {
-		self.colorPanel.color = color;
-	}
-}
+- (NSColorPanel *)colorPanel {	return ((BFColorPickerViewController *)self.contentViewController).colorPanel;	}
+- (NSColor *)color {	return [self.colorPanel.color copy];		}
+- (void)setColor:(NSColor *)color {	_color = [color copy];	if (self.isShown)		self.colorPanel.color = [color copy];	}
 #pragma mark - Popover Lifecycle
 - (void)showRelativeToRect:(NSRect)positioningRect ofView:(NSView *)positioningView preferredEdge:(NSRectEdge)preferredEdge {
 
@@ -576,15 +463,22 @@ static NSColorWell *hiddenWell = nil;
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if (object == self.colorPanel && [keyPath isEqualToString:@"color"]) {
 		_color = self.colorPanel.color;
-		if (self.target && self.action && [self.target respondsToSelector:self.action]) {
+//		if (self.target && self.action && [self.target respondsToSelector:self.action]) {
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+	 NSParameterAssert(self.target != nil);
+	 NSParameterAssert(self.action != NULL);
+    NSParameterAssert([self.target respondsToSelector:self.action]);
 
-			[self.target performSelector:self.action withObject:self];
-
+    NSMethodSignature* methodSig = [self.target methodSignatureForSelector:self.action];
+    if(methodSig == nil) return;
+    const char* retType = [methodSig methodReturnType];
+    if(strcmp(retType, @encode(id)) == 0 || strcmp(retType, @encode(void)) == 0){
+		 [self.target performSelector:self.action withObject:self];
+    } else
+        NSLog(@"-[%@ performSelector:@selector(%@)] shouldn't be used. The selector doesn't return an object or void", [self className], NSStringFromSelector(self.action));
 #pragma clang diagnostic pop
-		}
 	}
 }
 @end

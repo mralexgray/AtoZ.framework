@@ -176,8 +176,6 @@
 	return self;
 }
 
-
-
 - (void)spin
 {
 	// ensure the acnhor point is the center

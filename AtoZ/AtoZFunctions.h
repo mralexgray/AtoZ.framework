@@ -47,8 +47,6 @@ void profile (const char *name, VoidBlock block); 		// usage	 profile("Long Task
 #define IFKINDAELSE(_obj_,_meta_,_method_,_else_) ({ if([_obj_ ISKINDA:[_meta_ class]]) _method_; else _else_; })
 #define IFNOT(_condition_,_action_)					  ({ if(!(_condition_)) _action__; })
 
-#define AZPROP_HINTED(_type_,_directives_,_name_) @property _directives_ _type_ _name
-#define AZPROPS(_type_,_directives_,...) for(int i=2, i<VA_NUM_ARGS, i++) AZPROP
 
 #define AZOL AZOutlineLayer
 
@@ -57,7 +55,13 @@ void profile (const char *name, VoidBlock block); 		// usage	 profile("Long Task
 
 PLAYMACRO(Chirp, /System/Library/PrivateFrameworks/ShareKit.framework/Versions/A/PlugIns/Twitter.sharingservice/Contents/Resources/tweet_sent.caf)
 
+
+// a function pointer is...			void(*pT)() = &playTrumpet;
+// and is called like...						pT();
+
 NS_INLINE void playTrumpet(void){ runCommand(@"afplay \"/System/Library/Frameworks/GameKit.framework/Versions/A/Resources/GKInvite.aif\""); }
+
+NS_INLINE void logger(NSS*toLog){ runCommand($(@"logger %@", toLog)); }
 
 
 //NS_INLINE void playChirp  (void){ runCommand(@"afplay \"/System/Library/PrivateFrameworks/ShareKit.framework/Versions/A/PlugIns/Twitter.sharingservice/Contents/Resources/tweet_sent.caf\""); }
@@ -135,8 +139,6 @@ typedef void(^AZActionCellBlock)(id objVal);
 @property (nonatomic, assign) AZActionCellBlock actionBlock;
 @end
 
-
-
 #define boardPositionToIndex(pos, boardSize) ((pos).x - 1) + (((pos).y - 1) * boardSize)
 #define indexToBoardPosition(idx, boardSize) (CGPointMake((x) % boardSize, (int)((x) / boardSize) + 1))
 
@@ -202,8 +204,6 @@ static inline BOOL NSRangeContainsRange( NSRNG range1, NSRNG range2) {
 	:NO;
 }
 
-
-
 //static inline
 //BOOL isEmpty(id thing);
 //typedef int (^triple)(int number);
@@ -245,6 +245,7 @@ void NSRectFillWithColor (NSRect rect, NSColor* color);
 NSS* StringFromCATransform3D(CATransform3D transform);
 NSS* prettyFloat(CGFloat f);
 
+NS_INLINE void rebuildServicesMenu(void) {  NSUpdateDynamicServices(); printf("The services menu has been rebuilt. You must restart any active applications to see changes.\n"); }
 
 CGImageRef ApplyQuartzComposition ( const char* compositionName, const CGImageRef srcImage );
 
@@ -283,8 +284,6 @@ CGPathRef AZRandomPathInRect(NSR rect);
 
 // WARNING: if NO_LOG_MACROS is #define-ed, than THE ARGUMENT WILL NOT BE EVALUATED
 //#ifndef NO_LOG_MACROS
-
-
 
 
 // http://www.wilshipley.com/blog/2005/10/pimp-my-code-interlude-free-code.html

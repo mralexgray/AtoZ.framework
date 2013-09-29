@@ -64,5 +64,3 @@ extern NSString * const AZThemeDidUpdateNotification;
 @property (nonatomic,strong) NSGradient	*tableHeaderCellSelectedFill;		//	Gradient used to draw selected column header
 @end
 
-
-

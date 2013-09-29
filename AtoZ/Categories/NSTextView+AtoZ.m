@@ -240,8 +240,6 @@
 
 @end
 
-
-
 @implementation NSSegmentedControl (FitTextNice)
 
 - (void)fitTextNice {

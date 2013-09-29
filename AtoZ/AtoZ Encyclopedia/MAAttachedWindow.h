@@ -183,8 +183,6 @@ typedef enum _MAWindowPosition {
 
 @end
 
-
-
 @interface MAAttachedWindowNonActivating : MAAttachedWindow 
 @end
 

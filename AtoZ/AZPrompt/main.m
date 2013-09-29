@@ -187,7 +187,7 @@ menuWithContacts contactMenu = ^(ContactList *contacts)			{
 -(void) saveContacts															{	if( [NSKeyedArchiver archiveRootObject:_list toFile:@"contactList.dat"] == NO) NSLog(@"Archiving Failed");
 }
 
-- (NSArray*) frameworks						{ return @[@"AtoZAppKit.framework", @"BWTK.framework", @"Zangetsu.framework", @"Rebel.framework", @"PhFacebook.framework", @"MapKit.framework", @"KSHTMLWriterFramework.framework", @"FunSize.framework", @"CocoaPuffs.framework", @"AtoZBezierPath.framework", @"TwUI.framework", @"SVGKit.framework", @"NoodleKit.framework", @"MenuApp.framework", @"Lumberjack.framework", @"DrawKit.framework", @"CocoatechCore.framework", @"BlocksKit.framework" ];	}
+- (NSArray*) frameworks						{ return @[@"AtoZAppKit.framework", @"BWTK.framework", @"Zangetsu.framework", @"Rebel.framework", @"PhFacebook.framework", @"MapKit.framework", @"KSHTMLWriter.framework", @"FunSize.framework", @"CocoaPuffs.framework", @"AtoZBezierPath.framework", @"TwUI.framework", @"SVGKit.framework", @"NoodleKit.framework", @"MenuApp.framework", @"Lumberjack.framework", @"DrawKit.framework", @"CocoatechCore.framework", @"BlocksKit.framework" ];	}
 - (NSString*) basePath 						{ return @"/Library/Frameworks/AtoZ.framework/Versions/A/Frameworks";	}
 - (NSString*) clr:(NSString*)s 			{
 

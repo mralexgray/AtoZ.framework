@@ -9,8 +9,6 @@
 #ifndef AtoZ_AtoZCategories_h
 #define AtoZ_AtoZCategories_h
 
-
-
 /* FOUNDATION  CATEGORIES */
 #import "NSObject-Utilities.h"
 #import "NSObject+AtoZ.h"

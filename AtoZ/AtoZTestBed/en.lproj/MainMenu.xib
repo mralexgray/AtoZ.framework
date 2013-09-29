@@ -1,106 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4457.9" systemVersion="13A497d" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4504" systemVersion="13A569" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4457.9"/>
+        <deployment defaultVersion="1070" identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4504"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
             <connections>
-                <action selector="orderFrontStandardAboutPanel:" destination="58" id="142"/>
                 <outlet property="delegate" destination="494" id="675"/>
                 <outlet property="window" destination="547" id="674"/>
             </connections>
         </customObject>
-        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder">
-            <connections>
-                <action selector="alignCenter:" destination="499" id="518"/>
-                <action selector="alignJustified:" destination="500" id="523"/>
-                <action selector="alignLeft:" destination="498" id="524"/>
-                <action selector="alignRight:" destination="501" id="521"/>
-                <action selector="arrangeInFront:" destination="5" id="39"/>
-                <action selector="capitalizeWord:" destination="466" id="467"/>
-                <action selector="centerSelectionInVisibleArea:" destination="210" id="245"/>
-                <action selector="checkSpelling:" destination="201" id="225"/>
-                <action selector="clearRecentDocuments:" destination="126" id="127"/>
-                <action selector="copy:" destination="197" id="224"/>
-                <action selector="copyFont:" destination="403" id="428"/>
-                <action selector="copyRuler:" destination="506" id="522"/>
-                <action selector="cut:" destination="199" id="228"/>
-                <action selector="delete:" destination="202" id="235"/>
-                <action selector="hide:" destination="134" id="367"/>
-                <action selector="hideOtherApplications:" destination="145" id="368"/>
-                <action selector="loosenKerning:" destination="419" id="435"/>
-                <action selector="lowerBaseline:" destination="410" id="427"/>
-                <action selector="lowercaseWord:" destination="465" id="468"/>
-                <action selector="makeBaseWritingDirectionLeftToRight:" destination="511" id="526"/>
-                <action selector="makeBaseWritingDirectionNatural:" destination="510" id="525"/>
-                <action selector="makeBaseWritingDirectionRightToLeft:" destination="512" id="527"/>
-                <action selector="makeTextWritingDirectionLeftToRight:" destination="516" id="529"/>
-                <action selector="makeTextWritingDirectionNatural:" destination="515" id="528"/>
-                <action selector="makeTextWritingDirectionRightToLeft:" destination="517" id="530"/>
-                <action selector="newDocument:" destination="82" id="373"/>
-                <action selector="openDocument:" destination="72" id="374"/>
-                <action selector="orderFrontColorPanel:" destination="401" id="433"/>
-                <action selector="orderFrontSubstitutionsPanel:" destination="457" id="458"/>
-                <action selector="paste:" destination="203" id="226"/>
-                <action selector="pasteAsPlainText:" destination="485" id="486"/>
-                <action selector="pasteFont:" destination="404" id="436"/>
-                <action selector="pasteRuler:" destination="507" id="519"/>
-                <action selector="performClose:" destination="73" id="193"/>
-                <action selector="performFindPanelAction:" destination="209" id="241"/>
-                <action selector="performFindPanelAction:" destination="208" id="487"/>
-                <action selector="performFindPanelAction:" destination="213" id="488"/>
-                <action selector="performFindPanelAction:" destination="221" id="489"/>
-                <action selector="performFindPanelAction:" destination="534" id="535"/>
-                <action selector="performMiniaturize:" destination="23" id="37"/>
-                <action selector="performZoom:" destination="239" id="240"/>
-                <action selector="print:" destination="78" id="86"/>
-                <action selector="raiseBaseline:" destination="409" id="426"/>
-                <action selector="redo:" destination="215" id="231"/>
-                <action selector="revertDocumentToSaved:" destination="112" id="364"/>
-                <action selector="runPageLayout:" destination="77" id="87"/>
-                <action selector="runToolbarCustomizationPalette:" destination="298" id="365"/>
-                <action selector="saveDocument:" destination="75" id="362"/>
-                <action selector="selectAll:" destination="198" id="232"/>
-                <action selector="showGuessPanel:" destination="204" id="230"/>
-                <action selector="showHelp:" destination="492" id="493"/>
-                <action selector="startSpeaking:" destination="196" id="233"/>
-                <action selector="stopSpeaking:" destination="195" id="227"/>
-                <action selector="subscript:" destination="408" id="429"/>
-                <action selector="superscript:" destination="407" id="430"/>
-                <action selector="tightenKerning:" destination="418" id="431"/>
-                <action selector="toggleAutomaticDashSubstitution:" destination="460" id="461"/>
-                <action selector="toggleAutomaticLinkDetection:" destination="354" id="357"/>
-                <action selector="toggleAutomaticQuoteSubstitution:" destination="351" id="356"/>
-                <action selector="toggleAutomaticSpellingCorrection:" destination="454" id="456"/>
-                <action selector="toggleAutomaticTextReplacement:" destination="462" id="463"/>
-                <action selector="toggleContinuousSpellChecking:" destination="219" id="222"/>
-                <action selector="toggleGrammarChecking:" destination="346" id="347"/>
-                <action selector="toggleRuler:" destination="505" id="520"/>
-                <action selector="toggleSmartInsertDelete:" destination="350" id="355"/>
-                <action selector="toggleToolbarShown:" destination="297" id="366"/>
-                <action selector="turnOffKerning:" destination="417" id="441"/>
-                <action selector="turnOffLigatures:" destination="413" id="440"/>
-                <action selector="underline:" destination="392" id="432"/>
-                <action selector="undo:" destination="207" id="223"/>
-                <action selector="unhideAllApplications:" destination="150" id="370"/>
-                <action selector="unscript:" destination="406" id="437"/>
-                <action selector="uppercaseWord:" destination="452" id="464"/>
-                <action selector="useAllLigatures:" destination="414" id="434"/>
-                <action selector="useStandardKerning:" destination="416" id="438"/>
-                <action selector="useStandardLigatures:" destination="412" id="439"/>
-            </connections>
-        </customObject>
-        <customObject id="-3" userLabel="Application">
-            <connections>
-                <action selector="terminate:" destination="136" id="449"/>
-            </connections>
-        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application"/>
         <customObject id="885" customClass="MenuAppController"/>
         <customObject id="494" customClass="TestBedDelegate">
             <connections>
-                <action selector="scrollFromSegment:" destination="769" id="771"/>
-                <action selector="setViewFromPopUp:" destination="558" id="571"/>
                 <outlet property="colorWell" destination="582" id="583"/>
                 <outlet property="contentView" destination="548" id="676"/>
                 <outlet property="menu" destination="885" id="886"/>
@@ -111,18 +26,18 @@
         </customObject>
         <window identifier="TestBed" title="AtoZTestBed" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" frameAutosaveName="TestBed" animationBehavior="default" id="547">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
-            <rect key="contentRect" x="335" y="390" width="630" height="192"/>
+            <rect key="contentRect" x="335" y="390" width="630" height="337"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1360" height="746"/>
             <view key="contentView" id="548" userLabel="BGHUDView" customClass="BGHUDView">
-                <rect key="frame" x="0.0" y="0.0" width="630" height="192"/>
+                <rect key="frame" x="0.0" y="0.0" width="630" height="337"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <popUpButton id="558">
-                        <rect key="frame" x="477" y="156" width="122" height="23"/>
+                        <rect key="frame" x="477" y="301" width="122" height="23"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                        <popUpButtonCell key="cell" type="square" title="CAScrollLayer" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" continuous="YES" state="on" borderStyle="border" imageScaling="proportionallyUpOrDown" sound="Feather Ruffle" inset="2" arrowPosition="noArrow" preferredEdge="maxY" autoenablesItems="NO" altersStateOfSelectedItem="NO" selectedItem="910" id="561" customClass="BGHUDPopUpButtonCell">
+                        <popUpButtonCell key="cell" type="square" title="BPODialTest" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" continuous="YES" state="on" borderStyle="border" imageScaling="proportionallyUpOrDown" sound="Feather Ruffle" inset="2" arrowPosition="noArrow" preferredEdge="maxY" autoenablesItems="NO" altersStateOfSelectedItem="NO" selectedItem="910" id="561" customClass="BGHUDPopUpButtonCell">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
+                            <font key="font" metaFont="menu"/>
                             <menu key="menu" title="OtherViews" autoenablesItems="NO" id="562">
                                 <items>
                                     <menuItem title="Geometry" keyEquivalent="1" id="563">
@@ -142,22 +57,25 @@
                                 </items>
                             </menu>
                         </popUpButtonCell>
+                        <connections>
+                            <action selector="setViewFromPopUp:" target="494" id="571"/>
+                        </connections>
                     </popUpButton>
                     <colorWell bordered="NO" id="582" customClass="AtoZColorWell">
-                        <rect key="frame" x="73" y="130" width="57" height="57"/>
+                        <rect key="frame" x="73" y="275" width="57" height="57"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                         <color key="color" red="0.96133367739999998" green="1" blue="0.2914992555" alpha="1" colorSpace="calibratedRGB"/>
                     </colorWell>
                     <customView hidden="YES" autoresizesSubviews="NO" canDrawConcurrently="YES" id="667" customClass="AZPropellerView">
-                        <rect key="frame" x="8" y="128" width="57" height="57"/>
+                        <rect key="frame" x="8" y="273" width="57" height="57"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     </customView>
                     <customView id="726" userLabel="Target">
-                        <rect key="frame" x="0.0" y="0.0" width="630" height="109"/>
+                        <rect key="frame" x="0.0" y="0.0" width="630" height="254"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </customView>
                     <button verticalHuggingPriority="750" id="881">
-                        <rect key="frame" x="132" y="159" width="82" height="32"/>
+                        <rect key="frame" x="132" y="304" width="82" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="Button" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="882">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -165,7 +83,7 @@
                         </buttonCell>
                     </button>
                     <textField verticalHuggingPriority="750" id="794">
-                        <rect key="frame" x="243" y="137" width="198" height="55"/>
+                        <rect key="frame" x="243" y="282" width="198" height="55"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" selectable="YES" continuous="YES" sendsActionOnEndEditing="YES" alignment="right" title="Section" drawsBackground="YES" id="801">
                             <font key="font" size="13" name="UbuntuTitling-Bold"/>
@@ -173,6 +91,13 @@
                             <color key="backgroundColor" name="controlDarkShadowColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                         <connections>
+                            <binding destination="494" name="displayPatternValue3" keyPath="self.scrollTest.lastLaySpan" previousBinding="873" id="874">
+                                <dictionary key="options">
+                                    <string key="NSDisplayPattern">subCt:%{value1}@
+subOrig %{value2}@
+lastSpan %{value3}@ </string>
+                                </dictionary>
+                            </binding>
                             <binding destination="494" name="displayPatternValue1" keyPath="self.scrollTest.sublayerCt" id="872">
                                 <dictionary key="options">
                                     <string key="NSDisplayPattern">subCt:%{value1}@
@@ -187,21 +112,14 @@ subOrig %{value2}@
 lastSpan %{value3}@ </string>
                                 </dictionary>
                             </binding>
-                            <binding destination="494" name="displayPatternValue3" keyPath="self.scrollTest.lastLaySpan" previousBinding="873" id="874">
-                                <dictionary key="options">
-                                    <string key="NSDisplayPattern">subCt:%{value1}@
-subOrig %{value2}@
-lastSpan %{value3}@ </string>
-                                </dictionary>
-                            </binding>
                         </connections>
                     </textField>
                     <popUpButton verticalHuggingPriority="750" id="887">
-                        <rect key="frame" x="136" y="122" width="100" height="26"/>
+                        <rect key="frame" x="136" y="267" width="100" height="26"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="890" id="888">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
+                            <font key="font" metaFont="menu"/>
                             <menu key="menu" title="OtherViews" id="889">
                                 <items>
                                     <menuItem title="Item 1" state="on" id="890"/>
@@ -222,6 +140,9 @@ lastSpan %{value3}@ </string>
                         <items>
                             <menuItem title="About AtoZTestBed" id="58">
                                 <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="orderFrontStandardAboutPanel:" target="-2" id="142"/>
+                                </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="236">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
@@ -236,95 +157,211 @@ lastSpan %{value3}@ </string>
                             <menuItem isSeparatorItem="YES" id="144">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
-                            <menuItem title="Hide AtoZTestBed" keyEquivalent="h" id="134"/>
+                            <menuItem title="Hide AtoZTestBed" keyEquivalent="h" id="134">
+                                <connections>
+                                    <action selector="hide:" target="-1" id="367"/>
+                                </connections>
+                            </menuItem>
                             <menuItem title="Hide Others" keyEquivalent="h" id="145">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                <connections>
+                                    <action selector="hideOtherApplications:" target="-1" id="368"/>
+                                </connections>
                             </menuItem>
-                            <menuItem title="Show All" id="150"/>
+                            <menuItem title="Show All" id="150">
+                                <connections>
+                                    <action selector="unhideAllApplications:" target="-1" id="370"/>
+                                </connections>
+                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="149">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
-                            <menuItem title="Quit AtoZTestBed" keyEquivalent="q" id="136"/>
+                            <menuItem title="Quit AtoZTestBed" keyEquivalent="q" id="136">
+                                <connections>
+                                    <action selector="terminate:" target="-3" id="449"/>
+                                </connections>
+                            </menuItem>
                         </items>
                     </menu>
                 </menuItem>
                 <menuItem title="File" id="83">
                     <menu key="submenu" title="File" id="81">
                         <items>
-                            <menuItem title="New" keyEquivalent="n" id="82"/>
-                            <menuItem title="Open…" keyEquivalent="o" id="72"/>
+                            <menuItem title="New" keyEquivalent="n" id="82">
+                                <connections>
+                                    <action selector="newDocument:" target="-1" id="373"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Open…" keyEquivalent="o" id="72">
+                                <connections>
+                                    <action selector="openDocument:" target="-1" id="374"/>
+                                </connections>
+                            </menuItem>
                             <menuItem title="Open Recent" id="124">
                                 <menu key="submenu" title="Open Recent" systemMenu="recentDocuments" id="125">
                                     <items>
-                                        <menuItem title="Clear Menu" id="126"/>
+                                        <menuItem title="Clear Menu" id="126">
+                                            <connections>
+                                                <action selector="clearRecentDocuments:" target="-1" id="127"/>
+                                            </connections>
+                                        </menuItem>
                                     </items>
                                 </menu>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="79">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
-                            <menuItem title="Close" keyEquivalent="w" id="73"/>
-                            <menuItem title="Save…" keyEquivalent="s" id="75"/>
+                            <menuItem title="Close" keyEquivalent="w" id="73">
+                                <connections>
+                                    <action selector="performClose:" target="-1" id="193"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Save…" keyEquivalent="s" id="75">
+                                <connections>
+                                    <action selector="saveDocument:" target="-1" id="362"/>
+                                </connections>
+                            </menuItem>
                             <menuItem title="Revert to Saved" id="112">
                                 <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="revertDocumentToSaved:" target="-1" id="364"/>
+                                </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="74">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
                             <menuItem title="Page Setup..." keyEquivalent="P" id="77">
                                 <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
+                                <connections>
+                                    <action selector="runPageLayout:" target="-1" id="87"/>
+                                </connections>
                             </menuItem>
-                            <menuItem title="Print…" keyEquivalent="p" id="78"/>
+                            <menuItem title="Print…" keyEquivalent="p" id="78">
+                                <connections>
+                                    <action selector="print:" target="-1" id="86"/>
+                                </connections>
+                            </menuItem>
                         </items>
                     </menu>
                 </menuItem>
                 <menuItem title="Edit" id="217">
                     <menu key="submenu" title="Edit" id="205">
                         <items>
-                            <menuItem title="Undo" keyEquivalent="z" id="207"/>
+                            <menuItem title="Undo" keyEquivalent="z" id="207">
+                                <connections>
+                                    <action selector="undo:" target="-1" id="223"/>
+                                </connections>
+                            </menuItem>
                             <menuItem title="Redo" keyEquivalent="Z" id="215">
                                 <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
+                                <connections>
+                                    <action selector="redo:" target="-1" id="231"/>
+                                </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="206">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
-                            <menuItem title="Cut" keyEquivalent="x" id="199"/>
-                            <menuItem title="Copy" keyEquivalent="c" id="197"/>
-                            <menuItem title="Paste" keyEquivalent="v" id="203"/>
+                            <menuItem title="Cut" keyEquivalent="x" id="199">
+                                <connections>
+                                    <action selector="cut:" target="-1" id="228"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Copy" keyEquivalent="c" id="197">
+                                <connections>
+                                    <action selector="copy:" target="-1" id="224"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Paste" keyEquivalent="v" id="203">
+                                <connections>
+                                    <action selector="paste:" target="-1" id="226"/>
+                                </connections>
+                            </menuItem>
                             <menuItem title="Paste and Match Style" keyEquivalent="V" id="485">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                <connections>
+                                    <action selector="pasteAsPlainText:" target="-1" id="486"/>
+                                </connections>
                             </menuItem>
-                            <menuItem title="Delete" id="202"/>
-                            <menuItem title="Select All" keyEquivalent="a" id="198"/>
+                            <menuItem title="Delete" id="202">
+                                <connections>
+                                    <action selector="delete:" target="-1" id="235"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Select All" keyEquivalent="a" id="198">
+                                <connections>
+                                    <action selector="selectAll:" target="-1" id="232"/>
+                                </connections>
+                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="214">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
                             <menuItem title="Find" id="218">
                                 <menu key="submenu" title="Find" id="220">
                                     <items>
-                                        <menuItem title="Find…" tag="1" keyEquivalent="f" id="209"/>
+                                        <menuItem title="Find…" tag="1" keyEquivalent="f" id="209">
+                                            <connections>
+                                                <action selector="performFindPanelAction:" target="-1" id="241"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem title="Find and Replace…" tag="12" keyEquivalent="f" id="534">
                                             <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                            <connections>
+                                                <action selector="performFindPanelAction:" target="-1" id="535"/>
+                                            </connections>
                                         </menuItem>
-                                        <menuItem title="Find Next" tag="2" keyEquivalent="g" id="208"/>
+                                        <menuItem title="Find Next" tag="2" keyEquivalent="g" id="208">
+                                            <connections>
+                                                <action selector="performFindPanelAction:" target="-1" id="487"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem title="Find Previous" tag="3" keyEquivalent="G" id="213">
                                             <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
+                                            <connections>
+                                                <action selector="performFindPanelAction:" target="-1" id="488"/>
+                                            </connections>
                                         </menuItem>
-                                        <menuItem title="Use Selection for Find" tag="7" keyEquivalent="e" id="221"/>
-                                        <menuItem title="Jump to Selection" keyEquivalent="j" id="210"/>
+                                        <menuItem title="Use Selection for Find" tag="7" keyEquivalent="e" id="221">
+                                            <connections>
+                                                <action selector="performFindPanelAction:" target="-1" id="489"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Jump to Selection" keyEquivalent="j" id="210">
+                                            <connections>
+                                                <action selector="centerSelectionInVisibleArea:" target="-1" id="245"/>
+                                            </connections>
+                                        </menuItem>
                                     </items>
                                 </menu>
                             </menuItem>
                             <menuItem title="Spelling and Grammar" id="216">
                                 <menu key="submenu" title="Spelling and Grammar" id="200">
                                     <items>
-                                        <menuItem title="Show Spelling and Grammar" keyEquivalent=":" id="204"/>
-                                        <menuItem title="Check Document Now" keyEquivalent=";" id="201"/>
+                                        <menuItem title="Show Spelling and Grammar" keyEquivalent=":" id="204">
+                                            <connections>
+                                                <action selector="showGuessPanel:" target="-1" id="230"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Check Document Now" keyEquivalent=";" id="201">
+                                            <connections>
+                                                <action selector="checkSpelling:" target="-1" id="225"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="453"/>
-                                        <menuItem title="Check Spelling While Typing" id="219"/>
-                                        <menuItem title="Check Grammar With Spelling" id="346"/>
+                                        <menuItem title="Check Spelling While Typing" id="219">
+                                            <connections>
+                                                <action selector="toggleContinuousSpellChecking:" target="-1" id="222"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Check Grammar With Spelling" id="346">
+                                            <connections>
+                                                <action selector="toggleGrammarChecking:" target="-1" id="347"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem title="Correct Spelling Automatically" id="454">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="toggleAutomaticSpellingCorrection:" target="-1" id="456"/>
+                                            </connections>
                                         </menuItem>
                                     </items>
                                 </menu>
@@ -334,18 +371,38 @@ lastSpan %{value3}@ </string>
                                     <items>
                                         <menuItem title="Show Substitutions" id="457">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="orderFrontSubstitutionsPanel:" target="-1" id="458"/>
+                                            </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="459"/>
-                                        <menuItem title="Smart Copy/Paste" tag="1" keyEquivalent="f" id="350"/>
-                                        <menuItem title="Smart Quotes" tag="2" keyEquivalent="g" id="351"/>
+                                        <menuItem title="Smart Copy/Paste" tag="1" keyEquivalent="f" id="350">
+                                            <connections>
+                                                <action selector="toggleSmartInsertDelete:" target="-1" id="355"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Smart Quotes" tag="2" keyEquivalent="g" id="351">
+                                            <connections>
+                                                <action selector="toggleAutomaticQuoteSubstitution:" target="-1" id="356"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem title="Smart Dashes" id="460">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="toggleAutomaticDashSubstitution:" target="-1" id="461"/>
+                                            </connections>
                                         </menuItem>
                                         <menuItem title="Smart Links" tag="3" keyEquivalent="G" id="354">
                                             <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
+                                            <connections>
+                                                <action selector="toggleAutomaticLinkDetection:" target="-1" id="357"/>
+                                            </connections>
                                         </menuItem>
                                         <menuItem title="Text Replacement" id="462">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="toggleAutomaticTextReplacement:" target="-1" id="463"/>
+                                            </connections>
                                         </menuItem>
                                     </items>
                                 </menu>
@@ -356,12 +413,21 @@ lastSpan %{value3}@ </string>
                                     <items>
                                         <menuItem title="Make Upper Case" id="452">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="uppercaseWord:" target="-1" id="464"/>
+                                            </connections>
                                         </menuItem>
                                         <menuItem title="Make Lower Case" id="465">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="lowercaseWord:" target="-1" id="468"/>
+                                            </connections>
                                         </menuItem>
                                         <menuItem title="Capitalize" id="466">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="capitalizeWord:" target="-1" id="467"/>
+                                            </connections>
                                         </menuItem>
                                     </items>
                                 </menu>
@@ -369,8 +435,16 @@ lastSpan %{value3}@ </string>
                             <menuItem title="Speech" id="211">
                                 <menu key="submenu" title="Speech" id="212">
                                     <items>
-                                        <menuItem title="Start Speaking" id="196"/>
-                                        <menuItem title="Stop Speaking" id="195"/>
+                                        <menuItem title="Start Speaking" id="196">
+                                            <connections>
+                                                <action selector="startSpeaking:" target="-1" id="233"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Stop Speaking" id="195">
+                                            <connections>
+                                                <action selector="stopSpeaking:" target="-1" id="227"/>
+                                            </connections>
+                                        </menuItem>
                                     </items>
                                 </menu>
                             </menuItem>
@@ -388,7 +462,11 @@ lastSpan %{value3}@ </string>
                                         <menuItem title="Show Fonts" keyEquivalent="t" id="389"/>
                                         <menuItem title="Bold" tag="2" keyEquivalent="b" id="390"/>
                                         <menuItem title="Italic" tag="1" keyEquivalent="i" id="391"/>
-                                        <menuItem title="Underline" keyEquivalent="u" id="392"/>
+                                        <menuItem title="Underline" keyEquivalent="u" id="392">
+                                            <connections>
+                                                <action selector="underline:" target="-1" id="432"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="393"/>
                                         <menuItem title="Bigger" tag="3" keyEquivalent="+" id="394"/>
                                         <menuItem title="Smaller" tag="4" keyEquivalent="-" id="395"/>
@@ -399,15 +477,27 @@ lastSpan %{value3}@ </string>
                                                 <items>
                                                     <menuItem title="Use Default" id="416">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="useStandardKerning:" target="-1" id="438"/>
+                                                        </connections>
                                                     </menuItem>
                                                     <menuItem title="Use None" id="417">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="turnOffKerning:" target="-1" id="441"/>
+                                                        </connections>
                                                     </menuItem>
                                                     <menuItem title="Tighten" id="418">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="tightenKerning:" target="-1" id="431"/>
+                                                        </connections>
                                                     </menuItem>
                                                     <menuItem title="Loosen" id="419">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="loosenKerning:" target="-1" id="435"/>
+                                                        </connections>
                                                     </menuItem>
                                                 </items>
                                             </menu>
@@ -418,12 +508,21 @@ lastSpan %{value3}@ </string>
                                                 <items>
                                                     <menuItem title="Use Default" id="412">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="useStandardLigatures:" target="-1" id="439"/>
+                                                        </connections>
                                                     </menuItem>
                                                     <menuItem title="Use None" id="413">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="turnOffLigatures:" target="-1" id="440"/>
+                                                        </connections>
                                                     </menuItem>
                                                     <menuItem title="Use All" id="414">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="useAllLigatures:" target="-1" id="434"/>
+                                                        </connections>
                                                     </menuItem>
                                                 </items>
                                             </menu>
@@ -434,30 +533,55 @@ lastSpan %{value3}@ </string>
                                                 <items>
                                                     <menuItem title="Use Default" id="406">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="unscript:" target="-1" id="437"/>
+                                                        </connections>
                                                     </menuItem>
                                                     <menuItem title="Superscript" id="407">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="superscript:" target="-1" id="430"/>
+                                                        </connections>
                                                     </menuItem>
                                                     <menuItem title="Subscript" id="408">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="subscript:" target="-1" id="429"/>
+                                                        </connections>
                                                     </menuItem>
                                                     <menuItem title="Raise" id="409">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="raiseBaseline:" target="-1" id="426"/>
+                                                        </connections>
                                                     </menuItem>
                                                     <menuItem title="Lower" id="410">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="lowerBaseline:" target="-1" id="427"/>
+                                                        </connections>
                                                     </menuItem>
                                                 </items>
                                             </menu>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="400"/>
-                                        <menuItem title="Show Colors" keyEquivalent="C" id="401"/>
+                                        <menuItem title="Show Colors" keyEquivalent="C" id="401">
+                                            <connections>
+                                                <action selector="orderFrontColorPanel:" target="-1" id="433"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="402"/>
                                         <menuItem title="Copy Style" keyEquivalent="c" id="403">
                                             <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                            <connections>
+                                                <action selector="copyFont:" target="-1" id="428"/>
+                                            </connections>
                                         </menuItem>
                                         <menuItem title="Paste Style" keyEquivalent="v" id="404">
                                             <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                            <connections>
+                                                <action selector="pasteFont:" target="-1" id="436"/>
+                                            </connections>
                                         </menuItem>
                                     </items>
                                 </menu>
@@ -466,12 +590,27 @@ lastSpan %{value3}@ </string>
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Text" id="497">
                                     <items>
-                                        <menuItem title="Align Left" keyEquivalent="{" id="498"/>
-                                        <menuItem title="Center" keyEquivalent="|" id="499"/>
+                                        <menuItem title="Align Left" keyEquivalent="{" id="498">
+                                            <connections>
+                                                <action selector="alignLeft:" target="-1" id="524"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Center" keyEquivalent="|" id="499">
+                                            <connections>
+                                                <action selector="alignCenter:" target="-1" id="518"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem title="Justify" id="500">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="alignJustified:" target="-1" id="523"/>
+                                            </connections>
                                         </menuItem>
-                                        <menuItem title="Align Right" keyEquivalent="}" id="501"/>
+                                        <menuItem title="Align Right" keyEquivalent="}" id="501">
+                                            <connections>
+                                                <action selector="alignRight:" target="-1" id="521"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="502"/>
                                         <menuItem title="Writing Direction" id="503">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -483,14 +622,23 @@ lastSpan %{value3}@ </string>
                                                     <menuItem id="510">
                                                         <string key="title">	Default</string>
                                                         <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="makeBaseWritingDirectionNatural:" target="-1" id="525"/>
+                                                        </connections>
                                                     </menuItem>
                                                     <menuItem id="511">
                                                         <string key="title">	Left to Right</string>
                                                         <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="makeBaseWritingDirectionLeftToRight:" target="-1" id="526"/>
+                                                        </connections>
                                                     </menuItem>
                                                     <menuItem id="512">
                                                         <string key="title">	Right to Left</string>
                                                         <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="makeBaseWritingDirectionRightToLeft:" target="-1" id="527"/>
+                                                        </connections>
                                                     </menuItem>
                                                     <menuItem isSeparatorItem="YES" id="513"/>
                                                     <menuItem title="Selection" enabled="NO" id="514">
@@ -499,14 +647,23 @@ lastSpan %{value3}@ </string>
                                                     <menuItem id="515">
                                                         <string key="title">	Default</string>
                                                         <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="makeTextWritingDirectionNatural:" target="-1" id="528"/>
+                                                        </connections>
                                                     </menuItem>
                                                     <menuItem id="516">
                                                         <string key="title">	Left to Right</string>
                                                         <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="makeTextWritingDirectionLeftToRight:" target="-1" id="529"/>
+                                                        </connections>
                                                     </menuItem>
                                                     <menuItem id="517">
                                                         <string key="title">	Right to Left</string>
                                                         <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="makeTextWritingDirectionRightToLeft:" target="-1" id="530"/>
+                                                        </connections>
                                                     </menuItem>
                                                 </items>
                                             </menu>
@@ -514,12 +671,21 @@ lastSpan %{value3}@ </string>
                                         <menuItem isSeparatorItem="YES" id="504"/>
                                         <menuItem title="Show Ruler" id="505">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="toggleRuler:" target="-1" id="520"/>
+                                            </connections>
                                         </menuItem>
                                         <menuItem title="Copy Ruler" keyEquivalent="c" id="506">
                                             <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
+                                            <connections>
+                                                <action selector="copyRuler:" target="-1" id="522"/>
+                                            </connections>
                                         </menuItem>
                                         <menuItem title="Paste Ruler" keyEquivalent="v" id="507">
                                             <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
+                                            <connections>
+                                                <action selector="pasteRuler:" target="-1" id="519"/>
+                                            </connections>
                                         </menuItem>
                                     </items>
                                 </menu>
@@ -532,20 +698,39 @@ lastSpan %{value3}@ </string>
                         <items>
                             <menuItem title="Show Toolbar" keyEquivalent="t" id="297">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                <connections>
+                                    <action selector="toggleToolbarShown:" target="-1" id="366"/>
+                                </connections>
                             </menuItem>
-                            <menuItem title="Customize Toolbar…" id="298"/>
+                            <menuItem title="Customize Toolbar…" id="298">
+                                <connections>
+                                    <action selector="runToolbarCustomizationPalette:" target="-1" id="365"/>
+                                </connections>
+                            </menuItem>
                         </items>
                     </menu>
                 </menuItem>
                 <menuItem title="Window" id="19">
                     <menu key="submenu" title="Window" systemMenu="window" id="24">
                         <items>
-                            <menuItem title="Minimize" keyEquivalent="m" id="23"/>
-                            <menuItem title="Zoom" id="239"/>
+                            <menuItem title="Minimize" keyEquivalent="m" id="23">
+                                <connections>
+                                    <action selector="performMiniaturize:" target="-1" id="37"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Zoom" id="239">
+                                <connections>
+                                    <action selector="performZoom:" target="-1" id="240"/>
+                                </connections>
+                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="92">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
-                            <menuItem title="Bring All to Front" id="5"/>
+                            <menuItem title="Bring All to Front" id="5">
+                                <connections>
+                                    <action selector="arrangeInFront:" target="-1" id="39"/>
+                                </connections>
+                            </menuItem>
                         </items>
                     </menu>
                 </menuItem>
@@ -553,7 +738,11 @@ lastSpan %{value3}@ </string>
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Help" systemMenu="help" id="491">
                         <items>
-                            <menuItem title="AtoZTestBed Help" keyEquivalent="?" id="492"/>
+                            <menuItem title="AtoZTestBed Help" keyEquivalent="?" id="492">
+                                <connections>
+                                    <action selector="showHelp:" target="-1" id="493"/>
+                                </connections>
+                            </menuItem>
                         </items>
                     </menu>
                 </menuItem>
@@ -686,6 +875,9 @@ lastSpan %{value3}@ </string>
                             </segment>
                         </segments>
                     </segmentedCell>
+                    <connections>
+                        <action selector="scrollFromSegment:" target="494" id="771"/>
+                    </connections>
                 </segmentedControl>
             </subviews>
         </customView>
@@ -698,419 +890,4 @@ lastSpan %{value3}@ </string>
     <resources>
         <sound name="Feather Ruffle"/>
     </resources>
-    <classes>
-        <class className="AIAccountViewController" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/AIAccountViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="changedPreference:"/>
-                <relationship kind="action" name="signUpAccount:"/>
-                <relationship kind="outlet" name="button_signUp" candidateClass="NSButton"/>
-                <relationship kind="outlet" name="checkBox_checkMail" candidateClass="NSButton"/>
-                <relationship kind="outlet" name="checkBox_sendTyping" candidateClass="NSButton"/>
-                <relationship kind="outlet" name="label_alias" candidateClass="NSTextField"/>
-                <relationship kind="outlet" name="label_encryption" candidateClass="NSTextField"/>
-                <relationship kind="outlet" name="label_password" candidateClass="NSTextField"/>
-                <relationship kind="outlet" name="label_port" candidateClass="NSTextField"/>
-                <relationship kind="outlet" name="label_server" candidateClass="NSTextField"/>
-                <relationship kind="outlet" name="label_typing" candidateClass="NSTextField"/>
-                <relationship kind="outlet" name="popUp_encryption" candidateClass="NSPopUpButton"/>
-                <relationship kind="outlet" name="textField_accountUID" candidateClass="NSTextField"/>
-                <relationship kind="outlet" name="textField_accountUIDLabel" candidateClass="NSTextField"/>
-                <relationship kind="outlet" name="textField_alias" candidateClass="NSTextField"/>
-                <relationship kind="outlet" name="textField_connectHost" candidateClass="NSTextField"/>
-                <relationship kind="outlet" name="textField_connectPort" candidateClass="NSTextField"/>
-                <relationship kind="outlet" name="textField_password" candidateClass="NSTextField"/>
-                <relationship kind="outlet" name="view_auxiliaryTabView" candidateClass="NSTabView"/>
-                <relationship kind="outlet" name="view_options" candidateClass="NSView"/>
-                <relationship kind="outlet" name="view_privacy" candidateClass="NSView"/>
-                <relationship kind="outlet" name="view_profile" candidateClass="NSView"/>
-                <relationship kind="outlet" name="view_setup" candidateClass="NSView"/>
-            </relationships>
-        </class>
-        <class className="AIFacebookXMPPAccountViewController" superclassName="PurpleAccountViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/AIFacebookXMPPAccountViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="showHelp:"/>
-                <relationship kind="outlet" name="button_OAuthStart" candidateClass="AILocalizationButton"/>
-                <relationship kind="outlet" name="button_help" candidateClass="NSButton"/>
-                <relationship kind="outlet" name="spinner" candidateClass="NSProgressIndicator"/>
-                <relationship kind="outlet" name="textField_OAuthStatus" candidateClass="NSTextField"/>
-            </relationships>
-        </class>
-        <class className="AIInterfaceController" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/AIInterfaceController.h"/>
-            <relationships>
-                <relationship kind="action" name="adiumPrint:"/>
-                <relationship kind="action" name="closeAllChats:"/>
-                <relationship kind="action" name="closeChatMenu:"/>
-                <relationship kind="action" name="closeContextualChat:"/>
-                <relationship kind="action" name="closeMenu:"/>
-                <relationship kind="action" name="paste:"/>
-                <relationship kind="action" name="pasteAndMatchStyle:"/>
-                <relationship kind="action" name="pasteWithImagesAndColors:"/>
-                <relationship kind="action" name="reopenChat:"/>
-                <relationship kind="action" name="runToolbarCustomizationPalette:"/>
-                <relationship kind="action" name="setFontPanelSettingsAsDefaultFont:"/>
-                <relationship kind="action" name="showContactListAndBringToFront:"/>
-                <relationship kind="action" name="showPreferenceWindow:"/>
-                <relationship kind="action" name="toggleFontPanel:"/>
-                <relationship kind="action" name="toggleFontTrait:"/>
-                <relationship kind="action" name="toggleToolbarShown:"/>
-                <relationship kind="outlet" name="button_fontPanelSetAsDefault" candidateClass="NSButton"/>
-                <relationship kind="outlet" name="fontPanelAccessoryView" candidateClass="NSView"/>
-                <relationship kind="outlet" name="menuItem_bold" candidateClass="NSMenuItem"/>
-                <relationship kind="outlet" name="menuItem_close" candidateClass="NSMenuItem"/>
-                <relationship kind="outlet" name="menuItem_closeAllChats" candidateClass="NSMenuItem"/>
-                <relationship kind="outlet" name="menuItem_closeChat" candidateClass="NSMenuItem"/>
-                <relationship kind="outlet" name="menuItem_customizeToolbar" candidateClass="NSMenuItem"/>
-                <relationship kind="outlet" name="menuItem_italic" candidateClass="NSMenuItem"/>
-                <relationship kind="outlet" name="menuItem_paste" candidateClass="NSMenuItem"/>
-                <relationship kind="outlet" name="menuItem_pasteAndMatchStyle" candidateClass="NSMenuItem"/>
-                <relationship kind="outlet" name="menuItem_pasteWithImagesAndColors" candidateClass="NSMenuItem"/>
-                <relationship kind="outlet" name="menuItem_print" candidateClass="NSMenuItem"/>
-                <relationship kind="outlet" name="menuItem_reopenTab" candidateClass="NSMenuItem"/>
-                <relationship kind="outlet" name="menuItem_showFonts" candidateClass="NSMenuItem"/>
-                <relationship kind="outlet" name="menuItem_showToolbar" candidateClass="NSMenuItem"/>
-            </relationships>
-        </class>
-        <class className="AILocalizationButton" superclassName="NSButton">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/AILocalizationButton.h"/>
-            <relationships>
-                <relationship kind="outlet" name="view_anchorToLeftSide" candidateClass="NSView"/>
-                <relationship kind="outlet" name="view_anchorToRightSide" candidateClass="NSView"/>
-                <relationship kind="outlet" name="window_anchorOnLeftSide" candidateClass="NSWindow"/>
-                <relationship kind="outlet" name="window_anchorOnRightSide" candidateClass="NSWindow"/>
-            </relationships>
-        </class>
-        <class className="AZPropellerView" superclassName="NSView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/AZPropellerView.h"/>
-        </class>
-        <class className="AtoZColorWell" superclassName="NSColorWell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/AtoZColorWell.h"/>
-        </class>
-        <class className="BGHUDPopUpButtonCell" superclassName="NSPopUpButtonCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BGHUDPopUpButtonCell.h"/>
-        </class>
-        <class className="BGHUDSegmentedCell" superclassName="NSSegmentedCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BGHUDSegmentedCell.h"/>
-        </class>
-        <class className="BGHUDView" superclassName="NSView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BGHUDView.h"/>
-        </class>
-        <class className="CAScrollView" superclassName="NSView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CAScrollView.h"/>
-            <relationships>
-                <relationship kind="action" name="toggleOrientation:"/>
-            </relationships>
-        </class>
-        <class className="DKDrawableObject" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/DKDrawableObject.h"/>
-            <relationships>
-                <relationship kind="action" name="copyDrawingStyle:"/>
-                <relationship kind="action" name="lock:"/>
-                <relationship kind="action" name="lockLocation:"/>
-                <relationship kind="action" name="logDescription:"/>
-                <relationship kind="action" name="pasteDrawingStyle:"/>
-                <relationship kind="action" name="toggleClipToBBox:"/>
-                <relationship kind="action" name="toggleShowBBox:"/>
-                <relationship kind="action" name="toggleShowPartcodes:"/>
-                <relationship kind="action" name="toggleShowTargets:"/>
-                <relationship kind="action" name="unlock:"/>
-                <relationship kind="action" name="unlockLocation:"/>
-            </relationships>
-        </class>
-        <class className="DKDrawablePath" superclassName="DKDrawableObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/DKDrawablePath.h"/>
-            <relationships>
-                <relationship kind="action" name="addRandomNoise:"/>
-                <relationship kind="action" name="breakApart:"/>
-                <relationship kind="action" name="closePath:"/>
-                <relationship kind="action" name="convertToOutline:"/>
-                <relationship kind="action" name="convertToShape:"/>
-                <relationship kind="action" name="curveFit:"/>
-                <relationship kind="action" name="parallelCopy:"/>
-                <relationship kind="action" name="reversePath:"/>
-                <relationship kind="action" name="roughenPath:"/>
-                <relationship kind="action" name="smoothPath:"/>
-                <relationship kind="action" name="smoothPathMore:"/>
-                <relationship kind="action" name="toggleHorizontalFlip:"/>
-                <relationship kind="action" name="toggleVerticalFlip:"/>
-            </relationships>
-        </class>
-        <class className="DKDrawableShape" superclassName="DKDrawableObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/DKDrawableShape.h"/>
-            <relationships>
-                <relationship kind="action" name="convertToPath:"/>
-                <relationship kind="action" name="pastePath:"/>
-                <relationship kind="action" name="resetBoundingBox:"/>
-                <relationship kind="action" name="rotate:"/>
-                <relationship kind="action" name="setDistortMode:"/>
-                <relationship kind="action" name="toggleHorizontalFlip:"/>
-                <relationship kind="action" name="toggleVerticalFlip:"/>
-                <relationship kind="action" name="unrotate:"/>
-            </relationships>
-        </class>
-        <class className="DKDrawingView" superclassName="GCZoomView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/DKDrawingView.h"/>
-            <relationships>
-                <relationship kind="action" name="toggleRuler:"/>
-                <relationship kind="action" name="toggleShowPageBreaks:"/>
-            </relationships>
-        </class>
-        <class className="DKLayer" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/DKLayer.h"/>
-            <relationships>
-                <relationship kind="action" name="copy:"/>
-                <relationship kind="action" name="hideLayer:"/>
-                <relationship kind="action" name="lockLayer:"/>
-                <relationship kind="action" name="logDescription:"/>
-                <relationship kind="action" name="showLayer:"/>
-                <relationship kind="action" name="toggleLayerLock:"/>
-                <relationship kind="action" name="toggleLayerVisible:"/>
-                <relationship kind="action" name="unlockLayer:"/>
-            </relationships>
-        </class>
-        <class className="DKObjectDrawingLayer" superclassName="DKObjectOwnerLayer">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/DKObjectDrawingLayer.h"/>
-            <relationships>
-                <relationship kind="action" name="alignBottomEdges:"/>
-                <relationship kind="action" name="alignEdgesToGrid:"/>
-                <relationship kind="action" name="alignHorizontalCentres:"/>
-                <relationship kind="action" name="alignLeftEdges:"/>
-                <relationship kind="action" name="alignLocationToGrid:"/>
-                <relationship kind="action" name="alignRightEdges:"/>
-                <relationship kind="action" name="alignTopEdges:"/>
-                <relationship kind="action" name="alignVerticalCentres:"/>
-                <relationship kind="action" name="applyStyle:"/>
-                <relationship kind="action" name="assignKeyObject:"/>
-                <relationship kind="action" name="clusterObjects:"/>
-                <relationship kind="action" name="combineSelectedObjects:"/>
-                <relationship kind="action" name="copy:"/>
-                <relationship kind="action" name="cut:"/>
-                <relationship kind="action" name="delete:"/>
-                <relationship kind="action" name="deleteBackward:"/>
-                <relationship kind="action" name="diffSelectedObjects:"/>
-                <relationship kind="action" name="distributeHorizontalCentres:"/>
-                <relationship kind="action" name="distributeHorizontalSpace:"/>
-                <relationship kind="action" name="distributeVerticalCentres:"/>
-                <relationship kind="action" name="distributeVerticalSpace:"/>
-                <relationship kind="action" name="divideSelectedObjects:"/>
-                <relationship kind="action" name="duplicate:"/>
-                <relationship kind="action" name="ghostObjects:"/>
-                <relationship kind="action" name="groupObjects:"/>
-                <relationship kind="action" name="hideObject:"/>
-                <relationship kind="action" name="intersectionSelectedObjects:"/>
-                <relationship kind="action" name="joinPaths:"/>
-                <relationship kind="action" name="lockObject:"/>
-                <relationship kind="action" name="moveDown:"/>
-                <relationship kind="action" name="moveLeft:"/>
-                <relationship kind="action" name="moveRight:"/>
-                <relationship kind="action" name="moveUp:"/>
-                <relationship kind="action" name="objectBringForward:"/>
-                <relationship kind="action" name="objectBringToFront:"/>
-                <relationship kind="action" name="objectSendBackward:"/>
-                <relationship kind="action" name="objectSendToBack:"/>
-                <relationship kind="action" name="paste:"/>
-                <relationship kind="action" name="revealHiddenObjects:"/>
-                <relationship kind="action" name="selectAll:"/>
-                <relationship kind="action" name="selectMatchingStyle:"/>
-                <relationship kind="action" name="selectNone:"/>
-                <relationship kind="action" name="selectOthers:"/>
-                <relationship kind="action" name="setBooleanOpsFittingPolicy:"/>
-                <relationship kind="action" name="showObject:"/>
-                <relationship kind="action" name="unghostObjects:"/>
-                <relationship kind="action" name="unionSelectedObjects:"/>
-                <relationship kind="action" name="unlockObject:"/>
-                <relationship kind="action" name="xorSelectedObjects:"/>
-            </relationships>
-        </class>
-        <class className="DKObjectOwnerLayer" superclassName="DKLayer">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/DKObjectOwnerLayer.h"/>
-            <relationships>
-                <relationship kind="action" name="toggleShowStorageDebuggingPath:"/>
-                <relationship kind="action" name="toggleSnapToObjects:"/>
-            </relationships>
-        </class>
-        <class className="DKTextPath" superclassName="DKDrawablePath">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/DKTextPath.h"/>
-            <relationships>
-                <relationship kind="action" name="alignCenter:"/>
-                <relationship kind="action" name="alignJustified:"/>
-                <relationship kind="action" name="alignLeft:"/>
-                <relationship kind="action" name="alignRight:"/>
-                <relationship kind="action" name="capitalize:"/>
-                <relationship kind="action" name="changeAttributes:"/>
-                <relationship kind="action" name="changeFont:"/>
-                <relationship kind="action" name="changeFontSize:"/>
-                <relationship kind="action" name="changeLayoutMode:"/>
-                <relationship kind="action" name="convertToPath:"/>
-                <relationship kind="action" name="convertToShape:"/>
-                <relationship kind="action" name="convertToShapeGroup:"/>
-                <relationship kind="action" name="convertToTextShape:"/>
-                <relationship kind="action" name="editText:"/>
-                <relationship kind="action" name="loosenKerning:"/>
-                <relationship kind="action" name="lowerBaseline:"/>
-                <relationship kind="action" name="paste:"/>
-                <relationship kind="action" name="raiseBaseline:"/>
-                <relationship kind="action" name="subscript:"/>
-                <relationship kind="action" name="superscript:"/>
-                <relationship kind="action" name="takeTextAlignmentFromSender:"/>
-                <relationship kind="action" name="takeTextVerticalAlignmentFromSender:"/>
-                <relationship kind="action" name="tightenKerning:"/>
-                <relationship kind="action" name="turnOffKerning:"/>
-                <relationship kind="action" name="underline:"/>
-                <relationship kind="action" name="unscript:"/>
-                <relationship kind="action" name="useStandardKerning:"/>
-                <relationship kind="action" name="verticalAlign:"/>
-            </relationships>
-        </class>
-        <class className="DKTextShape" superclassName="DKDrawableShape">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/DKTextShape.h"/>
-            <relationships>
-                <relationship kind="action" name="alignCenter:"/>
-                <relationship kind="action" name="alignJustified:"/>
-                <relationship kind="action" name="alignLeft:"/>
-                <relationship kind="action" name="alignRight:"/>
-                <relationship kind="action" name="capitalize:"/>
-                <relationship kind="action" name="changeAttributes:"/>
-                <relationship kind="action" name="changeFont:"/>
-                <relationship kind="action" name="changeFontSize:"/>
-                <relationship kind="action" name="changeLayoutMode:"/>
-                <relationship kind="action" name="convertToShape:"/>
-                <relationship kind="action" name="convertToShapeGroup:"/>
-                <relationship kind="action" name="convertToTextPath:"/>
-                <relationship kind="action" name="editText:"/>
-                <relationship kind="action" name="fitToText:"/>
-                <relationship kind="action" name="loosenKerning:"/>
-                <relationship kind="action" name="lowerBaseline:"/>
-                <relationship kind="action" name="paste:"/>
-                <relationship kind="action" name="raiseBaseline:"/>
-                <relationship kind="action" name="subscript:"/>
-                <relationship kind="action" name="superscript:"/>
-                <relationship kind="action" name="takeTextAlignmentFromSender:"/>
-                <relationship kind="action" name="takeTextVerticalAlignmentFromSender:"/>
-                <relationship kind="action" name="tightenKerning:"/>
-                <relationship kind="action" name="turnOffKerning:"/>
-                <relationship kind="action" name="underline:"/>
-                <relationship kind="action" name="unscript:"/>
-                <relationship kind="action" name="useStandardKerning:"/>
-                <relationship kind="action" name="verticalAlign:"/>
-            </relationships>
-        </class>
-        <class className="DefinitionController" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/DefinitionController.h"/>
-        </class>
-        <class className="GCZoomView" superclassName="NSView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/GCZoomView.h"/>
-            <relationships>
-                <relationship kind="action" name="zoomFitInWindow:"/>
-                <relationship kind="action" name="zoomIn:"/>
-                <relationship kind="action" name="zoomMax:"/>
-                <relationship kind="action" name="zoomMin:"/>
-                <relationship kind="action" name="zoomOut:"/>
-                <relationship kind="action" name="zoomToActualSize:"/>
-                <relationship kind="action" name="zoomToPercentageWithTag:"/>
-            </relationships>
-        </class>
-        <class className="GHTestViewController" superclassName="NSViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/GHTestViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="copy:"/>
-                <relationship kind="action" name="openExceptionFilename:"/>
-                <relationship kind="action" name="rerunTest:"/>
-                <relationship kind="action" name="runTests:"/>
-                <relationship kind="action" name="toggleDetails:"/>
-                <relationship kind="action" name="updateMode:"/>
-                <relationship kind="action" name="updateSearchFilter:"/>
-                <relationship kind="action" name="updateTextSegment:"/>
-                <relationship kind="outlet" name="_detailsToggleButton" candidateClass="NSButton"/>
-                <relationship kind="outlet" name="_detailsView" candidateClass="NSView"/>
-                <relationship kind="outlet" name="_outlineView" candidateClass="NSOutlineView"/>
-                <relationship kind="outlet" name="_searchField" candidateClass="NSSearchField"/>
-                <relationship kind="outlet" name="_segmentedControl" candidateClass="NSSegmentedControl"/>
-                <relationship kind="outlet" name="_splitView" candidateClass="NSSplitView"/>
-                <relationship kind="outlet" name="_statusView" candidateClass="NSView"/>
-                <relationship kind="outlet" name="_textSegmentedControl" candidateClass="NSSegmentedControl"/>
-                <relationship kind="outlet" name="_textView" candidateClass="NSTextView"/>
-            </relationships>
-        </class>
-        <class className="GHTestWindowController" superclassName="NSWindowController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/GHTestWindowController.h"/>
-            <relationships>
-                <relationship kind="action" name="copy:"/>
-                <relationship kind="action" name="runTests:"/>
-                <relationship kind="outlet" name="viewController" candidateClass="GHTestViewController"/>
-            </relationships>
-        </class>
-        <class className="MenuAppController" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MenuAppController.h"/>
-            <relationships>
-                <relationship kind="action" name="toggleMenuAppWindow:"/>
-                <relationship kind="outlet" name="toggleButton" candidateClass="NSButton"/>
-            </relationships>
-        </class>
-        <class className="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSObject.h"/>
-            <relationships>
-                <relationship kind="action" name="increment:"/>
-                <relationship kind="action" name="performActionFromLabel:"/>
-                <relationship kind="action" name="performActionFromSegmentLabel:"/>
-                <relationship kind="action" name="selectServiceType:"/>
-                <relationship kind="action" name="setFromSegmentLabel:"/>
-            </relationships>
-        </class>
-        <class className="NSTableView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSTableView.h"/>
-            <relationships>
-                <relationship kind="action" name="scrollToStickyRow:"/>
-            </relationships>
-        </class>
-        <class className="NSTextView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSTextView.h"/>
-            <relationships>
-                <relationship kind="action" name="decrementFontSize:"/>
-                <relationship kind="action" name="increaseFontSize:"/>
-                <relationship kind="action" name="incrementFontSize:"/>
-            </relationships>
-        </class>
-        <class className="NSView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSView.h"/>
-            <relationships>
-                <relationship kind="outlet" name="rbl_viewController" candidateClass="NSViewController"/>
-            </relationships>
-        </class>
-        <class className="PurpleAccountViewController" superclassName="AIAccountViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PurpleAccountViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="checkBox_broadcastMusic" candidateClass="NSButton"/>
-                <relationship kind="outlet" name="checkBox_displayCustomEmoticons" candidateClass="NSButton"/>
-            </relationships>
-        </class>
-        <class className="RBLPopover" superclassName="NSResponder">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RBLPopover.h"/>
-            <relationships>
-                <relationship kind="action" name="performClose:"/>
-            </relationships>
-        </class>
-        <class className="TUIPopover" superclassName="NSResponder">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/TUIPopover.h"/>
-            <relationships>
-                <relationship kind="action" name="performClose:"/>
-            </relationships>
-        </class>
-        <class className="TestBedDelegate" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/TestBedDelegate.h"/>
-            <relationships>
-                <relationship kind="action" name="scrollFromSegment:"/>
-                <relationship kind="action" name="setViewFromPopUp:"/>
-                <relationship kind="outlet" name="colorWell" candidateClass="AtoZColorWell"/>
-                <relationship kind="outlet" name="contentView"/>
-                <relationship kind="outlet" name="holdOntoViews" candidateClass="NSBUTT"/>
-                <relationship kind="outlet" name="menu" candidateClass="MenuAppController"/>
-                <relationship kind="outlet" name="scrollTest" candidateClass="CAScrollView"/>
-                <relationship kind="outlet" name="targetView" candidateClass="NSView"/>
-                <relationship kind="outlet" name="window"/>
-            </relationships>
-        </class>
-    </classes>
 </document>

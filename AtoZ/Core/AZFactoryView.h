@@ -11,29 +11,32 @@ CAGradientLayer* greyGradLayer();
 #define 	zKEYWORDS_V_UNIT  	2 * zKEYWORDS_FONTSIZE
 #define  zCATEGORY_RECT			(NSRect){ 0, 0, [self.superlayers.first boundsWidth], zKEYWORDS_V_UNIT }
 
-@interface 				 		 AZOutlineLayer : CALayer
-+ (INST)  layerWithNode:AZNODEPRO node inLayer:(CAL*)host withFrame:(NSR)frame;
-@property (NATOM,STR)						NSA * nodeRects;
-@property (NATOM,STR) NSO<AtoZNodeProtocol>* representedNode;
-@property (NATOM,WK)  NSO<AtoZNodeProtocol>* selectedNode;
-@end
+@interface 		   AZOutlineLayer : CALayer
+
+@property (NATOM,STR)		  NSA * nodeRects;
+@property (NATOM,WK)  NSTreeNode * rootNode,
+											* selectedNode;
+
++ (INST)  layerWithNode:(NSTreeNode*)node inLayer:(CAL*)layer withFrame:(NSR)frame;			@end
+
 
 @interface 			AZOutlineLayerNode : CALayer
-+ (instancetype) layerForNode:AZNODEPRO node style:(AZOutlineCellStyle)style;
-@property (weak) 	NSO<AtoZNodeProtocol> * reprsentedNode;
+
+@property (WK)				  NSTreeNode * representedNode;
 @property (NATOM) AZOutlineCellStyle   cellStyle;
-@end
+
++ (instancetype) layerForNode:AZNODEPRO node style:(AZOutlineCellStyle)style;					@end
 
 @interface AZOutlineLayerScrollableList : AZOutlineLayerNode
 @end
 
 @interface   					  AZFactoryView : NSView
 
-- (id) initWithFrame:(NSRect)f controller:(id)c;
+- (id) initWithFrame:(NSRect)f rootNode:(NSTreeNode*)node;
 
-@property (NATOM) 			   	NSR   nodeRect;
-@property (WK)  DefinitionController * controller;
-@property (STR) 		 AZOutlineLayer * nodes;
+@property (NATOM)  			   	NSR   nodeRect;
+@property (STR)  	  		  NSTreeNode * rootNode;  // DefinitionController *
+@property (STR) 		 AZOutlineLayer * outlineLayer;
 @property (STR)	     NSSearchField * searchField;
 @property (STR)   	  NSPathControl * headerPathControl,
 												 * plistPathControl;
@@ -43,12 +46,11 @@ CAGradientLayer* greyGradLayer();
 @end
 
 
+//@property (weak) 	NSO<AtoZNodeProtocol> * reprsentedNode;
 
 
-
-
-
-
+//@property (NATOM,STR) NSO<AtoZNodeProtocol>* representedNode;
+//@property (NATOM,WK)  NSO<AtoZNodeProtocol>* selectedNode;
 
 //@property (nonatomic)  				  CGFloat   unitHeight;
 //@property (nonatomic,copy)			  CALayer * (^listLayerWithNodes)(NSA*);

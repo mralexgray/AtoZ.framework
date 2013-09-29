@@ -1,53 +1,44 @@
-//
-//  NSDictionary+AtoZ.m
-//  AtoZ
-//
-//  Created by Alex Gray on 9/19/12.
-//  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-//
+
 #import "NSDictionary+AtoZ.h"
-
-
 
 @implementation NSOrderedDictionary (AtoZ)
 
 - (void) forwardInvocation:(NSINV*)invocation 		{  // FIERCE
 
-// Forward the message to the surrogate object if the surrogate object understands the message, otherwise just pass the invocation up the inheritance chain, eventually hitting the default -forwardInvocation: which will throw an unknown selector exception.
+// Forward the message to the surrogate object if the surrogate object understands the message,
+//	otherwise just pass the invocation up the inheritance chain, eventually hitting the default
+// -[NSObject forwardInvocation:]; which will throw an unknown selector exception.
+
 	SEL sel = invocation.selector;
-	[self methodSignatureForSelector:sel] 					?
-		[invocation invokeWithTarget:self] 					:
-	[@[] methodSignatureForSelector:sel] 					?
-		[invocation invokeWithTarget:self.allObjects] 	: 	
-	[@{} methodSignatureForSelector:sel]					?
-		[invocation invokeWithTarget:(NSD*)self]			:
-	[super forwardInvocation:invocation];
-//
-//
+	[self methodSignatureForSelector:sel] 	?	[invocation invokeWithTarget:self] 					:
+	[@[] methodSignatureForSelector:sel] 	?	[invocation invokeWithTarget:self.allObjects] 	:
+	[@{} methodSignatureForSelector:sel]	?	[invocation invokeWithTarget:(NSD*)self]			:
+															[super forwardInvocation:invocation];
+
 //	self.defaultCollection && [self.defaultCollection respondsToSelector:[invocation selector]]
 //									?				   [invocation invokeWithTarget:self.defaultCollection]:nil;
 //									:										 [super forwardInvocation:invocation];
 }
 - (SIG*) methodSignatureForSelector:(SEL)sel			{
-	// To build up the invocation passed to -forwardInvocation properly, the object must provide the types for parameters and return values for the NSInvocation through -methodSignatureForSelector:
 
- return 	[self methodSignatureForSelector:sel] 
- ?:		[@[] methodSignatureForSelector:sel] 
- ?: 		[@{} methodSignatureForSelector:sel] 
- ?: 		nil;
+// To build up the invocation passed to -forwardInvocation properly,
+//	the object must provide the types for parameters and return values
+//	for the NSInvocation through -methodSignatureForSelector:
+
+	return 	[self methodSignatureForSelector:sel]  ?:		[@[] methodSignatureForSelector:sel]
+ 	?: 		[@{} methodSignatureForSelector:sel]   ?: 	nil;
+
 //    return [self respondsToSelector:sel]  resolveInstanceMethod:selector] || [NSDictionary resolveInstanceMethod:selector];
 //    return [super methodSignatureForSelector:sel] ?: [self.defaultCollection methodSignatureForSelector:sel];
 }
 - (BOOL) respondsToSelector:(SEL)selector 				{
+
 	// Claim to respond to any selector that our surrogate object also responds to.
-    return ([self methodSignatureForSelector:selector]) 
-	 || 		[NSA resolveInstanceMethod:selector] 
-	 || 		[NSD resolveInstanceMethod:selector] 
-	 || 		[super  respondsToSelector:selector];
+    return ([self methodSignatureForSelector:selector]) ||	[NSA resolveInstanceMethod:selector]
+	 			||    [NSD resolveInstanceMethod:selector] 	 	  || 		[super  respondsToSelector:selector];
+
 //	 [super respondsToSelector:selector] || [self.defaultCollection respondsToSelector:selector];
 }	/* All methods above are fierce Posing classes */
-
-
 @end
 
 @implementation NSMutableDictionary (AtoZ)
@@ -67,11 +58,19 @@
 	return theColor;
 }
 @end
+
+//		http://appventure.me/2011/12/fast-nsdictionary-traversal-in-objective-c.html
 @implementation NSDictionary (objectForKeyList)
-- (id)objectForKeyList:(id)key, ...	{
-	id object = self;	va_list ap; 	va_start(ap, key);
-	for ( ; key; key = va_arg(ap, id))	object = [object objectForKey:key];
-	va_end(ap);	return object;
+- (id)objectForKeyList:(id)key, ...
+{
+  id object = self;
+  va_list ap;
+  va_start(ap, key);
+  for ( ; key; key = va_arg(ap, id))
+      object = [object objectForKey:key];
+  
+  va_end(ap);
+  return object;
 }
 
 - (id)objectMatching:(id)match forKeyorKeyPath:(id)kp {
@@ -381,8 +380,6 @@
 	}];
 }
 
-
-
 - (id) recursiveObjectForKey:(NSS*)key {
 	if([self.allKeys containsObject:key]) {
 		// this dictionary contains the key, return the value
@@ -423,7 +420,6 @@
 }
 // NSDictionary *resultDict = [self findDictionaryForValue:@"i'm an id" inArray:array];
 
-
 + (NSDictionary*) dictionaryWithValue:(id)value forKeys:(NSA*)keys	{
 	__block NSMutableDictionary *dict = [NSMutableDictionary new];
 	[keys do:^(id obj) { dict[obj] = value; }];
@@ -434,7 +430,6 @@
 	[keys do:^(id obj) { dict[obj] = value; }];
 	return dict;
 }
-
 - (NSDictionary*) dictionaryWithValue:(id)value forKey:(id)key	{
 	// Would be nice to make our own dictionary subclass that made this
 	// more efficient.
@@ -512,29 +507,17 @@ static id DynamicDictionaryGetter(id self, SEL _cmd)	{
 }
 static void DynamicDictionarySetter(id self, SEL _cmd, id value)	{
 	NSString *key = PropertyNameFromSetter(NSStringFromSelector(_cmd));
-	if (value == nil)
-	{
-		[self removeObjectForKey:key];
-	}
-	else
-	{
-		self[key] = value;
-	}
+	if (value == nil)		[self removeObjectForKey:key]; else self[key] = value;
 }
 @implementation NSDictionary (DynamicAccessors)
-+ (BOOL)resolveInstanceMethod:(SEL)sel	{
-	NSString *selStr = NSStringFromSelector(sel);
-	// Only handle selectors with no colon.
-	if ([selStr rangeOfString:@":"].location == NSNotFound)
-	{
-		LOG(@"Generating dynamic accessor -%@", selStr);
-		return class_addMethod(self, sel, (IMP)DynamicDictionaryGetter, @encode(id(*)(id, SEL)));
-	}
-	else
-	{
-		NSLog(@"leaving this one to super!",nil);
-		return [super resolveInstanceMethod:sel];
-	}
+
++ (BOOL)resolveInstanceMethod:(SEL)sel	{			NSString *selStr = NSStringFromSelector(sel);
+
+		// Only handle selectors with no colon.
+		return  [selStr rangeOfString:@":"].location == NSNotFound
+		?	fprintf(stdout,"... Generating dynamic NSDictionary accessor %p ...", sel),
+			class_addMethod(self, sel, (IMP)DynamicDictionaryGetter, @encode(id(*)(id, SEL)))
+		:	fprintf(stdout,"couldn't resove:%p Leaving this one to super!",sel), [super resolveInstanceMethod:sel];
 }
 @end
 /**

@@ -30,8 +30,6 @@ BLOCKS:
 
 	__block __typeof(self) selfish = self;
 
-
-
 LAYERS:
 
 	self.root = [self setupHostViewNamed:@"root"];
@@ -52,6 +50,10 @@ AZWORKSPACE:
 
 
 */
+
+#ifndef ATOZFRAMEWORK
+#define ATOZFRAMEWORK
+#endif 
 
 #import <pwd.h>
 //#import <stat.h>
@@ -93,7 +95,7 @@ AZWORKSPACE:
 #import <DrawKit/DKDrawKit.h>
 #import <FunSize/FunSize.h>
 #import <Lumberjack/Lumberjack.h>
-#import <KSHTMLWriterFramework/KSHTMLWriterFramework.h>
+#import <KSHTMLWriter/KSHTMLWriter.h>
 #import <MapKit/MapKit.h>
 #import <NoodleKit/NoodleKit.h>
 #import <NanoStore/NanoStore.h>
@@ -104,10 +106,138 @@ AZWORKSPACE:
 #import <Zangetsu/Zangetsu.h>
 #import <AtoZBezierPath/AtoZBezierPath.h>
 #import <AtoZAppKit/AtoZAppKit.h>
+
+// #undef ah_retain #undef ah_dealloc #undef ah_autorelease autorelease #undef ah_dealloc dealloc
+
+//
+//  ARC Helper
+//
+//  Version 2.2
+//
+//  Created by Nick Lockwood on 05/01/2012.
+//  Copyright 2012 Charcoal Design
+//
+//  Distributed under the permissive zlib license
+//  Get the latest version from here:
+//
+//  https://gist.github.com/1563325
+//
+/*
+	#import <Availability.h>
+	#undef ah_retain
+	#undef ah_dealloc
+	#undef ah_autorelease autorelease
+	#undef ah_dealloc dealloc
+	#if __has_feature(objc_arc)
+		#define ah_retain self
+		#define ah_release self
+		#define ah_autorelease self
+		#define ah_dealloc self
+	#else
+		#define ah_retain retain
+		#define ah_release release
+		#define ah_autorelease autorelease
+		#define ah_dealloc dealloc
+		#undef __bridge
+		#define __bridge
+		#undef __bridge_transfer
+		#define __bridge_transfer
+	#endif
+
+	//  Weak reference support
+
+	#import <Availability.h>
+	#if !__has_feature(objc_arc_weak)
+		#undef ah_weak
+		#define ah_weak unsafe_unretained
+		#undef __ah_weak
+		#define __ah_weak __unsafe_unretained
+	#endif
+
+	//  Weak delegate support
+
+	#import <Availability.h>
+	#undef ah_weak_delegate
+	#undef __ah_weak_delegate
+	#if __has_feature(objc_arc_weak) && \
+		(!(defined __MAC_OS_X_VERSION_MIN_REQUIRED) || \
+		__MAC_OS_X_VERSION_MIN_REQUIRED >= __MAC_10_8)
+		#define ah_weak_delegate weak
+		#define __ah_weak_delegate __weak
+	#else
+		#define ah_weak_delegate unsafe_unretained
+		#define __ah_weak_delegate __unsafe_unretained
+	#endif
+
+//  ARC Helper ends
+*/
+	#if __has_feature(objc_arc)											// ARC Helper Version 2.2
+		#define ah_retain 		self
+		#define ah_release 		self
+		#define ah_autorelease 	self
+		#define release 			self										// Is this right?  Why's mine different?
+		#define autorelease 		self										// But shit hits fan without.
+		#define ah_dealloc 		self
+	#else
+		#define ah_retain 		retain
+		#define ah_release 		release
+		#define ah_autorelease 	autorelease
+		#define ah_dealloc 		dealloc
+		#undef 	__bridge
+		#define  __bridge
+		#undef   __bridge_transfer
+		#define  __bridge_transfer
+	#endif
+	#if !__has_feature(objc_arc_weak)									// Weak reference support
+		#undef 	  ah_weak
+		#define 	  ah_weak   unsafe_unretained
+		#undef 	__ah_weak
+		#define 	__ah_weak __unsafe_unretained
+	#endif
+	#undef ah_weak_delegate													// Weak delegate support
+	#undef __ah_weak_delegate
+	#if	__has_feature(objc_arc_weak) && (!(defined __MAC_OS_X_VERSION_MIN_REQUIRED) || __MAC_OS_X_VERSION_MIN_REQUIRED >= __MAC_10_8)
+		#define   ah_weak_delegate weak
+		#define __ah_weak_delegate __weak
+	#else
+		#define   ah_weak_delegate   unsafe_unretained
+		#define __ah_weak_delegate __unsafe_unretained
+	#endif																		// ARC Helper ends
+
+
+	//  ARC Helper Version 1.3.1 Created by Nick Lockwood on 05/01/2012. Copyright 2012 Charcoal Design Distributed under the permissive zlib license  Get the latest version from here: https://gist.github.com/1563325
+	#ifndef AH_RETAIN
+		#if __has_feature(objc_arc)
+			#define AH_RETAIN(x) (x)
+			#define AH_RELEASE(x) (void)(x)
+			#define AH_AUTORELEASE(x) (x)
+			#define AH_SUPER_DEALLOC (void)(0)
+			#define __AH_BRIDGE __bridge
+		#else
+			#define __AH_WEAK
+			#define AH_WEAK assign
+			#define AH_RETAIN(x) [(x) retain]
+			#define AH_RELEASE(x) [(x) release]
+			#define AH_AUTORELEASE(x) [(x) autorelease]
+			#define AH_SUPER_DEALLOC [super dealloc]
+			#define __AH_BRIDGE
+		#endif
+	#endif
+	
+
+
 //#import <AIUtilities/AIUtilities.h>
 #import "AZObserversAndBinders.h"
 #import "extobjc_OSX/extobjc.h"
 #import "AtoZAutoBox/AtoZAutoBox.h"
+#import "KVOMap/DCKeyValueObjectMapping.h"
+#import "KVOMap/DCArrayMapping.h"
+#import "KVOMap/DCDictionaryRearranger.h"
+#import "KVOMap/DCKeyValueObjectMapping.h"
+#import "KVOMap/DCObjectMapping.h"
+#import "KVOMap/DCParserConfiguration.h"
+#import "KVOMap/DCPropertyAggregator.h"
+#import "KVOMap/DCValueConverter.h"
 
 #import "JREnum.h"
 #import "objswitch.h"
@@ -115,7 +245,7 @@ AZWORKSPACE:
 #import "ObjectMatcher.h"
 
 #import "NSObject_KVOBlock.h"
-#import "CTBlockDescription.h"
+//#import "CTBlockDescription.h"  in autobox now
 
 #import "AtoZUmbrella.h"
 #import "AtoZTypes.h"
@@ -131,7 +261,6 @@ AZWORKSPACE:
 //#import <AtoZUI/AtoZUI.h>
 //#import <RMKit/RMKit.h>
 //#import <NanoStore/NanoStore.h>
-//#import <KSHTMLWriterFramework/KS>
 //#import <MapKit/MapKit.h>
 //#import <XPCKit/XPCKit.h>
 //#import <Zangetsu/Zangetsu.h>
@@ -158,6 +287,18 @@ AZWORKSPACE:
 #import "AtoZContacts.h"
 
 /* MODEL */
+
+#import "DSSyntaxCollection.h"
+#import "DSSyntaxTextView.h"
+#import "AZSyntaxTheme.h"
+#import "DSRubySyntaxDefinition.h"
+#import "DSObjectiveCSyntaxDefinition.h"
+#import "DSPodfileSyntaxDefinition.h"
+#import "DSPodspecSyntaxDefinition.h"
+#import "DSSyntaxHighlighter.h"
+#import "DSSyntaxTextView.h"
+
+
 #import "JsonElement.h"
 #import "HRCoder.h"
 #import "AutoCoding.h"
@@ -229,11 +370,9 @@ AZWORKSPACE:
 
 #import "AZBackgroundProgressBar.h"
 
+#import "AZObject.h"
 //	#import "AZPalette.h"
-//	#import "AZObject.h"
 //	#import "AZFile.h"
-//	#import "AtoZModels.h"
-//	#import "AZObject.h"
 //	#import "AtoZModels.h"
 
 #import "AZColor.h"
@@ -327,6 +466,7 @@ AZWORKSPACE:
 ////#import "AZStatusItemView.h"
 #import "NSMenu+Dark.h"
 
+#import "AtoZDelegate.h"
 
 
 /* WINDOWS */
@@ -394,8 +534,6 @@ AZWORKSPACE:
 #import "AZProportionalSegmentController.h"
 #import "TUIFastIndexPath.h"
 //#import "TUIRefreshControl.h"
-
-
 
 // COREDATA
 #import "AZImageToDataTransformer.h"
@@ -467,28 +605,83 @@ extern NSString *const AtoZDockSortedUpdated;
 //    while (1) if (!(number = va_arg (args, int))) break; else sum += number;
 //    va_end (args);   return (sum);
 
+/*!
+ *	@class      AtoZ
+ *	@abstract   A class used to interface with AtoZ
+ *	@discussion This class provides a means to interface with AtoZ
+ *	 Currently it provides a way to detect if AtoZ is installed and launch the AtoZHelper if it's not already running.
+ */
+@class MASShortcutView, MASShortcut;
 
 @interface AtoZ : BaseModel <DDLogFormatter>
 {
-
-	 NSA * _fonts,
-	     * _basicFunctions,
-		  * _cachedImages;
-	BOOL   _inTTY,
-			 _inXcode;
+__weak id _constantShortcutMonitor;
 }
 
-+ (void) processInfo;
+/*!
+ *	@method isAtoZRunning
+ *	@abstract Detects whether AtoZHelper is currently running.
+ *	@discussion Cycles through the process list to find whether AtoZHelper is running and returns its findings.
+ *	@result Returns YES if AtoZHelper is running, NO otherwise.
+ */
++ (BOOL) isAtoZRunning;
 
+/*!
+ *	@method setAtoZDelegate:
+ *	@abstract Set the object which will be responsible for providing and receiving Growl information.
+ *	@discussion This must be called before using AtoZApplicationBridge.
+ *
+ *	 The methods in the GrowlApplicationBridgeDelegate protocol are required
+ *	 and return the basic information needed to register with Growl.
+ *
+ *	 The methods in the GrowlApplicationBridgeDelegate_InformalProtocol
+ *	 informal protocol are individually optional.  They provide a greater
+ *	 degree of interaction between the application and growl such as informing
+ *	 the application when one of its Growl notifications is clicked by the user.
+ *
+ *	 The methods in the GrowlApplicationBridgeDelegate_Installation_InformalProtocol
+ *	 informal protocol are individually optional and are only applicable when
+ *	 using the Growl-WithInstaller.framework which allows for automated Growl
+ *	 installation.
+ *
+ *	 When this method is called, data will be collected from inDelegate, Growl
+ *	 will be launched if it is not already running, and the application will be
+ *	 registered with Growl.
+ *
+ *	 If using the Growl-WithInstaller framework, if Growl is already installed
+ *	 but this copy of the framework has an updated version of Growl, the user
+ *	 will be prompted to update automatically.
+ *
+ *	@param inDelegate The delegate for the GrowlApplicationBridge. It must conform to the GrowlApplicationBridgeDelegate protocol.
+ */
+/*!
+ *	@method growlDelegate
+ *	@abstract Return the object responsible for providing and receiving Growl information.
+ *	@discussion See setGrowlDelegate: for details.
+ *	@result The Growl delegate.
+ */
+ #define AZDELEGATE NSObject<AtoZDelegate>
+@property (weak) 	AZDELEGATE	* atozDelegate;
++ (AZDELEGATE*)delegate;
+@property (NATOM,STRNG) NSMA *delegates;
++ (NSMA*) delegates;
+
+@property (NATOM,STRNG) MASShortcutView	* azHotKeyView;
+@property (NATOM,STRNG) MASShortcut 		* azHotKey;
+@property (NATOM) 		BOOL 					  azHotKeyEnabled;
+
+@property (NATOM,STRNG) NSW * azWindow;
 @property (NATOM,STRNG) NSC * logColor;
-@property (RONLY) 		NSA * basicFunctions,
+@property (NATOM) 		NSA * basicFunctions,
 									 * fonts,
 									 * cachedImages;
 @property (RONLY) 		NSB * bundle;
 @property (RONLY) 	  BOOL 	inTTY,
 									   inXcode;
-@property (ASS) IBO 		NSTextView *stdOutView;
 
+@property (ASS) IBO 	NSTXTV * stdOutView;
+
++  (void) processInfo;
 -  (NSS*) formatLogMessage:(DDLogMessage*)lm;
 -  (void) appendToStdOutView:(NSS*)text;
 +  (void) playSound:(id)number;
@@ -603,8 +796,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
  3. Generating output: This is the final phase where we use in-memory data to generate output. This step is driven by `GBGenerator` class.
  @warning *Global settings implementation details:* To be able to properly apply all levels of settings - factory defaults, global settings and command line arguments - we can't solely rely on `DDCli` for parsing command line args. As the user can supply templates path from command line (instead of using one of the default paths), we need to pre-parse command line arguments for templates switches. The last one found is then used to read global settings. This solves proper settings inheritance up to global settings level. Another issue is how to implement code that deals with global settings; there are several possible solutions (the simplest from programmers point of view would be to force the user to pass in templates path as the first parameter, then `DDCli` would first process this and when we would receive notification, we could parse the option, load in global settings and resume operation). At the end I chose to pre-parse command line for template arguments before passing it to `DDCli`. This did require some tweaking to `DDCli` code (specifically the method that converts option string to KVC key was moved to public interface), but ended up as very simple to inject global settings - by simply using the same KCV messages as `DDCli` uses. This small tweak allowed us to use exactly the same path of handling global settings as normal command line arguments. The benefits are many: all argument names are alreay unit tested to properly map to settings values, code reuse for setting the values.	*/
 
-
-
 /*  xcode shortcuts  @property (nonatomic, assign) <\#type\#> <\#name\#>;	*/
 
 /*
@@ -648,8 +839,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
  NSNumber *numberTwoResult = [numberTwo processByPerformingFilterBlocks:filterBlocks];
  NSLog(@"%@ %@", numberTwo, numberTwoResult);
  */
-
-
 
 //#pragma GCC diagnostic ignored "-Wformat-security"
 //#import <NanoStore/NSFNanoObjectProtocol.h>

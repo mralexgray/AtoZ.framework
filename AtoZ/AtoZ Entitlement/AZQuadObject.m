@@ -814,8 +814,6 @@ static const NSString *didScroll = @"scrollOffset";
 //	}
 //}
 
-
-
 /*		//	if (!view) {
  _iconStyle = RAND_INT_VAL(1, 3);
  if (view == nil)	 //create new view if no view is available for recycling

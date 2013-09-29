@@ -1,74 +1,62 @@
 
-//  NSImage+AtoZ.h
-//  AtoZ
-
-//  Created by Alex Gray on 7/2/12.
-//  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 #import "AZSizer.h"
+#import "AtoZUmbrella.h"
 
+@interface 	  					AZImageCache : NSCache	+ (AZImageCache*) sharedCache;
 
-@interface AZImageCache : NSCache
-+ (AZImageCache*) sharedCache;
-+ (void) cacheImage: (NSIMG*)image;
-- (NSIMG*) imageForKey: (NSS*)key;
--   (void) setImage:		(NSIMG*)image forKey:(NSS*)key;
--   (void) removeAllObjects;//  builklt-in method
-@property (nonatomic, retain) NSString *cacheDirectory;
+AZPROP(NSString,cacheDirectory);
+
++   (void)  	  cacheImage:(NSIMG*)image;
+- (NSIMG*) 		 imageForKey:(NSS*)key;
+-   (void)  	    setImage:(NSIMG*)image forKey:(NSS*)key;
+-   (void) removeAllObjects;													//  builklt-in method
 @end
 
-static inline int get_bit(unsigned char *arr, unsigned long bit_num);
-CGImageRef  			CreateCGImageFromData( NSData* data );
-float 			  		distance					( NSP aPoint ); // Just one function to declare...
-typedef NS_ENUM(NSUI, AGImageResizingMethod) {	AGImageResizeCrop,AGImageResizeCropStart,	AGImageResizeCropEnd, AGImageResizeScale };
+static inline int 	get_bit							( unsigned char *arr, unsigned long bit_num);
+CGImageRef  			CreateCGImageFromData		( NSData * data );
+float 			  		distance							( NSP    aPoint );				// Just one function to declare...
+NSR 						AZRectForItemsWithColumns	( NSA    *items, NSUI cols );
 
-NSR AZRectForItemsWithColumns(NSA* items, NSUI cols);
 @interface NSImage (Merge)
 /*!	@brief	Returns an image constructed by tiling a given array of images side-by-side or top-to-bottom.
  		@param	spacingX  Spacing which will be applied horizontally between images, and at the left and right borders.
  		@param	spacingY  Spacing which will be applied vertitally between images, and at the bottom and top borders.
  		@param	vertically  YES to tile the given images from top to bottom, starting with the first image in the array at the top. NO to tile the given images from left to right, starting with the first image in the array at the left.	*/
 
-+ (NSIMG*) contactSheetWith:(NSA*)images columns:(NSUI)cols;  // I guess this is natiral size?
++ (NSIMG*) contactSheetWith:(NSA*)images   columns:(NSUI)cols;  // I guess this is natiral size?
 + (NSIMG*) contactSheetWith:(NSA*)images withSizer:(AZSizer*)s withName:(BOOL)name; // sortaconvenient..
-+ (NSIMG*) contactSheetWith:   (NSA*)images inFrame:(NSR)rect;//  columns:(NSUI)cols;
++ (NSIMG*) contactSheetWith:(NSA*)images   inFrame:(NSR)rect;//  columns:(NSUI)cols;
 
-+ (NSIMG*) contactSheetWith: 	 (NSA*)images sized:  (NSSZ)size spaced: (NSSZ)spacing columns:(NSUI)cols;
-+ (NSIMG*) contactSheetWith:	 (NSA*)images sized:  (NSSZ)size spaced: (NSSZ)spacing columns:(NSUI)cols withName:(BOOL)name;
-+ (NSIMG*) imageByTilingImages:(NSA*)images spacingX:(CGF)spacingX spacingY:(CGF)spacingY vertically:(BOOL)vertically;
++ (NSIMG*) contactSheetWith:		  (NSA*)images sized:  (NSSZ)size spaced: (NSSZ)spacing columns:(NSUI)cols;
++ (NSIMG*) contactSheetWith:		  (NSA*)images sized:  (NSSZ)size spaced: (NSSZ)spacing columns:(NSUI)cols withName:(BOOL)name;
++ (NSIMG*) imageByTilingImages:    (NSA*)images spacingX:(CGF)spacingX spacingY:(CGF)spacingY vertically:(BOOL)vertically;
 - (NSIMG*) imageBorderedWithInset: (CGF)inset;
-- (NSIMG*) imageBorderedWithOutset:(CGF)outset;
-@end
+- (NSIMG*) imageBorderedWithOutset:(CGF)outset;			@end  // (MERGE)
 
-typedef void(^NSImageDrawer)(void);
-typedef void(^NSImageDrawerWithFrame)(NSR dRect);
-@interface NSImage (AtoZDrawBlock)
-+ (NSIMG*) imageWithSize:(NSSZ)size drawnUsingBlock:(NSImageDrawer)drawBlock;
-+ (NSIMG*) imageInFrame:(NSR)frame withBlock:(NSImageDrawerWithFrame)drawBlockwithFrame;
-
-@end
+typedef void(^NSImageDrawer)(void);		typedef void(^NSImageDrawerWithFrame)(NSR dRect);
 
 extern NSData *PNGRepresentation(NSIMG *image);
 
-@class AZFile;
-@interface NSImage (AtoZ)
+@interface NSImage (AtoZDrawBlock)
 
-@property (nonatomic, assign) CGF width;
-@property (nonatomic, assign) CGF height;
++ (NSIMG*) imageWithSize:(NSSZ)size drawnUsingBlock:(NSImageDrawer)drawBlock;
++ (NSIMG*) imageInFrame: (NSR)frame withBlock:(NSImageDrawerWithFrame)drawBlockwithFrame;	@end // (AtoZDrawBlock)
 
+
+@class AZFile;	@interface NSImage (AtoZ)
+
+@property (NATOM) CGF width, height;
 @property (RONLY) NSAS *attributedString;
 
 + (NSIMG*) isometricShelfInRect:(NSR)rect;
 + (NSIMG*) imageFromLockedFocusSize:(NSSZ)sz lock:(NSIMG*(^)(NSIMG*))block;
 - (NSIMG*) lockFocusBlockOut:(NSIMG*(^)(NSIMG*))block;
-- (void)   lockFocusBlock:(void(^)(NSIMG*))block;
+-   (void) lockFocusBlock:(void(^)(NSIMG*))block;
 + (NSIMG*) faviconForDomain:(NSS*)domainAsString;
 + (NSIMG*) imageWithData:(NSData*)data;
-- (NSS*)   saveToWeb;
+-   (NSS*)   saveToWeb;
 
 + (NSIMG*) glowingSphereImageWithScaleFactor:(CGF)scale coreColor:(NSC*)core glowColor:(NSC*)glow;
-
-//@property (readonly, strong) NSC *color;
-//@property (readonly, strong) NSA *colors;
 
 + (NSIMG*) swizzledImageNamed:(NSS*)name;
 + (NSIMG*) imageFromURL:(NSS*)url;
@@ -248,8 +236,6 @@ extern NSData *PNGRepresentation(NSIMG *image);
 - (NSIMG*)scaleToFillSize:(NSSize)targetSize;
 @end
 
-
-
 @interface CIImage (ToNSImage)
 
 - (NSIMG*) toNSImageFromRect:(CGRect)r;
@@ -329,8 +315,6 @@ extern NSData *PNGRepresentation(NSIMG *image);
 - (id)objectForKeyedSubscript:(NSS*)key;
 - (void)setObject:(id)object forKeyedSubscript:(NSS*)key;
 @end
-
-
 
 @interface CIFilter (WithDefaults)
 + (CIFilter*) filterWithDefaultsNamed: (NSString*) name;

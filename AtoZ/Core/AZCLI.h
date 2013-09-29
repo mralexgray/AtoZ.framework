@@ -37,8 +37,6 @@
 + (NSS*) valueForIndex:(NSI)index;
 @end
 
-
-
 //@property (NATOM,STR)    NSFH * stdinHandle;
 //+        (NSIS*) indexesOfMenus ;
 //@property (NATOM,RONLY)   NSRNG	 range;

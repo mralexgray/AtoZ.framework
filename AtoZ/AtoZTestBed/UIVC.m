@@ -15,8 +15,6 @@
 #import "UIVC.h"
 @implementation UIVC
 
-
-
 -             (id) outlineView:(NSOutlineView*)v 																/* Outline View Datasource */
 	  objectValueForTableColumn:(NSTableColumn*)c byItem:(id)x								{	
 	  
@@ -50,8 +48,6 @@
 //			if (cat.children.count) { if (_searchField.stringValue) cat.expanded = @YES; [_root.children addObject:cat]; }
 	}], _root;
 }
-
-
 
 - (IBAction)showXFLDragDrop:(id)sender;
 {

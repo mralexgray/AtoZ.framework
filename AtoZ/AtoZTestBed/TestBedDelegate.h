@@ -9,22 +9,24 @@
 
 @property (USF) IBOutlet AtoZColorWell		*colorWell;
 @property (USF) IBOutlet MenuAppController	*menu;
-@property (STR) GeneralVC			*genVC;
-@property (STR) UIVC					*uiVC;
-@property (STR) ColorVC				*colorVC;
-@property (STR) FBVC					*fbV;
-@property (STR) TUIVVC				*tuiVC;
-@property (STR) NSMutableArray   *windowControllers;
-@property (STR) NSTimer   *colorFade;
 
-@property (ASS) IBOutlet id		window;
-@property (ASS) IBOutlet id		contentView;
-@property (ASS) IBOutlet NSView*	targetView;
+//@property (STR) GeneralVC			* genVC;
+//@property (STR) UIVC					* uiVC;
+//@property (STR) ColorVC				* colorVC;
+//@property (STR) FBVC					* fbV;
+//@property (STR) TUIVVC				* tuiVC;
+
+@property (RONLY) NSMutableArray   * windowControllers;
+@property (STR) NSTimer   			* colorFade;
+
+@property (ASS) IBOutlet NSW * 	window;
+@property (ASS) IBOutlet NSV *	contentView;
+@property (ASS) IBOutlet NSV *	targetView;
 
 //@property (ASS) IBOutlet NSView		*scrollTestHost;
 @property (ASS) IBOutlet CAScrollView*scrollTest;
 
-- (IBAction) setViewFromPopUp:(id)sender;
+//- (IBAction) setViewFromPopUp:(id)sender;
 //- (IBAction) reZhuzhScrollLayer:(id)sender;
 
 @property (STRNG) IBOutlet NSBUTT *holdOntoViews;
@@ -76,8 +78,6 @@
 
 
 
-
-
 //-(IBAction)scrollLowerRight:(id)sender;
 //-(IBAction)scrollRight:(id)sender;
 //-(IBAction)scrollUp:(id)sender;
@@ -87,8 +87,6 @@
 //-(IBAction)scrollUpperRight:(id)sender;
 //-(IBAction)scrollLowerLeft:(id)sender;
 //extern NSS* stringForScrollFix(ScrollFix val);
-
-
 
 
 /*
@@ -165,8 +163,6 @@
  */
 
 
-
-
 /*	[obj setTransform:CATransform3DConcat(CATransform3DMakeScale(100, scrlr.boundsHeight, 1),
  CATransform3DMakeTranslation(idx *100, 1, 1))];
  }() : 	anObject == scrlr && areSame(key, @"onLayout") ? ^{ */
@@ -188,10 +184,6 @@
 
 
 
-
-
-
-
 //[CAA rotateAnimationForLayer:layer  start:0 end:180];
 //	if ( layer.superlayer == scrlr &&
 //		[layer pulse];
@@ -200,8 +192,6 @@
 // disable implicit animations for scrolllayer in live resize
 //		return (id<CAAction>)[ NSNull null ];
 //	}
-
-
 
 //	_scrollTest.hoverStyle 		= Lasso;
 //	_scrollTest.selectedStyle 	= DarkenOthers;
@@ -425,8 +415,6 @@
 //}
 
 
-
-
 //	vcs 		= [WeakMutableArray new];
 
 //	genVC 		= [[AZGeneralViewController  alloc] initWithNibName: @"AZGeneralViewController"  bundle:nil];
@@ -509,8 +497,6 @@
 //}
 // Creates a rect that is a fraction of the original rect
 
-
-
 //-(CATransition*)transition
 //{
 //	// Construct a new CATransition that describes the transition effect we want.
@@ -548,8 +534,6 @@
 //		{
 //		NSLog(@"Warning! Could not load myNib file.\n");
 //		}
-
-
 
 //		id newV = self[[sender segmentLabel]]; newV[@"hidden"] = @(YES); if ([_targetView.subviews doesNotContainObject:newV]) [_targetView addSubview:newV]; [self.targetView setAnimations:@{@"subviews":self.transition}];
 //			   ? [NASpinSeque animateTo:self[[sender segmentLabel]] inSuperView:_targetView]
@@ -693,8 +677,6 @@
  }
 
 
-
-
  }
  */
 
@@ -774,8 +756,6 @@
  }
 
  @end
-
-
 
 self.sublayerOrig + self.sublayerSpan  < self.superBounds  - self.lastLaySpan
  || offset < NEG(self.firstLayerSpan))

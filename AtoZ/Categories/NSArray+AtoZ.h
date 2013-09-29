@@ -5,8 +5,6 @@
 #import "AtoZ.h"
 
 
-
-
 extern NSString * const NSMutableArrayDidInsertObjectNotification;
 
 @interface NSArray (EnumExtensions)
@@ -24,7 +22,13 @@ extern NSString * const NSMutableArrayDidInsertObjectNotification;
 @interface NSArray (AtoZCLI)
 - (NSS*) stringValueInColumnsCharWide:(NSUI)characters;
 - (NSS*) formatAsListWithPadding:(NSUI)characters;
-- (NSA*) alphabetize;
+@end
+
+
+#define AZKP AZKeyPair
+@interface AZKeyPair : NSO
++ (instancetype) key:(id)k value:(id)v;
+@property (copy) id key, value;
 @end
 
 @interface NSArray (AtoZ)
@@ -32,11 +36,8 @@ extern NSString * const NSMutableArrayDidInsertObjectNotification;
 -  (int) createArgv:(char***)argv;
 + (NSA*) from:(NSI)from to:(NSI)to;
 -   (id) nextObject;
-
-- (NSA*)arrayByAddingAbsentObjectsFromArray:(NSArray *)otherArray;
-
+- (NSA*) arrayByAddingAbsentObjectsFromArray:(NSArray *)otherArray;
 - (NSCountedSet*)countedSet ;
-
 /*!
  @brief	Returns an array of NSNumbers whose -integerValues
  span a given range, each value being one more than the previous
@@ -44,13 +45,10 @@ extern NSString * const NSMutableArrayDidInsertObjectNotification;
 + (NSA*) arrayWithRange:	 (NSRNG)range;
 - (NSA*) withMinRandomItems:(NSUI)items;
 - (NSA*) withMaxRandomItems:(NSUI)items;
-
 - (NSA*) withMin:     (NSUI)min max:(NSUI)max;
 - (NSA*) withMaxItems:(NSUI) items;
 - (NSA*) withMinItems:(NSUI)items;
 - (NSA*) withMinItems:(NSUI)items usingFiller:(id) fill;
-
-
 - (void) setStringsToNilOnbehalfOf:(id)entity;  // FIX:  DOCUMENT!!
 - (NSN*) maxNumberInArray;
 - (NSN*) minNumberInArray;
@@ -60,17 +58,15 @@ extern NSString * const NSMutableArrayDidInsertObjectNotification;
 - (void) logEach;
 + (NSA*) arrayFromPlist:(NSString*)path;
 - (void) saveToPlistAtPath:(NSString*)path;
-
-- (NSString*) stringWithEnum: (NSUInteger) anEnum;
-- (NSUInteger) enumFromString: (NSString*) aString default: (NSUInteger) def;
-- (NSUInteger) enumFromString: (NSString*) aString;
+- (NSS*) stringWithEnum: (NSUInteger) anEnum;
+- (NSUI) enumFromString: (NSString*) aString default: (NSUInteger) def;
+- (NSUI) enumFromString: (NSString*) aString;
 
 @property (RONLY) NSArray *colorValues;
 
-+ (NSMutableArray *)mutableArrayWithArrays:(NSA*)arrays;
-+ (NSArray*)arrayWithArrays:(NSA*)arrays;
-- (NSA*)arrayWithEach;
-
++ (NSMA*) mutableArrayWithArrays:(NSA*)arrays;
++  (NSA*) arrayWithArrays:(NSA*)arrays;
+-  (NSA*) arrayWithEach;
 - (NSA*) allKeysInChildDictionaries;
 - (NSA*) allvaluesInChildDictionaries;
 
@@ -158,64 +154,46 @@ extern NSString * const NSMutableArrayDidInsertObjectNotification;
 - (id)subIndex:(NSUI)subIndex block:(MapArrayBlock)block;
 //performs block on subindex of array and returns the original index object that return from the block
 - (id)subIndex:(NSUI)subIndex blockReturnsIndex:(MapArrayBlock)block;
-
 /*** Filters one element from the array that returns YES from the called block might not always be the same, it just will return any match! In case you are not absolutely sure that there is only ONE match better use filter and grab the result manually will return nil for no match */
 - (id)filterOne:(BOOL (^)(id object))block;
-
 /*** Returns YES when all members of the current array pass the isKindOfClass test with the given Class */
 - (BOOL)allKindOfClass:(Class)aClass;
-
 /*** Returns a subArray with all members of the original array that pass the isKindOfClass test with the given Class */
 - (NSA*)elementsOfClass:(Class)aClass;
-
 /*** Shortcut for elementsOfClass:NSNumber.class */
 @property (RONLY) NSArray *numbers;
-
 /*** Shortcut for elementsOfClass:NSString.class */
 @property (RONLY) NSArray *strings;
 /*** Returns a subArray with all NSString members and calls trim on each before returning */
 @property (RONLY) NSArray *trimmedStrings;
-
 - (NSA*)subarrayFromIndex:(NSInteger)start;
 - (NSA*)subarrayToIndex:(NSInteger)end;
 - (NSA*)subarrayFromIndex:(NSInteger)start toIndex:(NSInteger)end;
-
 /*** Returns a random element from this array */
 @property (RONLY) id randomElement;
-
 /*** Returns a random subArray of this array with up to 'size' elements */
 - (NSA*)randomSubarrayWithSize:(NSUInteger)size;
-
 /*** Returns a shuffeled version of this array */
 @property (RONLY) NSArray *shuffeled;
-
 /*** A failsave version of objectAtIndex When the given index is outside the bounds of the array it will be projected onto the bounds of the array Just imagine the array to be a ring  that will have its first and last element connected to each other */
 - (id)objectAtNormalizedIndex:(NSInteger)index;
 - (id)normal:(NSInteger)index;
-
 /*** A failsave version of objectAtIndex that will return the fallback value in case an error occurrs or the value is nil */
 - (id)objectAtIndex:(NSUInteger)index fallback:(id)fallback;
-
 /*** Will at least return nil in case the index does not fit the array */
 - (id)objectOrNilAtIndex:(NSUInteger)index;
-
 @property (RONLY) id first;
 @property (RONLY) id second;
 @property (RONLY) id thrid;
 @property (RONLY) id fourth;
 @property (RONLY) id fifth;
 @property (RONLY) id sixth;
-
-
 @property (RONLY) id last;
 @property (RONLY) NSN* sum;
-
 - (NSInteger)sumIntWithKey:(NSS*)keyPath;
 - (CGFloat)sumFloatWithKey:(NSS*)keyPath;
-
 /*** Returns YES when this array contains any of the elements in enumerable */
 - (BOOL)containsAny:(id <NSFastEnumeration>)enumerable;
-
 /*** Returns YES when this array contains all of the elements in enumerable */
 - (BOOL)containsAll:(id <NSFastEnumeration>)enumerable;
 -(BOOL)doesNotContainObjects:(id<NSFastEnumeration>)enumerable;
@@ -230,33 +208,22 @@ extern NSString * const NSMutableArrayDidInsertObjectNotification;
 /*** */
 -(NSA*)objectsWithFormat:(NSS*)format, ...;
 -(id)firstObjectWithFormat:(NSS*)format, ...;
-
 -(NSA*)filteredArrayUsingBlock: (BOOL (^)(id evaluatedObject, NSDictionary *bindings))block;
 -(NSA*) uniqueObjects;
-
 -(NSA*) uniqueObjectsSortedUsingSelector: (SEL)comparator;
-
 -(id)firstObject;
-
 -(void) eachDictionaryKeyAndObjectUsingBlock:(void(^)(id key, id obj))block;
-
-
-
 -(void) az_each:(void (^)(id obj, NSUInteger index, BOOL *stop))block;
-
 -(void) az_eachConcurrentlyWithBlock:(void (^)(NSInteger index, id obj, BOOL * stop))block;
-
 -(id)findWithBlock:(BOOL (^)(id obj))block;
-
 -(BOOL)isObjectInArrayWithBlock:(BOOL (^)(id obj))block;
-
 -(NSA*)findAllWithBlock:(BOOL (^)(id obj))block;
-
 #if !(TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
 -(NSHashTable *)findAllIntoWeakRefsWithBlock:(BOOL (^)(id))block;
 #endif
 
 -(NSA*)mapArray:(id (^)(id obj))block;
+-(NSD*)mapToDictForgivingly:(AZKeyPair*(^)(id))block;
 @end
 
 @interface NSArray(ListComprehensions) 
@@ -279,6 +246,8 @@ extern NSString * const NSMutableArrayDidInsertObjectNotification;
 @end
 
 @interface NSMutableArray (AG)
+
+- (NSMA*) alphabetize;
 
 - (void) addPoint:(NSPoint)point;
 - (void) addRect:(NSRect)rect;
@@ -332,8 +301,6 @@ extern NSString * const NSMutableArrayDidInsertObjectNotification;
 - (void) moveObjectAtIndex:(NSUInteger)fromIndex toIndex:(NSUInteger)toIndex withBlock:(void (^)(id, NSUInteger))block;
 
 @end
-
-
 
 /*!
  @brief	 Methods for showing arrays as formatted strings	*/
@@ -416,6 +383,8 @@ extern NSString * const NSMutableArrayDidInsertObjectNotification;
 - (NSA*) arrayBySortingStrings;
 @property (readonly, getter=arrayBySortingStrings) NSArray *sortedStrings;
 @property (readonly) NSString *stringValue;
+- (NSArray*) reversedArray;
+- (id) firstObject;
 @end
 
 @interface NSArray (UtilityExtensions)
@@ -440,6 +409,7 @@ extern NSString * const NSMutableArrayDidInsertObjectNotification;
 @end
 
 @interface NSMutableArray (UtilityExtensions)
+- (void) moveObjectFromIndex:(NSInteger)oldIndex toIndex:(NSInteger)newIndex;
 - (NSMutableArray *) removeFirstObject;
 - (NSMutableArray *) reverse;
 - (NSMutableArray *) scramble;

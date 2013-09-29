@@ -24,9 +24,5 @@
 
 
 
-
-
-
-
 //{	@public	htmlDocPtr _doc;	}
 

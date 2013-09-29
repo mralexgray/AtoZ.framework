@@ -1,0 +1,400 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		7B3D80F7178D24F100793E22 /* AZMacro.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B3D80F0178D24F100793E22 /* AZMacro.m */; };
+		7B3D80F8178D24F100793E22 /* AZMacroManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B3D80F3178D24F100793E22 /* AZMacroManager.m */; };
+		7B3D80F9178D24F100793E22 /* AZShortcutWC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B3D80F5178D24F100793E22 /* AZShortcutWC.m */; };
+		7BF1ECBF174A1F8B00699D38 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF1ECBE174A1F8B00699D38 /* main.m */; };
+		7BF3FEB817D8B87D0079B1A2 /* NSNib+XMLBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF3FEB717D8B87D0079B1A2 /* NSNib+XMLBase64.m */; };
+		7BFBF514175DCFFC007A84AC /* ArchDirectoryObserver.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B3C8C0C174B908B00842B90 /* ArchDirectoryObserver.h */; settings = {ATTRIBUTES = (Public, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		7BF1ECB6174A1F8B00699D38 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		7B10DE7F17D925F600637786 /* AtoZCodeFactory */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = AtoZCodeFactory; sourceTree = BUILT_PRODUCTS_DIR; };
+		7B10DE8017D925F600637786 /* libAtoZObjC.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAtoZObjC.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		7B3C8C0C174B908B00842B90 /* ArchDirectoryObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ArchDirectoryObserver.h; path = AtoZCodeFactory/ArchDirectoryObserver.h; sourceTree = "<group>"; };
+		7B3C8C0D174B908B00842B90 /* ArchDirectoryObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ArchDirectoryObserver.m; path = AtoZCodeFactory/ArchDirectoryObserver.m; sourceTree = "<group>"; };
+		7B3D80EF178D24F100793E22 /* AZMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZMacro.h; path = AtoZCodeFactory/AZMacro.h; sourceTree = "<group>"; };
+		7B3D80F0178D24F100793E22 /* AZMacro.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AZMacro.m; path = AtoZCodeFactory/AZMacro.m; sourceTree = "<group>"; };
+		7B3D80F2178D24F100793E22 /* AZMacroManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZMacroManager.h; path = AtoZCodeFactory/Controllers/AZMacroManager.h; sourceTree = "<group>"; };
+		7B3D80F3178D24F100793E22 /* AZMacroManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AZMacroManager.m; path = AtoZCodeFactory/Controllers/AZMacroManager.m; sourceTree = "<group>"; };
+		7B3D80F4178D24F100793E22 /* AZShortcutWC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZShortcutWC.h; sourceTree = "<group>"; };
+		7B3D80F5178D24F100793E22 /* AZShortcutWC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZShortcutWC.m; sourceTree = "<group>"; };
+		7B3D80F6178D24F100793E22 /* MainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MainWindow.xib; path = AtoZCodeFactory/MainWindow.xib; sourceTree = "<group>"; };
+		7B99CF801757F05D00977638 /* AtoZCodeFactory-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "AtoZCodeFactory-Info.plist"; path = "AtoZCodeFactory/AtoZCodeFactory-Info.plist"; sourceTree = SOURCE_ROOT; };
+		7BF1ECBE174A1F8B00699D38 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = AtoZCodeFactory/main.m; sourceTree = "<group>"; };
+		7BF1ECC1174A1F8B00699D38 /* AtoZCodeFactory-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "AtoZCodeFactory-Prefix.pch"; path = "AtoZCodeFactory/AtoZCodeFactory-Prefix.pch"; sourceTree = "<group>"; };
+		7BF1ECD1174AAC6800699D38 /* AtoZMacroDefines.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = AtoZMacroDefines.plist; path = ../AtoZMacroDefines.plist; sourceTree = "<group>"; };
+		7BF3FEB517D8B6E30079B1A2 /* SomeNib.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = SomeNib.xml; path = AtoZCodeFactory/SomeNib.xml; sourceTree = "<group>"; };
+		7BF3FEB617D8B87D0079B1A2 /* NSNib+XMLBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSNib+XMLBase64.h"; path = "AtoZCodeFactory/NSNib+XMLBase64.h"; sourceTree = "<group>"; };
+		7BF3FEB717D8B87D0079B1A2 /* NSNib+XMLBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSNib+XMLBase64.m"; path = "AtoZCodeFactory/NSNib+XMLBase64.m"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		7BF1ECB5174A1F8B00699D38 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7BFBF4F4175DCF82007A84AC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		7B10DE8417D9346700637786 /* AtoZNibFactory */ = {
+			isa = PBXGroup;
+			children = (
+				7BF3FEB517D8B6E30079B1A2 /* SomeNib.xml */,
+				7B3D80F6178D24F100793E22 /* MainWindow.xib */,
+				7B99CF801757F05D00977638 /* AtoZCodeFactory-Info.plist */,
+				7BF3FEB717D8B87D0079B1A2 /* NSNib+XMLBase64.m */,
+				7BF3FEB617D8B87D0079B1A2 /* NSNib+XMLBase64.h */,
+			);
+			name = AtoZNibFactory;
+			sourceTree = "<group>";
+		};
+		7B3D80F1178D24F100793E22 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				7B3D80F4178D24F100793E22 /* AZShortcutWC.h */,
+				7B3D80F5178D24F100793E22 /* AZShortcutWC.m */,
+			);
+			name = Controllers;
+			path = AtoZCodeFactory/Controllers;
+			sourceTree = "<group>";
+		};
+		7BF1ECAF174A1F8B00699D38 = {
+			isa = PBXGroup;
+			children = (
+				7B10DE8417D9346700637786 /* AtoZNibFactory */,
+				7BF1ECD1174AAC6800699D38 /* AtoZMacroDefines.plist */,
+				7B3D80EF178D24F100793E22 /* AZMacro.h */,
+				7B3D80F0178D24F100793E22 /* AZMacro.m */,
+				7B3D80F2178D24F100793E22 /* AZMacroManager.h */,
+				7B3D80F3178D24F100793E22 /* AZMacroManager.m */,
+				7B3D80F1178D24F100793E22 /* Controllers */,
+				7BF1ECC1174A1F8B00699D38 /* AtoZCodeFactory-Prefix.pch */,
+				7B3C8C0C174B908B00842B90 /* ArchDirectoryObserver.h */,
+				7B3C8C0D174B908B00842B90 /* ArchDirectoryObserver.m */,
+				7BF1ECBE174A1F8B00699D38 /* main.m */,
+				7B10DE7F17D925F600637786 /* AtoZCodeFactory */,
+				7B10DE8017D925F600637786 /* libAtoZObjC.a */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		7BFBF4F5175DCF82007A84AC /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7BFBF514175DCFFC007A84AC /* ArchDirectoryObserver.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		7BF1ECB7174A1F8B00699D38 /* AtoZCodeFactory */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7BF1ECC6174A1F8B00699D38 /* Build configuration list for PBXNativeTarget "AtoZCodeFactory" */;
+			buildPhases = (
+				7BF1ECB4174A1F8B00699D38 /* Sources */,
+				7BF1ECB5174A1F8B00699D38 /* Frameworks */,
+				7BF1ECB6174A1F8B00699D38 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AtoZCodeFactory;
+			productName = AtoZCodeFactory;
+			productReference = 7B10DE7F17D925F600637786 /* AtoZCodeFactory */;
+			productType = "com.apple.product-type.tool";
+		};
+		7BFBF4F6175DCF82007A84AC /* AtoZObjC */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7BFBF507175DCF82007A84AC /* Build configuration list for PBXNativeTarget "AtoZObjC" */;
+			buildPhases = (
+				7BFBF4F3175DCF82007A84AC /* Sources */,
+				7BFBF4F4175DCF82007A84AC /* Frameworks */,
+				7BFBF4F5175DCF82007A84AC /* Headers */,
+				7BFBF51A175DD05C007A84AC /* Resources */,
+				7BFBF51B175DD070007A84AC /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AtoZObjC;
+			productName = AtoZObjC;
+			productReference = 7B10DE8017D925F600637786 /* libAtoZObjC.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7BF1ECB0174A1F8B00699D38 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0460;
+				ORGANIZATIONNAME = "Alex Gray";
+			};
+			buildConfigurationList = 7BF1ECB3174A1F8B00699D38 /* Build configuration list for PBXProject "AtoZCodeFactory" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7BF1ECAF174A1F8B00699D38;
+			productRefGroup = 7BF1ECAF174A1F8B00699D38;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7BF1ECB7174A1F8B00699D38 /* AtoZCodeFactory */,
+				7BFBF4F6175DCF82007A84AC /* AtoZObjC */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		7BFBF51A175DD05C007A84AC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		7BFBF51B175DD070007A84AC /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "  INCLUDE_PATH=\"${BUILT_PRODUCTS_DIR}/include\"\n  PRODUCT_PATH=\"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}\"\n        BINARY=\"$PRODUCT_PATH/Headers/\"\n\ncd \"$INCLUDE_PATH\" \ncp -R . \"$PRODUCT_PATH/Headers/\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7BF1ECB4174A1F8B00699D38 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7B3D80F9178D24F100793E22 /* AZShortcutWC.m in Sources */,
+				7B3D80F8178D24F100793E22 /* AZMacroManager.m in Sources */,
+				7BF3FEB817D8B87D0079B1A2 /* NSNib+XMLBase64.m in Sources */,
+				7B3D80F7178D24F100793E22 /* AZMacro.m in Sources */,
+				7BF1ECBF174A1F8B00699D38 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7BFBF4F3175DCF82007A84AC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		7BF1ECC4174A1F8B00699D38 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = "";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		7BF1ECC5174A1F8B00699D38 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				HEADER_SEARCH_PATHS = "";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		7BF1ECC7174A1F8B00699D38 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				FRAMEWORK_SEARCH_PATHS = /Library/Frameworks;
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "AtoZCodeFactory/AtoZCodeFactory-Prefix.pch";
+				HEADER_SEARCH_PATHS = "";
+				INFOPLIST_FILE = "AtoZCodeFactory/AtoZCodeFactory-Info.plist";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Cocoa,
+					"-framework",
+					AppKit,
+					"-framework",
+					QuartzCore,
+					"-framework",
+					AtoZ,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		7BF1ECC8174A1F8B00699D38 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				FRAMEWORK_SEARCH_PATHS = /Library/Frameworks;
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "AtoZCodeFactory/AtoZCodeFactory-Prefix.pch";
+				HEADER_SEARCH_PATHS = "";
+				INFOPLIST_FILE = "AtoZCodeFactory/AtoZCodeFactory-Info.plist";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Cocoa,
+					"-framework",
+					AppKit,
+					"-framework",
+					QuartzCore,
+					"-framework",
+					AtoZ,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		7BFBF505175DCF82007A84AC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "AtoZObjC/AtoZObjC-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"\"$(NODE_PROTOCOL)\"",
+					"\"$(PRODUCT_PATH)/Headers/**\"/**",
+					"\"$(AtoZFrameworks)/THObserversAndBinders/\"",
+					"$(SRCROOT)/**",
+				);
+				MACH_O_TYPE = mh_bundle;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "include/$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		7BFBF506175DCF82007A84AC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "AtoZObjC/AtoZObjC-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"\"$(NODE_PROTOCOL)\"",
+					"\"$(PRODUCT_PATH)/Headers/**\"/**",
+					"\"$(AtoZFrameworks)/THObserversAndBinders/\"",
+					"$(SRCROOT)/**",
+				);
+				MACH_O_TYPE = mh_bundle;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "include/$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7BF1ECB3174A1F8B00699D38 /* Build configuration list for PBXProject "AtoZCodeFactory" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7BF1ECC4174A1F8B00699D38 /* Debug */,
+				7BF1ECC5174A1F8B00699D38 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7BF1ECC6174A1F8B00699D38 /* Build configuration list for PBXNativeTarget "AtoZCodeFactory" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7BF1ECC7174A1F8B00699D38 /* Debug */,
+				7BF1ECC8174A1F8B00699D38 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7BFBF507175DCF82007A84AC /* Build configuration list for PBXNativeTarget "AtoZObjC" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7BFBF505175DCF82007A84AC /* Debug */,
+				7BFBF506175DCF82007A84AC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 7BF1ECB0174A1F8B00699D38 /* Project object */;
+}

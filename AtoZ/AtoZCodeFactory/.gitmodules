@@ -1,7 +1,0 @@
-[submodule "BBUncrustifyPlugin-Xcode"]
-	path = XcodePlugin
-	url = https://github.com/mralexgray/BBUncrustifyPlugin-Xcode.git
-	ignore = dirty
-[submodule "XMLDictionary"]
-	path = XMLDictionary
-	url = https://github.com/mralexgray/XMLDictionary.git

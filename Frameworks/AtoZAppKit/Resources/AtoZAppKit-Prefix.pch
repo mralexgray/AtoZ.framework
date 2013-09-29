@@ -12,7 +12,5 @@
 #define NSOQMQ NSOperationQueue.mainQueue
 #define GRADFROMTO(X,Y) [NSGradient.alloc initWithStartingColor:X endingColor:Y]
 
-
-
 NS_INLINE CGFloat BGCenterX(NSRect aRect) {	return (aRect.size.width / 2);	}
 NS_INLINE CGFloat BGCenterY(NSRect aRect) {	return (aRect.size.height / 2);	}

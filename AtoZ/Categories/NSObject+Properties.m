@@ -1,4 +1,5 @@
 
+
 #import "AtoZ.h"
 #import "NSObject+Properties.h"
 
@@ -81,6 +82,8 @@ const char * property_getRetentionMethod ( objc_property_t property ) {
 }
 
 @implementation NSObject (AQProperties)
+
+- (instancetype) objectBySettingValue:(id)v forKey:(NSS*)k { [self sV:v fK:k]; return self; }
 
 static const char* getPropertyType    (objc_property_t property) 	{
 	const char *attributes = property_getAttributes(property);
@@ -262,20 +265,16 @@ static const char* getPropertyType    (objc_property_t property) 	{
 }
 + (NSA*) propertyNames									{
 
-
-	unsigned int i, count = 0;
-	objc_property_t *properties = class_copyPropertyList( self, &count );
-
-	if ( count == 0 ) {
-		free( properties );
-		return ( nil );
+   unsigned int propertyCount;
+   objc_property_t *properties = class_copyPropertyList([self class], &propertyCount);
+	if (!propertyCount) return free( properties ), nil;
+	NSMutableArray *list = NSMA.new;
+	for (unsigned int i = 0; i < propertyCount; i++)
+	{
+   	NSString *selector = [NSString stringWithCString:property_getName(properties[i]) encoding:NSUTF8StringEncoding] ;
+		if (selector) [list addObject:selector];
 	}
-	NSMutableArray *list = [NSMutableArray array];
-
-	for ( i = 0; i < count; i++ ) {
-		[list addObject:[NSS stringWithUTF8String:property_getName(properties[i])]];
-	}
-	return [[[list alphabetize] copy] autorelease];
+	return free( properties ), list;
 }
 - (NSD*) propertyNamesAndTypes						{ return [self.class propertyNamesAndTypes]; }
 + (NSD*) propertyNamesAndTypes						{
@@ -294,7 +293,7 @@ static const char* getPropertyType    (objc_property_t property) 	{
 		[list addObject:[NSS stringWithUTF8String:property_getName(properties[i])]];
 	}
 	
-	return [list.alphabetize bk_reduce:NSMD.new withBlock:^id(id sum, id obj) { NSString *type = nil;
+	return [list.alphabetize reduce:NSMD.new withBlock:^id(id sum, id obj) { NSString *type = nil;
 		const char* t = [self typeOfPropertyNamed:obj]; if (t != NULL)  type = $UTF8(t); if (!type) return sum;
 		if (![sum objectForKey:type]) [sum setValue:@[obj].mutableCopy forKey:type];
 		else [[sum objectForKey:type] addObject:obj];

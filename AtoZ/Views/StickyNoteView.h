@@ -39,5 +39,3 @@ JROptionsDeclare(AZDraggingMode, AZDraggingModeMove, AZDraggingModeResize, AZDra
 @end
 
 
-
-

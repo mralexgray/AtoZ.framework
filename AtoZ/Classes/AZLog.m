@@ -28,14 +28,7 @@ static NSA *gPal = nil;
 static LogEnv logEnv = LogEnvUnknown;
 @implementation AZLog
 
-- (void) setUp {	![self.class hasSharedInstance] ? ^{ 
 
-	[self.class setSharedInstance:self]; 
-	gPal = NSC.randomPalette;	
-	COLORLOG(@"logformat:", LogEnvToString( self.logEnv ), RED, nil);
-
-	}(): nil;
-}
 //- (BOOL) inTTY 			{   return [@(isatty(STDERR_FILENO))boolValue]; }
 - (LogEnv) logEnv 		{
 
@@ -89,13 +82,13 @@ static LogEnv logEnv = LogEnvUnknown;
 }
 /* Pass a variadic list of Colors, and Ovjects, in any order, TRMINATED BY NIL, abd it wiull use those colors to log those objects! */
 //- (NSA*) COLORIZE:(id) colorsAndThings, ...  {
+
 - (NSA*) colorizeAndReturn:(id) colorsAndThings, ... {
+
 	__block NSMA *colors = NSMA.new;  __block NSMA *words  = NSMA.new;
 
-	AZVA_Block sort   = ^(id thing) { [thing ISKINDA:NSC.class] ? [colors addObject:thing] : [words addObject:thing]; };
-	AZVA_Block theBlk = ^(id thing) { if ([thing ISKINDA:NSA.class])  [(NSA*)thing each:^(id obj) {   sort(thing);		}];
-	else sort (thing);
-	};
+	AZVA_Block sort   = ^(id thing) { [thing ISKINDA:NSC.class] ? 	[colors addObject:thing] 	: 	[words addObject:thing]; };
+	AZVA_Block theBlk = ^(id thing) { [thing ISKINDA:NSA.class] ? [(NSA*)thing each:^(id obj) { sort(thing); }] : sort (thing); };
 
 	azva_iterate_list(colorsAndThings, theBlk);   
 	return [words nmap:^id (id o, NSUI i) { 
@@ -139,7 +132,7 @@ static LogEnv logEnv = LogEnvUnknown;
 	[words addObject:zNL];
 	fprintf(stdout, "%s", //e != LogEnvXcodeColor ? [words componentsJoinedByString:@" "].UTF8String :
 
-	 [[words bk_reduce:LOG_CALLER_VERBOSE ? @"LOGCOLORS: ":@"" withBlock:^NSS*(NSS *sum,NSS *o) {
+	 [[words reduce:LOG_CALLER_VERBOSE ? @"LOGCOLORS: ":@"" withBlock:^NSS*(NSS *sum,NSS *o) {
 															if (![o isEqualToAnyOf:@[@" ",@"\n", @""]]) {
 																NSC  *c = [colors advance];
 																o.logForeground = c.isDark ? [c colorWithBrightnessMultiplier:2]: c;
@@ -159,12 +152,18 @@ void WEBLOG (id format, ...) {
 
 -(void) logInColor:(id)colr file:(const char*)file line:(int)ln func:(const char*)fnc format:(id)fmt,...{
 
+	if (!fmt || ![fmt ISKINDA:NSS.class]) return NSLog(@"you tried formatting with a %@, not a string!", NSStringFromClass([fmt class]));
 // Get a reference to the arguments that follow the format parameter
-	va_list argList;  va_start(argList, fmt);
+//	__block NSMS *s = NSMS.new;
+	va_list argList;
+	va_start(argList, fmt);
 // Perform format string argument substitution, reinstate %% escapes, then print
 	NSString *s = [NSString.alloc initWithFormat:fmt arguments:argList];
-	printf("%s\n", [[s stringByReplacingOccurrencesOfString:@"%%" withString:@"%%%%"] UTF8String]);
-	[s release];
+	if (s && s.length)
+//	s = [s stringByReplacingOccurrencesOfString:@"%%" withString:@"%%%%"];
+//	if (s && s.length)
+		printf("%s\n",[s stringByReplacingOccurrencesOfString:@"%%" withString:@"%%%%"].UTF8String);
+//	[s release];
 	va_end(argList);
 /**
 	azva_list_to_nsarray(fmt, FORMATTER)
@@ -350,8 +349,6 @@ static void HackNSLog(void) {	_NSSetLogCStringFunction(PrintNSLogMessage);	}
 //	fprintf (stderr, "*** %s ***\n", [message UTF8String]);	 va_end  (argList);
 //} // QuietLog
 
-
-
 //	NSUInteger fgCodeIndex;	NSString *fgCodeRaw;	char fgCode[24];	size_t fgCodeLen;	char resetCode[8];	size_t resetCodeLen;
 //
 //	if (fgs && isaColorTTY) {
@@ -385,8 +382,6 @@ static void HackNSLog(void) {	_NSSetLogCStringFunction(PrintNSLogMessage);	}
 //		fgCode[0] = '\0';
 //		fgCodeLen = 0;
 //	}
-
-
 
 
 
@@ -439,8 +434,6 @@ static void HackNSLog(void) {	_NSSetLogCStringFunction(PrintNSLogMessage);	}
 //	azva_iterate_list(colorsAndThings, theBlk);
 //	return @[Block_copy(colors), Block_copy(words)];
 //};
-
-
 
 //+(BOOL) inTTY 					{   return [@(isatty(STDERR_FILENO))boolValue]; }
 //LogEnv AZLogEnv(void) 		{

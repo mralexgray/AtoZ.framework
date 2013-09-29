@@ -126,7 +126,7 @@ static NSMD *delegations = nil;
 																	NSAssert(layer.delegate != nil, @"nil");	}
 	else if 	(type == CABlockTypeLayoutBlock	)	{	layer.layoutManager = n; [layer setNeedsLayout];	}
 	else if 	(type == CABlockTypeKVOChange		)	{
-		[layer az_overrideSelector:@selector(didChangeValueForKey:) withBlock:(__bridge void *)^(id _self, NSS*k){
+		[(CAL*)layer az_overrideSelector:@selector(didChangeValueForKey:) withBlock:(__bridge void*)^(CAL* _self,NSS*k){
 			n.kvoObserverBlock(layer, k);
 //			SEL sel = @selector(didChangeValueForKey:);	void (*superIMP)(id, SEL, NSS*) = [_self az_superForSelector:sel];
 //																			    superIMP(_self, sel, k);
@@ -239,8 +239,6 @@ AZLOGCMD; _layoutBlock ? self.layoutBlock	(layer) 					: nil;
 */
 //}
 
-
-
 //@interface AZValueTransformer :NSValueTransformer
 //@property (nonatomic, copy) id (^transformBlock)(id value);
 //+ (instancetype) transformerWithBlock:    (id(^)(id value))block;
@@ -347,8 +345,6 @@ AZLOGCMD; _layoutBlock ? self.layoutBlock	(layer) 					: nil;
 @end
 
 
-
-
 @implementation CALayer (CAScrollLayer_Extensions)
 @end
 
@@ -395,8 +391,6 @@ AZLOGCMD; _layoutBlock ? self.layoutBlock	(layer) 					: nil;
 }
 @end
  */
-
-
 
 
 @interface CAAnimationDelegate ()

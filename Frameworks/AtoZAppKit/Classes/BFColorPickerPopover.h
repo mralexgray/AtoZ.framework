@@ -74,10 +74,10 @@
 @interface BFColorPickerPopoverView : NSView
 @end
 @interface BFColorPickerPopover : NSPopover
-@property (nonatomic, assign) id target;
-@property (nonatomic) SEL action;
-@property (nonatomic, weak) NSColor *color;
-+ (BFColorPickerPopover *)sharedPopover;
+@property (nonatomic,strong) 	id target;
+@property (nonatomic) 			SEL action;
+@property (nonatomic, strong) 	NSColor *color;
++ (BFColorPickerPopover*) sharedPopover;
 @end
 @interface BFPopoverColorWell : NSColorWell <NSPopoverDelegate>
 @property (nonatomic) NSRectEdge preferredEdgeForPopover;

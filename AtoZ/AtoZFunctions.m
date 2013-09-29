@@ -615,6 +615,10 @@ BOOL areSame(id a, id b) {
 		   ? : NO;
 }
 
+
+
+
+
 BOOL areSameThenDo(id a, id b, VoidBlock doBlock) {
 	BOOL same = areSame(a, b); if (same) doBlock(); return same;
 }
@@ -2426,8 +2430,6 @@ NSImage * reflectedView(NSView *view) {
 
 	return reflectionImage;
 }
-
-
 
 
 

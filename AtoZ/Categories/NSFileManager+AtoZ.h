@@ -1,10 +1,4 @@
 
-//  NSFileManager+AtoZ.h
-//  AtoZ
-
-//  Created by Alex Gray on 8/28/12.
-//  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-#import <Foundation/Foundation.h>
 
 NSString *NSDocumentsFolder(void);
 NSString *NSLibraryFolder(void);
@@ -15,7 +9,6 @@ NSString *NSBundleFolder(void);
 
 - (NSA*) pathsOfContentsOfDirectory:(NSString*) directory;
 
-
 - (NSA*) arrayWithFilesMatchingPattern: (NSString*) pattern inDirectory: (NSString*) directory;
 
 + (NSS*) pathForItemNamed: (NSS*) fname inFolder: (NSS*) path;
@@ -24,6 +17,10 @@ NSString *NSBundleFolder(void);
 
 //non-resursive
 + (NSA*) pathsForItemsInFolder:(NSS*)path withExtension: (NSS*) ext;
+
++ (NSA*) pathsOfFilesIn:(NSString*)path withExtension:  (NSString*)ext;
++ (NSA*) pathsOfFilesIn:(NSString*)path matchingPattern:(NSString*)regex;
++ (NSA*) pathsOfFilesIn:(NSString*)path passing:(BOOL(^)(NSString*))testBlock;
 //recursive
 + (NSA*) pathsForItemsMatchingExtension: (NSS*) ext inFolder: (NSS*) path;
 + (NSA*) pathsForDocumentsMatchingExtension: (NSS*) ext;
@@ -60,8 +57,6 @@ NSString *NSBundleFolder(void);
 #endif
 
 @end
-
-
 
 @interface NSFileManager (Extensions)
 - (NSString*) mimeTypeFromFileExtension:(NSString*)extension;

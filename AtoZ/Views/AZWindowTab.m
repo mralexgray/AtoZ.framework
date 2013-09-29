@@ -309,8 +309,6 @@
 @implementation AZWindowTabController
 @end
 
-
-
 /*
  CAT3D transform      = CATransform3DIdentity;
  transform.m34            = -1.f / 700.f;	// Apply a perspective transform onto the layer.

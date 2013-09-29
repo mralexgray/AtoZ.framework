@@ -23,8 +23,6 @@
 @interface NSIndexPath (ESExtensions)
 
 
-
-
 - (NSUInteger)firstIndex;
 - (NSUInteger)lastIndex;
 - (NSIndexPath *)indexPathByIncrementingLastIndex;

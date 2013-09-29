@@ -54,8 +54,6 @@ FOUNDATION_EXPORT const CGP AZAnchorBottomRight;
 FOUNDATION_EXPORT const CGP AZAnchorCenter;
 
 
-
-
 extern const CGRect CGRectOne;
 
 //FOUNDATION_EXPORT const CGP AZAnchorTop,
@@ -63,14 +61,10 @@ extern const CGRect CGRectOne;
 //				AZAnchorRight,
 //				AZAnchorLeft;
 
-
-
 NSP AZTopLeftPoint  ( NSR rect );
 NSP AZTopRightPoint ( NSR rect );
 NSP AZBotLeftPoint  ( NSR rect );
 NSP AZBotRightPoint ( NSR rect );
-
-
 
 /**	NSRange from a min and max values even though the names imply that min should be greater than max the order does not matter the range will always start at the lower value and have a size to reach the upper value **/
 
@@ -380,8 +374,6 @@ FOUNDATION_EXPORT NSR AZLowerEdge ( NSR rect, CGF height );
 
 // returns a rect at the upper edge of a rect with a given inset width
 FOUNDATION_EXPORT NSR AZUpperEdge ( NSR rect, CGF height );
-
-
 
 typedef struct AZInsetRects {
 	NSRect top;

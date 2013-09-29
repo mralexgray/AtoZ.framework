@@ -26,10 +26,8 @@ NS_INLINE NSUI gcd(NSI m,NSUI n) { NSI t,r; if(m<n){t=m; m=n; n=t; } r=m%n; retu
 @property (NATOM) NSR		  outerFrame;
 @property (WK) 		NSA	*objects;
 @property (NATOM) 	NSUI 	quantity;
-@property (NATOM) 	NSA 	*rects;
+AZPROP (NSA, rects);
 @property (NATOM,CP) NSMA 	*positions;
-
-
 
 @end
 

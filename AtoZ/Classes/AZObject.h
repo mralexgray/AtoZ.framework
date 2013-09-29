@@ -1,14 +1,32 @@
-//
-//  SampleObject.h
-//  CoreAnimationListView
-//
-//  Created by Patrick Geiller on 07/04/08.
-//  Copyright 2008 __MyCompanyName__. All rights reserved.
-//
 
-#import <Foundation/Foundation.h>
-#import <Cocoa/Cocoa.h>
 
+#import <objc/runtime.h>
+#import "extobjc_OSX/extobjc.h"
+#import "AtoZUmbrella.h"
+#import "AtoZCategories.h"
+
+
+@protocol IBSingleton <NSObject>
+
+@optional
+- (void) setUp;
+@concrete
++ (id) allocWithZone: (NSZone*)zone;
++ (instancetype)sharedInstance;
++ (id) alloc;
++ (id) _alloc;
+- (id) init;
+- (id) _init;
+@end
+
+
+@protocol AZPlistRepresentation <NSObject>
+@concrete
+@property (RONLY) NSD* plistRepresentation;
+@end
+
+@interface AZObject : NSObject <NSCoding, NSCopying, NSMutableCopying, AZPlistRepresentation>
+@end
 
 @interface AZArray : NSObject
 

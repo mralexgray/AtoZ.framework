@@ -1,3 +1,11 @@
+[submodule "AtoZ/AtoZAutoBox"]
+	path = AtoZ/AtoZAutoBox
+	url = https://github.com/mralexgray/AtoZAutoBox.git
+	ignore = dirty
+[submodule "AtoZWebkit"]
+	path = AtoZWebkit
+	url = https://github.com/mralexgray/AtoZWebkit.git
+	ignore = dirty
 [submodule "AtoZ/Categories/Functional"]
 	path = AtoZ/Categories/Functional
 	url = https://github.com/mralexgray/Functional.m.git
@@ -81,10 +89,6 @@
 [submodule "Frameworks/MapKit"]
 	path = Frameworks/MapKit
 	url = https://github.com/mralexgray/MacMapKit.git
-	ignore = dirty
-[submodule "AtoZWebkit"]
-	path = AtoZWebkit
-	url = https://github.com/mralexgray/AtoZWebkit.git
 	ignore = dirty
 [submodule "ContactFlow"]
 	path = ContactFlow
@@ -238,10 +242,6 @@
 	path = Frameworks/CTObjectiveCRuntimeAdditions
 	url = https://github.com/mralexgray/CTObjectiveCRuntimeAdditions.git
 	ignore = dirty
-[submodule "AtoZ/AtoZAutoBox"]
-	path = AtoZ/AtoZAutoBox
-	url = https://github.com/mralexgray/AtoZAutoBox.git
-	ignore = dirty
 [submodule "Frameworks/Kiwi"]
 	path = Frameworks/Kiwi
 	url = https://github.com/mralexgray/Kiwi.git
@@ -249,3 +249,16 @@
 [submodule "Frameworks/BlocksKit"]
 	path = Frameworks/BlocksKit
 	url = https://github.com/mralexgray/BlocksKit.git
+	ignore = dirty
+[submodule "Frameworks/MASShortcut"]
+	path = Frameworks/MASShortcut
+	url = https://github.com/mralexgray/MASShortcut.git
+	ignore = dirty
+[submodule "Frameworks/KeyValueObjectMapping"]
+	path = Frameworks/KeyValueObjectMapping
+	url = https://github.com/mralexgray/KeyValueObjectMapping.git
+	ignore = dirty
+[submodule "Frameworks/GRMustache"]
+	path = Frameworks/GRMustache
+	url = https://github.com/mralexgray/GRMustache.git
+	ignore = dirty

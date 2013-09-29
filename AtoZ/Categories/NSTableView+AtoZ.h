@@ -38,11 +38,7 @@
 //	[pb setData:data forType:dragTypeDeclaration];	return YES;	\
 //}
 
-
-
 @interface NSTableView (AtoZ)
-
-
 
 
 - (void)selectItemsInArray:(NSA*)selectedItems usingSourceArray:(NSA*)sourceArray;

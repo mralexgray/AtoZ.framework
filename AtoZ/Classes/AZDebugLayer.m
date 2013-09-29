@@ -38,8 +38,9 @@
 	}];
 
 	__block AZDebugLayerView* blockself = self;
-	[_dLayer bk_addObserverForKeyPaths:@[@"anchorPoint", @"position"] task:^(id obj, NSDictionary *info) {
-		NSLog(@"observed info: %@  obj: %@", info, obj);
+	[_dLayer addObserverForKeyPaths:@[@"anchorPoint", @"position"] task:^(id obj, NSString *keyPath) { // id obj, NSDictionary *info) {
+//		NSLog(@"observed info: %@  obj: %@", info, obj);
+		NSLog(@"observed obj: %@ kp: %@", obj, keyPath);
 		NSP newPos = [blockself unNormalizedPoint:blockself.dLayer.anchorPoint inRect:blockself.dLayer.bounds];
 		NSLog(@"newpos = %@", AZString(newPos));
 //		blockself.dLayer.anchorPointLayer.position = newPos;
@@ -55,8 +56,6 @@
 }
 
 @end
-
-
 
 @implementation AZDebugLayer
 //- (void) didChangeValueForKey:(NSString *)key {
@@ -138,8 +137,6 @@
 //	_anchorPointLayer.position 		= [self unNormalizedPoint:self.anchorPoint inRect:[self bounds]];
 //	[_anchorPointLayer setNeedsDisplay];
 //}
-
-
 
 //- (void) drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx {
 //

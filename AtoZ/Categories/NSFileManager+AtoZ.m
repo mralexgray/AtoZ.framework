@@ -4,6 +4,7 @@
 
 //  Created by Alex Gray on 8/28/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
+
 #import "NSFileManager+AtoZ.h"
 #include <glob.h>
 #import <sys/xattr.h>
@@ -145,6 +146,34 @@ NSString *NSDCIMFolder()
 + (NSA*) pathsForBundleDocumentsMatchingExtension: (NSS*) ext
 {
 	return [NSFileManager pathsForItemsMatchingExtension:ext inFolder:NSBundleFolder()];
+}
+
+
++ (NSA*) pathsOfFilesIn:(NSString*)path matchingPattern:(NSString*)regex {
+
+	glob_t gt;
+	NSMutableArray* globber = NSMutableArray.new;
+	int exit = glob($(@"%@/%@",path.stringByStandardizingPath,regex).UTF8String, 0, NULL, &gt);
+	if (exit != 0) return;
+	for (int i = 0; i < gt.gl_matchc; i++)
+		[globber addObject:[self.defaultManager stringWithFileSystemRepresentation:gt.gl_pathv[i] length:strlen(gt.gl_pathv[i])].copy];
+	globfree(&gt);
+	return globber;
+}
+
++ (NSA*) pathsOfFilesIn:(NSString*)path withExtension:(NSString*)ext {
+
+	return [self pathsOfFilesIn:path passing:^BOOL(NSString*testP){
+		return [testP.pathExtension isEqualToString:ext]; 
+	}];
+}
+
++ (NSA*) pathsOfFilesIn:(NSString*)path passing:(BOOL(^)(NSString*))testBlock {
+	
+	NSMutableArray *globber = NSMutableArray.new;
+	for (NSString* file in [self.defaultManager contentsOfDirectoryAtPath:path.stringByStandardizingPath error:nil])
+		if (testBlock(file)) [globber addObject:[path stringByAppendingPathComponent:file]];
+	return globber.copy;
 }
 
 @end
@@ -373,8 +402,6 @@ static void _appendPropertiesOfTreeAtURL(NSFileManager *self, NSMutableString *s
 @end
 
 
-
-
 @implementation NSFileManager (Extensions)
 
 - (NSString*) mimeTypeFromFileExtension:(NSString*)extension {
@@ -515,8 +542,6 @@ static void _appendPropertiesOfTreeAtURL(NSFileManager *self, NSMutableString *s
 #endif
 
 @end
-
-
 
 /* ----- NSFileManager Additons : Implementation ----- */
 

@@ -37,6 +37,8 @@
 -(void)drawStripesInBounds:(NSRect)bounds;
 -(void)drawShadowInBounds:(NSRect)bounds;
 -(NSBezierPath*)stripeWithOrigin:(NSPoint)origin bounds:(NSRect)frame;
+@property (nonatomic) NSTimer* animator;
+@property (readwrite) double progressOffset;
 @end
 
 @implementation BGHUDProgressIndicator
@@ -258,8 +260,6 @@
 
 
 @end
-
-
 
 /*
 - (void)drawRect:(NSRect)r

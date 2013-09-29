@@ -76,8 +76,6 @@
 	return a;
 }
 
-
-
 - (id) find:(id) sender						{
 
 	#define SSS [sender stringValue]

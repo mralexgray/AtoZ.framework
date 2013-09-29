@@ -76,6 +76,4 @@ extern NSString * const kAZWebSnapperUseGMTKey;
 
 //- (void)addURLToHistory:(NSURL *)url;
 
-
-
 @end

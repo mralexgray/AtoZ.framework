@@ -94,7 +94,7 @@
 		case NSLeftMouseUp: {
 			//			if (_noHit) { CGPostMouseEvent(mouseLoc(), FALSE, 1,FALSE);
 			_hit = nil;
-			[self performBlock:^{ [self setIgnoresMouseEvents: NO]; } afterDelay:.1];
+			[self performBlock:^(id sender) { [sender setIgnoresMouseEvents: NO]; } afterDelay:.1];
 			break;
 		}
 		case NSMouseEntered:
@@ -315,8 +315,6 @@
 //	[self makeKeyAndOrderFront:nil];
 
 
-
-
 /*
  - (void) layoutSublayersOfLayer:(CALayer *)layer
  {
@@ -325,8 +323,6 @@
  [@[@"scroll", @"drawer"] containsObject: [obj name]] ? obj.frame :
  //		(NSR){ (idx-1) * unit + _scrollPoint.x, AZHeightUnderMenu() - unit/1.7	, unit, unit }; }];
  }
-
-
 
  -(void) drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx
  {
@@ -434,8 +430,6 @@
  //		flip.toValue = AZV3d(transform);
  //		[anObject addAnimation:rotateAnimation];
 
-
-
  //	AZConstRelSuperScaleOff(kCAConstraintMinY,1,( AZHeightUnderMenu()-tab.boundsWidth))]];
  //	AZConstAttrRelNameAttrScaleOff(kCAConstraintMinY, @"superlayer",kCAConstraintMaxY, 1, -tab.boundsWidth)]];
  //	AZConstAttrRelNameAttrScaleOff(kCAConstraintMinY, @"superlayer", kCAConstraintMaxY, -1, vRect.size.width)]];
@@ -521,8 +515,6 @@
 //			CGSetLocalEventsFilterDuringSupressionState(kCGEventFilterMaskPermitAllEvents,kCGEventSupressionStateRemoteMouseDrag);
 
 
-
-
 //			winner.backgroundColor = [[winner.backgroundColor brighter]brighter];
 //			NSRect saved = [[winner associatedValueForKey:@"oldFrame"]rectValue];
 //			NSRect 	newF = AZRectVerticallyOffsetBy(saved, -300);
@@ -579,8 +571,6 @@
 //	}
 
 
-
-
 //		[_bar trackFullView];
 //		[NSEvent addLocalMonitorForEventsMatchingMask:NSMouseMovedMask handler:^NSEvent *(NSEvent *e) {
 //
@@ -623,8 +613,6 @@
 //	if ( !fid ) {	return;		}
 //	CGSSetCIFilterValuesFromDictionary( cid, fid, (CFDictionaryRef)filterValues );
 //}
-
-
 
 /*
 
@@ -942,8 +930,6 @@
 //	return self;
 //}
 //@end
-
-
 
 //Then, if I want to run animation completion code after a CAAnimation finishes, I set myself as the delegate of the animation, and add a block of code to the animation using setValue:forKey:
 //	animationCompletionBlock theBlock = ^void(void)	{	//Code to execute after the animation completes goes here		};

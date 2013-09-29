@@ -19,8 +19,6 @@ static const CGF CAWindowShadowTopOff 		= 14;
 static const CGS CAWindowShadowOffset 		= (CGS){ 0, -30 };
 
 
-
-
 @implementation CAWindow
 
 
@@ -213,8 +211,6 @@ static const CGS CAWindowShadowOffset 		= (CGS){ 0, -30 };
 	return (_disableConstrainedWindow ? frameRect : [super constrainFrameRect:frameRect toScreen:screen]);
 }
 
-
-
 #pragma mark Convenince Window Methods
 
 - (void)orderOutWithDuration:(CFTimeInterval)duration timing:(CAMediaTimingFunction *)timing animations:(void (^)(CALayer *))animations {
@@ -304,8 +300,6 @@ static const CGS CAWindowShadowOffset 		= (CGS){ 0, -30 };
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
 	[self destroyTransformingWindowIfNeeded];
 }
-
-
 
 #pragma mark Lifecycle
 

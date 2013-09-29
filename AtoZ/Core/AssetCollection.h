@@ -11,13 +11,14 @@ typedef NS_ENUM(NSUI,AssetType){ JS, CSS, HTML5, PHP, BASH,	ObjC, TXT, UNKNOWN =
 
 @property (WK)									AssetCollection *collection;
 @property (NATOM, STRNG)	NSN			*priority;
-@property (NATOM, STRNG)	NSS 			*path,
+@property (CP)					NSS 			*path,
 													*contents;
-@property (NATOM, ASS) 		BOOL 			printInline,
+@property				 		BOOL 			printInline,
 									 				active;
-@property (NATOM, ASS) 		AssetType 	assetType;
+@property				 		AssetType 	assetType;
 @property (RONLY)				NSS 			*markup;
 
++ (instancetype) test;
 + (instancetype) instanceOfType:(AssetType)type withPath:(NSS*)path orContents:(NSS*)contents printInline:(BOOL)isit;
 @end
 
@@ -26,6 +27,7 @@ typedef NS_ENUM(NSUI,AssetType){ JS, CSS, HTML5, PHP, BASH,	ObjC, TXT, UNKNOWN =
 @property (NATOM, STRNG) NSMutableArray *folders, *assets;
 
 + (instancetype) instanceWithFolder:(NSS*)path matchingType:(AssetType)fileType printInline:(BOOL)isit;
+
 - (void) addFolder: (NSS*)path matchingType:(AssetType)fileType;
 
 // Subclass specific KVO Compliant "items" accessors to trigger NSArrayController updates on inserts / removals.

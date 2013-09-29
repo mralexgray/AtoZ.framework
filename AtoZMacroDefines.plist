@@ -565,6 +565,8 @@
 		<string>[[[self window ] contentView] bounds]</string>
 		<key>AZFILEMANAGER</key>
 		<string>NSFileManager.defaultManager</string>
+		<key>AZAPPNAME</key>
+		<string>[NSBundle.mainBundle objectForInfoDictionaryKey:@&quot;CFBundleDisplayName&quot;]</string>
 		<key>AZFWORKBUNDLE</key>
 		<string>[NSBundle bundleForClass:AtoZ.class]</string>
 		<key>AZFWRESOURCES</key>

@@ -91,8 +91,6 @@ void 	QuietLog 				  	( NSS *format, ...	  );
 #define 	COLOR_ESC 					XCODE_COLORS_ESCAPE
 
 
-
-
 //#define	NSLog(fmt...) [AZLog_AZColorLog(nil,__FILE__,__LINE__,__PRETTY_FUNCTION__,fmt)
 //#define 	XCODE_COLORS 0
 //#define LOGWARN(fmt...) _AZColorLog(nil,__FILE__,__LINE__,__PRETTY_FUNCTION__,fmt)

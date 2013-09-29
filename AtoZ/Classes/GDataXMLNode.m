@@ -896,8 +896,6 @@ static xmlChar *SplitQNameReverse(const xmlChar *qname, xmlChar **prefix) {
 
 @end
 
-
-
 @implementation GDataXMLElement
 
 - (id)initWithXMLString:(NSString *)str error:(NSError **)error {
@@ -1523,8 +1521,6 @@ static xmlChar *SplitQNameReverse(const xmlChar *qname, xmlChar **prefix) {
     }
   }
 }
-
-
 
 + (void)fixUpNamespacesForNode:(xmlNodePtr)nodeToFix
             graftingToTreeNode:(xmlNodePtr)graftPointNode

@@ -53,8 +53,6 @@ JROptionsDeclare( NSOVBlockDelegate, NSOVBlockDelegateDisclosureTriangle, NSOVBl
 //typedef         void (^ aniComplete 	  ) ( BOOL  f,    CAA * a );
 
 
-
-
 #define CABKVO 	void 			 (^) ( CAL * l,    NSS * k )  // kvoObserverBlock
 #define CABLAYOUT	void 			 (^) ( CAL * l             )  // layoutBlock
 #define CABACTION id<CAAction> (^) ( CAL * l,    NSS * k )  // layerActionBlock
@@ -102,8 +100,6 @@ typedef id (^ transformBlock ) ( id value );
 #define CAABCOMP		void (^)	(void)									// completion
 #define CAABSTRT		void (^)	(void)									// start
 
-
-
 @interface CAAnimationDelegate : NSObject
 + (instancetype) delegate:(CAA*)a forLayer:(CAL*)l;
 @property BOOL andSet; 				// defaults to yes
@@ -148,10 +144,6 @@ typedef id (^ transformBlock ) ( id value );
 //- (void) scrollBy:				(CGPoint)inDelta;
 //- (void) scrollCenterToPoint:	(CGPoint)inPoint;
 //@end
-
-
-
-
 
 
 

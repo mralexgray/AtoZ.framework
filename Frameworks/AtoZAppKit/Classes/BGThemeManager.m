@@ -6,8 +6,6 @@
 //
 
 
-
-
 #import "BGThemeManager.h"
 
 BGTheme * _themeKeyDecode (BGHUDView *_self) { 	BGThemeManager *b = BGThemeManager.keyedManager;		 				

@@ -22,8 +22,6 @@ const CGF framesPerSecond = 10.0;
 @property (NATOM,  ASS) CGF   phase;
 @end
 
-
-
 @implementation AZBackgroundProgressBar
 
 - (id) initWithFrame:(NSR)frame 	{	if (self!=[super initWithFrame:frame]) return nil;

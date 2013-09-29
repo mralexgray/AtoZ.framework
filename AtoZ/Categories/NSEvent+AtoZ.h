@@ -34,12 +34,14 @@ JREnumDeclare(AZEvent, AZEventLeftMouseDown = 1,
 [_someButton setActionBlock:(NSControlActionBlock) ^(id inSender) { AZLOG(@"xlisidud"); [self doSomeBullshit:nil];	}];
 */
 
+typedef void(^NSControlActionBlock)(id sender);
+typedef void(^NSControlEventActionBlock)(AZEvent e,id sender);
+typedef void(^NSControlVoidActionBlock)(void);
+
 
 @interface NSColorPanel (AtoZ)
 @property (nonatomic,copy) void(^actionBlock)(id);
 @end
-typedef void(^NSControlActionBlock)(id);
-typedef void(^NSControlVoidActionBlock)(void);
 
 
 @protocol NSActionBlock <NSObject>
@@ -51,6 +53,7 @@ typedef void(^NSControlVoidActionBlock)(void);
 @interface NSControl (AtoZ)
 - (void) setAction:(SEL)method withTarget:(id)object;
 - (void) setActionString:(NSS*)methodasString withTarget:(id)object;
+@property (copy) void(^eventActionBlock)(AZEvent e,id sender);
 @end
 
 //typedef void (^whileDragging)(void);

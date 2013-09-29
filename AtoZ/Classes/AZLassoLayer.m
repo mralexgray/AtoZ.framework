@@ -2,8 +2,6 @@
 //  AZLassoLayer.m
 //  AtoZ
 
-
-
 #import "AZLassoLayer.h"
 #import <QuartzCore/QuartzCore.h>
 
@@ -116,8 +114,6 @@
 	
 }
 
-
-
 //@implementation LassoMaster
 //
 //+ (NSMutableArray*) lassos{ 	return [[LassoMaster sharedInstance]lassos];}
@@ -142,8 +138,6 @@
 //	if (![AZLassoLayer hasSharedInstance]) { AZLOG(@"having too make the lasso share"); filterOne:^BOOL(id object) {  return layer == (CALayer*)[object valueForKey:@"layer"//] ? YES : NO; }];
 
 //@end
-
-
 
 
 //-(void)removeForLayer:(CALayer*) layer;

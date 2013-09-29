@@ -6,7 +6,9 @@
 //  Copyright (c) 2013 mrgray.com, inc. All rights reserved.
 //
 
-#import "AZFaviconManagerTests.h"
+
+@interface AZFaviconManagerTests : SenTestCase
+@end
 
 @implementation AZFaviconManagerTests
 

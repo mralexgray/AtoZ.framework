@@ -143,8 +143,6 @@ static dispatch_once_t once;
 //	// free the lock
 //	PyEval_ReleaseLock();
 
-
-
 - (void) start {
 
 	NSLog(@"Operation START: %@.  Python thread %@", NSThread.currentThread, _optArgs);
@@ -281,8 +279,6 @@ static dispatch_once_t once;
 //				pyRunWithArgsInDirPythonPath(_spriptP, _optArgs ?: nil, _workingD ?: nil, _pyPATH ?: nil);
 //			NSLog(@"%s:%d main() PyRun_ with file '%@' See console for errors.", __FILE__, __LINE__, _spriptP);
 //			return;// success == 0;
-
-
 
 /**
 	BOOL			success;

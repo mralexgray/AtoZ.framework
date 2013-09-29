@@ -55,8 +55,6 @@
 	NSLog(@"%@ %@", numberTwo, numberTwoResult);
 	*/
 
-
-
 @interface GoogleSpeechAPI ()
 @property (nonatomic, strong) NSString 					 *tempPath, *flacTempPath;
 @property (nonatomic, strong) NSData 					 *flacData,	*cafData;
@@ -90,15 +88,13 @@ const BOOL usr = YES;
 //	return g;
 }
 
-
-
 + (instancetype) recordFor:(NSUI)s completion:(SpeechToTextDone)done;
 {
 	GoogleSpeechAPI 	*g 	= self.new;		g.recognizerFinished	= done;	NSLog(@"START RECORDING!");
 					g.audioToRecognize = nil;		return g;
 }
 
-- (NSS*) tempPath {	return _tempPath = _tempPath ?: ^{ 	NSS *u = NSS.UUIDString;
+- (NSS*) tempPath {	return _tempPath = _tempPath ?: ^{ 	NSS *u = @"a".uuid;
 																			[AZStopwatch start:_wordsToSynthesize ?: u];
 							return [[NSTemporaryDirectory() withPath:@"com.mrgray.TTS"]withExt:u]; }();
 }
@@ -214,8 +210,6 @@ else {   NSLog(@"Data encoding error..  line39:  %@", error);
 }
 //	}];
 //		NSLog(@"saving wave to %@", _wavTempFile);  */
-
-
 
 
 //+ (instancetype) instanceWithWordsToSpeak:(NSString*)words completion:(void (^)(NSString *))block

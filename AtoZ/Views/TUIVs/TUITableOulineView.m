@@ -452,8 +452,6 @@ CG_INLINE CGFloat durationForOffset(CGFloat offset)
     return (_openning && _openningSection == section) || (section == _openedSection);
 }
 
-
-
 #pragma mark - Helpers
 - (void)_orderFrontSection:(NSInteger)section
 {

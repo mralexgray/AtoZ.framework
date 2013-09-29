@@ -305,9 +305,9 @@ static BOOL loadingFromResourceFile = NO;
     return object ? ah_autorelease([[self alloc] initWithObject:object]) : nil;
 }
 
-- (NSString *)setterNameForClass:(Class)class {
+- (NSString *)setterNameForClass:(Class)klass {
     //get class name
-    NSString *className = NSStringFromClass(class);
+    NSString *className = NSStringFromClass(klass);
 
     //strip NS prefix
     if ([className hasPrefix:@"NS"]) {
@@ -708,8 +708,6 @@ static BOOL loadingFromResourceFile = NO;
 //	[self writeToDescription:description withIndent:1];
 //	return description;
 //}
-
-
 
 + (id)retrieve:(NSString *)key {
     return [NSKeyedUnarchiver unarchiveObjectWithFile:$(@"%@/%@.archive",

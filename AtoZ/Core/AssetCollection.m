@@ -3,6 +3,13 @@
 
 @implementation Asset
 
++ (instancetype) test {
+
+	NSS *sampleJS = @"function myFunction() { $('#h01').attr('style','color:red').html('Hello jQuery'); } $(document).ready(myFunction);";
+
+	Asset *n 		= [self instanceOfType:JS withPath:nil orContents:sampleJS printInline:YES];
+	return n;
+}
 + (instancetype) instanceOfType:(AssetType)type withPath:(NSS*)path orContents:(NSS*)contents printInline:(BOOL)isit {
 
 	Asset *n 		= self.instance;
@@ -10,6 +17,8 @@
 	n.path 			= path;
 	n.printInline 	= path == nil || isit ?: NO;
 	n.contents 		= contents;
+	NSS *apath = @keypath(NSIMG.monoIcons, first);
+
 	return n;
 }
 - (void) setUp {  _active = @(NSOffState); _priority = @(0); }
@@ -28,6 +37,7 @@
 @end
 
 @implementation AssetCollection
+
 - (void) setUp { _folders = NSMA.new; _assets = NSMA.new;  }
 
 

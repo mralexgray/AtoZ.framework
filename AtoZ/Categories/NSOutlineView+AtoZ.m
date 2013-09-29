@@ -12,6 +12,132 @@
 
 @end
 
+NSString* const kAZTreeNodeChildNodesKey = @"childNodes";
+
+@interface AZTreeNode ()
+@property (readwrite,assign,nonatomic) id parentNode;
+- (void)insertObject:(id)object inChildNodesAtIndex:(NSUInteger)index;
+@end
+
+@implementation AZTreeNode
+
+#pragma mark WCPlistRepresentationProtocol
+//- (NSDictionary *)plistRepresentation {
+//	
+//	[super.plistRepresentation dictionaryByAppendingEntriesFromDictionary:@{[[self childNodes] valueForKeyPath:@"plistRepresentation"],kWCTreeNodeChildNodesKey
+//	// addEntriesFromDictionary:[NSDictionary dictionaryWithObjectsAndKeys:, nil]];
+//	
+//	return [[retval copy] autorelease];
+//}
+#pragma mark *** Protocol Overrides *** NSKeyValueObserving
++ (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
+		return [key isEqualToString:@"isLeaf"] ? [[super keyPathsForValuesAffectingValueForKey:key] setByAddingObject:kAZTreeNodeChildNodesKey]
+															: [super keyPathsForValuesAffectingValueForKey:key];
+}
+
+#pragma mark NSCoding
+- (id)initWithCoder:(NSCoder*)cdr {
+	if (self != [super initWithCoder:cdr]) return nil;
+	for (id node in [cdr decodeObjectForKey:kAZTreeNodeChildNodesKey])
+		[self insertObject:node inChildNodesAtIndex:_childNodes.count];
+	return self;
+}
+
+- (void)encodeWithCoder:(NSCoder*)cdr { [super encodeWithCoder:cdr]; [cdr encodeObject:self.childNodes forKey:kAZTreeNodeChildNodesKey];
+}
+#pragma mark NSCopying
+- (id)copyWithZone:(NSZone *)zone {
+
+	typeof(self) copy = [super copyWithZone:zone];
+	copy->_parentNode = _parentNode;
+	copy->_childNodes = [_childNodes mutableCopy];
+	return copy;
+}
+#pragma mark NSMutableCopying
+- (id)mutableCopyWithZone:(NSZone *)zone {
+
+	typeof(self) copy = [super mutableCopyWithZone:zone];
+	copy->_parentNode = _parentNode;
+	NSMutableArray *cnodes = [[NSMutableArray alloc] initWithCapacity:[_childNodes count]];
+	copy->_childNodes = cnodes;
+	for (AZTreeNode *node in _childNodes)
+		[copy insertObject:[[node mutableCopy] autorelease] inChildNodesAtIndex:[cnodes count]];
+	return copy;
+}
+#pragma mark *** Public Methods ***
+- (BOOL)isDescendantOfNode:(AZTreeNode*)node; {
+	return [node.descendantNodes containsObject:self];
+}
+#pragma mark NSKeyValueCoding
+- (id)objectInChildNodesAtIndex:(NSUInteger)index; {
+	return [_childNodes objectAtIndex:index];
+}
+
+- (void)addObjectToChildNodes:(id)object; {
+	[self insertObject:object inChildNodesAtIndex:[self countOfChildNodes]];
+}
+- (void)insertObject:(id)object inChildNodesAtIndex:(NSUInteger)index; {
+	if (!_childNodes)
+		_childNodes = [[NSMutableArray alloc] init];
+	
+	[object setParentNode:self];
+	
+	[_childNodes insertObject:object atIndex:index];
+}
+- (void)removeObjectFromChildNodesAtIndex:(NSUInteger)index; {
+	[[_childNodes objectAtIndex:index] setParentNode:nil];
+	
+	[_childNodes removeObjectAtIndex:index];
+}
+#pragma mark Accessors
+//@synthesize parentNode=_parentNode;
+//@synthesize childNodes=_childNodes;
+@dynamic isLeaf,
+			mutableChildNodes, 		countOfChildNodes,
+			descendantNodes, 			descendantNodesInclusive,
+			descendantLeafNodes, 	descendantLeafNodesInclusive,
+			descendantGroupNodes,	descendantGroupNodesInclusive;
+
+- (NSMutableArray *)mutableChildNodes {	if (!_childNodes) _childNodes = NSMutableArray.new;
+	
+	return [self mutableArrayValueForKey:kAZTreeNodeChildNodesKey];
+}
+- (BOOL) isLeaf {	return ([self countOfChildNodes] == 0)?YES:NO; }
+- (NSUI) countOfChildNodes { return [_childNodes count]; }
+- (NSA*) descendantNodes; {
+	NSMutableArray *retval = [NSMutableArray array];
+	
+	for (AZTreeNode *node in self.childNodes) { [retval addObject:node];
+		[node isLeaf] ?: [retval addObjectsFromArray:[node descendantNodes]];
+	}
+	return [retval.copy autorelease];
+}
+- (NSA*) descendantNodesInclusive; { return [self.descendantNodes arrayByAddingObject:self];	}
+- (NSA*)descendantLeafNodes; {
+
+	NSMutableArray *retval = [NSMutableArray array];
+	for (AZTreeNode *node in [self childNodes])
+		node.isLeaf ? [retval addObject:node] : [retval addObjectsFromArray:[node descendantLeafNodes]];
+	return [[retval copy] autorelease];
+}
+- (NSA*) descendantLeafNodesInclusive { return self.isLeaf ? @[self] : self.descendantLeafNodes; }
+
+- (NSA*)descendantGroupNodes; { NSMutableArray *retval = [NSMutableArray array];
+	
+	for (AZTreeNode *node in self.childNodes) {
+		if (node.isLeaf) return;
+		[retval addObject:node]; [retval addObjectsFromArray:[node descendantGroupNodes]];
+	}
+	return [retval.copy autorelease];
+}
+- (NSA*)descendantGroupNodesInclusive {
+	if (![self isLeaf])
+		return [[self descendantGroupNodes] arrayByAddingObject:self];
+	return [NSArray array];
+}
+
+@end
+
 
 @implementation NSTreeController (ESExtensions)
 - (NSIndexPath *)indexPathForInsertion;	{
@@ -78,19 +204,19 @@
 // returns an array of NSTreeNodes descending from self
 - (NSA*) descendants			{
 
-	return [self.childNodes bk_reduce:NSMA.new withBlock:^id(id sum, id child) {
+	return [self.childNodes reduce:NSMA.new withBlock:^id(id sum, id child) {
 		[sum addObject:child];	if (![child isLeaf]) [sum addObjectsFromArray:[child descendants]]; return sum;
 	}];
 }
 - (NSA*) groupDescendants	{
 
-	return [self.childNodes bk_reduce:NSMA.new withBlock:^id(id sum, NSTreeNode *item) {
+	return [self.childNodes reduce:NSMA.new withBlock:^id(id sum, NSTreeNode *item) {
 		return item.isLeaf ? sum : [sum arrayByAddingObjectsFromArray:[@[item] arrayByAddingObjectsFromArray:item.groupDescendants]];
 	}];
 }
 - (NSA*) leafDescendants	{
 	
-	return [[self.childNodes bk_reduce:NSMA.new withBlock:^id(id sum, NSTreeNode *item){
+	return [[self.childNodes reduce:NSMA.new withBlock:^id(id sum, NSTreeNode *item){
 		item.isLeaf ? [sum addObject:item]:	[sum addObjectsFromArray:[item leafDescendants]]; return sum;
 	}]copy];
 }
@@ -304,3 +430,140 @@
 }
 @end
 */
+
+@implementation NSTreeController (NSTreeController_WCExtensions)
+// returns an array of all the NSTreeNode objects maintained by the receiver
+- (NSArray *)treeNodes; {
+	return [[self.arrangedObjects childNodes] reduce:@[] withBlock:^id(id sum, NSTreeNode *node){
+		sum = [sum arrayByAddingObject:node];
+		return node.isLeaf ? sum : [sum arrayByAddingObjectsFromArray:node.descendants];
+	}];
+//	return [[nodes copy] autorelease];
+}
+// returns the selected NSTreeNode object, or if multiple selection is enabled, the first selected NSTreeNode object
+- (NSTreeNode *)selectedNode; {
+	return [[self selectedNodes] firstObject];
+}
+// returns the real model object from the above method
+- (id)selectedRepresentedObject; {
+	return [[self selectedNode] representedObject];
+}
+// returns the array of selected real model objects
+- (NSArray *)selectedRepresentedObjects; {
+	return [[self selectedNodes] valueForKey:@"representedObject"];
+}
+// returns the corresponding NSTreeNode for 'indexPath'
+- (NSTreeNode *)treeNodeAtIndexPath:(NSIndexPath *)indexPath; {
+	return [[self arrangedObjects] descendantNodeAtIndexPath:indexPath];
+}
+// returns an array of NSTreeNode objects given an array of NSIndexPath objects 'indexPaths'
+- (NSArray *)treeNodesAtIndexPaths:(NSArray *)indexPaths; {
+	NSMutableArray *retval = [NSMutableArray array];
+	for (NSIndexPath *indexPath in indexPaths) {
+		NSTreeNode *node = [self treeNodeAtIndexPath:indexPath];
+		if (node)
+			[retval addObject:node];
+	}
+	return [[retval copy] autorelease];
+}
+// returns the NSIndexPath for the real model object 'representedObject'
+- (NSIndexPath *)indexPathForRepresentedObject:(id)representedObject; {
+	for (NSTreeNode *node in [self treeNodes]) {
+		if ([representedObject isEqual:[node representedObject]])
+			return [node indexPath];
+	}
+	return nil;
+}
+// returns an array of NSIndexPath objects given an array of real model objects 'representedObjects'
+- (NSArray *)indexPathsForRepresentedObjects:(NSArray *)representedObjects; {
+	NSMutableArray *indexPaths = [NSMutableArray array];
+	NSArray *nodes = [self treeNodes];
+	
+	for (id representedObject in representedObjects) {
+		for (NSTreeNode *node in nodes) {
+			if ([representedObject isEqual:[node representedObject]]) {
+				[indexPaths addObject:[node indexPath]];
+				break;
+			}
+		}
+	}
+	return [[indexPaths copy] autorelease];
+}
+// returns the corresponding NSTreeNode object for the real model object 'representedObject'
+- (NSTreeNode *)treeNodeForRepresentedObject:(id)representedObject; {
+	for (NSTreeNode *node in [self treeNodes]) {
+		if ([representedObject isEqual:[node representedObject]])
+			return node;
+	}
+	return nil;
+}
+// returns an array of corresponding NSTreeNode objects for the array of real model objects 'representedObjects'
+- (NSArray *)treeNodesForRepresentedObjects:(NSArray *)representedObjects; {
+	NSMutableArray *treeNodes = [NSMutableArray array];
+	NSArray *nodes = [self treeNodes];
+	
+	for (id representedObject in representedObjects) {
+		for (NSTreeNode *node in nodes) {
+			if ([representedObject isEqual:[node representedObject]]) {
+				[treeNodes addObject:node];
+				break;
+			}
+		}
+	}
+	return [[treeNodes copy] autorelease];
+}
+// selects 'treeNode' using its index path
+- (void)setSelectedTreeNode:(NSTreeNode *)treeNode; {
+	[self setSelectedTreeNodes:[NSArray arrayWithObject:treeNode]];
+}
+// selects an array of NSTreeNode objects 'treeNodes' using their index paths
+- (void)setSelectedTreeNodes:(NSArray *)treeNodes; {
+	[self setSelectionIndexPaths:[treeNodes valueForKey:@"indexPath"]];
+}
+// selects the real model object 'representedObject'
+- (void)setSelectedRepresentedObject:(id)representedObject; {
+	[self setSelectedRepresentedObjects:[NSArray arrayWithObject:representedObject]];
+}
+// selects an array of real model objects 'representedObjects'
+- (void)setSelectedRepresentedObjects:(NSArray *)representedObjects; {
+	NSMutableArray *indexPaths = [NSMutableArray array];
+	NSArray *nodes = [self treeNodes];
+	
+	for (id representedObject in representedObjects) {
+		for (NSTreeNode *node in nodes) {
+			if ([representedObject isEqual:[node representedObject]]) {
+				[indexPaths addObject:[node indexPath]];
+				break;
+			}
+		}
+	}
+	[self setSelectionIndexPaths:indexPaths];
+}
+/*
+- (void)removeSelectedNodes; {
+	[self removeObjectsAtArrangedObjectIndexPaths:[self selectionIndexPaths]];
+}
+
+- (void)removeTreeNodes:(NSArray *)treeNodes; {
+	[self removeObjectsAtArrangedObjectIndexPaths:[treeNodes valueForKey:@"indexPath"]];
+}
+
+- (void)removeRepresentedObject:(id)representedObject; {
+	[self removeRepresentedObjects:[NSArray arrayWithObject:representedObject]];
+}
+
+- (void)removeRepresentedObjects:(NSArray *)representedObjects; {
+	NSMutableArray *indexPaths = [NSMutableArray array];
+	NSArray *nodes = [self treeNodes];
+	for (id object in representedObjects) {
+		for (NSTreeNode *node in nodes) {
+			if ([[node representedObject] isEqual:object]) {
+				[indexPaths addObject:[node indexPath]];
+				break;
+			}
+		}
+	}
+	[self removeObjectsAtArrangedObjectIndexPaths:indexPaths];
+}
+ */
+@end

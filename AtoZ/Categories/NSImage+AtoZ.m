@@ -312,8 +312,6 @@ NSR AZRectForItemsWithColumns(NSA* items, NSUI cols) {
 @end
 
 
-
-
 NSData* PNGRepresentation(NSIMG *image) {
 #if TARGET_OS_IPHONE
 	return UIImagePNGRepresentation(image);
@@ -1312,8 +1310,6 @@ static NSOrderedDictionary  *monos = nil;
 	return [[NSIMG alloc]initWithContentsOfFile:p];
 }
 
-
-
 - (NSS*) saveToWeb;
 {
 	NSS *localFix = @"/mg/";
@@ -1534,8 +1530,6 @@ static NSOrderedDictionary  *monos = nil;
 }
 
 - (NSBitmapImageRep*) bitmapBy:(CGF)x y:(CGF)y {
-
-
 
 	//creating the rectangle that defines the bounds of our bitmap image
 	NSRect offscreenRect = NSMakeRect(0.0, 0.0, x, y);
@@ -2283,8 +2277,6 @@ rightDone:
 	//restore the graphics state
 	CGContextRestoreGState(c);
 }
-
-
 
 
 CGContextRef MyCreateBitmapContext (int pixelsWide, int pixelsHigh)
@@ -3545,8 +3537,6 @@ CGImageRef CreateCGImageFromData(NSData* data)
 
 @end
 
-
-
 @implementation NSImage (AIImageDrawingAdditions)
 
 
@@ -3990,8 +3980,6 @@ CGImageRef CreateCGImageFromData(NSData* data)
 
 //@implementation NSImage (AIImageDrawingAdditions)
 //@end
-
-
 
 @interface NSImage (AIImageAdditions_PRIVATE)
 

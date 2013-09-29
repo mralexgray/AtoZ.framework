@@ -10,15 +10,14 @@
 #import "BGThemeManager.h"
 #import <Foundation/Foundation.h>
 
-@interface BGHUDProgressIndicator :NSProgressIndicator //{
+@interface BGHUDProgressIndicator : NSProgressIndicator
+//
 //    double progressOffset;
 //    NSTimer* animator;
 //}
 
-@property (strong) NSColor* color, *backgroundColor;
-@property (nonatomic, strong) NSTimer* animator;
-@property (readwrite) double progressOffset;
-@property (strong) NSString *themeKey;
+@property (nonatomic,copy) NSColor* color, *backgroundColor;
+@property (nonatomic,copy) 				NSString *themeKey;
 
 
 @end

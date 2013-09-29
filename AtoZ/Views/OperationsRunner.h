@@ -100,8 +100,6 @@ extern NSString * const AZOperationIndeterminateKey;	//An NSNumber boolean indic
 					  userInfo: (NSDictionary *)userInfo;
 @end
 
-
-
 @protocol OperationsRunnerProtocol;
 typedef enum { msgDelOnMainThread, msgDelOnAnyThread, msgOnSpecificThread } msgType;
 @interface OperationsRunner : NSObject

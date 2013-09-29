@@ -102,8 +102,6 @@ extern NSS *const AZToggleState;
 - (void)toggleStateDidChangeTo: (BOOL) state inToggleViewArray:(AZToggleArrayView*)view withName:(NSString *)name;
 @end
 
-
-
 @interface 	AZToggleArrayView : NSView
 
 //- (CAL*)	itemLayerWithName:(NSS*)name relativeTo:(NSS*)r onText:(NSS*)on  offText:(NSS*)off 

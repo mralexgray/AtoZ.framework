@@ -464,6 +464,4 @@ NSImage *cancelButtonImageUp() {
 
 #pragma mark Helper Methods
 
-
-
 @end

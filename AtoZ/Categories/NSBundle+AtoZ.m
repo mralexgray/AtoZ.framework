@@ -105,6 +105,16 @@
 //	return [basePath stringByAppendingPathComponent:[[NSBundle mainBundle]bundleIdentifier]];
 //}
 
++ (instancetype) calulatedBundleIDForExecutable:(NSString*)path { 
+	
+	NSBundle *b = [self bundleWithPath:path]; 	if (b) return b;
+	NSString *pp = path.copy;
+	for (NSS*sss in path.pathComponents) { 
+		if ((b = [self bundleWithPath:pp = [pp stringByDeletingLastPathComponent]])) break;
+	}
+	return b;
+}
+
 + (NSString*) calulatedBundleIDForPath:(NSString*)path
 {
 	return [[self class] bundleWithPath:path] ? [[[self class] bundleWithPath:path] bundleIdentifier]

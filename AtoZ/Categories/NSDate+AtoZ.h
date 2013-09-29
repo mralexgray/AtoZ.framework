@@ -13,8 +13,6 @@
 // All rights reserved.
 
 
-
-
 @interface NSTimeZone (Extensions)
 + (NSTimeZone*) GMTTimeZone;
 @end
@@ -22,8 +20,6 @@
 @interface NSDate (SI)
 +(NSS*)highestSignificantComponentStringFromDate:(NSDate *)date toDate:(NSDate *)toDate;
 @end
-
-
 
 
 @interface NSDate (AtoZ)

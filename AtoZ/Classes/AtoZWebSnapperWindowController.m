@@ -23,8 +23,6 @@
 //#import "NSStringAdditions.h"
 
 
-
-
 static AtoZWebSnapperWindowController *kController = nil;
 
 @interface AtoZWebSnapperWindowController (Private)
@@ -285,8 +283,6 @@ static AtoZWebSnapperWindowController *kController = nil;
 	[savePanel setAccessoryView:accessoryView];
 	[savePanel beginSheetForDirectory:nil file:suggestedFileName modalForWindow:[self window] modalDelegate:self didEndSelector:@selector(savePanelDidEnd:returnCode:contextInfo:) contextInfo:NULL];
 }
-
-
 
 
 - (IBAction)setFileFormat:(id)sender {

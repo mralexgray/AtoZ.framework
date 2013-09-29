@@ -164,3 +164,9 @@ JREnumDeclare(NSWindowResize, NSWindowResizeTopLeftCorner = 1, NSWindowResizeTop
 
 @interface DesktopWindow : NSWindow 
 @end
+
+@interface NSWindow (SDResizableWindow)
+- (void) setContentViewSize:(NSSize)newSize display:(BOOL)display animate:(BOOL)animate;
+-  (NSR) windowFrameForNewContentViewSize:(NSSize)newSize;
+
+@end

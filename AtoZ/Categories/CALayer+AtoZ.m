@@ -494,11 +494,15 @@ static char ORIENT_IDENTIFIER, ROOT_IDENTIFIER, TEXT_IDENTIFIER;
 @implementation CALayer (AtoZ)
 
 @dynamic hostView, siblings, siblingIndex, siblingIndexMax, selected, hovered, backgroundNSColor;
+@dynamic sublayerMouseOverBlock, sublayersRecursive;
 
 - (void) disableActionsForKeys:(NSA*)ks {	self.actions = [self.actions dictionaryWithValue:AZNULL forKeys:ks]; }
 - (void) addActionsForKeys:(NSD*)ks {  self.actions = [self.actions dictionaryByAddingEntriesFromDictionary:ks]; }
 
-//+ (void)load	    				{   //	NSLog(@"swizzling: @selector(addSublayer:)");
++ (void)load	    				{   //	NSLog(@"swizzling: @selector(addSublayer:)");
+
+	[$ swizzleMethod:@selector(description) with:@selector(swizzleDescription) in:self.class];
+}
 			//	[$ swizzleMethod:@selector(addSublayer:) with:@selector(swizzleAddSublayer:) in:self.class];
 			//	[$ swizzleMethod:@selector(actionForKey:) with:@selector(swizzleActionForKey:) in:self.class];
 			//	[$ swizzleMethod:@selector(hitTest:) with:@selector(swizzleHitTest:) in:CAL.class];
@@ -506,6 +510,13 @@ static char ORIENT_IDENTIFIER, ROOT_IDENTIFIER, TEXT_IDENTIFIER;
 	//	[$ swizzleClassMethod:@selector(defaultActionForKey:) with:@selector(swizzleDefaultActionForKey:) in:CAL.class];
 //	[$ swizzleClassMethod:@selector(initWithLayer:) with:@selector(swizzleInitWithLayer:) in:CAL.class];
 //}
+
+- (NSS*) swizzleDescription {
+
+	return $(@"%@ <%@> %@", AZCLSSTR, [[self superclasses]componentsJoinedByString:@" -> "], AZStringFromRect(self.frame));
+}
+
+
 static NSMD* needsDisplayKeysRef = nil;
 + (NSA*) needsDisplayForKeys {  return needsDisplayKeysRef[AZCLSSTR]; }
 
@@ -660,12 +671,12 @@ static NSMD* needsDisplayKeysRef = nil;
 	[self.loM setNeedsLayout];
 }
 - (void)needsLayoutForKey:(NSS *)key    {
-	[self bk_addObserverForKeyPath:key task:^(id sender) { [sender setNeedsLayout]; }];
+	[self addObserverForKeyPath:key task:^(id sender) { [sender setNeedsLayout]; }];
 }
-+ (id)layerWithFrame:(CGRect)frame	   {
-	id l = [self layer];
-	NSAssert(self == [l class], $(@"made a layer:%@, but wrong class:%@ should be:%@", l, NSStringFromClass([l class]), NSStringFromClass(self)));
-	[l respondsToStringThenDo:@"setFrame:" withObject:AZVrect(frame)];
++ (id)layerWithFrame:(CGRect)frame	   { CAL* l = self.class.new;
+//	NSAssert(self == [l class], $(@"made a layer:%@, but wrong class:%@ should be:%@", l, NSStringFromClass([l class]), NSStringFromClass(self)));
+
+	if ([l respondsToSelector:@selector(setFrame:)]) [l setFrame:frame];
 	return l;
 }
 - (id)initWithFrame:(CGRect)newFrame    {
@@ -878,7 +889,7 @@ static NSMD* needsDisplayKeysRef = nil;
 }
 @dynamic root, text, orient;
 
-- (NSA*) sublayersRecursive { return [self.sublayers bk_reduce:@[].mutableCopy withBlock:^id(id sum, id obj) {
+- (NSA*) sublayersRecursive { return [self.sublayers reduce:@[].mutableCopy withBlock:^id(id sum, id obj) {
 			if (![obj sublayers].count) [sum addObject:obj]; else [sum addObjectsFromArray:[obj sublayersRecursive]];
 			return sum;
 	}];

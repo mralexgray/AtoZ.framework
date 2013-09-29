@@ -80,8 +80,6 @@
 - (NSS*) paddedTo:(NSUI)count;
 - (NSUI) longestWordLength;
 
-
-
 + (NSS*) clipboard;
 - (void)copyToClipboard;
 
@@ -185,8 +183,6 @@ AZPROPERTY(NSS, RONLY, *firstLetter, *lastLetter, *language);
 - (NSMAS *)attributedParagraphWithSpacing:(CGF)spacing;
 - (NSS*) truncatedForRect:(NSR)frame withFont:(NSF *)font;
 //-(NSMutableAttributedString *) attributedParagraphWithSpacing:(CGF)spacing
-
-
 
 - (NSS*) truncateInMiddleForWidth:(CGF)overall;
 - (NSS*) truncateInMiddleToCharacters:(NSUI)chars;
@@ -328,8 +324,6 @@ extern int gNSStringGeometricsTypesetterBehavior;
 #pragma clang diagnostic pop
 */
 @end
-
-
 
 @interface NSString (Extensions)
 
@@ -563,8 +557,6 @@ extern int gNSStringGeometricsTypesetterBehavior;
 
 
 
-
-
 @interface NSString (SNRAdditions)
 - (NSS*)stringByRemovingExtraneousWhitespace;
 - (NSS*)stringByFilteringToCharactersInSet:(NSCharacterSet *)set;
@@ -597,8 +589,6 @@ extern int gNSStringGeometricsTypesetterBehavior;
 - (BOOL)isCaseInsensitiveEqual:(NSS*)s;
 
 @end
-
-
 
 /** Convenience NSString functions. */
 @interface NSString (additions)
@@ -782,3 +772,30 @@ Implements fuzzy matching for strings.
 @end
 
 
+@interface NSMutableString (DSCategory)
+/// @name White spaces
+- (void)stripTrailingWhiteSpaces;
+@end
+
+@interface NSString (DSCategory)
+/// @name General
+@property (nonatomic, readonly) NSRange range;
+-(BOOL)isValid;
+/// @name White spaces
+- (NSString*)indentation;
+/// @name Regular Expressions
+/** Returns the substring matched by a regular expression pattern.
+ @param pattern The pattern to use for the match.
+ @return Returns the substring of the pattern.
+ @exception NSException Thrown if the pattern is `nil` or empty.
+ */
+- (NSString*)matchForPattern:(NSString*)pattern;
+
+/** Returns an array contianing the matches of a regular expression pattern.
+ @param pattern The pattern to use for the match.
+ @return An array of NSTextCheckingResult.
+ @exception NSException Thrown if the pattern is `nil` or empty.
+ */
+- (NSArray*)matchesForPattern:(NSString*)pattern;
+/// @name Derived from Ruby
+@end

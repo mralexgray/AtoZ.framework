@@ -122,8 +122,6 @@
 - (void) setTag: (NSI)tag 	{ 	[super setTag:tag];						}
 @end
 
-
-
 /*	CGCREF ctx 		= TUIGraphicsGetCurrentContext();
 	originalSize 	= CGSizeEqualToSize(CGSizeZero, originalSize) ? b.size : originalSize;
  selected background CGContextSetRGBFillColor(ctx, .87, .87, .87, 1);	CGContextFillRect(ctx, b);

@@ -43,8 +43,6 @@
 //	TestBedDelegate *d = (TestBedDelegate*)[[NSApplication sharedApplication]delegate];
 //	self.pBar.primaryColor = RANDOMCOLOR;
 
-
-
 - (NSIV*)badges
 {
 	return _badges = _badges ?: ^{

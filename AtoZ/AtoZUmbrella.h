@@ -2,6 +2,14 @@
 #import "AtoZMacroDefines.h"
 //#import "BaseModel+AtoZ.h"
 
+
+/** Handy macros and magic
+
+
+ @see NSDictionary(BlocksKit)
+ @see NSSet(BlocksKit)
+*/
+
 #pragma mark - COLORS
 
 //#define REDGRAD  		[NSG.alloc initWithColorsAndLocations: [NSColor colorWithDeviceRed:241/255 green:152/255 blue:139/255 alpha:1.0], 0,\
@@ -458,8 +466,18 @@ typedef struct {	CAConstraintAttribute constraint;	CGFloat scale;	CGFloat offset
 #define    	  AZWORKSPACE 	NSWorkspace.sharedWorkspace
 #define 	    AZCOLORPANEL 	NSColorPanel.sharedColorPanel
 #define     	AZUSERDEFS 	NSUserDefaults.standardUserDefaults
+
+
+#define AZ_DEFS_DOMAIN	 			@"AtoZ"
+#define  	 AZ_DEFAULTS 			[AZUSERDEFS persistentDomainForName:AZ_DEFS_DOMAIN]
+#define 		 AZ_DEFAULT(A)    	AZ_DEFAULTS[A]
+#define  AZ_SET_DEFAULT(A,B) 		[AZUSERDEFS setPersistentDomain:[AZ_DEFAULTS dictionaryWithValue:B forKey:A]  forName:AZ_DEFS_DOMAIN]
+
+
 #define  	AZUSERDEFSCTR 	NSUserDefaultsController.sharedUserDefaultsController
 #define    	  AZNOTCENTER 	(NSNotificationCenter*)NSNotificationCenter.defaultCenter
+#define    	AZWORKSPACENC  NSWorkspace.sharedWorkspace.notificationCenter
+#define    	AZDISTNCENTER  NSDistributedNotificationCenter.defaultCenter
 #define  	AZFILEMANAGER 	NSFileManager.defaultManager
 #define  	AZGRAPHICSCTX 	NSGraphicsContext.currentContext
 #define   	 AZCURRENTCTX 	AZGRAPHICSCTX
@@ -493,26 +511,28 @@ typedef struct {	CAConstraintAttribute constraint;	CGFloat scale;	CGFloat offset
 
 //#define ISKINDA(x,y) [y isKindOfClass:[y class]]
 
-#warning - todo
+//#warning - todo
+
 //NSA*maybeAnArray = objc_dynamic_cast(UISwitch,viewController.view);	if (switch) NSLog(@"It jolly well is!);
 //That's nice, isn't it? Here's how:
+
 #define objc_dynamic_cast(TYPE, object) \
   ({ \
       TYPE *dyn_cast_object = (TYPE*)(object); \
       [dyn_cast_object isKindOfClass:[TYPE class]] ? dyn_cast_object : nil; \
   })
 
+#define AZCLASSNIBNAMED(_CLS_,_INSTANCENAME_) 		\
+																	\
+	NSArray *objs 				= nil;							\
+	static NSNib   *aNib 	= [NSNib.alloc initWithNibNamed:AZCLSSTR bundle:nil] instantiateWithOwner:nil topLevelObjects:&objs]; \
+	_CLS_ *_INSTANCENAME_ 	= [objs objectWithClass:[_CLS_ class]];
 
-#define AZCLASSNIBNAMED(XX,INSTANCENAME) 		\
-static NSNib   *aNib = nil;				\
-NSArray *objs = nil;							\
-[aNib = aNib ?: [NSNib.alloc initWithNibNamed:AZCLSSTR bundle:nil] instantiateWithOwner:nil topLevelObjects:&objs];\
-XX *INSTANCENAME = [objs objectWithClass:self.class];
 
-#define AZSTRSTR(A) @property (nonatomic, strong) NSString* A
-
+#define AZSTRSTR(A) 			@property (nonatomic, strong) NSString* A
 #define AZPROPSTR(z,x)		@property (nonatomic, strong) z *x
-#define AZPROPRDO(z,x) 	@property (readonly) z* x
+#define AZPROPRDO(z,x) 		@property (readonly) z* x
+
 //#define AZPROPASS (A,B...) 	@property (NATOM,ASS) A B
 //#define AZPROPIBO (A,B...) 	@property (ASS) IBOutlet A B
 //	static NSString *_##ENUM_TYPENAME##_constants_string = @"" #ENUM_CONSTANTS; 	\
@@ -528,6 +548,8 @@ XX *INSTANCENAME = [objs objectWithClass:self.class];
 #define CGSUPRESSINTERVAL(x) CGEventSourceSetLocalEventsSuppressionInterval(nil,x)
 #define AZPOS AZA// AZWindowPosition
 //
+
+#define AZOBJCLSSTR(X) NSStringFromClass ( [X class] )
 #define AZCLSSTR NSStringFromClass ( [self class] )
 #define AZSSOQ AZSharedSingleOperationQueue()
 #define AZSOQ AZSharedOperationQueue()
@@ -556,8 +578,6 @@ XX *INSTANCENAME = [objs objectWithClass:self.class];
 
 //#define AZContentBounds [[[ self window ] contentView] bounds]
 
-
-
 #define 						kContentTitleKey @"itemTitle"
 #define 						kContentColorKey @"itemColor"
 #define 						kContentImageKey @"itemImage"
@@ -571,7 +591,7 @@ XX *INSTANCENAME = [objs objectWithClass:self.class];
 #pragma mark - FUNCTION defines
 
 // Usage 	NEW( aColor, NSColor.clearColor );   ->  aColor.alphaComponent -> 0.0
-#define NEW(_name_,_value_)  		 			__typeof(_value_) _name_ = _value_
+#define NEWTYPEOF(_name_,_value_)  		 			__typeof(_value_) _name_ = _value_
 #define BLOCKIFY(_name_,_value_)  __block __typeof(_value_) _name_ = _value_
 
 #define DYNAMIC(_class_,_type_,_name_...) \
@@ -737,7 +757,7 @@ AZToStringFromTypeAndValue(@encode(typeof(_X_)), &_Y_);})
 #define NEWLAYER(_x_) CAL* _x_ = CAL.new
 //#define NEW(_class_,_name_) _class_ *_name_ = [_class_.alloc init]
 
-#define NEWATTR(_class_,_name_...) 
+#define NEWATTR(_class_,_name_...)
 
 #define $point(A)	   	[NSValue valueWithPoint:A]
 #define $points(A,B)	   	[NSValue valueWithPoint:CGPointMake(A,B)]
@@ -776,6 +796,11 @@ AZToStringFromTypeAndValue(@encode(typeof(_X_)), &_Y_);})
 // s stringByReplacingOccurrencesOfString:@"fff	" withString:@"%%%%"] )
 //#define AZLOG(log,...) NSLog(@"%@", [log s stringByReplacingOccurrencesOfString:@"fff	" withString:@"%%%%"] )
 
+
+/** get a VARIABLE's name, NOT value.	
+	
+	NEW(NSMA,alex);
+*/
 
 #define VARNAME(x) $(@"%s",#x)
 
@@ -819,8 +844,6 @@ _Pragma("clang diagnostic pop") \
 //		? NSLog(	(@"%s [Line %d] " XCODE_COLORS_ESCAPE @"fg218,147,0;" fmt XCODE_COLORS_RESET)\
 //		, __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__) \
 //			: NSLog(fmt,__VA_ARGS__)
-
-
 
 //_AZColorLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args);
 
@@ -872,8 +895,6 @@ _Pragma("clang diagnostic pop") \
  **/
 
 #define nAZColorWellChanged @"AtoZColorWellChangedColors"
-
-
 
 #define AZBONK @throw \
 [NSException \
@@ -949,8 +970,6 @@ typedef void (^AZVA_ArrayBlock)(NSArray* values);
 			if(azva_object == nil)  azva_object = entry; 													\
 			else {	[DICT_NAME setObject:entry forKey:azva_object]; azva_object = nil;  } 	}); }
 
-
-
 // 64-bit float macros
 
 //#ifdef __LP64__
@@ -973,8 +992,6 @@ typedef void (^AZVA_ArrayBlock)(NSArray* values);
 //	#define _CGFloatLog( n )	logf( n )
 //#endif
 
-
-
 static inline void _AZUnimplementedMethod(SEL selector,id object,const char *file,int line) {
    NSLog(@"-[%@ %s] unimplemented in %s at %d",[object class],sel_getName(selector),file,line);
 }
@@ -989,4 +1006,23 @@ _AZUnimplementedMethod(_cmd,self,__FILE__,__LINE__)
 #define AZUnimplementedFunction() \
 _AZUnimplementedFunction(__PRETTY_FUNCTION__,__FILE__,__LINE__)
 
+
+//#define objc_dynamic_cast(obj,cls) \
+//    ([obj isKindOfClass:(Class)objc_getClass(#cls)] ? (cls *)obj : NULL)
+
+#define NEW(A,B) A *B = A.new
+
+//#define NEWVALUE(_NAME_,_VAL_) \
+//	objc_getClass([_VAL_ class])
+//	whatever *s = @"aa;";
+//	NSLog(@"%@", s.class);
+//}
+
+
+//NS_INLINE void AZNewItems (Class aClass,...) {
+//
+//		objc_getClass
+//}
+
+#define NEWS(A,...) AZNewItems(A,...)
 

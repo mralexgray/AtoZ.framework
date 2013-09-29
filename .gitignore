@@ -1,13 +1,15 @@
+AtoZ.xcodeproj.framework
+AtoZ/AtoZCodeFactory
+xcb
 Archive*
 git
 build
-
 dev
 AtoZ.framework
 .idea/
 *User Data
 Documentation
-.gitignore
+#.gitignore
 # AtoZ.xcworkspace/xcuserdata/*
 # AtoZ/Resources/Frameworks/*
 AtoZ/AtoZiTunes.framework
@@ -55,7 +57,10 @@ AtoZ/Views/AZScratch.h
 AtoZ/Resources/palettes/BORIS
 cocoa-configurations
 AtoZ/Resources/palettes/COLORMATE.CLR
-Tosti
+Tosti*
 src/libextobjc
 CABlockDelegate
 AtoZ/AIUtilities.*
+buildTemplate.pdf
+bootstrap-ui
+index.html

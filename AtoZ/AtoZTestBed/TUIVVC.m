@@ -23,7 +23,7 @@
 	_horizontalLayout				= [AHLayout.alloc initWithFrame:b];
 	_rootView.subviews 					= @[_horizontalLayout];
 	_horizontalLayout.bgC				= LINEN;
-	_horizontalLayout.typeOfLayout 	= AHLayoutHorizontal;
+	_horizontalLayout.typeOfLayout 	= AZOrientHorizontal;
 	_horizontalLayout.arMASK 		 	= TUIViewAutoresizingFlexibleBottomMargin | 
 												  TUIViewAutoresizingFlexibleWidth;
 	_horizontalLayout.dataSource 		  = self;

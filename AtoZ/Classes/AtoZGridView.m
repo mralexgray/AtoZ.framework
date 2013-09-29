@@ -293,8 +293,6 @@ CNItemPoint CNMakeItemPoint(NSUI aColumn, NSUI aRow) {
 	[self setAnimations:@{@"alphaValue": newTransition, @"frame":newTransition}];
 }
 
-
-
 //+ (id)defaultAnimationForKey:(NSString *)key {
 //	if ([key loMismo:@"frame"]) {
 //		NSR rect = ;
@@ -792,8 +790,6 @@ CNItemPoint CNMakeItemPoint(NSUI aColumn, NSUI aRow) {
 	return _backgroundColor ?: GRAY8;//[NSC colorWithCalibratedWhite:0.137 alpha:1.000];
 }
 
-
-
 //+ (AZGVItemLayout*) defaultLayout
 //{
 //	AZGVItemLayout *defaultLayout = [[self class] new];
@@ -822,7 +818,7 @@ static CGF mPhase = 0;
 	[selectionFramePath strokeWithColor:BLACK andWidth:8 inside:dirtyRect];
 	mPhase += 5;
 //	timer = [NSTimer scheduledTimerWithTimeInterval:.1 target:self selector:@selector(aniHandler:) userInfo:nil repeats:YES];
-	timer =	[NSTimer bk_timerWithTimeInterval:.5 block:^(NSTimeInterval time) { [self display];/*:YES];*/ AZLOG(@"NSTIMER!");	} repeats:NO];
+	timer =	[NSTimer timerWithTimeInterval:.5 block:^(NSTimer *tmr) { [self display];/*:YES];*/ AZLOG($(@"NSTIMER %@!", tmr));	} repeats:NO];
 }
 - (BOOL)isFlipped
 {
@@ -1006,8 +1002,6 @@ static CGF mPhase = 0;
 - (BOOL)isReuseable{
 	return _isSelected ? NO : YES;
 }
-
-
 
 @end
 

@@ -142,8 +142,6 @@
  
 - (void)mouseUp:(NSEvent*)e 	{	shouldRedoInitials = YES; }
 
-
-
 -(void) mouseMoved:(NSEvent *)theEvent
 {
 

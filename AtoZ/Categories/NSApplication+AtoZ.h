@@ -8,8 +8,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-
-
 @interface NSMenu (SBAdditions)
 
 - (NSMenuItem *)selectedItem;
@@ -72,3 +70,27 @@ extern NSString *const kShowDockIconUserDefaultsKey;
 + (NSString*) systemVersion;
 
 @end
+
+
+
+//Attributes = 69632;
+//        BundlePath = "/Applications/BetterTouchTool.app";
+//        CFBundleExecutable = "/Applications/BetterTouchTool.app/Contents/MacOS/BetterTouchTool";
+//        CFBundleIdentifier = "com.hegenberg.BetterTouchTool";
+//        CFBundleName = BetterTouchTool;
+//        CFBundleVersion = 0;
+//        FileCreator = "????";
+//        FileType = APPL;
+//        Flavor = 3;
+//        IsCheckedInAttr = 1;
+//        LSBackgroundOnly = 0;
+//        "LSCheckInTime*" = "2013-09-23 10:16:47 +0000";
+//        LSLaunchTime = "2013-09-23 10:16:47 +0000";
+//        LSSystemWillDisplayDeathNotification = 0;
+//        LSUIElement = 1;
+//        LSUIPresentationMode = 0;
+//        PSN = 9406712;
+//        ParentPSN = 9402615;
+//        pid = 37298;					    },... ) 
+		  
+		  

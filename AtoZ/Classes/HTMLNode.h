@@ -12,8 +12,6 @@
 #define ParsingDepthSame -1
 #define ParsingDepth size_t
 
-
-
 typedef enum
 {
 	HTMLHrefNode,
@@ -93,8 +91,6 @@ typedef enum
 
 //Returns the node type if know
 -(HTMLNodeType)nodetype;
-
-
 
 
 @end

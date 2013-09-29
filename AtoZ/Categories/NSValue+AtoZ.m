@@ -65,8 +65,6 @@ typedef struct _Pair Pair;
 @end
 
 
-
-
 @implementation NSData (NSDataExtension)
 
 + (NSData *) dataWithBase32String:(NSS*)encoded

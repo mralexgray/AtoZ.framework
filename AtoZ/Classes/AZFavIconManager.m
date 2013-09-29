@@ -280,8 +280,6 @@ NSS *const kAZFavIconOperationDidEndNetworkActivity   = @"kAZFavIconOperationDid
 
 @end
 
-
-
 @interface  AZFavIconCache ()
 @property (assign, nonatomic) dispatch_queue_t queue;
 @property (nonatomic, retain) NSFileManager *fileManager;

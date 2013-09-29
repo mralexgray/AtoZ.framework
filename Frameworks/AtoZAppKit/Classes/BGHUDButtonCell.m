@@ -1,40 +1,22 @@
-//
-//  BGHUDButtonCell.m
-//  BGHUDAppKit
-//
-//  Created by BinaryGod on 5/25/08.
-//
-
 
 #import "BGHUDButtonCell.h"
 #import "AtoZAppKit.h"
 
-
 @implementation BGHUDButtonCell
-
-#pragma mark Draw Functions
-
 @synthesize themeKey;
 
--(id)init {
+-(id)init {	if (self != super.init) return nil;
 	
-	self = [super init];
-	
-	if(self) {
-		
-		self.themeKey = @"gradientTheme";
-		buttonType = 0;
-		
-		if ([self bezelStyle] == NSRecessedBezelStyle) {
-			if (([self highlightsBy] & NSChangeBackgroundCellMask)) {
-				[self setHighlightsBy:([self highlightsBy] - NSChangeBackgroundCellMask)];
-			}
-			if (([self showsStateBy] & NSChangeBackgroundCellMask)) {
-				[self setShowsStateBy:([self showsStateBy] - NSChangeBackgroundCellMask)];
-			}
+	themeKey = @"gradientTheme";
+	self.buttonType = 0;
+	if ([self bezelStyle] == NSRecessedBezelStyle) {
+		if (([self highlightsBy] & NSChangeBackgroundCellMask)) {
+			[self setHighlightsBy:([self highlightsBy] - NSChangeBackgroundCellMask)];
+		}
+		if (([self showsStateBy] & NSChangeBackgroundCellMask)) {
+			[self setShowsStateBy:([self showsStateBy] - NSChangeBackgroundCellMask)];
 		}
 	}
-	
 	return self;
 }
 

@@ -26,8 +26,6 @@ static const char updatingKey;
 @end
 
 
-
-
 @interface TUITableViewCell (FrameShortcuts)
 @property (nonatomic, assign) CGFloat ux;       // update end x
 @property (nonatomic, assign) CGFloat uy;       // update end y
@@ -36,15 +34,11 @@ static const char updatingKey;
 @end
 
 
-
-
 @interface TUITableViewCellClipView : TUIView
 @end
 
 @implementation TUITableViewCellClipView
 @end
-
-
 
 
 @interface TUITableView ()
@@ -198,8 +192,6 @@ static const char updatingKey;
 }
 
 
-
-
 #pragma mark - Private
 
 #pragma mark (properties)
@@ -227,10 +219,6 @@ static const char updatingKey;
 
 
 @end
-
-
-
-
 
 
 
@@ -310,8 +298,6 @@ static const char updatingKey;
         if (completion) completion();
     }];
 }
-
-
 
 
 #pragma mark - Private
@@ -419,8 +405,6 @@ static const char updatingKey;
 
 
 
-
-
 @implementation TUITableViewCell (FrameShortcuts)
 
 - (CGFloat)ux
@@ -470,7 +454,5 @@ static const char updatingKey;
     updateFrame.size.height = uheight;
     self.updateEndFrame = updateFrame;
 }
-
-
 
 @end

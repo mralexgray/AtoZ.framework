@@ -11,31 +11,33 @@
 #define kScrollContentRect CGRectMake(  0.0,   0.0, 100, _targetView.height )
 
 @implementation TestBedDelegate
-@synthesize  host, off, scrlr;
 
-#define NEWFROMNIB(x) (^{ id v = [[NSClassFromString(x) alloc]initWithNibName:x bundle:[NSBundle bundleForClass:self.class]]; \
-	[(NSView*)[v view] setAutoresizingMask:(NSViewWidthSizable|NSViewHeightSizable)]; return v; }())
+#define NEWVC(_x_) ^{  \
+	NSB *bun = [NSB bundleForClass:[_x_ class]]; \
+	return (_x_*)[[[_x_ class] alloc] initWithNibName:NSStringFromClass([_x_ class]) bundle:bun]; \
+}()
 
 -  (void) awakeFromNib						{
-	[_menu loadStatusMenu];
-	[self createScrollLayer];
+
+	_windowControllers = [[AZFILEMANAGER filesInDirectoryAtPath:AZAPPRESOURCES includeInvisible:NO includeSymlinks:NO]filter:^BOOL(NSS* f) { return f.pathExtension
+	} 
+	[_menu   loadStatusMenu];
 	[((BGHUDView*)_contentView).theme bind:@"baseColor" toObject:_colorWell withKeyPath:@"color" options:nil];
-	[self.window setAcceptsMouseMovedEvents:YES];
-	[self.window makeFirstResponder:_targetView];
+//	[self.window setAcceptsMouseMovedEvents:YES];
+//	[self.window makeFirstResponder:_targetView];
 	[NSC randomPaletteAnimationBlock:^(NSColor *c) {
 		_colorWell.color = c;
 	}];
-//		NSLog(@"Color: %@", c.nameOfColor);
-//		_colorWell.color = c;
-//	}];
+//		NSLog(@"Color: %@", c.nameOfColor); _colorWell.color = c; 	}];
+//	[self createScrollLayer];
 }
 -   (IBA) setViewFromPopUp:(id)sender	{	NSS *selecto = [sender titleOfSelectedItem];
 
-	id view = 	SameString(selecto,     @"General") ? ^{ _genVC 	= _genVC 	?: NEWFROMNIB(@"GeneralVC"); 	return _genVC.view; 	}() :
-			   	SameString(selecto, 		     @"UI") ? ^{ _uiVC 		= _uiVC 		?: NEWFROMNIB(@"UIVC");  		return _uiVC.view; 	}() :
-					SameString(selecto,      @"Colors") ? ^{ _colorVC 	= _colorVC 	?: NEWFROMNIB(@"ColorVC");  	return _colorVC.view;}() :
-					SameString(selecto, 	  @"Facebook") ? ^{ _fbV 		= _fbV 		?: NEWFROMNIB(@"FBVC"); 		return _fbV.view; 	}() :
-					SameString(selecto, 		   @"TUIV") ? ^{ _tuiVC 	= _tuiVC 	?: NEWFROMNIB(@"TUIVVC"); 		return _tuiVC.view; 	}() :
+	id view = 	SameString(selecto,     @"General") ? [_genVC 	= _genVC 	?: NEWVC(GeneralVC) view] :
+			   	SameString(selecto, 		     @"UI") ? [_uiVC 	= _uiVC 		?: NEWVC(UIVC) 	  view] :
+					SameString(selecto,      @"Colors") ? [_colorVC = _colorVC 	?: NEWVC(ColorVC)   view] :
+					SameString(selecto, 	  @"Facebook") ? [_fbV 		= _fbV 		?: NEWVC(FBVC)  	  view] :
+					SameString(selecto, 		   @"TUIV") ? [_tuiVC 	= _tuiVC 	?: NEWVC(TUIVVC)    view] :
 					SameString(selecto, @"BPODialTest") ? BPODialTest.new : nil;
 
 	if (view && [view ISKINDA:NSView.class]) {	

@@ -1,0 +1,39 @@
+//
+// Prefix header for all source files of the 'AtoZCLI' target in the 'AtoZCLI' project
+//
+
+#ifdef __OBJC__
+
+#import <Foundation/Foundation.h>
+#import <Cocoa/Cocoa.h>
+#import <AppKit/AppKit.h>
+#import <AtoZ/AtoZ.h>
+
+
+#define UNOTE 		NSUserNotification
+#define NSNOTE		NSNotification 
+#define UCTR		NSUserNotificationCenter
+#define UCENTER 	[NSUserNotificationCenter defaultUserNotificationCenter]
+#define NCENTER 	[NSNotificationCenter defaultCenter]
+
+#define NSMD 		NSMutableDictionary
+#define NSS 		NSString
+#define NSA 		NSArray
+#define NSFM		NSFileManager.defaultManager
+
+// Keys used in the userInfo dictionary added to the notification.
+#define CMD_WORKING_DIR 	@"CWD"
+#define CMD						@"CMD"
+#define CMD_START 			@"CST"
+#define CMD_END 				@"CET"
+#define CMD_STATUS			@"CCS"
+
+
+@interface NSA (MappingSanity)
+-(NSA*)map:(id(^)(id))sieve;
+@end
+@interface NSObject (PropertiesPlease)
++ (NSArray*) propertyNames;
+@end
+
+#endif

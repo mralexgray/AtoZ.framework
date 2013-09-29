@@ -2,24 +2,21 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:xcb/xcb.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:AtoZCodeFactory/AtoZCodeFactory.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "container:AtoZ/AtoZ.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:HTMLServer/HTMLServer.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:Frameworks/TwUI/ExampleProject/Example.xcodeproj">
    </FileRef>
    <FileRef
-      location = "container:AtoZ/AtoZCodeFactory/xcb/xcb.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:../dev/AtoZBundles/BundleLoader/AtoZBundles.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:AtoZWebkit/DeskBrowse.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:AtoZ/../DeskLabels/DeskLabels.xcodeproj">
-   </FileRef>
-   <FileRef
       location = "group:../dev/GistHub/GistHub/GistHub.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:../git/icarouselmay2012/Examples/Mac Demo/iCarouselMac.xcodeproj">
    </FileRef>
 </Workspace>

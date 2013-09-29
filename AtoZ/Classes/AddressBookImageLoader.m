@@ -100,8 +100,6 @@ static NSString * const kImageDataKey = @"image";
 @end
 
 
-
-
 /*
  - (NSArray *) dictionaryArrayForProperty: (ABPropertyID) aProperty
  {
@@ -170,8 +168,6 @@ static NSString * const kImageDataKey = @"image";
 ////	[NSIMG imageWithData: ,kABPersonImageFormatThumbnail)] ?: nil;
 //	 //[AZAddressBook.sharedInstance].images[_uid] ?:  [
 //}
-
-
 
 //+ (NSSet*) keyPathsForValuesAffectingImage  { return  NSSET(@"uid"); }
 
@@ -262,8 +258,6 @@ static NSString * const kImageDataKey = @"image";
 //	[sortedPeople sortUsingDescriptors: @[[NSSortDescriptor.alloc initWithKey: kDisplayNameKey ascending: YES]]];
 
 //	self.contacts = sortedPeople;
-
-
 
 //- (NSString *)displayNameForPerson: (ABPerson *)person
 //{

@@ -104,7 +104,7 @@ typedef void(^ReverseAnimationBlock)(void);
 	/// For when you need a weak reference of an object, example: `BBlockWeakObject(obj) wobj = obj;`
 #define BlockSafeObject(o) __typeof__(o) __weak
 	/// For when you need a weak reference to self, example: `BBlockWeakSelf wself = self;`
-#define AZBlockSelf(_x_)  BlockSafeObject _x_ = self 
+#define AZBlockSelf(_x_)  __block __typeof__(self) _x_ = self 
 
 #define declareBlockSafe(__obj__) __weak typeof(__obj__) __obj__ = __obj__
 	//__tmpblk
@@ -117,6 +117,7 @@ __weak typeof((__obj__)) __name__ = (__obj__)
 	//__tmpblk##
 
 #define SELFBLK void(^)(id _self)
+
 typedef void(^bSelf)(id);
 @interface  NSObject (bSelf)
 - (void) blockSelf:(void(^)(id _self))block;
@@ -215,8 +216,6 @@ typedef void(^bSelf)(id);
 - (void) toggleLasso:(BOOL)state;
 
 - (id) lassoLayerForLayer:(CAL*)layer;
-
-
 
 
 - (CAL*) selectionLayerForLayer:(CAL*)layer;

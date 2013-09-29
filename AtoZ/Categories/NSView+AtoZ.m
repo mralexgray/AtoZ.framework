@@ -153,9 +153,39 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 #import <QuartzCore/QuartzCore.h>
 #import <ApplicationServices/ApplicationServices.h>
 
-
 @implementation NSView (AtoZ)
 
+-   (id) getBackground 				{ id bg = nil; 
+
+	if ( [self respondsToSelector:@selector(background)]) {
+			bg = [(id)self background]; if (bg) return bg;
+	}
+	return objc_getAssociatedObject(self, _cmd); 
+}
+- (void) doSetBackground:(id)bg 	{ 
+
+	if ([self respondsToSelector:@selector(background)]) {
+		NSMethodSignature *s = [self methodSignatureForSelector:@selector(background)];
+		if (strcmp([bg objCType],[s getArgumentTypeAtIndex:2])) return [(id)self setBackground:bg];
+	}
+
+	id existing = self.getBackground;  if ([existing isEqualTo:bg]) return;	
+
+	objc_setAssociatedObject(self, @selector(getBackground), bg, OBJC_ASSOCIATION_RETAIN_NONATOMIC); 
+	if (existing) return;
+	SEL dRectSelect = @selector(drawRect:);
+	[self az_overrideSelector:dRectSelect withBlock:(__bridge void *)^(id _self, NSRect dRect)	{ 
+		if 			([bg ISKINDA:NSC.class]) NSRectFillWithColor(dRect,((NSView*)_self).background);
+		else if		([bg ISKINDA:NSG.class]) [(NSG*)[_self background] drawInRect:dRect angle:-90];
+		void (*superIMP)(id, SEL, NSR) = [_self az_superForSelector:dRectSelect];
+		superIMP(_self, dRectSelect, dRect);
+	}];
+}
+
+//SYNTHESIZE_ASC_OBJ_BLOCK( 	needsDisplayForKeys,
+//									setNeedsDisplayForKeys,
+//									^{
+//									
 
 + (void) load {
 	[$ swizzleMethod:@selector(setWantsLayer:) with:@selector(swizzleSetWantsLayer:) in:self.class];
@@ -172,6 +202,25 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 }
 
 
+- (NSV*) dragSubviewWihEvent:(NSE*)e { 
+	
+	NSBitmapImageRep     *rep;
+	NSPasteboard 		*pboard;
+	NSV 						  *x;
+	NSR				sourceRect;
+	NSImage 					*pic;
+	
+	x		 		= [self hitTest:e.locationInWindow];
+	sourceRect 	= [x.superview convertRect:[x frame] toView:self];
+	pic 			= [NSImage.alloc initWithSize:sourceRect.size];
+	[self lockFocus];
+	rep		 	= [NSBitmapImageRep.alloc initWithFocusedViewRect:sourceRect];
+	[self unlockFocus];
+	[pic addRepresentation:rep];
+	pboard 		= [NSPasteboard pasteboardWithName:NSDragPboard];
+	[self dragImage:pic at:sourceRect.origin offset:NSZeroSize event:e pasteboard:pboard source:self slideBack:YES];
+	return x;	
+}
 
 - (void) handleDragForTypes:(NSA*)files withHandler:(void (^)(NSURL *URL))handler;
 {
@@ -342,8 +391,6 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 //	[fullScreenButton setAction:@selector(closeFullScreenWindow:)];
 }
 
-
-
 - (NSManagedObjectContext*)managedObjectContext {
  return [[[self.window windowController] document]managedObjectContext];
 }
@@ -357,8 +404,6 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 	AZWindowTab *window;
 	return [window = [AZWindowTab tabWithViewClass:klass] makeKeyAndOrderFront: nil], window;
 }
-
-
 
 -(CALayer *)layerFromContents		{
 
@@ -415,8 +460,6 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 	[@[NSViewFrameDidChangeNotification, NSViewBoundsDidChangeNotification] each:^(NSS* name){
 									[self observeName:name usingBlock:^(NSNOT*n) {	 block(n);	}]; }];
 }
-
-
 
 - (BOOL)isSubviewOfView:(NSView*) theView
 {
@@ -593,7 +636,12 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
  [layerHosting setLayer:layer];
  [layerHosting setWantsLayer:YES];
  */
+-(CALayer*) azLayer {
 
+	CAL*l = nil;
+	if (l = self.layer) return l;
+	else { l = CAL.new; l.frame = self.bounds; l.arMASK = CASIZEABLE; self.layer = l; self.wantsLayer = YES; [l setNeedsDisplay]; return l; }
+}
 -(CALayer*) setupHostViewNamed:(NSS*)name {
 	CAL *i = [self setupHostView];
 	i.name = name;
@@ -900,8 +948,6 @@ NSView* AZResizeWindowAndContent(NSWindow* window, CGF dXLeft, CGF dXRight, CGF 
 - (void)setCenterX:(CGF)t {	float center = [self centerX] ;	float adjustment = t - center ;
 	NSRect frame = [self frame] ;	frame.origin.x += adjustment ;	[self setFrame:frame];
 }
-
-
 
 - (CGF)bottom {	return [self frame].origin.y ;	}
 

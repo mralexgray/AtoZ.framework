@@ -118,8 +118,6 @@
 
 @end
 
-
-
 @implementation WeakMutableSet {
 	NSMutableSet *set;
 }
@@ -193,8 +191,6 @@
 	}
 	return self;
 }
-
-
 
 - (NSArray *)allObjects {
 	WeakMutableArray *allObjects = [[WeakMutableArray alloc] init];
