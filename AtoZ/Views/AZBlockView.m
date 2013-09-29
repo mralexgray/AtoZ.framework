@@ -7,6 +7,17 @@
 #import "AZBlockView.h"
 #import "AtoZ.h"
 
+@implementation BLKCELL
+
+//+ (instancetype) inView:(NSV*)v withBlock:(void(^)(BLKCELL*cell, NSR cF, NSV*cV))blk {
+
+//	BLKCELL *cell 	= [BLKCELL.alloc initWithCoder:<#(NSCoder *)#> .alloc initWithFrame:frame];
+//	[view setDBlock:theDrawBlock];
+//	[view setOpaque:opaque];
+//	return view;
+//}
+
+@end
 
 @implementation BNRBlockView
 //@synthesize drawBlock, opaque, layerBlock;

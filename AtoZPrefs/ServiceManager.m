@@ -11,7 +11,6 @@
 #import "Service.h"
 #import "ServiceController.h"
 
-
 @implementation ServiceManager
 
 - (void) awakeFromNib {
@@ -167,5 +166,4 @@
 //    
 //    [self.serviceParent setDocumentView:serviceList];
 //    
-
 

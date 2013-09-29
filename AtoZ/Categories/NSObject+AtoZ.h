@@ -162,6 +162,9 @@ IMP impOfCallingMethod(id lookupObject, SEL selector);
 - (void)bind:(NSS*)binding toObject:(id)o withNegatedKeyPath:(NSS*)keyPath;
 
 
+
+-(id) filterKeyPath:(NSS*)kp recursively:(id(^)(id))mayReturnOtherObjectOrNil;
+
 - (void)performBlock:(void (^)())block;
 //- (void)performBlock:(void (^)())block afterDelay:(NSTimeInterval)delay;
 
@@ -230,13 +233,13 @@ typedef void (^caseBlock)();
    defaultBlock:(caseBlock)defaultBlock
 		  cases:casesList, ...;
 
-/*
+
 	// To add array style subscripting:
 - (void)setObject:(id)obj atIndexedSubscript:(NSUInteger)idx; // setter
 - (id)objectAtIndexedSubscript:(NSUInteger)idx;			   // getter
-*/
+
 	// To add dictionary style subscripting
-//- (void)setObject:(id)obj forKeyedSubscript:(id <NSCopying>)key; // setter
+- (void)setObject:(id)obj forKeyedSubscript:(id <NSCopying>)key; // setter
 - (id)objectForKeyedSubscript:(id)key;						   // getter
 - (void)performBlock:(void (^)(void))block afterDelay:(NSTimeInterval)delay;
 - (void)fireBlockAfterDelay:(void (^)(void))block;

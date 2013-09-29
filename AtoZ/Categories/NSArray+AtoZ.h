@@ -208,6 +208,7 @@ extern NSString * const NSMutableArrayDidInsertObjectNotification;
 /*** */
 -(NSA*)objectsWithFormat:(NSS*)format, ...;
 -(id)firstObjectWithFormat:(NSS*)format, ...;
+-(id) firstObjectOfClass:(Class)k;
 -(NSA*)filteredArrayUsingBlock: (BOOL (^)(id evaluatedObject, NSDictionary *bindings))block;
 -(NSA*) uniqueObjects;
 -(NSA*) uniqueObjectsSortedUsingSelector: (SEL)comparator;
@@ -218,6 +219,10 @@ extern NSString * const NSMutableArrayDidInsertObjectNotification;
 -(id)findWithBlock:(BOOL (^)(id obj))block;
 -(BOOL)isObjectInArrayWithBlock:(BOOL (^)(id obj))block;
 -(NSA*)findAllWithBlock:(BOOL (^)(id obj))block;
+
+
+
+
 #if !(TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
 -(NSHashTable *)findAllIntoWeakRefsWithBlock:(BOOL (^)(id))block;
 #endif

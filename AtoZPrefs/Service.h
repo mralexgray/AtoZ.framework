@@ -17,5 +17,4 @@
 
 - (id) initWithOptions:(NSDictionary*) options;
 
-
 @end

@@ -1,22 +1,42 @@
 
-#import "HTMLServerDoc.h"
+#import "HTMLServer.h"
 
 #define INFOD NSBundle.mainBundle.infoDictionary
 
-//@interface NSDocument (DoesNot
-@implementation HTMLServerDoc
+@implementation HTMLServer
 
-- (NSS*) windowNibName	{ 	return @"HTMLServerDoc"; }
-	// If you need to use a subclass of NSWindowController or if your document supports multiple NSWindowControllers, you should remove this method and override -makeWindowControllers instead.
+- (void) setRunning:(AZState)run {  NSError *error; AZLOGCMD;
 
-- (void) awakeFromNib	{ AZLOGCMD;
+	if ( _server.isRunning == run)  return ;
+	if (run)  [_server start:&error]; else [_server stop];
+	if (error || _server.isRunning != run) 
+		NSLog(@"Error %@ server: %@", run? @"starting" : @"stopping", error);
+}
 
+- (id) init{
+	return [super initWithWindowNibName:NSStringFromClass(self.class)]; 
 	_server			= RoutingHTTPServer.new;
 	_server.type 	= @"_http._tcp.";
+	_server.port   = 6969;
 	[_server setDefaultHeader:@"Server" value:AZBUNDLE.bundleIdentifier];
 	_webView.frameLoadDelegate = self;
 	_bootstrap 		= Bootstrap.new;
 	[self setupRoutes];
+	NSError *error;	
+	if (![_server start:&error]) 	NSLog(@"Error starting HTTP server: %@", error);	else nil;
+	[_webView.mainFrame loadRequest:[NSURLREQ requestWithURL:$URL($(@"http://localhost:%u", _server.port))]];
+} 
+
+
+//- (id) initWithWindowNibName:(NSString *)windowNibName	{ 	
+//			return [super initWithWindowNibName:NSStringFromClass(self.class)];
+//}
+
+- (void) awakeFromNib	{ AZLOGCMD;
+
+	XX(self.window); 
+//	if (!self.window) self.widow = [NSWindow wi]
+	[self.window makeKeyAndOrderFront:self]; NSBeep();
 }
 
 - (void)webView:(WebView*)sender didFinishLoadForFrame:(WebFrame *)frame {
@@ -64,7 +84,7 @@
 	}];
 }
 
-- (void) start	{
+//- (void) start	{
 
 //	self.queriesController = NSArrayController.new;
 
@@ -140,7 +160,7 @@
 		//		NSData *d = [rando.representations[0] bitmapRepresentation];// bitmapRepresentation;//][0] representationUsingType:NSPNGFileType properties:nil];// TIFFRepresentation];
 		//						  [res respondWithData:result]; }];
 	}];
-	[self get:@"/record/*.*" withBlock:^(RouteRequest *req, RouteResponse *res) {
+	[self get:@"/record/ *.*" withBlock:^(RouteRequest *req, RouteResponse *res) {
 		NSLog(@"req params:  %@", req.params);
 		//		[res setStatusCode:302]; // or 301
 		//		[res setHeader:@"Location" value:[self.baseURL stringByAppendingString:@"/record/"]];
@@ -185,56 +205,49 @@
 	NSLog(@"sending: %@", htmlText);
 	[response respondWithString:htmlText.copy];
 	*/
-}
+//}
 
-- (void)windowControllerDidLoadNib:(NSWindowController *)aController
-{
-	[super windowControllerDidLoadNib:aController];
-	// Add any code here that needs to be executed once the windowController has loaded the document's window.
-}
+//- (void)windowControllerDidLoadNib:(NSWindowController *)aController
+//{
+//	[super windowControllerDidLoadNib:aController];
+//	// Add any code here that needs to be executed once the windowController has loaded the document's window.
+//}
 
-+ (BOOL)autosavesInPlace	{    return YES; }
-
-- (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError
-{
-
-
-    NSMutableData *data 		= NSMutableData.new;
-    NSKeyedArchiver *archiver = [NSKeyedArchiver.alloc initForWritingWithMutableData:data];
-    [archiver setOutputFormat: NSPropertyListXMLFormat_v1_0];
-//    [archiver encodeObject:_port  forKey: @"port"];
-    [archiver finishEncoding];
-    return data;
-
-	// Insert code here to write your document to data of the specified type. If outError != NULL, ensure that you create and set an appropriate error when returning nil.
-	// You can also choose to override -fileWrapperOfType:error:, -writeToURL:ofType:error:, or -writeToURL:ofType:forSaveOperation:originalContentsURL:error: instead.
-	NSException *exception = [NSException exceptionWithName:@"UnimplementedMethod" reason:[NSString stringWithFormat:@"%@ is unimplemented", NSStringFromSelector(_cmd)] userInfo:nil];
-	@throw exception;
-	return nil;
-}
-
-- (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError **)outError	{
-
-	NSKeyedUnarchiver *archiver  = [NSKeyedUnarchiver.alloc initForReadingWithData:data];
-//	_port = [archiver decodeObjectForKey: @"port"];
-	return YES;
-
-	// Insert code here to read your document from the given data of the specified type. If outError != NULL, ensure that you create and set an appropriate error when returning NO.
-	// You can also choose to override -readFromFileWrapper:ofType:error: or -readFromURL:ofType:error: instead.
-	// If you override either of these, you should also override -isEntireFileLoaded to return NO if the contents are lazily loaded.
-	NSException *exception = [NSException exceptionWithName:@"UnimplementedMethod" reason:[NSString stringWithFormat:@"%@ is unimplemented", NSStringFromSelector(_cmd)] userInfo:nil];
-	@throw exception;
-	return YES;
-}
+////+ (BOOL)autosavesInPlace	{    return YES; }
+////
+////- (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError
+////{
+////
+//
+//    NSMutableData *data 		= NSMutableData.new;
+//    NSKeyedArchiver *archiver = [NSKeyedArchiver.alloc initForWritingWithMutableData:data];
+//    [archiver setOutputFormat: NSPropertyListXMLFormat_v1_0];
+////    [archiver encodeObject:_port  forKey: @"port"];
+//    [archiver finishEncoding];
+//    return data;
+//
+//	// Insert code here to write your document to data of the specified type. If outError != NULL, ensure that you create and set an appropriate error when returning nil.
+//	// You can also choose to override -fileWrapperOfType:error:, -writeToURL:ofType:error:, or -writeToURL:ofType:forSaveOperation:originalContentsURL:error: instead.
+//	NSException *exception = [NSException exceptionWithName:@"UnimplementedMethod" reason:[NSString stringWithFormat:@"%@ is unimplemented", NSStringFromSelector(_cmd)] userInfo:nil];
+//	@throw exception;
+//	return nil;
+//}
+//
+//- (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError **)outError	{
+//
+//	NSKeyedUnarchiver *archiver  = [NSKeyedUnarchiver.alloc initForReadingWithData:data];
+////	_port = [archiver decodeObjectForKey: @"port"];
+//	return YES;
+//
+//	// Insert code here to read your document from the given data of the specified type. If outError != NULL, ensure that you create and set an appropriate error when returning NO.
+//	// You can also choose to override -readFromFileWrapper:ofType:error: or -readFromURL:ofType:error: instead.
+//	// If you override either of these, you should also override -isEntireFileLoaded to return NO if the contents are lazily loaded.
+//	NSException *exception = [NSException exceptionWithName:@"UnimplementedMethod" reason:[NSString stringWithFormat:@"%@ is unimplemented", NSStringFromSelector(_cmd)] userInfo:nil];
+//	@throw exception;
+//	return YES;
+//}
 
 @end
-//- (void) setRunning:(AZState)run {  NSError *error;
-//
-//	if ( _server.isRunning == run == _running)  return ;
-//	run  ? [_server start:&error] : [_server stop];
-//	if (error || (_running = _server.isRunning) != run) 
-//		NSLog(@"Error %@ server: %@", run? @"starting" : @"stopping", error);
-//}
 // Set a default Server header in the form of YourApp/1.0
 //	NSS *appVersion = INFOD[@"CFBundleShortVersionString"] ?: INFOD[@"CFBundleVersion"];
 //	_server.defaultHeaders = @{ @"Server": $(@"%@/%@", INFOD[@"CFBundleName"],appVersion) };

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
-		<int key="IBDocument.SystemTarget">1090</int>
-		<string key="IBDocument.SystemVersion">13A558</string>
-		<string key="IBDocument.InterfaceBuilderVersion">4504</string>
-		<string key="IBDocument.AppKitVersion">1249.11</string>
-		<string key="IBDocument.HIToolboxVersion">691.00</string>
+		<int key="IBDocument.SystemTarget">1070</int>
+		<string key="IBDocument.SystemVersion">13A584</string>
+		<string key="IBDocument.InterfaceBuilderVersion">4510</string>
+		<string key="IBDocument.AppKitVersion">1262</string>
+		<string key="IBDocument.HIToolboxVersion">695.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">4504</string>
+			<string key="NS.object.0">4510</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>NSCustomObject</string>
@@ -1308,6 +1308,9 @@
 			</object>
 			<object class="NSCustomObject" id="382361370">
 				<string key="NSClassName">NSFontManager</string>
+			</object>
+			<object class="NSCustomObject" id="681322895">
+				<string key="NSClassName">HTMLServer</string>
 			</object>
 		</array>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
@@ -2958,6 +2961,11 @@
 						<reference key="object" ref="382361370"/>
 						<reference key="parent" ref="0"/>
 					</object>
+					<object class="IBObjectRecord">
+						<string key="id">f30-re-b2Y</string>
+						<reference key="object" ref="681322895"/>
+						<reference key="parent" ref="0"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -3259,16 +3267,1115 @@
 				<boolean value="NO" key="83.showNotes"/>
 				<string key="92.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="NO" key="92.showNotes"/>
+				<string key="f30-re-b2Y.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes"/>
+		<object class="IBClassDescriber" key="IBDocument.Classes">
+			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<object class="IBPartialClassDescription">
+					<string key="className">DKDrawableObject</string>
+					<string key="superclassName">NSObject</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="copyDrawingStyle:">id</string>
+						<string key="lock:">id</string>
+						<string key="lockLocation:">id</string>
+						<string key="logDescription:">id</string>
+						<string key="pasteDrawingStyle:">id</string>
+						<string key="toggleClipToBBox:">id</string>
+						<string key="toggleShowBBox:">id</string>
+						<string key="toggleShowPartcodes:">id</string>
+						<string key="toggleShowTargets:">id</string>
+						<string key="unlock:">id</string>
+						<string key="unlockLocation:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="copyDrawingStyle:">
+							<string key="name">copyDrawingStyle:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="lock:">
+							<string key="name">lock:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="lockLocation:">
+							<string key="name">lockLocation:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="logDescription:">
+							<string key="name">logDescription:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="pasteDrawingStyle:">
+							<string key="name">pasteDrawingStyle:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="toggleClipToBBox:">
+							<string key="name">toggleClipToBBox:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="toggleShowBBox:">
+							<string key="name">toggleShowBBox:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="toggleShowPartcodes:">
+							<string key="name">toggleShowPartcodes:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="toggleShowTargets:">
+							<string key="name">toggleShowTargets:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="unlock:">
+							<string key="name">unlock:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="unlockLocation:">
+							<string key="name">unlockLocation:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/DKDrawableObject.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">DKDrawablePath</string>
+					<string key="superclassName">DKDrawableObject</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="addRandomNoise:">id</string>
+						<string key="breakApart:">id</string>
+						<string key="closePath:">id</string>
+						<string key="convertToOutline:">id</string>
+						<string key="convertToShape:">id</string>
+						<string key="curveFit:">id</string>
+						<string key="parallelCopy:">id</string>
+						<string key="reversePath:">id</string>
+						<string key="roughenPath:">id</string>
+						<string key="smoothPath:">id</string>
+						<string key="smoothPathMore:">id</string>
+						<string key="toggleHorizontalFlip:">id</string>
+						<string key="toggleVerticalFlip:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="addRandomNoise:">
+							<string key="name">addRandomNoise:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="breakApart:">
+							<string key="name">breakApart:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="closePath:">
+							<string key="name">closePath:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="convertToOutline:">
+							<string key="name">convertToOutline:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="convertToShape:">
+							<string key="name">convertToShape:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="curveFit:">
+							<string key="name">curveFit:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="parallelCopy:">
+							<string key="name">parallelCopy:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="reversePath:">
+							<string key="name">reversePath:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="roughenPath:">
+							<string key="name">roughenPath:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="smoothPath:">
+							<string key="name">smoothPath:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="smoothPathMore:">
+							<string key="name">smoothPathMore:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="toggleHorizontalFlip:">
+							<string key="name">toggleHorizontalFlip:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="toggleVerticalFlip:">
+							<string key="name">toggleVerticalFlip:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/DKDrawablePath.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">DKDrawableShape</string>
+					<string key="superclassName">DKDrawableObject</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="convertToPath:">id</string>
+						<string key="pastePath:">id</string>
+						<string key="resetBoundingBox:">id</string>
+						<string key="rotate:">id</string>
+						<string key="setDistortMode:">id</string>
+						<string key="toggleHorizontalFlip:">id</string>
+						<string key="toggleVerticalFlip:">id</string>
+						<string key="unrotate:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="convertToPath:">
+							<string key="name">convertToPath:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="pastePath:">
+							<string key="name">pastePath:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="resetBoundingBox:">
+							<string key="name">resetBoundingBox:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="rotate:">
+							<string key="name">rotate:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="setDistortMode:">
+							<string key="name">setDistortMode:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="toggleHorizontalFlip:">
+							<string key="name">toggleHorizontalFlip:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="toggleVerticalFlip:">
+							<string key="name">toggleVerticalFlip:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="unrotate:">
+							<string key="name">unrotate:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/DKDrawableShape.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">DKDrawingView</string>
+					<string key="superclassName">GCZoomView</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="toggleRuler:">id</string>
+						<string key="toggleShowPageBreaks:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="toggleRuler:">
+							<string key="name">toggleRuler:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="toggleShowPageBreaks:">
+							<string key="name">toggleShowPageBreaks:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/DKDrawingView.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">DKLayer</string>
+					<string key="superclassName">NSObject</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="copy:">id</string>
+						<string key="hideLayer:">id</string>
+						<string key="lockLayer:">id</string>
+						<string key="logDescription:">id</string>
+						<string key="showLayer:">id</string>
+						<string key="toggleLayerLock:">id</string>
+						<string key="toggleLayerVisible:">id</string>
+						<string key="unlockLayer:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="copy:">
+							<string key="name">copy:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="hideLayer:">
+							<string key="name">hideLayer:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="lockLayer:">
+							<string key="name">lockLayer:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="logDescription:">
+							<string key="name">logDescription:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="showLayer:">
+							<string key="name">showLayer:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="toggleLayerLock:">
+							<string key="name">toggleLayerLock:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="toggleLayerVisible:">
+							<string key="name">toggleLayerVisible:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="unlockLayer:">
+							<string key="name">unlockLayer:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/DKLayer.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">DKObjectDrawingLayer</string>
+					<string key="superclassName">DKObjectOwnerLayer</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="alignBottomEdges:">id</string>
+						<string key="alignEdgesToGrid:">id</string>
+						<string key="alignHorizontalCentres:">id</string>
+						<string key="alignLeftEdges:">id</string>
+						<string key="alignLocationToGrid:">id</string>
+						<string key="alignRightEdges:">id</string>
+						<string key="alignTopEdges:">id</string>
+						<string key="alignVerticalCentres:">id</string>
+						<string key="applyStyle:">id</string>
+						<string key="assignKeyObject:">id</string>
+						<string key="clusterObjects:">id</string>
+						<string key="combineSelectedObjects:">id</string>
+						<string key="copy:">id</string>
+						<string key="cut:">id</string>
+						<string key="delete:">id</string>
+						<string key="deleteBackward:">id</string>
+						<string key="diffSelectedObjects:">id</string>
+						<string key="distributeHorizontalCentres:">id</string>
+						<string key="distributeHorizontalSpace:">id</string>
+						<string key="distributeVerticalCentres:">id</string>
+						<string key="distributeVerticalSpace:">id</string>
+						<string key="divideSelectedObjects:">id</string>
+						<string key="duplicate:">id</string>
+						<string key="ghostObjects:">id</string>
+						<string key="groupObjects:">id</string>
+						<string key="hideObject:">id</string>
+						<string key="intersectionSelectedObjects:">id</string>
+						<string key="joinPaths:">id</string>
+						<string key="lockObject:">id</string>
+						<string key="moveDown:">id</string>
+						<string key="moveLeft:">id</string>
+						<string key="moveRight:">id</string>
+						<string key="moveUp:">id</string>
+						<string key="objectBringForward:">id</string>
+						<string key="objectBringToFront:">id</string>
+						<string key="objectSendBackward:">id</string>
+						<string key="objectSendToBack:">id</string>
+						<string key="paste:">id</string>
+						<string key="revealHiddenObjects:">id</string>
+						<string key="selectAll:">id</string>
+						<string key="selectMatchingStyle:">id</string>
+						<string key="selectNone:">id</string>
+						<string key="selectOthers:">id</string>
+						<string key="setBooleanOpsFittingPolicy:">id</string>
+						<string key="showObject:">id</string>
+						<string key="unghostObjects:">id</string>
+						<string key="unionSelectedObjects:">id</string>
+						<string key="unlockObject:">id</string>
+						<string key="xorSelectedObjects:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="alignBottomEdges:">
+							<string key="name">alignBottomEdges:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="alignEdgesToGrid:">
+							<string key="name">alignEdgesToGrid:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="alignHorizontalCentres:">
+							<string key="name">alignHorizontalCentres:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="alignLeftEdges:">
+							<string key="name">alignLeftEdges:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="alignLocationToGrid:">
+							<string key="name">alignLocationToGrid:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="alignRightEdges:">
+							<string key="name">alignRightEdges:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="alignTopEdges:">
+							<string key="name">alignTopEdges:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="alignVerticalCentres:">
+							<string key="name">alignVerticalCentres:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="applyStyle:">
+							<string key="name">applyStyle:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="assignKeyObject:">
+							<string key="name">assignKeyObject:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="clusterObjects:">
+							<string key="name">clusterObjects:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="combineSelectedObjects:">
+							<string key="name">combineSelectedObjects:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="copy:">
+							<string key="name">copy:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="cut:">
+							<string key="name">cut:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="delete:">
+							<string key="name">delete:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="deleteBackward:">
+							<string key="name">deleteBackward:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="diffSelectedObjects:">
+							<string key="name">diffSelectedObjects:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="distributeHorizontalCentres:">
+							<string key="name">distributeHorizontalCentres:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="distributeHorizontalSpace:">
+							<string key="name">distributeHorizontalSpace:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="distributeVerticalCentres:">
+							<string key="name">distributeVerticalCentres:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="distributeVerticalSpace:">
+							<string key="name">distributeVerticalSpace:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="divideSelectedObjects:">
+							<string key="name">divideSelectedObjects:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="duplicate:">
+							<string key="name">duplicate:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="ghostObjects:">
+							<string key="name">ghostObjects:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="groupObjects:">
+							<string key="name">groupObjects:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="hideObject:">
+							<string key="name">hideObject:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="intersectionSelectedObjects:">
+							<string key="name">intersectionSelectedObjects:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="joinPaths:">
+							<string key="name">joinPaths:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="lockObject:">
+							<string key="name">lockObject:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="moveDown:">
+							<string key="name">moveDown:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="moveLeft:">
+							<string key="name">moveLeft:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="moveRight:">
+							<string key="name">moveRight:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="moveUp:">
+							<string key="name">moveUp:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="objectBringForward:">
+							<string key="name">objectBringForward:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="objectBringToFront:">
+							<string key="name">objectBringToFront:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="objectSendBackward:">
+							<string key="name">objectSendBackward:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="objectSendToBack:">
+							<string key="name">objectSendToBack:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="paste:">
+							<string key="name">paste:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="revealHiddenObjects:">
+							<string key="name">revealHiddenObjects:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="selectAll:">
+							<string key="name">selectAll:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="selectMatchingStyle:">
+							<string key="name">selectMatchingStyle:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="selectNone:">
+							<string key="name">selectNone:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="selectOthers:">
+							<string key="name">selectOthers:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="setBooleanOpsFittingPolicy:">
+							<string key="name">setBooleanOpsFittingPolicy:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="showObject:">
+							<string key="name">showObject:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="unghostObjects:">
+							<string key="name">unghostObjects:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="unionSelectedObjects:">
+							<string key="name">unionSelectedObjects:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="unlockObject:">
+							<string key="name">unlockObject:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="xorSelectedObjects:">
+							<string key="name">xorSelectedObjects:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/DKObjectDrawingLayer.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">DKObjectOwnerLayer</string>
+					<string key="superclassName">DKLayer</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="toggleShowStorageDebuggingPath:">id</string>
+						<string key="toggleSnapToObjects:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="toggleShowStorageDebuggingPath:">
+							<string key="name">toggleShowStorageDebuggingPath:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="toggleSnapToObjects:">
+							<string key="name">toggleSnapToObjects:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/DKObjectOwnerLayer.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">DKTextPath</string>
+					<string key="superclassName">DKDrawablePath</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="alignCenter:">id</string>
+						<string key="alignJustified:">id</string>
+						<string key="alignLeft:">id</string>
+						<string key="alignRight:">id</string>
+						<string key="capitalize:">id</string>
+						<string key="changeAttributes:">id</string>
+						<string key="changeFont:">id</string>
+						<string key="changeFontSize:">id</string>
+						<string key="changeLayoutMode:">id</string>
+						<string key="convertToPath:">id</string>
+						<string key="convertToShape:">id</string>
+						<string key="convertToShapeGroup:">id</string>
+						<string key="convertToTextShape:">id</string>
+						<string key="editText:">id</string>
+						<string key="loosenKerning:">id</string>
+						<string key="lowerBaseline:">id</string>
+						<string key="paste:">id</string>
+						<string key="raiseBaseline:">id</string>
+						<string key="subscript:">id</string>
+						<string key="superscript:">id</string>
+						<string key="takeTextAlignmentFromSender:">id</string>
+						<string key="takeTextVerticalAlignmentFromSender:">id</string>
+						<string key="tightenKerning:">id</string>
+						<string key="turnOffKerning:">id</string>
+						<string key="underline:">id</string>
+						<string key="unscript:">id</string>
+						<string key="useStandardKerning:">id</string>
+						<string key="verticalAlign:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="alignCenter:">
+							<string key="name">alignCenter:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="alignJustified:">
+							<string key="name">alignJustified:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="alignLeft:">
+							<string key="name">alignLeft:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="alignRight:">
+							<string key="name">alignRight:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="capitalize:">
+							<string key="name">capitalize:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="changeAttributes:">
+							<string key="name">changeAttributes:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="changeFont:">
+							<string key="name">changeFont:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="changeFontSize:">
+							<string key="name">changeFontSize:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="changeLayoutMode:">
+							<string key="name">changeLayoutMode:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="convertToPath:">
+							<string key="name">convertToPath:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="convertToShape:">
+							<string key="name">convertToShape:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="convertToShapeGroup:">
+							<string key="name">convertToShapeGroup:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="convertToTextShape:">
+							<string key="name">convertToTextShape:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="editText:">
+							<string key="name">editText:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="loosenKerning:">
+							<string key="name">loosenKerning:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="lowerBaseline:">
+							<string key="name">lowerBaseline:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="paste:">
+							<string key="name">paste:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="raiseBaseline:">
+							<string key="name">raiseBaseline:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="subscript:">
+							<string key="name">subscript:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="superscript:">
+							<string key="name">superscript:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="takeTextAlignmentFromSender:">
+							<string key="name">takeTextAlignmentFromSender:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="takeTextVerticalAlignmentFromSender:">
+							<string key="name">takeTextVerticalAlignmentFromSender:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="tightenKerning:">
+							<string key="name">tightenKerning:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="turnOffKerning:">
+							<string key="name">turnOffKerning:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="underline:">
+							<string key="name">underline:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="unscript:">
+							<string key="name">unscript:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="useStandardKerning:">
+							<string key="name">useStandardKerning:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="verticalAlign:">
+							<string key="name">verticalAlign:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/DKTextPath.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">DKTextShape</string>
+					<string key="superclassName">DKDrawableShape</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="alignCenter:">id</string>
+						<string key="alignJustified:">id</string>
+						<string key="alignLeft:">id</string>
+						<string key="alignRight:">id</string>
+						<string key="capitalize:">id</string>
+						<string key="changeAttributes:">id</string>
+						<string key="changeFont:">id</string>
+						<string key="changeFontSize:">id</string>
+						<string key="changeLayoutMode:">id</string>
+						<string key="convertToShape:">id</string>
+						<string key="convertToShapeGroup:">id</string>
+						<string key="convertToTextPath:">id</string>
+						<string key="editText:">id</string>
+						<string key="fitToText:">id</string>
+						<string key="loosenKerning:">id</string>
+						<string key="lowerBaseline:">id</string>
+						<string key="paste:">id</string>
+						<string key="raiseBaseline:">id</string>
+						<string key="subscript:">id</string>
+						<string key="superscript:">id</string>
+						<string key="takeTextAlignmentFromSender:">id</string>
+						<string key="takeTextVerticalAlignmentFromSender:">id</string>
+						<string key="tightenKerning:">id</string>
+						<string key="turnOffKerning:">id</string>
+						<string key="underline:">id</string>
+						<string key="unscript:">id</string>
+						<string key="useStandardKerning:">id</string>
+						<string key="verticalAlign:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="alignCenter:">
+							<string key="name">alignCenter:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="alignJustified:">
+							<string key="name">alignJustified:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="alignLeft:">
+							<string key="name">alignLeft:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="alignRight:">
+							<string key="name">alignRight:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="capitalize:">
+							<string key="name">capitalize:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="changeAttributes:">
+							<string key="name">changeAttributes:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="changeFont:">
+							<string key="name">changeFont:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="changeFontSize:">
+							<string key="name">changeFontSize:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="changeLayoutMode:">
+							<string key="name">changeLayoutMode:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="convertToShape:">
+							<string key="name">convertToShape:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="convertToShapeGroup:">
+							<string key="name">convertToShapeGroup:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="convertToTextPath:">
+							<string key="name">convertToTextPath:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="editText:">
+							<string key="name">editText:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="fitToText:">
+							<string key="name">fitToText:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="loosenKerning:">
+							<string key="name">loosenKerning:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="lowerBaseline:">
+							<string key="name">lowerBaseline:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="paste:">
+							<string key="name">paste:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="raiseBaseline:">
+							<string key="name">raiseBaseline:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="subscript:">
+							<string key="name">subscript:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="superscript:">
+							<string key="name">superscript:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="takeTextAlignmentFromSender:">
+							<string key="name">takeTextAlignmentFromSender:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="takeTextVerticalAlignmentFromSender:">
+							<string key="name">takeTextVerticalAlignmentFromSender:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="tightenKerning:">
+							<string key="name">tightenKerning:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="turnOffKerning:">
+							<string key="name">turnOffKerning:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="underline:">
+							<string key="name">underline:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="unscript:">
+							<string key="name">unscript:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="useStandardKerning:">
+							<string key="name">useStandardKerning:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="verticalAlign:">
+							<string key="name">verticalAlign:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/DKTextShape.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">GCZoomView</string>
+					<string key="superclassName">NSView</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="zoomFitInWindow:">id</string>
+						<string key="zoomIn:">id</string>
+						<string key="zoomMax:">id</string>
+						<string key="zoomMin:">id</string>
+						<string key="zoomOut:">id</string>
+						<string key="zoomToActualSize:">id</string>
+						<string key="zoomToPercentageWithTag:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="zoomFitInWindow:">
+							<string key="name">zoomFitInWindow:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="zoomIn:">
+							<string key="name">zoomIn:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="zoomMax:">
+							<string key="name">zoomMax:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="zoomMin:">
+							<string key="name">zoomMin:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="zoomOut:">
+							<string key="name">zoomOut:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="zoomToActualSize:">
+							<string key="name">zoomToActualSize:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="zoomToPercentageWithTag:">
+							<string key="name">zoomToPercentageWithTag:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/GCZoomView.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">HTMLServer</string>
+					<string key="superclassName">NSWindowController</string>
+					<object class="NSMutableDictionary" key="outlets">
+						<string key="NS.key.0">webView</string>
+						<string key="NS.object.0">WebView</string>
+					</object>
+					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<string key="NS.key.0">webView</string>
+						<object class="IBToOneOutletInfo" key="NS.object.0">
+							<string key="name">webView</string>
+							<string key="candidateClassName">WebView</string>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/HTMLServer.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">NSDocument</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="printDocument:">id</string>
+						<string key="revertDocumentToSaved:">id</string>
+						<string key="runPageLayout:">id</string>
+						<string key="saveDocument:">id</string>
+						<string key="saveDocumentAs:">id</string>
+						<string key="saveDocumentTo:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="printDocument:">
+							<string key="name">printDocument:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="revertDocumentToSaved:">
+							<string key="name">revertDocumentToSaved:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="runPageLayout:">
+							<string key="name">runPageLayout:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="saveDocument:">
+							<string key="name">saveDocument:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="saveDocumentAs:">
+							<string key="name">saveDocumentAs:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="saveDocumentTo:">
+							<string key="name">saveDocumentTo:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/NSDocument.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">NSObject</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="increment:">id</string>
+						<string key="performActionFromLabel:">id</string>
+						<string key="performActionFromSegmentLabel:">id</string>
+						<string key="setFromSegmentLabel:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="increment:">
+							<string key="name">increment:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="performActionFromLabel:">
+							<string key="name">performActionFromLabel:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="performActionFromSegmentLabel:">
+							<string key="name">performActionFromSegmentLabel:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="setFromSegmentLabel:">
+							<string key="name">setFromSegmentLabel:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/NSObject.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">NSTableView</string>
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">scrollToStickyRow:</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">scrollToStickyRow:</string>
+						<object class="IBActionInfo" key="NS.object.0">
+							<string key="name">scrollToStickyRow:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/NSTableView.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">NSTextView</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="decrementFontSize:">id</string>
+						<string key="increaseFontSize:">id</string>
+						<string key="incrementFontSize:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="decrementFontSize:">
+							<string key="name">decrementFontSize:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="increaseFontSize:">
+							<string key="name">increaseFontSize:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="incrementFontSize:">
+							<string key="name">incrementFontSize:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/NSTextView.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">RBLPopover</string>
+					<string key="superclassName">NSResponder</string>
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">performClose:</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">performClose:</string>
+						<object class="IBActionInfo" key="NS.object.0">
+							<string key="name">performClose:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/RBLPopover.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">TUIPopover</string>
+					<string key="superclassName">NSResponder</string>
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">performClose:</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">performClose:</string>
+						<object class="IBActionInfo" key="NS.object.0">
+							<string key="name">performClose:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/TUIPopover.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">WebView</string>
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">reloadFromOrigin:</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">reloadFromOrigin:</string>
+						<object class="IBActionInfo" key="NS.object.0">
+							<string key="name">reloadFromOrigin:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/WebView.h</string>
+					</object>
+				</object>
+			</array>
+		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaFramework</string>
 		<bool key="IBDocument.previouslyAttemptedUpgradeToXcode5">YES</bool>
+		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencyDefaults">
+			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin.macosx</string>
+			<real value="1070" key="NS.object.0"/>
+		</object>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDevelopmentDependencies">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin.InterfaceBuilder3</string>
 			<integer value="4600" key="NS.object.0"/>

@@ -927,6 +927,11 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
     return nil;
 }
 
+-(id) firstObjectOfClass:(Class)k {
+
+	return [self filterOne:^BOOL(id object) {return [[object class] ISKINDA: k.class]; }];
+}
+
 - (NSA*) filteredArrayUsingBlock:(BOOL (^)(id evaluatedObject, NSDictionary *bindings))block {
     NSPredicate *p = [NSPredicate predicateWithBlock:block];
     return [self filteredArrayUsingPredicate:p];
@@ -1051,6 +1056,9 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
     }];
     return results;
 }
+
+
+
 
 #if !(TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
 

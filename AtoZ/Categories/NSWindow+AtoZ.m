@@ -8,9 +8,11 @@
         completionHandler:(void (^)(void))completionHandler
            animationBlock:(void (^)(void))animationBlock {
 	[NSAnimationContext beginGrouping];
-	[[NSAnimationContext currentContext] setDuration:duration];
-	[[NSAnimationContext currentContext] setCompletionHandler:completionHandler];
-	[[NSAnimationContext currentContext] setTimingFunction:[CAMediaTimingFunction functionWithName:timingFunction != nil ? timingFunction : CAMEDIAEASY]];
+//	currently supported names are `linear', `easeIn', `easeOut' and`easeInEaseOut' and `default' (the curve used by implicit animations
+	CAMediaTimingFunction *d = [timingFunction ISKINDA:NSS.class] ? [CAMediaTimingFunction functionWithName:timingFunction] : [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+	[NSAnimationContext.currentContext setDuration:duration];
+	[NSAnimationContext.currentContext setCompletionHandler:completionHandler];
+	[NSAnimationContext.currentContext setTimingFunction:d];
 	animationBlock();
 	[NSAnimationContext endGrouping];
 }
@@ -449,6 +451,7 @@ typedef void (^notificationObserver_block)(NSNotification *);
 	newViewFrame.size.height = 0;
 	CABasicAnimation *framer = [CABasicAnimation animationWithKeyPath:@"frame"];
 	[framer setFromValue:AZVrect([self frame])];
+	framer.duration = 1.5;
 	[framer setToValue:	AZVrect(newViewFrame)];
 	[self setAnimations:	@{ @"frame" : framer}];
 	//	[[self animator] setFrame:newViewFrame display:YES];

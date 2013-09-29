@@ -7,9 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7B7C613017F398D300093381 /* MicroFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BE13C0017E7ED580087ACB9 /* MicroFramework.framework */; };
+		7B7C613117F398DA00093381 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BDDD7A817D0ECEB00B0BC56 /* MainMenu.xib */; };
+		7B7C613317F398F400093381 /* MicroFramework.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7BE13C0017E7ED580087ACB9 /* MicroFramework.framework */; };
 		7BDDD79D17D0ECEB00B0BC56 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BDDD79C17D0ECEB00B0BC56 /* main.m */; };
-		7BDDD7A417D0ECEB00B0BC56 /* HTMLServerDoc.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BDDD7A317D0ECEB00B0BC56 /* HTMLServerDoc.m */; };
-		7BDDD7AA17D0ECEB00B0BC56 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BDDD7A817D0ECEB00B0BC56 /* MainMenu.xib */; };
 		7BDDD7AC17D0ECEB00B0BC56 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7BDDD7AB17D0ECEB00B0BC56 /* Images.xcassets */; };
 		7BDDD7BC17D0ECEB00B0BC56 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7BDDD7BA17D0ECEB00B0BC56 /* InfoPlist.strings */; };
 		7BDDD7BE17D0ECEB00B0BC56 /* HTMLServerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BDDD7BD17D0ECEB00B0BC56 /* HTMLServerTests.m */; };
@@ -18,12 +19,19 @@
 		7BE13C2217E7ED580087ACB9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7BE13C2017E7ED580087ACB9 /* InfoPlist.strings */; };
 		7BE13C2417E7ED580087ACB9 /* MicroFrameworkTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BE13C2317E7ED580087ACB9 /* MicroFrameworkTests.m */; };
 		7BE13C6B17E7F38F0087ACB9 /* MicroFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BE13C0F17E7ED580087ACB9 /* MicroFramework.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7BE13C6C17E7F38F0087ACB9 /* HTMLServerDoc.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BDDD7A217D0ECEB00B0BC56 /* HTMLServerDoc.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7BE13C6D17E7F39D0087ACB9 /* HTMLServerDoc.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BDDD7A317D0ECEB00B0BC56 /* HTMLServerDoc.m */; };
-		7BE13C6F17E7F5940087ACB9 /* HTMLServerDoc.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BDDD7A517D0ECEB00B0BC56 /* HTMLServerDoc.xib */; };
+		7BE13C6C17E7F38F0087ACB9 /* HTMLServer.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BDDD7A217D0ECEB00B0BC56 /* HTMLServer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BE13C6D17E7F39D0087ACB9 /* HTMLServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BDDD7A317D0ECEB00B0BC56 /* HTMLServer.m */; };
+		7BE13C6F17E7F5940087ACB9 /* HTMLServer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BDDD7A517D0ECEB00B0BC56 /* HTMLServer.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		7B7C612A17F3972200093381 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7BE13C4117E7F31E0087ACB9 /* CouchbaseLite.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 27538F5017F13B03004C3BFD;
+			remoteInfo = "LiteServ App";
+		};
 		7BDDD7B517D0ECEB00B0BC56 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7BDDD78517D0ECEB00B0BC56 /* Project object */;
@@ -173,14 +181,27 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		7B7C613217F398E100093381 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 8;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				7B7C613317F398F400093381 /* MicroFramework.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		7BDDD78D17D0ECEB00B0BC56 /* HTMLServer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HTMLServer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BDDD79817D0ECEB00B0BC56 /* HTMLServer-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HTMLServer-Info.plist"; sourceTree = "<group>"; };
 		7BDDD79C17D0ECEB00B0BC56 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7BDDD79E17D0ECEB00B0BC56 /* HTMLServer-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HTMLServer-Prefix.pch"; sourceTree = "<group>"; };
-		7BDDD7A217D0ECEB00B0BC56 /* HTMLServerDoc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HTMLServerDoc.h; path = HTMLServer/HTMLServerDoc.h; sourceTree = "<group>"; };
-		7BDDD7A317D0ECEB00B0BC56 /* HTMLServerDoc.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = HTMLServerDoc.m; path = HTMLServer/HTMLServerDoc.m; sourceTree = "<group>"; };
-		7BDDD7A617D0ECEB00B0BC56 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/HTMLServerDoc.xib; sourceTree = "<group>"; };
+		7BDDD7A217D0ECEB00B0BC56 /* HTMLServer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HTMLServer.h; path = HTMLServer/HTMLServer.h; sourceTree = "<group>"; };
+		7BDDD7A317D0ECEB00B0BC56 /* HTMLServer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = HTMLServer.m; path = HTMLServer/HTMLServer.m; sourceTree = "<group>"; };
+		7BDDD7A617D0ECEB00B0BC56 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/HTMLServer.xib; sourceTree = "<group>"; };
 		7BDDD7A917D0ECEB00B0BC56 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		7BDDD7AB17D0ECEB00B0BC56 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		7BDDD7B117D0ECEB00B0BC56 /* HTMLServerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HTMLServerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -206,6 +227,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B7C613017F398D300093381 /* MicroFramework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -232,9 +254,9 @@
 			children = (
 				7BE13C0F17E7ED580087ACB9 /* MicroFramework.h */,
 				7BE13C1017E7ED580087ACB9 /* MicroFramework.m */,
-				7BDDD7A217D0ECEB00B0BC56 /* HTMLServerDoc.h */,
-				7BDDD7A317D0ECEB00B0BC56 /* HTMLServerDoc.m */,
-				7BDDD7A517D0ECEB00B0BC56 /* HTMLServerDoc.xib */,
+				7BDDD7A217D0ECEB00B0BC56 /* HTMLServer.h */,
+				7BDDD7A317D0ECEB00B0BC56 /* HTMLServer.m */,
+				7BDDD7A517D0ECEB00B0BC56 /* HTMLServer.xib */,
 				7BE13C4117E7F31E0087ACB9 /* CouchbaseLite.xcodeproj */,
 				7BE13BE617E7EC2E0087ACB9 /* GRMustache.xcodeproj */,
 				7BDDD7A817D0ECEB00B0BC56 /* MainMenu.xib */,
@@ -334,15 +356,16 @@
 			isa = PBXGroup;
 			children = (
 				7BE13C5217E7F31F0087ACB9 /* CouchbaseLite.framework */,
-				7BE13C5E17E7F31F0087ACB9 /* CouchbaseLiteListener.framework */,
 				7BE13C5417E7F31F0087ACB9 /* CouchbaseLite.framework */,
 				7BE13C5617E7F31F0087ACB9 /* libCouchbaseLite.a */,
 				7BE13C5817E7F31F0087ACB9 /* Couchbase Lite Demo.app */,
 				7BE13C5A17E7F31F0087ACB9 /* Grocery Sync.app */,
 				7BE13C5C17E7F31F0087ACB9 /* Couchbase Lite Empty App.app */,
+				7BE13C5E17E7F31F0087ACB9 /* CouchbaseLiteListener.framework */,
 				7BE13C6017E7F31F0087ACB9 /* CouchbaseLiteListener.framework */,
 				7BE13C6217E7F31F0087ACB9 /* libCouchbaseLiteListener.a */,
 				7BE13C6417E7F31F0087ACB9 /* LiteServ */,
+				7B7C612B17F3972200093381 /* LiteServ.app */,
 				7BE13C6617E7F31F0087ACB9 /* libCBLJSViewCompiler.a */,
 			);
 			name = Products;
@@ -356,7 +379,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7BE13C6B17E7F38F0087ACB9 /* MicroFramework.h in Headers */,
-				7BE13C6C17E7F38F0087ACB9 /* HTMLServerDoc.h in Headers */,
+				7BE13C6C17E7F38F0087ACB9 /* HTMLServer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -370,6 +393,7 @@
 				7BDDD78917D0ECEB00B0BC56 /* Sources */,
 				7BDDD78A17D0ECEB00B0BC56 /* Frameworks */,
 				7BDDD78B17D0ECEB00B0BC56 /* Resources */,
+				7B7C613217F398E100093381 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -485,6 +509,13 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		7B7C612B17F3972200093381 /* LiteServ.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = LiteServ.app;
+			remoteRef = 7B7C612A17F3972200093381 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		7BE13C3817E7EE6F0087ACB9 /* libGRMustache6-MacOS.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -604,8 +635,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B7C613117F398DA00093381 /* MainMenu.xib in Resources */,
 				7BDDD7AC17D0ECEB00B0BC56 /* Images.xcassets in Resources */,
-				7BDDD7AA17D0ECEB00B0BC56 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -629,7 +660,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7BE13C6F17E7F5940087ACB9 /* HTMLServerDoc.xib in Resources */,
+				7BE13C6F17E7F5940087ACB9 /* HTMLServer.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -640,7 +671,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7BDDD7A417D0ECEB00B0BC56 /* HTMLServerDoc.m in Sources */,
 				7BDDD79D17D0ECEB00B0BC56 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -657,7 +687,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7BE13C6D17E7F39D0087ACB9 /* HTMLServerDoc.m in Sources */,
+				7BE13C6D17E7F39D0087ACB9 /* HTMLServer.m in Sources */,
 				7BE13C1117E7ED580087ACB9 /* MicroFramework.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -701,12 +731,12 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		7BDDD7A517D0ECEB00B0BC56 /* HTMLServerDoc.xib */ = {
+		7BDDD7A517D0ECEB00B0BC56 /* HTMLServer.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				7BDDD7A617D0ECEB00B0BC56 /* Base */,
 			);
-			name = HTMLServerDoc.xib;
+			name = HTMLServer.xib;
 			path = HTMLServer;
 			sourceTree = "<group>";
 		};

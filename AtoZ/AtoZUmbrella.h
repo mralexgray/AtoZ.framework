@@ -563,6 +563,7 @@ typedef struct {	CAConstraintAttribute constraint;	CGFloat scale;	CGFloat offset
 #define AZPAL AZPalette
 #define AZIS AZInstallationStatus
 
+#define AZAPPDELEGATE (NSObject<NSApplicationDelegate>*)[NSApp delegate]
 
 #define performDelegateSelector(sel) if ([delegate respondsToSelector:sel]) { [delegate performSelector:sel]; }
 #define performBlockIfDelegateRespondsToSelector(block, sel) if ([delegate respondsToSelector:sel]) { block(); }

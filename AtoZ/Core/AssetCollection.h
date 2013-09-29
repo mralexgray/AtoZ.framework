@@ -40,3 +40,8 @@ typedef NS_ENUM(NSUI,AssetType){ JS, CSS, HTML5, PHP, BASH,	ObjC, TXT, UNKNOWN =
 
 @interface AssetTypeTransformer: NSValueTransformer
 @end
+
+@interface NSString (AssetType)
+- (NSS*)wrapInHTML;
+- (AssetType)assetFromString;
+@end

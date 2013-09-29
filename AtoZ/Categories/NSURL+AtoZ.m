@@ -173,7 +173,7 @@
 //ADD_DYNAMIC_PROPERTY(BOOL, useRandomUA, setUseRandomUA);
 
 + (void) load	{
-    [$ swizzleMethod:@selector(initWithURL:cachePolicy:timeoutInterval:) with:@selector(initWithURL2:cachePolicy:timeoutInterval:) in:self.class];
+//    [$ swizzleMethod:@selector(initWithURL:cachePolicy:timeoutInterval:) with:@selector(initWithURL2:cachePolicy:timeoutInterval:) in:self.class];
 }
 
 -(id)initWithURL2:(NSURL *)URL cachePolicy:(NSURLRequestCachePolicy)cachePolicy timeoutInterval:(NSTimeInterval)timeoutInterval

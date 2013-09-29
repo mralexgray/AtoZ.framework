@@ -6,7 +6,6 @@
 //  Copyright (c) 2013 Josh Butts. All rights reserved.
 //
 
-
 @interface ServiceManager : NSObject
 
 @property (weak) IBOutlet AZHomeBrew *brew;

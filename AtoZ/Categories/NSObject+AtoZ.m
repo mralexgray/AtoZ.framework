@@ -2,6 +2,7 @@
 #import "AtoZFunctions.h"
 #import "AtoZ.h"
 #import "NSObject+AtoZ.h"
+#import <objc/runtime.h>
 #import <AtoZAutoBox/AtoZAutoBox.h>
 
 @implementation 																																		NSObject (NibLoading)
@@ -301,6 +302,23 @@ static id addMethodTrampoline(id self, SEL _cmd) 			{
 - (void)bind:(NSString *)binding toObject:(id)object withNegatedKeyPath:(NSString *)keyPath {
 	[self bind:binding toObject:object withKeyPath:keyPath options:@{NSContinuouslyUpdatesValueBindingOption: @(YES), NSValueTransformerNameBindingOption : NSNegateBooleanTransformerName}];
 }
+
+
+
+-(id) filterKeyPath:(NSS*)kp recursively:(id(^)(id))mayReturnOtherObjectOrNil {
+
+	__block	id found = nil;
+	if ((found = mayReturnOtherObjectOrNil(self))) return self;
+	[(NSA*)[self vFK:kp] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+		if ((found = mayReturnOtherObjectOrNil(obj))) { *stop = YES; return; }
+		if ([obj respondsToString:kp] &&  ((found = [[obj vFK:kp] filterKeyPath:kp recursively:mayReturnOtherObjectOrNil]))) *stop = YES;
+	}];
+	return found;
+}
+
+//	id __block (^find_recursor)(id) = mayReturnOtherObjectOrNil; // first define the recursor
+//	id         (^find_)			(id) = ^id(id topLevel){ 	// then define the block.
+
 - (void)performBlock:(void (^)())block	{ block();	}
 
 //- (void)performBlock:(void (^)())block afterDelay:(NSTimeInterval)delay	{
@@ -586,9 +604,6 @@ static id addMethodTrampoline(id self, SEL _cmd) 			{
 	va_end(list);
 }
 
-
-- (id)objectForKeyedSubscript:(id)key {
-	return [self hasPropertyForKVCKey:key] ? [self valueForKey:key] : nil;         // [super objectForKeyedSubscript:key];
 	//	NSArray *syms = [NSThread  callStackSymbols];
 	//	if ([syms count] > 1) {
 	//		NSLog(@"<%@ %p> %@ - caller: %@ ", [self class], self, NSStringFromSelector(_cmd),[syms objectAtIndex:1]);
@@ -612,7 +627,7 @@ static id addMethodTrampoline(id self, SEL _cmd) 			{
 	 if (!result) result = [self valueForKey:key];
 	 if (!result) NSLog(@"Cannot coerce value from: %@ for keyedSubstring: %@", self.propertiesPlease, key);
 	 return result; */
-}
+
 
 - (BOOL)isKindOfAnyClass:(NSA*) classes;
 {
@@ -621,28 +636,55 @@ static id addMethodTrampoline(id self, SEL _cmd) 			{
 	}];
 }
 
-- (void)setObject:(id)obj forKeyedSubscript:(id <NSCopying>)key {
-	if (!obj || !key) return;
-	if (![self canSetValueForKey:(NSS*)key]) return;
-	if (areSame(obj, [self valueForKey:(id)key])) {
-		LOGWARN(@"%@", @"Theyre already the same, doing nothing!"); return;
-	}
-	__block BOOL wasSet = NO;
-	[self canSetValueForKey:(id)key] ? ^{
+- (void)setObject:(id)obj atIndexedSubscript:(NSUInteger)idx {
+
+	NSMD* x = objc_getAssociatedObject(self, (__bridge const void*)@"indexedSubscriptArray");
+	if (!x) {  x = @{@(idx):obj}.mutableCopy; XX(@"created new indexed subscript"); }
+	else x[@(idx)] = obj; // [x arrayByReplacingObjectAtIndex:idx withObject:obj];// addObject:obj]; else [x insertObject:obj atIndex:idx];
+//	XX(x);
+	objc_setAssociatedObject(self, (__bridge const void*)@"indexedSubscriptArray",x,OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+- (id)objectAtIndexedSubscript:(NSUInteger)idx {
+
+	NSMD* x = objc_getAssociatedObject(self, (__bridge const void*)@"indexedSubscriptArray");
+	return [x objectForKey:@(idx)];
+//	if (!x || idx > x.count) return nil;
+//	return [x normal:idx];
+}
+
+- (id)objectForKeyedSubscript:(id)key {
+	return [self hasPropertyForKVCKey:key] ? [self valueForKey:key] 
+														: [self vFKP:$(@"dictionary.%@",key)] 
+													  ?: objc_getAssociatedObject(self, (__bridge const void *)key)
+													  ?: nil;         // [super objectForKeyedSubscript:key];
+}
+
+- (void)setObject:(id)obj forKeyedSubscript:(id <NSCopying>)key { 	
+
+	if 			(!key) 	return;
+	else if 		([self canSetValueForKey:(NSS*)key]) { 		[self sV:obj fK:key]; }
+	else if  	(areSame (obj, [self vFK:(NSS*)key]))		{ LOGWARN(@"%@", @"Theyre already the same, doing nothing!"); }
+	else  { objc_setAssociatedObject(self, (__bridge const void*)key, obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC); }
+	
+	
+
+//	[self canSetValueForKey:(NSS*)key] ? [self sV:obj fK:key] : [self sV:obj fKP:$(@"dictionary.%@",key)]; }
+//	__block BOOL wasSet = NO;
+//	[self canSetValueForKey:(id)key] ? ^{
 		//			NSLog(@"Setting Value: %@ forKey:%@", obj, key);
-		[self setValue:obj forKey:(id)key];
-		wasSet = [self[key] isEqualTo:obj];
+//		[self setValue:obj forKey:(id)key];
+//		wasSet = [self[key] isEqualTo:obj];
 		//			NSLog(@"New val: %@.", self[key]);
-	} () : NSLog(@"Cannot set object:%@ for key:\"%@\" via subscript... \"%@\" does not respond. Current val:%@.", obj, key, self, self[key]);
-	[self canSetValueForKeyPath:(NSS*) key] ? ^{
-		NSLog(@"Setting Value: %@ forKeyPath:%@", obj, key);
-		[self setValue:obj forKeyPath:(NSS*) key];
+//	} () : NSLog(@"Cannot set object:%@ for key:\"%@\" via subscript... \"%@\" does not respond. Current val:%@.", obj, key, self, self[key]);
+//	[self canSetValueForKeyPath:(NSS*) key] ? ^{
+//		NSLog(@"Setting Value: %@ forKeyPath:%@", obj, key);
+//		[self setValue:obj forKeyPath:(NSS*) key];
 		//			NSLog(@"New val: %@.", self[key]);
-		wasSet = [[self valueForKeyPath:(NSS*) key]isEqualTo:obj];
-	} () : ^{  NSLog(@"Cannot set object:%@ for (dot)keypath:\"%@\" via subscript... \"%@\" does not respond. Current val:%@.", obj, key, self, self[key]); } ();
+//		wasSet = [[self valueForKeyPath:(NSS*) key]isEqualTo:obj];
+//	} () : ^{  NSLog(@"Cannot set object:%@ for (dot)keypath:\"%@\" via subscript... \"%@\" does not respond. Current val:%@.", obj, key, self, self[key]); } ();
 	//	}() :
 	//	}();
-	wasSet ? : NSLog(@"subscrpipt key:%@ NOT set, despite edfforts", key);
+//	wasSet ? : NSLog(@"subscrpipt key:%@ NOT set, despite edfforts", key);
 }
 
 - (void)performBlock:(void (^)(void))block afterDelay:(NSTimeInterval)delay {

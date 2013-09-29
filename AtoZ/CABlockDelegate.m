@@ -34,15 +34,12 @@ JROptionsDefine(NSOVBlockDelegate);
 
 + (instancetype) delegateFor:(NSOV*)v ofType:(NSOVBlockDelegate)type withBlock:(id)block {
 
-	NSOutlineViewBlockDelegate *d = self.new;
-	d.ov = v;			d.block = [block copy];
-	d.blockType = type;		return d;
+	NSOutlineViewBlockDelegate *d = self.new;	d.ov = v; d.block = [block copy]; d.blockType = type;	return d;
 }
 - (void) outlineView:(NSOV*)v willDisplayOutlineCell:(id)c forTableColumn:(NSTC*)tc item:(id)x {
 // Approach 1 - Just replace the triangle images with other images. (This requires the image to be the same size as the triangle)
 	if (_disclosureImage) [c setImage:_disclosureImage(c, tc, x)];
-//Approach 2 -First, hide the triangle completely.
-	//if (item)[cell setTransparent:YES];
+//Approach 2 -First, hide the triangle completely.	//if (item)[cell setTransparent:YES];
 } 
 - (void) outlineView:(NSOV*)v willDisplayCell:(id)c forTableColumn:(NSTC*)tc item:(id)x 	{
 //Now we use the non-outline delegate method to set up a button cell to do the expand and collapse for the row.
@@ -69,8 +66,6 @@ JROptionsDefine(NSOVBlockDelegate);
 		[_ov collapseItem:item];
 	else [_ov expandItem:item];
 }
-
-
 @end
 
 

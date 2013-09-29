@@ -6,29 +6,40 @@ typedef BOOL(^AZVisualTestCase)(NSString *instruction, SEL selector,...);
 JREnumDefine(AZEvent);
 
 @implementation NSTableView (TargetAction)  // GOOD EXAMPLE OF SWIZZLING 
+
 @synthesizeAssociation(NSTableView, doubleActionBlock);
-- (void) setDoubleAction:(SEL)method                withTarget:(id)object {
-	self.doubleAction = method;	self.target = object;
-}
-- (void) setDoubleActionString:(NSS*)methodAsString withTarget:(id)object {
-	self.doubleAction = NSSelectorFromString(methodAsString);	self.target		= object;
-}
+
+- (void) setDoubleAction:(SEL)method withTarget:(id)object { self.doubleAction = method;	self.target = object; }
+
+- (void) setDoubleActionString:(NSS*)methodAsString withTarget:(id)object {	self.doubleAction = NSSelectorFromString(methodAsString); self.target = object;	}
+
 - (void) callDoubleActionBlock 								{ self.doubleActionBlock(); }
+
 + (void) initialize 												{	[super initialize];	Class  nsControlClass = NSControl.class;
+	
 	method_exchangeImplementations(	class_getInstanceMethod(nsControlClass, @selector(   initWithCoder:)),
 												class_getInstanceMethod(nsControlClass, @selector(newInitWithCoder:)));
 }
 - (instancetype) newInitWithCoder:(NSCoder*)c 			{
+	
 	NSLog(@"Swizzling tableView initWithCoder.... %s : %s", __FILE__, __LINE__);
+	
 	//inspired from: [h]ttp://www.mikeash.com/pyblog/custom-nscells-done-right.html
+	
 	IFKINDAELSE(c,NSKeyedUnarchiver, nil, return [self newInitWithCoder:c]);
+	
 	NSKeyedUnarchiver *unarchiver = (NSKeyedUnarchiver*)c;
-	Class supercell 					= self.superclass.cellClass;
-	Class selfcell 					= self.class	  .cellClass;
+	
+	Class supercell = self.superclass.cellClass,  selfcell = self.class.cellClass;
+	
 	if (!selfcell || !supercell) return [self newInitWithCoder:c];
+	
 	[unarchiver setClass:selfcell forClassName:NSStringFromClass(supercell)];
+	
 	id aself = self;	aself = [self newInitWithCoder:c];
+	
 	[unarchiver setClass:supercell forClassName:NSStringFromClass(supercell)];
+	
 	return aself;
 }
 @end
@@ -51,7 +62,18 @@ CLANG_POP
 
 @implementation NSControl (AtoZ)
 
-SYNTHESIZE_ASC_OBJ(	eventActionBlock, setEventActionBlock)
+- (void) actionHandler:(id)e {    if (self.eventActionBlock) self.eventActionBlock([e ISKINDA:NSE.class] ? ((NSE*)e).type : (AZEvent)e, self); }
+
+- (void(^)(AZEvent,id))eventActionBlock { return objc_getAssociatedObject(self,_cmd); }
+
+- (void)setEventActionBlock:(void (^)(AZEvent, id))eventActionBlock{
+	
+	self.target = eventActionBlock == NULL ? NULL : self;   if (eventActionBlock == NULL) return;
+	self.action = @selector(actionHandler:);
+	objc_setAssociatedObject(self, @selector(eventActionBlock), eventActionBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
+}
+
+//SYNTHESIZE_ASC_OBJ(	eventActionBlock, setEventActionBlock)
 
 
 - (void) setAction:(SEL)method withTarget:(id)object;			{

@@ -1,7 +1,7 @@
 
 #import <WebKit/WebKit.h>
 
-@interface HTMLServerDoc : NSDocument
+@interface HTMLServer : NSWindowController <NSApplicationDelegate>
 
 @property (nonatomic) RoutingHTTPServer * server;
 @property (nonatomic)         Bootstrap * bootstrap;
