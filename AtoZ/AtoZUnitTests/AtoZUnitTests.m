@@ -7,11 +7,11 @@
 @interface NSCharlie : NSBravo
 @end
 
-@interface AtoZTestCase : SenTestCase
+@interface AtoZTestCase : XCTestCase
 - (void)runTests;
 @end
 
-@interface AtoZTest : SenTestCase
+@interface AtoZTest : XCTestCase
 - (NSString *)stringFromClass;
 @end
 
@@ -31,19 +31,19 @@
 }
 
 - (void)testStringFromClass	{
-	STAssertEqualObjects([[[NSObject alloc] init] stringFromClass], @"NSObject", nil);
+	XCTAssertEqualObjects([[[NSObject alloc] init] stringFromClass], @"NSObject");
 
 	// NSString deploys a class clustering architecture. The actual class is an
 	// implementation-specific sub-class or compatible class, depending on what
 	// kind of string, and presumably what version of Cocoa and on what platform
 	// since the exact underlying class might change. Be prepared for test
 	// breakage.
-	STAssertEqualObjects([@"" stringFromClass], @"__NSCFConstantString", nil);
+	XCTAssertEqualObjects([@"" stringFromClass], @"__NSCFConstantString");
 
 	// This is freaky. You would not expect this to work. But it does; classes
 	// are also objects. Invoking an instance method on a class: it compiles and
 	// runs! You would expect the compiler to baulk, but no.
-	STAssertEqualObjects([NSObject stringFromClass], @"NSObject", nil);
+	XCTAssertEqualObjects([NSObject stringFromClass], @"NSObject");
 }
 - (void)setUp						{
 	[super setUp];
@@ -60,7 +60,7 @@
 	// Set-up code here.
 }
 - (void)tearDown		{	[super tearDown]; 	}
-- (void)testExample	{		STFail(@"Unit tests are not implemented yet in AtoZTests");	}
+- (void)testExample	{		XCTFail(@"Unit tests are not implemented yet in AtoZTests");	}
 @end
 
 @implementation NSAlpha
@@ -83,6 +83,7 @@
 
 
 @implementation AtoZUnitTests
+
 
 /*
 - (void)setUp

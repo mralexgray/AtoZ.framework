@@ -117,7 +117,7 @@ static NSString *debugDescription(id self)
 		{
 			case '@':
 				obj = [self valueForKey:ivarName];
-				if (![gObjects containsObject:obj] || [obj isKindOfClass:[NSString class]])
+				if (![gObjects containsObject:obj] || [obj isKindOfClass:NSString.class])
 				{
 					[desc appendFormat:@"%@: %@", ivarName, obj ? [obj debugDescription] : color(@"nil", nilColor)];
 				}

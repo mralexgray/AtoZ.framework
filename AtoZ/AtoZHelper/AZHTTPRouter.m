@@ -24,10 +24,7 @@
 	self.defaultHeaders = @{ @"Server": $(@"%@/%@", bundleInfo[@"CFBundleName"],appVersion) };
 	self.type	= @"_http._tcp.";
 	self.port = 8080;
-	
-	self.baseURL = $(@"http://localhost:%i", self.port);
-
-	NSLog(@"Address: %@", _baseURL);
+	self.baseURL = $(@"http://localhost:%ld", self.port);	NSLog(@"Address: %@", _baseURL);
 
 	self.queriesController = NSArrayController.new;
 

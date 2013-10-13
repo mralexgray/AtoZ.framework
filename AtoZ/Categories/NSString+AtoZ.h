@@ -2,6 +2,9 @@
 //  NSString+AtoZ.h
 //  AtoZ
 
+#import "NSString+SymlinksAndAliases.h"
+
+
 @interface NSParagraphStyle (AtoZ)
 + (NSParagraphStyle*) defaultParagraphStyleWithDictionary:(NSD*)d;
 @end

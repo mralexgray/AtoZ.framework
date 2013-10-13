@@ -1,2 +1,2 @@
 <?xml version="1.0"?>
-<testsuites><testsuite name="AZCategoryTests"/><testsuite name="AZFaviconManagerTests"><testcase name="-[AZFaviconManagerTests testiconForURL]" classname="AZFaviconManagerTests" time="0.07394903898239136"/></testsuite></testsuites>
+<testsuites/>

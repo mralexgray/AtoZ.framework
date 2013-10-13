@@ -1,10 +1,9 @@
 
 
-#import "RoutingHTTPServer.h"
 
 @interface AZHTTPRouter : RoutingHTTPServer
 
-@property (NATOM, STRNG) 	AssetCollection   *assets;
+@property (NATOM, STRNG) 	AssetController   *assets;
 @property (NATOM, STRNG) 	IBOutlet WebView  *webView;
 @property (NATOM, STRNG) 	NSS					*baseURL;
 @property (NATOM, ASS) 	 	BOOL					shouldExit;

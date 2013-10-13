@@ -91,6 +91,11 @@ void 	QuietLog 				  	( NSS *format, ...	  );
 #define 	COLOR_ESC 					XCODE_COLORS_ESCAPE
 
 
+#define AZLOGIN 	LOGCOLORS($UTF8(__PRETTY_FUNCTION__), @" started running!", nil)
+#define AZLOGOUT  LOGCOLORS($UTF8(__PRETTY_FUNCTION__), @" finished running!", nil)
+#define AZRETURNLOG  return AZLOGOUT
+#define AZLOGANDRETURN(x)  return AZLOGOUT, x
+
 //#define	NSLog(fmt...) [AZLog_AZColorLog(nil,__FILE__,__LINE__,__PRETTY_FUNCTION__,fmt)
 //#define 	XCODE_COLORS 0
 //#define LOGWARN(fmt...) _AZColorLog(nil,__FILE__,__LINE__,__PRETTY_FUNCTION__,fmt)

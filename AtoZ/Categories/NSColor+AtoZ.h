@@ -4,14 +4,12 @@
 
 #import "JREnum.h"
 JREnumDeclare(AZeColor, AZeColoraliceblue, AZeColorantiquewhite, AZeColoraqua, AZeColoraquamarine, AZeColorazure, AZeColorbeige, AZeColorbisque, AZeColorblack, AZeColorblanchedalmond, AZeColorblue, AZeColorblueviolet, AZeColorbrown, AZeColorburlywood, AZeColorcadetblue, AZeColorchartreuse, AZeColorchocolate, AZeColorcoral, AZeColorcornflowerblue, AZeColorcornsilk, AZeColorcrimson, AZeColorcyan, AZeColordarkblue, AZeColordarkcyan, AZeColordarkgoldenrod, AZeColordarkgray, AZeColordarkgrey, AZeColordarkgreen, AZeColordarkkhaki, AZeColordarkmagenta, AZeColordarkolivegreen, AZeColordarkorange, AZeColordarkorchid, AZeColordarkred, AZeColordarksalmon, AZeColordarkseagreen, AZeColordarkslateblue, AZeColordarkslategray, AZeColordarkslategrey, AZeColordarkturquoise, AZeColordarkviolet, AZeColordeeppink, AZeColordeepskyblue, AZeColordimgray, AZeColordimgrey, AZeColordodgerblue, AZeColorfirebrick, AZeColorfloralwhite, AZeColorforestgreen, AZeColorfuchsia, AZeColorgainsboro, AZeColorghostwhite, AZeColorgold, AZeColorgoldenrod, AZeColorgray, AZeColorgrey, AZeColorgreen, AZeColorgreenyellow, AZeColorhoneydew, AZeColorhotpink, AZeColorindianred, AZeColorindigo, AZeColorivory, AZeColorkhaki, AZeColorlavender, AZeColorlavenderblush, AZeColorlawngreen, AZeColorlemonchiffon, AZeColorlightblue, AZeColorlightcoral, AZeColorlightcyan, AZeColorlightgoldenrodyellow, AZeColorlightgray, AZeColorlightgrey, AZeColorlightgreen, AZeColorlightpink, AZeColorlightsalmon, AZeColorlightseagreen, AZeColorlightskyblue, AZeColorlightslateblue, AZeColorlightslategray, AZeColorlightslategrey, AZeColorlightsteelblue, AZeColorlightyellow, AZeColorlime, AZeColorlimegreen, AZeColorlinen, AZeColormagenta, AZeColormaroon, AZeColormediumaquamarine, AZeColormediumblue, AZeColormediumorchid, AZeColormediumpurple, AZeColormediumseagreen, AZeColormediumslateblue, AZeColormediumspringgreen, AZeColormediumturquoise, AZeColormediumvioletred, AZeColormidnightblue, AZeColormintcream, AZeColormistyrose, AZeColormoccasin, AZeColornavajowhite, AZeColornavy, AZeColoroldlace, AZeColorolive, AZeColorolivedrab, AZeColororange, AZeColororangered, AZeColororchid, AZeColorpalegoldenrod, AZeColorpalegreen, AZeColorpaleturquoise, AZeColorpalevioletred, AZeColorpapayawhip, AZeColorpeachpuff, AZeColorperu, AZeColorpink, AZeColorplum, AZeColorpowderblue, AZeColorpurple, AZeColorred, AZeColorrosybrown, AZeColorroyalblue, AZeColorsaddlebrown, AZeColorsalmon, AZeColorsandybrown, AZeColorseagreen, AZeColorseashell, AZeColorsienna, AZeColorsilver, AZeColorskyblue, AZeColorslateblue, AZeColorslategray, AZeColorslategrey, AZeColorsnow, AZeColorspringgreen, AZeColorsteelblue, AZeColortan, AZeColorteal, AZeColorthistle, AZeColortomato, AZeColorturquoise, AZeColorviolet, AZeColorvioletred, AZeColorwheat, AZeColorwhite, AZeColorwhitesmoke, AZeColoryellow, AZeColoryellowgreen); 
-//#import "NSString+AG.h"
-//#import "NSArray+AG.h"
-//#import <AGFoundation/AGFoundation.h>
-//#import "AGFoundation.h"
+
 
 @interface AZColorList : NSColorList
 
 @end
+
 @interface NSColor (AtoZ)
 
 @property NSS* name;
@@ -20,80 +18,65 @@ JREnumDeclare(AZeColor, AZeColoraliceblue, AZeColorantiquewhite, AZeColoraqua, A
 + (NSC*)	colorWithHTMLString:(NSS*)hex;
 + (NSD*) colorNamesDictionary;
 
-@property (RONLY)	BOOL	isBoring,
-								isExciting,
-								isBright,
-								isDark;
-@property (RONLY)	NSG * gradient;
-@property (RONLY)	CGCR 	cgColor;
-@property (RDWRT)	NSS *	nameOfColor;
-@property (RONLY)	NSS * crayonName;
-@property (RONLY)	NSC * closestWebColor,
-							 * closestNamedColor,
- 							 * closestColorListColor,
-							 *	inverted,
-							 *	deviceRGBColor,
-							 *	calibratedRGBColor;
-@property (RONLY) CGF	luminance,
-								relativeBrightness;
-@property (RONLY) NSC *	brighter,
-							 *	bright,
-							 * dark,
-							 * darker,
-							 *	muchDarker,
-							 * redshift, * blueshift;
+@property (RONLY)		BOOL	isBoring,
+									isExciting,
+									isBright,
+									isDark,
+									isBlueish,
+							  		isRedish,
+							  		isGreenish,
+							  		isYellowish;
 
--(NSC*)blend:(NSC*)other;
+@property (RONLY)		NSG * gradient;
 
+@property (RONLY)	  CGCR 	cgColor;
 
-@property (RONLY) NSC *	whitened, *	blackened;
-@property (RONLY) NSC*	contrastingForegroundColor;
-@property (RONLY) NSC*	complement, * rgbComplement;
-@property (RONLY) NSC*	opaque, *translucent;
-@property (RONLY) NSC*	lessOpaque, * moreOpaque;
-@property (RONLY) NSC*	watermark;
-@property (RONLY)	CGFloat rgbWeight;
-@property (RONLY)	CGFloat hsbWeight;
+@property (RDWRT)		NSS *	nameOfColor;
 
-@property (RONLY)	BOOL isBlueish,
-							  isRedish,
-							  isGreenish,
-							  isYellowish;
+@property (RONLY)		NSS * crayonName;
+
+@property (RONLY)		NSC * closestWebColor,
+								 * closestNamedColor,
+	 							 * closestColorListColor,
+								 *	inverted,
+								 *	deviceRGBColor,
+								 *	calibratedRGBColor;
+
+@property (RONLY) 	CGF	luminance,
+									relativeBrightness;
+
+@property (RONLY) 	NSC *	brighter,
+								 *	bright,
+								 * dark,
+								 * darker,
+								 *	muchDarker,
+								 * redshift,
+								 * blueshift;
+
+@property (RONLY)		NSC *	whitened,
+								 *	blackened;
+@property (RONLY) 	NSC *	contrastingForegroundColor,
+								 * rgbComplement,
+								 *	complement,
+								 * translucent,
+								 *	lessOpaque,
+								 *	opaque,
+								 * moreOpaque,
+								 *	watermark;
+@property (RONLY)	CGF 		rgbWeight,
+									hsbWeight;
+
 
 /* lists all like...  BlueSkyTulips = "NSColorList 0x7fb2963794d0 
 										  name:BlueSkyTulips device:(null)
 										  file:/Volumes/2T/ServiceData/Develo...Build/Products/Debug/AtoZ.framework/Resources/BlueSkyTulips.clr
 										loaded:1"; */
+-(NSC*)blend:(NSC*)other;
+
 + (NSMD*) colorLists;
 +  (NSA*) colorListNames;
 + (NSCL*) randomList;
-
-typedef void(^colorFadeBlock)(NSC*c);
-+ (NSA*)randomPaletteAnimationBlock:(colorFadeBlock)target; /* 1000 step animation lock */
-
-/* gradients from palettes */
-+ (NSA*) gradientPalletteBetween:(NSC*)c1 and:(NSC*)c2 steps:(NSUI)steps;
-+ (NSA*) gradientPalletteBetween:(NSA*)colors steps:(NSUI)steps;
-+ (NSA*) gradientPalletteLooping:(NSA*)colors steps:(NSUI)steps;
-
-
-+ (NSC*) linen;
-+ (NSC*) linenTintedWithColor: (NSC*) color;
-+ (NSC*) leatherTintedWithColor:(NSC*)color;
-+ (NSC*) checkerboardWithFirstColor:(NSC*)firstColor secondColor:(NSC*)secondColor squareWidth:(CGF)width;
-+ (NSA*) colorNames; // preferred "CSS" color names method
-+ (NSA*) allSystemColorNames; // i guess this is names of installed clr names;
-+ (NSC*) colorNamed:(NSS*)string;
-//+ (NSA*) colorsWithNames;
-//+ (NSD*) colorsAndNames;
-
 + (void) logPalettes;
-+ (NSC*) white:(CGF)percent;
-+ (NSC*) white:(CGF)percent a:(CGF)alpha;
-+ (NSC*) 	 r:(CGF)red g:(CGF)green b:(CGF)blue a:(CGF)trans;
-- (NSC*) alpha:(CGF)percent;
-//- (NSDictionary*)	closestColor;  //name, list, and color
-+  (NSA*) boringColors;
 + (NSCL*) createColorlistWithColors:(NSA*)cs andNames:(NSA*)ns named:(NSS*)name;
 +  (NSA*) fengshui;
 //+  (NSA*) colorsInFrameworkListNamed:(NSString*)name;
@@ -103,6 +86,38 @@ typedef void(^colorFadeBlock)(NSC*c);
 +  (NSA*) randomPalette;
 +  (NSA*) systemColors;
 +  (NSA*) systemColorNames;
+
+
+typedef void(^colorFadeBlock)(NSC*c);
++ (NSA*)randomPaletteAnimationBlock:(colorFadeBlock)target; /* 1000 step animation lock */
+
+/* gradients from palettes */
++ (NSA*) gradientPalletteBetween:(NSC*)c1 and:(NSC*)c2 steps:(NSUI)steps;
++ (NSA*) gradientPalletteBetween:(NSA*)colors steps:(NSUI)steps;
++ (NSA*) gradientPalletteLooping:(NSA*)colors steps:(NSUI)steps;
+
+#pragma mark - Conveience
+
++ (NSC*) white:(CGF)percent;
++ (NSC*) white:(CGF)percent a:(CGF)alpha;
++ (NSC*) 	 r:(CGF)red g:(CGF)green b:(CGF)blue a:(CGF)trans;
+- (NSC*) alpha:(CGF)percent;
+
+
++ (NSC*) linen;
++ (NSC*) linenTintedWithColor: (NSC*) color;
++ (NSC*) leatherTintedWithColor:(NSC*)color;
++ (NSC*) checkerboardWithFirstColor:(NSC*)firstColor secondColor:(NSC*)secondColor squareWidth:(CGF)width;
++ (NSA*) colorNames; // preferred "CSS" color names method
++ (NSA*) allSystemColorNames; // i guess this is names of installed clr names;
++ (NSC*) colorNamed:(NSS*)string;
+
+
+//+ (NSA*) colorsWithNames;
+//+ (NSD*) colorsAndNames;
+//- (NSDictionary*)	closestColor;  //name, list, and color
+
++  (NSA*) boringColors;
 
 +  (NSC*) randomLightColor;
 +  (NSC*) randomBrightColor;

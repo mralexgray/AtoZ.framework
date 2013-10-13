@@ -1,9 +1,7 @@
 
-//  NSView+AtoZ.m
-//  AtoZ
 
-//  Created by Alex Gray on 7/1/12.
-//  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
+#import "CALayer+AtoZ.h"
+#import "AtoZGeometry.h"
 #import "NSView+AtoZ.h"
 //#import <DrawKit/DKShapeFactory.h>
 

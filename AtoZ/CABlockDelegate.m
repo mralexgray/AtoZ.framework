@@ -368,7 +368,7 @@ AZLOGCMD; _layoutBlock ? self.layoutBlock	(layer) 					: nil;
         if (ease)
         {
             // if the easing function is a string, substitute the media timing function
-            if ([ease isKindOfClass:[NSString class]])
+            if ([ease isKindOfClass:NSString.class])
                 ease = [CAMediaTimingFunction functionWithName:ease];
             
             [self setAnimationTimingFunction:ease];

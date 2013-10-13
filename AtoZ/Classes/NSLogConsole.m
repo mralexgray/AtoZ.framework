@@ -1,3 +1,5 @@
+//	[AZNOTCENTER addObserver:self selector:@selector(setFakeStdin:)
+//	name:@"NSLogConsoleFakeStdin" object:nil ];
 //  Created by Patrick Geiller on 16/08/08.
 
 #import "NSLogConsole.h"
@@ -7,57 +9,59 @@ BOOL 	inited = NO;
 void	NSLogPostLog(char* file, int line){ if(!inited)return; [NSLogConsole.sharedConsole updateLogWithFile:file lineNumber:line];}
 
 @implementation NSLogConsole
-- (void) setTerminal:(NSMAS*)terminal									{
-	_terminal = terminal;	if ([_delegate respondsToSelector:@selector(textWasEntered:)]) [_delegate textWasEntered:terminal.string];
+- (void) setTerminal:(NSMAS*)term	{
+	_terminal = term;
+	if ([_delegate respondsToSelector:@selector(textWasEntered:)]) [_delegate textWasEntered:term.string];
 }
-- 	 (id) init																	{	id o		= [super init];
+
+- 	 (id) init								{	if (self != [super init]) return nil;
 
 	_autoOpens	= YES;		_logPath		= NULL;
 	inited		= YES;		_tokensForCompletion = NSMA.new;
-	// Save stderr
-	_original_stderr = dup(STDERR_FILENO);
-	_logPath = [NSString stringWithFormat:@"%@%@.log.txt", NSTemporaryDirectory(), [AZBUNDLE bundleIdentifier]];
+
+	_original_stderr 	= dup(STDERR_FILENO); 	// Save stderr
+	_logPath 			= $(@"%@%@.log.txt", NSTemporaryDirectory(),AZBUNDLE.bundleIdentifier);
+
 	// Create the file — NSFileHandle doesn't do it !
 	[@"" writeToFile:_logPath atomically:YES encoding:NSUTF8StringEncoding error:nil];
-	_fileHandle = [NSFileHandle fileHandleForWritingAtPath:_logPath];
-	if (!_fileHandle)	NSLog(@"Opening log at %@ failed", _logPath);
-	int fd = [_fileHandle fileDescriptor];
-	// Redirect stderr
-	int err = dup2(fd, STDERR_FILENO);
-	if (!err)	NSLog(@"Couldn't redirect stderr");
-	_fileOffset = 0;
-	[_fileHandle readInBackgroundAndNotify];
-//	[AZNOTCENTER addObserver:self selector:@selector(setFakeStdin:) name:@"NSLogConsoleFakeStdin" object:nil ];
+
+	_fileHandle != [NSFileHandle fileHandleForWritingAtPath:_logPath] ?
+		NSLog(@"Opening log at %@ failed", _logPath) : nil;
+
+	NSAssert(dup2((int)_fileHandle.fileDescriptor, STDERR_FILENO), @"ERROR Couldn't redirect stderr");
+
+	_fileOffset = 0;	_fileHandle.readInBackgroundAndNotify;
 	[AZNOTCENTER addObserver:self selector:@selector(dataAvailable:) name:NSFileHandleReadCompletionNotification object: _fileHandle];
-	return	o;
+	return self;
 }	// Init : should only be called once by sharedConsole
-- (void) dataAvailable:(NSNOT*)aNotification							{
-	NSData *data = [[aNotification userInfo] objectForKey:NSFileHandleNotificationDataItem];
+
+- (void) dataAvailable:(NSNOT*)note	{
+	NSData *data = note.userInfo[NSFileHandleNotificationDataItem];
 	NSLog(@"data: %@", data);
-	[[NSLogConsole sharedConsole] updateLogWithFile:"" lineNumber:0];
+	[NSLogConsole.sharedConsole updateLogWithFile:"" lineNumber:0];
 	printf("%snslog logged,babay!", _fakeStdin.UTF8String);
 }	// NSLog will generate an event posted in the next run loop run
-- (void) open																	{
-	if (!_window)
-	{
-		if (![NSBundle loadNibNamed:@"NSLogConsole" owner:self])
-		{
-			NSLog(@"NSLogConsole.nib not loaded");
-			return;
-		}
-		if ([_window respondsToSelector:@selector(setBottomCornerRounded:)])
-			[_window setBottomCornerRounded:NO];
-	}
-	if (_windowTitle)	[_window setTitle:_windowTitle];
+
+- (void) open								{
+	if (!_window && ![NSBundle loadNibNamed:@"NSLogConsole" owner:self])
+		return NSLog(@"NSLogConsole.nib not loaded");
+	[_window responds:@"setBottomCornerRounded:" do:^{ [_window setBottomCornerRounded:NO]; }];
+	_windowTitle ?	[_window setTitle:_windowTitle] : nil;
 	[_window orderFront:self];
 }
-- (void) close																	{	[_window orderOut:self];	}
-- (BOOL) isOpen																{	return	[_window isVisible];	}
--  (IBA) clear:			(id)sender										{
+
+- (void) close								{	[_window orderOut:self];	}
+
+- (BOOL) isOpen							{	return	[_window isVisible];	}
+
+-  (IBA) clear:			(id)x			{
 	[_webView clear];
 }
--  (IBA) searchChanged:	(id)sender										{	[_webView search:[sender stringValue]];	} 	// Read log data from handle
+
+-  (IBA) searchChanged:	(id)x			{	[_webView search:[x stringValue]];	} 	// Read log data from handle
+
 - (void) updateLogWithFile:(char*)fl lineNumber:(int)ln 			{
+
 	// Open a new handle to read new data
 	id f = [NSFileHandle fileHandleForReadingAtPath:_logPath];
 	printf("readinglogfileat:%s", _logPath.UTF8String);
@@ -75,6 +79,7 @@ void	NSLogPostLog(char* file, int line){ if(!inited)return; [NSLogConsole.shared
 	// We'll read from that offset next time
 	_fileOffset = length;
 }	// Log data to webview and original stderr
+
 - (void) logData:(NSData*)d file:(char*)fl lineNumber:(int)ln	{
 	if (![_window isVisible] && _autoOpens)	[self open];
 
@@ -89,7 +94,9 @@ void	NSLogPostLog(char* file, int line){ if(!inited)return; [NSLogConsole.shared
 	// Log string
 	[_webView logString:str file:fl lineNumber:ln];
 }
+
 - (void) setFakeStdin:(NSS*)fakeStdin 									{  printf("%s", fakeStdin.UTF8String); }
+
 - (void) tableViewSelectionDidChange:(NSNOT*)notification 		{
 
 	NSUI row = [(NSTV*)notification.object selectedRow];
@@ -97,6 +104,7 @@ void	NSLogPostLog(char* file, int line){ if(!inited)return; [NSLogConsole.shared
 	NSA* methods = [RuntimeReporter methodNamesForClassNamed:className];
 	NSLog(@"%@selected%@", className, methods);
 }
+
 - (NSA*) classes {
 //	NSMA* names = NSMA.new;
 //	NSLog(@"%@",
@@ -129,7 +137,7 @@ void	NSLogPostLog(char* file, int line){ if(!inited)return; [NSLogConsole.shared
 		else{			alphaSubstring = substring;
 						searchFullString = YES;
 		}
-		NSMutableArray * matches = [[[NSMutableArray alloc] init] autorelease];;
+		NSMutableArray * matches = [NSMutableArray.new autorelease];;
 		for (NSString *candidate in testArray){
 			// remove any candidate already in use
 			if ([tokenField respondsToSelector:@selector(tokenArray)]){
@@ -168,7 +176,7 @@ void	NSLogPostLog(char* file, int line){ if(!inited)return; [NSLogConsole.shared
 	}
 	return test;
 }
-+ (instancetype) sharedConsole														{
++ (instancetype) sharedConsole	{
 
 		static id singleton = NULL; @synchronized(self){ if (!singleton){ singleton = self.alloc;  [singleton init]; }	} return singleton;
 }
@@ -181,7 +189,7 @@ void	NSLogPostLog(char* file, int line){ if(!inited)return; [NSLogConsole.shared
 	return	NO;
 }
 - (void) awakeFromNib				{
-	messageQueue	= [[NSMutableArray alloc] init];
+	messageQueue	= NSMutableArray.new;
 	webViewLoaded	= NO;
 
 	// Frame load
@@ -196,16 +204,21 @@ void	NSLogPostLog(char* file, int line){ if(!inited)return; [NSLogConsole.shared
 }
 - (void) webView:(WV*)view windowScriptObjectAvailable:(WebScriptObject*)wso	{	[wso setValue:self forKey:@"NSLogConsoleView"];
 } //	JS avail. Reg. our custom js object in hosted page
-- (void) webView:(WV*)sender 		didFinishLoadForFrame:(WebFrame*)frame			{		webViewLoaded	= YES;
+- (void) webView:(WV*)x didFinishLoadForFrame:(WebFrame*)f			{		webViewLoaded	= YES;
 
-	[messageQueue each:^(id o){	// Flush message queue
-		[self logString:[o vFK:@"string"] file:(char*)[[o vFK:@"file"]UTF8String] lineNumber:[o intForKey:@"line"]]; }];
+	[messageQueue each:^(id o){							// Flush message queue
+		[self logString:[o vFK:@"string"]
+					  file:(char*)[[o vFK:@"file"]UTF8String]
+			  lineNumber:[o intForKey:@"line"]]; 						}];
+
 } // WebView has finished loading
-- (void) logString:(NSS*)string file:(char*)file lineNumber:(int)line			{
+- (void) logString:(NSS*)st file:(char*)f lineNumber:(int)ln	{
 
+	NSNumber *file; if (f != NULL) file =  @((int)f); else file = @0;
+	NSD* theD = @{	@"string": st.copy, @"file": file, @"line": @(ln)};
 	// Queue message if WebView has not finished loading
-	if (!webViewLoaded)	[messageQueue addObject:@{@"string": string.copy, @"file": @(file), @"line": @(line)}];
-	else 	[self.windowScriptObject callWebScriptMethod:@"log" withArguments:@[string, @(file),  @(line)]];
+	if (!webViewLoaded)	[messageQueue addObject:theD];
+	else 	[self.windowScriptObject callWebScriptMethod:@"log" withArguments:theD.allKeys];
 } // Notify WebView of new message
 
 - (void) webView:(WV*)wv decidePolicyForNavigationAction:(NSD*)a request:(NSURLREQ*)r

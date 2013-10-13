@@ -125,7 +125,7 @@ static const BOOL __MArrayPrint=NO;
 //	return self;
 //}
 
-//-(Class)class
+//-(Class)klass
 //{
 //	//return objc_getMetaClass("NSArray");
 //	return [MArray class];

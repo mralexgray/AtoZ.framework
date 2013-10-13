@@ -501,12 +501,13 @@ typedef NS_ENUM(NSUI, AppCat) {
 #define AppCatTypeArray @"Games", @"Education", @"Entertainment", @"Books", @"Lifestyle", @"Utilities", @"Business", @"Travel", @"Music", @"Reference", @"Sports", @"Productivity", @"News", @"Healthcare & Fitness", @"Photography", @"Finance", @"Medical", @"Social Networking", @"Navigation", @"Weather", @"Catalogs", @"Food & Drink", @"Newsstand", nil
 
 
-typedef NS_ENUM(NSInteger,AZStatus) { AZMIXED = -1, AZOFF =  0, AZON =  1 };
+typedef NS_ENUM(NSI,          AZStatus) { AZMIXED = -1, AZOFF =  0, AZON =  1 };
+typedef NS_ENUM(NSI, 		 	AZState ) {	AZOff, AZOn, AZModifyingState, AZIdleState, AZCreatingState, AZDeletingState				};
 
 typedef NSInteger NSCellStateValue;
 
 typedef NS_ENUM(NSUI,    AZSlideState ) { AZIn, AZOut, AZToggle																						};
-typedef NS_ENUM(NSUI, 		 	AZState ) {	AZIdleState, AZCreatingState, AZModifyingState, AZDeletingState, AZOn, AZOff				};
+
 typedef NS_ENUM(NSUI,    AZTrackState ) { LeftOn, LeftOff, TopOn, TopOff, RightOn, RightOff, BottomOn, BottomOff						};
 typedef NS_ENUM(NSUI,      AZDockSort ) { AZDockSortNatural, AZDockSortColor, AZDockSortPoint, AZDockSortPointNew						};
 typedef NS_ENUM(NSUI,      AZSearchBy ) { AZSearchByCategory, AZSearchByColor, AZSearchByName, AZSearchByRecent						};

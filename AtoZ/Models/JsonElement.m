@@ -163,7 +163,7 @@ NSDictionary *JsonElementInitializers = nil;
 		[desc appendString:@"\n"];
 		[desc appendString:indent];
 		[desc appendString:@"}"];
-	} else if ([self.object isKindOfClass:[NSString class]]) {
+	} else if ([self.object isKindOfClass:NSString.class]) {
 		[desc appendString:@"\""];
 		[desc appendString:[self.object stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""]];
 		[desc appendString:@"\""];
@@ -184,7 +184,7 @@ NSDictionary *JsonElementInitializers = nil;
 		return [NSString stringWithFormat:@"Array(%lu)", [item count]];
 	} else if ([item ISADICT]) {
 		return [NSString stringWithFormat:@"Dict(%lu)", [[item allKeys] count]];
-	} else if ([item isKindOfClass:[NSString class]]) {
+	} else if ([item isKindOfClass:NSString.class]) {
 		return [NSString stringWithFormat:@"\"%@\"", [item stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""]];
 	} else if ([item isKindOfClass:[NSNumber class]]) {
 		return [item jsonRepresentation];

@@ -60,6 +60,21 @@ NSString * const NSMutableArrayDidInsertObjectNotification = @"com.mrgray.NSMuta
 
 @implementation NSArray (AtoZ)
 
+- (id) assertedValueAtIndex:(NSUI)idx isKindOf:(Class)k {
+
+	id x = self[idx];
+	if (![x ISKINDA:k] && [x respondsToSelector:@selector(mutableCopy)])	x = [x mutableCopy];
+
+	NSAssert([x class] == k, $(@"wrong class!  asked for %@, got a %@", NSStringFromClass(k), NSStringFromClass([x class])));
+	return x;
+}
+- (NSS*)   stringAtIdx:(NSUI)idx { return  (NSS*)[self assertedValueAtIndex:index isKindOf: NSS.class]; }
+- (NSMS*) mstringAtIdx:(NSUI)idx { return (NSMS*)[self assertedValueAtIndex:index isKindOf:NSMS.class]; }
+- (NSD*)     dictAtIdx:(NSUI)idx { return  (NSD*)[self assertedValueAtIndex:index isKindOf: NSD.class]; }
+- (NSMD*)   mdictAtIdx:(NSUI)idx { return (NSMD*)[self assertedValueAtIndex:index isKindOf:NSMD.class]; }
+- (NSA*)    arrayAtIdx:(NSUI)idx { return  (NSA*)[self assertedValueAtIndex:index isKindOf: NSA.class]; }
+- (NSMA*)  marrayAtIdx:(NSUI)idx { return (NSMA*)[self assertedValueAtIndex:index isKindOf:NSMA.class]; }
+
 - (NSA*)arrayByAddingAbsentObjectsFromArray:(NSArray *)otherArray {
 	__block NSMA* newself = self.mutableCopy;
 	[otherArray each:^(id obj) {
@@ -1462,7 +1477,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 - (NSA*)arrayBySortingStrings {
     NSMutableArray *sort = [NSMutableArray arrayWithArray:self];
     for (id eachitem in self) {
-        if (![eachitem isKindOfClass:[NSString class]]) [sort removeObject:eachitem];
+        if (![eachitem isKindOfClass:NSString.class]) [sort removeObject:eachitem];
     }
     return [sort sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
 }

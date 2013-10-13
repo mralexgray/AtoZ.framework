@@ -16,6 +16,6 @@ typedef enum { 	ShroudIsUp, ShroudIsDown} ShroudIs;
 //@property (nonatomic, assign) NSRect upFrame;
 //@property (nonatomic, assign) NSRect dnFrame;
 
-	//+ (instancetype) instanceWithClass:(Class)class named:(NSString*)name;
+	//+ (instancetype) instanceWithClass:(Class)klass named:(NSString*)name;
 @end
 

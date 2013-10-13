@@ -717,9 +717,9 @@ static char windowPosition;
 }
 
 //  Finds all properties of an object, and prints each one out as part of a string describing the class.
-- (NSS*) autoDescribeWithClassType:(Class)classType {
+- (NSS*) autoDescribeWithClassType:(Class)klassType {
 	unsigned int count;
-	objc_property_t *propList       = class_copyPropertyList(classType, &count);
+	objc_property_t *propList       = class_copyPropertyList(klassType, &count);
 	NSMS *propPrint         = NSMS.new;
 	for (int i = 0; i < count; i++) {
 		objc_property_t prop    = propList[i];
@@ -732,7 +732,7 @@ static char windowPosition;
 	}
 	free(propList);
 	// Now see if we need to map any superclasses as well.
-	Class superClass = class_getSuperclass(classType);
+	Class superClass = class_getSuperclass(klassType);
 	if (superClass != nil && ![superClass isEqual:[NSObject class]]) {
 		NSS *superString = [self autoDescribeWithClassType:superClass];
 		[propPrint appendString:superString];
@@ -2433,7 +2433,7 @@ CG_EXTERN CFTimeInterval CGEventSourceSecondsSinceLastEventType(CGEventSourceSta
 - (NSA*)arrayOfStringsForKey:(NSS*)key;
 {
 	NSArray *allegedStrings = [self valueForKey:key assertingClass:[NSArray class]];
-	if ([self contentsOfCollection:allegedStrings areKindOfClass:[NSString class]])
+	if ([self contentsOfCollection:allegedStrings areKindOfClass:NSString.class])
 		return allegedStrings;
 
 	NSAssert(NO, @"Collection does not contain only strings");
@@ -2478,7 +2478,7 @@ CG_EXTERN CFTimeInterval CGEventSourceSecondsSinceLastEventType(CGEventSourceSta
 	if (!value || value == (id)[NSNull null]) return nil;
 	if ([value isKindOfClass:[NSDate class]]) return value;
 
-	if ([value isKindOfClass:[NSString class]])
+	if ([value isKindOfClass:NSString.class])
 		return [[[NSDateFormatter alloc] init] dateFromString:value];
 
 	NSAssert1(NO, @"FOOCoding cannot make an NSDate from %@", NSStringFromClass([value class]));
@@ -2508,7 +2508,7 @@ CG_EXTERN CFTimeInterval CGEventSourceSecondsSinceLastEventType(CGEventSourceSta
 
 - (NSS*)stringForKey:(NSS*)key;
 {
-	return [self valueForKey:key assertingClass:[NSString class]];
+	return [self valueForKey:key assertingClass:NSString.class];
 }
 
 - (NSUInteger)unsignedIntegerForKey:(NSS*)key;
@@ -2518,7 +2518,7 @@ CG_EXTERN CFTimeInterval CGEventSourceSecondsSinceLastEventType(CGEventSourceSta
 
 - (NSURL *)URLForKey:(NSS*)key;
 {
-	id stringValue = [self valueForKey:key assertingClass:[NSString class]];
+	id stringValue = [self valueForKey:key assertingClass:NSString.class];
 	return stringValue ? [NSURL URLWithString:stringValue] : nil;
 }
 

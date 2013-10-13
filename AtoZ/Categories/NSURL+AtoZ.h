@@ -1,13 +1,6 @@
-//
-//  NSURL+AtoZ.h
-//  AtoZ
-//
-//  Created by Alex Gray on 8/4/12.
-//  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-//
 
-#import <Foundation/Foundation.h>
-#import "AtoZ.h"
+
+#import "AtoZUmbrella.h"
 
 /* the following categories are added to NSURLRequest and NSMutableURLRequest
  for the purposes of sharing information between the various webView delegate

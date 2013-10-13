@@ -20,18 +20,21 @@
 @class KSHTMLWriter, Asset;
 @interface Bootstrap : BaseModel
 
-+ (void) initWithUserStyle:(Asset*)css script:(Asset*)script andInnerHTML:(NSS*) html  calling:(void(^)(id sender))block;
+@property (NATOM,STR) NSArrayController *availJS, *availCSS, *headers, *footers, *body;
 
+
++ (void) initWithUserStyle:(Asset*)css script:(Asset*)script andInnerHTML:(NSS*) html  calling:(void(^)(id sender))block;
 - (NSS*) htmlWithBody:(NSS*)bod;
 
-@property (readonly)					NSString 		*demo;
 
-@property (nonatomic, strong) 	KSHTMLWriter 	*writer;
-@property (readonly)					NSString 		*xml;
-@property (nonatomic, strong)		NSA				*js, *css;
-@property (nonatomic, strong)		NSS				*userHTML, *html;
-@property (nonatomic, strong) 	NSBundle	 		*bundle;
+#pragma mark - OUTPUT
+@property (readonly)					NSS *demo, *xml, *markup;
 
+
+
+//@property (nonatomic, strong)		NSA *js, *css;
+@property (nonatomic, strong)		NSS *userHTML, *html;
+@property (nonatomic, strong) 	NSB	 		*bundle;
 
 @end
 

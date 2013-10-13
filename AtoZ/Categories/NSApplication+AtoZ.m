@@ -26,6 +26,10 @@
 
 @implementation NSMenu (SBAdditions)
 
+
++ (instancetype) mennuWithItems:(NSA*)items { NSMenu *m = self.new;  m.itemArray = items;  return m; }
+- (void) setItemArray:(NSA*)items { for (NSMI*m in items) [self addItem:m]; }
+
 - (NSMenuItem *)selectedItem
 {
 	NSMenuItem *menuItem = nil;

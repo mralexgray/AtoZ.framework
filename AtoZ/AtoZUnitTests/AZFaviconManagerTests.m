@@ -7,7 +7,7 @@
 //
 
 
-@interface AZFaviconManagerTests : SenTestCase
+@interface AZFaviconManagerTests : XCTestCase
 @end
 
 @implementation AZFaviconManagerTests
@@ -25,7 +25,7 @@
 		[AZFavIconManager iconForURL:obj downloadHandler:^(NSImage *icon) {
 
 			testIMG = icon;
-			STAssertNotNil(testIMG, @"should be a valid Image");
+			XCTAssertNotNil(testIMG, @"should be a valid Image");
 			[AZStopwatch stop:stopwatchString];
 
 		}];

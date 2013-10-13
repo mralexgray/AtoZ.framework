@@ -85,8 +85,35 @@ NSOQ *AZSharedSingleOperationQueue()	{	return AZDummy.sharedInstance.sharedSQ; }
  //- (id)forwardingTargetForSelector:(SEL)sel	{		if(		sel == @selector(runOperation:withMsg:)	|| sel == @selector(operationsSet)			||		sel == @selector(operationsCount)		|| sel == @selector(cancelOperations)		||		sel == @selector(enumerateOperations:)		) {		if(!operationsRunner) {	// Object only created if needed			operationsRunner = [[OperationsRunner alloc] initWithDelegate:self];		}	return operationsRunner;	} else {	return [super forwardingTargetForSelector:sel];	}	}
  */
 
+
+
 @interface AtoZ ()
 @property (nonatomic, assign) BOOL fontsRegistered;
+@end
+
+#import "TBSocketConnection.h"
+#import "TBWebSocket.h"
+//#import "HTTPDataResponse.h"
+
+
+
+
+
+@implementation TBSocketConnection
+
+- (WebSocket*)webSocketForURI:(NSString*)path {
+
+	return [path isEqualToString:@"/livereload"] ? (self.socket = [TBWebSocket.alloc initWithRequest:request socket:asyncSocket])
+																: [super webSocketForURI:path];
+}
+
+- (NSObject <HTTPResponse>*)httpResponseForMethod:(NSS*)method URI:(NSS*)path {
+	
+	return [path hasPrefix:@"/livereload.js"]
+		?	 [HTTPDataResponse.alloc initWithData:[AZAPPBUNDLE.infoDictionary[@"TBLiveReloadJS"] dataUsingEncoding:NSUTF8StringEncoding]]
+		:	 [super httpResponseForMethod:method URI:path];
+}
+
 @end
 
 //@synthesize sManager; - (id)init {	self = [super init];	if (self) {	static NSA* cachedI = nil;
@@ -167,6 +194,11 @@ NSString *const MASPreferenceKeyShortcut					 	= @"MASDemoShortcut",
 		NSC* c = RANDOMCOLOR;
 		NSProcessInfo* infoD = AZPROCINFO;
 		NSS*initial = @"A";
+//		self.bonjourBlock = [AZBonjourBlock instanceWithTypes:nil consumer:^(NSNetService *svc) {
+//			[$(@"%@ was just notified about new service... %@", AZCLSSTR, svc) log];
+//			[AZWORKSPACE openURLs:@[$URL($(@"http://%@:%ld",svc.domain, svc.port))] withAppBundleIdentifier:@"com.google.Chrome.canary" options:NSWorkspaceLaunchDefault additionalEventParamDescriptor:nil launchIdentifiers:nil];
+//		}];
+
 		//		NSS *procName = [infoD processName];
 		//		initial = procName ? procName.firstLetter : @"A";
 
@@ -618,13 +650,13 @@ static void soundCompleted(SystemSoundID soundFileObject, void *clientData)			{ 
 	azva_iterate_list(varargs, theBlk);
 	block(stuffToPass);
 }
-+  (void) sendArrayTo:(SEL)method inClass:(Class)class withVarargs:(id)varargs, ... {
++  (void) sendArrayTo:(SEL)method inClass:(Class)klass withVarargs:(id)varargs, ... {
 	__block NSMA *stuffToPass = NSMA.new;
 	AZVA_Block theBlk = ^(id thing) { [thing isKindOfClass:NSO.class] ? [stuffToPass addObject:thing] : [stuffToPass addObject:AZString(thing)]; };
 
 	azva_iterate_list(varargs, theBlk);
-	id theShared = [class sharedInstance];
-	[[class class] performSelectorWithoutWarnings:method withObject:stuffToPass];
+	id theShared = [klass sharedInstance];
+	[[klass class] performSelectorWithoutWarnings:method withObject:stuffToPass];
 }
 int  DDLEVEL2INT			  (DDLogMessage*m)	{
 	int dd = m->logFlag; return dd == LOG_FLAG_ERROR ? 0 : dd == LOG_FLAG_WARN ? 1 : dd == LOG_FLAG_INFO ? 2 : 3;

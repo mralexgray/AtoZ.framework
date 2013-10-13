@@ -78,7 +78,7 @@ NSString* const kAZTreeNodeChildNodesKey = @"childNodes";
 }
 - (void)insertObject:(id)object inChildNodesAtIndex:(NSUInteger)index; {
 	if (!_childNodes)
-		_childNodes = [[NSMutableArray alloc] init];
+		_childNodes = NSMutableArray.new;
 	
 	[object setParentNode:self];
 	

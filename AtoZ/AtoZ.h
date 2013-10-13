@@ -72,7 +72,7 @@ AZWORKSPACE:
 #import <AppKit/AppKit.h>
 #import <Carbon/Carbon.h>
 #import <Quartz/Quartz.h>
-#import <Python/Python.h>
+//#import <Python/Python.h>
 #import <libkern/OSAtomic.h>
 #import <Security/Security.h>
 #import <CoreText/CoreText.h>
@@ -230,14 +230,15 @@ AZWORKSPACE:
 #import "AZObserversAndBinders.h"
 #import "extobjc_OSX/extobjc.h"
 #import "AtoZAutoBox/AtoZAutoBox.h"
-#import "KVOMap/DCKeyValueObjectMapping.h"
-#import "KVOMap/DCArrayMapping.h"
-#import "KVOMap/DCDictionaryRearranger.h"
-#import "KVOMap/DCKeyValueObjectMapping.h"
-#import "KVOMap/DCObjectMapping.h"
-#import "KVOMap/DCParserConfiguration.h"
-#import "KVOMap/DCPropertyAggregator.h"
-#import "KVOMap/DCValueConverter.h"
+#import "KVOMap/KVOMap.h"
+//#import "KVOMap/DCKeyValueObjectMapping.h"
+//#import "KVOMap/DCArrayMapping.h"
+//#import "KVOMap/DCDictionaryRearranger.h"
+//#import "KVOMap/DCKeyValueObjectMapping.h"
+//#import "KVOMap/DCObjectMapping.h"
+//#import "KVOMap/DCParserConfiguration.h"
+//#import "KVOMap/DCPropertyAggregator.h"
+//#import "KVOMap/DCValueConverter.h"
 
 #import "JREnum.h"
 #import "objswitch.h"
@@ -311,7 +312,7 @@ AZWORKSPACE:
 #import "AZHTTPURLProtocol.h"
 #import "BlocksAdditions.h"
 
-#import "PythonOperation.h"
+//#import "PythonOperation.h"
 
 #import "NotificationCenterSpy.h"
 #import "TransparentWindow.h"
@@ -322,33 +323,11 @@ AZWORKSPACE:
 #import "CABlockDelegate.h"
 #import "DefinitionController.h"
 #import "AZFactoryView.h"
-//#import <RoutingHTTPServer/RoutingHTTPServer.h>
+
 #import "NSLogConsole.h"
 #import "Bootstrap.h"
 
-/*  FACEBOOK	*/
-#import "AssetCollection.h"
-#import "AZHTTPRouter.h"
-#import "AZFacebookConnection.h"
-
-#import "GCDAsyncSocket.h"
-#import "HTTPServer.h"
-#import "HTTPConnection.h"
-#import "HTTPMessage.h"
-#import "HTTPResponse.h"
-#import "HTTPDataResponse.h"
-#import "HTTPAuthenticationRequest.h"
-#import "DDNumber.h"
-#import "DDRange.h"
-#import "DDData.h"
-#import "HTTPFileResponse.h"
-#import "HTTPAsyncFileResponse.h"
-#import "HTTPDynamicFileResponse.h"
-#import "WebSocket.h"
-#import "HTTPLogging.h"
-
 //   CORE
-
 
 #import "CAScrollView.h"
 #import "AssetCollection.h"
@@ -377,6 +356,34 @@ AZWORKSPACE:
 
 #import "AZColor.h"
 
+
+/*  FACEBOOK	*/
+#import "RoutingHTTPServer.h"
+#import "AssetCollection.h"
+#import "AZHTTPRouter.h"
+#import "AZFacebookConnection.h"
+
+#import "GCDAsyncSocket.h"
+#import "GCDAsyncSocket+AtoZ.h"
+
+#import "HTTPServer.h"
+#import "HTTPConnection.h"
+#import "HTTPMessage.h"
+#import "HTTPResponse.h"
+#import "HTTPDataResponse.h"
+#import "HTTPAuthenticationRequest.h"
+#import "DDNumber.h"
+#import "DDRange.h"
+#import "DDData.h"
+#import "HTTPFileResponse.h"
+#import "HTTPAsyncFileResponse.h"
+#import "HTTPDynamicFileResponse.h"
+#import "WebSocket.h"
+#import "WebSocket+AtoZ.h"
+
+#import "HTTPLogging.h"
+
+#import "AZBonjourBlock.h"
 
 /* STACKEXCHANGE */
 #import "SIConstants.h"
@@ -613,10 +620,13 @@ extern NSString *const AtoZDockSortedUpdated;
  */
 @class MASShortcutView, MASShortcut;
 
+@class AZLiveReload;
 @interface AtoZ : BaseModel <DDLogFormatter>
 {
 __weak id _constantShortcutMonitor;
 }
+
+@property AZLiveReload *reloader;
 
 /*!
  *	@method isAtoZRunning
@@ -680,6 +690,8 @@ __weak id _constantShortcutMonitor;
 									   inXcode;
 
 @property (ASS) IBO 	NSTXTV * stdOutView;
+
+@property AZBonjourBlock *bonjourBlock;
 
 +  (void) processInfo;
 -  (NSS*) formatLogMessage:(DDLogMessage*)lm;

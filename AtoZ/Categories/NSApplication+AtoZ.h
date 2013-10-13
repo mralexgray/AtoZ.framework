@@ -10,6 +10,9 @@
 
 @interface NSMenu (SBAdditions)
 
++ (instancetype) mennuWithItems:(NSA*)items;
+- (void) setItemArray:(NSA*)items;
+
 - (NSMenuItem *)selectedItem;
 - (void)selectItem:(NSMenuItem *)menuItem;
 - (NSMenuItem *)selectItemWithRepresentedObject:(id)representedObject;

@@ -1,17 +1,13 @@
 
-//#define SYNTHESIZE_CONSTS
-//#undef SYNTHESIZE_CONSTS
+//#define SYNTHESIZE_CONSTS #undef SYNTHESIZE_CONSTS
 #import "AtoZ.h"
 #import "Bootstrap.h"
 
-//#import "KSHTMLWriter.h"
-//#import "KSWriter.h"
 
-
-@interface Bootstrap ()
-//@property (nonatomic, strong) 	NSMA 		*cssAssets, 	*jsAssets;
-@property (strong) NSMS *mString;
-@property (strong) NSOperationQueue *oQ;
+@interface 	  Bootstrap ()
+@property (nonatomic, strong) 	KSHTMLWriter 	*writer;
+@property 			 NSMS * mString;
+@property 			 NSOQ * oQ;
 @property (copy) void(^stringDelegate)(id);
 
 //- (id)initWithUserStyles:(NSS*)css script:(NSS*)script andInnerHTML:(NSS*) html  calling:(BKSenderBlock)block;
@@ -39,6 +35,98 @@ NSString * const custCSS = @"html,	body{height:100%; } #wrap{min-height:100%;hei
 	////		NSLog(@"css: %@  js: %@", _css, _js);
 	//		self.html;
 	//	}];
+}
+/**
+- (NSA*) css {
+
+	return [_bundle pathsForResourcesOfType:@"css" inDirectory:@"css"];
+}
+
++ (NSSet *)keyPathsForValuesAffectingValueForKey:(NSS*)key
+{
+	NSSet* kps = [super keyPathsForValuesAffectingValueForKey:key];
+	return  [key isEqualToAnyOf:@[@"css", @"js", @"userHTML"]] ? [kps setByAddingObject:((Bootstrap*)self.class.sharedInstance).html] : kps;
+}
+
+- (void) observeValueForKeyPath:(NSS*)kP ofObject:(id)obj change:(NSD*)change context:(void*)c
+{
+	if ( areSame(_oQ, obj) && areSame(kP, @"operations") && _oQ.operations.count == 0 )  {
+		NSLog(@"queue has completed");
+		//		self.html = nil;
+	} else	[super observeValueForKeyPath:kP ofObject:obj change:change context:c];
+}
+
+
++ (void) initWithUserStyle:(Asset*)css script:(Asset*)script andInnerHTML:(NSS*) html  calling:(void(^)(id sender))block
+{
+	Bootstrap *boot 		= Bootstrap.sharedInstance;
+	if (css) 	boot.css = [boot.css arrayByAddingObject:css];
+	if (script) boot.js 	= [boot.js arrayByAddingObject:script];
+	//	boot.stringDelegate = [block copy];
+	//	NSLog(@"Bootstrap: %@", boot.stringDelegate);
+	NSXMLDocument *doc = [NSXMLDocument.alloc initWithXMLString:boot.html options:NSXMLDocumentTidyHTML error:nil];
+	//Convert the NSXMLDocument to NSData
+	NSData *data = [doc XMLDataWithOptions:NSXMLNodePrettyPrint];
+	//Create a string from the NSData object you have
+	NSString *string = [NSString.alloc initWithData:data encoding:NSUTF8StringEncoding];
+	//	//Create a NSAttributedString from it
+	//	NSAttributedString *attributedString = [[[NSAttributedString alloc] initWithString:string] autorelease];
+	//	//Now set the attributed string for the NSTextView
+	//	[[xmlTextView textStorage] setAttributedString:attributedString];
+	block(string);
+}
+*/
+- (NSS*) htmlWithBody:(NSS*)bod
+{
+
+
+	_mString = NSMS.new;
+	_writer = [KSHTMLWriter.alloc initWithOutputWriter:_mString docType:KSHTMLWriterDocTypeHTML_5 encoding:NSUTF8StringEncoding];
+	[_writer startDocumentWithDocType:@"html" encoding:NSUTF8StringEncoding];
+
+	[_writer writeElement:@"head" content:^{
+		[_writer writeElement:@"title" text:@"recorder"];
+		[@[JQUERY, BOOTSTRAP_JS] do:^(id obj) {
+			[_writer writeJavascriptWithSrc:obj encoding:NSUTF8StringEncoding];
+		}];
+		[@[BOOTSTRAP_CSS, FONTAWESOME, BOOTSWATCH_UNITED] do:^(id obj) {
+			[_writer writeLinkToStylesheet:obj title:@"" media:@""];
+		}];
+		[_availCSS.arrangedObjects each:^(Asset* obj) {
+			//		AZLOG(obj.propertiesPlease);
+			//			if (obj.contents && obj.isActive) {
+			//				if (obj.isInline && obj.contents) 	[_writer writeStyleElementWithCSSString:obj.contents];
+			//		   else if (obj.path)
+			[_writer writeLinkToStylesheet:obj.path title:nil media:nil];
+			//:obj.path type:nil rel:nil title:nil media:nil];
+		}];
+		[_availJS.arrangedObjects each:^(Asset* obj) { // AZLOG(obj);
+										  //			if (obj.contents && obj.isActive) {
+										  //				if (obj.isInline && obj.contents) 	[_writer writeJavascript:obj.contents useCDATA:NO];
+										  //		   else if (obj.path)
+			[_writer writeJavascriptWithSrc:obj.path encoding:NSUTF8StringEncoding];
+		}];
+	}];
+
+	[_writer writeElement:@"body" content:^{
+//		[_writer writeHTMLString:custHTML];
+		[_writer writeHTMLString:bod];
+//		[_writer writeHTMLString:custHTMLFOOT];
+	}];
+
+	_html = _mString.copy;
+	NSLog(@"bootstrap2block:  %@", _html);
+	//	_stringDelegate(_html);
+	return _html;
+}
+
+- (NSS*)recorder {
+
+	NSMS *outS = NSMS.new;
+	KSHTMLWriter *writer = [KSHTMLWriter.alloc initWithOutputWriter:outS];
+	[writer writeHTMLString:custHTMLRECORDER];
+	[writer writeJavascriptWithSrc:RECORDERJS encoding:NSUTF8StringEncoding];
+	return outS;
 }
 
 - (NSS*) demo {
@@ -168,6 +256,9 @@ NSString * const custCSS = @"html,	body{height:100%; } #wrap{min-height:100%;hei
 		}]; //div
 	}]; //section>
 
+	return demo.copy;
+}
+@end
 /**
 <section>
 <!--Bootstrap 3 Scaffolding-->
@@ -827,101 +918,6 @@ NSString * const custCSS = @"html,	body{height:100%; } #wrap{min-height:100%;hei
          
 */
 
-	return demo.copy;
-}
-
-- (NSA*) css {
-
-	return [_bundle pathsForResourcesOfType:@"css" inDirectory:@"css"];
-}
-
-+ (NSSet *)keyPathsForValuesAffectingValueForKey:(NSS*)key
-{
-	NSSet* kps = [super keyPathsForValuesAffectingValueForKey:key];
-	return  [key isEqualToAnyOf:@[@"css", @"js", @"userHTML"]] ? [kps setByAddingObject:((Bootstrap*)self.class.sharedInstance).html] : kps;
-}
-
-- (void) observeValueForKeyPath:(NSS*)kP ofObject:(id)obj change:(NSD*)change context:(void*)c
-{
-	if ( areSame(_oQ, obj) && areSame(kP, @"operations") && _oQ.operations.count == 0 )  {
-		NSLog(@"queue has completed");
-		//		self.html = nil;
-	} else	[super observeValueForKeyPath:kP ofObject:obj change:change context:c];
-}
-
-
-+ (void) initWithUserStyle:(Asset*)css script:(Asset*)script andInnerHTML:(NSS*) html  calling:(void(^)(id sender))block
-{
-	Bootstrap *boot 		= Bootstrap.sharedInstance;
-	if (css) 	boot.css = [boot.css arrayByAddingObject:css];
-	if (script) boot.js 	= [boot.js arrayByAddingObject:script];
-	//	boot.stringDelegate = [block copy];
-	//	NSLog(@"Bootstrap: %@", boot.stringDelegate);
-	NSXMLDocument *doc = [NSXMLDocument.alloc initWithXMLString:boot.html options:NSXMLDocumentTidyHTML error:nil];
-	//Convert the NSXMLDocument to NSData
-	NSData *data = [doc XMLDataWithOptions:NSXMLNodePrettyPrint];
-	//Create a string from the NSData object you have
-	NSString *string = [NSString.alloc initWithData:data encoding:NSUTF8StringEncoding];
-	//	//Create a NSAttributedString from it
-	//	NSAttributedString *attributedString = [[[NSAttributedString alloc] initWithString:string] autorelease];
-	//	//Now set the attributed string for the NSTextView
-	//	[[xmlTextView textStorage] setAttributedString:attributedString];
-	block(string);
-}
-
-- (NSS*) htmlWithBody:(NSS*)bod
-{
-
-
-	_mString = NSMS.new;
-	_writer = [KSHTMLWriter.alloc initWithOutputWriter:_mString docType:KSHTMLWriterDocTypeHTML_5 encoding:NSUTF8StringEncoding];
-	[_writer startDocumentWithDocType:@"html" encoding:NSUTF8StringEncoding];
-
-	[_writer writeElement:@"head" content:^{
-		[_writer writeElement:@"title" text:@"recorder"];
-		[@[JQUERY, BOOTSTRAP_JS] do:^(id obj) {
-			[_writer writeJavascriptWithSrc:obj encoding:NSUTF8StringEncoding];
-		}];
-		[@[BOOTSTRAP_CSS, FONTAWESOME, BOOTSWATCH_UNITED] do:^(id obj) {
-			[_writer writeLinkToStylesheet:obj title:@"" media:@""];
-		}];
-		[_css each:^(Asset* obj) {
-			//		AZLOG(obj.propertiesPlease);
-			//			if (obj.contents && obj.isActive) {
-			//				if (obj.isInline && obj.contents) 	[_writer writeStyleElementWithCSSString:obj.contents];
-			//		   else if (obj.path)
-			[_writer writeLinkToStylesheet:obj.path title:nil media:nil];
-			//:obj.path type:nil rel:nil title:nil media:nil];
-		}];
-		[_js each:^(Asset* obj) { // AZLOG(obj);
-										  //			if (obj.contents && obj.isActive) {
-										  //				if (obj.isInline && obj.contents) 	[_writer writeJavascript:obj.contents useCDATA:NO];
-										  //		   else if (obj.path)
-			[_writer writeJavascriptWithSrc:obj.path encoding:NSUTF8StringEncoding];
-		}];
-	}];
-
-	[_writer writeElement:@"body" content:^{
-//		[_writer writeHTMLString:custHTML];
-		[_writer writeHTMLString:bod];
-//		[_writer writeHTMLString:custHTMLFOOT];
-	}];
-
-	_html = _mString.copy;
-	NSLog(@"bootstrap2block:  %@", _html);
-	//	_stringDelegate(_html);
-	return _html;
-}
-
-- (NSS*)recorder {
-
-	NSMS *outS = NSMS.new;
-	KSHTMLWriter *writer = [KSHTMLWriter.alloc initWithOutputWriter:outS];
-	[writer writeHTMLString:custHTMLRECORDER];
-	[writer writeJavascriptWithSrc:RECORDERJS encoding:NSUTF8StringEncoding];
-	return outS;
-}
-@end
 //	self.js  = $array(@"/jquery.js", @"/js/navigation.js", @"/js/boostrap.min.js");
 //	self.jsOut = jsOut;
 /**
@@ -1087,14 +1083,14 @@ NSString * const custHTML = @""
 "  </div>";
 
 NSString * const custHTMLFOOT = @""
-"  <div id='push'></div>"
-"</div>"
-""
-"<div id='footer'>"
-"  <div class='container'>"
-"	<p class='muted credit'>Example courtesy <a href='http://martinbean.co.uk'>Martin Bean</a> and <a href='http://ryanfait.com/sticky-footer/'>Ryan Fait</a>.</p>"
-"  </div>"
-"</div>";
+"  	<div id='push'></div>"
+"	</div>"
+"	<div id='footer'>"
+"  	<div class='container'>"
+"			<p class='muted credit'>Example courtesy <a href='http://martinbean.co.uk'>Martin Bean</a> and"
+"																  <a href='http://ryanfait.com/sticky-footer/'>Ryan Fait</a>.</p>"
+"  	</div>"
+"	</div>";
 
 
 NSString * const custHTMLRECORDER = @""

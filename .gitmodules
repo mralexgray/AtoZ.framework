@@ -262,3 +262,10 @@
 	path = Frameworks/GRMustache
 	url = https://github.com/mralexgray/GRMustache.git
 	ignore = dirty
+[submodule "cocoadocs.org"]
+	path = cocoadocs.org
+	url = https://github.com/mralexgray/cocoadocs.org.git
+	ignore = dirty
+[submodule "AtoZ/AtoZUnitTests/RedGreen"]
+	path = AtoZ/AtoZUnitTests/RedGreen
+	url = https://github.com/mralexgray/RedGreen.git

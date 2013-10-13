@@ -20,7 +20,7 @@
   if (stringOrPredicate)
   {
 	NSPredicate *predicate;
-	if ([stringOrPredicate isKindOfClass:[NSString class]])
+	if ([stringOrPredicate isKindOfClass:NSString.class])
 	{
 	  va_list variadicArguments;
 	  va_start(variadicArguments, stringOrPredicate);

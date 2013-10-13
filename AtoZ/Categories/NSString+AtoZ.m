@@ -715,7 +715,7 @@ finish:
 - (BOOL)containsAnyOf:(NSA*)array {
 	for (id v in array) {
 		NSString *s = [v description];
-		if ([v isKindOfClass:[NSString class]]) s = (NSS*)v;
+		if ([v isKindOfClass:NSString.class]) s = (NSS*)v;
 		if ([self contains:s]) return YES;
 	}
 	return NO;
@@ -724,7 +724,7 @@ finish:
 - (BOOL)containsAllOf:(NSA*) array {
 	for (id v in array) {
 		NSString *s = [v description];
-		if ([v isKindOfClass:[NSString class]]) s = (NSS*)v;
+		if ([v isKindOfClass:NSString.class]) s = (NSS*)v;
 		if (![self contains:s]) return NO;
 	}
 	return YES;
@@ -2964,7 +2964,7 @@ catch_error:
 }
 
 -(NSArray *)splitOnChar:(char)ch {
-  NSMutableArray *results = [[NSMutableArray alloc] init];
+  NSMutableArray *results = NSMutableArray.new;
   int start = 0;
   for(int i=0; i<[self length]; i++) {
 

@@ -695,7 +695,7 @@ static NSMD*	 pendingFades = nil;
  }
  }
  }
- + (BOOL)isAnyWindowVisibleWithDelegateClass:(Class)class;
+ + (BOOL)isAnyWindowVisibleWithDelegateClass:(Class)klass;
  {
  NSArray* windows = [self visibleWindows:NO];
  NSWindow* window;
@@ -726,7 +726,7 @@ static NSMD*	 pendingFades = nil;
  
  return NO;
  }
- - (NSWindow*)topWindowWithDelegateClass:(Class)class;
+ - (NSWindow*)topWindowWithDelegateClass:(Class)klass;
  {
  NSArray* arr = [NSWindow visibleWindows:YES delegateClass:class];
  

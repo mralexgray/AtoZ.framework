@@ -1,4 +1,5 @@
 #import "AtoZFunctions.h"
+#import <Python/Python.h>
 #import <Foundation/Foundation.h>
 #import "NSString+AtoZ.h"
 #import "AtoZ.h"
@@ -463,7 +464,7 @@ NSS * googleSearchFor(NSS *string) {
 	NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONWritingPrettyPrinted error:&error];
 	if (error) NSLog(@"error: %@", error);
 	id valueD = [dictionary recursiveObjectForKey:@"content"];
-	if ([valueD ISKINDA:[NSString class]]) return [(NSS*) valueD stripHtml];
+	if ([valueD ISKINDA:NSString.class]) return [(NSS*) valueD stripHtml];
 	else return nil;	//  valueD[@"content"];
 //	NSLog(@"result: %@", content);
 //	return content;
@@ -3233,7 +3234,7 @@ int lookup_function_pointers(const char* filename, ...) {
 		int scan_direction = strcmp(requested_symname, previously_requested_symname);
 		int stop_index = current_index;
 		if (scan_direction >= 0) {
-			syslog(4, "%p, %s", image->fSymbolTable, image->fStrings);
+			fprintf(4, "%p, %s", image->fSymbolTable, image->fStrings);
 			for (; current_index < symcount; ++current_index)
 				if (strcmp(image->fStrings+image->fSymbolTable[current_index].n_un.n_strx, requested_symname) == 0)
 					goto found;

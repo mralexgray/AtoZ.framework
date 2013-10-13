@@ -155,7 +155,7 @@
 //   NSArray *keywords 		= [self.allKeywords arrayByAddingObjectsFromArray:self.allReplacements];
    __block NSMutableArray *matches = NSMutableArray.new;
     // find any match in our keyword array against what was typed -
-//   [keywords enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) { NSLog(@"enumerating class: %@", NSStringFromClass([obj class])); if (![obj isKindOfClass:[NSString class]]) return;
+//   [keywords enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) { NSLog(@"enumerating class: %@", NSStringFromClass([obj class])); if (![obj isKindOfClass:NSString.class]) return;
 //		[obj rangeOfString:partial options:NSAnchoredSearch|NSCaseInsensitiveSearch range:NSMakeRange(0,[obj length] )].location != NSNotFound ? [matches addObject:obj] : nil;
 //	}];
 	[matches sortUsingSelector:@selector(caseInsensitiveCompare:)];

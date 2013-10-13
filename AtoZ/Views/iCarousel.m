@@ -1911,7 +1911,7 @@ _timer = [NSTimer scheduledTimerWithTimeInterval:1.0/60.0	target:self		selector:
 	return index;
 }
 
-- (BOOL)viewOrSuperview:(UIView *)view isKindOfClass:(Class)class
+- (BOOL)viewOrSuperview:(UIView *)view isKindOfClass:(Class)klass
 {
 	if (view == nil || view == _contentView)
 	{

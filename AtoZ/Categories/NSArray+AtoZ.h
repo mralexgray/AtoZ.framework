@@ -2,8 +2,8 @@
 //  NSArray+AtoZ.h
 //  AtoZ
 
-#import "AtoZ.h"
-
+#import "AtoZUmbrella.h"
+#import "KVOMap/KVOMap.h"
 
 extern NSString * const NSMutableArrayDidInsertObjectNotification;
 
@@ -32,6 +32,15 @@ extern NSString * const NSMutableArrayDidInsertObjectNotification;
 @end
 
 @interface NSArray (AtoZ)
+
+-  (NSS*)  stringAtIdx:(NSUI)idx;
+- (NSMS*) mstringAtIdx:(NSUI)idx;
+-  (NSD*)    dictAtIdx:(NSUI)idx;
+- (NSMD*)   mdictAtIdx:(NSUI)idx;
+-  (NSA*)   arrayAtIdx:(NSUI)idx;
+- (NSMA*)  marrayAtIdx:(NSUI)idx;
+
+
 + (NSA*) arrayWithRects:(NSR)firstRect,...NS_REQUIRES_NIL_TERMINATION;
 -  (int) createArgv:(char***)argv;
 + (NSA*) from:(NSI)from to:(NSI)to;

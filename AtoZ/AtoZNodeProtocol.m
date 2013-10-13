@@ -111,55 +111,23 @@ JREnumDefine(AZMethod);
 //- (void)encodeKeyPaths:(struct AZNodeProtocolKeyPaths)kps;
 //@end
 
+@implementation NSObject (ProtocolConformance)
 
++ (AZMethod) implementationOfSelector:(SEL)selector 			{
+
+	Method method = NULL, superclassMethod = NULL;	 Class superclass;
+	if( !(method = class_getClassMethod(self.class, selector)) || !(superclass = class_getSuperclass(self.class))) return AZMethodNotFound;
+	return !(superclassMethod = class_getClassMethod(superclass, selector)) ? AZMethodAuthor
+															 : method == superclassMethod ? AZMethodInherits : AZMethodOverrider;
+}
+
+@end
 // 2008-11-07 23:25:43.374 Test[2580:10b] NSObject    - LRMethodNotFound
 // 2008-11-07 23:25:43.377 Test[2580:10b] LRModel     - LRMethodImplement
 // 2008-11-07 23:25:43.377 Test[2580:10b] AMUser      - LRMethodOverride
 // 2008-11-07 23:25:43.379 Test[2580:10b] AMModerator - LRMethodSuper
 
-@implementation NSObject (ProtocolConformance)
-+ (AZMethod) implementationOfSelector:(SEL)selector 			{
-	Method method = NULL, superclassMethod = NULL;	 Class superclass;
-	if(!(method = class_getClassMethod([self class ], selector))) return AZMethodNotFound;
-	if((superclass = class_getSuperclass([self class]))) {
-		superclassMethod = class_getClassMethod(superclass, selector);
-		return !superclassMethod ? AZMethodAuthor :
-		 		 method == superclassMethod ? AZMethodInherits : AZMethodOverrider;
-	}
-	else return AZMethodNotFound;
-}
-- 	   (BOOL) implementsProtocol:			(id)nameOrProtocol 	{ return [self.class implementsProtocol:nameOrProtocol]; }
-+ 	   (BOOL) implementsProtocol:			(id)nameOrProtocol 	{
-	
-	static NSMD *conformCache; conformCache = conformCache ?: NSMD.new;
-	__block NSS *classStr = AZCLSSTR, *pString;	Protocol *p = NULL;
-	// did we pass in a string or a protocol?
-	p = [nameOrProtocol ISKINDA:NSS.class] ? NSProtocolFromString(pString = nameOrProtocol)
-		// rape the protcol out of it.
-	  : strcmp(@encode(typeof(nameOrProtocol)), @encode(typeof(@protocol(NSTableViewDataSource)))) ? nameOrProtocol : p;
-	if (!p || p == NULL) return NO;
-	if ([conformCache[classStr] objectForKey:pString])		return [conformCache[classStr][pString]boolValue];
-	if (![conformCache objectForKey:classStr])						  conformCache[classStr] = NSMutableDictionary.new;
-	Class klass = self.class;
-	NSLog(@"Testing conformance of %@ class to %@.", NSStringFromClass(klass), NSStringFromProtocol(p));
-	unsigned int outCount = 0;
-   struct objc_method_description *methods = NULL;
-   methods = protocol_copyMethodDescriptionList( p, YES, YES, &outCount);
-	NSLog(@"Found %i methods in %@.", outCount, NSStringFromProtocol(p));
-   for (unsigned int i = 0; i < outCount; ++i) {
-		SEL selector = methods[i].name;
-		NSLog(@"%@", NSStringFromSelector(selector));
-	}
-	for (unsigned int i = 0; i < outCount; ++i) {
-		SEL selector = methods[i].name;
-		if (![klass instancesRespondToSelector: selector]) {
-            if (methods) free(methods);
-            methods = NULL; conformCache[classStr][pString] = @NO; return NO;
-        }
-    }
-    if (methods) free(methods); methods = NULL; conformCache[classStr][pString] = @YES; return YES;
-}				
-@end
+
 
 /*
 - (NSS*) valuePath { return @"value"; }

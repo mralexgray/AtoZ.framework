@@ -208,7 +208,7 @@
 			NSString* type = [NSString stringWithFormat:@"Content-Type: %@\r\n\r\n", [value objectForKey:kMultipartFileKey_MimeType]];
 			[body appendData:[type dataUsingEncoding:NSUTF8StringEncoding]];
 			[body appendData:[value objectForKey:kMultipartFileKey_FileData]];
-		} else if ([value isKindOfClass:[NSString class]]) {
+		} else if ([value isKindOfClass:NSString.class]) {
 			NSString* disposition = [NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n\r\n", key];  // Content-Type defaults to "text/plain"
 			[body appendData:[disposition dataUsingEncoding:NSUTF8StringEncoding]];
 			[body appendData:[(NSString*)value dataUsingEncoding:NSUTF8StringEncoding]];

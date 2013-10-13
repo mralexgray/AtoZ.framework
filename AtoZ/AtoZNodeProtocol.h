@@ -63,9 +63,8 @@ JREnumDeclare(AZMethod,
 
 @interface NSObject (ProtocolConformance)
 + (AZMethod) implementationOfSelector:(SEL)selector;
-- (BOOL) implementsProtocol:(id)nameOrProtocol;
-+ (BOOL) implementsProtocol:(id)nameOrProtocol;
 @end
+
 @interface  NSObject (AtoZNodeProtocol)
 @end
 

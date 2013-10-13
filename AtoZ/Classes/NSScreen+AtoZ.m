@@ -93,8 +93,7 @@ typedef NSUInteger CNDockOrientation;
 
 @implementation NSScreen (CNBackstageController)
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#pragma mark - API
+/////#pragma mark - API
 
 + (NSScreen*)screenWithMenubar
 {
@@ -211,8 +210,7 @@ typedef NSUInteger CNDockOrientation;
     return [NSImage imageNamed:[self desktopImageFilePath]];
 }
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#pragma mark - Private Helper
+/////#pragma mark - Private Helper
 
 + (CNDockOrientation)dockOrientation
 {

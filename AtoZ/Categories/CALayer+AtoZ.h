@@ -101,15 +101,26 @@ typedef void(^ReverseAnimationBlock)(void);
 - (void) didMoveToSuperlayer;
 @end
 
-	/// For when you need a weak reference of an object, example: `BBlockWeakObject(obj) wobj = obj;`
+//#define BlockWeakObject(o) __typeof(o) __weak
+//#define BlockWeakSelf(_x_) BlockWeakObject(self)
+
+///// For when you need a weak reference to self, example: `BBlockWeakSelf wself = self;`
+//#define AZWeakSelf(_x_)  __block __typeof__(self) _x_ = self
+
+//maye this... https://gist.github.com/4707815
+// or maybe mazeroingweak
+
+/// For when you need a weak reference of an object, example: `BBlockWeakObject(obj) wobj = obj;`
 #define BlockSafeObject(o) __typeof__(o) __weak
-	/// For when you need a weak reference to self, example: `BBlockWeakSelf wself = self;`
+
+
+/// For when you need a weak reference to self, example: `BBlockWeakSelf wself = self;`
 #define AZBlockSelf(_x_)  __block __typeof__(self) _x_ = self 
 
 #define declareBlockSafe(__obj__) __weak typeof(__obj__) __obj__ = __obj__
-	//__tmpblk
+//__tmpblk
 #define blockSafe(__obj__) __obj__
-	//__tmpblk##
+//__tmpblk##
 #define blk(__obj__) blockSafe(__obj__)
 
 #define declareBlockSafeAs(__obj__, __name__) \

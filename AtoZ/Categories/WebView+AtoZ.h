@@ -19,3 +19,4 @@
 -(void)appendTagToBody:(NSS*)tagName InnerHTML:(NSS*)innerHTML;
 
 @end
+

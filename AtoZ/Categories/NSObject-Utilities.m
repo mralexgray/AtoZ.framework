@@ -193,7 +193,7 @@
 	[self getArgument:&object atIndex:anInt];
 	if (object == nil)
 		return @"nil";
-	else if(![object isProxy] && [object isKindOfClass:[NSString class]])
+	else if(![object isProxy] && [object isKindOfClass:NSString.class])
 		return [NSString stringWithFormat:@"@\"%@\"", [object description]];
 	else
 		return [object description];

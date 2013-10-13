@@ -39,7 +39,7 @@ calulatedBundleID = _calulatedBundleID;
 
 - (id)initWithObject:(id)object {
     self = [self init];
-    [object isKindOfClass:[NSString class]] ? ^{ self.path  = object; } () :
+    [object isKindOfClass:NSString.class] ? ^{ self.path  = object; } () :
     [object isKindOfClass:[NSImage class]] ? ^{ _image             = object; } () :
     [object isKindOfClass:[NSColor class]] ? ^{ _color             = object; } () : nil;
     return self;
@@ -348,7 +348,7 @@ calulatedBundleID = _calulatedBundleID;
 
 - (id)initWithArray:(NSArray *)array {
     self = self ? self : [super init ];
-    self.backingstore =  [array[0] isKindOfClass:[NSString class]]
+    self.backingstore =  [array[0] isKindOfClass:NSString.class]
         ? [array map:^id (id obj) {    return [AZFile instanceWithPath:obj];  }].mutableCopy
         : array.mutableCopy;
     return self;

@@ -269,7 +269,7 @@
   return [value isKindOfClass:type] ? value : defaultValue;
 }
 - (NSS*)stringForKey:(id)key default:(NSS*)defaultValue	{
-  return [self objectForKey:key ofType:[NSString class] default:defaultValue];
+  return [self objectForKey:key ofType:NSString.class default:defaultValue];
 }
 - (NSS*)stringForKey:(id)key;	{
   return [self stringForKey:key default:@""];
@@ -674,7 +674,7 @@ static void DynamicDictionarySetter(id self, SEL _cmd, id value)	{
 }
 - (NSS*)stringForKey:(NSS*)key defaultValue:(NSS*)defaultValue;	{
 	id object = self[key];
-	if (![object isKindOfClass:[NSString class]])
+	if (![object isKindOfClass:NSString.class])
 		return defaultValue;
 	return object;
 }
@@ -684,13 +684,13 @@ static void DynamicDictionarySetter(id self, SEL _cmd, id value)	{
 - (NSA*)stringArrayForKey:(NSS*)key defaultValue:(NSA*)defaultValue;	{
 #ifdef OMNI_ASSERTIONS_ON
 	for (id value in defaultValue)
-		OBPRECONDITION([value isKindOfClass:[NSString class]]);
+		OBPRECONDITION([value isKindOfClass:NSString.class]);
 #endif
 	NSArray *array = self[key];
 	if (![array isKindOfClass:[NSArray class]])
 		return defaultValue;
 	for (id value in array) {
-		if (![value isKindOfClass:[NSString class]])
+		if (![value isKindOfClass:NSString.class])
 			return defaultValue;
 	}
 	return array;
@@ -718,7 +718,7 @@ static void DynamicDictionarySetter(id self, SEL _cmd, id value)	{
 }
 - (CGPoint)pointForKey:(NSS*)key defaultValue:(CGPoint)defaultValue;	{
 	id value = self[key];
-	if ([value isKindOfClass:[NSString class]] && ![(NSS*)value isEqualToString:@""])
+	if ([value isKindOfClass:NSString.class] && ![(NSS*)value isEqualToString:@""])
 		return NSPointFromString(value);
 	else if ([value isKindOfClass:[NSValue class]])
 		return [value CGPointValue];
@@ -730,7 +730,7 @@ static void DynamicDictionarySetter(id self, SEL _cmd, id value)	{
 }
 - (CGSize)sizeForKey:(NSS*)key defaultValue:(CGSize)defaultValue;	{
 	id value = self[key];
-	if ([value isKindOfClass:[NSString class]] && ![(NSS*)value isEqualToString:@""])
+	if ([value isKindOfClass:NSString.class] && ![(NSS*)value isEqualToString:@""])
 		return NSSizeFromString(value);
 	else if ([value isKindOfClass:[NSValue class]])
 		return [value CGSizeValue];
@@ -742,7 +742,7 @@ static void DynamicDictionarySetter(id self, SEL _cmd, id value)	{
 }
 - (CGRect)rectForKey:(NSS*)key defaultValue:(CGRect)defaultValue;	{
 	id value = self[key];
-	if ([value isKindOfClass:[NSString class]] && ![(NSS*)value isEqualToString:@""])
+	if ([value isKindOfClass:NSString.class] && ![(NSS*)value isEqualToString:@""])
 		return NSRectFromString(value);
 	else if ([value isKindOfClass:[NSValue class]])
 		return [value CGRectValue];
@@ -754,7 +754,7 @@ static void DynamicDictionarySetter(id self, SEL _cmd, id value)	{
 }
 - (BOOL)boolForKey:(NSS*)key defaultValue:(BOOL)defaultValue;	{
 	id value = self[key];
-	if ([value isKindOfClass:[NSString class]] || [value isKindOfClass:[NSNumber class]])
+	if ([value isKindOfClass:NSString.class] || [value isKindOfClass:[NSNumber class]])
 		return [value boolValue];
 	return defaultValue;
 }
@@ -983,7 +983,7 @@ static void DynamicDictionarySetter(id self, SEL _cmd, id value)	{
 
 NSString *DescriptionForObject(NSObject *object, id locale, NSUInteger indent)	{
 	NSString *objectString;
-	if ([object isKindOfClass:[NSString class]])
+	if ([object isKindOfClass:NSString.class])
 	{
 		objectString = (NSS*)object;//[[object retain] autorelease];
 	}
@@ -1274,7 +1274,7 @@ NSString *jsonNullString = @"null";
 }
 - (BOOL)scanJSONArray:(NSArray **)array	{
 	BOOL result = NO;
-	NSMutableArray *values = [[[NSMutableArray alloc] init] autorelease];
+	NSMutableArray *values = [NSMutableArray.new autorelease];
 	[self scanJSONArrayStartString];
 	id value = nil;
 	

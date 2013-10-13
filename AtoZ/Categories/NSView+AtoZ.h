@@ -5,9 +5,6 @@
 #import <objc/objc.h>
 #import <QuartzCore/QuartzCore.h>
 #import "AtoZUmbrella.h"
-#import "AtoZ.h"
-#import "CALayer+AtoZ.h"
-#import "AtoZGeometry.h"
 
 
 @interface NSView (MoveAndResize)
@@ -65,6 +62,7 @@ typedef void (^viewFrameDidChangeBlock)(void);
 
 #define NSViewDidMoveToWindowNotification @"NSViewDidMoveToWindowNotification"
 
+@class CALayerNoHit;
 @interface NSView (AtoZ)
 
 @property (nonatomic, strong) NSMA* needsDisplayForKeys;
@@ -321,6 +319,7 @@ typedef void (^NSAnimationContextRunAnimationBlock)( dispatch_block_t group, dis
 				   maxWidth:(float)width;
 @end
 
+#import <Rebel/RBLPopover.h>
 
 @interface RBLPopover (AtoZ)
 

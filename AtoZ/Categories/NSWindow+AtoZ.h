@@ -113,8 +113,8 @@ JREnumDeclare(NSWindowResize, NSWindowResizeTopLeftCorner = 1, NSWindowResizeTop
 + (NSA*) visibleWindows:(BOOL)ordered;
 
 //+ (NSA*)visibleWindows:(BOOL)ordered delegateClass:(Class)delegateClass;
-//- (NSWindow*)topWindowWithDelegateClass:(Class)class;
-//+ (BOOL)isAnyWindowVisibleWithDelegateClass:(Class)class;
+//- (NSWindow*)topWindowWithDelegateClass:(Class)klass;
+//+ (BOOL)isAnyWindowVisibleWithDelegateClass:(Class)klass;
 
 + (BOOL) isAnyWindowVisible;
 + (NSA*) miniaturizedWindows;

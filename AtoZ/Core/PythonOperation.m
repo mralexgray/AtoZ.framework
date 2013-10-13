@@ -45,6 +45,8 @@
 
 
 */
+#import <Python/Python.h>
+
 #import "PythonOperation.h"
 #import "AtoZ.h"
 

@@ -50,8 +50,8 @@
 {
 	self = [super init];
 	if (self != nil) {
-		keys = [[NSMutableArray alloc] init];
-		objects = [[NSMutableArray alloc] init];
+		keys = NSMutableArray.new;
+		objects = NSMutableArray.new;
 		pairs = [[NSMutableDictionary alloc] init];
 	}
 	return self;
@@ -90,7 +90,7 @@
 	return [self init];
 	if (self != nil) {
 		keys = [[NSMutableArray alloc] initWithArray:entrys.allKeys];
-		objects = [[NSMutableArray alloc] init];
+		objects = NSMutableArray.new;
 		//Must loop through all keys, since order from NSDictionary is not defined.
 		for (id key in keys) {
 			[objects addObject:[entrys objectForKey:key]];
@@ -227,7 +227,7 @@
 
 - (NSEnumerator *)entryEnumerator
 {
-	NSMutableArray *temp = [[NSMutableArray alloc] init];
+	NSMutableArray *temp = NSMutableArray.new;
 	for (int i = 0; i < keys.count; i++) {
 		[temp addObject:[self entryAtIndex:i]];
 	}
@@ -246,7 +246,7 @@
 
 - (NSEnumerator *)reverseEntryEnumerator
 {
-	NSMutableArray *temp = [[NSMutableArray alloc] init];
+	NSMutableArray *temp = NSMutableArray.new;
 	for (int i = keys.count - 1; i >= 0; i++) {
 		[temp addObject:[self entryAtIndex:i]];
 	}
@@ -504,7 +504,7 @@
 	NSArray *tempObj = [objects filteredArrayUsingPredicate:predicate];
 	int i = 0;
 	int j = 0;
-	NSMutableArray *tempKey = [[NSMutableArray alloc] init];
+	NSMutableArray *tempKey = NSMutableArray.new;
 	//Iterate though, since all objects are returned in order, you can just look along, object by object, untill they are equal, and grab the coresponding key.
 	while (i < tempObj.count && j < keys.count) {
 		if ([[tempObj objectAtIndex:i] isEqual:[objects objectAtIndex:j]]) {
@@ -526,7 +526,7 @@
 //Internal functions
 - (NSArray *)keysForSortedObjects:(NSArray *)tempObj
 {
-	NSMutableArray *tempKey = [[NSMutableArray alloc] init];
+	NSMutableArray *tempKey = NSMutableArray.new;
 	NSMutableArray *testObj = [[NSMutableArray alloc] initWithArray:objects];
 	NSMutableArray *testKey = [[NSMutableArray alloc] initWithArray:keys];
 	//Loop through and find first identical object, and  add that key to the array. then delete that pair from the testers so they are not used again. (That way if there is an identical object with a diffrent key, it will get used.)
@@ -541,7 +541,7 @@
 
 - (NSArray *)objectsForSortedKeys:(NSArray *)tempKey
 {
-	NSMutableArray *tempObj = [[NSMutableArray alloc] init];
+	NSMutableArray *tempObj = NSMutableArray.new;
 	for (id key in tempKey) {
 		[tempObj addObject:[pairs objectForKey:key]];
 	}
@@ -1185,7 +1185,7 @@
 //Internal functions
 - (NSArray *)keysForSortedObjects:(NSArray *)tempObj
 {
-	NSMutableArray *tempKey = [[NSMutableArray alloc] init];
+	NSMutableArray *tempKey = NSMutableArray.new;
 	NSMutableArray *testObj = [[NSMutableArray alloc] initWithArray:objects];
 	NSMutableArray *testKey = [[NSMutableArray alloc] initWithArray:keys];
 	//Loop through and find first identical object, and  add that key to the array. then delete that pair from the testers so they are not used again. (That way if there is an identical object with a diffrent key, it will get used.)
@@ -1200,7 +1200,7 @@
 
 - (NSArray *)objectsForSortedKeys:(NSArray *)tempKey
 {
-	NSMutableArray *tempObj = [[NSMutableArray alloc] init];
+	NSMutableArray *tempObj = NSMutableArray.new;
 	for (id key in tempKey) {
 		[tempObj addObject:[pairs objectForKey:key]];
 	}

@@ -1,6 +1,6 @@
 
 #import "AtoZ.h"
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 #import "GDataXMLNode.h"
 
 @interface AZLogUnit : NSObject

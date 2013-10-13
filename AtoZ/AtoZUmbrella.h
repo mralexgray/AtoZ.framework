@@ -410,6 +410,8 @@ typedef struct {	CAConstraintAttribute constraint;	CGFloat scale;	CGFloat offset
 #define PINFO	NSProcessInfo.processInfo
 #define AZF AZFile
 
+#define DISABLE_SUDDEN_TERMINATION(_SELFBLK_) [NSProcessInfo.processInfo disableSuddenTermination]; \
+_SELFBLK_(self); [NSProcessInfo.processInfo enableSuddenTermination];
 
 #pragma mark - STRINGS
 

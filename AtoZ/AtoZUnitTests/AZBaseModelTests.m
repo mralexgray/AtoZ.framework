@@ -1,6 +1,7 @@
 
 #import <XCTest/XCTest.h>
-#import <AtoZ/AtoZ.h>
+#import <AtoZ/BaseModel.h>
+#import <AtoZ/BaseModel+AtoZ.h>
 
 @interface TestModel : BaseModel
 @end

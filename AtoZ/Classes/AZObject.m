@@ -400,7 +400,7 @@ static BOOL loadingFromResourceFile = NO;
 		//return nil if object is nil
 	return object? AH_AUTORELEASE([[self alloc] initWithObject:object]): nil;
 }
-- (NSString *)setterNameForClass:(Class)class
+- (NSString *)setterNameForClass:(Class)klass
 {
 		//get class name
 	NSString *className = NSStringFromClass(class);

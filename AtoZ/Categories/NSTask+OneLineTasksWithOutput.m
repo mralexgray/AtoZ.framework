@@ -498,7 +498,7 @@
 	if( inputDataOrString != nil )
 	{
 		// Convert string to UTF8 data
-		if( [inputDataOrString isKindOfClass:[NSString class]] )
+		if( [inputDataOrString isKindOfClass:NSString.class] )
 		{
 			inputDataOrString = [inputDataOrString dataUsingEncoding:NSUTF8StringEncoding];
 		}
