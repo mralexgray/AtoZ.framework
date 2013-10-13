@@ -64,7 +64,7 @@
 //-(void) cleanServicesFile {
 //    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithContentsOfFile:self.servicesFilePath];
 //    NSFileManager *fm = [[NSFileManager alloc] init];
-//    NSMutableArray *servicesToRemove = [[NSMutableArray alloc] init];
+//    NSMutableArray *servicesToRemove = NSMutableArray.new;
 //    for (NSString *key in dict) {
 //        NSDictionary *data = [dict objectForKey:key];
 //        if (![fm fileExistsAtPath:[data objectForKey:@"plist"]]) {

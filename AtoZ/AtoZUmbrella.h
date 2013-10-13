@@ -3,6 +3,50 @@
 //#import "BaseModel+AtoZ.h"
 
 
+//  INSTEAD OF NASTY ASSOCIATED OBJECTS.....
+
+#define DO_IF_SELF(X) 	if (self.X && self.delegate == self) self.X(self)
+#define DO_IF_1ARG(X,Z) if (self.X && self.delegate == self) self.X(self,Z)
+
+#define RET_ASSOC 					return objc_getAssociatedObject(self ,_cmd)
+#define SET_ASSOC_DELEGATE(X)  	objc_setAssociatedObject(self, NSSelectorFromString([NSString stringWithUTF8String:#X]),\
+																		X,OBJC_ASSOCIATION_COPY_NONATOMIC); self.delegate = self
+#define SET_ASSOC(X)  	objc_setAssociatedObject(self, NSSelectorFromString([NSString stringWithUTF8String:#X]),\
+																		X,OBJC_ASSOCIATION_COPY_NONATOMIC);
+
+
+// INSTEAD OF NASTY BLOCK SETTERS AND GETTERS FOR DYNAMIC DELEGATES...
+
+#define SYNTHESIZE_DELEGATE(BLOCK_NAME,SETTER_NAME,SIG,METHOD,BLOCK) \
+- SIG BLOCK_NAME { RET_ASSOC; }\
+- (void) SETTER_NAME:SIG BLOCK_NAME { SET_ASSOC_DELEGATE(BLOCK_NAME); }\
+- METHOD { BLOCK; }
+
+/*
+
+- (void(^)(WebSocket*ws)) didOpenBlock 												{ RET_ASSOC; }
+- (void) 				  setDidOpenBlock: (void (^)(WebSocket*ws ))openBlk 	{ SET_ASSOC(openBlk); }
+
+ INCLUDES THE DELEGATE METHOD
+
+- (void) webSocketDidOpen:	(WebSocket*)ws { DO_IF_SELF(didOpenBlock);  }
+
+or vary the mathod signature...
+
+- (void) webSocket:(WebSocket*)ws didReceiveMessage:(NSString *)msg 	{ 
+	
+	DO_IF_1ARG(didReceiveMessageBlock,msg);	 <----
+}
+
+
+SYNTHESIZE_DELEGATE(	didOpenBlock, setDidOpenBlock,
+							(void(^)(WebSocket*ws)),
+							(void)webSocketDidOpen:(WebSocket*)ws,
+							DO_IF_SELF(didOpenBlock))
+*/
+
+
+
 /** Handy macros and magic
 
 
@@ -460,6 +504,8 @@ _SELFBLK_(self); [NSProcessInfo.processInfo enableSuddenTermination];
 #define  	AZFWORKBUNDLE	[NSBundle bundleForClass:AtoZ.class]
 #define  	AZFWRESOURCES 	[AZFWORKBUNDLE resourcePath]
 #define    	  AZAPPBUNDLE 	NSBundle.mainBundle
+#define 			 AZAPPINFO  [AZAPPBUNDLE infoDictionary]
+#define 			 AZAPP_ID   [AZAPPBUNDLE objectForInfoDictionaryKey:@"CFBundleIdentifier"]
 #define 	  AZAPPRESOURCES 	[NSBundle.mainBundle resourcePath]
 
 #define 	  CAMEDIAEASEOUT 	[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]
@@ -471,9 +517,14 @@ _SELFBLK_(self); [NSProcessInfo.processInfo enableSuddenTermination];
 
 
 #define AZ_DEFS_DOMAIN	 			@"AtoZ"
+
 #define  	 AZ_DEFAULTS 			[AZUSERDEFS persistentDomainForName:AZ_DEFS_DOMAIN]
-#define 		 AZ_DEFAULT(A)    	AZ_DEFAULTS[A]
-#define  AZ_SET_DEFAULT(A,B) 		[AZUSERDEFS setPersistentDomain:[AZ_DEFAULTS dictionaryWithValue:B forKey:A]  forName:AZ_DEFS_DOMAIN]
+// 			 AZ_DEFAULTS is the same as $(defaults read AtoZ)
+
+#define 		 AZ_DEFAULT(KEY)    	AZ_DEFAULTS[KEY]
+// [NSUserDefaults.standardUserDefaults persistentDomainForName:@"AtoZ"][@"pooop"] = Bejememe
+
+#define  AZ_SET_DEFAULT(KEY,VAL) 		[AZUSERDEFS setPersistentDomain:[AZ_DEFAULTS dictionaryWithValue:VAL forKey:KEY]  forName:AZ_DEFS_DOMAIN]
 
 
 #define  	AZUSERDEFSCTR 	NSUserDefaultsController.sharedUserDefaultsController

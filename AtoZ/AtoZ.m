@@ -91,30 +91,8 @@ NSOQ *AZSharedSingleOperationQueue()	{	return AZDummy.sharedInstance.sharedSQ; }
 @property (nonatomic, assign) BOOL fontsRegistered;
 @end
 
-#import "TBSocketConnection.h"
-#import "TBWebSocket.h"
-//#import "HTTPDataResponse.h"
 
 
-
-
-
-@implementation TBSocketConnection
-
-- (WebSocket*)webSocketForURI:(NSString*)path {
-
-	return [path isEqualToString:@"/livereload"] ? (self.socket = [TBWebSocket.alloc initWithRequest:request socket:asyncSocket])
-																: [super webSocketForURI:path];
-}
-
-- (NSObject <HTTPResponse>*)httpResponseForMethod:(NSS*)method URI:(NSS*)path {
-	
-	return [path hasPrefix:@"/livereload.js"]
-		?	 [HTTPDataResponse.alloc initWithData:[AZAPPBUNDLE.infoDictionary[@"TBLiveReloadJS"] dataUsingEncoding:NSUTF8StringEncoding]]
-		:	 [super httpResponseForMethod:method URI:path];
-}
-
-@end
 
 //@synthesize sManager; - (id)init {	self = [super init];	if (self) {	static NSA* cachedI = nil;
 //	AZLOG($(	@"AZImage! Name: %@.. SEL:%@", name, NSStringFromSelector(_cmd)));	NSIMG *i;  // =  [NSIMG  new];//imageNamed:name];
@@ -125,20 +103,19 @@ NSOQ *AZSharedSingleOperationQueue()	{	return AZDummy.sharedInstance.sharedSQ; }
 
 // hello!
 
-
 NSString *const MASPreferenceKeyShortcut					 	= @"MASDemoShortcut",
-*const MASPreferenceKeyShortcutEnabled 			= @"MASDemoShortcutEnabled",
-*const MASPreferenceKeyConstantShortcutEnabled 	= @"MASDemoConstantShortcutEnabled";
+			*const MASPreferenceKeyShortcutEnabled 			= @"MASDemoShortcutEnabled",
+			*const MASPreferenceKeyConstantShortcutEnabled 	= @"MASDemoConstantShortcutEnabled";
 
 
-@implementation AtoZ
+@implementation AtoZ	{	__weak id _constantShortcutMonitor;	}	@synthesize delegates = _delegates;
+
 
 - (NSMA*) delegates { return _delegates = _delegates ?: [NSMA mutableArrayUsingWeakReferences]; }
++ (NSMA*) delegates { return [sharedI delegates]; }
 
-+ (AZDELEGATE*)setDelegate:(AZDELEGATE*)d{
-	if (!self.delegate)  [sharedI setAtozDelegate:d];
-	[self.delegates addObjectIf:d];
-	return self.delegate;
++ (AZDELEGATE*)setDelegate:(AZDELEGATE*)d {
+	if (!self.delegate)  [sharedI setAtozDelegate:d]; [self.delegates addObjectIf:d]; return self.delegate;
 }
 + (NSObject<AtoZDelegate>*)delegate { return  [self.sharedInstance atozDelegate]; }
 + (BOOL) isAtoZRunning {
@@ -276,7 +253,7 @@ NSString *const MASPreferenceKeyShortcut					 	= @"MASDemoShortcut",
 
 	XCenv = getenv("__XCODE_BUILT_PRODUCTS_DIR_PATHS");
 	if (XCenv != NULL) setenv("XCODE_COLORS", "YES", &res);
-	[$(@"AtoZ.framework (%@) loaded by %@", AtoZ.sharedInstance,AZAPPBUNDLE.infoDictionary[@"CFBundleDisplayName"] ?: @"some app!!") log];
+	[$(@"AtoZ.framework %@. has objc_arc_weak:%@ objc_arc:%@", AZAPP_ID, StringFromBOOL(__has_feature(objc_arc_weak)), StringFromBOOL( __has_feature(objc_arc))) log];
 
 }
 //globalRandoPalette = NSC.randomPalette.shuffeled; }

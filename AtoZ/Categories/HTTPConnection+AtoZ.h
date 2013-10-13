@@ -8,6 +8,19 @@
 
 #import <AtoZ/AtoZ.h>
 
-@interface HTTPConnection_AtoZ : HTTPConnection
+
+
+@interface HTTPConnection (SocketBlock)
+
+@property (nonatomic,readonly,unsafe_unretained) HTTPServer *server;
+
+@property WebSocket*(^webSocketForURI)(NSString*path);
+- (void) setWebSocketForURI:(WebSocket *(^)(NSString *))webSocketForURI;
+- (WebSocket*(^)(NSString*)) webSocketForURI;
+
+
+@property NSObject<HTTPResponse>*(^httpResponseForMethod)(NSS*method, NSS*path);
+- (void) setHttpResponseForMethod:(NSObject<HTTPResponse> *(^)(NSString *, NSString *))httpResponseForMethod;
+- (NSObject<HTTPResponse>*(^)(NSS*method, NSS*path))httpResponseForMethod;
 
 @end

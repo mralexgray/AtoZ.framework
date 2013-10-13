@@ -7,10 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7B56B1EB17F9DC6300C7CDD2 /* AssetsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B56B1E917F9DC6300C7CDD2 /* AssetsViewController.xib */; };
 		7B7C613017F398D300093381 /* MicroFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BE13C0017E7ED580087ACB9 /* MicroFramework.framework */; };
 		7B7C613117F398DA00093381 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BDDD7A817D0ECEB00B0BC56 /* MainMenu.xib */; };
 		7B7C613317F398F400093381 /* MicroFramework.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7BE13C0017E7ED580087ACB9 /* MicroFramework.framework */; };
-		7BDDD79D17D0ECEB00B0BC56 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BDDD79C17D0ECEB00B0BC56 /* main.m */; };
+		7BBCF20417F9E136005DACD5 /* HTMLServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BDDD7A317D0ECEB00B0BC56 /* HTMLServer.m */; };
 		7BDDD7AC17D0ECEB00B0BC56 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7BDDD7AB17D0ECEB00B0BC56 /* Images.xcassets */; };
 		7BDDD7BC17D0ECEB00B0BC56 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7BDDD7BA17D0ECEB00B0BC56 /* InfoPlist.strings */; };
 		7BDDD7BE17D0ECEB00B0BC56 /* HTMLServerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BDDD7BD17D0ECEB00B0BC56 /* HTMLServerTests.m */; };
@@ -19,8 +20,6 @@
 		7BE13C2217E7ED580087ACB9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7BE13C2017E7ED580087ACB9 /* InfoPlist.strings */; };
 		7BE13C2417E7ED580087ACB9 /* MicroFrameworkTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BE13C2317E7ED580087ACB9 /* MicroFrameworkTests.m */; };
 		7BE13C6B17E7F38F0087ACB9 /* MicroFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BE13C0F17E7ED580087ACB9 /* MicroFramework.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7BE13C6C17E7F38F0087ACB9 /* HTMLServer.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BDDD7A217D0ECEB00B0BC56 /* HTMLServer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7BE13C6D17E7F39D0087ACB9 /* HTMLServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BDDD7A317D0ECEB00B0BC56 /* HTMLServer.m */; };
 		7BE13C6F17E7F5940087ACB9 /* HTMLServer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BDDD7A517D0ECEB00B0BC56 /* HTMLServer.xib */; };
 /* End PBXBuildFile section */
 
@@ -195,9 +194,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		7B56B1E717F9DC6300C7CDD2 /* AssetsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssetsViewController.h; sourceTree = "<group>"; };
+		7B56B1E817F9DC6300C7CDD2 /* AssetsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssetsViewController.m; sourceTree = "<group>"; };
+		7B56B1E917F9DC6300C7CDD2 /* AssetsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AssetsViewController.xib; sourceTree = "<group>"; };
 		7BDDD78D17D0ECEB00B0BC56 /* HTMLServer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HTMLServer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BDDD79817D0ECEB00B0BC56 /* HTMLServer-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HTMLServer-Info.plist"; sourceTree = "<group>"; };
-		7BDDD79C17D0ECEB00B0BC56 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7BDDD79E17D0ECEB00B0BC56 /* HTMLServer-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HTMLServer-Prefix.pch"; sourceTree = "<group>"; };
 		7BDDD7A217D0ECEB00B0BC56 /* HTMLServer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HTMLServer.h; path = HTMLServer/HTMLServer.h; sourceTree = "<group>"; };
 		7BDDD7A317D0ECEB00B0BC56 /* HTMLServer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = HTMLServer.m; path = HTMLServer/HTMLServer.m; sourceTree = "<group>"; };
@@ -256,6 +257,9 @@
 				7BE13C1017E7ED580087ACB9 /* MicroFramework.m */,
 				7BDDD7A217D0ECEB00B0BC56 /* HTMLServer.h */,
 				7BDDD7A317D0ECEB00B0BC56 /* HTMLServer.m */,
+				7B56B1E717F9DC6300C7CDD2 /* AssetsViewController.h */,
+				7B56B1E817F9DC6300C7CDD2 /* AssetsViewController.m */,
+				7B56B1E917F9DC6300C7CDD2 /* AssetsViewController.xib */,
 				7BDDD7A517D0ECEB00B0BC56 /* HTMLServer.xib */,
 				7BE13C4117E7F31E0087ACB9 /* CouchbaseLite.xcodeproj */,
 				7BE13BE617E7EC2E0087ACB9 /* GRMustache.xcodeproj */,
@@ -285,7 +289,6 @@
 				7BDDD78E17D0ECEB00B0BC56 /* Products */,
 				7BDDD7B717D0ECEB00B0BC56 /* HTMLServerTests */,
 				7BDDD79817D0ECEB00B0BC56 /* HTMLServer-Info.plist */,
-				7BDDD79C17D0ECEB00B0BC56 /* main.m */,
 				7BDDD79E17D0ECEB00B0BC56 /* HTMLServer-Prefix.pch */,
 			);
 			name = "Supporting Files";
@@ -379,7 +382,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7BE13C6B17E7F38F0087ACB9 /* MicroFramework.h in Headers */,
-				7BE13C6C17E7F38F0087ACB9 /* HTMLServer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -637,6 +639,7 @@
 			files = (
 				7B7C613117F398DA00093381 /* MainMenu.xib in Resources */,
 				7BDDD7AC17D0ECEB00B0BC56 /* Images.xcassets in Resources */,
+				7B56B1EB17F9DC6300C7CDD2 /* AssetsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -671,7 +674,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7BDDD79D17D0ECEB00B0BC56 /* main.m in Sources */,
+				7BBCF20417F9E136005DACD5 /* HTMLServer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -687,7 +690,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7BE13C6D17E7F39D0087ACB9 /* HTMLServer.m in Sources */,
 				7BE13C1117E7ED580087ACB9 /* MicroFramework.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -854,6 +856,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = /Library/Frameworks;
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HTMLServer/HTMLServer-Prefix.pch";
 				INFOPLIST_FILE = "HTMLServer/HTMLServer-Info.plist";
@@ -862,6 +865,8 @@
 					AtoZ,
 					"-framework",
 					WebKit,
+					"-framework",
+					Cocoa,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -874,6 +879,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = /Library/Frameworks;
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HTMLServer/HTMLServer-Prefix.pch";
 				INFOPLIST_FILE = "HTMLServer/HTMLServer-Info.plist";
@@ -882,6 +888,8 @@
 					AtoZ,
 					"-framework",
 					WebKit,
+					"-framework",
+					Cocoa,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;

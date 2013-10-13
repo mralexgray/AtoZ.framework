@@ -2,16 +2,16 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:xcb/xcb.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:AtoZCodeFactory/AtoZCodeFactory.xcodeproj">
-   </FileRef>
-   <FileRef
       location = "container:AtoZ/AtoZ.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:HTMLServer/HTMLServer.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:xcb/xcb.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:AtoZCodeFactory/AtoZCodeFactory.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Frameworks/TwUI/ExampleProject/Example.xcodeproj">

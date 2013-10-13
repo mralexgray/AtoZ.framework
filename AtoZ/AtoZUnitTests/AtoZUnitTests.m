@@ -49,18 +49,18 @@
 	[super setUp];
 	id a,b,c,d;
 	a = [AtoZ sharedInstance];
-	b = [AtoZ instanceWithObject:self];
-	c = [AtoZ instance];
-	d = (AtoZ*)a;
-	NSLog(@"%d=%d=%d", a=[AtoZ sharedInstance], 	[AtoZ sharedInstance], [AtoZ instanceWithObject:self]  );
-	NSLog(@"%d=%d=%d", b=[NSAlpha sharedInstance],	 [NSAlpha instance],	 [NSAlpha instance]);
-	NSLog(@"%d=%d=%d", c=[NSBravo instance],	 [NSBravo sharedInstance],	 [NSBravo sharedInstance]);
-	NSLog(@"%d=%d=%d", d=[NSCharlie instance],   [NSCharlie instanceWithObject:@"wghay6e"],   [NSCharlie sharedInstance]);
+	b = NSAlpha.new;// instanceWithObject:a];
+	c = [NSBravo instance];
+	d = (NSCharlie*)a;
+//	NSLog(@"%d=%d=%d", a = [AtoZ sharedInstance], 	AtoZ.sharedInstance, AtoZ.instance );
+//	NSLog(@"%d=%d=%d", b = [NSAlpha sharedInstance],	 [NSAlpha instance],	 [NSAlpha instance]);
+//	NSLog(@"%d=%d=%d", c=[NSBravo instance],	 [NSBravo sharedInstance],	 [NSBravo sharedInstance]);
+//	NSLog(@"%d=%d=%d", d=[NSCharlie instance],   [NSCharlie instanceWithObject:@"wghay6e"],   [NSCharlie sharedInstance]);
 	NSLog(@"%d != %d != %d != %d", a, b, c, d);
 	// Set-up code here.
 }
-- (void)tearDown		{	[super tearDown]; 	}
-- (void)testExample	{		XCTFail(@"Unit tests are not implemented yet in AtoZTests");	}
+//- (void)tearDown		{	[super tearDown]; 	}
+//- (void)testExample	{		XCTFail(@"Unit tests are not implemented yet in AtoZTests");	}
 @end
 
 @implementation NSAlpha

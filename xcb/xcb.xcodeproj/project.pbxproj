@@ -17,93 +17,6 @@
 		7BE72A941742211A006709D6 /* Project.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BE72A931742211A006709D6 /* Project.m */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		7BFF500617F1D4D600CACF83 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7BFBF5E4175E1B2B007A84AC /* AtoZ.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 7B311951159B6D9E002134C4;
-			remoteInfo = AtoZ;
-		};
-		7BFF500817F1D4D600CACF83 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7BFBF5E4175E1B2B007A84AC /* AtoZ.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 7B4A908916F3A6F0003CD058;
-			remoteInfo = AtoZHelper;
-		};
-		7BFF500A17F1D4D600CACF83 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7BFBF5E4175E1B2B007A84AC /* AtoZ.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 7B0DA21917434FCA00535483;
-			remoteInfo = AtoZPrefs;
-		};
-		7BFF500C17F1D4D600CACF83 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7BFBF5E4175E1B2B007A84AC /* AtoZ.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 7BDF568C1627695300041A42;
-			remoteInfo = "AtoZTestBed∞";
-		};
-		7BFF500E17F1D4D600CACF83 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7BFBF5E4175E1B2B007A84AC /* AtoZ.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 7BF72D50171F8F2E0037CF41;
-			remoteInfo = AtoZUnitTests;
-		};
-		7BFF501017F1D4D600CACF83 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7BFBF5E4175E1B2B007A84AC /* AtoZ.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 7B184EE515FCA98600696360;
-			remoteInfo = AtoZCLI;
-		};
-		7BFF501217F1D4D600CACF83 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7BFBF5E4175E1B2B007A84AC /* AtoZ.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 7B02A2C5172A852E00973A80;
-			remoteInfo = AZPrompt;
-		};
-		7BFF501417F1D4D600CACF83 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7BFBF5E4175E1B2B007A84AC /* AtoZ.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 7B31B12615E9441D00802CD5;
-			remoteInfo = "AtoZ Entitlement";
-		};
-		7BFF501617F1D4D600CACF83 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7BFBF5E4175E1B2B007A84AC /* AtoZ.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 7B39615915F04FD70065813F;
-			remoteInfo = AtoZTouch;
-		};
-		7BFF501817F1D4D600CACF83 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7BFBF5E4175E1B2B007A84AC /* AtoZ.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 7B0DA29F174352CC00535483;
-			remoteInfo = StaticLibTester;
-		};
-		7BFF501A17F1D4D600CACF83 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7BFBF5E4175E1B2B007A84AC /* AtoZ.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 7B3FB11217689D0300233199;
-			remoteInfo = "AtoZ XCTests";
-		};
-		7BFF501C17F1D4D600CACF83 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7BFBF5E4175E1B2B007A84AC /* AtoZ.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 7B5A71FD178C0A1F00AF9807;
-			remoteInfo = AtoZDocumentation;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		7B0E2121174FEDD800DF3D20 /* NotifyingOperationQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotifyingOperationQueue.h; sourceTree = "<group>"; };
 		7B0E2122174FEDD800DF3D20 /* NotifyingOperationQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotifyingOperationQueue.m; sourceTree = "<group>"; };
@@ -119,7 +32,6 @@
 		7BE72A90174207A5006709D6 /* xcb.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = xcb.icns; sourceTree = SOURCE_ROOT; };
 		7BE72A921742211A006709D6 /* Project.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Project.h; sourceTree = "<group>"; };
 		7BE72A931742211A006709D6 /* Project.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Project.m; sourceTree = "<group>"; };
-		7BFBF5E4175E1B2B007A84AC /* AtoZ.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AtoZ.xcodeproj; path = ../AtoZ/AtoZ.xcodeproj; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -154,7 +66,6 @@
 		7B9733D3173F5B2900902502 = {
 			isa = PBXGroup;
 			children = (
-				7BFBF5E4175E1B2B007A84AC /* AtoZ.xcodeproj */,
 				7B673C5F173FBB580029B26F /* xcb */,
 				7B9733DD173F5B2900902502 /* Products */,
 			);
@@ -164,25 +75,6 @@
 			isa = PBXGroup;
 			children = (
 				7B673C58173FBB580029B26F /* xcb.app */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		7BFF4FF717F1D4D600CACF83 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				7BFF500717F1D4D600CACF83 /* AtoZ.framework */,
-				7BFF500917F1D4D600CACF83 /* AtoZHelper.app */,
-				7BFF500B17F1D4D600CACF83 /* AtoZPrefs.prefPane */,
-				7BFF500D17F1D4D600CACF83 /* AtoZTestBed∞.app */,
-				7BFF500F17F1D4D600CACF83 /* AtoZUnitTests.octest */,
-				7BFF501117F1D4D600CACF83 /* AtoZCLI */,
-				7BFF501317F1D4D600CACF83 /* AZPrompt */,
-				7BFF501517F1D4D600CACF83 /* AtoZ Entitlement.app */,
-				7BFF501717F1D4D600CACF83 /* libAtoZTouch.a */,
-				7BFF501917F1D4D600CACF83 /* StaticLibTester */,
-				7BFF501B17F1D4D600CACF83 /* AtoZ XCTests.xctest */,
-				7BFF501D17F1D4D600CACF83 /* AtoZDocumentation */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -225,105 +117,12 @@
 			mainGroup = 7B9733D3173F5B2900902502;
 			productRefGroup = 7B9733DD173F5B2900902502 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 7BFF4FF717F1D4D600CACF83 /* Products */;
-					ProjectRef = 7BFBF5E4175E1B2B007A84AC /* AtoZ.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				7B673C57173FBB580029B26F /* xcb */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		7BFF500717F1D4D600CACF83 /* AtoZ.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = AtoZ.framework;
-			remoteRef = 7BFF500617F1D4D600CACF83 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7BFF500917F1D4D600CACF83 /* AtoZHelper.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = AtoZHelper.app;
-			remoteRef = 7BFF500817F1D4D600CACF83 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7BFF500B17F1D4D600CACF83 /* AtoZPrefs.prefPane */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = AtoZPrefs.prefPane;
-			remoteRef = 7BFF500A17F1D4D600CACF83 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7BFF500D17F1D4D600CACF83 /* AtoZTestBed∞.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = "AtoZTestBed∞.app";
-			remoteRef = 7BFF500C17F1D4D600CACF83 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7BFF500F17F1D4D600CACF83 /* AtoZUnitTests.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = AtoZUnitTests.octest;
-			remoteRef = 7BFF500E17F1D4D600CACF83 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7BFF501117F1D4D600CACF83 /* AtoZCLI */ = {
-			isa = PBXReferenceProxy;
-			fileType = "compiled.mach-o.executable";
-			path = AtoZCLI;
-			remoteRef = 7BFF501017F1D4D600CACF83 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7BFF501317F1D4D600CACF83 /* AZPrompt */ = {
-			isa = PBXReferenceProxy;
-			fileType = "compiled.mach-o.executable";
-			path = AZPrompt;
-			remoteRef = 7BFF501217F1D4D600CACF83 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7BFF501517F1D4D600CACF83 /* AtoZ Entitlement.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = "AtoZ Entitlement.app";
-			remoteRef = 7BFF501417F1D4D600CACF83 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7BFF501717F1D4D600CACF83 /* libAtoZTouch.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libAtoZTouch.a;
-			remoteRef = 7BFF501617F1D4D600CACF83 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7BFF501917F1D4D600CACF83 /* StaticLibTester */ = {
-			isa = PBXReferenceProxy;
-			fileType = "compiled.mach-o.executable";
-			path = StaticLibTester;
-			remoteRef = 7BFF501817F1D4D600CACF83 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7BFF501B17F1D4D600CACF83 /* AtoZ XCTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "AtoZ XCTests.xctest";
-			remoteRef = 7BFF501A17F1D4D600CACF83 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7BFF501D17F1D4D600CACF83 /* AtoZDocumentation */ = {
-			isa = PBXReferenceProxy;
-			fileType = folder;
-			path = AtoZDocumentation;
-			remoteRef = 7BFF501C17F1D4D600CACF83 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		7B673C56173FBB580029B26F /* Resources */ = {

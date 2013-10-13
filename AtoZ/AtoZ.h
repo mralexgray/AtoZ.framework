@@ -622,9 +622,6 @@ extern NSString *const AtoZDockSortedUpdated;
 
 @class AZLiveReload;
 @interface AtoZ : BaseModel <DDLogFormatter>
-{
-__weak id _constantShortcutMonitor;
-}
 
 @property AZLiveReload *reloader;
 
@@ -635,45 +632,22 @@ __weak id _constantShortcutMonitor;
  *	@result Returns YES if AtoZHelper is running, NO otherwise.
  */
 + (BOOL) isAtoZRunning;
+/*	@method setAtoZDelegate:
+	@abstract Set the object which will be responsible for providing and receiving Growl information.
+	@discussion 
+	This must be called before using AtoZApplicationBridge. The methods in the GrowlApplicationBridgeDelegate protocol are required and return the basic information needed to register with Growl. The methods in the GrowlApplicationBridgeDelegate_InformalProtocol informal protocol are individually optional.  They provide a greater degree of interaction between the application and growl such as informing the application when one of its Growl notifications is clicked by the user. The methods in the GrowlApplicationBridgeDelegate_Installation_InformalProtocol informal protocol are individually optional and are only applicable when using the Growl-WithInstaller.framework which allows for automated Growl installation.
+	When this method is called, data will be collected from inDelegate, Growl will be launched if it is not already running, and the application will be registered with Growl.
+	If using the Growl-WithInstaller framework, if Growl is already installed but this copy of the framework has an updated version of Growl, the user will be prompted to update automatically.
+	@param inDelegate The delegate for the GrowlApplicationBridge. It must conform to the GrowlApplicationBridgeDelegate protocol.	*/
 
-/*!
- *	@method setAtoZDelegate:
- *	@abstract Set the object which will be responsible for providing and receiving Growl information.
- *	@discussion This must be called before using AtoZApplicationBridge.
- *
- *	 The methods in the GrowlApplicationBridgeDelegate protocol are required
- *	 and return the basic information needed to register with Growl.
- *
- *	 The methods in the GrowlApplicationBridgeDelegate_InformalProtocol
- *	 informal protocol are individually optional.  They provide a greater
- *	 degree of interaction between the application and growl such as informing
- *	 the application when one of its Growl notifications is clicked by the user.
- *
- *	 The methods in the GrowlApplicationBridgeDelegate_Installation_InformalProtocol
- *	 informal protocol are individually optional and are only applicable when
- *	 using the Growl-WithInstaller.framework which allows for automated Growl
- *	 installation.
- *
- *	 When this method is called, data will be collected from inDelegate, Growl
- *	 will be launched if it is not already running, and the application will be
- *	 registered with Growl.
- *
- *	 If using the Growl-WithInstaller framework, if Growl is already installed
- *	 but this copy of the framework has an updated version of Growl, the user
- *	 will be prompted to update automatically.
- *
- *	@param inDelegate The delegate for the GrowlApplicationBridge. It must conform to the GrowlApplicationBridgeDelegate protocol.
- */
-/*!
- *	@method growlDelegate
- *	@abstract Return the object responsible for providing and receiving Growl information.
- *	@discussion See setGrowlDelegate: for details.
- *	@result The Growl delegate.
- */
- #define AZDELEGATE NSObject<AtoZDelegate>
+#define AZDELEGATE NSObject<AtoZDelegate>
+/*!@method growlDelegate
+	@abstract Return the object responsible for providing and receiving Growl information.
+	@discussion See setGrowlDelegate: for details.
+	@result The Growl delegate.	*/
 @property (weak) 	AZDELEGATE	* atozDelegate;
 + (AZDELEGATE*)delegate;
-@property (NATOM,STRNG) NSMA *delegates;
+@property (readonly) NSMA *delegates;
 + (NSMA*) delegates;
 
 @property (NATOM,STRNG) MASShortcutView	* azHotKeyView;

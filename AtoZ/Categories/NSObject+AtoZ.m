@@ -209,7 +209,9 @@ static id addMethodTrampoline(id self, SEL _cmd) 			{
 //@synthesizeAssGetSet(NSObject,uuid,AZGETTER,blockGetter)
 
 - (NSS*) uuid	 												{ return  [self associatedValueForKey:AZSELSTR orSetTo:NSS.newUniqueIdentifier]; }
+
 @dynamic undefinedKeys;
+
 -    (id) valueForUndefinedKey:(NSS*)key 				{
 
 	id thing = objc_getAssociatedObject(self,(__bridge const void*)key);

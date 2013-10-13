@@ -25,7 +25,7 @@
 
 - (void)finalizeInit
 {
-	_moduleCells = [[NSMutableArray alloc] init];
+	_moduleCells = NSMutableArray.new;
 	_cellFrames = malloc(sizeof(NSRect));
 }
 

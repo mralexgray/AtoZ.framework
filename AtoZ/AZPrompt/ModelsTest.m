@@ -7,6 +7,15 @@
 int main(int argc, char *argv[], char**argp ){	@autoreleasepool {
 
 	AZSHAREDAPP;
+
+
+	[NSApp run];
+	
+}	return EXIT_SUCCESS;	}
+
+
+
+
 //	[NSS randomUrabanDBlock:^(AZDefinition *d) {
 //
 //		[AZTalker say:[d.word withString:d.definition]];
@@ -18,7 +27,3 @@ int main(int argc, char *argv[], char**argp ){	@autoreleasepool {
 //			[AZSHAREDAPP performSelector:@selector(terminate:) withObject:nil afterDelay:6];
 //		}];
 //	}];
-	[NSApp run];
-	
-}	return EXIT_SUCCESS;	}
-

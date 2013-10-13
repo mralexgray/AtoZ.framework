@@ -1,23 +1,24 @@
+/*	[@[	@"AZBackground", 	@"AZGrid", @"AZPrismView", @"AZBackground2", @"AZBackgroundProgressBar",@"IsometricView"	]each:^(id o) {	[NSClassFromString(o) preview]; }];  // load up some text views... 	*/
+
 #import "AZCLI.h"
 #import "AZGrid.h"
 
 static NSApplication *sharedApp;		static NSMenuItem *appMenuItem;	static NSMenu *menubar,*appMenu;
 static dispatch_once_t onceToken;	static AZCLIMenu *meths, *fws;	static NSMD	*selectionDecoder;
+
 static BOOL ignoreNext = NO;
 
 typedef id(^eval)(id blockArgs, ...);
+
 @implementation AZCLI
+
 -     (void) applicationDidFinishLaunching:(NSNOT*)n {  [NSApp activateIgnoringOtherApps:YES]; playTrumpet(); }
 
 -    	   (id) init 						{	if (self != super.init ) return nil;
 
-/*	[@[	@"AZBackground", 	@"AZGrid", @"AZPrismView", 
-			@"AZBackground2", @"AZBackgroundProgressBar", 
-			@"IsometricView"	]each:^(id o) {	[NSClassFromString(o) preview]; }];  // load up some text views... 	*/	
-
-	       [menu = MenuAppController   .new loadStatusMenu];		// instanciate menu status bar property
-	 		  dCTL = DefinitionController.new;							// instanciate definitio contorller that does some shit with a plist
-//	_stdinHandle = AZSTDIN;		 											// read stdin
+	[menu = MenuAppController   .new loadStatusMenu];		// instanciate menu status bar property
+	 dCTL	= DefinitionController.new;							// instanciate definitio contorller that does some shit with a plist
+//	_stdinHandle = AZSTDIN;		 										// read stdin
 	dispatch_once(&onceToken, ^{		int policy  =  NSApplicationActivationPolicyRegular;
 												[sharedApp 	= NSApplication.sharedApplication setActivationPolicy:  policy];
 												[sharedApp 	  setMainMenu: menubar = NSMenu	    .new];	
@@ -78,7 +79,7 @@ typedef id(^eval)(id blockArgs, ...);
 
 	LOGCOLORS($(@"TTYlines: %u.\n", w.ws_row),RED, $(@"TTYColumns:%u\n", w.ws_col), ORANGE, $(@"BUILD_DIR:%s\n", getenv("BUILD_DIR")), GREEN,nil);
 }
--      (NSA*) palette						{ 	return  _palette ?: [NSC colorsInListNamed:@"flatui"]; }//FengShui"]; }
+-      (NSA*) palette						{ 	return  _palette ?: [NSC colorsInListNamed:@"flatui"]; } //FengShui"]; }
 -      (NSC*) nextColor	      	  		{    static NSUI _p = 0; _p++; return [self.palette normal:_p];	}
 -      (void) rainbowArrays 				{ LOGCOLORS(NSS.dicksonBible.words, NSC.randomPalette,nil); }
 -      (void) variadicColorLogging	 	{
@@ -93,13 +94,13 @@ typedef id(^eval)(id blockArgs, ...);
 }
 @end
 
-
 @implementation AZCLIMenuItem
 + (instancetype) cliMenuItem:(NSS*)display index:(NSI)index color:(NSC*)c {// action:(VoidBlock)blk {
 	AZCLIMenuItem *m = [self.alloc init];  m.display = display; m .index = index; m.color = c; return m;} //m.actionBlock = blk;  return m; }
 @end
 
-@implementation AZCLIMenu static NSMA* menus = nil; NSMIS *toPrint;
+@implementation AZCLIMenu 			static NSMA* menus = nil; NSMIS *toPrint;
+
 + (NSS*) menu										{
 
 	return [[menus objectsAtIndexes:toPrint] reduce:@"" withBlock:^NSS*(NSS* outString, AZCLIMenu* m){  	// kist print "toPrint" indexes.
@@ -117,14 +118,16 @@ __block NSUI i 			= ((AZCLIMenuItem*)((NSA*)[m defaultCollection])[0]).index - 1
 }
 + (void) hardReset 								{ menus = NSMA.new; toPrint = NSMIS.indexSet; } // resets all
 + (void) resetPrinter 							{ toPrint = NSMIS.indexSet; }	// just reset printer output, keep referenes.
-+ (NSS*) valueForIndex:		  (NSI)index	{	id winner;
+
++ (NSS*) valueForIndex:		  	(NSI)index	{	id winner;
 
 	return (winner = [[NSA arrayWithArrays:[menus vFKP:@"defaultCollection"]] filterOne:^BOOL(AZCLIMenuItem *o) {
    return o.index == index; }]) ?[winner vFK:@"display"] : nil;
 }
-+ (instancetype) addMenuFor:(NSA*)items
-						 starting:(NSUI)idx
-						  palette:(id)p 			{
+
++ (instancetype) addMenuFor:	(NSA*)items
+						 starting:	(NSUI)idx
+						  palette:	(id)p 		{
 //							 input:(TINP)blk 	{
 							 AZCLIMenu *m = self.instance; 	if(!menus) [self hardReset];
 	[(NSMA*)[m defaultCollection] addObjectsFromArray:[items nmap:^id(NSS* obj, NSUI  index) {

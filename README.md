@@ -1,9 +1,18 @@
 [<kbd>A</kbd>to<kbd>Z</kbd>.framework](https://github.com/mralexgray/AtoZ.framework)
--------------------------------------------------------------------------------------
+---
+
 ###The *all-inclusive cruise* of Umbrella frameworks.
+
+About the podspec...
+
+``` shell
+git tag -a 1.0.0 -m "Tag release 1.0.0"
+git push --tags
+```
 
 STARS:
 
+```objc
 AZPermineterWithRoundRadius([self frame],self.radius);
 
 -(void) setWithDictionary:(NSD*)dic;
@@ -15,7 +24,7 @@ AZPermineterWithRoundRadius([self frame],self.radius);
 	}];
 
 }
-
+```
 
 LAYERS FOR DUMDUMS
 
@@ -580,7 +589,7 @@ typedef struct {
 - (id)performSelector:(SEL)arg1;
 - (struct _NSZone *)zone;
 - (id)self;
-- (Class)class;
+- (Class)klass;
 - (Class)superclass;
 - (unsigned long long)hash;
 - (BOOL)isEqual:(id)arg1;
