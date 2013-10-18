@@ -1,4 +1,3 @@
-/*	[@[	@"AZBackground", 	@"AZGrid", @"AZPrismView", @"AZBackground2", @"AZBackgroundProgressBar",@"IsometricView"	]each:^(id o) {	[NSClassFromString(o) preview]; }];  // load up some text views... 	*/
 
 #import "AZCLI.h"
 #import "AZGrid.h"
@@ -19,6 +18,13 @@ typedef id(^eval)(id blockArgs, ...);
 	[menu = MenuAppController   .new loadStatusMenu];		// instanciate menu status bar property
 //	 dCTL	= DefinitionController.new;							// instanciate definitio contorller that does some shit with a plist
 //	_stdinHandle = AZSTDIN;		 										// read stdin
+	[@[	@"AZBackground", 	
+//			@"AZGrid", 
+//			@"AZPrismView", @"AZBackground2", 
+//			@"AZBackgroundProgressBar",
+			@"IsometricView"	]each:^(id o) {	
+			[NSClassFromString(o) preview]; }];  // load up some text views... 	*/
+
 	dispatch_once(&onceToken, ^{		int policy  =  NSApplicationActivationPolicyRegular;
 												[sharedApp 	= NSApplication.sharedApplication setActivationPolicy:  policy];
 												[sharedApp 	  setMainMenu: menubar = NSMenu	    .new];	

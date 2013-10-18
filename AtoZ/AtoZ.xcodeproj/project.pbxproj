@@ -69,6 +69,7 @@
 		7B091A4615A887B500821FFD /* AZTalker.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B091A4415A887B500821FFD /* AZTalker.m */; };
 		7B095E00161AD78D0076C990 /* AZSemiResponderWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B095DFE161AD78D0076C990 /* AZSemiResponderWindow.m */; };
 		7B095E01161AD7E50076C990 /* AZSemiResponderWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B095DFD161AD78D0076C990 /* AZSemiResponderWindow.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B0A047818115123009B1077 /* libRedGreenXC.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF428561807FF2500FBA384 /* libRedGreenXC.a */; };
 		7B0B7A4515A22C0D006B5062 /* NSImage+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B0B7A4315A22C0D006B5062 /* NSImage+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B0B7A4615A22C0D006B5062 /* NSImage+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0B7A4415A22C0D006B5062 /* NSImage+AtoZ.m */; };
 		7B0B7A7C15A3553F006B5062 /* AZIndeterminateIndicator.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B0B7A7A15A3553F006B5062 /* AZIndeterminateIndicator.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -296,7 +297,6 @@
 		7B31581816F40D4C00642171 /* PXListView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B2E259C165F3148009BE6C8 /* PXListView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B31581916F40D5200642171 /* PXListDocumentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2E259B165F3148009BE6C8 /* PXListDocumentView.m */; };
 		7B31581A16F40D5600642171 /* PXListDocumentView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B2E259A165F3148009BE6C8 /* PXListDocumentView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7B31B13415E9441D00802CD5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7B31B13215E9441D00802CD5 /* InfoPlist.strings */; };
 		7B31B13615E9441D00802CD5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B31B13515E9441D00802CD5 /* main.m */; };
 		7B31B14015E9441D00802CD5 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B31B13E15E9441D00802CD5 /* MainMenu.xib */; };
 		7B331F3418056A8F00754399 /* AZBonjourBlock.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B331F3218056A8F00754399 /* AZBonjourBlock.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -502,7 +502,6 @@
 		7B5DAB9E180C109500C48895 /* GHUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B5DAB99180C0FB200C48895 /* GHUnit.framework */; };
 		7B5DAB9F180C109B00C48895 /* OCHamcrest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B5DAB81180B7E4000C48895 /* OCHamcrest.framework */; };
 		7B5DABA0180C10A400C48895 /* OCMock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B5DAB82180B7E4000C48895 /* OCMock.framework */; };
-		7B5DABA2180C10B800C48895 /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B5DABA1180C10B700C48895 /* AtoZ.framework */; };
 		7B5DABA3180C1F6300C48895 /* OCHamcrest.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7B5DAB81180B7E4000C48895 /* OCHamcrest.framework */; };
 		7B5DABA4180C1F6300C48895 /* OCMock.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7B5DAB82180B7E4000C48895 /* OCMock.framework */; };
 		7B5DABA5180C1F7700C48895 /* GHUnit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7B5DAB99180C0FB200C48895 /* GHUnit.framework */; };
@@ -928,7 +927,6 @@
 		7BF343FE17538D330006E542 /* NullSafe.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BF343FC17538D330006E542 /* NullSafe.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BF343FF17538D330006E542 /* NullSafe.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BF343FC17538D330006E542 /* NullSafe.h */; };
 		7BF3440017538D330006E542 /* NullSafe.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF343FD17538D330006E542 /* NullSafe.m */; };
-		7BF4286B1807FF4700FBA384 /* libRedGreenXC.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF428561807FF2500FBA384 /* libRedGreenXC.a */; };
 		7BF72DA7171F96080037CF41 /* AZFaviconManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF72DA6171F96080037CF41 /* AZFaviconManagerTests.m */; };
 		7BF918361802145F0074DF23 /* NSObject-Utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B449C6D1616136500AB9335 /* NSObject-Utilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BF9854C15FEBDB200D47192 /* AtoZFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF9854A15FEBDB200D47192 /* AtoZFunctions.m */; };
@@ -993,6 +991,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		7B0A043418114F97009B1077 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B311947159B6D9E002134C4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7B311950159B6D9E002134C4;
+			remoteInfo = AtoZ;
+		};
 		7B0DA2AC174352DE00535483 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7B311947159B6D9E002134C4 /* Project object */;
@@ -1882,6 +1887,13 @@
 			remoteGlobalIDString = 7BD3F728180051C400E321E3;
 			remoteInfo = RedGreenXC;
 		};
+		7BF6C8FB180FDEFD00895A19 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B311947159B6D9E002134C4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7B311950159B6D9E002134C4;
+			remoteInfo = AtoZ;
+		};
 		7BFBF4ED175DC861007A84AC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7BFBF4E7175DC860007A84AC /* AtoZAppKit.xcodeproj */;
@@ -2368,9 +2380,8 @@
 		7B31580516F40B6C00642171 /* AutoCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AutoCoding.h; path = ../Frameworks/BaseModel/Examples/AutoTodoList/AutoCoding/AutoCoding.h; sourceTree = SOURCE_ROOT; };
 		7B31580616F40B6C00642171 /* BaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseModel.m; path = ../Frameworks/BaseModel/BaseModel/BaseModel.m; sourceTree = SOURCE_ROOT; };
 		7B31580716F40B6D00642171 /* BaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseModel.h; path = ../Frameworks/BaseModel/BaseModel/BaseModel.h; sourceTree = SOURCE_ROOT; };
-		7B31B12615E9441D00802CD5 /* AtoZ Entitlement.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AtoZ Entitlement.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7B31B12615E9441D00802CD5 /* AtoZUnits.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AtoZUnits.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B31B13115E9441D00802CD5 /* AtoZ Entitlement-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AtoZ Entitlement-Info.plist"; sourceTree = "<group>"; };
-		7B31B13315E9441D00802CD5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7B31B13515E9441D00802CD5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7B31B13715E9441D00802CD5 /* AtoZ Entitlement-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AtoZ Entitlement-Prefix.pch"; sourceTree = "<group>"; };
 		7B31B13B15E9441D00802CD5 /* AZEntitlementDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AZEntitlementDelegate.h; sourceTree = "<group>"; };
@@ -2468,6 +2479,22 @@
 		7B39615D15F04FD80065813F /* AtoZTouch-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AtoZTouch-Prefix.pch"; sourceTree = "<group>"; };
 		7B39615E15F04FD80065813F /* AtoZTouch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AtoZTouch.h; sourceTree = "<group>"; };
 		7B39616015F04FD80065813F /* AtoZTouch.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AtoZTouch.m; sourceTree = "<group>"; };
+		7B3A1552180C79B200F63F4D /* Common.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Common.xcconfig; sourceTree = "<group>"; };
+		7B3A1554180C79B200F63F4D /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		7B3A1555180C79B200F63F4D /* Profile.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Profile.xcconfig; sourceTree = "<group>"; };
+		7B3A1556180C79B200F63F4D /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+		7B3A1557180C79B200F63F4D /* Test.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Test.xcconfig; sourceTree = "<group>"; };
+		7B3A1559180C79B200F63F4D /* Application.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Application.xcconfig; sourceTree = "<group>"; };
+		7B3A155A180C79B200F63F4D /* StaticLibrary.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = StaticLibrary.xcconfig; sourceTree = "<group>"; };
+		7B3A155C180C79B200F63F4D /* iOS-Application.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "iOS-Application.xcconfig"; sourceTree = "<group>"; };
+		7B3A155D180C79B200F63F4D /* iOS-Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "iOS-Base.xcconfig"; sourceTree = "<group>"; };
+		7B3A155E180C79B200F63F4D /* iOS-StaticLibrary.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "iOS-StaticLibrary.xcconfig"; sourceTree = "<group>"; };
+		7B3A1560180C79B200F63F4D /* Mac-Application.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Mac-Application.xcconfig"; sourceTree = "<group>"; };
+		7B3A1561180C79B200F63F4D /* Mac-Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Mac-Base.xcconfig"; sourceTree = "<group>"; };
+		7B3A1562180C79B200F63F4D /* Mac-DynamicLibrary.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Mac-DynamicLibrary.xcconfig"; sourceTree = "<group>"; };
+		7B3A1563180C79B200F63F4D /* Mac-Framework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Mac-Framework.xcconfig"; sourceTree = "<group>"; };
+		7B3A1564180C79B200F63F4D /* Mac-StaticLibrary.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Mac-StaticLibrary.xcconfig"; sourceTree = "<group>"; };
+		7B3A1565180C79B200F63F4D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		7B40F6B01739C087006FA3B3 /* NSMenu+Dark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSMenu+Dark.h"; path = "../../../Frameworks/NSMenu-Dark/Project/NSMenu+Dark.h"; sourceTree = "<group>"; };
 		7B40F6B11739C087006FA3B3 /* NSMenu+Dark.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMenu+Dark.m"; path = "../../../Frameworks/NSMenu-Dark/Project/NSMenu+Dark.m"; sourceTree = "<group>"; };
 		7B427EB0170AF7250052FC31 /* CocoatechCore.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CocoatechCore.xcodeproj; path = ../Frameworks/CocoatechCore/CocoatechCore.xcodeproj; sourceTree = "<group>"; };
@@ -3240,7 +3267,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7B5DABA0180C10A400C48895 /* OCMock.framework in Frameworks */,
-				7B5DABA2180C10B800C48895 /* AtoZ.framework in Frameworks */,
 				7B5DAB9E180C109500C48895 /* GHUnit.framework in Frameworks */,
 				7B5DAB9F180C109B00C48895 /* OCHamcrest.framework in Frameworks */,
 			);
@@ -3300,8 +3326,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B0A047818115123009B1077 /* libRedGreenXC.a in Frameworks */,
 				7B07AA24180A28FD00776EF4 /* SenTestingKit.framework in Frameworks */,
-				7BF4286B1807FF4700FBA384 /* libRedGreenXC.a in Frameworks */,
 				7BF29CD01807BB36004668D3 /* XCTest.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3884,6 +3910,7 @@
 		7B311945159B6D9E002134C4 = {
 			isa = PBXGroup;
 			children = (
+				7B3A1550180C79B100F63F4D /* xcconfigs */,
 				7BE2959417E766A0004C60EA /* AtoZPrefs */,
 				7BC425771776799D00928201 /* AtoZAutoBox.xcodeproj */,
 				7B82B82815CB66D30026FE8C /* AtoZ Encyclopedia */,
@@ -3898,7 +3925,6 @@
 				7B311953159B6D9E002134C4 /* Frameworks */,
 				7B59C8281600D346009DAFCA /* Models */,
 				7B3777BE16F1BDAD0083CBB5 /* Networking */,
-				7B311952159B6D9E002134C4 /* Products */,
 				7B583064159BDAA50039CEED /* Resources */,
 				7B6901BB159E0ADB00D0DA47 /* Views */,
 				7B7EA4AC16026ACA0027D180 /* WIndows */,
@@ -3909,7 +3935,7 @@
 			isa = PBXGroup;
 			children = (
 				7B311951159B6D9E002134C4 /* AtoZ.framework */,
-				7B31B12615E9441D00802CD5 /* AtoZ Entitlement.app */,
+				7B31B12615E9441D00802CD5 /* AtoZUnits.app */,
 				7B39615915F04FD70065813F /* libAtoZTouch.a */,
 				7B184EE515FCA98600696360 /* AtoZCLI */,
 				7BDF568C1627695300041A42 /* AtoZTestBed∞.app */,
@@ -3961,10 +3987,10 @@
 		7B31B12F15E9441D00802CD5 /* AtoZ Entitlement */ = {
 			isa = PBXGroup;
 			children = (
+				7B5DABAE180C2ACE00C48895 /* AtoZTests.m */,
 				7B5DABAD180C2A7E00C48895 /* Entitlements */,
 				7B31B13E15E9441D00802CD5 /* MainMenu.xib */,
 				7B31B13015E9441D00802CD5 /* Supporting Files */,
-				7B5DABAE180C2ACE00C48895 /* AtoZTests.m */,
 			);
 			path = "AtoZ Entitlement";
 			sourceTree = "<group>";
@@ -3976,7 +4002,6 @@
 				7B5DAB81180B7E4000C48895 /* OCHamcrest.framework */,
 				7B5DAB82180B7E4000C48895 /* OCMock.framework */,
 				7B31B13115E9441D00802CD5 /* AtoZ Entitlement-Info.plist */,
-				7B31B13215E9441D00802CD5 /* InfoPlist.strings */,
 				7B31B13515E9441D00802CD5 /* main.m */,
 				7B31B13715E9441D00802CD5 /* AtoZ Entitlement-Prefix.pch */,
 			);
@@ -3986,9 +4011,9 @@
 		7B3777BE16F1BDAD0083CBB5 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
-				7B78F6BF180ACC9E00515A10 /* Network Categories */,
 				7BCE7F4B166BC1A900C40B5E /* AFNetworking */,
 				7B37785A16F1C7A60083CBB5 /* Router */,
+				7B78F6BF180ACC9E00515A10 /* Network Categories */,
 				7B3777BF16F1BE4A0083CBB5 /* CocoaAsyncSocket */,
 				7B3777C316F1BE4A0083CBB5 /* Core */,
 			);
@@ -4140,6 +4165,70 @@
 				7B39615D15F04FD80065813F /* AtoZTouch-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		7B3A1550180C79B100F63F4D /* xcconfigs */ = {
+			isa = PBXGroup;
+			children = (
+				7B3A1551180C79B200F63F4D /* Base */,
+				7B3A155B180C79B200F63F4D /* iOS */,
+				7B3A155F180C79B200F63F4D /* Mac OS X */,
+				7B3A1565180C79B200F63F4D /* README.md */,
+			);
+			name = xcconfigs;
+			path = ../xcconfigs;
+			sourceTree = "<group>";
+		};
+		7B3A1551180C79B200F63F4D /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				7B3A1552180C79B200F63F4D /* Common.xcconfig */,
+				7B3A1553180C79B200F63F4D /* Configurations */,
+				7B3A1558180C79B200F63F4D /* Targets */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		7B3A1553180C79B200F63F4D /* Configurations */ = {
+			isa = PBXGroup;
+			children = (
+				7B3A1554180C79B200F63F4D /* Debug.xcconfig */,
+				7B3A1555180C79B200F63F4D /* Profile.xcconfig */,
+				7B3A1556180C79B200F63F4D /* Release.xcconfig */,
+				7B3A1557180C79B200F63F4D /* Test.xcconfig */,
+			);
+			path = Configurations;
+			sourceTree = "<group>";
+		};
+		7B3A1558180C79B200F63F4D /* Targets */ = {
+			isa = PBXGroup;
+			children = (
+				7B3A1559180C79B200F63F4D /* Application.xcconfig */,
+				7B3A155A180C79B200F63F4D /* StaticLibrary.xcconfig */,
+			);
+			path = Targets;
+			sourceTree = "<group>";
+		};
+		7B3A155B180C79B200F63F4D /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				7B3A155C180C79B200F63F4D /* iOS-Application.xcconfig */,
+				7B3A155D180C79B200F63F4D /* iOS-Base.xcconfig */,
+				7B3A155E180C79B200F63F4D /* iOS-StaticLibrary.xcconfig */,
+			);
+			path = iOS;
+			sourceTree = "<group>";
+		};
+		7B3A155F180C79B200F63F4D /* Mac OS X */ = {
+			isa = PBXGroup;
+			children = (
+				7B3A1560180C79B200F63F4D /* Mac-Application.xcconfig */,
+				7B3A1561180C79B200F63F4D /* Mac-Base.xcconfig */,
+				7B3A1562180C79B200F63F4D /* Mac-DynamicLibrary.xcconfig */,
+				7B3A1563180C79B200F63F4D /* Mac-Framework.xcconfig */,
+				7B3A1564180C79B200F63F4D /* Mac-StaticLibrary.xcconfig */,
+			);
+			path = "Mac OS X";
 			sourceTree = "<group>";
 		};
 		7B427EB1170AF7250052FC31 /* Products */ = {
@@ -4299,6 +4388,7 @@
 		7B583064159BDAA50039CEED /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7B311952159B6D9E002134C4 /* Products */,
 				7B5A71FE178C0A1F00AF9807 /* AtoZDocumentation */,
 				7B95C88416F00E9A00480BB1 /* AtoZ-Framework-Config.xcconfig */,
 				7B0C13C916F4647F00229000 /* sox */,
@@ -6107,7 +6197,7 @@
 			);
 			name = AtoZUnits;
 			productName = "AtoZ Entitlement";
-			productReference = 7B31B12615E9441D00802CD5 /* AtoZ Entitlement.app */;
+			productReference = 7B31B12615E9441D00802CD5 /* AtoZUnits.app */;
 			productType = "com.apple.product-type.application";
 		};
 		7B39615815F04FD70065813F /* AtoZTouch */ = {
@@ -6171,6 +6261,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				7BF6C8FC180FDEFD00895A19 /* PBXTargetDependency */,
 			);
 			name = "AtoZTestBed∞";
 			productName = AtoZTestBed;
@@ -6189,6 +6280,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				7B0A043518114F97009B1077 /* PBXTargetDependency */,
 				7BF4286D1807FF6600FBA384 /* PBXTargetDependency */,
 			);
 			name = AtoZUnitTests;
@@ -7075,7 +7167,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7B31B13415E9441D00802CD5 /* InfoPlist.strings in Resources */,
 				7B31B14015E9441D00802CD5 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -7189,7 +7280,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/bash\n#\thttp://www.hautelooktech.com/2012/11/07/automate-xcode-documentation/\n#\t1. Use headerdoc2html to crawl through source code and generate html files from java styled commenting (ex. /** */).\n#\t2. Use gatherheaderdoc to generate html indexes with Tokens.xml\n#\t3. Package all required files together into apple docset bundle\n#\t4. Use docsetutil  to create necessary index for docset bundle\n\nPROJECT_NAME=\"${PRODUCT_NAME}\"\n\nDOCSET_ID=\"com.mrgray.AtoZFramework\"\nDOCSET_BUNDLE_NAME=\"AtoZ.framework\"\n\nDOCSET_VERSION=`date \"+%Y.%m.%d.%H.%M.%S\"`\nVERSION=$DOCSET_VERSION\n\n# Project root\nROOT_PATH=\"`dirname $0`/../\"\n\n# Determine the tag path\nTAG_NAME=\"${PROJECT_NAME}-${VERSION}\"\nTAG_DIR=\"${ROOT_PATH}/tags/${TAG_NAME}\"\n\n# Verify the tag exists\nif [ ! -d \"$TAG_DIR\" ]; then\n    echo \"Tag $TAG_DIR does not exist, aborting.\"\n    exit 1\nfi\n\n# Docset paths\nDOCSET_DIR=\"${ROOT_PATH}/xcode-docset\"\nDOCSET_ATOM=\"${PROJECT_NAME}-${DOCSET_VERSION}.atom\"\nDOCSET_INPUT_FILE=\"${DOCSET_ID}.docset\"\nDOCSET_OUTPUT_FILE=\"${DOCSET_ID}-${VERSION}.xar\"\nDOCSET_PUBLIC_URL=\"${PUBLIC_SVN_URL}/xcode-docset/\"\nDOCSET_PUBLISHER_ID=\"com.plausiblelabs.documentation\"\nDOCSET_PUBLISHER_NAME=\"Plausible Labs\"\n\n# Xcode paths\nXCODE_BASE=`xcode-select -print-path`\nDOCSET_UTIL=\"${XCODE_BASE}/usr/bin/docsetutil\"\n\nif [ -z \"$XCODE_BASE\" ]; then\n    echo \"Could not determine Xcode installation path\"\n    exit 1\nfi\n\n# Build the Xcode docset\nmake -C \"${TAG_DIR}/docs\"\n\n# Populate the docset meta-data\n/usr/libexec/PlistBuddy -c \"Add :DocSetFeedURL string ${DOCSET_PUBLIC_URL}/${DOCSET_ATOM}\" \"${TAG_DIR}/docs/${DOCSET_INPUT_FILE}/Contents/Info.plist\" \n/usr/libexec/PlistBuddy -c \"Set :DocSetFeedName \\\"${DOCSET_BUNDLE_NAME} ${DOCSET_VERSION}\\\"\" \"${TAG_DIR}/docs/${DOCSET_INPUT_FILE}/Contents/Info.plist\"\n/usr/libexec/PlistBuddy -c \"Add :DocSetPublisherIdentifier string \\\"${DOCSET_PUBLISHER_ID}\\\"\" \"${TAG_DIR}/docs/${DOCSET_INPUT_FILE}/Contents/Info.plist\"\n/usr/libexec/PlistBuddy -c \"Add :DocSetPublisherName string \\\"${DOCSET_PUBLISHER_NAME}\\\"\" \"${TAG_DIR}/docs/${DOCSET_INPUT_FILE}/Contents/Info.plist\"\n\n/usr/libexec/PlistBuddy -c \"Add :CFBundleVersion string ${VERSION}\" \"${TAG_DIR}/docs/${DOCSET_INPUT_FILE}/Contents/Info.plist\" \n/usr/libexec/PlistBuddy -c \"Set :CFBundleName ${DOCSET_BUNDLE_NAME}\" \"${TAG_DIR}/docs/${DOCSET_INPUT_FILE}/Contents/Info.plist\" \n\n# Output the .xar package and the atom file.\n\"${DOCSET_UTIL}\" package -output \"${DOCSET_DIR}/${DOCSET_OUTPUT_FILE}\" -atom \"${DOCSET_DIR}/${DOCSET_ATOM}\" \\\n\t-download-url=\"${DOCSET_PUBLIC_URL}/${DOCSET_OUTPUT_FILE}\" \"${TAG_DIR}/docs/${DOCSET_INPUT_FILE}\"\nrm -rf \"${TAG_DIR}/docs/${DOCSET_INPUT_FILE}\"\n\nsvn add \"${DOCSET_DIR}/${DOCSET_OUTPUT_FILE}\" \"${DOCSET_DIR}/${DOCSET_ATOM}\"\n\n# Validate the build worked\nif [ $? -gt 0 ]; then\n    echo \"Build failed, aborting tagging process.\"\n    exit 1\nfi\n\nXCODE_VERSION=Xcode5-DP2.app\n# SETTING location of XCODE docset\nDOCSET_DIR=~/Library/Developer/Shared/Documentation/DocSets/com.mrgray.documentation.atoz_framework.docset\n# location of html code document, generated by headerdoc2html\nDOCUMENT_DIR=$DOCSET_DIR/Contents/Resources/Documents\n# location of hautelook templates, Info.plist Nodes.xml\n<span style=\"background-color: rgb(255, 255, 153);\">DOCSET_TEMPLATE_DIR=</span>../Docset\n# location of our source code, where headerdoc2html will spider through\nSOURCE_DIR=.\n# clear screen\nclear\n# delete old docset and start from fresh, this will kill XCODE if its running.  <span style=\"background-color: rgb(255, 255, 153);\">good for development only, comment out for production</span>.\n#rm -rf $DOCSET_DIR\n# create document directory\nmkdir -p $DOCUMENT_DIR\n# generate html code document for source code.  <span style=\"background-color: rgb(255, 255, 153);\">-j will recognize java comment tag ex</span>. /** */\n# https://developer.apple.<span style=\"background-color: rgb(255, 255, 153);\">com/library/mac/documentation/DeveloperTools/Conceptual/HeaderDoc/usage/usage</span>.html#//apple_ref/doc/uid/TP40001215-CH337-SW2\nheaderdoc2html -j -o $DOCUMENT_DIR $SOURCE_DIR\n# generate main index file. <span style=\"background-color: rgb(255, 255, 153);\">-d will generate Tokens</span>.xml for us.\n# http://opensource.apple.com/source/headerdoc/\n# https://developer.apple.<span style=\"background-color: rgb(255, 255, 153);\">com/library/mac/documentation/DeveloperTools/Conceptual/HeaderDoc/usage/usage</span>.html#//apple_ref/doc/uid/TP40001215-CH337-SW1\n#\ngatherheaderdoc.pl -d $DOCUMENT_DIR\n \n# copy required template files for apple docset\ncp $DOCSET_TEMPLATE_DIR/Info.plist \t$DOCSET_DIR/Contents/\ncp $DOCSET_TEMPLATE_DIR/Nodes.xml   $DOCSET_DIR/Contents/Resources/\ncp $DOCUMENT_DIR/Tokens.xml         $DOCSET_DIR/Contents/Resources/\n \n# create and validate apple docset indexes\n/Applications/$XCODE_VERSION/Contents/Developer/usr/bin/docsetutil index -verbose -debug $DOCSET_DIR\n/Applications/Xcode.<span style=\"background-color: rgb(255, 255, 153);\">app/Contents/Developer/usr/bin/docsetutil validate -verbose -debug $DOCSET_DIR</span>\n \n\n#\tStep 2: Prepare Info.plist for Docset Bundle\n#\tInstruction for creating documentation set is on Apple Developer Site.   You can google for “apple documentation set guide” or see the references at the end of this post.\n#\tThis plist file is basically used to identify the owner and properties of the docset bundle.  It only has to be created once, and you’ll never have to touch it again.\n# \tNote: You can also use PlistBuddy (another Apple tool) to dynamically generate info.plist in the script.\n\n\n\n<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n<plist version=\"1.0\">\n\t<dict>\n\t\t<key>CFBundleName</key>\n        <string>HauteLook Library</string>\n\t\t<key>CFBundleIdentifier</key>\n\t\t<string>com.hautelook.documentation.atoz_framework</span>.docset</string>\n\t\t<key>DocSetPublisherIdentifier</key>\n\t\t<string>com.hautelook.documentation</string>\n\t\t<key>DocSetPublisherName</key>\n\t\t<string>HauteLook</string>\n\t</dict>\n</plist>\n\n \n\nStep 3: Prepare Nodes.xml for Docset Bundle\n\nNodes.xml creates the file structure “menu” that you see in XCode (please see screenshot #1).  This is by-design, done manually, so that you can customize and organize the way your document is presented.  There are many things you can do here, but we are only interested in presenting the generated HTML files of our code.\n\nFor the purpose of simply displaying generated code document, we can copy/paste additional node to add new section (Ex. Services), or, copy/paste additional “folder” node for new class (Ex. HLDatabaseCleanupService).\n\n \n\n?\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n34\n35\n36\n37\n38\n39\n40\n41\n42\n43\n44\n45\n46\n47\n48\n49\n50\n51\n52\n53\n54\n55\n<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n \n<!--\n \nNodes.xml are used to create directory structure in XCode - Organizer - Documentation\n \n-->\n \n<DocSetNodes version=\"1.0\">\n \n<TOC>\n \n<Node>\n \n<Name>HauteLook Library</Name>\n \n<Subnodes>\n \n<!-- Services Documents -->\n \n<Node>\n \n<Name>Services</Name>\n \n<Subnodes>\n \n<Node type=\"folder\">\n \n<Name>HLDatabaseCleanupService</Name>\n \n<Path>HLDatabaseCleanupService_h/Classes/HLDatabaseCleanupService</Path>\n \n<File>index.html</File>\n \n</Node>\n \n  \n \n<!-- add more services here -->\n \n  \n \n</Subnodes>\n \n</Node>\n \n<!-- END Service Documents -->\n \n</Subnodes>\n \n</Node>\n \n</TOC>\n \n</DocSetNodes>\n \n\nStep 4: Setup Files and Folders Location\n\n After you have done everything described above, place all files in a directory structure as shown below in your source code project.\n\n\n\n\nexport WWWDIR=\"/sd/www/mrgray\"\nexport DOCSDIR=\"/docs/atoz.framework\"\nmkdir -p \"$WWWDIR$DOCSDIR\"\n\n#/usr/local/bin/appledoc \"${SRCROOT}/../AppledocSettings.plist\"\n\n#--project-name \"$FULL_PRODUCT_NAME\" \n#--project-company \\\"mrgray.com\\\" \n#--company-id com.github.mralexgray\n##--output \\\"${WWWDIR}${DOCSDIR}\\\" \n#--docset-feed-url \"http://mrgray.com${DOCSDIR}/%DOCSETATOMFILENAME\" \n#--docset-package-url \"http://mrgray.com${DOCSDIR}/%DOCSETPACKAGEFILENAME\" \n#--publish-docset\n#.;\n";
+			shellScript = "\n\n\n\n#\thttp://www.hautelooktech.com/2012/11/07/automate-xcode-documentation/\n#\t1. Use headerdoc2html to crawl through source code and generate html files from java styled commenting (ex. /** */).\n#\t2. Use gatherheaderdoc to generate html indexes with Tokens.xml\n#\t3. Package all required files together into apple docset bundle\n#\t4. Use docsetutil  to create necessary index for docset bundle\n\n: '\n      PROJECT_NAME=\"${PRODUCT_NAME}\"\n         DOCSET_ID=\"com.mrgray.AtoZFramework\"\nDOCSET_BUNDLE_NAME=\"AtoZ.framework\"\n    DOCSET_VERSION=`date \"+%Y.%m.%d.%H.%M.%S\"`\n           VERSION=\"$DOCSET_VERSION\"\n         ROOT_PATH=\"`dirname $0`/../\" # Project root\n          TAG_NAME=\"${PROJECT_NAME}-${VERSION}\" # Determine the tag path\n           TAG_DIR=\"${ROOT_PATH}/tags/${TAG_NAME}\"\n\nif [ ! -d \"$TAG_DIR\" ]; then # Verify the tag exists\n    echo \"Tag $TAG_DIR does not exist, aborting.\"    exit 1\nfi\n\n# Docset paths\nDOCSET_DIR=\"${ROOT_PATH}/xcode-docset\"\nDOCSET_ATOM=\"${PROJECT_NAME}-${DOCSET_VERSION}.atom\"\nDOCSET_INPUT_FILE=\"${DOCSET_ID}.docset\"\nDOCSET_OUTPUT_FILE=\"${DOCSET_ID}-${VERSION}.xar\"\nDOCSET_PUBLIC_URL=\"${PUBLIC_SVN_URL}/xcode-docset/\"\nDOCSET_PUBLISHER_ID=\"com.plausiblelabs.documentation\"\nDOCSET_PUBLISHER_NAME=\"Plausible Labs\"\n\n# Xcode paths\nXCODE_BASE=`xcode-select -print-path`\nDOCSET_UTIL=\"${XCODE_BASE}/usr/bin/docsetutil\"\n\nif [ -z \"$XCODE_BASE\" ]; then\n    echo \"Could not determine Xcode installation path\"\n    exit 1\nfi\n\n# Build the Xcode docset\nmake -C \"${TAG_DIR}/docs\"\n\n# Populate the docset meta-data\n/usr/libexec/PlistBuddy -c \"Add :DocSetFeedURL string ${DOCSET_PUBLIC_URL}/${DOCSET_ATOM}\" \"${TAG_DIR}/docs/${DOCSET_INPUT_FILE}/Contents/Info.plist\" \n/usr/libexec/PlistBuddy -c \"Set :DocSetFeedName \\\"${DOCSET_BUNDLE_NAME} ${DOCSET_VERSION}\\\"\" \"${TAG_DIR}/docs/${DOCSET_INPUT_FILE}/Contents/Info.plist\"\n/usr/libexec/PlistBuddy -c \"Add :DocSetPublisherIdentifier string \\\"${DOCSET_PUBLISHER_ID}\\\"\" \"${TAG_DIR}/docs/${DOCSET_INPUT_FILE}/Contents/Info.plist\"\n/usr/libexec/PlistBuddy -c \"Add :DocSetPublisherName string \\\"${DOCSET_PUBLISHER_NAME}\\\"\" \"${TAG_DIR}/docs/${DOCSET_INPUT_FILE}/Contents/Info.plist\"\n\n/usr/libexec/PlistBuddy -c \"Add :CFBundleVersion string ${VERSION}\" \"${TAG_DIR}/docs/${DOCSET_INPUT_FILE}/Contents/Info.plist\" \n/usr/libexec/PlistBuddy -c \"Set :CFBundleName ${DOCSET_BUNDLE_NAME}\" \"${TAG_DIR}/docs/${DOCSET_INPUT_FILE}/Contents/Info.plist\" \n\n# Output the .xar package and the atom file.\n\"${DOCSET_UTIL}\" package -output \"${DOCSET_DIR}/${DOCSET_OUTPUT_FILE}\" -atom \"${DOCSET_DIR}/${DOCSET_ATOM}\" \\\n\t-download-url=\"${DOCSET_PUBLIC_URL}/${DOCSET_OUTPUT_FILE}\" \"${TAG_DIR}/docs/${DOCSET_INPUT_FILE}\"\nrm -rf \"${TAG_DIR}/docs/${DOCSET_INPUT_FILE}\"\n\nsvn add \"${DOCSET_DIR}/${DOCSET_OUTPUT_FILE}\" \"${DOCSET_DIR}/${DOCSET_ATOM}\"\n\n# Validate the build worked\nif [ $? -gt 0 ]; then\n    echo \"Build failed, aborting tagging process.\"\n    exit 1\nfi\n\nXCODE_VERSION=Xcode5-DP2.app\n# SETTING location of XCODE docset\nDOCSET_DIR=~/Library/Developer/Shared/Documentation/DocSets/com.mrgray.documentation.atoz_framework.docset\n# location of html code document, generated by headerdoc2html\nDOCUMENT_DIR=$DOCSET_DIR/Contents/Resources/Documents\n# location of hautelook templates, Info.plist Nodes.xml\n<span style=\"background-color: rgb(255, 255, 153);\">DOCSET_TEMPLATE_DIR=</span>../Docset\n# location of our source code, where headerdoc2html will spider through\nSOURCE_DIR=.\n# clear screen\nclear\n# delete old docset and start from fresh, this will kill XCODE if its running.  <span style=\"background-color: rgb(255, 255, 153);\">good for development only, comment out for production</span>.\n#rm -rf $DOCSET_DIR\n# create document directory\nmkdir -p $DOCUMENT_DIR\n# generate html code document for source code.  <span style=\"background-color: rgb(255, 255, 153);\">-j will recognize java comment tag ex</span>. /** */\n# https://developer.apple.<span style=\"background-color: rgb(255, 255, 153);\">com/library/mac/documentation/DeveloperTools/Conceptual/HeaderDoc/usage/usage</span>.html#//apple_ref/doc/uid/TP40001215-CH337-SW2\nheaderdoc2html -j -o $DOCUMENT_DIR $SOURCE_DIR\n# generate main index file. <span style=\"background-color: rgb(255, 255, 153);\">-d will generate Tokens</span>.xml for us.\n# http://opensource.apple.com/source/headerdoc/\n# https://developer.apple.<span style=\"background-color: rgb(255, 255, 153);\">com/library/mac/documentation/DeveloperTools/Conceptual/HeaderDoc/usage/usage</span>.html#//apple_ref/doc/uid/TP40001215-CH337-SW1\n#\ngatherheaderdoc.pl -d $DOCUMENT_DIR\n \n# copy required template files for apple docset\ncp $DOCSET_TEMPLATE_DIR/Info.plist \t$DOCSET_DIR/Contents/\ncp $DOCSET_TEMPLATE_DIR/Nodes.xml   $DOCSET_DIR/Contents/Resources/\ncp $DOCUMENT_DIR/Tokens.xml         $DOCSET_DIR/Contents/Resources/\n \n# create and validate apple docset indexes\n/Applications/$XCODE_VERSION/Contents/Developer/usr/bin/docsetutil index -verbose -debug $DOCSET_DIR\n/Applications/Xcode.<span style=\"background-color: rgb(255, 255, 153);\">app/Contents/Developer/usr/bin/docsetutil validate -verbose -debug $DOCSET_DIR</span>\n \n\n#\tStep 2: Prepare Info.plist for Docset Bundle\n#\tInstruction for creating documentation set is on Apple Developer Site.   You can google for “apple documentation set guide” or see the references at the end of this post.\n#\tThis plist file is basically used to identify the owner and properties of the docset bundle.  It only has to be created once, and you’ll never have to touch it again.\n# \tNote: You can also use PlistBuddy (another Apple tool) to dynamically generate info.plist in the script.\n\n\n\n<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n<plist version=\"1.0\">\n\t<dict>\n\t\t<key>CFBundleName</key>\n        <string>HauteLook Library</string>\n\t\t<key>CFBundleIdentifier</key>\n\t\t<string>com.hautelook.documentation.atoz_framework</span>.docset</string>\n\t\t<key>DocSetPublisherIdentifier</key>\n\t\t<string>com.hautelook.documentation</string>\n\t\t<key>DocSetPublisherName</key>\n\t\t<string>HauteLook</string>\n\t</dict>\n</plist>\n\n \n\nStep 3: Prepare Nodes.xml for Docset Bundle\n\nNodes.xml creates the file structure “menu” that you see in XCode (please see screenshot #1).  This is by-design, done manually, so that you can customize and organize the way your document is presented.  There are many things you can do here, but we are only interested in presenting the generated HTML files of our code.\n\nFor the purpose of simply displaying generated code document, we can copy/paste additional node to add new section (Ex. Services), or, copy/paste additional “folder” node for new class (Ex. HLDatabaseCleanupService).\n\n \n\n<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n \n<!--\n \nNodes.xml are used to create directory structure in XCode - Organizer - Documentation\n \n-->\n \n<DocSetNodes version=\"1.0\">\n \n<TOC>\n \n<Node>\n \n<Name>HauteLook Library</Name>\n \n<Subnodes>\n \n<!-- Services Documents -->\n \n<Node>\n \n<Name>Services</Name>\n \n<Subnodes>\n \n<Node type=\"folder\">\n \n<Name>HLDatabaseCleanupService</Name>\n \n<Path>HLDatabaseCleanupService_h/Classes/HLDatabaseCleanupService</Path>\n \n<File>index.html</File>\n \n</Node>\n \n  \n \n<!-- add more services here -->\n \n  \n \n</Subnodes>\n \n</Node>\n \n<!-- END Service Documents -->\n \n</Subnodes>\n \n</Node>\n \n</TOC>\n \n</DocSetNodes>\n \n\nStep 4: Setup Files and Folders Location\n\n After you have done everything described above, place all files in a directory structure as shown below in your source code project.\n\n\n'\n\n\nexport WWWDIR=\"/sd/www/mrgray\"\nexport DOCSDIR=\"/docs/atoz.framework\"\nmkdir -p \"$WWWDIR$DOCSDIR\"\n\n#/usr/local/bin/appledoc \"${SRCROOT}/../AppledocSettings.plist\"\n\n#--project-name \"$FULL_PRODUCT_NAME\" \n#--project-company \\\"mrgray.com\\\" \n#--company-id com.github.mralexgray\n##--output \\\"${WWWDIR}${DOCSDIR}\\\" \n#--docset-feed-url \"http://mrgray.com${DOCSDIR}/%DOCSETATOMFILENAME\" \n#--docset-package-url \"http://mrgray.com${DOCSDIR}/%DOCSETPACKAGEFILENAME\" \n#--publish-docset\n#.;\n";
 		};
 		7B66D779175DBCF600599B28 /* Copy Headers Script */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -7705,6 +7796,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		7B0A043518114F97009B1077 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7B311950159B6D9E002134C4 /* AtoZ */;
+			targetProxy = 7B0A043418114F97009B1077 /* PBXContainerItemProxy */;
+		};
 		7B0DA2AD174352DE00535483 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 7B0DA21817434FCA00535483 /* AtoZPrefs */;
@@ -7920,6 +8016,11 @@
 			name = RedGreenXC;
 			targetProxy = 7BF4286C1807FF6600FBA384 /* PBXContainerItemProxy */;
 		};
+		7BF6C8FC180FDEFD00895A19 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7B311950159B6D9E002134C4 /* AtoZ */;
+			targetProxy = 7BF6C8FB180FDEFD00895A19 /* PBXContainerItemProxy */;
+		};
 		7BFBF4F0175DC883007A84AC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = AtoZAppKit;
@@ -7928,14 +8029,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		7B31B13215E9441D00802CD5 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				7B31B13315E9441D00802CD5 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
 		7B31B13E15E9441D00802CD5 /* MainMenu.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -8380,6 +8473,7 @@
 		};
 		7B311979159B6D9E002134C4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7B3A1561180C79B200F63F4D /* Mac-Base.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ENABLE_MODULES = NO;
@@ -8480,6 +8574,7 @@
 		};
 		7B31197C159B6D9E002134C4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7B3A1563180C79B200F63F4D /* Mac-Framework.xcconfig */;
 			buildSettings = {
 				ADDITIONAL_SDKS = "";
 				CLANG_ENABLE_MODULES = NO;
@@ -8733,6 +8828,16 @@
 					"-Xclang",
 					"-fobjc-runtime-has-weak",
 				);
+				OTHER_LDFLAGS = (
+					"-lxml2",
+					"-ObjC",
+					"-all_load",
+					"-lffi",
+					"-framework",
+					Cocoa,
+					"-framework",
+					AtoZ,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -8760,6 +8865,16 @@
 				OTHER_CFLAGS = (
 					"-Xclang",
 					"-fobjc-runtime-has-weak",
+				);
+				OTHER_LDFLAGS = (
+					"-lxml2",
+					"-ObjC",
+					"-all_load",
+					"-lffi",
+					"-framework",
+					Cocoa,
+					"-framework",
+					AtoZ,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -9018,7 +9133,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = /Library/Frameworks;
+				FRAMEWORK_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)";
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -9066,7 +9181,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				FRAMEWORK_SEARCH_PATHS = /Library/Frameworks;
+				FRAMEWORK_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)";
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -9097,6 +9212,7 @@
 		};
 		7BF72D63171F8F2F0037CF41 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7B3A1557180C79B200F63F4D /* Test.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD)";

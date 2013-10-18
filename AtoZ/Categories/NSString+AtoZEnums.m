@@ -138,12 +138,12 @@ static NSMutableDictionary *gAllEnums = nil;
     return isLastEnum ? nil : nextWrappingEnum;
 }
 - (id) previousWrappingEnum	{
-    if (!isCacheValid) { self.class.allEnums; } // update cache
+    if (!isCacheValid) { [self.class allEnums]; } // update cache
     return previousWrappingEnum;
 }
 - (id) nextWrappingEnum
 {
-    if (!isCacheValid) { self.class.allEnums; } // update cache
+    if (!isCacheValid) { [self.class allEnums]; } // update cache
     return nextWrappingEnum;
 }
 - (id) deltaEnum: (NSInteger) delta wrapping: (BOOL) wrapping

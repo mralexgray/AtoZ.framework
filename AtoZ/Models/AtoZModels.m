@@ -67,7 +67,7 @@ DCSDictionaryRef DCSDictionaryCreate(CFURLRef url);
 	
 		_requester 							= [ASIHTTPRequest.alloc initWithURL:self.query];
 		_requester.completionBlock 	= ^(ASIHTTPRequest *request) {	wikiD = request.responseString.copy; requestError = [request error];	};
-		_requester.startSynchronous;
+		[_requester startSynchronous];
 		AZHTMLParser *p		= [AZHTMLParser.alloc initWithString:wikiD error:nil];
 		_rawResult = wikiD;
 		NSString * stripped 	= [_rawResult stripHtml];																		// parseXMLTag:@"text"]);

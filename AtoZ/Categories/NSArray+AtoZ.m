@@ -1505,7 +1505,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 #pragma mark UtilityExtensions
 @implementation NSArray (UtilityExtensions)
 - (id)firstObject {
-    return [self objectAtIndex:0];
+    return !self.count ? nil : self[0];
 }
 
 - (NSA*)uniqueMembers {

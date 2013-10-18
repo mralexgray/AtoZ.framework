@@ -2,7 +2,7 @@
 //- (NSMD*) propertyList { return _propertyList = _propertyList ?: _fileURL ? [NSMD dictionaryWithContentsOfURL:_fileURL] : nil; }
 
 #import "AZMacro.h"
-#import <AtoZ/AtoZ.h>
+//#import <AtoZ/AtoZ.h>
 
 @implementation AZMacro
 

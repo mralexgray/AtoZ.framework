@@ -2,7 +2,182 @@
 
 #import "AZWindowTab.h"
 
+
+@interface AZWindowTab () { CGP	_drgStrt, _wOrig, _offset; NSView *_view, *_handle; }
+
+@property (STR,NATOM)		AZRect * inFrame, * outFrame, * grabRect, * outerRect;
+@property (NATOM)	 		  AZAlign	insideEdge; // !!!
+@property (NATOM) 	AZSlideState 	slideState; // !!!
+//@property (NATOM)             CGF	grabInset;
+@property (nonatomic) NSView *userView;
+@property (RONLY)    OSCornerType 	outsideCorners;
+@end
+
+@implementation AZWindowTab  static NSMA *allTabs = nil;
+
+#pragma mark - Initialization 
+
++ (id) tabWithViewClass:(Class)k		{          //	id last = self.tabRects.last; NSR thRect = last ? [last rectValue] :
+	id retVal = [self.alloc initWithView:[k.alloc initWithFrame:AZRectFromDim(200)] orClass:NULL frame:NSZeroRect];
+	[retVal overrideViewResponder];	return retVal;
+}
+
+- (id)initWithView:(NSV *)v orClass:(Class)k frame:(NSR)r {
+
+	if (NSEqualRects(NSZeroRect, r) && v) r = v.frame; // if there's a view, use its frame, but check for nanRect.
+	if (NSEqualRects(NSZeroRect, r)) r = AZRectFromDim(400);
+	NSR tabFrame = AZRectBy(r.size.width + 100, r.size.height + 200);
+	return  [self initWithFrame:tabFrame];
+}
+
+- (void) setContentView:(NSView*)aView { self.view = aView; }
+
+- (void) setView:  (NSView*)view { 
+	
+	if (_view && [self.contentView subviews].count && [[self.contentView subviews]containsObject:_view]) [_view removeFromSuperview];
+	[self.contentView addSubview:_view = view];
+//	[_view bind:@"bounds]	
+		
+
+}
+//- (id) contentView { return  [AZSimpleView withFrame:self.contentRect color:YELLOW]; }
+
+- (instancetype) initWithFrame:(NSRect)r {  int mask = NSBorderlessWindowMask | NSResizableWindowMask;
+
+	if (self != [super initWithContentRect:r styleMask:mask backing:NSBackingStoreBuffered defer:NO]) return nil;
+	self->_contentView = [AZSimpleView withFrame:self.bounds color:ORANGE];
+	self.level      = NSScreenSaverWindowLevel; // NSFloatingWindowLevel;
+	self.delegate   = (id<NSWindowDelegate>)self;
+	self.view  = [AZSimpleView withFrame:NSZeroRect color:ORANGE];
+	[self.contentView addSubview:_handle = [AZSimpleView withFrame:NSZeroRect color:ORANGE]];
+
+	
+	[self  addObserverForKeyPaths:@[NSWindowDidBecomeKeyNotification,NSWindowDidResignKeyNotification] task:^(id obj, NSString *keyPath) {
+		[obj setSlideState:SameString(NSWindowDidResignKeyNotification, keyPath) ? AZOut : AZIn];
+		NSLog(keyPath);
+	}];
+	
+//	observeName:NSWindowDidResignKeyNotification usingBlock:^(NSNOT*m) {  [m.object setSlideState:AZIn]; }];
+//	[self observeName:NSWindowDidBecomeKeyNotification usingBlock:^(NSNoT*m) {
+//		if ([self hasAssociatedValueForKey:@"restore"]) [self removeAssociatedValueForKey:@"restore"], [self setSlideState:AZIn];
+//	}];
+//	AZWTV *tab = [AZWTV.alloc initInWindow:self withContent:nil andTab:nil]; //_inSize = r
+
+	[self makeKeyAndOrderFront:nil];
+	
+//	[self overrideViewResponder];
+	[allTabs = allTabs ? :NSMA.mutableArrayUsingWeakReferences addObject:self];
+	XX(allTabs.count);
+	XX(self.frame);
+//	self.slideState = AZIn;
+//	[allTabs log];
+	self.slideState = AZIn;
+	return self;
+}
+- (id) init { 	return [self initWithFrame: (NSR){ NSMidX(AZScreenFrameUnderMenu())-100, NSMaxY(AZScreenFrameUnderMenu())-100, 200, 100}]; }
+
+- (void)setInsideEdge:(AZAlign)i {	_insideEdge = i;  [self.contentView setNeedsDisplay:YES];	}
+
+//- (void)scrollWheel:(NSEvent *)e {	self.grabInset = _grabInset + e.deltaY; [self.contentView setNeedsDisplay:YES]; }
+
+- (void)mouseDown:(NSE *)e   		{ 	// Mask out everything but the key flags
+
+	NSUInteger flags = e.modifierFlags & NSDeviceIndependentModifierFlagsMask;
+	if ( flags == NSCommandKeyMask )	[self menu];
+	
+	if ( e.clickCount == 2 ) {          /// && NSPointInRect(e.locationInWindow, self.grabRect.r)) {
+		[AZTalker say:@"toggling"];
+		self.slideState = _slideState == AZIn ? AZOut : AZIn;
+		return;
+	}
+	_drgStrt        = NSE.mouseLocation;	// save initial mouse Location point.
+	_wOrig          = self.frame.origin;   // save initial origin.
+	while (e.type != NSLeftMouseUp) {
+		e = [self nextEventMatchingMask:NSLeftMouseDraggedMask|NSLeftMouseUpMask];
+		self.insideEdge = AZOutsideEdgeOfPointInRect ( NSE.mouseLocation, _outerRect.r);
+		_offset         = AZSubtractPoints ( NSE.mouseLocation, AZSubtractPoints ( _drgStrt, _wOrig));
+		self.frame = _slideState == AZIn ? self.inFrame.r : self.outFrame.r;
+	}
+}
+
+- (void)setSlideState:(AZSLDST)s	{ if(_slideState == s) return;
+
+//	if (self.slideState == AZOut) 
+	//[self setAssociatedValue:@YES forKey:@"restore" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
+	NSR newR  = s == AZIn ? self.inFrame.r : self.outFrame.r; _slideState = s;
+
+	[self animateToFrame:newR duration:1];// timing:CAMEDIAEASEOUT];
+}
+
+- (AZR *)grabRect                {	AZA o = self.insideEdge;
+
+	return 	o == AZTop ? $AZR(AZLowerEdge(self.bounds, self.inSize.height)) 
+			: 	o == AZLft ? $AZR(AZRightEdge(self.bounds, self.inSize.width))
+			:	o == AZBot ? $AZR(AZUpperEdge(self.bounds, self.inSize.height))
+			: 	o == AZRgt ? $AZR(AZLeftEdge (self.bounds, self.inSize.width))
+			: $AZR( AZCornerRectPositionedWithSize(	self.bounds, 
+																	AZPositionOpposite(o), 
+																	AZSizeFromDimension(AZMaxDim(self.inSize)*2)));//self.grabInset * 2)));
+}
+
+- (AZR*) inFrame                 {
+	AZRect *theStart        = self.outFrame;        AZPOS inE = self.insideEdge;
+
+	return 	inE == AZLft ? $AZR(AZRectExceptOriginX( theStart.r,  					  - self.width  + AZMinDim(self.inSize)*2)) //self.grabInset * 2))
+			: 	inE == AZTop ? $AZR(AZRectExceptOriginY( theStart.r, theStart.minY + theStart.height - AZMinDim(self.inSize)))//self.grabInset))
+			: 	inE == AZRgt ? $AZR(AZRectExceptOriginX( theStart.r, theStart.minX + theStart.width  - AZMinDim(self.inSize)))//self.grabInset))
+			: 	inE == AZBot ? $AZR(AZRectExceptOriginY( theStart.r, theStart.minY - theStart.height + AZMinDim(self.inSize))) : theStart;
+		//		return inFrame  = CGRectIsNull(inFrame)  ? self.frame : inFrame;  }
+}
+
+- (AZR *)outFrame                {	_outFrame      = $AZR( AZRectInsideRectOnEdge ( self.frame, _outerRect.r, self.insideEdge));
+
+	_insideEdge == AZRgt | _insideEdge == AZLft ? [_outFrame setMinY:_offset.y] : [_outFrame setMinX:_offset.x];
+	_outFrame.minX = MAX( _outFrame.minX, 0);
+	_outFrame.minY = MAX( _outFrame.minY, 0);
+	_outFrame.minX = MIN( _outFrame.minX, _outerRect.width  -  _outFrame.width );
+	_outFrame.minY = MIN( _outFrame.minY, _outerRect.height -  _outFrame.height);       return _outFrame;
+}
+
+- (CRNR)outsideCorners           {	 AZPOS o = AZPositionOpposite(self.insideEdge);
+	return 	o == AZTop ? ( OSBottomLeftCorner | OSBottomRightCorner )
+			: 	o == AZLft ? (   OSTopRightCorner | OSBottomRightCorner )
+			: 	o == AZBot ? (    OSTopLeftCorner | OSTopRightCorner    )
+			: 					 (    OSTopLeftCorner | OSBottomLeftCorner  );                                              //	o == AZPositionRight  ?
+}
+
+#pragma mark - NSResponder
+
+- (BOOL)canBecomeKeyWindow 		{ return YES; }
+- (BOOL)acceptsMouseMovedEvents  { return YES; }
+- (BOOL)acceptsFirstResponder		{ return YES; }
+
+- (void) overrideViewResponder	{
+	[[@[self.contentView] arrayByAddingObjectsFromArray:[self.contentView allSubviews]]each:^(id obj) {
+		if ([obj acceptsFirstMouse:nil] != YES)
+			[obj az_overrideSelector:@selector(acceptsFirstMouse:) withBlock:(__bridge void *)^BOOL (id _self, NSE *e) {
+				return NSLog(@"i am azframeworks' bitch.. i will acceptfirstMouse! %@ %@", e, [_self class]), YES;
+		}];
+	}];
+} // Set acceptsFirstMouse: in all subviews.
+
+@end
+
+
+@implementation AZWindowTabController
+@end
+
+
+@interface AZWindowTabViewPrivate : NSView
+@property (STR) 				   CAL * contentLayer,
+											 * tabLayer;
+@property (RONLY)   			 NSIMG * indicator;
+@property (RONLY) 		   	NSR	tabRect;
+@property (CP) void(^closedTabDrawBlock)(NSRect tabRect);
+@end
+
 @implementation AZWindowTabViewPrivate
+
 -   (id) initInWindow:    (NSW*)w withContent:(CAL*)content andTab:(CAL*)tab {
 
 	if (self != [super initWithFrame:w.contentRect]) return nil;
@@ -97,9 +272,11 @@
 	}];
 	return m;
 }
-- (void) layoutSublayersOfLayer:(CALayer *)layer {			CGF hot = ((AZWT*)self.window).grabInset*2;
-																			AZA align = ((AZWT *)self.window).insideEdge;
-																			AZRect *cR = [AZRect rectWithRect:self.bounds];
+- (void) layoutSublayersOfLayer:(CALayer *)layer {			
+
+	CGF hot = 20; //((AZWT*)self.window).AZMinDim(_inSize)((AZWindowTab*)self.window).inSize)*2)//grabInset*2;
+	AZA align = ((AZWT *)self.window).insideEdge;
+	AZRect *cR = [AZRect rectWithRect:self.bounds];
 	[CATRANNY immediately:^{
 		NSR tabR =
 		self.tabLayer.frame =  align == AZAlignTop 		? 	(NSR) { hot, 		hot / 2, 		cR.w, 		hot / 2}
@@ -139,49 +316,6 @@
 
 @end
 
-@interface AZWindowTab ()
-
-- (void)overrideViewResponder;
-@end
-@implementation AZWindowTab                                                             static NSMA *allTabs = nil;
-+ (id)tabWithViewClass:(Class)k      {          //	id last = self.tabRects.last; NSR thRect = last ? [last rectValue] :
-	id retVal = [self.alloc initWithView:[k.alloc initWithFrame:AZRectFromDim(200)] orClass:NULL frame:NSZeroRect];
-	[retVal overrideViewResponder];
-	return retVal;
-}
-
-- (void)overrideViewResponder          {
-	[[@[self.contentView] arrayByAddingObjectsFromArray : [self.contentView allSubviews]]each:^(id obj) {
-		if ([obj acceptsFirstMouse:nil] != YES)
-			[obj az_overrideSelector:@selector(acceptsFirstMouse:) withBlock:(__bridge void *)^BOOL (id _self, NSE *e) {
-				return NSLog(@"i am azframeworks' bitch.. i will acceptfirstMouse! %@ %@", e, [_self class]), YES;
-		}];
-	}];
-} // Set acceptsFirstMouse: in all subviews.
-
-- (id)initWithView:(NSV *)v
-           orClass:(Class)k
-             frame:(NSR)r {
-	int mask = NSBorderlessWindowMask | NSResizableWindowMask;
-	NSR frame = (v) ? v.frame : r; r = NSEqualRects(NSZeroRect, frame) ? AZRectFromDim(400) : frame; NSR tabFrame = AZRectBy(frame.size.width + 100, frame.size.height + 200);
-
-	if (self != [super initWithContentRect:tabFrame styleMask:mask backing:NSBackingStoreBuffered defer:NO]) return nil;
-
-
-	self.level              = NSScreenSaverWindowLevel;//NSFloatingWindowLevel;    //
-
-	[allTabs = allTabs ? :NSMA.mutableArrayUsingWeakReferences addObject:self];
-	_outerRect              = $AZR(AZScreenFrameUnderMenu());
-	[allTabs                          log];
-	self.delegate   = (id<NSWindowDelegate>)self;
-	[self observeName:NSWindowDidResignKeyNotification usingBlock:^(NSNotification *m) {
-		if (self.slideState == AZOut) [self setAssociatedValue:@YES forKey:@"restore" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC], [self setSlideState:AZIn];
-	}];
-	[self observeName:NSWindowDidBecomeKeyNotification usingBlock:^(NSNotification *m) {
-		if ([self hasAssociatedValueForKey:@"restore"]) [self removeAssociatedValueForKey:@"restore"], [self setSlideState:AZIn];
-	}];
-
-	AZWTV *tab = [AZWTV.alloc initInWindow:self withContent:nil andTab:nil];
 
 								 //instanceInWindow:self withView:v ?: [BLKV viewWithFrame:self.contentRect opaque:NO drawnUsingBlock:^(BNRBlockView *v, NSRect r) {
 //						NSRectFillWithColor( quadrant(r,2), RED );
@@ -212,102 +346,6 @@
 		//
 		//	}]];
 		//x	}
-	_grabInset = 25;
-	self.slideState = AZOut;
-	[self overrideViewResponder];
-	return self;
-}
-
-- (void)setInsideEdge:(AZAlign)i      {
-	_insideEdge = i;  [self.contentView setNeedsDisplay:YES];
-}
-
-
-- (void)scrollWheel:(NSEvent *)theEvent {
-	self.grabInset = _grabInset + theEvent.deltaY; [self.contentView setNeedsDisplay:YES];
-}
-
-- (void)mouseDown:(NSE *)e   {
-		// Mask out everything but the key flags
-	NSUInteger flags = e.modifierFlags & NSDeviceIndependentModifierFlagsMask;
-	if ( flags == NSCommandKeyMask ) {
-		[self menu];
-	}
-	if ( e.clickCount == 2 ) {          /// && NSPointInRect(e.locationInWindow, self.grabRect.r)) {
-		[AZTalker say:@"toggling"];
-		self.slideState = _slideState == AZIn ? AZOut : AZIn;
-		return;
-	}
-	_drgStrt        = NSE.mouseLocation;                // note our starting point.
-	_wOrig          = self.frame.origin;        // save initial origin.
-	while ([e type] != NSLeftMouseUp) {
-		e = [self nextEventMatchingMask:NSLeftMouseDraggedMask | NSLeftMouseUpMask];
-		self.insideEdge         = AZOutsideEdgeOfPointInRect ( NSE.mouseLocation, _outerRect.r);
-		_offset             = AZSubtractPoints ( NSE.mouseLocation, AZSubtractPoints ( _drgStrt, _wOrig));
-		self.frame = _slideState == AZIn ? self.inFrame.r : self.outFrame.r;
-	}
-}
-
-- (void)setSlideState:(AZSLDST)s      {
-	NSR newR  = s == AZIn ? self.inFrame.r : self.outFrame.r; _slideState = s;
-
-	[self animateToFrame:newR duration:1];// timing:CAMEDIAEASEOUT];
-}
-
-- (AZR *)grabRect                                               {
-	AZA o = self.insideEdge;
-
-	return o == AZTop ? $AZR(AZLowerEdge(self.bounds, self.grabInset))
-	: o == AZLft ? $AZR(AZRightEdge(self.bounds, self.grabInset))
-	: o == AZBot ? $AZR(AZUpperEdge(self.bounds, self.grabInset))
-	: o == AZRgt ? $AZR(AZLeftEdge (self.bounds, self.grabInset))
-	: $AZR( AZCornerRectPositionedWithSize(self.bounds, AZPositionOpposite(o), AZSizeFromDimension(self.grabInset * 2)));
-}
-
-- (AZR *)inFrame                                                        {
-	AZRect *theStart        = self.outFrame;        AZPOS inE = self.insideEdge;
-
-	return inE == AZLft ? $AZR(AZRectExceptOriginX( theStart.r,                                                     -self.width + self.grabInset * 2))
-	: inE == AZTop ? $AZR(AZRectExceptOriginY( theStart.r, theStart.minY + theStart.height - self.grabInset))
-	: inE == AZRgt ? $AZR(AZRectExceptOriginX( theStart.r, theStart.minX + theStart.width  - self.grabInset))
-	: inE == AZBot ? $AZR(AZRectExceptOriginY( theStart.r, theStart.minY - theStart.height + self.grabInset)) : theStart;
-		//		return inFrame  = CGRectIsNull(inFrame)  ? self.frame : inFrame;  }
-}
-
-- (AZR *)outFrame                                               {
-	_outFrame      = $AZR( AZRectInsideRectOnEdge ( self.frame, _outerRect.r, self.insideEdge));
-	_insideEdge == AZRgt | _insideEdge == AZLft ? [_outFrame setMinY:_offset.y] : [_outFrame setMinX:_offset.x];
-	_outFrame.minX = MAX( _outFrame.minX, 0);
-	_outFrame.minY = MAX( _outFrame.minY, 0);
-	_outFrame.minX = MIN( _outFrame.minX, _outerRect.width  -  _outFrame.width );
-	_outFrame.minY = MIN( _outFrame.minY, _outerRect.height -  _outFrame.height);       return _outFrame;
-}
-
-- (CRNR)outsideCorners                                 {
-	AZPOS o = AZPositionOpposite(self.insideEdge);
-	return o == AZTop ? ( OSBottomLeftCorner | OSBottomRightCorner )
-	: o == AZLft ? (   OSTopRightCorner | OSBottomRightCorner )
-	: o == AZBot ? (    OSTopLeftCorner | OSTopRightCorner    )
-	: (    OSTopLeftCorner | OSBottomLeftCorner  );                                              //	o == AZPositionRight  ?
-}
-
-- (BOOL)canBecomeKeyWindow                     {
-	return YES;
-}
-
-- (BOOL)acceptsMouseMovedEvents        {
-	return YES;
-}
-
-- (BOOL)acceptsFirstResponder          {
-	return YES;
-}
-
-@end
-
-
-@implementation AZWindowTabController
-@end
 
 /*
  CAT3D transform      = CATransform3DIdentity;
@@ -481,3 +519,4 @@
 
 	//@property dispatch_object_t token;
 	//@end
+	

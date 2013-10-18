@@ -17,7 +17,7 @@
 #define BOOTSWATCH_UNITED 	@"//netdna.bootstrapcdn.com/bootswatch/3.0.0/united/bootstrap.min.css"
 
 
-@class KSHTMLWriter, Asset;
+@class Asset;
 @interface Bootstrap : BaseModel
 
 @property (NATOM,STR) NSArrayController *availJS, *availCSS, *headers, *footers, *body;

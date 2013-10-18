@@ -2,7 +2,7 @@
 
 #import "AZShortcutWC.h"
 #import "NSNib+XMLBase64.h"
-#import <AtoZ/AtoZ.h>
+//#import <AtoZ/AtoZ.h>
 
 static int ShortcutKVOContext;
 static NSString *const SEARCH_PREDICATE_FORMAT = @"(title contains[cd] %@ OR summary contains[cd] %@ OR shortcut contains[cd] %@)";
@@ -13,9 +13,9 @@ static NSString *const SEARCH_PREDICATE_FORMAT = @"(title contains[cd] %@ OR sum
    if (self != [super init] ) return nil;
 
 		AZMacro *d = [AZMacro.alloc initWithPlistURL:[NSURL URLWithString:@"/Users/localadmin/Library/Developer/Xcode/UserData/CodeSnippets/7FEA4C5B-18AD-4AC3-8218-6BDAB98FA082.codesnippet"]];
-		NSLog(@"d: %@",[d.propertyNames reduce:@"" withBlock:^id(id sum, id obj) {
-			return [[sum stringByAppendingFormat:@"%@",[d vFK:obj]] withString:zNL];
-		}]);
+//		NSLog(@"d: %@",[d.propertyNames reduce:@"" withBlock:^id(id sum, id obj) {
+//			return [[sum stringByAppendingFormat:@"%@",[d vFK:obj]] withString:zNL];
+//		}]);
 
 //	NSArray *tops;
 

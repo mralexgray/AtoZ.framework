@@ -8,33 +8,46 @@
 
 #import <XCTest/XCTest.h>
 
-@interface AZGoogleImagesTests : XCTestCase
+@interface 			AZGoogleImagesTests : XCTestCase @end
+@implementation 	AZGoogleImagesTests
 
-@end
 
-@implementation AZGoogleImagesTests
+- (NSA*) getSomeResults {  __block NSA*res;
 
-- (void)setUp
-{
-    [super setUp];
-    // Put setup code here. This method is called before the invocation of each test method in the class.
-}
-
-- (void)tearDown
-{
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
-    [super tearDown];
-}
-
-- (void)testExample
-{
-	BLK_START;
-	[AZGoogleImages searchGoogleImages:@"hitler" withBlock:^(NSA *imageURLs) {	BLK_STOP;
-
-	 	XCTAssertTrue(imageURLs.count == 10, @"should fetch 10 Images;");
-		[imageURLs each:^(id obj) { XCTAssertTrue([obj ISKINDA:NSString.class],@"should all be URLS. Instead got:%@!", NSStringFromClass([obj class])); }];
+//	BLK_START;
+	[AZGoogleImages searchGoogleImages:NSS.randomBadWord withBlock:^(NSA *imageURLs) {	//BLK_STOP;  	
+		res = [imageURLs copy];
 	}];
-	BLK_WAIT;
+//	BLK_WAIT;
+	return res;
+}
+- (void)testDefaultResults	{ 		
+
+	NSA* imageURLs = [self getSomeResults]; NSUInteger ct;
+
+	__block NSUInteger ranTestCtr = 0;
+	for (id obj in imageURLs) { 
+		 XCTAssertTrue([obj ISKINDA:NSString.class], @"should all be URLS. Instead got:%@!", NSStringFromClass([obj class])); 
+		ranTestCtr++; 
+	}
+	XCTAssertEqual(@(ranTestCtr), @(imageURLs.count), @"didnt run the tests inside the loop!");
+
+
+
+	XCTAssertTrue(imageURLs.count == 10, 	@"should fetch 10 URL'd; Instead got...%@", @(imageURLs.count));
+	XCTAssertTrue((ct = [imageURLs filter:^BOOL(id object) { return [object ISKINDA:NSURL.class]; }].count) == imageURLs.count, 
+														@"should all be NSUrl's! Instead found...%@", @(ct));
 }
 
+- (void) testQueryCache {
+
+	NSA* someURLs = [self getSomeResults];
+	NSS* last = [AZGoogleImages lastQuery];
+	[AZGoogleImages searchGoogleImages:last withBlock:^(NSA *imageURLs) {
+	
+			XCTAssertEqual(someURLs, imageURLs, @"i shoudl egt the same results, if i havent asked for more!");
+	}];
+
+
+}
 @end

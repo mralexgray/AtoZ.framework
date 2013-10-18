@@ -8,11 +8,16 @@
 
 #import "AtoZ.h"
 
-@class AZGoogleQuery; @interface AZGoogleImages : BaseModel
+@class AZGoogleQuery; 	@interface AZGoogleImages : BaseModel
 
 /* USAGE: [AZGoogleImages searchGoogleImages:@"hitler" withBlock:^(NSA *imageURLs) { LOG_EXPR(imageURLs); }]; */
 
 + (AZGoogleQuery*) searchGoogleImages:(NSS*)query withBlock:(void(^)(NSA*imageURLs))block;
++			   (NSS*) lastQuery;
 +			   (NSA*) queries;
 +           (NSA*) urlsForQuery:(NSS*)query;
+
+
++ (NSA*) imagesForQuery:(NSS*)q count:(NSUInteger)ct;
+
 @end

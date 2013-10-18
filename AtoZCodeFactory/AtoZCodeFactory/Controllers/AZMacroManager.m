@@ -142,7 +142,7 @@ static NSString *SNIPPET_EXTENSION = @"codesnippet";
 
 -   (NSMutableDictionary*) plistData				{
 
-//	return _plistData = _plistData ?:  ^(NSMutableDictionary*){  /* parse the plist * /
+//	return _plistData = _plistData ?:  ^(NSMutableDictionary*){  / * parse the plist * /
 
 		NSError 	*e 	= nil;		NSData 	*data	= nil; NSPropertyListFormat fmt;
 
@@ -175,7 +175,7 @@ static NSString *SNIPPET_EXTENSION = @"codesnippet";
 
 //		return [NSPropertyListSerialization propertyListWithData:data options:NSPropertyListMutableContainersAndLeaves format:&fmt error:&e];
 }
-/*
+
 -   (NSTreeNode*) shortcuts  	{ return _shortcuts = _shortcuts ?: ^{	 _shortcuts = NSTreeNode.new;
 
 		[self.plistData enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {

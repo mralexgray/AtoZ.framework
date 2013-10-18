@@ -11,7 +11,12 @@
 #define kScrollContentRect CGRectMake(  0.0,   0.0, 100, _targetView.height )
 
 @implementation TestBedDelegate
+- (IBAction)newTab:(id)sender{
 
+
+	[AZSimpleView preview];
+	
+}
 #define NEWVC(_x_) ^{  \
 	NSB *bun = [NSB bundleForClass:[_x_ class]]; \
 	return (_x_*)[[[_x_ class] alloc] initWithNibName:NSStringFromClass([_x_ class]) bundle:bun]; \
@@ -19,8 +24,8 @@
 
 -  (void) awakeFromNib						{
 
-	_windowControllers = [[AZFILEMANAGER filesInDirectoryAtPath:AZAPPRESOURCES includeInvisible:NO includeSymlinks:NO]filter:^BOOL(NSS* f) { return f.pathExtension
-	} 
+//	_windowControllers = [[AZFILEMANAGER filesInDirectoryAtPath:AZAPPRESOURCES includeInvisible:NO includeSymlinks:NO]filter:^BOOL(NSS* f) { return f.pathExtension
+//	} 
 	[_menu   loadStatusMenu];
 	[((BGHUDView*)_contentView).theme bind:@"baseColor" toObject:_colorWell withKeyPath:@"color" options:nil];
 //	[self.window setAcceptsMouseMovedEvents:YES];
@@ -109,13 +114,13 @@
 }
 - (void) alternate 			{
 
-	_targetView.subviews = @[host = [BLKVIEW inView:_targetView withBlock:^(BLKVIEW *v, CAL *l) {	 }]];
-   host.layer.sublayers = @[scrlr = [CASCRLL layerWithFrame:host.layer.bounds]];					
-				  scrlr.bgC = [[GREEN alpha:.4] CGColor];
-			  scrlr.arMASK = CASIZEABLE;
-			scrlr.delegate = self;
+	_targetView.subviews = @[_host = [BLKVIEW inView:_targetView withBlock:^(BLKVIEW *v, CAL *l) {	 }]];
+   _host.layer.sublayers = @[_scrlr = [CASCRLL layerWithFrame:_host.layer.bounds]];					
+				  _scrlr.bgC = [[GREEN alpha:.4] CGColor];
+			  _scrlr.arMASK = CASIZEABLE;
+			_scrlr.delegate = self;
 			
-  self.model[@"layers"]	= scrlr.sublayers = [self.model [@"icons"] nmap:^id(NSIMG*o, NSUI idx){
+  self.model[@"layers"]	= _scrlr.sublayers = [self.model [@"icons"] nmap:^id(NSIMG*o, NSUI idx){
 //			CAL*gImg;
 			CAGL *g 	= [CAL gradientWithColor:self.model[@"colors"][idx]];
 //				 	g.sublayers = @[gImg = [CAL layerNamed:o.name]];
@@ -128,7 +133,7 @@
 						  return g;	}];
 						  
 	[NSEVENTLOCALMASK:NSScrollWheelMask handler:^(NSE*e){
-		self.off += e.deltaX * ABS(e.deltaX);	[scrlr scrollToPoint:(NSP){off, 0}];		return e; }];
+		self.off += e.deltaX * ABS(e.deltaX);	[_scrlr scrollToPoint:(NSP){_off, 0}];		return e; }];
 		
 	[NSEVENTLOCALMASK:NSLeftMouseUpMask handler:^(NSE*e){	CAGL* c = self.hit; 	if (c) [c setFrameMinX:c.frameMinX - c.boundsWidth]; return e; }];
 		
@@ -138,22 +143,22 @@
 																			[hovered setBool:NO forKey:@"hover"]; 
 																			[c setBool:YES forKey:@"hover"]; } 				return  e; }];
 }
-- (CAGL*) hit 					{ NSP hit = host.windowPoint;  hit.x += off;	return _hit = (CAGL*)[scrlr hitTestSubs:hit]; }
-- (NSA*) visibleSubs	 		{ return _visibleSubs = scrlr.visibleSublayers; }
-- (NSA*) subsAscending		{ return _subsAscending = scrlr.sublayersAscending; }
+- (CAGL*) hit 					{ NSP hit = _host.windowPoint;  hit.x += _off;	return _hit = (CAGL*)[_scrlr hitTestSubs:hit]; }
+- (NSA*) visibleSubs	 		{ return _visibleSubs = _scrlr.visibleSublayers; }
+- (NSA*) subsAscending		{ return _subsAscending = _scrlr.sublayersAscending; }
 - (NSUI) indexLastVisible 	{ NSA *visi = self.visibleSubs;  return visi ? [self.subsAscending indexOfObject:visi.last]   : NSNotFound; }
 - (NSUI) indexFirstVisible { NSA *visi = self.visibleSubs;  return visi ? [self.subsAscending indexOfObject:visi[0]] : NSNotFound; }
 - (NSS*) visibleSubsString { NSA* vs = [self.visibleSubs valueForKeyPath:@"name"]; 
 									  return $(@"%@ [%ld] Offset:%.1f", [NSS stringFromArray:vs], vs.count, self.off); 
 }
 - (NSRNG) front 				{ return NSMakeRange( 							0, self.visible.location); }
-- (NSRNG) back 			 	{ return NSMakeRange(	self.visible.length, scrlr.sublayers.count); }
+- (NSRNG) back 			 	{ return NSMakeRange(	self.visible.length, _scrlr.sublayers.count); }
 - (NSRNG) visible 			{ return NSMakeRange(self.indexFirstVisible, self.indexLastVisible ); }
 
 - (NSString *)fixState 	{ return stringForScrollFix(self.scrollFix); }
 - (ScrollFix) scrollFix { 	ScrollFix aFix 		= 	self.front.location == 0  && [self indexLastVisible] < self.subsAscending.count 
 															? 	LayerInsertFront
-															:	self.visible.length 	== scrlr.sublayers.count
+															:	self.visible.length 	== _scrlr.sublayers.count
 															?	LayerInsertEnd
 															:	LayerStateOK; // self.back.length - _visible.length 	
 	static NSUI fixCt = 0;  fixCt++;	
@@ -183,15 +188,15 @@ CGR MakeSubrect(CGR r, CGF x, CGF y, CGF w, CGF h)	 {
 
 	NSSegmentedControl *s = sender;
 	NSUI i = [sender selectedSegment];
-	NSArray *action = @[	^{ [scrlr scrollToRect:MakeSubrect(kScrollContentRect,.25, .5,  1, .5)]; },
-							  ^{ [scrlr scrollToRect:MakeSubrect(kScrollContentRect, .5,.25,  1, .5)]; },
-							  ^{ [scrlr scrollToRect:MakeSubrect(kScrollContentRect,.25,  0,  1, .5)]; },
-							  ^{ [scrlr scrollToRect:MakeSubrect(kScrollContentRect,  0,.25,  1, .5)]; },
-							  ^{ [scrlr scrollToRect:MakeSubrect(kScrollContentRect,  0, .5, .5, .5)]; },
-							  ^{ [scrlr scrollToRect:MakeSubrect(kScrollContentRect, .5, .5, .5, .5)]; },
-							  ^{ [scrlr scrollToRect:MakeSubrect(kScrollContentRect,  0,  0, .5, .5)]; },
-							  ^{ [scrlr scrollToRect:MakeSubrect(kScrollContentRect,  0,  0, .5, .5)]; },
-							  ^{ [scrlr scrollToRect:MakeSubrect(kScrollContentRect, .5,  0, .5, .5)]; }];
+	NSArray *action = @[	^{ [_scrlr scrollToRect:MakeSubrect(kScrollContentRect,.25, .5,  1, .5)]; },
+							  ^{ [_scrlr scrollToRect:MakeSubrect(kScrollContentRect, .5,.25,  1, .5)]; },
+							  ^{ [_scrlr scrollToRect:MakeSubrect(kScrollContentRect,.25,  0,  1, .5)]; },
+							  ^{ [_scrlr scrollToRect:MakeSubrect(kScrollContentRect,  0,.25,  1, .5)]; },
+							  ^{ [_scrlr scrollToRect:MakeSubrect(kScrollContentRect,  0, .5, .5, .5)]; },
+							  ^{ [_scrlr scrollToRect:MakeSubrect(kScrollContentRect, .5, .5, .5, .5)]; },
+							  ^{ [_scrlr scrollToRect:MakeSubrect(kScrollContentRect,  0,  0, .5, .5)]; },
+							  ^{ [_scrlr scrollToRect:MakeSubrect(kScrollContentRect,  0,  0, .5, .5)]; },
+							  ^{ [_scrlr scrollToRect:MakeSubrect(kScrollContentRect, .5,  0, .5, .5)]; }];
 
 	((void (^)()) [action objectAtIndex:i] )();
 }

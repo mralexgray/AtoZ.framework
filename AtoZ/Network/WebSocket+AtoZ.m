@@ -10,9 +10,8 @@
 #import "WebSocket+AtoZ.h"
 
 
-@implementation WebSocket (Convenience)
-+ (instancetype) webSocketOnSocket:(ASOCK*)sock { return [self.alloc initWithRequest:HTTPMessage.alloc.initEmptyRequest socket:sock]; }
-@end
+//@implementation WebSocket (Convenience)
+//@end
 
 
 
@@ -32,6 +31,9 @@
 //@end
 
 @implementation WebSocket (AtoZBlockDelegate)
+
++ (instancetype) webSocketOnSocket:(ASOCK*)sock { return [self.alloc initWithRequest:HTTPMessage.alloc.initEmptyRequest socket:sock]; }
+
 
 SYNTHESIZE_DELEGATE(	didOpenBlock, setDidOpenBlock,
 							(void(^)(WebSocket*ws)),

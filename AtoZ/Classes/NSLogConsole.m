@@ -178,7 +178,7 @@ void	NSLogPostLog(char* file, int line){ if(!inited)return; [NSLogConsole.shared
 }
 + (instancetype) sharedConsole	{
 
-		static id singleton = NULL; @synchronized(self){ if (!singleton){ singleton = self.alloc;  [singleton init]; }	} return singleton;
+		static id singleton = NULL; @synchronized(self){ if (!singleton){ singleton = [self.alloc init]; }	} return singleton;
 }
 @end
 @implementation NSLogConsoleView	{

@@ -11,7 +11,7 @@
 
 @interface HTTPConnection (SocketBlock)
 
-@property (nonatomic,readonly,unsafe_unretained) HTTPServer *server;
+//@property (nonatomic,readonly,unsafe_unretained) HTTPServer *server;
 
 @property WebSocket*(^webSocketForURI)(NSString*path);
 - (void) setWebSocketForURI:(WebSocket *(^)(NSString *))webSocketForURI;

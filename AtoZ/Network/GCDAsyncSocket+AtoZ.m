@@ -21,11 +21,11 @@
 	[sock acceptOnPort:port error:nil]; return sock;
 }
 
-- (void(^)(ASOCK*,NSError*)) 			 didDisconnectWithError { RET_ASSOC; }
-- (void(^)(ASOCK*,NSString*,uint16_t)) didConnectToHostPort { RET_ASSOC; }
-- (void(^)(ASOCK*,ASOCK*))					  didAcceptNewSocket { RET_ASSOC; }
-- (void(^)(ASOCK*,NSData*,long))			  didReadDataWithTag { RET_ASSOC; }
-- (void(^)(ASOCK*,long))					 didWriteDataWithTag { RET_ASSOC; }
+- (void(^)(ASOCK*,NSError*)) 			          didDisconnectWithError { RET_ASSOC; }
+- (void(^)(ASOCK*,NSString*,uint16_t))          didConnectToHostPort { RET_ASSOC; }
+- (void(^)(ASOCK*,ASOCK*))					           didAcceptNewSocket { RET_ASSOC; }
+- (void(^)(ASOCK*,NSData*,long))			  			  didReadDataWithTag { RET_ASSOC; }
+- (void(^)(ASOCK*,long))								 didWriteDataWithTag { RET_ASSOC; }
 - (TimeOutTagsElapsedBytes) shouldTimeoutReadWithTagElapsedBytesDone { RET_ASSOC; }
 
 - (void) setDidDisconnectWithError:	(void(^)(ASOCK*,NSError*))        didDisconnectWithError { SET_ASSOC_DELEGATE(didDisconnectWithError);}

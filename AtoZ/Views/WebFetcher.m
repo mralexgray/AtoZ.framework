@@ -44,7 +44,7 @@
 #endif
 + (BOOL)printDebugging 	{ return NO; }						// set to yes for debugging
 - (BOOL)setup				{
-	super.setup;
+	[super setup];
 	self.thread.name = runMessage;								// debugging crashes
 	NSURL *url 	= [NSURL      URLWithString:urlStr];
 	request 		= [NSMURLREQ    requestWithURL:url];
@@ -57,7 +57,7 @@
 	connection = [NSURLC.alloc initWithRequest:request delegate:self startImmediately:YES];
 	return connection ? YES : NO;
 }
-- (void)cancel				{	super.cancel;
+- (void)cancel				{	[super cancel];
 	
 	if( self.isExecuting ) {
 		[connection performSelector:@selector(cancel) onThread:self.thread withObject:nil waitUntilDone:NO];	// may be overkill but want to be 100% sure to stop all messages

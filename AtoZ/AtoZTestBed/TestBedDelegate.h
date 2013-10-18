@@ -7,14 +7,15 @@
 
 @interface TestBedDelegate : NSObject <NSApplicationDelegate,NSWindowDelegate>
 
+- (IBAction)newTab:(id)sender;
 @property (USF) IBOutlet AtoZColorWell		*colorWell;
 @property (USF) IBOutlet MenuAppController	*menu;
 
-//@property (STR) GeneralVC			* genVC;
-//@property (STR) UIVC					* uiVC;
-//@property (STR) ColorVC				* colorVC;
-//@property (STR) FBVC					* fbV;
-//@property (STR) TUIVVC				* tuiVC;
+@property (STR) GeneralVC			* genVC;
+@property (STR) UIVC					* uiVC;
+@property (STR) ColorVC				* colorVC;
+@property (STR) FBVC					* fbV;
+@property (STR) TUIVVC				* tuiVC;
 
 @property (RONLY) NSMutableArray   * windowControllers;
 @property (STR) NSTimer   			* colorFade;

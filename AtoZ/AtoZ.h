@@ -98,7 +98,7 @@ AZWORKSPACE:
 #import <KSHTMLWriter/KSHTMLWriter.h>
 #import <MapKit/MapKit.h>
 #import <NoodleKit/NoodleKit.h>
-#import <NanoStore/NanoStore.h>
+//#import <NanoStore/NanoStore.h>
 //#import <Nu/Nu.h>
 #import <PhFacebook/PhFacebook.h>
 #import <Rebel/Rebel.h>

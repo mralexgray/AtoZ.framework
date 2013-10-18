@@ -776,7 +776,7 @@ static NSOrderedDictionary  *monos = nil;
 }
 + (NSIMG*) badgeForRect:	 (NSR)frame withColor:(NSC*)color stroked:(NSC*) stroke withString:(NSS*)string orDrawBlock:(void(^)(NSR))drawBlock {
 
-	AtoZ.sharedInstance;
+//	[AtoZ sharedInstance];
 
 	CGF inset 		= AZMinDim 			 ( frame.size ) * .1;
 	NSR outerRect	= AZCenterRectOnRect ( AZRectFromDim ( (AZMinDim(frame.size)-inset)), frame );	//AZSquareInRect( 	  NSInsetRect( newFrame, inset, inset ));

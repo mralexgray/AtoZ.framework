@@ -12,7 +12,7 @@ NSString * const AZThemeDidUpdateNotification = @"AZThemeDidUpdateNotification";
 - (NSString*) themeKey 									{ return NSStringFromClass(self.class) ; }
 -      (void) setBaseColor:(NSColor*) baseColor	{	_baseColor = baseColor;
 
-	NSLog(@"Observers: %@", self.observationInfo);
+	if (self.observationInfo != NULL) NSLog(@"Observers: %@", self.observationInfo);
 	[NCENTER postNotificationName:AZThemeDidUpdateNotification object:nil userInfo:@{@"themeKey": self.themeKey, @"baseColor":_baseColor}];
 }
 #pragma mark Scroller Theme

@@ -10,10 +10,25 @@
 		7B3D80F7178D24F100793E22 /* AZMacro.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B3D80F0178D24F100793E22 /* AZMacro.m */; };
 		7B3D80F8178D24F100793E22 /* AZMacroManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B3D80F3178D24F100793E22 /* AZMacroManager.m */; };
 		7B3D80F9178D24F100793E22 /* AZShortcutWC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B3D80F5178D24F100793E22 /* AZShortcutWC.m */; };
-		7BF1ECBF174A1F8B00699D38 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF1ECBE174A1F8B00699D38 /* main.m */; };
+		7BF1ECBF174A1F8B00699D38 /* AtoZCodeFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF1ECBE174A1F8B00699D38 /* AtoZCodeFactory.m */; };
 		7BF3FEB817D8B87D0079B1A2 /* NSNib+XMLBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF3FEB717D8B87D0079B1A2 /* NSNib+XMLBase64.m */; };
+		7BFADD7B180EE2B0007392B3 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BFADD7A180EE2B0007392B3 /* AppKit.framework */; };
+		7BFADD7D180EE2B0007392B3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BFADD7C180EE2B0007392B3 /* Foundation.framework */; };
+		7BFADD83180EE2B0007392B3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7BFADD81180EE2B0007392B3 /* InfoPlist.strings */; };
+		7BFADD85180EE2B0007392B3 /* AtoZXcode.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BFADD84180EE2B0007392B3 /* AtoZXcode.m */; };
+		7BFADD8D180EE2FE007392B3 /* AtoZCodeFactory in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7B10DE7F17D925F600637786 /* AtoZCodeFactory */; };
 		7BFBF514175DCFFC007A84AC /* ArchDirectoryObserver.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B3C8C0C174B908B00842B90 /* ArchDirectoryObserver.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		7BFADD8A180EE2CF007392B3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7BF1ECB0174A1F8B00699D38 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7BF1ECB7174A1F8B00699D38;
+			remoteInfo = AtoZCodeFactory;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		7BF1ECB6174A1F8B00699D38 /* CopyFiles */ = {
@@ -24,6 +39,16 @@
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 1;
+		};
+		7BFADD8C180EE2F0007392B3 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 6;
+			files = (
+				7BFADD8D180EE2FE007392B3 /* AtoZCodeFactory in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
@@ -40,12 +65,19 @@
 		7B3D80F5178D24F100793E22 /* AZShortcutWC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZShortcutWC.m; sourceTree = "<group>"; };
 		7B3D80F6178D24F100793E22 /* MainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MainWindow.xib; path = AtoZCodeFactory/MainWindow.xib; sourceTree = "<group>"; };
 		7B99CF801757F05D00977638 /* AtoZCodeFactory-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "AtoZCodeFactory-Info.plist"; path = "AtoZCodeFactory/AtoZCodeFactory-Info.plist"; sourceTree = SOURCE_ROOT; };
-		7BF1ECBE174A1F8B00699D38 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = AtoZCodeFactory/main.m; sourceTree = "<group>"; };
+		7BF1ECBE174A1F8B00699D38 /* AtoZCodeFactory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AtoZCodeFactory.m; path = AtoZCodeFactory/AtoZCodeFactory.m; sourceTree = "<group>"; };
 		7BF1ECC1174A1F8B00699D38 /* AtoZCodeFactory-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "AtoZCodeFactory-Prefix.pch"; path = "AtoZCodeFactory/AtoZCodeFactory-Prefix.pch"; sourceTree = "<group>"; };
 		7BF1ECD1174AAC6800699D38 /* AtoZMacroDefines.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = AtoZMacroDefines.plist; path = ../AtoZMacroDefines.plist; sourceTree = "<group>"; };
 		7BF3FEB517D8B6E30079B1A2 /* SomeNib.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = SomeNib.xml; path = AtoZCodeFactory/SomeNib.xml; sourceTree = "<group>"; };
 		7BF3FEB617D8B87D0079B1A2 /* NSNib+XMLBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSNib+XMLBase64.h"; path = "AtoZCodeFactory/NSNib+XMLBase64.h"; sourceTree = "<group>"; };
 		7BF3FEB717D8B87D0079B1A2 /* NSNib+XMLBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSNib+XMLBase64.m"; path = "AtoZCodeFactory/NSNib+XMLBase64.m"; sourceTree = "<group>"; };
+		7BFADD78180EE2B0007392B3 /* AtoZXcode.xcplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AtoZXcode.xcplugin; sourceTree = BUILT_PRODUCTS_DIR; };
+		7BFADD7A180EE2B0007392B3 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		7BFADD7C180EE2B0007392B3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		7BFADD80180EE2B0007392B3 /* AtoZXcode-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AtoZXcode-Info.plist"; sourceTree = "<group>"; };
+		7BFADD82180EE2B0007392B3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		7BFADD84180EE2B0007392B3 /* AtoZXcode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AtoZXcode.m; sourceTree = "<group>"; };
+		7BFADD86180EE2B0007392B3 /* AtoZXcode-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AtoZXcode-Prefix.pch"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +85,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7BFADD75180EE2B0007392B3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7BFADD7B180EE2B0007392B3 /* AppKit.framework in Frameworks */,
+				7BFADD7D180EE2B0007392B3 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -101,10 +142,41 @@
 				7BF1ECC1174A1F8B00699D38 /* AtoZCodeFactory-Prefix.pch */,
 				7B3C8C0C174B908B00842B90 /* ArchDirectoryObserver.h */,
 				7B3C8C0D174B908B00842B90 /* ArchDirectoryObserver.m */,
-				7BF1ECBE174A1F8B00699D38 /* main.m */,
+				7BF1ECBE174A1F8B00699D38 /* AtoZCodeFactory.m */,
 				7B10DE7F17D925F600637786 /* AtoZCodeFactory */,
 				7B10DE8017D925F600637786 /* libAtoZObjC.a */,
+				7BFADD78180EE2B0007392B3 /* AtoZXcode.xcplugin */,
+				7BFADD7E180EE2B0007392B3 /* AtoZXcode */,
+				7BFADD79180EE2B0007392B3 /* Frameworks */,
 			);
+			sourceTree = "<group>";
+		};
+		7BFADD79180EE2B0007392B3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7BFADD7A180EE2B0007392B3 /* AppKit.framework */,
+				7BFADD7C180EE2B0007392B3 /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7BFADD7E180EE2B0007392B3 /* AtoZXcode */ = {
+			isa = PBXGroup;
+			children = (
+				7BFADD84180EE2B0007392B3 /* AtoZXcode.m */,
+				7BFADD7F180EE2B0007392B3 /* Supporting Files */,
+			);
+			path = AtoZXcode;
+			sourceTree = "<group>";
+		};
+		7BFADD7F180EE2B0007392B3 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				7BFADD80180EE2B0007392B3 /* AtoZXcode-Info.plist */,
+				7BFADD81180EE2B0007392B3 /* InfoPlist.strings */,
+				7BFADD86180EE2B0007392B3 /* AtoZXcode-Prefix.pch */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,6 +209,25 @@
 			productName = AtoZCodeFactory;
 			productReference = 7B10DE7F17D925F600637786 /* AtoZCodeFactory */;
 			productType = "com.apple.product-type.tool";
+		};
+		7BFADD77180EE2B0007392B3 /* AtoZXcode */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7BFADD87180EE2B0007392B3 /* Build configuration list for PBXNativeTarget "AtoZXcode" */;
+			buildPhases = (
+				7BFADD74180EE2B0007392B3 /* Sources */,
+				7BFADD75180EE2B0007392B3 /* Frameworks */,
+				7BFADD76180EE2B0007392B3 /* Resources */,
+				7BFADD8C180EE2F0007392B3 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7BFADD8B180EE2CF007392B3 /* PBXTargetDependency */,
+			);
+			name = AtoZXcode;
+			productName = AtoZXcode;
+			productReference = 7BFADD78180EE2B0007392B3 /* AtoZXcode.xcplugin */;
+			productType = "com.apple.product-type.bundle";
 		};
 		7BFBF4F6175DCF82007A84AC /* AtoZObjC */ = {
 			isa = PBXNativeTarget;
@@ -180,11 +271,20 @@
 			targets = (
 				7BF1ECB7174A1F8B00699D38 /* AtoZCodeFactory */,
 				7BFBF4F6175DCF82007A84AC /* AtoZObjC */,
+				7BFADD77180EE2B0007392B3 /* AtoZXcode */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		7BFADD76180EE2B0007392B3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7BFADD83180EE2B0007392B3 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7BFBF51A175DD05C007A84AC /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -219,7 +319,15 @@
 				7B3D80F8178D24F100793E22 /* AZMacroManager.m in Sources */,
 				7BF3FEB817D8B87D0079B1A2 /* NSNib+XMLBase64.m in Sources */,
 				7B3D80F7178D24F100793E22 /* AZMacro.m in Sources */,
-				7BF1ECBF174A1F8B00699D38 /* main.m in Sources */,
+				7BF1ECBF174A1F8B00699D38 /* AtoZCodeFactory.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7BFADD74180EE2B0007392B3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7BFADD85180EE2B0007392B3 /* AtoZXcode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -231,6 +339,25 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		7BFADD8B180EE2CF007392B3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7BF1ECB7174A1F8B00699D38 /* AtoZCodeFactory */;
+			targetProxy = 7BFADD8A180EE2CF007392B3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		7BFADD81180EE2B0007392B3 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7BFADD82180EE2B0007392B3 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		7BF1ECC4174A1F8B00699D38 /* Debug */ = {
@@ -287,8 +414,6 @@
 					AppKit,
 					"-framework",
 					QuartzCore,
-					"-framework",
-					AtoZ,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -312,11 +437,80 @@
 					AppKit,
 					"-framework",
 					QuartzCore,
-					"-framework",
-					AtoZ,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		7BFADD88180EE2B0007392B3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = "$(HOME)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "AtoZXcode/AtoZXcode-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "AtoZXcode/AtoZXcode-Info.plist";
+				INSTALL_PATH = "/Library/Application Support/Developer/Shared/Xcode/Plug-ins";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = xcplugin;
+			};
+			name = Debug;
+		};
+		7BFADD89180EE2B0007392B3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = "$(HOME)";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "AtoZXcode/AtoZXcode-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "AtoZXcode/AtoZXcode-Info.plist";
+				INSTALL_PATH = "/Library/Application Support/Developer/Shared/Xcode/Plug-ins";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = xcplugin;
 			};
 			name = Release;
 		};
@@ -384,6 +578,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		7BFADD87180EE2B0007392B3 /* Build configuration list for PBXNativeTarget "AtoZXcode" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7BFADD88180EE2B0007392B3 /* Debug */,
+				7BFADD89180EE2B0007392B3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		7BFBF507175DCF82007A84AC /* Build configuration list for PBXNativeTarget "AtoZObjC" */ = {
 			isa = XCConfigurationList;

@@ -1072,13 +1072,8 @@ static char windowPosition;
  
 }
 
-- (void)log {
-	[self logInColor:RANDOMCOLOR];
-}
-
-- (void)logInColor:(NSC *)color {
-	LOGCOLORS(color,$(@"%@",self), nil);
-}
+- (void)log {	[self logInColor:RANDOMCOLOR];}
+- (void)logInColor:(NSC *)color {	LOGCOLORS(color,[self description], nil);}
 
 //- (NSMethodSignature *)methodSignatureForSelector:(SEL)selector
 //{

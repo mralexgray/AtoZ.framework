@@ -399,8 +399,9 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 }
 +(id) previewOfClass:(Class)klass {	
 
-	AZWindowTab *window;
-	return [window = [AZWindowTab tabWithViewClass:klass] makeKeyAndOrderFront: nil], window;
+	AZWindowTab *window = [AZWindowTab new];
+	[window setView:[klass.alloc initWithFrame:NSZeroRect]];
+	[window makeKeyAndOrderFront: nil]; return window;
 }
 
 -(CALayer *)layerFromContents		{

@@ -15,7 +15,7 @@ JREnumDefine(AZOutlineCellStyle);
 //
 //		for ([[value vFKP:@"representedNode"] doesNotContainObject:])[AZOutlineLayer layerWithNode:_controller.pare inLayer:hostLayer_ withFrame:self.nodeRect]]; 			// nodes <- encapsulates all the OTHER nodes.
 	self.wantsLayer		 	= YES;
-	self.setupAppKitCrap;
+	[self setupAppKitCrap];
 //	self.nodes.selectedNode = _controller.children[0]; return self;  // Jusr to start things off;
 }
 - (void) mouseMoved:  		(NSE*)e	{ static ReverseAnimationBlock colorSnap = NULL, pulseSnap = NULL;
