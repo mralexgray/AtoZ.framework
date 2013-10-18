@@ -470,6 +470,9 @@ _SELFBLK_(self); [NSProcessInfo.processInfo enableSuddenTermination];
 #define				  kBgC	@"backgroundColor"
 #define				kBgNSC	@"backgroundNSColor"
 #define 				  vFKP 	valueForKeyPath
+#define 				 mAVFK 	mutableArrayValueForKey
+
+
 #define 					vFK 	valueForKey
 #define 					 pV 	pointValue
 #define 					 rV	rectValue
@@ -500,6 +503,9 @@ _SELFBLK_(self); [NSProcessInfo.processInfo enableSuddenTermination];
 #define MOUSEDRAGGING MOUSEDOWN | MOUSEDRAG | MOUSEUP
 
 #define FUTURE NSDate.distantFuture
+
+@protocol AtoZNodeProtocol;
+#define AZNODEPRO (NSObject<AtoZNodeProtocol>*)
 
 #define  	AZFWORKBUNDLE	[NSBundle bundleForClass:AtoZ.class]
 #define  	AZFWRESOURCES 	[AZFWORKBUNDLE resourcePath]

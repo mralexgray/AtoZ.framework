@@ -449,9 +449,10 @@ finish:
 	return [self stringByAppendingPathComponent:path];
 }
 - (NSS*) withExt:	(NSS*)ext							{ return [self stringByAppendingPathExtension:ext];  }
+
 - (NSS*) stripHtml 										{
 	// take this string obj and wrap it in a root element to ensure only a single root element exists
-	NSString *string = (@"<root>%@</root>", self);
+	NSString *string = $(@"<root>%@</root>", self);
 	// add the string to the xml parser
 	NSStringEncoding encoding = string.fastestEncoding;
 	NSData *data = [string dataUsingEncoding:encoding];

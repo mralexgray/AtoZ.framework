@@ -8,6 +8,8 @@
 
 #import "CABlockDelegate.h"
 #import <objc/runtime.h>
+#import "AtoZUmbrella.h"
+#import "AtoZNodeProtocol.h"
 
 /* inspiration
 @implementation CAAnimationBlockDelegate

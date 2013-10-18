@@ -14,7 +14,6 @@ NS_INLINE AZNodeProtocolKeyPaths AZNodeProtocolKeyPathsMake(NSS*kP,NSS*vP,NSS*cP
 	AZNodeProtocolKeyPaths z; z.keyPath = kP; z.valuePath = vP; z.childrenPath = cP; return z;
 }
 
-#define AZNODEPRO (NSObject<AtoZNodeProtocol>*)
 @protocol AtoZNodeProtocol	<NSObject>
 @required
 - (AZNodeProtocolKeyPaths) keyPaths;

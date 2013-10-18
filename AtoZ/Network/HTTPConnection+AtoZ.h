@@ -9,7 +9,6 @@
 #import <AtoZ/AtoZ.h>
 
 
-
 @interface HTTPConnection (SocketBlock)
 
 @property (nonatomic,readonly,unsafe_unretained) HTTPServer *server;

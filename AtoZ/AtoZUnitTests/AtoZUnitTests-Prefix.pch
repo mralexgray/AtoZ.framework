@@ -6,4 +6,5 @@
 	#import <Cocoa/Cocoa.h>
 	#import <XCTest/XCTest.h>
 	#import <AtoZ/AtoZ.h>
+	#import "RedGreen/RedGreen/XCTestLog+RedGreen.h"
 #endif

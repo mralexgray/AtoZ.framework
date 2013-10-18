@@ -269,3 +269,9 @@
 [submodule "AtoZ/AtoZUnitTests/RedGreen"]
 	path = AtoZ/AtoZUnitTests/RedGreen
 	url = https://github.com/mralexgray/RedGreen.git
+[submodule "Frameworks/gh-unit"]
+	path = Frameworks/gh-unit
+	url = https://github.com/mralexgray/gh-unit
+[submodule "xcconfigs"]
+	path = xcconfigs
+	url = https://github.com/mralexgray/xcconfigs.git

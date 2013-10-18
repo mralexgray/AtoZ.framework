@@ -128,8 +128,17 @@ static NSMD *bestMatches = nil, 	*palettesD = nil, *colorListD = nil, *colorsFro
 static NSCL 		 *safe = nil,  	 *named = nil;
 
 @implementation NSColor (AtoZ)
+@dynamic name;
 
-SYNTHESIZE_ASC_OBJ_LAZYDEFAULT_EXP(name, setName,[self nameOfColor]);
+SYNTHESIZE_ASC_OBJ_LAZYDEFAULT_EXP(name,setName,[self nameOfColor])
+
+- (NSComparisonResult)compare:(NSC *)otherColor {
+	// comparing the same type of animal, so sort by name
+	//	if ([self kindOfAnimal] == [otherAnimal kindOfAnimal]) return [[self name] caseInsensitiveCompare:[otherAnimal name]];
+	// we're comparing by kind of animal now. they will be sorted by the order in which you declared the types in your enum // (Dogs first, then Cats, Birds, Fish, etc)
+	//	return [[NSNumber numberWithInt:[self kindOfAnimal]] compare:[[[NSNumber]] numberWithInt:[otherAnimal kindOfAnimal]]]; }
+	return [@(self.hueComponent)compare : @(otherColor.hueComponent)];
+}
 
 - (NSG*) gradient {	return [self associatedValueForKey:@"_gradient" orSetTo:
 		[NSG.alloc initWithColorsAndLocations:self.brighter.brighter, 0.0,self.brighter, .13, self, 0.5,self.darker, .8,self.darker.darker.darker, 1.0, nil]];
@@ -253,13 +262,13 @@ SYNTHESIZE_ASC_OBJ_LAZYDEFAULT_EXP(name, setName,[self nameOfColor]);
 }
 
 + (NSA*) gradientPalletteBetween:(NSA*)colors steps:(NSUI)steps 				{
+
 	int count = colors.count;
-	int i = 0;
 	CGFloat locations[colors.count];
-	for (i; i < count; i++) locations[i] = (CGF)((float)i/(float)count);
-	NSGradient *gradient = [NSGradient.alloc initWithColors: colors
-															  atLocations: locations
-																colorSpace: NSColorSpace.genericRGBColorSpace];
+	for (int i = 0; i < count; i++) locations[i] = (CGF)((float)i/(float)count);
+	NSGradient *gradient = [NSGradient.alloc initWithColors:colors
+															  atLocations:locations
+																colorSpace:NSColorSpace.genericRGBColorSpace];
 	NSSize imageSize = NSMakeSize(100, 4);
 	NSBitmapImageRep *bitmapRep =
 	[NSBitmapImageRep.alloc initWithBitmapDataPlanes:NULL
@@ -269,17 +278,18 @@ SYNTHESIZE_ASC_OBJ_LAZYDEFAULT_EXP(name, setName,[self nameOfColor]);
 														 hasAlpha:YES	isPlanar:NO  // <--- important !
 												 colorSpaceName:NSCalibratedRGBColorSpace
 													 bytesPerRow:0	bitsPerPixel:0 ];
-   [NSGraphicsContext saveGraphicsState];
-	NSGraphicsContext *context =	[NSGraphicsContext graphicsContextWithBitmapImageRep:bitmapRep];
-   [NSGraphicsContext setCurrentContext:context];
-	[gradient drawFromPoint:(NSP){0,2} toPoint:(NSP){100,2} options:0];
-	NSA *cs = [[@0 to:@(steps)] nmap:^id(id obj, NSUInteger ii){
-		int indc = ceil(( ( ii / (float)steps) * 100));
-		return [bitmapRep colorAtX:indc y:3];
-		//		NSLog(@"index %i of %ld", indc, steps );
-		//		return (NSC*)[bitmapRep colorAtX:3 y :(int)(index/steps)];
+	__block NSA *cs;
+   [NSGraphicsContext state:^{
+		NSGraphicsContext *context =	[NSGraphicsContext graphicsContextWithBitmapImageRep:bitmapRep];
+   	[NSGraphicsContext setCurrentContext:context];
+		[gradient drawFromPoint:(NSP){0,2} toPoint:(NSP){100,2} options:0];
+		cs = [[@0 to:@(steps)] nmap:^id(id obj, NSUInteger ii){
+			int indc = ceil(( ( ii / (float)steps) * 100));
+			return [bitmapRep colorAtX:indc y:3];
+			//		NSLog(@"index %i of %ld", indc, steps );
+			//		return (NSC*)[bitmapRep colorAtX:3 y :(int)(index/steps)];
+		}];
 	}];
-	[NSGraphicsContext restoreGraphicsState];
 	return cs;
 	/* :AZRectFromSize(imageSize) angle:270];
 	 [[NSC colorWithDeviceRed:0.2 green:0.3 blue:0.7 alpha:0.9]	 set];

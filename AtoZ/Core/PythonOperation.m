@@ -47,10 +47,10 @@
 */
 #import <Python/Python.h>
 
-#import "PythonOperation.h"
 #import "AtoZ.h"
+#import "PythonOperation.h"
 
-static int32_t usedPythonInterpreterNum = 0;
+static int usedPythonInterpreterNum = 0;
 
 static BOOL _initedPython = NO;
 void initPython() {

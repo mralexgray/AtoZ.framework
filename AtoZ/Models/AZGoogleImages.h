@@ -8,22 +8,11 @@
 
 #import "AtoZ.h"
 
-#define GIMAGEURLSBLK void(^)(NSA*imageURLs)
-typedef void(^GoogleImagesUrlsBlock)(NSA*imageURLs);
+@class AZGoogleQuery; @interface AZGoogleImages : BaseModel
 
-@interface AZGoogleQuery : NSObject
-@property (NATOM) NSUI start;
-AZPROP		( NSS,   query );
-AZPROP		( NSMA, 	urls  );
-AZPROP		( NSURL, url   );
-@property 	(copy) void(^imageUrlsBlock)(NSA*);
-- (void) loadMoreURLs;
-@end
+/* USAGE: [AZGoogleImages searchGoogleImages:@"hitler" withBlock:^(NSA *imageURLs) { LOG_EXPR(imageURLs); }]; */
 
-@interface AZGoogleImages : BaseModel
-
-/* USAGE: [AZGoogleImages searchGoogleImages:@"hitler" withBlock:^(NSArray *imageURLs) { LOG_EXPR(imageURLs); }]; */
 + (AZGoogleQuery*) searchGoogleImages:(NSS*)query withBlock:(void(^)(NSA*imageURLs))block;
-+ (NSA*) queries;
-+ (NSA*) urlsForQuery:(NSS*)query;
++			   (NSA*) queries;
++           (NSA*) urlsForQuery:(NSS*)query;
 @end

@@ -65,7 +65,7 @@ typedef void (^viewFrameDidChangeBlock)(void);
 @class CALayerNoHit;
 @interface NSView (AtoZ)
 
-@property (nonatomic, strong) NSMA* needsDisplayForKeys;
+//@property (nonatomic, strong) NSMA* needsDisplayForKeys;
 
 @property (getter=getBackground, setter=doSetBackground:) id background;
 

@@ -8,24 +8,40 @@
 
 #import "AZGoogleImages.h"
 
+#define GIMAGEURLSBLK void(^)(NSA*imageURLs)
+
+typedef void(^GoogleImagesUrlsBlock)(NSA*imageURLs);		@interface AZGoogleQuery : NSO  - (void) loadMoreURLs;
+
+@property   (NATOM) NSUI start;	@property 	(CP) void(^imageUrlsBlock)(NSA*); AZPROP(NSS,query); AZPROP(NSMA,urls); AZPROP(NSURL,url);
+
+@end
+
+
 @implementation AZGoogleQuery  
 - (NSURL*) url {  return  $URL($(@"http://images.google.com/images?q=%@&safe=off&start=%ld", [self.query stringByReplacing:@" " with:@"+"].URLEncodedString , self.start)); }
--   (void) loadMoreURLs { AZLOGCMD; if (!_query) return;
 
-		self.startTiming;	NSERR *e = nil; _urls = _urls ?: NSMA.new; NSUI startCt = _urls.count;
+-   (void) loadMoreURLs { AZLOGCMD; if (!_query) return;		[self startTiming];
+
+		NSERR *e = nil; _urls = _urls ?: NSMA.new; NSUI startCt = _urls.count;
+
 		AZHTMLParser 	*parser = [AZHTMLParser.alloc initWithContentsOfURL:self.url error:&e];
+
 		if (e) return NSLog(@"error with URL request to google!"), nil;
+
 		NSS* sentinel = @"imgres?imgurl=", *f2=@"<a href=\"/imgres?imgurl=", *f3=@"&amp;imgrefurl=";
+
 		NSA *nodes = [parser.body findChildrenWithAttribute:@"id" matchingName:@"ires" allowPartial:FALSE];
 
-		[self blockSelf:^(typeof(self) bSelf) {
-			[nodes each:^(HTMLNode *node) {	NSA* them;
+		[self blockSelf:^(typeof(self) bSelf) { [nodes each:^(HTMLNode *node) {	NSA* them;
+
 				if (them = [node findChildrenWithAttribute:@"href" matchingName:sentinel allowPartial:TRUE]);
+
 					[them do:^(id obj) { 	[bSelf.urls addObject:[[[obj rawContents]stringByRemovingPrefix:f2] substringBefore:f3]];
 				}];
 			}];
 		}];	self.start +=20;	if (_imageUrlsBlock && startCt != _urls.count) _imageUrlsBlock(_urls);
-				self.stopTiming; self.elapsed.log;
+
+		[self stopTiming]; [self.elapsed log];
 }
 @end
 
@@ -43,20 +59,19 @@
 
 + (AZGoogleQuery*) searchGoogleImages:(NSS*)query withBlock:(void(^)(NSA*imageURLs))block {
 
-	AZGoogleQuery *azq = [BASECOLLECTION objectWithValue:query forKey:@"query"] ?: AZGoogleQuery.new;
-	azq.startTiming;
-	azq.imageUrlsBlock = block;
-	azq.query = query;
-	azq.loadMoreURLs;
+								AZGoogleQuery *azq 	= [BASECOLLECTION objectWithValue:query forKey:@"query"] ?: AZGoogleQuery.new;
+	[azq startTiming];	azq.imageUrlsBlock 	= block;
+								azq.query	 			= query;		[azq loadMoreURLs];
+
 	[BASECOLLECTION containsObject:azq] ? nil : [BASECOLLECTION addObject:azq];
 }
+
 + (NSA*) queries { return BASECOLLECTION; }
-+ (NSA*) urlsForQuery:(NSS*)query {	AZGoogleQuery *q;
-	return (q = [BASECOLLECTION objectWithValue:query forKey:@"query"])
-				 ? q.urls
-				 : ([(q = [self searchGoogleImages:query withBlock:nil]) urls].count)
-				 ? q.urls
-				 : nil;
+
++ (NSA*) urlsForQuery:(NSS*)query {	AZGoogleQuery *q;	return (q = [BASECOLLECTION objectWithValue:query forKey:@"query"])
+
+																				? q.urls : ([(q = [self searchGoogleImages:query withBlock:nil]) urls].count)
+																				? q.urls : nil;
 }
 
 @end

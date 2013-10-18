@@ -839,10 +839,10 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 						animation:(void(^)(void))animationBlock
 					  completion:(void(^)(void))completionBlock
 {
-	NSAnimationContext.beginGrouping;
+	[NSAnimationContext beginGrouping];
 	NSAnimationContext.currentContext.duration = duration;
 	animationBlock();
-	NSAnimationContext.endGrouping;
+	[NSAnimationContext endGrouping];
 	if(completionBlock)	{
 		id completionBlockCopy = [completionBlock copy];
 		[self performSelector:@selector(runEndBlock:) withObject:completionBlockCopy afterDelay:duration];

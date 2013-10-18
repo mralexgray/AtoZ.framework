@@ -12,7 +12,9 @@ JREnumDeclare(AZeColor, AZeColoraliceblue, AZeColorantiquewhite, AZeColoraqua, A
 
 @interface NSColor (AtoZ)
 
-@property NSS* name;
+- (NSComparisonResult)compare:(NSC*)other;
+
+@property (nonatomic) NSS* name;
 
 +   (id) colorWithHTMLString:(NSS*)str defaultColor:(NSC*)d;
 + (NSC*)	colorWithHTMLString:(NSS*)hex;

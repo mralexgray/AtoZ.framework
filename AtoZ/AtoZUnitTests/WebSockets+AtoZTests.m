@@ -10,16 +10,19 @@
 
 @interface WebSockets_AtoZTests : XCTestCase
 
+@property ASOCK *listenSocket;
+@property NSMutableArray *sockets;
+@property dispatch_queue_t dQ;
+
 @end
 
 @implementation WebSockets_AtoZTests
 
 - (void)setUp
 {
-
-	
-    [super setUp];
-    // Put setup code here. This method is called before the invocation of each test method in the class.
+    	[super setUp];
+	 	self.dQ = dispatch_queue_create("SQ",NULL);
+		_listenSocket =  [ASOCK.alloc initWithSocketQueue:_dQ];
 }
 
 - (void)tearDown
@@ -28,9 +31,16 @@
     [super tearDown];
 }
 
-- (void)testExample
+- (void)testSocketIsSelf
 {
-    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
+		__block typeof (_listenSocket) bSock = _listenSocket;
+		[_listenSocket setDidAcceptNewSocket:^(GCDAsyncSocket *sock, GCDAsyncSocket *nSock) {
+			XCTAssertEqualObjects(sock, bSock, @"should be the same");
+			WebSocket *ws = [WebSocket webSocketOnSocket:nSock];
+			XCTAssertNotNil(ws, @"shouldnt be nil");
+		}];
+
+//    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
 }
 
 @end

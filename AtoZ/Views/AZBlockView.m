@@ -7,7 +7,7 @@
 #import "AZBlockView.h"
 #import "AtoZ.h"
 
-@implementation BLKCELL
+//@implementation BLKCELL
 
 //+ (instancetype) inView:(NSV*)v withBlock:(void(^)(BLKCELL*cell, NSR cF, NSV*cV))blk {
 
@@ -17,7 +17,7 @@
 //	return view;
 //}
 
-@end
+//@end
 
 @implementation BNRBlockView
 //@synthesize drawBlock, opaque, layerBlock;

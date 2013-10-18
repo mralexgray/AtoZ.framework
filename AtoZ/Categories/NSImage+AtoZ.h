@@ -33,14 +33,15 @@ NSR 						AZRectForItemsWithColumns	( NSA    *items, NSUI cols );
 - (NSIMG*) imageBorderedWithInset: (CGF)inset;
 - (NSIMG*) imageBorderedWithOutset:(CGF)outset;			@end  // (MERGE)
 
-typedef void(^NSImageDrawer)(void);		typedef void(^NSImageDrawerWithFrame)(NSR dRect);
+typedef void(^NSImageDrawer)(void);
+typedef void(^LockedFocusWithFrame)(NSR dRect);
 
 extern NSData *PNGRepresentation(NSIMG *image);
 
 @interface NSImage (AtoZDrawBlock)
 
 + (NSIMG*) imageWithSize:(NSSZ)size drawnUsingBlock:(NSImageDrawer)drawBlock;
-+ (NSIMG*) imageInFrame: (NSR)frame withBlock:(NSImageDrawerWithFrame)drawBlockwithFrame;	@end // (AtoZDrawBlock)
++ (NSIMG*) imageInFrame: (NSR)frame withBlock:(LockedFocusWithFrame)drawBlockwithFrame;	@end // (AtoZDrawBlock)
 
 
 @class AZFile;	@interface NSImage (AtoZ)

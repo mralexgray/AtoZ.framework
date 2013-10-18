@@ -30,7 +30,7 @@
 @property (nonatomic, strong) NSS *name;
 @property (nonatomic, strong) NSDate *started, *stopped;
 
-+ (void) timeBlocks:(id)blocks,...;
+//+ (void) timeBlocks:(id)blocks,...;
 
 + (AZStopwatchItem*) named:(NSS*)name;
 - (void) start;

@@ -30,7 +30,7 @@ void	NSLogPostLog(char* file, int line){ if(!inited)return; [NSLogConsole.shared
 
 	NSAssert(dup2((int)_fileHandle.fileDescriptor, STDERR_FILENO), @"ERROR Couldn't redirect stderr");
 
-	_fileOffset = 0;	_fileHandle.readInBackgroundAndNotify;
+	_fileOffset = 0;	[_fileHandle readInBackgroundAndNotify];
 	[AZNOTCENTER addObserver:self selector:@selector(dataAvailable:) name:NSFileHandleReadCompletionNotification object: _fileHandle];
 	return self;
 }	// Init : should only be called once by sharedConsole
@@ -52,7 +52,7 @@ void	NSLogPostLog(char* file, int line){ if(!inited)return; [NSLogConsole.shared
 
 - (void) close								{	[_window orderOut:self];	}
 
-- (BOOL) isOpen							{	return	[_window isVisible];	}
+- (BOOL) isOpen							{	return [_window isVisible];	}
 
 -  (IBA) clear:			(id)x			{
 	[_webView clear];

@@ -333,13 +333,14 @@ NSData* PNGRepresentation(NSIMG *image) {
 //	[newer setAssociatedValue:drawBlock forKey:@"dBlock"];
 }
 
-+ (NSIMG*) imageInFrame:(NSR)frame withBlock:(NSImageDrawerWithFrame)blk {
++ (NSIMG*) imageInFrame:(NSR)frame withBlock:(LockedFocusWithFrame)blk {
 	NSR originRect = AZRectBy(frame.size.width, frame.size.height);
-	NSSZ s = originRect.size;
-	NSImage *newer; [newer = [self imageWithSize:s named:@"AtoZNSImageDrawBlockImageWithFrame"] lockFocus];
-	blk(originRect);	 [newer unlockFocus]; 	return newer;
+	NSSZ s 			= originRect.size;
+	NSIMG *newImg  = [self imageWithSize:s named:@"AtoZNSImageDrawBlockImageWithFrame"];
+												[newImg lockFocus];
+	CLANG_IGNORE(-Wunused-value) 			blk(originRect);
+	CLANG_POP;						 	 [newImg unlockFocus];	return newImg;
 }
-
 @end
 
 @implementation NSImage (AtoZ)

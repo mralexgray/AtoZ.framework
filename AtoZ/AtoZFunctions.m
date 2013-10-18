@@ -1,8 +1,9 @@
-#import "AtoZFunctions.h"
-#import <Python/Python.h>
-#import <Foundation/Foundation.h>
+
+//#import <Python/Python.h>
+//#import <Foundation/Foundation.h>
 #import "NSString+AtoZ.h"
 #import "AtoZ.h"
+#import "AtoZFunctions.h"
 
 JREnumDefine		(AZQuad	 );
 JREnumDefine		(azkColor );
@@ -11,7 +12,7 @@ JROptionsDefine	(AZAlign	 );	//JREnumDefine(AZPosition);
 JREnumDefine		(AZOrient );
 JROptionsDefine	(AZ_arc);
 
-NSS 	 * runCommand	(NSS* c) {	NSS* outP;	FILE *read_fp;	char buffer[BUFSIZ + 1];	int chars_read;
+NSS* runCommand	(NSS* c) {	NSS* outP;	FILE *read_fp;	char buffer[BUFSIZ + 1];	int chars_read;
 
 	memset(buffer, '\0', sizeof(buffer));
 	read_fp = popen(c.UTF8String, "r");
@@ -23,7 +24,7 @@ NSS 	 * runCommand	(NSS* c) {	NSS* outP;	FILE *read_fp;	char buffer[BUFSIZ + 1];
 	return outP;
 }
 
-Method 	GetImplementedInstanceMethod 		 (Class aClass, SEL aSelector) 								{	Method method = NULL; unsigned int methodCount = 0;
+Method GetImplementedInstanceMethod (Class aClass, SEL aSelector) {	Method method = NULL; unsigned int methodCount = 0;
 
 	Method* methodList = class_copyMethodList(aClass, &methodCount);
 	if (!methodList) return NULL;
@@ -35,9 +36,21 @@ Method 	GetImplementedInstanceMethod 		 (Class aClass, SEL aSelector) 								{	
 	}
 	return free(methodList), method;
 }
+
 // swizzle the methods fo' shizzle my nizzle
-IMP SwizzleImplementedInstanceMethods(Class aClass, const SEL originalSelector, const SEL alternateSelector) 
-{
+// The methods must both be implemented by the target class, not inherited from a superclass.
+//	Method originalM 	= GetImplementedInstanceMethod (k,  original);
+//	Method alternateM = GetImplementedInstanceMethod (k, alternate);
+//	if (!originalM || !alternateM)	return NULL;
+//	// The argument and return types must match exactly.
+//	const char *  originalTypes = method_getTypeEncoding ( originalM  );
+//	const char * alternateTypes = method_getTypeEncoding ( alternateM );
+//	if ( !originalTypes || !alternateTypes || strcmp( originalTypes, alternateTypes ) ) return NULL;
+//	IMP ret;
+//	if (ret = method_getImplementation(original)) method_exchangeImplementations(original, alternate);
+//	return ret;
+//}
+IMP SwizzleImplementedInstanceMethods(Class aClass, const SEL originalSelector, const SEL alternateSelector) {
 	// The methods must both be implemented by the target class, not
 	// inherited from a superclass.
 	Method original = GetImplementedInstanceMethod(aClass, originalSelector);
@@ -57,21 +70,9 @@ IMP SwizzleImplementedInstanceMethods(Class aClass, const SEL originalSelector, 
 
 	return ret;
 }
-//IMP 		SwizzleImplementedInstanceMethods (Class k, const SEL original, const SEL alternate)	{
-//
-//	// swizzle the methods fo' shizzle my nizzle
-//	// The methods must both be implemented by the target class, not inherited from a superclass.
-//	Method originalM 	= GetImplementedInstanceMethod (k,  original);
-//	Method alternateM = GetImplementedInstanceMethod (k, alternate);
-//	if (!originalM || !alternateM)	return NULL;
-//	// The argument and return types must match exactly.
-//	const char *  originalTypes = method_getTypeEncoding ( originalM  );
-//	const char * alternateTypes = method_getTypeEncoding ( alternateM );
-//	if ( !originalTypes || !alternateTypes || strcmp( originalTypes, alternateTypes ) ) return NULL;
-//	IMP ret;
-//	if (ret = method_getImplementation(original)) method_exchangeImplementations(original, alternate);
-//	return ret;
-//}
+
+
+
 
 static NSMD* 				_children;
 static dispatch_once_t  _onceToken;
@@ -352,15 +353,6 @@ static NSIMG *installed, *notInstalled, *needsUpdate, *installedNeedsUpdate;
 - (id)reverseTransformedValue:(id)v		 	{
 	return [v isEqualTo:needsUpdate] ? @(AZNeedsUpdate) : [v isEqualTo:notInstalled] ? @(AZNotInstalled) :
 		   [v isEqualTo:installed] ? @(AZInstalled) : @(AZInstalledNeedsUpdate);
-}
-@end
-@implementation  NSColor (compare)
-- (NSComparisonResult)compare:(NSC *)otherColor {
-	// comparing the same type of animal, so sort by name
-	//	if ([self kindOfAnimal] == [otherAnimal kindOfAnimal]) return [[self name] caseInsensitiveCompare:[otherAnimal name]];
-	// we're comparing by kind of animal now. they will be sorted by the order in which you declared the types in your enum // (Dogs first, then Cats, Birds, Fish, etc)
-	//	return [[NSNumber numberWithInt:[self kindOfAnimal]] compare:[[[NSNumber]] numberWithInt:[otherAnimal kindOfAnimal]]]; }
-	return [@(self.hueComponent)compare : @(otherColor.hueComponent)];
 }
 @end
 

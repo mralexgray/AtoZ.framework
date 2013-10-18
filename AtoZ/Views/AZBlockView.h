@@ -1,12 +1,12 @@
 
 
-@class BLKCELL;
-#define DRAWCELLBLK ^(BLKCELL*cell,NSR cellFrame,NSV*controlView)
-typedef void(^AZCellBlockDrawer)	(BLKCELL*cell, NSR cF, NSV*cV);
-@interface BLKCELL : NSButtonCell
-+ (instancetype) inView:(NSV*)v withBlock:(void(^)(BLKCELL*,NSR,NSV*))blk;
-@property (NATOM, CP) AZCellBlockDrawer 			dBlock;
-@end
+//@class BLKCELL;
+//#define DRAWCELLBLK ^(BLKCELL*cell,NSR cellFrame,NSV*controlView)
+//typedef void(^AZCellBlockDrawer)	(BLKCELL*cell, NSR cF, NSV*cV);
+//@interface BLKCELL : NSButtonCell
+//+ (instancetype) inView:(NSV*)v withBlock:(void(^)(BLKCELL*,NSR,NSV*))blk;
+//@property (NATOM, CP) AZCellBlockDrawer 			dBlock;
+//@end
 
 
 

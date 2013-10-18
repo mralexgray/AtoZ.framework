@@ -10,7 +10,7 @@
 @interface 					  AZCLI : NSObject   <NSLogConsoleDelegate,NSWindowDelegate,NSApplicationDelegate>	 
 {
 		        MenuAppController * menu; 
-		     DefinitionController * dCTL;	
+//		     DefinitionController * dCTL;	
 }
 @property (NATOM,STR)   	 NSW * window;
 @property (NATOM,STR) 	BLKVIEW * contentView;

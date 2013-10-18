@@ -137,7 +137,7 @@ NSString *const MASPreferenceKeyShortcut					 	= @"MASDemoShortcut",
 
 		// set them in the standard user defaults
 		AZ_SET_DEFAULT(@"azHotKeyEnabled",@YES);
-		[NSUserDefaultsController.sharedUserDefaultsController bind:@"azHotKeyEnabled" toObject:self withKeyPathUsingDefaults:@"azHotKeyEnabled"];
+//		[NSUserDefaultsController.sharedUserDefaultsController bind:@"azHotKeyEnabled" toObject:self withKeyPathUsingDefaults:@"azHotKeyEnabled"];
 
 // Command-Shift-D the default shortcut.
 //		self.azHotKeyView = [MASShortcutView.alloc initWithFrame:AZRectBy(200,100)];

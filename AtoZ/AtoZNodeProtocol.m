@@ -12,6 +12,7 @@
 
 #ifdef JRENUM 
 JREnumDefine(AZMethod);
+JREnumDefine(AZOutlineCellStyle);
 #endif
 
 @interface  AZNode()

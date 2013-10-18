@@ -1,4 +1,7 @@
 
+#import "AtoZUmbrella.h"
+
+
 @interface ObjCFile : NSObject <NSCoding, NSCopying>
 
 
@@ -14,7 +17,7 @@
 + (instancetype) fileWithData:  (NSData*)d;
 @end
 
-@class AZFactoryView;
+@class AZNode, AZFactoryView;
 @interface		  DefinitionController : NSObject 
 <
 	NSApplicationDelegate, 
