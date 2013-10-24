@@ -8,46 +8,55 @@
 
 #import <XCTest/XCTest.h>
 
-@interface 			AZGoogleImagesTests : XCTestCase @end
+@interface 			AZGoogleImagesTests : XCTestCase 
+@property (NATOM) NSA* results;
+@end
 @implementation 	AZGoogleImagesTests
 
+- (NSA*) results {  
 
-- (NSA*) getSomeResults {  __block NSA*res;
-
-//	BLK_START;
-	[AZGoogleImages searchGoogleImages:NSS.randomBadWord withBlock:^(NSA *imageURLs) {	//BLK_STOP;  	
-		res = [imageURLs copy];
+	BLK_START;
+	[AZGoogleImages searchGoogleImages:NSS.randomBadWord withBlock:^(NSA *imageURLs) {	BLK_STOP;
+		_results = imageURLs;
 	}];
-//	BLK_WAIT;
-	return res;
+	BLK_WAIT;
+	return _results;
 }
+- (void) setUp { [super setUp]; [self results]; }
+
 - (void)testDefaultResults	{ 		
 
-	NSA* imageURLs = [self getSomeResults]; NSUInteger ct;
+	NSUInteger ct;
 
 	__block NSUInteger ranTestCtr = 0;
-	for (id obj in imageURLs) { 
-		 XCTAssertTrue([obj ISKINDA:NSString.class], @"should all be URLS. Instead got:%@!", NSStringFromClass([obj class])); 
+	for (id obj in _results) { 
+		 XCTAssertTrue([obj ISKINDA:NSString.class], @"should all be Strings. Instead got:%@!", NSStringFromClass([obj class])); 
 		ranTestCtr++; 
 	}
-	XCTAssertEqual(@(ranTestCtr), @(imageURLs.count), @"didnt run the tests inside the loop!");
+	XCTAssertEqual(@(ranTestCtr), @(_results.count), @"didnt run the tests inside the loop!");
 
 
 
-	XCTAssertTrue(imageURLs.count == 10, 	@"should fetch 10 URL'd; Instead got...%@", @(imageURLs.count));
-	XCTAssertTrue((ct = [imageURLs filter:^BOOL(id object) { return [object ISKINDA:NSURL.class]; }].count) == imageURLs.count, 
-														@"should all be NSUrl's! Instead found...%@", @(ct));
+	XCTAssertTrue(_results.count == 20, 	@"should fetch 10 URL'd; Instead got...%@", @(_results.count));
+	ct = [_results filter:^BOOL(id object) { 
+	
+		return [object ISKINDA:NSString.class];
+	}].count;
+	XCTAssertTrue(ct == _results.count, @"should all be NSUrl's! Instead found...%@", @(ct));
 }
 
 - (void) testQueryCache {
 
-	NSA* someURLs = [self getSomeResults];
-	NSS* last = [AZGoogleImages lastQuery];
-	[AZGoogleImages searchGoogleImages:last withBlock:^(NSA *imageURLs) {
-	
-			XCTAssertEqual(someURLs, imageURLs, @"i shoudl egt the same results, if i havent asked for more!");
-	}];
-
-
+	XCTAssertNotNil(_results, @"should have gotten results");
+	NSS* last = [AZGoogleImages lastQuery]; 
+	XCTAssert(last != nil, @"should return last query term.");
+	if (last) {
+		BLK_START;
+		[AZGoogleImages searchGoogleImages:last withBlock:^(NSA *imageURLs) { BLK_STOP;
+			
+			XCTAssertEqual(_results, imageURLs, @"i shoudl egt the same results, if i havent asked for more!");
+		}];
+		BLK_WAIT;
+	}
 }
 @end

@@ -173,11 +173,11 @@
 	}();
 }
 
-- (BOOL) holdEm
-{
-	TestBedDelegate* aD = (TestBedDelegate*)[[NSApplication sharedApplication] delegate];
-	return [[aD holdOntoViews] state] == NSOnState;// ? YES : NO;
-}
+//- (BOOL) holdEm
+//{
+//	TestBedDelegate* aD = (TestBedDelegate*)[[NSApplication sharedApplication] delegate];
+//	return [[aD holdOntoViews] state] == NSOnState;// ? YES : NO;
+//}
 
 -(AZDebugLayerView*)debugLayers {
 	return 	_debugLayers = _debugLayers ?: (AZDebugLayerView*)^{

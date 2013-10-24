@@ -1,9 +1,21 @@
 
 #import "AtoZMacroDefines.h"
-//#import "BaseModel+AtoZ.h"
 
+/** INSTEAD OF NASTY BLOCK SETTERS AND GETTERS FOR DYNAMIC DELEGATES... */
+
+/*	SYNTHESIZE_DELEGATE(	didOpenBlock, setDidOpenBlock,
+							(void(^)(WebSocket*ws)),
+							(void)webSocketDidOpen:(WebSocket*)ws,
+							DO_IF_SELF(didOpenBlock))	
+	@param	*/
+
+#define SYNTHESIZE_DELEGATE(BLOCK_NAME,SETTER_NAME,SIG,METHOD,BLOCK) \
+- SIG BLOCK_NAME { RET_ASSOC; }\
+- (void) SETTER_NAME:SIG BLOCK_NAME { SET_ASSOC_DELEGATE(BLOCK_NAME); }\
+- METHOD { BLOCK; }
 
 //  INSTEAD OF NASTY ASSOCIATED OBJECTS.....
+
 
 #define DO_IF_SELF(X) 	if (self.X && self.delegate == self) self.X(self)
 #define DO_IF_1ARG(X,Z) if (self.X && self.delegate == self) self.X(self,Z)
@@ -15,12 +27,21 @@
 																		X,OBJC_ASSOCIATION_COPY_NONATOMIC);
 
 
-// INSTEAD OF NASTY BLOCK SETTERS AND GETTERS FOR DYNAMIC DELEGATES...
 
-#define SYNTHESIZE_DELEGATE(BLOCK_NAME,SETTER_NAME,SIG,METHOD,BLOCK) \
-- SIG BLOCK_NAME { RET_ASSOC; }\
-- (void) SETTER_NAME:SIG BLOCK_NAME { SET_ASSOC_DELEGATE(BLOCK_NAME); }\
-- METHOD { BLOCK; }
+/* 
+	Example Setter
+		- (void) setSomething:(BOOL)something { if (self.something == something) return; 	SAVE(@selector(something), @(something)); }
+	Example Getter	
+		- (BOOL) something { id x = FETCH; return x ? [x boolValue] : NO; }
+*/
+
+#define REFERENCE(sel,obj) objc_setAssociatedObject(self,sel, obj, OBJC_ASSOCIATION_ASSIGN)
+#define COPY(sel,obj) 		objc_setAssociatedObject(self,sel, obj, OBJC_ASSOCIATION_COPY)
+#define SAVE(sel,obj) 		objc_setAssociatedObject(self,sel, obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+#define OPEN(sel) 			objc_getAssociatedObject(self, sel)
+#define FETCH       			objc_getAssociatedObject(self, _cmd)
+
+
 
 /*
 
@@ -467,8 +488,8 @@ _SELFBLK_(self); [NSProcessInfo.processInfo enableSuddenTermination];
 
 #define			 kOpacity 	@"opacity"
 #define				kPhase	@"phase"
-#define				  kBgC	@"backgroundColor"
-#define				kBgNSC	@"backgroundNSColor"
+#define				  kBGC	@"backgroundColor"
+#define				kBGNSC	@"backgroundNSColor"
 #define 				  vFKP 	valueForKeyPath
 #define 				 mAVFK 	mutableArrayValueForKey
 

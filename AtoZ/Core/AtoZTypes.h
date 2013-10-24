@@ -299,12 +299,12 @@ typedef RECORD_NAME(^RECORD_NAME ## Record)(void);	/*typedef of Rec. that return
 
 //JREnumDeclare (AZAlign,
 
-JROptionsDeclare(AZ_arc, 	AZ_arc_NATOM	       	= 0x00000001,
-					  AZ_arc_RONLY 	     		= 0x00000010,
-					  AZ_arc_STRNG	        	= 0x00000100,
-					  AZ_arc_ASSGN  		   	= 0x00001000,
-					  AZ_arc__COPY 		   	= 0x00010000,
-					  AZ_arc__WEAK				= 0x00100000);
+//JROptionsDeclare(AZ_arc, 	AZ_arc_NATOM	       	= 0x00000001,
+//					  AZ_arc_RONLY 	     		= 0x00000010,
+//					  AZ_arc_STRNG	        	= 0x00000100,
+//					  AZ_arc_ASSGN  		   	= 0x00001000,
+//					  AZ_arc__COPY 		   	= 0x00010000,
+//					  AZ_arc__WEAK				= 0x00100000);
 
 
 #define QUALIFIER_FROM_BITMASK(q) q&AZ_arc_NATOM 					? nonatomic 			:\

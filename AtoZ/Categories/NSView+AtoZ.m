@@ -653,8 +653,12 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 	NSLog(@"setup NOHIT hosting layer:%@ in view: %@.  do not addsubviews to this view.  go crazy with layers.", layer.debugDescription, self);
 	return layer;
 }
+//@synthesize  zLayer;
+
+- (CAL*)zLayer {return self.setupHostView; }
 
 -(CALayer*) setupHostView {
+	if (self.layer) return self.layer; 
 	CALayer *layer = [CALayer layerNamed:@"root"];
 	layer.hostView = self;
 	
@@ -664,8 +668,8 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 	//	layer.needsDisplayOnBoundsChange = YES;
 	//	layer.backgroundColor = cgRANDOMCOLOR;
 	//	layer.autoresizingMask = kCALayerWidthSizable | kCALayerHeightSizable;
-	[self setLayer:layer];
-	[self setWantsLayer:YES];
+	self.layer 			= layer;
+	self.wantsLayer 	= YES;
 	//	NSLog(@"setup hosting layer:%@ in view: %@.  do not addsubviews to this view.  go crazy with layers.", layer.debugDescription, self);
 	return layer;
 }

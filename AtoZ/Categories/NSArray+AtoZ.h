@@ -219,7 +219,9 @@ extern NSString * const NSMutableArrayDidInsertObjectNotification;
 -(id)firstObjectWithFormat:(NSS*)format, ...;
 -(id) firstObjectOfClass:(Class)k;
 -(NSA*)filteredArrayUsingBlock: (BOOL (^)(id evaluatedObject, NSDictionary *bindings))block;
--(NSA*) uniqueObjects;
+
+@property (readonly) NSA* uniqueObjects, *uniqueStrings;
+
 -(NSA*) uniqueObjectsSortedUsingSelector: (SEL)comparator;
 -(id)firstObject;
 -(void) eachDictionaryKeyAndObjectUsingBlock:(void(^)(id key, id obj))block;

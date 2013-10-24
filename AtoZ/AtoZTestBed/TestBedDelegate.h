@@ -7,9 +7,12 @@
 
 @interface TestBedDelegate : NSObject <NSApplicationDelegate,NSWindowDelegate>
 
+// MENU BAR
+@property (USF) IBOutlet MenuAppController	*menu;
+
+
 - (IBAction)newTab:(id)sender;
 @property (USF) IBOutlet AtoZColorWell		*colorWell;
-@property (USF) IBOutlet MenuAppController	*menu;
 
 @property (STR) GeneralVC			* genVC;
 @property (STR) UIVC					* uiVC;
@@ -20,16 +23,18 @@
 @property (RONLY) NSMutableArray   * windowControllers;
 @property (STR) NSTimer   			* colorFade;
 
+
 @property (ASS) IBOutlet NSW * 	window;
 @property (ASS) IBOutlet NSV *	contentView;
 @property (ASS) IBOutlet NSV *	targetView;
+@end
 
 //@property (ASS) IBOutlet NSView		*scrollTestHost;
-@property (ASS) IBOutlet CAScrollView*scrollTest;
+//@property (ASS) IBOutlet CAScrollView*scrollTest;
 
 //- (IBAction) setViewFromPopUp:(id)sender;
 //- (IBAction) reZhuzhScrollLayer:(id)sender;
-
+/*
 @property (STRNG) IBOutlet NSBUTT *holdOntoViews;
 
 @property (STRNG)	BLKVIEW  *host;
@@ -45,7 +50,7 @@
 @property (STRNG) NSS		*actionStatus; 	 					// Just shows what "actions" are happening.
 
 - (IBAction)scrollFromSegment:(id)sender;
-@end
+*/
 //@property (NATOM, STRNG)  AZFileGridView 			*fileGrid;
 //@property (weak) IBOutlet  AZGeometryViewController *geoVC;
 //@property (weak) IBOutlet NSView	*scrollTest;

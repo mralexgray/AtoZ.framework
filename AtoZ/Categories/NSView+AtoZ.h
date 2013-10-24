@@ -113,7 +113,7 @@ typedef void (^viewFrameDidChangeBlock)(void);
 - (void) centerOriginInFrame;
 - (void) centerOriginInRect: (NSR)aRect;
 
-@property (readonly) CAL* azLayer;
+@property (readonly) CAL* azLayer,*zLayer;
 
 - (CAL*) setupHostView;
 - (CALayerNoHit*) setupHostViewNoHit;

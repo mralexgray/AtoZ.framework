@@ -76,7 +76,7 @@ calulatedBundleID = _calulatedBundleID;
                NSArray *raw = [self.image quantize];
                NSBag *allBag = [NSBag bagWithObjects:raw];          // put all colors in a bag //[raw do:^(id obj) { [allBag add:obj];}];
                NSBag *rawBag = [NSBag bag];
-               NSUI total      = 0;
+//               NSUI total      = 0;
                NSArray *filtered = [raw filter:^BOOL (NSColor *aColor) {
             return [allBag occurrencesOf:aColor] > (.0005 * [raw count]) && [aColor isExciting] ? YES : NO;
         }];

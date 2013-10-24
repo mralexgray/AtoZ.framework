@@ -11,7 +11,9 @@
 + (CAAG*) groupWithAnimations:(NSA*)anis duration:(NSTI)ti andSet:(CAL*)toSet {
 
 	CAAnimationGroup *group = self.new;
-	for (CAA* a in anis) {	a.duration = ti;	if (!toSet || ![a vFK:@"toValue"]) return;
+	for (CAA* a in anis) {	a.duration = ti;	
+	
+		if (!toSet || ![a vFK:@"toValue"]) return nil;
 		a.start = ^(CAAnimationDelegate*d){
 			[d.layer.modelCALayer sV:((CABA*)d.ani).toValue fK:((CAPropertyAnimation*)d.ani).keyPath];
 		};

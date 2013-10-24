@@ -25,10 +25,10 @@ The resulting rect is equal to { 25, 50, 50, 100 }.
 The returned rect origin is valid whether or not your coordinate space is flipped. */
 static inline NSR AZCenteredRect(NSSize aSize, NSR inRect)
 {
-	float xOffset = aSize.width * 0.5;
-	float x = NSMidX(inRect) - xOffset;
-	float yOffset = aSize.height  * 0.5;
-	float y = NSMidY(inRect) - yOffset;
+	CGF xOffset = aSize.width * 0.5f;
+	CGF x = NSMidX(inRect) - xOffset;
+	CGF yOffset = aSize.height  * 0.5f;
+	CGF y = NSMidY(inRect) - yOffset;
 
 	return NSMakeRect(x, y, aSize.width, aSize.height);
 }

@@ -67,8 +67,12 @@ JREnumDefine(AZOutlineCellStyle);
 - (void) setKey:(id)k      	{  [self setValue:k 	forKey:self.keyPaths.keyPath]; 	}
 - (BOOL) isaNode 					{ return [self implementsProtocol:@"AtoZNodeProtocol"]; 	}
 - (BOOL) isaRoot 					{ return [self parent] == nil; }
-- (void) addChild:(id)c 		{ [c setAssociatedValue:self forKey:@"nodeParent"]; NSAssert([self respondsToSelector:@selector(addChild:)] == YES, @"You must implement \"addChild:\"!"); [self addChild:c]; }
-- (AZNodeProtocolKeyPaths) keyPaths {}
+- (void) addChild:(id)c 		{ [c setAssociatedValue:self forKey:@"nodeParent"]; 
+
+	NSAssert([self respondsToSelector:@selector(addChild:)] == YES, @"You must implement \"addChild:\"!"); 
+	[self addChild:c]; 
+}
+//- (AZNodeProtocolKeyPaths) keyPaths {}
 - AZNODEPRO parent 				{ return [self hasAssociatedValueForKey:@"nodeParent"] ?
 	
 	(AZNODEPRO objc_getAssociatedObject(self, (__bridge const void*)@"nodeParent")) : nil;
@@ -87,7 +91,7 @@ JREnumDefine(AZOutlineCellStyle);
 	enumerateAndAdd_recurse = enumerateAndAdd; // initialize the alias
    return enumerateAndAdd(self.children); // starts the block
 }
--   (id) expanded 				{  AZMethod m = [self.class implementationOfSelector:@selector(expanded:)];
+-   (id) expanded 				{  AZMethod m = [self.class implementationOfSelector:NSSelectorFromString(@"expanded:")];
 
 	if 		(m == AZMethodAuthor  ||
 				 m == AZMethodInherits ) return objc_getAssociatedObject(self, (__bridge const void*)@"nodeExpanded");

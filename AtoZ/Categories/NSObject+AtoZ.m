@@ -3,7 +3,7 @@
 #import "AtoZ.h"
 #import "NSObject+AtoZ.h"
 #import <objc/runtime.h>
-#import <AtoZAutoBox/AtoZAutoBox.h>
+#import "AtoZAutoBox/AtoZAutoBox.h"
 
 @implementation 																																		NSObject (NibLoading)
 + (INST) loadFromNib {	static NSNib   *aNib = nil;	NSArray *objs = nil;
@@ -926,17 +926,16 @@ static char windowPosition;
 }
 - (NSVAL*) invokeSelector:(SEL)selector, ... {			NSInvocation *invocation	= [self invocationWithSelector:selector];
 
-	va_list args;	va_start(args, selector);	NSUI arg_count = invocation.methodSignature.numberOfArguments;
-	for( NSInteger i = 0; i < arg_count - 2; i++ ) {
+	va_list args;	va_start(args, selector);	NSUI i, arg_count = invocation.methodSignature.numberOfArguments;
+	for( i = 0; i < arg_count - 2; i++ ) {
 		id arg = va_arg(args, id);
 		if (arg == nil || arg == AZNULL) { NSLog(@"Nil arg at spot # %ld of %ld",i+1, arg_count-1);  return nil; }
 		if( [arg ISKINDA:NSVAL.class] ) {
 			const char *type = [arg objCType];
 			const char *expected = [invocation.methodSignature getArgumentTypeAtIndex:i+2];
 			BOOL matchesSignature = SameChar(type, expected);
-			if (!matchesSignature) {  NSLog(@"Mismatched signature at method argument %i.  Expected %@  got %@", i, [NSO stringFromType:expected], [NSO stringFromType:type]);
-				return;
-			}
+			if (!matchesSignature) 
+				return NSLog(@"Mismatched signature at method argument %i.  Expected %@  got %@", i, [NSO stringFromType:expected], [NSO stringFromType:type]), nil;
 			NSUI arg_size;		NSGetSizeAndAlignment(type , &arg_size, NULL);
 			void * arg_buffer = malloc(arg_size);
 			[arg getValue:arg_buffer];
@@ -1309,7 +1308,8 @@ BOOL respondsTo(id obj, SEL selector) {
 {
 	BOOL isSegmented = [sender isKindOfClass:[NSSegmentedControl class]];
 	if (isSegmented) {
-		BOOL isSelected;        NSS *label;
+//		BOOL isSelected;   
+		     NSS *label;
 		NSI selectedSegment = [sender selectedSegment];
 		label = [sender labelForSegment:selectedSegment];
 		//		BOOL *optionPtr = &isSelected;

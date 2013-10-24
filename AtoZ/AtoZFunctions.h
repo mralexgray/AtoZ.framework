@@ -3,9 +3,12 @@
 #import "AtoZUmbrella.h"
 #import <BlocksKit/BlocksKit.h>
 #import <objc/objc-class.h>
+#import <objc/runtime.h>
+
+
+NSString* AZTrace(void(^block)(void));
 
 int lookup_function_pointers(const char* filename, ...);
-
 
 /*	  
      [runCommand(@"ls -la /")log]; ->

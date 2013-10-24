@@ -20,18 +20,19 @@
 @end
 
 @interface 				 AZWindowTab : NSWindow
-@property (nonatomic) NSSZ inSize, outSize;
+//+ (id) tabWithViewClass:(Class)k;
+//- (id)initWithView:(NSV *)v orClass:(Class)k frame:(NSR)r;
+-(id) init;
 
+@property (nonatomic) NSSZ inSize, outSize;
 @property (nonatomic) NSView *view;
 @property (readonly)  NSView *handle;
 
-//+   (id) tabWithViewClass:				  (Class)k;
-//-   (id) initWithView:(NSV*)c	orClass:(Class)k	frame:(NSR)r;
 @end
 
 //@property (STR) 			AZWindowTabController	*vc;
-
-
+//+   (id) tabWithViewClass:				  (Class)k;
+//-   (id) initWithView:(NSV*)c	orClass:(Class)k	frame:(NSR)r;
 //@property (CP)	void (^rezhzuhz)(void);
 //+ (NSA*) tabRects;
 //+ (NSA*) tabs;

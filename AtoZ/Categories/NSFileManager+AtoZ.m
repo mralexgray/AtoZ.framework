@@ -154,7 +154,7 @@ NSString *NSDCIMFolder()
 	glob_t gt;
 	NSMutableArray* globber = NSMutableArray.new;
 	int exit = glob($(@"%@/%@",path.stringByStandardizingPath,regex).UTF8String, 0, NULL, &gt);
-	if (exit != 0) return;
+	if (exit != 0) return nil;
 	for (int i = 0; i < gt.gl_matchc; i++)
 		[globber addObject:[self.defaultManager stringWithFileSystemRepresentation:gt.gl_pathv[i] length:strlen(gt.gl_pathv[i])].copy];
 	globfree(&gt);

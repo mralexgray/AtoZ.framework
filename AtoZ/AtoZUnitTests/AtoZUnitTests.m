@@ -20,7 +20,7 @@
 - (void)runTests	{
     unsigned int count;
     Method *methods 		= class_copyMethodList([self class], &count);
-    for ( int i = 0;  i < count; i++ )	{
+    for ( NSUI i = 0;  i < count; i++ )	{
         
 		  SEL selector = method_getName( (Method) methods[i] );
         NSString *name = NSStringFromSelector(selector);
@@ -159,7 +159,7 @@ methodLoop test = ^(id victim) {
 @implementation NSObject (UnitTests)
 
 - (NSArray*) tests  { 
-	BOOL isMeta = strcmp("#",@encode(typeof(self)));
+	BOOL isMeta = (BOOL)strcmp("#",@encode(typeof(self)));
 	NSArray* methods = isMeta ? ((Class)self).classMethods : self.instanceMethodNames;
 	return [methods filter:^BOOL(id object) {	return [object hasPrefix:@"test"] || [object hasSuffix:@"Test"];	}];
 }

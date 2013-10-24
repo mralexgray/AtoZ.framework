@@ -275,3 +275,9 @@
 [submodule "xcconfigs"]
 	path = xcconfigs
 	url = https://github.com/mralexgray/xcconfigs.git
+[submodule "Frameworks/CFAAction"]
+	path = Frameworks/CFAAction
+	url = https://github.com/CodaFi/CFAAction.git
+[submodule "AtoZ/Categories/StrictProtocols"]
+	path = AtoZ/Categories/StrictProtocols
+	url = https://github.com/mralexgray/StrictProtocols.git

@@ -19,7 +19,6 @@
                 <outlet property="colorWell" destination="582" id="583"/>
                 <outlet property="contentView" destination="548" id="676"/>
                 <outlet property="menu" destination="885" id="886"/>
-                <outlet property="scrollTest" destination="787" id="788"/>
                 <outlet property="targetView" destination="726" id="728"/>
                 <outlet property="window" destination="547" id="564"/>
             </connections>
@@ -33,7 +32,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <popUpButton id="558">
-                        <rect key="frame" x="477" y="301" width="122" height="23"/>
+                        <rect key="frame" x="477" y="270" width="122" height="54"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                         <popUpButtonCell key="cell" type="square" title="BPODialTest" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" continuous="YES" state="on" borderStyle="border" imageScaling="proportionallyUpOrDown" sound="Feather Ruffle" inset="2" arrowPosition="noArrow" preferredEdge="maxY" autoenablesItems="NO" altersStateOfSelectedItem="NO" selectedItem="910" id="561" customClass="BGHUDPopUpButtonCell">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -86,7 +85,7 @@
                         </connections>
                     </button>
                     <textField verticalHuggingPriority="750" id="794">
-                        <rect key="frame" x="243" y="282" width="198" height="55"/>
+                        <rect key="frame" x="249" y="270" width="198" height="55"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" selectable="YES" continuous="YES" sendsActionOnEndEditing="YES" alignment="right" title="Section" drawsBackground="YES" id="801">
                             <font key="font" size="13" name="UbuntuTitling-Bold"/>
@@ -751,144 +750,6 @@ lastSpan %{value3}@ </string>
                 </menuItem>
             </items>
         </menu>
-        <customView id="789">
-            <rect key="frame" x="0.0" y="0.0" width="737" height="101"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <subviews>
-                <textField verticalHuggingPriority="750" id="585">
-                    <rect key="frame" x="17" y="27" width="215" height="23"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Label" placeholderString="Number of Layers" id="586">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" red="1" green="0.99997437" blue="0.99999129769999995" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                    <connections>
-                        <binding destination="494" name="value" keyPath="actionStatus" id="773">
-                            <dictionary key="options">
-                                <bool key="NSContinuouslyUpdatesValue" value="YES"/>
-                            </dictionary>
-                        </binding>
-                    </connections>
-                </textField>
-                <textField verticalHuggingPriority="750" id="559">
-                    <rect key="frame" x="227" y="20" width="179" height="17"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" continuous="YES" sendsActionOnEndEditing="YES" alignment="right" title="Section" id="560">
-                        <font key="font" size="13" name="UbuntuTitling-Bold"/>
-                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                    <connections>
-                        <binding destination="494" name="displayPatternValue1" keyPath="front" id="768">
-                            <dictionary key="options">
-                                <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
-                                <string key="NSDisplayPattern">Front%{value1}@</string>
-                            </dictionary>
-                        </binding>
-                    </connections>
-                </textField>
-                <textField verticalHuggingPriority="750" id="778">
-                    <rect key="frame" x="252" y="40" width="277" height="22"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" continuous="YES" sendsActionOnEndEditing="YES" alignment="right" title="Section" id="779">
-                        <font key="font" size="13" name="UbuntuTitling-Bold"/>
-                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                    <connections>
-                        <binding destination="494" name="value" keyPath="visibleSubsString" id="786">
-                            <dictionary key="options">
-                                <bool key="NSContinuouslyUpdatesValue" value="YES"/>
-                            </dictionary>
-                        </binding>
-                    </connections>
-                </textField>
-                <textField verticalHuggingPriority="750" id="774">
-                    <rect key="frame" x="373" y="64" width="157" height="17"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" continuous="YES" sendsActionOnEndEditing="YES" alignment="right" title="Section" id="775">
-                        <font key="font" size="13" name="UbuntuTitling-Bold"/>
-                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                    <connections>
-                        <binding destination="494" name="displayPatternValue1" keyPath="fixState" id="777">
-                            <dictionary key="options">
-                                <string key="NSDisplayPattern">Visible:%{value1}@</string>
-                            </dictionary>
-                        </binding>
-                    </connections>
-                </textField>
-                <textField verticalHuggingPriority="750" id="731">
-                    <rect key="frame" x="408" y="20" width="159" height="17"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" continuous="YES" sendsActionOnEndEditing="YES" alignment="center" title="Section" id="732">
-                        <font key="font" size="13" name="UbuntuTitling-Bold"/>
-                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                    <connections>
-                        <binding destination="494" name="displayPatternValue1" keyPath="visible" id="747">
-                            <dictionary key="options">
-                                <string key="NSDisplayPattern">Visible:%{value1}@</string>
-                            </dictionary>
-                        </binding>
-                    </connections>
-                </textField>
-                <textField verticalHuggingPriority="750" id="748">
-                    <rect key="frame" x="570" y="20" width="150" height="17"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" continuous="YES" sendsActionOnEndEditing="YES" alignment="left" title="Section" id="749">
-                        <font key="font" size="13" name="UbuntuTitling-Bold"/>
-                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                    <connections>
-                        <binding destination="494" name="displayPatternValue1" keyPath="back" id="753">
-                            <dictionary key="options">
-                                <string key="NSDisplayPattern">Back:%{value1}@</string>
-                            </dictionary>
-                        </binding>
-                    </connections>
-                </textField>
-                <segmentedControl verticalHuggingPriority="750" id="769">
-                    <rect key="frame" x="40" y="58" width="251" height="24"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <segmentedCell key="cell" alignment="left" style="rounded" trackingMode="selectOne" id="770" customClass="BGHUDSegmentedCell">
-                        <font key="font" metaFont="system"/>
-                        <segments>
-                            <segment width="40">
-                                <nil key="label"/>
-                            </segment>
-                            <segment width="40" selected="YES" tag="1">
-                                <nil key="label"/>
-                            </segment>
-                            <segment width="40">
-                                <nil key="label"/>
-                            </segment>
-                            <segment width="40">
-                                <nil key="label"/>
-                            </segment>
-                            <segment width="40">
-                                <nil key="label"/>
-                            </segment>
-                            <segment width="40">
-                                <nil key="label"/>
-                            </segment>
-                        </segments>
-                    </segmentedCell>
-                    <connections>
-                        <action selector="scrollFromSegment:" target="494" id="771"/>
-                    </connections>
-                </segmentedControl>
-            </subviews>
-        </customView>
-        <customView id="787" userLabel="scrolltest" customClass="CAScrollView">
-            <rect key="frame" x="0.0" y="0.0" width="630" height="109"/>
-            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
-        </customView>
-        <customObject id="911" customClass="DefinitionController"/>
     </objects>
     <resources>
         <sound name="Feather Ruffle"/>

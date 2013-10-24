@@ -23,6 +23,7 @@
 	if ( [@[@"image", @"borderColor", @"borderWidth", @"shadowColor", @"shadowOffset"] containsObject:key] ) {
 		return  [defaultPaths setByAddingObjectsFromArray:@[@"needsDisplay"]];
 	}
+	return  defaultPaths;
 }
 //- (void)setImage:(NSImage *)aImage	{	_image = aImage;  [self setNeedsDisplay:YES];	}
 //- (void)setBorderColor:(UIColor *)aBorderColor{ _borderColor = aBorderColor; [self setNeedsDisplay:YES]; }
@@ -83,11 +84,11 @@
 	// Image rect
 	/* CGRectMake((self.borderWidth),(self.borderWidth),rect.size.width - (self.borderWidth*2),rect.size.height - (self.borderWidth * 2));  */
 	// Start working with the mask
-	CGColorSpaceRef maskColorSpaceRef   = CGColorSpaceCreateDeviceGray();
-	CGContextRef 	mainMaskContextRef  = CGBitmapContextCreate ( NULL,NSWidth(rect), NSHeight(rect), 8.0,
-																	   NSWidth(rect),maskColorSpaceRef,0.0);
-	CGContextRef 	shineMaskContextRef = CGBitmapContextCreate ( NULL,rect.size.width,(CGF)rect.size.height, 8,
-															 		   (CGF)rect.size.width,maskColorSpaceRef,0);
+	CGColorSpaceRef maskColorSpaceRef   = (CGColorSpaceRef)CGColorSpaceCreateDeviceGray();
+	CGContextRef 	mainMaskContextRef  = (CGContextRef)CGBitmapContextCreate ( NULL,(size_t)NSWidth(rect), (size_t)NSHeight(rect), 8.0,
+																	   (size_t)NSWidth(rect),maskColorSpaceRef,0.0);
+	CGContextRef 	shineMaskContextRef = CGBitmapContextCreate ( NULL,(size_t)rect.size.width,(size_t)rect.size.height, 8,
+															 		   (size_t)rect.size.width,maskColorSpaceRef,0);
 	CGColorSpaceRelease			   ( maskColorSpaceRef 			 );
 	CGContextSetFillColorWithColor ( mainMaskContextRef, cgBLACK );
 	CGContextSetFillColorWithColor ( shineMaskContextRef,cgBLACK );

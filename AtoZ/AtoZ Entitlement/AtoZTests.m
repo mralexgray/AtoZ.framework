@@ -8,10 +8,11 @@
 #import <GHUnit/GHUnit.h>
 
 
-@interface MyTest : GHTestCase { }
+@interface AZUITests : XCTestCase { IBOutlet NSOutlineView* ov; IBOutlet NSTreeController *tc; 
+												NSA *objects, *colors; }
 @end
 
-@implementation MyTest
+@implementation AZUITests
 
 - (void)setUpClass {
   // Run at start of all tests in the class
@@ -22,7 +23,21 @@
 }
 
 - (void)setUp {
-  // Run before each test method
+	
+		if (![NSBundle loadNibNamed:AZCLSSTR owner:self]) return NSLog(@"Couldn't load nib");
+	
+	objects = [[@0 to:@10]nmap:^id(id obj, NSUInteger i) {
+		NSTreeNode *rootNode = [NSTreeNode treeNodeWithRepresentedObject:[NSString stringWithFormat:@"%lu",i]];
+      for (int j=0;  j<4;  j++) {
+            NSTreeNode *lev1Node = [NSTreeNode treeNodeWithRepresentedObject:[NSString stringWithFormat:@"%d",j]];
+            [rootNode.mutableChildNodes addObject:lev1Node];
+        }
+		  return rootNode;
+    }];
+    colors = [RANDOMPAL withMin:objects.count max:objects.count];
+    tc = [[NSTreeController alloc] initWithContent:objects];
+    tc.childrenKeyPath = @"childNodes";
+	[ov.window makeKeyAndOrderFront:nil];
 }
 
 - (void)tearDown {
@@ -30,11 +45,15 @@
 }
 
 - (void)testOK {
-  GHAssertTrue(YES, nil);
+
+	ov.rowViewForItem = ^NSTableRowView*(NSOV*outline,id item) {
+		
+		return (id) nil;
+	};
 }
 
 - (void)testFail {
-  GHAssertTrue(NO, nil);
+//  GHAssertTrue(NO, nil);
 }
 
 @end

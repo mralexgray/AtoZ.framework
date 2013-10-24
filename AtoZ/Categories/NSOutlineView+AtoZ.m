@@ -125,7 +125,7 @@ NSString* const kAZTreeNodeChildNodesKey = @"childNodes";
 - (NSA*)descendantGroupNodes; { NSMutableArray *retval = [NSMutableArray array];
 	
 	for (AZTreeNode *node in self.childNodes) {
-		if (node.isLeaf) return;
+		if (node.isLeaf) return nil;
 		[retval addObject:node]; [retval addObjectsFromArray:[node descendantGroupNodes]];
 	}
 	return [retval.copy autorelease];

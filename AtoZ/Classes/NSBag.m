@@ -49,7 +49,7 @@
 
 	NSNumber *num = dict[anObject];
 	if (!num) return;
-	if ([num intValue] == 1)  return [dict removeObjectForKey:anObject], nil;
+	if ([num intValue] == 1) return [dict removeObjectForKey:anObject];
 	dict[anObject] = @(num.iV - 1);
 }
 

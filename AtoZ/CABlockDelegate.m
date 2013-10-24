@@ -30,6 +30,28 @@
 JROptionsDefine(CABlockType);
 JROptionsDefine(NSOVBlockDelegate);
 
+static NSTableRowView* DynamicRowViewForItem(id self, SEL _cmd, NSOutlineView*ov,id item)	{
+	return ((NSOV*)self).rowViewForItem(ov,item); 
+}
+//static void DynamicDictionarySetter(id self, SEL _cmd, id value)	{
+//	NSString *key = PropertyNameFromSetter(NSStringFromSelector(_cmd));
+//	if (value == nil)		[self removeObjectForKey:key]; else self[key] = value;
+//}
+
+@implementation NSOV (AtoZBlocks)
+- (void) setDelegateForSelector:(SEL)sel imp:(IMP)imp enc:(const char*)enc withBlock:(id)blk {
+
+	objc_setAssociatedObject(self, sel, blk, OBJC_ASSOCIATION_COPY);
+	self.delegate = (id<NSOutlineViewDelegate>)self;
+	class_addMethod(self.class,sel, imp,enc);
+}
+- (RowViewForItem) rowViewForItem{ return objc_getAssociatedObject(self,@selector(outlineView:rowViewForItem:)); }
+- (void) setRowViewForItem:(RowViewForItem)rowViewForItem { 
+	[self setDelegateForSelector:@selector(outlineView:rowViewForItem:) imp:(IMP)DynamicRowViewForItem enc:@encode(NSTableRowView*(*)(id, SEL, NSOV*, id)) withBlock:rowViewForItem];	
+}
+
+@end
+
 @implementation NSOutlineViewBlockDelegate
 
 - (instancetype) init { if (!(self = super.init)) return nil; _toggleActionReference = NSMD.new; return self;	}
@@ -68,6 +90,11 @@ JROptionsDefine(NSOVBlockDelegate);
 		[_ov collapseItem:item];
 	else [_ov expandItem:item];
 }
+
+- (NSTableRowView*)outlineView:(NSOV*)ov rowViewForItem:(id)item{
+
+}
+
 @end
 
 
@@ -167,6 +194,18 @@ AZLOGCMD; _layoutBlock ? self.layoutBlock	(layer) 					: nil;
 
 
 @implementation CALayer (BlockDrawLayer)
+
+- (void) setDelegateType:(CABlockType)type block:(id)blk {
+
+	[self setBlockDelegate:[CABlockDelegate delegateFor:self ofType:type withBlock:blk]];
+}
+- (void) setKVOBlock:(CABKVO)blk { [CABlockDelegate delegateFor:self ofType:CABlockTypeKVOChange withBlock:blk]; }
+- (void) setLayoutBlock:(CABLAYOUT)blk { 	[CABlockDelegate delegateFor:self ofType:CABlockTypeLayoutBlock withBlock:blk]; }
+	
+//- (NSString*) delegateDescription {  return CABlockTypeToString(self.blockDelegate.blockType); }
+
+- (CABlockDelegate*) blockDelegate {   return [self vFK:@"blockDelegate"]; }
+
 + (CAL*) layerWithFrame:(NSR)f drawnUsingBlock:(void(^)(CAL*))drawBlock {
 	CAL *l = [self.class.alloc init];
 	l.frame = f;

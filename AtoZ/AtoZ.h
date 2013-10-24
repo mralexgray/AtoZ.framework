@@ -88,6 +88,7 @@ AZWORKSPACE:
 #import <BlocksKit/BlocksKit.h>
 //#import <BlocksKit/A2BlockDelegate.h>
 #import <BlocksKit/A2DynamicDelegate.h>
+#import <CFAAction/CFAAction.h>
 
 #import <BWTK/BWToolkitFramework.h>
 #import <CocoaPuffs/CocoaPuffs.h>
@@ -106,6 +107,7 @@ AZWORKSPACE:
 #import <Zangetsu/Zangetsu.h>
 #import <AtoZBezierPath/AtoZBezierPath.h>
 #import <AtoZAppKit/AtoZAppKit.h>
+#import "AZProxy.h"
 
 // #undef ah_retain #undef ah_dealloc #undef ah_autorelease autorelease #undef ah_dealloc dealloc
 

@@ -2,8 +2,12 @@
 
 #import "BaseModel.h"
 
-NS_INLINE NSUI gcd(NSI m,NSUI n) { NSI t,r; if(m<n){t=m; m=n; n=t; } r=m%n; return r==0?n:gcd(n,r); // MSLog(@"remainder for %i is %i", n, r);
-}
+/* Standard C Function: Greatest Common Divisor */
+NS_INLINE NSI gcd ( NSI a, NSI b ){ NSI c; while ( a != 0 ) { c = a; a = b%a;  b = c; } return b; }
+/* Recursive Standard C Function: Greatest Common Divisor */
+NS_INLINE NSI gcdr ( NSI a, NSI b ){ if ( a==0 ) return b; return gcdr ( b%a, a ); }
+
+//NS_INLINE NSUI gcd(NSI m,NSUI n) { NSI t,r; if(m<n){t=m; m=n; n=t; } r=m%n; return r==0?n:gcd(n,r); // MSLog(@"remainder for %i is %i", n, r);}
 @interface AZSizer : BaseModel 
 
 + (AZSizer*)  forQuantity: (NSUI)q			   ofSize:(NSSZ)s  withColumns:(NSUI)c;

@@ -19,13 +19,13 @@ int main(int argc, char *argv[]) {
       retVal = [GHTestRunner run];
     } else {
       // To run all tests (from ENV)
-      [[GHTestApp alloc] init];
+      id x = GHTestApp.new;
       // To run a different test suite:
       //GHTestSuite *suite = [GHTestSuite suiteWithTestFilter:@"GHSlowTest,GHAsyncTestCaseTest"];
       //GHTestApp *app = [[GHTestApp alloc] initWithSuite:suite];
       // Or set global:
       //GHUnitTest = @"GHSlowTest";
-      [NSApp run];
+      [(NSApplication*)NSApp run];
     }
     return retVal;
   }

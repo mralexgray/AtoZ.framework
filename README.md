@@ -1,5 +1,6 @@
 [<kbd>A</kbd>to<kbd>Z</kbd>.framework](https://github.com/mralexgray/AtoZ.framework)
 ---
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/mralexgray/atoz.framework/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
 ###The *all-inclusive cruise* of Umbrella frameworks.
 

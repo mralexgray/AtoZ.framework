@@ -1,20 +1,14 @@
-//
-//  SPColorWell.h
-//  SPColorWell
-//
-//  Created by Philip Dow on 11/16/11.
-//  Copyright 2011 Philip Dow / Sprouted. All rights reserved.
-//
+//  SPColorWell.h  SPColorWell
+//  Created by Philip Dow on 11/16/11. Copyright 2011 Philip Dow / Sprouted. All rights reserved.
+
+#import "AtoZUmbrella.h"
 
 /**
- - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
- {
- // Insert code here to initialize your application
+ - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 
- // Make sure the shared color panel is available from the git go so that it will
- // reflect the initial color in our text view
+ // Make sure the shared color panel is available from the git go so that it will reflect the initial color in our text view
+
  [NSColorPanel sharedColorPanel];
-
  [self.window setBackgroundColor:[NSColor colorWithCalibratedWhite:0.64 alpha:1.]];
  self.bgColorWell.title = NSLocalizedString(@"a", @"");
 
@@ -61,35 +55,51 @@
  // attributed string
  }
 	*/
+	
 
-#import "AtoZ.h"
+@interface AtoZColorWell : NSColorWell <NSMenuDelegate>
 
-@interface AtoZColorPicker : NSView
+@property    (CP) void(^selectionBlock)(NSColor*);
 
-@property(readwrite,copy) NSArray *colors;
-@property(readwrite,copy) NSIndexSet *selectionIndex;
-//@property(readwrite) BOOL canRemoveColor;
+@property (NATOM) 		NSMenu *colorPickerMenu;
+@property    (CP)     		NSS *title;
+@property 			NSBorderType borderType; // suported borderType values: NSNoBorder / NSLineBorder / NSBezelBorder
 
-@property(readwrite) SEL action;
-@property(readwrite,unsafe_unretained) id target;
-
-//@property(readwrite) SEL removeColorAction;
-//@property(readwrite,unsafe_unretained) id removeColorTarget;
-
-+ (NSSize) proposedFrameSizeForAreaDimension:(CGFloat)dimension;
-
-// used by AtoZColorWell to remember the current selection prior to popping so that it may be returned if no new selection is made
-- (void) pushCurrentSelection;
-- (void) popCurrentSelection;
-
-- (BOOL) updateSelectionIndexWithColor:(NSColor*)aColor;
-- (void) takeColorFrom:(id)sender;
-- (NSColor*) color;
-
+- (void)drawTitleInside:(NSRect)insideRect;
+- (void)drawWellInside:(NSRect)insideRect;
 @end
 
 
-@interface AtoZColorWell : NSColorWell <NSMenuDelegate>
+
+
+//@property(readwrite) BOOL canRemoveColor;
+//@property(readwrite) SEL removeColorAction;
+//@property(readwrite,unsafe_unretained) id removeColorTarget;
+
+
+//
+//  SPColorPicker.h
+//  SPColorWell
+//
+//  Created by Philip Dow on 11/16/11.
+//  Copyright 2011 Philip Dow / Sprouted. All rights reserved.
+//
+
+
+//{ HighlightingView
+//{
+//@private
+//	BOOL _highlighted;
+
+//@private AtoZColorWellMenuView
+//	HighlightingView *__unsafe_unretained showColorsView;
+//	AtoZColorPicker *__unsafe_unretained colorPickerView;
+//	AtoZColorWell *__unsafe_unretained colorWell; // don't care for the coupling
+//
+//	NSTrackingArea *_colorPickerTrackingArea;
+//	NSTrackingArea *_highlightTrackingArea;
+//}
+
 //{
 //@private
 //	NSString *title;
@@ -103,56 +113,3 @@
 //	NSMenu *_colorPickerMenu;
 //	AtoZColorPicker *_colorPicker;
 //}
-
-@property (nonatomic, retain) NSMenu *colorPickerMenu;
-@property (nonatomic, retain) AtoZColorPicker *colorPicker;
-
-@property(readwrite,copy) NSString *title;
-//@property(readwrite) BOOL canRemoveColor;
-
-@property(readwrite) NSBorderType borderType;
-
-// suported borderType values: NSNoBorder / NSLineBorder / NSBezelBorder
-
-//@property(readwrite) SEL removeColorAction;
-//@property(readwrite,unsafe_unretained) id removeColorTarget;
-
-- (void)drawTitleInside:(NSRect)insideRect;
-- (void)drawWellInside:(NSRect)insideRect;
-
-@end
-
-//
-//  SPColorPicker.h
-//  SPColorWell
-//
-//  Created by Philip Dow on 11/16/11.
-//  Copyright 2011 Philip Dow / Sprouted. All rights reserved.
-//
-
-
-@interface HighlightingView : NSView
-//{
-//@private
-//	BOOL _highlighted;
-
-@property (nonatomic,assign, getter=isHighlighted) BOOL highlighted;
-@end
-
-@interface AtoZColorWellMenuView : NSView
-//{
-//@private
-//	HighlightingView *__unsafe_unretained showColorsView;
-//	AtoZColorPicker *__unsafe_unretained colorPickerView;
-//	AtoZColorWell *__unsafe_unretained colorWell; // don't care for the coupling
-//
-//	NSTrackingArea *_colorPickerTrackingArea;
-//	NSTrackingArea *_highlightTrackingArea;
-//}
-@property(unsafe_unretained) NSTrackingArea *colorPickerTrackingArea, *highlightTrackingArea;
-
-@property(unsafe_unretained) HighlightingView *showColorsView;
-@property(unsafe_unretained) AtoZColorPicker *colorPickerView;
-@property(unsafe_unretained) AtoZColorWell *colorWell;
-
-@end

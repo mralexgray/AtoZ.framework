@@ -251,7 +251,7 @@ NSString *stringForBrightness( CGF brightness )	{	return
 	NSS *searchstring = [wikiURL stringByReplacing:@"XXXX" with:self.urlEncoded];
 	NSError *err;
 	NSData *responseData = [NSURLC sendSynchronousRequest: [NSURLREQ requestWithURL:$URL(searchstring) cachePolicy:AZNOCACHE timeoutInterval:10.0]  returningResponse:nil error:&err];
-	if (!responseData || err) {			NSLog(@"Connection Error: %@", err.localizedDescription); return; 	}
+	if (!responseData || err) {			NSLog(@"Connection Error: %@", err.localizedDescription); return nil; 	}
 	else	return [[NSS stringWithData:responseData encoding:NSUTF8StringEncoding]parseXMLTag:@"Description"].stringByDecodingXMLEntities ?: @"error parsing XML";
 
 	//[NSJSONSerialization JSONObjectWithData:responseData options:0 error:&err];

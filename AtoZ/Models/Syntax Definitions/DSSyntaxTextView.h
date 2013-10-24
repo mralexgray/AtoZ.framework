@@ -16,9 +16,9 @@
 /** The syntax highlighter used by the text view. */
 @property (nonatomic, strong) DSSyntaxHighlighter* syntaxHighlighter;
 /** The color theme used by the syntax highlighter. */
-@property (nonatomic) 			AZSyntaxTheme *theme;
+@property (nonatomic, strong) 			AZSyntaxTheme *theme;
 /** The syntax definition used by the syntax highlighter. */
-@property (nonatomic) DSSyntaxDefinition *syntaxDefinition;
+@property (nonatomic, strong) DSSyntaxDefinition *syntaxDefinition;
 /** The view used to display the line numbers. */
 @property (nonatomic, readonly) NoodleLineNumberView *lineNumberView;
 

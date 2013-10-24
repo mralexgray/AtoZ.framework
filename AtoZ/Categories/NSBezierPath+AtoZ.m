@@ -18,7 +18,7 @@
 /* create a transform that prop. scales bounds to a rectangle of height centered distance units above a particular point.   */
 - (NSAffineTransform *)scaleBounds:(NSR)bounds toHeight:(CGF)height centeredDistance:(CGF)distance abovePoint:(NSP)location {
     NSRect dst = bounds;
-    float scale = (height / dst.size.height);
+    CGF scale = (height / dst.size.height);
     dst.size.width *= scale;        dst.size.height *= scale;       dst.origin.x = location.x - dst.size.width / 2.0;
     dst.origin.y = location.y + distance;
     return [self mapFrom:bounds to:dst];
@@ -47,7 +47,7 @@
 @implementation NSBezierPath (ShadowDrawing)
 /* fill a bezier path, but draw a shadow under it offset by the	given angle (counter clockwise from the x-axis) and distance. */
 - (void)fillWithShadowAtDegrees:(CGF)angle withDistance:(CGF)distance {
-    float radians = angle * (3.141592 / 180.0); /* create a new shadow */
+    CGF radians = angle * (3.141592 / 180.0); /* create a new shadow */
     NSShadow *theShadow = [[NSShadow alloc] init];    /* offset the shadow by the indicated direction and distance */
     [theShadow setShadowOffset:NSMakeSize(cosf(radians) * distance, sinf(radians) * distance)]; /* set other shadow parameters */
     [theShadow setShadowBlurRadius:3.0];
@@ -235,8 +235,8 @@ static void bilinearShadedColor	(void *info, const CGFloat *in, CGFloat *out)	{
 	colorspace = CGColorSpaceCreateDeviceRGB();
 	
 	size_t components = 1 + CGColorSpaceGetNumberOfComponents(colorspace);
-	static const float  domain[2] = {0.0, 1.0};
-	static const float  range[10] = {0, 1, 0, 1, 0, 1, 0, 1, 0, 1};
+	static const CGF  domain[2] = {0.0, 1.0};
+	static const CGF  range[10] = {0, 1, 0, 1, 0, 1, 0, 1, 0, 1};
 	static const CGFunctionCallbacks callbacks = {0, &shadedColor, NULL};
 
 	// Create a CGFunctionRef that describes a function taking 1 input and kChannelsPerColor outputs.
@@ -464,8 +464,8 @@ static void bilinearShadedColor	(void *info, const CGFloat *in, CGFloat *out)	{
     CGPathMoveToPoint(path, NULL, o.x, o.y);
 
     int springWidth = bounds.size.width  / 2;
-    float coilHeight = bounds.size.height / numCoils;
-    float coilUnit = coilHeight / 4;
+    CGF coilHeight = bounds.size.height / numCoils;
+    CGF coilUnit = coilHeight / 4;
     CGPoint p6;
     int i = 0;
     for (; i < numCoils; i++) {
@@ -490,9 +490,9 @@ static void bilinearShadedColor	(void *info, const CGFloat *in, CGFloat *out)	{
 
 - (void)appendBezierPathWithPlateInRect:(NSRect)rect {
     if (rect.size.height > 0) {
-        float xoff = rect.origin.x;
-        float yoff = rect.origin.y;
-        float radius = rect.size.height / 2.0;
+        CGF xoff = rect.origin.x;
+        CGF yoff = rect.origin.y;
+        CGF radius = rect.size.height / 2.0;
         NSPoint point4 = NSMakePoint(xoff + radius, yoff + rect.size.height);
         NSPoint center1 = NSMakePoint(xoff + radius, yoff + radius);
         NSPoint center2 = NSMakePoint(xoff + rect.size.width - radius, yoff + radius);
@@ -512,8 +512,8 @@ static void bilinearShadedColor	(void *info, const CGFloat *in, CGFloat *out)	{
 
 - (void)appendBezierPathWithRoundedRect:(NSRect)rect cornerRadius:(float)radius {
     if (rect.size.height > 0) {
-        float xoff = rect.origin.x;
-        float yoff = rect.origin.y;
+        CGF xoff = rect.origin.x;
+        CGF yoff = rect.origin.y;
         NSPoint startpoint = NSMakePoint(xoff, yoff + radius);
         NSPoint center1 = NSMakePoint(xoff + radius, yoff + radius);
         NSPoint center2 = NSMakePoint(xoff + rect.size.width - radius, yoff + radius);
@@ -1132,7 +1132,7 @@ static void CGPathCallback(void *info, const CGPathElement *element) {
 
 - (void)strokeInsideWithinRect:(NSRect)clipRect {
     //	NSGraphicsContext *thisContext = AZGRAPHICSCTX;
-    float lineWidth = [self lineWidth];
+    CGF lineWidth = [self lineWidth];
 
     /* Save the current graphics context. */
     [NSGraphicsContext saveGraphicsState];
@@ -1158,7 +1158,7 @@ static void CGPathCallback(void *info, const CGPathElement *element) {
 
 + (NSBezierPath *)bezierPathWithCappedBoxInRect:(NSRect)rect {
     NSBezierPath *bezierPath = [NSBezierPath bezierPath];
-    float cornerSize = rect.size.height / 2;
+    CGF cornerSize = rect.size.height / 2;
     // Corners:
     NSPoint leftTop         = NSMakePoint(NSMinX(rect) + cornerSize, NSMaxY(rect));
     NSPoint rightTop        = NSMakePoint(NSMaxX(rect) - cornerSize, NSMaxY(rect));

@@ -7,6 +7,25 @@
 #import <Foundation/Foundation.h>
 #import <Cocoa/Cocoa.h>
 
-@interface AZDarkButtonCell : NSButtonCell
+#define AZRANGEMAX(r) (r.location + r.length)
+
+@interface AZDarkButtonCell : NSButtonCell <NSCopying>
 
 @end
+
+// in awake from nib...
+
+// ((NSTableColumn*)_table.tableColumns[[_table columnWithIdentifier:   @"Status"]]).dataCell = TodoColorCell.new;
+// ((NSTableColumn*)_table.tableColumns[[_table columnWithIdentifier: @"Priority"]]).dataCell = TodoPriorityClickCell.new;
+
+@interface AZColorCell : NSActionCell <NSCopying, NSCoding>
+@property (CP) NSC*(^colorForObjectValue)(id);
+@end
+
+
+@interface AZPriorityClickCell : NSActionCell <NSCopying, NSCoding>
+@property NSRange range;
+@property (CP) NSControlActionBlock block;
+@end
+
+

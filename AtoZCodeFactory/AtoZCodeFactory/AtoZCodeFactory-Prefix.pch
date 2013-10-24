@@ -1,6 +1,0 @@
-//
-// Prefix header for all source files of the 'AtoZCodeFactory' target in the 'AtoZCodeFactory' project
-//
-
-#ifdef __OBJC__
-#endif

@@ -1,5 +1,50 @@
-#import "AZSimpleView.h"
+
+
 #import "AtoZ.h"
+#import "AZSimpleView.h"
+
+#pragma mark - TableRowView ... see Id in IB of "NSTableViewRowViewKey"
+
+
+@implementation NSTableRowView (AtoZ)
+- (id) object {  id table = self.enclosingView;  return [[table itemAtRow:self.index] representedObject]; }
+
+- (NSUI) index { return [[self.enclosingView subviews] indexOfObject:self]; }
+
+- (NSV*)enclosingView { 
+	NSView* ov = self.superview;  																								 // Sneaky object finder
+	while ((![ov ISKINDA:NSOV.class] || ![ov ISKINDA:NSTV.class]) && [ov superview]) { ov = [ov superview]; }
+	return ov;	
+}
+@end
+
+@implementation ColorTableRowView  @synthesize  xObjectValue = _objectValue;
+
+
+- (void) awakeFromNib {		self.zLayer.delegate = self; 	
+
+	[self.layer bind:@"colored" toObject:self withKeyPath:@"selected" options:nil]; 
+}
+
+//- (id<CAAction>) actionForLayer:(CALayer*)l forKey:(NSString*)e { 		CABasicAnimation *ca;
+//
+//	objswitch(@"colored") 
+//		ca = [CABasicAnimation animationWithKeyPath:kBGC];  //		NSLog(@"self.x.parent::%@", self.x.parent);
+//		NSColor  *c1 	=	(self.x.parent == nil) ?
+//								[NSColor colorWithDeviceHue:0.168 saturation:0.942 brightness:0.612 alpha:1.000]:
+//								[NSColor colorWithCalibratedRed:.78  green:0.772 blue:0.020 alpha:1.000],
+//					*c2 	= 	[NSColor colorWithCalibratedRed:0.779 green:0.247 blue:0.020 alpha:1.000];
+//		ca.fromValue 	= self.selected ?(id) c1.CGColor : (id)c2.CGColor;
+//		ca.toValue 		= self.selected ?  (id)c2.CGColor :(id) c1.CGColor;
+//		ca.duration 	= 2;
+//		ca.fillMode 	= kCAFillModeForwards;
+//		ca.removedOnCompletion  = NO;
+//		return ca;
+//	}
+//	return ca;
+//}
+@end
+
 
 @implementation AZSimpleView
 

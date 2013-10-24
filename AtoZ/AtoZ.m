@@ -325,7 +325,7 @@ NSString *const MASPreferenceKeyShortcut					 	= @"MASDemoShortcut",
 	EventHotKeyRef 	hotKeyRef; 		EventTypeSpec 	eventType;		EventHotKeyID 	hotKeyID;
 	eventType.eventClass  = kEventClassKeyboard;
 	eventType.eventKind   = kEventHotKeyPressed;
-	hotKeyID.signature 	  = 'htk1';
+	hotKeyID.signature 	  = "htk1";
 	hotKeyID.id			  = 1;
 	InstallApplicationEventHandler(&HotKeyHandler, 1, &eventType, NULL, NULL);
 	// Cmd+Ctrl+Space to toggle visibility.
@@ -397,7 +397,7 @@ NSString *const MASPreferenceKeyShortcut					 	= @"MASDemoShortcut",
 
 	NSError *err;
 	NSData *responseData = [NSURLC sendSynchronousRequest: [NSURLREQ requestWithURL:$URL(url) cachePolicy:AZNOCACHE timeoutInterval:10.0]  returningResponse:nil error:&err];
-	if (!responseData || err) {			NSLog(@"Connection Error: %@", err.localizedDescription); return; 	}
+	if (!responseData || err) return NSLog(@"Connection Error: %@", err.localizedDescription), nil;
 	else	return  [NSJSONSerialization JSONObjectWithData:responseData options:0 error:&err];
 
 	//	if (err) { NSAlert *alert = [NSAlert alertWithMessageText:@"Error parsing JSON" defaultButton:@"Damn that sucks" alternateButton:nil otherButton:nil informativeTextWithFormat:@"Check your JSON"];	[alert beginSheetModalForWindow:[[NSApplication sharedApplication]mainWindow] modalDelegate:nil didEndSelector:nil contextInfo:nil];		return; }

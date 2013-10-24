@@ -1,40 +1,29 @@
-
-#import "TestBedDelegate.h"
-
-@interface TestBedDelegate ()
+//	_windowControllers = [[AZFILEMANAGER filesInDirectoryAtPath:AZAPPRESOURCES includeInvisible:NO includeSymlinks:NO]filter:^BOOL(NSS* f) { return f.pathExtension } 
 //@property (STRNG) CATransition *transition;
 //@property (STRNG) NSA *transitions;
-@end
+//	[self.window setAcceptsMouseMovedEvents:YES];
+//	[self.window makeFirstResponder:_targetView];
+//	[self createScrollLayer];
+
+#import "TestBedDelegate.h"
 
 // Constants used by the Scroll layer to setup its contents and to scroll.
 //#define kScrollContentRect CGRectMake(  0.0,   0.0, 3000.0, 300.0)
 #define kScrollContentRect CGRectMake(  0.0,   0.0, 100, _targetView.height )
-
-@implementation TestBedDelegate
-- (IBAction)newTab:(id)sender{
-
-
-	[AZSimpleView preview];
-	
-}
 #define NEWVC(_x_) ^{  \
 	NSB *bun = [NSB bundleForClass:[_x_ class]]; \
 	return (_x_*)[[[_x_ class] alloc] initWithNibName:NSStringFromClass([_x_ class]) bundle:bun]; \
 }()
 
--  (void) awakeFromNib						{
 
-//	_windowControllers = [[AZFILEMANAGER filesInDirectoryAtPath:AZAPPRESOURCES includeInvisible:NO includeSymlinks:NO]filter:^BOOL(NSS* f) { return f.pathExtension
-//	} 
+@implementation TestBedDelegate
+- (IBAction)newTab:(id)sender{	[AZSimpleView preview];	}
+
+-  (void) awakeFromNib {
 	[_menu   loadStatusMenu];
 	[((BGHUDView*)_contentView).theme bind:@"baseColor" toObject:_colorWell withKeyPath:@"color" options:nil];
-//	[self.window setAcceptsMouseMovedEvents:YES];
-//	[self.window makeFirstResponder:_targetView];
-	[NSC randomPaletteAnimationBlock:^(NSColor *c) {
-		_colorWell.color = c;
-	}];
-//		NSLog(@"Color: %@", c.nameOfColor); _colorWell.color = c; 	}];
-//	[self createScrollLayer];
+	[NSC randomPaletteAnimationBlock:^(NSColor *c) { _colorWell.color = c; }];
+	
 }
 -   (IBA) setViewFromPopUp:(id)sender	{	NSS *selecto = [sender titleOfSelectedItem];
 
@@ -45,45 +34,47 @@
 					SameString(selecto, 		   @"TUIV") ? [_tuiVC 	= _tuiVC 	?: NEWVC(TUIVVC)    view] :
 					SameString(selecto, @"BPODialTest") ? BPODialTest.new : nil;
 
-	if (view && [view ISKINDA:NSView.class]) {	
-		NSLog(@"selecto:%@  view:%@", selecto,[view subviews]);
-												[view setFrame:_targetView.bounds];
-												[_targetView swapSubs:view];
-	} else [view ISKINDA:[NSWindowController class]] ? ^{
+	view && [view ISKINDA:NSView.class] ?
+		NSLog(@"selecto:%@  view:%@", selecto,[view subviews]),
+												[view setFrame:_targetView.bounds],
+												[_targetView swapSubs:view] :
+	[view ISKINDA:[NSWindowController class]] ? ^{
 		_windowControllers = _windowControllers ?: NSMA.new;
 		[_windowControllers addObject:view];
 		[[view window]display];
 		[[view window]makeKeyAndOrderFront:nil];
 		
 			NSLog(@"View: %@, etc %@", view, [view window]);
-		}():
+		}() : nil;
 	
-	areSame(@"CAScrollLayer", selecto) ? [self createScrollLayer] : nil;
+//	areSame(@"CAScrollLayer", selecto) ? [self createScrollLayer] : nil;
 }
-- (NSMD*) model 								{  return _model = _model ?:  ^{
-		NSA* icons = [NSIMG.monoIcons withMaxItems:30];
-		return  @{ @"icons" :  icons, @"colors" :[NSC gradientPalletteLooping:NSC.randomPalette steps:icons.count] }.mutableCopy;
-	}();
-}
--  (void) createScrollLayer				{
+@end
 
-//	_scrollTest = [CAScrollView.alloc initWithFrame: _targetView.bounds];
-	_scrollTest.hoverStyle 		= Lasso;
-	_scrollTest.selectedStyle 	= DarkenOthers;
-	_scrollTest.layerQueue 		= 
-	[NSC.randomPalette nmap:^id(NSC* c, NSUI idx) {
-		CAL *l = [CAL layerNamed:$(@"%ld",idx)];
-		l.frame = AZRectBy(50, _targetView.height);//RAND_FLOAT_VAL(40, 100),_scrollTest.height);
-		l.bgC = c.brighter.cgColor;
-//		l.loM = AZLAYOUTMGR;
-//		l.constraints = @[AZConstAttrRelNameAttrScaleOff(kCAConstraintWidth, @"superlayer", kCAConstraintHeight, 1, 0), AZConstRelSuper(kCAConstraintHeight)];
-//		l.arMASK = CASIZEABLE;
-//		[l addConstraintsRelSuper: kCAConstraintMidY];//kCAConstraintHeight, kCAConstraintMaxY, kCAConstraintMidY, kCAConstraintMinY, nil];
-		l.borderColor = c.darker.cgColor;
-//		l.delegate = self;
-//		[l setNeedsDisplay]; 
-		return l;
-	}].mutableCopy;
+
+
+//- (NSMD*) model 								{  return _model = _model ?:  ^{
+//		NSA* icons = [NSIMG.monoIcons withMaxItems:30];
+//		return  @{ @"icons" :  icons, @"colors" :[NSC gradientPalletteLooping:NSC.randomPalette steps:icons.count] }.mutableCopy;
+//	}();
+//}
+//-  (void) createScrollLayer				{  //	_scrollTest = [CAScrollView.alloc initWithFrame: _targetView.bounds];
+//	_scrollTest.hoverStyle 		= Lasso;
+//	_scrollTest.selectedStyle 	= DarkenOthers;
+//	_scrollTest.layerQueue 		= 
+//	[NSC.randomPalette nmap:^id(NSC* c, NSUI idx) {
+//		CAL *l = [CAL layerNamed:$(@"%ld",idx)];
+//		l.frame = AZRectBy(50, _targetView.height);//RAND_FLOAT_VAL(40, 100),_scrollTest.height);
+//		l.bgC = c.brighter.cgColor;
+////		l.loM = AZLAYOUTMGR;
+////		l.constraints = @[AZConstAttrRelNameAttrScaleOff(kCAConstraintWidth, @"superlayer", kCAConstraintHeight, 1, 0), AZConstRelSuper(kCAConstraintHeight)];
+////		l.arMASK = CASIZEABLE;
+////		[l addConstraintsRelSuper: kCAConstraintMidY];//kCAConstraintHeight, kCAConstraintMaxY, kCAConstraintMidY, kCAConstraintMinY, nil];
+//		l.borderColor = c.darker.cgColor;
+////		l.delegate = self;
+////		[l setNeedsDisplay]; 
+//		return l;
+//	}].mutableCopy;
 
 
 //	[_targetView addSubview:_scrollTest];
@@ -100,9 +91,9 @@
 //		[g setNeedsDisplay];
 //		return g;	}].mutableCopy;
 //	_scrollTest.frame = _scrollTest.bounds;
-}
+//}
 
-- (void) drawLayer:(CAL*)layer inContext:(CGContextRef)ctx			{
+//- (void) drawLayer:(CAL*)layer inContext:(CGContextRef)ctx			{
 	
 //	[NSGraphicsContext drawInContext:ctx flipped:NO actions:^{
 //		NSIMG* icon = self.model[@"icons"][[layer integerForKey:@"index"]];
@@ -111,7 +102,9 @@
 //		NSString *pos = AZString(layer.position);
 //		[pos drawInRect:AZSquareInRect(layer.bounds) withFontNamed:@"UbuntuMono-Bold" andColor:WHITE];
 //	}];
-}
+//}
+
+/*
 - (void) alternate 			{
 
 	_targetView.subviews = @[_host = [BLKVIEW inView:_targetView withBlock:^(BLKVIEW *v, CAL *l) {	 }]];
@@ -200,5 +193,5 @@ CGR MakeSubrect(CGR r, CGF x, CGF y, CGF w, CGF h)	 {
 
 	((void (^)()) [action objectAtIndex:i] )();
 }
-@end
 
+*/

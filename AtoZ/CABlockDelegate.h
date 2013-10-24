@@ -5,7 +5,8 @@
 #import <QuartzCore/QuartzCore.h>
  #import "AtoZUmbrella.h"
 
-JROptionsDeclare( NSOVBlockDelegate, NSOVBlockDelegateDisclosureTriangle, NSOVBlockDelegateGroup );
+JROptionsDeclare( NSOVBlockDelegate, NSOVBlockDelegateDisclosureTriangle, NSOVBlockDelegateGroup,
+												 NSOVBlockDelegateRowViewForItem )
 
 #define OVDIBLK 	NSIMG* 	(^)(id cell, NSTC *tc, id item) // disclosureImage
 #define OVTOGA 	void		(^)(id item)						  // toggleItemAction
@@ -13,11 +14,19 @@ JROptionsDeclare( NSOVBlockDelegate, NSOVBlockDelegateDisclosureTriangle, NSOVBl
 //typedef NSIMG* (^disclosureImageForItem) 		(id cell, NSTC *tc, id item);
 //typedef void	(^outlineViewToggleItemAction)(id item);
 
+typedef NSTableRowView*(^RowViewForItem)(NSOutlineView *ov,id x);
+
+
+@interface NSOV (AtoZBlocks)
+@property (CP) RowViewForItem rowViewForItem;
+@end
+
 @interface  NSOutlineViewBlockDelegate : NSO <NSOutlineViewDelegate, NSOutlineViewDataSource>
 
 @property (WK) 						 NSOV * ov;
 @property (NATOM,CP) 					id   block;
 @property 				NSOVBlockDelegate   blockType;
+
 @property (NATOM,STR) 				 NSMD	* toggleActionReference;
 @property (NATOM,CP)  NSIMG*(^disclosureImage) (id cell, NSTC *tc, id item);
 @property (NATOM,CP)	 void  (^toggleItemAction)(id item);
@@ -91,7 +100,13 @@ typedef id (^ transformBlock ) ( id value );
 
 
 @interface CALayer (BlockDrawLayer)
+
+- (void) setKVOBlock:(CABKVO)blk;
+- (void) setLayoutBlock:(CABLAYOUT)blk;
 + (CAL*) layerWithFrame:(NSR)f drawnUsingBlock:(void(^)(CAL*))drawBlock;
+- (void) setDelegateType:(CABlockType)type block:(id)blk;
+@property (strong) CABlockDelegate * blockDelegate;
+//@property (RONLY) NSString * delegateDescription;
 @end
 
 

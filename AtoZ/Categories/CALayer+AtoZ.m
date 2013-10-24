@@ -11,7 +11,7 @@
 @implementation CALayer (NoHit)	@dynamic noHit;
 - (void)setNoHit:(BOOL)noHit	{  BLOCKIFY(bSelf, self);  BOOL overriden = [self hasAssociatedValueForKey:@"noHit"];
 	objc_setAssociatedObject(self,(__bridge const void*)@"noHit",@(noHit),OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-	if (!noHit || overriden) return
+	if (!noHit || overriden) return;
 	[self az_overrideSelector:@selector(containsPoint:) withBlock:(__bridge void*)^BOOL(id _self,NSP p) {
 		if (bSelf.noHit) return NO;	SEL sel 	= @selector(containsPoint:);
 		BOOL(*superIMP)(id,SEL,NSP) 				= [_self az_superForSelector:sel];		return superIMP(_self, sel, p);
@@ -485,7 +485,10 @@ extern CATransform3D CATransform3DMake(CGF m11, CGF m12, CGF m13, CGF m14,
 	declareBlockSafeAs(self, bSelf); block(bSelf);
 }
 - (void)triggerKVO:(NSS*)k block:(bSelf)blk {
-	[self willChangeValueForKey:k]; [self blockSelf:^(__typeof(self)_self){ blk(_self); }]; [self didChangeValueForKey:k];
+	[self willChangeValueForKey:k]; 
+	[self blockSelf:^(__typeof(self)_self){ 
+	blk(_self); }]; 
+	[self didChangeValueForKey:k];
 }
 @end
 #define KVOTRIGGER(x) [ willChangeValueForKey : x][bSelf setValue : y forKey : x];  [bSelf didChangeValueForKey:x]; })
@@ -655,7 +658,7 @@ static NSMD* needsDisplayKeysRef = nil;
 	[self setAssociatedValue:@(s) forKey:@"_selected" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
 	[self didChangeValueForKey:@"selected"];
 	[self setNeedsDisplay];
-	[self.loM setNeedsLayout];
+//	[self.loM setNeedsLayout];
 }
 - (BOOL)hovered	 {
 	return [[self associatedValueForKey:@"_hovered" orSetTo:@NO policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC]boolValue];
@@ -668,7 +671,7 @@ static NSMD* needsDisplayKeysRef = nil;
 	//	[self setValue:@(h) forKey:@"_hovered"];
 	[self didChangeValueForKey:@"hovered"];
 	[self setNeedsDisplay];
-	[self.loM setNeedsLayout];
+	[self setNeedsLayout];
 }
 - (void)needsLayoutForKey:(NSS *)key    {
 	[self addObserverForKeyPath:key task:^(id sender) { [sender setNeedsLayout]; }];
@@ -798,11 +801,13 @@ static NSMD* needsDisplayKeysRef = nil;
 - (CAL *)withConstraints:(NSA *)cnst {
 	[self addConstraints:cnst]; return self;
 }
-- (CAL *)hitTestSubs:(CGPoint)point     {
-	NSA *a = [self.sublayers filter:^BOOL (CAL *object) {
-	return [object hitTest:point];
-	}];
-	return a.count ? [a sortedWithKey:@"zPosition" ascending:NO].first : nil;
+- (CAL *)hitTestSubs:(CGPoint)point     {  LOGCOLORS(@"hittesting point ", AZString(point), @" in frame ", AZString(self.frame), nil);
+
+	NSA *a = [self.sublayers filter:^BOOL (CAL *object) { return [object hitTest:point];  }];
+	if (!a.count) return  LOGCOLORS(@"Found Nothing, and I have sublayers:", @(self.sublayers.count), nil), nil;
+	id x = [a sortedWithKey:@"zPosition" ascending:NO].first;
+	XX($(@"Hittest found %ld layer%@ out of %ld... Returning topmost,%@ with Zpos:%f", a.count, a.count ?@"s":@"", self.sublayers.count,x, [x zPosition]));
+	return x; //[self hitTest:point];
 }
 - (id)copyLayer	      {
 	//	id newOne = [self.class.alloc init];

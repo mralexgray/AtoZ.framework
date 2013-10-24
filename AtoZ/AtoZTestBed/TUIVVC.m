@@ -76,14 +76,14 @@
 
 #pragma mark - AHLayoutDataSource methods
 - (TUIV*) layout:(AHLayout *)layout objectAtIndex:(NSInteger)index {
-	AZExpandableView *v = (AZExpandableView*) _horizontalLayout.dequeueReusableView;
-	[v initWithFrame:NSZeroRect];
+	AZExpandableView *v;
+	v = [v = (AZExpandableView*) _horizontalLayout.dequeueReusableView initWithFrame:NSZeroRect];
 	v.dictionary =  [_horizObjects normal:index];
 	return v;  // I just cloned this from below to shutup compiler
 }
 - (TUIV*) layout:(AHLayout*)l viewForIndex:(NSI)index			{
 	AZExpandableView *v = (AZExpandableView*) _horizontalLayout.dequeueReusableView;
-	[v initWithFrame:NSZeroRect];
+	v = [v initWithFrame:NSZeroRect];
 	v.dictionary =  [_horizObjects normal:index];
 	return v;
 }

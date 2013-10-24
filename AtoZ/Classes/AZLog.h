@@ -48,6 +48,20 @@ void 	QuietLog 				  	( NSS *format, ...	  );
 #define 	AZLOGSHARED 		[AZLog sharedInstance]
 
 
+static NSString *dLog = nil;
+#define LGLVL 0
+
+#ifdef DEBUG 
+#undef LGLVL
+#define LGLVL 7
+#endif
+
+#define DEBUGBUFFER(...)  dLog = [[dLog && dLog.length ? dLog : @"" stringByAppendingFormat:__VA_ARGS__]stringByAppendingString:@" ... "]
+
+#define DEBUGLOG(...) ^id{  if (LGLVL>5) { NSString *toLog = @""; if (dLog != nil) toLog = [dLog copy]; if (toLog.length) dLog = nil; \
+												 printf("%s\n",[[toLog stringByAppendingFormat:__VA_ARGS__] UTF8String]); } return (id)nil;  }()
+
+
 #define	NSLog(fmt...) 		[AZLOGSHARED logInColor:RANDOMCOLOR file:__FILE__ line:__LINE__ func:__PRETTY_FUNCTION__ format:fmt,nil]
 
 #define	AZLOG(x) 			NSLog(@"%@", x)
@@ -89,6 +103,7 @@ void 	QuietLog 				  	( NSS *format, ...	  );
 #define 	XCODE_COLORS_RESET	 		XCODE_COLORS_ESCAPE @";"   // Clear any foreground or background color
 #define 	COLOR_RESET 					XCODE_COLORS_RESET
 #define 	COLOR_ESC 					XCODE_COLORS_ESCAPE
+
 
 
 #define AZLOGIN 	LOGCOLORS($UTF8(__PRETTY_FUNCTION__), @" started running!", nil)

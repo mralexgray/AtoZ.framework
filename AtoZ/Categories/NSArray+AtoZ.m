@@ -242,10 +242,10 @@ NSString * const NSMutableArrayDidInsertObjectNotification = @"com.mrgray.NSMuta
 	 if (self.count >= items) return self;
     NSMA *upgrade = [NSMA arrayWithArray:self];
 
-    for (int i = self.count; i < items; i++) {
+    for (NSUI i = self.count; i < items; i++) {
 
 		  	id filler = fill == self ? [[self normal:i]copy] : [fill copy];
-			if (!filler) return;
+			if (!filler) return (id)nil;
 			else [upgrade addObject:filler];
     }
 //    NSLog(@"grew array from %ld to %ld", self.count, upgrade.count);
@@ -952,10 +952,21 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
     return [self filteredArrayUsingPredicate:p];
 }
 
+- (NSA*) uniqueStrings {
+
+	NSMutableArray * unique = [NSMutableArray array];
+	NSMutableSet * processed = [NSMutableSet set];
+	for (NSString * string in self)
+		if ([processed containsObject:string] == NO) {
+			[unique addObject:string];
+			[processed addObject:string];
+  		}
+	return  unique;
+}
+
 - (NSA*) uniqueObjects {
-    NSSet *set = [[NSSet alloc] initWithArray:self];
-    NSArray *vals = [set allObjects];
-    return vals;
+    NSBag *set = [NSBag bagWithArray:self];
+    return set.uniqueObjects;
 }
 
 - (NSA*) uniqueObjectsSortedUsingSelector:(SEL)comparator {

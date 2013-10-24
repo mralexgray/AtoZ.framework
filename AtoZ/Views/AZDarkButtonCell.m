@@ -1,10 +1,70 @@
 
-//  AZDarkButtonCell.m
-//  AtoZ
-
-//  Created by Alex Gray on 8/17/12.
-//  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 #import "AZDarkButtonCell.h"
+
+/**  Custom cells...  not directly related to Basemodel, etc... but you can see some ways to access the shared instance, etc */
+
+@implementation AZPriorityClickCell
+
+- (id) copyWithZone:(NSZone *)zone {
+
+	AZPriorityClickCell* x = [super copyWithZone:zone];
+	x.range = _range;
+	x.block = _block;
+	return x;
+}
+- (id) target 	{ return self; 					  }
+
+- (SEL) action	{ return @selector( tickPriority ); }
+
+- (void) tickPriority
+{
+	NSUInteger val = [objc_getAssociatedObject(self,_cmd) unsignedIntegerValue];
+	val = val < AZRANGEMAX(_range) ? val + 1 : _range.location;
+	 
+//	((TodoItem*)TodoList.sharedInstance.items[((NSTableView*)self.controlView).selectedRow]).priority = @( val < 8 ? val + 1 : 0 );
+}
+
+- (void)drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView
+{
+	[NSColor.darkGrayColor set];
+	NSRectFill ( cellFrame );
+	NSString	*string = ((NSNumber*)self.objectValue).stringValue;
+	NSDictionary *attrs = @{ NSFontAttributeName : [NSFont fontWithName:@"Lucida Grande Bold" size: cellFrame.size.height - 10], NSForegroundColorAttributeName : NSColor.whiteColor };
+	NSSize   stringSize = [string sizeWithAttributes:attrs];
+ 	[string drawInRect: (NSRect) { NSMidX(cellFrame) - stringSize.width / 2, cellFrame.origin.y + 3, stringSize.width, stringSize.height } withAttributes:attrs];
+}
+
+@end
+
+@implementation AZColorCell
+
+-(id)initWithCoder:(NSCoder *)aDecoder {
+	self = (AZColorCell*)[super initWithCoder:aDecoder];
+	if(self && [aDecoder containsValueForKey: @"colorForObjectValue"])
+		self.colorForObjectValue = [aDecoder decodeObjectForKey: @"colorForObjectValue"];
+	return self;
+}
+
+-(void)encodeWithCoder: (NSCoder *)coder {
+	[super encodeWithCoder: coder];
+	[coder encodeObject: self.colorForObjectValue forKey: @"colorForObjectValue"];
+}
+
+-(id)copyWithZone:(NSZone *) zone {
+	AZColorCell *copy = [super copyWithZone: zone];
+
+	[copy setColorForObjectValue: [self colorForObjectValue]];
+	return copy;
+}
+- (NSColor *)highlightColorWithFrame:(NSRect)cellFrame inView:(NSView *)controlView {
+	return GREEN;
+}
+- (NSRect)drawingRectForBounds:(NSRect)theRect { return  theRect; }
+- (void)drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView {	[_colorForObjectValue(self.objectValue) set];	NSRectFill(cellFrame); 
+	[super drawWithFrame:cellFrame inView:controlView];
+}
+
+@end
 
 @implementation AZDarkButtonCell
 

@@ -10,7 +10,49 @@ JREnumDefine		(azkColor );
 JREnumDefine		(AZCompass);
 JROptionsDefine	(AZAlign	 );	//JREnumDefine(AZPosition);
 JREnumDefine		(AZOrient );
-JROptionsDefine	(AZ_arc);
+//JROptionsDefine	(AZ_arc);
+
+
+extern void instrumentObjcMessageSends(BOOL);
+
+NSString* AZTrace(void(^block)(void)) {
+
+	instrumentObjcMessageSends(YES); 	block();																	// messages will be traced here
+	instrumentObjcMessageSends(NO);																					// Stop, already!
+		__block NSUI  matchCtr = 0;
+		__block NSMA *lastLine = @[].mutableCopy;  																	// accumulator for similar commands
+		 NSString *file 	  = $(@"/tmp/msgSends-%i",AZProcess.currentProcess.processIdentifier);  //	Messages logged to /tmp/msgSends-<pid>
+	NSArray *lines = [[NSMS stringWithContentsOfFile:file]componentsSeparatedByString:@"\n"];		// read lines of output file into array
+	return [[lines reduce:$(@"Lines:%ld", lines.count).mutableCopy withBlock:^id(id sum,id obj){			// reduce into string
+		__block BOOL     match = NO; 																					// was there a match to previous line?
+
+		__block NSMA *toAppend = [obj words].mutableCopy;														// copy each line into an array	
+		[lastLine enumerateObjectsUsingBlock:^(NSS* word, NSUI idx, BOOL *stop) { 				// iterate words in line.
+			if (idx > toAppend.count || ![word isEqualToString:toAppend[idx]]) 
+				return ^{  *stop = YES; }();																				// no match, or past bounds
+			[toAppend removeFirstObject];																				// match, so remove repettive word
+			match = YES;																									// save that we matched, for later
+			matchCtr++;
+			NSLog(@"Removed %@", word);
+		}];		
+		if (match) {
+//			__block NSUI nsCt = 0;
+			for (NSString* addee in toAppend) 
+				if (![addee containsString:@"NS"] &&
+					 ![lastLine filter:^BOOL(id dupeCheck) { return [dupeCheck isEqualToString:addee]; }].count)
+					  [lastLine addUniqueObjectsFromArray:@[addee.copy]];
+																			// only look if we have a match to work with.
+		}
+		else { 
+			[sum appendString:[toAppend componentsJoinedByString:@" "]];
+			[sum appendString:zNL];  
+			lastLine = toAppend.uniqueStrings.mutableCopy;
+//			[sum appendFormat:@"BASE:%@\n", lastLine];
+		}																			 											// if we matched, purge cache, add newline
+		return sum;																											// return reducer
+	}] stringByAppendingFormat:@"\n Match Ct: %ld",matchCtr];
+}
+
 
 NSS* runCommand	(NSS* c) {	NSS* outP;	FILE *read_fp;	char buffer[BUFSIZ + 1];	int chars_read;
 

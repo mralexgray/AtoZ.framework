@@ -142,7 +142,7 @@
 
 	CGF width, height; int rows;
 	width 	= c * s.width;
-	rows 		= q % c == 0 ? q / c : ceil( q / c);
+	rows 		= q % c == 0 ? q / c : (int)ceil( q / c);
 	height 	= rows * s.width;
 	return AZRectBy(width, height);
 }

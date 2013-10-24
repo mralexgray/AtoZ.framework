@@ -6,7 +6,7 @@
 JREnumDeclare(AssetType, 	AssetTypeJS, 	AssetTypeCSS, AssetTypeHTML5, AssetTypePHP, AssetTypeBASH,
 									AssetTypeObjC, AssetTypeTXT, AssetTypeUNKNOWN = 99 );
 
-static NSArray* extensionsForAssetType(AssetType type);
+//static NSArray* extensionsForAssetType(AssetType type);
 
 @interface AssetController : NSTreeController
 
@@ -19,12 +19,12 @@ static NSArray* extensionsForAssetType(AssetType type);
 
 @interface Asset : BaseModel
 @property (WK)	AssetController * controller;
-@property 						NSN * priority;
+@property (STR)				NSN * priority;
 @property (CP)					NSS * path,
 										 * contents;
 @property				     BOOL	printInline,
 									 		active;
-@property						NSB * bundle;
+@property (STR)				NSB * bundle;
 @property				AssetType 	assetType;
 @property (RONLY)				NSS * markup;
 + (instancetype) test;
