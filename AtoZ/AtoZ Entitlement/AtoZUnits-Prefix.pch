@@ -1,0 +1,17 @@
+//
+// Prefix header for all source files of the 'AtoZ Entitlement' target in the 'AtoZ Entitlement' project
+//
+
+#ifdef __OBJC__
+	#import <Cocoa/Cocoa.h>
+	#import <AtoZ/AtoZ.h>
+	#import <XCTest/XCTest.h>
+	#import <SenTestingKit/SenTestingKit.h>
+	#import <OCMock/OCMock.h>	
+	#import <OCHamcrest/OCHamcrest.h>	
+	#import <GHUnit/GHUnit.h>
+//	#define XCTestCase SenTestCase
+	#import <Foundation/Foundation.h>
+	#import <QuartzCore/QuartzCore.h>
+	
+#endif
