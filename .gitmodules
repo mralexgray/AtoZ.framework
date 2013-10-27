@@ -266,12 +266,6 @@
 	path = cocoadocs.org
 	url = https://github.com/mralexgray/cocoadocs.org.git
 	ignore = dirty
-[submodule "AtoZ/AtoZUnitTests/RedGreen"]
-	path = AtoZ/AtoZUnitTests/RedGreen
-	url = https://github.com/mralexgray/RedGreen.git
-[submodule "Frameworks/gh-unit"]
-	path = Frameworks/gh-unit
-	url = https://github.com/mralexgray/gh-unit
 [submodule "xcconfigs"]
 	path = xcconfigs
 	url = https://github.com/mralexgray/xcconfigs.git
@@ -281,3 +275,6 @@
 [submodule "AtoZ/Categories/StrictProtocols"]
 	path = AtoZ/Categories/StrictProtocols
 	url = https://github.com/mralexgray/StrictProtocols.git
+[submodule "Frameworks/UAGithubEngine"]
+	path = Frameworks/UAGithubEngine
+	url = https://github.com/mralexgray/UAGithubEngine.git
